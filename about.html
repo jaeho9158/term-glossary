@@ -16,9 +16,29 @@
       <a href="index.html">용어 목록</a>
       <a href="about.html">소개</a>
       <a href="contact.html">문의</a>
+      <a href="#" id="open-sidebar-btn" style="font-size: 30px;">&equiv;</a>
     </nav>
   </div>
 </header>
+
+<div id="search-sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <h2>용어 검색</h2>
+    <button id="close-sidebar-btn">&times;</button>
+  </div>
+
+  <div class="sidebar-content">
+    <input type="text" placeholder="검색어를 입력하세요..." class="sidebar-search-input">
+    <div class="search-results">
+      <ul class="term-list" style="margin-top: 0px;">
+        <p class="subtitle">첫번째 결과</p>
+        <p class="subtitle">두번째 결과</p>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
 
 <main>
   <h1>사이트 소개</h1>
@@ -38,5 +58,32 @@
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
   <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
 </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const openBtn = document.getElementById("open-sidebar-btn");
+    const closeBtn = document.getElementById("close-sidebar-btn");
+    const sidebar = document.getElementById("search-sidebar");
+    const overlay = document.getElementById("sidebar-overlay");
+
+    if (openBtn && sidebar && overlay) {
+      openBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        sidebar.classList.add("open");
+        overlay.classList.add("open");
+      });
+    }
+
+    if (closeBtn && sidebar && overlay) {
+      closeBtn.addEventListener("click", function() {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("open");
+      });
+      overlay.addEventListener("click", function() {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("open");
+      });
+    }
+  });
+</script>
 </body>
 </html>
