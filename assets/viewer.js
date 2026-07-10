@@ -67,10 +67,19 @@ function buildHighlightedHtml(text, matches) {
 
   const kept = [];
   let lastEnd = -1;
+  let lastKept = null;
   for (const span of spans) {
     if (span.firstStart >= lastEnd) {
-      kept.push(span);
+      const entry = { ...span, covered: [span.slug] };
+      kept.push(entry);
       lastEnd = span.firstStart + span.firstLength;
+      lastKept = entry;
+    } else if (
+      lastKept &&
+      span.firstStart >= lastKept.firstStart &&
+      span.firstStart < lastKept.firstStart + lastKept.firstLength
+    ) {
+      lastKept.covered.push(span.slug);
     }
   }
 
@@ -79,7 +88,7 @@ function buildHighlightedHtml(text, matches) {
   for (const span of kept) {
     html += escapeHtml(text.slice(cursor, span.firstStart));
     const matchedText = text.slice(span.firstStart, span.firstStart + span.firstLength);
-    html += `<mark data-slug="${span.slug}">${escapeHtml(matchedText)}</mark>`;
+    html += `<mark data-slug="${span.slug}" data-covers="${span.covered.join(" ")}">${escapeHtml(matchedText)}</mark>`;
     cursor = span.firstStart + span.firstLength;
   }
   html += escapeHtml(text.slice(cursor));
@@ -144,7 +153,9 @@ if (typeof document !== "undefined") {
     }
 
     function scrollToMark(slug) {
-      const mark = document.querySelector(`mark[data-slug="${slug}"]`);
+      const mark =
+        document.querySelector(`mark[data-slug="${slug}"]`) ||
+        document.querySelector(`mark[data-covers~="${slug}"]`);
       if (!mark) return;
       mark.scrollIntoView({ behavior: "smooth", block: "center" });
       mark.classList.add("mark-flash");
