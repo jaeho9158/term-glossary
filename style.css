@@ -173,15 +173,15 @@ footer.site-footer a {
 .sidebar {
   position: fixed;
   top: 0;
-  right: -350px !important; /* 👈 중요: 브라우저 화면 우측 너머로 밀어내어 숨깁니다 */
+  right: -350px !important;
   width: 350px;
   height: 100vh;
   background: var(--card-bg, #ffffff);
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.08);
   border-left: 1px solid var(--border, #e2e5e9);
-  z-index: 1000; /* 다른 콘텐츠보다 무조건 위에 뜨도록 설정 */
+  z-index: 1000;
 
-  /* 👈 0.3초 동안 스르륵 부드럽게 열리고 닫히는 애니메이션 효과 */
+
   transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 
   padding: 24px;
@@ -189,12 +189,12 @@ footer.site-footer a {
   flex-direction: column;
 }
 
-/* 2. 자바스크립트가 삼선 버튼(&equiv;)을 누르면 'open'을 붙여 화면(0)으로 가져옴 */
+
 .sidebar.open {
   right: 0 !important;
 }
 
-/* 사이드바 상단 헤더 레이아웃 (용어 검색 타이틀과 X 버튼) */
+
 .sidebar-header {
   display: flex;
   justify-content: space-between;
@@ -206,7 +206,7 @@ footer.site-footer a {
   font-size: 1.3rem;
 }
 
-/* 닫기 버튼 (X) 스타일 */
+
 #close-sidebar-btn {
   background: none;
   border: none;
@@ -220,7 +220,7 @@ footer.site-footer a {
   color: var(--text, #1f2328);
 }
 
-/* 검색창 인풋 스타일 */
+
 .sidebar-search-input {
   width: 100%;
   padding: 12px 14px;
@@ -235,21 +235,21 @@ footer.site-footer a {
   border-color: var(--accent, #2454ff);
 }
 
-/* 3. 사이드바가 열렸을 때 뒷배경을 어둡게 차단해주는 레이어 */
+
 .sidebar-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3); /* 30% 블랙 투명도 */
-  z-index: 999; /* 사이드바(1000) 바로 아래 배치 */
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
   opacity: 0;
-  pointer-events: none; /* 평소에는 클릭을 통과시킴 */
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-/* 사이드바가 열리면 배경도 어두워짐 */
+
 .sidebar-overlay.open {
   opacity: 1;
   pointer-events: auto; /* 열렸을 때는 배경을 클릭할 수 있게 함(클릭 시 닫힘) */
