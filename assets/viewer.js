@@ -90,3 +90,92 @@ function buildHighlightedHtml(text, matches) {
 if (typeof module !== "undefined" && module.exports) {
   module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml };
 }
+
+if (typeof document !== "undefined") {
+  (function () {
+    let cachedTerms = null;
+    let currentMatches = [];
+
+    const textarea = document.getElementById("paper-text");
+    const findBtn = document.getElementById("find-terms-btn");
+    const inputPane = document.getElementById("viewer-input-pane");
+    const filterInput = document.getElementById("term-filter");
+    const countHeading = document.getElementById("matched-count");
+    const termsList = document.getElementById("matched-terms");
+
+    textarea.addEventListener("input", () => {
+      findBtn.disabled = textarea.value.trim().length === 0;
+    });
+
+    async function loadTerms() {
+      if (cachedTerms) return cachedTerms;
+      const res = await fetch("terms.json");
+      cachedTerms = await res.json();
+      return cachedTerms;
+    }
+
+    function renderRenderedPane(text, matches) {
+      inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
+    }
+
+    function termCardHTML(match) {
+      const enPart = match.title_en ? ` <span class="term-en">(${match.title_en})</span>` : "";
+      return `<li class="term-card" data-slug="${match.slug}">
+        <span class="term-card-name">${match.title_ko}${enPart}</span>
+        <a href="terms/${match.slug}.html" class="term-card-detail">자세히 보기</a>
+      </li>`;
+    }
+
+    function renderMatchedTerms(matches, filterQuery) {
+      if (matches.length === 0) {
+        countHeading.textContent = "본문에서 사전 등록된 용어를 찾지 못했습니다.";
+        termsList.innerHTML = "";
+        return;
+      }
+
+      const q = (filterQuery || "").trim().toLowerCase();
+      const filtered = matches.filter((m) => {
+        if (!q) return true;
+        return m.title_ko.toLowerCase().includes(q) || (m.title_en || "").toLowerCase().includes(q);
+      });
+
+      countHeading.textContent = `이 논문에 나온 용어 (${matches.length}개)`;
+      termsList.innerHTML = filtered.map(termCardHTML).join("");
+    }
+
+    function scrollToMark(slug) {
+      const mark = document.querySelector(`mark[data-slug="${slug}"]`);
+      if (!mark) return;
+      mark.scrollIntoView({ behavior: "smooth", block: "center" });
+      mark.classList.add("mark-flash");
+      setTimeout(() => mark.classList.remove("mark-flash"), 1200);
+    }
+
+    termsList.addEventListener("click", (e) => {
+      if (e.target.closest(".term-card-detail")) return;
+      const card = e.target.closest(".term-card");
+      if (!card) return;
+      scrollToMark(card.dataset.slug);
+    });
+
+    filterInput.addEventListener("input", () => {
+      renderMatchedTerms(currentMatches, filterInput.value);
+    });
+
+    findBtn.addEventListener("click", async () => {
+      const text = textarea.value;
+      findBtn.disabled = true;
+      findBtn.textContent = "찾는 중...";
+      try {
+        const terms = await loadTerms();
+        currentMatches = matchTerms(text, terms);
+        renderRenderedPane(text, currentMatches);
+        filterInput.disabled = false;
+        renderMatchedTerms(currentMatches, "");
+      } catch (err) {
+        countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
+        termsList.innerHTML = "";
+      }
+    });
+  })();
+}
