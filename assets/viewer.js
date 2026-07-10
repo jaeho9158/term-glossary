@@ -51,6 +51,42 @@ function matchTerms(text, terms) {
   return results;
 }
 
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function buildHighlightedHtml(text, matches) {
+  const spans = matches
+    .filter((m) => m.firstStart >= 0)
+    .sort((a, b) => a.firstStart - b.firstStart);
+
+  const kept = [];
+  let lastEnd = -1;
+  for (const span of spans) {
+    if (span.firstStart >= lastEnd) {
+      kept.push(span);
+      lastEnd = span.firstStart + span.firstLength;
+    }
+  }
+
+  let html = "";
+  let cursor = 0;
+  for (const span of kept) {
+    html += escapeHtml(text.slice(cursor, span.firstStart));
+    const matchedText = text.slice(span.firstStart, span.firstStart + span.firstLength);
+    html += `<mark data-slug="${span.slug}">${escapeHtml(matchedText)}</mark>`;
+    cursor = span.firstStart + span.firstLength;
+  }
+  html += escapeHtml(text.slice(cursor));
+
+  return html;
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms };
+  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml };
 }
