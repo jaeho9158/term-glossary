@@ -49,8 +49,13 @@ async function init() {
   render(terms, "");
 
   const searchInput = document.getElementById("term-search");
+  const container = document.getElementById("category-sections");
   searchInput.addEventListener("input", () => {
-    render(terms, searchInput.value);
+    container.classList.add("is-filtering");
+    window.setTimeout(() => {
+      render(terms, searchInput.value);
+      container.classList.remove("is-filtering");
+    }, 120);
   });
 }
 

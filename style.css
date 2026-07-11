@@ -76,7 +76,8 @@ h2 { font-size: 1.15rem; margin-top: 28px; color: var(--text); }
   color: var(--text);
 }
 
-.term-list li a:hover { border-color: var(--accent); }
+.term-list li a { transition: border-color 0.2s ease, transform 0.2s ease; }
+.term-list li a:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 .term-list .term-en {
   color: var(--muted);
@@ -135,6 +136,122 @@ footer.site-footer a {
 }
 
 .breadcrumb a { color: var(--muted); }
+
+main.wide {
+  max-width: 1200px;
+}
+
+.viewer-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.viewer-input {
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.viewer-input textarea {
+  width: 100%;
+  min-height: 420px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.viewer-input button {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.viewer-input button:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+}
+
+.viewer-rendered {
+  padding: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.viewer-rendered mark {
+  background: #fff3b0;
+  border-radius: 2px;
+  padding: 0 2px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.viewer-rendered mark.mark-flash {
+  background: var(--accent);
+  color: #fff;
+}
+
+.viewer-terms {
+  flex: 1 1 320px;
+  position: sticky;
+  top: 20px;
+}
+
+.viewer-terms input[type="search"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.viewer-terms .term-list .term-card {
+  display: block;
+  padding: 14px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.viewer-terms .term-list .term-card:hover {
+  border-color: var(--accent);
+}
+
+.term-card-name {
+  display: block;
+}
+
+.term-card-detail {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .viewer-layout {
+    flex-direction: column;
+  }
+
+  .viewer-terms {
+    position: static;
+  }
+}
 
 @keyframes fadeInUp {
   from {
@@ -253,4 +370,94 @@ footer.site-footer a {
 .sidebar-overlay.open {
   opacity: 1;
   pointer-events: auto; /* 열렸을 때는 배경을 클릭할 수 있게 함(클릭 시 닫힘) */
+}
+
+main.delay-1 {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main.delay-1 {
+    animation: none;
+  }
+}
+
+#category-sections {
+  transition: opacity 0.15s ease;
+}
+
+#category-sections.is-filtering {
+  opacity: 0;
+}
+
+.site-header nav a.nav-cta {
+  margin-left: 16px;
+  padding: 6px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.site-header nav a.nav-cta:hover {
+  color: #fff;
+  opacity: 0.85;
+}
+
+.viewer-promo {
+  display: block;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.viewer-promo:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.viewer-promo strong {
+  color: var(--accent);
+}
+
+.term-card-definition {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.viewer-input-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pdf-upload-label {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.pdf-upload-label:hover {
+  border-color: var(--accent);
+}
+
+#pdf-status {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
 }
