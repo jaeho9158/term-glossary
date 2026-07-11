@@ -42,4 +42,14 @@ const terms = [
   assert.strictEqual(text.slice(correlation.firstStart, correlation.firstStart + correlation.firstLength), "상관관계");
 }
 
+// Test 5: matchTerms carries the `definition` field through from the input term
+{
+  const termsWithDefs = [
+    { slug: "p-value", title_ko: "유의확률", title_en: "p-value", categories: ["stat"], definition: "우연히 나왔을 가능성을 나타내는 숫자입니다." },
+  ];
+  const text = "유의확률이 중요하다.";
+  const result = matchTerms(text, termsWithDefs);
+  assert.strictEqual(result[0].definition, "우연히 나왔을 가능성을 나타내는 숫자입니다.", "matchTerms should carry the definition field through to its output");
+}
+
 console.log("matchTerms: all tests passed");

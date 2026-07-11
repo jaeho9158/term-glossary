@@ -17,7 +17,7 @@
     <a class="logo" href="index.html">논문용어사전</a>
     <nav>
       <a href="index.html">용어 목록</a>
-      <a href="viewer.html">논문 뷰어</a>
+      <a href="viewer.html" class="nav-cta">논문 뷰어</a>
       <a href="about.html">소개</a>
       <a href="contact.html">문의</a>
     </nav>
@@ -31,7 +31,12 @@
   <div class="viewer-layout">
     <div class="viewer-input" id="viewer-input-pane">
       <textarea id="paper-text" placeholder="논문 초록이나 본문 일부를 붙여넣어 보세요. 예: 본 연구는 유의확률(p-value)이 0.05 미만인 경우를 통계적으로 유의한 상관관계로 정의하였다."></textarea>
-      <button id="find-terms-btn" type="button" disabled>용어 찾기</button>
+      <div class="viewer-input-actions">
+        <button id="find-terms-btn" type="button" disabled>용어 찾기</button>
+        <label class="pdf-upload-label" for="pdf-upload">📄 PDF 파일 선택</label>
+        <input type="file" id="pdf-upload" accept="application/pdf" hidden>
+      </div>
+      <p id="pdf-status" hidden aria-live="polite"></p>
     </div>
     <aside class="viewer-terms">
       <input type="search" id="term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
@@ -45,6 +50,11 @@
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
   <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
 </footer>
+<script type="module">
+  import * as pdfjsLib from "./assets/vendor/pdfjs/pdf.min.mjs";
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "./assets/vendor/pdfjs/pdf.worker.min.mjs";
+  window.pdfjsLib = pdfjsLib;
+</script>
 <script src="assets/viewer.js"></script>
 </body>
 </html>

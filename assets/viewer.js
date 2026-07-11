@@ -40,6 +40,7 @@ function matchTerms(text, terms) {
         title_ko: term.title_ko,
         title_en: term.title_en,
         categories: term.categories,
+        definition: term.definition,
         count,
         firstStart,
         firstLength,
@@ -58,6 +59,18 @@ function escapeHtml(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function termCardHTML(match) {
+  const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
+  const definitionPart = match.definition
+    ? `<p class="term-card-definition">${escapeHtml(match.definition)}</p>`
+    : "";
+  return `<li class="term-card" data-slug="${match.slug}">
+        <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
+        ${definitionPart}
+        <a href="terms/${match.slug}.html" class="term-card-detail">자세히 보기</a>
+      </li>`;
 }
 
 function buildHighlightedHtml(text, matches) {
@@ -97,7 +110,7 @@ function buildHighlightedHtml(text, matches) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml };
+  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml, termCardHTML };
 }
 
 if (typeof document !== "undefined") {
@@ -125,14 +138,6 @@ if (typeof document !== "undefined") {
 
     function renderRenderedPane(text, matches) {
       inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
-    }
-
-    function termCardHTML(match) {
-      const enPart = match.title_en ? ` <span class="term-en">(${match.title_en})</span>` : "";
-      return `<li class="term-card" data-slug="${match.slug}">
-        <span class="term-card-name">${match.title_ko}${enPart}</span>
-        <a href="terms/${match.slug}.html" class="term-card-detail">자세히 보기</a>
-      </li>`;
     }
 
     function renderMatchedTerms(matches, filterQuery) {
@@ -173,8 +178,7 @@ if (typeof document !== "undefined") {
       renderMatchedTerms(currentMatches, filterInput.value);
     });
 
-    findBtn.addEventListener("click", async () => {
-      const text = textarea.value;
+    async function runAnalysis(text) {
       findBtn.disabled = true;
       findBtn.textContent = "찾는 중...";
       try {
@@ -186,6 +190,54 @@ if (typeof document !== "undefined") {
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
         termsList.innerHTML = "";
+      } finally {
+        findBtn.disabled = textarea.value.trim().length === 0;
+        findBtn.textContent = "용어 찾기";
+      }
+    }
+
+    findBtn.addEventListener("click", () => {
+      runAnalysis(textarea.value);
+    });
+
+    const pdfInput = document.getElementById("pdf-upload");
+    const pdfStatus = document.getElementById("pdf-status");
+
+    async function extractPdfText(file) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = "";
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const content = await page.getTextContent();
+        fullText += content.items.map((item) => item.str).join(" ") + "\n";
+      }
+      return fullText.trim();
+    }
+
+    pdfInput.addEventListener("change", async () => {
+      const file = pdfInput.files[0];
+      if (!file) return;
+
+      pdfStatus.hidden = false;
+      pdfStatus.textContent = "PDF 분석 중...";
+
+      try {
+        const text = await extractPdfText(file);
+        if (text.length === 0) {
+          throw new Error("empty-text-layer");
+        }
+        pdfStatus.hidden = true;
+        textarea.value = text;
+        await runAnalysis(text);
+      } catch (err) {
+        pdfStatus.hidden = true;
+        countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요.";
+        termsList.innerHTML = "";
+        textarea.value = "";
+        findBtn.disabled = true;
+      } finally {
+        pdfInput.value = "";
       }
     });
   })();
