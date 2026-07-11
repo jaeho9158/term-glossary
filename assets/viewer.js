@@ -177,8 +177,7 @@ if (typeof document !== "undefined") {
       renderMatchedTerms(currentMatches, filterInput.value);
     });
 
-    findBtn.addEventListener("click", async () => {
-      const text = textarea.value;
+    async function runAnalysis(text) {
       findBtn.disabled = true;
       findBtn.textContent = "찾는 중...";
       try {
@@ -190,6 +189,54 @@ if (typeof document !== "undefined") {
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
         termsList.innerHTML = "";
+      } finally {
+        findBtn.disabled = textarea.value.trim().length === 0;
+        findBtn.textContent = "용어 찾기";
+      }
+    }
+
+    findBtn.addEventListener("click", () => {
+      runAnalysis(textarea.value);
+    });
+
+    const pdfInput = document.getElementById("pdf-upload");
+    const pdfStatus = document.getElementById("pdf-status");
+
+    async function extractPdfText(file) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = "";
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const content = await page.getTextContent();
+        fullText += content.items.map((item) => item.str).join(" ") + "\n";
+      }
+      return fullText.trim();
+    }
+
+    pdfInput.addEventListener("change", async () => {
+      const file = pdfInput.files[0];
+      if (!file) return;
+
+      pdfStatus.hidden = false;
+      pdfStatus.textContent = "PDF 분석 중...";
+
+      try {
+        const text = await extractPdfText(file);
+        if (text.length === 0) {
+          throw new Error("empty-text-layer");
+        }
+        pdfStatus.hidden = true;
+        textarea.value = text;
+        await runAnalysis(text);
+      } catch (err) {
+        pdfStatus.hidden = true;
+        countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요.";
+        termsList.innerHTML = "";
+        textarea.value = "";
+        findBtn.disabled = true;
+      } finally {
+        pdfInput.value = "";
       }
     });
   })();
