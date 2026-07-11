@@ -60,6 +60,18 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
+function termCardHTML(match) {
+  const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
+  const definitionPart = match.definition
+    ? `<p class="term-card-definition">${escapeHtml(match.definition)}</p>`
+    : "";
+  return `<li class="term-card" data-slug="${match.slug}">
+        <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
+        ${definitionPart}
+        <a href="terms/${match.slug}.html" class="term-card-detail">자세히 보기</a>
+      </li>`;
+}
+
 function buildHighlightedHtml(text, matches) {
   const spans = matches
     .filter((m) => m.firstStart >= 0)
@@ -97,7 +109,7 @@ function buildHighlightedHtml(text, matches) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml };
+  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml, termCardHTML };
 }
 
 if (typeof document !== "undefined") {
@@ -125,14 +137,6 @@ if (typeof document !== "undefined") {
 
     function renderRenderedPane(text, matches) {
       inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
-    }
-
-    function termCardHTML(match) {
-      const enPart = match.title_en ? ` <span class="term-en">(${match.title_en})</span>` : "";
-      return `<li class="term-card" data-slug="${match.slug}">
-        <span class="term-card-name">${match.title_ko}${enPart}</span>
-        <a href="terms/${match.slug}.html" class="term-card-detail">자세히 보기</a>
-      </li>`;
     }
 
     function renderMatchedTerms(matches, filterQuery) {
