@@ -40,6 +40,7 @@ function matchTerms(text, terms) {
         title_ko: term.title_ko,
         title_en: term.title_en,
         categories: term.categories,
+        definition: term.definition,
         count,
         firstStart,
         firstLength,
