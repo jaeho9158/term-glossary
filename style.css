@@ -137,122 +137,6 @@ footer.site-footer a {
 
 .breadcrumb a { color: var(--muted); }
 
-main.wide {
-  max-width: 1200px;
-}
-
-.viewer-layout {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-}
-
-.viewer-input {
-  flex: 1 1 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.viewer-input textarea {
-  width: 100%;
-  min-height: 420px;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  resize: vertical;
-}
-
-.viewer-input button {
-  align-self: flex-start;
-  padding: 10px 20px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-}
-
-.viewer-input button:disabled {
-  background: var(--muted);
-  cursor: not-allowed;
-}
-
-.viewer-rendered {
-  padding: 16px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  white-space: pre-wrap;
-  line-height: 1.8;
-}
-
-.viewer-rendered mark {
-  background: #fff3b0;
-  border-radius: 2px;
-  padding: 0 2px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.viewer-rendered mark.mark-flash {
-  background: var(--accent);
-  color: #fff;
-}
-
-.viewer-terms {
-  flex: 1 1 320px;
-  position: sticky;
-  top: 20px;
-}
-
-.viewer-terms input[type="search"] {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  margin-bottom: 16px;
-  font-size: 0.9rem;
-}
-
-.viewer-terms .term-list .term-card {
-  display: block;
-  padding: 14px 16px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-.viewer-terms .term-list .term-card:hover {
-  border-color: var(--accent);
-}
-
-.term-card-name {
-  display: block;
-}
-
-.term-card-detail {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 0.8rem;
-  color: var(--accent);
-}
-
-@media (max-width: 720px) {
-  .viewer-layout {
-    flex-direction: column;
-  }
-
-  .viewer-terms {
-    position: static;
-  }
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -264,92 +148,110 @@ main.wide {
   }
 }
 
-main.delay-1 {
-  animation: fadeInUp 0.6s cubic-bezier(0.4, 1, 0.3, 1) forwards;
+.delay-1 {
+  animation-delay: 0s;
+  animation: fadeInUp 1.5s cubic-bezier(0.4, 1, 0.3, 1) forwards;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  main.delay-1 {
-    animation: none;
-  }
-}
-
-#category-sections {
-  transition: opacity 0.15s ease;
-}
-
-#category-sections.is-filtering {
-  opacity: 0;
-}
-
-.site-header nav a.nav-cta {
-  margin-left: 16px;
-  padding: 6px 14px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  transition: opacity 0.2s ease;
-}
-
-.site-header nav a.nav-cta:hover {
-  color: #fff;
-  opacity: 0.85;
-}
-
-.viewer-promo {
-  display: block;
-  padding: 16px 18px;
-  margin-bottom: 20px;
+.ad-container {
+  margin: 24px auto -40px;
+  padding: 10px;
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
   border-radius: 8px;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.viewer-promo:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-
-.viewer-promo strong {
-  color: var(--accent);
-}
-
-.term-card-definition {
-  margin: 6px 0 0;
-  color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-.viewer-input-actions {
+  text-align: center;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  min-height: 110px;
 }
 
-.pdf-upload-label {
-  padding: 10px 20px;
-  border: 1px solid var(--border);
+.ad-placeholder-text {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px !important;
+  width: 350px;
+  height: 100vh;
+  background: var(--card-bg, #ffffff);
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.08);
+  border-left: 1px solid var(--border, #e2e5e9);
+  z-index: 1000;
+
+
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.sidebar.open {
+  right: 0 !important;
+}
+
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.sidebar-header h2 {
+  margin: 0 !important;
+  font-size: 1.3rem;
+}
+
+
+#close-sidebar-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--muted, #57606a);
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+#close-sidebar-btn:hover {
+  color: var(--text, #1f2328);
+}
+
+
+.sidebar-search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border, #e2e5e9);
   border-radius: 6px;
   font-size: 0.95rem;
-  color: var(--text);
-  cursor: pointer;
-  transition: border-color 0.2s ease;
+  background: var(--bg, #fafafa);
+  outline: none;
+  margin-bottom: 20px;
+}
+.sidebar-search-input:focus {
+  border-color: var(--accent, #2454ff);
 }
 
-.pdf-upload-label:hover {
-  border-color: var(--accent);
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-#pdf-status {
-  color: var(--muted);
-  font-size: 0.9rem;
-  margin: 0;
+
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto; /* 열렸을 때는 배경을 클릭할 수 있게 함(클릭 시 닫힘) */
 }
