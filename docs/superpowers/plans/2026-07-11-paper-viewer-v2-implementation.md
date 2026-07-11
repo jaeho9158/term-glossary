@@ -347,8 +347,8 @@ with:
 
 ```html
 <script type="module">
-  import * as pdfjsLib from "assets/vendor/pdfjs/pdf.min.mjs";
-  pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/vendor/pdfjs/pdf.worker.min.mjs";
+  import * as pdfjsLib from "./assets/vendor/pdfjs/pdf.min.mjs";
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "./assets/vendor/pdfjs/pdf.worker.min.mjs";
   window.pdfjsLib = pdfjsLib;
 </script>
 <script src="assets/viewer.js"></script>
