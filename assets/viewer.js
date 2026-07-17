@@ -262,14 +262,10 @@ if (typeof document !== "undefined") {
 
       try {
         const text = await extractPdfText(file);
-        await renderPdf(file);
-
-        textarea.value=text;
-
-        await runAnalysis(text);
         if (text.length === 0) {
           throw new Error("empty-text-layer");
         }
+        await renderPdf(file);
         pdfStatus.hidden = true;
         textarea.value = text;
         await runAnalysis(text);
