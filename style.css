@@ -264,6 +264,114 @@ main.wide {
   }
 }
 
+.delay-1 {
+  animation-delay: 0s;
+  animation: fadeInUp 1.5s cubic-bezier(0.4, 1, 0.3, 1) forwards;
+}
+
+.ad-container {
+  margin: 24px auto -40px;
+  padding: 10px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 110px;
+}
+
+.ad-placeholder-text {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px !important;
+  width: 350px;
+  height: 100vh;
+  background: var(--card-bg, #ffffff);
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.08);
+  border-left: 1px solid var(--border, #e2e5e9);
+  z-index: 1000;
+
+
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.sidebar.open {
+  right: 0 !important;
+}
+
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.sidebar-header h2 {
+  margin: 0 !important;
+  font-size: 1.3rem;
+}
+
+
+#close-sidebar-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--muted, #57606a);
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+#close-sidebar-btn:hover {
+  color: var(--text, #1f2328);
+}
+
+
+.sidebar-search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border, #e2e5e9);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: var(--bg, #fafafa);
+  outline: none;
+  margin-bottom: 20px;
+}
+.sidebar-search-input:focus {
+  border-color: var(--accent, #2454ff);
+}
+
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto; /* 열렸을 때는 배경을 클릭할 수 있게 함(클릭 시 닫힘) */
+}
+
 main.delay-1 {
   animation: fadeInUp 0.6s cubic-bezier(0.4, 1, 0.3, 1) forwards;
 }
