@@ -215,6 +215,44 @@ if (typeof document !== "undefined") {
       return fullText.trim();
     }
 
+    async function renderPdf(file){
+
+        const arrayBuffer = await file.arrayBuffer();
+
+        const pdf = await window.pdfjsLib
+            .getDocument({data:arrayBuffer})
+            .promise;
+
+        const viewer = document.getElementById("pdf-viewer");
+
+        viewer.innerHTML="";
+
+        for(let i=1;i<=pdf.numPages;i++){
+
+            const page=await pdf.getPage(i);
+
+            const viewport=page.getViewport({
+                scale:1.5
+            });
+
+            const canvas=document.createElement("canvas");
+
+            canvas.className="pdf-page";
+
+            canvas.width=viewport.width;
+            canvas.height=viewport.height;
+
+            const ctx=canvas.getContext("2d");
+
+            await page.render({
+                canvasContext:ctx,
+                viewport
+            }).promise;
+
+            viewer.appendChild(canvas);
+        }
+    }
+
     pdfInput.addEventListener("change", async () => {
       const file = pdfInput.files[0];
       if (!file) return;
@@ -224,6 +262,11 @@ if (typeof document !== "undefined") {
 
       try {
         const text = await extractPdfText(file);
+        await renderPdf(file);
+
+        textarea.value=text;
+
+        await runAnalysis(text);
         if (text.length === 0) {
           throw new Error("empty-text-layer");
         }

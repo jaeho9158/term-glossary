@@ -27,20 +27,63 @@ function termLinkHTML(term) {
 
 function render(terms, query) {
   const container = document.getElementById("category-sections");
+  if (!container) return;
+
   container.innerHTML = "";
   const q = query.trim().toLowerCase();
 
-  for (const code of CATEGORY_ORDER) {
-    const matched = terms.filter((t) => {
-      if (!t.categories.includes(code)) return false;
-      if (!q) return true;
-      return t.title_ko.toLowerCase().includes(q) || (t.title_en || "").toLowerCase().includes(q);
-    });
-    if (matched.length === 0) continue;
+  const filtered = terms.filter((t) => {
+    if (!q) return true;
+    const ko = t.title_ko || "";
+    const en = t.title_en || "";
+    return ko.toLowerCase().includes(q) || en.toLowerCase().includes(q);
+  });
 
-    const section = document.createElement("section");
-    section.innerHTML = `<h2>${CATEGORY_LABELS[code]}</h2><ul class="term-list">${matched.map(termLinkHTML).join("")}</ul>`;
-    container.appendChild(section);
+  for (const code of CATEGORY_ORDER) {
+    const mainMatched = filtered.filter((t) => {
+      return t.categories && t.categories.includes(code);
+    });
+
+    if (mainMatched.length === 0) continue;
+
+    const mainDetails = document.createElement("details");
+    mainDetails.className = "namu-main-category";
+    if (q) mainDetails.open = true;
+
+    mainDetails.innerHTML = `<summary class="namu-main-title">${CATEGORY_LABELS[code] || code}</summary>`;
+
+    const subWrapper = document.createElement("div");
+    subWrapper.className = "namu-sub-wrapper";
+
+    const subMap = {};
+    mainMatched.forEach((t) => {
+      const subName = t.sub_category || "일반 용어";
+      if (!subMap[subName]) {
+        subMap[subName] = [];
+      }
+      subMap[subName].push(t);
+    });
+
+    for (const subName in subMap) {
+      const subMatched = subMap[subName];
+      if (subMatched.length === 0) continue;
+
+      const subDetails = document.createElement("details");
+      subDetails.className = "namu-sub-category";
+      if (q) subDetails.open = true;
+
+      subDetails.innerHTML = `<summary class="namu-sub-title">${subName}</summary>`;
+
+      const termList = document.createElement("ul");
+      termList.className = "namu-term-list";
+      termList.innerHTML = subMatched.map(termLinkHTML).join("");
+
+      subDetails.appendChild(termList);
+      subWrapper.appendChild(subDetails);
+    }
+
+    mainDetails.appendChild(subWrapper);
+    container.appendChild(mainDetails);
   }
 }
 
@@ -50,6 +93,8 @@ async function init() {
 
   const searchInput = document.getElementById("term-search");
   const container = document.getElementById("category-sections");
+  if (!searchInput || !container) return;
+
   searchInput.addEventListener("input", () => {
     container.classList.add("is-filtering");
     window.setTimeout(() => {
