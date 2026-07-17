@@ -136,6 +136,35 @@ if (typeof document !== "undefined") {
       return cachedTerms;
     }
 
+    function openPdfViewer() {
+
+        const modal = document.getElementById("pdf-modal");
+        const fullView = document.getElementById("pdf-full-view");
+        const viewer = document.getElementById("pdf-viewer");
+
+        fullView.innerHTML = "";
+
+        viewer.querySelectorAll("canvas").forEach(canvas => {
+            const copy = document.createElement("canvas");
+
+            copy.width = canvas.width;
+            copy.height = canvas.height;
+
+            copy.getContext("2d").drawImage(canvas, 0, 0);
+
+            fullView.appendChild(copy);
+        });
+
+        modal.classList.add("show");
+    }
+
+    const modal = document.getElementById("pdf-modal");
+    const closeBtn = document.getElementById("close-pdf");
+
+    closeBtn.onclick = function () {
+        modal.classList.remove("show");
+    };
+
     function renderRenderedPane(text, matches) {
       inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
     }
@@ -239,6 +268,8 @@ if (typeof document !== "undefined") {
 
             canvas.className="pdf-page";
 
+            canvas.addEventListener("dblclick", openPdfViewer);
+
             canvas.width=viewport.width;
             canvas.height=viewport.height;
 
@@ -251,6 +282,11 @@ if (typeof document !== "undefined") {
 
             viewer.appendChild(canvas);
         }
+
+        const pane = document.getElementById("viewer-input-pane");
+
+        pane.classList.remove("no-pdf");
+        pane.classList.add("has-pdf");
     }
 
     pdfInput.addEventListener("change", async () => {
