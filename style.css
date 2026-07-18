@@ -418,7 +418,7 @@ details summary {
     content:"▶";
     font-size:.8rem;
 
-    transition:.25s;
+    transition:.100s;
 
     color:#57606a;
 
@@ -466,14 +466,60 @@ details[open]>.category-summary .category-title::before{
 
 }
 
-.namu-term-list{
-    overflow:hidden;
-    height:0;
-    transition:height .35s cubic-bezier(.4,0,.2,1);
+.namu-sub-wrapper {
+    display: block !important;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    transition: max-height 0.25s linear,
+                opacity 0.2s linear,
+                padding 0.25s linear;
+    pointer-events: none;
+}
 
-    list-style:none;
-    padding-left:18px;
-    margin:0;
+.namu-sub-wrapper.is-active {
+    max-height: 800px;
+    opacity: 1;
+    padding: 8px 20px 18px;
+    transition: max-height 0.25s linear,
+                opacity 0.2s linear,
+                padding 0.25s linear;
+    pointer-events: auto;
+}
+
+.namu-term-list{
+    display: block !important;
+    list-style: none;
+    padding-left: 18px;
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.25s linear,
+                opacity 0.2s linear;
+    pointer-events: none;
+}
+
+.namu-term-list.is-active {
+    max-height: 10000px;
+    opacity: 1;
+    transition: max-height 0.25s linear,
+                opacity 0.2s linear;
+    pointer-events: auto;
+}
+
+.category-title::before,
+.namu-sub-title::before {
+    display: inline-block !important;
+    transform: rotate(0deg) !important;
+    transition: transform 0.2s linear !important;
+}
+
+.namu-main-category.js-animated > .category-summary .category-title::before,
+.namu-sub-category.js-animated > .namu-sub-title::before {
+    transform: rotate(90deg) !important;
+    transition: transform 0.2s linear !important;
 }
 
 .namu-term-list li{
@@ -743,3 +789,18 @@ details[open] > .namu-sub-title::before {
 
 }
 
+.glossary-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.4s ease-out;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.glossary-content.is-active {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
