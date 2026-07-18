@@ -50,20 +50,34 @@ function render(terms, query) {
     mainDetails.className = "namu-main-category";
     if (q) mainDetails.open = true;
 
-    mainDetails.innerHTML = `<summary class="namu-main-title">${CATEGORY_LABELS[code] || code}</summary>`;
+    mainDetails.innerHTML = `
+    <summary class="category-summary">
+        <span class="category-title">${CATEGORY_LABELS[code] || code}</span>
+        <span class="category-count">${mainMatched.length}개</span>
+    </summary>
+    `;
 
     const subWrapper = document.createElement("div");
     subWrapper.className = "namu-sub-wrapper";
 
     const subMap = {};
-    mainMatched.forEach((t) => {
-      const subName = t.sub_category || "일반 용어";
-      if (!subMap[subName]) {
-        subMap[subName] = [];
-      }
-      subMap[subName].push(t);
-    });
+    const rules = SUB_CATEGORY_RULES[code] || {};
 
+    mainMatched.forEach((t) => {
+      let assignedSub = "일반 용어";
+
+      for (const subLabel in rules) {
+         if (rules[subLabel].includes(t.slug)) {
+           assignedSub = subLabel;
+           break;
+         }
+      }
+
+      if (!subMap[assignedSub]) {
+        subMap[assignedSub] = [];
+      }
+      subMap[assignedSub].push(t);
+    });
     for (const subName in subMap) {
       const subMatched = subMap[subName];
       if (subMatched.length === 0) continue;
@@ -76,7 +90,7 @@ function render(terms, query) {
 
       const termList = document.createElement("ul");
       termList.className = "namu-term-list";
-      termList.innerHTML = subMatched.map(termLinkHTML).join("");
+      termList.innerHTML = subMatched.map((term) => termLinkHTML(term)).join("");
 
       subDetails.appendChild(termList);
       subWrapper.appendChild(subDetails);
@@ -103,5 +117,56 @@ async function init() {
     }, 120);
   });
 }
+
+document.addEventListener("click", (e) => {
+    if (e.target.closest('a')) {
+        return;
+    }
+    const summary = e.target.closest('.category-summary, .namu-sub-title');
+    if (!summary) return;
+    e.preventDefault();
+
+    const details = summary.parentElement;
+    const content = details.querySelector('.namu-sub-wrapper, .namu-term-list');
+
+    if (!content) return;
+
+    if (!details.open) {
+        details.open = true;
+        requestAnimationFrame(() => {
+            details.classList.add('js-animated');
+            content.classList.add('is-active');
+        });
+    } else {
+        details.classList.remove('js-animated');
+        content.classList.remove('is-active');
+
+        setTimeout(() => {
+            if (!content.classList.contains('is-active')) {
+                details.removeAttribute('open');
+            }
+        }, 250);
+    }
+});
+
+const SUB_CATEGORY_RULES = {
+  "stat": {
+    "기초통계": ["variance", "standard-deviation", "standard-error", "normal-distribution", "outlier"],
+    "가설검정": ["p-value", "null-hypothesis", "type-1-error", "type-2-error", "significance-level", "statistical-power"],
+    "분석기법": ["regression", "anova", "t-test", "chi-square-test", "factor-analysis", "difference-in-differences"],
+    "기타수치": ["confidence-interval", "effect-size", "odds-ratio"]
+  },
+  "method": {
+    "연구설계": ["cohort-study", "rct", "longitudinal-study", "cross-sectional-study", "case-study", "case-control-study"],
+    "방법론유형": ["qualitative-research", "mixed-methods", "grounded-theory"],
+    "검증 및 분석": ["meta-analysis", "literature-review", "systematic-review", "content-analysis", "intention-to-treat"]
+  },
+  "cs": {
+    "머신러닝 기법": ["machine-learning", "overfitting", "cross-validation", "gradient-descent", "reinforcement-learning"],
+    "딥러닝 알고리즘": ["neural-network", "transformer", "attention-mechanism", "convolutional-neural-network"],
+    "데이터 처리": ["natural-language-processing", "data-augmentation", "embedding"]
+  }
+  // 등등 넣어주세요!
+};
 
 init();
