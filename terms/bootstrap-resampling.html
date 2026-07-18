@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap Resampling(부트스트랩)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Bootstrap Resampling(부트스트랩)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 표본을 반복 추출해 신뢰구간을 추정하는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/bootstrap-resampling.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 부트스트랩 (Bootstrap Resampling)</p>
+  <h1>부트스트랩 (Bootstrap Resampling)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 가지고 있는 표본 데이터에서 복원추출을 반복해 새로운 표본들을 만들어냄으로써, 통계량의 분포나 신뢰구간을 추정하는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>주머니 속에 구슬 100개가 들어 있다고 해봅시다. 이 구슬들의 "평균 무게"가 얼마나 안정적인 값인지 알고 싶은데, 새로운 구슬을 더 구할 수는 없습니다. 이럴 때 부트스트랩은 이렇게 합니다. 주머니에서 구슬 하나를 뽑아 무게를 기록하고, 그 구슬을 다시 주머니에 넣습니다(복원추출). 이 과정을 100번 반복해 "새로운 100개짜리 표본"을 하나 만들고, 그 표본의 평균을 계산합니다. 이 작업을 수천 번 되풀이하면 "평균 무게"가 매번 조금씩 다르게 나오는데, 그 값들이 흩어진 정도를 보면 원래 평균 추정치가 얼마나 믿을 만한지 감을 잡을 수 있습니다. 즉, 딱 하나 가진 표본을 이리저리 재활용해서 마치 여러 번 실험한 것과 비슷한 정보를 얻어내는 방법입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"평균 차이에 대한 95% 신뢰구간을 추정하기 위해 1,000회의 부트스트랩 리샘플링(bootstrap resampling, B=1,000)을 실시했다."</div>
+  <p>이 문장은 "원래 표본에서 복원추출을 1,000번 반복해 1,000개의 새로운 표본을 만들고, 그 결과들의 분포를 이용해 신뢰구간을 계산했다"는 뜻입니다. 이 방법은 데이터가 정규분포를 따른다는 가정이 부담스러울 때 특히 유용합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>부트스트랩은 원래 표본을 반복해서 재사용하는 방법이기 때문에, 원래 표본 자체가 모집단을 제대로 대표하지 못하면 아무리 반복해도 편향된 결과만 계속 재생산하게 됩니다. "표본이 작으니 부트스트랩으로 데이터를 늘리면 된다"는 생각은 오해이며, 부트스트랩은 새로운 정보를 만들어내는 것이 아니라 가진 정보의 불확실성을 가늠하는 도구입니다. <a href="confidence-interval.html">신뢰구간</a>과 함께 이해하면 좋습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="confidence-interval.html">신뢰구간</a>
+    <a href="standard-error.html">표준오차</a>
+    <a href="cross-validation.html">교차검증</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>
