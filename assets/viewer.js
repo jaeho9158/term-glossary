@@ -178,13 +178,15 @@ if (typeof document !== "undefined") {
       renderMatchedTerms(currentMatches, filterInput.value);
     });
 
-    async function runAnalysis(text) {
+    async function runAnalysis(text, { updateInputPane = true } = {}) {
       findBtn.disabled = true;
       findBtn.textContent = "찾는 중...";
       try {
         const terms = await loadTerms();
         currentMatches = matchTerms(text, terms);
-        renderRenderedPane(text, currentMatches);
+        if (updateInputPane) {
+          renderRenderedPane(text, currentMatches);
+        }
         filterInput.disabled = false;
         renderMatchedTerms(currentMatches, "");
       } catch (err) {
@@ -202,6 +204,7 @@ if (typeof document !== "undefined") {
 
     const pdfInput = document.getElementById("pdf-upload");
     const pdfStatus = document.getElementById("pdf-status");
+    const pdfViewer = document.getElementById("pdf-viewer");
 
     async function extractPdfText(file) {
       const arrayBuffer = await file.arrayBuffer();
@@ -266,11 +269,16 @@ if (typeof document !== "undefined") {
           throw new Error("empty-text-layer");
         }
         await renderPdf(file);
+        textarea.hidden = true;
+        pdfViewer.hidden = false;
         pdfStatus.hidden = true;
         textarea.value = text;
-        await runAnalysis(text);
+        await runAnalysis(text, { updateInputPane: false });
       } catch (err) {
         pdfStatus.hidden = true;
+        textarea.hidden = false;
+        pdfViewer.hidden = true;
+        pdfViewer.innerHTML = "";
         countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요.";
         termsList.innerHTML = "";
         textarea.value = "";
