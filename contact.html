@@ -16,12 +16,23 @@
       <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
       <ul id="global-term-search-results" class="header-search-results" hidden></ul>
     </div>
-    <nav>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
       <a href="index.html">용어 목록</a>
       <a href="viewer.html" class="nav-cta">논문 뷰어</a>
       <a href="about.html">소개</a>
       <a href="contact.html">문의</a>
-      <a href="#" style="font-size: 30px;">&equiv;</a>
+      <a href="login.html" id="nav-login">로그인</a>
+      <a href="signup.html" id="nav-signup">회원가입</a>
+      <a href="history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
     </nav>
   </div>
 </header>
@@ -30,7 +41,7 @@
   <h1>문의</h1>
   <p class="subtitle">다루었으면 하는 용어 제안, 설명 오류 제보, 기타 문의를 남겨 주시면 확인 후 반영하겠습니다.</p>
 
-  <form id="contact-form" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ENDPOINT" method="POST">
+  <form id="contact-form" class="contact-form">
     <label for="contact-name">이름 (선택)</label>
     <input type="text" id="contact-name" name="name" autocomplete="name">
 
@@ -50,6 +61,8 @@
   <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
 </footer>
 <script src="assets/header-search.js"></script>
-<script src="assets/contact.js" defer></script>
+<script type="module" src="assets/nav-auth.js"></script>
+<script type="module" src="assets/contact.js"></script>
+<script src="assets/mobile-nav.js"></script>
 </body>
 </html>

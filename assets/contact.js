@@ -1,3 +1,5 @@
+import { supabase } from "./auth.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
   if (!form) return;
@@ -8,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    const name = document.getElementById("contact-name").value.trim();
+    const email = document.getElementById("contact-email").value.trim();
     const message = document.getElementById("contact-message").value.trim();
     if (!message) return;
 
@@ -17,13 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
     statusEl.className = "";
 
     try {
-      const res = await fetch(form.action, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
+      const { error } = await supabase.from("tg_contact_messages").insert({
+        name: name || null,
+        email: email || null,
+        message,
       });
 
-      if (!res.ok) throw new Error("submit failed");
+      if (error) throw error;
 
       form.reset();
       statusEl.textContent = "문의가 접수되었습니다. 감사합니다!";
