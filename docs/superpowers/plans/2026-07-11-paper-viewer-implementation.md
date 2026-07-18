@@ -507,10 +507,9 @@ main.wide {
 }
 
 .viewer-input {
-  flex: 1 1 60%;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+    gap: 20px;
+    align-items: stretch;
 }
 
 .viewer-input textarea {

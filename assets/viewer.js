@@ -136,6 +136,35 @@ if (typeof document !== "undefined") {
       return cachedTerms;
     }
 
+    function openPdfViewer() {
+
+        const modal = document.getElementById("pdf-modal");
+        const fullView = document.getElementById("pdf-full-view");
+        const viewer = document.getElementById("pdf-viewer");
+
+        fullView.innerHTML = "";
+
+        viewer.querySelectorAll("canvas").forEach(canvas => {
+            const copy = document.createElement("canvas");
+
+            copy.width = canvas.width;
+            copy.height = canvas.height;
+
+            copy.getContext("2d").drawImage(canvas, 0, 0);
+
+            fullView.appendChild(copy);
+        });
+
+        modal.classList.add("show");
+    }
+
+    const modal = document.getElementById("pdf-modal");
+    const closeBtn = document.getElementById("close-pdf");
+
+    closeBtn.onclick = function () {
+        modal.classList.remove("show");
+    };
+
     function renderRenderedPane(text, matches) {
       inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
     }
@@ -242,6 +271,8 @@ if (typeof document !== "undefined") {
 
             canvas.className="pdf-page";
 
+            canvas.addEventListener("dblclick", openPdfViewer);
+
             canvas.width=viewport.width;
             canvas.height=viewport.height;
 
@@ -254,6 +285,11 @@ if (typeof document !== "undefined") {
 
             viewer.appendChild(canvas);
         }
+
+        const pane = document.getElementById("viewer-input-pane");
+
+        pane.classList.remove("no-pdf");
+        pane.classList.add("has-pdf");
     }
 
     pdfInput.addEventListener("change", async () => {
@@ -287,5 +323,52 @@ if (typeof document !== "undefined") {
         pdfInput.value = "";
       }
     });
+    const menuToggle = document.getElementById("menu-toggle");
+    const siteNav = document.getElementById("site-nav");
+
+    if (menuToggle && siteNav) {
+
+        function closeMenu() {
+            siteNav.classList.remove("show");
+            menuToggle.textContent = "☰";
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+
+        function openMenu() {
+            siteNav.classList.add("show");
+            menuToggle.textContent = "✕";
+            menuToggle.setAttribute("aria-expanded", "true");
+        }
+
+        menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            if (siteNav.classList.contains("show")) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        siteNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("click", (e) => {
+            if (
+                siteNav.classList.contains("show") &&
+                !siteNav.contains(e.target) &&
+                !menuToggle.contains(e.target)
+            ) {
+                closeMenu();
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+        });
+    }
   })();
 }
