@@ -50,7 +50,17 @@ function render(terms, query) {
     mainDetails.className = "namu-main-category";
     if (q) mainDetails.open = true;
 
-    mainDetails.innerHTML = `<summary class="namu-main-title">${CATEGORY_LABELS[code] || code}</summary>`;
+    mainDetails.innerHTML = `
+    <summary class="category-summary">
+        <span class="category-title">
+            ${CATEGORY_LABELS[code] || code}
+        </span>
+
+        <span class="category-count">
+            ${mainMatched.length}개
+        </span>
+    </summary>
+    `;
 
     const subWrapper = document.createElement("div");
     subWrapper.className = "namu-sub-wrapper";
@@ -72,7 +82,11 @@ function render(terms, query) {
       subDetails.className = "namu-sub-category";
       if (q) subDetails.open = true;
 
-      subDetails.innerHTML = `<summary class="namu-sub-title">${subName}</summary>`;
+      subDetails.innerHTML = `
+      <summary class="sub-summary">
+        ${subName}
+    </summary>
+    `;
 
       const termList = document.createElement("ul");
       termList.className = "namu-term-list";

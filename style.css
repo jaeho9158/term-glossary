@@ -374,85 +374,194 @@ details summary {
   outline: none !important;
 }
 
-.namu-main-category {
-  border: 1px solid #ccc !important;
-  margin-bottom: 20px !important;
-  background-color: #ffffff !important;
-  border-radius: 4px !important;
-  overflow: hidden !important;
-  display: block !important;
-  width: 100% !important;
+.namu-main-category{
+    border:1px solid #d0d7de;
+    border-radius:10px;
+    background:#fff;
+    margin:18px 0;
+    overflow:hidden;
+    transition:.25s;
 }
 
-.namu-main-title {
-  padding: 14px 18px !important;
-  background-color: #f2f3f5 !important;
-  font-weight: bold !important;
-  font-size: 1.15rem !important;
-  color: #373a3c !important;
-  border-bottom: 1px solid #ccc !important;
-  position: relative !important;
-  display: block !important;
+.namu-main-category:hover{
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
 }
 
-details:not([open]) .namu-main-title {
-  border-bottom: none !important;
+.category-summary{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 22px;
+
+    cursor:pointer;
+    user-select:none;
+
+    font-weight:600;
+    list-style:none;
 }
 
-.namu-main-title::after {
-  content: '▼' !important;
-  float: right !important;
-  font-size: 0.8rem !important;
-  color: #888 !important;
-  transition: transform 0.2s !important;
+.category-summary::-webkit-details-marker{
+    display:none;
 }
 
-details[open] .namu-main-title::after {
-  transform: rotate(180deg) !important;
+.category-title{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
 }
 
-.namu-sub-wrapper {
-  padding: 15px 20px !important;
-  background-color: #fafafa !important;
-  display: block !important;
+.category-title::before{
+
+    content:"▶";
+    font-size:.8rem;
+
+    transition:.25s;
+
+    color:#57606a;
+
 }
 
-.namu-sub-category {
-  margin-bottom: 15px !important;
-  border-left: 3px solid #007bff !important;
-  padding-left: 12px !important;
-  display: block !important;
+details[open]>.category-summary .category-title::before{
+
+    transform:rotate(90deg);
+
+}
+
+.category-count{
+
+    color:#656d76;
+    font-size:.9rem;
+    font-weight:500;
+
+}
+
+.namu-sub-wrapper{
+
+    padding:8px 20px 18px;
+
+}
+
+.namu-sub-category{
+
+    border:none;
+    margin:18px 0;
+
+}
+
+.sub-summary{
+
+    font-weight:600;
+    color:#444;
+    list-style:none;
+    cursor:pointer;
+
+}
+
+.sub-summary::-webkit-details-marker{
+
+    display:none;
+
+}
+
+.namu-term-list{
+    overflow:hidden;
+    height:0;
+    transition:height .35s cubic-bezier(.4,0,.2,1);
+
+    list-style:none;
+    padding-left:18px;
+    margin:0;
+}
+
+.namu-term-list li{
+
+    border-top:1px solid #f0f2f4;
+
+}
+
+.namu-term-list li:first-child{
+
+    border-top:none;
+
+}
+
+.namu-term-list a{
+
+    display:block;
+
+    padding:12px 8px;
+
+    color:#24292f;
+
+    text-decoration:none;
+
+    transition:.2s;
+
+}
+
+.namu-term-list a:hover{
+
+    background:#f6f8fa;
+    color:#0969da;
+
+}
+
+.namu-sub-wrapper{
+
+    animation:fadeInUp .35s ease;
+
+}
+
+.namu-main-category{
+    border-left:4px solid #2f81f7;
 }
 
 .namu-sub-title {
-  font-weight: 600 !important;
-  font-size: 1rem !important;
-  color: #444 !important;
-  padding: 5px 0 !important;
-  display: block !important;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+  padding: 10px 14px;
+  display: block;
+
+  border-radius: 6px;
+  transition:
+      background-color .2s ease,
+      color .2s ease,
+      padding-left .2s ease;
 }
 
-.namu-term-list {
-  list-style: square !important;
-  padding-left: 20px !important;
-  margin-top: 8px !important;
-  margin-bottom: 8px !important;
-  display: block !important;
+.namu-sub-title:hover {
+    background: #f3f4f6;
+    color: #111827;
+    padding-left: 18px;
 }
 
-.namu-term-list li {
-  margin-bottom: 8px !important;
-  display: list-item !important;
+.namu-sub-title:active {
+    background: #e5e7eb;
 }
 
-.namu-term-list a {
-  color: #0275d8 !important;
-  text-decoration: none !important;
-  font-size: 0.95rem !important;
+.namu-sub-title::before {
+    content: "▶";
+    display: inline-block;
+    width: 18px;
+    color: #888;
+    transition: transform .2s ease;
 }
 
-.namu-term-list a:hover {
-  text-decoration: underline !important;
+details[open] > .namu-sub-title::before {
+    transform: rotate(90deg);
+}
+
+.namu-sub-category{
+    overflow:hidden;
+}
+
+.namu-sub-title{
+    cursor:pointer;
+    user-select:none;
 }
 
 .viewer-input{
@@ -633,3 +742,4 @@ details[open] .namu-main-title::after {
     }
 
 }
+
