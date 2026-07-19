@@ -69,7 +69,7 @@ function termCardHTML(match) {
   return `<li class="term-card" data-slug="${match.slug}">
         <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
         ${definitionPart}
-        <a href="terms/${match.slug}.html" class="term-card-detail">자세히 보기</a>
+        <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기</a>
       </li>`;
 }
 
@@ -117,6 +117,29 @@ if (typeof document !== "undefined") {
   (function () {
     let cachedTerms = null;
     let currentMatches = [];
+    let lastPdfFilename = null;
+
+    async function logPaperHistory(text) {
+      try {
+        const { supabase, getSession } = await import("./auth.js");
+        const session = await getSession();
+        if (!session) return;
+
+        const key = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+        const title = lastPdfFilename
+          ? `${lastPdfFilename}...`
+          : `${text.trim().slice(0, 40)}...`;
+
+        await supabase.from("tg_reading_history").insert({
+          user_id: session.user.id,
+          item_type: "paper",
+          item_key: key,
+          item_title: title,
+        });
+      } catch (err) {
+        /* silently ignore logging failures */
+      }
+    }
 
     const textarea = document.getElementById("paper-text");
     const findBtn = document.getElementById("find-terms-btn");
@@ -207,15 +230,18 @@ if (typeof document !== "undefined") {
       renderMatchedTerms(currentMatches, filterInput.value);
     });
 
-    async function runAnalysis(text) {
+    async function runAnalysis(text, { updateInputPane = true } = {}) {
       findBtn.disabled = true;
       findBtn.textContent = "찾는 중...";
       try {
         const terms = await loadTerms();
         currentMatches = matchTerms(text, terms);
-        renderRenderedPane(text, currentMatches);
+        if (updateInputPane) {
+          renderRenderedPane(text, currentMatches);
+        }
         filterInput.disabled = false;
         renderMatchedTerms(currentMatches, "");
+        logPaperHistory(text);
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
         termsList.innerHTML = "";
@@ -231,6 +257,7 @@ if (typeof document !== "undefined") {
 
     const pdfInput = document.getElementById("pdf-upload");
     const pdfStatus = document.getElementById("pdf-status");
+    const pdfViewer = document.getElementById("pdf-viewer");
 
     async function extractPdfText(file) {
       const arrayBuffer = await file.arrayBuffer();
@@ -298,19 +325,21 @@ if (typeof document !== "undefined") {
 
       try {
         const text = await extractPdfText(file);
-        await renderPdf(file);
-
-        textarea.value=text;
-
-        await runAnalysis(text);
         if (text.length === 0) {
           throw new Error("empty-text-layer");
         }
+        lastPdfFilename = file.name;
+        await renderPdf(file);
+        textarea.hidden = true;
+        pdfViewer.hidden = false;
         pdfStatus.hidden = true;
         textarea.value = text;
-        await runAnalysis(text);
+        await runAnalysis(text, { updateInputPane: false });
       } catch (err) {
         pdfStatus.hidden = true;
+        textarea.hidden = false;
+        pdfViewer.hidden = true;
+        pdfViewer.innerHTML = "";
         countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요.";
         termsList.innerHTML = "";
         textarea.value = "";
@@ -319,52 +348,5 @@ if (typeof document !== "undefined") {
         pdfInput.value = "";
       }
     });
-    const menuToggle = document.getElementById("menu-toggle");
-    const siteNav = document.getElementById("site-nav");
-
-    if (menuToggle && siteNav) {
-
-        function closeMenu() {
-            siteNav.classList.remove("show");
-            menuToggle.textContent = "☰";
-            menuToggle.setAttribute("aria-expanded", "false");
-        }
-
-        function openMenu() {
-            siteNav.classList.add("show");
-            menuToggle.textContent = "✕";
-            menuToggle.setAttribute("aria-expanded", "true");
-        }
-
-        menuToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-
-            if (siteNav.classList.contains("show")) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-
-        siteNav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", closeMenu);
-        });
-
-        document.addEventListener("click", (e) => {
-            if (
-                siteNav.classList.contains("show") &&
-                !siteNav.contains(e.target) &&
-                !menuToggle.contains(e.target)
-            ) {
-                closeMenu();
-            }
-        });
-
-        window.addEventListener("resize", () => {
-            if (window.innerWidth > 768) {
-                closeMenu();
-            }
-        });
-    }
   })();
 }

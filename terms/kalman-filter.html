@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Kalman Filter(칼만 필터)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Kalman Filter(칼만 필터)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 센서 융합과 상태 추정에 쓰이는 이유를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/kalman-filter.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 칼만 필터 (Kalman Filter)</p>
+  <h1>칼만 필터 (Kalman Filter)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 센서에서 들어오는 부정확한 측정값들을 이전 예측과 결합해 가장 그럴듯한 실제 상태를 추정해 나가는 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>매일 아침 체중계로 몸무게를 잰다고 해봅시다. 체중계는 오차가 있어서 같은 몸으로 재도 매번 조금씩 다른 숫자가 나옵니다. 이때 "어제까지의 추세로 예측한 오늘 몸무게"와 "오늘 체중계가 보여준 숫자"를 적절한 비율로 섞으면, 어느 한쪽만 믿는 것보다 훨씬 정확한 값을 얻을 수 있습니다. 칼만 필터는 바로 이 과정을 수학적으로 정교하게 자동화한 것입니다. "예측값"과 "새 측정값"을 각각의 불확실성(오차 정도)에 따라 가중치를 다르게 주어 섞고, 그 결과를 다음 예측의 출발점으로 삼아 계속 반복합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"차량의 실시간 위치 추정을 위해 GPS와 IMU 센서 데이터를 칼만 필터로 융합하여 측정 노이즈를 효과적으로 줄였다."</div>
+  <p>이 문장은 "GPS만 쓰면 신호가 흔들리고 IMU만 쓰면 오차가 누적되므로, 두 센서의 값을 칼만 필터로 결합해 더 안정적이고 정확한 위치 값을 얻었다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>기본형 칼만 필터는 시스템이 선형적이고 노이즈가 정규분포를 따른다는 가정 위에서 작동합니다. 실제로는 비선형 시스템이 많아 확장 칼만 필터(EKF)나 무향 칼만 필터(UKF) 같은 변형이 쓰이며, 단순히 "여러 센서를 섞으면 다 칼만 필터"라고 오해하면 안 됩니다. 여러 센서 정보를 결합한다는 더 넓은 개념은 <a href="sensor-fusion.html">센서 퓨전</a>이며, 칼만 필터는 그 방법 중 하나입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="sensor-fusion.html">센서 퓨전</a>
+    <a href="pid-controller.html">PID 제어기</a>
+    <a href="digital-twin.html">디지털 트윈</a>
+    <a href="machine-learning.html">머신러닝</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

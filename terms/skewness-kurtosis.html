@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>skewness & kurtosis(왜도와 첨도)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 skewness(왜도)와 kurtosis(첨도)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 데이터 분포가 얼마나 치우쳤고 뾰족한지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/skewness-kurtosis.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 왜도와 첨도 (skewness &amp; kurtosis)</p>
+  <h1>왜도와 첨도 (skewness &amp; kurtosis)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 왜도는 데이터 분포가 좌우 어느 쪽으로 치우쳐 있는지, 첨도는 분포의 가운데가 얼마나 뾰족하고 꼬리가 두꺼운지를 나타내는 지표입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>반 학생들의 시험 점수를 그래프로 그린다고 생각해봅시다. 대부분 비슷한 점수를 받고 소수만 아주 높거나 아주 낮으면 좌우대칭에 가까운 종 모양이 됩니다. 그런데 시험이 너무 쉬워서 대부분 90점대에 몰리고 몇 명만 낮은 점수를 받으면, 그래프는 오른쪽으로 몰리고 왼쪽으로 긴 꼬리를 늘어뜨리게 됩니다. 이렇게 분포가 한쪽으로 기울어진 정도를 숫자로 나타낸 것이 왜도(skewness)입니다. 왜도가 0에 가까우면 좌우대칭, 양수면 오른쪽 꼬리가 길게(값이 작은 쪽에 몰림), 음수면 왼쪽 꼬리가 길게 늘어진 것입니다. 첨도(kurtosis)는 조금 다른 이야기인데, 분포의 가운데 봉우리가 얼마나 뾰족하고 극단값(꼬리)이 얼마나 두꺼운지를 나타냅니다. 첨도가 크면 평균 근처에 몰려있으면서도 이상치가 튀어나올 가능성이 큰 분포이고, 첨도가 작으면 완만하고 넓게 퍼진 분포입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"소득 변수의 왜도는 2.14, 첨도는 8.37로 나타나 정규분포 가정을 크게 벗어났으며, 이에 따라 로그변환 후 분석을 진행하였다."</div>
+  <p>이 문장은 소득 데이터가 한쪽으로 심하게 치우쳐 있고(왜도가 크고) 극단값도 많아서(첨도가 크고), 일반적인 <a href="normal-distribution.html">정규분포</a>를 가정하는 분석 방법을 그대로 쓸 수 없었다는 뜻입니다. 그래서 로그변환 같은 처리를 거쳐 분포를 정규분포에 가깝게 바꾼 뒤 분석했다는 의미입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>왜도와 첨도가 정규분포 기준(왜도 0, 첨도 3 또는 초과첨도 0)에서 크게 벗어나면, <a href="t-test.html">t-검정</a>이나 <a href="regression.html">회귀분석</a>처럼 정규분포를 전제로 하는 방법의 결과를 그대로 신뢰하기 어려워집니다. 이럴 때는 데이터를 변환하거나 정규성을 가정하지 않는 비모수적 방법을 고려해야 하는데, 단순히 "왜도가 조금 있다"고 해서 결과가 무조건 틀렸다는 뜻은 아니므로 표본 크기와 함께 판단해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="normal-distribution.html">정규분포</a>
+    <a href="outlier.html">이상치</a>
+    <a href="variance.html">분산</a>
+    <a href="standard-deviation.html">표준편차</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

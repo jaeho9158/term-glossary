@@ -11,10 +11,14 @@
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-base="">
 <header class="site-header">
   <div class="inner">
     <a class="logo" href="index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
     <button
       id="menu-toggle"
       class="menu-toggle"
@@ -28,6 +32,10 @@
       <a href="viewer.html" class="nav-cta">논문 뷰어</a>
       <a href="about.html">소개</a>
       <a href="contact.html">문의</a>
+      <a href="login.html" id="nav-login">로그인</a>
+      <a href="signup.html" id="nav-signup">회원가입</a>
+      <a href="history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
     </nav>
   </div>
 </header>
@@ -73,5 +81,8 @@
   window.pdfjsLib = pdfjsLib;
 </script>
 <script src="assets/viewer.js"></script>
+<script src="assets/header-search.js"></script>
+<script type="module" src="assets/nav-auth.js"></script>
+<script src="assets/mobile-nav.js"></script>
 </body>
 </html>
