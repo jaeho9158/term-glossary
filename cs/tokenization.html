@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Tokenization(토큰화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Tokenization(토큰화)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 텍스트를 어떻게 토큰 단위로 쪼개는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/tokenization.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 토큰화 (Tokenization)</p>
+  <h1>토큰화 (Tokenization)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 문장이나 텍스트를 컴퓨터가 처리할 수 있는 단어, 부분단어, 혹은 문자 단위의 조각(토큰)으로 잘게 나누는 과정입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>요리를 하기 전에 재료를 알맞은 크기로 손질하듯, 컴퓨터가 문장을 이해하려면 먼저 문장을 다룰 수 있는 작은 조각으로 잘라야 합니다. 이 작업이 바로 토큰화입니다. 가장 단순하게는 띄어쓰기 단위로 자를 수 있지만, "먹었습니다"처럼 조사와 어미가 붙는 한국어나 처음 보는 신조어를 다루려면 더 정교한 방법이 필요합니다. 그래서 요즘 언어 모델은 단어보다 더 작은 "부분단어(subword)" 단위로 텍스트를 쪼개, 흔한 단어는 통째로 하나의 토큰으로 두고 낯선 단어는 아는 조각들의 조합으로 표현합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"입력 문장은 BPE(Byte Pair Encoding) 토크나이저를 사용해 서브워드 단위로 토큰화되었다."</div>
+  <p>이 문장은 "모델에 넣기 전에, 문장을 자주 등장하는 부분단어 조각들로 나누는 BPE 방식을 이용해 처리했다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>토큰화는 단순히 띄어쓰기로 단어를 나누는 것과 같다고 오해하기 쉽지만, 실제로는 언어와 목적에 따라 문자·부분단어·단어 등 단위가 달라지며, 어떤 토큰화 방식을 쓰느냐에 따라 어휘 사전의 크기와 모델 성능이 크게 달라집니다. 이렇게 만들어진 토큰들은 이후 <a href="embedding.html">임베딩</a> 과정을 거쳐 숫자 벡터로 변환되어야 신경망이 계산할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="natural-language-processing.html">자연어처리</a>
+    <a href="embedding.html">임베딩</a>
+    <a href="transformer.html">트랜스포머</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

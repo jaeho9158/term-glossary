@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Knowledge Distillation(지식증류)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Knowledge Distillation(지식증류)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 교사 모델과 학생 모델이 무엇인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/knowledge-distillation.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 지식증류 (Knowledge Distillation)</p>
+  <h1>지식증류 (Knowledge Distillation)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 크고 복잡한 모델(교사)이 학습한 지식을 작고 가벼운 모델(학생)에게 전달해, 성능은 비슷하면서 더 가벼운 모델을 만드는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>오랜 경력의 숙련된 전문가가 신입에게 일을 가르치는 상황을 떠올려 보세요. 전문가는 단순히 "정답은 이거야"라고만 말하지 않고, "이 경우는 A일 확률이 높지만 B일 가능성도 조금 있어"처럼 판단 과정까지 함께 알려줍니다. 지식증류도 비슷합니다. 크고 성능 좋은 교사 모델이 단순한 정답뿐 아니라 각 선택지에 대해 매긴 확률 정보(소프트 레이블)까지 학생 모델에게 전달해, 학생 모델이 교사의 판단 방식을 더 풍부하게 흉내 내도록 학습시킵니다. 결과적으로 학생 모델은 크기는 작아도 교사와 비슷한 수준의 성능을 낼 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 대규모 교사 모델의 출력 확률분포를 소프트 레이블로 활용하여 경량 학생 모델을 지식증류 방식으로 학습시켰다."</div>
+  <p>이 문장은 "크고 무거운 모델이 각 클래스에 부여한 확률값 정보를 활용해, 더 작고 빠른 모델이 비슷한 판단 능력을 갖도록 훈련시켰다"는 뜻입니다. 모바일 기기나 실시간 서비스처럼 계산 자원이 제한된 환경에 모델을 배포할 때 자주 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>지식증류로 만든 학생 모델이 항상 교사 모델과 동일한 성능에 도달하는 것은 아닙니다. 모델을 지나치게 작게 압축하면 정보 손실이 커져 성능이 눈에 띄게 떨어질 수 있으며, 이는 <a href="fine-tuning.html">파인튜닝</a>과 같은 추가 조정으로 어느 정도 보완하기도 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="fine-tuning.html">파인튜닝</a>
+    <a href="loss-function.html">손실함수</a>
+    <a href="transfer-learning.html">전이학습</a>
+    <a href="quantization.html">양자화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

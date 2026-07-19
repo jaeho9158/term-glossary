@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>precision and recall(정밀도와 재현율)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 precision and recall(정밀도와 재현율)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 두 지표의 차이를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/precision-recall.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 정밀도와 재현율 (precision and recall)</p>
+  <h1>정밀도와 재현율 (precision and recall)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 정밀도는 "모델이 맞다고 한 것 중 진짜 맞은 비율", 재현율은 "진짜 맞는 것 중 모델이 찾아낸 비율"을 나타내는 분류 성능 지표입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>스팸 메일 필터를 예로 들어봅시다. 필터가 100통을 "스팸"이라고 걸렀는데 그중 80통만 진짜 스팸이었다면, 정밀도는 80%입니다(걸러낸 것 중 진짜 맞은 비율). 한편 전체 스팸이 사실 200통 있었는데 필터가 그중 80통만 찾아냈다면, 재현율은 40%입니다(진짜 스팸 중에 찾아낸 비율). 정밀도가 높으면 "오탐(잘못 거른 것)이 적다"는 뜻이고, 재현율이 높으면 "놓치는 게 적다"는 뜻입니다. 이 둘은 흔히 트레이드오프 관계에 있어서, 필터를 엄격하게 하면 정밀도는 올라가지만 재현율은 떨어지는 식입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 모델은 테스트셋에서 정밀도 0.91, 재현율 0.87, F1-score 0.89를 기록하여 기존 방법 대비 향상된 성능을 보였다."</div>
+  <p>이 문장은 "모델이 맞다고 예측한 것의 91%가 실제로 맞았고(정밀도), 실제 정답 중 87%를 놓치지 않고 찾아냈으며(재현율), 이 두 값을 종합한 지표(F1-score)도 개선되었다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>정확도(accuracy)만 보고 모델 성능을 판단하면 안 됩니다. 예를 들어 희귀 질병 진단처럼 정상인이 압도적으로 많은 데이터에서는 "전부 정상"이라고만 예측해도 정확도는 높게 나오지만 재현율은 0에 가깝습니다. 그래서 데이터가 <a href="algorithm-bias.html">편향</a>되어 있거나 클래스 비율이 불균형할 때는 정밀도와 재현율을 함께, 혹은 F1-score로 균형 있게 살펴봐야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="sensitivity-specificity.html">민감도와 특이도</a>
+    <a href="roc-curve.html">ROC 곡선</a>
+    <a href="dropout.html">드롭아웃</a>
+    <a href="loss-function.html">손실함수</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

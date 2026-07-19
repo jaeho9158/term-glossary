@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Quantization(양자화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Quantization(양자화)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 모델을 가볍게 만드는 방법이 무엇인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/quantization.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 양자화 (Quantization)</p>
+  <h1>양자화 (Quantization)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 모델의 가중치나 연산 값을 32비트 실수 대신 8비트, 4비트 등 더 적은 비트 수로 표현해서, 모델의 크기와 연산량을 줄이는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>고화질 사진을 그대로 저장하면 용량이 크지만, 화질을 약간 낮춰 압축하면 파일 크기가 확 줄어들면서도 눈으로 보기에는 큰 차이가 없는 경우가 많습니다. 양자화도 비슷한 원리입니다. AI 모델 안의 수많은 숫자(가중치)는 보통 매우 정밀한 소수(32비트)로 저장되는데, 이를 훨씬 단순한 형태(예: 8비트나 4비트 정수)로 바꾸면 모델 파일 용량이 줄고 계산 속도도 빨라집니다. 정밀도를 약간 희생하는 대신, 더 적은 메모리와 더 빠른 속도로 모델을 돌릴 수 있게 되는 것입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 방법은 모델을 8비트로 quantization하여 추론 속도를 2.4배 향상시키면서도 정확도 손실은 0.5%p 이내로 유지하였다."</div>
+  <p>이 문장은 "모델 내부의 값을 8비트로 단순화했더니 계산이 2.4배 빨라졌고, 그 대신 정확도는 아주 조금(0.5%p 이내)만 낮아졌다"는 뜻입니다. 즉 성능 손실을 최소화하면서 모델을 더 가볍고 빠르게 만들었다는 의미입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>양자화는 모델 구조 자체를 바꾸지 않고 숫자의 표현 방식만 바꾸는 기법이라는 점에서, 큰 모델의 지식을 작은 모델에 옮겨 담는 <a href="knowledge-distillation.html">지식 증류</a>와는 다릅니다. 두 기법은 종종 함께 쓰이지만 원리는 별개이며, 비트 수를 너무 줄이면 정확도가 급격히 떨어질 수 있어 적절한 비트 수 선택이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="knowledge-distillation.html">지식증류</a>
+    <a href="transfer-learning.html">전이학습</a>
+    <a href="dropout.html">드롭아웃</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

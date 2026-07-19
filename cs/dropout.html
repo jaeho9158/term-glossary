@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Dropout(드롭아웃)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Dropout(드롭아웃)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 신경망 과적합을 막는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/dropout.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 드롭아웃 (Dropout)</p>
+  <h1>드롭아웃 (Dropout)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 신경망을 학습시킬 때마다 일부 뉴런을 무작위로 꺼버려서, 모델이 특정 뉴런에만 의존하지 않고 골고루 학습하게 만드는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>팀 프로젝트를 할 때 매번 같은 에이스 팀원 한 명에게만 의존하면, 그 사람이 없을 때 팀 전체가 무너집니다. 그래서 연습 삼아 매 회의마다 무작위로 몇 명을 빠지게 하면, 나머지 팀원들도 각자 실력을 키우게 되고 결국 팀 전체가 더 단단해집니다. 드롭아웃도 똑같은 원리입니다. 신경망을 학습시키는 매 단계마다 일부 뉴런을 무작위로 "빠지게"(출력을 0으로) 만들면, 특정 뉴런 몇 개에만 의존하는 대신 여러 뉴런이 골고루 문제 해결에 기여하도록 훈련됩니다. 그 결과 학습 데이터에만 맞춰진 <a href="overfitting.html">과적합</a>을 줄이고, 새로운 데이터에도 더 잘 일반화되는 모델을 만들 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"모델의 과적합을 방지하기 위해 완전연결층 뒤에 드롭아웃(p=0.5)을 적용했으며, 검증 데이터에 대한 성능이 안정적으로 향상되었다."</div>
+  <p>이 문장은 "학습 과정에서 완전연결층의 뉴런 절반을 무작위로 꺼가며 학습시켰더니, 모델이 학습 데이터에만 지나치게 맞춰지는 현상이 줄었다"는 뜻입니다. 여기서 p=0.5는 각 뉴런이 꺼질 확률(드롭아웃 비율)을 의미합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>드롭아웃은 학습(training) 과정에서만 적용되고, 실제 예측(inference)을 할 때는 모든 뉴런을 다시 사용합니다. 또한 드롭아웃 비율을 <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a> 없이 무조건 높게 설정하면 오히려 모델이 충분히 학습되지 못하는 과소적합이 발생할 수 있으므로, 적절한 비율을 찾는 것이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a>
+    <a href="fine-tuning.html">파인튜닝</a>
+    <a href="precision-recall.html">정밀도와 재현율</a>
+    <a href="quantization.html">양자화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

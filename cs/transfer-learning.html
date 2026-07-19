@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Transfer Learning(전이학습)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Transfer Learning(전이학습)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 사전학습모델을 어떻게 재활용하는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/transfer-learning.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 전이학습 (Transfer Learning)</p>
+  <h1>전이학습 (Transfer Learning)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 한 작업에서 학습한 모델의 지식을 다른 관련 작업에 재활용해 더 적은 데이터로도 빠르게 학습시키는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>자전거를 탈 줄 아는 사람이 오토바이를 처음 배운다고 생각해봅시다. 완전히 백지 상태에서 시작하는 것보다 훨씬 빠르게 익힐 수 있습니다. 균형을 잡는 감각, 핸들을 조작하는 요령 같은 것을 이미 몸에 익혔기 때문입니다. 전이학습도 이와 비슷합니다. 이미 수백만 장의 이미지나 방대한 텍스트로 미리 학습되어 선, 모양, 문법 구조 같은 기본적인 특징을 파악하고 있는 모델(사전학습모델)을 가져와서, 내가 풀고 싶은 새로운 문제에 맞게 일부만 다시 학습시키는 것입니다. 처음부터 모든 것을 새로 가르칠 필요가 없으니 데이터가 적어도, 시간이 짧아도 좋은 성능을 낼 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 ImageNet으로 사전학습된 ResNet-50 모델에 전이학습을 적용하여, 소량의 의료영상 데이터만으로도 병변 분류 정확도를 92%까지 끌어올렸다."</div>
+  <p>이 문장은 일반 이미지로 미리 학습된 모델을 가져와 소수의 의료영상 데이터로 추가 학습시켰더니, 처음부터 학습했을 때보다 훨씬 적은 데이터로도 높은 정확도를 얻었다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>전이학습은 <a href="fine-tuning.html">파인튜닝</a>과 같은 말로 혼동되기 쉽지만, 엄밀히는 파인튜닝이 전이학습을 실제로 구현하는 대표적인 방법 중 하나입니다. 또한 원래 모델이 학습한 데이터(원본 작업)와 새로 풀려는 문제(대상 작업)가 너무 다르면 오히려 성능이 떨어지는 "부정적 전이(negative transfer)"가 일어날 수 있어, 두 작업 사이의 유사성을 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="fine-tuning.html">파인튜닝</a>
+    <a href="knowledge-distillation.html">지식증류</a>
+    <a href="few-shot-learning.html">퓨샷 러닝</a>
+    <a href="self-supervised-learning.html">자기지도학습</a>
+    <a href="quantization.html">양자화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>
