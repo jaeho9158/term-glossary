@@ -52,11 +52,14 @@ function render(terms, query) {
 
     mainDetails.innerHTML = `
     <summary class="category-summary">
-        <span class="category-title">${CATEGORY_LABELS[code] || code}</span>
-        <span class="category-count">${mainMatched.length}개</span>
+        <span class="category-title">
+            ${CATEGORY_LABELS[code] || code}
+            <span class="category-count">
+                ${mainMatched.length}개
+            </span>
+        </span>
     </summary>
     `;
-
     const subWrapper = document.createElement("div");
     subWrapper.className = "namu-sub-wrapper";
 
@@ -86,7 +89,16 @@ function render(terms, query) {
       subDetails.className = "namu-sub-category";
       if (q) subDetails.open = true;
 
-      subDetails.innerHTML = `<summary class="namu-sub-title">${subName}</summary>`;
+      subDetails.innerHTML = `
+      <summary class="namu-sub-title">
+          <span>${subName}</span>
+
+          <a class="sub-more-btn"
+             href="category.html?cat=${code}#${encodeURIComponent(subName)}">
+              더보기 →
+          </a>
+      </summary>
+      `;
 
       const termList = document.createElement("ul");
       termList.className = "namu-term-list";
@@ -96,7 +108,10 @@ function render(terms, query) {
       subWrapper.appendChild(subDetails);
     }
 
+    const more = document.createElement("a");
+    more.className = "category-more";
     mainDetails.appendChild(subWrapper);
+    mainDetails.appendChild(more);
     container.appendChild(mainDetails);
   }
 }
@@ -157,7 +172,7 @@ const SUB_CATEGORY_RULES = {
     "기타수치": ["confidence-interval", "effect-size", "odds-ratio"]
   },
   "method": {
-    "연구설계": ["cohort-study", "rct", "longitudinal-study", "cross-sectional-study", "case-study", "case-control-study"],
+    "연구설계": ["longitudinal-study", "cross-sectional-study", "case-study", "case-control-study"],
     "방법론유형": ["qualitative-research", "mixed-methods", "grounded-theory"],
     "검증 및 분석": ["meta-analysis", "literature-review", "systematic-review", "content-analysis", "intention-to-treat"]
   },
@@ -165,8 +180,157 @@ const SUB_CATEGORY_RULES = {
     "머신러닝 기법": ["machine-learning", "overfitting", "cross-validation", "gradient-descent", "reinforcement-learning"],
     "딥러닝 알고리즘": ["neural-network", "transformer", "attention-mechanism", "convolutional-neural-network"],
     "데이터 처리": ["natural-language-processing", "data-augmentation", "embedding"]
+  },
+  "tool": {
+    "측정척도": [
+      "likert-scale",
+      "construct"
+    ],
+    "신뢰도·타당도": [
+      "validity",
+      "reliability"
+    ]
+  },
+
+  "ethics": {
+    "연구윤리": [
+      "blinding",
+      "double-blind",
+      "placebo"
+    ],
+    "논문출판": [
+      "peer-review",
+      "publication-bias",
+      "reproducibility"
+    ]
+  },
+
+  "physchem": {
+    "물리학": [
+      "quantum-entanglement",
+      "entropy",
+      "spectroscopy"
+    ],
+    "화학": [
+      "catalyst",
+      "isotope",
+      "polymer",
+      "phase-transition",
+      "chirality"
+    ]
+  },
+
+  "bioearth": {
+    "생물학": [
+      "gene-expression",
+      "crispr",
+      "phylogenetics",
+      "biodiversity",
+      "symbiosis"
+    ],
+    "지구과학": [
+      "plate-tectonics",
+      "carbon-cycle",
+      "ecosystem-service"
+    ]
+  },
+
+  "neuro": {
+    "뇌 구조": [
+      "synapse",
+      "amygdala",
+      "neurotransmitter"
+    ],
+    "뇌 기능": [
+      "neuroplasticity",
+      "cognitive-load",
+      "neurodegeneration"
+    ],
+    "측정기법": [
+      "fmri",
+      "eeg"
+    ]
+  },
+
+  "medhealth": {
+    "임상연구": [
+      "clinical-trial",
+      "cohort-study",
+      "rct"
+    ],
+    "역학": [
+      "epidemiology",
+      "incidence-rate",
+      "prevalence",
+      "comorbidity"
+    ],
+    "의학기초": [
+      "biomarker"
+    ]
+  },
+
+  "psych": {
+    "인지심리": [
+      "meta-cognition",
+      "cognitive-bias",
+      "confirmation-bias"
+    ],
+    "발달·성격": [
+      "attachment-theory",
+      "self-efficacy"
+    ],
+    "연구오류": [
+      "social-desirability-bias"
+    ]
+  },
+
+  "socialecon": {
+    "경제학": [
+      "gini-coefficient",
+      "externality",
+      "social-capital"
+    ],
+    "계량경제학": [
+      "endogeneity",
+      "instrumental-variable",
+      "panel-data"
+    ],
+    "사회과학": [
+      "intervention"
+    ]
+  },
+
+  "eng": {
+    "해석·설계": [
+      "finite-element-analysis",
+      "simulation"
+    ],
+    "제어공학": [
+      "feedback-control"
+    ],
+    "신호처리": [
+      "signal-to-noise-ratio"
+    ],
+    "재료공학": [
+      "fatigue-failure"
+    ],
+    "에너지": [
+      "renewable-energy",
+      "life-cycle-assessment"
+    ],
+    "시스템공학": [
+      "redundancy"
+    ]
   }
-  // 등등 넣어주세요!
 };
+
+document.addEventListener("click", (e) => {
+
+    if (e.target.classList.contains("category-more")) {
+        e.stopPropagation();
+        return;
+    }
+
+});
 
 init();

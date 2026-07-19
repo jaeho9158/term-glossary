@@ -898,7 +898,7 @@ details[open]>.category-summary .category-title::before{
 }
 
 .namu-sub-wrapper.is-active {
-    max-height: 800px;
+    max-height: 99999px;
     opacity: 1;
     padding: 8px 20px 18px;
     transition: max-height 0.25s linear,
@@ -921,7 +921,7 @@ details[open]>.category-summary .category-title::before{
 }
 
 .namu-term-list.is-active {
-    max-height: 10000px;
+    max-height: 99999px;
     opacity: 1;
     transition: max-height 0.25s linear,
                 opacity 0.2s linear;
@@ -1224,7 +1224,6 @@ details[open] > .namu-sub-title::before {
     padding-bottom: 10px;
 }
 
-/* Sidebar search panel */
 .sidebar-search-toggle {
   background: none;
   border: 1px solid var(--border);
@@ -1533,4 +1532,53 @@ transform:scale(1);
     font-size:32px;
     font-weight:bold;
     color:#2b6cff;
+}
+
+.category-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+
+
+.category-more{
+    text-decoration:none;
+    color:#4b7cff;
+    font-size:14px;
+    font-weight:600;
+}
+
+.category-more:hover{
+    text-decoration:underline;
+}
+
+const more = document.createElement("a");
+more.className = "category-more";
+more.href = `category.html?cat=${code}`;
+more.textContent = "더보기 →";
+
+mainDetails.appendChild(subWrapper);
+mainDetails.appendChild(more);
+container.appendChild(mainDetails);
+
+.namu-sub-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.sub-more-btn{
+    font-size:13px;
+    color:#4f7cff;
+    text-decoration:none;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    background:#eef4ff;
+    transition:.2s;
+}
+
+.sub-more-btn:hover{
+    background:#dce9ff;
 }

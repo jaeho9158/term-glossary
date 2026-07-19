@@ -26,7 +26,7 @@
 
 ## 2. 관련 용어 자동 생성 + 일관성 검증
 
-**현재 문제**: [terms/anova.html](../terms/anova.html)의 "관련 용어" 링크는 전부 손으로 넣은 것이고, terms.json에는 관련 정보가 없음.
+**현재 문제**: [terms/anova.html](../stat/anova.html)의 "관련 용어" 링크는 전부 손으로 넣은 것이고, terms.json에는 관련 정보가 없음.
 
 **할 일**
 - `terms.json`에 `related: string[]` 필드(slug 배열) 정식 추가
