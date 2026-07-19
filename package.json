@@ -4,6 +4,11 @@
   "private": true,
   "scripts": {
     "build:sitemap": "node scripts/generate-sitemap.js",
-    "test": "node --test tests/*.test.js"
+    "import:related": "node scripts/import-related.js",
+    "suggest:related": "node scripts/suggest-related.js",
+    "check:related": "node scripts/check-related-consistency.js",
+    "build:related": "npm run import:related && npm run suggest:related && npm run check:related && npm run build:related-html && npm run check:related",
+    "test": "node --test tests/*.test.js",
+    "build:related-html": "node scripts/generate-related-html.js"
   }
 }
