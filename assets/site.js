@@ -11,9 +11,10 @@ const CATEGORY_LABELS = {
   socialecon: "사회과학·경제학",
   eng: "공학",
   cs: "컴퓨터과학·AI",
+  math: "수학",
 };
 
-const CATEGORY_ORDER = ["stat", "method", "tool", "ethics", "physchem", "bioearth", "neuro", "medhealth", "psych", "socialecon", "eng", "cs"];
+const CATEGORY_ORDER = ["stat", "method", "tool", "ethics", "physchem", "bioearth", "neuro", "medhealth", "psych", "socialecon", "eng", "cs", "math"];
 
 async function loadTerms() {
   const res = await fetch("terms.json");
