@@ -1,3 +1,8 @@
+console.log("viewer.js loaded");
+console.log("Fuse =", window.Fuse);
+
+let viewerFuse;
+
 function escapeRegExp(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -5,50 +10,63 @@ function escapeRegExp(str) {
 function matchTerms(text, terms) {
   const results = [];
 
-  for (const term of terms) {
-    let count = 0;
-    let firstStart = -1;
-    let firstLength = 0;
+  const resultsMap = new Map();
 
-    if (term.title_en) {
-      const re = new RegExp(`\\b${escapeRegExp(term.title_en)}\\b`, "gi");
-      let m;
-      while ((m = re.exec(text)) !== null) {
-        count++;
-        if (firstStart === -1 || m.index < firstStart) {
-          firstStart = m.index;
-          firstLength = m[0].length;
-        }
-      }
-    }
+  const words = [
+      ...new Set(
+          (text.match(/[가-힣A-Za-z-]+/g) || [])
+      )
+  ];
 
-    if (term.title_ko) {
-      let idx = text.indexOf(term.title_ko);
-      while (idx !== -1) {
-        count++;
-        if (firstStart === -1 || idx < firstStart) {
-          firstStart = idx;
-          firstLength = term.title_ko.length;
-        }
-        idx = text.indexOf(term.title_ko, idx + term.title_ko.length);
-      }
-    }
+  for(const word of words){
+      const normalized = word
+          .toLowerCase()
+          .replace(/[-_\s]/g,"");
 
-    if (count > 0) {
-      results.push({
-        slug: term.slug,
-        title_ko: term.title_ko,
-        title_en: term.title_en,
-        categories: term.categories,
-        definition: term.definition,
-        count,
-        firstStart,
-        firstLength,
+      const fuseResults = viewerFuse.search(normalized,{
+          limit:3
       });
-    }
+
+      for(const r of fuseResults){
+          if(r.score>0.28) continue;
+          const term = r.item.term;
+          const idx = text.indexOf(word);
+          if(idx===-1) continue;
+          if(!resultsMap.has(term.slug)){
+              resultsMap.set(term.slug,{
+                  slug:term.slug,
+                  title_ko:term.title_ko,
+                  title_en:term.title_en,
+                  definition:term.definition,
+                  categories:term.categories,
+                  count:1,
+                  score:r.score,
+                  firstStart:idx,
+                  firstLength:word.length
+              });
+
+          }else{
+
+              const item=resultsMap.get(term.slug);
+
+              item.count++;
+
+              if(idx<item.firstStart){
+                  item.firstStart=idx;
+                  item.firstLength=word.length;
+              }
+              item.score=Math.min(item.score,r.score);
+          }
+      }
   }
 
-  results.sort((a, b) => b.count - a.count);
+  results.push(...resultsMap.values());
+
+  results.sort((a,b)=>{
+      if(a.score!==b.score)
+          return a.score-b.score;
+      return b.count-a.count;
+  });
   return results;
 }
 
@@ -136,8 +154,13 @@ if (typeof document !== "undefined") {
           item_key: key,
           item_title: title,
         });
-      } catch (err) {
-        /* silently ignore logging failures */
+      }
+      catch (err) {
+        console.error(err);
+
+        countHeading.textContent =
+            err.message;
+        termsList.innerHTML = "";
       }
     }
 
@@ -156,8 +179,53 @@ if (typeof document !== "undefined") {
       if (cachedTerms) return cachedTerms;
       const res = await fetch("terms.json");
       cachedTerms = await res.json();
+
+      const searchData = cachedTerms.flatMap(term => {
+        const arr = [];
+
+        if (term.title_ko) {
+            arr.push({
+                slug: term.slug,
+                keyword: term.title_ko,
+                keywordNormalized: term.title_ko.replace(/\s+/g, ""),
+                lang: "ko",
+                term
+            });
+        }
+
+        if (term.title_en) {
+            arr.push({
+                slug: term.slug,
+                keyword: term.title_en,
+                keywordNormalized: term.title_en
+                    .toLowerCase()
+                    .replace(/[-_\s]/g, ""),
+                lang: "en",
+                term
+            });
+        }
+        return arr;
+    });
+
+    viewerFuse = new Fuse(searchData, {
+        includeScore: true,
+        shouldSort: true,
+        ignoreLocation: true,
+        threshold: 0.28,
+        minMatchCharLength: 2,
+        keys: [
+            { name: "keyword", weight: 0.7 },
+            { name: "keywordNormalized", weight: 1.0 }
+        ]
+      });
+
+      console.log("viewerFuse =", viewerFuse);
+      console.log(searchData.slice(0,5));
+      console.log("searchData =", searchData.length);
+
       return cachedTerms;
     }
+
 
     function openPdfViewer() {
 
