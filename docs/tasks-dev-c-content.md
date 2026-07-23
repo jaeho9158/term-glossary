@@ -19,7 +19,7 @@
   "definition": "..."
 }
 ```
-- 각 용어는 `terms/<slug>.html` 페이지도 별도로 존재 (예: [terms/anova.html](../stat/anova.html) 참고해서 동일한 HTML 구조로 새 페이지 작성)
+- 각 용어는 `terms/<slug>.html` 페이지도 별도로 존재 (예: [terms/anova.html](../terms/anova.html) 참고해서 동일한 HTML 구조로 새 페이지 작성)
 - 카테고리 코드는 12개 중에서 선택: stat, method, tool, ethics, physchem, bioearth, neuro, medhealth, psych, socialecon, eng, cs
 
 **할 일**
@@ -36,7 +36,7 @@
 
 ## 2. 관련 용어 보완
 
-**현재 문제**: [terms/anova.html](../stat/anova.html)의 "관련 용어" 섹션처럼, 대부분 페이지에 관련 용어 링크가 수작업으로 몇 개씩만 들어가 있거나 아예 없음.
+**현재 문제**: [terms/anova.html](../terms/anova.html)의 "관련 용어" 섹션처럼, 대부분 페이지에 관련 용어 링크가 수작업으로 몇 개씩만 들어가 있거나 아예 없음.
 
 **할 일**
 - 개발자 A가 자동 추천 스크립트를 만들면, 그 결과가 실제로 말이 되는 관련어인지 검수 (기계적으로 카테고리만 같다고 묶으면 엉뚱한 조합이 나올 수 있음)

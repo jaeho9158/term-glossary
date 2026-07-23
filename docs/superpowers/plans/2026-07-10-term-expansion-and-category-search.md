@@ -503,7 +503,7 @@ Expected: 위 항목 모두 통과. 실패 시 `assets/site.js` 로직 또는 `t
 
 ## Task 5~12: 신규 용어 상세 페이지 88개 생성 (8개 배치, 배치당 11개)
 
-각 배치는 독립적이며 병렬(서브에이전트) 실행이 가능하다. 모든 페이지는 [terms/effect-size.html](../../../stat/effect-size.html)의 구조를 그대로 따른다: `<head>`(title/description/canonical `https://example.github.io/terms/<slug>.html`), header/nav(`../` 상대경로), breadcrumb, `<h1>`, `definition-box`(한 줄 정의), "쉽게 풀면" 섹션(일상 비유 포함 300~500자), "논문에서는 이렇게 쓰입니다"(example 박스 + 해설), "주의할 점", "관련 용어"(2~3개 링크), footer.
+각 배치는 독립적이며 병렬(서브에이전트) 실행이 가능하다. 모든 페이지는 [terms/effect-size.html](../../../terms/effect-size.html)의 구조를 그대로 따른다: `<head>`(title/description/canonical `https://example.github.io/terms/<slug>.html`), header/nav(`../` 상대경로), breadcrumb, `<h1>`, `definition-box`(한 줄 정의), "쉽게 풀면" 섹션(일상 비유 포함 300~500자), "논문에서는 이렇게 쓰입니다"(example 박스 + 해설), "주의할 점", "관련 용어"(2~3개 링크), footer.
 
 각 용어의 콘텐츠 브리프(한 줄 정의)는 위 "신규 용어 88개 목록"에 있다. 이를 바탕으로 실제 본문(쉬운 풀이·논문 예문·주의할 점)을 작성한다 — 브리프의 정의를 그대로 정의box에 쓰고, 나머지 섹션은 그 정의를 확장해 새로 작성한다.
 
