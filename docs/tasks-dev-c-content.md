@@ -26,11 +26,56 @@
 - 기존 용어 중 애매하거나 부실한 정의 개선
 - 아직 없는 용어 신규 추가 — 우선순위: 검색은 많이 되는데 없는 용어 (개발자 A가 만드는 `tg_search_log`에서 0건 검색어 확인해서 우선순위 삼기, 아직 준비 안 됐으면 일단 통계/연구방법론 기초 용어부터)
 - 새 용어 추가 시 **반드시** terms.json 업데이트 + terms/<slug>.html 페이지 생성 두 가지 다 해야 함 (하나만 하면 사이트맵/검색에서 깨짐)
-- 새 페이지 만들 때 기존 페이지(anova.html 등) 헤더/푸터/네비 구조를 그대로 복사해서 씀 (템플릿 엔진 없어서 수작업 복붙, 개발자 A가 템플릿 시스템 도입하면 나중에 편해짐)
+
+### 새 용어 페이지 작성 시 반드시 지킬 형식 (임의 변형 금지)
+
+[terms/anova.html](../terms/anova.html)을 표준 템플릿으로 삼아 아래 구조를 **그대로** 따라주세요. 헤더/푸터/스크립트 태그를 빠뜨리거나 순서를 바꾸면 검색·로그인 상태 표시·모바일 메뉴가 깨집니다.
+
+1. **`<head>` 필수 태그 4종** (다른 값으로 채워야 하는 부분만 아래처럼 바꾸고 구조는 그대로):
+   ```html
+   <title>{한글명}({영문약어 있으면 병기})란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+   <meta name="description" content="{이 용어를 왜/누가 찾는지 1~2문장, 120자 내외}">
+   <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/{slug}.html">
+   ```
+   - `title`과 `description`은 페이지마다 **반드시 다르게** 작성 (중복 title은 검색엔진 감점 요인 — 개발자 D의 서치콘솔 작업과 직결)
+2. **`<body data-base="../">`** 속성 그대로 유지 (검색 스크립트가 이 값으로 상대경로 계산함)
+3. **헤더/네비게이션**: anova.html의 `<header class="site-header">` 전체 블록을 통째로 복붙 (로고, 검색창, 메뉴 토글, nav 링크 6개 — 절대 일부만 가져오지 말 것)
+4. **breadcrumb + h1**: `<p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; {한글명}</p>` 다음 줄에 `<h1>{한글명} ({영문명 있으면})</h1>`
+5. **정의 박스**: 아래 클래스명/문구를 정확히 지킬 것 — `extract-definitions.js` 스크립트가 `한 줄 정의:` 뒤 텍스트를 정규식으로 긁어서 terms.json에 자동 반영하므로, 이 문구가 다르면 자동화가 깨짐
+   ```html
+   <div class="definition-box">
+     <strong>한 줄 정의:</strong> {한 문장 정의}
+   </div>
+   ```
+6. **본문 섹션**: `<h2>쉽게 풀면</h2>`(비유/예시 포함 설명), `<h2>논문에서는 이렇게 쓰입니다</h2>`(`<div class="example">` 안에 실제 논문 문장 예시 + 해석), `<h2>주의할 점</h2>`(흔한 오해나 한계) — 이 3개 섹션 제목은 고정, 순서도 그대로
+7. **관련 용어**: 위 2번 작업 형식과 동일 (`<div class="related-terms">`)
+8. **`<footer class="site-footer">`**: anova.html 그대로 복붙 (연도만 실제 작성 연도로)
+9. **스크립트 태그 4개, 이 순서 그대로 `</body>` 직전에**:
+   ```html
+   <script src="../assets/header-search.js"></script>
+   <script type="module" src="../assets/nav-auth.js"></script>
+   <script type="module" src="../assets/term-history.js"></script>
+   <script src="../assets/mobile-nav.js"></script>
+   ```
+
+### terms.json 작성 시 주의사항
+- 파일은 **UTF-8**로 저장 (한글 깨짐 주의, 에디터의 인코딩 설정 확인)
+- `slug`는 파일명과 완전히 동일해야 함 (`{slug}.html`), 소문자+하이픈만 사용
+- **slug 중복 검사 필수** — 새 용어 추가 후 아래 스크립트로 확인 (Node 설치되어 있으면 터미널에서 실행):
+  ```
+  node -e "const d=require('./terms.json'); const s=d.map(x=>x.slug); console.log('중복:', s.filter((v,i)=>s.indexOf(v)!==i))"
+  ```
+  출력이 빈 배열(`[]`)이어야 정상
+- `categories`는 반드시 아래 12개 코드 중에서만 골라 배열로: `stat, method, tool, ethics, physchem, bioearth, neuro, medhealth, psych, socialecon, eng, cs` (오탈자로 새 코드를 만들면 홈페이지 카테고리 섹션에서 안 보이거나 "일반 용어"로 빠짐)
+- terms.json은 배열 전체를 다시 저장하는 구조이므로, 편집 후 **유효한 JSON인지 검증** (아래 명령으로 확인):
+  ```
+  python -c "import json; d=json.load(open('terms.json',encoding='utf-8')); print('OK', len(d))"
+  ```
 
 **완료 기준**
-- 새 용어마다: terms.json에 slug/title_ko/title_en/categories/definition 다 채워짐, 대응하는 terms/<slug>.html 페이지가 실제로 브라우저에서 정상 열림, 홈페이지 카테고리 섹션에 자동으로 노출됨 확인
+- 새 용어마다: terms.json에 slug/title_ko/title_en/categories/definition 다 채워짐, 대응하는 terms/<slug>.html 페이지가 위 9개 항목 형식을 전부 지켜서 실제로 브라우저에서 정상 열림, 홈페이지 카테고리 섹션에 자동으로 노출됨 확인
 - 정의는 최소 2~3문장, 전문용어 남발하지 않고 처음 보는 사람도 이해할 수 있는 수준으로
+- slug 중복 검사 스크립트 실행 결과 빈 배열, terms.json JSON 유효성 검증 통과
 
 ---
 
