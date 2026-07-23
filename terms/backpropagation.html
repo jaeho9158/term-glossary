@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Backpropagation(역전파)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Backpropagation(역전파)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 신경망이 오차를 거꾸로 전달해 가중치를 학습하는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/backpropagation.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 역전파 (Backpropagation)</p>
+  <h1>역전파 (Backpropagation)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 신경망의 예측이 틀린 정도(오차)를 출력층에서 입력층 방향으로 거꾸로 전달하면서, 각 가중치가 오차에 얼마나 책임이 있는지(기울기)를 계산하는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 사람이 릴레이로 서류를 검토하다가 마지막 사람이 "결과가 틀렸다!"고 외쳤다고 해봅시다. 그러면 마지막 검토자부터 시작해서 "내가 몇 % 잘못했지?"를 따진 뒤, 그 책임을 앞 사람에게 전달하고, 앞 사람도 자기 몫을 따져 또 그 앞사람에게 전달하는 식으로 거슬러 올라갑니다. 역전파는 정확히 이런 과정을 신경망에서 수행합니다. 신경망은 입력 → 여러 층 → 출력 순서로 계산(순전파)을 하고, 마지막에 정답과 비교해 오차를 구합니다. 그 다음 미적분의 연쇄법칙을 이용해 "출력층의 오차가 각 층의 가중치 때문에 얼마나 커졌는지"를 거꾸로 계산해나갑니다. 이렇게 구한 값(기울기)을 가지고 <a href="gradient-descent.html">경사하강법</a>이 각 가중치를 조금씩 수정합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"모델의 모든 파라미터는 표준 역전파(backpropagation) 알고리즘을 통해 종단 간(end-to-end) 학습되었다."</div>
+  <p>이 문장은 "모델의 각 층 가중치를 손으로 하나하나 설정한 것이 아니라, 오차를 거꾸로 전달해 계산한 기울기를 이용해 자동으로 학습시켰다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>역전파 자체는 기울기를 "계산"하는 방법일 뿐, 가중치를 실제로 "업데이트"하는 것은 <a href="gradient-descent.html">경사하강법</a>의 몫입니다. 두 개념을 혼동해서 역전파가 곧 학습 알고리즘 전체라고 오해하기 쉬운데, 정확히는 역전파(기울기 계산) + 경사하강법(가중치 갱신)이 합쳐져야 학습이 완성됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="gradient-descent.html">경사하강법</a>
+    <a href="neural-network.html">인공신경망</a>
+    <a href="loss-function.html">손실함수</a>
+    <a href="batch-normalization.html">배치 정규화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>
