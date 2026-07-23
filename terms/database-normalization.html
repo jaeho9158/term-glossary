@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Database Normalization(데이터베이스 정규화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터과학 기초 개념인 데이터베이스 정규화(Database Normalization)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/database-normalization.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEST123"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TEST123');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 데이터베이스 정규화 (Database Normalization)</p>
+  <h1>데이터베이스 정규화 (Database Normalization)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 같은 데이터가 여러 곳에 중복 저장되지 않도록 표를 여러 개로 나누어 정리하는 데이터베이스 설계 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>학생 명단 표에 이름, 학번뿐 아니라 "담임 선생님 전화번호"까지 모든 학생 줄마다 똑같이 적어 넣는다고 생각해 봅시다. 같은 반 학생이 30명이면 담임 선생님 전화번호도 30번 똑같이 반복해서 적히게 되고, 선생님 번호가 바뀌면 30줄을 전부 고쳐야 합니다. 정규화는 이런 낭비와 실수를 막기 위해, "학생 정보"와 "담임 선생님 정보"를 서로 다른 표로 분리하고 학번이나 반 번호로 서로 연결해 두는 작업입니다. 이렇게 하면 선생님 전화번호는 딱 한 곳에만 저장되어 있어서, 수정할 때도 한 번만 고치면 되고 데이터가 서로 어긋날 위험도 줄어듭니다. 다만 표를 너무 잘게 나누면 정보를 조회할 때 여러 표를 다시 연결해야 해서 오히려 느려질 수도 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서 제안한 스키마는 제3정규형(3NF)까지 정규화를 수행하여 데이터 중복과 갱신 이상을 최소화하였다."</div>
+  <p>이 문장은 정보시스템이나 데이터베이스 설계를 다루는 논문의 방법론 부분에서, 제안한 데이터 구조가 얼마나 체계적으로 설계되었는지를 보여줄 때 쓰입니다. 정규화 수준은 시스템의 데이터 무결성과 성능을 논할 때 근거로 자주 인용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>정규화를 많이 할수록 무조건 좋은 것은 아닙니다. 실무에서는 조회 속도를 높이기 위해 일부러 데이터를 중복시키는 "역정규화"를 적용하기도 하므로, 상황에 맞는 균형이 필요합니다. 이러한 데이터 저장 구조는 <a href="hash-table.html">해시테이블</a> 같은 인덱스 자료구조와 함께 설계될 때가 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="hash-table.html">해시테이블</a>
+    <a href="object-oriented-programming.html">객체지향 프로그래밍</a>
+    <a href="control-structures.html">제어 구조</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

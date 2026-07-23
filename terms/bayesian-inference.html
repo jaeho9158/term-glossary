@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Bayesian Inference(베이지안 추론)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 베이지안 추론(Bayesian Inference)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 사전확률과 사후확률의 의미를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/bayesian-inference.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEST123"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TEST123');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 베이지안 추론 (Bayesian Inference)</p>
+  <h1>베이지안 추론 (Bayesian Inference)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 기존에 가지고 있던 믿음(사전확률)에 새로운 데이터를 반영해 더 나은 결론(사후확률)으로 갱신해 나가는 통계적 추론 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>친구가 약속에 늦으면 처음엔 "길이 막혀서겠지"라고 어느 정도 확신합니다(사전 믿음). 그런데 친구에게서 "지금 지하철 탔어"라는 문자가 오면, 이 새로운 정보를 반영해 "아, 지하철이 지연됐나 보다"로 생각을 수정합니다(사후 믿음). 베이지안 추론은 바로 이렇게 원래 가지고 있던 지식과 새로 얻은 데이터를 결합해서 확률을 계속 업데이트해 나가는 방법입니다. 전통적인 통계(빈도주의)가 "이 가설이 맞는지 틀리는지"를 정해진 규칙으로 검증한다면, 베이지안 통계는 "이 가설이 맞을 확률이 얼마나 되는지"를 직접 숫자로 계산해서 보여줍니다. 데이터가 쌓일수록 처음의 믿음(사전확률)의 영향은 줄어들고 데이터 자체가 결론을 더 많이 좌우하게 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"사전분포로 무정보적 사전분포(non-informative prior)를 설정하고 MCMC 표본추출을 통해 사후분포를 추정한 결과, 회귀계수의 95% 신용구간(credible interval)은 0.12~0.45로 나타나 두 변수 간 양의 관계를 지지하였다."</div>
+  <p>이 문장은 심리학이나 의학 논문의 분석 방법 및 결과 부분에서, 표본이 작거나 모형이 복잡한 위계적 자료를 분석할 때 베이지안 방법을 사용했음을 보여줍니다. 전통적 방법으로는 추정이 불안정한 경우에도 베이지안 방법은 사전 정보를 활용해 비교적 안정적인 추정치를 얻을 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>베이지안 추론 결과로 제시되는 "신용구간(credible interval)"은 전통적 통계에서 쓰는 <a href="confidence-interval.html">신뢰구간</a>과 겉모습은 비슷하지만 해석 방식이 다릅니다. 신뢰구간은 "반복 표집했을 때 구간이 참값을 포함할 확률"을 의미하는 반면, 신용구간은 "참값이 그 구간 안에 있을 확률" 자체를 직접 의미합니다. 또한 사전분포를 어떻게 설정하느냐에 따라 결과가 달라질 수 있으므로, 논문에서는 사전분포 선택의 근거를 함께 밝혀야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="confidence-interval.html">신뢰구간</a>
+    <a href="p-value.html">유의확률</a>
+    <a href="null-hypothesis.html">귀무가설</a>
+    <a href="probability.html">확률</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>
