@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir -p \"C:/Users/hssh9/용돈벌이/terms\")"
+      "Bash(mkdir -p \"C:/Users/hssh9/용돈벌이/terms\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('terms.json',encoding='utf-8'\\)\\); print\\('OK', len\\(d\\)\\); slugs=[x['slug'] for x in d]; print\\('dupes:', [s for s in set\\(slugs\\) if slugs.count\\(s\\)>1]\\)\")",
+      "Bash(python -c \"import xml.dom.minidom as m; m.parse\\('sitemap.xml'\\); print\\('XML OK'\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(git show *)",
+      "Bash(cd \"C:\\\\Users\\\\hssh9\\\\용돈벌이\" && ls -la /tmp/terms_orig.json 2>&1; ls -la terms_orig_backup.json 2>&1)",
+      "Bash(node -e \"const d=require\\('./terms.json'\\); console.log\\(Array.isArray\\(d\\)?d.length:Object.keys\\(d\\)\\); \")",
+      "Bash(python3 -c ' *)",
+      "Bash(node -e \"const t=require\\('./terms.json'\\); console.log\\('total', t.length\\); const cats={}; t.forEach\\(x=>x.categories.forEach\\(c=>cats[c]=\\(cats[c]||0\\)+1\\)\\); console.log\\(cats\\);\")",
+      "Bash(node -e \"const t=require\\('./terms.json'\\); console.log\\(t.length\\)\")"
     ]
   }
 }
