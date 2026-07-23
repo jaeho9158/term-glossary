@@ -21,7 +21,12 @@
       .filter((t) => {
         const ko = (t.title_ko || "").toLowerCase();
         const en = (t.title_en || "").toLowerCase();
-        return ko.includes(q) || en.includes(q);
+        const aliases = t.aliases || [];
+        return (
+          ko.includes(q) ||
+          en.includes(q) ||
+          aliases.some((a) => a.toLowerCase().includes(q))
+        );
       })
       .slice(0, 8);
   }

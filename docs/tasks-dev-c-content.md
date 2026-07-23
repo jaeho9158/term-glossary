@@ -16,9 +16,11 @@
   "title_ko": "유의확률",
   "title_en": "p-value",
   "categories": ["stat", "method"],
-  "definition": "..."
+  "definition": "...",
+  "aliases": ["유의값", "p값"]
 }
 ```
+- `aliases`는 검색창에서 정식 명칭(`title_ko`/`title_en`)이 아닌 다른 이름으로 검색해도 이 용어가 나오게 하는 필드 (연관검색어). 예: 표준편차 → `["SD", "std"]`
 - 각 용어는 `terms/<slug>.html` 페이지도 별도로 존재 (예: [terms/anova.html](../terms/anova.html) 참고해서 동일한 HTML 구조로 새 페이지 작성)
 - 카테고리 코드는 12개 중에서 선택: stat, method, tool, ethics, physchem, bioearth, neuro, medhealth, psych, socialecon, eng, cs
 
@@ -26,6 +28,7 @@
 - 기존 용어 중 애매하거나 부실한 정의 개선
 - 아직 없는 용어 신규 추가 — 우선순위: 검색은 많이 되는데 없는 용어 (개발자 A가 만드는 `tg_search_log`에서 0건 검색어 확인해서 우선순위 삼기, 아직 준비 안 됐으면 일단 통계/연구방법론 기초 용어부터)
 - 새 용어 추가 시 **반드시** terms.json 업데이트 + terms/<slug>.html 페이지 생성 두 가지 다 해야 함 (하나만 하면 사이트맵/검색에서 깨짐)
+- terms.json 업데이트 시 **`aliases`(연관검색어)도 같이 채울 것** — 이 용어가 다른 이름/약어/표기법으로도 불리는지 확인해서 배열로 추가 (없으면 빈 배열 `[]`로 명시). 예: 약어(SD, RCT), 다른 한글 표기(카이자승검정), 잘 쓰이는 영문 표기 등. 확신 없는 약한 후보는 넣지 말 것 — 실제로 흔히 쓰이는 이름만.
 
 ### 새 용어 페이지 작성 시 반드시 지킬 형식 (임의 변형 금지)
 
@@ -73,7 +76,7 @@
   ```
 
 **완료 기준**
-- 새 용어마다: terms.json에 slug/title_ko/title_en/categories/definition 다 채워짐, 대응하는 terms/<slug>.html 페이지가 위 9개 항목 형식을 전부 지켜서 실제로 브라우저에서 정상 열림, 홈페이지 카테고리 섹션에 자동으로 노출됨 확인
+- 새 용어마다: terms.json에 slug/title_ko/title_en/categories/definition/aliases 다 채워짐, 대응하는 terms/<slug>.html 페이지가 위 9개 항목 형식을 전부 지켜서 실제로 브라우저에서 정상 열림, 홈페이지 카테고리 섹션에 자동으로 노출됨 확인
 - 정의는 최소 2~3문장, 전문용어 남발하지 않고 처음 보는 사람도 이해할 수 있는 수준으로
 - slug 중복 검사 스크립트 실행 결과 빈 배열, terms.json JSON 유효성 검증 통과
 

@@ -37,7 +37,12 @@ function render(terms, query) {
     if (!q) return true;
     const ko = t.title_ko || "";
     const en = t.title_en || "";
-    return ko.toLowerCase().includes(q) || en.toLowerCase().includes(q);
+    const aliases = t.aliases || [];
+    return (
+      ko.toLowerCase().includes(q) ||
+      en.toLowerCase().includes(q) ||
+      aliases.some((a) => a.toLowerCase().includes(q))
+    );
   });
 
   for (const code of CATEGORY_ORDER) {
