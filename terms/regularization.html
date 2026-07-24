@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Regularization(정규화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Regularization(정규화, L1/L2)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 과적합을 막기 위해 가중치에 벌점을 주는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/regularization.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 정규화 (Regularization)</p>
+  <h1>정규화 (Regularization)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 모델이 특정 가중치에 지나치게 의존하지 않도록, 가중치가 커질수록 손실함수에 벌점을 추가하는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>시험공부를 할 때 답을 통째로 외우면 그 문제집에서는 만점을 받지만, 문제를 조금만 바꿔도 틀리기 쉽습니다. 모델도 마찬가지로 학습 데이터의 세세한 패턴까지 가중치를 크게 키워가며 외워버리면 <a href="overfitting.html">과적합</a>이 생깁니다. 정규화는 "가중치가 너무 커지면 벌점을 매기겠다"는 규칙을 손실함수에 추가해서, 모델이 몇 개의 특징에만 과하게 의존하지 않고 전체적으로 무난하게 학습하도록 유도합니다. 대표적으로 가중치의 절댓값 합에 벌점을 주는 L1(라쏘)과, 가중치의 제곱합에 벌점을 주는 L2(릿지)가 있습니다. L1은 중요하지 않은 가중치를 아예 0으로 만들어 특징을 자동으로 골라내는 효과가 있고, L2는 모든 가중치를 고르게 작게 유지하는 효과가 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"과적합을 완화하기 위해 손실함수에 계수 0.01의 L2 정규화(regularization) 항을 추가하였다."</div>
+  <p>이 문장은 "가중치가 커질수록 손실이 함께 커지도록 벌점 항을 넣어서, 모델이 학습 데이터에만 과도하게 맞춰지는 것을 막았다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>정규화는 뉴런을 무작위로 꺼서 과적합을 막는 <a href="dropout.html">드롭아웃</a>과 자주 혼동되지만, 방식이 다릅니다. 정규화는 손실함수 자체에 벌점을 더해 가중치의 "크기"를 억제하는 방법이고, 드롭아웃은 학습 중 일부 뉴런을 랜덤하게 비활성화하는 방법입니다. 두 기법 모두 과적합을 줄이는 목적은 같지만 함께 사용되는 경우도 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="overfitting.html">과적합</a>
+    <a href="dropout.html">드롭아웃</a>
+    <a href="loss-function.html">손실함수</a>
+    <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

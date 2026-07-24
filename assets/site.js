@@ -1,5 +1,3 @@
-let fuse;
-
 const CATEGORY_LABELS = {
   stat: "통계",
   method: "연구방법론",
@@ -13,39 +11,14 @@ const CATEGORY_LABELS = {
   socialecon: "사회과학·경제학",
   eng: "공학",
   cs: "컴퓨터과학·AI",
+  math: "수학",
 };
 
-const CATEGORY_ORDER = [
-  "stat",
-  "method",
-  "tool",
-  "ethics",
-  "physchem",
-  "bioearth",
-  "neuro",
-  "medhealth",
-  "psych",
-  "socialecon",
-  "eng",
-  "cs"
-];
+const CATEGORY_ORDER = ["stat", "method", "tool", "ethics", "physchem", "bioearth", "neuro", "medhealth", "psych", "socialecon", "eng", "cs", "math"];
 
 async function loadTerms() {
   const res = await fetch("terms.json");
-  const terms = await res.json();
-
-  fuse = new Fuse(terms, {
-    includeScore: true,
-    threshold: 0.45,
-    ignoreLocation: true,
-    minMatchCharLength: 2,
-    keys: [
-      { name: "title_ko", weight: 0.75 },
-      { name: "title_en", weight: 0.2 },
-      { name: "definition", weight: 0.05 }
-    ]
-  });
-  return terms;
+  return res.json();
 }
 
 function termLinkHTML(term) {
@@ -69,17 +42,19 @@ function render(terms, query = "", category = "") {
 
   container.innerHTML = "";
 
-  const q = query
-    .trim()
-    .toLowerCase()
-    .replace(/[()\[\],.:;'"!?]/g, "");
-  let filtered;
+  const q = query.trim().toLowerCase();
 
-  if (!q) {
-    filtered = terms;
-  } else {
-    filtered = fuse.search(q).filter(r => r.score <= 0.45).map(r => r.item);
-  }
+  let filtered = terms.filter((t) => {
+    if (!q) return true;
+    const ko = t.title_ko || "";
+    const en = t.title_en || "";
+    const aliases = t.aliases || [];
+    return (
+      ko.toLowerCase().includes(q) ||
+      en.toLowerCase().includes(q) ||
+      aliases.some((a) => a.toLowerCase().includes(q))
+    );
+  });
 
   if (category) {
     filtered = filtered.filter(term =>

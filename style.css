@@ -51,6 +51,7 @@ header.site-header {
 .site-header nav{
     display:flex;
     align-items:center;
+    flex-shrink:0;
 }
 
 .site-header nav a {
@@ -58,6 +59,8 @@ header.site-header {
   color: var(--muted);
   text-decoration: none;
   font-size: 0.9rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .site-header nav a:hover { color: var(--accent); }
@@ -116,6 +119,24 @@ header.site-header {
   background: var(--bg);
   color: var(--accent);
   outline: none;
+}
+
+.header-search-results li.recent-search-item {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.header-search-results li.recent-search-item::before {
+  content: "🕘 ";
+}
+
+.header-search-results li.recent-search-item:hover {
+  background: var(--bg);
+  color: var(--accent);
 }
 
 @media (max-width: 640px) {
@@ -1180,8 +1201,10 @@ details[open] > .namu-sub-title::before {
         top:100%;
         left:0;
         right:0;
+        z-index:1200;
 
         background:#fff;
+        box-shadow:0 8px 20px rgba(0,0,0,.12);
 
         opacity:0;
         visibility:hidden;
@@ -1222,137 +1245,6 @@ details[open] > .namu-sub-title::before {
     opacity: 1;
     padding-top: 10px;
     padding-bottom: 10px;
-}
-
-.sidebar-search-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--muted);
-  font-size: 1.1rem;
-  line-height: 1;
-  padding: 6px 10px;
-  cursor: pointer;
-  margin-left: 8px;
-}
-.sidebar-search-toggle:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-.search-sidebar {
-  position: fixed;
-  top: 0;
-  right: -350px;
-  width: 350px;
-  max-width: 85vw;
-  height: 100vh;
-  background: var(--card-bg);
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.08);
-  border-left: 1px solid var(--border);
-  z-index: 1000;
-  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-}
-
-.search-sidebar.open {
-  right: 0;
-}
-
-.search-sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.search-sidebar-header h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.search-sidebar-close {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 0 4px;
-  line-height: 1;
-}
-.search-sidebar-close:hover {
-  color: var(--text);
-}
-
-.search-sidebar-input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 0.95rem;
-  background: var(--bg);
-  color: var(--text);
-  outline: none;
-  margin-bottom: 16px;
-  box-sizing: border-box;
-}
-.search-sidebar-input:focus {
-  border-color: var(--accent);
-}
-
-.search-sidebar-results {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-}
-
-.search-sidebar-results li a {
-  display: block;
-  padding: 10px 8px;
-  border-radius: 6px;
-  color: var(--text);
-  text-decoration: none;
-}
-.search-sidebar-results li a:hover,
-.search-sidebar-results li a:focus {
-  background: var(--bg);
-  color: var(--accent);
-}
-
-.search-sidebar-empty {
-  color: var(--muted);
-  font-size: 0.9rem;
-  padding: 8px;
-}
-
-.search-sidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-.search-sidebar-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-@media (max-width: 480px) {
-  .search-sidebar {
-    padding: 16px;
-    width: 300px;
-  }
-  .search-sidebar-header h2 {
-    font-size: 1.1rem;
-  }
 }
 
 .quiz-box{
@@ -1552,15 +1444,6 @@ transform:scale(1);
 .category-more:hover{
     text-decoration:underline;
 }
-
-const more = document.createElement("a");
-more.className = "category-more";
-more.href = `category.html?cat=${code}`;
-more.textContent = "더보기 →";
-
-mainDetails.appendChild(subWrapper);
-mainDetails.appendChild(more);
-container.appendChild(mainDetails);
 
 .namu-sub-title{
     display:flex;
