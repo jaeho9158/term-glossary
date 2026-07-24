@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Process and Thread(프로세스와 스레드)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터공학 논문에 자주 나오는 프로세스(Process)와 스레드(Thread)의 차이를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 병렬 처리와 자원 공유의 원리를 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/process-and-thread.html">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 프로세스와 스레드 (Process and Thread)</p>
+  <h1>프로세스와 스레드 (Process and Thread)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 프로세스는 실행 중인 프로그램 하나하나를 담는 독립된 상자이고, 스레드는 그 상자 안에서 실제로 일을 처리하는 작업 단위입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>회사 건물을 하나의 프로세스라고 생각해봅시다. 건물 안에는 사무실, 회의실, 자재 창고 같은 공용 공간(메모리, 파일 등 자원)이 있고, 이 건물 안에서 여러 직원(스레드)이 동시에 일할 수 있습니다. 직원들은 같은 건물의 자원을 공유하며 협업하기 때문에 빠르게 소통할 수 있지만, 서로 다른 건물(다른 프로세스)에 있는 직원들은 자원을 직접 공유하지 못해 문서를 주고받는 등 더 번거로운 방식으로만 소통할 수 있습니다. 즉, 프로세스는 자원을 독립적으로 소유한 실행 단위이고, 스레드는 같은 프로세스 안에서 자원을 나눠 쓰며 동시에 작업을 처리하는 단위입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 시스템은 입력 데이터를 여러 스레드(thread)로 분할 처리함으로써 단일 프로세스(process) 내에서도 CPU 다중 코어를 효율적으로 활용하도록 설계되었다."</div>
+  <p>이 문장은 프로그램 전체를 여러 개의 독립된 프로그램으로 나누지 않고, 하나의 프로세스 안에서 여러 작업 단위(스레드)를 동시에 돌려 컴퓨터의 여러 코어를 동시에 활용했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>스레드는 프로세스 안의 자원을 함께 쓰기 때문에 속도는 빠르지만, 여러 스레드가 같은 데이터를 동시에 바꾸려 하면 값이 꼬이는 경쟁 상태(race condition) 같은 문제가 생길 수 있습니다. 이런 동시 작업의 순서와 자원 배분을 관리하는 운영체제의 실행 흐름 제어는 프로그램 코드 안의 <a href="control-structures.html">제어구조</a>와는 다른, 운영체제 수준의 스케줄링 문제라는 점을 구분해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="binary-search-tree.html">이진탐색트리</a>
+    <a href="dynamic-programming.html">동적계획법</a>
+    <a href="control-structures.html">제어구조</a>
+    <a href="fault-tolerance.html">결함허용</a>
+    <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>
