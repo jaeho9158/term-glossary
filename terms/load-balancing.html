@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Load Balancing(로드밸런싱)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Load Balancing(로드밸런싱)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 부하 분산이 무슨 뜻인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/load-balancing.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 로드밸런싱 (Load Balancing)</p>
+  <h1>로드밸런싱 (Load Balancing)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 개의 서버가 있을 때, 요청이 특정 서버에만 몰리지 않도록 골고루 나누어 처리하게 만드는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>마트에 계산대가 5개 있는데, 손님들이 모두 1번 계산대 앞에만 줄을 선다면 그 줄만 길어지고 나머지 계산대는 텅 비게 됩니다. 이때 안내 직원이 "이쪽 계산대도 비어 있어요"라고 손님을 분산시켜 준다면 전체적으로 대기 시간이 줄어들겠죠. 로드밸런싱은 이런 안내 직원 역할을 하는 소프트웨어(또는 장비)입니다. 웹사이트에 접속 요청이 몰릴 때, 이를 여러 대의 서버에 골고루 나누어 보내서 한 대만 과부하로 느려지거나 멈추는 일을 막아 줍니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 동적 로드밸런싱 기법은 서버 간 부하 편차를 32% 감소시키고 평균 응답 지연시간을 단축시켰다."</div>
+  <p>이 문장은 "요청을 서버에 분배하는 새로운 방법을 통해, 특정 서버만 과도하게 바빠지는 문제를 줄이고 사용자가 더 빨리 응답을 받게 되었다"는 뜻입니다. 클라우드 컴퓨팅, 대규모 웹 서비스, 분산 시스템 논문에서 성능과 확장성을 논할 때 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>로드밸런싱은 단순히 "요청을 순서대로 하나씩 돌아가며 배분"(라운드 로빈)하는 것부터, 각 서버의 현재 부하 상태를 실시간으로 확인해 가장 여유 있는 곳으로 보내는 정교한 방식까지 다양합니다. 단순한 방식은 구현이 쉽지만 서버 성능이 서로 다르거나 요청 처리 시간이 들쭉날쭉할 때는 비효율적일 수 있습니다. 또한 로드밸런싱만으로는 서버 자체가 완전히 멈추는 상황을 막을 수 없어, <a href="fault-tolerance.html">결함허용</a> 설계나 <a href="redundancy.html">이중화</a>와 함께 쓰이는 경우가 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="redundancy.html">이중화</a>
+    <a href="fault-tolerance.html">결함허용</a>
+    <a href="distributed-consensus.html">분산 합의 알고리즘</a>
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>

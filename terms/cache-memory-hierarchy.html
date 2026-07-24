@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cache Memory Hierarchy(캐시 메모리 계층구조)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cache Memory Hierarchy(캐시 메모리 계층구조)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. L1/L2/L3 캐시가 무슨 뜻인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cache-memory-hierarchy.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 캐시 메모리 계층구조 (Cache Memory Hierarchy)</p>
+  <h1>캐시 메모리 계층구조 (Cache Memory Hierarchy)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 컴퓨터가 자주 쓰는 데이터를 더 빠르지만 용량이 작은 저장장치에 미리 옮겨 두어, 매번 느린 메모리까지 가지 않고도 빠르게 꺼내 쓸 수 있게 만든 여러 단계의 저장 구조입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>자주 읽는 책을 도서관 서고 깊숙한 곳에서 매번 꺼내 오는 대신, 책상 위(가장 빠르지만 몇 권만 놓을 수 있는 공간)나 옆 책장(조금 느리지만 더 많이 놓을 수 있는 공간)에 미리 갖다 두는 것과 같습니다. 컴퓨터도 CPU 바로 옆에 아주 빠르지만 작은 저장공간(L1 캐시)을 두고, 그보다 조금 크고 느린 L2, L3 캐시를 거쳐, 가장 크지만 느린 주기억장치(RAM)로 이어지는 여러 단계를 둡니다. 자주 쓰는 데이터일수록 더 빠른 단계에 남아 있게 되어, 전체적으로 시스템이 훨씬 빠르게 동작합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 데이터 배치 기법은 L2 캐시 적중률(hit rate)을 평균 18% 향상시켜 전체 실행 시간을 단축시켰다."</div>
+  <p>이 문장은 "자주 쓰는 데이터가 캐시에서 발견되는 비율(적중률)을 높이는 방법을 제안했고, 그 결과 프로그램이 더 빨리 끝났다"는 뜻입니다. 컴퓨터 구조, 시스템 소프트웨어, 고성능 컴퓨팅 분야 논문에서 성능 개선을 설명할 때 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>캐시가 크다고 무조건 빠른 것은 아닙니다. 캐시는 용량이 커질수록 검색 속도가 느려지는 경향이 있어, 계층을 나누어 "작지만 빠른 캐시"와 "크지만 상대적으로 느린 캐시"를 함께 쓰는 것입니다. 또한 캐시의 효과는 데이터 접근 패턴(같은 데이터를 반복해서 쓰는지)에 크게 좌우되므로, <a href="time-complexity-big-o.html">시간복잡도</a>가 같은 알고리즘이라도 캐시 활용도에 따라 실제 실행 속도는 크게 달라질 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+    <a href="hash-table.html">해시테이블</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>

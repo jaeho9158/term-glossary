@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Finite State Machine(유한상태기계)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Finite State Machine(유한상태기계)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 상태와 전이가 무슨 뜻인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/finite-state-machine.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 유한상태기계 (Finite State Machine)</p>
+  <h1>유한상태기계 (Finite State Machine)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 시스템이 가질 수 있는 상태들과, 어떤 입력이 들어왔을 때 한 상태에서 다른 상태로 어떻게 옮겨가는지를 정리한 모델입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>신호등을 떠올려 보세요. 신호등은 "빨강", "노랑", "초록"이라는 정해진 상태만 가질 수 있고, 일정 시간이 지나면 정해진 순서대로만 상태가 바뀝니다(빨강 → 초록 → 노랑 → 빨강). 갑자기 빨강에서 노랑을 건너뛰고 초록으로 바뀌는 일은 없습니다. 유한상태기계는 이렇게 "가질 수 있는 상태가 정해져 있고, 상태 사이를 옮겨가는 규칙(전이)도 정해져 있는" 시스템을 표현하는 방법입니다. 자판기, 엘리베이터, 게임 캐릭터의 행동 로직 등 "지금 어떤 상태인지"와 "어떤 조건에서 다음 상태로 넘어가는지"가 명확한 시스템을 설명할 때 널리 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안한 프로토콜의 동작은 유한상태기계로 모델링되었으며, 각 상태 전이는 형식 검증 도구를 통해 안전성이 확인되었다."</div>
+  <p>이 문장은 "시스템이 가질 수 있는 모든 상태와 그 사이의 전이 규칙을 정리한 뒤, 예상치 못한 상태로 빠지지 않는지 자동으로 검증했다"는 뜻입니다. 통신 프로토콜, 임베디드 시스템, 컴파일러의 어휘 분석기(lexer) 설계 등에서 자주 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>유한상태기계는 "상태의 개수가 유한하다"는 전제를 깔고 있습니다. 상태나 조건이 무한히 늘어날 수 있는 복잡한 시스템(예: 스택을 활용하는 문법 분석)은 유한상태기계만으로는 표현할 수 없고, 더 강력한 모델(푸시다운 오토마타 등)이 필요합니다. 또한 상태 전이 로직이 <a href="control-structures.html">제어구조</a>의 조건문과 비슷해 보이지만, 유한상태기계는 "현재 상태"라는 개념을 명시적으로 관리한다는 점에서 차이가 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="control-structures.html">제어구조</a>
+    <a href="algorithm-bias.html">알고리즘편향</a>
+    <a href="recursive-function.html">재귀함수</a>
+    <a href="boolean-logic-operations.html">논리 연산 AND/OR/NOT</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>

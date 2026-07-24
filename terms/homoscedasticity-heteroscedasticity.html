@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>homoscedasticity & heteroscedasticity(등분산성과 이분산성)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 homoscedasticity & heteroscedasticity(등분산성과 이분산성)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 회귀분석 가정 위반이 왜 문제인지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/homoscedasticity-heteroscedasticity.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 등분산성과 이분산성 (homoscedasticity &amp; heteroscedasticity)</p>
+  <h1>등분산성과 이분산성 (homoscedasticity &amp; heteroscedasticity)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 등분산성은 예측값 전체 구간에서 오차의 흩어진 정도(분산)가 일정한 것을, 이분산성은 그 흩어진 정도가 구간마다 달라지는 것을 뜻합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>월 소득으로 월 지출을 예측하는 회귀모형을 생각해봅시다. 소득이 낮은 사람들은 지출도 거의 비슷비슷하게 적지만, 소득이 높은 사람들은 어떤 사람은 거의 다 쓰고 어떤 사람은 거의 저축해서 지출 편차가 훨씬 크게 벌어집니다. 이렇게 예측변수(소득) 값에 따라 오차의 흩어진 정도가 나팔 모양처럼 점점 커지거나 작아지는 상태를 <b>이분산성(heteroscedasticity)</b>이라고 합니다. 반대로 오차의 흩어진 정도가 예측변수 값과 상관없이 어디서나 고르게 퍼져 있으면 <b>등분산성(homoscedasticity)</b>이라고 합니다. <a href="regression.html">회귀분석</a>의 표준적인 검정통계량과 신뢰구간은 등분산성을 전제로 계산되기 때문에, 이분산성이 있으면 이 값들이 왜곡될 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"Breusch-Pagan 검정 결과 잔차의 이분산성이 확인되어(p&lt;0.01), 강건표준오차(robust standard error)를 적용한 회귀모형으로 재분석하였다."</div>
+  <p>이 문장은 "회귀모형의 오차가 등분산 가정을 위반하고 있음을 통계적으로 확인했고, 이를 보정하기 위해 표준오차 계산 방식을 바꾼 모형을 다시 돌렸다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>이분산성은 회귀계수 추정치 자체를 왜곡시키지는 않지만, 표준오차와 이에 기반한 <a href="p-value.html">유의확률</a>·<a href="confidence-interval.html">신뢰구간</a>을 부정확하게 만들어 통계적으로 유의하지 않은 결과를 유의한 것처럼(또는 그 반대로) 보이게 할 수 있습니다. 잔차 산점도를 그려보지 않고 등분산성을 당연히 만족한다고 가정한 채 결과를 해석하는 것은 흔한 실수입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="regression.html">회귀분석</a>
+    <a href="multicollinearity.html">다중공선성</a>
+    <a href="standard-error.html">표준오차</a>
+    <a href="r-squared.html">결정계수</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>
