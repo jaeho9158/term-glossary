@@ -9,6 +9,33 @@
   let fuse = null;
   let activeIndex = -1;
 
+  const SUPABASE_URL = "https://schdtmdpgexsacxzozso.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjaGR0bWRwZ2V4c2FjeHpvenNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzI1MjMsImV4cCI6MjA5OTEwODUyM30.OT0YaKOmPwnQcfvqqwRut6aJFJ98k_pdOiE4yTUmitY";
+  const loggedZeroResultQueries = new Set();
+  let zeroResultLogTimer = null;
+
+  function logZeroResultSearch(query, resultCount) {
+    const q = query.trim();
+    if (q.length < 2 || loggedZeroResultQueries.has(q)) return;
+    loggedZeroResultQueries.add(q);
+    fetch(`${SUPABASE_URL}/rest/v1/tg_search_log`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({ query: q, result_count: resultCount }),
+    }).catch(() => {});
+  }
+
+  function scheduleZeroResultLog(query, resultCount) {
+    clearTimeout(zeroResultLogTimer);
+    if (resultCount !== 0) return;
+    zeroResultLogTimer = setTimeout(() => logZeroResultSearch(query, resultCount), 600);
+  }
+
   async function loadTerms() {
     if (terms) return terms;
     const res = await fetch(base + "terms.json");
@@ -90,7 +117,9 @@
       renderRecent();
       return;
     }
-    renderResults(matchResults(value));
+    const matches = matchResults(value);
+    renderResults(matches);
+    scheduleZeroResultLog(value, matches.length);
   });
 
   input.addEventListener("keydown", (e) => {
