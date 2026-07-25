@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>vector-database(벡터 데이터베이스)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 vector-database(벡터 데이터베이스)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 임베딩 검색이 무엇인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/vector-database.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 벡터 데이터베이스 (vector database)</p>
+  <h1>벡터 데이터베이스 (vector database)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 텍스트나 이미지를 숫자 벡터로 바꿔 저장해두고, "의미가 비슷한 것"을 빠르게 찾아주는 데이터베이스입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>도서관에서 책을 제목의 알파벳 순서로 찾는 대신, "내용이 비슷한 책"끼리 가까운 책장에 꽂아두고 찾는다고 생각해봅시다. 벡터 데이터베이스는 문장이나 이미지를 임베딩(숫자 벡터)으로 변환한 뒤, 벡터끼리의 거리(유사도)를 계산해서 "의미상 가장 가까운 것"을 순식간에 찾아줍니다. 수백만 개의 문서 중에서 질문과 가장 관련 있는 문단을 찾아내는 식으로 동작합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"질의문을 임베딩 벡터로 변환한 뒤 벡터 데이터베이스에서 코사인 유사도 기준 상위 5개 문서를 검색하였다."</div>
+  <p>이 문장은 사용자의 질문을 벡터로 바꾸고, 미리 저장해둔 문서 벡터들과 비교해서 가장 유사한 문서 5개를 찾아냈다는 뜻입니다. 이렇게 찾은 문서는 흔히 검색 증강 생성의 입력으로 활용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>벡터 데이터베이스는 단순히 벡터를 저장만 하는 것이 아니라, 대규모 벡터 중에서도 유사한 것을 빠르게 찾아내는 근사 최근접 이웃(ANN) 검색 구조가 핵심입니다. 벡터 자체가 무엇을 의미하는지는 <a href="embedding.html">임베딩</a> 과정에서 결정되므로, 검색 품질은 좋은 임베딩 모델에 크게 좌우됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="embedding.html">임베딩</a>
+    <a href="retrieval-augmented-generation.html">검색 증강 생성</a>
+    <a href="latent-space.html">잠재 공간</a>
+    <a href="hash-table.html">해시 테이블</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>

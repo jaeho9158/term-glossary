@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>containerization(컨테이너화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 containerization(컨테이너화)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. Docker와 재현성이 무슨 관계인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/containerization.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 컨테이너화 (containerization)</p>
+  <h1>컨테이너화 (containerization)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 애플리케이션과 그 실행에 필요한 라이브러리·설정을 하나의 격리된 실행 단위(컨테이너)로 묶어, 어떤 환경에서도 동일하게 실행되도록 만드는 가상화 기술입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>이사할 때 짐을 종류별로 흩어서 트럭에 싣는 대신, 필요한 물건을 전부 하나의 이삿짐 박스에 담아두면 어디로 옮기든 그대로 풀어서 쓸 수 있습니다. 컨테이너화도 마찬가지로, 프로그램 코드와 그 프로그램이 필요로 하는 라이브러리 버전, 설정 파일을 하나의 상자(컨테이너)에 묶어 둡니다. 그래서 연구자의 노트북에서 실행되던 코드가 서버나 다른 사람의 컴퓨터에서도 "내 환경에선 되는데 거기선 안 된다"는 문제 없이 똑같이 돌아갑니다. 대표적인 도구가 Docker입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"재현성을 확보하기 위해 전처리 및 학습 파이프라인 전체를 Docker 컨테이너로 배포하였다."</div>
+  <p>이 문장은 실험 환경(파이썬 버전, 라이브러리 의존성 등)을 컨테이너 하나로 고정해서, 다른 연구자가 동일한 결과를 재현할 수 있도록 했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>컨테이너화는 하나의 운영체제 커널을 여러 컨테이너가 공유하는 방식이어서, 하드웨어 전체를 통째로 가상화하는 전통적 가상머신보다 가볍고 빠릅니다. <a href="process-and-thread.html">프로세스와 스레드</a>가 하나의 운영체제 안에서 자원을 나누는 단위라면, 컨테이너는 운영체제 실행 환경 자체를 격리해 묶는 단위라는 점에서 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+    <a href="load-balancing.html">로드 밸런싱</a>
+    <a href="fault-tolerance.html">결함 허용</a>
+    <a href="distributed-consensus.html">분산 합의</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>
