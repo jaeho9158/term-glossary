@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Signal Filter(신호 필터)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Signal Filter(신호 필터, 저역/고역통과 필터)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 원하는 주파수만 남기는 원리를, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/signal-filter.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 신호 필터 (Signal Filter)</p>
+  <h1>신호 필터 (Signal Filter)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 측정된 신호에서 원하는 주파수 성분은 통과시키고 원치 않는 주파수 성분(노이즈 등)은 걸러내는 신호처리 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>커피 필터를 생각해보세요. 원두 찌꺼기는 걸러내고 커피만 통과시키죠. 신호 필터도 원리가 비슷합니다. "저역통과 필터"는 낮은 주파수 성분만 통과시키고 높은 주파수의 잡음은 걸러내며, "고역통과 필터"는 반대로 높은 주파수만 통과시키고 낮은 주파수의 흔들림(드리프트)을 제거합니다. 어떤 주파수를 남기고 어떤 주파수를 버릴지는 분석하려는 신호의 특성에 따라 결정합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"센서에서 수집된 신호에는 60Hz 전원 노이즈가 포함되어 있어, 차단 주파수 10Hz의 저역통과 필터를 적용하여 잡음을 제거한 뒤 분석에 사용하였다."</div>
+  <p>이 문장은 원래 신호에 섞여 있던 불필요한 고주파 잡음을, 특정 주파수 이상을 차단하는 필터로 제거한 뒤 깨끗해진 신호로 분석을 진행했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>필터의 차단 주파수를 너무 낮게 잡으면 잡음뿐 아니라 분석하려는 실제 신호 성분까지 함께 사라질 수 있습니다. 단순 주파수 필터와 달리, 시스템의 상태를 추정하면서 잡음을 줄이는 <a href="kalman-filter.html">칼만 필터</a>는 다른 접근 방식이므로 혼동하지 않아야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="signal-processing.html">신호처리</a>
+    <a href="signal-to-noise-ratio.html">신호대잡음비</a>
+    <a href="kalman-filter.html">칼만 필터</a>
+    <a href="electromagnetic-interference.html">전자기간섭</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>

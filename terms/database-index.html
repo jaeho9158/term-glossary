@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Database Index(데이터베이스 인덱스)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문과 시스템 설계 문서에 자주 나오는 데이터베이스 인덱스(Database Index)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/database-index.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 데이터베이스 인덱스 (Database Index)</p>
+  <h1>데이터베이스 인덱스 (Database Index)</h1>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 책의 찾아보기(색인)처럼, 데이터베이스에서 원하는 데이터를 전체를 다 뒤지지 않고도 빠르게 찾을 수 있도록 미리 정리해둔 별도의 자료구조입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>두꺼운 전공 서적에서 "미토콘드리아"라는 단어를 찾는다고 생각해봅시다. 책 앞부터 한 장씩 넘기며 찾을 수도 있지만, 책 뒤에 있는 "찾아보기"에서 페이지 번호를 확인하면 훨씬 빠릅니다. 데이터베이스 인덱스도 마찬가지입니다. 수백만 개의 행이 있는 표에서 특정 값을 찾을 때, 인덱스가 없으면 처음부터 끝까지 전부 확인해야 하지만, 인덱스가 있으면 정렬된 목록에서 위치를 바로 찾아갈 수 있어 검색 속도가 크게 빨라집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"사용자 ID 컬럼에 인덱스를 적용한 결과, 평균 조회 응답 시간이 320ms에서 12ms로 단축되었다."</div>
+  <p>이 문장은 자주 검색되는 열에 인덱스라는 보조 구조를 추가함으로써, 데이터를 찾는 속도가 실제로 크게 개선되었다는 실험 결과를 보고하는 것입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>인덱스는 검색 속도를 높여주지만 공짜가 아닙니다. 인덱스 자체도 저장 공간을 차지하고, 데이터를 새로 추가하거나 수정할 때마다 함께 갱신해야 하므로 쓰기 작업은 오히려 느려질 수 있습니다. 그래서 <a href="database-normalization.html">데이터베이스 정규화</a>와 마찬가지로, 무조건 많이 적용하기보다 조회 패턴에 맞춰 필요한 곳에만 신중하게 설계해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="database-normalization.html">데이터베이스 정규화</a>
+    <a href="hash-table.html">해시테이블</a>
+    <a href="binary-search-tree.html">이진탐색트리</a>
+    <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+</body>
+</html>
