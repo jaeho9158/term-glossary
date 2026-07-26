@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { renderHeader, renderFooter } = require("./templates/site-chrome");
+const { renderHeader, renderFooter, renderThemeInit } = require("./templates/site-chrome");
 
 const ROOT_DIR = path.join(__dirname, "..");
 
@@ -50,6 +50,7 @@ function buildManifest() {
 
 const HEADER_BLOCK = /<header class="site-header[^"]*">[\s\S]*?<\/header>/;
 const FOOTER_BLOCK = /<footer class="site-footer[^"]*">[\s\S]*?<\/footer>/;
+const THEME_INIT_BLOCK = /<!-- theme-init:start -->[\s\S]*?<!-- theme-init:end -->\n?/;
 
 function buildPage({ file, basePath, navCta, authNav }) {
   const filePath = path.join(ROOT_DIR, file);
@@ -64,9 +65,16 @@ function buildPage({ file, basePath, navCta, authNav }) {
   const footerClassMatch = /class="(site-footer[^"]*)"/.exec(footerMatch[0]);
   const footerClass = footerClassMatch[1];
 
-  const nextHtml = html
+  let nextHtml = html
     .replace(HEADER_BLOCK, renderHeader(basePath, { navCta, authNav }))
     .replace(FOOTER_BLOCK, renderFooter(basePath).replace("site-footer", footerClass));
+
+  const themeInit = renderThemeInit() + "\n";
+  if (THEME_INIT_BLOCK.test(nextHtml)) {
+    nextHtml = nextHtml.replace(THEME_INIT_BLOCK, themeInit);
+  } else {
+    nextHtml = nextHtml.replace("</head>", themeInit + "</head>");
+  }
 
   fs.writeFileSync(filePath, nextHtml, "utf8");
   return nextHtml !== html;

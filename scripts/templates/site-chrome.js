@@ -21,6 +21,14 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
       <ul id="global-term-search-results" class="header-search-results" hidden></ul>
     </div>
     <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
       id="menu-toggle"
       class="menu-toggle"
       aria-label="메뉴"
@@ -37,6 +45,12 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 </header>`;
 }
 
+function renderThemeInit() {
+  return `<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->`;
+}
+
 function renderFooter(basePath) {
   return `<footer class="site-footer">
   <p>&copy; 2026 ${SITE_TITLE}. All rights reserved.</p>
@@ -44,4 +58,4 @@ function renderFooter(basePath) {
 </footer>`;
 }
 
-module.exports = { SITE_TITLE, renderHeader, renderFooter };
+module.exports = { SITE_TITLE, renderHeader, renderFooter, renderThemeInit };
