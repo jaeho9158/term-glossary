@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>카테고리별 용어 목록 - 논문용어사전</title>
+<meta name="description" content="통계, 연구방법론, 물리학·화학, 생물학·지구과학 등 분야별로 논문 학술용어를 모아봅니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/category.html">
+<link rel="stylesheet" href="style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+</head>
+<body data-base="">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="index.html">용어 목록</a>
+      <a href="viewer.html" class="nav-cta">논문 뷰어</a>
+      <a href="about.html">소개</a>
+      <a href="contact.html">문의</a>
+      <a href="login.html" id="nav-login">로그인</a>
+      <a href="signup.html" id="nav-signup">회원가입</a>
+      <a href="history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+<main class="delay-1">
+  <p class="breadcrumb"><a href="index.html">용어 목록</a> &gt; <span id="category-page-title">카테고리별 용어</span></p>
+  <h1 id="category-page-heading">카테고리별 용어</h1>
+  <p class="subtitle" id="category-page-subtitle">분야를 선택해 관련 용어를 모아봅니다.</p>
+
+  <div id="category-sections"></div>
+  <noscript>
+    <p>이 페이지는 자바스크립트가 필요합니다. <a href="index.html">전체 용어 목록</a>에서 확인해주세요.</p>
+  </noscript>
+
+  <script src="assets/category-data.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+    (function () {
+      const code = new URLSearchParams(location.search).get("cat");
+      const label = code && window.CATEGORY_LABELS ? window.CATEGORY_LABELS[code] : null;
+      if (label) {
+        document.title = `${label} 용어 목록 - 논문용어사전`;
+        document.getElementById("category-page-title").textContent = label;
+        document.getElementById("category-page-heading").textContent = `${label} 용어`;
+        document.getElementById("category-page-subtitle").textContent = `${label} 분야의 논문 학술용어를 모아봅니다.`;
+      }
+    })();
+  </script>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
+</footer>
+<script src="assets/vendor/fuse.min.js"></script>
+<script src="assets/header-search.js"></script>
+<script type="module" src="assets/nav-auth.js"></script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>

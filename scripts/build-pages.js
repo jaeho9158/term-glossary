@@ -12,6 +12,7 @@ const AUTH_NAV_EXCEPTIONS = {
 const TOP_LEVEL_PAGES = [
   "index.html",
   "viewer.html",
+  "category.html",
   "about.html",
   "contact.html",
   "privacy.html",
