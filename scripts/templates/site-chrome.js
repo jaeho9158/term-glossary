@@ -1,8 +1,16 @@
 const SITE_TITLE = "논문용어사전";
 
-function renderHeader(basePath, { navCta = true } = {}) {
+function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
   const viewerLink = navCta
     ? `\n      <a href="${basePath}viewer.html" class="nav-cta">논문 뷰어</a>`
+    : "";
+
+  const authLinks = authNav
+    ? `
+      <a href="${basePath}login.html" id="nav-login">로그인</a>
+      <a href="${basePath}signup.html" id="nav-signup">회원가입</a>
+      <a href="${basePath}history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>`
     : "";
 
   return `<header class="site-header">
@@ -23,11 +31,7 @@ function renderHeader(basePath, { navCta = true } = {}) {
     <nav id="site-nav" class="site-nav">
       <a href="${basePath}index.html">용어 목록</a>${viewerLink}
       <a href="${basePath}about.html">소개</a>
-      <a href="${basePath}contact.html">문의</a>
-      <a href="${basePath}login.html" id="nav-login">로그인</a>
-      <a href="${basePath}signup.html" id="nav-signup">회원가입</a>
-      <a href="${basePath}history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
+      <a href="${basePath}contact.html">문의</a>${authLinks}
     </nav>
   </div>
 </header>`;
