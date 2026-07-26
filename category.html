@@ -73,10 +73,11 @@
       const code = new URLSearchParams(location.search).get("cat");
       const label = code && window.CATEGORY_LABELS ? window.CATEGORY_LABELS[code] : null;
       if (label) {
+        const desc = window.CATEGORY_DESCRIPTIONS ? window.CATEGORY_DESCRIPTIONS[code] : null;
         document.title = `${label} 용어 목록 - 논문용어사전`;
         document.getElementById("category-page-title").textContent = label;
         document.getElementById("category-page-heading").textContent = `${label} 용어`;
-        document.getElementById("category-page-subtitle").textContent = `${label} 분야의 논문 학술용어를 모아봅니다.`;
+        document.getElementById("category-page-subtitle").textContent = desc || `${label} 분야의 논문 학술용어를 모아봅니다.`;
       }
     })();
   </script>
