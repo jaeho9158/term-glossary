@@ -38,7 +38,7 @@
 
   async function loadTerms() {
     if (terms) return terms;
-    const res = await fetch(base + "terms.json");
+    const res = await fetch(base + "terms-index.json");
     terms = await res.json();
     fuse = new Fuse(terms, {
       includeScore: true,
@@ -46,10 +46,9 @@
       ignoreLocation: true,
       minMatchCharLength: 1,
       keys: [
-        { name: "title_ko", weight: 0.5 },
+        { name: "title_ko", weight: 0.55 },
         { name: "title_en", weight: 0.3 },
         { name: "aliases", weight: 0.15 },
-        { name: "definition", weight: 0.05 },
       ],
     });
     return terms;

@@ -17,7 +17,7 @@ const CATEGORY_LABELS = {
 const CATEGORY_ORDER = ["stat", "method", "tool", "ethics", "physchem", "bioearth", "neuro", "medhealth", "psych", "socialecon", "eng", "cs", "math"];
 
 async function loadTerms() {
-  const res = await fetch("terms.json");
+  const res = await fetch("terms-index.json");
   return res.json();
 }
 
