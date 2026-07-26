@@ -57,6 +57,35 @@ async function loadHistory(userId) {
   listEl.innerHTML = data.map(rowHTML).join("");
 }
 
+function bookmarkRowHTML(row) {
+  return `<li class="history-item" data-id="${row.id}">
+    <span class="history-badge history-badge-term">용어</span>
+    <span class="history-title"><a href="terms/${encodeURIComponent(row.term_slug)}.html">${escapeHtml(row.term_title)}</a></span>
+    <span class="history-time">${formatDate(row.created_at)}</span>
+    <button type="button" class="history-delete-btn" data-id="${row.id}">삭제</button>
+  </li>`;
+}
+
+async function loadBookmarks(userId) {
+  const listEl = document.getElementById("bookmark-list");
+  const emptyEl = document.getElementById("bookmark-empty");
+
+  const { data, error } = await supabase
+    .from("tg_bookmarks")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error || !data || data.length === 0) {
+    listEl.innerHTML = "";
+    emptyEl.hidden = false;
+    return;
+  }
+
+  emptyEl.hidden = true;
+  listEl.innerHTML = data.map(bookmarkRowHTML).join("");
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const loggedOutEl = document.getElementById("history-logged-out");
   const loggedInEl = document.getElementById("history-logged-in");
@@ -74,6 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const userId = session.user.id;
   await loadHistory(userId);
+  await loadBookmarks(userId);
 
   document.getElementById("history-list").addEventListener("click", async (e) => {
     const btn = e.target.closest(".history-delete-btn");
@@ -86,6 +116,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       const listEl = document.getElementById("history-list");
       if (listEl.children.length === 0) {
         document.getElementById("history-empty").hidden = false;
+      }
+    } else {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById("bookmark-list").addEventListener("click", async (e) => {
+    const btn = e.target.closest(".history-delete-btn");
+    if (!btn) return;
+    const id = btn.dataset.id;
+    btn.disabled = true;
+    const { error } = await supabase.from("tg_bookmarks").delete().eq("id", id);
+    if (!error) {
+      btn.closest(".history-item").remove();
+      const listEl = document.getElementById("bookmark-list");
+      if (listEl.children.length === 0) {
+        document.getElementById("bookmark-empty").hidden = false;
       }
     } else {
       btn.disabled = false;
