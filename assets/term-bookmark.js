@@ -26,16 +26,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     labelEl.textContent = bookmarked ? "즐겨찾기됨" : "즐겨찾기";
   }
 
-  const { data } = await supabase
-    .from("tg_bookmarks")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("term_slug", slug)
-    .maybeSingle();
+const { data, error: loadError } = await supabase
+  .from("tg_bookmarks")
+  .select("id")
+  .eq("user_id", userId)
+  .eq("term_slug", slug)
+  .maybeSingle();
 
-  bookmarked = !!data;
-  btn.hidden = false;
-  render();
+if (loadError) {
+  console.error("북마크 조회 실패:", loadError);
+  return;
+}
+
+bookmarked = !!data;
+btn.hidden = false;
+render();
 
   btn.addEventListener("click", async () => {
     btn.disabled = true;
