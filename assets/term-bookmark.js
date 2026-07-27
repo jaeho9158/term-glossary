@@ -77,4 +77,5 @@ btn.addEventListener("click", async () => {
   } finally {
     btn.disabled = false;
   }
+  });
 });
