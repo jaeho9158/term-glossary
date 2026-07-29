@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Federated Learning(연합 학습)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터과학 논문에 자주 나오는 Federated Learning(연합 학습)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/federated-learning.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 연합 학습 (Federated Learning)</p>
+  <h1>연합 학습 (Federated Learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 기기나 기관에 흩어진 데이터를 한곳에 모으지 않고, 각자 로컬에서 모델을 학습한 뒤 그 결과만 합쳐 하나의 모델을 만드는 분산 학습 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 병원이 협력해서 더 좋은 진단 AI를 만들고 싶지만, 환자 개인정보가 담긴 원본 데이터를 서로 주고받을 수는 없다고 해봅시다. 연합 학습에서는 각 병원이 자기 데이터로 각자 모델을 조금씩 학습시킨 다음, "원본 데이터"가 아니라 "학습으로 조정된 모델의 내용(가중치 변화량)"만 중앙 서버로 보냅니다. 중앙 서버는 여러 병원에서 온 이 결과들을 평균 내어 하나의 더 똑똑한 모델을 만들고, 다시 각 병원에 나눠줍니다. 이 과정을 반복하면 데이터 자체는 한 번도 병원 밖으로 나가지 않으면서도 여러 곳의 데이터를 활용한 효과를 얻을 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 5개 의료기관의 데이터를 직접 공유하지 않고 연합 학습(federated learning)을 통해 폐렴 진단 모델을 학습하였으며, 중앙집중식 학습 대비 유사한 성능을 달성했다."</div>
+  <p>이 문장은 여러 기관의 원본 데이터를 모으지 않고도, 각 기관에서 학습한 결과만 합쳐서 중앙집중식 학습과 비슷한 성능의 모델을 만들었다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>연합 학습은 개인정보를 보호할 수 있지만, 기기마다 데이터의 양과 성격이 크게 다른 경우(비독립동일분포, non-IID) 학습이 불안정해지거나 느려질 수 있습니다. 또한 각 기기와 서버 간의 통신 비용도 별도로 고려해야 하며, <a href="transfer-learning.html">전이학습</a>과는 "데이터를 모으지 않고 학습한다"는 점에서 구분됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="transfer-learning.html">전이학습</a>
+    <a href="self-supervised-learning.html">자기지도학습</a>
+    <a href="distributed-consensus.html">분산 합의 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

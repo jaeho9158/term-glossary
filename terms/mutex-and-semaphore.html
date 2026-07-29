@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mutex and Semaphore(뮤텍스와 세마포어)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터과학 논문에 자주 나오는 Mutex and Semaphore(뮤텍스와 세마포어)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/mutex-and-semaphore.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 뮤텍스와 세마포어 (Mutex and Semaphore)</p>
+  <h1>뮤텍스와 세마포어 (Mutex and Semaphore)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 프로세스나 스레드가 공유 자원에 동시에 접근하지 못하도록 순서를 조율하는 동기화 도구입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>뮤텍스는 화장실 열쇠와 비슷합니다. 열쇠는 하나뿐이라 한 사람이 들고 들어가면 다른 사람은 반납될 때까지 밖에서 기다려야 합니다. 세마포어는 좀 더 유연해서, "동시에 최대 3명까지만 입장 가능"이라고 적힌 좌석표와 비슷합니다. 정해진 개수만큼은 동시에 들어갈 수 있고, 자리가 다 차면 누군가 나올 때까지 기다립니다. 즉 뮤텍스는 "한 번에 하나만" 허용하는 잠금이고, 세마포어는 "한 번에 N개까지" 허용하는 좀 더 일반화된 잠금이라고 볼 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"공유 버퍼에 대한 동시 접근을 막기 위해 뮤텍스(mutex)로 임계 구역(critical section)을 보호했으며, 커넥션 풀의 동시 사용 개수는 세마포어(semaphore)로 제한했다."</div>
+  <p>이 문장은 여러 스레드가 같은 데이터를 동시에 건드리지 못하게 뮤텍스로 막고, 동시에 쓸 수 있는 자원의 개수는 세마포어로 관리했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>뮤텍스나 세마포어를 잘못 사용하면 <a href="race-condition.html">경쟁 상태(race condition)</a>를 막으려다 오히려 <a href="deadlock.html">교착 상태(deadlock)</a>를 만들 수 있습니다. 예를 들어 여러 개의 락을 서로 다른 순서로 잠그면 두 스레드가 서로의 락을 기다리며 멈춰버릴 수 있으므로, 락을 획득하는 순서를 항상 일정하게 유지하는 것이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="race-condition.html">경쟁 상태</a>
+    <a href="deadlock.html">교착 상태</a>
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

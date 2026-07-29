@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Deadlock(교착 상태)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터과학 논문에 자주 나오는 Deadlock(교착 상태)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 발생 조건과 논문 예문을 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/deadlock.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 교착 상태 (Deadlock)</p>
+  <h1>교착 상태 (Deadlock)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 둘 이상의 프로세스나 스레드가 서로 상대방이 점유한 자원을 기다리며 무한정 멈춰 있는 상태입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>좁은 외길 다리 위에서 양쪽에서 온 자동차 두 대가 마주쳤다고 생각해보세요. 서로 "네가 먼저 후진해"라며 양보를 기다리기만 하면 두 차 모두 영원히 움직이지 못합니다. 컴퓨터 프로그램에서도 이런 일이 벌어집니다. 프로세스 A는 자원 1을 가진 채 자원 2를 기다리고, 프로세스 B는 자원 2를 가진 채 자원 1을 기다리면, 둘 다 서로가 자원을 놓아주기만 기다리다가 영원히 멈춰버립니다. 이 상태가 바로 교착 상태입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"두 트랜잭션이 서로 다른 순서로 락(lock)을 획득할 경우 교착 상태(deadlock)에 빠질 수 있어, 락 획득 순서를 고정하는 방식으로 이를 방지했다."</div>
+  <p>이 문장은 데이터베이스 트랜잭션들이 자원을 잠그는 순서가 뒤엉키면 서로 기다리다 멈추는 문제가 생길 수 있어, 항상 같은 순서로 자원을 잠그도록 규칙을 정해 해결했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>교착 상태는 <a href="race-condition.html">경쟁 상태(race condition)</a>와 헷갈리기 쉽지만 다른 개념입니다. 경쟁 상태는 결과가 실행 순서에 따라 잘못 나오는 문제이고, 교착 상태는 아예 진행 자체가 멈춰버리는 문제입니다. <a href="mutex-and-semaphore.html">뮤텍스와 세마포어</a> 같은 동기화 도구도 사용 방식이 잘못되면 오히려 교착 상태를 유발할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="race-condition.html">경쟁 상태</a>
+    <a href="mutex-and-semaphore.html">뮤텍스와 세마포어</a>
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+    <a href="distributed-consensus.html">분산 합의 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

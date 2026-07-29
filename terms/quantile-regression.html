@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Quantile Regression(분위수회귀)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Quantile Regression(분위수회귀)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 평균이 아닌 분포 전체를 보는 이유를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/quantile-regression.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 분위수회귀 (Quantile Regression)</p>
+  <h1>분위수회귀 (Quantile Regression)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 독립변수가 종속변수의 "평균"이 아니라 중앙값이나 상위 10% 등 특정 분위수(percentile)에 어떤 영향을 미치는지를 각각 추정하는 회귀분석 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>일반적인 회귀분석은 "평균적으로" 독립변수가 1 늘어나면 결과가 얼마나 변하는지 하나의 숫자로 요약합니다. 하지만 소득처럼 분포가 한쪽으로 치우친 변수라면, 교육 연수가 소득에 미치는 영향이 저소득층과 고소득층에서 서로 다를 수 있습니다. 분위수회귀는 "하위 10% 지점", "중앙값(50%)", "상위 10% 지점"처럼 분포의 여러 지점마다 독립변수의 영향을 따로 계산해줍니다. 그 결과 "교육은 저소득층의 소득을 크게 끌어올리지만, 고소득층에는 상대적으로 영향이 작다"처럼 평균만 봐서는 알 수 없는 그림을 볼 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"분위수회귀분석 결과, 교육수준이 소득 분포의 하위 25분위에 미치는 영향이 상위 75분위보다 통계적으로 유의하게 컸다."</div>
+  <p>이 문장은 교육이 소득에 주는 효과가 모든 사람에게 똑같지 않고, 소득이 낮은 집단에서 더 크게 나타났다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>분위수회귀는 <a href="regression.html">회귀분석</a>과 달리 평균이 아닌 분위수를 추정하기 때문에, 계수의 해석 시 "평균적으로"가 아니라 "해당 분위수 지점에서"라는 표현을 써야 합니다. 또한 여러 분위수에서 각각 다른 결과가 나올 수 있으므로, 일부 분위수 결과만 골라 보고하면 <a href="p-hacking.html">p-해킹</a>처럼 자의적인 해석으로 비칠 수 있어 주요 분위수 결과를 함께 제시하는 것이 바람직합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="regression.html">회귀분석</a>
+    <a href="homoscedasticity-heteroscedasticity.html">동분산성·이분산성</a>
+    <a href="outlier.html">이상치</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
