@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>k-means clustering(k-평균 군집화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 k-means clustering(k-평균 군집화)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 데이터를 자동으로 그룹 짓는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/k-means-clustering.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; k-평균 군집화 (k-means clustering)</p>
+  <h1>k-평균 군집화 (k-means clustering)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 미리 정해둔 개수(k개)만큼 데이터를 서로 비슷한 것끼리 자동으로 묶어주는 대표적인 군집화(클러스터링) 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 고객의 구매 데이터를 보고 "이 고객들을 몇 가지 유형으로 나눠보고 싶다"고 할 때, 미리 유형을 정해두지 않고도 데이터 스스로 비슷한 것끼리 모이게 할 수 있습니다. k-평균 군집화는 먼저 "그룹을 몇 개로 나눌지(k)"를 정한 다음, 각 그룹의 중심점을 임의로 찍고, 모든 데이터를 가장 가까운 중심점에 배정합니다. 그다음 각 그룹에 배정된 데이터들의 평균 위치로 중심점을 다시 옮기고, 이 과정을 데이터들의 소속이 더 이상 바뀌지 않을 때까지 반복합니다. 결과적으로 서로 비슷한 특징을 가진 데이터끼리 자연스럽게 뭉치게 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"고객 구매 패턴 데이터에 k-평균 군집화를 적용한 결과, 실루엣 계수 기준으로 k=4일 때 가장 뚜렷하게 구분되는 4개의 소비자 유형이 도출되었다."</div>
+  <p>이 문장은 연구자가 몇 개의 그룹으로 나누는 것이 가장 자연스러운지(k=4)를 사전에 탐색한 뒤, 그 기준에 따라 고객들을 4개의 유형으로 자동 분류했다는 뜻입니다. 실루엣 계수는 각 데이터가 자신이 속한 그룹과는 가깝고 다른 그룹과는 멀리 떨어져 있는지를 수치로 평가하는 지표입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>k-평균 군집화는 그룹 개수 k를 분석자가 미리 정해줘야 하며, 이 값에 따라 결과가 크게 달라질 수 있습니다. 또한 초기 중심점 위치에 따라 결과가 조금씩 달라질 수 있고, 그룹의 모양이 둥글지 않거나 그룹 간 크기 차이가 크면 잘 작동하지 않을 수 있습니다. 사람이 미리 정한 정답 그룹과 비교하는 <a href="anova.html">분산분석</a> 같은 확인적 방법과 달리, k-평균 군집화는 정답이 없는 상태에서 데이터의 숨은 구조를 탐색하는 방법이라는 점이 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="principal-component-analysis.html">주성분분석</a>
+    <a href="factor-analysis.html">요인분석</a>
+    <a href="cluster-sampling.html">군집표집</a>
+    <a href="monte-carlo-simulation.html">몬테카를로 시뮬레이션</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

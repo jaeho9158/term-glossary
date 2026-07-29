@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cox proportional hazards model(콕스 비례위험모형)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cox proportional hazards model(콕스 비례위험모형)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 생존분석에서 위험비를 구하는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cox-proportional-hazards-model.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 콕스 비례위험모형 (Cox proportional hazards model)</p>
+  <h1>콕스 비례위험모형 (Cox proportional hazards model)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 변수가 "사건이 일어날 위험(위험률)"에 얼마나 영향을 미치는지, 그리고 그 영향이 시간에 따라 어떻게 달라지는지를 함께 분석하는 생존분석 모형입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보험회사가 "흡연자는 비흡연자보다 특정 질병에 걸릴 위험이 몇 배 더 높은가"를 알고 싶다고 해봅시다. 단순히 몇 명이 걸렸는지만 세는 게 아니라, "언제" 걸렸는지도 중요합니다. 콕스 비례위험모형은 나이, 흡연 여부, 체중 같은 여러 변수를 동시에 고려하면서, 각 변수가 사건(질병 발생, 사망, 이탈 등)이 일어날 위험을 몇 배 높이거나 낮추는지를 계산해줍니다. 핵심 가정은 "위험의 비율이 시간이 지나도 일정하게 유지된다"는 것인데, 이를 "비례위험 가정"이라고 부릅니다. 즉 흡연자가 비흡연자보다 처음부터 끝까지 항상 2배 위험하다고 가정하는 식입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"콕스 비례위험모형 분석 결과, 흡연자군은 비흡연자군에 비해 사망 위험이 유의하게 높았다 (위험비 HR=1.85, 95% CI [1.21, 2.83], p&lt;.05)."</div>
+  <p>이 문장은 "다른 변수들을 통제한 상태에서, 흡연자는 비흡연자보다 특정 시점에 사건이 발생할 위험이 약 1.85배 높다"는 뜻입니다. 여기서 나온 위험비(hazard ratio)가 콕스 모형의 핵심 결과값입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>콕스 비례위험모형은 "비례위험 가정"이 성립할 때만 결과가 신뢰할 수 있습니다. 시간이 지나면서 위험비가 크게 변한다면(예: 초기에는 위험이 컸지만 나중엔 역전되는 경우) 이 가정이 깨진 것이므로 별도의 검정과 대안 모형이 필요합니다. 이 모형은 <a href="survival-analysis.html">생존분석</a>의 한 방법이며, 단순 생존곡선 비교보다 여러 변수의 영향을 동시에 통제할 수 있다는 점이 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="survival-analysis.html">생존분석</a>
+    <a href="generalized-linear-model.html">일반화선형모형</a>
+    <a href="maximum-likelihood-estimation.html">최대우도추정</a>
+    <a href="confidence-interval.html">신뢰구간</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
