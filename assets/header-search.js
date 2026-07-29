@@ -1,5 +1,3 @@
-import { validateUserInput } from "./security.js";
-
 (function () {
   const input = document.getElementById("global-term-search");
   const resultsEl = document.getElementById("global-term-search-results");
