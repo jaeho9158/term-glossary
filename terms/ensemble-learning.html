@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Ensemble Learning(앙상블 학습)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="머신러닝 논문에 자주 나오는 Ensemble Learning(앙상블 학습)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/ensemble-learning.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 앙상블 학습 (Ensemble Learning)</p>
+  <h1>앙상블 학습 (Ensemble Learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 개의 개별 예측 모델을 함께 사용해 그 결과를 결합함으로써, 모델 하나만 쓸 때보다 더 정확하고 안정적인 예측을 만드는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>중요한 결정을 내릴 때 한 사람의 의견만 듣기보다 여러 전문가의 의견을 모아 다수결이나 평균을 내면 더 믿을 만한 결론이 나오는 경우가 많습니다. 앙상블 학습도 같은 원리입니다. 성능이 완벽하지 않은 여러 개의 "약한" 모델을 만든 뒤, 그 예측들을 투표(분류)나 평균(회귀)으로 합쳐서 개별 모델보다 더 좋은 최종 예측을 얻습니다. 대표적으로 여러 모델을 병렬로 독립 학습시켜 평균 내는 배깅(랜덤 포레스트가 대표적), 이전 모델의 실수를 다음 모델이 보완하도록 순차적으로 학습시키는 부스팅 방식이 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"단일 모델 대비 성능을 개선하기 위해 배깅 기반 앙상블 학습을 적용하였으며, 5개 모델의 예측을 평균하여 최종 결과를 산출하였다."</div>
+  <p>이 문장은 연구팀이 모델 하나에만 의존하지 않고, 여러 모델의 예측을 결합하는 앙상블 전략으로 예측 성능과 안정성을 함께 높였다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>앙상블은 대체로 <a href="overfitting.html">과적합</a>을 줄이고 성능을 높이지만, 모델 수가 늘어난 만큼 학습·추론에 드는 계산 비용도 커집니다. 또한 개별 모델들이 서로 비슷한 실수를 반복한다면 앙상블의 효과가 크지 않을 수 있어, 모델 간 다양성을 확보하는 것이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="overfitting.html">과적합</a>
+    <a href="cross-validation.html">교차검증</a>
+    <a href="mixture-of-experts.html">혼합 전문가 모델</a>
+    <a href="machine-learning.html">머신러닝</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
