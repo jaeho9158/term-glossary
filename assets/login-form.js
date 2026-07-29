@@ -253,6 +253,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     const password = document.getElementById("login-password").value;
     if (!email || !password) return;
 
+   /*
+========================================
+ 로그인 차단 상태 확인
+========================================
+*/
+
+if(checkLoginBlocked(email)){
+
+
+  const remain =
+  getLoginBlockRemaining(email);
+
+
+
+  statusEl.textContent =
+  `보안을 위해 로그인이 제한되었습니다. ${remain}초 후 다시 시도해주세요.`;
+
+
+
+  statusEl.className =
+  "contact-status-error";
+
+
+
+  return;
+
+}
+
     submitBtn.disabled = true;
     submitBtn.textContent = "로그인 중...";
     statusEl.textContent = "";
