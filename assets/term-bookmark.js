@@ -26,33 +26,56 @@ document.addEventListener("DOMContentLoaded", async () => {
     labelEl.textContent = bookmarked ? "즐겨찾기됨" : "즐겨찾기";
   }
 
-  const { data } = await supabase
-    .from("tg_bookmarks")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("term_slug", slug)
-    .maybeSingle();
+const { data, error: loadError } = await supabase
+  .from("tg_bookmarks")
+  .select("id")
+  .eq("user_id", userId)
+  .eq("term_slug", slug)
+  .maybeSingle();
 
-  bookmarked = !!data;
-  btn.hidden = false;
-  render();
+if (loadError) {
+  console.error("북마크 조회 실패:", loadError);
+  return;
+}
 
-  btn.addEventListener("click", async () => {
-    btn.disabled = true;
+bookmarked = !!data;
+btn.hidden = false;
+render();
+
+btn.addEventListener("click", async () => {
+  btn.disabled = true;
+
+  try {
     if (bookmarked) {
-      await supabase
+      const { error: deleteError } = await supabase
         .from("tg_bookmarks")
         .delete()
         .eq("user_id", userId)
         .eq("term_slug", slug);
+
+      if (deleteError) throw deleteError;
+
       bookmarked = false;
     } else {
-      await supabase
+      const { error: insertError } = await supabase
         .from("tg_bookmarks")
-        .insert({ user_id: userId, term_slug: slug, term_title: title });
+        .insert({
+          user_id: userId,
+          term_slug: slug,
+          term_title: title,
+        });
+
+      if (insertError) throw insertError;
+
       bookmarked = true;
     }
+
     render();
+  } catch (error) {
+    console.error("북마크 변경 실패:", error);
+    alert("즐겨찾기 처리 중 오류가 발생했습니다.");
+  } finally {
     btn.disabled = false;
+  }
   });
 });
