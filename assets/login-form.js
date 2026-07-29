@@ -1,5 +1,238 @@
 import { signIn, getSession } from "./auth.js";
 
+/*
+========================================
+ 로그인 시도 방지 보안 모듈
+ Brute Force Attack Protection
+========================================
+*/
+
+const MAX_LOGIN_ATTEMPTS = 5; 
+// 허용 로그인 실패 횟수
+
+const LOCK_TIME = 5 * 60 * 1000;
+// 차단 시간 (5분)
+
+
+function getLoginSecurityKey(email) {
+
+  return `login_security_${email}`;
+
+}
+
+
+
+/*
+ 로그인 실패 기록 가져오기
+*/
+function getLoginFailData(email) {
+
+  const key = getLoginSecurityKey(email);
+
+  const savedData = localStorage.getItem(key);
+
+
+  if(!savedData){
+
+    return {
+      attempts: 0,
+      lockedUntil: 0
+    };
+
+  }
+
+
+  try {
+
+    return JSON.parse(savedData);
+
+  }
+
+  catch(error){
+
+    console.error(
+      "로그인 보안 데이터 오류",
+      error
+    );
+
+
+    return {
+      attempts: 0,
+      lockedUntil: 0
+    };
+
+  }
+
+}
+
+
+
+/*
+ 로그인 실패 기록 저장
+*/
+function saveLoginFailData(email,data){
+
+  const key =
+  getLoginSecurityKey(email);
+
+
+  localStorage.setItem(
+    key,
+    JSON.stringify(data)
+  );
+
+}
+
+
+
+/*
+ 로그인 실패 기록 초기화
+*/
+function resetLoginFailData(email){
+
+  const key =
+  getLoginSecurityKey(email);
+
+
+  localStorage.removeItem(key);
+
+}
+
+
+
+
+
+/*
+ 현재 로그인 차단 여부 확인
+*/
+function checkLoginBlocked(email){
+
+
+  const data =
+  getLoginFailData(email);
+
+
+
+  if(data.lockedUntil === 0){
+
+    return false;
+
+  }
+
+
+
+  if(Date.now() >= data.lockedUntil){
+
+
+    resetLoginFailData(email);
+
+
+    return false;
+
+  }
+
+
+
+  return true;
+
+}
+
+
+
+
+/*
+ 남은 차단 시간 계산
+*/
+function getLoginBlockRemaining(email){
+
+
+  const data =
+  getLoginFailData(email);
+
+
+
+  const remaining =
+  data.lockedUntil - Date.now();
+
+
+
+  if(remaining <= 0){
+
+    return 0;
+
+  }
+
+
+
+  return Math.ceil(
+    remaining / 1000
+  );
+
+}
+
+
+
+
+
+/*
+ 로그인 실패 처리
+*/
+function recordLoginFailure(email){
+
+
+  let data =
+  getLoginFailData(email);
+
+
+
+  data.attempts += 1;
+
+
+
+  console.warn(
+    "[SECURITY] 로그인 실패:",
+    email
+  );
+
+
+  console.warn(
+    "[SECURITY] 실패 횟수:",
+    data.attempts
+  );
+
+
+
+
+
+  if(data.attempts >= MAX_LOGIN_ATTEMPTS){
+
+
+    data.lockedUntil =
+    Date.now() + LOCK_TIME;
+
+
+
+    console.warn(
+      "[SECURITY] 로그인 임시 차단 활성화"
+    );
+
+
+  }
+
+
+
+
+  saveLoginFailData(
+    email,
+    data
+  );
+
+
+
+  return data;
+
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const form = document.getElementById("login-form");
   if (!form) return;
