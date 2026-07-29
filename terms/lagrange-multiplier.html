@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Lagrange Multiplier(라그랑주 승수법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Lagrange Multiplier(라그랑주 승수법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 제약조건이 있는 최적화 문제를 푸는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lagrange-multiplier.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 라그랑주 승수법 (Lagrange Multiplier)</p>
+  <h1>라그랑주 승수법 (Lagrange Multiplier)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> "조건을 지키면서" 어떤 값을 최대나 최소로 만드는 지점을 찾을 때, 조건을 새로운 변수(승수)로 바꿔치기해서 푸는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>정해진 예산 10만 원 안에서 만족도를 최대로 높이는 장바구니를 구성한다고 해봅시다. 아무 제약 없이 "만족도만" 최대화한다면 답은 쉽지만, "예산 10만 원 이내"라는 조건이 붙으면 문제가 복잡해집니다. 라그랑주 승수법(Lagrange Multiplier)은 이럴 때 "예산 조건을 어기면 벌점을 준다"는 식으로 조건을 벌점 항으로 바꿔서, 원래 문제를 조건 없는 문제처럼 풀 수 있게 만드는 방법입니다. 이때 등장하는 벌점의 가중치를 라그랑주 승수라고 부릅니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"전체 예산 제약 하에서 자원 배분의 효용을 최대화하기 위해 라그랑주 승수법(Lagrange multiplier method)을 이용해 목적함수를 재구성하였다."</div>
+  <p>이 문장은 자원의 총량이 정해져 있다는 제약조건을 라그랑주 승수라는 새 변수로 목적함수에 포함시켜서, 제약 있는 최적화 문제를 조건 없는 최적화 문제로 바꾸어 풀었다는 뜻입니다. 이 방법은 기계학습에서 서포트벡터머신(SVM)의 학습이나 경제학의 효용 극대화 문제 등 다양한 분야의 최적화에 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>라그랑주 승수법으로 찾은 지점은 "조건을 만족하면서 기울기가 0인 후보 지점"일 뿐이며, 실제로 그 지점이 최댓값인지 최솟값인지는 <a href="hessian-matrix.html">헤시안 행렬</a> 등을 이용해 별도로 확인해야 합니다. 등식 제약이 아니라 부등식 제약이 있는 경우에는 이를 확장한 KKT 조건이 사용됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="partial-derivative.html">편미분</a>
+    <a href="convex-function.html">볼록함수</a>
+    <a href="gradient-descent.html">경사하강법</a>
+    <a href="hessian-matrix.html">헤시안 행렬</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
