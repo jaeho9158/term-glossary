@@ -1,4 +1,5 @@
 import { supabase } from "./auth.js";
+import { validateUserInput } from "./security.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
