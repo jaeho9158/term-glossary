@@ -289,7 +289,11 @@ if(checkLoginBlocked(email)){
     try {
       const { error } = await signIn(email, password);
       if (error) throw error;
+     
+resetLoginFailData(email);
 
+
+     
       statusEl.textContent = "로그인되었습니다. 이동 중...";
       statusEl.className = "contact-status-success";
       window.location.href = "index.html";
