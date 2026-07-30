@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Object Detection(객체 탐지)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터 비전의 핵심 과제인 Object Detection(객체 탐지)을 비전공자도 이해할 수 있도록 쉽게 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/object-detection.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 객체 탐지 (Object Detection)</p>
+  <h1>객체 탐지 (Object Detection)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 이미지 안에 어떤 물체가 있는지 분류하는 동시에, 그 물체가 이미지의 어느 위치에 있는지를 사각형 박스로 찾아내는 컴퓨터 비전 과제입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사진 한 장을 보고 "이건 강아지 사진이야"라고 답하는 것은 이미지 분류입니다. 그런데 사진 속에 강아지, 사람, 자전거가 함께 찍혀 있고 "강아지는 왼쪽 아래에, 사람은 가운데에, 자전거는 오른쪽에 있다"고 각각의 위치까지 네모 박스로 표시해 알려주는 것이 객체 탐지입니다. 즉 "무엇이(분류) + 어디에(위치) 있는지"를 동시에 알아내는 작업입니다. 자율주행차가 도로 위의 보행자와 다른 차량의 위치를 실시간으로 찾아내는 것이 대표적인 객체 탐지 활용 사례입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 모델은 YOLO 계열 아키텍처를 기반으로 실시간 object detection을 수행하며, 기존 대비 mAP가 3.2%p 향상되었다."</div>
+  <p>이 문장은 "이 모델이 이미지 속 물체의 종류와 위치를 실시간으로 찾아내며, 그 탐지 정확도(mAP)가 이전보다 좋아졌다"는 뜻입니다. 객체 탐지 모델은 보통 여러 후보 박스를 만든 뒤 겹치는 박스를 정리하는 <a href="non-maximum-suppression.html">비최대 억제</a> 과정을 거쳐 최종 결과를 냅니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>객체 탐지는 <a href="image-segmentation.html">이미지 분할</a>과 자주 혼동되는데, 객체 탐지는 물체를 사각형 박스로만 감싸는 반면 이미지 분할은 물체의 윤곽선을 픽셀 단위로 정확히 구분해 냅니다. 목적에 따라 어떤 과제가 필요한지 구분해서 사용해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="non-maximum-suppression.html">비최대 억제</a>
+    <a href="image-segmentation.html">이미지 분할</a>
+    <a href="convolutional-neural-network.html">합성곱 신경망</a>
+    <a href="precision-recall.html">정밀도와 재현율</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

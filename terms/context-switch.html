@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Context Switch(컨텍스트 스위칭)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="운영체제의 핵심 개념인 Context Switch(컨텍스트 스위칭)를 비전공자도 이해할 수 있도록 쉽게 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/context-switch.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 컨텍스트 스위칭 (Context Switch)</p>
+  <h1>컨텍스트 스위칭 (Context Switch)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> CPU가 실행 중이던 프로세스나 스레드의 상태를 저장해두고, 다른 프로세스나 스레드의 저장된 상태를 불러와 실행을 이어가는 전환 과정입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>한 사람이 동시에 여러 업무를 처리하는 상황을 떠올려 보세요. 보고서를 쓰다가 전화를 받으면, 하던 작업을 어디까지 했는지 메모해두고(저장) 전화 통화에 집중한 뒤, 통화가 끝나면 메모를 보고 다시 보고서 작성을 이어갑니다. CPU도 마찬가지입니다. 하나의 CPU 코어는 사실 한 번에 한 가지 작업만 처리할 수 있지만, 여러 프로그램이 동시에 실행되는 것처럼 보이게 하려고 아주 짧은 시간 단위로 작업을 번갈아 가며 처리합니다. 이때 하던 작업의 진행 상태(레지스터 값, 메모리 주소 등)를 저장하고 다음 작업의 상태를 불러오는 전환 과정을 컨텍스트 스위칭이라고 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 스케줄링 기법은 잦은 context switch로 인한 오버헤드를 줄여 전체 처리량을 기존 대비 12% 향상시켰다."</div>
+  <p>이 문장은 "작업을 너무 자주 전환하면 그 전환 자체에도 시간이 들어 낭비가 생기는데, 제안한 방법은 이 낭비를 줄여 전체 성능을 높였다"는 뜻입니다. 컨텍스트 스위칭은 공짜가 아니라 그 자체로 CPU 시간과 캐시 효율을 갉아먹는 오버헤드이기 때문에, 시스템 설계에서 이를 얼마나 줄이느냐가 중요한 성능 지표가 됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>컨텍스트 스위칭이 잦다고 무조건 나쁜 것은 아닙니다. <a href="process-and-thread.html">프로세스와 스레드</a>를 적절히 번갈아 실행해야 여러 작업이 동시에 진행되는 것처럼 보이는 멀티태스킹이 가능해지기 때문에, 응답성과 오버헤드 사이의 균형을 맞추는 것이 스케줄러 설계의 핵심입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+    <a href="cache-memory-hierarchy.html">캐시 메모리 계층구조</a>
+    <a href="deadlock.html">교착 상태</a>
+    <a href="virtual-memory.html">가상 메모리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Q-learning(Q러닝)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="강화학습의 대표 알고리즘인 Q-learning(Q러닝)을 비전공자도 이해할 수 있도록 쉽게 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/q-learning.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; Q러닝 (Q-learning)</p>
+  <h1>Q러닝 (Q-learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 어떤 상태에서 어떤 행동을 했을 때 미래에 받을 보상까지 포함한 가치(Q값)를 표로 학습해, 그 값이 가장 높은 행동을 선택하도록 하는 강화학습 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>미로를 처음 걷는 쥐를 생각해 보세요. 쥐는 처음에는 어느 길이 좋은지 모르지만, 여러 번 시도하면서 "이 갈림길에서 왼쪽으로 가면 나중에 치즈를 얻을 가능성이 높다"는 식으로 각 갈림길-방향 조합에 점수(Q값)를 매겨 나갑니다. 시행착오를 반복할수록 이 점수표가 점점 정교해지고, 결국 쥐는 각 지점에서 가장 점수가 높은 방향으로만 움직이면 최단 경로로 치즈에 도달하게 됩니다. Q러닝은 바로 이 "상태-행동 점수표"를 스스로 채워나가는 알고리즘입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 시스템은 Q-learning을 이용해 네트워크 트래픽 상황에 따른 최적의 자원 할당 정책을 학습하도록 설계되었다."</div>
+  <p>이 문장은 "매 순간 네트워크 상태를 보고 어떤 자원 할당이 가장 좋은 결과를 내는지를, 시행착오를 통해 Q값 표로 학습시켰다"는 뜻입니다. 상태와 행동의 경우의 수가 아주 많아지면 표 대신 신경망으로 Q값을 근사하는 딥 Q네트워크(DQN)로 확장됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>Q러닝은 <a href="policy-gradient.html">정책 경사법</a>과 달리 행동의 가치를 먼저 계산한 뒤 그중 최댓값을 고르는 방식이라, 행동의 종류가 연속적인 값(예: 로봇 관절 각도)일 때는 그대로 적용하기 어렵습니다. 또한 상태·행동 공간이 커지면 표를 그대로 쓰는 방식은 비현실적이라 함수 근사가 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="reinforcement-learning.html">강화학습</a>
+    <a href="policy-gradient.html">정책 경사법</a>
+    <a href="reward-prediction-error.html">보상예측오차</a>
+    <a href="markov-chain.html">마르코프 체인</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

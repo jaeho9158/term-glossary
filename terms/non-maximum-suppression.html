@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Non-Maximum Suppression(비최대 억제)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="객체 탐지에서 쓰이는 Non-Maximum Suppression(비최대 억제, NMS)을 비전공자도 이해할 수 있도록 쉽게 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/non-maximum-suppression.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 비최대 억제 (Non-Maximum Suppression)</p>
+  <h1>비최대 억제 (Non-Maximum Suppression)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 객체 탐지 과정에서 같은 물체를 두고 겹쳐서 생성된 여러 개의 후보 박스 중 신뢰도가 가장 높은 것만 남기고 나머지를 제거하는 후처리 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>객체 탐지 모델에게 사진 속 강아지 한 마리를 찾으라고 하면, 모델은 보통 강아지 주변에 살짝씩 위치가 다른 박스를 수십 개씩 제안합니다. 사람이 보기엔 강아지가 한 마리인데 박스는 여러 개가 겹쳐서 표시되는 것이죠. 비최대 억제는 이렇게 겹친 박스들 중에서 "가장 확신도가 높은 박스"만 남기고, 그 박스와 많이 겹치는 나머지 박스들은 "중복이니 지워버리자"고 정리하는 과정입니다. 마치 같은 인물 사진이 여러 장 찍혔을 때 가장 잘 나온 한 장만 남기고 나머지를 지우는 것과 비슷합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"검출 결과에 대해 IoU 임계값 0.5를 기준으로 non-maximum suppression을 적용하여 중복 바운딩 박스를 제거하였다."</div>
+  <p>이 문장은 "겹침 정도(IoU)가 50% 이상인 박스들은 같은 물체를 가리키는 것으로 보고, 그중 확신도가 가장 높은 박스만 남기는 정리 과정을 거쳤다"는 뜻입니다. 이 임계값을 어떻게 정하느냐에 따라 탐지 결과의 정밀도와 재현율이 달라집니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>비최대 억제는 <a href="object-detection.html">객체 탐지</a> 모델 자체의 일부가 아니라 결과를 다듬는 후처리 단계입니다. 임계값을 너무 낮게 잡으면 실제로는 다른 물체인데도 하나로 합쳐 버릴 수 있고, 너무 높게 잡으면 중복 박스가 그대로 남을 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="object-detection.html">객체 탐지</a>
+    <a href="image-segmentation.html">이미지 분할</a>
+    <a href="precision-recall.html">정밀도와 재현율</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
