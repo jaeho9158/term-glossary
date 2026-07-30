@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Permutation Test(순열검정)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Permutation Test(순열검정)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 데이터를 무작위로 뒤섞어 유의성을 확인하는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/permutation-test.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 순열검정 (Permutation Test)</p>
+  <h1>순열검정 (Permutation Test)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 실제 관측된 데이터의 그룹 라벨을 무작위로 수없이 뒤섞어 봄으로써, 지금 관찰된 차이가 우연히 나올 수 있는 정도인지를 직접 확인하는 통계 검정 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>두 반의 시험 평균 점수가 다르다고 해봅시다. "이 차이가 진짜 반 사이의 실력 차이일까, 아니면 그냥 우연히 이렇게 나뉜 걸까?"를 확인하고 싶습니다. 순열검정은 모든 학생의 점수는 그대로 둔 채, "어느 반에 속했는지"만 수천 번 무작위로 다시 섞어봅니다. 그렇게 무작위로 섞을 때마다 나오는 두 그룹의 평균 차이들을 모아보면, 실제로 관찰된 차이가 그 무작위 결과들 사이에서 얼마나 극단적인 값인지 알 수 있습니다. 극단적으로 드문 값이라면 "우연이 아니다"라고 판단하는 것입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"표본 크기가 작고 정규성 가정이 만족되지 않아, 순열검정(permutation test)을 통해 두 집단 간 평균 차이의 유의성을 확인하였다 (10,000회 반복, p = 0.02)."</div>
+  <p>이 문장은 표본이 작거나 데이터가 정규분포를 따른다고 보기 어려운 상황에서, 라벨을 만 번 무작위로 뒤섞어 얻은 결과와 실제 관측값을 비교해 유의확률을 계산했다는 뜻입니다. 이런 방식은 특정 분포를 가정하지 않아도 되기 때문에 비모수적 방법으로 분류됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>순열검정은 데이터의 분포 형태를 가정하지 않는다는 장점이 있지만, 표본에서 값 자체를 다시 뽑는 <a href="bootstrap-resampling.html">붓스트랩</a>과는 다른 방법입니다. 순열검정은 "그룹 배정이 무작위였다"는 가정 위에서 라벨만 섞는 것이고, 붓스트랩은 값 자체를 복원추출하여 표본분포를 추정하는 것이므로 목적과 절차가 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="bootstrap-resampling.html">붓스트랩</a>
+    <a href="p-value.html">유의확률</a>
+    <a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Two Pointers Technique(투 포인터 기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="알고리즘 논문에 자주 나오는 투 포인터 기법(Two Pointers Technique)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 두 개의 위치 표시를 움직여 탐색 범위를 줄이는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/two-pointers-technique.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 투 포인터 기법 (Two Pointers Technique)</p>
+  <h1>투 포인터 기법 (Two Pointers Technique)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 정렬된 배열이나 리스트에서 두 개의 위치 표시(포인터)를 상황에 맞게 움직여가며, 모든 쌍을 일일이 비교하지 않고도 원하는 조건을 만족하는 값을 빠르게 찾는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>정렬된 책장에서 합이 특정 값이 되는 책 두 권의 두께를 찾는다고 해봅시다. 모든 책을 두 권씩 짝지어 하나하나 확인하면 시간이 오래 걸립니다. 대신 한 손가락은 가장 얇은 책에, 다른 손가락은 가장 두꺼운 책에 놓고 시작합니다. 두 책의 두께 합이 목표보다 크면 두꺼운 쪽 손가락을 안쪽으로, 합이 목표보다 작으면 얇은 쪽 손가락을 바깥쪽으로 옮깁니다. 이렇게 두 손가락(포인터)이 서로를 향해 다가가며 후보를 좁혀 나가면, 모든 쌍을 다 확인하지 않고도 훨씬 적은 비교만으로 답을 찾을 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"정렬된 시퀀스에서 목표 합을 만족하는 구간을 찾기 위해 투 포인터 기법(two pointers technique)을 적용함으로써, 전수 비교 방식의 O(n²) 복잡도를 O(n)으로 낮추었다."</div>
+  <p>이 문장은 데이터를 미리 정렬해 두었기 때문에 두 개의 포인터를 양 끝(또는 같은 방향)에서 움직이는 것만으로 모든 쌍을 확인하는 이중 반복문 없이 답을 찾을 수 있었고, 그 결과 계산 시간이 크게 줄었다는 뜻입니다. 배열·문자열 알고리즘, 데이터 병합 논문에서 흔히 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>투 포인터 기법은 대부분 데이터가 정렬되어 있다는 전제 위에서 동작합니다. 정렬되지 않은 데이터에 그대로 적용하면 포인터를 옮기는 방향을 판단할 기준이 사라져 올바른 답을 보장할 수 없으므로, 필요하다면 먼저 <a href="sorting-algorithm.html">정렬 알고리즘</a>으로 데이터를 정렬한 뒤 적용해야 합니다. 또한 연속된 구간을 유지하며 이동하는 <a href="sliding-window-technique.html">슬라이딩 윈도우 기법</a>과 자주 혼동되는데, 슬라이딩 윈도우가 투 포인터의 한 특수한 활용 형태에 가깝습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="sliding-window-technique.html">슬라이딩 윈도우 기법</a>
+    <a href="sorting-algorithm.html">정렬 알고리즘</a>
+    <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
