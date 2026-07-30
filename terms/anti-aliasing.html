@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Anti-aliasing(안티앨리어싱)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터 그래픽스에서 쓰이는 Anti-aliasing(안티앨리어싱)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/anti-aliasing.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 안티앨리어싱 (Anti-aliasing)</p>
+  <h1>안티앨리어싱 (Anti-aliasing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 화면이 네모난 픽셀들로 이루어져 있어서 대각선이나 곡선의 경계가 계단처럼 울퉁불퉁하게 보이는 현상(에일리어싱)을, 경계 부분의 색을 주변 색과 섞어 부드럽게 보이도록 처리하는 렌더링 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사각형 타일만으로 둥근 원 모양의 모자이크를 만든다고 생각해봅시다. 타일이 네모나기 때문에 원의 가장자리는 아무리 잘 만들어도 계단처럼 삐죽삐죽하게 보일 수밖에 없습니다. 안티앨리어싱은 이 경계에 있는 타일에 순수한 색 대신, 배경색과 원래 색을 적절한 비율로 섞은 중간색을 칠하는 것과 비슷합니다. 가까이서 보면 여전히 타일이지만, 멀리서 보면 경계가 흐릿하게 번져 보여서 원이 훨씬 매끄러운 곡선처럼 느껴집니다. 컴퓨터 화면의 픽셀도 이 원리를 그대로 이용해 계단현상을 눈에 덜 띄게 만듭니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"렌더링된 3차원 장면에서 발생하는 계단현상(jagged edge)을 줄이기 위해 4x MSAA(멀티샘플 안티앨리어싱)를 적용하였으며, 이는 래스터화(rasterization) 단계에서 픽셀당 여러 개의 샘플을 평균 처리하는 방식으로 구현되었다."</div>
+  <p>이 문장은 3차원 그래픽을 화면에 그리는 과정에서 각 픽셀마다 여러 지점을 추가로 계산해 평균을 내는 방식으로, 경계선의 계단현상을 부드럽게 만들었다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>안티앨리어싱은 계단현상을 시각적으로 덜 거슬리게 완화해 줄 뿐, 이미지의 실제 해상도나 정보량을 늘려주는 것은 아니다. 또한 픽셀마다 추가 계산이 필요하므로 <a href="rasterization.html">래스터화</a>나 <a href="ray-tracing.html">레이 트레이싱</a> 과정의 연산량과 렌더링 시간이 늘어난다는 점을 함께 고려해야 한다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="rasterization.html">래스터화</a>
+    <a href="ray-tracing.html">레이 트레이싱</a>
+    <a href="image-segmentation.html">이미지 분할</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
