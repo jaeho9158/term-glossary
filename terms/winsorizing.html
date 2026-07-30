@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Winsorizing(윈저화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Winsorizing(윈저화)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 극단값을 다루는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/winsorizing.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 윈저화 (Winsorizing)</p>
+  <h1>윈저화 (Winsorizing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+    <a class="category-badge" href="../category.html?cat=method">연구방법론</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 극단값(이상치)을 삭제하지 않고 일정 백분위수 값으로 바꿔서 그 영향력을 줄이는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>데이터에 유난히 크거나 작은 값이 하나 섞여 있으면 평균이나 분산 같은 통계치가 그 값 하나에 휘둘리기 쉽습니다. 이럴 때 흔히 떠올리는 방법은 그 값을 아예 지워버리는 것이지만, 그러면 실제로 존재했던 정보를 완전히 버리게 되는 단점이 있습니다. 윈저화는 절충안입니다. 예를 들어 상위 1%와 하위 1%에 해당하는 값들을 지우는 대신, 그 값을 각각 상위 1% 지점과 하위 1% 지점의 값으로 "눌러서" 바꿔치기합니다. 즉 극단값의 존재는 남기되, 너무 튀는 크기만 완화하는 방식입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"극단값의 영향을 최소화하기 위해 모든 연속형 변수를 상하위 1% 수준에서 윈저화(winsorizing)하여 분석에 사용하였다."</div>
+  <p>이 문장은 데이터의 상위 1%와 하위 1%에 해당하는 값들을 삭제하지 않고 해당 경계값으로 대체함으로써, 극단값이 분석 결과를 왜곡하지 않도록 처리했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>윈저화는 <a href="outlier.html">이상치</a>를 완전히 제거하는 것이 아니라 값을 조정하는 것이므로, 왜 그 값이 극단적으로 나왔는지(측정 오류인지, 실제 현상인지)를 먼저 살펴본 뒤 적용하는 것이 바람직합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="outlier.html">이상치</a>
+    <a href="cooks-distance.html">쿡의 거리</a>
+    <a href="standard-deviation.html">표준편차</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
