@@ -1,1 +1,342 @@
 
+// assets/quiz.js
+
+let allTerms = [];
+
+let currentTerms = [];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let answer = "";
+
+let totalQuestions = 10;
+
+let wrongQuestions = [];
+
+let retryMode = false;
+
+
+// ===============================
+// 기록 저장 키
+// ===============================
+
+const QUIZ_RECORD_KEY = "term_quiz_record";
+
+
+// ===============================
+// 퀴즈 기록 불러오기
+// ===============================
+
+function getQuizRecord(){
+
+    const saved =
+    localStorage.getItem(QUIZ_RECORD_KEY);
+
+
+    if(!saved){
+
+        return {
+
+            played:0,
+
+            correct:0,
+
+            bestScore:0,
+
+            bestCombo:0
+
+        };
+
+    }
+
+
+    try{
+
+        return JSON.parse(saved);
+
+    }
+
+    catch(e){
+
+        return {
+
+            played:0,
+
+            correct:0,
+
+            bestScore:0,
+
+            bestCombo:0
+
+        };
+
+    }
+
+}
+
+
+// ===============================
+// 기록 저장
+// ===============================
+
+function saveQuizRecord(record){
+
+    localStorage.setItem(
+        QUIZ_RECORD_KEY,
+        JSON.stringify(record)
+    );
+
+}
+
+
+// ===============================
+// 현재 콤보
+// ===============================
+
+let combo = 0;
+
+
+
+// ===============================
+// DOM
+// ===============================
+
+
+const quizType =
+document.getElementById("quiz-type");
+
+
+const categorySelect =
+document.getElementById("category-select");
+
+
+const question =
+document.getElementById("question");
+
+
+const choices =
+document.getElementById("choices");
+
+
+const result =
+document.getElementById("result");
+
+
+const quizArea =
+document.getElementById("quiz-area");
+
+
+const startArea =
+document.getElementById("start-area");
+
+
+const nextBtn =
+document.getElementById("next-btn");
+
+
+const quizCount =
+document.querySelector(".quiz-count");
+
+
+
+
+// ===============================
+// 기록 표시 영역 생성
+// ===============================
+
+
+function createRecordBox(){
+
+
+    const box =
+    document.createElement("div");
+
+
+    box.id="quiz-record-box";
+
+
+    box.className="quiz-record-box";
+
+
+    startArea.before(box);
+
+
+    updateRecordBox();
+
+}
+
+
+
+
+function updateRecordBox(){
+
+
+    const box =
+    document.getElementById(
+        "quiz-record-box"
+    );
+
+
+    if(!box)return;
+
+
+
+    const record =
+    getQuizRecord();
+
+
+
+    const accuracy =
+    record.played > 0
+
+    ?
+
+    Math.round(
+        record.correct /
+        record.played *
+        100
+    )
+
+    :
+
+    0;
+
+
+
+    box.innerHTML = `
+
+        <h3>📊 나의 퀴즈 기록</h3>
+
+        <p>
+        총 풀이:
+        <strong>${record.played}</strong>문제
+        </p>
+
+        <p>
+        정답률:
+        <strong>${accuracy}%</strong>
+        </p>
+
+        <p>
+        최고 점수:
+        <strong>${record.bestScore}/${totalQuestions}</strong>
+        </p>
+
+        <p>
+        최고 콤보:
+        <strong>${record.bestCombo}</strong>
+        </p>
+
+    `;
+
+
+}
+
+
+
+
+// ===============================
+// 문제 불러오기
+// ===============================
+
+
+async function loadTerms(){
+
+
+    const res =
+    await fetch("terms.json");
+
+
+    allTerms =
+    await res.json();
+
+
+    makeCategoryList();
+
+
+    createRecordBox();
+
+
+}
+
+
+
+
+
+// ===============================
+// 카테고리 생성
+// ===============================
+
+
+function makeCategoryList(){
+
+
+    const set =
+    new Set();
+
+
+    allTerms.forEach(t=>{
+
+
+        (t.categories || [])
+        .forEach(c=>set.add(c));
+
+
+    });
+
+
+
+    const labels = {
+
+
+        stat:"통계",
+
+        method:"연구방법론",
+
+        tool:"측정·도구",
+
+        ethics:"윤리·출판",
+
+        physchem:"물리학·화학",
+
+        bioearth:"생물학·지구과학",
+
+        neuro:"뇌과학",
+
+        medhealth:"의학·보건",
+
+        psych:"심리학",
+
+        socialecon:"사회과학·경제학",
+
+        eng:"공학",
+
+        cs:"컴퓨터과학·AI"
+
+    };
+
+
+
+    [...set].forEach(cat=>{
+
+
+        const op =
+        document.createElement("option");
+
+
+        op.value=cat;
+
+
+        op.textContent =
+        labels[cat] || cat;
+
+
+        categorySelect.appendChild(op);
+
+
+    });
+
+
+}
