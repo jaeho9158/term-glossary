@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>NP-Completeness(NP-완전성)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 NP-Completeness(NP-완전성)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 풀기는 어렵지만 검증은 쉬운 문제들을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/np-completeness.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; NP-완전성 (NP-Completeness)</p>
+  <h1>NP-완전성 (NP-Completeness)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 정답이 맞는지 확인하기는 쉽지만, 그 정답 자체를 빠르게 찾아내는 방법은 아직 아무도 모르는 어려운 문제들의 부류입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>직소 퍼즐을 생각해보세요. 누군가 완성된 그림을 보여주면 "이게 맞는 조각 배치인지" 확인하는 건 한눈에 금방 됩니다. 하지만 처음부터 수천 조각을 직접 맞춰서 완성하려면 엄청난 시간이 걸립니다. NP-완전 문제들이 딱 이런 성격입니다. 누군가 "답은 이거야"라고 후보를 하나 던져주면 그게 맞는지 빠르게 검산할 수 있지만, 후보 없이 처음부터 정답을 계산해내려면 문제 크기가 커질수록 시간이 기하급수적으로 늘어납니다. 더 흥미로운 점은 이런 문제들이 서로 친척 관계라서, 그중 단 하나라도 빠르게 푸는 방법을 찾으면 나머지 모든 NP-완전 문제도 한꺼번에 빠르게 풀 수 있게 된다는 것입니다(다만 아직 그런 방법은 발견되지 않았습니다).</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"해당 배치 최적화 문제는 NP-완전(NP-complete)임이 증명되어 있어, 본 연구에서는 정확해 대신 근사 알고리즘을 통해 실용적인 시간 내에 해를 구하였다."</div>
+  <p>이 문장은 다루는 문제가 이론적으로 매우 어려운 부류에 속하기 때문에, 완벽한 정답을 구하는 대신 충분히 좋은 근사값을 빠르게 찾는 전략을 택했다는 뜻입니다. 스케줄링, 경로 최적화, 자원 배분 등 조합 최적화 문제를 다루는 논문에서 문제의 난이도를 정당화할 때 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>NP-완전 문제라고 해서 "풀 수 없다"는 뜻은 아닙니다. 문제 크기가 작으면 정확한 답을 구할 수 있고, 크기가 커져도 <a href="greedy-algorithm.html">탐욕 알고리즘</a>이나 근사 알고리즘, 휴리스틱을 쓰면 완벽하지는 않아도 실용적인 답을 빠르게 얻을 수 있습니다. 또한 NP-완전은 "NP에 속하면서 동시에 가장 어려운 문제"를 뜻하므로, 모든 어려운 문제가 NP-완전인 것도 아닙니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="greedy-algorithm.html">탐욕 알고리즘</a>
+    <a href="divide-and-conquer.html">분할정복</a>
+    <a href="dynamic-programming.html">동적 계획법</a>
+    <a href="time-complexity-big-o.html">시간복잡도</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

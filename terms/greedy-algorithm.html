@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Greedy Algorithm(탐욕 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Greedy Algorithm(탐욕 알고리즘)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 매 순간 최선의 선택만 하는 방식을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/greedy-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 탐욕 알고리즘 (Greedy Algorithm)</p>
+  <h1>탐욕 알고리즘 (Greedy Algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 전체를 다 따져보지 않고 매 단계에서 지금 당장 가장 좋아 보이는 선택을 계속 반복해서 답을 구하는 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>거스름돈을 줄 때를 생각해봅시다. 1,270원을 거슬러줘야 한다면 대부분 사람은 일단 가장 큰 동전(500원)부터 최대한 많이 집고, 남은 금액에서 또 가장 큰 단위를 집는 식으로 계산합니다. 나중에 손해를 볼지 안 볼지 미리 다 계산해보지 않고, "지금 이 순간 가장 큰 걸 집는 게 이득"이라는 판단만으로 끝까지 밀어붙이는 것이죠. 탐욕 알고리즘이 바로 이런 방식입니다. 매 순간 눈앞의 최선만 선택하기 때문에 계산이 빠르고 간단하지만, 상황에 따라서는 전체적으로 봤을 때 최선이 아닌 답에 도달할 수도 있다는 점이 특징입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 모델은 매 시점마다 지역적으로 보상이 가장 큰 행동을 선택하는 탐욕 알고리즘(greedy algorithm)을 적용하여 계산 복잡도를 크게 낮추었다."</div>
+  <p>이 문장은 최적해를 정확히 찾기 위해 모든 경우의 수를 따지는 대신, 매 단계에서 가장 유리해 보이는 선택만 빠르게 이어감으로써 계산 시간을 줄였다는 뜻입니다. 자원 스케줄링, 네트워크 라우팅, 특징 선택(feature selection) 등 근사해로도 충분하거나 속도가 중요한 문제에서 자주 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>탐욕 알고리즘은 항상 최적의 답을 보장하지 않습니다. 매 순간의 최선이 전체의 최선으로 이어지는 문제(예: 최소 신장 트리)에서는 잘 작동하지만, 그렇지 않은 문제에서는 부분 최적해에 그칠 수 있습니다. 이런 경우에는 모든 부분 문제의 결과를 저장하고 재활용하는 <a href="dynamic-programming.html">동적 계획법</a>이나, 문제를 쪼개서 각각 해결한 뒤 합치는 <a href="divide-and-conquer.html">분할정복</a> 방식이 더 정확한 답을 줄 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="dynamic-programming.html">동적 계획법</a>
+    <a href="divide-and-conquer.html">분할정복</a>
+    <a href="np-completeness.html">NP-완전성</a>
+    <a href="time-complexity-big-o.html">시간복잡도</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
