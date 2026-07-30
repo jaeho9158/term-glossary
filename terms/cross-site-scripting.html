@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cross-Site Scripting(크로스사이트 스크립팅)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cross-Site Scripting(XSS, 크로스사이트 스크립팅)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 웹사이트 보안 취약점이 어떻게 악용되는지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cross-site-scripting.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 크로스사이트 스크립팅 (XSS)</p>
+  <h1>크로스사이트 스크립팅 (XSS)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 공격자가 신뢰받는 웹사이트에 악성 스크립트 코드를 몰래 심어, 그 사이트를 방문한 다른 사용자의 브라우저에서 대신 실행되게 만드는 보안 취약점입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>게시판에 누군가 "안녕하세요"라고 쓴 척하면서, 사실은 그 글 속에 몰래 작동하는 명령어를 숨겨 놓았다고 생각해 봅시다. 이 글을 다른 사람이 열어보는 순간, 숨겨진 명령어가 그 사람의 브라우저에서 자동으로 실행됩니다. 이렇게 되면 공격자는 피해자의 로그인 정보(쿠키)를 몰래 빼가거나, 피해자 계정으로 원치 않는 행동을 하게 만들 수 있습니다. 웹사이트가 사용자의 입력값(댓글, 검색어 등)을 제대로 걸러내지 않고 그대로 화면에 표시할 때 이런 공격이 가능해집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 입력값 검증 필터는 저장형 및 반사형 크로스사이트 스크립팅(XSS) 공격을 각각 98.2%, 97.5%의 탐지율로 차단하였다."</div>
+  <p>이 문장은 "게시글 등에 저장되어 나중에 실행되는 저장형 XSS와, 링크 클릭 즉시 실행되는 반사형 XSS를 실험적으로 탐지·차단한 성능을 수치로 제시했다"는 뜻입니다. 웹 보안, 취약점 탐지 시스템을 다루는 논문에서 대표적인 공격 유형으로 자주 다뤄집니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>XSS는 웹페이지에 악성 "코드"를 심는 공격인 반면, <a href="sql-injection.html">SQL 인젝션</a>은 데이터베이스에 보내는 "질의문"에 악성 코드를 심는 공격이라는 점에서 다릅니다. 둘 다 사용자 입력값을 제대로 검증하지 않아서 생기는 취약점이라는 공통점이 있지만, 공격이 실행되는 위치와 대상이 서로 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="sql-injection.html">SQL 인젝션</a>
+    <a href="session-and-cookie.html">세션과 쿠키</a>
+    <a href="encryption-basics.html">암호화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
