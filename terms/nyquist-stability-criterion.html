@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Nyquist Stability Criterion(나이퀴스트 안정성 판별법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Nyquist Stability Criterion(나이퀴스트 안정성 판별법)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 신호처리의 나이퀴스트 표본화 정리와 다른 개념임을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/nyquist-stability-criterion.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 나이퀴스트 안정성 판별법 (Nyquist Stability Criterion)</p>
+  <h1>나이퀴스트 안정성 판별법 (Nyquist Stability Criterion)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=eng">공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 개루프 시스템의 주파수 응답 그래프가 특정 점(-1)을 몇 번, 어느 방향으로 감싸는지를 세어서 폐루프 제어 시스템이 안정한지를 판별하는 제어공학 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>제어기를 설계할 때 "이 시스템에 피드백을 걸었을 때 정말 안정적으로 작동할까?"를 직접 폐루프를 만들어보지 않고도 미리 확인하고 싶을 때가 있습니다. 나이퀴스트 안정성 판별법은 시스템에 다양한 주파수의 신호를 넣었을 때 나오는 응답을 복소평면 위에 그린 곡선(나이퀴스트 선도)이, 좌표 (-1, 0)이라는 특정 지점을 몇 바퀴 감싸는지를 세는 방법입니다. 이 횟수와 방향을 시스템이 원래 가지고 있던 불안정 요소의 개수와 비교하면, 실제로 피드백을 걸었을 때 시스템이 안정할지 아닐지를 수학적으로 증명할 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 보상기를 적용한 개루프 전달함수에 나이퀴스트 안정성 판별법(Nyquist stability criterion)을 적용한 결과, 나이퀴스트 선도가 (-1, 0)점을 감싸지 않아 폐루프 시스템이 안정함을 확인하였다."</div>
+  <p>이 문장은 새로 설계한 보상 회로를 넣었을 때, 그래프 분석을 통해 시스템이 진동하지 않고 안정적으로 목표값에 수렴한다는 것을 수학적으로 증명했다는 뜻입니다. 전자공학·제어공학·항공우주공학 논문에서 폐루프 안정성을 검증하는 핵심 근거로 흔히 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>이름이 비슷해서 신호처리 분야의 <a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a>와 자주 혼동되지만, 둘은 완전히 다른 개념입니다. 표본화 정리는 "아날로그 신호를 디지털로 바꿀 때 얼마나 자주 샘플을 찍어야 원래 신호를 복원할 수 있는가"를 다루는 반면, 나이퀴스트 안정성 판별법은 제어 시스템이 진동 없이 안정적으로 동작하는지를 판별하는 방법으로, 같은 인물(해리 나이퀴스트)의 이름을 딴 서로 다른 이론입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a>
+    <a href="root-locus-method.html">근궤적법</a>
+    <a href="feedback-control.html">피드백 제어</a>
+    <a href="pid-controller.html">PID 제어기</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

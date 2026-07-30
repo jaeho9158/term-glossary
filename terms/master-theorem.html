@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Master Theorem(마스터 정리)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Master Theorem(마스터 정리)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 분할정복 알고리즘의 시간복잡도를 구하는 공식을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/master-theorem.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 마스터 정리 (Master Theorem)</p>
+  <h1>마스터 정리 (Master Theorem)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 문제를 여러 개의 작은 조각으로 나누어 푸는 분할정복 알고리즘의 점화식을 대입만으로 빠르게 시간복잡도로 바꿔주는 공식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>분할정복 알고리즘의 실행 시간은 보통 "문제를 몇 조각으로 나누는지(a)", "조각 하나의 크기가 얼마나 줄어드는지(b)", "나누고 합치는 데 드는 추가 비용(f(n))" 세 가지로 정해지는 점화식으로 표현됩니다. 이 점화식을 매번 손으로 풀어내는 대신, 마스터 정리는 마치 완성된 공식표에 숫자만 대입하면 답이 나오는 것처럼 세 가지 조건 중 어디에 해당하는지만 확인하면 최종 시간복잡도를 바로 알려줍니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안한 병합 기반 알고리즘은 T(n) = 2T(n/2) + O(n) 형태의 점화식을 따르며, 마스터 정리(master theorem)에 의해 시간복잡도가 O(n log n)임을 증명하였다."</div>
+  <p>이 문장은 알고리즘이 재귀적으로 문제를 절반씩 나누어 풀되 합치는 과정에 선형 시간이 드는 구조임을 밝히고, 그 점화식에 마스터 정리를 적용해 전체 실행 시간을 도출했다는 뜻입니다. 알고리즘 설계 및 복잡도 분석을 다루는 논문에서 흔히 볼 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>마스터 정리는 모든 점화식에 적용할 수 있는 만능 공식이 아닙니다. 하위 문제의 크기가 균등하게 줄어들지 않거나 f(n) 항이 정해진 조건 범위를 벗어나면 마스터 정리로는 답을 구할 수 없고, <a href="recurrence-relation.html">점화식</a>을 다른 방식(대입법, 재귀 트리 등)으로 직접 풀어야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="divide-and-conquer.html">분할정복</a>
+    <a href="recurrence-relation.html">점화식</a>
+    <a href="time-complexity-big-o.html">시간복잡도(빅오)</a>
+    <a href="amortized-analysis.html">상환 분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

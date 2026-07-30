@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Bayesian Model Averaging(베이지안 모형평균)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Bayesian Model Averaging(베이지안 모형평균, BMA)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 여러 모형을 동시에 고려하는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/bayesian-model-averaging.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 베이지안 모형평균 (Bayesian Model Averaging)</p>
+  <h1>베이지안 모형평균 (Bayesian Model Averaging)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 어떤 모형이 "정답"인지 하나로 확정하지 않고, 가능성 있는 여러 모형의 예측을 각 모형의 신뢰도에 따라 가중 평균하여 결론을 내리는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>어떤 질문에 대해 전문가 10명에게 의견을 물으면 답이 조금씩 다를 수 있습니다. 이때 한 명의 말만 믿기보다, 각 전문가의 신뢰도(과거 예측이 얼마나 잘 맞았는지)에 따라 비중을 다르게 주어 의견을 종합하면 더 안정적인 결론을 얻을 수 있습니다. 베이지안 모형평균도 같은 발상입니다. 연구자가 "이 변수들의 조합이 진짜 모형이다"라고 하나로 단정하지 않고, 가능한 여러 설명변수 조합(모형)들을 동시에 두고 각 모형이 데이터를 얼마나 잘 설명하는지에 따라 확률적 가중치를 매긴 뒤, 그 가중치로 예측과 계수를 평균 내는 것입니다. 이렇게 하면 특정 모형 하나를 잘못 고르는 데서 오는 위험을 줄일 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"변수 선택에 따른 모형 불확실성을 반영하기 위해 베이지안 모형평균(BMA)을 실시하여 각 설명변수의 사후포함확률을 산출하였다."</div>
+  <p>이 문장은 연구자가 어떤 변수를 모형에 넣을지 확신할 수 없는 상황에서, 가능한 모든 변수 조합의 모형을 비교하고 각 변수가 "진짜 설명력이 있을 확률"(사후포함확률)을 계산해 결과의 신뢰도를 높였다는 뜻입니다. 경제성장 결정요인 연구나 유전체 분석처럼 후보 변수가 매우 많은 분야에서 자주 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>BMA는 하나의 <a href="bayesian-inference.html">베이지안 추론</a> 틀 안에서 "어떤 모형이 맞는가"에 대한 불확실성까지 반영한다는 점에서, 하나의 모형을 고정해 놓고 그 모형 안의 모수만 추정하는 일반적인 통계 분석과 다릅니다. 계산량이 많아 후보 모형 수가 매우 클 경우 근사적인 탐색 알고리즘을 사용하는 경우가 많다는 점도 함께 알아두면 좋습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="bayesian-inference.html">베이지안 추론</a>
+    <a href="elastic-net-regression.html">엘라스틱넷 회귀</a>
+    <a href="variance-inflation-factor.html">분산팽창지수</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>LRU Cache(LRU 캐시)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 LRU Cache(LRU 캐시)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 가장 오래 쓰지 않은 데이터부터 지우는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lru-cache.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; LRU 캐시 (LRU Cache)</p>
+  <h1>LRU 캐시 (LRU Cache)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 저장 공간이 가득 찼을 때 가장 최근에 사용되지 않은 데이터부터 지우는 방식으로 제한된 캐시 공간을 관리하는 정책입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>책상 위에 자료를 몇 개만 올려둘 수 있다고 해봅시다. 새 자료를 올려야 하는데 자리가 없다면, 가장 오랫동안 손대지 않은 자료부터 서랍에 치우는 것이 자연스럽습니다. LRU(Least Recently Used) 캐시는 바로 이 방식을 컴퓨터 메모리에 적용한 것으로, 최근에 사용한 데이터일수록 앞쪽에 유지하고, 가장 오래전에 사용된 데이터부터 밀어냅니다. 보통 해시 테이블과 이중 연결 리스트를 함께 써서 조회와 삭제를 모두 빠르게 처리합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"서버의 응답 지연을 줄이기 위해 자주 조회되는 질의 결과를 LRU 캐시(LRU cache)에 저장하고, 접근 빈도가 낮은 항목부터 자동으로 제거하도록 설계하였다."</div>
+  <p>이 문장은 모든 요청을 매번 데이터베이스나 원본 서버에서 새로 처리하지 않고, 최근에 쓰인 결과를 임시로 저장해 두었다가 재사용함으로써 시스템 성능을 높였다는 뜻입니다. 시스템·네트워크·분산 컴퓨팅 논문에서 캐시 정책을 설명할 때 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>캐시 공간을 무작정 늘리면 성능이 항상 좋아질 것이라 생각하기 쉽지만, 실제 접근 패턴과 맞지 않으면 효과가 크지 않습니다. 또한 LRU는 "최근성"만 기준으로 삼기 때문에, 얼마나 자주 쓰였는지를 기준으로 삼는 LFU 같은 다른 정책과는 판단 기준이 다르다는 점도 함께 이해하면 좋습니다. 캐시가 실제로 어떻게 계층화되어 동작하는지는 <a href="cache-memory-hierarchy.html">캐시 메모리 계층구조</a> 항목을 참고하세요.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cache-memory-hierarchy.html">캐시 메모리 계층구조</a>
+    <a href="hash-table.html">해시 테이블</a>
+    <a href="virtual-memory.html">가상 메모리</a>
+    <a href="time-complexity-big-o.html">시간복잡도(빅오)</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

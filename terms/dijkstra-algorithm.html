@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Dijkstra's Algorithm(다익스트라 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Dijkstra's Algorithm(다익스트라 알고리즘)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 최단 경로를 구하는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/dijkstra-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 다익스트라 알고리즘 (Dijkstra's Algorithm)</p>
+  <h1>다익스트라 알고리즘 (Dijkstra's Algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 길마다 비용(가중치)이 다른 그래프에서, 한 지점에서 다른 모든 지점까지 가장 비용이 적게 드는 경로를 찾아내는 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>내비게이션이 출발지에서 목적지까지 최단 경로를 찾는 과정과 비슷합니다. 다익스트라 알고리즘은 출발점에서 가장 가까운 곳부터 하나씩 확정해 나가면서, 그곳을 거쳐 갈 수 있는 다음 지점까지의 거리를 갱신합니다. 이렇게 "지금까지 알려진 것 중 가장 가까운 곳"을 반복해서 확정해 나가면, 결국 출발점에서 모든 지점까지의 최단 거리를 구할 수 있습니다. 단, 길의 비용(거리, 시간 등)이 음수가 아니어야 정확하게 동작합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"실제 도로망 데이터에서 두 지점 간 최단 이동 경로와 소요 시간을 계산하기 위해 다익스트라 알고리즘(Dijkstra's algorithm)을 적용하였다."</div>
+  <p>이 문장은 도로나 네트워크처럼 구간마다 이동 비용이 다른 지도 데이터에서, 특정 출발지로부터 다른 모든 지점까지의 최단 경로와 거리를 다익스트라 알고리즘으로 계산했다는 뜻입니다. 경로 탐색, 교통망 분석, 네트워크 라우팅을 다루는 논문에서 자주 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>다익스트라 알고리즘은 간선의 가중치가 음수인 경우에는 올바른 결과를 보장하지 않는다는 점을 놓치기 쉽습니다. 음수 가중치가 있는 그래프에서는 벨만-포드 알고리즘 같은 다른 방법을 써야 하며, 단순히 그래프를 어떤 순서로 방문할지만 다루는 <a href="graph-traversal.html">그래프 순회</a>와 달리 다익스트라는 "가장 저렴한 경로"라는 최적화 목표를 함께 고려한다는 차이도 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="graph-traversal.html">그래프 순회</a>
+    <a href="graph-theory-basics.html">그래프 이론 기초</a>
+    <a href="priority-queue-and-heap.html">우선순위 큐와 힙</a>
+    <a href="greedy-algorithm.html">탐욕 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

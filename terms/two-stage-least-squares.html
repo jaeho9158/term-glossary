@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Two-Stage Least Squares(이단계 최소제곱법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Two-Stage Least Squares(이단계 최소제곱법, 2SLS)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 도구변수를 이용해 내생성을 해결하는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/two-stage-least-squares.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 이단계 최소제곱법 (Two-Stage Least Squares)</p>
+  <h1>이단계 최소제곱법 (Two-Stage Least Squares)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 도구변수를 이용해 설명변수의 "순수한" 부분만 먼저 예측한 뒤, 그 예측값으로 다시 회귀분석을 하는 2단계 추정법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>운동시간이 건강에 미치는 영향을 보고 싶은데, 건강한 사람일수록 운동을 더 많이 하는 역방향 인과관계도 있다면 회귀분석 결과를 곧이곧대로 믿기 어렵습니다. 이럴 때 "헬스장까지의 거리"처럼 운동시간과는 관련 있지만 건강 자체에는 직접 영향을 주지 않는 변수(도구변수)를 하나 찾습니다. 1단계에서는 이 도구변수로 운동시간을 예측하고, 2단계에서는 그 예측된 운동시간(원래 운동시간에서 역인과 문제가 섞인 부분을 걸러낸 값)을 가지고 건강에 미치는 영향을 다시 추정합니다. 오염된 재료를 한 번 걸러낸 뒤 요리에 쓰는 것과 비슷한 2단계 절차입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"교육연수와 임금 간의 내생성 문제를 통제하기 위해 부모의 학력을 도구변수로 삼아 이단계 최소제곱법(2SLS)으로 추정하였다."</div>
+  <p>이 문장은 교육연수가 임금에 영향을 주는 동시에 능력이나 가정환경 같은 관찰되지 않은 요인과도 얽혀 있을 수 있는 문제를, 부모 학력이라는 도구변수를 이용한 2단계 추정으로 보정했다는 뜻입니다. 노동경제학의 교육수익률 연구에서 자주 쓰이는 대표적 방법입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>2SLS는 <a href="generalized-method-of-moments.html">일반화적률법(GMM)</a>의 특수한 경우로 볼 수 있는데, 오차항의 이분산성이 없다는 가정 하에서는 두 방법의 결과가 같아집니다. 또한 도구변수가 설명변수와 약하게만 관련되어 있으면(약한 도구변수 문제) 2SLS 추정치가 오히려 더 불안정해질 수 있으므로 도구변수의 설명력을 반드시 함께 점검해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="instrumental-variable.html">도구변수</a>
+    <a href="generalized-method-of-moments.html">일반화적률법</a>
+    <a href="endogeneity.html">내생성</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
