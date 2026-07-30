@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Poisson Regression(포아송 회귀)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Poisson Regression(포아송 회귀)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 사건 발생 횟수를 예측하는 회귀분석을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/poisson-regression.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 포아송 회귀 (Poisson Regression)</p>
+  <h1>포아송 회귀 (Poisson Regression)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 하루 응급실 방문 건수처럼 정해진 시간이나 공간 안에서 몇 번 일어났는지를 세는 "횟수" 데이터가, 여러 원인 변수에 따라 어떻게 달라지는지 예측하는 회귀분석 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>키나 몸무게 같은 연속적인 값을 예측할 때는 일반적인 선형회귀를 쓰지만, "한 달에 교통사고가 몇 건 났는가", "환자가 병원에 몇 번 방문했는가"처럼 0, 1, 2, 3처럼 딱 떨어지는 횟수 데이터는 사정이 다릅니다. 횟수는 음수가 될 수 없고 0 근처에 몰려 있는 경우가 많아서, 일반 회귀분석을 그대로 쓰면 이상한 결과가 나옵니다. 포아송 회귀는 이런 횟수 데이터의 특징에 맞춰 "사건이 평균적으로 몇 번 일어날 것인가"를 추정하도록 설계된 회귀 방법입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"포아송 회귀분석(Poisson regression) 결과, 대기오염도가 10단위 증가할 때마다 응급실 방문 건수가 유의하게 증가하는 것으로 나타났다(IRR = 1.15, p &lt; .05)."</div>
+  <p>이 문장은 대기오염 수치와 응급실 방문 "횟수" 사이의 관계를 포아송 회귀로 분석했고, 오염도가 높아질수록 방문 횟수가 평균 15% 늘어난다는 뜻입니다(IRR은 발생률비를 의미합니다). 보건학, 범죄학, 공학 등 사건 발생 빈도를 다루는 논문에서 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>포아송 회귀는 "평균과 분산이 같다"는 강한 가정을 전제로 합니다. 실제 데이터에서 분산이 평균보다 훨씬 큰 과대산포(overdispersion) 현상이 나타나면 이 가정이 깨지므로, 이런 경우에는 <a href="negative-binomial-regression.html">음이항 회귀</a>를 대신 사용하는 것이 일반적입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="negative-binomial-regression.html">음이항 회귀</a>
+    <a href="poisson-distribution.html">포아송분포</a>
+    <a href="logistic-regression.html">로지스틱 회귀</a>
+    <a href="generalized-linear-model.html">일반화선형모형</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

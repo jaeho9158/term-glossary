@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Convolution(합성곱)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Convolution(합성곱)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 두 함수를 겹쳐 새로운 함수를 만드는 연산을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/convolution.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 합성곱 (Convolution)</p>
+  <h1>합성곱 (Convolution)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 한 함수를 뒤집어 미끄러뜨리면서 다른 함수와 겹치는 부분을 계속 곱하고 더해, 두 함수가 서로에게 미치는 영향을 하나의 새 함수로 나타내는 연산입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>스피커에서 소리를 내면 방 안 벽에 부딪혀 울림(잔향)이 남는 것을 떠올려 보세요. 원래 소리(입력 신호)와 그 방이 가진 울림의 특성(응답 함수)이 서로 겹쳐지면서 우리가 실제로 듣는 소리가 만들어집니다. 합성곱은 이렇게 "하나의 신호가 다른 신호(또는 시스템의 반응 특성)를 만나 어떻게 뒤섞이고 퍼지는지"를 수학적으로 계산하는 연산입니다. 한 함수를 좌우로 뒤집어 조금씩 이동시키면서, 겹치는 두 함수 값을 곱한 뒤 전부 더하는 과정을 반복해 새로운 함수를 얻습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"입력 신호와 필터 커널의 합성곱(convolution)을 통해 노이즈를 제거하고 신호의 주요 특징을 강조하였다."</div>
+  <p>이 문장은 신호처리나 이미지 처리 논문에서 흔히 등장합니다. 원본 신호에 특정 패턴(필터)을 합성곱 연산으로 적용하면 노이즈가 줄어들거나 경계선 같은 특정 특징이 도드라지게 되는데, 이 원리를 설명할 때 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>합성곱은 <a href="fourier-transform.html">푸리에 변환</a>과 깊이 연결되어 있습니다. 시간(또는 공간) 영역에서의 합성곱은 푸리에 변환을 거치면 단순한 곱셈으로 바뀌는데, 이 성질(합성곱 정리) 때문에 실제 계산에서는 직접 합성곱을 계산하기보다 푸리에 변환을 이용해 더 빠르게 처리하는 경우가 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="fourier-transform.html">푸리에 변환</a>
+    <a href="fourier-series.html">푸리에 급수</a>
+    <a href="convolutional-neural-network.html">합성곱 신경망</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
