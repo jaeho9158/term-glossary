@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Autoregressive Model(자기회귀모형)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Autoregressive Model(자기회귀모형, AR모형)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 과거 값으로 미래 값을 예측하는 시계열 모형을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/autoregressive-model.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 자기회귀모형 (Autoregressive Model)</p>
+  <h1>자기회귀모형 (Autoregressive Model)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 어떤 값을 예측할 때 다른 변수가 아니라 바로 그 값 자신의 과거 기록을 이용해 예측하는 시계열 모형입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보통 회귀분석은 키로 몸무게를 예측하듯 서로 다른 두 변수 사이의 관계를 봅니다. 그런데 자기회귀모형은 조금 다릅니다. 예를 들어 오늘의 기온을 예측할 때 어제, 그제 기온을 가지고 예측하는 식입니다. 즉 "자기 자신의 과거 값"이 "자기 자신의 현재 값"을 설명하는 변수로 쓰이는 것입니다. 몇 시점 전까지의 값을 참고하느냐에 따라 AR(1), AR(2)처럼 차수를 붙여 부르며, 주가나 기온, 매출액처럼 시간 순서대로 쌓인 데이터(시계열 데이터)를 분석할 때 가장 기본이 되는 모형입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"월별 소비자물가지수의 과거 값이 현재 값에 미치는 영향을 확인하기 위해 2차 자기회귀모형(autoregressive model, AR(2))을 적합하였다."</div>
+  <p>이 문장은 이번 달 물가지수를 지난달과 지지난달 물가지수만으로 설명하는 모형을 만들었다는 뜻입니다. 경제지표, 기후 데이터, 생체 신호처럼 시간에 따라 이어지는 데이터를 다루는 연구에서 기본 분석 틀로 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>자기회귀모형은 여러 시계열 변수를 동시에 서로 예측하는 <a href="vector-autoregression.html">벡터자기회귀모형</a>이나, 추세 제거와 이동평균 항까지 포함하는 <a href="arima-model.html">ARIMA 모형</a>과는 범위가 다른 더 단순한 모형입니다. 또한 데이터가 시간이 지나도 평균이나 분산이 일정하게 유지되는 정상성을 만족해야 안정적으로 해석할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="arima-model.html">ARIMA 모형</a>
+    <a href="vector-autoregression.html">벡터자기회귀모형</a>
+    <a href="autocorrelation.html">자기상관</a>
+    <a href="time-series-analysis.html">시계열 분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

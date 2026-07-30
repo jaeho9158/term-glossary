@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Union-Find(유니온-파인드)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Union-Find(유니온-파인드, 서로소 집합)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 네트워크 연결 판별 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/union-find.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 유니온-파인드 (Union-Find)</p>
+  <h1>유니온-파인드 (Union-Find)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 원소를 서로 겹치지 않는 그룹(집합)으로 관리하면서, 두 원소가 같은 그룹인지 확인(find)하고 두 그룹을 하나로 합치는(union) 연산을 매우 빠르게 처리하는 자료구조입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 개의 친구 무리가 있다고 생각해 보세요. "철수와 영희가 같은 무리인가?"를 확인하는 게 find이고, "철수네 무리와 영희네 무리를 하나로 합친다"가 union입니다. 서로소 집합(disjoint set)이라고도 불리는 이 구조는 무리마다 대표(리더)를 한 명씩 정해두고, 두 사람이 같은 무리인지 확인할 때는 각자의 대표가 같은 사람인지만 비교하면 되도록 설계되어 있어 매우 빠릅니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"네트워크의 연결 요소를 판별하기 위해 유니온-파인드(union-find) 자료구조를 사용하여 각 노드가 속한 그룹을 상수에 가까운 시간에 조회하였다."</div>
+  <p>이 문장은 수많은 노드와 간선으로 이루어진 네트워크에서, 어떤 두 노드가 서로 연결되어 있는지를 그래프 전체를 매번 탐색하지 않고도 거의 즉시 확인할 수 있었다는 뜻입니다. 최소 신장 트리를 구하는 크루스칼 알고리즘이나 이미지의 연결된 영역을 찾는 문제 등에서 핵심적으로 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>흔히 "거의 O(1)"이라고 표현하지만 이는 매 연산이 항상 상수 시간이라는 뜻이 아니라, 경로 압축 등의 최적화를 적용했을 때 여러 번의 연산을 전체적으로 평균 내면 연산당 비용이 극히 작아진다는 <a href="amortized-analysis.html">상각 분석</a> 결과입니다. 단일 연산 하나만 떼어서 보면 여전히 그보다 느릴 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="amortized-analysis.html">상각 분석</a>
+    <a href="topological-sort.html">위상 정렬</a>
+    <a href="hash-table.html">해시 테이블</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
