@@ -1,3 +1,5 @@
+// assets/quiz.js
+
 let allTerms = [];
 
 let currentTerms = [];
@@ -11,310 +13,1294 @@ let answer = "";
 let totalQuestions = 10;
 
 let wrongQuestions = [];
+
 let retryMode = false;
+
+
+// ===============================
+// 기록 저장
+// ===============================
+
+const RECORD_KEY = "term_quiz_record";
+
+
+function getRecord(){
+
+    const saved =
+    localStorage.getItem(RECORD_KEY);
+
+
+    if(!saved){
+
+        return {
+            played:0,
+            correct:0,
+            bestScore:0,
+            bestCombo:0
+        };
+
+    }
+
+
+    try{
+
+        return JSON.parse(saved);
+
+    }
+
+    catch{
+
+        return {
+            played:0,
+            correct:0,
+            bestScore:0,
+            bestCombo:0
+        };
+
+    }
+
+}
+
+
+
+function saveRecord(data){
+
+    localStorage.setItem(
+        RECORD_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+
+// ===============================
+// 상태
+// ===============================
+
+let combo = 0;
+
+let timer = null;
+
+let timeLeft = 15;
+
+
+// ===============================
+// DOM
+// ===============================
+
 
 const quizType =
 document.getElementById("quiz-type");
 
+
 const categorySelect =
 document.getElementById("category-select");
+
+
+const questionCount =
+document.getElementById("question-count");
+
+
+const difficultySelect =
+document.getElementById("difficulty-select");
+
 
 const question =
 document.getElementById("question");
 
+
 const choices =
 document.getElementById("choices");
+
 
 const result =
 document.getElementById("result");
 
+
 const quizArea =
 document.getElementById("quiz-area");
 
-const startArea = document.getElementById("start-area");
+
+const startArea =
+document.getElementById("start-area");
 
 
 const nextBtn =
 document.getElementById("next-btn");
 
+
 const quizCount =
 document.querySelector(".quiz-count");
 
-const CATEGORY_LABELS = {
-    stat:"통계",
-    method:"연구방법론",
-    tool:"측정·도구",
-    ethics:"윤리·출판",
-    physchem:"물리학·화학",
-    bioearth:"생물학·지구과학",
-    neuro:"뇌과학",
-    medhealth:"의학·보건",
-    psych:"심리학",
-    socialecon:"사회과학·경제학",
-    eng:"공학",
-    cs:"컴퓨터과학·AI"
-};
 
-async function loadTerms(){
+const timerEl =
+document.getElementById("quiz-timer");
 
-    const res =
-    await fetch("terms.json");
 
-    allTerms =
-    await res.json();
+const comboEl =
+document.getElementById("quiz-combo");
 
-    makeCategoryList();
+
+const recordBox =
+document.getElementById("quiz-record");
+
+
+
+
+// ===============================
+// 기록 표시
+// ===============================
+
+function updateRecord(){
+
+
+    if(!recordBox)
+        return;
+
+
+    const r =
+    getRecord();
+
+
+
+    const accuracy =
+    r.played
+    ?
+    Math.round(
+        r.correct /
+        r.played *
+        100
+    )
+    :
+    0;
+
+
+
+    recordBox.innerHTML = `
+
+        <h3>
+        📊 퀴즈 기록
+        </h3>
+
+        <p>
+        총 풀이:
+        ${r.played}
+        </p>
+
+        <p>
+        정답률:
+        ${accuracy}%
+        </p>
+
+        <p>
+        최고 점수:
+        ${r.bestScore}
+        점
+        </p>
+
+        <p>
+        최고 콤보:
+        ${r.bestCombo}
+        </p>
+
+    `;
 
 }
 
+
+
+
+// ===============================
+// 데이터 로딩
+// ===============================
+
+async function loadTerms(){
+
+
+    try{
+
+
+        const res =
+        await fetch("terms.json");
+
+
+        if(!res.ok)
+            throw new Error();
+
+
+
+        allTerms =
+        await res.json();
+
+
+
+        makeCategoryList();
+
+
+        updateRecord();
+
+
+    }
+
+
+    catch(e){
+
+
+        if(question){
+
+            question.textContent =
+            "용어 데이터를 불러오지 못했습니다.";
+
+        }
+
+
+    }
+
+
+}
+
+
+
+
+
+// ===============================
+// 카테고리 생성
+// ===============================
+
 function makeCategoryList(){
+
 
     const set =
     new Set();
 
+
+
     allTerms.forEach(t=>{
 
-        (t.categories||[]).forEach(c=>set.add(c));
+
+        (t.categories || [])
+        .forEach(c=>set.add(c));
+
 
     });
+
+
+
+    const labels = {
+
+        stat:"통계",
+
+        method:"연구방법론",
+
+        tool:"측정·도구",
+
+        ethics:"윤리·출판",
+
+        physchem:"물리학·화학",
+
+        bioearth:"생물학·지구과학",
+
+        neuro:"뇌과학",
+
+        medhealth:"의학·보건",
+
+        psych:"심리학",
+
+        socialecon:"사회과학·경제학",
+
+        eng:"공학",
+
+        cs:"컴퓨터과학·AI"
+
+    };
+
+
+
 
     [...set].forEach(cat=>{
 
-        const op =
+
+        const option =
         document.createElement("option");
 
-        op.value=cat;
 
-        op.textContent = CATEGORY_LABELS[cat] || cat;
+        option.value =
+        cat;
 
-        categorySelect.appendChild(op);
+
+        option.textContent =
+        labels[cat] || cat;
+
+
+        categorySelect.appendChild(option);
+
+
 
     });
 
+
 }
 
-document.getElementById("start-btn")
-.onclick=function(){
 
-    const cat=
-    categorySelect.value;
 
-    if(cat==="all"){
 
-        currentTerms=[...allTerms];
 
-    }else{
+// ===============================
+// 난이도 적용
+// ===============================
 
-        currentTerms=
-        allTerms.filter(t=>
-            t.categories.includes(cat)
+function filterDifficulty(list){
+
+
+    const level =
+    difficultySelect.value;
+
+
+
+    if(level==="all")
+        return list;
+
+
+
+    if(level==="easy"){
+
+
+        return list.filter(t=>
+
+            t.definition.length < 120
+
         );
+
 
     }
 
-    shuffle(currentTerms);
+
+
+    if(level==="hard"){
+
+
+        return list.filter(t=>
+
+            t.definition.length >= 120
+
+        );
+
+
+    }
+
+
+
+    return list;
+
+}
+
+
+
+
+// ===============================
+// 시작
+// ===============================
+
+document
+.getElementById("start-btn")
+.onclick=function(){
+
+
+
+    let list =
+    [...allTerms];
+
+
+
+    const category =
+    categorySelect.value;
+
+
+
+    if(category !== "all"){
+
+
+        list =
+        list.filter(t=>
+
+            (t.categories || [])
+            .includes(category)
+
+        );
+
+
+    }
+
+
+
+    list =
+    filterDifficulty(list);
+
+
+
+    shuffle(list);
+
+
+
+    currentTerms =
+    list;
+
+
 
     currentQuestion=0;
 
+
     score=0;
 
-    totalQuestions = Math.min(10, currentTerms.length);
 
-    wrongQuestions = [];
-    retryMode = false;
+    combo=0;
 
-    startArea.hidden=true;
-    quizArea.hidden=false;
 
-    nextQuestion();
-
-};
-
-function nextQuestion(){
-
-    result.textContent="";
-
-    nextBtn.hidden=true;
 
     totalQuestions =
-    retryMode
-    ? currentTerms.length
-    : Math.min(10, currentTerms.length);
+    Math.min(
 
-    if(currentQuestion >= totalQuestions){
-        finishQuiz();
-        return;
-    }
+        Number(questionCount.value),
 
-    const term=
-    currentTerms[currentQuestion];
+        currentTerms.length
 
-    let mode = quizType.value;
+    );
 
-    if(mode==="random"){
-        mode = Math.random()>0.5
-            ? "definition"
-            : "term";
-    }
 
-    if(mode==="definition"){
-
-        answer = term.title_ko;
-
-        question.textContent =
-            term.definition;
-
-    }else{
-
-        answer = term.definition;
-
-        question.textContent =
-            term.title_ko;
-
-    }
-
-    quizCount.textContent=
-    `${currentQuestion + 1} / ${totalQuestions}`;
-
-    const options=[answer];
-
-    while(options.length<4){
-
-        const randomTerm =
-        allTerms[
-        Math.floor(Math.random()*allTerms.length)
-        ];
-
-        const random =
-        mode==="definition"
-        ? randomTerm.title_ko
-        : randomTerm.definition;
-
-        if(!options.includes(random))
-            options.push(random);
-
-    }
-
-    shuffle(options);
-
-    choices.innerHTML="";
-
-    options.forEach(op=>{
-
-        const div=
-        document.createElement("div");
-
-        div.className="choice";
-
-        div.textContent=op;
-
-        div.onclick=()=>check(div,op);
-
-        choices.appendChild(div);
-
-    });
-
-    document.getElementById("progress-bar").style.width =
-(currentQuestion / totalQuestions * 100) + "%";
-
-}
-
-function check(div,value){
-
-    [...choices.children]
-    .forEach(c=>c.onclick=null);
-
-    if(value === answer){
-
-        score++;
-
-        div.classList.add("correct");
-
-        result.textContent="정답!";
-
-    }else{
-        wrongQuestions.push(currentTerms[currentQuestion]);
-        div.classList.add("wrong");
-
-        [...choices.children].forEach(c=>{
-
-            if(c.textContent===answer)
-
-                c.classList.add("correct");
-
-        });
-
-        result.textContent=
-        `정답은 ${answer}`;
-
-    }
-
-    currentQuestion++;
-
-    document.getElementById("progress-bar").style.width =
-        (currentQuestion / totalQuestions * 100) + "%";
-
-    nextBtn.hidden=false;
-
-}
-
-nextBtn.onclick=nextQuestion;
-
-function finishQuiz() {
-
-    question.textContent = "퀴즈 종료!";
-
-    choices.innerHTML = "";
-
-    result.innerHTML = `
-        <h2>결과</h2>
-        <p>${score}/${totalQuestions}점</p>
-
-        ${
-            wrongQuestions.length > 0
-            ? `<button id="retry-btn" class="retry-btn">
-                틀린 문제 다시 풀기 (${wrongQuestions.length}개)
-               </button>`
-            : `<p>모든 문제를 맞혔어요! 🎉</p>`
-        }
-    `;
-
-    nextBtn.hidden = true;
-    startArea.hidden = false;
-
-    const retryBtn = document.getElementById("retry-btn");
-
-    if (retryBtn) {
-        retryBtn.onclick = startRetryQuiz;
-    }
-}
-
-function shuffle(arr){
-
-    arr.sort(()=>Math.random()-0.5);
-
-}
-
-loadTerms();
-
-function startRetryQuiz(){
-
-    startArea.hidden = true;
-
-    currentTerms=[...wrongQuestions];
 
     wrongQuestions=[];
 
-    retryMode=true;
 
-    currentQuestion=0;
+    retryMode=false;
 
-    score=0;
+
+
+    startArea.hidden=true;
+
+
+    quizArea.hidden=false;
+
+
+
+    updateCombo();
+
+
 
     nextQuestion();
 
+
+
+};
+
+
+
+// ===============================
+// 문제 출제
+// ===============================
+
+function nextQuestion(){
+
+
+    clearTimer();
+
+
+    result.textContent = "";
+
+
+    nextBtn.hidden = true;
+
+
+
+    if(currentQuestion >= totalQuestions){
+
+
+        finishQuiz();
+
+
+        return;
+
+
+    }
+
+
+
+
+    const term =
+    currentTerms[currentQuestion];
+
+
+
+    let mode =
+    quizType.value;
+
+
+
+    if(mode==="random"){
+
+
+        mode =
+        Math.random() > 0.5
+        ?
+        "definition"
+        :
+        "term";
+
+
+    }
+
+
+
+
+
+    if(mode==="definition"){
+
+
+        answer =
+        term.title_ko;
+
+
+        question.textContent =
+        term.definition;
+
+
+
+    }
+
+    else{
+
+
+        answer =
+        term.definition;
+
+
+        question.textContent =
+        term.title_ko;
+
+
+    }
+
+
+
+
+
+    quizCount.textContent =
+    `${currentQuestion + 1} / ${totalQuestions}`;
+
+
+
+
+
+    const options =
+    [answer];
+
+
+
+
+    while(options.length < 4){
+
+
+
+        const randomTerm =
+        allTerms[
+            Math.floor(
+                Math.random()
+                *
+                allTerms.length
+            )
+        ];
+
+
+
+        const option =
+        mode==="definition"
+        ?
+        randomTerm.title_ko
+        :
+        randomTerm.definition;
+
+
+
+
+        if(
+            option &&
+            !options.includes(option)
+        ){
+
+            options.push(option);
+
+        }
+
+
+    }
+
+
+
+
+
+    shuffle(options);
+
+
+
+    choices.innerHTML = "";
+
+
+
+
+    options.forEach(op=>{
+
+
+        const btn =
+        document.createElement("button");
+
+
+        btn.className =
+        "choice";
+
+
+        btn.textContent =
+        op;
+
+
+
+        btn.onclick =
+        ()=>checkAnswer(btn,op);
+
+
+
+        choices.appendChild(btn);
+
+
+
+    });
+
+
+
+
+    updateProgress();
+
+
+    startTimer();
+
+
 }
 
-function retryWrongQuestions(){
-    startRetryQuiz();
+
+
+
+
+// ===============================
+// 타이머
+// ===============================
+
+
+function startTimer(){
+
+
+    timeLeft = 15;
+
+
+    updateTimer();
+
+
+
+    timer =
+    setInterval(()=>{
+
+
+        timeLeft--;
+
+
+        updateTimer();
+
+
+
+        if(timeLeft <= 0){
+
+
+            clearTimer();
+
+
+            timeoutAnswer();
+
+
+        }
+
+
+
+    },1000);
+
+
+
 }
+
+
+
+
+function updateTimer(){
+
+
+    if(timerEl){
+
+
+        timerEl.textContent =
+        `⏱ ${timeLeft}초`;
+
+    }
+
+
+}
+
+
+
+function clearTimer(){
+
+
+    if(timer){
+
+
+        clearInterval(timer);
+
+
+        timer=null;
+
+
+    }
+
+
+}
+
+
+
+
+// ===============================
+// 시간 초과
+// ===============================
+
+
+function timeoutAnswer(){
+
+
+
+    wrongQuestions.push(
+        currentTerms[currentQuestion]
+    );
+
+
+
+    combo=0;
+
+
+    updateCombo();
+
+
+
+    result.textContent =
+    `시간 초과! 정답 : ${answer}`;
+
+
+
+    [...choices.children]
+    .forEach(c=>{
+
+
+        c.onclick=null;
+
+
+        if(c.textContent===answer){
+
+
+            c.classList.add(
+                "correct"
+            );
+
+
+        }
+
+
+    });
+
+
+
+    currentQuestion++;
+
+
+    nextBtn.hidden=false;
+
+
+}
+
+
+
+
+
+// ===============================
+// 정답 확인
+// ===============================
+
+
+function checkAnswer(btn,value){
+
+
+
+    clearTimer();
+
+
+
+    [...choices.children]
+    .forEach(c=>{
+
+
+        c.onclick=null;
+
+
+    });
+
+
+
+    const record =
+    getRecord();
+
+
+
+    record.played++;
+
+
+
+
+    if(value === answer){
+
+
+
+        score++;
+
+
+        combo++;
+
+
+        record.correct++;
+
+
+
+        if(combo > record.bestCombo){
+
+
+            record.bestCombo =
+            combo;
+
+
+        }
+
+
+
+
+        btn.classList.add(
+            "correct"
+        );
+
+
+
+        result.textContent =
+        `정답! 🔥 ${combo}연속 정답`;
+
+
+
+    }
+
+    else{
+
+
+
+        combo=0;
+
+
+
+        wrongQuestions.push(
+            currentTerms[currentQuestion]
+        );
+
+
+
+        btn.classList.add(
+            "wrong"
+        );
+
+
+
+
+        [...choices.children]
+        .forEach(c=>{
+
+
+            if(c.textContent===answer){
+
+
+                c.classList.add(
+                    "correct"
+                );
+
+
+            }
+
+
+        });
+
+
+
+        result.textContent =
+        `오답! 정답 : ${answer}`;
+
+
+    }
+
+
+
+    saveRecord(record);
+
+
+
+    updateCombo();
+
+
+
+    currentQuestion++;
+
+
+
+    nextBtn.hidden=false;
+
+
+
+}
+
+
+
+
+
+
+// ===============================
+// 콤보 표시
+// ===============================
+
+function updateCombo(){
+
+
+
+    if(comboEl){
+
+
+        comboEl.textContent =
+        `🔥 ${combo} 콤보`;
+
+
+    }
+
+
+}
+
+
+
+
+
+// ===============================
+// 진행률
+// ===============================
+
+function updateProgress(){
+
+
+    const bar =
+    document.getElementById(
+        "progress-bar"
+    );
+
+
+    if(!bar)
+        return;
+
+
+
+    bar.style.width =
+
+    (
+
+        currentQuestion
+        /
+        totalQuestions
+        *
+        100
+
+    )
+
+    + "%";
+
+
+}
+
+
+
+
+
+
+// ===============================
+// 종료
+// ===============================
+
+
+function finishQuiz(){
+
+
+
+    clearTimer();
+
+
+
+    const record =
+    getRecord();
+
+
+
+    if(score > record.bestScore){
+
+
+        record.bestScore =
+        score;
+
+
+        saveRecord(record);
+
+
+    }
+
+
+
+
+
+    question.textContent =
+    "퀴즈 종료!";
+
+
+
+    choices.innerHTML="";
+
+
+
+
+    const accuracy =
+    Math.round(
+
+        score
+        /
+        totalQuestions
+        *
+        100
+
+    );
+
+
+
+
+    result.innerHTML = `
+
+    <div class="quiz-result">
+
+    <h2>
+    🎉 결과
+    </h2>
+
+
+    <p>
+    점수 :
+    <strong>
+    ${score}/${totalQuestions}
+    </strong>
+    </p>
+
+
+    <p>
+    정답률 :
+    ${accuracy}%
+    </p>
+
+
+    <p>
+    최고 점수 :
+    ${record.bestScore}
+    </p>
+
+
+    <p>
+    최고 콤보 :
+    ${record.bestCombo}
+    </p>
+
+
+    ${
+        wrongQuestions.length
+
+        ?
+
+        `
+        <button id="retry-btn">
+        틀린 문제 다시 풀기
+        (${wrongQuestions.length})
+        </button>
+        `
+
+        :
+
+        `
+        <p>
+        모든 문제 정답 🎉
+        </p>
+        `
+
+    }
+
+
+    </div>
+
+    `;
+
+
+
+    nextBtn.hidden=true;
+
+
+    startArea.hidden=false;
+
+
+
+    updateRecord();
+
+
+
+    const retry =
+    document.getElementById(
+        "retry-btn"
+    );
+
+
+
+    if(retry){
+
+
+        retry.onclick =
+        startRetryQuiz;
+
+
+    }
+
+
+
+}
+
+
+
+
+// ===============================
+// 오답 다시 풀기
+// ===============================
+
+
+function startRetryQuiz(){
+
+
+
+    currentTerms =
+    [...wrongQuestions];
+
+
+
+    wrongQuestions=[];
+
+
+
+    currentQuestion=0;
+
+
+
+    score=0;
+
+
+
+    combo=0;
+
+
+
+    totalQuestions =
+    currentTerms.length;
+
+
+
+    startArea.hidden=true;
+
+
+    quizArea.hidden=false;
+
+
+
+    nextQuestion();
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// 배열 섞기
+// ===============================
+
+
+function shuffle(arr){
+
+
+
+    for(
+        let i=arr.length-1;
+        i>0;
+        i--
+    ){
+
+
+        const j =
+        Math.floor(
+            Math.random()*(i+1)
+        );
+
+
+        [
+            arr[i],
+            arr[j]
+        ]
+        =
+        [
+            arr[j],
+            arr[i]
+        ];
+
+
+    }
+
+
+}
+
+
+
+
+// ===============================
+// 다음 문제 버튼
+// ===============================
+
+nextBtn.onclick =
+nextQuestion;
+
+
+
+// 실행
+
+loadTerms();
