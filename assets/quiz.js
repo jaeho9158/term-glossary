@@ -493,3 +493,814 @@ document
 
 };
 
+
+
+// ===============================
+// 문제 출제
+// ===============================
+
+function nextQuestion(){
+
+
+    clearTimer();
+
+
+    result.textContent = "";
+
+
+    nextBtn.hidden = true;
+
+
+
+    if(currentQuestion >= totalQuestions){
+
+
+        finishQuiz();
+
+
+        return;
+
+
+    }
+
+
+
+
+    const term =
+    currentTerms[currentQuestion];
+
+
+
+    let mode =
+    quizType.value;
+
+
+
+    if(mode==="random"){
+
+
+        mode =
+        Math.random() > 0.5
+        ?
+        "definition"
+        :
+        "term";
+
+
+    }
+
+
+
+
+
+    if(mode==="definition"){
+
+
+        answer =
+        term.title_ko;
+
+
+        question.textContent =
+        term.definition;
+
+
+
+    }
+
+    else{
+
+
+        answer =
+        term.definition;
+
+
+        question.textContent =
+        term.title_ko;
+
+
+    }
+
+
+
+
+
+    quizCount.textContent =
+    `${currentQuestion + 1} / ${totalQuestions}`;
+
+
+
+
+
+    const options =
+    [answer];
+
+
+
+
+    while(options.length < 4){
+
+
+
+        const randomTerm =
+        allTerms[
+            Math.floor(
+                Math.random()
+                *
+                allTerms.length
+            )
+        ];
+
+
+
+        const option =
+        mode==="definition"
+        ?
+        randomTerm.title_ko
+        :
+        randomTerm.definition;
+
+
+
+
+        if(
+            option &&
+            !options.includes(option)
+        ){
+
+            options.push(option);
+
+        }
+
+
+    }
+
+
+
+
+
+    shuffle(options);
+
+
+
+    choices.innerHTML = "";
+
+
+
+
+    options.forEach(op=>{
+
+
+        const btn =
+        document.createElement("button");
+
+
+        btn.className =
+        "choice";
+
+
+        btn.textContent =
+        op;
+
+
+
+        btn.onclick =
+        ()=>checkAnswer(btn,op);
+
+
+
+        choices.appendChild(btn);
+
+
+
+    });
+
+
+
+
+    updateProgress();
+
+
+    startTimer();
+
+
+}
+
+
+
+
+
+// ===============================
+// 타이머
+// ===============================
+
+
+function startTimer(){
+
+
+    timeLeft = 15;
+
+
+    updateTimer();
+
+
+
+    timer =
+    setInterval(()=>{
+
+
+        timeLeft--;
+
+
+        updateTimer();
+
+
+
+        if(timeLeft <= 0){
+
+
+            clearTimer();
+
+
+            timeoutAnswer();
+
+
+        }
+
+
+
+    },1000);
+
+
+
+}
+
+
+
+
+function updateTimer(){
+
+
+    if(timerEl){
+
+
+        timerEl.textContent =
+        `⏱ ${timeLeft}초`;
+
+    }
+
+
+}
+
+
+
+function clearTimer(){
+
+
+    if(timer){
+
+
+        clearInterval(timer);
+
+
+        timer=null;
+
+
+    }
+
+
+}
+
+
+
+
+// ===============================
+// 시간 초과
+// ===============================
+
+
+function timeoutAnswer(){
+
+
+
+    wrongQuestions.push(
+        currentTerms[currentQuestion]
+    );
+
+
+
+    combo=0;
+
+
+    updateCombo();
+
+
+
+    result.textContent =
+    `시간 초과! 정답 : ${answer}`;
+
+
+
+    [...choices.children]
+    .forEach(c=>{
+
+
+        c.onclick=null;
+
+
+        if(c.textContent===answer){
+
+
+            c.classList.add(
+                "correct"
+            );
+
+
+        }
+
+
+    });
+
+
+
+    currentQuestion++;
+
+
+    nextBtn.hidden=false;
+
+
+}
+
+
+
+
+
+// ===============================
+// 정답 확인
+// ===============================
+
+
+function checkAnswer(btn,value){
+
+
+
+    clearTimer();
+
+
+
+    [...choices.children]
+    .forEach(c=>{
+
+
+        c.onclick=null;
+
+
+    });
+
+
+
+    const record =
+    getRecord();
+
+
+
+    record.played++;
+
+
+
+
+    if(value === answer){
+
+
+
+        score++;
+
+
+        combo++;
+
+
+        record.correct++;
+
+
+
+        if(combo > record.bestCombo){
+
+
+            record.bestCombo =
+            combo;
+
+
+        }
+
+
+
+
+        btn.classList.add(
+            "correct"
+        );
+
+
+
+        result.textContent =
+        `정답! 🔥 ${combo}연속 정답`;
+
+
+
+    }
+
+    else{
+
+
+
+        combo=0;
+
+
+
+        wrongQuestions.push(
+            currentTerms[currentQuestion]
+        );
+
+
+
+        btn.classList.add(
+            "wrong"
+        );
+
+
+
+
+        [...choices.children]
+        .forEach(c=>{
+
+
+            if(c.textContent===answer){
+
+
+                c.classList.add(
+                    "correct"
+                );
+
+
+            }
+
+
+        });
+
+
+
+        result.textContent =
+        `오답! 정답 : ${answer}`;
+
+
+    }
+
+
+
+    saveRecord(record);
+
+
+
+    updateCombo();
+
+
+
+    currentQuestion++;
+
+
+
+    nextBtn.hidden=false;
+
+
+
+}
+
+
+
+
+
+
+// ===============================
+// 콤보 표시
+// ===============================
+
+function updateCombo(){
+
+
+
+    if(comboEl){
+
+
+        comboEl.textContent =
+        `🔥 ${combo} 콤보`;
+
+
+    }
+
+
+}
+
+
+
+
+
+// ===============================
+// 진행률
+// ===============================
+
+function updateProgress(){
+
+
+    const bar =
+    document.getElementById(
+        "progress-bar"
+    );
+
+
+    if(!bar)
+        return;
+
+
+
+    bar.style.width =
+
+    (
+
+        currentQuestion
+        /
+        totalQuestions
+        *
+        100
+
+    )
+
+    + "%";
+
+
+}
+
+
+
+
+
+
+// ===============================
+// 종료
+// ===============================
+
+
+function finishQuiz(){
+
+
+
+    clearTimer();
+
+
+
+    const record =
+    getRecord();
+
+
+
+    if(score > record.bestScore){
+
+
+        record.bestScore =
+        score;
+
+
+        saveRecord(record);
+
+
+    }
+
+
+
+
+
+    question.textContent =
+    "퀴즈 종료!";
+
+
+
+    choices.innerHTML="";
+
+
+
+
+    const accuracy =
+    Math.round(
+
+        score
+        /
+        totalQuestions
+        *
+        100
+
+    );
+
+
+
+
+    result.innerHTML = `
+
+    <div class="quiz-result">
+
+    <h2>
+    🎉 결과
+    </h2>
+
+
+    <p>
+    점수 :
+    <strong>
+    ${score}/${totalQuestions}
+    </strong>
+    </p>
+
+
+    <p>
+    정답률 :
+    ${accuracy}%
+    </p>
+
+
+    <p>
+    최고 점수 :
+    ${record.bestScore}
+    </p>
+
+
+    <p>
+    최고 콤보 :
+    ${record.bestCombo}
+    </p>
+
+
+    ${
+        wrongQuestions.length
+
+        ?
+
+        `
+        <button id="retry-btn">
+        틀린 문제 다시 풀기
+        (${wrongQuestions.length})
+        </button>
+        `
+
+        :
+
+        `
+        <p>
+        모든 문제 정답 🎉
+        </p>
+        `
+
+    }
+
+
+    </div>
+
+    `;
+
+
+
+    nextBtn.hidden=true;
+
+
+    startArea.hidden=false;
+
+
+
+    updateRecord();
+
+
+
+    const retry =
+    document.getElementById(
+        "retry-btn"
+    );
+
+
+
+    if(retry){
+
+
+        retry.onclick =
+        startRetryQuiz;
+
+
+    }
+
+
+
+}
+
+
+
+
+// ===============================
+// 오답 다시 풀기
+// ===============================
+
+
+function startRetryQuiz(){
+
+
+
+    currentTerms =
+    [...wrongQuestions];
+
+
+
+    wrongQuestions=[];
+
+
+
+    currentQuestion=0;
+
+
+
+    score=0;
+
+
+
+    combo=0;
+
+
+
+    totalQuestions =
+    currentTerms.length;
+
+
+
+    startArea.hidden=true;
+
+
+    quizArea.hidden=false;
+
+
+
+    nextQuestion();
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// 배열 섞기
+// ===============================
+
+
+function shuffle(arr){
+
+
+
+    for(
+        let i=arr.length-1;
+        i>0;
+        i--
+    ){
+
+
+        const j =
+        Math.floor(
+            Math.random()*(i+1)
+        );
+
+
+        [
+            arr[i],
+            arr[j]
+        ]
+        =
+        [
+            arr[j],
+            arr[i]
+        ];
+
+
+    }
+
+
+}
+
+
+
+
+// ===============================
+// 다음 문제 버튼
+// ===============================
+
+nextBtn.onclick =
+nextQuestion;
+
+
+
+// 실행
+
+loadTerms();
