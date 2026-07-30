@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Multinomial Logistic Regression(다항 로지스틱 회귀)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Multinomial Logistic Regression(다항 로지스틱 회귀)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 순서 없는 세 개 이상의 범주를 예측하는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/multinomial-logistic-regression.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 다항 로지스틱 회귀 (Multinomial Logistic Regression)</p>
+  <h1>다항 로지스틱 회귀 (Multinomial Logistic Regression)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 순서를 매길 수 없는 세 개 이상의 범주 중 하나를 예측할 때 사용하는 회귀분석 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>어떤 사람이 이직할 때 "이직 안 함", "같은 업종으로 이직", "다른 업종으로 이직" 중 어느 쪽을 선택할지 예측한다고 해봅시다. 이 세 가지는 좋고 나쁨의 순서가 있는 게 아니라 그냥 서로 다른 종류일 뿐입니다. 이렇게 순서가 없는 범주가 셋 이상일 때는 "예/아니오"만 다루는 일반 로지스틱 회귀를 쓸 수 없습니다. 다항 로지스틱 회귀는 하나의 범주를 기준(reference)으로 정해두고, 나머지 각 범주가 그 기준 범주에 비해 선택될 승산이 설명변수에 따라 어떻게 달라지는지를 각각 따로 추정하는 방식으로 문제를 해결합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"진로 유형(학업 지속, 취업, 창업)을 종속변수로 하는 다항 로지스틱 회귀(multinomial logistic regression)를 실시한 결과, 인턴십 경험이 있는 경우 '학업 지속'에 비해 '취업'을 선택할 승산이 유의하게 높았다(RRR=2.13, p<0.05)."</div>
+  <p>이 문장은 '학업 지속'을 기준 범주로 두고, 인턴십 경험 여부가 다른 두 범주(취업, 창업)를 선택할 가능성에 각각 어떤 영향을 주는지 따로 분석했다는 의미입니다. 진로, 소비자 선택, 정당 지지 성향처럼 순서 없는 다범주 결과를 다룰 때 널리 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>범주에 순서가 있는 경우(예: 만족도 5단계)에는 다항 로지스틱 회귀 대신 순서 정보를 활용하는 <a href="ordinal-logistic-regression.html">순서형 로지스틱 회귀</a>를 쓰는 것이 더 적절합니다. 또한 결과 해석 시 각 계수는 항상 "기준 범주 대비"라는 점을 명시해야 하며, 이를 빼먹으면 해석이 모호해집니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="logistic-regression.html">로지스틱 회귀</a>
+    <a href="ordinal-logistic-regression.html">순서형 로지스틱 회귀</a>
+    <a href="odds-ratio.html">오즈비</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

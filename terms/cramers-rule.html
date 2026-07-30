@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cramer's Rule(크래머 공식)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cramer's Rule(크래머 공식)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 행렬식만으로 연립방정식을 푸는 방법을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cramers-rule.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 크래머 공식 (Cramer's Rule)</p>
+  <h1>크래머 공식 (Cramer's Rule)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 연립일차방정식의 해를 소거법 없이 행렬식(determinant)들의 비율만으로 바로 구하는 공식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>연립방정식을 풀 때 보통은 한 변수를 다른 식에 대입하거나 더하고 빼면서 하나씩 소거해 나갑니다. 크래머 공식은 이런 번거로운 과정 없이, 계수들을 정해진 틀에 맞춰 행렬식이라는 하나의 숫자로 바꾼 다음, 그 숫자들끼리 나누기만 하면 각 변수의 값이 바로 나오는 지름길입니다. 마치 레시피의 재료 비율표만 보고 몇 인분인지 계산하는 것처럼, 방정식을 풀지 않고도 특정 값을 뽑아낼 수 있는 공식이라고 생각하면 됩니다. 다만 미지수 개수만큼 행렬식을 매번 계산해야 하므로, 변수가 많아지면 오히려 비효율적이라는 한계가 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"3개의 미지수로 이루어진 회로방정식의 해는 크래머 공식(Cramer's rule)을 이용하여 계수행렬의 행렬식으로부터 직접 도출하였다."</div>
+  <p>이 문장은 회로 해석에서 나온 연립방정식을 반복 계산 없이 행렬식 비율로 곧바로 풀었다는 뜻입니다. 공학 논문에서 변수가 2~3개인 소규모 선형계를 다룰 때, 계산 과정을 명시적으로 보여주는 용도로 자주 언급됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>크래머 공식은 계수행렬의 <a href="determinant.html">행렬식</a>이 0이 아닐 때만 사용할 수 있습니다. 행렬식이 0이면 해가 없거나 무수히 많은 경우이므로 이 공식 자체가 적용되지 않으며, 이런 특수한 경우는 <a href="inverse-matrix.html">역행렬</a> 존재 여부와도 직결됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="determinant.html">행렬식</a>
+    <a href="inverse-matrix.html">역행렬</a>
+    <a href="matrix.html">행렬</a>
+    <a href="orthogonal-matrix.html">직교행렬</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
