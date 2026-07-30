@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Turing Machine(튜링 기계)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Turing Machine(튜링 기계)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. '계산 가능하다'는 말의 수학적 기준을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/turing-machine.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 튜링 기계 (Turing Machine)</p>
+  <h1>튜링 기계 (Turing Machine)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 긴 테이프에 기호를 읽고 쓰고 이동하는 아주 단순한 규칙만으로, 오늘날의 어떤 컴퓨터든 원리적으로 흉내 낼 수 있음을 보여준 가상의 계산 모델입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>칸이 무한히 이어진 테이프와, 그 위를 한 칸씩 오가며 기호를 읽고 지우고 새로 쓸 수 있는 헤드 하나만 있다고 상상해보세요. 이 헤드는 "지금 어떤 상태이고 어떤 기호를 읽었는지"에 따라 "무엇을 쓰고, 어느 방향으로 움직이고, 어떤 상태로 바뀔지"를 정해진 규칙표대로만 따릅니다. 놀랍게도 앨런 튜링은 이렇게 극도로 단순한 기계만으로도 우리가 "계산"이라고 부를 수 있는 모든 것을 원리적으로 수행할 수 있음을 보였습니다. 그래서 튜링 기계는 스마트폰이든 슈퍼컴퓨터든 "이론적으로 계산할 수 있는 것"의 한계를 정의하는 기준선 역할을 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안한 문제는 임의의 튜링 기계로 환원(reduction) 가능함을 보임으로써 결정 불가능함을 증명하였다."</div>
+  <p>이 문장은 어떤 문제를 튜링 기계가 풀 수 있는 형태로 바꿔볼 수 있다는 것을 보여, 그 문제가 원리적으로 알고리즘으로는 항상 풀 수 없는 문제(결정 불가능한 문제)임을 논리적으로 증명했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>튜링 기계는 실제로 만들어 쓰는 하드웨어가 아니라 "계산이란 무엇인가"를 정의하기 위한 수학적 개념입니다. 튜링 기계로 원리상 풀 수 있다고 해서 실제로 빠르게 풀 수 있다는 뜻은 아니며, 그 문제의 실행 속도나 자원 소모는 <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>이나 <a href="np-completeness.html">NP-완전성</a> 같은 별도의 잣대로 따로 따져야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="algorithm-concept.html">알고리즘의 개념</a>
+    <a href="finite-state-machine.html">유한상태기계</a>
+    <a href="np-completeness.html">NP-완전성</a>
+    <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

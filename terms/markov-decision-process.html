@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Markov Decision Process(마르코프 결정 과정)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Markov Decision Process(마르코프 결정 과정, MDP)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 강화학습의 수학적 뼈대를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/markov-decision-process.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 마르코프 결정 과정 (Markov Decision Process)</p>
+  <h1>마르코프 결정 과정 (Markov Decision Process)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 현재 상태에서 어떤 행동을 하면 어떤 확률로 다음 상태와 보상이 정해지는지를 수학적으로 정리한, 순차적 의사결정 문제의 표준 틀입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>미로 속 로봇을 생각해봅시다. 로봇은 지금 위치(상태)에서 상하좌우 중 하나(행동)를 고를 수 있고, 그 결과 다음 위치로 이동하며 점수(보상)를 얻거나 잃습니다. 중요한 점은, 로봇이 다음에 어디로 갈지는 "지금까지 어떻게 왔는지"가 아니라 "지금 어디에 있고 어떤 행동을 골랐는지"에만 달려 있다는 것입니다. 이렇게 과거를 몰라도 현재 상태만 알면 미래를 확률적으로 예측할 수 있는 성질을 마르코프 성질이라고 하고, 이 성질을 이용해 "상태·행동·보상·전이확률"의 조합으로 의사결정 문제를 정리한 것이 마르코프 결정 과정(MDP)입니다. 강화학습은 결국 이 MDP 안에서 보상을 최대로 만드는 행동 전략(정책)을 찾는 문제입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 에이전트의 순차적 의사결정 문제를 마르코프 결정 과정(MDP)으로 정식화하고, 상태공간과 보상함수를 다음과 같이 정의하였다."</div>
+  <p>이 문장은 연구자가 다루는 문제를 "지금 상태에서 행동을 고르면 보상과 다음 상태가 확률적으로 정해진다"는 표준 수학 틀에 맞춰 정리했다는 뜻입니다. 이렇게 문제를 MDP로 정의해두면 이후 <a href="q-learning.html">Q러닝</a>이나 <a href="policy-gradient.html">정책 경사법</a> 같은 강화학습 기법을 적용할 수 있게 됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>MDP는 어디까지나 "이론적인 틀"이지 특정 알고리즘이 아닙니다. 현실 문제에서는 상태를 완전히 관측할 수 없는 경우가 많은데, 이런 경우는 부분관측 마르코프 결정 과정(POMDP)이라는 확장된 모델을 따로 씁니다. 또한 MDP를 정의했다고 최적 정책이 자동으로 나오는 것은 아니며, 이를 실제로 학습하는 과정에서 <a href="reward-prediction-error.html">보상예측오차</a> 같은 신호가 활용됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="reinforcement-learning.html">강화학습</a>
+    <a href="q-learning.html">Q러닝</a>
+    <a href="policy-gradient.html">정책 경사법</a>
+    <a href="reward-prediction-error.html">보상예측오차</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
