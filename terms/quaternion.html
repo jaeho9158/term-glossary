@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Quaternion(사원수)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="복소수를 확장한 사원수(quaternion)가 무엇인지, 3차원 회전 표현에 왜 쓰이는지 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/quaternion.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 사원수 (Quaternion)</p>
+  <h1>사원수 (Quaternion)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사원수는 복소수를 확장하여 하나의 실수 성분과 세 개의 허수 성분(i, j, k)으로 이루어진 수 체계로, 3차원 공간에서의 회전을 표현할 때 주로 사용됩니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>복소수는 실수 하나에 허수 i 하나를 붙여 평면 위의 회전과 점을 표현할 수 있게 해준 수였습니다. 사원수는 여기서 한 걸음 더 나아가, 서로 다른 방향을 가리키는 허수 단위 i, j, k를 세 개나 추가로 도입해서 "실수 1개 + 허수 3개"로 이루어진 수를 만든 것입니다. 이렇게 만들면 3차원 공간에서 물체를 어느 축으로 얼마나 돌렸는지를 네 개의 숫자만으로 깔끔하게 표현할 수 있습니다. 비유하자면, 종이 위(2차원)에서 도형을 돌릴 때는 각도 하나만 알면 되지만, 입체(3차원) 물체를 돌릴 때는 "어느 축을 중심으로, 얼마나" 돌렸는지를 함께 담아야 하는데, 사원수가 바로 이 정보를 오차 없이 압축해서 담아내는 그릇 역할을 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"로봇 팔의 자세 추정 시 오일러 각 대신 사원수를 사용하여 짐벌락(gimbal lock) 문제를 방지하고 회전 보간을 안정적으로 수행하였다."</div>
+  <p>이 문장은 로봇의 방향(자세)을 계산할 때 일반적인 각도 표현 방식(오일러 각)을 쓰면 특정 상황에서 계산이 꼬이는 문제가 생기는데, 대신 사원수를 사용하면 이런 문제 없이 회전을 훨씬 안정적으로 다룰 수 있었다는 뜻입니다. 로보틱스, 컴퓨터 그래픽스, 항공우주공학 논문에서 3차원 회전과 자세 제어를 다룰 때 자주 등장하는 표현입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>사원수의 곱셈은 순서를 바꾸면 결과가 달라지는 비가환(non-commutative) 연산입니다. 즉 A×B와 B×A가 일반적으로 서로 다른데, 이는 우리에게 익숙한 실수나 <a href="complex-number.html">복소수</a>의 곱셈과는 다른 성질입니다. 또한 사원수는 3차원 회전을 다룰 때 흔히 쓰이지만, 벡터 자체의 방향과 크기만 다룰 때는 <a href="cross-product.html">벡터의 외적</a>만으로 충분한 경우도 많으므로 상황에 맞는 도구를 선택해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="complex-number.html">복소수</a>
+    <a href="cross-product.html">벡터의 외적</a>
+    <a href="vector-space.html">벡터공간</a>
+    <a href="matrix.html">행렬</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
