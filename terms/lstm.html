@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>LSTM(장단기 메모리)이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 LSTM(장단기 메모리)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 순환 신경망의 기울기 소실 문제를 어떻게 해결하는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lstm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; LSTM (장단기 메모리)</p>
+  <h1>LSTM (장단기 메모리)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 순환 신경망이 먼 과거의 정보를 잊어버리는 문제를 해결하기 위해, 기억을 오래 유지할지 지울지를 스스로 조절하는 문(게이트) 장치를 추가한 신경망 구조입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>긴 소설을 읽는다고 생각해봅시다. 100페이지 전에 나온 등장인물의 이름을 지금도 기억하려면, 중요한 정보만 골라 계속 머릿속에 남겨두고 나머지는 잊어버려야 합니다. 일반 순환 신경망(RNN)은 문장이 길어지면 앞부분의 정보가 점점 희미해져서 이런 일을 잘 못합니다. LSTM은 이 문제를 풀기 위해 "기억을 얼마나 남길지", "새 정보를 얼마나 받아들일지", "지금 무엇을 출력할지"를 각각 결정하는 세 개의 문(입력 게이트, 망각 게이트, 출력 게이트)을 둡니다. 이 문들이 켜지고 꺼지는 정도를 학습하면서, 필요한 정보는 오래 간직하고 불필요한 정보는 걸러내는 것입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"장기 의존성 문제를 완화하기 위해 LSTM 기반 순환 신경망을 사용하여 시계열 데이터를 학습하였다."</div>
+  <p>이 문장은 "데이터의 앞부분과 뒷부분이 멀리 떨어져 있어도 그 관계를 놓치지 않도록, 게이트 구조를 가진 LSTM으로 순서가 있는 데이터를 학습시켰다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>LSTM은 게이트 구조 때문에 일반 <a href="recurrent-neural-network.html">순환 신경망</a>보다 기울기 소실 문제에 강하지만, 계산해야 할 파라미터가 많아 학습 속도는 더 느립니다. 또한 최근에는 트랜스포머 계열 모델이 등장하면서 아주 긴 시퀀스를 다루는 작업에서는 LSTM보다 더 나은 성능을 보이는 경우가 많다는 점도 함께 언급됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="recurrent-neural-network.html">순환 신경망</a>
+    <a href="backpropagation.html">역전파</a>
+    <a href="gradient-descent.html">경사하강법</a>
+    <a href="overfitting.html">과적합</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

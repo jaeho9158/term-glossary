@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>ADC/DAC(아날로그-디지털 변환기)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 ADC/DAC(아날로그-디지털 변환기)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 센서 신호가 디지털로 바뀌는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/analog-to-digital-converter.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 아날로그-디지털 변환기 (ADC/DAC)</p>
+  <h1>아날로그-디지털 변환기 (ADC/DAC)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=eng">공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 연속적으로 변하는 아날로그 신호를 컴퓨터가 계산할 수 있는 디지털 숫자로 바꾸거나(ADC), 반대로 디지털 값을 다시 연속적인 아날로그 전압으로 되돌리는(DAC) 변환 회로입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>온도 센서나 마이크가 만들어내는 신호는 시간에 따라 부드럽게 변하는 전압, 즉 아날로그 신호입니다. 그런데 마이크로컨트롤러나 컴퓨터는 0과 1로 이루어진 숫자만 이해합니다. ADC(아날로그-디지털 변환기)는 이 아날로그 전압을 일정한 시간 간격으로 "찍어서"(샘플링) 가장 가까운 디지털 숫자로 바꿔주는 역할을 합니다. 예를 들어 8비트 ADC는 전압 범위를 256단계로 나누어 표현하고, 12비트 ADC는 4096단계로 더 세밀하게 표현합니다. 반대로 DAC(디지털-아날로그 변환기)는 디지털 숫자를 다시 연속적인 전압으로 되돌려, 스피커를 울리거나 아날로그 장치를 구동할 수 있게 해줍니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"압력 센서의 아날로그 출력은 12비트 해상도의 ADC를 통해 1kHz 속도로 샘플링되어 디지털 신호로 변환된 뒤 마이크로컨트롤러에서 처리되었다."</div>
+  <p>이 문장은 센서가 만들어낸 연속적인 전압을 1초에 1000번씩 측정해서, 4096단계 중 가장 가까운 숫자값으로 바꾸었다는 뜻입니다. 해상도(비트 수)가 높을수록 더 미세한 전압 차이까지 구분할 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>ADC가 신호를 샘플링하는 속도가 너무 느리면 원래 신호를 제대로 복원할 수 없는 왜곡(에일리어싱)이 생길 수 있습니다. 그래서 <a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a>에 따라, 신호에 포함된 최고 주파수의 2배보다 높은 속도로 샘플링해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a>
+    <a href="microcontroller.html">마이크로컨트롤러</a>
+    <a href="sensor-types.html">센서의 종류</a>
+    <a href="serial-communication-protocols.html">직렬 통신 프로토콜</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
