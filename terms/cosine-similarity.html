@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cosine Similarity(코사인 유사도)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cosine Similarity(코사인 유사도)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 문서·임베딩 벡터 간 유사도를 어떻게 재는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cosine-similarity.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 코사인 유사도 (Cosine Similarity)</p>
+  <h1>코사인 유사도 (Cosine Similarity)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 두 벡터가 가리키는 방향이 얼마나 비슷한지를 각도로 측정해서, 두 데이터가 서로 얼마나 유사한지를 나타내는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>두 사람이 나침반을 들고 각자 방향을 가리킨다고 해봅시다. 두 사람이 얼마나 멀리 떨어져 서 있는지는 상관없이, 가리키는 "방향"이 비슷하면 둘은 비슷한 생각을 하고 있다고 볼 수 있습니다. 코사인 유사도는 이와 같은 방식으로, 문서나 단어를 숫자들의 목록(벡터)으로 바꾼 뒤 두 벡터가 가리키는 방향의 각도를 비교합니다. 각도가 0도에 가까우면(같은 방향) 유사도는 1에 가까워지고, 90도로 완전히 다르면 0에 가까워집니다. 글의 길이 차이에 영향을 받지 않고 "내용의 방향성"만 비교할 수 있어서 문서 간 유사도 비교에 널리 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"두 문서 임베딩 벡터 간 코사인 유사도가 0.85로 나타나 두 텍스트가 의미적으로 유사함을 확인하였다."</div>
+  <p>이 문장은 두 글을 벡터로 변환한 뒤 방향을 비교한 결과, 두 글의 의미가 상당히 비슷하다는 것을 수치로 보여준 것입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>코사인 유사도는 벡터의 "방향"만 비교하므로, 벡터의 크기(길이) 차이는 반영하지 않습니다. 그래서 데이터를 <a href="embedding.html">임베딩</a>으로 바꾸어 비교할 때 흔히 쓰이지만, 크기 자체가 중요한 정보인 경우에는 유클리드 거리 같은 다른 척도가 더 적합할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="embedding.html">임베딩</a>
+    <a href="tf-idf.html">단어 빈도-역문서 빈도</a>
+    <a href="vector-database.html">벡터 데이터베이스</a>
+    <a href="k-nearest-neighbor.html">K-최근접 이웃</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

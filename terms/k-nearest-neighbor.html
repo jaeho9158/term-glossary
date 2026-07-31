@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>K-Nearest Neighbor(K-최근접 이웃)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 K-Nearest Neighbor(K-최근접 이웃, KNN)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 분류와 회귀에 쓰이는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/k-nearest-neighbor.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; K-최근접 이웃 (K-Nearest Neighbor)</p>
+  <h1>K-최근접 이웃 (K-Nearest Neighbor)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 새로운 데이터가 주어졌을 때, 가장 가까운 K개의 기존 데이터를 살펴보고 그중 다수가 속한 범주로 분류하는 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>낯선 동네로 이사와서 "여기가 부자 동네일까?"를 판단한다고 해봅시다. 가장 쉬운 방법은 우리 집과 가장 가까운 이웃집 5곳을 둘러보고, 그중 대부분이 큰 집에 좋은 차를 가지고 있다면 "여기도 부자 동네겠구나"라고 추측하는 것입니다. K-최근접 이웃은 정확히 이런 방식으로 작동합니다. 새 데이터가 들어오면 별도의 복잡한 학습 과정 없이, 기존 데이터 중 가장 "가까운" K개를 찾아 그들의 다수결로 분류를 결정합니다. K는 몇 명의 이웃을 볼지 정하는 숫자로, K=3이면 가장 가까운 3개를 보고 다수결을 취합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 K=5로 설정한 K-최근접 이웃 알고리즘을 베이스라인 분류기로 사용하였다."</div>
+  <p>이 문장은 연구자가 복잡한 모델과 성능을 비교하기 위해, 가장 가까운 5개의 데이터를 참고해 분류하는 단순한 방법을 기준선으로 삼았다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>K-최근접 이웃은 새로운 데이터마다 전체 데이터와의 거리를 다시 계산해야 하므로, 데이터가 많아질수록 예측 속도가 느려집니다. 또한 거리를 재는 방식에 따라 결과가 크게 달라지므로, 각 특성의 단위와 범위를 맞추는 전처리가 중요하며, 두 데이터가 얼마나 비슷한지를 판단할 때 <a href="cosine-similarity.html">코사인 유사도</a> 같은 다른 척도를 쓰기도 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cosine-similarity.html">코사인 유사도</a>
+    <a href="confusion-matrix.html">혼동행렬</a>
+    <a href="k-means-clustering.html">k-평균 군집화</a>
+    <a href="decision-tree.html">결정 트리</a>
+    <a href="support-vector-machine.html">서포트벡터머신</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
