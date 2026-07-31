@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Nelson-Aalen Estimator(넬슨-아알렌 추정량)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Nelson-Aalen Estimator(넬슨-아알렌 추정량)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 누적위험함수를 어떻게 추정하는지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/nelson-aalen-estimator.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 넬슨-아알렌 추정량 (Nelson-Aalen Estimator)</p>
+  <h1>넬슨-아알렌 추정량 (Nelson-Aalen Estimator)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 중도절단된 자료에서 시간에 따라 사건이 누적되어 발생할 위험의 총량(누적위험함수)을 계단 모양으로 추정하는 비모수적 통계 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>은행 창구에서 하루 동안 몇 명이 순서를 놓치고 다시 뒤로 밀려나는지를 시간대별로 누적해서 세는 것과 비슷합니다. 넬슨-아알렌 추정량은 각 사건이 발생한 시점마다 "그 순간 위험에 노출된 사람 중 실제로 사건이 일어난 비율"을 계산한 뒤, 이를 시간이 지남에 따라 계속 더해 나갑니다. 그 결과로 나오는 계단 모양의 그래프가 바로 누적위험함수 추정치이며, <a href="kaplan-meier-estimator.html">카플란-마이어 추정법</a>이 "아직 살아남을 확률"을 보여준다면, 넬슨-아알렌 추정량은 "지금까지 쌓인 위험의 총량"을 보여준다는 점에서 서로 짝을 이루는 지표입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"장비의 고장 시점을 넬슨-아알렌 추정량으로 분석한 결과, 설치 후 24개월 시점의 누적위험함수 값은 0.35로 추정되었다."</div>
+  <p>이 문장은 24개월 시점까지 누적된 고장 위험의 총량이 0.35라는 의미이며, 이 값에서 자연로그를 이용해 변환하면 그 시점의 생존확률도 함께 계산할 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>넬슨-아알렌 추정량으로 계산한 누적위험함수 값은 그 자체로 "확률"이 아니어서 1을 넘을 수도 있습니다. 생존확률(0~1 사이 값)을 직접 보고 싶다면 <a href="kaplan-meier-estimator.html">카플란-마이어 추정법</a>을 함께 확인하는 것이 일반적입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="kaplan-meier-estimator.html">카플란-마이어 추정법</a>
+    <a href="survival-analysis.html">생존분석</a>
+    <a href="right-censoring.html">우측절단</a>
+    <a href="hazard-ratio.html">위험비</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
