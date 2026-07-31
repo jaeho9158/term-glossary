@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>어휘 분석과 구문 분석이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 어휘 분석과 구문 분석(Lexical & Syntax Analysis)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 컴파일러가 코드를 읽는 첫 두 단계가 무슨 뜻인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lexical-and-syntax-analysis.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 어휘 분석과 구문 분석 (Lexical &amp; Syntax Analysis)</p>
+  <h1>어휘 분석과 구문 분석 (Lexical &amp; Syntax Analysis)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 컴파일러가 소스 코드를 이해하는 첫 두 단계로, 문자열을 의미 있는 단어 단위(토큰)로 쪼개는 어휘 분석과 그 토큰들이 문법에 맞게 배열되었는지 확인하는 구문 분석을 말합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사람이 문장을 읽을 때도 먼저 단어를 하나하나 인식한 다음, 그 단어들이 문법에 맞게 배열되어 있는지를 파악합니다. 컴파일러도 똑같은 과정을 거칩니다. 어휘 분석(lexical analysis) 단계에서는 "if", "(", "x", ">", "0", ")" 처럼 소스 코드의 글자들을 의미 있는 최소 단위인 토큰으로 잘라냅니다. 그다음 구문 분석(syntax analysis, 파싱) 단계에서는 이 토큰들이 해당 프로그래밍 언어의 문법 규칙에 맞게 나열되어 있는지 검사하고, 그 결과로 코드의 구조를 나무 모양으로 표현한 자료구조를 만들어냅니다. 오타나 괄호 짝이 안 맞는 코드를 실행하면 "문법 오류(syntax error)"가 뜨는 것이 바로 이 구문 분석 단계에서 걸러지기 때문입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안한 도구는 소스 코드에 대해 어휘 분석과 구문 분석(lexical and syntax analysis)을 수행한 뒤, 생성된 구문 트리를 기반으로 코드 스멜을 탐지한다."</div>
+  <p>이 문장은 "코드를 먼저 토큰 단위로 쪼개고 문법 구조를 분석한 결과물을 이용해, 코드에 잠재된 문제를 자동으로 찾아낸다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>구문 분석의 결과물로 만들어지는 나무 모양의 자료구조는 <a href="abstract-syntax-tree.html">추상 구문 트리</a>이며, 어휘 분석과 구문 분석 자체는 그 결과물을 만들어내는 "과정"을 가리키는 말입니다. 이 둘을 같은 것으로 혼동하지 않도록 주의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="abstract-syntax-tree.html">추상 구문 트리</a>
+    <a href="compiler-and-interpreter.html">컴파일러와 인터프리터</a>
+    <a href="type-system.html">타입 시스템</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
