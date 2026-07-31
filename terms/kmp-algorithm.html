@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>KMP 알고리즘이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 KMP 알고리즘(문자열 패턴 매칭)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 실패 함수와 함께 논문 예문으로 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/kmp-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; KMP 알고리즘 (Knuth-Morris-Pratt Algorithm)</p>
+  <h1>KMP 알고리즘 (Knuth-Morris-Pratt Algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 긴 문자열 속에서 짧은 패턴을 찾을 때, 이미 비교했던 정보를 재활용해 불필요한 되돌아가기를 없앤 고속 문자열 검색 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>긴 문서에서 특정 단어를 찾는다고 해봅시다. 가장 단순한 방법은 문서의 첫 글자부터 한 칸씩 밀어가며 단어와 일일이 대조하는 것인데, 이러면 비교했던 내용을 매번 처음부터 다시 확인하게 되어 느립니다. KMP 알고리즘은 "패턴 자기 자신"을 미리 분석해서 "일치하다가 틀렸을 때, 몇 칸을 건너뛰어도 안전한지"를 나타내는 표(실패 함수, failure function)를 만들어 둡니다. 이 표 덕분에 불일치가 나와도 이미 확인한 부분을 다시 훑지 않고 필요한 만큼만 건너뛸 수 있어서, 문서 길이와 패턴 길이의 합에 비례하는 시간(선형 시간)만으로 검색을 끝낼 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"대용량 로그 데이터에서 특정 시그니처를 탐지하기 위해 KMP 알고리즘을 적용하여 선형 시간 내 패턴 매칭을 수행하였다."</div>
+  <p>이 문장은 "많은 양의 텍스트 데이터 안에서 원하는 문자열 패턴을 KMP 방식으로 빠르게 찾아냈다"는 뜻입니다. 침입 탐지, 유전자 서열 분석, 텍스트 검색 엔진 등에서 자주 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>KMP 알고리즘은 패턴 하나를 문자열 하나에서 찾는 데는 효율적이지만, 여러 패턴을 동시에 찾거나 문자열 전체의 반복 구조를 폭넓게 분석하려면 <a href="suffix-array.html">접미사 배열</a>과 같은 다른 자료구조가 더 적합할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="suffix-array.html">접미사 배열</a>
+    <a href="time-complexity-big-o.html">시간복잡도와 빅오 표기법</a>
+    <a href="divide-and-conquer.html">분할정복</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

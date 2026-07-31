@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>행렬의 기본연산이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 행렬의 기본연산(덧셈·스칼라곱·곱셈)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 행렬끼리 더하고 곱하는 규칙이 무슨 뜻인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/matrix-operations.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 행렬의 기본연산 (Matrix Operations)</p>
+  <h1>행렬의 기본연산 (Matrix Operations)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 행렬의 기본연산은 같은 크기의 행렬끼리 자리를 맞춰 더하는 덧셈, 모든 성분에 숫자를 곱하는 스칼라곱, 그리고 행과 열을 서로 짝지어 곱하는 행렬의 곱셈을 말합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>행렬은 숫자를 표 모양으로 늘어놓은 것인데, 그냥 표라면 아무 계산도 할 수 없습니다. 행렬을 진짜 수학적 도구로 쓰려면 "더하고 곱하는 규칙"이 정해져 있어야 합니다. 덧셈은 간단합니다. 크기가 같은 두 행렬을 나란히 놓고, 같은 자리에 있는 숫자끼리 더하면 됩니다. 스칼라곱도 쉽습니다. 행렬에 숫자 하나(스칼라)를 곱하면, 행렬 안의 모든 성분에 그 숫자를 곱합니다. 문제는 행렬끼리의 곱셈입니다. 이건 같은 자리끼리 곱하는 게 아니라, 앞 행렬의 "행"과 뒤 행렬의 "열"을 하나씩 짝지어 곱한 다음 다 더하는 방식으로 계산합니다. 그래서 앞 행렬의 열 개수와 뒤 행렬의 행 개수가 같아야만 곱셈이 가능하고, 곱하는 순서를 바꾸면 결과가 달라질 수도 있습니다(AB와 BA가 다를 수 있음). 이 세 가지 연산이 있어야 비로소 연립방정식을 행렬로 표현하거나, 데이터 여러 개를 한꺼번에 변환하는 계산을 할 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"입력 벡터에 가중치 행렬을 곱하고 편향 행렬을 더하는 선형 변환을 각 층마다 반복 적용하였다."</div>
+  <p>이 문장은 신경망 모델에서 각 층이 입력값에 행렬 곱셈(가중치 반영)과 행렬 덧셈(편향 반영)을 순서대로 적용해 다음 층으로 넘긴다는 뜻입니다. 통계, 공학, 컴퓨터과학 논문에서 모델 구조를 수식으로 설명할 때 매우 흔하게 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>행렬의 곱셈은 일반적인 숫자의 곱셈과 달리 교환법칙이 성립하지 않습니다. 즉 A와 B 두 <a href="matrix.html">행렬</a>이 있을 때 AB와 BA는 서로 다른 결과를 낼 수 있으므로, 논문에서 곱셈 순서가 바뀌면 전혀 다른 계산을 의미할 수 있다는 점에 주의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="matrix.html">행렬</a>
+    <a href="inverse-matrix.html">역행렬</a>
+    <a href="determinant.html">행렬식</a>
+    <a href="matrix-rank.html">행렬의 랭크</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
