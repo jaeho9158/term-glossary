@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Microservice Architecture(마이크로서비스 아키텍처)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Microservice Architecture(마이크로서비스 아키텍처)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 모놀리식 구조와 무엇이 다른지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/microservice-architecture.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 마이크로서비스 아키텍처 (Microservice Architecture)</p>
+  <h1>마이크로서비스 아키텍처 (Microservice Architecture)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 하나의 큰 프로그램을 통째로 만드는 대신, 기능별로 독립적으로 개발·배포·실행되는 작은 서비스 여러 개를 조합해 하나의 시스템을 구성하는 소프트웨어 설계 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>큰 백화점을 하나의 거대한 매장으로 통째로 운영하는 대신, 옷 가게·식당·서점을 각각 독립된 점포로 나누어 운영하는 것과 비슷합니다. 옷 가게에 문제가 생겨도 서점은 정상적으로 영업할 수 있고, 식당만 리모델링하거나 확장할 수도 있습니다. 마이크로서비스 아키텍처도 마찬가지로, 회원 관리·결제·상품 검색 같은 기능을 각각 독립된 작은 서비스로 쪼개어 개발합니다. 한 서비스에 장애가 나도 전체 시스템이 멈추지 않고, 특정 서비스만 따로 수정하거나 서버를 늘려 확장할 수 있다는 장점이 있습니다. 이는 하나의 거대한 코드 덩어리로 모든 기능을 처리하는 "모놀리식(monolithic)" 구조와 대비되는 개념입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"기존 모놀리식 시스템을 마이크로서비스 아키텍처로 전환한 결과, 개별 서비스의 배포 주기가 단축되고 장애 전파 범위가 감소하였다."</div>
+  <p>이 문장은 "하나로 뭉쳐 있던 시스템을 여러 개의 독립된 서비스로 나누었더니, 각 서비스를 더 빨리 업데이트할 수 있게 되었고 한 부분에 문제가 생겨도 다른 부분까지 영향을 덜 받게 되었다"는 뜻입니다. 소프트웨어공학, 클라우드 컴퓨팅 분야 논문에서 시스템 구조를 설명할 때 자주 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>마이크로서비스가 항상 정답인 것은 아닙니다. 서비스 수가 늘어날수록 서비스 간 통신을 관리하는 <a href="api-basics.html">API</a> 호출이 많아지고, 여러 서비스에 걸친 작업의 데이터 일관성(<a href="acid-transaction.html">ACID 트랜잭션</a>처럼 하나의 단위로 묶기 어려움)을 보장하기가 더 어려워집니다. 규모가 작은 프로젝트에서는 오히려 관리 부담만 늘어날 수 있어, 서비스 규모와 팀 구조를 고려해 선택해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="api-basics.html">API</a>
+    <a href="containerization.html">컨테이너화</a>
+    <a href="acid-transaction.html">ACID 트랜잭션</a>
+    <a href="agile-methodology.html">애자일 방법론</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
