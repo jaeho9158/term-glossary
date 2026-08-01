@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Fast Fourier Transform (FFT) Analysis(고속 푸리에 변환 분석)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Fast Fourier Transform (FFT) Analysis(고속 푸리에 변환 분석)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/fast-fourier-transform-analysis.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 고속 푸리에 변환 분석 (Fast Fourier Transform (FFT) Analysis)</p>
+  <h1>고속 푸리에 변환 분석 (Fast Fourier Transform (FFT) Analysis)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=eng">공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 시간에 따라 변하는 신호를 구성 주파수 성분으로 빠르게 분해하여 주파수 영역에서 분석하는 알고리즘 기법.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 악기가 동시에 연주하는 화음을 듣고 각각 어떤 음이 섞여 있는지 알아내는 것처럼, FFT는 뒤섞인 신호를 어떤 주파수 성분들이 얼마나 강하게 들어있는지로 분해해준다. 원래 이런 분해(푸리에 변환)를 계산하려면 시간이 매우 오래 걸렸지만, FFT라는 빠른 알고리즘 덕분에 실시간에 가깝게 계산할 수 있게 되었다. 진동 신호에서 특정 결함 주파수를 찾거나, 음향 신호에서 소음원을 분석하거나, 통신 신호를 처리하는 데 폭넓게 쓰인다. 시간 영역에서는 잘 보이지 않던 주기적 패턴이 주파수 영역에서는 뚜렷한 피크로 드러나는 것이 핵심 장점이다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"진동 신호에 대해 FFT를 수행한 결과 베어링 결함 주파수에서 뚜렷한 피크가 관찰되었다."</div>
+  <p>측정한 진동 신호를 주파수 성분으로 분해했더니 베어링 고장을 나타내는 특정 주파수에서 신호가 유난히 강하게 나타났다는 뜻이다.</p>
+
+  <h2>주의할 점</h2>
+  <p>신호 길이와 샘플링 주파수에 따라 주파수 분해능이 제한되며, <a href="power-spectral-density-analysis.html">파워스펙트럼밀도 분석</a>과 달리 시간에 따른 변화는 반영하지 못한다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="wavelet-transform-analysis.html">웨이블릿 변환 분석</a>
+    <a href="power-spectral-density-analysis.html">파워스펙트럼밀도 분석</a>
+    <a href="low-pass-filter-design.html">저역통과필터 설계</a>
+    <a href="structural-health-monitoring.html">구조건전성모니터링</a>
+    <a href="frequency-response-function-analysis.html">주파수응답함수 분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

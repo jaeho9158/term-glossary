@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>LIME (Local Interpretable Model-agnostic Explanations)(LIME)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 LIME (Local Interpretable Model-agnostic Explanations)(LIME)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lime-explainability.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; LIME (LIME (Local Interpretable Model-agnostic Explanations))</p>
+  <h1>LIME (LIME (Local Interpretable Model-agnostic Explanations))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 복잡한 모델의 특정 예측 주변에서 데이터를 조금씩 변형해가며 그 지점에서만 유효한 단순한 대리 모델을 학습해 예측을 설명하는 기법.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>LIME은 복잡한 모델 전체를 이해하려 하지 않고, 궁금한 예측 하나만 콕 집어서 그 주변에서만 통하는 간단한 설명을 만드는 방법이에요. 설명하고 싶은 데이터 근처에서 입력을 살짝씩 바꾼 여러 변형 샘플을 만들고, 그 샘플들에 대한 원래 모델의 예측 결과를 이용해 선형 모델처럼 단순하고 해석하기 쉬운 대리 모델을 학습시킵니다. 이 단순 모델은 그 지점 근처에서만 원래 모델과 비슷하게 행동하지만, 그 지점에서는 어떤 특성이 예측에 긍정적/부정적으로 작용했는지 사람이 쉽게 읽을 수 있게 보여줍니다. 이미지, 텍스트, 정형 데이터 등 모델 종류에 상관없이 적용할 수 있다는 것이 특징입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"모델의 특정 오분류 사례를 분석하기 위해 LIME을 적용하여 해당 예측에 영향을 준 단어들을 확인하였다."</div>
+  <p>모델이 틀리게 예측한 특정 사례에 대해 LIME으로 어떤 단어가 그 판단에 영향을 주었는지 살펴봤다는 뜻이다.</p>
+
+  <h2>주의할 점</h2>
+  <p>LIME이 만드는 대리 모델은 설명 대상 지점 주변의 국소적인 근사일 뿐이라, 그 설명을 모델 전체의 일반적인 행동으로 확대 해석해서는 안 된다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="shap-values.html">SHAP 값</a>
+    <a href="adversarial-example.html">적대적 예제</a>
+    <a href="confusion-matrix.html">혼동행렬</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

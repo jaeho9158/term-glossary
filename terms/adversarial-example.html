@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Adversarial Example(적대적 예제)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Adversarial Example(적대적 예제)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/adversarial-example.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 적대적 예제 (Adversarial Example)</p>
+  <h1>적대적 예제 (Adversarial Example)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사람 눈에는 거의 차이가 없어 보이지만 모델을 의도적으로 잘못 예측하게 만들도록 미세하게 조작된 입력 데이터.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>딥러닝 모델은 사람이 보기에 거의 똑같아 보이는 이미지에 아주 미세한 잡음을 더하면 완전히 다른, 심지어 터무니없는 클래스로 잘못 예측하는 경우가 있어요. 예를 들어 판다 사진에 사람 눈에는 안 보일 정도의 픽셀 노이즈를 추가했더니 모델이 그것을 긴팔원숭이로 확신에 차서 잘못 예측한 유명한 사례가 있습니다. 이런 조작된 입력을 적대적 예제라고 부르며, 모델이 실제로는 사람처럼 견고하게 사물을 이해하는 것이 아니라 데이터의 특정 통계적 패턴에 취약하게 의존하고 있음을 보여줘요. 자율주행이나 보안 시스템처럼 안전이 중요한 분야에서 이런 취약점은 심각한 위험 요소가 될 수 있어 관련 방어 기법 연구도 활발합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"모델의 견고성을 검증하기 위해 FGSM 기법으로 적대적 예제를 생성하여 분류 정확도 저하를 측정하였다."</div>
+  <p>모델을 속이도록 의도적으로 조작한 입력을 만들어, 이런 공격에 모델이 얼마나 취약한지를 정확도 하락 폭으로 측정했다는 뜻이다.</p>
+
+  <h2>주의할 점</h2>
+  <p>적대적 예제에 대한 방어 기법 하나가 특정 공격 방식에는 효과적이어도 다른 종류의 공격에는 취약할 수 있어, 견고성을 주장할 때는 다양한 공격 방식으로 검증해야 한다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="shap-values.html">SHAP 값</a>
+    <a href="cross-entropy-loss.html">교차엔트로피 손실</a>
+    <a href="data-augmentation.html">데이터증강</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

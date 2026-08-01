@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Bayesian Optimization(베이지안 최적화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Bayesian Optimization(베이지안 최적화)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/bayesian-optimization.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 베이지안 최적화 (Bayesian Optimization)</p>
+  <h1>베이지안 최적화 (Bayesian Optimization)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 이전 탐색 결과를 확률 모델로 학습해 다음에 시도할 하이퍼파라미터를 지능적으로 선택하는 최적화 기법.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>그리드 서치나 랜덤 서치는 이전 시도 결과를 다음 시도에 반영하지 않고 무작정 값을 골라요. 반면 베이지안 최적화는 지금까지 시도한 결과들을 바탕으로 '어느 영역이 좋은 성능을 낼 것 같은지'를 확률적으로 예측하는 대리 모델(surrogate model)을 만들고, 그 예측이 유망한 곳을 우선적으로 다음에 시도합니다. 마치 보물찾기를 할 때 아무 데나 파는 게 아니라 지금까지 파본 곳의 흔적을 보고 다음 위치를 추측하는 것과 비슷해요. 적은 시도 횟수로도 좋은 하이퍼파라미터를 찾을 수 있어 학습 비용이 큰 딥러닝 모델에 특히 유용합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"학습 비용을 고려하여 그리드 서치 대신 베이지안 최적화를 사용해 하이퍼파라미터를 튜닝하였다."</div>
+  <p>매 학습이 오래 걸리는 모델이므로 시도 횟수를 최소화하기 위해 확률 모델 기반의 지능적 탐색을 택했다는 뜻이다.</p>
+
+  <h2>주의할 점</h2>
+  <p>대리 모델 자체를 학습하고 업데이트하는 데도 계산 비용이 들기 때문에, 하이퍼파라미터 개수가 너무 많으면 오히려 효율이 떨어질 수 있다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="grid-search.html">그리드 서치</a>
+    <a href="random-search.html">랜덤 서치</a>
+    <a href="cross-validation.html">교차검증</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
