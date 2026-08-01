@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>IIR Filter(IIR 필터)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 IIR Filter(IIR 필터)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. FIR 필터와 무엇이 다른지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/iir-filter.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; IIR 필터 (IIR Filter)</p>
+  <h1>IIR 필터 (IIR Filter)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=eng">공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 출력값을 계산할 때 과거의 출력값까지 다시 사용해서(피드백), 적은 연산으로도 원하는 주파수 성분만 걸러내는 디지털 필터입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>디지털 신호에서 원하지 않는 잡음이나 특정 주파수 성분을 없애려면 "필터"를 씁니다. 필터를 만드는 방식에는 크게 두 가지가 있는데, 하나는 과거의 입력값만 이용하는 방식(FIR)이고, 다른 하나는 과거의 출력값까지 다시 계산에 활용하는 방식입니다. IIR 필터는 이 두 번째 방식으로, 마치 "내가 방금 낸 대답을 참고해서 다음 대답을 조금씩 수정해 나가는" 것과 비슷합니다. 이렇게 이전 출력을 되먹임(feedback)으로 사용하면 아날로그 필터와 비슷한 급격한 주파수 차단 특성을 훨씬 적은 계산량으로 만들 수 있습니다. 다만 이 되먹임 구조 때문에 한 번 입력된 신호의 영향이 이론적으로 무한히 이어질 수 있어서 "무한임펄스응답(Infinite Impulse Response)"이라는 이름이 붙었습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"취득된 근전도 신호의 고주파 잡음을 제거하기 위해 차단주파수 20Hz의 4차 버터워스 IIR 필터를 적용하였다."</div>
+  <p>이 문장은 "측정한 근전도 신호에서 20Hz보다 높은 주파수 성분을 걸러내기 위해, 버터워스 방식으로 설계된 IIR 필터를 사용했다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>IIR 필터는 FIR 필터보다 적은 연산으로 원하는 성능을 낼 수 있지만, 되먹임 구조 때문에 필터 설계가 잘못되면 출력이 무한히 커지는 불안정 상태에 빠질 수 있습니다. 또한 주파수에 따라 신호가 지연되는 정도가 일정하지 않은 비선형 위상 특성을 가지므로, 파형의 모양 자체가 중요한 신호 처리에는 <a href="fir-filter.html">FIR 필터</a>가 더 적합할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="fir-filter.html">FIR 필터</a>
+    <a href="z-transform.html">Z변환</a>
+    <a href="signal-filter.html">신호 필터</a>
+    <a href="fourier-transform.html">푸리에 변환</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
