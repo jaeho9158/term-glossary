@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CORS(교차 출처 리소스 공유)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 CORS(교차 출처 리소스 공유)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 브라우저가 다른 출처로의 요청을 허용하는 방식을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cors.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; CORS (교차 출처 리소스 공유)</p>
+  <h1>CORS (교차 출처 리소스 공유)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 웹 브라우저가 현재 접속한 사이트와 다른 주소(출처)의 서버로 데이터를 요청할 때, 그 요청을 허용할지 서버가 정해준 규칙에 따라 판단하는 보안 정책입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>아파트 경비원이 "이 동 주민이 아닌 사람은 함부로 들여보내지 않는다"는 원칙을 지킨다고 해봅시다. 다만 사전에 등록된 방문자 명단에 있는 사람이라면 들여보내 줍니다. 웹 브라우저도 기본적으로 "지금 보고 있는 사이트(A)와 다른 사이트(B)로 몰래 요청을 보내는 것"을 막습니다. 이렇게 하지 않으면 악성 사이트가 사용자 몰래 은행 사이트에 요청을 보내는 등의 문제가 생길 수 있기 때문입니다. 그런데 실제로는 지도 API나 결제 서비스처럼 다른 출처의 서버 기능을 정당하게 써야 할 때가 많습니다. 이때 서버가 "이 출처(도메인)의 요청은 허용한다"는 응답 헤더를 미리 알려주면, 브라우저는 그 규칙에 따라 요청을 통과시켜 줍니다. 이 허용 규칙과 절차 전체를 CORS라고 부릅니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"프런트엔드와 API 서버가 서로 다른 도메인에서 운영됨에 따라 발생하는 교차 출처 요청 문제를 해결하기 위해 CORS 정책을 설정하고 허용 출처 목록을 명시적으로 관리했다."</div>
+  <p>이 문장은 화면을 보여주는 서버와 데이터를 처리하는 서버의 주소가 달라서 생기는 접근 차단 문제를, 허용할 출처를 미리 지정해두는 방식으로 해결했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>CORS는 편의를 위해 접근을 넓혀주는 개념 자체가 보안 위협이 아니라, 오히려 브라우저의 기본 차단 정책을 "안전하게 완화"하는 절차입니다. 허용 출처를 너무 느슨하게(예: 모든 출처 허용) 설정하면 <a href="cross-site-scripting.html">크로스사이트 스크립팅</a>이나 <a href="csrf.html">CSRF</a> 같은 공격에 노출될 위험이 커지므로, 꼭 필요한 출처만 허용하도록 좁게 설정해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="csrf.html">CSRF</a>
+    <a href="cross-site-scripting.html">크로스사이트 스크립팅</a>
+    <a href="session-and-cookie.html">세션과 쿠키</a>
+    <a href="rest-api.html">REST API</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

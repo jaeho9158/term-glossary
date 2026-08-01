@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>레이트 리미팅(Rate Limiting)이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 레이트 리미팅(Rate Limiting)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 일정 시간당 요청 횟수를 제한하는 방식을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/rate-limiting.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 레이트 리미팅 (Rate Limiting)</p>
+  <h1>레이트 리미팅 (Rate Limiting)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 한 사용자나 프로그램이 정해진 시간 동안 서버에 보낼 수 있는 요청 횟수를 제한해서, 서버가 과도한 트래픽에 무너지지 않도록 보호하는 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>놀이공원 인기 놀이기구에서 "1인당 한 시간에 3번까지만 탈 수 있습니다"라는 규칙을 정한다고 해봅시다. 이렇게 해야 한 사람이 계속 줄을 서서 독차지하는 일 없이, 모두가 골고루 이용할 수 있고 대기줄도 감당할 수 있는 수준으로 유지됩니다. 레이트 리미팅도 같은 원리로, 서버가 "이 사용자(또는 이 IP, 이 API 키)는 1분에 요청을 100번까지만 받아준다"처럼 상한선을 정해둡니다. 정해진 횟수를 넘어서면 서버는 추가 요청을 거절하거나 잠시 기다리게 합니다. 이렇게 하면 특정 사용자가 실수로, 혹은 악의적으로 요청을 폭주시키더라도 서버 전체가 느려지거나 멈추는 것을 막을 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"API 게이트웨이는 토큰 버킷 알고리즘 기반의 레이트 리미팅을 적용해 사용자별 요청을 초당 10건으로 제한함으로써 서비스 거부 공격에 대한 내성을 높였다."</div>
+  <p>이 문장은 사용자마다 초당 보낼 수 있는 요청 수에 상한을 두는 방식으로, 트래픽이 갑자기 몰려도 서버가 견딜 수 있게 설계했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>레이트 리미팅은 대량의 요청을 보내 서버를 마비시키는 <a href="ddos-attack.html">DDoS 공격</a>을 막는 데도 쓰이지만, 정상적인 사용자의 요청까지 지나치게 자주 막으면 서비스 이용에 불편을 줄 수 있습니다. 그래서 실제 서비스에서는 사용자 등급이나 상황에 따라 제한 기준을 다르게 두는 경우가 많으며, 여러 서버로 요청을 고르게 분배하는 <a href="load-balancing.html">로드밸런싱</a>과는 목적이 다르다는 점(트래픽 분산 vs. 요청량 자체를 제한)을 구분해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="api-gateway.html">API 게이트웨이</a>
+    <a href="ddos-attack.html">DDoS 공격</a>
+    <a href="load-balancing.html">로드밸런싱</a>
+    <a href="circuit-breaker-pattern.html">회로 차단기 패턴</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
