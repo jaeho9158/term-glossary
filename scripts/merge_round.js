@@ -66,3 +66,6 @@ if (skipped.length) {
   console.log('SKIPPED:', JSON.stringify(skipped.map(s => ({ slug: s.entry.slug, reason: s.reason })), null, 2));
 }
 console.log('Added slugs:', added.map(a => a.slug).join(', '));
+
+// Keep the search/homepage index (terms-index.json) in sync with terms.json.
+require('./generate-terms-index.js');
