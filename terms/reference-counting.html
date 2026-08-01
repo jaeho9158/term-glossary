@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>reference counting(참조 카운팅)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 reference counting(참조 카운팅)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/reference-counting.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 참조 카운팅 (reference counting)</p>
+  <h1>참조 카운팅 (reference counting)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 각 객체마다 자신을 참조하고 있는 다른 객체나 변수의 수를 세어, 그 수가 0이 되는 즉시 해당 객체가 사용하던 메모리를 회수하는 자동 메모리 관리 기법.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>참조 카운팅은 각 객체에 '지금 나를 가리키고 있는 곳이 몇 군데인가'를 세는 숫자표를 붙여두는 방식이다. 새로운 곳에서 그 객체를 참조하기 시작하면 숫자를 하나 늘리고, 참조가 끊기면 숫자를 하나 줄인다. 이 숫자가 0이 되는 순간, 아무도 그 객체를 쓰지 않는다는 뜻이므로 즉시 메모리를 회수할 수 있다. 마크-앤-스윕 방식처럼 프로그램을 잠시 멈추고 전체를 훑을 필요가 없어 회수 시점이 예측 가능하다는 장점이 있지만, 두 객체가 서로를 참조하는 순환 참조가 생기면 둘 다 카운트가 0이 되지 않아 메모리가 회수되지 못하는 문제가 발생할 수 있다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 언어의 런타임은 참조 카운팅을 기본 메모리 관리 방식으로 사용하며, 순환 참조 문제를 해결하기 위해 약한 참조(weak reference)를 함께 제공한다."</div>
+  <p>가비지 컬렉션의 한 방식으로서 참조 카운팅의 동작 원리와 한계를 설명할 때 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>참조 카운팅만으로는 서로를 순환적으로 참조하는 객체들의 메모리를 회수할 수 없으므로, 이를 해결하기 위해 별도의 순환 탐지기나 약한 참조 개념을 함께 도입하는 경우가 많다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="garbage-collection-algorithm.html">가비지 컬렉션 알고리즘</a>
+    <a href="closure-programming-language.html">클로저</a>
+    <a href="amortized-analysis.html">상각 분석</a>
+    <a href="static-vs-dynamic-typing.html">정적 타이핑과 동적 타이핑</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
