@@ -116,7 +116,12 @@
             "epitope",
             "primary-secondary-antibody",
             "chemiluminescence",
-            "blotting-technique-naming"
+            "blotting-technique-naming",
+            "blocking-western-blot",
+            "protein-transfer",
+            "hrp-enzyme",
+            "transcription",
+            "translation"
         ]
     },
     "ethics":{
@@ -196,7 +201,33 @@
             "aav-lentivirus-vector",
             "perfusion-fixation",
             "intrinsic-optical-signal",
-            "muscimol"
+            "muscimol",
+            "cre-lox-system",
+            "conditional-knockout-gene",
+            "stereotaxic-coordinates",
+            "balance-beam-test",
+            "footprint-analysis",
+            "grip-strength-test",
+            "inverted-screen-test",
+            "ladder-rung-test",
+            "pole-test",
+            "wire-suspension-test",
+            "burrowing-test",
+            "hargreaves-test",
+            "nest-building-test",
+            "hot-cold-plate-test",
+            "tail-flick-test",
+            "temperature-preference-test",
+            "voluntary-wheel-running",
+            "von-frey-test",
+            "object-placement-test",
+            "radial-arm-water-maze",
+            "water-t-maze",
+            "wild-type-transgenic",
+            "vehicle-control",
+            "ad-libitum",
+            "acquisition-retention",
+            "innate-curiosity"
         ]
     },
     "medhealth":{
