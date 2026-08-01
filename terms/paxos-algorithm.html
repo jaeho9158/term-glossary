@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Paxos algorithm(팍소스 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Paxos algorithm(팍소스 알고리즘)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/paxos-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 팍소스 알고리즘 (Paxos algorithm)</p>
+  <h1>팍소스 알고리즘 (Paxos algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 노드 고장이나 메시지 지연이 있는 비동기 네트워크 환경에서도 분산 시스템의 노드들이 하나의 값에 대해 합의에 도달할 수 있도록 하는 대표적인 합의 알고리즘.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>팍소스는 여러 노드가 참여해 제안을 내고 투표하는 과정을 통해 합의에 이르는 알고리즘이다. 제안자가 값을 제안하면 다수의 노드(과반수)가 이를 승인해야 하며, 과반수의 동의를 얻은 값만이 최종적으로 확정된다. 과반수 개념을 사용하기 때문에 일부 노드가 고장 나거나 응답하지 않아도, 살아있는 과반수만 합의에 참여하면 시스템 전체는 계속 동작할 수 있다. 이론적으로 정확하지만 이해하기 어렵기로 유명하여, 이후 더 이해하기 쉬운 것을 목표로 만들어진 라프트 알고리즘이 실무에서 대안으로 자주 쓰인다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 분산 락 서비스는 팍소스 알고리즘의 변형을 사용하여 리더 노드에 대한 합의를 유지한다."</div>
+  <p>분산 시스템에서 장애를 견디며 값에 대한 합의를 이루는 구체적인 알고리즘을 명시할 때 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>팍소스는 이론적으로 견고하지만 원본 논문의 설명이 난해하기로 악명 높아, 실제 구현에서는 이해와 구현이 더 쉬운 라프트 알고리즘이 대안으로 널리 채택된다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="consensus-algorithm.html">합의 알고리즘</a>
+    <a href="two-phase-commit.html">2단계 커밋</a>
+    <a href="byzantine-fault-tolerance.html">비잔틴 장애 허용</a>
+    <a href="cap-theorem.html">CAP 정리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>tail call optimization(꼬리 호출 최적화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 tail call optimization(꼬리 호출 최적화)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/tail-call-optimization.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 꼬리 호출 최적화 (tail call optimization)</p>
+  <h1>꼬리 호출 최적화 (tail call optimization)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 함수의 마지막 동작이 다른 함수(또는 자기 자신)를 호출하고 그 결과를 그대로 반환하는 꼬리 호출의 경우, 새로운 스택 프레임을 쌓지 않고 현재 프레임을 재사용함으로써 스택 오버플로우 없이 재귀를 처리하는 컴파일러 최적화 기법.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>일반적으로 함수를 호출할 때마다 호출 스택에 새로운 정보(스택 프레임)가 쌓이고, 이 스택은 한정된 크기를 가지고 있어 재귀 호출이 너무 깊어지면 스택 오버플로우 오류가 발생한다. 그런데 함수가 마지막으로 하는 일이 '다른 함수를 호출하고 그 결과를 곧바로 돌려주는 것'뿐이라면, 현재 함수의 스택 프레임 정보는 더 이상 필요가 없다는 것을 알 수 있다. 이런 경우 컴파일러는 새 프레임을 쌓는 대신 현재 프레임을 재활용함으로써, 아무리 재귀를 깊게 반복해도 스택이 늘어나지 않고 반복문처럼 상수 공간에서 실행되도록 최적화할 수 있다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 함수형 언어는 꼬리 호출 최적화를 표준으로 보장하므로, 재귀를 이용해 반복문과 동등한 성능의 코드를 작성할 수 있다."</div>
+  <p>함수형 프로그래밍 언어에서 재귀를 반복문 대신 안전하게 사용할 수 있는 이유를 설명할 때 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>모든 언어나 컴파일러가 꼬리 호출 최적화를 보장하는 것은 아니며, 이를 보장하지 않는 언어에서 깊은 재귀를 사용하면 여전히 스택 오버플로우가 발생할 수 있다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="closure-programming-language.html">클로저</a>
+    <a href="lambda-calculus.html">람다 계산법</a>
+    <a href="memoization.html">메모이제이션</a>
+    <a href="amortized-analysis.html">상각 분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

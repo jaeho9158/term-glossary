@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Causal Directed Acyclic Graph(인과 방향성 비순환 그래프)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Causal Directed Acyclic Graph(인과 방향성 비순환 그래프)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/causal-dag.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 인과 방향성 비순환 그래프 (Causal Directed Acyclic Graph)</p>
+  <h1>인과 방향성 비순환 그래프 (Causal Directed Acyclic Graph)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 변수들 사이의 인과적 방향을 화살표로 표현하고 순환(자기 자신으로 되돌아오는 경로)이 없도록 구성하여, 변수 간의 인과 구조를 시각적·수학적으로 나타내는 그래프.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 변수가 서로 얽혀 있을 때, 어떤 변수가 어떤 변수에 영향을 주는지를 화살표로 그려서 인과관계를 지도처럼 표현한 것이 인과 방향성 비순환 그래프(DAG)다. 이 그래프를 이용하면 어떤 변수를 통제해야 진짜 인과효과를 왜곡 없이 추정할 수 있는지(교란변수 통제), 반대로 어떤 변수를 통제하면 오히려 편향이 생기는지(<a href="collider-bias.html">충돌변수</a>)를 명확한 규칙에 따라 판단할 수 있다. 인과추론 연구에서 분석에 앞서 연구자의 가정을 명시적으로 드러내는 도구로 널리 사용된다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"인과 방향성 비순환 그래프를 이용해 교란변수를 식별하고 이를 통제한 회귀모형을 구성하였다."</div>
+  <p>관찰연구에서 어떤 변수를 통제해야 하고 어떤 변수는 통제하지 말아야 하는지를 그래프 이론적으로 결정할 때 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>인과 그래프는 연구자가 세운 가정을 표현한 것일 뿐이므로, 그래프 자체가 틀리면(잘못된 인과 구조를 가정하면) 이를 이용한 모든 분석 결과도 왜곡된다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="confounding-variable.html">교란변수</a>
+    <a href="collider-bias.html">충돌변수 편향</a>
+    <a href="mediation-analysis.html">매개효과 분석</a>
+    <a href="do-calculus.html">두-연산 미적분</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

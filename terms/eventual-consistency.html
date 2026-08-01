@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>eventual consistency(최종적 일관성)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 eventual consistency(최종적 일관성)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/eventual-consistency.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 최종적 일관성 (eventual consistency)</p>
+  <h1>최종적 일관성 (eventual consistency)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 데이터에 대한 갱신이 더 이상 발생하지 않는다면, 시간이 충분히 지나면 결국 모든 복제본이 같은 값으로 수렴한다는 것을 보장하는 느슨한 분산 일관성 모델.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>최종적 일관성은 '지금 당장은 서버마다 다른 값을 보여줄 수 있지만, 새로운 변경이 없다면 결국에는 모두 같은 값으로 맞춰진다'는 약속이다. 예를 들어 소셜 미디어에 글을 올렸을 때 어떤 사용자에게는 몇 초 늦게 보이더라도, 결국에는 모든 사용자가 같은 게시물을 보게 된다. 이 모델은 강한 일관성보다 보장이 약한 대신, 네트워크 지연이나 일부 노드 장애가 있어도 시스템이 계속 응답할 수 있게 해주어 대규모 분산 시스템에서 높은 가용성과 성능을 얻는 데 널리 사용된다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 시스템은 사용자 경험상 즉각적인 응답이 중요하다고 판단하여 강한 일관성 대신 최종적 일관성을 채택하였다."</div>
+  <p>가용성과 성능을 위해 일관성 보장 수준을 완화하는 설계 결정을 정당화할 때 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>최종적 일관성은 '언젠가는' 일치한다는 것만 보장할 뿐 그 시간이 얼마나 걸릴지에 대해서는 구체적인 상한을 제시하지 않는 경우가 많아, 이 지연이 문제가 되는 응용에는 부적합할 수 있다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="distributed-consistency-model.html">분산 일관성 모델</a>
+    <a href="cap-theorem.html">CAP 정리</a>
+    <a href="vector-clock.html">벡터 클럭</a>
+    <a href="consensus-algorithm.html">합의 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

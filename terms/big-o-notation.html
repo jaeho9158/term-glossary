@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>big-O notation(빅오 표기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 big-O notation(빅오 표기법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/big-o-notation.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 빅오 표기법 (big-O notation)</p>
+  <h1>빅오 표기법 (big-O notation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 입력 크기가 커질 때 알고리즘의 실행 시간이나 메모리 사용량이 증가하는 정도의 상한을 상수 배와 하위 차수의 항을 무시하고 나타내는 점근적 표기법.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>빅오 표기법은 알고리즘이 얼마나 빠른지를 입력의 크기가 아주 커졌을 때의 경향으로 요약해서 표현하는 방법이다. 예를 들어 O(n)은 입력이 두 배가 되면 실행 시간도 대략 두 배가 된다는 뜻이고, O(n^2)은 입력이 두 배가 되면 실행 시간은 대략 네 배가 된다는 뜻이다. 이 표기법은 세부적인 상수(예: 정확히 몇 밀리초 걸리는지)는 무시하고 '입력이 커질수록 얼마나 가파르게 느려지는가'라는 큰 그림에 집중하기 때문에, 서로 다른 알고리즘의 근본적인 효율성을 하드웨어나 구현 세부사항과 무관하게 비교할 수 있게 해준다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 알고리즘은 기존 O(n^2) 방식과 달리 O(n log n)의 시간 복잡도를 가져, 대용량 데이터에서 훨씬 우수한 성능을 보인다."</div>
+  <p>알고리즘의 효율성을 입력 크기에 따른 점근적 증가율로 정량화해 비교할 때 표준적으로 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>빅오 표기법은 입력이 충분히 커졌을 때의 점근적 경향을 나타낼 뿐이므로, 입력 크기가 작은 경우에는 이론적으로 더 느린 알고리즘이 상수 계수 덕분에 실제로는 더 빠를 수도 있다는 점에 유의해야 한다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="complexity-class-p.html">복잡도 클래스 P</a>
+    <a href="amortized-analysis.html">상각 분석</a>
+    <a href="exponential-time-complexity.html">지수 시간 복잡도</a>
+    <a href="divide-and-conquer.html">분할정복</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
