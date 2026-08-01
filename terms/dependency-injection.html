@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>의존성 주입(Dependency Injection)이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 의존성 주입(Dependency Injection)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 객체가 필요한 부품을 직접 만들지 않는 이유를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/dependency-injection.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 의존성 주입 (Dependency Injection)</p>
+  <h1>의존성 주입 (Dependency Injection)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 객체(모듈)가 필요로 하는 다른 객체를 스스로 만들지 않고 외부에서 전달받도록 설계하여, 코드 사이의 결합도를 낮추는 소프트웨어 설계 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>카페 바리스타가 커피를 내리려면 원두가 필요합니다. 그런데 바리스타가 매번 직접 원두를 재배하고 수확한다면 커피 한 잔 만드는 데 몇 달이 걸릴 것입니다. 대신 원두 공급 업체가 필요한 원두를 가져다주면, 바리스타는 커피를 내리는 본연의 일에만 집중할 수 있습니다. 의존성 주입도 마찬가지입니다. 코드 안의 한 부품(객체)이 다른 부품을 직접 만들어 쓰는 대신, 외부에서 완성된 부품을 "주입"받아 사용하게 만들어서, 각 부품이 자기 역할에만 집중하고 부품 교체도 쉬워지게 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"테스트 용이성을 높이기 위해 의존성 주입 패턴을 적용하여, 실제 데이터베이스 연결 없이도 각 모듈을 목(mock) 객체로 손쉽게 교체하며 검증할 수 있도록 시스템을 설계했다."</div>
+  <p>이 문장은 모듈이 사용할 부품(예: 데이터베이스 연결)을 코드 내부에서 직접 만들지 않고 외부에서 전달받게 만들어서, 테스트할 때는 가짜 부품으로 손쉽게 바꿔 끼울 수 있었다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>의존성 주입은 코드 간 결합도를 낮추는 대표적인 <a href="software-design-pattern.html">디자인 패턴</a>이지만, 무분별하게 남용하면 어떤 부품이 어디서 어떻게 조립되는지 한눈에 파악하기 어려워지고 설정(configuration)이 복잡해질 수 있습니다. 이는 <a href="oop-four-principles.html">객체지향 프로그래밍의 4대 원칙</a> 중 캡슐화·추상화를 지키기 위한 수단이지, 그 자체가 목적은 아니라는 점을 기억해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="software-design-pattern.html">디자인 패턴</a>
+    <a href="object-oriented-programming.html">객체지향 프로그래밍</a>
+    <a href="oop-four-principles.html">객체지향 프로그래밍의 4대 원칙</a>
+    <a href="microservice-architecture.html">마이크로서비스 아키텍처</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>특징 공학(Feature Engineering)이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 특징 공학(Feature Engineering, 피처 엔지니어링)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 원본 데이터를 모델이 잘 배우도록 다듬는 과정을 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/feature-engineering.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 특징 공학 (Feature Engineering)</p>
+  <h1>특징 공학 (Feature Engineering)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 머신러닝 모델이 더 잘 학습하도록, 원본 데이터에서 의미 있는 입력 변수(특징/피처)를 뽑아내거나 다듬는 과정입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>요리를 할 때 재료를 씻지도, 썰지도 않은 채 통째로 냄비에 넣으면 맛있는 음식이 나오기 어렵습니다. 재료를 손질하고 알맞은 크기로 썰어야 요리가 잘 됩니다. 특징 공학도 마찬가지입니다. 원본 데이터(재료)를 그대로 모델에 넣는 대신, "날짜"에서 요일이나 공휴일 여부를 뽑아내거나 여러 수치를 조합해 새로운 값을 만드는 등, 모델이 패턴을 더 쉽게 찾을 수 있도록 데이터를 손질하는 과정입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"결측치 대체와 원-핫 인코딩을 포함한 특징 공학을 통해 모델의 예측 정확도를 기존 대비 12%p 향상시켰다."</div>
+  <p>이 문장은 빠진 값을 채우고 범주형 데이터를 <a href="one-hot-encoding.html">원-핫 인코딩</a>으로 변환하는 등 데이터를 정성껏 다듬은 결과, 모델의 성능이 눈에 띄게 좋아졌다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>특징을 무작정 많이 만들어 넣으면 모델이 훈련 데이터의 잡음까지 외워버리는 <a href="overfitting.html">과적합</a>이 발생하기 쉽습니다. 또한 최근 딥러닝에서는 사람이 특징을 직접 설계하는 대신 모델이 데이터로부터 스스로 유용한 표현을 학습하는 표현 학습(representation learning) 방식으로 특징 공학의 역할이 점점 대체되고 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="one-hot-encoding.html">원-핫 인코딩</a>
+    <a href="overfitting.html">과적합</a>
+    <a href="cross-validation.html">교차검증</a>
+    <a href="machine-learning.html">머신러닝</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
