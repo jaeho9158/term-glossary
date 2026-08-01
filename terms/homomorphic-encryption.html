@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>동형암호(Homomorphic Encryption)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 동형암호(Homomorphic Encryption)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 암호화된 채로 계산이 가능한 이유를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/homomorphic-encryption.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 동형암호 (Homomorphic Encryption)</p>
+  <h1>동형암호 (Homomorphic Encryption)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 데이터를 암호화한 상태 그대로 계산해도, 그 결과를 복호화하면 원본 데이터를 계산한 것과 같은 답이 나오는 암호화 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보통의 암호화는 금고에 서류를 넣고 잠그는 것과 비슷합니다. 안에 있는 서류로 뭔가 계산을 하려면 반드시 금고를 열어야 합니다. 그런데 동형암호는 "금고를 열지 않고도 안의 서류를 계산할 수 있게 특수 장갑이 달린 금고"와 같습니다. 잠긴 채로 더하기, 곱하기 같은 연산을 수행한 뒤, 그 결과를 금고 밖에서 열어보면 원본 데이터로 직접 계산했을 때와 똑같은 답이 나옵니다. 그래서 병원이나 은행처럼 민감한 데이터를 다루는 곳에서, 데이터를 외부 서버(클라우드)에 맡겨 계산시키면서도 내용은 절대 노출하지 않는 용도로 연구되고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"환자 데이터의 프라이버시를 보호하기 위해 동형암호 기반 연산을 적용하여 원본을 복호화하지 않고도 통계 분석을 수행했다."</div>
+  <p>이 문장은 "환자의 실제 정보를 누구도 볼 수 없는 암호화된 상태 그대로 계산해서 분석 결과만 얻어냈다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>동형암호는 <a href="differential-privacy.html">차등 프라이버시</a>나 <a href="data-anonymization.html">데이터 익명화</a>와 목적은 비슷하지만 방식이 다릅니다. 동형암호는 데이터를 아예 노출하지 않으면서 정확한 계산 결과를 보장하는 대신, 계산량이 매우 많아 속도가 느리다는 단점이 있습니다. 반면 익명화나 차등 프라이버시는 계산은 빠르지만 정보가 부분적으로 손실되거나 노이즈가 섞일 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="differential-privacy.html">차등 프라이버시</a>
+    <a href="data-anonymization.html">데이터 익명화</a>
+    <a href="zero-knowledge-proof.html">영지식증명</a>
+    <a href="encryption-basics.html">암호화 기초</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

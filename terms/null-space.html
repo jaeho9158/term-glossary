@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>영공간(Null Space)이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 영공간(Null Space)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 행렬을 곱해서 0이 되는 벡터들이 무엇인지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/null-space.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 영공간 (Null Space)</p>
+  <h1>영공간 (Null Space)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 어떤 행렬 A를 곱했을 때 결과가 정확히 0(영벡터)이 되는 모든 벡터 x들의 집합입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>행렬 A는 벡터를 다른 벡터로 바꾸는 "변환 기계"라고 생각할 수 있습니다. 대부분의 입력 벡터는 기계를 통과하면 0이 아닌 결과가 나오지만, 몇몇 특수한 입력은 통과시키면 결과가 완전히 0이 되어버립니다. 이렇게 "기계에 넣으면 흔적도 없이 사라지는" 입력 벡터들을 모아놓은 것이 영공간입니다. 예를 들어 Ax = 0이라는 연립방정식을 풀 때, 그 해가 되는 모든 x의 집합이 바로 A의 영공간입니다. 영공간에 원점(0벡터) 하나만 있다면 그 행렬은 정보를 잃지 않고 벡터를 온전히 변환한다는 뜻이고, 영공간이 더 크다면 그만큼 정보가 뭉개진다는 뜻입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"설계 행렬의 영공간이 자명해(trivial)로만 구성됨을 확인하여 추정된 계수가 유일하게 결정됨을 보였다."</div>
+  <p>이 문장은 "행렬을 곱해 0이 되는 벡터가 0벡터 하나뿐이므로, 모델의 계수를 구하는 해가 하나로 정확히 정해진다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>영공간이 원점 하나보다 크다면(즉 0이 아닌 벡터도 포함한다면), 그 방향으로는 정보가 손실되어 <a href="linear-independence.html">선형독립</a>이 깨지고 방정식의 해가 여러 개이거나 존재하지 않을 수 있습니다. 영공간의 차원(nullity)은 <a href="rank-nullity-theorem.html">차원 정리</a>를 통해 행렬의 랭크(rank)와 직접 연결됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="rank-nullity-theorem.html">차원 정리</a>
+    <a href="matrix-rank.html">행렬의 랭크</a>
+    <a href="linear-independence.html">선형독립</a>
+    <a href="vector-space.html">벡터공간</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

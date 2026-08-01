@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>카루시-쿤-터커 조건(KKT Conditions)이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 카루시-쿤-터커 조건(KKT Conditions)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 제약이 있는 최적화 문제를 어떻게 푸는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/karush-kuhn-tucker.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 카루시-쿤-터커 조건 (KKT Conditions)</p>
+  <h1>카루시-쿤-터커 조건 (KKT Conditions)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 부등식 제약까지 포함된 최적화 문제에서, 어떤 해가 최적해가 되기 위해 반드시 만족해야 하는 조건들을 정리한 규칙입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>등호 제약(예: "예산을 정확히 100만원 써야 한다")만 있을 때 최적점을 찾는 방법이 <a href="lagrange-multiplier.html">라그랑주 승수법</a>입니다. 그런데 현실에서는 "예산은 100만원 이하로만 쓴다"처럼 부등식 제약이 훨씬 많습니다. KKT 조건은 이런 부등식 제약이 섞인 상황까지 다룰 수 있도록 라그랑주 승수법을 확장한 것입니다. 핵심 아이디어는 이렇습니다. 제약이 "빡빡하게 걸려 있는 상태(경계에 딱 붙어있음)"라면 그 제약은 라그랑주 승수법처럼 작동하고, 제약이 "여유가 있는 상태(경계에서 떨어져 있음)"라면 그 제약은 아예 없는 것처럼 무시해도 최적해가 바뀌지 않습니다. 이 "빡빡함과 여유로움을 구분하는 규칙"을 상보성 조건(complementary slackness)이라 부르며, KKT 조건의 핵심 부분입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 자원 할당 문제는 볼록 최적화 문제이므로 KKT 조건을 만족하는 해가 전역 최적해임을 보장한다."</div>
+  <p>이 문장은 "이 문제는 특별한 성질(볼록성) 덕분에, KKT 조건만 만족시키면 그 해가 진짜 최선의 답이라고 확신할 수 있다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>KKT 조건은 일반적으로 최적해가 되기 위한 필요조건일 뿐이며, 문제가 볼록(convex)하지 않다면 KKT 조건을 만족하는 점이라고 해서 반드시 전역 최적해라는 보장은 없습니다. 다만 목적함수와 제약이 모두 볼록성을 만족하는 볼록 최적화 문제에서는 KKT 조건이 충분조건도 되어, 이 조건을 만족하는 해가 곧 전역 최적해임이 보장됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="lagrange-multiplier.html">라그랑주 승수법</a>
+    <a href="gradient-descent.html">경사하강법</a>
+    <a href="hessian-matrix.html">헤시안 행렬</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
