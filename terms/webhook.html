@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Webhook(웹훅)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Webhook(웹훅)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/webhook.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 웹훅</p>
+  <h1>웹훅</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 특정 사건이 일어났을 때 한 시스템이 미리 등록된 다른 시스템의 주소로 자동으로 알림(HTTP 요청)을 보내주는 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>택배가 도착하면 문자로 알려주는 서비스를 떠올려 보세요. 내가 계속 배송 조회 페이지를 새로고침하며 확인할 필요 없이, 택배가 도착하는 "사건"이 발생하는 순간 배송 회사가 알아서 내 번호로 문자를 보내줍니다. 웹훅도 같은 원리입니다. 어떤 시스템(A)이 "이런 일이 생기면 이 주소로 알려줘"라고 다른 시스템(B)에 자신의 콜백 주소를 미리 등록해두면, B는 해당 사건이 실제로 발생했을 때 그 주소로 데이터를 담아 자동으로 요청을 보냅니다. 그래서 A는 "혹시 무슨 일 생겼나?" 하고 계속 물어보는(폴링) 대신, 일이 생겼을 때만 알림을 받아 즉시 반응할 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"결제 완료 이벤트가 발생하면 외부 알림 서비스로 웹훅을 전송해 실시간으로 주문 상태를 갱신하도록 시스템을 구성했다."</div>
+  <p>이 문장은 결제가 끝나는 순간 그 사실을 다른 시스템에 즉시 전달하도록 설계했다는 뜻으로, 이벤트 기반 아키텍처나 시스템 통합 방식을 설명하는 논문에서 자주 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>웹훅은 클라이언트가 서버에 요청을 보내야만 응답을 받는 일반적인 <a href="rest-api.html">REST API</a> 호출과 방향이 반대입니다. 즉 요청을 보내는 주체가 우리 쪽이 아니라 사건이 발생한 시스템이라는 점에서, 수신 측은 예상치 못한 시점에 오는 요청을 안전하게 검증하고 처리할 준비가 되어 있어야 합니다. 알림이 순서대로 오거나 반드시 한 번만 온다는 보장이 없는 경우도 많아, 중복 처리나 순서 뒤바뀜에 대비한 설계가 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="rest-api.html">REST API</a>
+    <a href="message-queue.html">메시지 큐</a>
+    <a href="publish-subscribe-pattern.html">발행-구독 패턴</a>
+    <a href="api-gateway.html">API 게이트웨이</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

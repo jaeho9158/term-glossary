@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Median Absolute Deviation(중위절대편차)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Median Absolute Deviation(중위절대편차, MAD)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 이상치에 강한 산포도 지표를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/median-absolute-deviation.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 중위절대편차 (Median Absolute Deviation)</p>
+  <h1>중위절대편차 (Median Absolute Deviation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 극단적인 값(이상치) 몇 개에 흔들리지 않고 데이터가 중앙값에서 평균적으로 얼마나 떨어져 있는지를 보여주는 산포도 지표입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>표준편차는 데이터가 평균에서 얼마나 흩어져 있는지 보여주지만, 값 하나가 유난히 크거나 작으면(이상치) 평균 자체가 그쪽으로 끌려가면서 표준편차도 함께 부풀려지는 약점이 있습니다. 중위절대편차(MAD)는 평균 대신 이상치에 잘 흔들리지 않는 중앙값을 기준으로 삼습니다. 먼저 각 데이터가 중앙값에서 얼마나 떨어져 있는지(절대값 거리)를 구한 뒤, 그 거리들의 중앙값을 다시 계산하는 방식입니다. 이렇게 "중앙값을 두 번" 쓰기 때문에 몇 개의 극단치가 섞여 있어도 데이터가 실제로 얼마나 퍼져 있는지를 안정적으로 보여줍니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"반응시간 자료에 극단값이 다수 포함되어 있어, 표준편차 대신 중위절대편차(MAD)를 이용해 이상치를 정의하고 제거하였다(중앙값 ± 3×MAD를 벗어난 값 제외)."</div>
+  <p>이 문장은 "반응시간처럼 몇몇 값이 유난히 튀는 자료에서는 평균·표준편차 기준으로 이상치를 걸러내면 부정확할 수 있어, 이상치에 덜 민감한 MAD를 기준으로 이상치를 판별했다"는 뜻입니다. 실험심리학이나 생리 신호 분석처럼 이상치가 흔한 분야에서 자주 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>MAD는 원래 단위 그대로는 표준편차보다 값이 작게 나오기 때문에, 정규분포를 가정할 때는 흔히 1.4826을 곱해 표준편차와 비교 가능한 척도로 조정한 값(scaled MAD)을 사용합니다. 이 조정을 하지 않고 <a href="standard-deviation.html">표준편차</a>나 <a href="interquartile-range.html">사분위범위</a>와 그대로 비교하면 산포도를 과소평가하게 되므로 주의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="standard-deviation.html">표준편차</a>
+    <a href="interquartile-range.html">사분위범위</a>
+    <a href="outlier.html">이상치</a>
+    <a href="trimmed-mean.html">절사평균</a>
+    <a href="coefficient-of-variation.html">변동계수</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

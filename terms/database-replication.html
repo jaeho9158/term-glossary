@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Database Replication(데이터베이스 복제)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Database Replication(데이터베이스 복제)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/database-replication.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 데이터베이스 복제</p>
+  <h1>데이터베이스 복제</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 하나의 데이터베이스 내용을 여러 서버에 똑같이 복사해두어 장애 대응력과 읽기 성능을 높이는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>중요한 계약서를 은행 금고 하나에만 보관하지 않고, 여러 지점 금고에 똑같은 사본을 나눠 보관하는 상황을 떠올려 보세요. 한 지점에 화재가 나도 다른 지점의 사본으로 업무를 이어갈 수 있습니다. 데이터베이스 복제도 마찬가지로, 원본 데이터가 있는 주 서버(마스터)의 내용을 하나 이상의 복제 서버(레플리카)에 실시간 또는 준실시간으로 동기화합니다. 이렇게 하면 주 서버에 장애가 생겨도 복제본으로 서비스를 계속할 수 있고, 읽기 요청을 여러 복제 서버로 나눠 처리해 전체 처리량도 높일 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"가용성을 높이기 위해 마스터-슬레이브 구조로 데이터베이스 복제를 구성했으며, 장애 발생 시 평균 3초 이내에 복제본으로 전환되었다."</div>
+  <p>이 문장은 주 서버가 고장 났을 때 미리 복제해둔 서버로 자동 전환되기까지 걸린 시간이 3초였다는 뜻으로, 분산 시스템의 장애 복구 성능을 설명할 때 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>복제된 서버들 사이에는 동기화에 시간이 걸리기 때문에, 특정 순간에는 서버마다 보여주는 데이터가 살짝 다를 수 있습니다(복제 지연). 이는 <a href="cap-theorem.html">CAP 정리</a>에서 다루는 일관성과 가용성 사이의 트레이드오프와 직결되는 문제이며, 여러 복제본의 데이터가 항상 완벽히 일치한다고 가정하면 안 됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cap-theorem.html">CAP 정리</a>
+    <a href="sharding.html">샤딩</a>
+    <a href="acid-transaction.html">ACID 트랜잭션</a>
+    <a href="distributed-consensus.html">분산 합의 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

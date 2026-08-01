@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SPRITE(스프라이트 기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 SPRITE(스프라이트 기법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 평균·표준편차만으로 데이터 조작을 어떻게 잡아내는지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/sprite-technique.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 스프라이트 기법 (SPRITE)</p>
+  <h1>스프라이트 기법 (SPRITE)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=ethics">윤리</a>
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 논문에 보고된 평균과 표준편차가, 그 표본 크기와 응답 범위(예: 1~5점 척도)를 가진 실제 데이터에서 나올 수 있는 값인지를 역으로 계산해 검증하는 통계적 데이터 위조 탐지 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>설문조사에서 100명에게 "이 서비스에 얼마나 만족하십니까?"라고 1점부터 5점까지 정수로 답하게 했다고 해봅시다. 이 100개의 정수 응답을 컴퓨터로 무작위로 조합해 보면서, 논문에 보고된 평균과 표준편차를 실제로 만들어낼 수 있는 조합이 존재하는지 하나씩 시도해 보는 것이 스프라이트 기법입니다. 마치 정해진 개수의 퍼즐 조각(1~5까지의 정수)만으로 특정 합계와 흩어진 정도를 정확히 재현할 수 있는지 수천 번 맞춰보는 것과 비슷합니다. 만약 아무리 다양하게 조합해봐도 보고된 평균·표준편차를 만족하는 정수 조합이 하나도 나오지 않는다면, 그 숫자 자체가 실제 응답에서 나올 수 없는 값이라는 뜻이 됩니다. GRIM 검정이 평균값 하나만 확인한다면, 스프라이트는 평균과 표준편차, 응답 범위까지 함께 고려해 훨씬 더 정교하게 이상 징후를 잡아낼 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"보고된 표본(n=45)의 평균과 표준편차를 만족하는 정수 응답 조합은 스프라이트 분석 결과 존재하지 않는 것으로 나타나, 해당 수치의 재검토가 요청되었다."</div>
+  <p>이 문장은 "논문에 적힌 평균과 표준편차가 실제 응답 데이터에서는 수학적으로 나올 수 없는 값이므로, 데이터가 잘못 계산되었거나 조작되었을 가능성이 있다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>스프라이트 분석에서 불일치가 발견되었다고 해서 곧바로 <a href="data-fabrication.html">데이터 위조·변조</a>로 단정할 수는 없습니다. 반올림 오류, 결측치 처리 실수, 척도 범위를 잘못 기재하는 등 단순한 실수로도 같은 결과가 나타날 수 있으며, 최종 판단을 위해서는 저자에게 원자료 확인을 요청하는 절차가 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="grim-test.html">GRIM 테스트</a>
+    <a href="benfords-law-fabrication.html">벤포드 법칙</a>
+    <a href="data-fabrication.html">연구자료 위조·변조</a>
+    <a href="image-forensics.html">이미지 포렌식</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

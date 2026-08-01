@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>JWT (JSON Web Token)(JWT (JSON 웹 토큰))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 JWT (JSON Web Token)(JWT (JSON 웹 토큰))를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/jwt.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; JWT (JSON 웹 토큰)</p>
+  <h1>JWT (JSON 웹 토큰)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 서버가 로그인한 사용자의 정보를 암호학적으로 서명해 담아두는, 위변조를 검증할 수 있는 자기완결형 토큰입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>놀이공원 손목밴드를 떠올려 보세요. 입구에서 직원이 손목밴드를 채워주면, 이후 다른 놀이기구를 탈 때마다 직원 명부를 다시 뒤질 필요 없이 손목밴드만 보여주면 됩니다. 손목밴드에는 위조 방지 표시가 있어서 아무나 만들 수 없죠. JWT도 똑같은 원리입니다. 사용자가 로그인하면 서버가 "이 사람은 인증된 사용자"라는 정보를 담아 서명이 붙은 토큰(손목밴드)을 발급합니다. 이후 사용자는 요청할 때마다 이 토큰을 제시하고, 서버는 매번 데이터베이스를 조회하지 않고 서명만 확인해서 진짜인지 판단합니다. 덕분에 여러 서버로 나뉜 시스템에서도 별도의 세션 저장소 없이 사용자의 인증 상태를 빠르게 확인할 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"사용자 인증은 JWT 기반으로 구현했으며, 토큰의 유효기간은 발급 후 1시간으로 설정했다."</div>
+  <p>이 문장은 로그인한 사용자에게 1시간 동안만 유효한 JWT를 발급해, 시간이 지나면 다시 로그인해야 한다는 뜻입니다. 시스템 아키텍처나 보안 설계를 다루는 논문에서 인증 방식을 명시할 때 자주 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>JWT는 한번 발급되면 만료되기 전까지 서버가 강제로 무효화하기 어렵다는 한계가 있습니다. 로그아웃하거나 토큰이 유출돼도 유효기간이 끝날 때까지는 여전히 사용될 수 있어, 유효기간을 너무 길게 설정하면 보안 위험이 커집니다. 인증 위임 방식 전체를 가리키는 <a href="oauth.html">OAuth</a>와 혼동하기 쉬운데, OAuth는 프로토콜이고 JWT는 그 안에서 쓰이는 토큰 형식 중 하나입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="oauth.html">OAuth</a>
+    <a href="session-and-cookie.html">세션과 쿠키</a>
+    <a href="digital-signature.html">전자서명</a>
+    <a href="api-gateway.html">API 게이트웨이</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
