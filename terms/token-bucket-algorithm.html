@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Token Bucket Algorithm(토큰 버킷 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Token Bucket Algorithm(토큰 버킷 알고리즘)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 트래픽 속도를 어떻게 제한하는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/token-bucket-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 토큰 버킷 알고리즘 (Token Bucket Algorithm)</p>
+  <h1>토큰 버킷 알고리즘 (Token Bucket Algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 일정한 속도로 "토큰"을 채워 넣는 가상의 통을 두고, 요청이 들어올 때마다 토큰을 하나씩 소모하게 하여 트래픽 속도를 제한하는 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>놀이공원 입장권을 상상해 보세요. 매표소는 1분에 딱 10장씩만 표를 새로 찍어내고, 방문객은 표가 있어야만 입장할 수 있습니다. 표가 남아 있으면 여러 명이 한꺼번에 몰려도 즉시 입장할 수 있지만, 표가 다 떨어지면 새 표가 나올 때까지 기다려야 합니다. 토큰 버킷 알고리즘도 이와 같습니다. 정해진 속도로 "토큰"이 통(bucket)에 채워지고, 요청이 하나 들어올 때마다 토큰을 하나 꺼내 씁니다. 통에 토큰이 남아 있으면 순간적으로 몰리는 요청도 어느 정도 받아 줄 수 있고(버스트 허용), 토큰이 바닥나면 그 이후 요청은 거절되거나 대기하게 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"API 서버의 과도한 요청으로부터 시스템을 보호하기 위해 클라이언트별로 토큰 버킷 알고리즘(token bucket algorithm)을 적용하여 초당 요청 수를 제한하였다."</div>
+  <p>이 문장은 "한 사용자가 짧은 시간에 너무 많은 요청을 보내지 못하도록, 토큰이 채워지는 속도만큼만 요청을 허용하는 방식을 사용했다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>토큰 버킷은 통의 크기(버킷 용량)를 얼마로 두느냐에 따라 순간적인 트래픽 폭주를 어느 정도까지 허용할지가 달라집니다. 버킷을 너무 크게 잡으면 순간 폭주를 막지 못하고, 너무 작게 잡으면 정상적인 사용자 요청까지 자주 거절될 수 있어 서비스 특성에 맞춰 값을 조정해야 합니다. 이 알고리즘은 API 서버의 <a href="rate-limiting.html">레이트 리미팅</a>을 구현하는 대표적인 방법 중 하나입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="rate-limiting.html">레이트 리미팅</a>
+    <a href="load-balancing.html">로드밸런싱</a>
+    <a href="api-gateway.html">API 게이트웨이</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Service Mesh(서비스 메시)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Service Mesh(서비스 메시)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 마이크로서비스 간 통신을 어떻게 제어하는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/service-mesh.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 서비스 메시 (Service Mesh)</p>
+  <h1>서비스 메시 (Service Mesh)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 여러 마이크로서비스가 서로 통신할 때 필요한 라우팅, 재시도, 보안, 모니터링 기능을 애플리케이션 코드가 아닌 별도의 인프라 계층에서 처리해 주는 기술입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>마이크로서비스 아키텍처에서는 수십, 수백 개의 서비스가 서로 네트워크로 대화를 주고받습니다. 이때 "이 요청을 어디로 보낼지", "실패하면 몇 번 재시도할지", "암호화는 어떻게 할지" 같은 로직을 서비스마다 각각 코드로 짜 넣으면 관리가 매우 힘들어집니다. 서비스 메시는 각 서비스 옆에 작은 대리인(사이드카 프록시)을 붙여서, 통신에 관한 모든 처리를 그 대리인이 대신하게 만드는 방식입니다. 개발자는 비즈니스 로직만 신경 쓰고, 통신 관련 규칙은 메시가 알아서 적용해 주는 셈입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 서비스 메시(service mesh)를 도입하여 서비스 간 트래픽을 세밀하게 제어하고 장애 전파를 최소화하는 방안을 제안한다."</div>
+  <p>이 문장은 "서비스들 사이의 통신 흐름을 별도 계층에서 통제해서 한 서비스의 장애가 전체로 번지지 않도록 막는 방법을 제시한다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>서비스 메시는 통신을 편리하게 관리해 주지만, 사이드카 프록시를 추가로 운영해야 하므로 시스템 복잡도와 지연 시간(latency)이 늘어날 수 있습니다. 서비스 개수가 적은 경우에는 오히려 <a href="api-gateway.html">API 게이트웨이</a> 하나로 충분할 수 있어, 도입 전 시스템 규모를 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="microservice-architecture.html">마이크로서비스 아키텍처</a>
+    <a href="api-gateway.html">API 게이트웨이</a>
+    <a href="circuit-breaker-pattern.html">회로 차단기 패턴</a>
+    <a href="load-balancing.html">로드밸런싱</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
