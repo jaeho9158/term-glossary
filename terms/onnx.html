@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>ONNX (Open Neural Network Exchange)(ONNX(오픈 신경망 교환 포맷))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 ONNX (Open Neural Network Exchange)(ONNX(오픈 신경망 교환 포맷))를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/onnx.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; ONNX(오픈 신경망 교환 포맷) (ONNX (Open Neural Network Exchange))</p>
+  <h1>ONNX(오픈 신경망 교환 포맷) (ONNX (Open Neural Network Exchange))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 서로 다른 딥러닝 프레임워크에서 만든 모델을 공통된 형식으로 변환해, 프레임워크에 상관없이 모델을 공유하고 배포할 수 있게 해주는 개방형 표준.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>파이토치로 만든 모델과 텐서플로로 만든 모델은 원래 서로 호환되지 않는다. ONNX는 이런 서로 다른 프레임워크의 모델을 하나의 공통된 표준 형식으로 변환해 주는 규격으로, 마치 여러 나라 언어를 하나의 공용어로 번역해 주는 역할을 한다. 한 프레임워크에서 학습한 모델을 ONNX로 내보낸 뒤, 다른 프레임워크나 배포 전용 런타임에서 그대로 불러와 실행할 수 있어 모델 배포의 유연성을 크게 높여준다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"학습된 모델은 ONNX 형식으로 변환되어 다양한 하드웨어 플랫폼에서 추론에 사용되었다."</div>
+  <p>특정 프레임워크에 종속되지 않도록 모델을 ONNX 표준 형식으로 바꾸어, 여러 환경에서 손쉽게 배포하고 실행할 수 있게 했다는 뜻이다.</p>
+
+  <h2>주의할 점</h2>
+  <p>모든 프레임워크의 모든 연산이 ONNX로 완벽히 변환되는 것은 아니며, 일부 특수한 연산자는 변환 과정에서 지원되지 않거나 동작이 미세하게 달라질 수 있다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="tensorrt.html">텐서RT</a>
+    <a href="pip-package-manager.html">pip 패키지 관리자</a>
+    <a href="edge-computing.html">엣지 컴퓨팅</a>
+    <a href="microcontroller.html">마이크로컨트롤러</a>
+    <a href="gpu.html">GPU(그래픽 처리 장치)</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
