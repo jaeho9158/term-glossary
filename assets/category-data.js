@@ -97,6 +97,26 @@
         "신뢰도·타당도":[
             "validity",
             "reliability"
+        ],
+        "세포 배양·분자생물학":[
+            "primary-cell-culture",
+            "dissection-dissociation",
+            "cell-line",
+            "conditioned-medium",
+            "cytokine",
+            "central-dogma",
+            "reverse-transcription"
+        ],
+        "웨스턴 블롯·항체 기법":[
+            "bradford-assay",
+            "sds-page",
+            "disulfide-bond",
+            "loading-control",
+            "housekeeping-gene",
+            "epitope",
+            "primary-secondary-antibody",
+            "chemiluminescence",
+            "blotting-technique-naming"
         ]
     },
     "ethics":{
@@ -153,6 +173,30 @@
         "측정 기법":[
             "fmri",
             "eeg"
+        ],
+        "실험모델·행동검사":[
+            "handling-non-aversive",
+            "open-field-test",
+            "elevated-plus-maze",
+            "light-dark-box-test",
+            "marble-burying-test",
+            "forced-swim-test",
+            "tail-suspension-test",
+            "sucrose-preference-test",
+            "conditioned-place-preference",
+            "y-maze-test",
+            "morris-water-maze",
+            "novel-object-recognition-test",
+            "passive-avoidance-test",
+            "social-interaction-test",
+            "observational-fear",
+            "allogrooming",
+            "freezing-behavior",
+            "avatar-3d-behavior-analysis",
+            "aav-lentivirus-vector",
+            "perfusion-fixation",
+            "intrinsic-optical-signal",
+            "muscimol"
         ]
     },
     "medhealth":{

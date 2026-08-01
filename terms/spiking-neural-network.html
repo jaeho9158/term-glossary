@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>spiking neural network (SNN)(스파이킹 신경망)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 spiking neural network (SNN)(스파이킹 신경망)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/spiking-neural-network.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 스파이킹 신경망 (spiking neural network (SNN))</p>
+  <h1>스파이킹 신경망 (spiking neural network (SNN))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+    <a class="category-badge" href="../category.html?cat=neuro">뇌과학·신경과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 일반 인공신경망과 달리 생물학적 뉴런처럼 이산적인 스파이크(0 또는 1)를 시간에 걸쳐 발생시키는 방식으로 정보를 처리하는 신경망입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>일반적인 딥러닝 모델의 뉴런은 연속적인 실수값을 출력하지만, 스파이킹 신경망의 유닛은 생물학적 뉴런처럼 막전위가 임계값을 넘을 때만 스파이크를 발생시킵니다. 가장 널리 쓰이는 뉴런 모델이 누설 적분-발화(LIF) 뉴런으로, 들어오는 입력을 막전위에 누적하고(적분) 시간이 지나면 저절로 감쇠하며(누설) 임계값을 넘으면 스파이크를 쏘고 초기화됩니다(발화). 최근에는 뉴런형 유닛뿐 아니라 더 느린 시간 규모로 정보를 표상하는 성상세포형 유닛을 추가해 학습 성능을 바꾸려는 시도도 이루어지고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"저수지 안의 스파이킹 유닛으로 누설 적분-발화(LIF) 뉴런을 사용하여 로렌츠 시계열을 예측하도록 학습시켰다."</div>
+  <p>실수값이 아니라 스파이크로 정보를 주고받는 신경망 모델을 이용해, 카오스적인 시계열 데이터의 미래를 예측하는 과제를 수행했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>스파이킹 신경망은 생물학적 뉴런의 발화 방식을 모사하지만, 실제 생물학적 뉴런의 모든 성질(칼슘 동역학, 신경조절물질의 영향 등)을 그대로 재현하는 것은 아니라는 점에 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="reservoir-computing.html">저수지 컴퓨팅</a>
+    <a href="neuron-doctrine.html">뉴런 독트린</a>
+    <a href="action-potential.html">활동전위</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
