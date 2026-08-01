@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Residual Connection(잔차 연결)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Residual Connection(잔차 연결)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 스킵 연결이 왜 깊은 신경망 학습을 가능하게 하는지 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/residual-connection.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 잔차 연결 (Residual Connection)</p>
+  <h1>잔차 연결 (Residual Connection)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 신경망의 한 층을 건너뛰어 입력을 출력에 그대로 더해주는 지름길 연결로, 아주 깊은 신경망도 안정적으로 학습되게 해줍니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 층으로 된 건물에서 계단을 하나씩 밟고 올라가야 한다면, 중간에 한 층이 무너지면 꼭대기까지 아무도 갈 수 없습니다. 잔차 연결은 이런 건물에 비상 엘리베이터를 하나 더 놓는 것과 비슷합니다. 각 층을 반드시 거치게 하는 대신, "지금까지 온 것 + 이번 층에서 배운 추가 변화분"을 더해서 다음 층으로 넘겨줍니다. 그래서 특정 층이 별로 쓸모없는 변화를 학습하더라도 최소한 입력 정보 자체는 그대로 다음 층까지 전달됩니다. 이 덕분에 수십, 수백 층짜리 신경망을 쌓아도 학습 신호가 끊기지 않고 잘 전달됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"각 블록에 잔차 연결(residual connection)을 도입하여 152개 층으로 구성된 네트워크에서도 학습이 안정적으로 수렴함을 확인했다."</div>
+  <p>이 문장은 "층이 매우 많은 신경망인데도 입력을 건너뛰어 더해주는 구조 덕분에 학습이 잘 이루어졌다"는 뜻입니다. 이 아이디어를 처음 널리 알린 구조가 ResNet입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>잔차 연결은 층 수를 무한정 늘려도 항상 성능이 좋아진다는 뜻이 아닙니다. 여전히 <a href="vanishing-gradient-problem.html">기울기 소실 문제</a>를 줄여주는 보조 장치일 뿐이며, 실제로는 <a href="batch-normalization.html">배치 정규화</a> 등 다른 기법과 함께 사용될 때 효과가 극대화됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="vanishing-gradient-problem.html">기울기 소실 문제</a>
+    <a href="batch-normalization.html">배치 정규화</a>
+    <a href="convolutional-neural-network.html">합성곱 신경망</a>
+    <a href="backpropagation.html">역전파</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
