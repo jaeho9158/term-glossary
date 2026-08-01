@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>FPGA(현장 프로그래밍 가능 게이트 배열)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 FPGA(현장 프로그래밍 가능 게이트 배열)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 하드웨어를 나중에 재구성할 수 있다는 게 무슨 뜻인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/fpga.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; FPGA</p>
+  <h1>FPGA (현장 프로그래밍 가능 게이트 배열)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=eng">공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 내부 회로 구조를 나중에 원하는 대로 다시 배선해서 바꿔 쓸 수 있는 반도체 칩입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보통 컴퓨터 칩(CPU)은 이미 정해진 회로 위에서 "명령어"를 순서대로 읽어 실행하는 방식으로 동작합니다. 반면 FPGA는 마치 레고 블록처럼, 칩 내부에 수많은 작은 논리 조각(게이트)과 이들을 잇는 연결선이 미리 깔려 있고, 설계자가 "이 조각과 저 조각을 이렇게 연결하라"는 배선도를 나중에 입력해서 원하는 회로 자체를 새로 만들어낼 수 있습니다. 즉 소프트웨어처럼 코드를 바꾸는 게 아니라 하드웨어 회로 구조 자체를 프로그래밍하는 것이며, 필요하면 전원을 끄고 다시 배선도를 넣어 완전히 다른 회로로 재구성할 수도 있습니다. 그래서 전용 칩(ASIC)을 만들 만큼 대량 생산은 아니지만 일반 CPU보다 빠른 병렬 처리가 필요한 연구·시제품 단계에서 널리 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 알고리즘은 FPGA 기반 하드웨어 가속기로 구현되어 실시간 처리 요구 조건을 만족하였다."</div>
+  <p>이 문장은 "알고리즘을 소프트웨어가 아니라 FPGA 위에 직접 회로로 구현했더니, 실시간으로 처리할 만큼 충분히 빨라졌다"는 뜻입니다. 알고리즘의 각 연산 단계를 병렬 회로로 동시에 처리할 수 있기 때문에 순차 처리하는 일반 프로세서보다 특정 작업에서 훨씬 빠른 속도를 낼 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>FPGA는 "프로그래밍 가능"하다는 이름 때문에 소프트웨어처럼 C언어 코드를 짜는 것으로 오해하기 쉽지만, 실제로는 회로도를 기술하는 하드웨어 기술 언어(HDL)를 사용하며 사고방식 자체가 다릅니다. 또한 <a href="microcontroller.html">마이크로컨트롤러</a>처럼 정해진 명령어를 순차 실행하는 것이 아니라, 여러 연산이 동시에(병렬로) 진행되는 회로를 설계하는 것이라는 점을 구분해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="microcontroller.html">마이크로컨트롤러</a>
+    <a href="real-time-operating-system.html">실시간운영체제</a>
+    <a href="signal-processing.html">신호처리</a>
+    <a href="pid-controller.html">PID 제어기</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

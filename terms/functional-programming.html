@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>함수형 프로그래밍이란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문과 기술 문서에 자주 나오는 함수형 프로그래밍(Functional Programming)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 순수함수와 부작용 없는 코드가 무엇인지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/functional-programming.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 함수형 프로그래밍</p>
+  <h1>함수형 프로그래밍</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 프로그램을 "상태를 바꾸는 명령의 나열"이 아니라 "입력을 받아 출력을 내놓는 함수들의 조합"으로 짜는 프로그래밍 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보통의 코드는 변수에 값을 저장하고, 그 값을 이리저리 바꿔가며 프로그램을 진행시킵니다. 함수형 프로그래밍은 이런 "바꾸기"를 최대한 피하고, 대신 "같은 입력을 넣으면 항상 같은 결과가 나오는" 순수함수들을 이어 붙여 프로그램을 만듭니다. 수학에서 f(x)=x+1이라는 함수가 x를 몇 번 넣든 항상 같은 규칙으로 결과를 내놓듯이, 함수형 프로그래밍의 함수도 외부 상태를 몰래 바꾸거나(부작용, side effect) 외부 상태에 몰래 의존하지 않습니다. 그 결과 코드의 동작을 예측하기 쉽고, 여러 계산을 동시에 실행해도(병렬 처리) 서로 꼬일 위험이 줄어듭니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서 제안한 데이터 처리 파이프라인은 함수형 프로그래밍 패러다임에 따라 구현되어, 각 단계가 부작용 없는 순수함수로 분리되므로 재현성과 병렬 처리 효율이 향상되었다."</div>
+  <p>이 문장은 "각 처리 단계를 상태 변경 없이 독립적인 함수로 나누어 구현했기 때문에, 같은 입력이면 언제나 같은 결과가 나오고 여러 단계를 동시에 처리하기도 쉬웠다"는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>함수형 프로그래밍이 항상 절차형(명령형) 프로그래밍보다 우월한 것은 아닙니다. 대규모 상태 변경이 빈번한 작업에서는 오히려 코드가 복잡해질 수 있으며, 실제 많은 언어와 프로젝트는 함수형과 절차형 방식을 섞어 사용합니다. 또한 "함수형으로 짰다"는 말이 곧 "완전히 부작용이 없다"는 뜻은 아닐 수 있으므로, 논문에서는 어떤 부분에 어떤 원칙을 적용했는지 구체적으로 확인해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="closure.html">클로저</a>
+    <a href="immutability.html">불변성</a>
+    <a href="recursive-function.html">재귀함수</a>
+    <a href="object-oriented-programming.html">객체지향 프로그래밍</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Bootstrap Confidence Interval(부트스트랩 신뢰구간)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Bootstrap Confidence Interval(부트스트랩 신뢰구간)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 백분위법과 BCa법의 차이를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/bootstrap-confidence-interval.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 부트스트랩 신뢰구간 (Bootstrap Confidence Interval)</p>
+  <h1>부트스트랩 신뢰구간 (Bootstrap Confidence Interval)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+    <a class="category-badge" href="../category.html?cat=method">연구방법론</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 원본 표본에서 복원추출을 수없이 반복해 얻은 통계량들의 분포로부터, 이론적 정규분포 가정 없이 신뢰구간을 계산하는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>주머니에서 공을 100개 꺼내 평균 무게를 쟀는데, 이 하나의 표본만으로 "진짜 모집단 평균이 어느 범위에 있을지" 알고 싶습니다. 전통적인 방법은 "데이터가 정규분포를 따른다"는 가정을 걸고 공식을 이용해 구간을 계산합니다. 그런데 만약 데이터가 한쪽으로 치우쳐 있거나 표본이 작아서 그 가정이 의심스럽다면 어떻게 할까요? 부트스트랩 신뢰구간은 이럴 때 쓰는 방법입니다. 가지고 있는 100개의 데이터를 "모집단인 것처럼" 취급하고, 여기서 100개를 중복을 허용해 다시 뽑는 것(복원추출)을 예를 들어 1만 번 반복합니다. 매번 뽑을 때마다 평균을 하나씩 계산하면, 1만 개의 "가상의 평균값" 목록이 생깁니다. 이 1만 개를 크기 순으로 줄 세운 뒤 아래쪽 2.5%와 위쪽 2.5% 지점을 잘라내면, 그 사이가 95% 신뢰구간이 됩니다. 이렇게 극단 백분위를 그대로 자르는 방식을 "백분위법(percentile method)"이라 하고, 여기에 표본 분포의 치우침과 편향을 추가로 보정한 더 정교한 방식을 "BCa법(bias-corrected and accelerated)"이라고 부릅니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"두 조건 간 평균 차이의 95% 신뢰구간은 부트스트랩(재표본 5,000회, BCa법)을 이용해 [1.2, 4.8]로 추정되었다."</div>
+  <p>이 문장은 데이터의 분포 가정에 의존하지 않고, 실제 표본을 반복 재표본하여 얻은 분포로부터 신뢰구간을 계산했다는 뜻입니다. 표본 분포가 비대칭적이거나 이론적 공식이 없는 복잡한 통계량(중앙값 차이, 상관계수 등)에 특히 유용합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>부트스트랩은 "원본 표본이 모집단을 잘 대표한다"는 전제 위에서 작동하므로, 원본 표본 자체가 편향되어 있거나 극히 작으면(예: n=5) 신뢰구간도 함께 왜곡됩니다. 또한 재표본 횟수가 너무 적으면(수백 회 미만) 신뢰구간이 불안정해질 수 있어 보통 1,000회 이상을 권장합니다. 백분위법은 계산이 단순하지만 표본 분포가 치우쳐 있을 때 편향될 수 있어, 이런 경우 BCa법이 더 정확하다고 알려져 있습니다. 재표본 자체의 원리는 <a href="bootstrap-resampling.html">부트스트랩</a> 항목을, 정규분포 가정에 기반한 전통적 방식은 <a href="p-value.html">유의확률</a> 계산과 비교해 보면 이해에 도움이 됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="bootstrap-resampling.html">부트스트랩</a>
+    <a href="jackknife-resampling.html">잭나이프 재표본법</a>
+    <a href="permutation-test.html">순열검정</a>
+    <a href="p-value.html">유의확률</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

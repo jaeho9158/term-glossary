@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Contrastive Learning(대조 학습)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="머신러닝 논문에 자주 나오는 Contrastive Learning(대조 학습)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/contrastive-learning.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 대조 학습 (Contrastive Learning)</p>
+  <h1>대조 학습 (Contrastive Learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 비슷한 데이터끼리는 가깝게, 다른 데이터끼리는 멀게 배치하도록 모델을 학습시켜, 정답 라벨 없이도 데이터의 의미 있는 특징을 익히게 하는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사람이 사진을 분류할 때 "이건 고양이", "이건 강아지"라고 일일이 이름표를 붙여주지 않아도, 비슷하게 생긴 사진들을 서로 가까이 모아두고 다르게 생긴 사진들은 멀리 떨어뜨려 놓기만 해도 어느 정도 종류를 구분할 수 있습니다. 대조 학습은 이 원리를 그대로 사용합니다. 같은 이미지를 살짝 다르게 변형한 두 버전(자르기, 색상 변화 등)은 "같은 종류"로 보고 임베딩 공간에서 서로 가깝게 만들고, 전혀 다른 이미지는 "다른 종류"로 보고 멀게 만드는 방향으로 모델을 학습시킵니다. 사람이 일일이 정답 라벨을 붙이지 않아도 되기 때문에, 라벨이 없는 대량의 데이터로 유용한 특징 표현을 배울 수 있다는 장점이 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"라벨이 없는 이미지 데이터셋에 대해 대조 학습 기반 사전학습을 수행한 후, 소량의 라벨 데이터로 미세조정하여 분류 정확도를 향상시켰다."</div>
+  <p>이 문장은 정답 라벨이 붙지 않은 대량의 데이터로 먼저 데이터의 유사성과 차이를 구분하는 능력을 학습시키고, 이후 적은 양의 라벨 데이터만으로도 원하는 작업(분류 등)에 맞게 모델을 조정했다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>대조 학습의 성능은 "비슷한 쌍"과 "다른 쌍"을 어떻게 구성하느냐(데이터 증강 방식, 부정 샘플 선택 방법 등)에 크게 좌우됩니다. 부정 샘플을 잘못 구성하면 오히려 학습이 왜곡될 수 있으며, 일반적으로 많은 수의 부정 샘플과 큰 배치 크기가 필요해 계산 자원 소모가 크다는 점도 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="self-supervised-learning.html">자기지도학습</a>
+    <a href="embedding.html">임베딩</a>
+    <a href="cosine-similarity.html">코사인 유사도</a>
+    <a href="data-augmentation.html">데이터 증강</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

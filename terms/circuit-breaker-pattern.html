@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Circuit Breaker Pattern(회로 차단기 패턴)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Circuit Breaker Pattern(회로 차단기 패턴)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 장애 전파를 막는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/circuit-breaker-pattern.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 회로 차단기 패턴 (Circuit Breaker Pattern)</p>
+  <h1>회로 차단기 패턴 (Circuit Breaker Pattern)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 한 서비스가 장애를 겪고 있는 다른 서비스를 계속 호출하면서 실패가 연쇄적으로 번지는 것을 막기 위해, 실패가 일정 횟수 이상 반복되면 일시적으로 호출 자체를 차단해버리는 소프트웨어 설계 패턴입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>가정용 전기 회로에 과전류가 흐르면 두꺼비집(차단기)이 스스로 내려가서 전체 회로를 보호하는 것을 떠올려 봅시다. 만약 차단기가 없다면 고장 난 한 부분 때문에 집 전체에 불이 날 수도 있습니다. 소프트웨어에서도 마찬가지로, 여러 서비스가 서로를 호출하며 동작하는 구조에서 한 서비스가 응답하지 않기 시작하면, 이를 호출하는 다른 서비스들도 계속 기다리다가 함께 마비될 수 있습니다. Circuit Breaker 패턴은 이럴 때 "일단 이 서비스 호출은 잠시 끊고, 곧바로 실패 응답을 돌려주자"고 결정해, 문제가 시스템 전체로 번지는 것을 막아줍니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 시스템은 각 마이크로서비스 호출 지점에 서킷 브레이커를 적용하여, 장애 서비스로 인한 연쇄 실패(cascading failure) 발생 빈도를 크게 낮추었다."</div>
+  <p>이 문장은 여러 마이크로서비스로 구성된 시스템에서 한 서비스의 장애가 다른 서비스들로 퍼지는 현상을, 회로 차단기 패턴을 적용해 얼마나 줄였는지를 실험으로 확인했다는 뜻입니다. 분산 시스템의 안정성과 복원력(resilience)을 다루는 연구에서 흔히 등장합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>Circuit Breaker 패턴은 실패가 반복될 때 호출을 아예 "차단"해 시스템을 보호하는 기법인 반면, <a href="load-balancing.html">로드밸런싱</a>은 정상 동작 중인 여러 서버에 요청을 고르게 "분산"시켜 과부하를 막는 기법이라는 점에서 목적이 다릅니다. 로드밸런싱이 평상시의 부하 분산을 담당한다면, Circuit Breaker는 장애 상황에서의 응급 차단을 담당한다고 볼 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="microservice-architecture.html">마이크로서비스 아키텍처</a>
+    <a href="fault-tolerance.html">결함허용</a>
+    <a href="load-balancing.html">로드밸런싱</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

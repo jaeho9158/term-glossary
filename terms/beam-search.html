@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Beam Search(빔 서치)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Beam Search(빔 서치)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 문장 생성에서 최적 출력을 찾는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/beam-search.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 빔 서치 (Beam Search)</p>
+  <h1>빔 서치 (Beam Search)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 문장이나 서열을 한 단어씩 생성할 때, 매 단계마다 가장 가능성 높은 후보를 정해진 개수(빔 너비)만큼만 남기고 나머지는 버리면서 전체적으로 그럴듯한 출력을 효율적으로 찾아가는 탐색 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>매 단계마다 다음에 올 수 있는 단어 후보가 수만 개씩 있다고 생각해봅시다. 이 모든 조합을 다 따져보는 것은 사실상 불가능합니다. 그렇다고 매 단계마다 "가장 확률 높은 단어 딱 하나"만 고르면(그리디 방식) 당장은 그럴듯해 보여도 나중에 가서 전체 문장이 어색해지는 경우가 많습니다. Beam Search는 그 중간 지점을 택합니다. 매 단계마다 확률이 높은 후보를 예를 들어 5개(빔 너비 5)만 남겨두고, 그다음 단계에서 이 5개 각각에 이어질 수 있는 단어들을 다시 확률순으로 추려 상위 5개만 유지하는 식으로 진행합니다. 이렇게 하면 모든 경우를 다 보지 않고도, 한 가지만 고집하는 것보다 훨씬 자연스러운 문장을 찾아낼 확률이 높아집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"번역 성능 평가에서 빔 너비를 5로 설정한 빔 서치 디코딩이 그리디 디코딩 대비 BLEU 점수를 3.2점 향상시켰다."</div>
+  <p>이 문장은 기계번역 모델이 출력 문장을 만들 때, 매 단계 최선의 단어 하나만 고르는 그리디 방식 대신 여러 후보를 동시에 유지하는 빔 서치 방식을 사용했더니 번역 품질 평가 지표가 더 좋아졌다는 실험 결과를 보여줍니다. 자연어 생성, 기계번역, 음성 인식 등 순차적으로 출력을 만드는 모델의 디코딩 단계에서 자주 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>빔 너비를 1로 설정하면 <a href="greedy-algorithm.html">탐욕 알고리즘</a>과 같아지고, 빔 너비를 무한히 크게 하면 모든 경우의 수를 다 따지는 완전 탐색에 가까워집니다. 즉 Beam Search는 이 둘 사이에서 속도와 정확도의 균형을 조절하는 방법이며, 빔 너비를 무조건 크게 한다고 결과가 항상 더 좋아지는 것은 아니라는 점에 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="sequence-to-sequence.html">시퀀스투시퀀스</a>
+    <a href="search-algorithm.html">탐색 알고리즘</a>
+    <a href="large-language-model.html">대규모 언어 모델</a>
+    <a href="greedy-algorithm.html">탐욕 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

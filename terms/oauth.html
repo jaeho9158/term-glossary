@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>OAuth(인증 위임 프로토콜)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="컴퓨터과학 기초 개념인 OAuth를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 비밀번호를 넘기지 않고도 로그인을 연동하는 원리를 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/oauth.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; OAuth (인증 위임 프로토콜)</p>
+  <h1>OAuth (인증 위임 프로토콜)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사용자가 자신의 아이디와 비밀번호를 직접 넘겨주지 않고도, 다른 서비스가 자신의 정보 중 일부에만 제한적으로 접근할 수 있도록 허락해 주는 인증 위임 프로토콜입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>OAuth는 발레파킹을 맡길 때 자동차 열쇠 전체가 아니라 '주차만 가능한 임시 열쇠'를 건네주는 것과 비슷합니다. 예를 들어 어떤 사진 인화 서비스가 '내 구글 사진첩'에 접근하게 해주고 싶다고 합시다. 이때 구글 아이디와 비밀번호를 그 서비스에 직접 알려주는 것은 위험합니다. 대신 OAuth를 쓰면, 사용자는 구글 로그인 화면에서 '이 서비스가 내 사진첩만 볼 수 있도록 허용할게'라고 승인만 하고, 구글은 그 서비스에게 '사진첩 조회만 가능한 임시 통행증(토큰)'을 발급합니다. 그 서비스는 비밀번호를 몰라도 사진첩에만 접근할 수 있고, 사용자는 언제든 이 통행증을 회수할 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"사용자 인증 및 제3자 서비스 연동을 위해 시스템은 OAuth 2.0 기반의 토큰 인증 방식을 채택하였다."</div>
+  <p>이 문장은 정보보안이나 소프트웨어 아키텍처를 다루는 논문에서, 비밀번호를 직접 공유하지 않고도 안전하게 여러 서비스를 연동하는 인증 설계를 설명할 때 등장합니다. OAuth는 비밀번호 노출 위험을 줄이면서도 필요한 권한만 제한적으로 부여할 수 있어, 보안성을 강조하는 시스템 설계 연구에서 자주 인용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>OAuth는 '인증(내가 누구인지 확인)'이 아니라 원래 '인가(무엇을 할 수 있는지 허락)'를 위해 설계된 프로토콜입니다. 로그인 기능 자체를 위해서는 OAuth 위에 신원 확인 절차를 얹은 별도 계층이 함께 쓰이는 경우가 많다는 점에 주의해야 합니다. 발급된 토큰이 중간에 가로채이지 않도록 <a href="https-tls.html">HTTPS·TLS</a> 같은 암호화 통신과 함께 사용하는 것도 필수적입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="https-tls.html">HTTPS·TLS</a>
+    <a href="digital-signature.html">디지털 서명</a>
+    <a href="api-basics.html">API</a>
+    <a href="client-server-architecture.html">클라이언트-서버 구조</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

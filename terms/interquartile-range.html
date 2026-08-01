@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Interquartile Range(사분위범위)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Interquartile Range(사분위범위, IQR)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 이상치 판정 기준(1.5×IQR 규칙)과 논문 예문을 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/interquartile-range.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 사분위범위 (Interquartile Range)</p>
+  <h1>사분위범위 (Interquartile Range)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 데이터를 크기 순으로 줄 세웠을 때 상위 25%(3사분위수)와 하위 25%(1사분위수) 사이의 값 범위로, 극단값에 흔들리지 않는 산포도 지표입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>한 반 30명의 시험 점수를 줄 세운다고 해봅시다. 그런데 한 명이 실수로 답안지를 밀려 써서 0점을 받았습니다. 이럴 때 "평균"이나 "표준편차"를 계산하면 이 극단값 하나 때문에 반 전체의 실력이 실제보다 낮아 보이게 됩니다. IQR은 이런 문제를 피하려고, 아예 양쪽 끝 25%씩(가장 낮은 25%와 가장 높은 25%)을 잘라내고 "가운데 50%"만 남겨서 그 폭을 봅니다. 즉 데이터를 4등분했을 때 1사분위수(Q1, 하위 25% 지점)와 3사분위수(Q3, 상위 25% 지점)의 차이(Q3−Q1)가 IQR입니다. 극단적인 이상치 한두 개가 끼어들어도 가운데 50%는 거의 그대로이기 때문에, IQR은 표준편차보다 이상치에 훨씬 덜 흔들리는 "믿을 수 있는" 산포 지표로 쓰입니다. 또한 흔히 "Q1−1.5×IQR보다 작거나 Q3+1.5×IQR보다 큰 값"을 이상치로 판정하는 규칙(박스플롯의 수염 기준)에도 그대로 활용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"응답자의 연령은 중앙값 34세(IQR: 28–41세)였으며, 1.5×IQR 기준을 벗어난 3건의 이상치를 제외한 후 분석하였다."</div>
+  <p>이 문장은 데이터가 정규분포를 따르지 않거나 이상치가 섞여 있을 가능성이 있어, 평균±표준편차 대신 중앙값과 IQR로 분포를 요약하고, 동일한 IQR 기준으로 이상치를 걸러냈다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>IQR은 "가운데 50%의 폭"만 알려줄 뿐, 그 안의 분포 모양(치우침이나 봉우리 개수)까지 말해주지는 않습니다. 또한 표본 크기가 매우 작으면 사분위수 계산 방식(소프트웨어마다 보간법이 다를 수 있음)에 따라 IQR 값이 조금씩 달라질 수 있으니, 표본이 극히 적을 때는 해석에 주의해야 합니다. 이상치를 다루는 또 다른 접근으로는 극단값을 자르는 대신 특정 백분위수로 눌러 대체하는 <a href="winsorizing.html">윈저화</a>나, 양 끝을 아예 제거하고 평균을 내는 <a href="trimmed-mean.html">절사평균</a>이 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="winsorizing.html">윈저화</a>
+    <a href="trimmed-mean.html">절사평균</a>
+    <a href="z-score.html">Z-점수</a>
+    <a href="mahalanobis-distance.html">마할라노비스 거리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

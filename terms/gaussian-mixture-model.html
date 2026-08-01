@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Gaussian Mixture Model(가우시안혼합모델)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Gaussian Mixture Model(가우시안혼합모델)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. k-means와 무엇이 다른지, 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/gaussian-mixture-model.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 가우시안 혼합모델 (Gaussian Mixture Model)</p>
+  <h1>가우시안 혼합모델 (Gaussian Mixture Model)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 전체 데이터가 여러 개의 정규분포(종 모양 분포)가 겹쳐서 만들어졌다고 가정하고, 각 데이터가 어느 분포에 속할 확률을 계산해 군집을 나누는 통계 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>어느 반 학생들의 키를 측정했더니 하나의 봉우리가 아니라 두 개의 봉우리를 가진 분포가 나왔다고 해봅시다. 사실 이 반에는 초등학생 그룹과 중학생 그룹이 섞여 있었고, 각 그룹은 저마다 자연스러운 종 모양(정규분포)의 키 분포를 가지고 있었던 것입니다. 가우시안 혼합모델은 바로 이렇게 "지금 보이는 전체 데이터는 사실 여러 개의 서로 다른 정규분포가 섞인 결과"라고 가정하고, 각 데이터가 어느 그룹(정규분포)에서 나왔을 확률이 가장 높은지를 계산해서 군집을 나눕니다. <a href="k-means-clustering.html">k-means</a>처럼 "이 점은 무조건 이 군집"이라고 딱 잘라 말하는 대신, "이 점은 그룹A에 속할 확률 70%, 그룹B에 속할 확률 30%"처럼 확률로 부드럽게 답한다는 점이 특징입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"가우시안 혼합모델을 이용하여 소비자 구매 패턴을 3개의 잠재 집단으로 분류하고, 각 집단에 속할 사후 확률을 산출하였다."</div>
+  <p>이 문장은 "구매 패턴 데이터를 3개의 정규분포가 섞인 것으로 보고, 각 소비자가 어느 집단에 속하는지를 확률로 계산했다"는 뜻입니다. 군집 간 경계가 명확하지 않은 데이터를 다룰 때 k-means보다 유연한 대안으로 자주 언급됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>가우시안 혼합모델은 각 하위 집단이 정규분포 형태를 따른다는 가정 위에서 작동하기 때문에, 실제 데이터가 이 가정과 크게 다르면 결과가 왜곡될 수 있습니다. 또한 몇 개의 분포(군집)를 섞을지는 <a href="elbow-method.html">엘보우 기법</a>이나 정보량 기준(AIC, BIC) 등을 이용해 별도로 정해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="k-means-clustering.html">k-평균 군집분석</a>
+    <a href="dbscan.html">밀도기반 군집분석</a>
+    <a href="hierarchical-clustering.html">계층적 군집분석</a>
+    <a href="growth-mixture-model.html">성장혼합모형</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

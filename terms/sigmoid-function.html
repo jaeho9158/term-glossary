@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Sigmoid Function(시그모이드 함수)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Sigmoid Function(시그모이드 함수)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 활성화함수로서의 역할과 논문 예문을 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/sigmoid-function.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../contact.html">문의</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 시그모이드 함수 (Sigmoid Function)</p>
+  <h1>시그모이드 함수 (Sigmoid Function)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 어떤 입력값이든 0과 1 사이의 값으로 부드럽게 눌러 담아주는 S자 모양의 함수입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>시험 점수를 "합격 확률"로 바꾼다고 생각해봅시다. 점수가 아주 낮으면 합격 확률은 0%에 가깝고, 아주 높으면 100%에 가깝지만, 중간 점수대에서는 점수가 조금만 올라도 확률이 급격히 변합니다. 시그모이드 함수가 하는 일이 정확히 이것입니다. 입력값이 아무리 크거나 작아도 결과를 항상 0과 1 사이로 눌러주기 때문에, 신경망에서 "이 뉴런이 얼마나 활성화되었는가"나 "이 사건이 일어날 확률이 얼마인가"를 표현할 때 자주 사용됩니다. 그래프로 그리면 완만한 S자 곡선을 그리는 것이 특징입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"출력층에는 시그모이드 함수를 적용하여 각 샘플이 양성 클래스에 속할 확률을 산출하였다."</div>
+  <p>이 문장은 "모델이 마지막에 계산한 숫자를 시그모이드 함수에 통과시켜, 그 값이 0~1 사이의 확률처럼 해석되도록 변환했다"는 뜻입니다. 이진분류 문제의 출력층에서 특히 자주 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>시그모이드 함수는 입력값이 아주 크거나 아주 작을 때 그래프가 거의 평평해져서 기울기가 0에 가까워집니다. 이 때문에 층이 깊은 신경망에서는 <a href="vanishing-gradient-problem.html">그래디언트 소실 문제</a>를 일으키기 쉬워, 은닉층에서는 <a href="relu.html">ReLU 함수</a> 같은 다른 <a href="activation-function.html">활성화함수</a>가 더 자주 선택됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="activation-function.html">활성화함수</a>
+    <a href="relu.html">ReLU 함수</a>
+    <a href="vanishing-gradient-problem.html">그래디언트 소실 문제</a>
+    <a href="backpropagation.html">역전파</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
