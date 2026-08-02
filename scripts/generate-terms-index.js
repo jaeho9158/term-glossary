@@ -17,6 +17,7 @@ function run() {
     title_ko: t.title_ko,
     title_en: t.title_en,
     categories: t.categories,
+    subcategory: t.subcategory,
     aliases: t.aliases,
   }));
 
