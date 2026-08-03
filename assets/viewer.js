@@ -1,73 +1,159 @@
-console.log("viewer.js loaded");
-console.log("Fuse =", window.Fuse);
-
 let viewerFuse;
 
 function escapeRegExp(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function matchTerms(text, terms) {
-  const results = [];
+function normalizeWord(word) {
+  return word.toLowerCase().replace(/[-_\s]/g, "");
+}
 
-  const resultsMap = new Map();
+function extractWords(text) {
+  return [...new Set((text.match(/[가-힣A-Za-z-]+/g) || []))];
+}
 
-  const words = [
-      ...new Set(
-          (text.match(/[가-힣A-Za-z-]+/g) || [])
-      )
-  ];
-
-  for(const word of words){
-      const normalized = word
-          .toLowerCase()
-          .replace(/[-_\s]/g,"");
-
-      const fuseResults = viewerFuse.search(normalized,{
-          limit:3
-      });
-
-      for(const r of fuseResults){
-          if(r.score>0.28) continue;
-          const term = r.item.term;
-          const idx = text.indexOf(word);
-          if(idx===-1) continue;
-          if(!resultsMap.has(term.slug)){
-              resultsMap.set(term.slug,{
-                  slug:term.slug,
-                  title_ko:term.title_ko,
-                  title_en:term.title_en,
-                  definition:term.definition,
-                  categories:term.categories,
-                  count:1,
-                  score:r.score,
-                  firstStart:idx,
-                  firstLength:word.length
-              });
-
-          }else{
-
-              const item=resultsMap.get(term.slug);
-
-              item.count++;
-
-              if(idx<item.firstStart){
-                  item.firstStart=idx;
-                  item.firstLength=word.length;
-              }
-              item.score=Math.min(item.score,r.score);
-          }
-      }
+// Frequency map so repeated occurrences of the same word are actually
+// counted, instead of collapsing to 1 via the deduped word list above.
+function wordFrequency(text) {
+  const freq = new Map();
+  for (const w of text.match(/[가-힣A-Za-z-]+/g) || []) {
+    freq.set(w, (freq.get(w) || 0) + 1);
   }
+  return freq;
+}
 
-  results.push(...resultsMap.values());
+// Common Korean grammatical particles (조사) that attach directly to a noun
+// with no space, e.g. "상관관계가" for "상관관계". The word-extraction regex
+// can't separate these from the noun, so exact matching would otherwise miss
+// every occurrence that isn't followed by a space or punctuation. Trying a
+// short list of particle-stripped forms is O(1) per word and handles the
+// overwhelming majority of real text — no fuzzy search needed for this case.
+const KOREAN_PARTICLES = [
+  "에서", "으로", "부터", "까지", "이나", "이랑",
+  "은", "는", "이", "가", "을", "를", "의", "에", "로", "와", "과", "도", "만", "나", "랑",
+];
 
-  results.sort((a,b)=>{
-      if(a.score!==b.score)
-          return a.score-b.score;
-      return b.count-a.count;
+// Yields { form, matchedLength } — matchedLength is how many characters of
+// the *original* word correspond to this normalized form, so highlighting
+// only wraps the noun itself and leaves a stripped particle as plain text.
+function* candidateNormalizedForms(word) {
+  const normalized = normalizeWord(word);
+  yield { form: normalized, matchedLength: word.length };
+  for (const particle of KOREAN_PARTICLES) {
+    if (normalized.endsWith(particle) && normalized.length > particle.length) {
+      yield { form: normalized.slice(0, -particle.length), matchedLength: word.length - particle.length };
+    }
+  }
+}
+
+// O(1)-per-word exact lookup, built once per matching run. Most terms in a
+// real paper match a title exactly, so this fast path handles the vast
+// majority of hits without ever touching the (expensive, O(index size)
+// per query) fuzzy Fuse search below.
+function buildExactIndex(terms) {
+  const map = new Map();
+  const add = (key, term) => {
+    if (!key) return;
+    if (!map.has(key)) map.set(key, []);
+    const bucket = map.get(key);
+    if (!bucket.some((t) => t.slug === term.slug)) bucket.push(term);
+  };
+  for (const term of terms) {
+    if (term.title_ko) add(normalizeWord(term.title_ko), term);
+    if (term.title_en) add(normalizeWord(term.title_en), term);
+  }
+  return map;
+}
+
+function recordMatch(resultsMap, term, idx, wordLength, score, increment = 1) {
+  if (!resultsMap.has(term.slug)) {
+    resultsMap.set(term.slug, {
+      slug: term.slug,
+      title_ko: term.title_ko,
+      title_en: term.title_en,
+      definition: term.definition,
+      categories: term.categories,
+      count: increment,
+      score,
+      firstStart: idx,
+      firstLength: wordLength,
+    });
+  } else {
+    const item = resultsMap.get(term.slug);
+    item.count += increment;
+    if (idx < item.firstStart) {
+      item.firstStart = idx;
+      item.firstLength = wordLength;
+    }
+    item.score = Math.min(item.score, score);
+  }
+}
+
+function sortMatches(resultsMap) {
+  const results = [...resultsMap.values()];
+  results.sort((a, b) => {
+    if (a.score !== b.score) return a.score - b.score;
+    return b.count - a.count;
   });
   return results;
+}
+
+// All exact-index hits for a single word: the word itself (or a
+// particle-stripped form of it), plus any shorter prefix of it — e.g. word
+// "분산분석" (ANOVA) also surfaces "분산" (variance) as a prefix match, since
+// Korean compound terms are commonly [shorter term][modifier/suffix]. Bounded
+// by word length, so still O(1)-ish per word — no fuzzy search involved.
+const MIN_PREFIX_LENGTH = 2;
+
+function findExactMatches(word, exactIndex) {
+  const hits = [];
+  const seenForms = new Set();
+
+  for (const candidate of candidateNormalizedForms(word)) {
+    if (seenForms.has(candidate.form)) continue;
+    seenForms.add(candidate.form);
+    const candidates = exactIndex.get(candidate.form);
+    if (candidates) hits.push({ candidates, matchedLength: candidate.matchedLength });
+  }
+
+  // Prefix containment only makes sense for Korean tokens: there's no space
+  // to mark where a compound noun ends, unlike English/Latin words where the
+  // regex tokenizer already respects word boundaries (so "ANOVAtest" must
+  // NOT be treated as containing "ANOVA").
+  if (/[가-힣]/.test(word)) {
+    const normalized = normalizeWord(word);
+    for (let len = normalized.length - 1; len >= MIN_PREFIX_LENGTH; len--) {
+      const prefix = normalized.slice(0, len);
+      if (seenForms.has(prefix)) continue;
+      seenForms.add(prefix);
+      const candidates = exactIndex.get(prefix);
+      if (candidates) hits.push({ candidates, matchedLength: len });
+    }
+  }
+
+  return hits;
+}
+
+// Exact-match pass only: fast, synchronous, no fuzzy search. This is the
+// primary matcher — cheap enough to run on documents of any size without
+// blocking the page.
+function matchTerms(text, terms) {
+  const exactIndex = buildExactIndex(terms);
+  const resultsMap = new Map();
+
+  for (const [word, count] of wordFrequency(text)) {
+    const hits = findExactMatches(word, exactIndex);
+    if (!hits.length) continue;
+    const idx = text.indexOf(word);
+    if (idx === -1) continue;
+    for (const hit of hits) {
+      for (const term of hit.candidates) {
+        recordMatch(resultsMap, term, idx, hit.matchedLength, 0, count);
+      }
+    }
+  }
+
+  return sortMatches(resultsMap);
 }
 
 function escapeHtml(str) {
@@ -134,6 +220,7 @@ if (typeof module !== "undefined" && module.exports) {
 if (typeof document !== "undefined") {
   (function () {
     let cachedTerms = null;
+    let exactIndex = null;
     let currentMatches = [];
     let lastPdfFilename = null;
 
@@ -219,13 +306,78 @@ if (typeof document !== "undefined") {
         ]
       });
 
-      console.log("viewerFuse =", viewerFuse);
-      console.log(searchData.slice(0,5));
-      console.log("searchData =", searchData.length);
+      exactIndex = buildExactIndex(cachedTerms);
 
       return cachedTerms;
     }
 
+    // Each Fuse fuzzy search scans the whole ~13,000-entry index, and it's
+    // measurably slow (tens of ms) even off the main thread's blocking path —
+    // so this cap bounds total wall-clock time, not just avoids freezing.
+    // A real paper's non-term words (stopwords, author names, etc.) vastly
+    // outnumber genuine near-miss typos of a term title, so a modest cap
+    // still catches the useful cases without dragging the analysis out.
+    const FUZZY_WORD_CAP = 800;
+    const FUZZY_CHUNK_SIZE = 20; // words per chunk between UI-yielding pauses
+    const FUZZY_MIN_WORD_LENGTH = 3; // skip short common words — low value, high noise
+
+    function yieldToUi() {
+      return new Promise((resolve) => setTimeout(resolve, 0));
+    }
+
+    // Runs Fuse fuzzy search only over words the exact pass didn't already
+    // resolve, in small chunks with yields in between so the tab stays
+    // responsive even on a large paper with thousands of unique words.
+    async function runFuzzyPass(text, exactMatches) {
+      const alreadyMatchedSlugs = new Set(exactMatches.map((m) => m.slug));
+      const candidateEntries = [...wordFrequency(text)].filter(
+        ([word]) =>
+          normalizeWord(word).length >= FUZZY_MIN_WORD_LENGTH &&
+          findExactMatches(word, exactIndex).length === 0
+      );
+
+      const resultsMap = new Map();
+      let processed = 0;
+
+      for (const [word, count] of candidateEntries.slice(0, FUZZY_WORD_CAP)) {
+        const normalized = normalizeWord(word);
+        const fuseResults = viewerFuse.search(normalized, { limit: 3 });
+
+        for (const r of fuseResults) {
+          if (r.score > 0.28) continue;
+          const term = r.item.term;
+          const idx = text.indexOf(word);
+          if (idx === -1) continue;
+          recordMatch(resultsMap, term, idx, word.length, r.score, count);
+        }
+
+        processed++;
+        if (processed % FUZZY_CHUNK_SIZE === 0) await yieldToUi();
+      }
+
+      // Drop anything the exact pass already found under a different word —
+      // that count/position is already reflected in exactMatches.
+      for (const slug of alreadyMatchedSlugs) resultsMap.delete(slug);
+
+      return sortMatches(resultsMap);
+    }
+
+    function mergeMatches(exactMatches, fuzzyMatches) {
+      const bySlug = new Map(exactMatches.map((m) => [m.slug, { ...m }]));
+      for (const m of fuzzyMatches) {
+        if (!bySlug.has(m.slug)) {
+          bySlug.set(m.slug, { ...m });
+          continue;
+        }
+        const existing = bySlug.get(m.slug);
+        existing.count += m.count;
+        if (m.firstStart < existing.firstStart) {
+          existing.firstStart = m.firstStart;
+          existing.firstLength = m.firstLength;
+        }
+      }
+      return sortMatches(bySlug);
+    }
 
     function openPdfViewer() {
 
@@ -303,12 +455,29 @@ if (typeof document !== "undefined") {
       findBtn.textContent = "찾는 중...";
       try {
         const terms = await loadTerms();
-        currentMatches = matchTerms(text, terms);
+
+        // Fast exact-match pass first — cheap regardless of document size,
+        // so results appear immediately instead of waiting on fuzzy search.
+        const exactMatches = matchTerms(text, terms);
+        currentMatches = exactMatches;
         if (updateInputPane) {
           renderRenderedPane(text, currentMatches);
         }
         filterInput.disabled = false;
-        renderMatchedTerms(currentMatches, "");
+        renderMatchedTerms(currentMatches, filterInput.value);
+
+        // Fuzzy pass runs in chunks afterward to catch near-misses (typos,
+        // spacing variants) without blocking the tab on large papers.
+        findBtn.textContent = "추가 용어 찾는 중...";
+        const fuzzyMatches = await runFuzzyPass(text, exactMatches);
+        if (fuzzyMatches.length) {
+          currentMatches = mergeMatches(exactMatches, fuzzyMatches);
+          if (updateInputPane) {
+            renderRenderedPane(text, currentMatches);
+          }
+          renderMatchedTerms(currentMatches, filterInput.value);
+        }
+
         logPaperHistory(text);
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";

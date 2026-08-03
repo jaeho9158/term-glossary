@@ -131,7 +131,10 @@
     resultsEl.hidden = false;
   }
 
-  input.addEventListener("input", async () => {
+  let searchDebounceTimer = null;
+  let isComposing = false;
+
+  async function runSearch() {
     await loadTerms();
     const value = input.value;
     if (!value.trim()) {
@@ -141,6 +144,22 @@
     const matches = matchResults(value);
     renderResults(matches);
     scheduleZeroResultLog(value, matches.length);
+  }
+
+  input.addEventListener("compositionstart", () => {
+    isComposing = true;
+  });
+
+  input.addEventListener("compositionend", () => {
+    isComposing = false;
+    clearTimeout(searchDebounceTimer);
+    runSearch();
+  });
+
+  input.addEventListener("input", () => {
+    if (isComposing) return;
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(runSearch, 150);
   });
 
   input.addEventListener("keydown", (e) => {
@@ -191,4 +210,6 @@
     }
     await loadTerms();
   });
+
+  loadTerms();
 })();
