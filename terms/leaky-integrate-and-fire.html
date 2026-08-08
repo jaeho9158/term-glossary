@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Leaky Integrate-and-Fire(누출 적분 발화 뉴런)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="스파이킹 신경망의 표준 뉴런 모델인 Leaky Integrate-and-Fire(LIF, 누출 적분 발화 뉴런)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/leaky-integrate-and-fire.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 누출 적분 발화 뉴런 (Leaky Integrate-and-Fire)</p>
+  <h1>누출 적분 발화 뉴런 (Leaky Integrate-and-Fire)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 입력이 들어올 때마다 막전위가 쌓이고(적분) 시간이 지나면 저절로 새어나가다가(누출), 막전위가 임계값을 넘으면 스파이크를 발생시키는(발화) 스파이킹 신경망의 표준 뉴런 모델입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>이름 자체가 동작 순서입니다. Integrate(적분) — 상류 뉴런에서 스파이크가 올 때마다 막전위 U가 그만큼 뛰어오릅니다. Leak(누출) — 아무 입력이 없어도 U는 시간이 지나면 저절로 0으로 서서히 새어나갑니다. Fire(발화) — U가 임계값을 넘으면 스파이크를 하나 쏘고, U는 다시 초기 상태로 리셋됩니다. 물이 담긴 양동이에 물을 부으면 수위가 오르고, 바닥에 작은 구멍이 있어 물이 조금씩 새는데, 수위가 어떤 선을 넘으면 알람이 울리고 물이 비워지는 것과 같은 구조입니다. 일반 딥러닝의 뉴런이 매 순간 연속적인 실수값을 내보내는 것과 달리, LIF 뉴런은 생물학적 뉴런처럼 0 또는 1의 이산적 스파이크로만 정보를 전달합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"저수지 내부의 뉴런형 유닛은 snnTorch의 1차 Leaky Integrate-and-Fire(LIF) 모델로 구현하였으며, 입력 스파이크는 막전위에 즉각적인 변위를 일으킨 뒤 감쇠율 β에 따라 서서히 소멸한다."</div>
+  <p>이 문장은 LIF 뉴런이 짧고 즉각적인 반응(뾰족한 막전위 변화)을 만들어낸다는 것을 설명하며, 이런 "짧은 시간 스케일"의 반응성을 뉴런형 유닛의 특징으로 삼고 있다는 뜻입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>LIF는 생물학적 뉴런을 정밀하게 재현한 모델이 아니라, 막전위의 적분·누출·발화라는 핵심 동작만 남긴 단순화된 모델입니다. 감쇠율이나 리셋 방식을 바꾸면(예: 2차 LIF에서 리셋을 제거) 완전히 다른 시간적 특성을 가진 유닛으로 바뀔 수 있어, 논문을 읽을 때는 어떤 변형된 LIF를 쓰고 있는지 반드시 확인해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="spiking-neural-network.html">스파이킹 신경망</a>
+    <a href="resting-membrane-potential.html">안정막전위</a>
+    <a href="liquid-state-machine.html">액체 상태 기계</a>
+    <a href="reservoir-computing.html">저수지 컴퓨팅</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
