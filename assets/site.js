@@ -26,17 +26,25 @@ function render(terms, query = "", category = "") {
 
   const q = query.trim().toLowerCase();
 
-  let filtered = terms.filter((t) => {
-    if (!q) return true;
-    const ko = t.title_ko || "";
-    const en = t.title_en || "";
-    const aliases = t.aliases || [];
-    return (
-      ko.toLowerCase().includes(q) ||
-      en.toLowerCase().includes(q) ||
-      aliases.some((a) => a.toLowerCase().includes(q))
-    );
-  });
+  // Match rank: 0 = exact match, 1 = starts-with, 2 = contains. Lower is better.
+  function matchRank(t) {
+    if (!q) return null;
+    const ko = (t.title_ko || "").toLowerCase();
+    const en = (t.title_en || "").toLowerCase();
+    const aliases = (t.aliases || []).map((a) => a.toLowerCase());
+    const fields = [ko, en, ...aliases];
+
+    if (fields.some((f) => f === q)) return 0;
+    if (fields.some((f) => f.startsWith(q))) return 1;
+    if (fields.some((f) => f.includes(q))) return 2;
+    return null;
+  }
+
+  let filtered = terms
+    .map((t) => ({ term: t, rank: matchRank(t) }))
+    .filter(({ rank }) => !q || rank !== null)
+    .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
+    .map(({ term }) => term);
 
   if (category) {
     filtered = filtered.filter(term =>
@@ -81,18 +89,12 @@ function render(terms, query = "", category = "") {
     subWrapper.className = "namu-sub-wrapper";
 
     const subMap = {};
-    const rules = SUB_CATEGORY_RULES[code] || {};
+    const order = SUB_CATEGORY_ORDER[code] || [];
 
     mainMatched.forEach(term => {
 
-      let assignedSub = "일반 용어";
-
-      for (const subLabel in rules) {
-        if (rules[subLabel].includes(term.slug)) {
-          assignedSub = subLabel;
-          break;
-        }
-      }
+      const isPrimaryCategory = term.categories && term.categories[0] === code;
+      const assignedSub = (isPrimaryCategory && term.subcategory) || "관련 용어";
 
       if (!subMap[assignedSub]) {
         subMap[assignedSub] = [];
@@ -100,7 +102,17 @@ function render(terms, query = "", category = "") {
 
       subMap[assignedSub].push(term);
     });
-        for (const subName in subMap) {
+
+    const subNames = Object.keys(subMap).sort((a, b) => {
+      const ai = order.indexOf(a);
+      const bi = order.indexOf(b);
+      if (ai === -1 && bi === -1) return a.localeCompare(b);
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
+
+    for (const subName of subNames) {
 
       const subMatched = subMap[subName];
 
@@ -115,7 +127,7 @@ function render(terms, query = "", category = "") {
 
       subDetails.innerHTML = `
         <summary class="namu-sub-title">
-          <span>${subName}</span>
+          <span>${subName} (${subMatched.length}개)</span>
         </summary>
       `;
 

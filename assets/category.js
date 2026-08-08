@@ -1,55 +1,5 @@
 const currentCategory = document.body.dataset.category;
 
-const SUB_CATEGORY_RULES = {
-    "medhealth":{
-        "임상연구":[
-            "clinical-trial",
-            "cohort-study",
-            "rct"
-        ],
-        "역학":[
-            "epidemiology",
-            "incidence-rate",
-            "prevalence",
-            "comorbidity"
-        ],
-        "의학기초":[
-            "biomarker"
-        ]
-    },
-
-    "psych":{
-        "인지심리":[
-            "meta-cognition",
-            "cognitive-bias",
-            "confirmation-bias"
-        ],
-        "발달·성격":[
-            "attachment-theory",
-            "self-efficacy"
-        ],
-        "연구오류":[
-            "social-desirability-bias"
-        ]
-    },
-
-    "socialecon":{
-        "경제학":[
-            "gini-coefficient",
-            "externality",
-            "social-capital"
-        ],
-        "계량경제학":[
-            "endogeneity",
-            "instrumental-variable",
-            "panel-data"
-        ],
-        "사회과학":[
-            "intervention"
-        ]
-    }
-};
-
 async function loadTerms() {
 
     const res = await fetch("terms.json");
@@ -102,22 +52,14 @@ function render(terms, keyword = "") {
 
     });
 
-    const rules = SUB_CATEGORY_RULES[currentCategory] || {};
+    const order = SUB_CATEGORY_ORDER[currentCategory] || [];
 
     const subMap = {};
 
     filtered.forEach(term => {
 
-        let sub = "일반 용어";
-
-        for (const name in rules) {
-
-            if (rules[name].includes(term.slug)) {
-                sub = name;
-                break;
-            }
-
-        }
+        const isPrimaryCategory = term.categories && term.categories[0] === currentCategory;
+        const sub = (isPrimaryCategory && term.subcategory) || "관련 용어";
 
         if (!subMap[sub]) {
             subMap[sub] = [];
@@ -127,7 +69,16 @@ function render(terms, keyword = "") {
 
     });
 
-    for (const subName in subMap) {
+    const subNames = Object.keys(subMap).sort((a, b) => {
+        const ai = order.indexOf(a);
+        const bi = order.indexOf(b);
+        if (ai === -1 && bi === -1) return a.localeCompare(b);
+        if (ai === -1) return 1;
+        if (bi === -1) return -1;
+        return ai - bi;
+    });
+
+    for (const subName of subNames) {
 
         const details = document.createElement("details");
         details.className = "namu-sub-category";
@@ -135,7 +86,7 @@ function render(terms, keyword = "") {
 
         const summary = document.createElement("summary");
         summary.className = "namu-sub-title";
-        summary.textContent = subName;
+        summary.textContent = `${subName} (${subMap[subName].length}개)`;
 
         const list = document.createElement("ul");
         list.className = "namu-term-list";

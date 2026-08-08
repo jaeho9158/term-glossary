@@ -4,6 +4,24 @@
   if (!input || !resultsEl) return;
 
   const base = document.body.getAttribute("data-base") || "";
+
+  // Local copy of assets/category-data.js CATEGORY_LABELS: term pages don't load
+  // category-data.js, but this file needs category labels for search result tags.
+  const LOCAL_CATEGORY_LABELS = {
+    stat: "통계",
+    method: "연구방법론",
+    tool: "측정·도구",
+    ethics: "윤리·출판",
+    physchem: "물리학·화학",
+    bioearth: "생물학·지구과학",
+    neuro: "뇌과학·신경과학",
+    medhealth: "의학·보건",
+    psych: "심리학",
+    socialecon: "사회과학·경제학",
+    eng: "공학",
+    cs: "컴퓨터과학·AI",
+    math: "수학",
+  };
   const RECENT_KEY = "recentSearches";
   let terms = null;
   let fuse = null;
@@ -90,7 +108,11 @@
     resultsEl.innerHTML = matches
       .map((t) => {
         const enPart = t.title_en ? ` <span class="term-en">(${t.title_en})</span>` : "";
-        return `<li><a href="${base}terms/${t.slug}.html">${t.title_ko}${enPart}</a></li>`;
+        const mainCat = t.categories && t.categories[0];
+        const catLabel = mainCat ? LOCAL_CATEGORY_LABELS[mainCat] : null;
+        const tagParts = [catLabel, t.subcategory].filter(Boolean);
+        const tag = tagParts.length ? `<span class="term-search-tag">${tagParts.join(" > ")}</span>` : "";
+        return `<li><a href="${base}terms/${t.slug}.html">${t.title_ko}${enPart}${tag}</a></li>`;
       })
       .join("");
     resultsEl.hidden = false;
@@ -109,7 +131,10 @@
     resultsEl.hidden = false;
   }
 
-  input.addEventListener("input", async () => {
+  let searchDebounceTimer = null;
+  let isComposing = false;
+
+  async function runSearch() {
     await loadTerms();
     const value = input.value;
     if (!value.trim()) {
@@ -119,6 +144,22 @@
     const matches = matchResults(value);
     renderResults(matches);
     scheduleZeroResultLog(value, matches.length);
+  }
+
+  input.addEventListener("compositionstart", () => {
+    isComposing = true;
+  });
+
+  input.addEventListener("compositionend", () => {
+    isComposing = false;
+    clearTimeout(searchDebounceTimer);
+    runSearch();
+  });
+
+  input.addEventListener("input", () => {
+    if (isComposing) return;
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(runSearch, 150);
   });
 
   input.addEventListener("keydown", (e) => {
@@ -169,4 +210,6 @@
     }
     await loadTerms();
   });
+
+  loadTerms();
 })();
