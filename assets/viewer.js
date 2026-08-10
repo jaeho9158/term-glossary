@@ -177,7 +177,11 @@ function termCardHTML(match) {
       </li>`;
 }
 
-function buildHighlightedHtml(text, matches) {
+// Resolves overlapping matches down to a non-overlapping list, keeping the
+// earliest-starting match at each position and recording which other slugs
+// were suppressed there (via `covered`). Shared by the plain-text renderer
+// (buildHighlightedHtml) and the PDF text-layer renderer.
+function computeKeptSpans(text, matches) {
   const spans = matches
     .filter((m) => m.firstStart >= 0)
     .sort((a, b) => a.firstStart - b.firstStart);
@@ -199,6 +203,11 @@ function buildHighlightedHtml(text, matches) {
       lastKept.covered.push(span.slug);
     }
   }
+  return kept;
+}
+
+function buildHighlightedHtml(text, matches) {
+  const kept = computeKeptSpans(text, matches);
 
   let html = "";
   let cursor = 0;
@@ -213,8 +222,114 @@ function buildHighlightedHtml(text, matches) {
   return html;
 }
 
+// ---- PDF text-layer offset mapping -----------------------------------
+// The PDF text layer is made of one <span> per extracted text item ("leaf"
+// spans; PDF.js also inserts non-leaf <span class="markedContent"> wrapper
+// groups which we skip). We rebuild a flat "page text" string by
+// concatenating each leaf span's text with a single joining space, and keep
+// a start/end offset for every underlying Text node so we can turn a
+// character range back into a DOM Range. This map is rebuilt from the live
+// DOM every time it's needed, so it stays correct even after earlier
+// highlights have split text nodes.
+function buildOffsetMap(container) {
+  const leafSpans = container.querySelectorAll("span:not(.markedContent)");
+  let text = "";
+  const map = [];
+  let firstSpan = true;
+  for (const span of leafSpans) {
+    if (!firstSpan) text += " ";
+    firstSpan = false;
+    const walker = document.createTreeWalker(span, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      const start = text.length;
+      text += node.nodeValue;
+      map.push({ start, end: text.length, node });
+    }
+  }
+  return { text, map };
+}
+
+function resolvePosition(map, pos) {
+  for (const entry of map) {
+    if (pos <= entry.end) {
+      const clamped = Math.max(pos, entry.start);
+      return { node: entry.node, offset: clamped - entry.start };
+    }
+  }
+  const last = map[map.length - 1];
+  if (!last) return null;
+  return { node: last.node, offset: last.end - last.start };
+}
+
+// Wraps the page-text range [startOffset, endOffset) with mark elements
+// created by makeMark(). Returns the created <mark> elements (there can be
+// more than one if the range spans multiple underlying text items).
+function wrapPageRange(container, startOffset, endOffset, makeMark) {
+  if (endOffset <= startOffset) return [];
+  const { map } = buildOffsetMap(container);
+  if (map.length === 0) return [];
+  const startPos = resolvePosition(map, startOffset);
+  const endPos = resolvePosition(map, endOffset);
+  if (!startPos || !endPos) return [];
+
+  if (startPos.node === endPos.node) {
+    if (startPos.offset >= endPos.offset) return [];
+    const range = document.createRange();
+    range.setStart(startPos.node, startPos.offset);
+    range.setEnd(endPos.node, endPos.offset);
+    if (range.collapsed) return [];
+    const mark = makeMark();
+    range.surroundContents(mark);
+    return [mark];
+  }
+
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+  let node;
+  let inRange = false;
+  const nodesToWrap = [];
+  while ((node = walker.nextNode())) {
+    if (node === startPos.node) inRange = true;
+    if (inRange) nodesToWrap.push(node);
+    if (node === endPos.node) break;
+  }
+
+  const created = [];
+  for (const n of nodesToWrap) {
+    const range = document.createRange();
+    range.setStart(n, n === startPos.node ? startPos.offset : 0);
+    range.setEnd(n, n === endPos.node ? endPos.offset : n.nodeValue.length);
+    if (range.collapsed) continue;
+    const mark = makeMark();
+    range.surroundContents(mark);
+    created.push(mark);
+  }
+  return created;
+}
+
+function unwrapMark(mark) {
+  const parent = mark.parentNode;
+  if (!parent) return;
+  while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+  parent.removeChild(mark);
+  parent.normalize();
+}
+
+async function computeDocHash(file) {
+  try {
+    const buf = await file.arrayBuffer();
+    const digest = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  } catch (err) {
+    console.error(err);
+    return `${file.name}:${file.size}`;
+  }
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml, termCardHTML };
+  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML };
 }
 
 if (typeof document !== "undefined") {
@@ -223,6 +338,10 @@ if (typeof document !== "undefined") {
     let exactIndex = null;
     let currentMatches = [];
     let lastPdfFilename = null;
+    let currentDocHash = null;
+    let annotationsCache = [];
+    let pendingSelection = null;
+    let activeMemo = null; // { record, marks }
 
     async function logPaperHistory(text) {
       try {
@@ -257,6 +376,253 @@ if (typeof document !== "undefined") {
     const filterInput = document.getElementById("term-filter");
     const countHeading = document.getElementById("matched-count");
     const termsList = document.getElementById("matched-terms");
+
+    // Sidebar tabs (찾은 용어 / 내 메모)
+    const tabButtons = document.querySelectorAll(".viewer-tab");
+    const tabPanels = {
+      terms: document.getElementById("tab-panel-terms"),
+      notes: document.getElementById("tab-panel-notes"),
+    };
+    const notesBadge = document.getElementById("notes-count-badge");
+    const noteList = document.getElementById("note-list");
+    const notesEmptyMsg = document.getElementById("notes-empty-msg");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach((b) => b.classList.toggle("active", b === btn));
+        const tab = btn.dataset.tab;
+        Object.entries(tabPanels).forEach(([key, panel]) => {
+          if (panel) panel.hidden = key !== tab;
+        });
+      });
+    });
+
+    // Highlight color toolbar + memo popover
+    const highlightToolbar = document.getElementById("highlight-toolbar");
+    const memoPopover = document.getElementById("memo-popover");
+    const memoTextarea = document.getElementById("memo-textarea");
+    const memoSaveBtn = document.getElementById("memo-save-btn");
+    const memoDeleteBtn = document.getElementById("memo-delete-btn");
+
+    function hideHighlightToolbar() {
+      if (highlightToolbar) highlightToolbar.hidden = true;
+      pendingSelection = null;
+    }
+
+    function showHighlightToolbar(rect) {
+      if (!highlightToolbar) return;
+      highlightToolbar.hidden = false;
+      const top = Math.max(8, rect.top - highlightToolbar.offsetHeight - 8);
+      const left = Math.min(
+        Math.max(8, rect.left + rect.width / 2 - highlightToolbar.offsetWidth / 2),
+        window.innerWidth - highlightToolbar.offsetWidth - 8
+      );
+      highlightToolbar.style.top = `${top}px`;
+      highlightToolbar.style.left = `${left}px`;
+    }
+
+    function hideMemoPopover() {
+      if (memoPopover) memoPopover.hidden = true;
+      activeMemo = null;
+    }
+
+    function showMemoPopover(record, marks, anchorRect) {
+      if (!memoPopover) return;
+      activeMemo = { record, marks: Array.from(marks) };
+      memoTextarea.value = record.note || "";
+      memoPopover.hidden = false;
+      const rect = anchorRect || (marks[0] && marks[0].getBoundingClientRect());
+      if (rect) {
+        const top = Math.min(rect.bottom + 8, window.innerHeight - memoPopover.offsetHeight - 8);
+        const left = Math.min(
+          Math.max(8, rect.left),
+          window.innerWidth - memoPopover.offsetWidth - 8
+        );
+        memoPopover.style.top = `${Math.max(8, top)}px`;
+        memoPopover.style.left = `${left}px`;
+      }
+      memoTextarea.focus();
+    }
+
+    if (highlightToolbar) {
+      highlightToolbar.addEventListener("click", async (e) => {
+        const btn = e.target.closest(".hl-color");
+        if (!btn || !pendingSelection) return;
+        const { textLayerDiv, page, range, quoteText } = pendingSelection;
+        const color = btn.dataset.color;
+        hideHighlightToolbar();
+        window.getSelection().removeAllRanges();
+
+        const { map } = buildOffsetMap(textLayerDiv);
+        const startEntry = map.find((entry) => entry.node === range.startContainer);
+        const endEntry = map.find((entry) => entry.node === range.endContainer);
+        if (!startEntry || !endEntry) return;
+        const startOffset = startEntry.start + range.startOffset;
+        const endOffset = endEntry.start + range.endOffset;
+        if (endOffset <= startOffset) return;
+
+        const { createAnnotation } = await import("./pdf-annotations.js");
+        const record = await createAnnotation(currentDocHash, lastPdfFilename, {
+          page,
+          startOffset,
+          endOffset,
+          quoteText,
+          color,
+          note: "",
+        });
+        if (!record) return;
+
+        const marks = wrapPageRange(textLayerDiv, startOffset, endOffset, () => {
+          const mark = document.createElement("mark");
+          mark.className = "user-mark";
+          mark.dataset.color = color;
+          mark.dataset.annotationId = String(record.id);
+          return mark;
+        });
+
+        annotationsCache.push(record);
+        renderNotesList();
+        if (marks.length) showMemoPopover(record, marks);
+      });
+    }
+
+    if (memoSaveBtn) {
+      memoSaveBtn.addEventListener("click", async () => {
+        if (!activeMemo) return;
+        const { record } = activeMemo;
+        const note = memoTextarea.value.trim();
+        const { updateAnnotationNote } = await import("./pdf-annotations.js");
+        await updateAnnotationNote(currentDocHash, record.id, note);
+        record.note = note;
+        renderNotesList();
+        hideMemoPopover();
+      });
+    }
+
+    if (memoDeleteBtn) {
+      memoDeleteBtn.addEventListener("click", async () => {
+        if (!activeMemo) return;
+        const { record, marks } = activeMemo;
+        const { deleteAnnotation } = await import("./pdf-annotations.js");
+        await deleteAnnotation(currentDocHash, record.id);
+        annotationsCache = annotationsCache.filter((a) => a.id !== record.id);
+        marks.forEach(unwrapMark);
+        renderNotesList();
+        hideMemoPopover();
+      });
+    }
+
+    function noteCardHTML(record) {
+      const noteText = record.note
+        ? `<p class="note-card-memo">${escapeHtml(record.note)}</p>`
+        : `<p class="note-card-memo note-card-memo-empty">메모 없음</p>`;
+      return `<li class="note-card" data-id="${escapeHtml(String(record.id))}">
+        <span class="note-card-dot" data-color="${escapeHtml(record.color)}"></span>
+        <div class="note-card-body">
+          <p class="note-card-quote">${escapeHtml(record.quoteText || "")}</p>
+          ${noteText}
+          <span class="note-card-page">p.${record.page}</span>
+        </div>
+      </li>`;
+    }
+
+    function renderNotesList() {
+      if (!noteList) return;
+      noteList.innerHTML = annotationsCache.map(noteCardHTML).join("");
+      if (notesBadge) {
+        notesBadge.hidden = annotationsCache.length === 0;
+        notesBadge.textContent = String(annotationsCache.length);
+      }
+      if (notesEmptyMsg) notesEmptyMsg.hidden = annotationsCache.length > 0;
+    }
+
+    if (noteList) {
+      noteList.addEventListener("click", (e) => {
+        const card = e.target.closest(".note-card");
+        if (!card) return;
+        const id = card.dataset.id;
+        const mark = document.querySelector(`#pdf-viewer mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`);
+        if (!mark) return;
+        mark.scrollIntoView({ behavior: "smooth", block: "center" });
+        mark.classList.add("mark-flash");
+        setTimeout(() => mark.classList.remove("mark-flash"), 1200);
+      });
+    }
+
+    async function loadAndRenderAnnotations() {
+      if (!currentDocHash) return;
+      const { loadAnnotations } = await import("./pdf-annotations.js");
+      annotationsCache = await loadAnnotations(currentDocHash);
+      for (const record of annotationsCache) {
+        const textLayerDiv = document.querySelector(
+          `#pdf-viewer .pdf-page-wrap[data-page="${record.page}"] .textLayer`
+        );
+        if (!textLayerDiv) continue;
+        wrapPageRange(textLayerDiv, record.startOffset, record.endOffset, () => {
+          const mark = document.createElement("mark");
+          mark.className = "user-mark";
+          mark.dataset.color = record.color;
+          mark.dataset.annotationId = String(record.id);
+          return mark;
+        });
+      }
+      renderNotesList();
+    }
+
+    // Delegate clicks on existing user highlights to reopen the memo popover.
+    document.getElementById("pdf-viewer").addEventListener("click", (e) => {
+      const mark = e.target.closest("mark.user-mark");
+      if (!mark) return;
+      const id = mark.dataset.annotationId;
+      const record = annotationsCache.find((a) => String(a.id) === String(id));
+      if (!record) return;
+      const marks = document.querySelectorAll(
+        `#pdf-viewer mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`
+      );
+      showMemoPopover(record, marks, mark.getBoundingClientRect());
+    });
+
+    document.getElementById("pdf-viewer").addEventListener("mouseup", () => {
+      setTimeout(() => {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+          hideHighlightToolbar();
+          return;
+        }
+        const range = sel.getRangeAt(0);
+        const anchorEl =
+          range.commonAncestorContainer.nodeType === 1
+            ? range.commonAncestorContainer
+            : range.commonAncestorContainer.parentElement;
+        const wrap = anchorEl && anchorEl.closest(".pdf-page-wrap");
+        if (!wrap) {
+          hideHighlightToolbar();
+          return;
+        }
+        const textLayerDiv = wrap.querySelector(".textLayer");
+        const quoteText = range.toString().trim();
+        if (!textLayerDiv || !quoteText) {
+          hideHighlightToolbar();
+          return;
+        }
+        pendingSelection = {
+          textLayerDiv,
+          page: Number(wrap.dataset.page),
+          range: range.cloneRange(),
+          quoteText,
+        };
+        showHighlightToolbar(range.getBoundingClientRect());
+      }, 0);
+    });
+
+    document.addEventListener("mousedown", (e) => {
+      if (highlightToolbar && !highlightToolbar.hidden && !highlightToolbar.contains(e.target)) {
+        hideHighlightToolbar();
+      }
+      if (memoPopover && !memoPopover.hidden && !memoPopover.contains(e.target) && !e.target.closest("mark.user-mark")) {
+        hideMemoPopover();
+      }
+    });
 
     textarea.addEventListener("input", () => {
       findBtn.disabled = textarea.value.trim().length === 0;
@@ -431,8 +797,8 @@ if (typeof document !== "undefined") {
 
     function scrollToMark(slug) {
       const mark =
-        document.querySelector(`mark[data-slug="${slug}"]`) ||
-        document.querySelector(`mark[data-covers~="${slug}"]`);
+        document.querySelector(`.viewer-rendered mark[data-slug="${slug}"], #pdf-viewer mark[data-slug="${slug}"]`) ||
+        document.querySelector(`.viewer-rendered mark[data-covers~="${slug}"], #pdf-viewer mark[data-covers~="${slug}"]`);
       if (!mark) return;
       mark.scrollIntoView({ behavior: "smooth", block: "center" });
       mark.classList.add("mark-flash");
@@ -520,6 +886,8 @@ if (typeof document !== "undefined") {
 
         viewer.innerHTML="";
 
+        const terms = await loadTerms();
+
         for(let i=1;i<=pdf.numPages;i++){
 
             const page=await pdf.getPage(i);
@@ -527,6 +895,12 @@ if (typeof document !== "undefined") {
             const viewport=page.getViewport({
                 scale:1.5
             });
+
+            const pageWrap = document.createElement("div");
+            pageWrap.className = "pdf-page-wrap";
+            pageWrap.dataset.page = String(i);
+            pageWrap.style.width = `${viewport.width}px`;
+            pageWrap.style.height = `${viewport.height}px`;
 
             const canvas=document.createElement("canvas");
 
@@ -544,7 +918,40 @@ if (typeof document !== "undefined") {
                 viewport
             }).promise;
 
-            viewer.appendChild(canvas);
+            const textLayerDiv = document.createElement("div");
+            textLayerDiv.className = "textLayer";
+            textLayerDiv.style.width = `${viewport.width}px`;
+            textLayerDiv.style.height = `${viewport.height}px`;
+
+            const textContent = await page.getTextContent();
+            const textLayerTask = window.pdfjsLib.renderTextLayer({
+              textContentSource: textContent,
+              container: textLayerDiv,
+              viewport,
+            });
+            await textLayerTask.promise;
+
+            pageWrap.appendChild(canvas);
+            pageWrap.appendChild(textLayerDiv);
+            viewer.appendChild(pageWrap);
+
+            // Dictionary term highlighting, scoped to this page's own text
+            // (exact-match pass only — cheap enough to run per page, and the
+            // sidebar's whole-document fuzzy pass already covers near-misses).
+            const { text: pageText } = buildOffsetMap(textLayerDiv);
+            if (pageText.trim()) {
+              const pageMatches = matchTerms(pageText, terms);
+              const kept = computeKeptSpans(pageText, pageMatches);
+              for (const span of kept) {
+                wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
+                  const mark = document.createElement("mark");
+                  mark.className = "dict-mark";
+                  mark.dataset.slug = span.slug;
+                  mark.dataset.covers = span.covered.join(" ");
+                  return mark;
+                });
+              }
+            }
         }
 
         const pane = document.getElementById("viewer-input-pane");
@@ -559,6 +966,11 @@ if (typeof document !== "undefined") {
 
       pdfStatus.hidden = false;
       pdfStatus.textContent = "PDF 분석 중...";
+      hideHighlightToolbar();
+      hideMemoPopover();
+      annotationsCache = [];
+      renderNotesList();
+      currentDocHash = null;
 
       try {
         const text = await extractPdfText(file);
@@ -566,12 +978,14 @@ if (typeof document !== "undefined") {
           throw new Error("empty-text-layer");
         }
         lastPdfFilename = file.name;
+        currentDocHash = await computeDocHash(file);
         await renderPdf(file);
         textarea.hidden = true;
         pdfViewer.hidden = false;
         pdfStatus.hidden = true;
         textarea.value = text;
         await runAnalysis(text, { updateInputPane: false });
+        await loadAndRenderAnnotations();
       } catch (err) {
         pdfStatus.hidden = true;
         textarea.hidden = false;
@@ -581,6 +995,7 @@ if (typeof document !== "undefined") {
         termsList.innerHTML = "";
         textarea.value = "";
         findBtn.disabled = true;
+        currentDocHash = null;
       } finally {
         pdfInput.value = "";
       }
