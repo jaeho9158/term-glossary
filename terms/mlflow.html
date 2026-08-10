@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,21 @@
   <h2>쉽게 풀면</h2>
   <p>여러 번 실험을 반복하다 보면 어떤 설정으로 어떤 결과가 나왔는지 헷갈리기 쉽다. MLflow는 각 실험을 실행할 때마다 사용한 하이퍼파라미터, 학습 결과 지표, 만들어진 모델 파일을 자동으로 기록해서 나중에 쉽게 비교하고 검색할 수 있게 해주는 도구이다. <a href="tensorboard.html">텐서보드</a>가 학습 곡선을 시각화하는 데 초점을 둔다면, MLflow는 여러 실험을 체계적으로 정리하고 관리하는 데 더 초점이 맞춰져 있다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>머신러닝 연구는 수많은 하이퍼파라미터 조합과 실험 반복을 거치는데, 이를 수작업으로 기록하면 재현성(reproducibility)이 크게 떨어지고 어떤 설정이 최적이었는지 추적하기 어려워진다. MLflow는 실험 이력을 표준화된 방식으로 관리하게 해주어 연구 결과의 재현성과 투명성을 높이며, 이 때문에 실무뿐 아니라 실험 재현이 중요한 학술 연구에서도 실험 관리 도구로 자주 언급된다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"모든 하이퍼파라미터 조합과 그 결과는 MLflow를 통해 추적 및 비교되었다."</div>
   <p>다양한 설정으로 진행한 여러 실험의 결과를 MLflow라는 도구로 체계적으로 기록하고 비교했다는 뜻이다.</p>
+
+  <div class="example">"학습이 완료된 모델은 MLflow Model Registry에 등록되어 버전 관리와 배포 승인 절차를 거쳤다."</div>
+  <p>연구 단계를 넘어 모델을 실제 서비스에 배포하는 과정에서, MLflow가 모델의 버전과 배포 상태를 관리하는 용도로도 쓰인다는 것을 보여주는 표현입니다.</p>
+
+  <div class="example">"동일한 데이터 전처리 파이프라인을 여러 팀원이 재현할 수 있도록 MLflow Projects 형식으로 실험 환경을 패키징하였다."</div>
+  <p>공동 연구나 협업 환경에서는 MLflow가 단순 기록을 넘어 실험 환경 자체를 표준화된 형식으로 공유하는 데도 활용된다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>MLflow는 크게 실험 추적을 담당하는 Tracking, 실행 환경을 재현 가능한 형태로 패키징하는 Projects, 학습된 모델을 표준 형식으로 저장·배포하는 Models, 모델의 버전과 생애주기를 관리하는 Model Registry라는 몇 가지 하위 구성요소로 이루어져 있다. 논문에서 MLflow를 언급할 때는 대개 이 중 Tracking 기능(파라미터, 지표, 아티팩트 기록)을 가리키는 경우가 많지만, 최근에는 모델 배포와 버전 관리까지 포함한 전체 워크플로를 설명하는 맥락에서도 등장한다.</p>
 
   <h2>주의할 점</h2>
   <p>MLflow는 실험을 기록하고 비교하는 도구일 뿐 자체적으로 하이퍼파라미터를 최적화해 주지는 않으며, 별도의 탐색 전략과 함께 쓰이는 경우가 많다.</p>
@@ -97,7 +108,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

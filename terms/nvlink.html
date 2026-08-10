@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,21 @@
   <h2>쉽게 풀면</h2>
   <p>여러 개의 GPU를 함께 써서 큰 모델을 학습시킬 때는 GPU끼리 데이터를 자주 주고받아야 한다. NVLink는 이 GPU 간 통신을 위한 전용 초고속 도로로, 일반적인 PCIe 연결보다 훨씬 빠르게 데이터를 주고받을 수 있게 해준다. 이 덕분에 여러 GPU가 마치 하나의 큰 메모리를 공유하는 것처럼 효율적으로 협업할 수 있다. 대규모 언어 모델 학습에서 GPU 간 통신 속도는 전체 학습 속도를 좌우하는 중요한 요소이다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>대규모 언어 모델이나 분산 딥러닝 학습에서는 여러 GPU가 그래디언트나 파라미터를 끊임없이 주고받아야 하는데, 이 통신 속도가 느리면 GPU를 아무리 많이 추가해도 학습 속도가 비례해서 늘지 않는다. NVLink는 이런 통신 병목을 줄여 GPU 확장성을 실질적으로 끌어올리는 하드웨어 기반이기 때문에, 대규모 모델 학습이나 분산 시스템 성능을 다루는 논문에서 실험 환경을 설명할 때 자주 언급된다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"8개의 GPU는 NVLink로 완전 연결되어 통신 병목을 최소화하였다."</div>
   <p>GPU들 사이의 데이터 교환이 느린 일반 연결이 아니라 NVLink라는 빠른 전용 통로로 이루어져 통신 지연이 줄었다는 뜻이다.</p>
+
+  <div class="example">"모델 병렬화 실험에서는 NVLink로 연결된 GPU 쌍이 PCIe만으로 연결된 쌍보다 층 간 통신 지연이 현저히 낮게 측정되었다."</div>
+  <p>모델 병렬화 연구에서는 GPU 간 연결 방식에 따른 통신 지연 차이를 정량적으로 비교하는 실험이 흔히 등장한다.</p>
+
+  <div class="example">"본 시스템은 NVLink 기반의 다중 GPU 노드를 활용해 대규모 파라미터를 노드 내에서 효율적으로 분산 저장하였다."</div>
+  <p>시스템·아키텍처 논문에서는 NVLink를 노드 내 메모리 확장 및 파라미터 분산 저장 전략의 하드웨어적 근거로 설명하는 경우가 있다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>NVLink는 GPU 간 직접 연결뿐 아니라, 여러 GPU를 하나의 스위치를 통해 묶어주는 NVSwitch와 함께 쓰이는 경우가 많으며, 이를 통해 노드 내 다수의 GPU가 서로 대등한 속도로 통신할 수 있는 구조를 만든다. 노드를 넘어서는 GPU 간 통신에는 인피니밴드 같은 별도의 네트워크 기술이 쓰이므로, 논문에서 시스템 구성을 설명할 때는 노드 내부는 NVLink, 노드 간은 인피니밴드처럼 계층을 구분해서 서술하는 경우가 일반적이다.</p>
 
   <h2>주의할 점</h2>
   <p>NVLink는 엔비디아 특정 제품군에서만 지원되며, 모든 서버나 GPU 조합에 기본으로 탑재되어 있지는 않다.</p>
@@ -97,7 +108,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
