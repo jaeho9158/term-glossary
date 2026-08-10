@@ -685,7 +685,16 @@ if (typeof document !== "undefined") {
     // still catches the useful cases without dragging the analysis out.
     const FUZZY_WORD_CAP = 800;
     const FUZZY_CHUNK_SIZE = 20; // words per chunk between UI-yielding pauses
-    const FUZZY_MIN_WORD_LENGTH = 3; // skip short common words — low value, high noise
+    const FUZZY_MIN_WORD_LENGTH = 4; // skip short common words — low value, high noise
+
+    // Fuse's threshold is a *ratio* of edit distance to string length, so for
+    // short strings a "0.28" match can still be a completely different word
+    // that happens to share a couple of characters (e.g. "속도와" fuzzy-hit
+    // "속도와가속도"/Velocity and Acceleration, which never appeared in the
+    // text). Requiring the matched keyword's length to be reasonably close to
+    // the query word's length rejects these compound-term false positives
+    // without needing a stricter (and more typo-intolerant) global threshold.
+    const FUZZY_MAX_LENGTH_DIFF = 2;
 
     function yieldToUi() {
       return new Promise((resolve) => setTimeout(resolve, 0));
@@ -711,6 +720,8 @@ if (typeof document !== "undefined") {
 
         for (const r of fuseResults) {
           if (r.score > 0.28) continue;
+          const keywordLength = (r.item.keywordNormalized || r.item.keyword || "").length;
+          if (Math.abs(keywordLength - normalized.length) > FUZZY_MAX_LENGTH_DIFF) continue;
           const term = r.item.term;
           const idx = text.indexOf(word);
           if (idx === -1) continue;
