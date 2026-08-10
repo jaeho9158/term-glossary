@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,21 @@
   <h2>쉽게 풀면</h2>
   <p>TPU는 딥러닝 계산, 특히 행렬 곱셈만을 위해 처음부터 회로를 새로 설계한 칩이다. GPU가 그래픽 작업도 겸할 수 있는 범용 병렬 프로세서라면, TPU는 오직 신경망 연산에 최적화되어 있어 특정 작업에서는 더 빠르고 전력 효율도 높다. 구글 클라우드를 통해 대여해 쓸 수 있으며, 대형 언어 모델처럼 매우 큰 모델을 학습시킬 때 자주 사용된다. 논문에서 TPU 파드(pod) 단위로 사용량을 표기하는 경우가 많다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>대규모 언어모델이나 비전 트랜스포머처럼 파라미터 수가 급격히 커진 모델을 학습시키려면 행렬 곱셈을 얼마나 빠르고 전력 효율적으로 처리하느냐가 연구의 실질적 병목이 된다. TPU는 이런 요구에 맞춰 하드웨어 자체를 신경망 연산에 특화시킨 사례로, 논문에서 학습 인프라나 스케일링 실험을 설명할 때 GPU와 비교되는 대표적인 대안으로 자주 언급된다. 또한 TPU 파드 단위의 확장성은 분산 학습과 하드웨어-소프트웨어 공동 설계(co-design) 연구의 중요한 배경이 된다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"모델은 TPU v4 파드 위에서 256개 칩을 사용해 학습되었다."</div>
   <p>구글의 TPU v4 가속기 256개를 동시에 묶어 대규모 분산 학습을 수행했다는 의미이다.</p>
+
+  <div class="example">"우리는 JAX 기반 학습 파이프라인을 TPU 슬라이스에서 실행하여 GPU 대비 처리량을 개선했다."</div>
+  <p>JAX와 같은 프레임워크로 TPU의 병렬 연산 자원을 활용해 학습 속도를 높였다는 뜻으로, 프레임워크·하드웨어 결합을 다루는 시스템 분야 논문에서 흔히 보이는 표현이다.</p>
+
+  <div class="example">"추론 단계에서는 지연 시간을 줄이기 위해 소형 TPU 코어에 모델을 양자화하여 배포했다."</div>
+  <p>학습이 아닌 추론(inference) 환경에서도 TPU가 활용되며, 이때는 모델 경량화와 함께 언급되는 경우가 많다는 점을 보여주는 예문이다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>TPU의 핵심 연산 단위는 행렬 곱셈-누산을 대량 병렬로 처리하는 시스톨릭 어레이(systolic array) 구조로, 이는 범용 연산에 맞춰 설계된 GPU의 SIMT(단일 명령 다중 스레드) 방식과는 다른 접근이다. 논문에서는 TPU 세대(v2, v3, v4, v5e 등)에 따라 연산 성능과 메모리 대역폭이 달라지므로, 어떤 세대와 몇 개의 칩(또는 파드)을 사용했는지가 실험 재현성과 비교에 중요한 정보로 다뤄진다. 또한 TPU는 대체로 저정밀도(bfloat16 등) 연산에 최적화되어 있어, 정밀도 설정이 학습 안정성이나 속도에 미치는 영향도 함께 논의되는 경우가 많다.</p>
 
   <h2>주의할 점</h2>
   <p>TPU는 <a href="asic.html">ASIC</a>의 한 종류이며, 구글 클라우드 환경 밖에서는 범용적으로 구하기 어렵다는 점에서 GPU와 접근성이 다르다.</p>
@@ -97,7 +108,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

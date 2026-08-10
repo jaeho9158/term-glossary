@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,21 @@
   <h2>쉽게 풀면</h2>
   <p>ASIC은 오직 한 가지 목적을 위해 태어난 전용 칩이다. CPU나 GPU가 여러 작업을 다 할 수 있는 만능 도구라면, ASIC은 그 작업 하나만 완벽하게 해내도록 회로 자체를 새로 설계한 것이다. 그만큼 속도와 전력 효율은 최고 수준이지만, 한 번 제작하면 용도를 바꿀 수 없고 설계·제조 비용도 매우 크다. 비트코인 채굴기나 앞서 설명한 <a href="tpu.html">TPU</a>가 대표적인 ASIC의 예이다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>딥러닝 모델의 연산량이 커질수록 범용 프로세서만으로는 속도와 전력 효율의 한계에 부딪히기 때문에, 특정 연산에 맞춰 회로를 최적화한 ASIC은 하드웨어 가속기 연구 전반에서 핵심적인 비교 대상이자 목표 플랫폼으로 다뤄진다. 그래서 컴퓨터 구조·저전력 회로 설계·엣지 디바이스 연구에서는 새로운 알고리즘이나 아키텍처를 제안할 때 그것이 ASIC으로 구현 가능한지, 구현했을 때 얼마나 효율적인지를 함께 검증하는 경우가 많다. 또한 산업 현장에서 대량 생산되는 전용 칩(예: 채굴기, 통신 모뎀)의 설계 원리를 이해하는 데도 ASIC 개념이 기초가 된다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"제안된 알고리즘을 28nm 공정의 ASIC으로 구현하여 실제 전력 소모를 측정하였다."</div>
   <p>연구진이 설계한 회로를 실제 반도체 제조 공정으로 찍어내어 시뮬레이션이 아닌 실측 전력 소비량을 얻었다는 뜻이다.</p>
+
+  <div class="example">"본 연구에서는 FPGA 프로토타입 검증을 거친 뒤 이를 ASIC 설계로 전환하여 칩 면적과 지연시간을 추가로 최적화하였다."</div>
+  <p>먼저 재구성 가능한 FPGA로 회로 동작을 확인한 다음, 최종적으로 전용 칩인 ASIC으로 옮겨 성능과 면적을 더 다듬는 일반적인 개발 흐름을 설명하는 문장이다.</p>
+
+  <div class="example">"딥러닝 추론 전용 ASIC은 동일 작업을 수행하는 GPU 대비 에너지 효율 측면에서 우수한 결과를 보였다."</div>
+  <p>같은 신경망 연산을 처리할 때, 범용성을 포기하고 특정 연산에 회로를 맞춘 ASIC이 전력 대비 성능에서 GPU보다 유리하다는 비교 실험 결과를 서술한 문장이다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>ASIC 연구를 논문으로 읽을 때는 흔히 공정 노드(예: 28nm, 7nm)와 함께 면적(area), 지연시간(latency), 전력 소모, 처리량(throughput) 같은 지표가 함께 제시되는데, 이는 서로 트레이드오프 관계에 있어 하나만 개선하기보다 종합적으로 균형을 맞추는 것이 설계의 핵심이다. 설계 흐름은 보통 RTL(레지스터 전송 수준) 코드 작성, 합성(synthesis), 배치·배선(place and route)을 거쳐 실제 칩으로 제작되는 단계를 따르며, 이 과정에서 <a href="fpga.html">FPGA</a>는 최종 ASIC 제작 전에 회로 동작을 미리 검증하는 저비용 수단으로 자주 활용된다. 최근에는 딥러닝 전용 연산에 특화된 ASIC을 도메인 특화 아키텍처(domain-specific architecture)라고 부르기도 하며, <a href="tpu.html">TPU</a>가 그 대표적인 사례로 언급된다.</p>
 
   <h2>주의할 점</h2>
   <p>ASIC은 <a href="fpga.html">FPGA</a>로 먼저 검증한 뒤 최종 제작되는 경우가 많으며, 설계 변경이 사실상 불가능하다는 점이 가장 큰 제약이다.</p>
@@ -97,7 +108,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
