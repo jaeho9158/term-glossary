@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,19 @@
   <h2>쉽게 풀면</h2>
   <p>PCIe는 컴퓨터 내부에서 부품들이 서로 대화하는 통로라고 생각하면 된다. 그래픽카드나 저장장치를 메인보드에 꽂을 때 사용하는 슬롯이 바로 PCIe 규격이며, 세대(3.0, 4.0, 5.0 등)가 올라갈수록 통로의 폭이 넓어져 더 많은 데이터를 더 빠르게 주고받을 수 있다. 딥러닝에서는 GPU와 CPU 메모리 사이의 데이터 이동 속도가 학습 성능에 영향을 주기 때문에 PCIe 세대와 레인 수가 병목이 되기도 한다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>PCIe는 딥러닝 하드웨어 구성, 고성능 컴퓨팅(HPC) 클러스터, 데이터센터 스토리지 설계 등 시스템 성능이 논문 결과에 직접 영향을 주는 연구에서 실험 환경을 재현 가능하게 기술하기 위해 언급된다. 특히 대규모 모델 학습이나 분산 시스템 연구에서는 GPU 간, 혹은 GPU-CPU 간 데이터 전송 속도가 전체 처리량의 병목이 될 수 있어, PCIe 세대와 레인 수를 명시하는 것이 실험 재현성과 성능 비교의 기준이 된다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"각 노드는 PCIe 4.0 x16으로 연결된 GPU 4장으로 구성되었다."</div>
   <p>GPU와 시스템 간의 데이터 전송 대역폭이 PCIe 4.0 규격의 최대 폭(x16)으로 확보되어 있음을 밝힌 문장이다.</p>
+  <div class="example">"NVMe SSD는 PCIe 4.0 x4 인터페이스를 통해 스토리지 노드에 연결되어 순차 읽기 속도를 측정하였다."</div>
+  <p>스토리지 시스템 연구에서 SSD와 서버 간의 연결 규격을 명시해 실험 조건을 밝힌 문장이다.</p>
+  <div class="example">"FPGA 가속기는 PCIe 인터페이스를 통해 호스트와 통신하며, 커널 오프로딩 시 발생하는 전송 지연을 측정하였다."</div>
+  <p>FPGA 기반 가속 연구에서 호스트-가속기 간 데이터 전송 지연이 PCIe 연결에서 비롯됨을 분석한 문장이다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>PCIe 성능은 세대(3.0, 4.0, 5.0 등)와 레인 수(x1, x4, x8, x16)의 조합으로 결정되며, 세대가 올라갈수록 레인당 전송 속도가 대략 두 배씩 늘어나는 방식으로 발전해 왔다. 논문에서는 흔히 이론적 최대 대역폭과 실제 측정된 유효 대역폭을 함께 제시해 시스템 병목 여부를 판단하는데, 실제 대역폭은 프로토콜 오버헤드나 드라이버, 운영체제 설정 등에 따라 이론치보다 낮게 나타나는 경우가 일반적이다. 멀티 GPU 환경에서는 PCIe 스위치 구조와 NUMA(비균일 메모리 접근) 토폴로지가 통신 성능에 함께 영향을 준다는 점도 종종 언급된다.</p>
 
   <h2>주의할 점</h2>
   <p>GPU 여러 장을 쓰는 대규모 학습에서는 PCIe보다 훨씬 빠른 <a href="nvlink.html">NVLink</a> 같은 전용 연결이 별도로 쓰이기도 한다.</p>
@@ -97,7 +106,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
