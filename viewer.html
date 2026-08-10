@@ -55,7 +55,6 @@
       <a href="viewer.html" class="nav-cta">논문 뷰어</a>
       <a href="quiz.html">퀴즈</a>
       <a href="about.html">소개</a>
-      <a href="contact.html">문의</a>
       <a href="login.html" id="nav-login">로그인</a>
       <a href="signup.html" id="nav-signup">회원가입</a>
       <a href="history.html" id="nav-history" hidden>내 기록</a>
@@ -82,16 +81,40 @@
       <p id="pdf-status" hidden aria-live="polite"></p>
     </div>
     <aside class="viewer-terms">
-      <input type="search" id="term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
-      <h2 id="matched-count">용어 찾기를 눌러보세요</h2>
-      <ul class="term-list" id="matched-terms"></ul>
+      <div class="viewer-tabs" role="tablist">
+        <button type="button" class="viewer-tab active" data-tab="terms" role="tab">찾은 용어</button>
+        <button type="button" class="viewer-tab" data-tab="notes" role="tab">내 메모 <span id="notes-count-badge" class="tab-badge" hidden>0</span></button>
+      </div>
+      <div class="viewer-tab-panel" id="tab-panel-terms">
+        <input type="search" id="term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
+        <h2 id="matched-count">용어 찾기를 눌러보세요</h2>
+        <ul class="term-list" id="matched-terms"></ul>
+      </div>
+      <div class="viewer-tab-panel" id="tab-panel-notes" hidden>
+        <p id="notes-empty-msg" class="notes-empty">PDF 본문을 드래그해서 선택하면 하이라이트하고 메모를 남길 수 있어요.</p>
+        <ul class="note-list" id="note-list"></ul>
+      </div>
     </aside>
   </div>
 </main>
 
+<div id="highlight-toolbar" class="highlight-toolbar" hidden>
+  <button type="button" class="hl-color" data-color="yellow" title="노랑" style="--hl-color:#ffe066"></button>
+  <button type="button" class="hl-color" data-color="green" title="초록" style="--hl-color:#8ce99a"></button>
+  <button type="button" class="hl-color" data-color="pink" title="분홍" style="--hl-color:#ffc9de"></button>
+  <button type="button" class="hl-color" data-color="blue" title="파랑" style="--hl-color:#a5d8ff"></button>
+</div>
+<div id="memo-popover" class="memo-popover" hidden>
+  <textarea id="memo-textarea" placeholder="메모를 남겨보세요 (선택)"></textarea>
+  <div class="memo-popover-actions">
+    <button type="button" id="memo-delete-btn" class="memo-btn memo-btn-danger">삭제</button>
+    <button type="button" id="memo-save-btn" class="memo-btn memo-btn-primary">저장</button>
+  </div>
+</div>
+
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a> · <a href="contact.html">문의</a>
+  <a href="about.html">소개</a> · <a href="privacy.html">개인정보처리방침</a>
 </footer>
 <div id="pdf-modal" class="pdf-modal">
     <div class="pdf-modal-content">

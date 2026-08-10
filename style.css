@@ -1663,3 +1663,251 @@ transform:scale(1);
     margin-bottom: 8px;
     color: var(--text);
 }
+
+/* ---- PDF viewer: text layer, highlights, memos ---- */
+
+.pdf-page-wrap {
+    position: relative;
+    margin: 20px auto;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+}
+
+.pdf-page-wrap .pdf-page {
+    display: block;
+    margin: 0;
+    box-shadow: none;
+}
+
+.textLayer {
+    position: absolute;
+    inset: 0;
+    overflow: clip;
+    line-height: 1;
+    text-align: initial;
+    transform-origin: 0 0;
+}
+
+.textLayer span,
+.textLayer br {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    transform-origin: 0% 0%;
+}
+
+.textLayer ::selection {
+    background: rgba(37, 99, 235, 0.35);
+}
+
+.textLayer mark {
+    color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.textLayer mark.dict-mark {
+    background: rgba(255, 224, 102, 0.55);
+    border-radius: 2px;
+}
+
+.textLayer mark.user-mark {
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.textLayer mark.user-mark[data-color="yellow"] { background: rgba(255, 224, 102, 0.55); }
+.textLayer mark.user-mark[data-color="green"]  { background: rgba(140, 233, 154, 0.55); }
+.textLayer mark.user-mark[data-color="pink"]   { background: rgba(255, 201, 222, 0.55); }
+.textLayer mark.user-mark[data-color="blue"]   { background: rgba(165, 216, 255, 0.55); }
+
+.textLayer mark.mark-flash {
+    background: var(--accent) !important;
+}
+
+/* Sidebar tabs (찾은 용어 / 내 메모) */
+
+.viewer-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.viewer-tab {
+    flex: 1;
+    padding: 10px 8px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.viewer-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 600;
+}
+
+.tab-badge {
+    display: inline-block;
+    min-width: 18px;
+    padding: 0 5px;
+    margin-left: 4px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 18px;
+}
+
+.notes-empty {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 8px 0;
+}
+
+.note-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.note-card {
+    display: flex;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.note-card:hover {
+    border-color: var(--accent);
+}
+
+.note-card-dot {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+    border-radius: 50%;
+}
+
+.note-card-dot[data-color="yellow"] { background: #ffe066; }
+.note-card-dot[data-color="green"]  { background: #8ce99a; }
+.note-card-dot[data-color="pink"]   { background: #ffc9de; }
+.note-card-dot[data-color="blue"]   { background: #a5d8ff; }
+
+.note-card-body {
+    min-width: 0;
+}
+
+.note-card-quote {
+    margin: 0 0 4px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.note-card-memo {
+    margin: 0 0 4px;
+    font-size: 0.92rem;
+}
+
+.note-card-memo-empty {
+    color: var(--muted);
+    font-style: italic;
+}
+
+.note-card-page {
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* Floating highlight-color toolbar shown on text selection */
+
+.highlight-toolbar {
+    position: fixed;
+    z-index: 10000;
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .2);
+}
+
+.hl-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--border);
+    background: var(--hl-color);
+    cursor: pointer;
+    padding: 0;
+}
+
+.hl-color:hover {
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* Memo popover for creating/editing a note on a highlight */
+
+.memo-popover {
+    position: fixed;
+    z-index: 10000;
+    width: 260px;
+    padding: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .2);
+}
+
+.memo-popover textarea {
+    width: 100%;
+    min-height: 70px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    resize: vertical;
+}
+
+.memo-popover-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.memo-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.memo-btn-primary {
+    background: var(--accent);
+    color: #fff;
+}
+
+.memo-btn-danger {
+    background: none;
+    color: #d1495b;
+    border: 1px solid #d1495b;
+}
