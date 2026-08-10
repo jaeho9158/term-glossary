@@ -173,7 +173,7 @@ function termCardHTML(match) {
   return `<li class="term-card" data-slug="${match.slug}">
         <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
         ${definitionPart}
-        <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기</a>
+        <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기 →</a>
       </li>`;
 }
 
