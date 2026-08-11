@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,21 @@
   <h2>쉽게 풀면</h2>
   <p><a href="anova.html">분산분석(ANOVA)</a>은 A, B, C 세 집단을 비교했을 때 "적어도 한 곳은 다르다"는 사실만 알려줄 뿐, 정확히 어느 집단끼리 다른지는 말해주지 않습니다. 그렇다고 A-B, A-C, B-C를 각각 t검정으로 따로 비교하면, 비교 횟수가 늘어날수록 우연히 유의한 결과가 나올 확률(1종 오류)이 눈덩이처럼 불어납니다. 튜키의 HSD 검정은 모든 쌍을 한꺼번에 비교하면서도 전체 오류 확률을 원래 설정한 수준(예: 5%)으로 묶어두는 방법입니다. 여러 사람이 동시에 복권을 긁으면 누군가는 당첨될 확률이 올라가는 것처럼, 비교 횟수가 늘어나는 만큼 판정 기준을 더 엄격하게 조정해주는 셈입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>세 집단 이상을 비교하는 실험설계는 심리학, 생물학, 교육학, 의학 등 거의 모든 실증 연구 분야에서 흔하게 쓰이며, 분산분석만으로는 어느 집단이 다른지 알 수 없기 때문에 사후검정은 결과 해석의 마지막 단계로서 사실상 필수적으로 함께 보고됩니다. 어떤 사후검정 방법을 선택했는지는 통계적 결론의 엄밀성을 판단하는 근거가 되기도 합니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"일원배치 분산분석 결과 집단 간 차이가 유의하였고(F(2,87)=5.42, p&lt;.01), Tukey의 HSD 사후검정을 실시한 결과 A집단과 C집단 간에만 유의한 차이가 나타났다."</div>
   <p>전체 분산분석에서는 "어딘가 차이가 있다"고만 나왔지만, 뒤이은 Tukey HSD 검정으로 A와 B, B와 C 사이에는 차이가 없고 오직 A와 C 사이에만 실제 차이가 있음을 구체적으로 밝혀낸 것입니다.</p>
+
+  <div class="example">"네 가지 시비 처리구 간 작물 수확량 차이를 분산분석으로 검정한 후, Tukey HSD 검정으로 처리구 간 우열을 구분하였다."</div>
+  <p>농학·생태학 실험에서 여러 처리구를 동시에 비교할 때 어느 처리 조합이 통계적으로 우수한지 짝지어 확인한 예시다.</p>
+
+  <div class="example">"세 가지 교수법 간 학업 성취도 차이를 비교한 결과, Tukey HSD 사후검정에서 프로젝트 기반 학습군이 나머지 두 집단보다 유의하게 높은 점수를 보였다."</div>
+  <p>교육학 연구에서 여러 교수법을 비교한 뒤 구체적으로 어느 교수법이 우수한지 짝비교로 밝힌 문장이다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>Tukey HSD는 스튜던트화 범위 분포(studentized range distribution)를 이용해 임계값을 계산하며, 이 덕분에 모든 쌍별 비교를 동시에 수행하면서도 전체 1종 오류율을 지정한 수준으로 유지할 수 있습니다. 비슷한 목적의 사후검정으로는 Bonferroni 보정, Scheffé 검정, 등분산 가정이 깨졌을 때 쓰는 Games-Howell 검정 등이 있으며, 논문에서는 어떤 사후검정을 왜 선택했는지(등분산성 검정 결과 등과 함께) 밝히는 것이 바람직합니다.</p>
 
   <h2>주의할 점</h2>
   <p>Tukey HSD는 각 집단의 분산이 비슷하고 표본 크기도 어느 정도 균등하다는 가정 위에서 가장 안정적으로 작동합니다. 집단 간 분산 차이가 크다면 Games-Howell 검정 같은 대안을 사용하는 것이 낫습니다. 또한 이는 유의수준을 보정 없이 t검정을 여러 번 반복하는 것과는 다른 절차이므로, <a href="multiple-comparisons-correction.html">다중비교보정</a> 없이 사후비교를 했다고 오해해서는 안 됩니다.</p>
@@ -96,7 +107,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
