@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,21 @@
   <h2>쉽게 풀면</h2>
   <p>"그 사람 옆에 누가 있는지 보면 그 사람이 어떤 사람인지 알 수 있다"는 말이 있죠. Word2Vec도 비슷한 아이디어입니다. "왕"이라는 단어는 "신하", "왕국", "여왕" 같은 단어들과 자주 함께 나타나고, "여왕"도 비슷한 단어들과 자주 함께 나타납니다. Word2Vec은 아주 많은 문장을 보면서 "이 단어 주변에는 주로 어떤 단어가 나오는가"를 학습하고, 그 결과로 각 단어를 하나의 좌표(벡터)로 표현합니다. 이렇게 학습하면 "왕 - 남자 + 여자 = 여왕"처럼 벡터끼리 더하고 빼는 연산으로 의미 관계를 계산할 수 있는 신기한 성질이 생깁니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>Word2Vec은 신경망 기반 단어 임베딩을 대규모로 학습할 수 있음을 보여준 초기 대표 사례로, 이후 자연어처리 연구 전반에서 텍스트를 벡터화하는 표준적인 접근법으로 자리 잡았습니다. 검색, 추천, 문서 분류처럼 텍스트를 다루는 다양한 응용 분야에서 입력 표현을 만들 때 기준점으로 자주 인용되며, 이후 등장한 GloVe나 문맥화 임베딩과 비교되는 벤치마크 역할도 합니다. 또한 학습 방식(Skip-gram, CBOW)의 단순함 덕분에 다른 도메인(추천 시스템의 아이템 임베딩 등)으로도 응용됩니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"본 연구에서는 Word2Vec의 Skip-gram 모델을 사용해 각 단어를 300차원의 벡터로 사전학습하였다."</div>
   <p>이 문장은 "단어 하나하나를 300개의 숫자로 이루어진 좌표로 바꾸었고, 그 과정에서 Word2Vec이라는 방법과 그 안의 Skip-gram이라는 세부 기법을 사용했다"는 뜻입니다.</p>
+
+  <div class="example">"사용자의 클릭 로그를 문장처럼 취급하여 Word2Vec 방식으로 아이템 임베딩을 학습한 뒤 추천에 활용하였다."</div>
+  <p>단어 대신 상품이나 콘텐츠를 시퀀스로 보고 Word2Vec의 학습 방식을 추천 시스템에 응용한 예시입니다.</p>
+
+  <div class="example">"CBOW와 Skip-gram 두 학습 방식을 비교한 결과, 저빈도 단어에 대해서는 Skip-gram이 더 안정적인 벡터 표현을 학습하는 경향을 보였다."</div>
+  <p>Word2Vec의 두 가지 학습 구조를 비교하며 각각의 특성을 분석한 결과입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>Word2Vec에는 중심 단어로 주변 단어를 예측하는 Skip-gram과, 반대로 주변 단어들로 중심 단어를 예측하는 CBOW라는 두 가지 학습 구조가 있으며, 대체로 Skip-gram은 저빈도 단어 표현에, CBOW는 학습 속도에 강점이 있다고 알려져 있습니다. 학습 과정에서는 전체 어휘에 대한 확률 계산 부담을 줄이기 위해 네거티브 샘플링이나 계층적 소프트맥스 같은 근사 기법이 흔히 사용됩니다. 학습된 임베딩의 품질은 단어 유사도 벤치마크나 유추 과제(analogy task)로 평가하는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
   <p>Word2Vec은 단어 하나에 딱 하나의 벡터만 부여하기 때문에, "배"라는 단어가 "먹는 배"인지 "타는 배"인지 문맥에 따라 뜻이 달라져도 같은 벡터로 표현된다는 한계가 있습니다. 이런 문제는 문맥에 따라 벡터가 달라지는 <a href="transformer.html">트랜스포머</a> 기반 모델이 등장하면서 상당 부분 해결되었습니다.</p>
@@ -96,7 +107,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
