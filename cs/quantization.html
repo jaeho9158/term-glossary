@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/quantization.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>고화질 사진을 그대로 저장하면 용량이 크지만, 화질을 약간 낮춰 압축하면 파일 크기가 확 줄어들면서도 눈으로 보기에는 큰 차이가 없는 경우가 많습니다. 양자화도 비슷한 원리입니다. AI 모델 안의 수많은 숫자(가중치)는 보통 매우 정밀한 소수(32비트)로 저장되는데, 이를 훨씬 단순한 형태(예: 8비트나 4비트 정수)로 바꾸면 모델 파일 용량이 줄고 계산 속도도 빨라집니다. 정밀도를 약간 희생하는 대신, 더 적은 메모리와 더 빠른 속도로 모델을 돌릴 수 있게 되는 것입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>모델을 실제 기기(스마트폰, 임베디드 장치, 엣지 서버 등)에 배포하려면 메모리와 연산 자원의 제약을 고려해야 합니다. 양자화는 모델 구조를 바꾸지 않고도 크기와 속도를 즉시 개선할 수 있는 실용적인 방법이기 때문에, 모델 경량화와 실시간 추론을 다루는 연구·엔지니어링 문헌에서 폭넓게 다뤄집니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"제안 방법은 모델을 8비트로 quantization하여 추론 속도를 2.4배 향상시키면서도 정확도 손실은 0.5%p 이내로 유지하였다."</div>
   <p>이 문장은 "모델 내부의 값을 8비트로 단순화했더니 계산이 2.4배 빨라졌고, 그 대신 정확도는 아주 조금(0.5%p 이내)만 낮아졌다"는 뜻입니다. 즉 성능 손실을 최소화하면서 모델을 더 가볍고 빠르게 만들었다는 의미입니다.</p>
+  <div class="example">"별도의 재학습 없이 학습이 끝난 모델에 사후 양자화(post-training quantization)를 적용하여 배포 비용을 절감하였다."</div>
+  <p>모델을 다시 학습시키는 과정 없이, 이미 완성된 모델의 값들만 낮은 비트로 변환해 곧바로 경량화했다는 뜻입니다.</p>
+  <div class="example">"양자화로 인한 성능 저하를 최소화하기 위해 학습 과정에 양자화 효과를 반영하는 양자화 인식 학습(quantization-aware training)을 적용하였다."</div>
+  <p>학습이 끝난 뒤에 값을 단순화하는 대신, 처음부터 낮은 비트로 표현될 것을 감안해 모델을 학습시켜 정확도 손실을 줄였다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>양자화는 크게 이미 학습된 모델에 사후적으로 적용하는 사후 양자화와, 학습 과정 자체에 양자화의 영향을 반영해 정확도 손실을 최소화하는 양자화 인식 학습으로 나뉩니다. 비트 수를 줄일수록 모델은 가벼워지지만 표현할 수 있는 값의 범위와 정밀도가 줄어들어 오차가 누적될 수 있기 때문에, 어느 층까지 얼마나 낮은 비트로 줄일지를 층별로 다르게 설정하는 혼합 정밀도(mixed precision) 방식도 자주 쓰입니다.</p>
 
   <h2>주의할 점</h2>
   <p>양자화는 모델 구조 자체를 바꾸지 않고 숫자의 표현 방식만 바꾸는 기법이라는 점에서, 큰 모델의 지식을 작은 모델에 옮겨 담는 <a href="knowledge-distillation.html">지식 증류</a>와는 다릅니다. 두 기법은 종종 함께 쓰이지만 원리는 별개이며, 비트 수를 너무 줄이면 정확도가 급격히 떨어질 수 있어 적절한 비트 수 선택이 중요합니다.</p>
@@ -67,7 +85,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

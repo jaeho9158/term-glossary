@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/retrieval-augmented-generation.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,21 @@
   <h2>쉽게 풀면</h2>
   <p>시험을 볼 때 오직 암기한 내용만으로 답을 써야 하는 "암기 시험"과, 책이나 자료를 찾아보면서 답을 쓸 수 있는 "오픈북 시험"의 차이를 생각해 보세요. 오픈북 시험에서는 기억이 정확하지 않아도 자료를 찾아 확인하면서 답을 쓸 수 있어 훨씬 정확한 답을 낼 수 있습니다. 검색증강생성(RAG)도 이와 비슷합니다. 언어모델이 학습 당시 외운 지식에만 의존해 답을 지어내는 대신, 질문이 들어오면 먼저 관련 문서를 검색엔진이나 <a href="embedding.html">임베딩</a> 기반 검색으로 찾아온 뒤, 그 문서 내용을 참고해서 답변을 작성합니다. 그 결과 최신 정보나 사실에 더 근거한 답변을 만들 수 있습니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>언어모델은 학습 시점 이후의 정보나 특정 조직 내부 문서처럼 학습 데이터에 없던 지식은 알지 못합니다. RAG는 모델 자체를 다시 학습시키지 않고도 외부 지식을 최신 상태로 반영할 수 있게 해주기 때문에, 질의응답, 챗봇, 전문 분야 문서 검색 등 실용적인 응용에서 활발히 연구되고 있으며 환각 현상을 줄이는 대표적인 접근법으로 자주 인용됩니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"환각 현상을 줄이기 위해 검색증강생성(RAG) 구조를 도입하여, 질의와 관련된 문서를 외부 지식베이스에서 검색한 뒤 이를 근거로 답변을 생성하도록 설계했다."</div>
   <p>이 문장은 "모델이 사실이 아닌 내용을 그럴듯하게 지어내는 것을 막기 위해, 답변을 만들기 전에 실제 문서를 찾아보고 그 문서에 적힌 내용을 바탕으로 답을 쓰게 했다"는 뜻입니다.</p>
+
+  <div class="example">"사내 법률 문서 검색 시스템에 RAG를 적용하여, 최신 규정이 개정되어도 모델을 재학습하지 않고 검색 대상 문서만 갱신하면 반영되도록 하였다."</div>
+  <p>기업 내부 문서처럼 자주 바뀌는 지식을 다룰 때, 모델 파라미터를 다시 학습시키는 대신 검색되는 문서 저장소만 갱신해 최신 정보를 반영할 수 있다는 실용적 이점을 보여줍니다.</p>
+
+  <div class="example">"의료 질의응답 과제에서 검색된 임상 문헌의 근거 문장을 답변과 함께 제시함으로써 사용자가 답변의 출처를 확인할 수 있도록 하였다."</div>
+  <p>답변만 생성하는 것이 아니라 근거가 된 원문을 함께 보여줌으로써, 사용자가 모델의 답변을 검증할 수 있게 하는 설명 가능성 측면의 활용을 나타냅니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>RAG 시스템의 성능은 크게 관련 문서를 얼마나 잘 찾아오는지를 담당하는 검색기(retriever)와, 검색된 문서를 바탕으로 답을 생성하는 생성기(generator)의 성능에 함께 좌우됩니다. 검색기는 흔히 문장을 벡터로 변환하는 임베딩 기반 유사도 검색을 사용하며, 검색 결과의 개수나 순위를 어떻게 정하는지, 검색된 문서를 생성 단계에 어떤 형태로 넣어주는지에 따라 최종 답변의 품질이 크게 달라질 수 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>RAG는 <a href="hallucination.html">환각현상</a>을 줄이는 데 도움을 주지만, 완전히 없애주지는 않습니다. 검색된 문서 자체가 부정확하거나 질문과 관련이 낮다면, 모델은 여전히 잘못된 근거를 바탕으로 그럴듯한 오답을 만들어낼 수 있습니다. 따라서 검색 단계의 정확도(어떤 문서를 얼마나 잘 찾아오는지)가 전체 시스템 성능에 큰 영향을 줍니다.</p>
@@ -67,7 +87,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

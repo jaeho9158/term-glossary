@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/hyperparameter-tuning.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>요리를 할 때 재료의 양은 레시피를 따라가며 조절하지만, "오븐 온도를 몇 도로 할지", "몇 분 동안 구울지"는 요리를 시작하기 전에 미리 정해야 합니다. 하이퍼파라미터도 마찬가지입니다. <a href="machine-learning.html">머신러닝</a> 모델은 데이터를 보면서 내부 값(가중치)은 스스로 조정하지만, "한 번에 얼마나 크게 배울지(학습률)", "한 번에 몇 개의 데이터를 볼지(배치 크기)", "층을 몇 개로 쌓을지" 같은 값은 사람이 미리 정해줘야 합니다. 이 값들의 조합을 이것저것 바꿔가며 가장 성능이 좋은 조합을 찾는 작업이 하이퍼파라미터 튜닝입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>같은 모델 구조라도 하이퍼파라미터 설정에 따라 성능 차이가 크게 벌어질 수 있기 때문에, 논문에서 제안한 방법의 효과를 공정하게 비교하려면 하이퍼파라미터를 어떻게 정했는지 명확히 밝히는 것이 중요합니다. 이 때문에 재현성(reproducibility) 논의나 실험 설계를 다루는 연구에서 하이퍼파라미터 튜닝 절차는 빠지지 않고 언급됩니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"학습률은 {1e-3, 1e-4, 1e-5} 범위에서, 배치 크기는 {16, 32, 64} 중에서 그리드 서치를 통해 하이퍼파라미터 튜닝을 수행하였다."</div>
   <p>이 문장은 "여러 설정값 조합을 실제로 하나씩 시도해보고, 검증 데이터에서 가장 좋은 성능을 낸 조합을 최종 모델에 사용했다"는 뜻입니다.</p>
+  <div class="example">"베이지안 최적화를 활용해 탐색 공간을 효율적으로 줄이면서 은닉층 수와 드롭아웃 비율을 함께 튜닝하였다."</div>
+  <p>가능한 모든 조합을 일일이 시도하는 대신, 이전 시도의 결과를 참고해 더 유망한 조합을 우선적으로 탐색하는 방식을 썼다는 의미입니다.</p>
+  <div class="example">"강화학습 에이전트의 할인율(discount factor)과 탐험률(exploration rate)은 무작위 탐색(random search)을 통해 선정하였다."</div>
+  <p>정해진 격자 대신 값들을 무작위로 여러 번 뽑아 시도해보면서, 그중 성능이 가장 좋았던 조합을 골랐다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>하이퍼파라미터를 탐색하는 대표적인 방법으로는 가능한 조합을 모두 시도하는 그리드 서치, 무작위로 조합을 뽑아보는 랜덤 서치, 그리고 이전 탐색 결과를 반영해 다음 탐색 지점을 똑똑하게 고르는 베이지안 최적화 등이 있습니다. 탐색 공간이 커질수록 그리드 서치의 계산 비용이 급격히 늘어나기 때문에, 대형 모델을 다루는 최근 연구에서는 랜덤 서치나 베이지안 최적화, 혹은 일부 하이퍼파라미터만 선별적으로 튜닝하는 방식이 자주 선택됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>하이퍼파라미터를 테스트 데이터에 맞춰 조정하면 안 됩니다. 반드시 별도의 검증 데이터(validation set)로 튜닝하고 테스트 데이터는 마지막 평가에만 사용해야 하는데, 이를 지키지 않으면 <a href="overfitting.html">과적합</a>과 비슷하게 모델의 실제 성능이 과대평가됩니다. 또한 <a href="cross-validation.html">교차검증</a>과 함께 사용하면 더 안정적인 튜닝 결과를 얻을 수 있습니다.</p>
@@ -69,7 +87,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

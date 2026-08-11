@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/hallucination.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>시험에서 모르는 문제가 나왔을 때, 백지를 내는 대신 그럴듯한 답을 지어내서 쓰는 학생을 떠올려 보세요. 문장은 매끄럽고 자신감 있게 쓰여 있지만, 내용은 틀렸거나 아예 존재하지 않는 사실일 수 있습니다. 언어모델의 환각현상도 이와 비슷합니다. 모델은 다음에 나올 단어를 확률적으로 가장 그럴듯하게 이어 붙이도록 학습되었기 때문에, 실제로 알지 못하는 내용에 대해서도 문법적으로 자연스럽고 설득력 있는 문장을 만들어냅니다. 문제는 이 문장이 얼마나 자연스러운지와, 실제로 사실인지는 전혀 별개라는 점입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>언어모델이 실제 서비스나 의사결정에 활용되려면 생성된 내용을 어느 정도 신뢰할 수 있어야 하는데, 환각현상은 이 신뢰성을 가장 크게 위협하는 요인 중 하나입니다. 그래서 환각을 탐지하고 줄이는 방법, 그리고 신뢰도를 정량적으로 평가하는 방법은 언어모델의 안전성과 실용성을 다루는 연구에서 지속적으로 중요하게 다뤄지는 주제입니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"생성된 응답 중 12%는 참조 문서에 존재하지 않는 정보를 포함하는 환각현상으로 분류되었으며, 이는 사실 검증이 필요한 응용 분야에서 주요한 한계로 지적된다."</div>
   <p>이 문장은 "모델이 만든 답변 중 상당수가 근거 자료에 없는 내용을 마치 사실처럼 지어내고 있었다"는 뜻이며, 이런 현상 때문에 의료·법률처럼 정확성이 중요한 분야에서는 모델의 답변을 그대로 신뢰하기 어렵다는 점을 지적하는 문맥에서 자주 사용됩니다.</p>
+  <div class="example">"요약 태스크에서 원문에 없는 수치나 인물명을 언급하는 사례를 내재적 환각(intrinsic hallucination)으로 정의하고 별도로 집계하였다."</div>
+  <p>문서 요약을 생성하는 과정에서, 원본 텍스트에는 등장하지 않는 정보를 모델이 새로 만들어낸 경우를 구분해서 세었다는 의미입니다.</p>
+  <div class="example">"질의응답 벤치마크에서 모델이 존재하지 않는 논문이나 법 조항을 근거로 인용하는 경향이 관찰되었다."</div>
+  <p>모델이 그럴듯해 보이지만 실제로는 존재하지 않는 출처를 마치 실제 근거인 것처럼 답변에 포함시켰다는 뜻으로, 신뢰성 평가에서 자주 지적되는 유형입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>환각현상은 흔히 원문이나 입력 자료와 모순되는 내용을 만드는 내재적 환각과, 입력 자료에는 없지만 그 자체로는 검증하기 어려운 내용을 새로 지어내는 외재적 환각으로 구분해 논의됩니다. 이를 평가하기 위해 생성된 문장이 참조 문서의 내용과 얼마나 일치하는지를 자동으로 측정하는 사실 일관성(factual consistency) 지표나, 별도의 검증 모델·검색 결과와 대조하는 방법이 함께 쓰이는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
   <p>환각현상은 모델의 문장이 얼마나 유창한지와는 관계가 없습니다. 오히려 문장이 매끄럽고 자신감 있게 쓰여 있을수록 사람이 오류를 알아채기 어려워, 더 위험할 수 있습니다. <a href="retrieval-augmented-generation.html">검색증강생성(RAG)</a>처럼 외부 근거 문서를 참고하게 하는 방법이 환각을 줄이는 데 도움이 되지만, 완전히 없애지는 못합니다.</p>
@@ -67,7 +85,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

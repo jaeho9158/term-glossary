@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/propensity-score-matching.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,21 @@
   <h2>쉽게 풀면</h2>
   <p>새로운 다이어트 약의 효과를 알고 싶은데, 누구에게 약을 줄지 무작위로 정할 수 없는 상황이라고 해봅시다. 이미 스스로 약을 먹기로 선택한 사람들과 안 먹은 사람들을 그냥 비교하면, 애초에 건강에 더 신경 쓰는 사람이 약도 더 챙겨 먹었을 가능성 때문에 비교가 왜곡됩니다. 성향점수매칭은 나이, 성별, 소득, 운동습관 등 여러 조건을 종합해 "이 사람이 약을 먹었을 확률(성향점수)"을 계산한 뒤, 그 확률이 비슷한 약 복용자와 미복용자를 한 쌍씩 짝지어 비교합니다. 이렇게 하면 마치 조건이 비슷한 사람들을 무작위로 나눈 것과 비슷한 효과를 낼 수 있습니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>사회과학과 의학 연구 대부분은 윤리적·현실적 이유로 무작위 실험을 하기 어렵고, 이미 존재하는 관찰자료를 다룰 수밖에 없는 경우가 많습니다. 성향점수매칭은 이런 관찰자료에서도 처치집단과 대조집단의 관찰 가능한 특성을 최대한 맞춰줌으로써, 실험에 가까운 방식으로 인과효과를 추정할 수 있게 해줍니다. 정책 평가, 의료 개입 효과 분석, 교육 프로그램 효과 검증 등 실험이 불가능하거나 비윤리적인 상황에서 특히 자주 쓰입니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"관찰된 공변량의 불균형을 줄이기 위해 성향점수매칭을 적용한 후 두 집단의 결과 변수를 비교하였다."</div>
   <p>이 문장은 "처치집단과 대조집단이 원래 가진 특성 차이를 최대한 비슷하게 맞춘 뒤, 그 상태에서 결과를 비교했다"는 뜻입니다.</p>
+
+  <div class="example">"직업훈련 프로그램 참여자와 미참여자 간 성향점수매칭을 실시하여 프로그램이 재취업률에 미치는 순수한 효과를 추정하였다."</div>
+  <p>훈련 프로그램에 참여할 만한 조건을 가진 사람들끼리 참여자와 비참여자를 짝지어, 프로그램 자체의 효과만 따로 떼어내 살펴봤다는 뜻입니다.</p>
+
+  <div class="example">"수술 여부에 따른 환자군을 성향점수매칭으로 균형화한 뒤 생존율 차이를 비교 분석하였다."</div>
+  <p>수술을 받은 환자와 받지 않은 환자를 나이, 기저질환 등 조건이 비슷하게 맞춰 짝지은 뒤 생존율을 비교했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>실제 매칭 과정에서는 최근접이웃매칭(nearest neighbor matching), 커널매칭(kernel matching) 등 여러 방식 중 하나를 선택하게 되며, 매칭 후에는 처치집단과 대조집단의 공변량 분포가 실제로 균형을 이루었는지 확인하는 균형성 검정(balance test)이 함께 보고되는 것이 일반적입니다. 또한 매칭에 사용할 변수 조합에 따라 결과가 민감하게 달라질 수 있어, 여러 사양으로 결과의 강건성(robustness)을 함께 점검하는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
   <p>성향점수매칭은 소득, 학력처럼 <strong>관찰되고 측정된 변수</strong>만 통제할 수 있습니다. 연구자가 미처 측정하지 못한 숨은 요인이 처치 여부와 결과에 동시에 영향을 준다면 여전히 <a href="endogeneity.html">내생성</a> 문제가 남습니다. 이런 관찰되지 않는 교란요인까지 다루려면 <a href="instrumental-variable.html">도구변수</a>나 <a href="difference-in-differences.html">이중차분법</a> 같은 다른 방법을 함께 고려해야 합니다.</p>
@@ -67,7 +87,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

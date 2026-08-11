@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/generative-adversarial-network.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>위조지폐범과 위조지폐를 감별하는 감별사가 있다고 상상해 봅시다. 위조범(생성자)은 감별사를 속일 수 있는 더 정교한 가짜 지폐를 만들려고 애쓰고, 감별사(판별자)는 그 가짜를 더 잘 구별해내려고 애씁니다. 둘이 서로 경쟁하며 실력을 키우다 보면, 위조범은 결국 진짜와 거의 구별되지 않는 지폐를 만들어내게 됩니다. GAN(생성적 적대 신경망)은 바로 이 구도를 신경망 두 개로 구현한 것입니다. 생성자는 그럴듯한 가짜 이미지나 데이터를 만들고, 판별자는 그것이 진짜인지 가짜인지 판정하며, 이 둘을 함께 학습시켜 매우 사실적인 데이터를 생성해냅니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>GAN은 데이터가 부족한 상황에서 학습용 데이터를 보충하거나, 이미지·음성처럼 고차원적이고 사실적인 콘텐츠를 생성해야 하는 문제에서 오랫동안 핵심적인 역할을 해왔습니다. 생성자와 판별자가 서로 경쟁하며 성능을 끌어올리는 적대적 학습(adversarial training) 개념은 GAN을 넘어 다양한 생성 모델과 로버스트니스(robustness) 연구에도 영향을 주었기 때문에 자주 다뤄집니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"희귀 질환 데이터의 부족을 보완하기 위해 GAN을 이용해 실제 환자 영상과 유사한 합성 의료 영상을 생성하였다."</div>
   <p>이 문장은 "실제 데이터가 적은 문제를 해결하려고, GAN의 생성자가 진짜처럼 보이는 새로운 데이터를 인공적으로 만들어냈다"는 뜻입니다.</p>
+  <div class="example">"저해상도 이미지를 고해상도로 복원하는 초해상화(super-resolution) 과제에 조건부 GAN 구조를 적용하여 시각적 세부 표현력을 개선하였다."</div>
+  <p>단순히 화질만 키우는 것이 아니라, 판별자가 자연스러운 세부 질감을 요구하도록 학습시켜 더 사실적인 고해상도 이미지를 만들어냈다는 의미입니다.</p>
+  <div class="example">"텍스트 설명을 조건으로 입력받아 그에 대응하는 이미지를 생성하는 텍스트-이미지 GAN 모델을 제안하였다."</div>
+  <p>단순한 무작위 이미지 생성이 아니라, 주어진 문장 내용에 맞는 이미지를 만들어내도록 생성자를 조건화했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>GAN의 학습은 생성자와 판별자가 서로 상반된 목표를 갖는 최소최대(minimax) 게임으로 정식화됩니다. 이 균형을 안정적으로 맞추는 것이 어렵기 때문에, 손실 함수를 개선한 Wasserstein GAN이나 조건 정보를 함께 입력받는 조건부 GAN(cGAN) 등 다양한 변형이 제안되어 왔습니다. 생성 품질을 정량적으로 비교할 때는 FID(Fréchet Inception Distance)와 같이 실제 이미지 분포와 생성된 이미지 분포의 차이를 측정하는 지표가 흔히 사용됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>GAN은 생성자와 판별자의 균형이 깨지면 학습이 불안정해지거나, 생성자가 몇 가지 비슷한 패턴만 반복해서 만들어내는 "모드 붕괴" 문제를 겪기 쉽습니다. 단순히 기존 데이터를 변형·복제하는 <a href="data-augmentation.html">데이터증강</a>과 달리, GAN은 아예 존재하지 않던 새로운 데이터를 처음부터 생성한다는 점에서 차이가 있습니다.</p>
@@ -69,7 +87,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

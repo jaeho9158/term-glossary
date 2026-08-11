@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/outlier.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>반 학생 30명의 용돈을 조사했는데 29명은 5만원 안팎인데 한 명만 500만원이라면, 그 한 명이 바로 이상치입니다. 이 값을 그대로 두고 평균을 계산하면 "우리 반 평균 용돈은 20만원"처럼 실제와 동떨어진 결론이 나올 수 있습니다. 이상치는 입력 실수나 측정 오류일 수도 있고, 실제로 존재하는 특이한 사례일 수도 있어서 무작정 지우기보다는 왜 그런 값이 나왔는지 먼저 확인하는 것이 중요합니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>이상치는 평균이나 표준편차, 회귀계수처럼 널리 쓰이는 통계량을 크게 왜곡시킬 수 있어, 데이터 전처리 단계에서 반드시 점검해야 하는 항목입니다. 특히 표본 크기가 작을수록 극단값 하나가 전체 결과의 방향을 바꿀 수 있기 때문에, 이상치를 어떻게 다뤘는지가 연구 결과의 신뢰성과 재현성에 직접 영향을 미칩니다. 그래서 논문의 방법론 부분에는 이상치를 어떤 기준으로 탐지하고 어떻게 처리했는지가 흔히 별도로 기술됩니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"측정 오류로 판단되는 이상치 3건을 제외한 후 재분석을 실시하였다."</div>
   <p>비정상적으로 튀는 값 3개를 걸러내고 나머지 데이터로 다시 통계 분석을 했다는 뜻입니다.</p>
+  <div class="example">"설문 응답 중 응답 시간이 지나치게 짧아 성실하지 않은 것으로 판단되는 이상치를 제거한 후 분석을 진행하였다."</div>
+  <p>설문 기반 연구에서는 측정 오류뿐 아니라 불성실 응답도 이상치로 간주해 걸러낼 수 있다는 것을 보여줍니다.</p>
+  <div class="example">"실험군 중 반응이 정상 범위를 크게 벗어난 개체 2마리를 이상치로 판단하여 통계분석에서 제외하였다."</div>
+  <p>동물실험이나 생명과학 실험에서도 개체 간 편차가 비정상적으로 큰 경우 이상치로 처리한다는 것을 보여줍니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>이상치를 탐지하는 방법으로는 평균에서 표준편차의 일정 배수(흔히 2~3배) 이상 떨어진 값을 찾는 방법, 사분위범위(IQR)를 이용해 1사분위수와 3사분위수에서 일정 배수 밖에 있는 값을 찾는 방법 등이 흔히 쓰입니다. 이상치를 다루는 방식도 완전히 제거하는 것 외에, 값을 일정 범위로 눌러주는 윈저화(winsorizing)나 이상치에 덜 민감한 로버스트(robust) 통계 기법을 쓰는 방법 등 여러 대안이 있습니다. 어떤 방법을 택하든 그 기준과 절차를 투명하게 밝히는 것이 중요합니다.</p>
 
   <h2>주의할 점</h2>
   <p>이상치를 제거하는 기준(예: 평균에서 표준편차 3배 이상 벗어난 값)을 논문에 명시하지 않고 임의로 데이터를 빼면 결과를 왜곡시켰다는 비판을 받을 수 있습니다. 이상치 처리 방법과 이유를 반드시 밝혀야 합니다.</p>
@@ -68,7 +86,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

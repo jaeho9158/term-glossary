@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/fine-tuning.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>요리를 두루 배운 셰프를 떠올려 보세요. 이 셰프는 이미 기본기와 다양한 요리법을 익혔기 때문에, 특정 레스토랑에 취업하면 며칠간 그 가게의 시그니처 메뉴와 손님 취향에 맞춰 조금만 더 연습하면 됩니다. 처음부터 요리를 다시 배울 필요가 없는 것이죠. 파인튜닝도 마찬가지입니다. 방대한 데이터로 이미 언어나 이미지의 일반적인 패턴을 배운 사전학습 모델을 가져와서, 내가 풀고 싶은 구체적인 문제(예: 의료 문서 분류, 특정 말투의 챗봇)에 맞는 소량의 데이터로 몇 단계만 추가로 학습시키는 것입니다. 처음부터 모델을 학습시키는 것보다 훨씬 적은 데이터와 시간으로도 좋은 성능을 낼 수 있습니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>대규모 모델을 처음부터 학습시키는 데는 막대한 데이터와 연산 자원이 필요하지만, 대부분의 실무·연구 문제는 그 정도 규모의 자원을 감당하기 어렵습니다. 파인튜닝은 이미 일반적인 지식을 갖춘 사전학습 모델을 재활용해 특정 도메인이나 과제에 맞게 효율적으로 특화시킬 수 있게 해주기 때문에, 전이학습 및 모델 적응(adaptation) 연구 전반에서 핵심적으로 다뤄집니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"사전학습된 언어모델을 도메인 특화 데이터셋 5,000건으로 파인튜닝한 결과, 기존 대비 분류 정확도가 5%p 향상되었다."</div>
   <p>이 문장은 "이미 방대한 텍스트로 학습된 모델을 가져와, 우리 분야의 데이터 5,000건만으로 추가 학습시켰더니 성능이 더 좋아졌다"는 뜻입니다. 처음부터 모델을 새로 만드는 것보다 훨씬 효율적인 접근입니다.</p>
+  <div class="example">"사전학습된 영상 분류 모델의 마지막 층만 새로운 클래스에 맞춰 파인튜닝하고 나머지 층은 고정(freeze)하였다."</div>
+  <p>모델 전체를 다시 학습시키지 않고, 새로운 과제와 직접 관련된 일부 층만 추가로 학습시켜 계산 비용을 줄였다는 의미입니다.</p>
+  <div class="example">"제한된 연산 자원 환경에서는 전체 파라미터 대신 어댑터 모듈만 파인튜닝하는 파라미터 효율적 방식을 적용하였다."</div>
+  <p>모델의 모든 가중치를 업데이트하는 대신, 추가로 삽입한 작은 모듈만 학습시켜 자원을 절약하면서도 성능을 유지했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>최근에는 모델 전체 파라미터를 업데이트하는 풀 파인튜닝(full fine-tuning) 대신, LoRA(Low-Rank Adaptation)와 같이 일부 저차원 파라미터만 학습시키는 파라미터 효율적 파인튜닝(PEFT, Parameter-Efficient Fine-Tuning) 기법이 널리 쓰입니다. 이런 방식은 메모리와 저장 공간을 크게 절약하면서도 풀 파인튜닝에 근접한 성능을 낼 수 있어, 대형 모델을 다루는 논문에서 자주 언급됩니다. 또한 파인튜닝 이후 모델이 원래 갖고 있던 범용 능력을 얼마나 유지하는지도 함께 평가되는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
   <p>파인튜닝을 할 때 학습률을 너무 크게 잡으면, 사전학습 때 익힌 일반적인 지식을 잃어버리는 "재앙적 망각(catastrophic forgetting)" 현상이 발생할 수 있습니다. 학습률과 같은 값은 <a href="gradient-descent.html">경사하강법</a> 과정에서 조정되는 핵심 설정이므로, 파인튜닝 시에는 보통 사전학습 때보다 훨씬 작은 학습률을 사용합니다.</p>
@@ -69,7 +87,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

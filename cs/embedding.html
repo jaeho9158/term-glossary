@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/embedding.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,21 @@
   <h2>쉽게 풀면</h2>
   <p>지도 위의 도시들을 생각해보세요. "서울"과 "인천"은 지도에서 가까이 있고, "서울"과 "부산"은 지도에서 멀리 떨어져 있습니다. 이 위치(좌표)만 봐도 두 도시가 얼마나 가까운 관계인지 알 수 있죠. 임베딩은 이런 지도를 단어나 문장, 이미지에 대해 만드는 것입니다. 컴퓨터는 원래 "고양이"와 "강아지"라는 글자만 봐서는 이 둘이 비슷한 의미인지 전혀 알 수 없습니다. 그런데 이 단어들을 수백 개의 숫자로 이루어진 좌표(벡터)로 바꿔주면, 의미가 비슷한 단어일수록 좌표상에서 가까운 위치에 놓이게 만들 수 있습니다. 이렇게 만들어진 숫자 좌표가 임베딩입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>임베딩은 텍스트, 이미지, 사용자 행동처럼 서로 다른 종류의 복잡한 데이터를 신경망이 처리할 수 있는 공통된 숫자 형태로 바꿔주는 기본 단계이기 때문에, 자연어처리와 추천 시스템, 검색, 컴퓨터 비전 등 거의 모든 딥러닝 응용 분야의 출발점 역할을 합니다. 최근에는 문서 검색이나 챗봇의 지식 검색(RAG)처럼 의미 기반 검색을 구현하는 데도 임베딩이 핵심적으로 쓰입니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"각 문서를 사전 학습된 언어 모델을 통해 768차원의 임베딩으로 변환한 뒤, 코사인 유사도를 이용해 문서 간 유사성을 계산하였다."</div>
   <p>이 문장은 "문서 하나하나를 숫자 벡터로 바꾸고, 그 벡터들이 얼마나 비슷한 방향을 가리키는지를 계산해서 문서들이 서로 얼마나 비슷한지 판단했다"는 뜻입니다.</p>
+
+  <div class="example">"사용자의 클릭 이력을 임베딩으로 학습하여, 취향이 비슷한 사용자들이 벡터 공간에서 서로 가까이 위치하도록 하였다."</div>
+  <p>추천 시스템 연구에서 사용자가 클릭한 항목들의 패턴을 벡터로 바꾸어, 비슷한 취향을 가진 사용자들이 좌표상에서 가깝게 모이도록 만들었다는 뜻입니다.</p>
+
+  <div class="example">"이미지와 텍스트를 동일한 임베딩 공간으로 정렬하여 텍스트 질의만으로 관련 이미지를 검색할 수 있도록 하였다."</div>
+  <p>멀티모달 연구에서 이미지와 글을 같은 좌표계 안에 놓이도록 학습시켜, 글로 검색하면 관련된 이미지를 찾을 수 있게 만들었다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>임베딩 공간에서는 벡터 간 거리나 코사인 유사도로 의미적 유사성을 측정하는 것이 일반적이며, 잘 학습된 임베딩 공간에서는 단어나 개념 사이의 관계가 벡터 연산으로 어느 정도 나타나기도 한다고 알려져 있습니다. 또한 단어 하나에 고정된 벡터를 부여하던 초기 방식과 달리, 최근의 문맥 기반 임베딩은 같은 단어라도 문장 속 맥락에 따라 서로 다른 벡터로 표현된다는 점이 중요한 차이입니다.</p>
 
   <h2>주의할 점</h2>
   <p>임베딩은 원본 데이터의 "의미"를 근사적으로 담을 뿐, 완벽하게 보존하는 것은 아닙니다. 어떤 모델과 어떤 데이터로 임베딩을 학습시켰는지에 따라 결과가 달라지며, 학습 데이터에 존재하던 편향이 그대로 임베딩에 반영될 수도 있습니다. 이는 <a href="algorithm-bias.html">알고리즘 편향</a> 문제와도 연결됩니다. 또한 임베딩은 그 자체로 예측을 하는 것이 아니라, <a href="transformer.html">트랜스포머</a>와 같은 모델의 입력이나 <a href="natural-language-processing.html">자연어처리</a> 작업의 중간 결과물로 흔히 사용됩니다.</p>
@@ -69,7 +89,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

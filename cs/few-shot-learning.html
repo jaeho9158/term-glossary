@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/few-shot-learning.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,19 @@
   <h2>쉽게 풀면</h2>
   <p>사람은 새로운 요리를 배울 때 레시피 수백 개를 볼 필요 없이, 다른 사람이 한두 번 만드는 걸 보기만 해도 비슷하게 따라 만들 수 있습니다. Few-shot learning은 AI 모델에게 이런 능력을 부여하려는 접근입니다. 보통 딥러닝 모델은 새로운 분류를 학습하려면 수천~수만 개의 예시가 필요하지만, few-shot learning에서는 클래스당 몇 개(1개면 one-shot, 5개면 5-shot)의 예시만 보여주고도 어느 정도 잘 작동하도록 만듭니다. 대개 이미 대규모 데이터로 사전학습된 모델의 일반적인 지식을 활용해, 적은 예시로도 빠르게 적응하는 방식입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>실제 응용에서는 라벨링된 데이터를 대량으로 확보하기 어려운 경우가 많습니다. 희귀 질환 진단이나 신규 제품 분류처럼 데이터 자체가 애초에 적은 도메인, 혹은 라벨링 비용이 비싼 도메인에서 few-shot learning은 실질적인 해결책이 됩니다. 이 때문에 메타러닝, 사전학습-적응 패러다임 등과 함께 학습 효율성을 다루는 연구 흐름에서 핵심 주제로 다뤄집니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"본 연구에서는 클래스당 5개의 예시만 제공하는 5-shot 설정에서 제안 모델의 분류 정확도를 평가하였다."</div>
   <p>이 문장은 "각 카테고리마다 학습용 예시를 딱 5개씩만 주고, 모델이 새로운 데이터를 얼마나 잘 분류하는지 측정했다"는 뜻입니다. 예시가 적을수록 모델의 일반화 능력을 더 엄격하게 검증할 수 있습니다.</p>
+  <div class="example">"의료 영상 진단 과제에서 클래스당 단 하나의 예시만 주어지는 one-shot 설정에서도 기존 기법 대비 향상된 성능을 보였다."</div>
+  <p>희귀 질환처럼 사례 수 자체가 극히 적은 의료 영상 분야에서, 예시를 단 1개만 주고도 모델이 얼마나 잘 진단하는지 검증했다는 의미입니다.</p>
+  <div class="example">"자연어 처리 태스크에서는 프롬프트에 소수의 예시를 포함시키는 in-context few-shot 방식으로 별도의 추가 학습 없이 성능을 개선하였다."</div>
+  <p>대형 언어모델의 프롬프트 안에 몇 개의 예시를 함께 넣어주는 것만으로, 모델 가중치를 다시 학습시키지 않고도 성능을 끌어올렸다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>few-shot learning을 구현하는 대표적인 방식으로는 메타러닝(meta-learning) 기반 접근과 메트릭 학습(metric learning) 기반 접근이 있습니다. 메타러닝은 여러 개의 작은 작업(task)을 반복적으로 경험시켜 "새로운 작업에 빠르게 적응하는 법" 자체를 학습시키는 방식이고, 메트릭 학습 기반 접근은 예시들 간의 유사도를 잘 측정하는 임베딩 공간을 학습해 새로운 예시를 가장 가까운 클래스에 매칭시키는 방식입니다. 최근에는 대형 언어모델의 프롬프트에 예시를 넣는 in-context learning도 넓은 의미의 few-shot learning으로 다뤄지는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
   <p>few-shot learning은 예시가 아예 없는 상태에서 작업을 수행하는 zero-shot learning과는 다릅니다. 또한 <a href="fine-tuning.html">파인튜닝</a>과 혼동하기 쉬운데, few-shot learning은 예시 개수 자체가 적다는 조건에 초점이 있고, 파인튜닝은 사전학습된 모델의 가중치를 추가 데이터로 다시 조정하는 방법을 가리킨다는 점에서 구분됩니다.</p>
@@ -68,7 +86,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>

@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/ablation-study.html">
 <link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
 <!-- AdSense:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
 <!-- AdSense:end -->
@@ -30,7 +39,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -50,9 +58,21 @@
   <h2>쉽게 풀면</h2>
   <p>여러 재료가 들어간 라면 레시피가 있다고 해봅시다. "마늘을 빼면 맛이 어떻게 달라질까?", "파를 빼면?" 하나씩 재료를 빼보면서 각 재료가 맛에 얼마나 기여하는지 확인할 수 있습니다. Ablation study도 똑같습니다. AI 모델에는 보통 여러 구성 요소(특정 모듈, 손실 함수 항목, 전처리 단계 등)가 들어가 있는데, 이 중 하나씩 빼거나 단순한 버전으로 바꿔서 다시 성능을 측정합니다. 뺐을 때 성능이 크게 떨어지면 "이 요소가 중요하다", 별 차이가 없으면 "이 요소는 없어도 된다"고 판단하는 것입니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>새로운 모델을 제안하는 논문은 단순히 최종 성능이 좋다는 것만으로는 설득력이 부족하며, 제안한 각 구성 요소가 실제로 성능 향상에 기여했음을 보여주어야 리뷰어와 독자를 납득시킬 수 있습니다. 이 때문에 ablation study는 모델 구조를 설계할 때 어떤 부분이 핵심적인지 파악하고, 불필요한 복잡도를 줄이는 데도 실무적으로 활용됩니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"제안한 모델에서 attention 모듈을 제거한 ablation study 결과, 성능이 3.2%p 하락하여 해당 모듈의 기여도를 확인할 수 있었다."</div>
   <p>이 문장은 "attention 모듈을 뺀 버전과 원래 모델을 비교했더니, 그 모듈이 있을 때가 3.2%p 더 좋은 성능을 냈다"는 뜻입니다. 즉 해당 모듈이 성능 향상에 실질적으로 기여했음을 실험으로 입증한 것입니다.</p>
+
+  <div class="example">"데이터 증강 기법을 단계별로 제거하는 ablation study를 통해 각 증강 기법이 최종 정확도에 미치는 영향을 분석했다."</div>
+  <p>컴퓨터 비전 연구에서 회전, 자르기 등 여러 데이터 증강 기법을 하나씩 빼면서 각각이 모델 정확도에 얼마나 기여하는지 따로따로 확인했다는 뜻입니다.</p>
+
+  <div class="example">"보상 함수의 각 항을 제거한 ablation study 결과, 탐색 보너스 항이 학습 안정성에 가장 큰 영향을 미치는 것으로 나타났다."</div>
+  <p>강화학습 연구에서 보상 함수를 구성하는 여러 항목 중 하나씩 빼보며 실험한 결과, 탐색을 장려하는 항이 학습을 안정시키는 데 가장 중요했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>엄밀한 ablation study는 무작위 시드를 바꿔가며 여러 번 반복 실험하고 평균과 분산을 함께 보고하는 것이 바람직한데, 딥러닝 모델의 학습 결과는 초기화나 데이터 순서에 따라 편차가 생길 수 있기 때문입니다. 또한 구성 요소들이 서로 상호작용하는 경우 하나씩 순서대로 제거하는 방식만으로는 실제 기여도를 완전히 분리해내기 어려울 수 있어, 여러 요소를 동시에 제거하는 조합 실험을 함께 보고하는 논문도 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>ablation study는 모델이 "왜" 잘 작동하는지를 보여주기 위한 것이지, 모델이 "얼마나" 좋은지를 다른 모델과 비교하는 실험이 아닙니다. 또한 한두 개 요소만 제거해보고 결론을 내리면 우연에 의한 결과일 수 있으므로, 가능하면 여러 조합을 체계적으로 검증하고 <a href="cross-validation.html">교차검증</a>과 함께 신뢰도를 확인하는 것이 좋습니다.</p>
@@ -69,7 +89,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
