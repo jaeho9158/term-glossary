@@ -50,7 +50,6 @@
     <nav id="site-nav" class="site-nav">
       <a href="../index.html">용어 목록</a>
       <a href="../about.html">소개</a>
-      <a href="../contact.html">문의</a>
       <a href="../login.html" id="nav-login">로그인</a>
       <a href="../signup.html" id="nav-signup">회원가입</a>
       <a href="../history.html" id="nav-history" hidden>내 기록</a>
@@ -78,9 +77,18 @@
   <h2>쉽게 풀면</h2>
   <p>큰 소포를 우체국에서 보낼 때, 내용물이 크면 여러 상자로 나누어 각 상자에 순서 번호와 받는 사람 주소를 적어 보내는 것을 떠올려 보세요. TCP/IP도 비슷하게 동작합니다. IP(Internet Protocol)는 "받는 사람 주소"를 붙여 각 데이터 조각(패킷)이 어디로 가야 하는지 알려주고, TCP(Transmission Control Protocol)는 "상자에 번호를 매기고 다 도착했는지 확인"하는 역할을 합니다. 중간에 조각 하나가 사라지거나 순서가 뒤바뀌어도, TCP가 다시 요청하거나 순서를 맞춰서 원래 데이터를 완벽하게 복원해 줍니다.</p>
 
+  <h2>왜 중요한가</h2>
+  <p>TCP/IP는 오늘날 거의 모든 인터넷 통신의 기반이 되는 표준이기 때문에, 새로운 네트워크 프로토콜이나 분산시스템을 제안하는 논문은 기존 TCP/IP 스택과의 호환성이나 그 위에서의 성능을 반드시 검증해야 합니다. 클라우드 컴퓨팅, IoT, 5G 네트워크, 보안 연구 등 통신이 관여하는 거의 모든 컴퓨터과학 분야에서 실험 환경의 기본 전제로 다뤄지는 개념입니다.</p>
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"제안한 프로토콜은 기존 TCP/IP 스택 위에서 동작하도록 설계되어 별도의 하드웨어 변경 없이 적용할 수 있다."</div>
   <p>이 문장은 "새로 만든 통신 방식이 인터넷의 표준 통신 규칙인 TCP/IP 구조를 그대로 활용하기 때문에 기존 장비와 호환된다"는 뜻입니다. 네트워크·분산시스템·IoT 관련 논문에서 TCP/IP는 실험 환경의 기본 통신 계층으로 자주 전제됩니다.</p>
+
+  <div class="example">"무선 센서 네트워크 환경에서 TCP/IP의 혼잡제어 방식이 높은 패킷 손실률로 인해 성능 저하를 유발함을 확인하였다."</div>
+  <p>사물인터넷이나 무선 네트워크 환경에서 유선 환경을 전제로 설계된 TCP/IP의 한계를 지적하는 연구에서 쓰이는 표현이다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>TCP/IP는 흔히 응용 계층, 전송 계층, 인터넷 계층, 네트워크 접근 계층으로 나뉘는 계층 구조로 설명되며, 각 계층은 자신의 역할만 처리하고 아래위 계층과는 정해진 규칙으로만 데이터를 주고받습니다. TCP는 데이터를 순서대로 빠짐없이 전달하는 신뢰성을 보장하는 대신 속도가 상대적으로 느린데, 실시간 스트리밍처럼 신뢰성보다 속도가 중요한 경우에는 신뢰성을 포기하는 대신 더 빠른 UDP가 대안으로 쓰입니다. 논문에서 통신 프로토콜을 평가할 때는 어떤 계층에서, 어떤 지표(지연시간, 처리량, 패킷 손실률 등)로 성능을 측정했는지 확인하는 것이 중요합니다.</p>
 
   <h2>주의할 점</h2>
   <p>TCP/IP는 도메인 이름이 아니라 숫자로 된 IP 주소로 통신합니다. 사람이 입력한 도메인 이름(예: example.com)을 IP 주소로 바꿔주는 과정은 <a href="dns.html">DNS</a>가 미리 처리해 준 뒤에야 TCP/IP 통신이 시작됩니다.</p>
@@ -95,7 +103,7 @@
 
 <footer class="site-footer">
   <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a> · <a href="../contact.html">문의</a>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
 </footer>
 <script src="../assets/vendor/fuse.min.js"></script>
 <script src="../assets/header-search.js"></script>
