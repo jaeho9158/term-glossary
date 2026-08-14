@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Inverse Kinematics of Robotic Manipulators(로봇 역기구학)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Inverse Kinematics of Robotic Manipulators(로봇 역기구학)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/robot-kinematics-inverse-solution.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 로봇 역기구학 (Inverse Kinematics of Robotic Manipulators)</p>
+  <h1>로봇 역기구학 (Inverse Kinematics of Robotic Manipulators)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=mechanical">기계공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 로봇 팔의 손끝(엔드이펙터)이 원하는 위치와 자세에 도달하도록 각 관절이 취해야 할 각도 값을 계산해내는 문제입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사람이 손을 특정 지점으로 뻗을 때 어깨, 팔꿈치, 손목 각도를 하나하나 계산하며 움직이지 않아도 자연스럽게 도달합니다. 로봇은 그렇지 않기 때문에 "손끝이 여기에 있어야 한다"는 목표를 주면, 그 목표를 만족시키는 각 관절의 각도를 역으로 풀어내야 합니다. 이것이 역기구학입니다. 반대로 각 관절의 각도를 알 때 손끝의 위치를 구하는 것은 순기구학이라고 부릅니다. 로봇이 물체를 정확히 집거나 특정 경로를 따라 움직이려면 역기구학 계산이 반드시 필요합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>산업용 로봇, 협동로봇, 의료용 로봇 등 대부분의 로봇 팔 제어는 목표 작업 공간 좌표에서 시작하기 때문에 역기구학 해를 구하는 것이 동작 계획의 첫 단계입니다. 관절 구조에 따라 해가 여러 개 존재하거나(다중해), 해가 존재하지 않는 특이 영역이 생길 수 있어 로봇공학 연구에서 지속적으로 다뤄지는 핵심 주제입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"6자유도 매니퓰레이터에 대해 기하학적 방법을 이용한 역기구학 해석적 해를 유도하고, 다중해 중 관절 제한 조건을 만족하는 최적해를 선택하는 알고리즘을 제안하였다."</div>
+  <p>여러 개의 가능한 관절각 조합 중 실제 로봇이 낼 수 있는 각도 범위 안에서 최선의 해를 고르는 방법을 다뤘다는 뜻입니다.</p>
+  <div class="example">"특이점 근방에서 해석적 역기구학 해가 발산하는 문제를 해결하기 위해 자코비안 기반 수치적 역기구학 기법을 적용하였다."</div>
+  <p>계산이 불안정해지는 구간에서는 수식으로 바로 푸는 대신 반복 계산 방식으로 근사해를 구했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>역기구학은 해석적(closed-form) 방법과 수치적(numerical) 방법으로 나뉩니다. 관절 구조가 단순한 로봇은 삼각함수 관계로 해석적 해를 구할 수 있지만, 자유도가 많거나 구조가 복잡하면 자코비안 행렬을 이용한 반복 근사 방식이 흔히 쓰입니다. 특이점(singularity) 근처에서는 자코비안이 랭크를 잃어 해가 불안정해질 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>역기구학 해는 로봇 구조에 따라 하나가 아니라 여러 개 존재할 수 있으며, 특정 자세에서는 해가 아예 존재하지 않을 수도 있습니다. 따라서 관절 제한, 충돌 회피, 특이점 회피를 함께 고려한 해 선택이 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="jacobian-matrix-manipulator.html">매니퓰레이터 자코비안</a>
+    <a href="parallel-kinematic-mechanism.html">병렬기구학 메커니즘</a>
+    <a href="soft-robotics-actuator.html">소프트로보틱스 액추에이터</a>
+    <a href="model-predictive-control-mechanical-systems.html">모델예측제어</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
