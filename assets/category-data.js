@@ -72,9 +72,14 @@
     aviation: "항공우주공학·항공운항학",
     naval: "조선해양공학",
     robotics: "로봇공학",
+    biotech: "생명공학",
+    materials: "재료공학",
+    mechanical: "기계공학",
+    electrical: "전기전자공학",
+    chemeng: "화학공학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -142,6 +147,11 @@
     aviation: "양력, 항공관제처럼 항공기 설계와 운항 관리에 쓰이는 개념을 다룹니다. 항공우주공학·항공운항학 논문에 유용합니다.",
     naval: "선체구조, 해양플랜트처럼 선박과 해양구조물 설계에 쓰이는 개념을 다룹니다. 조선해양공학 논문에 유용합니다.",
     robotics: "역기구학, 자율주행처럼 로봇 설계와 지능제어에 쓰이는 개념을 다룹니다. 로봇공학 논문에 유용합니다.",
+    biotech: "유전자편집, 발효공정처럼 생물학적 시스템을 산업·의료 목적으로 응용하는 생명공학 개념을 다룹니다. 바이오 산업이나 생명공학 논문에 유용합니다.",
+    materials: "결정구조, 복합재료처럼 소재의 조성과 물성을 설계·평가하는 재료공학 개념을 다룹니다. 신소재 연구나 재료공학 논문에 유용합니다.",
+    mechanical: "유한요소해석, 열교환기처럼 기계 시스템의 설계와 제조에 쓰이는 기계공학 개념을 다룹니다. 기계설계·생산공학 논문에 유용합니다.",
+    electrical: "전력전자, 반도체소자처럼 전기·전자 시스템의 설계와 제어에 쓰이는 개념을 다룹니다. 전기전자공학 논문에 유용합니다.",
+    chemeng: "반응공학, 분리공정처럼 화학물질을 대량으로 생산·가공하는 공정을 설계하는 화학공학 개념을 다룹니다. 화학공정·플랜트 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -210,6 +220,11 @@
     aviation: ["항공역학·항공기설계","항공운항·항공관제"],
     naval: ["선박설계·구조공학","해양플랜트·해양구조물","해운산업·안전규정","해양환경공학·수중음향"],
     robotics: ["로봇기구학·제어","자율로봇·로봇지능","로봇공학 산업응용"],
+    biotech: ["유전공학·genome편집","발효·바이오공정","세포·조직공학","바이오의약품·진단기술"],
+    materials: ["금속재료·합금","세라믹·복합재료","고분자·나노재료","재료분석·물성평가"],
+    mechanical: ["역학·재료역학","열유체·에너지시스템","기계설계·CAD/CAM","제조공정·생산자동화"],
+    electrical: ["회로·전력전자","반도체·소자공학","제어·계측공학","통신·신호처리"],
+    chemeng: ["반응공학·촉매공정","분리공정·물질전달","공정설계·플랜트엔지니어링","환경화공·에너지공정"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
