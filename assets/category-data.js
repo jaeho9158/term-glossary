@@ -80,9 +80,12 @@
     forensicsci: "법과학",
     actuarial: "보험계리학",
     cartography: "지도학",
+    urban: "도시계획학",
+    disaster: "재난안전관리학",
+    labor: "노사관계학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -158,6 +161,9 @@
     forensicsci: "DNA프로파일링, 탄도학처럼 범죄 수사와 법적 판단을 위해 물리·화학·생물학적 증거를 과학적으로 분석하는 법과학 개념을 다룹니다. 법과학·범죄수사 논문에 유용합니다.",
     actuarial: "생명표, 순보험료처럼 확률론과 통계를 이용해 보험·연금의 위험과 재무적 불확실성을 계량화하는 보험계리학 개념을 다룹니다. 보험·연금·리스크관리 논문에 유용합니다.",
     cartography: "지도투영법, 공간보간처럼 공간 정보를 지도로 표현하고 지리공간 데이터를 분석·시각화하는 지도학 개념을 다룹니다. GIS·지리정보 논문에 유용합니다.",
+    urban: "용도지역제, 도시재생처럼 도시의 토지이용·교통·주거환경을 계획하고 관리하는 도시계획학 개념을 다룹니다. 도시공학·도시행정 논문에 유용합니다.",
+    disaster: "재난관리단계, 회복탄력성처럼 자연재해와 인위적 재난의 예방·대응·복구 체계를 다루는 재난안전관리학 개념을 다룹니다. 방재공학·재난관리 논문에 유용합니다.",
+    labor: "단체교섭, 부당노동행위처럼 노동자와 사용자 간의 관계와 노동정책을 다루는 노사관계학 개념을 다룹니다. 노동법·인적자원관리 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -234,6 +240,9 @@
     forensicsci: ["기초이론","디지털포렌식","문서감정","미세증거분석","방화조사","범죄심리분석","법곤충학","법독성학","법유전학","법의병리학","법의인류학","법정신의학","법정증거","법치의학","법혈청학","법회계","분석기기","실험실운영","증거관리","지문감식","총기및도구흔","통계및확률평가","폭발물분석","현장수사","혈흔분석"],
     actuarial: ["기초개념","다중생명이론","다중탈퇴이론","보험재무","생명보험상품","생명보험수리","생명표이론","손해보험수리","손해사정","신뢰도이론","연금수리","요율산정","위험이론","재보험"],
     cartography: ["공간분석","공간자료 모델","공간자료 처리","웹지도학","주제도","지도 기본 요소","지도 기호와 디자인","지도 유형","지도 인지","지도 일반화","지도 투영","지도학 개론","지리정보시스템","지명","측량·원격탐사","측지·좌표계"],
+    urban: ["공간분석과 GIS","교통계획","기반시설과 방재","도시경제","도시계획이론","도시설계","도시재생","도시행정과 거버넌스","인구와 사회","주택정책","토지이용계획","환경계획"],
+    disaster: ["위험성 평가·분석","인위·사회재난","자연재해","재난 거버넌스·법제·국제협력","재난 경보·커뮤니케이션","재난 대응","재난 복구","재난 예방·완화","재난 유형 분류","재난경제·방재공학","재난관리 이론·단계","재난심리·사회적 영향","재난정보시스템·공간정보","회복탄력성·취약성"],
+    labor: ["고용형태·고용관계","근로자참여·산업민주주의","근로조건·안전보건","노동법·권리","노동시장","노동정책·사회적 대화","노동조합","노사관계 이론","단체교섭","단체협약","부당노동행위·구제","인적자원관리","임금·보상","쟁의행위","조정·중재","조직행동·태도"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
