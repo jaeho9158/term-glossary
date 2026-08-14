@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Solid Isotropic Material with Penalization Method(SIMP 위상최적화 기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Solid Isotropic Material with Penalization Method(SIMP 위상최적화 기법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/topology-optimization-solid-isotropic-material.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; SIMP 위상최적화 기법 (Solid Isotropic Material with Penalization Method)</p>
+  <h1>SIMP 위상최적화 기법 (Solid Isotropic Material with Penalization Method)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=mechanical">기계공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 설계 영역의 각 요소에 0(빈 공간)과 1(재료) 사이의 밀도 값을 부여하고, 중간 밀도에 벌칙(penalty)을 주어 최종 설계가 0 또는 1에 가까운 값으로 수렴하도록 유도하는 위상최적화 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>부품을 설계할 때 "어디에 재료를 채우고 어디를 비워야 가장 가볍고 튼튼할까"를 컴퓨터가 스스로 찾아가는 방법이라고 생각하면 됩니다. 처음에는 설계 공간 전체에 재료가 반쯤 채워진 회색빛 상태로 시작해서, 반복 계산을 거치며 점점 검은색(재료 있음)과 흰색(재료 없음)으로 또렷하게 갈라집니다. 이때 회색, 즉 애매한 중간 밀도 부분에 일부러 손해를 주는 규칙을 넣는데, 이것이 바로 penalization(벌칙)입니다. 마치 흑백 사진의 대비를 강제로 높여서 흐릿한 회색 영역을 없애는 것과 비슷합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>SIMP는 현재 위상최적화 분야에서 가장 널리 쓰이는 실용적 접근법 중 하나로, 자동차·항공우주·건축 구조물 등에서 무게는 줄이면서 강성은 유지하는 부품 설계에 폭넓게 활용됩니다. 구현이 비교적 단순하고 기존 유한요소해석(FEA) 프레임워크와 자연스럽게 결합할 수 있어, 3D 프린팅 등 적층제조 기술의 발전과 맞물려 연구와 산업 적용이 함께 늘어나고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 SIMP 기법을 적용하여 하중 조건 하에서 컴플라이언스를 최소화하는 브래킷 형상을 도출하였다."</div>
+  <p>구조물에 힘이 가해졌을 때 변형이 최소가 되도록(강성이 최대가 되도록) 재료 분포를 SIMP 방식으로 찾았다는 뜻입니다.</p>
+  <div class="example">"밀도 필터와 페널티 지수 p=3을 적용하여 체커보드 패턴 및 중간 밀도 영역을 억제하였다."</div>
+  <p>최적화 과정에서 흔히 나타나는 비물리적인 격자무늬(체커보드) 문제를 줄이기 위해 필터링 기법과 벌칙 강도를 조절했다는 설명입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>SIMP에서 각 요소의 유효 탄성계수는 밀도 변수의 거듭제곱(페널티 지수 p)에 비례하도록 정의되며, p를 크게 할수록 중간 밀도를 갖는 것이 구조적으로 불리해지도록 만들어 결과가 0/1에 가까워지게 됩니다. 최적화는 대체로 목적함수(예: 컴플라이언스 최소화)와 재료 사용량 제약 조건 하에서 민감도 해석 기반의 경사도 알고리즘(예: OC법, MMA 등)을 통해 반복적으로 수행됩니다. 체커보드 패턴이나 메시 의존성 문제를 완화하기 위해 밀도 필터링이나 민감도 필터링 기법이 함께 적용되는 경우가 많습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>SIMP로 얻은 결과는 어디까지나 수학적 최적해에 가까운 형상이며, 그대로 제조 가능하다고 단정할 수 없어 후처리 및 형상 재해석 과정이 필요한 경우가 많습니다. 또한 페널티 지수, 필터 반경 등 설정값에 따라 결과 형상이 달라질 수 있어 파라미터 선택에 신중해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="finite-element-boundary-condition-setup.html">유한요소 경계조건 설정</a>
+    <a href="convergence-study-fea.html">유한요소해석 수렴성 연구</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
