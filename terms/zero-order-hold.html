@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Zero-Order Hold(영차홀드)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Zero-Order Hold(영차홀드)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/zero-order-hold.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 영차홀드 (Zero-Order Hold)</p>
+  <h1>영차홀드 (Zero-Order Hold)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 이산 신호의 각 샘플 값을 다음 샘플이 들어올 때까지 일정하게 유지하여 연속 신호처럼 출력하는 신호 변환 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>디지털 제어기는 일정한 시간 간격마다 값을 계산하는데, 실제 시스템(모터, 밸브 등)은 연속적인 신호를 받아야 동작합니다. 영차홀드는 디지털 제어기가 계산한 값을 다음 계산 시점까지 그대로 붙잡아(hold) 유지하는 방식으로, 계단 모양의 신호를 만들어냅니다. 마치 사진을 일정 간격으로 찍어서 다음 사진이 나올 때까지 그 화면을 그대로 보여주는 것과 비슷합니다. 이것이 디지털-아날로그 변환기(DAC)에서 가장 흔히 쓰이는 방식입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>디지털 제어 시스템은 컴퓨터로 계산한 이산 신호를 실제 아날로그 액추에이터에 전달해야 하는데, 영차홀드는 이 변환 과정에서 가장 널리 쓰이는 표준적인 방법입니다. 영차홀드가 도입하는 지연과 신호 왜곡은 시스템의 안정성과 성능에 영향을 미치므로, 디지털 제어기 설계 시 반드시 고려해야 하는 요소입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"연속시간 플랜트에 영차홀드를 적용하여 이산시간 등가 모델을 유도하였다."</div>
+  <p>연속 시스템을 디지털 제어를 위해 이산화할 때 영차홀드를 사용한 예문입니다.</p>
+  <div class="example">"영차홀드로 인한 위상 지연을 고려하여 제어기 이득을 재조정하였다."</div>
+  <p>영차홀드가 시스템 특성에 미치는 영향을 보상한 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>영차홀드는 주파수 영역에서 일정한 크기 감쇠와 위상 지연을 유발하며, 이는 샘플링 주기의 절반에 해당하는 시간 지연으로 근사되는 경우가 많습니다. 연속시간 전달함수를 영차홀드를 거쳐 이산화하면 z-변환 기반의 이산시간 전달함수를 얻을 수 있어, 디지털 제어기 설계의 기본 단계로 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>영차홀드가 만들어내는 계단 형태의 신호는 고주파 성분을 포함하므로, 실제 시스템에서는 이를 완화하기 위한 저역통과 필터가 함께 사용되는 경우가 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="digital-control-sampling-rate.html">디지털제어 샘플링 주기</a>
+    <a href="discretization-method.html">이산화 기법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Discretization Method(이산화 기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Discretization Method(이산화 기법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/discretization-method.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 이산화 기법 (Discretization Method)</p>
+  <h1>이산화 기법 (Discretization Method)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 연속시간으로 표현된 시스템 모델이나 제어기를 컴퓨터가 처리할 수 있는 이산시간 형태로 변환하는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>연속적으로 흐르는 강물을 사진으로 찍어 몇 장의 스냅샷으로 표현하는 것처럼, 이산화는 시간에 따라 매끄럽게 변하는 연속시간 시스템의 방정식을 컴퓨터가 다룰 수 있는 일정 간격의 값들로 바꾸는 과정입니다. 디지털 컴퓨터는 연속적인 시간이 아니라 정해진 시점마다 값을 계산하기 때문에, 원래 연속시간으로 설계된 제어기나 모델을 이런 이산 형태로 옮기는 작업이 필요합니다. 이 과정에서 원래 신호를 얼마나 정확하게 근사하느냐가 중요한 문제가 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>대부분의 실제 제어기는 마이크로프로세서나 컴퓨터에서 구현되기 때문에, 연속시간으로 유도된 제어 이론을 실제로 적용하려면 반드시 이산화 과정을 거쳐야 합니다. 이산화 방법에 따라 원래 시스템의 특성이 얼마나 잘 보존되는지가 달라지므로, 적절한 이산화 기법의 선택은 디지털 제어기 성능에 직접적인 영향을 미칩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"연속시간 제어기를 Tustin 변환을 이용해 이산화하여 디지털 신호처리기에 구현하였다."</div>
+  <p>대표적인 이산화 기법을 이용해 제어기를 실제 하드웨어에 구현한 예문입니다.</p>
+  <div class="example">"오일러 전진 근사를 사용한 이산화 결과와 정확한 영차홀드 등가 모델을 비교하여 오차를 분석하였다."</div>
+  <p>서로 다른 이산화 기법 간의 정확도를 비교한 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>대표적인 이산화 기법으로는 오일러 전진/후진 근사, 쌍선형(Tustin) 변환, 영차홀드 등가 변환 등이 있으며, 각 방법은 근사 정확도와 계산 복잡도, 안정성 보존 특성에서 차이를 보입니다. 샘플링 주기가 시스템 대역폭에 비해 충분히 짧을수록 대부분의 이산화 기법이 원래 연속시간 특성을 잘 근사하는 경향이 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>이산화 방법에 따라 원래 연속시간 시스템에서는 안정적이던 제어기가 이산화 후 불안정해지거나 성능이 저하될 수 있어, 선택한 기법의 특성을 이해하고 적용하는 것이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="zero-order-hold.html">영차홀드</a>
+    <a href="digital-control-sampling-rate.html">디지털제어 샘플링 주기</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

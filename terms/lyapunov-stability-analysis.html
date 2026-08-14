@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Lyapunov Stability Analysis(리아푸노프 안정성 해석)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Lyapunov Stability Analysis(리아푸노프 안정성 해석)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lyapunov-stability-analysis.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 리아푸노프 안정성 해석 (Lyapunov Stability Analysis)</p>
+  <h1>리아푸노프 안정성 해석 (Lyapunov Stability Analysis)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 시스템의 미분방정식을 직접 풀지 않고도, 에너지와 비슷한 성질을 가진 함수(리아푸노프 함수)의 증감을 분석하여 시스템의 안정성을 판별하는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>공을 그릇 안에 놓으면 시간이 지나면서 바닥으로 굴러 멈추는 것처럼, 어떤 양(예를 들어 에너지)이 계속 줄어들기만 한다면 시스템은 결국 안정된 상태로 향한다는 아이디어에 기반합니다. 리아푸노프 안정성 해석은 시스템의 실제 운동방정식을 직접 풀어내는 대신, 이러한 '에너지 같은 함수'를 하나 정의하고 이 함수가 시간에 따라 계속 감소하는지만 확인하면 안정성을 증명할 수 있다는 방법입니다. 그릇의 모양을 몰라도 공이 아래로만 굴러간다는 사실만 확인되면 결국 바닥에 멈춘다는 것을 알 수 있는 것과 같은 이치입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>비선형 시스템은 대부분 해석적으로 풀이가 불가능한 경우가 많아, 방정식을 직접 풀지 않고도 안정성을 증명할 수 있는 리아푸노프 방법은 제어 이론 전반에서 안정성 판별의 표준적인 도구로 다뤄집니다. 새로운 제어기를 설계할 때도 리아푸노프 함수를 이용해 폐루프 시스템의 안정성을 증명하는 경우가 많습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"A Lyapunov function candidate is constructed, and its time derivative is shown to be negative semi-definite, proving asymptotic stability."</div>
+  <p>리아푸노프 함수 후보를 구성하고 그 시간 미분이 음의 준정부호임을 보여 점근 안정성을 증명했다는 내용입니다.</p>
+  <div class="example">"Lyapunov stability analysis is employed to derive the control law that guarantees convergence of the tracking error to zero."</div>
+  <p>추종 오차가 0으로 수렴함을 보장하는 제어 법칙을 유도하기 위해 리아푸노프 안정성 해석을 활용했다는 내용으로, 제어기 설계 근거로 쓰이는 문맥입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>리아푸노프 함수는 원점(또는 평형점)에서 0이고 그 외의 영역에서는 양의 값을 가지는 함수로 선택되며, 이 함수의 시간에 대한 미분이 음이거나 음의 준정부호이면 시스템이 안정하다고 결론지을 수 있습니다. 선형 시스템에서는 이차형식 함수를 이용해 안정성 조건을 대수적으로 풀어낼 수 있는 반면, 비선형 시스템에서는 적절한 리아푸노프 함수를 찾는 것 자체가 어려운 문제가 되는 경우가 많습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>적절한 리아푸노프 함수를 찾지 못했다고 해서 시스템이 불안정하다는 뜻은 아니며, 단지 그 방법으로는 안정성을 증명하지 못했을 뿐이라는 점에 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="robust-control-design.html">강인제어 설계</a>
+    <a href="feedback-linearization.html">피드백 선형화</a>
+    <a href="observability-analysis.html">가관측성 분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

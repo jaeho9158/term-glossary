@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Clock Gating(클록 게이팅)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Clock Gating(클록 게이팅)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/clock-gating.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 클록 게이팅 (Clock Gating)</p>
+  <h1>클록 게이팅 (Clock Gating)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 동작이 필요 없는 회로 블록으로 가는 클록 신호를 일시적으로 차단하여 불필요한 스위칭 전력 소모를 막는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>디지털 회로 안의 많은 부품들은 클록이라는 일정한 박자 신호에 맞춰 계속 켜졌다 꺼지며 동작합니다. 그런데 어떤 부품이 이번 박자에서 딱히 할 일이 없다면, 굳이 박자 신호를 계속 흘려보내 불필요하게 움직이게 할 필요가 없습니다. 클록 게이팅은 이럴 때 해당 부품으로 가는 클록 신호를 잠깐 막아서, 필요 없는 순간에는 회로가 조용히 쉬도록 하는 기법입니다. 마치 지금 연주하지 않는 악기 파트에는 지휘봉 신호를 보내지 않는 것과 비슷합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>디지털 회로에서 소비되는 동적 전력의 상당 부분은 클록 신호 자체를 회로 전체에 계속 전달하는 데서 발생하기 때문에, 불필요한 클록 전달을 막는 클록 게이팅은 가장 널리 쓰이는 저전력 설계 기법 중 하나로 다루어집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"유휴 상태의 레지스터 뱅크에 클록 게이팅을 적용하여 동적 전력 소비를 크게 줄였다."</div>
+  <p>당장 값이 바뀌지 않는 레지스터에는 클록을 보내지 않아 전력을 아꼈다는 뜻입니다.</p>
+  <div class="example">"자동 클록 게이팅 삽입 도구를 사용하여 합성 단계에서 게이팅 셀을 자동으로 삽입하였다."</div>
+  <p>설계 도구가 회로 합성 과정에서 클록 게이팅 회로를 자동으로 추가해 주었다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>클록 게이팅은 일반적으로 래치와 논리 게이트로 구성된 클록 게이팅 셀을 통해 구현되며, 클록이 하이 상태일 때 값이 바뀌지 않도록 설계하여 글리치가 발생하지 않게 합니다. 최신 설계 도구는 여러 개의 레지스터가 같은 조건에서 동시에 멈춰야 할 때 이를 자동으로 인식해 하나의 게이팅 셀로 묶어주는 최적화를 지원하기도 합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>클록 게이팅은 회로가 완전히 켜져 있는 상태를 전제로 하므로 전력 게이팅과 달리 누설 전력은 줄이지 못하며, 두 기법은 서로 대체재가 아니라 함께 쓰이는 보완적인 기법으로 이해해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="low-power-design-technique.html">저전력 설계 기법</a>
+    <a href="power-gating.html">전력 게이팅</a>
+    <a href="dynamic-voltage-frequency-scaling.html">동적 전압주파수 조정</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
