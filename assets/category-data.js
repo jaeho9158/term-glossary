@@ -77,9 +77,12 @@
     mechanical: "기계공학",
     electrical: "전기전자공학",
     chemeng: "화학공학",
+    forensicsci: "법과학",
+    actuarial: "보험계리학",
+    cartography: "지도학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -152,6 +155,9 @@
     mechanical: "유한요소해석, 열교환기처럼 기계 시스템의 설계와 제조에 쓰이는 기계공학 개념을 다룹니다. 기계설계·생산공학 논문에 유용합니다.",
     electrical: "전력전자, 반도체소자처럼 전기·전자 시스템의 설계와 제어에 쓰이는 개념을 다룹니다. 전기전자공학 논문에 유용합니다.",
     chemeng: "반응공학, 분리공정처럼 화학물질을 대량으로 생산·가공하는 공정을 설계하는 화학공학 개념을 다룹니다. 화학공정·플랜트 논문에 유용합니다.",
+    forensicsci: "DNA프로파일링, 탄도학처럼 범죄 수사와 법적 판단을 위해 물리·화학·생물학적 증거를 과학적으로 분석하는 법과학 개념을 다룹니다. 법과학·범죄수사 논문에 유용합니다.",
+    actuarial: "생명표, 순보험료처럼 확률론과 통계를 이용해 보험·연금의 위험과 재무적 불확실성을 계량화하는 보험계리학 개념을 다룹니다. 보험·연금·리스크관리 논문에 유용합니다.",
+    cartography: "지도투영법, 공간보간처럼 공간 정보를 지도로 표현하고 지리공간 데이터를 분석·시각화하는 지도학 개념을 다룹니다. GIS·지리정보 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -225,6 +231,9 @@
     mechanical: ["역학·재료역학","열유체·에너지시스템","기계설계·CAD/CAM","제조공정·생산자동화"],
     electrical: ["회로·전력전자","반도체·소자공학","제어·계측공학","통신·신호처리"],
     chemeng: ["반응공학·촉매공정","분리공정·물질전달","공정설계·플랜트엔지니어링","환경화공·에너지공정"],
+    forensicsci: ["기초이론","디지털포렌식","문서감정","미세증거분석","방화조사","범죄심리분석","법곤충학","법독성학","법유전학","법의병리학","법의인류학","법정신의학","법정증거","법치의학","법혈청학","법회계","분석기기","실험실운영","증거관리","지문감식","총기및도구흔","통계및확률평가","폭발물분석","현장수사","혈흔분석"],
+    actuarial: ["기초개념","다중생명이론","다중탈퇴이론","보험재무","생명보험상품","생명보험수리","생명표이론","손해보험수리","손해사정","신뢰도이론","연금수리","요율산정","위험이론","재보험"],
+    cartography: ["공간분석","공간자료 모델","공간자료 처리","웹지도학","주제도","지도 기본 요소","지도 기호와 디자인","지도 유형","지도 인지","지도 일반화","지도 투영","지도학 개론","지리정보시스템","지명","측량·원격탐사","측지·좌표계"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
