@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>MUSIC Algorithm for Spectral Estimation(뮤직 알고리즘 스펙트럼추정)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 MUSIC Algorithm for Spectral Estimation(뮤직 알고리즘 스펙트럼추정)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/music-algorithm-spectral-estimation.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 뮤직 알고리즘 스펙트럼추정 (MUSIC Algorithm for Spectral Estimation)</p>
+  <h1>뮤직 알고리즘 스펙트럼추정 (MUSIC Algorithm for Spectral Estimation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 수신 신호의 공분산 행렬을 신호부공간과 잡음부공간으로 분해하여, 잡음부공간과 직교하는 방향을 찾음으로써 신호의 방향이나 주파수를 고분해능으로 추정하는 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 목소리가 뒤섞인 녹음에서 특정 사람의 목소리만 골라내려면, 다른 목소리들과 겹치지 않는 특징을 찾아야 합니다. MUSIC(MUltiple SIgnal Classification) 알고리즘은 수신된 신호 전체를 "진짜 신호가 있는 방향"과 "잡음만 있는 방향"으로 수학적으로 나눈 뒤, 잡음 방향과 정확히 어긋나는 지점을 찾아 신호의 방향이나 주파수를 알아냅니다. 이런 방식 덕분에 안테나 개수가 정해져 있어도 기존 방법보다 훨씬 세밀하게 신호를 구분할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>MUSIC은 초분해능 스펙트럼 추정 기법의 대표적인 예로, 좁은 간격으로 몰려 있는 여러 신호원을 구분해야 하는 레이더, 소나, 무선통신의 도래각 추정 문제에서 널리 활용됩니다. 전통적인 빔포밍 기반 방법의 분해능 한계를 극복할 수 있다는 점에서 신호처리 분야에서 오랫동안 기준점으로 다뤄져 왔습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"MUSIC 알고리즘을 적용한 결과, 기존 빔포밍 방식보다 각도 분해능이 크게 향상되었다."</div>
+  <p>같은 안테나 배열을 사용하더라도 MUSIC 방식을 쓰면 더 가까이 있는 신호원들도 구분해낼 수 있음을 보여준 결과라는 뜻입니다.</p>
+  <div class="example">"본 연구는 상관된 신호원 환경에서 MUSIC의 성능 저하 문제를 공간평활 기법으로 보완하였다."</div>
+  <p>서로 연관되어 있는 신호들이 섞여 있을 때 MUSIC의 정확도가 떨어지는 한계를 별도의 전처리 기법으로 개선했다는 설명입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>MUSIC은 수신 신호의 공분산 행렬을 고유값 분해하여, 큰 고유값에 대응하는 고유벡터들이 이루는 신호부공간과 나머지 잡음부공간으로 나눕니다. 참 신호 방향의 조향벡터는 이론적으로 잡음부공간과 직교하므로, 이 직교성을 이용해 스펙트럼을 계산하고 뾰족한 봉우리로 신호 방향을 찾아냅니다. 다만 신호원 수를 사전에 알거나 추정해야 하고, 신호들이 서로 강하게 상관되어 있으면 성능이 저하될 수 있어 공간평활 등의 보완 기법이 함께 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>MUSIC은 스냅샷(관측 샘플) 수가 충분하지 않거나 신호대잡음비가 매우 낮은 환경에서는 성능이 떨어질 수 있습니다. 또한 계산량이 빔포밍 기반 방법보다 많아 실시간 처리 요구가 큰 응용에서는 계산 효율을 함께 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="array-signal-processing-doa-estimation.html">도래각 추정</a>
+    <a href="compressive-sensing.html">압축센싱</a>
+    <a href="pulse-doppler-radar-processing.html">펄스도플러 레이더처리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
