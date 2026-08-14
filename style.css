@@ -2026,28 +2026,59 @@ transform:scale(1);
 }
 .minimap-svg {
   width: 100%;
-  max-width: 480px;
+  max-width: 640px;
   height: auto;
   display: block;
   margin: 0 auto;
 }
 .minimap-edge {
   stroke: var(--border);
-  stroke-width: 1;
+  stroke-width: 1.25;
+  opacity: 0.55;
+  transition: opacity 0.15s, stroke 0.15s, stroke-width 0.15s;
+}
+.minimap-edge.is-dim {
+  opacity: 0.08;
+}
+.minimap-edge.is-focus {
+  stroke: var(--accent);
+  stroke-width: 2;
+  opacity: 1;
+}
+.minimap-node-group {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.minimap-node-group.is-dim {
+  opacity: 0.25;
 }
 .minimap-node {
   fill: var(--accent);
+  stroke: var(--bg);
+  stroke-width: 2;
+  transition: r 0.15s, fill 0.15s;
+}
+.minimap-node-group.is-focus .minimap-node {
+  fill: #ff6b6b;
+  r: 9;
 }
 .minimap-label {
-  font-size: 9px;
+  font-size: 12px;
+  font-weight: 500;
   fill: var(--text);
+  stroke: var(--bg);
 }
-.minimap-node-link:hover .minimap-node {
+.minimap-node-group.is-focus .minimap-label {
   fill: #ff6b6b;
+  font-weight: 700;
+}
+.minimap-node-link {
+  outline: none;
 }
 .minimap-note {
   font-size: 0.85em;
   opacity: 0.7;
+  margin: 4px 0 10px;
 }
 
 /* Roadmap */

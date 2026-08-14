@@ -29,7 +29,7 @@ function degreeCount(nodes, edges) {
 }
 
 function renderGraph(container, subcatKey, data) {
-  const MAX_NODES = 20;
+  const MAX_NODES = 14;
   let { nodes, edges } = data;
   let truncated = 0;
 
@@ -42,37 +42,72 @@ function renderGraph(container, subcatKey, data) {
     edges = edges.filter(([a, b]) => kept.has(a) && kept.has(b));
   }
 
-  const size = 480;
-  const radius = size / 2 - 60;
+  const size = 640;
+  const radius = size / 2 - 130;
   const cx = size / 2;
   const cy = size / 2;
   const positioned = circularLayout(nodes, radius, cx, cy);
   const posMap = new Map(positioned.map((n) => [n.slug, n]));
 
+  const adjacency = new Map(nodes.map((n) => [n.slug, new Set()]));
+  edges.forEach(([a, b]) => {
+    if (adjacency.has(a)) adjacency.get(a).add(b);
+    if (adjacency.has(b)) adjacency.get(b).add(a);
+  });
+
   const edgeSvg = edges
-    .map(([a, b]) => {
+    .map(([a, b], i) => {
       const pa = posMap.get(a);
       const pb = posMap.get(b);
       if (!pa || !pb) return "";
-      return `<line x1="${pa.x}" y1="${pa.y}" x2="${pb.x}" y2="${pb.y}" class="minimap-edge" />`;
+      return `<line data-idx="${i}" data-a="${a}" data-b="${b}" x1="${pa.x}" y1="${pa.y}" x2="${pb.x}" y2="${pb.y}" class="minimap-edge" />`;
     })
     .join("");
 
+  // Label offset alternates above/below so text doesn't collide with the ring of edges.
   const nodeSvg = positioned
-    .map(
-      (n) => `<a href="terms/${encodeURIComponent(n.slug)}.html" class="minimap-node-link">
-        <circle cx="${n.x}" cy="${n.y}" r="6" class="minimap-node" />
-        <text x="${n.x}" y="${n.y - 10}" class="minimap-label" text-anchor="middle">${escapeXml(n.title)}</text>
-      </a>`
-    )
+    .map((n, i) => {
+      const above = n.y <= cy;
+      const labelY = above ? n.y - 14 : n.y + 22;
+      return `<g class="minimap-node-group" data-slug="${n.slug}">
+        <a href="terms/${encodeURIComponent(n.slug)}.html" class="minimap-node-link">
+          <circle cx="${n.x}" cy="${n.y}" r="7" class="minimap-node" />
+          <text x="${n.x}" y="${labelY}" class="minimap-label" text-anchor="middle" paint-order="stroke" stroke-width="3">${escapeXml(n.title)}</text>
+        </a>
+      </g>`;
+    })
     .join("");
 
   const note =
     truncated > 0
-      ? `<p class="minimap-note">연결이 많은 상위 ${MAX_NODES}개만 표시 (${truncated}개 더 있음)</p>`
-      : "";
+      ? `<p class="minimap-note">연결이 많은 상위 ${MAX_NODES}개만 표시 (${truncated}개 더 있음) · 용어에 마우스를 올리면 연결선이 강조됩니다</p>`
+      : `<p class="minimap-note">용어에 마우스를 올리면 연결선이 강조됩니다</p>`;
 
   container.innerHTML = `${note}<svg viewBox="0 0 ${size} ${size}" class="minimap-svg" role="img" aria-label="${escapeXml(subcatKey)} 관련 용어 미니맵">${edgeSvg}${nodeSvg}</svg>`;
+
+  const svg = container.querySelector("svg");
+
+  function setHighlight(slug) {
+    const related = slug ? adjacency.get(slug) || new Set() : null;
+    svg.querySelectorAll(".minimap-node-group").forEach((g) => {
+      const s = g.dataset.slug;
+      const active = !slug || s === slug || related.has(s);
+      g.classList.toggle("is-dim", !active);
+      g.classList.toggle("is-focus", slug === s);
+    });
+    svg.querySelectorAll(".minimap-edge").forEach((line) => {
+      const active = !slug || line.dataset.a === slug || line.dataset.b === slug;
+      line.classList.toggle("is-dim", !active);
+      line.classList.toggle("is-focus", active && !!slug);
+    });
+  }
+
+  svg.querySelectorAll(".minimap-node-group").forEach((g) => {
+    g.addEventListener("mouseenter", () => setHighlight(g.dataset.slug));
+    g.addEventListener("mouseleave", () => setHighlight(null));
+    g.addEventListener("focusin", () => setHighlight(g.dataset.slug));
+    g.addEventListener("focusout", () => setHighlight(null));
+  });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
