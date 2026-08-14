@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Infinite Impulse Response Filter(무한임펄스응답 필터)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Infinite Impulse Response Filter(무한임펄스응답 필터)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/infinite-impulse-response-filter.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 무한임펄스응답 필터 (Infinite Impulse Response Filter)</p>
+  <h1>무한임펄스응답 필터 (Infinite Impulse Response Filter)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 출력이 과거의 출력값을 다시 입력으로 사용하는 되먹임 구조를 가져, 짧은 충격에도 이론상 무한히 이어지는 응답을 내는 디지털 필터입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>마이크와 스피커 사이에서 소리가 계속 되먹임되며 울림이 남는 상황을 떠올리면 이해하기 쉽습니다. IIR 필터는 현재 출력을 계산할 때 과거의 입력뿐 아니라 과거의 출력값까지 다시 사용합니다. 이런 되먹임 구조 덕분에 적은 수의 계수로도 원하는 필터 특성을 얻을 수 있지만, 되먹임이 있는 만큼 설계를 잘못하면 출력이 발산할 위험도 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>연산량이 제한된 임베디드 시스템이나 실시간 처리 환경에서는 적은 계수로 원하는 주파수 특성을 얻는 것이 중요한데, IIR 필터는 FIR 필터보다 적은 차수로 비슷한 성능을 낼 수 있어 이런 상황에서 자주 선택됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"버터워스 형태의 IIR 필터를 사용하여 저역통과 특성을 낮은 연산량으로 구현하였다."</div>
+  <p>연산 자원이 제한된 환경에서 IIR 필터가 선택되는 전형적인 예입니다.</p>
+  <div class="example">"제안한 회로는 아날로그 필터를 디지털 IIR 필터로 근사하여 동일한 주파수 응답을 재현하였다."</div>
+  <p>아날로그 필터 설계를 디지털 IIR 필터로 변환하는 예입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>IIR 필터는 되먹임 구조 때문에 극점(pole)의 위치가 단위원 안에 있어야 안정적으로 동작하며, 극점이 단위원 경계나 바깥에 위치하면 출력이 발산할 수 있습니다. 아날로그 필터 설계 이론을 디지털 영역으로 변환하는 다양한 설계 기법이 IIR 필터 설계에 활용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>되먹임 구조로 인해 FIR 필터와 달리 항상 안정성이 보장되지 않으며, 설계 시 극점 위치를 반드시 확인해야 합니다. 또한 위상 특성이 일반적으로 비선형이라는 점도 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="finite-impulse-response-filter.html">유한임펄스응답 필터</a>
+    <a href="adaptive-filtering-lms-algorithm.html">최소평균제곱 적응필터링</a>
+    <a href="recursive-least-squares-algorithm.html">재귀최소제곱 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

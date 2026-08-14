@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Viterbi Decoding Algorithm(비터비 복호 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Viterbi Decoding Algorithm(비터비 복호 알고리즘)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/viterbi-decoding-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 비터비 복호 알고리즘 (Viterbi Decoding Algorithm)</p>
+  <h1>비터비 복호 알고리즘 (Viterbi Decoding Algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 길쌈부호 등 트렐리스 구조로 표현되는 부호화 시스템에서, 가능한 경로 중 수신 신호와 가장 잘 맞는 경로를 효율적으로 찾아내는 최우도 복호 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>비터비 알고리즘은 미로 속에서 목적지까지 갈 수 있는 수많은 경로 중 가장 그럴듯한 하나를 찾아내는 과정에 비유할 수 있습니다. 매 갈림길마다 모든 경로를 일일이 다 따라가 보는 대신, 각 지점까지 가장 유력한 경로만 남기고 나머지는 버리는 방식으로 계산량을 크게 줄입니다. 이렇게 하면 전체 경우의 수를 다 살펴보지 않고도 가장 가능성 높은 원래의 비트열을 효율적으로 찾아낼 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>길쌈부호처럼 트렐리스 구조를 갖는 부호는 이론적으로 모든 가능한 경로를 비교해야 최적의 복호 결과를 얻을 수 있는데, 비터비 알고리즘은 이를 훨씬 적은 계산으로 수행할 수 있게 해주어 실용적인 오류정정 시스템 구현을 가능하게 한 핵심 알고리즘으로 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 연판정(soft-decision) 비터비 복호기를 구현하여 경판정 방식 대비 성능 향상을 확인하였다."</div>
+  <p>수신 신호의 세부 신뢰도까지 활용하는 복호 방식이 단순 판정 방식보다 더 나은 결과를 냈다는 뜻입니다.</p>
+  <div class="example">"제안된 시스템은 트렐리스 경로 저장 깊이를 조정하여 복호 지연과 성능 간의 균형을 맞추었다."</div>
+  <p>과거 경로를 얼마나 오래 기억할지 조절해 처리 속도와 정확도 사이의 절충점을 찾았다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>비터비 알고리즘은 트렐리스의 각 상태마다 지금까지의 누적 경로 거리(메트릭)를 계산해 저장하고, 여러 경로가 같은 상태로 모일 때 가장 유력한 경로 하나만 남기는 생존 경로 선택 과정을 반복합니다. 신호의 세부 값을 그대로 활용하는 연판정 방식이 단순히 0과 1로만 판단하는 경판정 방식보다 일반적으로 더 나은 오류정정 성능을 보이는 것으로 알려져 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>부호의 구속장이 커질수록 고려해야 할 상태 수가 급격히 늘어나 계산량과 메모리 요구량이 함께 증가하므로, 실시간 시스템에서는 구속장 선택 시 복잡도를 함께 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="convolutional-coding.html">길쌈부호화</a>
+    <a href="forward-error-correction.html">순방향 오류정정</a>
+    <a href="turbo-coding.html">터보 부호화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

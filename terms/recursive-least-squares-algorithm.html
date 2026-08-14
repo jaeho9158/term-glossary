@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Recursive Least Squares Algorithm(재귀최소제곱 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Recursive Least Squares Algorithm(재귀최소제곱 알고리즘)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/recursive-least-squares-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 재귀최소제곱 알고리즘 (Recursive Least Squares Algorithm)</p>
+  <h1>재귀최소제곱 알고리즘 (Recursive Least Squares Algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 새로운 데이터가 들어올 때마다 과거 오차 제곱합을 최소화하는 필터 계수를 재귀적으로 갱신하는 적응 필터 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>매번 새로운 시험 성적이 나올 때마다 지금까지의 전체 평균을 처음부터 다시 계산하지 않고, 이전 평균에 새 점수를 반영해 효율적으로 업데이트하는 것과 비슷한 방식입니다. RLS는 지금까지 들어온 모든 데이터의 오차 제곱합을 최소화하는 최적의 필터 계수를 매 순간 새롭게 계산하는데, 전체를 다시 계산하지 않고 이전 결과를 활용해 재귀적으로 빠르게 갱신합니다. 이 덕분에 LMS보다 훨씬 빠르게 최적값에 수렴하는 경향이 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>빠르게 변화하는 환경이나 짧은 시간 안에 필터가 최적 상태에 도달해야 하는 응용에서는 수렴 속도가 중요한 성능 지표가 됩니다. RLS는 LMS보다 빠른 수렴 속도를 제공하여 채널 등화, 시스템 식별 등 빠른 적응이 필요한 분야에서 사용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"RLS 알고리즘을 이용한 등화기는 LMS 대비 빠른 수렴 속도로 초기 오차를 신속히 줄였다."</div>
+  <p>RLS의 빠른 수렴 특성이 강조되는 전형적인 예입니다.</p>
+  <div class="example">"시스템 식별 문제에 재귀최소제곱 알고리즘을 적용하여 미지의 파라미터를 온라인으로 추정하였다."</div>
+  <p>시스템 파라미터를 실시간으로 추정하는 데 RLS가 활용되는 예입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>RLS는 역행렬 보조정리를 활용하여 매 단계마다 전체 행렬을 다시 역산하지 않고도 최소제곱 해를 효율적으로 갱신합니다. 이 과정에서 과거 데이터에 대한 가중치를 조절하는 망각인자를 도입해 오래된 데이터의 영향을 점차 줄이는 방식도 흔히 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>RLS는 LMS보다 수렴 속도는 빠르지만 매 단계의 연산량과 필요한 메모리가 더 크며, 이는 실시간 시스템 구현 시 고려해야 할 절충 요소입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="adaptive-filtering-lms-algorithm.html">최소평균제곱 적응필터링</a>
+    <a href="finite-impulse-response-filter.html">유한임펄스응답 필터</a>
+    <a href="infinite-impulse-response-filter.html">무한임펄스응답 필터</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

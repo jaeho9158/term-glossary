@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Low-Noise Amplifier Design(저잡음 증폭기 설계)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Low-Noise Amplifier Design(저잡음 증폭기 설계)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/low-noise-amplifier-design.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 저잡음 증폭기 설계 (Low-Noise Amplifier Design)</p>
+  <h1>저잡음 증폭기 설계 (Low-Noise Amplifier Design)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 저잡음 증폭기(LNA) 설계는 수신기 앞단에서 미약한 신호를 증폭하면서도 회로 자체가 더하는 잡음을 최소화하도록 트랜지스터와 정합회로를 구성하는 설계 과정입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>아주 작은 목소리를 확성기로 키운다고 생각해보면, 확성기 자체에서 나는 "지지직" 잡음이 크면 아무리 키워도 원래 목소리를 알아듣기 어렵습니다. 저잡음 증폭기는 이 확성기를 최대한 조용하게 만들면서도 소리는 충분히 키우는 장치입니다. 안테나에서 들어온 신호는 이미 매우 약하기 때문에, 이 첫 단계에서 잡음이 섞이면 뒤에서 아무리 잘 처리해도 복구할 수 없습니다. 그래서 회로 설계자는 트랜지스터 종류 선택부터 입력단 정합 방식까지 세심하게 조율합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>수신기 전체의 감도는 대부분 첫 번째 증폭 단에서 결정되기 때문에, LNA 설계는 통신·레이더·위성 시스템의 성능을 좌우하는 핵심 요소로 다뤄집니다. 잡음 지수를 낮추면서도 이득과 선형성, 입력 정합을 동시에 만족시켜야 하므로 여러 목표가 서로 트레이드오프 관계에 있는 대표적인 회로 설계 문제로 연구됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 논문에서는 28GHz 대역 5G 응용을 위한 저잡음 증폭기 설계에서 소스 인덕터 축퇴 기법을 적용하여 잡음 지수를 낮추었다."</div>
+  <p>이 문장은 특정 주파수 대역에서 사용하기 위해 특정 회로 기법(소스 인덕터 축퇴)을 활용해 잡음을 줄인 설계 사례를 설명합니다.</p>
+  <div class="example">"제안된 LNA는 이득과 잡음 지수 사이의 트레이드오프를 완화하기 위해 다단 캐스코드 구조를 채택하였다."</div>
+  <p>여러 증폭 단을 쌓는 캐스코드 구조를 통해 이득과 잡음 성능을 동시에 개선하려는 설계 전략을 보여줍니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>LNA 설계에서는 최소 잡음 지수를 얻는 입력 임피던스(최적 잡음 정합점)와 최대 전력 전달을 얻는 입력 임피던스가 일반적으로 서로 다르기 때문에, 설계자는 둘 사이에서 절충된 정합 조건을 찾습니다. 소스 인덕터를 이용한 인덕티브 소스 축퇴 기법은 별도의 저항성 손실 없이 입력 임피던스의 실수부를 만들어낼 수 있어 저잡음 설계에서 자주 사용됩니다. 성능 평가에는 잡음 지수, 이득, 입력 반사손실(S11), 선형성(IP3 등)이 함께 고려됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>잡음 지수만 낮추는 데 집중하면 이득이나 선형성, 안정도가 희생될 수 있어 실제 설계에서는 여러 지표를 동시에 고려해야 합니다. 또한 이상적인 시뮬레이션 결과와 실제 제작된 회로의 성능 사이에는 소자 편차나 기생 성분으로 인한 차이가 발생할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="power-amplifier-linearity.html">전력증폭기 선형성</a>
+    <a href="mixer-intermodulation-distortion.html">믹서 상호변조왜곡</a>
+    <a href="superheterodyne-receiver-architecture.html">수퍼헤테로다인 수신기 구조</a>
+    <a href="smith-chart-impedance-matching.html">스미스차트 임피던스정합</a>
+    <a href="voltage-standing-wave-ratio.html">전압정재파비</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

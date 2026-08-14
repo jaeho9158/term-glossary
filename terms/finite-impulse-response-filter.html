@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Finite Impulse Response Filter(유한임펄스응답 필터)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Finite Impulse Response Filter(유한임펄스응답 필터)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/finite-impulse-response-filter.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 유한임펄스응답 필터 (Finite Impulse Response Filter)</p>
+  <h1>유한임펄스응답 필터 (Finite Impulse Response Filter)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 입력에 짧은 충격(임펄스)을 가했을 때 응답이 유한한 시간 안에 완전히 끝나는 디지털 필터입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>연못에 돌을 던지면 파문이 잠시 퍼졌다가 결국 완전히 사라지는 것처럼, FIR 필터는 짧은 충격이 들어오면 정해진 개수의 출력만 내보내고 이후에는 완전히 잠잠해집니다. 필터의 출력은 최근 몇 개의 입력값에 정해진 가중치를 곱해 더한 값으로 계산되며, 과거의 출력값을 다시 사용하지 않는다는 것이 특징입니다. 이런 구조 덕분에 항상 안정적으로 동작한다는 장점이 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>디지털 신호처리 시스템을 설계할 때 항상 안정적이면서 위상 왜곡을 정교하게 제어할 수 있는 필터가 필요한 경우가 많습니다. FIR 필터는 계수를 선형위상으로 설계할 수 있어 통신, 오디오, 영상 처리 등에서 신호를 왜곡 없이 걸러내야 하는 응용에 널리 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"저역통과 FIR 필터를 설계하여 수신 신호의 대역외 잡음을 제거하였다."</div>
+  <p>원치 않는 주파수 성분을 걸러내는 데 FIR 필터가 사용되는 예입니다.</p>
+  <div class="example">"제안한 시스템은 64차 FIR 필터를 채널 등화기로 사용하여 심볼 간 간섭을 완화하였다."</div>
+  <p>통신 시스템의 등화기 구조로 FIR 필터가 활용되는 예입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>FIR 필터는 출력이 과거 출력값에 의존하지 않는 비순환(non-recursive) 구조를 가지므로 시스템이 항상 안정적이며, 계수를 대칭으로 설계하면 선형위상 특성을 얻을 수 있습니다. 다만 원하는 필터 특성을 얻으려면 상대적으로 많은 차수(탭 수)가 필요할 수 있어 연산량이 늘어나는 경향이 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>같은 필터 특성을 얻기 위해 필요한 연산량이 IIR 필터보다 일반적으로 많으며, 이는 설계 시 안정성과 연산 효율 사이의 절충으로 이어집니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="infinite-impulse-response-filter.html">무한임펄스응답 필터</a>
+    <a href="adaptive-filtering-lms-algorithm.html">최소평균제곱 적응필터링</a>
+    <a href="recursive-least-squares-algorithm.html">재귀최소제곱 알고리즘</a>
+    <a href="fast-fourier-transform.html">고속푸리에변환</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

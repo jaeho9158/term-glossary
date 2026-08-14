@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Least Mean Squares Adaptive Filtering(최소평균제곱 적응필터링)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Least Mean Squares Adaptive Filtering(최소평균제곱 적응필터링)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/adaptive-filtering-lms-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 최소평균제곱 적응필터링 (Least Mean Squares Adaptive Filtering)</p>
+  <h1>최소평균제곱 적응필터링 (Least Mean Squares Adaptive Filtering)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 출력 오차의 제곱 평균을 줄이는 방향으로 필터 계수를 조금씩 갱신해 나가는 적응 필터 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>과녁을 향해 화살을 쏘고, 빗나간 정도를 보고 다음 화살을 쏠 때 조준을 조금씩 수정해 나가는 과정과 비슷합니다. LMS 알고리즘은 필터의 출력과 원하는 값 사이의 오차를 계산한 뒤, 그 오차가 줄어드는 방향으로 필터 계수를 아주 조금씩 갱신합니다. 이 과정을 반복하면 필터가 점점 최적의 계수에 가까워지며, 환경이 변해도 계속 따라가며 적응할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>통신 채널이나 잡음 환경이 시간에 따라 변하는 실제 상황에서는 고정된 필터로는 대응하기 어렵습니다. LMS는 구조가 간단하고 계산량이 적으면서도 변화하는 환경에 스스로 맞춰간다는 점에서 반향 제거, 채널 등화, 잡음 제거 등 다양한 실시간 응용에서 널리 사용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"LMS 알고리즘 기반 적응 등화기를 이용하여 시변 채널에서의 심볼 간 간섭을 보상하였다."</div>
+  <p>시간에 따라 변하는 통신 채널을 보상하는 데 LMS가 사용되는 예입니다.</p>
+  <div class="example">"제안한 반향 제거기는 정규화 LMS 알고리즘을 사용하여 수렴 속도를 개선하였다."</div>
+  <p>LMS의 변형 알고리즘이 성능 개선에 사용되는 예입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>LMS는 실제 오차의 기댓값을 정확히 계산하는 대신 순간 오차의 제곱을 이용해 근사적으로 경사하강을 수행하는 방식입니다. 계수 갱신 속도를 조절하는 스텝 크기가 너무 크면 발산할 수 있고 너무 작으면 수렴이 느려지므로, 이 값의 선택이 성능에 큰 영향을 미칩니다. 수렴 속도를 개선한 정규화 LMS 등 다양한 변형이 존재합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>LMS는 구조는 간단하지만 수렴 속도가 상대적으로 느릴 수 있으며, 입력 신호의 통계적 특성에 따라 수렴 성능이 달라질 수 있습니다. 스텝 크기 설정이 부적절하면 성능이 크게 저하될 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="recursive-least-squares-algorithm.html">재귀최소제곱 알고리즘</a>
+    <a href="finite-impulse-response-filter.html">유한임펄스응답 필터</a>
+    <a href="infinite-impulse-response-filter.html">무한임펄스응답 필터</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

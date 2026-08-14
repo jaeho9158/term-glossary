@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Convolutional Coding(길쌈부호화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Convolutional Coding(길쌈부호화)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/convolutional-coding.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 길쌈부호화 (Convolutional Coding)</p>
+  <h1>길쌈부호화 (Convolutional Coding)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 입력 데이터를 블록 단위가 아니라 연속적인 비트 흐름으로 받아, 현재 비트와 이전 몇 개의 비트를 함께 조합해 부호화하는 순방향 오류정정 부호 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>길쌈부호화는 실을 꼬아 튼튼한 밧줄을 만드는 것에 비유할 수 있습니다. 한 가닥의 데이터 비트만으로는 약하지만, 앞서 지나간 몇 개의 비트와 지금 들어온 비트를 서로 얽어서 새로운 출력 비트를 만들면 오류에 더 강한 신호가 됩니다. 데이터를 한 덩어리씩 끊어서 처리하는 대신, 마치 실을 계속 꼬아 나가듯 연속적으로 부호화한다는 점이 특징입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>연속적인 데이터 흐름을 실시간으로 부호화하고 복호할 수 있어 지연이 중요한 통신 시스템에 적합하며, 구조가 비교적 단순하면서도 효과적인 오류정정 성능을 보여 초기 이동통신과 위성통신 등 다양한 표준에서 오랫동안 다뤄져 온 기법입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 구속장(constraint length) 7인 길쌈부호를 사용하여 오류정정 성능을 평가하였다."</div>
+  <p>과거 몇 개의 비트까지 참조하는지를 나타내는 구속장 값을 설정해 실험했다는 뜻입니다.</p>
+  <div class="example">"제안된 시스템은 길쌈부호화와 인터리빙을 결합하여 버스트 오류에 대한 강인성을 높였다."</div>
+  <p>연속으로 몰아서 발생하는 오류에도 잘 견디도록 부호화와 순서 섞기를 함께 적용했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>길쌈부호는 시프트 레지스터를 이용해 입력 비트와 몇 개의 이전 비트를 조합한 출력을 만들어내며, 이 구조는 상태 천이 관계를 나타내는 트렐리스(trellis)로 표현할 수 있습니다. 수신 측에서는 이 트렐리스 구조를 바탕으로 가장 가능성이 높은 원래 비트열을 추정하는 복호 알고리즘을 사용합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>구속장을 늘리면 오류정정 능력은 좋아지지만 복호에 필요한 계산량이 급격히 증가하므로, 실제 시스템에서는 성능과 복잡도 사이의 균형을 고려해 구속장을 선택해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="forward-error-correction.html">순방향 오류정정</a>
+    <a href="viterbi-decoding-algorithm.html">비터비 복호 알고리즘</a>
+    <a href="turbo-coding.html">터보 부호화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

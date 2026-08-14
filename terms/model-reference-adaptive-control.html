@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Model Reference Adaptive Control(모델기준 적응제어)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Model Reference Adaptive Control(모델기준 적응제어)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/model-reference-adaptive-control.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 모델기준 적응제어 (Model Reference Adaptive Control)</p>
+  <h1>모델기준 적응제어 (Model Reference Adaptive Control)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 모델기준 적응제어(MRAC)는 이상적으로 원하는 응답 특성을 갖는 기준 모델을 설정해 두고, 실제 시스템의 출력이 이 기준 모델의 출력을 따라가도록 제어기 파라미터를 실시간으로 조정하는 적응제어 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>운전 연습을 할 때 옆에 이상적으로 운전하는 모범 운전자가 있고, 나는 그 사람과 똑같이 움직이려고 계속 내 운전 방식을 조금씩 고쳐나간다고 상상해 보세요. 여기서 모범 운전자가 "기준 모델"이고, 나 자신이 "실제 시스템"입니다. MRAC는 바로 이런 방식으로, 원하는 이상적인 반응(기준 모델)을 미리 정해두고, 실제 시스템이 그 반응을 따라가도록 제어기 자체의 설정값을 계속 스스로 조정해 나가는 제어 방법입니다. 시스템의 특성이 정확히 알려져 있지 않거나 시간에 따라 변하더라도 이 조정 과정을 통해 원하는 성능을 유지할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>항공기, 로봇, 산업 공정 등 실제 시스템은 부하 변화, 마모, 환경 변화 등으로 인해 특성이 시간에 따라 달라지거나 정확한 모델을 미리 알기 어려운 경우가 많습니다. MRAC는 이러한 불확실성 속에서도 일정한 목표 성능을 유지할 수 있게 해주므로, 파라미터 변동이 크거나 모델링이 어려운 시스템의 제어 논문에서 중요하게 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"A model reference adaptive controller was designed to maintain tracking performance despite significant variations in the plant's mass and inertia."</div>
+  <p>플랜트의 질량과 관성이 크게 변하더라도 추종 성능을 유지하기 위해 모델기준 적응제어기를 설계했다는 뜻으로, 파라미터 불확실성에 대응하는 사례입니다.</p>
+  <div class="example">"The adaptation law was derived using the MIT rule to update controller gains in real time based on the tracking error."</div>
+  <p>추종 오차를 바탕으로 제어기 이득을 실시간으로 갱신하기 위해 MIT 규칙을 이용해 적응 법칙을 유도했다는 내용으로, MRAC의 대표적인 파라미터 갱신 방법을 언급합니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>MRAC는 크게 원하는 응답 특성을 정의하는 기준 모델, 실제 플랜트를 제어하는 조정 가능한 제어기, 그리고 기준 모델과 실제 시스템 출력의 오차를 바탕으로 제어기 파라미터를 갱신하는 적응 메커니즘(적응 법칙)으로 구성됩니다. 적응 법칙을 설계하는 대표적인 접근으로는 MIT 규칙과 같은 경사하강 기반 방법, 그리고 안정성을 리아푸노프 함수로 보장하는 리아푸노프 기반 방법이 있습니다. 후자는 적응 과정에서 폐루프 시스템의 안정성을 이론적으로 보장할 수 있다는 장점이 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>적응 이득을 지나치게 크게 설정하면 오히려 시스템이 불안정해지거나 파라미터가 발산할 수 있으며, 잡음이 많은 환경에서는 파라미터 추정이 불안정해지는 문제(파라미터 드리프트)가 발생할 수 있습니다. 따라서 적응 법칙 설계 시 안정성 분석이 반드시 병행되어야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="impedance-control-robotics.html">임피던스 제어</a>
+    <a href="process-control-loop-tuning.html">공정제어 루프 튜닝</a>
+    <a href="ziegler-nichols-tuning-method.html">지글러니콜스 튜닝법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
