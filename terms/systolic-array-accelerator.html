@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Systolic Array Accelerator(시스톨릭 배열 가속기)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Systolic Array Accelerator(시스톨릭 배열 가속기)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/systolic-array-accelerator.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 시스톨릭 배열 가속기 (Systolic Array Accelerator)</p>
+  <h1>시스톨릭 배열 가속기 (Systolic Array Accelerator)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 처리 요소(PE)를 격자 형태로 배치하고 데이터를 규칙적으로 이웃 셀 간에만 주고받게 하여 행렬 연산을 고효율로 수행하는 하드웨어 가속기 구조입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>시스톨릭 배열은 심장(systole)이 규칙적으로 박동하며 혈액을 순환시키는 모습에서 이름을 따온 구조로, 데이터가 심장 박동처럼 일정한 리듬으로 배열 안의 처리 요소들 사이를 흐릅니다. 각 처리 요소는 바로 옆에 있는 요소하고만 데이터를 주고받고, 받은 데이터로 곱셈과 덧셈을 수행한 뒤 다음 요소로 넘겨줍니다. 이렇게 하면 메모리에서 데이터를 매번 다시 읽어올 필요 없이 계속 재사용할 수 있어 효율이 크게 높아집니다. 딥러닝의 핵심 연산인 행렬 곱셈을 매우 빠르고 규칙적으로 처리하는 데 적합한 구조입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>시스톨릭 배열은 데이터 이동을 최소화하면서 병렬 연산을 극대화할 수 있어 딥러닝 전용 가속기(TPU 등)의 핵심 아키텍처로 널리 채택되고 있습니다. 규칙적인 데이터 흐름 덕분에 하드웨어 설계와 확장이 비교적 단순하다는 점도 컴퓨터 구조 연구에서 중요하게 다뤄지는 이유입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"The systolic array accelerator streams weights and activations through the PE grid to maximize data reuse."</div>
+  <p>시스톨릭 배열 가속기가 데이터 재사용을 극대화하기 위해 처리 요소 격자를 통해 가중치와 활성값을 흘려보낸다는 내용입니다.</p>
+  <div class="example">"By mapping matrix multiplication onto a 2D systolic array, the design achieves high throughput with reduced memory bandwidth."</div>
+  <p>행렬 곱셈을 2차원 시스톨릭 배열에 매핑함으로써 메모리 대역폭을 줄이면서도 높은 처리량을 달성했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>시스톨릭 배열은 각 처리 요소가 곱셈-누산(MAC) 연산을 담당하며, 가중치나 입력 데이터를 배열 전체에 파이프라인 방식으로 흘려보내는 데이터플로우(weight-stationary, output-stationary 등)에 따라 여러 변형이 존재합니다. 데이터가 인접 셀 간에만 이동하므로 배선 복잡도가 낮고 클럭 주파수를 높이기에도 유리합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>시스톨릭 배열은 행렬 곱셈처럼 규칙적인 연산 패턴에는 매우 효율적이지만, 연산 형태가 불규칙하거나 희소(sparse)한 경우에는 배열 활용률이 떨어질 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="approximate-computing-circuit.html">근사컴퓨팅 회로</a>
+    <a href="near-threshold-computing.html">임계전압 근접 컴퓨팅</a>
+    <a href="neuromorphic-spiking-neural-network.html">뉴로모픽 스파이킹 신경망</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
