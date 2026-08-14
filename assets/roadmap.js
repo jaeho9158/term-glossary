@@ -1,6 +1,8 @@
 import { supabase, getSession } from "./auth.js";
+import { openFlashcards } from "./flashcards.js";
 
 const LOCAL_KEY = "roadmap_progress_v1";
+const deckMap = new Map();
 
 function escapeHtml(str) {
   return String(str)
@@ -123,9 +125,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       bySubcat.get(sub).push(t);
     });
 
+    deckMap.clear();
     content.innerHTML = [...bySubcat.entries()]
       .map(([sub, list]) => {
         const sorted = topoSort(list);
+        deckMap.set(sub, sorted);
         const doneCount = sorted.filter((t) => isDone(t.slug)).length;
         const pct = Math.round((doneCount / sorted.length) * 100);
         const items = sorted
@@ -140,7 +144,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           )
           .join("");
         return `<section class="roadmap-subcat">
-          <h2>${escapeHtml(sub)} <span class="roadmap-progress-label">${doneCount}/${sorted.length} (${pct}%)</span></h2>
+          <h2>${escapeHtml(sub)} <span class="roadmap-progress-label">${doneCount}/${sorted.length} (${pct}%)</span>
+            <button type="button" class="flashcard-start-btn" data-subcat="${escapeHtml(sub)}">🃏 플래시카드로 암기</button>
+          </h2>
           <div class="roadmap-progress-bar"><div class="roadmap-progress-fill" style="width:${pct}%"></div></div>
           <ul class="roadmap-list">${items}</ul>
         </section>`;
@@ -155,5 +161,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!cb) return;
     await toggleDone(cb.dataset.slug, cb.checked);
     render(select.value);
+  });
+
+  content.addEventListener("click", (e) => {
+    const btn = e.target.closest(".flashcard-start-btn");
+    if (!btn) return;
+    const deck = deckMap.get(btn.dataset.subcat);
+    if (!deck || deck.length === 0) return;
+    openFlashcards(btn.dataset.subcat, deck);
   });
 });

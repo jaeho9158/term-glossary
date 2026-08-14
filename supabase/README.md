@@ -6,3 +6,4 @@
 
 - `002_bookmark_tags.sql` — 북마크 태그 (`tg_bookmark_tags`)
 - `003_roadmap_progress.sql` — 로드맵 학습 진도 (`tg_roadmap_progress`)
+- `004_flashcard_progress.sql` — 플래시카드 안다/모른다 기록 (`tg_flashcard_progress`)

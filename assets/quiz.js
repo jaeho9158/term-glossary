@@ -16,6 +16,9 @@ let wrongQuestions = [];
 
 let retryMode = false;
 
+// 로드맵 플래시카드에서 넘어온 경우, 해당 범위의 slug 목록 (없으면 null)
+let roadmapScopeSlugs = null;
+
 
 // ===============================
 // 기록 저장
@@ -241,6 +244,9 @@ async function loadTerms(){
         updateRecord();
 
 
+        applyRoadmapScope();
+
+
     }
 
 
@@ -343,6 +349,55 @@ function makeCategoryList(){
 }
 
 
+// ===============================
+// 로드맵 플래시카드 범위 적용
+// ===============================
+
+function applyRoadmapScope(){
+
+    const params =
+    new URLSearchParams(location.search);
+
+    if(params.get("scope") !== "roadmap")
+        return;
+
+    let slugs = [];
+
+    try{
+        slugs =
+        JSON.parse(sessionStorage.getItem("quiz_scope_slugs") || "[]");
+    }
+    catch(e){
+        slugs = [];
+    }
+
+    const label =
+    sessionStorage.getItem("quiz_scope_label") || "선택한 범위";
+
+    if(!Array.isArray(slugs) || slugs.length === 0)
+        return;
+
+    roadmapScopeSlugs = slugs;
+
+    const categoryField =
+    document.getElementById("quiz-category-field");
+
+    const difficultyField =
+    document.getElementById("quiz-difficulty-field");
+
+    const banner =
+    document.getElementById("quiz-scope-banner");
+
+    if(categoryField) categoryField.hidden = true;
+    if(difficultyField) difficultyField.hidden = true;
+
+    if(banner){
+        banner.hidden = false;
+        banner.textContent =
+        `"${label}" 범위(${slugs.length}개 용어)로 퀴즈를 풉니다.`;
+    }
+
+}
 
 
 
@@ -413,6 +468,34 @@ document
 
 
 
+    if(roadmapScopeSlugs){
+
+
+        const scopeSet =
+        new Set(roadmapScopeSlugs);
+
+
+        list =
+        list.filter(t=>scopeSet.has(t.slug));
+
+
+        if(list.length === 0){
+
+            if(question){
+                question.textContent =
+                "이 범위의 용어를 찾을 수 없습니다. 로드맵으로 돌아가 다시 시도해주세요.";
+            }
+
+            return;
+
+        }
+
+
+    }
+
+    else{
+
+
     const category =
     categorySelect.value;
 
@@ -436,6 +519,9 @@ document
 
     list =
     filterDifficulty(list);
+
+
+    }
 
 
 
