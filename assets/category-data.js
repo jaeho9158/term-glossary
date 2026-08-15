@@ -107,9 +107,12 @@
     biomed: "의공학",
     nutrition: "영양학",
     ip: "지식재산학",
+    pubhealth: "보건학",
+    optics: "광공학",
+    consumer: "소비자학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space","textile","fire","intdev","biomed","nutrition","ip"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space","textile","fire","intdev","biomed","nutrition","ip","pubhealth","optics","consumer"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -212,6 +215,9 @@
     biomed: "생체신호처리, 의료영상처럼 공학 기술을 의학에 접목하는 의공학 개념을 다룹니다. 의공학·생체공학 논문에 유용합니다.",
     nutrition: "영양판정, 에너지대사처럼 영양소 대사와 식이가 건강에 미치는 영향을 다루는 영양학 개념을 다룹니다. 영양학·임상영양 논문에 유용합니다.",
     ip: "특허출원, 라이선싱처럼 지식재산의 창출·보호·활용을 다루는 지식재산학 개념을 다룹니다. 지식재산학·특허법 논문에 유용합니다.",
+    pubhealth: "역학, 건강형평성처럼 인구집단 수준의 질병예방과 건강정책을 다루는 보건학 개념을 다룹니다. 보건학·역학 논문에 유용합니다.",
+    optics: "광통신, 레이저공학처럼 빛의 발생·전파·제어 기술을 다루는 광공학 개념을 다룹니다. 광공학·광전자공학 논문에 유용합니다.",
+    consumer: "소비자행동, 소비자정책처럼 소비자의 구매행동과 권익보호를 다루는 소비자학 개념을 다룹니다. 소비자학·소비자정책 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -315,6 +321,9 @@
     biomed: ["바이오센서 및 진단공학","방사선의공학","생체신호처리","생체역학","생체유체역학","생체재료","생체전기공학","세포 및 분자공학","신경공학","약물전달","의료로봇공학","의료영상","인공장기 및 보철공학","임상공학 및 의료정보","재활공학","조직공학"],
     nutrition: ["기초영양학","미량영양소","비만체중관리","생애주기영양","소화흡수","스포츠영양","식이요법","에너지대사","영양역학","영양유전체학","영양판정","임상영양","지역사회영양"],
     ip: ["국제지식재산조약·제도","디자인보호법","라이선싱·기술이전","상표법","신지식재산(AI·데이터·바이오)","영업비밀·부정경쟁방지","저작권법","지식재산 가치평가·회계","지식재산 경영전략","지식재산 정책·제도","특허법 기초","특허분쟁·소송","특허출원·심사","표준특허·FRAND"],
+    pubhealth: ["감염병관리","건강형평성","국제보건","노인보건","만성질환관리","모자보건","보건경제학","보건교육 및 건강증진","보건의료체계","보건정책 및 관리","사회역학","산업보건","생물통계학","역학","영양역학","재난 및 응급보건","정신보건","환경보건"],
+    optics: ["광검출·센서","광계측·분광학","광섬유공학","광전자공학","광통신","광학설계","기하광학","디스플레이공학","레이저공학","박막광학","비선형광학","양자광학","이미징광학","집적광학·포토닉스","파동광학","편광광학","회절광학·홀로그래피"],
+    consumer: ["가계자원관리","고객만족·충성과 불평행동","디지털·온라인 소비자행동","마케팅과 유통전략","소비문화와 소비유형","소비자경제이론","소비자교육","소비자권익과 소비자운동","소비자심리와 태도","소비자재무","소비자정책과 법제","소비자조사방법론","소비자피해구제와 보호기관","소비자행동 및 의사결정","지속가능소비와 윤리적소비","특수판매와 거래유형"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
