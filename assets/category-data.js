@@ -83,9 +83,12 @@
     urban: "도시계획학",
     disaster: "재난안전관리학",
     labor: "노사관계학",
+    anthro: "인류학",
+    kmed: "한의학",
+    landscape: "조경학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -164,6 +167,9 @@
     urban: "용도지역제, 도시재생처럼 도시의 토지이용·교통·주거환경을 계획하고 관리하는 도시계획학 개념을 다룹니다. 도시공학·도시행정 논문에 유용합니다.",
     disaster: "재난관리단계, 회복탄력성처럼 자연재해와 인위적 재난의 예방·대응·복구 체계를 다루는 재난안전관리학 개념을 다룹니다. 방재공학·재난관리 논문에 유용합니다.",
     labor: "단체교섭, 부당노동행위처럼 노동자와 사용자 간의 관계와 노동정책을 다루는 노사관계학 개념을 다룹니다. 노동법·인적자원관리 논문에 유용합니다.",
+    anthro: "친족, 통과의례처럼 인간의 문화적 다양성과 사회구조를 민족지적 현지조사로 탐구하는 인류학 개념을 다룹니다. 문화인류학·민족지 논문에 유용합니다.",
+    kmed: "경락, 변증론치처럼 음양오행에 기반한 진단·침구·본초 이론을 다루는 한의학 개념을 다룹니다. 한의학·전통의학 논문에 유용합니다.",
+    landscape: "식재설계, 경관생태학처럼 공원·정원·옥외공간의 계획과 설계를 다루는 조경학 개념을 다룹니다. 조경학·환경설계 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -243,6 +249,9 @@
     urban: ["공간분석과 GIS","교통계획","기반시설과 방재","도시경제","도시계획이론","도시설계","도시재생","도시행정과 거버넌스","인구와 사회","주택정책","토지이용계획","환경계획"],
     disaster: ["위험성 평가·분석","인위·사회재난","자연재해","재난 거버넌스·법제·국제협력","재난 경보·커뮤니케이션","재난 대응","재난 복구","재난 예방·완화","재난 유형 분류","재난경제·방재공학","재난관리 이론·단계","재난심리·사회적 영향","재난정보시스템·공간정보","회복탄력성·취약성"],
     labor: ["고용형태·고용관계","근로자참여·산업민주주의","근로조건·안전보건","노동법·권리","노동시장","노동정책·사회적 대화","노동조합","노사관계 이론","단체교섭","단체협약","부당노동행위·구제","인적자원관리","임금·보상","쟁의행위","조정·중재","조직행동·태도"],
+    anthro: ["경제인류학","도시인류학","물질문화","민족지 방법론","신체와 체현","언어인류학","의례와 상징","의료인류학","이론적 전통","이주와 디아스포라","인종과 종족성","재현과 인식론","정치인류학","젠더와 섹슈얼리티","존재론적 전회","종교인류학","친족 연구"],
+    kmed: ["경락학","기혈진액론","방제학","변증론치","병인병기론","본초학","사상체질의학","상한론·온병학","양생과 예방의학","음양오행론","장상학","진단학","침구학"],
+    landscape: ["경관분석 및 평가","경관생태학","공원녹지계획","문화경관 및 역사조경","식재설계","옥상 및 실내조경","옥외시설물 및 구조","우수관리 및 물순환","조경계획","조경관리","조경사상 및 이론","조경설계","조경시공","조경정책 및 제도","지속가능한 조경 및 생태복원","환경행태 및 이용자연구"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
