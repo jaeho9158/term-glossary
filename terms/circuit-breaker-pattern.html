@@ -74,6 +74,11 @@
     <strong>한 줄 정의:</strong> 한 서비스가 장애를 겪고 있는 다른 서비스를 계속 호출하면서 실패가 연쇄적으로 번지는 것을 막기 위해, 실패가 일정 횟수 이상 반복되면 일시적으로 호출 자체를 차단해버리는 소프트웨어 설계 패턴입니다.
   </div>
 
+  <figure class="term-figure">
+    <svg viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="60" width="240" height="40" fill="none" stroke="var(--muted)" stroke-width="2" rx="6"/><circle cx="60" cy="80" r="10" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="105" cy="80" r="10" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="150" cy="80" r="10" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="195" cy="80" r="10" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="240" cy="80" r="10" fill="none" stroke="var(--accent)" stroke-width="3"/><text x="150" y="130" font-size="12" fill="var(--muted)" text-anchor="middle">신호/전류가 소자를 거쳐 흐르는 회로 개념</text></svg>
+    <figcaption>여러 소자를 거쳐 신호나 전류가 흐르는 회로의 기본 개념을 나타냅니다.</figcaption>
+  </figure>
+
   <h2>쉽게 풀면</h2>
   <p>가정용 전기 회로에 과전류가 흐르면 두꺼비집(차단기)이 스스로 내려가서 전체 회로를 보호하는 것을 떠올려 봅시다. 만약 차단기가 없다면 고장 난 한 부분 때문에 집 전체에 불이 날 수도 있습니다. 소프트웨어에서도 마찬가지로, 여러 서비스가 서로를 호출하며 동작하는 구조에서 한 서비스가 응답하지 않기 시작하면, 이를 호출하는 다른 서비스들도 계속 기다리다가 함께 마비될 수 있습니다. Circuit Breaker 패턴은 이럴 때 "일단 이 서비스 호출은 잠시 끊고, 곧바로 실패 응답을 돌려주자"고 결정해, 문제가 시스템 전체로 번지는 것을 막아줍니다.</p>
 
