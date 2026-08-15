@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Four-Dimensional Variational Data Assimilation(4차원변분자료동화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Four-Dimensional Variational Data Assimilation(4차원변분자료동화)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/four-dimensional-variational-assimilation.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 4차원변분자료동화 (Four-Dimensional Variational Data Assimilation)</p>
+  <h1>4차원변분자료동화 (Four-Dimensional Variational Data Assimilation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=meteor">대기과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 일정 시간창(time window) 동안의 관측자료 전체와 모델의 시간 발전을 함께 고려하여, 그 기간에 걸쳐 관측과 모델 예측이 가장 잘 일치하는 초기조건을 찾아내는 변분자료동화 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>일반적인 자료동화가 한 시점의 관측값들만으로 그 순간의 대기 상태를 추정한다면, 4차원변분자료동화(4D-Var)는 여기에 "시간"이라는 네 번째 차원을 더합니다. 예를 들어 6시간 동안 들어온 여러 시각의 관측값들을 한꺼번에 활용하면서, 그 관측값들이 실제로 대기가 시간에 따라 어떻게 변해왔는지와 잘 들어맞도록 모델의 초기조건을 거꾸로 조정합니다. 마치 하루 동안 여러 장 찍힌 사진들을 시간 순서대로 이어 붙여 그 사이의 움직임까지 자연스럽게 맞추는 것과 비슷합니다. 그 결과 시간에 따른 대기 흐름의 일관성이 반영된 초기조건을 얻을 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>4D-Var는 시간창 내 관측을 모두 활용하고 모델의 동역학적 특성을 최적화 과정에 자연스럽게 포함시키기 때문에, 관측이 시간적으로 조밀하게 존재하는 경우 특히 높은 정확도의 초기조건을 만들어낼 수 있습니다. 이러한 이유로 여러 현업 수치예보센터에서 핵심 자료동화 기법으로 채택되어 왔습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"4차원변분자료동화 기법을 적용하여 6시간 동화창 내의 레이더 및 위성 관측을 함께 활용함으로써 국지 호우 예측을 개선하였다."</div>
+  <p>짧은 시간창 안에서 여러 종류의 관측을 함께 사용하여 국지적 현상의 초기장을 개선한 사례를 설명합니다.</p>
+  <div class="example">"4D-Var는 접합모델(tangent linear model)과 수반모델(adjoint model)을 필요로 하기 때문에 구현과 유지보수에 상당한 계산 자원이 요구된다."</div>
+  <p>4D-Var 구현에 필요한 수학적·계산적 요소와 그로 인한 부담을 언급하는 대목입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>4D-Var는 비용함수(cost function)를 최소화하는 최적화 문제로 정식화되며, 이 과정에서 모델을 선형화한 접합모델과 그 전치에 해당하는 수반모델을 반복적으로 사용합니다. 3차원변분(3D-Var)이 한 시점의 분석만을 다루는 것과 달리, 4D-Var는 시간창 전체에 걸친 궤적을 최적화 대상으로 삼는다는 점이 근본적인 차이입니다. 계산 비용이 크기 때문에 최근에는 앙상블 기법과 결합한 하이브리드 방식도 함께 연구되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>4D-Var는 수반모델 개발과 유지에 많은 노력이 필요하고 계산 비용이 크다는 한계가 있습니다. 또한 동화 시간창이 너무 길어지면 모델의 비선형성 때문에 최적화가 어려워질 수 있어, 창의 길이를 적절히 설정하는 것이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="data-assimilation.html">자료동화</a>
+    <a href="ensemble-kalman-filter.html">앙상블칼만필터</a>
+    <a href="ensemble-forecasting.html">앙상블예보</a>
+    <a href="model-spin-up.html">모델 스핀업</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
