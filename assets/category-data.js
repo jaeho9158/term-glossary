@@ -98,9 +98,12 @@
     nuclear: "원자력공학",
     dance: "무용학",
     toxicol: "독성학",
+    cosmetic: "화장품학",
+    theology: "신학",
+    space: "우주공학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -194,6 +197,9 @@
     nuclear: "임계도, 핵연료주기처럼 원자로 설계와 방사선 안전을 다루는 원자력공학 개념을 다룹니다. 원자력공학·방사선공학 논문에 유용합니다.",
     dance: "라반움직임분석, 안무학처럼 춤을 이론과 실기 양측면에서 다루는 무용학 개념을 다룹니다. 무용학·공연예술 논문에 유용합니다.",
     toxicol: "용량-반응관계, 위해성평가처럼 물질의 독성 기전을 다루는 독성학 개념을 다룹니다. 독성학·환경보건 논문에 유용합니다.",
+    cosmetic: "유화, 경피흡수처럼 화장품의 원료와 제형 설계, 피부과학적 기능성을 다루는 화장품학 개념을 다룹니다. 화장품학·피부과학 논문에 유용합니다.",
+    theology: "기독론, 구원론처럼 경전과 교리, 신앙체계를 체계적으로 다루는 신학 개념을 다룹니다. 신학·종교학 논문에 유용합니다.",
+    space: "궤도역학, 자세결정 및 제어처럼 인공위성·발사체 등 우주비행체 설계를 다루는 우주공학 개념을 다룹니다. 우주공학·항공우주 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -288,6 +294,9 @@
     nuclear: ["계측 및 제어","방사선물리","방사선방호","방사선차폐","방사성폐기물관리","열수력학","원자로 동특성","원자로 물리","원자로 설계 및 계통","원자로 안전 및 사고해석","재료 및 구조건전성","제염 및 해체","중성자물리학","핵물리 기초","핵연료","핵연료주기"],
     dance: ["공연학/무용비평","라반움직임분석","무용교육/신체교육법","무용기록법","무용동작치료","무용미학/이론","무용사","무용사회학/인류학","무용해부학/운동역학","발레 기법","세계 민속무용/의례무용","안무학","즉흥","한국무용","현대무용 기법"],
     toxicol: ["독동태학","독력학·독성기전","독성시험법","독성학 총론","면역독성","발암성","법독성학","산업·직업독성학","생식발생독성","생체전환·대사","신경독성","용량-반응관계","위해성평가","유전독성","임상독성학","표적장기독성","환경독성학"],
+    cosmetic: ["경피흡수","계면활성제","나노기술 및 전달시스템","모발화장품","미백 기능성","방부 및 보존","보습","분석시험법","색조화장품","안전성평가","유화 및 제형","임상 및 기기평가","자외선차단","주름개선 및 항노화","천연물 및 기능성 원료","피부생리학","향료","화장품 원료"],
+    theology: ["계시론·성경론","교부학·역사신학","교회론","구약학","구원론","기독론","목회신학·선교학·윤리","설교학·예배학","성령론","성례전학","신론·삼위일체론","신약학","인간론·죄론","종말론","해석학","현대신학사조"],
+    space: ["궤도역학","발사체 시스템","소형위성","열제어","우주구조물","우주잔해물 및 충돌회피","우주환경","원격탐사 및 탑재체","유도항법제어","임무설계 및 운영","자세결정 및 제어","재진입 및 대기비행","전력시스템","추진기관","통신 및 원격측정"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
