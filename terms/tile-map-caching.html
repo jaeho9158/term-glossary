@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Tile Map Caching(타일 캐싱)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Tile Map Caching(타일 캐싱)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/tile-map-caching.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 타일 캐싱 (Tile Map Caching)</p>
+  <h1>타일 캐싱 (Tile Map Caching)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 타일 캐싱은 웹지도에서 자주 요청되는 지도 타일 이미지를 미리 생성하거나 저장해 두어 반복 요청 시 빠르게 제공하는 기법을 말합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>웹지도는 화면을 작은 사각형 조각들, 즉 '타일'로 나누어 필요한 부분만 불러오는 방식으로 동작합니다. 그런데 같은 지역의 지도를 매번 새로 계산해서 만들면 시간이 오래 걸리고 서버에 부담이 큽니다. 그래서 자주 조회되는 타일은 한 번 만들어 두고 저장해 놓았다가, 같은 요청이 오면 저장된 것을 그대로 꺼내주는 방식을 씁니다. 이것이 바로 타일 캐싱이며, 마치 자주 찾는 책을 서고 안쪽이 아니라 책상 위에 미리 꺼내 놓는 것과 비슷합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>타일 캐싱은 웹지도학에서 지도 로딩 속도와 서버 부하를 관리하는 핵심 기술로 다루어집니다. 사용자가 지도를 확대하거나 이동할 때 즉각적인 반응이 필요한 서비스 특성상, 캐싱 전략은 서비스 품질에 직접적인 영향을 미칩니다. 대규모 트래픽을 처리하는 지도 서비스일수록 효율적인 캐싱 구조 설계가 중요하게 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 타일 캐싱 전략을 적용한 결과 지도 타일 응답 시간이 유의미하게 단축되었음을 확인하였다."</div>
+  <p>타일 캐싱을 도입한 결과 지도 응답 속도가 개선되었다는 실험 결과를 설명합니다.</p>
+  <div class="example">"동적으로 변화하는 지도 콘텐츠에서는 타일 캐싱과 실시간 갱신 사이의 균형이 중요한 과제로 지적되었다."</div>
+  <p>지도 내용이 자주 바뀌는 상황에서 캐싱과 최신성 확보 사이의 트레이드오프를 다루는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>타일 캐싱은 사전에 모든 타일을 미리 생성해 두는 방식과, 요청이 들어올 때마다 생성 후 저장하는 방식으로 나눌 수 있습니다. 캐시된 타일은 서버, CDN, 클라이언트 등 여러 단계에 걸쳐 저장될 수 있습니다. GeoServer나 MapServer 같은 지도 서버 소프트웨어는 이러한 타일 캐싱 기능을 지원하는 경우가 많습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>타일 캐싱은 속도를 높여주지만, 원본 지도 데이터가 변경되었을 때 캐시된 타일이 오래된 정보를 계속 보여줄 수 있으므로 갱신 정책을 함께 고려해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="geoserver-software.html">지오서버(GeoServer)</a>
+    <a href="mapserver-software.html">맵서버(MapServer)</a>
+    <a href="webgl-mapping.html">WebGL 지도</a>
+    <a href="progressive-web-map.html">프로그레시브 웹지도</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mapbox Vector Tile Format(MVT(Mapbox Vector Tile) 형식)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Mapbox Vector Tile Format(MVT(Mapbox Vector Tile) 형식)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/mvt-format.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; MVT(Mapbox Vector Tile) 형식 (Mapbox Vector Tile Format)</p>
+  <h1>MVT(Mapbox Vector Tile) 형식 (Mapbox Vector Tile Format)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> MVT는 지도의 점·선·면 지리 정보를 좌표값 형태로 압축해 담은 바이너리 벡터 타일 데이터 형식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>기존 지도 타일이 미리 그려진 사진 조각이라면, MVT는 그림을 그리기 위한 설계도 조각이라고 볼 수 있습니다. 도로의 좌표, 건물의 모양 같은 정보가 숫자 데이터로 담겨 있어서, 브라우저가 이 데이터를 받아 그때그때 원하는 스타일로 다시 그릴 수 있습니다. 그 덕분에 같은 데이터로도 낮 모드, 밤 모드처럼 다양한 디자인을 자유롭게 적용할 수 있습니다. 또한 이미지보다 용량이 작아 전송 속도도 빠른 편입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>웹지도학에서 데이터 전송량과 표현 유연성은 사용자 경험을 좌우하는 핵심 요소입니다. MVT는 이 두 가지를 동시에 개선할 수 있는 표준 형식으로 자리잡아, 대규모 공간 데이터 서비스나 실시간 지도 시스템을 다루는 연구에서 자주 언급됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"수집된 도로망 데이터를 MVT 형식으로 변환하여 클라이언트 측에서 동적으로 스타일링이 가능하도록 서버를 구성하였다."</div>
+  <p>서버가 벡터 타일 형태로 데이터를 제공하도록 구현했다는 설명입니다.</p>
+  <div class="example">"래스터 타일 대비 MVT 기반 지도의 데이터 전송량 및 렌더링 유연성을 비교 분석하였다."</div>
+  <p>두 타일 방식의 효율성을 비교하는 연구 맥락에서 사용된 예문입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>MVT는 구글의 Protocol Buffers를 기반으로 한 바이너리 인코딩 방식을 사용하여 좌표와 속성 정보를 효율적으로 압축합니다. 지도는 여러 확대 단계(줌 레벨)별로 타일이 나뉘어 제공되며, 각 타일 안에는 도로, 건물, 행정경계 등 레이어별 벡터 데이터가 포함됩니다. Mapbox GL JS나 OpenLayers 같은 라이브러리가 이 형식을 읽어 화면에 렌더링합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>MVT는 벡터 데이터 표현에 최적화되어 있어, 위성사진처럼 연속적인 이미지 데이터를 다루는 데는 적합하지 않습니다. 또한 데이터를 해석하고 그리는 작업이 클라이언트 측에서 이루어지므로, 저사양 기기에서는 성능 부담이 발생할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="mapbox-gl-js.html">맵박스 GL JS</a>
+    <a href="openlayers-library.html">오픈레이어스(OpenLayers) 라이브러리</a>
+    <a href="real-time-mapping.html">실시간지도</a>
+    <a href="web-map-api.html">웹지도 API</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

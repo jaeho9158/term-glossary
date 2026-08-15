@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>TIN Interpolation(TIN 보간)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 TIN Interpolation(TIN 보간)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/tin-interpolation.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; TIN 보간 (TIN Interpolation)</p>
+  <h1>TIN 보간 (TIN Interpolation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 불규칙삼각망(TIN)을 이용해 측정되지 않은 지점의 표고 등 연속적인 값을 삼각형 면 내에서 추정하는 보간 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>산의 높이를 몇몇 지점에서만 측정했다고 할 때, 측정하지 않은 다른 지점의 높이는 주변 측정값을 이용해 추정해야 합니다. TIN 보간은 측정된 점들을 서로 연결해 삼각형들의 그물(불규칙삼각망, TIN)을 만들고, 그 삼각형 안의 임의 지점 높이는 삼각형 꼭짓점 값들을 이용해 계산하는 방법입니다. 삼각형 세 꼭짓점의 높이를 알면 평면 방정식을 이용해 그 안의 어느 지점 높이든 구할 수 있다는 원리를 이용합니다. 지형이 복잡한 곳에서는 삼각형을 촘촘하게, 평탄한 곳에서는 성글게 만들어 효율적으로 지형을 표현할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>디지털 지형모델(DEM) 제작, 등고선 생성, 경사·향 분석 등 지형 관련 연구에서 TIN 보간은 기본적인 처리 방법으로 활용됩니다. 지도학 연구에서는 불규칙하게 분포한 측정 자료로부터 연속적인 지표면을 재구성하는 대표적 방법으로 다루어지며, 격자 기반 보간법과의 비교 연구도 활발히 이루어집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"항공라이다로 수집한 표고점 자료를 이용해 TIN 보간(TIN interpolation)을 수행하고 디지털 지형모델을 생성하였다."</div>
+  <p>라이다 자료를 이용한 지형모델 제작 과정에서 TIN 보간이 쓰인 사례입니다.</p>
+  <div class="example">"TIN 보간 결과와 크리깅 보간 결과를 비교하여 두 방법의 표고 추정 정확도 차이를 분석하였다."</div>
+  <p>서로 다른 보간법의 정확도를 비교한 연구를 보여줍니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>TIN은 흔히 들로네 삼각분할(Delaunay triangulation) 방식으로 생성되어 삼각형들이 최대한 정삼각형에 가깝게 만들어지도록 합니다. 삼각형 내부의 값은 일반적으로 선형 보간을 통해 계산되며, 지형이 급격히 변하는 지점(능선, 계곡)의 점을 반영하면 지형 표현의 정확도를 높일 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>TIN 보간의 정확도는 원본 측정점의 밀도와 분포에 크게 좌우되며, 점이 희박한 지역에서는 실제 지형과 차이가 커질 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="point-cloud-data.html">포인트클라우드 자료</a>
+    <a href="voxel-data-model.html">복셀 자료모형</a>
+    <a href="gis-data-model.html">GIS 자료모형</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
