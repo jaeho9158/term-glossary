@@ -86,9 +86,12 @@
     anthro: "인류학",
     kmed: "한의학",
     landscape: "조경학",
+    crimin: "범죄학",
+    drama: "연극학",
+    museum: "박물관학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -170,6 +173,9 @@
     anthro: "친족, 통과의례처럼 인간의 문화적 다양성과 사회구조를 민족지적 현지조사로 탐구하는 인류학 개념을 다룹니다. 문화인류학·민족지 논문에 유용합니다.",
     kmed: "경락, 변증론치처럼 음양오행에 기반한 진단·침구·본초 이론을 다루는 한의학 개념을 다룹니다. 한의학·전통의학 논문에 유용합니다.",
     landscape: "식재설계, 경관생태학처럼 공원·정원·옥외공간의 계획과 설계를 다루는 조경학 개념을 다룹니다. 조경학·환경설계 논문에 유용합니다.",
+    crimin: "낙인이론, 일상활동이론처럼 범죄의 원인과 예방, 형사사법제도를 다루는 범죄학 개념을 다룹니다. 범죄학·형사정책 논문에 유용합니다.",
+    drama: "연출론, 무대미술처럼 희곡과 공연을 이론·실기 양측면에서 다루는 연극학 개념을 다룹니다. 연극학·공연예술 논문에 유용합니다.",
+    museum: "큐레이션, 보존과학처럼 박물관·미술관의 소장품 관리와 전시기획을 다루는 박물관학 개념을 다룹니다. 박물관학·문화유산 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -252,6 +258,9 @@
     anthro: ["경제인류학","도시인류학","물질문화","민족지 방법론","신체와 체현","언어인류학","의례와 상징","의료인류학","이론적 전통","이주와 디아스포라","인종과 종족성","재현과 인식론","정치인류학","젠더와 섹슈얼리티","존재론적 전회","종교인류학","친족 연구"],
     kmed: ["경락학","기혈진액론","방제학","변증론치","병인병기론","본초학","사상체질의학","상한론·온병학","양생과 예방의학","음양오행론","장상학","진단학","침구학"],
     landscape: ["경관분석 및 평가","경관생태학","공원녹지계획","문화경관 및 역사조경","식재설계","옥상 및 실내조경","옥외시설물 및 구조","우수관리 및 물순환","조경계획","조경관리","조경사상 및 이론","조경설계","조경시공","조경정책 및 제도","지속가능한 조경 및 생태복원","환경행태 및 이용자연구"],
+    crimin: ["경찰학과 수사","고전주의·실증주의 이론","교정처우","범죄예방","범죄유형론","범죄측정과 통계","비교·국제범죄학","비판범죄학","사회과정이론","사회구조이론","생물학적·심리학적 범죄이론","소년사법","통합이론·발달범죄학","피해자학","형벌이론과 양형","형사사법제도","환경범죄학"],
+    drama: ["공연학/수행성이론","관객참여/응용연극","극이론(시학)","극작론","극장건축/무대공간","근현대 연극사조","무대미술/디자인","서양연극사-고대중세","서양연극사-근대","아시아연극","연극기호학/비평이론","연기론","연출론","장르/양식","한국전통연희/근현대연극"],
+    museum: ["관람객 연구","등록·기록관리","디지털 박물관","문화유산 관리","문화재 반환·환수","박물관 건축·공간","박물관 경영·행정","박물관 교육","박물관사","박물관학 기초이론","법·윤리","보존과학","소장품 수집·관리","아카이브·기록학","전시기획","큐레이션"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
