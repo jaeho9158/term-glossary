@@ -104,9 +104,12 @@
     textile: "의류학",
     fire: "소방방재학",
     intdev: "국제개발협력학",
+    biomed: "의공학",
+    nutrition: "영양학",
+    ip: "지식재산학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space","textile","fire","intdev"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space","textile","fire","intdev","biomed","nutrition","ip"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -206,6 +209,9 @@
     textile: "직물조직, 의복구성처럼 섬유 소재와 의복 설계·패션산업 전반을 다루는 의류학 개념을 다룹니다. 의류학·섬유공학 논문에 유용합니다.",
     fire: "연소공학, 피난안전처럼 화재의 발생·확산과 소방전술을 다루는 소방방재학 개념을 다룹니다. 소방학·방재공학 논문에 유용합니다.",
     intdev: "공적개발원조, 원조효과성처럼 개발도상국의 빈곤감소와 지속가능발전을 다루는 국제개발협력학 개념을 다룹니다. 국제개발학·국제협력 논문에 유용합니다.",
+    biomed: "생체신호처리, 의료영상처럼 공학 기술을 의학에 접목하는 의공학 개념을 다룹니다. 의공학·생체공학 논문에 유용합니다.",
+    nutrition: "영양판정, 에너지대사처럼 영양소 대사와 식이가 건강에 미치는 영향을 다루는 영양학 개념을 다룹니다. 영양학·임상영양 논문에 유용합니다.",
+    ip: "특허출원, 라이선싱처럼 지식재산의 창출·보호·활용을 다루는 지식재산학 개념을 다룹니다. 지식재산학·특허법 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -306,6 +312,9 @@
     textile: ["기능성/스마트 의류","방적/원사학","봉제학","부직포/산업용 섬유","색채학","섬유·직물 물성평가","섬유재료학","어패럴 CAD/디지털 패션","염색가공학","의류산업/머천다이징","의류인체공학","의복구성/패턴설계","의복위생학/쾌적성","지속가능 패션","직물조직/제직학","패션디자인/트렌드","패션마케팅/소비자행동","편성물학"],
     fire: ["방화·내화공학","소방시설·설비","소방전기·경보설비","소방전술·화재진압","소화이론·소화약제","연소공학","열전달·화재확산","위험물안전관리","재난관리·방재행정","폭발공학","피난·인명안전","화재모델링·시뮬레이션","화재역학","화재위험성평가","화재조사"],
     intdev: ["개발금융","거버넌스와 제도","국제개발기구 및 거버넌스체제","농촌개발·식량안보","무역과 개발이론","빈곤과 불평등","시민사회 및 참여형개발","원조 이론 및 형태","원조효과성 원칙","인도주의지원","젠더와 개발","지속가능발전목표","프로젝트관리 및 평가","환경·기후변화와 개발"],
+    biomed: ["바이오센서 및 진단공학","방사선의공학","생체신호처리","생체역학","생체유체역학","생체재료","생체전기공학","세포 및 분자공학","신경공학","약물전달","의료로봇공학","의료영상","인공장기 및 보철공학","임상공학 및 의료정보","재활공학","조직공학"],
+    nutrition: ["기초영양학","미량영양소","비만체중관리","생애주기영양","소화흡수","스포츠영양","식이요법","에너지대사","영양역학","영양유전체학","영양판정","임상영양","지역사회영양"],
+    ip: ["국제지식재산조약·제도","디자인보호법","라이선싱·기술이전","상표법","신지식재산(AI·데이터·바이오)","영업비밀·부정경쟁방지","저작권법","지식재산 가치평가·회계","지식재산 경영전략","지식재산 정책·제도","특허법 기초","특허분쟁·소송","특허출원·심사","표준특허·FRAND"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
