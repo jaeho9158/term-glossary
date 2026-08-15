@@ -180,21 +180,31 @@ def tpl_circuit():
 
 
 # 키워드(파일명/제목 기준) -> 템플릿 매핑. 위에서부터 먼저 매칭되는 것을 사용.
+# 인문/사회 용어에도 걸리는 범용어("구조", "링크", "흐름", "회로" 등)는 넣지 않는다 —
+# 오탐(예: 어학 "논항구조", 인구학 "연령구조")을 막기 위해 공학적 문맥이 뚜렷한 단어만 사용.
 KEYWORD_TEMPLATES = [
-    (["gear", "톱니", "기어"], tpl_gear),
-    (["linkage", "링크", "cam-follower", "캠", "manipulator", "jacobian", "링크 기구"], tpl_linkage),
-    (["beam", "buckling", "fatigue", "fracture", "j-integral", "구조", "좌굴", "피로", "파괴", "bolted", "preload", "sandwich", "honeycomb"], tpl_beam),
-    (["flow", "fluid", "유동", "cavitation", "공동", "compressor", "compressible", "hydraulic", "유압", "microfluidic"], tpl_fluid),
-    (["thermal", "heat", "열", "combustion", "연소", "engine", "엔진"], tpl_thermal),
-    (["vibration", "진동", "modal", "resonator", "gyroscopic", "파형", "wave"], tpl_vibration),
-    (["sensor", "센서", "measurement", "계측", "monitoring", "vibrometry", "correlation", "kalman"], tpl_sensor),
-    (["composite", "laminate", "복합재", "적층", "layer"], tpl_composite),
-    (["bearing", "베어링", "rotor", "로터", "회전"], tpl_rotation),
-    (["circuit", "회로", "electro", "전자"], tpl_circuit),
+    (["gear-", "gear.html", "톱니", "기어"], tpl_gear),
+    (["four-bar-linkage", "cam-follower", "캠-종동절", "manipulator-jacobian", "parallel-kinematic"], tpl_linkage),
+    (["buckling", "fatigue-s-n", "fracture-mechanics", "j-integral", "좌굴", "피로파괴", "bolted-joint", "preload", "sandwich-structure", "honeycomb-sandwich", "thin-walled-structure"], tpl_beam),
+    (["fluid-flow", "cavitation", "공동현상", "compressor-surge", "compressible-flow", "hydraulic-system", "유압시스템", "microfluidic"], tpl_fluid),
+    (["heat-exchanger", "heat-pipe", "열전달", "combustion-instability", "hcci", "knock-in-spark"], tpl_thermal),
+    (["vibration-control", "modal-superposition", "mems-resonator", "gyroscopic-moment", "진동제어"], tpl_vibration),
+    (["acoustic-emission", "digital-image-correlation", "laser-doppler-vibrometry", "kalman-filter", "strain-measurement"], tpl_sensor),
+    (["fiber-reinforced-composite", "composite-laminate", "복합재-적층", "delamination"], tpl_composite),
+    (["bearing-fatigue", "베어링", "gyroscopic-rotor", "로터-회전"], tpl_rotation),
+    (["circuit-design", "전자회로", "analog-circuit"], tpl_circuit),
+]
+
+# 그림을 붙일 대상은 이공계 카테고리로 한정한다 (인문/사회/법/문학 등은 제외).
+ALLOWED_CATEGORY_MARKERS = [
+    "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
+    "cat=cs", "cat=robotics", "cat=physchem", "cat=aviation", "cat=naval",
 ]
 
 
-def pick_template(filename: str, title: str):
+def pick_template(filename: str, title: str, html: str):
+    if not any(marker in html for marker in ALLOWED_CATEGORY_MARKERS):
+        return None
     hay = (filename + " " + title).lower()
     for keywords, fn in KEYWORD_TEMPLATES:
         for kw in keywords:
@@ -212,7 +222,7 @@ def process_file(path: Path) -> str:
     m = re.search(r"<h1>(.*?)</h1>", html)
     title = re.sub(r"<.*?>", "", m.group(1)) if m else path.stem
 
-    tpl_fn = pick_template(path.stem, title)
+    tpl_fn = pick_template(path.stem, title, html)
     if tpl_fn is None:
         return "skip-no-match"
 
