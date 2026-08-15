@@ -101,9 +101,12 @@
     cosmetic: "화장품학",
     theology: "신학",
     space: "우주공학",
+    textile: "의류학",
+    fire: "소방방재학",
+    intdev: "국제개발협력학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol","cosmetic","theology","space","textile","fire","intdev"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -200,6 +203,9 @@
     cosmetic: "유화, 경피흡수처럼 화장품의 원료와 제형 설계, 피부과학적 기능성을 다루는 화장품학 개념을 다룹니다. 화장품학·피부과학 논문에 유용합니다.",
     theology: "기독론, 구원론처럼 경전과 교리, 신앙체계를 체계적으로 다루는 신학 개념을 다룹니다. 신학·종교학 논문에 유용합니다.",
     space: "궤도역학, 자세결정 및 제어처럼 인공위성·발사체 등 우주비행체 설계를 다루는 우주공학 개념을 다룹니다. 우주공학·항공우주 논문에 유용합니다.",
+    textile: "직물조직, 의복구성처럼 섬유 소재와 의복 설계·패션산업 전반을 다루는 의류학 개념을 다룹니다. 의류학·섬유공학 논문에 유용합니다.",
+    fire: "연소공학, 피난안전처럼 화재의 발생·확산과 소방전술을 다루는 소방방재학 개념을 다룹니다. 소방학·방재공학 논문에 유용합니다.",
+    intdev: "공적개발원조, 원조효과성처럼 개발도상국의 빈곤감소와 지속가능발전을 다루는 국제개발협력학 개념을 다룹니다. 국제개발학·국제협력 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -297,6 +303,9 @@
     cosmetic: ["경피흡수","계면활성제","나노기술 및 전달시스템","모발화장품","미백 기능성","방부 및 보존","보습","분석시험법","색조화장품","안전성평가","유화 및 제형","임상 및 기기평가","자외선차단","주름개선 및 항노화","천연물 및 기능성 원료","피부생리학","향료","화장품 원료"],
     theology: ["계시론·성경론","교부학·역사신학","교회론","구약학","구원론","기독론","목회신학·선교학·윤리","설교학·예배학","성령론","성례전학","신론·삼위일체론","신약학","인간론·죄론","종말론","해석학","현대신학사조"],
     space: ["궤도역학","발사체 시스템","소형위성","열제어","우주구조물","우주잔해물 및 충돌회피","우주환경","원격탐사 및 탑재체","유도항법제어","임무설계 및 운영","자세결정 및 제어","재진입 및 대기비행","전력시스템","추진기관","통신 및 원격측정"],
+    textile: ["기능성/스마트 의류","방적/원사학","봉제학","부직포/산업용 섬유","색채학","섬유·직물 물성평가","섬유재료학","어패럴 CAD/디지털 패션","염색가공학","의류산업/머천다이징","의류인체공학","의복구성/패턴설계","의복위생학/쾌적성","지속가능 패션","직물조직/제직학","패션디자인/트렌드","패션마케팅/소비자행동","편성물학"],
+    fire: ["방화·내화공학","소방시설·설비","소방전기·경보설비","소방전술·화재진압","소화이론·소화약제","연소공학","열전달·화재확산","위험물안전관리","재난관리·방재행정","폭발공학","피난·인명안전","화재모델링·시뮬레이션","화재역학","화재위험성평가","화재조사"],
+    intdev: ["개발금융","거버넌스와 제도","국제개발기구 및 거버넌스체제","농촌개발·식량안보","무역과 개발이론","빈곤과 불평등","시민사회 및 참여형개발","원조 이론 및 형태","원조효과성 원칙","인도주의지원","젠더와 개발","지속가능발전목표","프로젝트관리 및 평가","환경·기후변화와 개발"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
