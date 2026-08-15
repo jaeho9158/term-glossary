@@ -95,9 +95,12 @@
     indeng: "산업공학",
     cyber: "정보보안학",
     meteor: "대기과학",
+    nuclear: "원자력공학",
+    dance: "무용학",
+    toxicol: "독성학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military","indeng","cyber","meteor","nuclear","dance","toxicol"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -188,6 +191,9 @@
     indeng: "선형계획법, 적시생산방식처럼 생산·서비스 시스템의 효율을 높이는 산업공학 개념을 다룹니다. 산업공학·경영과학 논문에 유용합니다.",
     cyber: "암호 알고리즘, 침해사고 대응처럼 정보시스템을 위협으로부터 보호하는 정보보안학 개념을 다룹니다. 정보보안·사이버보안 논문에 유용합니다.",
     meteor: "대기역학, 수치예보처럼 대기의 물리·화학적 과정을 다루는 대기과학 개념을 다룹니다. 대기과학·기상학 논문에 유용합니다.",
+    nuclear: "임계도, 핵연료주기처럼 원자로 설계와 방사선 안전을 다루는 원자력공학 개념을 다룹니다. 원자력공학·방사선공학 논문에 유용합니다.",
+    dance: "라반움직임분석, 안무학처럼 춤을 이론과 실기 양측면에서 다루는 무용학 개념을 다룹니다. 무용학·공연예술 논문에 유용합니다.",
+    toxicol: "용량-반응관계, 위해성평가처럼 물질의 독성 기전을 다루는 독성학 개념을 다룹니다. 독성학·환경보건 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -279,6 +285,9 @@
     indeng: ["린생산·지속적개선","물류·수송","생산관리·생산시스템","스케줄링","시뮬레이션","시설계획·설비배치","신뢰성공학·보전","운영연구·수리계획법","의사결정분석","인간공학","재고관리","통계분석·실험계획법","프로젝트관리","확률모형·대기이론"],
     cyber: ["IoT 및 임베디드 보안","PKI 및 키 관리","네트워크 보안","무선 및 프로토콜 보안","보안 거버넌스 및 위험관리","블록체인 보안","시스템 및 운영체제 보안","악성코드 분석","암호 알고리즘","웹 애플리케이션 보안","인공지능 보안","인증 및 접근제어","취약점 분석 및 침투테스트","침해사고 대응 및 포렌식","클라우드 및 가상화 보안","프라이버시 및 익명화","해시 및 메시지 인증"],
     meteor: ["고층대기 및 성층권","구름 및 강수물리학","기후학 및 기후변화","대기경계층","대기관측 및 원격탐사","대기대순환","대기복사학","대기역학","대기열역학","대기오염","대기화학","수치예보 및 자료동화","열대기상학","종관기상학","중규모기상학"],
+    nuclear: ["계측 및 제어","방사선물리","방사선방호","방사선차폐","방사성폐기물관리","열수력학","원자로 동특성","원자로 물리","원자로 설계 및 계통","원자로 안전 및 사고해석","재료 및 구조건전성","제염 및 해체","중성자물리학","핵물리 기초","핵연료","핵연료주기"],
+    dance: ["공연학/무용비평","라반움직임분석","무용교육/신체교육법","무용기록법","무용동작치료","무용미학/이론","무용사","무용사회학/인류학","무용해부학/운동역학","발레 기법","세계 민속무용/의례무용","안무학","즉흥","한국무용","현대무용 기법"],
+    toxicol: ["독동태학","독력학·독성기전","독성시험법","독성학 총론","면역독성","발암성","법독성학","산업·직업독성학","생식발생독성","생체전환·대사","신경독성","용량-반응관계","위해성평가","유전독성","임상독성학","표적장기독성","환경독성학"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
