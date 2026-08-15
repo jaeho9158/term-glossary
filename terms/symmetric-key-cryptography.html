@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Symmetric-key Cryptography(대칭키 암호)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Symmetric-key Cryptography(대칭키 암호)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/symmetric-key-cryptography.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 대칭키 암호 (Symmetric-key Cryptography)</p>
+  <h1>대칭키 암호 (Symmetric-key Cryptography)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 암호화와 복호화에 동일한 하나의 키를 사용하는 암호 방식을 말합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>대칭키 암호는 하나의 열쇠로 문을 잠그고 같은 열쇠로 여는 자물쇠와 같습니다. 데이터를 보내는 사람과 받는 사람이 미리 똑같은 비밀 키를 공유하고 있어야 합니다. 이 키만 알면 누구나 암호문을 원래 내용으로 되돌릴 수 있기 때문에, 키를 안전하게 나누어 갖는 과정이 매우 중요합니다. 계산이 비교적 단순해서 속도가 빠른 것이 큰 장점입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>대칭키 암호는 대용량 데이터를 빠르게 암호화해야 하는 실무 환경에서 핵심적으로 사용됩니다. 정보보안학 연구에서는 이 방식의 속도와 안전성 사이의 균형, 그리고 키 배송 문제를 해결하기 위한 다양한 프로토콜이 활발히 다루어집니다. 실제 서비스에서는 비대칭키 암호와 결합해 안전하게 키를 교환한 뒤 대칭키로 대량 데이터를 암호화하는 하이브리드 방식이 일반적으로 사용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 대칭키 암호 기반의 경량 암호화 기법을 사물인터넷 기기에 적용하여 연산 부담을 줄였다."</div>
+  <p>제한된 자원을 가진 기기에서 빠른 처리 속도가 필요하기 때문에 대칭키 암호가 선택되었음을 보여줍니다.</p>
+  <div class="example">"제안된 프로토콜은 세션 시작 시 비대칭키 암호로 대칭키를 교환한 뒤, 이후 통신은 대칭키 암호로 처리한다."</div>
+  <p>키 교환의 안전성과 통신 속도를 함께 확보하기 위해 두 방식을 혼합해 사용하는 전형적인 설계를 설명합니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>대칭키 암호는 크게 블록 암호와 스트림 암호로 나뉘며, 대표적으로 AES가 널리 사용됩니다. 대칭키 암호 자체는 계산 효율이 높지만, 통신 당사자 수가 늘어날수록 각 쌍마다 별도의 키를 안전하게 관리해야 하는 부담이 커집니다. 이 때문에 키 관리와 키 유도함수 같은 보조 기술이 함께 연구됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>대칭키 암호 자체는 키를 안전하게 전달하는 문제를 해결해주지 않으므로, 키 교환 과정에서 별도의 보안 장치가 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="asymmetric-key-cryptography.html">비대칭키 암호</a>
+    <a href="block-cipher.html">블록 암호</a>
+    <a href="stream-cipher.html">스트림 암호</a>
+    <a href="advanced-encryption-standard.html">고급 암호화 표준(AES)</a>
+    <a href="key-management.html">키 관리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

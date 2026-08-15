@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Address Space Layout Randomization(주소공간 배치 난수화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Address Space Layout Randomization(주소공간 배치 난수화)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/address-space-layout-randomization.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 주소공간 배치 난수화 (Address Space Layout Randomization)</p>
+  <h1>주소공간 배치 난수화 (Address Space Layout Randomization)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 프로그램이 실행될 때마다 코드, 스택, 힙 등 메모리 구성요소의 배치 주소를 무작위로 바꾸어, 공격자가 메모리 취약점을 악용하기 어렵게 만드는 보안 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>도둑이 미리 도면을 보고 금고 위치를 외워두었는데, 집주인이 매번 방 배치를 바꿔버려서 도면이 쓸모없어지는 상황과 비슷합니다. 프로그램이 실행될 때마다 코드나 데이터가 메모리의 어느 위치에 놓일지를 무작위로 정하면, 공격자가 특정 주소를 미리 알고 있어야 하는 공격 방식이 통하지 않게 됩니다. 이 기법을 줄여서 흔히 ASLR이라고 부릅니다. 대부분의 현대 운영체제에서 기본적으로 적용되는 방어 기법입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>메모리 손상 취약점을 악용하는 공격은 흔히 특정 코드나 함수가 위치한 메모리 주소를 알아야 성립하기 때문에, ASLR은 이런 공격의 성공률을 크게 낮추는 실질적인 방어 수단으로 연구됩니다. 시스템 및 운영체제 보안 분야에서 가장 널리 배포된 완화 기법 중 하나로서, 이를 우회하는 공격 기법과 이를 보완하는 방어 기법 모두가 활발히 연구되고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 정보 유출 취약점을 이용해 ASLR(address space layout randomization)로 보호된 시스템의 메모리 주소를 알아내는 우회 기법을 분석하였다."</div>
+  <p>ASLR이 적용되어도 다른 취약점을 통해 주소 정보를 알아내면 방어가 무력화될 수 있음을 보여주는 연구입니다.</p>
+  <div class="example">"세밀한 단위의 주소공간 배치 난수화(fine-grained ASLR)를 적용해 코드 재사용 공격에 대한 저항성을 높이는 방안을 제시하였다."</div>
+  <p>난수화의 단위를 더 잘게 나누어 방어력을 강화하려는 개선된 접근을 다룬 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>ASLR은 프로세스가 시작될 때 코드 영역, 라이브러리, 스택, 힙 등의 시작 주소를 난수를 이용해 결정합니다. 난수화의 범위가 넓을수록 공격자가 올바른 주소를 추측하기 어려워지지만, 정보 유출 취약점이 함께 존재하면 실제 주소가 노출되어 ASLR의 효과가 약해질 수 있습니다. 이 때문에 ASLR은 스택 카나리, DEP/NX 등 다른 완화 기법과 함께 적용되는 것이 일반적입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>ASLR은 메모리 손상 취약점 자체를 없애는 것이 아니라 악용을 어렵게 만드는 완화 기법이라는 점에 유의해야 합니다. 정보 유출이나 부분적인 주소 추측이 가능한 환경에서는 ASLR만으로는 충분한 방어가 되지 않을 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="memory-corruption.html">메모리 손상</a>
+    <a href="privilege-escalation.html">권한상승</a>
+    <a href="sandboxing.html">샌드박싱</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

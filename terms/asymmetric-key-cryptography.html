@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Asymmetric-key Cryptography(비대칭키 암호)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Asymmetric-key Cryptography(비대칭키 암호)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/asymmetric-key-cryptography.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 비대칭키 암호 (Asymmetric-key Cryptography)</p>
+  <h1>비대칭키 암호 (Asymmetric-key Cryptography)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 서로 다른 두 개의 키(공개키와 개인키)를 사용하여 암호화와 복호화를 수행하는 암호 방식을 말합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>비대칭키 암호는 누구나 넣을 수 있지만 열쇠를 가진 사람만 열 수 있는 우체통과 같습니다. 공개키는 모두에게 공개해도 되고, 개인키는 본인만 안전하게 보관합니다. 공개키로 잠근 내용은 짝이 되는 개인키로만 풀 수 있어서, 사전에 비밀 키를 직접 만나서 나눌 필요가 없습니다. 대신 계산 과정이 대칭키 암호보다 복잡해서 속도는 상대적으로 느립니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>비대칭키 암호는 사전에 안전한 채널이 없는 두 사람 사이에서도 안전하게 키를 교환할 수 있게 해주어, 인터넷 통신 보안의 근간을 이룹니다. 정보보안학 연구에서는 이 원리를 바탕으로 전자서명, 신원 인증, 키 교환 프로토콜을 설계하는 방법이 폭넓게 다루어집니다. 웹 브라우저와 서버 간의 보안 통신도 이 방식에 크게 의존합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 시스템은 비대칭키 암호를 이용해 사용자의 신원을 검증한 후, 대칭키를 안전하게 교환한다."</div>
+  <p>공개키와 개인키 쌍이 신원 확인과 안전한 키 교환의 기반으로 쓰이고 있음을 보여줍니다.</p>
+  <div class="example">"본 논문에서는 격자 기반 비대칭키 암호를 활용하여 양자 컴퓨터 공격에 대비한 프로토콜을 설계하였다."</div>
+  <p>기존 방식의 취약점을 보완하기 위해 새로운 수학적 구조를 적용한 비대칭키 암호 연구 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>대표적인 비대칭키 암호로는 RSA와 타원곡선 암호가 있으며, 이는 큰 수의 소인수분해나 이산로그 문제처럼 계산이 어려운 수학적 문제에 안전성을 의존합니다. 실제 통신에서는 계산 부담을 줄이기 위해 비대칭키 암호로 짧은 세션 키만 교환하고, 이후 대용량 데이터는 대칭키 암호로 처리하는 하이브리드 구조가 흔히 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>비대칭키 암호는 대칭키 암호보다 연산 속도가 느리기 때문에 대용량 데이터 전체를 암호화하는 용도로는 잘 쓰이지 않습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="symmetric-key-cryptography.html">대칭키 암호</a>
+    <a href="rsa-cryptosystem.html">RSA 암호시스템</a>
+    <a href="post-quantum-cryptography.html">양자내성암호</a>
+    <a href="public-key-infrastructure.html">공개키 기반구조(PKI)</a>
+    <a href="perfect-forward-secrecy.html">완전순방향비밀성</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Hypervisor Security(하이퍼바이저 보안)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Hypervisor Security(하이퍼바이저 보안)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/hypervisor-security.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 하이퍼바이저 보안 (Hypervisor Security)</p>
+  <h1>하이퍼바이저 보안 (Hypervisor Security)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 하나의 물리 서버 위에서 여러 가상머신을 관리하는 소프트웨어인 하이퍼바이저 자체와 그 위의 가상머신들을 위협으로부터 보호하는 보안 분야입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>하이퍼바이저는 하나의 물리적인 컴퓨터를 여러 대의 가상 컴퓨터처럼 나누어 쓸 수 있게 해주는 관리자 프로그램입니다. 건물 하나를 여러 층으로 나누어 다른 회사들에게 임대하는 관리사무소를 떠올리면 이해가 쉽습니다. 만약 이 관리사무소, 즉 하이퍼바이저 자체가 공격당하면 그 위에 있는 모든 가상 컴퓨터(입주 회사)가 동시에 위험에 처할 수 있기 때문에, 이를 지키는 일이 매우 중요합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>하이퍼바이저는 여러 가상머신을 총괄하는 최하위 통제 지점으로서, 이곳이 뚫리면 그 위의 모든 가상머신에 걸쳐 파급되는 대규모 사고로 이어질 수 있기 때문에 정보보안학과 클라우드 인프라 연구에서 핵심적으로 다뤄집니다. 클라우드 서비스 제공자 입장에서는 하이퍼바이저의 안전성이 곧 서비스 전체의 신뢰도를 좌우하는 요소가 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 대표적인 오픈소스 하이퍼바이저의 취약점 이력을 분석하여 취약점이 발생한 구성 요소별 분포를 조사하였다."</div>
+  <p>하이퍼바이저의 보안 취약점 현황을 분석한 연구 예시입니다.</p>
+  <div class="example">"제안된 기법은 하이퍼바이저 보안 강화를 위해 가상머신 탈출(VM escape) 시도를 실행 초기 단계에서 탐지한다."</div>
+  <p>하이퍼바이저를 겨냥한 특정 공격 기법에 대한 방어 연구 문맥입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>하이퍼바이저 보안에서 가장 심각하게 다뤄지는 위협 중 하나는 가상머신 탈출(VM escape)로, 이는 공격자가 격리된 가상머신 내부에서 하이퍼바이저의 취약점을 이용해 호스트 시스템이나 다른 가상머신에 접근하는 공격입니다. 이러한 위협에 대응하기 위해 하이퍼바이저 코드 자체의 최소화 및 검증, 하드웨어 수준의 가상화 보안 기능 활용 등의 방법이 연구되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>가상화가 물리적으로 분리된 서버 수준의 보안을 완전히 대체한다고 보기는 어려우며, 하이퍼바이저의 취약점 하나가 여러 이용자에게 동시에 영향을 미칠 수 있다는 점에서 단일 실패 지점으로서의 위험성을 항상 고려해야 합니다. 하이퍼바이저 업데이트와 패치 관리의 지연은 이런 위험을 키우는 흔한 원인입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cloud-security.html">클라우드 보안</a>
+    <a href="multi-tenancy-isolation.html">멀티테넌시 격리</a>
+    <a href="container-security.html">컨테이너 보안</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

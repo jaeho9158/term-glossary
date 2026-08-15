@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Perfect Forward Secrecy(완전순방향비밀성)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Perfect Forward Secrecy(완전순방향비밀성)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/perfect-forward-secrecy.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 완전순방향비밀성 (Perfect Forward Secrecy)</p>
+  <h1>완전순방향비밀성 (Perfect Forward Secrecy)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 장기간 사용하는 개인키가 나중에 유출되더라도 과거에 주고받은 통신 내용은 안전하게 보호되는 성질입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>완전순방향비밀성은 매 통신 세션마다 그 세션에서만 쓰는 임시 열쇠를 새로 만들어 쓰는 것과 비슷합니다. 만약 나중에 공격자가 어떤 방법으로든 서버의 오래된 마스터 키를 손에 넣더라도, 이미 지나간 과거 세션에서 쓰인 임시 열쇠까지는 되돌려 복구할 수 없도록 설계됩니다. 이렇게 하면 예전에 저장해 둔 암호화된 통신 기록을 나중에 몰래 해독하는 공격을 막을 수 있습니다. 최근 많은 보안 통신 프로토콜이 이 성질을 기본으로 지원하도록 설계되고 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>공격자가 암호화된 통신 데이터를 지금 당장 해독하지 못하더라도 저장해 두었다가 나중에 키가 유출되었을 때 한꺼번에 해독하는 위협이 실제로 존재하기 때문에, 이 성질은 정보보안학에서 중요하게 다루어집니다. 특히 오랜 기간 비밀이 유지되어야 하는 통신에서는 완전순방향비밀성 여부가 프로토콜 선택의 중요한 기준이 됩니다. TLS와 같은 널리 쓰이는 보안 프로토콜의 최신 버전에서도 이 개념이 핵심 설계 원칙으로 반영되어 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안된 키 교환 프로토콜은 매 세션마다 임시 키를 생성함으로써 완전순방향비밀성을 보장한다."</div>
+  <p>임시 세션 키 생성이 완전순방향비밀성을 달성하는 핵심 설계 요소임을 보여줍니다.</p>
+  <div class="example">"본 연구는 기존 프로토콜이 완전순방향비밀성을 제공하지 못해 과거 통신 기록이 사후에 노출될 위험이 있음을 지적하였다."</div>
+  <p>이 성질이 결여된 프로토콜이 가지는 잠재적 취약점을 분석하는 연구 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>완전순방향비밀성은 일반적으로 디피-헬만 키 교환과 같은 방식을 세션마다 새로 수행하고, 사용이 끝난 임시 키를 즉시 파기하는 방식으로 구현됩니다. 장기 개인키는 신원 확인에만 사용하고, 실제 세션 암호화 키는 매번 새로 생성되는 임시 값에서 유도되는 구조가 일반적입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>완전순방향비밀성은 과거 통신을 보호할 뿐, 공격자가 실시간으로 통신 중인 세션 자체를 침해하는 것까지 막아주지는 않습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="asymmetric-key-cryptography.html">비대칭키 암호</a>
+    <a href="key-management.html">키 관리</a>
+    <a href="post-quantum-cryptography.html">양자내성암호</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
