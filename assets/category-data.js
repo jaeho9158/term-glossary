@@ -89,9 +89,12 @@
     crimin: "범죄학",
     drama: "연극학",
     museum: "박물관학",
+    tax: "세무학",
+    fishery: "수산학",
+    military: "군사학",
   };
 
-  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum"];
+  const CATEGORY_ORDER = ["stat","method","tool","ethics","physchem","bioearth","neuro","medhealth","psych","socialecon","eng","cs","math","philo","history","lit","religion","ling","law","polisci","pubadmin","geo","demog","media","libinfo","biz","acct","finance","trade","nursing","pharm","dent","vet","sports","edu","arch","agri","env","ocean","astro","artstudy","music","film","socwelfare","rehab","medlab","radio","ems","childdev","geronto","logis","realestate","insur","food","forestry","livestock","translation","design","gender","archaeo","tourism","gamestudy","aviation","naval","robotics","biotech","materials","mechanical","electrical","chemeng","forensicsci","actuarial","cartography","urban","disaster","labor","anthro","kmed","landscape","crimin","drama","museum","tax","fishery","military"];
 
   const CATEGORY_DESCRIPTIONS = {
     stat: "평균, 분산, 유의확률처럼 데이터를 요약하고 가설을 검정하는 데 쓰이는 통계 개념을 다룹니다. 논문의 '결과' 섹션에 나오는 숫자와 검정 방법을 해석하려는 사람이 주로 찾습니다.",
@@ -176,6 +179,9 @@
     crimin: "낙인이론, 일상활동이론처럼 범죄의 원인과 예방, 형사사법제도를 다루는 범죄학 개념을 다룹니다. 범죄학·형사정책 논문에 유용합니다.",
     drama: "연출론, 무대미술처럼 희곡과 공연을 이론·실기 양측면에서 다루는 연극학 개념을 다룹니다. 연극학·공연예술 논문에 유용합니다.",
     museum: "큐레이션, 보존과학처럼 박물관·미술관의 소장품 관리와 전시기획을 다루는 박물관학 개념을 다룹니다. 박물관학·문화유산 논문에 유용합니다.",
+    tax: "실질과세원칙, 이전가격세제처럼 조세 제도와 세법·세무행정을 다루는 세무학 개념을 다룹니다. 세무학·조세법 논문에 유용합니다.",
+    fishery: "수산자원평가, 양식학처럼 수산자원의 이용·관리와 어업 정책을 다루는 수산학 개념을 다룹니다. 수산학·해양생명과학 논문에 유용합니다.",
+    military: "작전술, 핵전략처럼 국방·군사전략과 안보정책을 다루는 군사학 개념을 다룹니다. 군사학·안보정책 논문에 유용합니다.",
   };
 
   const SUB_CATEGORY_ORDER = {
@@ -261,6 +267,9 @@
     crimin: ["경찰학과 수사","고전주의·실증주의 이론","교정처우","범죄예방","범죄유형론","범죄측정과 통계","비교·국제범죄학","비판범죄학","사회과정이론","사회구조이론","생물학적·심리학적 범죄이론","소년사법","통합이론·발달범죄학","피해자학","형벌이론과 양형","형사사법제도","환경범죄학"],
     drama: ["공연학/수행성이론","관객참여/응용연극","극이론(시학)","극작론","극장건축/무대공간","근현대 연극사조","무대미술/디자인","서양연극사-고대중세","서양연극사-근대","아시아연극","연극기호학/비평이론","연기론","연출론","장르/양식","한국전통연희/근현대연극"],
     museum: ["관람객 연구","등록·기록관리","디지털 박물관","문화유산 관리","문화재 반환·환수","박물관 건축·공간","박물관 경영·행정","박물관 교육","박물관사","박물관학 기초이론","법·윤리","보존과학","소장품 수집·관리","아카이브·기록학","전시기획","큐레이션"],
+    tax: ["관세","국제조세","법인세법","부가가치세법","상속·증여세법","세무회계","소득세법","조세범처벌","조세법 총론","조세불복·쟁송","조세정책·재정학","조세행정·절차법","조세회피와 절세","지방세법"],
+    fishery: ["국제수산관리","수산가공식품","수산경제유통","수산유전육종","수산자원관리제도","수산자원조성","수산자원평가","수산질병학","수산해양환경","양식학","어구어법","어류생태학","어업경영"],
+    military: ["국방정책","국제안보·동맹","군사사상","군사조직·편제","군수·병참","무기체계·전력","민군관계","비정규전·대테러","사이버·신영역전","위기관리·전쟁종결","작전술","전략론","전술학","전쟁법·국제법","전쟁사·전쟁유형","정보·첩보","지정학","지휘통제·C4ISR","핵전략·억제"],
   };
 
   return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
