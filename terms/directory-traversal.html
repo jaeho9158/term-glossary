@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Directory Traversal(디렉터리순회)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Directory Traversal(디렉터리순회)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/directory-traversal.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 디렉터리순회 (Directory Traversal)</p>
+  <h1>디렉터리순회 (Directory Traversal)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사용자 입력값을 이용해 웹 애플리케이션이 의도한 디렉터리 범위를 벗어나 서버의 임의 파일에 접근하도록 만드는 취약점입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>웹사이트가 파일 이름을 입력받아 그 파일을 보여주는 기능이 있다고 생각해보세요. 만약 입력값에 별다른 검증 없이 "상위 폴더로 이동"을 뜻하는 경로 표현을 넣을 수 있다면, 원래 보여주려던 폴더를 벗어나 서버 안의 다른 파일까지 열람할 수 있게 됩니다. 마치 아파트 관리실이 특정 층만 보여주는 엘리베이터를 운영해야 하는데, 버튼 조작으로 지하 서버실까지 들어갈 수 있게 되는 상황과 비슷합니다. 이런 방식으로 공격자는 비밀번호 파일이나 설정 파일처럼 민감한 정보를 열어볼 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>디렉터리순회는 오래된 취약점 유형이지만 여전히 실제 서비스에서 반복적으로 발견되는 문제입니다. 정보보안학 연구에서는 입력값 검증, 경로 정규화, 접근제어 설계의 실패 사례로 자주 다뤄지며, 자동화된 취약점 탐지 도구의 성능을 평가하는 대표적 시험 케이스로도 활용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 파일 다운로드 기능을 제공하는 웹 애플리케이션을 대상으로 디렉터리순회(Directory Traversal) 취약점의 자동 탐지 정확도를 비교하였다."</div>
+  <p>파일 경로를 입력받는 기능을 대상으로 취약점 탐지 도구들의 성능을 비교한 연구 사례입니다.</p>
+  <div class="example">"경로 정규화(path normalization)를 우회하는 인코딩 기법이 다수의 상용 웹 방화벽에서 탐지되지 않음을 확인하였다."</div>
+  <p>공격 우회 기법이 보안 솔루션에서 얼마나 잘 탐지되는지를 분석한 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>디렉터리순회는 흔히 상위 디렉터리 이동 표현을 반복 사용하는 방식으로 이루어지며, URL 인코딩이나 이중 인코딩을 통해 필터를 우회하려는 시도가 함께 나타나기도 합니다. 방어 방법으로는 입력값을 화이트리스트 기반으로 검증하거나, 파일 경로를 절대경로로 정규화한 뒤 허용된 기본 디렉터리 안에 있는지 확인하는 방식이 일반적으로 권장됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>단순히 특수 문자를 필터링하는 것만으로는 다양한 인코딩 우회 기법을 모두 막기 어렵기 때문에, 경로 정규화와 접근제어를 함께 적용하는 것이 중요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="remote-code-execution.html">원격코드실행(RCE)</a>
+    <a href="owasp-top-10.html">OWASP 톱10</a>
+    <a href="static-application-security-testing.html">정적애플리케이션보안테스트(SAST)</a>
+    <a href="dynamic-application-security-testing.html">동적애플리케이션보안테스트(DAST)</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

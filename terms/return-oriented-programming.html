@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Return-Oriented Programming(리턴지향프로그래밍(ROP))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Return-Oriented Programming(리턴지향프로그래밍(ROP))를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/return-oriented-programming.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 리턴지향프로그래밍(ROP) (Return-Oriented Programming)</p>
+  <h1>리턴지향프로그래밍(ROP) (Return-Oriented Programming)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 프로그램에 이미 존재하는 코드 조각(가젯)들을 함수 반환 주소 조작을 통해 이어 붙여 실행함으로써, 새로운 실행 코드를 주입하지 않고도 임의의 동작을 수행하는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>집에 새 가구를 들여오지 않고, 이미 집 안에 있는 물건들만 재배치해서 원하는 구조를 만드는 상황을 떠올려 보세요. ROP도 비슷합니다. 공격자는 새로운 악성 코드를 심는 대신, 프로그램 메모리 안에 이미 있는 짧은 코드 조각들을 순서대로 실행되도록 스택의 반환 주소를 조작합니다. 각 조각은 'gadget(가젯)'이라 불리며, 마지막에 ret 명령으로 끝나 다음 가젯으로 자연스럽게 이어집니다. 이렇게 여러 가젯을 이어 붙이면 마치 새로운 프로그램을 짠 것과 같은 효과를 냅니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>DEP(데이터실행방지) 같은 방어 기법이 등장하면서 스택에 직접 악성 코드를 심어 실행하는 방식이 막히자, 공격자들은 기존 코드만 재활용하는 ROP로 이를 우회하기 시작했습니다. 이 때문에 시스템 보안 연구에서 ROP는 실행 방지 기법의 한계를 보여주는 대표 사례로 다뤄지며, 이를 막기 위한 CFI 같은 후속 방어 기법 연구의 출발점이 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 DEP가 적용된 환경에서 ROP 체인을 구성하여 셸코드 실행 없이 임의 코드 실행이 가능함을 실험적으로 검증하였다."</div>
+  <p>DEP만으로는 ROP 공격을 막을 수 없다는 것을 실험으로 보여준 문장입니다.</p>
+  <div class="example">"제안하는 CFI 기반 방어 기법은 정상적인 제어 흐름 그래프를 벗어나는 ROP 가젯 실행을 탐지하여 차단한다."</div>
+  <p>ROP를 막기 위한 방어 기술의 동작 원리를 설명하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>ROP 가젯은 보통 프로그램이나 라이브러리에 이미 존재하는 명령어 시퀀스에서, 임의의 바이트 위치를 명령어 경계로 재해석하여 찾아냅니다. 공격자는 스택에 여러 가젯의 주소를 순서대로 쌓아 두어 하나의 가젯 실행이 끝나면 다음 가젯으로 제어가 넘어가도록 설계합니다. ROP는 x86뿐 아니라 ARM 등 다른 아키텍처에서도 변형된 형태(JOP, COP 등)로 연구되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>ROP는 특정 취약점의 이름이 아니라 취약점을 악용하는 공격 기법이라는 점에 유의해야 합니다. 즉 버퍼 오버플로우 같은 원인 취약점이 먼저 존재해야 ROP를 통한 공격이 가능합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="control-flow-integrity.html">제어흐름무결성(CFI)</a>
+    <a href="data-execution-prevention.html">데이터실행방지(DEP)</a>
+    <a href="kernel-exploit.html">커널익스플로잇</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

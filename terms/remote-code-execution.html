@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Remote Code Execution(원격코드실행(RCE))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Remote Code Execution(원격코드실행(RCE))를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/remote-code-execution.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 원격코드실행(RCE) (Remote Code Execution)</p>
+  <h1>원격코드실행(RCE) (Remote Code Execution)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 공격자가 원격지에서 대상 시스템에 임의의 명령이나 코드를 실행시킬 수 있게 되는 취약점 또는 그 결과를 말합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>원격코드실행은 남의 컴퓨터를 마치 내 컴퓨터인 것처럼 명령을 내릴 수 있게 되는 상황입니다. 집 열쇠를 훔쳐 문을 열고 들어가는 것을 넘어서, 아예 집 안의 모든 기능을 마음대로 조작할 수 있게 되는 것과 비슷합니다. 웹사이트의 입력값 처리 오류나 소프트웨어의 결함을 이용해 공격자가 서버에서 자신이 원하는 프로그램을 실행시킬 수 있게 되면 이를 원격코드실행이라고 부릅니다. 이는 정보보안에서 가장 심각한 등급의 취약점 중 하나로 분류됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>원격코드실행은 시스템 전체 장악으로 이어질 수 있는 최고 위험도의 취약점이기 때문에 정보보안학 연구에서 핵심적으로 다뤄집니다. 취약점 발굴, 패치 우선순위 결정, 침투테스트 방법론 연구 등 다양한 영역에서 원격코드실행 가능 여부가 중요한 판단 기준이 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"해당 라이브러리의 역직렬화 처리 과정에서 발견된 결함은 최종적으로 원격코드실행(RCE)으로 이어질 수 있음을 실증하였다."</div>
+  <p>소프트웨어 결함이 어떻게 심각한 취약점으로 발전하는지를 보여준 연구 사례입니다.</p>
+  <div class="example">"CVSS 점수가 9점 이상으로 평가된 취약점의 상당수가 원격코드실행 가능성을 포함하고 있었다."</div>
+  <p>취약점 심각도 평가와 원격코드실행 가능성의 상관관계를 분석한 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>원격코드실행은 메모리 손상 취약점, 안전하지 않은 역직렬화, 명령어 삽입 등 다양한 경로를 통해 발생할 수 있습니다. 이러한 취약점은 흔히 CVSS 점수 체계에서 매우 높은 심각도로 평가되며, 공격자가 별도의 인증 없이 원격에서 코드를 실행할 수 있는 경우 위험도가 더욱 높게 산정됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>원격코드실행이 가능하다는 것과 실제로 그 공격이 손쉽게 이루어진다는 것은 다른 문제이며, 방어 체계나 실행 환경의 조건에 따라 악용 난이도가 크게 달라질 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="directory-traversal.html">디렉터리순회</a>
+    <a href="common-vulnerabilities-and-exposures.html">공통취약점및노출(CVE)</a>
+    <a href="common-vulnerability-scoring-system.html">공통취약점점수시스템(CVSS)</a>
+    <a href="exploit-kit.html">익스플로잇키트</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
