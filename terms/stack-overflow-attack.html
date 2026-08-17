@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Stack Overflow Attack(스택오버플로우 공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Stack Overflow Attack(스택오버플로우 공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/stack-overflow-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 스택오버플로우 공격 (Stack Overflow Attack)</p>
+  <h1>스택오버플로우 공격 (Stack Overflow Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 함수 호출 시 사용되는 스택 영역의 버퍼 경계를 넘어서는 데이터를 입력하여 반환 주소 등 인접 메모리를 덮어써 실행 흐름을 조작하는 공격입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>프로그램이 함수를 실행할 때는 임시로 사용할 정보를 스택이라는 정해진 크기의 공간에 차곡차곡 쌓아둡니다. 이 공간에 원래 담아야 할 양보다 훨씬 많은 데이터를 억지로 밀어 넣으면, 넘친 데이터가 옆 칸까지 흘러넘쳐 원래 있던 중요한 정보를 덮어씁니다. 공격자는 이 원리를 이용해 함수가 끝난 뒤 돌아가야 할 주소 정보를 자신이 원하는 값으로 바꿔치기하여 악성 코드를 실행시킬 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>스택오버플로우 공격은 오랜 기간 소프트웨어 보안에서 가장 대표적인 메모리 손상 공격으로 다루어져 왔으며, 시스템 및 운영체제 보안 연구에서 방어 기법인 스택 카나리, 주소 공간 배치 난수화 등의 필요성을 설명하는 기본 사례로 사용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"경계 검사가 없는 문자열 복사 함수를 사용하는 코드는 스택오버플로우 공격에 취약한 것으로 분석되었다."</div>
+  <p>취약한 함수 사용과 공격 가능성을 연결짓는 예문입니다.</p>
+  <div class="example">"스택 카나리와 주소 공간 배치 난수화를 함께 적용한 환경에서는 스택오버플로우 공격의 성공률이 크게 낮아진다."</div>
+  <p>방어 기법의 효과를 다루는 연구 문맥입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>스택오버플로우 공격은 대체로 반환 주소를 덮어써 프로그램의 실행 흐름을 공격자가 지정한 코드로 이동시키는 방식으로 이루어집니다. 이를 방어하기 위해 반환 주소 앞에 무작위 값을 배치해 변조 여부를 검사하는 스택 카나리, 메모리 주소를 실행마다 무작위로 배치하는 주소 공간 배치 난수화, 스택 영역의 코드 실행을 막는 비실행 스택 등의 기법이 함께 연구됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>현대의 컴파일러와 운영체제는 여러 방어 기법을 기본 적용하고 있어 단순한 스택오버플로우 공격은 성공 가능성이 낮아졌지만, 방어 기법의 우회 기법도 함께 연구되고 있어 완전히 해결된 문제는 아닙니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="heap-overflow.html">힙오버플로우</a>
+    <a href="integer-overflow-vulnerability.html">정수오버플로우 취약점</a>
+    <a href="use-after-free.html">해제후사용(UAF)</a>
+    <a href="format-string-vulnerability.html">포맷스트링취약점</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

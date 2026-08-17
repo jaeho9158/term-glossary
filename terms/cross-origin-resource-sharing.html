@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cross-Origin Resource Sharing(교차출처리소스공유(CORS))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cross-Origin Resource Sharing(교차출처리소스공유(CORS))를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cross-origin-resource-sharing.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 교차출처리소스공유(CORS) (Cross-Origin Resource Sharing)</p>
+  <h1>교차출처리소스공유(CORS) (Cross-Origin Resource Sharing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 동일출처정책의 제한을 완화하여, 서버가 명시적으로 허용한 다른 출처의 요청이 자원에 접근할 수 있도록 하는 브라우저 표준 메커니즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>교차출처리소스공유는 원칙적으로 서로 다른 사이트끼리 정보를 주고받지 못하게 막는 규칙에 예외를 허용하는 방문 허가증과 같습니다. 예를 들어 A 사이트의 웹페이지가 B 사이트의 API에서 데이터를 받아와야 할 때, B 사이트가 "A 사이트는 접근해도 좋다"라고 미리 허락 목록을 지정해두면 브라우저가 해당 요청을 허용해줍니다. 이 허락은 서버가 응답 헤더를 통해 브라우저에 전달하는 방식으로 이루어집니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>다양한 서비스가 서로 다른 도메인의 API를 호출하며 동작하는 현대 웹 환경에서 교차출처리소스공유는 필수적인 메커니즘이지만, 설정을 잘못하면 심각한 보안 허점이 될 수 있어 정보보안학 연구에서 정책 오설정 사례와 그 위험성이 자주 분석됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"조사 대상 웹 서비스 중 상당수가 모든 출처를 허용하는 교차출처리소스공유(CORS) 설정을 사용하고 있어 잠재적 위험이 확인되었다."</div>
+  <p>느슨한 CORS 설정의 실태를 조사한 연구 사례입니다.</p>
+  <div class="example">"인증 정보를 포함한 요청에서 교차출처리소스공유 설정 오류가 세션 탈취로 이어질 수 있음을 실험적으로 보였다."</div>
+  <p>설정 오류가 실제 공격으로 이어지는 과정을 검증한 연구 사례입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>교차출처리소스공유는 허용할 출처, 허용할 메서드, 인증정보 포함 여부 등을 서버가 세부적으로 지정할 수 있으며, 일부 요청은 실제 요청 전에 사전 확인 요청을 먼저 보내는 절차를 거칩니다. 허용 출처를 지나치게 넓게 설정하거나 인증정보 포함을 무분별하게 허용하면 보안 위험이 커집니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>교차출처리소스공유는 동일출처정책을 우회하는 기능이 아니라, 서버가 신뢰하는 범위 내에서만 예외를 허용하는 것이므로 설정 범위를 신중하게 관리해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="same-origin-policy.html">동일출처정책</a>
+    <a href="content-security-policy.html">콘텐츠보안정책(CSP)</a>
+    <a href="http-security-headers.html">HTTP 보안헤더</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

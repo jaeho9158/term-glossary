@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Chroot Jail(체루트 감옥)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Chroot Jail(체루트 감옥)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/chroot-jail.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 체루트 감옥 (Chroot Jail)</p>
+  <h1>체루트 감옥 (Chroot Jail)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> chroot 시스템 콜을 이용해 프로세스가 보는 파일 시스템의 루트 디렉터리를 특정 하위 디렉터리로 제한함으로써, 원래의 시스템 전체 파일 구조에 접근하지 못하게 격리하는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>손님을 건물 전체가 아니라 로비의 응접실 하나만 보여주고, 그 응접실이 마치 건물 전체인 것처럼 착각하게 만드는 상황을 떠올려 보세요. chroot 감옥은 특정 프로세스에게 실제 파일 시스템의 루트(최상위 디렉터리) 대신 지정된 하위 디렉터리를 루트인 것처럼 보이게 만듭니다. 그 결과 해당 프로세스는 지정된 디렉터리 밖의 파일이나 폴더를 볼 수도, 접근할 수도 없게 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>chroot는 신뢰도가 낮은 서비스나 프로세스를 시스템의 나머지 부분으로부터 격리하는 초기 형태의 샌드박싱 기법으로, 이후 등장한 컨테이너 기술의 개념적 기반 중 하나로 여겨집니다. 시스템 보안 연구에서는 chroot 자체의 격리 한계와 이를 우회하는 기법("chroot 탈출")도 함께 다루어집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"실험 환경에서는 FTP 서비스를 chroot 감옥 내에서 구동하여 서비스 취약점이 악용되더라도 시스템 전체로 확산되지 않도록 구성하였다."</div>
+  <p>chroot가 서비스 격리를 위한 실무적 방어 수단으로 사용된 예입니다.</p>
+  <div class="example">"chroot 감옥은 파일 시스템 관점의 격리만 제공할 뿐, 프로세스나 네트워크 자원까지 격리하지는 못한다는 한계가 있다."</div>
+  <p>chroot의 격리 범위가 제한적임을 지적하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>chroot는 리눅스/유닉스 계열 운영체제의 chroot() 시스템 콜을 통해 구현되며, 프로세스의 루트 디렉터리 포인터만 변경할 뿐 커널 자체의 권한 체계를 바꾸지는 않습니다. 이 때문에 루트 권한을 가진 프로세스가 chroot 환경 안에 있더라도 알려진 기법을 통해 감옥을 벗어날 수 있다는 점이 보안 연구에서 지적되어 왔으며, 이후 등장한 네임스페이스 기반 컨테이너 기술은 이러한 한계를 보완하기 위한 발전으로 평가됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>chroot는 보안 격리를 위한 도구로 흔히 소개되지만, 원래는 빌드나 테스트 환경을 분리하기 위한 목적으로 설계되었으며 강력한 보안 경계로 보기는 어렵다는 지적이 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="container-escape.html">컨테이너 이스케이프</a>
+    <a href="security-enhanced-linux.html">SELinux(보안강화리눅스)</a>
+    <a href="kernel-exploit.html">커널익스플로잇</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

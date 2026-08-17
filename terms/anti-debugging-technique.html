@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Anti-Debugging Technique(안티디버깅기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Anti-Debugging Technique(안티디버깅기법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/anti-debugging-technique.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 안티디버깅기법 (Anti-Debugging Technique)</p>
+  <h1>안티디버깅기법 (Anti-Debugging Technique)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 프로그램이 디버거로 분석되고 있는지를 스스로 탐지하여 분석을 방해하거나 동작을 바꾸는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>안티디버깅은 마치 누군가 자신을 몰래 관찰하고 있다는 것을 눈치채면 평소와 다르게 행동하는 것과 비슷합니다. 악성코드는 자신이 디버거라는 분석 도구 위에서 한 줄씩 실행되고 있는지 여러 방법으로 확인하고, 만약 감시받고 있다고 판단되면 즉시 종료하거나 가짜 동작을 보여줘 분석가를 혼란스럽게 만듭니다. 이렇게 되면 분석가는 악성코드의 진짜 목적을 파악하기가 훨씬 어려워집니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>안티디버깅은 분석가의 리버스엔지니어링 작업을 직접적으로 방해하는 기법이기 때문에 악성코드 분석 자동화와 분석 환경 설계 연구에서 중요하게 다뤄집니다. 이 기법을 우회하는 능력이 곧 분석 도구의 실효성을 좌우하기도 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"해당 샘플은 IsDebuggerPresent와 같은 API 호출을 통해 디버거 존재 여부를 확인하는 안티디버깅 루틴을 포함하고 있었다."</div>
+  <p>실제 안티디버깅 구현에서 흔히 쓰이는 API 확인 방식을 설명하는 문장입니다.</p>
+  <div class="example">"본 연구는 다양한 안티디버깅 우회 기법을 적용한 동적 분석 환경을 구축하여 악성코드의 은닉 행위를 관찰하였다."</div>
+  <p>안티디버깅을 우회한 분석 환경 구축 연구를 소개하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>안티디버깅 기법에는 운영체제가 제공하는 디버거 감지 API를 호출하는 방식, 실행 시간 간격을 측정해 비정상적으로 느리게 실행되는지 확인하는 타이밍 기반 방식, 예외 처리 루틴의 동작 차이를 이용하는 방식 등이 있습니다. 분석가는 이러한 탐지 로직을 무력화하기 위해 디버거의 흔적을 숨기는 플러그인이나 커널 수준의 후킹 기법을 함께 사용합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>안티디버깅은 정상 소프트웨어의 라이선스 보호나 역공학 방지 목적으로도 사용되는 기법이므로, 이 기법이 적용되어 있다는 사실만으로 악성코드라고 단정할 수는 없습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="sandbox-evasion.html">샌드박스 회피</a>
+    <a href="malware-packer.html">악성코드 패커</a>
+    <a href="malware-obfuscation.html">악성코드 난독화</a>
+    <a href="yara-rule.html">YARA 규칙</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

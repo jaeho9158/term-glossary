@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Clickjacking(클릭재킹)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Clickjacking(클릭재킹)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/clickjacking.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 클릭재킹 (Clickjacking)</p>
+  <h1>클릭재킹 (Clickjacking)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 투명하거나 위장된 페이지 요소를 겹쳐 놓아, 사용자가 의도하지 않은 다른 페이지의 버튼이나 링크를 클릭하도록 속이는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>클릭재킹은 눈에 보이는 버튼 위에 투명한 유리판을 얹어놓고, 사용자가 그 유리판 아래에 숨겨진 진짜 버튼을 자기도 모르게 누르게 만드는 것과 비슷합니다. 사용자에게는 재미있는 게임 버튼이나 평범한 링크처럼 보이지만, 실제로는 그 위에 투명하게 겹쳐진 다른 사이트의 결제 버튼이나 권한 허용 버튼이 클릭되는 것입니다. 사용자는 자신이 무엇을 눌렀는지조차 인식하지 못한 채 의도치 않은 행동을 하게 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>클릭재킹은 사용자의 인지와 무관하게 동의나 결제 같은 민감한 행동을 유도할 수 있어 사용자 인터페이스 보안 연구에서 중요하게 다뤄집니다. 로그인 상태를 그대로 악용한다는 점에서 세션 관리 및 프레임 보안 정책 연구와도 밀접하게 연결됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"해당 사이트는 X-Frame-Options 헤더를 설정하지 않아 다른 페이지의 iframe 안에 삽입될 수 있는 클릭재킹 취약점이 확인되었다."</div>
+  <p>iframe 삽입을 막는 방어 헤더가 없어 발생한 클릭재킹 취약점 사례를 설명하는 문장입니다.</p>
+  <div class="example">"본 연구에서는 프레임 버스팅 스크립트가 일부 조건에서 우회될 수 있음을 실험적으로 보이고, 서버 측 헤더 기반 방어의 필요성을 강조하였다."</div>
+  <p>클라이언트 측 방어 기법의 한계와 서버 측 대응의 중요성을 설명하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>클릭재킹은 주로 공격자가 만든 페이지 안에 피해 대상 페이지를 iframe으로 투명하게 삽입한 뒤, 사용자가 클릭하고 싶어할 만한 콘텐츠를 그 위에 겹쳐 배치하는 방식으로 이루어집니다. 방어책으로는 서버가 응답 헤더에 X-Frame-Options나 콘텐츠 보안 정책(CSP)의 frame-ancestors 지시어를 설정해 다른 사이트에서의 프레임 삽입 자체를 차단하는 방법이 표준적으로 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>자바스크립트로 구현하는 프레임 버스팅 방어는 브라우저 설정이나 우회 기법에 따라 무력화될 수 있어, 근본적인 방어는 서버가 내려주는 HTTP 헤더 설정에 두는 것이 안전합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="dom-based-cross-site-scripting.html">DOM기반 XSS</a>
+    <a href="server-side-request-forgery.html">서버측요청위조(SSRF)</a>
+    <a href="blind-sql-injection.html">블라인드 SQL 인젝션</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
