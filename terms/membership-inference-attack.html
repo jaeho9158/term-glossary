@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Membership Inference Attack(멤버십추론공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Membership Inference Attack(멤버십추론공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/membership-inference-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 멤버십추론공격 (Membership Inference Attack)</p>
+  <h1>멤버십추론공격 (Membership Inference Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 특정 데이터 샘플이 인공지능 모델의 학습 데이터셋에 실제로 포함되어 있었는지 여부를 모델의 반응 차이를 이용해 추론하는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>멤버십추론공격은 시험 문제를 미리 풀어본 학생이 그 문제를 다시 봤을 때 더 자신 있게 답하는 것과 비슷한 원리를 이용합니다. 인공지능 모델은 학습에 사용했던 데이터에 대해 상대적으로 더 확신 있는 반응을 보이는 경향이 있는데, 공격자는 이 미묘한 차이를 관찰해서 어떤 특정 데이터가 그 모델의 학습에 쓰였는지 아닌지를 추측해냅니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>정보보안학과 인공지능 프라이버시 연구에서 멤버십추론공격은 어떤 사람의 데이터가 특정 모델(예: 질병 진단 모델)의 학습에 쓰였다는 사실 자체가 민감한 정보를 노출시킬 수 있음을 보여주는 대표 위협으로 다뤄집니다. 모델의 프라이버시 위험을 평가하는 표준적인 실험 방법으로도 널리 활용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 그림자 모델(shadow model)을 활용한 멤버십추론공격을 통해 과적합된 모델일수록 공격 성공률이 높아짐을 확인하였다."</div>
+  <p>모델이 학습 데이터를 지나치게 기억할수록 정보가 더 쉽게 새어나간다는 것을 보인 연구입니다.</p>
+  <div class="example">"제안 시스템은 차분 프라이버시를 적용하여 멤버십추론공격에 대한 모델의 저항성을 향상시켰다."</div>
+  <p>공격을 방어하기 위한 기법을 적용했다는 설명입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>멤버십추론공격은 흔히 공격자가 원본 모델과 유사한 그림자 모델(shadow model)을 학습시켜, 그 반응 패턴 차이를 학습한 별도의 판별 모델로 실제 대상 모델의 멤버십 여부를 추정하는 방식으로 이루어집니다. 모델이 학습 데이터에 과적합(overfitting)될수록 공격이 성공하기 쉬워지는 경향이 여러 연구에서 관찰되었습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>모든 모델이 멤버십추론공격에 동일하게 취약한 것은 아니며, 모델의 일반화 성능과 학습 방식에 따라 공격 성공률에 큰 차이가 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="model-inversion-attack.html">모델역전공격</a>
+    <a href="synthetic-data-privacy.html">합성데이터 프라이버시</a>
+    <a href="data-poisoning-attack.html">데이터오염공격</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

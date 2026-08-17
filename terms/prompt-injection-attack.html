@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Prompt Injection Attack(프롬프트인젝션공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Prompt Injection Attack(프롬프트인젝션공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/prompt-injection-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 프롬프트인젝션공격 (Prompt Injection Attack)</p>
+  <h1>프롬프트인젝션공격 (Prompt Injection Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 대형언어모델에 입력되는 텍스트 안에 악의적인 지시문을 숨겨 넣어, 모델이 원래의 지침을 무시하고 공격자가 의도한 행동을 하도록 유도하는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>프롬프트인젝션공격은 비서에게 전달할 메모지 안에 몰래 다른 지시사항을 끼워 넣어서, 비서가 원래 업무 대신 그 숨겨진 지시를 따르게 만드는 것과 비슷합니다. 대형언어모델은 사용자가 입력한 문장과 시스템이 정한 지침을 잘 구분하지 못하는 경우가 있는데, 공격자는 이 틈을 노려 문서나 웹페이지, 이메일 등 모델이 읽는 텍스트 안에 은밀한 명령어를 심어둡니다. 모델이 이 텍스트를 처리하는 과정에서 숨겨진 명령을 실제 지시로 받아들이면, 정보 유출이나 원치 않는 동작으로 이어질 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>정보보안학과 인공지능 안전성 연구에서 프롬프트인젝션공격은 대형언어모델을 활용한 에이전트나 챗봇, 검색 결합 시스템이 확산되면서 새롭게 부상한 핵심 위협으로 다뤄집니다. 모델이 외부 문서나 도구 결과를 자동으로 처리하는 구조일수록 공격 표면이 넓어지기 때문에 방어 기법 연구가 활발합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 검색 결과 문서 안에 숨겨진 악성 지시문을 삽입하여 간접 프롬프트인젝션공격이 실제로 성공함을 실험적으로 보였다."</div>
+  <p>모델이 참조하는 외부 문서를 통해 공격이 성립하는지 확인한 연구입니다.</p>
+  <div class="example">"제안 방어 기법은 사용자 지시와 외부 콘텐츠를 명확히 구분하는 입력 구조화 방식을 통해 프롬프트인젝션공격의 성공률을 낮춘다."</div>
+  <p>모델이 지시와 데이터를 혼동하지 않도록 방지하는 방어 방법을 설명한 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>프롬프트인젝션공격은 사용자가 직접 악성 입력을 넣는 직접 공격(direct injection)과, 모델이 참조하는 외부 문서나 웹페이지에 악성 지시문을 심어두는 간접 공격(indirect injection)으로 구분되는 경우가 일반적입니다. 방어 기법으로는 입력 필터링, 지시와 데이터의 구조적 분리, 권한 제한 등이 연구되고 있지만 근본적인 해결은 여전히 어려운 과제로 남아 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>프롬프트인젝션공격은 기존의 코드 인젝션 공격과 유사해 보이지만, 명확한 문법 구분이 없는 자연어를 다루는 특성상 완전한 차단이 특히 어렵다는 점에 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="ai-backdoor-attack.html">AI 백도어공격</a>
+    <a href="adversarial-attack.html">적대적공격</a>
+    <a href="secrets-management.html">시크릿관리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
