@@ -54,10 +54,37 @@
     zeroResultLogTimer = setTimeout(() => logZeroResultSearch(query, resultCount), 600);
   }
 
+  // Exact (case-insensitive) lookup for title_en / aliases, keyed by the
+  // lowercased value. Short English abbreviations (CI, SD, SE, OR, HR, RR...)
+  // are common in this dictionary's aliases, but Fuse's fuzzy substring
+  // matching has almost no discriminating power on a 2-3 character query —
+  // it ranks unrelated terms that merely *contain* those letters (e.g. "CI"
+  // fuzzy-matches "INCI", "ORCID", "ACID") above the actual exact match, or
+  // pushes it off the results entirely. An exact index sidesteps that: any
+  // query that's a verbatim abbreviation always surfaces its term first.
+  let exactAliasIndex = null;
+
+  function buildExactAliasIndex(list) {
+    const map = new Map();
+    const add = (key, term) => {
+      if (!key) return;
+      const k = key.toLowerCase();
+      if (!map.has(k)) map.set(k, []);
+      const bucket = map.get(k);
+      if (!bucket.some((t) => t.slug === term.slug)) bucket.push(term);
+    };
+    for (const term of list) {
+      add(term.title_en, term);
+      for (const alias of term.aliases || []) add(alias, term);
+    }
+    return map;
+  }
+
   async function loadTerms() {
     if (terms) return terms;
     const res = await fetch(base + "terms-index.json");
     terms = await res.json();
+    exactAliasIndex = buildExactAliasIndex(terms);
     fuse = new Fuse(terms, {
       includeScore: true,
       threshold: 0.4,
@@ -91,11 +118,17 @@
   function matchResults(query) {
     const q = query.trim();
     if (!q) return [];
-    return fuse
+
+    const exactMatches = (exactAliasIndex && exactAliasIndex.get(q.toLowerCase())) || [];
+    const seenSlugs = new Set(exactMatches.map((t) => t.slug));
+
+    const fuzzyMatches = fuse
       .search(q)
       .sort((a, b) => a.score - b.score)
-      .slice(0, 8)
-      .map((r) => r.item);
+      .map((r) => r.item)
+      .filter((t) => !seenSlugs.has(t.slug));
+
+    return [...exactMatches, ...fuzzyMatches].slice(0, 8);
   }
 
   function renderResults(matches) {
