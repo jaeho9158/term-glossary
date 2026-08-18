@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Key Reinstallation Attack (KRACK)(키 재설치 공격(KRACK))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Key Reinstallation Attack (KRACK)(키 재설치 공격(KRACK))를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/krack-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 키 재설치 공격(KRACK) (Key Reinstallation Attack (KRACK))</p>
+  <h1>키 재설치 공격(KRACK) (Key Reinstallation Attack (KRACK))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> WPA2의 4-way handshake 과정에서 암호화 키 메시지를 재전송하도록 유도해, 이미 사용된 키를 강제로 재설치시킴으로써 암호화를 무력화하는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>문을 열 때마다 새 열쇠를 쓰기로 약속했는데, 누군가 문 여는 신호를 몰래 반복시켜서 이미 썼던 열쇠를 다시 쓰게 만드는 상황과 비슷합니다. WPA2 와이파이 보안은 연결할 때마다 새로운 암호화 키를 만들어 쓰도록 설계되어 있는데, KRACK 공격은 이 키를 만드는 과정의 메시지를 반복 재전송시켜 기기가 이미 사용된 키를 다시 설치하도록 속입니다. 그 결과 암호화가 예측 가능해지거나 무력화되어 통신 내용이 노출될 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>KRACK은 널리 쓰이던 WPA2 표준 자체의 설계 결함을 드러낸 대표적 사례로, 프로토콜 명세와 실제 구현 사이의 검증 필요성을 강조하는 무선 보안 연구에서 중요한 전환점으로 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 논문은 WPA2의 4-way handshake 재전송 메커니즘을 분석하여 키 재설치 공격이 성립하는 조건을 실험적으로 검증하였다."</div>
+  <p>특정 조건에서 키가 재설치되며 암호화가 약해지는 과정을 실제로 재현해 확인했다는 뜻입니다.</p>
+  <div class="example">"펌웨어 업데이트를 통해 논스(nonce) 재사용을 방지함으로써 KRACK 취약점을 완화할 수 있음이 보고되었다."</div>
+  <p>소프트웨어 업데이트로 특정 값의 재사용을 막으면 이 공격을 막을 수 있다는 내용입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>KRACK은 WPA2의 4-way handshake 중 세 번째 메시지가 손실되었을 때 재전송되는 상황을 악용하며, 재전송된 메시지를 받은 기기가 암호화 키의 논스(nonce) 값을 초기화된 상태로 재설치하면서 키 스트림 재사용 문제가 발생합니다. 이는 프로토콜 명세 자체의 허점에서 비롯된 것으로, 이후 WPA3의 SAE 도입으로 유사한 방식의 공격 여지가 줄어든 것으로 설명됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>KRACK은 WPA2 프로토콜 설계상의 결함이지 특정 제조사 장비만의 문제가 아니므로, 취약점 대응은 개별 기기의 펌웨어·드라이버 업데이트를 통해 이루어져야 한다는 점에 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="wpa3-sae.html">WPA3 동시인증(SAE)</a>
+    <a href="rogue-access-point.html">불법 액세스포인트</a>
+    <a href="bluetooth-le-security.html">블루투스 저전력 보안</a>
+    <a href="lte-imsi-catcher.html">IMSI 캐처</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

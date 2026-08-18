@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Serverless Function Security(서버리스 함수 보안)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Serverless Function Security(서버리스 함수 보안)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/serverless-function-security.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 서버리스 함수 보안 (Serverless Function Security)</p>
+  <h1>서버리스 함수 보안 (Serverless Function Security)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 서버 관리 없이 코드 단위(함수)로 실행되는 서버리스 컴퓨팅 환경에서, 함수의 권한·의존성·실행 흐름과 관련된 위협을 관리하고 방어하는 보안 영역입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>서버리스 함수는 필요할 때만 잠깐 켜졌다가 일이 끝나면 바로 꺼지는 작은 일꾼 같은 존재입니다. 전통적인 서버는 항상 켜져 있는 사무실 같아서 관리자가 문단속을 계속 신경 써야 했지만, 서버리스 함수는 순간적으로 나타났다 사라지기 때문에 보안을 챙기는 방식도 달라져야 합니다. 문제는 이 짧은 순간에도 함수가 데이터베이스나 다른 서비스에 접근할 권한을 가지고 있고, 외부에서 받은 입력을 처리하기 때문에 여전히 공격의 대상이 될 수 있다는 점입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>클라우드 및 가상화 보안 연구에서는 서버리스 아키텍처가 기존의 서버 중심 보안 모델과 다른 위협 구조를 가진다는 점에 주목합니다. 함수 하나하나가 독립적으로 배포되고 실행되기 때문에, 전통적인 경계 기반 방어 대신 함수 단위의 권한 관리와 코드 취약점 점검이 중요한 과제로 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"공개된 서버리스 함수 코드에서 과도한 실행 권한이 부여된 사례를 조사하고 그 비율을 분석하였다."</div>
+  <p>서버리스 환경에서의 권한 설정 실태를 조사한 연구를 설명하는 예문입니다.</p>
+  <div class="example">"함수 간 호출 체인을 분석하여 서버리스 애플리케이션의 공격 표면을 시각화하는 도구를 제안하였다."</div>
+  <p>함수들이 서로 연결되며 만들어지는 위험을 분석하는 연구를 설명하는 예문입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>서버리스 함수 보안에서는 함수에 부여된 실행 권한, 외부 라이브러리 의존성의 취약점, 입력값 검증 부족으로 인한 인젝션 공격 등이 주요 위협으로 다뤄집니다. 함수가 짧게 실행되고 사라지는 특성 때문에 기존의 지속적인 모니터링 방식이 그대로 적용되기 어려워, 실행 로그와 호출 이력을 별도로 수집하고 분석하는 접근이 활용됩니다. 여러 함수가 연결되어 하나의 애플리케이션을 이루는 경우, 개별 함수의 권한이 모여 전체적으로 넓은 공격 표면을 만들 수 있다는 점도 연구되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>서버리스 환경이라고 해서 보안 책임이 클라우드 제공업체에만 있는 것은 아니며, 함수 코드와 권한 설정에 대한 책임은 개발자와 운영자에게 있습니다. 함수 실행 시간이 짧다고 해서 공격 위험이 낮다고 단정할 수는 없습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="container-escape-vulnerability.html">컨테이너 탈출 취약점</a>
+    <a href="iam-misconfiguration.html">IAM 설정오류</a>
+    <a href="cloud-workload-protection-platform.html">클라우드 워크로드 보호플랫폼</a>
+    <a href="kubernetes-rbac-security.html">쿠버네티스 RBAC 보안</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

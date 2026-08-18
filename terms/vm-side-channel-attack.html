@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>VM Side-Channel Attack(가상머신 부채널 공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 VM Side-Channel Attack(가상머신 부채널 공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/vm-side-channel-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 가상머신 부채널 공격 (VM Side-Channel Attack)</p>
+  <h1>가상머신 부채널 공격 (VM Side-Channel Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 같은 물리 서버를 공유하는 가상머신 사이에서, 데이터 자체가 아니라 캐시 사용량이나 처리 시간 같은 간접적인 물리적 특성을 관찰해 민감한 정보를 유추해내는 공격입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>부채널 공격은 금고의 비밀번호를 직접 훔쳐보는 대신, 금고 다이얼을 돌릴 때 나는 미세한 소리나 걸리는 느낌을 분석해서 번호를 추측해내는 것과 비슷합니다. 가상머신 부채널 공격도 마찬가지로, 옆방에 세든 다른 가상머신의 데이터를 직접 훔쳐보는 것이 아니라, 같은 물리 서버의 CPU 캐시나 메모리 같은 공유 자원을 사용할 때 남는 흔적(속도 변화, 사용 패턴 등)을 관찰해 간접적으로 민감한 정보를 알아내려는 시도입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>클라우드 환경에서는 서로 모르는 여러 고객의 가상머신이 같은 물리 서버 위에서 함께 실행되는 멀티테넌시 구조가 일반적입니다. 정보보안학과 클라우드 보안 연구에서는 이런 공유 자원 구조 자체가 부채널 공격의 근본 원인이 될 수 있다고 보고, 이를 탐지하고 완화하는 기법을 지속적으로 연구하고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"동일 물리 서버에 배치된 두 가상머신 간 CPU 캐시 접근 패턴을 분석하여 암호화 키 일부를 추론할 수 있음을 실험적으로 보였다."</div>
+  <p>실제 공유 자원을 이용한 부채널 공격 가능성을 실험한 연구를 설명하는 예문입니다.</p>
+  <div class="example">"가상머신 배치 정책을 조정하여 부채널 공격에 취약한 상황을 줄이는 스케줄링 기법을 제안하였다."</div>
+  <p>공격 가능성을 줄이는 예방적 접근을 다루는 연구를 설명하는 예문입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가상머신 부채널 공격은 흔히 CPU 캐시, 메모리 버스, 전력 소비 패턴 등 물리적으로 공유되는 자원의 특성을 관찰 대상으로 삼습니다. 공격자는 자신의 가상머신을 피해자의 가상머신과 같은 물리 서버에 배치시키는 것을 시도의 첫 단계로 삼는 경우가 많다고 알려져 있습니다. 이에 대한 방어책으로는 자원 사용 패턴을 감추는 기법이나, 민감한 워크로드를 격리된 하드웨어에 배치하는 방식 등이 연구되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>부채널 공격은 공격 난이도가 높고 특정 조건이 갖춰져야 성립하는 경우가 많아, 모든 클라우드 환경에서 동일한 위험도로 발생한다고 보기는 어렵습니다. 그럼에도 민감한 정보를 다루는 시스템에서는 이러한 위협 가능성을 배제하지 않고 설계 단계부터 고려하는 것이 바람직합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="hypervisor-escape-attack.html">하이퍼바이저 탈출 공격</a>
+    <a href="cloud-workload-protection-platform.html">클라우드 워크로드 보호플랫폼</a>
+    <a href="container-escape-vulnerability.html">컨테이너 탈출 취약점</a>
+    <a href="iam-misconfiguration.html">IAM 설정오류</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

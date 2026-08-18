@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Zigbee Protocol Security(지그비 프로토콜 보안)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Zigbee Protocol Security(지그비 프로토콜 보안)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/zigbee-security.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 지그비 프로토콜 보안 (Zigbee Protocol Security)</p>
+  <h1>지그비 프로토콜 보안 (Zigbee Protocol Security)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> IoT 기기 간 저전력 무선통신에 쓰이는 지그비(Zigbee) 프로토콜에서 통신의 기밀성, 무결성, 가용성을 확보하기 위한 보안 메커니즘과 그 취약점을 다루는 분야입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>지그비는 스마트홈의 조명, 도어락, 센서 같은 작은 기기들이 서로 낮은 전력으로 대화하는 무선통신 규격입니다. 문제는 이 대화를 아무나 엿듣거나 위조된 메시지를 끼워 넣을 수 있다는 점입니다. 지그비 프로토콜 보안은 이런 대화를 암호로 감싸고, 누가 네트워크에 새로 들어올 때 신원을 확인하는 절차를 마련하는 일이라 보면 됩니다. 초기 설정 단계에서 암호키를 주고받는 과정이 특히 취약해서, 이 순간을 노리는 공격이 자주 연구 대상이 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>스마트홈, 스마트팩토리, 산업용 센서 네트워크 등에서 지그비가 널리 쓰이면서 물리적 보안(문 잠금, 화재 감지 등)과 직결되는 경우가 많습니다. 정보보안학 연구에서는 저전력·저연산 환경이라는 제약 속에서도 실용적인 암호화와 인증 방식을 설계하는 것이 핵심 과제로 다뤄집니다. 취약점이 실제 침입이나 감청으로 이어질 수 있어 산업계에서도 표준 개선의 대상이 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 지그비 네트워크의 조인(join) 단계에서 발생하는 키 교환 취약점을 분석하고 이를 악용한 중간자 공격 시나리오를 실험적으로 검증하였다."</div>
+  <p>기기가 네트워크에 새로 참여할 때 오가는 암호키가 노출될 수 있다는 점을 실험으로 보여준 연구를 소개하는 문장입니다.</p>
+  <div class="example">"제안하는 경량 인증 프로토콜은 기존 지그비 보안 스택 대비 연산량을 줄이면서도 재전송 공격에 대한 저항성을 유지하였다."</div>
+  <p>지그비 기기의 낮은 연산 능력을 고려해 더 가벼우면서도 안전한 인증 방식을 새로 제안했다는 내용입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>지그비는 AES-128 기반의 링크 키와 네트워크 키를 함께 사용해 계층적으로 데이터를 보호하는 구조를 갖고 있습니다. 그러나 초기 배포 시 키를 평문으로 전송하는 관행이나, 신뢰 센터(Trust Center) 하나가 네트워크 전체의 키 관리를 맡는 중앙집중형 구조는 단일 실패점이 될 수 있다는 점이 자주 지적됩니다. 재전송 공격, 라우팅 조작, 서비스 거부 공격 등이 대표적인 위협 유형으로 연구되며, 이를 막기 위해 키 갱신 주기 단축이나 기기 화이트리스트 관리 같은 대응책이 함께 논의됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>지그비 자체 표준에 보안 기능이 내장돼 있다고 해서 모든 구현이 안전하다고 단정하면 안 됩니다. 제조사가 기본 키를 그대로 두거나 초기 설정을 생략하는 실제 구현상의 허점이 더 큰 위험 요인이 되는 경우가 흔합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="nist-csf.html">NIST 사이버보안 프레임워크</a>
+    <a href="security-control-baseline.html">보안통제 기준선</a>
+    <a href="security-metrics-kpi.html">보안 성과지표</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Attribute-Based Access Control (ABAC)(속성기반 접근통제)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Attribute-Based Access Control (ABAC)(속성기반 접근통제)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/attribute-based-access-control.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 속성기반 접근통제 (Attribute-Based Access Control (ABAC))</p>
+  <h1>속성기반 접근통제 (Attribute-Based Access Control (ABAC))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사용자, 자원, 환경 등 다양한 속성 값을 조합한 규칙을 기준으로 접근 허용 여부를 동적으로 판단하는 접근통제 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>회사 건물에 들어갈 때 단순히 "직원증이 있으니 통과"가 아니라, "부서가 인사팀이고, 근무 시간이며, 요청한 문서가 본인 소속 부서의 자료일 때만 열람 가능"처럼 여러 조건을 동시에 따지는 방식을 떠올리면 됩니다. 속성기반 접근통제는 사용자의 직급이나 부서 같은 속성, 파일의 보안 등급 같은 자원 속성, 접속 시간이나 위치 같은 환경 속성을 조합한 규칙을 정해두고, 요청이 들어올 때마다 그 조건을 만족하는지 실시간으로 계산해 접근을 허용하거나 거부합니다. 기존에 역할 하나만 보고 권한을 주던 방식보다 훨씬 세밀하고 유연한 통제가 가능합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>조직 구조와 업무 환경이 복잡해지면서 단순히 직책이나 역할만으로는 세밀한 접근 제어를 표현하기 어려운 경우가 많아졌습니다. 속성기반 접근통제는 다양한 조건을 조합해 정교한 보안 정책을 표현할 수 있어, 클라우드 환경이나 대규모 조직의 접근 관리 체계를 설계하는 연구와 실무에서 중요하게 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안하는 시스템은 사용자 속성, 자원 속성, 환경 속성을 결합한 정책 규칙 엔진을 통해 세밀한 접근 결정을 수행한다."</div>
+  <p>속성기반 접근통제가 여러 종류의 속성을 함께 고려해 접근 여부를 판단하는 구조를 설명하는 문장입니다.</p>
+  <div class="example">"기존 역할기반 접근통제(RBAC)와 비교했을 때 ABAC는 정책 변경 시 역할을 재정의할 필요 없이 속성 조건만 수정하면 되는 유연성을 제공한다."</div>
+  <p>기존의 역할 중심 접근통제 방식과 비교해 속성기반 접근통제가 갖는 유연성이라는 장점을 설명하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>ABAC 정책은 흔히 "만약 사용자 속성이 X이고 자원 속성이 Y이며 환경 속성이 Z이면 접근을 허용한다"는 형태의 규칙으로 표현되며, 이를 표준화하기 위해 XACML 같은 정책 언어가 활용되기도 합니다. 역할기반 접근통제(RBAC)가 사전에 정의된 역할 단위로 권한을 관리하는 것과 달리, ABAC는 조건을 조합해 더 세밀하고 동적인 접근 제어를 가능하게 하지만, 그만큼 정책 설계와 관리가 복잡해질 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>속성 조합이 늘어날수록 정책이 복잡해져 규칙 간 충돌이나 의도치 않은 과도한 권한 부여가 발생할 수 있어, 정책 설계와 검증에 상당한 주의가 필요합니다. ABAC가 RBAC를 무조건 대체하는 개념이 아니라, 상황에 따라 함께 조합해 사용되는 경우도 많습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="privileged-access-management.html">권한계정 관리</a>
+    <a href="oauth2-authorization-code-flow.html">OAuth 2.0 인가코드 흐름</a>
+    <a href="fido2-webauthn.html">FIDO2 웹인증</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

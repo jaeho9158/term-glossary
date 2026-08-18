@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>FIDO2 WebAuthn(FIDO2 웹인증)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 FIDO2 WebAuthn(FIDO2 웹인증)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/fido2-webauthn.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; FIDO2 웹인증 (FIDO2 WebAuthn)</p>
+  <h1>FIDO2 웹인증 (FIDO2 WebAuthn)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 비밀번호 대신 지문, 얼굴 인식, 보안키 등 공개키 암호 기반의 생체·기기 인증을 사용해 웹 서비스에 로그인할 수 있게 하는 표준 인증 기술입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>비밀번호를 외우고 입력하는 대신, 스마트폰의 지문 센서나 얼굴 인식으로 잠금을 풀듯이 웹사이트에 로그인하는 방식을 떠올리면 됩니다. FIDO2 웹인증은 사용자의 기기 안에 개인키를 안전하게 저장해두고, 로그인할 때마다 이 개인키로 서명을 생성해 서버에 전달합니다. 서버는 미리 등록된 공개키로 그 서명이 맞는지 확인할 뿐, 실제 비밀번호나 생체정보 자체는 서버로 전송되지 않습니다. 그 결과 비밀번호를 훔치거나 피싱 사이트로 유도하는 공격이 원천적으로 통하지 않게 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>비밀번호 유출과 피싱 공격은 오랫동안 정보보안에서 가장 흔한 침해 경로였는데, FIDO2 웹인증은 비밀번호 자체를 없애는 방식으로 이 문제를 근본적으로 해결하려는 시도입니다. 브라우저와 운영체제 차원에서 표준으로 채택되면서 산업 전반의 인증 방식 전환에 큰 영향을 주고 있어, 인증 및 접근제어 분야의 핵심 연구·적용 주제로 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"FIDO2 웹인증 기반 로그인 방식을 도입한 결과, 피싱을 통한 계정 탈취 시도가 유의미하게 감소하였다."</div>
+  <p>비밀번호 기반 인증에서 FIDO2 방식으로 전환했을 때 얻을 수 있는 실질적인 보안 개선 효과를 보고하는 문장입니다.</p>
+  <div class="example">"공개키 쌍은 사용자 기기 내 보안 요소(secure element)에 저장되어 개인키가 외부로 유출될 위험을 최소화한다."</div>
+  <p>인증에 사용되는 핵심 정보가 어디에 어떻게 보관되어 안전성을 확보하는지를 설명하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>FIDO2는 브라우저와 웹 애플리케이션이 인증 절차를 호출할 수 있게 하는 WebAuthn API와, 기기와 인증장치 간의 통신을 규정하는 CTAP(Client to Authenticator Protocol)라는 두 가지 표준으로 구성됩니다. 등록 과정에서 사용자 기기가 공개키·개인키 쌍을 생성해 공개키만 서버에 저장하고, 로그인 시에는 서버가 보낸 무작위 값(challenge)에 개인키로 서명해 응답하는 방식으로 재사용 공격을 방지합니다. 이 방식은 도메인 정보를 서명 과정에 포함시켜 피싱 사이트에서는 정상적으로 인증이 이뤄지지 않도록 설계되어 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>FIDO2를 도입해도 기기 분실이나 도난에 대비한 백업 인증 수단 마련은 별도로 필요하며, 모든 서비스와 브라우저 조합에서 지원 수준이 동일하지는 않습니다. 생체 정보 자체가 서버로 전송되지 않는다는 점에서 흔히 오해하는 것과 달리 프라이버시 측면에서도 유리한 구조입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="biometric-authentication-spoofing.html">생체인증 스푸핑</a>
+    <a href="oauth2-authorization-code-flow.html">OAuth 2.0 인가코드 흐름</a>
+    <a href="credential-stuffing-attack.html">크리덴셜 스터핑 공격</a>
+    <a href="attribute-based-access-control.html">속성기반 접근통제</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

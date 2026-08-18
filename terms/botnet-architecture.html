@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Botnet Architecture(봇넷 아키텍처)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Botnet Architecture(봇넷 아키텍처)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/botnet-architecture.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 봇넷 아키텍처 (Botnet Architecture)</p>
+  <h1>봇넷 아키텍처 (Botnet Architecture)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 공격자가 원격으로 통제하는 다수의 감염된 컴퓨터(봇)들이 어떤 구조로 연결되고 명령을 주고받는지를 나타내는 설계 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>봇넷은 악성코드에 감염되어 공격자의 명령을 따르는 컴퓨터들의 집합입니다. 이 컴퓨터들이 마치 좀비 군대처럼 한 명의 지휘관 아래 움직이는데, 봇넷 아키텍처는 이 군대가 어떻게 조직되어 있는지를 말합니다. 지휘관이 모든 병사에게 직접 명령을 내리는 중앙집중형 군대일 수도 있고, 병사들끼리 서로 명령을 전달하는 분산형 조직일 수도 있습니다. 이 구조에 따라 군대(봇넷)를 무너뜨리기 쉬운 정도가 크게 달라집니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>봇넷은 대규모 디도스(DDoS) 공격, 스팸 발송, 대규모 정보 탈취 등에 활용되며 그 규모가 클수록 피해가 커집니다. 봇넷의 구조를 이해하는 것은 곧 그 봇넷을 어디서 어떻게 무력화할 수 있는지를 파악하는 것과 직결되기 때문에, 정보보안학과 악성코드 분석 분야에서 오랫동안 핵심 연구 주제로 다뤄져 왔습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"중앙집중형 봇넷 아키텍처는 C2 서버 하나를 차단하는 것만으로 전체 봇넷의 기능을 무력화할 수 있다는 취약점을 가진다."</div>
+  <p>모든 명령이 하나의 사령부에서 나오는 구조이기 때문에, 그 사령부만 없애면 봇넷 전체가 무너질 수 있다는 설명입니다.</p>
+  <div class="example">"P2P 기반 봇넷 아키텍처는 단일 실패 지점이 존재하지 않아 기존의 서버 차단 대응 전략이 효과를 거두기 어렵다."</div>
+  <p>병사들끼리 서로 연결된 구조라서 한두 곳을 없애도 나머지가 계속 명령을 주고받을 수 있어 대응이 더 까다롭다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>봇넷 아키텍처는 크게 중앙집중형(client-server), P2P형, 그리고 두 방식을 섞은 혼합형으로 분류됩니다. 중앙집중형은 관리가 쉽고 명령 전달이 빠르지만 단일 실패 지점이라는 약점이 있고, P2P형은 생존성이 높은 대신 명령 전달 속도나 관리의 복잡성 면에서 대가를 치릅니다. 최근에는 소셜미디어나 클라우드 서비스를 명령 전달 채널로 위장해 탐지를 어렵게 만드는 구조도 연구 대상이 되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>봇넷 구조가 분산될수록 무력화가 어려워지는 경향은 있지만, 구조가 복잡하다고 해서 항상 더 위협적인 것은 아니며 실제 위협 수준은 규모, 목적, 운영 방식 등을 종합적으로 고려해 판단해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="command-and-control-infrastructure.html">명령제어(C2) 인프라</a>
+    <a href="malware-sandbox-evasion.html">샌드박스 회피 기법</a>
+    <a href="ransomware-encryption-scheme.html">랜섬웨어 암호화 방식</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

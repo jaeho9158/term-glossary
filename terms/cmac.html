@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cipher-based Message Authentication Code (CMAC)(CMAC)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cipher-based Message Authentication Code (CMAC)(CMAC)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cmac.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; CMAC (Cipher-based Message Authentication Code (CMAC))</p>
+  <h1>CMAC (Cipher-based Message Authentication Code (CMAC))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> CMAC은 AES 같은 블록 암호를 이용해 메시지의 무결성과 출처를 검증할 수 있는 인증 코드를 생성하는 메시지 인증 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>편지 봉투에 도장을 찍어 위조 여부를 확인하는 것과 비슷합니다. 메시지를 블록 암호로 여러 번 암호화하며 마지막 블록에서 특별한 보정 과정을 거쳐 짧은 값(태그)을 만들어냅니다. 이 태그는 메시지와 함께 전송되고, 수신자는 같은 키로 동일한 계산을 반복해 값이 일치하는지 확인합니다. 값이 다르면 메시지가 중간에서 변조되었거나 위조된 것으로 판단합니다. 별도의 해시 함수 없이 이미 사용 중인 블록 암호만으로 인증 기능을 구현할 수 있다는 점이 특징입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>정보보안학에서는 데이터 무결성 보장이 기밀성 못지않게 중요한 과제로 다뤄집니다. CMAC은 HMAC처럼 해시 기반 방식이 아니라 블록 암호 기반이기 때문에, 이미 AES 등을 사용하는 시스템에서 별도의 해시 알고리즘 없이 효율적으로 인증을 추가할 수 있어 임베디드 환경이나 경량 프로토콜 연구에서 자주 인용됩니다. 또한 표준화된 안전성 증명이 있어 신뢰성 있는 대안으로 평가받습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구에서는 경량 IoT 통신 프로토콜의 무결성 보장을 위해 AES 기반 CMAC을 채택하였다."</div>
+  <p>자원이 제한된 IoT 기기에서 해시 함수 대신 이미 구현된 블록 암호를 재사용해 인증 기능을 구현한 사례입니다.</p>
+  <div class="example">"제안된 시스템은 CMAC을 이용해 펌웨어 업데이트 파일의 위변조 여부를 검증한다."</div>
+  <p>펌웨어 배포 과정에서 파일이 전송 중 조작되지 않았음을 확인하는 데 CMAC이 활용된 예입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>CMAC은 CBC-MAC의 취약점을 보완하기 위해 고안된 방식으로, 메시지 길이에 따라 서로 다른 부속키(subkey)를 사용하는 방식으로 가변 길이 메시지에 대한 위조 공격을 방지합니다. NIST에서 표준으로 채택되었으며, AES-CMAC이 대표적인 구현 형태로 널리 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>CMAC은 기밀성을 제공하지 않으므로 암호화와 별도로 사용해야 하며, 인증만으로는 데이터 노출을 막을 수 없다는 점에 유의해야 합니다. 또한 키 관리가 부실하면 아무리 안전한 알고리즘이라도 무력화될 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="pbkdf2.html">PBKDF2</a>
+    <a href="argon2.html">Argon2 비밀번호 해싱</a>
+    <a href="key-wrapping.html">키 래핑</a>
+    <a href="key-rotation-policy.html">키 순환 정책</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Firmware Tampering Detection(펌웨어 변조 탐지)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Firmware Tampering Detection(펌웨어 변조 탐지)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/firmware-tampering-detection.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 펌웨어 변조 탐지 (Firmware Tampering Detection)</p>
+  <h1>펌웨어 변조 탐지 (Firmware Tampering Detection)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 기기에 탑재된 펌웨어가 무단으로 수정되었는지를 확인하고 탐지하는 보안 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>펌웨어는 전자기기 안에 내장되어 기기를 작동시키는 기본 소프트웨어인데, 이를 누군가 몰래 바꿔치기하면 기기가 원래와 다르게 동작하거나 공격자에게 조종당할 수 있습니다. 펌웨어 변조 탐지는 마치 봉인 스티커가 뜯겼는지 확인하듯, 펌웨어가 출고 당시와 동일한지 검사하는 과정입니다. 원본 펌웨어의 고유한 지문 같은 값을 미리 기록해두고, 기기가 부팅되거나 동작할 때마다 이 지문을 다시 계산해 비교하는 방식으로 이루어집니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>IoT 기기와 임베디드 시스템은 물리적 접근이 쉬운 환경에 놓이는 경우가 많아, 펌웨어를 직접 조작하는 공격에 취약합니다. 정보보안학에서는 이러한 기기의 신뢰성을 확보하기 위해 변조 여부를 빠르고 정확하게 탐지하는 기법을 중요한 연구 주제로 다룹니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 논문은 해시 기반 무결성 검증을 활용한 펌웨어 변조 탐지 기법을 제안하여 부팅 시점의 변조 여부를 확인하였다."</div>
+  <p>기기가 켜질 때마다 펌웨어의 해시 값을 비교해 변조를 확인하는 방식을 설명하는 문장입니다.</p>
+  <div class="example">"제안한 시스템은 런타임 중에도 지속적으로 펌웨어 변조 탐지를 수행하여 부팅 이후 발생하는 공격에도 대응한다."</div>
+  <p>부팅 시점뿐 아니라 기기 작동 중에도 변조를 감시하는 접근을 보여주는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>탐지 방식은 크게 부팅 시점에 한 번 검사하는 정적 검증과, 기기 동작 중 주기적으로 검사하는 런타임 검증으로 나뉩니다. 해시 함수나 디지털 서명을 이용해 펌웨어의 무결성을 확인하는 방식이 흔히 쓰이며, 하드웨어 기반의 신뢰루트와 결합해 검증 자체의 신뢰성을 높이는 연구도 진행되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>변조 탐지 기능 자체가 공격자에 의해 우회되거나 비활성화될 수 있어, 탐지 로직을 보호하는 별도의 안전장치가 함께 필요합니다. 검사 주기가 너무 길면 변조 이후 탐지까지 시간이 걸릴 수 있다는 한계도 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="secure-firmware-update-mechanism.html">보안 펌웨어 업데이트 메커니즘</a>
+    <a href="embedded-root-of-trust.html">임베디드 신뢰루트</a>
+    <a href="jtag-debug-port-exploitation.html">JTAG 디버그포트 악용</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

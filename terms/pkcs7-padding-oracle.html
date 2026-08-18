@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Padding Oracle Attack(패딩 오라클 공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Padding Oracle Attack(패딩 오라클 공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/pkcs7-padding-oracle.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 패딩 오라클 공격 (Padding Oracle Attack)</p>
+  <h1>패딩 오라클 공격 (Padding Oracle Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 패딩 오라클 공격은 블록암호를 CBC 모드 등에서 사용할 때 서버가 패딩 오류 여부를 노출하는 응답 차이를 이용해 암호문을 복호화하는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>암호화할 때 데이터를 정해진 블록 크기에 맞추기 위해 끝부분에 채워 넣는 여분의 값을 패딩이라고 합니다. 만약 서버가 "패딩이 잘못됐다"와 "복호화 결과가 이상하다"를 서로 다른 오류 메시지로 알려준다면, 공격자는 이 미묘한 차이를 반복적으로 살펴보면서 암호문을 한 바이트씩 풀어낼 수 있습니다. 마치 자물쇠 다이얼을 하나씩 돌리며 딸깍 소리가 다른지 확인해 비밀번호를 알아내는 것과 비슷한 원리입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>암호 알고리즘 자체가 안전하더라도 오류 처리 방식이 부적절하면 정보가 새어나갈 수 있다는 것을 보여주는 대표적 사례이기 때문에, 정보보안학 분야에서는 실제 프로토콜(SSL/TLS, 웹 애플리케이션)에서 발생한 패딩 오라클 취약점 사례를 분석하고 이를 방지하는 설계 원칙을 연구합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 논문은 POODLE 취약점 사례를 통해 SSL 3.0 프로토콜에서의 패딩 오라클 공격 원리를 분석하였다."</div>
+  <p>실제로 알려진 취약점 사례를 분석하는 문맥입니다.</p>
+  <div class="example">"웹 애플리케이션의 오류 응답 시간 차이를 이용한 타이밍 기반 패딩 오라클 공격 가능성을 실험적으로 검증하였다."</div>
+  <p>타이밍 정보를 이용한 변형된 공격 형태를 다루는 문맥입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>이 공격은 주로 CBC(Cipher Block Chaining) 모드와 PKCS#7 패딩 방식을 함께 사용할 때 발생하며, 공격자는 이전 블록의 특정 바이트를 조작한 뒤 서버의 응답(정상/오류, 또는 응답 시간)을 관찰해 원문을 한 바이트씩 복원합니다. 이를 방지하려면 패딩 오류와 인증 오류를 구분되지 않게 처리하거나, GCM과 같이 애초에 패딩이 필요 없는 인증암호(AEAD) 방식을 사용하는 것이 권장됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>패딩 오라클 취약점은 암호 알고리즘 자체의 결함이 아니라 구현 및 오류 처리 방식의 문제인 경우가 대부분이므로, 알고리즘 강도만으로는 방어할 수 없다는 점에 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="aes-gcm.html">AES-GCM 모드</a>
+    <a href="chacha20-poly1305.html">차차20-폴리1305</a>
+    <a href="length-extension-attack.html">길이확장 공격</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>ARP Spoofing(ARP 스푸핑)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 ARP Spoofing(ARP 스푸핑)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/arp-spoofing.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; ARP 스푸핑 (ARP Spoofing)</p>
+  <h1>ARP 스푸핑 (ARP Spoofing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 공격자가 위조된 ARP(주소 결정 프로토콜) 메시지를 로컬 네트워크에 뿌려, 특정 IP 주소가 자신의 MAC 주소인 것처럼 속여 트래픽을 가로채는 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>같은 사무실 건물 안에서 우편물을 배달할 때, 각 방(호실) 앞에 붙어 있는 이름표를 보고 우편함을 찾아 넣는 상황을 떠올려 보세요. ARP 스푸핑은 누군가 몰래 다른 방의 이름표를 자기 방 것으로 바꿔 붙여, 원래 그 방으로 갈 우편물이 전부 자신에게 오게 만드는 것과 비슷합니다. 컴퓨터 네트워크에서는 IP 주소(방 번호)와 MAC 주소(실제 배달 대상 기기 고유번호)를 연결해주는 표가 ARP인데, 이 표를 거짓 정보로 오염시키는 것입니다. 그 결과 피해자의 통신이 공격자를 거쳐 지나가게 되어 도청이나 조작이 가능해집니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>ARP 스푸핑은 근거리 통신망(LAN) 내부 공격의 대표 사례로, 중간자 공격(MITM)의 출발점이 되는 경우가 많아 네트워크 보안 연구에서 반복적으로 다뤄집니다. 암호화되지 않은 사내망이나 공용 와이파이 환경의 취약성을 설명할 때 자주 인용되며, 탐지 및 방어 기법(정적 ARP 테이블, DAI 등)의 효과를 검증하는 실험 논문에서 기본 공격 모델로 사용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 실험에서는 스위치 기반 LAN 환경에서 ARP 스푸핑 공격을 재현하여 중간자 공격 성립 가능성을 확인하였다."</div>
+  <p>실험실 네트워크에서 실제로 ARP 스푸핑 공격을 발생시켜, 통신을 가로챌 수 있는지 검증했다는 뜻입니다.</p>
+  <div class="example">"제안한 탐지 시스템은 비정상적인 ARP 응답 패턴을 실시간으로 분석하여 ARP 스푸핑 시도를 조기에 식별한다."</div>
+  <p>연구에서 개발한 탐지 도구가 이상한 ARP 신호를 감지해 공격을 미리 알아챌 수 있다는 내용입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>ARP는 원래 인증 절차 없이 요청과 응답만으로 동작하는 프로토콜이기 때문에, 공격자는 위조된 ARP 응답(gratuitous ARP 포함)을 전송해 피해자와 게이트웨이의 ARP 캐시를 오염시킬 수 있습니다. 이렇게 되면 두 대상 간의 트래픽이 공격자를 경유하게 되어 스니핑, 세션 하이재킹, 서비스 거부 등으로 이어질 수 있습니다. 방어 방법으로는 정적 ARP 항목 설정, 동적 ARP 검사(DAI), ARP 스푸핑 탐지 소프트웨어 등이 일반적으로 언급됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>ARP 스푸핑은 원리상 동일 브로드캐스트 도메인(같은 로컬 네트워크) 안에서만 가능하며, 원격 인터넷 상의 임의 서버를 직접 공격하는 기법은 아닙니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="ids-ips.html">침입탐지/방지시스템</a>
+    <a href="deep-packet-inspection.html">심층 패킷 검사</a>
+    <a href="micro-segmentation.html">마이크로 세그멘테이션</a>
+    <a href="rogue-access-point.html">불법 액세스포인트</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

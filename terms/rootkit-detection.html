@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Rootkit Detection(루트킷 탐지)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Rootkit Detection(루트킷 탐지)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/rootkit-detection.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 루트킷 탐지 (Rootkit Detection)</p>
+  <h1>루트킷 탐지 (Rootkit Detection)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 운영체제의 핵심 영역에 은밀히 숨어 자신의 존재를 감추는 악성 소프트웨어인 루트킷을 찾아내는 기술을 의미합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>루트킷은 집안에 몰래 들어와 자신의 발자국까지 지우는 침입자와 비슷합니다. 일반적인 백신 프로그램이 파일 목록을 확인할 때도, 루트킷은 운영체제의 응답 자체를 조작해서 자기 자신을 목록에서 빼버립니다. 그래서 겉보기에는 아무 이상이 없어 보여도 시스템 안쪽에서는 공격자가 활동하고 있을 수 있습니다. 루트킷 탐지는 이런 은폐 기법을 뚫고 숨겨진 흔적을 찾아내는 작업입니다. 마치 거짓말을 하는 사람의 표정과 실제 상황을 대조해서 모순을 찾아내는 것과 비슷합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>루트킷은 시스템의 가장 깊은 곳에 자리 잡기 때문에 탐지가 실패하면 장기간 발각되지 않고 정보 유출이나 추가 공격의 거점으로 악용될 수 있습니다. 이 때문에 정보보안학에서는 커널 수준의 무결성 검증, 크로스뷰 비교(cross-view comparison) 등 다양한 탐지 방법론이 꾸준히 연구되고 있습니다. 또한 클라우드와 가상화 환경이 확산되면서 하이퍼바이저 기반 탐지 기법의 중요성도 함께 커지고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 커널 메모리 무결성 검사를 통한 루트킷 탐지 기법의 오탐률을 분석하였다."</div>
+  <p>운영체제의 핵심 메모리 영역이 변조되었는지를 검사해서 루트킷을 찾아내는 방법을 다루고 있으며, 정상 프로그램을 잘못 탐지하는 비율을 함께 살펴봤다는 뜻입니다.</p>
+  <div class="example">"하이퍼바이저 기반 루트킷 탐지는 게스트 운영체제의 시야를 벗어난 위치에서 관찰이 가능하다는 장점을 갖는다."</div>
+  <p>가상화 환경에서는 루트킷이 숨으려는 대상인 운영체제 바깥에서 감시할 수 있어 은폐 기법을 우회하기 쉽다는 설명입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>루트킷 탐지 기법은 크게 서명 기반 탐지, 행위 기반 탐지, 크로스뷰 비교 방식으로 나뉩니다. 크로스뷰 비교는 운영체제 API를 통해 얻은 정보와 디스크·메모리를 직접 읽어 얻은 정보를 비교해서 차이가 나는 부분을 의심하는 방식입니다. 커널 모드에서 동작하는 루트킷은 시스템 콜 테이블이나 커널 객체를 조작하기 때문에, 이를 탐지하려면 커널보다 더 낮은 계층에서 관찰하는 것이 유리합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>루트킷 탐지 도구 자체도 루트킷에 의해 무력화되거나 속을 수 있기 때문에, 단일 기법만으로는 완전한 탐지를 보장하기 어렵습니다. 따라서 여러 계층의 탐지 기법을 함께 사용하는 것이 일반적입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="mandatory-access-control.html">강제적 접근통제</a>
+    <a href="kernel-privilege-escalation.html">커널 권한상승</a>
+    <a href="malware-sandbox-evasion.html">샌드박스 회피 기법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

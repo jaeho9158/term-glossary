@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cross-Site Request Forgery (CSRF)(교차사이트 요청위조)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cross-Site Request Forgery (CSRF)(교차사이트 요청위조)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/csrf-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 교차사이트 요청위조 (Cross-Site Request Forgery (CSRF))</p>
+  <h1>교차사이트 요청위조 (Cross-Site Request Forgery (CSRF))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 로그인된 사용자가 자신도 모르게 공격자가 의도한 요청을 신뢰하는 웹사이트로 보내게 만들어 원치 않는 동작을 수행시키는 웹 공격 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>은행 사이트에 로그인해둔 상태에서 다른 수상한 웹페이지를 열었더니, 그 페이지가 몰래 은행 사이트에 "돈을 이체하라"는 요청을 대신 보내버리는 상황을 생각하면 됩니다. 사용자는 자신이 그런 요청을 보냈다는 사실조차 모릅니다. 은행 사이트 입장에서는 로그인된 사용자의 브라우저에서 온 요청이라 정상적인 요청으로 착각하고 처리해버립니다. 즉 공격자는 사용자의 신뢰 관계(로그인 상태)를 훔쳐 이용하는 셈입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>CSRF는 비밀번호 변경, 송금, 계정 설정 변경처럼 사용자가 의도하지 않은 중요한 동작을 몰래 실행시킬 수 있어 웹 애플리케이션 보안에서 오랫동안 주요 취약점 유형으로 다뤄져 왔습니다. 특히 로그인 세션을 이용한다는 특성 때문에 인증 메커니즘과 함께 연구되는 경우가 많습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"실험에 사용된 웹 애플리케이션은 CSRF 토큰을 검증하지 않아 위조된 요청이 정상 처리되는 취약점을 가지고 있었다."</div>
+  <p>매 요청마다 확인해야 할 고유한 검증값(토큰)이 제대로 검사되지 않아 공격이 성공할 수 있었던 사례를 설명하고 있습니다.</p>
+  <div class="example">"SameSite 쿠키 속성의 도입은 교차사이트 요청위조 공격의 성공률을 낮추는 데 기여한 것으로 나타났다."</div>
+  <p>브라우저가 다른 사이트에서 시작된 요청에는 쿠키를 자동으로 함께 보내지 않도록 제한하는 기능이 방어에 도움이 되었다는 설명입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>CSRF를 방어하는 대표적인 방법으로는 요청마다 예측 불가능한 고유 값을 포함시켜 검증하는 CSRF 토큰 방식, 그리고 브라우저 차원에서 교차 사이트 요청에 쿠키 전송을 제한하는 SameSite 쿠키 속성이 있습니다. CSRF는 사용자를 속여 악성 스크립트를 실행시키는 크로스사이트 스크립팅(XSS)과 혼동되기 쉽지만, CSRF는 스크립트 실행이 아니라 신뢰된 세션을 이용한 요청 위조에 초점이 있다는 점에서 차이가 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>CSRF는 GET 요청만이 아니라 POST 요청을 통한 상태 변경 동작에서도 발생할 수 있으므로, 요청 방식과 무관하게 상태를 변경하는 모든 엔드포인트에 대해 방어가 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="jwt-token-forgery.html">JWT 토큰 위조</a>
+    <a href="broken-object-level-authorization.html">객체수준 권한부여 취약점</a>
+    <a href="api-rate-limiting.html">API 요청제한</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

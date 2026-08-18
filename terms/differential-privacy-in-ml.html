@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Differential Privacy in Machine Learning(머신러닝 차분프라이버시)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Differential Privacy in Machine Learning(머신러닝 차분프라이버시)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/differential-privacy-in-ml.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 머신러닝 차분프라이버시 (Differential Privacy in Machine Learning)</p>
+  <h1>머신러닝 차분프라이버시 (Differential Privacy in Machine Learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 학습 데이터에 통계적으로 계산된 노이즈를 더해, 모델의 출력만으로는 특정 개인의 데이터가 포함되었는지 알 수 없도록 보장하는 프라이버시 보호 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>설문조사에서 민감한 질문에 답할 때 동전을 던져서 일정 확률로 거짓말을 하도록 규칙을 정하면, 개별 응답자가 실제로 무엇을 답했는지는 알 수 없지만 전체 통계는 여전히 유의미하게 나옵니다. 머신러닝 차분프라이버시도 비슷한 원리로, 모델을 학습시키는 과정에 수학적으로 계산된 잡음을 더해서, 어떤 한 사람의 데이터가 학습에 포함되었는지 여부를 모델의 결과만 보고는 알아낼 수 없게 만듭니다. 이렇게 하면 모델은 전체 패턴을 배우면서도 개인 정보는 보호할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>의료 기록, 금융 거래, 위치 정보처럼 민감한 데이터를 학습에 활용해야 하는 경우가 많아지면서, 학습된 모델을 통해 개인 정보가 역으로 유출되는 것을 막는 일이 중요해졌습니다. 특히 모델 역추론 공격이나 멤버십 추론 공격 같은 프라이버시 침해 공격에 대응하는 이론적 근거로 널리 인용되며, 개인정보보호 규제 준수와도 밀접하게 연결됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 논문은 DP-SGD 알고리즘을 적용하여 학습 과정에서 그래디언트에 가우시안 노이즈를 추가함으로써 차분프라이버시를 달성하였다."</div>
+  <p>실제 학습 알고리즘 단계에서 노이즈를 어떻게 삽입해 프라이버시 보장을 구현하는지 설명하는 문장입니다.</p>
+  <div class="example">"프라이버시 예산(epsilon)이 작을수록 강력한 프라이버시 보장을 제공하지만 모델의 정확도는 저하되는 경향을 보였다."</div>
+  <p>프라이버시 보호 수준과 모델 성능 사이에 존재하는 근본적인 상충 관계를 논의하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>차분프라이버시는 흔히 엡실론(ε)이라는 프라이버시 예산 값으로 그 보장 수준을 정량화하며, 엡실론이 작을수록 더 강한 프라이버시 보장을 의미합니다. 머신러닝에 적용할 때는 DP-SGD처럼 경사하강법의 각 단계에서 그래디언트를 클리핑하고 노이즈를 추가하는 방식이 널리 쓰입니다. 이 기법은 개인정보 보호와 모델 정확도 사이의 균형을 조절하는 문제로 이어지며, 실무에서는 이 둘 사이의 적절한 지점을 찾는 것이 핵심 과제입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>차분프라이버시를 적용했다고 해서 프라이버시 침해가 원천적으로 불가능해지는 것은 아니며, 어디까지나 확률적, 정량적 보장을 제공하는 것입니다. 또한 노이즈 추가로 인한 정확도 손실은 데이터셋 크기나 문제 난이도에 따라 크게 달라질 수 있어 일반화된 수치로 단정하기 어렵습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="federated-learning-security.html">연합학습 보안</a>
+    <a href="adversarial-example-attack.html">적대적 예제 공격</a>
+    <a href="backdoor-trigger-attack.html">백도어 트리거 공격</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

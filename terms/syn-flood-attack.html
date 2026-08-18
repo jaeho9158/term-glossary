@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SYN Flood Attack(SYN 플러드 공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 SYN Flood Attack(SYN 플러드 공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/syn-flood-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; SYN 플러드 공격 (SYN Flood Attack)</p>
+  <h1>SYN 플러드 공격 (SYN Flood Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> TCP 연결의 3단계 핸드셰이크를 악용해 다량의 SYN 패킷을 보내 서버의 연결 대기 자원을 고갈시키는 서비스 거부 공격입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>식당에 손님이 자리를 예약만 하고 실제로는 오지 않는 상황이 반복되면, 빈 테이블처럼 보이지만 실제로는 예약이 꽉 차서 새로운 손님을 받을 수 없게 됩니다. SYN 플러드 공격도 이와 비슷하게, 공격자가 서버에 연결 요청(SYN)만 계속 보내고 연결을 완료하지 않아 서버의 대기열이 가짜 요청으로 가득 차게 만듭니다. 그 결과 정상적인 사용자는 서버에 접속할 수 없게 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>SYN 플러드는 DoS/DDoS 공격의 대표적인 프로토콜 취약점 악용 사례로, 네트워크 계층 보안 연구와 방화벽·로드밸런서의 방어 기법(SYN 쿠키 등)을 다루는 논문에서 기본 공격 시나리오로 자주 사용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"실험 환경에서 SYN 플러드 공격을 수행한 결과 서버의 연결 대기열이 빠르게 포화되어 정상 요청 처리율이 급격히 저하되었다."</div>
+  <p>가짜 연결 요청이 몰리면서 서버가 진짜 사용자 요청을 처리하지 못하게 되는 현상을 실험으로 보였다는 뜻입니다.</p>
+  <div class="example">"SYN 쿠키 기법을 적용한 서버는 미적용 서버 대비 SYN 플러드 공격 상황에서도 안정적인 연결 처리 성능을 유지하였다."</div>
+  <p>특정 방어 기법을 쓰면 같은 공격을 받아도 서버가 더 잘 버틴다는 비교 결과입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>정상적인 TCP 연결은 SYN-SYN/ACK-ACK 세 단계를 거치는데, 공격자는 마지막 ACK를 보내지 않거나 위조된 출발지 주소로 SYN을 대량 전송해 서버가 응답을 기다리는 반열림(half-open) 연결을 쌓이게 합니다. 방어책으로는 SYN 쿠키, 연결 대기열 크기 조정, 방화벽의 SYN 비율 제한 등이 일반적으로 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>SYN 플러드는 단독으로도 위협적이지만, 실제로는 다른 유형의 DDoS 공격과 함께 사용되는 경우가 많아 방어 시 복합적인 대응이 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="volumetric-ddos-attack.html">볼류메트릭 DDoS 공격</a>
+    <a href="ids-ips.html">침입탐지/방지시스템</a>
+    <a href="deep-packet-inspection.html">심층 패킷 검사</a>
+    <a href="sdn-security.html">소프트웨어정의네트워크 보안</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

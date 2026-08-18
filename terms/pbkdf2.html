@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>PBKDF2(PBKDF2)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 PBKDF2(PBKDF2)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/pbkdf2.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; PBKDF2 (PBKDF2)</p>
+  <h1>PBKDF2 (PBKDF2)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> PBKDF2는 비밀번호에 임의값(salt)을 더해 해시 연산을 반복 수행함으로써 무차별 대입 공격을 어렵게 만드는 키 유도 함수입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>비밀번호를 그대로 저장하지 않고, 소금(salt)을 뿌려 섞은 뒤 같은 반죽 과정을 수천 번 반복해서 완전히 다른 모양으로 만드는 것과 비슷합니다. 공격자가 같은 비밀번호를 미리 계산해둔 표(레인보우 테이블)를 써도 소금 때문에 재사용할 수 없고, 반복 횟수 때문에 하나씩 시도하는 데 시간이 오래 걸립니다. 그래서 비밀번호 저장이나 암호화 키 생성에 널리 쓰입니다. 반복 횟수를 늘릴수록 공격은 더 느려지지만 정상 로그인 속도도 함께 느려지는 절충 관계가 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>정보보안학에서 비밀번호 저장 방식은 데이터 유출 사고 시 피해 규모를 좌우하는 핵심 요소로 다뤄집니다. PBKDF2는 오래전부터 표준화되어 다양한 시스템과 라이브러리에서 널리 채택되어 왔기 때문에, 인증 시스템 설계나 암호화 키 파생 관련 연구에서 비교 기준으로 자주 언급됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 시스템은 사용자 비밀번호를 PBKDF2로 반복 해싱하여 데이터베이스에 저장한다."</div>
+  <p>평문 비밀번호 대신 반복 연산을 거친 값을 저장해 유출 시 피해를 줄이는 방식입니다.</p>
+  <div class="example">"제안 기법에서는 사용자 패스프레이즈로부터 PBKDF2를 이용해 AES 암호화 키를 유도한다."</div>
+  <p>사람이 기억하기 쉬운 패스프레이즈를 암호화에 쓸 수 있는 고정 길이 키로 변환하는 데 활용된 예입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>PBKDF2는 내부적으로 HMAC 같은 의사난수 함수를 반복 적용하며, 반복 횟수(iteration count)를 늘려 계산 비용을 높이는 방식으로 안전성을 확보합니다. 다만 CPU 연산 위주라 전용 하드웨어(GPU, ASIC)를 이용한 병렬 공격에는 상대적으로 취약하다는 지적이 있어, 이후 메모리 사용량까지 요구하는 Argon2 같은 함수가 대안으로 제시되었습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>반복 횟수가 너무 적으면 보호 효과가 크게 줄어들며, salt를 생략하거나 재사용하면 레인보우 테이블 공격에 다시 노출될 수 있습니다. 최신 권고에서는 메모리 하드 함수와 비교해 상대적 강도를 고려해야 한다는 점도 유의해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="argon2.html">Argon2 비밀번호 해싱</a>
+    <a href="rainbow-table-attack.html">레인보우 테이블 공격</a>
+    <a href="cmac.html">CMAC</a>
+    <a href="key-wrapping.html">키 래핑</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

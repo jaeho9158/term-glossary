@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>OAuth 2.0 Authorization Code Flow(OAuth 2.0 인가코드 흐름)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 OAuth 2.0 Authorization Code Flow(OAuth 2.0 인가코드 흐름)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/oauth2-authorization-code-flow.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; OAuth 2.0 인가코드 흐름 (OAuth 2.0 Authorization Code Flow)</p>
+  <h1>OAuth 2.0 인가코드 흐름 (OAuth 2.0 Authorization Code Flow)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사용자가 자신의 비밀번호를 애플리케이션에 직접 알려주지 않고도, 임시 인가 코드를 매개로 접근 권한을 안전하게 위임하는 OAuth 2.0의 대표적인 인증 절차입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>호텔에 체크인할 때 방 열쇠 자체를 주는 대신, 프론트에서 발급한 임시 카드로 필요한 곳만 출입하게 하는 것과 비슷합니다. 어떤 앱이 여러분의 구글 계정 정보를 이용하고 싶을 때, 구글 아이디와 비밀번호를 그 앱에 직접 입력하는 대신 구글 로그인 화면에서 동의만 하면, 구글이 짧게 쓰이는 인가 코드를 앱에 넘겨줍니다. 앱은 이 코드를 다시 구글 서버에 제시해 실제 접근 토큰을 발급받습니다. 이렇게 비밀번호가 중간에 노출되지 않고도 권한을 위임할 수 있는 것이 이 흐름의 핵심입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>여러 서비스가 서로 연동되는 현대 웹 생태계에서, 사용자 비밀번호를 여러 곳에 나누어 저장하지 않고도 안전하게 권한을 위임할 수 있는 표준 방법이 필요했습니다. 인가코드 흐름은 이러한 요구를 충족시키는 가장 널리 쓰이는 OAuth 2.0 방식으로, 인증 및 접근제어 연구와 실무에서 기본 참조 모델로 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 시스템은 OAuth 2.0 인가코드 흐름을 채택하여 클라이언트가 액세스 토큰을 직접 노출하지 않도록 설계하였다."</div>
+  <p>인가 코드 방식을 사용해 민감한 토큰이 브라우저 등에 직접 드러나지 않게 보안을 강화했다는 설계 의도를 설명하는 문장입니다.</p>
+  <div class="example">"PKCE(Proof Key for Code Exchange) 확장을 적용하여 모바일 환경에서 인가 코드 탈취 공격을 방지하였다."</div>
+  <p>기본 인가코드 흐름에 추가 보안 절차를 더해 특정 환경에서의 취약점을 보완한 사례를 설명하는 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>이 흐름은 크게 사용자가 인가 서버에서 로그인 및 동의하는 단계, 인가 서버가 클라이언트에게 임시 인가 코드를 전달하는 단계, 클라이언트가 그 코드를 이용해 백채널로 액세스 토큰을 교환받는 단계로 구성됩니다. 모바일 앱이나 단일 페이지 애플리케이션처럼 클라이언트 시크릿을 안전하게 보관하기 어려운 환경에서는 PKCE라는 추가 검증 절차를 함께 사용하는 것이 권장됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>인가 코드는 짧은 시간만 유효하도록 설계되어 있으며, 이를 재사용하거나 탈취당하지 않도록 리다이렉트 URI 검증과 같은 절차를 반드시 지켜야 합니다. 인가코드 흐름 자체가 안전하더라도 구현이 부실하면 취약점이 발생할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="fido2-webauthn.html">FIDO2 웹인증</a>
+    <a href="attribute-based-access-control.html">속성기반 접근통제</a>
+    <a href="privileged-access-management.html">권한계정 관리</a>
+    <a href="credential-stuffing-attack.html">크리덴셜 스터핑 공격</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

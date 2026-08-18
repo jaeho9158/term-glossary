@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Hypervisor Escape Attack(하이퍼바이저 탈출 공격)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Hypervisor Escape Attack(하이퍼바이저 탈출 공격)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/hypervisor-escape-attack.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 하이퍼바이저 탈출 공격 (Hypervisor Escape Attack)</p>
+  <h1>하이퍼바이저 탈출 공격 (Hypervisor Escape Attack)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 가상머신 내부에 침입한 공격자가 가상머신을 관리하는 하이퍼바이저의 취약점을 악용해 격리 경계를 넘어 호스트 시스템이나 다른 가상머신까지 침투하는 공격입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>하이퍼바이저는 여러 개의 독립된 방(가상머신)을 만들어 서로 간섭하지 못하게 관리하는 건물 관리인과 같습니다. 각 방에 세든 사람은 자기 방만 사용할 수 있어야 하는데, 만약 어떤 세입자가 관리실 열쇠의 결함을 이용해 관리실로 몰래 들어가거나 옆방까지 넘나들 수 있게 된다면 이것이 바로 하이퍼바이저 탈출 공격입니다. 이렇게 되면 한 가상머신만 감염됐던 문제가 같은 물리 서버 위의 다른 모든 가상머신과 서버 자체로 번질 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>클라우드 및 가상화 환경에서는 여러 고객의 시스템이 하나의 물리 서버 위에서 하이퍼바이저를 통해 격리되어 운영되기 때문에, 이 격리가 깨지면 피해 범위가 한 사용자를 넘어 클라우드 전체로 확산될 수 있습니다. 그래서 정보보안학과 클라우드 보안 연구에서 하이퍼바이저의 취약점 분석과 방어 기법은 매우 중요하게 다뤄집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"가상화 플랫폼의 디바이스 에뮬레이션 계층에서 발견된 취약점을 이용한 하이퍼바이저 탈출 공격 시나리오를 실험 환경에서 재현하였다."</div>
+  <p>실제 취약점을 활용해 탈출 공격을 검증한 연구를 설명하는 예문입니다.</p>
+  <div class="example">"하이퍼바이저 탈출 공격을 조기에 탐지하기 위한 메모리 무결성 검증 기법을 제안하였다."</div>
+  <p>탈출 공격을 막기 위한 방어 기법 연구를 설명하는 예문입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>하이퍼바이저 탈출은 흔히 가상 하드웨어 에뮬레이션 코드, 게스트-호스트 간 통신 채널, 메모리 관리 로직 등에 존재하는 취약점을 통해 시도됩니다. 성공 시 공격자는 호스트 운영체제 권한을 얻거나 다른 가상머신의 메모리와 자원에 접근할 수 있게 되어 매우 심각한 결과로 이어질 수 있습니다. 이 때문에 가상화 소프트웨어 개발사들은 지속적인 보안 패치와 격리 강화 기술을 적용하고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>하이퍼바이저 탈출 공격은 발생 빈도가 높지는 않지만 성공 시 파급력이 매우 크기 때문에 과소평가해서는 안 됩니다. 가상화 소프트웨어를 최신 상태로 유지하는 것이 기본적인 예방책 중 하나로 알려져 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="container-escape-vulnerability.html">컨테이너 탈출 취약점</a>
+    <a href="vm-side-channel-attack.html">가상머신 부채널 공격</a>
+    <a href="cloud-workload-protection-platform.html">클라우드 워크로드 보호플랫폼</a>
+    <a href="iam-misconfiguration.html">IAM 설정오류</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
