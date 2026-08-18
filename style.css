@@ -72,7 +72,10 @@ header.site-header {
 }
 
 .site-header .inner {
-  max-width: var(--max-width);
+  /* Wider than the page's content column (--max-width) on purpose: at
+     content width the logo + a readable search box + the full nav can't
+     coexist in one row without squeezing the search box down to nothing. */
+  max-width: 1100px;
   margin: 0 auto;
   padding: 16px 20px;
   display: flex;
@@ -1508,7 +1511,11 @@ details[open] > .namu-sub-title::before {
     transform: scale(1.08);
 }
 
-@media (max-width:768px){
+/* Raised from 768px: the inline nav (logo + search + 학습 dropdown + the
+   rest of the links) needs more like ~1050px of room to fit without
+   squeezing the search box down to nothing, so the hamburger menu now takes
+   over earlier, before that squeeze happens. */
+@media (max-width:1080px){
 
     .site-header .inner{
         position:relative;
