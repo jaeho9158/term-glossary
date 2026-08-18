@@ -200,7 +200,7 @@ KEYWORD_TEMPLATES = [
 # 안전하다(게이트 없이 전체 사이트에 적용하면 인문/사회 용어에 오탐 발생).
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
-    "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio",
+    "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -230,6 +230,9 @@ EXCLUDED_SLUGS = {
     "incidental-finding",  # "우연소견"의 "연소" 부분매칭, 우연히 발견된 소견이며 연소(combustion) 아님
     "positron-emission-tomography", "positron-emission",  # "양전자"의 "전자" 부분매칭, 방사성붕괴 현상이며 회로 아님
     "half-value-layer",  # 차폐물 두께 하나의 값이며, 여러 층이 쌓인 적층구조 아님
+    "ecosystem-engineer-marine",  # 영문 "engineer"의 "engine" 부분매칭, 생태계공학종이며 엔진 아님
+    "subtropical-gyre",  # "아열대"의 "열" 부분매칭, 해류순환이며 열전달 아님
+    "planktonic-community-structure", "population-genetic-structure-marine",  # 군집/유전 구조(추상적 개념), 물리적 보 아님
 }
 
 
