@@ -137,8 +137,13 @@ function findExactMatches(word, exactIndex) {
 // Exact-match pass only: fast, synchronous, no fuzzy search. This is the
 // primary matcher — cheap enough to run on documents of any size without
 // blocking the page.
-function matchTerms(text, terms) {
-  const exactIndex = buildExactIndex(terms);
+//
+// Takes a pre-built exact index rather than building one internally, so
+// callers matching many texts against the same dictionary (e.g. one page at
+// a time for a multi-page PDF) build the index once and reuse it — building
+// it per call turns an O(dictionary size) cost into O(pages * dictionary
+// size), which is what made large-PDF analysis stall.
+function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
 
   for (const [word, count] of wordFrequency(text)) {
@@ -154,6 +159,10 @@ function matchTerms(text, terms) {
   }
 
   return sortMatches(resultsMap);
+}
+
+function matchTerms(text, terms) {
+  return matchTermsWithIndex(text, buildExactIndex(terms));
 }
 
 function escapeHtml(str) {
@@ -265,9 +274,16 @@ function resolvePosition(map, pos) {
 // Wraps the page-text range [startOffset, endOffset) with mark elements
 // created by makeMark(). Returns the created <mark> elements (there can be
 // more than one if the range spans multiple underlying text items).
-function wrapPageRange(container, startOffset, endOffset, makeMark) {
+// `precomputedMap` lets a caller that's wrapping several ranges in the same
+// container (e.g. every dictionary match on one PDF page) build the offset
+// map once and reuse it, instead of paying a full DOM walk per range. This
+// is only safe when ranges are wrapped in descending start-offset order —
+// wrapping splits DOM text nodes at/after the range, which invalidates node
+// identity for anything at a higher offset but leaves lower-offset nodes
+// (still to come) untouched.
+function wrapPageRange(container, startOffset, endOffset, makeMark, precomputedMap) {
   if (endOffset <= startOffset) return [];
-  const { map } = buildOffsetMap(container);
+  const map = precomputedMap || buildOffsetMap(container).map;
   if (map.length === 0) return [];
   const startPos = resolvePosition(map, startOffset);
   const endPos = resolvePosition(map, endOffset);
@@ -329,7 +345,7 @@ async function computeDocHash(file) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, wrapPageRange, buildOffsetMap };
 }
 
 if (typeof document !== "undefined") {
@@ -897,7 +913,8 @@ if (typeof document !== "undefined") {
 
         viewer.innerHTML="";
 
-        const terms = await loadTerms();
+        // loadTerms() also populates the module-level exactIndex used below.
+        await loadTerms();
 
         for(let i=1;i<=pdf.numPages;i++){
 
@@ -949,10 +966,16 @@ if (typeof document !== "undefined") {
             // Dictionary term highlighting, scoped to this page's own text
             // (exact-match pass only — cheap enough to run per page, and the
             // sidebar's whole-document fuzzy pass already covers near-misses).
-            const { text: pageText } = buildOffsetMap(textLayerDiv);
+            const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
             if (pageText.trim()) {
-              const pageMatches = matchTerms(pageText, terms);
-              const kept = computeKeptSpans(pageText, pageMatches);
+              // Reuse the dictionary's exact index (built once in loadTerms())
+              // instead of rebuilding it per page, and wrap all of this page's
+              // matches against one offset map instead of rebuilding it per
+              // match — both scaled with page count / match count and were
+              // what made PDFs with many dictionary hits freeze the tab.
+              const pageMatches = matchTermsWithIndex(pageText, exactIndex);
+              const kept = computeKeptSpans(pageText, pageMatches)
+                .sort((a, b) => b.firstStart - a.firstStart);
               for (const span of kept) {
                 wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
                   const mark = document.createElement("mark");
@@ -960,7 +983,7 @@ if (typeof document !== "undefined") {
                   mark.dataset.slug = span.slug;
                   mark.dataset.covers = span.covered.join(" ");
                   return mark;
-                });
+                }, pageOffsetMap);
               }
             }
         }

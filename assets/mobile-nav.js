@@ -45,4 +45,29 @@
       closeMenu();
     }
   });
+
+  // "학습" nav dropdown (퀴즈/로드맵). Desktop shows it on hover via CSS
+  // already; this adds click/keyboard support and closes it when clicking
+  // elsewhere. On mobile the dropdown is always expanded via CSS, so the
+  // toggle button below is inert there (harmless).
+  document.querySelectorAll(".nav-dropdown-toggle").forEach((toggle) => {
+    const dropdown = toggle.closest(".nav-dropdown");
+    if (!dropdown) return;
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".nav-dropdown.open").forEach((dropdown) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        const toggle = dropdown.querySelector(".nav-dropdown-toggle");
+        if (toggle) toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
 })();

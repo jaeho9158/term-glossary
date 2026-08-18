@@ -326,5 +326,14 @@
     consumer: ["가계자원관리","고객만족·충성과 불평행동","디지털·온라인 소비자행동","마케팅과 유통전략","소비문화와 소비유형","소비자경제이론","소비자교육","소비자권익과 소비자운동","소비자심리와 태도","소비자재무","소비자정책과 법제","소비자조사방법론","소비자피해구제와 보호기관","소비자행동 및 의사결정","지속가능소비와 윤리적소비","특수판매와 거래유형"],
   };
 
-  return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS };
+  // Categories shown as cards on the homepage. The full 100+ category list
+  // dumped every field as an open accordion made the homepage feel
+  // cluttered, so the homepage now only shows this curated set (the site's
+  // original core scope) plus a link to category.html for everything else.
+  const HOME_FEATURED_CATEGORIES = [
+    "stat", "method", "tool", "ethics", "physchem",
+    "bioearth", "neuro", "medhealth", "psych", "socialecon",
+  ];
+
+  return { CATEGORY_LABELS, CATEGORY_ORDER, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS, HOME_FEATURED_CATEGORIES };
 });
