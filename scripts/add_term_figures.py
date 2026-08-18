@@ -201,6 +201,7 @@ KEYWORD_TEMPLATES = [
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
+    "cat=astro",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -233,6 +234,11 @@ EXCLUDED_SLUGS = {
     "ecosystem-engineer-marine",  # 영문 "engineer"의 "engine" 부분매칭, 생태계공학종이며 엔진 아님
     "subtropical-gyre",  # "아열대"의 "열" 부분매칭, 해류순환이며 열전달 아님
     "planktonic-community-structure", "population-genetic-structure-marine",  # 군집/유전 구조(추상적 개념), 물리적 보 아님
+    "main-sequence-star", "main-sequence-turnoff", "main-sequence", "zero-age-main-sequence",  # "계열"의 "열" 부분매칭, 항성진화단계이며 열전달 아님
+    "pulsar-timing-array",  # "배열"의 "열" 부분매칭, 펄사관측망이며 열전달 아님
+    "cosmic-web", "large-scale-structure", "structure-formation", "tidal-disruption-event",  # 우주거대구조/조석파괴(추상적 천체물리 개념), 물리적 보 아님
+    "electron-degeneracy-pressure",  # 양자역학적 전자축퇴압이며 전자회로 아님
+    "dark-flow",  # 은하단 집단운동 가설이며 관내 유체흐름 아님
 }
 
 
