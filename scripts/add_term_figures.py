@@ -201,7 +201,7 @@ KEYWORD_TEMPLATES = [
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
-    "cat=astro", "cat=forestry",
+    "cat=astro", "cat=forestry", "cat=livestock",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -243,6 +243,9 @@ EXCLUDED_SLUGS = {
     "wood-deterioration",  # "열화"(劣化=노화)의 "열" 부분매칭, 목재노화이며 열전달(熱) 아님
     "sere",  # "계열"의 "열" 부분매칭, 생태천이단계이며 열전달 아님
     "gene-conservation-forest",  # "유전자원"의 "전자" 부분매칭, 유전자원보존림이며 전자회로 아님
+    "casein-micelle-structure",  # 단백질 미셀의 분자구조이며 물리적 보 아님
+    "livestock-product-distribution-structure",  # 유통구조(경제적 개념)이며 물리적 보 아님
+    "genetic-resource-conservation-livestock", "genomic-selection", "marbling-gene-marker",  # "유전자"의 "전자" 부분매칭, 전자회로 아님
 }
 
 
