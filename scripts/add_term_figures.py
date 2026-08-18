@@ -201,7 +201,7 @@ KEYWORD_TEMPLATES = [
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
-    "cat=astro", "cat=forestry", "cat=livestock",
+    "cat=astro", "cat=forestry", "cat=livestock", "cat=env",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -246,6 +246,10 @@ EXCLUDED_SLUGS = {
     "casein-micelle-structure",  # 단백질 미셀의 분자구조이며 물리적 보 아님
     "livestock-product-distribution-structure",  # 유통구조(경제적 개념)이며 물리적 보 아님
     "genetic-resource-conservation-livestock", "genomic-selection", "marbling-gene-marker",  # "유전자"의 "전자" 부분매칭, 전자회로 아님
+    "co-management",  # "공동"(joint) 부분매칭, 공동관리체제이며 공동현상(cavitation) 아님
+    "green-campus",  # "캠퍼스"의 "캠" 부분매칭, 캠-폴로어 기구 아님
+    "permit-linkage-system",  # 행정 인허가 연계제도이며 기계적 링크기구 아님
+    "ozone-depleting-substances",  # "파괴"가 오존층 파괴를 뜻하며 구조물 파괴(fracture) 아님
 }
 
 
