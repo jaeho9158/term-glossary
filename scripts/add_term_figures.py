@@ -201,7 +201,7 @@ KEYWORD_TEMPLATES = [
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
-    "cat=astro", "cat=forestry", "cat=livestock", "cat=env",
+    "cat=astro", "cat=forestry", "cat=livestock", "cat=env", "cat=food",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -250,6 +250,9 @@ EXCLUDED_SLUGS = {
     "green-campus",  # "캠퍼스"의 "캠" 부분매칭, 캠-폴로어 기구 아님
     "permit-linkage-system",  # 행정 인허가 연계제도이며 기계적 링크기구 아님
     "ozone-depleting-substances",  # "파괴"가 오존층 파괴를 뜻하며 구조물 파괴(fracture) 아님
+    "ascorbic-acid-degradation",  # 비타민C 화학적 분해이며 구조물 파괴(fracture) 아님
+    "lamp-method-food-testing",  # 등온(LAMP) 진단법인데 열전달 캡션과 개념 모순
+    "event-specific-gmo-detection", "gmo-detection-pcr", "gmo-labeling", "real-time-pcr-gmo-detection",  # "유전자"의 "전자" 부분매칭, 전자회로 아님
 }
 
 
