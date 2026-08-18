@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Gimbal Lock(짐벌락)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Gimbal Lock(짐벌락)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/gimbal-lock.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 짐벌락 (Gimbal Lock)</p>
+  <h1>짐벌락 (Gimbal Lock)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=space">우주공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 짐벌락은 오일러각과 같은 3축 회전 표현에서 특정 자세일 때 두 회전축이 겹쳐 하나의 회전 자유도를 잃어버리는 특이점 현상입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>회전을 세 개의 축으로 순서대로 표현하다 보면, 특정 각도에서 두 번째 회전축이 첫 번째와 세 번째 축 사이에서 겹쳐버리는 상황이 생길 수 있습니다. 이렇게 되면 원래는 서로 다른 세 방향으로 회전할 수 있어야 하는데, 실제로는 두 방향으로만 회전이 가능한 것처럼 계산되어 버립니다. 비행기나 카메라 짐벌 장치에서 이 현상이 발생하면 특정 방향으로의 회전이 갑자기 부자연스러워지거나 제어가 어려워집니다. 우주선 자세제어에서도 오일러각을 그대로 쓸 경우 이런 문제가 생길 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>짐벌락이 발생하는 구간에서는 오일러각 기반의 자세 계산이 불안정해지거나 특정 방향의 제어가 불가능해질 수 있어, 정밀한 자세제어가 필요한 우주 임무에서는 심각한 문제가 될 수 있습니다. 이 때문에 실제 제어 알고리즘에서는 짐벌락 문제가 없는 쿼터니언 표현을 널리 사용합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"Euler angle representations suffer from gimbal lock at a pitch angle of ±90 degrees, motivating the use of quaternions."</div>
+  <p>오일러각 표현은 피치각이 ±90도일 때 짐벌락 문제를 겪기 때문에 쿼터니언 사용이 필요하다는 설명입니다.</p>
+  <div class="example">"To avoid gimbal lock during large-angle slew maneuvers, the attitude controller was formulated using quaternion feedback."</div>
+  <p>큰 각도의 슬루기동 중 짐벌락을 피하기 위해 쿼터니언 피드백을 이용해 자세제어기를 구성했다는 내용입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>짐벌락은 오일러각의 회전 순서에 따라 발생하는 각도 위치가 달라지며, 수학적으로는 회전행렬의 특정 성분이 0이 되어 역변환이 불가능해지는 상황과 관련이 있습니다. 쿼터니언이나 회전행렬처럼 특이점이 없는 표현법을 사용하면 이러한 문제를 근본적으로 피할 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>짐벌락은 오일러각이라는 표현 방식 자체의 한계이지, 우주선의 물리적인 결함이 아니라는 점에 유의해야 합니다. 오일러각을 결과 표시나 시각화 용도로만 쓰고, 실제 계산은 다른 표현법으로 수행하면 문제를 피할 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="euler-angle-attitude.html">오일러각자세표현</a>
+    <a href="quaternion-attitude-representation.html">쿼터니언자세표현</a>
+    <a href="slew-maneuver.html">슬루기동</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>

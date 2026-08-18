@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Euler Angle Attitude Representation(오일러각자세표현)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Euler Angle Attitude Representation(오일러각자세표현)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/euler-angle-attitude.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 오일러각자세표현 (Euler Angle Attitude Representation)</p>
+  <h1>오일러각자세표현 (Euler Angle Attitude Representation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=space">우주공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 오일러각자세표현은 세 개의 회전각(예: 롤, 피치, 요)을 순서대로 적용해 우주선의 3차원 자세를 나타내는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>비행기가 좌우로 기울고(롤), 앞뒤로 들리고(피치), 좌우로 돌아가는(요) 세 가지 회전을 순서대로 합쳐서 방향을 표현하는 방식을 생각하면 됩니다. 사람이 직관적으로 이해하기 쉬운 각도 단위로 표현되기 때문에 자세를 시각화하거나 설명할 때 많이 사용됩니다. 다만 특정 자세에서는 회전 순서에 따라 계산이 불안정해지는 문제가 있습니다. 이런 이유로 실제 제어 계산에는 쿼터니언이 함께 쓰이는 경우가 많습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>오일러각은 사람이 직관적으로 자세를 이해하고 표시하는 데 유리하여, 임무 설계나 결과 분석, 시각화 단계에서 널리 쓰입니다. 반면 특이점 문제 때문에 실시간 제어 계산에는 한계가 있어, 쿼터니언 등 다른 표현법과 함께 비교·활용되는 경우가 많습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"Spacecraft attitude was reported in Euler angles for ease of interpretation, while the control algorithm internally used quaternions."</div>
+  <p>해석 편의를 위해 우주선 자세를 오일러각으로 표시했지만, 제어 알고리즘 내부는 쿼터니언을 사용했다는 설명입니다.</p>
+  <div class="example">"The 3-2-1 Euler angle sequence was adopted to describe the yaw, pitch, and roll of the satellite."</div>
+  <p>위성의 요, 피치, 롤을 나타내기 위해 3-2-1 순서의 오일러각 표현이 채택되었다는 내용입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>오일러각은 회전을 적용하는 순서(예: 3-2-1, 3-1-3 등)에 따라 결과가 달라지므로, 사용하는 순서를 명확히 정의해야 합니다. 특정 조합의 각도에서는 두 회전축이 겹쳐 자유도를 하나 잃는 짐벌락 현상이 발생할 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>오일러각은 표현이 직관적인 대신 짐벌락과 같은 특이점 문제를 안고 있어, 큰 각도 회전이나 정밀 제어가 필요한 경우 단독으로 사용하기보다 쿼터니언 등과 병행하는 것이 일반적입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="quaternion-attitude-representation.html">쿼터니언자세표현</a>
+    <a href="gimbal-lock.html">짐벌락</a>
+    <a href="attitude-error.html">자세오차</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
