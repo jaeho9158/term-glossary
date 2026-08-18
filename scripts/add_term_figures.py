@@ -200,13 +200,23 @@ KEYWORD_TEMPLATES = [
 # 안전하다(게이트 없이 전체 사이트에 적용하면 인문/사회 용어에 오탐 발생).
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
+    "cat=robotics",
 ]
-# cs/robotics/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
+# cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
 # 제외함. 확장하려면 카테고리별 화이트리스트 방식으로 다시 설계해야 함.
 
+# 카테고리 게이트를 통과해도 키워드 매칭이 실제로는 부적절한 개별 용어
+# (추상적 알고리즘/수학 개념이 물리적 키워드와 우연히 겹치는 경우) 예외 처리.
+EXCLUDED_SLUGS = {
+    "structure-from-motion",  # "구조" 매칭이지만 컴퓨터비전 3D 복원 알고리즘, 보/구조물 아님
+    "rotation-matrix",  # "회전" 매칭이지만 추상적 수학 행렬, 물리적 회전축 아님
+}
+
 
 def pick_template(filename: str, title: str, html: str):
+    if filename in EXCLUDED_SLUGS:
+        return None
     if not any(marker in html for marker in ALLOWED_CATEGORY_MARKERS):
         return None
     hay = (filename + " " + title).lower()
