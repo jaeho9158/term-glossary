@@ -201,7 +201,7 @@ KEYWORD_TEMPLATES = [
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
-    "cat=astro",
+    "cat=astro", "cat=forestry",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -239,6 +239,10 @@ EXCLUDED_SLUGS = {
     "cosmic-web", "large-scale-structure", "structure-formation", "tidal-disruption-event",  # 우주거대구조/조석파괴(추상적 천체물리 개념), 물리적 보 아님
     "electron-degeneracy-pressure",  # 양자역학적 전자축퇴압이며 전자회로 아님
     "dark-flow",  # 은하단 집단운동 가설이며 관내 유체흐름 아님
+    "row-thinning",  # "열식"(줄지어 심기)의 "열" 부분매칭, 간벌기법이며 열전달 아님
+    "wood-deterioration",  # "열화"(劣化=노화)의 "열" 부분매칭, 목재노화이며 열전달(熱) 아님
+    "sere",  # "계열"의 "열" 부분매칭, 생태천이단계이며 열전달 아님
+    "gene-conservation-forest",  # "유전자원"의 "전자" 부분매칭, 유전자원보존림이며 전자회로 아님
 }
 
 
