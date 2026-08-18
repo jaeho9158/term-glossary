@@ -200,7 +200,7 @@ KEYWORD_TEMPLATES = [
 # 안전하다(게이트 없이 전체 사이트에 적용하면 인문/사회 용어에 오탐 발생).
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
-    "cat=robotics", "cat=aviation", "cat=naval",
+    "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -220,6 +220,8 @@ EXCLUDED_SLUGS = {
     "burst-pressure",  # "파열"의 "열" 부분매칭, 파열압력이며 열전달 아님
     "towed-array-sonar",  # "배열"의 "열" 부분매칭, 소나 배열이며 열전달 아님
     "corrugated-bulkhead",  # 정적인 파형 형태의 격벽, 시간에 따른 진동/파형 아님
+    "antibiotic-resistance-gene-test",  # "유전자"의 "전자" 부분매칭, 유전자검사이며 전자회로 아님
+    "isothermal-amplification",  # 등온(온도 일정)인데 열전달(고온→저온) 캡션과 개념 모순
 }
 
 
