@@ -200,7 +200,7 @@ KEYWORD_TEMPLATES = [
 # 안전하다(게이트 없이 전체 사이트에 적용하면 인문/사회 용어에 오탐 발생).
 ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
-    "cat=robotics",
+    "cat=robotics", "cat=aviation",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -211,6 +211,11 @@ ALLOWED_CATEGORY_MARKERS = [
 EXCLUDED_SLUGS = {
     "structure-from-motion",  # "구조" 매칭이지만 컴퓨터비전 3D 복원 알고리즘, 보/구조물 아님
     "rotation-matrix",  # "회전" 매칭이지만 추상적 수학 행렬, 물리적 회전축 아님
+    "aircraft-rescue-and-firefighting",  # "구조"가 "구조업무"(rescue)의 일부, 보/구조물 아님
+    "stabilator",  # "전자"가 "전자세"(all-moving)의 일부, 전자회로 아님
+    "camber",  # "캠"이 "캠버"의 일부, 캠-폴로어 기구 아님
+    "fatigue-risk-management-system",  # 승무원(인체) 피로 관리, 재료 피로 아님
+    "air-traffic-flow-management",  # 항공교통 스케줄링 개념, 관내 유체흐름 아님
 }
 
 
