@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Semi-Lagrangian Scheme(준라그랑지안기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Semi-Lagrangian Scheme(준라그랑지안기법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/semi-lagrangian-scheme.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 준라그랑지안기법 (Semi-Lagrangian Scheme)</p>
+  <h1>준라그랑지안기법 (Semi-Lagrangian Scheme)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=meteor">대기과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 공기 덩어리가 이동해 온 출발 지점을 역추적하여 이류항을 계산함으로써, 큰 시간간격에서도 안정적으로 수치예보 방정식을 풀 수 있게 하는 이류 계산 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>수치예보 모델은 바람에 의해 공기 덩어리가 이동하는 과정(이류)을 계산해야 하는데, 이를 계산하는 방식에 따라 안정성과 정확도가 크게 달라집니다. 준라그랑지안기법은 "이번 시간에 이 지점에 도착한 공기 덩어리가 원래 어디에서 출발했을까?"를 거꾸로 추적한 뒤, 그 출발점의 값을 가져오는 방식입니다. 마치 택배가 도착한 곳에서 출발지를 역으로 찾아가 물건의 원래 상태를 확인하는 것과 비슷합니다. 이 방법은 시간 간격을 크게 잡아도 계산이 잘 무너지지 않는 장점이 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>이류 계산 방식 중 시간 간격 제약이 상대적으로 느슨한 편이어서, 더 큰 시간간격으로도 안정적인 계산이 가능해 계산 효율을 높일 수 있습니다. 이 덕분에 많은 전지구 및 지역 수치예보모델의 핵심 수치기법으로 널리 채택되어 왔으며, 예보 속도와 정확도의 균형을 맞추는 데 중요한 역할을 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 모델은 준라그랑지안기법(semi-Lagrangian scheme)을 적용하여 CFL 조건에 따른 시간간격 제약을 완화하였다."</div>
+  <p>이 기법을 사용해 계산이 불안정해지지 않으면서도 더 큰 시간 간격으로 계산을 진행할 수 있었다는 뜻입니다.</p>
+  <div class="example">"출발점 보간 방식으로 3차 스플라인 보간법을 사용하여 준라그랑지안 이류 계산의 정확도를 개선하였다."</div>
+  <p>역추적한 출발 지점의 값을 계산할 때 사용하는 보간 방법을 정교하게 바꿔 계산 정확도를 높였다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>준라그랑지안기법은 각 격자점에 도착하는 공기 덩어리의 궤적을 시간을 거슬러 계산하여 출발점을 찾고, 그 위치의 값을 주변 격자점으로부터 보간하여 구합니다. 이 과정에서 보간법의 정확도와 궤적 계산의 반복 방식이 전체 결과의 정밀도에 영향을 미치며, 흔히 스펙트럴모델이나 격자 기반 모델과 결합되어 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>보간 과정에서 필연적으로 일부 수치 확산(smoothing)이 발생할 수 있으며, 이는 급격한 기상 현상의 세밀한 구조를 다소 무디게 표현할 가능성이 있어 보간법 선택이 중요하게 다뤄집니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="spectral-model.html">스펙트럴모델</a>
+    <a href="physics-parameterization.html">물리모수화</a>
+    <a href="tangent-linear-model.html">접선형모델</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
