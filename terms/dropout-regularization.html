@@ -2,116 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Dropout(드롭아웃)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Dropout(드롭아웃)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/dropout-regularization.html">
-<link rel="stylesheet" href="../style.css">
-<!-- GA4 analytics:start -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7SW2PGCN27');
-</script>
-<!-- GA4 analytics:end -->
-<!-- theme-init:start -->
-<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
-<!-- theme-init:end -->
-<!-- AdSense:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
-<!-- AdSense:end -->
+<title>드롭아웃 - 논문용어사전</title>
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/dropout.html">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=dropout.html">
 </head>
-<body data-base="../">
-<header class="site-header">
-  <div class="inner">
-    <a class="logo" href="../index.html">논문용어사전</a>
-    <div class="header-search">
-      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
-      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
-    </div>
-    <button
-      id="theme-toggle"
-      class="theme-toggle-btn"
-      type="button"
-      aria-label="다크모드 전환">
-      <span class="theme-icon-light" aria-hidden="true">🌙</span>
-      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
-    </button>
-    <button
-      id="menu-toggle"
-      class="menu-toggle"
-      aria-label="메뉴"
-      aria-expanded="false">
-      ☰
-    </button>
-
-    <nav id="site-nav" class="site-nav">
-      <a href="../index.html">용어 목록</a>
-      <a href="../about.html">소개</a>
-      <a href="../login.html" id="nav-login">로그인</a>
-      <a href="../signup.html" id="nav-signup">회원가입</a>
-      <a href="../history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
-    </nav>
-  </div>
-</header>
-
-<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 드롭아웃 (Dropout)</p>
-  <h1>드롭아웃 (Dropout)</h1>
-  <div class="category-badges">
-    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
-  </div>
-
-  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
-    <span class="bookmark-icon" aria-hidden="true">☆</span>
-    <span class="bookmark-label">즐겨찾기</span>
-  </button>
-
-  <div class="definition-box">
-    <strong>한 줄 정의:</strong> 학습 과정에서 신경망의 일부 뉴런을 무작위로 비활성화해 과적합을 방지하는 정규화 기법.
-  </div>
-
-  <h2>쉽게 풀면</h2>
-  <p>신경망이 학습 데이터에만 지나치게 익숙해지면 새로운 데이터에서는 오히려 성능이 떨어지는 과적합이 생겨요. 드롭아웃은 학습할 때마다 일부 뉴런을 무작위로 골라 잠시 꺼버림으로써, 모델이 특정 뉴런 조합에만 의존하지 못하게 만듭니다. 마치 팀 프로젝트를 할 때 매번 다른 팀원이 랜덤하게 빠져도 팀이 굴러가도록 훈련시키는 것과 비슷해요. 이렇게 하면 모델이 더 다양한 경로로 정보를 처리하는 법을 배우게 되어 일반화 성능이 좋아집니다.</p>
-
-  <h2>왜 중요한가</h2>
-  <p>딥러닝 모델은 파라미터 수가 많아질수록 학습 데이터의 노이즈까지 외워버리는 과적합 위험이 커지는데, 드롭아웃은 별도의 데이터 증강 없이도 이를 완화할 수 있는 대표적인 정규화 기법이라 다양한 아키텍처 논문에서 기본 구성요소로 언급됩니다. 또한 여러 뉴런 부분집합을 암묵적으로 앙상블하는 효과를 낸다는 해석 덕분에 일반화 성능과 모델 견고성을 논하는 연구에서 비교 기준으로 자주 등장합니다.</p>
-
-  <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"완전연결층 사이에 드롭아웃 비율 0.5를 적용하여 과적합을 완화하였다."</div>
-  <p>각 학습 단계마다 해당 층의 뉴런 절반을 무작위로 꺼서 모델이 특정 뉴런에 의존하지 않도록 했다는 뜻이다.</p>
-  <div class="example">"트랜스포머 인코더의 어텐션 및 피드포워드 서브레이어 출력에 드롭아웃을 적용하여 대규모 말뭉치에서의 과적합을 억제하였다."</div>
-  <p>자연어처리 모델에서도 각 서브레이어 뒤에 드롭아웃을 배치해 학습 데이터에 과도하게 특화되는 것을 막았다는 의미이다.</p>
-  <div class="example">"합성곱층 뒤에 공간적 드롭아웃(spatial dropout)을 적용하여 인접 픽셀 간 상관관계로 인한 정규화 효과 저하 문제를 완화하였다."</div>
-  <p>이미지처럼 공간적으로 인접한 값들이 서로 비슷한 정보를 담는 경우, 개별 뉴런이 아니라 특징 맵 단위로 드롭아웃을 적용해야 효과가 유지된다는 컴퓨터비전 분야의 변형 기법을 설명한 것이다.</p>
-
-  <h2>조금 더 깊게 보면</h2>
-  <p>드롭아웃은 추론 시 전체 뉴런을 사용하되 학습 때 꺼졌던 비율만큼 출력 스케일을 조정하는 방식으로 학습-추론 간 기댓값을 맞추며, 최근 프레임워크는 이를 학습 단계에서 미리 나눠주는 인버티드 드롭아웃(inverted dropout) 방식으로 구현하는 것이 일반적입니다. 순환신경망에서는 시간 축 전체에 동일한 드롭아웃 마스크를 유지하는 변형이, 합성곱 신경망에서는 채널 단위로 통째로 꺼버리는 공간적 드롭아웃이 쓰이는 등 구조적 특성에 맞춘 변형들이 존재합니다. 배치 정규화 등 다른 정규화 기법과 함께 쓸 때는 상호작용으로 성능이 달라질 수 있어, 두 기법을 함께 적용할 때는 배치와 순서를 실험적으로 확인하는 경우가 많습니다.</p>
-
-  <h2>주의할 점</h2>
-  <p>드롭아웃은 학습 시에만 적용하고 실제 예측(추론) 시에는 모든 뉴런을 사용해야 하며, 이 전환을 프레임워크가 자동으로 처리해주는지 확인해야 한다.</p>
-
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="batch-normalization.html">배치 정규화</a>
-    <a href="early-stopping.html">조기종료 (Early Stopping)</a>
-    <a href="cross-entropy-loss.html">교차엔트로피 손실</a>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
-</footer>
-<script src="../assets/vendor/fuse.min.js"></script>
-<script src="../assets/header-search.js"></script>
-<script type="module" src="../assets/nav-auth.js"></script>
-<script type="module" src="../assets/term-history.js"></script>
-<script src="../assets/mobile-nav.js"></script>
-<script src="../assets/term-back-nav.js"></script>
-<script type="module" src="../assets/term-bookmark.js"></script>
+<body>
+<p>이 용어는 <a href="dropout.html">드롭아웃</a> 페이지로 통합되었습니다.</p>
 </body>
 </html>

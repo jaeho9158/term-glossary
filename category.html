@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://jaeho9158.github.io/term-glossary/category.html">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/category-groups.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -84,7 +85,12 @@
   <script src="assets/site.js"></script>
   <script>
     (function () {
-      const code = new URLSearchParams(location.search).get("cat");
+      const raw = new URLSearchParams(location.search).get("cat");
+      // 병합·분할로 없어진 옛 코드가 URL에 남아 있을 수 있어 별칭을 먼저 확인한다.
+      const alias = raw && window.CATEGORY_ALIASES ? window.CATEGORY_ALIASES[raw] : null;
+      const code = raw && window.CATEGORY_LABELS && window.CATEGORY_LABELS[raw]
+        ? raw
+        : (alias && alias.length === 1 ? alias[0] : null);
       const label = code && window.CATEGORY_LABELS ? window.CATEGORY_LABELS[code] : null;
       if (label) {
         const desc = window.CATEGORY_DESCRIPTIONS ? window.CATEGORY_DESCRIPTIONS[code] : null;

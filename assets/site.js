@@ -1,3 +1,13 @@
+// 중복 분야 병합·대형 분야 분할로 없어진 옛 카테고리 코드가 URL에 남아 있을 수
+// 있다(검색엔진에 이미 색인된 링크). CATEGORY_ALIASES로 새 코드에 넘겨준다.
+// 하나가 둘로 쪼개진 경우(예: physchem -> phys, chem)는 양쪽을 함께 보여준다.
+function resolveCategoryParam(code) {
+  if (!code) return [];
+  if (CATEGORY_LABELS[code]) return [code];
+  const alias = typeof CATEGORY_ALIASES !== "undefined" && CATEGORY_ALIASES[code];
+  return alias ? alias.slice() : [];
+}
+
 async function loadTerms() {
   const res = await fetch("terms-index.json");
   return res.json();
@@ -89,13 +99,29 @@ function render(terms, query = "", category = "") {
     .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0))
     .map(({ term }) => term);
 
-  if (category) {
+  // category는 단일 코드이거나, 쪼개진 옛 코드가 가리키는 여러 코드일 수 있다.
+  const selected = Array.isArray(category)
+    ? category
+    : resolveCategoryParam(category);
+
+  if (selected.length) {
     filtered = filtered.filter(term =>
-      term.categories?.includes(category)
+      term.categories?.some(c => selected.includes(c))
     );
   }
 
-  const codesToRender = category ? [category] : CATEGORY_ORDER;
+  const codesToRender = selected.length ? selected : CATEGORY_ORDER;
+
+  // 분야를 고르지 않은 전체 보기에서는 대분류로 한 번 묶어서 보여준다.
+  const grouped = !selected.length && typeof CATEGORY_GROUPS !== "undefined";
+  const groupOf = {};
+  if (grouped) {
+    for (const g of CATEGORY_GROUPS) {
+      for (const c of g.codes) groupOf[c] = g.label;
+    }
+  }
+  let currentGroup = null;
+  let groupBody = null;
 
   for (const code of codesToRender) {
 
@@ -105,14 +131,26 @@ function render(terms, query = "", category = "") {
 
     if (!mainMatched.length) continue;
 
+    if (grouped && groupOf[code] !== currentGroup) {
+      currentGroup = groupOf[code];
+      const section = document.createElement("section");
+      section.className = "category-group";
+      const heading = document.createElement("h2");
+      heading.className = "category-group-title";
+      heading.textContent = currentGroup;
+      section.appendChild(heading);
+      container.appendChild(section);
+      groupBody = section;
+    }
+
     const mainDetails = document.createElement("details");
     mainDetails.className = "namu-main-category";
 
-    if (q || category === code) {
+    if (q || selected.includes(code)) {
       mainDetails.open = true;
     }
 
-    const moreLink = category === code
+    const moreLink = selected.includes(code)
       ? ""
       : `<a class="category-more-link" href="category.html?cat=${code}">더보기</a>`;
 
@@ -182,7 +220,7 @@ function render(terms, query = "", category = "") {
     }
 
     mainDetails.appendChild(subWrapper);
-    container.appendChild(mainDetails);
+    (groupBody || container).appendChild(mainDetails);
   }
 }
 
@@ -190,7 +228,8 @@ async function init() {
 
   const terms = await loadTerms();
 
-  const initialCategory = new URLSearchParams(location.search).get("cat") || "";
+  const rawCategory = new URLSearchParams(location.search).get("cat") || "";
+  const initialCategory = resolveCategoryParam(rawCategory);
 
   render(terms, "", initialCategory);
 
@@ -208,8 +247,8 @@ async function init() {
       categoryFilter.appendChild(option);
     }
 
-    if (initialCategory) {
-      categoryFilter.value = initialCategory;
+    if (initialCategory.length === 1) {
+      categoryFilter.value = initialCategory[0];
     }
 
     categoryFilter.addEventListener("change", update);
@@ -248,7 +287,7 @@ async function init() {
     render(
       terms,
       searchInput?.value || "",
-      categoryFilter?.value || ""
+      categoryFilter ? resolveCategoryParam(categoryFilter.value) : initialCategory
     );
 
   }
