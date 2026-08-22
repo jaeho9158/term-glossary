@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Lot Streaming(로트 스트리밍)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Lot Streaming(로트 스트리밍)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/lot-streaming.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 로트 스트리밍 (Lot Streaming)</p>
+  <h1>로트 스트리밍 (Lot Streaming)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 하나의 생산 로트를 여러 개의 서브로트(이송 배치)로 분할하여, 앞 공정에서 일부가 완료되는 즉시 다음 공정으로 넘겨 공정 간 작업을 중첩시킴으로써 완료시간을 단축하는 스케줄링 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>100개짜리 주문을 1공정에서 전부 끝낸 뒤 2공정으로 옮기면 2공정은 그동안 놀게 됩니다. 대신 25개씩 네 묶음으로 나눠 첫 묶음이 끝나자마자 2공정으로 보내면 두 공정이 동시에 돌아가 전체 시간이 크게 줄어듭니다. 이렇게 로트를 쪼개 흘려보내는 것이 로트 스트리밍입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>로트 분할은 설비 추가 없이 리드타임을 줄이는 가장 직접적인 수단 중 하나이며, 린 생산의 단일흐름(1개 흘리기)은 로트 스트리밍의 극단적 형태입니다. 서브로트 수와 크기를 어떻게 정하느냐에 따라 완료시간, 재공재고, 운반 횟수가 달라지므로 최적 분할 문제가 독립된 연구 주제가 되었습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"2단계 흐름공정에서 로트 스트리밍(lot streaming)을 적용하여 서브로트 크기를 최적화한 결과 메이크스팬이 27% 단축되었다."</div>
+  <p>두 공정 라인에서 로트를 나눠 흘린 결과 전체 완료시간이 줄었다는 뜻입니다.</p>
+  <div class="example">"동일 크기 서브로트와 가변 크기 서브로트를 허용하는 두 모형의 해 품질과 계산 시간을 비교하였다."</div>
+  <p>묶음 크기를 똑같이 할 때와 다르게 할 때 결과가 어떻게 다른지 비교했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>서브로트는 동일 크기(equal), 일관 크기(consistent, 모든 공정에서 같은 분할), 가변 크기(variable, 공정마다 다른 분할)로 구분되며, 서브로트 간 준비시간과 이송시간, 유휴시간 허용 여부(no-idling)에 따라 모형이 달라집니다. 2기계 단일 작업 문제는 기하급수적 서브로트 크기가 최적임이 알려져 있고, 다작업·다기계 문제는 NP-난해하여 혼합정수계획과 메타휴리스틱이 함께 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>서브로트를 많이 나눌수록 완료시간은 줄지만 운반·취급 횟수와 추적 관리 부담이 늘어납니다. 공정 간 준비시간이 로트 단위가 아니라 서브로트 단위로 발생한다면 분할 이득이 상쇄될 수 있으므로 준비시간 구조를 먼저 확인해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="flow-shop-scheduling.html">흐름작업스케줄링</a>
+    <a href="makespan-minimization.html">메이크스팬최소화</a>
+    <a href="batch-scheduling.html">배치스케줄링</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

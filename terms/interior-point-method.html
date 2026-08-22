@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Interior Point Method(내점법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Interior Point Method(내점법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/interior-point-method.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 내점법 (Interior Point Method)</p>
+  <h1>내점법 (Interior Point Method)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 실행가능영역의 경계를 따라 이동하는 단체법과 달리, 영역 내부에서 출발하여 장벽함수 또는 중심경로를 따라 최적해로 수렴해 가는 선형·볼록 최적화 알고리즘군입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>단체법이 다면체의 모서리를 꼭짓점에서 꼭짓점으로 옮겨 다니며 답을 찾는다면, 내점법은 다면체 한가운데에서 출발해 내부를 가로질러 곧장 최적점 근처로 다가갑니다. 경계에 닿지 않도록 '벽에 가까워지면 벌점'을 주는 장벽함수를 쓰고, 벌점의 크기를 점점 줄여 가며 진짜 최적해에 접근합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>1984년 Karmarkar의 알고리즘으로 선형계획법이 다항시간에 풀린다는 것이 실용적으로 입증되었고, 대규모 희소 문제에서는 단체법보다 반복 횟수가 훨씬 적습니다. 현대 상용 솔버는 LP·QP·SOCP·SDP 등에 내점법을 기본 탑재하며, 볼록 최적화 전반의 표준 해법입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"변수 200만 개 규모의 선형계획 모형은 원-쌍대 내점법(primal-dual interior point method)으로 약 40회 반복 만에 수렴하였다."</div>
+  <p>매우 큰 선형 문제를 내점법으로 적은 반복 횟수에 풀었다는 뜻입니다.</p>
+  <div class="example">"내점법 해는 꼭짓점이 아닌 면의 내부에 위치하므로 기저해를 얻기 위해 교차(crossover) 절차를 추가로 수행하였다."</div>
+  <p>내점법이 주는 답이 모서리 점이 아니어서 단체법 형태의 답으로 바꾸는 후처리를 했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가장 널리 쓰이는 원-쌍대 경로추종법은 KKT 조건의 상보성 조건 x_i s_i = 0 을 x_i s_i = μ 로 완화한 중심경로를 뉴턴법으로 따라가며 μ를 0으로 줄입니다. 반복 횟수는 문제 크기에 거의 무관하게 수십 회 수준이지만, 매 반복마다 큰 희소 선형방정식을 풀어야 하므로 촐레스키 분해 효율이 성능을 좌우합니다. 정수계획의 분지한정법에서는 웜스타트가 어려운 내점법보다 쌍대 단체법이 더 유리한 경우가 많습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>내점법은 최적면이 여러 점을 포함할 때 꼭짓점 해가 아닌 중심 해를 주므로 민감도분석이나 정수계획 분지에 바로 쓰기 어렵습니다. 또한 반복마다 메모리 요구가 커서 조밀한 행렬에는 부적합할 수 있고, 고정밀 해가 필요하면 교차 절차가 추가로 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="simplex-method.html">단체법</a>
+    <a href="karush-kuhn-tucker-conditions.html">카루시-쿤-터커 조건</a>
+    <a href="nonlinear-programming.html">비선형계획법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

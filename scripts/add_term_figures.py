@@ -275,6 +275,8 @@ EXCLUDED_SLUGS = {
     "beam-type-smoke-detector",  # 광학식(적외선) 빔 감지기이며 구조용 보 아님
     "search-and-rescue-operation",  # "인명구조"의 "구조"(rescue) 부분매칭, 구조물 아님
     "crowd-flow-bottleneck",  # 군중 이동(사람) 흐름이며 유체흐름 아님
+    "specific-flow-evacuation",  # 피난 인원 흐름(사람)이며 유체흐름 아님
+    "flame-height-correlation",  # "correlation"이 상관식(수식)이며 계측 센서 아님
     # --- optics(광공학) 카테고리 확장 시 발견된 오탐 ---
     "arrayed-waveguide-grating", "optical-phased-array",  # "배열"의 "열" 부분매칭, 열전달 아님
     "cavity-quantum-electrodynamics", "free-electron-laser",  # 양자전기역학/전자빔이며 전자회로 아님
