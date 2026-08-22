@@ -109,13 +109,21 @@ function sortMatches(resultsMap) {
   return results;
 }
 
-// All exact-index hits for a single word: the word itself (or a
-// particle-stripped form of it), plus any shorter prefix of it — e.g. word
-// "분산분석" (ANOVA) also surfaces "분산" (variance) as a prefix match, since
-// Korean compound terms are commonly [shorter term][modifier/suffix]. Bounded
-// by word length, so still O(1)-ish per word — no fuzzy search involved.
-const MIN_PREFIX_LENGTH = 2;
-
+// All exact-index hits for a single word: the word itself, or a
+// particle-stripped form of it (e.g. "상관관계가" -> "상관관계").
+//
+// This used to also try every shorter prefix of a Korean word (down to 2
+// characters) on the theory that Korean compounds are commonly [shorter
+// term][modifier/suffix] — e.g. "분산분석" (ANOVA) contains "분산" (variance).
+// In practice that heuristic is not linguistically grounded (it's a blind
+// string cut, not morpheme segmentation) and produced constant false
+// positives on ordinary text: "불성실" (insincere) has nothing to do with
+// "불성" (Buddha-nature), "빈도분석" incorrectly surfaced "빈도" (an
+// advertising term) as if the paper were about advertising, etc. Two
+// unrelated Korean words sharing a 2-character prefix is the common case,
+// not the exception, so this was removed — exact + particle-stripped
+// matching (plus the bounded fuzzy pass below for real typos) is what
+// keeps highlights meaningful.
 function findExactMatches(word, exactIndex) {
   const hits = [];
   const seenForms = new Set();
@@ -125,21 +133,6 @@ function findExactMatches(word, exactIndex) {
     seenForms.add(candidate.form);
     const candidates = exactIndex.get(candidate.form);
     if (candidates) hits.push({ candidates, matchedLength: candidate.matchedLength });
-  }
-
-  // Prefix containment only makes sense for Korean tokens: there's no space
-  // to mark where a compound noun ends, unlike English/Latin words where the
-  // regex tokenizer already respects word boundaries (so "ANOVAtest" must
-  // NOT be treated as containing "ANOVA").
-  if (/[가-힣]/.test(word)) {
-    const normalized = normalizeWord(word);
-    for (let len = normalized.length - 1; len >= MIN_PREFIX_LENGTH; len--) {
-      const prefix = normalized.slice(0, len);
-      if (seenForms.has(prefix)) continue;
-      seenForms.add(prefix);
-      const candidates = exactIndex.get(prefix);
-      if (candidates) hits.push({ candidates, matchedLength: len });
-    }
   }
 
   return hits;
@@ -711,7 +704,12 @@ if (typeof document !== "undefined") {
     // still catches the useful cases without dragging the analysis out.
     const FUZZY_WORD_CAP = 800;
     const FUZZY_CHUNK_SIZE = 20; // words per chunk between UI-yielding pauses
-    const FUZZY_MIN_WORD_LENGTH = 4; // skip short common words — low value, high noise
+    // A short word has very little room for a genuine 1-character typo before
+    // it edit-distance-matches a completely different, unrelated term, so
+    // 4-character words were a steady source of noisy fuzzy hits; 5 keeps
+    // the near-miss safety net without that blast radius.
+    const FUZZY_MIN_WORD_LENGTH = 5;
+    const FUZZY_SCORE_THRESHOLD = 0.2; // tighter than Fuse's own 0.28 config threshold below
 
     // Fuse's threshold is a *ratio* of edit distance to string length, so for
     // short strings a "0.28" match can still be a completely different word
@@ -720,7 +718,15 @@ if (typeof document !== "undefined") {
     // text). Requiring the matched keyword's length to be reasonably close to
     // the query word's length rejects these compound-term false positives
     // without needing a stricter (and more typo-intolerant) global threshold.
-    const FUZZY_MAX_LENGTH_DIFF = 2;
+    //
+    // A diff of 2 still let a whole extra Korean morpheme (2 syllables) get
+    // tacked onto an otherwise-unrelated compound and count as a "near miss"
+    // — e.g. "빈도분석" (frequency analysis, a generic stats term used in
+    // almost every paper) fuzzy-matching "체장빈도분석" (a fisheries-specific
+    // "length-frequency analysis" term), which never appeared in the text.
+    // Real typos/spacing variants differ by 0–1 characters; anything wider is
+    // a different compound term, not a near-miss of the one in the text.
+    const FUZZY_MAX_LENGTH_DIFF = 1;
 
     function yieldToUi() {
       return new Promise((resolve) => setTimeout(resolve, 0));
@@ -741,11 +747,20 @@ if (typeof document !== "undefined") {
       let processed = 0;
 
       for (const [word, count] of candidateEntries.slice(0, FUZZY_WORD_CAP)) {
-        const normalized = normalizeWord(word);
+        // A trailing particle left on the word (e.g. "빈도분석과") inflates
+        // its length just enough to slip inside FUZZY_MAX_LENGTH_DIFF of an
+        // unrelated, longer compound term. Use only the most particle-stripped
+        // form (the last one candidateNormalizedForms yields) as the word's
+        // canonical root — trying the raw form *as well* just doubles the
+        // false-positive surface, since the raw form's extra particle
+        // character(s) are exactly what let it drift into range of an
+        // unrelated compound.
+        const forms = [...candidateNormalizedForms(word)];
+        const { form: normalized } = forms[forms.length - 1];
         const fuseResults = viewerFuse.search(normalized, { limit: 3 });
 
         for (const r of fuseResults) {
-          if (r.score > 0.28) continue;
+          if (r.score > FUZZY_SCORE_THRESHOLD) continue;
           const keywordLength = (r.item.keywordNormalized || r.item.keyword || "").length;
           if (Math.abs(keywordLength - normalized.length) > FUZZY_MAX_LENGTH_DIFF) continue;
           const term = r.item.term;
@@ -869,18 +884,17 @@ if (typeof document !== "undefined") {
         filterInput.disabled = false;
         renderMatchedTerms(currentMatches, filterInput.value);
 
-        // Fuzzy pass runs in chunks afterward to catch near-misses (typos,
-        // spacing variants) without blocking the tab on large papers.
-        findBtn.textContent = "추가 용어 찾는 중...";
-        const fuzzyMatches = await runFuzzyPass(text, exactMatches);
-        if (fuzzyMatches.length) {
-          currentMatches = mergeMatches(exactMatches, fuzzyMatches);
-          if (updateInputPane) {
-            renderRenderedPane(text, currentMatches);
-          }
-          renderMatchedTerms(currentMatches, filterInput.value);
-        }
-
+        // The fuzzy (typo-tolerant) pass that used to run here has been
+        // disabled: for a dictionary this dense (38k+ short Korean compound
+        // terms that commonly share a 1-character-different suffix/prefix,
+        // e.g. "빈도분석"/"잔차분석"/"입도분석기"), no length-diff or score
+        // threshold tuning kept finding a new false-positive shape — three
+        // rounds of tightening each surfaced a different unrelated term
+        // getting highlighted. Exact + particle-stripped matching only
+        // (matchTerms above) is what keeps highlights trustworthy; see
+        // runFuzzyPass/mergeMatches below, kept but unused in case a safer
+        // approach (e.g. requiring shared word-initial characters, not just
+        // bounded edit distance) is worth revisiting later.
         logPaperHistory(text);
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";

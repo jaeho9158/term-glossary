@@ -33,13 +33,20 @@ const terms = [
   assert.strictEqual(markCount, 1, "only first occurrence should be wrapped");
 }
 
-// Test 4: overlap-suppressed term's slug is recorded in data-covers on the kept mark
+// Test 4: overlap-suppressed term's slug is recorded in data-covers on the kept mark.
+// (Previously exercised via the blind Korean prefix-matching heuristic — e.g.
+// "분산분석" surfacing "분산" as a prefix hit — which was removed because it
+// produced constant false positives on unrelated words sharing a 2-character
+// prefix. Overlap suppression itself is still real without that heuristic:
+// particle-stripping alone can yield two independent exact hits at the same
+// start position — the word's own normalized form, and its particle-stripped
+// form — when both happen to be dictionary keys.)
 {
   const overlapTerms = [
-    { slug: "variance", title_ko: "분산", title_en: "Variance", categories: ["stat"] },
-    { slug: "anova", title_ko: "분산분석", title_en: "ANOVA", categories: ["stat"] },
+    { slug: "sample-i", title_ko: "표본이", title_en: "", categories: ["stat"] },
+    { slug: "sample", title_ko: "표본", title_en: "Sample", categories: ["stat"] },
   ];
-  const text = "이 연구는 분산분석 방법을 사용하였다.";
+  const text = "이 연구의 표본이 충분히 크다.";
   const matches = matchTerms(text, overlapTerms);
   const html = buildHighlightedHtml(text, matches);
 
@@ -52,8 +59,7 @@ const terms = [
   const coversMatch = markTag.match(/data-covers="([^"]*)"/);
   assert.ok(coversMatch, "data-covers attribute should exist");
   const covers = coversMatch[1].split(" ");
-  assert.ok(covers.includes("variance"), "data-covers should include the suppressed slug 'variance'");
-  assert.ok(covers.includes("anova"), "data-covers should include the kept slug 'anova'");
+  assert.ok(covers.includes("sample-i") && covers.includes("sample"), "data-covers should include both overlapping slugs");
 }
 
 console.log("buildHighlightedHtml: all tests passed");

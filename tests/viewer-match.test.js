@@ -66,4 +66,18 @@ const terms = [
   assert.strictEqual(rho, undefined, "bare-particle dictionary entry must not match particle occurrences in text");
 }
 
+// Test 7: an unrelated Korean word must not match a dictionary term just
+// because it shares a 2-character prefix with it. "불성실" (insincere) is
+// not a compound of "불성" (Buddha-nature) — sharing a prefix is
+// coincidence, not a real relationship, and highlighting it as a hit is a
+// false positive the user sees as "random" highlighting.
+{
+  const termsWithShortEntry = [
+    { slug: "buddha-nature", title_ko: "불성", title_en: "Buddha-nature", categories: ["religion"] },
+  ];
+  const text = "응답자 중 불성실 응답을 제외한 285부를 최종 분석에 사용하였다.";
+  const result = matchTerms(text, termsWithShortEntry);
+  assert.strictEqual(result.length, 0, "'불성실' must not prefix-match the unrelated term '불성'");
+}
+
 console.log("matchTerms: all tests passed");
