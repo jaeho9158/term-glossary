@@ -68,7 +68,19 @@ const PARTICLE_SET = new Set(KOREAN_PARTICLES);
 // Curated as we find them (see matching-quality reports) rather than derived
 // automatically — there's no Korean word-frequency corpus wired in here to
 // detect "this is an everyday word" computationally.
-const AMBIGUOUS_COMMON_WORD_TITLES = new Set(["단가", "보존", "등록", "복원", "열화", "환수", "후원", "유증", "응답"]);
+const AMBIGUOUS_COMMON_WORD_TITLES = new Set([
+  "단가", "보존", "등록", "복원", "열화", "환수", "후원", "유증", "응답",
+  // Found via a follow-up audit (2026-08): each of these is a social-work/
+  // criminology/archaeology/forestry/music/translation term whose everyday
+  // sense (confirmed by testing an unrelated sample paragraph) is both far
+  // more common in ordinary academic writing and effectively unrelated to
+  // the dictionary's narrow sense — e.g. "강도" overwhelmingly means
+  // "intensity" (운동 강도), not "robbery"; "단계" means any generic "stage/
+  // step", not specifically an archaeological phase; "배경" in a paper
+  // almost always means "background" (연구 배경), not literary Setting.
+  "요약", "접수", "소진", "점검", "균형", "대처", "자문", "환기", "경계",
+  "직면", "강도", "배경", "시점", "단계", "갱신", "해결", "왜곡",
+]);
 
 function isUnsafeIndexKey(key) {
   return key.length < 2 || PARTICLE_SET.has(key);

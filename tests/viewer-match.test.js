@@ -95,4 +95,29 @@ const terms = [
   assert.ok(result.some((r) => r.slug === "correlation"), "unrelated real matches should still work");
 }
 
+// Test 9: further curated ambiguous-common-word titles found via a follow-up
+// audit — each is a narrow-domain term (archaeology/criminology/social work/
+// forestry/music/translation) whose title is also a much more common
+// everyday word, confirmed by testing against unrelated sample text.
+{
+  const ambiguousTitles = [
+    ["archaeological-phase", "단계"],
+    ["robbery", "강도"],
+    ["setting-literary", "배경"],
+    ["point-of-view", "시점"],
+    ["forest-regeneration", "갱신"],
+    ["resolution", "해결"],
+    ["distortion-in-interpreting", "왜곡"],
+  ];
+  const dummyTerms = ambiguousTitles.map(([slug, title_ko]) => ({
+    slug,
+    title_ko,
+    title_en: slug,
+    categories: ["x"],
+  }));
+  const text = "운동 강도를 3단계로 나누었고, 연구 배경과 측정 시점을 명시하였으며, 계약을 갱신하고 문제를 해결하였으나 정보 왜곡은 없었다.";
+  const result = matchTerms(text, dummyTerms);
+  assert.strictEqual(result.length, 0, "none of the curated ambiguous-common-word titles should match their everyday sense");
+}
+
 console.log("matchTerms: all tests passed");
