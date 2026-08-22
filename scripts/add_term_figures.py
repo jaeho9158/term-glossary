@@ -202,8 +202,11 @@ ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
     "cat=astro", "cat=forestry", "cat=livestock", "cat=env", "cat=food",
-    "cat=biomed", "cat=indeng", "cat=fire", "cat=optics", "cat=landscape",
+    "cat=biomed", "cat=fire", "cat=optics", "cat=landscape",
 ]
+# indeng(산업공학)은 시도했으나 매칭 18건 중 17건이 오탐(생산흐름/스케줄링의
+# "flow"를 유체흐름으로, "modal"을 intermodal의 부분문자열로, 통계기법을
+# 열전달/구조로 오인)이라 비용 대비 효율이 낮아 제외함.
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
 # 제외함. 확장하려면 카테고리별 화이트리스트 방식으로 다시 설계해야 함.
@@ -268,6 +271,10 @@ EXCLUDED_SLUGS = {
     "electronic-health-record-interoperability",  # "전자의무기록"의 "전자" 부분매칭, 회로 아님
     "electrospinning-nanofiber-scaffold",  # 전기방사 제조공정이며 회로 아님
     "wavelet-transform-biomedical-signal",  # 추상적 신호처리 기법이며 물리적 진동체 아님
+    # --- fire(소방방재학) 카테고리 확장 시 발견된 오탐 ---
+    "beam-type-smoke-detector",  # 광학식(적외선) 빔 감지기이며 구조용 보 아님
+    "search-and-rescue-operation",  # "인명구조"의 "구조"(rescue) 부분매칭, 구조물 아님
+    "crowd-flow-bottleneck",  # 군중 이동(사람) 흐름이며 유체흐름 아님
 }
 
 
