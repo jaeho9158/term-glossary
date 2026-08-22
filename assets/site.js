@@ -17,6 +17,49 @@ function termLinkHTML(term) {
   `;
 }
 
+// Term counts per category have grown into the thousands, and a subcategory
+// list with hundreds of <li> elements open at once is what makes browsing
+// (as opposed to searching) feel sluggish/unwieldy. Render only the first
+// page of each subcategory up front, with a "더 보기" button to reveal the
+// rest — full result sets still render immediately while actively searching,
+// since a filtered list is already short and the user wants to see it all.
+const TERM_LIST_PAGE_SIZE = 40;
+
+// Returns a DocumentFragment containing the <ul> (and, when paged, a
+// "더 보기" button after it) so the caller can append() it as one unit
+// regardless of whether pagination kicked in.
+function buildTermListFragment(terms, { paged }) {
+  const fragment = document.createDocumentFragment();
+  const termList = document.createElement("ul");
+  termList.className = "namu-term-list";
+  fragment.appendChild(termList);
+
+  if (!paged || terms.length <= TERM_LIST_PAGE_SIZE) {
+    termList.innerHTML = terms.map((term) => termLinkHTML(term)).join("");
+    return fragment;
+  }
+
+  termList.innerHTML = terms
+    .slice(0, TERM_LIST_PAGE_SIZE)
+    .map((term) => termLinkHTML(term))
+    .join("");
+
+  const moreBtn = document.createElement("button");
+  moreBtn.type = "button";
+  moreBtn.className = "term-list-more-btn";
+  moreBtn.textContent = `${terms.length - TERM_LIST_PAGE_SIZE}개 더 보기`;
+  moreBtn.addEventListener("click", () => {
+    termList.innerHTML += terms
+      .slice(TERM_LIST_PAGE_SIZE)
+      .map((term) => termLinkHTML(term))
+      .join("");
+    moreBtn.remove();
+  });
+  fragment.appendChild(moreBtn);
+
+  return fragment;
+}
+
 function render(terms, query = "", category = "") {
 
   const container = document.getElementById("category-sections");
@@ -131,13 +174,10 @@ function render(terms, query = "", category = "") {
         </summary>
       `;
 
-      const termList = document.createElement("ul");
-      termList.className = "namu-term-list";
-      termList.innerHTML = subMatched
-        .map(term => termLinkHTML(term))
-        .join("");
-
-      subDetails.appendChild(termList);
+      // While actively searching/filtering, the result set is already short
+      // and the user wants to see everything that matched — only page the
+      // list when browsing the unfiltered category.
+      subDetails.appendChild(buildTermListFragment(subMatched, { paged: !q }));
       subWrapper.appendChild(subDetails);
     }
 
@@ -176,7 +216,14 @@ async function init() {
   }
 
   if (searchInput) {
-    searchInput.addEventListener("input", update);
+    // Full re-render tears down and rebuilds the entire term tree; with tens
+    // of thousands of terms that's expensive enough to make typing feel
+    // laggy if it runs on every keystroke, so debounce it.
+    let debounceTimer = null;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(update, 150);
+    });
 
     const recent = JSON.parse(
       localStorage.getItem("recentSearches") || "[]"

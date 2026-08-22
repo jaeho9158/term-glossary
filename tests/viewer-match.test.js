@@ -52,4 +52,18 @@ const terms = [
   assert.strictEqual(result[0].definition, "우연히 나왔을 가능성을 나타내는 숫자입니다.", "matchTerms should carry the definition field through to its output");
 }
 
+// Test 6: a dictionary entry that is itself a bare Korean particle (e.g. a
+// term whose title_ko happens to be "로") must never match ordinary
+// particle-attached words in unrelated text — see rho-option/"로" bug.
+{
+  const termsWithParticle = [
+    { slug: "rho-option", title_ko: "로", title_en: "Rho", categories: ["finance"] },
+    { slug: "correlation", title_ko: "상관관계", title_en: "Correlation", categories: ["stat"] },
+  ];
+  const text = "95%로 나타났다. 그래프로 표현하면 상관관계가 뚜렷하게 보인다.";
+  const result = matchTerms(text, termsWithParticle);
+  const rho = result.find((r) => r.slug === "rho-option");
+  assert.strictEqual(rho, undefined, "bare-particle dictionary entry must not match particle occurrences in text");
+}
+
 console.log("matchTerms: all tests passed");

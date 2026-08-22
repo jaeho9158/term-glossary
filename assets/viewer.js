@@ -50,10 +50,21 @@ function* candidateNormalizedForms(word) {
 // real paper match a title exactly, so this fast path handles the vast
 // majority of hits without ever touching the (expensive, O(index size)
 // per query) fuzzy Fuse search below.
+// A dictionary key that is itself a bare Korean particle (or too short to
+// mean anything on its own) makes ordinary particle-attached words match a
+// completely unrelated term — e.g. the finance term "로" (Rho) exact-matching
+// every stray "~로" in normal prose. Guard the index itself rather than the
+// matcher, so this protects every caller (exact pass, prefix pass, PDF
+// per-page pass) in one place.
+const PARTICLE_SET = new Set(KOREAN_PARTICLES);
+function isUnsafeIndexKey(key) {
+  return key.length < 2 || PARTICLE_SET.has(key);
+}
+
 function buildExactIndex(terms) {
   const map = new Map();
   const add = (key, term) => {
-    if (!key) return;
+    if (!key || isUnsafeIndexKey(key)) return;
     if (!map.has(key)) map.set(key, []);
     const bucket = map.get(key);
     if (!bucket.some((t) => t.slug === term.slug)) bucket.push(term);
@@ -378,11 +389,10 @@ if (typeof document !== "undefined") {
         });
       }
       catch (err) {
-        console.error(err);
-
-        countHeading.textContent =
-            err.message;
-        termsList.innerHTML = "";
+        // History logging is a side-effect of viewing a paper, not the term
+        // matching feature itself — a failure here (offline, blocked CDN,
+        // no session) must never clobber the already-rendered match results.
+        console.error("[logPaperHistory]", err);
       }
     }
 
@@ -1021,11 +1031,12 @@ if (typeof document !== "undefined") {
         await runAnalysis(text, { updateInputPane: false });
         await loadAndRenderAnnotations();
       } catch (err) {
+        console.error("[pdf-upload]", err);
         pdfStatus.hidden = true;
         textarea.hidden = false;
         pdfViewer.hidden = true;
         pdfViewer.innerHTML = "";
-        countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요.";
+        countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요. (오류: " + err.message + ")";
         termsList.innerHTML = "";
         textarea.value = "";
         findBtn.disabled = true;
