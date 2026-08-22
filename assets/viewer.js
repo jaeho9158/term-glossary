@@ -84,6 +84,7 @@ function recordMatch(resultsMap, term, idx, wordLength, score, increment = 1) {
       title_en: term.title_en,
       definition: term.definition,
       categories: term.categories,
+      difficulty: term.difficulty,
       count: increment,
       score,
       firstStart: idx,
@@ -178,13 +179,20 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
+const DIFFICULTY_LABELS = { 1: "쉬움", 2: "보통", 3: "어려움" };
+
 function termCardHTML(match) {
   const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
   const definitionPart = match.definition
     ? `<p class="term-card-definition">${escapeHtml(match.definition)}</p>`
     : "";
+  const difficultyLabel = DIFFICULTY_LABELS[match.difficulty];
+  const difficultyPart = difficultyLabel
+    ? `<span class="term-card-difficulty" data-difficulty="${match.difficulty}">${difficultyLabel}</span>`
+    : "";
   return `<li class="term-card" data-slug="${match.slug}">
-        <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
+        <button type="button" class="term-card-hide-btn" data-hide-slug="${match.slug}" title="이 용어 숨기기" aria-label="이 용어 숨기기">✕</button>
+        <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}${difficultyPart}</span>
         ${definitionPart}
         <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기 →</a>
       </li>`;
@@ -395,6 +403,30 @@ if (typeof document !== "undefined") {
     const filterInput = document.getElementById("term-filter");
     const countHeading = document.getElementById("matched-count");
     const termsList = document.getElementById("matched-terms");
+    const difficultyCheckboxes = document.querySelectorAll("#difficulty-filter-group input[type=checkbox]");
+    const categoryFilterSelect = document.getElementById("category-filter-select");
+    const englishOnlyFilter = document.getElementById("english-only-filter");
+    const showHiddenTermsBtn = document.getElementById("show-hidden-terms-btn");
+
+    // "이 용어 숨기기" is per-browser, not per-account — no login required to
+    // stop seeing terms the reader already knows well.
+    const HIDDEN_TERMS_KEY = "viewerHiddenTermSlugs";
+    function loadHiddenSlugs() {
+      try {
+        return new Set(JSON.parse(localStorage.getItem(HIDDEN_TERMS_KEY) || "[]"));
+      } catch (err) {
+        return new Set();
+      }
+    }
+    function saveHiddenSlugs(slugs) {
+      try {
+        localStorage.setItem(HIDDEN_TERMS_KEY, JSON.stringify([...slugs]));
+      } catch (err) {
+        // Storage unavailable (private browsing, quota) — filtering still
+        // works for this session, it just won't persist. Not worth surfacing.
+      }
+    }
+    let hiddenSlugs = loadHiddenSlugs();
 
     // Sidebar tabs (찾은 용어 / 내 메모)
     const tabButtons = document.querySelectorAll(".viewer-tab");
@@ -830,21 +862,68 @@ if (typeof document !== "undefined") {
       inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
     }
 
+// Populates the category dropdown with only the categories actually present
+    // in this document's matches — no point offering 40 categories when the
+    // paper only touched 3 of them.
+    function populateCategoryFilterOptions(matches) {
+      if (!categoryFilterSelect) return;
+      const codes = new Set();
+      matches.forEach((m) => (m.categories || []).forEach((c) => codes.add(c)));
+      const previousValue = categoryFilterSelect.value;
+      const labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
+      categoryFilterSelect.innerHTML =
+        `<option value="">전체 분야</option>` +
+        [...codes]
+          .sort((a, b) => (labels[a] || a).localeCompare(labels[b] || b))
+          .map((c) => `<option value="${escapeHtml(c)}">${escapeHtml(labels[c] || c)}</option>`)
+          .join("");
+      if (codes.has(previousValue)) categoryFilterSelect.value = previousValue;
+    }
+
+    function getSelectedDifficulties() {
+      return new Set(
+        Array.from(difficultyCheckboxes)
+          .filter((cb) => cb.checked)
+          .map((cb) => Number(cb.value))
+      );
+    }
+
     function renderMatchedTerms(matches, filterQuery) {
       if (matches.length === 0) {
         countHeading.textContent = "본문에서 사전 등록된 용어를 찾지 못했습니다.";
         termsList.innerHTML = "";
+        if (showHiddenTermsBtn) showHiddenTermsBtn.hidden = true;
         return;
       }
 
+      populateCategoryFilterOptions(matches);
+
       const q = (filterQuery || "").trim().toLowerCase();
+      const selectedDifficulties = getSelectedDifficulties();
+      const categoryCode = categoryFilterSelect ? categoryFilterSelect.value : "";
+      const englishOnly = englishOnlyFilter ? englishOnlyFilter.checked : false;
+      const hiddenCount = matches.filter((m) => hiddenSlugs.has(m.slug)).length;
+
       const filtered = matches.filter((m) => {
-        if (!q) return true;
-        return m.title_ko.toLowerCase().includes(q) || (m.title_en || "").toLowerCase().includes(q);
+        if (hiddenSlugs.has(m.slug)) return false;
+        if (q && !(m.title_ko.toLowerCase().includes(q) || (m.title_en || "").toLowerCase().includes(q))) return false;
+        // Unknown/missing difficulty is never filtered out by the difficulty
+        // checkboxes — only terms we can actually classify are affected.
+        if (m.difficulty != null && !selectedDifficulties.has(m.difficulty)) return false;
+        if (categoryCode && !(m.categories || []).includes(categoryCode)) return false;
+        if (englishOnly && !m.title_en) return false;
+        return true;
       });
 
       countHeading.textContent = `이 논문에 나온 용어 (${matches.length}개)`;
-      termsList.innerHTML = filtered.map(termCardHTML).join("");
+      termsList.innerHTML = filtered.length
+        ? filtered.map(termCardHTML).join("")
+        : `<li class="term-list-empty">조건에 맞는 용어가 없습니다.</li>`;
+
+      if (showHiddenTermsBtn) {
+        showHiddenTermsBtn.hidden = hiddenCount === 0;
+        showHiddenTermsBtn.textContent = hiddenCount ? `숨긴 용어 ${hiddenCount}개 다시 보기` : "";
+      }
     }
 
     function scrollToMark(slug) {
@@ -858,15 +937,40 @@ if (typeof document !== "undefined") {
     }
 
     termsList.addEventListener("click", (e) => {
+      const hideBtn = e.target.closest(".term-card-hide-btn");
+      if (hideBtn) {
+        hiddenSlugs.add(hideBtn.dataset.hideSlug);
+        saveHiddenSlugs(hiddenSlugs);
+        renderMatchedTerms(currentMatches, filterInput.value);
+        return;
+      }
       if (e.target.closest(".term-card-detail")) return;
       const card = e.target.closest(".term-card");
       if (!card) return;
       scrollToMark(card.dataset.slug);
     });
 
+    if (showHiddenTermsBtn) {
+      showHiddenTermsBtn.addEventListener("click", () => {
+        hiddenSlugs.clear();
+        saveHiddenSlugs(hiddenSlugs);
+        renderMatchedTerms(currentMatches, filterInput.value);
+      });
+    }
+
     filterInput.addEventListener("input", () => {
       renderMatchedTerms(currentMatches, filterInput.value);
     });
+
+    difficultyCheckboxes.forEach((cb) =>
+      cb.addEventListener("change", () => renderMatchedTerms(currentMatches, filterInput.value))
+    );
+    if (categoryFilterSelect) {
+      categoryFilterSelect.addEventListener("change", () => renderMatchedTerms(currentMatches, filterInput.value));
+    }
+    if (englishOnlyFilter) {
+      englishOnlyFilter.addEventListener("change", () => renderMatchedTerms(currentMatches, filterInput.value));
+    }
 
     async function runAnalysis(text, { updateInputPane = true } = {}) {
       findBtn.disabled = true;
