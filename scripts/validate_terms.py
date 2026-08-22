@@ -77,8 +77,10 @@ def main():
             findings["대응:영문이 slug 문자열 그대로"].append("%s (%s)" % (s, en))
         elif not re.search(r"[A-Za-z]", en):
             findings["대응:영문에 알파벳 없음"].append("%s (%s)" % (s, en))
-        if ko and not re.search(r"[가-힣]", ko):
-            findings["대응:한글 표기에 한글 없음"].append("%s (%s)" % (s, ko))
+        # PLC·SPSS·CUDA처럼 우리말 표기가 따로 없는 약어·제품명은 정상이므로,
+        # 원어를 그대로 쓴 것이 아니라 번역이 빠진 것으로 보이는 경우만 짚는다.
+        if ko and not re.search(r"[가-힣]", ko) and not re.fullmatch(r"[A-Za-z0-9/\-\.\+ ]{1,20}", ko):
+            findings["대응:한글 표기 누락 의심"].append("%s (%s)" % (s, ko))
 
     # ------------------------------------------- 중복 / 표기 흔들림
     by_ko, by_en, by_nko = (collections.defaultdict(list) for _ in range(3))
