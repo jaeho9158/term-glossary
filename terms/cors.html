@@ -103,11 +103,11 @@
   <p>CORS는 실제로 두 종류의 요청 방식으로 나뉘어 동작합니다. 단순한 조건을 만족하는 요청은 브라우저가 바로 서버로 보내고 응답 헤더로 허용 여부를 확인하지만, 그렇지 않은 요청(예: 인증 정보를 포함하거나 특정 HTTP 메서드를 쓰는 경우)은 브라우저가 먼저 "이 요청을 보내도 되는지" 확인하는 사전 요청(preflight)을 별도로 보낸 뒤, 서버의 허가 응답을 받고 나서야 본요청을 전송합니다. 논문이나 기술 문서에서 <code>Access-Control-Allow-Origin</code>, <code>Access-Control-Allow-Credentials</code> 같은 응답 헤더 이름이 자주 등장하는 것도 이 때문이며, 이 헤더들의 조합을 어떻게 설정했는지가 시스템의 개방성과 보안 수준을 함께 보여주는 지표로 쓰이기도 합니다. 다만 CORS는 어디까지나 브라우저가 지키는 규칙이므로, 브라우저를 거치지 않는 서버 간 요청이나 별도의 프로그램을 통한 요청은 CORS 정책의 적용을 받지 않는다는 점도 함께 이해해 두면 좋습니다.</p>
 
   <h2>주의할 점</h2>
-  <p>CORS는 편의를 위해 접근을 넓혀주는 개념 자체가 보안 위협이 아니라, 오히려 브라우저의 기본 차단 정책을 "안전하게 완화"하는 절차입니다. 허용 출처를 너무 느슨하게(예: 모든 출처 허용) 설정하면 <a href="cross-site-scripting.html">크로스사이트 스크립팅</a>이나 <a href="csrf.html">CSRF</a> 같은 공격에 노출될 위험이 커지므로, 꼭 필요한 출처만 허용하도록 좁게 설정해야 합니다.</p>
+  <p>CORS는 편의를 위해 접근을 넓혀주는 개념 자체가 보안 위협이 아니라, 오히려 브라우저의 기본 차단 정책을 "안전하게 완화"하는 절차입니다. 허용 출처를 너무 느슨하게(예: 모든 출처 허용) 설정하면 <a href="cross-site-scripting.html">크로스사이트 스크립팅</a>이나 <a href="cross-site-request-forgery.html">사이트 간 요청 위조</a> 같은 공격에 노출될 위험이 커지므로, 꼭 필요한 출처만 허용하도록 좁게 설정해야 합니다.</p>
 
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="csrf.html">사이트 간 요청 위조</a>
+    <a href="cross-site-request-forgery.html">사이트 간 요청 위조</a>
     <a href="cross-site-scripting.html">크로스사이트 스크립팅</a>
     <a href="session-and-cookie.html">세션과 쿠키</a>
     <a href="rest-api.html">REST API (자원 중심 API 설계)</a>
