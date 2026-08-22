@@ -80,4 +80,19 @@ const terms = [
   assert.strictEqual(result.length, 0, "'불성실' must not prefix-match the unrelated term '불성'");
 }
 
+// Test 8: a curated ambiguous-common-word title (e.g. "단가", the everyday
+// business word for "unit price", also used as the title of a niche pansori
+// music term) must not exact-match its everyday sense in unrelated text.
+{
+  const termsWithAmbiguous = [
+    { slug: "danga-pansori", title_ko: "단가", title_en: "Danga (Pansori Prelude Song)", categories: ["lit"] },
+    { slug: "correlation", title_ko: "상관관계", title_en: "Correlation", categories: ["stat"] },
+  ];
+  const text = "항목별 단가는 다음과 같으며, 상관관계 분석 결과도 함께 제시한다.";
+  const result = matchTerms(text, termsWithAmbiguous);
+  const danga = result.find((r) => r.slug === "danga-pansori");
+  assert.strictEqual(danga, undefined, "curated ambiguous-common-word title must not match its everyday sense");
+  assert.ok(result.some((r) => r.slug === "correlation"), "unrelated real matches should still work");
+}
+
 console.log("matchTerms: all tests passed");

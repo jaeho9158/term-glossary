@@ -57,6 +57,19 @@ function* candidateNormalizedForms(word) {
 // matcher, so this protects every caller (exact pass, prefix pass, PDF
 // per-page pass) in one place.
 const PARTICLE_SET = new Set(KOREAN_PARTICLES);
+
+// Some dictionary entries use an everyday, high-frequency Korean word as
+// their title for one narrow specialized sense — e.g. "단가" (Danga, a
+// pansori prelude song) is also the ordinary business word for "unit price",
+// and "보존"/"등록"/"복원" (a museum-domain "conservation"/"registration"/
+// "restoration") are common general verbs. An exact match on these fires on
+// nearly every unrelated document that happens to use the everyday word,
+// with no way to tell from string matching alone which sense was meant.
+// Curated as we find them (see matching-quality reports) rather than derived
+// automatically — there's no Korean word-frequency corpus wired in here to
+// detect "this is an everyday word" computationally.
+const AMBIGUOUS_COMMON_WORD_TITLES = new Set(["단가", "보존", "등록", "복원", "열화", "환수", "후원", "유증", "응답"]);
+
 function isUnsafeIndexKey(key) {
   return key.length < 2 || PARTICLE_SET.has(key);
 }
@@ -70,7 +83,9 @@ function buildExactIndex(terms) {
     if (!bucket.some((t) => t.slug === term.slug)) bucket.push(term);
   };
   for (const term of terms) {
-    if (term.title_ko) add(normalizeWord(term.title_ko), term);
+    if (term.title_ko && !AMBIGUOUS_COMMON_WORD_TITLES.has(term.title_ko)) {
+      add(normalizeWord(term.title_ko), term);
+    }
     if (term.title_en) add(normalizeWord(term.title_en), term);
   }
   return map;
@@ -911,7 +926,14 @@ if (typeof document !== "undefined") {
         // checkboxes — only terms we can actually classify are affected.
         if (m.difficulty != null && !selectedDifficulties.has(m.difficulty)) return false;
         if (categoryCode && !(m.categories || []).includes(categoryCode)) return false;
-        if (englishOnly && !m.title_en) return false;
+        // Nearly every dictionary entry carries *some* title_en gloss for
+        // reference, even purely Korean-context terms (e.g. "단가" has
+        // title_en "Danga (Pansori Prelude Song)") — so "!m.title_en" almost
+        // never filtered anything out. "영어 용어만" means the term itself is
+        // an English word/acronym (SPSS, ANOVA, PDF), which shows up as a
+        // title_ko written in Latin script, not a Korean word with an
+        // English gloss attached.
+        if (englishOnly && /[가-힣]/.test(m.title_ko)) return false;
         return true;
       });
 
