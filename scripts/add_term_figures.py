@@ -275,6 +275,14 @@ EXCLUDED_SLUGS = {
     "beam-type-smoke-detector",  # 광학식(적외선) 빔 감지기이며 구조용 보 아님
     "search-and-rescue-operation",  # "인명구조"의 "구조"(rescue) 부분매칭, 구조물 아님
     "crowd-flow-bottleneck",  # 군중 이동(사람) 흐름이며 유체흐름 아님
+    # --- optics(광공학) 카테고리 확장 시 발견된 오탐 ---
+    "arrayed-waveguide-grating", "optical-phased-array",  # "배열"의 "열" 부분매칭, 열전달 아님
+    "cavity-quantum-electrodynamics", "free-electron-laser",  # 양자전기역학/전자빔이며 전자회로 아님
+    "faraday-rotation",  # 편광면의 회전이며 기계적 회전축 구조 아님
+    "gaussian-beam-propagation", "gaussian-beam", "laser-beam-quality-factor",  # 레이저 빔이며 구조용 보 아님
+    "heterostructure-carrier-confinement",  # 반도체 이형구조이며 하중 받는 보 아님
+    "quantum-nondemolition-measurement",  # 추상적 양자측정 개념이며 구조용 보 아님
+    "quarter-wave-stack",  # 다층 박막 스택이며 구조용 보 아님(적층구조에 더 가까움)
 }
 
 
