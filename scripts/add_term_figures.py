@@ -202,6 +202,7 @@ ALLOWED_CATEGORY_MARKERS = [
     "cat=mechanical", "cat=biotech", "cat=materials", "cat=electrical", "cat=chemeng",
     "cat=robotics", "cat=aviation", "cat=naval", "cat=medlab", "cat=radio", "cat=ocean",
     "cat=astro", "cat=forestry", "cat=livestock", "cat=env", "cat=food",
+    "cat=biomed", "cat=indeng", "cat=fire", "cat=optics", "cat=landscape",
 ]
 # cs/physchem/aviation/naval은 시도했으나 범용 키워드가 해당 분야
 # 특유의 비물리적 의미(beam-search, buffer-overflow 등)와 충돌해 오탐이 발생,
@@ -253,6 +254,20 @@ EXCLUDED_SLUGS = {
     "ascorbic-acid-degradation",  # 비타민C 화학적 분해이며 구조물 파괴(fracture) 아님
     "lamp-method-food-testing",  # 등온(LAMP) 진단법인데 열전달 캡션과 개념 모순
     "event-specific-gmo-detection", "gmo-detection-pcr", "gmo-labeling", "real-time-pcr-gmo-detection",  # "유전자"의 "전자" 부분매칭, 전자회로 아님
+    # --- biomed(의공학) 카테고리 확장 시 발견된 오탐 ---
+    "biomolecular-motor-engineering", "cell-adhesion-molecule-engineering",
+    "medical-device-usability-engineering", "microelectrode-array-neural-recording",
+    "neural-electrode-array", "osteochondral-tissue-engineering",
+    "protein-engineering-biosensing", "skin-tissue-substitute", "spike-train-analysis",
+    "stem-cell-differentiation-engineering", "tissue-engineering-bioreactor",
+    "tissue-engineering-vascularization",  # "engineering"의 "engine" 부분매칭, 열전달 아님
+    "cone-beam-computed-tomography-biomed", "external-beam-radiotherapy",
+    "proton-beam-therapy", "ultrasound-beamforming",  # 방사선/음향 빔이며 구조용 보 아님
+    "spinal-implant-fatigue-testing",  # 임플란트 피로시험이며 구조용 보 개념과는 거리 있음
+    "crispr-cas9-gene-editing", "gene-delivery-vector",  # "유전자"의 "전자" 부분매칭, 회로 아님
+    "electronic-health-record-interoperability",  # "전자의무기록"의 "전자" 부분매칭, 회로 아님
+    "electrospinning-nanofiber-scaffold",  # 전기방사 제조공정이며 회로 아님
+    "wavelet-transform-biomedical-signal",  # 추상적 신호처리 기법이며 물리적 진동체 아님
 }
 
 
