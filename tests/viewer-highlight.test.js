@@ -24,13 +24,38 @@ const terms = [
   assert.ok(!html.includes("a < b"), "should not contain raw <");
 }
 
-// Test 3: only the first occurrence is wrapped, later ones stay plain text
+// Test 3: every occurrence is wrapped, not just the first. A reader scanning
+// a paper needs each mention marked; wrapping only the first left the rest of
+// the document looking like the term never appeared again.
 {
   const text = "상관관계, 상관관계, 상관관계.";
   const matches = matchTerms(text, terms);
   const html = buildHighlightedHtml(text, matches);
   const markCount = (html.match(/<mark /g) || []).length;
-  assert.strictEqual(markCount, 1, "only first occurrence should be wrapped");
+  assert.strictEqual(markCount, 3, "all three occurrences should be wrapped");
+}
+
+// Test 3b: a term's highlight must land on the standalone occurrence, never
+// on the same characters sitting inside a longer, unrelated word. Looking the
+// position up with text.indexOf(word) used to anchor "분산" to the "분산" inside
+// "분산분석을", leaving the real occurrence unmarked.
+{
+  const varianceOnly = [{ slug: "variance", title_ko: "분산", title_en: "Variance", categories: ["stat"] }];
+  const text = "분산분석을 실시하였다. 집단 간 분산 값이 크다.";
+  const html = buildHighlightedHtml(text, matchTerms(text, varianceOnly));
+  assert.ok(html.startsWith("분산분석을"), "the '분산' inside '분산분석을' must stay unmarked");
+  assert.ok(html.includes("간 <mark"), "the standalone '분산' must be the one wrapped");
+  assert.strictEqual((html.match(/<mark /g) || []).length, 1, "exactly one occurrence exists to wrap");
+}
+
+// Test 3c: same rule for English, where the tokenizer already respects word
+// boundaries — "ANOVA" must not be highlighted inside "ANOVAtest".
+{
+  const anovaOnly = [{ slug: "anova", title_ko: "분산분석", title_en: "ANOVA", categories: ["stat"] }];
+  const text = "The ANOVAtest procedure differs. We then ran ANOVA on the data.";
+  const html = buildHighlightedHtml(text, matchTerms(text, anovaOnly));
+  assert.ok(html.includes("The ANOVAtest"), "'ANOVAtest' must stay unmarked");
+  assert.ok(html.includes("ran <mark"), "the standalone 'ANOVA' must be the one wrapped");
 }
 
 // Test 4: overlap-suppressed term's slug is recorded in data-covers on the kept mark.

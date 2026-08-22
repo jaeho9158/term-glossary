@@ -12,14 +12,28 @@ function extractWords(text) {
   return [...new Set((text.match(/[가-힣A-Za-z-]+/g) || []))];
 }
 
-// Frequency map so repeated occurrences of the same word are actually
-// counted, instead of collapsing to 1 via the deduped word list above.
-function wordFrequency(text) {
-  const freq = new Map();
-  for (const w of text.match(/[가-힣A-Za-z-]+/g) || []) {
-    freq.set(w, (freq.get(w) || 0) + 1);
+// Every token occurrence, mapped to the real offsets where it starts.
+//
+// The offsets come from the tokenizer's own match.index. They used to be
+// recovered afterwards with text.indexOf(word), which finds the first place
+// the *substring* occurs — frequently inside a longer word. Looking up "분산"
+// in "분산분석을 실시하였다. 집단 간 분산 값이 크다." returned offset 0, so the
+// highlight was painted over the "분산" inside "분산분석" while the real
+// standalone "분산" went unmarked. Same for English: "ANOVA" resolved to the
+// "ANOVA" inside "ANOVAtest".
+//
+// Keeping every start offset (not just the first) also lets the renderer mark
+// all occurrences of a term rather than only its first one.
+function wordOccurrences(text) {
+  const tokenPattern = /[가-힣A-Za-z-]+/g;
+  const occurrences = new Map();
+  let match;
+  while ((match = tokenPattern.exec(text)) !== null) {
+    const starts = occurrences.get(match[0]);
+    if (starts) starts.push(match.index);
+    else occurrences.set(match[0], [match.index]);
   }
-  return freq;
+  return occurrences;
 }
 
 // Common Korean grammatical particles (조사) that attach directly to a noun
@@ -114,29 +128,38 @@ function buildExactIndex(terms) {
   return map;
 }
 
-function recordMatch(resultsMap, term, idx, wordLength, score, increment = 1) {
-  if (!resultsMap.has(term.slug)) {
-    resultsMap.set(term.slug, {
+// `starts` is every offset in the text where this term was matched. All of
+// them are kept so the renderer can mark each occurrence; firstStart /
+// firstLength stay in sync with the earliest one for callers that only care
+// about "where does this term first appear" (the sidebar's scroll-to link).
+function recordMatch(resultsMap, term, starts, wordLength, score) {
+  let item = resultsMap.get(term.slug);
+  if (!item) {
+    item = {
       slug: term.slug,
       title_ko: term.title_ko,
       title_en: term.title_en,
       definition: term.definition,
       categories: term.categories,
       difficulty: term.difficulty,
-      count: increment,
+      count: 0,
       score,
-      firstStart: idx,
-      firstLength: wordLength,
-    });
-  } else {
-    const item = resultsMap.get(term.slug);
-    item.count += increment;
-    if (idx < item.firstStart) {
-      item.firstStart = idx;
-      item.firstLength = wordLength;
-    }
-    item.score = Math.min(item.score, score);
+      occurrences: [],
+      firstStart: -1,
+      firstLength: 0,
+    };
+    resultsMap.set(term.slug, item);
   }
+
+  for (const start of starts) {
+    item.occurrences.push({ start, length: wordLength });
+  }
+  item.count += starts.length;
+  item.score = Math.min(item.score, score);
+
+  item.occurrences.sort((a, b) => a.start - b.start);
+  item.firstStart = item.occurrences[0].start;
+  item.firstLength = item.occurrences[0].length;
 }
 
 function sortMatches(resultsMap) {
@@ -189,14 +212,12 @@ function findExactMatches(word, exactIndex) {
 function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
 
-  for (const [word, count] of wordFrequency(text)) {
+  for (const [word, starts] of wordOccurrences(text)) {
     const hits = findExactMatches(word, exactIndex);
     if (!hits.length) continue;
-    const idx = text.indexOf(word);
-    if (idx === -1) continue;
     for (const hit of hits) {
       for (const term of hit.candidates) {
-        recordMatch(resultsMap, term, idx, hit.matchedLength, 0, count);
+        recordMatch(resultsMap, term, starts, hit.matchedLength, 0);
       }
     }
   }
@@ -241,9 +262,25 @@ function termCardHTML(match) {
 // were suppressed there (via `covered`). Shared by the plain-text renderer
 // (buildHighlightedHtml) and the PDF text-layer renderer.
 function computeKeptSpans(text, matches) {
-  const spans = matches
-    .filter((m) => m.firstStart >= 0)
-    .sort((a, b) => a.firstStart - b.firstStart);
+  // Expand each match into every place it occurs, so a term used five times
+  // on a page is highlighted five times instead of only at its first hit.
+  const spans = [];
+  for (const match of matches) {
+    const occurrences =
+      match.occurrences && match.occurrences.length
+        ? match.occurrences
+        : match.firstStart >= 0
+          ? [{ start: match.firstStart, length: match.firstLength }]
+          : [];
+    for (const occurrence of occurrences) {
+      if (occurrence.start < 0) continue;
+      spans.push({ ...match, firstStart: occurrence.start, firstLength: occurrence.length });
+    }
+  }
+
+  // Earliest first; on a tie the longer span wins, so "분산분석" is kept as the
+  // highlight and the "분산" starting at the same offset is folded into it.
+  spans.sort((a, b) => a.firstStart - b.firstStart || b.firstLength - a.firstLength);
 
   const kept = [];
   let lastEnd = -1;
@@ -259,7 +296,7 @@ function computeKeptSpans(text, matches) {
       span.firstStart >= lastKept.firstStart &&
       span.firstStart < lastKept.firstStart + lastKept.firstLength
     ) {
-      lastKept.covered.push(span.slug);
+      if (!lastKept.covered.includes(span.slug)) lastKept.covered.push(span.slug);
     }
   }
   return kept;
@@ -381,9 +418,12 @@ function unwrapMark(mark) {
   parent.normalize();
 }
 
-async function computeDocHash(file) {
+// `arrayBuffer` is the already-read file contents. Passing it in avoids a
+// second full read of the file just to hash it — the upload path reads the
+// PDF once and reuses that buffer for hashing and for parsing.
+async function computeDocHash(file, arrayBuffer) {
   try {
-    const buf = await file.arrayBuffer();
+    const buf = arrayBuffer || (await file.arrayBuffer());
     const digest = await crypto.subtle.digest("SHA-256", buf);
     return Array.from(new Uint8Array(digest))
       .map((b) => b.toString(16).padStart(2, "0"))
@@ -438,6 +478,8 @@ if (typeof document !== "undefined") {
     const textarea = document.getElementById("paper-text");
     const findBtn = document.getElementById("find-terms-btn");
     const inputPane = document.getElementById("viewer-input-pane");
+    const renderedPane = document.getElementById("viewer-rendered");
+    const editTextBtn = document.getElementById("edit-text-btn");
     const filterInput = document.getElementById("term-filter");
     const countHeading = document.getElementById("matched-count");
     const termsList = document.getElementById("matched-terms");
@@ -807,7 +849,7 @@ if (typeof document !== "undefined") {
     // responsive even on a large paper with thousands of unique words.
     async function runFuzzyPass(text, exactMatches) {
       const alreadyMatchedSlugs = new Set(exactMatches.map((m) => m.slug));
-      const candidateEntries = [...wordFrequency(text)].filter(
+      const candidateEntries = [...wordOccurrences(text)].filter(
         ([word]) =>
           normalizeWord(word).length >= FUZZY_MIN_WORD_LENGTH &&
           findExactMatches(word, exactIndex).length === 0
@@ -816,7 +858,7 @@ if (typeof document !== "undefined") {
       const resultsMap = new Map();
       let processed = 0;
 
-      for (const [word, count] of candidateEntries.slice(0, FUZZY_WORD_CAP)) {
+      for (const [word, starts] of candidateEntries.slice(0, FUZZY_WORD_CAP)) {
         // A trailing particle left on the word (e.g. "빈도분석과") inflates
         // its length just enough to slip inside FUZZY_MAX_LENGTH_DIFF of an
         // unrelated, longer compound term. Use only the most particle-stripped
@@ -833,10 +875,7 @@ if (typeof document !== "undefined") {
           if (r.score > FUZZY_SCORE_THRESHOLD) continue;
           const keywordLength = (r.item.keywordNormalized || r.item.keyword || "").length;
           if (Math.abs(keywordLength - normalized.length) > FUZZY_MAX_LENGTH_DIFF) continue;
-          const term = r.item.term;
-          const idx = text.indexOf(word);
-          if (idx === -1) continue;
-          recordMatch(resultsMap, term, idx, word.length, r.score, count);
+          recordMatch(resultsMap, r.item.term, starts, word.length, r.score);
         }
 
         processed++;
@@ -859,9 +898,12 @@ if (typeof document !== "undefined") {
         }
         const existing = bySlug.get(m.slug);
         existing.count += m.count;
-        if (m.firstStart < existing.firstStart) {
-          existing.firstStart = m.firstStart;
-          existing.firstLength = m.firstLength;
+        existing.occurrences = [...(existing.occurrences || []), ...(m.occurrences || [])].sort(
+          (a, b) => a.start - b.start
+        );
+        if (existing.occurrences.length) {
+          existing.firstStart = existing.occurrences[0].start;
+          existing.firstLength = existing.occurrences[0].length;
         }
       }
       return sortMatches(bySlug);
@@ -896,8 +938,29 @@ if (typeof document !== "undefined") {
         modal.classList.remove("show");
     };
 
+    // Writes the highlighted reading view into its own container and hides the
+    // textarea behind it.
+    //
+    // This used to assign to inputPane.innerHTML, which wiped out everything
+    // in #viewer-input-pane — the textarea, the PDF viewer, the "용어 찾기"
+    // button and the PDF upload input all included. Running one text search
+    // therefore removed the PDF upload control from the page entirely, so a
+    // reader who pasted text first could never switch to a PDF afterwards.
     function renderRenderedPane(text, matches) {
-      inputPane.innerHTML = `<div class="viewer-rendered" id="viewer-rendered">${buildHighlightedHtml(text, matches)}</div>`;
+      if (!renderedPane) return;
+      renderedPane.innerHTML = buildHighlightedHtml(text, matches);
+      renderedPane.hidden = false;
+      textarea.hidden = true;
+      if (editTextBtn) editTextBtn.hidden = false;
+    }
+
+    function showTextInput() {
+      if (renderedPane) {
+        renderedPane.hidden = true;
+        renderedPane.innerHTML = "";
+      }
+      textarea.hidden = false;
+      if (editTextBtn) editTextBtn.hidden = true;
     }
 
 // Populates the category dropdown with only the categories actually present
@@ -1058,113 +1121,134 @@ if (typeof document !== "undefined") {
       runAnalysis(textarea.value);
     });
 
+    if (editTextBtn) {
+      editTextBtn.addEventListener("click", () => {
+        showTextInput();
+        textarea.focus();
+      });
+    }
+
     const pdfInput = document.getElementById("pdf-upload");
     const pdfStatus = document.getElementById("pdf-status");
     const pdfViewer = document.getElementById("pdf-viewer");
 
-    async function extractPdfText(file) {
-      const arrayBuffer = await file.arrayBuffer();
-      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      let fullText = "";
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    // A scanned PDF has no text layer at all. Probing the first few pages
+    // catches that before any rendering work happens, so the "paste the text
+    // instead" message appears immediately instead of after a full render.
+    // Whatever was fetched here is handed to renderPdf so those pages are not
+    // read a second time.
+    const TEXT_PROBE_PAGES = 3;
+
+    async function probePdfText(pdf) {
+      const probed = new Map();
+      const limit = Math.min(TEXT_PROBE_PAGES, pdf.numPages);
+      for (let pageNum = 1; pageNum <= limit; pageNum++) {
         const page = await pdf.getPage(pageNum);
-        const content = await page.getTextContent();
-        fullText += content.items.map((item) => item.str).join(" ") + "\n";
+        const textContent = await page.getTextContent();
+        probed.set(pageNum, textContent);
+        if (textContent.items.some((item) => item.str.trim())) break;
       }
-      return fullText.trim();
+      return probed;
     }
 
-    async function renderPdf(file){
+    function hasAnyText(probed) {
+      for (const textContent of probed.values()) {
+        if (textContent.items.some((item) => item.str.trim())) return true;
+      }
+      return false;
+    }
 
-        const arrayBuffer = await file.arrayBuffer();
+    // Renders every page and returns the document's full text.
+    //
+    // The text comes from the same getTextContent() call that feeds the
+    // selectable text layer and the dictionary highlighting, so each page is
+    // read exactly once. Previously a separate extractPdfText() pass parsed
+    // the whole document a second time and called getTextContent() again on
+    // every page, roughly doubling the wait before anything was usable.
+    async function renderPdf(pdf, probedTextContent, onProgress) {
+      const viewer = document.getElementById("pdf-viewer");
+      viewer.innerHTML = "";
 
-        const pdf = await window.pdfjsLib
-            .getDocument({data:arrayBuffer})
-            .promise;
+      // loadTerms() also populates the module-level exactIndex used below.
+      await loadTerms();
 
-        const viewer = document.getElementById("pdf-viewer");
+      const pageTexts = [];
 
-        viewer.innerHTML="";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 1.5 });
 
-        // loadTerms() also populates the module-level exactIndex used below.
-        await loadTerms();
+        const pageWrap = document.createElement("div");
+        pageWrap.className = "pdf-page-wrap";
+        pageWrap.dataset.page = String(i);
+        pageWrap.style.width = `${viewport.width}px`;
+        pageWrap.style.height = `${viewport.height}px`;
 
-        for(let i=1;i<=pdf.numPages;i++){
+        const canvas = document.createElement("canvas");
+        canvas.className = "pdf-page";
+        canvas.addEventListener("dblclick", openPdfViewer);
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
 
-            const page=await pdf.getPage(i);
+        const textLayerDiv = document.createElement("div");
+        textLayerDiv.className = "textLayer";
+        textLayerDiv.style.width = `${viewport.width}px`;
+        textLayerDiv.style.height = `${viewport.height}px`;
 
-            const viewport=page.getViewport({
-                scale:1.5
-            });
+        // Attach the page shell before drawing into it, so pages show up one
+        // by one as they finish rather than all at once at the very end.
+        pageWrap.appendChild(canvas);
+        pageWrap.appendChild(textLayerDiv);
+        viewer.appendChild(pageWrap);
 
-            const pageWrap = document.createElement("div");
-            pageWrap.className = "pdf-page-wrap";
-            pageWrap.dataset.page = String(i);
-            pageWrap.style.width = `${viewport.width}px`;
-            pageWrap.style.height = `${viewport.height}px`;
+        await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
 
-            const canvas=document.createElement("canvas");
+        let textContent = probedTextContent && probedTextContent.get(i);
+        if (textContent) probedTextContent.delete(i);
+        else textContent = await page.getTextContent();
 
-            canvas.className="pdf-page";
+        await window.pdfjsLib.renderTextLayer({
+          textContentSource: textContent,
+          container: textLayerDiv,
+          viewport,
+        }).promise;
 
-            canvas.addEventListener("dblclick", openPdfViewer);
+        pageTexts.push(textContent.items.map((item) => item.str).join(" "));
 
-            canvas.width=viewport.width;
-            canvas.height=viewport.height;
-
-            const ctx=canvas.getContext("2d");
-
-            await page.render({
-                canvasContext:ctx,
-                viewport
-            }).promise;
-
-            const textLayerDiv = document.createElement("div");
-            textLayerDiv.className = "textLayer";
-            textLayerDiv.style.width = `${viewport.width}px`;
-            textLayerDiv.style.height = `${viewport.height}px`;
-
-            const textContent = await page.getTextContent();
-            const textLayerTask = window.pdfjsLib.renderTextLayer({
-              textContentSource: textContent,
-              container: textLayerDiv,
-              viewport,
-            });
-            await textLayerTask.promise;
-
-            pageWrap.appendChild(canvas);
-            pageWrap.appendChild(textLayerDiv);
-            viewer.appendChild(pageWrap);
-
-            // Dictionary term highlighting, scoped to this page's own text
-            // (exact-match pass only — cheap enough to run per page, and the
-            // sidebar's whole-document fuzzy pass already covers near-misses).
-            const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
-            if (pageText.trim()) {
-              // Reuse the dictionary's exact index (built once in loadTerms())
-              // instead of rebuilding it per page, and wrap all of this page's
-              // matches against one offset map instead of rebuilding it per
-              // match — both scaled with page count / match count and were
-              // what made PDFs with many dictionary hits freeze the tab.
-              const pageMatches = matchTermsWithIndex(pageText, exactIndex);
-              const kept = computeKeptSpans(pageText, pageMatches)
-                .sort((a, b) => b.firstStart - a.firstStart);
-              for (const span of kept) {
-                wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
-                  const mark = document.createElement("mark");
-                  mark.className = "dict-mark";
-                  mark.dataset.slug = span.slug;
-                  mark.dataset.covers = span.covered.join(" ");
-                  return mark;
-                }, pageOffsetMap);
-              }
-            }
+        // Dictionary term highlighting, scoped to this page's own text
+        // (exact-match pass only — cheap enough to run per page).
+        const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
+        if (pageText.trim()) {
+          // Reuse the dictionary's exact index (built once in loadTerms())
+          // instead of rebuilding it per page, and wrap all of this page's
+          // matches against one offset map instead of rebuilding it per
+          // match — both scaled with page count / match count and were
+          // what made PDFs with many dictionary hits freeze the tab.
+          const pageMatches = matchTermsWithIndex(pageText, exactIndex);
+          // Descending order is required: wrapping a range splits the text
+          // nodes at and after it, invalidating the shared offset map for
+          // higher offsets while leaving still-unprocessed lower ones intact.
+          const kept = computeKeptSpans(pageText, pageMatches)
+            .sort((a, b) => b.firstStart - a.firstStart);
+          for (const span of kept) {
+            wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
+              const mark = document.createElement("mark");
+              mark.className = "dict-mark";
+              mark.dataset.slug = span.slug;
+              mark.dataset.covers = span.covered.join(" ");
+              return mark;
+            }, pageOffsetMap);
+          }
         }
 
-        const pane = document.getElementById("viewer-input-pane");
+        if (onProgress) onProgress(i, pdf.numPages);
+      }
 
-        pane.classList.remove("no-pdf");
-        pane.classList.add("has-pdf");
+      const pane = document.getElementById("viewer-input-pane");
+      pane.classList.remove("no-pdf");
+      pane.classList.add("has-pdf");
+
+      return pageTexts.join("\n").trim();
     }
 
     pdfInput.addEventListener("change", async () => {
@@ -1180,15 +1264,31 @@ if (typeof document !== "undefined") {
       currentDocHash = null;
 
       try {
-        const text = await extractPdfText(file);
-        if (text.length === 0) {
+        // Read the file once and parse it once; the same buffer is reused for
+        // the document hash and for pdf.js. (Hash first — pdf.js may take
+        // ownership of the buffer once it hands it to the worker.)
+        const arrayBuffer = await file.arrayBuffer();
+        currentDocHash = await computeDocHash(file, arrayBuffer);
+        const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+        const probed = await probePdfText(pdf);
+        if (!hasAnyText(probed)) {
           throw new Error("empty-text-layer");
         }
+
         lastPdfFilename = file.name;
-        currentDocHash = await computeDocHash(file);
-        await renderPdf(file);
+
+        // Reveal the viewer before rendering starts, so the reader watches
+        // pages fill in instead of staring at a frozen "분석 중" message until
+        // the whole document is done.
+        showTextInput();
         textarea.hidden = true;
         pdfViewer.hidden = false;
+
+        const text = await renderPdf(pdf, probed, (done, total) => {
+          pdfStatus.textContent = `PDF 페이지 표시 중... (${done}/${total})`;
+        });
+
         pdfStatus.hidden = true;
         textarea.value = text;
         await runAnalysis(text, { updateInputPane: false });
@@ -1196,7 +1296,7 @@ if (typeof document !== "undefined") {
       } catch (err) {
         console.error("[pdf-upload]", err);
         pdfStatus.hidden = true;
-        textarea.hidden = false;
+        showTextInput();
         pdfViewer.hidden = true;
         pdfViewer.innerHTML = "";
         countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요. (오류: " + err.message + ")";
