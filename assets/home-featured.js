@@ -27,15 +27,9 @@ async function initHomeFeaturedCategories() {
   if (!container) return;
 
   try {
-    const res = await fetch("terms-index.json");
-    const terms = await res.json();
-
-    const counts = {};
-    for (const term of terms) {
-      for (const code of term.categories || []) {
-        counts[code] = (counts[code] || 0) + 1;
-      }
-    }
+    // 7MB 전체 인덱스 대신 홈 전용으로 뽑아 둔 분야별 개수만 받는다.
+    const res = await fetch("home-data.json");
+    const { counts } = await res.json();
 
     container.innerHTML = HOME_FEATURED_CATEGORIES
       .map((code) => categoryCardHTML(code, counts[code] || 0))

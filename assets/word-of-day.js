@@ -57,8 +57,10 @@ async function initWordOfDay() {
   if (!section) return;
 
   try {
-    const res = await fetch("terms-index.json");
-    const terms = await res.json();
+    // 후보 풀은 home-data.json에 고정 크기로 잘라 두었다. 날짜 시드 추첨은
+    // 풀이 같으면 결과도 같으므로, 전체 인덱스를 받을 필요가 없다.
+    const res = await fetch("home-data.json");
+    const { daily: terms } = await res.json();
     if (!Array.isArray(terms) || terms.length === 0) return;
 
     const picks = seededPick(terms, 5, todaySeed());

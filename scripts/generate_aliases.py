@@ -117,7 +117,9 @@ def main():
                 if v.lower() not in seen:
                     cur.append(v); seen.add(v.lower())
             t["aliases"] = cur
-        json.dump(data, io.open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        json.dump(data, io.open(path, "w", encoding="utf-8"), ensure_ascii=False,
+                  indent=None if path.endswith("terms-index.json") else 2,
+                  separators=(",", ":") if path.endswith("terms-index.json") else None)
     print("terms.json / terms-index.json 반영 완료")
 
 if __name__ == "__main__":
