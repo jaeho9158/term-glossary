@@ -80,6 +80,17 @@ const AMBIGUOUS_COMMON_WORD_TITLES = new Set([
   // almost always means "background" (연구 배경), not literary Setting.
   "요약", "접수", "소진", "점검", "균형", "대처", "자문", "환기", "경계",
   "직면", "강도", "배경", "시점", "단계", "갱신", "해결", "왜곡",
+  // Full-site audit (2026-08), all 103 categories, each confirmed against a
+  // realistic everyday-sense sentence via matchTerms. "감사" (Auditor) was
+  // considered and deliberately NOT added — unlike these, its "audit" sense
+  // is common enough in real business/administrative documents (the kind of
+  // text this feature is actually used on) that excluding it would lose more
+  // correct matches than it prevents wrong ones.
+  "요소", "사료", "타자", "전사", "번역", "실속", "교차", "직시", "철창", "불안",
+  "구분", "검증", "과실", "인수", "재발", "채권",
+  "가구", "대조", "도식", "동화", "조절", "의지", "보장", "안정제", "구축",
+  "산출", "성과", "적절성", "교란", "이력", "피로", "코어", "밀봉",
+  "완화", "대비", "대응", "신속성", "강건성", "알선", "링크", "렌치",
 ]);
 
 function isUnsafeIndexKey(key) {

@@ -120,4 +120,26 @@ const terms = [
   assert.strictEqual(result.length, 0, "none of the curated ambiguous-common-word titles should match their everyday sense");
 }
 
+// Test 10: full-site follow-up audit (all 103 categories) — a further batch
+// of curated ambiguous-common-word titles, one representative pick per
+// source category so a regression in any of the five audit batches is caught.
+{
+  const ambiguousTitles = [
+    ["sahyo", "사료"], // history — "animal feed" in ordinary text
+    ["claim-right", "채권"], // law — "bonds" in ordinary/finance text
+    ["assimilation", "동화"], // childdev — "fairy tale" in ordinary text
+    ["force-of-interest", "이력"], // actuarial — "history/record" in ordinary text
+    ["link-robot", "링크"], // robotics — a web hyperlink in ordinary text
+  ];
+  const dummyTerms = ambiguousTitles.map(([slug, title_ko]) => ({
+    slug,
+    title_ko,
+    title_en: slug,
+    categories: ["x"],
+  }));
+  const text = "강아지 사료를 샀고, 회사채 채권을 발행했으며, 아이는 동화를 좋아하고, 검색 이력을 분석했고, 아래 링크를 클릭했다.";
+  const result = matchTerms(text, dummyTerms);
+  assert.strictEqual(result.length, 0, "none of this audit batch's curated ambiguous-common-word titles should match their everyday sense");
+}
+
 console.log("matchTerms: all tests passed");
