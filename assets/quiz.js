@@ -293,33 +293,12 @@ function makeCategoryList(){
 
 
 
-    const labels = {
-
-        stat:"통계",
-
-        method:"연구방법론",
-
-        tool:"측정·도구",
-
-        ethics:"윤리·출판",
-
-        physchem:"물리학·화학",
-
-        bioearth:"생물학·지구과학",
-
-        neuro:"뇌과학",
-
-        medhealth:"의학·보건",
-
-        psych:"심리학",
-
-        socialecon:"사회과학·경제학",
-
-        eng:"공학",
-
-        cs:"컴퓨터과학·AI"
-
-    };
+    // Was a hand-maintained list of only 12 categories, so any category added
+    // to the glossary afterward (math, acct, agri, ...) fell through to `|| cat`
+    // below and showed the raw internal code instead of a Korean label. Use
+    // the same shared CATEGORY_LABELS every other page (site.js, category.js,
+    // viewer.js) already draws from, so this list can't go stale again.
+    const labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
 
 
 
