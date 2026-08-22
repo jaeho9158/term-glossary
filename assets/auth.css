@@ -1,0 +1,133 @@
+/* 인증 카드 (login.html / signup.html) — style.css :root 변수만 사용 */
+
+.auth-card {
+  max-width: 420px;
+  margin: 32px auto;
+  padding: 32px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.auth-card h1 {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.auth-card .subtitle {
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.auth-card .contact-form {
+  max-width: none;
+  margin-top: 0;
+  gap: 6px;
+}
+
+.auth-card .contact-form label {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.auth-card .contact-form input {
+  min-height: 44px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.auth-card .contact-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--card-bg);
+}
+
+.auth-card .contact-form button {
+  align-self: stretch;
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.auth-card .contact-form button:hover {
+  background: var(--accent-hover);
+}
+
+.auth-card .contact-form button:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+}
+
+/* 상태 메시지: JS가 contact-status-success / contact-status-error 클래스를 부여 */
+#login-status,
+#signup-status {
+  margin: 10px 0 0;
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+#login-status:empty,
+#signup-status:empty {
+  display: none;
+}
+
+#login-status.contact-status-success,
+#signup-status.contact-status-success {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  color: var(--text);
+}
+
+#login-status.contact-status-error,
+#signup-status.contact-status-error {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--text);
+}
+
+.auth-card .auth-switch-link {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.auth-card .auth-switch-link a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-card .auth-switch-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 560px) {
+  .auth-card {
+    margin: 20px auto;
+    padding: 20px;
+  }
+}
