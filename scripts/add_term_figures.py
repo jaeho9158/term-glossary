@@ -283,6 +283,9 @@ EXCLUDED_SLUGS = {
     "heterostructure-carrier-confinement",  # 반도체 이형구조이며 하중 받는 보 아님
     "quantum-nondemolition-measurement",  # 추상적 양자측정 개념이며 구조용 보 아님
     "quarter-wave-stack",  # 다층 박막 스택이며 구조용 보 아님(적층구조에 더 가까움)
+    # --- landscape(조경학) 카테고리 확장 시 발견된 오탐 ---
+    "amphitheater",  # 야외극장 형태이며 열전달 개념과 무관
+    "structural-planting",  # 식재를 이용한 공간 설계 기법이며 물리적 구조용 보 아님
 }
 
 
