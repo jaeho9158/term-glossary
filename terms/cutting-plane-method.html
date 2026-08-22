@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Cutting-Plane Method(절단평면법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논문에 자주 나오는 Cutting-Plane Method(절단평면법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://jaeho9158.github.io/term-glossary/terms/cutting-plane-method.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 절단평면법 (Cutting-Plane Method)</p>
+  <h1>절단평면법 (Cutting-Plane Method)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 정수계획법 문제를 풀 때, 정수해를 배제하지 않으면서 실행불가능한 분수해 영역만 잘라내는 부등식(절단면)을 반복적으로 추가하여 최적 정수해에 도달하는 해법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>정수계획법 문제는 변수가 정수여야 한다는 제약 때문에 풀기가 까다롭습니다. 먼저 정수 제약을 무시하고 연속변수로 문제를 풀면(선형계획 완화) 답이 정수가 아닌 분수로 나올 수 있습니다. 절단평면법은 이렇게 나온 분수해를 제외하면서도 원래 원하는 모든 정수해는 그대로 남겨두는 새로운 부등식을 찾아 문제에 추가하고, 이 과정을 반복해 점점 정수해에 가까워지도록 만드는 방법입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>절단평면법은 정수계획법 문제를 완전탐색 없이도 체계적으로 좁혀 나가며 풀 수 있게 해주는 근본적인 접근법으로, 오늘날 대부분의 상용 정수계획법 solver가 사용하는 분지절단법(branch-and-cut)의 핵심 구성요소입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 절단평면법(Cutting-Plane Method)을 이용하여 시설입지 문제의 선형계획 완화해에서 발생한 분수해를 제거하였다."</div>
+  <p>정수가 아닌 해를 배제하는 절단면을 추가해 문제를 정수해에 가깝게 좁혀나갔다는 의미입니다.</p>
+  <div class="example">"고모리 절단면을 반복적으로 추가한 결과 소수의 반복만으로 정수 최적해에 도달하였다."</div>
+  <p>절단평면법의 대표적인 기법인 고모리 절단면을 사용해 비교적 빠르게 정수해를 찾았다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>절단평면법의 대표적인 방법으로 고모리(Gomory)의 절단면이 있으며, 이는 심플렉스법의 최종 표에서 정수가 아닌 기저변수의 행으로부터 유효부등식을 유도합니다. 실무에서는 절단평면법 단독보다 분지한계법(branch-and-bound)과 결합한 분지절단법(branch-and-cut) 형태로 훨씬 널리 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>고전적인 절단평면법만으로는 수렴이 매우 느리거나 절단면이 과도하게 누적되어 계산이 비효율적일 수 있어, 실무에서는 반드시 분지한계법과 병행하여 사용하는 것이 일반적입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="dynamic-programming.html">동적계획법</a>
+    <a href="branch-and-bound-method.html">분지한계법</a>
+    <a href="goal-programming.html">목표계획법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+<script src="../assets/related-terms.js"></script>
+</body>
+</html>
