@@ -898,6 +898,17 @@ main.wide {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+.viewer-rendered mark.dict-mark,
+.textLayer mark.dict-mark {
+  cursor: pointer;
+}
+
+.viewer-rendered mark.dict-mark:hover,
+.textLayer mark.dict-mark:hover {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .viewer-rendered mark.mark-flash {
   background: var(--accent);
   color: #fff;
@@ -1604,6 +1615,70 @@ details[open] > .namu-sub-title::before {
     flex:none;
 }
 
+.pdf-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 8px;
+    background: var(--card-bg, #f8f9fa);
+    font-size: 0.85rem;
+}
+
+.pdf-toolbar[hidden] {
+    display: none;
+}
+
+.pdf-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pdf-toolbar-group button {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 6px;
+    background: var(--bg, #fff);
+    color: var(--text, #222);
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.pdf-toolbar-group button:hover {
+    background: var(--hover-tint, #eef1f5);
+}
+
+#pdf-zoom-label {
+    min-width: 42px;
+    text-align: center;
+    color: var(--muted, #888);
+}
+
+.pdf-search-group input[type="search"] {
+    width: 160px;
+    height: 28px;
+    padding: 0 8px;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 6px;
+    background: var(--bg, #fff);
+    color: var(--text, #222);
+    font-size: 0.85rem;
+}
+
+#pdf-search-count {
+    min-width: 44px;
+    color: var(--muted, #888);
+    font-variant-numeric: tabular-nums;
+}
+
 .viewer-input.no-pdf .pdf-viewer{
     display:none;
 }
@@ -2146,6 +2221,15 @@ transform:scale(1);
 
 .textLayer mark.mark-flash {
     background: var(--accent) !important;
+}
+
+.textLayer mark.search-mark {
+    background: rgba(165, 216, 255, 0.6);
+    border-radius: 2px;
+}
+
+.textLayer mark.search-mark.search-mark-active {
+    background: #ff9f43;
 }
 
 /* Sidebar tabs (찾은 용어 / 내 메모) */

@@ -310,7 +310,7 @@ function buildHighlightedHtml(text, matches) {
   for (const span of kept) {
     html += escapeHtml(text.slice(cursor, span.firstStart));
     const matchedText = text.slice(span.firstStart, span.firstStart + span.firstLength);
-    html += `<mark data-slug="${span.slug}" data-covers="${span.covered.join(" ")}">${escapeHtml(matchedText)}</mark>`;
+    html += `<mark class="dict-mark" data-slug="${span.slug}" data-covers="${span.covered.join(" ")}">${escapeHtml(matchedText)}</mark>`;
     cursor = span.firstStart + span.firstLength;
   }
   html += escapeHtml(text.slice(cursor));
@@ -318,23 +318,96 @@ function buildHighlightedHtml(text, matches) {
   return html;
 }
 
+// Reconstructs a page’s plain text from pdf.js getTextContent() items,
+// the same way buildOffsetMap() reconstructs it from the rendered DOM: a
+// space is inserted between two items only when the horizontal gap between
+// them (relative to text height) is wide enough to be a real inter-word
+// gap, not just because they are two separate items. pdf.js commonly splits
+// one visual word across multiple items (font-run changes, kerning), and
+// items.map(i => i.str).join(" ") used to insert a space at every one of
+// those splits, corrupting the extracted text with words broken in half.
+function joinTextItems(items) {
+  const NEWLINE = String.fromCharCode(10);
+  let text = "";
+  let prevItem = null;
+  let prevEndX = 0;
+  let prevY = 0;
+  for (const item of items) {
+    const str = item.str || "";
+    if (!str) {
+      if (item.hasEOL) text += NEWLINE;
+      continue;
+    }
+    const x = item.transform ? item.transform[4] : 0;
+    const y = item.transform ? item.transform[5] : 0;
+    const height = item.transform ? Math.abs(item.transform[3]) || Math.abs(item.transform[0]) || 10 : 10;
+    const startsWithSpace = str.charCodeAt(0) === 32;
+    const textEndsWithSpace = text.length > 0 && (text.charCodeAt(text.length - 1) === 32 || text.charCodeAt(text.length - 1) === 10);
+    if (prevItem && !startsWithSpace && !textEndsWithSpace) {
+      const sameLine = Math.abs(y - prevY) < height * 0.5;
+      if (!sameLine) {
+        text += NEWLINE;
+      } else if (x - prevEndX > height * 0.18) {
+        text += " ";
+      }
+    }
+    text += str;
+    if (item.hasEOL) text += NEWLINE;
+    prevItem = item;
+    prevEndX = x + (item.width || 0);
+    prevY = y;
+  }
+  return text;
+}
+
 // ---- PDF text-layer offset mapping -----------------------------------
 // The PDF text layer is made of one <span> per extracted text item ("leaf"
 // spans; PDF.js also inserts non-leaf <span class="markedContent"> wrapper
 // groups which we skip). We rebuild a flat "page text" string by
-// concatenating each leaf span's text with a single joining space, and keep
-// a start/end offset for every underlying Text node so we can turn a
-// character range back into a DOM Range. This map is rebuilt from the live
-// DOM every time it's needed, so it stays correct even after earlier
-// highlights have split text nodes.
+// concatenating each leaf span's text, and keep a start/end offset for every
+// underlying Text node so we can turn a character range back into a DOM
+// Range. This map is rebuilt from the live DOM every time it's needed, so it
+// stays correct even after earlier highlights have split text nodes.
+//
+// PDF.js frequently splits a single visual word across several adjacent
+// spans (font-run changes, kerning, per-glyph positioning) with no space
+// character in either span's text. Unconditionally joining every span with a
+// space (the previous behavior here) inserted a bogus space into the middle
+// of those words, corrupting the text handed to the term matcher and
+// shifting every highlight after it — the "highlight lands mid-word or on
+// the wrong stretch of text" reports were coming from this, specifically
+// for PDFs whose generator fragments text runs (common with tables and
+// Hangul word-processor exports). A space is now inserted only when the
+// horizontal gap between two spans on the same line is wide enough to be a
+// real inter-word gap, using the same gap-vs-line-height heuristic text
+// extraction tools commonly use — not just because two DOM spans happen to
+// be adjacent.
 function buildOffsetMap(container) {
   const leafSpans = container.querySelectorAll("span:not(.markedContent)");
   let text = "";
   const map = [];
-  let firstSpan = true;
+  let prevSpan = null;
+  let prevRect = null;
+  const NEWLINE = String.fromCharCode(10);
   for (const span of leafSpans) {
-    if (!firstSpan) text += " ";
-    firstSpan = false;
+    const spanText = span.textContent;
+    const spanStartsWithSpace = spanText.length > 0 && spanText.charCodeAt(0) === 32;
+    const textEndsWithSpace = text.length > 0 && (text.charCodeAt(text.length - 1) === 32 || text.charCodeAt(text.length - 1) === 10);
+    if (prevSpan && spanText && !spanStartsWithSpace && !textEndsWithSpace) {
+      const rect = span.getBoundingClientRect();
+      const sameLine = Math.abs(rect.top - prevRect.top) < prevRect.height * 0.5;
+      if (!sameLine) {
+        text += NEWLINE;
+      } else {
+        const gap = rect.left - prevRect.right;
+        if (gap > prevRect.height * 0.18) text += " ";
+      }
+      prevRect = span.getBoundingClientRect();
+    } else if (spanText) {
+      prevRect = span.getBoundingClientRect();
+    }
+    prevSpan = span;
+
     const walker = document.createTreeWalker(span, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
@@ -435,7 +508,7 @@ async function computeDocHash(file, arrayBuffer) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, wrapPageRange, buildOffsetMap };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, wrapPageRange, buildOffsetMap, joinTextItems };
 }
 
 if (typeof document !== "undefined") {
@@ -445,6 +518,14 @@ if (typeof document !== "undefined") {
     let currentMatches = [];
     let lastPdfFilename = null;
     let currentDocHash = null;
+    let pdfTextLayerDivs = [];
+    let pdfDoc = null;
+    let pdfScale = null; // null until the first render picks a fit-to-width value
+    let pdfTextContentCache = new Map(); // page number -> pdf.js TextContent, reused across zoom re-renders
+    let pdfSearchMatches = []; // [{mark}] in document order, rebuilt per search
+    let pdfSearchIndex = -1;
+    const PDF_MIN_SCALE = 0.5;
+    const PDF_MAX_SCALE = 3;
     let annotationsCache = [];
     let pendingSelection = null;
     let activeMemo = null; // { record, marks }
@@ -948,7 +1029,7 @@ if (typeof document !== "undefined") {
     // reader who pasted text first could never switch to a PDF afterwards.
     function renderRenderedPane(text, matches) {
       if (!renderedPane) return;
-      renderedPane.innerHTML = buildHighlightedHtml(text, matches);
+      renderedPane.innerHTML = buildHighlightedHtml(text, matches.filter((m) => !hiddenSlugs.has(m.slug)));
       renderedPane.hidden = false;
       textarea.hidden = true;
       if (editTextBtn) editTextBtn.hidden = false;
@@ -1044,12 +1125,52 @@ if (typeof document !== "undefined") {
       setTimeout(() => mark.classList.remove("mark-flash"), 1200);
     }
 
+    // Hiding a term used to only affect the sidebar list — the actual
+    // highlight stayed lit in the PDF/text view with no way to get rid of
+    // it, which is the "기본으로 쳐지는 하이라이트를 삭제할 방법이 없음"
+    // complaint. Unwrapping every mark for that slug wherever it's currently
+    // shown (PDF pages, the plain-text rendered pane) makes hiding actually
+    // remove the highlight, not just the sidebar card.
+    function hideTermEverywhere(slug) {
+      hiddenSlugs.add(slug);
+      saveHiddenSlugs(hiddenSlugs);
+      document
+        .querySelectorAll(`#pdf-viewer mark.dict-mark[data-slug="${slug}"], .viewer-rendered mark.dict-mark[data-slug="${slug}"]`)
+        .forEach(unwrapMark);
+      renderMatchedTerms(currentMatches, filterInput.value);
+    }
+
+    // "다시 보기" needs to put highlights back, not just make the sidebar
+    // card reappear — PDF pages reapply their own per-page pass, and the
+    // plain-text pane (if that's the active view) is rebuilt from the text
+    // that's still sitting in the (possibly hidden) textarea.
+    function restoreAllHiddenTerms() {
+      hiddenSlugs.clear();
+      saveHiddenSlugs(hiddenSlugs);
+      for (const textLayerDiv of pdfTextLayerDivs) {
+        textLayerDiv.querySelectorAll("mark.dict-mark").forEach(unwrapMark);
+        applyDictHighlightsToPage(textLayerDiv);
+      }
+      if (renderedPane && !renderedPane.hidden) {
+        renderRenderedPane(textarea.value, currentMatches);
+      }
+      renderMatchedTerms(currentMatches, filterInput.value);
+    }
+
+    // Clicking a highlight is the direct, in-context way to get rid of it —
+    // no need to hunt for the matching card in the sidebar list first.
+    function handleDictMarkClick(e) {
+      const mark = e.target.closest("mark.dict-mark");
+      if (!mark) return;
+      hideTermEverywhere(mark.dataset.slug);
+    }
+    document.getElementById("pdf-viewer").addEventListener("click", handleDictMarkClick);
+    if (renderedPane) renderedPane.addEventListener("click", handleDictMarkClick);
+
     termsList.addEventListener("click", (e) => {
       const hideBtn = e.target.closest(".term-card-hide-btn");
       if (hideBtn) {
-        hiddenSlugs.add(hideBtn.dataset.hideSlug);
-        saveHiddenSlugs(hiddenSlugs);
-        renderMatchedTerms(currentMatches, filterInput.value);
+        hideTermEverywhere(hideBtn.dataset.hideSlug);
         return;
       }
       if (e.target.closest(".term-card-detail")) return;
@@ -1059,11 +1180,7 @@ if (typeof document !== "undefined") {
     });
 
     if (showHiddenTermsBtn) {
-      showHiddenTermsBtn.addEventListener("click", () => {
-        hiddenSlugs.clear();
-        saveHiddenSlugs(hiddenSlugs);
-        renderMatchedTerms(currentMatches, filterInput.value);
-      });
+      showHiddenTermsBtn.addEventListener("click", restoreAllHiddenTerms);
     }
 
     filterInput.addEventListener("input", () => {
@@ -1131,6 +1248,107 @@ if (typeof document !== "undefined") {
     const pdfInput = document.getElementById("pdf-upload");
     const pdfStatus = document.getElementById("pdf-status");
     const pdfViewer = document.getElementById("pdf-viewer");
+    const pdfToolbar = document.getElementById("pdf-toolbar");
+    const pdfZoomLabel = document.getElementById("pdf-zoom-label");
+    const pdfZoomOutBtn = document.getElementById("pdf-zoom-out");
+    const pdfZoomInBtn = document.getElementById("pdf-zoom-in");
+    const pdfZoomFitBtn = document.getElementById("pdf-zoom-fit");
+    const pdfSearchInput = document.getElementById("pdf-search-input");
+    const pdfSearchPrevBtn = document.getElementById("pdf-search-prev");
+    const pdfSearchNextBtn = document.getElementById("pdf-search-next");
+    const pdfSearchCount = document.getElementById("pdf-search-count");
+
+    if (pdfZoomOutBtn) pdfZoomOutBtn.addEventListener("click", () => rerenderPdfAtScale(pdfScale - 0.25));
+    if (pdfZoomInBtn) pdfZoomInBtn.addEventListener("click", () => rerenderPdfAtScale(pdfScale + 0.25));
+    if (pdfZoomFitBtn) {
+      pdfZoomFitBtn.addEventListener("click", async () => {
+        if (!pdfDoc) return;
+        pdfScale = await computeFitWidthScale(pdfDoc);
+        await rerenderPdfAtScale(pdfScale);
+      });
+    }
+
+    // Plain substring search over each page's already-reconstructed text
+    // (the same buildOffsetMap() output the dictionary highlighter uses),
+    // independent of dictionary terms — this is "find in this PDF", the
+    // control readers expect from any PDF viewer and that "찾은 용어 내 검색"
+    // (which only filters the sidebar term list) doesn't provide.
+    function clearPdfSearchMarks() {
+      for (const div of pdfTextLayerDivs) {
+        div.querySelectorAll("mark.search-mark").forEach(unwrapMark);
+      }
+      pdfSearchMatches = [];
+      pdfSearchIndex = -1;
+    }
+
+    function updatePdfSearchCount() {
+      if (!pdfSearchCount) return;
+      pdfSearchCount.textContent = pdfSearchMatches.length
+        ? `${pdfSearchIndex + 1}/${pdfSearchMatches.length}`
+        : pdfSearchInput && pdfSearchInput.value.trim()
+          ? "0/0"
+          : "";
+    }
+
+    function gotoPdfSearchMatch(index) {
+      if (!pdfSearchMatches.length) return;
+      pdfSearchIndex = (index + pdfSearchMatches.length) % pdfSearchMatches.length;
+      pdfSearchMatches.forEach((m, i) => m.mark.classList.toggle("search-mark-active", i === pdfSearchIndex));
+      const mark = pdfSearchMatches[pdfSearchIndex].mark;
+      mark.scrollIntoView({ behavior: "smooth", block: "center" });
+      updatePdfSearchCount();
+    }
+
+    function runPdfSearch(query) {
+      clearPdfSearchMarks();
+      const q = query.trim().toLowerCase();
+      if (!q) {
+        updatePdfSearchCount();
+        return;
+      }
+      for (const textLayerDiv of pdfTextLayerDivs) {
+        const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
+        const lowerText = pageText.toLowerCase();
+        const ranges = [];
+        let from = 0;
+        for (;;) {
+          const idx = lowerText.indexOf(q, from);
+          if (idx === -1) break;
+          ranges.push({ start: idx, end: idx + q.length });
+          from = idx + q.length;
+        }
+        // Descending order: wrapping a range splits text nodes at/after it,
+        // so later (higher-offset) ranges must be wrapped first.
+        ranges.reverse();
+        for (const range of ranges) {
+          const marks = wrapPageRange(textLayerDiv, range.start, range.end, () => {
+            const mark = document.createElement("mark");
+            mark.className = "search-mark";
+            return mark;
+          }, pageOffsetMap);
+          if (marks.length) pdfSearchMatches.push({ mark: marks[0] });
+        }
+      }
+      // Matches were collected page-by-page in reverse-within-page order;
+      // restore reading order (top of doc to bottom) before numbering them.
+      pdfSearchMatches.reverse();
+      if (pdfSearchMatches.length) gotoPdfSearchMatch(0);
+      else updatePdfSearchCount();
+    }
+
+    if (pdfSearchInput) {
+      pdfSearchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (e.shiftKey) gotoPdfSearchMatch(pdfSearchIndex - 1);
+          else if (pdfSearchMatches.length) gotoPdfSearchMatch(pdfSearchIndex + 1);
+          else runPdfSearch(pdfSearchInput.value);
+        }
+      });
+      pdfSearchInput.addEventListener("input", () => runPdfSearch(pdfSearchInput.value));
+    }
+    if (pdfSearchPrevBtn) pdfSearchPrevBtn.addEventListener("click", () => gotoPdfSearchMatch(pdfSearchIndex - 1));
+    if (pdfSearchNextBtn) pdfSearchNextBtn.addEventListener("click", () => gotoPdfSearchMatch(pdfSearchIndex + 1));
 
     // A scanned PDF has no text layer at all. Probing the first few pages
     // catches that before any rendering work happens, so the "paste the text
@@ -1165,9 +1383,69 @@ if (typeof document !== "undefined") {
     // read exactly once. Previously a separate extractPdfText() pass parsed
     // the whole document a second time and called getTextContent() again on
     // every page, roughly doubling the wait before anything was usable.
+    // Fits the page to the viewer's current width instead of a fixed 1.5
+    // scale, which is what forced a horizontal scrollbar on any page wider
+    // than the (fairly narrow, sidebar-sharing) viewer pane — most visibly
+    // on a table that fills the page width.
+    async function computeFitWidthScale(pdf) {
+      const page = await pdf.getPage(1);
+      const baseViewport = page.getViewport({ scale: 1 });
+      const viewerEl = document.getElementById("pdf-viewer");
+      const availableWidth = viewerEl.clientWidth - 20; // minus the pane's own padding
+      if (!availableWidth || availableWidth <= 0) return 1.5;
+      const scale = availableWidth / baseViewport.width;
+      return Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, scale));
+    }
+
+    // Dictionary term highlighting for one already-rendered page, scoped to
+    // that page's own text (exact-match pass only — cheap enough to run per
+    // page). Pulled out of renderPdf so "다시 보기" (restoring hidden terms)
+    // and a zoom re-render can both reapply highlights without re-parsing or
+    // re-rendering the page itself.
+    function applyDictHighlightsToPage(textLayerDiv) {
+      const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
+      if (!pageText.trim()) return;
+      // Reuse the dictionary's exact index (built once in loadTerms())
+      // instead of rebuilding it per page, and wrap all of this page's
+      // matches against one offset map instead of rebuilding it per match —
+      // both scaled with page count / match count and were what made PDFs
+      // with many dictionary hits freeze the tab.
+      const pageMatches = matchTermsWithIndex(pageText, exactIndex).filter((m) => !hiddenSlugs.has(m.slug));
+      // Descending order is required: wrapping a range splits the text nodes
+      // at and after it, invalidating the shared offset map for higher
+      // offsets while leaving still-unprocessed lower ones intact.
+      const kept = computeKeptSpans(pageText, pageMatches).sort((a, b) => b.firstStart - a.firstStart);
+      for (const span of kept) {
+        wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
+          const mark = document.createElement("mark");
+          mark.className = "dict-mark";
+          mark.dataset.slug = span.slug;
+          mark.dataset.covers = span.covered.join(" ");
+          return mark;
+        }, pageOffsetMap);
+      }
+    }
+
+    // `probedTextContent` is only passed on the very first render of a
+    // freshly-uploaded file; a zoom change calls this again with it omitted,
+    // which also signals "keep pdfTextContentCache" so re-rendering at a new
+    // scale doesn't re-run getTextContent() (a real, if secondary, parse
+    // cost) for every page a second time.
     async function renderPdf(pdf, probedTextContent, onProgress) {
       const viewer = document.getElementById("pdf-viewer");
       viewer.innerHTML = "";
+      pdfDoc = pdf;
+      pdfTextLayerDivs = [];
+      if (probedTextContent) pdfTextContentCache = new Map();
+
+      // Must happen before computeFitWidthScale() measures #pdf-viewer's
+      // width below — .no-pdf sets display:none on it, which would make
+      // clientWidth read 0 and silently fall back to the old fixed scale.
+      const pane = document.getElementById("viewer-input-pane");
+      pane.classList.remove("no-pdf");
+      pane.classList.add("has-pdf");
+
+      if (pdfScale === null) pdfScale = await computeFitWidthScale(pdf);
 
       // loadTerms() also populates the module-level exactIndex used below.
       await loadTerms();
@@ -1176,7 +1454,7 @@ if (typeof document !== "undefined") {
 
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 1.5 });
+        const viewport = page.getViewport({ scale: pdfScale });
 
         const pageWrap = document.createElement("div");
         pageWrap.className = "pdf-page-wrap";
@@ -1200,12 +1478,17 @@ if (typeof document !== "undefined") {
         pageWrap.appendChild(canvas);
         pageWrap.appendChild(textLayerDiv);
         viewer.appendChild(pageWrap);
+        pdfTextLayerDivs.push(textLayerDiv);
 
         await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
 
-        let textContent = probedTextContent && probedTextContent.get(i);
-        if (textContent) probedTextContent.delete(i);
-        else textContent = await page.getTextContent();
+        let textContent = (probedTextContent && probedTextContent.get(i)) || pdfTextContentCache.get(i);
+        if (textContent) {
+          if (probedTextContent) probedTextContent.delete(i);
+        } else {
+          textContent = await page.getTextContent();
+        }
+        pdfTextContentCache.set(i, textContent);
 
         await window.pdfjsLib.renderTextLayer({
           textContentSource: textContent,
@@ -1213,42 +1496,28 @@ if (typeof document !== "undefined") {
           viewport,
         }).promise;
 
-        pageTexts.push(textContent.items.map((item) => item.str).join(" "));
-
-        // Dictionary term highlighting, scoped to this page's own text
-        // (exact-match pass only — cheap enough to run per page).
-        const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
-        if (pageText.trim()) {
-          // Reuse the dictionary's exact index (built once in loadTerms())
-          // instead of rebuilding it per page, and wrap all of this page's
-          // matches against one offset map instead of rebuilding it per
-          // match — both scaled with page count / match count and were
-          // what made PDFs with many dictionary hits freeze the tab.
-          const pageMatches = matchTermsWithIndex(pageText, exactIndex);
-          // Descending order is required: wrapping a range splits the text
-          // nodes at and after it, invalidating the shared offset map for
-          // higher offsets while leaving still-unprocessed lower ones intact.
-          const kept = computeKeptSpans(pageText, pageMatches)
-            .sort((a, b) => b.firstStart - a.firstStart);
-          for (const span of kept) {
-            wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
-              const mark = document.createElement("mark");
-              mark.className = "dict-mark";
-              mark.dataset.slug = span.slug;
-              mark.dataset.covers = span.covered.join(" ");
-              return mark;
-            }, pageOffsetMap);
-          }
-        }
+        pageTexts.push(joinTextItems(textContent.items));
+        applyDictHighlightsToPage(textLayerDiv);
 
         if (onProgress) onProgress(i, pdf.numPages);
       }
 
-      const pane = document.getElementById("viewer-input-pane");
-      pane.classList.remove("no-pdf");
-      pane.classList.add("has-pdf");
+      if (pdfToolbar) pdfToolbar.hidden = false;
+      if (pdfZoomLabel) pdfZoomLabel.textContent = `${Math.round(pdfScale * 100)}%`;
 
       return pageTexts.join("\n").trim();
+    }
+
+    // Re-renders every page at a new scale, reusing the cached getTextContent()
+    // results above so zooming re-parses nothing — only re-rasterizes the
+    // canvas and rebuilds the text layer + highlights.
+    async function rerenderPdfAtScale(newScale) {
+      if (!pdfDoc) return;
+      pdfScale = Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, newScale));
+      const viewerEl = document.getElementById("pdf-viewer");
+      const scrollRatio = viewerEl.scrollHeight > 0 ? viewerEl.scrollTop / viewerEl.scrollHeight : 0;
+      await renderPdf(pdfDoc, null);
+      viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
     }
 
     pdfInput.addEventListener("change", async () => {
