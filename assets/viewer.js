@@ -794,10 +794,52 @@ if (typeof document !== "undefined") {
       showMemoPopover(record, marks, mark.getBoundingClientRect());
     });
 
-    document.getElementById("pdf-viewer").addEventListener("mouseup", () => {
+    // The highlight-color toolbar must only appear after an actual click-
+    // and-drag text selection — not a plain click (which collapses any
+    // selection anyway) and not a double-click word-select, which produces
+    // a non-collapsed selection with zero mouse movement. Tracking the
+    // mousedown position and gating on a minimum drag distance is what
+    // "collapsed" alone can't catch.
+    let pdfMouseDownPos = null;
+    document.getElementById("pdf-viewer").addEventListener("mousedown", (e) => {
+      if (e.button !== 0) return;
+      pdfMouseDownPos = { x: e.clientX, y: e.clientY };
+    });
+
+    // Right-click-drag to pan: once fit-to-width no longer guarantees the
+    // whole page is visible (zoomed in past 100%), scrollbars alone are a
+    // clumsy way to navigate — grab-and-drag with the right button (left
+    // button is already spoken for by text selection) is the control most
+    // image/PDF viewers offer for this.
+    {
+      const viewerEl = document.getElementById("pdf-viewer");
+      let panState = null;
+      viewerEl.addEventListener("contextmenu", (e) => e.preventDefault());
+      viewerEl.addEventListener("mousedown", (e) => {
+        if (e.button !== 2) return;
+        e.preventDefault();
+        panState = { x: e.clientX, y: e.clientY, scrollLeft: viewerEl.scrollLeft, scrollTop: viewerEl.scrollTop };
+        viewerEl.classList.add("pdf-panning");
+      });
+      document.addEventListener("mousemove", (e) => {
+        if (!panState) return;
+        viewerEl.scrollLeft = panState.scrollLeft - (e.clientX - panState.x);
+        viewerEl.scrollTop = panState.scrollTop - (e.clientY - panState.y);
+      });
+      document.addEventListener("mouseup", (e) => {
+        if (e.button !== 2 || !panState) return;
+        panState = null;
+        viewerEl.classList.remove("pdf-panning");
+      });
+    }
+
+    document.getElementById("pdf-viewer").addEventListener("mouseup", (e) => {
+      const downPos = pdfMouseDownPos;
+      pdfMouseDownPos = null;
+      const dragDistance = downPos ? Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) : 0;
       setTimeout(() => {
         const sel = window.getSelection();
-        if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+        if (!sel || sel.isCollapsed || sel.rangeCount === 0 || dragDistance < 4) {
           hideHighlightToolbar();
           return;
         }
@@ -1027,9 +1069,18 @@ if (typeof document !== "undefined") {
     // button and the PDF upload input all included. Running one text search
     // therefore removed the PDF upload control from the page entirely, so a
     // reader who pasted text first could never switch to a PDF afterwards.
-    function renderRenderedPane(text, matches) {
+    // Renders a read-only copy of the text with no inline highlighting.
+    // Highlighting terms inline (both here and in the PDF text layer) was
+    // removed: several rounds of position/word-boundary fixes still left
+    // real documents surfacing new "highlight lands on the wrong stretch of
+    // text" cases, so the exact position of a match in the original text
+    // just isn't reliable enough to promise visually. The "찾은 용어"
+    // sidebar list doesn't have that problem — it only needs to know a term
+    // is present, not exactly where — so that's the one place terms are
+    // still shown.
+    function renderRenderedPane(text) {
       if (!renderedPane) return;
-      renderedPane.innerHTML = buildHighlightedHtml(text, matches.filter((m) => !hiddenSlugs.has(m.slug)));
+      renderedPane.innerHTML = escapeHtml(text);
       renderedPane.hidden = false;
       textarea.hidden = true;
       if (editTextBtn) editTextBtn.hidden = false;
@@ -1070,6 +1121,39 @@ if (typeof document !== "undefined") {
       );
     }
 
+    // A paper with many matches (a full-length thesis easily surfaces 30+)
+    // used to dump every term card straight down the sidebar, one after
+    // another, with no way to see how many more were below the fold. Only
+    // the first page of cards renders up front, with a "더 보기" button
+    // (matching the same pattern the term-list pages already use) to reveal
+    // the rest a page at a time.
+    const TERM_CARD_PAGE_SIZE = 8;
+
+    function renderTermCardsPaged(filtered) {
+      const existingMoreBtn = document.getElementById("term-card-more-btn");
+      if (existingMoreBtn) existingMoreBtn.remove();
+
+      if (!filtered.length) {
+        termsList.innerHTML = `<li class="term-list-empty">조건에 맞는 용어가 없습니다.</li>`;
+        return;
+      }
+
+      termsList.innerHTML = filtered.slice(0, TERM_CARD_PAGE_SIZE).map(termCardHTML).join("");
+
+      if (filtered.length > TERM_CARD_PAGE_SIZE) {
+        const moreBtn = document.createElement("button");
+        moreBtn.type = "button";
+        moreBtn.id = "term-card-more-btn";
+        moreBtn.className = "term-list-more-btn";
+        moreBtn.textContent = `${filtered.length - TERM_CARD_PAGE_SIZE}개 더 보기`;
+        moreBtn.addEventListener("click", () => {
+          termsList.insertAdjacentHTML("beforeend", filtered.slice(TERM_CARD_PAGE_SIZE).map(termCardHTML).join(""));
+          moreBtn.remove();
+        });
+        termsList.insertAdjacentElement("afterend", moreBtn);
+      }
+    }
+
     function renderMatchedTerms(matches, filterQuery) {
       if (matches.length === 0) {
         countHeading.textContent = "본문에서 사전 등록된 용어를 찾지 못했습니다.";
@@ -1105,9 +1189,7 @@ if (typeof document !== "undefined") {
       });
 
       countHeading.textContent = `이 논문에 나온 용어 (${matches.length}개)`;
-      termsList.innerHTML = filtered.length
-        ? filtered.map(termCardHTML).join("")
-        : `<li class="term-list-empty">조건에 맞는 용어가 없습니다.</li>`;
+      renderTermCardsPaged(filtered);
 
       if (showHiddenTermsBtn) {
         showHiddenTermsBtn.hidden = hiddenCount === 0;
@@ -1125,47 +1207,25 @@ if (typeof document !== "undefined") {
       setTimeout(() => mark.classList.remove("mark-flash"), 1200);
     }
 
-    // Hiding a term used to only affect the sidebar list — the actual
-    // highlight stayed lit in the PDF/text view with no way to get rid of
-    // it, which is the "기본으로 쳐지는 하이라이트를 삭제할 방법이 없음"
-    // complaint. Unwrapping every mark for that slug wherever it's currently
-    // shown (PDF pages, the plain-text rendered pane) makes hiding actually
-    // remove the highlight, not just the sidebar card.
+    // Automatic inline highlighting (both in the PDF text layer and the
+    // plain-text rendered pane) was removed: pdf.js text extraction is
+    // reliable enough for the "찾은 용어" sidebar list (which only needs to
+    // know a term is present, not exactly where), but not reliable enough to
+    // promise every highlighted span lands on the right stretch of text —
+    // real documents kept surfacing new position/word-boundary edge cases
+    // after several rounds of fixes. Hiding a term now only needs to update
+    // the sidebar list; there's no inline mark to unwrap anywhere anymore.
     function hideTermEverywhere(slug) {
       hiddenSlugs.add(slug);
       saveHiddenSlugs(hiddenSlugs);
-      document
-        .querySelectorAll(`#pdf-viewer mark.dict-mark[data-slug="${slug}"], .viewer-rendered mark.dict-mark[data-slug="${slug}"]`)
-        .forEach(unwrapMark);
       renderMatchedTerms(currentMatches, filterInput.value);
     }
 
-    // "다시 보기" needs to put highlights back, not just make the sidebar
-    // card reappear — PDF pages reapply their own per-page pass, and the
-    // plain-text pane (if that's the active view) is rebuilt from the text
-    // that's still sitting in the (possibly hidden) textarea.
     function restoreAllHiddenTerms() {
       hiddenSlugs.clear();
       saveHiddenSlugs(hiddenSlugs);
-      for (const textLayerDiv of pdfTextLayerDivs) {
-        textLayerDiv.querySelectorAll("mark.dict-mark").forEach(unwrapMark);
-        applyDictHighlightsToPage(textLayerDiv);
-      }
-      if (renderedPane && !renderedPane.hidden) {
-        renderRenderedPane(textarea.value, currentMatches);
-      }
       renderMatchedTerms(currentMatches, filterInput.value);
     }
-
-    // Clicking a highlight is the direct, in-context way to get rid of it —
-    // no need to hunt for the matching card in the sidebar list first.
-    function handleDictMarkClick(e) {
-      const mark = e.target.closest("mark.dict-mark");
-      if (!mark) return;
-      hideTermEverywhere(mark.dataset.slug);
-    }
-    document.getElementById("pdf-viewer").addEventListener("click", handleDictMarkClick);
-    if (renderedPane) renderedPane.addEventListener("click", handleDictMarkClick);
 
     termsList.addEventListener("click", (e) => {
       const hideBtn = e.target.closest(".term-card-hide-btn");
@@ -1208,7 +1268,7 @@ if (typeof document !== "undefined") {
         const exactMatches = matchTerms(text, terms);
         currentMatches = exactMatches;
         if (updateInputPane) {
-          renderRenderedPane(text, currentMatches);
+          renderRenderedPane(text);
         }
         filterInput.disabled = false;
         renderMatchedTerms(currentMatches, filterInput.value);
@@ -1397,35 +1457,6 @@ if (typeof document !== "undefined") {
       return Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, scale));
     }
 
-    // Dictionary term highlighting for one already-rendered page, scoped to
-    // that page's own text (exact-match pass only — cheap enough to run per
-    // page). Pulled out of renderPdf so "다시 보기" (restoring hidden terms)
-    // and a zoom re-render can both reapply highlights without re-parsing or
-    // re-rendering the page itself.
-    function applyDictHighlightsToPage(textLayerDiv) {
-      const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
-      if (!pageText.trim()) return;
-      // Reuse the dictionary's exact index (built once in loadTerms())
-      // instead of rebuilding it per page, and wrap all of this page's
-      // matches against one offset map instead of rebuilding it per match —
-      // both scaled with page count / match count and were what made PDFs
-      // with many dictionary hits freeze the tab.
-      const pageMatches = matchTermsWithIndex(pageText, exactIndex).filter((m) => !hiddenSlugs.has(m.slug));
-      // Descending order is required: wrapping a range splits the text nodes
-      // at and after it, invalidating the shared offset map for higher
-      // offsets while leaving still-unprocessed lower ones intact.
-      const kept = computeKeptSpans(pageText, pageMatches).sort((a, b) => b.firstStart - a.firstStart);
-      for (const span of kept) {
-        wrapPageRange(textLayerDiv, span.firstStart, span.firstStart + span.firstLength, () => {
-          const mark = document.createElement("mark");
-          mark.className = "dict-mark";
-          mark.dataset.slug = span.slug;
-          mark.dataset.covers = span.covered.join(" ");
-          return mark;
-        }, pageOffsetMap);
-      }
-    }
-
     // `probedTextContent` is only passed on the very first render of a
     // freshly-uploaded file; a zoom change calls this again with it omitted,
     // which also signals "keep pdfTextContentCache" so re-rendering at a new
@@ -1497,7 +1528,6 @@ if (typeof document !== "undefined") {
         }).promise;
 
         pageTexts.push(joinTextItems(textContent.items));
-        applyDictHighlightsToPage(textLayerDiv);
 
         if (onProgress) onProgress(i, pdf.numPages);
       }
