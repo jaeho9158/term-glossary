@@ -28,8 +28,13 @@ function run() {
     .slice(0, DAILY_POOL)
     .map((t) => ({ slug: t.slug, title_ko: t.title_ko, title_en: t.title_en }));
 
-  fs.writeFileSync(OUTPUT, JSON.stringify({ counts, daily }), "utf8");
-  console.log(`home-data.json 생성 완료: 분야 ${Object.keys(counts).length}개, 오늘의 단어 후보 ${daily.length}개`);
+  // 홈 문구의 "N개" 표기용. counts를 더하면 여러 분야에 걸친 용어가 중복
+  // 계산되므로(합계 38,279 vs 실제 37,733), 총 개수는 따로 담는다.
+  // 이 값을 쓰면 용어가 늘어도 홈 문구가 옛날 숫자로 남지 않는다.
+  const total = terms.length;
+
+  fs.writeFileSync(OUTPUT, JSON.stringify({ total, counts, daily }), "utf8");
+  console.log(`home-data.json 생성 완료: 총 ${total}개, 분야 ${Object.keys(counts).length}개, 오늘의 단어 후보 ${daily.length}개`);
 }
 
 run();

@@ -29,11 +29,16 @@ async function initHomeFeaturedCategories() {
   try {
     // 7MB 전체 인덱스 대신 홈 전용으로 뽑아 둔 분야별 개수만 받는다.
     const res = await fetch("home-data.json");
-    const { counts } = await res.json();
+    const { counts, total } = await res.json();
 
     container.innerHTML = HOME_FEATURED_CATEGORIES
       .map((code) => categoryCardHTML(code, counts[code] || 0))
       .join("");
+
+    // 소개 문구의 용어 수를 실제 데이터로 채운다. HTML에 박아 둔 숫자는
+    // 용어가 늘어날 때마다 옛날 값("6,000여 개")으로 남아 있었다.
+    const totalEl = document.getElementById("home-term-total");
+    if (totalEl && total) totalEl.textContent = total.toLocaleString("ko-KR");
   } catch (err) {
     console.error("[home-featured]", err);
   }
