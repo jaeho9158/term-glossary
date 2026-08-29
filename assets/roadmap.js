@@ -4,14 +4,7 @@ import { openFlashcards } from "./flashcards.js";
 const LOCAL_KEY = "roadmap_progress_v1";
 const deckMap = new Map();
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
 function getLocalProgress() {
   try {
     return new Set(JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]"));

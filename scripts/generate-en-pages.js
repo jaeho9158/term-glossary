@@ -19,13 +19,7 @@ function readTerms() {
   return terms;
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
+const { escapeHtml } = require("../assets/escape.js");
 
 function buildTermPage(term) {
   const title = term.title_en || term.title_ko;

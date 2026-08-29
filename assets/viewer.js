@@ -228,13 +228,11 @@ function matchTerms(text, terms) {
   return matchTermsWithIndex(text, buildExactIndex(terms));
 }
 
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+// 공용 escapeHtml: 브라우저에서는 assets/escape.js가 먼저 로드돼 전역 함수로
+// 제공된다(아래 var 선언은 기존 전역을 덮어쓰지 않는 no-op). Node 테스트에서
+// viewer.js를 require하면 이 블록이 실행돼 공용본을 불러온다.
+if (typeof module !== "undefined" && module.exports) {
+  var escapeHtml = require("./escape.js").escapeHtml;
 }
 
 function termCardHTML(match) {

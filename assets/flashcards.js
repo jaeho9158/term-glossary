@@ -2,14 +2,7 @@ import { supabase, getSession } from "./auth.js";
 
 const LOCAL_KEY = "flashcard_progress_v1";
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
 function getLocalProgress() {
   try {
     return JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}");
