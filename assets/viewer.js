@@ -1548,6 +1548,12 @@ if (typeof document !== "undefined") {
       const scrollRatio = viewerEl.scrollHeight > 0 ? viewerEl.scrollTop / viewerEl.scrollHeight : 0;
       await renderPdf(pdfDoc, null);
       viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
+      // Re-run any active search: the re-render rebuilt every text layer,
+      // discarding search marks — and a search typed *during* the re-render
+      // saw an empty page list and stuck at "0/0" until the next keystroke.
+      if (pdfSearchInput && pdfSearchInput.value.trim()) {
+        runPdfSearch(pdfSearchInput.value);
+      }
     }
 
     pdfInput.addEventListener("change", async () => {

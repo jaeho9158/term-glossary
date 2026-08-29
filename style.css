@@ -2348,6 +2348,14 @@ transform:scale(1);
 
 /* Floating highlight-color toolbar shown on text selection */
 
+.highlight-toolbar[hidden] {
+    /* display:flex below beats the browser's built-in [hidden]{display:none},
+       so without this rule the color dots never actually disappeared — they
+       sat permanently at the bottom-left of the viewer and stayed on screen
+       after picking a color. */
+    display: none;
+}
+
 .highlight-toolbar {
     position: fixed;
     z-index: 10000;
