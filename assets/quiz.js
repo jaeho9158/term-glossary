@@ -445,6 +445,25 @@ document
 
 
 
+    // 주관식은 답을 직접 타이핑해야 하므로, 제목이 길거나 괄호 표기가
+    // 붙은 용어("로(옵션 그릭스)" 등)는 출제 풀에서 제외해 입력 부담을
+    // 줄인다. 객관식 모드는 기존 풀 그대로.
+    if(quizType.value === "subjective"){
+
+        const typable =
+        list.filter(t =>
+            t.title_ko &&
+            t.title_ko.length <= 10 &&
+            !/[()（）]/.test(t.title_ko)
+        );
+
+        if(typable.length >= 4)
+            list = typable;
+
+    }
+
+
+
     shuffle(list);
 
 
@@ -556,6 +575,19 @@ function nextQuestion(){
     }
 
 
+
+
+
+    if(mode==="subjective"){
+
+
+        renderSubjectiveQuestion(term);
+
+
+        return;
+
+
+    }
 
 
 
@@ -696,6 +728,264 @@ function nextQuestion(){
 
 
 // ===============================
+// 주관식 (정의 → 용어 직접 입력)
+// ===============================
+
+// 정답 판정용 정규화: 대소문자·공백·하이픈·가운뎃점 차이는 무시한다.
+// "표본 크기"와 "표본크기", "p-value"와 "P Value"를 다른 답으로
+// 처리하면 타이핑 퀴즈는 채점 불복만 쌓인다.
+function normalizeAnswer(s){
+
+    return String(s || "")
+        .toLowerCase()
+        .replace(/[\s\-–—_·.()（）]/g, "");
+
+}
+
+
+// 한글명·영문명·등록된 별칭 전부를 정답으로 인정한다.
+function acceptedAnswers(term){
+
+    const pool = [
+        term.title_ko,
+        term.title_en,
+        ...(term.aliases || [])
+    ];
+
+    return new Set(
+        pool.map(normalizeAnswer).filter(Boolean)
+    );
+
+}
+
+
+function renderSubjectiveQuestion(term){
+
+
+    answer =
+    term.title_ko;
+
+
+    question.textContent =
+    term.definition;
+
+
+    quizCount.textContent =
+    `${currentQuestion + 1} / ${totalQuestions}`;
+
+
+
+    // 지하철 이름 맞히기처럼 글자 수를 ○ 로 보여준다.
+    const pattern =
+    "○".repeat(term.title_ko.length);
+
+
+
+    choices.innerHTML = "";
+
+
+    const wrap =
+    document.createElement("div");
+
+    wrap.className =
+    "subjective-wrap";
+
+
+    wrap.innerHTML = `
+        <p class="subjective-pattern" aria-label="글자 수 힌트">${pattern} <span class="subjective-len">(${term.title_ko.length}글자)</span></p>
+        <div class="subjective-row">
+            <input type="text" id="subjective-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="용어를 입력하세요">
+            <button type="button" id="subjective-submit">제출</button>
+        </div>
+        <button type="button" id="subjective-hint" class="subjective-hint-btn">힌트: 첫 글자 보기</button>
+    `;
+
+
+    choices.appendChild(wrap);
+
+
+
+    const input =
+    document.getElementById("subjective-input");
+
+    const submit =
+    document.getElementById("subjective-submit");
+
+    const hintBtn =
+    document.getElementById("subjective-hint");
+
+
+
+    hintBtn.onclick = function(){
+
+        wrap.querySelector(".subjective-pattern").firstChild.textContent =
+        term.title_ko[0] + "○".repeat(Math.max(0, term.title_ko.length - 1));
+
+        hintBtn.disabled = true;
+
+        hintBtn.textContent =
+        "힌트 사용됨";
+
+    };
+
+
+
+    submit.onclick = function(){
+
+        checkSubjectiveAnswer(term, input.value);
+
+    };
+
+
+    input.addEventListener("keydown", function(e){
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            checkSubjectiveAnswer(term, input.value);
+
+        }
+
+    });
+
+
+    input.focus();
+
+
+
+    updateProgress();
+
+
+    startTimer();
+
+
+}
+
+
+function lockSubjectiveInput(){
+
+    const input =
+    document.getElementById("subjective-input");
+
+    const submit =
+    document.getElementById("subjective-submit");
+
+    const hintBtn =
+    document.getElementById("subjective-hint");
+
+    if(input) input.disabled = true;
+
+    if(submit) submit.disabled = true;
+
+    if(hintBtn) hintBtn.disabled = true;
+
+}
+
+
+function checkSubjectiveAnswer(term, value){
+
+
+    if(!String(value || "").trim())
+        return; // 빈 제출은 무시
+
+
+    clearTimer();
+
+
+    lockSubjectiveInput();
+
+
+
+    const record =
+    getRecord();
+
+
+    record.played++;
+
+
+
+    const ok =
+    acceptedAnswers(term).has(normalizeAnswer(value));
+
+
+
+    if(ok){
+
+
+        score++;
+
+        combo++;
+
+        record.correct++;
+
+
+        if(combo > record.bestCombo){
+
+            record.bestCombo = combo;
+
+        }
+
+
+        result.textContent =
+        `정답! 🔥 ${combo}연속 정답`;
+
+
+        const input =
+        document.getElementById("subjective-input");
+
+        if(input) input.classList.add("correct");
+
+
+    }
+
+    else{
+
+
+        combo = 0;
+
+
+        wrongQuestions.push(
+            currentTerms[currentQuestion]
+        );
+
+
+        result.textContent =
+        `오답! 정답 : ${term.title_ko}` +
+        (term.title_en ? ` (${term.title_en})` : "");
+
+
+        const input =
+        document.getElementById("subjective-input");
+
+        if(input) input.classList.add("wrong");
+
+
+    }
+
+
+
+    saveRecord(record);
+
+
+    updateCombo();
+
+
+    currentQuestion++;
+
+
+    nextBtn.hidden = false;
+
+
+    nextBtn.focus();
+
+
+}
+
+
+
+
+// ===============================
 // 타이머
 // ===============================
 
@@ -703,7 +993,9 @@ function nextQuestion(){
 function startTimer(){
 
 
-    timeLeft = 15;
+    // 주관식은 답을 직접 타이핑해야 하므로 객관식(15초)보다 길게 준다.
+    timeLeft =
+    quizType.value === "subjective" ? 30 : 15;
 
 
     updateTimer();
@@ -803,6 +1095,9 @@ function timeoutAnswer(){
 
     result.textContent =
     `시간 초과! 정답 : ${answer}`;
+
+
+    lockSubjectiveInput();
 
 
 
