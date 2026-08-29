@@ -1551,7 +1551,9 @@ if (typeof document !== "undefined") {
         // ownership of the buffer once it hands it to the worker.)
         const arrayBuffer = await file.arrayBuffer();
         currentDocHash = await computeDocHash(file, arrayBuffer);
-        const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        // isEvalSupported:false — CVE-2024-4367 완화. pdf.js 4.2.67 미만은 악성
+        // 폰트 매트릭스로 임의 JS 실행이 가능하므로 eval 경로를 차단한다.
+        const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer, isEvalSupported: false }).promise;
 
         const probed = await probePdfText(pdf);
         if (!hasAnyText(probed)) {
