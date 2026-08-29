@@ -105,8 +105,6 @@ const questionCount =
 document.getElementById("question-count");
 
 
-const difficultySelect =
-document.getElementById("difficulty-select");
 
 
 const question =
@@ -361,14 +359,11 @@ function applyRoadmapScope(){
     const categoryField =
     document.getElementById("quiz-category-field");
 
-    const difficultyField =
-    document.getElementById("quiz-difficulty-field");
 
     const banner =
     document.getElementById("quiz-scope-banner");
 
     if(categoryField) categoryField.hidden = true;
-    if(difficultyField) difficultyField.hidden = true;
 
     if(banner){
         banner.hidden = false;
@@ -377,58 +372,6 @@ function applyRoadmapScope(){
     }
 
 }
-
-
-
-// ===============================
-// 난이도 적용
-// ===============================
-
-function filterDifficulty(list){
-
-
-    const level =
-    difficultySelect.value;
-
-
-
-    if(level==="all")
-        return list;
-
-
-
-    if(level==="easy"){
-
-
-        return list.filter(t=>
-
-            t.definition.length < 120
-
-        );
-
-
-    }
-
-
-
-    if(level==="hard"){
-
-
-        return list.filter(t=>
-
-            t.definition.length >= 120
-
-        );
-
-
-    }
-
-
-
-    return list;
-
-}
-
 
 
 
@@ -496,8 +439,6 @@ document
 
 
 
-    list =
-    filterDifficulty(list);
 
 
     }
