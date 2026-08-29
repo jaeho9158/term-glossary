@@ -228,13 +228,11 @@ function matchTerms(text, terms) {
   return matchTermsWithIndex(text, buildExactIndex(terms));
 }
 
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+// 공용 escapeHtml: 브라우저에서는 assets/escape.js가 먼저 로드돼 전역 함수로
+// 제공된다(아래 var 선언은 기존 전역을 덮어쓰지 않는 no-op). Node 테스트에서
+// viewer.js를 require하면 이 블록이 실행돼 공용본을 불러온다.
+if (typeof module !== "undefined" && module.exports) {
+  var escapeHtml = require("./escape.js").escapeHtml;
 }
 
 function termCardHTML(match) {
@@ -877,6 +875,9 @@ if (typeof document !== "undefined") {
     async function loadTerms() {
       if (cachedTerms) return cachedTerms;
       const res = await fetch("terms.json");
+      // 404/500이면 res.json()의 SyntaxError 대신 명확한 에러로 던진다 —
+      // 두 호출부(용어 찾기, PDF 업로드) 모두 try/catch로 사용자에게 안내한다.
+      if (!res.ok) throw new Error(`용어 데이터 로드 실패 (HTTP ${res.status})`);
       cachedTerms = await res.json();
 
       const searchData = cachedTerms.flatMap(term => {
@@ -1498,11 +1499,13 @@ if (typeof document !== "undefined") {
         }
         pdfTextContentCache.set(i, textContent);
 
-        await window.pdfjsLib.renderTextLayer({
+        // pdf.js 4.5+에서 renderTextLayer() 함수가 제거되고 TextLayer 클래스로
+        // 대체됐다 (4.10 업그레이드에 맞춘 교체).
+        await new window.pdfjsLib.TextLayer({
           textContentSource: textContent,
           container: textLayerDiv,
           viewport,
-        }).promise;
+        }).render();
 
         pageTexts.push(joinTextItems(textContent.items));
 
@@ -1551,7 +1554,9 @@ if (typeof document !== "undefined") {
         // ownership of the buffer once it hands it to the worker.)
         const arrayBuffer = await file.arrayBuffer();
         currentDocHash = await computeDocHash(file, arrayBuffer);
-        const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        // isEvalSupported:false — CVE-2024-4367 완화. pdf.js 4.2.67 미만은 악성
+        // 폰트 매트릭스로 임의 JS 실행이 가능하므로 eval 경로를 차단한다.
+        const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer, isEvalSupported: false }).promise;
 
         const probed = await probePdfText(pdf);
         if (!hasAnyText(probed)) {

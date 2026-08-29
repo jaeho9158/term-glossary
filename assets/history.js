@@ -1,14 +1,6 @@
 import { supabase, getSession } from "./auth.js";
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
 function formatDate(iso) {
   try {
     return new Date(iso).toLocaleString("ko-KR", {
@@ -24,11 +16,19 @@ function formatDate(iso) {
 }
 
 let termsCache = null;
+// terms.json은 수십 MB라 전송 실패 확률이 가장 높은 지점 — 실패 시 빈 Map을
+// 돌려 기록 목록 자체는 (용어 메타 없이라도) 계속 렌더되게 한다.
 async function loadTermsMap() {
   if (termsCache) return termsCache;
-  const res = await fetch("terms.json");
-  const list = await res.json();
-  termsCache = new Map(list.map((t) => [t.slug, t]));
+  try {
+    const res = await fetch("terms.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = await res.json();
+    termsCache = new Map(list.map((t) => [t.slug, t]));
+  } catch (err) {
+    console.error("terms.json 로드 실패:", err);
+    termsCache = new Map();
+  }
   return termsCache;
 }
 

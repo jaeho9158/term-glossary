@@ -3,96 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>경사하강법(Gradient Descent)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="모델의 손실을 줄이기 위해 기울기 방향으로 파라미터를 조금씩 업데이트하는 경사하강법을 비전공자도 이해할 수 있도록 쉽게 설명합니다.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://termglossary.kr/terms/gradient-descent.html">
-<link rel="stylesheet" href="../style.css">
-<!-- GA4 analytics:start -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7SW2PGCN27');
-</script>
-<!-- GA4 analytics:end -->
-<!-- AdSense:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
-<!-- AdSense:end -->
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=../terms/gradient-descent.html">
 </head>
-<body data-base="../">
-<header class="site-header">
-  <div class="inner">
-    <a class="logo" href="../index.html">논문용어사전</a>
-    <div class="header-search">
-      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
-      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
-    </div>
-    <button
-      id="menu-toggle"
-      class="menu-toggle"
-      aria-label="메뉴"
-      aria-expanded="false">
-      ☰
-    </button>
-
-    <nav id="site-nav" class="site-nav">
-      <a href="../index.html">용어 목록</a>
-      <a href="../about.html">소개</a>
-      <a href="../login.html" id="nav-login">로그인</a>
-      <a href="../signup.html" id="nav-signup">회원가입</a>
-      <a href="../history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
-    </nav>
-  </div>
-</header>
-
-<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 경사하강법 (Gradient Descent)</p>
-  <h1>경사하강법 (Gradient Descent)</h1>
-
-  <div class="definition-box">
-    <strong>한 줄 정의:</strong> 모델의 오차(손실)를 줄이기 위해 기울기가 감소하는 방향으로 파라미터를 조금씩 업데이트해 나가는 최적화 알고리즘입니다.
-  </div>
-
-  <h2>쉽게 풀면</h2>
-  <p>짙은 안개가 낀 산속에서 눈을 감은 채 가장 낮은 계곡을 찾아 내려간다고 상상해 보세요. 전체 지형이 보이지 않으니 한 번에 목적지를 알 수는 없지만, 발밑의 경사를 느껴 가장 가파르게 내려가는 방향으로 한 걸음씩 옮기다 보면 결국 낮은 곳에 도달하게 됩니다. 경사하강법도 똑같습니다. 모델의 예측이 얼마나 틀렸는지를 나타내는 손실 함수의 "기울기(경사)"를 계산해서, 그 값이 줄어드는 방향으로 모델의 파라미터를 아주 조금씩 계속 수정해 나갑니다. 이 과정을 수없이 반복하면 손실이 가장 작은 지점, 즉 모델이 가장 잘 맞는 상태에 가까워집니다.</p>
-
-  <h2>왜 중요한가</h2>
-  <p>경사하강법은 거의 모든 딥러닝 모델의 학습을 뒷받침하는 기본 최적화 원리입니다. 신경망의 구조가 아무리 복잡해져도 결국 파라미터를 어떻게 업데이트할 것인가라는 문제로 귀결되기 때문에, 학습 속도·안정성·수렴 성능을 개선하려는 연구에서 반드시 다뤄지는 개념입니다.</p>
-
-  <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"모델의 손실 함수를 최소화하기 위해 확률적 경사하강법(SGD)을 사용하여 파라미터를 반복적으로 업데이트하였다."</div>
-  <p>모델이 정답과 얼마나 차이 나는지를 계산한 뒤, 그 차이를 줄이는 방향으로 모델 내부 값들을 조금씩 계속 고쳐나갔다는 의미입니다.</p>
-  <div class="example">"강화학습에서는 정책 함수의 기대 보상을 최대화하는 방향으로 경사 상승법을 적용해 정책 파라미터를 갱신하였다."</div>
-  <p>손실을 줄이는 대신 보상을 늘리는 방향으로 값을 조정한다는 점만 다를 뿐, 기울기를 따라 파라미터를 점진적으로 개선한다는 원리는 동일하다는 뜻입니다.</p>
-  <div class="example">"수렴 속도를 높이기 위해 Adam 옵티마이저를 적용하여 각 파라미터별로 적응적인 학습률을 사용하였다."</div>
-  <p>모든 파라미터에 같은 크기로 움직이는 대신, 파라미터마다 과거 기울기 정보를 참고해 이동 폭을 다르게 조절했다는 의미입니다.</p>
-
-  <h2>조금 더 깊게 보면</h2>
-  <p>실제로는 전체 데이터를 한 번에 사용하는 순수한 경사하강법 대신, 일부 데이터(미니배치)만으로 기울기를 추정하는 확률적 경사하강법(SGD)이 널리 쓰입니다. 여기에 과거 이동 방향을 반영하는 모멘텀(momentum)이나, 파라미터별로 학습률을 자동 조절하는 Adam, RMSProp 같은 옵티마이저를 결합하면 수렴 속도와 안정성이 개선되는 경우가 많습니다. 손실 함수의 표면이 매끄럽지 않거나 안장점(saddle point)이 많은 경우에는 이런 개선된 옵티마이저가 특히 도움이 된다고 알려져 있습니다.</p>
-
-  <h2>주의할 점</h2>
-  <p>한 번에 얼마나 크게 이동할지를 정하는 학습률(learning rate)이 너무 크면 최적의 지점을 지나쳐 버려 오히려 학습이 불안정해지고, 너무 작으면 학습 속도가 지나치게 느려지거나 진짜 최적점이 아닌 지역적인 저점(local minimum)에 갇혀버릴 수 있습니다. 경사하강법으로 학습되는 대표적인 모델이 바로 <a href="neural-network.html">인공신경망</a>입니다.</p>
-
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="neural-network.html">인공신경망</a>
-    <a href="transformer.html">트랜스포머</a>
-    <a href="reinforcement-learning.html">강화학습</a>
-    <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a>
-    <a href="fine-tuning.html">파인튜닝</a>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
-</footer>
-<script src="../assets/vendor/fuse.min.js"></script>
-<script src="../assets/header-search.js"></script>
-<script type="module" src="../assets/nav-auth.js"></script>
-<script type="module" src="../assets/term-history.js"></script>
-<script src="../assets/mobile-nav.js"></script>
+<body>
+<p>이 페이지는 <a href="../terms/gradient-descent.html">경사하강법(Gradient Descent)란? 쉬운 뜻과 논문 예문</a> 페이지로 이동했습니다.</p>
 </body>
 </html>

@@ -8,9 +8,17 @@ function resolveCategoryParam(code) {
   return alias ? alias.slice() : [];
 }
 
+// 실패 시 null을 돌려 호출부가 빈 화면 대신 안내 문구를 보여줄 수 있게 한다.
+// (terms-index.json은 수 MB라 모바일·불안정 회선에서 전송 실패가 드물지 않다.)
 async function loadTerms() {
-  const res = await fetch("terms-index.json");
-  return res.json();
+  try {
+    const res = await fetch("terms-index.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error("용어 목록 로드 실패:", err);
+    return null;
+  }
 }
 
 function termLinkHTML(term) {
@@ -228,6 +236,15 @@ async function init() {
 
   const terms = await loadTerms();
 
+  if (!terms) {
+    const listEl = document.getElementById("category-sections");
+    if (listEl) {
+      listEl.innerHTML =
+        '<p class="load-error">용어 목록을 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요.</p>';
+    }
+    return;
+  }
+
   const rawCategory = new URLSearchParams(location.search).get("cat") || "";
   const initialCategory = resolveCategoryParam(rawCategory);
 
@@ -264,22 +281,26 @@ async function init() {
       debounceTimer = setTimeout(update, 150);
     });
 
-    const recent = JSON.parse(
-      localStorage.getItem("recentSearches") || "[]"
-    );
+    // localStorage는 프라이빗 모드·쿼터 초과·손상 값에서 읽기/쓰기 모두
+    // throw할 수 있다. 최근 검색어 저장은 편의 기능이라 실패해도 조용히 넘긴다.
+    try {
+      const recent = JSON.parse(
+        localStorage.getItem("recentSearches") || "[]"
+      );
 
-    const value = searchInput.value.trim();
+      const value = searchInput.value.trim();
 
-    if (!value) return;
+      if (value) {
+        const list = recent.filter(v => v !== value);
 
-    const list = recent.filter(v => v !== value);
+        list.unshift(value);
 
-    list.unshift(value);
-
-    localStorage.setItem(
-        "recentSearches",
-        JSON.stringify(list.slice(0, 5))
-    );
+        localStorage.setItem(
+            "recentSearches",
+            JSON.stringify(list.slice(0, 5))
+        );
+      }
+    } catch (err) { /* 저장 실패는 무시 */ }
   }
 
   function update() {

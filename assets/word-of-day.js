@@ -2,15 +2,7 @@
 // deterministically from today's date, so every visitor sees the same 5
 // terms on a given day with no backend involved.
 
-function escapeHtmlWod(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
 // Small deterministic PRNG (mulberry32) seeded from a string, so "today"
 // always yields the same shuffle without needing a server or localStorage.
 function seededPick(list, count, seedStr) {
@@ -43,11 +35,11 @@ function todaySeed() {
 
 function wordOfDayCardHTML(term) {
   const enPart = term.title_en
-    ? ` <span class="term-en">(${escapeHtmlWod(term.title_en)})</span>`
+    ? ` <span class="term-en">(${escapeHtml(term.title_en)})</span>`
     : "";
   return `
     <a class="wod-card" href="terms/${encodeURIComponent(term.slug)}.html">
-      <span class="wod-card-term">${escapeHtmlWod(term.title_ko)}${enPart}</span>
+      <span class="wod-card-term">${escapeHtml(term.title_ko)}${enPart}</span>
     </a>
   `;
 }

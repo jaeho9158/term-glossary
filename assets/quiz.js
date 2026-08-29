@@ -68,10 +68,18 @@ function getRecord(){
 
 function saveRecord(data){
 
-    localStorage.setItem(
-        RECORD_KEY,
-        JSON.stringify(data)
-    );
+    // 프라이빗 모드·쿼터 초과에서 setItem이 throw하면 퀴즈 진행 자체가
+    // 중단되므로(checkAnswer 경로) 기록 저장 실패는 조용히 넘긴다.
+    try{
+
+        localStorage.setItem(
+            RECORD_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+    catch(e){ /* 저장 실패는 무시 */ }
 
 }
 
@@ -294,8 +302,8 @@ function makeCategoryList(){
     // Was a hand-maintained list of only 12 categories, so any category added
     // to the glossary afterward (math, acct, agri, ...) fell through to `|| cat`
     // below and showed the raw internal code instead of a Korean label. Use
-    // the same shared CATEGORY_LABELS every other page (site.js, category.js,
-    // viewer.js) already draws from, so this list can't go stale again.
+    // the same shared CATEGORY_LABELS every other page (site.js, viewer.js)
+    // already draws from, so this list can't go stale again.
     const labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
 
 
@@ -629,50 +637,9 @@ function nextQuestion(){
 
 
 
+    // 보기 4개 구성은 quiz-core.js의 순수 함수로 분리 (테스트 대상)
     const options =
-    [answer];
-
-
-
-
-    while(options.length < 4){
-
-
-
-        const randomTerm =
-        allTerms[
-            Math.floor(
-                Math.random()
-                *
-                allTerms.length
-            )
-        ];
-
-
-
-        const option =
-        mode==="definition"
-        ?
-        randomTerm.title_ko
-        :
-        randomTerm.definition;
-
-
-
-
-        if(
-            option &&
-            !options.includes(option)
-        ){
-
-            options.push(option);
-
-        }
-
-
-    }
-
-
+    buildChoiceOptions(answer, allTerms, mode);
 
 
 
@@ -737,29 +704,7 @@ let subjectiveHintTerm = null;
 
 let subjectiveHintShown = false;
 
-const CHOSEONG =
-["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
-
-function toChoseong(str){
-
-    return [...str].map(ch => {
-
-        const code = ch.charCodeAt(0) - 0xAC00;
-
-        if(code >= 0 && code < 11172){
-
-            return CHOSEONG[Math.floor(code / 588)];
-
-        }
-
-        // 한글 음절이 아니면(영문·숫자 등) 그대로 보여준다 —
-        // 초성이 없는 글자를 ○로 계속 가리면 힌트 구실을 못 한다.
-        return ch;
-
-    }).join("");
-
-}
-
+// CHOSEONG / toChoseong 은 assets/quiz-core.js(전역)로 이동 — 페이지가 먼저 로드함.
 function revealChoseongHint(){
 
     if(subjectiveHintShown || !subjectiveHintTerm)
@@ -784,32 +729,7 @@ function revealChoseongHint(){
 }
 
 
-// 정답 판정용 정규화: 대소문자·공백·하이픈·가운뎃점 차이는 무시한다.
-// "표본 크기"와 "표본크기", "p-value"와 "P Value"를 다른 답으로
-// 처리하면 타이핑 퀴즈는 채점 불복만 쌓인다.
-function normalizeAnswer(s){
-
-    return String(s || "")
-        .toLowerCase()
-        .replace(/[\s\-–—_·.()（）]/g, "");
-
-}
-
-
-// 한글명·영문명·등록된 별칭 전부를 정답으로 인정한다.
-function acceptedAnswers(term){
-
-    const pool = [
-        term.title_ko,
-        term.title_en,
-        ...(term.aliases || [])
-    ];
-
-    return new Set(
-        pool.map(normalizeAnswer).filter(Boolean)
-    );
-
-}
+// normalizeAnswer / acceptedAnswers 는 assets/quiz-core.js(전역)로 이동.
 
 
 function renderSubjectiveQuestion(term){

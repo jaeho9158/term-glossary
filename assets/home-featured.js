@@ -3,20 +3,12 @@
 // feel cluttered. This renders only the curated HOME_FEATURED_CATEGORIES
 // set as compact cards, with a link out to category.html for the rest.
 
-function escapeHtmlHf(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
 function categoryCardHTML(code, count) {
   const label = CATEGORY_LABELS[code] || code;
   return `
     <a class="home-category-card" href="category.html?cat=${encodeURIComponent(code)}">
-      <span class="home-category-card-title">${escapeHtmlHf(label)}</span>
+      <span class="home-category-card-title">${escapeHtml(label)}</span>
       <span class="home-category-card-count">${count}개</span>
     </a>
   `;

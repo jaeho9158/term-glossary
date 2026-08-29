@@ -6,7 +6,7 @@ const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
 const EN_DIR = path.join(ROOT_DIR, "en");
 const EN_TERMS_DIR = path.join(EN_DIR, "terms");
 
-const BASE_URL = "https://termglossary.kr";
+const { BASE_URL } = require("./site-config.js");
 
 function readTerms() {
   const content = fs.readFileSync(TERMS_PATH, "utf8");
@@ -19,13 +19,7 @@ function readTerms() {
   return terms;
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
+const { escapeHtml } = require("../assets/escape.js");
 
 function buildTermPage(term) {
   const title = term.title_en || term.title_ko;

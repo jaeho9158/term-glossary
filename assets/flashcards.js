@@ -2,14 +2,7 @@ import { supabase, getSession } from "./auth.js";
 
 const LOCAL_KEY = "flashcard_progress_v1";
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
 function getLocalProgress() {
   try {
     return JSON.parse(localStorage.getItem(LOCAL_KEY) || "{}");
@@ -19,7 +12,11 @@ function getLocalProgress() {
 }
 
 function setLocalProgress(obj) {
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(obj));
+  // 프라이빗 모드·쿼터 초과에서 setItem이 throw — 진행 저장 실패로 학습
+  // 흐름 자체가 죽으면 안 되므로 조용히 넘긴다 (읽기 쪽과 동일한 방침).
+  try {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(obj));
+  } catch (e) { /* 저장 실패는 무시 */ }
 }
 
 let overlayEl = null;
