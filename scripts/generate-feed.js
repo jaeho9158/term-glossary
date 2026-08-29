@@ -22,33 +22,46 @@ function readTerms() {
   return terms;
 }
 
-function getGitFirstAdded(relativePath) {
-  try {
-    const result = execFileSync(
-      "git",
-      ["log", "--follow", "--diff-filter=A", "--format=%cI", "--", relativePath],
-      {
-        cwd: ROOT_DIR,
-        encoding: "utf8",
-        stdio: ["ignore", "pipe", "ignore"],
-      }
-    )
-      .trim()
-      .split("\n")
-      .filter(Boolean);
+// 파일별 최초 추가 시각을 git 기록에서 얻는다.
+//
+// 원래는 용어마다 `git log --follow`를 한 번씩 실행했는데, 용어가
+// 37,000개를 넘으면서 피드 생성 한 번에 git 프로세스를 3만 번 이상
+// 띄우게 되어 수십 분씩 걸렸다(사실상 실행 불가). 저장소 전체를
+// 한 번만 훑어 terms/ 아래 모든 파일의 추가 시각 맵을 만들면 수 초로
+// 끝난다. --follow(개명 추적)는 포기하지만, 피드는 "최근 추가 30개"만
+// 쓰므로 개명 이력까지 따라갈 이유가 없다.
+let gitAddedDates = null;
 
-    if (result.length > 0) {
-      return result[result.length - 1];
-    }
-  } catch (error) {
-    // Git 기록이 없으면 아래 fallback 사용
+function buildGitAddedDates() {
+  const out = execFileSync(
+    "git",
+    ["log", "--diff-filter=A", "--name-only", "--format=%cI", "--", "terms"],
+    { cwd: ROOT_DIR, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], maxBuffer: 1024 * 1024 * 256 }
+  );
+  const map = new Map();
+  let currentDate = null;
+  for (const line of out.split("\n")) {
+    if (!line) continue;
+    if (/^\d{4}-\d{2}-\d{2}T/.test(line)) { currentDate = line.trim(); continue; }
+    // 로그는 최신 커밋부터 나오므로, 같은 파일이 여러 번 나오면 마지막
+    // (가장 오래된) 기록이 최초 추가 시각이다 — 덮어써서 그 값을 남긴다.
+    if (currentDate) map.set(line.trim(), currentDate);
   }
+  return map;
+}
+
+function getGitFirstAdded(relativePath) {
+  if (gitAddedDates === null) {
+    try { gitAddedDates = buildGitAddedDates(); }
+    catch (error) { gitAddedDates = new Map(); }
+  }
+  const fromGit = gitAddedDates.get(relativePath);
+  if (fromGit) return fromGit;
 
   const absolutePath = path.join(ROOT_DIR, relativePath);
   if (!fs.existsSync(absolutePath)) {
     throw new Error(`발행일을 계산할 파일이 없습니다: ${relativePath}`);
   }
-
   return fs.statSync(absolutePath).mtime.toISOString();
 }
 
