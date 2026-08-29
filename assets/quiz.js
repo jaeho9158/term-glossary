@@ -294,8 +294,8 @@ function makeCategoryList(){
     // Was a hand-maintained list of only 12 categories, so any category added
     // to the glossary afterward (math, acct, agri, ...) fell through to `|| cat`
     // below and showed the raw internal code instead of a Korean label. Use
-    // the same shared CATEGORY_LABELS every other page (site.js, category.js,
-    // viewer.js) already draws from, so this list can't go stale again.
+    // the same shared CATEGORY_LABELS every other page (site.js, viewer.js)
+    // already draws from, so this list can't go stale again.
     const labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
 
 
