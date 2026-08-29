@@ -6,7 +6,9 @@ const ROOT_DIR = path.join(__dirname, "..");
 const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
 const SITEMAP_PATH = path.join(ROOT_DIR, "sitemap.xml");
 
-const BASE_URL = "https://jaeho9158.github.io/term-glossary";
+// 정식 도메인. 예전 github.io 주소가 남아 있어, 이 스크립트를 다시 돌리면
+// 배포된 sitemap 37,000여 개 URL이 통째로 옛 주소로 되돌아갔다.
+const BASE_URL = "https://termglossary.kr";
 
 const TOP_LEVEL_PAGES = [
   {
@@ -25,9 +27,19 @@ const TOP_LEVEL_PAGES = [
     loc: `${BASE_URL}/privacy.html`,
     filePath: "privacy.html"
   },
+  // 내비게이션에 노출되는 공개 페이지인데 sitemap에서 빠져 있었다.
+  // (contact.html은 문의 기능과 함께 삭제되어 여기서도 제거)
   {
-    loc: `${BASE_URL}/contact.html`,
-    filePath: "contact.html"
+    loc: `${BASE_URL}/category.html`,
+    filePath: "category.html"
+  },
+  {
+    loc: `${BASE_URL}/quiz.html`,
+    filePath: "quiz.html"
+  },
+  {
+    loc: `${BASE_URL}/roadmap.html`,
+    filePath: "roadmap.html"
   }
 ];
 

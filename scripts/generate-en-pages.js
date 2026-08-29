@@ -6,7 +6,7 @@ const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
 const EN_DIR = path.join(ROOT_DIR, "en");
 const EN_TERMS_DIR = path.join(EN_DIR, "terms");
 
-const BASE_URL = "https://jaeho9158.github.io/term-glossary";
+const BASE_URL = "https://termglossary.kr";
 
 function readTerms() {
   const content = fs.readFileSync(TERMS_PATH, "utf8");

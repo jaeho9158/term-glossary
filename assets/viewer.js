@@ -141,7 +141,6 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
       title_en: term.title_en,
       definition: term.definition,
       categories: term.categories,
-      difficulty: term.difficulty,
       count: 0,
       score,
       occurrences: [],
@@ -238,20 +237,14 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
-const DIFFICULTY_LABELS = { 1: "쉬움", 2: "보통", 3: "어려움" };
-
 function termCardHTML(match) {
   const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
   const definitionPart = match.definition
     ? `<p class="term-card-definition">${escapeHtml(match.definition)}</p>`
     : "";
-  const difficultyLabel = DIFFICULTY_LABELS[match.difficulty];
-  const difficultyPart = difficultyLabel
-    ? `<span class="term-card-difficulty" data-difficulty="${match.difficulty}">${difficultyLabel}</span>`
-    : "";
   return `<li class="term-card" data-slug="${match.slug}">
         <button type="button" class="term-card-hide-btn" data-hide-slug="${match.slug}" title="이 용어 숨기기" aria-label="이 용어 숨기기">✕</button>
-        <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}${difficultyPart}</span>
+        <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
         ${definitionPart}
         <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기 →</a>
       </li>`;
@@ -564,7 +557,6 @@ if (typeof document !== "undefined") {
     const filterInput = document.getElementById("term-filter");
     const countHeading = document.getElementById("matched-count");
     const termsList = document.getElementById("matched-terms");
-    const difficultyCheckboxes = document.querySelectorAll("#difficulty-filter-group input[type=checkbox]");
     const categoryFilterSelect = document.getElementById("category-filter-select");
     const englishOnlyFilter = document.getElementById("english-only-filter");
     const showHiddenTermsBtn = document.getElementById("show-hidden-terms-btn");
@@ -1113,14 +1105,6 @@ if (typeof document !== "undefined") {
       if (codes.has(previousValue)) categoryFilterSelect.value = previousValue;
     }
 
-    function getSelectedDifficulties() {
-      return new Set(
-        Array.from(difficultyCheckboxes)
-          .filter((cb) => cb.checked)
-          .map((cb) => Number(cb.value))
-      );
-    }
-
     // A paper with many matches (a full-length thesis easily surfaces 30+)
     // used to dump every term card straight down the sidebar, one after
     // another, with no way to see how many more were below the fold. Only
@@ -1165,7 +1149,6 @@ if (typeof document !== "undefined") {
       populateCategoryFilterOptions(matches);
 
       const q = (filterQuery || "").trim().toLowerCase();
-      const selectedDifficulties = getSelectedDifficulties();
       const categoryCode = categoryFilterSelect ? categoryFilterSelect.value : "";
       const englishOnly = englishOnlyFilter ? englishOnlyFilter.checked : false;
       const hiddenCount = matches.filter((m) => hiddenSlugs.has(m.slug)).length;
@@ -1173,9 +1156,6 @@ if (typeof document !== "undefined") {
       const filtered = matches.filter((m) => {
         if (hiddenSlugs.has(m.slug)) return false;
         if (q && !(m.title_ko.toLowerCase().includes(q) || (m.title_en || "").toLowerCase().includes(q))) return false;
-        // Unknown/missing difficulty is never filtered out by the difficulty
-        // checkboxes — only terms we can actually classify are affected.
-        if (m.difficulty != null && !selectedDifficulties.has(m.difficulty)) return false;
         if (categoryCode && !(m.categories || []).includes(categoryCode)) return false;
         // Nearly every dictionary entry carries *some* title_en gloss for
         // reference, even purely Korean-context terms (e.g. "단가" has
@@ -1247,9 +1227,6 @@ if (typeof document !== "undefined") {
       renderMatchedTerms(currentMatches, filterInput.value);
     });
 
-    difficultyCheckboxes.forEach((cb) =>
-      cb.addEventListener("change", () => renderMatchedTerms(currentMatches, filterInput.value))
-    );
     if (categoryFilterSelect) {
       categoryFilterSelect.addEventListener("change", () => renderMatchedTerms(currentMatches, filterInput.value));
     }

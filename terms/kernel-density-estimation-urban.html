@@ -2,113 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Kernel Density Estimation(커널밀도추정)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Kernel Density Estimation(커널밀도추정)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://termglossary.kr/terms/kernel-density-estimation-urban.html">
-<link rel="stylesheet" href="../style.css">
-<!-- GA4 analytics:start -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7SW2PGCN27');
-</script>
-<!-- GA4 analytics:end -->
-<!-- theme-init:start -->
-<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
-<!-- theme-init:end -->
-<!-- AdSense:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
-<!-- AdSense:end -->
+<title>커널밀도추정 - 논문용어사전</title>
+<link rel="canonical" href="https://termglossary.kr/terms/kernel-density-estimation.html">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=kernel-density-estimation.html">
 </head>
-<body data-base="../">
-<header class="site-header">
-  <div class="inner">
-    <a class="logo" href="../index.html">논문용어사전</a>
-    <div class="header-search">
-      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
-      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
-    </div>
-    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
-      <span class="theme-icon-light" aria-hidden="true">🌙</span>
-      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
-    </button>
-    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
-    <nav id="site-nav" class="site-nav">
-      <a href="../index.html">용어 목록</a>
-      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
-      <div class="nav-dropdown">
-        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
-        <div class="nav-dropdown-menu">
-          <a href="../quiz.html">퀴즈</a>
-          <a href="../roadmap.html">로드맵</a>
-        </div>
-      </div>
-      <a href="../about.html">소개</a>
-      <a href="../changelog.html">업데이트기록</a>
-      <a href="../login.html" id="nav-login">로그인</a>
-      <a href="../signup.html" id="nav-signup">회원가입</a>
-      <a href="../history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
-    </nav>
-  </div>
-</header>
-
-<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 커널밀도추정 (Kernel Density Estimation)</p>
-  <h1>커널밀도추정 (Kernel Density Estimation)</h1>
-  <div class="category-badges">
-    <a class="category-badge" href="../category.html?cat=arch">건축학·도시계획학</a>
-  </div>
-
-  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
-    <span class="bookmark-icon" aria-hidden="true">☆</span>
-    <span class="bookmark-label">즐겨찾기</span>
-  </button>
-
-  <div class="definition-box">
-    <strong>한 줄 정의:</strong> 점 형태로 흩어진 위치 데이터를 부드럽게 이어진 밀도 표면으로 변환하여 어디에 사건이나 시설이 집중되어 있는지 시각적으로 보여주는 공간분석 기법입니다.
-  </div>
-
-  <h2>쉽게 풀면</h2>
-  <p>지도 위에 카페 위치, 범죄 발생지, 교통사고 지점처럼 점으로 표시된 데이터가 잔뜩 있다고 생각해봅시다. 점이 너무 많으면 눈으로 어디가 밀집 지역인지 파악하기 어려운데, 커널밀도추정은 이 점들을 마치 열이 퍼지듯 부드러운 등고선 지도로 바꿔줍니다. 점이 많이 몰린 곳은 짙은 색, 드문 곳은 옅은 색으로 표현되어 한눈에 밀집 구역을 파악할 수 있습니다.</p>
-
-  <h2>왜 중요한가</h2>
-  <p>도시계획에서는 상권 분석, 범죄 예방, 시설 입지 선정 등에서 개별 지점 데이터를 연속적인 밀도 분포로 바꿔 보는 것이 필요하며, 커널밀도추정은 이러한 밀집 패턴을 직관적으로 시각화하는 표준적인 방법으로 널리 활용됩니다.</p>
-
-  <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"커널밀도추정을 이용해 편의점 입지 데이터를 밀도 표면으로 변환한 결과, 역세권 반경 300m 이내에 밀도가 뚜렷하게 높게 나타났다."</div>
-  <p>편의점이 역 주변에 집중적으로 몰려 있다는 것을 밀도 지도로 확인했다는 의미입니다.</p>
-  <div class="example">"5년간의 화재 발생 좌표 데이터에 커널밀도추정을 적용하여 화재 위험 밀집 구역을 도출하고 소방시설 배치의 근거 자료로 활용하였다."</div>
-  <p>과거 화재 발생 지점들을 모아 위험이 집중된 지역을 시각적으로 찾아냈다는 뜻입니다.</p>
-
-  <h2>조금 더 깊게 보면</h2>
-  <p>커널밀도추정은 각 점 주위에 정해진 반경(대역폭, bandwidth) 내에서 커널 함수를 이용해 영향력을 퍼뜨리고, 이를 전체 격자에서 합산하여 연속적인 밀도 표면을 만듭니다. 대역폭을 좁게 잡으면 세밀한 밀집 지점이 두드러지고, 넓게 잡으면 전반적인 경향이 완만하게 나타난다는 점에서 분석 목적에 맞는 값 설정이 중요합니다.</p>
-
-  <h2>주의할 점</h2>
-  <p>대역폭 설정에 따라 결과 지도의 형태가 크게 달라질 수 있으므로, 임의로 정한 값 하나만으로 결론을 내리기보다는 여러 대역폭을 비교 검토하는 것이 바람직합니다.</p>
-
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="spatial-autocorrelation-moran-i.html">모란지수</a>
-    <a href="getis-ord-gi-star.html">Getis-Ord Gi* 통계량</a>
-    <a href="accessibility-index-gis.html">접근성지수</a>
-    <a href="urban-sprawl-index.html">도시확산지수</a>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
-</footer>
-<script src="../assets/vendor/fuse.min.js"></script>
-<script src="../assets/header-search.js"></script>
-<script type="module" src="../assets/nav-auth.js"></script>
-<script type="module" src="../assets/term-history.js"></script>
-<script src="../assets/mobile-nav.js"></script>
-<script src="../assets/term-back-nav.js"></script>
-<script type="module" src="../assets/term-bookmark.js"></script>
+<body>
+<p>이 용어는 <a href="kernel-density-estimation.html">커널밀도추정</a> 페이지로 통합되었습니다.</p>
 </body>
 </html>

@@ -57,7 +57,7 @@ fs.writeFileSync(termsJsonPath, JSON.stringify(merged, null, 2) + '\n', 'utf8');
 // Append to sitemap.xml
 let sitemap = fs.readFileSync(sitemapPath, 'utf8');
 const today = process.env.MERGE_DATE || '2026-08-01';
-const urlBlocks = added.map(e => `  <url>\n    <loc>https://jaeho9158.github.io/term-glossary/terms/${e.slug}.html</loc>\n    <lastmod>${today}</lastmod>\n  </url>\n`).join('');
+const urlBlocks = added.map(e => `  <url>\n    <loc>https://termglossary.kr/terms/${e.slug}.html</loc>\n    <lastmod>${today}</lastmod>\n  </url>\n`).join('');
 sitemap = sitemap.replace('</urlset>', urlBlocks + '</urlset>');
 fs.writeFileSync(sitemapPath, sitemap, 'utf8');
 

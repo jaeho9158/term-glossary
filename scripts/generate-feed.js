@@ -6,7 +6,7 @@ const ROOT_DIR = path.join(__dirname, "..");
 const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
 const FEED_PATH = path.join(ROOT_DIR, "feed.xml");
 
-const BASE_URL = "https://jaeho9158.github.io/term-glossary";
+const BASE_URL = "https://termglossary.kr";
 const FEED_TITLE = "논문용어사전";
 const FEED_DESCRIPTION = "논문에 자주 나오는 통계·연구방법론 학술용어를 비전공자도 이해하기 쉽게 풀어 설명합니다.";
 const MAX_ITEMS = 30;

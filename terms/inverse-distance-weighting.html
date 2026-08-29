@@ -2,113 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Inverse Distance Weighting(역거리가중법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Inverse Distance Weighting(역거리가중법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://termglossary.kr/terms/inverse-distance-weighting.html">
-<link rel="stylesheet" href="../style.css">
-<!-- GA4 analytics:start -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7SW2PGCN27');
-</script>
-<!-- GA4 analytics:end -->
-<!-- theme-init:start -->
-<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
-<!-- theme-init:end -->
-<!-- AdSense:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
-<!-- AdSense:end -->
+<title>역거리가중법 - 논문용어사전</title>
+<link rel="canonical" href="https://termglossary.kr/terms/idw.html">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=idw.html">
 </head>
-<body data-base="../">
-<header class="site-header">
-  <div class="inner">
-    <a class="logo" href="../index.html">논문용어사전</a>
-    <div class="header-search">
-      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
-      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
-    </div>
-    <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="다크모드 전환">
-      <span class="theme-icon-light" aria-hidden="true">🌙</span>
-      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
-    </button>
-    <button id="menu-toggle" class="menu-toggle" aria-label="메뉴" aria-expanded="false">☰</button>
-    <nav id="site-nav" class="site-nav">
-      <a href="../index.html">용어 목록</a>
-      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
-      <div class="nav-dropdown">
-        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
-        <div class="nav-dropdown-menu">
-          <a href="../quiz.html">퀴즈</a>
-          <a href="../roadmap.html">로드맵</a>
-        </div>
-      </div>
-      <a href="../about.html">소개</a>
-      <a href="../changelog.html">업데이트기록</a>
-      <a href="../login.html" id="nav-login">로그인</a>
-      <a href="../signup.html" id="nav-signup">회원가입</a>
-      <a href="../history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
-    </nav>
-  </div>
-</header>
-
-<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 역거리가중법 (Inverse Distance Weighting)</p>
-  <h1>역거리가중법 (Inverse Distance Weighting)</h1>
-  <div class="category-badges">
-    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
-  </div>
-
-  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
-    <span class="bookmark-icon" aria-hidden="true">☆</span>
-    <span class="bookmark-label">즐겨찾기</span>
-  </button>
-
-  <div class="definition-box">
-    <strong>한 줄 정의:</strong> 관측되지 않은 지점의 값을 주변 관측값들로부터, 거리가 가까울수록 더 큰 가중치를 주어 추정하는 공간보간 기법입니다.
-  </div>
-
-  <h2>쉽게 풀면</h2>
-  <p>역거리가중법은 '가까운 곳일수록 비슷한 값을 가질 것'이라는 상식적인 가정을 수식으로 표현한 방법입니다. 예를 들어 여러 관측소의 기온 자료가 있을 때, 관측소가 없는 지점의 기온을 추정하려면 가까운 관측소의 값을 더 많이 반영하고 먼 관측소의 값은 조금만 반영합니다. 이렇게 거리별로 가중치를 다르게 주어 지도 전체에 값을 채워 넣는 방식입니다. 계산 원리가 직관적이어서 GIS 소프트웨어에서 가장 기본적인 보간 도구로 제공됩니다.</p>
-
-  <h2>왜 중요한가</h2>
-  <p>강수량, 오염도, 지가처럼 일부 지점에서만 측정된 자료를 지도 전체로 확장해 표현해야 하는 연구가 많은데, 역거리가중법은 별도의 통계적 가정 없이도 비교적 간단하게 연속면 지도를 만들 수 있어 다양한 분야의 공간분석에서 기본 기법으로 자주 채택됩니다.</p>
-
-  <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"관측소별 강수량 자료를 역거리가중법(inverse distance weighting, IDW)으로 보간하여 유역 전체의 강수분포도를 작성하였다."</div>
-  <p>측정 지점이 아닌 곳의 강수량을 주변 관측값의 거리 가중 평균으로 추정해 지도화했다는 의미입니다.</p>
-  <div class="example">"토양 오염도 조사 지점 자료에 IDW 기법을 적용하여 오염 우려 지역을 시각화하였다."</div>
-  <p>한정된 조사 지점 자료를 보간해 오염도의 공간적 분포를 지도로 나타냈다는 뜻입니다.</p>
-
-  <h2>조금 더 깊게 보면</h2>
-  <p>역거리가중법은 각 관측값에 거리의 역수(주로 거리의 특정 거듭제곱에 반비례)를 가중치로 부여하여 추정값을 계산하며, 이 거듭제곱 값을 조정해 보간면의 매끄러움 정도를 바꿀 수 있습니다. 크리깅(kriging) 같은 통계 기반 보간법과 달리 오차의 통계적 구조를 명시적으로 모형화하지 않는다는 점이 차이입니다.</p>
-
-  <h2>주의할 점</h2>
-  <p>관측 지점이 드문 지역에서는 추정 오차가 커질 수 있고, 관측값의 최댓값과 최솟값 범위를 벗어나는 값은 만들어내지 못한다는 한계가 있습니다. 매개변수(거듭제곱 값) 설정에 따라 결과가 달라지므로 해석 시 주의가 필요합니다.</p>
-
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="least-cost-path-analysis.html">최소비용경로 분석</a>
-    <a href="map-projection-distortion.html">투영 왜곡</a>
-    <a href="photogrammetry.html">사진측량학</a>
-    <a href="shapefile-format.html">셰이프파일 형식</a>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
-</footer>
-<script src="../assets/vendor/fuse.min.js"></script>
-<script src="../assets/header-search.js"></script>
-<script type="module" src="../assets/nav-auth.js"></script>
-<script type="module" src="../assets/term-history.js"></script>
-<script src="../assets/mobile-nav.js"></script>
-<script src="../assets/term-back-nav.js"></script>
-<script type="module" src="../assets/term-bookmark.js"></script>
+<body>
+<p>이 용어는 <a href="idw.html">역거리가중법</a> 페이지로 통합되었습니다.</p>
 </body>
 </html>
