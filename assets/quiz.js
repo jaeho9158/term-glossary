@@ -731,6 +731,59 @@ function nextQuestion(){
 // 주관식 (정의 → 용어 직접 입력)
 // ===============================
 
+// 자동 초성 힌트: 주관식 문제에서 남은 시간이 절반이 되면 ○○○ 패턴을
+// 초성(ㄷㅈㅌ…)으로 바꿔 보여준다. 별도 버튼 없이 시간 경과로만 열린다.
+let subjectiveHintTerm = null;
+
+let subjectiveHintShown = false;
+
+const CHOSEONG =
+["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+
+function toChoseong(str){
+
+    return [...str].map(ch => {
+
+        const code = ch.charCodeAt(0) - 0xAC00;
+
+        if(code >= 0 && code < 11172){
+
+            return CHOSEONG[Math.floor(code / 588)];
+
+        }
+
+        // 한글 음절이 아니면(영문·숫자 등) 그대로 보여준다 —
+        // 초성이 없는 글자를 ○로 계속 가리면 힌트 구실을 못 한다.
+        return ch;
+
+    }).join("");
+
+}
+
+function revealChoseongHint(){
+
+    if(subjectiveHintShown || !subjectiveHintTerm)
+        return;
+
+    const patternEl =
+    document.querySelector(".subjective-pattern");
+
+    if(!patternEl)
+        return;
+
+    patternEl.firstChild.textContent =
+    toChoseong(subjectiveHintTerm.title_ko);
+
+    const lenEl =
+    patternEl.querySelector(".subjective-len");
+
+    if(lenEl) lenEl.textContent = "(초성)";
+
+    subjectiveHintShown = true;
+
+}
+
+
 // 정답 판정용 정규화: 대소문자·공백·하이픈·가운뎃점 차이는 무시한다.
 // "표본 크기"와 "표본크기", "p-value"와 "P Value"를 다른 답으로
 // 처리하면 타이핑 퀴즈는 채점 불복만 쌓인다.
@@ -797,7 +850,7 @@ function renderSubjectiveQuestion(term){
             <input type="text" id="subjective-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="용어를 입력하세요">
             <button type="button" id="subjective-submit">제출</button>
         </div>
-        <button type="button" id="subjective-hint" class="subjective-hint-btn">힌트: 첫 글자 보기</button>
+        <p class="subjective-hint-note">시간이 절반 지나면 초성이 공개됩니다</p>
     `;
 
 
@@ -811,22 +864,12 @@ function renderSubjectiveQuestion(term){
     const submit =
     document.getElementById("subjective-submit");
 
-    const hintBtn =
-    document.getElementById("subjective-hint");
 
+    // 타이머가 절반까지 줄면 startTimer의 tick이 이 용어의 초성을
+    // 자동으로 공개한다 (버튼 없이).
+    subjectiveHintTerm = term;
 
-
-    hintBtn.onclick = function(){
-
-        wrap.querySelector(".subjective-pattern").firstChild.textContent =
-        term.title_ko[0] + "○".repeat(Math.max(0, term.title_ko.length - 1));
-
-        hintBtn.disabled = true;
-
-        hintBtn.textContent =
-        "힌트 사용됨";
-
-    };
+    subjectiveHintShown = false;
 
 
 
@@ -871,14 +914,9 @@ function lockSubjectiveInput(){
     const submit =
     document.getElementById("subjective-submit");
 
-    const hintBtn =
-    document.getElementById("subjective-hint");
-
     if(input) input.disabled = true;
 
     if(submit) submit.disabled = true;
-
-    if(hintBtn) hintBtn.disabled = true;
 
 }
 
@@ -1011,6 +1049,13 @@ function startTimer(){
 
         updateTimer();
 
+
+        // 주관식: 남은 시간이 절반이 되는 순간 초성을 자동 공개
+        if(quizType.value === "subjective" && timeLeft === 15){
+
+            revealChoseongHint();
+
+        }
 
 
         if(timeLeft <= 0){
