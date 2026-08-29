@@ -671,19 +671,80 @@ h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 
   text-decoration: underline;
 }
 
-.home-learn-grid {
-  display: grid;
-  /* 카드가 2개에서 3개로 늘었다. auto-fit + minmax 로 두면 좁은 화면에서
-     2열 → 1열로 알아서 접히므로 카드가 더 늘어도 규칙을 안 고쳐도 된다. */
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+/* ---------- 함께 쓰면 좋은 사이트 (외부 추천 블록) ---------- */
+.partner-promo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
   margin-bottom: 28px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: var(--card-bg, transparent);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
 }
 
-/* 외부 사이트로 나가는 카드임을 알리는 화살표 */
-.home-learn-card-ext {
-  font-size: 0.85em;
+.partner-promo:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.partner-promo-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--accent-soft, rgba(120, 150, 255, 0.12));
+  color: var(--accent);
+}
+
+.partner-promo-icon svg { width: 22px; height: 22px; }
+
+.partner-promo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.partner-promo-text strong { font-size: 1.02rem; }
+
+.partner-promo-desc {
+  font-size: 0.9rem;
   color: var(--muted);
+  line-height: 1.5;
+}
+
+.partner-promo-desc b { color: var(--text); font-weight: 600; }
+
+.partner-promo-cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .partner-promo { flex-wrap: wrap; }
+  .partner-promo-cta { margin-left: 0; width: 100%; justify-content: center; }
+}
+
+.home-learn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .home-learn-card {
