@@ -6,9 +6,9 @@ const ROOT_DIR = path.join(__dirname, "..");
 const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
 const SITEMAP_PATH = path.join(ROOT_DIR, "sitemap.xml");
 
-// 정식 도메인. 예전 github.io 주소가 남아 있어, 이 스크립트를 다시 돌리면
-// 배포된 sitemap 37,000여 개 URL이 통째로 옛 주소로 되돌아갔다.
-const BASE_URL = "https://termglossary.kr";
+// 정식 도메인은 site-config.js가 단일 출처다 (과거 이 파일에 남은 옛
+// github.io 주소로 sitemap 37,000여 개 URL이 롤백된 사고의 재발 방지).
+const { BASE_URL } = require("./site-config.js");
 
 const TOP_LEVEL_PAGES = [
   {

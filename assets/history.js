@@ -16,11 +16,19 @@ function formatDate(iso) {
 }
 
 let termsCache = null;
+// terms.json은 수십 MB라 전송 실패 확률이 가장 높은 지점 — 실패 시 빈 Map을
+// 돌려 기록 목록 자체는 (용어 메타 없이라도) 계속 렌더되게 한다.
 async function loadTermsMap() {
   if (termsCache) return termsCache;
-  const res = await fetch("terms.json");
-  const list = await res.json();
-  termsCache = new Map(list.map((t) => [t.slug, t]));
+  try {
+    const res = await fetch("terms.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = await res.json();
+    termsCache = new Map(list.map((t) => [t.slug, t]));
+  } catch (err) {
+    console.error("terms.json 로드 실패:", err);
+    termsCache = new Map();
+  }
   return termsCache;
 }
 

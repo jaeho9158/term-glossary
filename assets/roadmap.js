@@ -14,7 +14,10 @@ function getLocalProgress() {
 }
 
 function setLocalProgress(set) {
-  localStorage.setItem(LOCAL_KEY, JSON.stringify([...set]));
+  // 프라이빗 모드·쿼터 초과에서 setItem이 throw — 조용히 넘긴다.
+  try {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify([...set]));
+  } catch (e) { /* 저장 실패는 무시 */ }
 }
 
 function topoSort(terms) {
@@ -46,8 +49,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const content = document.getElementById("roadmap-content");
   if (!select || !content) return;
 
-  const res = await fetch("terms.json");
-  const terms = await res.json();
+  let terms;
+  try {
+    const res = await fetch("terms.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    terms = await res.json();
+  } catch (err) {
+    console.error("terms.json 로드 실패:", err);
+    content.innerHTML =
+      '<p class="load-error">용어 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요.</p>';
+    return;
+  }
   const labels = window.CATEGORY_LABELS || {};
 
   const catSet = new Set();

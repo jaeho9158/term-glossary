@@ -68,10 +68,18 @@ function getRecord(){
 
 function saveRecord(data){
 
-    localStorage.setItem(
-        RECORD_KEY,
-        JSON.stringify(data)
-    );
+    // 프라이빗 모드·쿼터 초과에서 setItem이 throw하면 퀴즈 진행 자체가
+    // 중단되므로(checkAnswer 경로) 기록 저장 실패는 조용히 넘긴다.
+    try{
+
+        localStorage.setItem(
+            RECORD_KEY,
+            JSON.stringify(data)
+        );
+
+    }
+
+    catch(e){ /* 저장 실패는 무시 */ }
 
 }
 

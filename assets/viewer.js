@@ -875,6 +875,9 @@ if (typeof document !== "undefined") {
     async function loadTerms() {
       if (cachedTerms) return cachedTerms;
       const res = await fetch("terms.json");
+      // 404/500이면 res.json()의 SyntaxError 대신 명확한 에러로 던진다 —
+      // 두 호출부(용어 찾기, PDF 업로드) 모두 try/catch로 사용자에게 안내한다.
+      if (!res.ok) throw new Error(`용어 데이터 로드 실패 (HTTP ${res.status})`);
       cachedTerms = await res.json();
 
       const searchData = cachedTerms.flatMap(term => {

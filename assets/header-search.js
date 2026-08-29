@@ -115,7 +115,9 @@
     if (!q) return;
     const list = getRecent().filter((v) => v !== q);
     list.unshift(q);
-    localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 5)));
+    try {
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 5)));
+    } catch (e) { /* 프라이빗 모드 등 저장 실패는 무시 */ }
   }
 
   function matchResults(query) {
