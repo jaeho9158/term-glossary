@@ -673,9 +673,17 @@ h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 
 
 .home-learn-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* 카드가 2개에서 3개로 늘었다. auto-fit + minmax 로 두면 좁은 화면에서
+     2열 → 1열로 알아서 접히므로 카드가 더 늘어도 규칙을 안 고쳐도 된다. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
   margin-bottom: 28px;
+}
+
+/* 외부 사이트로 나가는 카드임을 알리는 화살표 */
+.home-learn-card-ext {
+  font-size: 0.85em;
+  color: var(--muted);
 }
 
 .home-learn-card {

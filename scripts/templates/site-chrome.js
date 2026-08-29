@@ -1,5 +1,8 @@
 const SITE_TITLE = "논문용어사전";
 
+// 자매 사이트 — 청소년 연구자를 위한 6단계 연구 가이드. 헤더와 홈 카드에서 함께 링크한다.
+const RESEARCH_LAB_URL = "https://yeongulab.vercel.app/";
+
 function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
   const viewerLink = navCta
     ? `\n      <a href="${basePath}viewer.html" class="nav-cta">논문 뷰어</a>`
@@ -38,8 +41,15 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 
     <nav id="site-nav" class="site-nav">
       <a href="${basePath}index.html">용어 목록</a>${viewerLink}
-      <a href="${basePath}about.html">소개</a>
-      <a href="${basePath}contact.html">문의</a>${authLinks}
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="${basePath}quiz.html">퀴즈</a>
+          <a href="${basePath}roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">연구랩 ↗</a>
+      <a href="${basePath}about.html">소개</a>${authLinks}
     </nav>
   </div>
 </header>`;
@@ -54,8 +64,8 @@ function renderThemeInit() {
 function renderFooter(basePath) {
   return `<footer class="site-footer">
   <p>&copy; 2026 ${SITE_TITLE}. All rights reserved.</p>
-  <a href="${basePath}about.html">소개</a> · <a href="${basePath}privacy.html">개인정보처리방침</a> · <a href="${basePath}contact.html">문의</a>
+  <a href="${basePath}about.html">소개</a> · <a href="${basePath}privacy.html">개인정보처리방침</a>
 </footer>`;
 }
 
-module.exports = { SITE_TITLE, renderHeader, renderFooter, renderThemeInit };
+module.exports = { SITE_TITLE, RESEARCH_LAB_URL, renderHeader, renderFooter, renderThemeInit };

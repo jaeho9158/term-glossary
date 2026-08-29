@@ -9,22 +9,23 @@ const AUTH_NAV_EXCEPTIONS = {
   "admin.html": false,
 };
 
-const TOP_LEVEL_PAGES = [
-  "index.html",
-  "viewer.html",
-  "category.html",
-  "about.html",
-  "contact.html",
-  "privacy.html",
-  "login.html",
-  "signup.html",
-  "history.html",
-  "quiz.html",
-  "admin.html",
-];
+// 최상위 페이지 목록은 실제 파일에서 찾는다. 예전엔 하드코딩이라 이미 삭제된
+// contact.html·admin.html이 남아 스크립트가 죽었고, 나중에 추가된 roadmap.html·
+// changelog.html은 갱신 대상에서 빠져 헤더가 페이지마다 어긋났다.
+function findTopLevelPages() {
+  return fs
+    .readdirSync(ROOT_DIR)
+    .filter((f) => f.endsWith(".html"))
+    .filter((f) =>
+      /<header class="site-header/.test(fs.readFileSync(path.join(ROOT_DIR, f), "utf8"))
+    )
+    .sort();
+}
+
+let skippedStubs = 0;
 
 function buildManifest() {
-  const manifest = TOP_LEVEL_PAGES.map((file) => ({
+  const manifest = findTopLevelPages().map((file) => ({
     file,
     basePath: "",
     navCta: true,
@@ -36,11 +37,21 @@ function buildManifest() {
     .filter((f) => f.endsWith(".html"))
     .sort();
 
+  // 중복 병합으로 생긴 리다이렉트 스텁은 header/footer가 없는 최소 페이지다.
+  // 예전엔 이걸 만나면 예외를 던지고 죽어서, 알파벳 순으로 첫 스텁 이후의
+  // 3만여 페이지가 통째로 갱신되지 않았다.
   for (const file of termFiles) {
+    const html = fs.readFileSync(path.join(ROOT_DIR, "terms", file), "utf8");
+    if (!/<header class="site-header/.test(html)) {
+      skippedStubs++;
+      continue;
+    }
     manifest.push({
       file: path.join("terms", file),
       basePath: "../",
-      navCta: false,
+      // 용어 페이지에도 '논문 뷰어' CTA가 실제로 들어가 있다. 예전 false 설정은
+      // 낡은 가정이라, 그대로 두면 빌드가 37,438개 페이지에서 CTA를 지워버린다.
+      navCta: true,
       authNav: true,
     });
   }
@@ -88,7 +99,7 @@ function run() {
     if (buildPage(page)) changed += 1;
   }
 
-  console.log(`템플릿 빌드 완료: ${manifest.length}개 페이지 중 ${changed}개 갱신`);
+  console.log(`템플릿 빌드 완료: ${manifest.length}개 페이지 중 ${changed}개 갱신 (리다이렉트 스텁 ${skippedStubs}개 건너뜀)`);
 }
 
 run();
