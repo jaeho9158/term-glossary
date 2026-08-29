@@ -42,7 +42,9 @@ for (const dir of DIRS) {
       continue;
     }
     const head = fs.readFileSync(target, "utf8").slice(0, 4000);
-    const m = head.match(/<title>([^<]+?)(?:\s*[-|].*)?<\/title>/);
+    // 사이트명 꼬리(" - 논문용어사전")만 떼야 한다 — 하이픈이 공백 없이 붙은
+    // 용어명("p-value" 등) 중간에서 자르면 제목이 "p"처럼 뭉개진다.
+    const m = head.match(/<title>([^<]+?)(?:\s[-|][^<]*)?<\/title>/);
     const title = m ? m[1].trim() : slug;
     fs.writeFileSync(path.join(abs, name), stub(title, slug), "utf8");
     done++;
