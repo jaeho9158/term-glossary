@@ -4,7 +4,22 @@
 
 ## 요약
 
-(작업 완료 후 마지막에 채움)
+**실제로 바뀐 것** (커밋 5개, 모두 chore/maintenance 로컬 브랜치 — push 안 함):
+- 보안 수정 1건: `assets/viewer.js` pdf.js CVE-2024-4367 완화 (`isEvalSupported: false`)
+- 테스트 8파일 신규 (5개 → 13개 테스트, 전부 통과): 채점·초성·이스케이프·인덱스·하이라이트 겹침·카테고리 별칭·오늘의단어·정규화 + `tests/helpers/extract-fn.js` 헬퍼
+- 이 보고서 (`MAINTENANCE_REPORT.md`)
+- 프로덕션 코드 변경은 viewer.js 한 줄뿐. 2단계는 조사만, 4단계는 계획만.
+
+**판단이 필요한 것**:
+1. pdf.js 4.0.379 → 4.2.67+ 업그레이드 — vendored 파일 교체 + 브라우저 육안 검증 필요해 무인 적용 보류 (CVE는 완화 적용으로 차단됨)
+2. 4단계 리팩터링 계획 A~D 착수 여부 (아래 상세)
+3. 무방비 fetch·BASE_URL 하드코딩 — 저위험 수정이지만 "테스트 확보된 것만" 조건에 걸려 보류, 별도 지시 시 30분 내 처리 가능
+4. 죽은 파일 3개 삭제 (security.js는 계획 A 재료로 쓸지 먼저 결정)
+5. (이전 세션부터 미결) 옛 카테고리 디렉터리 12개(stat/, eng/ 등 369파일) 처리
+
+**막혀서 건너뛴 것**:
+- `quiz.js`·`viewer.js` IIFE 내부 DOM 결합 함수들의 단위 테스트 — 구조상 불가, 리팩터링(계획 B) 선행 필요. 연속 실패로 포기한 대상은 없음.
+- `npm audit` — npm 의존성이 0개라 감사 대상 자체가 없음 (vendored/CDN만).
 
 ---
 
@@ -50,3 +65,52 @@ TODO/FIXME 주석은 사실상 0건 — 부채는 주석이 아니라 구조에 
 기타 기록: `viewer.js:507-1596` 단일 IIFE 1090줄(내부 함수 33개가 가변 상태 15개 공유 → 개별 테스트 불가), Supabase URL/anon키가 `auth.js`·`header-search.js` 두 곳 하드코딩, `package.json` 미등록 일회성 마이그레이션 스크립트 9개 방치, `.claude/worktrees/paper-viewer-v2/` 잔존.
 
 테스트 현황: 기존 5개 테스트는 `viewer.js` 순수 함수 4개 + terms.json 데이터 검증만 커버. `viewer.js`만 `module.exports` 보유 — 다른 파일은 export가 없어 테스트 자체가 불가능한 상태.
+
+---
+
+## 3단계: 테스트 작성
+
+테스트 5개 → **13개 (전부 통과)**. 신규 8개 파일/헬퍼:
+
+| 파일 | 대상 | 케이스 |
+|---|---|---|
+| `tests/viewer-escape.test.js` | `viewer.js escapeHtml` (XSS 방어선) | 정상/5개 위험문자/이중 이스케이프 순서/스크립트·속성 주입 페이로드 |
+| `tests/viewer-exactindex.test.js` | `buildExactIndex` (용어 인덱스 안전장치) | 정규화/1글자 제외/모호어 제외/중복 slug/제목 없는 항목 |
+| `tests/viewer-keptspans.test.js` | `computeKeptSpans` (하이라이트 겹침 해소) | 비겹침/동일 시작점 긴 스팬 우선/내부 시작 흡수/맞닿음/다중 출현/위치 없음 |
+| `tests/quiz-answer.test.js` | `normalizeAnswer`/`acceptedAnswers` (주관식 채점 — 2단계 3순위) | 대소문자·공백·기호 무시/null·숫자/별칭 인정/빈 답 거부 |
+| `tests/quiz-choseong.test.js` | `toChoseong` (자동 초성 힌트) | 일반어/쌍자음/음절 범위 양끝(가·힣)/비한글 통과/빈 문자열 |
+| `tests/site-category.test.js` | `site.js resolveCategoryParam` (URL 외부 입력 — 2단계 1순위 인접) | 현행 코드/1:N 별칭 분할/복사본 반환/미지 코드·null |
+| `tests/word-of-day.test.js` | `seededPick` (오늘의 단어 결정론 계약) | 동일 시드 재현성/다른 시드/중복 없음/풀 초과 요청/빈 풀/원본 불변 |
+| `tests/viewer-normalize.test.js` | `normalizeWord`/`extractWords` (매칭 파이프라인 입구) | 정규화/토큰화·중복 제거/숫자·기호만 |
+
+인프라: `quiz.js`·`site.js`·`word-of-day.js`는 최상위에서 DOM에 바로 접근해 Node에서 `require()` 자체가 불가 → **프로덕션 코드를 전혀 건드리지 않고** 소스에서 함수 선언만 잘라내 `vm` 샌드박스로 평가하는 `tests/helpers/extract-fn.js` 헬퍼를 도입. 함수가 파일 내에서 이동해도 이름만 유지되면 테스트는 깨지지 않음. (vm cross-realm 배열은 `Array.from`으로 복사 후 비교 — 헬퍼 사용 시 주의점으로 기록)
+
+건너뛴 것: `quiz.js`의 장문 함수들(`nextQuestion` 등)과 `viewer.js` IIFE 내부 함수 33개는 DOM·공유 가변 상태 결합으로 단위 테스트 불가 — 리팩터링(4단계 계획) 선행 필요. getter성 자명 코드(`termLinkHTML` 등)는 의도적으로 생략.
+
+---
+
+## 4단계: 리팩터링 계획 (실행 안 함 — 검토 후 지시 대기)
+
+2단계 항목 중 **3단계에서 테스트가 확보된 것만** 대상. 각 계획은 보호 테스트가 깨지지 않는 것을 완료 조건으로 삼는다.
+
+### 계획 A — `escapeHtml` 8중 구현 통합 (2단계 4순위)
+- **보호 테스트**: `tests/viewer-escape.test.js` (치환 집합·순서 회귀 감지)
+- **변경**: 새 파일 `assets/escape.js`에 단일 `escapeHtml` 정의(전역 + module.exports 겸용, `word-of-day.js`처럼 `String()` 코어션 포함 버전 채택). 각 HTML `<head>`~스크립트 로드부에 `<script src="assets/escape.js">`를 다른 assets보다 먼저 추가(대상: index/viewer/quiz/history/roadmap/about 등 — terms/*.html은 escapeHtml 미사용이라 무변경). `viewer.js:231`, `history.js:3`, `flashcards.js:5`, `roadmap.js:7`, `home-featured.js:6`, `word-of-day.js:5`의 로컬 정의 삭제 후 공용 함수 참조. 빌드 스크립트 쪽(`generate-en-pages.js:22`, `generate-related-html.js:18`)은 `require("../assets/escape.js")`로 교체.
+- **주의**: `viewer.js`는 CRLF + module.exports 목록에서 escapeHtml re-export 유지 필요(기존 테스트 3개가 참조). 죽은 `assets/security.js`는 이 통합으로 대체되므로 삭제 후보(계획 D와 함께).
+- **완료 조건**: `npm test` 13/13 + 각 페이지 스모크(검색·뷰어 카드·기록 페이지 렌더).
+
+### 계획 B — 주관식 채점 로직의 모듈화 (2단계 3·8순위의 부분)
+- **보호 테스트**: `tests/quiz-answer.test.js`, `tests/quiz-choseong.test.js`
+- **변경**: `quiz.js` 하단에 viewer.js와 같은 패턴의 `if (typeof module !== "undefined" && module.exports)` 블록 추가해 `normalizeAnswer`/`acceptedAnswers`/`toChoseong`/`seededPick`류 순수 함수를 정식 export. 이후 테스트에서 extract 헬퍼 대신 직접 require… 는 불가(최상위 DOM 접근). 따라서 **선행 작업**: `quiz.js:97` 이후의 DOM 초기화 전체를 viewer.js처럼 `if (typeof document !== "undefined") { (function(){ … })(); }`로 감싸기. 함수 선언 호이스팅이 블록 스코프로 바뀌므로, IIFE 밖에서 정의된 순수 함수(채점·초성)와 IIFE 안 DOM 함수의 경계를 명확히 나눠야 함 — 기계적이지만 1,652줄 전체를 건드리는 변경이라 브라우저 스모크 필수.
+- **완료 조건**: `npm test` 통과 + 퀴즈 4개 모드(정의/용어/랜덤/주관식) 실제 플레이 1회씩.
+
+### 계획 C — `nextQuestion` 215줄 분해 (2단계 8순위, 계획 B 이후에만)
+- **보호 테스트**: 현재는 채점·초성 테스트만 간접 보호. **계획 B로 export가 열린 뒤** `renderSubjectiveQuestion`/보기 생성 로직을 순수 부분(보기 4개 추출·셔플)과 DOM 부분으로 분리하고, 순수 부분에 테스트를 먼저 추가한 다음 분해. 테스트 없는 상태로 분해 착수 금지.
+
+### 계획 D — 죽은 파일 삭제 (2단계 9순위)
+- **보호 테스트**: 해당 없음(참조 0건이 근거). `assets/category.js`, `scripts/generate-minimap-data.js` + `package.json`의 `build:minimap-data` 항목 삭제. `assets/security.js`는 계획 A에서 통합본 재료로 쓸지 먼저 결정 후 삭제.
+- **완료 조건**: 전체 HTML에서 삭제 파일 참조 0건 재확인(grep) + `npm test`.
+
+### 계획 외 (테스트 미확보 — 착수 보류 근거)
+- `site.js`/`history.js`의 무방비 fetch(2단계 1·5순위): fetch 자체는 브라우저 통합 지점이라 단위 테스트로 보호 불가. 수정 자체는 `header-search.js`의 기존 try-catch 패턴 복사로 저위험이지만, "테스트 확보된 것만" 조건에 따라 계획서에서 제외하고 여기 기록만 남김.
+- `BASE_URL` 3중 하드코딩(2순위): 공유 상수 파일 1개로 즉시 해소 가능하나 동일 사유로 보류.
