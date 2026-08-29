@@ -57,6 +57,45 @@ function toChoseong(str){
 }
 
 
+// 객관식 보기 구성: 정답 1개 + 풀에서 뽑은 중복 없는 오답으로 4개를 채운다.
+// mode가 "definition"이면 보기는 용어명, 아니면 정의. rand는 테스트에서
+// 결정론을 위해 주입 가능(기본 Math.random). 풀에 서로 다른 보기가 4개가 안
+// 되면 무한 루프에 빠지지 않도록 시도 횟수를 제한하고 있는 만큼만 반환한다.
+function buildChoiceOptions(answer, pool, mode, rand){
+
+    rand = rand || Math.random;
+
+    const options = [answer];
+
+    let attempts = 0;
+
+    const maxAttempts = pool.length * 10 + 40;
+
+    while(options.length < 4 && attempts < maxAttempts){
+
+        attempts++;
+
+        const randomTerm =
+        pool[Math.floor(rand() * pool.length)];
+
+        const option =
+        mode === "definition"
+            ? randomTerm.title_ko
+            : randomTerm.definition;
+
+        if(option && !options.includes(option)){
+
+            options.push(option);
+
+        }
+
+    }
+
+    return options;
+
+}
+
+
 if (typeof module !== "undefined" && module.exports) {
-    module.exports = { normalizeAnswer, acceptedAnswers, toChoseong, CHOSEONG };
+    module.exports = { normalizeAnswer, acceptedAnswers, toChoseong, CHOSEONG, buildChoiceOptions };
 }

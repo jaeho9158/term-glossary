@@ -629,50 +629,9 @@ function nextQuestion(){
 
 
 
+    // 보기 4개 구성은 quiz-core.js의 순수 함수로 분리 (테스트 대상)
     const options =
-    [answer];
-
-
-
-
-    while(options.length < 4){
-
-
-
-        const randomTerm =
-        allTerms[
-            Math.floor(
-                Math.random()
-                *
-                allTerms.length
-            )
-        ];
-
-
-
-        const option =
-        mode==="definition"
-        ?
-        randomTerm.title_ko
-        :
-        randomTerm.definition;
-
-
-
-
-        if(
-            option &&
-            !options.includes(option)
-        ){
-
-            options.push(option);
-
-        }
-
-
-    }
-
-
+    buildChoiceOptions(answer, allTerms, mode);
 
 
 
