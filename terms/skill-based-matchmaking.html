@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Skill-Based Matchmaking(실력 기반 매치메이킹)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="실력 기반 매치메이킹은 추정 실력 점수로 비슷한 수준의 상대를 붙여 주는 배정 방식입니다. 점수 추정 모형, 대기 시간과 매칭 품질의 상충, 학계 쟁점을 정리했습니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/skill-based-matchmaking.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 실력 기반 매치메이킹 (Skill-Based Matchmaking)</p>
+  <h1>실력 기반 매치메이킹 (Skill-Based Matchmaking)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=gamestudy">문화콘텐츠학·게임학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 플레이어의 추정 실력 점수를 근거로 비슷한 수준의 상대끼리 대전을 성사시키는 배정 방식으로, 승률을 절반 부근에 맞추는 것을 목표로 합니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>동네 탁구장에서 관장님이 실력이 비슷한 사람끼리 짝을 지어 주는 장면을 떠올리면 쉽습니다. 너무 잘하는 사람과 붙이면 초보가 그만두고, 너무 못하는 사람과 붙이면 고수가 지루해하기 때문입니다. 온라인 게임도 같은 일을 자동으로 합니다. 다만 관장님과 달리 대기실에 사람이 계속 드나들기 때문에, 완벽한 짝을 기다리면 대기 시간이 길어지고 빨리 붙여 주면 실력 차이를 감수해야 합니다. 매치메이킹 설계는 결국 이 둘 사이의 타협점을 찾는 작업입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>승패 경험이 몰입과 이탈을 좌우한다는 전제 위에서 <a href="challenge-skill-balance.html">도전-기술 균형</a>을 시스템 차원에서 구현하는 장치이기 때문입니다. 신규 이용자 잔존, 경쟁 모드의 공정성 인식, e스포츠 등급 체계까지 연결되어 게임 분석 연구에서 자주 다루어집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"본 연구는 매치메이킹 허용 점수 폭을 확대한 이후 평균 대기 시간과 신규 이용자 30일 잔존율의 변화를 비교하였다."</div>
+  <p>실력 차이를 더 너그럽게 허용하도록 기준을 완화했을 때, 빨라진 대기 시간이 초보 이용자를 붙잡아 두는 데 실제로 도움이 되었는지를 확인한 분석입니다.</p>
+  <div class="example">"실력 기반 매칭이 적용된 캐주얼 모드에서 상위 구간 이용자의 주관적 피로도가 유의하게 높게 보고되었다."</div>
+  <p>가볍게 즐기라고 만든 모드에까지 실력 매칭을 적용하니, 잘하는 이용자일수록 매판 힘든 경기를 하게 되어 피로를 더 느꼈다는 결과입니다. 모드별 적용 여부가 쟁점이 되는 근거입니다.</p>
+  <div class="example">"베이지안 실력 추정 모형을 도입해 초기 배치 경기 수를 줄이면서도 순위 예측 정확도를 유지하였다."</div>
+  <p>점수와 함께 불확실성까지 추정하는 통계 모형을 써서, 새 이용자의 실력을 판정하는 데 필요한 경기 수를 줄였다는 뜻입니다. 온보딩 부담을 낮추는 기술적 개선입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>실력 점수 산출에는 체스에서 유래한 단일 점수 방식, 점수와 불확실성을 함께 갱신하는 방식, 팀 경기를 위해 개인 실력을 잠재변수로 추정하는 베이지안 방식이 차례로 쓰여 왔습니다. 팀 게임에서는 개인 점수를 어떻게 합산할지, 역할별 기여를 어떻게 보정할지가 추가 과제가 됩니다. 목적함수도 예측 정확도만이 아니라 대기 시간, 팀 균형, 잔존율을 함께 담기 때문에, 이용자 몰입 지표를 직접 최적화하는 매칭이 윤리적으로 정당한지가 학계 쟁점으로 제기되어 왔습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>실력 점수는 승패 기록에서 역산한 잠재변수이지 절대적 실력의 측정치가 아닙니다. 이용자에게 보이는 티어와 내부 점수가 다를 수 있다는 점, 그리고 승률이 절반에 수렴하는 것은 조작이 아니라 매칭이 잘 작동할 때 나타나는 통계적 결과라는 점을 구분해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="competitive-game-balance.html">경쟁적 게임 밸런스</a>
+    <a href="pvp-design.html">PvP 디자인</a>
+    <a href="fairness-perception-games.html">공정성 지각(게임)</a>
+    <a href="player-retention.html">플레이어 리텐션</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

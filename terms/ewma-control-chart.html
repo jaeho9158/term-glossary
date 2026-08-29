@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>EWMA Control Chart(지수가중이동평균관리도)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="지수가중이동평균관리도는 과거 값에 지수 가중치를 주어 공정의 작은 평균 이동을 빠르게 탐지하는 관리도입니다. 평활상수 설계와 한계를 설명합니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/ewma-control-chart.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 지수가중이동평균관리도 (EWMA Control Chart)</p>
+  <h1>지수가중이동평균관리도 (EWMA Control Chart)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 과거 관측값에 지수적으로 줄어드는 가중치를 주어 누적한 통계량으로 공정 평균의 작은 이동을 민감하게 탐지하는 관리도입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>최근 성적일수록 비중을 높게 쳐서 평점을 매기는 방식을 떠올리면 됩니다. 오래된 시험도 완전히 버리지는 않고 갈수록 가벼운 무게로만 반영하는 것이지요. 지수가중이동평균관리도는 이 계산을 공정 데이터에 적용합니다. 매번 새 측정값이 들어오면 새 값과 직전까지의 누적값을 정해진 비율로 섞어 하나의 통계량을 갱신하고, 이 값이 관리한계를 벗어나는지 봅니다. 값 하나하나만 보는 관리도는 우연한 튐과 진짜 변화를 구분하기 어렵지만, 이렇게 기억을 가진 통계량은 작은 변화가 여러 번 같은 방향으로 쌓이면 이를 놓치지 않고 잡아냅니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>전통적인 관리도는 개별 관측값만 보기 때문에 표준편차의 1배 남짓한 미세한 평균 이동을 탐지하는 데 매우 오랜 시간이 걸립니다. 지수가중이동평균관리도는 같은 오경보 수준에서 이런 작은 이동에 대한 탐지 소요 시간을 크게 줄여 주므로, 화학 공정처럼 서서히 표류하는 설비의 감시 연구에서 표준적으로 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"평활상수를 0.2로 설정한 지수가중이동평균관리도가 슈하트 관리도보다 1시그마 이동을 훨씬 빨리 탐지하였다."</div>
+  <p>평활상수를 작게 둘수록 과거 값의 기억이 길어져 작은 이동에 민감해집니다. 같은 오경보 수준에서 평균 탐지 소요 표본 수가 줄었다는 뜻입니다.</p>
+  <div class="example">"초기 구간에는 점근 관리한계 대신 시간에 따라 변하는 정확한 관리한계를 적용하였다."</div>
+  <p>누적 통계량의 분산은 초기에 작고 점차 커지므로, 처음부터 넓은 점근 한계를 쓰면 초기 이상을 놓칩니다. 이를 보정한 설계를 뜻합니다.</p>
+  <div class="example">"자기상관이 존재하는 공정에 대해 시계열 모형의 잔차에 지수가중이동평균관리도를 적용하였다."</div>
+  <p>관측값이 서로 독립이라는 가정이 깨진 경우, 예측 모형을 세워 그 잔차를 감시 대상으로 삼는 우회 전략을 사용했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>갱신식은 새 관측값에 평활상수를 곱한 값과 직전 통계량에 나머지 비율을 곱한 값을 더하는 형태이며, 평활상수를 1로 두면 개별값을 그대로 보는 슈하트 관리도와 같아집니다. 통계량의 분산은 원자료 분산보다 작아 관리한계가 좁고, 시점이 흐를수록 일정한 값으로 수렴합니다. 성능은 보통 평균런길이로 평가하며, 작은 이동 탐지에서는 누적합 관리도와 비슷한 수준을 보입니다. 평활상수와 관리한계 폭을 목표 이동 크기에 맞춰 함께 설계하는 것이 일반적입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>작은 이동에 강하다는 장점은 큰 이동에서는 오히려 단점이 됩니다. 표준편차 3배 수준의 급격한 변화는 개별값을 보는 관리도가 더 빨리 잡아내므로 두 관리도를 병행하기도 합니다. 또한 관측값의 독립성 가정이 깨지면 오경보율이 설계값과 크게 달라집니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="statistical-control-chart.html">통계적관리도</a>
+    <a href="multivariate-statistical-process-control.html">다변량통계적공정관리</a>
+    <a href="six-sigma-dmaic.html">식스시그마DMAIC</a>
+    <a href="measurement-system-analysis.html">측정시스템분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

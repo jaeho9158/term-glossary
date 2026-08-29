@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Silver-Meal Heuristic(실버-밀 휴리스틱)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="실버-밀 휴리스틱은 동적 로트사이징에서 기간당 평균비용이 최소가 되도록 발주량을 정하는 근사 기법입니다. 계산 규칙과 최적해 대비 한계를 설명합니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/silver-meal-heuristic.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 실버-밀 휴리스틱 (Silver-Meal Heuristic)</p>
+  <h1>실버-밀 휴리스틱 (Silver-Meal Heuristic)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 기간별 수요가 다른 상황에서 기간당 평균비용이 가장 낮아지도록 주문 주기를 늘려 가며 발주량을 정하는 근사 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>생필품을 한 번에 며칠치씩 살지 정하는 상황을 생각해 봅시다. 한꺼번에 많이 사면 장 보러 가는 횟수는 줄지만 집에 쌓아 둘 짐이 늘어납니다. 실버-밀 휴리스틱은 이 고민을 하루당 비용으로 환산해 판단합니다. 이번에 며칠치를 살지 하루치씩 늘려 가며 하루당 드는 비용을 계산하다가, 그 값이 처음으로 다시 올라가는 순간 직전에서 멈추는 것입니다. 공장의 발주계획도 똑같이 처리합니다. 이번 발주에 몇 기간분의 수요를 담을지 한 기간씩 늘려 보면서 기간당 평균비용을 재고, 값이 올라가기 시작하면 거기서 로트를 확정한 뒤 다음 기간부터 다시 같은 계산을 반복합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>자재소요계획 안에서는 품목마다 기간별 소요량이 들쭉날쭉하게 나오므로 수요가 일정하다고 전제하는 공식은 쓸 수 없습니다. 최적해를 주는 동적계획 기반 알고리즘이 있지만 품목 수가 수만 개인 실무 환경과 계획을 매기 갱신하는 롤링 방식에서는 부담이 큽니다. 이 기법은 계산이 간단하면서도 최적해에 가까운 비용을 내기 때문에 로트사이징 연구의 비교 기준으로 오래 쓰이고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"실버-밀 휴리스틱으로 산출한 발주계획의 총비용이 와그너-휘틴 알고리즘 최적해 대비 소폭 증가에 그쳤다."</div>
+  <p><a href="wagner-whitin-algorithm.html">와그너-휘틴 알고리즘</a>이 주는 최적 총비용을 기준선으로 삼아, 훨씬 간단한 휴리스틱의 비용 열화 폭을 측정했다는 뜻입니다.</p>
+  <div class="example">"수요 변동이 큰 구간에서는 최소단위비용법보다 실버-밀 기법의 성능이 우수하였다."</div>
+  <p>단위당 비용을 기준으로 삼는 경쟁 휴리스틱과 비교한 결과입니다. 두 기법은 기준이 기간당 비용이냐 단위당 비용이냐에서 갈립니다.</p>
+  <div class="example">"계획 구간을 매 기간 앞으로 밀며 재계산하는 롤링 방식으로 휴리스틱을 적용하였다."</div>
+  <p>고정된 전체 구간을 한 번에 푸는 대신, 수요 정보가 갱신될 때마다 계획을 다시 세우는 실무형 운영 방식을 실험 조건으로 삼았다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>핵심은 판단 기준을 총비용이 아니라 기간당 평균비용으로 잡는다는 점입니다. 현재 기간부터 여러 기간분을 한 번에 발주한다고 가정하고, 발주에 드는 고정비와 그 기간 동안 쌓아 두는 재고유지비를 합해 기간 수로 나눈 값을 순차적으로 계산합니다. 이 값이 감소하는 동안은 로트를 키우고, 처음 증가로 돌아서면 직전 시점에서 확정한 뒤 다음 로트로 넘어갑니다. 국소적인 정지 규칙이므로 전역 최적성은 보장되지 않으며, 수요가 급증하거나 급감하는 구간에서는 열화가 두드러질 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>수요가 일정하다는 가정 위에 세워진 경제적주문량 공식과 혼동하면 안 됩니다. 이 기법은 기간별 수요가 서로 다른 동적 상황을 전제합니다. 또한 평균비용이 한 번 올라가면 즉시 멈추기 때문에, 그 뒤에 더 유리한 로트 구성이 있어도 놓칠 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="wagner-whitin-algorithm.html">와그너-휘틴 알고리즘</a>
+    <a href="material-requirements-planning.html">자재소요계획</a>
+    <a href="economic-production-quantity.html">경제적생산량</a>
+    <a href="demand-forecasting-models.html">수요예측모형</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

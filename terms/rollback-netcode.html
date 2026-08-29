@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Rollback Netcode(롤백 넷코드)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="롤백 넷코드는 상대 입력을 예측해 진행하고 실제 입력이 오면 되감아 재계산하는 대전 동기화 기법입니다. 지연 기반 방식과의 차이와 성립 조건을 정리했습니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/rollback-netcode.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 롤백 넷코드 (Rollback Netcode)</p>
+  <h1>롤백 넷코드 (Rollback Netcode)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=gamestudy">문화콘텐츠학·게임학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 상대의 입력을 예측해 즉시 진행하고 실제 입력이 도착하면 과거 시점으로 되감아 다시 계산하는 온라인 대전 동기화 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>전화 통화를 하면서 상대가 할 말을 미리 짐작해 대답을 이어 가다가, 실제로 들린 말이 예상과 다르면 방금 몇 초를 되감아 고쳐 말하는 상황을 떠올리면 됩니다. 롤백 방식은 내 조작을 상대 입력이 도착할 때까지 기다리지 않고 곧바로 화면에 반영합니다. 그래서 버튼을 누른 순간의 반응이 오프라인과 거의 같게 느껴집니다. 대신 예측이 틀리면 몇 프레임을 되돌려 다시 계산하므로, 상대 캐릭터가 순간적으로 위치를 고쳐 잡는 모습이 보이기도 합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>격투 게임처럼 프레임 단위 반응이 승패를 가르는 장르에서 온라인 플레이의 성립 여부를 좌우하기 때문입니다. 입력 지연 지각 연구, 원격 e스포츠 대회의 기술적 조건, 대전 게임의 국제 서버 통합 논의가 모두 이 기법의 성능 한계 위에서 이루어집니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"롤백 넷코드 도입 이후 왕복 지연 200밀리초 구간의 대전에서 참가자의 체감 입력 지연 평가가 유의하게 개선되었다."</div>
+  <p>네트워크 지연 자체는 그대로인 조건에서도 이용자가 느끼는 조작 반응성은 뚜렷하게 좋아졌다는 결과입니다. 지연을 없앤 것이 아니라 가린 것이라는 점을 보여 줍니다.</p>
+  <div class="example">"결정론적 시뮬레이션을 보장하지 못한 물리 연산이 롤백 시 상태 불일치를 유발하는 것으로 확인되었다."</div>
+  <p>같은 입력을 넣으면 항상 같은 결과가 나와야 되감기가 성립하는데, 그 조건을 지키지 못한 물리 계산 때문에 두 클라이언트의 화면이 어긋났다는 뜻입니다.</p>
+  <div class="example">"지연 기반 방식과 롤백 방식을 비교한 실험에서 참가자의 콤보 성공률 차이가 관찰되었다."</div>
+  <p>모든 이용자에게 인위적 입력 지연을 넣는 기존 방식과 롤백 방식을 같은 조건에서 견주어, 정밀한 연속 입력의 성공률이 실제로 달라지는지를 측정한 실험입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>대안인 지연 기반 방식은 모든 클라이언트에 같은 크기의 입력 지연을 넣어 상태를 강제로 일치시키는 반면, 롤백 방식은 예측과 재시뮬레이션으로 지연을 감춥니다. 성립 조건은 세 가지입니다. 같은 입력에 같은 결과를 보장하는 결정론적 시뮬레이션, 값싸게 저장하고 되돌릴 수 있는 게임 상태 스냅숏, 그리고 시뮬레이션과 렌더링의 분리입니다. 되감는 프레임 수가 늘면 캐릭터가 튀어 보이는 시각적 왜곡이 커지므로, 소리나 파티클처럼 되돌리기 어려운 요소는 롤백 대상에서 제외하는 관행이 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>롤백은 지연을 제거하는 기술이 아니라 조작 반응성만 지켜 내는 기술입니다. 물리적 왕복 지연이 크면 화면 왜곡은 오히려 늘어납니다. 또 FPS에서 서버가 과거 시점으로 판정을 되돌리는 지연 보상과는 목적도 적용 층위도 다르므로 구분해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="multiplayer-game-design.html">멀티플레이어 게임 디자인</a>
+    <a href="pvp-design.html">PvP 디자인</a>
+    <a href="game-state-machine.html">게임 상태기계</a>
+    <a href="game-controller-input-design.html">게임 컨트롤러 입력 디자인</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

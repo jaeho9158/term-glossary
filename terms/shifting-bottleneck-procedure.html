@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Shifting Bottleneck Procedure(이동병목절차)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="이동병목절차는 잡숍 스케줄링을 단일기계 부분문제로 분해해 병목 기계부터 순서를 확정하는 휴리스틱입니다. 원리와 재최적화 단계, 한계를 설명합니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/shifting-bottleneck-procedure.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="../about.html">소개</a>
+      <a href="../changelog.html">업데이트기록</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 이동병목절차 (Shifting Bottleneck Procedure)</p>
+  <h1>이동병목절차 (Shifting Bottleneck Procedure)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 잡숍 일정계획 문제를 기계별 단일기계 문제로 쪼갠 뒤 병목이 가장 심한 기계부터 차례로 순서를 확정해 나가는 휴리스틱입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 대의 기계를 제각기 다른 순서로 거쳐야 하는 주문들이 뒤엉킨 공장에서, 모든 기계의 작업 순서를 한꺼번에 최적으로 정하는 일은 사실상 불가능에 가깝습니다. 이동병목절차는 이 문제를 기계 한 대씩 푸는 방식으로 잘게 나눕니다. 일정이 꼬인 여러 회의실 가운데 예약 경쟁이 가장 치열한 방부터 시간표를 확정하고 그 결과를 나머지 방의 제약조건으로 넘기는 것과 비슷합니다. 아직 순서가 정해지지 않은 기계들 중 지연을 가장 크게 유발하는 기계를 병목으로 지목해 순서를 고정하고, 고정할 때마다 이미 확정된 기계들의 순서를 다시 손봅니다. 모든 기계가 확정될 때까지 이 과정을 반복합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>잡숍 스케줄링은 대표적인 계산난해 문제여서 기계와 작업 수가 조금만 늘어도 최적해를 구하기 어렵습니다. 이동병목절차는 이론과 알고리즘이 잘 정리된 단일기계 부분문제를 반복적으로 활용해 실용적인 시간 안에 품질 좋은 해를 만들어 냅니다. 이 때문에 후속 메타휴리스틱 연구에서 초기해 생성기나 성능 비교의 기준선으로 널리 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"이동병목절차로 생성한 초기해를 타부탐색의 출발점으로 사용하여 메이크스팬을 추가로 단축하였다."</div>
+  <p>구조적 휴리스틱으로 좋은 출발점을 만든 뒤 <a href="tabu-search.html">타부탐색</a>으로 개선하는 이단계 설계를 뜻합니다. 무작위 초기해보다 수렴이 빠른 경우가 많습니다.</p>
+  <div class="example">"각 반복에서 미확정 기계마다 최대지연 최소화 부분문제를 풀어 목적함숫값이 가장 큰 기계를 병목으로 선정하였다."</div>
+  <p>투입가능시각과 납기가 주어진 단일기계 문제를 기계별로 풀고, 지연이 가장 심하게 나온 기계를 그 반복의 병목으로 지목했다는 뜻입니다.</p>
+  <div class="example">"재최적화 단계를 생략한 축약형은 계산시간이 줄었으나 메이크스팬이 평균적으로 열화되었다."</div>
+  <p>새 기계를 확정한 뒤 기존 확정 기계들의 순서를 다시 푸는 재최적화가 해의 품질에 크게 기여함을 실험으로 확인했다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>이 절차는 잡숍 문제를 분리그래프로 표현한 뒤, 아직 방향이 정해지지 않은 기계 하나를 골라 그 기계의 작업 순서를 정하는 일을 반복하는 것으로 볼 수 있습니다. 각 기계의 부분문제는 이미 확정된 부분에서 유도한 투입가능시각과 납기를 갖는 단일기계 최대지연 최소화 문제이며, 이를 정확히 푸는 전용 분지한정 알고리즘이 알려져 있습니다. 부분 탐색트리를 유지하며 여러 병목 후보를 함께 전개하는 확장형도 제안되었고, 총가중지연 같은 다른 목적함수로 옮기려면 부분문제 자체를 바꿔야 합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>여기서 말하는 병목은 설비 용량이 만성적으로 부족한 물리적 병목이 아니라, 현재 부분해에서 지연을 가장 크게 유발하는 기계를 뜻하며 반복마다 바뀝니다. 이름에 이동이 붙은 이유도 그 때문입니다. 또한 휴리스틱이므로 최적해를 보장하지 않습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="job-shop-scheduling.html">작업장스케줄링</a>
+    <a href="makespan-minimization.html">메이크스팬최소화</a>
+    <a href="bottleneck-analysis.html">병목분석</a>
+    <a href="tabu-search.html">타부탐색</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
