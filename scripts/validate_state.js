@@ -15,11 +15,19 @@ console.log('duplicate slugs:', dupes.length, dupes.slice(0,20));
 const missingHtml = terms.filter(t => !fs.existsSync(path.join(root, 'terms', t.slug + '.html')));
 console.log('terms.json entries missing html file:', missingHtml.length, missingHtml.slice(0,20).map(t=>t.slug));
 
-// every html file (in terms dir) has terms.json entry
+// every html file (in terms dir) has terms.json entry.
+// 중복 병합으로 생긴 리다이렉트 스텁(canonical + noindex + meta refresh)은 의도적으로
+// terms.json/sitemap에 없다 — 진짜 고아(집필됐지만 등록 안 된 페이지)와 구분해야
+// 매번 1000건대 가짜 경보가 뜨지 않는다.
 const htmlFiles = fs.readdirSync(path.join(root, 'terms')).filter(f => f.endsWith('.html'));
 const slugSet = new Set(terms.map(t=>t.slug));
-const orphanHtml = htmlFiles.filter(f => !slugSet.has(f.replace(/\.html$/, '')));
-console.log('html files with no terms.json entry:', orphanHtml.length, orphanHtml.slice(0,20));
+const unregistered = htmlFiles.filter(f => !slugSet.has(f.replace(/\.html$/, '')));
+const isStub = (f) =>
+  fs.readFileSync(path.join(root, 'terms', f), 'utf8').includes('http-equiv="refresh"');
+const redirectStubs = unregistered.filter(isStub);
+const orphanHtml = unregistered.filter(f => !redirectStubs.includes(f));
+console.log('redirect stubs (expected, not indexed):', redirectStubs.length);
+console.log('ORPHAN html with content but no terms.json entry:', orphanHtml.length, orphanHtml.slice(0,20));
 
 // category counts
 const cats = {};
