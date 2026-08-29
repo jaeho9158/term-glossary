@@ -737,29 +737,7 @@ let subjectiveHintTerm = null;
 
 let subjectiveHintShown = false;
 
-const CHOSEONG =
-["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
-
-function toChoseong(str){
-
-    return [...str].map(ch => {
-
-        const code = ch.charCodeAt(0) - 0xAC00;
-
-        if(code >= 0 && code < 11172){
-
-            return CHOSEONG[Math.floor(code / 588)];
-
-        }
-
-        // 한글 음절이 아니면(영문·숫자 등) 그대로 보여준다 —
-        // 초성이 없는 글자를 ○로 계속 가리면 힌트 구실을 못 한다.
-        return ch;
-
-    }).join("");
-
-}
-
+// CHOSEONG / toChoseong 은 assets/quiz-core.js(전역)로 이동 — 페이지가 먼저 로드함.
 function revealChoseongHint(){
 
     if(subjectiveHintShown || !subjectiveHintTerm)
@@ -784,32 +762,7 @@ function revealChoseongHint(){
 }
 
 
-// 정답 판정용 정규화: 대소문자·공백·하이픈·가운뎃점 차이는 무시한다.
-// "표본 크기"와 "표본크기", "p-value"와 "P Value"를 다른 답으로
-// 처리하면 타이핑 퀴즈는 채점 불복만 쌓인다.
-function normalizeAnswer(s){
-
-    return String(s || "")
-        .toLowerCase()
-        .replace(/[\s\-–—_·.()（）]/g, "");
-
-}
-
-
-// 한글명·영문명·등록된 별칭 전부를 정답으로 인정한다.
-function acceptedAnswers(term){
-
-    const pool = [
-        term.title_ko,
-        term.title_en,
-        ...(term.aliases || [])
-    ];
-
-    return new Set(
-        pool.map(normalizeAnswer).filter(Boolean)
-    );
-
-}
+// normalizeAnswer / acceptedAnswers 는 assets/quiz-core.js(전역)로 이동.
 
 
 function renderSubjectiveQuestion(term){

@@ -1,12 +1,7 @@
 // 시간 경과 시 자동 공개되는 초성 힌트 변환. 한글 음절 → 초성 매핑이 틀리면
 // 힌트가 오히려 오답을 유도한다.
 const assert = require("assert");
-const { extract } = require("./helpers/extract-fn.js");
-
-const { toChoseong } = extract("assets/quiz.js", {
-  fns: ["toChoseong"],
-  consts: ["CHOSEONG"],
-});
+const { toChoseong } = require("../assets/quiz-core.js");
 
 // 정상: 일반 한글 용어
 {

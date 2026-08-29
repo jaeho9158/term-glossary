@@ -1,11 +1,7 @@
 // 주관식 퀴즈 채점 — 사용자가 타이핑한 답을 직접 판정하는 유일한 지점.
 // 오판정은 사용자 신뢰에 직결되는데 지금까지 테스트가 없었다.
 const assert = require("assert");
-const { extract } = require("./helpers/extract-fn.js");
-
-const { normalizeAnswer, acceptedAnswers } = extract("assets/quiz.js", {
-  fns: ["normalizeAnswer", "acceptedAnswers"],
-});
+const { normalizeAnswer, acceptedAnswers } = require("../assets/quiz-core.js");
 
 // 정상: 대소문자·공백·하이픈·가운뎃점·괄호 차이 무시
 {
