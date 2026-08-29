@@ -114,3 +114,22 @@ TODO/FIXME 주석은 사실상 0건 — 부채는 주석이 아니라 구조에 
 ### 계획 외 (테스트 미확보 — 착수 보류 근거)
 - `site.js`/`history.js`의 무방비 fetch(2단계 1·5순위): fetch 자체는 브라우저 통합 지점이라 단위 테스트로 보호 불가. 수정 자체는 `header-search.js`의 기존 try-catch 패턴 복사로 저위험이지만, "테스트 확보된 것만" 조건에 따라 계획서에서 제외하고 여기 기록만 남김.
 - `BASE_URL` 3중 하드코딩(2순위): 공유 상수 파일 1개로 즉시 해소 가능하나 동일 사유로 보류.
+
+---
+
+## 후속 작업 (사용자 "순서대로 처리" 지시, 2026-08-29)
+
+| # | 항목 | 결과 |
+|---|---|---|
+| 1 | pdf.js 4.0.379 → 4.10.38 업그레이드 | **미완 — 차단됨.** 파일 다운로드(curl·npm pack)가 세션 권한 정책에 막힘. CVE-2024-4367은 완화 적용으로 이미 차단된 상태라 보안상 급하지 않음. 사용자가 직접 받거나 다운로드 권한 허용 후 재시도 필요 (`assets/vendor/pdfjs/`의 pdf.min.mjs·pdf.worker.min.mjs 두 파일 교체 + 뷰어 육안 확인) |
+| 2 | 계획 A: escapeHtml 통합 | **완료.** `assets/escape.js` 단일본, 로컬 구현 7곳 제거, 4개 페이지에 로드 추가. 브라우저에서 홈·기록·로드맵·뷰어 콘솔 무오류, 뷰어 카드 렌더·XSS 이스케이프 확인 |
+| 3 | 계획 B: 퀴즈 순수 로직 분리 | **완료.** `assets/quiz-core.js`(채점·초성), 테스트는 직접 require로 전환. 주관식 초성 공개·정답 판정 실플레이 확인 |
+| 4 | 계획 C: nextQuestion 분해 | **완료(부분).** 보기 생성 while 루프를 `buildChoiceOptions` 순수 함수로 추출 + 테스트(`tests/quiz-choices.test.js`). 부수 효과: 풀에 보기 4개 미만일 때의 무한 루프 가능성을 시도 상한으로 방어. 객관식 실플레이 확인 |
+| 5 | 계획 D: 죽은 파일 삭제 | **완료.** category.js·security.js·generate-minimap-data.js 삭제, package.json 정리 |
+| 6 | fetch·localStorage 보강 | **완료.** fetch 4곳(site/history/roadmap/viewer)에 ok 검사·실패 안내, setItem 5곳 try/catch |
+| 7 | BASE_URL 단일화 | **완료.** `scripts/site-config.js` 단일 출처, 스크립트 3곳 require로 전환 |
+| 8 | 옛 카테고리 디렉터리 12개 | **완료.** 369페이지 전부 terms/로의 리다이렉트 스텁으로 교체(`scripts/stub-legacy-category-pages.js`). 삭제 대신 스텁을 택해 외부 유입 링크 보존, 깨진 내부 링크 335건은 콘텐츠와 함께 소멸. 누락 대상 0건 |
+
+테스트 15/15 통과, 각 단계 브라우저 검증 완료. 커밋 7개 추가(모두 chore/maintenance, push 안 함).
+
+**사고·복구 기록**: 6번 작업 검증 중 `require()`로 generate-related-html.js를 불러오다 스크립트가 실행돼 terms/*.html 26,211개가 재생성됨(905개는 실제 내용 변화). 커밋 전이라 `git checkout -- terms`로 전량 복원, 실작업은 영향 없음. 교훈: 이 리포지토리의 scripts/*.js는 require 즉시 실행되므로 문법 검사는 `node --check`만 쓸 것.
