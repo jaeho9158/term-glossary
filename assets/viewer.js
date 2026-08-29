@@ -1499,11 +1499,13 @@ if (typeof document !== "undefined") {
         }
         pdfTextContentCache.set(i, textContent);
 
-        await window.pdfjsLib.renderTextLayer({
+        // pdf.js 4.5+에서 renderTextLayer() 함수가 제거되고 TextLayer 클래스로
+        // 대체됐다 (4.10 업그레이드에 맞춘 교체).
+        await new window.pdfjsLib.TextLayer({
           textContentSource: textContent,
           container: textLayerDiv,
           viewport,
-        }).promise;
+        }).render();
 
         pageTexts.push(joinTextItems(textContent.items));
 
