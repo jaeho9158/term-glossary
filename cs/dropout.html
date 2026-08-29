@@ -3,97 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Dropout(드롭아웃)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Dropout(드롭아웃)을 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 신경망 과적합을 막는 원리를 논문 예문과 함께 확인하세요.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://termglossary.kr/terms/dropout.html">
-<link rel="stylesheet" href="../style.css">
-<!-- GA4 analytics:start -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7SW2PGCN27');
-</script>
-<!-- GA4 analytics:end -->
-<!-- AdSense:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
-<!-- AdSense:end -->
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=../terms/dropout.html">
 </head>
-<body data-base="../">
-<header class="site-header">
-  <div class="inner">
-    <a class="logo" href="../index.html">논문용어사전</a>
-    <div class="header-search">
-      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
-      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
-    </div>
-    <button
-      id="menu-toggle"
-      class="menu-toggle"
-      aria-label="메뉴"
-      aria-expanded="false">
-      ☰
-    </button>
-
-    <nav id="site-nav" class="site-nav">
-      <a href="../index.html">용어 목록</a>
-      <a href="../about.html">소개</a>
-      <a href="../login.html" id="nav-login">로그인</a>
-      <a href="../signup.html" id="nav-signup">회원가입</a>
-      <a href="../history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
-    </nav>
-  </div>
-</header>
-
-<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 드롭아웃 (Dropout)</p>
-  <h1>드롭아웃 (Dropout)</h1>
-
-  <div class="definition-box">
-    <strong>한 줄 정의:</strong> 신경망을 학습시킬 때마다 일부 뉴런을 무작위로 꺼버려서, 모델이 특정 뉴런에만 의존하지 않고 골고루 학습하게 만드는 기법입니다.
-  </div>
-
-  <h2>쉽게 풀면</h2>
-  <p>팀 프로젝트를 할 때 매번 같은 에이스 팀원 한 명에게만 의존하면, 그 사람이 없을 때 팀 전체가 무너집니다. 그래서 연습 삼아 매 회의마다 무작위로 몇 명을 빠지게 하면, 나머지 팀원들도 각자 실력을 키우게 되고 결국 팀 전체가 더 단단해집니다. 드롭아웃도 똑같은 원리입니다. 신경망을 학습시키는 매 단계마다 일부 뉴런을 무작위로 "빠지게"(출력을 0으로) 만들면, 특정 뉴런 몇 개에만 의존하는 대신 여러 뉴런이 골고루 문제 해결에 기여하도록 훈련됩니다. 그 결과 학습 데이터에만 맞춰진 <a href="overfitting.html">과적합</a>을 줄이고, 새로운 데이터에도 더 잘 일반화되는 모델을 만들 수 있습니다.</p>
-
-  <h2>왜 중요한가</h2>
-  <p>파라미터 수가 많은 신경망일수록 학습 데이터의 패턴을 과도하게 외워버리는 과적합에 취약한데, 드롭아웃은 구현이 간단하면서도 이런 과적합을 효과적으로 줄여주는 정규화 기법이기 때문에 이미지 분류부터 자연어처리까지 폭넓은 분야의 논문에서 기본 구성 요소처럼 언급됩니다. 별도의 대규모 데이터 확보 없이도 모델의 일반화 성능을 개선할 수 있다는 점이 실무적으로도 널리 채택되는 이유입니다.</p>
-
-  <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"모델의 과적합을 방지하기 위해 완전연결층 뒤에 드롭아웃(p=0.5)을 적용했으며, 검증 데이터에 대한 성능이 안정적으로 향상되었다."</div>
-  <p>이 문장은 "학습 과정에서 완전연결층의 뉴런 절반을 무작위로 꺼가며 학습시켰더니, 모델이 학습 데이터에만 지나치게 맞춰지는 현상이 줄었다"는 뜻입니다. 여기서 p=0.5는 각 뉴런이 꺼질 확률(드롭아웃 비율)을 의미합니다.</p>
-
-  <div class="example">"순환 신경망 계열 모델에서는 시간축 정보 손실을 최소화하기 위해 은닉 상태가 아닌 입력 연결에만 드롭아웃을 선택적으로 적용하였다."</div>
-  <p>순환 신경망 연구에서는 드롭아웃을 아무 곳에나 적용하면 시간에 따른 정보 흐름이 깨질 수 있어, 적용 위치를 신중하게 제한했다는 뜻입니다.</p>
-
-  <div class="example">"트랜스포머 기반 언어모델의 어텐션 층과 피드포워드 층 각각에 드롭아웃을 적용하여 대규모 사전학습 시의 과적합을 억제하였다."</div>
-  <p>대규모 언어모델 연구에서 모델 내 여러 구성 요소에 드롭아웃을 나누어 적용해 학습 안정성과 일반화 성능을 함께 확보했다는 뜻입니다.</p>
-
-  <h2>조금 더 깊게 보면</h2>
-  <p>드롭아웃은 매 학습 단계마다 무작위로 다른 부분 신경망을 학습시키는 것과 비슷한 효과를 내며, 이를 여러 개의 서로 다른 작은 모델을 암묵적으로 함께 학습시켜 평균 내는 앙상블 기법에 비유해 설명하기도 합니다. 실제 예측 시에는 모든 뉴런을 사용하는 대신 학습 때 적용한 드롭아웃 비율만큼 출력 값을 조정해 학습과 추론 사이의 기댓값을 맞추는 것이 일반적인 구현 방식입니다. 최근에는 층 전체를 무작위로 생략하는 방식이나 배치정규화 등 다른 정규화 기법과 함께 쓰이는 경우도 많습니다.</p>
-
-  <h2>주의할 점</h2>
-  <p>드롭아웃은 학습(training) 과정에서만 적용되고, 실제 예측(inference)을 할 때는 모든 뉴런을 다시 사용합니다. 또한 드롭아웃 비율을 <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a> 없이 무조건 높게 설정하면 오히려 모델이 충분히 학습되지 못하는 과소적합이 발생할 수 있으므로, 적절한 비율을 찾는 것이 중요합니다.</p>
-
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a>
-    <a href="fine-tuning.html">파인튜닝</a>
-    <a href="precision-recall.html">정밀도와 재현율</a>
-    <a href="quantization.html">양자화</a>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
-</footer>
-<script src="../assets/vendor/fuse.min.js"></script>
-<script src="../assets/header-search.js"></script>
-<script type="module" src="../assets/nav-auth.js"></script>
-<script type="module" src="../assets/term-history.js"></script>
-<script src="../assets/mobile-nav.js"></script>
+<body>
+<p>이 페이지는 <a href="../terms/dropout.html">Dropout(드롭아웃)란? 쉬운 뜻과 논문 예문</a> 페이지로 이동했습니다.</p>
 </body>
 </html>

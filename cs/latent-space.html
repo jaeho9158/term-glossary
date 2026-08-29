@@ -3,94 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Latent Space(잠재공간)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Latent Space(잠재공간)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 인코더와 디코더가 왜 잠재공간을 쓰는지, 논문 예문과 함께 확인하세요.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://termglossary.kr/terms/latent-space.html">
-<link rel="stylesheet" href="../style.css">
-<!-- GA4 analytics:start -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7SW2PGCN27');
-</script>
-<!-- GA4 analytics:end -->
-<!-- AdSense:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
-<!-- AdSense:end -->
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=../terms/latent-space.html">
 </head>
-<body data-base="../">
-<header class="site-header">
-  <div class="inner">
-    <a class="logo" href="../index.html">논문용어사전</a>
-    <div class="header-search">
-      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
-      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
-    </div>
-    <button
-      id="menu-toggle"
-      class="menu-toggle"
-      aria-label="메뉴"
-      aria-expanded="false">
-      ☰
-    </button>
-
-    <nav id="site-nav" class="site-nav">
-      <a href="../index.html">용어 목록</a>
-      <a href="../about.html">소개</a>
-      <a href="../login.html" id="nav-login">로그인</a>
-      <a href="../signup.html" id="nav-signup">회원가입</a>
-      <a href="../history.html" id="nav-history" hidden>내 기록</a>
-      <a href="#" id="nav-logout" hidden>로그아웃</a>
-    </nav>
-  </div>
-</header>
-
-<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 잠재공간 (Latent Space)</p>
-  <h1>잠재공간 (Latent Space)</h1>
-
-  <div class="definition-box">
-    <strong>한 줄 정의:</strong> 원본 데이터의 핵심적인 특징만 압축해서 표현한, 눈에 보이지 않는 좌표 공간입니다.
-  </div>
-
-  <h2>쉽게 풀면</h2>
-  <p>수많은 얼굴 사진을 놓고, 각 사진을 "얼굴형은 몇 점, 표정 밝기는 몇 점" 같은 몇 개의 숫자로 요약해서 지도 위 좌표처럼 찍어본다고 생각해 보세요. 비슷하게 생긴 얼굴들은 지도 위에서 서로 가까운 위치에 모이게 됩니다. 이렇게 복잡한 원본 데이터를 소수의 숫자(벡터)로 압축해 표현한 공간이 바로 잠재공간입니다. 신경망의 인코더 부분이 원본 데이터를 이 좌표로 바꾸는 역할을 하고, 디코더는 그 좌표를 다시 원본과 비슷한 데이터로 복원합니다.</p>
-
-  <h2>왜 중요한가</h2>
-  <p>원본 데이터를 압축된 잠재공간으로 표현하면 데이터 간 유사도 계산, 보간(interpolation), 새로운 데이터 생성 등이 훨씬 쉬워집니다. 이 때문에 잠재공간은 생성 모델뿐 아니라 표현 학습(representation learning) 전반에서 모델이 데이터를 얼마나 잘 이해했는지를 살펴보는 중요한 창구로 다뤄집니다.</p>
-
-  <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"인코더는 입력 이미지를 128차원의 잠재공간으로 매핑한 뒤, 디코더가 이를 다시 원본 이미지로 복원하도록 학습되었다."</div>
-  <p>이 문장은 "이미지를 128개의 숫자로 압축한 뒤, 그 숫자만 가지고도 원래 이미지와 비슷한 것을 다시 만들어낼 수 있도록 모델을 훈련시켰다"는 뜻입니다. 이런 압축된 표현은 <a href="embedding.html">임베딩</a>과 같은 개념의 연장선에 있습니다.</p>
-  <div class="example">"두 이미지의 잠재벡터를 선형 보간하여 그 중간 지점을 디코딩한 결과, 두 이미지의 특징이 자연스럽게 섞인 새로운 이미지가 생성되었다."</div>
-  <p>잠재공간에서는 두 데이터의 좌표를 수학적으로 섞기만 해도, 그 결과가 실제로 두 데이터의 특징을 섞은 그럴듯한 데이터로 복원된다는 것을 보여준 예시입니다.</p>
-  <div class="example">"음악 생성 모델에서는 리듬과 음색 정보를 서로 다른 잠재공간 차원에 분리해 표현하도록 유도하였다."</div>
-  <p>압축된 좌표 공간의 특정 축들이 각각 다른 의미 있는 속성(리듬, 음색)을 담당하도록 학습을 설계했다는 뜻입니다.</p>
-
-  <h2>조금 더 깊게 보면</h2>
-  <p>잠재공간을 다루는 대표적인 모델로는 오토인코더(autoencoder)와 그 변형인 변분 오토인코더(VAE), 그리고 GAN의 생성자가 있습니다. 특히 VAE는 잠재공간이 매끄럽고 연속적인 확률분포를 따르도록 제약을 걸어, 임의의 잠재벡터를 뽑아도 그럴듯한 데이터를 생성할 수 있게 합니다. 잠재공간 내 특정 방향이 특정 의미(예: 얼굴 각도, 밝기)와 대응되도록 각 축을 분리해서 학습시키려는 시도를 흔히 분리된 표현 학습(disentangled representation learning)이라고 부릅니다.</p>
-
-  <h2>주의할 점</h2>
-  <p>잠재공간의 각 축(차원)이 사람이 이해할 수 있는 특정 의미(예: "밝기", "각도")를 항상 깔끔하게 대응해 갖는 것은 아닙니다. 여러 특징이 뒤섞여 표현되는 경우가 많아, 특정 축을 임의로 해석하는 데는 주의가 필요합니다.</p>
-
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="generative-adversarial-network.html">생성적 적대 신경망</a>
-    <a href="convolutional-neural-network.html">합성곱 신경망</a>
-    <a href="ablation-study.html">제거 연구</a>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
-  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
-</footer>
-<script src="../assets/vendor/fuse.min.js"></script>
-<script src="../assets/header-search.js"></script>
-<script type="module" src="../assets/nav-auth.js"></script>
-<script type="module" src="../assets/term-history.js"></script>
-<script src="../assets/mobile-nav.js"></script>
+<body>
+<p>이 페이지는 <a href="../terms/latent-space.html">Latent Space(잠재공간)란? 쉬운 뜻과 논문 예문</a> 페이지로 이동했습니다.</p>
 </body>
 </html>
