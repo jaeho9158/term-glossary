@@ -90,8 +90,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  // 렌더 한 번 동안 쓸 로컬 진도 스냅샷. 예전엔 isDone이 용어마다
+  // localStorage를 다시 읽고 JSON.parse까지 해서, 620개짜리 분야를 그리면
+  // 읽기·파싱이 각각 1,240회 일어났다(용어당 2회 호출). 렌더 시작과 토글
+  // 시점에만 갱신하면 같은 결과를 1회 읽기로 얻는다.
+  let localProgressSnapshot = null;
+
   function isDone(slug) {
-    return session ? remoteProgress.has(slug) : getLocalProgress().has(slug);
+    if (session) return remoteProgress.has(slug);
+    if (!localProgressSnapshot) localProgressSnapshot = getLocalProgress();
+    return localProgressSnapshot.has(slug);
   }
 
   async function toggleDone(slug, checked) {
@@ -114,10 +122,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (checked) local.add(slug);
       else local.delete(slug);
       setLocalProgress(local);
+      localProgressSnapshot = local; // 스냅샷도 같이 갱신해 다음 렌더와 어긋나지 않게
     }
   }
 
   function render(category) {
+    localProgressSnapshot = null; // 렌더 시작 시 한 번만 다시 읽는다
     if (!category) {
       content.innerHTML = "";
       return;

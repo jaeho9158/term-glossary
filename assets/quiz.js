@@ -1079,6 +1079,15 @@ function clearTimer(){
 function timeoutAnswer(){
 
 
+    // 시간 초과도 "푼 문제"로 세지 않으면 정답률(correct/played)의 분모에서
+    // 빠져 실제보다 높은 정답률이 표시된다 — 정답/오답 경로와 똑같이 센다.
+    const record = getRecord();
+
+    record.played++;
+
+    saveRecord(record);
+
+
 
     wrongQuestions.push(
         currentTerms[currentQuestion]

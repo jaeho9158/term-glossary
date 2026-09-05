@@ -167,15 +167,54 @@
     return [...exactMatches, ...fuzzyMatches].slice(0, 8);
   }
 
+  // 목록을 열고 닫는 통로를 하나로 모은다. 열림 상태가 aria-expanded와
+  // 항상 같이 움직여야 스크린리더가 "목록이 열렸다"를 놓치지 않는다.
+  function setOpen(open) {
+    resultsEl.hidden = !open;
+    input.setAttribute("aria-expanded", open ? "true" : "false");
+    if (!open) setActive(-1);
+  }
+
+  function optionEls() {
+    return resultsEl.querySelectorAll('[role="option"]');
+  }
+
+  // activeIndex는 -1이면 "입력창에 있음", 0 이상이면 그 번째 항목에 있음.
+  function setActive(index) {
+    activeIndex = index;
+    const items = optionEls();
+    items.forEach((el, i) => {
+      el.setAttribute("aria-selected", i === index ? "true" : "false");
+    });
+    if (index >= 0 && items[index]) {
+      input.setAttribute("aria-activedescendant", items[index].id);
+    } else {
+      input.removeAttribute("aria-activedescendant");
+    }
+  }
+
+  function moveActive(delta) {
+    const items = optionEls();
+    if (items.length === 0) return;
+    const next = activeIndex + delta;
+    // 첫 항목에서 위로 더 가면 입력창으로 되돌아온다(막다른 곳을 만들지 않는다).
+    if (next < 0) {
+      setActive(-1);
+      input.focus();
+      return;
+    }
+    setActive(Math.min(next, items.length - 1));
+    items[activeIndex].focus();
+  }
+
   function renderResults(matches) {
-    activeIndex = -1;
     if (matches.length === 0) {
       resultsEl.innerHTML = "";
-      resultsEl.hidden = true;
+      setOpen(false);
       return;
     }
     resultsEl.innerHTML = matches
-      .map((t) => {
+      .map((t, i) => {
         const enPart = t.title_en ? ` <span class="term-en">(${esc(t.title_en)})</span>` : "";
         const mainCat = t.categories && t.categories[0];
         const catLabel = mainCat ? LOCAL_CATEGORY_LABELS[mainCat] : null;
@@ -183,31 +222,34 @@
         const tag = tagParts.length
           ? `<span class="term-search-tag">${esc(tagParts.join(" > "))}</span>`
           : "";
-        return `<li><a href="${base}terms/${encodeURIComponent(t.slug)}.html">${esc(
-          t.title_ko
-        )}${enPart}${tag}</a></li>`;
+        return `<li><a id="hs-opt-${i}" role="option" aria-selected="false" href="${base}terms/${encodeURIComponent(
+          t.slug
+        )}.html">${esc(t.title_ko)}${enPart}${tag}</a></li>`;
       })
       .join("");
-    resultsEl.hidden = false;
+    setOpen(true);
   }
 
   function renderRecent() {
     const recent = getRecent();
     if (recent.length === 0) {
       resultsEl.innerHTML = "";
-      resultsEl.hidden = true;
+      setOpen(false);
       return;
     }
     // 최근 검색어는 사용자가 입력한 문자열(localStorage 출처)이라 그대로
     // innerHTML에 넣으면 자기 자신에 대한 스크립트 주입이 가능하다 —
     // 속성/본문 양쪽 모두 이스케이프한다.
+    // tabindex/role은 검색 결과와 동일하게 키보드로 오르내릴 수 있게 하려는 것.
     resultsEl.innerHTML = recent
       .map(
-        (q) =>
-          `<li class="recent-search-item" data-query="${esc(q)}">${esc(q)}</li>`
+        (q, i) =>
+          `<li class="recent-search-item" id="hs-opt-${i}" role="option" aria-selected="false" tabindex="-1" data-query="${esc(
+            q
+          )}">${esc(q)}</li>`
       )
       .join("");
-    resultsEl.hidden = false;
+    setOpen(true);
   }
 
   let searchDebounceTimer = null;
@@ -241,24 +283,44 @@
     searchDebounceTimer = setTimeout(runSearch, 150);
   });
 
-  input.addEventListener("keydown", (e) => {
-    const items = resultsEl.querySelectorAll("li a");
+  // 키보드 처리는 입력창이 아니라 검색 위젯 전체에 건다. 항목으로 포커스가
+  // 옮겨간 뒤에도 방향키·Esc가 계속 동작해야 하기 때문(입력창에만 걸면
+  // 첫 항목으로 내려간 순간 그 뒤 키 입력이 전부 무시된다).
+  const searchRoot = input.closest(".header-search") || resultsEl.parentElement || document;
+
+  searchRoot.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (resultsEl.hidden) return;
+      e.preventDefault();
+      setOpen(false);
+      input.focus(); // 닫은 뒤엔 바로 이어서 타이핑할 수 있어야 한다
+      return;
+    }
+
+    const items = optionEls();
     if (items.length === 0) return;
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      activeIndex = Math.min(activeIndex + 1, items.length - 1);
-      items[activeIndex].focus();
+      moveActive(1);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      activeIndex = Math.max(activeIndex - 1, 0);
-      items[activeIndex].focus();
-    } else if (e.key === "Enter" && activeIndex === -1) {
-      saveRecent(input.value);
-      items[0].click();
-    } else if (e.key === "Escape") {
-      renderResults([]);
-      input.blur();
+      moveActive(-1);
+    } else if (e.key === "Enter") {
+      const focused = document.activeElement;
+      const recentItem = focused && focused.closest && focused.closest(".recent-search-item");
+      if (recentItem) {
+        // 최근 검색어 항목은 링크가 아니라서 Enter 기본 동작이 없다.
+        e.preventDefault();
+        input.value = recentItem.dataset.query;
+        input.focus();
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      } else if (activeIndex === -1) {
+        e.preventDefault();
+        saveRecent(input.value);
+        items[0].click();
+      }
+      // 결과 링크에 포커스가 있으면 브라우저 기본 동작(이동)에 맡긴다.
     }
   });
 
@@ -277,7 +339,7 @@
 
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".header-search")) {
-      resultsEl.hidden = true;
+      setOpen(false);
     }
   });
 
@@ -285,10 +347,18 @@
     if (!input.value.trim()) {
       renderRecent();
     } else if (resultsEl.children.length > 0) {
-      resultsEl.hidden = false;
+      setOpen(true);
     }
     await loadTerms();
   });
+
+  // 콤보박스 의미 부여 — 이게 없으면 스크린리더는 그냥 텍스트 입력칸으로만 읽는다.
+  if (!resultsEl.id) resultsEl.id = "header-search-listbox";
+  resultsEl.setAttribute("role", "listbox");
+  input.setAttribute("role", "combobox");
+  input.setAttribute("aria-autocomplete", "list");
+  input.setAttribute("aria-expanded", "false");
+  input.setAttribute("aria-controls", resultsEl.id);
 
   loadTerms();
 })();
