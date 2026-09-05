@@ -51,11 +51,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let terms;
   try {
-    const res = await fetch("terms.json");
+    const res = await fetch("terms-lite.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     terms = await res.json();
   } catch (err) {
-    console.error("terms.json 로드 실패:", err);
+    console.error("terms-lite.json 로드 실패:", err);
     content.innerHTML =
       '<p class="load-error">용어 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요.</p>';
     return;

@@ -21,12 +21,12 @@ let termsCache = null;
 async function loadTermsMap() {
   if (termsCache) return termsCache;
   try {
-    const res = await fetch("terms.json");
+    const res = await fetch("terms-lite.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const list = await res.json();
     termsCache = new Map(list.map((t) => [t.slug, t]));
   } catch (err) {
-    console.error("terms.json 로드 실패:", err);
+    console.error("terms-lite.json 로드 실패:", err);
     termsCache = new Map();
   }
   return termsCache;

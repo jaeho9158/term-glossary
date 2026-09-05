@@ -249,7 +249,7 @@ async function loadTerms(){
 
 
         const res =
-        await fetch("terms.json");
+        await fetch("terms-lite.json");
 
 
         if(!res.ok)

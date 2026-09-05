@@ -360,5 +360,9 @@
   input.setAttribute("aria-expanded", "false");
   input.setAttribute("aria-controls", resultsEl.id);
 
-  loadTerms();
+  // 예전에는 여기서 loadTerms()를 바로 불러, 검색을 쓰지 않는 방문자에게도
+  // 모든 페이지에서 terms-index.json 7.1MB를 내려받게 했다(용어 상세 페이지
+  // 3만7천 개 포함). 검색창에 포커스가 가는 순간 focus 핸들러가, 타이핑하면
+  // runSearch()가 각각 await loadTerms()를 하므로 실제 검색 동작에는 지장이
+  // 없다 — 필요할 때만 받는다.
 })();
