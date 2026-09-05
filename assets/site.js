@@ -21,15 +21,16 @@ async function loadTerms() {
   }
 }
 
+// escapeHtml은 assets/escape.js(전역)를 사용한다 — category.html이 먼저 로드함.
 function termLinkHTML(term) {
   const enPart = term.title_en
-    ? ` <span class="term-en">(${term.title_en})</span>`
+    ? ` <span class="term-en">(${escapeHtml(term.title_en)})</span>`
     : "";
 
   return `
     <li>
-      <a href="terms/${term.slug}.html">
-        ${term.title_ko}${enPart}
+      <a href="terms/${encodeURIComponent(term.slug)}.html">
+        ${escapeHtml(term.title_ko)}${enPart}
       </a>
     </li>
   `;
@@ -165,7 +166,7 @@ function render(terms, query = "", category = "") {
     mainDetails.innerHTML = `
       <summary class="category-summary">
         <span class="category-title">
-          ${CATEGORY_LABELS[code] || code}
+          ${escapeHtml(CATEGORY_LABELS[code] || code)}
           <span class="category-count">
             ${mainMatched.length}개
           </span>
@@ -216,7 +217,7 @@ function render(terms, query = "", category = "") {
 
       subDetails.innerHTML = `
         <summary class="namu-sub-title">
-          <span>${subName} (${subMatched.length}개)</span>
+          <span>${escapeHtml(subName)} (${subMatched.length}개)</span>
         </summary>
       `;
 
@@ -281,26 +282,10 @@ async function init() {
       debounceTimer = setTimeout(update, 150);
     });
 
-    // localStorage는 프라이빗 모드·쿼터 초과·손상 값에서 읽기/쓰기 모두
-    // throw할 수 있다. 최근 검색어 저장은 편의 기능이라 실패해도 조용히 넘긴다.
-    try {
-      const recent = JSON.parse(
-        localStorage.getItem("recentSearches") || "[]"
-      );
-
-      const value = searchInput.value.trim();
-
-      if (value) {
-        const list = recent.filter(v => v !== value);
-
-        list.unshift(value);
-
-        localStorage.setItem(
-            "recentSearches",
-            JSON.stringify(list.slice(0, 5))
-        );
-      }
-    } catch (err) { /* 저장 실패는 무시 */ }
+    // 최근 검색어("recentSearches") 저장은 assets/header-search.js가 담당한다.
+    // 여기 있던 저장 코드는 init() 실행 시점(= 페이지 로드 직후, 입력창이
+    // 아직 비어 있을 때)에 딱 한 번만 돌아 실제로는 아무것도 저장하지
+    // 못했으므로 제거했다.
   }
 
   function update() {
