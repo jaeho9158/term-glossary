@@ -155,6 +155,24 @@ const recordBox =
 document.getElementById("quiz-record");
 
 
+const startErrorEl =
+document.getElementById("quiz-start-error");
+
+
+// 시작 영역(#start-area)에 표시하는 안내 문구. #question은 아직 숨겨진
+// #quiz-area 안에 있어서 시작 전 오류를 담을 수 없다.
+function showStartError(message){
+
+    if(!startErrorEl)
+        return;
+
+    startErrorEl.textContent = message;
+
+    startErrorEl.hidden = !message;
+
+}
+
+
 
 
 // ===============================
@@ -259,12 +277,9 @@ async function loadTerms(){
     catch(e){
 
 
-        if(question){
-
-            question.textContent =
-            "용어 데이터를 불러오지 못했습니다.";
-
-        }
+        showStartError(
+            "용어 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요."
+        );
 
 
     }
@@ -411,10 +426,9 @@ document
 
         if(list.length === 0){
 
-            if(question){
-                question.textContent =
-                "이 범위의 용어를 찾을 수 없습니다. 로드맵으로 돌아가 다시 시도해주세요.";
-            }
+            showStartError(
+                "이 범위의 용어를 찾을 수 없습니다. 로드맵으로 돌아가 다시 시도해주세요."
+            );
 
             return;
 
@@ -472,6 +486,23 @@ document
 
 
 
+    // 고른 분야에 용어가 하나도 없으면 totalQuestions가 0이 되고, 곧바로
+    // finishQuiz로 빠져 "정답률 NaN%"가 뜬다. 시작 자체를 막고 안내한다.
+    if(list.length === 0){
+
+        showStartError(
+            "이 분야에는 출제할 용어가 없습니다. 다른 분야를 선택해주세요."
+        );
+
+        return;
+
+    }
+
+
+    showStartError("");
+
+
+
     shuffle(list);
 
 
@@ -491,10 +522,14 @@ document
 
 
 
+    const requested =
+    Number(questionCount && questionCount.value);
+
+
     totalQuestions =
     Math.min(
 
-        Number(questionCount.value),
+        Number.isFinite(requested) && requested > 0 ? requested : 10,
 
         currentTerms.length
 
@@ -1290,11 +1325,13 @@ function updateProgress(){
 
     (
 
-        currentQuestion
-        /
         totalQuestions
-        *
-        100
+
+        ?
+        currentQuestion / totalQuestions * 100
+
+        :
+        0
 
     )
 
@@ -1353,15 +1390,13 @@ function finishQuiz(){
 
 
     const accuracy =
-    Math.round(
+    totalQuestions
 
-        score
-        /
-        totalQuestions
-        *
-        100
+    ?
+    Math.round(score / totalQuestions * 100)
 
-    );
+    :
+    0;
 
 
 
