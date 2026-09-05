@@ -30,6 +30,20 @@
   let fuse = null;
   let activeIndex = -1;
 
+  // 이 파일은 3만8천여 개 용어 페이지에서도 로드되는데, 그쪽에는
+  // assets/escape.js가 실려 있지 않다. 그래서 공용 escapeHtml에 의존하지 않고
+  // 자체 구현을 둔다(있으면 그것을 쓴다 — 집합·순서는 escape.js와 동일).
+  const esc =
+    typeof escapeHtml === "function"
+      ? escapeHtml
+      : (str) =>
+          String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+
   const SUPABASE_URL = "https://schdtmdpgexsacxzozso.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjaGR0bWRwZ2V4c2FjeHpvenNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzI1MjMsImV4cCI6MjA5OTEwODUyM30.OT0YaKOmPwnQcfvqqwRut6aJFJ98k_pdOiE4yTUmitY";
   const loggedZeroResultQueries = new Set();
@@ -83,9 +97,26 @@
     return map;
   }
 
-  async function loadTerms() {
+  // terms-index.json은 수 MB다. loadTerms()는 스크립트 로드 시점·포커스·
+  // 입력마다 호출되는데, terms에 값이 들어가는 건 await 이후라 예전에는
+  // 같은 파일을 동시에 여러 번 내려받았다. 진행 중인 Promise를 캐시해 한 번만
+  // 받는다. 실패는 삼켜서(빈 결과) 검색어 입력이 예외로 죽지 않게 한다.
+  let termsPromise = null;
+
+  function loadTerms() {
+    if (termsPromise) return termsPromise;
+    termsPromise = fetchTerms().catch((err) => {
+      console.error("terms-index.json 로드 실패:", err);
+      termsPromise = null; // 다음 입력에서 재시도할 수 있게 한다
+      return null;
+    });
+    return termsPromise;
+  }
+
+  async function fetchTerms() {
     if (terms) return terms;
     const res = await fetch(base + "terms-index.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     terms = await res.json();
     exactAliasIndex = buildExactAliasIndex(terms);
     fuse = new Fuse(terms, {
@@ -122,7 +153,7 @@
 
   function matchResults(query) {
     const q = query.trim();
-    if (!q) return [];
+    if (!q || !fuse) return [];
 
     const exactMatches = (exactAliasIndex && exactAliasIndex.get(q.toLowerCase())) || [];
     const seenSlugs = new Set(exactMatches.map((t) => t.slug));
@@ -145,12 +176,16 @@
     }
     resultsEl.innerHTML = matches
       .map((t) => {
-        const enPart = t.title_en ? ` <span class="term-en">(${t.title_en})</span>` : "";
+        const enPart = t.title_en ? ` <span class="term-en">(${esc(t.title_en)})</span>` : "";
         const mainCat = t.categories && t.categories[0];
         const catLabel = mainCat ? LOCAL_CATEGORY_LABELS[mainCat] : null;
         const tagParts = [catLabel, t.subcategory].filter(Boolean);
-        const tag = tagParts.length ? `<span class="term-search-tag">${tagParts.join(" > ")}</span>` : "";
-        return `<li><a href="${base}terms/${t.slug}.html">${t.title_ko}${enPart}${tag}</a></li>`;
+        const tag = tagParts.length
+          ? `<span class="term-search-tag">${esc(tagParts.join(" > "))}</span>`
+          : "";
+        return `<li><a href="${base}terms/${encodeURIComponent(t.slug)}.html">${esc(
+          t.title_ko
+        )}${enPart}${tag}</a></li>`;
       })
       .join("");
     resultsEl.hidden = false;
@@ -163,8 +198,14 @@
       resultsEl.hidden = true;
       return;
     }
+    // 최근 검색어는 사용자가 입력한 문자열(localStorage 출처)이라 그대로
+    // innerHTML에 넣으면 자기 자신에 대한 스크립트 주입이 가능하다 —
+    // 속성/본문 양쪽 모두 이스케이프한다.
     resultsEl.innerHTML = recent
-      .map((q) => `<li class="recent-search-item" data-query="${q.replace(/"/g, "&quot;")}">${q}</li>`)
+      .map(
+        (q) =>
+          `<li class="recent-search-item" data-query="${esc(q)}">${esc(q)}</li>`
+      )
       .join("");
     resultsEl.hidden = false;
   }
