@@ -520,6 +520,9 @@ if (typeof document !== "undefined") {
     let annotationsCache = [];
     let pendingSelection = null;
     let activeMemo = null; // { record, marks }
+    // 번역 모듈이 페이지 원문을 요청할 때 joinTextItems를 다시 돌리지 않도록 보관한다.
+    let pdfPageTexts = new Map(); // page number -> joined text
+    let translationApi = null;   // pdf-translate.js initTranslation() 반환값
 
     async function logPaperHistory(text) {
       try {
@@ -584,6 +587,7 @@ if (typeof document !== "undefined") {
     const tabPanels = {
       terms: document.getElementById("tab-panel-terms"),
       notes: document.getElementById("tab-panel-notes"),
+      translate: document.getElementById("tab-panel-translate"),
     };
     const notesBadge = document.getElementById("notes-count-badge");
     const noteList = document.getElementById("note-list");
@@ -1080,6 +1084,7 @@ if (typeof document !== "undefined") {
     }
 
     function showTextInput() {
+      if (translationApi) translationApi.onPdfCleared();
       if (renderedPane) {
         renderedPane.hidden = true;
         renderedPane.innerHTML = "";
@@ -1446,6 +1451,7 @@ if (typeof document !== "undefined") {
       pdfDoc = pdf;
       pdfTextLayerDivs = [];
       if (probedTextContent) pdfTextContentCache = new Map();
+      if (probedTextContent) pdfPageTexts = new Map();
 
       // Must happen before computeFitWidthScale() measures #pdf-viewer's
       // width below — .no-pdf sets display:none on it, which would make
@@ -1507,7 +1513,9 @@ if (typeof document !== "undefined") {
           viewport,
         }).render();
 
-        pageTexts.push(joinTextItems(textContent.items));
+        const joined = joinTextItems(textContent.items);
+        pdfPageTexts.set(i, joined);
+        pageTexts.push(joined);
 
         if (onProgress) onProgress(i, pdf.numPages);
       }
@@ -1578,6 +1586,7 @@ if (typeof document !== "undefined") {
 
         pdfStatus.hidden = true;
         textarea.value = text;
+        if (translationApi) translationApi.onPdfLoaded();
         await runAnalysis(text, { updateInputPane: false });
         await loadAndRenderAnnotations();
       } catch (err) {
@@ -1586,6 +1595,7 @@ if (typeof document !== "undefined") {
         showTextInput();
         pdfViewer.hidden = true;
         pdfViewer.innerHTML = "";
+        if (translationApi) translationApi.onPdfCleared();
         countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요. (오류: " + err.message + ")";
         termsList.innerHTML = "";
         textarea.value = "";
@@ -1595,5 +1605,37 @@ if (typeof document !== "undefined") {
         pdfInput.value = "";
       }
     });
+
+    // 번역 모듈. viewer 내부 변수는 함수로만 넘긴다.
+    import("./pdf-translate.js").then(({ initTranslation }) => {
+      translationApi = initTranslation({
+        getPageText: (n) => pdfPageTexts.get(n) || null,
+        getPageCount: () => (pdfDoc ? pdfDoc.numPages : 0),
+        getDocHash: () => currentDocHash,
+        getTerms: () => loadTerms(),
+        getPendingSelection: () => pendingSelection,
+        hideHighlightToolbar,
+      });
+    }).catch((err) => console.error("[translate] init", err));
+
+    // 스크롤 중 가장 많이 보이는 페이지를 번역 패널에 알린다.
+    const pdfViewerEl = document.getElementById("pdf-viewer");
+    if (pdfViewerEl) {
+      let visibleTimer = null;
+      pdfViewerEl.addEventListener("scroll", () => {
+        clearTimeout(visibleTimer);
+        visibleTimer = setTimeout(() => {
+          if (!translationApi) return;
+          const box = pdfViewerEl.getBoundingClientRect();
+          let best = null, bestArea = 0;
+          pdfViewerEl.querySelectorAll(".pdf-page-wrap").forEach((wrap) => {
+            const r = wrap.getBoundingClientRect();
+            const area = Math.max(0, Math.min(r.bottom, box.bottom) - Math.max(r.top, box.top));
+            if (area > bestArea) { bestArea = area; best = Number(wrap.dataset.page); }
+          });
+          if (best) translationApi.onVisiblePage(best);
+        }, 120);
+      });
+    }
   })();
 }
