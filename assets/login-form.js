@@ -44,8 +44,15 @@ function getLoginFailData(email) {
 
 
 
-  const savedData =
-  localStorage.getItem(key);
+  let savedData = null;
+
+  try {
+
+    savedData = localStorage.getItem(key);
+
+  }
+
+  catch(e){ /* 읽기 실패는 '기록 없음'으로 취급 */ }
 
 
 
@@ -114,13 +121,21 @@ function saveLoginFailData(email,data){
 
 
 
-  localStorage.setItem(
+  // 프라이빗 모드·쿼터 초과에서 setItem이 throw하면 로그인 실패 처리
+  // 경로(catch 블록) 자체가 죽어 오류 안내조차 뜨지 않는다 — 조용히 넘긴다.
+  try {
 
-    key,
+    localStorage.setItem(
 
-    JSON.stringify(data)
+      key,
 
-  );
+      JSON.stringify(data)
+
+    );
+
+  }
+
+  catch(e){ /* 저장 실패는 무시 */ }
 
 
 }
@@ -154,7 +169,13 @@ function resetLoginFailData(email){
 
 
 
-  localStorage.removeItem(key);
+  try {
+
+    localStorage.removeItem(key);
+
+  }
+
+  catch(e){ /* 삭제 실패는 무시 */ }
 
 
 }
