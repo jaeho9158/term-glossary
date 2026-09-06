@@ -69,6 +69,12 @@ function run() {
       continue;
     }
 
+    // 마커 없이 수기로 넣은 gtag 로더가 있으면 이중 삽입을 막기 위해 경고 후 스킵.
+    if (html.includes("googletagmanager.com/gtag/js") && !html.includes(START_MARKER)) {
+      console.warn(`건너뜀 (마커 없는 GA4 로더 존재 — 이중 삽입 방지): ${relativePath}`);
+      continue;
+    }
+
     const nextHtml = insertSnippet(html, snippet);
     if (nextHtml !== html) {
       fs.writeFileSync(filePath, nextHtml, "utf8");

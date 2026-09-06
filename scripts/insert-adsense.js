@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT_DIR = path.join(__dirname, "..");
-const EXCLUDE_DIRS = new Set(["node_modules", ".git"]);
+const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".claude", "docs", "supabase", "tests", "en"]);
 
 const START_MARKER = "<!-- AdSense:start -->";
 const END_MARKER = "<!-- AdSense:end -->";
@@ -44,9 +44,12 @@ function collectHtmlFiles(dir, results) {
 }
 
 function run() {
+  // 기본은 dry-run. 실제 파일 갱신은 --write 옵트인.
+  const dry = !process.argv.includes("--write");
   const snippet = buildSnippet(ADSENSE_CLIENT_ID);
   const files = collectHtmlFiles(ROOT_DIR, []);
   let updated = 0;
+  let skipped = 0;
 
   for (const filePath of files) {
     const html = fs.readFileSync(filePath, "utf8");
@@ -56,14 +59,23 @@ function run() {
       continue;
     }
 
+    // 리다이렉트 스텁(noindex + meta refresh)에는 광고 로더를 넣지 않는다.
+    if (html.includes('http-equiv="refresh"')) {
+      skipped += 1;
+      continue;
+    }
+
     const nextHtml = insertSnippet(html, snippet);
     if (nextHtml !== html) {
-      fs.writeFileSync(filePath, nextHtml, "utf8");
+      if (!dry) fs.writeFileSync(filePath, nextHtml, "utf8");
       updated += 1;
     }
   }
 
-  console.log(`AdSense 스니펫 삽입 완료: ${updated}개 파일 갱신`);
+  console.log(
+    `AdSense 스니펫 ${dry ? "[dry-run] 갱신 예정" : "삽입 완료"}: 대상 ${files.length} · 갱신 ${updated} · 스킵(스텁) ${skipped}` +
+      (dry ? " — 실제 반영은 --write" : "")
+  );
 }
 
 run();
