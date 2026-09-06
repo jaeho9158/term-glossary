@@ -1,3 +1,4 @@
+-- 2026-09-06 폐기됨. drop은 006_drop_translations.sql 참조
 -- supabase/migrations/005_translations.sql
 -- PDF 뷰어 번역 기능: 페이지 번역 공유 캐시 + 사용자별 일일 사용량.
 -- 캐시 키가 doc_hash(파일 SHA-256)인 이유: 같은 PDF는 누가 올려도 같은 키가
