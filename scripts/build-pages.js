@@ -56,6 +56,27 @@ function buildManifest() {
     });
   }
 
+  // category/{code}.html은 scripts/generate-category-pages.js가 생성하는 정적
+  // 카테고리 허브 페이지다. terms/*.html과 동일한 header/footer 템플릿을 쓰므로
+  // 여기서도 함께 갱신 대상에 포함시킨다(없으면 이후 헤더/푸터 변경이 이 98개
+  // 페이지에는 반영되지 않는다).
+  const categoryDir = path.join(ROOT_DIR, "category");
+  if (fs.existsSync(categoryDir)) {
+    const categoryFiles = fs
+      .readdirSync(categoryDir)
+      .filter((f) => f.endsWith(".html"))
+      .sort();
+
+    for (const file of categoryFiles) {
+      manifest.push({
+        file: path.join("category", file),
+        basePath: "../",
+        navCta: true,
+        authNav: true,
+      });
+    }
+  }
+
   return manifest;
 }
 

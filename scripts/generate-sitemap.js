@@ -9,6 +9,7 @@ const SITEMAP_PATH = path.join(ROOT_DIR, "sitemap.xml");
 // 정식 도메인은 site-config.js가 단일 출처다 (과거 이 파일에 남은 옛
 // github.io 주소로 sitemap 37,000여 개 URL이 롤백된 사고의 재발 방지).
 const { BASE_URL } = require("./site-config.js");
+const { CATEGORY_ORDER } = require("../assets/category-data.js");
 
 const TOP_LEVEL_PAGES = [
   {
@@ -136,13 +137,32 @@ function createUrlEntry(loc, lastmod) {
   ].join("\n");
 }
 
+// 카테고리 정적 허브 페이지(scripts/generate-category-pages.js 생성물). 용어가
+// 0개인 카테고리는 그 스크립트가 파일 자체를 만들지 않으므로, 폴더에 실제로
+// 존재하는 파일만 사이트맵에 넣는다(CATEGORY_ORDER를 그대로 믿으면 존재하지
+// 않는 URL이 sitemap에 섞여 GSC에 404로 잡힌다).
+function readCategoryPages() {
+  const categoryDir = path.join(ROOT_DIR, "category");
+  if (!fs.existsSync(categoryDir)) return [];
+
+  return CATEGORY_ORDER
+    .filter((code) => fs.existsSync(path.join(categoryDir, `${code}.html`)))
+    .map((code) => ({
+      loc: `${BASE_URL}/category/${code}.html`,
+      filePath: path.posix.join("category", `${code}.html`)
+    }));
+}
+
 function generateSitemap() {
   const terms = readTerms();
 
   validateTerms(terms);
 
+  const categoryPages = readCategoryPages();
+
   const pages = [
     ...TOP_LEVEL_PAGES,
+    ...categoryPages,
     ...terms.map((term) => ({
       loc: `${BASE_URL}/terms/${encodeURIComponent(term.slug)}.html`,
       filePath: path.posix.join("terms", `${term.slug}.html`)
@@ -164,7 +184,7 @@ function generateSitemap() {
   fs.writeFileSync(SITEMAP_PATH, xml, "utf8");
 
   const generatedUrlCount = (xml.match(/<url>/g) || []).length;
-  const expectedUrlCount = terms.length + TOP_LEVEL_PAGES.length;
+  const expectedUrlCount = terms.length + TOP_LEVEL_PAGES.length + categoryPages.length;
 
   if (generatedUrlCount !== expectedUrlCount) {
     throw new Error(
@@ -174,6 +194,7 @@ function generateSitemap() {
 
   console.log(`Sitemap generated: ${generatedUrlCount} URLs`);
   console.log(`Terms: ${terms.length}`);
+  console.log(`Category pages: ${categoryPages.length}`);
   console.log(`Top-level pages: ${TOP_LEVEL_PAGES.length}`);
   console.log(`Output: ${path.relative(ROOT_DIR, SITEMAP_PATH)}`);
 }

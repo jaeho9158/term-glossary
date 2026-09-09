@@ -251,6 +251,11 @@ async function init() {
 
   render(terms, "", initialCategory);
 
+  // JS 렌더링이 성공하면 크롤러/무자바스크립트 대비용 정적 링크 목록은 숨긴다.
+  // (이 목록 자체는 항상 정적 HTML에 남아있어야 하므로 절대 innerHTML로 지우지 않는다.)
+  const staticLinks = document.querySelector(".static-category-links");
+  if (staticLinks) staticLinks.hidden = true;
+
   const searchInput = document.getElementById("term-search");
   const categoryFilter = document.getElementById("category-filter");
 
