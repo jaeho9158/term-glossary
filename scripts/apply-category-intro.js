@@ -41,6 +41,48 @@ function loadItemsByCode() {
   return map;
 }
 
+// src: category-data.js 파일 전체 문자열, accepted: {[code]: string}
+// 반환: 갱신된 src 문자열. src에 CATEGORY_INTRO가 이미 있으면 기존 값과 accepted를 병합,
+// 없으면 새로 만든다. 두 경우 모두 marker(HOME_FEATURED_CATEGORIES 를 포함한 return문)를
+// 올바르게 찾아야 한다 — 있는지 여부를 먼저 판별한 뒤 그에 맞는 marker로 검사해라.
+function applyCategoryIntroToSource(src, accepted) {
+  // 기존 CATEGORY_INTRO 블록 확인
+  const existingMatch = /const CATEGORY_INTRO = (\{[\s\S]*?\n  \});\n\n/.exec(src);
+  const existing = existingMatch ? JSON.parse(existingMatch[1]) : {};
+  const merged = { ...existing, ...accepted };
+
+  const block = `const CATEGORY_INTRO = ${JSON.stringify(merged, null, 2).replace(/^/gm, "  ").trim()};\n\n  `;
+
+  // marker는 HOME_FEATURED_CATEGORIES 를 포함한 return문
+  // CATEGORY_INTRO가 이미 있으면 marker는 CATEGORY_INTRO를 포함한 버전을 찾아야 함
+  let marker, markerWithIntro;
+
+  if (existingMatch) {
+    // 이미 CATEGORY_INTRO가 있는 경우: return문에 CATEGORY_INTRO 가 포함되어 있음
+    marker = "  return { CATEGORY_LABELS, CATEGORY_GROUPS, CATEGORY_ORDER, CATEGORY_ALIASES, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS, HOME_FEATURED_CATEGORIES, CATEGORY_INTRO };";
+    markerWithIntro = marker;
+  } else {
+    // CATEGORY_INTRO가 없는 경우: 새로 추가해야 함
+    marker = "  return { CATEGORY_LABELS, CATEGORY_GROUPS, CATEGORY_ORDER, CATEGORY_ALIASES, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS, HOME_FEATURED_CATEGORIES };";
+    markerWithIntro = "  return { CATEGORY_LABELS, CATEGORY_GROUPS, CATEGORY_ORDER, CATEGORY_ALIASES, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS, HOME_FEATURED_CATEGORIES, CATEGORY_INTRO };";
+  }
+
+  if (!src.includes(marker)) {
+    throw new Error("category-data.js의 return 문 형태가 바뀌었습니다 — 스크립트를 다시 확인하세요.");
+  }
+
+  if (existingMatch) {
+    // 기존 CATEGORY_INTRO 블록을 새 블록으로 교체
+    src = src.slice(0, existingMatch.index) + block + src.slice(existingMatch.index + existingMatch[0].length);
+  } else {
+    // 새 CATEGORY_INTRO 블록을 삽입한 뒤 return문 업데이트
+    src = src.replace(marker, `${block}${marker}`);
+    src = src.replace(marker, markerWithIntro);
+  }
+
+  return src;
+}
+
 function main() {
   const dry = process.argv.includes("--dry");
   const itemsByCode = loadItemsByCode();
@@ -80,27 +122,11 @@ function main() {
   }
 
   let src = fs.readFileSync(CATEGORY_DATA_PATH, "utf8");
-  const marker = "  return { CATEGORY_LABELS, CATEGORY_GROUPS, CATEGORY_ORDER, CATEGORY_ALIASES, SUB_CATEGORY_ORDER, CATEGORY_DESCRIPTIONS, HOME_FEATURED_CATEGORIES };";
-  if (!src.includes(marker)) {
-    throw new Error("category-data.js의 return 문 형태가 바뀌었습니다 — 스크립트를 다시 확인하세요.");
-  }
-
-  // 기존 CATEGORY_INTRO가 있으면(재실행) 병합, 없으면 새로 만든다.
-  const existingMatch = /const CATEGORY_INTRO = (\{[\s\S]*?\n  \});\n\n/.exec(src);
-  const existing = existingMatch ? JSON.parse(existingMatch[1].replace(/(\w[\w가-힣·]*):/g, '"$1":')) : {};
-  const merged = { ...existing, ...accepted };
-
-  const block = `const CATEGORY_INTRO = ${JSON.stringify(merged, null, 2).replace(/^/gm, "  ").trim()};\n\n  `;
-  if (existingMatch) {
-    src = src.slice(0, existingMatch.index) + block + src.slice(existingMatch.index + existingMatch[0].length);
-  } else {
-    src = src.replace(marker, `${block}${marker}`);
-  }
-  src = src.replace(marker, marker.replace("HOME_FEATURED_CATEGORIES };", "HOME_FEATURED_CATEGORIES, CATEGORY_INTRO };"));
+  src = applyCategoryIntroToSource(src, accepted);
 
   fs.writeFileSync(CATEGORY_DATA_PATH, src, "utf8");
-  console.log(`category-data.js 갱신 완료 (CATEGORY_INTRO ${Object.keys(merged).length}개)`);
+  console.log(`category-data.js 갱신 완료 (CATEGORY_INTRO ${Object.keys(accepted).length}개)`);
 }
 
 if (require.main === module) main();
-module.exports = { validateIntro };
+module.exports = { validateIntro, applyCategoryIntroToSource };
