@@ -16,11 +16,20 @@ const {
   CATEGORY_LABELS,
   CATEGORY_ORDER,
   CATEGORY_DESCRIPTIONS,
+  CATEGORY_INTRO,
+  SUB_CATEGORY_ORDER,
 } = require("../assets/category-data.js");
+const { buildSubcategorySections } = require("./category-subgroups.js");
 
 const ROOT_DIR = path.join(__dirname, "..");
 const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
 const OUTPUT_DIR = path.join(ROOT_DIR, "category");
+
+const COMPARE_PAIRS_PATH = path.join(ROOT_DIR, "data", "compare-pairs.json");
+function readComparePairs() {
+  if (!fs.existsSync(COMPARE_PAIRS_PATH)) return [];
+  return JSON.parse(fs.readFileSync(COMPARE_PAIRS_PATH, "utf8"));
+}
 
 function readTerms() {
   const terms = JSON.parse(fs.readFileSync(TERMS_PATH, "utf8"));
@@ -64,12 +73,31 @@ function termLinkHTML(term) {
   return `      <li><a href="../terms/${encodeURIComponent(term.slug)}.html">${label}</a></li>`;
 }
 
-function renderCategoryPage(code, label, terms) {
+function renderCategoryPage(code, label, terms, comparePairs) {
   const description = CATEGORY_DESCRIPTIONS[code] || `${label} 분야의 논문 학술용어를 모아봅니다.`;
+  const intro = CATEGORY_INTRO[code];
+  if (!intro) {
+    throw new Error(`CATEGORY_INTRO에 "${code}"의 소개 문단이 없습니다. scripts/apply-category-intro.js를 먼저 실행하세요.`);
+  }
   const title = `${label} 용어 전체 목록 (${terms.length}개) - ${SITE_TITLE}`;
   const canonical = `${BASE_URL}/category/${code}.html`;
 
-  const listItems = terms.map(termLinkHTML).join("\n");
+  const sections = buildSubcategorySections(terms, SUB_CATEGORY_ORDER[code] || []);
+  const pairsInCategory = comparePairs.filter((p) => p.category === code);
+
+  const sectionsHtml = sections.map((section) => {
+    const items = section.terms.map(termLinkHTML).join("\n");
+    const related = pairsInCategory.filter((p) => p.subcategory === section.name);
+    const compareLinksHtml = related.length
+      ? `\n      <p class="compare-links">🔍 비교해서 보기: ${related
+          .map((p) => `<a href="../compare/${p.pairSlug}.html">${escapeHtml(p.titleA)} vs ${escapeHtml(p.titleB)}</a>`)
+          .join(" · ")}</p>`
+      : "";
+    return `    <h2>${escapeHtml(section.name)} <span class="section-count">(${section.terms.length}개)</span></h2>${compareLinksHtml}
+    <ul class="term-list">
+${items}
+    </ul>`;
+  }).join("\n\n");
 
   return `<!DOCTYPE html>
 <html lang="ko">
@@ -90,11 +118,10 @@ ${renderHeader("../", { navCta: true, authNav: true })}
 <main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; <a href="../category.html">카테고리별 용어</a> &gt; ${escapeHtml(label)}</p>
   <h1>${escapeHtml(label)} 용어 전체 목록</h1>
-  <p class="subtitle">${escapeHtml(description)}</p>
+  <p class="subtitle">${escapeHtml(intro)}</p>
   <p>총 ${terms.length}개 용어 · <a href="../category.html">다른 분야 보기</a></p>
-  <ul class="term-list">
-${listItems}
-  </ul>
+
+${sectionsHtml}
 </main>
 ${renderFooter("../")}
 <script src="../assets/vendor/fuse.min.js"></script>
@@ -109,6 +136,7 @@ ${renderFooter("../")}
 function run() {
   const terms = readTerms();
   const groups = groupByCategory(terms);
+  const comparePairs = readComparePairs();
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
@@ -128,7 +156,7 @@ function run() {
       continue;
     }
 
-    const html = renderCategoryPage(code, label, list);
+    const html = renderCategoryPage(code, label, list, comparePairs);
     fs.writeFileSync(path.join(OUTPUT_DIR, `${code}.html`), html, "utf8");
     written += 1;
   }
