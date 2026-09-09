@@ -91,23 +91,57 @@ function validateTerms(terms) {
   }
 }
 
-function getGitLastModified(relativePath) {
+// 파일 하나마다 `git log`를 새로 띄우면(용어 3만7천여 개 기준) 프로세스 생성
+// 비용만으로 실행이 사실상 멈춘 것처럼 느려진다(다른 세션과 CPU를 나눠 쓸 때
+// 특히 심각 — 2026-09-09에 1시간 45분 넘게 끝나지 않는 문제로 실제 발생).
+// 전체 히스토리를 한 번만 훑어 파일별 최신 커밋 날짜 맵을 만든다.
+let gitLastModifiedCache = null;
+
+function buildGitLastModifiedMap() {
+  if (gitLastModifiedCache) return gitLastModifiedCache;
+
+  const map = new Map();
   try {
-    const result = execFileSync(
+    const output = execFileSync(
       "git",
-      ["log", "-1", "--format=%cs", "--", relativePath],
+      ["log", "--name-only", "--format=%x00%cs"],
       {
         cwd: ROOT_DIR,
         encoding: "utf8",
+        maxBuffer: 1024 * 1024 * 1024,
         stdio: ["ignore", "pipe", "ignore"]
       }
-    ).trim();
+    );
 
-    if (/^\d{4}-\d{2}-\d{2}$/.test(result)) {
-      return result;
+    let currentDate = null;
+    for (const line of output.split("\n")) {
+      if (line.startsWith("\0")) {
+        currentDate = line.slice(1).trim();
+        continue;
+      }
+      const filePath = line.trim();
+      if (!filePath || !currentDate) continue;
+      // git log는 최신 커밋부터 순서대로 나오므로, 파일별로 처음 만나는
+      // 날짜가 곧 최신 수정일이다 — 이미 있으면 덮어쓰지 않는다.
+      if (!map.has(filePath)) {
+        map.set(filePath, currentDate);
+      }
     }
   } catch (error) {
-    // Git 기록이 없는 신규 파일은 아래 fallback 사용
+    // git log 자체가 실패하면(예: git 없는 환경) 빈 맵으로 두고 전부 mtime fallback
+  }
+
+  gitLastModifiedCache = map;
+  return map;
+}
+
+function getGitLastModified(relativePath) {
+  const posixPath = relativePath.split(path.sep).join("/");
+  const map = buildGitLastModifiedMap();
+  const cached = map.get(posixPath);
+
+  if (cached && /^\d{4}-\d{2}-\d{2}$/.test(cached)) {
+    return cached;
   }
 
   const absolutePath = path.join(ROOT_DIR, relativePath);
@@ -153,16 +187,32 @@ function readCategoryPages() {
     }));
 }
 
+// 비교 페이지(scripts/apply-compare-pairs.js 생성물). 매니페스트에 있는데
+// 실제 파일이 없으면 sitemap에 깨진 URL이 들어가므로 파일 존재를 다시 확인한다.
+function readComparePairs() {
+  const manifestPath = path.join(ROOT_DIR, "data", "compare-pairs.json");
+  if (!fs.existsSync(manifestPath)) return [];
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  return manifest
+    .filter((p) => fs.existsSync(path.join(ROOT_DIR, "compare", `${p.pairSlug}.html`)))
+    .map((p) => ({
+      loc: `${BASE_URL}/compare/${p.pairSlug}.html`,
+      filePath: path.posix.join("compare", `${p.pairSlug}.html`)
+    }));
+}
+
 function generateSitemap() {
   const terms = readTerms();
 
   validateTerms(terms);
 
   const categoryPages = readCategoryPages();
+  const comparePages = readComparePairs();
 
   const pages = [
     ...TOP_LEVEL_PAGES,
     ...categoryPages,
+    ...comparePages,
     ...terms.map((term) => ({
       loc: `${BASE_URL}/terms/${encodeURIComponent(term.slug)}.html`,
       filePath: path.posix.join("terms", `${term.slug}.html`)
@@ -184,7 +234,7 @@ function generateSitemap() {
   fs.writeFileSync(SITEMAP_PATH, xml, "utf8");
 
   const generatedUrlCount = (xml.match(/<url>/g) || []).length;
-  const expectedUrlCount = terms.length + TOP_LEVEL_PAGES.length + categoryPages.length;
+  const expectedUrlCount = terms.length + TOP_LEVEL_PAGES.length + categoryPages.length + comparePages.length;
 
   if (generatedUrlCount !== expectedUrlCount) {
     throw new Error(
@@ -195,6 +245,7 @@ function generateSitemap() {
   console.log(`Sitemap generated: ${generatedUrlCount} URLs`);
   console.log(`Terms: ${terms.length}`);
   console.log(`Category pages: ${categoryPages.length}`);
+  console.log(`Compare pages: ${comparePages.length}`);
   console.log(`Top-level pages: ${TOP_LEVEL_PAGES.length}`);
   console.log(`Output: ${path.relative(ROOT_DIR, SITEMAP_PATH)}`);
 }
