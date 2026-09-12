@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Inductive Bias(귀납 편향)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="학습 모델이 한정된 데이터로부터 일반화하도록 미리 갖고 있는 가정이나 선호입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/inductive-bias.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://yeongulab.vercel.app/" target="_blank" rel="noopener">연구랩 ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 귀납 편향 (Inductive Bias)</p>
+  <h1>귀납 편향 (Inductive Bias)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 학습 모델이 한정된 데이터로부터 일반화하도록 미리 갖고 있는 가정이나 선호입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>몇 개의 점만 보고 선을 그리라고 하면 가능한 답은 무수히 많습니다. 이때 &#39;가능하면 단순한 직선이 좋다&#39;처럼 미리 정해 둔 선호가 있어야 하나를 고를 수 있는데, 이런 선호가 귀납 편향입니다. 여기서 &#39;편향&#39;은 나쁜 뜻이 아니라, 학습을 가능하게 하는 출발점이라는 의미입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>데이터만으로는 보지 못한 경우에 대한 답이 정해지지 않기 때문에, 어떤 귀납 편향을 갖느냐가 모델의 일반화 능력을 결정합니다. 합성곱 신경망이 이미지에 강하고 순환 구조가 시계열에 맞는 것도 구조에 담긴 편향 덕분입니다. 뇌과학에서는 동물의 뇌가 어떤 편향 덕분에 적은 경험으로 빨리 배우는지를 AI와 비교하는 틀로도 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"연구진은 에이전트에 어떤 귀납 편향을 부여해야 실제 마우스처럼 적은 시행만으로 과제를 학습하는지 비교하였다."</div>
+  <p>구조나 학습 규칙에 담긴 가정을 바꿔 가며 동물의 빠른 학습을 재현하는 조건을 찾는 연구 방식입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>귀납 편향은 모델 구조(예: 합성곱의 위치 불변성), 목적 함수와 정규화, 최적화 방식, 사전분포 등 여러 곳에 들어갑니다. <a href="bias-variance-tradeoff.html">편향-분산 트레이드오프</a> 관점에서 보면 강한 편향은 적은 데이터에서 안정적이지만 가정이 틀리면 성능이 제한되고, 약한 편향은 유연하지만 <a href="overfitting.html">과적합</a> 위험이 커집니다. 베이즈 관점에서는 사전분포가 귀납 편향을 명시적으로 표현하는 방법입니다. <a href="transfer-learning.html">전이 학습</a>은 다른 과제에서 배운 편향을 가져오는 방법이라고도 볼 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>통계학의 추정량 편향(bias)이나 데이터·사회적 편향과는 다른 개념이므로 혼동하지 않아야 합니다. 또 &#39;편향이 없는 모델&#39;이 이상적이라는 생각은 틀렸으며, 어떤 편향도 없으면 일반화 자체가 불가능합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="machine-learning.html">머신러닝</a>
+    <a href="bias-variance-tradeoff.html">편향-분산 트레이드오프</a>
+    <a href="overfitting.html">과적합</a>
+    <a href="transfer-learning.html">전이학습</a>
+    <a href="neural-network.html">인공신경망</a>
+    <a href="continual-learning.html">연속 학습</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>diffusion map embedding(확산 지도 임베딩)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="유사도 행렬에서 저차원 좌표를 뽑아 연결 구조를 요약하는 비선형 차원축소법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/diffusion-map-embedding.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://yeongulab.vercel.app/" target="_blank" rel="noopener">연구랩 ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 확산 지도 임베딩 (diffusion map embedding)</p>
+  <h1>확산 지도 임베딩 (diffusion map embedding)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=neuro">뇌과학·신경과학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 유사도 행렬에서 저차원 좌표를 뽑아 연결 구조를 요약하는 비선형 차원축소법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>뇌 영역들 사이의 연결 유사도를 표로 만들면 수천 개 값이 되어 한눈에 보기 어렵습니다. 확산 지도 임베딩은 이 표를 &#39;비슷한 것끼리 가까이 놓이는 지도&#39;로 바꾸는 방법입니다. 유사도를 따라 조금씩 퍼져 나가는 과정을 가정하고, 그 퍼짐이 잘 통하는 영역끼리 가깝게 배치되도록 좌표를 계산합니다. 그 결과 각 영역이 몇 개의 축 위에 놓이고, 이 축을 <a href="macroscale-gradient.html">거시적 경사</a>로 해석합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>뇌 연결 구조는 직선적이지 않은 관계를 담고 있어, 단순한 선형 요약으로는 조직 축을 놓치기 쉽습니다. 확산 지도는 비선형 구조에 비교적 강하고 잡음에 견디는 성질이 있어 연결 경사 연구의 표준 도구로 자리 잡았습니다. 또 동일한 절차를 여러 집단에 적용하고 정렬하면, 서로 다른 표본의 조직 축을 같은 기준에서 비교할 수 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"전용 도구를 사용해 아동 표본에서 경사 템플릿을 구성한 뒤 프로크루스테스 정렬을 수행하였다."</div>
+  <p>표본에 맞는 템플릿을 만들고 축의 방향과 순서를 기준에 맞추는 표준 절차를 서술한 문장입니다.</p>
+  <div class="example">"첫 두 개 성분이 설명하는 분산 비율을 보고하고 이후 분석에는 제1성분을 사용하였다."</div>
+  <p>어떤 축을 왜 선택했는지 밝혀 결과 해석의 근거를 제시한 방법 기술입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>절차는 대체로 연결 행렬을 상위 일정 비율만 남기고 희소화한 뒤 영역 간 유사도를 계산하고, 이 유사도에서 정의되는 확산 연산자의 고유벡터를 구하는 순서로 진행됩니다. 결과로 얻는 각 성분은 서로 독립적인 조직 축으로 해석되며, 설명 분산이 큰 순서로 배열됩니다. 표본이 바뀌면 성분의 순서나 부호가 뒤바뀔 수 있으므로 프로크루스테스 정렬 같은 절차로 공통 기준에 맞추는 것이 관례입니다. 결과는 희소화 임계값, 유사도 정의, 확산 매개변수 설정에 민감하므로, 이들 선택을 바꿔도 결론이 유지되는지 확인하는 민감도 분석이 권장됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>임베딩 좌표는 상대적 배치를 나타내는 값이므로 축 자체에 생리적 의미를 곧바로 부여하기 어렵습니다. 성분의 부호와 순서가 표본마다 달라질 수 있다는 점, 그리고 전처리 선택에 따라 좌표가 흔들릴 수 있다는 점을 보고에 포함해야 합니다. 서로 다른 파이프라인으로 얻은 경사 값을 직접 수치 비교하는 것은 피해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="macroscale-gradient.html">거시적 경사</a>
+    <a href="functional-connectivity.html">기능적 연결성</a>
+    <a href="connectome.html">커넥톰</a>
+    <a href="fmri.html">기능적자기공명영상</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
