@@ -1,7 +1,7 @@
 const SITE_TITLE = "논문용어사전";
 
 // 자매 사이트 — 청소년 연구자를 위한 6단계 연구 가이드. 헤더와 홈 카드에서 함께 링크한다.
-const RESEARCH_LAB_URL = "https://yeongulab.vercel.app/";
+const RESEARCH_LAB_URL = "https://www.yeonguhallab.kr/";
 
 function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
   const viewerLink = navCta
@@ -48,7 +48,7 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
           <a href="${basePath}roadmap.html">로드맵</a>
         </div>
       </div>
-      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">연구랩 ↗</a>
+      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">연구할Lab ↗</a>
       <a href="${basePath}about.html">소개</a>${authLinks}
     </nav>
   </div>
