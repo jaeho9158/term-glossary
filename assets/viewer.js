@@ -248,6 +248,38 @@ function termCardHTML(match) {
       </li>`;
 }
 
+// 본문 mark를 눌렀을 때 그 자리에 뜨는 팝오버의 내용. 오른쪽 카드와 달리
+// "한 줄만 보고 다시 읽던 자리로 돌아가는" 용도라 숨기기 버튼 없이
+// 이름·정의·상세 링크만 둔다. coveredMatches는 같은 자리에서 겹쳐 밀려난
+// 다른 용어들(data-covers)이며, 있을 때만 작은 목록으로 덧붙인다.
+// DOM 없이 문자열만 만들므로 테스트에서 그대로 검증할 수 있다.
+function popoverHTML(match, coveredMatches) {
+  const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
+  const definitionPart = match.definition
+    ? `<p class="dict-popover-definition">${escapeHtml(match.definition)}</p>`
+    : "";
+  // computeKeptSpans의 covered에는 자기 자신도 들어 있어 그대로 쓰면 팝오버에
+  // 같은 용어가 한 번 더 나온다. 여기서 걸러 낸다.
+  const covered = (coveredMatches || []).filter((c) => c && c.slug !== match.slug);
+  const coveredPart = covered.length
+    ? `<ul class="dict-popover-covered">${covered
+        .map(
+          (c) =>
+            `<li><a href="terms/${encodeURIComponent(c.slug)}.html" target="_blank" rel="noopener">${escapeHtml(
+              c.title_ko || c.slug
+            )}</a></li>`
+        )
+        .join("")}</ul>`
+    : "";
+  return `<div class="dict-popover-head">
+        <span class="dict-popover-name">${escapeHtml(match.title_ko || match.slug)}${enPart}</span>
+        <button type="button" class="dict-popover-close" aria-label="닫기">✕</button>
+      </div>
+      ${definitionPart}
+      ${coveredPart}
+      <a href="terms/${encodeURIComponent(match.slug)}.html" class="dict-popover-detail" target="_blank" rel="noopener">자세히 보기 →</a>`;
+}
+
 // Resolves overlapping matches down to a non-overlapping list, keeping the
 // earliest-starting match at each position and recording which other slugs
 // were suppressed there (via `covered`). Shared by the plain-text renderer
@@ -499,7 +531,7 @@ async function computeDocHash(file, arrayBuffer) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, wrapPageRange, buildOffsetMap, joinTextItems };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems };
 }
 
 if (typeof document !== "undefined") {
@@ -1072,9 +1104,15 @@ if (typeof document !== "undefined") {
     // sidebar list doesn't have that problem — it only needs to know a term
     // is present, not exactly where — so that's the one place terms are
     // still shown.
+    // 위 주석의 "배경색 하이라이트"는 되살리지 않는다. 대신 매칭된 자리에는
+    // 얇은 점선 밑줄만 그어 두고(style.css의 .dict-mark), 눌렀을 때만 뜻이
+    // 뜨게 한다. 위치가 한 글자쯤 어긋나도 형광펜처럼 시끄럽지 않고, 읽는
+    // 흐름을 끊지 않으면서 "여기 사전에 있는 말이 있다"만 알려주는 방식.
     function renderRenderedPane(text) {
       if (!renderedPane) return;
-      renderedPane.innerHTML = escapeHtml(text);
+      closeTermPopover();
+      const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug));
+      renderedPane.innerHTML = visible.length ? buildHighlightedHtml(text, visible) : escapeHtml(text);
       renderedPane.hidden = false;
       textarea.hidden = true;
       if (editTextBtn) editTextBtn.hidden = false;
@@ -1179,6 +1217,102 @@ if (typeof document !== "undefined") {
       }
     }
 
+    // ── 본문 안에서 바로 뜻 보기(팝오버) ───────────────────────────────
+    // 팝오버는 항상 한 개만 떠 있게 모듈 안에 하나만 만들어 재사용한다.
+    let popoverEl = null;
+    let popoverAnchor = null;
+
+    function ensurePopoverEl() {
+      if (popoverEl) return popoverEl;
+      popoverEl = document.createElement("div");
+      popoverEl.className = "dict-popover";
+      popoverEl.setAttribute("role", "dialog");
+      popoverEl.hidden = true;
+      // 팝오버 안을 클릭했을 때 바깥 클릭 감지에 걸려 닫히지 않도록 차단.
+      popoverEl.addEventListener("click", (e) => {
+        if (e.target.closest(".dict-popover-close")) {
+          closeTermPopover();
+          return;
+        }
+        e.stopPropagation();
+      });
+      document.body.appendChild(popoverEl);
+      return popoverEl;
+    }
+
+    function closeTermPopover() {
+      if (!popoverEl || popoverEl.hidden) return;
+      popoverEl.hidden = true;
+      popoverEl.innerHTML = "";
+      if (popoverAnchor) popoverAnchor.classList.remove("dict-mark-active");
+      popoverAnchor = null;
+    }
+
+    function findMatchBySlug(slug) {
+      return currentMatches.find((m) => m.slug === slug) || null;
+    }
+
+    // 화면 밖으로 잘리지 않게 mark 아래(공간이 없으면 위)에 놓고 좌우를 보정.
+    // 좁은 화면에서는 CSS가 아래쪽 고정 시트로 바꿔 놓으므로 계산을 건너뛴다.
+    function positionPopover(mark) {
+      const isSheet = window.matchMedia("(max-width: 480px)").matches;
+      popoverEl.classList.toggle("dict-popover-sheet", isSheet);
+      if (isSheet) {
+        popoverEl.style.left = "";
+        popoverEl.style.top = "";
+        return;
+      }
+      const rect = mark.getBoundingClientRect();
+      const pop = popoverEl.getBoundingClientRect();
+      const margin = 8;
+      let left = rect.left;
+      if (left + pop.width > window.innerWidth - margin) left = window.innerWidth - pop.width - margin;
+      if (left < margin) left = margin;
+      let top = rect.bottom + 6;
+      if (top + pop.height > window.innerHeight - margin) {
+        const above = rect.top - pop.height - 6;
+        top = above >= margin ? above : Math.max(margin, window.innerHeight - pop.height - margin);
+      }
+      popoverEl.style.left = `${Math.round(left)}px`;
+      popoverEl.style.top = `${Math.round(top)}px`;
+    }
+
+    function openTermPopover(mark) {
+      const match = findMatchBySlug(mark.dataset.slug);
+      if (!match) return;
+      const covered = (mark.dataset.covers || "")
+        .split(/\s+/)
+        .filter(Boolean)
+        .map(findMatchBySlug)
+        .filter((m) => m && !hiddenSlugs.has(m.slug));
+      closeTermPopover();
+      const el = ensurePopoverEl();
+      el.innerHTML = popoverHTML(match, covered);
+      el.hidden = false;
+      popoverAnchor = mark;
+      mark.classList.add("dict-mark-active");
+      positionPopover(mark);
+    }
+
+    // 본문(텍스트 모드)과 PDF 텍스트 레이어 양쪽에서 같은 핸들러를 쓴다.
+    document.addEventListener("click", (e) => {
+      const mark = e.target.closest && e.target.closest("mark.dict-mark");
+      if (mark && (mark.closest(".viewer-rendered") || mark.closest("#pdf-viewer"))) {
+        e.preventDefault();
+        openTermPopover(mark);
+        return;
+      }
+      if (!e.target.closest || !e.target.closest(".dict-popover")) closeTermPopover();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeTermPopover();
+    });
+
+    // 스크롤하면 mark가 움직이므로 따라다니게 하지 않고 그냥 닫는다.
+    window.addEventListener("scroll", closeTermPopover, true);
+    window.addEventListener("resize", closeTermPopover);
+
     function scrollToMark(slug) {
       const mark =
         document.querySelector(`.viewer-rendered mark[data-slug="${slug}"], #pdf-viewer mark[data-slug="${slug}"]`) ||
@@ -1199,6 +1333,11 @@ if (typeof document !== "undefined") {
     // the sidebar list; there's no inline mark to unwrap anywhere anymore.
     function hideTermEverywhere(slug) {
       hiddenSlugs.add(slug);
+      // 점선 밑줄이 다시 생겼으므로, 숨긴 용어는 본문 표시도 함께 걷어낸다.
+      closeTermPopover();
+      document
+        .querySelectorAll(`.viewer-rendered mark.dict-mark[data-slug="${slug}"], #pdf-viewer mark.dict-mark[data-slug="${slug}"]`)
+        .forEach(unwrapMark);
       saveHiddenSlugs(hiddenSlugs);
       renderMatchedTerms(currentMatches, filterInput.value);
     }

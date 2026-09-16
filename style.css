@@ -967,15 +967,124 @@ main.wide {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* 사전에 있는 말 표시는 얇은 점선 밑줄만. 예전 형광펜 방식은 본문이 너무
+   시끄러워서 걷어냈으므로 배경색을 다시 쓰지 않는다. */
 .viewer-rendered mark.dict-mark,
 .textLayer mark.dict-mark {
   cursor: pointer;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 .viewer-rendered mark.dict-mark:hover,
-.textLayer mark.dict-mark:hover {
-  outline: 2px solid var(--accent);
-  outline-offset: 1px;
+.textLayer mark.dict-mark:hover,
+.viewer-rendered mark.dict-mark.dict-mark-active,
+.textLayer mark.dict-mark.dict-mark-active {
+  text-decoration-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* 본문 mark를 눌렀을 때 그 자리에 뜨는 뜻 풀이. 위치는 JS가 잡아 준다. */
+.dict-popover {
+  position: fixed;
+  z-index: 60;
+  width: min(320px, calc(100vw - 32px));
+  padding: 12px 14px;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.dict-popover[hidden] {
+  display: none;
+}
+
+.dict-popover-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.dict-popover-name {
+  font-weight: 600;
+}
+
+.dict-popover-name .term-en {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.dict-popover-close {
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 2px 4px;
+}
+
+.dict-popover-definition {
+  margin: 6px 0 0;
+  color: var(--text);
+}
+
+.dict-popover-covered {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.dict-popover-covered a {
+  color: inherit;
+}
+
+.dict-popover-detail {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.dict-popover-detail:hover {
+  text-decoration: underline;
+}
+
+/* 좁은 화면에서는 손가락이 닿기 쉬운 아래쪽 고정 시트로 바꾼다. */
+.dict-popover.dict-popover-sheet {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  width: auto;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+}
+
+:root[data-theme="dark"] .viewer-rendered mark.dict-mark,
+:root[data-theme="dark"] .textLayer mark.dict-mark {
+  text-decoration-color: var(--muted);
+}
+
+:root[data-theme="dark"] .dict-popover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.viewer-rendered mark.dict-mark {
+  color: inherit;
 }
 
 .viewer-rendered mark.mark-flash {
@@ -2289,8 +2398,10 @@ transform:scale(1);
 }
 
 .textLayer mark.dict-mark {
-    background: rgba(255, 224, 102, 0.55);
-    border-radius: 2px;
+    /* 점선 밑줄만(위 .dict-mark 규칙). 배경 형광펜은 쓰지 않는다. */
+    background: transparent;
+    text-decoration: underline dotted var(--muted);
+    text-underline-offset: 2px;
 }
 
 .textLayer mark.user-mark {
