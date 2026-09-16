@@ -530,8 +530,35 @@ async function computeDocHash(file, arrayBuffer) {
   }
 }
 
+// viewer-index.json은 키 반복 오버헤드를 없애려고 배열-of-배열로 저장돼 있다
+// (scripts/generate-viewer-index.js 참고). 여기서 기존 term 객체 모양으로
+// 되돌려 주면 buildExactIndex/matchTermsWithIndex/termCardHTML은 형식이
+// 바뀐 줄 모른 채 그대로 동작한다. definition은 이 인덱스에 없고,
+// 매칭된 용어 것만 viewer-defs/ 청크에서 나중에 채운다.
+function decodeViewerIndex(data) {
+  const categories = data.categories || [];
+  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx]) => ({
+    slug,
+    title_ko: titleKo || "",
+    title_en: titleEn || "",
+    categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
+  }));
+}
+
+// definition 청크 번호. scripts/generate-viewer-index.js의 같은 이름 함수와
+// 반드시 동일한 값을 내야 한다(FNV-1a).
+const DEF_BUCKETS = 512;
+function defBucket(slug) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < slug.length; i++) {
+    h ^= slug.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return h % DEF_BUCKETS;
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket };
 }
 
 if (typeof document !== "undefined") {
@@ -907,11 +934,14 @@ if (typeof document !== "undefined") {
 
     async function loadTerms() {
       if (cachedTerms) return cachedTerms;
-      const res = await fetch("terms-lite.json");
+      // terms-lite.json(16MB)에서 viewer-index.json(2.7MB)으로 갈아탔다.
+      // 매칭에 필요한 slug/title_ko/title_en과 카테고리 필터용 categories만
+      // 들어 있고, definition은 매칭된 용어 것만 loadDefinitions()가 채운다.
+      const res = await fetch("viewer-index.json");
       // 404/500이면 res.json()의 SyntaxError 대신 명확한 에러로 던진다 —
       // 두 호출부(용어 찾기, PDF 업로드) 모두 try/catch로 사용자에게 안내한다.
       if (!res.ok) throw new Error(`용어 데이터 로드 실패 (HTTP ${res.status})`);
-      cachedTerms = await res.json();
+      cachedTerms = decodeViewerIndex(await res.json());
 
       const searchData = cachedTerms.flatMap(term => {
         const arr = [];
@@ -955,6 +985,46 @@ if (typeof document !== "undefined") {
       exactIndex = buildExactIndex(cachedTerms);
 
       return cachedTerms;
+    }
+
+    // definition은 결과 카드에만 쓰이므로, 찾은 용어가 속한 청크만 받아 온다.
+    // 청크는 한 번 받으면 세션 내내 재사용한다(같은 논문을 다시 분석하거나
+    // 필터를 만질 때 다시 받지 않도록).
+    const definitionCache = new Map(); // slug -> definition
+    const loadedDefBuckets = new Set();
+    async function loadDefinitions(slugs) {
+      const needed = new Set();
+      for (const slug of slugs) {
+        const bucket = defBucket(slug);
+        if (!loadedDefBuckets.has(bucket)) needed.add(bucket);
+      }
+      await Promise.all(
+        [...needed].map(async (bucket) => {
+          // 성공·실패와 무관하게 "시도했음"으로 표시한다 — 정의 하나 때문에
+          // 매번 같은 404를 반복해서 때리지 않도록.
+          loadedDefBuckets.add(bucket);
+          try {
+            const res = await fetch(`viewer-defs/${String(bucket).padStart(3, "0")}.json`);
+            if (!res.ok) return;
+            const map = await res.json();
+            for (const [slug, definition] of Object.entries(map)) {
+              definitionCache.set(slug, definition);
+            }
+          } catch (err) {
+            // 정의는 부가 정보다. 못 받아도 용어 목록 자체는 그대로 보여준다.
+            console.error("[loadDefinitions]", err);
+          }
+        })
+      );
+    }
+
+    // 매칭 결과(recordMatch가 만든 객체)에 definition을 채워 넣는다.
+    async function attachDefinitions(matches) {
+      if (!matches.length) return;
+      await loadDefinitions(matches.map((m) => m.slug));
+      for (const match of matches) {
+        match.definition = definitionCache.get(match.slug) || "";
+      }
     }
 
     // Each Fuse fuzzy search scans the whole ~13,000-entry index, and it's
@@ -1377,7 +1447,11 @@ if (typeof document !== "undefined") {
 
     async function runAnalysis(text, { updateInputPane = true } = {}) {
       findBtn.disabled = true;
-      findBtn.textContent = "찾는 중...";
+      // 첫 실행은 2.7MB 인덱스를 받는 시간이 눈에 띄므로 "찾는 중"과 구분해
+      // 무엇을 기다리는지 알려 준다(두 번째부터는 캐시라 바로 지나간다).
+      const needsIndex = !cachedTerms;
+      findBtn.textContent = needsIndex ? "용어 데이터 불러오는 중…" : "찾는 중...";
+      if (needsIndex) countHeading.textContent = "용어 데이터 불러오는 중…";
       try {
         const terms = await loadTerms();
 
@@ -1389,6 +1463,8 @@ if (typeof document !== "undefined") {
           renderRenderedPane(text);
         }
         filterInput.disabled = false;
+        // 카드에 찍을 정의는 찾은 용어 것만 청크에서 받아 온다.
+        await attachDefinitions(currentMatches);
         renderMatchedTerms(currentMatches, filterInput.value);
 
         // The fuzzy (typo-tolerant) pass that used to run here has been
@@ -1412,8 +1488,71 @@ if (typeof document !== "undefined") {
       }
     }
 
+    // 자동 실행: 분석이 이미 돌고 있으면 새 요청을 큐에 하나만 얹어 두고,
+    // 끝나는 즉시 "마지막 입력"으로 한 번 더 돌린다. 디바운스 중에도 사용자가
+    // 계속 타이핑하면 요청이 겹칠 수 있는데, 겹친 실행이 서로의 결과를
+    // 덮어쓰면 화면이 옛 텍스트 기준 결과로 되돌아가기 때문이다.
+    let analysisRunning = false;
+    let queuedAnalysis = null;
+    async function requestAnalysis(text, opts) {
+      if (analysisRunning) {
+        queuedAnalysis = { text, opts };
+        return;
+      }
+      analysisRunning = true;
+      try {
+        await runAnalysis(text, opts);
+      } finally {
+        analysisRunning = false;
+        if (queuedAnalysis) {
+          const next = queuedAnalysis;
+          queuedAnalysis = null;
+          await requestAnalysis(next.text, next.opts);
+        }
+      }
+    }
+
+    // 입력이 비면 이전 논문의 결과가 남아 헷갈리므로 사이드바를 초기화한다.
+    function resetResults() {
+      currentMatches = [];
+      countHeading.textContent = "";
+      termsList.innerHTML = "";
+      const moreBtn = document.getElementById("term-card-more-btn");
+      if (moreBtn) moreBtn.remove();
+      if (categoryFilterSelect) categoryFilterSelect.innerHTML = `<option value="">전체 분야</option>`;
+      if (showHiddenTermsBtn) showHiddenTermsBtn.hidden = true;
+      filterInput.value = "";
+      filterInput.disabled = true;
+    }
+
+    // 붙여넣기만 해도 결과가 뜨게 한다. 타이핑은 800ms 쉬었을 때만 —
+    // 글자마다 3만7천 개 사전을 훑으면 입력이 버벅인다.
+    const AUTO_ANALYSIS_DEBOUNCE_MS = 800;
+    let autoAnalysisTimer = null;
+    function scheduleAutoAnalysis({ immediate = false } = {}) {
+      clearTimeout(autoAnalysisTimer);
+      if (textarea.value.trim().length === 0) {
+        queuedAnalysis = null;
+        resetResults();
+        return;
+      }
+      if (immediate) {
+        requestAnalysis(textarea.value);
+        return;
+      }
+      autoAnalysisTimer = setTimeout(() => requestAnalysis(textarea.value), AUTO_ANALYSIS_DEBOUNCE_MS);
+    }
+
+    textarea.addEventListener("input", () => scheduleAutoAnalysis());
+    // paste 이벤트 시점에는 textarea.value가 아직 갱신 전이라 한 틱 미룬다.
+    textarea.addEventListener("paste", () => {
+      setTimeout(() => scheduleAutoAnalysis({ immediate: true }), 0);
+    });
+
+    // 버튼은 수동 재실행용으로 남겨 둔다(자동 실행이 꺼진 상황·재분석 용도).
     findBtn.addEventListener("click", () => {
-      runAnalysis(textarea.value);
+      clearTimeout(autoAnalysisTimer);
+      requestAnalysis(textarea.value);
     });
 
     if (editTextBtn) {
@@ -1721,7 +1860,7 @@ if (typeof document !== "undefined") {
 
         pdfStatus.hidden = true;
         textarea.value = text;
-        await runAnalysis(text, { updateInputPane: false });
+        await requestAnalysis(text, { updateInputPane: false });
         await loadAndRenderAnnotations();
       } catch (err) {
         console.error("[pdf-upload]", err);
