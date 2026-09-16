@@ -839,10 +839,10 @@ if (typeof document !== "undefined") {
       });
     }
 
-    async function loadAndRenderAnnotations() {
-      if (!currentDocHash) return;
-      const { loadAnnotations } = await import("./pdf-annotations.js");
-      annotationsCache = await loadAnnotations(currentDocHash);
+    // 캐시에 있는 하이라이트를 현재 텍스트 레이어에 다시 그린다. 줌(재렌더)은
+    // #pdf-viewer를 통째로 비우므로 서버에서 다시 받아올 필요 없이 이것만
+    // 부르면 된다.
+    function renderAnnotationMarks() {
       for (const record of annotationsCache) {
         const textLayerDiv = document.querySelector(
           `#pdf-viewer .pdf-page-wrap[data-page="${record.page}"] .textLayer`
@@ -856,6 +856,13 @@ if (typeof document !== "undefined") {
           return mark;
         });
       }
+    }
+
+    async function loadAndRenderAnnotations() {
+      if (!currentDocHash) return;
+      const { loadAnnotations } = await import("./pdf-annotations.js");
+      annotationsCache = await loadAnnotations(currentDocHash);
+      renderAnnotationMarks();
       renderNotesList();
     }
 
@@ -1896,13 +1903,41 @@ if (typeof document !== "undefined") {
     // Re-renders every page at a new scale, reusing the cached getTextContent()
     // results above so zooming re-parses nothing — only re-rasterizes the
     // canvas and rebuilds the text layer + highlights.
-    async function rerenderPdfAtScale(newScale) {
-      if (!pdfDoc) return;
+    // 줌 버튼을 빠르게 두 번 누르면 renderPdf가 겹쳐 돌면서(둘 다 같은
+    // #pdf-viewer에 페이지를 붙인다) 페이지와 하이라이트가 두 벌씩 그려졌다.
+    // 배율 자체는 클릭 즉시 반영하고, 실제 재렌더는 앞의 것이 끝난 뒤에
+    // 한 번만 돌게 줄을 세운다.
+    let pdfRerenderQueue = Promise.resolve();
+    let renderedPdfScale = null;
+
+    function rerenderPdfAtScale(newScale) {
+      if (!pdfDoc) return Promise.resolve();
       pdfScale = Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, newScale));
+      pdfRerenderQueue = pdfRerenderQueue.then(() => {
+        // 줄 서 있는 동안 배율이 더 바뀌었다면 마지막 값 한 번만 그리면 된다.
+        if (renderedPdfScale === pdfScale) return;
+        return doRerenderPdf();
+      });
+      return pdfRerenderQueue;
+    }
+
+    async function doRerenderPdf() {
+      renderedPdfScale = pdfScale;
       const viewerEl = document.getElementById("pdf-viewer");
       const scrollRatio = viewerEl.scrollHeight > 0 ? viewerEl.scrollTop / viewerEl.scrollHeight : 0;
+      // 재렌더는 텍스트 레이어를 통째로 새로 만들기 때문에, 열려 있던 팝오버와
+      // 선택 툴바가 가리키던 mark·span은 이미 문서에서 떨어져 나간 상태다.
+      // 먼저 닫아 두지 않으면 삭제·메모 저장이 보이지 않는 옛 DOM에 적용된다.
+      hideHighlightToolbar();
+      hideMemoPopover();
+      closeTermPopover();
       await renderPdf(pdfDoc, null);
       viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
+      // 줌 후 하이라이트가 사라지던 버그: renderPdf가 #pdf-viewer를 비우는데
+      // 하이라이트를 다시 그리는 곳이 없었다. 오프셋은 배율과 무관하므로
+      // 캐시로 그대로 다시 그리면 글자에 정확히 붙는다.
+      renderAnnotationMarks();
+      applyPdfTermMarks();
       // Re-run any active search: the re-render rebuilt every text layer,
       // discarding search marks — and a search typed *during* the re-render
       // saw an empty page list and stuck at "0/0" until the next keystroke.
@@ -1914,6 +1949,8 @@ if (typeof document !== "undefined") {
     pdfInput.addEventListener("change", async () => {
       const file = pdfInput.files[0];
       if (!file) return;
+      // 새 문서는 이전 문서의 "이 배율은 이미 그렸다" 기록과 무관하다.
+      renderedPdfScale = null;
       try {
         await handlePdfFile(file);
       } finally {
