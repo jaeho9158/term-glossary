@@ -585,8 +585,35 @@ function defBucket(slug) {
   return h % DEF_BUCKETS;
 }
 
+
+// ---- PDF 뷰어 레이아웃 계산 (순수 함수, 테스트 대상) ------------------
+// "페이지맞춤"은 한 페이지 전체가 뷰어 안에 들어오는 배율이다. 너비·높이
+// 중 더 빡빡한 쪽에 맞춰야 페이지가 잘리지 않으므로 둘 중 작은 비율을 쓴다.
+// 뷰어가 아직 보이지 않아 clientWidth/Height가 0으로 읽히는 경우(‥has-pdf가
+// 붙기 전)에는 계산이 무의미하므로 fallback을 그대로 돌려준다.
+function computeFitPageScale(pageWidth, pageHeight, availableWidth, availableHeight, minScale, maxScale, fallback) {
+  const fb = typeof fallback === "number" ? fallback : 1;
+  if (!(pageWidth > 0) || !(pageHeight > 0)) return fb;
+  if (!(availableWidth > 0) || !(availableHeight > 0)) return fb;
+  const scale = Math.min(availableWidth / pageWidth, availableHeight / pageHeight);
+  return clampPdfScale(scale, minScale, maxScale);
+}
+
+function clampPdfScale(scale, minScale, maxScale) {
+  if (!Number.isFinite(scale)) return minScale;
+  return Math.max(minScale, Math.min(maxScale, scale));
+}
+
+// 페이지 번호 입력은 사람이 직접 치는 값이라 빈 값·0·소수·범위 밖이 모두
+// 들어온다. 범위를 벗어나면 막지 말고 가장 가까운 쪽으로 붙인다(clamp).
+function clampPdfPageNumber(value, totalPages) {
+  const total = Math.max(1, Math.floor(totalPages || 1));
+  const n = Math.floor(Number(value));
+  if (!Number.isFinite(n)) return 1;
+  return Math.max(1, Math.min(total, n));
+}
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, findSpanTermSlugs };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, findSpanTermSlugs, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -1621,6 +1648,9 @@ if (typeof document !== "undefined") {
     const pdfZoomOutBtn = document.getElementById("pdf-zoom-out");
     const pdfZoomInBtn = document.getElementById("pdf-zoom-in");
     const pdfZoomFitBtn = document.getElementById("pdf-zoom-fit");
+    const pdfZoomFitPageBtn = document.getElementById("pdf-zoom-fit-page");
+    const pdfPageInput = document.getElementById("pdf-page-input");
+    const pdfPageTotal = document.getElementById("pdf-page-total");
     const pdfSearchInput = document.getElementById("pdf-search-input");
     const pdfSearchPrevBtn = document.getElementById("pdf-search-prev");
     const pdfSearchNextBtn = document.getElementById("pdf-search-next");
@@ -1633,6 +1663,30 @@ if (typeof document !== "undefined") {
         if (!pdfDoc) return;
         pdfScale = await computeFitWidthScale(pdfDoc);
         await rerenderPdfAtScale(pdfScale);
+      });
+    }
+    // 화면맞춤은 너비 기준이라 긴 페이지는 여전히 잘린다. 한 페이지를 통째로
+    // 보고 싶을 때를 위해 세로까지 맞추는 배율을 따로 둔다.
+    if (pdfZoomFitPageBtn) {
+      pdfZoomFitPageBtn.addEventListener("click", async () => {
+        if (!pdfDoc) return;
+        const scale = await computeFitPageScaleForDoc(pdfDoc);
+        await rerenderPdfAtScale(scale);
+        gotoPdfPage(pdfCurrentPage);
+      });
+    }
+    if (pdfPageInput) {
+      pdfPageInput.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        e.preventDefault();
+        gotoPdfPage(pdfPageInput.value);
+        pdfPageInput.blur();
+      });
+      // 포커스를 잃을 때도 범위 밖 값이 그대로 남지 않게 정리한다.
+      pdfPageInput.addEventListener("blur", () => {
+        if (pdfPageWraps.length) {
+          pdfPageInput.value = String(clampPdfPageNumber(pdfPageInput.value, pdfPageWraps.length));
+        }
       });
     }
 
@@ -1813,6 +1867,172 @@ if (typeof document !== "undefined") {
       markTermsInTextLayer(textLayerDiv, visibleSlugSet());
     }
 
+    // 캔버스 지연 렌더용 페이지 상태. 텍스트 레이어는 전부 미리 만들지만
+    // (메모·검색이 전 페이지 텍스트 레이어에 의존) 캔버스 래스터화는 보이는
+    // 페이지 ±1쪽으로 미룬다 — 30쪽짜리에서 첫 분석이 시작되기까지 30쪽을 다
+    // 그려야 했던 것이 가장 큰 대기 원인이었다.
+    let pdfPageWraps = [];            // index 0 = 1쪽
+    let pdfPageProxies = new Map();   // page number -> pdf.js PageProxy
+    let pdfPageViewports = new Map(); // page number -> 현재 배율의 viewport
+    let pdfDrawnPages = new Set();    // 캔버스를 이미 그린(또는 그리는 중인) 페이지
+    let pdfPageObserver = null;
+    let pdfCurrentPage = 1;
+    let pdfRenderToken = 0;           // 재렌더 시 증가 — 늦게 끝난 옛 렌더 무시
+
+    // HiDPI에서 캔버스를 CSS 픽셀 크기로만 그리면 글자가 흐려진다. 비트맵은
+    // devicePixelRatio 배로 잡고 CSS 크기는 viewport 그대로 둬야 텍스트 레이어
+    // 좌표계(viewport 기준)와 어긋나지 않는다. 3배를 넘기면 메모리만 먹는다.
+    function pdfPixelRatio() {
+      return Math.min(3, Math.max(1, window.devicePixelRatio || 1));
+    }
+
+    function drawPdfPage(pageNum) {
+      if (pdfDrawnPages.has(pageNum)) return;
+      const wrap = pdfPageWraps[pageNum - 1];
+      const page = pdfPageProxies.get(pageNum);
+      const viewport = pdfPageViewports.get(pageNum);
+      if (!wrap || !page || !viewport) return;
+      const canvas = wrap.querySelector("canvas.pdf-page");
+      if (!canvas) return;
+      pdfDrawnPages.add(pageNum);
+
+      const ratio = pdfPixelRatio();
+      canvas.width = Math.floor(viewport.width * ratio);
+      canvas.height = Math.floor(viewport.height * ratio);
+      canvas.style.width = `${viewport.width}px`;
+      canvas.style.height = `${viewport.height}px`;
+
+      const token = pdfRenderToken;
+      page
+        .render({
+          canvasContext: canvas.getContext("2d"),
+          viewport,
+          transform: ratio === 1 ? null : [ratio, 0, 0, ratio, 0, 0],
+        })
+        .promise.then(() => {
+          if (token === pdfRenderToken) canvas.dataset.rendered = "1";
+        })
+        .catch((err) => {
+          // 다시 보일 때 재시도할 수 있게 표시를 되돌린다.
+          pdfDrawnPages.delete(pageNum);
+          console.error("[pdf-render]", pageNum, err);
+        });
+    }
+
+    function drawPdfPageWindow(pageNum) {
+      drawPdfPage(pageNum - 1);
+      drawPdfPage(pageNum);
+      drawPdfPage(pageNum + 1);
+    }
+
+    function setCurrentPdfPage(pageNum) {
+      pdfCurrentPage = pageNum;
+      // 사용자가 입력 중일 때 값을 덮어쓰면 타이핑이 끊긴다.
+      if (pdfPageInput && document.activeElement !== pdfPageInput) {
+        pdfPageInput.value = String(pageNum);
+      }
+    }
+
+    // 스크롤에 따른 현재 페이지 추적과 캔버스 지연 렌더를 한 관찰자로 처리한다.
+    function setupPdfPageObserver() {
+      if (pdfPageObserver) pdfPageObserver.disconnect();
+      const viewerEl = document.getElementById("pdf-viewer");
+      if (typeof IntersectionObserver === "undefined") {
+        // 관찰자를 못 쓰는 환경에서는 지연 없이 전부 그린다(기능 유지 우선).
+        for (let i = 1; i <= pdfPageWraps.length; i++) drawPdfPage(i);
+        return;
+      }
+      const ratios = new Map();
+      pdfPageObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const pageNum = Number(entry.target.dataset.page);
+            ratios.set(pageNum, entry.isIntersecting ? entry.intersectionRatio : 0);
+            if (entry.isIntersecting) drawPdfPageWindow(pageNum);
+          }
+          let best = 0;
+          let bestRatio = 0;
+          for (const [pageNum, ratio] of ratios) {
+            if (ratio > bestRatio) {
+              bestRatio = ratio;
+              best = pageNum;
+            }
+          }
+          if (best) setCurrentPdfPage(best);
+        },
+        { root: viewerEl, threshold: [0, 0.05, 0.25, 0.5, 0.9] }
+      );
+      for (const wrap of pdfPageWraps) pdfPageObserver.observe(wrap);
+    }
+
+    // IntersectionObserver가 콜백을 주지 않는 환경(일부 임베디드 브라우저·
+    // 백그라운드 탭)에서도 캔버스가 비어 보이지 않도록, 스크롤 때 기하학적으로
+    // 보이는 페이지를 직접 계산하는 보조 경로를 둔다. 관찰자가 정상인 환경에서는
+    // 이미 그려진 페이지를 다시 그리지 않으므로(drawPdfPage의 중복 가드) 비용이 없다.
+    function updateVisiblePdfPages() {
+      if (!pdfPageWraps.length) return;
+      const viewerEl = document.getElementById("pdf-viewer");
+      const viewRect = viewerEl.getBoundingClientRect();
+      let best = 0;
+      let bestVisible = 0;
+      for (let i = 0; i < pdfPageWraps.length; i++) {
+        const rect = pdfPageWraps[i].getBoundingClientRect();
+        const visible = Math.min(rect.bottom, viewRect.bottom) - Math.max(rect.top, viewRect.top);
+        if (visible > 0) drawPdfPageWindow(i + 1);
+        if (visible > bestVisible) {
+          bestVisible = visible;
+          best = i + 1;
+        }
+      }
+      if (best) setCurrentPdfPage(best);
+    }
+
+    // rAF 대신 타이머로 throttle한다. 배경 탭처럼 rAF가 아예 호출되지 않는
+    // 상황에서 rAF를 쓰면 "예약됨" 플래그가 영영 풀리지 않아 이후 스크롤이
+    // 통째로 무시된다(실제로 임베디드 뷰에서 재현됨).
+    let pdfScrollTimer = 0;
+    function onPdfViewerScroll() {
+      if (pdfScrollTimer) return;
+      pdfScrollTimer = setTimeout(() => {
+        pdfScrollTimer = 0;
+        updateVisiblePdfPages();
+      }, 80);
+    }
+    document.getElementById("pdf-viewer").addEventListener("scroll", onPdfViewerScroll);
+
+    function gotoPdfPage(value) {
+      if (!pdfPageWraps.length) return;
+      const pageNum = clampPdfPageNumber(value, pdfPageWraps.length);
+      const wrap = pdfPageWraps[pageNum - 1];
+      if (!wrap) return;
+      const viewerEl = document.getElementById("pdf-viewer");
+      // offsetTop은 뷰어가 positioned가 아니면 어긋나므로 실제 화면 좌표 차이로
+      // 계산한다. 8px는 페이지 사이 여백만큼의 시각적 여유.
+      viewerEl.scrollTop +=
+        wrap.getBoundingClientRect().top - viewerEl.getBoundingClientRect().top - 8;
+      drawPdfPageWindow(pageNum);
+      setCurrentPdfPage(pageNum);
+      if (pdfPageInput) pdfPageInput.value = String(pageNum);
+      updateVisiblePdfPages();
+    }
+
+    // 한 페이지 전체가 뷰어 안에 들어오는 배율. 계산 자체는 순수 함수
+    // computeFitPageScale에 있고(테스트 대상), 여기서는 실제 치수만 넘긴다.
+    async function computeFitPageScaleForDoc(pdf) {
+      const page = await pdf.getPage(1);
+      const baseViewport = page.getViewport({ scale: 1 });
+      const viewerEl = document.getElementById("pdf-viewer");
+      return computeFitPageScale(
+        baseViewport.width,
+        baseViewport.height,
+        viewerEl.clientWidth - 20,
+        viewerEl.clientHeight - 40, // 페이지 위아래 margin 20px씩
+        PDF_MIN_SCALE,
+        PDF_MAX_SCALE,
+        pdfScale || 1
+      );
+    }
+
     // `probedTextContent` is only passed on the very first render of a
     // freshly-uploaded file; a zoom change calls this again with it omitted,
     // which also signals "keep pdfTextContentCache" so re-rendering at a new
@@ -1820,9 +2040,18 @@ if (typeof document !== "undefined") {
     // cost) for every page a second time.
     async function renderPdf(pdf, probedTextContent, onProgress) {
       const viewer = document.getElementById("pdf-viewer");
+      if (pdfPageObserver) {
+        pdfPageObserver.disconnect();
+        pdfPageObserver = null;
+      }
       viewer.innerHTML = "";
       pdfDoc = pdf;
       pdfTextLayerDivs = [];
+      pdfPageWraps = [];
+      pdfPageProxies = new Map();
+      pdfPageViewports = new Map();
+      pdfDrawnPages = new Set();
+      pdfRenderToken++;
       if (probedTextContent) pdfTextContentCache = new Map();
       if (probedTextContent) pdfPageTexts = new Map();
 
@@ -1843,6 +2072,8 @@ if (typeof document !== "undefined") {
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const viewport = page.getViewport({ scale: pdfScale });
+        pdfPageProxies.set(i, page);
+        pdfPageViewports.set(i, viewport);
 
         const pageWrap = document.createElement("div");
         pageWrap.className = "pdf-page-wrap";
@@ -1850,25 +2081,23 @@ if (typeof document !== "undefined") {
         pageWrap.style.width = `${viewport.width}px`;
         pageWrap.style.height = `${viewport.height}px`;
 
+        // 캔버스는 자리만 잡아두고 비트맵은 drawPdfPage()가 나중에 잡는다.
         const canvas = document.createElement("canvas");
         canvas.className = "pdf-page";
         canvas.addEventListener("dblclick", openPdfViewer);
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+        canvas.style.width = `${viewport.width}px`;
+        canvas.style.height = `${viewport.height}px`;
 
         const textLayerDiv = document.createElement("div");
         textLayerDiv.className = "textLayer";
         textLayerDiv.style.width = `${viewport.width}px`;
         textLayerDiv.style.height = `${viewport.height}px`;
 
-        // Attach the page shell before drawing into it, so pages show up one
-        // by one as they finish rather than all at once at the very end.
         pageWrap.appendChild(canvas);
         pageWrap.appendChild(textLayerDiv);
         viewer.appendChild(pageWrap);
         pdfTextLayerDivs.push(textLayerDiv);
-
-        await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+        pdfPageWraps.push(pageWrap);
 
         let textContent = (probedTextContent && probedTextContent.get(i)) || pdfTextContentCache.get(i);
         if (textContent) {
@@ -1896,6 +2125,16 @@ if (typeof document !== "undefined") {
 
       if (pdfToolbar) pdfToolbar.hidden = false;
       if (pdfZoomLabel) pdfZoomLabel.textContent = `${Math.round(pdfScale * 100)}%`;
+      if (pdfPageTotal) pdfPageTotal.textContent = `/ 전체 ${pdf.numPages}`;
+      if (pdfPageInput) {
+        pdfPageInput.max = String(pdf.numPages);
+        pdfPageInput.value = String(clampPdfPageNumber(pdfCurrentPage, pdf.numPages));
+      }
+
+      setupPdfPageObserver();
+      // 관찰자 콜백은 다음 프레임에야 오므로 첫 화면 몫은 즉시 그린다.
+      drawPdfPageWindow(clampPdfPageNumber(pdfCurrentPage, pdf.numPages));
+      updateVisiblePdfPages();
 
       return pageTexts.join("\n").trim();
     }
@@ -1912,7 +2151,7 @@ if (typeof document !== "undefined") {
 
     function rerenderPdfAtScale(newScale) {
       if (!pdfDoc) return Promise.resolve();
-      pdfScale = Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, newScale));
+      pdfScale = clampPdfScale(newScale, PDF_MIN_SCALE, PDF_MAX_SCALE);
       pdfRerenderQueue = pdfRerenderQueue.then(() => {
         // 줄 서 있는 동안 배율이 더 바뀌었다면 마지막 값 한 번만 그리면 된다.
         if (renderedPdfScale === pdfScale) return;
@@ -1965,7 +2204,7 @@ if (typeof document !== "undefined") {
       const persist = !options || options.persist !== false;
 
       pdfStatus.hidden = false;
-      pdfStatus.textContent = "PDF 분석 중...";
+      pdfStatus.textContent = "PDF 여는 중…";
       hideHighlightToolbar();
       hideMemoPopover();
       annotationsCache = [];
@@ -1988,6 +2227,7 @@ if (typeof document !== "undefined") {
         }
 
         lastPdfFilename = file.name;
+        pdfCurrentPage = 1;
 
         // Reveal the viewer before rendering starts, so the reader watches
         // pages fill in instead of staring at a frozen "분석 중" message until
@@ -1997,10 +2237,10 @@ if (typeof document !== "undefined") {
         pdfViewer.hidden = false;
 
         const text = await renderPdf(pdf, probed, (done, total) => {
-          pdfStatus.textContent = `PDF 페이지 표시 중... (${done}/${total})`;
+          pdfStatus.textContent = `텍스트 추출 중… (${done}/${total})`;
         });
 
-        pdfStatus.hidden = true;
+        pdfStatus.textContent = "용어 분석 중…";
         textarea.value = text;
         // PDF 모드로 넘어왔으니 텍스트 초안은 더 이상 복원 대상이 아니다.
         // (textarea 내용이 사용자가 쓰던 글이 아니라 PDF 추출 텍스트로 바뀌었다)
@@ -2008,6 +2248,7 @@ if (typeof document !== "undefined") {
         hideRestoreStatus();
         if (persist) saveCurrentPdf(file, currentDocHash);
         await requestAnalysis(text, { updateInputPane: false });
+        pdfStatus.hidden = true;
         await loadAndRenderAnnotations();
       } catch (err) {
         console.error("[pdf-upload]", err);
