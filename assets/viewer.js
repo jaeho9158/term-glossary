@@ -2228,6 +2228,9 @@ if (typeof document !== "undefined") {
 
         lastPdfFilename = file.name;
         pdfCurrentPage = 1;
+        // 새 문서는 이전 문서의 "이 배율은 이미 그렸다" 기록과 무관하다. 업로드
+        // 뿐 아니라 "최근 문서 다시 열기"도 이 경로를 타므로 여기서 초기화한다.
+        renderedPdfScale = null;
 
         // Reveal the viewer before rendering starts, so the reader watches
         // pages fill in instead of staring at a frozen "분석 중" message until
