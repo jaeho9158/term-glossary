@@ -942,7 +942,16 @@ if (typeof document !== "undefined") {
       // 두 호출부(용어 찾기, PDF 업로드) 모두 try/catch로 사용자에게 안내한다.
       if (!res.ok) throw new Error(`용어 데이터 로드 실패 (HTTP ${res.status})`);
       cachedTerms = decodeViewerIndex(await res.json());
+      exactIndex = buildExactIndex(cachedTerms);
 
+      return cachedTerms;
+    }
+
+    // Fuse 인덱스는 fuzzy 패스(runFuzzyPass)에서만 쓰는데 그 패스는 현재
+    // 꺼져 있다. 7만여 항목짜리 인덱스를 첫 "용어 찾기" 때마다 눈에 띄게
+    // 시간을 들여 만들 이유가 없으므로, 실제로 fuzzy 검색을 부를 때만 만든다.
+    function getViewerFuse() {
+      if (viewerFuse) return viewerFuse;
       const searchData = cachedTerms.flatMap(term => {
         const arr = [];
 
@@ -982,9 +991,7 @@ if (typeof document !== "undefined") {
         ]
       });
 
-      exactIndex = buildExactIndex(cachedTerms);
-
-      return cachedTerms;
+      return viewerFuse;
     }
 
     // definition은 결과 카드에만 쓰이므로, 찾은 용어가 속한 청크만 받아 온다.
@@ -1088,7 +1095,7 @@ if (typeof document !== "undefined") {
         // unrelated compound.
         const forms = [...candidateNormalizedForms(word)];
         const { form: normalized } = forms[forms.length - 1];
-        const fuseResults = viewerFuse.search(normalized, { limit: 3 });
+        const fuseResults = getViewerFuse().search(normalized, { limit: 3 });
 
         for (const r of fuseResults) {
           if (r.score > FUZZY_SCORE_THRESHOLD) continue;
@@ -1514,6 +1521,7 @@ if (typeof document !== "undefined") {
 
     // 입력이 비면 이전 논문의 결과가 남아 헷갈리므로 사이드바를 초기화한다.
     function resetResults() {
+      closeTermPopover();
       currentMatches = [];
       countHeading.textContent = "";
       termsList.innerHTML = "";
