@@ -1098,6 +1098,67 @@ main.wide {
   top: 20px;
 }
 
+/* 용어 패널 접기. PDF 글자 크기는 뷰어 가로폭이 결정하는데 오른쪽 패널이
+   40%를 차지해 화면맞춤 배율이 작게 잡힌다. 접으면 패널이 44px 띠로 줄고
+   뷰어가 남은 폭을 전부 써서, 화면맞춤을 다시 잡으면 글자가 그만큼 커진다. */
+.terms-panel-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.terms-panel-toggle:hover {
+  color: var(--text);
+}
+
+.viewer-layout.terms-collapsed .viewer-terms {
+  flex: 0 0 44px;
+  min-width: 44px;
+  overflow: hidden;
+}
+
+.viewer-layout.terms-collapsed .viewer-terms > :not(.terms-panel-toggle) {
+  display: none;
+}
+
+.viewer-layout.terms-collapsed .terms-panel-toggle {
+  flex-direction: column;
+  width: 44px;
+  padding: 10px 0;
+}
+
+.viewer-layout.terms-collapsed .terms-panel-toggle-label {
+  writing-mode: vertical-rl;
+}
+
+.viewer-layout.terms-collapsed .terms-panel-toggle-icon {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 720px) {
+  /* 세로 배치에서는 패널을 접을 이유가 없다(폭을 나눠 쓰지 않는다). */
+  .terms-panel-toggle {
+    display: none;
+  }
+
+  .viewer-layout.terms-collapsed .viewer-terms {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .viewer-layout.terms-collapsed .viewer-terms > :not(.terms-panel-toggle) {
+    display: revert;
+  }
+}
+
 .viewer-terms input[type="search"] {
   width: 100%;
   padding: 10px 12px;

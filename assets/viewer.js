@@ -1656,6 +1656,41 @@ if (typeof document !== "undefined") {
     const pdfSearchNextBtn = document.getElementById("pdf-search-next");
     const pdfSearchCount = document.getElementById("pdf-search-count");
 
+    // 용어 패널 접기/펼치기. 접으면 뷰어 폭이 바뀌므로 PDF가 열려 있으면
+    // 화면맞춤 배율을 다시 잡아 글자가 새 폭에 맞게 커지거나 작아지게 한다.
+    // 상태는 기기별 취향이라 localStorage에만 남긴다(HIDDEN_TERMS_KEY와 같은 취지).
+    const TERMS_PANEL_COLLAPSED_KEY = "viewerTermsPanelCollapsed";
+    const viewerLayout = document.querySelector(".viewer-layout");
+    const termsPanelToggle = document.getElementById("terms-panel-toggle");
+
+    function setTermsPanelCollapsed(collapsed, { refit = true } = {}) {
+      if (!viewerLayout || !termsPanelToggle) return;
+      viewerLayout.classList.toggle("terms-collapsed", collapsed);
+      termsPanelToggle.setAttribute("aria-expanded", String(!collapsed));
+      termsPanelToggle.title = collapsed ? "용어 패널 펼치기" : "용어 패널 접기";
+      try {
+        localStorage.setItem(TERMS_PANEL_COLLAPSED_KEY, collapsed ? "1" : "0");
+      } catch (e) {
+        /* 저장 못 해도 동작에는 영향 없음 */
+      }
+      if (refit && pdfDoc) {
+        computeFitWidthScale(pdfDoc).then((scale) => rerenderPdfAtScale(scale));
+      }
+    }
+
+    if (termsPanelToggle) {
+      termsPanelToggle.addEventListener("click", () => {
+        setTermsPanelCollapsed(!viewerLayout.classList.contains("terms-collapsed"));
+      });
+      let savedCollapsed = false;
+      try {
+        savedCollapsed = localStorage.getItem(TERMS_PANEL_COLLAPSED_KEY) === "1";
+      } catch (e) {
+        /* 읽기 실패는 펼친 상태로 */
+      }
+      if (savedCollapsed) setTermsPanelCollapsed(true, { refit: false });
+    }
+
     if (pdfZoomOutBtn) pdfZoomOutBtn.addEventListener("click", () => rerenderPdfAtScale(pdfScale - 0.25));
     if (pdfZoomInBtn) pdfZoomInBtn.addEventListener("click", () => rerenderPdfAtScale(pdfScale + 0.25));
     if (pdfZoomFitBtn) {
