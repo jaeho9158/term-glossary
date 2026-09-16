@@ -1274,6 +1274,9 @@ if (typeof document !== "undefined") {
     }
 
     findBtn.addEventListener("click", () => {
+      // 복원 안내는 "이어서 쓸지 지울지" 고르라는 안내라, 분석을 시작한 시점에는
+      // 역할이 끝난다.
+      hideRestoreStatus();
       runAnalysis(textarea.value);
     });
 
@@ -1543,6 +1546,18 @@ if (typeof document !== "undefined") {
     pdfInput.addEventListener("change", async () => {
       const file = pdfInput.files[0];
       if (!file) return;
+      try {
+        await handlePdfFile(file);
+      } finally {
+        pdfInput.value = "";
+      }
+    });
+
+    // 업로드 경로와 "최근 문서 다시 열기" 경로가 같은 처리를 타도록, 파일 하나를
+    // 받아 렌더까지 끝내는 함수로 분리했다. `persist:false` 는 IndexedDB 에서
+    // 막 꺼내온 파일을 다시 쓰지 않기 위한 플래그.
+    async function handlePdfFile(file, options) {
+      const persist = !options || options.persist !== false;
 
       pdfStatus.hidden = false;
       pdfStatus.textContent = "PDF 분석 중...";
@@ -1582,6 +1597,11 @@ if (typeof document !== "undefined") {
 
         pdfStatus.hidden = true;
         textarea.value = text;
+        // PDF 모드로 넘어왔으니 텍스트 초안은 더 이상 복원 대상이 아니다.
+        // (textarea 내용이 사용자가 쓰던 글이 아니라 PDF 추출 텍스트로 바뀌었다)
+        clearSavedText();
+        hideRestoreStatus();
+        if (persist) saveCurrentPdf(file, currentDocHash);
         await runAnalysis(text, { updateInputPane: false });
         await loadAndRenderAnnotations();
       } catch (err) {
@@ -1595,9 +1615,115 @@ if (typeof document !== "undefined") {
         textarea.value = "";
         findBtn.disabled = true;
         currentDocHash = null;
-      } finally {
-        pdfInput.value = "";
       }
-    });
+    }
+
+    // ---------- 작업 내용 유지 (텍스트 초안 / 최근 PDF) ----------
+    // 저장 계층은 assets/viewer-storage.js. 미지원 환경에서는 통째로 없는 셈
+    // 치고 뷰어 본기능은 그대로 동작해야 하므로 매번 존재 여부를 확인한다.
+    const store = typeof window !== "undefined" ? window.ViewerStorage : null;
+    const restoreStatus = document.getElementById("viewer-restore-status");
+
+    function clearSavedText() {
+      if (store) store.clearText();
+    }
+
+    function hideRestoreStatus() {
+      if (!restoreStatus) return;
+      restoreStatus.hidden = true;
+      restoreStatus.textContent = "";
+    }
+
+    // #pdf-status 와 같은 aria-live 영역에 안내 + 인라인 액션 버튼을 그린다.
+    function showRestoreStatus(message, actions) {
+      if (!restoreStatus) return;
+      restoreStatus.textContent = "";
+      restoreStatus.append(message);
+      (actions || []).forEach((action) => {
+        restoreStatus.append(" · ");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "term-filter-link";
+        btn.textContent = action.label;
+        btn.addEventListener("click", action.onClick);
+        restoreStatus.append(btn);
+      });
+      restoreStatus.hidden = false;
+    }
+
+    function saveCurrentPdf(file, docHash) {
+      if (!store) return;
+      // 실패(용량 초과·프라이빗 모드)는 조용히 무시 — 저장 계층이 false 를 돌려준다.
+      store.saveDocument(file, docHash);
+    }
+
+    // 500ms 디바운스: 한 글자마다 직렬화+localStorage 쓰기를 하면 긴 논문에서
+    // 입력이 눈에 띄게 끊긴다.
+    let saveTextTimer = null;
+    if (store && textarea) {
+      textarea.addEventListener("input", () => {
+        clearTimeout(saveTextTimer);
+        saveTextTimer = setTimeout(() => {
+          // 내용을 지우면 저장본도 사라진다(saveText 내부에서 removeItem).
+          store.saveText(textarea.value);
+        }, 500);
+      });
+    }
+
+    function restoreDraftText() {
+      if (!store || !textarea) return;
+      const rec = store.loadText();
+      if (!rec) return;
+      // PDF 를 이미 열어 둔 상태(pdfDoc)나 입력이 있는 상태는 덮어쓰지 않는다.
+      // #pdf-viewer 는 초기 마크업에 hidden 속성이 없어서 "보이는지"로는
+      // PDF 로드 여부를 판별할 수 없다 — pdfDoc 이 실제 상태다.
+      if (pdfDoc || textarea.value.trim()) return;
+      textarea.value = rec.text;
+      findBtn.disabled = rec.text.trim().length === 0;
+      showRestoreStatus("이전에 작성하던 텍스트를 복원했습니다", [
+        {
+          label: "지우기",
+          onClick: () => {
+            textarea.value = "";
+            findBtn.disabled = true;
+            clearSavedText();
+            hideRestoreStatus();
+            textarea.focus();
+          },
+        },
+      ]);
+    }
+
+    // 자동 복원이 아니라 사용자가 "다시 열기"를 누르게 한다 — 큰 PDF 는 렌더
+    // 비용이 커서, 뷰어에 들어왔다고 무조건 다시 그리면 손해다.
+    async function offerRecentPdf() {
+      if (!store) return;
+      const rec = await store.loadDocument();
+      if (!rec) return;
+      const label = `최근 문서: ${rec.name} (${store.formatSize(rec.size)})`;
+      showRestoreStatus(label, [
+        {
+          label: "다시 열기",
+          onClick: async () => {
+            hideRestoreStatus();
+            const file = store.toFile(rec);
+            if (!file) return;
+            await handlePdfFile(file, { persist: false });
+          },
+        },
+        {
+          label: "삭제",
+          onClick: async () => {
+            hideRestoreStatus();
+            await store.clearDocument();
+          },
+        },
+      ]);
+    }
+
+    // 텍스트 초안이 있으면 그쪽을 먼저 안내하고(바로 이어서 쓸 수 있으므로),
+    // 없을 때만 최근 PDF 배너를 띄운다. 안내 영역이 하나라 둘을 겹쳐 쓸 수 없다.
+    restoreDraftText();
+    if (restoreStatus && restoreStatus.hidden) offerRecentPdf();
   })();
 }
