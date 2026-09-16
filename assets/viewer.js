@@ -228,6 +228,34 @@ function matchTerms(text, terms) {
   return matchTermsWithIndex(text, buildExactIndex(terms));
 }
 
+// PDF 텍스트 레이어 span 하나에 들어 있는 사전 용어 slug들을 처음 나온 순서로
+// 돌려준다. PDF에서는 span을 쪼개지 않고 span 자체에 표시만 얹기 때문에
+// "어디부터 어디까지"가 아니라 "이 span에 어떤 용어가 있나"만 알면 된다.
+// allowedSlugs(분석 결과에서 숨기지 않은 용어)를 주면 그 안의 용어만 남긴다 —
+// 분석 전이거나 사용자가 숨긴 용어는 표시하지 않기 위한 것.
+// DOM을 쓰지 않는 순수 함수라 테스트에서 그대로 검증한다.
+function findSpanTermSlugs(spanText, exactIndex, allowedSlugs) {
+  if (!spanText || !exactIndex) return [];
+  const hitsInOrder = [];
+  for (const [word, starts] of wordOccurrences(spanText)) {
+    for (const hit of findExactMatches(word, exactIndex)) {
+      for (const term of hit.candidates) {
+        if (allowedSlugs && !allowedSlugs.has(term.slug)) continue;
+        hitsInOrder.push({ slug: term.slug, start: starts[0] });
+      }
+    }
+  }
+  hitsInOrder.sort((a, b) => a.start - b.start);
+  const slugs = [];
+  const seen = new Set();
+  for (const hit of hitsInOrder) {
+    if (seen.has(hit.slug)) continue;
+    seen.add(hit.slug);
+    slugs.push(hit.slug);
+  }
+  return slugs;
+}
+
 // 공용 escapeHtml: 브라우저에서는 assets/escape.js가 먼저 로드돼 전역 함수로
 // 제공된다(아래 var 선언은 기존 전역을 덮어쓰지 않는 no-op). Node 테스트에서
 // viewer.js를 require하면 이 블록이 실행돼 공용본을 불러온다.
@@ -558,7 +586,7 @@ function defBucket(slug) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, findSpanTermSlugs };
 }
 
 if (typeof document !== "undefined") {
@@ -811,10 +839,10 @@ if (typeof document !== "undefined") {
       });
     }
 
-    async function loadAndRenderAnnotations() {
-      if (!currentDocHash) return;
-      const { loadAnnotations } = await import("./pdf-annotations.js");
-      annotationsCache = await loadAnnotations(currentDocHash);
+    // 캐시에 있는 하이라이트를 현재 텍스트 레이어에 다시 그린다. 줌(재렌더)은
+    // #pdf-viewer를 통째로 비우므로 서버에서 다시 받아올 필요 없이 이것만
+    // 부르면 된다.
+    function renderAnnotationMarks() {
       for (const record of annotationsCache) {
         const textLayerDiv = document.querySelector(
           `#pdf-viewer .pdf-page-wrap[data-page="${record.page}"] .textLayer`
@@ -828,6 +856,13 @@ if (typeof document !== "undefined") {
           return mark;
         });
       }
+    }
+
+    async function loadAndRenderAnnotations() {
+      if (!currentDocHash) return;
+      const { loadAnnotations } = await import("./pdf-annotations.js");
+      annotationsCache = await loadAnnotations(currentDocHash);
+      renderAnnotationMarks();
       renderNotesList();
     }
 
@@ -1373,7 +1408,7 @@ if (typeof document !== "undefined") {
 
     // 본문(텍스트 모드)과 PDF 텍스트 레이어 양쪽에서 같은 핸들러를 쓴다.
     document.addEventListener("click", (e) => {
-      const mark = e.target.closest && e.target.closest("mark.dict-mark");
+      const mark = e.target.closest && e.target.closest(".dict-mark");
       if (mark && (mark.closest(".viewer-rendered") || mark.closest("#pdf-viewer"))) {
         e.preventDefault();
         openTermPopover(mark);
@@ -1392,8 +1427,8 @@ if (typeof document !== "undefined") {
 
     function scrollToMark(slug) {
       const mark =
-        document.querySelector(`.viewer-rendered mark[data-slug="${slug}"], #pdf-viewer mark[data-slug="${slug}"]`) ||
-        document.querySelector(`.viewer-rendered mark[data-covers~="${slug}"], #pdf-viewer mark[data-covers~="${slug}"]`);
+        document.querySelector(`.viewer-rendered [data-slug="${slug}"], #pdf-viewer .dict-mark[data-slug="${slug}"]`) ||
+        document.querySelector(`.viewer-rendered [data-covers~="${slug}"], #pdf-viewer .dict-mark[data-covers~="${slug}"]`);
       if (!mark) return;
       mark.scrollIntoView({ behavior: "smooth", block: "center" });
       mark.classList.add("mark-flash");
@@ -1416,12 +1451,15 @@ if (typeof document !== "undefined") {
         .querySelectorAll(`.viewer-rendered mark.dict-mark[data-slug="${slug}"], #pdf-viewer mark.dict-mark[data-slug="${slug}"]`)
         .forEach(unwrapMark);
       saveHiddenSlugs(hiddenSlugs);
+      // PDF 쪽은 span에 class만 얹은 형태라 unwrap이 아니라 다시 칠해서 지운다.
+      applyPdfTermMarks();
       renderMatchedTerms(currentMatches, filterInput.value);
     }
 
     function restoreAllHiddenTerms() {
       hiddenSlugs.clear();
       saveHiddenSlugs(hiddenSlugs);
+      applyPdfTermMarks();
       renderMatchedTerms(currentMatches, filterInput.value);
     }
 
@@ -1473,6 +1511,8 @@ if (typeof document !== "undefined") {
         // 카드에 찍을 정의는 찾은 용어 것만 청크에서 받아 온다.
         await attachDefinitions(currentMatches);
         renderMatchedTerms(currentMatches, filterInput.value);
+        // 분석이 PDF 렌더보다 늦게 끝나므로, 이미 그려진 페이지에도 표시를 얹는다.
+        applyPdfTermMarks();
 
         // The fuzzy (typo-tolerant) pass that used to run here has been
         // disabled: for a dictionary this dense (38k+ short Korean compound
@@ -1725,6 +1765,54 @@ if (typeof document !== "undefined") {
       return Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, scale));
     }
 
+    // PDF 텍스트 레이어의 용어 표시.
+    //
+    // 예전에는 텍스트 레이어에서도 span들을 가로질러 용어를 <mark>로 감쌌는데,
+    // pdf.js가 span마다 계산해 둔 절대 위치·transform: scaleX()가 쪼개진
+    // 조각에 그대로 복제되면서 글자 폭과 위치가 틀어졌다(c98ed9adc에서 제거).
+    // 그래서 여기서는 span을 전혀 쪼개지 않고, 용어가 들어 있는 span 자체에
+    // class="dict-mark"만 얹는다 — DOM 구조가 그대로라 위치가 어긋날 수 없고,
+    // 클릭 대상(.dict-mark)과 팝오버 동작은 텍스트 모드와 똑같다.
+    // 표시 단위가 단어가 아니라 span(대개 한 줄의 텍스트 런)이라 밑줄이 조금
+    // 넓게 그어지지만, 한 글자도 밀리지 않는 쪽을 택한 결과다.
+    function visibleSlugSet() {
+      return new Set(currentMatches.filter((m) => !hiddenSlugs.has(m.slug)).map((m) => m.slug));
+    }
+
+    function markTermsInTextLayer(textLayerDiv, allowedSlugs) {
+      if (!textLayerDiv) return;
+      const spans = textLayerDiv.querySelectorAll("span:not(.markedContent)");
+      for (const span of spans) {
+        const slugs = exactIndex ? findSpanTermSlugs(span.textContent, exactIndex, allowedSlugs) : [];
+        if (!slugs.length) {
+          if (span.classList.contains("dict-mark")) {
+            span.classList.remove("dict-mark", "dict-mark-active");
+            delete span.dataset.slug;
+            delete span.dataset.covers;
+          }
+          continue;
+        }
+        span.classList.add("dict-mark");
+        span.dataset.slug = slugs[0];
+        span.dataset.covers = slugs.slice(1).join(" ");
+      }
+    }
+
+    // 분석(runAnalysis)이 텍스트 레이어보다 늦게 끝나거나, 용어를 숨기고 다시
+    // 보이게 했을 때 이미 만들어진 페이지의 표시를 다시 맞춘다.
+    function applyPdfTermMarks() {
+      const allowed = visibleSlugSet();
+      for (const div of pdfTextLayerDivs) markTermsInTextLayer(div, allowed);
+    }
+
+    // 페이지 텍스트 레이어가 준비될 때마다 renderPdf가 부르는 훅. (캔버스를
+    // 지연 렌더하는 구조로 바뀌어도 호출 지점은 TextLayer.render() 직후로
+    // 동일하다.) 아직 분석 전이면 visibleSlugSet()이 비어 있어 아무것도
+    // 표시하지 않고, 분석이 끝나면 applyPdfTermMarks()가 다시 칠한다.
+    function onPageTextLayerReady(pageNum, textLayerDiv, textContent) {
+      markTermsInTextLayer(textLayerDiv, visibleSlugSet());
+    }
+
     // `probedTextContent` is only passed on the very first render of a
     // freshly-uploaded file; a zoom change calls this again with it omitted,
     // which also signals "keep pdfTextContentCache" so re-rendering at a new
@@ -1797,6 +1885,7 @@ if (typeof document !== "undefined") {
           container: textLayerDiv,
           viewport,
         }).render();
+        onPageTextLayerReady(i, textLayerDiv, textContent);
 
         const joined = joinTextItems(textContent.items);
         pdfPageTexts.set(i, joined);
@@ -1814,13 +1903,41 @@ if (typeof document !== "undefined") {
     // Re-renders every page at a new scale, reusing the cached getTextContent()
     // results above so zooming re-parses nothing — only re-rasterizes the
     // canvas and rebuilds the text layer + highlights.
-    async function rerenderPdfAtScale(newScale) {
-      if (!pdfDoc) return;
+    // 줌 버튼을 빠르게 두 번 누르면 renderPdf가 겹쳐 돌면서(둘 다 같은
+    // #pdf-viewer에 페이지를 붙인다) 페이지와 하이라이트가 두 벌씩 그려졌다.
+    // 배율 자체는 클릭 즉시 반영하고, 실제 재렌더는 앞의 것이 끝난 뒤에
+    // 한 번만 돌게 줄을 세운다.
+    let pdfRerenderQueue = Promise.resolve();
+    let renderedPdfScale = null;
+
+    function rerenderPdfAtScale(newScale) {
+      if (!pdfDoc) return Promise.resolve();
       pdfScale = Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, newScale));
+      pdfRerenderQueue = pdfRerenderQueue.then(() => {
+        // 줄 서 있는 동안 배율이 더 바뀌었다면 마지막 값 한 번만 그리면 된다.
+        if (renderedPdfScale === pdfScale) return;
+        return doRerenderPdf();
+      });
+      return pdfRerenderQueue;
+    }
+
+    async function doRerenderPdf() {
+      renderedPdfScale = pdfScale;
       const viewerEl = document.getElementById("pdf-viewer");
       const scrollRatio = viewerEl.scrollHeight > 0 ? viewerEl.scrollTop / viewerEl.scrollHeight : 0;
+      // 재렌더는 텍스트 레이어를 통째로 새로 만들기 때문에, 열려 있던 팝오버와
+      // 선택 툴바가 가리키던 mark·span은 이미 문서에서 떨어져 나간 상태다.
+      // 먼저 닫아 두지 않으면 삭제·메모 저장이 보이지 않는 옛 DOM에 적용된다.
+      hideHighlightToolbar();
+      hideMemoPopover();
+      closeTermPopover();
       await renderPdf(pdfDoc, null);
       viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
+      // 줌 후 하이라이트가 사라지던 버그: renderPdf가 #pdf-viewer를 비우는데
+      // 하이라이트를 다시 그리는 곳이 없었다. 오프셋은 배율과 무관하므로
+      // 캐시로 그대로 다시 그리면 글자에 정확히 붙는다.
+      renderAnnotationMarks();
+      applyPdfTermMarks();
       // Re-run any active search: the re-render rebuilt every text layer,
       // discarding search marks — and a search typed *during* the re-render
       // saw an empty page list and stuck at "0/0" until the next keystroke.
@@ -1832,6 +1949,8 @@ if (typeof document !== "undefined") {
     pdfInput.addEventListener("change", async () => {
       const file = pdfInput.files[0];
       if (!file) return;
+      // 새 문서는 이전 문서의 "이 배율은 이미 그렸다" 기록과 무관하다.
+      renderedPdfScale = null;
       try {
         await handlePdfFile(file);
       } finally {
