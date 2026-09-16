@@ -227,88 +227,6 @@ function matchTermsWithIndex(text, exactIndex) {
   return sortMatches(resultsMap);
 }
 
-// 문서의 전체 주제를 대분류(CATEGORY_GROUPS) 단위로 추정하고, 그 주제와 동떨어진
-// 용어를 골라낸다. 사전이 3만 7천 개라 어떤 논문이든 다른 분야의 동음이의어가
-// 몇 개는 걸리는데(신경과학 논문에서 "응력"이 재료공학 용어로 잡히는 식),
-// 문서 안에서 반복되는 용어들이 어느 분야에 몰려 있는지를 보면 걸러낼 수 있다.
-//
-// - 가중치: 용어마다 log2(1+등장 횟수). 반복되는 용어가 주제를 대변하고,
-//   한 번 스친 용어는 힘이 약하다.
-// - 연구 기초·방법(stat/method/tool/ethics/math)은 어떤 논문에나 나오므로
-//   주제 추정에서 빼고, 항상 "관련 있음"으로 둔다.
-// - 주제 대분류: 가중치 순으로 누적해 coverage(기본 70%)를 넘길 때까지 + 단독
-//   share가 minShare(기본 20%) 이상인 대분류.
-// 순수 함수라 테스트에서 그대로 검증한다.
-function computeTopicRelevance(matches, groups, { coverage = 0.7, minShare = 0.2 } = {}) {
-  const groupOf = new Map();
-  let universalLabel = null;
-  for (const group of groups || []) {
-    for (const code of group.codes) groupOf.set(code, group.label);
-    if (group.codes.includes("stat")) universalLabel = group.label;
-  }
-
-  const groupsForMatch = (m) => {
-    const set = new Set();
-    for (const code of m.categories || []) {
-      const label = groupOf.get(code);
-      if (label) set.add(label);
-    }
-    return set;
-  };
-
-  const weight = new Map();
-  const termCount = new Map();
-  let total = 0;
-  for (const m of matches) {
-    const w = Math.log2(1 + (m.count || 1));
-    const labels = groupsForMatch(m);
-    // 통계·방법론 용어가 산업공학 같은 분야에도 같이 태깅된 경우가 많다.
-    // 그런 용어는 어느 논문에나 나오므로 다른 분야의 주제 근거로 세지 않는다.
-    if (universalLabel && labels.has(universalLabel)) continue;
-    for (const label of labels) {
-      weight.set(label, (weight.get(label) || 0) + w);
-      termCount.set(label, (termCount.get(label) || 0) + 1);
-      total += w;
-    }
-  }
-
-  const dominant = new Set();
-  if (total > 0) {
-    const ranked = [...weight.entries()].sort((a, b) => b[1] - a[1]);
-    let acc = 0;
-    for (const [label, w] of ranked) {
-      const share = w / total;
-      // share 기준으로 주제에 끼려면 용어가 둘 이상이어야 한다 — 동음이의어
-      // 하나가 짧은 문서에서 20%를 넘겨 버리는 경우를 막는다.
-      const byShare = share >= minShare && (termCount.get(label) || 0) >= 2;
-      if (acc < coverage * total || byShare) dominant.add(label);
-      acc += w;
-    }
-  }
-
-  const isRelevant = (m) => {
-    // 주제를 추정할 근거가 없으면(전부 기초·방법 용어) 아무것도 거르지 않는다.
-    if (dominant.size === 0) return true;
-    const labels = groupsForMatch(m);
-    if (labels.size === 0) return true; // 대분류를 모르는 코드는 거르지 않는다
-    if (universalLabel && labels.has(universalLabel)) return true;
-    for (const label of labels) if (dominant.has(label)) return true;
-    return false;
-  };
-
-  // 분야 선택지용: 이 코드가 주제 대분류(또는 기초·방법)에 속하는가.
-  // 주제 밖 분야는 선택지에서도 뺀다 — 통계 용어에 덤으로 붙은 "산업공학"
-  // 같은 태그 때문에 신경과학 논문의 분야 목록에 산업공학이 뜨지 않도록.
-  const isRelevantCode = (code) => {
-    if (dominant.size === 0) return true;
-    const label = groupOf.get(code);
-    if (!label) return true;
-    return label === universalLabel || dominant.has(label);
-  };
-
-  return { dominantGroups: dominant, universalLabel, isRelevant, isRelevantCode };
-}
-
 function matchTerms(text, terms) {
   return matchTermsWithIndex(text, buildExactIndex(terms));
 }
@@ -670,7 +588,7 @@ function clampPdfPageNumber(value, totalPages) {
   return Math.max(1, Math.min(total, n));
 }
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeTopicRelevance, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -678,10 +596,6 @@ if (typeof document !== "undefined") {
     let cachedTerms = null;
     let exactIndex = null;
     let currentMatches = [];
-    // 문서 주제 추정 결과(computeTopicRelevance). 분석할 때마다 다시 계산한다.
-    let topicRelevance = null;
-    // 주제와 거리가 먼 용어는 기본으로 숨기고, 사용자가 "모두 보기"를 누르면 편다.
-    let showOffTopic = false;
     let lastPdfFilename = null;
     let currentDocHash = null;
     let pdfTextLayerDivs = [];
@@ -734,8 +648,6 @@ if (typeof document !== "undefined") {
     const categoryFilterSelect = document.getElementById("category-filter-select");
     const englishOnlyFilter = document.getElementById("english-only-filter");
     const showHiddenTermsBtn = document.getElementById("show-hidden-terms-btn");
-    const offTopicToggle = document.getElementById("off-topic-toggle");
-    const topicLabelEl = document.getElementById("topic-label");
 
     // "이 용어 숨기기" is per-browser, not per-account — no login required to
     // stop seeing terms the reader already knows well.
@@ -1303,33 +1215,18 @@ if (typeof document !== "undefined") {
 // Populates the category dropdown with only the categories actually present
     // in this document's matches — no point offering 40 categories when the
     // paper only touched 3 of them.
-    // 추정한 주제 대분류와, 주제와 거리가 멀어 숨긴 용어 수를 한 줄로 보여 준다.
-    function renderTopicSummary(offTopicCount) {
-      const summary = document.getElementById("topic-summary");
-      if (!summary || !topicLabelEl || !offTopicToggle) return;
-      const groups = topicRelevance ? [...topicRelevance.dominantGroups] : [];
-      if (groups.length === 0) {
-        summary.hidden = true;
-        return;
-      }
-      topicLabelEl.textContent = `주제: ${groups.join(" · ")}`;
-      if (showOffTopic) {
-        offTopicToggle.textContent = "주제와 먼 용어 다시 숨기기";
-        offTopicToggle.hidden = false;
-      } else if (offTopicCount > 0) {
-        offTopicToggle.textContent = `주제와 먼 용어 ${offTopicCount}개 숨김 · 모두 보기`;
-        offTopicToggle.hidden = false;
-      } else {
-        offTopicToggle.hidden = true;
-      }
-      summary.hidden = false;
-    }
-
     function populateCategoryFilterOptions(matches) {
       if (!categoryFilterSelect) return;
       const codes = new Set();
-      const keepCode = (c) => showOffTopic || !topicRelevance || topicRelevance.isRelevantCode(c);
-      matches.forEach((m) => (m.categories || []).forEach((c) => { if (keepCode(c)) codes.add(c); }));
+      // 용어마다 categories[0]이 대표 분야고 뒤는 덤으로 붙은 태그다(통계 용어에
+      // "산업공학"이 딸려오는 식). 덤 태그까지 모으면 논문 하나에 분야 40개가
+      // 떠서 "전체 분야"나 다름없어지므로 대표 분야만 선택지로 올린다.
+      // 필터 자체는 아래에서 categories 전체를 보므로, 대표 분야를 고르면
+      // 그 분야가 덤 태그로 붙은 용어도 함께 잡힌다.
+      matches.forEach((m) => {
+        const primary = (m.categories || [])[0];
+        if (primary) codes.add(primary);
+      });
       const previousValue = categoryFilterSelect.value;
       const labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
       categoryFilterSelect.innerHTML =
@@ -1382,21 +1279,14 @@ if (typeof document !== "undefined") {
         return;
       }
 
-      // 주제와 거리가 먼 용어는 목록·분야 선택지 양쪽에서 뺀다. 사용자가
-      // "모두 보기"를 누른 경우에만 전부 보여 준다.
-      const isOnTopic = (m) => showOffTopic || !topicRelevance || topicRelevance.isRelevant(m);
-      const onTopic = matches.filter(isOnTopic);
-      const offTopicCount = matches.length - onTopic.length;
-
-      populateCategoryFilterOptions(onTopic);
-      renderTopicSummary(offTopicCount);
+      populateCategoryFilterOptions(matches);
 
       const q = (filterQuery || "").trim().toLowerCase();
       const categoryCode = categoryFilterSelect ? categoryFilterSelect.value : "";
       const englishOnly = englishOnlyFilter ? englishOnlyFilter.checked : false;
-      const hiddenCount = onTopic.filter((m) => hiddenSlugs.has(m.slug)).length;
+      const hiddenCount = matches.filter((m) => hiddenSlugs.has(m.slug)).length;
 
-      const filtered = onTopic.filter((m) => {
+      const filtered = matches.filter((m) => {
         if (hiddenSlugs.has(m.slug)) return false;
         if (q && !(m.title_ko.toLowerCase().includes(q) || (m.title_en || "").toLowerCase().includes(q))) return false;
         if (categoryCode && !(m.categories || []).includes(categoryCode)) return false;
@@ -1411,7 +1301,7 @@ if (typeof document !== "undefined") {
         return true;
       });
 
-      countHeading.textContent = `이 논문에 나온 용어 (${onTopic.length}개)`;
+      countHeading.textContent = `이 논문에 나온 용어 (${matches.length}개)`;
       renderTermCardsPaged(filtered);
 
       if (showHiddenTermsBtn) {
@@ -1566,12 +1456,6 @@ if (typeof document !== "undefined") {
     if (showHiddenTermsBtn) {
       showHiddenTermsBtn.addEventListener("click", restoreAllHiddenTerms);
     }
-    if (offTopicToggle) {
-      offTopicToggle.addEventListener("click", () => {
-        showOffTopic = !showOffTopic;
-        renderMatchedTerms(currentMatches, filterInput.value);
-      });
-    }
 
     filterInput.addEventListener("input", () => {
       renderMatchedTerms(currentMatches, filterInput.value);
@@ -1598,13 +1482,6 @@ if (typeof document !== "undefined") {
         // so results appear immediately instead of waiting on fuzzy search.
         const exactMatches = matchTerms(text, terms);
         currentMatches = exactMatches;
-        // 문서 주제는 분석할 때마다 새로 잡는다. CATEGORY_GROUPS는
-        // assets/category-data.js가 전역으로 제공한다.
-        topicRelevance = computeTopicRelevance(
-          exactMatches,
-          typeof CATEGORY_GROUPS !== "undefined" ? CATEGORY_GROUPS : []
-        );
-        showOffTopic = false;
         if (updateInputPane) {
           renderRenderedPane(text);
         }
@@ -1662,10 +1539,6 @@ if (typeof document !== "undefined") {
     function resetResults() {
       closeTermPopover();
       currentMatches = [];
-      topicRelevance = null;
-      showOffTopic = false;
-      const summary = document.getElementById("topic-summary");
-      if (summary) summary.hidden = true;
       countHeading.textContent = "";
       termsList.innerHTML = "";
       const moreBtn = document.getElementById("term-card-more-btn");
@@ -1926,7 +1799,10 @@ if (typeof document !== "undefined") {
       const page = await pdf.getPage(1);
       const baseViewport = page.getViewport({ scale: 1 });
       const viewerEl = document.getElementById("pdf-viewer");
-      const availableWidth = viewerEl.clientWidth - 20; // minus the pane's own padding
+      // 좌우 padding 20px에 더해 세로 스크롤바 몫(17px)도 미리 뺀다. 첫 화면맞춤은
+      // 페이지가 붙기 전에 계산되는데, 페이지가 붙으면서 세로 스크롤바가 생기면
+      // 그만큼 폭이 줄어 가로 스크롤이 생겼다(여러 쪽짜리 PDF는 거의 항상 해당).
+      const availableWidth = viewerEl.clientWidth - 20 - 17;
       if (!availableWidth || availableWidth <= 0) return 1.5;
       const scale = availableWidth / baseViewport.width;
       return Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, scale));
@@ -2117,6 +1993,7 @@ if (typeof document !== "undefined") {
         pdfPageObserver = null;
       }
       viewer.innerHTML = "";
+      viewer.style.setProperty("--scale-factor", String(pdfScale));
       pdfDoc = pdf;
       pdfTextLayerDivs = [];
       pdfPageWraps = [];
@@ -2161,6 +2038,11 @@ if (typeof document !== "undefined") {
 
         const textLayerDiv = document.createElement("div");
         textLayerDiv.className = "textLayer";
+        // pdf.js 4.x의 TextLayer는 span 글자 크기와 레이어 폭을
+        // calc(var(--scale-factor) * …)로 잡는다. 이 변수가 없으면 calc가 통째로
+        // 무효가 되어 글자 크기가 상속값으로 떨어지고, 드래그 선택·하이라이트가
+        // 캔버스 글자와 어긋난다(줌·패널 접기 뒤 "하이라이트가 이상하다"의 원인).
+        textLayerDiv.style.setProperty("--scale-factor", String(pdfScale));
         textLayerDiv.style.width = `${viewport.width}px`;
         textLayerDiv.style.height = `${viewport.height}px`;
 

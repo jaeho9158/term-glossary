@@ -901,6 +901,10 @@ main.wide {
 
 .viewer-input {
   flex: 1 1 60%;
+  /* flex 아이템의 기본 min-width:auto는 "내용물 폭"이라, 패널을 접어 PDF를
+     넓게 그린 뒤 다시 펴면 넓은 페이지가 이 칸을 못 줄어들게 붙잡는다. 그러면
+     화면맞춤이 여전히 넓은 폭으로 계산돼 배율이 안 돌아온다. */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1114,16 +1118,6 @@ main.wide {
 
 .terms-panel-toggle:hover {
   background: var(--accent-soft);
-}
-
-/* 추정한 주제와 "주제와 먼 용어 N개 숨김 · 모두 보기" 안내 */
-.topic-summary {
-  margin: 8px 0 0;
-  font-size: 0.82rem;
-  color: var(--muted);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
 }
 
 .viewer-layout.terms-collapsed .viewer-terms {
