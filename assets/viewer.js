@@ -1349,8 +1349,71 @@ if (typeof document !== "undefined") {
       }
     }
 
+    // 자동 실행: 분석이 이미 돌고 있으면 새 요청을 큐에 하나만 얹어 두고,
+    // 끝나는 즉시 "마지막 입력"으로 한 번 더 돌린다. 디바운스 중에도 사용자가
+    // 계속 타이핑하면 요청이 겹칠 수 있는데, 겹친 실행이 서로의 결과를
+    // 덮어쓰면 화면이 옛 텍스트 기준 결과로 되돌아가기 때문이다.
+    let analysisRunning = false;
+    let queuedAnalysis = null;
+    async function requestAnalysis(text, opts) {
+      if (analysisRunning) {
+        queuedAnalysis = { text, opts };
+        return;
+      }
+      analysisRunning = true;
+      try {
+        await runAnalysis(text, opts);
+      } finally {
+        analysisRunning = false;
+        if (queuedAnalysis) {
+          const next = queuedAnalysis;
+          queuedAnalysis = null;
+          await requestAnalysis(next.text, next.opts);
+        }
+      }
+    }
+
+    // 입력이 비면 이전 논문의 결과가 남아 헷갈리므로 사이드바를 초기화한다.
+    function resetResults() {
+      currentMatches = [];
+      countHeading.textContent = "";
+      termsList.innerHTML = "";
+      const moreBtn = document.getElementById("term-card-more-btn");
+      if (moreBtn) moreBtn.remove();
+      if (categoryFilterSelect) categoryFilterSelect.innerHTML = `<option value="">전체 분야</option>`;
+      if (showHiddenTermsBtn) showHiddenTermsBtn.hidden = true;
+      filterInput.value = "";
+      filterInput.disabled = true;
+    }
+
+    // 붙여넣기만 해도 결과가 뜨게 한다. 타이핑은 800ms 쉬었을 때만 —
+    // 글자마다 3만7천 개 사전을 훑으면 입력이 버벅인다.
+    const AUTO_ANALYSIS_DEBOUNCE_MS = 800;
+    let autoAnalysisTimer = null;
+    function scheduleAutoAnalysis({ immediate = false } = {}) {
+      clearTimeout(autoAnalysisTimer);
+      if (textarea.value.trim().length === 0) {
+        queuedAnalysis = null;
+        resetResults();
+        return;
+      }
+      if (immediate) {
+        requestAnalysis(textarea.value);
+        return;
+      }
+      autoAnalysisTimer = setTimeout(() => requestAnalysis(textarea.value), AUTO_ANALYSIS_DEBOUNCE_MS);
+    }
+
+    textarea.addEventListener("input", () => scheduleAutoAnalysis());
+    // paste 이벤트 시점에는 textarea.value가 아직 갱신 전이라 한 틱 미룬다.
+    textarea.addEventListener("paste", () => {
+      setTimeout(() => scheduleAutoAnalysis({ immediate: true }), 0);
+    });
+
+    // 버튼은 수동 재실행용으로 남겨 둔다(자동 실행이 꺼진 상황·재분석 용도).
     findBtn.addEventListener("click", () => {
-      runAnalysis(textarea.value);
+      clearTimeout(autoAnalysisTimer);
+      requestAnalysis(textarea.value);
     });
 
     if (editTextBtn) {
@@ -1658,7 +1721,7 @@ if (typeof document !== "undefined") {
 
         pdfStatus.hidden = true;
         textarea.value = text;
-        await runAnalysis(text, { updateInputPane: false });
+        await requestAnalysis(text, { updateInputPane: false });
         await loadAndRenderAnnotations();
       } catch (err) {
         console.error("[pdf-upload]", err);
