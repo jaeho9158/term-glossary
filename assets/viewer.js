@@ -228,6 +228,34 @@ function matchTerms(text, terms) {
   return matchTermsWithIndex(text, buildExactIndex(terms));
 }
 
+// PDF 텍스트 레이어 span 하나에 들어 있는 사전 용어 slug들을 처음 나온 순서로
+// 돌려준다. PDF에서는 span을 쪼개지 않고 span 자체에 표시만 얹기 때문에
+// "어디부터 어디까지"가 아니라 "이 span에 어떤 용어가 있나"만 알면 된다.
+// allowedSlugs(분석 결과에서 숨기지 않은 용어)를 주면 그 안의 용어만 남긴다 —
+// 분석 전이거나 사용자가 숨긴 용어는 표시하지 않기 위한 것.
+// DOM을 쓰지 않는 순수 함수라 테스트에서 그대로 검증한다.
+function findSpanTermSlugs(spanText, exactIndex, allowedSlugs) {
+  if (!spanText || !exactIndex) return [];
+  const hitsInOrder = [];
+  for (const [word, starts] of wordOccurrences(spanText)) {
+    for (const hit of findExactMatches(word, exactIndex)) {
+      for (const term of hit.candidates) {
+        if (allowedSlugs && !allowedSlugs.has(term.slug)) continue;
+        hitsInOrder.push({ slug: term.slug, start: starts[0] });
+      }
+    }
+  }
+  hitsInOrder.sort((a, b) => a.start - b.start);
+  const slugs = [];
+  const seen = new Set();
+  for (const hit of hitsInOrder) {
+    if (seen.has(hit.slug)) continue;
+    seen.add(hit.slug);
+    slugs.push(hit.slug);
+  }
+  return slugs;
+}
+
 // 공용 escapeHtml: 브라우저에서는 assets/escape.js가 먼저 로드돼 전역 함수로
 // 제공된다(아래 var 선언은 기존 전역을 덮어쓰지 않는 no-op). Node 테스트에서
 // viewer.js를 require하면 이 블록이 실행돼 공용본을 불러온다.
@@ -558,7 +586,7 @@ function defBucket(slug) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket };
+  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, findSpanTermSlugs };
 }
 
 if (typeof document !== "undefined") {
@@ -1373,7 +1401,7 @@ if (typeof document !== "undefined") {
 
     // 본문(텍스트 모드)과 PDF 텍스트 레이어 양쪽에서 같은 핸들러를 쓴다.
     document.addEventListener("click", (e) => {
-      const mark = e.target.closest && e.target.closest("mark.dict-mark");
+      const mark = e.target.closest && e.target.closest(".dict-mark");
       if (mark && (mark.closest(".viewer-rendered") || mark.closest("#pdf-viewer"))) {
         e.preventDefault();
         openTermPopover(mark);
@@ -1392,8 +1420,8 @@ if (typeof document !== "undefined") {
 
     function scrollToMark(slug) {
       const mark =
-        document.querySelector(`.viewer-rendered mark[data-slug="${slug}"], #pdf-viewer mark[data-slug="${slug}"]`) ||
-        document.querySelector(`.viewer-rendered mark[data-covers~="${slug}"], #pdf-viewer mark[data-covers~="${slug}"]`);
+        document.querySelector(`.viewer-rendered [data-slug="${slug}"], #pdf-viewer .dict-mark[data-slug="${slug}"]`) ||
+        document.querySelector(`.viewer-rendered [data-covers~="${slug}"], #pdf-viewer .dict-mark[data-covers~="${slug}"]`);
       if (!mark) return;
       mark.scrollIntoView({ behavior: "smooth", block: "center" });
       mark.classList.add("mark-flash");
@@ -1416,12 +1444,15 @@ if (typeof document !== "undefined") {
         .querySelectorAll(`.viewer-rendered mark.dict-mark[data-slug="${slug}"], #pdf-viewer mark.dict-mark[data-slug="${slug}"]`)
         .forEach(unwrapMark);
       saveHiddenSlugs(hiddenSlugs);
+      // PDF 쪽은 span에 class만 얹은 형태라 unwrap이 아니라 다시 칠해서 지운다.
+      applyPdfTermMarks();
       renderMatchedTerms(currentMatches, filterInput.value);
     }
 
     function restoreAllHiddenTerms() {
       hiddenSlugs.clear();
       saveHiddenSlugs(hiddenSlugs);
+      applyPdfTermMarks();
       renderMatchedTerms(currentMatches, filterInput.value);
     }
 
@@ -1473,6 +1504,8 @@ if (typeof document !== "undefined") {
         // 카드에 찍을 정의는 찾은 용어 것만 청크에서 받아 온다.
         await attachDefinitions(currentMatches);
         renderMatchedTerms(currentMatches, filterInput.value);
+        // 분석이 PDF 렌더보다 늦게 끝나므로, 이미 그려진 페이지에도 표시를 얹는다.
+        applyPdfTermMarks();
 
         // The fuzzy (typo-tolerant) pass that used to run here has been
         // disabled: for a dictionary this dense (38k+ short Korean compound
@@ -1725,6 +1758,54 @@ if (typeof document !== "undefined") {
       return Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, scale));
     }
 
+    // PDF 텍스트 레이어의 용어 표시.
+    //
+    // 예전에는 텍스트 레이어에서도 span들을 가로질러 용어를 <mark>로 감쌌는데,
+    // pdf.js가 span마다 계산해 둔 절대 위치·transform: scaleX()가 쪼개진
+    // 조각에 그대로 복제되면서 글자 폭과 위치가 틀어졌다(c98ed9adc에서 제거).
+    // 그래서 여기서는 span을 전혀 쪼개지 않고, 용어가 들어 있는 span 자체에
+    // class="dict-mark"만 얹는다 — DOM 구조가 그대로라 위치가 어긋날 수 없고,
+    // 클릭 대상(.dict-mark)과 팝오버 동작은 텍스트 모드와 똑같다.
+    // 표시 단위가 단어가 아니라 span(대개 한 줄의 텍스트 런)이라 밑줄이 조금
+    // 넓게 그어지지만, 한 글자도 밀리지 않는 쪽을 택한 결과다.
+    function visibleSlugSet() {
+      return new Set(currentMatches.filter((m) => !hiddenSlugs.has(m.slug)).map((m) => m.slug));
+    }
+
+    function markTermsInTextLayer(textLayerDiv, allowedSlugs) {
+      if (!textLayerDiv) return;
+      const spans = textLayerDiv.querySelectorAll("span:not(.markedContent)");
+      for (const span of spans) {
+        const slugs = exactIndex ? findSpanTermSlugs(span.textContent, exactIndex, allowedSlugs) : [];
+        if (!slugs.length) {
+          if (span.classList.contains("dict-mark")) {
+            span.classList.remove("dict-mark", "dict-mark-active");
+            delete span.dataset.slug;
+            delete span.dataset.covers;
+          }
+          continue;
+        }
+        span.classList.add("dict-mark");
+        span.dataset.slug = slugs[0];
+        span.dataset.covers = slugs.slice(1).join(" ");
+      }
+    }
+
+    // 분석(runAnalysis)이 텍스트 레이어보다 늦게 끝나거나, 용어를 숨기고 다시
+    // 보이게 했을 때 이미 만들어진 페이지의 표시를 다시 맞춘다.
+    function applyPdfTermMarks() {
+      const allowed = visibleSlugSet();
+      for (const div of pdfTextLayerDivs) markTermsInTextLayer(div, allowed);
+    }
+
+    // 페이지 텍스트 레이어가 준비될 때마다 renderPdf가 부르는 훅. (캔버스를
+    // 지연 렌더하는 구조로 바뀌어도 호출 지점은 TextLayer.render() 직후로
+    // 동일하다.) 아직 분석 전이면 visibleSlugSet()이 비어 있어 아무것도
+    // 표시하지 않고, 분석이 끝나면 applyPdfTermMarks()가 다시 칠한다.
+    function onPageTextLayerReady(pageNum, textLayerDiv, textContent) {
+      markTermsInTextLayer(textLayerDiv, visibleSlugSet());
+    }
+
     // `probedTextContent` is only passed on the very first render of a
     // freshly-uploaded file; a zoom change calls this again with it omitted,
     // which also signals "keep pdfTextContentCache" so re-rendering at a new
@@ -1797,6 +1878,7 @@ if (typeof document !== "undefined") {
           container: textLayerDiv,
           viewport,
         }).render();
+        onPageTextLayerReady(i, textLayerDiv, textContent);
 
         const joined = joinTextItems(textContent.items);
         pdfPageTexts.set(i, joined);
