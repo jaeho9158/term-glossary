@@ -1851,6 +1851,24 @@ details[open] > .namu-sub-title::before {
     font-size: 0.85rem;
 }
 
+.pdf-page-group input[type="number"] {
+    width: 56px;
+    height: 28px;
+    padding: 0 6px;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 6px;
+    background: var(--bg, #fff);
+    color: var(--text, #222);
+    font-size: 0.85rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+#pdf-page-total {
+    color: var(--muted, #888);
+    font-variant-numeric: tabular-nums;
+}
+
 #pdf-search-count {
     min-width: 44px;
     color: var(--muted, #888);
@@ -1861,16 +1879,19 @@ details[open] > .namu-sub-title::before {
     display:none;
 }
 
+/* PDF를 열면 뷰어가 화면 세로를 거의 다 쓰게 한다. 예전에는 aspect-ratio 5/4와
+   max-height:650px 때문에 화면맞춤 배율이어도 한 페이지가 통째로 들어오지 않아
+   글자가 작아 보였다. 오프셋(헤더+툴바+여백)만 빼고 나머지를 뷰어에 준다. */
 .viewer-input.has-pdf #paper-text,
 .viewer-input.has-pdf .pdf-viewer{
     flex:1;
-    aspect-ratio: 5 / 4;
-    height: auto;
-    max-height: 650px;
+    aspect-ratio: auto;
+    height: calc(100vh - 220px);
+    min-height: 600px;
+    max-height: none;
 }
 
 .pdf-viewer{
-    aspect-ratio: 5 / 4;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -2360,6 +2381,8 @@ transform:scale(1);
 .pdf-page-wrap {
     position: relative;
     margin: 20px auto;
+    /* 캔버스를 지연해서 그리므로 아직 안 그려진 페이지는 빈 종이로 보여야 한다. */
+    background: #fff;
     box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
 }
 
@@ -2936,4 +2959,14 @@ transform:scale(1);
   padding: 0;
   margin: 0;
   box-shadow: none;
+}
+
+/* 모바일은 주소창 때문에 100vh가 들쭉날쭉하고 화면 자체가 낮으므로 오프셋을
+   줄이고 최소 높이만 보장한다(데스크톱의 600px는 화면보다 커질 수 있다). */
+@media (max-width: 768px) {
+    .viewer-input.has-pdf #paper-text,
+    .viewer-input.has-pdf .pdf-viewer{
+        height: calc(100vh - 160px);
+        min-height: 360px;
+    }
 }
