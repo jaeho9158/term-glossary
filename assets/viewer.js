@@ -1197,35 +1197,6 @@ if (typeof document !== "undefined") {
       return sortMatches(bySlug);
     }
 
-    function openPdfViewer() {
-
-        const modal = document.getElementById("pdf-modal");
-        const fullView = document.getElementById("pdf-full-view");
-        const viewer = document.getElementById("pdf-viewer");
-
-        fullView.innerHTML = "";
-
-        viewer.querySelectorAll("canvas").forEach(canvas => {
-            const copy = document.createElement("canvas");
-
-            copy.width = canvas.width;
-            copy.height = canvas.height;
-
-            copy.getContext("2d").drawImage(canvas, 0, 0);
-
-            fullView.appendChild(copy);
-        });
-
-        modal.classList.add("show");
-    }
-
-    const modal = document.getElementById("pdf-modal");
-    const closeBtn = document.getElementById("close-pdf");
-
-    closeBtn.onclick = function () {
-        modal.classList.remove("show");
-    };
-
     // Writes the highlighted reading view into its own container and hides the
     // textarea behind it.
     //
@@ -2119,7 +2090,6 @@ if (typeof document !== "undefined") {
         // 캔버스는 자리만 잡아두고 비트맵은 drawPdfPage()가 나중에 잡는다.
         const canvas = document.createElement("canvas");
         canvas.className = "pdf-page";
-        canvas.addEventListener("dblclick", openPdfViewer);
         canvas.style.width = `${viewport.width}px`;
         canvas.style.height = `${viewport.height}px`;
 
