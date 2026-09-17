@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Simplex Method(단체법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Simplex Method(단체법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<title>Two-Phase Simplex Method(2단계 단체법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="1단계에서 인위변수 합을 최소화해 실행가능 기저해를 찾고, 2단계에서 원래 목적함수를 최적화하는 단체법입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://termglossary.kr/terms/simplex-method.html">
+<link rel="canonical" href="https://termglossary.kr/terms/two-phase-simplex-method.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
 <!-- GA4 analytics:start -->
@@ -70,8 +70,8 @@
 </header>
 
 <main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 단체법 (Simplex Method)</p>
-  <h1>단체법 (Simplex Method)</h1>
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 2단계 단체법 (Two-Phase Simplex Method)</p>
+  <h1>2단계 단체법 (Two-Phase Simplex Method)</h1>
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
   </div>
@@ -82,39 +82,32 @@
   </button>
 
   <div class="definition-box">
-    <strong>한 줄 정의:</strong> 선형계획법 문제의 실행가능영역의 꼭짓점들을 따라 이동하며 최적해를 찾는 대표적인 풀이 알고리즘입니다.
+    <strong>한 줄 정의:</strong> 1단계에서 인위변수 합을 최소화해 실행가능 기저해를 찾고, 2단계에서 원래 목적함수를 최적화하는 단체법입니다.
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>선형계획법 문제를 그림으로 그리면 여러 개의 꼭짓점을 가진 다각형(또는 다면체) 모양의 실행가능영역이 나타납니다. 최적해는 항상 이 꼭짓점 중 하나에 있다는 성질을 이용해, 단체법은 한 꼭짓점에서 목적함수가 더 좋아지는 이웃 꼭짓점으로 계속 옮겨가며 답을 찾습니다. 더 이상 개선되는 이웃이 없으면 그 지점이 최적해입니다. 변수가 많아 그림으로 그릴 수 없는 경우에도 같은 원리를 계산적으로 적용합니다.</p>
+  <p>단체법을 시작할 출발점이 없을 때 쓰는 방법입니다. 1단계에서는 원래 목표는 잠시 접어 두고 &#39;임시로 넣은 인위변수들을 모두 0으로 만들기&#39;만 목표로 풉니다. 성공하면 그 결과를 출발점 삼아 2단계에서 원래 목적함수를 최적화합니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>단체법은 선형계획법의 표준 풀이 알고리즘으로, 생산계획·수송문제·자원배분 등 다양한 산업공학 최적화 문제를 실제로 계산 가능하게 만들어주는 핵심 도구입니다. 이후 등장한 여러 최적화 알고리즘과 상용 솔버의 기초가 되었습니다.</p>
+  <p>빅엠법과 함께 단체법의 초기해 문제를 다루는 표준 방법이며, 큰 수 M을 쓰지 않아 수치적으로 안정적입니다. 선형계획 소프트웨어가 실행불가능성을 판정하는 원리를 이해하는 데도 도움이 됩니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"본 연구의 선형계획 모형은 단체법(Simplex Method)을 이용하여 최적 생산배합을 도출하였다."</div>
-  <p>여러 제품의 생산량을 결정하는 선형계획 문제를 단체법으로 풀었다는 뜻입니다.</p>
-  <div class="example">"단체법 기반 알고리즘을 통해 각 반복(iteration)마다 목적함수 값이 단조 증가함을 확인하였다."</div>
-  <p>단체법이 꼭짓점을 옮겨갈 때마다 해가 점점 개선되는 과정을 검증했다는 의미입니다.</p>
+  <div class="example">"1단계 문제의 최적 목적함수 값이 0보다 커서 해당 생산계획 모형이 실행불가능함을 확인하였다."</div>
+  <p>인위변수를 모두 0으로 만들 수 없었으므로 제약을 모두 만족하는 해가 없다는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>단체법은 표준형으로 변환한 문제에 기저해(basic feasible solution) 개념을 적용해 반복적으로 개선하는 방식으로 동작합니다. 최악의 경우 이론적 계산 시간이 지수적으로 늘어날 수 있다는 사실이 알려져 있지만, 실제 문제에서는 대체로 효율적으로 작동하는 것으로 알려져 있습니다. 이후 다항시간 알고리즘인 내점법(interior point method) 등도 대안으로 함께 사용됩니다.</p>
+  <p>1단계 목적함수는 인위변수들의 합을 최소화하는 것입니다. 1단계 최적값이 0이면 실행가능 기저해를 얻은 것이고, 양수면 원 문제는 실행불가능합니다. 1단계가 끝났는데 값이 0인 인위변수가 기저에 남아 있으면 이를 기저에서 빼내거나 중복 제약으로 처리하는 추가 절차가 필요합니다.</p>
 
   <h2>주의할 점</h2>
-  <p>단체법은 선형계획법에 특화된 방법으로, 정수 제약이나 비선형 요소가 있는 문제에는 그대로 적용되지 않으며 별도의 확장 기법이 필요합니다.</p>
+  <p>빅엠법은 벌점 M을 붙여 한 번에 풀고, 2단계 단체법은 문제를 두 단계로 나누어 푼다는 점이 가장 가까운 항목과의 차이입니다. 두 방법 모두 (M이 충분히 크면) 같은 최적해에 도달하므로 해법의 차이를 결과의 차이로 오해하지 않아야 합니다.</p>
 
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="integer-programming.html">정수계획법</a>
-    <a href="mixed-integer-programming.html">혼합정수계획법</a>
-    <a href="nonlinear-programming.html">비선형계획법</a>
-    <a href="duality-theory.html">쌍대성이론</a>
+    <a href="simplex-method.html">단체법</a>
     <a href="big-m-method.html">빅엠법</a>
+    <a href="duality-theory.html">쌍대성이론</a>
+    <a href="linear-programming.html">선형계획법</a>
   </div>
-<nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="silver-meal-heuristic.html" class="term-pager-prev">← 이전: 실버-밀 휴리스틱</a>
-  <a href="simulation-optimization.html" class="term-pager-next">다음: 시뮬레이션최적화 →</a>
-</nav>
 </main>
 
 <footer class="site-footer">

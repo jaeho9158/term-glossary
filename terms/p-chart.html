@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Simplex Method(단체법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Simplex Method(단체법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<title>p Chart(불량률 관리도)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="표본마다 불량품 비율을 점으로 찍어 불량률이 관리 상태인지 판단하는 계수형 관리도입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://termglossary.kr/terms/simplex-method.html">
+<link rel="canonical" href="https://termglossary.kr/terms/p-chart.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
 <!-- GA4 analytics:start -->
@@ -70,8 +70,8 @@
 </header>
 
 <main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 단체법 (Simplex Method)</p>
-  <h1>단체법 (Simplex Method)</h1>
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 불량률 관리도 (p Chart)</p>
+  <h1>불량률 관리도 (p Chart)</h1>
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
   </div>
@@ -82,39 +82,32 @@
   </button>
 
   <div class="definition-box">
-    <strong>한 줄 정의:</strong> 선형계획법 문제의 실행가능영역의 꼭짓점들을 따라 이동하며 최적해를 찾는 대표적인 풀이 알고리즘입니다.
+    <strong>한 줄 정의:</strong> 표본마다 불량품 비율을 점으로 찍어 불량률이 관리 상태인지 판단하는 계수형 관리도입니다.
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>선형계획법 문제를 그림으로 그리면 여러 개의 꼭짓점을 가진 다각형(또는 다면체) 모양의 실행가능영역이 나타납니다. 최적해는 항상 이 꼭짓점 중 하나에 있다는 성질을 이용해, 단체법은 한 꼭짓점에서 목적함수가 더 좋아지는 이웃 꼭짓점으로 계속 옮겨가며 답을 찾습니다. 더 이상 개선되는 이웃이 없으면 그 지점이 최적해입니다. 변수가 많아 그림으로 그릴 수 없는 경우에도 같은 원리를 계산적으로 적용합니다.</p>
+  <p>길이나 무게처럼 수치로 재는 대신 &#39;합격/불합격&#39;으로만 판정하는 제품이 있습니다. 이때 날마다 검사한 제품 중 불량품의 비율을 그래프에 찍고, 이항분포에 근거한 관리한계선과 비교하는 것이 p 관리도입니다. 선을 벗어나면 공정에 특별한 원인이 생겼다고 의심합니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>단체법은 선형계획법의 표준 풀이 알고리즘으로, 생산계획·수송문제·자원배분 등 다양한 산업공학 최적화 문제를 실제로 계산 가능하게 만들어주는 핵심 도구입니다. 이후 등장한 여러 최적화 알고리즘과 상용 솔버의 기초가 되었습니다.</p>
+  <p>계측이 어렵거나 비용이 큰 공정, 서비스 오류율, 의료 사고율처럼 비율 자료를 관리할 때 기본 도구입니다. 계수형 관리도 중 가장 널리 쓰여 품질관리 교과서와 적용 논문에서 빠지지 않습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"본 연구의 선형계획 모형은 단체법(Simplex Method)을 이용하여 최적 생산배합을 도출하였다."</div>
-  <p>여러 제품의 생산량을 결정하는 선형계획 문제를 단체법으로 풀었다는 뜻입니다.</p>
-  <div class="example">"단체법 기반 알고리즘을 통해 각 반복(iteration)마다 목적함수 값이 단조 증가함을 확인하였다."</div>
-  <p>단체법이 꼭짓점을 옮겨갈 때마다 해가 점점 개선되는 과정을 검증했다는 의미입니다.</p>
+  <div class="example">"일별 검사 수량이 달라 가변 관리한계를 갖는 p 관리도를 적용하였다."</div>
+  <p>표본 크기가 날마다 달라 관리한계선 폭도 날마다 다르게 계산했다는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>단체법은 표준형으로 변환한 문제에 기저해(basic feasible solution) 개념을 적용해 반복적으로 개선하는 방식으로 동작합니다. 최악의 경우 이론적 계산 시간이 지수적으로 늘어날 수 있다는 사실이 알려져 있지만, 실제 문제에서는 대체로 효율적으로 작동하는 것으로 알려져 있습니다. 이후 다항시간 알고리즘인 내점법(interior point method) 등도 대안으로 함께 사용됩니다.</p>
+  <p>평균 불량률을 p̄, 표본 크기를 n이라 할 때 관리한계는 보통 p̄ ± 3√(p̄(1−p̄)/n)으로 계산하고, 하한이 음수면 0으로 둡니다. 표본 크기가 일정하면 불량 개수를 직접 찍는 np 관리도를 쓰기도 합니다. 불량품 수가 아니라 결점 수(한 제품 안의 흠 개수)를 다룰 때는 포아송분포에 근거한 c 관리도나 u 관리도를 씁니다.</p>
 
   <h2>주의할 점</h2>
-  <p>단체법은 선형계획법에 특화된 방법으로, 정수 제약이나 비선형 요소가 있는 문제에는 그대로 적용되지 않으며 별도의 확장 기법이 필요합니다.</p>
+  <p>통계적관리도 항목이 관리도 전반을 설명한다면, p 관리도는 그중 &#39;불량 비율&#39; 자료에 특화된 한 종류입니다. 불량률이 매우 낮으면 정규근사가 잘 맞지 않아 관리한계가 부정확해지므로 표본 크기를 충분히 키우거나 다른 방법을 검토해야 합니다.</p>
 
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="integer-programming.html">정수계획법</a>
-    <a href="mixed-integer-programming.html">혼합정수계획법</a>
-    <a href="nonlinear-programming.html">비선형계획법</a>
-    <a href="duality-theory.html">쌍대성이론</a>
-    <a href="big-m-method.html">빅엠법</a>
+    <a href="statistical-control-chart.html">통계적관리도</a>
+    <a href="statistical-process-control.html">통계적 공정관리</a>
+    <a href="acceptance-sampling.html">샘플링검사</a>
+    <a href="control-chart.html">관리도</a>
   </div>
-<nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="silver-meal-heuristic.html" class="term-pager-prev">← 이전: 실버-밀 휴리스틱</a>
-  <a href="simulation-optimization.html" class="term-pager-next">다음: 시뮬레이션최적화 →</a>
-</nav>
 </main>
 
 <footer class="site-footer">

@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Simplex Method(단체법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Simplex Method(단체법)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<title>k-out-of-n System(k-out-of-n 시스템)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="n개의 구성품 중 최소 k개가 정상이면 전체 시스템이 작동하는 신뢰성 구조입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://termglossary.kr/terms/simplex-method.html">
+<link rel="canonical" href="https://termglossary.kr/terms/k-out-of-n-system.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
 <!-- GA4 analytics:start -->
@@ -70,8 +70,8 @@
 </header>
 
 <main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 단체법 (Simplex Method)</p>
-  <h1>단체법 (Simplex Method)</h1>
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; k-out-of-n 시스템 (k-out-of-n System)</p>
+  <h1>k-out-of-n 시스템 (k-out-of-n System)</h1>
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=indeng">산업공학</a>
   </div>
@@ -82,39 +82,33 @@
   </button>
 
   <div class="definition-box">
-    <strong>한 줄 정의:</strong> 선형계획법 문제의 실행가능영역의 꼭짓점들을 따라 이동하며 최적해를 찾는 대표적인 풀이 알고리즘입니다.
+    <strong>한 줄 정의:</strong> n개의 구성품 중 최소 k개가 정상이면 전체 시스템이 작동하는 신뢰성 구조입니다.
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>선형계획법 문제를 그림으로 그리면 여러 개의 꼭짓점을 가진 다각형(또는 다면체) 모양의 실행가능영역이 나타납니다. 최적해는 항상 이 꼭짓점 중 하나에 있다는 성질을 이용해, 단체법은 한 꼭짓점에서 목적함수가 더 좋아지는 이웃 꼭짓점으로 계속 옮겨가며 답을 찾습니다. 더 이상 개선되는 이웃이 없으면 그 지점이 최적해입니다. 변수가 많아 그림으로 그릴 수 없는 경우에도 같은 원리를 계산적으로 적용합니다.</p>
+  <p>엔진 네 개 중 두 개만 돌아가도 비행할 수 있는 비행기를 떠올리면 됩니다. 이처럼 n개 부품 가운데 k개 이상만 살아 있으면 시스템이 제 기능을 하는 구조를 k-out-of-n 시스템이라고 합니다. k=n이면 직렬 시스템, k=1이면 병렬 시스템과 같아집니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>단체법은 선형계획법의 표준 풀이 알고리즘으로, 생산계획·수송문제·자원배분 등 다양한 산업공학 최적화 문제를 실제로 계산 가능하게 만들어주는 핵심 도구입니다. 이후 등장한 여러 최적화 알고리즘과 상용 솔버의 기초가 되었습니다.</p>
+  <p>실제 설비의 다중화 설계(예: 3개 중 2개 일치로 판정하는 제어기, 여러 펌프·발전기 구성)는 순수 직렬이나 병렬보다 이 구조로 더 정확히 표현됩니다. 그래서 중복설계와 신뢰도 배분 최적화 논문에서 기본 모형으로 쓰입니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"본 연구의 선형계획 모형은 단체법(Simplex Method)을 이용하여 최적 생산배합을 도출하였다."</div>
-  <p>여러 제품의 생산량을 결정하는 선형계획 문제를 단체법으로 풀었다는 뜻입니다.</p>
-  <div class="example">"단체법 기반 알고리즘을 통해 각 반복(iteration)마다 목적함수 값이 단조 증가함을 확인하였다."</div>
-  <p>단체법이 꼭짓점을 옮겨갈 때마다 해가 점점 개선되는 과정을 검증했다는 의미입니다.</p>
+  <div class="example">"안전계장시스템의 센서를 2-out-of-3 구조로 구성하여 불필요한 정지와 위험 미탐지를 함께 줄였다."</div>
+  <p>센서 세 개 중 두 개가 같은 신호를 줄 때 동작하도록 설계했다는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>단체법은 표준형으로 변환한 문제에 기저해(basic feasible solution) 개념을 적용해 반복적으로 개선하는 방식으로 동작합니다. 최악의 경우 이론적 계산 시간이 지수적으로 늘어날 수 있다는 사실이 알려져 있지만, 실제 문제에서는 대체로 효율적으로 작동하는 것으로 알려져 있습니다. 이후 다항시간 알고리즘인 내점법(interior point method) 등도 대안으로 함께 사용됩니다.</p>
+  <p>구성품들이 서로 독립이고 신뢰도가 모두 p로 같으면 시스템 신뢰도는 이항분포를 이용해 R = Σ_{i=k}^{n} C(n,i) pⁱ(1−p)ⁿ⁻ⁱ로 계산합니다. 구성품 신뢰도가 서로 다르면 재귀식 등으로 계산합니다. &#39;최소 k개가 고장나면 시스템이 고장&#39;으로 정의하는 k-out-of-n:F 형식도 있어서, 논문에서 G(good)형인지 F(failed)형인지 확인해야 합니다. 연속으로 붙은 k개가 고장날 때 멈추는 연속 k-out-of-n 시스템 같은 변형도 있습니다.</p>
 
   <h2>주의할 점</h2>
-  <p>단체법은 선형계획법에 특화된 방법으로, 정수 제약이나 비선형 요소가 있는 문제에는 그대로 적용되지 않으며 별도의 확장 기법이 필요합니다.</p>
+  <p>직렬·병렬 시스템 신뢰도 항목은 k가 n이거나 1인 양 끝의 특수한 경우를 다루고, 이 항목은 그 사이의 일반적인 경우를 다룬다는 점이 다릅니다. 공통원인고장이 있으면 독립 가정이 깨져 이항분포 계산이 신뢰도를 과대평가할 수 있습니다.</p>
 
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="integer-programming.html">정수계획법</a>
-    <a href="mixed-integer-programming.html">혼합정수계획법</a>
-    <a href="nonlinear-programming.html">비선형계획법</a>
-    <a href="duality-theory.html">쌍대성이론</a>
-    <a href="big-m-method.html">빅엠법</a>
+    <a href="series-system-reliability.html">직렬시스템신뢰도</a>
+    <a href="parallel-system-reliability.html">병렬시스템신뢰도</a>
+    <a href="redundancy-design.html">중복설계</a>
+    <a href="reliability-block-diagram.html">신뢰성 블록다이어그램</a>
+    <a href="common-cause-failure.html">공통원인고장</a>
   </div>
-<nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="silver-meal-heuristic.html" class="term-pager-prev">← 이전: 실버-밀 휴리스틱</a>
-  <a href="simulation-optimization.html" class="term-pager-next">다음: 시뮬레이션최적화 →</a>
-</nav>
 </main>
 
 <footer class="site-footer">
