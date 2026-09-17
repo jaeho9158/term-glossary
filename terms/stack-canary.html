@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Stack Canary(스택 카나리)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="함수의 반환 주소 앞에 미리 심어 둔 특수한 값으로, 함수 종료 시 이 값이 바뀌었는지 검사해 스택 버퍼 오버플로 공격을 탐지하는 방어 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/stack-canary.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 스택 카나리 (Stack Canary)</p>
+  <h1>스택 카나리 (Stack Canary)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 함수의 반환 주소 앞에 미리 심어 둔 특수한 값으로, 함수 종료 시 이 값이 바뀌었는지 검사해 스택 버퍼 오버플로 공격을 탐지하는 방어 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>옛날 광부들이 유독가스를 감지하려고 카나리 새를 데리고 들어갔던 데서 이름을 따왔습니다. 함수가 쓰는 메모리 영역과 중요한 반환 주소 사이에 &#39;감시용 값&#39;을 하나 심어 두고, 함수가 끝날 때 이 값이 그대로인지 확인합니다. 만약 값이 훼손됐다면 버퍼가 넘쳐 공격이 진행 중이라는 신호이므로 프로그램을 즉시 중단합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>스택 카나리는 오래된 취약점인 스택 버퍼 오버플로를 저비용으로 막는 대표적 컴파일러 수준 방어책으로, 오늘날 거의 모든 프로그램에 기본 적용됩니다. 메모리 보호 기법의 기초로 자주 등장합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"컴파일 시 스택 카나리를 삽입하도록 옵션을 활성화하자, 반환 주소 덮어쓰기를 시도한 오버플로 익스플로잇이 카나리 불일치로 즉시 차단되었다."</div>
+  <p></p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>카나리 값은 프로그램 실행마다 무작위로 정해지거나, 널 바이트를 포함시켜 문자열 복사 함수로 덮어쓰기 어렵게 만드는 등 여러 변형이 있습니다. 다만 카나리는 반환 주소 &#39;덮어쓰기&#39;는 탐지해도, 카나리를 건너뛰어 임의 주소에 직접 쓰는 공격이나 카나리 값 자체를 유출해 우회하는 공격에는 취약할 수 있습니다. 그래서 ASLR, DEP, 제어흐름 무결성 같은 다른 방어와 함께 겹겹이 씁니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>스택 카나리는 스택 오버플로에 특화된 방어일 뿐 힙 오버플로나 다른 메모리 손상은 막지 못합니다. 카나리 값이 유출되면 우회되므로 단독 방어로 신뢰해서는 안 됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="memory-corruption.html">메모리 손상</a>
+    <a href="address-space-layout-randomization.html">주소공간 배치 난수화(ASLR)</a>
+    <a href="data-execution-prevention.html">데이터실행방지(DEP)</a>
+    <a href="control-flow-integrity.html">제어흐름무결성(CFI)</a>
+    <a href="heap-overflow.html">힙오버플로우</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

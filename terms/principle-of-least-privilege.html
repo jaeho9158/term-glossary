@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Principle of Least Privilege(최소 권한 원칙)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="모든 사용자·프로세스에게 자신의 임무 수행에 꼭 필요한 최소한의 권한만 부여해야 한다는 보안 설계 원칙입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/principle-of-least-privilege.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 최소 권한 원칙 (Principle of Least Privilege)</p>
+  <h1>최소 권한 원칙 (Principle of Least Privilege)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 모든 사용자·프로세스에게 자신의 임무 수행에 꼭 필요한 최소한의 권한만 부여해야 한다는 보안 설계 원칙입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>회사에서 모든 직원에게 모든 방 열쇠를 주지 않고, 자기 업무에 필요한 방 열쇠만 주는 것과 같습니다. 필요 이상으로 권한이 넓으면, 그 계정이 탈취되거나 실수했을 때 피해가 걷잡을 수 없이 커지기 때문입니다. 딱 필요한 만큼만 주는 것이 핵심입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>최소 권한 원칙은 침해가 발생해도 피해 범위를 좁혀 주는 가장 기본적이면서 강력한 방어 개념입니다. 권한 상승 공격이나 측면 이동을 어렵게 만들고, 제로 트러스트 아키텍처와 역할 기반 접근제어의 밑바탕이 됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"최소 권한 원칙에 따라 웹 애플리케이션의 데이터베이스 계정에 읽기 권한만 부여함으로써, SQL 인젝션이 성공하더라도 데이터 변조는 불가능하도록 설계하였다."</div>
+  <p></p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>최소 권한은 사용자 계정뿐 아니라 프로세스, 서비스 계정, API 토큰 등 모든 주체에 적용됩니다. 실무에서는 역할 기반 접근제어로 직무별 권한 묶음을 정의하고, 관리자 권한은 필요할 때만 잠깐 부여하는 적시 권한(JIT) 방식으로 구현합니다. 직무 분리 원칙과 함께 쓰이면 한 사람이 전체 과정을 혼자 통제하지 못하게 하여 내부자 위협도 줄입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>최소 권한은 &#39;있으면 편한&#39; 권한까지 모두 제거하는 것이라 초기에는 업무 불편을 낳을 수 있어, 권한을 점진적으로 넓히기보다 처음부터 좁게 시작해 필요 시 추가하는 방향이 안전합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="role-based-access-control.html">역할기반 접근제어</a>
+    <a href="zero-trust-architecture.html">제로트러스트 아키텍처</a>
+    <a href="separation-of-duties.html">직무 분리</a>
+    <a href="privilege-escalation.html">권한상승</a>
+    <a href="privileged-access-management.html">권한계정 관리</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

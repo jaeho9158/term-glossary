@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Covert Channel(은닉 채널)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="본래 통신 용도로 설계되지 않은 시스템 자원이나 동작을 악용해, 보안 정책을 우회하여 몰래 정보를 전달하는 비정상적 통신 경로입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/covert-channel.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 은닉 채널 (Covert Channel)</p>
+  <h1>은닉 채널 (Covert Channel)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 본래 통신 용도로 설계되지 않은 시스템 자원이나 동작을 악용해, 보안 정책을 우회하여 몰래 정보를 전달하는 비정상적 통신 경로입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>정상적인 통신 창구가 감시받고 있을 때, 공격자는 전혀 통신 수단이 아닌 것을 이용해 신호를 주고받습니다. 예를 들어 파일 잠금을 걸었다 풀었다 하는 패턴이나, 처리 시간을 미묘하게 늦췄다 앞당기는 것으로 0과 1을 표현해 정보를 흘려보내는 식입니다. 겉보기엔 아무 데이터도 오가지 않는 것처럼 보입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>은닉 채널은 접근제어가 완벽해 보이는 시스템에서도 정보가 새어나갈 수 있음을 보여주어, 다단계 보안 시스템의 근본적 한계를 드러냅니다. 고등급 보안 인증에서 반드시 분석·평가해야 하는 위협입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"두 프로세스가 CPU 사용량을 규칙적으로 변조하여 비트를 전달하는 타이밍 은닉 채널을 통해, 접근제어를 우회한 정보 유출이 가능함을 실증하였다."</div>
+  <p></p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>은닉 채널은 크게 저장 채널과 타이밍 채널로 나뉩니다. 저장 채널은 디스크 여유 공간이나 파일 속성 같은 공유 자원의 상태를 이용하고, 타이밍 채널은 자원 사용의 시간 간격을 조절해 정보를 전달합니다. 부채널 공격이 의도치 않게 새어 나온 물리 정보를 관찰하는 것이라면, 은닉 채널은 내부의 악의적 주체가 능동적으로 통신로를 만든다는 점에서 다릅니다. 완전 차단은 어려워 대역폭을 낮추는 방식으로 관리합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>은닉 채널은 외부 공격자가 뚫는 것이 아니라, 이미 시스템 안에 있는 악성 코드나 내부자가 정보를 빼돌리는 경로라는 점에서 부채널 공격과 구분됩니다. 완전히 없애기 어려워 위험을 낮추는 방향으로 다룹니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="security-policy.html">보안정책</a>
+    <a href="side-channel-attack.html">부채널 공격</a>
+    <a href="bell-lapadula-model.html">벨-라파둘라 모델</a>
+    <a href="data-loss-prevention.html">데이터유출방지</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
