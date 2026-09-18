@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Conformal Prediction(컨포멀 예측)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="분포 가정 없이 지정한 확률로 참값을 포함하는 예측집합을 만드는 절차입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/conformal-prediction.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 컨포멀 예측 (Conformal Prediction)</p>
+  <h1>컨포멀 예측 (Conformal Prediction)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 분포 가정 없이 지정한 확률로 참값을 포함하는 예측집합을 만드는 절차입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>예측모형은 보통 하나의 값을 내놓지만 그 값이 얼마나 믿을 만한지는 말해 주지 않습니다. 컨포멀 예측은 보정용 자료에서 예측이 얼마나 빗나갔는지를 모아 그 분포의 분위수를 구하고, 새 사례에는 그만큼의 여유를 붙인 구간이나 후보 집합을 제시합니다. 그러면 장기적으로 약속한 비율만큼 참값이 포함됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>어떤 모형에도 덧씌울 수 있고 분포 가정이 필요 없으면서 유한표본에서 보장이 성립한다는 점에서 최근 주목받고 있습니다. 예측의 불확실성을 정직하게 제시해야 하는 의료·자율주행 같은 응용에서 빠르게 확산되고 있습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"컨포멀 예측을 적용하여 90% 보장 수준의 예측집합을 산출한 결과 평균 집합 크기는 1.7이었다."</div>
+  <p>약속한 포함률을 지키면서 예측 후보가 얼마나 좁았는지를 함께 보고한 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가장 널리 쓰이는 분할 컨포멀 방식은 자료를 학습용과 보정용으로 나누고, 보정용에서 계산한 부적합 점수의 상위 분위수를 문턱으로 삼습니다. 보장은 자료가 교환가능하다는 조건에서 성립하며, 이는 독립 동일분포보다 약한 가정입니다. 기본 보장은 전체 평균에 대한 것이라 하위집단별로는 포함률이 어긋날 수 있어, 조건부 보장을 강화한 변형들이 연구되고 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>컨포멀 예측이 보장하는 것은 모수에 대한 <a href="confidence-interval.html">신뢰구간</a>이 아니라 새 관측값을 덮는 예측집합입니다. 또 교환가능성이 깨지는 분포 이동 상황에서는 보장이 그대로 유지되지 않으므로 별도의 보정이 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cross-validation.html">교차검증</a>
+    <a href="confidence-interval.html">신뢰구간</a>
+    <a href="credible-interval.html">신용구간</a>
+    <a href="overfitting.html">과적합</a>
+    <a href="brier-score.html">브라이어 점수</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
