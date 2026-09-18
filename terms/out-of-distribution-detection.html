@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>out-of-distribution detection(분포 외 탐지)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="모델이 학습 때 본 적 없는 낯선 입력을 알아채고 답을 보류하게 하는 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/out-of-distribution-detection.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 분포 외 탐지 (out-of-distribution detection)</p>
+  <h1>분포 외 탐지 (out-of-distribution detection)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 모델이 학습 때 본 적 없는 낯선 입력을 알아채고 답을 보류하게 하는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>분류 모델은 학습하지 않은 종류의 입력이 들어와도 무조건 아는 답 중 하나를 고릅니다. 개와 고양이만 배운 모델에 코끼리 사진을 넣으면 확신에 차서 개라고 답하는 식이지요. 분포 외 탐지는 이런 입력에 대해 “이건 내가 아는 범위 밖”이라는 신호를 내도록 만드는 기술입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>자율주행이나 의료 진단처럼 실패 비용이 큰 분야에서 모델을 실제로 쓰기 위한 안전장치입니다. 예상 밖 입력에서 조용히 틀리는 대신 사람에게 넘기도록 설계할 수 있기 때문입니다. 신뢰할 수 있는 머신러닝을 다루는 논문에서 안전성 평가의 표준 항목으로 등장합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 기법은 분포 외 탐지에서 기존 소프트맥스 최대확률 기준보다 위양성률을 12%p 낮추었다."</div>
+  <p>낯선 입력을 정상으로 잘못 통과시키는 비율이 기존 방법보다 줄었다는 성능 비교입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가장 단순한 기준선은 소프트맥스 최대 확률값이지만, 신경망이 낯선 입력에도 과신하는 경향 때문에 신뢰도가 떨어집니다. 이를 보완하려고 온도 조절과 입력 섭동을 결합한 방법, 특징 공간에서의 마할라노비스 거리, 로짓에 기반한 에너지 점수, 보조 이상 데이터로 함께 학습시키는 이상 노출 방식 등이 제안되었습니다. 평가는 보통 분포 외 표본을 양성으로 두고 AUROC와 높은 재현율 지점에서의 위양성률로 보고합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="model-calibration.html">모델 보정</a>은 예측 확률값이 실제 정답률과 일치하도록 맞추는 문제이고, 분포 외 탐지는 입력 자체가 학습 분포에 속하는지를 판별하는 문제라는 점에서 목표가 다릅니다. 무엇을 분포 밖으로 볼지는 벤치마크 설계에 따라 크게 달라지므로 결과를 비교할 때 데이터셋 조합을 확인해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="model-calibration.html">모델 보정</a>
+    <a href="adversarial-example.html">적대적 예제</a>
+    <a href="softmax-function.html">소프트맥스 함수</a>
+    <a href="roc-auc-curve.html">ROC 곡선과 AUC</a>
+    <a href="explainable-ai.html">설명 가능한 인공지능</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

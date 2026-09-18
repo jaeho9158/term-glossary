@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>probably approximately correct learning(PAC 학습)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="높은 확률로 거의 정확한 가설을 배울 수 있는지를 따지는 학습 이론의 틀입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/pac-learning.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; PAC 학습 (probably approximately correct learning)</p>
+  <h1>PAC 학습 (probably approximately correct learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 높은 확률로 거의 정확한 가설을 배울 수 있는지를 따지는 학습 이론의 틀입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>학습이 성공했다는 말을 수학적으로 정의하려는 시도입니다. 완벽하게 맞히는 것은 불가능하니, “오차가 ε보다 작은 가설을 1−δ 이상의 확률로 찾아낸다”는 두 겹의 느슨함을 허용합니다. 그리고 이 조건을 만족하려면 표본이 몇 개나 필요한지를 계산합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>머신러닝을 경험적 기술이 아니라 증명 가능한 학문으로 다루게 해 준 출발점입니다. 모델의 복잡도와 필요한 데이터 양 사이의 관계를 정량화하기 때문에, 표본 크기가 부족할 때 일반화가 무너지는 현상을 이론적으로 설명할 수 있습니다. 계산학습이론 논문에서는 거의 모든 결과가 이 틀 위에서 진술됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"해당 가설 공간은 PAC 학습 가능하며, 요구되는 표본 복잡도는 VC 차원에 선형으로 비례하는 것으로 나타났다."</div>
+  <p>이 모델군은 이론적으로 학습이 보장되며 필요한 데이터 양이 모델 복잡도에 비례해 늘어난다는 의미입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>1984년 레슬리 밸리언트가 제안했으며, 어떤 개념 부류가 PAC 학습 가능하다는 것은 ε과 δ, 그리고 문제 크기의 다항식 시간·표본 안에서 학습 알고리즘이 존재한다는 뜻입니다. 학습 가능성의 조건은 가설 공간의 <a href="vc-dimension.html">VC 차원</a>이 유한한지와 밀접하게 연결되어 있습니다. 데이터에 잡음이 섞인 상황을 다루는 불가지론적(agnostic) PAC 학습으로 확장되어, 최적 가설과의 상대적 격차를 보장하는 형태로도 널리 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>PAC 학습이 가능하다는 결과는 충분한 표본이 있을 때의 존재 증명이지, 실제 알고리즘이 효율적으로 그 가설을 찾아낸다는 보장과는 다릅니다. <a href="cross-validation.html">교차검증</a>이 특정 데이터에서 성능을 경험적으로 추정하는 절차라면, PAC는 데이터 분포 전체에 대한 최악의 경우 보장을 다룹니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="vc-dimension.html">VC 차원</a>
+    <a href="no-free-lunch-theorem.html">공짜 점심은 없다 정리</a>
+    <a href="machine-learning.html">머신러닝</a>
+    <a href="overfitting.html">과적합</a>
+    <a href="cross-validation.html">교차검증</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

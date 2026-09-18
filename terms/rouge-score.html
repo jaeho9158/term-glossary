@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>ROUGE score(ROUGE 점수)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="생성 요약문이 사람이 쓴 참조 요약과 얼마나 겹치는지를 재현율 중심으로 재는 지표입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/rouge-score.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; ROUGE 점수 (ROUGE score)</p>
+  <h1>ROUGE 점수 (ROUGE score)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 생성 요약문이 사람이 쓴 참조 요약과 얼마나 겹치는지를 재현율 중심으로 재는 지표입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>자동 요약이 잘 됐는지 사람이 일일이 읽어 판단하기는 어려우니, 사람이 만든 모범 요약과 단어가 얼마나 겹치는지로 대신 잽니다. 참조 요약에 있는 내용 중 몇 퍼센트를 모델 요약이 담아냈는지를 보기 때문에 재현율 중심입니다. 연속된 두 단어 묶음이 겹치는 정도나 가장 긴 공통 부분수열의 길이를 세는 변형이 함께 보고됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>자동 요약 연구에서 20년 넘게 표준으로 쓰여 온 지표라 논문 간 비교의 공통 기준 역할을 합니다. 계산이 빠르고 재현 가능해서 모델 개발 중 반복 평가에 적합합니다. 최근 생성 모델 논문에서도 사람 평가나 모델 기반 평가와 나란히 보고되는 것이 관례입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제안 모델은 ROUGE-1, ROUGE-2, ROUGE-L에서 각각 기존 최고 성능 대비 1.8, 1.2, 1.5점 향상을 보였다."</div>
+  <p>단어 단위, 두 단어 묶음 단위, 가장 긴 공통 부분수열 기준 모두에서 점수가 올랐다는 보고입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>ROUGE-N은 참조 요약의 n-그램 중 생성 요약에 등장한 비율이고, ROUGE-L은 최장 공통 부분수열의 길이를 이용해 순서를 어느 정도 반영합니다. 실제 보고에서는 재현율뿐 아니라 정밀도를 합친 F 점수 형태를 쓰는 경우가 많고, 참조 요약이 여러 개면 최대값이나 평균을 취합니다. 어간 추출 여부, 불용어 제거 여부 같은 전처리 설정에 점수가 민감하므로 구현체와 설정을 명시하는 것이 권장됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="bleu-score.html">BLEU 점수</a>가 기계 번역에서 정밀도 중심으로 설계된 것과 달리 ROUGE는 요약 평가를 위해 재현율 중심으로 설계되었습니다. 표면적인 단어 겹침만 보기 때문에 같은 뜻을 다른 표현으로 쓴 좋은 요약을 낮게 평가하거나, 사실이 틀린 요약을 걸러내지 못한다는 한계가 분명합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="bleu-score.html">BLEU점수</a>
+    <a href="natural-language-processing.html">자연어처리</a>
+    <a href="sequence-to-sequence.html">시퀀스투시퀀스</a>
+    <a href="perplexity.html">퍼플렉시티</a>
+    <a href="large-language-model.html">대규모 언어 모델</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

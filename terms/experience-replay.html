@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>experience replay(경험 재생)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="과거 경험을 저장해 두었다가 무작위로 꺼내 반복 학습에 재사용하는 강화학습 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/experience-replay.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 경험 재생 (experience replay)</p>
+  <h1>경험 재생 (experience replay)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 과거 경험을 저장해 두었다가 무작위로 꺼내 반복 학습에 재사용하는 강화학습 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>에이전트가 겪은 상태·행동·보상·다음 상태의 묶음을 커다란 상자에 차곡차곡 넣어 둡니다. 학습할 때는 방금 겪은 일만 쓰지 않고 이 상자에서 무작위로 몇 개를 꺼내 함께 씁니다. 그러면 연달아 일어난 경험들이 서로 비슷해서 생기는 편향이 깨지고, 값비싼 경험을 한 번 쓰고 버리지 않아도 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>심층 강화학습이 실제로 작동하게 만든 결정적 장치 중 하나입니다. 신경망 학습이 전제하는 독립 동일 분포 가정을 연속된 경험이 위반하는 문제를 완화하고, 데이터 효율을 크게 높여 줍니다. 아타리 게임을 사람 수준으로 푼 심층 Q망의 핵심 구성요소로 널리 알려졌습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"우선순위 경험 재생을 도입해 시간차 오차가 큰 전이를 더 자주 표집하자 동일 환경에서 수렴이 빨라졌다."</div>
+  <p>배울 것이 많은 경험을 더 자주 꺼내 쓰도록 하자 학습 속도가 개선되었다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>버퍼 크기, 표집 배치 크기, 갱신 대비 환경 상호작용 비율이 주요 설계 변수입니다. 균등 표집 대신 시간차 오차 크기에 비례해 뽑는 우선순위 경험 재생이 널리 쓰이며, 이때 생기는 표집 편향은 중요도 가중으로 보정합니다. 목표 달성 실패 경험의 목표를 사후에 바꿔 성공 사례로 재활용하는 사후 경험 재생처럼 희소 보상 문제를 겨냥한 변형도 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>저장된 경험은 과거 정책이 만든 것이므로 오프폴리시 학습에서만 그대로 쓸 수 있고, 온폴리시 알고리즘에 그대로 적용하면 편향이 생깁니다. 해마의 <a href="hippocampal-replay.html">해마 재현</a>이 개념적 영감을 준 것으로 자주 언급되지만, 이쪽은 알고리즘 구성요소이지 생물학적 현상이 아닙니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="q-learning.html">Q러닝</a>
+    <a href="reinforcement-learning.html">강화학습</a>
+    <a href="markov-decision-process.html">마르코프 결정 과정</a>
+    <a href="temporal-difference-learning.html">시간차 학습</a>
+    <a href="catastrophic-forgetting.html">파국적 망각</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

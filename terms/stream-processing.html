@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>stream processing(스트림 처리)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="끝없이 흘러 들어오는 데이터를 저장 후 일괄 처리하지 않고 도착하는 대로 계산하는 방식입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/stream-processing.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 스트림 처리 (stream processing)</p>
+  <h1>스트림 처리 (stream processing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 끝없이 흘러 들어오는 데이터를 저장 후 일괄 처리하지 않고 도착하는 대로 계산하는 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>데이터를 한데 모아 두었다가 밤에 한꺼번에 처리하는 대신, 들어오는 즉시 계속 계산해 결과를 갱신하는 방식입니다. 데이터에 끝이 없으므로 “최근 5분” 같은 시간 창을 정해 그 안의 값만 집계합니다. 결제 이상 탐지나 실시간 대시보드처럼 몇 초의 지연도 중요한 곳에 쓰입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>의사결정에 필요한 시간이 짧아질수록 일괄 처리의 지연이 곧 비용이 됩니다. 스트림 처리는 데이터의 가치가 가장 높은 시점에 바로 반응할 수 있게 해 주며, 상태를 유지하는 연산과 정확히 한 번 처리 같은 보장을 프레임워크 차원에서 제공해 신뢰성 있는 실시간 시스템을 만들 수 있게 합니다. 현대 데이터 아키텍처의 필수 구성요소입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"이벤트 시간 기준 5분 텀블링 윈도우와 워터마크를 설정해 지연 도착 데이터를 허용하면서 스트림 처리 집계를 수행하였다."</div>
+  <p>늦게 도착하는 기록까지 감안해 시간 구간별 집계를 실시간으로 계산했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>핵심 개념은 사건이 실제로 발생한 이벤트 시간과 시스템이 처리한 처리 시간의 구분, 그리고 이벤트 시간이 어디까지 진행되었는지를 알리는 워터마크입니다. 창은 겹치지 않는 텀블링, 겹치는 슬라이딩, 활동 간격으로 나누는 세션 형태가 표준입니다. 장애 시에도 결과가 한 번만 반영되게 하려면 상태 스냅숏과 오프셋 관리를 결합해야 하며, 이는 <a href="exactly-once-semantics.html">정확히 한 번 의미론</a>으로 다뤄집니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="mapreduce.html">맵리듀스</a>나 <a href="etl-pipeline.html">ETL 파이프라인</a>이 유한한 데이터 묶음을 한 번에 처리하는 일괄 방식인 데 비해, 스트림 처리는 경계가 없는 데이터를 전제로 창과 시간 개념을 도입합니다. 실시간이라는 말이 지연 0을 뜻하지는 않으며 정확도와 지연 사이에는 항상 교환 관계가 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="message-queue.html">메시지 큐 (Message Queue)</a>
+    <a href="etl-pipeline.html">ETL 파이프라인</a>
+    <a href="data-pipeline.html">데이터 파이프라인</a>
+    <a href="apache-spark.html">아파치 스파크</a>
+    <a href="publish-subscribe-pattern.html">발행-구독 패턴</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

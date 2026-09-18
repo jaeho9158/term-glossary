@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>system call(시스템 호출)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="응용 프로그램이 커널의 기능을 요청하기 위해 통제된 경로로 넘어가는 진입점입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/system-call.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 시스템 호출 (system call)</p>
+  <h1>시스템 호출 (system call)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 응용 프로그램이 커널의 기능을 요청하기 위해 통제된 경로로 넘어가는 진입점입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>파일을 읽거나 네트워크로 데이터를 보내는 일은 응용 프로그램이 직접 할 수 없고 운영체제에게 부탁해야 합니다. 시스템 호출은 그 부탁을 위한 공식 창구로, 이 호출이 일어나면 프로세서가 사용자 모드에서 커널 모드로 전환되어 커널이 대신 일을 처리하고 결과만 돌려줍니다. 아무 코드나 하드웨어를 건드리지 못하게 막는 보호 장치이기도 합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>운영체제가 하드웨어와 자원을 안전하게 중재할 수 있는 근거가 바로 이 경계입니다. 동시에 모드 전환 비용이 있어 호출 횟수가 성능에 직접 영향을 주므로, 입출력을 묶어 처리하거나 커널을 거치지 않는 경로를 만드는 최적화가 계속 연구됩니다. 보안 측면에서도 어떤 호출을 허용할지 제한하는 것이 <a href="sandboxing.html">샌드박싱</a>의 기본 수단입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"프로파일링 결과 시스템 호출 횟수가 병목으로 확인되어 입출력 요청을 배치로 묶는 방식으로 처리량을 개선하였다."</div>
+  <p>커널에 부탁하는 횟수 자체가 느림의 원인이어서 여러 요청을 한 번에 모아 보냈다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>보통 호출 번호와 인자를 레지스터에 담고 전용 명령으로 트랩을 일으키면, 커널이 정해진 처리기에서 인자를 검증하고 해당 서비스 루틴을 실행한 뒤 결과와 오류 코드를 돌려줍니다. 응용 프로그램은 대개 이 과정을 감싼 표준 라이브러리 함수를 통해 간접적으로 사용합니다. 모드 전환 비용과 캐시 오염 때문에, 시간 조회처럼 빈번한 일부 호출은 커널 메모리를 사용자 공간에 매핑해 전환 없이 처리하기도 합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>라이브러리 함수 호출과 혼동하기 쉽지만, 특권 수준이 바뀌는지 여부가 결정적 차이입니다. <a href="interrupt.html">인터럽트</a>가 하드웨어가 비동기적으로 발생시키는 사건인 반면, 시스템 호출은 프로그램이 스스로 일으키는 동기적 트랩입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="interrupt.html">인터럽트</a>
+    <a href="context-switch.html">컨텍스트 스위칭</a>
+    <a href="process-and-thread.html">프로세스와 스레드</a>
+    <a href="virtual-memory.html">가상 메모리</a>
+    <a href="sandboxing.html">샌드박싱</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

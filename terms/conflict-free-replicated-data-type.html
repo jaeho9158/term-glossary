@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>conflict-free replicated data type(충돌 없는 복제 자료형)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="각자 수정한 복제본을 어떤 순서로 합쳐도 같은 결과로 수렴하도록 설계된 자료형입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/conflict-free-replicated-data-type.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 충돌 없는 복제 자료형 (conflict-free replicated data type)</p>
+  <h1>충돌 없는 복제 자료형 (conflict-free replicated data type)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 각자 수정한 복제본을 어떤 순서로 합쳐도 같은 결과로 수렴하도록 설계된 자료형입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 사람이 인터넷 연결 없이 같은 문서를 각자 고친 뒤 나중에 합친다고 생각해 보세요. 보통은 어느 쪽을 살릴지 다투게 되는데, 이 자료형은 합치는 연산 자체가 순서와 중복에 영향받지 않도록 수학적으로 설계되어 있습니다. 그래서 누가 먼저 동기화되든 결국 모두 같은 상태에 도달합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>실시간 공동 편집기, 오프라인을 지원하는 모바일 앱, 지리적으로 흩어진 분산 데이터베이스의 핵심 기술입니다. 중앙 서버의 합의를 기다리지 않고도 각자 즉시 수정할 수 있어 응답이 빠르고 네트워크가 끊겨도 동작합니다. <a href="eventual-consistency.html">최종적 일관성</a>을 수동 충돌 해결 없이 달성하는 원리적 방법을 제시했다는 점에서 이론적 의의도 큽니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"공동 편집 기능을 충돌 없는 복제 자료형으로 구현하여 오프라인 편집 후 재접속 시에도 수동 병합 없이 상태가 수렴하였다."</div>
+  <p>각자 따로 고친 내용이 자동으로 하나의 결과로 합쳐졌다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>상태 기반 방식은 전체 상태를 주고받으며 병합 함수가 결합법칙·교환법칙·멱등성을 만족하는 반격자 구조여야 하고, 연산 기반 방식은 연산만 전파하되 동시 연산이 교환 가능해야 합니다. 대표적 자료형으로 증가만 하는 카운터, 두 집합으로 추가와 삭제를 관리하는 2P-Set, 마지막 쓰기를 채택하는 레지스터, 그리고 텍스트 편집을 위한 순서 있는 시퀀스 자료형이 있습니다. 삭제된 원소의 흔적인 툼스톤이 쌓여 메모리가 증가하는 문제가 실용화의 주요 과제입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>합쳐진 결과가 항상 사용자가 의도한 바와 같다는 뜻은 아니며, 보장되는 것은 모든 복제본이 같은 상태가 된다는 수렴성뿐입니다. <a href="consensus-algorithm.html">합의 알고리즘</a>이 하나의 순서를 강제로 정해 강한 일관성을 얻는 것과 달리, 이 접근은 순서 합의를 아예 포기하는 대신 자료형의 성질로 문제를 해결합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="eventual-consistency.html">최종적 일관성</a>
+    <a href="distributed-consistency-model.html">분산 일관성 모델</a>
+    <a href="gossip-protocol.html">가십 프로토콜</a>
+    <a href="vector-clock.html">벡터 클럭</a>
+    <a href="lamport-timestamp.html">램포트 타임스탬프</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

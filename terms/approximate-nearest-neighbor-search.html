@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>approximate nearest neighbor search(근사 최근접 이웃 탐색)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="약간의 정확도를 포기하는 대신 고차원 벡터 중 가장 가까운 것을 매우 빠르게 찾는 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/approximate-nearest-neighbor-search.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 근사 최근접 이웃 탐색 (approximate nearest neighbor search)</p>
+  <h1>근사 최근접 이웃 탐색 (approximate nearest neighbor search)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 약간의 정확도를 포기하는 대신 고차원 벡터 중 가장 가까운 것을 매우 빠르게 찾는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>수억 개의 벡터 중에서 질의와 가장 가까운 것을 찾으려면 전부와 거리를 계산해야 해서 느립니다. 근사 탐색은 정답을 100% 보장하지 않는 대신, 미리 만들어 둔 색인을 이용해 유망한 후보만 훑어보고 답을 냅니다. 재현율을 조금 낮추면 속도는 수백 배 빨라지는 교환이 가능합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>임베딩으로 의미를 다루는 오늘날의 검색과 추천, 그리고 <a href="retrieval-augmented-generation.html">검색증강생성</a>의 실질적 기반 기술입니다. <a href="vector-database.html">벡터 데이터베이스</a>의 핵심 엔진이 바로 이 알고리즘이며, 응답 속도와 인프라 비용을 직접 좌우합니다. 대규모 검색 시스템 논문에서 재현율과 초당 질의 수의 상충 곡선으로 성능을 보고하는 것이 관례입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"HNSW 색인을 사용한 근사 최근접 이웃 탐색에서 재현율 0.95를 유지하면서 전수 탐색 대비 질의 지연을 120배 단축하였다."</div>
+  <p>거의 정확한 답을 유지하면서 검색 속도를 크게 높였다는 성능 보고입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>대표적 계열로는 이웃 관계를 여러 층의 그래프로 쌓아 탐색하는 HNSW, 벡터를 부분 공간으로 쪼개 코드북으로 압축하는 곱 양자화, 공간을 군집으로 나눠 일부만 뒤지는 역파일 색인, 그리고 지역 민감 해싱이 있습니다. 실무에서는 군집 분할과 양자화를 결합해 메모리와 속도를 함께 잡는 구성이 흔합니다. 평가는 정확한 정답 집합 대비 재현율과 질의 처리량을 함께 그린 곡선으로 이루어집니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="k-nearest-neighbor.html">K-최근접 이웃</a>은 이웃들의 라벨로 예측하는 분류·회귀 알고리즘이고, 이쪽은 이웃을 빠르게 찾아내는 검색 문제라는 점에서 층위가 다릅니다. 색인을 만들 때의 설정이 재현율을 좌우하므로 속도 비교는 반드시 같은 재현율 수준에서 해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="vector-database.html">벡터 데이터베이스</a>
+    <a href="k-nearest-neighbor.html">K-최근접 이웃</a>
+    <a href="embedding.html">임베딩</a>
+    <a href="retrieval-augmented-generation.html">검색증강생성</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

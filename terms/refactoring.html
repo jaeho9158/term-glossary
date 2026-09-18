@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>refactoring(리팩터링)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="겉으로 드러나는 동작은 그대로 둔 채 코드의 내부 구조만 개선하는 작업입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/refactoring.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 리팩터링 (refactoring)</p>
+  <h1>리팩터링 (refactoring)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 겉으로 드러나는 동작은 그대로 둔 채 코드의 내부 구조만 개선하는 작업입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>기능을 새로 추가하거나 버그를 고치는 것이 아니라, 같은 일을 하는 코드를 더 읽기 쉽고 고치기 쉽게 다듬는 일입니다. 긴 함수를 쪼개거나 이름을 분명하게 바꾸거나 중복을 없애는 식이지요. 겉에서 보면 아무것도 달라지지 않아야 하고, 그것을 확인해 주는 것이 테스트입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>소프트웨어는 오래 살아남으며 계속 바뀌기 때문에, 구조를 정리하지 않으면 변경 비용이 점점 커집니다. 리팩터링은 <a href="technical-debt.html">기술 부채</a>를 갚아 변경 속도를 유지하는 일상적 수단입니다. 작은 단계로 나누어 안전하게 구조를 바꾸는 방법을 체계화했다는 점에서 소프트웨어공학의 중요한 실천 지식입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"기능 추가에 앞서 중복 로직을 추출하는 리팩터링을 선행하여 변경 범위를 국소화하였다."</div>
+  <p>새 기능을 넣기 쉬운 구조로 먼저 정리한 뒤 작업했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>마틴 파울러가 정리한 함수 추출, 변수 인라인, 조건문을 다형성으로 대체하기 같은 이름 붙은 절차들이 표준 어휘로 쓰입니다. 각 절차는 아주 작은 단계로 쪼개져 있어 매 단계마다 테스트를 돌려 동작 보존을 확인할 수 있고, 이 점이 그냥 코드를 뜯어고치는 일과의 결정적 차이입니다. 현대 통합 개발 환경은 이름 바꾸기나 함수 추출 같은 조작을 자동으로 수행해 사람의 실수를 줄여 줍니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>기능 변경이나 성능 최적화를 함께 하면 문제가 생겼을 때 원인을 가릴 수 없으므로, 반드시 분리해서 진행해야 합니다. 개선이 필요하다는 신호를 알아채는 일과 실제로 구조를 바꾸는 행위 자체는 구분해서 다루어야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="technical-debt.html">기술 부채</a>
+    <a href="unit-testing.html">단위 테스트</a>
+    <a href="test-driven-development.html">테스트 주도 개발</a>
+    <a href="cohesion-and-coupling.html">응집도와 결합도</a>
+    <a href="solid-principles.html">SOLID 원칙</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

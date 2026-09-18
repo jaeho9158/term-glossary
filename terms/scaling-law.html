@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>scaling law(스케일링 법칙)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="모델 크기·데이터 양·연산량이 커질수록 손실이 거듭제곱 꼴로 줄어든다는 경험적 관계입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/scaling-law.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 스케일링 법칙 (scaling law)</p>
+  <h1>스케일링 법칙 (scaling law)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 모델 크기·데이터 양·연산량이 커질수록 손실이 거듭제곱 꼴로 줄어든다는 경험적 관계입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>모델을 키우면 성능이 얼마나 좋아지는지를 그래프로 그려 보니, 로그 축에서 거의 반듯한 직선이 나온다는 발견입니다. 덕분에 아직 만들어 보지 않은 훨씬 큰 모델의 성능도 작은 모델 몇 개의 실험만으로 꽤 정확히 예측할 수 있습니다. 반대로 주어진 예산에서 모델을 얼마나 키우고 데이터를 얼마나 모아야 최선인지도 계산할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>거대 모델 개발이 막연한 도박이 아니라 예산 계획이 가능한 공학이 되게 만든 결과입니다. 정해진 연산 예산에서 파라미터 수와 학습 토큰 수의 최적 배분을 정하는 근거로 쓰이며, 실제로 이 분석이 모델 설계 관행을 크게 바꾸었습니다. 대규모 모델 논문의 서론에 거의 빠지지 않고 인용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"스케일링 법칙에 따른 외삽 결과를 근거로 주어진 연산 예산에서의 최적 파라미터 수와 학습 토큰 수를 결정하였다."</div>
+  <p>작은 실험에서 얻은 추세선으로 큰 모델의 설계값을 미리 정했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>카플란 등의 2020년 연구가 모델 크기·데이터·연산 각각에 대한 거듭제곱 관계를 제시했고, 2022년 친칠라 연구가 같은 연산 예산에서는 기존 관행보다 데이터를 훨씬 많이 쓰는 편이 낫다는 수정된 배분을 보였습니다. 관계식은 대체로 되돌릴 수 없는 오차를 뜻하는 상수항에 거듭제곱 항이 더해진 형태로 적합됩니다. 다만 이 곡선은 사전학습 손실에 대한 것이므로 실제 과제 성능으로의 번역은 단순하지 않습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>경험적 적합식이지 물리 법칙이 아니며, 데이터 품질이나 구조가 바뀌면 계수와 지수가 달라집니다. <a href="double-descent.html">이중 하강</a>이 모델 크기에 따른 오차의 비단조적 봉우리를 다루는 반면, 스케일링 법칙은 충분히 큰 영역에서의 매끄러운 추세를 기술합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="large-language-model.html">대규모 언어 모델</a>
+    <a href="emergent-ability.html">창발 능력</a>
+    <a href="double-descent.html">이중 하강</a>
+    <a href="transformer.html">트랜스포머</a>
+    <a href="high-performance-computing.html">고성능 컴퓨팅(HPC)</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

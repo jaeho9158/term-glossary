@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>branch prediction(분기 예측)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="조건문의 결과가 확정되기 전에 어느 쪽으로 갈지 미리 추측해 파이프라인을 채우는 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/branch-prediction.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 분기 예측 (branch prediction)</p>
+  <h1>분기 예측 (branch prediction)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 조건문의 결과가 확정되기 전에 어느 쪽으로 갈지 미리 추측해 파이프라인을 채우는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>프로세서는 명령을 여러 단계로 나눠 동시에 처리하는데, 조건문을 만나면 어느 쪽 명령을 가져와야 할지 알 수 없어 멈칫하게 됩니다. 분기 예측기는 과거에 그 조건문이 주로 어느 쪽으로 갔는지 기록해 두었다가 그쪽을 미리 실행합니다. 맞으면 시간을 아끼고 틀리면 해 둔 일을 버리고 다시 시작합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>파이프라인이 깊어질수록 한 번의 예측 실패로 버려지는 작업이 커지기 때문에, 예측 정확도가 프로세서 성능을 좌우하는 핵심 요소가 되었습니다. 현대 예측기는 90% 후반대의 적중률을 보이며, 이 덕분에 조건문이 많은 일반 프로그램도 빠르게 실행됩니다. 조건 분기를 줄이는 방향의 코드 최적화가 효과를 내는 이유이기도 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"정렬된 배열을 처리할 때 분기 예측 적중률이 크게 상승하여 동일한 코드가 비정렬 입력 대비 수 배 빠르게 실행되었다."</div>
+  <p>조건의 결과가 규칙적이면 예측이 잘 맞아 같은 코드도 훨씬 빨라진다는 관찰입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가장 단순한 형태는 분기마다 2비트 포화 카운터를 두어 최근 경향을 기억하는 방식이고, 여기에 최근 분기 결과들의 이력을 함께 색인에 쓰는 2단계 적응형 예측기, 서로 다른 이력 길이의 예측기를 경쟁시키는 TAGE 계열로 발전했습니다. 함수 복귀 주소를 위한 별도의 스택 구조도 함께 쓰입니다. 예측 실패 시에는 <a href="speculative-execution.html">투기적 실행</a>으로 진행한 결과를 모두 폐기하고 올바른 경로부터 파이프라인을 다시 채우므로 수십 사이클의 손실이 발생합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>예측이 틀려도 프로그램의 결과는 항상 올바르며 성능만 손해를 본다는 점이 중요합니다. 다만 예측 실패 시 폐기되는 작업이 캐시에 흔적을 남겨 <a href="side-channel-attack.html">부채널 공격</a>의 통로가 될 수 있다는 점이 스펙터 취약점으로 드러났습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="speculative-execution.html">투기적 실행</a>
+    <a href="pipelining.html">파이프라이닝</a>
+    <a href="cache-memory.html">캐시 메모리</a>
+    <a href="out-of-order-execution.html">비순차 실행</a>
+    <a href="side-channel-attack.html">부채널 공격</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

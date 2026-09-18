@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>leader election(리더 선출)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="분산 시스템의 여러 노드 중 조정 역할을 맡을 하나를 합의로 정하는 절차입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/leader-election.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 리더 선출 (leader election)</p>
+  <h1>리더 선출 (leader election)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 분산 시스템의 여러 노드 중 조정 역할을 맡을 하나를 합의로 정하는 절차입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>여러 서버가 대등하게 일하다가도, 누가 최종 결정을 내릴지 한 명은 정해야 하는 상황이 생깁니다. 리더 선출은 서로 통신해 그 한 대를 정하는 절차이며, 리더가 죽으면 남은 노드들이 알아서 새 리더를 뽑습니다. 이 과정에서 두 개의 리더가 동시에 생기지 않도록 하는 것이 가장 어려운 부분입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>쓰기를 한 곳으로 모아 순서를 정하면 분산 환경의 일관성 문제가 크게 단순해지기 때문에, 복제 데이터베이스·작업 스케줄러·분산 락 등 수많은 시스템이 리더를 둡니다. 동시에 리더는 단일 장애점이 되므로 빠르고 안전한 재선출이 가용성을 좌우합니다. <a href="raft-algorithm.html">Raft 합의 알고리즘</a>처럼 현대 합의 프로토콜은 아예 리더 선출을 설계의 중심에 둡니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"리더 선출 시간 초과값을 무작위화하여 동시 후보 발생으로 인한 선거 반복을 완화하였다."</div>
+  <p>여러 노드가 동시에 후보로 나서 선거가 계속 실패하는 문제를 대기 시간을 흩어 해결했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>보통 임기 번호를 붙여 진행하며, 리더의 심장박동이 일정 시간 오지 않으면 후보가 되어 임기 번호를 올리고 표를 요청합니다. 한 노드는 한 임기에 한 표만 주고 과반수를 얻어야 리더가 되므로, 같은 임기에 두 리더가 나올 수 없습니다. 네트워크 분단으로 옛 리더가 자신이 여전히 리더라 믿는 상황을 막기 위해 임기 번호 비교, 임차 기반 리더십, 펜싱 토큰 같은 장치를 함께 씁니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>과반수 정족수를 얻지 못하는 쪽은 스스로 물러나야 하며, 그렇지 않으면 리더가 둘이 되는 분단 뇌 상태가 발생합니다. <a href="consensus-algorithm.html">합의 알고리즘</a> 전체가 리더 선출과 같은 말은 아니며, 선출은 그 안의 한 단계이고 로그 복제와 안전성 보장이 별도로 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="raft-algorithm.html">Raft 합의 알고리즘</a>
+    <a href="consensus-algorithm.html">합의 알고리즘</a>
+    <a href="quorum.html">정족수</a>
+    <a href="distributed-consensus.html">분산 합의 알고리즘</a>
+    <a href="paxos-algorithm.html">팍소스 알고리즘</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

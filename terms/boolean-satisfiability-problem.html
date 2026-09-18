@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Boolean satisfiability problem(불리언 충족 가능성 문제)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="논리식을 참으로 만드는 변수 값의 배정이 존재하는지를 판정하는 문제입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/boolean-satisfiability-problem.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 불리언 충족 가능성 문제 (Boolean satisfiability problem)</p>
+  <h1>불리언 충족 가능성 문제 (Boolean satisfiability problem)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 논리식을 참으로 만드는 변수 값의 배정이 존재하는지를 판정하는 문제입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>참과 거짓만 가지는 변수들로 이루어진 긴 논리식이 있을 때, 변수에 어떤 값을 넣어도 식 전체가 참이 될 수 없는지 아니면 참이 되게 하는 방법이 있는지를 묻는 문제입니다. 변수가 n개면 경우의 수가 2의 n제곱이라 전부 시험하기는 불가능하므로, 똑똑하게 가지를 쳐 나가는 알고리즘이 필요합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>NP-완전이라는 개념이 처음 증명된 문제로, 계산 복잡도 이론의 출발점이자 기준점입니다. 동시에 현대 SAT 해결기는 수백만 개의 변수를 가진 실제 문제를 자주 풀어내기 때문에, 하드웨어 검증·소프트웨어 모델 체킹·일정 수립 등에서 범용 엔진으로 쓰입니다. 이론적 어려움과 실용적 성공이 공존하는 대표 사례입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"회로 등가성 검증 문제를 불리언 충족 가능성 문제로 환원한 뒤 최신 SAT 해결기를 적용하여 반례를 탐색하였다."</div>
+  <p>검증 문제를 논리식 만족 문제로 바꿔 전용 해결기로 풀었다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>입력은 보통 절들의 논리곱인 논리곱 표준형으로 주어지며, 절마다 변수가 3개인 3-SAT도 여전히 NP-완전입니다. 실용 해결기의 뼈대는 단위 전파와 순수 리터럴 제거를 갖춘 DPLL이며, 여기에 모순이 발생한 원인을 새 절로 학습해 같은 실수를 반복하지 않게 하는 절 학습과 비시간순 백점프를 더한 CDCL이 현재의 표준입니다. 정수 산술이나 배열 같은 이론을 함께 다루는 SMT 해결기로 확장되어 형식 검증에 널리 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="cook-levin-theorem.html">쿡-레빈 정리</a>가 이 문제의 NP-완전성을 증명한 정리이므로, 문제 자체와 정리를 혼동하지 않아야 합니다. 최악의 경우가 지수 시간이라는 이론적 사실과 실제 문제들이 대개 빨리 풀린다는 경험적 사실은 모순이 아니라 문제 구조의 차이에서 비롯됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cook-levin-theorem.html">쿡-레빈 정리</a>
+    <a href="np-completeness.html">NP-완전성</a>
+    <a href="model-checking.html">모델 체킹</a>
+    <a href="formal-verification.html">정형 검증</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

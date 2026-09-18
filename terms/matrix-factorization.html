@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>matrix factorization(행렬 분해 기반 추천)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="사용자와 항목의 평가 행렬을 두 개의 잠재요인 행렬 곱으로 쪼개 빈칸을 예측하는 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/matrix-factorization.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 행렬 분해 기반 추천 (matrix factorization)</p>
+  <h1>행렬 분해 기반 추천 (matrix factorization)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 사용자와 항목의 평가 행렬을 두 개의 잠재요인 행렬 곱으로 쪼개 빈칸을 예측하는 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사용자가 영화에 매긴 별점 표는 대부분이 빈칸입니다. 이 표를 ‘사용자의 취향 벡터’와 ‘영화의 특성 벡터’라는 두 개의 작은 표의 곱으로 근사하면, 두 벡터의 내적으로 빈칸의 점수를 추정할 수 있습니다. 여기서 취향과 특성의 각 축은 사람이 이름 붙인 것이 아니라 데이터에서 저절로 드러난 잠재요인입니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>추천 시스템 연구의 판도를 바꾼 기법으로, 넷플릭스 대회를 계기로 표준 기법이 되었습니다. 희소한 상호작용 데이터에서도 적은 수의 잠재요인만으로 일반화된 예측을 낼 수 있어 계산과 저장이 모두 효율적입니다. 사용자와 항목을 같은 공간의 벡터로 표현한다는 아이디어는 이후 <a href="embedding.html">임베딩</a> 기반 추천 모형의 뿌리가 되었습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"잠재요인 수를 64로 설정한 행렬 분해 모형이 이웃 기반 협업 필터링보다 낮은 RMSE를 보였다."</div>
+  <p>이 방식이 기존의 비슷한 사용자 찾기 방식보다 평점 예측 오차가 작았다는 비교 결과입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>관측된 항목에 대해서만 제곱오차에 정규화 항을 더한 목적함수를 두고, 교대 최소제곱이나 <a href="stochastic-gradient-descent.html">확률적 경사 하강법</a>으로 두 행렬을 번갈아 갱신합니다. 사용자 편향과 항목 편향을 따로 두는 확장, 암묵적 피드백을 신뢰도로 반영하는 확장, 시간에 따른 취향 변화를 넣는 확장이 널리 쓰입니다. 결측치를 0으로 채우고 전체를 분해하는 <a href="singular-value-decomposition.html">특이값분해</a>와 달리 결측을 건너뛰고 최적화한다는 점이 핵심 차이입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="collaborative-filtering.html">협업 필터링</a>은 상호작용 기록으로 추천한다는 접근 전체를 가리키는 상위 개념이고, 행렬 분해는 그 안에서 잠재요인 모형을 쓰는 구체적 방법입니다. 새 사용자나 새 항목에는 잠재요인이 없어 예측이 불가능한 콜드 스타트 문제가 남습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="collaborative-filtering.html">협업 필터링</a>
+    <a href="embedding.html">임베딩</a>
+    <a href="singular-value-decomposition.html">특이값분해</a>
+    <a href="stochastic-gradient-descent.html">확률적 경사 하강법(SGD)</a>
+    <a href="latent-space.html">잠재공간</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

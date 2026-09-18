@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>temporal difference learning(시간차 학습)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="한 걸음 뒤의 예측값을 임시 정답으로 삼아 현재 예측을 조금씩 고쳐 나가는 학습 방식입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/temporal-difference-learning.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 시간차 학습 (temporal difference learning)</p>
+  <h1>시간차 학습 (temporal difference learning)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 한 걸음 뒤의 예측값을 임시 정답으로 삼아 현재 예측을 조금씩 고쳐 나가는 학습 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>결과를 끝까지 기다렸다가 배우는 대신, 한 걸음 진행해 보고 예측이 어떻게 달라졌는지를 보고 바로 배우는 방법입니다. 축구 경기 전 승률 예측이 전반전 득점 후 확 바뀌었다면, 경기가 끝나기 전에도 처음 예측이 틀렸다는 것을 알 수 있는 것과 같습니다. 이때 두 예측값의 차이를 시간차 오차라고 부르고, 그만큼 예측을 수정합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>에피소드가 끝날 때까지 기다릴 필요가 없어 온라인으로, 그리고 끝이 없는 과제에서도 학습할 수 있게 해 줍니다. 몬테카를로 방식보다 분산이 작아 학습이 안정적이라는 장점도 큽니다. 무엇보다 이 시간차 오차 신호가 동물 뇌의 도파민 반응과 유사하다는 발견 덕분에 신경과학과 강화학습을 잇는 다리 역할도 합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"시간차 학습 기반 가치함수 추정치는 몬테카를로 추정 대비 분산이 작았으나 초기 편향은 더 크게 나타났다."</div>
+  <p>이 방식이 안정적이지만 자기 예측을 정답처럼 쓰기 때문에 초반에는 치우침이 있다는 관찰입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가장 단순한 TD(0)는 관측한 보상에 다음 상태의 현재 추정 가치를 더한 값을 목표로 삼아 현재 상태의 가치를 갱신합니다. 이렇게 자기 자신의 추정값을 목표에 쓰는 것을 부트스트랩이라 하며, 이 때문에 편향이 생기지만 분산은 줄어듭니다. 여러 걸음을 묶는 n단계 TD와, 모든 길이의 수익을 지수적으로 가중 평균하는 TD(λ) 및 적격 흔적이 이 계열의 표준 확장입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="q-learning.html">Q러닝</a>은 상태-행동 가치를 최대 연산으로 갱신하는 시간차 학습의 한 구체적 형태이므로, 시간차 학습은 그보다 넓은 학습 원리를 가리킵니다. <a href="reward-prediction-error.html">보상예측오차</a>는 이 오차 신호를 신경과학적으로 해석한 개념으로, 수학적 정의는 같지만 사용 맥락이 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="q-learning.html">Q러닝</a>
+    <a href="bellman-equation.html">벨만 방정식</a>
+    <a href="reinforcement-learning.html">강화학습</a>
+    <a href="reward-prediction-error.html">보상예측오차</a>
+    <a href="actor-critic.html">액터-크리틱</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

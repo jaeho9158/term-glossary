@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Thompson sampling(톰프슨 샘플링)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="각 선택지의 사후분포에서 값을 뽑아 가장 높은 쪽을 고르는 베이즈식 탐색 전략입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/thompson-sampling.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 톰프슨 샘플링 (Thompson sampling)</p>
+  <h1>톰프슨 샘플링 (Thompson sampling)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 각 선택지의 사후분포에서 값을 뽑아 가장 높은 쪽을 고르는 베이즈식 탐색 전략입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>선택지마다 “이 정도 성능일 것 같다”는 믿음을 확률분포로 들고 있습니다. 매 시행마다 각 분포에서 주사위를 굴리듯 값을 하나씩 뽑고, 그중 가장 큰 값이 나온 선택지를 고릅니다. 아직 잘 모르는 선택지는 분포가 넓어서 가끔 큰 값이 나오므로 자연스럽게 시험 기회를 얻고, 데이터가 쌓여 분포가 좁아지면 점차 진짜 좋은 쪽으로 수렴합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>탐색과 활용의 균형을 별도의 규칙 없이 확률적으로 자동 조절한다는 점에서 우아하고, 실제 성능도 매우 좋아 온라인 실험과 광고 노출 최적화의 사실상 표준이 되었습니다. 베이즈 추론과 의사결정을 자연스럽게 잇는 사례로 이론적 관심도 큽니다. 지연된 보상이나 배치 단위 갱신 같은 현실적 제약에도 비교적 잘 견딥니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"베타-이항 모형을 사용한 톰프슨 샘플링이 ε-탐욕 대비 동일 시행 수에서 누적 후회를 절반 수준으로 낮추었다."</div>
+  <p>확률분포에서 뽑아 고르는 방식이 무작위로 섞는 방식보다 손해가 훨씬 적었다는 비교 결과입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>1933년 톰프슨이 임상시험 맥락에서 제안했으나 오랫동안 잊혔다가 2010년대에 성능과 이론적 보장이 재조명되었습니다. 클릭 여부처럼 이항 보상에서는 베타 분포를 켤레 사전분포로 써서 성공·실패 횟수만 세면 사후분포가 갱신되므로 구현이 매우 간단합니다. 누적 후회가 로그 차수로 증가한다는 점이 증명되어 이론적으로도 <a href="upper-confidence-bound.html">상한 신뢰구간 알고리즘</a>에 뒤지지 않습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="upper-confidence-bound.html">상한 신뢰구간 알고리즘</a>이 불확실성을 결정론적 보너스 항으로 더하는 반면, 톰프슨 샘플링은 표본추출이라는 무작위성 자체로 탐색을 만들어 낸다는 점이 다릅니다. 사전분포를 잘못 설정하면 초기 수렴이 크게 왜곡될 수 있습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="multi-armed-bandit.html">다중 슬롯머신 문제</a>
+    <a href="upper-confidence-bound.html">상한 신뢰구간 알고리즘</a>
+    <a href="exploration-exploitation-tradeoff.html">탐색-활용 절충</a>
+    <a href="bayesian-optimization.html">베이지안 최적화</a>
+    <a href="reinforcement-learning.html">강화학습</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

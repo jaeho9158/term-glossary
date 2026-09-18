@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>out-of-order execution(비순차 실행)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="준비된 명령부터 먼저 실행하되 결과 반영은 원래 순서대로 하는 프로세서 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/out-of-order-execution.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 비순차 실행 (out-of-order execution)</p>
+  <h1>비순차 실행 (out-of-order execution)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 준비된 명령부터 먼저 실행하되 결과 반영은 원래 순서대로 하는 프로세서 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>앞의 명령이 메모리를 기다리느라 멈춰 있어도, 뒤에 있는 독립적인 명령은 먼저 해치울 수 있습니다. 비순차 실행은 명령들 사이의 데이터 의존만 지키면서 실행 순서를 자유롭게 바꿔 놀고 있는 연산 자원을 채웁니다. 다만 프로그램 결과는 원래 순서대로 실행한 것과 똑같아야 하므로, 최종 확정은 순서를 지켜 이루어집니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>메모리 지연이 연산 속도보다 훨씬 느리게 개선되어 온 상황에서, 대기 시간을 다른 유용한 일로 메우는 것이 성능의 핵심이 되었습니다. 이 기법 덕분에 프로그래머가 명령 순서를 일일이 최적화하지 않아도 하드웨어가 알아서 병렬성을 뽑아냅니다. 현대 고성능 프로세서 설계의 근간 구조입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"비순차 실행 창의 크기를 늘리자 메모리 지연이 긴 구간에서 명령어 수준 병렬성이 개선되었다."</div>
+  <p>동시에 고려할 수 있는 명령 범위를 넓히자 대기 시간을 더 잘 메웠다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>토마술로 알고리즘 계열의 설계가 표준으로, 같은 레지스터를 재사용해 생기는 거짓 의존을 레지스터 재명명으로 제거하고, 예약 스테이션에서 피연산자가 준비된 명령부터 발행합니다. 실행 결과는 재정렬 버퍼에 모였다가 프로그램 순서대로 확정되므로 예외와 인터럽트의 의미가 보존됩니다. 이 확정 단계의 존재가 <a href="speculative-execution.html">투기적 실행</a>의 되돌리기를 가능하게 하는 기반이기도 합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>실행 순서가 바뀌어도 단일 스레드의 결과는 동일하지만, 다른 스레드가 관찰하는 메모리 연산 순서는 달라질 수 있어 <a href="memory-barrier.html">메모리 배리어</a>가 필요해집니다. <a href="pipelining.html">파이프라이닝</a>이 명령을 단계별로 겹쳐 처리하는 것이라면, 비순차 실행은 그 위에서 명령의 발행 순서를 재배열하는 별도의 층입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="speculative-execution.html">투기적 실행</a>
+    <a href="pipelining.html">파이프라이닝</a>
+    <a href="memory-barrier.html">메모리 배리어</a>
+    <a href="branch-prediction.html">분기 예측</a>
+    <a href="multi-core-processor.html">멀티코어 프로세서</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

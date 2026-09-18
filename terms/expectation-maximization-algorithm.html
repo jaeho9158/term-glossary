@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>expectation-maximization algorithm(기대값 최대화 알고리즘)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="숨겨진 변수가 있는 모형에서 추정과 갱신을 번갈아 반복해 최대우도해를 찾는 방법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/expectation-maximization-algorithm.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 기대값 최대화 알고리즘 (expectation-maximization algorithm)</p>
+  <h1>기대값 최대화 알고리즘 (expectation-maximization algorithm)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 숨겨진 변수가 있는 모형에서 추정과 갱신을 번갈아 반복해 최대우도해를 찾는 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>닭이 먼저냐 달걀이 먼저냐 같은 상황을 푸는 요령입니다. 각 데이터가 어느 집단에서 왔는지 알면 집단별 모수를 구할 수 있고, 모수를 알면 각 데이터가 어느 집단에서 왔을 확률을 구할 수 있습니다. 둘 다 모를 때는 하나를 임시로 가정하고 다른 하나를 계산하는 일을 번갈아 반복하며 답에 수렴시킵니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>군집화, 결측치 처리, 혼합 모형 추정 등 숨은 구조를 다루는 거의 모든 통계적 학습 문제의 기본 도구입니다. 반복할 때마다 우도가 감소하지 않는다는 성질이 증명되어 있어 안정적으로 동작합니다. 많은 최신 기법들이 이 알고리즘의 변형이나 근사로 설명되기 때문에 개념적 뿌리로도 중요합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"가우시안 혼합 모형의 모수는 EM 알고리즘으로 추정하였으며, 로그우도 변화량이 1e-6 미만일 때 수렴한 것으로 간주하였다."</div>
+  <p>숨겨진 소속 집단을 가진 혼합 모형을 이 알고리즘으로 추정했고 우도가 거의 변하지 않을 때 멈췄다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>E 단계에서는 현재 모수 아래에서 잠재변수의 사후분포를 구해 완전자료 로그우도의 기댓값을 만들고, M 단계에서는 그 기댓값을 최대화하는 모수를 구합니다. 이 두 단계는 관측자료 로그우도의 하한을 올리는 과정으로 해석되며, 그래서 우도가 단조 증가합니다. 다만 수렴하는 지점이 전역 최대가 아니라 국소 최대나 안장점일 수 있어 초기값을 바꿔 여러 번 돌리는 것이 관행입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="k-means-clustering.html">k-평균 군집화</a>는 각 점을 하나의 군집에 딱 잘라 배정하는 반면 EM은 소속 확률을 부드럽게 나눈다는 점에서 다르며, k-평균은 EM의 특수한 극한으로 이해됩니다. 수렴 보장은 우도의 단조 증가에 대한 것이지 최적해 도달에 대한 것이 아닙니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="k-means-clustering.html">k-평균 군집화</a>
+    <a href="naive-bayes-classifier.html">나이브 베이즈 분류기</a>
+    <a href="loss-function.html">손실함수</a>
+    <a href="hierarchical-clustering.html">계층적 군집분석</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

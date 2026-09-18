@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>direct preference optimization(직접 선호 최적화)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="보상 모델 없이 선호 쌍 데이터로 언어 모델을 바로 최적화하는 정렬 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/direct-preference-optimization.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 직접 선호 최적화 (direct preference optimization)</p>
+  <h1>직접 선호 최적화 (direct preference optimization)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 보상 모델 없이 선호 쌍 데이터로 언어 모델을 바로 최적화하는 정렬 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>사람이 두 답변 중 어느 쪽이 더 낫다고 고른 데이터가 있다고 합시다. 기존 방식은 이 데이터로 점수를 매기는 보상 모델을 먼저 만들고 강화학습을 돌렸는데, 이 방법은 중간 단계를 건너뜁니다. 선호된 답변의 확률은 올리고 거부된 답변의 확률은 내리는 형태의 손실함수 하나로 모델을 직접 학습시킵니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>강화학습 파이프라인은 학습이 불안정하고 조정할 것이 많은데, 이 방법은 평범한 지도학습처럼 안정적으로 돌아가면서 비슷한 결과를 냅니다. 계산과 구현 부담이 크게 줄어 소규모 연구팀도 모델 정렬 실험을 할 수 있게 만들었습니다. 그 결과 최근 공개 모델의 정렬 단계에서 사실상 기본 선택지가 되었습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"동일한 선호 데이터셋에서 직접 선호 최적화로 학습한 모델이 근접 정책 최적화 기반 기법과 대등한 승률을 보이면서도 학습 시간은 단축되었다."</div>
+  <p>별도의 보상 모델과 강화학습 없이도 비슷한 품질을 더 빠르게 얻었다는 비교 결과입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>핵심 통찰은 보상 모델과 최적 정책 사이의 관계를 뒤집어, 보상을 학습 중인 정책과 참조 정책의 로그 확률 비로 표현할 수 있다는 것입니다. 이를 선호 확률을 기술하는 브래들리-테리 모형에 대입하면 보상 모델이 사라지고 정책 파라미터에 대한 이진 분류 형태의 손실만 남습니다. 참조 모델에서 너무 멀어지지 않도록 하는 KL 제약은 손실 안에 계수로 내재되어 있어 별도 항이 필요 없습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="reinforcement-learning-from-human-feedback.html">인간 피드백 기반 강화학습</a>과 목표는 같지만 보상 모델과 온라인 표본 수집을 쓰지 않는다는 점에서 절차가 다릅니다. 고정된 선호 데이터에만 의존하므로 학습이 진행되며 모델이 만들어 내는 새로운 출력의 품질은 직접 평가되지 않는다는 한계가 지적됩니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="reinforcement-learning-from-human-feedback.html">인간 피드백 기반 강화학습</a>
+    <a href="instruction-tuning.html">인스트럭션 튜닝</a>
+    <a href="large-language-model.html">대규모 언어 모델</a>
+    <a href="ai-alignment.html">AI 정렬</a>
+    <a href="proximal-policy-optimization.html">근위정책최적화</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

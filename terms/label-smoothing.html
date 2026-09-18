@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>label smoothing(레이블 스무딩)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="정답 라벨의 확률을 1 대신 조금 낮춰 모델의 과신을 막는 정규화 기법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/label-smoothing.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 레이블 스무딩 (label smoothing)</p>
+  <h1>레이블 스무딩 (label smoothing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 정답 라벨의 확률을 1 대신 조금 낮춰 모델의 과신을 막는 정규화 기법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보통 분류 학습에서는 정답 클래스에 1, 나머지에 0을 줍니다. 그러면 모델은 정답 쪽 확률을 무한히 1에 가깝게 밀어붙이려 하면서 지나치게 확신하는 습관이 듭니다. 레이블 스무딩은 정답에 0.9, 나머지 클래스들에 나눠서 0.1 같은 식으로 약간의 여지를 남겨 둡니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>간단한 한 줄 수정만으로 일반화 성능과 확률값의 신뢰성을 함께 개선할 수 있어 영상 인식과 기계 번역의 표준 설정으로 자리 잡았습니다. 라벨에 잡음이 섞인 데이터에서 모델이 잘못된 정답을 통째로 외우는 것을 완화하는 효과도 있습니다. 대규모 모델 학습 설정을 기술하는 논문의 실험 절에서 흔히 언급됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"레이블 스무딩 계수 0.1을 적용하자 검증 정확도가 0.6%p 상승하고 기대 보정 오차도 함께 감소하였다."</div>
+  <p>정답 라벨에 약간의 여유를 주었더니 성능과 확률값 신뢰성이 모두 좋아졌다는 결과입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>목표 분포를 원-핫 벡터와 균등 분포의 가중 평균으로 바꾸는 것과 같으며, 이는 <a href="cross-entropy-loss.html">교차엔트로피 손실</a>에 균등 분포로의 KL 항을 더한 형태로 해석됩니다. 로짓이 무한대로 발산하지 않게 억제하므로 학습이 안정되고 표현 공간에서 같은 클래스의 표본들이 더 조밀한 군집을 이루는 경향이 보고되었습니다. 다만 이 조밀화가 클래스 간 미세한 차이 정보를 지워 <a href="knowledge-distillation.html">지식증류</a>의 교사 모델로 쓸 때는 성능이 떨어질 수 있다는 점도 알려져 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="dropout.html">드롭아웃</a>이나 <a href="regularization.html">정규화</a>가 모델의 가중치나 활성값에 개입하는 것과 달리, 레이블 스무딩은 학습 목표값 자체를 바꾼다는 점이 다릅니다. 계수를 과하게 키우면 클래스 간 구분 신호가 흐려져 오히려 성능이 떨어집니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="cross-entropy-loss.html">교차엔트로피 손실</a>
+    <a href="regularization.html">정규화</a>
+    <a href="one-hot-encoding.html">원-핫 인코딩</a>
+    <a href="knowledge-distillation.html">지식증류</a>
+    <a href="model-calibration.html">모델 보정</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
