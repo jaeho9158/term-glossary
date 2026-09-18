@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>LU Decomposition(LU 분해)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="행렬을 아래삼각행렬과 위삼각행렬의 곱으로 나누는 분해입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/lu-decomposition.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; LU 분해 (LU Decomposition)</p>
+  <h1>LU 분해 (LU Decomposition)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 행렬을 아래삼각행렬과 위삼각행렬의 곱으로 나누는 분해입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>정사각행렬을 대각선 아래쪽만 값이 있는 행렬과 위쪽만 값이 있는 행렬의 곱으로 쪼개는 것이 LU 분해입니다. 삼각행렬로 이루어진 연립방정식은 위에서 아래로, 또는 아래에서 위로 차례차례 대입하면 바로 풀리기 때문에 계산이 아주 쉽습니다. 그래서 한 번 분해해 두면 우변만 바뀌는 여러 문제를 빠르게 풀 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>같은 계수행렬에 대해 우변이 여러 개인 연립방정식을 반복해서 풀어야 하는 상황이 공학 계산에서 매우 흔한데, LU 분해는 가장 비싼 부분을 한 번만 수행하게 해 줍니다. 행렬식이나 역행렬 계산에도 그대로 활용되어 수치선형대수 라이브러리의 기본 루틴으로 자리 잡았습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"계수행렬을 LU 분해한 뒤 우변만 바꾸어 반복 계산함으로써 전체 연산량을 크게 줄였다."</div>
+  <p></p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>분해 과정은 <a href="gaussian-elimination.html">가우스 소거법</a>에서 사용한 행 연산의 배수들을 버리지 않고 아래삼각행렬에 기록해 두는 것과 같습니다. 피벗 위치에 0이 나타나거나 값이 지나치게 작으면 수치적으로 불안정하므로, 실제로는 행을 교환하는 부분피벗팅을 적용한 PA=LU 형태를 사용합니다. 대칭이고 양의 정부호인 행렬에서는 절반의 연산으로 끝나는 콜레스키 분해가 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>가우스 소거법이 하나의 연립방정식을 푸는 절차라면, LU 분해는 그 계산 결과를 재사용 가능한 형태로 저장하는 방법이라는 점이 다릅니다. 또 모든 정사각행렬이 행 교환 없이 LU 분해되지는 않습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="gaussian-elimination.html">가우스 소거법</a>
+    <a href="matrix-operations.html">행렬의 기본연산</a>
+    <a href="determinant.html">행렬식</a>
+    <a href="system-of-equations.html">연립방정식</a>
+    <a href="numerical-stability.html">수치적 안정성</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

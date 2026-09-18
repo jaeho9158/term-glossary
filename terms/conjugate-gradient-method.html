@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Conjugate Gradient Method(켤레기울기법)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="대칭 양정부호 연립방정식을 반복적으로 푸는 효율적인 수치 알고리즘입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/conjugate-gradient-method.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 켤레기울기법 (Conjugate Gradient Method)</p>
+  <h1>켤레기울기법 (Conjugate Gradient Method)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=math">수학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 대칭 양정부호 연립방정식을 반복적으로 푸는 효율적인 수치 알고리즘입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>큰 연립방정식을 직접 소거법으로 푸는 대신, 해에 점점 가까워지는 방향으로 반복해서 나아가는 방법입니다. 경사하강법은 지그재그로 느리게 움직이지만, 켤레기울기법은 이전에 나아간 방향과 겹치지 않도록 새 방향을 고르기 때문에 훨씬 빠르게 수렴합니다. 이론적으로는 미지수 개수만큼 반복하면 정확한 해에 도달합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>유한요소 해석이나 편미분방정식 이산화에서 나오는 행렬은 수백만 차원이면서 대부분의 성분이 0인 희소행렬이라, 직접법으로는 메모리와 시간이 감당되지 않습니다. 켤레기울기법은 행렬-벡터 곱만 사용하므로 이런 대규모 문제의 표준 해법이 되었습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"전처리 조건을 적용한 켤레기울기법으로 희소 선형계를 반복적으로 풀어 수렴 속도를 개선하였다."</div>
+  <p></p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>각 반복에서 선택되는 탐색 방향들은 행렬을 매개로 한 내적에서 서로 직교하며, 이 성질 덕분에 이미 최적화한 방향을 다시 손대지 않아도 됩니다. 수렴 속도는 행렬의 <a href="condition-number.html">조건수</a>의 제곱근에 좌우되므로, 조건수를 낮추는 전처리 행렬을 곱해 사용하는 전처리 켤레기울기법이 실무의 기본형입니다. 대칭이 아니거나 양정부호가 아닌 문제에는 GMRES나 BiCGSTAB 같은 변형이 사용됩니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>행렬이 대칭이고 양의 정부호라는 조건이 필요하며, 이를 만족하지 않으면 수렴이 보장되지 않습니다. 또 반올림 오차 때문에 실제로는 미지수 개수만큼 반복해도 정확한 해가 나오지 않아, 수렴 판정 기준을 따로 두어야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="positive-definite-matrix.html">양의 정부호 행렬</a>
+    <a href="gaussian-elimination.html">가우스 소거법</a>
+    <a href="condition-number.html">조건수</a>
+    <a href="convex-optimization.html">볼록 최적화</a>
+    <a href="numerical-stability.html">수치적 안정성</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
