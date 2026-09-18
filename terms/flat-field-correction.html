@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Flat-Field Correction(평탄장보정)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="검출기 화소별 감도 차이와 광학계 얼룩을 균일 광원 영상으로 나눠 없애는 전처리입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/flat-field-correction.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 평탄장보정 (Flat-Field Correction)</p>
+  <h1>평탄장보정 (Flat-Field Correction)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=astro">천문학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 검출기 화소별 감도 차이와 광학계 얼룩을 균일 광원 영상으로 나눠 없애는 전처리입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>CCD 화소는 저마다 감도가 조금씩 다르고, 렌즈에 붙은 먼지나 광학계의 구조 때문에 시야 가장자리가 어둡게 나오기도 합니다. 그래서 균일하게 밝은 면을 찍어 이런 얼룩 지도를 만든 뒤, 실제 관측 영상을 그 지도로 나누어 줍니다. 이 과정을 평탄장보정이라고 합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>보정을 하지 않으면 같은 밝기의 별도 영상 위치에 따라 다른 값으로 측정되어, <a href="aperture-photometry.html">조리개측광</a>의 정밀도가 크게 떨어집니다. 몇 퍼센트 수준의 감도 차이가 그대로 측광 오차가 되기 때문에, 외계행성 통과처럼 0.1퍼센트 수준의 변화를 잡아야 하는 관측에서는 결정적인 전처리 단계입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"바이어스와 암전류를 뺀 뒤 박명 하늘을 이용한 평탄장보정을 적용해 최종 과학 영상을 얻었다."</div>
+  <p></p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>균일 광원으로는 돔 안의 백색판, 해 진 직후의 박명 하늘, 여러 관측 영상을 합성해 만든 하늘 평탄장이 쓰이며, 각각 색과 조명 분포에서 장단점이 있습니다. 필터마다 먼지 위치와 투과 특성이 달라 필터별로 따로 만들어야 하고, 보정 영상 자체의 잡음이 최종 자료에 더해지므로 여러 장을 합성해 씁니다. 보통 <a href="readout-noise-ccd.html">판독잡음</a>과 <a href="dark-current-noise.html">암전류잡음</a>을 제거한 뒤에 적용합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>평탄장보정은 감도의 비율 차이를 바로잡는 나눗셈 과정이고, 바이어스나 암전류 제거는 더해진 값을 빼는 과정입니다. 순서와 연산을 혼동하면 오히려 얼룩이 남습니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="ccd-photometry.html">CCD측광</a>
+    <a href="charge-coupled-device.html">전하결합소자</a>
+    <a href="dark-current-noise.html">암전류잡음</a>
+    <a href="readout-noise-ccd.html">판독잡음(CCD)</a>
+    <a href="aperture-photometry.html">조리개측광</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
