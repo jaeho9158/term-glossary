@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>geohash(지오해시)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="위도·경도를 격자로 반복 이등분해 짧은 문자열로 바꾼 위치 부호입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/geohash.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 지오해시 (geohash)</p>
+  <h1>지오해시 (geohash)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 위도·경도를 격자로 반복 이등분해 짧은 문자열로 바꾼 위치 부호입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>지오해시는 지구 전체를 반으로 쪼개고 또 반으로 쪼개기를 반복하면서, 어느 쪽에 속하는지를 문자로 기록해 위치를 표현하는 방법입니다. 문자열이 길어질수록 더 작은 칸을 가리키므로 정밀해집니다. 앞부분이 같은 지오해시는 서로 가까운 곳이라는 뜻이어서, 문자열만 비교해도 근접성을 짐작할 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>지오해시는 2차원 좌표를 1차원 문자열로 바꾸어 일반적인 문자열 색인으로 공간 검색을 할 수 있게 해 주므로, 대용량 위치 데이터베이스와 분산 저장 환경에서 널리 쓰입니다. <a href="r-tree-index.html">R트리 색인</a>처럼 전용 공간색인 구조를 지원하지 않는 시스템에서도 근사적인 공간 질의를 가능하게 합니다. 위치 정보를 자릿수만 줄여 정밀도를 낮추는 방식으로 개인정보 보호 수준을 조절하는 데에도 활용됩니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"수집한 위치 기록을 6자리 지오해시로 집계하여 개인 식별 가능성을 낮춘 뒤 밀도 분포를 분석하였다."</div>
+  <p>정확한 좌표 대신 일정 크기의 격자를 가리키는 짧은 부호로 위치를 뭉뚱그려, 개인을 특정하기 어렵게 만든 상태에서 분포를 살펴보았다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>지오해시는 위도와 경도를 번갈아 이등분하며 얻은 비트열을 32진 문자로 부호화하므로, 한 글자가 다섯 비트에 해당하고 자릿수가 늘 때마다 격자가 급격히 작아집니다. 격자는 경위도 기준이어서 고위도로 갈수록 동서 폭이 좁아지고, 셀 모양도 자릿수의 홀짝에 따라 가로세로 비율이 달라집니다. 가장 큰 한계는 격자 경계 문제로, 물리적으로 아주 가까운 두 지점이 경계를 사이에 두면 접두어가 전혀 달라지므로 근접 검색 시 이웃 셀을 함께 조회해야 합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>접두어가 같으면 가깝다는 것은 성립하지만 그 역은 성립하지 않으므로, 지오해시만으로 최근접 검색을 구현하면 경계 부근에서 결과가 누락됩니다. 좌표를 압축해 표현하는 부호일 뿐 좌표계를 정의하는 것은 아니므로 <a href="epsg-code.html">EPSG 코드</a>와 같은 층위의 개념이 아니라는 점도 구분해야 합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="spatial-index-structure.html">공간색인구조</a>
+    <a href="r-tree-index.html">R트리 색인</a>
+    <a href="quadtree.html">쿼드트리</a>
+    <a href="spatial-query.html">공간질의</a>
+    <a href="location-based-service.html">위치기반서비스</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

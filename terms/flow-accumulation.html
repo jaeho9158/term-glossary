@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>flow accumulation(흐름누적)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="각 격자로 물이 모여드는 상류 격자의 수를 세어 물길을 드러내는 분석입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/flow-accumulation.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 흐름누적 (flow accumulation)</p>
+  <h1>흐름누적 (flow accumulation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 각 격자로 물이 모여드는 상류 격자의 수를 세어 물길을 드러내는 분석입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>흐름누적은 표고 격자에서 물이 흘러가는 방향을 먼저 정한 뒤, 각 칸으로 물이 흘러들어 오는 위쪽 칸이 몇 개인지를 세는 계산입니다. 값이 큰 칸은 많은 물이 모이는 곳이므로 자연스럽게 하천 줄기 모양으로 이어집니다. 그래서 표고 자료만 있으면 하천망을 자동으로 그려 낼 수 있습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>흐름누적은 <a href="watershed-analysis.html">유역분석</a>의 중간 산물이자 하천망 추출, 유역 경계 설정, 침식 위험 평가의 출발점이므로 수문 GIS의 핵심 연산입니다. 일정 값 이상인 격자만 남기면 하천망이 되고, 그 임계값을 바꾸면 하천 밀도가 달라지므로 분석 설계에서 중요한 선택지가 됩니다. 지형습윤지수 같은 여러 지형 지수의 입력값으로도 쓰입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"수치표고모델로부터 흐름방향과 흐름누적을 계산하고 임계값 1,000셀을 적용하여 하천망을 추출하였다."</div>
+  <p>표고 자료에서 물이 흐르는 방향을 정한 뒤 모이는 양을 세고, 일정 기준을 넘는 칸만 남겨 하천 줄기를 자동으로 그려 냈다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>흐름방향은 여덟 방향 중 가장 가파른 곳으로 전부 보내는 단일흐름 방식이 가장 널리 쓰이지만, 사면에서 물이 퍼지는 현상을 반영하는 다중흐름 방식도 사용됩니다. 표고모델에는 물이 빠져나가지 못하는 웅덩이가 인위적으로 생기므로, 계산 전에 웅덩이를 메우는 전처리가 필수입니다. 흐름누적 값에 격자 면적을 곱하면 상류 집수면적이 되며, 이를 등고선 길이로 나눈 비집수면적이 지형습윤지수 계산에 쓰입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>흐름누적은 지형만으로 계산한 결과이므로 실제 강우나 지질 조건이 반영되지 않으며, 인공 수로나 암거가 있는 지역에서는 실제 물길과 어긋납니다. <a href="watershed-analysis.html">유역분석</a>이 유역 경계를 구하는 작업 전체를 가리키는 데 비해, 흐름누적은 그 안의 한 단계라는 점에서 범위가 다릅니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="watershed-analysis.html">유역분석</a>
+    <a href="digital-elevation-model.html">수치표고모델</a>
+    <a href="slope-analysis.html">경사분석</a>
+    <a href="map-algebra.html">지도대수</a>
+    <a href="watershed-boundary.html">분수계</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

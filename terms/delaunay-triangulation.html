@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Delaunay triangulation(들로네 삼각분할)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="점들을 이어 삼각형망을 만들되 지나치게 납작한 삼각형을 피하는 분할 방법입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/delaunay-triangulation.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 들로네 삼각분할 (Delaunay triangulation)</p>
+  <h1>들로네 삼각분할 (Delaunay triangulation)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 점들을 이어 삼각형망을 만들되 지나치게 납작한 삼각형을 피하는 분할 방법입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>흩어진 점들을 삼각형으로 이어 그물을 만드는 방법은 무수히 많은데, 들로네 삼각분할은 그중에서 삼각형이 최대한 정삼각형에 가까워지도록 고르는 방법입니다. 구체적으로는 어떤 삼각형의 외접원 안에 다른 점이 들어오지 않도록 만듭니다. 그 결과 길쭉한 삼각형이 줄어들어 계산이 안정적이 됩니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>들로네 삼각분할은 <a href="triangulated-irregular-network.html">불규칙삼각망</a>을 생성하는 표준 알고리즘이므로, 점 형태의 표고 자료를 지형 표면으로 바꾸는 작업의 핵심입니다. 납작한 삼각형이 만드는 수치적 불안정을 피할 수 있어 보간과 경사 계산의 품질이 좋아집니다. 또한 <a href="thiessen-polygon.html">티센다각형</a>과 서로 쌍대 관계여서 한쪽을 만들면 다른 쪽을 바로 얻을 수 있다는 점도 실용적으로 중요합니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"라이다 지면점에 들로네 삼각분할을 적용하여 불규칙삼각망을 구성한 뒤 수치지형모델을 생성하였다."</div>
+  <p>흩어진 점들을 안정적인 삼각형 그물로 이어 표면을 만든 다음, 이를 바탕으로 지형의 높낮이를 표현하는 모델을 산출했다는 뜻입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>들로네 삼각분할은 모든 삼각분할 가운데 최소각을 최대로 만든다는 성질을 가지며, 이 때문에 수치해석적으로 가장 바람직한 분할로 여겨집니다. 구성 알고리즘으로는 점을 하나씩 넣어 가는 증분법, 분할정복법, 쓸어내기법 등이 있고, 삼차원으로 확장하면 사면체 분할이 됩니다. 네 점 이상이 한 원 위에 놓이는 퇴화 상황에서는 분할이 유일하지 않으므로, 구현마다 다른 결과가 나올 수 있습니다.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="thiessen-polygon.html">티센다각형</a>은 영역을 나누는 다각형이고 들로네 삼각분할은 점을 잇는 삼각형망이므로, 서로 쌍대이지만 결과물의 성격이 다릅니다. 또한 분할이 자동으로 지형의 능선이나 하천 같은 구조선을 따르지는 않으므로, 지형 표현에서는 구조선을 제약조건으로 넣는 처리가 필요합니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="triangulated-irregular-network.html">불규칙삼각망(TIN)</a>
+    <a href="thiessen-polygon.html">티센다각형</a>
+    <a href="tin-interpolation.html">TIN 보간</a>
+    <a href="point-cloud-data.html">포인트클라우드 자료</a>
+    <a href="natural-neighbor-interpolation.html">자연이웃보간법</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
