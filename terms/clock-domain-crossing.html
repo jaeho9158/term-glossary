@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Clock Domain Crossing(클록 도메인 교차)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="서로 다른 클록으로 동작하는 회로 영역 사이에서 신호를 안전하게 주고받는 설계 문제입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/clock-domain-crossing.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 클록 도메인 교차 (Clock Domain Crossing)</p>
+  <h1>클록 도메인 교차 (Clock Domain Crossing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=electrical">전기전자공학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 서로 다른 클록으로 동작하는 회로 영역 사이에서 신호를 안전하게 주고받는 설계 문제입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>하나의 칩 안에도 서로 다른 주파수로 도는 시계가 여러 개 들어 있는 경우가 많습니다. 한 시계로 만든 신호를 다른 시계로 받는 순간에는 두 시계의 가장자리가 언제 겹칠지 알 수 없어서, 받는 쪽 플립플롭이 불안정한 상태에 빠질 수 있습니다. 이 경계를 안전하게 건너가도록 동기화 회로나 전용 버퍼를 넣어 설계하는 일을 클록 도메인 교차 처리라고 합니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>현대 칩은 프로세서, 메모리 인터페이스, 통신 블록이 각각 다른 주파수로 동작하므로 이런 경계가 수십에서 수백 곳에 이릅니다. 여기서 생기는 오류는 시뮬레이션에서 잘 재현되지 않고 어쩌다 한 번씩만 나타나 디버깅이 극히 어렵기 때문에, 전용 검증 도구로 설계 단계에서 걸러내는 것이 표준 절차가 되었습니다. 시스템온칩 설계 방법론 논문에서 빠지지 않는 주제입니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"제어 신호는 2단 동기화기로, 데이터 버스는 비동기 선입선출 버퍼로 처리해 모든 클록 도메인 교차 경로를 검증하였다."</div>
+  <p>단일 비트와 다중 비트 신호에 서로 다른 교차 기법을 적용한 설계를 설명한 문장입니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>단일 비트 제어 신호는 두 개 이상의 플립플롭을 직렬로 둔 동기화기로 처리하지만, 원래 신호의 펄스가 받는 쪽 클록 주기보다 짧으면 놓칠 수 있어 펄스 확장이나 토글 방식을 함께 씁니다. 다중 비트 신호는 비트마다 도착 시점이 달라져 중간에 존재하지 않는 값이 잠깐 나타날 수 있으므로, 인접 값이 한 비트만 다른 그레이 부호를 쓰거나 요청·응답 핸드셰이크로 전체가 안정된 뒤에만 읽게 하거나, 양쪽 클록으로 각각 읽고 쓰는 비동기 선입선출 버퍼를 사용합니다. 검증에는 구조를 정적으로 점검하는 전용 도구와 임의 지연을 주입한 시뮬레이션을 병행합니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>동기화기를 넣었다고 해서 다중 비트 신호가 안전해지는 것은 아닙니다. 각 비트가 독립적으로 동기화되면 서로 다른 주기에 도착해 엉뚱한 조합이 만들어질 수 있습니다. <a href="metastability-digital-circuit.html">디지털 회로 준안정성</a>이 한 플립플롭에서 일어나는 현상이라면, 이 항목은 그 현상을 시스템 수준에서 다루는 설계 절차입니다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="metastability-digital-circuit.html">디지털 회로 준안정성</a>
+    <a href="setup-and-hold-time.html">셋업·홀드 시간</a>
+    <a href="static-timing-analysis.html">정적 타이밍 분석</a>
+    <a href="networked-control-system.html">네트워크제어 시스템</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
