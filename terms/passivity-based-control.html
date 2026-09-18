@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Jacobian Pseudo-Inverse(야코비안유사역행렬)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
-<meta name="description" content="논문에 자주 나오는 Jacobian Pseudo-Inverse(야코비안유사역행렬)를 비전공자도 이해할 수 있도록 쉽게 풀어 설명합니다. 논문 예문과 함께 확인하세요.">
+<title>Passivity-Based Control(수동성 기반 제어)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="시스템을 에너지를 스스로 만들어 내지 않는 수동 시스템으로 보고 에너지 흐름을 설계해 안정성을 보장하는 제어 기법입니다.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://termglossary.kr/terms/pseudo-inverse-jacobian.html">
+<link rel="canonical" href="https://termglossary.kr/terms/passivity-based-control.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
 <!-- GA4 analytics:start -->
@@ -70,8 +70,8 @@
 </header>
 
 <main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 야코비안유사역행렬 (Jacobian Pseudo-Inverse)</p>
-  <h1>야코비안유사역행렬 (Jacobian Pseudo-Inverse)</h1>
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 수동성 기반 제어 (Passivity-Based Control)</p>
+  <h1>수동성 기반 제어 (Passivity-Based Control)</h1>
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=robotics">로봇공학</a>
   </div>
@@ -82,42 +82,33 @@
   </button>
 
   <div class="definition-box">
-    <strong>한 줄 정의:</strong> 야코비안행렬이 정사각행렬이 아니거나 특이해 일반적인 역행렬이 존재하지 않을 때, 최소자승 의미에서 근사적인 역변환을 제공하는 행렬이다. 중복자유도매니퓰레이터의 역기구학, 역속도기구학에 널리 쓰인다.
+    <strong>한 줄 정의:</strong> 시스템을 에너지를 스스로 만들어 내지 않는 수동 시스템으로 보고 에너지 흐름을 설계해 안정성을 보장하는 제어 기법입니다.
   </div>
 
-  <figure class="term-figure">
-    <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"><line x1="60" y1="160" x2="240" y2="160" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4"/><line x1="60" y1="160" x2="80" y2="60" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/><line x1="80" y1="60" x2="220" y2="70" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/><line x1="220" y1="70" x2="240" y2="160" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/><line x1="60" y1="160" x2="240" y2="160" stroke="var(--muted)" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="160" r="6" fill="var(--text)"/><circle cx="80" cy="60" r="6" fill="var(--text)"/><circle cx="220" cy="70" r="6" fill="var(--text)"/><circle cx="240" cy="160" r="6" fill="var(--text)"/><text x="150" y="185" font-size="12" fill="var(--muted)" text-anchor="middle">링크(막대)와 관절로 이루어진 기구 구조</text></svg>
-    <figcaption>여러 링크(막대)와 관절로 이루어져 특정 운동을 만들어내는 기구의 기본 구조입니다.</figcaption>
-  </figure>
-
   <h2>쉽게 풀면</h2>
-  <p>야코비안이 딱 맞는 역행렬을 가질 수 없을 때, 가장 비슷하게 계산해주는 대체 역행렬이에요.</p>
+  <p>수동적인 시스템이란 밖에서 받은 에너지보다 더 많은 에너지를 내보낼 수 없는 시스템을 말합니다. 스프링과 댐퍼처럼 에너지를 저장하거나 소모만 하는 부품이 대표적입니다. 수동성 기반 제어는 로봇과 제어기를 이런 에너지 관점으로 설계해, 수동적인 환경과 접촉해도 불안정해지지 않도록 만듭니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>중복자유도매니퓰레이터의 역기구학을 실시간으로 풀어야 하는 제어 상황에서, 유사역행렬은 해가 유일하지 않은 문제를 최소자승 의미의 근사해로 안정적으로 계산할 수 있게 해줍니다.</p>
+  <p>로봇 조작기의 추종 제어, 접촉 작업, 원격조작처럼 환경과 에너지를 주고받는 상황에서 안정성을 보장하는 강력한 도구입니다. 특히 통신 지연이 있는 원격조작과 인간-로봇 물리적 상호작용 연구에서 핵심 이론으로 쓰입니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">본 역기구학 알고리즘은 야코비안유사역행렬을 이용해 목표 작업공간 속도에 가장 가까운 관절속도 해를 구하였다.</div>
-  <p>논문에서 야코비안유사역행렬은 중복자유도 시스템의 속도 역기구학을 푸는 표준 도구로, 무어-펜로즈 유사역행렬이 대표적으로 사용됩니다.</p>
+  <div class="example">"관성 행렬의 미분과 코리올리 행렬 사이의 반대칭 성질을 이용하여 수동성 기반 추종 제어기를 설계하였다."</div>
+  <p>로봇 동역학의 수동성 성질을 활용한 예입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>유사역행렬만 사용하면 특이점 근처에서 관절속도가 비정상적으로 커질 수 있어, 실제 구현에서는 감쇠최소자승법 같은 보정 기법을 함께 적용하는 경우가 많습니다.</p>
+  <p>로봇 조작기는 관절 토크를 입력, 관절 속도를 출력으로 볼 때 수동적이며, 이는 Ṁ−2C가 반대칭 행렬이 되도록 C를 고를 수 있다는 성질과 연결됩니다. 1980년대 말 Slotine–Li 제어기와 Ortega 등의 연구가 이 성질을 제어 설계에 활용했습니다. 에너지 형상화와 감쇠 주입으로 원하는 평형점을 만드는 방법, 수동 시스템끼리 되먹임으로 연결하면 전체도 수동이 된다는 성질이 핵심 도구입니다.</p>
 
   <h2>주의할 점</h2>
-  <p>야코비안유사역행렬은 특이점 근처에서 값이 매우 커질 수 있어, 감쇠 최소자승법(damped least squares) 같은 보완 기법이 필요할 수 있다.</p>
+  <p><a href="computed-torque-control.html">계산 토크 제어</a>가 비선형 동역학을 상쇄해 선형 시스템으로 만드는 것과 달리, 수동성 기반 제어는 비선형성을 모두 지우지 않고 에너지 구조를 이용한다는 점이 다릅니다. 수동성은 안정성을 위한 충분조건일 뿐 필요조건은 아닙니다.</p>
 
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="jacobian-matrix.html">야코비 행렬</a>
-    <a href="singular-value-decomposition.html">특이값분해</a>
-    <a href="redundancy-resolution.html">중복성해결</a>
-    <a href="singularity-robot.html">특이점(로봇)</a>
-    <a href="damped-least-squares-inverse-kinematics.html">감쇠 최소자승 역기구학</a>
+    <a href="lyapunov-stability.html">리아푸노프 안정성</a>
+    <a href="impedance-control.html">임피던스 제어</a>
+    <a href="computed-torque-control.html">계산토크제어</a>
+    <a href="bilateral-teleoperation.html">양방향 원격조작</a>
+    <a href="coriolis-matrix.html">코리올리행렬</a>
   </div>
-<nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="proximal-policy-optimization.html" class="term-pager-prev">← 이전: 근위정책최적화</a>
-  <a href="pure-pursuit-algorithm.html" class="term-pager-next">다음: 순수추종알고리즘 →</a>
-</nav>
 </main>
 
 <footer class="site-footer">
