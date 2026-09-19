@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>run-length encoding (raster)(런렝스 부호화(래스터))란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="래스터의 각 행에서 같은 값이 연속되는 구간을 (값, 반복 길이) 쌍으로 저장하는 무손실 압축 방식입니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/run-length-encoding-raster.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 런렝스 부호화(래스터) (run-length encoding (raster))</p>
+  <h1>런렝스 부호화(래스터) (run-length encoding (raster))</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cartography">지도학</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 래스터의 각 행에서 같은 값이 연속되는 구간을 (값, 반복 길이) 쌍으로 저장하는 무손실 압축 방식입니다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>&#39;AAAABBB&#39;를 &#39;A4 B3&#39;처럼 줄여 쓰는 방법입니다. 토지피복도처럼 같은 값이 길게 이어지는 래스터에서는 저장 공간을 크게 줄일 수 있습니다. 원래 값을 그대로 되살릴 수 있어 정보 손실이 없습니다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>래스터 자료 구조를 배울 때 가장 먼저 나오는 압축법이라 공간자료 모델의 기초 개념입니다. 이미지 파일 형식과 팩스 전송 등에도 같은 원리가 쓰여 왔습니다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"범주형 토지이용 래스터에 런렝스 부호화를 적용한 결과 저장 용량이 크게 줄었다."</div>
+  <p>같은 값이 길게 이어지는 범주형 자료에 효과적이라는 점을 보여 줍니다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>압축 효율은 값이 얼마나 길게 이어지느냐에 달려 있습니다. 위성영상처럼 인접 화소 값이 자주 바뀌는 연속형 자료에서는 오히려 용량이 늘어날 수 있습니다. 행 단위뿐 아니라 지그재그나 공간채움곡선 순서로 읽어 효율을 높이기도 합니다. 쿼드트리 같은 계층 구조와 함께 비교되는 대표적 래스터 저장 방식입니다.</p>
+
+  <h2>주의할 점</h2>
+  <p>쿼드트리(quadtree)는 공간을 사분할해 나가는 계층적 색인·저장 구조이고, 런렝스 부호화는 한 줄씩 연속 구간을 기록하는 단순 압축법입니다. 약어 RLE는 다른 분야에서도 쓰이니 첫 등장 시 풀어 쓰세요.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="quadtree.html">쿼드트리</a>
+    <a href="raster-data-model.html">래스터 데이터 모델</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
