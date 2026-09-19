@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>locality-sensitive hashing(지역 민감 해싱)란? 쉬운 뜻과 논문 예문 - 논문용어사전</title>
+<meta name="description" content="비슷한 데이터가 높은 확률로 같은 해시 버킷에 들어가도록 설계한 해시 기법으로, 빠른 유사도 검색에 쓰여요.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/locality-sensitive-hashing.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 지역 민감 해싱 (locality-sensitive hashing)</p>
+  <h1>지역 민감 해싱 (locality-sensitive hashing)</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 비슷한 데이터가 높은 확률로 같은 해시 버킷에 들어가도록 설계한 해시 기법으로, 빠른 유사도 검색에 쓰여요.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>보통의 해시 함수는 입력이 조금만 달라도 전혀 다른 값을 내요. 지역 민감 해싱은 반대로 비슷한 데이터가 같은 값으로 모이도록 만들어요. 그러면 수백만 개의 데이터 중에서 비슷한 것을 찾을 때 같은 버킷만 확인하면 돼서 훨씬 빨라져요.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>중복 문서 탐지, 이미지·음악 검색, 추천 시스템, 임베딩 검색에서 쓰이는 근사 검색의 기본 기법이에요. 이론적 성능 보장이 있어 알고리즘 연구에서도 중요해요.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"MinHash 기반 지역 민감 해싱으로 1억 개 웹 문서에서 유사 중복 문서를 수 시간 안에 찾아냈다."</div>
+  <p>대규모 중복 탐지에 LSH를 쓴 전형적인 문장이에요.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>Indyk과 Motwani(1998)가 근사 최근접 이웃 문제를 풀기 위해 정식화했어요. 거리 척도마다 알맞은 해시 계열이 있어서, 자카드 유사도에는 MinHash, 코사인 유사도에는 무작위 초평면(SimHash), 유클리드 거리에는 무작위 투영 방식을 써요. 해시 여러 개를 묶어 밴드를 만들고 테이블을 여러 개 두어 정밀도와 재현율의 균형을 조절해요. 최근 임베딩 검색에서는 그래프 기반 방법이 더 많이 쓰이기도 해요.</p>
+
+  <h2>주의할 점</h2>
+  <p><a href="approximate-nearest-neighbor-search.html">근사 최근접 이웃 탐색</a>은 풀려는 문제이고, 지역 민감 해싱은 그 문제를 푸는 여러 방법 중 하나예요. 일반 <a href="hash-function.html">해시 함수</a>가 충돌을 피하려 하는 것과 달리 LSH는 비슷한 항목의 충돌을 일부러 유도한다는 점이 반대예요.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="approximate-nearest-neighbor-search.html">근사 최근접 이웃 탐색</a>
+    <a href="hash-function.html">해시 함수</a>
+    <a href="k-nearest-neighbor.html">K-최근접 이웃</a>
+    <a href="vector-database.html">벡터 데이터베이스</a>
+    <a href="embedding.html">임베딩</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
