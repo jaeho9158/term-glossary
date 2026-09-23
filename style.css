@@ -3100,3 +3100,123 @@ transform:scale(1);
         display: none;
     }
 }
+
+/* ===== 4단계: 읽기 UX =========================================== */
+
+/* 첫 화면 진입점. "PDF 파일 선택" 버튼과 같은 색 체계로, 드래그 영역이
+   버튼만큼 눈에 들어오게 둔다. */
+.pdf-dropzone {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 18px 16px;
+    border: 2px dashed var(--accent);
+    border-radius: 8px;
+    background: var(--card-bg);
+    text-align: center;
+}
+
+.pdf-dropzone[hidden] {
+    display: none;
+}
+
+.pdf-dropzone.dragover {
+    background: var(--hover-tint);
+}
+
+.pdf-dropzone-text {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* 드롭 영역 안의 버튼도 .viewer-input .pdf-upload-label 과 같은 모양이라
+   추가 규칙이 필요 없다 — 여백만 맞춘다. */
+.pdf-dropzone .pdf-upload-label {
+    margin: 0;
+}
+
+/* 지금 보고 있는 페이지의 용어. 분야 그룹 위에 얇게 올려 둔다. */
+.current-page-terms {
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+}
+
+.current-page-terms[hidden] {
+    display: none;
+}
+
+.current-page-terms-title {
+    margin: 0 0 6px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.current-page-terms-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.current-page-term {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.current-page-term:hover {
+    background: var(--hover-tint);
+    border-color: var(--accent);
+}
+
+.current-page-term-count {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+/* 팝오버에 덧붙은 한 줄들(문서 내 횟수 / 기초 용어). */
+.dict-popover-meta {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+.dict-popover-basics {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.dict-popover-basics a {
+    color: var(--accent);
+}
+
+/* 모바일: 읽기 모드가 화면 대부분을 쓰고, 팝오버는 바닥 시트(위에서 정의)로
+   바뀐다. 드롭 영역은 세로로 쌓는다. */
+@media (max-width: 480px) {
+    .pdf-dropzone {
+        flex-direction: column;
+        padding: 14px 12px;
+    }
+    .current-page-terms-list {
+        gap: 5px;
+    }
+    /* 바닥 시트가 본문을 다 덮지 않도록 높이를 제한하고 넘치면 스크롤. */
+    .dict-popover.dict-popover-sheet {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+}

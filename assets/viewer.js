@@ -346,8 +346,25 @@ function termCardHTML(match, basics) {
 // "한 줄만 보고 다시 읽던 자리로 돌아가는" 용도라 숨기기 버튼 없이
 // 이름·정의·상세 링크만 둔다. coveredMatches는 같은 자리에서 겹쳐 밀려난
 // 다른 용어들(data-covers)이며, 있을 때만 작은 목록으로 덧붙인다.
+// options.count는 이 문서 전체에서의 등장 횟수, options.basics는 포함 관계로
+// 딸려 있는 짧은 용어들(3단계의 '기초 용어')이다. 둘 다 없으면 그 줄을 아예
+// 만들지 않는다 — 빈 칸이 남으면 팝오버가 커 보여 읽던 자리를 더 가린다.
 // DOM 없이 문자열만 만들므로 테스트에서 그대로 검증할 수 있다.
-function popoverHTML(match, coveredMatches) {
+function popoverHTML(match, coveredMatches, options) {
+  const opts = options || {};
+  const docCount = Number(opts.count) || 0;
+  const metaPart = docCount > 0 ? `<p class="dict-popover-meta">이 문서에서 ${docCount}번</p>` : "";
+  const basicList = (opts.basics || []).filter(Boolean);
+  const basicsPart = basicList.length
+    ? `<p class="dict-popover-basics">기초 용어: ${basicList
+        .map(
+          (b) =>
+            `<a href="terms/${encodeURIComponent(b.slug)}.html" target="_blank" rel="noopener">${escapeHtml(
+              b.title_ko || b.slug
+            )}</a>`
+        )
+        .join(", ")}</p>`
+    : "";
   const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
   const definitionPart = match.definition
     ? `<p class="dict-popover-definition">${escapeHtml(match.definition)}</p>`
@@ -370,6 +387,8 @@ function popoverHTML(match, coveredMatches) {
         <button type="button" class="dict-popover-close" aria-label="닫기">✕</button>
       </div>
       ${definitionPart}
+      ${metaPart}
+      ${basicsPart}
       ${coveredPart}
       <a href="terms/${encodeURIComponent(match.slug)}.html" class="dict-popover-detail" target="_blank" rel="noopener">자세히 보기 →</a>`;
 }
@@ -865,6 +884,50 @@ function splitMatchesByPage(matches, pageOffsets) {
   return byPage;
 }
 
+// 읽기 모드에서 "지금 보고 있는 페이지의 용어"를 패널 맨 위에 올리기 위한 표.
+// 스크롤할 때마다 다시 계산하면 페이지가 바뀔 때마다 전체 match를 훑게 되므로,
+// 분석이 끝난 시점에 한 번 만들어 두고 이후에는 Map.get(page)만 한다.
+// splitMatchesByPage와 달리 오프셋을 페이지 기준으로 다시 매기지 않는다 —
+// 패널은 본문을 감쌀 일이 없고 "어떤 용어가 이 페이지에 몇 번" 만 알면 된다.
+function termsOnPage(matches, pageOffsets) {
+  const collected = new Map(); // page -> Map(slug -> {match, count, firstStart})
+  for (const match of matches || []) {
+    const occurrences =
+      match.occurrences && match.occurrences.length
+        ? match.occurrences
+        : match.firstStart >= 0
+          ? [{ start: match.firstStart, length: match.firstLength }]
+          : [];
+    for (const occurrence of occurrences) {
+      if (occurrence.start < 0) continue;
+      const location = offsetToPageOffset(pageOffsets, occurrence.start);
+      if (!location) continue;
+      let page = collected.get(location.page);
+      if (!page) {
+        page = new Map();
+        collected.set(location.page, page);
+      }
+      const entry = page.get(match.slug);
+      if (entry) {
+        entry.count += 1;
+        entry.firstStart = Math.min(entry.firstStart, location.offset);
+      } else {
+        page.set(match.slug, { match, count: 1, firstStart: location.offset });
+      }
+    }
+  }
+
+  const byPage = new Map();
+  for (const page of [...collected.keys()].sort((a, b) => a - b)) {
+    const list = [...collected.get(page).values()]
+      .sort((a, b) => a.firstStart - b.firstStart)
+      // 원본 match는 사이드바가 전체 오프셋으로 계속 쓰므로 복사본에 얹는다.
+      .map((entry) => ({ ...entry.match, pageCount: entry.count }));
+    byPage.set(page, list);
+  }
+  return byPage;
+}
+
 // 페이지 번호 입력은 사람이 직접 치는 값이라 빈 값·0·소수·범위 밖이 모두
 // 들어온다. 범위를 벗어나면 막지 말고 가장 가까운 쪽으로 붙인다(clamp).
 function clampPdfPageNumber(value, totalPages) {
@@ -874,7 +937,7 @@ function clampPdfPageNumber(value, totalPages) {
   return Math.max(1, Math.min(total, n));
 }
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -898,6 +961,9 @@ if (typeof document !== "undefined") {
     let pdfPageTexts = new Map(); // page number -> joined text
     let pdfPageTextList = []; // 페이지 순서대로의 텍스트(읽기 모드가 그리는 원본)
     let pdfPageOffsets = []; // buildPageOffsets 결과. 전체 오프셋 ↔ 페이지 변환용
+    let pdfTermsByPage = new Map(); // termsOnPage 결과. 읽기 모드 패널 동기화용
+    let readingPageObserver = null;
+    let readingCurrentPage = 0;
     let pdfOriginalVisible = false; // "원본 보기" 토글 상태
 
     async function logPaperHistory(text) {
@@ -1482,9 +1548,45 @@ if (typeof document !== "undefined") {
     // 얇은 점선 밑줄만 그어 두고(style.css의 .dict-mark), 눌렀을 때만 뜻이
     // 뜨게 한다. 위치가 한 글자쯤 어긋나도 형광펜처럼 시끄럽지 않고, 읽는
     // 흐름을 끊지 않으면서 "여기 사전에 있는 말이 있다"만 알려주는 방식.
+    // ── 업로드 진입(드래그앤드롭) ─────────────────────────────────────
+    // 첫 화면에서만 보이는 영역이다. 본문이 뜬 뒤에도 남겨 두면 읽는 자리를
+    // 차지하기만 한다.
+    const dropzoneEl = document.getElementById("pdf-dropzone");
+
+    function setDropzoneVisible(visible) {
+      if (dropzoneEl) dropzoneEl.hidden = !visible;
+    }
+
+    if (dropzoneEl) {
+      // 브라우저 기본 동작(파일을 그대로 열어 버림)을 막아야 drop이 우리에게 온다.
+      for (const type of ["dragenter", "dragover"]) {
+        dropzoneEl.addEventListener(type, (e) => {
+          e.preventDefault();
+          dropzoneEl.classList.add("dragover");
+        });
+      }
+      for (const type of ["dragleave", "dragend"]) {
+        dropzoneEl.addEventListener(type, () => dropzoneEl.classList.remove("dragover"));
+      }
+      dropzoneEl.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        dropzoneEl.classList.remove("dragover");
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (!file) return;
+        if (file.type !== "application/pdf" && !/\.pdf$/i.test(file.name)) {
+          pdfStatus.hidden = false;
+          pdfStatus.textContent = "PDF 파일만 열 수 있습니다.";
+          return;
+        }
+        renderedPdfScale = null;
+        await handlePdfFile(file);
+      });
+    }
+
     function renderRenderedPane(text) {
       if (!renderedPane) return;
       closeTermPopover();
+      setDropzoneVisible(false);
       renderedPane.classList.remove("pdf-reading");
       const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug));
       renderedPane.innerHTML = visible.length ? buildHighlightedHtml(text, visible) : escapeHtml(text);
@@ -1517,8 +1619,85 @@ if (typeof document !== "undefined") {
       renderedPane.classList.add("pdf-reading");
       renderedPane.hidden = false;
       textarea.hidden = true;
+      setDropzoneVisible(false);
+      // 패널 동기화용 표는 여기서 한 번만 만든다(스크롤 때 재계산 금지).
+      pdfTermsByPage = termsOnPage(visible, pdfPageOffsets);
+      readingCurrentPage = 0;
+      setupReadingPageObserver();
       // PDF 모드에서는 "다시 입력"이 추출 텍스트를 편집하는 뜻이 되어 혼란스럽다.
       if (editTextBtn) editTextBtn.hidden = true;
+    }
+
+    // ── 읽기 모드 ↔ 용어 패널 동기화(4단계) ─────────────────────────────
+    // 읽고 있는 페이지의 용어를 패널 맨 위에 따로 둔다. 페이지가 바뀔 때
+    // 다시 그리는 것은 이 영역 하나뿐이다 — 분야 그룹까지 매번 다시 그리면
+    // 스크롤이 눈에 띄게 끊긴다.
+    const currentPageTermsEl = document.getElementById("current-page-terms");
+
+    function renderCurrentPageTerms(page) {
+      if (!currentPageTermsEl) return;
+      readingCurrentPage = page || 0;
+      const list = (pdfTermsByPage.get(readingCurrentPage) || []).filter((m) => !hiddenSlugs.has(m.slug));
+      if (!list.length) {
+        currentPageTermsEl.hidden = true;
+        currentPageTermsEl.innerHTML = "";
+        return;
+      }
+      currentPageTermsEl.hidden = false;
+      currentPageTermsEl.innerHTML =
+        `<h3 class="current-page-terms-title">이 페이지의 용어 (${list.length})</h3>` +
+        `<ul class="current-page-terms-list">` +
+        list
+          .map((m) => {
+            const repeat = m.pageCount > 1 ? ` <span class="current-page-term-count">${m.pageCount}번</span>` : "";
+            return `<li><button type="button" class="current-page-term" data-slug="${escapeHtml(m.slug)}">` +
+              `${escapeHtml(m.title_ko || m.slug)}${repeat}</button></li>`;
+          })
+          .join("") +
+        `</ul>`;
+    }
+
+    if (currentPageTermsEl) {
+      currentPageTermsEl.addEventListener("click", (e) => {
+        const btn = e.target.closest(".current-page-term");
+        if (btn) scrollToMark(btn.dataset.slug);
+      });
+    }
+
+    function setupReadingPageObserver() {
+      if (readingPageObserver) readingPageObserver.disconnect();
+      readingPageObserver = null;
+      if (!renderedPane || !renderedPane.classList.contains("pdf-reading")) {
+        renderCurrentPageTerms(0);
+        return;
+      }
+      const sections = renderedPane.querySelectorAll("section.pdf-page-text");
+      if (!sections.length) return;
+      // 관찰자를 못 쓰는 환경에서는 첫 페이지 그룹만이라도 보여 준다.
+      if (typeof IntersectionObserver === "undefined") {
+        renderCurrentPageTerms(1);
+        return;
+      }
+      const ratios = new Map();
+      readingPageObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            ratios.set(Number(entry.target.dataset.page), entry.isIntersecting ? entry.intersectionRatio : 0);
+          }
+          let best = 0;
+          let bestRatio = 0;
+          for (const [page, ratio] of ratios) {
+            if (ratio > bestRatio) {
+              bestRatio = ratio;
+              best = page;
+            }
+          }
+          if (best && best !== readingCurrentPage) renderCurrentPageTerms(best);
+        },
+        { root: renderedPane, threshold: [0, 0.05, 0.25, 0.5, 0.9] }
+      );
+      for (const section of sections) readingPageObserver.observe(section);
+      renderCurrentPageTerms(1);
     }
 
     function showTextInput() {
@@ -1529,6 +1708,10 @@ if (typeof document !== "undefined") {
       }
       textarea.hidden = false;
       if (editTextBtn) editTextBtn.hidden = true;
+      // 읽기 모드가 사라졌으므로 페이지 동기화도 멈춘다.
+      pdfTermsByPage = new Map();
+      setupReadingPageObserver();
+      setDropzoneVisible(!textarea.value.trim());
     }
 
 // Populates the category dropdown with only the categories actually present
@@ -1619,6 +1802,7 @@ if (typeof document !== "undefined") {
       if (matches.length === 0) {
         countHeading.textContent = "본문에서 사전 등록된 용어를 찾지 못했습니다.";
         termsList.innerHTML = "";
+        renderCurrentPageTerms(0);
         if (showHiddenTermsBtn) showHiddenTermsBtn.hidden = true;
         return;
       }
@@ -1647,6 +1831,7 @@ if (typeof document !== "undefined") {
 
       countHeading.textContent = `이 논문에 나온 용어 (${matches.length}개)`;
       renderTermCardsPaged(filtered);
+      renderCurrentPageTerms(readingCurrentPage);
 
       if (showHiddenTermsBtn) {
         showHiddenTermsBtn.hidden = hiddenCount === 0;
@@ -1724,7 +1909,9 @@ if (typeof document !== "undefined") {
         .filter((m) => m && !hiddenSlugs.has(m.slug));
       closeTermPopover();
       const el = ensurePopoverEl();
-      el.innerHTML = popoverHTML(match, covered);
+      const basics = (match.basics || []).map(findMatchBySlug).filter((m) => m && !hiddenSlugs.has(m.slug));
+      el.setAttribute("aria-label", `${match.title_ko || match.slug} 뜻 풀이`);
+      el.innerHTML = popoverHTML(match, covered, { count: match.count, basics });
       el.hidden = false;
       popoverAnchor = mark;
       mark.classList.add("dict-mark-active");
@@ -1891,6 +2078,10 @@ if (typeof document !== "undefined") {
       if (showHiddenTermsBtn) showHiddenTermsBtn.hidden = true;
       filterInput.value = "";
       filterInput.disabled = true;
+      pdfTermsByPage = new Map();
+      renderCurrentPageTerms(0);
+      // 본문이 아직 떠 있으면(예: 읽던 글) 진입점을 그 위에 얹지 않는다.
+      if (!pdfDoc && (!renderedPane || renderedPane.hidden)) setDropzoneVisible(true);
     }
 
     // 붙여넣기만 해도 결과가 뜨게 한다. 타이핑은 800ms 쉬었을 때만 —
@@ -2606,6 +2797,7 @@ if (typeof document !== "undefined") {
         showTextInput();
         textarea.hidden = true;
         pdfViewer.hidden = false;
+        setDropzoneVisible(false);
         setPdfOriginalVisible(false);
 
         const text = await renderPdf(pdf, probed, (done, total) => {

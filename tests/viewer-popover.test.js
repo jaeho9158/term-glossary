@@ -67,4 +67,34 @@ const { popoverHTML } = require("../assets/viewer.js");
   assert.ok(html.includes("only-slug"), "title_ko가 없으면 slug를 보여줘야 한다");
 }
 
+// 6) 4단계: 문서 내 등장 횟수와 기초 용어를 한 줄로 덧붙인다
+{
+  const html = popoverHTML(
+    { slug: "shear", title_ko: "전단응력", definition: "정의" },
+    [],
+    { count: 3, basics: [{ slug: "stress", title_ko: "응력" }] }
+  );
+  assert.ok(html.includes("이 문서에서 3번"), "문서 내 등장 횟수를 보여줘야 한다");
+  assert.ok(html.includes("dict-popover-basics"), "기초 용어 줄을 만들어야 한다");
+  assert.ok(html.includes('href="terms/stress.html"'), "기초 용어도 용어 페이지로 링크해야 한다");
+}
+
+// 6-1) 횟수·기초 용어가 없으면 그 줄 자체를 만들지 않는다(빈 칸 방지)
+{
+  const html = popoverHTML({ slug: "a", title_ko: "가" }, [], { count: 0, basics: [] });
+  assert.ok(!html.includes("dict-popover-meta"), "0번이면 횟수 줄을 만들지 않아야 한다");
+  assert.ok(!html.includes("dict-popover-basics"), "기초 용어가 없으면 줄을 만들지 않아야 한다");
+  // 옵션을 아예 안 줘도 예전과 같은 결과여야 한다(호출부 호환).
+  assert.ok(!popoverHTML({ slug: "a", title_ko: "가" }, []).includes("dict-popover-meta"));
+}
+
+// 6-2) 기초 용어 이름도 이스케이프한다
+{
+  const html = popoverHTML({ slug: "a", title_ko: "가" }, [], {
+    count: 1,
+    basics: [{ slug: "b", title_ko: "<i>기초</i>" }],
+  });
+  assert.ok(html.includes("&lt;i&gt;기초&lt;/i&gt;"), "기초 용어명을 이스케이프해야 한다");
+}
+
 console.log("popoverHTML: all tests passed");

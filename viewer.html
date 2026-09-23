@@ -78,6 +78,12 @@
   <div class="viewer-layout">
     <div class="viewer-input no-pdf" id="viewer-input-pane">
       <div class="search-area">
+        <!-- 첫 화면 진입점. 아무것도 열지 않았을 때만 보이고, PDF나 텍스트를
+             열면 JS가 숨긴다. 버튼과 드롭 영역을 같은 시각 무게로 둔다. -->
+        <div id="pdf-dropzone" class="pdf-dropzone">
+          <span class="pdf-dropzone-text">PDF를 여기에 끌어다 놓으세요</span>
+          <label class="pdf-upload-label" for="pdf-upload">📄 PDF 파일 선택</label>
+        </div>
         <textarea id="paper-text" class="search-input" placeholder="논문 초록이나 본문 일부를 붙여넣어 보세요. 예: 본 연구는 유의확률(p-value)이 0.05 미만인 경우를 통계적으로 유의한 상관관계로 정의하였다."></textarea>
         <div id="viewer-rendered" class="viewer-rendered" hidden></div>
         <div id="pdf-toolbar" class="pdf-toolbar" hidden>
@@ -132,6 +138,9 @@
             <button type="button" id="show-hidden-terms-btn" class="term-filter-link" hidden></button>
           </div>
         </div>
+        <!-- PDF 읽기 모드에서 지금 보고 있는 페이지의 용어. 페이지가 바뀌면
+             이 영역만 다시 그린다(스크롤 중 전체 재렌더 금지). -->
+        <div id="current-page-terms" class="current-page-terms" aria-live="polite" hidden></div>
         <h2 id="matched-count">용어 찾기를 눌러보세요</h2>
         <ul class="term-list" id="matched-terms"></ul>
       </div>
