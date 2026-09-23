@@ -352,13 +352,85 @@ function buildHighlightedHtml(text, matches) {
 // one visual word across multiple items (font-run changes, kerning), and
 // items.map(i => i.str).join(" ") used to insert a space at every one of
 // those splits, corrupting the extracted text with words broken in half.
-function joinTextItems(items) {
+// ---- 2단 조판 열 복원 -------------------------------------------------
+// pdf.js의 getTextContent는 PDF에 기록된 순서대로 item을 준다. 2단 조판
+// 논문은 그 순서가 "좌열 한 줄 → 우열 한 줄"로 번갈아 나오는 경우가 많아,
+// 그대로 이으면 문장이 두 단을 오가며 토막 난다. 읽기 모드는 픽셀 위치가
+// 아니라 "읽는 순서"만 있으면 되므로 x좌표 클러스터링으로 충분하다.
+// pageWidth(축척 1의 페이지 폭)를 주지 않으면 이 보정을 건너뛰고 기존
+// 동작을 그대로 유지한다.
+const COLUMN_MIN_ITEMS = 3; // 한 열로 인정할 최소 item 수
+const COLUMN_MIN_RATIO = 0.15; // 전체 item 대비 각 열의 최소 비중
+const COLUMN_SPAN_MAX_RATIO = 0.2; // 본문 한가운데를 가로지르는 item의 허용 비율
+const COLUMN_EDGE_TOLERANCE = 0.02; // 가운데 선 판정 여유(페이지 폭 대비)
+
+function textItemX(item) {
+  return item.transform ? item.transform[4] : 0;
+}
+
+function textItemY(item) {
+  return item.transform ? item.transform[5] : 0;
+}
+
+function orderTextItemsByColumn(items, pageWidth) {
+  if (!items || !(pageWidth > 0)) return items;
+  if (items.length < COLUMN_MIN_ITEMS * 2) return items;
+
+  const mid = pageWidth / 2;
+  const tolerance = pageWidth * COLUMN_EDGE_TOLERANCE;
+  const left = [];
+  const right = [];
+  const spanning = [];
+  for (const item of items) {
+    const x = textItemX(item);
+    const width = item.width || 0;
+    if (x + width <= mid + tolerance) left.push(item);
+    else if (x >= mid - tolerance) right.push(item);
+    else spanning.push(item);
+  }
+
+  // 아래 조건 중 하나라도 어긋나면 2단이라고 볼 근거가 약하다. 단일단
+  // 페이지를 잘못 재배열하면 본문이 통째로 뒤섞이므로 보수적으로 간다.
+  const total = items.length;
+  if (left.length < COLUMN_MIN_ITEMS || right.length < COLUMN_MIN_ITEMS) return items;
+  if (left.length / total < COLUMN_MIN_RATIO || right.length / total < COLUMN_MIN_RATIO) return items;
+
+  // 두 단을 가로지르는 item은 제목·초록처럼 열보다 위에 있으면 앞에,
+  // 쪽번호·각주처럼 열보다 아래면 뒤에 붙인다. 가운데에 걸친 것(폭이 넓은
+  // 표·그림 설명)은 좌열 끝에 둔다 — 어느 쪽에 붙여도 정답은 없지만 원문
+  // 순서상 좌열 다음이 가장 덜 어색하다.
+  let topY = -Infinity;
+  let bottomY = Infinity;
+  for (const item of left.concat(right)) {
+    const y = textItemY(item);
+    if (y > topY) topY = y;
+    if (y < bottomY) bottomY = y;
+  }
+  const header = [];
+  const middle = [];
+  const footer = [];
+  for (const item of spanning) {
+    const y = textItemY(item);
+    if (y > topY) header.push(item);
+    else if (y < bottomY) footer.push(item);
+    else middle.push(item);
+  }
+
+  // 본문 한가운데를 가로지르는 item이 많으면 2단이라는 판단 자체가 의심스럽다
+  // (제목·쪽번호처럼 열 위아래에 있는 것은 정상이므로 세지 않는다).
+  if (middle.length / total > COLUMN_SPAN_MAX_RATIO) return items;
+
+  return header.concat(left, middle, right, footer);
+}
+
+function joinTextItems(items, pageWidth) {
+  const ordered = orderTextItemsByColumn(items, pageWidth);
   const NEWLINE = String.fromCharCode(10);
   let text = "";
   let prevItem = null;
   let prevEndX = 0;
   let prevY = 0;
-  for (const item of items) {
+  for (const item of ordered) {
     const str = item.str || "";
     if (!str) {
       if (item.hasEOL) text += NEWLINE;
@@ -441,6 +513,22 @@ function buildOffsetMap(container) {
       text += node.nodeValue;
       map.push({ start, end: text.length, node });
     }
+  }
+  return { text, map };
+}
+
+// 읽기 모드 섹션은 pdf.js 텍스트 레이어와 달리 span 기하가 없다. DOM 텍스트가
+// 곧 페이지 텍스트 그대로이므로(buildHighlightedHtml 이 글자를 더하거나 빼지
+// 않는다) 텍스트 노드를 이어 붙이기만 하면 오프셋 맵이 된다.
+function buildTextNodeOffsetMap(container) {
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+  let text = "";
+  const map = [];
+  let node;
+  while ((node = walker.nextNode())) {
+    const start = text.length;
+    text += node.nodeValue;
+    map.push({ start, end: text.length, node });
   }
   return { text, map };
 }
@@ -579,6 +667,91 @@ function clampPdfScale(scale, minScale, maxScale) {
   return Math.max(minScale, Math.min(maxScale, scale));
 }
 
+// ---- 페이지 오프셋 변환 (순수 함수, 테스트 대상) ----------------------
+// 읽기 모드는 페이지마다 <section>을 따로 두지만, 용어 매칭은 페이지를 모두
+// 이어 붙인 텍스트 하나에서 한 번에 돈다(사전 인덱스를 페이지 수만큼 훑지
+// 않기 위해서). 그래서 "전체 오프셋 ↔ (페이지, 페이지 오프셋)" 변환이
+// renderPdf가 페이지를 잇는 규칙과 한 글자라도 어긋나면 밑줄이 통째로 밀린다.
+// 잇는 문자열은 이 상수 한 곳에서만 정한다.
+const PDF_PAGE_JOINER = "\n";
+
+function buildPageOffsets(pageTexts, joiner) {
+  const sepLength = (joiner === undefined ? PDF_PAGE_JOINER : joiner).length;
+  const offsets = [];
+  let cursor = 0;
+  (pageTexts || []).forEach((text, index) => {
+    const start = cursor;
+    const end = start + (text || "").length;
+    offsets.push({ page: index + 1, start, end });
+    cursor = end + sepLength;
+  });
+  return offsets;
+}
+
+function offsetToPageOffset(pageOffsets, offset) {
+  for (const entry of pageOffsets || []) {
+    if (offset >= entry.start && offset <= entry.end) {
+      return { page: entry.page, offset: offset - entry.start };
+    }
+  }
+  return null;
+}
+
+function pageOffsetToGlobal(pageOffsets, page, offset) {
+  const entry = (pageOffsets || []).find((e) => e.page === page);
+  if (!entry) return -1;
+  return entry.start + offset;
+}
+
+// 전체 텍스트 기준으로 잡힌 match들을 페이지별로 쪼개고 오프셋을 페이지
+// 기준으로 다시 매긴다. 원본 match는 사이드바가 계속 전체 오프셋으로 쓰므로
+// 건드리지 않고 복사본을 만든다.
+function splitMatchesByPage(matches, pageOffsets) {
+  const collected = new Map(); // page -> Map(slug -> match 사본)
+  for (const match of matches || []) {
+    const occurrences =
+      match.occurrences && match.occurrences.length
+        ? match.occurrences
+        : match.firstStart >= 0
+          ? [{ start: match.firstStart, length: match.firstLength }]
+          : [];
+    for (const occurrence of occurrences) {
+      if (occurrence.start < 0) continue;
+      const location = offsetToPageOffset(pageOffsets, occurrence.start);
+      if (!location) continue;
+      const entry = pageOffsets[location.page - 1];
+      // 페이지 경계를 넘는 일치는 읽기 모드에서 감쌀 자리가 없다(페이지가
+      // 각각 다른 section이다). 드물기도 하고, 억지로 반만 긋는 것보다 빼는
+      // 편이 "표시가 어긋나 보이는" 문제를 안 만든다.
+      if (occurrence.start + occurrence.length > entry.end) continue;
+      let page = collected.get(location.page);
+      if (!page) {
+        page = new Map();
+        collected.set(location.page, page);
+      }
+      let copy = page.get(match.slug);
+      if (!copy) {
+        copy = { ...match, occurrences: [], firstStart: -1, firstLength: 0, count: 0 };
+        page.set(match.slug, copy);
+      }
+      copy.occurrences.push({ start: location.offset, length: occurrence.length });
+    }
+  }
+
+  const byPage = new Map();
+  for (const [page, slugMap] of collected) {
+    const list = [...slugMap.values()];
+    for (const copy of list) {
+      copy.occurrences.sort((a, b) => a.start - b.start);
+      copy.firstStart = copy.occurrences[0].start;
+      copy.firstLength = copy.occurrences[0].length;
+      copy.count = copy.occurrences.length;
+    }
+    byPage.set(page, list);
+  }
+  return byPage;
+}
+
 // 페이지 번호 입력은 사람이 직접 치는 값이라 빈 값·0·소수·범위 밖이 모두
 // 들어온다. 범위를 벗어나면 막지 말고 가장 가까운 쪽으로 붙인다(clamp).
 function clampPdfPageNumber(value, totalPages) {
@@ -588,7 +761,7 @@ function clampPdfPageNumber(value, totalPages) {
   return Math.max(1, Math.min(total, n));
 }
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -610,6 +783,9 @@ if (typeof document !== "undefined") {
     let pendingSelection = null;
     let activeMemo = null; // { record, marks }
     let pdfPageTexts = new Map(); // page number -> joined text
+    let pdfPageTextList = []; // 페이지 순서대로의 텍스트(읽기 모드가 그리는 원본)
+    let pdfPageOffsets = []; // buildPageOffsets 결과. 전체 오프셋 ↔ 페이지 변환용
+    let pdfOriginalVisible = false; // "원본 보기" 토글 상태
 
     async function logPaperHistory(text) {
       try {
@@ -1196,6 +1372,7 @@ if (typeof document !== "undefined") {
     function renderRenderedPane(text) {
       if (!renderedPane) return;
       closeTermPopover();
+      renderedPane.classList.remove("pdf-reading");
       const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug));
       renderedPane.innerHTML = visible.length ? buildHighlightedHtml(text, visible) : escapeHtml(text);
       renderedPane.hidden = false;
@@ -1203,10 +1380,39 @@ if (typeof document !== "undefined") {
       if (editTextBtn) editTextBtn.hidden = false;
     }
 
+    // PDF 읽기 모드: 페이지별 텍스트를 <section data-page=N> 으로 흘리고,
+    // 텍스트 모드와 똑같은 밑줄(dict-mark) HTML 을 쓴다. 표시 위치가 전부
+    // 텍스트 오프셋에 걸려 있으므로 줌·재렌더·화면 폭과 무관하다 —
+    // 텍스트 레이어 픽셀 위에 표시를 얹던 예전 방식이 틀어지던 이유를 피한다.
+    function renderReadingPane() {
+      if (!renderedPane || !pdfPageOffsets.length) return;
+      closeTermPopover();
+      const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug));
+      const byPage = splitMatchesByPage(visible, pdfPageOffsets);
+      let html = "";
+      for (const entry of pdfPageOffsets) {
+        const pageText = pdfPageTextList[entry.page - 1] || "";
+        const pageMatches = byPage.get(entry.page) || [];
+        const body = pageMatches.length
+          ? buildHighlightedHtml(pageText, pageMatches)
+          : escapeHtml(pageText);
+        html += `<section class="pdf-page-text" data-page="${entry.page}">` +
+          `<div class="pdf-page-text-label">p.${entry.page}</div>` +
+          `<div class="pdf-page-text-body">${body}</div></section>`;
+      }
+      renderedPane.innerHTML = html;
+      renderedPane.classList.add("pdf-reading");
+      renderedPane.hidden = false;
+      textarea.hidden = true;
+      // PDF 모드에서는 "다시 입력"이 추출 텍스트를 편집하는 뜻이 되어 혼란스럽다.
+      if (editTextBtn) editTextBtn.hidden = true;
+    }
+
     function showTextInput() {
       if (renderedPane) {
         renderedPane.hidden = true;
         renderedPane.innerHTML = "";
+        renderedPane.classList.remove("pdf-reading");
       }
       textarea.hidden = false;
       if (editTextBtn) editTextBtn.hidden = true;
@@ -1606,6 +1812,34 @@ if (typeof document !== "undefined") {
     const pdfSearchPrevBtn = document.getElementById("pdf-search-prev");
     const pdfSearchNextBtn = document.getElementById("pdf-search-next");
     const pdfSearchCount = document.getElementById("pdf-search-count");
+    const pdfOriginalToggle = document.getElementById("pdf-original-toggle");
+
+    // PDF 모드의 기본 화면은 읽기 모드고, 원본(canvas)은 토글로만 띄운다.
+    // 그림·표·수식이 필요할 때를 위해 남겨 두되, 숨겨져 있는 동안은 캔버스를
+    // 그리지 않는다(아래 drawPdfPage 의 가드).
+    function setPdfOriginalVisible(visible) {
+      pdfOriginalVisible = !!visible;
+      const pane = document.getElementById("viewer-input-pane");
+      if (pane) pane.classList.toggle("show-original", pdfOriginalVisible);
+      if (pdfOriginalToggle) {
+        pdfOriginalToggle.setAttribute("aria-pressed", String(pdfOriginalVisible));
+        pdfOriginalToggle.textContent = pdfOriginalVisible ? "읽기 모드" : "원본 보기";
+        pdfOriginalToggle.title = pdfOriginalVisible
+          ? "원본 페이지를 닫고 읽기 모드만 본다"
+          : "원본 페이지(그림·표·수식)를 함께 본다";
+      }
+      if (pdfOriginalVisible && pdfPageWraps.length) {
+        // 숨어 있는 동안 건너뛴 캔버스를 지금 채운다.
+        drawPdfPageWindow(clampPdfPageNumber(pdfCurrentPage, pdfPageWraps.length));
+        updateVisiblePdfPages();
+      }
+      // 검색 대상 DOM 이 바뀌므로 진행 중인 검색을 다시 건다.
+      if (pdfSearchInput && pdfSearchInput.value.trim()) runPdfSearch(pdfSearchInput.value);
+    }
+
+    if (pdfOriginalToggle) {
+      pdfOriginalToggle.addEventListener("click", () => setPdfOriginalVisible(!pdfOriginalVisible));
+    }
 
     // 용어 패널 접기/펼치기. 접으면 뷰어 폭이 바뀌므로 PDF가 열려 있으면
     // 화면맞춤 배율을 다시 잡아 글자가 새 폭에 맞게 커지거나 작아지게 한다.
@@ -1681,10 +1915,30 @@ if (typeof document !== "undefined") {
     // independent of dictionary terms — this is "find in this PDF", the
     // control readers expect from any PDF viewer and that "찾은 용어 내 검색"
     // (which only filters the sidebar term list) doesn't provide.
+    // 검색은 "지금 눈에 보이는 본문"에서 돈다. 읽기 모드가 기본이므로 보통은
+    // #viewer-rendered 의 페이지 섹션이고, 좁은 화면에서 원본만 띄운 경우에만
+    // 텍스트 레이어다. 두 DOM 은 오프셋 맵을 만드는 방법이 다르다(읽기 모드는
+    // 텍스트 노드 그대로, 텍스트 레이어는 span 기하로 띄어쓰기를 복원).
+    function getPdfSearchTargets() {
+      const readingVisible =
+        renderedPane &&
+        !renderedPane.hidden &&
+        renderedPane.classList.contains("pdf-reading") &&
+        renderedPane.offsetParent !== null;
+      if (readingVisible) {
+        return [...renderedPane.querySelectorAll("section.pdf-page-text")].map((container) => ({
+          container,
+          buildMap: buildTextNodeOffsetMap,
+        }));
+      }
+      return pdfTextLayerDivs.map((container) => ({ container, buildMap: buildOffsetMap }));
+    }
+
     function clearPdfSearchMarks() {
       for (const div of pdfTextLayerDivs) {
         div.querySelectorAll("mark.search-mark").forEach(unwrapMark);
       }
+      if (renderedPane) renderedPane.querySelectorAll("mark.search-mark").forEach(unwrapMark);
       pdfSearchMatches = [];
       pdfSearchIndex = -1;
     }
@@ -1714,8 +1968,9 @@ if (typeof document !== "undefined") {
         updatePdfSearchCount();
         return;
       }
-      for (const textLayerDiv of pdfTextLayerDivs) {
-        const { text: pageText, map: pageOffsetMap } = buildOffsetMap(textLayerDiv);
+      for (const target of getPdfSearchTargets()) {
+        const textLayerDiv = target.container;
+        const { text: pageText, map: pageOffsetMap } = target.buildMap(textLayerDiv);
         const lowerText = pageText.toLowerCase();
         const ranges = [];
         let from = 0;
@@ -1836,6 +2091,9 @@ if (typeof document !== "undefined") {
 
     function drawPdfPage(pageNum) {
       if (pdfDrawnPages.has(pageNum)) return;
+      // 원본 보기가 꺼져 있으면 캔버스는 화면에 없다. 래스터화는 PDF 작업 중
+      // 가장 비싼 일이므로 보이지도 않는 페이지에는 쓰지 않는다.
+      if (!pdfOriginalVisible) return;
       const wrap = pdfPageWraps[pageNum - 1];
       const page = pdfPageProxies.get(pageNum);
       const viewport = pdfPageViewports.get(pageNum);
@@ -1951,6 +2209,17 @@ if (typeof document !== "undefined") {
     function gotoPdfPage(value) {
       if (!pdfPageWraps.length) return;
       const pageNum = clampPdfPageNumber(value, pdfPageWraps.length);
+      // 읽기 모드가 화면에 있으면 그쪽도 같은 페이지로 옮긴다. 원본이 꺼져
+      // 있으면 여기가 유일한 본문이므로 이것만으로 페이지 이동이 끝난다.
+      if (renderedPane && !renderedPane.hidden && renderedPane.classList.contains("pdf-reading")) {
+        const section = renderedPane.querySelector(`section.pdf-page-text[data-page="${pageNum}"]`);
+        if (section) {
+          renderedPane.scrollTop +=
+            section.getBoundingClientRect().top - renderedPane.getBoundingClientRect().top - 8;
+        }
+        setCurrentPdfPage(pageNum);
+        if (pdfPageInput) pdfPageInput.value = String(pageNum);
+      }
       const wrap = pdfPageWraps[pageNum - 1];
       if (!wrap) return;
       const viewerEl = document.getElementById("pdf-viewer");
@@ -2003,6 +2272,8 @@ if (typeof document !== "undefined") {
       pdfRenderToken++;
       if (probedTextContent) pdfTextContentCache = new Map();
       if (probedTextContent) pdfPageTexts = new Map();
+      pdfPageTextList = [];
+      pdfPageOffsets = [];
 
       // Must happen before computeFitWidthScale() measures #pdf-viewer's
       // width below — .no-pdf sets display:none on it, which would make
@@ -2068,7 +2339,9 @@ if (typeof document !== "undefined") {
           viewport,
         }).render();
 
-        const joined = joinTextItems(textContent.items);
+        // 축척 1 기준의 페이지 폭을 넘겨 2단 조판이면 열 순서를 복원한다.
+        // 화면 배율(pdfScale)이 아니라 원본 좌표계여야 item transform 과 단위가 맞는다.
+        const joined = joinTextItems(textContent.items, page.getViewport({ scale: 1 }).width);
         pdfPageTexts.set(i, joined);
         pageTexts.push(joined);
 
@@ -2088,7 +2361,13 @@ if (typeof document !== "undefined") {
       drawPdfPageWindow(clampPdfPageNumber(pdfCurrentPage, pdf.numPages));
       updateVisiblePdfPages();
 
-      return pageTexts.join("\n").trim();
+      // 읽기 모드의 표시 위치는 전부 이 전체 텍스트의 오프셋에 걸린다.
+      // 예전에는 여기서 .trim() 을 했는데, 그러면 1쪽 앞의 공백만큼 모든
+      // 오프셋이 밀려 밑줄이 어긋난다. 잇는 규칙은 buildPageOffsets 와
+      // 반드시 같아야 하므로 PDF_PAGE_JOINER 한 곳에서만 정한다.
+      pdfPageTextList = pageTexts;
+      pdfPageOffsets = buildPageOffsets(pageTexts);
+      return pageTexts.join(PDF_PAGE_JOINER);
     }
 
     // Re-renders every page at a new scale, reusing the cached getTextContent()
@@ -2189,6 +2468,7 @@ if (typeof document !== "undefined") {
         showTextInput();
         textarea.hidden = true;
         pdfViewer.hidden = false;
+        setPdfOriginalVisible(false);
 
         const text = await renderPdf(pdf, probed, (done, total) => {
           pdfStatus.textContent = `텍스트 추출 중… (${done}/${total})`;
@@ -2202,6 +2482,8 @@ if (typeof document !== "undefined") {
         hideRestoreStatus();
         if (persist) saveCurrentPdf(file, currentDocHash);
         await requestAnalysis(text, { updateInputPane: false });
+        // PDF 모드 기본 화면은 읽기 모드. 원본 canvas 는 토글로만 띄운다.
+        renderReadingPane();
         pdfStatus.hidden = true;
         await loadAndRenderAnnotations();
       } catch (err) {

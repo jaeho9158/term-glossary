@@ -2977,3 +2977,85 @@ transform:scale(1);
         min-height: 360px;
     }
 }
+
+/* ===== PDF 읽기 모드(2단계) =====================================
+   PDF 모드의 기본 화면은 #viewer-rendered 에 페이지별 텍스트를 흘린 읽기
+   모드다. 표시가 픽셀이 아니라 텍스트 오프셋에 걸려 있으므로 여기 스타일은
+   순수하게 보기 좋으라고만 있는 것이고, 표시 정확도와는 무관하다. */
+.viewer-rendered.pdf-reading {
+    padding: 0;
+    white-space: normal;
+}
+
+.pdf-page-text {
+    padding: 16px;
+    border-bottom: 1px dashed var(--border, #ddd);
+}
+
+.pdf-page-text:last-child {
+    border-bottom: none;
+}
+
+.pdf-page-text-label {
+    margin-bottom: 6px;
+    color: var(--muted, #888);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+}
+
+/* 본문은 추출 텍스트 그대로라 줄바꿈을 살려야 문단이 보인다. */
+.pdf-page-text-body {
+    white-space: pre-wrap;
+}
+
+.pdf-original-toggle {
+    font-weight: 600;
+}
+
+.pdf-original-toggle[aria-pressed="true"] {
+    background: var(--accent, #2563eb);
+    color: #fff;
+    border-color: var(--accent, #2563eb);
+}
+
+/* PDF 모드에서 읽기 영역은 원본 뷰어와 같은 높이를 쓴다. */
+.viewer-input.has-pdf .viewer-rendered {
+    height: calc(100vh - 220px);
+    min-height: 600px;
+    max-height: none;
+}
+
+/* 원본 보기가 꺼져 있으면 canvas 뷰어는 화면에서 빠진다(그 동안 캔버스를
+   래스터화하지 않는 것은 viewer.js 의 drawPdfPage 가드가 맡는다). */
+.viewer-input.has-pdf:not(.show-original) .pdf-viewer {
+    display: none;
+}
+
+/* 넓은 화면: 읽기 모드와 원본을 나란히. */
+@media (min-width: 769px) {
+    .viewer-input.has-pdf.show-original .search-area {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "toolbar toolbar"
+            "reading original";
+        gap: 12px;
+        align-items: stretch;
+    }
+    .viewer-input.has-pdf.show-original .search-area > #pdf-toolbar { grid-area: toolbar; }
+    .viewer-input.has-pdf.show-original .search-area > #viewer-rendered { grid-area: reading; }
+    /* .pdf-viewer 의 margin-top:20px 이 남으면 나란히 둔 두 칸의 윗선이 어긋난다. */
+    .viewer-input.has-pdf.show-original .search-area > #pdf-viewer { grid-area: original; margin-top: 0; }
+}
+
+/* 좁은 화면(≤768px): 나란히 둘 폭이 없으므로 원본이 읽기 모드를 대신한다. */
+@media (max-width: 768px) {
+    .viewer-input.has-pdf .viewer-rendered {
+        height: calc(100vh - 160px);
+        min-height: 360px;
+    }
+    .viewer-input.has-pdf.show-original .viewer-rendered {
+        display: none;
+    }
+}
