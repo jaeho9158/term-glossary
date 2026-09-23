@@ -118,7 +118,10 @@ export async function updateAnnotationNote(docHash, id, note) {
       .from("tg_pdf_annotations")
       .update({ note, updated_at: new Date().toISOString() })
       .eq("id", id)
-      .eq("user_id", session.user.id);
+      .eq("user_id", session.user.id)
+      // doc_hash 까지 걸어 둔다 — 문서를 빠르게 갈아타면 이전 문서의 갱신이
+      // 늦게 도착할 수 있는데, 그때 남의 문서 행을 건드리지 않게 하는 안전장치.
+      .eq("doc_hash", docHash);
     if (error) {
       console.error(error);
       return false;
@@ -149,7 +152,10 @@ export async function updateAnnotationAnchor(docHash, id, anchor) {
         updated_at: new Date().toISOString(),
       })
       .eq("id", id)
-      .eq("user_id", session.user.id);
+      .eq("user_id", session.user.id)
+      // doc_hash 까지 걸어 둔다 — 문서를 빠르게 갈아타면 이전 문서의 갱신이
+      // 늦게 도착할 수 있는데, 그때 남의 문서 행을 건드리지 않게 하는 안전장치.
+      .eq("doc_hash", docHash);
     if (error) {
       console.error(error);
       return false;
@@ -175,7 +181,10 @@ export async function deleteAnnotation(docHash, id) {
       .from("tg_pdf_annotations")
       .delete()
       .eq("id", id)
-      .eq("user_id", session.user.id);
+      .eq("user_id", session.user.id)
+      // doc_hash 까지 걸어 둔다 — 문서를 빠르게 갈아타면 이전 문서의 갱신이
+      // 늦게 도착할 수 있는데, 그때 남의 문서 행을 건드리지 않게 하는 안전장치.
+      .eq("doc_hash", docHash);
     if (error) {
       console.error(error);
       return false;

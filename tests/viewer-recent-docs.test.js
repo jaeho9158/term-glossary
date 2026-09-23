@@ -66,3 +66,14 @@ test("formatRecentLabel: 파일명·쪽수·연 시각을 한 줄로", () => {
   assert.strictEqual(storage.formatRecentLabel({ name: "d.pdf" }, now), "d.pdf");
   assert.strictEqual(storage.formatRecentLabel({ savedAt: now }, now), "document.pdf · 방금");
 });
+
+test("clearDocument: 인자가 없으면 아무것도 지우지 않고 false", async () => {
+  // 예전에는 전체 삭제로 떨어져서 오타 한 번에 최근 문서가 통째로 날아갔다.
+  assert.strictEqual(await storage.clearDocument(), false);
+  assert.strictEqual(typeof storage.clearAllDocuments, "function");
+});
+
+test("touchDocument: id 가 없거나 IndexedDB 가 없으면 false", async () => {
+  assert.strictEqual(await storage.touchDocument(), false);
+  assert.strictEqual(await storage.touchDocument("hash123"), false);
+});

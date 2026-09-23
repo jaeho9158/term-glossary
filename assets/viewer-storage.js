@@ -198,7 +198,8 @@
   }
 
   function listDocuments() {
-    return withStore("readonly", function (store) { return store.getAll(); })
+    return ensureMigrated()
+      .then(function () { return withStore("readonly", function (store) { return store.getAll(); }); })
       .then(function (all) { return pruneRecentDocs(all, MAX_RECENT_DOCS).keep.map(stripBlob); })
       .catch(function () { return []; });
   }
@@ -209,25 +210,38 @@
       .catch(function () { return false; });
   }
 
-  // 저장 → 상한 초과분 정리. 용량 초과로 실패하면 오래된 것부터 지우고 한 번
-  // 더 시도한다(그래도 안 되면 호출부가 문구를 띄운다).
+  // 저장 → 상한 초과분 정리. 용량 초과로 실패하면 오래된 것부터 한 건씩 지우며
+  // 다시 시도한다(최대 MAX_RECENT_DOCS 회 — 지울 것이 없으면 즉시 끝난다).
   function saveDocument(file, docHash, pageCount) {
     var record = buildDocRecord(file, docHash, null, pageCount);
     function put() {
       return withStore("readwrite", function (store) { return store.put(record); });
     }
-    return put()
+    return ensureMigrated()
+      .then(put)
       .then(function () { return pruneStore(record.id); })
       .then(function () { return { ok: true }; })
       .catch(function (err) {
         var reason = failureReason(err);
         if (reason !== "quota") return { ok: false, reason: reason };
-        // 용량 초과 — 이 문서를 뺀 나머지 중 오래된 것부터 전부 비우고 재시도.
-        return dropOldest(record.id)
-          .then(put)
-          .then(function () { return { ok: true, evicted: true }; })
-          .catch(function (err2) { return { ok: false, reason: failureReason(err2) }; });
+        return retryAfterEviction(record.id, put, MAX_RECENT_DOCS);
       });
+  }
+
+  // 용량이 찬 상태. "가장 오래된 것 하나 삭제 → 재시도"를 해소될 때까지 반복하되,
+  // 지울 것이 없거나 시도 횟수를 다 쓰면 끝낸다(무한 루프 방지).
+  function retryAfterEviction(keepId, put, attemptsLeft) {
+    if (attemptsLeft <= 0) return Promise.resolve({ ok: false, reason: "quota" });
+    return dropOldest(keepId).then(function (dropped) {
+      if (!dropped) return { ok: false, reason: "quota" };
+      return put()
+        .then(function () { return { ok: true, evicted: true }; })
+        .catch(function (err) {
+          var reason = failureReason(err);
+          if (reason !== "quota") return { ok: false, reason: reason };
+          return retryAfterEviction(keepId, put, attemptsLeft - 1);
+        });
+    });
   }
 
   // 방금 넣은 문서를 뺀 목록에서 상한 초과분을 지운다.
@@ -239,16 +253,56 @@
     });
   }
 
-  // 용량이 이미 꽉 찬 상태. 이번 문서를 뺀 가장 오래된 것부터 지운다.
+  // 이번 문서를 뺀 가장 오래된 레코드 하나를 지운다. 실제로 지웠는지를 돌려주어
+  // 호출부(retryAfterEviction)가 종료 조건으로 쓴다.
   function dropOldest(keepId) {
     return withStore("readonly", function (store) { return store.getAll(); }).then(function (all) {
-      var sorted = pruneRecentDocs(all, MAX_RECENT_DOCS).keep
-        .concat(pruneRecentDocs(all, MAX_RECENT_DOCS).drop)
+      var split = pruneRecentDocs(all, MAX_RECENT_DOCS);
+      var sorted = split.keep.concat(split.drop)
         .filter(function (r) { return r && r.id !== keepId; })
         .reverse(); // 오래된 것부터
-      if (!sorted.length) return true;
+      if (!sorted.length) return false;
       return deleteDocument(sorted[0].id);
-    });
+    }).catch(function () { return false; });
+  }
+
+  // 최근 문서 목록의 LRU 는 savedAt 기준이다. 다시 열었는데 갱신하지 않으면
+  // "방금 본 문서"가 먼저 밀려난다. Blob 은 읽어 온 그대로 다시 넣는다.
+  function touchDocument(id) {
+    if (!id) return Promise.resolve(false);
+    return withStore("readwrite", function (store) {
+      var req = store.get(id);
+      req.onsuccess = function () {
+        var rec = req.result;
+        if (!rec) return;
+        rec.savedAt = Date.now();
+        store.put(rec);
+      };
+      return req;
+    }).then(function () { return true; }).catch(function () { return false; });
+  }
+
+  // docHash 가 없던 시절의 고정 키("last") 레코드를 한 번만 정리한다. 그대로 두면
+  // 같은 문서가 목록에 두 번 뜬다. 해시를 알면 그 키로 옮기고, 모르면 지운다
+  // (어차피 1개짜리 임시 저장이라 잃을 것이 없다).
+  var migration = null;
+  function ensureMigrated() {
+    if (migration) return migration;
+    migration = withStore("readonly", function (store) { return store.get(DOC_ID); })
+      .then(function (rec) {
+        if (!rec) return true;
+        var hash = rec.docHash;
+        if (!hash || hash === DOC_ID) return deleteDocument(DOC_ID);
+        var moved = {};
+        Object.keys(rec).forEach(function (k) { moved[k] = rec[k]; });
+        moved.id = hash;
+        return withStore("readwrite", function (store) {
+          store.put(moved);
+          return store.delete(DOC_ID);
+        }).then(function () { return true; });
+      })
+      .catch(function () { return false; });
+    return migration;
   }
 
   // 인자가 없으면 "가장 최근 1개"(옛 동작). id 를 주면 그 문서.
@@ -266,8 +320,14 @@
       .catch(function () { return null; });
   }
 
+  // 인자가 없으면 아무것도 지우지 않는다. 예전에는 전체 삭제로 떨어져서
+  // 인자 하나를 빠뜨리면 최근 문서 5개가 통째로 날아갈 수 있었다.
   function clearDocument(id) {
-    if (id) return deleteDocument(id);
+    if (!id) return Promise.resolve(false);
+    return deleteDocument(id);
+  }
+
+  function clearAllDocuments() {
     return withStore("readwrite", function (store) { return store.clear(); })
       .then(function () { return true; })
       .catch(function () { return false; });
@@ -308,6 +368,8 @@
     saveDocument: saveDocument,
     loadDocument: loadDocument,
     clearDocument: clearDocument,
+    clearAllDocuments: clearAllDocuments,
+    touchDocument: touchDocument,
     toFile: toFile,
   };
 

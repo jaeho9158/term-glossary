@@ -973,6 +973,36 @@ function findLooseOccurrence(text, quote, hintOffset) {
   return findNearestOccurrence(text, collapsed, hintOffset);
 }
 
+// 겹친 하이라이트는 한 범위로 합쳐서 그린다. 겹친 채로 하나씩 감싸면 먼저 감싼
+// mark 가 텍스트 노드를 쪼개 뒤 범위의 오프셋 맵이 무효가 되고(surroundContents
+// 가 예외를 던진다), 그 한 건이 문서 전체 복원을 막았다.
+// 반환: [{startOffset, endOffset, records[]}] — startOffset 오름차순, 서로 안 겹침.
+function mergeOverlappingRanges(records) {
+  const valid = (records || [])
+    .filter((r) => r && Number.isFinite(Number(r.startOffset)) && Number.isFinite(Number(r.endOffset)) && Number(r.endOffset) > Number(r.startOffset))
+    .map((r) => ({ record: r, start: Number(r.startOffset), end: Number(r.endOffset) }))
+    .sort((a, b) => a.start - b.start || a.end - b.end);
+  const merged = [];
+  for (const item of valid) {
+    const last = merged[merged.length - 1];
+    if (last && item.start < last.endOffset) {
+      last.endOffset = Math.max(last.endOffset, item.end);
+      last.records.push(item.record);
+    } else {
+      merged.push({ startOffset: item.start, endOffset: item.end, records: [item.record] });
+    }
+  }
+  return merged;
+}
+
+// 재탐색으로 옮긴 앵커를 되저장해도 되는지. 공백을 뺀 인용문이 너무 짧으면
+// (예: "값", "p<") 같은 글자가 페이지에 여러 번 나와 엉뚱한 자리를 짚었을
+// 가능성이 커서, 그 결과를 저장해 굳히지 않는다.
+function shouldPersistReanchor(quoteText) {
+  if (typeof quoteText !== "string") return false;
+  return quoteText.replace(/\s+/g, "").length >= 4;
+}
+
 const ANNOTATION_LOST = { startOffset: null, endOffset: null, status: "lost" };
 
 // status: "offset"(오프셋 그대로) | "quote"(재탐색으로 살림) | "lost"(못 찾음)
@@ -1003,7 +1033,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { findNearestOccurrence, resolveAnnotationAnchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -1183,22 +1213,49 @@ if (typeof document !== "undefined") {
 
         // 읽기 모드 DOM 은 텍스트 노드가 곧 페이지 텍스트다(buildHighlightedHtml
         // 이 글자를 더하거나 빼지 않는다). 그래서 오프셋 맵도 텍스트 노드 기준.
-        const { map } = buildTextNodeOffsetMap(container);
+        const { text: containerText, map } = buildTextNodeOffsetMap(container);
         const startEntry = map.find((entry) => entry.node === range.startContainer);
         const endEntry = map.find((entry) => entry.node === range.endContainer);
         if (!startEntry || !endEntry) return;
-        const startOffset = startEntry.start + range.startOffset;
-        const endOffset = endEntry.start + range.endOffset;
+        let startOffset = startEntry.start + range.startOffset;
+        let endOffset = endEntry.start + range.endOffset;
         if (endOffset <= startOffset) return;
 
-        const { createAnnotation } = await import("./pdf-annotations.js");
+        // 기존 하이라이트를 물고 있는 선택도 막지 않는다. 대신 저장 전에 겹친
+        // 것들을 한 범위로 합친다 — 겹친 레코드를 둘 다 남기면 다음에 열 때
+        // 감싸기가 깨진다(Critical-1과 같은 원인).
+        const overlapped = annotationsCache.filter(
+          (a) => !a.lost && a.page === page && Number(a.endOffset) > startOffset && Number(a.startOffset) < endOffset
+        );
+        let mergedQuote = quoteText;
+        if (overlapped.length) {
+          for (const a of overlapped) {
+            startOffset = Math.min(startOffset, Number(a.startOffset));
+            endOffset = Math.max(endOffset, Number(a.endOffset));
+          }
+          mergedQuote = containerText.slice(startOffset, endOffset) || quoteText;
+        }
+
+        const { createAnnotation, deleteAnnotation } = await import("./pdf-annotations.js");
+        for (const old of overlapped) {
+          try {
+            await deleteAnnotation(currentDocHash, old.id);
+          } catch (err) {
+            console.error("[deleteAnnotation/merge]", err);
+          }
+          annotationsCache = annotationsCache.filter((a) => a.id !== old.id);
+          container
+            .querySelectorAll(`mark.user-mark[data-annotation-id="${CSS.escape(String(old.id))}"]`)
+            .forEach(unwrapMark);
+        }
+
         let record = null;
         try {
           record = await createAnnotation(currentDocHash, lastPdfFilename, {
             page,
             startOffset,
             endOffset,
-            quoteText,
+            quoteText: mergedQuote,
             color,
             note: "",
           });
@@ -1212,13 +1269,16 @@ if (typeof document !== "undefined") {
 
         // map 을 넘기지 않으면 wrapPageRange 가 텍스트 레이어용 span 기반
         // buildOffsetMap 으로 떨어져 읽기 모드에서는 빈 맵이 된다(하이라이트 0개).
+        // 겹친 것을 걷어내면(unwrapMark → normalize) 위에서 만든 map 의 텍스트
+        // 노드가 더 이상 DOM 에 없다. 그 경우에는 맵을 다시 만든다.
+        const wrapMap = overlapped.length ? buildTextNodeOffsetMap(container).map : map;
         const marks = wrapPageRange(container, startOffset, endOffset, () => {
           const mark = document.createElement("mark");
           mark.className = "user-mark";
           mark.dataset.color = color;
           mark.dataset.annotationId = String(record.id);
           return mark;
-        }, map);
+        }, wrapMap);
 
         annotationsCache.push(record);
         renderNotesList();
@@ -1299,7 +1359,12 @@ if (typeof document !== "undefined") {
         if (!card) return;
         const id = card.dataset.id;
         const mark = document.querySelector(`#viewer-rendered mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`);
-        if (!mark) return;
+        if (!mark) {
+          // 위치를 못 찾은 메모는 본문에 표시가 없다. 아무 반응이 없으면
+          // "클릭이 안 먹는다"로 읽히므로 이유를 적어 준다.
+          showPdfNotice("이 메모는 본문에서 위치를 찾지 못했습니다.");
+          return;
+        }
         mark.scrollIntoView({ behavior: "smooth", block: "center" });
         mark.classList.add("mark-flash");
         setTimeout(() => mark.classList.remove("mark-flash"), 1200);
@@ -1332,15 +1397,24 @@ if (typeof document !== "undefined") {
         // wrapPageRange 가 요구하는 불변식이다(앞을 먼저 감싸면 노드가 갈라져
         // 뒤쪽 map 항목이 무효가 된다).
         const map = buildTextNodeOffsetMap(body).map;
-        records.sort((a, b) => b.startOffset - a.startOffset);
-        for (const record of records) {
-          wrapPageRange(body, record.startOffset, record.endOffset, () => {
-            const mark = document.createElement("mark");
-            mark.className = "user-mark";
-            mark.dataset.color = record.color;
-            mark.dataset.annotationId = String(record.id);
-            return mark;
-          }, map);
+        // 겹친 것끼리 먼저 합친다 — 겹친 채로 각각 감싸면 두 번째가 예외를 던지고,
+        // 예전에는 그 예외가 loadAndRenderAnnotations 까지 올라가 문서가 안 열렸다.
+        const groups = mergeOverlappingRanges(records).sort((a, b) => b.startOffset - a.startOffset);
+        for (const group of groups) {
+          // 대표는 가장 나중에 만든 것(= 사용자가 마지막으로 고른 색).
+          const rep = group.records[group.records.length - 1];
+          try {
+            wrapPageRange(body, group.startOffset, group.endOffset, () => {
+              const mark = document.createElement("mark");
+              mark.className = "user-mark";
+              mark.dataset.color = rep.color;
+              mark.dataset.annotationId = String(rep.id);
+              return mark;
+            }, map);
+          } catch (err) {
+            // 한 건이 실패해도 나머지 하이라이트와 문서 열기는 계속돼야 한다.
+            console.error("[renderAnnotationMarks]", err);
+          }
         }
       }
     }
@@ -1348,12 +1422,16 @@ if (typeof document !== "undefined") {
     // 옛 저장분(텍스트 레이어 좌표)·추출 규칙이 바뀐 뒤의 저장분을 읽기 모드
     // 페이지 텍스트 기준으로 다시 앵커한다. 재탐색으로 살린 것은 곧바로 다시
     // 저장해 다음에 열 때는 오프셋 한 번으로 끝나게 한다.
-    async function reanchorAnnotations() {
+    // docHash 는 호출 시점의 문서를 고정해 둔 값이다. 재탐색 도중 사용자가 다른
+    // 문서를 열면 currentDocHash 가 바뀌는데, 그때 남은 await 가 이어서 저장하면
+    // 이전 문서의 앵커가 새 문서 해시로 들어간다(문서 전환 레이스).
+    async function reanchorAnnotations(docHash) {
       if (!annotationsCache.length) return { lost: 0, moved: 0 };
       let mod = null;
       let lost = 0;
       let moved = 0;
       for (const record of annotationsCache) {
+        if (currentDocHash !== docHash) return { lost, moved };
         const pageText = pdfPageTextList[record.page - 1] || "";
         const res = resolveAnnotationAnchor(pageText, record);
         if (res.status === "lost") {
@@ -1367,9 +1445,14 @@ if (typeof document !== "undefined") {
         record.endOffset = res.endOffset;
         record.quoteText = pageText.slice(res.startOffset, res.endOffset);
         moved++;
+        // 너무 짧은 인용문(공백 제외 4글자 미만)은 한 페이지에 우연히 같은 글자가
+        // 여러 번 나와 엉뚱한 자리를 짚었을 수 있다. 화면에는 그리되 되저장하지
+        // 않는다 — 다음에 열 때 다시 재탐색하는 편이 오염보다 낫다.
+        if (!shouldPersistReanchor(record.quoteText)) continue;
         try {
           if (!mod) mod = await import("./pdf-annotations.js");
-          await mod.updateAnnotationAnchor(currentDocHash, record.id, record);
+          if (currentDocHash !== docHash) return { lost, moved };
+          await mod.updateAnnotationAnchor(docHash, record.id, record);
         } catch (err) {
           // 저장에 실패해도 이번 세션 화면에는 제대로 그려진다. 다음에 열 때
           // 같은 재탐색을 한 번 더 하면 그만이라 문구까지 띄우지는 않는다.
@@ -1380,22 +1463,40 @@ if (typeof document !== "undefined") {
     }
 
     async function loadAndRenderAnnotations() {
-      if (!currentDocHash) return;
+      // 문서를 고정해 둔다. 아래 await 사이에 다른 문서를 열면 이 실행분의
+      // 나머지는 남의 문서에 하이라이트를 그리거나 저장하게 된다.
+      const docHash = currentDocHash;
+      if (!docHash) return;
+      let loaded = null;
       try {
         const { loadAnnotations } = await import("./pdf-annotations.js");
-        annotationsCache = await loadAnnotations(currentDocHash);
+        loaded = await loadAnnotations(docHash);
       } catch (err) {
         console.error("[loadAnnotations]", err);
+        if (currentDocHash !== docHash) return;
         annotationsCache = [];
         showPdfNotice("저장해 둔 하이라이트·메모를 불러오지 못했습니다.");
         renderNotesList();
         return;
       }
-      const { lost } = await reanchorAnnotations();
-      renderAnnotationMarks();
-      renderNotesList();
-      if (lost > 0) {
-        showPdfNotice(`메모 ${lost}개는 본문에서 위치를 찾지 못해 '내 메모' 탭에만 남겼습니다.`);
+      if (currentDocHash !== docHash) return;
+      annotationsCache = loaded;
+      // 복원 중의 어떤 예외도 handlePdfFile 의 "열지 못했습니다" 경로로 올라가면
+      // 안 된다 — 하이라이트 한 건 때문에 문서 전체를 못 여는 것이 5단계 리뷰의
+      // 가장 큰 문제였다.
+      try {
+        const { lost } = await reanchorAnnotations(docHash);
+        if (currentDocHash !== docHash) return;
+        renderAnnotationMarks();
+        renderNotesList();
+        if (lost > 0) {
+          showPdfNotice(`메모 ${lost}개는 본문에서 위치를 찾지 못해 '내 메모' 탭에만 남겼습니다.`);
+        }
+      } catch (err) {
+        console.error("[loadAndRenderAnnotations]", err);
+        if (currentDocHash !== docHash) return;
+        renderNotesList();
+        showPdfNotice("하이라이트를 본문에 표시하지 못했습니다. '내 메모' 탭에서는 볼 수 있습니다.");
       }
     }
 
@@ -3030,6 +3131,9 @@ if (typeof document !== "undefined") {
         textarea.value = "";
         findBtn.disabled = true;
         currentDocHash = null;
+        // pdfDoc 이 남아 있으면 renderRecentDocs 가 "문서를 열어 둔 상태"로 보고
+        // 첫 화면 목록을 띄우지 않는다 — 실패했는데 돌아갈 곳이 없어진다.
+        pdfDoc = null;
         renderRecentDocs();
       }
     }
@@ -3140,6 +3244,9 @@ if (typeof document !== "undefined") {
         if (!file) return;
         hideRestoreStatus();
         hideRecentDocs();
+        // LRU 는 savedAt 기준이다. 다시 연 문서를 갱신하지 않으면 방금 본 것이
+        // 먼저 밀려난다. Blob 을 다시 쓰지 않도록 저장 계층에서 메타만 손댄다.
+        if (store.touchDocument) store.touchDocument(id);
         await handlePdfFile(file, { persist: false });
       });
     }
