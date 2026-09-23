@@ -1156,8 +1156,10 @@ main.wide {
   color: inherit;
 }
 
+/* 메모 목록에서 하이라이트로 뛰면 user-mark 의 색 위에 얹혀야 하므로
+   !important 가 필요하다(색 규칙이 [data-color] 로 더 구체적이다). */
 .viewer-rendered mark.mark-flash {
-  background: var(--accent);
+  background: var(--accent) !important;
   color: #fff;
 }
 
@@ -1275,22 +1277,6 @@ main.wide {
 .term-card-hide-btn:hover {
   background: var(--hover-tint);
   color: var(--text);
-}
-
-.term-card-difficulty {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 1px 8px;
-  font-size: 0.72rem;
-  border-radius: 999px;
-  background: var(--hover-tint);
-  color: var(--muted, #888);
-  vertical-align: middle;
-}
-
-.term-card-difficulty[data-difficulty="3"] {
-  background: rgba(220, 80, 80, 0.15);
-  color: #c94a4a;
 }
 
 .term-filter-bar {
@@ -2475,26 +2461,30 @@ transform:scale(1);
     margin: 0;
 }
 
-.textLayer mark.user-mark {
+/* 사용자 하이라이트와 용어 표시는 5단계부터 읽기 모드(#viewer-rendered)에만
+   그려진다. 텍스트 레이어에 있던 같은 규칙은 죽은 CSS라 이리로 옮겼다.
+   검색 결과(search-mark)만 원본 텍스트 레이어에도 그대로 생긴다. */
+.viewer-rendered mark.user-mark {
     cursor: pointer;
     border-radius: 2px;
 }
 
-.textLayer mark.user-mark[data-color="yellow"] { background: rgba(255, 224, 102, 0.55); }
-.textLayer mark.user-mark[data-color="green"]  { background: rgba(140, 233, 154, 0.55); }
-.textLayer mark.user-mark[data-color="pink"]   { background: rgba(255, 201, 222, 0.55); }
-.textLayer mark.user-mark[data-color="blue"]   { background: rgba(165, 216, 255, 0.55); }
+.viewer-rendered mark.user-mark[data-color="yellow"] { background: rgba(255, 224, 102, 0.55); }
+.viewer-rendered mark.user-mark[data-color="green"]  { background: rgba(140, 233, 154, 0.55); }
+.viewer-rendered mark.user-mark[data-color="pink"]   { background: rgba(255, 201, 222, 0.55); }
+.viewer-rendered mark.user-mark[data-color="blue"]   { background: rgba(165, 216, 255, 0.55); }
 
-.textLayer mark.mark-flash {
-    background: var(--accent) !important;
-}
 
-.textLayer mark.search-mark {
+/* 본문 검색 결과. 읽기 모드가 보이면 그쪽 DOM 에, 원본만 보이면 텍스트
+   레이어에 생긴다(getPdfSearchTargets) — 두 곳 다 같게 칠한다. */
+.textLayer mark.search-mark,
+.viewer-rendered mark.search-mark {
     background: rgba(165, 216, 255, 0.6);
     border-radius: 2px;
 }
 
-.textLayer mark.search-mark.search-mark-active {
+.textLayer mark.search-mark.search-mark-active,
+.viewer-rendered mark.search-mark.search-mark-active {
     background: #ff9f43;
 }
 

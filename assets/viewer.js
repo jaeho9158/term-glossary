@@ -1,4 +1,35 @@
-let viewerFuse;
+// ---- 뷰어 상수 --------------------------------------------------------
+// 흩어져 있으면 "이 0.18은 뭐고 저 17은 뭔가"를 매번 코드로 되짚게 된다.
+// 값마다 "왜 이 값인지"를 한 줄로 적어 한곳에 둔다. 2단 조판 임계값·분야
+// 그룹 최소 개수처럼 쓰이는 함수 바로 위에서만 뜻이 통하는 값은 그 함수
+// 옆 블록에 남겨 뒀다(아래 COLUMN_*, FIELD_*).
+
+// PDF 배율 하한/상한. 0.5 아래는 본문 글자가 읽히지 않고, 3 위는 캔버스
+// 메모리만 먹고 읽기 모드가 이미 확대 역할을 한다.
+const PDF_MIN_SCALE = 0.5;
+const PDF_MAX_SCALE = 3;
+// #pdf-viewer 의 좌우 padding(10px씩) 합. 화면맞춤 계산에서 빼야 가로 스크롤이 안 생긴다.
+const PDF_VIEWER_PADDING_PX = 20;
+// 세로 스크롤바 폭. 첫 화면맞춤은 페이지가 붙기 전에 계산되는데, 페이지가
+// 붙으면서 스크롤바가 생기면 그만큼 폭이 줄어 가로 스크롤이 생겼다.
+const PDF_SCROLLBAR_WIDTH_PX = 17;
+// 페이지 위아래 margin 20px씩. 페이지맞춤은 이걸 빼야 한 쪽이 통째로 들어온다.
+const PDF_PAGE_MARGIN_PX = 40;
+// 뷰어 폭을 잴 수 없을 때(아직 화면에 없음) 쓰는 배율. A4를 노트북에서 읽을 만한 크기.
+const PDF_FALLBACK_SCALE = 1.5;
+// IntersectionObserver 임계값. 0만 주면 "조금이라도 보이면" 이라 페이지 경계에서
+// 현재 페이지가 튀고, 촘촘히 주면 가장 많이 보이는 쪽을 고를 수 있다.
+const PAGE_OBSERVER_THRESHOLDS = [0, 0.05, 0.25, 0.5, 0.9];
+// 패널에 한 번에 그리는 용어 카드 수. 한 화면에 들어오는 만큼만 그리고
+// 나머지는 "더 보기" 로 미뤄 첫 렌더를 가볍게 한다.
+const TERM_CARD_PAGE_SIZE = 8;
+// 타이핑이 멈춘 뒤 자동 분석까지의 대기. 한 문장을 치는 중에 끼어들지 않을 만큼 길고,
+// 붙여넣고 기다리는 사람이 답답하지 않을 만큼 짧다.
+const AUTO_ANALYSIS_DEBOUNCE_MS = 800;
+// 카드에서 본문으로 뛰었을 때 그 자리를 반짝이는 시간. 눈이 따라오고 나면 지운다.
+const MARK_FLASH_MS = 1200;
+// #pdf-status 안내 문구를 띄워 두는 시간. 읽는 중에 계속 남아 있으면 방해가 된다.
+const PDF_NOTICE_HOLD_MS = 8000;
 
 function escapeRegExp(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -62,8 +93,7 @@ function* candidateNormalizedForms(word) {
 
 // O(1)-per-word exact lookup, built once per matching run. Most terms in a
 // real paper match a title exactly, so this fast path handles the vast
-// majority of hits without ever touching the (expensive, O(index size)
-// per query) fuzzy Fuse search below.
+// majority of hits without ever touching a slower path.
 // A dictionary key that is itself a bare Korean particle (or too short to
 // mean anything on its own) makes ordinary particle-attached words match a
 // completely unrelated term — e.g. the finance term "로" (Rho) exact-matching
@@ -524,10 +554,12 @@ function orderTextItemsByColumn(items, pageWidth) {
   if (left.length < COLUMN_MIN_ITEMS || right.length < COLUMN_MIN_ITEMS) return items;
   if (left.length / total < COLUMN_MIN_RATIO || right.length / total < COLUMN_MIN_RATIO) return items;
 
-  // 두 단을 가로지르는 item은 제목·초록처럼 열보다 위에 있으면 앞에,
-  // 쪽번호·각주처럼 열보다 아래면 뒤에 붙인다. 가운데에 걸친 것(폭이 넓은
-  // 표·그림 설명)은 좌열 끝에 둔다 — 어느 쪽에 붙여도 정답은 없지만 원문
-  // 순서상 좌열 다음이 가장 덜 어색하다.
+  // 가운데 선을 물고 있어 어느 열에도 못 넣은 item(spanning)을 y 로만 가른다.
+  //  - 열 맨 윗줄보다 위:  제목·초록 → 맨 앞(header)
+  //  - 열 맨 아랫줄보다 아래: 쪽번호·각주 → 맨 뒤(footer)
+  //  - 두 열의 y 범위 안:   폭이 넓은 표·그림 설명 → 좌열 다음(middle)
+  // 마지막 경우는 어느 쪽에 붙여도 정답이 없다. 원문 순서상 좌열을 다 읽은
+  // 뒤가 가장 덜 어색해서 left 와 right 사이에 끼운다.
   let topY = -Infinity;
   let bottomY = Infinity;
   for (const item of left.concat(right)) {
@@ -724,6 +756,30 @@ function wrapPageRange(container, startOffset, endOffset, makeMark, precomputedM
     created.push(mark);
   }
   return created;
+}
+
+// wrapPageRange 에 같은 precomputedMap 을 돌려 쓰려면 "시작 오프셋 내림차순"
+// 이어야 한다(위 주석의 불변식). 이걸 어기면 증상이 "하이라이트 하나가 엉뚱한
+// 자리에 그어진다"로만 나타나 원인을 찾기 어렵다. 그래서 던지지 않고 —
+// 읽는 사람의 하이라이트를 통째로 날리는 것보다 낫다 — console.error 로
+// 알린 뒤 정렬해서 진행한다.
+function orderRangesForWrapping(ranges) {
+  const list = (ranges || []).filter((r) => r && Number.isFinite(Number(r.startOffset)));
+  let violated = false;
+  for (let i = 1; i < list.length; i++) {
+    if (Number(list[i].startOffset) > Number(list[i - 1].startOffset)) {
+      violated = true;
+      break;
+    }
+  }
+  if (violated) {
+    console.error(
+      "[wrapPageRange] 감쌀 범위가 시작 오프셋 내림차순이 아닙니다. 정렬해서 진행합니다.",
+      list.map((r) => r.startOffset)
+    );
+    return [...list].sort((a, b) => Number(b.startOffset) - Number(a.startOffset));
+  }
+  return list;
 }
 
 function unwrapMark(mark) {
@@ -1033,7 +1089,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -1049,8 +1105,6 @@ if (typeof document !== "undefined") {
     let pdfTextContentCache = new Map(); // page number -> pdf.js TextContent, reused across zoom re-renders
     let pdfSearchMatches = []; // [{mark}] in document order, rebuilt per search
     let pdfSearchIndex = -1;
-    const PDF_MIN_SCALE = 0.5;
-    const PDF_MAX_SCALE = 3;
     let annotationsCache = [];
     let pendingSelection = null;
     let activeMemo = null; // { record, marks }
@@ -1105,7 +1159,7 @@ if (typeof document !== "undefined") {
       clearTimeout(pdfNoticeTimer);
       pdfNoticeTimer = setTimeout(() => {
         if (el.textContent === message) el.hidden = true;
-      }, holdMs || 8000);
+      }, holdMs || PDF_NOTICE_HOLD_MS);
     }
     const editTextBtn = document.getElementById("edit-text-btn");
     const filterInput = document.getElementById("term-filter");
@@ -1367,7 +1421,7 @@ if (typeof document !== "undefined") {
         }
         mark.scrollIntoView({ behavior: "smooth", block: "center" });
         mark.classList.add("mark-flash");
-        setTimeout(() => mark.classList.remove("mark-flash"), 1200);
+        setTimeout(() => mark.classList.remove("mark-flash"), MARK_FLASH_MS);
       });
     }
 
@@ -1399,7 +1453,9 @@ if (typeof document !== "undefined") {
         const map = buildTextNodeOffsetMap(body).map;
         // 겹친 것끼리 먼저 합친다 — 겹친 채로 각각 감싸면 두 번째가 예외를 던지고,
         // 예전에는 그 예외가 loadAndRenderAnnotations 까지 올라가 문서가 안 열렸다.
-        const groups = mergeOverlappingRanges(records).sort((a, b) => b.startOffset - a.startOffset);
+        const groups = orderRangesForWrapping(
+          mergeOverlappingRanges(records).sort((a, b) => b.startOffset - a.startOffset)
+        );
         for (const group of groups) {
           // 대표는 가장 나중에 만든 것(= 사용자가 마지막으로 고른 색).
           const rep = group.records[group.records.length - 1];
@@ -1626,53 +1682,6 @@ if (typeof document !== "undefined") {
       return cachedTerms;
     }
 
-    // Fuse 인덱스는 fuzzy 패스(runFuzzyPass)에서만 쓰는데 그 패스는 현재
-    // 꺼져 있다. 7만여 항목짜리 인덱스를 첫 "용어 찾기" 때마다 눈에 띄게
-    // 시간을 들여 만들 이유가 없으므로, 실제로 fuzzy 검색을 부를 때만 만든다.
-    function getViewerFuse() {
-      if (viewerFuse) return viewerFuse;
-      const searchData = cachedTerms.flatMap(term => {
-        const arr = [];
-
-        if (term.title_ko) {
-            arr.push({
-                slug: term.slug,
-                keyword: term.title_ko,
-                keywordNormalized: term.title_ko.replace(/\s+/g, ""),
-                lang: "ko",
-                term
-            });
-        }
-
-        if (term.title_en) {
-            arr.push({
-                slug: term.slug,
-                keyword: term.title_en,
-                keywordNormalized: term.title_en
-                    .toLowerCase()
-                    .replace(/[-_\s]/g, ""),
-                lang: "en",
-                term
-            });
-        }
-        return arr;
-    });
-
-    viewerFuse = new Fuse(searchData, {
-        includeScore: true,
-        shouldSort: true,
-        ignoreLocation: true,
-        threshold: 0.28,
-        minMatchCharLength: 2,
-        keys: [
-            { name: "keyword", weight: 0.7 },
-            { name: "keywordNormalized", weight: 1.0 }
-        ]
-      });
-
-      return viewerFuse;
-    }
-
     // definition은 결과 카드에만 쓰이므로, 찾은 용어가 속한 청크만 받아 온다.
     // 청크는 한 번 받으면 세션 내내 재사용한다(같은 논문을 다시 분석하거나
     // 필터를 만질 때 다시 받지 않도록).
@@ -1718,108 +1727,6 @@ if (typeof document !== "undefined") {
         match.definition = definitionCache.get(match.slug) || "";
       }
     }
-
-    // Each Fuse fuzzy search scans the whole ~13,000-entry index, and it's
-    // measurably slow (tens of ms) even off the main thread's blocking path —
-    // so this cap bounds total wall-clock time, not just avoids freezing.
-    // A real paper's non-term words (stopwords, author names, etc.) vastly
-    // outnumber genuine near-miss typos of a term title, so a modest cap
-    // still catches the useful cases without dragging the analysis out.
-    const FUZZY_WORD_CAP = 800;
-    const FUZZY_CHUNK_SIZE = 20; // words per chunk between UI-yielding pauses
-    // A short word has very little room for a genuine 1-character typo before
-    // it edit-distance-matches a completely different, unrelated term, so
-    // 4-character words were a steady source of noisy fuzzy hits; 5 keeps
-    // the near-miss safety net without that blast radius.
-    const FUZZY_MIN_WORD_LENGTH = 5;
-    const FUZZY_SCORE_THRESHOLD = 0.2; // tighter than Fuse's own 0.28 config threshold below
-
-    // Fuse's threshold is a *ratio* of edit distance to string length, so for
-    // short strings a "0.28" match can still be a completely different word
-    // that happens to share a couple of characters (e.g. "속도와" fuzzy-hit
-    // "속도와가속도"/Velocity and Acceleration, which never appeared in the
-    // text). Requiring the matched keyword's length to be reasonably close to
-    // the query word's length rejects these compound-term false positives
-    // without needing a stricter (and more typo-intolerant) global threshold.
-    //
-    // A diff of 2 still let a whole extra Korean morpheme (2 syllables) get
-    // tacked onto an otherwise-unrelated compound and count as a "near miss"
-    // — e.g. "빈도분석" (frequency analysis, a generic stats term used in
-    // almost every paper) fuzzy-matching "체장빈도분석" (a fisheries-specific
-    // "length-frequency analysis" term), which never appeared in the text.
-    // Real typos/spacing variants differ by 0–1 characters; anything wider is
-    // a different compound term, not a near-miss of the one in the text.
-    const FUZZY_MAX_LENGTH_DIFF = 1;
-
-    function yieldToUi() {
-      return new Promise((resolve) => setTimeout(resolve, 0));
-    }
-
-    // Runs Fuse fuzzy search only over words the exact pass didn't already
-    // resolve, in small chunks with yields in between so the tab stays
-    // responsive even on a large paper with thousands of unique words.
-    async function runFuzzyPass(text, exactMatches) {
-      const alreadyMatchedSlugs = new Set(exactMatches.map((m) => m.slug));
-      const candidateEntries = [...wordOccurrences(text)].filter(
-        ([word]) =>
-          normalizeWord(word).length >= FUZZY_MIN_WORD_LENGTH &&
-          findExactMatches(word, exactIndex).length === 0
-      );
-
-      const resultsMap = new Map();
-      let processed = 0;
-
-      for (const [word, starts] of candidateEntries.slice(0, FUZZY_WORD_CAP)) {
-        // A trailing particle left on the word (e.g. "빈도분석과") inflates
-        // its length just enough to slip inside FUZZY_MAX_LENGTH_DIFF of an
-        // unrelated, longer compound term. Use only the most particle-stripped
-        // form (the last one candidateNormalizedForms yields) as the word's
-        // canonical root — trying the raw form *as well* just doubles the
-        // false-positive surface, since the raw form's extra particle
-        // character(s) are exactly what let it drift into range of an
-        // unrelated compound.
-        const forms = [...candidateNormalizedForms(word)];
-        const { form: normalized } = forms[forms.length - 1];
-        const fuseResults = getViewerFuse().search(normalized, { limit: 3 });
-
-        for (const r of fuseResults) {
-          if (r.score > FUZZY_SCORE_THRESHOLD) continue;
-          const keywordLength = (r.item.keywordNormalized || r.item.keyword || "").length;
-          if (Math.abs(keywordLength - normalized.length) > FUZZY_MAX_LENGTH_DIFF) continue;
-          recordMatch(resultsMap, r.item.term, starts, word.length, r.score);
-        }
-
-        processed++;
-        if (processed % FUZZY_CHUNK_SIZE === 0) await yieldToUi();
-      }
-
-      // Drop anything the exact pass already found under a different word —
-      // that count/position is already reflected in exactMatches.
-      for (const slug of alreadyMatchedSlugs) resultsMap.delete(slug);
-
-      return sortMatches(resultsMap);
-    }
-
-    function mergeMatches(exactMatches, fuzzyMatches) {
-      const bySlug = new Map(exactMatches.map((m) => [m.slug, { ...m }]));
-      for (const m of fuzzyMatches) {
-        if (!bySlug.has(m.slug)) {
-          bySlug.set(m.slug, { ...m });
-          continue;
-        }
-        const existing = bySlug.get(m.slug);
-        existing.count += m.count;
-        existing.occurrences = [...(existing.occurrences || []), ...(m.occurrences || [])].sort(
-          (a, b) => a.start - b.start
-        );
-        if (existing.occurrences.length) {
-          existing.firstStart = existing.occurrences[0].start;
-          existing.firstLength = existing.occurrences[0].length;
-        }
-      }
-      return sortMatches(bySlug);
-    }
-
     // Writes the highlighted reading view into its own container and hides the
     // textarea behind it.
     //
@@ -1989,7 +1896,7 @@ if (typeof document !== "undefined") {
           }
           if (best && best !== readingCurrentPage) renderCurrentPageTerms(best);
         },
-        { root: renderedPane, threshold: [0, 0.05, 0.25, 0.5, 0.9] }
+        { root: renderedPane, threshold: PAGE_OBSERVER_THRESHOLDS }
       );
       for (const section of sections) readingPageObserver.observe(section);
       renderCurrentPageTerms(1);
@@ -2041,7 +1948,6 @@ if (typeof document !== "undefined") {
     // the first page of cards renders up front, with a "더 보기" button
     // (matching the same pattern the term-list pages already use) to reveal
     // the rest a page at a time.
-    const TERM_CARD_PAGE_SIZE = 8;
 
     const unitHTML = (unit) => termCardHTML(unit.match, unit.basics);
 
@@ -2234,28 +2140,22 @@ if (typeof document !== "undefined") {
 
     function scrollToMark(slug) {
       const mark =
-        document.querySelector(`.viewer-rendered [data-slug="${slug}"], #pdf-viewer .dict-mark[data-slug="${slug}"]`) ||
-        document.querySelector(`.viewer-rendered [data-covers~="${slug}"], #pdf-viewer .dict-mark[data-covers~="${slug}"]`);
+        document.querySelector(`.viewer-rendered [data-slug="${slug}"]`) ||
+        document.querySelector(`.viewer-rendered [data-covers~="${slug}"]`);
       if (!mark) return;
       mark.scrollIntoView({ behavior: "smooth", block: "center" });
       mark.classList.add("mark-flash");
-      setTimeout(() => mark.classList.remove("mark-flash"), 1200);
+      setTimeout(() => mark.classList.remove("mark-flash"), MARK_FLASH_MS);
     }
 
-    // Automatic inline highlighting (both in the PDF text layer and the
-    // plain-text rendered pane) was removed: pdf.js text extraction is
-    // reliable enough for the "찾은 용어" sidebar list (which only needs to
-    // know a term is present, not exactly where), but not reliable enough to
-    // promise every highlighted span lands on the right stretch of text —
-    // real documents kept surfacing new position/word-boundary edge cases
-    // after several rounds of fixes. Hiding a term now only needs to update
-    // the sidebar list; there's no inline mark to unwrap anywhere anymore.
+    // 본문 표시는 #viewer-rendered(텍스트 모드·PDF 읽기 모드) 안에만 있다.
+    // PDF 텍스트 레이어에는 2단계 결정대로 아무 표시도 얹지 않으므로
+    // 거기서 걷어낼 mark 도 없다.
     function hideTermEverywhere(slug) {
       hiddenSlugs.add(slug);
-      // 점선 밑줄이 다시 생겼으므로, 숨긴 용어는 본문 표시도 함께 걷어낸다.
       closeTermPopover();
       document
-        .querySelectorAll(`.viewer-rendered mark.dict-mark[data-slug="${slug}"], #pdf-viewer mark.dict-mark[data-slug="${slug}"]`)
+        .querySelectorAll(`.viewer-rendered mark.dict-mark[data-slug="${slug}"]`)
         .forEach(unwrapMark);
       saveHiddenSlugs(hiddenSlugs);
       renderMatchedTerms(currentMatches, filterInput.value);
@@ -2316,17 +2216,11 @@ if (typeof document !== "undefined") {
         await attachDefinitions(currentMatches);
         renderMatchedTerms(currentMatches, filterInput.value);
 
-        // The fuzzy (typo-tolerant) pass that used to run here has been
-        // disabled: for a dictionary this dense (38k+ short Korean compound
-        // terms that commonly share a 1-character-different suffix/prefix,
-        // e.g. "빈도분석"/"잔차분석"/"입도분석기"), no length-diff or score
-        // threshold tuning kept finding a new false-positive shape — three
-        // rounds of tightening each surfaced a different unrelated term
-        // getting highlighted. Exact + particle-stripped matching only
-        // (matchTerms above) is what keeps highlights trustworthy; see
-        // runFuzzyPass/mergeMatches below, kept but unused in case a safer
-        // approach (e.g. requiring shared word-initial characters, not just
-        // bounded edit distance) is worth revisiting later.
+        // fuzzy(오타 허용) 패스는 6단계에서 코드째 삭제했다. 이 사전처럼
+        // 짧은 한국어 복합어가 3.8만 개 있으면 한 글자 차이가 곧 다른 용어라
+        // ("빈도분석"/"잔차분석"/"입도분석기"), 길이차·점수 임계값을 세 번
+        // 조여도 매번 새로운 오탐이 나왔다. 계획 4절대로 말뭉치 오탐 ≤ 5%를
+        // 먼저 달성한 뒤에만 다시 검토한다(그때는 Fuse 도입부터 다시).
         logPaperHistory(text);
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
@@ -2381,7 +2275,6 @@ if (typeof document !== "undefined") {
 
     // 붙여넣기만 해도 결과가 뜨게 한다. 타이핑은 800ms 쉬었을 때만 —
     // 글자마다 3만7천 개 사전을 훑으면 입력이 버벅인다.
-    const AUTO_ANALYSIS_DEBOUNCE_MS = 800;
     let autoAnalysisTimer = null;
     function scheduleAutoAnalysis({ immediate = false } = {}) {
       clearTimeout(autoAnalysisTimer);
@@ -2601,14 +2494,14 @@ if (typeof document !== "undefined") {
         for (;;) {
           const idx = lowerText.indexOf(q, from);
           if (idx === -1) break;
-          ranges.push({ start: idx, end: idx + q.length });
+          ranges.push({ startOffset: idx, endOffset: idx + q.length });
           from = idx + q.length;
         }
         // Descending order: wrapping a range splits text nodes at/after it,
         // so later (higher-offset) ranges must be wrapped first.
         ranges.reverse();
-        for (const range of ranges) {
-          const marks = wrapPageRange(textLayerDiv, range.start, range.end, () => {
+        for (const range of orderRangesForWrapping(ranges)) {
+          const marks = wrapPageRange(textLayerDiv, range.startOffset, range.endOffset, () => {
             const mark = document.createElement("mark");
             mark.className = "search-mark";
             return mark;
@@ -2681,8 +2574,8 @@ if (typeof document !== "undefined") {
       // 좌우 padding 20px에 더해 세로 스크롤바 몫(17px)도 미리 뺀다. 첫 화면맞춤은
       // 페이지가 붙기 전에 계산되는데, 페이지가 붙으면서 세로 스크롤바가 생기면
       // 그만큼 폭이 줄어 가로 스크롤이 생겼다(여러 쪽짜리 PDF는 거의 항상 해당).
-      const availableWidth = viewerEl.clientWidth - 20 - 17;
-      if (!availableWidth || availableWidth <= 0) return 1.5;
+      const availableWidth = viewerEl.clientWidth - PDF_VIEWER_PADDING_PX - PDF_SCROLLBAR_WIDTH_PX;
+      if (!availableWidth || availableWidth <= 0) return PDF_FALLBACK_SCALE;
       const scale = availableWidth / baseViewport.width;
       return Math.max(PDF_MIN_SCALE, Math.min(PDF_MAX_SCALE, scale));
     }
@@ -2793,7 +2686,7 @@ if (typeof document !== "undefined") {
           }
           if (best) setCurrentPdfPage(best);
         },
-        { root: viewerEl, threshold: [0, 0.05, 0.25, 0.5, 0.9] }
+        { root: viewerEl, threshold: PAGE_OBSERVER_THRESHOLDS }
       );
       for (const wrap of pdfPageWraps) pdfPageObserver.observe(wrap);
     }
@@ -2869,8 +2762,8 @@ if (typeof document !== "undefined") {
       return computeFitPageScale(
         baseViewport.width,
         baseViewport.height,
-        viewerEl.clientWidth - 20,
-        viewerEl.clientHeight - 40, // 페이지 위아래 margin 20px씩
+        viewerEl.clientWidth - PDF_VIEWER_PADDING_PX,
+        viewerEl.clientHeight - PDF_PAGE_MARGIN_PX,
         PDF_MIN_SCALE,
         PDF_MAX_SCALE,
         pdfScale || 1
@@ -2968,7 +2861,9 @@ if (typeof document !== "undefined") {
 
         // 축척 1 기준의 페이지 폭을 넘겨 2단 조판이면 열 순서를 복원한다.
         // 화면 배율(pdfScale)이 아니라 원본 좌표계여야 item transform 과 단위가 맞는다.
-        const joined = joinTextItems(textContent.items, page.getViewport({ scale: 1 }).width);
+        // viewport.width 는 축척 1 폭 × pdfScale 이므로 나누면 원본 폭이 그대로
+        // 나온다. getViewport 를 한 번 더 부르지 않는다(페이지마다 드는 비용).
+        const joined = joinTextItems(textContent.items, viewport.width / pdfScale);
         pdfPageTexts.set(i, joined);
         pageTexts.push(joined);
 
