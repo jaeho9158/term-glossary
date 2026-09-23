@@ -72,40 +72,15 @@ function* candidateNormalizedForms(word) {
 // per-page pass) in one place.
 const PARTICLE_SET = new Set(KOREAN_PARTICLES);
 
-// Some dictionary entries use an everyday, high-frequency Korean word as
-// their title for one narrow specialized sense — e.g. "단가" (Danga, a
-// pansori prelude song) is also the ordinary business word for "unit price",
-// and "보존"/"등록"/"복원" (a museum-domain "conservation"/"registration"/
-// "restoration") are common general verbs. An exact match on these fires on
-// nearly every unrelated document that happens to use the everyday word,
-// with no way to tell from string matching alone which sense was meant.
-// Curated as we find them (see matching-quality reports) rather than derived
-// automatically — there's no Korean word-frequency corpus wired in here to
-// detect "this is an everyday word" computationally.
-const AMBIGUOUS_COMMON_WORD_TITLES = new Set([
-  "단가", "보존", "등록", "복원", "열화", "환수", "후원", "유증", "응답",
-  // Found via a follow-up audit (2026-08): each of these is a social-work/
-  // criminology/archaeology/forestry/music/translation term whose everyday
-  // sense (confirmed by testing an unrelated sample paragraph) is both far
-  // more common in ordinary academic writing and effectively unrelated to
-  // the dictionary's narrow sense — e.g. "강도" overwhelmingly means
-  // "intensity" (운동 강도), not "robbery"; "단계" means any generic "stage/
-  // step", not specifically an archaeological phase; "배경" in a paper
-  // almost always means "background" (연구 배경), not literary Setting.
-  "요약", "접수", "소진", "점검", "균형", "대처", "자문", "환기", "경계",
-  "직면", "강도", "배경", "시점", "단계", "갱신", "해결", "왜곡",
-  // Full-site audit (2026-08), all 103 categories, each confirmed against a
-  // realistic everyday-sense sentence via matchTerms. "감사" (Auditor) was
-  // considered and deliberately NOT added — unlike these, its "audit" sense
-  // is common enough in real business/administrative documents (the kind of
-  // text this feature is actually used on) that excluding it would lose more
-  // correct matches than it prevents wrong ones.
-  "요소", "사료", "타자", "전사", "번역", "실속", "교차", "직시", "철창", "불안",
-  "구분", "검증", "과실", "인수", "재발", "채권",
-  "가구", "대조", "도식", "동화", "조절", "의지", "보장", "안정제", "구축",
-  "산출", "성과", "적절성", "교란", "이력", "피로", "코어", "밀봉",
-  "완화", "대비", "대응", "신속성", "강건성", "알선", "링크", "렌치",
-]);
+// 일상어 오탐("강도"가 운동 강도가 아니라 강도죄로 잡히는 식)은 손으로
+// 관리하던 AMBIGUOUS_COMMON_WORD_TITLES 60여 개로 막고 있었다. 지금은
+// scripts/generate-viewer-index.js가 사전 데이터만으로 계산한 "일반어 등급"
+// (term.common, 0~3)이 그 자리를 대신한다.
+//  - 3: 인덱스에 아예 넣지 않는다(옛 블록리스트와 같은 효과).
+//  - 2: 잡되 패널에서 뒤로 민다(sortMatches).
+// 등급은 viewer-index.json 각 행의 5번째 칸으로 들어온다.
+const COMMON_GRADE_EXCLUDE = 3;
+const COMMON_GRADE_DEMOTE = 2;
 
 function isUnsafeIndexKey(key) {
   return key.length < 2 || PARTICLE_SET.has(key);
@@ -120,7 +95,7 @@ function buildExactIndex(terms) {
     if (!bucket.some((t) => t.slug === term.slug)) bucket.push(term);
   };
   for (const term of terms) {
-    if (term.title_ko && !AMBIGUOUS_COMMON_WORD_TITLES.has(term.title_ko)) {
+    if (term.title_ko && (term.common || 0) < COMMON_GRADE_EXCLUDE) {
       add(normalizeWord(term.title_ko), term);
     }
     if (term.title_en) add(normalizeWord(term.title_en), term);
@@ -141,6 +116,7 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
       title_en: term.title_en,
       definition: term.definition,
       categories: term.categories,
+      common: term.common || 0,
       count: 0,
       score,
       occurrences: [],
@@ -164,10 +140,117 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
 function sortMatches(resultsMap) {
   const results = [...resultsMap.values()];
   results.sort((a, b) => {
+    // 일반어 등급 2는 "틀렸다"가 아니라 "아마 이 논문의 주제어는 아니다"다.
+    // 그래서 숨기지 않고 뒤로만 민다.
+    const aDemoted = (a.common || 0) >= COMMON_GRADE_DEMOTE ? 1 : 0;
+    const bDemoted = (b.common || 0) >= COMMON_GRADE_DEMOTE ? 1 : 0;
+    if (aDemoted !== bDemoted) return aDemoted - bDemoted;
     if (a.score !== b.score) return a.score - b.score;
     return b.count - a.count;
   });
-  return results;
+  return orderNestedMatches(results);
+}
+
+// ---- 포함 관계(기초 용어) ---------------------------------------------
+// '전단응력'이 잡힌 문서에서 '응력'이 더 자주 나온다는 이유로 패널 맨 위에
+// 오면, 읽는 사람은 이 논문의 주제어를 거꾸로 보게 된다. 잡힌 용어끼리
+// 표제어가 포함 관계면 긴 쪽을 대표로 올리고 짧은 쪽을 그 바로 아래
+// "기초 용어"로 붙인다(숨기지 않는다).
+//
+// 본문 밑줄은 손대지 않아도 된다 — computeKeptSpans가 같은 자리에서 긴
+// 일치를 우선하고, 애초에 매칭이 토큰 단위라 '전단응력' 자리에서 '응력'이
+// 따로 잡히지 않는다. 그래서 짧은 용어의 count는 이미 단독 등장만 센다.
+function orderNestedMatches(matches) {
+  const list = (matches || []).map((m) => ({ ...m }));
+  const norm = (m) => normalizeWord(m.title_ko || "");
+
+  // 자기를 진부분문자열로 품는 것 중 가장 긴 용어가 대표. A ⊃ B ⊃ C 일 때
+  // C를 B가 아니라 A에 붙여 접기 단계가 두 겹이 되지 않게 한다.
+  const repOf = new Map();
+  list.forEach((short, i) => {
+    const shortKey = norm(short);
+    if (!shortKey) return;
+    let rep = null;
+    list.forEach((long, j) => {
+      if (i === j) return;
+      const longKey = norm(long);
+      if (longKey.length <= shortKey.length || !longKey.includes(shortKey)) return;
+      if (!rep || norm(rep).length < longKey.length) rep = long;
+    });
+    if (rep) repOf.set(short.slug, rep.slug);
+  });
+
+  const ordered = [];
+  const emitted = new Set();
+  for (const match of list) {
+    if (repOf.has(match.slug)) continue; // 대표 차례에 함께 나간다
+    // 기초 용어가 여럿이면 긴 것부터 — 대표에 가까운 순서가 읽기 편하다.
+    const basics = list
+      .filter((other) => repOf.get(other.slug) === match.slug)
+      .sort((a, b) => norm(b).length - norm(a).length);
+    if (basics.length) match.basics = basics.map((b) => b.slug);
+    ordered.push(match);
+    emitted.add(match.slug);
+    for (const basic of basics) {
+      basic.nestedUnder = match.slug;
+      ordered.push(basic);
+      emitted.add(basic.slug);
+    }
+  }
+  // 포함 관계는 길이 순서라 순환이 생기지 않지만, 방어적으로 빠진 항목은
+  // 원래 자리 순서대로 뒤에 붙인다.
+  for (const match of list) if (!emitted.has(match.slug)) ordered.push(match);
+  return ordered;
+}
+
+// ---- 문서 분야 추정 ---------------------------------------------------
+// 잡힌 용어들의 대표 분야(categories[0]) 분포로 이 문서의 분야를 고른다.
+// 철회된 시도(a4cdbf8d6)는 이걸로 다른 분야 용어를 "숨겨서" 문제였다.
+// 여기서는 순서만 바꾸고, 나머지는 접힌 그룹으로 그대로 보여 준다.
+const FIELD_MAX = 3;
+const FIELD_MIN_SHARE = 0.15; // 1위 대비 이 비율 미만이면 곁가지로 본다
+const FIELD_MIN_COUNT = 2; // 용어 하나짜리 분야는 "이 문서의 분야"가 아니다
+// 잡힌 용어가 적으면 분포 자체가 표본이 안 된다(9개가 7개 분야에 흩어지는
+// 식). 그럴 때 접으면 정작 주제어가 "다른 분야"로 밀려 내려간다 — 브라우저
+// 확인에서 실제로 그렇게 나왔다. 짧은 목록은 그냥 다 보여 주는 게 낫다.
+const FIELD_MIN_MATCHES = 10;
+// 고른 분야가 전체의 이만큼도 덮지 못하면 "이 문서의 분야"라 할 수 없다.
+const FIELD_MIN_COVERAGE = 0.4;
+
+function estimateDocumentFields(matches, max) {
+  const counts = new Map();
+  for (const match of matches || []) {
+    const primary = (match.categories || [])[0];
+    if (!primary) continue;
+    counts.set(primary, (counts.get(primary) || 0) + 1);
+  }
+  if (!counts.size) return [];
+  const total = (matches || []).length;
+  if (total < FIELD_MIN_MATCHES) return [];
+  const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const top = ranked[0][1];
+  const picked = ranked
+    .filter(([, n]) => n >= FIELD_MIN_COUNT && n / top >= FIELD_MIN_SHARE)
+    .slice(0, max || FIELD_MAX);
+  const covered = picked.reduce((n, [, c]) => n + c, 0);
+  if (!picked.length || covered / total < FIELD_MIN_COVERAGE) return [];
+  return picked.map(([code]) => code);
+}
+
+// 주 분야 용어를 앞으로, 나머지를 뒤로(순서는 원본 유지). 기초 용어는
+// 대표 용어를 따라간다 — 분야가 다르다고 떼어놓으면 접기가 깨진다.
+function groupMatchesByField(matches, fields) {
+  const list = matches || [];
+  const fieldSet = new Set(fields || []);
+  const isPrimary = (match) => !fieldSet.size || fieldSet.has((match.categories || [])[0]);
+  const bySlug = new Map(list.map((m) => [m.slug, m]));
+  const primary = [];
+  const others = [];
+  for (const match of list) {
+    const anchor = match.nestedUnder ? bySlug.get(match.nestedUnder) || match : match;
+    (isPrimary(anchor) ? primary : others).push(match);
+  }
+  return { primary, others };
 }
 
 // All exact-index hits for a single word: the word itself, or a
@@ -238,16 +321,24 @@ if (typeof module !== "undefined" && module.exports) {
   var escapeHtml = require("./escape.js").escapeHtml;
 }
 
-function termCardHTML(match) {
+// basics는 이 용어 안에 포함된 짧은 용어들(예: '전단응력' 카드 아래의 '응력').
+// 지우지 않고 접어 둔다 — 기초 용어를 모르는 사람에게는 그게 답일 수 있다.
+function termCardHTML(match, basics) {
   const enPart = match.title_en ? ` <span class="term-en">(${escapeHtml(match.title_en)})</span>` : "";
   const definitionPart = match.definition
     ? `<p class="term-card-definition">${escapeHtml(match.definition)}</p>`
+    : "";
+  const basicList = (basics || []).filter(Boolean);
+  const basicsPart = basicList.length
+    ? `<details class="term-card-basics"><summary>기초 용어 ${basicList.length}개</summary>` +
+      `<ul class="term-card-basics-list">${basicList.map((b) => termCardHTML(b)).join("")}</ul></details>`
     : "";
   return `<li class="term-card" data-slug="${match.slug}">
         <button type="button" class="term-card-hide-btn" data-hide-slug="${match.slug}" title="이 용어 숨기기" aria-label="이 용어 숨기기">✕</button>
         <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
         ${definitionPart}
         <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기 →</a>
+        ${basicsPart}
       </li>`;
 }
 
@@ -333,15 +424,34 @@ function buildHighlightedHtml(text, matches) {
 
   let html = "";
   let cursor = 0;
+  // 같은 용어가 한 문서에 열 번 나오면 밑줄 열 개가 똑같이 진하게 깔려
+  // 읽기를 방해한다. 첫 등장만 그대로 두고 이후는 얇게(dict-mark--again).
+  const seen = new Set();
   for (const span of kept) {
     html += escapeHtml(text.slice(cursor, span.firstStart));
     const matchedText = text.slice(span.firstStart, span.firstStart + span.firstLength);
-    html += `<mark class="dict-mark" data-slug="${span.slug}" data-covers="${span.covered.join(" ")}">${escapeHtml(matchedText)}</mark>`;
+    const again = seen.has(span.slug) ? " dict-mark--again" : "";
+    seen.add(span.slug);
+    html += `<mark class="dict-mark${again}" data-slug="${span.slug}" data-covers="${span.covered.join(" ")}">${escapeHtml(matchedText)}</mark>`;
     cursor = span.firstStart + span.firstLength;
   }
   html += escapeHtml(text.slice(cursor));
 
   return html;
+}
+
+// 포함 관계(orderNestedMatches)로 붙은 기초 용어를 대표 카드에 묶어 준다.
+// 필터·숨기기로 대표가 빠진 기초 용어는 혼자 남으므로 단독 카드로 돌린다.
+function buildCardUnits(matches) {
+  const list = matches || [];
+  const bySlug = new Map(list.map((m) => [m.slug, m]));
+  const units = [];
+  for (const match of list) {
+    if (match.nestedUnder && bySlug.has(match.nestedUnder)) continue;
+    const basics = (match.basics || []).map((slug) => bySlug.get(slug)).filter(Boolean);
+    units.push({ match, basics });
+  }
+  return units;
 }
 
 // Reconstructs a page’s plain text from pdf.js getTextContent() items,
@@ -628,11 +738,14 @@ async function computeDocHash(file, arrayBuffer) {
 // 매칭된 용어 것만 viewer-defs/ 청크에서 나중에 채운다.
 function decodeViewerIndex(data) {
   const categories = data.categories || [];
-  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx]) => ({
+  // 5번째 칸(일반어 등급)은 0일 때 생략돼 있다 — 4칸짜리 옛 인덱스도
+  // 그대로 읽히도록 없으면 0으로 본다.
+  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common]) => ({
     slug,
     title_ko: titleKo || "",
     title_en: titleEn || "",
     categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
+    common: common || 0,
   }));
 }
 
@@ -761,7 +874,7 @@ function clampPdfPageNumber(value, totalPages) {
   return Math.max(1, Math.min(total, n));
 }
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -1452,6 +1565,20 @@ if (typeof document !== "undefined") {
     // the rest a page at a time.
     const TERM_CARD_PAGE_SIZE = 8;
 
+    const unitHTML = (unit) => termCardHTML(unit.match, unit.basics);
+
+    // 다른 분야 용어는 숨기지 않고 접어서 맨 아래에 둔다. 분야 추정이
+    // 틀렸을 때 사용자가 잃는 게 "한 번 펼치기"뿐이어야 한다(철회된
+    // a4cdbf8d6은 아예 숨겨서 되돌려졌다).
+    function otherFieldsHTML(units) {
+      if (!units.length) return "";
+      const count = units.reduce((n, u) => n + 1 + u.basics.length, 0);
+      return `<li class="term-others"><details class="term-others-details">` +
+        `<summary>다른 분야 (${count})</summary>` +
+        `<ul class="term-others-list">${units.map(unitHTML).join("")}</ul>` +
+        `</details></li>`;
+    }
+
     function renderTermCardsPaged(filtered) {
       const existingMoreBtn = document.getElementById("term-card-more-btn");
       if (existingMoreBtn) existingMoreBtn.remove();
@@ -1461,16 +1588,27 @@ if (typeof document !== "undefined") {
         return;
       }
 
-      termsList.innerHTML = filtered.slice(0, TERM_CARD_PAGE_SIZE).map(termCardHTML).join("");
+      // 이 문서의 분야를 잡힌 용어 분포로 추정해 그 분야를 위로 올린다.
+      const fields = estimateDocumentFields(filtered);
+      const grouped = groupMatchesByField(filtered, fields);
+      const primaryUnits = buildCardUnits(grouped.primary);
+      const othersHTML = otherFieldsHTML(buildCardUnits(grouped.others));
 
-      if (filtered.length > TERM_CARD_PAGE_SIZE) {
+      // 페이징은 대표 카드 수로 센다(기초 용어는 대표 카드 안에 접혀 있다).
+      termsList.innerHTML = primaryUnits.slice(0, TERM_CARD_PAGE_SIZE).map(unitHTML).join("") +
+        (primaryUnits.length > TERM_CARD_PAGE_SIZE ? "" : othersHTML);
+
+      if (primaryUnits.length > TERM_CARD_PAGE_SIZE) {
         const moreBtn = document.createElement("button");
         moreBtn.type = "button";
         moreBtn.id = "term-card-more-btn";
         moreBtn.className = "term-list-more-btn";
-        moreBtn.textContent = `${filtered.length - TERM_CARD_PAGE_SIZE}개 더 보기`;
+        moreBtn.textContent = `${primaryUnits.length - TERM_CARD_PAGE_SIZE}개 더 보기`;
         moreBtn.addEventListener("click", () => {
-          termsList.insertAdjacentHTML("beforeend", filtered.slice(TERM_CARD_PAGE_SIZE).map(termCardHTML).join(""));
+          termsList.insertAdjacentHTML(
+            "beforeend",
+            primaryUnits.slice(TERM_CARD_PAGE_SIZE).map(unitHTML).join("") + othersHTML
+          );
           moreBtn.remove();
         });
         termsList.insertAdjacentElement("afterend", moreBtn);

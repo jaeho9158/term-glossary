@@ -18,6 +18,7 @@ const gen = require("../scripts/generate-viewer-index.js");
     title_ko: "유의확률",
     title_en: "P-Value",
     categories: ["stat"],
+    common: 0,
   });
   assert.deepStrictEqual(terms[1].categories, ["stat", "psych"]);
 
@@ -30,7 +31,12 @@ const gen = require("../scripts/generate-viewer-index.js");
 // 경계: 빈 제목·빈 카테고리·빈 데이터에서도 터지지 않는다
 {
   const terms = decodeViewerIndex({ v: 1, categories: [], terms: [["x", "", "", []]] });
-  assert.deepStrictEqual(terms[0], { slug: "x", title_ko: "", title_en: "", categories: [] });
+  assert.deepStrictEqual(terms[0], { slug: "x", title_ko: "", title_en: "", categories: [], common: 0 });
+
+  // 5번째 칸(일반어 등급)이 있으면 읽고, 없으면 0 — 4칸짜리 옛 인덱스 호환
+  const graded = decodeViewerIndex({ v: 1, categories: [], terms: [["y", "단계", "", [], 3]] });
+  assert.strictEqual(graded[0].common, 3);
+  assert.ok(!buildExactIndex(graded).has("단계"), "등급 3은 매칭 인덱스에서 빠진다");
   assert.deepStrictEqual(decodeViewerIndex({}), []);
 }
 

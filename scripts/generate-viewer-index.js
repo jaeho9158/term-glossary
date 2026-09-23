@@ -38,6 +38,138 @@ function defBucket(slug) {
   return h % DEF_BUCKETS;
 }
 
+// ---- 일반어 등급 (0~3) -------------------------------------------------
+// 뷰어는 "강도"(운동 강도) 같은 일상어가 사전의 좁은 뜻(강도죄)으로 잡히는
+// 오탐을 손으로 만든 60여 개 블록리스트로 막고 있었다. 사람이 계속 늘려야
+// 하고 근거도 남지 않으므로, 리포 안 데이터만으로 등급을 계산해 대체한다.
+// 외부 빈도 목록은 쓰지 않는다(라이선스·오프라인 빌드).
+//
+// 신호 셋(계획 3단계 1번):
+//  (a) df      — 그 표제어가 "다른" 항목 몇 개의 본문(definition/why/deeper)에
+//                일반 명사로 등장하는가. 정의문 4만 편은 학술 산문 말뭉치다.
+//  (b) fields  — 그 등장이 몇 개 분야(categories[0])에 걸치는가. 일상어는
+//                분야를 가리지 않고 나오고, 전문용어는 제 분야에 몰린다.
+//  (c) compounds — 다른 표제어의 접두/접미로 몇 번 쓰이는가("분석", "관리").
+//  (d) length  — 2음절 한글은 가산, 4음절 이상은 감산(긴 말은 일상어가 드물다).
+const KOREAN_PARTICLES = [
+  "에서", "으로", "부터", "까지", "이나", "이랑",
+  "은", "는", "이", "가", "을", "를", "의", "에", "로", "와", "과", "도", "만", "나", "랑",
+];
+
+// 인덱스에 들어가는 한글 표제어만 대상(한 글자짜리는 매칭 단계에서 이미 버린다).
+function isGradableTitle(title) {
+  return !!title && /[가-힣]/.test(title) && [...title].length >= 2;
+}
+
+function commonWordSignals(terms) {
+  const signals = new Map();
+  const titles = new Set();
+  for (const t of terms) {
+    if (isGradableTitle(t.title_ko)) titles.add(t.title_ko);
+  }
+
+  const df = new Map();
+  const fields = new Map();
+  for (const t of terms) {
+    const body = [t.definition, t.why, t.deeper].filter(Boolean).join(" ");
+    if (!body) continue;
+    const field = (t.categories || [])[0] || "";
+    // 한 항목 안에서 몇 번 나오든 문서빈도는 1 — 한 항목이 유난히 길다고
+    // 그 항목의 단어가 일반어가 되는 건 아니다.
+    const tokens = new Set();
+    for (const word of body.match(/[가-힣]+/g) || []) {
+      tokens.add(word);
+      for (const particle of KOREAN_PARTICLES) {
+        if (word.endsWith(particle) && word.length > particle.length) {
+          tokens.add(word.slice(0, -particle.length));
+        }
+      }
+    }
+    for (const token of tokens) {
+      if (!titles.has(token) || token === t.title_ko) continue;
+      df.set(token, (df.get(token) || 0) + 1);
+      if (field) {
+        let set = fields.get(token);
+        if (!set) fields.set(token, (set = new Set()));
+        set.add(field);
+      }
+    }
+  }
+
+  // 복합어 구성요소: 다른 표제어의 앞/뒤 2~4글자가 이 표제어와 같은 경우.
+  // 형태소 분석 없이 문자열만 보지만, 한국어 학술 복합어는 대개 이 자리에
+  // 붙는다("분산분석", "품질관리", "정책효과").
+  const compounds = new Map();
+  for (const title of titles) {
+    const chars = [...title];
+    for (let len = 2; len <= 4; len++) {
+      if (chars.length <= len) continue;
+      const prefix = chars.slice(0, len).join("");
+      const suffix = chars.slice(-len).join("");
+      if (titles.has(prefix)) compounds.set(prefix, (compounds.get(prefix) || 0) + 1);
+      if (titles.has(suffix) && suffix !== prefix) compounds.set(suffix, (compounds.get(suffix) || 0) + 1);
+    }
+  }
+
+  for (const title of titles) {
+    signals.set(title, {
+      df: df.get(title) || 0,
+      fields: (fields.get(title) || new Set()).size,
+      compounds: compounds.get(title) || 0,
+      length: [...title].length,
+    });
+  }
+  return signals;
+}
+
+// 임계값은 현 사전(41,227항목)의 실제 분포로 맞췄다. 기준점은 둘이다.
+//  - 옛 블록리스트에서 신호가 강한 것들(단계·시점·요소·강도·대응·구분·
+//    배경·검증)이 3이 될 것.
+//  - 의도적으로 남긴 "감사"와 핵심 전문용어(분산·가설·신뢰도·응력)는
+//    3이 되지 않을 것. 3은 인덱스에서 아예 빠지므로 미탐이 곧 손실이다.
+function commonGrade(signals) {
+  const { df = 0, fields = 0, compounds = 0, length = 0 } = signals || {};
+  let points = 0;
+  points += df >= 600 ? 2 : df >= 250 ? 1 : 0;
+  points += fields >= 70 ? 2 : fields >= 45 ? 1 : 0;
+  points += compounds >= 50 ? 1 : 0;
+  points += length === 2 ? 1 : length >= 4 ? -1 : 0;
+  if (points >= 5) return 3;
+  if (points === 4) return 2;
+  if (points >= 2) return 1;
+  return 0;
+}
+
+// 신호로는 닿지 않는 잔여분. 옛 assets/viewer.js의
+// AMBIGUOUS_COMMON_WORD_TITLES를 그대로 옮겨 온 것으로, 다섯 차례 수동
+// 감사로 확인된 "사전의 뜻은 좁은데 일상어 뜻이 압도적인" 표제어들이다.
+// 위 신호(df·분야·복합어)는 빈도가 높은 것만 잡아내므로, "직시"(df 1)나
+// "렌치"(df 3)처럼 사전 안에서 드문 말은 계산으로 절대 걸러지지 않는다.
+// 이걸 빼면 이미 고쳤던 오탐이 되살아나므로, 런타임 상수 대신 빌드 데이터로
+// 남긴다 — 런타임(assets/viewer.js)에는 더 이상 블록리스트가 없다.
+// "감사"는 옛 목록에서도 의도적으로 제외했다(감사 보고서류에서 실제로 쓰임).
+const CURATED_COMMON_WORDS = [
+  "단가", "보존", "등록", "복원", "열화", "환수", "후원", "유증", "응답",
+  "요약", "접수", "소진", "점검", "균형", "대처", "자문", "환기", "경계",
+  "직면", "강도", "배경", "시점", "단계", "갱신", "해결", "왜곡",
+  "요소", "사료", "타자", "전사", "번역", "실속", "교차", "직시", "철창", "불안",
+  "구분", "검증", "과실", "인수", "재발", "채권",
+  "가구", "대조", "도식", "동화", "조절", "의지", "보장", "안정제", "구축",
+  "산출", "성과", "적절성", "교란", "이력", "피로", "코어", "밀봉",
+  "완화", "대비", "대응", "신속성", "강건성", "알선", "링크", "렌치",
+];
+
+function computeCommonGrades(terms) {
+  const grades = new Map();
+  for (const [title, signals] of commonWordSignals(terms)) {
+    grades.set(title, commonGrade(signals));
+  }
+  for (const word of CURATED_COMMON_WORDS) {
+    if (grades.has(word)) grades.set(word, 3);
+  }
+  return grades;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
 
@@ -51,12 +183,16 @@ function run() {
     return categoryIndex.get(code);
   };
 
-  const rows = terms.map((t) => [
-    t.slug,
-    t.title_ko || "",
-    t.title_en || "",
-    (t.categories || []).map(codeOf),
-  ]);
+  // 5번째 칸이 일반어 등급. 0은 대다수라 넣어 봐야 용량만 늘기 때문에
+  // 생략하고, 디코더(decodeViewerIndex)가 없으면 0으로 읽는다 — 덕분에
+  // 4칸짜리 옛 인덱스도 그대로 읽힌다.
+  const grades = computeCommonGrades(terms);
+  const rows = terms.map((t) => {
+    const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
+    const grade = grades.get(t.title_ko) || 0;
+    if (grade) row.push(grade);
+    return row;
+  });
 
   fs.writeFileSync(
     OUTPUT,
@@ -96,4 +232,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS };
+module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades };

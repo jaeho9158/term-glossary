@@ -19,11 +19,21 @@ const mk = (slug, ko, en) => ({ slug, title_ko: ko, title_en: en });
   assert.ok(!map.has("로"), "1글자 한글 제목은 인덱스 제외");
 }
 
-// 경계: 모호한 일반어 목록(예: "코어")은 한글 키에서 제외되지만 영문 키는 유지
+// 경계: 일반어 등급 3인 표제어는 한글 키에서 제외되지만 영문 키는 유지.
+// (옛 AMBIGUOUS_COMMON_WORD_TITLES 상수를 대신하는 빌드 시 계산값)
 {
-  const map = buildExactIndex([mk("core", "코어", "Core")]);
-  assert.ok(!map.has("코어"), "AMBIGUOUS_COMMON_WORD_TITLES 제외");
+  const term = mk("core", "코어", "Core");
+  term.common = 3;
+  const map = buildExactIndex([term]);
+  assert.ok(!map.has("코어"), "일반어 등급 3은 인덱스 제외");
   assert.ok(map.has("core"), "영문 제목은 그대로 인덱싱");
+}
+
+// 경계: 등급 2 이하는 그대로 인덱싱된다(뒤로 밀 뿐 빼지 않는다)
+{
+  const term = mk("density", "밀도", "Density");
+  term.common = 2;
+  assert.ok(buildExactIndex([term]).has("밀도"), "등급 2는 인덱스에 남는다");
 }
 
 // 경계: 같은 키에 같은 slug가 두 번 들어가지 않는다 (중복 방지)

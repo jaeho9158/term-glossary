@@ -80,12 +80,15 @@ const terms = [
   assert.strictEqual(result.length, 0, "'불성실' must not prefix-match the unrelated term '불성'");
 }
 
-// Test 8: a curated ambiguous-common-word title (e.g. "단가", the everyday
+// Test 8: 일반어 등급 3인 표제어(예: "단가")는 일상어 뜻으로 쓰인 본문에서
+// 잡히지 않는다. 등급은 빌드 시 scripts/generate-viewer-index.js가 계산해
+// viewer-index.json에 넣고, 여기서는 그 값을 직접 준다.
+// (옛 주석) a curated ambiguous-common-word title (e.g. "단가", the everyday
 // business word for "unit price", also used as the title of a niche pansori
 // music term) must not exact-match its everyday sense in unrelated text.
 {
   const termsWithAmbiguous = [
-    { slug: "danga-pansori", title_ko: "단가", title_en: "Danga (Pansori Prelude Song)", categories: ["lit"] },
+    { slug: "danga-pansori", title_ko: "단가", title_en: "Danga (Pansori Prelude Song)", categories: ["lit"], common: 3 },
     { slug: "correlation", title_ko: "상관관계", title_en: "Correlation", categories: ["stat"] },
   ];
   const text = "항목별 단가는 다음과 같으며, 상관관계 분석 결과도 함께 제시한다.";
@@ -114,6 +117,7 @@ const terms = [
     title_ko,
     title_en: slug,
     categories: ["x"],
+    common: 3,
   }));
   const text = "운동 강도를 3단계로 나누었고, 연구 배경과 측정 시점을 명시하였으며, 계약을 갱신하고 문제를 해결하였으나 정보 왜곡은 없었다.";
   const result = matchTerms(text, dummyTerms);
@@ -136,6 +140,7 @@ const terms = [
     title_ko,
     title_en: slug,
     categories: ["x"],
+    common: 3,
   }));
   const text = "강아지 사료를 샀고, 회사채 채권을 발행했으며, 아이는 동화를 좋아하고, 검색 이력을 분석했고, 아래 링크를 클릭했다.";
   const result = matchTerms(text, dummyTerms);

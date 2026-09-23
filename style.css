@@ -1017,6 +1017,47 @@ main.wide {
   background: var(--accent-soft);
 }
 
+/* 같은 용어의 두 번째 이후 등장. 첫 등장에서 이미 "여기 사전에 있다"를
+   알렸으므로 더 옅게 — 열 번 나오는 말이 열 번 다 눈에 걸리면 읽기가 끊긴다.
+   누르면 똑같이 뜻이 뜬다(클릭 대상은 그대로). */
+.viewer-rendered mark.dict-mark--again {
+  text-decoration-color: var(--border);
+  opacity: 0.75;
+}
+
+/* 포함 관계로 접힌 기초 용어(예: '전단응력' 카드 아래의 '응력') */
+.term-card-basics {
+  margin-top: 8px;
+}
+.term-card-basics > summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.term-card-basics-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0 0 0 10px;
+  border-left: 2px solid var(--border);
+}
+
+/* 문서 분야 추정에서 벗어난 용어들. 숨기지 않고 접어만 둔다. */
+.term-others {
+  list-style: none;
+  margin-top: 10px;
+}
+.term-others-details > summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 6px 0;
+}
+.term-others-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
 /* 본문 mark를 눌렀을 때 그 자리에 뜨는 뜻 풀이. 위치는 JS가 잡아 준다. */
 .dict-popover {
   position: fixed;
