@@ -46,10 +46,10 @@ test("parseTextRecord: savedAt 이 없거나 숫자가 아니면 null 로 정규
   assert.strictEqual(rec.savedAt, null);
 });
 
-test("buildDocRecord: 최근 1개 고정 키와 메타데이터를 만든다", () => {
+test("buildDocRecord: docHash 키와 메타데이터를 만든다", () => {
   const fakeFile = { name: "paper.pdf", size: 12345, type: "application/pdf" };
   const rec = storage.buildDocRecord(fakeFile, "abc123", 1700000000000);
-  assert.strictEqual(rec.id, "last");
+  assert.strictEqual(rec.id, "abc123");
   assert.strictEqual(rec.blob, fakeFile);
   assert.strictEqual(rec.name, "paper.pdf");
   assert.strictEqual(rec.size, 12345);
@@ -76,12 +76,16 @@ test("formatSize: 사람이 읽는 단위", () => {
 test("IndexedDB 미지원 환경에서도 조용히 실패한다", async () => {
   // node 에는 indexedDB 가 없다 — 프라이빗 모드/차단과 같은 경로.
   assert.strictEqual(await storage.loadDocument(), null);
-  assert.strictEqual(await storage.saveDocument({ name: "a.pdf", size: 1 }, "h"), false);
+  assert.deepStrictEqual(await storage.saveDocument({ name: "a.pdf", size: 1 }, "h"), {
+    ok: false,
+    reason: "unsupported",
+  });
+  assert.deepStrictEqual(await storage.listDocuments(), []);
   assert.strictEqual(await storage.clearDocument(), false);
 });
 
 test("localStorage 가 없어도 텍스트 저장/복원이 예외를 던지지 않는다", () => {
-  assert.strictEqual(storage.saveText("본문"), false);
+  assert.deepStrictEqual(storage.saveText("본문"), { ok: false, reason: "error" });
   assert.strictEqual(storage.loadText(), null);
   assert.doesNotThrow(() => storage.clearText());
 });

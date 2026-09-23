@@ -936,8 +936,74 @@ function clampPdfPageNumber(value, totalPages) {
   if (!Number.isFinite(n)) return 1;
   return Math.max(1, Math.min(total, n));
 }
+// ── 하이라이트·메모 앵커 (5단계) ──────────────────────────────────────
+// 앵커는 {page, startOffset, endOffset, quoteText} 로, 읽기 모드 페이지 텍스트
+// 안의 문자 오프셋이다. 픽셀도 DOM range 도 쓰지 않으므로 줌·재렌더와 무관하다.
+// 다만 오프셋만 믿을 수는 없다 — 텍스트 추출 규칙이 바뀌거나(joinTextItems 개선)
+// 옛 텍스트 레이어 기준으로 저장된 레코드면 같은 자리가 다른 글자를 가리킨다.
+// 그래서 복원은 언제나 "오프셋 자리의 글자가 quote 와 같은가"를 먼저 확인하고,
+// 다르면 quote 로 페이지 안을 다시 훑는다.
+
+// 여러 번 나오는 인용문은 원래 저장 위치에 가장 가까운 것이 맞을 확률이 높다
+// (같은 용어가 한 페이지에 여러 번 나오는 일은 흔하다).
+function findNearestOccurrence(text, quote, hintOffset) {
+  if (typeof text !== "string" || typeof quote !== "string" || !text || !quote) return -1;
+  const hint = Number.isFinite(hintOffset) ? hintOffset : 0;
+  let best = -1;
+  let bestDist = Infinity;
+  let from = 0;
+  for (;;) {
+    const at = text.indexOf(quote, from);
+    if (at === -1) break;
+    const dist = Math.abs(at - hint);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = at;
+    }
+    from = at + 1;
+  }
+  return best;
+}
+
+// 연속 공백을 하나로 줄인 뒤 다시 찾아본다. 읽기 모드와 텍스트 레이어는
+// 띄어쓰기를 넣는 규칙이 달라서, 같은 문장인데 공백 개수만 다른 경우가 있다.
+function findLooseOccurrence(text, quote, hintOffset) {
+  const collapsed = quote.replace(/\s+/g, " ").trim();
+  if (!collapsed || collapsed === quote) return -1;
+  return findNearestOccurrence(text, collapsed, hintOffset);
+}
+
+const ANNOTATION_LOST = { startOffset: null, endOffset: null, status: "lost" };
+
+// status: "offset"(오프셋 그대로) | "quote"(재탐색으로 살림) | "lost"(못 찾음)
+function resolveAnnotationAnchor(pageText, anchor) {
+  if (typeof pageText !== "string" || !pageText || !anchor) return ANNOTATION_LOST;
+  const start = Number(anchor.startOffset);
+  const end = Number(anchor.endOffset);
+  const quote = typeof anchor.quoteText === "string" ? anchor.quoteText : "";
+  const inRange = Number.isFinite(start) && Number.isFinite(end) && start >= 0 && end > start && end <= pageText.length;
+
+  if (quote) {
+    if (inRange && pageText.slice(start, end) === quote) {
+      return { startOffset: start, endOffset: end, status: "offset" };
+    }
+    const hint = Number.isFinite(start) ? start : 0;
+    const at = findNearestOccurrence(pageText, quote, hint);
+    if (at !== -1) return { startOffset: at, endOffset: at + quote.length, status: "quote" };
+    const collapsed = quote.replace(/\s+/g, " ").trim();
+    const loose = findLooseOccurrence(pageText, quote, hint);
+    if (loose !== -1) return { startOffset: loose, endOffset: loose + collapsed.length, status: "quote" };
+    return ANNOTATION_LOST;
+  }
+
+  // quote 가 없던 아주 옛 레코드. 범위가 이 페이지 안이면 그대로 믿는 수밖에 없고,
+  // 페이지 길이를 넘으면 다른 좌표계에서 온 값이므로 버린다.
+  if (inRange) return { startOffset: start, endOffset: end, status: "offset" };
+  return ANNOTATION_LOST;
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { findNearestOccurrence, resolveAnnotationAnchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -996,6 +1062,21 @@ if (typeof document !== "undefined") {
     const findBtn = document.getElementById("find-terms-btn");
     const inputPane = document.getElementById("viewer-input-pane");
     const renderedPane = document.getElementById("viewer-rendered");
+
+    // 5단계 "무음 실패 0": 저장·불러오기 실패처럼 사용자가 알아야 하는 일은
+    // #pdf-status(aria-live) 에 한 줄로 띄운다. 진행 상황 메시지와 같은 자리를
+    // 쓰므로, 렌더가 끝난 뒤에만 부르고 잠시 뒤 스스로 사라진다.
+    let pdfNoticeTimer = null;
+    function showPdfNotice(message, holdMs) {
+      const el = document.getElementById("pdf-status");
+      if (!el) return;
+      el.textContent = message;
+      el.hidden = false;
+      clearTimeout(pdfNoticeTimer);
+      pdfNoticeTimer = setTimeout(() => {
+        if (el.textContent === message) el.hidden = true;
+      }, holdMs || 8000);
+    }
     const editTextBtn = document.getElementById("edit-text-btn");
     const filterInput = document.getElementById("term-filter");
     const countHeading = document.getElementById("matched-count");
@@ -1095,12 +1176,14 @@ if (typeof document !== "undefined") {
       highlightToolbar.addEventListener("click", async (e) => {
         const btn = e.target.closest(".hl-color");
         if (!btn || !pendingSelection) return;
-        const { textLayerDiv, page, range, quoteText } = pendingSelection;
+        const { container, page, range, quoteText } = pendingSelection;
         const color = btn.dataset.color;
         hideHighlightToolbar();
         window.getSelection().removeAllRanges();
 
-        const { map } = buildOffsetMap(textLayerDiv);
+        // 읽기 모드 DOM 은 텍스트 노드가 곧 페이지 텍스트다(buildHighlightedHtml
+        // 이 글자를 더하거나 빼지 않는다). 그래서 오프셋 맵도 텍스트 노드 기준.
+        const { map } = buildTextNodeOffsetMap(container);
         const startEntry = map.find((entry) => entry.node === range.startContainer);
         const endEntry = map.find((entry) => entry.node === range.endContainer);
         if (!startEntry || !endEntry) return;
@@ -1109,23 +1192,33 @@ if (typeof document !== "undefined") {
         if (endOffset <= startOffset) return;
 
         const { createAnnotation } = await import("./pdf-annotations.js");
-        const record = await createAnnotation(currentDocHash, lastPdfFilename, {
-          page,
-          startOffset,
-          endOffset,
-          quoteText,
-          color,
-          note: "",
-        });
-        if (!record) return;
+        let record = null;
+        try {
+          record = await createAnnotation(currentDocHash, lastPdfFilename, {
+            page,
+            startOffset,
+            endOffset,
+            quoteText,
+            color,
+            note: "",
+          });
+        } catch (err) {
+          console.error("[createAnnotation]", err);
+        }
+        if (!record) {
+          showPdfNotice("하이라이트를 저장하지 못했습니다. 저장 공간이 가득 찼거나 차단된 상태일 수 있습니다.");
+          return;
+        }
 
-        const marks = wrapPageRange(textLayerDiv, startOffset, endOffset, () => {
+        // map 을 넘기지 않으면 wrapPageRange 가 텍스트 레이어용 span 기반
+        // buildOffsetMap 으로 떨어져 읽기 모드에서는 빈 맵이 된다(하이라이트 0개).
+        const marks = wrapPageRange(container, startOffset, endOffset, () => {
           const mark = document.createElement("mark");
           mark.className = "user-mark";
           mark.dataset.color = color;
           mark.dataset.annotationId = String(record.id);
           return mark;
-        });
+        }, map);
 
         annotationsCache.push(record);
         renderNotesList();
@@ -1139,7 +1232,13 @@ if (typeof document !== "undefined") {
         const { record } = activeMemo;
         const note = memoTextarea.value.trim();
         const { updateAnnotationNote } = await import("./pdf-annotations.js");
-        await updateAnnotationNote(currentDocHash, record.id, note);
+        let ok = false;
+        try {
+          ok = await updateAnnotationNote(currentDocHash, record.id, note);
+        } catch (err) {
+          console.error("[updateAnnotationNote]", err);
+        }
+        if (!ok) showPdfNotice("메모를 저장하지 못했습니다. 화면에는 반영했지만 다음에 열면 사라질 수 있습니다.");
         record.note = note;
         renderNotesList();
         hideMemoPopover();
@@ -1151,7 +1250,13 @@ if (typeof document !== "undefined") {
         if (!activeMemo) return;
         const { record, marks } = activeMemo;
         const { deleteAnnotation } = await import("./pdf-annotations.js");
-        await deleteAnnotation(currentDocHash, record.id);
+        let deleted = false;
+        try {
+          deleted = await deleteAnnotation(currentDocHash, record.id);
+        } catch (err) {
+          console.error("[deleteAnnotation]", err);
+        }
+        if (!deleted) showPdfNotice("하이라이트를 지우지 못했습니다. 다음에 열면 다시 나타날 수 있습니다.");
         annotationsCache = annotationsCache.filter((a) => a.id !== record.id);
         marks.forEach(unwrapMark);
         renderNotesList();
@@ -1163,12 +1268,17 @@ if (typeof document !== "undefined") {
       const noteText = record.note
         ? `<p class="note-card-memo">${escapeHtml(record.note)}</p>`
         : `<p class="note-card-memo note-card-memo-empty">메모 없음</p>`;
-      return `<li class="note-card" data-id="${escapeHtml(String(record.id))}">
+      // 본문에서 자리를 못 찾은 메모도 목록에는 남긴다 — 조용히 버리면
+      // 사용자는 메모가 사라진 것으로 본다(5단계 요구사항).
+      const lost = record.lost
+        ? `<span class="note-card-lost">본문에서 위치를 못 찾음</span>`
+        : "";
+      return `<li class="note-card${record.lost ? " note-card-is-lost" : ""}" data-id="${escapeHtml(String(record.id))}">
         <span class="note-card-dot" data-color="${escapeHtml(record.color)}"></span>
         <div class="note-card-body">
           <p class="note-card-quote">${escapeHtml(record.quoteText || "")}</p>
           ${noteText}
-          <span class="note-card-page">p.${record.page}</span>
+          <span class="note-card-page">p.${record.page}</span>${lost}
         </div>
       </li>`;
     }
@@ -1188,7 +1298,7 @@ if (typeof document !== "undefined") {
         const card = e.target.closest(".note-card");
         if (!card) return;
         const id = card.dataset.id;
-        const mark = document.querySelector(`#pdf-viewer mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`);
+        const mark = document.querySelector(`#viewer-rendered mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`);
         if (!mark) return;
         mark.scrollIntoView({ behavior: "smooth", block: "center" });
         mark.classList.add("mark-flash");
@@ -1196,45 +1306,113 @@ if (typeof document !== "undefined") {
       });
     }
 
-    // 캐시에 있는 하이라이트를 현재 텍스트 레이어에 다시 그린다. 줌(재렌더)은
-    // #pdf-viewer를 통째로 비우므로 서버에서 다시 받아올 필요 없이 이것만
-    // 부르면 된다.
+    // 5단계부터 하이라이트는 읽기 모드(#viewer-rendered)에만 그린다. 원본
+    // 보기(canvas + 텍스트 레이어)는 표시 자리를 신뢰할 수 없어 세 번 걷어낸
+    // 경로다 — 선택은 되지만 새 하이라이트도 만들지 않고 기존 것도 안 그린다.
+    function readingPageBody(page) {
+      if (!renderedPane || !renderedPane.classList.contains("pdf-reading")) return null;
+      const section = renderedPane.querySelector(`section.pdf-page-text[data-page="${page}"]`);
+      return section ? section.querySelector(".pdf-page-text-body") : null;
+    }
+
+    // 캐시에 있는 하이라이트를 읽기 모드 DOM 에 다시 그린다. renderReadingPane
+    // 이 innerHTML 을 새로 쓰면 mark 가 전부 날아가므로 그 뒤에 부른다.
     function renderAnnotationMarks() {
+      if (!renderedPane || !renderedPane.classList.contains("pdf-reading")) return;
+      const byPage = new Map();
       for (const record of annotationsCache) {
-        const textLayerDiv = document.querySelector(
-          `#pdf-viewer .pdf-page-wrap[data-page="${record.page}"] .textLayer`
-        );
-        if (!textLayerDiv) continue;
-        wrapPageRange(textLayerDiv, record.startOffset, record.endOffset, () => {
-          const mark = document.createElement("mark");
-          mark.className = "user-mark";
-          mark.dataset.color = record.color;
-          mark.dataset.annotationId = String(record.id);
-          return mark;
-        });
+        if (record.lost) continue;
+        if (!byPage.has(record.page)) byPage.set(record.page, []);
+        byPage.get(record.page).push(record);
       }
+      for (const [page, records] of byPage) {
+        const body = readingPageBody(page);
+        if (!body) continue;
+        // 오프셋 맵은 페이지마다 한 번만 만들고, 뒤(큰 오프셋)에서부터 감싼다.
+        // wrapPageRange 가 요구하는 불변식이다(앞을 먼저 감싸면 노드가 갈라져
+        // 뒤쪽 map 항목이 무효가 된다).
+        const map = buildTextNodeOffsetMap(body).map;
+        records.sort((a, b) => b.startOffset - a.startOffset);
+        for (const record of records) {
+          wrapPageRange(body, record.startOffset, record.endOffset, () => {
+            const mark = document.createElement("mark");
+            mark.className = "user-mark";
+            mark.dataset.color = record.color;
+            mark.dataset.annotationId = String(record.id);
+            return mark;
+          }, map);
+        }
+      }
+    }
+
+    // 옛 저장분(텍스트 레이어 좌표)·추출 규칙이 바뀐 뒤의 저장분을 읽기 모드
+    // 페이지 텍스트 기준으로 다시 앵커한다. 재탐색으로 살린 것은 곧바로 다시
+    // 저장해 다음에 열 때는 오프셋 한 번으로 끝나게 한다.
+    async function reanchorAnnotations() {
+      if (!annotationsCache.length) return { lost: 0, moved: 0 };
+      let mod = null;
+      let lost = 0;
+      let moved = 0;
+      for (const record of annotationsCache) {
+        const pageText = pdfPageTextList[record.page - 1] || "";
+        const res = resolveAnnotationAnchor(pageText, record);
+        if (res.status === "lost") {
+          record.lost = true;
+          lost++;
+          continue;
+        }
+        record.lost = false;
+        if (res.status === "offset") continue;
+        record.startOffset = res.startOffset;
+        record.endOffset = res.endOffset;
+        record.quoteText = pageText.slice(res.startOffset, res.endOffset);
+        moved++;
+        try {
+          if (!mod) mod = await import("./pdf-annotations.js");
+          await mod.updateAnnotationAnchor(currentDocHash, record.id, record);
+        } catch (err) {
+          // 저장에 실패해도 이번 세션 화면에는 제대로 그려진다. 다음에 열 때
+          // 같은 재탐색을 한 번 더 하면 그만이라 문구까지 띄우지는 않는다.
+          console.error("[reanchorAnnotations]", err);
+        }
+      }
+      return { lost, moved };
     }
 
     async function loadAndRenderAnnotations() {
       if (!currentDocHash) return;
-      const { loadAnnotations } = await import("./pdf-annotations.js");
-      annotationsCache = await loadAnnotations(currentDocHash);
+      try {
+        const { loadAnnotations } = await import("./pdf-annotations.js");
+        annotationsCache = await loadAnnotations(currentDocHash);
+      } catch (err) {
+        console.error("[loadAnnotations]", err);
+        annotationsCache = [];
+        showPdfNotice("저장해 둔 하이라이트·메모를 불러오지 못했습니다.");
+        renderNotesList();
+        return;
+      }
+      const { lost } = await reanchorAnnotations();
       renderAnnotationMarks();
       renderNotesList();
+      if (lost > 0) {
+        showPdfNotice(`메모 ${lost}개는 본문에서 위치를 찾지 못해 '내 메모' 탭에만 남겼습니다.`);
+      }
     }
 
     // Delegate clicks on existing user highlights to reopen the memo popover.
-    document.getElementById("pdf-viewer").addEventListener("click", (e) => {
-      const mark = e.target.closest("mark.user-mark");
-      if (!mark) return;
-      const id = mark.dataset.annotationId;
-      const record = annotationsCache.find((a) => String(a.id) === String(id));
-      if (!record) return;
-      const marks = document.querySelectorAll(
-        `#pdf-viewer mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`
-      );
-      showMemoPopover(record, marks, mark.getBoundingClientRect());
-    });
+    if (renderedPane) {
+      renderedPane.addEventListener("click", (e) => {
+        const mark = e.target.closest("mark.user-mark");
+        if (!mark) return;
+        const id = mark.dataset.annotationId;
+        const record = annotationsCache.find((a) => String(a.id) === String(id));
+        if (!record) return;
+        const marks = renderedPane.querySelectorAll(
+          `mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`
+        );
+        showMemoPopover(record, marks, mark.getBoundingClientRect());
+      });
+    }
 
     // The highlight-color toolbar must only appear after an actual click-
     // and-drag text selection — not a plain click (which collapses any
@@ -1243,10 +1421,12 @@ if (typeof document !== "undefined") {
     // mousedown position and gating on a minimum drag distance is what
     // "collapsed" alone can't catch.
     let pdfMouseDownPos = null;
-    document.getElementById("pdf-viewer").addEventListener("mousedown", (e) => {
-      if (e.button !== 0) return;
-      pdfMouseDownPos = { x: e.clientX, y: e.clientY };
-    });
+    if (renderedPane) {
+      renderedPane.addEventListener("mousedown", (e) => {
+        if (e.button !== 0) return;
+        pdfMouseDownPos = { x: e.clientX, y: e.clientY };
+      });
+    }
 
     // Right-click-drag to pan: once fit-to-width no longer guarantees the
     // whole page is visible (zoomed in past 100%), scrollbars alone are a
@@ -1275,41 +1455,47 @@ if (typeof document !== "undefined") {
       });
     }
 
-    document.getElementById("pdf-viewer").addEventListener("mouseup", (e) => {
-      const downPos = pdfMouseDownPos;
-      pdfMouseDownPos = null;
-      const dragDistance = downPos ? Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) : 0;
-      setTimeout(() => {
-        const sel = window.getSelection();
-        if (!sel || sel.isCollapsed || sel.rangeCount === 0 || dragDistance < 4) {
-          hideHighlightToolbar();
-          return;
-        }
-        const range = sel.getRangeAt(0);
-        const anchorEl =
-          range.commonAncestorContainer.nodeType === 1
-            ? range.commonAncestorContainer
-            : range.commonAncestorContainer.parentElement;
-        const wrap = anchorEl && anchorEl.closest(".pdf-page-wrap");
-        if (!wrap) {
-          hideHighlightToolbar();
-          return;
-        }
-        const textLayerDiv = wrap.querySelector(".textLayer");
-        const quoteText = range.toString().trim();
-        if (!textLayerDiv || !quoteText) {
-          hideHighlightToolbar();
-          return;
-        }
-        pendingSelection = {
-          textLayerDiv,
-          page: Number(wrap.dataset.page),
-          range: range.cloneRange(),
-          quoteText,
-        };
-        showHighlightToolbar(range.getBoundingClientRect());
-      }, 0);
-    });
+    // 하이라이트는 읽기 모드에서만 만든다. 원본 보기(캔버스)에서는 드래그
+    // 선택은 되지만 색 툴바가 뜨지 않는다 — 텍스트 레이어 좌표에 표시를 얹는
+    // 방식이 계속 어긋났기 때문에 표시 자체를 읽기 모드로 일원화했다.
+    if (renderedPane) {
+      renderedPane.addEventListener("mouseup", (e) => {
+        const downPos = pdfMouseDownPos;
+        pdfMouseDownPos = null;
+        const dragDistance = downPos ? Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) : 0;
+        setTimeout(() => {
+          const sel = window.getSelection();
+          if (!sel || sel.isCollapsed || sel.rangeCount === 0 || dragDistance < 4) {
+            hideHighlightToolbar();
+            return;
+          }
+          const range = sel.getRangeAt(0);
+          const anchorEl =
+            range.commonAncestorContainer.nodeType === 1
+              ? range.commonAncestorContainer
+              : range.commonAncestorContainer.parentElement;
+          const section = anchorEl && anchorEl.closest("section.pdf-page-text");
+          if (!section) {
+            hideHighlightToolbar();
+            return;
+          }
+          // 선택이 페이지 경계를 넘으면 앵커가 한 페이지에 담기지 않는다.
+          const body = section.querySelector(".pdf-page-text-body");
+          const quoteText = range.toString().trim();
+          if (!body || !body.contains(range.startContainer) || !body.contains(range.endContainer) || !quoteText) {
+            hideHighlightToolbar();
+            return;
+          }
+          pendingSelection = {
+            container: body,
+            page: Number(section.dataset.page),
+            range: range.cloneRange(),
+            quoteText,
+          };
+          showHighlightToolbar(range.getBoundingClientRect());
+        }, 0);
+      });
+    }
 
     document.addEventListener("mousedown", (e) => {
       if (highlightToolbar && !highlightToolbar.hidden && !highlightToolbar.contains(e.target)) {
@@ -1391,6 +1577,7 @@ if (typeof document !== "undefined") {
     // 필터를 만질 때 다시 받지 않도록).
     const definitionCache = new Map(); // slug -> definition
     const loadedDefBuckets = new Set();
+    let defLoadWarned = false; // 정의 청크 실패 문구는 문서당 한 번만
     async function loadDefinitions(slugs) {
       const needed = new Set();
       for (const slug of slugs) {
@@ -1410,8 +1597,13 @@ if (typeof document !== "undefined") {
               definitionCache.set(slug, definition);
             }
           } catch (err) {
-            // 정의는 부가 정보다. 못 받아도 용어 목록 자체는 그대로 보여준다.
+            // 정의는 부가 정보라 용어 목록 자체는 그대로 보여준다. 다만 뜻이
+            // 비어 보이는 이유는 알려야 한다(5단계 "무음 실패 0").
             console.error("[loadDefinitions]", err);
+            if (!defLoadWarned) {
+              defLoadWarned = true;
+              showPdfNotice("용어 뜻을 일부 불러오지 못했습니다. 잠시 뒤 새로고침해 보세요.");
+            }
           }
         })
       );
@@ -1624,6 +1816,8 @@ if (typeof document !== "undefined") {
       pdfTermsByPage = termsOnPage(visible, pdfPageOffsets);
       readingCurrentPage = 0;
       setupReadingPageObserver();
+      // innerHTML 을 새로 썼으므로 사용자 하이라이트도 다시 얹는다.
+      renderAnnotationMarks();
       // PDF 모드에서는 "다시 입력"이 추출 텍스트를 편집하는 뜻이 되어 혼란스럽다.
       if (editTextBtn) editTextBtn.hidden = true;
     }
@@ -2451,6 +2645,9 @@ if (typeof document !== "undefined") {
           // 다시 보일 때 재시도할 수 있게 표시를 되돌린다.
           pdfDrawnPages.delete(pageNum);
           console.error("[pdf-render]", pageNum, err);
+          // 빈 페이지만 남으면 사용자는 이유를 알 수 없다. 읽기 모드는 멀쩡하다는
+          // 것까지 같이 알린다(원본 보기에서만 보이는 실패라서).
+          if (pdfOriginalVisible) showPdfNotice(`${pageNum}쪽 원본을 그리지 못했습니다. 읽기 모드 본문은 그대로 볼 수 있습니다.`);
         });
     }
 
@@ -2732,10 +2929,8 @@ if (typeof document !== "undefined") {
       closeTermPopover();
       await renderPdf(pdfDoc, null);
       viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
-      // 줌 후 하이라이트가 사라지던 버그: renderPdf가 #pdf-viewer를 비우는데
-      // 하이라이트를 다시 그리는 곳이 없었다. 오프셋은 배율과 무관하므로
-      // 캐시로 그대로 다시 그리면 글자에 정확히 붙는다.
-      renderAnnotationMarks();
+      // 하이라이트는 5단계부터 읽기 모드 DOM 에만 있다. 줌은 #pdf-viewer 만
+      // 새로 그리므로 여기서 다시 그릴 것이 없다(다시 그리면 이중으로 감싼다).
       // Re-run any active search: the re-render rebuilt every text layer,
       // discarding search marks — and a search typed *during* the re-render
       // saw an empty page list and stuck at "0/0" until the next keystroke.
@@ -2798,6 +2993,7 @@ if (typeof document !== "undefined") {
         textarea.hidden = true;
         pdfViewer.hidden = false;
         setDropzoneVisible(false);
+        hideRecentDocs();
         setPdfOriginalVisible(false);
 
         const text = await renderPdf(pdf, probed, (done, total) => {
@@ -2810,7 +3006,7 @@ if (typeof document !== "undefined") {
         // (textarea 내용이 사용자가 쓰던 글이 아니라 PDF 추출 텍스트로 바뀌었다)
         clearSavedText();
         hideRestoreStatus();
-        if (persist) saveCurrentPdf(file, currentDocHash);
+        if (persist) saveCurrentPdf(file, currentDocHash, pdf.numPages);
         await requestAnalysis(text, { updateInputPane: false });
         // PDF 모드 기본 화면은 읽기 모드. 원본 canvas 는 토글로만 띄운다.
         renderReadingPane();
@@ -2822,11 +3018,19 @@ if (typeof document !== "undefined") {
         showTextInput();
         pdfViewer.hidden = true;
         pdfViewer.innerHTML = "";
-          countHeading.textContent = "이 PDF에서 텍스트를 추출하지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요. (오류: " + err.message + ")";
+        // 스캔본(이미지만 있는 PDF)과 그 밖의 실패를 구분해서 안내한다.
+        // "왜 아무것도 안 나오지"가 가장 흔한 막힘이다.
+        const scanned = err && err.message === "empty-text-layer";
+        const message = scanned
+          ? "이 PDF에는 글자 정보가 없습니다(스캔본으로 보입니다). 텍스트를 직접 복사해 붙여넣거나 OCR을 거친 파일을 올려 주세요."
+          : "이 PDF를 열지 못했습니다. 텍스트를 직접 복사해 붙여넣어 주세요. (오류: " + (err && err.message) + ")";
+        countHeading.textContent = message;
+        showPdfNotice(message, 15000);
         termsList.innerHTML = "";
         textarea.value = "";
         findBtn.disabled = true;
         currentDocHash = null;
+        renderRecentDocs();
       }
     }
 
@@ -2863,21 +3067,103 @@ if (typeof document !== "undefined") {
       restoreStatus.hidden = false;
     }
 
-    function saveCurrentPdf(file, docHash) {
+    // 저장 실패를 더는 삼키지 않는다(5단계). 용량 초과면 저장 계층이 오래된
+    // 것부터 지우고 한 번 더 시도하고, 그래도 안 되면 여기서 문구를 띄운다.
+    function saveCurrentPdf(file, docHash, pageCount) {
       if (!store) return;
-      // 실패(용량 초과·프라이빗 모드)는 조용히 무시 — 저장 계층이 false 를 돌려준다.
-      store.saveDocument(file, docHash);
+      store.saveDocument(file, docHash, pageCount).then((res) => {
+        if (res && res.ok) {
+          renderRecentDocs();
+          return;
+        }
+        const reason = res && res.reason;
+        if (reason === "unsupported") return; // 이 브라우저는 원래 최근 문서를 못 쓴다
+        showRestoreStatus(
+          reason === "quota"
+            ? "저장 공간이 가득 차 이 문서를 '최근 문서'에 담지 못했습니다. 목록에서 몇 개를 지워 주세요."
+            : "이 문서를 '최근 문서'에 담지 못했습니다."
+        );
+      });
+    }
+
+    // ---------- 최근 문서 목록(최대 5개, LRU) ----------
+    const recentDocsEl = document.getElementById("recent-docs");
+    const recentDocsListEl = document.getElementById("recent-docs-list");
+
+    function hideRecentDocs() {
+      if (recentDocsEl) recentDocsEl.hidden = true;
+    }
+
+    async function renderRecentDocs() {
+      if (!store || !recentDocsEl || !recentDocsListEl) return;
+      // 문서를 이미 열어 둔 상태에서는 첫 화면 목록을 띄우지 않는다.
+      if (pdfDoc) {
+        hideRecentDocs();
+        return;
+      }
+      const docs = await store.listDocuments();
+      if (!docs.length) {
+        hideRecentDocs();
+        return;
+      }
+      const now = Date.now();
+      recentDocsListEl.innerHTML = docs
+        .map(
+          (doc) =>
+            `<li class="recent-doc" data-id="${escapeHtml(String(doc.id))}">` +
+            `<button type="button" class="recent-doc-open">${escapeHtml(store.formatRecentLabel(doc, now))}` +
+            `<span class="recent-doc-size">${escapeHtml(store.formatSize(doc.size))}</span></button>` +
+            `<button type="button" class="recent-doc-delete" aria-label="목록에서 삭제" title="목록에서 삭제">✕</button>` +
+            `</li>`
+        )
+        .join("");
+      recentDocsEl.hidden = false;
+    }
+
+    if (recentDocsListEl) {
+      recentDocsListEl.addEventListener("click", async (e) => {
+        const item = e.target.closest(".recent-doc");
+        if (!item) return;
+        const id = item.dataset.id;
+        if (e.target.closest(".recent-doc-delete")) {
+          await store.deleteDocument(id);
+          await renderRecentDocs();
+          return;
+        }
+        if (!e.target.closest(".recent-doc-open")) return;
+        const rec = await store.loadDocument(id);
+        if (!rec) {
+          showRestoreStatus("이 문서를 다시 열지 못했습니다. 목록에서 지우고 다시 올려 주세요.");
+          return;
+        }
+        const file = store.toFile(rec);
+        if (!file) return;
+        hideRestoreStatus();
+        hideRecentDocs();
+        await handlePdfFile(file, { persist: false });
+      });
     }
 
     // 500ms 디바운스: 한 글자마다 직렬화+localStorage 쓰기를 하면 긴 논문에서
     // 입력이 눈에 띄게 끊긴다.
     let saveTextTimer = null;
+    let textSaveWarned = false;
     if (store && textarea) {
       textarea.addEventListener("input", () => {
         clearTimeout(saveTextTimer);
         saveTextTimer = setTimeout(() => {
           // 내용을 지우면 저장본도 사라진다(saveText 내부에서 removeItem).
-          store.saveText(textarea.value);
+          const res = store.saveText(textarea.value);
+          // 저장 실패를 삼키면 "새로고침했더니 글이 사라졌다"가 된다. 다만
+          // 입력 중 500ms 마다 문구가 깜빡이지 않도록 한 번만 알린다.
+          if (res && !res.ok && res.reason !== "empty" && !textSaveWarned) {
+            textSaveWarned = true;
+            showRestoreStatus(
+              res.reason === "too-large"
+                ? "글이 너무 길어(200KB 초과) 자동 저장하지 않습니다. 새로고침하면 사라집니다."
+                : "자동 저장을 하지 못했습니다. 새로고침하면 입력한 글이 사라질 수 있습니다."
+            );
+          }
         }, 500);
       });
     }
@@ -2911,36 +3197,9 @@ if (typeof document !== "undefined") {
       ]);
     }
 
-    // 자동 복원이 아니라 사용자가 "다시 열기"를 누르게 한다 — 큰 PDF 는 렌더
-    // 비용이 커서, 뷰어에 들어왔다고 무조건 다시 그리면 손해다.
-    async function offerRecentPdf() {
-      if (!store) return;
-      const rec = await store.loadDocument();
-      if (!rec) return;
-      const label = `최근 문서: ${rec.name} (${store.formatSize(rec.size)})`;
-      showRestoreStatus(label, [
-        {
-          label: "다시 열기",
-          onClick: async () => {
-            hideRestoreStatus();
-            const file = store.toFile(rec);
-            if (!file) return;
-            await handlePdfFile(file, { persist: false });
-          },
-        },
-        {
-          label: "삭제",
-          onClick: async () => {
-            hideRestoreStatus();
-            await store.clearDocument();
-          },
-        },
-      ]);
-    }
-
-    // 텍스트 초안이 있으면 그쪽을 먼저 안내하고(바로 이어서 쓸 수 있으므로),
-    // 없을 때만 최근 PDF 배너를 띄운다. 안내 영역이 하나라 둘을 겹쳐 쓸 수 없다.
+    // 자동 복원이 아니라 사용자가 목록에서 고르게 한다 — 큰 PDF 는 렌더 비용이
+    // 커서, 뷰어에 들어왔다고 무조건 다시 그리면 손해다.
     restoreDraftText();
-    if (restoreStatus && restoreStatus.hidden) offerRecentPdf();
+    renderRecentDocs();
   })();
 }
