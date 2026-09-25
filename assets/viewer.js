@@ -665,12 +665,53 @@ function senseOverlap(match, text) {
   return hit.size;
 }
 
+// 영문 병기 불일치(라운드 5 규칙 6): 짧은 한글 표제어 바로 뒤 괄호 속 영문
+// "중독(addiction)"은 저자가 밝힌 뜻이라 문맥 낱말보다 직접적인 근거다. 병기 토큰이
+// 표제어 영문 토큰과 하나도 안 겹치면 다른 뜻. 한쪽이 다른 쪽으로 시작하거나 앞 4글자가
+// 같으면 겹친 것으로 본다(ion·ions, poisonings·poisoning). 약어(PET)·영문 없는 괄호는 판단하지 않는다.
+// 반환: "match"(한 등장이라도 겹침) / "mismatch"(병기가 있는데 모두 불일치) / "none".
+const GLOSS_RE = /^\s?\(\s*([A-Za-z][A-Za-z\s\-]{2,60})\)/;
+function glossTokens(s) {
+  return (String(s).toLowerCase().match(/[a-z]{3,}/g) || []).filter((w) => !["the", "and", "for", "with", "from", "via", "non"].includes(w));
+}
+// 같은 낱말로 보는 기준: 한쪽이 다른 쪽으로 시작(ion·ions)하거나 앞 4글자가 같음.
+function glossTokenMatch(a, b) {
+  if (a.startsWith(b) || b.startsWith(a)) return true;
+  return a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4);
+}
+function englishGlossVerdict(match, text) {
+  if (match.viaHangul === false) return "none";
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  if (!ko || ko.length > SENSE_MAX_SYLLABLES) return "none";
+  const own = glossTokens(match.title_en || "");
+  if (!own.length) return "none";
+  let seen = false;
+  for (const occ of match.occurrences || []) {
+    const g = GLOSS_RE.exec(text.slice(occ.start + occ.length, occ.start + occ.length + 70));
+    if (!g || /^[A-Z]{2,}s?$/.test(g[1].trim())) continue;
+    const toks = glossTokens(g[1]);
+    if (!toks.length) continue;
+    seen = true;
+    if (toks.some((a) => own.some((b) => glossTokenMatch(a, b)))) return "match";
+  }
+  return seen ? "mismatch" : "none";
+}
+
 // top: 상위 분야군(filterDistantFieldMatches가 고른 것). 없으면 적용하지 않는다 —
 // 잡힌 용어가 적은 문서에서는 "분야 밖"이라는 판단 자체를 믿을 수 없다.
 // 상위 분야군에 속하는 용어는 제외한다(주제어 손실 방지).
 function applySenseContextRule(list, text, top) {
   if (!top || !top.length) return list;
   for (const match of list) {
+    // 규칙 6(영문 병기 불일치)은 상위 분야군 안에서도 쓴다: 저자가 괄호로 밝힌 뜻이
+    // 다르면 분야가 맞아도 다른 용어다(응집 cohesion ≠ coagulation). 상위군 밖에만
+    // 적용하면 25편에서 효과 0이었고, 전체 적용은 오탐 62→59, 강등 미탐 17→18(경련
+    // "convulsion" ≠ Seizure — 동의어 병기는 못 가린다).
+    if (!match.distant && englishGlossVerdict(match, text) === "mismatch") {
+      match.distant = true;
+      match.demotedBy = "gloss";
+      continue;
+    }
     if (match.distant || !isSenseTarget(match) || inTopGroups(match, top)) continue;
     const overlap = senseOverlap(match, text);
     if (overlap < 0) continue;
@@ -1621,7 +1662,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
