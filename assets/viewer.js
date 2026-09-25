@@ -82,8 +82,8 @@ const ACK_HEADING = /^\s*(?:감\s*사\s*의\s*글|사\s*사|acknowledge?ments?)\
 // 복귀 제목: 방법·부록(Nature식) + 장별 참고문헌 뒤 다음 장(제N장·서론·결과·결론 …).
 const RESUME_HEADING = /^\s*(?:[0-9IVXⅠ-Ⅻ]+\.?\s*)?(?:방법|연구\s*방법|methods?|부록|appendix|chapter\s*\d*|보충\s*자료|supplementary|확장\s*데이터|extended\s+data|box\s*\d|제\s*\d+\s*장|\d+\s*장|서\s*론|결\s*과|결\s*론|고\s*찰|논\s*의)(?![가-힣A-Za-z])/i;
 // 참고문헌 항목 첫 줄이 "Methods for …"처럼 제목과 닮을 수 있어, 뒤 3줄에 참고문헌
-// 형식(연도 괄호·pp.·vol.·doi, Vancouver식 2020;35 · 12(3): 45)이 보이면 복귀 제목으로 보지 않는다.
-const REFERENCE_FORMAT = /\((?:19|20)\d{2}[a-z]?\)|\bpp?\.\s*\d|\bvol\.|\bdoi\b|\b(?:19|20)\d{2}\s*;\s*\d+|\d+\(\d+\)\s*:\s*\d+/i;
+// 형식(연도 괄호·pp.·vol.·doi, Vancouver식 2020;35 · 2020 Mar;35 · 12(3): 45)이 보이면 복귀 제목으로 보지 않는다.
+const REFERENCE_FORMAT = /\((?:19|20)\d{2}[a-z]?\)|\bpp?\.\s*\d|\bvol\.|\bdoi\b|\b(?:19|20)\d{2}\s*;\s*\d+|\b(?:19|20)\d{2}\s+[A-Z][a-z]{2,3}\s*;\s*\d+|\d+\(\d+\)\s*:\s*\d+/i;
 // 번호 붙은 한글 장 제목(제2장 …, Ⅱ. …)은 참고문헌 항목과 헷갈릴 일이 적고,
 // 바로 뒤 본문이 "Lee (2019)는"처럼 인용을 담기 쉬워 형식 검사를 생략한다.
 const NUMBERED_HEADING = /^\s*(?:제\s*\d+\s*장|[Ⅰ-Ⅻ]+\s*\.)\s*[가-힣]/;

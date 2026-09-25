@@ -143,6 +143,11 @@ assert.deepStrictEqual(excludedRanges("그냥 본문."), []);
   const ranges = excludedRanges(text);
   assert.ok(inRanges(ranges, text.indexOf("김철수")), "3번 항목은 계속 제외");
 }
+// Vancouver 월 표기(2020 Mar;35)도 참고문헌 형식
+{
+  const text = "본문.\n참고문헌\n1. Kim JH. Foo.\nMethods for x.\nJ Korean Med Sci\n2020 Mar;35:e12.";
+  assert.ok(inRanges(excludedRanges(text), text.indexOf("J Korean")), "월 표기 Vancouver");
+}
 // 서론 제목 변형에서 영문 초록이 끝난다
 for (const heading of ["제1장 서론", "Ⅰ. 서론 및 연구 목적", "1. Introduction"]) {
   const text = `Abstract\nThis study examines stress.\n${heading}\n본문 응력.`;
