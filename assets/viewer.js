@@ -251,6 +251,10 @@ const PARTICLE_SET = new Set(KOREAN_PARTICLES);
 // 등급은 viewer-index.json 각 행의 5번째 칸으로 들어온다.
 const COMMON_GRADE_EXCLUDE = 3;
 const COMMON_GRADE_DEMOTE = 2;
+// 영문 등급(6번째 칸): 1 = 영문 키 제외, 4 = 같은 문서에 국문 표제어도 나와야 인정
+// (plasma·substance 같은 영문 동음이의어, 목록은 generate-viewer-index.js).
+const EN_GRADE_EXCLUDE = 1;
+const EN_GRADE_NEEDS_KOREAN = 4;
 
 function isUnsafeIndexKey(key) {
   return key.length < 2 || PARTICLE_SET.has(key);
@@ -268,9 +272,9 @@ function buildExactIndex(terms) {
     if (term.title_ko && (term.common || 0) < COMMON_GRADE_EXCLUDE) {
       add(normalizeWord(term.title_ko), term);
     }
-    // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정)는 영문
-    // 키만 뺀다. 한글 표제어로는 그대로 잡힌다.
-    if (term.title_en && !term.common_en) add(normalizeWord(term.title_en), term);
+    // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정, 등급 1)는 영문
+    // 키만 뺀다. 한글 표제어로는 그대로 잡힌다. 등급 4는 넣되 매칭 뒤에 거른다.
+    if (term.title_en && term.common_en !== EN_GRADE_EXCLUDE) add(normalizeWord(term.title_en), term);
   }
   return map;
 }
@@ -289,6 +293,7 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
       definition: term.definition,
       categories: term.categories,
       common: term.common || 0,
+      common_en: term.common_en || 0,
       count: 0,
       score,
       occurrences: [],
@@ -493,7 +498,8 @@ function fieldGroupOf(code) {
   return fieldGroupMap.get(code) || null;
 }
 
-function estimateFieldGroups(matches) {
+// allowed: 주면 그 분야군만 순위에 올린다(2패스에서 1차 집합의 부분집합만 허용).
+function estimateFieldGroups(matches, allowed) {
   const list = matches || [];
   if (list.length < FIELD_DISTANCE_MIN_MATCHES) return [];
   const counts = new Map();
@@ -501,6 +507,7 @@ function estimateFieldGroups(matches) {
     // (짧은 표제어를 추정에서 빼 보기도 했으나 미탐 29로 늘어 전부 센다.)
     const group = fieldGroupOf((match.categories || [])[0]);
     if (!group || group === BASIC_GROUP) continue;
+    if (allowed && !allowed.includes(group)) continue;
     counts.set(group, (counts.get(group) || 0) + 1);
   }
   const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
@@ -549,7 +556,11 @@ function filterDistantFieldMatches(matches) {
     for (const g of others) for (const n of FIELD_GROUP_NEIGHBORS[g] || []) rel.add(n);
     return (m.categories || []).map(fieldGroupOf).some((g) => rel.has(g));
   };
-  const second = estimateFieldGroups(list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m))));
+  // 2차는 1차 상위 분야군 안에서만 다시 고른다(교체·신규 승격 금지). 1차 집합 밖
+  // 분야군이 2차에서 올라오면 3개 한도에 밀려 멀쩡한 1차 분야군이 빠졌다
+  // (psychiatry: 인문학이 올라와 사회과학이 밀려 copyright·screening 강등).
+  const kept = list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m)));
+  const second = estimateFieldGroups(kept, first);
   if (second.length) markDistant(list, second);
   return list;
 }
@@ -612,6 +623,16 @@ function acronymCaseMatches(word, matchedLength, term) {
 // a time for a multi-page PDF) build the index once and reuse it — building
 // it per call turns an O(dictionary size) cost into O(pages * dictionary
 // size), which is what made large-PDF analysis stall.
+// 조사 "로·도·나"를 떼어 한글 2음절만 남은 매칭("제대로"→제대, "빈도로"→빈도,
+// "초점도"→초점)은 부사·일상 결합과 겹치기 쉽다. 이런 표제어는 문서 안에 조사 없이
+// 단독으로(또는 영문 표기로) 1회 이상 나올 때만 인정한다. 을·를·은·는·이·의·에
+// 까지 넓히면 25편 기준 미탐이 19→43으로 늘어(가설을·효소의 등) 이 셋만 둔다
+// (로·도·나: 오탐 −8, 미탐 ±0; 가 추가 시 미탐 +1).
+const CORROBORATION_PARTICLES = new Set(["로", "도", "나"]);
+function needsBareCorroboration(form, particle) {
+  return /^[가-힣]{2}$/.test(form) && (particle === undefined || CORROBORATION_PARTICLES.has(particle));
+}
+
 function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
   // 텍스트 모드·PDF 모드 모두 이 함수로 들어오므로 제외 구간도 여기서 한 번에.
@@ -632,10 +653,17 @@ function matchTermsWithIndex(text, exactIndex) {
         // 분야 거리 규칙이 "영문 한 단어로만 잡혔는가"를 본다.
         const item = resultsMap.get(term.slug);
         item.viaHangul = item.viaHangul || /[가-힣]/.test(word);
+        const particle = normalizeWord(word).slice(hit.matchedLength);
+        if (!particle || !needsBareCorroboration(normalizeWord(word.slice(0, hit.matchedLength)), particle)) item.bare = true;
       }
     }
   }
 
+  for (const [slug, item] of resultsMap) {
+    const needsKorean = item.common_en === EN_GRADE_NEEDS_KOREAN && !item.viaHangul;
+    if (!item.bare || needsKorean) resultsMap.delete(slug);
+    else delete item.bare;
+  }
   filterDistantFieldMatches([...resultsMap.values()]);
   return sortMatches(resultsMap);
 }
@@ -1417,7 +1445,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { excludedRanges, isLineWrapFragment, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {

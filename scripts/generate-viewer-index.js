@@ -242,6 +242,26 @@ function computeEnglishCommon(terms) {
   return common;
 }
 
+// 영문 동음이의어(등급 4 = "영문 단독 불가"): 사전 안 문서빈도로는 일반어로 안
+// 걸리지만(분야 밖 인용이 적음) 논문 본문·참고문헌에서는 흔한 영어 단어다.
+// "substance use disorder"의 substance가 철학 '실체'로, "blood flow"의 blood가
+// 다른 분야 표제어로 잡혔다. 이 단어들은 같은 문서에 국문 표제어도 나올 때만 영문
+// 등장을 인정한다(판정은 viewer.js matchTermsWithIndex). 손으로 고른 소규모 목록이다.
+const ENGLISH_NEEDS_KOREAN = new Set([
+  "plasma", "shape", "delta", "fraction", "coverage", "contrast", "theme", "symbol",
+  "genre", "duration", "equity", "inventory", "attachment", "blood", "rolling", "stall",
+  "reach", "friction", "substance",
+]);
+
+// viewer-index.json 6번째 칸: 1 = 영문 키 제외(일반어), 4 = 국문 공동 출현 시에만, 0 = 그대로.
+function englishGrade(term, englishCommon) {
+  const key = (term.title_en || "").trim().toLowerCase();
+  if (!key) return 0;
+  if (englishCommon.has(key)) return 1;
+  if (ENGLISH_NEEDS_KOREAN.has(key)) return 4;
+  return 0;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
 
@@ -265,9 +285,9 @@ function run() {
     const grade = grades.get(t.title_ko) || 0;
     // 6번째 칸(영문 일반어)도 대부분 0이라 있을 때만 붙인다. 붙일 때는
     // 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다.
-    const enCommon = englishCommon.has((t.title_en || "").trim().toLowerCase()) ? 1 : 0;
-    if (grade || enCommon) row.push(grade);
-    if (enCommon) row.push(1);
+    const enGrade = englishGrade(t, englishCommon);
+    if (grade || enGrade) row.push(grade);
+    if (enGrade) row.push(enGrade);
     return row;
   });
 
@@ -309,4 +329,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon };
+module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN };
