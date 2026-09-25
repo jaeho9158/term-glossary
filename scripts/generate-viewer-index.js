@@ -12,7 +12,7 @@ const DEFS_DIR = path.join(ROOT_DIR, "viewer-defs");
 // "매칭된 용어"에만 필요하다. 그래서 파일을 둘로 나눈다.
 //
 //  1) viewer-index.json    : 매칭 + 카테고리 필터에 필요한 최소 데이터(전량 로드)
-//  2) viewer-defs/NNN.json : definition을 slug 해시로 쪼갠 청크(지연 로드)
+//  2) viewer-defs/NNN.json : definition(+ 짧은 표제어의 뜻 키워드)을 slug 해시로 쪼갠 청크(지연 로드)
 //
 // viewer-index.json은 키 이름 반복(37,416 × {"slug":...,"title_ko":...})만으로
 // 수 MB가 붙기 때문에 배열-of-배열로 저장하고, 카테고리 코드도 98종짜리
@@ -276,7 +276,7 @@ function englishGrade(term, englishCommon) {
   return 0;
 }
 
-// ---- 문맥 뜻 키워드(7번째 칸, 오탐 라운드 3 규칙 1) ------------------------
+// ---- 문맥 뜻 키워드(viewer-defs 청크, 오탐 라운드 3 규칙 1) ----------------
 // 짧은 표제어(한글 3음절 이하 또는 영문 한 단어)마다 "이 뜻으로 쓰였다면 주변에
 // 나올 법한 낱말"을 사전 데이터에서 뽑는다: definition·why·deeper의 2~4음절 한글
 // 명사(조사·어미 제거, 사전 전체에서 흔한 낱말은 불용어로 제외)를 tf·idf로 매기고,
@@ -406,6 +406,25 @@ function senseKeywords(terms) {
   return out;
 }
 
+// 청크 항목: 정의만 있으면 문자열, 뜻 키워드(짧은 표제어)가 있으면 {d: 정의, s: "공백 구분
+// 키워드"}. 디코더는 assets/viewer.js의 decodeDefChunk()(문자열 항목도 그대로 읽는다).
+// 정의가 비어도 뜻 키워드는 싣는다 — 규칙 1은 정의 유무와 무관하다.
+function buildDefBuckets(terms, senses) {
+  const buckets = Array.from({ length: DEF_BUCKETS }, () => ({}));
+  for (const t of terms) {
+    if (!t.slug) continue;
+    const sense = senses.get(t.slug);
+    if (!t.definition && !sense) continue;
+    let entry = t.definition;
+    if (sense) {
+      entry = { s: sense.join(" ") };
+      if (t.definition) entry = { d: t.definition, s: entry.s };
+    }
+    buckets[defBucket(t.slug)][t.slug] = entry;
+  }
+  return buckets;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
 
@@ -431,11 +450,10 @@ function run() {
     // 6번째 칸(영문 일반어)도 대부분 0이라 있을 때만 붙인다. 붙일 때는
     // 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다.
     const enGrade = englishGrade(t, englishCommon);
-    // 7번째 칸(문맥 뜻 키워드)도 짧은 표제어에만 붙는다. 앞 칸은 0으로 채운다.
-    const sense = senses.get(t.slug);
-    if (grade || enGrade || sense) row.push(grade);
-    if (enGrade || sense) row.push(enGrade);
-    if (sense) row.push(sense.join(" "));
+    // 문맥 뜻 키워드(옛 7번째 칸)는 라운드 4에서 viewer-defs 청크로 옮겼다 — 매칭된
+    // 용어에만 필요한데 인덱스에 두면 전량 로드가 0.7MB 늘었다.
+    if (grade || enGrade) row.push(grade);
+    if (enGrade) row.push(enGrade);
     return row;
   });
 
@@ -449,12 +467,7 @@ function run() {
   fs.rmSync(DEFS_DIR, { recursive: true, force: true });
   fs.mkdirSync(DEFS_DIR, { recursive: true });
 
-  const buckets = Array.from({ length: DEF_BUCKETS }, () => ({}));
-  for (const t of terms) {
-    if (!t.slug || !t.definition) continue;
-    buckets[defBucket(t.slug)][t.slug] = t.definition;
-  }
-
+  const buckets = buildDefBuckets(terms, senses);
   let defsBytes = 0;
   buckets.forEach((bucket, i) => {
     const file = path.join(DEFS_DIR, `${String(i).padStart(3, "0")}.json`);
@@ -477,4 +490,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };
+module.exports = { defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };

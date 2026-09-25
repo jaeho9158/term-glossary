@@ -16,6 +16,22 @@ function loadIndex() {
   return viewer.decodeViewerIndex(raw);
 }
 
+// 뜻 키워드(규칙 1)는 viewer-defs 청크에 있다(라운드 4). 뷰어의 attachDefinitions와
+// 같게 매칭된 용어의 청크만 읽어 match.sense를 채운다.
+const chunkCache = new Map();
+function attachSense(matches) {
+  for (const m of matches) {
+    const bucket = viewer.defBucket(m.slug);
+    if (!chunkCache.has(bucket)) {
+      const file = path.join(ROOT, "viewer-defs", String(bucket).padStart(3, "0") + ".json");
+      chunkCache.set(bucket, fs.existsSync(file) ? viewer.decodeDefChunk(JSON.parse(fs.readFileSync(file, "utf8"))) : new Map());
+    }
+    const entry = chunkCache.get(bucket).get(m.slug);
+    m.sense = entry ? entry.sense : m.sense || [];
+  }
+  return matches;
+}
+
 async function extractPdfText(file) {
   const toUrl = (p) => p.replace(/\\/g, "/").replace(/^([A-Za-z]):/, "file:///$1:");
   const vendor = path.join(ROOT, "assets", "vendor", "pdfjs");
@@ -61,7 +77,8 @@ async function gradeDoc(name, index, terms, verbose) {
   if (text === null) return { name, error: "본문 파일 없음(.pdf/.txt)" };
   if (!text.trim()) return { name, error: "추출된 텍스트 없음(스캔본?)", scanned: true };
 
-  const all = viewer.matchTermsWithIndex(text, index);
+  // 뷰어처럼 매칭 → 청크에서 뜻 키워드 채우기 → 규칙 1 후처리 순서로 돈다.
+  const all = viewer.applySenseToMatches(attachSense(viewer.matchTermsWithIndex(text, index)), text);
   // 분야 거리로 강등된 용어(distant)는 밑줄 없이 "다른 분야" 맨 아래에만 있어
   // 사용자 체감과 같게 "잡힘"에서 뺀다. 그중 정답인 것은 "강등 미탐"으로 따로 센다.
   const matches = all.filter((m) => !m.distant);

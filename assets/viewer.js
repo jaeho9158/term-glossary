@@ -794,8 +794,21 @@ function matchTermsWithIndex(text, exactIndex) {
     delete item.stem;
   }
   const matchedList = filterDistantFieldMatches([...resultsMap.values()]);
-  applySenseContextRule(matchedList, text, matchedList.topFieldGroups);
-  return sortMatches(resultsMap);
+  // 문맥 뜻 판별(규칙 1)은 여기서 하지 않는다: 뜻 키워드가 인덱스가 아니라 viewer-defs
+  // 청크에 있어서(라운드 4), 매칭된 용어의 청크를 받은 뒤 applySenseToMatches로 돌린다.
+  const sorted = sortMatches(resultsMap);
+  sorted.topFieldGroups = matchedList.topFieldGroups || [];
+  return sorted;
+}
+
+// 매칭 결과에 뜻 키워드(match.sense)를 채운 뒤 부른다. 규칙 1로 강등된 것이 맨 뒤로
+// 가도록 다시 정렬하고, 상위 분야군 표시는 그대로 옮겨 단다.
+function applySenseToMatches(matches, text) {
+  const top = matches.topFieldGroups;
+  applySenseContextRule(matches, text, top);
+  const sorted = sortMatches(new Map(matches.map((m) => [m.slug, m])));
+  sorted.topFieldGroups = top;
+  return sorted;
 }
 
 function matchTerms(text, terms) {
@@ -1286,7 +1299,8 @@ function decodeViewerIndex(data) {
   // 5번째 칸(일반어 등급)은 0일 때 생략돼 있다 — 4칸짜리 옛 인덱스도
   // 그대로 읽히도록 없으면 0으로 본다.
   // 6번째 칸(영문 일반어 표시, B단계)도 같은 방식으로 없으면 0.
-  // 7번째 칸(문맥 뜻 키워드, 공백 구분)은 짧은 표제어에만 있고 없으면 빈 배열.
+  // 7번째 칸(문맥 뜻 키워드, 공백 구분)은 라운드 3 인덱스에만 있다. 라운드 4부터는
+  // viewer-defs 청크로 옮겨 생성하지 않지만(decodeDefChunk), 옛 인덱스도 읽히게 둔다.
   return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn, sense]) => ({
     slug,
     title_ko: titleKo || "",
@@ -1296,6 +1310,18 @@ function decodeViewerIndex(data) {
     common_en: commonEn || 0,
     sense: sense ? sense.split(" ") : [],
   }));
+}
+
+// viewer-defs/NNN.json 청크 한 개를 slug → {definition, sense} 로 푼다.
+// 항목은 문자열(정의만)이거나, 뜻 키워드가 있는 짧은 표제어면 {d: 정의, s: "공백 구분
+// 키워드"}다(라운드 4에서 인덱스 7번째 칸을 이리로 옮김). 문자열만 있는 옛 청크도 읽힌다.
+function decodeDefChunk(map) {
+  const out = new Map();
+  for (const [slug, v] of Object.entries(map || {})) {
+    if (typeof v === "string") out.set(slug, { definition: v, sense: [] });
+    else if (v && typeof v === "object") out.set(slug, { definition: v.d || "", sense: v.s ? v.s.split(" ") : [] });
+  }
+  return out;
 }
 
 // definition 청크 번호. scripts/generate-viewer-index.js의 같은 이름 함수와
@@ -1577,7 +1603,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { applySenseContextRule, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -2190,6 +2216,7 @@ if (typeof document !== "undefined") {
     // 청크는 한 번 받으면 세션 내내 재사용한다(같은 논문을 다시 분석하거나
     // 필터를 만질 때 다시 받지 않도록).
     const definitionCache = new Map(); // slug -> definition
+    const senseCache = new Map(); // slug -> 뜻 키워드 배열(짧은 표제어만, 규칙 1용)
     const loadedDefBuckets = new Set();
     let defLoadWarned = false; // 정의 청크 실패 문구는 문서당 한 번만
     async function loadDefinitions(slugs) {
@@ -2206,9 +2233,9 @@ if (typeof document !== "undefined") {
           try {
             const res = await fetch(`viewer-defs/${String(bucket).padStart(3, "0")}.json`);
             if (!res.ok) return;
-            const map = await res.json();
-            for (const [slug, definition] of Object.entries(map)) {
-              definitionCache.set(slug, definition);
+            for (const [slug, entry] of decodeDefChunk(await res.json())) {
+              definitionCache.set(slug, entry.definition);
+              if (entry.sense.length) senseCache.set(slug, entry.sense);
             }
           } catch (err) {
             // 정의는 부가 정보라 용어 목록 자체는 그대로 보여준다. 다만 뜻이
@@ -2223,12 +2250,14 @@ if (typeof document !== "undefined") {
       );
     }
 
-    // 매칭 결과(recordMatch가 만든 객체)에 definition을 채워 넣는다.
+    // 매칭 결과(recordMatch가 만든 객체)에 definition과 뜻 키워드를 채워 넣는다.
+    // 청크를 못 받은 용어는 뜻 키워드가 비어 규칙 1에서 판단 보류(유지)된다.
     async function attachDefinitions(matches) {
       if (!matches.length) return;
       await loadDefinitions(matches.map((m) => m.slug));
       for (const match of matches) {
         match.definition = definitionCache.get(match.slug) || "";
+        match.sense = senseCache.get(match.slug) || match.sense || [];
       }
     }
     // Writes the highlighted reading view into its own container and hides the
@@ -2713,13 +2742,14 @@ if (typeof document !== "undefined") {
         // Fast exact-match pass first — cheap regardless of document size,
         // so results appear immediately instead of waiting on fuzzy search.
         const exactMatches = matchTerms(text, terms);
-        currentMatches = exactMatches;
+        // 카드에 찍을 정의와 규칙 1의 뜻 키워드는 찾은 용어 것만 청크에서 받아 온다.
+        // 규칙 1(문맥 뜻 판별)이 강등을 바꾸므로 밑줄·패널은 그 뒤에 그린다.
+        await attachDefinitions(exactMatches);
+        currentMatches = applySenseToMatches(exactMatches, text);
         if (updateInputPane) {
           renderRenderedPane(text);
         }
         filterInput.disabled = false;
-        // 카드에 찍을 정의는 찾은 용어 것만 청크에서 받아 온다.
-        await attachDefinitions(currentMatches);
         renderMatchedTerms(currentMatches, filterInput.value);
 
         // fuzzy(오타 허용) 패스는 6단계에서 코드째 삭제했다. 이 사전처럼
