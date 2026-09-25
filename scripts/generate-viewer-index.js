@@ -265,6 +265,110 @@ function englishGrade(term, englishCommon) {
   return 0;
 }
 
+// ---- 문맥 뜻 키워드(7번째 칸, 오탐 라운드 3 규칙 1) ------------------------
+// 짧은 표제어(한글 3음절 이하 또는 영문 한 단어)마다 "이 뜻으로 쓰였다면 주변에
+// 나올 법한 낱말"을 사전 데이터에서 뽑는다: definition·why·deeper의 2~4음절 한글
+// 명사(조사·어미 제거, 사전 전체에서 흔한 낱말은 불용어로 제외)를 tf·idf로 매기고,
+// 관련 용어 표제어와 분야명은 가산점을 준다. 런타임(viewer.js
+// applySenseContextRule)은 등장 위치 주변에 이 중 하나라도 있는지만 본다.
+// 짧은 표제어만 대상인 이유: 긴 표제어는 동음이의어가 드물고, 전량에 넣으면
+// 인덱스가 너무 커진다(목표 +30% 이내).
+const SENSE_KEYWORDS_MAX = 12;
+const SENSE_STOP_DF = 800; // 이보다 많은 항목 본문에 나오는 낱말은 뜻을 가리지 못한다
+const SENSE_BONUS = 100; // 관련어·분야명은 본문 낱말보다 먼저
+
+function isSenseTitle(t) {
+  const ko = (t.title_ko || "").replace(/[^가-힣]/g, "");
+  return (ko.length > 0 && ko.length <= 3) || /^[A-Za-z]+$/.test((t.title_en || "").trim());
+}
+
+let senseStemsFn = null;
+function nounOf(word) {
+  if (!senseStemsFn) senseStemsFn = require("../assets/viewer.js").senseStems;
+  let best = null;
+  for (const stem of senseStemsFn(word)) {
+    if (stem.length >= 2 && stem.length <= 4 && (!best || stem.length < best.length)) best = stem;
+  }
+  return best;
+}
+
+function bodyWords(t) {
+  return [t.definition, t.why, t.deeper].filter(Boolean).join(" ").match(/[가-힣]+/g) || [];
+}
+
+// "가벼운지·구합니다" 같은 활용형 조각을 명사로 착각하지 않도록, 사전 표제어이거나
+// 사전 본문 여러 항목에서 격조사가 붙은 꼴로 나온 낱말만 명사로 인정한다.
+const NOUN_PARTICLES = ["은", "는", "이", "가", "을", "를", "의", "에", "와", "과", "으로", "에서"];
+const NOUN_MIN_EVIDENCE = 3;
+function nounEvidence(terms) {
+  const evidence = new Map();
+  for (const t of terms) {
+    const seen = new Set();
+    for (const word of bodyWords(t)) {
+      for (const p of NOUN_PARTICLES) {
+        if (word.endsWith(p) && word.length - p.length >= 2 && word.length - p.length <= 4) seen.add(word.slice(0, -p.length));
+      }
+    }
+    for (const noun of seen) evidence.set(noun, (evidence.get(noun) || 0) + 1);
+  }
+  return evidence;
+}
+
+function bodyNouns(t, isNoun) {
+  const tf = new Map();
+  for (const word of bodyWords(t)) {
+    const noun = nounOf(word);
+    if (noun && isNoun(noun)) tf.set(noun, (tf.get(noun) || 0) + 1);
+  }
+  return tf;
+}
+
+function senseKeywords(terms) {
+  const { CATEGORY_LABELS } = require("../assets/category-data.js");
+  const titleOf = new Map(terms.map((t) => [t.slug, t.title_ko || ""]));
+  const titles = new Set(terms.map((t) => (t.title_ko || "").replace(/\s+/g, "")));
+  const evidence = nounEvidence(terms);
+  const isNoun = (w) => titles.has(w) || (evidence.get(w) || 0) >= NOUN_MIN_EVIDENCE;
+  const df = new Map();
+  const tfs = new Map();
+  for (const t of terms) {
+    const tf = bodyNouns(t, isNoun);
+    for (const noun of tf.keys()) df.set(noun, (df.get(noun) || 0) + 1);
+    if (isSenseTitle(t)) tfs.set(t.slug, tf);
+  }
+  const n = terms.length;
+  const out = new Map();
+  for (const t of terms) {
+    const tf = tfs.get(t.slug);
+    if (!tf) continue;
+    const own = (t.title_ko || "").replace(/\s+/g, "");
+    const score = new Map();
+    for (const [noun, c] of tf) {
+      const d = df.get(noun) || 1;
+      if (d > SENSE_STOP_DF) continue;
+      score.set(noun, c * Math.log(n / d));
+    }
+    const bonus = (word) => {
+      if (!/^[가-힣]{2,6}$/.test(word)) return;
+      score.set(word, (score.get(word) || 0) + SENSE_BONUS);
+    };
+    for (const slug of t.related || []) bonus((titleOf.get(slug) || "").replace(/\s+/g, ""));
+    for (const code of t.categories || []) {
+      for (const part of String(CATEGORY_LABELS[code] || "").split("·")) {
+        bonus(part);
+        if (part.endsWith("학") && part.length >= 3) bonus(part.slice(0, -1)); // 독성학 → 독성
+      }
+    }
+    score.delete(own);
+    const picked = [...score.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, SENSE_KEYWORDS_MAX)
+      .map(([w]) => w);
+    if (picked.length) out.set(t.slug, picked);
+  }
+  return out;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
 
@@ -283,14 +387,18 @@ function run() {
   // 4칸짜리 옛 인덱스도 그대로 읽힌다.
   const grades = computeCommonGrades(terms);
   const englishCommon = computeEnglishCommon(terms);
+  const senses = senseKeywords(terms);
   const rows = terms.map((t) => {
     const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
     const grade = grades.get(t.title_ko) || 0;
     // 6번째 칸(영문 일반어)도 대부분 0이라 있을 때만 붙인다. 붙일 때는
     // 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다.
     const enGrade = englishGrade(t, englishCommon);
-    if (grade || enGrade) row.push(grade);
-    if (enGrade) row.push(enGrade);
+    // 7번째 칸(문맥 뜻 키워드)도 짧은 표제어에만 붙는다. 앞 칸은 0으로 채운다.
+    const sense = senses.get(t.slug);
+    if (grade || enGrade || sense) row.push(grade);
+    if (enGrade || sense) row.push(enGrade);
+    if (sense) row.push(sense.join(" "));
     return row;
   });
 
@@ -332,4 +440,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN };
+module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };
