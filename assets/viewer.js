@@ -637,15 +637,31 @@ const CORROBORATION_PARTICLES = new Set(["로", "도", "나"]);
 function needsBareCorroboration(form, particle) {
   return /^[가-힣]{2}$/.test(form) && (particle === undefined || CORROBORATION_PARTICLES.has(particle));
 }
+// 단독 등장 대신, 어간이 3~4음절 낱말의 앞부분(척도화·농도의존)으로 나와도 뒷받침으로 친다.
+// 나머지가 조사(1개 또는 2개 연속: 제대로·제대로는)면 같은 조사 결합이라 제외한다.
+function isParticleTail(rest) {
+  if (PARTICLE_SET.has(rest)) return true;
+  for (let i = 1; i < rest.length; i++) if (PARTICLE_SET.has(rest.slice(0, i)) && PARTICLE_SET.has(rest.slice(i))) return true;
+  return false;
+}
+function hasPrefixCorroboration(stem, words) {
+  for (const w of words) {
+    if (w.length < 3 || w.length > 4 || !w.startsWith(stem) || !/^[가-힣]+$/.test(w)) continue;
+    if (!isParticleTail(w.slice(stem.length))) return true;
+  }
+  return false;
+}
 
 function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
   // 텍스트 모드·PDF 모드 모두 이 함수로 들어오므로 제외 구간도 여기서 한 번에.
   const excluded = excludedRanges(text);
+  const keptWords = [];
 
   for (const [word, allStarts] of wordOccurrences(text)) {
     const starts = allStarts.filter((s) => !(excluded.length && isInRanges(excluded, s)) && !isLineWrapFragment(text, s));
     if (!starts.length) continue;
+    keptWords.push(normalizeWord(word));
     const hits = findExactMatches(word, exactIndex);
     if (!hits.length) continue;
     for (const hit of hits) {
@@ -659,15 +675,19 @@ function matchTermsWithIndex(text, exactIndex) {
         const item = resultsMap.get(term.slug);
         item.viaHangul = item.viaHangul || /[가-힣]/.test(word);
         const particle = normalizeWord(word).slice(hit.matchedLength);
-        if (!particle || !needsBareCorroboration(normalizeWord(word.slice(0, hit.matchedLength)), particle)) item.bare = true;
+        const stem = normalizeWord(word.slice(0, hit.matchedLength));
+        if (!particle || !needsBareCorroboration(stem, particle)) item.bare = true;
+        else item.stem = stem;
       }
     }
   }
 
   for (const [slug, item] of resultsMap) {
     const needsKorean = item.common_en === EN_GRADE_NEEDS_KOREAN && !item.viaHangul;
+    if (!item.bare && item.stem && hasPrefixCorroboration(item.stem, keptWords)) item.bare = true;
     if (!item.bare || needsKorean) resultsMap.delete(slug);
     else delete item.bare;
+    delete item.stem;
   }
   filterDistantFieldMatches([...resultsMap.values()]);
   return sortMatches(resultsMap);

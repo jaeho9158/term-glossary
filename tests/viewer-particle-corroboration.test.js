@@ -21,6 +21,14 @@ assert.ok(slugs("상관관계가 유의하였다.").includes("correlation"));
 // 영문 표기도 단독 등장으로 친다
 assert.ok(slugs("Echelon 구조에서 제대로 배치").includes("echelon"));
 
+// 2음절 어간이 문서 안에서 3~4음절 낱말의 앞부분(척도화·농도의존)으로 나오면 뒷받침으로 친다
+{
+  const t2 = [{ slug: "scale", title_ko: "척도", title_en: "Scale", categories: ["stat"] }, ...terms];
+  const s2 = (text) => matchTerms(text, t2).map((m) => m.slug);
+  assert.ok(s2("5점 척도로 측정하였다. 이후 척도화 과정을 거쳤다.").includes("scale"), "척도화가 뒷받침");
+  assert.ok(!s2("5점 척도로 측정하였다.").includes("scale"), "뒷받침 없으면 안 잡힘");
+  assert.ok(!s2("실험을 제대로 하였다. 제대로는 아니다.").includes("echelon"), "조사 결합(제대로는)은 뒷받침 아님");
+}
 assert.strictEqual(needsBareCorroboration("제대"), true);
 assert.strictEqual(needsBareCorroboration("상관관계"), false);
 assert.strictEqual(needsBareCorroboration("ab"), false);
