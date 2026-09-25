@@ -2258,8 +2258,21 @@ if (typeof document !== "undefined") {
       findBtn.disabled = textarea.value.trim().length === 0;
     });
 
-    async function loadTerms() {
-      if (cachedTerms) return cachedTerms;
+    // 진행 중인 fetch를 캐시한다 — PDF를 연달아 떨어뜨리면 renderPdf가 겹쳐 불러
+    // 2.7MB 색인을 두 번 받았다. 실패하면 다음 호출이 다시 시도하도록 비운다.
+    let termsPromise = null;
+    function loadTerms() {
+      if (cachedTerms) return Promise.resolve(cachedTerms);
+      if (!termsPromise) {
+        termsPromise = fetchTerms().catch((err) => {
+          termsPromise = null;
+          throw err;
+        });
+      }
+      return termsPromise;
+    }
+
+    async function fetchTerms() {
       // terms-lite.json(16MB)에서 viewer-index.json(2.7MB)으로 갈아탔다.
       // 매칭에 필요한 slug/title_ko/title_en과 카테고리 필터용 categories만
       // 들어 있고, definition은 매칭된 용어 것만 loadDefinitions()가 채운다.
@@ -3386,7 +3399,11 @@ if (typeof document !== "undefined") {
     // which also signals "keep pdfTextContentCache" so re-rendering at a new
     // scale doesn't re-run getTextContent() (a real, if secondary, parse
     // cost) for every page a second time.
-    async function renderPdf(pdf, probedTextContent, onProgress) {
+    // gen: 문서 세대 토큰(pdfLoadGen). await 뒤에 세대가 바뀌었으면(다른 PDF가
+    // 드롭됨) 캔버스·텍스트 레이어·전역을 더 건드리지 않고 null을 돌려준다.
+    async function renderPdf(pdf, probedTextContent, onProgress, gen) {
+      if (gen === undefined) gen = pdfLoadGen;
+      const stale = () => gen !== pdfLoadGen;
       const viewer = document.getElementById("pdf-viewer");
       if (pdfPageObserver) {
         pdfPageObserver.disconnect();
@@ -3413,15 +3430,21 @@ if (typeof document !== "undefined") {
       pane.classList.remove("no-pdf");
       pane.classList.add("has-pdf");
 
-      if (pdfScale === null) pdfScale = await computeFitWidthScale(pdf);
+      if (pdfScale === null) {
+        const fit = await computeFitWidthScale(pdf);
+        if (stale()) return null;
+        pdfScale = fit;
+      }
 
       // loadTerms() also populates the module-level exactIndex used below.
       await loadTerms();
+      if (stale()) return null;
 
       const pageTexts = [];
 
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
+        if (stale()) return null;
         const viewport = page.getViewport({ scale: pdfScale });
         pdfPageProxies.set(i, page);
         pdfPageViewports.set(i, viewport);
@@ -3459,6 +3482,7 @@ if (typeof document !== "undefined") {
           if (probedTextContent) probedTextContent.delete(i);
         } else {
           textContent = await page.getTextContent();
+          if (stale()) return null;
         }
         pdfTextContentCache.set(i, textContent);
 
@@ -3469,6 +3493,7 @@ if (typeof document !== "undefined") {
           container: textLayerDiv,
           viewport,
         }).render();
+        if (stale()) return null;
 
         // 축척 1 기준의 페이지 폭을 넘겨 2단 조판이면 열 순서를 복원한다.
         // 화면 배율(pdfScale)이 아니라 원본 좌표계여야 item transform 과 단위가 맞는다.
@@ -3534,7 +3559,7 @@ if (typeof document !== "undefined") {
       hideHighlightToolbar();
       hideMemoPopover();
       closeTermPopover();
-      await renderPdf(pdfDoc, null);
+      if ((await renderPdf(pdfDoc, null)) === null) return;
       viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
       // 하이라이트는 5단계부터 읽기 모드 DOM 에만 있다. 줌은 #pdf-viewer 만
       // 새로 그리므로 여기서 다시 그릴 것이 없다(다시 그리면 이중으로 감싼다).
@@ -3561,8 +3586,15 @@ if (typeof document !== "undefined") {
     // 업로드 경로와 "최근 문서 다시 열기" 경로가 같은 처리를 타도록, 파일 하나를
     // 받아 렌더까지 끝내는 함수로 분리했다. `persist:false` 는 IndexedDB 에서
     // 막 꺼내온 파일을 다시 쓰지 않기 위한 플래그.
+    // PDF를 연달아 떨어뜨리면 두 handlePdfFile이 겹쳐 돌며 같은 #pdf-viewer와
+    // 전역(pdfDoc·pdfPageTexts…)을 번갈아 덮어써 페이지가 섞였다. 드롭마다 세대를
+    // 올리고, 옛 세대는 await 뒤에 조용히 물러난다 — 마지막 드롭만 남는다.
+    let pdfLoadGen = 0;
+
     async function handlePdfFile(file, options) {
       const persist = !options || options.persist !== false;
+      const gen = ++pdfLoadGen;
+      const stale = () => gen !== pdfLoadGen;
 
       pdfStatus.hidden = false;
       pdfStatus.textContent = "PDF 여는 중…";
@@ -3577,12 +3609,23 @@ if (typeof document !== "undefined") {
         // the document hash and for pdf.js. (Hash first — pdf.js may take
         // ownership of the buffer once it hands it to the worker.)
         const arrayBuffer = await file.arrayBuffer();
-        currentDocHash = await computeDocHash(file, arrayBuffer);
+        if (stale()) return;
+        const docHash = await computeDocHash(file, arrayBuffer);
+        if (stale()) return;
+        currentDocHash = docHash;
         // isEvalSupported:false — CVE-2024-4367 완화. pdf.js 4.2.67 미만은 악성
         // 폰트 매트릭스로 임의 JS 실행이 가능하므로 eval 경로를 차단한다.
         const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer, isEvalSupported: false }).promise;
 
+        if (stale()) {
+          pdf.destroy();
+          return;
+        }
         const probed = await probePdfText(pdf);
+        if (stale()) {
+          pdf.destroy();
+          return;
+        }
         if (!hasAnyText(probed)) {
           throw new Error("empty-text-layer");
         }
@@ -3605,7 +3648,8 @@ if (typeof document !== "undefined") {
 
         const text = await renderPdf(pdf, probed, (done, total) => {
           pdfStatus.textContent = `텍스트 추출 중… (${done}/${total})`;
-        });
+        }, gen);
+        if (text === null || stale()) return;
 
         pdfStatus.textContent = "용어 분석 중…";
         textarea.value = text;
@@ -3615,11 +3659,14 @@ if (typeof document !== "undefined") {
         hideRestoreStatus();
         if (persist) saveCurrentPdf(file, currentDocHash, pdf.numPages);
         await requestAnalysis(text, { updateInputPane: false });
+        if (stale()) return;
         // PDF 모드 기본 화면은 읽기 모드. 원본 canvas 는 토글로만 띄운다.
         renderReadingPane();
         pdfStatus.hidden = true;
         await loadAndRenderAnnotations();
       } catch (err) {
+        // 이미 다음 문서로 넘어갔다면 옛 문서의 실패로 화면을 지우지 않는다.
+        if (stale()) return;
         console.error("[pdf-upload]", err);
         pdfStatus.hidden = true;
         showTextInput();
