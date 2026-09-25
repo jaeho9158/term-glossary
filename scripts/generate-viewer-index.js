@@ -169,8 +169,10 @@ const CURATED_COMMON_WORDS = [
 // 일상어(CURATED_COMMON_WORDS)와는 이유가 달라 따로 둔다.
 // "성능평가"는 사전에 원자력(폐기물 처분장 성능평가) 뜻만 있는데, 논문에서는
 // 일반적인 "성능 평가"(모델·시스템)로 쓰인다.
+// "저작권"(사용자 승인 2026-09-26): 말뭉치에서 머리글·저작권 정책 페이지의
+// "Copyright ©"·저작권 안내문으로만 잡혔다(drug-abuse·drug-law·psychiatry 오탐).
 const PAPER_BOILERPLATE_TITLES = [
-  "교신저자", "문헌고찰", "논문철회", "셀프아카이빙", "저작재산권", "성능평가",
+  "교신저자", "문헌고찰", "논문철회", "셀프아카이빙", "저작재산권", "성능평가", "저작권",
 ];
 
 function computeCommonGrades(terms) {
