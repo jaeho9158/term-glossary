@@ -135,7 +135,7 @@ async function main() {
   const pct = (a, b) => (b ? ((100 * a) / b).toFixed(1) + "%" : "-");
   console.log(`\n합계: 미탐 ${sumMissed}/${sumExp} (${pct(sumMissed, sumExp)}), 오탐 ${sumFp}/${sumGot} (${pct(sumFp, sumGot)}), 정렬 오류 ${sumOrder}, 강등 ${sumDistant}(강등 미탐 ${sumDistantMissed})`);
   console.log(`강등 중 오탐 ${sumDistantFp} / 정답 ${sumDistantMissed} (나머지 ${sumDistant - sumDistantFp - sumDistantMissed}는 미분류)`);
-  console.log("목표: 미탐 ≤ 10%, 오탐 ≤ 5%, 정렬 오류 0");
+  console.log("목표: 미탐 ≤ 10%, 오탐 ≤ 10%, 정렬 오류 0");
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

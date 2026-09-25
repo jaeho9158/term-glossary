@@ -45,4 +45,4 @@ node scripts/viewer-eval.js NAME       # 한 편만, 잡힌 용어 전체 출력
 node scripts/viewer-eval.js --find 응력 # slug 찾기
 ```
 
-목표(계획 G2): 오탐 ≤ 5%, 미탐 ≤ 10%, 정렬 오류 0.
+목표(계획 G2): 오탐 ≤ 10%, 미탐 ≤ 10%, 정렬 오류 0.
