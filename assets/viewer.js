@@ -595,7 +595,9 @@ function filterDistantFieldMatches(matches) {
 // 상위(+기초)만 제외로 다시 적용 — 오탐 101→69, 강등 미탐 12→29를 받아들임(강등은 접힌 그룹).
 const SENSE_WINDOW = 200;
 const SENSE_MAX_SYLLABLES = 3;
-const SENSE_MAX_COUNT = 2; // 이보다 많이 나오면 문맥이 안 맞아도 주제어일 수 있다
+// 등장 수 한도(옛 SENSE_MAX_COUNT=2, 3회 이상이면 판단 없이 유지)는 라운드 5에서 뺐다:
+// 여러 번 나와도 모든 등장 창을 합쳐 뜻 낱말이 하나도 없으면 다른 뜻으로 본다.
+// 25편 오탐 66→62, 강등 미탐 14→17(접근성·루버·굴절률).
 const SENSE_MIN_OVERLAP = 1;
 // 빌드 스크립트가 사전 본문에서 뜻 키워드(명사)를 뽑을 때 조사·흔한 어미를 떼는 데 쓴다.
 const SENSE_ENDINGS = [
@@ -670,7 +672,6 @@ function applySenseContextRule(list, text, top) {
   if (!top || !top.length) return list;
   for (const match of list) {
     if (match.distant || !isSenseTarget(match) || inTopGroups(match, top)) continue;
-    if ((match.count || 0) > SENSE_MAX_COUNT) continue;
     const overlap = senseOverlap(match, text);
     if (overlap < 0) continue;
     if (overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }

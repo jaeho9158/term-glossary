@@ -43,10 +43,12 @@ const run = (text, top) => {
   const text = "청소년의 마약 중독 문제는 또래 관계에서 비롯된다.";
   assert.ok(!run(text, ["의학·생명"]).distant, "상위 분야군 용어는 규칙 제외");
 }
-// 등장이 많으면(>2) 유지
+// 라운드 5: 등장 수와 무관하게 전체 창 합산 hit 0이면 강등, 하나라도 있으면 유지
 {
   const text = "중독 중독 중독 청소년 마약";
-  assert.ok(!run(text, ["사회과학"]).distant, "3회 이상 등장 → 유지");
+  assert.strictEqual(run(text, ["사회과학"]).distant, true, "3회 등장이어도 뜻 낱말 0 → 강등");
+  const text2 = "중독 중독 중독 청소년 마약. 해독제 투여.";
+  assert.ok(!run(text2, ["사회과학"]).distant, "한 창에라도 뜻 낱말 → 유지");
 }
 // 분야 추정이 없으면(용어가 적은 문서) 적용하지 않는다
 {
