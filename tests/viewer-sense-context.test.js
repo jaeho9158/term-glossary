@@ -138,3 +138,21 @@ const run = (text, top) => {
 }
 
 console.log("sense context: all tests passed");
+
+// 리뷰 항목 3: 띄어 쓴 관련어 표제어는 낱말별 명사로, 관련어의 분야명도 가산한다.
+// 제 표제어 안에 든 명사(굴절률 ⊃ 굴절)는 등장 자리와 늘 겹치므로 넣지 않는다.
+{
+  const terms = [
+    { slug: "refractive-index", title_ko: "굴절률", categories: ["phys"], related: ["refl", "ud"],
+      definition: "빛이 꺾이는 정도를 나타내는 숫자입니다." },
+    { slug: "refl", title_ko: "빛의 반사와 굴절", categories: ["phys"], definition: "반사의 법칙." },
+    { slug: "ud", title_ko: "유니버설디자인", categories: ["archi"], definition: "모두를 위한 설계." },
+    { slug: "fx", title_ko: "반사", categories: ["phys"], definition: "되돌아옴." },
+  ];
+  const kw = senseKeywords(terms).get("refractive-index");
+  assert.ok(kw.includes("반사"), "관련어 낱말 명사: " + kw.join(","));
+  assert.ok(!kw.includes("굴절"), "제 표제어 안의 명사는 제외");
+  const { CATEGORY_LABELS } = require("../assets/category-data.js");
+  const archi = String(CATEGORY_LABELS.archi || "").split("·")[0];
+  if (archi) assert.ok(kw.includes(archi), "관련어 분야명: " + kw.join(","));
+}

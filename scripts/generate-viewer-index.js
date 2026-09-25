@@ -358,6 +358,7 @@ function bodyNouns(t, isNoun) {
 function senseKeywords(terms) {
   const { CATEGORY_LABELS } = require("../assets/category-data.js");
   const titleOf = new Map(terms.map((t) => [t.slug, t.title_ko || ""]));
+  const catsOf = new Map(terms.map((t) => [t.slug, t.categories || []]));
   const titles = new Set(terms.map((t) => (t.title_ko || "").replace(/\s+/g, "")));
   const evidence = nounEvidence(terms);
   const isNoun = (w) => titles.has(w) || (evidence.get(w) || 0) >= NOUN_MIN_EVIDENCE;
@@ -384,7 +385,24 @@ function senseKeywords(terms) {
       if (!/^[가-힣]{2,6}$/.test(word)) return;
       score.set(word, (score.get(word) || 0) + SENSE_BONUS);
     };
-    for (const slug of t.related || []) bonus((titleOf.get(slug) || "").replace(/\s+/g, ""));
+    for (const slug of t.related || []) {
+      const title = titleOf.get(slug) || "";
+      bonus(title.replace(/\s+/g, ""));
+      // 띄어 쓴 관련어 표제어("빛의 반사와 굴절")는 통째로는 6음절을 넘어 버려지고
+      // 본문에 그대로 나올 일도 없다. 낱말마다 명사를 떼어 가산한다(반사·굴절).
+      // 제 표제어 안에 든 명사(굴절률 ⊃ 굴절)는 등장 자리 자체와 늘 겹치므로 뺀다.
+      if (/\s/.test(title.trim())) {
+        for (const word of title.split(/\s+/)) {
+          const noun = nounOf(word);
+          if (noun && isNoun(noun) && !own.includes(noun)) bonus(noun);
+        }
+      }
+      // 관련어의 분야명도 가산한다: 관련어가 다른 분야에 걸쳐 있으면(유니버설디자인 →
+      // 건축학·도시계획학) 그 분야 문맥도 이 뜻의 근거다. 같은 분야면 중복 가산일 뿐이다.
+      for (const code of catsOf.get(slug) || []) {
+        for (const part of String(CATEGORY_LABELS[code] || "").split("·")) bonus(part);
+      }
+    }
     for (const code of t.categories || []) {
       for (const part of String(CATEGORY_LABELS[code] || "").split("·")) {
         bonus(part);
