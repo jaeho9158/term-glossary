@@ -488,6 +488,8 @@ function run() {
     `viewer-defs/ 생성: ${DEF_BUCKETS}개 청크, 합계 ${mb(defsBytes)}MB ` +
       `(청크 평균 ${Math.round(defsBytes / DEF_BUCKETS / 1024)}KB)`
   );
+  // 생성물이 바뀌었으니 viewer.html의 캐시 버전도 새로 찍는다.
+  require("./stamp-viewer-version.js").run();
 }
 
 if (require.main === module) run();

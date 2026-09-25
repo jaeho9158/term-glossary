@@ -1324,6 +1324,19 @@ function decodeDefChunk(map) {
   return out;
 }
 
+// 캐시 버전. viewer.html이 `assets/viewer.js?v=<해시>`로 이 파일을 부르고
+// (scripts/stamp-viewer-version.js가 찍음), 인덱스·청크 요청에도 같은 v를 붙인다.
+// 배포 뒤 옛 코드와 새 청크가 섞이지 않게 하려는 것 — 버전은 HTML 한 곳에만 둔다.
+function assetVersionFromSrc(src) {
+  if (!src) return "";
+  const m = /[?&]v=([^&#]+)/.exec(String(src));
+  return m ? m[1] : "";
+}
+function withAssetVersion(url, version) {
+  if (!version) return url;
+  return url + (url.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(version);
+}
+
 // definition 청크 번호. scripts/generate-viewer-index.js의 같은 이름 함수와
 // 반드시 동일한 값을 내야 한다(FNV-1a).
 const DEF_BUCKETS = 512;
@@ -1603,10 +1616,12 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
+  // document.currentScript는 스크립트 최상위 실행 중에만 유효하므로 여기서 잡아 둔다.
+  const ASSET_VERSION = assetVersionFromSrc(document.currentScript && document.currentScript.src);
   (function () {
     let cachedTerms = null;
     let exactIndex = null;
@@ -2202,7 +2217,7 @@ if (typeof document !== "undefined") {
       // terms-lite.json(16MB)에서 viewer-index.json(2.7MB)으로 갈아탔다.
       // 매칭에 필요한 slug/title_ko/title_en과 카테고리 필터용 categories만
       // 들어 있고, definition은 매칭된 용어 것만 loadDefinitions()가 채운다.
-      const res = await fetch("viewer-index.json");
+      const res = await fetch(withAssetVersion("viewer-index.json", ASSET_VERSION));
       // 404/500이면 res.json()의 SyntaxError 대신 명확한 에러로 던진다 —
       // 두 호출부(용어 찾기, PDF 업로드) 모두 try/catch로 사용자에게 안내한다.
       if (!res.ok) throw new Error(`용어 데이터 로드 실패 (HTTP ${res.status})`);
@@ -2231,7 +2246,7 @@ if (typeof document !== "undefined") {
           // 매번 같은 404를 반복해서 때리지 않도록.
           loadedDefBuckets.add(bucket);
           try {
-            const res = await fetch(`viewer-defs/${String(bucket).padStart(3, "0")}.json`);
+            const res = await fetch(withAssetVersion(`viewer-defs/${String(bucket).padStart(3, "0")}.json`, ASSET_VERSION));
             if (!res.ok) return;
             for (const [slug, entry] of decodeDefChunk(await res.json())) {
               definitionCache.set(slug, entry.definition);
@@ -2745,6 +2760,9 @@ if (typeof document !== "undefined") {
         // 카드에 찍을 정의와 규칙 1의 뜻 키워드는 찾은 용어 것만 청크에서 받아 온다.
         // 규칙 1(문맥 뜻 판별)이 강등을 바꾸므로 밑줄·패널은 그 뒤에 그린다.
         await attachDefinitions(exactMatches);
+        // 청크를 기다리는 사이 입력이 바뀌었으면(비움·PDF 드롭) 이 결과는 옛 텍스트
+        // 기준이다. 그려 버리면 새 화면(빈 상태·PDF 읽기 모드)을 덮어쓰므로 버린다.
+        if (text !== textarea.value) return;
         currentMatches = applySenseToMatches(exactMatches, text);
         if (updateInputPane) {
           renderRenderedPane(text);
@@ -2771,12 +2789,15 @@ if (typeof document !== "undefined") {
     // 끝나는 즉시 "마지막 입력"으로 한 번 더 돌린다. 디바운스 중에도 사용자가
     // 계속 타이핑하면 요청이 겹칠 수 있는데, 겹친 실행이 서로의 결과를
     // 덮어쓰면 화면이 옛 텍스트 기준 결과로 되돌아가기 때문이다.
+    // 큐에 얹힌 호출도 "자기 차례 분석이 끝날 때" resolve한다 — handlePdfFile이
+    // await 뒤 읽기 모드를 그리는데, 즉시 resolve하면 결과가 나오기 전에 그린다.
     let analysisRunning = false;
     let queuedAnalysis = null;
+    let queuedWaiters = [];
     async function requestAnalysis(text, opts) {
       if (analysisRunning) {
         queuedAnalysis = { text, opts };
-        return;
+        return new Promise((resolve) => queuedWaiters.push(resolve));
       }
       analysisRunning = true;
       try {
@@ -2785,8 +2806,14 @@ if (typeof document !== "undefined") {
         analysisRunning = false;
         if (queuedAnalysis) {
           const next = queuedAnalysis;
+          const waiters = queuedWaiters;
           queuedAnalysis = null;
-          await requestAnalysis(next.text, next.opts);
+          queuedWaiters = [];
+          try {
+            await requestAnalysis(next.text, next.opts);
+          } finally {
+            for (const resolve of waiters) resolve();
+          }
         }
       }
     }
@@ -2816,6 +2843,8 @@ if (typeof document !== "undefined") {
       clearTimeout(autoAnalysisTimer);
       if (textarea.value.trim().length === 0) {
         queuedAnalysis = null;
+        // 버린 큐 요청을 기다리던 호출이 영원히 매달리지 않게 풀어 준다.
+        for (const resolve of queuedWaiters.splice(0)) resolve();
         resetResults();
         return;
       }
