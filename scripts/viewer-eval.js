@@ -72,12 +72,14 @@ async function gradeDoc(name, index, terms, verbose) {
 
   const distantSlugs = new Set(distant.map((m) => m.slug));
   const distantMissed = [...expected].filter((s) => distantSlugs.has(s));
+  // 강등 규칙의 정밀도: 강등된 것 중 오탐 표시(not_expected)였던 것
+  const distantFp = [...notExpected].filter((s) => distantSlugs.has(s));
   const missed = [...expected].filter((s) => !got.has(s) && !distantSlugs.has(s));
   const falsePos = [...notExpected].filter((s) => got.has(s));
   const unlabeled = [...got].filter((s) => !expected.has(s) && !notExpected.has(s));
   const orderErrors = (spec.nested || []).filter(([long, short]) => rankOf(matches, short) < rankOf(matches, long));
 
-  return { name, text, matches, distant, distantMissed, expected, notExpected, missed, falsePos, unlabeled, orderErrors, verbose };
+  return { name, text, matches, distant, distantMissed, distantFp, expected, notExpected, missed, falsePos, unlabeled, orderErrors, verbose };
 }
 
 function title(terms, slug) {
@@ -107,7 +109,7 @@ async function main() {
     return;
   }
 
-  let sumExp = 0, sumMissed = 0, sumGot = 0, sumFp = 0, sumOrder = 0, sumDistant = 0, sumDistantMissed = 0;
+  let sumExp = 0, sumMissed = 0, sumGot = 0, sumFp = 0, sumOrder = 0, sumDistant = 0, sumDistantMissed = 0, sumDistantFp = 0;
   for (const name of docs) {
     const r = await gradeDoc(name, index, terms, args.length === 1);
     if (r.error) { console.log(`\n[${name}] ${r.error}`); continue; }
@@ -117,7 +119,7 @@ async function main() {
     if (r.expected.size > 0) { sumGot += r.matches.length; sumFp += r.falsePos.length; }
     else console.log(`\n[${name}] 정답 0 — 오탐 합계에서 제외`);
     sumOrder += r.orderErrors.length;
-    sumDistant += r.distant.length; sumDistantMissed += r.distantMissed.length;
+    sumDistant += r.distant.length; sumDistantMissed += r.distantMissed.length; sumDistantFp += r.distantFp.length;
     console.log(`\n[${name}] 잡힘 ${r.matches.length} / 정답 ${r.expected.size} — 미탐 ${r.missed.length}, 오탐 ${r.falsePos.length}, 미분류 ${r.unlabeled.length}, 정렬 오류 ${r.orderErrors.length}, 강등 ${r.distant.length}(강등 미탐 ${r.distantMissed.length})`);
     if (r.distantMissed.length) console.log("  강등 미탐:", r.distantMissed.map((s) => title(terms, s)).join(", "));
     if (r.missed.length) console.log("  미탐:", r.missed.map((s) => title(terms, s)).join(", "));
@@ -132,6 +134,7 @@ async function main() {
   }
   const pct = (a, b) => (b ? ((100 * a) / b).toFixed(1) + "%" : "-");
   console.log(`\n합계: 미탐 ${sumMissed}/${sumExp} (${pct(sumMissed, sumExp)}), 오탐 ${sumFp}/${sumGot} (${pct(sumFp, sumGot)}), 정렬 오류 ${sumOrder}, 강등 ${sumDistant}(강등 미탐 ${sumDistantMissed})`);
+  console.log(`강등 중 오탐 ${sumDistantFp} / 정답 ${sumDistantMissed} (나머지 ${sumDistant - sumDistantFp - sumDistantMissed}는 미분류)`);
   console.log("목표: 미탐 ≤ 10%, 오탐 ≤ 5%, 정렬 오류 0");
 }
 
