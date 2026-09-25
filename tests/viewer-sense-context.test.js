@@ -117,4 +117,22 @@ const run = (text, top) => {
   assert.deepStrictEqual(u.sense, []);
 }
 
+// 라운드 4 검수: -는지/-은지/-인지 조각, "~공학"을 뗀 어간, "-주의"의 "의" 제거
+{
+  assert.ok(!senseStems("자본주의").includes("자본주"), "-주의의 의는 조사가 아님");
+  assert.ok(senseStems("자본주의의").includes("자본주의"), "조사가 더 붙은 꼴은 뗀다");
+  const filler = (i, body) => ({ slug: "g" + i, title_ko: "채움" + i, categories: ["phys"], definition: body });
+  const terms = [
+    { slug: "fuel", title_ko: "연료", categories: ["biotech"],
+      definition: "자본주의 사회에서 무엇이 변하는지를 본다. 결과인지를 가린다. 생명의 원리." },
+    // 격조사 꼴 근거가 여러 항목에 있어도 간접 의문 조각은 명사가 아니다
+    ...[1, 2, 3, 4].map((i) => filler(i, "변하는지를 보고 결과인지를 묻고 생명을 다룬다. 자본주의를 본다.")),
+  ];
+  const kw = senseKeywords(terms).get("fuel");
+  assert.ok(!kw.includes("변하는지") && !kw.includes("결과인지"), "간접 의문 조각 제외: " + kw.join(","));
+  assert.ok(!kw.includes("자본주"), "-주의 조각 제외: " + kw.join(","));
+  assert.ok(!kw.includes("생명공"), "~공학은 떼지 않음: " + kw.join(","));
+  assert.ok(kw.includes("생명공학"), kw.join(","));
+}
+
 console.log("sense context: all tests passed");

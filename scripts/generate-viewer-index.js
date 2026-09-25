@@ -288,6 +288,7 @@ function englishGrade(term, englishCommon) {
 // 인덱스가 너무 커진다(목표 +30% 이내).
 const SENSE_KEYWORDS_MAX = 12;
 const SENSE_STOP_DF = 800; // 이보다 많은 항목 본문에 나오는 낱말은 뜻을 가리지 못한다
+// 300도 시험했다(라운드 4 검수): 25편 오탐 69→69, 강등 미탐 14→16이라 800 유지.
 const SENSE_BONUS = 100; // 관련어·분야명은 본문 낱말보다 먼저
 // 영문 표제어에서 뜻을 가리지 못하는 기능어.
 const SENSE_EN_STOP = new Set(["the", "and", "for", "with", "from", "into", "its", "via", "per", "non"]);
@@ -320,8 +321,11 @@ const NOUN_PARTICLES = ["을", "를", "의", "에", "와", "과", "으로", "에
 // 조사까지 붙은 꼴("곳에서의"→"곳에서")이 명사 후보로 남지 않도록.
 const PARTICLE_TAIL = /(에서|으로|에게|부터|까지|처럼|보다)$/;
 // 간접 의문 "-ㄹ지·-인지를"(볼지를·할지를·것인지를)도 목적격이 붙어 명사처럼 보인다.
+// "-는지·-은지·-인지"(변하는지·같은지·결과인지)도 같은 간접 의문 조각이다(라운드 4 검수).
+// 인지·메타인지처럼 진짜 명사는 표제어라 isNoun의 표제어 경로로 따로 살아남는다.
 function isClauseTail(noun) {
   if (!noun.endsWith("지")) return false;
+  if (noun.length >= 3 && /(는지|은지|인지|던지)$/.test(noun)) return true;
   if (noun.startsWith("것")) return true;
   const prev = noun.charCodeAt(noun.length - 2) - 0xac00;
   return prev >= 0 && prev < 11172 && prev % 28 === 8; // 앞 음절 받침 ㄹ
@@ -386,10 +390,10 @@ function senseKeywords(terms) {
         bonus(part);
         // 독성학 → 독성. 떼고 남은 말도 검증한다(라운드 4): 고고학 → "고고",
         // 스포츠과학 → "스포츠과", 한의학 → "한의"는 낱말이 아니라 부분 문자열 비교에서
-        // 엉뚱한 곳(최고고도·한의사)에 걸렸다. "~과학"은 떼지 않고, 짧은 어간(2~3음절)은
+        // 엉뚱한 곳(최고고도·한의사)에 걸렸다. "~과학"·"~공학"(원자력공)은 떼지 않고, 짧은 어간(2~3음절)은
         // 명사 근거가 있을 때만 쓴다. 4음절 이상(문헌정보·식품영양)은 복합 명사라 그대로.
         const stem = part.slice(0, -1);
-        if (part.endsWith("학") && !part.endsWith("과학") && part.length >= 3 && (stem.length >= 4 || isNoun(stem))) bonus(stem);
+        if (part.endsWith("학") && !/(과학|공학)$/.test(part) && part.length >= 3 && (stem.length >= 4 || isNoun(stem))) bonus(stem);
       }
     }
     score.delete(own);

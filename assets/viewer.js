@@ -607,7 +607,11 @@ const SENSE_ENDINGS = [
 function senseStems(word) {
   const w = String(word || "");
   const out = [w];
+  // "-주의"(자본주의·구조주의)의 "의"는 조사가 아니다 — 떼면 "자본주·구조주" 같은
+  // 조각이 뜻 키워드로 들어간다(라운드 4 검수). "자본주의의"처럼 조사가 더 붙은 꼴은 뗀다.
+  const ismTail = w.endsWith("주의");
   for (const end of SENSE_ENDINGS) {
+    if (ismTail && end === "의") continue;
     if (w.endsWith(end) && w.length - end.length >= 2) out.push(w.slice(0, -end.length));
   }
   return out;
