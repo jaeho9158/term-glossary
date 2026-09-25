@@ -122,4 +122,24 @@ const medDoc = [
   assert.ok(filterDistantFieldMatches(doc).every((x) => !x.distant));
 }
 
+// 2차 추정은 1차 상위 분야군의 부분집합만(신규 승격 금지). 1차: 의학·공학(짧은 오탐 5)·
+// 사회과학, 인문학은 3개 한도에 밀려 탈락. 2차에서 공학이 빠져도 인문학이 새로
+// 올라오면 안 된다 — 올라오면 인문학 인접(예술·체육)의 짧은 용어가 되살아난다.
+{
+  const doc = [
+    ...Array.from({ length: 10 }, (_, i) => m(`med-${i}`, `의학용어${i}`, ["med"])),
+    ...Array.from({ length: 5 }, (_, i) => m(`eng-${i}`, `공${String.fromCharCode(0xac00 + i)}`, ["eng"])),
+    ...Array.from({ length: 4 }, (_, i) => m(`law-${i}`, `법학용어${i}`, ["law"])),
+    ...Array.from({ length: 4 }, (_, i) => m(`philo-${i}`, `철학용어${i}`, ["philo"])),
+    m("art", "미술", ["artstudy"]),
+  ];
+  const first = estimateFieldGroups(doc);
+  assert.ok(!first.includes(fieldGroupOf("philo")), "1차에 인문학 없음");
+  assert.deepStrictEqual(estimateFieldGroups(doc, [fieldGroupOf("med")]), [fieldGroupOf("med")], "allowed 밖은 순위에 없음");
+  const res = filterDistantFieldMatches(doc);
+  assert.ok(res.find((x) => x.slug === "art").distant, "인문학이 2차에서 승격되면 안 됨");
+  assert.ok(res.filter((x) => x.slug.startsWith("eng-")).every((x) => x.distant));
+  assert.ok(res.filter((x) => x.slug.startsWith("law-")).every((x) => !x.distant));
+}
+
 console.log("field distance: all tests passed");

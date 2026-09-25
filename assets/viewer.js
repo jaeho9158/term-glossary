@@ -489,7 +489,8 @@ function fieldGroupOf(code) {
   return fieldGroupMap.get(code) || null;
 }
 
-function estimateFieldGroups(matches) {
+// allowed: 주면 그 분야군만 순위에 올린다(2패스에서 1차 집합의 부분집합만 허용).
+function estimateFieldGroups(matches, allowed) {
   const list = matches || [];
   if (list.length < FIELD_DISTANCE_MIN_MATCHES) return [];
   const counts = new Map();
@@ -497,6 +498,7 @@ function estimateFieldGroups(matches) {
     // (짧은 표제어를 추정에서 빼 보기도 했으나 미탐 29로 늘어 전부 센다.)
     const group = fieldGroupOf((match.categories || [])[0]);
     if (!group || group === BASIC_GROUP) continue;
+    if (allowed && !allowed.includes(group)) continue;
     counts.set(group, (counts.get(group) || 0) + 1);
   }
   const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
@@ -545,7 +547,11 @@ function filterDistantFieldMatches(matches) {
     for (const g of others) for (const n of FIELD_GROUP_NEIGHBORS[g] || []) rel.add(n);
     return (m.categories || []).map(fieldGroupOf).some((g) => rel.has(g));
   };
-  const second = estimateFieldGroups(list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m))));
+  // 2차는 1차 상위 분야군 안에서만 다시 고른다(교체·신규 승격 금지). 1차 집합 밖
+  // 분야군이 2차에서 올라오면 3개 한도에 밀려 멀쩡한 1차 분야군이 빠졌다
+  // (psychiatry: 인문학이 올라와 사회과학이 밀려 copyright·screening 강등).
+  const kept = list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m)));
+  const second = estimateFieldGroups(kept, first);
   if (second.length) markDistant(list, second);
   return list;
 }
