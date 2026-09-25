@@ -287,6 +287,8 @@ function englishGrade(term, englishCommon) {
 const SENSE_KEYWORDS_MAX = 12;
 const SENSE_STOP_DF = 800; // 이보다 많은 항목 본문에 나오는 낱말은 뜻을 가리지 못한다
 const SENSE_BONUS = 100; // 관련어·분야명은 본문 낱말보다 먼저
+// 영문 표제어에서 뜻을 가리지 못하는 기능어.
+const SENSE_EN_STOP = new Set(["the", "and", "for", "with", "from", "into", "its", "via", "per", "non"]);
 
 function isSenseTitle(t) {
   const ko = (t.title_ko || "").replace(/[^가-힣]/g, "");
@@ -309,7 +311,19 @@ function bodyWords(t) {
 
 // "가벼운지·구합니다" 같은 활용형 조각을 명사로 착각하지 않도록, 사전 표제어이거나
 // 사전 본문 여러 항목에서 격조사가 붙은 꼴로 나온 낱말만 명사로 인정한다.
-const NOUN_PARTICLES = ["은", "는", "이", "가", "을", "를", "의", "에", "와", "과", "으로", "에서"];
+// 은·는·이·가는 뺀다(라운드 4): 관형형 어미(쓰이는·퍼져나가는·일으키는)와 모양이
+// 같아 동사 조각(쓰이·일으키·원하·움직이)이 명사 근거를 얻고 있었다. 을·를·의·에·
+// 와·과는 동사 어간 바로 뒤에 붙지 않는다.
+const NOUN_PARTICLES = ["을", "를", "의", "에", "와", "과", "으로", "에서", "에게"];
+// 조사까지 붙은 꼴("곳에서의"→"곳에서")이 명사 후보로 남지 않도록.
+const PARTICLE_TAIL = /(에서|으로|에게|부터|까지|처럼|보다)$/;
+// 간접 의문 "-ㄹ지·-인지를"(볼지를·할지를·것인지를)도 목적격이 붙어 명사처럼 보인다.
+function isClauseTail(noun) {
+  if (!noun.endsWith("지")) return false;
+  if (noun.startsWith("것")) return true;
+  const prev = noun.charCodeAt(noun.length - 2) - 0xac00;
+  return prev >= 0 && prev < 11172 && prev % 28 === 8; // 앞 음절 받침 ㄹ
+}
 const NOUN_MIN_EVIDENCE = 3;
 function nounEvidence(terms) {
   const evidence = new Map();
@@ -317,7 +331,8 @@ function nounEvidence(terms) {
     const seen = new Set();
     for (const word of bodyWords(t)) {
       for (const p of NOUN_PARTICLES) {
-        if (word.endsWith(p) && word.length - p.length >= 2 && word.length - p.length <= 4) seen.add(word.slice(0, -p.length));
+        const noun = word.slice(0, -p.length);
+        if (word.endsWith(p) && noun.length >= 2 && noun.length <= 4 && !PARTICLE_TAIL.test(noun) && !isClauseTail(noun)) seen.add(noun);
       }
     }
     for (const noun of seen) evidence.set(noun, (evidence.get(noun) || 0) + 1);
@@ -367,7 +382,12 @@ function senseKeywords(terms) {
     for (const code of t.categories || []) {
       for (const part of String(CATEGORY_LABELS[code] || "").split("·")) {
         bonus(part);
-        if (part.endsWith("학") && part.length >= 3) bonus(part.slice(0, -1)); // 독성학 → 독성
+        // 독성학 → 독성. 떼고 남은 말도 검증한다(라운드 4): 고고학 → "고고",
+        // 스포츠과학 → "스포츠과", 한의학 → "한의"는 낱말이 아니라 부분 문자열 비교에서
+        // 엉뚱한 곳(최고고도·한의사)에 걸렸다. "~과학"은 떼지 않고, 짧은 어간(2~3음절)은
+        // 명사 근거가 있을 때만 쓴다. 4음절 이상(문헌정보·식품영양)은 복합 명사라 그대로.
+        const stem = part.slice(0, -1);
+        if (part.endsWith("학") && !part.endsWith("과학") && part.length >= 3 && (stem.length >= 4 || isNoun(stem))) bonus(stem);
       }
     }
     score.delete(own);
@@ -375,6 +395,12 @@ function senseKeywords(terms) {
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
       .slice(0, SENSE_KEYWORDS_MAX)
       .map(([w]) => w);
+    // 영문 표제어 토큰(소문자, 라운드 4): 국문 논문도 "중독(poisoning)"처럼 병기하므로
+    // 등장 자리 옆의 영문 표기가 사전 뜻과 같은지가 가장 직접적인 근거다. 한글 12개와
+    // 별도로 붙인다. 뷰어는 영문 키를 소문자·낱말 앞 경계로 비교한다.
+    for (const tok of ((t.title_en || "").toLowerCase().match(/[a-z]{3,}/g) || [])) {
+      if (!SENSE_EN_STOP.has(tok) && !picked.includes(tok)) picked.push(tok);
+    }
     if (picked.length) out.set(t.slug, picked);
   }
   return out;

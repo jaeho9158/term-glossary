@@ -625,6 +625,13 @@ function inTopGroups(match, top) {
   return (match.categories || []).some((c) => set.has(fieldGroupOf(c)));
 }
 
+function senseEnglishHit(lower, key) {
+  for (let i = lower.indexOf(key); i !== -1; i = lower.indexOf(key, i + 1)) {
+    if (i === 0 || !/[a-z]/.test(lower[i - 1])) return true;
+  }
+  return false;
+}
+
 // 등장 자리 창들과 뜻 키워드의 교집합 크기(전체 등장 합산, 키워드 중복 없이).
 // 뜻 키워드가 없는 용어는 -1(판단 보류).
 function senseOverlap(match, text) {
@@ -634,9 +641,20 @@ function senseOverlap(match, text) {
   for (const occ of match.occurrences || []) {
     const from = Math.max(0, occ.start - SENSE_WINDOW);
     const to = Math.min(text.length, occ.start + occ.length + SENSE_WINDOW);
-    // 부분 문자열로 본다: 논문은 "독성물질"처럼 붙여 쓰는 복합어가 많아 낱말 일치로는 놓친다.
-    const win = text.slice(from, to);
-    for (const k of keys) if (win.includes(k)) hit.add(k);
+    // 영문으로 잡힌 용어는 등장 자리 자체를 뺀다: 제 영문 토큰이 키워드에 있어 자기
+    // 자신과 늘 겹친다(라운드 4). 한글로 잡힌 경우는 그대로 둔다 — 표제어 안에 든
+    // 키워드(사교육⊃교육, 부적응⊃적응)가 스스로 맞아 규칙을 비껴가는 셈인데, 빼 보니
+    // 25편에서 정답 2개(사교육·부적응)만 강등되고 오탐은 줄지 않았다.
+    const win = match.viaHangul === false
+      ? text.slice(from, occ.start) + " " + text.slice(occ.start + occ.length, to)
+      : text.slice(from, to);
+    const lower = win.toLowerCase();
+    for (const k of keys) {
+      // 한글은 부분 문자열로 본다: 논문은 "독성물질"처럼 붙여 쓰는 복합어가 많아 낱말
+      // 일치로는 놓친다. 영문 키(표제어 토큰, 소문자)는 대소문자 무시 + 낱말 앞 경계만
+      // 본다 — 복수형(poisonings)은 인정하고 nonpoisoning 같은 중간 일치는 막는다.
+      if (/^[a-z]+$/.test(k) ? senseEnglishHit(lower, k) : win.includes(k)) hit.add(k);
+    }
   }
   return hit.size;
 }
