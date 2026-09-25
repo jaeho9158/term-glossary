@@ -717,8 +717,32 @@ function englishGlossVerdict(match, text, top) {
 // top: 상위 분야군(filterDistantFieldMatches가 고른 것). 없으면 적용하지 않는다 —
 // 잡힌 용어가 적은 문서에서는 "분야 밖"이라는 판단 자체를 믿을 수 없다.
 // 상위 분야군에 속하는 용어는 제외한다(주제어 손실 방지).
+// 동형 표제어(2026-09-26): 한글 표제어가 같은 두 용어(중독 = addiction / poisoning)는
+// 같은 자리에서 함께 잡힌다. 둘 다 상위 분야군(의학·생명)에 들면 아래 뜻 규칙이 둘 다
+// 건너뛰어 마약 논문에서도 poisoning이 남는다. 그래서 같은 표제어끼리는 분야와 무관하게
+// 뜻 키워드 겹침을 비교해, 가장 많이 겹치는 쪽만 남기고 나머지는 강등한다(동점이면 보류).
+function applyHomonymRule(list, text) {
+  const groups = new Map();
+  for (const match of list) {
+    if (match.distant || match.viaHangul === false || !match.title_ko) continue;
+    const key = normalizeWord(match.title_ko);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(match);
+  }
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const scored = group.map((m) => ({ m, s: senseOverlap(m, text) }));
+    const best = Math.max(...scored.map((x) => x.s));
+    if (best <= 0 || scored.filter((x) => x.s === best).length > 1) continue;
+    for (const x of scored) {
+      if (x.s < best) { x.m.distant = true; x.m.demotedBy = "homonym"; }
+    }
+  }
+}
+
 function applySenseContextRule(list, text, top) {
   if (!top || !top.length) return list;
+  applyHomonymRule(list, text);
   for (const match of list) {
     // 규칙 6(영문 병기 불일치)은 상위 분야군 안에서도 쓴다: 저자가 괄호로 밝힌 뜻이
     // 다르면 분야가 맞아도 다른 용어다(응집 cohesion ≠ coagulation). 상위군 밖에만
