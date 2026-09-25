@@ -112,7 +112,11 @@ async function main() {
     const r = await gradeDoc(name, index, terms, args.length === 1);
     if (r.error) { console.log(`\n[${name}] ${r.error}`); continue; }
     sumExp += r.expected.size; sumMissed += r.missed.length;
-    sumGot += r.matches.length; sumFp += r.falsePos.length; sumOrder += r.orderErrors.length;
+    // 정답이 0인 문서(정답지 미작성·대조군)는 잡힌 전부가 오탐으로 잡혀 비율을 왜곡하므로
+    // 오탐 합계(분자·분모)에서 뺀다. 문서별 줄에는 그대로 나온다.
+    if (r.expected.size > 0) { sumGot += r.matches.length; sumFp += r.falsePos.length; }
+    else console.log(`\n[${name}] 정답 0 — 오탐 합계에서 제외`);
+    sumOrder += r.orderErrors.length;
     sumDistant += r.distant.length; sumDistantMissed += r.distantMissed.length;
     console.log(`\n[${name}] 잡힘 ${r.matches.length} / 정답 ${r.expected.size} — 미탐 ${r.missed.length}, 오탐 ${r.falsePos.length}, 미분류 ${r.unlabeled.length}, 정렬 오류 ${r.orderErrors.length}, 강등 ${r.distant.length}(강등 미탐 ${r.distantMissed.length})`);
     if (r.distantMissed.length) console.log("  강등 미탐:", r.distantMissed.map((s) => title(terms, s)).join(", "));

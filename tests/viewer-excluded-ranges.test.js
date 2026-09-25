@@ -121,4 +121,28 @@ assert.deepStrictEqual(excludedRanges("그냥 본문."), []);
   assert.strictEqual(bySlug.walker, undefined, "참고문헌에서만 나온 용어는 없음");
 }
 
+
+// 라운드 2: Vancouver식 참고문헌(2020;35:e12)도 참고문헌 형식으로 본다
+{
+  const text = "본문.\n참고문헌\n1. Kim JH. Foo.\nMethods for x.\nJ Korean Med Sci\n2020;35:e12.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("J Korean")), "Vancouver 참고문헌 계속");
+  const text2 = "본문.\n참고문헌\n1. Kim JH. Foo.\nMethods for x.\nJ Med 12(3): 45-9.";
+  assert.ok(inRanges(excludedRanges(text2), text2.indexOf("J Med")), "권(호): 쪽 형식");
+}
+// 번호 붙은 장 제목은 뒤 줄 형식 검사 없이 복귀
+{
+  const text = "본문.\n참고문헌\nKim (2020). Foo.\n제2장 이론적 배경\n최근 Lee (2019)는 말했다.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("Kim")));
+  assert.ok(!inRanges(ranges, text.indexOf("최근")), "제2장에서 복귀");
+}
+// 서론 제목 변형에서 영문 초록이 끝난다
+for (const heading of ["제1장 서론", "Ⅰ. 서론 및 연구 목적", "1. Introduction"]) {
+  const text = `Abstract\nThis study examines stress.\n${heading}\n본문 응력.`;
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("examines")));
+  assert.ok(!inRanges(ranges, text.indexOf("본문 응력")), heading);
+}
+
 console.log("excludedRanges: all tests passed");

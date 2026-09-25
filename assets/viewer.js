@@ -82,13 +82,16 @@ const ACK_HEADING = /^\s*(?:감\s*사\s*의\s*글|사\s*사|acknowledge?ments?)\
 // 복귀 제목: 방법·부록(Nature식) + 장별 참고문헌 뒤 다음 장(제N장·서론·결과·결론 …).
 const RESUME_HEADING = /^\s*(?:[0-9IVXⅠ-Ⅻ]+\.?\s*)?(?:방법|연구\s*방법|methods?|부록|appendix|chapter\s*\d*|보충\s*자료|supplementary|확장\s*데이터|extended\s+data|box\s*\d|제\s*\d+\s*장|\d+\s*장|서\s*론|결\s*과|결\s*론|고\s*찰|논\s*의)(?![가-힣A-Za-z])/i;
 // 참고문헌 항목 첫 줄이 "Methods for …"처럼 제목과 닮을 수 있어, 뒤 3줄에 참고문헌
-// 형식(연도 괄호·pp.·vol.·doi)이 보이면 복귀 제목으로 보지 않는다.
-const REFERENCE_FORMAT = /\((?:19|20)\d{2}[a-z]?\)|\bpp?\.\s*\d|\bvol\.|\bdoi\b/i;
+// 형식(연도 괄호·pp.·vol.·doi, Vancouver식 2020;35 · 12(3): 45)이 보이면 복귀 제목으로 보지 않는다.
+const REFERENCE_FORMAT = /\((?:19|20)\d{2}[a-z]?\)|\bpp?\.\s*\d|\bvol\.|\bdoi\b|\b(?:19|20)\d{2}\s*;\s*\d+|\d+\(\d+\)\s*:\s*\d+/i;
+// 번호 붙은 한글 장 제목(제2장 …, Ⅱ. …, 2. …)은 참고문헌 항목과 헷갈릴 일이 적고,
+// 바로 뒤 본문이 "Lee (2019)는"처럼 인용을 담기 쉬워 형식 검사를 생략한다.
+const NUMBERED_HEADING = /^\s*(?:제\s*\d+\s*장|[Ⅰ-Ⅻ]+\s*\.|\d+\s*\.)\s*[가-힣]/;
 const ABSTRACT_HEADING = /^\s*(?:abstract|a\s*b\s*s\s*t\s*r\s*a\s*c\s*t)(?![a-z])/i;
 // 초록 끝 표지: Key words·주제어·핵심어(앞 기호 □ 등 무시). 이 줄 끝까지 제외.
 const KEYWORDS_LINE = /^\s*[^\w가-힣]*\s*(?:key\s*-?\s*words?|주\s*제\s*어|핵\s*심\s*어)/i;
-// 국문 서론 제목(Ⅰ. 서론 / I. 서론 / 1. 서론)이 나오면 초록은 그 앞에서 끝난다.
-const INTRO_HEADING = /^\s*(?:[Ⅰ1I]\s*\.?\s*)?서\s*론\s*$/;
+// 서론 제목(Ⅰ. 서론 / 제1장 서론 / Ⅰ. 서론 및 … / 1. Introduction)이 나오면 초록은 그 앞에서 끝난다.
+const INTRO_HEADING = /^\s*(?:(?:제\s*1\s*장|[Ⅰ1I]\s*\.?)\s*)?(?:서\s*론(?:\s+및\s.*)?|introduction)\s*$/i;
 const ABSTRACT_MAX_CHARS = 1500;
 const ACK_MAX_CHARS = 1500;
 
@@ -104,6 +107,7 @@ function excludedRanges(text) {
   const ranges = [];
   const isResume = (j) => {
     if (!RESUME_HEADING.test(lines[j].text) || lines[j].text.trim().length > 30) return false;
+    if (NUMBERED_HEADING.test(lines[j].text)) return true;
     for (let k = j + 1; k <= j + 3 && k < lines.length; k++) if (REFERENCE_FORMAT.test(lines[k].text)) return false;
     return true;
   };
