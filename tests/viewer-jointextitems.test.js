@@ -90,3 +90,20 @@ const PAGE_W = 600; // mid = 300
 }
 
 console.log("joinTextItems: all tests passed");
+
+// 자간(letter-spacing)이 큰 PDF는 pdf.js가 한글 한 글자마다 공백을 끼워
+// "혈 액 응 고"처럼 뽑는다. 진짜 띄어쓰기는 별도의 " " item으로 오므로,
+// item 안의 글자 사이 공백만 걷어내면 원문 띄어쓰기가 살아난다.
+{
+  const items = [
+    item("혈 액", 82, 744, 34), item(" ", 117, 744, 8), item("응 고 의", 125, 744, 37),
+    item(" ", 163, 744, 8), item("경 로", 217, 744, 24),
+  ];
+  assert.strictEqual(joinTextItems(items).trim(), "혈액 응고의 경로");
+}
+{
+  // 구두점·숫자가 섞여도 한글 사이 공백만 없앤다. 정상 문장은 건드리지 않는다.
+  assert.strictEqual(joinTextItems([item("피 부 ,혈 관", 0, 0, 58)]).trim(), "피부 ,혈관");
+  assert.strictEqual(joinTextItems([item("제 10인 자 (Xa)", 0, 0, 58)]).trim(), "제 10인자 (Xa)");
+  assert.strictEqual(joinTextItems([item("혈액 응고의 외인성 경로", 0, 0, 120)]).trim(), "혈액 응고의 외인성 경로");
+}

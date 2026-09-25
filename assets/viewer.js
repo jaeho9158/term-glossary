@@ -584,6 +584,18 @@ function orderTextItemsByColumn(items, pageWidth) {
   return header.concat(left, middle, right, footer);
 }
 
+// 자간이 큰 PDF(학위논문에 흔함)는 pdf.js가 글자 사이를 띄어쓰기로 오인해
+// "혈 액 응 고 의"처럼 item 하나에 한 글자마다 공백을 끼운다. 그대로 두면
+// 사전의 어떤 표제어와도 맞지 않아 용어가 거의 안 잡힌다(말뭉치 thesis-toc:
+// 26쪽에서 12개). 진짜 띄어쓰기는 별도 " " item으로 오므로, item 안에서
+// 한글끼리 "모두" 한 칸씩 떨어져 있을 때만 그 공백을 걷어낸다. 정상 문장은
+// 한글이 붙어 있는 구간이 있어 건드리지 않는다.
+function collapseLetterSpacedHangul(str) {
+  const spaced = (str.match(/[가-힣] [가-힣]/g) || []).length;
+  if (spaced < 1 || /[가-힣][가-힣]/.test(str)) return str;
+  return str.replace(/([가-힣]) (?=[가-힣])/g, "$1");
+}
+
 function joinTextItems(items, pageWidth) {
   const ordered = orderTextItemsByColumn(items, pageWidth);
   const NEWLINE = String.fromCharCode(10);
@@ -592,7 +604,7 @@ function joinTextItems(items, pageWidth) {
   let prevEndX = 0;
   let prevY = 0;
   for (const item of ordered) {
-    const str = item.str || "";
+    const str = collapseLetterSpacedHangul(item.str || "");
     if (!str) {
       if (item.hasEOL) text += NEWLINE;
       continue;

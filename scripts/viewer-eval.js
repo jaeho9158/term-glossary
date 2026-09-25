@@ -17,7 +17,11 @@ function loadIndex() {
 }
 
 async function extractPdfText(file) {
-  const pdfjs = await import(path.join(ROOT, "assets", "vendor", "pdfjs", "pdf.min.mjs").replace(/\\/g, "/").replace(/^([A-Za-z]):/, "file:///$1:"));
+  const toUrl = (p) => p.replace(/\\/g, "/").replace(/^([A-Za-z]):/, "file:///$1:");
+  const vendor = path.join(ROOT, "assets", "vendor", "pdfjs");
+  const pdfjs = await import(toUrl(path.join(vendor, "pdf.min.mjs")));
+  // Node에서는 워커 경로를 자동으로 못 찾아 "fake worker" 설정에 실패한다. 명시해 준다.
+  pdfjs.GlobalWorkerOptions.workerSrc = toUrl(path.join(vendor, "pdf.worker.min.mjs"));
   const data = new Uint8Array(fs.readFileSync(file));
   const pdf = await pdfjs.getDocument({ data, isEvalSupported: false, useSystemFonts: true }).promise;
   const pages = [];
