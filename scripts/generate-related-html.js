@@ -16,8 +16,11 @@ function readTerms() {
 }
 
 const { escapeHtml } = require("../assets/escape.js");
+const { buildFieldIndex, fieldFill, fieldFillLines } = require("./lib/term-seo.js");
 
-function createRelatedBlock(term, termBySlug) {
+// related(terms.json) 링크 뒤에 같은 분야 용어(class="related-same-field")를 덧붙여
+// 목표 개수(term-seo.js RELATED_TARGET)까지 채운다. terms.json 은 수정하지 않는다.
+function createRelatedBlock(term, termBySlug, fieldIndex) {
   const links = term.related.map((relatedSlug) => {
     const relatedTerm = termBySlug.get(relatedSlug);
 
@@ -32,9 +35,12 @@ function createRelatedBlock(term, termBySlug) {
     )}</a>`;
   });
 
+  const fill = fieldIndex ? fieldFillLines(fieldFill(term, term.related, fieldIndex)) : [];
+
   return [
     '  <div class="related-terms">',
     ...links,
+    ...fill,
     "  </div>"
   ].join("\n");
 }
@@ -42,6 +48,7 @@ function createRelatedBlock(term, termBySlug) {
 function main() {
   const terms = readTerms();
   const termBySlug = new Map(terms.map((term) => [term.slug, term]));
+  const fieldIndex = buildFieldIndex(terms);
 
   const missingFiles = [];
   const missingBlocks = [];
@@ -70,7 +77,7 @@ function main() {
       continue;
     }
 
-    const generatedBlock = createRelatedBlock(term, termBySlug);
+    const generatedBlock = createRelatedBlock(term, termBySlug, fieldIndex);
     const nextHtml = html.replace(relatedBlockPattern, generatedBlock);
 
     if (nextHtml === html) {

@@ -13,7 +13,7 @@ const crypto = require("crypto");
 
 /**
  * 해시 대상 본문만 추출한다. <main> 이 없으면(스텁 등) 파일 전체를 쓴다.
- * 관련 용어 블록과 페이저는 다른 용어가 추가될 때마다 바뀌므로 제외한다.
+ * 관련 용어 블록·페이저·연구할Lab 단계 링크(aside.stage-link)는 다른 용어가 추가될 때마다 바뀌므로 제외한다.
  */
 function extractContentRegion(html) {
   const start = html.indexOf("<main");
@@ -24,6 +24,8 @@ function extractContentRegion(html) {
     ""
   );
   region = region.replace(/<nav class="term-pager"[\s\S]*?<\/nav>/, "");
+  // 연구할Lab 단계 교차 링크 — 사이트 간 내비게이션이라 본문 변경으로 치지 않는다.
+  region = region.replace(/<aside class="stage-link"[\s\S]*?<\/aside>/g, "");
   return region.replace(/\s+/g, " ").trim();
 }
 

@@ -12,6 +12,7 @@ const path = require("path");
 const ROOT_DIR = path.join(__dirname, "..");
 const DONOR_PAGE = path.join(ROOT_DIR, "terms", "nmda-receptor.html");
 const { escapeHtml } = require("../assets/escape.js");
+const seo = require("./lib/term-seo.js");
 
 let categoryData = null;
 function labels() {
@@ -55,7 +56,7 @@ function renderProse(text, validSlugs) {
 }
 
 function renderMain(term, ctx) {
-  const { validSlugs, titleBySlug } = ctx;
+  const { validSlugs, titleBySlug, fieldIndex } = ctx;
   const { CATEGORY_LABELS } = labels();
   const heading = `${term.title_ko} (${term.title_en})`;
   const prose = (t) => renderProse(t, validSlugs);
@@ -78,8 +79,12 @@ function renderMain(term, ctx) {
   // 관련 용어 앵커 텍스트는 terms.json의 한글 제목을 쓴다 — 표기 불일치 방지.
   const related = (term.related || [])
     .filter((slug) => validSlugs.has(slug))
-    .map((slug) => `    <a href="${slug}.html">${escapeHtml(titleBySlug.get(slug) || slug)}</a>`)
-    .join("\n");
+    .map((slug) => `    <a href="${slug}.html">${escapeHtml(titleBySlug.get(slug) || slug)}</a>`);
+  // 기존 related 를 유지한 채 같은 분야(subcategory → 1차 category) 용어로 목표 개수까지 채운다.
+  // terms.json 의 related 는 바꾸지 않는다(check-related-consistency 대상).
+  const relatedKept = (term.related || []).filter((slug) => validSlugs.has(slug));
+  const fill = fieldIndex ? seo.fieldFillLines(seo.fieldFill(term, relatedKept, fieldIndex)) : [];
+  const relatedHtml = [...related, ...fill].join("\n");
 
   return `<main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; ${escapeHtml(heading)}</p>
@@ -114,21 +119,30 @@ ${examples}
 
   <h2>관련 용어</h2>
   <div class="related-terms">
-${related}
+${relatedHtml}
   </div>
+${seo.stageLinkHtml(term)}
 `;
 }
 
 function renderTermPage(term, ctx) {
   const { head, tail } = chrome();
-  const title = `${term.title_en}(${term.title_ko})란? 쉬운 뜻과 논문 예문 - 논문용어사전`;
-  const description = term.meta_description || term.definition;
+  const title = seo.buildTermTitle(term);
+  const description = seo.buildTermDescription(term);
 
   const newHead = head
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(
       /<meta name="description" content="[\s\S]*?">/,
       `<meta name="description" content="${escapeHtml(description)}">`
+    )
+    .replace(
+      /<meta property="og:title" content="[\s\S]*?">/,
+      `<meta property="og:title" content="${escapeHtml(title)}">`
+    )
+    .replace(
+      /<meta property="og:description" content="[\s\S]*?">/,
+      `<meta property="og:description" content="${escapeHtml(description)}">`
     )
     .replace(
       /<link rel="canonical" href="[^"]*">/,
@@ -142,7 +156,7 @@ function buildContext(terms, incomingSlugs = []) {
   const validSlugs = new Set(terms.map((t) => t.slug));
   const titleBySlug = new Map(terms.map((t) => [t.slug, t.title_ko]));
   for (const s of incomingSlugs) validSlugs.add(s);
-  return { validSlugs, titleBySlug };
+  return { validSlugs, titleBySlug, fieldIndex: seo.buildFieldIndex(terms) };
 }
 
 module.exports = { renderTermPage, renderProse, buildContext };
