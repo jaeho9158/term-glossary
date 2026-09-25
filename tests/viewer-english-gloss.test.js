@@ -39,3 +39,33 @@ test("englishGlossVerdict: 한 등장이라도 맞으면 match", () => {
   const t = "중독(addiction)과 급성 중독(poisoning)";
   assert.strictEqual(englishGlossVerdict(m(t, "중독", "Poisoning"), t), "match");
 });
+
+// 라운드 5 리뷰 항목 2: 규칙 6 완화 — 구 단위 병기·하이픈·로마자 표기는 보류.
+test("englishGlossVerdict: 구 단위 병기는 보류(굽힘 강성 bending rigidity)", () => {
+  const t = "굽힘 강성(bending rigidity)이 크다";
+  assert.strictEqual(englishGlossVerdict(m(t, "강성", "stiffness"), t), "none");
+  const t2 = "두통으로 발현되는 경련(ictal epileptic headache)";
+  assert.strictEqual(englishGlossVerdict(m(t2, "경련", "Seizure"), t2), "none");
+});
+
+test("englishGlossVerdict: 하이픈이 든 병기는 보류(p-value)", () => {
+  const t = "유의 확률(p-value)이 0.05 미만";
+  assert.strictEqual(englishGlossVerdict(m(t, "확률", "Probability"), t), "none");
+});
+
+test("englishGlossVerdict: 상위 분야군에 한의학이 있으면 규칙 비활성(명문 mingmen, 단전 dantian)", () => {
+  const t = "명문(mingmen)으로부터 기를 단전(dantian)으로 유도";
+  assert.strictEqual(englishGlossVerdict(m(t, "명문", "Gate of Vitality"), t, ["한의학"]), "none");
+  assert.strictEqual(englishGlossVerdict(m(t, "단전", "Elixir Field"), t, ["의학·생명", "한의학"]), "none");
+  assert.strictEqual(englishGlossVerdict(m(t, "명문", "Gate of Vitality"), t, ["의학·생명"]), "mismatch", "한의학이 없으면 그대로");
+});
+
+test("englishGlossVerdict: 모음 비율이 비정상이고 표제어와 앞 3글자가 안 겹치면 로마자로 보고 보류", () => {
+  const t = "태극(taiji) 수련";
+  assert.strictEqual(englishGlossVerdict(m(t, "태극", "Supreme Ultimate"), t), "none");
+});
+
+test("englishGlossVerdict: 동의어 병기는 못 가린다(경련 convulsion ≠ Seizure → mismatch 허용)", () => {
+  const t = "열성 경련(convulsion) 병력";
+  assert.strictEqual(englishGlossVerdict(m(t, "경련", "Seizure"), t), "mismatch");
+});

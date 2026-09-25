@@ -679,8 +679,18 @@ function glossTokenMatch(a, b) {
   if (a.startsWith(b) || b.startsWith(a)) return true;
   return a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4);
 }
-function englishGlossVerdict(match, text) {
+// 병기가 로마자 표기(명문 mingmen·태극 taiji)로 보이는가. 영어 사전 없이 가리는
+// 근사다: 표제어 영문 어느 토큰과도 앞 3글자가 안 겹치면서 모음 비율이 비정상(≥0.55).
+function looksRomanized(tok, own) {
+  if (own.some((b) => tok.slice(0, 3) === b.slice(0, 3))) return false;
+  const vowels = (tok.match(/[aeiou]/g) || []).length;
+  return vowels / tok.length >= 0.55;
+}
+
+// top: 상위 분야군. 한의학이 있으면 병기가 로마자 표기(mingmen·dantian)이기 쉬워 규칙을 끈다.
+function englishGlossVerdict(match, text, top) {
   if (match.viaHangul === false) return "none";
+  if (top && top.includes(KMED_GROUP)) return "none";
   const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
   if (!ko || ko.length > SENSE_MAX_SYLLABLES) return "none";
   const own = glossTokens(match.title_en || "");
@@ -689,10 +699,17 @@ function englishGlossVerdict(match, text) {
   for (const occ of match.occurrences || []) {
     const g = GLOSS_RE.exec(text.slice(occ.start + occ.length, occ.start + occ.length + 70));
     if (!g || /^[A-Z]{2,}s?$/.test(g[1].trim())) continue;
+    // 하이픈 낱말(p-value, 줄바꿈 screen-ing)은 토큰이 쪼개져 비교를 믿을 수 없다.
+    if (/[A-Za-z]-[A-Za-z]/.test(g[1])) continue;
     const toks = glossTokens(g[1]);
     if (!toks.length) continue;
-    seen = true;
     if (toks.some((a) => own.some((b) => glossTokenMatch(a, b)))) return "match";
+    // 구 단위 병기: "굽힘 강성(bending rigidity)"처럼 괄호가 앞 수식어까지 옮긴 것.
+    // 브리프는 "표제어 토큰 + 1 초과"였지만 그러면 bending rigidity(2 vs 1)가 안 걸린다.
+    // 25편 채점은 두 기준이 같아(오탐 59·강등 미탐 17) 더 넓은 쪽을 쓴다.
+    if (toks.length > own.length) continue;
+    if (toks.every((a) => looksRomanized(a, own))) continue;
+    seen = true;
   }
   return seen ? "mismatch" : "none";
 }
@@ -707,7 +724,7 @@ function applySenseContextRule(list, text, top) {
     // 다르면 분야가 맞아도 다른 용어다(응집 cohesion ≠ coagulation). 상위군 밖에만
     // 적용하면 25편에서 효과 0이었고, 전체 적용은 오탐 62→59, 강등 미탐 17→18(경련
     // "convulsion" ≠ Seizure — 동의어 병기는 못 가린다).
-    if (!match.distant && englishGlossVerdict(match, text) === "mismatch") {
+    if (!match.distant && englishGlossVerdict(match, text, top) === "mismatch") {
       match.distant = true;
       match.demotedBy = "gloss";
       continue;
