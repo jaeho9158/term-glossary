@@ -207,7 +207,9 @@ function buildExactIndex(terms) {
     if (term.title_ko && (term.common || 0) < COMMON_GRADE_EXCLUDE) {
       add(normalizeWord(term.title_ko), term);
     }
-    if (term.title_en) add(normalizeWord(term.title_en), term);
+    // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정)는 영문
+    // 키만 뺀다. 한글 표제어로는 그대로 잡힌다.
+    if (term.title_en && !term.common_en) add(normalizeWord(term.title_en), term);
   }
   return map;
 }
@@ -391,6 +393,26 @@ function findExactMatches(word, exactIndex) {
   return hits;
 }
 
+// 약어형 영문 표제어(DALY, VaR, EEG, fMRI — 첫 글자 뒤에도 대문자)는 대소문자까지
+// 같아야 잡는다. 인덱스 키는 소문자라 참고문헌의 저자 성 "Daly"가 DALY로,
+// 학명의 "var."가 VaR로 잡혔다. 영문 표제어가 아니라 한글 표제어로 맞은
+// 경우(title_ko 자체가 "VaR"인 행 포함)도 원문 표기와 같아야 한다.
+function isAcronymLikeTitle(title) {
+  return /^[A-Za-z0-9-]+$/.test(title) && /^.+[A-Z]/.test(title);
+}
+
+function acronymCaseMatches(word, matchedLength, term) {
+  const surface = word.slice(0, matchedLength).replace(/[-_\s]/g, "");
+  const key = normalizeWord(surface);
+  for (const title of [term.title_en, term.title_ko]) {
+    if (!title || normalizeWord(title) !== key) continue;
+    if (!isAcronymLikeTitle(title)) return true;
+    if (title.replace(/[-_\s]/g, "") === surface) return true;
+  }
+  // 어느 표제어와도 맞춰 보지 못했다면(정규화 차이) 막지 않는다.
+  return ![term.title_en, term.title_ko].some((t) => t && normalizeWord(t) === key);
+}
+
 // Exact-match pass only: fast, synchronous, no fuzzy search. This is the
 // primary matcher — cheap enough to run on documents of any size without
 // blocking the page.
@@ -415,6 +437,7 @@ function matchTermsWithIndex(text, exactIndex) {
       // 본문 한 글자와 우연히 같아도 용어로 치지 않는다.
       if (hit.matchedLength < 2) continue;
       for (const term of hit.candidates) {
+        if (!acronymCaseMatches(word, hit.matchedLength, term)) continue;
         recordMatch(resultsMap, term, starts, hit.matchedLength, 0);
       }
     }
@@ -910,12 +933,14 @@ function decodeViewerIndex(data) {
   const categories = data.categories || [];
   // 5번째 칸(일반어 등급)은 0일 때 생략돼 있다 — 4칸짜리 옛 인덱스도
   // 그대로 읽히도록 없으면 0으로 본다.
-  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common]) => ({
+  // 6번째 칸(영문 일반어 표시, B단계)도 같은 방식으로 없으면 0.
+  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn]) => ({
     slug,
     title_ko: titleKo || "",
     title_en: titleEn || "",
     categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
     common: common || 0,
+    common_en: commonEn || 0,
   }));
 }
 

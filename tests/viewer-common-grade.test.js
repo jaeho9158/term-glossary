@@ -52,3 +52,36 @@ const { commonWordSignals, commonGrade, computeCommonGrades } = require("../scri
 }
 
 console.log("commonWordSignals/commonGrade: all tests passed");
+
+// ---- 영문 표제어 일반어 판정(오탐 감축 B단계) ---------------------------
+// 참고문헌·표·영문 병기의 "treatment", "function", "tor" 같은 일반 영어 단어가
+// 무관한 분야의 한 단어짜리 영문 표제어(트리트먼트·함수·토르)와 맞았다.
+// 한 단어짜리 영문 표제어가 일반어로 보이면 영문 키를 인덱스에서 뺀다.
+{
+  const { computeEnglishCommon } = require("../scripts/generate-viewer-index.js");
+  const filler = (n, word, field) =>
+    Array.from({ length: n }, (_, i) => ({ slug: `f-${word}-${i}`, title_ko: `채움${i}`, categories: [field ? `c${i}` : "x"], definition: `여기서 ${word} 가 쓰인다.` }));
+  const terms = [
+    { slug: "treatment", title_ko: "트리트먼트", title_en: "Treatment", categories: ["gamestudy"] },
+    { slug: "tor", title_ko: "토르", title_en: "Tor", categories: ["geo"] },
+    { slug: "eeg", title_ko: "뇌파검사", title_en: "EEG", categories: ["neuro"] },
+    { slug: "shear", title_ko: "전단응력", title_en: "Shear Stress", categories: ["mech"] },
+    { slug: "hyper", title_ko: "온열요법", title_en: "Hyperthermia", categories: ["med"] },
+    { slug: "frame", title_ko: "늑골", title_en: "Frame", categories: ["naval"] },
+    { slug: "t-test", title_ko: "t-검정", title_en: "t-test", categories: ["stat"] },
+    // 다른 항목 5곳 본문에 영어로 나온다 → 일반어
+    ...filler(5, "treatment", false),
+    // 3개 분야에 걸쳐 나와도 문서빈도가 낮으면 유지(분야 신호는 시험 후 뺐다)
+    ...filler(3, "frame", true),
+    // 1곳에만 → 전문어
+    ...filler(1, "hyperthermia", false),
+  ];
+  const common = computeEnglishCommon(terms);
+  assert.ok(common.has("treatment"), "문서빈도 5 이상");
+  assert.ok(!common.has("frame"), "문서빈도 3은 일반어 아님");
+  assert.ok(common.has("tor"), "4글자 이하 일반 단어");
+  assert.ok(!common.has("eeg"), "약어(대문자)는 대소문자 구분 매칭으로 따로 막는다");
+  assert.ok(!common.has("shear stress"), "두 단어 이상은 유지");
+  assert.ok(!common.has("hyperthermia"), "드문 전문어는 유지");
+  assert.ok(!common.has("t-test"), "하이픈 복합어는 한 단어로 보지 않는다");
+}

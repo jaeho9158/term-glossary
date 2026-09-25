@@ -170,6 +170,49 @@ function computeCommonGrades(terms) {
   return grades;
 }
 
+// ---- 영문 표제어 일반어 판정 --------------------------------------------
+// 한글 등급(위)은 title_ko만 본다. 그런데 말뭉치 오탐의 큰 몫은 참고문헌·표·
+// 영문 병기 속 일반 영어 단어("treatment", "function", "frame", "tor")가
+// 무관한 분야의 한 단어짜리 영문 표제어(트리트먼트·함수·늑골·토르)와 맞은
+// 것이었다. 사전 본문의 영어는 대개 괄호 병기라 빈도가 낮으므로 문턱도 낮다.
+//  - 사전 다른 항목 본문(definition/why/deeper)에 영어로 5곳 이상, 또는
+//  - 4글자 이하(tor, reed, flow 같은 짧은 일반어)
+// "3개 이상 분야에 등장" 신호도 시험했으나 말뭉치에서 오탐 1개를 더 막는 대신
+// 미탐 2개(artifact·sensitivity류)를 늘려 뺐다(보고서 B단계 표).
+// 대상은 알파벳만으로 된 한 단어. 약어형(EEG, DALY, VaR — 첫 글자 뒤에도
+// 대문자가 있음)은 뷰어가 대소문자까지 맞춰 잡으므로 여기서 빼지 않는다.
+// 두 단어 이상·하이픈 복합어(t-test)는 그 자체로 충분히 특정적이라 유지.
+// 결과: 해당 행 6번째 칸 = 1 → 뷰어가 영문 키를 인덱스에 넣지 않는다.
+const EN_COMMON_MIN_DF = 5;
+const EN_COMMON_MAX_LENGTH = 4;
+
+function isAcronymLike(word) {
+  return /^.+[A-Z]/.test(word);
+}
+
+function computeEnglishCommon(terms) {
+  const df = new Map();
+  for (const t of terms) {
+    const body = [t.definition, t.why, t.deeper].filter(Boolean).join(" ");
+    if (!body) continue;
+    const own = (t.title_en || "").toLowerCase();
+    for (const word of new Set((body.match(/[A-Za-z]+/g) || []).map((w) => w.toLowerCase()))) {
+      if (word === own) continue;
+      df.set(word, (df.get(word) || 0) + 1);
+    }
+  }
+  const common = new Set();
+  for (const t of terms) {
+    const en = (t.title_en || "").trim();
+    if (!/^[A-Za-z]+$/.test(en) || isAcronymLike(en)) continue;
+    const key = en.toLowerCase();
+    if ((df.get(key) || 0) >= EN_COMMON_MIN_DF || key.length <= EN_COMMON_MAX_LENGTH) {
+      common.add(key);
+    }
+  }
+  return common;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
 
@@ -187,10 +230,15 @@ function run() {
   // 생략하고, 디코더(decodeViewerIndex)가 없으면 0으로 읽는다 — 덕분에
   // 4칸짜리 옛 인덱스도 그대로 읽힌다.
   const grades = computeCommonGrades(terms);
+  const englishCommon = computeEnglishCommon(terms);
   const rows = terms.map((t) => {
     const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
     const grade = grades.get(t.title_ko) || 0;
-    if (grade) row.push(grade);
+    // 6번째 칸(영문 일반어)도 대부분 0이라 있을 때만 붙인다. 붙일 때는
+    // 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다.
+    const enCommon = englishCommon.has((t.title_en || "").trim().toLowerCase()) ? 1 : 0;
+    if (grade || enCommon) row.push(grade);
+    if (enCommon) row.push(1);
     return row;
   });
 
@@ -232,4 +280,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades };
+module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon };

@@ -19,6 +19,7 @@ const gen = require("../scripts/generate-viewer-index.js");
     title_en: "P-Value",
     categories: ["stat"],
     common: 0,
+    common_en: 0,
   });
   assert.deepStrictEqual(terms[1].categories, ["stat", "psych"]);
 
@@ -31,7 +32,7 @@ const gen = require("../scripts/generate-viewer-index.js");
 // 경계: 빈 제목·빈 카테고리·빈 데이터에서도 터지지 않는다
 {
   const terms = decodeViewerIndex({ v: 1, categories: [], terms: [["x", "", "", []]] });
-  assert.deepStrictEqual(terms[0], { slug: "x", title_ko: "", title_en: "", categories: [], common: 0 });
+  assert.deepStrictEqual(terms[0], { slug: "x", title_ko: "", title_en: "", categories: [], common: 0, common_en: 0 });
 
   // 5번째 칸(일반어 등급)이 있으면 읽고, 없으면 0 — 4칸짜리 옛 인덱스 호환
   const graded = decodeViewerIndex({ v: 1, categories: [], terms: [["y", "단계", "", [], 3]] });
@@ -50,3 +51,13 @@ const gen = require("../scripts/generate-viewer-index.js");
 }
 
 console.log("viewer-index decode: all tests passed");
+
+// 6번째 칸(영문 일반어 표시)이 1이면 영문 표제어를 인덱스에 넣지 않는다.
+// 한글 표제어는 그대로 잡힌다.
+{
+  const terms = decodeViewerIndex({ v: 1, categories: ["x"], terms: [["treatment", "트리트먼트", "Treatment", [0], 0, 1]] });
+  assert.strictEqual(terms[0].common_en, 1);
+  const map = buildExactIndex(terms);
+  assert.ok(!map.has("treatment"), "영문 키 제외");
+  assert.ok(map.has("트리트먼트"), "한글 키 유지");
+}
