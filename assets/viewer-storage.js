@@ -301,7 +301,11 @@
           return store.delete(DOC_ID);
         }).then(function () { return true; });
       })
-      .catch(function () { return false; });
+      .catch(function () {
+        // 실패를 캐시하면 이 세션 내내 옮기지 못한다. 다음 호출에 다시 시도하게 비운다.
+        migration = null;
+        return false;
+      });
     return migration;
   }
 

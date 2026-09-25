@@ -1032,7 +1032,9 @@ function findLooseOccurrence(text, quote, hintOffset) {
 // 겹친 하이라이트는 한 범위로 합쳐서 그린다. 겹친 채로 하나씩 감싸면 먼저 감싼
 // mark 가 텍스트 노드를 쪼개 뒤 범위의 오프셋 맵이 무효가 되고(surroundContents
 // 가 예외를 던진다), 그 한 건이 문서 전체 복원을 막았다.
-// 반환: [{startOffset, endOffset, records[]}] — startOffset 오름차순, 서로 안 겹침.
+// 반환: [{startOffset, endOffset, records[], primary}] — startOffset 오름차순, 서로 안 겹침.
+// primary 는 그룹에서 가장 나중에 만든 레코드(createdAt, 없으면 id 순) — 사용자가
+// 마지막으로 고른 색이 보이도록 렌더가 이것을 대표로 쓴다.
 function mergeOverlappingRanges(records) {
   const valid = (records || [])
     .filter((r) => r && Number.isFinite(Number(r.startOffset)) && Number.isFinite(Number(r.endOffset)) && Number(r.endOffset) > Number(r.startOffset))
@@ -1047,6 +1049,18 @@ function mergeOverlappingRanges(records) {
     } else {
       merged.push({ startOffset: item.start, endOffset: item.end, records: [item.record] });
     }
+  }
+  const createdKey = (r) => {
+    const t = Date.parse(r.createdAt);
+    return Number.isFinite(t) ? t : -Infinity;
+  };
+  for (const group of merged) {
+    group.primary = group.records.reduce((best, r) => {
+      const d = createdKey(r) - createdKey(best);
+      if (d > 0) return r;
+      if (d < 0 || Number.isNaN(d)) return best;
+      return String(r.id) > String(best.id) ? r : best;
+    });
   }
   return merged;
 }
@@ -1261,6 +1275,9 @@ if (typeof document !== "undefined") {
         const btn = e.target.closest(".hl-color");
         if (!btn || !pendingSelection) return;
         const { container, page, range, quoteText } = pendingSelection;
+        // 저장 도중 다른 문서를 열면 currentDocHash 가 바뀐다. 이 핸들러의 모든
+        // 쓰기는 진입 시점 문서에 대해서만 하고, await 뒤 문서가 바뀌었으면 멈춘다.
+        const docHash = currentDocHash;
         const color = btn.dataset.color;
         hideHighlightToolbar();
         window.getSelection().removeAllRanges();
@@ -1291,21 +1308,13 @@ if (typeof document !== "undefined") {
         }
 
         const { createAnnotation, deleteAnnotation } = await import("./pdf-annotations.js");
-        for (const old of overlapped) {
-          try {
-            await deleteAnnotation(currentDocHash, old.id);
-          } catch (err) {
-            console.error("[deleteAnnotation/merge]", err);
-          }
-          annotationsCache = annotationsCache.filter((a) => a.id !== old.id);
-          container
-            .querySelectorAll(`mark.user-mark[data-annotation-id="${CSS.escape(String(old.id))}"]`)
-            .forEach(unwrapMark);
-        }
+        if (currentDocHash !== docHash) return;
 
+        // 합친 레코드를 먼저 만들고, 성공했을 때만 겹친 옛 레코드를 지운다.
+        // 순서가 반대면 생성이 실패했을 때 옛 하이라이트만 사라진다.
         let record = null;
         try {
-          record = await createAnnotation(currentDocHash, lastPdfFilename, {
+          record = await createAnnotation(docHash, lastPdfFilename, {
             page,
             startOffset,
             endOffset,
@@ -1316,9 +1325,30 @@ if (typeof document !== "undefined") {
         } catch (err) {
           console.error("[createAnnotation]", err);
         }
+        if (currentDocHash !== docHash) return;
         if (!record) {
           showPdfNotice("하이라이트를 저장하지 못했습니다. 저장 공간이 가득 찼거나 차단된 상태일 수 있습니다.");
           return;
+        }
+
+        let failedDeletes = 0;
+        for (const old of overlapped) {
+          let ok = false;
+          try {
+            ok = (await deleteAnnotation(docHash, old.id)) !== false;
+          } catch (err) {
+            console.error("[deleteAnnotation/merge]", err);
+          }
+          if (currentDocHash !== docHash) return;
+          // 못 지운 것은 캐시·DOM 에 그대로 둔다 — 저장소에 남아 있으니 화면도 맞춘다.
+          if (!ok) { failedDeletes++; continue; }
+          annotationsCache = annotationsCache.filter((a) => a.id !== old.id);
+          container
+            .querySelectorAll(`mark.user-mark[data-annotation-id="${CSS.escape(String(old.id))}"]`)
+            .forEach(unwrapMark);
+        }
+        if (failedDeletes) {
+          showPdfNotice(`겹친 하이라이트 ${failedDeletes}개를 정리하지 못했습니다. 다시 열면 합쳐서 보입니다.`);
         }
 
         // map 을 넘기지 않으면 wrapPageRange 가 텍스트 레이어용 span 기반
@@ -1458,7 +1488,7 @@ if (typeof document !== "undefined") {
         );
         for (const group of groups) {
           // 대표는 가장 나중에 만든 것(= 사용자가 마지막으로 고른 색).
-          const rep = group.records[group.records.length - 1];
+          const rep = group.primary;
           try {
             wrapPageRange(body, group.startOffset, group.endOffset, () => {
               const mark = document.createElement("mark");

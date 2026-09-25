@@ -122,6 +122,19 @@ test("mergeOverlappingRanges: 잘못된 레코드는 버리고 빈 입력에도 
   assert.deepStrictEqual(mergeOverlappingRanges([{ id: "x" }, { startOffset: 5, endOffset: 5 }]), []);
 });
 
+test("mergeOverlappingRanges: 그룹 대표(primary)는 가장 나중에 만든 레코드", () => {
+  const [g] = mergeOverlappingRanges([
+    { id: "new", startOffset: 0, endOffset: 50, createdAt: "2026-09-02T00:00:00Z" },
+    { id: "old", startOffset: 10, endOffset: 20, createdAt: "2026-09-01T00:00:00Z" },
+  ]);
+  assert.strictEqual(g.primary.id, "new");
+  const [h] = mergeOverlappingRanges([
+    { id: "b", startOffset: 0, endOffset: 10 },
+    { id: "a", startOffset: 5, endOffset: 15 },
+  ]);
+  assert.strictEqual(h.primary.id, "b");
+});
+
 test("shouldPersistReanchor: 공백 뺀 4글자 미만은 되저장하지 않는다", () => {
   assert.strictEqual(shouldPersistReanchor("전단응력"), true);
   assert.strictEqual(shouldPersistReanchor("전 단 응 력"), true);
