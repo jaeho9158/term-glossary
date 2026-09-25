@@ -39,6 +39,62 @@
   color: var(--muted);
 }
 
+/* ---------- 개념 도식 (diagrams/specs → scripts/diagrams) ----------
+   색은 figlib 팔레트를 그대로 옮긴 CSS 변수라, 다크 모드는 아래
+   :root[data-theme="dark"] 블록의 값만 바꾸면 된다. 도식 SVG는 페이지에
+   인라인으로 들어가야 이 변수를 읽는다. */
+:root {
+  --dg-blue-f: #dde5f0;   --dg-blue-s: #7f9ac0;   --dg-blue-t: #12305c;
+  --dg-green-f: #e3f1ea;  --dg-green-s: #5b9b83;  --dg-green-t: #14543c;
+  --dg-amber-f: #fdf0d8;  --dg-amber-s: #d79a2b;  --dg-amber-t: #7a5210;
+  --dg-rose-f: #fbe4e4;   --dg-rose-s: #c97b7b;   --dg-rose-t: #7d2626;
+  --dg-violet-f: #eae4f4; --dg-violet-s: #9382bd; --dg-violet-t: #3f2f6b;
+  --dg-gray-f: #eef1f6;   --dg-gray-s: #aab6c6;   --dg-gray-t: #44546a;
+  --dg-navy: #12305c;
+  --dg-pos: #14543c;
+  --dg-limit: #7d2626;
+  --dg-general: #5c6b7f;
+  --dg-badge-t: #ffffff;
+}
+:root[data-theme="dark"] {
+  --dg-blue-f: #1d2a3e;   --dg-blue-s: #6f8fbf;   --dg-blue-t: #c9d8f0;
+  --dg-green-f: #1a3028;  --dg-green-s: #5b9b83;  --dg-green-t: #bfe3d2;
+  --dg-amber-f: #372b15;  --dg-amber-s: #d79a2b;  --dg-amber-t: #f3d9a6;
+  --dg-rose-f: #3a1f1f;   --dg-rose-s: #c97b7b;   --dg-rose-t: #f2c4c4;
+  --dg-violet-f: #2a2440; --dg-violet-s: #9382bd; --dg-violet-t: #d9cff0;
+  --dg-gray-f: #242a33;   --dg-gray-s: #7f8a99;   --dg-gray-t: #c5ccd6;
+  --dg-navy: #9fb6db;
+  --dg-pos: #7fcfa8;
+  --dg-limit: #f0a0a0;
+  --dg-general: #9aa8b8;
+  --dg-badge-t: #14171a;
+}
+.concept-diagram {
+  margin: 1.5em 0;
+  padding: 1em;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.concept-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* 최대 폭은 렌더러가 svg에 viewBox 폭만큼 인라인으로 준다(확대 방지). */
+  margin: 0 auto;
+}
+.concept-diagram figcaption {
+  margin-top: 0.6em;
+  font-size: 0.8em;
+  color: var(--muted);
+}
+/* 선형 도식은 가로·세로 두 벌이 들어 있다. 좁은 화면에서만 세로를 보인다. */
+.concept-diagram.dg-dual .dg-v { display: none; }
+@media (max-width: 480px) {
+  .concept-diagram.dg-dual .dg-h { display: none; }
+  .concept-diagram.dg-dual .dg-v { display: block; }
+}
+
 :root[data-theme="dark"] {
   --bg: #14171a;
   --text: #e6edf3;
