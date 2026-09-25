@@ -137,6 +137,12 @@ assert.deepStrictEqual(excludedRanges("그냥 본문."), []);
   assert.ok(inRanges(ranges, text.indexOf("Kim")));
   assert.ok(!inRanges(ranges, text.indexOf("최근")), "제2장에서 복귀");
 }
+// 숫자 번호 줄은 그 줄에 참고문헌 표지(서울:·출판사·연도 괄호)가 있으면 제목 생략 대상이 아니다
+{
+  const text = "본문.\n참고문헌\n1. 홍길동(2018). 논문 제목. 학회지.\n2. 결론 및 제언에 관한 연구. 서울: 학지사.\n3. 김철수(2019). 응력 연구. 학회지, 12(3), 45-67.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("김철수")), "3번 항목은 계속 제외");
+}
 // 서론 제목 변형에서 영문 초록이 끝난다
 for (const heading of ["제1장 서론", "Ⅰ. 서론 및 연구 목적", "1. Introduction"]) {
   const text = `Abstract\nThis study examines stress.\n${heading}\n본문 응력.`;
