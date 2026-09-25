@@ -19,12 +19,15 @@ const SCRIPT_SRC_RE = /(<script src="assets\/viewer\.js)(\?v=[0-9a-z]*)?(")/;
 
 function computeViewerVersion(root = ROOT) {
   const hash = crypto.createHash("sha1");
-  hash.update(fs.readFileSync(path.join(root, "assets", "viewer.js")));
-  hash.update(fs.readFileSync(path.join(root, "viewer-index.json")));
+  // 줄바꿈은 LF로 맞춰 해시한다 — git checkout이 CRLF로 바꿔 놓기만 해도 버전이
+  // 달라지면 안 된다.
+  const read = (file) => fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n");
+  hash.update(read(path.join(root, "assets", "viewer.js")));
+  hash.update(read(path.join(root, "viewer-index.json")));
   const defsDir = path.join(root, "viewer-defs");
   for (const name of fs.readdirSync(defsDir).sort()) {
     hash.update(name);
-    hash.update(fs.readFileSync(path.join(defsDir, name)));
+    hash.update(read(path.join(defsDir, name)));
   }
   return hash.digest("hex").slice(0, 10);
 }
