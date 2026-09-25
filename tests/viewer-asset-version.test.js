@@ -24,3 +24,14 @@ test("stampHtml: viewer.js 로드에 버전을 찍고, 다시 찍으면 교체�
   assert.ok(stampHtml(once, "bbb").includes('assets/viewer.js?v=bbb"'));
   assert.throws(() => stampHtml("<p></p>", "x"));
 });
+
+// 리뷰 항목 4: viewer.js·생성물을 바꾸고 재스탬프를 빠뜨리면 브라우저가 옛 캐시를 쓴다.
+test("viewer.html의 ?v= 스탬프가 현재 computeViewerVersion()과 같다", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const { computeViewerVersion } = require("../scripts/stamp-viewer-version.js");
+  const html = fs.readFileSync(path.join(__dirname, "..", "viewer.html"), "utf8");
+  const m = html.match(/assets\/viewer\.js\?v=([^"'&]+)/);
+  assert.ok(m, "viewer.html에 viewer.js?v= 스탬프가 없다");
+  assert.strictEqual(m[1], computeViewerVersion(), "node scripts/stamp-viewer-version.js 로 다시 찍을 것");
+});
