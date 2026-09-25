@@ -557,8 +557,9 @@ function renderFigure(spec, title) {
   const v = linear ? renderSpec(spec, { title, orientation: "v" }) : null;
   const warnings = [...h.warnings.map((w) => `[가로] ${w}`), ...(v ? v.warnings.map((w) => `[세로] ${w}`) : [])];
   const cls = `concept-diagram${linear ? " dg-dual" : ""}`;
-  const caption = spec.source ? `<figcaption>출처: ${esc(spec.source)}</figcaption>` : "";
-  const html = `<figure class="${cls}" data-type="${spec.type}">${h.svg}${v ? v.svg : ""}${caption}</figure>`;
+  // spec.source는 검수용 메모라 페이지에 싣지 않는다. 사전의 정의 본문에도 출처를
+  // 달지 않는데 도식에만 붙이면 형식이 어긋나고, 검증 전 서지가 권위처럼 보인다.
+  const html = `<figure class="${cls}" data-type="${spec.type}">${h.svg}${v ? v.svg : ""}</figure>`;
   return { html, warnings, desc: h.desc };
 }
 

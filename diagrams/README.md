@@ -42,6 +42,7 @@ terms/<slug>.html  <!-- concept-diagram:start/end -->
 | `nodes[].label` / `sub` | 라벨 한글 10자, sub 14자 이내 권장(넘으면 자동 줄바꿈) |
 | `edges[].kind` | `arrow` 활성화 · `inhibit` 억제(평평한 끝) · `blocked` 차단(✕) |
 | `notes[].tone` | `pos` 긍정·보호 · `limit` 한계·논쟁 · `general` |
+| `source` | 근거 문헌. **검수용 메모**라 페이지에는 표시하지 않는다 |
 | `reviewed` | `false`면 사이트에 안 나감 |
 
 type별 규칙:
