@@ -1,0 +1,90 @@
+// 오탐 감축 C단계: 분야 거리 규칙. 짧은 표제어(한글 2음절 이하, 또는 영문
+// 한 단어로만 잡힌 것)의 분야가 문서의 상위 분야군과도, 그 인접 분야군과도
+// 무관하면 결과에서 뺀다. 의학 논문의 "여과"(화학공학)·"감마"(금융 옵션)·
+// "제대"(군사) 같은 동음이의어가 대상이다.
+const assert = require("assert");
+const { filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, matchTerms } = require("../assets/viewer.js");
+
+const m = (slug, title_ko, cats, extra) => ({ slug, title_ko, title_en: "", categories: cats, viaHangul: true, ...extra });
+
+// 분야군: CATEGORY_GROUPS를 재사용하되 한의학은 따로 뗀다
+assert.strictEqual(fieldGroupOf("neuro"), fieldGroupOf("med"));
+assert.notStrictEqual(fieldGroupOf("kmed"), fieldGroupOf("med"));
+assert.notStrictEqual(fieldGroupOf("finance"), fieldGroupOf("med"));
+
+// 의학 문서: 의학 용어 12개 + 동음이의어들
+const medDoc = [
+  ...Array.from({ length: 12 }, (_, i) => m(`med-${i}`, `의학용어${i}`, ["med"])),
+  m("stat-1", "분산", ["stat"]),
+  m("gamma-option", "감마", ["finance"]),
+  m("echelon", "제대", ["military"]),
+  m("qi-mechanism", "기기", ["kmed"]),
+  m("filtration", "여과", ["chemeng"]),
+  m("long-far", "중독관리센터", ["toxicol"]),
+  m("long-unrelated", "포트폴리오이론", ["finance"]),
+  m("multi", "응집", ["env", "med"]),
+  m("food", "항산화", ["food"]),
+];
+{
+  const groups = estimateFieldGroups(medDoc);
+  assert.deepStrictEqual(groups, [fieldGroupOf("med")], "의학이 압도적");
+  const kept = new Set(filterDistantFieldMatches(medDoc).map((x) => x.slug));
+  assert.ok(kept.has("med-0"));
+  assert.ok(kept.has("stat-1"), "연구 기초·방법은 어느 문서와도 가깝다");
+  assert.ok(!kept.has("gamma-option"), "금융은 의학과 무관");
+  assert.ok(!kept.has("echelon"), "군사는 의학과 무관");
+  assert.ok(!kept.has("qi-mechanism"), "한의학은 의학 문서에서 인접으로 보지 않는다");
+  assert.ok(!kept.has("filtration"), "공학은 의학의 인접 분야가 아니다");
+  assert.ok(kept.has("long-unrelated"), "3음절 이상은 규칙 밖");
+  assert.ok(kept.has("multi"), "categories 중 하나라도 가까우면 남긴다");
+  assert.ok(kept.has("food"), "농림수산·식품은 의학의 인접 분야");
+}
+
+// 영문 한 단어로만 잡힌 경우도 짧은 표제어로 본다. 한글로 잡혔으면 길이로 판단.
+{
+  const doc = [
+    ...Array.from({ length: 12 }, (_, i) => m(`med-${i}`, `의학용어${i}`, ["med"])),
+    m("attachment", "애착", ["childdev"], { title_en: "Attachment", viaHangul: false }),
+    m("treatment", "트리트먼트", ["gamestudy"], { title_en: "Treatment", viaHangul: false }),
+    m("two-words", "진위감정법", ["artstudy"], { title_en: "Open Attribution", viaHangul: false }),
+  ];
+  const kept = new Set(filterDistantFieldMatches(doc).map((x) => x.slug));
+  assert.ok(!kept.has("attachment"));
+  assert.ok(!kept.has("treatment"), "한글 표제어가 길어도 영문 한 단어로만 잡혔으면 대상");
+  assert.ok(kept.has("two-words"), "영문 두 단어는 대상 밖");
+}
+
+// 용어가 10개 미만이면 분야 추정을 믿을 수 없으므로 아무것도 빼지 않는다
+{
+  const small = [m("a", "의학", ["med"]), m("b", "감마", ["finance"])];
+  assert.deepStrictEqual(filterDistantFieldMatches(small).map((x) => x.slug), ["a", "b"]);
+}
+
+// 한의학 문서에서는 한의학 용어가 남고, 의학은 인접 분야로 남는다
+{
+  const doc = [
+    ...Array.from({ length: 8 }, (_, i) => m(`k-${i}`, `한의용어${i}`, ["kmed"])),
+    ...Array.from({ length: 4 }, (_, i) => m(`n-${i}`, `신경용어${i}`, ["neuro"])),
+    m("qi", "경기", ["kmed"]),
+    m("med-short", "혈압", ["med"]),
+    m("dance", "신체", ["dance"]),
+  ];
+  const kept = new Set(filterDistantFieldMatches(doc).map((x) => x.slug));
+  assert.ok(kept.has("qi"));
+  assert.ok(kept.has("med-short"));
+  assert.ok(!kept.has("dance"));
+}
+
+// matchTerms 경로에서도 적용된다(텍스트·PDF 모드 공통)
+{
+  const terms = [
+    ...Array.from({ length: 12 }, (_, i) => ({ slug: `med-${i}`, title_ko: `의학말${String.fromCharCode(0xac00 + i)}`, title_en: "", categories: ["med"] })),
+    { slug: "gamma-option", title_ko: "감마", title_en: "Gamma", categories: ["finance"] },
+  ];
+  const text = terms.map((t) => t.title_ko).join(" ") + " 감마 파가 증가했다.";
+  const slugs = matchTerms(text, terms).map((x) => x.slug);
+  assert.ok(slugs.includes("med-0"));
+  assert.ok(!slugs.includes("gamma-option"));
+}
+
+console.log("field distance: all tests passed");

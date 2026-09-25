@@ -364,6 +364,96 @@ function groupMatchesByField(matches, fields) {
   return { primary, others };
 }
 
+// ---- 분야 거리 규칙(오탐 감축 C단계) --------------------------------------
+// 짧은 표제어는 동음이의어가 많다: 의학 논문의 "감마 파"가 금융 옵션의
+// 감마로, "제대로"가 군사 제대로, "이 기기"가 한의학 기기(氣機)로 잡혔다.
+// 문서의 상위 분야군을 잡힌 용어들로 추정하고, 짧은 표제어의 categories가
+// 전부 그 분야군·인접 분야군 밖이면 결과에서 뺀다(패널·밑줄 모두).
+// 위 estimateDocumentFields(98개 세부 분야 단위)는 말뭉치 10편 중 7편에서
+// "분야 없음"을 내 이 규칙에 쓸 수 없어서, 대분류(CATEGORY_GROUPS) 단위로 센다.
+const FIELD_DISTANCE_MIN_MATCHES = 10; // 이보다 적으면 추정을 믿지 않는다(브리프)
+const FIELD_GROUP_MAX = 3;
+// 1위 분야군 대비 이 비율 이상이어야 상위로 본다. 말뭉치에서 0.2·0.3·0.4·0.5가
+// 미탐 17·18·21·21 / 오탐 73·62·48·47 — 0.4에서 오탐이 부풀린 곁가지 분야군
+// (법학 논문의 인문학 등)이 상위에서 빠진다.
+const FIELD_GROUP_MIN_SHARE = 0.4;
+const FIELD_GROUP_MIN_COUNT = 2;
+const SHORT_TITLE_MAX_SYLLABLES = 2;
+// 한의학은 CATEGORY_GROUPS에서 의학·생명에 들어 있지만, 기(氣)·혈(穴)·기체(氣滯)
+// 같은 짧은 표제어가 의학 논문 일상어와 겹치므로 별도 분야군으로 뗀다.
+const KMED_GROUP = "한의학";
+const BASIC_GROUP = "연구 기초·방법"; // 통계·방법론은 어느 분야 논문에나 나온다
+// 인접 분야군(방향 있음): 키 분야군이 문서의 상위일 때 값 분야군도 가깝다고 본다.
+// 한의학 문서에서 의학은 가깝지만, 의학 문서에서 한의학은 가깝지 않다.
+const FIELD_GROUP_NEIGHBORS = {
+  "자연과학": ["의학·생명", "공학·기술", "농림수산·식품"],
+  "의학·생명": ["자연과학", "농림수산·식품"],
+  [KMED_GROUP]: ["의학·생명"],
+  "공학·기술": ["자연과학", "컴퓨터·정보", "건축·도시·공간"],
+  "컴퓨터·정보": ["공학·기술"],
+  "사회과학": ["경영·경제", "교육·인간발달", "인문학"],
+  "경영·경제": ["사회과학"],
+  "인문학": ["사회과학", "예술·체육"],
+  "예술·체육": ["인문학"],
+  "교육·인간발달": ["사회과학"],
+  "농림수산·식품": ["자연과학"],
+  "건축·도시·공간": ["공학·기술"],
+};
+
+let fieldGroupMap = null;
+function fieldGroupOf(code) {
+  if (!fieldGroupMap) {
+    fieldGroupMap = new Map();
+    let groups = null;
+    if (typeof CATEGORY_GROUPS !== "undefined") groups = CATEGORY_GROUPS; // 브라우저: category-data.js 전역
+    else if (typeof module !== "undefined" && module.exports) groups = require("./category-data.js").CATEGORY_GROUPS;
+    for (const group of groups || []) for (const c of group.codes) fieldGroupMap.set(c, group.label);
+    fieldGroupMap.set("kmed", KMED_GROUP);
+  }
+  return fieldGroupMap.get(code) || null;
+}
+
+function estimateFieldGroups(matches) {
+  const list = matches || [];
+  if (list.length < FIELD_DISTANCE_MIN_MATCHES) return [];
+  const counts = new Map();
+  for (const match of list) {
+    // (짧은 표제어를 추정에서 빼 보기도 했으나 미탐 29로 늘어 전부 센다.)
+    const group = fieldGroupOf((match.categories || [])[0]);
+    if (!group || group === BASIC_GROUP) continue;
+    counts.set(group, (counts.get(group) || 0) + 1);
+  }
+  const ranked = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  if (!ranked.length) return [];
+  const top = ranked[0][1];
+  return ranked
+    .filter(([, n]) => n >= FIELD_GROUP_MIN_COUNT && n / top >= FIELD_GROUP_MIN_SHARE)
+    .slice(0, FIELD_GROUP_MAX)
+    .map(([group]) => group);
+}
+
+// 짧은 표제어: 한글 표제어가 2음절 이하이거나, 한 번도 한글로 잡히지 않고
+// 영문 한 단어로만 잡힌 경우(표제어가 길어도 "Treatment" 한 단어가 근거의 전부다).
+function isShortMatch(match) {
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  if (match.viaHangul !== false) return ko.length > 0 && ko.length <= SHORT_TITLE_MAX_SYLLABLES;
+  return /^[A-Za-z]+$/.test((match.title_en || "").trim());
+}
+
+function filterDistantFieldMatches(matches) {
+  const list = matches || [];
+  const top = estimateFieldGroups(list);
+  if (!top.length) return list;
+  const related = new Set([BASIC_GROUP, ...top]);
+  for (const group of top) for (const n of FIELD_GROUP_NEIGHBORS[group] || []) related.add(n);
+  return list.filter((match) => {
+    if (!isShortMatch(match)) return true;
+    const groups = (match.categories || []).map(fieldGroupOf).filter(Boolean);
+    if (!groups.length) return true;
+    return groups.some((g) => related.has(g));
+  });
+}
+
 // All exact-index hits for a single word: the word itself, or a
 // particle-stripped form of it (e.g. "상관관계가" -> "상관관계").
 //
@@ -439,10 +529,18 @@ function matchTermsWithIndex(text, exactIndex) {
       for (const term of hit.candidates) {
         if (!acronymCaseMatches(word, hit.matchedLength, term)) continue;
         recordMatch(resultsMap, term, starts, hit.matchedLength, 0);
+        // 분야 거리 규칙이 "영문 한 단어로만 잡혔는가"를 본다.
+        const item = resultsMap.get(term.slug);
+        item.viaHangul = item.viaHangul || /[가-힣]/.test(word);
       }
     }
   }
 
+  const kept = filterDistantFieldMatches([...resultsMap.values()]);
+  if (kept.length !== resultsMap.size) {
+    const keep = new Set(kept.map((m) => m.slug));
+    for (const slug of [...resultsMap.keys()]) if (!keep.has(slug)) resultsMap.delete(slug);
+  }
   return sortMatches(resultsMap);
 }
 
@@ -1223,7 +1321,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { excludedRanges, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { excludedRanges, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
