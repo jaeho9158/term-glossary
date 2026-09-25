@@ -85,3 +85,23 @@ console.log("commonWordSignals/commonGrade: all tests passed");
   assert.ok(!common.has("hyperthermia"), "드문 전문어는 유지");
   assert.ok(!common.has("t-test"), "하이픈 복합어는 한 단어로 보지 않는다");
 }
+
+// 같은 대분류 항목끼리의 인용은 문서빈도에 넣지 않는다
+{
+  const { computeEnglishCommon } = require("../scripts/generate-viewer-index.js");
+  const cite = (n, word, cat) =>
+    Array.from({ length: n }, (_, i) => ({ slug: `${cat}-${word}-${i}`, title_ko: `채움${i}`, categories: [cat], definition: `${word} 를 쓴다.` }));
+  const terms = [
+    { slug: "regression", title_ko: "회귀분석", title_en: "Regression", categories: ["stat"] },
+    { slug: "treatment", title_ko: "트리트먼트", title_en: "Treatment", categories: ["gamestudy"] },
+    ...cite(6, "regression", "math"), // stat과 같은 '연구 기초·방법'
+    ...cite(6, "treatment", "med"), // 예술·체육 밖
+    // 통계 표제어는 다른 분야가 인용해도 15곳 미만이면 유지
+    { slug: "variance", title_ko: "분산", title_en: "Variance", categories: ["stat"] },
+    ...cite(9, "variance", "psych"),
+  ];
+  assert.ok(!computeEnglishCommon(terms).has("variance"), "통계 표제어 분야 밖 9곳은 유지");
+  const common = computeEnglishCommon(terms);
+  assert.ok(!common.has("regression"), "같은 분야군 인용 6곳은 일반어 신호 아님");
+  assert.ok(common.has("treatment"), "다른 분야군 6곳은 일반어");
+}

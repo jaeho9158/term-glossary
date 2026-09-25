@@ -184,31 +184,60 @@ function computeCommonGrades(terms) {
 // 두 단어 이상·하이픈 복합어(t-test)는 그 자체로 충분히 특정적이라 유지.
 // 결과: 해당 행 6번째 칸 = 1 → 뷰어가 영문 키를 인덱스에 넣지 않는다.
 const EN_COMMON_MIN_DF = 5;
+// 통계·수학·방법론 표제어는 어느 분야 항목이든 영어 병기로 인용하는 게
+// 정상이라(variance 9곳, correlation 6곳) 분야 밖 인용도 일반어 신호가 약하다.
+// function(42곳)처럼 정말 흔한 단어만 거르도록 문턱을 따로 높인다. 같은 기초군이라도
+// tool(sensor drift 등 기기 용어)은 넣지 않는다 — drift를 살리면 오탐이 1 늘었다.
+const EN_COMMON_MIN_DF_METHOD = 15;
+const METHOD_CODES = new Set(["stat", "math", "method"]);
 const EN_COMMON_MAX_LENGTH = 4;
 
 function isAcronymLike(word) {
   return /^.+[A-Z]/.test(word);
 }
 
+// 문서빈도는 그 표제어의 대분류(CATEGORY_GROUPS) 밖 항목에서만 센다.
+// 같은 분야끼리 서로 인용하는 것(통계 항목들이 "regression"을, 천문 항목들이
+// "supernova"를 쓰는 것)은 일반어 신호가 아니라 전문어라는 신호다.
+// 분야를 모르는 코드(테스트 등)는 어느 분야와도 겹치지 않는 것으로 본다.
+let groupOfCode = null;
+function groupsOf(term) {
+  if (!groupOfCode) {
+    groupOfCode = new Map();
+    const { CATEGORY_GROUPS } = require("../assets/category-data.js");
+    for (const g of CATEGORY_GROUPS) for (const c of g.codes) groupOfCode.set(c, g.label);
+  }
+  return new Set((term.categories || []).map((c) => groupOfCode.get(c)).filter(Boolean));
+}
+
 function computeEnglishCommon(terms) {
+  const candidates = new Map(); // 소문자 키 → 그 표제어들의 분야군 합집합
+  const methodKeys = new Set(); // 통계·수학·방법론 표제어
+  for (const t of terms) {
+    const en = (t.title_en || "").trim();
+    if (!/^[A-Za-z]+$/.test(en) || isAcronymLike(en)) continue;
+    const key = en.toLowerCase();
+    if (!candidates.has(key)) candidates.set(key, new Set());
+    for (const g of groupsOf(t)) candidates.get(key).add(g);
+    if ((t.categories || []).some((c) => METHOD_CODES.has(c))) methodKeys.add(key);
+  }
   const df = new Map();
   for (const t of terms) {
     const body = [t.definition, t.why, t.deeper].filter(Boolean).join(" ");
     if (!body) continue;
     const own = (t.title_en || "").toLowerCase();
+    const docGroups = groupsOf(t);
     for (const word of new Set((body.match(/[A-Za-z]+/g) || []).map((w) => w.toLowerCase()))) {
-      if (word === own) continue;
+      if (word === own || !candidates.has(word)) continue;
+      const headGroups = candidates.get(word);
+      if ([...docGroups].some((g) => headGroups.has(g))) continue;
       df.set(word, (df.get(word) || 0) + 1);
     }
   }
   const common = new Set();
-  for (const t of terms) {
-    const en = (t.title_en || "").trim();
-    if (!/^[A-Za-z]+$/.test(en) || isAcronymLike(en)) continue;
-    const key = en.toLowerCase();
-    if ((df.get(key) || 0) >= EN_COMMON_MIN_DF || key.length <= EN_COMMON_MAX_LENGTH) {
-      common.add(key);
-    }
+  for (const key of candidates.keys()) {
+    const minDf = methodKeys.has(key) ? EN_COMMON_MIN_DF_METHOD : EN_COMMON_MIN_DF;
+    if ((df.get(key) || 0) >= minDf || key.length <= EN_COMMON_MAX_LENGTH) common.add(key);
   }
   return common;
 }
