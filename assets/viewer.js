@@ -146,6 +146,39 @@ function isInRanges(ranges, offset) {
   return false;
 }
 
+// ---- 줄바꿈 조각(오탐 감축 D단계) ---------------------------------------
+// PDF 추출 텍스트는 줄 끝에서 낱말을 그냥 끊는다. "단\n백질"(단백질)의
+// "백질"이 백질(white matter)로, "동\n기화가"(동기화)의 "기화"가 한의학
+// 기화로, "fac-\ntor"의 "tor"가 토르로 잡혔다. 줄 끝이 띄어쓰기 자리인지
+// 낱말 중간인지는 텍스트만으로 알 수 없으므로, 확실한 두 경우만 조각으로 본다.
+//  - 앞 줄이 한 글자 한글로 끝남(그 앞은 공백·문장부호): 한국어에서 한 글자
+//    낱말은 드물고, 흔한 것(및·등·수 …)은 목록으로 뺀다.
+//  - 영문 하이픈 줄넘김 "xx-\nyy": 앞 조각 "xx-"와 뒤 조각 "yy" 둘 다.
+const STANDALONE_SYLLABLES = new Set(
+  "및 등 수 것 더 또 각 그 이 저 두 세 네 한 약 총 즉 곧 잘 못 안 왜 좀 전 후 중 간 내 외 위 뒤 앞 때 곳 데 바 뿐 줄 채 편 쪽 제 본 새 첫 매 개 명 번 년 월 일 회 차 점 장 절 항 종 건 배 할 될 된 볼 할 뿐 대 비 겸 곳 만 분 초 시 쌍".split(" ")
+);
+
+function isLineWrapFragment(text, start) {
+  const src = text || "";
+  const ch = src[start] || "";
+  if (/[가-힣]/.test(ch)) {
+    // "…␣단\n백질": start 바로 앞이 줄바꿈이고, 그 앞이 한 글자 한글 낱말
+    if (src[start - 1] !== "\n") return false;
+    const prev = src[start - 2] || "";
+    if (!/[가-힣]/.test(prev)) return false;
+    if (/[가-힣]/.test(src[start - 3] || "")) return false;
+    return !STANDALONE_SYLLABLES.has(prev);
+  }
+  if (/[A-Za-z]/.test(ch)) {
+    // 뒤 조각: "-\n" 바로 뒤이고 하이픈 앞이 영문
+    if (src[start - 1] === "\n" && src[start - 2] === "-" && /[A-Za-z]/.test(src[start - 3] || "")) return true;
+    // 앞 조각: 이 토큰이 "-"로 끝나고 바로 줄바꿈 → "fac-\n"
+    const token = /^[A-Za-z-]+/.exec(src.slice(start));
+    if (token && token[0].endsWith("-") && src[start + token[0].length] === "\n") return true;
+  }
+  return false;
+}
+
 // Common Korean grammatical particles (조사) that attach directly to a noun
 // with no space, e.g. "상관관계가" for "상관관계". The word-extraction regex
 // can't separate these from the noun, so exact matching would otherwise miss
@@ -275,21 +308,31 @@ function orderNestedMatches(matches) {
   const list = (matches || []).map((m) => ({ ...m }));
   const norm = (m) => normalizeWord(m.title_ko || "");
 
-  // 자기를 진부분문자열로 품는 것 중 가장 긴 용어가 대표. A ⊃ B ⊃ C 일 때
-  // C를 B가 아니라 A에 붙여 접기 단계가 두 겹이 되지 않게 한다.
+  // 대표 고르기. 자기를 진부분문자열로 품는 용어들 중, 패널에서 가장 아래에
+  // 놓이는 것의 밑에 붙인다 — 그래야 짧은 용어가 자기를 품는 어떤 용어보다도
+  // 위에 뜨지 않는다. 예전에는 가장 긴 용어(국소장전위) 밑에 붙여서, 그보다
+  // 순위가 낮은 활동전위보다 '전위'가 위에 떴다(말뭉치 nbome 정렬 오류).
+  // 품는 용어가 자신도 접히는 경우(A ⊃ B ⊃ C)는 B가 아니라 B가 접힌 대표 A를
+  // 기준으로 삼아 접기 단계가 두 겹이 되지 않게 한다. 긴 용어부터 처리하면
+  // 품는 쪽의 대표가 항상 먼저 정해져 있다.
   const repOf = new Map();
-  list.forEach((short, i) => {
+  const indexOf = new Map(list.map((m, i) => [m.slug, i]));
+  const anchorOf = (m) => (repOf.has(m.slug) ? repOf.get(m.slug) : m.slug);
+  const byLengthDesc = list.map((m, i) => i).sort((a, b) => norm(list[b]).length - norm(list[a]).length || a - b);
+  for (const i of byLengthDesc) {
+    const short = list[i];
     const shortKey = norm(short);
-    if (!shortKey) return;
+    if (!shortKey) continue;
     let rep = null;
     list.forEach((long, j) => {
       if (i === j) return;
       const longKey = norm(long);
       if (longKey.length <= shortKey.length || !longKey.includes(shortKey)) return;
-      if (!rep || norm(rep).length < longKey.length) rep = long;
+      const anchor = anchorOf(long);
+      if (rep === null || indexOf.get(anchor) > indexOf.get(rep)) rep = anchor;
     });
-    if (rep) repOf.set(short.slug, rep.slug);
-  });
+    if (rep) repOf.set(short.slug, rep);
+  }
 
   const ordered = [];
   const emitted = new Set();
@@ -518,7 +561,7 @@ function matchTermsWithIndex(text, exactIndex) {
   const excluded = excludedRanges(text);
 
   for (const [word, allStarts] of wordOccurrences(text)) {
-    const starts = excluded.length ? allStarts.filter((s) => !isInRanges(excluded, s)) : allStarts;
+    const starts = allStarts.filter((s) => !(excluded.length && isInRanges(excluded, s)) && !isLineWrapFragment(text, s));
     if (!starts.length) continue;
     const hits = findExactMatches(word, exactIndex);
     if (!hits.length) continue;
@@ -1321,7 +1364,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { excludedRanges, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { excludedRanges, isLineWrapFragment, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {

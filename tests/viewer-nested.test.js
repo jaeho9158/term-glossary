@@ -71,6 +71,28 @@ const m = (slug, title_ko, count, extra) =>
   assert.deepStrictEqual(sorted.map((s) => s.slug), ["rare", "common"]);
 }
 
+// 짧은 용어를 품는 긴 용어가 여럿이면, 패널에서 가장 아래에 놓이는 것 밑에
+// 붙인다. 가장 긴 것(국소장전위) 밑에 붙이던 때는 그보다 아래 순위인
+// 활동전위보다 '전위'가 위에 떠 채점기 정렬 오류가 났다(말뭉치 nbome).
+{
+  const ordered = orderNestedMatches([m("lfp", "국소장전위", 5), m("dislocation", "전위", 3), m("ap", "활동전위", 1)]);
+  assert.deepStrictEqual(ordered.map((x) => x.slug), ["lfp", "ap", "dislocation"]);
+  assert.strictEqual(ordered[2].nestedUnder, "ap");
+}
+
+// 품는 용어 자신이 다른 용어 밑에 접히면, 그 접힌 자리(대표)를 기준으로 본다.
+// C⊂B⊂A, C⊂D 이고 순서가 A, D, B, C면 B는 A 밑으로 올라가므로 C는 D 밑.
+{
+  const ordered = orderNestedMatches([
+    m("a", "최대전단응력", 5),
+    m("d", "잔류응력", 4),
+    m("b", "전단응력", 3),
+    m("c", "응력", 2),
+  ]);
+  assert.deepStrictEqual(ordered.map((x) => x.slug), ["a", "b", "d", "c"]);
+  assert.strictEqual(ordered.find((x) => x.slug === "c").nestedUnder, "d");
+}
+
 console.log("orderNestedMatches: all tests passed");
 
 // ── 카드 묶기 ─────────────────────────────────────────────────────────
