@@ -272,6 +272,8 @@ function englishGrade(term, englishCommon) {
   const key = (term.title_en || "").trim().toLowerCase();
   if (!key) return 0;
   if (englishCommon.has(key)) return 1;
+  // 논문 형식어는 영문 키도 뺀다(셀프아카이빙 → "self-archiving" 저작권 안내문).
+  if (PAPER_BOILERPLATE_TITLES.includes(term.title_ko)) return 1;
   if (ENGLISH_NEEDS_KOREAN.has(key)) return 4;
   return 0;
 }

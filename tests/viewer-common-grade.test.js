@@ -119,3 +119,12 @@ console.log("commonWordSignals/commonGrade: all tests passed");
   ];
   assert.strictEqual(computeCommonGrades(terms).get("교신저자"), 3);
 }
+
+// 논문 형식어는 영문 표제어(Self-Archiving·Retraction)로도 잡지 않는다 — 저작권 정책
+// 안내문·"Retraction Note" 같은 영문 서지 문구에서 걸렸다.
+{
+  const { englishGrade } = require("../scripts/generate-viewer-index.js");
+  assert.strictEqual(englishGrade({ title_ko: "셀프아카이빙", title_en: "Self-Archiving" }, new Set()), 1);
+  assert.strictEqual(englishGrade({ title_ko: "논문철회", title_en: "Retraction" }, new Set()), 1);
+  assert.strictEqual(englishGrade({ title_ko: "분산", title_en: "Variance" }, new Set()), 0);
+}
