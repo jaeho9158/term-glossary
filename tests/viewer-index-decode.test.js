@@ -20,7 +20,6 @@ const gen = require("../scripts/generate-viewer-index.js");
     categories: ["stat"],
     common: 0,
     common_en: 0,
-    sense: [],
   });
   assert.deepStrictEqual(terms[1].categories, ["stat", "psych"]);
 
@@ -33,7 +32,7 @@ const gen = require("../scripts/generate-viewer-index.js");
 // 경계: 빈 제목·빈 카테고리·빈 데이터에서도 터지지 않는다
 {
   const terms = decodeViewerIndex({ v: 1, categories: [], terms: [["x", "", "", []]] });
-  assert.deepStrictEqual(terms[0], { slug: "x", title_ko: "", title_en: "", categories: [], common: 0, common_en: 0, sense: [] });
+  assert.deepStrictEqual(terms[0], { slug: "x", title_ko: "", title_en: "", categories: [], common: 0, common_en: 0 });
 
   // 5번째 칸(일반어 등급)이 있으면 읽고, 없으면 0 — 4칸짜리 옛 인덱스 호환
   const graded = decodeViewerIndex({ v: 1, categories: [], terms: [["y", "단계", "", [], 3]] });

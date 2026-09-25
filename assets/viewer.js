@@ -294,7 +294,6 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
       categories: term.categories,
       common: term.common || 0,
       common_en: term.common_en || 0,
-      sense: term.sense,
       count: 0,
       score,
       occurrences: [],
@@ -563,90 +562,6 @@ function filterDistantFieldMatches(matches) {
   const kept = list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m)));
   const second = estimateFieldGroups(kept, first);
   if (second.length) markDistant(list, second);
-  // 뒤 규칙(문맥 뜻 판별 등)이 같은 상위 분야군을 쓰도록 목록에 달아 둔다.
-  list.topFieldGroups = second.length ? second : first;
-  return list;
-}
-
-// ---- 문맥 뜻 판별(오탐 라운드 3 규칙 1) -----------------------------------
-// 분야 거리 규칙은 "이 문서의 상위 분야군"만 본다. 인접 분야 동음이의어(중독=
-// poisoning, 응집=coagulation, 비중=specific-gravity)는 분야군이 가까워 그 체를
-// 통과한다. 그래서 등장 자리 주변 낱말을 사전 쪽 뜻과 맞춰 본다: 빌드 때 각 짧은
-// 표제어의 정의·관련어·분야명에서 뽑은 "뜻 키워드"(term.sense)가 등장 위치 앞뒤
-// SENSE_WINDOW자 안에 하나도 없고 등장도 적으면, 그 뜻으로 쓰인 게 아니라고 보고
-// 분야 거리와 같은 방식으로 강등한다(버리지 않음).
-// 일상어를 손으로 목록에 넣는 대신 문서 안에서 판별하는 일반 규칙이다.
-//
-// 25편 조정표(기준선 오탐 125, 미탐 19 + 강등 미탐 18; 미탐 +3 이상이면 불합격):
-//   창 ±200·낱말 일치·상위만 제외         오탐 81  강등 미탐 46
-//   창 ±200·부분 문자열·상위만 제외       오탐 82  강등 미탐 41
-//   문서 전체·부분 문자열·상위만 제외     오탐 105 강등 미탐 25
-//   위 + 등장 1회만                       오탐 109 강등 미탐 23
-//   문서 전체·부분 문자열·상위+인접 제외  오탐 119 강등 미탐 19  ← 채택
-// ±200자 창은 한 번 나온 정상 용어(유치원·사교육·신뢰도)의 주변에 사전 쪽 키워드가
-// 우연히 없는 경우가 많아 정답을 크게 잃었다. 창을 문서 전체로 넓히고(= 이 문서에
-// 그 뜻의 낱말이 하나도 없다), 분야 거리 규칙처럼 인접 분야군도 제외해야 기준을 넘는다.
-const SENSE_WINDOW = Infinity;
-const SENSE_MAX_SYLLABLES = 3;
-const SENSE_MAX_COUNT = 2; // 이보다 많이 나오면 문맥이 안 맞아도 주제어일 수 있다
-const SENSE_MIN_OVERLAP = 1;
-// 빌드 스크립트가 사전 본문에서 뜻 키워드(명사)를 뽑을 때 조사·흔한 어미를 떼는 데 쓴다.
-const SENSE_ENDINGS = [
-  "으로써", "으로서", "에서의", "입니다", "합니다", "됩니다", "하였다", "되었다",
-  "에서", "으로", "에게", "부터", "까지", "처럼", "보다", "이나", "이며", "이다",
-  "하는", "되는", "하여", "하고", "하며", "하게", "하기", "한다", "된다", "했다", "되어", "되며", "적인", "적으로", "적",
-  "은", "는", "이", "가", "을", "를", "의", "에", "로", "와", "과", "도", "만", "나", "한", "된", "들",
-];
-function senseStems(word) {
-  const w = String(word || "");
-  const out = [w];
-  for (const end of SENSE_ENDINGS) {
-    if (w.endsWith(end) && w.length - end.length >= 2) out.push(w.slice(0, -end.length));
-  }
-  return out;
-}
-
-function isSenseTarget(match) {
-  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
-  if (match.viaHangul !== false) return ko.length > 0 && ko.length <= SENSE_MAX_SYLLABLES;
-  return /^[A-Za-z]+$/.test((match.title_en || "").trim());
-}
-
-// 분야 거리 규칙과 같은 "가까운 분야군": 상위 + 인접 + 연구 기초·방법(통계·방법론).
-function inTopGroups(match, top) {
-  const set = new Set([BASIC_GROUP, ...top]);
-  for (const g of top) for (const n of FIELD_GROUP_NEIGHBORS[g] || []) set.add(n);
-  return (match.categories || []).some((c) => set.has(fieldGroupOf(c)));
-}
-
-// 등장 자리 창들과 뜻 키워드의 교집합 크기(전체 등장 합산, 키워드 중복 없이).
-// 뜻 키워드가 없는 용어는 -1(판단 보류).
-function senseOverlap(match, text) {
-  const keys = new Set(match.sense || []);
-  if (!keys.size) return -1;
-  const hit = new Set();
-  for (const occ of match.occurrences || []) {
-    const from = Math.max(0, occ.start - SENSE_WINDOW);
-    const to = Math.min(text.length, occ.start + occ.length + SENSE_WINDOW);
-    // 부분 문자열로 본다: 논문은 "독성물질"처럼 붙여 쓰는 복합어가 많아 낱말 일치로는 놓친다.
-    const win = text.slice(from, to);
-    for (const k of keys) if (win.includes(k)) hit.add(k);
-  }
-  return hit.size;
-}
-
-// top: 상위 분야군(filterDistantFieldMatches가 고른 것). 없으면 적용하지 않는다 —
-// 잡힌 용어가 적은 문서에서는 "분야 밖"이라는 판단 자체를 믿을 수 없다.
-// 상위 분야군에 속하는 용어는 제외한다(주제어 손실 방지).
-function applySenseContextRule(list, text, top) {
-  if (!top || !top.length) return list;
-  for (const match of list) {
-    if (match.distant || !isSenseTarget(match) || inTopGroups(match, top)) continue;
-    if ((match.count || 0) > SENSE_MAX_COUNT) continue;
-    const overlap = senseOverlap(match, text);
-    if (overlap < 0) continue;
-    if (overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }
-  }
   return list;
 }
 
@@ -749,8 +664,7 @@ function matchTermsWithIndex(text, exactIndex) {
     if (!item.bare || needsKorean) resultsMap.delete(slug);
     else delete item.bare;
   }
-  const matchedList = filterDistantFieldMatches([...resultsMap.values()]);
-  applySenseContextRule(matchedList, text, matchedList.topFieldGroups);
+  filterDistantFieldMatches([...resultsMap.values()]);
   return sortMatches(resultsMap);
 }
 
@@ -1242,15 +1156,13 @@ function decodeViewerIndex(data) {
   // 5번째 칸(일반어 등급)은 0일 때 생략돼 있다 — 4칸짜리 옛 인덱스도
   // 그대로 읽히도록 없으면 0으로 본다.
   // 6번째 칸(영문 일반어 표시, B단계)도 같은 방식으로 없으면 0.
-  // 7번째 칸(문맥 뜻 키워드, 공백 구분)은 짧은 표제어에만 있고 없으면 빈 배열.
-  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn, sense]) => ({
+  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn]) => ({
     slug,
     title_ko: titleKo || "",
     title_en: titleEn || "",
     categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
     common: common || 0,
     common_en: commonEn || 0,
-    sense: sense ? sense.split(" ") : [],
   }));
 }
 
@@ -1533,7 +1445,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { applySenseContextRule, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
