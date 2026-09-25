@@ -570,7 +570,24 @@ function filterDistantFieldMatches(matches) {
   if (second.length) markDistant(list, second);
   // 뒤 규칙(문맥 뜻 판별 등)이 같은 상위 분야군을 쓰도록 목록에 달아 둔다.
   list.topFieldGroups = second.length ? second : first;
+  markSingleShort(list, list.topFieldGroups);
   return list;
+}
+
+// 오탐 라운드 3 규칙 2: 한글 2음절 이하 표제어가 문서 전체에 1회만 나오고 상위
+// 분야군(+연구 기초·방법) 밖이면 인접 분야군이어도 강등한다. 한 번 스친 짧은
+// 낱말은 일상어·동음이의어일 가능성이 높고, 주제어라면 여러 번 나온다.
+// 정답지를 "사전 뜻과 같을 때만 정답"으로 바꾼 뒤(2026-09-26) 사용자 결정으로 채택.
+function markSingleShort(list, top) {
+  if (!top.length) return;
+  const near = new Set([BASIC_GROUP, ...top]);
+  for (const match of list) {
+    if (match.distant || match.count !== 1 || match.viaHangul === false) continue;
+    const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+    if (!ko.length || ko.length > SHORT_TITLE_MAX_SYLLABLES) continue;
+    const groups = (match.categories || []).map(fieldGroupOf).filter(Boolean);
+    if (groups.length && !groups.some((g) => near.has(g))) { match.distant = true; match.demotedBy = "single"; }
+  }
 }
 
 // ---- 문맥 뜻 판별(오탐 라운드 3 규칙 1) -----------------------------------
