@@ -1,9 +1,9 @@
 // 오탐 감축 C단계: 분야 거리 규칙. 짧은 표제어(한글 2음절 이하, 또는 영문
 // 한 단어로만 잡힌 것)의 분야가 문서의 상위 분야군과도, 그 인접 분야군과도
-// 무관하면 결과에서 뺀다. 의학 논문의 "여과"(화학공학)·"감마"(금융 옵션)·
+// 무관하면 결과에서 빼지 않고 distant로 강등한다(밑줄 없음, "다른 분야" 맨 아래). 의학 논문의 "여과"(화학공학)·"감마"(금융 옵션)·
 // "제대"(군사) 같은 동음이의어가 대상이다.
 const assert = require("assert");
-const { filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, matchTerms } = require("../assets/viewer.js");
+const { filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, matchTerms, groupMatchesByField } = require("../assets/viewer.js");
 
 const m = (slug, title_ko, cats, extra) => ({ slug, title_ko, title_en: "", categories: cats, viaHangul: true, ...extra });
 
@@ -28,7 +28,7 @@ const medDoc = [
 {
   const groups = estimateFieldGroups(medDoc);
   assert.deepStrictEqual(groups, [fieldGroupOf("med")], "의학이 압도적");
-  const kept = new Set(filterDistantFieldMatches(medDoc).map((x) => x.slug));
+  const kept = new Set(filterDistantFieldMatches(medDoc).filter((x) => !x.distant).map((x) => x.slug));
   assert.ok(kept.has("med-0"));
   assert.ok(kept.has("stat-1"), "연구 기초·방법은 어느 문서와도 가깝다");
   assert.ok(!kept.has("gamma-option"), "금융은 의학과 무관");
@@ -48,7 +48,7 @@ const medDoc = [
     m("treatment", "트리트먼트", ["gamestudy"], { title_en: "Treatment", viaHangul: false }),
     m("two-words", "진위감정법", ["artstudy"], { title_en: "Open Attribution", viaHangul: false }),
   ];
-  const kept = new Set(filterDistantFieldMatches(doc).map((x) => x.slug));
+  const kept = new Set(filterDistantFieldMatches(doc).filter((x) => !x.distant).map((x) => x.slug));
   assert.ok(!kept.has("attachment"));
   assert.ok(!kept.has("treatment"), "한글 표제어가 길어도 영문 한 단어로만 잡혔으면 대상");
   assert.ok(kept.has("two-words"), "영문 두 단어는 대상 밖");
@@ -57,7 +57,7 @@ const medDoc = [
 // 용어가 10개 미만이면 분야 추정을 믿을 수 없으므로 아무것도 빼지 않는다
 {
   const small = [m("a", "의학", ["med"]), m("b", "감마", ["finance"])];
-  assert.deepStrictEqual(filterDistantFieldMatches(small).map((x) => x.slug), ["a", "b"]);
+  assert.deepStrictEqual(filterDistantFieldMatches(small).filter((x) => !x.distant).map((x) => x.slug), ["a", "b"]);
 }
 
 // 한의학 문서에서는 한의학 용어가 남고, 의학은 인접 분야로 남는다
@@ -69,7 +69,7 @@ const medDoc = [
     m("med-short", "혈압", ["med"]),
     m("dance", "신체", ["dance"]),
   ];
-  const kept = new Set(filterDistantFieldMatches(doc).map((x) => x.slug));
+  const kept = new Set(filterDistantFieldMatches(doc).filter((x) => !x.distant).map((x) => x.slug));
   assert.ok(kept.has("qi"));
   assert.ok(kept.has("med-short"));
   assert.ok(!kept.has("dance"));
@@ -82,9 +82,44 @@ const medDoc = [
     { slug: "gamma-option", title_ko: "감마", title_en: "Gamma", categories: ["finance"] },
   ];
   const text = terms.map((t) => t.title_ko).join(" ") + " 감마 파가 증가했다.";
-  const slugs = matchTerms(text, terms).map((x) => x.slug);
-  assert.ok(slugs.includes("med-0"));
-  assert.ok(!slugs.includes("gamma-option"));
+  const result = matchTerms(text, terms);
+  const gamma = result.find((x) => x.slug === "gamma-option");
+  assert.ok(result.some((x) => x.slug === "med-0" && !x.distant));
+  assert.ok(gamma && gamma.distant, "버리지 않고 강등 표시");
+  assert.strictEqual(result[result.length - 1].slug, "gamma-option", "강등 용어는 맨 뒤");
+}
+
+// 강등 용어는 패널에서 "다른 분야" 그룹 맨 아래
+{
+  const list = [m("a", "가", ["med"]), m("d", "나", ["finance"], { distant: true }), m("o", "다", ["law"])];
+  const g = groupMatchesByField(list, ["med"]);
+  assert.deepStrictEqual(g.primary.map((x) => x.slug), ["a"]);
+  assert.deepStrictEqual(g.others.map((x) => x.slug), ["o", "d"]);
+}
+
+// 2패스(thesis-toc 형태): 한의학 짧은 오탐 4개가 1차에서 한의학을 상위(4/10=0.4)로
+// 올려 스스로를 살린다. 2차에서는 다른 상위 분야군이 뒷받침하지 않는 짧은
+// 표제어를 빼고 다시 추정하므로 한의학이 상위에서 빠지고 이들이 강등된다.
+{
+  const doc = [
+    ...Array.from({ length: 10 }, (_, i) => m(`med-${i}`, `의학용어${i}`, ["med"])),
+    m("qi-a", "기기", ["kmed"]),
+    m("qi-b", "기체", ["kmed"]),
+    m("qi-c", "혈", ["kmed"]),
+    m("qi-d", "경기", ["kmed"]),
+  ];
+  assert.deepStrictEqual(estimateFieldGroups(doc), [fieldGroupOf("med"), fieldGroupOf("kmed")], "1차는 오염됨");
+  const res = filterDistantFieldMatches(doc);
+  for (const s of ["qi-a", "qi-b", "qi-c", "qi-d"]) assert.ok(res.find((x) => x.slug === s).distant, s);
+  assert.ok(res.filter((x) => x.slug.startsWith("med-")).every((x) => !x.distant));
+}
+// 인접 분야로 뒷받침되는 상위 분야군은 2차에서도 지킨다: 사회과학 상위 + 인문학 짧은 용어
+{
+  const doc = [
+    ...Array.from({ length: 10 }, (_, i) => m(`law-${i}`, `법학용어${i}`, ["law"])),
+    ...Array.from({ length: 4 }, (_, i) => m(`h-${i}`, `인${String.fromCharCode(0xac00 + i)}`, ["philo"])),
+  ];
+  assert.ok(filterDistantFieldMatches(doc).every((x) => !x.distant));
 }
 
 console.log("field distance: all tests passed");

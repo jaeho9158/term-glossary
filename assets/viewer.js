@@ -302,6 +302,8 @@ function sortMatches(resultsMap) {
   results.sort((a, b) => {
     // 일반어 등급 2는 "틀렸다"가 아니라 "아마 이 논문의 주제어는 아니다"다.
     // 그래서 숨기지 않고 뒤로만 민다.
+    // 분야 거리로 강등된 용어는 맨 뒤("다른 분야" 그룹 맨 아래).
+    if (!!a.distant !== !!b.distant) return a.distant ? 1 : -1;
     const aDemoted = (a.common || 0) >= COMMON_GRADE_DEMOTE ? 1 : 0;
     const bDemoted = (b.common || 0) >= COMMON_GRADE_DEMOTE ? 1 : 0;
     if (aDemoted !== bDemoted) return aDemoted - bDemoted;
@@ -338,10 +340,11 @@ function orderNestedMatches(matches) {
   for (const i of byLengthDesc) {
     const short = list[i];
     const shortKey = norm(short);
-    if (!shortKey) continue;
+    // 강등된 용어는 포함 관계로 묶지 않는다 — 묶이면 대표를 따라 위로 올라온다.
+    if (!shortKey || short.distant) continue;
     let rep = null;
     list.forEach((long, j) => {
-      if (i === j) return;
+      if (i === j || long.distant) return;
       const longKey = norm(long);
       if (longKey.length <= shortKey.length || !longKey.includes(shortKey)) return;
       const anchor = anchorOf(long);
@@ -416,25 +419,31 @@ function groupMatchesByField(matches, fields) {
   const bySlug = new Map(list.map((m) => [m.slug, m]));
   const primary = [];
   const others = [];
+  const distant = []; // 분야 거리로 강등 — 추정 분야와 무관하게 "다른 분야" 맨 아래
   for (const match of list) {
+    if (match.distant) { distant.push(match); continue; }
     const anchor = match.nestedUnder ? bySlug.get(match.nestedUnder) || match : match;
     (isPrimary(anchor) ? primary : others).push(match);
   }
-  return { primary, others };
+  return { primary, others: others.concat(distant) };
 }
 
 // ---- 분야 거리 규칙(오탐 감축 C단계) --------------------------------------
 // 짧은 표제어는 동음이의어가 많다: 의학 논문의 "감마 파"가 금융 옵션의
 // 감마로, "제대로"가 군사 제대로, "이 기기"가 한의학 기기(氣機)로 잡혔다.
 // 문서의 상위 분야군을 잡힌 용어들로 추정하고, 짧은 표제어의 categories가
-// 전부 그 분야군·인접 분야군 밖이면 결과에서 뺀다(패널·밑줄 모두).
+// 전부 그 분야군·인접 분야군 밖이면 match.distant = true로 강등한다. 버리지
+// 않는다 — 분야 추정이 틀려도 사용자가 잃는 것은 "다른 분야" 그룹 한 번
+// 펼치기뿐이어야 한다. 강등된 용어는 본문 밑줄이 없고, 패널에서는 "다른 분야"
+// 접힌 그룹 맨 아래에 온다(팝오버·검색은 그대로).
 // 위 estimateDocumentFields(98개 세부 분야 단위)는 말뭉치 10편 중 7편에서
 // "분야 없음"을 내 이 규칙에 쓸 수 없어서, 대분류(CATEGORY_GROUPS) 단위로 센다.
 const FIELD_DISTANCE_MIN_MATCHES = 10; // 이보다 적으면 추정을 믿지 않는다(브리프)
 const FIELD_GROUP_MAX = 3;
 // 1위 분야군 대비 이 비율 이상이어야 상위로 본다. 말뭉치에서 0.2·0.3·0.4·0.5가
 // 미탐 17·18·21·21 / 오탐 73·62·48·47 — 0.4에서 오탐이 부풀린 곁가지 분야군
-// (법학 논문의 인문학 등)이 상위에서 빠진다.
+// (법학 논문의 인문학 등)이 상위에서 빠진다. 말뭉치 9편 기준으로 고른 값이라
+// 과적합 가능 — 말뭉치를 늘리면 다시 잰다.
 const FIELD_GROUP_MIN_SHARE = 0.4;
 const FIELD_GROUP_MIN_COUNT = 2;
 const SHORT_TITLE_MAX_SYLLABLES = 2;
@@ -499,18 +508,38 @@ function isShortMatch(match) {
   return /^[A-Za-z]+$/.test((match.title_en || "").trim());
 }
 
-function filterDistantFieldMatches(matches) {
-  const list = matches || [];
-  const top = estimateFieldGroups(list);
-  if (!top.length) return list;
+function markDistant(list, top) {
   const related = new Set([BASIC_GROUP, ...top]);
   for (const group of top) for (const n of FIELD_GROUP_NEIGHBORS[group] || []) related.add(n);
-  return list.filter((match) => {
-    if (!isShortMatch(match)) return true;
+  for (const match of list) {
+    delete match.distant;
+    if (!top.length || !isShortMatch(match)) continue;
     const groups = (match.categories || []).map(fieldGroupOf).filter(Boolean);
-    if (!groups.length) return true;
-    return groups.some((g) => related.has(g));
-  });
+    if (groups.length && !groups.some((g) => related.has(g))) match.distant = true;
+  }
+}
+
+// 반환값은 입력과 같은 목록(강등 표시만 붙음). 2패스: 1차로 강등된 용어와, 다른
+// 상위 분야군이 뒷받침하지 않는 짧은 표제어를 빼고 상위 분야군을 다시 추정해 한 번 더 판정한다. 오탐 자체가 분야 추정을 오염시키는
+// 경우(thesis-toc: 한의학 오탐 3개가 한의학을 상위로 올려 기기·기체가 살아남음)를 푼다.
+function filterDistantFieldMatches(matches) {
+  const list = matches || [];
+  const first = estimateFieldGroups(list);
+  markDistant(list, first);
+  if (!first.length) return list;
+  // 2차 추정에서는 짧은 표제어를, 자기 분야군을 뺀 나머지 상위 분야군(과 그 인접)에
+  // 닿을 때만 센다. 1차만으로는 짧은 오탐이 제 분야군을 상위로 올려 스스로를
+  // 살리는 순환(thesis-toc의 기기·기체·혈 → 한의학)이 풀리지 않는다.
+  const supportedByOthers = (m) => {
+    const own = fieldGroupOf((m.categories || [])[0]);
+    const others = first.filter((g) => g !== own);
+    const rel = new Set([BASIC_GROUP, ...others]);
+    for (const g of others) for (const n of FIELD_GROUP_NEIGHBORS[g] || []) rel.add(n);
+    return (m.categories || []).map(fieldGroupOf).some((g) => rel.has(g));
+  };
+  const second = estimateFieldGroups(list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m))));
+  if (second.length) markDistant(list, second);
+  return list;
 }
 
 // All exact-index hits for a single word: the word itself, or a
@@ -595,11 +624,7 @@ function matchTermsWithIndex(text, exactIndex) {
     }
   }
 
-  const kept = filterDistantFieldMatches([...resultsMap.values()]);
-  if (kept.length !== resultsMap.size) {
-    const keep = new Set(kept.map((m) => m.slug));
-    for (const slug of [...resultsMap.keys()]) if (!keep.has(slug)) resultsMap.delete(slug);
-  }
+  filterDistantFieldMatches([...resultsMap.values()]);
   return sortMatches(resultsMap);
 }
 
@@ -2095,7 +2120,8 @@ if (typeof document !== "undefined") {
       closeTermPopover();
       setDropzoneVisible(false);
       renderedPane.classList.remove("pdf-reading");
-      const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug));
+      // 분야 거리로 강등된 용어는 밑줄을 긋지 않는다(패널 "다른 분야"에만).
+      const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug) && !m.distant);
       renderedPane.innerHTML = visible.length ? buildHighlightedHtml(text, visible) : escapeHtml(text);
       renderedPane.hidden = false;
       textarea.hidden = true;
@@ -2109,7 +2135,8 @@ if (typeof document !== "undefined") {
     function renderReadingPane() {
       if (!renderedPane || !pdfPageOffsets.length) return;
       closeTermPopover();
-      const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug));
+      // 분야 거리로 강등된 용어는 밑줄을 긋지 않는다(패널 "다른 분야"에만).
+      const visible = currentMatches.filter((m) => !hiddenSlugs.has(m.slug) && !m.distant);
       const byPage = splitMatchesByPage(visible, pdfPageOffsets);
       let html = "";
       for (const entry of pdfPageOffsets) {

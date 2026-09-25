@@ -61,17 +61,23 @@ async function gradeDoc(name, index, terms, verbose) {
   if (text === null) return { name, error: "본문 파일 없음(.pdf/.txt)" };
   if (!text.trim()) return { name, error: "추출된 텍스트 없음(스캔본?)", scanned: true };
 
-  const matches = viewer.matchTermsWithIndex(text, index);
+  const all = viewer.matchTermsWithIndex(text, index);
+  // 분야 거리로 강등된 용어(distant)는 밑줄 없이 "다른 분야" 맨 아래에만 있어
+  // 사용자 체감과 같게 "잡힘"에서 뺀다. 그중 정답인 것은 "강등 미탐"으로 따로 센다.
+  const matches = all.filter((m) => !m.distant);
+  const distant = all.filter((m) => m.distant);
   const got = new Set(matches.map((m) => m.slug));
   const expected = new Set(spec.expected || []);
   const notExpected = new Set(spec.not_expected || []);
 
-  const missed = [...expected].filter((s) => !got.has(s));
+  const distantSlugs = new Set(distant.map((m) => m.slug));
+  const distantMissed = [...expected].filter((s) => distantSlugs.has(s));
+  const missed = [...expected].filter((s) => !got.has(s) && !distantSlugs.has(s));
   const falsePos = [...notExpected].filter((s) => got.has(s));
   const unlabeled = [...got].filter((s) => !expected.has(s) && !notExpected.has(s));
   const orderErrors = (spec.nested || []).filter(([long, short]) => rankOf(matches, short) < rankOf(matches, long));
 
-  return { name, text, matches, expected, notExpected, missed, falsePos, unlabeled, orderErrors, verbose };
+  return { name, text, matches, distant, distantMissed, expected, notExpected, missed, falsePos, unlabeled, orderErrors, verbose };
 }
 
 function title(terms, slug) {
@@ -101,13 +107,15 @@ async function main() {
     return;
   }
 
-  let sumExp = 0, sumMissed = 0, sumGot = 0, sumFp = 0, sumOrder = 0;
+  let sumExp = 0, sumMissed = 0, sumGot = 0, sumFp = 0, sumOrder = 0, sumDistant = 0, sumDistantMissed = 0;
   for (const name of docs) {
     const r = await gradeDoc(name, index, terms, args.length === 1);
     if (r.error) { console.log(`\n[${name}] ${r.error}`); continue; }
     sumExp += r.expected.size; sumMissed += r.missed.length;
     sumGot += r.matches.length; sumFp += r.falsePos.length; sumOrder += r.orderErrors.length;
-    console.log(`\n[${name}] 잡힘 ${r.matches.length} / 정답 ${r.expected.size} — 미탐 ${r.missed.length}, 오탐 ${r.falsePos.length}, 미분류 ${r.unlabeled.length}, 정렬 오류 ${r.orderErrors.length}`);
+    sumDistant += r.distant.length; sumDistantMissed += r.distantMissed.length;
+    console.log(`\n[${name}] 잡힘 ${r.matches.length} / 정답 ${r.expected.size} — 미탐 ${r.missed.length}, 오탐 ${r.falsePos.length}, 미분류 ${r.unlabeled.length}, 정렬 오류 ${r.orderErrors.length}, 강등 ${r.distant.length}(강등 미탐 ${r.distantMissed.length})`);
+    if (r.distantMissed.length) console.log("  강등 미탐:", r.distantMissed.map((s) => title(terms, s)).join(", "));
     if (r.missed.length) console.log("  미탐:", r.missed.map((s) => title(terms, s)).join(", "));
     if (r.falsePos.length) console.log("  오탐:", r.falsePos.map((s) => title(terms, s)).join(", "));
     for (const [l, s] of r.orderErrors) console.log(`  정렬 오류: ${title(terms, s)} 가 ${title(terms, l)} 보다 위`);
@@ -119,7 +127,7 @@ async function main() {
     }
   }
   const pct = (a, b) => (b ? ((100 * a) / b).toFixed(1) + "%" : "-");
-  console.log(`\n합계: 미탐 ${sumMissed}/${sumExp} (${pct(sumMissed, sumExp)}), 오탐 ${sumFp}/${sumGot} (${pct(sumFp, sumGot)}), 정렬 오류 ${sumOrder}`);
+  console.log(`\n합계: 미탐 ${sumMissed}/${sumExp} (${pct(sumMissed, sumExp)}), 오탐 ${sumFp}/${sumGot} (${pct(sumFp, sumGot)}), 정렬 오류 ${sumOrder}, 강등 ${sumDistant}(강등 미탐 ${sumDistantMissed})`);
   console.log("목표: 미탐 ≤ 10%, 오탐 ≤ 5%, 정렬 오류 0");
 }
 
