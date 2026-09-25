@@ -162,12 +162,23 @@ const CURATED_COMMON_WORDS = [
   "조차", "공유", "인구이동", "수용", "노출", "성숙", "근절", "정점", "우연성",
 ];
 
+// 논문 형식어(라운드 4, 사용자 승인 2026-09-26): 표제어로는 윤리·문헌정보·지식재산
+// 용어지만, 논문에서는 머리글·서지 정보·저작권 고지·절 제목("교신저자",
+// "문헌고찰", "Copyright ©")으로 거의 모든 편에 기계적으로 나온다. 그 자리에서
+// 사전 뜻을 찾아보는 독자는 없으므로 등급 3(인덱스 제외)으로 둔다.
+// 일상어(CURATED_COMMON_WORDS)와는 이유가 달라 따로 둔다.
+// "성능평가"는 사전에 원자력(폐기물 처분장 성능평가) 뜻만 있는데, 논문에서는
+// 일반적인 "성능 평가"(모델·시스템)로 쓰인다.
+const PAPER_BOILERPLATE_TITLES = [
+  "교신저자", "문헌고찰", "논문철회", "셀프아카이빙", "저작재산권", "성능평가",
+];
+
 function computeCommonGrades(terms) {
   const grades = new Map();
   for (const [title, signals] of commonWordSignals(terms)) {
     grades.set(title, commonGrade(signals));
   }
-  for (const word of CURATED_COMMON_WORDS) {
+  for (const word of [...CURATED_COMMON_WORDS, ...PAPER_BOILERPLATE_TITLES]) {
     if (grades.has(word)) grades.set(word, 3);
   }
   return grades;
@@ -440,4 +451,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };
+module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };
