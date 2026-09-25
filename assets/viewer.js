@@ -614,6 +614,16 @@ function acronymCaseMatches(word, matchedLength, term) {
 // a time for a multi-page PDF) build the index once and reuse it — building
 // it per call turns an O(dictionary size) cost into O(pages * dictionary
 // size), which is what made large-PDF analysis stall.
+// 조사 "로·도·나"를 떼어 한글 2음절만 남은 매칭("제대로"→제대, "빈도로"→빈도,
+// "초점도"→초점)은 부사·일상 결합과 겹치기 쉽다. 이런 표제어는 문서 안에 조사 없이
+// 단독으로(또는 영문 표기로) 1회 이상 나올 때만 인정한다. 을·를·은·는·이·의·에
+// 까지 넓히면 25편 기준 미탐이 19→43으로 늘어(가설을·효소의 등) 이 셋만 둔다
+// (로·도·나: 오탐 −8, 미탐 ±0; 가 추가 시 미탐 +1).
+const CORROBORATION_PARTICLES = new Set(["로", "도", "나"]);
+function needsBareCorroboration(form, particle) {
+  return /^[가-힣]{2}$/.test(form) && (particle === undefined || CORROBORATION_PARTICLES.has(particle));
+}
+
 function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
   // 텍스트 모드·PDF 모드 모두 이 함수로 들어오므로 제외 구간도 여기서 한 번에.
@@ -634,10 +644,16 @@ function matchTermsWithIndex(text, exactIndex) {
         // 분야 거리 규칙이 "영문 한 단어로만 잡혔는가"를 본다.
         const item = resultsMap.get(term.slug);
         item.viaHangul = item.viaHangul || /[가-힣]/.test(word);
+        const particle = normalizeWord(word).slice(hit.matchedLength);
+        if (!particle || !needsBareCorroboration(normalizeWord(word.slice(0, hit.matchedLength)), particle)) item.bare = true;
       }
     }
   }
 
+  for (const [slug, item] of resultsMap) {
+    if (!item.bare) resultsMap.delete(slug);
+    else delete item.bare;
+  }
   filterDistantFieldMatches([...resultsMap.values()]);
   return sortMatches(resultsMap);
 }
@@ -1419,7 +1435,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { excludedRanges, isLineWrapFragment, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
