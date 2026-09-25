@@ -171,7 +171,10 @@ function isInRanges(ranges, offset) {
 //    낱말은 드물고, 흔한 것(및·등·수 …)은 목록으로 뺀다.
 //  - 영문 하이픈 줄넘김 "xx-\nyy": 앞 조각 "xx-"와 뒤 조각 "yy" 둘 다.
 const STANDALONE_SYLLABLES = new Set(
-  "및 등 수 것 더 또 각 그 이 저 두 세 네 한 약 총 즉 곧 잘 못 안 왜 좀 전 후 중 간 내 외 위 뒤 앞 때 곳 데 바 뿐 줄 채 편 쪽 제 본 새 첫 매 개 명 번 년 월 일 회 차 점 장 절 항 종 건 배 할 될 된 볼 할 뿐 대 비 겸 곳 만 분 초 시 쌍".split(" ")
+  "및 등 수 것 더 또 각 그 이 저 두 세 네 한 약 총 즉 곧 잘 못 안 왜 좀 전 후 중 간 내 외 위 뒤 앞 때 곳 데 바 뿐 줄 채 편 쪽 제 본 새 첫 매 개 명 번 년 월 일 회 차 점 장 절 항 종 건 배 할 될 된 볼 할 뿐 대 비 겸 곳 만 분 초 시 쌍 " +
+    // 떨어져 쓰인 조사: 한국어 논문 PDF에서 "GWAS 의\n유전형"처럼 영문·숫자 뒤
+    // 조사를 띄어 쓰는 일이 흔하다. 조사로 끝난 줄은 띄어쓰기 자리다.
+    "의 를 을 로 에 와 과 가 는 은 도".split(" ")
 );
 
 function isLineWrapFragment(text, start) {
@@ -179,18 +182,23 @@ function isLineWrapFragment(text, start) {
   const ch = src[start] || "";
   if (/[가-힣]/.test(ch)) {
     // "…␣단\n백질": start 바로 앞이 줄바꿈이고, 그 앞이 한 글자 한글 낱말
+    // 줄바꿈은 \n 또는 \r\n(텍스트 모드 입력)
     if (src[start - 1] !== "\n") return false;
-    const prev = src[start - 2] || "";
+    const nl = src[start - 2] === "\r" ? 2 : 1;
+    const prev = src[start - 1 - nl] || "";
     if (!/[가-힣]/.test(prev)) return false;
-    if (/[가-힣]/.test(src[start - 3] || "")) return false;
+    if (/[가-힣]/.test(src[start - 2 - nl] || "")) return false;
     return !STANDALONE_SYLLABLES.has(prev);
   }
   if (/[A-Za-z]/.test(ch)) {
     // 뒤 조각: "-\n" 바로 뒤이고 하이픈 앞이 영문
-    if (src[start - 1] === "\n" && src[start - 2] === "-" && /[A-Za-z]/.test(src[start - 3] || "")) return true;
+    if (src[start - 1] === "\n") {
+      const h = src[start - 2] === "\r" ? start - 3 : start - 2;
+      if (src[h] === "-" && /[A-Za-z]/.test(src[h - 1] || "")) return true;
+    }
     // 앞 조각: 이 토큰이 "-"로 끝나고 바로 줄바꿈 → "fac-\n"
     const token = /^[A-Za-z-]+/.exec(src.slice(start));
-    if (token && token[0].endsWith("-") && src[start + token[0].length] === "\n") return true;
+    if (token && token[0].endsWith("-") && /^\r?\n/.test(src.slice(start + token[0].length))) return true;
   }
   return false;
 }

@@ -33,6 +33,22 @@ const { matchTerms, isLineWrapFragment } = require("../assets/viewer.js");
   assert.ok(!isLineWrapFragment(text, text.indexOf("t-test")));
 }
 
+// 앞 줄 끝이 떨어진 조사(의·를·을 …)면 줄바꿈은 띄어쓰기 자리다
+{
+  const text = "GWAS 의\n유전형 분석";
+  assert.ok(!isLineWrapFragment(text, text.indexOf("유전형")));
+}
+// CRLF 줄바꿈(텍스트 모드 입력)에서도 같은 판정
+{
+  const crlf = "GWAS 의\r\n유전형 분석";
+  assert.ok(!isLineWrapFragment(crlf, crlf.indexOf("유전형")));
+  const frag = "유전자 발현이나 단\r\n백질 형성";
+  assert.ok(isLineWrapFragment(frag, frag.indexOf("백질")));
+  const en = "transcription fac-\r\ntor 1";
+  assert.ok(isLineWrapFragment(en, en.indexOf("tor 1")));
+  assert.ok(isLineWrapFragment(en, en.indexOf("fac-")));
+}
+
 // matchTerms 경로
 {
   const terms = [
@@ -41,6 +57,9 @@ const { matchTerms, isLineWrapFragment } = require("../assets/viewer.js");
   ];
   assert.deepStrictEqual(matchTerms("발현이나 단\n백질 형성", terms).map((m) => m.slug), []);
   assert.deepStrictEqual(matchTerms("대뇌 백질 변화", terms).map((m) => m.slug), ["white-matter"]);
+  const gt = [{ slug: "genotype", title_ko: "유전형", title_en: "genotype", categories: ["bio"] }];
+  assert.deepStrictEqual(matchTerms("GWAS 의\n유전형", gt).map((m) => m.slug), ["genotype"]);
+  assert.deepStrictEqual(matchTerms("GWAS 의\r\n유전형", gt).map((m) => m.slug), ["genotype"]);
 }
 
 console.log("line-wrap fragment: all tests passed");
