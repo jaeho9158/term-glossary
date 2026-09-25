@@ -79,10 +79,17 @@ function wordOccurrences(text) {
 //  - 감사의 글: 제목 줄부터 짧게(연구비 문단). "감사"(감사인)가 제목 자체에서 잡혔다.
 const REFERENCE_HEADING = /^\s*(?:[0-9IVX]+\.?\s*)?(?:추가\s*)?(?:참\s*고\s*문\s*헌|인\s*용\s*문\s*헌|문\s*헌|references?|bibliography|literature\s+cited)\s*$/i;
 const ACK_HEADING = /^\s*(?:감\s*사\s*의\s*글|사\s*사|acknowledge?ments?)\s*$/i;
-const RESUME_HEADING = /^\s*(?:[0-9IVX]+\.?\s*)?(?:방법|연구\s*방법|methods?|부록|appendix|보충\s*자료|supplementary|확장\s*데이터|extended\s+data|box\s*\d)(?![가-힣A-Za-z])/i;
+// 복귀 제목: 방법·부록(Nature식) + 장별 참고문헌 뒤 다음 장(제N장·서론·결과·결론 …).
+const RESUME_HEADING = /^\s*(?:[0-9IVXⅠ-Ⅻ]+\.?\s*)?(?:방법|연구\s*방법|methods?|부록|appendix|chapter\s*\d*|보충\s*자료|supplementary|확장\s*데이터|extended\s+data|box\s*\d|제\s*\d+\s*장|\d+\s*장|서\s*론|결\s*과|결\s*론|고\s*찰|논\s*의)(?![가-힣A-Za-z])/i;
+// 참고문헌 항목 첫 줄이 "Methods for …"처럼 제목과 닮을 수 있어, 뒤 3줄에 참고문헌
+// 형식(연도 괄호·pp.·vol.·doi)이 보이면 복귀 제목으로 보지 않는다.
+const REFERENCE_FORMAT = /\((?:19|20)\d{2}[a-z]?\)|\bpp?\.\s*\d|\bvol\.|\bdoi\b/i;
 const ABSTRACT_HEADING = /^\s*(?:abstract|a\s*b\s*s\s*t\s*r\s*a\s*c\s*t)(?![a-z])/i;
-const KEYWORDS_LINE = /^\s*key\s*-?\s*words?/i;
-const ABSTRACT_MAX_CHARS = 6000;
+// 초록 끝 표지: Key words·주제어·핵심어(앞 기호 □ 등 무시). 이 줄 끝까지 제외.
+const KEYWORDS_LINE = /^\s*[^\w가-힣]*\s*(?:key\s*-?\s*words?|주\s*제\s*어|핵\s*심\s*어)/i;
+// 국문 서론 제목(Ⅰ. 서론 / I. 서론 / 1. 서론)이 나오면 초록은 그 앞에서 끝난다.
+const INTRO_HEADING = /^\s*(?:[Ⅰ1I]\s*\.?\s*)?서\s*론\s*$/;
+const ABSTRACT_MAX_CHARS = 1500;
 const ACK_MAX_CHARS = 1500;
 
 function excludedRanges(text) {
@@ -95,9 +102,14 @@ function excludedRanges(text) {
     lines.push({ start: m.index, end: m.index + m[0].length, text: m[0].replace(/\r?\n$/, "") });
   }
   const ranges = [];
+  const isResume = (j) => {
+    if (!RESUME_HEADING.test(lines[j].text) || lines[j].text.trim().length > 30) return false;
+    for (let k = j + 1; k <= j + 3 && k < lines.length; k++) if (REFERENCE_FORMAT.test(lines[k].text)) return false;
+    return true;
+  };
   const nextResume = (from) => {
     for (let j = from; j < lines.length; j++) {
-      if (RESUME_HEADING.test(lines[j].text) && lines[j].text.trim().length <= 30) return j;
+      if (isResume(j)) return j;
       if (REFERENCE_HEADING.test(lines[j].text)) return j;
     }
     return lines.length;
@@ -108,7 +120,7 @@ function excludedRanges(text) {
       let j = i + 1;
       // 바로 다음 참고문헌 제목은 같은 구간으로 이어 붙인다
       for (; j < lines.length; j++) {
-        if (RESUME_HEADING.test(lines[j].text) && lines[j].text.trim().length <= 30) break;
+        if (isResume(j)) break;
       }
       ranges.push([line.start, j < lines.length ? lines[j].start : src.length]);
       i = j - 1;
@@ -121,6 +133,10 @@ function excludedRanges(text) {
       for (let j = i; j < lines.length && lines[j].start < line.start + ABSTRACT_MAX_CHARS; j++) {
         if (KEYWORDS_LINE.test(lines[j].text)) {
           end = lines[j].end;
+          break;
+        }
+        if (j > i && INTRO_HEADING.test(lines[j].text)) {
+          end = lines[j].start;
           break;
         }
       }

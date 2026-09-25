@@ -63,6 +63,48 @@ for (const heading of ["REFERENCES", "References", "참 고 문 헌", "Bibliogra
   assert.ok(!inRanges(ranges, text.lastIndexOf("전위")));
 }
 
+// (a) 영문 초록 선두 + "□ Keywords" 뒤 국문 본문은 제외하지 않는다
+{
+  const text = "Abstract\nThis study examines stress.\n□ Keywords: stress, beam\n본문에서 응력을 쟀다.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("This study")));
+  assert.ok(!inRanges(ranges, text.indexOf("본문에서")), "Keywords 뒤 본문 유지");
+}
+// 초록 뒤 Keywords 없이 "Ⅰ. 서론"이 오면 거기서 끝난다
+{
+  const text = "Abstract\nThis study examines stress.\nⅠ. 서론\n응력을 쟀다.";
+  const ranges = excludedRanges(text);
+  assert.ok(!inRanges(ranges, text.indexOf("Ⅰ. 서론")));
+  assert.ok(!inRanges(ranges, text.indexOf("응력을")));
+}
+// 초록 종료 표지가 없으면 1500자까지만
+{
+  const text = "Abstract\n" + "a".repeat(3000) + "\n본문";
+  const ranges = excludedRanges(text);
+  assert.ok(!inRanges(ranges, text.indexOf("본문")));
+  assert.ok(ranges[0][1] <= 1500);
+}
+// (b) 장별 참고문헌 뒤 "제2장 …" → 복귀
+{
+  const text = "본문.\n참고문헌\nKim, J. (2019). Title. J Sci, 1, 1-2.\n제2장 연구 방법\n응력을 쟀다.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("Kim")));
+  assert.ok(!inRanges(ranges, text.indexOf("응력을")));
+}
+// (c) 참고문헌 항목 "Methods for …"는 복귀 제목이 아니다
+{
+  const text = "본문.\nReferences\nMethods for stress analysis\nKim J, Lee H (2019)\nJ Eng 12, pp. 3-9.\nWalker NM.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("Walker")), "참고문헌 계속");
+}
+// (d) 본문 중간 "사사" 뒤 결과 절 → 결과 유지
+{
+  const text = "서론 본문.\n사사\n이 연구는 지원을 받았다.\n결과\n응력이 컸다.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("이 연구는")));
+  assert.ok(!inRanges(ranges, text.indexOf("응력이")));
+}
+
 // 제외 구간이 없으면 빈 배열
 assert.deepStrictEqual(excludedRanges("그냥 본문."), []);
 
