@@ -67,6 +67,85 @@ function wordOccurrences(text) {
   return occurrences;
 }
 
+// ---- 매칭 제외 구간(참고문헌·영문 초록·감사의 글) ----------------------
+// 말뭉치 10편의 오탐 170개 중 상당수가 본문이 아니라 참고문헌의 영어 제목
+// ("Stress Hormones", "Walker NM", "Treatment Services")과 영문 초록에서
+// 나왔다. 이 구간의 단어는 무관한 분야 영문 표제어(트리트먼트·보행기)와
+// 맞을 뿐, 국문 논문의 주제어는 본문에 다시 나온다. 그래서 구간째 뺀다.
+//  - 참고문헌 제목 줄부터: 다음 "본문으로 돌아오는" 제목(방법·부록 등,
+//    Nature식 조판은 참고문헌 뒤에 방법이 온다)까지, 없으면 끝까지.
+//  - 영문 초록: Abstract ~ Key words 줄 끝. Key words가 없으면 상한까지만
+//    (제목 인식이 틀려도 본문 전체를 잃지 않도록).
+//  - 감사의 글: 제목 줄부터 짧게(연구비 문단). "감사"(감사인)가 제목 자체에서 잡혔다.
+const REFERENCE_HEADING = /^\s*(?:[0-9IVX]+\.?\s*)?(?:추가\s*)?(?:참\s*고\s*문\s*헌|인\s*용\s*문\s*헌|문\s*헌|references?|bibliography|literature\s+cited)\s*$/i;
+const ACK_HEADING = /^\s*(?:감\s*사\s*의\s*글|사\s*사|acknowledge?ments?)\s*$/i;
+const RESUME_HEADING = /^\s*(?:[0-9IVX]+\.?\s*)?(?:방법|연구\s*방법|methods?|부록|appendix|보충\s*자료|supplementary|확장\s*데이터|extended\s+data|box\s*\d)(?![가-힣A-Za-z])/i;
+const ABSTRACT_HEADING = /^\s*(?:abstract|a\s*b\s*s\s*t\s*r\s*a\s*c\s*t)(?![a-z])/i;
+const KEYWORDS_LINE = /^\s*key\s*-?\s*words?/i;
+const ABSTRACT_MAX_CHARS = 6000;
+const ACK_MAX_CHARS = 1500;
+
+function excludedRanges(text) {
+  const src = text || "";
+  const lines = [];
+  const linePattern = /[^\n]*(?:\n|$)/g;
+  let m;
+  while ((m = linePattern.exec(src)) !== null) {
+    if (m.index >= src.length) break;
+    lines.push({ start: m.index, end: m.index + m[0].length, text: m[0].replace(/\r?\n$/, "") });
+  }
+  const ranges = [];
+  const nextResume = (from) => {
+    for (let j = from; j < lines.length; j++) {
+      if (RESUME_HEADING.test(lines[j].text) && lines[j].text.trim().length <= 30) return j;
+      if (REFERENCE_HEADING.test(lines[j].text)) return j;
+    }
+    return lines.length;
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (REFERENCE_HEADING.test(line.text)) {
+      let j = i + 1;
+      // 바로 다음 참고문헌 제목은 같은 구간으로 이어 붙인다
+      for (; j < lines.length; j++) {
+        if (RESUME_HEADING.test(lines[j].text) && lines[j].text.trim().length <= 30) break;
+      }
+      ranges.push([line.start, j < lines.length ? lines[j].start : src.length]);
+      i = j - 1;
+    } else if (ACK_HEADING.test(line.text)) {
+      const j = nextResume(i + 1);
+      const end = Math.min(j < lines.length ? lines[j].start : src.length, line.start + ACK_MAX_CHARS);
+      ranges.push([line.start, end]);
+    } else if (ABSTRACT_HEADING.test(line.text)) {
+      let end = Math.min(src.length, line.start + ABSTRACT_MAX_CHARS);
+      for (let j = i; j < lines.length && lines[j].start < line.start + ABSTRACT_MAX_CHARS; j++) {
+        if (KEYWORDS_LINE.test(lines[j].text)) {
+          end = lines[j].end;
+          break;
+        }
+      }
+      ranges.push([line.start, end]);
+    }
+  }
+  // 겹치는 구간을 합친다(감사의 글 바로 뒤 참고문헌 등)
+  ranges.sort((a, b) => a[0] - b[0]);
+  const merged = [];
+  for (const r of ranges) {
+    const last = merged[merged.length - 1];
+    if (last && r[0] <= last[1]) last[1] = Math.max(last[1], r[1]);
+    else merged.push([r[0], r[1]]);
+  }
+  return merged;
+}
+
+function isInRanges(ranges, offset) {
+  for (const [s, e] of ranges) {
+    if (offset < s) return false;
+    if (offset < e) return true;
+  }
+  return false;
+}
+
 // Common Korean grammatical particles (조사) that attach directly to a noun
 // with no space, e.g. "상관관계가" for "상관관계". The word-extraction regex
 // can't separate these from the noun, so exact matching would otherwise miss
@@ -323,8 +402,12 @@ function findExactMatches(word, exactIndex) {
 // size), which is what made large-PDF analysis stall.
 function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
+  // 텍스트 모드·PDF 모드 모두 이 함수로 들어오므로 제외 구간도 여기서 한 번에.
+  const excluded = excludedRanges(text);
 
-  for (const [word, starts] of wordOccurrences(text)) {
+  for (const [word, allStarts] of wordOccurrences(text)) {
+    const starts = excluded.length ? allStarts.filter((s) => !isInRanges(excluded, s)) : allStarts;
+    if (!starts.length) continue;
     const hits = findExactMatches(word, exactIndex);
     if (!hits.length) continue;
     for (const hit of hits) {
@@ -1115,7 +1198,7 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { excludedRanges, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
