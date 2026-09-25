@@ -247,6 +247,10 @@ const PARTICLE_SET = new Set(KOREAN_PARTICLES);
 // 등급은 viewer-index.json 각 행의 5번째 칸으로 들어온다.
 const COMMON_GRADE_EXCLUDE = 3;
 const COMMON_GRADE_DEMOTE = 2;
+// 영문 등급(6번째 칸): 1 = 영문 키 제외, 4 = 같은 문서에 국문 표제어도 나와야 인정
+// (plasma·substance 같은 영문 동음이의어, 목록은 generate-viewer-index.js).
+const EN_GRADE_EXCLUDE = 1;
+const EN_GRADE_NEEDS_KOREAN = 4;
 
 function isUnsafeIndexKey(key) {
   return key.length < 2 || PARTICLE_SET.has(key);
@@ -264,9 +268,9 @@ function buildExactIndex(terms) {
     if (term.title_ko && (term.common || 0) < COMMON_GRADE_EXCLUDE) {
       add(normalizeWord(term.title_ko), term);
     }
-    // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정)는 영문
-    // 키만 뺀다. 한글 표제어로는 그대로 잡힌다.
-    if (term.title_en && !term.common_en) add(normalizeWord(term.title_en), term);
+    // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정, 등급 1)는 영문
+    // 키만 뺀다. 한글 표제어로는 그대로 잡힌다. 등급 4는 넣되 매칭 뒤에 거른다.
+    if (term.title_en && term.common_en !== EN_GRADE_EXCLUDE) add(normalizeWord(term.title_en), term);
   }
   return map;
 }
@@ -285,6 +289,7 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
       definition: term.definition,
       categories: term.categories,
       common: term.common || 0,
+      common_en: term.common_en || 0,
       count: 0,
       score,
       occurrences: [],
@@ -651,7 +656,8 @@ function matchTermsWithIndex(text, exactIndex) {
   }
 
   for (const [slug, item] of resultsMap) {
-    if (!item.bare) resultsMap.delete(slug);
+    const needsKorean = item.common_en === EN_GRADE_NEEDS_KOREAN && !item.viaHangul;
+    if (!item.bare || needsKorean) resultsMap.delete(slug);
     else delete item.bare;
   }
   filterDistantFieldMatches([...resultsMap.values()]);
