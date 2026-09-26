@@ -30,6 +30,9 @@ const BOX_MIN_W = 88;
 const BOX_TEXT_MAX = 132; // 이 폭을 넘는 라벨은 줄바꿈
 const MARGIN = 14;
 const SAFETY = 1.08;
+// 가로 배치가 이 폭을 넘으면 본문 컬럼(최대 688px)에서 축소돼 글자가 10px 아래로
+// 떨어진다. 되돌이 엣지(arc)가 없는 선형 도식은 이 폭 안에서 여러 줄로 감아 놓는다.
+const H_WRAP_W = 640;
 
 // ── 글자 폭 근사 ─────────────────────────────────────────
 function charEm(ch) {
@@ -263,23 +266,49 @@ function layoutLinear(cv, spec, orientation, numbered) {
     const H = Math.max(...ms.map((m) => m.h));
     const arcSpace = arcs.length ? 34 + 14 * (arcs.length - 1) : 0;
     const top = MARGIN + (numbered ? 6 : 0) + arcSpace;
-    let x = MARGIN;
+    const gapAfter = (i) => {
+      const e = gapLabel.get(i);
+      const lw = e && e.label ? textWidth(e.label, FS_EDGE, true) + 16 : 0;
+      return Math.max(48, lw);
+    };
+    // 줄 감기: arc가 없고 한 줄 폭이 H_WRAP_W를 넘으면 노드를 여러 줄로 나눈다.
+    // 각 줄은 왼쪽 정렬이고, 줄 끝 → 다음 줄 첫 노드는 ㄱ자 꺾인 화살표로 잇는다.
+    const ROW_GAP = 46;
+    const rowOf = new Array(nodes.length).fill(0);
+    let x = MARGIN, row = 0, maxX = 0;
     for (let i = 0; i < nodes.length; i++) {
-      pos.push({ x, y: top, w: ms[i].w, h: H });
-      if (i < nodes.length - 1) {
-        const e = gapLabel.get(i);
-        const lw = e && e.label ? textWidth(e.label, FS_EDGE, true) + 16 : 0;
-        x += ms[i].w + Math.max(48, lw);
-      } else x += ms[i].w;
+      if (!arcs.length && i > 0 && x + ms[i].w + MARGIN > H_WRAP_W) {
+        row++;
+        x = MARGIN;
+      }
+      rowOf[i] = row;
+      pos.push({ x, y: top + row * (H + ROW_GAP), w: ms[i].w, h: H });
+      x += ms[i].w;
+      maxX = Math.max(maxX, x);
+      if (i < nodes.length - 1) x += gapAfter(i);
     }
-    extent = { w: x + MARGIN, h: top + H };
+    extent = { w: maxX + MARGIN, h: top + row * (H + ROW_GAP) + H };
     nodes.forEach((n, i) => drawNode(cv, n, pos[i].x, pos[i].y, pos[i].w, pos[i].h, ms[i]));
     for (const e of adjacent) {
-      const a = pos[idx.get(e.from)], b = pos[idx.get(e.to)];
-      const fwd = idx.get(e.to) > idx.get(e.from);
-      const y = a.y + a.h / 2;
-      const x1 = fwd ? a.x + a.w : a.x, x2 = fwd ? b.x - 2 : b.x + b.w + 2;
-      drawEdge(cv, e, x1, y, x2, y, (x1 + x2) / 2, y - 7, "middle");
+      const ia = idx.get(e.from), ib = idx.get(e.to);
+      const a = pos[ia], b = pos[ib];
+      const fwd = ib > ia;
+      if (rowOf[ia] === rowOf[ib]) {
+        const y = a.y + a.h / 2;
+        const x1 = fwd ? a.x + a.w : a.x, x2 = fwd ? b.x - 2 : b.x + b.w + 2;
+        drawEdge(cv, e, x1, y, x2, y, (x1 + x2) / 2, y - 7, "middle");
+      } else {
+        // 줄을 건너는 엣지: 위 줄 노드 아래에서 내려와 줄 사이를 가로지른 뒤 아래 줄 노드로.
+        const down = a.y < b.y;
+        const sx = a.x + a.w / 2, dx = b.x + b.w / 2;
+        const sy = down ? a.y + a.h : a.y, dy = down ? b.y - 2 : b.y + b.h + 2;
+        const midY = (down ? a.y + a.h : b.y + b.h) + ROW_GAP / 2;
+        const kind = e.kind || "arrow", color = edgeColor(kind);
+        cv.path(`M${r1(sx)},${r1(sy)} L${r1(sx)},${r1(midY)} L${r1(dx)},${r1(midY)} L${r1(dx)},${r1(dy)}`, kind === "blocked" ? "arrow" : kind, color);
+        const mx = (sx + dx) / 2;
+        if (kind === "blocked") cv.cross(mx, midY);
+        if (e.label) cv.text(mx, midY - (kind === "blocked" ? 12 : 6), e.label, { fs: FS_EDGE, fill: color, bold: true, owner: "edge" });
+      }
     }
     arcs.forEach((e, k) => {
       const a = pos[idx.get(e.from)], b = pos[idx.get(e.to)];
@@ -294,7 +323,9 @@ function layoutLinear(cv, spec, orientation, numbered) {
   } else {
     const W = Math.max(...ms.map((m) => m.w));
     const labelW = Math.max(0, ...adjacent.map((e) => (e.label ? textWidth(e.label, FS_EDGE, true) : 0)));
-    const arcSpace = arcs.length ? 34 + 14 * (arcs.length - 1) : 0;
+    // 되돌이 엣지는 왼쪽에 호로 그리고, 라벨은 호 바깥에 오른끝 정렬로 둔다.
+    const arcLabelW = Math.max(0, ...arcs.map((e) => (e.label ? textWidth(e.label, FS_EDGE, true) + 6 : 0)));
+    const arcSpace = arcs.length ? 34 + 14 * (arcs.length - 1) + arcLabelW : 0;
     const left = MARGIN + arcSpace + (numbered ? 6 : 0);
     let y = MARGIN + (numbered ? 6 : 0);
     for (let i = 0; i < nodes.length; i++) {
@@ -316,6 +347,7 @@ function layoutLinear(cv, spec, orientation, numbered) {
       const lift = 30 + 14 * k;
       cv.path(`M${r1(x)},${r1(y1)} C${r1(x - lift)},${r1(y1)} ${r1(x - lift)},${r1(y2)} ${r1(x - 2)},${r1(y2)}`, e.kind === "blocked" ? "arrow" : e.kind, edgeColor(e.kind));
       if (e.kind === "blocked") cv.cross(x - lift * 0.75, (y1 + y2) / 2);
+      if (e.label) cv.text(x - lift * 0.75 - (e.kind === "blocked" ? 12 : 6), (y1 + y2) / 2 + 4, e.label, { fs: FS_EDGE, fill: edgeColor(e.kind), anchor: "end", bold: true, owner: "edge" });
     });
   }
   if (numbered) pos.forEach((p, i) => cv.badge(p.x + 2, p.y + 2, i + 1));
@@ -550,17 +582,22 @@ function renderSpec(spec, { title, orientation = "h", idPrefix } = {}) {
 // (~360px)에 들어갈 때 글자가 원래 크기의 80% 아래로 줄어드는 지점.
 const HIERARCHY_DUAL_MIN_W = 450;
 
+// 본문 컬럼(--max-width 760 − 여백)에서 도식이 원래 크기로 들어가는 최대 폭. 가로판이
+// 이보다 넓으면 어느 화면에서도 축소돼 글자가 작아지므로 세로판만 싣는다.
+const H_FIT_W = 680;
+
 function renderFigure(spec, title) {
   const h = renderSpec(spec, { title, orientation: "h" });
   const linear = spec.type === "chain" || spec.type === "procedure" ||
     (spec.type === "hierarchy" && h.width > HIERARCHY_DUAL_MIN_W);
   const v = linear ? renderSpec(spec, { title, orientation: "v" }) : null;
-  const warnings = [...h.warnings.map((w) => `[가로] ${w}`), ...(v ? v.warnings.map((w) => `[세로] ${w}`) : [])];
-  const cls = `concept-diagram${linear ? " dg-dual" : ""}`;
+  const vOnly = !!v && h.width > H_FIT_W;
+  const warnings = [...(vOnly ? [] : h.warnings.map((w) => `[가로] ${w}`)), ...(v ? v.warnings.map((w) => `[세로] ${w}`) : [])];
+  const cls = `concept-diagram${v && !vOnly ? " dg-dual" : ""}`;
   // spec.source는 검수용 메모라 페이지에 싣지 않는다. 사전의 정의 본문에도 출처를
   // 달지 않는데 도식에만 붙이면 형식이 어긋나고, 검증 전 서지가 권위처럼 보인다.
-  const html = `<figure class="${cls}" data-type="${spec.type}">${h.svg}${v ? v.svg : ""}</figure>`;
+  const html = `<figure class="${cls}" data-type="${spec.type}">${vOnly ? "" : h.svg}${v ? v.svg : ""}</figure>`;
   return { html, warnings, desc: h.desc };
 }
 
-module.exports = { TYPES, COLORS, textWidth, wrap, validateSpec, renderSpec, renderFigure, describe, Canvas, checkOverlaps };
+module.exports = { TYPES, COLORS, H_WRAP_W, H_FIT_W, textWidth, wrap, validateSpec, renderSpec, renderFigure, describe, Canvas, checkOverlaps };

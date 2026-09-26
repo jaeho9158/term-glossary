@@ -4,27 +4,33 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "공급물 투입",
+      "label": "분리 목표 설정",
       "color": "blue",
-      "sub": "공급단"
+      "sub": "제품 순도·회수율"
     },
     {
       "id": "n1",
-      "label": "단별 기액평형",
+      "label": "단수·환류비 결정",
       "color": "violet",
-      "sub": "단수 결정"
+      "sub": "물질·에너지수지"
     },
     {
       "id": "n2",
-      "label": "환류·재비",
+      "label": "공급단 위치",
       "color": "amber",
-      "sub": "환류비 설정"
+      "sub": "최적 투입 높이"
     },
     {
       "id": "n3",
-      "label": "탑정·탑저 분리",
+      "label": "탑 지름·내부구조",
+      "color": "violet",
+      "sub": "트레이·충전물(수력학)"
+    },
+    {
+      "id": "n4",
+      "label": "실제 단수 보정",
       "color": "green",
-      "sub": "유출물·잔류물"
+      "sub": "총괄효율 적용"
     }
   ],
   "edges": [
@@ -42,9 +48,19 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "설계는 특정 운전조건 기준 → 조건 변경 시 재설계",
+      "tone": "limit"
+    }
+  ],
   "source": "분리공정 교과서",
   "reviewed": true
 }

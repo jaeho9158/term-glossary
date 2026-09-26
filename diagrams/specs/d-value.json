@@ -1,39 +1,54 @@
 {
   "slug": "d-value",
-  "type": "chain",
+  "type": "hierarchy",
   "nodes": [
+    {
+      "id": "r",
+      "label": "열사멸 지표",
+      "color": "blue"
+    },
     {
       "id": "n0",
       "label": "D값",
       "color": "blue",
-      "sub": "90% 사멸 시간"
+      "sub": "일정 온도, 90% 사멸 시간"
     },
     {
       "id": "n1",
       "label": "Z값",
       "color": "violet",
-      "sub": "D값 10배 변화 온도"
+      "sub": "D값 10배 변화 온도차"
     },
     {
       "id": "n2",
       "label": "F값",
       "color": "green",
-      "sub": "공정 살균력 환산"
+      "sub": "기준온도 등가 살균시간"
     }
   ],
   "edges": [
     {
-      "from": "n0",
+      "from": "r",
+      "to": "n0",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
       "to": "n1",
       "kind": "arrow"
     },
     {
-      "from": "n1",
+      "from": "r",
       "to": "n2",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "D값은 온도를 함께 표기해야 함",
+      "tone": "limit"
+    }
+  ],
   "source": "식품미생물학·열처리 공학 교과서",
   "reviewed": true
 }

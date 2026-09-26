@@ -1,59 +1,81 @@
 {
-  "slug": "apoptosis-intrinsic-pathway",
-  "type": "contrast",
-  "axis": "세포자멸사 개시",
+  "type": "chain",
   "nodes": [
     {
-      "id": "l0",
-      "label": "내인성 경로",
-      "color": "blue",
-      "sub": "미토콘드리아",
-      "side": "left",
-      "row": 0
+      "id": "n0",
+      "label": "세포 내 스트레스",
+      "color": "rose",
+      "sub": "DNA 손상·영양 결핍"
     },
     {
-      "id": "l1",
+      "id": "n1",
+      "label": "Bcl-2 계열 균형 붕괴",
+      "color": "amber",
+      "sub": "Bax/Bak ↑ · Bcl-2 억제 해제"
+    },
+    {
+      "id": "n2",
+      "label": "MOMP",
+      "color": "amber",
+      "sub": "미토콘드리아 외막 투과화"
+    },
+    {
+      "id": "n3",
       "label": "시토크롬c 방출",
-      "color": "amber",
-      "sub": "아포토솜 형성",
-      "side": "left",
-      "row": 1
+      "color": "violet",
+      "sub": "아포토솜(Apaf-1) 형성"
     },
     {
-      "id": "l2",
+      "id": "n4",
       "label": "카스파아제-9",
-      "color": "rose",
-      "sub": "개시",
-      "side": "left",
-      "row": 2
+      "color": "violet",
+      "sub": "개시 카스파아제"
     },
     {
-      "id": "r0",
-      "label": "외인성 경로",
-      "color": "blue",
-      "sub": "사멸수용체",
-      "side": "right",
-      "row": 0
-    },
-    {
-      "id": "r1",
-      "label": "리간드 결합",
-      "color": "amber",
-      "sub": "Fas·TNF 등",
-      "side": "right",
-      "row": 1
-    },
-    {
-      "id": "r2",
-      "label": "카스파아제-8",
-      "color": "rose",
-      "sub": "개시",
-      "side": "right",
-      "row": 2
+      "id": "n5",
+      "label": "세포자멸사",
+      "color": "gray",
+      "sub": "실행 카스파아제-3 · 염증 없음"
     }
   ],
-  "edges": [],
-  "notes": [],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "외인성 경로(사멸수용체·카스파아제-8)와 실행 카스파아제 단계에서 합류",
+      "tone": "general"
+    },
+    {
+      "text": "BH3 모방체 등 Bcl-2 표적 항암제가 이 경로를 활성화",
+      "tone": "pos"
+    }
+  ],
   "source": "분자생물학 교과서(Alberts, MBoC)",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "apoptosis-intrinsic-pathway"
 }

@@ -6,24 +6,25 @@
       "id": "n0",
       "label": "위상 검출",
       "color": "violet",
-      "sub": "오차 계산"
+      "sub": "계통 전압 vs 추정 위상 오차"
     },
     {
       "id": "n1",
       "label": "루프 필터",
       "color": "blue",
-      "sub": "PI 제어"
+      "sub": "PI 제어·대역폭"
     },
     {
       "id": "n2",
       "label": "전압제어발진기",
       "color": "amber",
-      "sub": "주파수→위상"
+      "sub": "주파수 적분→위상"
     },
     {
       "id": "n3",
       "label": "계통 위상 추종",
-      "color": "green"
+      "color": "green",
+      "sub": "인버터 전류 타이밍"
     }
   ],
   "edges": [
@@ -46,10 +47,15 @@
       "from": "n2",
       "to": "n0",
       "kind": "arrow",
-      "label": "위상 피드백"
+      "label": "추정 위상 피드백"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "대역폭 넓으면 빠르지만 고조파·잡음에 민감 — 절충",
+      "tone": "limit"
+    }
+  ],
   "source": "전력전자 계통연계 제어 교과서",
   "reviewed": true
 }

@@ -1,43 +1,56 @@
 {
-  "slug": "actor-critic",
-  "type": "hierarchy",
+  "type": "chain",
   "nodes": [
     {
-      "id": "r",
-      "label": "액터-크리틱",
-      "color": "blue"
-    },
-    {
-      "id": "k0",
+      "id": "n0",
       "label": "액터",
       "color": "amber",
-      "sub": "정책망·행동 선택"
+      "sub": "정책망 · 행동 선택"
     },
     {
-      "id": "k1",
+      "id": "n1",
+      "label": "환경",
+      "color": "gray",
+      "sub": "보상·다음 상태"
+    },
+    {
+      "id": "n2",
       "label": "크리틱",
       "color": "violet",
-      "sub": "가치망·행동 평가"
+      "sub": "가치망 · TD 오차 산출"
     }
   ],
   "edges": [
     {
-      "from": "r",
-      "to": "k0",
-      "kind": "arrow"
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "행동"
     },
     {
-      "from": "r",
-      "to": "k1",
-      "kind": "arrow"
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "보상"
+    },
+    {
+      "from": "n2",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "정책 갱신"
     }
   ],
   "notes": [
     {
-      "text": "크리틱의 평가로 액터 정책 갱신",
-      "tone": "general"
+      "text": "가치함수를 기준선으로 빼 정책 경사의 분산을 낮춤(불편향 유지)",
+      "tone": "pos"
+    },
+    {
+      "text": "크리틱이 부정확하면 편향된 신호가 액터로 전달",
+      "tone": "limit"
     }
   ],
   "source": "Sutton & Barto 강화학습 교과서",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "actor-critic"
 }

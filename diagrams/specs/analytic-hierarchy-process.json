@@ -1,63 +1,66 @@
 {
-  "slug": "analytic-hierarchy-process",
-  "type": "hierarchy",
+  "type": "procedure",
   "nodes": [
     {
-      "id": "g",
-      "label": "목표",
+      "id": "n0",
+      "label": "계층 구조화",
       "color": "blue",
-      "sub": "의사결정 문제"
+      "sub": "목표–기준–대안"
     },
     {
-      "id": "c",
-      "label": "평가기준",
+      "id": "n1",
+      "label": "쌍대비교",
       "color": "violet",
-      "sub": "쌍대비교로 가중치"
+      "sub": "두 개씩 1~9 척도"
     },
     {
-      "id": "a1",
-      "label": "대안 A",
-      "color": "green"
+      "id": "n2",
+      "label": "가중치 산출",
+      "color": "violet",
+      "sub": "비교행렬 고유벡터"
     },
     {
-      "id": "a2",
-      "label": "대안 B",
-      "color": "green"
+      "id": "n3",
+      "label": "일관성 검증",
+      "color": "amber",
+      "sub": "일관성 비율 CR"
     },
     {
-      "id": "a3",
-      "label": "대안 C",
-      "color": "green"
+      "id": "n4",
+      "label": "대안 종합 점수",
+      "color": "green",
+      "sub": "기준 가중치 × 대안 점수"
     }
   ],
   "edges": [
     {
-      "from": "g",
-      "to": "c",
+      "from": "n0",
+      "to": "n1",
       "kind": "arrow"
     },
     {
-      "from": "c",
-      "to": "a1",
+      "from": "n1",
+      "to": "n2",
       "kind": "arrow"
     },
     {
-      "from": "c",
-      "to": "a2",
+      "from": "n2",
+      "to": "n3",
       "kind": "arrow"
     },
     {
-      "from": "c",
-      "to": "a3",
+      "from": "n3",
+      "to": "n4",
       "kind": "arrow"
     }
   ],
   "notes": [
     {
-      "text": "대안도 기준별 쌍대비교로 종합",
-      "tone": "general"
+      "text": "기준이 많으면 비교 횟수 급증, 결과는 평가자 구성에 좌우",
+      "tone": "limit"
     }
   ],
   "source": "Saaty(1980) AHP",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "analytic-hierarchy-process"
 }

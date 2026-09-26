@@ -4,27 +4,33 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "토큰 생성",
+      "label": "토큰 하나 생성",
       "color": "blue",
       "sub": "자기회귀 디코딩"
     },
     {
       "id": "n1",
-      "label": "키·값 저장",
+      "label": "키·값 벡터 저장",
       "color": "violet",
-      "sub": "이전 토큰 K·V"
+      "sub": "층·헤드별로"
     },
     {
       "id": "n2",
-      "label": "캐시 재사용",
+      "label": "다음 토큰은 캐시 재사용",
       "color": "amber",
-      "sub": "새 토큰만 계산"
+      "sub": "쿼리만 새로 계산"
     },
     {
       "id": "n3",
       "label": "재계산 생략",
       "color": "green",
-      "sub": "추론 속도 향상"
+      "sub": "생성 속도 향상"
+    },
+    {
+      "id": "n4",
+      "label": "캐시 메모리 증가",
+      "color": "rose",
+      "sub": "문맥 길이에 비례"
     }
   ],
   "edges": [
@@ -42,9 +48,23 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
-  "source": "Transformer 추론 최적화 문헌",
-  "reviewed": true
+  "notes": [
+    {
+      "text": "메모리 병목 대응: 키·값을 공유하는 GQA, PagedAttention, 캐시 양자화",
+      "tone": "pos"
+    },
+    {
+      "text": "학습 때는 문장을 한 번에 처리하므로 주로 추론(생성) 단계의 기법",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "Transformer 추론 최적화 문헌"
 }

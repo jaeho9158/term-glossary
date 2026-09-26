@@ -4,21 +4,27 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "메시지3 재전송",
-      "color": "rose",
-      "sub": "4-way handshake"
+      "label": "메시지 3 재전송 유도",
+      "color": "amber",
+      "sub": "WPA2 4-way handshake"
     },
     {
       "id": "n1",
-      "label": "키 재설치",
+      "label": "이미 쓴 키 재설치",
       "color": "amber",
-      "sub": "논스 초기화"
+      "sub": "논스·재전송 카운터 초기화"
     },
     {
       "id": "n2",
-      "label": "암호화 무력화",
+      "label": "키 스트림 재사용",
       "color": "rose",
-      "sub": "복호·재전송"
+      "sub": "논스 중복"
+    },
+    {
+      "id": "n3",
+      "label": "복호·패킷 재전송",
+      "color": "rose",
+      "sub": "통신 내용 노출"
     }
   ],
   "edges": [
@@ -31,9 +37,19 @@
       "from": "n1",
       "to": "n2",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
-  "source": "Vanhoef & Piessens(2017)",
-  "reviewed": true
+  "notes": [
+    {
+      "text": "특정 제조사 문제가 아닌 프로토콜 명세의 허점 → 펌웨어·드라이버 갱신으로 논스 재사용 차단",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "Vanhoef & Piessens(2017)"
 }

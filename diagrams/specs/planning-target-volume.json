@@ -1,39 +1,46 @@
 {
   "slug": "planning-target-volume",
-  "type": "hierarchy",
+  "type": "chain",
   "nodes": [
     {
       "id": "r",
       "label": "육안종양체적",
       "color": "rose",
-      "sub": "GTV"
+      "sub": "GTV·영상에서 보이는 종양"
     },
     {
       "id": "k0",
       "label": "임상표적체적",
       "color": "amber",
-      "sub": "CTV·미세침윤"
+      "sub": "CTV"
     },
     {
       "id": "k1",
       "label": "계획표적체적",
       "color": "blue",
-      "sub": "PTV·셋업오차"
+      "sub": "PTV"
     }
   ],
   "edges": [
     {
       "from": "r",
       "to": "k0",
-      "kind": "arrow"
+      "kind": "arrow",
+      "label": "+미세침윤 여유"
     },
     {
       "from": "k0",
       "to": "k1",
-      "kind": "arrow"
+      "kind": "arrow",
+      "label": "+셋업오차·장기 움직임"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "마진 크면 정상조직 노출↑, 작으면 marginal miss — 측정된 오차에 근거(IGRT로 축소 가능)",
+      "tone": "limit"
+    }
+  ],
   "source": "ICRU 보고서 50·62",
   "reviewed": true
 }

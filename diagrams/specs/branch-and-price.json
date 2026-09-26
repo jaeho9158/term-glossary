@@ -4,21 +4,32 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "분지 노드 생성",
+      "label": "제한 주문제 LP",
       "color": "blue",
-      "sub": "분지한정"
+      "sub": "일부 열만 포함"
     },
     {
       "id": "n1",
-      "label": "열생성",
+      "label": "가격결정 부분문제",
       "color": "violet",
-      "sub": "LP 완화 풀이"
+      "sub": "쌍대가격 이용"
     },
     {
       "id": "n2",
-      "label": "정수해 도달",
-      "color": "green",
-      "sub": "반복 후 종료"
+      "label": "새 열 추가",
+      "color": "amber",
+      "sub": "음의 감소비용"
+    },
+    {
+      "id": "n3",
+      "label": "분지",
+      "color": "blue",
+      "sub": "해가 분수이면"
+    },
+    {
+      "id": "n4",
+      "label": "정수 최적해",
+      "color": "green"
     }
   ],
   "edges": [
@@ -31,9 +42,31 @@
       "from": "n1",
       "to": "n2",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "열 있으면 반복"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "새 열 없음"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "각 분지 노드마다 열생성 반복; 부분문제 구조를 깨지 않는 분지 규칙 필요",
+      "tone": "general"
+    }
+  ],
   "source": "정수계획법 교과서",
   "reviewed": true
 }

@@ -1,57 +1,70 @@
 {
   "slug": "fluorescence-activated-cell-sorting",
-  "type": "contrast",
-  "axis": "세포 분류 방식",
+  "type": "procedure",
   "nodes": [
     {
-      "id": "l0",
-      "label": "FACS",
-      "color": "violet",
-      "side": "left",
-      "row": 0
-    },
-    {
-      "id": "l1",
+      "id": "n0",
       "label": "형광 표지",
       "color": "violet",
-      "sub": "레이저 검출",
-      "side": "left",
-      "row": 1
+      "sub": "항체·GFP 등"
     },
     {
-      "id": "l2",
-      "label": "다중 파라미터",
-      "color": "green",
-      "sub": "세포 하나씩 분류",
-      "side": "left",
-      "row": 2
-    },
-    {
-      "id": "r0",
-      "label": "MACS",
+      "id": "n1",
+      "label": "단일 세포 흐름",
       "color": "blue",
-      "side": "right",
-      "row": 0
+      "sub": "레이저 통과, 형광 측정"
     },
     {
-      "id": "r1",
-      "label": "자성 입자",
-      "color": "blue",
-      "sub": "자기장 분리",
-      "side": "right",
-      "row": 1
+      "id": "n2",
+      "label": "액적 형성·전하 부여",
+      "color": "amber",
+      "sub": "판별 결과에 따라"
     },
     {
-      "id": "r2",
-      "label": "대량·신속",
+      "id": "n3",
+      "label": "전기장 편향",
+      "color": "amber",
+      "sub": "궤적 변경"
+    },
+    {
+      "id": "n4",
+      "label": "수거관 분리",
       "color": "green",
-      "sub": "단순한 분류",
-      "side": "right",
-      "row": 2
+      "sub": "순수 세포군 확보"
     }
   ],
-  "edges": [],
-  "notes": [],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "여러 형광 표지를 조합해 다중 조건 세포만 선별 가능",
+      "tone": "pos"
+    },
+    {
+      "text": "압력·전기 자극으로 민감한 세포는 생존율·기능 저하 가능",
+      "tone": "limit"
+    }
+  ],
   "source": "세포생물학 실험 교과서",
   "reviewed": true
 }

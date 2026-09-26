@@ -1,7 +1,7 @@
 {
   "slug": "zero-voltage-switching",
   "type": "contrast",
-  "axis": "스위칭 손실",
+  "axis": "턴온 시점의 스위치 전압",
   "nodes": [
     {
       "id": "l0",
@@ -12,44 +12,56 @@
     },
     {
       "id": "l1",
-      "label": "전압·전류 겹침",
+      "label": "전압 걸린 채 턴온",
       "color": "rose",
       "side": "left",
       "row": 1,
-      "sub": "전환 중"
+      "sub": "전압·전류 겹침"
     },
     {
       "id": "l2",
       "label": "스위칭 손실 큼",
       "color": "rose",
       "side": "left",
-      "row": 2
+      "row": 2,
+      "sub": "고주파화 제약"
     },
     {
       "id": "r0",
-      "label": "소프트 스위칭",
+      "label": "영전압 스위칭",
       "color": "violet",
       "side": "right",
       "row": 0,
-      "sub": "ZVS·ZCS"
+      "sub": "소프트 스위칭(ZVS)"
     },
     {
       "id": "r1",
-      "label": "0 전압·전류 전환",
+      "label": "전압 ≈0에서 턴온",
       "color": "green",
       "side": "right",
-      "row": 1
+      "row": 1,
+      "sub": "LC 공진으로 전압 강하"
     },
     {
       "id": "r2",
       "label": "손실 감소",
       "color": "green",
       "side": "right",
-      "row": 2
+      "row": 2,
+      "sub": "고주파·고효율 설계"
     }
   ],
   "edges": [],
-  "notes": [],
+  "notes": [
+    {
+      "text": "전류 0에서 켜는 방식은 영전류 스위칭(ZCS)으로 구분",
+      "tone": "general"
+    },
+    {
+      "text": "경부하·급격한 부하 변동 시 공진 조건이 깨져 손실이 늘 수 있음",
+      "tone": "limit"
+    }
+  ],
   "source": "전력전자 교과서",
   "reviewed": true
 }

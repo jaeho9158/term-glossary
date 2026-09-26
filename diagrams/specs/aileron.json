@@ -1,29 +1,35 @@
 {
-  "slug": "aileron",
-  "type": "hierarchy",
+  "type": "chain",
   "nodes": [
     {
       "id": "n0",
-      "label": "1차 조종면",
-      "color": "blue"
+      "label": "조종간 우측",
+      "color": "gray",
+      "sub": "조종 입력"
     },
     {
       "id": "n1",
-      "label": "에일러론",
+      "label": "에일러론 차동 편향",
       "color": "amber",
-      "sub": "롤"
+      "sub": "우 ↑ · 좌 ↓"
     },
     {
       "id": "n2",
-      "label": "엘리베이터",
-      "color": "violet",
-      "sub": "피치"
+      "label": "좌우 양력 차",
+      "color": "blue",
+      "sub": "좌 양력↑ · 우 양력↓"
     },
     {
       "id": "n3",
-      "label": "러더",
+      "label": "롤링모멘트",
+      "color": "violet",
+      "sub": "편향각에 비례"
+    },
+    {
+      "id": "n4",
+      "label": "우측 롤",
       "color": "green",
-      "sub": "요"
+      "sub": "1차 조종면"
     }
   ],
   "edges": [
@@ -33,17 +39,32 @@
       "kind": "arrow"
     },
     {
-      "from": "n0",
+      "from": "n1",
       "to": "n2",
       "kind": "arrow"
     },
     {
-      "from": "n0",
+      "from": "n2",
       "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "내려간 쪽 유도항력↑ → 역요, 러더 협조 조작 필요",
+      "tone": "limit"
+    },
+    {
+      "text": "고속에서는 날개 비틀림으로 에일러론 역효과, 스포일러로 보조",
+      "tone": "limit"
+    }
+  ],
   "source": "항공역학 교과서",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "aileron"
 }

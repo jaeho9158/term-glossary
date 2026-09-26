@@ -4,27 +4,27 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "오차 측정",
+      "label": "초기 이득 설정",
       "color": "blue",
-      "sub": "목표-출력"
+      "sub": "지글러-니콜스·모델 기반·최적화"
     },
     {
       "id": "n1",
-      "label": "P·I·D 계산",
+      "label": "스텝 응답 시험",
       "color": "violet",
-      "sub": "비례·적분·미분"
+      "sub": "Kp·Ki·Kd 적용"
     },
     {
       "id": "n2",
-      "label": "이득 조정",
+      "label": "지표 평가",
       "color": "amber",
-      "sub": "Kp·Ki·Kd"
+      "sub": "상승시간·오버슈트·정착시간·정상상태 오차"
     },
     {
       "id": "n3",
-      "label": "응답 확인",
+      "label": "미세조정·강건성 확인",
       "color": "green",
-      "sub": "속응성·안정성"
+      "sub": "부하·환경 변화"
     }
   ],
   "edges": [
@@ -42,9 +42,20 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "반복"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "이득 과대 시 진동·불안정 — 한 조건의 최적값이 다른 조건에선 아닐 수 있음",
+      "tone": "limit"
+    }
+  ],
   "source": "제어공학 교과서",
   "reviewed": true
 }

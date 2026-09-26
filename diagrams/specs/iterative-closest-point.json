@@ -18,7 +18,7 @@
       "id": "n2",
       "label": "변환 추정",
       "color": "blue",
-      "sub": "회전·이동"
+      "sub": "거리 제곱합 최소 회전·이동"
     },
     {
       "id": "n3",
@@ -29,7 +29,7 @@
       "id": "n4",
       "label": "수렴 판정",
       "color": "green",
-      "sub": "오차 변화가 작으면 종료"
+      "sub": "오차 변화 작으면 종료"
     }
   ],
   "edges": [
@@ -52,12 +52,18 @@
       "from": "n3",
       "to": "n4",
       "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "미수렴 시 반복"
     }
   ],
   "notes": [
     {
-      "text": "수렴 전까지 대응 찾기부터 반복",
-      "tone": "general"
+      "text": "초기 정렬이 나쁘면 국소 최소점에 수렴; 점-평면 방식이 더 빠르고 정확",
+      "tone": "limit"
     }
   ],
   "source": "Besl & McKay(1992)",

@@ -4,27 +4,33 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "혈액 채취",
+      "label": "채혈",
       "color": "blue",
-      "sub": "체액 시료"
+      "sub": "혈장 분리"
     },
     {
       "id": "n1",
-      "label": "cfDNA 분리",
+      "label": "cfDNA 추출",
       "color": "violet",
-      "sub": "혈장에서 추출"
+      "sub": "세포유래 DNA 조각"
     },
     {
       "id": "n2",
-      "label": "유전정보 분석",
+      "label": "ctDNA 분획 검출",
       "color": "amber",
-      "sub": "변이·메틸화"
+      "sub": "정상 cfDNA와 섞여 있음"
     },
     {
       "id": "n3",
-      "label": "비침습 진단",
+      "label": "변이·메틸화 분석",
+      "color": "amber",
+      "sub": "디지털 PCR·초고감도 NGS"
+    },
+    {
+      "id": "n4",
+      "label": "종양 부담 추정",
       "color": "green",
-      "sub": "조직생검 보완"
+      "sub": "재발 조기 확인"
     }
   ],
   "edges": [
@@ -42,9 +48,19 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
-  "source": "분자진단 교과서",
-  "reviewed": true
+  "notes": [
+    {
+      "text": "종양 부담이 작으면 ctDNA 농도가 낮아 위음성이 생길 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "분자진단 교과서"
 }

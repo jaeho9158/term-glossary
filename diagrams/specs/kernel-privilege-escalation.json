@@ -4,18 +4,24 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "일반 사용자 권한",
-      "color": "blue",
-      "sub": "초기 실행"
+      "label": "초기 침투",
+      "color": "gray",
+      "sub": "웹 취약점 등"
     },
     {
       "id": "n1",
-      "label": "커널 취약점 악용",
-      "color": "amber",
-      "sub": "익스플로잇"
+      "label": "일반 사용자 권한",
+      "color": "blue",
+      "sub": "제한된 실행"
     },
     {
       "id": "n2",
+      "label": "커널 취약점 악용",
+      "color": "amber",
+      "sub": "UAF·경쟁조건·권한검사 오류"
+    },
+    {
+      "id": "n3",
       "label": "최고 권한 획득",
       "color": "rose",
       "sub": "root·SYSTEM"
@@ -31,9 +37,23 @@
       "from": "n1",
       "to": "n2",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "KASLR·SMEP·SMAP 등 완화 기법이 실질적 방어선",
+      "tone": "pos"
+    },
+    {
+      "text": "컨테이너도 커널을 공유하므로 격리 경계가 무너질 수 있음",
+      "tone": "limit"
+    }
+  ],
   "source": "정보보안 교과서",
   "reviewed": true
 }

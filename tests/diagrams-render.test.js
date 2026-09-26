@@ -159,3 +159,30 @@ assert.strictEqual((renderFigure(contrast, "t").html.match(/<svg/g) || []).lengt
 }
 
 console.log("diagrams-render: all tests passed");
+
+// 되돌이 엣지가 없는 긴 선형 도식은 가로판에서 H_WRAP_W 안으로 줄을 감고, 세로판만 남기지 않는다
+{
+  const { H_WRAP_W, H_FIT_W } = require("../scripts/diagrams/lib.js");
+  const long = {
+    ...procedure,
+    nodes: Array.from({ length: 9 }, (_, i) => ({ id: `s${i}`, label: `단계 ${i + 1} 검토` })),
+    edges: Array.from({ length: 8 }, (_, i) => ({ from: `s${i}`, to: `s${i + 1}`, kind: "arrow", label: i === 3 ? "승인" : undefined })),
+  };
+  const h = renderSpec(long, { orientation: "h" });
+  assert.ok(h.width <= H_WRAP_W, `감은 가로판 폭 ${h.width} > ${H_WRAP_W}`);
+  assert.ok(h.height > 120, "두 줄 이상이어야 함");
+  assert.deepStrictEqual(h.warnings, []);
+  assert.ok(h.svg.includes("승인"), "줄을 건너는 엣지 라벨도 그려야 함");
+  const fig = renderFigure(long, "t");
+  assert.strictEqual((fig.html.match(/<svg/g) || []).length, 2);
+  assert.ok(fig.html.includes("dg-dual"));
+  // 되돌이 엣지가 있어 감을 수 없고 폭이 H_FIT_W를 넘으면 세로판만 싣는다
+  const arc = { ...long, edges: [...long.edges, { from: "s8", to: "s0", kind: "arrow", label: "반복" }] };
+  const hh = renderSpec(arc, { orientation: "h" });
+  assert.ok(hh.width > H_FIT_W);
+  const fig2 = renderFigure(arc, "t");
+  assert.strictEqual((fig2.html.match(/<svg/g) || []).length, 1);
+  assert.ok(fig2.html.includes("dg-v") && !fig2.html.includes("dg-dual"));
+  assert.ok(fig2.html.includes("반복"), "세로판에서도 되돌이 엣지 라벨을 그려야 함");
+  assert.deepStrictEqual(fig2.warnings, []);
+}

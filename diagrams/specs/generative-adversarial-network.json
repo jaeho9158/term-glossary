@@ -1,54 +1,66 @@
 {
   "slug": "generative-adversarial-network",
   "type": "contrast",
-  "axis": "경쟁 학습",
+  "axis": "두 신경망의 적대적 학습",
   "nodes": [
     {
       "id": "l0",
-      "label": "생성자",
+      "label": "생성자(G)",
       "color": "amber",
       "side": "left",
-      "row": 0
+      "row": 0,
+      "sub": "위조범"
     },
     {
       "id": "l1",
-      "label": "가짜 데이터 생성",
+      "label": "노이즈 → 가짜 데이터",
       "color": "amber",
-      "sub": "노이즈에서",
       "side": "left",
       "row": 1
     },
     {
       "id": "l2",
-      "label": "판별자 속이기",
+      "label": "판별자를 속이도록 학습",
       "color": "amber",
       "side": "left",
-      "row": 2
+      "row": 2,
+      "sub": "오판 확률↑ 방향"
     },
     {
       "id": "r0",
-      "label": "판별자",
+      "label": "판별자(D)",
       "color": "violet",
       "side": "right",
-      "row": 0
+      "row": 0,
+      "sub": "감별사"
     },
     {
       "id": "r1",
-      "label": "진짜·가짜 구별",
+      "label": "진짜·가짜 판정",
       "color": "violet",
       "side": "right",
       "row": 1
     },
     {
       "id": "r2",
-      "label": "속지 않기",
+      "label": "속지 않도록 학습",
       "color": "violet",
       "side": "right",
-      "row": 2
+      "row": 2,
+      "sub": "정답 확률↑ 방향"
     }
   ],
   "edges": [],
-  "notes": [],
+  "notes": [
+    {
+      "text": "미니맥스 게임: 균형에서 생성 분포 ≈ 실제 분포, 판별 확률 1/2",
+      "tone": "pos"
+    },
+    {
+      "text": "학습 불안정·모드 붕괴(다양성 상실)가 대표적 한계",
+      "tone": "limit"
+    }
+  ],
   "source": "Goodfellow et al. (2014) NeurIPS",
   "reviewed": true
 }

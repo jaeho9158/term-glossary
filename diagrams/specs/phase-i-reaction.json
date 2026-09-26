@@ -3,16 +3,22 @@
   "type": "chain",
   "nodes": [
     {
+      "id": "p",
+      "label": "지용성 이물질",
+      "color": "gray",
+      "sub": "약물·독성물질"
+    },
+    {
       "id": "n0",
       "label": "제1상 반응",
       "color": "amber",
-      "sub": "산화·환원·가수분해"
+      "sub": "산화·환원·가수분해(CYP450)"
     },
     {
       "id": "n1",
       "label": "제2상 반응",
       "color": "violet",
-      "sub": "포합"
+      "sub": "포합(글루쿠론산 등)"
     },
     {
       "id": "n2",
@@ -28,9 +34,15 @@
   ],
   "edges": [
     {
+      "from": "p",
+      "to": "n0",
+      "kind": "arrow"
+    },
+    {
       "from": "n0",
       "to": "n1",
-      "kind": "arrow"
+      "kind": "arrow",
+      "label": "극성기 도입"
     },
     {
       "from": "n1",
@@ -43,7 +55,12 @@
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "1상이 항상 해독은 아님 — 반응성 중간체로 독성이 커지기도(생체활성화)",
+      "tone": "limit"
+    }
+  ],
   "source": "독성학·약리학 교과서",
   "reviewed": true
 }

@@ -3,55 +3,53 @@
   "type": "procedure",
   "nodes": [
     {
-      "id": "a",
+      "id": "n0",
       "label": "절반씩 분할",
-      "color": "blue",
-      "sub": "크기 1까지"
+      "sub": "크기 1까지 재귀",
+      "color": "blue"
     },
     {
-      "id": "b",
-      "label": "조각 정렬",
-      "color": "violet"
-    },
-    {
-      "id": "c",
-      "label": "순서대로 병합",
+      "id": "n1",
+      "label": "두 조각 병합",
+      "sub": "작은 값부터 비교",
       "color": "amber"
     },
     {
-      "id": "d",
+      "id": "n2",
       "label": "병합 반복",
+      "sub": "2→4→8…",
       "color": "amber"
     },
     {
-      "id": "e",
+      "id": "n3",
       "label": "정렬 완료",
+      "sub": "O(n log n)·안정",
       "color": "green"
     }
   ],
   "edges": [
     {
-      "from": "a",
-      "to": "b",
+      "from": "n0",
+      "to": "n1",
       "kind": "arrow"
     },
     {
-      "from": "b",
-      "to": "c",
+      "from": "n1",
+      "to": "n2",
       "kind": "arrow"
     },
     {
-      "from": "c",
-      "to": "d",
-      "kind": "arrow"
-    },
-    {
-      "from": "d",
-      "to": "e",
+      "from": "n2",
+      "to": "n3",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "병합용 O(n) 임시 배열 필요",
+      "tone": "limit"
+    }
+  ],
   "source": "CLRS Introduction to Algorithms",
   "reviewed": true
 }

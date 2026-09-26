@@ -6,19 +6,25 @@
       "id": "n0",
       "label": "양단 온도차",
       "color": "blue",
-      "sub": "ΔT1, ΔT2"
+      "sub": "ΔT₁, ΔT₂"
     },
     {
       "id": "n1",
-      "label": "대수평균 계산",
+      "label": "대수평균온도차",
       "color": "violet",
-      "sub": "LMTD"
+      "sub": "(ΔT₁−ΔT₂)/ln(ΔT₁/ΔT₂)"
     },
     {
       "id": "n2",
-      "label": "열교환량 계산",
+      "label": "보정계수 F",
+      "color": "amber",
+      "sub": "다중 패스·교차류"
+    },
+    {
+      "id": "n3",
+      "label": "전열면적 산정",
       "color": "green",
-      "sub": "Q=UA·LMTD"
+      "sub": "Q = U·A·F·LMTD"
     }
   ],
   "edges": [
@@ -31,9 +37,23 @@
       "from": "n1",
       "to": "n2",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "같은 입출구 조건이라도 향류가 병류보다 LMTD가 커서 더 작은 면적으로 같은 열량을 전달",
+      "tone": "general"
+    },
+    {
+      "text": "출구 온도를 모르면 반복 계산이 필요해 NTU법이 더 적합",
+      "tone": "limit"
+    }
+  ],
   "source": "열전달 교과서",
   "reviewed": true
 }

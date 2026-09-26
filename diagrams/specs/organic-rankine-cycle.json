@@ -5,14 +5,14 @@
     {
       "id": "n0",
       "label": "저온 열원",
-      "color": "gray",
-      "sub": "폐열·지열 등"
+      "color": "amber",
+      "sub": "폐열·지열·태양열"
     },
     {
       "id": "n1",
-      "label": "유기냉매 증발",
+      "label": "증발기",
       "color": "amber",
-      "sub": "저비점 작동유체"
+      "sub": "저비점 유기냉매 기화"
     },
     {
       "id": "n2",
@@ -22,9 +22,9 @@
     },
     {
       "id": "n3",
-      "label": "응축·펌프",
+      "label": "응축기·펌프",
       "color": "blue",
-      "sub": "다시 순환"
+      "sub": "액화 후 가압"
     }
   ],
   "edges": [
@@ -42,9 +42,20 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "순환"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "작동유체 예: R245fa; 증기 랭킨보다 열효율은 낮음",
+      "tone": "limit"
+    }
+  ],
   "source": "열역학 교과서",
   "reviewed": true
 }

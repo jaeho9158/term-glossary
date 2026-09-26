@@ -4,20 +4,33 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "섭취 알코올량",
-      "color": "blue"
+      "label": "섭취 알코올량 A",
+      "color": "blue",
+      "sub": "음주량 × 도수 × 0.79"
     },
     {
       "id": "n1",
-      "label": "체중×분포계수",
+      "label": "체중 W × 분포계수 r",
       "color": "violet",
-      "sub": "성별별 r값"
+      "sub": "r 남 ≈0.7 · 여 ≈0.6"
     },
     {
       "id": "n2",
-      "label": "혈중알코올농도",
+      "label": "최고 농도 C₀",
+      "color": "violet",
+      "sub": "C₀ = A / (r·W)"
+    },
+    {
+      "id": "n3",
+      "label": "시간 경과 보정",
+      "color": "amber",
+      "sub": "− β·t (시간당 감소율)"
+    },
+    {
+      "id": "n4",
+      "label": "시점별 BAC 추정",
       "color": "green",
-      "sub": "추정값 산출"
+      "sub": "역산으로 섭취량 추정도"
     }
   ],
   "edges": [
@@ -30,9 +43,24 @@
       "from": "n1",
       "to": "n2",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "평균 생리조건을 가정한 근사식 — 음식·음주 속도·개인 대사에 따라 오차 큼",
+      "tone": "limit"
+    }
+  ],
   "source": "Widmark 공식, 법독성학 교과서",
   "reviewed": true
 }

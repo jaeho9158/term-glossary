@@ -1,29 +1,29 @@
 {
-  "slug": "artificial-pancreas-system",
   "type": "chain",
   "nodes": [
     {
       "id": "n0",
       "label": "연속혈당측정",
       "color": "violet",
-      "sub": "CGM"
+      "sub": "CGM 센서"
     },
     {
       "id": "n1",
       "label": "제어 알고리즘",
-      "color": "violet"
+      "color": "violet",
+      "sub": "MPC 등 · 필요 인슐린 계산"
     },
     {
       "id": "n2",
       "label": "인슐린 펌프",
       "color": "amber",
-      "sub": "주입량 조절"
+      "sub": "자동 주입"
     },
     {
       "id": "n3",
-      "label": "혈당 자동관리",
+      "label": "혈당 변화",
       "color": "green",
-      "sub": "폐쇄루프"
+      "sub": "체내 반응"
     }
   ],
   "edges": [
@@ -46,10 +46,20 @@
       "from": "n3",
       "to": "n0",
       "kind": "arrow",
-      "label": "피드백"
+      "label": "폐쇄루프"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "센서 오차·통신 지연은 과다·과소 주입으로 이어져 경보·안전장치 필수",
+      "tone": "limit"
+    },
+    {
+      "text": "혼합형 폐쇄루프는 식사 시 사용자 입력 필요",
+      "tone": "general"
+    }
+  ],
   "source": "일반 교과서 지식",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "artificial-pancreas-system"
 }

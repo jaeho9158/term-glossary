@@ -1,30 +1,30 @@
 {
   "slug": "longitudinal-stability",
-  "type": "hierarchy",
+  "type": "chain",
   "nodes": [
     {
       "id": "n0",
-      "label": "정적 안정성",
-      "color": "blue",
-      "sub": "3축"
+      "label": "돌풍으로 받음각 증가",
+      "color": "amber",
+      "sub": "기수가 들림"
     },
     {
       "id": "n1",
-      "label": "세로안정성",
-      "color": "amber",
-      "sub": "피치"
+      "label": "무게중심이 중립점 앞",
+      "color": "blue",
+      "sub": "정적여유 > 0"
     },
     {
       "id": "n2",
-      "label": "가로안정성",
+      "label": "기수 내림 피칭모멘트",
       "color": "violet",
-      "sub": "롤"
+      "sub": "수평안정판 기여"
     },
     {
       "id": "n3",
-      "label": "방향안정성",
+      "label": "원래 자세로 복원",
       "color": "green",
-      "sub": "요"
+      "sub": "양의 세로 정적 안정"
     }
   ],
   "edges": [
@@ -34,17 +34,26 @@
       "kind": "arrow"
     },
     {
-      "from": "n0",
+      "from": "n1",
       "to": "n2",
       "kind": "arrow"
     },
     {
-      "from": "n0",
+      "from": "n2",
       "to": "n3",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "정적여유가 크면 안정하지만 조종 반응이 둔해지고 트림 항력이 늘어난다",
+      "tone": "limit"
+    },
+    {
+      "text": "정적안정이 있어도 퓨고이드·단주기 같은 동적 진동은 따로 검토해야 한다",
+      "tone": "limit"
+    }
+  ],
   "source": "비행역학 교과서",
   "reviewed": true
 }

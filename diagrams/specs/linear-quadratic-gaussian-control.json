@@ -6,7 +6,7 @@
       "id": "n0",
       "label": "잡음 섞인 측정",
       "color": "rose",
-      "sub": "가우시안 잡음"
+      "sub": "가우시안 백색잡음"
     },
     {
       "id": "n1",
@@ -16,12 +16,18 @@
     },
     {
       "id": "n2",
-      "label": "LQR 이득",
+      "label": "추정 상태를 실제처럼",
       "color": "blue",
-      "sub": "최적 궤환"
+      "sub": "분리 원리"
     },
     {
       "id": "n3",
+      "label": "LQR 궤환 이득",
+      "color": "blue",
+      "sub": "이차 비용 최소화"
+    },
+    {
+      "id": "n4",
       "label": "제어 입력",
       "color": "green"
     }
@@ -41,9 +47,29 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "플랜트"
     }
   ],
-  "notes": [],
-  "source": "최적제어 교과서",
-  "reviewed": true
+  "notes": [
+    {
+      "text": "분리 원리 덕분에 추정기와 제어기를 독립적으로 설계해도 전체가 최적",
+      "tone": "pos"
+    },
+    {
+      "text": "모델 불확실성에 대한 강인성은 보장하지 않아 H∞ 제어와 구분된다",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "최적제어 교과서"
 }

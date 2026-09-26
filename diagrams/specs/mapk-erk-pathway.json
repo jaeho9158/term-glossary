@@ -4,30 +4,33 @@
   "nodes": [
     {
       "id": "a",
-      "label": "성장인자 결합",
+      "label": "성장인자·RTK",
       "color": "violet",
-      "sub": "수용체"
+      "sub": "수용체 활성"
     },
     {
       "id": "b",
       "label": "Ras",
-      "color": "amber"
+      "color": "blue",
+      "sub": "GTP 결합형"
     },
     {
       "id": "c",
       "label": "Raf",
-      "color": "amber"
+      "color": "amber",
+      "sub": "MAP3K"
     },
     {
       "id": "d",
       "label": "MEK",
-      "color": "amber"
+      "color": "amber",
+      "sub": "MAP2K"
     },
     {
       "id": "e",
       "label": "ERK",
       "color": "amber",
-      "sub": "인산화"
+      "sub": "핵으로 이동"
     },
     {
       "id": "f",
@@ -61,9 +64,24 @@
       "from": "e",
       "to": "f",
       "kind": "arrow"
+    },
+    {
+      "from": "e",
+      "to": "c",
+      "kind": "inhibit",
+      "label": "음성 되먹임"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "ERK 활성이 일과성인지 지속적인지에 따라 세포 운명이 달라진다",
+      "tone": "general"
+    },
+    {
+      "text": "RAF 억제제 단독 사용 시 경로가 역설적으로 재활성화되어 MEK 억제제와 병용한다",
+      "tone": "limit"
+    }
+  ],
   "source": "Alberts 세포생물학",
   "reviewed": true
 }

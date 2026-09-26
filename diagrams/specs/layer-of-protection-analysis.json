@@ -4,27 +4,33 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "시나리오 식별",
+      "label": "시나리오 선별",
       "color": "rose",
-      "sub": "위험 사건"
+      "sub": "HAZOP 고위험 항목"
     },
     {
       "id": "n1",
       "label": "초기사건 빈도",
       "color": "amber",
-      "sub": "발생 빈도 산정"
+      "sub": "연간 발생 빈도"
     },
     {
       "id": "n2",
-      "label": "보호계층 반영",
+      "label": "독립보호계층 PFD",
       "color": "violet",
-      "sub": "계층별 실패확률"
+      "sub": "계층별 고장확률을 곱"
     },
     {
       "id": "n3",
-      "label": "잔여위험 평가",
+      "label": "완화 사건빈도",
+      "color": "blue",
+      "sub": "잔여 위험"
+    },
+    {
+      "id": "n4",
+      "label": "수용기준과 비교",
       "color": "green",
-      "sub": "허용 기준 비교"
+      "sub": "부족분은 SIF·SIL로"
     }
   ],
   "edges": [
@@ -42,9 +48,23 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
-  "source": "CCPS LOPA 지침",
-  "reviewed": true
+  "notes": [
+    {
+      "text": "IPL 요건: 다른 계층과 독립·유효성 검증·감사 가능",
+      "tone": "general"
+    },
+    {
+      "text": "반정량 스크리닝 도구이며, 독립성 가정이 깨지면 위험을 과소평가한다",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "CCPS LOPA 지침"
 }

@@ -10,18 +10,27 @@
     },
     {
       "id": "n1",
-      "label": "소염선단 이동",
-      "color": "amber"
+      "label": "표면 온도 저하",
+      "color": "blue",
+      "sub": "최소막비등온도 이하"
     },
     {
       "id": "n2",
-      "label": "표면 재습윤",
-      "color": "blue"
+      "label": "재습윤 시작",
+      "color": "amber",
+      "sub": "소염선단 형성"
     },
     {
       "id": "n3",
+      "label": "소염선단 진행",
+      "color": "amber",
+      "sub": "재습윤속도"
+    },
+    {
+      "id": "n4",
       "label": "직접 냉각 회복",
-      "color": "green"
+      "color": "green",
+      "sub": "핵비등·대류"
     }
   ],
   "edges": [
@@ -39,9 +48,19 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "표면이 매우 뜨거우면 냉각수가 와도 즉시 재습윤되지 않음(지연)",
+      "tone": "limit"
+    }
+  ],
   "source": "원자로 열수력 교과서",
   "reviewed": true
 }

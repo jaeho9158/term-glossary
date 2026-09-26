@@ -1,57 +1,70 @@
 {
   "slug": "tribological-friction-coefficient-measurement",
-  "type": "contrast",
-  "axis": "마찰계수 = 마찰력÷수직하중",
+  "type": "procedure",
   "nodes": [
     {
-      "id": "l0",
-      "label": "건마찰",
-      "color": "gray",
-      "side": "left",
-      "row": 0
-    },
-    {
-      "id": "l1",
-      "label": "직접 접촉",
-      "color": "rose",
-      "sub": "표면끼리 맞닿음",
-      "side": "left",
-      "row": 1
-    },
-    {
-      "id": "l2",
-      "label": "마찰계수 큼",
-      "color": "rose",
-      "sub": "마모도 큼",
-      "side": "left",
-      "row": 2
-    },
-    {
-      "id": "r0",
-      "label": "윤활마찰",
+      "id": "n0",
+      "label": "시편 장착",
       "color": "blue",
-      "side": "right",
-      "row": 0
+      "sub": "핀온디스크 등"
     },
     {
-      "id": "r1",
-      "label": "윤활막 개재",
-      "color": "green",
-      "sub": "표면 분리",
-      "side": "right",
-      "row": 1
+      "id": "n1",
+      "label": "수직하중 부가",
+      "color": "blue",
+      "sub": "N"
     },
     {
-      "id": "r2",
-      "label": "마찰계수 작음",
+      "id": "n2",
+      "label": "미끄럼 시험",
+      "color": "amber",
+      "sub": "속도·윤활·온도 기록"
+    },
+    {
+      "id": "n3",
+      "label": "마찰력 측정",
+      "color": "violet",
+      "sub": "하중 셀 실시간"
+    },
+    {
+      "id": "n4",
+      "label": "마찰계수 산출",
       "color": "green",
-      "sub": "마모 감소",
-      "side": "right",
-      "row": 2
+      "sub": "μ = F ÷ N"
     }
   ],
-  "edges": [],
-  "notes": [],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "정지마찰계수와 동마찰계수를 구분",
+      "tone": "general"
+    },
+    {
+      "text": "재료 상수가 아니라 표면 조합·조건에 따른 시스템 값",
+      "tone": "limit"
+    }
+  ],
   "source": "트라이볼로지 교과서",
   "reviewed": true
 }

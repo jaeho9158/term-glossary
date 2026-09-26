@@ -4,25 +4,27 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "K개로 분할",
-      "color": "blue"
+      "label": "K개 폴드로 분할",
+      "color": "blue",
+      "sub": "무작위·층화"
     },
     {
       "id": "n1",
-      "label": "1개 검증",
+      "label": "1개 폴드 검증",
       "color": "violet",
-      "sub": "나머지로 훈련"
+      "sub": "나머지 K−1개로 훈련"
     },
     {
       "id": "n2",
       "label": "K번 반복",
       "color": "violet",
-      "sub": "폴드 교대"
+      "sub": "검증 폴드 교대"
     },
     {
       "id": "n3",
       "label": "성능 평균",
-      "color": "green"
+      "color": "green",
+      "sub": "±표준편차 보고"
     }
   ],
   "edges": [
@@ -42,7 +44,12 @@
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "K는 흔히 5·10, K=n이면 leave-one-out",
+      "tone": "general"
+    }
+  ],
   "source": "Hastie et al., ESL",
   "reviewed": true
 }

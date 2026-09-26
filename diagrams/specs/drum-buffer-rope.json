@@ -4,21 +4,27 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "로프",
-      "color": "violet",
-      "sub": "자재 투입 신호"
+      "label": "자재 투입",
+      "color": "blue",
+      "sub": "로프 신호에 따라"
     },
     {
       "id": "n1",
       "label": "버퍼",
       "color": "blue",
-      "sub": "완충재고"
+      "sub": "병목 앞 완충재고"
     },
     {
       "id": "n2",
-      "label": "드럼",
+      "label": "드럼(병목)",
       "color": "amber",
-      "sub": "병목 공정 속도"
+      "sub": "전체 속도 결정"
+    },
+    {
+      "id": "n3",
+      "label": "후공정·출하",
+      "color": "green",
+      "sub": "병목 처리량만큼"
     }
   ],
   "edges": [
@@ -34,12 +40,22 @@
     },
     {
       "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
       "to": "n0",
       "kind": "arrow",
-      "label": "속도 전달"
+      "label": "로프: 투입 신호"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "병목이 자주 이동하는 환경에서는 재설계 필요",
+      "tone": "limit"
+    }
+  ],
   "source": "Goldratt, The Goal",
   "reviewed": true
 }

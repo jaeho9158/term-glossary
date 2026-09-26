@@ -1,50 +1,44 @@
 {
   "slug": "tsiolkovsky-rocket-equation",
-  "type": "chain",
+  "type": "hierarchy",
   "nodes": [
     {
-      "id": "n0",
-      "label": "추진제 분사",
-      "color": "amber",
-      "sub": "질량 감소"
-    },
-    {
-      "id": "n1",
-      "label": "배기속도",
-      "color": "violet",
-      "sub": "유효 배기속도 ve"
-    },
-    {
-      "id": "n2",
-      "label": "질량비",
-      "color": "blue",
-      "sub": "초기질량/최종질량"
-    },
-    {
-      "id": "n3",
-      "label": "델타-브이",
+      "id": "r",
+      "label": "델타-브이 Δv",
       "color": "green",
-      "sub": "Δv = ve·ln(m0/mf)"
+      "sub": "vₑ · ln(m₀/mf)"
+    },
+    {
+      "id": "a",
+      "label": "유효 배기속도 vₑ",
+      "color": "violet",
+      "sub": "추진제·엔진(비추력)"
+    },
+    {
+      "id": "b",
+      "label": "질량비 m₀/mf",
+      "color": "blue",
+      "sub": "초기질량 ÷ 최종질량"
     }
   ],
   "edges": [
     {
-      "from": "n0",
-      "to": "n1",
+      "from": "r",
+      "to": "a",
       "kind": "arrow"
     },
     {
-      "from": "n1",
-      "to": "n2",
-      "kind": "arrow"
-    },
-    {
-      "from": "n2",
-      "to": "n3",
+      "from": "r",
+      "to": "b",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "중력·공력 손실을 뺀 진공 이상식",
+      "tone": "limit"
+    }
+  ],
   "source": "치올콥스키(1903), 로켓공학 교과서",
   "reviewed": true
 }

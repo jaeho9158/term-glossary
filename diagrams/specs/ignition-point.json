@@ -1,50 +1,50 @@
 {
   "slug": "ignition-point",
-  "type": "hierarchy",
+  "type": "chain",
   "nodes": [
     {
-      "id": "r",
-      "label": "가연물 가열",
-      "color": "blue",
-      "sub": "온도 상승 순"
-    },
-    {
-      "id": "c0",
+      "id": "n0",
       "label": "인화점",
       "color": "amber",
-      "sub": "점화원 있으면 불붙음"
+      "sub": "점화원 있으면 순간 착화"
     },
     {
-      "id": "c1",
+      "id": "n1",
       "label": "연소점",
       "color": "amber",
-      "sub": "연소 지속 가능"
+      "sub": "착화 후 연소 지속"
     },
     {
-      "id": "c2",
+      "id": "n2",
       "label": "발화점",
       "color": "rose",
-      "sub": "점화원 없이 발화"
+      "sub": "점화원 없이 자연발화"
     }
   ],
   "edges": [
     {
-      "from": "r",
-      "to": "c0",
-      "kind": "arrow"
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "온도 ↑"
     },
     {
-      "from": "r",
-      "to": "c1",
-      "kind": "arrow"
-    },
-    {
-      "from": "r",
-      "to": "c2",
-      "kind": "arrow"
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "온도 ↑"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "발화점은 인화점보다 훨씬 높음",
+      "tone": "general"
+    },
+    {
+      "text": "가열 속도·시료 형태·산소 농도에 따라 측정값 변동",
+      "tone": "limit"
+    }
+  ],
   "source": "소방학 개론서",
   "reviewed": true
 }

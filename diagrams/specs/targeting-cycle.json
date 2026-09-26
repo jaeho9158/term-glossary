@@ -4,26 +4,39 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "표적 식별",
+      "label": "탐지",
       "color": "violet",
-      "sub": "탐지"
+      "sub": "Find·표적 발견"
     },
     {
       "id": "n1",
-      "label": "결심",
-      "color": "blue",
-      "sub": "수단 결정"
+      "label": "고정",
+      "color": "violet",
+      "sub": "Fix·위치 확정"
     },
     {
       "id": "n2",
-      "label": "타격 실행",
-      "color": "amber"
+      "label": "추적",
+      "color": "violet",
+      "sub": "Track·이동 감시"
     },
     {
       "id": "n3",
-      "label": "피해 평가",
+      "label": "조준",
+      "color": "blue",
+      "sub": "Target·수단 결정"
+    },
+    {
+      "id": "n4",
+      "label": "교전",
+      "color": "amber",
+      "sub": "Engage·타격"
+    },
+    {
+      "id": "n5",
+      "label": "평가",
       "color": "green",
-      "sub": "BDA"
+      "sub": "Assess·BDA"
     }
   ],
   "edges": [
@@ -41,9 +54,30 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    },
+    {
+      "from": "n5",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "재순환"
     }
   ],
-  "notes": [],
-  "source": "합동 표적처리 교리",
+  "notes": [
+    {
+      "text": "계획표적은 법적 검토·부수피해 추정 후, 시간 민감 표적은 단시간에 전 단계 수행",
+      "tone": "limit"
+    }
+  ],
+  "source": "합동 표적처리 교리(F2T2EA)",
   "reviewed": true
 }

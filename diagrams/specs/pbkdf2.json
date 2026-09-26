@@ -4,21 +4,21 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "비밀번호+salt",
+      "label": "비밀번호 + salt",
       "color": "blue",
-      "sub": "입력"
+      "sub": "salt는 무작위·고유"
     },
     {
       "id": "n1",
-      "label": "해시 반복",
+      "label": "PRF 반복",
       "color": "violet",
-      "sub": "수천 회 이상"
+      "sub": "HMAC 등 수만 회(iteration)"
     },
     {
       "id": "n2",
       "label": "유도 키",
       "color": "green",
-      "sub": "무차별 대입 지연"
+      "sub": "고정 길이·무차별 대입 지연"
     }
   ],
   "edges": [
@@ -33,7 +33,12 @@
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "CPU 위주라 GPU·ASIC 병렬 공격에 상대적 취약 → Argon2 등 메모리 하드 함수 대안",
+      "tone": "limit"
+    }
+  ],
   "source": "RFC 8018",
   "reviewed": true
 }

@@ -1,30 +1,36 @@
 {
   "slug": "induced-drag",
-  "type": "hierarchy",
+  "type": "chain",
   "nodes": [
     {
       "id": "n0",
-      "label": "항력",
+      "label": "양력 발생",
       "color": "blue",
-      "sub": "비행 저항"
+      "sub": "날개 상하 압력차"
     },
     {
       "id": "n1",
-      "label": "유도항력",
+      "label": "날개끝 와류",
       "color": "amber",
-      "sub": "날개끝 와류"
+      "sub": "아랫면 공기가 윗면으로"
     },
     {
       "id": "n2",
-      "label": "형상항력",
-      "color": "gray",
-      "sub": "마찰+압력"
+      "label": "내리흐름",
+      "color": "amber",
+      "sub": "스팬 전체 양력 분포"
     },
     {
       "id": "n3",
-      "label": "조파항력",
+      "label": "국소 받음각 감소",
+      "color": "violet",
+      "sub": "양력 벡터 뒤로 기울어짐"
+    },
+    {
+      "id": "n4",
+      "label": "유도항력",
       "color": "rose",
-      "sub": "천음속 이상"
+      "sub": "C_L² / (π·AR·e)에 비례"
     }
   ],
   "edges": [
@@ -34,17 +40,31 @@
       "kind": "arrow"
     },
     {
-      "from": "n0",
+      "from": "n1",
       "to": "n2",
       "kind": "arrow"
     },
     {
-      "from": "n0",
+      "from": "n2",
       "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "종횡비↑·윙렛·타원형 양력 분포로 감소",
+      "tone": "pos"
+    },
+    {
+      "text": "저속·고양력계수 구간에서 지배적, 고속에선 마찰·조파항력 비중↑",
+      "tone": "limit"
+    }
+  ],
   "source": "Anderson, Introduction to Flight",
   "reviewed": true
 }

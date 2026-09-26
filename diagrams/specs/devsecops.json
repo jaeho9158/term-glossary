@@ -4,19 +4,25 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "개발",
+      "label": "코드 작성·커밋",
       "color": "blue",
       "sub": "Dev"
     },
     {
       "id": "n1",
-      "label": "보안 자동화 삽입",
+      "label": "CI 자동 검사",
       "color": "amber",
-      "sub": "Sec"
+      "sub": "SAST·SCA"
     },
     {
       "id": "n2",
-      "label": "운영 배포",
+      "label": "배포 전 검사",
+      "color": "amber",
+      "sub": "DAST"
+    },
+    {
+      "id": "n3",
+      "label": "운영·모니터링",
       "color": "green",
       "sub": "Ops"
     }
@@ -31,9 +37,19 @@
       "from": "n1",
       "to": "n2",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
-  "source": "일반 교과서 지식",
+  "notes": [
+    {
+      "text": "왼쪽 이동: 보안 검사를 개발 초기로 당김",
+      "tone": "general"
+    }
+  ],
+  "source": "DevSecOps 개론(NIST SP 800-204C 등)",
   "reviewed": true
 }

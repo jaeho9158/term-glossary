@@ -1,50 +1,59 @@
 {
   "slug": "audit-risk-model",
-  "type": "chain",
+  "type": "hierarchy",
   "nodes": [
     {
+      "id": "n3",
+      "label": "감사위험 AR",
+      "color": "blue",
+      "sub": "IR × CR × DR"
+    },
+    {
       "id": "n0",
-      "label": "고유위험",
+      "label": "고유위험 IR",
       "color": "rose",
-      "sub": "통제 전 왜곡"
+      "sub": "거래 자체의 오류 가능성"
     },
     {
       "id": "n1",
-      "label": "통제위험",
+      "label": "통제위험 CR",
       "color": "rose",
-      "sub": "내부통제 실패"
+      "sub": "내부통제가 못 막을 가능성"
     },
     {
       "id": "n2",
-      "label": "적발위험",
+      "label": "적발위험 DR",
       "color": "amber",
-      "sub": "감사절차 조정"
-    },
-    {
-      "id": "n3",
-      "label": "감사위험",
-      "color": "blue",
-      "sub": "세 위험의 곱"
+      "sub": "감사절차로 조절"
     }
   ],
   "edges": [
     {
-      "from": "n0",
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
       "to": "n1",
       "kind": "arrow"
     },
     {
-      "from": "n1",
+      "from": "n3",
       "to": "n2",
-      "kind": "arrow"
-    },
-    {
-      "from": "n2",
-      "to": "n3",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "IR·CR은 감사인이 통제 불가 → 높으면 절차를 늘려 DR을 낮춤",
+      "tone": "general"
+    },
+    {
+      "text": "현행 기준은 IR×CR을 중요왜곡표시위험으로 묶어 평가",
+      "tone": "limit"
+    }
+  ],
   "source": "국제감사기준(ISA)",
   "reviewed": true
 }

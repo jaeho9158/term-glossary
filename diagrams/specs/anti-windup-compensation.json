@@ -1,30 +1,29 @@
 {
-  "slug": "anti-windup-compensation",
   "type": "chain",
   "nodes": [
     {
       "id": "n0",
       "label": "입력 포화",
       "color": "rose",
-      "sub": "액추에이터 한계"
+      "sub": "액추에이터 한계 도달"
     },
     {
       "id": "n1",
       "label": "적분 과누적",
       "color": "rose",
-      "sub": "와인드업"
+      "sub": "와인드업 · 큰 오버슈트"
     },
     {
       "id": "n2",
       "label": "보상 개입",
       "color": "amber",
-      "sub": "적분 제한 등"
+      "sub": "back-calculation·조건부 적분"
     },
     {
       "id": "n3",
       "label": "정상 복귀",
       "color": "green",
-      "sub": "오버슈트 감소"
+      "sub": "오버슈트·정착 시간 감소"
     }
   ],
   "edges": [
@@ -44,7 +43,13 @@
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "포화가 없는 시스템에 과도 적용하면 응답이 느려질 수 있음",
+      "tone": "limit"
+    }
+  ],
   "source": "제어공학 교과서",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "anti-windup-compensation"
 }

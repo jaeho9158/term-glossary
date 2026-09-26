@@ -10,21 +10,21 @@
     },
     {
       "id": "n1",
-      "label": "분수해 확인",
-      "color": "rose",
-      "sub": "정수 아님"
+      "label": "해 확인",
+      "color": "violet",
+      "sub": "정수인가?"
     },
     {
       "id": "n2",
       "label": "절단면 추가",
       "color": "amber",
-      "sub": "분수해 제거"
+      "sub": "분수해만 제거"
     },
     {
       "id": "n3",
-      "label": "재풀이",
-      "color": "violet",
-      "sub": "정수해까지 반복"
+      "label": "정수 최적해",
+      "color": "green",
+      "sub": "종료"
     }
   ],
   "edges": [
@@ -36,15 +36,28 @@
     {
       "from": "n1",
       "to": "n2",
-      "kind": "arrow"
+      "kind": "arrow",
+      "label": "분수해"
     },
     {
       "from": "n2",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "재풀이"
+    },
+    {
+      "from": "n1",
       "to": "n3",
-      "kind": "arrow"
+      "kind": "arrow",
+      "label": "정수해"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "실무는 분지한계법과 결합(branch-and-cut)",
+      "tone": "general"
+    }
+  ],
   "source": "정수계획법 교과서",
   "reviewed": true
 }

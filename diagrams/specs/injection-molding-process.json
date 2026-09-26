@@ -4,27 +4,33 @@
   "nodes": [
     {
       "id": "n0",
-      "label": "수지 용융",
+      "label": "가소화",
       "color": "amber",
-      "sub": "가열 실린더"
+      "sub": "펠릿 용융·균질화"
     },
     {
       "id": "n1",
-      "label": "금형 사출",
-      "color": "amber",
-      "sub": "고압 충전"
+      "label": "사출",
+      "color": "violet",
+      "sub": "캐비티 고압 주입"
     },
     {
       "id": "n2",
-      "label": "냉각·고화",
-      "color": "blue",
-      "sub": "보압 포함"
+      "label": "보압",
+      "color": "violet",
+      "sub": "수축 보상 압력 유지"
     },
     {
       "id": "n3",
-      "label": "이형",
+      "label": "냉각",
+      "color": "blue",
+      "sub": "고형화"
+    },
+    {
+      "id": "n4",
+      "label": "취출",
       "color": "green",
-      "sub": "제품 취출"
+      "sub": "형체 유닛 개방"
     }
   ],
   "edges": [
@@ -42,9 +48,19 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "냉각·수축 과정에서 휨변형·싱크마크 발생 가능",
+      "tone": "limit"
+    }
+  ],
   "source": "고분자가공 교과서",
   "reviewed": true
 }

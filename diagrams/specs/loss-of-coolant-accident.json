@@ -5,25 +5,32 @@
     {
       "id": "n0",
       "label": "배관 파단",
-      "color": "rose"
+      "color": "rose",
+      "sub": "대형(LBLOCA)·소형(SBLOCA)"
     },
     {
       "id": "n1",
-      "label": "냉각재 상실",
+      "label": "냉각재 유출",
       "color": "rose",
-      "sub": "압력·수위 저하"
+      "sub": "압력·노심 수위 저하"
     },
     {
       "id": "n2",
-      "label": "노심 냉각 저하",
+      "label": "비상노심냉각계통 작동",
       "color": "amber",
-      "sub": "비상냉각 필요"
+      "sub": "주입·재관수"
     },
     {
       "id": "n3",
-      "label": "노심 손상",
+      "label": "노심 냉각 유지",
+      "color": "green",
+      "sub": "사고 종결"
+    },
+    {
+      "id": "n4",
+      "label": "피복재 과열·노심 손상",
       "color": "rose",
-      "sub": "실패 시 중대사고"
+      "sub": "ECCS 실패 시"
     }
   ],
   "edges": [
@@ -41,12 +48,22 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "blocked",
+      "label": "실패"
     }
   ],
   "notes": [
     {
-      "text": "비상노심냉각계통이 대응",
-      "tone": "pos"
+      "text": "설계기준사고로 가정해 ECCS·격납건물을 설계하며, 곧바로 노심 손상으로 이어지지는 않는다",
+      "tone": "general"
+    },
+    {
+      "text": "파단 크기·위치에 따라 전개 속도가 달라 열수력 해석 코드로 모사한다",
+      "tone": "general"
     }
   ],
   "source": "원자로 안전 교과서",

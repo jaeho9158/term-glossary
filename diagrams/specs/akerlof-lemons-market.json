@@ -1,5 +1,4 @@
 {
-  "slug": "akerlof-lemons-market",
   "type": "chain",
   "nodes": [
     {
@@ -12,18 +11,19 @@
       "id": "n1",
       "label": "평균가 지불",
       "color": "gray",
-      "sub": "구매자 불신"
+      "sub": "구매자는 평균 품질 기대"
     },
     {
       "id": "n2",
       "label": "우량품 이탈",
-      "color": "rose"
+      "color": "rose",
+      "sub": "제값 못 받아 퇴장"
     },
     {
       "id": "n3",
       "label": "시장 위축",
       "color": "rose",
-      "sub": "저품질만 남음"
+      "sub": "저품질만 남음 · 역선택"
     }
   ],
   "edges": [
@@ -41,9 +41,21 @@
       "from": "n2",
       "to": "n3",
       "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "가격 더 하락"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "신호(보증·인증)·선별·평판 제도가 정보 격차를 줄여 완화",
+      "tone": "pos"
+    }
+  ],
   "source": "Akerlof 1970",
-  "reviewed": true
+  "reviewed": true,
+  "slug": "akerlof-lemons-market"
 }

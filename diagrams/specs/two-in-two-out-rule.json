@@ -1,39 +1,44 @@
 {
   "slug": "two-in-two-out-rule",
-  "type": "procedure",
+  "type": "hierarchy",
   "nodes": [
     {
-      "id": "n0",
+      "id": "r",
+      "label": "2인1조 진입원칙",
+      "color": "blue",
+      "sub": "IDLH 구역"
+    },
+    {
+      "id": "k0",
       "label": "내부 진입조",
       "color": "amber",
-      "sub": "최소 2명"
+      "sub": "최소 2명 동반 진입"
     },
     {
-      "id": "n1",
+      "id": "k1",
       "label": "외부 대기조",
-      "color": "blue",
-      "sub": "최소 2명"
-    },
-    {
-      "id": "n2",
-      "label": "위험 시 구조",
       "color": "green",
-      "sub": "즉시 투입"
+      "sub": "최소 2명 즉시 구조 대기"
     }
   ],
   "edges": [
     {
-      "from": "n0",
-      "to": "n1",
+      "from": "r",
+      "to": "k0",
       "kind": "arrow"
     },
     {
-      "from": "n1",
-      "to": "n2",
+      "from": "r",
+      "to": "k1",
       "kind": "arrow"
     }
   ],
-  "notes": [],
+  "notes": [
+    {
+      "text": "대기조는 형식적 인원이 아니라 즉시 투입 준비 상태 유지",
+      "tone": "limit"
+    }
+  ],
   "source": "OSHA 29 CFR 1910.134",
   "reviewed": true
 }
