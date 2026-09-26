@@ -461,7 +461,10 @@ function buildDefBuckets(terms, senses, outside) {
 // 파일이 없으면(말뭉치를 안 받은 환경) 아래 셋 모두 no-op이다.
 // 각 연동은 채점(viewer-eval) 결과에 따라 개별로 끌 수 있게 스위치를 둔다.
 const OA_STATS = path.join(ROOT_DIR, "data", "oa-stats.json");
-const OA_ENABLE = { grade: true, outside: true, cooc: true };
+// (c) cooc는 기본 끔: 실제 논문의 공기어는 "그 말이 쓰인 문맥"이지 사전 뜻의 판별 키워드가
+// 아니라서, sense 키워드에 섞으면 용례가 사전 뜻 구분을 흐린다. 게다가 지금 말뭉치는 의학
+// 편중이다 — 여러 분야 말뭉치(KCI 초록 등)가 합류하면 다시 채점해 켤지 정한다.
+const OA_ENABLE = { grade: true, outside: true, cooc: false };
 // 채점 실험용: OA_HOOKS=grade,cooc 처럼 켤 것만 적으면 나머지는 끈다(빈 문자열 = 전부 끔).
 if (process.env.OA_HOOKS !== undefined) {
   const on = new Set(process.env.OA_HOOKS.split(",").map((x) => x.trim()));
@@ -537,7 +540,7 @@ function oaOutsideFlags(terms, oa) {
 // 뜻 키워드 = cooc 상위(우선) ∪ 사전 키워드, 한글 SENSE_KEYWORDS_MAX개 상한. 영문 토큰은 그 뒤에 그대로.
 // 짧은 표제어(isSenseTitle)만 — 규칙 1이 보는 것도 그들뿐이다.
 function mergeOaCooc(senses, terms, oa) {
-  if (!oa || !OA_ENABLE.cooc) return senses;
+  if (!oa) return senses;
   for (const t of terms) {
     const s = oa.terms[t.slug];
     if (!s || !s.cooc || !isSenseTitle(t)) continue;
@@ -572,7 +575,8 @@ function run() {
   // 4칸짜리 옛 인덱스도 그대로 읽힌다.
   const grades = applyOaGrades(computeCommonGrades(terms), terms, oa);
   const englishCommon = computeEnglishCommon(terms);
-  const senses = mergeOaCooc(senseKeywords(terms), terms, oa);
+  // 스위치는 호출부에서 본다(함수 자체는 테스트가 직접 검증).
+  const senses = OA_ENABLE.cooc ? mergeOaCooc(senseKeywords(terms), terms, oa) : senseKeywords(terms);
   const outside = oaOutsideFlags(terms, oa);
   if (oa) console.log(`oa-stats.json 반영: 문서 ${oa.docs}편, 자기 분야 밖 표시 ${outside.size}개`);
   const rows = terms.map((t) => {
