@@ -26,6 +26,8 @@ const MIN_YEAR = 2015;
 // 저널 영문명 → 우리 카테고리 코드. 위에서부터 처음 맞는 규칙. Synapse는 의학 계열
 // 저널 모음이라 대부분 med지만, 간호·치의·보건·영양·체육·진단검사·수의·방사선 등
 // 인접 분야를 따로 떼어 분야 분포(≥8종)를 만든다. 분야별 상한은 의학 편중을 줄이려는 것.
+// 정신의학(조현병 연구 등) 저널은 psych(심리학)가 아니라 med다 — psych로 두었더니 조현병이
+// "자기 분야 밖에서 주로 쓰이는 말"로 잘못 표시됐다(OA 연동 b).
 const FIELD_RULES = [
   ["nursing", /nurs/i, 20],
   ["dent", /dent|orthodont|oral|periodont|prosthodont|endodont|maxillofacial/i, 16],
@@ -38,7 +40,6 @@ const FIELD_RULES = [
   ["rehab", /rehabilitation/i, 8],
   ["forensicsci", /legal medicine/i, 8],
   ["anthro", /anthropology/i, 8],
-  ["psych", /psychiatr|schizophrenia/i, 8],
   ["pharm", /pharmacol|pharmacotherapy|pharmacy/i, 8],
   ["med", /./, 30],
 ];
