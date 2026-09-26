@@ -111,8 +111,18 @@ function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
   const size = (s) => kidsOf(s).reduce((n, k) => n + 1 + size(k), 0);
   const deep = (s) => kidsOf(s).flatMap((k) => [k, ...deep(k)]);
   const a = (s, cls) => `<a class="${cls}" href="../terms/${esc(s)}.html">${esc(titles.get(s) || s)}</a>`;
+  // 갈래 아래: 더 내려가지 않는 개념은 칩, 자기 하위가 있는 개념은 테두리 묶음(이름 + 그 아래 칩)으로
+  // 한 번 더 묶어 셋째·넷째 단계가 한 줄에 섞이지 않게 한다.
+  const leaves = (k) => {
+    const ks = kidsOf(k);
+    if (!ks.length) return "";
+    const flat = ks.filter((x) => !kidsOf(x).length);
+    const nested = ks.filter((x) => kidsOf(x).length);
+    return `<span class="cmap-leaves">${flat.map((x) => a(x, "cmap-leaf")).join("")}${
+      nested.map((x) => `<span class="cmap-sub">${a(x, "cmap-sub-head")}${deep(x).map((y) => a(y, "cmap-leaf")).join("")}</span>`).join("")}</span>`;
+  };
   const card = (r) => `<article class="cmap-card"><h3 class="cmap-root">${a(r, "cmap-root-link")}<span class="cmap-count">${size(r)}</span></h3><ul class="cmap-branches">${
-    kidsOf(r).map((k) => { const d = deep(k); return `<li class="cmap-branch">${a(k, "cmap-branch-link")}${d.length ? `<span class="cmap-leaves">${d.map((x) => a(x, "cmap-leaf")).join("")}</span>` : ""}</li>`; }).join("")
+    kidsOf(r).map((k) => `<li class="cmap-branch">${a(k, "cmap-branch-link")}${leaves(k)}</li>`).join("")
   }</ul></article>`;
   // 뿌리 개념을 하위분류별로 묶고, 큰 계통부터 보여 준다. 하위 개념이 하나뿐인 작은 계통은 뒤에 모은다.
   const bySub = new Map();
