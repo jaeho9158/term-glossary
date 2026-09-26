@@ -753,7 +753,9 @@ function applySenseContextRule(list, text, top) {
       match.demotedBy = "gloss";
       continue;
     }
-    if (match.distant || !isSenseTarget(match) || inTopGroups(match, top)) continue;
+    // 상위 분야군 용어는 건너뛰되, 실제 논문에서 자기 분야 밖에서 주로 쓰이는 용어
+    // (match.oaOutside, OA 연동 b)는 상위 분야군 안이어도 뜻을 확인한다.
+    if (match.distant || !isSenseTarget(match) || (inTopGroups(match, top) && !match.oaOutside)) continue;
     const overlap = senseOverlap(match, text);
     if (overlap < 0) continue;
     if (overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }
@@ -1406,7 +1408,12 @@ function decodeDefChunk(map) {
   const out = new Map();
   for (const [slug, v] of Object.entries(map || {})) {
     if (typeof v === "string") out.set(slug, { definition: v, sense: [] });
-    else if (v && typeof v === "object") out.set(slug, { definition: v.d || "", sense: v.s ? v.s.split(" ") : [] });
+    else if (v && typeof v === "object") {
+      const entry = { definition: v.d || "", sense: v.s ? v.s.split(" ") : [] };
+      // o: 1 = 실제 논문 말뭉치에서 자기 분야군 밖에서 주로 쓰인 용어(OA 연동 b).
+      if (v.o) entry.outside = true;
+      out.set(slug, entry);
+    }
   }
   return out;
 }
@@ -2332,6 +2339,7 @@ if (typeof document !== "undefined") {
     // 필터를 만질 때 다시 받지 않도록).
     const definitionCache = new Map(); // slug -> definition
     const senseCache = new Map(); // slug -> 뜻 키워드 배열(짧은 표제어만, 규칙 1용)
+    const outsideSlugs = new Set(); // 실제 논문에서 자기 분야 밖에서 주로 쓰인 용어(OA 연동 b)
     const loadedDefBuckets = new Set();
     let defLoadWarned = false; // 정의 청크 실패 문구는 문서당 한 번만
     async function loadDefinitions(slugs) {
@@ -2351,6 +2359,7 @@ if (typeof document !== "undefined") {
             for (const [slug, entry] of decodeDefChunk(await res.json())) {
               definitionCache.set(slug, entry.definition);
               if (entry.sense.length) senseCache.set(slug, entry.sense);
+              if (entry.outside) outsideSlugs.add(slug);
             }
           } catch (err) {
             // 정의는 부가 정보라 용어 목록 자체는 그대로 보여준다. 다만 뜻이
@@ -2373,6 +2382,7 @@ if (typeof document !== "undefined") {
       for (const match of matches) {
         match.definition = definitionCache.get(match.slug) || "";
         match.sense = senseCache.get(match.slug) || match.sense || [];
+        if (outsideSlugs.has(match.slug)) match.oaOutside = true;
       }
     }
     // Writes the highlighted reading view into its own container and hides the

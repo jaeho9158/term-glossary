@@ -435,7 +435,9 @@ function senseKeywords(terms) {
 // 청크 항목: 정의만 있으면 문자열, 뜻 키워드(짧은 표제어)가 있으면 {d: 정의, s: "공백 구분
 // 키워드"}. 디코더는 assets/viewer.js의 decodeDefChunk()(문자열 항목도 그대로 읽는다).
 // 정의가 비어도 뜻 키워드는 싣는다 — 규칙 1은 정의 유무와 무관하다.
-function buildDefBuckets(terms, senses) {
+// outside(OA 연동 b): 실제 논문에서 자기 분야군 밖에서 주로 쓰인 용어면 o: 1을 단다.
+// 뜻 키워드가 있을 때만 의미가 있다(규칙 1이 키워드로 판별하므로).
+function buildDefBuckets(terms, senses, outside) {
   const buckets = Array.from({ length: DEF_BUCKETS }, () => ({}));
   for (const t of terms) {
     if (!t.slug) continue;
@@ -445,14 +447,115 @@ function buildDefBuckets(terms, senses) {
     if (sense) {
       entry = { s: sense.join(" ") };
       if (t.definition) entry = { d: t.definition, s: entry.s };
+      if (outside && outside.has(t.slug)) entry.o = 1;
     }
     buckets[defBucket(t.slug)][t.slug] = entry;
   }
   return buckets;
 }
 
+// ---- 실제 논문 말뭉치 통계 연동(OA 파이프라인) ------------------------------
+// data/oa-stats.json(scripts/oa/build-stats.js)은 실제 국문 논문에서 표제어가 몇 편에,
+// 어느 분야 논문에, 어떤 낱말 옆에 나왔는지를 담는다. 위 신호들은 전부 사전 본문(정의문)
+// 안의 빈도라 "논문에서 실제로 얼마나 흔한가"를 모른다 — 이 파일이 그 빈자리를 메운다.
+// 파일이 없으면(말뭉치를 안 받은 환경) 아래 셋 모두 no-op이다.
+// 각 연동은 채점(viewer-eval) 결과에 따라 개별로 끌 수 있게 스위치를 둔다.
+const OA_STATS = path.join(ROOT_DIR, "data", "oa-stats.json");
+const OA_ENABLE = { grade: true, outside: true, cooc: true };
+// 채점 실험용: OA_HOOKS=grade,cooc 처럼 켤 것만 적으면 나머지는 끈다(빈 문자열 = 전부 끔).
+if (process.env.OA_HOOKS !== undefined) {
+  const on = new Set(process.env.OA_HOOKS.split(",").map((x) => x.trim()));
+  for (const k of Object.keys(OA_ENABLE)) OA_ENABLE[k] = on.has(k);
+}
+// 말뭉치가 이보다 작으면 비율이 흔들려 판단하지 않는다.
+const OA_MIN_DOCS = 30;
+// (a) 일상어 등급 보조: 말뭉치 문서의 40% 이상에 나오고 분야 4종 이상에 퍼진 말은
+// 논문 어디에나 나오는 말이라 주제어일 가능성이 낮다 → 등급 2(뒤로 밀기)까지만 올린다.
+// 등급 3(인덱스 제외)은 손실이 커서 여전히 승인 목록(CURATED_COMMON_WORDS 등)만 쓴다.
+const OA_COMMON_DF_SHARE = 0.4;
+const OA_COMMON_MIN_FIELDS = 4;
+// (b) 동음이의 편향: 등장 문서 중 자기 분야군 논문이 20% 미만이면 "자기 분야 밖에서 주로
+// 쓰이는 말"(다른 뜻으로 쓰였을 공산이 큼). 문서 몇 편으로는 판단하지 않는다.
+const OA_OUTSIDE_MAX_SHARE = 0.2;
+const OA_OUTSIDE_MIN_DF = 3;
+// 자기 분야군 논문이 말뭉치에 이 비율 이상 있어야 판단한다. 1차 말뭉치(의학 편중)에서
+// 이 조건 없이 돌리니, 말뭉치에 한 편도 없는 연구 기초·방법 용어(신뢰도·가설·회귀분석·
+// 확률)가 전부 "분야 밖"이 돼 25편 강등 미탐이 13→25로 늘었다. 연구 기초·방법 분야군은
+// 원래 모든 분야에서 쓰는 말이라 아예 대상에서 뺀다.
+const OA_OUTSIDE_MIN_GROUP_SHARE = 0.2;
+const OA_BASIC_GROUP = "연구 기초·방법";
+// (c) 공기어 보강: 실제 논문에서 그 표제어 옆에 나온 명사 상위 몇 개를 뜻 키워드 앞에 둔다.
+const OA_COOC_TAKE = 8;
+
+function loadOaStats() {
+  if (!fs.existsSync(OA_STATS)) return null;
+  const stats = JSON.parse(fs.readFileSync(OA_STATS, "utf8"));
+  return stats && stats.docs >= OA_MIN_DOCS ? stats : null;
+}
+
+function applyOaGrades(grades, terms, oa) {
+  if (!oa || !OA_ENABLE.grade) return grades;
+  for (const t of terms) {
+    const s = oa.terms[t.slug];
+    if (!s || !grades.has(t.title_ko)) continue;
+    if (s.df / oa.docs < OA_COMMON_DF_SHARE || Object.keys(s.fields || {}).length < OA_COMMON_MIN_FIELDS) continue;
+    if (grades.get(t.title_ko) < 2) grades.set(t.title_ko, 2);
+  }
+  return grades;
+}
+
+function ownGroupShare(term, stat) {
+  const own = groupsOf(term);
+  let inside = 0;
+  for (const [code, n] of Object.entries(stat.fields || {})) {
+    if (own.has(groupOfCode.get(code))) inside += n;
+  }
+  return stat.df ? inside / stat.df : 0;
+}
+
+// 말뭉치에서 그 분야군들에 속한 문서 수(fieldDocs는 build-stats가 기록).
+function groupDocs(groups, oa) {
+  let n = 0;
+  for (const [code, c] of Object.entries(oa.fieldDocs || {})) if (groups.has(groupOfCode.get(code))) n += c;
+  return n;
+}
+
+function oaOutsideFlags(terms, oa) {
+  const flags = new Set();
+  if (!oa || !OA_ENABLE.outside) return flags;
+  for (const t of terms) {
+    const s = oa.terms[t.slug];
+    if (!s || s.df < OA_OUTSIDE_MIN_DF) continue;
+    const own = groupsOf(t);
+    if (!own.size || own.has(OA_BASIC_GROUP)) continue; // 분야를 모르거나 기초·방법이면 판단하지 않는다
+    if (groupDocs(own, oa) / oa.docs < OA_OUTSIDE_MIN_GROUP_SHARE) continue;
+    if (ownGroupShare(t, s) < OA_OUTSIDE_MAX_SHARE) flags.add(t.slug);
+  }
+  return flags;
+}
+
+// 뜻 키워드 = cooc 상위(우선) ∪ 사전 키워드, 한글 SENSE_KEYWORDS_MAX개 상한. 영문 토큰은 그 뒤에 그대로.
+// 짧은 표제어(isSenseTitle)만 — 규칙 1이 보는 것도 그들뿐이다.
+function mergeOaCooc(senses, terms, oa) {
+  if (!oa || !OA_ENABLE.cooc) return senses;
+  for (const t of terms) {
+    const s = oa.terms[t.slug];
+    if (!s || !s.cooc || !isSenseTitle(t)) continue;
+    const own = (t.title_ko || "").replace(/\s+/g, "");
+    const old = senses.get(t.slug) || [];
+    const ko = [];
+    for (const w of [...s.cooc.slice(0, OA_COOC_TAKE), ...old.filter((w) => /[가-힣]/.test(w))]) {
+      if (w === own || own.includes(w) || ko.includes(w)) continue;
+      if (ko.length < SENSE_KEYWORDS_MAX) ko.push(w);
+    }
+    senses.set(t.slug, [...ko, ...old.filter((w) => !/[가-힣]/.test(w))]);
+  }
+  return senses;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
+  const oa = loadOaStats();
 
   const categoryCodes = [];
   const categoryIndex = new Map();
@@ -467,9 +570,11 @@ function run() {
   // 5번째 칸이 일반어 등급. 0은 대다수라 넣어 봐야 용량만 늘기 때문에
   // 생략하고, 디코더(decodeViewerIndex)가 없으면 0으로 읽는다 — 덕분에
   // 4칸짜리 옛 인덱스도 그대로 읽힌다.
-  const grades = computeCommonGrades(terms);
+  const grades = applyOaGrades(computeCommonGrades(terms), terms, oa);
   const englishCommon = computeEnglishCommon(terms);
-  const senses = senseKeywords(terms);
+  const senses = mergeOaCooc(senseKeywords(terms), terms, oa);
+  const outside = oaOutsideFlags(terms, oa);
+  if (oa) console.log(`oa-stats.json 반영: 문서 ${oa.docs}편, 자기 분야 밖 표시 ${outside.size}개`);
   const rows = terms.map((t) => {
     const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
     const grade = grades.get(t.title_ko) || 0;
@@ -493,7 +598,7 @@ function run() {
   fs.rmSync(DEFS_DIR, { recursive: true, force: true });
   fs.mkdirSync(DEFS_DIR, { recursive: true });
 
-  const buckets = buildDefBuckets(terms, senses);
+  const buckets = buildDefBuckets(terms, senses, outside);
   let defsBytes = 0;
   buckets.forEach((bucket, i) => {
     const file = path.join(DEFS_DIR, `${String(i).padStart(3, "0")}.json`);
@@ -518,4 +623,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };
+module.exports = { defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords, applyOaGrades, oaOutsideFlags, mergeOaCooc };
