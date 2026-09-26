@@ -102,6 +102,17 @@ function applyBlocks(html, pathBlock, familyBlock) {
   return out;
 }
 
+const H_BLOCK = /(?:\r?\n)?[ \t]*<!-- concept-map-link:start -->[\s\S]*?<!-- concept-map-link:end -->/;
+function applyHubLink(html, block) {
+  const nl = html.includes("\r\n") ? "\r\n" : "\n";
+  let out = html.replace(H_BLOCK, "");
+  if (!block) return out;
+  const m = /<p class="subtitle">[\s\S]*?<\/p>/.exec(out) || /<h1>[\s\S]*?<\/h1>/.exec(out);
+  if (!m) return null;
+  const at = m.index + m[0].length;
+  return out.slice(0, at) + `${nl}  <!-- concept-map-link:start -->${block}<!-- concept-map-link:end -->` + out.slice(at);
+}
+
 function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
   const roots = [...new Set(slugs.map((s) => idx.rootOf(s)))].filter((r) => (idx.children.get(r) || []).length)
     .sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko"));
@@ -136,7 +147,7 @@ function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
   };
   const title = `${catName} 개념 지도`;
   const main = `<main class="delay-1 concept-map-page">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; <a href="../category.html?cat=${cat}">${esc(catName)}</a> &gt; 개념 지도</p>
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; <a href="../category/${cat}.html">${esc(catName)}</a> &gt; 개념 지도</p>
   <h1>${esc(title)}</h1>
   <p class="concept-map-lead">큰 개념(굵은 제목) 아래로 갈래와 세부 개념이 이어집니다. 이름을 누르면 용어 설명으로 이동합니다.</p>
   <nav class="cmap-toc" aria-label="하위분류">${groups.map(([g], i) => `<a href="#g${i}">${esc(g)}</a>`).join("")}</nav>
@@ -153,7 +164,7 @@ function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
     .replace(/<script[^>]*src="\.\.\/assets\/term-[^"]*"[^>]*><\/script>\s*/g, "");
 }
 
-const CAT_NAMES = { neuro: "뇌과학·신경과학" };
+const CAT_NAMES = require("../../assets/category-data.js").CATEGORY_LABELS;
 
 function run() {
   const dry = process.argv.includes("--dry-run");
@@ -187,10 +198,26 @@ function run() {
       const slugs = terms.filter((t) => t.categories[0] === c && involved.has(t.slug)).map((t) => t.slug);
       fs.writeFileSync(path.join(MAP_DIR, `${c}.html`), mapPage(c, CAT_NAMES[c], slugs, idx, titles, fs.readFileSync(path.join(ROOT, "terms", "nmda-receptor.html"), "utf8"), subOf), "utf8");
     }
+    // 분야 허브(정적 category/<분야>.html과 동적 category.html)에서 개념 지도로 가는 링크
+    for (const c of Object.keys(CAT_NAMES)) {
+      const hub = path.join(ROOT, "category", `${c}.html`);
+      if (!fs.existsSync(hub)) continue;
+      const html = fs.readFileSync(hub, "utf8");
+      const next = applyHubLink(html, cats.has(c) ? `<p class="concept-map-cta"><a href="../concept-map/${c}.html">개념 지도로 계통 한눈에 보기 →</a></p>` : "");
+      if (next && next !== html) fs.writeFileSync(hub, next, "utf8");
+    }
+    for (const f of fs.readdirSync(MAP_DIR)) {
+      const c = f.replace(/.html$/, "");
+      if (f.endsWith(".html") && !cats.has(c)) fs.unlinkSync(path.join(MAP_DIR, f));
+    }
+    fs.writeFileSync(path.join(ROOT, "assets", "concept-map-cats.js"),
+      `// 생성 파일(scripts/taxonomy/build.js): 개념 지도가 있는 분야
+window.CONCEPT_MAP_CATS = ${JSON.stringify([...cats].sort())};
+`, "utf8");
     fs.writeFileSync(MANIFEST, JSON.stringify([...involved].sort(), null, 2) + "\n", "utf8");
   }
   console.log(`${dry ? "[dry-run] " : ""}관계 ${Object.keys(links).length} · 페이지 갱신 ${changed} · 개념 지도 ${[...cats].join(", ")}`);
 }
 
 if (require.main === module) run();
-module.exports = { validate, buildIndex, pathHtml, familyHtml, applyBlocks };
+module.exports = { applyHubLink, validate, buildIndex, pathHtml, familyHtml, applyBlocks };

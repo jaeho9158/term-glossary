@@ -263,6 +263,7 @@
   <script src="assets/escape.js"></script>
   <script src="assets/category-data.js"></script>
   <script src="assets/site.js"></script>
+  <script src="assets/concept-map-cats.js"></script>
   <script>
     (function () {
       const raw = new URLSearchParams(location.search).get("cat");
@@ -278,6 +279,12 @@
         document.getElementById("category-page-title").textContent = label;
         document.getElementById("category-page-heading").textContent = `${label} 용어`;
         document.getElementById("category-page-subtitle").textContent = desc || `${label} 분야의 논문 학술용어를 모아봅니다.`;
+        if ((window.CONCEPT_MAP_CATS || []).includes(code)) {
+          const p = document.createElement("p");
+          p.className = "concept-map-cta";
+          p.innerHTML = `<a href="concept-map/${code}.html">개념 지도로 계통 한눈에 보기 →</a>`;
+          document.getElementById("category-page-subtitle").after(p);
+        }
       }
     })();
   </script>
