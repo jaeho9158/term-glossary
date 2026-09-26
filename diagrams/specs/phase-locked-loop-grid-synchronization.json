@@ -1,0 +1,55 @@
+{
+  "slug": "phase-locked-loop-grid-synchronization",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "위상 검출",
+      "color": "violet",
+      "sub": "오차 계산"
+    },
+    {
+      "id": "n1",
+      "label": "루프 필터",
+      "color": "blue",
+      "sub": "PI 제어"
+    },
+    {
+      "id": "n2",
+      "label": "전압제어발진기",
+      "color": "amber",
+      "sub": "주파수→위상"
+    },
+    {
+      "id": "n3",
+      "label": "계통 위상 추종",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "위상 피드백"
+    }
+  ],
+  "notes": [],
+  "source": "전력전자 계통연계 제어 교과서",
+  "reviewed": true
+}

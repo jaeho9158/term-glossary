@@ -1,0 +1,61 @@
+{
+  "slug": "ekf-slam",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "상태벡터",
+      "color": "blue",
+      "sub": "로봇 자세+랜드마크"
+    },
+    {
+      "id": "n1",
+      "label": "예측",
+      "color": "amber",
+      "sub": "운동 모델·오도메트리"
+    },
+    {
+      "id": "n2",
+      "label": "센서 관측",
+      "color": "violet",
+      "sub": "랜드마크 측정"
+    },
+    {
+      "id": "n3",
+      "label": "갱신",
+      "color": "amber",
+      "sub": "칼만 이득으로 보정"
+    },
+    {
+      "id": "n4",
+      "label": "자세·지도 추정",
+      "color": "green",
+      "sub": "평균과 공분산"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [],
+  "source": "Thrun 외, Probabilistic Robotics(2005)",
+  "reviewed": true
+}

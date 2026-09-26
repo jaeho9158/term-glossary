@@ -1,0 +1,50 @@
+{
+  "slug": "computed-torque-control",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "동역학 모델",
+      "color": "blue",
+      "sub": "관성·코리올리·중력"
+    },
+    {
+      "id": "n1",
+      "label": "역동역학 계산",
+      "color": "violet",
+      "sub": "비선형 항 상쇄"
+    },
+    {
+      "id": "n2",
+      "label": "선형 오차계",
+      "color": "gray",
+      "sub": "피드백 선형화"
+    },
+    {
+      "id": "n3",
+      "label": "PD·PID 적용",
+      "color": "green",
+      "sub": "오차 수렴"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [],
+  "source": "Spong 로봇 제어 교과서",
+  "reviewed": true
+}

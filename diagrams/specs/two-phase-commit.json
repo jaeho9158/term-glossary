@@ -1,0 +1,55 @@
+{
+  "slug": "two-phase-commit",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "준비 요청",
+      "color": "violet",
+      "sub": "조정자→참여자"
+    },
+    {
+      "id": "n1",
+      "label": "투표",
+      "color": "blue",
+      "sub": "커밋 가능 여부"
+    },
+    {
+      "id": "n2",
+      "label": "결정",
+      "color": "amber",
+      "sub": "전원 찬성시 커밋"
+    },
+    {
+      "id": "n3",
+      "label": "결과 전파",
+      "color": "green",
+      "sub": "커밋 또는 철회"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "한 곳이라도 반대하면 전체 철회",
+      "tone": "general"
+    }
+  ],
+  "source": "분산 데이터베이스 교과서",
+  "reviewed": true
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "write-ahead-logging",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "변경 발생",
+      "color": "blue",
+      "sub": "트랜잭션 갱신"
+    },
+    {
+      "id": "n1",
+      "label": "로그 기록",
+      "color": "violet",
+      "sub": "변경 내용 선기록"
+    },
+    {
+      "id": "n2",
+      "label": "로그 디스크 반영",
+      "color": "amber",
+      "sub": "데이터보다 먼저"
+    },
+    {
+      "id": "n3",
+      "label": "데이터 반영",
+      "color": "blue",
+      "sub": "이후 페이지 기록"
+    },
+    {
+      "id": "n4",
+      "label": "장애 복구",
+      "color": "green",
+      "sub": "로그로 재실행·취소"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [],
+  "source": "데이터베이스 교과서(ARIES)",
+  "reviewed": true
+}

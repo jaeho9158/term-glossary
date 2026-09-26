@@ -1,0 +1,50 @@
+{
+  "slug": "length-extension-attack",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "해시값 확보",
+      "color": "rose",
+      "sub": "H(비밀‖메시지)"
+    },
+    {
+      "id": "n1",
+      "label": "내부 상태 복원",
+      "color": "amber",
+      "sub": "Merkle-Damgård"
+    },
+    {
+      "id": "n2",
+      "label": "추가 데이터 연결",
+      "color": "amber",
+      "sub": "패딩 뒤 덧붙임"
+    },
+    {
+      "id": "n3",
+      "label": "위조 해시 계산",
+      "color": "rose",
+      "sub": "원본 없이 생성"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [],
+  "source": "정보보안 교과서",
+  "reviewed": true
+}

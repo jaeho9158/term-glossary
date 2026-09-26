@@ -54,6 +54,6 @@ type별 규칙:
 
 - `viewBox`만 쓰고 `width`/`height` 속성은 없음. svg에 `max-width: <viewBox 폭>px`를 인라인으로 걸어 좁은 도식이 확대되지 않게 한다.
 - 색은 전부 CSS 변수(`--dg-*`, style.css). 다크 모드 값은 `:root[data-theme="dark"]`.
-- chain·procedure(그리고 가로판이 450px를 넘는 hierarchy)는 가로·세로 두 벌을 넣고, 480px 이하에서 세로판만 보인다.
+- chain·procedure(그리고 가로판이 450px를 넘는 hierarchy)는 가로·세로 두 벌을 넣고, 640px 이하에서 세로판만 보인다.
 - `<title>`(용어명)과 `<desc>`(읽는 순서 한 문장)을 자동 생성한다.
 - 글자 폭은 근사치로 재서 줄바꿈하고, 텍스트끼리·텍스트와 박스의 겹침을 검사해 경고한다(`--strict`면 실패).
