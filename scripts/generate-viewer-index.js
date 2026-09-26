@@ -12,7 +12,7 @@ const DEFS_DIR = path.join(ROOT_DIR, "viewer-defs");
 // "매칭된 용어"에만 필요하다. 그래서 파일을 둘로 나눈다.
 //
 //  1) viewer-index.json    : 매칭 + 카테고리 필터에 필요한 최소 데이터(전량 로드)
-//  2) viewer-defs/NNN.json : definition을 slug 해시로 쪼갠 청크(지연 로드)
+//  2) viewer-defs/NNN.json : definition(+ 짧은 표제어의 뜻 키워드)을 slug 해시로 쪼갠 청크(지연 로드)
 //
 // viewer-index.json은 키 이름 반복(37,416 × {"slug":...,"title_ko":...})만으로
 // 수 MB가 붙기 때문에 배열-of-배열로 저장하고, 카테고리 코드도 98종짜리
@@ -162,12 +162,25 @@ const CURATED_COMMON_WORDS = [
   "조차", "공유", "인구이동", "수용", "노출", "성숙", "근절", "정점", "우연성",
 ];
 
+// 논문 형식어(라운드 4, 사용자 승인 2026-09-26): 표제어로는 윤리·문헌정보·지식재산
+// 용어지만, 논문에서는 머리글·서지 정보·저작권 고지·절 제목("교신저자",
+// "문헌고찰", "Copyright ©")으로 거의 모든 편에 기계적으로 나온다. 그 자리에서
+// 사전 뜻을 찾아보는 독자는 없으므로 등급 3(인덱스 제외)으로 둔다.
+// 일상어(CURATED_COMMON_WORDS)와는 이유가 달라 따로 둔다.
+// "성능평가"는 사전에 원자력(폐기물 처분장 성능평가) 뜻만 있는데, 논문에서는
+// 일반적인 "성능 평가"(모델·시스템)로 쓰인다.
+// "저작권"(사용자 승인 2026-09-26): 말뭉치에서 머리글·저작권 정책 페이지의
+// "Copyright ©"·저작권 안내문으로만 잡혔다(drug-abuse·drug-law·psychiatry 오탐).
+const PAPER_BOILERPLATE_TITLES = [
+  "교신저자", "문헌고찰", "논문철회", "셀프아카이빙", "저작재산권", "성능평가", "저작권",
+];
+
 function computeCommonGrades(terms) {
   const grades = new Map();
   for (const [title, signals] of commonWordSignals(terms)) {
     grades.set(title, commonGrade(signals));
   }
-  for (const word of CURATED_COMMON_WORDS) {
+  for (const word of [...CURATED_COMMON_WORDS, ...PAPER_BOILERPLATE_TITLES]) {
     if (grades.has(word)) grades.set(word, 3);
   }
   return grades;
@@ -261,8 +274,181 @@ function englishGrade(term, englishCommon) {
   const key = (term.title_en || "").trim().toLowerCase();
   if (!key) return 0;
   if (englishCommon.has(key)) return 1;
+  // 논문 형식어는 영문 키도 뺀다(셀프아카이빙 → "self-archiving" 저작권 안내문).
+  if (PAPER_BOILERPLATE_TITLES.includes(term.title_ko)) return 1;
   if (ENGLISH_NEEDS_KOREAN.has(key)) return 4;
   return 0;
+}
+
+// ---- 문맥 뜻 키워드(viewer-defs 청크, 오탐 라운드 3 규칙 1) ----------------
+// 짧은 표제어(한글 3음절 이하 또는 영문 한 단어)마다 "이 뜻으로 쓰였다면 주변에
+// 나올 법한 낱말"을 사전 데이터에서 뽑는다: definition·why·deeper의 2~4음절 한글
+// 명사(조사·어미 제거, 사전 전체에서 흔한 낱말은 불용어로 제외)를 tf·idf로 매기고,
+// 관련 용어 표제어와 분야명은 가산점을 준다. 런타임(viewer.js
+// applySenseContextRule)은 등장 위치 주변에 이 중 하나라도 있는지만 본다.
+// 짧은 표제어만 대상인 이유: 긴 표제어는 동음이의어가 드물고, 전량에 넣으면
+// 인덱스가 너무 커진다(목표 +30% 이내).
+const SENSE_KEYWORDS_MAX = 12;
+const SENSE_STOP_DF = 800; // 이보다 많은 항목 본문에 나오는 낱말은 뜻을 가리지 못한다
+// 300도 시험했다(라운드 4 검수): 25편 오탐 69→69, 강등 미탐 14→16이라 800 유지.
+const SENSE_BONUS = 100; // 관련어·분야명은 본문 낱말보다 먼저
+// 영문 표제어에서 뜻을 가리지 못하는 기능어.
+const SENSE_EN_STOP = new Set(["the", "and", "for", "with", "from", "into", "its", "via", "per", "non"]);
+
+function isSenseTitle(t) {
+  const ko = (t.title_ko || "").replace(/[^가-힣]/g, "");
+  return (ko.length > 0 && ko.length <= 3) || /^[A-Za-z]+$/.test((t.title_en || "").trim());
+}
+
+let senseStemsFn = null;
+function nounOf(word) {
+  if (!senseStemsFn) senseStemsFn = require("../assets/viewer.js").senseStems;
+  let best = null;
+  for (const stem of senseStemsFn(word)) {
+    if (stem.length >= 2 && stem.length <= 4 && (!best || stem.length < best.length)) best = stem;
+  }
+  return best;
+}
+
+function bodyWords(t) {
+  return [t.definition, t.why, t.deeper].filter(Boolean).join(" ").match(/[가-힣]+/g) || [];
+}
+
+// "가벼운지·구합니다" 같은 활용형 조각을 명사로 착각하지 않도록, 사전 표제어이거나
+// 사전 본문 여러 항목에서 격조사가 붙은 꼴로 나온 낱말만 명사로 인정한다.
+// 은·는·이·가는 뺀다(라운드 4): 관형형 어미(쓰이는·퍼져나가는·일으키는)와 모양이
+// 같아 동사 조각(쓰이·일으키·원하·움직이)이 명사 근거를 얻고 있었다. 을·를·의·에·
+// 와·과는 동사 어간 바로 뒤에 붙지 않는다.
+const NOUN_PARTICLES = ["을", "를", "의", "에", "와", "과", "으로", "에서", "에게"];
+// 조사까지 붙은 꼴("곳에서의"→"곳에서")이 명사 후보로 남지 않도록.
+const PARTICLE_TAIL = /(에서|으로|에게|부터|까지|처럼|보다)$/;
+// 간접 의문 "-ㄹ지·-인지를"(볼지를·할지를·것인지를)도 목적격이 붙어 명사처럼 보인다.
+// "-는지·-은지·-인지"(변하는지·같은지·결과인지)도 같은 간접 의문 조각이다(라운드 4 검수).
+// 인지·메타인지처럼 진짜 명사는 표제어라 isNoun의 표제어 경로로 따로 살아남는다.
+function isClauseTail(noun) {
+  if (!noun.endsWith("지")) return false;
+  if (noun.length >= 3 && /(는지|은지|인지|던지)$/.test(noun)) return true;
+  if (noun.startsWith("것")) return true;
+  const prev = noun.charCodeAt(noun.length - 2) - 0xac00;
+  return prev >= 0 && prev < 11172 && prev % 28 === 8; // 앞 음절 받침 ㄹ
+}
+const NOUN_MIN_EVIDENCE = 3;
+function nounEvidence(terms) {
+  const evidence = new Map();
+  for (const t of terms) {
+    const seen = new Set();
+    for (const word of bodyWords(t)) {
+      for (const p of NOUN_PARTICLES) {
+        const noun = word.slice(0, -p.length);
+        if (word.endsWith(p) && noun.length >= 2 && noun.length <= 4 && !PARTICLE_TAIL.test(noun) && !isClauseTail(noun)) seen.add(noun);
+      }
+    }
+    for (const noun of seen) evidence.set(noun, (evidence.get(noun) || 0) + 1);
+  }
+  return evidence;
+}
+
+function bodyNouns(t, isNoun) {
+  const tf = new Map();
+  for (const word of bodyWords(t)) {
+    const noun = nounOf(word);
+    if (noun && isNoun(noun)) tf.set(noun, (tf.get(noun) || 0) + 1);
+  }
+  return tf;
+}
+
+function senseKeywords(terms) {
+  const { CATEGORY_LABELS } = require("../assets/category-data.js");
+  const titleOf = new Map(terms.map((t) => [t.slug, t.title_ko || ""]));
+  const catsOf = new Map(terms.map((t) => [t.slug, t.categories || []]));
+  const titles = new Set(terms.map((t) => (t.title_ko || "").replace(/\s+/g, "")));
+  const evidence = nounEvidence(terms);
+  const isNoun = (w) => titles.has(w) || (evidence.get(w) || 0) >= NOUN_MIN_EVIDENCE;
+  const df = new Map();
+  const tfs = new Map();
+  for (const t of terms) {
+    const tf = bodyNouns(t, isNoun);
+    for (const noun of tf.keys()) df.set(noun, (df.get(noun) || 0) + 1);
+    if (isSenseTitle(t)) tfs.set(t.slug, tf);
+  }
+  const n = terms.length;
+  const out = new Map();
+  for (const t of terms) {
+    const tf = tfs.get(t.slug);
+    if (!tf) continue;
+    const own = (t.title_ko || "").replace(/\s+/g, "");
+    const score = new Map();
+    for (const [noun, c] of tf) {
+      const d = df.get(noun) || 1;
+      if (d > SENSE_STOP_DF) continue;
+      score.set(noun, c * Math.log(n / d));
+    }
+    const bonus = (word) => {
+      if (!/^[가-힣]{2,6}$/.test(word)) return;
+      score.set(word, (score.get(word) || 0) + SENSE_BONUS);
+    };
+    for (const slug of t.related || []) {
+      const title = titleOf.get(slug) || "";
+      bonus(title.replace(/\s+/g, ""));
+      // 띄어 쓴 관련어 표제어("빛의 반사와 굴절")는 통째로는 6음절을 넘어 버려지고
+      // 본문에 그대로 나올 일도 없다. 낱말마다 명사를 떼어 가산한다(반사·굴절).
+      // 제 표제어 안에 든 명사(굴절률 ⊃ 굴절)는 등장 자리 자체와 늘 겹치므로 뺀다.
+      if (/\s/.test(title.trim())) {
+        for (const word of title.split(/\s+/)) {
+          const noun = nounOf(word);
+          if (noun && isNoun(noun) && !own.includes(noun)) bonus(noun);
+        }
+      }
+      // 관련어의 분야명도 가산한다: 관련어가 다른 분야에 걸쳐 있으면(유니버설디자인 →
+      // 건축학·도시계획학) 그 분야 문맥도 이 뜻의 근거다. 같은 분야면 중복 가산일 뿐이다.
+      for (const code of catsOf.get(slug) || []) {
+        for (const part of String(CATEGORY_LABELS[code] || "").split("·")) bonus(part);
+      }
+    }
+    for (const code of t.categories || []) {
+      for (const part of String(CATEGORY_LABELS[code] || "").split("·")) {
+        bonus(part);
+        // 독성학 → 독성. 떼고 남은 말도 검증한다(라운드 4): 고고학 → "고고",
+        // 스포츠과학 → "스포츠과", 한의학 → "한의"는 낱말이 아니라 부분 문자열 비교에서
+        // 엉뚱한 곳(최고고도·한의사)에 걸렸다. "~과학"·"~공학"(원자력공)은 떼지 않고, 짧은 어간(2~3음절)은
+        // 명사 근거가 있을 때만 쓴다. 4음절 이상(문헌정보·식품영양)은 복합 명사라 그대로.
+        const stem = part.slice(0, -1);
+        if (part.endsWith("학") && !/(과학|공학)$/.test(part) && part.length >= 3 && (stem.length >= 4 || isNoun(stem))) bonus(stem);
+      }
+    }
+    score.delete(own);
+    const picked = [...score.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, SENSE_KEYWORDS_MAX)
+      .map(([w]) => w);
+    // 영문 표제어 토큰(소문자, 라운드 4): 국문 논문도 "중독(poisoning)"처럼 병기하므로
+    // 등장 자리 옆의 영문 표기가 사전 뜻과 같은지가 가장 직접적인 근거다. 한글 12개와
+    // 별도로 붙인다. 뷰어는 영문 키를 소문자·낱말 앞 경계로 비교한다.
+    for (const tok of ((t.title_en || "").toLowerCase().match(/[a-z]{3,}/g) || [])) {
+      if (!SENSE_EN_STOP.has(tok) && !picked.includes(tok)) picked.push(tok);
+    }
+    if (picked.length) out.set(t.slug, picked);
+  }
+  return out;
+}
+
+// 청크 항목: 정의만 있으면 문자열, 뜻 키워드(짧은 표제어)가 있으면 {d: 정의, s: "공백 구분
+// 키워드"}. 디코더는 assets/viewer.js의 decodeDefChunk()(문자열 항목도 그대로 읽는다).
+// 정의가 비어도 뜻 키워드는 싣는다 — 규칙 1은 정의 유무와 무관하다.
+function buildDefBuckets(terms, senses) {
+  const buckets = Array.from({ length: DEF_BUCKETS }, () => ({}));
+  for (const t of terms) {
+    if (!t.slug) continue;
+    const sense = senses.get(t.slug);
+    if (!t.definition && !sense) continue;
+    let entry = t.definition;
+    if (sense) {
+      entry = { s: sense.join(" ") };
+      if (t.definition) entry = { d: t.definition, s: entry.s };
+    }
+    buckets[defBucket(t.slug)][t.slug] = entry;
+  }
+  return buckets;
 }
 
 function run() {
@@ -283,12 +469,15 @@ function run() {
   // 4칸짜리 옛 인덱스도 그대로 읽힌다.
   const grades = computeCommonGrades(terms);
   const englishCommon = computeEnglishCommon(terms);
+  const senses = senseKeywords(terms);
   const rows = terms.map((t) => {
     const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
     const grade = grades.get(t.title_ko) || 0;
     // 6번째 칸(영문 일반어)도 대부분 0이라 있을 때만 붙인다. 붙일 때는
     // 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다.
     const enGrade = englishGrade(t, englishCommon);
+    // 문맥 뜻 키워드(옛 7번째 칸)는 라운드 4에서 viewer-defs 청크로 옮겼다 — 매칭된
+    // 용어에만 필요한데 인덱스에 두면 전량 로드가 0.7MB 늘었다.
     if (grade || enGrade) row.push(grade);
     if (enGrade) row.push(enGrade);
     return row;
@@ -304,12 +493,7 @@ function run() {
   fs.rmSync(DEFS_DIR, { recursive: true, force: true });
   fs.mkdirSync(DEFS_DIR, { recursive: true });
 
-  const buckets = Array.from({ length: DEF_BUCKETS }, () => ({}));
-  for (const t of terms) {
-    if (!t.slug || !t.definition) continue;
-    buckets[defBucket(t.slug)][t.slug] = t.definition;
-  }
-
+  const buckets = buildDefBuckets(terms, senses);
   let defsBytes = 0;
   buckets.forEach((bucket, i) => {
     const file = path.join(DEFS_DIR, `${String(i).padStart(3, "0")}.json`);
@@ -328,8 +512,10 @@ function run() {
     `viewer-defs/ 생성: ${DEF_BUCKETS}개 청크, 합계 ${mb(defsBytes)}MB ` +
       `(청크 평균 ${Math.round(defsBytes / DEF_BUCKETS / 1024)}KB)`
   );
+  // 생성물이 바뀌었으니 viewer.html의 캐시 버전도 새로 찍는다.
+  require("./stamp-viewer-version.js").run();
 }
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, CURATED_COMMON_WORDS, commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN };
+module.exports = { defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords };

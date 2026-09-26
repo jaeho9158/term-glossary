@@ -299,6 +299,7 @@ function recordMatch(resultsMap, term, starts, wordLength, score) {
       categories: term.categories,
       common: term.common || 0,
       common_en: term.common_en || 0,
+      sense: term.sense,
       count: 0,
       score,
       occurrences: [],
@@ -567,6 +568,196 @@ function filterDistantFieldMatches(matches) {
   const kept = list.filter((m) => !m.distant && (!isShortMatch(m) || supportedByOthers(m)));
   const second = estimateFieldGroups(kept, first);
   if (second.length) markDistant(list, second);
+  // 뒤 규칙(문맥 뜻 판별 등)이 같은 상위 분야군을 쓰도록 목록에 달아 둔다.
+  list.topFieldGroups = second.length ? second : first;
+  return list;
+}
+
+// ---- 문맥 뜻 판별(오탐 라운드 3 규칙 1) -----------------------------------
+// 분야 거리 규칙은 "이 문서의 상위 분야군"만 본다. 인접 분야 동음이의어(중독=
+// poisoning, 응집=coagulation, 비중=specific-gravity)는 분야군이 가까워 그 체를
+// 통과한다. 그래서 등장 자리 주변 낱말을 사전 쪽 뜻과 맞춰 본다: 빌드 때 각 짧은
+// 표제어의 정의·관련어·분야명에서 뽑은 "뜻 키워드"(term.sense)가 등장 위치 앞뒤
+// SENSE_WINDOW자 안에 하나도 없고 등장도 적으면, 그 뜻으로 쓰인 게 아니라고 보고
+// 분야 거리와 같은 방식으로 강등한다(버리지 않음).
+// 일상어를 손으로 목록에 넣는 대신 문서 안에서 판별하는 일반 규칙이다.
+//
+// 25편 조정표(기준선 오탐 125, 미탐 19 + 강등 미탐 18; 미탐 +3 이상이면 불합격):
+//   창 ±200·낱말 일치·상위만 제외         오탐 81  강등 미탐 46
+//   창 ±200·부분 문자열·상위만 제외       오탐 82  강등 미탐 41
+//   문서 전체·부분 문자열·상위만 제외     오탐 105 강등 미탐 25
+//   위 + 등장 1회만                       오탐 109 강등 미탐 23
+//   문서 전체·부분 문자열·상위+인접 제외  오탐 119 강등 미탐 19  ← 채택
+// ±200자 창은 한 번 나온 정상 용어(유치원·사교육·신뢰도)의 주변에 사전 쪽 키워드가
+// 우연히 없는 경우가 많아 정답을 크게 잃었다. 창을 문서 전체로 넓히고(= 이 문서에
+// 그 뜻의 낱말이 하나도 없다), 분야 거리 규칙처럼 인접 분야군도 제외해야 기준을 넘는다.
+// 2026-09-26 사용자 결정: 정답지를 "사전 뜻과 같을 때만 정답"으로 바꾼 뒤 ±200자 창·
+// 상위(+기초)만 제외로 다시 적용 — 오탐 101→69, 강등 미탐 12→29를 받아들임(강등은 접힌 그룹).
+const SENSE_WINDOW = 200;
+const SENSE_MAX_SYLLABLES = 3;
+// 등장 수 한도(옛 SENSE_MAX_COUNT=2, 3회 이상이면 판단 없이 유지)는 라운드 5에서 뺐다:
+// 여러 번 나와도 모든 등장 창을 합쳐 뜻 낱말이 하나도 없으면 다른 뜻으로 본다.
+// 25편 오탐 66→62, 강등 미탐 14→17(접근성·루버·굴절률).
+const SENSE_MIN_OVERLAP = 1;
+// 빌드 스크립트가 사전 본문에서 뜻 키워드(명사)를 뽑을 때 조사·흔한 어미를 떼는 데 쓴다.
+const SENSE_ENDINGS = [
+  "으로써", "으로서", "에서의", "입니다", "합니다", "됩니다", "하였다", "되었다",
+  "에서", "으로", "에게", "부터", "까지", "처럼", "보다", "이나", "이며", "이다",
+  "하는", "되는", "하여", "하고", "하며", "하게", "하기", "한다", "된다", "했다", "되어", "되며", "적인", "적으로", "적",
+  "은", "는", "이", "가", "을", "를", "의", "에", "로", "와", "과", "도", "만", "나", "한", "된", "들",
+];
+function senseStems(word) {
+  const w = String(word || "");
+  const out = [w];
+  // "-주의"(자본주의·구조주의)의 "의"는 조사가 아니다 — 떼면 "자본주·구조주" 같은
+  // 조각이 뜻 키워드로 들어간다(라운드 4 검수). "자본주의의"처럼 조사가 더 붙은 꼴은 뗀다.
+  const ismTail = w.endsWith("주의");
+  for (const end of SENSE_ENDINGS) {
+    if (ismTail && end === "의") continue;
+    if (w.endsWith(end) && w.length - end.length >= 2) out.push(w.slice(0, -end.length));
+  }
+  return out;
+}
+
+function isSenseTarget(match) {
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  if (match.viaHangul !== false) return ko.length > 0 && ko.length <= SENSE_MAX_SYLLABLES;
+  return /^[A-Za-z]+$/.test((match.title_en || "").trim());
+}
+
+// 이 규칙에서 제외하는 분야군: 상위 + 연구 기초·방법(통계·방법론). 인접 분야군은 판별 대상.
+function inTopGroups(match, top) {
+  const set = new Set([BASIC_GROUP, ...top]);
+  return (match.categories || []).some((c) => set.has(fieldGroupOf(c)));
+}
+
+function senseEnglishHit(lower, key) {
+  for (let i = lower.indexOf(key); i !== -1; i = lower.indexOf(key, i + 1)) {
+    if (i === 0 || !/[a-z]/.test(lower[i - 1])) return true;
+  }
+  return false;
+}
+
+// 등장 자리 창들과 뜻 키워드의 교집합 크기(전체 등장 합산, 키워드 중복 없이).
+// 뜻 키워드가 없는 용어는 -1(판단 보류).
+function senseOverlap(match, text) {
+  const keys = new Set(match.sense || []);
+  if (!keys.size) return -1;
+  const hit = new Set();
+  for (const occ of match.occurrences || []) {
+    const from = Math.max(0, occ.start - SENSE_WINDOW);
+    const to = Math.min(text.length, occ.start + occ.length + SENSE_WINDOW);
+    // 영문으로 잡힌 용어는 등장 자리 자체를 뺀다: 제 영문 토큰이 키워드에 있어 자기
+    // 자신과 늘 겹친다(라운드 4). 한글로 잡힌 경우는 그대로 둔다 — 표제어 안에 든
+    // 키워드(사교육⊃교육, 부적응⊃적응)가 스스로 맞아 규칙을 비껴가는 셈인데, 빼 보니
+    // 25편에서 정답 2개(사교육·부적응)만 강등되고 오탐은 줄지 않았다.
+    const win = match.viaHangul === false
+      ? text.slice(from, occ.start) + " " + text.slice(occ.start + occ.length, to)
+      : text.slice(from, to);
+    const lower = win.toLowerCase();
+    for (const k of keys) {
+      // 한글은 부분 문자열로 본다: 논문은 "독성물질"처럼 붙여 쓰는 복합어가 많아 낱말
+      // 일치로는 놓친다. 영문 키(표제어 토큰, 소문자)는 대소문자 무시 + 낱말 앞 경계만
+      // 본다 — 복수형(poisonings)은 인정하고 nonpoisoning 같은 중간 일치는 막는다.
+      if (/^[a-z]+$/.test(k) ? senseEnglishHit(lower, k) : win.includes(k)) hit.add(k);
+    }
+  }
+  return hit.size;
+}
+
+// 영문 병기 불일치(라운드 5 규칙 6): 짧은 한글 표제어 바로 뒤 괄호 속 영문
+// "중독(addiction)"은 저자가 밝힌 뜻이라 문맥 낱말보다 직접적인 근거다. 병기 토큰이
+// 표제어 영문 토큰과 하나도 안 겹치면 다른 뜻. 한쪽이 다른 쪽으로 시작하거나 앞 4글자가
+// 같으면 겹친 것으로 본다(ion·ions, poisonings·poisoning). 약어(PET)·영문 없는 괄호는 판단하지 않는다.
+// 반환: "match"(한 등장이라도 겹침) / "mismatch"(병기가 있는데 모두 불일치) / "none".
+const GLOSS_RE = /^\s?\(\s*([A-Za-z][A-Za-z\s\-]{2,60})\)/;
+function glossTokens(s) {
+  return (String(s).toLowerCase().match(/[a-z]{3,}/g) || []).filter((w) => !["the", "and", "for", "with", "from", "via", "non"].includes(w));
+}
+// 같은 낱말로 보는 기준: 한쪽이 다른 쪽으로 시작(ion·ions)하거나 앞 4글자가 같음.
+function glossTokenMatch(a, b) {
+  if (a.startsWith(b) || b.startsWith(a)) return true;
+  return a.length >= 4 && b.length >= 4 && a.slice(0, 4) === b.slice(0, 4);
+}
+// 병기가 로마자 표기(명문 mingmen·태극 taiji)로 보이는가. 영어 사전 없이 가리는
+// 근사다: 표제어 영문 어느 토큰과도 앞 3글자가 안 겹치면서 모음 비율이 비정상(≥0.55).
+function looksRomanized(tok, own) {
+  if (own.some((b) => tok.slice(0, 3) === b.slice(0, 3))) return false;
+  const vowels = (tok.match(/[aeiou]/g) || []).length;
+  return vowels / tok.length >= 0.55;
+}
+
+// top: 상위 분야군. 한의학이 있으면 병기가 로마자 표기(mingmen·dantian)이기 쉬워 규칙을 끈다.
+function englishGlossVerdict(match, text, top) {
+  if (match.viaHangul === false) return "none";
+  if (top && top.includes(KMED_GROUP)) return "none";
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  if (!ko || ko.length > SENSE_MAX_SYLLABLES) return "none";
+  const own = glossTokens(match.title_en || "");
+  if (!own.length) return "none";
+  let seen = false;
+  for (const occ of match.occurrences || []) {
+    const g = GLOSS_RE.exec(text.slice(occ.start + occ.length, occ.start + occ.length + 70));
+    if (!g || /^[A-Z]{2,}s?$/.test(g[1].trim())) continue;
+    // 하이픈 낱말(p-value, 줄바꿈 screen-ing)은 토큰이 쪼개져 비교를 믿을 수 없다.
+    if (/[A-Za-z]-[A-Za-z]/.test(g[1])) continue;
+    const toks = glossTokens(g[1]);
+    if (!toks.length) continue;
+    if (toks.some((a) => own.some((b) => glossTokenMatch(a, b)))) return "match";
+    // 구 단위 병기: "굽힘 강성(bending rigidity)"처럼 괄호가 앞 수식어까지 옮긴 것.
+    // 브리프는 "표제어 토큰 + 1 초과"였지만 그러면 bending rigidity(2 vs 1)가 안 걸린다.
+    // 25편 채점은 두 기준이 같아(오탐 59·강등 미탐 17) 더 넓은 쪽을 쓴다.
+    if (toks.length > own.length) continue;
+    if (toks.every((a) => looksRomanized(a, own))) continue;
+    seen = true;
+  }
+  return seen ? "mismatch" : "none";
+}
+
+// top: 상위 분야군(filterDistantFieldMatches가 고른 것). 없으면 적용하지 않는다 —
+// 잡힌 용어가 적은 문서에서는 "분야 밖"이라는 판단 자체를 믿을 수 없다.
+// 상위 분야군에 속하는 용어는 제외한다(주제어 손실 방지).
+// 동형 표제어(2026-09-26): 한글 표제어가 같은 두 용어(중독 = addiction / poisoning)는
+// 같은 자리에서 함께 잡힌다. 둘 다 상위 분야군(의학·생명)에 들면 아래 뜻 규칙이 둘 다
+// 건너뛰어 마약 논문에서도 poisoning이 남는다. 그래서 같은 표제어끼리는 분야와 무관하게
+// 뜻 키워드 겹침을 비교해, 가장 많이 겹치는 쪽만 남기고 나머지는 강등한다(동점이면 보류).
+function applyHomonymRule(list, text) {
+  const groups = new Map();
+  for (const match of list) {
+    if (match.distant || match.viaHangul === false || !match.title_ko) continue;
+    const key = normalizeWord(match.title_ko);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(match);
+  }
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const scored = group.map((m) => ({ m, s: senseOverlap(m, text) }));
+    const best = Math.max(...scored.map((x) => x.s));
+    if (best <= 0 || scored.filter((x) => x.s === best).length > 1) continue;
+    for (const x of scored) {
+      if (x.s < best) { x.m.distant = true; x.m.demotedBy = "homonym"; }
+    }
+  }
+}
+
+function applySenseContextRule(list, text, top) {
+  if (!top || !top.length) return list;
+  applyHomonymRule(list, text);
+  for (const match of list) {
+    // 규칙 6(영문 병기 불일치)은 상위 분야군 안에서도 쓴다: 저자가 괄호로 밝힌 뜻이
+    // 다르면 분야가 맞아도 다른 용어다(응집 cohesion ≠ coagulation). 상위군 밖에만
+    // 적용하면 25편에서 효과 0이었고, 전체 적용은 오탐 62→59, 강등 미탐 17→18(경련
+    // "convulsion" ≠ Seizure — 동의어 병기는 못 가린다).
+    if (!match.distant && englishGlossVerdict(match, text, top) === "mismatch") {
+      match.distant = true;
+      match.demotedBy = "gloss";
+      continue;
+    }
+    if (match.distant || !isSenseTarget(match) || inTopGroups(match, top)) continue;
+    const overlap = senseOverlap(match, text);
+    if (overlap < 0) continue;
+    if (overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }
+  }
   return list;
 }
 
@@ -689,8 +880,22 @@ function matchTermsWithIndex(text, exactIndex) {
     else delete item.bare;
     delete item.stem;
   }
-  filterDistantFieldMatches([...resultsMap.values()]);
-  return sortMatches(resultsMap);
+  const matchedList = filterDistantFieldMatches([...resultsMap.values()]);
+  // 문맥 뜻 판별(규칙 1)은 여기서 하지 않는다: 뜻 키워드가 인덱스가 아니라 viewer-defs
+  // 청크에 있어서(라운드 4), 매칭된 용어의 청크를 받은 뒤 applySenseToMatches로 돌린다.
+  const sorted = sortMatches(resultsMap);
+  sorted.topFieldGroups = matchedList.topFieldGroups || [];
+  return sorted;
+}
+
+// 매칭 결과에 뜻 키워드(match.sense)를 채운 뒤 부른다. 규칙 1로 강등된 것이 맨 뒤로
+// 가도록 다시 정렬하고, 상위 분야군 표시는 그대로 옮겨 단다.
+function applySenseToMatches(matches, text) {
+  const top = matches.topFieldGroups;
+  applySenseContextRule(matches, text, top);
+  const sorted = sortMatches(new Map(matches.map((m) => [m.slug, m])));
+  sorted.topFieldGroups = top;
+  return sorted;
 }
 
 function matchTerms(text, terms) {
@@ -1181,14 +1386,42 @@ function decodeViewerIndex(data) {
   // 5번째 칸(일반어 등급)은 0일 때 생략돼 있다 — 4칸짜리 옛 인덱스도
   // 그대로 읽히도록 없으면 0으로 본다.
   // 6번째 칸(영문 일반어 표시, B단계)도 같은 방식으로 없으면 0.
-  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn]) => ({
+  // 7번째 칸(문맥 뜻 키워드, 공백 구분)은 라운드 3 인덱스에만 있다. 라운드 4부터는
+  // viewer-defs 청크로 옮겨 생성하지 않지만(decodeDefChunk), 옛 인덱스도 읽히게 둔다.
+  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn, sense]) => ({
     slug,
     title_ko: titleKo || "",
     title_en: titleEn || "",
     categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
     common: common || 0,
     common_en: commonEn || 0,
+    sense: sense ? sense.split(" ") : [],
   }));
+}
+
+// viewer-defs/NNN.json 청크 한 개를 slug → {definition, sense} 로 푼다.
+// 항목은 문자열(정의만)이거나, 뜻 키워드가 있는 짧은 표제어면 {d: 정의, s: "공백 구분
+// 키워드"}다(라운드 4에서 인덱스 7번째 칸을 이리로 옮김). 문자열만 있는 옛 청크도 읽힌다.
+function decodeDefChunk(map) {
+  const out = new Map();
+  for (const [slug, v] of Object.entries(map || {})) {
+    if (typeof v === "string") out.set(slug, { definition: v, sense: [] });
+    else if (v && typeof v === "object") out.set(slug, { definition: v.d || "", sense: v.s ? v.s.split(" ") : [] });
+  }
+  return out;
+}
+
+// 캐시 버전. viewer.html이 `assets/viewer.js?v=<해시>`로 이 파일을 부르고
+// (scripts/stamp-viewer-version.js가 찍음), 인덱스·청크 요청에도 같은 v를 붙인다.
+// 배포 뒤 옛 코드와 새 청크가 섞이지 않게 하려는 것 — 버전은 HTML 한 곳에만 둔다.
+function assetVersionFromSrc(src) {
+  if (!src) return "";
+  const m = /[?&]v=([^&#]+)/.exec(String(src));
+  return m ? m[1] : "";
+}
+function withAssetVersion(url, version) {
+  if (!version) return url;
+  return url + (url.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(version);
 }
 
 // definition 청크 번호. scripts/generate-viewer-index.js의 같은 이름 함수와
@@ -1470,10 +1703,12 @@ function resolveAnnotationAnchor(pageText, anchor) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
+  // document.currentScript는 스크립트 최상위 실행 중에만 유효하므로 여기서 잡아 둔다.
+  const ASSET_VERSION = assetVersionFromSrc(document.currentScript && document.currentScript.src);
   (function () {
     let cachedTerms = null;
     let exactIndex = null;
@@ -2064,12 +2299,25 @@ if (typeof document !== "undefined") {
       findBtn.disabled = textarea.value.trim().length === 0;
     });
 
-    async function loadTerms() {
-      if (cachedTerms) return cachedTerms;
+    // 진행 중인 fetch를 캐시한다 — PDF를 연달아 떨어뜨리면 renderPdf가 겹쳐 불러
+    // 2.7MB 색인을 두 번 받았다. 실패하면 다음 호출이 다시 시도하도록 비운다.
+    let termsPromise = null;
+    function loadTerms() {
+      if (cachedTerms) return Promise.resolve(cachedTerms);
+      if (!termsPromise) {
+        termsPromise = fetchTerms().catch((err) => {
+          termsPromise = null;
+          throw err;
+        });
+      }
+      return termsPromise;
+    }
+
+    async function fetchTerms() {
       // terms-lite.json(16MB)에서 viewer-index.json(2.7MB)으로 갈아탔다.
       // 매칭에 필요한 slug/title_ko/title_en과 카테고리 필터용 categories만
       // 들어 있고, definition은 매칭된 용어 것만 loadDefinitions()가 채운다.
-      const res = await fetch("viewer-index.json");
+      const res = await fetch(withAssetVersion("viewer-index.json", ASSET_VERSION));
       // 404/500이면 res.json()의 SyntaxError 대신 명확한 에러로 던진다 —
       // 두 호출부(용어 찾기, PDF 업로드) 모두 try/catch로 사용자에게 안내한다.
       if (!res.ok) throw new Error(`용어 데이터 로드 실패 (HTTP ${res.status})`);
@@ -2083,6 +2331,7 @@ if (typeof document !== "undefined") {
     // 청크는 한 번 받으면 세션 내내 재사용한다(같은 논문을 다시 분석하거나
     // 필터를 만질 때 다시 받지 않도록).
     const definitionCache = new Map(); // slug -> definition
+    const senseCache = new Map(); // slug -> 뜻 키워드 배열(짧은 표제어만, 규칙 1용)
     const loadedDefBuckets = new Set();
     let defLoadWarned = false; // 정의 청크 실패 문구는 문서당 한 번만
     async function loadDefinitions(slugs) {
@@ -2097,11 +2346,11 @@ if (typeof document !== "undefined") {
           // 매번 같은 404를 반복해서 때리지 않도록.
           loadedDefBuckets.add(bucket);
           try {
-            const res = await fetch(`viewer-defs/${String(bucket).padStart(3, "0")}.json`);
+            const res = await fetch(withAssetVersion(`viewer-defs/${String(bucket).padStart(3, "0")}.json`, ASSET_VERSION));
             if (!res.ok) return;
-            const map = await res.json();
-            for (const [slug, definition] of Object.entries(map)) {
-              definitionCache.set(slug, definition);
+            for (const [slug, entry] of decodeDefChunk(await res.json())) {
+              definitionCache.set(slug, entry.definition);
+              if (entry.sense.length) senseCache.set(slug, entry.sense);
             }
           } catch (err) {
             // 정의는 부가 정보라 용어 목록 자체는 그대로 보여준다. 다만 뜻이
@@ -2116,12 +2365,14 @@ if (typeof document !== "undefined") {
       );
     }
 
-    // 매칭 결과(recordMatch가 만든 객체)에 definition을 채워 넣는다.
+    // 매칭 결과(recordMatch가 만든 객체)에 definition과 뜻 키워드를 채워 넣는다.
+    // 청크를 못 받은 용어는 뜻 키워드가 비어 규칙 1에서 판단 보류(유지)된다.
     async function attachDefinitions(matches) {
       if (!matches.length) return;
       await loadDefinitions(matches.map((m) => m.slug));
       for (const match of matches) {
         match.definition = definitionCache.get(match.slug) || "";
+        match.sense = senseCache.get(match.slug) || match.sense || [];
       }
     }
     // Writes the highlighted reading view into its own container and hides the
@@ -2606,13 +2857,17 @@ if (typeof document !== "undefined") {
         // Fast exact-match pass first — cheap regardless of document size,
         // so results appear immediately instead of waiting on fuzzy search.
         const exactMatches = matchTerms(text, terms);
-        currentMatches = exactMatches;
+        // 카드에 찍을 정의와 규칙 1의 뜻 키워드는 찾은 용어 것만 청크에서 받아 온다.
+        // 규칙 1(문맥 뜻 판별)이 강등을 바꾸므로 밑줄·패널은 그 뒤에 그린다.
+        await attachDefinitions(exactMatches);
+        // 청크를 기다리는 사이 입력이 바뀌었으면(비움·PDF 드롭) 이 결과는 옛 텍스트
+        // 기준이다. 그려 버리면 새 화면(빈 상태·PDF 읽기 모드)을 덮어쓰므로 버린다.
+        if (text !== textarea.value) return;
+        currentMatches = applySenseToMatches(exactMatches, text);
         if (updateInputPane) {
           renderRenderedPane(text);
         }
         filterInput.disabled = false;
-        // 카드에 찍을 정의는 찾은 용어 것만 청크에서 받아 온다.
-        await attachDefinitions(currentMatches);
         renderMatchedTerms(currentMatches, filterInput.value);
 
         // fuzzy(오타 허용) 패스는 6단계에서 코드째 삭제했다. 이 사전처럼
@@ -2634,12 +2889,15 @@ if (typeof document !== "undefined") {
     // 끝나는 즉시 "마지막 입력"으로 한 번 더 돌린다. 디바운스 중에도 사용자가
     // 계속 타이핑하면 요청이 겹칠 수 있는데, 겹친 실행이 서로의 결과를
     // 덮어쓰면 화면이 옛 텍스트 기준 결과로 되돌아가기 때문이다.
+    // 큐에 얹힌 호출도 "자기 차례 분석이 끝날 때" resolve한다 — handlePdfFile이
+    // await 뒤 읽기 모드를 그리는데, 즉시 resolve하면 결과가 나오기 전에 그린다.
     let analysisRunning = false;
     let queuedAnalysis = null;
+    let queuedWaiters = [];
     async function requestAnalysis(text, opts) {
       if (analysisRunning) {
         queuedAnalysis = { text, opts };
-        return;
+        return new Promise((resolve) => queuedWaiters.push(resolve));
       }
       analysisRunning = true;
       try {
@@ -2648,8 +2906,14 @@ if (typeof document !== "undefined") {
         analysisRunning = false;
         if (queuedAnalysis) {
           const next = queuedAnalysis;
+          const waiters = queuedWaiters;
           queuedAnalysis = null;
-          await requestAnalysis(next.text, next.opts);
+          queuedWaiters = [];
+          try {
+            await requestAnalysis(next.text, next.opts);
+          } finally {
+            for (const resolve of waiters) resolve();
+          }
         }
       }
     }
@@ -2679,6 +2943,8 @@ if (typeof document !== "undefined") {
       clearTimeout(autoAnalysisTimer);
       if (textarea.value.trim().length === 0) {
         queuedAnalysis = null;
+        // 버린 큐 요청을 기다리던 호출이 영원히 매달리지 않게 풀어 준다.
+        for (const resolve of queuedWaiters.splice(0)) resolve();
         resetResults();
         return;
       }
@@ -3174,7 +3440,11 @@ if (typeof document !== "undefined") {
     // which also signals "keep pdfTextContentCache" so re-rendering at a new
     // scale doesn't re-run getTextContent() (a real, if secondary, parse
     // cost) for every page a second time.
-    async function renderPdf(pdf, probedTextContent, onProgress) {
+    // gen: 문서 세대 토큰(pdfLoadGen). await 뒤에 세대가 바뀌었으면(다른 PDF가
+    // 드롭됨) 캔버스·텍스트 레이어·전역을 더 건드리지 않고 null을 돌려준다.
+    async function renderPdf(pdf, probedTextContent, onProgress, gen) {
+      if (gen === undefined) gen = pdfLoadGen;
+      const stale = () => gen !== pdfLoadGen;
       const viewer = document.getElementById("pdf-viewer");
       if (pdfPageObserver) {
         pdfPageObserver.disconnect();
@@ -3201,15 +3471,21 @@ if (typeof document !== "undefined") {
       pane.classList.remove("no-pdf");
       pane.classList.add("has-pdf");
 
-      if (pdfScale === null) pdfScale = await computeFitWidthScale(pdf);
+      if (pdfScale === null) {
+        const fit = await computeFitWidthScale(pdf);
+        if (stale()) return null;
+        pdfScale = fit;
+      }
 
       // loadTerms() also populates the module-level exactIndex used below.
       await loadTerms();
+      if (stale()) return null;
 
       const pageTexts = [];
 
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
+        if (stale()) return null;
         const viewport = page.getViewport({ scale: pdfScale });
         pdfPageProxies.set(i, page);
         pdfPageViewports.set(i, viewport);
@@ -3247,6 +3523,7 @@ if (typeof document !== "undefined") {
           if (probedTextContent) probedTextContent.delete(i);
         } else {
           textContent = await page.getTextContent();
+          if (stale()) return null;
         }
         pdfTextContentCache.set(i, textContent);
 
@@ -3257,6 +3534,7 @@ if (typeof document !== "undefined") {
           container: textLayerDiv,
           viewport,
         }).render();
+        if (stale()) return null;
 
         // 축척 1 기준의 페이지 폭을 넘겨 2단 조판이면 열 순서를 복원한다.
         // 화면 배율(pdfScale)이 아니라 원본 좌표계여야 item transform 과 단위가 맞는다.
@@ -3322,7 +3600,7 @@ if (typeof document !== "undefined") {
       hideHighlightToolbar();
       hideMemoPopover();
       closeTermPopover();
-      await renderPdf(pdfDoc, null);
+      if ((await renderPdf(pdfDoc, null)) === null) return;
       viewerEl.scrollTop = scrollRatio * viewerEl.scrollHeight;
       // 하이라이트는 5단계부터 읽기 모드 DOM 에만 있다. 줌은 #pdf-viewer 만
       // 새로 그리므로 여기서 다시 그릴 것이 없다(다시 그리면 이중으로 감싼다).
@@ -3349,8 +3627,15 @@ if (typeof document !== "undefined") {
     // 업로드 경로와 "최근 문서 다시 열기" 경로가 같은 처리를 타도록, 파일 하나를
     // 받아 렌더까지 끝내는 함수로 분리했다. `persist:false` 는 IndexedDB 에서
     // 막 꺼내온 파일을 다시 쓰지 않기 위한 플래그.
+    // PDF를 연달아 떨어뜨리면 두 handlePdfFile이 겹쳐 돌며 같은 #pdf-viewer와
+    // 전역(pdfDoc·pdfPageTexts…)을 번갈아 덮어써 페이지가 섞였다. 드롭마다 세대를
+    // 올리고, 옛 세대는 await 뒤에 조용히 물러난다 — 마지막 드롭만 남는다.
+    let pdfLoadGen = 0;
+
     async function handlePdfFile(file, options) {
       const persist = !options || options.persist !== false;
+      const gen = ++pdfLoadGen;
+      const stale = () => gen !== pdfLoadGen;
 
       pdfStatus.hidden = false;
       pdfStatus.textContent = "PDF 여는 중…";
@@ -3365,12 +3650,23 @@ if (typeof document !== "undefined") {
         // the document hash and for pdf.js. (Hash first — pdf.js may take
         // ownership of the buffer once it hands it to the worker.)
         const arrayBuffer = await file.arrayBuffer();
-        currentDocHash = await computeDocHash(file, arrayBuffer);
+        if (stale()) return;
+        const docHash = await computeDocHash(file, arrayBuffer);
+        if (stale()) return;
+        currentDocHash = docHash;
         // isEvalSupported:false — CVE-2024-4367 완화. pdf.js 4.2.67 미만은 악성
         // 폰트 매트릭스로 임의 JS 실행이 가능하므로 eval 경로를 차단한다.
         const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer, isEvalSupported: false }).promise;
 
+        if (stale()) {
+          pdf.destroy();
+          return;
+        }
         const probed = await probePdfText(pdf);
+        if (stale()) {
+          pdf.destroy();
+          return;
+        }
         if (!hasAnyText(probed)) {
           throw new Error("empty-text-layer");
         }
@@ -3393,7 +3689,8 @@ if (typeof document !== "undefined") {
 
         const text = await renderPdf(pdf, probed, (done, total) => {
           pdfStatus.textContent = `텍스트 추출 중… (${done}/${total})`;
-        });
+        }, gen);
+        if (text === null || stale()) return;
 
         pdfStatus.textContent = "용어 분석 중…";
         textarea.value = text;
@@ -3403,11 +3700,14 @@ if (typeof document !== "undefined") {
         hideRestoreStatus();
         if (persist) saveCurrentPdf(file, currentDocHash, pdf.numPages);
         await requestAnalysis(text, { updateInputPane: false });
+        if (stale()) return;
         // PDF 모드 기본 화면은 읽기 모드. 원본 canvas 는 토글로만 띄운다.
         renderReadingPane();
         pdfStatus.hidden = true;
         await loadAndRenderAnnotations();
       } catch (err) {
+        // 이미 다음 문서로 넘어갔다면 옛 문서의 실패로 화면을 지우지 않는다.
+        if (stale()) return;
         console.error("[pdf-upload]", err);
         pdfStatus.hidden = true;
         showTextInput();

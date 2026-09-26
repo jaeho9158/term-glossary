@@ -105,3 +105,26 @@ console.log("commonWordSignals/commonGrade: all tests passed");
   assert.ok(!common.has("regression"), "같은 분야군 인용 6곳은 일반어 신호 아님");
   assert.ok(common.has("treatment"), "다른 분야군 6곳은 일반어");
 }
+
+// 라운드 4: 논문 형식어(교신저자·문헌고찰 등)는 신호와 무관하게 등급 3.
+// 논문마다 머리글·서지 정보로 나오는 말이라 사전 용어로 잡으면 오탐이다.
+{
+  const { PAPER_BOILERPLATE_TITLES } = require("../scripts/generate-viewer-index.js");
+  for (const w of ["교신저자", "문헌고찰", "논문철회", "셀프아카이빙", "저작재산권", "성능평가"]) {
+    assert.ok(PAPER_BOILERPLATE_TITLES.includes(w), w);
+  }
+  const terms = [
+    { slug: "corresponding-author", title_ko: "교신저자", categories: ["ethics"], definition: "논문 책임 저자." },
+    { slug: "x", title_ko: "기타용어", categories: ["ethics"], definition: "교신저자 표기." },
+  ];
+  assert.strictEqual(computeCommonGrades(terms).get("교신저자"), 3);
+}
+
+// 논문 형식어는 영문 표제어(Self-Archiving·Retraction)로도 잡지 않는다 — 저작권 정책
+// 안내문·"Retraction Note" 같은 영문 서지 문구에서 걸렸다.
+{
+  const { englishGrade } = require("../scripts/generate-viewer-index.js");
+  assert.strictEqual(englishGrade({ title_ko: "셀프아카이빙", title_en: "Self-Archiving" }, new Set()), 1);
+  assert.strictEqual(englishGrade({ title_ko: "논문철회", title_en: "Retraction" }, new Set()), 1);
+  assert.strictEqual(englishGrade({ title_ko: "분산", title_en: "Variance" }, new Set()), 0);
+}
