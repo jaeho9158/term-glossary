@@ -103,25 +103,34 @@ function applyBlocks(html, pathBlock, familyBlock) {
 }
 
 function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
-  const inCat = new Set(slugs);
   const roots = [...new Set(slugs.map((s) => idx.rootOf(s)))].filter((r) => (idx.children.get(r) || []).length)
     .sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko"));
-  const node = (s, depth) => {
-    const kids = (idx.children.get(s) || []).slice().sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko"));
-    const a = `<a href="../terms/${esc(s)}.html">${esc(titles.get(s) || s)}</a>${inCat.has(s) ? "" : ' <span class="concept-map-ext">다른 분야</span>'}`;
-    if (!kids.length) return `<li>${a}</li>`;
-    return `<li><details${depth < 1 ? " open" : ""}><summary>${a} <span class="concept-map-count">${kids.length}</span></summary><ul>${kids.map((k) => node(k, depth + 1)).join("")}</ul></details></li>`;
-  };
-  // 뿌리 개념을 하위분류별로 묶어 보여준다(뿌리가 수십 개라 한 줄로 늘어놓으면 훑기 어렵다).
+  // 뿌리 하나 = 카드 하나. 카드 안에서 둘째 단계는 행, 셋째 단계 이하는 그 행의 작은 칩으로 보여
+  // 들여쓰기 목록보다 "큰 개념 → 갈래 → 세부"가 한눈에 들어오게 한다.
+  const kidsOf = (s) => (idx.children.get(s) || []).slice().sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko"));
+  const size = (s) => kidsOf(s).reduce((n, k) => n + 1 + size(k), 0);
+  const deep = (s) => kidsOf(s).flatMap((k) => [k, ...deep(k)]);
+  const a = (s, cls) => `<a class="${cls}" href="../terms/${esc(s)}.html">${esc(titles.get(s) || s)}</a>`;
+  const card = (r) => `<article class="cmap-card"><h3 class="cmap-root">${a(r, "cmap-root-link")}<span class="cmap-count">${size(r)}</span></h3><ul class="cmap-branches">${
+    kidsOf(r).map((k) => { const d = deep(k); return `<li class="cmap-branch">${a(k, "cmap-branch-link")}${d.length ? `<span class="cmap-leaves">${d.map((x) => a(x, "cmap-leaf")).join("")}</span>` : ""}</li>`; }).join("")
+  }</ul></article>`;
+  // 뿌리 개념을 하위분류별로 묶고, 큰 계통부터 보여 준다. 하위 개념이 하나뿐인 작은 계통은 뒤에 모은다.
   const bySub = new Map();
   for (const r of roots) { const g = subOf.get(r) || "기타"; if (!bySub.has(g)) bySub.set(g, []); bySub.get(g).push(r); }
-  const groups = [...bySub].sort((a, b) => b[1].length - a[1].length);
+  const groups = [...bySub].sort((x, y) => y[1].reduce((n, r) => n + size(r), 0) - x[1].reduce((n, r) => n + size(r), 0));
+  const section = ([g, rs], i) => {
+    const big = rs.filter((r) => size(r) > 1).sort((x, y) => size(y) - size(x));
+    const small = rs.filter((r) => size(r) === 1);
+    return `<section class="cmap-section" id="g${i}"><h2>${esc(g)}</h2><div class="cmap-grid">${big.map(card).join("")}</div>${
+      small.length ? `<div class="cmap-pairs"><span class="cmap-pairs-label">작은 갈래</span>${small.map((r) => `<span class="cmap-pair">${a(r, "cmap-pair-root")}<span aria-hidden="true">›</span>${a(kidsOf(r)[0], "cmap-pair-kid")}</span>`).join("")}</div>` : ""}</section>`;
+  };
   const title = `${catName} 개념 지도`;
   const main = `<main class="delay-1 concept-map-page">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; <a href="../category.html?cat=${cat}">${esc(catName)}</a> &gt; 개념 지도</p>
   <h1>${esc(title)}</h1>
-  <p class="concept-map-lead">큰 개념에서 세부 개념으로 갈라지는 계통입니다. 항목을 누르면 용어 설명으로 이동합니다.</p>
-  ${groups.map(([g, rs]) => `<h2>${esc(g)}</h2><ul class="concept-map">${rs.map((r) => node(r, 0)).join("")}</ul>`).join("")}
+  <p class="concept-map-lead">큰 개념(굵은 제목) 아래로 갈래와 세부 개념이 이어집니다. 이름을 누르면 용어 설명으로 이동합니다.</p>
+  <nav class="cmap-toc" aria-label="하위분류">${groups.map(([g], i) => `<a href="#g${i}">${esc(g)}</a>`).join("")}</nav>
+  ${groups.map(section).join("")}
 </main>`;
   // 헤더·테마·분석 스크립트는 용어 페이지 한 장을 틀로 빌려 쓴다(같은 terms/ 깊이라 상대경로가 맞다).
   return template
