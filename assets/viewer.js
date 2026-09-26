@@ -2494,7 +2494,10 @@ if (typeof document !== "undefined") {
       // 패널 동기화용 표는 여기서 한 번만 만든다(스크롤 때 재계산 금지).
       pdfTermsByPage = termsOnPage(visible, pdfPageOffsets);
       readingCurrentPage = 0;
+      // 쪽 표가 생겼으니 전체 목록을 칩으로 다시 그린다(분석은 이보다 먼저 끝난다).
+      if (currentMatches.length) renderMatchedTerms(currentMatches, filterInput.value);
       setupReadingPageObserver();
+      if (pdfOriginalVisible) renderCurrentPageTerms(pdfCurrentPage || 1);
       // innerHTML 을 새로 썼으므로 사용자 하이라이트도 다시 얹는다.
       renderAnnotationMarks();
       // PDF 모드에서는 "다시 입력"이 추출 텍스트를 편집하는 뜻이 되어 혼란스럽다.
@@ -2506,6 +2509,8 @@ if (typeof document !== "undefined") {
     // 다시 그리는 것은 이 영역 하나뿐이다 — 분야 그룹까지 매번 다시 그리면
     // 스크롤이 눈에 띄게 끊긴다.
     const currentPageTermsEl = document.getElementById("current-page-terms");
+    // 페이지 카드에 정의를 싣기 위해 slug → 매칭 결과(정의 포함)를 들고 있는다.
+    let matchBySlug = new Map();
 
     function renderCurrentPageTerms(page) {
       if (!currentPageTermsEl) return;
@@ -2518,24 +2523,12 @@ if (typeof document !== "undefined") {
       }
       currentPageTermsEl.hidden = false;
       currentPageTermsEl.innerHTML =
-        `<h3 class="current-page-terms-title">이 페이지의 용어 (${list.length})</h3>` +
-        `<ul class="current-page-terms-list">` +
-        list
-          .map((m) => {
-            const repeat = m.pageCount > 1 ? ` <span class="current-page-term-count">${m.pageCount}번</span>` : "";
-            return `<li><button type="button" class="current-page-term" data-slug="${escapeHtml(m.slug)}">` +
-              `${escapeHtml(m.title_ko || m.slug)}${repeat}</button></li>`;
-          })
-          .join("") +
+        `<h3 class="current-page-terms-title">${readingCurrentPage}쪽의 용어 (${list.length})</h3>` +
+        `<ul class="term-list current-page-cards">` +
+        list.map((m) => termCardHTML(matchBySlug.get(m.slug) || m)).join("") +
         `</ul>`;
     }
 
-    if (currentPageTermsEl) {
-      currentPageTermsEl.addEventListener("click", (e) => {
-        const btn = e.target.closest(".current-page-term");
-        if (btn) scrollToMark(btn.dataset.slug);
-      });
-    }
 
     function setupReadingPageObserver() {
       if (readingPageObserver) readingPageObserver.disconnect();
@@ -2565,7 +2558,10 @@ if (typeof document !== "undefined") {
               best = page;
             }
           }
-          if (best && best !== readingCurrentPage) renderCurrentPageTerms(best);
+          if (best && best !== readingCurrentPage) {
+            renderCurrentPageTerms(best);
+            setCurrentPdfPage(best);
+          }
         },
         { root: renderedPane, threshold: PAGE_OBSERVER_THRESHOLDS }
       );
@@ -2646,6 +2642,18 @@ if (typeof document !== "undefined") {
       // 이 문서의 분야를 잡힌 용어 분포로 추정해 그 분야를 위로 올린다.
       const fields = estimateDocumentFields(filtered);
       const grouped = groupMatchesByField(filtered, fields);
+
+      // PDF 는 쪽마다 카드가 따로 뜨므로 전체 목록은 이름만 촘촘히 보여 준다.
+      // 카드를 전부 늘어놓으면 PDF 몇 쪽 분량을 스크롤해야 끝에 닿는다.
+      if (pdfTermsByPage.size) {
+        const chip = (m) => `<button type="button" class="term-chip" data-slug="${escapeHtml(m.slug)}" title="처음 나오는 쪽으로 이동">${escapeHtml(m.title_ko)}</button>`;
+        termsList.innerHTML =
+          `<li class="term-chips">${grouped.primary.map(chip).join("")}</li>` +
+          (grouped.others.length
+            ? `<li class="term-others"><details class="term-others-details"><summary>다른 분야 (${grouped.others.length})</summary><div class="term-chips">${grouped.others.map(chip).join("")}</div></details></li>`
+            : "");
+        return;
+      }
       const primaryUnits = buildCardUnits(grouped.primary);
       const othersHTML = otherFieldsHTML(buildCardUnits(grouped.others));
 
@@ -2701,6 +2709,7 @@ if (typeof document !== "undefined") {
         return true;
       });
 
+      matchBySlug = new Map(matches.map((m) => [m.slug, m]));
       countHeading.textContent = `이 논문에 나온 용어 (${matches.length}개)`;
       renderTermCardsPaged(filtered);
       renderCurrentPageTerms(readingCurrentPage);
@@ -2838,7 +2847,28 @@ if (typeof document !== "undefined") {
       renderMatchedTerms(currentMatches, filterInput.value);
     }
 
-    termsList.addEventListener("click", (e) => {
+    // 논문 전체 용어는 PDF 에서 이름 칩으로만 보인다. 칩을 누르면 그 용어가
+    // 처음 나오는 쪽으로 옮겨 가고, 뜻은 그 쪽의 페이지 카드에서 본다.
+    function jumpToTermPage(slug) {
+      const pages = [...pdfTermsByPage.keys()].sort((a, b) => a - b);
+      const page = pages.find((p) => (pdfTermsByPage.get(p) || []).some((m) => m.slug === slug));
+      if (!page) return scrollToMark(slug);
+      gotoPdfPage(page);
+      renderCurrentPageTerms(page);
+      const card = currentPageTermsEl && currentPageTermsEl.querySelector(`.term-card[data-slug="${slug}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        card.classList.add("term-card-flash");
+        setTimeout(() => card.classList.remove("term-card-flash"), MARK_FLASH_MS);
+      }
+    }
+
+    function onTermListClick(e) {
+      const chip = e.target.closest(".term-chip");
+      if (chip) {
+        jumpToTermPage(chip.dataset.slug);
+        return;
+      }
       const hideBtn = e.target.closest(".term-card-hide-btn");
       if (hideBtn) {
         hideTermEverywhere(hideBtn.dataset.hideSlug);
@@ -2848,7 +2878,9 @@ if (typeof document !== "undefined") {
       const card = e.target.closest(".term-card");
       if (!card) return;
       scrollToMark(card.dataset.slug);
-    });
+    }
+    termsList.addEventListener("click", onTermListClick);
+    if (currentPageTermsEl) currentPageTermsEl.addEventListener("click", onTermListClick);
 
     if (showHiddenTermsBtn) {
       showHiddenTermsBtn.addEventListener("click", restoreAllHiddenTerms);
@@ -3026,10 +3058,10 @@ if (typeof document !== "undefined") {
       if (pane) pane.classList.toggle("show-original", pdfOriginalVisible);
       if (pdfOriginalToggle) {
         pdfOriginalToggle.setAttribute("aria-pressed", String(pdfOriginalVisible));
-        pdfOriginalToggle.textContent = pdfOriginalVisible ? "읽기 모드" : "원본 보기";
+        pdfOriginalToggle.textContent = pdfOriginalVisible ? "텍스트로 보기" : "PDF로 보기";
         pdfOriginalToggle.title = pdfOriginalVisible
-          ? "원본 페이지를 닫고 읽기 모드만 본다"
-          : "원본 페이지(그림·표·수식)를 함께 본다";
+          ? "추출한 텍스트로 본다(형광펜·메모는 텍스트 화면에서)"
+          : "PDF 원본으로 돌아간다";
       }
       if (pdfOriginalVisible && pdfPageWraps.length) {
         // 숨어 있는 동안 건너뛴 캔버스를 지금 채운다.
@@ -3339,6 +3371,8 @@ if (typeof document !== "undefined") {
 
     function setCurrentPdfPage(pageNum) {
       pdfCurrentPage = pageNum;
+      // 원본 화면에서는 읽기 모드 관찰자가 돌지 않으므로 여기서 쪽 카드를 바꾼다.
+      if (pdfOriginalVisible && pageNum !== readingCurrentPage) renderCurrentPageTerms(pageNum);
       // 사용자가 입력 중일 때 값을 덮어쓰면 타이핑이 끊긴다.
       if (pdfPageInput && document.activeElement !== pdfPageInput) {
         pdfPageInput.value = String(pageNum);
@@ -3706,7 +3740,8 @@ if (typeof document !== "undefined") {
         pdfViewer.hidden = false;
         setDropzoneVisible(false);
         hideRecentDocs();
-        setPdfOriginalVisible(false);
+        // PDF 는 원본 화면만 기본으로 띄운다. 추출 텍스트는 토글로만 본다.
+        setPdfOriginalVisible(true);
 
         const text = await renderPdf(pdf, probed, (done, total) => {
           pdfStatus.textContent = `텍스트 추출 중… (${done}/${total})`;
