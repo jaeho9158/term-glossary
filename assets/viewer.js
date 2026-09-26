@@ -98,6 +98,12 @@ const KEYWORDS_LINE = /^\s*[^\w가-힣]*\s*(?:key\s*-?\s*words?|주\s*제\s*어|
 const INTRO_HEADING = /^\s*(?:(?:제\s*1\s*장|[Ⅰ1I]\s*\.?)\s*)?(?:서\s*론(?:\s+및\s.*)?|introduction)\s*$/i;
 const ABSTRACT_MAX_CHARS = 1500;
 const ACK_MAX_CHARS = 1500;
+// 오픈액세스 라이선스 고지("This is an Open Access article … Creative Commons Attribution …",
+// "저작자표시-비영리") 는 저널 상투문이라 제외한다. 그대로 두면 "Attribution"이 표제어로 잡혀
+// OA 말뭉치 대부분 논문에 나왔다. 고지는 여러 줄에 걸치므로 문장이 끝나는 줄(마침표)까지 뺀다.
+// 본문에서 라이선스를 논하는 문장이 걸리면 그 줄(문장)만 빠지는 손실은 감수한다.
+const LICENSE_NOTICE = /open[\s-]*access\s+article|creative\s*commons|저작자\s*표시/i;
+const LICENSE_MAX_LINES = 6;
 
 function excludedRanges(text) {
   const src = text || "";
@@ -137,6 +143,11 @@ function excludedRanges(text) {
       const j = nextResume(i + 1);
       const end = Math.min(j < lines.length ? lines[j].start : src.length, line.start + ACK_MAX_CHARS);
       ranges.push([line.start, end]);
+    } else if (LICENSE_NOTICE.test(line.text)) {
+      let j = i;
+      while (j < lines.length - 1 && j - i < LICENSE_MAX_LINES - 1 && !/[.。]\s*$/.test(lines[j].text)) j++;
+      ranges.push([line.start, lines[j].end]);
+      i = j;
     } else if (ABSTRACT_HEADING.test(line.text)) {
       let end = Math.min(src.length, line.start + ABSTRACT_MAX_CHARS);
       for (let j = i; j < lines.length && lines[j].start < line.start + ABSTRACT_MAX_CHARS; j++) {
