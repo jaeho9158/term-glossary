@@ -20,6 +20,8 @@ const F_START = "<!-- concept-family:start -->", F_END = "<!-- concept-family:en
 const P_BLOCK = /(?:\r?\n)?[ \t]*<!-- concept-path:start -->[\s\S]*?<!-- concept-path:end -->/;
 const F_BLOCK = /(?:\r?\n)?[ \t]*<!-- concept-family:start -->[\s\S]*?<!-- concept-family:end -->/;
 const SIBLING_MAX = 12;
+const BRANCH_ROWS_MAX = 8; // 개념 지도 카드에서 갈래를 행으로 펼치는 상한
+const CARD_WIDE_MIN = 16; // 이 크기 이상인 계통 카드는 격자 한 줄을 다 쓴다
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -73,8 +75,11 @@ function familyHtml(slug, links, idx, titles, mapHref) {
   const kids = (idx.children.get(slug) || []).slice().sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko"));
   const sibs = up ? (idx.children.get(up) || []).filter((s) => s !== slug).sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko")) : [];
   if (!up && !kids.length) return "";
+  // 잘린 나머지("외 N개")는 개념 지도의 해당 뿌리 카드로 바로 간다.
+  const rootAnchor = mapHref ? `${mapHref}#r-${encodeURIComponent(idx.rootOf(slug))}` : "";
   const row = (label, items, more) => items.length
-    ? `<div class="concept-family-row"><span class="concept-family-label">${label}</span><div class="related-terms">${items.map((s) => link(s, titles)).join("")}${more ? `<span class="concept-family-more">외 ${more}개</span>` : ""}</div></div>`
+    ? `<div class="concept-family-row"><span class="concept-family-label">${label}</span><div class="related-terms">${items.map((s) => link(s, titles)).join("")}${
+      more ? (rootAnchor ? `<a class="concept-family-more" href="${rootAnchor}">외 ${more}개 →</a>` : `<span class="concept-family-more">외 ${more}개</span>`) : ""}</div></div>`
     : "";
   return `<section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2>${
     row("상위 개념", up ? [up] : [])}${
@@ -132,9 +137,19 @@ function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
     return `<span class="cmap-leaves">${flat.map((x) => a(x, "cmap-leaf")).join("")}${
       nested.map((x) => `<span class="cmap-sub">${a(x, "cmap-sub-head")}${deep(x).map((y) => a(y, "cmap-leaf")).join("")}</span>`).join("")}</span>`;
   };
-  const card = (r) => `<article class="cmap-card"><h3 class="cmap-root">${a(r, "cmap-root-link")}<span class="cmap-count">${size(r)}</span></h3><ul class="cmap-branches">${
-    kidsOf(r).map((k) => `<li class="cmap-branch">${a(k, "cmap-branch-link")}${leaves(k)}</li>`).join("")
-  }</ul></article>`;
+  // 갈래가 많은 뿌리(디지털포렌식 37개 등)는 갈래마다 한 행씩 주면 카드가 화면 몇 장 길이가
+  // 된다. 갈래가 BRANCH_ROWS_MAX를 넘으면 세부가 없는 갈래는 한 행에 칩으로 모으고, 세부가
+  // 있는 갈래만 행으로 남긴다. 아주 큰 계통은 카드를 격자 한 줄 전체로 넓힌다.
+  const card = (r) => {
+    const ks = kidsOf(r);
+    const rows = ks.length > BRANCH_ROWS_MAX ? ks.filter((k) => kidsOf(k).length) : ks;
+    const flat = ks.length > BRANCH_ROWS_MAX ? ks.filter((k) => !kidsOf(k).length) : [];
+    const wide = size(r) >= CARD_WIDE_MIN ? " cmap-card-wide" : "";
+    return `<article class="cmap-card${wide}" id="r-${esc(r)}"><h3 class="cmap-root">${a(r, "cmap-root-link")}<span class="cmap-count" aria-label="하위 ${size(r)}개">${size(r)}</span></h3><ul class="cmap-branches">${
+      rows.map((k) => `<li class="cmap-branch">${a(k, "cmap-branch-link")}${leaves(k)}</li>`).join("")}${
+      flat.length ? `<li class="cmap-branch cmap-branch-flat"><span class="cmap-leaves">${flat.map((k) => a(k, "cmap-leaf cmap-leaf-branch")).join("")}</span></li>` : ""
+    }</ul></article>`;
+  };
   // 뿌리 개념을 하위분류별로 묶고, 큰 계통부터 보여 준다. 하위 개념이 하나뿐인 작은 계통은 뒤에 모은다.
   const bySub = new Map();
   for (const r of roots) { const g = subOf.get(r) || "기타"; if (!bySub.has(g)) bySub.set(g, []); bySub.get(g).push(r); }
@@ -220,4 +235,4 @@ window.CONCEPT_MAP_CATS = ${JSON.stringify([...cats].sort())};
 }
 
 if (require.main === module) run();
-module.exports = { applyHubLink, validate, buildIndex, pathHtml, familyHtml, applyBlocks };
+module.exports = { applyHubLink, validate, buildIndex, pathHtml, familyHtml, applyBlocks, mapPage };

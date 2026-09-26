@@ -1,6 +1,6 @@
 // 개념 계통: 검증(사이클·없는 slug), 경로·계통 블록 삽입, 재실행 안전성, 제거
 const assert = require("assert");
-const { validate, buildIndex, pathHtml, familyHtml, applyBlocks } = require("../scripts/taxonomy/build.js");
+const { validate, buildIndex, pathHtml, familyHtml, applyBlocks, mapPage } = require("../scripts/taxonomy/build.js");
 
 const known = new Set(["ns", "pns", "sns", "ans", "symp", "para"]);
 const links = {
@@ -32,5 +32,25 @@ assert.strictEqual(applyBlocks(once, p, f), once, "재실행해도 같아야 함
 assert.ok(!/[^\r]\n/.test(once), "CRLF 유지");
 const gone = applyBlocks(once, "", "");
 assert.strictEqual(gone, page, "블록 제거 시 원문 복원");
+
+// 같은 갈래가 12개를 넘으면 "외 N개"가 개념 지도의 뿌리 카드로 링크된다
+{
+  const many = {};
+  const t2 = new Map([["root", "뿌리"]]);
+  for (let i = 0; i < 15; i++) { many[`k${i}`] = { broader: "root", relation: "type-of" }; t2.set(`k${i}`, `갈래${i}`); }
+  const ix = buildIndex(many);
+  const fam = familyHtml("k0", many, ix, t2, "../concept-map/x.html");
+  assert.ok(fam.includes('href="../concept-map/x.html#r-root"') && fam.includes("외 2개"));
+  // 개념 지도: 갈래가 8개를 넘는 뿌리는 세부 없는 갈래를 칩 한 줄로 모으고, 카드에 앵커 id를 단다
+  many.leaf = { broader: "k1", relation: "type-of" }; t2.set("leaf", "세부");
+  const ix2 = buildIndex(many);
+  const tpl = "<html><head><title>x</title><meta name=\"description\" content=\"\"><link rel=\"canonical\" href=\"\"></head><body><main></main></body></html>";
+  const html = mapPage("x", "분야", Object.keys(many).concat("root"), ix2, t2, tpl, new Map());
+  assert.ok(html.includes('id="r-root"'));
+  assert.ok(html.includes("cmap-branch-flat"), "세부 없는 갈래는 칩 행으로");
+  assert.ok((html.match(/cmap-leaf-branch/g) || []).length === 14);
+  assert.ok((html.match(/class="cmap-branch"/g) || []).length === 1, "세부 있는 갈래만 행으로");
+  assert.ok(html.includes("cmap-card-wide"), "큰 계통 카드는 격자 한 줄 전체");
+}
 
 console.log("taxonomy-build: all tests passed");
