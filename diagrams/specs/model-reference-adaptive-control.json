@@ -1,0 +1,71 @@
+{
+  "slug": "model-reference-adaptive-control",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "기준 모델 출력",
+      "sub": "원하는 응답",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "추종 오차",
+      "sub": "플랜트 출력과 비교",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "적응 법칙",
+      "sub": "MIT 규칙·리아푸노프",
+      "color": "amber"
+    },
+    {
+      "id": "n3",
+      "label": "제어기 이득 갱신",
+      "color": "amber"
+    },
+    {
+      "id": "n4",
+      "label": "플랜트 응답",
+      "sub": "기준 모델에 접근",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "적응 이득 과대 시 불안정·파라미터 드리프트",
+      "tone": "limit"
+    }
+  ],
+  "source": "적응제어 교과서",
+  "reviewed": true
+}

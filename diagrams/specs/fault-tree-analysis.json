@@ -1,0 +1,70 @@
+{
+  "slug": "fault-tree-analysis",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "정전",
+      "color": "rose",
+      "sub": "최상위 사건"
+    },
+    {
+      "id": "a",
+      "label": "변압기 고장",
+      "color": "amber",
+      "sub": "중간 사건·OR"
+    },
+    {
+      "id": "b",
+      "label": "차단기 오작동",
+      "color": "gray",
+      "sub": "기본 사건"
+    },
+    {
+      "id": "c",
+      "label": "과열",
+      "color": "gray",
+      "sub": "기본 사건"
+    },
+    {
+      "id": "d",
+      "label": "절연 파손",
+      "color": "gray",
+      "sub": "기본 사건"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "a",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "a",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "a",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "OR: 하나만 있어도 · AND: 모두 겹쳐야",
+      "tone": "general"
+    },
+    {
+      "text": "크기 1인 최소 컷셋 = 단일 고장점",
+      "tone": "limit"
+    }
+  ],
+  "source": "IEC 61025",
+  "reviewed": true
+}

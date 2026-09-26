@@ -1,0 +1,55 @@
+{
+  "slug": "inverse-dynamics-analysis",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "운동 측정",
+      "color": "violet",
+      "sub": "모션캡처·힘판 지면반력"
+    },
+    {
+      "id": "n1",
+      "label": "분절 모델",
+      "color": "blue",
+      "sub": "질량·관성 모멘트 적용"
+    },
+    {
+      "id": "n2",
+      "label": "역동역학 계산",
+      "color": "violet",
+      "sub": "뉴턴-오일러, 원위→근위"
+    },
+    {
+      "id": "n3",
+      "label": "관절 힘·모멘트",
+      "color": "green",
+      "sub": "발목→무릎→엉덩이 순"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "분절 질량·관성 가정의 오차가 근위로 갈수록 누적",
+      "tone": "limit"
+    }
+  ],
+  "source": "생체역학 교과서",
+  "reviewed": true
+}

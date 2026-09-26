@@ -1,0 +1,65 @@
+{
+  "slug": "pid-controller",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "오차 계산",
+      "color": "rose",
+      "sub": "목표값 − 현재값"
+    },
+    {
+      "id": "b",
+      "label": "P·I·D 합산",
+      "color": "violet",
+      "sub": "Kp·e + Ki∫e + Kd·de/dt"
+    },
+    {
+      "id": "c",
+      "label": "제어 입력",
+      "color": "amber",
+      "sub": "액추에이터 구동"
+    },
+    {
+      "id": "d",
+      "label": "시스템 출력",
+      "color": "blue",
+      "sub": "센서 측정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "a",
+      "kind": "arrow",
+      "label": "피드백"
+    }
+  ],
+  "notes": [
+    {
+      "text": "P: 응답 속도, I: 정상상태 오차 제거, D: 진동 억제",
+      "tone": "general"
+    },
+    {
+      "text": "이득을 키운다고 좋아지지 않음 — 과대 시 진동·불안정",
+      "tone": "limit"
+    }
+  ],
+  "source": "제어공학 교과서(Ogata)",
+  "reviewed": true
+}

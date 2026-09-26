@@ -1,0 +1,70 @@
+{
+  "slug": "interrupt",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "프로그램 실행",
+      "color": "blue",
+      "sub": "CPU 정상 수행"
+    },
+    {
+      "id": "n1",
+      "label": "인터럽트 발생",
+      "color": "rose",
+      "sub": "장치 신호·예외"
+    },
+    {
+      "id": "n2",
+      "label": "상태 저장",
+      "color": "violet",
+      "sub": "현재 작업 중단"
+    },
+    {
+      "id": "n3",
+      "label": "인터럽트 처리",
+      "color": "amber",
+      "sub": "ISR(서비스 루틴)"
+    },
+    {
+      "id": "n4",
+      "label": "원래 작업 복귀",
+      "color": "green",
+      "sub": "상태 복원"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "폴링 대비 효율적; 발생~처리 시작까지의 지연시간이 실시간 성능 지표",
+      "tone": "general"
+    },
+    {
+      "text": "인터럽트는 '사건 알림 신호', 컨텍스트 스위칭은 '실행 상태 전환 절차'",
+      "tone": "limit"
+    }
+  ],
+  "source": "운영체제 교과서",
+  "reviewed": true
+}

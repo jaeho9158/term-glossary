@@ -1,0 +1,59 @@
+{
+  "slug": "length-extension-attack",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "해시값·길이 확보",
+      "color": "amber",
+      "sub": "H(비밀‖메시지)"
+    },
+    {
+      "id": "n1",
+      "label": "내부 상태로 사용",
+      "color": "amber",
+      "sub": "최종값 = 중간 체이닝 값"
+    },
+    {
+      "id": "n2",
+      "label": "패딩 뒤 데이터 연결",
+      "color": "amber",
+      "sub": "원본 내용은 몰라도 됨"
+    },
+    {
+      "id": "n3",
+      "label": "유효한 해시 위조",
+      "color": "rose",
+      "sub": "확장 메시지 인증 통과"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "Merkle-Damgård 구조(MD5·SHA-1·SHA-2)의 문제; 스펀지 구조인 SHA-3는 구조적으로 강하다",
+      "tone": "general"
+    },
+    {
+      "text": "비밀키를 앞뒤로 붙이는 자체 구현 대신 HMAC 같은 표준 구조를 쓸 것",
+      "tone": "pos"
+    }
+  ],
+  "reviewed": true,
+  "source": "정보보안 교과서"
+}

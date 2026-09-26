@@ -1,0 +1,59 @@
+{
+  "slug": "ci-cd-pipeline",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "코드 커밋",
+      "color": "gray",
+      "sub": "저장소 푸시"
+    },
+    {
+      "id": "n1",
+      "label": "자동 빌드",
+      "color": "violet",
+      "sub": "CI"
+    },
+    {
+      "id": "n2",
+      "label": "자동 테스트",
+      "color": "violet",
+      "sub": "CI"
+    },
+    {
+      "id": "n3",
+      "label": "자동 배포",
+      "color": "green",
+      "sub": "CD(전달은 승인 후)"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "한 단계 실패 시 다음 단계로 넘어가지 않음",
+      "tone": "general"
+    },
+    {
+      "text": "지속적 전달은 최종 반영을 사람이 승인",
+      "tone": "limit"
+    }
+  ],
+  "source": "일반 교과서 지식",
+  "reviewed": true
+}

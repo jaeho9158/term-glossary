@@ -1,0 +1,72 @@
+{
+  "slug": "hungarian-method",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "행 차감",
+      "color": "blue",
+      "sub": "행 최솟값 빼기"
+    },
+    {
+      "id": "n1",
+      "label": "열 차감",
+      "color": "blue",
+      "sub": "열 최솟값 빼기"
+    },
+    {
+      "id": "n2",
+      "label": "최소 선으로 0 덮기",
+      "color": "violet",
+      "sub": "선 수 = n이면 종료"
+    },
+    {
+      "id": "n3",
+      "label": "행렬 조정",
+      "color": "amber",
+      "sub": "안 덮인 최솟값 빼고 교차점에 더함"
+    },
+    {
+      "id": "n4",
+      "label": "0 위치로 할당",
+      "color": "green",
+      "sub": "최적 배정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "반복"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "이익 최대화는 비용으로 변환(최댓값에서 빼기) 후 적용",
+      "tone": "general"
+    }
+  ],
+  "source": "OR 교과서",
+  "reviewed": true
+}

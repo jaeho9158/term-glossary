@@ -1,0 +1,55 @@
+{
+  "slug": "reliability-block-diagram",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "시스템 신뢰도",
+      "color": "blue",
+      "sub": "블록 배치로 계산"
+    },
+    {
+      "id": "k0",
+      "label": "직렬 구성",
+      "color": "rose",
+      "sub": "R=ΠRᵢ, 하나 고장 시 정지"
+    },
+    {
+      "id": "k1",
+      "label": "병렬 구성",
+      "color": "green",
+      "sub": "R=1−Π(1−Rᵢ), 하나만 살아도"
+    },
+    {
+      "id": "k2",
+      "label": "k-out-of-n",
+      "color": "amber",
+      "sub": "n개 중 k개 작동 시"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "k0",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "k1",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "k2",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "부품 독립 고장을 가정하므로 공통원인고장을 빠뜨리면 신뢰도 과대평가",
+      "tone": "limit"
+    }
+  ],
+  "source": "신뢰성공학 교과서",
+  "reviewed": true
+}

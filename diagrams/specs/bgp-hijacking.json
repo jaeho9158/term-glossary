@@ -1,0 +1,55 @@
+{
+  "slug": "bgp-hijacking",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "거짓 경로 광고",
+      "color": "rose",
+      "sub": "남의 IP 대역 광고"
+    },
+    {
+      "id": "n1",
+      "label": "라우팅 오염",
+      "color": "amber",
+      "sub": "이웃 AS로 전파"
+    },
+    {
+      "id": "n2",
+      "label": "트래픽 우회",
+      "color": "rose",
+      "sub": "공격자 경로"
+    },
+    {
+      "id": "n3",
+      "label": "감청·장애",
+      "color": "rose",
+      "sub": "설정 실수로도 발생"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "방어: RPKI로 광고 권한을 암호학적으로 검증",
+      "tone": "pos"
+    }
+  ],
+  "source": "정보보안 교과서",
+  "reviewed": true
+}

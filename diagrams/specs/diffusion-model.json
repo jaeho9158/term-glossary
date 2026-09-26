@@ -1,0 +1,54 @@
+{
+  "slug": "diffusion-model",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "원본 데이터",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "노이즈 점진 추가",
+      "color": "gray",
+      "sub": "순방향 과정(고정)"
+    },
+    {
+      "id": "n2",
+      "label": "노이즈 제거 학습",
+      "color": "violet",
+      "sub": "각 단계 노이즈 예측"
+    },
+    {
+      "id": "n3",
+      "label": "역과정 생성",
+      "color": "green",
+      "sub": "잡음 → 새 데이터"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "생성은 여러 단계 반복이라 GAN보다 느림",
+      "tone": "limit"
+    }
+  ],
+  "source": "Ho et al.(2020), DDPM",
+  "reviewed": true
+}

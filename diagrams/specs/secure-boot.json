@@ -1,0 +1,50 @@
+{
+  "slug": "secure-boot",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "펌웨어",
+      "color": "blue",
+      "sub": "신뢰 루트"
+    },
+    {
+      "id": "n1",
+      "label": "부트로더",
+      "color": "violet",
+      "sub": "펌웨어가 서명 검증"
+    },
+    {
+      "id": "n2",
+      "label": "운영체제",
+      "color": "violet",
+      "sub": "부트로더가 서명 검증"
+    },
+    {
+      "id": "n3",
+      "label": "정상 부팅",
+      "color": "green",
+      "sub": "변조 차단"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [],
+  "source": "UEFI 규격",
+  "reviewed": true
+}

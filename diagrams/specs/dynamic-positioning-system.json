@@ -1,0 +1,61 @@
+{
+  "slug": "dynamic-positioning-system",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "위치 측정",
+      "color": "violet",
+      "sub": "GPS·음향·레이저 등"
+    },
+    {
+      "id": "n1",
+      "label": "오차 계산",
+      "color": "blue",
+      "sub": "칼만필터·환경하중 추정"
+    },
+    {
+      "id": "n2",
+      "label": "스러스터 제어",
+      "color": "amber",
+      "sub": "추력 조절"
+    },
+    {
+      "id": "n3",
+      "label": "위치 유지",
+      "color": "green",
+      "sub": "계류라인 없이"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "실시간 반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "전력·추진기 고장 시 위치 상실 가능 → 이중화 등급(DP Class)",
+      "tone": "limit"
+    }
+  ],
+  "source": "일반 교과서 지식",
+  "reviewed": true
+}

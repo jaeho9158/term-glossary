@@ -1,0 +1,53 @@
+{
+  "slug": "retrieval-augmented-generation",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "질의",
+      "color": "gray"
+    },
+    {
+      "id": "b",
+      "label": "외부 문서 검색",
+      "color": "violet",
+      "sub": "임베딩·벡터 검색"
+    },
+    {
+      "id": "c",
+      "label": "근거 결합",
+      "color": "blue",
+      "sub": "프롬프트에 추가"
+    },
+    {
+      "id": "d",
+      "label": "답변 생성",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "검색 문서가 부정확하면 환각을 완전히 막지 못함 → 검색 정확도가 관건",
+      "tone": "limit"
+    }
+  ],
+  "source": "Lewis et al. (2020) NeurIPS",
+  "reviewed": true
+}

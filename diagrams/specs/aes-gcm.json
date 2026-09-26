@@ -1,0 +1,55 @@
+{
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "AES-CTR 암호화",
+      "color": "violet",
+      "sub": "키·nonce로 평문→암호문"
+    },
+    {
+      "id": "n1",
+      "label": "GHASH",
+      "color": "violet",
+      "sub": "암호문·AAD를 GF(2¹²⁸) 곱셈"
+    },
+    {
+      "id": "n2",
+      "label": "인증 태그",
+      "color": "amber",
+      "sub": "위변조 검출용"
+    },
+    {
+      "id": "n3",
+      "label": "암호문 + 태그",
+      "color": "green",
+      "sub": "AEAD · 기밀성+무결성"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "같은 키로 nonce를 재사용하면 기밀성·인증 모두 무너짐",
+      "tone": "limit"
+    }
+  ],
+  "source": "NIST SP 800-38D",
+  "reviewed": true,
+  "slug": "aes-gcm"
+}

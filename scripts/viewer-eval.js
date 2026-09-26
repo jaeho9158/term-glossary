@@ -28,6 +28,7 @@ function attachSense(matches) {
     }
     const entry = chunkCache.get(bucket).get(m.slug);
     m.sense = entry ? entry.sense : m.sense || [];
+    if (entry && entry.outside) m.oaOutside = true;
   }
   return matches;
 }

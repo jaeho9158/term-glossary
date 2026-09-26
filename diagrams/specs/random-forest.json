@@ -1,0 +1,55 @@
+{
+  "slug": "random-forest",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "부트스트랩 추출",
+      "color": "violet",
+      "sub": "복원 추출"
+    },
+    {
+      "id": "n1",
+      "label": "결정트리 학습",
+      "color": "blue",
+      "sub": "변수 무작위 선택"
+    },
+    {
+      "id": "n2",
+      "label": "트리별 예측",
+      "color": "blue",
+      "sub": "각 트리 독립 예측"
+    },
+    {
+      "id": "n3",
+      "label": "투표·평균",
+      "color": "green",
+      "sub": "분류=다수결, 회귀=평균"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "각 트리가 쓰지 않은 OOB 데이터로 별도 검증 없이 성능 추정 가능",
+      "tone": "general"
+    }
+  ],
+  "source": "Breiman(2001)",
+  "reviewed": true
+}

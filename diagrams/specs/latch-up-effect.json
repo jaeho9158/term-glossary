@@ -1,0 +1,70 @@
+{
+  "slug": "latch-up-effect",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "기생 PNPN 구조",
+      "color": "blue",
+      "sub": "npn·pnp 쌍, SCR 유사"
+    },
+    {
+      "id": "n1",
+      "label": "과전압·서지 트리거",
+      "color": "amber",
+      "sub": "기판 전류 주입"
+    },
+    {
+      "id": "n2",
+      "label": "전류이득 곱 > 1",
+      "color": "rose",
+      "sub": "양의 되먹임 성립"
+    },
+    {
+      "id": "n3",
+      "label": "저저항 경로 형성",
+      "color": "rose",
+      "sub": "전원-접지 단락"
+    },
+    {
+      "id": "n4",
+      "label": "과전류 지속",
+      "color": "rose",
+      "sub": "전원 재인가까지"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "가드링 삽입, 웰·기판 접지 저항 낮추기, 트렌치 분리로 방지",
+      "tone": "pos"
+    },
+    {
+      "text": "일시적 잡음과 달리 전원을 끊었다 켜야 해제되는 경우가 많다",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "CMOS 집적회로 교과서"
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "kerberos",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "인증 서버(AS) 요청",
+      "color": "blue",
+      "sub": "비밀번호는 안 보냄"
+    },
+    {
+      "id": "n1",
+      "label": "TGT 수령",
+      "color": "violet",
+      "sub": "티켓 발급 티켓"
+    },
+    {
+      "id": "n2",
+      "label": "티켓 발급 서버(TGS)",
+      "color": "blue",
+      "sub": "TGT 제시 → 서비스 티켓"
+    },
+    {
+      "id": "n3",
+      "label": "서비스에 제시",
+      "color": "green",
+      "sub": "상호 인증"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "AS+TGS = 키 배포 센터(KDC); 티켓의 시간 표식 때문에 시계 동기화 필수",
+      "tone": "general"
+    }
+  ],
+  "source": "RFC 4120",
+  "reviewed": true
+}

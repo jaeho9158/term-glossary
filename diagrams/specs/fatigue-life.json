@@ -1,0 +1,55 @@
+{
+  "slug": "fatigue-life",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "장기 응력범위 분포",
+      "color": "blue",
+      "sub": "하중스펙트럼"
+    },
+    {
+      "id": "n1",
+      "label": "S-N 선도",
+      "color": "violet",
+      "sub": "응력별 허용 반복수"
+    },
+    {
+      "id": "n2",
+      "label": "마이너 법칙",
+      "color": "violet",
+      "sub": "누적손상도 합산"
+    },
+    {
+      "id": "n3",
+      "label": "피로수명",
+      "color": "rose",
+      "sub": "손상도 1 = 균열 발생"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "계산 수명은 설계수명이지 실제 파단 시점이 아님",
+      "tone": "limit"
+    }
+  ],
+  "source": "DNV 피로 지침",
+  "reviewed": true
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "byte-pair-encoding",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "문자 단위 분할",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "인접 쌍 빈도 계산",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "최빈 쌍 병합",
+      "color": "amber",
+      "sub": "새 토큰"
+    },
+    {
+      "id": "n3",
+      "label": "서브워드 어휘",
+      "color": "green",
+      "sub": "목표 크기 도달"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "목표 어휘 크기까지 반복"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [],
+  "source": "Sennrich et al.(2016)",
+  "reviewed": true
+}

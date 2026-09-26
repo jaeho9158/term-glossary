@@ -1,0 +1,75 @@
+{
+  "slug": "gene-amplification-selection",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "유전자 도입",
+      "color": "blue",
+      "sub": "목적 유전자 + 선택 마커(DHFR·GS)"
+    },
+    {
+      "id": "n1",
+      "label": "저농도 약제 배양",
+      "color": "gray",
+      "sub": "MTX·MSX"
+    },
+    {
+      "id": "n2",
+      "label": "내성 세포 생존",
+      "color": "amber",
+      "sub": "마커 복제수↑, 인접 목적 유전자 동반 증폭"
+    },
+    {
+      "id": "n3",
+      "label": "농도 단계 증가",
+      "color": "amber",
+      "sub": "반복"
+    },
+    {
+      "id": "n4",
+      "label": "고발현 세포주",
+      "color": "green",
+      "sub": "비생산성 향상"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "GS 시스템은 글루타민 없는 배지가 선택압이라 증폭 단계를 줄일 수 있다",
+      "tone": "pos"
+    },
+    {
+      "text": "염색체 밖 소체로 증폭되면 선택압 제거 시 소실 → 선택압 없이 장기 배양해 안정성 확인",
+      "tone": "limit"
+    }
+  ],
+  "source": "세포주 개발 문헌(DHFR/MTX)",
+  "reviewed": true
+}

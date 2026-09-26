@@ -1,0 +1,63 @@
+{
+  "slug": "variational-autoencoder",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력 데이터",
+      "color": "gray"
+    },
+    {
+      "id": "n1",
+      "label": "인코더",
+      "color": "blue",
+      "sub": "평균·분산 출력"
+    },
+    {
+      "id": "n2",
+      "label": "잠재 샘플링",
+      "color": "violet",
+      "sub": "재매개변수화"
+    },
+    {
+      "id": "n3",
+      "label": "디코더",
+      "color": "blue"
+    },
+    {
+      "id": "n4",
+      "label": "재구성·생성",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "손실 = 재구성 오차 + KL 발산(정규화)",
+      "tone": "general"
+    }
+  ],
+  "source": "Kingma & Welling 2014",
+  "reviewed": true
+}

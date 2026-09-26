@@ -157,3 +157,20 @@ for (const heading of ["제1장 서론", "Ⅰ. 서론 및 연구 목적", "1. In
 }
 
 console.log("excludedRanges: all tests passed");
+
+// 오픈액세스 라이선스 고지(CC BY 문구)는 저널 상투문이라 제외한다.
+// "Attribution"이 표제어(진위감정)로 잡혀 OA 말뭉치 86/106편에 나왔다.
+{
+  const text = "서론 본문 응력.\nThis is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecom-\nmons.org/licenses/by-nc/4.0) which permits unrestricted use,\ndistribution, and reproduction in any medium, provided the original work is properly cited.\nCopyright © 2023 Korean Society\n본문 계속 Stress 값.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("Attribution")), "고지 첫 줄");
+  assert.ok(inRanges(ranges, text.indexOf("reproduction")), "고지 끝 줄까지");
+  assert.ok(!inRanges(ranges, text.indexOf("응력")), "앞 본문은 남긴다");
+  assert.ok(!inRanges(ranges, text.indexOf("Stress")), "뒤 본문은 남긴다");
+}
+{
+  const text = "본문.\n이 저작물은 크리에이티브 커먼즈 저작자표시-비영리 4.0 국제 라이선스에 따라 이용할 수 있습니다.\n본문 Treatment 효과.";
+  const ranges = excludedRanges(text);
+  assert.ok(inRanges(ranges, text.indexOf("저작자표시")), "한국어 고지");
+  assert.ok(!inRanges(ranges, text.indexOf("Treatment")), "다음 줄 본문은 남긴다");
+}

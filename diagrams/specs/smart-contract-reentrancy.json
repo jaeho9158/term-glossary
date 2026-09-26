@@ -1,0 +1,55 @@
+{
+  "slug": "smart-contract-reentrancy",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "외부 호출",
+      "color": "amber",
+      "sub": "송금 실행"
+    },
+    {
+      "id": "n1",
+      "label": "상태 미갱신",
+      "color": "rose",
+      "sub": "잔액 갱신 전"
+    },
+    {
+      "id": "n2",
+      "label": "재진입 호출",
+      "color": "rose",
+      "sub": "같은 함수 반복"
+    },
+    {
+      "id": "n3",
+      "label": "다중 인출",
+      "color": "rose",
+      "sub": "자금 탈취"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "체크-이펙트-인터랙션 순서로 방지",
+      "tone": "pos"
+    }
+  ],
+  "source": "정보보안 교과서",
+  "reviewed": true
+}

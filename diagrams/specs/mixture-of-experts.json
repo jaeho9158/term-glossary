@@ -1,0 +1,55 @@
+{
+  "slug": "mixture-of-experts",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력",
+      "sub": "토큰",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "게이팅 네트워크",
+      "sub": "라우터가 전문가 선택",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "일부 전문가 연산",
+      "sub": "상위 k개만 활성",
+      "color": "amber"
+    },
+    {
+      "id": "n3",
+      "label": "가중 결합",
+      "sub": "최종 출력",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "부하 편중 방지에 보조 손실·용량 제한 사용",
+      "tone": "limit"
+    }
+  ],
+  "source": "Jacobs et al.(1991); Shazeer et al.(2017)",
+  "reviewed": true
+}

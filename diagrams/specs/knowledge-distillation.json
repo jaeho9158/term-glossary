@@ -1,0 +1,59 @@
+{
+  "slug": "knowledge-distillation",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "교사 모델",
+      "color": "blue",
+      "sub": "크고 정확"
+    },
+    {
+      "id": "n1",
+      "label": "소프트 레이블",
+      "color": "violet",
+      "sub": "온도로 완화한 확률"
+    },
+    {
+      "id": "n2",
+      "label": "학생 모방 학습",
+      "color": "amber",
+      "sub": "KL + 정답 손실"
+    },
+    {
+      "id": "n3",
+      "label": "경량 학생 모델",
+      "color": "green",
+      "sub": "작고 빠름"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "중간 계층 특징맵·어텐션을 함께 전달하는 특징 기반 증류, 자기증류 변형이 있다",
+      "tone": "general"
+    },
+    {
+      "text": "지나치게 압축하면 정보 손실로 성능이 떨어진다",
+      "tone": "limit"
+    }
+  ],
+  "reviewed": true,
+  "source": "Hinton et al.(2015)"
+}

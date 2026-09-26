@@ -1,0 +1,70 @@
+{
+  "slug": "mapreduce",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "입력 분할",
+      "color": "gray",
+      "sub": "스플릿 단위"
+    },
+    {
+      "id": "b",
+      "label": "Map",
+      "color": "violet",
+      "sub": "키-값 쌍 생성·병렬"
+    },
+    {
+      "id": "c",
+      "label": "Shuffle·Sort",
+      "color": "blue",
+      "sub": "같은 키를 한 곳으로"
+    },
+    {
+      "id": "d",
+      "label": "Reduce",
+      "color": "amber",
+      "sub": "키별 집계"
+    },
+    {
+      "id": "e",
+      "label": "출력",
+      "color": "green",
+      "sub": "분산 파일시스템"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "중간 결과를 디스크에 기록하고 실패한 태스크만 재실행해 장애를 견딘다",
+      "tone": "pos"
+    },
+    {
+      "text": "그 디스크 왕복 때문에 반복 연산에는 느려, 메모리 기반 Spark 등이 뒤를 이었다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Dean & Ghemawat (2004)",
+  "reviewed": true
+}

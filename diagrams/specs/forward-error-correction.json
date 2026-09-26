@@ -1,0 +1,59 @@
+{
+  "slug": "forward-error-correction",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "송신측 부호화",
+      "color": "violet",
+      "sub": "잉여 비트 추가(LDPC 등)"
+    },
+    {
+      "id": "n1",
+      "label": "채널 전송",
+      "color": "rose",
+      "sub": "잡음·페이딩으로 오류"
+    },
+    {
+      "id": "n2",
+      "label": "수신측 복호",
+      "color": "amber",
+      "sub": "잉여 비트로 오류 위치 추정"
+    },
+    {
+      "id": "n3",
+      "label": "재전송 없이 복원",
+      "color": "green",
+      "sub": "위성·실시간 방송"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "블록 부호와 길쌈 부호 계열로 나뉜다",
+      "tone": "general"
+    },
+    {
+      "text": "잉여 비트를 늘리면 정정력↑ 전송 효율↓, 정정 한계를 넘으면 오정정 위험",
+      "tone": "limit"
+    }
+  ],
+  "source": "디지털통신 교과서",
+  "reviewed": true
+}

@@ -1,0 +1,55 @@
+{
+  "slug": "k-fold-cross-validation",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "K개 폴드로 분할",
+      "color": "blue",
+      "sub": "무작위·층화"
+    },
+    {
+      "id": "n1",
+      "label": "1개 폴드 검증",
+      "color": "violet",
+      "sub": "나머지 K−1개로 훈련"
+    },
+    {
+      "id": "n2",
+      "label": "K번 반복",
+      "color": "violet",
+      "sub": "검증 폴드 교대"
+    },
+    {
+      "id": "n3",
+      "label": "성능 평균",
+      "color": "green",
+      "sub": "±표준편차 보고"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "K는 흔히 5·10, K=n이면 leave-one-out",
+      "tone": "general"
+    }
+  ],
+  "source": "Hastie et al., ESL",
+  "reviewed": true
+}

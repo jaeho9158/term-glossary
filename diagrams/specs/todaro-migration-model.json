@@ -1,0 +1,60 @@
+{
+  "slug": "todaro-migration-model",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "도시 기대소득",
+      "color": "amber",
+      "sub": "임금 × 취업확률"
+    },
+    {
+      "id": "n1",
+      "label": "농촌 소득과 비교",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "이촌향도",
+      "color": "green",
+      "sub": "기대소득 > 농촌"
+    },
+    {
+      "id": "n3",
+      "label": "도시 실업 증가",
+      "color": "rose",
+      "sub": "취업확률 하락"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "기대소득 하락"
+    }
+  ],
+  "notes": [
+    {
+      "text": "기대소득이 농촌 소득과 같아질 때까지 이주가 지속되어 도시 실업이 균형 현상이 됨",
+      "tone": "general"
+    }
+  ],
+  "source": "Harris & Todaro(1970)",
+  "reviewed": true
+}

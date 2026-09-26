@@ -1,0 +1,70 @@
+{
+  "slug": "pipelining",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "인출(IF)",
+      "color": "blue",
+      "sub": "명령어 가져오기"
+    },
+    {
+      "id": "n1",
+      "label": "해독(ID)",
+      "color": "blue",
+      "sub": "레지스터 읽기"
+    },
+    {
+      "id": "n2",
+      "label": "실행(EX)",
+      "color": "blue",
+      "sub": "ALU 연산"
+    },
+    {
+      "id": "n3",
+      "label": "메모리(MEM)",
+      "color": "blue",
+      "sub": "적재·저장"
+    },
+    {
+      "id": "n4",
+      "label": "쓰기(WB)",
+      "color": "green",
+      "sub": "결과 저장"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "단계마다 다른 명령어가 동시 진행 → 처리량↑(개별 지연시간은 그대로)",
+      "tone": "general"
+    },
+    {
+      "text": "데이터·제어·구조적 위험 시 정체(stall) — 포워딩·분기 예측으로 완화",
+      "tone": "limit"
+    }
+  ],
+  "source": "컴퓨터구조 교과서(Patterson & Hennessy)",
+  "reviewed": true
+}

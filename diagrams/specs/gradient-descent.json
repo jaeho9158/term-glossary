@@ -1,0 +1,65 @@
+{
+  "slug": "gradient-descent",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "파라미터 초기화",
+      "color": "gray",
+      "sub": "무작위 값"
+    },
+    {
+      "id": "b",
+      "label": "기울기 계산",
+      "color": "violet",
+      "sub": "손실 함수의 편미분(역전파)"
+    },
+    {
+      "id": "c",
+      "label": "파라미터 갱신",
+      "color": "amber",
+      "sub": "θ ← θ − η∇L, η는 학습률"
+    },
+    {
+      "id": "d",
+      "label": "수렴 확인",
+      "color": "green",
+      "sub": "손실 변화 미미하면 종료"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "b",
+      "kind": "arrow",
+      "label": "반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "학습률이 크면 발산, 작으면 느림; SGD·모멘텀·Adam 등 변형",
+      "tone": "general"
+    },
+    {
+      "text": "국소 최솟값·안장점에 머물 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "Goodfellow et al., Deep Learning",
+  "reviewed": true
+}

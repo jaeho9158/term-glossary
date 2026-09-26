@@ -1,0 +1,44 @@
+{
+  "slug": "miner-rule-cumulative-damage",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "단계별 손상비",
+      "sub": "n_i / N_i",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "손상 합산",
+      "sub": "D = Σ n_i / N_i",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "파손 판정",
+      "sub": "D ≥ 1이면 파손",
+      "color": "rose"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "하중 순서·상호작용 효과는 반영 못함",
+      "tone": "limit"
+    }
+  ],
+  "source": "피로설계 교과서(Palmgren-Miner)",
+  "reviewed": true
+}
