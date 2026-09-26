@@ -238,6 +238,18 @@ function readComparePairs() {
     }));
 }
 
+// 분야별 개념 지도(scripts/taxonomy/build.js 생성물). 실제 파일만 넣는다.
+function readConceptMapPages() {
+  const dir = path.join(ROOT_DIR, "concept-map");
+  if (!fs.existsSync(dir)) return [];
+  return CATEGORY_ORDER
+    .filter((code) => fs.existsSync(path.join(dir, `${code}.html`)))
+    .map((code) => ({
+      loc: `${BASE_URL}/concept-map/${code}.html`,
+      filePath: path.posix.join("concept-map", `${code}.html`)
+    }));
+}
+
 function readLastmodStore() {
   if (!fs.existsSync(LASTMOD_STORE_PATH)) return {};
   return JSON.parse(fs.readFileSync(LASTMOD_STORE_PATH, "utf8"));
@@ -295,7 +307,8 @@ function generateSitemap() {
   // 1) 용어 외 페이지
   const categoryPages = readCategoryPages();
   const comparePages = readComparePairs();
-  const pageEntries = [...TOP_LEVEL_PAGES, ...categoryPages, ...comparePages].map((page) =>
+  const conceptMapPages = readConceptMapPages();
+  const pageEntries = [...TOP_LEVEL_PAGES, ...categoryPages, ...comparePages, ...conceptMapPages].map((page) =>
     createUrlEntry(page.loc, getGitLastModified(page.filePath))
   );
 
@@ -350,7 +363,7 @@ function generateSitemap() {
   fs.writeFileSync(SITEMAP_INDEX_PATH, sitemapIndexXml(files), "utf8");
 
   const generatedUrlCount = files.reduce((n, f) => n + f.count, 0);
-  const expectedUrlCount = terms.length + TOP_LEVEL_PAGES.length + categoryPages.length + comparePages.length;
+  const expectedUrlCount = terms.length + TOP_LEVEL_PAGES.length + categoryPages.length + comparePages.length + conceptMapPages.length;
 
   if (generatedUrlCount !== expectedUrlCount) {
     throw new Error(
