@@ -89,7 +89,7 @@
   <p>관절에 준 힘과 로봇의 움직임이 어떻게 연결되는지를 나타내는 최종 방정식이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>관절토크와 관절 가감속의 관계를 기술하는 식으로, 시뮬레이션·모델 기반 제어·궤적 최적화·파라미터 식별이 모두 이 식 위에서 이루어집니다. 로봇 동역학 논문은 예외 없이 M(q)q̈+C(q,q̇)q̇+g(q)=τ 형태의 이 식으로 시작합니다.</p>
+  <p>관절토크와 관절 가감속의 관계를 기술하는 식으로, 시뮬레이션·모델 기반 제어·궤적 최적화·파라미터 식별이 모두 이 식 위에서 이루어집니다. 로봇 동역학 논문은 예외 없이 M(q)q̈+C(q,q̇)q̇+g(q)=τ 형태의 이 식으로 시작합니다. 운동방정식의 질량행렬 항만 따로 떼어내면 로봇의 관성 특성을, 중력항만 떼어내면 정지 상태에서 버텨야 하는 토크를 알 수 있어, 각 항이 서로 다른 설계·제어 목적에 개별적으로 활용된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">유도된 운동방정식은 질량행렬, 코리올리행렬, 중력항으로 구성되며 계산토크제어기 설계에 직접 활용되었다.</div>
@@ -98,12 +98,12 @@
 <p>질량행렬과 중력항을 정확히 모델링해야 실제 로봇의 움직임을 예측할 수 있습니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p><a href="lagrangian-formulation.html">라그랑주</a> 방식은 닫힌 형태의 식을 주어 해석과 제어 설계에 유리하고, <a href="newton-euler-formulation.html">뉴턴-오일러</a> 방식은 재귀적으로 계산해 실시간 시뮬레이션에 유리하지만 결과는 같습니다. 이 식은 강체와 이상적 관절을 가정하므로 감속기 탄성, 마찰, 모터 동역학은 별도로 추가해야 실제 로봇과 맞습니다.</p>
+  <p><a href="lagrangian-formulation.html">라그랑주</a> 방식은 닫힌 형태의 식을 주어 해석과 제어 설계에 유리하고, <a href="newton-euler-formulation.html">뉴턴-오일러</a> 방식은 재귀적으로 계산해 실시간 시뮬레이션에 유리하지만 결과는 같습니다. 이 식은 강체와 이상적 관절을 가정하므로 감속기 탄성, 마찰, 모터 동역학은 별도로 추가해야 실제 로봇과 맞습니다. 라그랑주 방법은 운동에너지와 위치에너지의 차인 라그랑지안을 관절 변수로 미분해 방정식을 유도하므로 물리적 직관과 대칭성을 이용한 검증이 쉽고, 뉴턴-오일러 방법은 각 링크에 대해 힘과 모멘트 균형을 순차적으로(전진 계산 후 후진 계산) 적용해 계산 효율이 높아 실시간 제어에 자주 쓰인다. 두 방법 모두 이상적인 강체와 마찰 없는 관절을 가정하므로, 실제 로봇에 적용하려면 관절탄성과 마찰 항을 별도로 더해야 한다.</p>
 
   <h2>주의할 점</h2>
   <p>운동방정식의 파라미터(질량, 관성 등)에 오차가 있으면 이를 기반으로 한 제어기 성능도 함께 저하되므로 파라미터 식별이 중요하다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="centrifugal-force-robot.html">원심력항</a><a href="mass-matrix.html">질량행렬</a><a href="coriolis-matrix.html">코리올리행렬</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="centrifugal-force-robot.html">원심력항</a><a href="mass-matrix.html">질량행렬</a><a href="coriolis-matrix.html">코리올리행렬</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 운동방정식에 들어가는 질량행렬은 항상 대칭이고 양정치여야 하는데, 파라미터 추정값에 오차가 있으면 이 성질이 깨져 시뮬레이션이 비물리적으로 발산할 수 있다. 링크 수가 많아질수록 질량행렬과 코리올리항의 항 수가 급격히 늘어나, 실시간 계산을 위해서는 재귀적 뉴턴-오일러 알고리즘 같은 효율적인 계산 순서가 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="mass-matrix.html">질량행렬</a>

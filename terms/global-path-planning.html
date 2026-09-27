@@ -90,7 +90,7 @@
   <p>지도를 다 알고 있을 때, 출발지에서 목적지까지 전체적으로 어떤 길로 갈지 큰 그림을 먼저 짜는 것입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>출발점에서 목표까지 지도 전체를 고려해 경로를 구하는 단계로, 이동로봇 내비게이션의 상위 계층을 이룹니다. <a href="a-star-algorithm.html">A*</a>와 그 변형이 격자 지도에서, 샘플링 기반 계획기가 고차원 공간에서 표준이며 경로 길이와 계산 시간이 평가 지표입니다.</p>
+  <p>출발점에서 목표까지 지도 전체를 고려해 경로를 구하는 단계로, 이동로봇 내비게이션의 상위 계층을 이룹니다. <a href="a-star-algorithm.html">A*</a>와 그 변형이 격자 지도에서, 샘플링 기반 계획기가 고차원 공간에서 표준이며 경로 길이와 계산 시간이 평가 지표입니다. 건물 전체 도면이 미리 주어지는 배송로봇처럼 환경을 사전에 완전히 알 수 있는 경우, 전역경로계획만으로도 충분히 효율적인 이동이 가능해 계산 자원을 아낄 수 있다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">전역 경로 계획은 완전한 환경 지도를 입력으로 A*, Dijkstra 등의 그래프 탐색 또는 샘플링 기반 기법을 사용해 정적으로 최적 또는 준최적 경로를 계산한다.</div>
@@ -99,12 +99,12 @@
   <div class="example">"지도 정보가 변경될 때마다 경로를 처음부터 재계산해야 해 계산 비용이 크게 증가하였다."</div>
   <p>이 문장은 전역경로계획이 환경 변화에 취약해 지역경로계획과 함께 쓰이는 이유를 보여줍니다.</p>
   <h2>조금 더 깊게 보면</h2>
-  <p>전역 계획은 지도가 정확하다는 전제에서 만들어지므로 실제 주행 중 만나는 동적 장애물은 <a href="local-path-planning.html">지역 경로계획</a>이 따로 처리하며, 두 계층의 역할 분담이 내비게이션 구조의 핵심입니다. 로봇의 동역학 제약을 무시한 기하 경로만 내는 경우가 많아, 차량형 로봇이 따라갈 수 없는 급회전 경로가 나오면 후처리로 평활화하거나 제약을 계획에 포함해야 합니다.</p>
+  <p>전역 계획은 지도가 정확하다는 전제에서 만들어지므로 실제 주행 중 만나는 동적 장애물은 <a href="local-path-planning.html">지역 경로계획</a>이 따로 처리하며, 두 계층의 역할 분담이 내비게이션 구조의 핵심입니다. 로봇의 동역학 제약을 무시한 기하 경로만 내는 경우가 많아, 차량형 로봇이 따라갈 수 없는 급회전 경로가 나오면 후처리로 평활화하거나 제약을 계획에 포함해야 합니다. 격자 기반 방법(A* 등)은 지도를 일정 크기 셀로 나누어 탐색하므로 구현이 단순하지만 해상도가 낮으면 실제로 지나갈 수 있는 좁은 통로를 놓칠 수 있고, 샘플링 기반 방법(RRT , PRM )은 연속 공간을 직접 다뤄 고차원 로봇팔 형상공간에도 적용할 수 있지만 매번 다른 무작위 경로가 나올 수 있다는 비결정성을 갖는다. 전역경로계획 결과는 대개 로봇의 실제 회전 반경이나 가속 한계를 고려하지 않은 기하학적 경로이므로, 차량형 로봇에는 이를 매끄럽게 다듬는 후처리 평활화 단계가 뒤따른다.</p>
 
   <h2>주의할 점</h2>
   <p>지도에 없는 새로운 장애물이 나타나면 전역 경로만으로는 대응할 수 없어 지역 경로 계획이 반드시 함께 필요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 전역경로계획은 계획 시점의 지도를 그대로 신뢰하므로, 계획 이후 지도와 실제 환경 사이에 괴리가 생기면 계획된 경로가 통과할 수 없는 구간을 포함하게 될 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="local-path-planning.html">지역경로계획</a>

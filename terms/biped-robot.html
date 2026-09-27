@@ -90,7 +90,7 @@
   <p>사람처럼 두 다리로 걷는 로봇이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>사람이 설계한 계단·문·도구 환경을 개조 없이 그대로 사용할 수 있는 유일한 이동 형태여서, <a href="humanoid-robot.html">휴머노이드</a> 연구의 핵심 하위 문제입니다. 균형 제어와 접촉 전환을 다루는 <a href="zero-moment-point.html">영모멘트점</a> 이론이 이 로봇을 위해 발전했습니다.</p>
+  <p>사람이 설계한 계단·문·도구 환경을 개조 없이 그대로 사용할 수 있는 유일한 이동 형태여서, <a href="humanoid-robot.html">휴머노이드</a> 연구의 핵심 하위 문제입니다. 균형 제어와 접촉 전환을 다루는 <a href="zero-moment-point.html">영모멘트점</a> 이론이 이 로봇을 위해 발전했습니다. 강화학습으로 학습한 보행 정책은 지형별로 별도의 모델 유도 없이도 다양한 노면에 적응하는 사례를 보여, 전통적인 ZMP 기반 방법과 경쟁하는 대안으로 빠르게 자리잡고 있다. 계단을 오르내리는 동안에는 발이 지면에 닿는 순간의 충격이 지지 다각형 전환과 겹쳐 나타나므로, 평지 보행보다 훨씬 정교한 접촉 시점 감지와 균형 제어가 요구된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 이족보행로봇은 영모멘트점 기반 예측제어를 통해 평지 및 계단 보행을 안정적으로 수행하였다.</div>
@@ -99,12 +99,12 @@
   <div class="example">이족보행로봇의 균형 제어는 영모멘트점을 지지 다각형 내부에 유지하도록 실시간으로 발 위치와 무게중심을 조정하는 방식으로 이루어진다.</div>
   <p>이 문장은 이족보행로봇의 균형 제어 원리를 구체적으로 설명한다.</p>
   <h2>조금 더 깊게 보면</h2>
-  <p>지지 다각형이 좁아 정적으로 불안정하며, 발이 바닥을 미는 힘 외에는 자세를 회복할 수단이 없는 <a href="underactuated-system.html">부족구동</a> 특성이 제어를 어렵게 합니다. 최근 강화학습 기반 보행이 모델 기반 방법을 빠르게 따라잡고 있지만, 미끄러운 바닥이나 예기치 않은 충격에 대한 강건성 검증은 여전히 어려운 문제입니다.</p>
+  <p>지지 다각형이 좁아 정적으로 불안정하며, 발이 바닥을 미는 힘 외에는 자세를 회복할 수단이 없는 <a href="underactuated-system.html">부족구동</a> 특성이 제어를 어렵게 합니다. 최근 강화학습 기반 보행이 모델 기반 방법을 빠르게 따라잡고 있지만, 미끄러운 바닥이나 예기치 않은 충격에 대한 강건성 검증은 여전히 어려운 문제입니다. 이족보행 중 한 발만 지면에 닿아 있는 단일 지지 구간에서는 지지 다각형이 발바닥 하나의 면적으로 줄어들어 균형 여유가 특히 좁아지며, 이 구간을 얼마나 빠르고 안정적으로 통과하느냐가 보행 속도와 안정성을 동시에 좌우한다. 발이 완전히 공중에 뜨는 도약 구간이 포함되면 ZMP 자체가 정의되지 않아, 이 구간에는 운동량과 각운동량을 이용한 다른 안정성 기준이 필요하다.</p>
 
   <h2>주의할 점</h2>
   <p>이족보행로봇은 지지 다각형이 사족보행로봇보다 훨씬 좁아 외란에 대한 강건성이 상대적으로 낮다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="legged-robot.html">다리형로봇</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="quadruped-robot.html">4족보행로봇</a><a href="hexapod-robot.html">6족보행로봇</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="legged-robot.html">다리형로봇</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="quadruped-robot.html">4족보행로봇</a><a href="hexapod-robot.html">6족보행로봇</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 이족보행로봇은 예상치 못한 외력(밀림 등)에 대응할 수 있는 회복 스텝(발을 내딛어 균형을 되찾는 동작)의 설계가 없으면, 작은 외란에도 곧바로 전도로 이어질 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="legged-robot.html">다리형로봇</a>

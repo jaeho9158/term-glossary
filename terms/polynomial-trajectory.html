@@ -90,7 +90,7 @@
   <p>출발점과 도착점 사이를 매끄러운 곡선(다항식)으로 연결해서 움직임을 표현하는 방법이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>시작과 끝의 위치·속도·가속도 조건을 만족하는 다항식으로 관절이나 엔드이펙터의 시간 궤적을 만드는 방법으로, 계산이 간단하고 해석적으로 미분할 수 있어 로봇 컨트롤러의 기본 보간 방식입니다. 5차 다항식이 가속도 연속을 보장하는 표준 선택입니다.</p>
+  <p>시작과 끝의 위치·속도·가속도 조건을 만족하는 다항식으로 관절이나 엔드이펙터의 시간 궤적을 만드는 방법으로, 계산이 간단하고 해석적으로 미분할 수 있어 로봇 컨트롤러의 기본 보간 방식입니다. 5차 다항식이 가속도 연속을 보장하는 표준 선택입니다. 닫힌 형태의 해석식이라 미분을 통해 속도·가속도 프로파일을 즉시 얻을 수 있어, 실시간 임베디드 제어기에서도 부담 없이 계산할 수 있다는 것이 실무적으로 중요한 이유다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 궤적계획에서는 5차 다항식궤적을 사용하여 시작과 끝에서 속도와 가속도가 모두 0이 되도록 하였다.</div>
@@ -100,12 +100,12 @@
 
 
   <h2>조금 더 깊게 보면</h2>
-  <p>차수를 높여 더 많은 조건을 만족시키면 구간 중간에서 진동하는 룽게 현상이 나타나므로, 긴 구간은 하나의 고차 다항식보다 여러 저차 구간을 잇는 <a href="cubic-spline-trajectory.html">스플라인</a>이 낫습니다. 경계 조건만 지정하므로 중간 경로에서 속도나 가속도 한계를 넘는지 별도 확인이 필요하며, 최소 저크 궤적이 사람 팔 동작과 비슷하다는 점이 인간 친화적 동작 생성에 활용됩니다.</p>
+  <p>차수를 높여 더 많은 조건을 만족시키면 구간 중간에서 진동하는 룽게 현상이 나타나므로, 긴 구간은 하나의 고차 다항식보다 여러 저차 구간을 잇는 <a href="cubic-spline-trajectory.html">스플라인</a>이 낫습니다. 경계 조건만 지정하므로 중간 경로에서 속도나 가속도 한계를 넘는지 별도 확인이 필요하며, 최소 저크 궤적이 사람 팔 동작과 비슷하다는 점이 인간 친화적 동작 생성에 활용됩니다. 3차다항식은 위치·속도 4개 경계조건만 만족시키므로 계수 4개로 충분하지만, 5차다항식은 여기에 가속도 경계조건까지 더해 계수 6개가 필요해 계산량이 늘어나는 대신 시작·끝에서 가속도까지 매끄럽게 이어진다. 저크(가속도의 시간 미분)까지 연속으로 만들려면 7차 다항식이 필요하지만, 차수가 높아질수록 중간 구간에서 원치 않는 진동(룽게 현상)이 나타나기 쉬워 실무에서는 5차가 흔히 절충점으로 쓰인다.</p>
 
   <h2>주의할 점</h2>
   <p>고차 다항식궤적은 중간 구간에서 예상치 못한 오버슈트(속도나 가속도의 과도한 증가)가 발생할 수 있어 검증이 필요하다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="trajectory-planning.html">궤적계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="joint-space-trajectory.html">관절공간궤적</a><a href="trapezoidal-velocity-profile.html">사다리꼴속도프로파일</a><a href="cartesian-space-trajectory.html">작업공간궤적</a><a href="minimum-jerk-trajectory.html">최소 저크 궤적</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="cubic-spline-trajectory.html">3차스플라인궤적</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="trajectory-planning.html">궤적계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="joint-space-trajectory.html">관절공간궤적</a><a href="trapezoidal-velocity-profile.html">사다리꼴속도프로파일</a><a href="cartesian-space-trajectory.html">작업공간궤적</a><a href="minimum-jerk-trajectory.html">최소 저크 궤적</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="cubic-spline-trajectory.html">3차스플라인궤적</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 다항식 계수는 경계조건만으로 결정되므로, 구간 중간에서 실제 최대 속도나 가속도가 얼마나 되는지는 별도로 계산해 관절 한계를 넘지 않는지 확인해야 한다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="cubic-spline-trajectory.html">3차스플라인궤적</a>

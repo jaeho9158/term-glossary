@@ -98,12 +98,12 @@
   <p>스캔매칭이 하나의 고정된 알고리즘이 아니라, 점들을 어떻게 대응시키는지에 따라 수렴 속도와 정확도가 달라지는 여러 변형을 갖는 기법이라는 점을 보여주는 문장이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>스캔매칭 결과의 정확도는 환경의 구조적 특징(반복적인 패턴, 개방된 공간)에 따라 크게 달라져, 특징이 부족한 환경에서는 매칭 오류가 누적되기 쉽습니다. 대표적인 방법인 ICP(반복최근접점)는 두 스캔의 점들을 가장 가까운 점끼리 짝지은 뒤 그 오차를 줄이는 변환을 계산하고, 이를 오차가 충분히 작아질 때까지 반복하는 방식으로 동작합니다. 넓고 텅 빈 공간이나 긴 복도처럼 특징적인 형태가 반복되는 환경에서는 여러 개의 변환이 비슷하게 잘 들어맞아 보이는 모호함이 생길 수 있어, 이런 환경에서는 스캔매칭만으로는 위치추정이 불안정해질 수 있습니다.</p>
+  <p>스캔매칭 결과의 정확도는 환경의 구조적 특징(반복적인 패턴, 개방된 공간)에 따라 크게 달라져, 특징이 부족한 환경에서는 매칭 오류가 누적되기 쉽습니다. 대표적인 방법인 ICP(반복최근접점)는 두 스캔의 점들을 가장 가까운 점끼리 짝지은 뒤 그 오차를 줄이는 변환을 계산하고, 이를 오차가 충분히 작아질 때까지 반복하는 방식으로 동작합니다. 넓고 텅 빈 공간이나 긴 복도처럼 특징적인 형태가 반복되는 환경에서는 여러 개의 변환이 비슷하게 잘 들어맞아 보이는 모호함이 생길 수 있어, 이런 환경에서는 스캔매칭만으로는 위치추정이 불안정해질 수 있습니다. 점 대 점 방식은 각 점을 상대 스캔에서 가장 가까운 점과 짝짓지만, 점 대 선(또는 점 대 평면) 방식은 그 점이 놓인 국소 표면에 대한 거리를 최소화해 실제 표면 형상을 더 잘 반영하므로 대체로 더 적은 반복으로 정확하게 수렴한다. 상관 기반 스캔매칭은 대응점을 명시적으로 찾는 대신 여러 후보 변환에 대해 전체 점군이 얼마나 잘 겹치는지를 격자 위에서 직접 평가해, 초기 오차가 크거나 대응점이 애매한 상황에 더 강건하다.</p>
 
   <h2>주의할 점</h2>
   <p>초기 정렬이 크게 어긋나 있으면 지역 최적해에 빠져 잘못된 변환으로 수렴할 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="iterative-closest-point.html">반복최근접점알고리즘</a><a href="normal-distributions-transform.html">정규분포 변환</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="iterative-closest-point.html">반복최근접점알고리즘</a><a href="normal-distributions-transform.html">정규분포 변환</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 넓고 텅 빈 공간이나 대칭적인 구조가 반복되는 환경에서는 여러 정렬 후보가 비슷하게 잘 맞아 보여, 스캔매칭만으로는 올바른 변환을 유일하게 결정하지 못하는 모호함이 남을 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="lidar-slam.html">라이다슬램</a>

@@ -94,7 +94,7 @@
   <p>바닥을 바둑판처럼 칸으로 나누고, 각 칸에 '여기 벽이 있을 확률이 몇 %'라고 적어 넣어 지도를 만드는 방법입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>환경을 격자로 나누고 각 셀의 점유 확률을 저장하는 지도로, 2D 라이다 기반 실내 로봇의 사실상 표준 지도 표현이며 <a href="amcl.html">AMCL</a> 위치추정과 격자 기반 경로 계획이 이 위에서 동작합니다. ROS 내비게이션 스택의 지도 형식이 바로 이것입니다.</p>
+  <p>환경을 격자로 나누고 각 셀의 점유 확률을 저장하는 지도로, 2D 라이다 기반 실내 로봇의 사실상 표준 지도 표현이며 <a href="amcl.html">AMCL</a> 위치추정과 격자 기반 경로 계획이 이 위에서 동작합니다. ROS 내비게이션 스택의 지도 형식이 바로 이것입니다. 경로계획 알고리즘 대부분이 이 격자 표현을 입력으로 받도록 설계되어 있어, 다른 방식으로 지도를 만들었더라도 최종적으로는 이 형태로 변환해 계획 모듈에 넘기는 경우가 많다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">점유 격자 지도는 각 셀의 점유 여부를 이진 확률 변수로 모델링하고, 센서 관측을 베이즈 갱신 규칙으로 누적하여 확률 값을 정련한다.</div>
@@ -104,12 +104,12 @@
   <p>베이즈 필터를 이용한 점유 확률 갱신 방식이 잡음에 강건한 이유를 설명한 문장이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>셀이 독립이라는 가정으로 베이지안 갱신을 단순화하지만 실제로는 인접 셀이 상관되어 있고, 해상도를 높이면 메모리가 제곱으로 늘어 3D 확장에는 옥트리 같은 구조가 필요합니다. 동적 물체가 지나가면 잔상이 남고 유리벽은 비어 있는 것으로 기록되는 등 센서 특성이 그대로 지도에 반영되므로, 지도 갱신 정책이 장기 운용의 관건입니다.</p>
+  <p>셀이 독립이라는 가정으로 베이지안 갱신을 단순화하지만 실제로는 인접 셀이 상관되어 있고, 해상도를 높이면 메모리가 제곱으로 늘어 3D 확장에는 옥트리 같은 구조가 필요합니다. 동적 물체가 지나가면 잔상이 남고 유리벽은 비어 있는 것으로 기록되는 등 센서 특성이 그대로 지도에 반영되므로, 지도 갱신 정책이 장기 운용의 관건입니다. 각 셀의 점유 확률은 로그 오즈(log-odds) 형태로 저장해 여러 센서 관측을 단순한 덧셈으로 누적할 수 있게 만드는 것이 일반적인 구현 방식이며, 이는 확률 곱셈보다 수치적으로 안정적이고 계산이 빠르다. 3차원으로 확장할 때는 균일 격자 대신 옥트리 구조를 써서, 비어 있는 넓은 공간은 큰 블록 하나로, 물체가 있는 영역은 세밀한 블록으로 나누어 메모리를 절약한다.</p>
 
   <h2>주의할 점</h2>
   <p>격자 해상도를 지나치게 세밀하게 하면 메모리와 계산량이 급증하므로 로봇 크기와 환경 규모에 맞는 균형이 필요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="metric-map.html">계량지도</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="point-cloud-map.html">점군지도</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="metric-map.html">계량지도</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="point-cloud-map.html">점군지도</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 동적으로 지나가는 사람이나 물체가 있으면 그 순간의 관측이 지도에 반영되어 나중에는 사라진 장애물의 잔상이 남을 수 있어, 오래된 관측의 신뢰도를 서서히 낮추는 갱신 정책이 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="slam.html">SLAM (동시적 위치추정 및 지도작성)</a>

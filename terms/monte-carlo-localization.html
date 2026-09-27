@@ -103,12 +103,12 @@
   <p>처음에는 로봇이 어디 있는지 여러 후보로 흩어져 있다가, 센서 정보가 쌓일수록 정답에 가까운 위치로 좁혀진다는 설명이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>입자 수가 정확도와 계산 비용을 결정하며, 대칭적인 환경에서는 여러 가설이 끝까지 합쳐지지 않을 수 있습니다. 재샘플링을 반복하면 입자가 소수 가설로 수렴해 다양성이 사라지는 고갈이 생기고, 그 뒤 로봇이 납치되면 복구가 안 되므로 무작위 입자를 주입하는 처리가 필요합니다. <a href="extended-kalman-filter.html">EKF</a>보다 계산은 무겁지만 비선형·비가우시안 문제에 강건합니다.</p>
+  <p>입자 수가 정확도와 계산 비용을 결정하며, 대칭적인 환경에서는 여러 가설이 끝까지 합쳐지지 않을 수 있습니다. 재샘플링을 반복하면 입자가 소수 가설로 수렴해 다양성이 사라지는 고갈이 생기고, 그 뒤 로봇이 납치되면 복구가 안 되므로 무작위 입자를 주입하는 처리가 필요합니다. <a href="extended-kalman-filter.html">EKF</a>보다 계산은 무겁지만 비선형·비가우시안 문제에 강건합니다. 동작 모델은 오도메트리 로 추정한 이동량에 불확실성을 더해 각 입자를 확률적으로 이동시키고, 센서 모델은 그 입자 위치에서 지도를 기준으로 예상되는 관측(예: 라이다 스캔)과 실제 관측을 비교해 우도를 계산한다. 대칭적인 복도나 방이 여러 개 있는 건물에서는 입자들이 서로 다른 여러 후보 위치로 나뉜 채 오래 유지될 수 있어, 로봇이 실제로 특징적인 지점(비대칭 구조)을 지나야 비로소 하나의 위치로 수렴한다.</p>
 
   <h2>주의할 점</h2>
   <p>로봇이 납치되어(kidnapped robot problem) 갑자기 다른 곳으로 옮겨지면 기존 입자 분포로는 재수렴이 어려울 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="robot-localization.html">로봇위치추정</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="amcl.html">적응형몬테카를로위치추정</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="robot-localization.html">로봇위치추정</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="amcl.html">적응형몬테카를로위치추정</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 지도에 없는 새로운 가구나 구조물이 많이 배치되면 센서 모델의 예측과 실제 관측이 계속 어긋나 입자 가중치가 고르게 낮아지고, 결과적으로 위치 추정이 불안정해질 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="particle-filter.html">파티클필터</a>

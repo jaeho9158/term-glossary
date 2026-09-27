@@ -90,7 +90,7 @@
   <p>처음엔 서서히 빨라지다가, 한동안 일정한 속도로 가고, 마지막엔 서서히 느려지는 움직임 패턴이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>가속·등속·감속 구간이 명확히 구분되어 최대 속도와 가속도 제약을 직관적으로 반영할 수 있어, 구현이 간단한 궤적 생성 방법으로 산업용 로봇 제어에 널리 쓰입니다.</p>
+  <p>가속·등속·감속 구간이 명확히 구분되어 최대 속도와 가속도 제약을 직관적으로 반영할 수 있어, 구현이 간단한 궤적 생성 방법으로 산업용 로봇 제어에 널리 쓰입니다. 가속도와 최고속도라는 단 두 개의 파라미터만으로 전체 프로파일이 결정되므로, 산업 현장의 기술자가 직관적으로 사이클 타임을 조정할 수 있다는 실용적 장점이 있다. 이동 거리가 짧아 최고속도에 도달하지 못하는 경우 자동으로 삼각형 형태로 전환되는 로직이 포함되어야 짧고 긴 이동 모두에 하나의 알고리즘으로 대응할 수 있다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 컨베이어 추종 작업에서는 사다리꼴속도프로파일을 이용해 최대 가속도 제약을 만족하는 관절 궤적을 생성하였다.</div>
@@ -99,12 +99,12 @@
   <div class="example">"본 연구는 사다리꼴속도프로파일 방식을 로봇팔의 관절 궤적 생성에 적용하여 급격한 가속으로 인한 진동을 줄이는 결과를 확인하였다."</div>
   <p>속도를 급격히 바꾸지 않고 일정한 기울기로 서서히 올렸다 내리도록 설계하면, 그만큼 기계에 가해지는 충격이 줄어든다는 뜻입니다.</p>
   <h2>조금 더 깊게 보면</h2>
-  <p>사다리꼴 프로파일은 가속도가 급격히 변하는 지점에서 저크(가속도의 변화율)가 불연속적이라, 진동이나 기계적 충격에 민감한 정밀 작업에는 S자형 프로파일 같은 대안이 활용됩니다.</p>
+  <p>사다리꼴 프로파일은 가속도가 급격히 변하는 지점에서 저크(가속도의 변화율)가 불연속적이라, 진동이나 기계적 충격에 민감한 정밀 작업에는 S자형 프로파일 같은 대안이 활용됩니다. 이동 거리가 짧으면 최대 속도에 도달하기 전에 감속을 시작해야 하는 삼각형 프로파일이 되며, 이 경계 거리를 계산해 사다리꼴과 삼각형 중 어느 모드로 동작할지 자동으로 전환하는 로직이 실제 구현에 포함된다. 다관절 동기화를 위해 각 관절의 사다리꼴 프로파일을 같은 지속 시간으로 스케일링하는 절차가 관절공간궤적 생성에 함께 쓰인다.</p>
 
   <h2>주의할 점</h2>
   <p>사다리꼴속도프로파일은 가속도가 급격히 변하는 지점(코너)에서 가가속도(jerk)가 불연속이라 진동을 유발할 수 있어, S자형 프로파일이 대안으로 쓰이기도 한다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="trajectory-planning.html">궤적계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="joint-space-trajectory.html">관절공간궤적</a><a href="polynomial-trajectory.html">다항식궤적</a><a href="cartesian-space-trajectory.html">작업공간궤적</a><a href="minimum-jerk-trajectory.html">최소 저크 궤적</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="trajectory-planning.html">궤적계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="joint-space-trajectory.html">관절공간궤적</a><a href="polynomial-trajectory.html">다항식궤적</a><a href="cartesian-space-trajectory.html">작업공간궤적</a><a href="minimum-jerk-trajectory.html">최소 저크 궤적</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 사다리꼴 프로파일은 가속 구간과 등속 구간의 경계에서 가속도가 계단형으로 급변하므로, 이 지점에서 발생하는 저크가 정밀 조립 작업의 진동원이 될 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="polynomial-trajectory.html">다항식궤적</a>

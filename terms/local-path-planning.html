@@ -90,7 +90,7 @@
   <p>큰 그림의 길은 이미 정해져 있지만, 바로 눈앞에 갑자기 나타난 장애물을 즉시 피하며 그 길을 세부적으로 조정해 나가는 것입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>전역 경로를 따라가면서 센서로 새로 감지한 장애물을 실시간으로 피하는 계층으로, 이동로봇이 사람과 움직이는 물체가 있는 환경에서 실제로 안전하게 주행하게 만드는 부분입니다. <a href="dynamic-window-approach.html">동적 윈도우 접근법</a>과 궤적 롤아웃, 모델예측제어 기반 계획기가 여기에 속합니다.</p>
+  <p>전역 경로를 따라가면서 센서로 새로 감지한 장애물을 실시간으로 피하는 계층으로, 이동로봇이 사람과 움직이는 물체가 있는 환경에서 실제로 안전하게 주행하게 만드는 부분입니다. <a href="dynamic-window-approach.html">동적 윈도우 접근법</a>과 궤적 롤아웃, 모델예측제어 기반 계획기가 여기에 속합니다. 사람이 붐비는 복도에서 갑자기 방향을 트는 보행자를 피하는 상황처럼, 사전 지도에 담을 수 없는 순간적인 변화에 대응하는 것은 전적으로 지역경로계획의 몫이다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">지역 경로 계획은 짧은 시간 창 내에서 국소 센서 관측을 이용해 동적 장애물 회피와 전역 경로 추종을 동시에 만족하는 제어 명령을 실시간으로 산출한다.</div>
@@ -100,12 +100,12 @@
   <p>로봇이 낼 수 있는 속도 조합들을 빠르게 평가해 가장 안전하고 목표에 가까운 움직임을 즉시 선택하는 방식을 설명합니다.</p>
 
 <h2>조금 더 깊게 보면</h2>
-  <p>짧은 시간 창과 국소 센서 정보만 보므로 막다른 곳에 갇히거나 진동하는 국소 최소 문제가 본질적이며, 이 때문에 <a href="global-path-planning.html">전역 경로계획</a> 없이 단독으로는 쓸 수 없습니다. 지역 계획기가 전역 경로에서 얼마나 벗어나도록 허용할지, 갇혔을 때 언제 전역 재계획을 요청할지 정하는 복구 행동 설계가 실무에서 성패를 좌우합니다.</p>
+  <p>짧은 시간 창과 국소 센서 정보만 보므로 막다른 곳에 갇히거나 진동하는 국소 최소 문제가 본질적이며, 이 때문에 <a href="global-path-planning.html">전역 경로계획</a> 없이 단독으로는 쓸 수 없습니다. 지역 계획기가 전역 경로에서 얼마나 벗어나도록 허용할지, 갇혔을 때 언제 전역 재계획을 요청할지 정하는 복구 행동 설계가 실무에서 성패를 좌우합니다. 지역경로계획은 전역경로 위의 가까운 경유점을 임시 목표로 삼아, 그 방향으로 향하면서 현재 센서로 감지한 장애물만 회피하는 짧은 시간 범위의 최적화를 매 주기 반복하는 구조를 가지며, 이 때문에 계획 범위 밖에 있는 장애물이나 막다른 구조는 고려하지 못한다는 근본적 한계가 있다. 동적윈도우접근법 외에도 여러 궤적 후보를 미리 굴려보고 평가하는 궤적 롤아웃 방식이나, 짧은 구간의 최적화를 반복하는 모델예측제어 방식이 널리 쓰인다.</p>
 
   <h2>주의할 점</h2>
   <p>짧은 계획 범위 때문에 근시안적 판단으로 막다른 길에 빠질 수 있어 전역 계획과의 유기적 결합이 중요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="dynamic-window-approach.html">동적윈도우접근법</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="dynamic-window-approach.html">동적윈도우접근법</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 지역경로계획이 국소 최소에 갇혀 진행하지 못하는 상태가 일정 시간 지속되면, 이를 감지해 전역 경로를 다시 요청하거나 후진 등 회복 행동으로 전환하는 상위 로직이 별도로 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="global-path-planning.html">전역경로계획</a>

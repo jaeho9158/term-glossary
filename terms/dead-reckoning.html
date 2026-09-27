@@ -89,7 +89,7 @@
   <p>예전 위치와 얼마나, 어느 방향으로 움직였는지를 계산해서 지금 위치를 짐작하는 방법이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>외부 참조 없이 속도와 방향을 적분해 현재 위치를 추정하는 가장 기본적인 항법으로, GPS가 끊기거나 특징이 없는 환경에서 짧은 시간 동안 위치를 이어주는 역할을 합니다. <a href="wheel-odometry.html">휠 오도메트리</a>와 <a href="inertial-navigation-system.html">관성항법</a>이 이 원리의 구체적 구현입니다.</p>
+  <p>외부 참조 없이 속도와 방향을 적분해 현재 위치를 추정하는 가장 기본적인 항법으로, GPS가 끊기거나 특징이 없는 환경에서 짧은 시간 동안 위치를 이어주는 역할을 합니다. <a href="wheel-odometry.html">휠 오도메트리</a>와 <a href="inertial-navigation-system.html">관성항법</a>이 이 원리의 구체적 구현입니다. 수중이나 지하처럼 전자기파 기반 항법이 전혀 통하지 않는 환경에서는 추측항법이 사실상 유일하게 항법 정보를 제공할 수 있는 방법이 되는 경우가 많다. 심해 탐사 로봇처럼 수중에서는 전파가 거의 통하지 않아, 도플러속도계와 관성센서를 결합한 추측항법이 사실상 유일하게 지속적인 위치 정보를 제공하는 수단이 된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 수중 로봇은 GPS 신호가 없는 환경에서 관성센서 기반 추측항법으로 위치를 추정하였다.</div>
@@ -98,12 +98,12 @@
   <p>외부 기준 없이 이동량만 더해 위치를 계산하는 방식은 시간이 지날수록 오차가 커진다는 한계를 보여준다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>오차가 시간에 따라 누적되어 무한히 커지는 것이 본질적 한계이며, 특히 방향 오차는 이동 거리에 비례해 위치 오차로 증폭됩니다. 따라서 단독으로 쓰는 항법이 아니라 SLAM이나 위성항법의 예측 단계로 쓰이는 보조 수단이고, 누적 오차의 성장 속도를 정량화한 것이 센서 융합에서 신뢰도 가중치의 근거가 됩니다.</p>
+  <p>오차가 시간에 따라 누적되어 무한히 커지는 것이 본질적 한계이며, 특히 방향 오차는 이동 거리에 비례해 위치 오차로 증폭됩니다. 따라서 단독으로 쓰는 항법이 아니라 SLAM이나 위성항법의 예측 단계로 쓰이는 보조 수단이고, 누적 오차의 성장 속도를 정량화한 것이 센서 융합에서 신뢰도 가중치의 근거가 됩니다. 속도와 방향을 매 순간 적분해 위치를 구하는 원리상, 아주 짧은 순간의 방향 오차라도 그 이후 이동하는 모든 거리에 곱해져 위치 오차로 누적되므로 오차 성장률은 방향 오차의 크기에 훨씬 민감하다. 이 때문에 실제 시스템에서는 방향(자세) 추정치의 정확도를 높이는 것이 단순히 이동 거리 측정을 정밀하게 하는 것보다 전체 위치 오차를 줄이는 데 더 효과적인 경우가 많다.</p>
 
   <h2>주의할 점</h2>
   <p>추측항법은 누적 오차가 시간에 비례해 커지므로 주기적으로 절대 위치 정보(GPS, 랜드마크 등)로 보정해야 한다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="odometry.html">오도메트리</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="odometry.html">오도메트리</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 추측항법만으로 장시간 항법을 지속하면 오차가 이론상 무한히 커지므로, 절대 위치를 주는 외부 신호나 랜드마크 관측으로 주기적으로 리셋하지 않으면 실용적인 위치 정확도를 유지할 수 없다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="odometry.html">오도메트리</a>

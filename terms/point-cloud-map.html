@@ -90,7 +90,7 @@
   <p>레이저나 깊이 카메라가 잰 수많은 점들을 3차원 공간에 그대로 흩뿌려 놓아 주변 모양을 표현하는 지도입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>라이다나 깊이 카메라로 얻은 3D 점을 그대로 누적한 지도로, <a href="lidar-slam.html">라이다 SLAM</a>의 기본 출력이자 자율주행 고정밀 지도와 건설 현장 측량의 원천 데이터입니다. 환경의 형상을 가공 없이 보존하므로 후속 처리의 유연성이 큽니다.</p>
+  <p>라이다나 깊이 카메라로 얻은 3D 점을 그대로 누적한 지도로, <a href="lidar-slam.html">라이다 SLAM</a>의 기본 출력이자 자율주행 고정밀 지도와 건설 현장 측량의 원천 데이터입니다. 환경의 형상을 가공 없이 보존하므로 후속 처리의 유연성이 큽니다. 건설 현장의 기성 시공 확인이나 문화재 디지털 보존처럼 실제 형상을 왜곡 없이 그대로 남겨야 하는 측량 응용에서는, 격자로 단순화하지 않은 원본 점군 지도 자체가 최종 산출물로 요구된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">점군 지도는 각 점이 (x, y, z) 좌표와 부가 속성(반사도, 색상 등)을 가지는 비정형 3차원 데이터 구조로, 다운샘플링 및 정합을 통해 대규모 지도로 통합된다.</div>
@@ -100,12 +100,12 @@
   <p>측정 위치에 따라 점의 밀도가 고르지 않을 수 있어, 지도를 만들기 전에 점 밀도를 정리하는 과정이 필요하다는 설명이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>점의 수가 환경 크기와 스캔 횟수에 비례해 폭증하므로 복셀 다운샘플링이나 옥트리 압축 없이는 저장과 검색이 불가능하고, 점 사이에 빈 공간 정보가 없어 경로 계획에 직접 쓰기 어렵습니다. 동적 물체의 점이 지도에 남는 문제와 시간에 따른 환경 변화 반영이 실무의 과제이며, 계획용으로는 <a href="occupancy-grid-map.html">점유 격자</a>로 변환하는 것이 일반적입니다.</p>
+  <p>점의 수가 환경 크기와 스캔 횟수에 비례해 폭증하므로 복셀 다운샘플링이나 옥트리 압축 없이는 저장과 검색이 불가능하고, 점 사이에 빈 공간 정보가 없어 경로 계획에 직접 쓰기 어렵습니다. 동적 물체의 점이 지도에 남는 문제와 시간에 따른 환경 변화 반영이 실무의 과제이며, 계획용으로는 <a href="occupancy-grid-map.html">점유 격자</a>로 변환하는 것이 일반적입니다. 여러 시점에서 얻은 점군을 하나의 좌표계로 합치는 과정에서 겹치는 영역의 점 밀도가 불균일하게 몰리기 쉬워, 복셀 격자 다운샘플링으로 일정 크기의 격자마다 대표 점 하나만 남기는 전처리가 일반적으로 선행된다. 대규모 실외 지도에서는 옥트리나 복셀해시 같은 자료구조로 점을 압축해야 실시간 저장과 검색이 가능해진다.</p>
 
   <h2>주의할 점</h2>
   <p>점군 자체는 점유·비점유 구분이 명확하지 않아 경로 계획에 쓰려면 격자 지도나 메시로 추가 변환이 필요할 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="metric-map.html">계량지도</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="occupancy-grid-map.html">점유격자지도</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="metric-map.html">계량지도</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="occupancy-grid-map.html">점유격자지도</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 점군은 표면의 안과 밖, 비어 있는 공간과 채워진 공간을 구분하는 정보를 담고 있지 않아, 경로 계획에 바로 쓰려면 점유격자지도나 메시 같은 형태로 변환하는 후처리가 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="lidar-slam.html">라이다슬램</a>

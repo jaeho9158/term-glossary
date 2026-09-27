@@ -90,7 +90,7 @@
   <p>로봇 팔의 무게와 관성까지 고려해서, 손끝이 얼마나 빠르게 가속할 수 있는지를 나타낸 지표예요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>관절토크 한계 안에서 엔드이펙터가 낼 수 있는 가속도의 방향별 크기를 나타내어, 빠른 동작이 필요한 작업에서 로봇 자세나 설계를 평가하는 지표가 됩니다. 운동학만 보는 <a href="manipulability.html">조작성</a>과 달리 질량 분포를 고려하므로 고속 로봇 설계 논문에서 최적화 목적함수로 쓰입니다.</p>
+  <p>관절토크 한계 안에서 엔드이펙터가 낼 수 있는 가속도의 방향별 크기를 나타내어, 빠른 동작이 필요한 작업에서 로봇 자세나 설계를 평가하는 지표가 됩니다. 운동학만 보는 <a href="manipulability.html">조작성</a>과 달리 질량 분포를 고려하므로 고속 로봇 설계 논문에서 최적화 목적함수로 쓰입니다. 고속 픽앤플레이스나 스포츠 동작을 모사하는 로봇 설계에서는 정적인 조작성보다 이 지표가 실제 가속 성능을 더 직접적으로 예측해 링크 경량화 설계의 목표함수로 쓰인다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 논문에서는 동적조작성 타원체를 이용해 특정 작업 방향에 대한 가속 성능이 우수한 로봇 자세를 선정하였다.</div>
@@ -99,12 +99,12 @@
   <p>이 문장은 팔의 무게가 가벼운 로봇 설계일수록 특정 방향으로 더 빠르게 가속할 수 있다는 것을 지표로 비교해 보여주었다는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p><a href="mass-matrix.html">질량행렬</a>과 야코비안을 결합해 타원체로 표현하는데, 관절마다 토크 한계가 다르면 정규화 방식에 따라 결과가 크게 바뀌므로 논문 간 수치를 직접 비교하기 어렵습니다. 중력항과 속도 의존 항을 무시한 정지 상태 근사가 일반적이어서, 실제 고속 동작 중의 가속 능력과는 차이가 있습니다.</p>
+  <p><a href="mass-matrix.html">질량행렬</a>과 야코비안을 결합해 타원체로 표현하는데, 관절마다 토크 한계가 다르면 정규화 방식에 따라 결과가 크게 바뀌므로 논문 간 수치를 직접 비교하기 어렵습니다. 중력항과 속도 의존 항을 무시한 정지 상태 근사가 일반적이어서, 실제 고속 동작 중의 가속 능력과는 차이가 있습니다. 동적조작성 타원체는 J M^-1 형태의 행렬을 특이값 분해해 얻으며, 질량행렬의 역행렬이 들어가므로 관절마다 관성이 다르면 방향별 가속 능력이 크게 비대칭적으로 나타난다. 팔이 완전히 펴진 자세에서는 관성모멘트가 커져 특정 방향의 가속 성능이 급격히 떨어지는데, 이는 기구학적 조작성이 나빠지는 특이점 부근 현상과는 별개로 순수하게 질량 분포 때문에 생기는 저하다.</p>
 
   <h2>주의할 점</h2>
   <p>동적조작성은 정확한 질량행렬(동역학 파라미터)을 필요로 하므로 파라미터 오차가 있으면 평가 결과가 부정확해질 수 있다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="manipulability.html">조작성</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="manipulability.html">조작성</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 동적조작성 계산에는 링크의 정확한 질량과 관성텐서가 필요해, 동역학파라미터식별 결과가 부정확하면 계산된 타원체가 실제 가속 성능을 과대 또는 과소평가할 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="manipulability.html">조작성</a>

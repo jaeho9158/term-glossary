@@ -89,7 +89,7 @@
   <p>사진만 보고도 '이 물체는 가깝고 저 물체는 멀다'는 것을 숫자(거리)로 알아내는 기술입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>카메라 영상에서 장면까지의 거리를 복원하는 문제로, 라이다 없이 저가 카메라만으로 장애물 회피와 3D 인식을 하려는 로봇과 자율주행 연구의 핵심 과제입니다. 단안 영상에서 학습으로 깊이를 추정하는 연구가 최근 급성장했습니다.</p>
+  <p>카메라 영상에서 장면까지의 거리를 복원하는 문제로, 라이다 없이 저가 카메라만으로 장애물 회피와 3D 인식을 하려는 로봇과 자율주행 연구의 핵심 과제입니다. 단안 영상에서 학습으로 깊이를 추정하는 연구가 최근 급성장했습니다. 라이다를 탑재하기 어려운 소형 드론이나 저가 로봇에서는, 카메라만으로 깊이를 추정하는 기술이 장애물 회피 기능을 구현할 수 있는 사실상 유일한 저비용 대안이 된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">깊이 추정은 스테레오 영상의 시차 d로부터 Z = fB/d 관계식을 이용하거나, 단안 영상에서는 학습된 신경망을 통해 픽셀별 깊이 값을 회귀한다.</div>
@@ -99,12 +99,12 @@
   <p>단안 방식과 스테레오 방식의 장단점을 비교한 문장이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p><a href="stereo-vision.html">스테레오</a>는 기하학적으로 절대 깊이를 얻지만 무특징 영역에서 실패하고, 단안 학습 방식은 어디서나 결과를 내지만 절대 스케일이 모호하고 학습 데이터와 다른 환경에서 신뢰도가 떨어집니다. <a href="time-of-flight-sensor.html">ToF</a>나 구조광 같은 능동 센서와 비교하면 밝은 야외에서 유리하고 어두운 실내에서 불리하다는 상반된 특성을 갖습니다.</p>
+  <p><a href="stereo-vision.html">스테레오</a>는 기하학적으로 절대 깊이를 얻지만 무특징 영역에서 실패하고, 단안 학습 방식은 어디서나 결과를 내지만 절대 스케일이 모호하고 학습 데이터와 다른 환경에서 신뢰도가 떨어집니다. <a href="time-of-flight-sensor.html">ToF</a>나 구조광 같은 능동 센서와 비교하면 밝은 야외에서 유리하고 어두운 실내에서 불리하다는 상반된 특성을 갖습니다. 스테레오 방식은 두 카메라 사이의 알려진 거리(기준선)와 두 영상 사이에서 같은 점이 얼마나 어긋나 보이는지(시차)를 이용해 삼각측량으로 절대 거리를 계산하지만, 벽면처럼 무늬가 없는 영역에서는 대응점을 찾지 못해 깊이 값이 비어버린다. 단안 학습 기반 방법은 원근감이나 그림자, 물체 크기 같은 시각적 단서를 학습해 어디서나 깊이 값을 내놓지만, 실제 절대 거리(스케일)를 별도 기준 없이는 알 수 없어 상대적인 깊이 순서만 신뢰할 수 있는 경우가 많다.</p>
 
   <h2>주의할 점</h2>
   <p>단안 깊이 추정은 스케일이 절대적이지 않아 학습 데이터의 분포를 벗어나면 실제 거리와 큰 오차가 날 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="stereo-vision.html">스테레오비전</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="stereo-vision.html">스테레오비전</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> ToF나 구조광 같은 능동 깊이 센서는 강한 햇빛 아래 실외에서는 자체 발광 신호가 묻혀 깊이 측정이 실패하기 쉬워, 실내외 겸용 응용에는 방식 전환이나 융합이 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="stereo-vision.html">스테레오비전</a>

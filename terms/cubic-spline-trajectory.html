@@ -90,7 +90,7 @@
   <p>여러 지점을 지나가야 할 때, 각 구간을 부드러운 곡선으로 이어 붙여서 매끄러운 길을 만드는 방법이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>여러 <a href="waypoint-robot.html">경유점</a>을 지나면서 위치·속도·가속도가 연속인 부드러운 궤적을 만드는 표준 방법으로, 관절 모터에 충격을 주지 않고 부드럽게 움직이려는 거의 모든 로봇 컨트롤러에 내장되어 있습니다. 궤적 계획 논문에서 새 방법과 비교하는 기준선 역할을 합니다.</p>
+  <p>여러 <a href="waypoint-robot.html">경유점</a>을 지나면서 위치·속도·가속도가 연속인 부드러운 궤적을 만드는 표준 방법으로, 관절 모터에 충격을 주지 않고 부드럽게 움직이려는 거의 모든 로봇 컨트롤러에 내장되어 있습니다. 궤적 계획 논문에서 새 방법과 비교하는 기준선 역할을 합니다. 산업용 로봇의 컨트롤러 대부분이 여러 교시점을 부드럽게 잇는 기본 보간 방식으로 이를 채택하고 있어, 사용자가 직접 다항식 계수를 계산하지 않아도 매끄러운 동작을 얻을 수 있다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 논문에서는 5개의 경유점을 3차스플라인궤적으로 연결하여 각 구간 경계에서 속도 연속성을 보장하였다.</div>
@@ -99,12 +99,12 @@
   <p>구간별 3차 다항식을 이어 붙이되 경계에서 위치와 속도의 연속성을 보장하는 방식임을 보여주는 서술입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>3차 다항식 구간을 이으면 가속도까지는 연속이지만 가속도의 미분인 저크는 불연속이어서, 진동에 민감한 응용에서는 5차 스플라인이나 저크 제한 프로파일을 씁니다. 경유점을 정확히 지나도록 강제하면 점 사이에서 원치 않는 오버슈트가 생겨 장애물과 충돌할 수 있으므로, 통과점을 근사하는 B-스플라인이 충돌 회피 응용에는 더 적합합니다.</p>
+  <p>3차 다항식 구간을 이으면 가속도까지는 연속이지만 가속도의 미분인 저크는 불연속이어서, 진동에 민감한 응용에서는 5차 스플라인이나 저크 제한 프로파일을 씁니다. 경유점을 정확히 지나도록 강제하면 점 사이에서 원치 않는 오버슈트가 생겨 장애물과 충돌할 수 있으므로, 통과점을 근사하는 B-스플라인이 충돌 회피 응용에는 더 적합합니다. 각 구간을 독립적인 3차 다항식으로 놓고, 인접 구간의 경계에서 위치와 속도가 일치하도록 연립방정식을 세워 전체 계수를 한 번에 구하는 것이 자연 스플라인의 표준 절차이며, 경계 조건(양 끝점의 속도)을 어떻게 지정하느냐에 따라 자연 스플라인과 clamped 스플라인 등으로 나뉜다. 경유점 개수가 많을수록 연립방정식의 크기가 커지지만 삼중대각행렬 구조 덕분에 계산은 여전히 빠르게 이루어진다.</p>
 
   <h2>주의할 점</h2>
   <p>3차스플라인은 위치와 속도의 연속성은 보장하지만 가속도는 구간 경계에서 불연속일 수 있어, 더 매끄러움이 필요하면 5차 스플라인이 사용된다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="polynomial-trajectory.html">다항식궤적</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="polynomial-trajectory.html">다항식궤적</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 경유점 사이 간격이 극단적으로 다르면 특정 구간에서 속도가 과도하게 커지는 오버슈트가 나타날 수 있어, 경유점 배치 자체도 궤적 품질에 영향을 준다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="polynomial-trajectory.html">다항식궤적</a>

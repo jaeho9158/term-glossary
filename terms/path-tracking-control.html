@@ -89,7 +89,7 @@
   <p>정해진 길을 로봇이 벗어나지 않고 잘 따라가도록 조종하는 제어예요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>계획된 경로를 이동로봇이나 차량이 실제로 따라가도록 조향과 속도를 제어하는 단계로, 자율주행 차량과 <a href="autonomous-tractor.html">자율주행 트랙터</a>, 창고 로봇의 주행 정밀도를 결정합니다. <a href="pure-pursuit-algorithm.html">순수 추종</a>과 스탠리 방법, 모델예측제어가 대표 방법입니다.</p>
+  <p>계획된 경로를 이동로봇이나 차량이 실제로 따라가도록 조향과 속도를 제어하는 단계로, 자율주행 차량과 <a href="autonomous-tractor.html">자율주행 트랙터</a>, 창고 로봇의 주행 정밀도를 결정합니다. <a href="pure-pursuit-algorithm.html">순수 추종</a>과 스탠리 방법, 모델예측제어가 대표 방법입니다. 농업용 자율주행 트랙터는 작물 이랑을 따라 몇 센티미터 오차 이내로 경로를 추종해야 하므로, 경로추종제어의 정밀도가 작물 손상 여부를 직접 좌우한다. 창고 내 자율주행 지게차는 정해진 랙 사이 통로를 벗어나면 충돌 위험이 커지므로, 경로추종제어의 횡방향 오차를 좁게 유지하는 것이 안전 운행의 최소 조건이 된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 이동 로봇은 순수추종알고리즘 기반 경로추종제어를 이용해 사전에 계획된 경로를 오차 5cm 이내로 추종하였다.</div>
@@ -98,12 +98,12 @@
   <div class="example">"경로추종제어는 시간적 제약이 없는 대신 경로로부터의 횡방향 오차를 최소화하는 데 초점을 맞춘 제어 문제로 정식화된다."</div>
   <p>이 문장은 경로추종제어가 궤적추종제어와 달리 시간 스케줄이 아닌 공간적 경로 이탈 최소화를 제어 목표로 삼는다는 점을 설명한다.</p>
   <h2>조금 더 깊게 보면</h2>
-  <p>시간 정보가 없는 기하 경로를 따르는 경로 추종과 시간에 따른 위치까지 맞추는 <a href="trajectory-tracking-control.html">궤적 추종</a>은 구분되며, 경로 추종은 속도를 자유롭게 조절할 수 있어 장애물 앞에서 멈추기가 쉽습니다. 차량 동역학을 무시한 기하 방법은 저속에서 잘 되지만 고속이나 미끄러운 노면에서 타이어 슬립 때문에 성능이 급격히 떨어집니다.</p>
+  <p>시간 정보가 없는 기하 경로를 따르는 경로 추종과 시간에 따른 위치까지 맞추는 <a href="trajectory-tracking-control.html">궤적 추종</a>은 구분되며, 경로 추종은 속도를 자유롭게 조절할 수 있어 장애물 앞에서 멈추기가 쉽습니다. 차량 동역학을 무시한 기하 방법은 저속에서 잘 되지만 고속이나 미끄러운 노면에서 타이어 슬립 때문에 성능이 급격히 떨어집니다. 순수추종 알고리즘은 경로 위에서 로봇 앞쪽 일정 거리에 있는 가상의 목표점(전방주시점)을 향하도록 조향각을 계산하는 기하학적 방법으로, 전방주시거리를 짧게 잡으면 경로를 정밀하게 따라가지만 진동하기 쉽고 길게 잡으면 코너를 완만하게 잘라가는 경향이 생긴다. 스탠리 방법은 이와 달리 경로로부터의 횡방향 오차와 진행 방향 오차를 함께 반영해 저속에서도 안정적인 추종 성능을 보인다.</p>
 
   <h2>주의할 점</h2>
   <p>경로추종제어는 경로 진행 속도를 별도로 다루지 않는 경우가 많아, 정확한 도착 시간이 중요하면 궤적추종제어가 필요하다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="pure-pursuit-algorithm.html">순수추종알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="pure-pursuit-algorithm.html">순수추종알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 기하학적 방법은 노면 마찰이나 타이어 슬립 같은 차량 동역학을 무시하므로, 고속 주행이나 미끄러운 노면에서는 실제 경로 이탈이 계산상 예측보다 커질 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="trajectory-tracking-control.html">궤적추종제어</a>

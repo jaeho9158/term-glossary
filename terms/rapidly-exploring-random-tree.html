@@ -94,7 +94,7 @@
   <p>무작위로 점을 찍어가며 나뭇가지처럼 길을 뻗어나가서 목표까지의 길을 찾는 방법이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>RRT는 고차원 형상공간에서도 비교적 빠르게 실행 가능한 경로를 찾아낼 수 있어, 매니퓰레이터의 복잡한 관절공간 경로계획이나 이동로봇의 실시간 경로계획에 널리 활용됩니다.</p>
+  <p>RRT는 고차원 형상공간에서도 비교적 빠르게 실행 가능한 경로를 찾아낼 수 있어, 매니퓰레이터의 복잡한 관절공간 경로계획이나 이동로봇의 실시간 경로계획에 널리 활용됩니다. 완전한 형상공간 지도를 만들지 않고 트리만 확장하면 되므로, 자유도가 수십에 이르는 휴머노이드 전신 계획처럼 격자 방식이 실질적으로 불가능한 문제에서도 실행 가능한 경로를 찾아낼 수 있다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 논문에서는 RRT 알고리즘을 이용해 7자유도 로봇팔의 장애물 회피 경로를 수 밀리초 내에 탐색하였다.</div>
@@ -104,12 +104,12 @@
   <p>RRT는 탐색 공간 전체를 격자화하지 않고 무작위 점을 향해 트리를 확장하는 방식을 취하므로, 자유도가 많은 로봇의 경로계획 문제에서 계산 효율성을 확보하는 접근으로 다루어진다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>RRT가 찾는 경로는 최적 경로가 아니라 충돌 없는 실행 가능한 경로일 뿐이며, 최적성을 보장하려면 RRT*와 같은 개선된 알고리즘이 필요합니다.</p>
+  <p>RRT가 찾는 경로는 최적 경로가 아니라 충돌 없는 실행 가능한 경로일 뿐이며, 최적성을 보장하려면 RRT*와 같은 개선된 알고리즘이 필요합니다. RRT는 매 반복마다 형상공간에서 무작위 점을 뽑고, 트리에서 그 점에 가장 가까운 노드를 찾아 정해진 스텝 크기만큼 그 방향으로 확장하는 과정을 반복하며, 이 확장 방향이 무작위 점 쪽으로 편향되기 때문에 아직 탐색되지 않은 넓은 영역으로 빠르게 뻗어나가는 특성을 갖는다. 목표 방향으로 일정 확률로 직접 확장을 시도하는 목표 편향 샘플링을 추가하면 수렴 속도를 크게 높일 수 있다.</p>
 
   <h2>주의할 점</h2>
   <p>RRT로 찾은 경로는 최적 경로가 아닌 경우가 많아, 최적성을 원하면 RRT* 등의 개선 알고리즘이나 후처리 평탄화가 필요하다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="rrt-star.html">RRT스타알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="rrt-star.html">RRT스타알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 생성된 경로는 대개 지그재그로 꺾여 있어 그대로 실행하면 부자연스럽고 시간이 오래 걸리므로, 실제 적용 전에 경로 평탄화(smoothing) 후처리를 거치는 것이 일반적이다. 무작위성에 의존하므로 같은 문제를 다시 풀어도 매번 경로가 달라질 수 있어, 안전이 중요한 응용에서는 결과의 재현성 확보를 위한 난수 시드 관리가 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="path-planning.html">경로계획</a>

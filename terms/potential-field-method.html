@@ -94,7 +94,7 @@
   <p>목표는 자석처럼 끌어당기고 장애물은 밀어내는 힘의 장을 만들어서, 그 힘을 따라 자연스럽게 길을 찾아가는 방법이에요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>목표를 향한 인력과 장애물의 척력을 합한 함수의 기울기를 따라 로봇을 움직이는 계획 방법으로, 계산이 즉각적이어서 실시간 <a href="obstacle-avoidance.html">장애물 회피</a>와 다중로봇 대형 유지에 폭넓게 쓰입니다. 반응형 계획의 원형으로 교과서와 논문의 비교 기준입니다.</p>
+  <p>목표를 향한 인력과 장애물의 척력을 합한 함수의 기울기를 따라 로봇을 움직이는 계획 방법으로, 계산이 즉각적이어서 실시간 <a href="obstacle-avoidance.html">장애물 회피</a>와 다중로봇 대형 유지에 폭넓게 쓰입니다. 반응형 계획의 원형으로 교과서와 논문의 비교 기준입니다. 인력·척력 계산이 각 스텝에서 몇 개의 벡터 덧셈으로 끝나므로 저사양 마이크로컨트롤러에서도 수백 헤르츠 주기로 돌릴 수 있어, 값비싼 계산 자원 없이도 반응형 회피를 구현할 수 있다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 이동 로봇은 포텐셜필드법을 이용해 동적 장애물을 실시간으로 회피하며 목표 지점으로 이동하였다.</div>
@@ -103,12 +103,12 @@
   <p>포텐셜필드법이 개별 논문 하나에 국한되지 않고 로봇공학 분야 전반의 연구에서 공통적으로 참조되는 개념임을 보여주는 예이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>인력과 척력이 상쇄되는 국소 최소점에 로봇이 갇히는 문제가 본질적이며, 좁은 통로에서 양쪽 척력 때문에 진동하고 장애물 근처에서 목표에 도달하지 못하는 현상도 잘 알려져 있습니다. <a href="artificial-potential-field.html">인공 포텐셜 필드</a>가 함수 자체를 가리키는 반면 이 용어는 그것을 이용한 계획 방법 전체를 뜻하며, 실무에서는 전역 계획기의 지역 회피 계층으로만 쓰는 것이 일반적입니다.</p>
+  <p>인력과 척력이 상쇄되는 국소 최소점에 로봇이 갇히는 문제가 본질적이며, 좁은 통로에서 양쪽 척력 때문에 진동하고 장애물 근처에서 목표에 도달하지 못하는 현상도 잘 알려져 있습니다. <a href="artificial-potential-field.html">인공 포텐셜 필드</a>가 함수 자체를 가리키는 반면 이 용어는 그것을 이용한 계획 방법 전체를 뜻하며, 실무에서는 전역 계획기의 지역 회피 계층으로만 쓰는 것이 일반적입니다. 인력장은 대개 목표까지 거리의 제곱에 비례하는 포물선 형태로, 척력장은 장애물까지 거리가 일정 반경 이내일 때만 작용하도록 설계해 먼 장애물이 불필요하게 영향을 주지 않게 한다. 국소최솟값 문제를 완화하기 위해 목표 방향으로 회전하는 성분을 추가하거나 경로 이력을 반영하는 확장이 제안되었지만, 임의의 환경에서 국소최솟값을 원천적으로 없애는 일반해는 없다.</p>
 
   <h2>주의할 점</h2>
   <p>포텐셜필드법은 여러 장애물의 힘이 상쇄되는 지점에서 국소최솟값에 빠져 목표에 도달하지 못하는 문제가 있다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="motion-planning.html">모션계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 속도가 아닌 힘(가속도)만 계산하는 순수한 형태에서는 관성 때문에 목표에 도달한 뒤에도 관성으로 지나쳐 진동할 수 있어, 감쇠 항을 함께 넣어야 한다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="artificial-potential-field.html">인공포텐셜필드</a>
