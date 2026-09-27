@@ -86,10 +86,10 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>위성이나 항공기에서 찍은 사진이 비뚤어지거나 늘어난 부분을 바로잡는 작업이다.</p>
+  <p>위성이나 항공기에서 찍은 사진이 비뚤어지거나 늘어난 부분을 바로잡는 작업이다. 인화한 사진이 살짝 비뚤어져 나왔을 때 스캐너로 다시 보정하는 것과 비슷한 원리를, 위성영상 전체에 수학적으로 적용하는 작업이다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>센서 기울기, 지구 곡률, 지형 기복으로 생기는 영상의 기하 왜곡을 제거해 지도 좌표와 일치시키는 전처리로, 여러 시기 영상의 비교와 GIS 자료와의 중첩에 반드시 필요합니다. 재해 피해 지역을 지적도와 겹쳐 확인하는 실무에서 보정 정확도가 곧 판독 신뢰도입니다.</p>
+  <p>센서 기울기, 지구 곡률, 지형 기복으로 생기는 영상의 기하 왜곡을 제거해 지도 좌표와 일치시키는 전처리로, 여러 시기 영상의 비교와 GIS 자료와의 중첩에 반드시 필요합니다. 재해 피해 지역을 지적도와 겹쳐 확인하는 실무에서 보정 정확도가 곧 판독 신뢰도입니다. 기하보정이 없으면 같은 지점을 촬영한 두 시기의 영상이라도 화소 위치가 어긋나 변화탐지 결과가 부정확해진다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">원격탐사 영상 전처리 단계에서 기하보정을 수행하여 지상좌표와의 정합성을 확보하였다.</div>
@@ -98,12 +98,12 @@
   <p>기준점 수와 배치가 기하보정의 정확도에 직접 영향을 미친다는 점을 보여 주는 문장입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>다항식 변환으로 대략 맞추는 <a href="georeferencing.html">지오레퍼런싱</a>과 지형 기복 왜곡까지 DEM으로 제거하는 <a href="orthorectification.html">정사보정</a>은 정확도 수준이 다르므로, 산지 영상을 다항식만으로 보정하면 위치 오차가 크게 남습니다. 재배열 과정에서 화소값이 보간되어 원래 값이 바뀌므로, 분류나 지수 계산은 보정 전 영상으로 하고 결과만 보정하는 것이 원칙입니다.</p>
+  <p>다항식 변환으로 대략 맞추는 <a href="georeferencing.html">지오레퍼런싱</a>과 지형 기복 왜곡까지 DEM으로 제거하는 <a href="orthorectification.html">정사보정</a>은 정확도 수준이 다르므로, 산지 영상을 다항식만으로 보정하면 위치 오차가 크게 남습니다. 재배열 과정에서 화소값이 보간되어 원래 값이 바뀌므로, 분류나 지수 계산은 보정 전 영상으로 하고 결과만 보정하는 것이 원칙입니다. 기하보정에 쓰이는 지상기준점은 도로 교차점처럼 영상과 지도 양쪽에서 뚜렷이 식별되는 지점을 선정하는데, 기준점 수가 너무 적거나 한쪽에 몰려 있으면 다항식 변환의 왜곡이 기준점에서 먼 지역에서 커진다. 기하보정에는 화소값을 새 격자에 옮겨 담는 재배열(리샘플링) 과정이 함께 필요하며, 최근접 이웃·양선형·삼차회선 등 방법에 따라 결과 영상의 부드러움과 원본 보존 정도가 달라진다. 위성 자체에 탑재된 센서 모델 정보(궤도, 자세)를 활용하면 지상기준점 없이도 어느 정도 정확한 기하보정이 가능한 물리적 보정 방식도 있다.</p>
 
   <h2>주의할 점</h2>
   <p>기하보정과 정사보정은 유사하지만 정사보정이 지형기복까지 고려한 더 엄밀한 보정이라는 점에서 구분된다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="orthorectification.html">정사보정</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="orthorectification.html">정사보정</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a> 저차 다항식으로 보정한 영상을 정사영상으로 오인해 정밀 거리측정에 사용하면 오차가 누적될 수 있다. 재배열 방식(최근접 이웃 등) 선택도 이후 분류 정확도에 미세하게 영향을 줄 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="orthorectification.html">정사보정</a>

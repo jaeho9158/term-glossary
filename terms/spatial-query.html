@@ -86,10 +86,10 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>'이 지역 안에 있는 건물만 찾아줘'처럼 위치를 기준으로 데이터를 찾는 작업이다. 예를 들어 특정 반경 안에 있는 편의점을 찾거나, 특정 행정구역에 포함된 학교 목록을 뽑아내는 작업이 공간질의에 해당한다.</p>
+  <p>'이 지역 안에 있는 건물만 찾아줘'처럼 위치를 기준으로 데이터를 찾는 작업이다. 예를 들어 특정 반경 안에 있는 편의점을 찾거나, 특정 행정구역에 포함된 학교 목록을 뽑아내는 작업이 공간질의에 해당한다. SQL로 치면 WHERE절에 위치 조건을 넣는 것과 같지만, 컴퓨터가 두 도형이 겹치는지 계산해야 하므로 단순 숫자 비교보다 훨씬 복잡한 연산이 필요하다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>특정 반경 내 시설물 검색, 특정 행정구역에 포함된 객체 조회 등 위치 기반 서비스와 GIS 실무에서 일상적으로 수행되는 연산으로, 공간데이터베이스 활용의 가장 기본적인 기능입니다.</p>
+  <p>특정 반경 내 시설물 검색, 특정 행정구역에 포함된 객체 조회 등 위치 기반 서비스와 GIS 실무에서 일상적으로 수행되는 연산으로, 공간데이터베이스 활용의 가장 기본적인 기능입니다. 내비게이션의 '주변 주유소 찾기', 배달앱의 '배달 가능 지역 확인' 기능도 모두 공간질의의 실제 응용 사례이다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">특정 반경 내에 위치한 학교를 찾기 위해 공간질의를 수행하였다.</div>
@@ -98,12 +98,12 @@
   <p>공간질의는 위치, 거리, 포함 관계 등 다양한 조건을 조합할 수 있어 GIS 분석의 가장 기본적인 도구로 쓰인다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>공간질의는 일반 데이터베이스의 속성기반 질의(SQL의 WHERE절)와 달리 위치·거리·포함관계라는 기하학적 조건을 다루므로, 공간색인이 제대로 구축되어 있지 않으면 대용량 데이터에서 질의 속도가 급격히 느려질 수 있습니다.</p>
+  <p>공간질의는 일반 데이터베이스의 속성기반 질의(SQL의 WHERE절)와 달리 위치·거리·포함관계라는 기하학적 조건을 다루므로, 공간색인이 제대로 구축되어 있지 않으면 대용량 데이터에서 질의 속도가 급격히 느려질 수 있습니다. 공간질의는 크게 범위질의(윈도우·반경 검색), 최근접질의(가장 가까운 k개 탐색), 위상질의(포함·교차·인접 판정)로 나뉘며, 어떤 유형이냐에 따라 요구되는 색인 구조가 달라진다. 대표적으로 R-트리 계열 색인이 최소경계사각형(MBR)으로 후보를 빠르게 좁힌 뒤 정확한 기하 판정을 수행하는 2단계 방식을 쓴다.</p>
 
   <h2>주의할 점</h2>
   <p>공간질의의 정확도는 좌표계 일치 여부와 데이터의 위상 정합성에 크게 좌우된다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="spatial-join.html">공간조인</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="spatial-join.html">공간조인</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a> 질의 결과가 위상관계 정의(예: 경계선이 닿는 경우를 포함으로 볼지 여부)에 따라 달라질 수 있어, 어떤 위상 판정 기준(OGC 표준의 관계 유형 등)을 썼는지 명시해야 한다. 질의 범위가 넓고 대상 데이터가 많을수록 색인 없이 처리하면 응답 시간이 기하급수적으로 늘어나므로, 대용량 서비스는 반드시 공간색인을 미리 구축해 둔다. 동일한 질의라도 데이터베이스 시스템(오픈소스 PostGIS, 상용 오라클 공간확장 등)마다 지원하는 함수와 성능 특성이 달라, 이식성을 고려한 설계가 필요하다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="spatial-database.html">공간데이터베이스</a>

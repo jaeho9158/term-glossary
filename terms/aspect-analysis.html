@@ -90,7 +90,7 @@
   <p>산비탈이 어느 방향(동서남북)을 바라보고 있는지를 계산하는 방법이다. 예를 들어 남향 비탈은 햇빛을 많이 받아 눈이 빨리 녹고, 북향 비탈은 그늘이 많아 눈이 오래 남는데, 이런 방향성을 계산하는 것이 사면향분석이다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>일사량과 토양 수분이 사면 방향에 따라 달라지므로, 산불 확산 예측, 산사태 위험지 평가, 태양광 발전 적지 분석 등에서 <a href="slope-analysis.html">경사분석</a>과 함께 기본 입력값으로 쓰입니다. 식생 분포나 적설 잔존 기간을 설명하는 변수로도 활용됩니다.</p>
+  <p>일사량과 토양 수분이 사면 방향에 따라 달라지므로, 산불 확산 예측, 산사태 위험지 평가, 태양광 발전 적지 분석 등에서 <a href="slope-analysis.html">경사분석</a>과 함께 기본 입력값으로 쓰입니다. 식생 분포나 적설 잔존 기간을 설명하는 변수로도 활용됩니다. 귤이나 사과 과수원의 적지를 고를 때, 일사량이 풍부한 남향 사면을 우선 고려하는 근거 자료로 활용된다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">일조량 추정을 위해 사면향분석 결과를 태양복사 모델에 결합하여 활용하였다.</div>
@@ -99,12 +99,12 @@
   <p>사면향은 경사분석과 함께 지형자료로부터 계산되며, 일사량·적설·식생 분포 등 지역 미기후를 이해하는 기초자료로 활용된다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>사면향은 0~360도의 순환 자료이므로 평균을 그대로 내면 북향(0도와 360도)이 왜곡됩니다. 통계에 넣을 때는 남향성 지수처럼 변환하거나 사인·코사인으로 분해해야 합니다. 평지에서는 방향이 정의되지 않으므로 <a href="dem.html">DEM</a> 해상도와 평탄지 처리 방식이 결과에 큰 영향을 줍니다.</p>
+  <p>사면향은 0~360도의 순환 자료이므로 평균을 그대로 내면 북향(0도와 360도)이 왜곡됩니다. 통계에 넣을 때는 남향성 지수처럼 변환하거나 사인·코사인으로 분해해야 합니다. 평지에서는 방향이 정의되지 않으므로 <a href="dem.html">DEM</a> 해상도와 평탄지 처리 방식이 결과에 큰 영향을 줍니다. 사면향은 보통 정북을 0도로 시계방향으로 360도까지 표현하며, 남한과 같은 북반구 중위도 지역에서는 남사면이 일사량을 많이 받아 적설 소멸이 빠르고 북사면보다 건조한 경향을 보인다. 사면향 계산도 경사와 마찬가지로 3x3 이동창에서 동서남북 방향의 고도 변화율을 비교해 산출한다. 사면향은 경사가 0에 가까운 평지에서는 정의 자체가 불안정해지므로, 평탄지는 별도의 값(예: -1)으로 처리해 방향값과 구분하는 것이 관례이다. 남한 지역의 산지 취락은 전통적으로 북서풍을 막고 일조를 확보하기 위해 남향 또는 남동향 사면에 입지하는 경향이 있었다는 점이 인문지리 연구에서도 다뤄진다.</p>
 
   <h2>주의할 점</h2>
   <p>평지에 가까운 지역은 사면향 값이 불안정하게 계산될 수 있어 해석에 주의가 필요하다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="surface-analysis.html">표면분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="viewshed-analysis.html">가시권분석(뷰쉐드 분석)</a><a href="slope-analysis.html">경사분석</a><a href="watershed-analysis.html">유역분석</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="surface-analysis.html">표면분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="viewshed-analysis.html">가시권분석(뷰쉐드 분석)</a><a href="slope-analysis.html">경사분석</a><a href="watershed-analysis.html">유역분석</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a> 사면향 자료를 일반적인 산술 통계(평균 등)로 요약하면 순환 자료의 특성 때문에 왜곡된 값이 나올 수 있어 원형통계 기법을 써야 한다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="slope-analysis.html">경사분석</a>
