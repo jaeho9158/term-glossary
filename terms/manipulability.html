@@ -89,7 +89,7 @@
   <p>로봇 팔이 지금 자세에서 얼마나 자유롭게 움직일 수 있는지를 숫자로 나타낸 거예요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>현재 자세에서 로봇이 얼마나 자유롭게 모든 방향으로 움직일 수 있는지를 <a href="jacobian-matrix-robotics.html">야코비안</a>으로 정량화한 지표로, <a href="singularity-robot.html">특이점</a>에서 멀어지는 자세 선택과 중복 로봇의 <a href="redundancy-resolution.html">중복성 해결</a> 목적함수, 로봇 설치 위치 결정에 쓰입니다.</p>
+  <p>현재 자세에서 로봇이 얼마나 자유롭게 모든 방향으로 움직일 수 있는지를 <a href="jacobian-matrix-robotics.html">야코비안</a>으로 정량화한 지표로, <a href="singularity-robot.html">특이점</a>에서 멀어지는 자세 선택과 중복 로봇의 <a href="redundancy-resolution.html">중복성 해결</a> 목적함수, 로봇 설치 위치 결정에 쓰입니다. 작업 도중 조작성 지수가 낮은 자세를 지나가야 한다면 미리 궤적을 재설계하거나 로봇을 재배치해 특이점 근처를 피하는 전략을 세울 수 있어, 이 지수는 작업 계획 단계의 참고 지표로도 쓰입니다. 로봇을 작업대에 배치할 때도 이 지수가 큰 자세 범위 안에서 작업이 이루어지도록 설치 위치와 각도를 미리 계획하면 이후 특이점 문제를 줄일 수 있습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 논문에서는 조작성 지수를 최대화하는 방향으로 여유 자유도를 활용하여 특이점 회피 성능을 높였다.</div>
@@ -98,12 +98,12 @@
   <p>조작성 지표를 타원체 모양으로 그려 보면 로봇팔이 어느 방향으로는 쉽게 움직이고 어느 방향으로는 힘을 내기 어려운지 한눈에 비교할 수 있다는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>요시카와 척도 하나로 요약하면 방향 정보가 사라지므로, 특정 방향의 움직임이 중요한 작업에서는 <a href="velocity-ellipsoid.html">속도 타원체</a>나 조건수를 함께 봐야 합니다. 회전관절과 직선관절이 섞이면 단위가 달라 값의 물리적 의미가 모호해지고, 관절 한계를 고려하지 않으므로 지표가 높아도 실제로는 움직일 수 없는 자세가 있을 수 있습니다.</p>
+  <p>요시카와 척도 하나로 요약하면 방향 정보가 사라지므로, 특정 방향의 움직임이 중요한 작업에서는 <a href="velocity-ellipsoid.html">속도 타원체</a>나 조건수를 함께 봐야 합니다. 회전관절과 직선관절이 섞이면 단위가 달라 값의 물리적 의미가 모호해지고, 관절 한계를 고려하지 않으므로 지표가 높아도 실제로는 움직일 수 없는 자세가 있을 수 있습니다. 자코비안 행렬로 정의되는 타원체의 부피나 형태로 정량화되며, 이 값이 0에 가까워지는 자세가 곧 특이점으로, 그 방향으로는 말단장치를 움직이기 위한 관절 속도가 무한히 커져야 합니다.</p>
 
   <h2>주의할 점</h2>
   <p>조작성 지수가 높다고 항상 최적은 아니며, 작업 목적(속도인지 힘인지)에 따라 적합한 조작성 척도가 달라진다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="dynamic-manipulability.html">동적조작성</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="dynamic-manipulability.html">동적조작성</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 조작성 지수가 높은 자세라고 해서 모든 방향으로 균일하게 움직이기 쉬운 것은 아니어서, 타원체의 형태(방향별 편차)까지 함께 살펴야 특정 작업 방향에 적합한 자세인지 판단할 수 있습니다. 이 지수는 정적인 자세만을 기준으로 계산되므로 실제 동적 작업 중의 관성 효과까지는 반영하지 못한다는 한계가 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="jacobian-matrix.html">야코비 행렬</a>

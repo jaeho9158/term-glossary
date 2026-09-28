@@ -93,7 +93,7 @@
   <p>로봇을 밀었을 때 얼마나 세게 밀리고, 얼마나 빨리 되돌아오는지를 스프링-댐퍼처럼 설계하는 제어예요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>로봇을 가상의 질량-스프링-댐퍼처럼 행동하게 만들어 접촉 시 힘과 위치 사이의 관계를 지정하는 제어로, 협동로봇의 안전한 접촉과 정밀 조립, 재활 로봇의 사람과의 상호작용에서 표준 방법입니다. 관절토크 제어가 가능한 로봇에서 가장 자연스러운 접촉 제어 형태입니다.</p>
+  <p>로봇을 가상의 질량-스프링-댐퍼처럼 행동하게 만들어 접촉 시 힘과 위치 사이의 관계를 지정하는 제어로, 협동로봇의 안전한 접촉과 정밀 조립, 재활 로봇의 사람과의 상호작용에서 표준 방법입니다. 관절토크 제어가 가능한 로봇에서 가장 자연스러운 접촉 제어 형태입니다. 재활로봇에서 환자의 남은 힘을 존중하며 필요한 만큼만 보조하는 어시스트-애즈-니디드 방식의 제어 전략도 임피던스제어의 개념을 응용한 대표적인 사례입니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">제안된 임피던스제어기는 가상의 질량-감쇠-강성 파라미터를 조절하여 접촉 시 충격을 흡수하였다.</div>
@@ -102,12 +102,12 @@
   <p>임피던스제어가 로봇과 환경 간 물리적 상호작용을 안전하게 조절하는 기법으로 쓰임을 보여준다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>위치 오차에 대해 힘을 출력하므로 자유 공간에서는 마찰과 중력 모델 오차가 그대로 위치 오차로 남고, 이것이 <a href="admittance-control.html">어드미턴스 제어</a>와 상반되는 약점입니다. 힘 목표를 직접 추종하는 것이 아니라 힘-위치 관계를 정하는 것이므로, 특정 접촉력을 정확히 유지하려면 외부 힘 루프를 추가해야 하며 이를 힘제어와 혼동하는 경우가 많습니다.</p>
+  <p>위치 오차에 대해 힘을 출력하므로 자유 공간에서는 마찰과 중력 모델 오차가 그대로 위치 오차로 남고, 이것이 <a href="admittance-control.html">어드미턴스 제어</a>와 상반되는 약점입니다. 힘 목표를 직접 추종하는 것이 아니라 힘-위치 관계를 정하는 것이므로, 특정 접촉력을 정확히 유지하려면 외부 힘 루프를 추가해야 하며 이를 힘제어와 혼동하는 경우가 많습니다. 위치 오차와 접촉력 사이의 관계를 질량-스프링-댐퍼로 이루어진 가상의 기계적 임피던스로 설정해, 순응 제어의 강성 개념에 관성과 감쇠 특성까지 더한 확장된 형태로 볼 수 있습니다. 사람과 물리적으로 접촉하는 재활로봇이나 협동로봇에서는 목표 임피던스를 낮게 설정해 예상치 못한 충돌에도 부드럽게 반응하도록 설계하는 것이 안전상 중요합니다.</p>
 
   <h2>주의할 점</h2>
   <p>임피던스제어는 힘 자체를 정밀히 추종하는 것이 목적이 아니므로, 목표 힘 추종이 중요한 작업에는 어드미턴스제어나 하이브리드제어가 더 적합할 수 있다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="stiffness-control.html">강성제어</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="stiffness-control.html">강성제어</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 임피던스 파라미터를 접촉 환경의 강성과 맞지 않게 설정하면 오히려 진동이 커지거나 접촉이 불안정해질 수 있어, 환경 특성에 맞춘 파라미터 조정이 함께 필요합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="admittance-control.html">어드미턴스제어</a>

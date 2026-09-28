@@ -90,7 +90,7 @@
   <p>회전과 이동을 한꺼번에 나타내는 숫자표로, 좌표계를 옮기고 돌리는 걸 한 번에 계산할 수 있게 해줘요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>회전과 이동을 4×4 행렬 하나로 표현해 좌표계 변환을 행렬 곱으로 연쇄할 수 있게 하는 도구로, <a href="forward-kinematics.html">순기구학</a>·센서 좌표 변환·<a href="hand-eye-calibration.html">핸드아이 캘리브레이션</a> 등 로봇공학의 모든 기하 계산이 이 표현 위에서 이루어집니다.</p>
+  <p>회전과 이동을 4×4 행렬 하나로 표현해 좌표계 변환을 행렬 곱으로 연쇄할 수 있게 하는 도구로, <a href="forward-kinematics.html">순기구학</a>·센서 좌표 변환·<a href="hand-eye-calibration.html">핸드아이 캘리브레이션</a> 등 로봇공학의 모든 기하 계산이 이 표현 위에서 이루어집니다. 다수의 좌표계를 다루는 복잡한 로봇 시스템일수록 이 통합 표현이 없다면 회전과 이동을 각각 따로 계산해야 해 코드와 계산이 훨씬 복잡해집니다. 카메라로 인식한 물체의 위치를 로봇 좌표계로 옮겨 실제로 잡게 만드는 비전 기반 파지 시스템에서도 이 변환 계산이 핵심적인 역할을 합니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">각 링크 좌표계 사이의 관계는 DH 파라미터로부터 유도한 동차변환행렬로 표현하였다.</div>
@@ -99,12 +99,12 @@
   <p>동차변환은 순기구학뿐 아니라 그 역과정인 역기구학 계산의 기초로도 쓰인다는 점을 보여준다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>회전 부분이 <a href="rotation-matrix.html">회전행렬</a>이므로 수치 오차가 누적되면 직교성이 깨져 주기적으로 정규화해야 하고, 보간에는 부적합해 자세 보간은 쿼터니언으로 따로 수행합니다. 변환의 곱셈 순서가 고정 좌표계 기준인지 이동 좌표계 기준인지에 따라 결과가 달라지며, 이 혼동이 좌표 변환 오류의 가장 흔한 원인입니다.</p>
+  <p>회전 부분이 <a href="rotation-matrix.html">회전행렬</a>이므로 수치 오차가 누적되면 직교성이 깨져 주기적으로 정규화해야 하고, 보간에는 부적합해 자세 보간은 쿼터니언으로 따로 수행합니다. 변환의 곱셈 순서가 고정 좌표계 기준인지 이동 좌표계 기준인지에 따라 결과가 달라지며, 이 혼동이 좌표 변환 오류의 가장 흔한 원인입니다. 3차원 회전과 이동을 각각 별도의 행렬로 다루지 않고 4x4 행렬 하나에 통합해, 여러 좌표계 변환을 행렬 곱셈만으로 순차적으로 연결할 수 있다는 점이 순기구학 계산을 간결하게 만드는 핵심입니다. 여러 카메라나 센서의 좌표계를 로봇의 기저좌표계로 통합할 때도 동일한 형태의 변환행렬이 사용되어, 로봇공학뿐 아니라 컴퓨터 비전과 그래픽스 분야에서도 폭넓게 쓰이는 표현법입니다.</p>
 
   <h2>주의할 점</h2>
   <p>동차변환행렬은 회전 성분과 위치 성분을 함께 담고 있으므로 곱셈 순서(좌표계 기준)를 바꾸면 결과가 달라진다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="transformation-matrix.html">변환행렬</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="transformation-matrix.html">변환행렬</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 회전행렬 부분이 직교행렬 조건을 만족하지 않으면 좌표계가 왜곡되므로, 수치 계산 과정에서 누적되는 오차로 직교성이 깨지지 않도록 주기적인 정규화가 필요할 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="rotation-matrix.html">회전행렬</a>

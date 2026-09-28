@@ -90,7 +90,7 @@
   <p>H브리지 하나는 마치 작은 전압 블록 하나를 만드는 장치와 같습니다. 이런 블록을 여러 개 직렬로 쌓아 올리면, 각 블록이 만든 작은 전압들이 합쳐져 더 크고 계단이 촘촘한 전체 전압 파형이 만들어집니다. 블록 수를 늘릴수록 계단이 더 촘촘해져 파형이 매끄러워집니다. 각 블록은 독립된 직류원을 가지고 있어 구조가 모듈처럼 반복됩니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>모듈 단위로 셀을 추가하기만 하면 전압 레벨을 쉽게 확장할 수 있어, 태양광이나 배터리처럼 독립적인 직류원이 여러 개 존재하는 시스템에 잘 맞습니다. 구조가 대칭적이고 확장성이 좋아 고전압 대용량 응용 논문에서 자주 채택되는 토폴로지입니다.</p>
+  <p>모듈 단위로 셀을 추가하기만 하면 전압 레벨을 쉽게 확장할 수 있어, 태양광이나 배터리처럼 독립적인 직류원이 여러 개 존재하는 시스템에 잘 맞습니다. 구조가 대칭적이고 확장성이 좋아 고전압 대용량 응용 논문에서 자주 채택되는 토폴로지입니다. 각 셀이 모듈 단위로 독립적이어서 확장성이 뛰어나고, 태양광 스트링별 독립 전원 연결이 가능해 신재생에너지 인버터 구조로도 널리 활용됩니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"제안된 직렬 H브리지 인버터는 각 셀에 독립된 태양광 모듈을 연결하여 셀 단위 최대전력점 추적이 가능하도록 설계되었다."</div>
@@ -99,12 +99,12 @@
   <p>셀 수 증가가 출력 파형 품질 개선으로 이어짐을 보여주는 문장입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>N개의 H브리지 셀을 직렬 연결하면 이론적으로 2N+1개의 전압 레벨을 얻을 수 있습니다. 각 셀은 독립된 직류 전원이 필요하다는 특징이 있어, 절연 변압기나 배터리 팩처럼 분리된 전원을 갖춘 시스템에 적합합니다. 변조 시에는 위상천이 반송파 PWM 등이 흔히 사용되어 각 셀의 스위칭 손실을 고르게 분산시킵니다.</p>
+  <p>N개의 H브리지 셀을 직렬 연결하면 이론적으로 2N+1개의 전압 레벨을 얻을 수 있습니다. 각 셀은 독립된 직류 전원이 필요하다는 특징이 있어, 절연 변압기나 배터리 팩처럼 분리된 전원을 갖춘 시스템에 적합합니다. 변조 시에는 위상천이 반송파 PWM 등이 흔히 사용되어 각 셀의 스위칭 손실을 고르게 분산시킵니다. 캐스케이드 H-브릿지 인버터는 독립된 직류전원을 갖는 여러 개의 단상 H-브릿지 셀을 직렬로 연결해 각 셀의 출력전압을 합산하는 구조로, 셀 수가 n개일 때 (2n+1)단계의 계단파 전압을 출력할 수 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>각 셀마다 독립된 직류 전원이 필요하다는 점은 장점이자 제약이 될 수 있으며, 공통 직류 버스를 쓰는 응용에서는 다른 토폴로지가 더 적합할 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="multilevel-inverter.html">멀티레벨 인버터</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="modular-multilevel-converter.html">모듈형 멀티레벨 컨버터</a><a href="neutral-point-clamped-inverter.html">중성점 클램프 인버터</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="multilevel-inverter.html">멀티레벨 인버터</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="modular-multilevel-converter.html">모듈형 멀티레벨 컨버터</a><a href="neutral-point-clamped-inverter.html">중성점 클램프 인버터</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a> 각 셀마다 독립된 절연 직류전원이 필요하다는 점이 구조를 복잡하게 만들며, 셀 간 직류전압이 불균형해지면 출력 파형 왜곡으로 이어질 수 있어 균형 제어가 요구됩니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="multilevel-inverter.html">멀티레벨 인버터</a>
