@@ -94,7 +94,7 @@
   <p>이 알고리즘은 선의 시작점과 끝점을 잇는 직선을 그은 뒤, 원래 선에서 그 직선과 가장 멀리 떨어진 점을 찾습니다. 이 점이 허용 오차보다 더 멀리 떨어져 있으면 "중요한 점"으로 남기고, 그 점을 기준으로 선을 둘로 나누어 같은 과정을 반복합니다. 반대로 모든 점이 직선에 충분히 가까우면 중간 점들을 모두 지워버립니다. 결과적으로 선의 전체적인 굵은 흐름은 유지하면서 불필요하게 촘촘한 점들만 효율적으로 걸러내는 방식입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>이 알고리즘은 계산 방식이 비교적 명확하고 결과를 예측하기 쉬워 지도학과 GIS 분야에서 도형 단순화의 대표적인 방법으로 널리 활용됩니다. 대용량 벡터 데이터를 다양한 축척에 맞게 처리해야 하는 지도 제작 자동화에서 특히 자주 언급됩니다.</p>
+  <p>이 알고리즘은 계산 방식이 비교적 명확하고 결과를 예측하기 쉬워 지도학과 GIS 분야에서 도형 단순화의 대표적인 방법으로 널리 활용됩니다. 대용량 벡터 데이터를 다양한 축척에 맞게 처리해야 하는 지도 제작 자동화에서 특히 자주 언급됩니다. 허용오차 값 하나만 조정하면 동일한 원본선으로부터 다양한 축척 수준에 맞는 단순화 결과를 일관되게 얻을 수 있어, GIS 소프트웨어에서 가장 널리 구현된 표준 단순화 알고리즘으로 자리잡았습니다. 구현이 비교적 간단하면서도 결과가 직관적이어서 상용 GIS 소프트웨어 대부분이 이 알고리즘을 기본 단순화 도구로 채택하고 있습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"도로망 데이터의 정점 수를 줄이기 위해 더글러스-포이커 알고리즘을 적용하였다."</div>
@@ -103,12 +103,12 @@
   <p>알고리즘의 핵심 매개변수인 허용 오차의 영향을 다루는 문장입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>이 알고리즘의 핵심 매개변수는 허용 오차(tolerance)이며, 이 값이 클수록 더 많은 점이 제거되어 단순화 정도가 강해집니다. 재귀적으로 선을 분할하며 처리하는 방식이기 때문에 선형 및 다각형 데이터 모두에 적용할 수 있습니다.</p>
+  <p>이 알고리즘의 핵심 매개변수는 허용 오차(tolerance)이며, 이 값이 클수록 더 많은 점이 제거되어 단순화 정도가 강해집니다. 재귀적으로 선을 분할하며 처리하는 방식이기 때문에 선형 및 다각형 데이터 모두에 적용할 수 있습니다. 이 알고리즘은 선의 시작점과 끝점을 잇는 직선으로부터 가장 멀리 떨어진 정점을 찾아, 그 거리가 허용오차보다 크면 해당 정점을 보존하고 선을 둘로 나누어 같은 과정을 재귀적으로 반복하는 방식으로 동작합니다.</p>
 
   <h2>주의할 점</h2>
   <p>허용 오차를 지나치게 크게 설정하면 원래 형태와 큰 차이가 발생하거나 선의 위상 관계(교차, 접촉 등)가 깨질 수 있어 값 설정에 주의가 필요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="cartographic-simplification.html">도형 단순화</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="bend-simplification-algorithm.html">굴곡단순화 알고리즘</a><a href="visvalingam-whyatt-algorithm.html">비스발링암-와이엇 알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="cartographic-simplification.html">도형 단순화</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="bend-simplification-algorithm.html">굴곡단순화 알고리즘</a><a href="visvalingam-whyatt-algorithm.html">비스발링암-와이엇 알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 허용오차를 너무 크게 설정하면 지형의 중요한 특징까지 사라질 수 있어 축척과 목적에 맞는 값을 신중히 선택해야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="cartographic-simplification.html">도형 단순화</a>

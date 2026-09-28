@@ -90,7 +90,7 @@
   <p>영전류 스위칭은 영전압 스위칭과 짝을 이루는 기법으로, 스위치에 전류가 흐르고 있는 상태에서 갑자기 끄면 발생하는 손실을 줄이기 위해 전류가 자연스럽게 0에 가까워지는 순간을 기다렸다가 스위치를 조작하는 방식입니다. 회로의 공진 동작을 이용해 전류 파형이 0을 지나가는 타이밍을 만들어냅니다. 특히 스위치를 끌 때 발생하는 손실을 줄이는 데 효과적입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>전류가 큰 스위치를 갑자기 끌 때 생기는 전압 스파이크와 손실은 소자 신뢰성과 효율을 저해하기 때문에, 영전류 스위칭은 고전력·고전류 응용의 공진형 컨버터 설계에서 스위칭 손실을 낮추는 방법으로 연구됩니다.</p>
+  <p>전류가 큰 스위치를 갑자기 끌 때 생기는 전압 스파이크와 손실은 소자 신뢰성과 효율을 저해하기 때문에, 영전류 스위칭은 고전력·고전류 응용의 공진형 컨버터 설계에서 스위칭 손실을 낮추는 방법으로 연구됩니다. 특히 IGBT처럼 턴오프 시 꼬리전류가 남는 소자에서 손실 저감 효과가 두드러져 고전압 대전력 응용에서 자주 채택됩니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"제안된 직렬 공진형 컨버터는 영전류 스위칭 조건에서 동작하여 스위치의 턴오프 손실을 크게 줄였다."</div>
@@ -99,12 +99,12 @@
   <p>전류 차단이 어려운 사이리스터류 소자에서 영전류 스위칭이 활용되는 맥락을 보여줍니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>영전류 스위칭은 주로 직렬 공진 탱크를 이용해 스위치 전류가 사인파 형태로 흐르다 자연스럽게 0을 지나는 시점을 만들며, 이 시점에 맞춰 게이트 신호를 인가하거나 차단합니다. 영전압 스위칭이 턴온 손실 저감에 유리한 반면, 영전류 스위칭은 턴오프 손실 저감에 상대적으로 유리한 것으로 알려져 있습니다.</p>
+  <p>영전류 스위칭은 주로 직렬 공진 탱크를 이용해 스위치 전류가 사인파 형태로 흐르다 자연스럽게 0을 지나는 시점을 만들며, 이 시점에 맞춰 게이트 신호를 인가하거나 차단합니다. 영전압 스위칭이 턴온 손실 저감에 유리한 반면, 영전류 스위칭은 턴오프 손실 저감에 상대적으로 유리한 것으로 알려져 있습니다. 영전류 스위칭은 공진 인덕터와 커패시터로 스위치 전류를 정현파 형태로 만들어 전류가 0이 된 시점에 턴오프시키는 기법으로, 턴오프 시 전압·전류가 겹치는 구간을 없애 턴오프 손실을 크게 줄입니다. 스위치와 직렬로 들어간 공진 인덕터가 턴온 시 전류 상승률(di/dt)도 제한하므로 턴온 손실 역시 함께 줄어드는 효과가 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>영전류 스위칭 역시 부하 조건에 따라 공진 타이밍이 달라질 수 있어, 설계된 부하 범위를 벗어나면 소프트 스위칭 조건을 잃고 손실이 증가할 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="soft-switching-technique.html">소프트 스위칭 기법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="zero-voltage-switching.html">영전압 스위칭</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="soft-switching-technique.html">소프트 스위칭 기법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="zero-voltage-switching.html">영전압 스위칭</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a> 영전압 스위칭이 스위치 접합 커패시턴스 손실 저감에 유리한 반면 영전류 스위칭은 전류 관련 손실 저감에 유리해, 소자 특성과 회로 조건에 따라 적합한 기법을 선택해야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="zero-voltage-switching.html">영전압 스위칭</a>

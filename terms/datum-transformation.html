@@ -89,7 +89,7 @@
   <p>지구를 근사하는 기준타원체와 그 원점을 정하는 방식은 나라마다, 시대마다 다를 수 있습니다. 예를 들어 옛날 지도에서 쓰던 좌표 체계와 요즘 GPS가 쓰는 좌표 체계는 같은 지점이라도 표시되는 숫자가 다릅니다. 측지기준계 변환은 이렇게 서로 다른 "좌표의 언어"를 하나로 통일해서 번역해주는 작업이라고 생각하면 됩니다. 이 변환을 거치지 않으면 지도나 데이터를 겹쳐볼 때 위치가 어긋나 보이게 됩니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>여러 시대나 기관에서 만들어진 공간 데이터를 함께 분석하려면 좌표계를 통일하는 작업이 필수적입니다. 지도학 연구와 GIS 실무에서는 과거 지형도, 위성영상, GPS 관측 자료 등 이종 자료를 결합할 때 측지기준계 변환의 정확도가 분석 결과의 신뢰도를 좌우합니다.</p>
+  <p>여러 시대나 기관에서 만들어진 공간 데이터를 함께 분석하려면 좌표계를 통일하는 작업이 필수적입니다. 지도학 연구와 GIS 실무에서는 과거 지형도, 위성영상, GPS 관측 자료 등 이종 자료를 결합할 때 측지기준계 변환의 정확도가 분석 결과의 신뢰도를 좌우합니다. 서로 다른 측지계를 사용하는 지도나 GPS 좌표를 함께 겹쳐 분석할 경우 측지계 변환을 거치지 않으면 같은 지점이 수십에서 수백 미터씩 어긋나게 표시될 수 있어, 정확한 공간분석의 필수 전처리 단계로 다루어집니다. 위성측위 자료와 과거 종이지도를 함께 활용해야 하는 국토조사나 재난대응 같은 실무에서 측지계 변환의 정확도는 분석 결과의 신뢰성을 좌우합니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"구 좌표계로 제작된 지형도를 최신 측지기준계로 변환하여 위치 오차를 보정하였다."</div>
@@ -98,12 +98,12 @@
   <p>변환 과정에서 생기는 오차를 줄이기 위한 방법을 언급하는 문장입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>측지기준계 변환에는 좌표 이동, 회전, 축척 조정 등을 포함하는 여러 수학적 모델이 활용되며, 대표적으로 헬머트 변환과 같은 방식이 자주 언급됩니다. 정확한 변환을 위해서는 두 기준계에서 공통으로 관측된 기준점 자료가 필요합니다.</p>
+  <p>측지기준계 변환에는 좌표 이동, 회전, 축척 조정 등을 포함하는 여러 수학적 모델이 활용되며, 대표적으로 헬머트 변환과 같은 방식이 자주 언급됩니다. 정확한 변환을 위해서는 두 기준계에서 공통으로 관측된 기준점 자료가 필요합니다. 측지계 변환에는 평행이동만 적용하는 3매개변수법, 회전과 축척까지 포함하는 7매개변수법(헬머트변환), 그리고 지역별 격자보정값을 이용하는 방식 등이 있으며, 적용 방법에 따라 변환 정확도와 계산 복잡도가 달라집니다.</p>
 
   <h2>주의할 점</h2>
   <p>변환 파라미터의 정확도에 따라 결과 좌표에 남는 오차 크기가 달라지므로, 사용하는 변환 방법과 파라미터의 출처를 명확히 밝히는 것이 중요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="seven-parameter-transformation.html">7매개변수 변환</a><a href="datum-shift-parameter.html">기준계 변환 매개변수</a><a href="molodensky-transformation.html">몰로덴스키 변환</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="seven-parameter-transformation.html">7매개변수 변환</a><a href="datum-shift-parameter.html">기준계 변환 매개변수</a><a href="molodensky-transformation.html">몰로덴스키 변환</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 변환 매개변수는 적용 지역에 따라 달라지므로 다른 지역에서 산출된 매개변수를 그대로 가져다 쓰면 오차가 커질 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="ellipsoid-reference.html">기준타원체</a>

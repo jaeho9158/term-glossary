@@ -99,12 +99,12 @@
   <p>채널이 빠르게 바뀔 때 등화기가 얼마나 빨리 최적 상태에 도달하는지 살펴봤다는 의미입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>적응형 등화기는 훈련 신호나 판정 결과와 실제 수신 신호의 오차를 계산하고, 이 오차를 줄이는 방향으로 필터 계수를 반복적으로 갱신합니다. 대표적인 갱신 알고리즘으로 최소평균제곱(LMS) 방식과 이를 개선한 재귀적 최소제곱(RLS) 방식 등이 있으며, 수렴 속도와 계산 복잡도 사이에 상충 관계가 존재합니다.</p>
+  <p>적응형 등화기는 훈련 신호나 판정 결과와 실제 수신 신호의 오차를 계산하고, 이 오차를 줄이는 방향으로 필터 계수를 반복적으로 갱신합니다. 대표적인 갱신 알고리즘으로 최소평균제곱(LMS) 방식과 이를 개선한 재귀적 최소제곱(RLS) 방식 등이 있으며, 수렴 속도와 계산 복잡도 사이에 상충 관계가 존재합니다. 적응형 등화기는 통신 초반에 송수신 측이 모두 아는 훈련 신호로 먼저 빠르게 수렴시킨 뒤, 이후에는 수신기가 스스로 판정한 결과를 기준 삼아 계속 갱신하는 결정지향(decision-directed) 모드로 전환되는 구조가 흔히 사용됩니다. 결정귀환 등화기는 이미 복원한 이전 심볼들을 이용해 현재 심볼에 남아 있는 후행 간섭을 추정해 제거하는 구조로, 선형 등화기보다 심한 채널 왜곡에서도 좋은 성능을 보이는 경향이 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>채널이 너무 빠르게 변하면 등화기가 충분히 따라가지 못해 성능이 저하될 수 있고, 수렴 속도를 높이기 위해 갱신 폭을 키우면 안정성이 떨어질 수 있어 두 요소 사이의 균형을 신중히 설계해야 합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="channel-equalization.html">채널 등화</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="channel-equalization.html">채널 등화</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a> 결정지향 모드에서 초기 판정이 잘못되면 그 오류가 이후 갱신에도 계속 영향을 미치는 오류 전파 문제가 생길 수 있어, 초기 수렴 상태가 충분히 정확한지가 중요합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="channel-equalization.html">채널 등화</a>

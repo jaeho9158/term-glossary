@@ -89,7 +89,7 @@
   <p>로봇이 어떻게 움직여야 목표에 안전하게 도달할지 전체적으로 계획하는 것을 말해요.</p>
 
   <h2>왜 중요한가</h2>
-  <p>로봇이 충돌 없이 시작 형상에서 목표 형상으로 가는 경로를 찾는 문제로, 로봇팔의 작업 순서 실행, 이동로봇 내비게이션, 다리형 로봇 발 배치까지 자율 동작의 중추입니다. <a href="configuration-space.html">형상공간</a> 개념과 샘플링 기반 알고리즘이 이 문제를 위해 발전했습니다.</p>
+  <p>로봇이 충돌 없이 시작 형상에서 목표 형상으로 가는 경로를 찾는 문제로, 로봇팔의 작업 순서 실행, 이동로봇 내비게이션, 다리형 로봇 발 배치까지 자율 동작의 중추입니다. <a href="configuration-space.html">형상공간</a> 개념과 샘플링 기반 알고리즘이 이 문제를 위해 발전했습니다. 물류창고의 자율 이동로봇이나 다관절 로봇 팔이 사람과 같은 공간에서 안전하게 작업하려면, 매 순간 주변 환경 변화에 대응하는 실시간 경로계획 능력이 필수적입니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">본 논문에서는 샘플링 기반 모션계획 기법을 이용해 고자유도 로봇팔의 실행 가능한 동작을 생성하였다.</div>
@@ -99,12 +99,12 @@
   <p>이 연구는 샘플링 기반 모션계획 기법이 고차원 관절 공간에서도 비교적 효율적으로 해를 찾았다고 밝혔다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>완전한 해법은 형상공간 차원에 지수적 비용이 들어 6축 이상에서는 실용적이지 않으므로, <a href="rapidly-exploring-random-tree.html">RRT</a>나 <a href="probabilistic-roadmap.html">PRM</a>처럼 확률적 완전성만 보장하는 방법이 표준입니다. 기하 경로만 구하는 경로 계획과 시간을 붙여 동역학 제약까지 만족하는 <a href="trajectory-planning.html">궤적 계획</a>은 구분되며, 샘플링 기반 경로는 들쭉날쭉해 후처리 평활화가 거의 항상 필요합니다.</p>
+  <p>완전한 해법은 형상공간 차원에 지수적 비용이 들어 6축 이상에서는 실용적이지 않으므로, <a href="rapidly-exploring-random-tree.html">RRT</a>나 <a href="probabilistic-roadmap.html">PRM</a>처럼 확률적 완전성만 보장하는 방법이 표준입니다. 기하 경로만 구하는 경로 계획과 시간을 붙여 동역학 제약까지 만족하는 <a href="trajectory-planning.html">궤적 계획</a>은 구분되며, 샘플링 기반 경로는 들쭉날쭉해 후처리 평활화가 거의 항상 필요합니다. 단순히 시작점과 끝점을 잇는 궤적계획과 달리, 장애물이 있는 환경에서 충돌 없는 경로 자체를 탐색하는 문제를 다루며, RRT나 PRM 같은 샘플링 기반 알고리즘이 대표적으로 사용됩니다. 확률적 완전성을 가진 알고리즘은 충분한 시간이 주어지면 해가 존재할 때 반드시 찾아낸다는 이론적 보장을 제공하지만, 실제 계산 시간이 짧게 제한된 환경에서는 이 보장이 실질적 의미를 갖기 어렵습니다.</p>
 
   <h2>주의할 점</h2>
   <p>모션계획은 문헌에 따라 경로계획과 동일한 의미로 쓰이기도 하므로 문맥상 정의를 확인해야 한다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="coverage-path-planning.html">영역완전탐사경로계획</a><a href="global-path-planning.html">전역경로계획</a><a href="local-path-planning.html">지역경로계획</a><a href="potential-field-method.html">포텐셜필드법</a><a href="probabilistic-roadmap.html">확률적로드맵</a><a href="rapidly-exploring-random-tree.html">RRT(급속탐색랜덤트리)</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 찾아낸 경로가 충돌은 피하더라도 로봇의 관절 속도나 가속도 한계를 넘어서는 급격한 형태일 수 있어, 실제 실행 전 궤적계획 단계에서 동역학적 제약을 반영한 다듬기가 필요합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="path-planning.html">경로계획</a>
