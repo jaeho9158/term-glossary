@@ -99,12 +99,12 @@
   <p>방어 기법의 효과를 다루는 연구 문맥입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>스택오버플로우 공격은 대체로 반환 주소를 덮어써 프로그램의 실행 흐름을 공격자가 지정한 코드로 이동시키는 방식으로 이루어집니다. 이를 방어하기 위해 반환 주소 앞에 무작위 값을 배치해 변조 여부를 검사하는 스택 카나리, 메모리 주소를 실행마다 무작위로 배치하는 주소 공간 배치 난수화, 스택 영역의 코드 실행을 막는 비실행 스택 등의 기법이 함께 연구됩니다.</p>
+  <p>스택오버플로우 공격은 대체로 반환 주소를 덮어써 프로그램의 실행 흐름을 공격자가 지정한 코드로 이동시키는 방식으로 이루어집니다. 이를 방어하기 위해 반환 주소 앞에 무작위 값을 배치해 변조 여부를 검사하는 스택 카나리, 메모리 주소를 실행마다 무작위로 배치하는 주소 공간 배치 난수화, 스택 영역의 코드 실행을 막는 비실행 스택 등의 기법이 함께 연구됩니다. 스택 오버플로우 공격은 함수 호출 시 저장되는 반환주소를 조작된 값으로 덮어써 공격자가 원하는 코드로 실행 흐름을 우회시키는 원리를 이용하며, 이를 막기 위한 방어 기법으로 스택 카나리(canary) 값 검사와 주소공간배치난수화(ASLR)가 대표적으로 논의된다. 반환주소를 덮어쓰는 전형적인 방식 외에도, 함수 포인터나 예외 처리 구조체를 겨냥하는 변형된 공격 기법도 함께 연구된다.</p>
 
   <h2>주의할 점</h2>
   <p>현대의 컴파일러와 운영체제는 여러 방어 기법을 기본 적용하고 있어 단순한 스택오버플로우 공격은 성공 가능성이 낮아졌지만, 방어 기법의 우회 기법도 함께 연구되고 있어 완전히 해결된 문제는 아닙니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="buffer-overflow-exploitation.html">버퍼 오버플로우 공격</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="heap-overflow.html">힙오버플로우</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="buffer-overflow-exploitation.html">버퍼 오버플로우 공격</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="heap-overflow.html">힙오버플로우</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a> 방어 기법이 발전해도 프로그램이 경계 검사 없이 사용자 입력을 버퍼에 복사하는 등의 근본적인 코드 취약점 자체를 수정하지 않으면 우회 공격에 다시 노출될 수 있다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="heap-overflow.html">힙오버플로우</a>
