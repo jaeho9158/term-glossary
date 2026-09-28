@@ -90,7 +90,7 @@
   <p>불규칙삼각망은 지형의 높이를 측정한 여러 점들을 삼각형 모양으로 이어 붙여 하나의 연속된 지형 표면을 만드는 방식입니다. 격자 형태로 일정 간격마다 값을 저장하는 방식과 달리, 지형이 복잡한 곳에는 점을 촘촘히, 평평한 곳에는 점을 듬성듬성 배치할 수 있다는 점이 특징입니다. 종이를 접어 산 모양을 만드는 것처럼, 삼각형 조각들이 이어져 굴곡진 지형 표면을 표현한다고 생각하면 이해하기 쉽습니다. 이렇게 만들어진 삼각망은 3차원 지형 표현에 자주 활용됩니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>불규칙삼각망은 지형의 복잡도에 따라 데이터 밀도를 유연하게 조절할 수 있어, 효율적인 지형 표현과 정밀한 3차원 분석이 필요한 연구에서 중요하게 다루어집니다. 수치표고모델과 함께 지형분석 및 시각화 연구의 핵심 데이터 구조로 언급됩니다.</p>
+  <p>불규칙삼각망은 지형의 복잡도에 따라 데이터 밀도를 유연하게 조절할 수 있어, 효율적인 지형 표현과 정밀한 3차원 분석이 필요한 연구에서 중요하게 다루어집니다. 수치표고모델과 함께 지형분석 및 시각화 연구의 핵심 데이터 구조로 언급됩니다. 도로나 절벽처럼 급격한 경사 변화가 있는 지점을 표현할 때, 그 지점에 맞추어 삼각형의 꼭짓점을 배치할 수 있어 격자 방식보다 지형의 특징적인 선을 더 뚜렷하게 살릴 수 있습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"측량 점군 데이터를 불규칙삼각망으로 변환하여 지형의 3차원 표면 모델을 생성하였다."</div>
@@ -99,12 +99,12 @@
   <p>불규칙삼각망의 데이터 효율성을 다룬 연구 예시입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>불규칙삼각망은 일반적으로 들로네 삼각분할과 같은 방법을 이용해 점들 사이의 삼각형을 구성하며, 각 삼각형 면은 경사와 향 등의 지형 속성을 계산하는 단위로 활용됩니다. 격자 기반 모델에 비해 지형 특징점을 더 명확하게 반영할 수 있다는 점이 자주 언급됩니다.</p>
+  <p>불규칙삼각망은 일반적으로 들로네 삼각분할과 같은 방법을 이용해 점들 사이의 삼각형을 구성하며, 각 삼각형 면은 경사와 향 등의 지형 속성을 계산하는 단위로 활용됩니다. 격자 기반 모델에 비해 지형 특징점을 더 명확하게 반영할 수 있다는 점이 자주 언급됩니다. 들로네 삼각분할은 각 삼각형의 외접원 안에 다른 점이 포함되지 않도록 구성하는 방식으로, 지나치게 가늘고 긴 삼각형이 생기는 것을 방지해 표면 표현의 품질을 높입니다. 삼각형 하나하나가 평면으로 근사되기 때문에, 삼각형의 크기가 클수록 실제 곡면 지형과의 오차가 커질 수 있어 지형이 급격히 변하는 곳일수록 더 조밀한 삼각형망이 필요합니다.</p>
 
   <h2>주의할 점</h2>
   <p>불규칙삼각망은 점의 분포와 밀도에 따라 표현 품질이 크게 달라질 수 있으므로, 원본 측량점의 정확도와 배치를 함께 검토해야 합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="digital-elevation-model.html">수치표고모델</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="digital-terrain-model.html">수치지형모델(DTM)</a><a href="digital-surface-model.html">수치표면모델(DSM)</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="digital-elevation-model.html">수치표고모델</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="digital-terrain-model.html">수치지형모델(DTM)</a><a href="digital-surface-model.html">수치표면모델(DSM)</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 표고점의 밀도가 낮은 지역에서는 실제와 다른 형태의 큰 삼각형이 생성될 수 있어, 지형이 복잡한 구간일수록 추가적인 측량점 보강이 필요할 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="digital-elevation-model.html">수치표고모델</a>
