@@ -99,12 +99,12 @@
   <p>참조 모델에서 너무 멀어지지 않게 하는 제약의 세기가 결과 품질에 직접 영향을 준다는 점을 보여줍니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>핵심 통찰은 보상 모델과 최적 정책 사이의 관계를 뒤집어, 보상을 학습 중인 정책과 참조 정책의 로그 확률 비로 표현할 수 있다는 것입니다. 이를 선호 확률을 기술하는 브래들리-테리 모형에 대입하면 보상 모델이 사라지고 정책 파라미터에 대한 이진 분류 형태의 손실만 남습니다. 참조 모델에서 너무 멀어지지 않도록 하는 KL 제약은 손실 안에 계수로 내재되어 있어 별도 항이 필요 없습니다.</p>
+  <p>핵심 통찰은 보상 모델과 최적 정책 사이의 관계를 뒤집어, 보상을 학습 중인 정책과 참조 정책의 로그 확률 비로 표현할 수 있다는 것입니다. 이를 선호 확률을 기술하는 브래들리-테리 모형에 대입하면 보상 모델이 사라지고 정책 파라미터에 대한 이진 분류 형태의 손실만 남습니다. 참조 모델에서 너무 멀어지지 않도록 하는 KL 제약은 손실 안에 계수로 내재되어 있어 별도 항이 필요 없습니다. RLHF처럼 별도의 보상 모델을 학습시키고 PPO로 정책을 최적화하는 대신, 선호 데이터로부터 곧바로 정책의 로그 확률 비율에 대한 손실함수를 유도해 지도학습 방식으로 직접 최적화합니다. 이는 보상 모델의 최적해와 정책 사이의 수학적 관계를 이용한 재매개변수화 덕분에 가능합니다.</p>
 
   <h2>주의할 점</h2>
   <p><a href="reinforcement-learning-from-human-feedback.html">인간 피드백 기반 강화학습</a>과 목표는 같지만 보상 모델과 온라인 표본 수집을 쓰지 않는다는 점에서 절차가 다릅니다. 고정된 선호 데이터에만 의존하므로 학습이 진행되며 모델이 만들어 내는 새로운 출력의 품질은 직접 평가되지 않는다는 한계가 지적됩니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="ai-alignment.html">AI 정렬</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="ai-alignment.html">AI 정렬</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a> 보상 모델과 강화학습 루프가 없어 구현이 단순하고 학습이 안정적이지만, 참조 정책(SFT 모델)과의 KL 거리 제약이 암묵적으로만 들어가 있어 분포 밖 데이터에서 과최적화될 위험이 지적됩니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="reinforcement-learning-from-human-feedback.html">인간 피드백 기반 강화학습</a>

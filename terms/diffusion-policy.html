@@ -90,7 +90,7 @@
   <p>이미지 생성에 쓰이는 디퓨전 모델을 로봇 행동 생성에 적용한 방법입니다. 현재 관찰을 조건으로, 무작위 잡음을 여러 단계에 걸쳐 다듬어 앞으로 할 행동 몇 걸음을 한꺼번에 만들어 냅니다. Chi 등(2023)이 제안해 널리 퍼졌습니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>사람 시연에는 같은 상황에서도 여러 가지 해법이 섞여 있는데, 확산 정책은 이런 다봉 분포를 잘 표현해 단순한 행동 복제보다 안정적인 조작 성능을 보였습니다. 이후 많은 로봇 학습 연구의 기본 정책 구조가 되었습니다.</p>
+  <p>사람 시연에는 같은 상황에서도 여러 가지 해법이 섞여 있는데, 확산 정책은 이런 다봉 분포를 잘 표현해 단순한 행동 복제보다 안정적인 조작 성능을 보였습니다. 이후 많은 로봇 학습 연구의 기본 정책 구조가 되었습니다. 최근 로봇 조작 벤치마크 연구들에서 확산정책이 기존 행동복제 기반 방법보다 성공률과 정책 강건성 면에서 뚜렷한 향상을 보인다는 결과가 다수 보고되었습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"확산 정책은 16스텝 행동 구간을 한 번에 예측하여 시연 데이터의 다봉성에도 불구하고 일관된 궤적을 생성하였다."</div>
@@ -100,12 +100,12 @@
   <p>디퓨전 정책이 기존 모방학습 방식과 구별되는 특성을 서술한 문장이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>확산 정책은 관찰을 조건으로 한 조건부 디노이징 과정을 학습하며, 행동 시퀀스 단위로 예측하고 일부만 실행한 뒤 다시 예측하는 방식(receding horizon)을 씁니다. 여러 번의 디노이징 단계 때문에 추론이 느릴 수 있어, DDIM 같은 빠른 샘플러나 일관성 모델로 속도를 줄이는 연구가 이어졌습니다. CNN 기반과 트랜스포머 기반 구조가 모두 쓰입니다.</p>
+  <p>확산 정책은 관찰을 조건으로 한 조건부 디노이징 과정을 학습하며, 행동 시퀀스 단위로 예측하고 일부만 실행한 뒤 다시 예측하는 방식(receding horizon)을 씁니다. 여러 번의 디노이징 단계 때문에 추론이 느릴 수 있어, DDIM 같은 빠른 샘플러나 일관성 모델로 속도를 줄이는 연구가 이어졌습니다. CNN 기반과 트랜스포머 기반 구조가 모두 쓰입니다. 확산정책은 이미지 생성에 쓰이던 확산모델의 점진적 잡음 제거 과정을 로봇 행동 생성에 적용한 방법으로, 하나의 정답 행동만을 직접 예측하는 대신 노이즈로부터 반복적인 잡음 제거 단계를 거쳐 행동의 전체 확률분포를 표현합니다. 이 덕분에 동일한 상태에서도 여러 그럴듯한 행동 궤적이 존재하는 다봉분포(multimodal) 시연 데이터를 행동복제보다 안정적으로 학습할 수 있다는 장점이 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>확산 정책은 <a href="diffusion-model.html">디퓨전 모델</a>을 정책으로 쓰는 특정 모방학습 방법이지 디퓨전 모델 일반이 아닙니다. 시연 데이터를 흉내 내는 방법이므로 시연 품질을 넘어서는 성능을 기대하기는 어렵습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="imitation-learning.html">모방학습</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="learning-from-demonstration.html">시연기반학습</a><a href="behavior-cloning.html">행동 복제</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="imitation-learning.html">모방학습</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="learning-from-demonstration.html">시연기반학습</a><a href="behavior-cloning.html">행동 복제</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 확산정책은 추론 시 여러 단계의 잡음 제거 과정을 반복해야 하므로, 단일 순전파로 행동을 출력하는 기존 정책 네트워크보다 실시간 제어에 필요한 추론 속도가 느리다는 점이 실용적 제약으로 남아 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="diffusion-model.html">디퓨전 모델</a>

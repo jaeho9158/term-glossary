@@ -99,12 +99,12 @@
   <p>이 문장은 과적합을 막으려고 가중치를 너무 세게 줄이면, 모델이 데이터의 유용한 패턴까지 잊어버려 오히려 성능이 나빠질 수 있다는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>일반 <a href="stochastic-gradient-descent.html">확률적 경사 하강법</a>에서는 손실 함수에 가중치 제곱합(L2 벌점)을 더하는 것과 매 단계 가중치를 일정 비율 줄이는 것이 수학적으로 같아요. 하지만 <a href="adam-optimizer.html">Adam</a>처럼 기울기 크기에 따라 학습률을 조절하는 옵티마이저에서는 두 방식의 결과가 달라져요. Loshchilov와 Hutter는 가중치 감쇠를 기울기 계산과 분리해 적용하는 AdamW를 제안했고, 이것이 오늘날 트랜스포머 학습의 표준이 되었어요. 편향과 정규화 층 파라미터에는 보통 감쇠를 적용하지 않아요.</p>
+  <p>일반 <a href="stochastic-gradient-descent.html">확률적 경사 하강법</a>에서는 손실 함수에 가중치 제곱합(L2 벌점)을 더하는 것과 매 단계 가중치를 일정 비율 줄이는 것이 수학적으로 같아요. 하지만 <a href="adam-optimizer.html">Adam</a>처럼 기울기 크기에 따라 학습률을 조절하는 옵티마이저에서는 두 방식의 결과가 달라져요. Loshchilov와 Hutter는 가중치 감쇠를 기울기 계산과 분리해 적용하는 AdamW를 제안했고, 이것이 오늘날 트랜스포머 학습의 표준이 되었어요. 편향과 정규화 층 파라미터에는 보통 감쇠를 적용하지 않아요. 가중치 감쇠 계수를 학습 초반에는 작게, 후반으로 갈수록 점차 키우거나 학습률 스케줄과 맞물려 조정하는 방식도 실무에서 흔히 쓰여요. 큰 모델을 오래 학습할수록 감쇠 값의 작은 차이가 최종 성능에 미치는 영향이 커지는 경향이 보고돼요. 배치 정규화나 레이어 정규화의 스케일 파라미터처럼 크기 자체가 의미를 갖는 파라미터에는 감쇠를 적용하지 않는 것이 일반적인 관행이에요.</p>
 
   <h2>주의할 점</h2>
   <p><a href="regularization.html">정규화</a>는 과적합을 줄이는 모든 방법을 아우르는 말이고, 가중치 감쇠는 그중 가중치를 직접 줄이는 구체적 기법이에요. &quot;L2 정규화와 같다&quot;는 설명은 SGD에서만 정확하다는 점에 주의해야 해요.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="regularization.html">정규화</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="dropout.html">드롭아웃</a><a href="label-smoothing.html">레이블 스무딩</a><a href="early-stopping.html">조기종료 (Early Stopping)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="regularization.html">정규화</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="dropout.html">드롭아웃</a><a href="label-smoothing.html">레이블 스무딩</a><a href="early-stopping.html">조기종료 (Early Stopping)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a> 가중치 감쇠 값이 너무 작으면 정규화 효과가 거의 없고, 너무 크면 모델이 데이터의 신호까지 지워 버릴 수 있어 적절한 값은 모델 크기와 데이터 양에 따라 실험으로 찾아야 해요.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="regularization.html">정규화</a>

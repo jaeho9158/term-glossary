@@ -99,12 +99,12 @@
   <p>이 문장은 앞의 예문이 기저 주기 조정이라는 하나의 확장 기법을 다뤘다면, 이 예문은 여러 확장 기법들을 서로 비교하는 후속 연구를 보여줍니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>임베딩 차원을 2차원 쌍으로 묶고 각 쌍에 서로 다른 주파수의 회전 행렬을 적용하는데, 이 회전이 직교 변환이므로 벡터의 크기는 보존됩니다. 회전 후 질의와 키의 내적이 위치 차이의 함수로 정리된다는 것이 핵심 성질입니다. 문맥 확장을 위해 위치 인덱스를 눌러 담는 위치 보간이나 주파수 대역별로 다르게 조정하는 기법들이 제안되어 널리 쓰입니다.</p>
+  <p>임베딩 차원을 2차원 쌍으로 묶고 각 쌍에 서로 다른 주파수의 회전 행렬을 적용하는데, 이 회전이 직교 변환이므로 벡터의 크기는 보존됩니다. 회전 후 질의와 키의 내적이 위치 차이의 함수로 정리된다는 것이 핵심 성질입니다. 문맥 확장을 위해 위치 인덱스를 눌러 담는 위치 보간이나 주파수 대역별로 다르게 조정하는 기법들이 제안되어 널리 쓰입니다. 단어 임베딩 벡터를 2차원씩 짝지어 위치에 비례하는 각도만큼 회전시키는 방식으로 위치 정보를 주입하며, 두 토큰의 내적이 두 위치의 상대적 거리에만 의존하도록 만들어 상대 위치 정보를 자연스럽게 인코딩합니다. 학습 가능한 파라미터 없이 절대 위치와 상대 위치 정보를 동시에 표현할 수 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p><a href="positional-encoding.html">위치 인코딩</a>이 사인·코사인 값을 임베딩에 더하는 절대 위치 방식을 가리키는 데 비해, 회전 위치 임베딩은 어텐션 계산 시점에 질의와 키를 회전시켜 상대 위치를 표현합니다. 값 벡터에는 적용하지 않는다는 점도 구현에서 자주 틀리는 부분입니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="positional-encoding.html">위치 인코딩</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="positional-encoding.html">위치 인코딩</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a> 학습 시 본 최대 길이를 넘어서면 성능이 급격히 저하되는 외삽 문제가 있어, NTK-aware scaling이나 YaRN 같은 보간 기법으로 긴 문맥에 대응하는 경우가 많습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="positional-encoding.html">위치 인코딩</a>

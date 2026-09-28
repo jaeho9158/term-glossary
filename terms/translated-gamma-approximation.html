@@ -90,7 +90,7 @@
   <p>보험 포트폴리오 전체의 손해 합계가 어떤 분포를 따르는지 정확히 구하기는 어렵습니다. 이동감마근사는 그 분포를 감마분포에 상수를 더해 옮긴 형태로 대신 쓰자는 방법입니다. 평균, 분산, 왜도 세 가지를 실제 분포와 맞추도록 모수를 정합니다. 오른쪽 꼬리가 긴 손해 분포의 특징을 정규근사보다 잘 살린다는 장점이 있습니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>총손해액 분포의 분위수를 빠르게 구해야 하는 보유한도 결정, 안전할증 산정, 파산확률 근사에서 널리 사용됩니다. 계산이 간단하면서도 왜도를 반영한다는 점에서 실무와 교재 모두에서 표준적인 근사법으로 다뤄집니다.</p>
+  <p>총손해액 분포의 분위수를 빠르게 구해야 하는 보유한도 결정, 안전할증 산정, 파산확률 근사에서 널리 사용됩니다. 계산이 간단하면서도 왜도를 반영한다는 점에서 실무와 교재 모두에서 표준적인 근사법으로 다뤄집니다. 이 방법은 손해보험사의 지급여력 평가나 재보험 특약의 손해분포 근사처럼, 정확한 분포 계산이 어렵지만 적절한 근사가 필요한 실무 상황에서 널리 쓰입니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"복합포아송 총손해액 분포에 이동감마근사를 적용해 99.5% 분위수를 산출하고 판저 재귀공식에 의한 정확값과 비교하였다."</div>
@@ -99,12 +99,12 @@
   <p>감마분포의 두 모수와 이동량 하나를 세 적률에 맞춰 정하기 때문에 비대칭성을 반영할 수 있다는 방법의 원리와 장점을 담은 문장입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>모수는 총손해액의 처음 세 적률로부터 결정되며, 이동량은 평균에서 감마분포 평균을 뺀 값으로 정해집니다. 왜도가 양수여야 적용할 수 있고, 왜도가 0에 가까우면 사실상 정규근사와 같아집니다. 꼬리가 아주 두꺼운 손해에는 왜도까지 맞추어도 오차가 남아 <a href="normal-power-approximation.html">정규멱근사</a>나 수치적 재귀계산과 함께 비교하는 것이 권장됩니다.</p>
+  <p>모수는 총손해액의 처음 세 적률로부터 결정되며, 이동량은 평균에서 감마분포 평균을 뺀 값으로 정해집니다. 왜도가 양수여야 적용할 수 있고, 왜도가 0에 가까우면 사실상 정규근사와 같아집니다. 꼬리가 아주 두꺼운 손해에는 왜도까지 맞추어도 오차가 남아 <a href="normal-power-approximation.html">정규멱근사</a>나 수치적 재귀계산과 함께 비교하는 것이 권장됩니다. 이동감마근사는 총 손실분포의 평균, 분산, 왜도 세 가지 적률을 감마분포에 상수만큼 평행이동한 분포의 적률과 일치시켜 근사하는 방법으로, 정규근사보다 왜도가 큰 보험 손실분포를 더 잘 반영합니다.</p>
 
   <h2>주의할 점</h2>
   <p>근사 대상은 총손해액의 분포이며, 개별 사고심도 분포를 감마로 가정하는 것과는 전혀 다른 작업입니다. 왜도가 음수이거나 손해가 다봉분포 형태이면 이 근사는 적절하지 않습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="collective-risk-model.html">집합위험모형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="compound-poisson-distribution.html">복합포아송분포</a><a href="normal-power-approximation.html">정규멱근사</a><a href="panjer-recursion.html">판저 재귀공식</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="collective-risk-model.html">집합위험모형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="compound-poisson-distribution.html">복합포아송분포</a><a href="normal-power-approximation.html">정규멱근사</a><a href="panjer-recursion.html">판저 재귀공식</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a> 세 개의 적률만 맞추는 방법이라 분포의 꼬리 부분, 특히 극단적 손실 확률을 정밀하게 추정하기에는 한계가 있어 초과손실 구간에서는 다른 검증이 병행됩니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="aggregate-claims-distribution.html">총손해액분포</a>

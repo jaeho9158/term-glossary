@@ -90,7 +90,7 @@
   <p>보험 계약 대부분은 한 해 동안 사고가 없어 손해액이 정확히 0입니다. 반면 사고가 난 계약은 연속적인 양수 금액을 가집니다. 트위디분포는 0에 덩어리가 있고 양수 쪽은 매끄럽게 퍼진 이 독특한 모양을 그대로 표현해 줍니다. 그래서 사고 건수와 사고 규모를 따로 모형화하지 않고 순보험료를 한 번에 회귀분석할 수 있습니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>일반화선형모형 요율산정에서 빈도와 심도를 따로 적합하는 대신 순보험료를 직접 적합하는 표준 선택지여서, 자동차보험 요율 연구에 널리 쓰입니다. 모형 하나로 끝나므로 설명변수 구조를 단순하게 유지할 수 있다는 실무적 장점도 큽니다.</p>
+  <p>일반화선형모형 요율산정에서 빈도와 심도를 따로 적합하는 대신 순보험료를 직접 적합하는 표준 선택지여서, 자동차보험 요율 연구에 널리 쓰입니다. 모형 하나로 끝나므로 설명변수 구조를 단순하게 유지할 수 있다는 실무적 장점도 큽니다. 손해액이 0인 계약이 많은 손해보험 자료의 특성을 자연스럽게 반영할 수 있어, 순보험료 산정을 위한 일반화선형모형에서 널리 채택되는 분포로 자리잡았습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"트위디분포와 로그연결함수를 갖는 일반화선형모형으로 계약별 순보험료를 적합하고, 빈도-심도 분리 모형과 예측성능을 비교하였다."</div>
@@ -100,12 +100,12 @@
   <p>이 문장은 트위디분포가 특정 보험 데이터의 특성에 더 적합한 이유를 설명한다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>분산이 평균의 거듭제곱에 비례한다는 성질을 가지며, 그 지수가 1과 2 사이일 때 복합포아송-감마 형태가 되어 보험 순보험료에 적합합니다. 지수가 1이면 포아송, 2면 감마가 되므로 <a href="frequency-severity-model.html">빈도심도모형</a>의 두 구성요소를 잇는 위치에 있습니다. 지수 자체를 자료에서 추정할 수 있고, 값에 따라 사고 빈도와 규모 중 어느 쪽 변동이 지배적인지 해석할 수 있습니다.</p>
+  <p>분산이 평균의 거듭제곱에 비례한다는 성질을 가지며, 그 지수가 1과 2 사이일 때 복합포아송-감마 형태가 되어 보험 순보험료에 적합합니다. 지수가 1이면 포아송, 2면 감마가 되므로 <a href="frequency-severity-model.html">빈도심도모형</a>의 두 구성요소를 잇는 위치에 있습니다. 지수 자체를 자료에서 추정할 수 있고, 값에 따라 사고 빈도와 규모 중 어느 쪽 변동이 지배적인지 해석할 수 있습니다. 트위디 분포는 청구건수가 포아송분포를, 건당 청구액이 감마분포를 따른다고 가정할 때 이들의 복합분포가 되는 특수한 지수분산모형으로, 손해액이 0이 될 확률과 양의 값을 가질 확률을 하나의 분포로 동시에 표현할 수 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>트위디 모형은 빈도와 심도에 같은 설명변수 구조를 강제하므로, 두 요소에 서로 다른 변수가 작용하는 종목에서는 분리 모형이 더 적합할 수 있습니다. 순보험료 모형이므로 사업비를 포함한 영업보험료 산출에는 별도의 부가 과정이 필요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="generalized-linear-model-pricing.html">일반화선형모형 요율산정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="generalized-additive-model-pricing.html">일반화가법모형요율산정</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="generalized-linear-model-pricing.html">일반화선형모형 요율산정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="generalized-additive-model-pricing.html">일반화가법모형요율산정</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a> 형태모수 값에 따라 분포의 성질이 크게 달라지므로, 일반화선형모형에 적용할 때는 자료에 맞는 형태모수를 먼저 추정하는 과정이 선행되어야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="generalized-linear-model-pricing.html">일반화선형모형 요율산정</a>
