@@ -90,7 +90,7 @@
   <p>지형에 따라 고도가 특정 방향으로 계속 높아지거나 낮아지는 것처럼, 어떤 공간 자료는 전체적으로 일정한 경향을 가지고 변화합니다. 범용크리깅은 이런 큰 흐름(추세)을 먼저 수학적으로 분리해 내고, 그 흐름에서 벗어난 나머지 부분(잔차)에 대해서만 크리깅을 적용하는 방식입니다. 마치 하루 동안의 기온 변화를 예측할 때 "아침보다 낮이 따뜻하다"는 큰 흐름을 먼저 반영하고, 그 위에서 미세한 변동을 조정하는 것과 비슷합니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>정규크리깅은 자료가 국지적으로 일정한 평균을 가진다고 가정하지만, 실제 지형이나 오염 확산처럼 뚜렷한 방향성을 가진 현상에서는 이 가정이 맞지 않을 수 있습니다. 범용크리깅은 이러한 추세를 명시적으로 반영함으로써 지도학 및 환경 과학 논문에서 더 현실적인 공간 예측을 가능하게 합니다.</p>
+  <p>정규크리깅은 자료가 국지적으로 일정한 평균을 가진다고 가정하지만, 실제 지형이나 오염 확산처럼 뚜렷한 방향성을 가진 현상에서는 이 가정이 맞지 않을 수 있습니다. 범용크리깅은 이러한 추세를 명시적으로 반영함으로써 지도학 및 환경 과학 논문에서 더 현실적인 공간 예측을 가능하게 합니다. 범용크리깅이 처음 제안된 이후로도 추세 항의 설정 방식은 지속적으로 발전해 왔으며, 오늘날에는 보조 변수를 직접 회귀에 사용하는 회귀크리깅이 더 널리 쓰이는 경향이 있습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"고도에 따른 뚜렷한 강수량 증가 추세를 반영하기 위해 범용크리깅을 적용하여 산악 지역의 강수 분포를 추정하였다."</div>
@@ -99,12 +99,12 @@
   <p>추세를 반영한 크리깅이 그렇지 않은 방식보다 더 정확했다는 비교 결과입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>범용크리깅에서는 전체 값을 결정론적 추세 성분과 확률적 잔차 성분의 합으로 표현하며, 추세는 흔히 좌표에 대한 다항식 함수로 모델링됩니다. 잔차 성분에 대해서는 세미베리오그램을 적합시켜 정규크리깅과 유사한 방식으로 보간을 수행합니다.</p>
+  <p>범용크리깅에서는 전체 값을 결정론적 추세 성분과 확률적 잔차 성분의 합으로 표현하며, 추세는 흔히 좌표에 대한 다항식 함수로 모델링됩니다. 잔차 성분에 대해서는 세미베리오그램을 적합시켜 정규크리깅과 유사한 방식으로 보간을 수행합니다. 범용크리깅은 회귀크리깅(regression kriging)과 수학적으로 밀접하게 연관되어 있으며, 추세를 다항식 대신 고도·토지피복 등 외부 설명변수의 회귀식으로 대체하면 회귀크리깅에 가까워집니다.</p>
 
   <h2>주의할 점</h2>
   <p>추세 모델을 잘못 설정하면 오히려 예측 정확도가 떨어질 수 있으며, 추세의 차수(다항식 차수)를 지나치게 높이면 과적합의 위험이 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="kriging-interpolation.html">크리깅 보간</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="cokriging.html">공동크리깅</a><a href="semivariogram-analysis.html">세미베리오그램 분석</a><a href="ordinary-kriging.html">정규크리깅</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="kriging-interpolation.html">크리깅 보간</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="cokriging.html">공동크리깅</a><a href="semivariogram-analysis.html">세미베리오그램 분석</a><a href="ordinary-kriging.html">정규크리깅</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 추세 성분과 잔차 성분을 함께 추정하는 과정에서 두 성분이 통계적으로 완전히 분리되지 않아 세미베리오그램 추정이 편향될 수 있어, 반복 추정(iterative generalized least squares) 절차가 쓰이기도 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="kriging-interpolation.html">크리깅 보간</a>

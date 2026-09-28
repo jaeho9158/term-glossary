@@ -90,7 +90,7 @@
   <p>예측하고 싶은 변수의 관측치가 적을 때, 그 변수와 관련이 깊은 다른 변수의 자료가 풍부하다면 이를 함께 이용할 수 있습니다. 공동크리깅은 바로 이런 상황에서, 예를 들어 토양 수분 측정치는 적지만 위성으로 관측한 식생 지수 자료는 풍부할 때, 두 변수의 상관관계를 이용해 더 정확한 예측을 만드는 방법입니다. 마치 친구의 정확한 키를 모를 때, 몸무게처럼 관련 있는 다른 정보를 함께 참고해 키를 더 잘 추정하는 것과 비슷합니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>현장 조사 비용이 크거나 접근이 어려운 변수를 다룰 때, 상대적으로 얻기 쉬운 보조 변수를 활용하면 관측 비용을 줄이면서도 예측 정확도를 높일 수 있습니다. 이 때문에 지도학, 토양학, 환경 모니터링 분야의 논문에서 자료가 부족한 변수를 다룰 때 자주 채택됩니다.</p>
+  <p>현장 조사 비용이 크거나 접근이 어려운 변수를 다룰 때, 상대적으로 얻기 쉬운 보조 변수를 활용하면 관측 비용을 줄이면서도 예측 정확도를 높일 수 있습니다. 이 때문에 지도학, 토양학, 환경 모니터링 분야의 논문에서 자료가 부족한 변수를 다룰 때 자주 채택됩니다. 특히 원격탐사 자료처럼 공간적으로 촘촘하게 얻을 수 있는 보조 변수와, 현장 채취가 필요해 관측이 드문 주 변수를 결합할 때 공동크리깅의 효과가 두드러집니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"토양 유기물 함량과 상관관계가 높은 정규화식생지수를 보조 변수로 활용한 공동크리깅을 통해 예측 정확도를 개선하였다."</div>
@@ -99,12 +99,12 @@
   <p>자료가 부족한 상황에서 공동크리깅의 이점을 확인한 결과입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>공동크리깅은 주 변수와 보조 변수 각각의 세미베리오그램뿐 아니라 두 변수 간의 상호 공분산 구조(교차 세미베리오그램)까지 함께 모델링합니다. 이를 통해 보조 변수가 가진 공간 정보를 예측에 반영할 수 있으나, 계산 과정이 단일변수 크리깅보다 복잡합니다.</p>
+  <p>공동크리깅은 주 변수와 보조 변수 각각의 세미베리오그램뿐 아니라 두 변수 간의 상호 공분산 구조(교차 세미베리오그램)까지 함께 모델링합니다. 이를 통해 보조 변수가 가진 공간 정보를 예측에 반영할 수 있으나, 계산 과정이 단일변수 크리깅보다 복잡합니다. 공동크리깅이 성립하려면 주 변수와 보조 변수 모두 공간적 상관 구조를 가져야 하고, 두 변수의 공분산이 위치에 관계없이 일정한 형태를 따른다는 공동정상성(co-stationarity) 가정이 필요합니다. 보조 변수를 훨씬 조밀하게 관측할 수 있을 때 효과가 크게 나타납니다.</p>
 
   <h2>주의할 점</h2>
   <p>주 변수와 보조 변수 사이에 실질적인 상관관계가 없다면 공동크리깅의 이점이 크지 않으며, 오히려 모델이 복잡해져 해석이 어려워질 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="kriging-interpolation.html">크리깅 보간</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="universal-kriging.html">범용크리깅</a><a href="semivariogram-analysis.html">세미베리오그램 분석</a><a href="ordinary-kriging.html">정규크리깅</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="kriging-interpolation.html">크리깅 보간</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="universal-kriging.html">범용크리깅</a><a href="semivariogram-analysis.html">세미베리오그램 분석</a><a href="ordinary-kriging.html">정규크리깅</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 보조 변수를 지나치게 많이 추가하면 상호 공분산 추정이 불안정해질 수 있어, 실무에서는 회귀 기반의 대안 기법을 함께 검토하는 경우가 많습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="kriging-interpolation.html">크리깅 보간</a>

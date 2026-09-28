@@ -90,7 +90,7 @@
   <p>상호표정으로 두 사진을 서로 잘 짝지어 입체모델을 만들었더라도, 이 모델은 아직 임의의 크기와 방향을 가진 '떠 있는' 모형일 뿐입니다. 절대표정은 이 모형을 실제 지구상의 정확한 위치, 크기, 방향에 맞도록 조정하는 마지막 단계입니다. 마치 축소 모형을 실제 지도 위에 정확한 자리와 축척으로 올려놓는 작업과 비슷합니다. 이를 위해 실제 좌표를 알고 있는 지상기준점을 활용합니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>절대표정을 거쳐야 사진측량 결과가 실제 지도나 GIS 데이터와 같은 좌표계에서 사용될 수 있습니다. 이 단계 없이는 아무리 정밀한 입체모델이라도 실제 세계의 위치 정보로 쓸 수 없기 때문에, 지도 제작의 마지막 관문으로 다뤄집니다.</p>
+  <p>절대표정을 거쳐야 사진측량 결과가 실제 지도나 GIS 데이터와 같은 좌표계에서 사용될 수 있습니다. 이 단계 없이는 아무리 정밀한 입체모델이라도 실제 세계의 위치 정보로 쓸 수 없기 때문에, 지도 제작의 마지막 관문으로 다뤄집니다. 상호표정 뒤 절대표정을 수행하는 2단계 절차는 각 사진의 외부표정 요소를 구하는 고전적 방법이며, 최근에는 이 두 단계가 다발조정 계산 안에 통합되어 한 번에 처리되는 경우가 많습니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"상호표정으로 생성된 입체모델에 대해 지상기준점을 이용한 절대표정을 수행하였다."</div>
@@ -99,12 +99,12 @@
   <p>좌표계 변환이 끝난 뒤 별도의 점들로 결과가 얼마나 정확한지 확인했다는 의미입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>절대표정은 일반적으로 축척 조정(스케일), 회전, 평행이동의 세 가지 변환을 지상기준점 좌표에 맞추어 계산하는 방식으로 이루어집니다. 계산에는 최소 세 개 이상의 지상기준점이 필요하며, 기준점이 많을수록 오차를 통계적으로 검증하기 유리합니다.</p>
+  <p>절대표정은 일반적으로 축척 조정(스케일), 회전, 평행이동의 세 가지 변환을 지상기준점 좌표에 맞추어 계산하는 방식으로 이루어집니다. 계산에는 최소 세 개 이상의 지상기준점이 필요하며, 기준점이 많을수록 오차를 통계적으로 검증하기 유리합니다. 절대표정은 수학적으로 7개의 매개변수(3축 평행이동, 3축 회전, 1개의 축척계수)로 구성된 3차원 상사변환(similarity transformation)으로 표현되며, 이론상 평면·높이 좌표를 아는 기준점 2점과 높이만 아는 기준점 1점이 최소 조건이고, 실무에서는 그보다 많은 기준점을 써서 최소제곱법으로 잉여 관측을 활용해 정확도를 통계적으로 검증합니다.</p>
 
   <h2>주의할 점</h2>
   <p>절대표정의 정확도는 사용한 지상기준점의 정확도와 분포에 크게 좌우되므로, 기준점이 한쪽에 치우쳐 있으면 전체 결과의 정확도도 불균등해질 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="photogrammetric-triangulation.html">사진삼각측량</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="interior-orientation.html">내부표정</a><a href="photogrammetric-block-adjustment.html">사진측량 블록조정</a><a href="relative-orientation-photogrammetry.html">상호표정</a><a href="exterior-orientation.html">외부표정</a><a href="aerial-triangulation.html">항공삼각측량</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="photogrammetric-triangulation.html">사진삼각측량</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="interior-orientation.html">내부표정</a><a href="photogrammetric-block-adjustment.html">사진측량 블록조정</a><a href="relative-orientation-photogrammetry.html">상호표정</a><a href="exterior-orientation.html">외부표정</a><a href="aerial-triangulation.html">항공삼각측량</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 지상기준점의 좌표 자체에 오류가 있으면 절대표정 계산이 이를 그대로 흡수해 잘못된 결과를 정확한 것처럼 보이게 만들 수 있어, 기준점 측량의 신뢰도 확인이 선행되어야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="relative-orientation-photogrammetry.html">상호표정</a>

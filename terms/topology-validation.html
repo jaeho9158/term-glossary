@@ -90,7 +90,7 @@
   <p>지도 위의 도로는 서로 끊김 없이 이어져야 하고, 행정구역 폴리곤은 서로 겹치거나 틈이 생기면 안 됩니다. 위상검증은 이런 공간객체들의 "관계"가 논리적으로 맞는지 확인하는 작업입니다. 마치 퍼즐 조각이 빈틈없이 딱 맞는지 확인하는 것과 비슷합니다. 이 검증을 통해 선이 끊긴 곳, 폴리곤이 겹친 곳, 틈이 벌어진 곳 등을 찾아낼 수 있습니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>도로망 분석, 행정구역 면적 계산, 수계 분석 등 많은 GIS 분석은 객체 간 위상 관계가 정확하다는 전제 위에서 이루어집니다. 위상 오류가 있으면 경로 탐색이 실패하거나 면적이 잘못 계산되는 등 분석 전체가 왜곡될 수 있어, 지도학 자료 품질 관리의 핵심 절차로 다뤄집니다.</p>
+  <p>도로망 분석, 행정구역 면적 계산, 수계 분석 등 많은 GIS 분석은 객체 간 위상 관계가 정확하다는 전제 위에서 이루어집니다. 위상 오류가 있으면 경로 탐색이 실패하거나 면적이 잘못 계산되는 등 분석 전체가 왜곡될 수 있어, 지도학 자료 품질 관리의 핵심 절차로 다뤄집니다. 위상 오류가 있는 데이터는 면적 계산이나 네트워크 경로 탐색 같은 분석에서 잘못된 결과를 낳을 수 있어, 분석 전 검증이 필수적인 절차로 여겨집니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"구축된 행정구역 폴리곤은 위상검증을 통해 겹침과 틈새 오류 34건을 발견하여 수정하였다."</div>
@@ -99,12 +99,12 @@
   <p>위상검증이 후속 분석의 전제 조건임을 보여주는 예문입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>위상검증에서는 대표적으로 폴리곤 간 겹침(overlap), 틈새(gap), 선의 끊김(dangling line), 중복 객체 등의 규칙을 정의하고 이를 위반하는 사례를 자동으로 탐지합니다. 다수의 GIS 소프트웨어는 이런 규칙 기반 검증 기능을 제공하며, 검증 후에는 스내핑 등의 기법으로 오류를 수정하는 경우가 많습니다.</p>
+  <p>위상검증에서는 대표적으로 폴리곤 간 겹침(overlap), 틈새(gap), 선의 끊김(dangling line), 중복 객체 등의 규칙을 정의하고 이를 위반하는 사례를 자동으로 탐지합니다. 다수의 GIS 소프트웨어는 이런 규칙 기반 검증 기능을 제공하며, 검증 후에는 스내핑 등의 기법으로 오류를 수정하는 경우가 많습니다. 위상 검증은 폴리곤 사이에 틈이나 겹침이 없어야 한다는 규칙, 선형 객체가 반드시 노드에서만 만나야 한다는 규칙처럼 데이터 유형별로 정의된 위상 규칙 목록을 대조하는 방식으로 수행되며, 위반 사항은 오류 목록으로 출력되어 수작업 수정의 근거가 됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>위상 규칙은 자료의 목적에 따라 달라질 수 있어, 모든 자료에 동일한 규칙을 기계적으로 적용하면 실제로는 문제가 아닌 부분을 오류로 잘못 판정할 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="spatial-data-cleaning.html">공간자료 정제</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="snapping-spatial.html">스내핑(공간자료)</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="spatial-data-cleaning.html">공간자료 정제</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="snapping-spatial.html">스내핑(공간자료)</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 위상 규칙은 데이터 유형과 축척에 따라 다르게 설정해야 하므로, 다른 목적으로 만든 규칙 세트를 그대로 가져와 적용하면 불필요한 오류가 다수 검출될 수 있습니다. 검증 결과 오류 목록은 심각도에 따라 우선순위를 매겨 순차적으로 수정하는 방식이 실무에서 흔히 쓰입니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="spatial-data-cleaning.html">공간자료 정제</a>
