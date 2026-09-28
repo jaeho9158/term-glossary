@@ -15,3 +15,12 @@
 - KoreaScience는 robots.txt가 PDF를 금지하므로 쓰지 않는다.
 - index.jsonl 한 줄: `{id, source, journal, field, title, year, url, license}` — `field`는 우리 카테고리 코드.
   나중에 KCI Open API 초록도 같은 형식(source만 다름)으로 합류한다.
+
+## KCI Open API 초록 (2차)
+
+- `node scripts/oa/collect-kci.js [--max-requests N]` → `text/kci-<id>.txt`(국문 제목+초록), index.jsonl에 `source:"kci"`, `citations`.
+- 키는 `.env.local`의 `KCI_API_KEY`(gitignore, IP 제한)를 실행 때만 읽는다. 로그·파일에 남기지 않는다.
+- 카테고리마다 그 분야 전용 표제어로 제목 검색 → 한글 초록이 있는 논문을 피인용수 순으로. 대분류당 약 60편.
+  `field`는 질의한 카테고리(근사). 검색 응답에 키워드가 없어 키워드는 받지 않는다.
+- 예의: 요청 간 1.1초, 재시도 1회, 실행당 요청 상한 5,000.
+- 일부 통계는 KCI(한국학술지인용색인) 데이터를 활용했습니다.
