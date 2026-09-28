@@ -99,12 +99,12 @@
   <p>이는 카메라와 관성센서를 결합한 방식이 단일 센서 방식보다 강건하지만 극단적인 환경 조건에서는 여전히 오차가 누적될 수 있음을 보여준다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>결합 방식은 두 센서의 추정을 따로 낸 뒤 합치는 느슨한 결합과, 특징점 측정과 IMU 측정을 하나의 추정기에 함께 넣는 긴밀한 결합으로 나뉩니다. 추정기는 MSCKF 같은 필터 기반과 슬라이딩 윈도우 최적화 기반으로 나뉩니다. 단안 카메라만으로는 알 수 없던 거리 척도와 중력 방향을 IMU 덕분에 관측할 수 있다는 점이 중요한 장점입니다. 시각-관성 오도메트리는 카메라의 특징점 추적으로부터 얻는 상대적 자세 정보와 IMU의 각속도·가속도 적분값을 융합하는데, 크게 필터 기반 방식(예: 확장칼만필터로 상태를 순차적으로 갱신)과 최적화 기반 방식(슬라이딩 윈도우 내 재투영 오차와 IMU 사전적분 오차를 함께 최소화)으로 나뉩니다. IMU는 빠른 움직임에서도 순간적인 자세 변화를 잘 포착하고, 카메라는 장시간 드리프트를 억제하는 역할을 하여 서로 보완적입니다.</p>
+  <p>결합 방식은 두 센서의 추정을 따로 낸 뒤 합치는 느슨한 결합과, 특징점 측정과 IMU 측정을 하나의 추정기에 함께 넣는 긴밀한 결합으로 나뉩니다. 추정기는 MSCKF 같은 필터 기반과 슬라이딩 윈도우 최적화 기반으로 나뉩니다. 단안 카메라만으로는 알 수 없던 거리 척도와 중력 방향을 IMU 덕분에 관측할 수 있다는 점이 중요한 장점입니다. 시각-관성 오도메트리는 카메라의 특징점 추적으로부터 얻는 상대적 자세 정보와 IMU의 각속도·가속도 적분값을 융합하는데, 크게 필터 기반 방식(예: 확장칼만필터로 상태를 순차적으로 갱신)과 최적화 기반 방식(슬라이딩 윈도우 내 재투영 오차와 IMU 사전적분 오차를 함께 최소화)으로 나뉩니다. IMU는 빠른 움직임에서도 순간적인 자세 변화를 잘 포착하고, 카메라는 장시간 드리프트를 억제하는 역할을 하여 서로 보완적입니다. 시각-관성 오도메트리는 카메라 영상에서 추출한 특징점의 움직임과, IMU(관성측정장치)가 측정한 가속도·각속도를 칼만 필터나 비선형 최적화로 융합해 위치와 자세를 추정하며, 카메라 단독보다 빠른 회전이나 순간적인 가림(오클루전)에 강하고 IMU 단독보다 시간에 따른 누적 오차(드리프트)가 훨씬 적습니다.</p>
 
   <h2>주의할 점</h2>
   <p><a href="visual-odometry.html">시각 주행거리 측정</a>은 카메라만 쓰는 방법이고, 시각-관성 방식은 IMU를 결합한다는 점이 다릅니다. 루프 폐쇄가 없으면 긴 경로에서 누적 오차가 남는다는 점은 같습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="visual-odometry.html">비주얼오도메트리</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 단안 카메라만 사용할 경우 스케일(절대 크기)을 카메라 정보만으로는 알 수 없어 IMU의 가속도 적분이 스케일 관측 가능성을 제공하는데, 이는 로봇이 충분히 가속·회전 운동을 해야 정확히 추정된다는 제약이 있습니다.</p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="visual-odometry.html">비주얼오도메트리</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a> 단안 카메라만 사용할 경우 스케일(절대 크기)을 카메라 정보만으로는 알 수 없어 IMU의 가속도 적분이 스케일 관측 가능성을 제공하는데, 이는 로봇이 충분히 가속·회전 운동을 해야 정확히 추정된다는 제약이 있습니다. 두 센서의 측정 시점을 정밀하게 맞추는 시간 동기화와, 카메라-IMU 간 상대 위치·자세를 구하는 외부 파라미터 보정이 정확하지 않으면 융합 알고리즘의 추정 오차가 오히려 커질 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="visual-odometry.html">비주얼오도메트리</a>

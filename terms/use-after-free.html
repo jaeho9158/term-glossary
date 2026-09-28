@@ -99,12 +99,12 @@
   <p>취약점 탐지를 위한 동적 분석 기법을 다루는 문맥입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>해제후사용 취약점은 흔히 해제된 메모리 공간이 이후 다른 목적으로 재할당될 때, 공격자가 그 공간에 원하는 데이터를 채워 넣어 원래 포인터를 통한 접근을 악용하는 방식으로 이어집니다. 이를 방지하기 위해 포인터를 해제 즉시 널 값으로 초기화하는 관행이나, 스마트 포인터와 같은 자동 메모리 관리 기법이 연구되고 실무에 적용됩니다.</p>
+  <p>해제후사용 취약점은 흔히 해제된 메모리 공간이 이후 다른 목적으로 재할당될 때, 공격자가 그 공간에 원하는 데이터를 채워 넣어 원래 포인터를 통한 접근을 악용하는 방식으로 이어집니다. 이를 방지하기 위해 포인터를 해제 즉시 널 값으로 초기화하는 관행이나, 스마트 포인터와 같은 자동 메모리 관리 기법이 연구되고 실무에 적용됩니다. 해제 후 사용 취약점은 해제된 메모리 영역이 곧바로 회수되지 않고 재사용 가능한 상태로 남아 있는 특성 때문에 발생하며, 공격자가 그 영역에 원하는 데이터를 채워 넣어 프로그램의 제어 흐름을 탈취하는 데 악용될 수 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>해제후사용 취약점은 발생 시점과 실제 악용 시점 사이에 시간 간격이 있을 수 있어 재현과 디버깅이 까다로운 편입니다. 메모리 안전 언어를 사용하더라도 저수준 코드나 외부 라이브러리 연동 부분에서는 여전히 발생할 수 있습니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="memory-corruption.html">메모리 손상</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="buffer-overflow-exploitation.html">버퍼 오버플로우 공격</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="memory-corruption.html">메모리 손상</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="buffer-overflow-exploitation.html">버퍼 오버플로우 공격</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a> 해제 후 사용은 포인터를 해제 직후 곧바로 널 값으로 초기화하는 것만으로도 상당 부분 예방할 수 있지만, 여러 포인터가 같은 메모리를 참조하는 복잡한 구조에서는 완전히 막기 어려운 경우가 많습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="heap-overflow.html">힙오버플로우</a>
