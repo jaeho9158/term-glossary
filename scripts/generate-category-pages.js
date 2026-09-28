@@ -20,6 +20,7 @@ const {
   SUB_CATEGORY_ORDER,
 } = require("../assets/category-data.js");
 const { buildSubcategorySections } = require("./category-subgroups.js");
+const { applyHubLink } = require("./taxonomy/build.js");
 
 const ROOT_DIR = path.join(__dirname, "..");
 const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
@@ -133,6 +134,15 @@ ${renderFooter("../")}
 `;
 }
 
+// 개념 지도 링크 블록은 taxonomy/build.js가 넣는다. 이 스크립트만 따로 돌려도 지워지지 않게
+// 기존 파일의 블록을 새 페이지 같은 자리(부제 아래)에 다시 넣는다.
+const HUB_BLOCK = /<!-- concept-map-link:start -->([\s\S]*?)<!-- concept-map-link:end -->/;
+function preserveHubLink(oldHtml, newHtml) {
+  const m = oldHtml ? HUB_BLOCK.exec(oldHtml) : null;
+  if (!m) return newHtml;
+  return applyHubLink(newHtml, m[1]) || newHtml;
+}
+
 function run() {
   const terms = readTerms();
   const groups = groupByCategory(terms);
@@ -156,12 +166,15 @@ function run() {
       continue;
     }
 
-    const html = renderCategoryPage(code, label, list, comparePairs);
-    fs.writeFileSync(path.join(OUTPUT_DIR, `${code}.html`), html, "utf8");
+    const file = path.join(OUTPUT_DIR, `${code}.html`);
+    const old = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : "";
+    const html = preserveHubLink(old, renderCategoryPage(code, label, list, comparePairs));
+    fs.writeFileSync(file, html, "utf8");
     written += 1;
   }
 
   console.log(`카테고리 정적 페이지 생성 완료: ${written}개 (용어 0개라 건너뜀 ${skippedEmpty}개)`);
 }
 
-run();
+if (require.main === module) run();
+module.exports = { preserveHubLink };
