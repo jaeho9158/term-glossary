@@ -103,12 +103,12 @@
   <p>정책이 특정 행동에 지나치게 빨리 몰리는 문제를 막기 위해 무작위성을 유지하는 항을 손실함수에 더한다는 설명입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>크리틱은 시간차 오차를 이용해 가치함수를 학습하고, 액터는 그 오차 또는 이득 함수를 가중치로 삼아 <a href="policy-gradient.html">정책 경사법</a>의 갱신식을 적용합니다. 가치함수를 기준선으로 빼 주기 때문에 기울기 추정이 불편향을 유지하면서 분산만 줄어드는 것이 핵심입니다. 여러 환경을 병렬로 돌리는 A2C·A3C, 갱신 폭을 제한하는 <a href="proximal-policy-optimization.html">근접 정책 최적화</a>, 엔트로피 항을 더한 SAC 등이 대표적 변형입니다.</p>
+  <p>크리틱은 시간차 오차를 이용해 가치함수를 학습하고, 액터는 그 오차 또는 이득 함수를 가중치로 삼아 <a href="policy-gradient.html">정책 경사법</a>의 갱신식을 적용합니다. 가치함수를 기준선으로 빼 주기 때문에 기울기 추정이 불편향을 유지하면서 분산만 줄어드는 것이 핵심입니다. 여러 환경을 병렬로 돌리는 A2C·A3C, 갱신 폭을 제한하는 <a href="proximal-policy-optimization.html">근접 정책 최적화</a>, 엔트로피 항을 더한 SAC 등이 대표적 변형입니다. 정책을 직접 출력하는 액터(actor)와 그 정책의 가치를 평가하는 크리틱(critic)을 함께 학습시켜, 정책 경사법의 높은 분산 문제를 크리틱의 가치 추정으로 줄이는 구조입니다. 크리틱이 추정한 어드밴티지 함수(행동이 평균보다 얼마나 나은지)를 사용하면 A2C, PPO 같은 알고리즘으로 확장됩니다.</p>
 
   <h2>주의할 점</h2>
   <p><a href="policy-gradient.html">정책 경사법</a>은 정책의 기울기를 따라 올라간다는 원리를 가리키고, 액터-크리틱은 그 기울기의 분산을 줄이기 위해 학습된 가치함수를 끌어들인 구조적 설계입니다. 크리틱이 부정확하면 편향된 신호가 액터로 그대로 전달되므로 두 망의 학습 속도 균형이 중요합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="policy-gradient.html">정책 경사법</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="policy-gradient.html">정책 경사법</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a> 순수 정책 경사법이 몬테카를로 방식으로 전체 리턴을 사용해 분산이 큰 것과 달리, 액터-크리틱은 TD 오차를 이용한 부트스트래핑으로 분산을 줄이는 대신 크리틱의 추정 오류가 정책 학습에 편향을 끌어들일 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="policy-gradient.html">정책 경사법</a>

@@ -99,12 +99,12 @@
   <p>이 문장은 정답 표시 자체가 가끔 틀린 데이터에서도 이 기법이 모델을 더 안정적으로 학습시키는지 확인했다는 뜻입니다. 즉 잡음 섞인 라벨에 대한 효과를 별도로 검증한 연구입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>목표 분포를 원-핫 벡터와 균등 분포의 가중 평균으로 바꾸는 것과 같으며, 이는 <a href="cross-entropy-loss.html">교차엔트로피 손실</a>에 균등 분포로의 KL 항을 더한 형태로 해석됩니다. 로짓이 무한대로 발산하지 않게 억제하므로 학습이 안정되고 표현 공간에서 같은 클래스의 표본들이 더 조밀한 군집을 이루는 경향이 보고되었습니다. 다만 이 조밀화가 클래스 간 미세한 차이 정보를 지워 <a href="knowledge-distillation.html">지식증류</a>의 교사 모델로 쓸 때는 성능이 떨어질 수 있다는 점도 알려져 있습니다.</p>
+  <p>목표 분포를 원-핫 벡터와 균등 분포의 가중 평균으로 바꾸는 것과 같으며, 이는 <a href="cross-entropy-loss.html">교차엔트로피 손실</a>에 균등 분포로의 KL 항을 더한 형태로 해석됩니다. 로짓이 무한대로 발산하지 않게 억제하므로 학습이 안정되고 표현 공간에서 같은 클래스의 표본들이 더 조밀한 군집을 이루는 경향이 보고되었습니다. 다만 이 조밀화가 클래스 간 미세한 차이 정보를 지워 <a href="knowledge-distillation.html">지식증류</a>의 교사 모델로 쓸 때는 성능이 떨어질 수 있다는 점도 알려져 있습니다. K개 클래스에서 계수 ε를 쓰면 정답 클래스의 목표값은 1-ε+ε/K, 나머지 각 클래스는 ε/K가 됩니다. Szegedy 등이 2016년 Inception-v3 논문에서 ε=0.1로 제안했고, 이후 Transformer 원 논문도 같은 값을 써서 널리 퍼졌습니다.</p>
 
   <h2>주의할 점</h2>
   <p><a href="dropout.html">드롭아웃</a>이나 <a href="regularization.html">정규화</a>가 모델의 가중치나 활성값에 개입하는 것과 달리, 레이블 스무딩은 학습 목표값 자체를 바꾼다는 점이 다릅니다. 계수를 과하게 키우면 클래스 간 구분 신호가 흐려져 오히려 성능이 떨어집니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="regularization.html">정규화</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="weight-decay.html">가중치 감쇠</a><a href="dropout.html">드롭아웃</a><a href="early-stopping.html">조기종료 (Early Stopping)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="regularization.html">정규화</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="weight-decay.html">가중치 감쇠</a><a href="dropout.html">드롭아웃</a><a href="early-stopping.html">조기종료 (Early Stopping)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a> 스무딩된 목표로 학습하면 훈련 손실의 최솟값이 0이 아니게 되므로, 손실 곡선을 원-핫 기준 모델과 수치로 직접 비교하면 안 됩니다. 또 보정 효과는 온도 스케일링 같은 사후 보정과 겹치는 부분이 있어 두 기법을 함께 쓸 때는 효과를 따로 확인해야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="cross-entropy-loss.html">교차엔트로피 손실</a>

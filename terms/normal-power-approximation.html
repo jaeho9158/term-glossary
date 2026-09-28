@@ -90,7 +90,7 @@
   <p>손해 합계의 분포를 정규분포로 보면 계산은 쉽지만 오른쪽 꼬리를 과소평가하게 됩니다. 정규멱근사는 정규분위수에 왜도에 비례하는 보정항을 한 번 더 붙여 이 치우침을 바로잡는 방법입니다. 필요한 정보가 평균, 분산, 왜도뿐이라 계산이 매우 빠릅니다. 그래서 극단분위수를 손으로 가늠할 때 자주 쓰입니다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>총손해액 분포를 완전히 구하지 않고도 지급여력 산정에 필요한 높은 분위수를 어림할 수 있어, 위험이론 교재와 재보험 보유한도 산정 실무에서 표준적으로 다뤄집니다. 근사식이 명시적이어서 민감도 분석에도 편리합니다.</p>
+  <p>총손해액 분포를 완전히 구하지 않고도 지급여력 산정에 필요한 높은 분위수를 어림할 수 있어, 위험이론 교재와 재보험 보유한도 산정 실무에서 표준적으로 다뤄집니다. 근사식이 명시적이어서 민감도 분석에도 편리합니다. 정규멱근사는 집합적 위험모형에서 총 손해액의 특정 백분위수나 초과확률을 빠르게 계산해야 하는 실무 상황에서 계산 부담이 적은 근사법으로 선호됩니다.</p>
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <div class="example">"정규멱근사와 이동감마근사로 각각 산출한 총손해액 99% 분위수를 비교하여 왜도가 클수록 두 결과의 차이가 커짐을 확인하였다."</div>
@@ -99,12 +99,12 @@
   <p>이 문장은 정규멱근사가 계산은 빠르지만, 손해 분포가 많이 치우친 경우에는 실제보다 위험을 낮게 추정할 위험이 있다는 것을 보여줍니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>근사식은 표준화된 분위수에 왜도를 6으로 나눈 값과 분위수 제곱에서 1을 뺀 항의 곱을 더하는 형태로 표현됩니다. 이는 에지워스 전개의 앞부분을 취한 것과 같은 구조이며, 왜도가 과도하게 크면 근사의 단조성이 깨져 신뢰하기 어려워집니다. 통상 왜도가 대략 1을 넘지 않는 범위에서 권장됩니다.</p>
+  <p>근사식은 표준화된 분위수에 왜도를 6으로 나눈 값과 분위수 제곱에서 1을 뺀 항의 곱을 더하는 형태로 표현됩니다. 이는 에지워스 전개의 앞부분을 취한 것과 같은 구조이며, 왜도가 과도하게 크면 근사의 단조성이 깨져 신뢰하기 어려워집니다. 통상 왜도가 대략 1을 넘지 않는 범위에서 권장됩니다. 정규멱근사는 평균과 분산만 맞추는 단순 정규근사에 왜도 정보를 추가로 반영해 확률분포함수를 보정하는 방법으로, 특히 위험단위 수가 많아 분포가 대체로 대칭에 가깝지만 약간의 왜도가 남아있는 경우에 유용합니다.</p>
 
   <h2>주의할 점</h2>
   <p>정규멱근사는 왜도까지만 반영하므로 첨도가 매우 큰 대재해성 손해에는 부적합하며, 이런 경우에는 <a href="extreme-value-theory-insurance.html">보험 극단값이론</a> 기반 접근이 더 적절합니다. 왜도가 큰 구간에서 분위수가 역전될 수 있다는 점도 확인해야 합니다.</p>
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="collective-risk-model.html">집합위험모형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="compound-poisson-distribution.html">복합포아송분포</a><a href="translated-gamma-approximation.html">이동감마근사</a><a href="panjer-recursion.html">판저 재귀공식</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="collective-risk-model.html">집합위험모형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="compound-poisson-distribution.html">복합포아송분포</a><a href="translated-gamma-approximation.html">이동감마근사</a><a href="panjer-recursion.html">판저 재귀공식</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a> 왜도가 매우 큰 분포나 극단값 구간에서는 정규멱근사도 정확도가 떨어질 수 있어, 이런 경우에는 이동감마근사나 시뮬레이션 기반 방법이 대안으로 쓰입니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="aggregate-claims-distribution.html">총손해액분포</a>
