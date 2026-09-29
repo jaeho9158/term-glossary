@@ -60,7 +60,7 @@ function classify({ terms, ga = new Map(), stats = { terms: {} }, groups = [], v
 
 function main() {
   const terms = JSON.parse(fs.readFileSync(path.join(lib.ROOT, "terms.json"), "utf8"));
-  const stats = JSON.parse(fs.readFileSync(path.join(lib.ROOT, "data", "oa-stats.json"), "utf8"));
+  const stats = JSON.parse(fs.readFileSync(process.env.OA_STATS ? path.resolve(process.env.OA_STATS) : path.join(lib.ROOT, "data", "oa-stats.json"), "utf8"));
   const readOpt = (f, dflt) => { const p = path.join(lib.PRUNE_DIR, f); return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")) : dflt; };
   const groups = readOpt("merge-candidates.json", { groups: [] }).groups;
   const verdicts = readOpt("verdicts.json", {});

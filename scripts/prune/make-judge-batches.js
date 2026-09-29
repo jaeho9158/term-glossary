@@ -45,7 +45,7 @@ function makeBatches(targets) {
 
 function main() {
   const terms = JSON.parse(fs.readFileSync(path.join(lib.ROOT, "terms.json"), "utf8"));
-  const stats = JSON.parse(fs.readFileSync(path.join(lib.ROOT, "data", "oa-stats.json"), "utf8"));
+  const stats = JSON.parse(fs.readFileSync(process.env.OA_STATS ? path.resolve(process.env.OA_STATS) : path.join(lib.ROOT, "data", "oa-stats.json"), "utf8"));
   const candFile = path.join(lib.PRUNE_DIR, "merge-candidates.json");
   const absorb = new Set();
   if (fs.existsSync(candFile)) for (const g of JSON.parse(fs.readFileSync(candFile, "utf8")).groups) g.absorb.forEach((s) => absorb.add(s));
