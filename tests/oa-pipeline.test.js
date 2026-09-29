@@ -63,6 +63,25 @@ test("통계: df·fields·count·cooc(2편 이상에서 같이 나온 명사만)
   assert.ok(!s.terms.stress.cooc.includes("스트레스"));
 });
 
+test("통계: dfNeutral·fieldsNeutral은 sampling:neutral 문서만 센다", () => {
+  const docs = [
+    { id: "1", field: "nursing", source: "kci", text: "환자의 스트레스와 코르티솔 수치를 측정하였다." },
+    { id: "2", field: "psych", source: "kci", sampling: "neutral", text: "스트레스 반응에서 코르티솔 분비가 늘었다." },
+    { id: "3", field: "psych", source: "kci", sampling: "neutral", text: "수술 후 회복을 보았다." },
+  ];
+  const s = buildStats(docs, TERMS);
+  assert.strictEqual(s.v, 2);
+  assert.strictEqual(s.docsNeutral, 2);
+  assert.deepStrictEqual(s.fieldDocsNeutral, { psych: 2 });
+  assert.strictEqual(s.terms.stress.df, 2);
+  assert.strictEqual(s.terms.stress.dfNeutral, 1);
+  assert.deepStrictEqual(s.terms.stress.fieldsNeutral, { psych: 1 });
+  // 중립 문서에 안 나온 표제어는 dfNeutral 0이고 fieldsNeutral 칸이 없다
+  const only = buildStats([docs[0], docs[2]], TERMS);
+  assert.strictEqual(only.terms.stress.dfNeutral, 0);
+  assert.strictEqual(only.terms.stress.fieldsNeutral, undefined);
+});
+
 const OA = {
   fieldDocs: { med: 80, nursing: 10, food: 10 },
   docs: 100,

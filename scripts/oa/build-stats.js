@@ -8,6 +8,8 @@
 //
 // 표제어(slug)마다:
 //   df     — 등장 문서 수, fields — {분야 코드: 문서 수}, count — 총 등장 수
+//   dfNeutral / fieldsNeutral — 중립 질의 표본(index.jsonl의 sampling:"neutral")만 센 df·분야별 문서 수.
+//            표제어 질의로 모은 문서(sampling 없음)는 질의어 편향이 있어 가지치기 판단에서 뺀다.
 //   cooc   — 등장 자리 ±COOC_WINDOW자 안 명사 토큰 상위 COOC_TOP개(문서 수 기준, 불용어 제외)
 // 말뭉치 출처가 늘어도(KCI 초록 등) index.jsonl 형식만 맞추면 그대로 합산된다.
 const fs = require("fs");
@@ -88,10 +90,14 @@ function buildStats(docs, terms) {
     const matches = viewer.matchTermsWithIndex(d.text, index);
     for (const m of matches) {
       let s = stats.get(m.slug);
-      if (!s) stats.set(m.slug, (s = { title_ko: m.title_ko, title_en: m.title_en, df: 0, count: 0, fields: {}, cooc: new Map() }));
+      if (!s) stats.set(m.slug, (s = { title_ko: m.title_ko, title_en: m.title_en, df: 0, count: 0, fields: {}, dfNeutral: 0, fieldsNeutral: {}, cooc: new Map() }));
       s.df++;
       s.count += (m.occurrences || []).length || m.count || 1;
       s.fields[d.field] = (s.fields[d.field] || 0) + 1;
+      if (d.sampling === "neutral") {
+        s.dfNeutral++;
+        s.fieldsNeutral[d.field] = (s.fieldsNeutral[d.field] || 0) + 1;
+      }
       const own = (m.title_ko || "").replace(/\s+/g, "");
       const near = new Set();
       for (const occ of m.occurrences || []) {
@@ -115,13 +121,17 @@ function buildStats(docs, terms) {
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
       .slice(0, COOC_TOP)
       .map(([w]) => w);
-    const entry = { df: s.df, count: s.count, fields: s.fields };
+    const entry = { df: s.df, count: s.count, fields: s.fields, dfNeutral: s.dfNeutral };
+    if (s.dfNeutral) entry.fieldsNeutral = s.fieldsNeutral;
     if (cooc.length) entry.cooc = cooc;
     out[slug] = entry;
   }
   const fieldDocs = {};
   for (const d of docs) fieldDocs[d.field] = (fieldDocs[d.field] || 0) + 1;
-  return { v: 1, docs: docs.length, fieldDocs, sources: [...new Set(docs.map((d) => d.source))].sort(), terms: out };
+  const neutralDocs = docs.filter((d) => d.sampling === "neutral");
+  const fieldDocsNeutral = {};
+  for (const d of neutralDocs) fieldDocsNeutral[d.field] = (fieldDocsNeutral[d.field] || 0) + 1;
+  return { v: 2, docs: docs.length, docsNeutral: neutralDocs.length, fieldDocs, fieldDocsNeutral, sources: [...new Set(docs.map((d) => d.source))].sort(), terms: out };
 }
 
 function main() {
@@ -130,9 +140,11 @@ function main() {
   const result = buildStats(docs, loadTerms());
   // 한 줄에 표제어 하나: diff를 읽을 수 있고 크기도 들여쓰기 전체보다 작다.
   const body = Object.entries(result.terms).map(([k, v]) => JSON.stringify(k) + ":" + JSON.stringify(v)).join(",\n");
-  const json = `{"v":1,"docs":${result.docs},"fieldDocs":${JSON.stringify(result.fieldDocs)},"sources":${JSON.stringify(result.sources)},"terms":{\n${body}\n}}\n`;
-  fs.writeFileSync(OUTPUT, json, "utf8");
-  console.log(`oa-stats.json: 문서 ${result.docs}편, 표제어 ${Object.keys(result.terms).length}개, ${(Buffer.byteLength(json) / 1024).toFixed(0)}KB`);
+  const json = `{"v":${result.v},"docs":${result.docs},"docsNeutral":${result.docsNeutral},"fieldDocs":${JSON.stringify(result.fieldDocs)},"fieldDocsNeutral":${JSON.stringify(result.fieldDocsNeutral)},"sources":${JSON.stringify(result.sources)},"terms":{\n${body}\n}}\n`;
+  const outArg = process.argv.indexOf("--out");
+  const output = outArg > 0 ? path.resolve(process.argv[outArg + 1]) : OUTPUT;
+  fs.writeFileSync(output, json, "utf8");
+  console.log(`${path.basename(output)}: 문서 ${result.docs}편, 표제어 ${Object.keys(result.terms).length}개, ${(Buffer.byteLength(json) / 1024).toFixed(0)}KB`);
 }
 
 if (require.main === module) main();
