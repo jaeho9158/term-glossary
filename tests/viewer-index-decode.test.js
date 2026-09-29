@@ -62,3 +62,26 @@ console.log("viewer-index decode: all tests passed");
   assert.ok(!map.has("treatment"), "영문 키 제외");
   assert.ok(map.has("트리트먼트"), "한글 키 유지");
 }
+
+// 8번째 칸 match_titles(용어 정리 병합): 행 생성 → 디코드 → 매칭 인덱스가 흡수 제목으로도 대표를 찾는다.
+{
+  const codes = [];
+  const codeOf = (c) => { if (!codes.includes(c)) codes.push(c); return codes.indexOf(c); };
+  const plain = gen.buildRow({ slug: "p", title_ko: "가", title_en: "A", categories: ["x"] }, { codeOf });
+  assert.deepStrictEqual(plain, ["p", "가", "A", [0]], "match_titles 없으면 행 모양이 그대로");
+  const graded = gen.buildRow({ slug: "g", title_ko: "나", title_en: "B", categories: ["x"] }, { codeOf, grade: 2 });
+  assert.deepStrictEqual(graded, ["g", "나", "B", [0], 2]);
+  const row = gen.buildRow({ slug: "keeper", title_ko: "유의확률", title_en: "P-Value", categories: ["x"],
+    match_titles: ["피값", "Probability Value"] }, { codeOf });
+  assert.deepStrictEqual(row, ["keeper", "유의확률", "P-Value", [0], 0, 0, "", ["피값", "Probability Value"]]);
+  const terms = decodeViewerIndex({ v: 1, categories: codes, terms: [row, plain] });
+  assert.deepStrictEqual(terms[0].match_titles, ["피값", "Probability Value"]);
+  assert.deepStrictEqual(terms[0].sense, [], "빈 7번째 칸은 뜻 키워드 없음");
+  assert.strictEqual(terms[1].match_titles, undefined);
+  const map = buildExactIndex(terms);
+  assert.strictEqual(map.get("피값")[0].slug, "keeper");
+  assert.strictEqual(map.get("probabilityvalue")[0].slug, "keeper");
+  // 대표의 일반어 등급 3이면 한글 흡수 제목도 빠진다(제 표제어와 같은 취급)
+  const excluded = buildExactIndex(decodeViewerIndex({ v: 1, categories: ["x"], terms: [["k2", "단계", "", [0], 3, 0, "", ["과정단계"]]] }));
+  assert.ok(!excluded.has("과정단계"));
+}

@@ -558,6 +558,21 @@ function mergeOaCooc(senses, terms, oa) {
   return senses;
 }
 
+// 인덱스 행 한 줄. 5·6번째 칸(일반어 등급·영문 일반어)은 대부분 0이라 있을 때만 붙이고, 붙일 때는
+// 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다. 문맥 뜻 키워드(옛 7번째 칸)는 라운드 4에서
+// viewer-defs 청크로 옮겼다 — 매칭된 용어에만 필요한데 인덱스에 두면 전량 로드가 0.7MB 늘었다.
+// 8번째 칸 match_titles(용어 정리 병합): 병합으로 흡수된 페이지의 제목들. 뷰어는 aliases를 인덱싱하지
+// 않아, 흡수 제목을 대표의 aliases에만 넣으면 그 제목으로는 매칭이 안 된다. 있을 때만 붙이며,
+// 붙일 때는 앞 칸(5~7번째)을 0/0/""로 채운다(디코더가 7번째 칸을 뜻 키워드로 읽으므로 빈 문자열).
+function buildRow(t, { codeOf, grade = 0, enGrade = 0 }) {
+  const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
+  const matchTitles = Array.isArray(t.match_titles) ? t.match_titles.filter((s) => typeof s === "string" && s.trim()) : [];
+  if (grade || enGrade || matchTitles.length) row.push(grade);
+  if (enGrade || matchTitles.length) row.push(enGrade);
+  if (matchTitles.length) row.push("", matchTitles);
+  return row;
+}
+
 function run() {
   const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
   const oa = loadOaStats();
@@ -581,18 +596,9 @@ function run() {
   const senses = OA_ENABLE.cooc ? mergeOaCooc(senseKeywords(terms), terms, oa) : senseKeywords(terms);
   const outside = oaOutsideFlags(terms, oa);
   if (oa) console.log(`oa-stats.json 반영: 문서 ${oa.docs}편, 자기 분야 밖 표시 ${outside.size}개`);
-  const rows = terms.map((t) => {
-    const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
-    const grade = grades.get(t.title_ko) || 0;
-    // 6번째 칸(영문 일반어)도 대부분 0이라 있을 때만 붙인다. 붙일 때는
-    // 5번째 칸 자리를 0으로라도 채워야 순서가 맞는다.
-    const enGrade = englishGrade(t, englishCommon);
-    // 문맥 뜻 키워드(옛 7번째 칸)는 라운드 4에서 viewer-defs 청크로 옮겼다 — 매칭된
-    // 용어에만 필요한데 인덱스에 두면 전량 로드가 0.7MB 늘었다.
-    if (grade || enGrade) row.push(grade);
-    if (enGrade) row.push(enGrade);
-    return row;
-  });
+  const rows = terms.map((t) => buildRow(t, {
+    codeOf, grade: grades.get(t.title_ko) || 0, enGrade: englishGrade(t, englishCommon),
+  }));
 
   fs.writeFileSync(
     OUTPUT,
@@ -629,4 +635,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords, applyOaGrades, oaOutsideFlags, mergeOaCooc };
+module.exports = { buildRow, defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords, applyOaGrades, oaOutsideFlags, mergeOaCooc };

@@ -291,6 +291,13 @@ function buildExactIndex(terms) {
     // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정, 등급 1)는 영문
     // 키만 뺀다. 한글 표제어로는 그대로 잡힌다. 등급 4는 넣되 매칭 뒤에 거른다.
     if (term.title_en && term.common_en !== EN_GRADE_EXCLUDE) add(normalizeWord(term.title_en), term);
+    // 병합으로 흡수된 페이지의 제목(match_titles). 한글이면 대표의 일반어 등급, 영문이면 영문 등급을
+    // 그대로 따른다. aliases는 여전히 인덱싱하지 않는다(용량).
+    for (const title of term.match_titles || []) {
+      if (/[가-힣]/.test(title) ? (term.common || 0) < COMMON_GRADE_EXCLUDE : term.common_en !== EN_GRADE_EXCLUDE) {
+        add(normalizeWord(title), term);
+      }
+    }
   }
   return map;
 }
@@ -1401,15 +1408,20 @@ function decodeViewerIndex(data) {
   // 6번째 칸(영문 일반어 표시, B단계)도 같은 방식으로 없으면 0.
   // 7번째 칸(문맥 뜻 키워드, 공백 구분)은 라운드 3 인덱스에만 있다. 라운드 4부터는
   // viewer-defs 청크로 옮겨 생성하지 않지만(decodeDefChunk), 옛 인덱스도 읽히게 둔다.
-  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn, sense]) => ({
-    slug,
-    title_ko: titleKo || "",
-    title_en: titleEn || "",
-    categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
-    common: common || 0,
-    common_en: commonEn || 0,
-    sense: sense ? sense.split(" ") : [],
-  }));
+  // 8번째 칸(match_titles, 용어 정리 병합으로 흡수된 제목들)은 있을 때만 붙는다.
+  return (data.terms || []).map(([slug, titleKo, titleEn, catIdx, common, commonEn, sense, matchTitles]) => {
+    const term = {
+      slug,
+      title_ko: titleKo || "",
+      title_en: titleEn || "",
+      categories: (catIdx || []).map((i) => categories[i]).filter(Boolean),
+      common: common || 0,
+      common_en: commonEn || 0,
+      sense: sense ? sense.split(" ") : [],
+    };
+    if (Array.isArray(matchTitles) && matchTitles.length) term.match_titles = matchTitles;
+    return term;
+  });
 }
 
 // viewer-defs/NNN.json 청크 한 개를 slug → {definition, sense} 로 푼다.
