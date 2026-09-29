@@ -38,10 +38,19 @@ const run = (text, top) => {
   const text = "농약 섭취로 인한 중독 환자에게 해독제를 투여하였다. 독성이 강했다.";
   assert.ok(!run(text, ["사회과학"]).distant, "독성·해독 문맥 → 유지");
 }
-// 상위 분야군 안의 용어는 제외
+// 상위 분야군 안이어도 2음절 표제어는 뜻을 확인한다(2026-09-29)
 {
   const text = "청소년의 마약 중독 문제는 또래 관계에서 비롯된다.";
-  assert.ok(!run(text, ["의학·생명"]).distant, "상위 분야군 용어는 규칙 제외");
+  assert.strictEqual(run(text, ["의학·생명"]).distant, true, "상위 분야군 2음절 → 뜻 낱말 없으면 강등");
+  assert.ok(!run("중독 환자에게 해독제를 투여.", ["의학·생명"]).distant, "뜻 낱말 있으면 유지");
+}
+// 3음절 표제어는 상위 분야군 안이면 제외
+{
+  const text = "청소년의 마약 해독제 문제는 또래 관계에서 비롯된다.";
+  const m = { slug: "antidote", title_ko: "해독제", title_en: "Antidote", categories: ["ems"],
+    sense: ["중화", "투여"], viaHangul: true, occurrences: at(text, "해독제"), count: 1 };
+  applySenseContextRule([m], text, ["의학·생명"]);
+  assert.ok(!m.distant, "상위 분야군 3음절 용어는 규칙 제외");
 }
 // 라운드 5: 등장 수와 무관하게 전체 창 합산 hit 0이면 강등, 하나라도 있으면 유지
 {

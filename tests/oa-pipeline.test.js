@@ -132,9 +132,10 @@ test("연동 (b): 청크 항목 o:1 → 뷰어가 상위 분야군 안에서도 
   const entry = buckets[gen.defBucket("phys_term")].phys_term;
   assert.deepStrictEqual(entry, { d: "정의", s: "응력", o: 1 });
   assert.strictEqual(decodeDefChunk({ x: entry }).get("x").outside, true);
-  const text = "탄성 섬유가 풍부한 피부 조직을 관찰하였다.";
-  const mk = (outside) => ({ slug: "phys_term", title_ko: "탄성", title_en: "Elasticity", categories: ["phys"],
-    sense: ["응력", "변형"], viaHangul: true, occurrences: [{ start: 0, length: 2 }], oaOutside: outside });
+  // 3음절 표제어: 2음절은 2026-09-29부터 상위 분야군 안에서도 늘 검사한다.
+  const text = "탄성체 섬유가 풍부한 피부 조직을 관찰하였다.";
+  const mk = (outside) => ({ slug: "phys_term", title_ko: "탄성체", title_en: "Elastomer", categories: ["phys"],
+    sense: ["응력", "변형"], viaHangul: true, occurrences: [{ start: 0, length: 3 }], oaOutside: outside });
   // 자연과학이 상위 분야군이면 보통은 검사를 건너뛴다
   assert.ok(!applySenseContextRule([mk(false)], text, ["자연과학"])[0].distant);
   assert.strictEqual(applySenseContextRule([mk(true)], text, ["자연과학"])[0].distant, true);

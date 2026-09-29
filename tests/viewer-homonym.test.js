@@ -36,5 +36,6 @@ test("동형 표제어: 독성 물질 문맥이면 poisoning 유지, addiction �
 test("동형 표제어: 양쪽 겹침이 같으면 둘 다 건드리지 않는다", () => {
   const text = "중독 사례를 보고한다.";
   const r = byslug(applySenseContextRule(pair(text), text, ["의학·생명"]));
-  assert.ok(!r.poisoning.distant && !r.addiction.distant);
+  // (2음절이라 둘 다 뜻 규칙에는 걸릴 수 있다 — 동형 규칙이 한쪽만 고르지 않았는지만 본다.)
+  assert.ok(r.poisoning.demotedBy !== "homonym" && r.addiction.demotedBy !== "homonym");
 });

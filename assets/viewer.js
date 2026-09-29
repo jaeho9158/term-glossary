@@ -637,6 +637,12 @@ function senseStems(word) {
   return out;
 }
 
+// 영문으로만 잡혀도(Variance → 분산) 한글 표제어 길이로 본다.
+function isTwoSyllableHangul(match) {
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  return ko.length > 0 && ko.length <= SHORT_TITLE_MAX_SYLLABLES;
+}
+
 function isSenseTarget(match) {
   const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
   if (match.viaHangul !== false) return ko.length > 0 && ko.length <= SENSE_MAX_SYLLABLES;
@@ -784,7 +790,12 @@ function applySenseContextRule(list, text, top) {
     }
     // 상위 분야군 용어는 건너뛰되, 실제 논문에서 자기 분야 밖에서 주로 쓰이는 용어
     // (match.oaOutside, OA 연동 b)는 상위 분야군 안이어도 뜻을 확인한다.
-    if (match.distant || !isSenseTarget(match) || (inTopGroups(match, top) && !match.oaOutside)) continue;
+    // 2음절 이하 한글 표제어(분산·개입·정제·집합)는 상위 분야군 안이어도 뜻을 확인한다
+    // (2026-09-29 사용자 결정: 틀린 용어보다 놓치는 게 낫다). 25편: 오탐 43/470 → 34/438,
+    // 강등 미탐 19 → 40. 3음절까지 넓히거나 1회 등장 전부로 넓히면 정답 손실이 오탐
+    // 감소의 3~4배라 여기서 멈춘다.
+    const topExempt = inTopGroups(match, top) && !match.oaOutside && !isTwoSyllableHangul(match);
+    if (match.distant || !isSenseTarget(match) || topExempt) continue;
     const overlap = senseOverlap(match, text);
     if (overlap < 0) continue;
     if (overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }
