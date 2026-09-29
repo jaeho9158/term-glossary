@@ -759,7 +759,18 @@ function applyHomonymRule(list, text) {
 }
 
 function applySenseContextRule(list, text, top) {
-  if (!top || !top.length) return list;
+  // 분야 추정이 없는 문서(잡힌 용어 < FIELD_DISTANCE_MIN_MATCHES): 예전엔 규칙을 통째로
+  // 껐다. 2026-09-29 사용자 결정("틀린 용어보다 놓치는 게 낫다")으로 이런 문서에서도
+  // 짧은 표제어는 등장 창에 뜻 낱말이 하나도 없으면 강등한다(상위 분야군 면제가 없음).
+  // 25편: 오탐 49→43, 강등 미탐 14→19.
+  if (!top || !top.length) {
+    for (const match of list) {
+      if (match.distant || !isSenseTarget(match)) continue;
+      const overlap = senseOverlap(match, text);
+      if (overlap >= 0 && overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }
+    }
+    return list;
+  }
   applyHomonymRule(list, text);
   for (const match of list) {
     // 규칙 6(영문 병기 불일치)은 상위 분야군 안에서도 쓴다: 저자가 괄호로 밝힌 뜻이

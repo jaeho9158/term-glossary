@@ -50,10 +50,10 @@ const run = (text, top) => {
   const text2 = "중독 중독 중독 청소년 마약. 해독제 투여.";
   assert.ok(!run(text2, ["사회과학"]).distant, "한 창에라도 뜻 낱말 → 유지");
 }
-// 분야 추정이 없으면(용어가 적은 문서) 적용하지 않는다
+// 분야 추정이 없어도(용어가 적은 문서) 짧은 표제어는 뜻 낱말이 없으면 강등(2026-09-29)
 {
-  const text = "청소년의 마약 중독 문제.";
-  assert.ok(!run(text, []).distant);
+  assert.strictEqual(run("청소년의 마약 중독 문제.", []).distant, true);
+  assert.ok(!run("농약 섭취로 인한 중독. 해독제 투여.", []).distant, "뜻 낱말 있으면 유지");
 }
 
 // 빌드: 정의·관련어·분야명에서 2~4음절 명사, 자기 표제어·불용어 제외, 12개 이하
