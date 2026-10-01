@@ -79,6 +79,281 @@ function buildTermListFragment(terms, { paged }) {
   return fragment;
 }
 
+// ---- 분야 페이지(한 분야만 보는 화면) ----------------------------------
+
+// 검색 일치 순위: 0 = 정확히 일치, 1 = 접두, 2 = 포함, null = 불일치.
+function termMatchRank(t, q) {
+  if (!q) return null;
+  const fields = [
+    (t.title_ko || "").toLowerCase(),
+    (t.title_en || "").toLowerCase(),
+    ...(t.aliases || []).map((a) => a.toLowerCase()),
+  ];
+  if (fields.some((f) => f === q)) return 0;
+  if (fields.some((f) => f.startsWith(q))) return 1;
+  if (fields.some((f) => f.includes(q))) return 2;
+  return null;
+}
+
+// 표제어의 가나다 머리글. 한글 음절은 초성(쌍자음은 평자음으로 합침),
+// 영문은 대문자, 숫자는 "0-9", 그 밖은 "#".
+const INITIAL_CONSONANTS = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+const INITIAL_FOLD = { "ㄲ": "ㄱ", "ㄸ": "ㄷ", "ㅃ": "ㅂ", "ㅆ": "ㅅ", "ㅉ": "ㅈ" };
+const INITIAL_ORDER = "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ";
+
+function initialOf(title) {
+  const ch = String(title || "").trim().charAt(0);
+  if (!ch) return "#";
+  const code = ch.charCodeAt(0);
+  if (code >= 0xac00 && code <= 0xd7a3) {
+    const c = INITIAL_CONSONANTS[Math.floor((code - 0xac00) / 588)];
+    return INITIAL_FOLD[c] || c;
+  }
+  if (/[A-Za-z]/.test(ch)) return ch.toUpperCase();
+  if (/[0-9]/.test(ch)) return "0-9";
+  return "#";
+}
+
+function initialRank(g) {
+  const k = INITIAL_ORDER.indexOf(g);
+  if (k !== -1) return k;
+  if (/^[A-Z]$/.test(g)) return 100 + g.charCodeAt(0);
+  return g === "0-9" ? 200 : 300;
+}
+
+// 표제어 가나다순으로 정렬하고 머리글별로 묶는다: [{ initial, terms }]
+function groupByInitial(terms) {
+  const groups = {};
+  for (const t of terms) (groups[initialOf(t.title_ko)] ||= []).push(t);
+  return Object.keys(groups)
+    .sort((a, b) => initialRank(a) - initialRank(b))
+    .map((initial) => ({
+      initial,
+      terms: groups[initial].sort((a, b) =>
+        String(a.title_ko).localeCompare(String(b.title_ko), "ko")),
+    }));
+}
+
+// 슬러그 목록(인기순)을 용어 객체로 바꾼다. 이 분야에 없는 슬러그는 건너뛴다.
+function pickPopular(slugs, bySlug, limit = 20) {
+  const out = [];
+  for (const s of slugs || []) {
+    if (bySlug[s]) out.push(bySlug[s]);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+// 하위 주제 표시 이름. 데이터의 "관련 용어"는 화면에서만 "기타"로 부른다.
+const FIELD_OTHER_KEY = "관련 용어";
+function subLabel(name) {
+  return name === FIELD_OTHER_KEY ? "기타" : name;
+}
+
+// 하위 주제 순서: 지정 순서 → 나머지 가나다 → 기타(맨 끝)
+function sortSubNames(names, order) {
+  const isOther = (n) => n === FIELD_OTHER_KEY || n === "기타";
+  return names.slice().sort((a, b) => {
+    if (isOther(a) !== isOther(b)) return isOther(a) ? 1 : -1;
+    const ai = order.indexOf(a);
+    const bi = order.indexOf(b);
+    if (ai === -1 && bi === -1) return a.localeCompare(b, "ko");
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+}
+
+const FIELD_INDEX_MIN = 100; // 이보다 길면 가나다 색인과 머리글을 보여준다
+const FIELD_POPULAR_N = 20;
+
+function fieldTermRowHTML(term, shortMap) {
+  const enPart = term.title_en
+    ? ` <span class="term-en">(${escapeHtml(term.title_en)})</span>`
+    : "";
+  const d = shortMap && shortMap[term.slug];
+  const desc = d ? `<span class="term-desc">${escapeHtml(d)}</span>` : "";
+  return `<li><a href="terms/${encodeURIComponent(term.slug)}.html">` +
+    `<span class="term-name">${escapeHtml(term.title_ko)}${enPart}</span>${desc}</a></li>`;
+}
+
+async function fetchJsonOrNull(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error(`${url} 로드 실패:`, err);
+    return null;
+  }
+}
+
+async function initFieldPage(allTerms, code) {
+  const container = document.getElementById("category-sections");
+  const searchInput = document.getElementById("term-search");
+  if (!container) return;
+
+  const fieldTerms = allTerms.filter((t) => t.categories?.includes(code));
+  const bySlug = {};
+  for (const t of fieldTerms) bySlug[t.slug] = t;
+
+  const [popularAll, shortMap] = await Promise.all([
+    fetchJsonOrNull("data/popular-terms.json"),
+    fetchJsonOrNull(`data/category-short/${code}.json`),
+  ]);
+  const popular = popularAll
+    ? pickPopular(popularAll[code], bySlug, FIELD_POPULAR_N)
+    : [];
+
+  // 하위 주제: 주 분야(categories[0])가 이 분야인 용어만 자기 하위 주제를 갖는다.
+  const subMap = {};
+  for (const t of fieldTerms) {
+    const own = t.categories[0] === code && t.subcategory;
+    (subMap[own ? t.subcategory : FIELD_OTHER_KEY] ||= []).push(t);
+  }
+  const subNames = sortSubNames(Object.keys(subMap), SUB_CATEGORY_ORDER[code] || []);
+
+  container.innerHTML = `
+    <div class="field-page">
+      <p class="field-total">${escapeHtml(CATEGORY_LABELS[code] || code)} 용어 ${fieldTerms.length}개</p>
+      <div class="field-chips" role="group" aria-label="하위 주제"></div>
+      <p class="field-status" aria-live="polite"></p>
+      <div class="field-index" role="navigation" aria-label="가나다 색인" hidden></div>
+      <div class="field-list"></div>
+    </div>`;
+  const chipsEl = container.querySelector(".field-chips");
+  const statusEl = container.querySelector(".field-status");
+  const indexEl = container.querySelector(".field-index");
+  const listEl = container.querySelector(".field-list");
+
+  // 해시 → 상태. "" = 많이 찾는 용어, "all" = 전체, "sub-N" = N번째 하위 주제
+  function readHash() {
+    const h = location.hash.replace(/^#/, "");
+    if (h === "all") return "all";
+    const m = /^sub-(\d+)$/.exec(h);
+    if (m && Number(m[1]) < subNames.length) return h;
+    // 인기 목록을 못 불러왔으면 빈 화면 대신 첫 하위 주제를 보여준다.
+    return popular.length ? "" : (subNames.length ? "sub-0" : "all");
+  }
+
+  function setView(view) {
+    if (view === "") {
+      history.pushState(null, "", location.pathname + location.search);
+      render();
+    } else {
+      location.hash = view; // hashchange → render (뒤로 가기 지원)
+    }
+  }
+
+  function chipHTML(view, label, count, pressed) {
+    return `<button type="button" class="field-chip" data-view="${view}" aria-pressed="${pressed}">` +
+      `${escapeHtml(label)} <span class="field-chip-count">${count}</span></button>`;
+  }
+
+  function renderList(rows, grouped) {
+    if (!rows.length) {
+      listEl.innerHTML = '<p class="field-empty">일치하는 용어가 없습니다.</p>';
+      indexEl.hidden = true;
+      return;
+    }
+    if (grouped && rows.length > FIELD_INDEX_MIN) {
+      const groups = groupByInitial(rows);
+      indexEl.innerHTML = groups
+        .map((g) => `<button type="button" class="field-jump" data-jump="${escapeHtml(g.initial)}">${escapeHtml(g.initial)}</button>`)
+        .join("");
+      indexEl.hidden = false;
+      listEl.innerHTML = groups
+        .map((g) => `<section class="field-group" data-initial="${escapeHtml(g.initial)}">` +
+          `<h3 class="field-group-title">${escapeHtml(g.initial)}</h3>` +
+          `<ul class="namu-term-list is-active">${g.terms.map((t) => fieldTermRowHTML(t, shortMap)).join("")}</ul></section>`)
+        .join("");
+    } else {
+      indexEl.hidden = true;
+      listEl.innerHTML =
+        `<ul class="namu-term-list is-active">${rows.map((t) => fieldTermRowHTML(t, shortMap)).join("")}</ul>`;
+    }
+  }
+
+  let focusView = null;
+  function render() {
+    const view = readHash();
+    const q = (searchInput?.value || "").trim().toLowerCase();
+
+    chipsEl.innerHTML =
+      chipHTML("all", "전체", fieldTerms.length, view === "all") +
+      subNames.map((n, i) => chipHTML(`sub-${i}`, subLabel(n), subMap[n].length, view === `sub-${i}`)).join("");
+    if (focusView !== null) {
+      // 칩 버튼을 다시 그렸으니 키보드 초점을 같은 칩으로 되돌린다.
+      const again = chipsEl.querySelector(`[data-view="${focusView}"]`);
+      if (again) again.focus();
+      focusView = null;
+    }
+
+    if (q) {
+      // 보이는 목록이 전체 보기면 그 목록, 그 밖(하위 주제·인기)이면 분야 전체가 대상.
+      const rows = fieldTerms
+        .map((t) => ({ t, r: termMatchRank(t, q) }))
+        .filter((x) => x.r !== null)
+        .sort((a, b) => a.r - b.r || String(a.t.title_ko).localeCompare(String(b.t.title_ko), "ko"))
+        .map((x) => x.t);
+      statusEl.textContent = `"${searchInput.value.trim()}" 검색: 이 분야 전체에서 ${rows.length}개` +
+        (view === "all" ? "" : " (선택한 하위 주제와 상관없이 분야 전체를 검색합니다)");
+      renderList(rows, false);
+      return;
+    }
+
+    if (view === "") {
+      statusEl.textContent = `많이 찾는 용어 ${popular.length}개`;
+      renderList(popular, false);
+      if (fieldTerms.length > popular.length) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "term-list-more-btn field-show-all";
+        btn.textContent = `전체 보기 (${fieldTerms.length}개)`;
+        btn.addEventListener("click", () => setView("all"));
+        listEl.appendChild(btn);
+      }
+      return;
+    }
+    if (view === "all") {
+      statusEl.textContent = `전체 ${fieldTerms.length}개`;
+      renderList(fieldTerms, true);
+      return;
+    }
+    const name = subNames[Number(view.slice(4))];
+    statusEl.textContent = `${subLabel(name)} ${subMap[name].length}개`;
+    renderList(subMap[name], true);
+  }
+
+  chipsEl.addEventListener("click", (e) => {
+    const b = e.target.closest(".field-chip");
+    if (!b) return;
+    // 눌린 칩을 다시 누르면 기본(많이 찾는 용어) 화면으로 돌아간다.
+    const next = b.getAttribute("aria-pressed") === "true" && popular.length ? "" : b.dataset.view;
+    focusView = b.dataset.view;
+    setView(next);
+  });
+  indexEl.addEventListener("click", (e) => {
+    const b = e.target.closest(".field-jump");
+    if (!b) return;
+    const sec = [...listEl.querySelectorAll(".field-group")].find((s) => s.dataset.initial === b.dataset.jump);
+    if (sec) {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      sec.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }
+  });
+  window.addEventListener("hashchange", render);
+  window.addEventListener("popstate", render);
+  if (searchInput) {
+    let timer = null;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(render, 150);
+    });
+  }
+  render();
+}
+
 function render(terms, query = "", category = "") {
 
   const container = document.getElementById("category-sections");
@@ -90,16 +365,7 @@ function render(terms, query = "", category = "") {
 
   // Match rank: 0 = exact match, 1 = starts-with, 2 = contains. Lower is better.
   function matchRank(t) {
-    if (!q) return null;
-    const ko = (t.title_ko || "").toLowerCase();
-    const en = (t.title_en || "").toLowerCase();
-    const aliases = (t.aliases || []).map((a) => a.toLowerCase());
-    const fields = [ko, en, ...aliases];
-
-    if (fields.some((f) => f === q)) return 0;
-    if (fields.some((f) => f.startsWith(q))) return 1;
-    if (fields.some((f) => f.includes(q))) return 2;
-    return null;
+    return termMatchRank(t, q);
   }
 
   let filtered = terms
@@ -248,6 +514,14 @@ async function init() {
 
   const rawCategory = new URLSearchParams(location.search).get("cat") || "";
   const initialCategory = resolveCategoryParam(rawCategory);
+
+  if (initialCategory.length === 1) {
+    // 한 분야만 보는 화면은 칩·인기 목록 UI로 따로 그린다.
+    await initFieldPage(terms, initialCategory[0]);
+    const staticLinks1 = document.querySelector(".static-category-links");
+    if (staticLinks1) staticLinks1.hidden = true;
+    return;
+  }
 
   render(terms, "", initialCategory);
 
