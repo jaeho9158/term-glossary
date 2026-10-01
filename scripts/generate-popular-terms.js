@@ -6,6 +6,7 @@ const path = require("path");
 
 const ROOT_DIR = path.join(__dirname, "..");
 const TOP_N = 20;
+const FIELDS_TOP_N = 8;
 
 function rankPopular(terms, views, df, topN = TOP_N) {
   const byCat = {};
@@ -24,6 +25,19 @@ function rankPopular(terms, views, df, topN = TOP_N) {
       .map((t) => t.slug);
   }
   return out;
+}
+
+// 허브의 "많이 찾는 분야": 각 분야 인기 용어(popular)의 조회수 합으로 상위 n개 분야 코드.
+// 조회수 합이 전부 0이면(ga4 없음) 말뭉치 df 합으로 대신한다.
+function rankFields(popular, views, df, n = FIELDS_TOP_N) {
+  const sum = (map) => Object.entries(popular).map(([code, slugs]) =>
+    [code, slugs.reduce((acc, s) => acc + (map[s] || 0), 0)]);
+  let scored = sum(views);
+  if (!scored.some(([, v]) => v > 0)) scored = sum(df);
+  return scored
+    .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
+    .slice(0, n)
+    .map(([code]) => code);
 }
 
 function readJson(p, fallback) {
@@ -46,9 +60,10 @@ function run() {
   const df = {};
   for (const [slug, s] of Object.entries(stats.terms || {})) df[slug] = (s && s.df) || 0;
   const out = rankPopular(terms, views, df);
+  out._fields = rankFields(out, views, df);
   fs.writeFileSync(path.join(ROOT_DIR, "data", "popular-terms.json"), JSON.stringify(out), "utf8");
-  console.log(`popular-terms.json: ${Object.keys(out).length}개 분야, GA ${ga ? Object.keys(views).length : 0}건`);
+  console.log(`popular-terms.json: ${Object.keys(out).length - 1}개 분야, GA ${ga ? Object.keys(views).length : 0}건`);
 }
 
 if (require.main === module) run();
-module.exports = { rankPopular, TOP_N };
+module.exports = { rankPopular, rankFields, TOP_N };

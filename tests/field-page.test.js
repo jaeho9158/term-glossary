@@ -80,3 +80,12 @@ const {
 }
 
 console.log("field-page tests passed");
+
+// 허브 "많이 찾는 분야": 인기 용어 조회수 합 순위, ga4 없으면 df 합, 동률은 코드순
+{
+  const { rankFields } = require("../scripts/generate-popular-terms.js");
+  const popular = { a: ["a1", "a2"], b: ["b1"], c: ["c1"], d: [] };
+  assert.deepStrictEqual(rankFields(popular, { a1: 5, a2: 1, b1: 7, c1: 7 }, {}, 3), ["b", "c", "a"]);
+  assert.deepStrictEqual(rankFields(popular, {}, { a1: 1, b1: 9, c1: 2 }, 2), ["b", "c"]);
+  assert.deepStrictEqual(rankFields(popular, {}, {}, 8), ["a", "b", "c", "d"]);
+}

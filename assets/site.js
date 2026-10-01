@@ -354,6 +354,73 @@ async function initFieldPage(allTerms, code) {
   render();
 }
 
+// ---- 전체 분야 허브(category.html, cat 없음) -----------------------------
+// 분야는 펼치지 않고 링크 칩으로만 보여준다. 칩을 누르면 분야 페이지로 이동한다.
+function hubChipHTML(code, count) {
+  return `<a class="field-chip field-chip-link" href="category.html?cat=${encodeURIComponent(code)}">` +
+    `${escapeHtml(CATEGORY_LABELS[code] || code)} <span class="field-chip-count">${count}</span>` +
+    `<span class="field-chip-arrow" aria-hidden="true">→</span></a>`;
+}
+
+async function initHub(allTerms) {
+  const container = document.getElementById("category-sections");
+  const searchInput = document.getElementById("term-search");
+  if (!container) return;
+
+  const counts = {};
+  for (const t of allTerms) for (const c of t.categories || []) counts[c] = (counts[c] || 0) + 1;
+  const popularAll = await fetchJsonOrNull("data/popular-terms.json");
+  const topFields = popularAll && Array.isArray(popularAll._fields)
+    ? popularAll._fields.filter((c) => CATEGORY_LABELS[c])
+    : [];
+
+  if (searchInput) {
+    searchInput.placeholder = "분야·용어 검색";
+    searchInput.setAttribute("aria-label", "분야·용어 검색");
+  }
+
+  function draw(query) {
+    const q = query.trim().toLowerCase();
+    const chip = (code) => hubChipHTML(code, counts[code] || 0);
+    const matches = (code) => !q || (CATEGORY_LABELS[code] || "").toLowerCase().includes(q) || code.toLowerCase() === q;
+    let html = "";
+    if (!q && topFields.length) {
+      html += `<section class="category-group hub-popular"><h2 class="category-group-title">많이 찾는 분야</h2>` +
+        `<div class="field-chips">${topFields.map(chip).join("")}</div></section>`;
+    }
+    let shown = 0;
+    for (const g of CATEGORY_GROUPS) {
+      const codes = g.codes.filter((c) => CATEGORY_LABELS[c] && matches(c));
+      if (!codes.length) continue;
+      shown += codes.length;
+      html += `<section class="category-group"><h2 class="category-group-title">${escapeHtml(g.label)}</h2>` +
+        `<div class="field-chips">${codes.map(chip).join("")}</div></section>`;
+    }
+    container.innerHTML = html;
+    if (!q) return;
+    const found = allTerms
+      .map((t) => ({ t, r: termMatchRank(t, q) }))
+      .filter((x) => x.r !== null)
+      .sort((a, b) => a.r - b.r)
+      .map((x) => x.t);
+    const wrap = document.createElement("section");
+    wrap.className = "category-group hub-term-results";
+    wrap.innerHTML = `<h2 class="category-group-title">용어 ${found.length}개</h2>`;
+    if (found.length) wrap.appendChild(buildTermListFragment(found, { paged: true }));
+    else if (!shown) wrap.insertAdjacentHTML("beforeend", '<p class="field-empty">일치하는 분야나 용어가 없습니다.</p>');
+    container.appendChild(wrap);
+  }
+
+  draw("");
+  if (searchInput) {
+    let timer = null;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => draw(searchInput.value), 150);
+    });
+  }
+}
+
 function render(terms, query = "", category = "") {
 
   const container = document.getElementById("category-sections");
@@ -520,6 +587,13 @@ async function init() {
     await initFieldPage(terms, initialCategory[0]);
     const staticLinks1 = document.querySelector(".static-category-links");
     if (staticLinks1) staticLinks1.hidden = true;
+    return;
+  }
+
+  if (!initialCategory.length) {
+    await initHub(terms);
+    const staticLinks0 = document.querySelector(".static-category-links");
+    if (staticLinks0) staticLinks0.hidden = true;
     return;
   }
 
