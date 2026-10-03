@@ -65,4 +65,25 @@ assert.ok(validateSpec({ ...power, plot: undefined }).some((e) => e.includes("pl
   assert.deepStrictEqual(r.warnings, [], r.warnings.join("; "));
   assert.ok(r.svg.includes('text-anchor="end" font-size="11.5" font-weight="700" fill="var(--dg-navy)">상한 임계값 표시'));
 }
+// 눈금: 1·2·5×10^k 간격, 간격에 맞는 소수 자리, 부동소수 찌꺼기 없음, 축 안에만
+{
+  const ticksOf = (s) => {
+    const r = renderSpec(s, { title: "t" });
+    assert.deepStrictEqual(r.warnings, [], r.warnings.join("; "));
+    const T = [...r.svg.matchAll(/<text x="([-\d.]+)" y="([-\d.]+)" text-anchor="(middle|end)" font-size="11.5" fill="var\(--dg-general\)">([^<]*)</g)];
+    return { x: T.filter((m) => m[3] === "middle").map((m) => m[4]), y: T.filter((m) => m[3] === "end").map((m) => m[4]) };
+  };
+  const mk = (series, range) => ({ ...power, plot: { series, x: { label: "x", range, ticks: true }, y: { label: "y", ticks: true } } });
+  const tiny = ticksOf(mk([{ fn: "normal", params: { mu: 0, sigma: 0.01 } }], [-0.03, 0.03]));
+  assert.deepStrictEqual(tiny.x, ["-0.03", "-0.02", "-0.01", "0", "0.01", "0.02", "0.03"]);
+  assert.deepStrictEqual(tiny.y, ["0", "10", "20", "30"]); // 최댓값 39.9, 여백 12%는 눈금에 안 넣음
+  const big = ticksOf(mk([{ fn: "linear", params: { a: 1000, b: 0 } }], [0, 1234.5678]));
+  assert.deepStrictEqual(big.x, ["0", "200", "400", "600", "800", "1000", "1200"]);
+  assert.deepStrictEqual(big.y, ["0", "200000", "400000", "600000", "800000", "1000000", "1200000"]);
+  const fine = ticksOf(mk([{ fn: "linear", params: { a: 1, b: 0 } }], [0, 0.02]));
+  assert.deepStrictEqual(fine.x, ["0", "0.005", "0.010", "0.015", "0.020"]);
+  const rocT = ticksOf(roc);
+  assert.deepStrictEqual(rocT.x, ["0", "0.2", "0.4", "0.6", "0.8", "1.0"]);
+  for (const t of [...tiny.x, ...tiny.y, ...big.x, ...fine.x, ...rocT.y]) assert.ok(!/0000\d|9999|^-0$/.test(t), t);
+}
 console.log("diagrams-plot: all tests passed");

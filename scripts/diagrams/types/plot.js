@@ -5,7 +5,23 @@ const { FS_SUB, FS_NOTE, MARGIN, COLORS, SERIES_COLORS, AXIS_COLOR: AXIS, r1, te
 const { FNS, checkParams, sample } = require("../plot-fns.js");
 
 const PW = 440, PH = 200;
-const fmt = (v) => String(Math.round(v * 100) / 100);
+
+// 눈금: 구간 [lo, hi]를 4~8칸쯤으로 나누는 1·2·5×10^k 간격. 값은 정수 배수로 만들어
+// 부동소수 찌꺼기가 없고, 소수 자리는 간격이 요구하는 만큼(0.005 → 3자리).
+function niceTicks(lo, hi) {
+  const raw = (hi - lo) / 5;
+  if (!(raw > 0)) return [];
+  const e = Math.floor(Math.log10(raw)), mag = 10 ** e, norm = raw / mag;
+  const m = norm < 1.5 ? 1 : norm < 3.5 ? 2 : norm < 7.5 ? 5 : 10;
+  const step = m * mag;
+  const dec = Math.max(0, -(m === 10 ? e + 1 : e));
+  const out = [];
+  for (let k = Math.ceil(lo / step - 1e-9); k <= Math.floor(hi / step + 1e-9); k++) {
+    const v = k * step;
+    out.push({ v, t: k === 0 ? "0" : v.toFixed(dec) });
+  }
+  return out;
+}
 const colorOf = (s, i) => s.color || SERIES_COLORS[i];
 const arr = (v) => (Array.isArray(v) ? v : []);
 
@@ -56,15 +72,18 @@ function layout(cv, spec) {
   const isRoc = S[0].fn === "roc";
   const [xlo, xhi] = isRoc ? [0, 1] : p.x.range;
   const data = S.map((s) => sample(s.fn, s.params, xlo, xhi));
-  let ylo, yhi;
-  if (isRoc) { ylo = 0; yhi = 1; } else {
+  let ylo, yhi, ytop;
+  if (isRoc) { ylo = 0; yhi = 1; ytop = 1; } else {
     const ys = data.flat().map((d) => d[1]);
     ylo = Math.min(0, ...ys);
     yhi = Math.max(...ys);
     if (yhi === ylo) yhi = ylo + 1;
+    ytop = yhi; // 눈금은 데이터 범위까지만(위 여백 12%에는 안 단다)
     yhi += (yhi - ylo) * 0.12;
   }
-  const yTickW = p.y.ticks ? Math.max(textWidth(fmt(ylo), FS_SUB), textWidth(fmt(yhi), FS_SUB)) + 10 : 0;
+  const xTicks = p.x.ticks ? niceTicks(xlo, xhi) : [];
+  const yTicks = p.y.ticks ? niceTicks(ylo, ytop) : [];
+  const yTickW = yTicks.length ? Math.max(...yTicks.map((t) => textWidth(t.t, FS_SUB))) + 10 : 0;
   const left = MARGIN + yTickW + 6, top = MARGIN + FS_NOTE + 12;
   const X = (x) => left + ((x - xlo) / (xhi - xlo)) * PW;
   const Y = (y) => top + PH - ((y - ylo) / (yhi - ylo)) * PH;
@@ -108,10 +127,10 @@ function layout(cv, spec) {
   let y = top + PH;
   if (p.x.ticks) {
     y += FS_SUB + 6;
-    for (let k = 0; k <= 4; k++) { const xv = xlo + ((xhi - xlo) * k) / 4; cv.text(X(xv), y, fmt(xv), { fs: FS_SUB, fill: AXIS, owner: "tick" }); }
+    for (const t of xTicks) cv.text(X(t.v), y, t.t, { fs: FS_SUB, fill: AXIS, owner: "tick" });
   }
   if (p.y.ticks) {
-    for (let k = 0; k <= 4; k++) { const yv = ylo + ((yhi - ylo) * k) / 4; cv.text(left - 6, Y(yv) + 4, fmt(yv), { fs: FS_SUB, fill: AXIS, anchor: "end", owner: "tick" }); }
+    for (const t of yTicks) cv.text(left - 6, Y(t.v) + 4, t.t, { fs: FS_SUB, fill: AXIS, anchor: "end", owner: "tick" });
   }
   y += FS_NOTE + 10;
   cv.text(left + PW / 2, y, p.x.label, { fs: FS_NOTE, bold: true, fill: AXIS, owner: "axis-x" });
