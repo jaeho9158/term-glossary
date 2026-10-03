@@ -52,4 +52,10 @@ assert.ok(validateSpec({ ...power, plot: undefined }).some((e) => e.includes("pl
   const r = renderSpec(covered, { title: "t" });
   assert.ok(r.warnings.some((w) => w.includes("곡선이 라벨을 가림")), r.warnings.join("; "));
 }
+// 계열 기본 색·축 색은 core 한 곳에서(venn·plot·matrix 공용)
+{
+  const core = require("../scripts/diagrams/core.js");
+  assert.deepStrictEqual(core.SERIES_COLORS, ["blue", "rose", "green"]);
+  assert.strictEqual(core.AXIS_COLOR, "var(--dg-general)");
+}
 console.log("diagrams-plot: all tests passed");

@@ -1,8 +1,6 @@
 // venn: 집합 2~3개의 겹침. 원은 반투명 채움, 영역 라벨은 그 영역 안쪽 대표점에.
 "use strict";
-const { FS, FS_SUB, MARGIN, r1, wrap, validateNodes } = require("../core.js");
-
-const DEFAULT = ["blue", "rose", "green"];
+const { FS, FS_SUB, MARGIN, SERIES_COLORS, r1, wrap, validateNodes } = require("../core.js");
 
 function validate(spec) {
   const errs = validateNodes(spec);
@@ -36,7 +34,7 @@ function layout(cv, spec) {
   const labTop = FS + 8; // 위쪽 집합 이름 줄
   const ox = MARGIN - minX, oy = MARGIN + labTop - minY;
   const C = rel.map(([x, y]) => [x + ox, y + oy]);
-  const colorOf = (i) => spec.nodes[i].color || DEFAULT[i];
+  const colorOf = (i) => spec.nodes[i].color || SERIES_COLORS[i];
   spec.nodes.forEach((nd, i) => {
     const c = colorOf(i);
     cv.parts.push(`<circle cx="${r1(C[i][0])}" cy="${r1(C[i][1])}" r="${r}" fill="var(--dg-${c}-f)" fill-opacity="0.6" stroke="var(--dg-${c}-s)" stroke-width="1.4"/>`);

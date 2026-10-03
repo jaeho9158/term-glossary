@@ -1,11 +1,10 @@
 // matrix: 두 기준으로 나눈 2×2(1종·2종 오류, 위험 매트릭스).
 // 축 이름은 회전하지 않고 가로로 쓴다(회전 글자는 겹침 검사가 어렵다).
 "use strict";
-const { FS_SUB, FS_NOTE, MARGIN, textWidth, validateNodes, measureNode, drawNode } = require("../core.js");
+const { FS_SUB, FS_NOTE, MARGIN, AXIS_COLOR: AXIS, textWidth, validateNodes, measureNode, drawNode } = require("../core.js");
 
 const CELLS = ["tl", "tr", "bl", "br"];
 const AT = { tl: [0, 0], tr: [1, 0], bl: [0, 1], br: [1, 1] };
-const AXIS = "var(--dg-general)";
 
 function validate(spec) {
   const errs = validateNodes(spec);

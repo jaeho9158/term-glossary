@@ -5,6 +5,9 @@
 const COLORS = ["blue", "green", "amber", "rose", "violet", "gray"];
 const EDGE_KINDS = ["arrow", "inhibit", "blocked"];
 const TONES = ["pos", "limit", "general"];
+// 색을 따로 주지 않은 계열(venn 집합, plot 곡선)의 기본 색과 축 글자 색
+const SERIES_COLORS = ["blue", "rose", "green"];
+const AXIS_COLOR = "var(--dg-general)";
 
 const FS = 13; // 박스 라벨
 const FS_SUB = FS - 1.5; // figlib: sub는 1.5px 작게
@@ -244,7 +247,7 @@ function checkOverlaps(cv) {
 }
 
 module.exports = {
-  COLORS, EDGE_KINDS, TONES,
+  COLORS, EDGE_KINDS, TONES, SERIES_COLORS, AXIS_COLOR,
   FS, FS_SUB, FS_EDGE, FS_NOTE, LINE, MARGIN, H_WRAP_W,
   textWidth, wrap, esc, r1,
   validateNodes, Canvas, measureNode, drawNode, edgeColor, drawEdge, drawNotes, checkOverlaps,

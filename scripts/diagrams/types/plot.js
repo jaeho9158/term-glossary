@@ -1,14 +1,12 @@
 // plot: 함수 곡선(분포, ROC, 용량-반응…). 스펙은 함수 이름·매개변수만, 점은 plot-fns.js가 계산.
 // 눈금 숫자는 기본으로 숨기고 figure에 "개념 설명용 모식도" 캡션을 단다.
 "use strict";
-const { FS_SUB, FS_NOTE, MARGIN, COLORS, r1, textWidth } = require("../core.js");
+const { FS_SUB, FS_NOTE, MARGIN, COLORS, SERIES_COLORS, AXIS_COLOR: AXIS, r1, textWidth } = require("../core.js");
 const { FNS, checkParams, sample } = require("../plot-fns.js");
 
 const PW = 440, PH = 200;
-const DEFAULT = ["blue", "rose", "green"];
-const AXIS = "var(--dg-general)";
 const fmt = (v) => String(Math.round(v * 100) / 100);
-const colorOf = (s, i) => s.color || DEFAULT[i];
+const colorOf = (s, i) => s.color || SERIES_COLORS[i];
 const arr = (v) => (Array.isArray(v) ? v : []);
 
 function validate(spec) {
