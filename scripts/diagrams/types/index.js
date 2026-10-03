@@ -8,4 +8,5 @@ module.exports = Object.assign(Object.create(null), {
   contrast: require("./contrast.js"),
   hierarchy: require("./hierarchy.js"),
   procedure: linear.procedure,
+  cycle: require("./cycle.js"),
 });
