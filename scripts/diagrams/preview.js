@@ -12,9 +12,14 @@ const { execFileSync } = require("child_process");
 const { validateSpec, renderFigure, renderSpec } = require("./lib.js");
 
 const ROOT = path.join(__dirname, "..", "..");
-const SPEC_DIR = path.join(ROOT, "diagrams", "specs");
-const OUT_SVG = path.join(ROOT, "diagrams", "svg");
-const OUT_PNG = path.join(ROOT, "diagrams", "png");
+// --dir <폴더>: 다른 폴더의 스펙을 미리 본다(예: diagrams/examples). 이때는 terms.json에
+// 없는 slug도 허용하고, 결과는 그 폴더 안 preview.html·png/에 쓴다.
+const argv = process.argv.slice(2);
+const dirArg = argv.includes("--dir") ? argv[argv.indexOf("--dir") + 1] : null;
+const SPEC_DIR = dirArg ? path.resolve(ROOT, dirArg) : path.join(ROOT, "diagrams", "specs");
+const OUT_BASE = dirArg ? SPEC_DIR : path.join(ROOT, "diagrams");
+const OUT_SVG = path.join(OUT_BASE, "svg");
+const OUT_PNG = path.join(OUT_BASE, "png");
 const args = new Set(process.argv.slice(2));
 
 function loadTitles() {
@@ -63,7 +68,7 @@ body{margin:0;padding:12px;background:var(--bg);font-family:'Pretendard','Noto S
 
 function run() {
   const titles = loadTitles();
-  const known = new Set(titles.keys());
+  const known = dirArg ? null : new Set(titles.keys());
   const rows = [];
   let errors = 0, warned = 0;
   fs.mkdirSync(OUT_SVG, { recursive: true });
@@ -81,7 +86,7 @@ function run() {
       rows.push({ file, slug: spec.slug, type: spec.type, errs, warnings: [] });
       continue;
     }
-    const title = titles.get(spec.slug);
+    const title = titles.get(spec.slug) || spec.title;
     const fig = renderFigure(spec, title);
     if (fig.warnings.length) warned++;
     fs.writeFileSync(path.join(OUT_SVG, `${spec.slug}.svg`), renderSpec(spec, { title }).svg, "utf8");
@@ -98,7 +103,7 @@ function run() {
     return `<section>${head}${problems ? `<ul>${problems}</ul>` : ""}${body}</section>`;
   }).join("\n");
   const page = `<!doctype html><html data-theme="light"><head><meta charset="utf-8"><title>개념 도식 미리보기</title>
-<link rel="stylesheet" href="../style.css"><style>
+<link rel="stylesheet" href="${path.relative(OUT_BASE, path.join(ROOT, "style.css")).replace(/\\/g, "/")}"><style>
 body{padding:20px;font-family:'Pretendard','Noto Sans KR',sans-serif;background:#f4f5f7}
 section{background:#fff;margin:0 0 28px;padding:12px 16px;border-radius:8px}
 h2{font-size:16px;margin:0 0 8px} small{color:#888;font-weight:400}
@@ -111,7 +116,7 @@ h2{font-size:16px;margin:0 0 8px} small{color:#888;font-weight:400}
   // 다크 칸은 data-theme 속성만으로 변수가 바뀌도록 style.css 선택자를 흉내 낸다.
   const darkVars = fs.readFileSync(path.join(ROOT, "style.css"), "utf8").match(/:root\[data-theme="dark"\] \{\n  --dg-blue-f[\s\S]*?\n\}/);
   const pageWithDark = darkVars ? page.replace("</style>", `${darkVars[0].replace(':root[data-theme="dark"]', '[data-theme="dark"].pane, .dark')}\n</style>`) : page;
-  fs.writeFileSync(path.join(ROOT, "diagrams", "preview.html"), pageWithDark, "utf8");
+  fs.writeFileSync(path.join(OUT_BASE, "preview.html"), pageWithDark, "utf8");
 
   if (args.has("--png")) {
     const chrome = findChrome();
@@ -136,7 +141,7 @@ h2{font-size:16px;margin:0 0 8px} small{color:#888;font-weight:400}
     for (const e of r.errs) console.log(`     ✗ ${e}`);
     for (const w of r.warnings) console.log(`     ! ${w}`);
   }
-  console.log(`\n스펙 ${rows.length}개 · 오류 ${errors} · 겹침 경고 ${warned} → diagrams/preview.html`);
+  console.log(`\n스펙 ${rows.length}개 · 오류 ${errors} · 겹침 경고 ${warned} → ${path.relative(ROOT, path.join(OUT_BASE, "preview.html"))}`);
   if (errors || (args.has("--strict") && warned)) process.exitCode = 1;
 }
 
