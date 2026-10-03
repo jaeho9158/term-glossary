@@ -55,7 +55,7 @@ type별 규칙:
 - **timeline**: `nodes`·`edges` 대신 `events: [{when, label, sub?, color?}]` 2~7개. 간격은 균등. 가로·세로 두 벌.
 - **plot**: `nodes`·`edges` 대신 `plot`. 좌표를 쓰지 않고 함수 이름과 매개변수만 쓴다.
   `series` 1~3개(`fn`·`params`·`label`·`color`), `shade` 0~3개(`series` 번호·`from`·`to`(null=끝까지)·`label`),
-  `vlines` 0~3개(`x`·`label`), `x: {label, range: [lo, hi], ticks?}`, `y: {label, ticks?}`.
+  `vlines` 0~3개(`x`·`label`). shade에 `color`를 주면 계열 색 대신 그 색으로 칠한다(예: α 꼬리 rose), `x: {label, range: [lo, hi], ticks?}`, `y: {label, ticks?}`.
   함수: `normal(mu,sigma)` `t(df)` `chi2(df)` `exponential(rate)` `logistic(x0,k)` `linear(a,b)`
   `roc(auc)`(0.5≤auc<1, 범위 [0,1] 고정, 다른 함수와 혼용 불가) `hill(ec50,n)` `inverted_u(peak,width)` `decay(rate)`.
   눈금 숫자는 기본으로 숨기고, 페이지에는 "개념 설명용 모식도" 캡션이 붙는다.

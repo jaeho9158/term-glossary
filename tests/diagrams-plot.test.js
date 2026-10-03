@@ -140,4 +140,11 @@ assert.ok(validateSpec({ ...power, plot: undefined }).some((e) => e.includes("pl
   const top = Math.min(...[...n.matchAll(/<path d="M([^"]+)" fill="none"/g)].flatMap((m) => [...m[1].matchAll(/[\d.]+,([-\d.]+)/g)].map((q) => +q[1])));
   assert.ok(top > 0 && top > baseY - 200, String(top));
 }
+// 음영 색은 계열 색 대신 따로 줄 수 있다(α 꼬리를 빨강으로)
+{
+  const c = { ...power, plot: { ...power.plot, shade: [{ series: 0, from: 1.64, to: null, label: "α", color: "rose" }] } };
+  assert.deepStrictEqual(validateSpec(c), []);
+  assert.ok(renderSpec(c, { title: "t" }).svg.includes("var(--dg-rose-f)"));
+  assert.ok(validateSpec({ ...power, plot: { ...power.plot, shade: [{ series: 0, from: 0, to: 1, color: "pink" }] } }).some((e) => e.includes("pink")));
+}
 console.log("diagrams-plot: all tests passed");

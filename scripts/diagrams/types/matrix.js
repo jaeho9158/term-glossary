@@ -35,7 +35,7 @@ function layout(cv, spec) {
   const xA = MARGIN + yLabW + 12; // y축 선
   const x0 = xA + 10; // 격자 왼쪽
   const top = MARGIN + FS_NOTE + 10;
-  cv.text(MARGIN, MARGIN + FS_NOTE, `↑ ${ay.label}`, { fs: FS_NOTE, bold: true, fill: AXIS, anchor: "start", owner: "axis-y" });
+  cv.text(MARGIN, MARGIN + FS_NOTE, ay.label, { fs: FS_NOTE, bold: true, fill: AXIS, anchor: "start", owner: "axis-y" });
   for (const n of spec.nodes) {
     const [c, r] = AT[n.cell];
     drawNode(cv, n, x0 + c * (CW + G), top + r * (CH + G), CW, CH, ms.get(n.id));
@@ -50,8 +50,8 @@ function layout(cv, spec) {
   cv.text(x0 + CW / 2, tickY, ax.low, { fs: FS_SUB, fill: AXIS, owner: "axis-x" });
   cv.text(x0 + CW + G + CW / 2, tickY, ax.high, { fs: FS_SUB, fill: AXIS, owner: "axis-x" });
   const xLabY = tickY + FS_NOTE + 8;
-  cv.text((x0 + gridR) / 2, xLabY, `${ax.label} →`, { fs: FS_NOTE, bold: true, fill: AXIS, owner: "axis-x" });
-  const w = Math.max(gridR + MARGIN + 6, MARGIN * 2 + textWidth(`↑ ${ay.label}`, FS_NOTE, true));
+  cv.text((x0 + gridR) / 2, xLabY, ax.label, { fs: FS_NOTE, bold: true, fill: AXIS, owner: "axis-x" });
+  const w = Math.max(gridR + MARGIN + 6, MARGIN * 2 + textWidth(ay.label, FS_NOTE, true));
   return { w, h: xLabY + 4 };
 }
 

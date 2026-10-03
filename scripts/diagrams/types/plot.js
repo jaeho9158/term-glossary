@@ -50,6 +50,7 @@ function validate(spec) {
     if (!sh || typeof sh !== "object") { errs.push("plot shade 항목이 객체가 아님"); continue; }
     if (!Number.isInteger(sh.series) || sh.series < 0 || sh.series >= S.length) errs.push(`plot shade의 series 번호가 올바르지 않음: ${sh.series}`);
     const okEnd = (v) => v === null || v === undefined || Number.isFinite(v);
+    if (sh.color && !COLORS.includes(sh.color)) errs.push(`알 수 없는 color: ${sh.color} (shade)`);
     if (!okEnd(sh.from) || !okEnd(sh.to)) errs.push("plot shade from·to는 숫자 또는 null");
     else if (Number.isFinite(sh.from) && Number.isFinite(sh.to) && !(sh.from < sh.to)) errs.push("plot shade from < to 이어야 함");
     else if (rangeOk && ((Number.isFinite(sh.from) && sh.from >= range[1]) || (Number.isFinite(sh.to) && sh.to <= range[0]))) errs.push(`plot shade가 x 범위 밖: ${sh.from}~${sh.to}`);
@@ -102,15 +103,19 @@ function layout(cv, spec) {
   // y축 이름은 축 위 왼쪽에 가로로(회전 글자는 겹침 검사가 어렵다)
   cv.text(left, MARGIN + FS_NOTE, p.y.label, { fs: FS_NOTE, bold: true, fill: AXIS, anchor: "start", owner: "axis-y" });
 
-  // 음영 → 축 → 곡선 순서로 칠한다(곡선이 위에 오게)
+  // 음영 → 축 → 곡선 순서로 칠한다(곡선이 위에 오게). 음영끼리는 넓은 것부터 칠해
+  // 좁은 음영(α 꼬리 등)이 넓은 음영(검정력)에 덮이지 않게 한다.
+  const shadePaths = [];
   for (const sh of p.shade || []) {
     const s = S[sh.series];
     const a = Math.max(xlo, sh.from ?? xlo), b = Math.min(xhi, sh.to ?? xhi);
     const pts = sample(s.fn, s.params, a, b, 60);
     if (!pts.length) continue;
+    const area = pts.reduce((acc, [, y]) => acc + Math.abs(Y(y) - baseY), 0) * (pts.length > 1 ? Math.abs(X(pts[1][0]) - X(pts[0][0])) : 0);
     const d = `M${r1(X(pts[0][0]))},${r1(baseY)} ` + pts.map(([x, y]) => `L${r1(X(x))},${r1(Y(y))}`).join(" ") + ` L${r1(X(pts[pts.length - 1][0]))},${r1(baseY)} Z`;
-    cv.parts.push(`<path d="${d}" fill="var(--dg-${colorOf(s, sh.series)}-f)" stroke="none"${clip}/>`);
+    shadePaths.push({ area, svg: `<path d="${d}" fill="var(--dg-${(sh.color || colorOf(s, sh.series))}-f)" stroke="none"${clip}/>` });
   }
+  shadePaths.sort((u, v) => v.area - u.area).forEach((sp) => cv.parts.push(sp.svg));
   cv.line(left, top + PH, left + PW + 8, top + PH, "arrow", "var(--dg-gray-s)");
   cv.line(left, top + PH, left, top - 8, "arrow", "var(--dg-gray-s)");
   if (isRoc) cv.parts.push(`<line x1="${r1(X(0))}" y1="${r1(Y(0))}" x2="${r1(X(1))}" y2="${r1(Y(1))}" stroke="var(--dg-gray-s)" stroke-width="1" stroke-dasharray="4,3"/>`);
@@ -169,7 +174,7 @@ function layout(cv, spec) {
         }
       }
     }
-    cv.text(at[0], at[1] + h / 2 - FS_SUB * 0.26, sh.label, { fs: FS_SUB, bold: true, fill: `var(--dg-${colorOf(s, sh.series)}-t)`, owner: "shade" });
+    cv.text(at[0], at[1] + h / 2 - FS_SUB * 0.26, sh.label, { fs: FS_SUB, bold: true, fill: `var(--dg-${(sh.color || colorOf(s, sh.series))}-t)`, owner: "shade" });
   }
   let y = top + PH;
   if (p.x.ticks) {
