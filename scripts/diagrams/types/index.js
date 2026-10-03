@@ -9,4 +9,5 @@ module.exports = Object.assign(Object.create(null), {
   hierarchy: require("./hierarchy.js"),
   procedure: linear.procedure,
   cycle: require("./cycle.js"),
+  matrix: require("./matrix.js"),
 });
