@@ -119,4 +119,25 @@ assert.ok(validateSpec({ ...power, plot: undefined }).some((e) => e.includes("pl
   assert.ok(bad({ shade: [{ series: 0, from: 6.5, to: 9 }] }).some((e) => e.includes("shade")));
   assert.deepStrictEqual(bad({ shade: [{ series: 0, from: 5, to: 9 }] }), []);
 }
+// 카이제곱 df=1(0에서 발산)과 df=4를 겹쳐도 둘 다 보이게: 위 2% 튀는 값은 y 범위에서 빼고 곡선은 그림 영역으로 자른다
+{
+  const chi = { ...power, slug: "chi-square", plot: { series: [{ fn: "chi2", params: { df: 1 }, label: "자유도 1" }, { fn: "chi2", params: { df: 4 }, label: "자유도 4" }], x: { label: "카이제곱", range: [0, 10] }, y: { label: "밀도" } } };
+  assert.deepStrictEqual(validateSpec(chi), []);
+  const r = renderSpec(chi, { title: "t" });
+  assert.deepStrictEqual(r.warnings, [], r.warnings.join("; "));
+  const clip = r.svg.match(/<clipPath id="([^"]+)">/);
+  assert.ok(clip && clip[1].startsWith("dg-chi-square-h"), "clipPath id는 캔버스 접두어로");
+  const curves = [...r.svg.matchAll(/<path d="M([^"]+)" fill="none" stroke="var\(--dg-(\w+)-s\)" stroke-width="2.2" clip-path="url\(#([^)]+)\)"/g)];
+  assert.strictEqual(curves.length, 2);
+  assert.ok(curves.every((m) => m[3] === clip[1]));
+  const ax = r.svg.match(/<line x1="([\d.]+)" y1="([\d.]+)" x2="([\d.]+)" y2="\2"/);
+  const baseY = +ax[2];
+  const peak = (m) => Math.min(...[...m[1].matchAll(/[\d.]+,([-\d.]+)/g)].map((q) => +q[1]));
+  assert.ok(baseY - peak(curves[1]) > 0.25 * 200, `df=4 곡선 높이 ${baseY - peak(curves[1])}px`);
+  assert.ok(!/#[0-9a-fA-F]{6}/.test(r.svg.replace(/<desc[\s\S]*?<\/desc>/, "")));
+  // 튀는 값이 없는 그림(정규분포)은 y 범위를 자르지 않는다
+  const n = renderSpec(power, { title: "t" }).svg;
+  const top = Math.min(...[...n.matchAll(/<path d="M([^"]+)" fill="none"/g)].flatMap((m) => [...m[1].matchAll(/[\d.]+,([-\d.]+)/g)].map((q) => +q[1])));
+  assert.ok(top > 0 && top > baseY - 200, String(top));
+}
 console.log("diagrams-plot: all tests passed");

@@ -37,6 +37,17 @@ near(FNS.decay.f(0, { rate: 1 }), 1);
   assert.ok(pts[0][0] >= 0);
 }
 
+// 카이제곱 0 근처: df=2면 f(0)=0.5, df<2면 발산. 표본은 끝점 특이점을 살짝 피해 유한값만
+near(FNS.chi2.f(0, { df: 2 }), 0.5);
+assert.strictEqual(FNS.chi2.f(0, { df: 1 }), Infinity);
+assert.strictEqual(FNS.chi2.f(-1, { df: 1 }), 0);
+assert.strictEqual(FNS.chi2.f(0, { df: 4 }), 0);
+{
+  const pts = sample("chi2", { df: 1 }, 0, 10);
+  assert.ok(pts.every(([, y]) => Number.isFinite(y)) && pts[0][0] > 0 && pts[0][0] < 0.05, String(pts[0]));
+  near(sample("chi2", { df: 2 }, 0, 10)[0][1], 0.5);
+}
+
 // 매개변수 검사
 assert.deepStrictEqual(checkParams("normal", { mu: 0, sigma: 1 }), []);
 assert.ok(checkParams("normal", { mu: 0 }).some((e) => e.includes("sigma")));

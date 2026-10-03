@@ -51,8 +51,10 @@ const FNS = {
     f: (x, p) => Math.exp(-0.5 * ((x - p.mu) / p.sigma) ** 2) / (p.sigma * Math.sqrt(2 * Math.PI)) },
   t: { params: { df: { gt: 0 } }, desc: "t 분포",
     f: (x, p) => Math.exp(lgamma((p.df + 1) / 2) - lgamma(p.df / 2) - 0.5 * Math.log(p.df * Math.PI) - ((p.df + 1) / 2) * Math.log(1 + (x * x) / p.df)) },
+  // x=0: df>2면 0, df=2면 1/2, df<2면 발산(Infinity — sample이 끝점을 살짝 피한다)
   chi2: { params: { df: { gt: 0 } }, domain: [0, Infinity], desc: "카이제곱 분포",
-    f: (x, p) => (x <= 0 ? 0 : Math.exp((p.df / 2 - 1) * Math.log(x) - x / 2 - (p.df / 2) * Math.LN2 - lgamma(p.df / 2))) },
+    f: (x, p) => (x < 0 ? 0 : x === 0 ? (p.df > 2 ? 0 : p.df === 2 ? 0.5 : Infinity)
+      : Math.exp((p.df / 2 - 1) * Math.log(x) - x / 2 - (p.df / 2) * Math.LN2 - lgamma(p.df / 2))) },
   exponential: { params: { rate: { gt: 0 } }, domain: [0, Infinity], desc: "지수 분포",
     f: (x, p) => p.rate * Math.exp(-p.rate * x) },
   logistic: { params: { x0: {}, k: { ne: 0 } }, desc: "S자 곡선",
@@ -94,7 +96,9 @@ function sample(fn, params, lo, hi, n = 121) {
   const pts = [];
   if (!(a < b)) return pts;
   for (let i = 0; i < n; i++) {
-    const x = a + ((b - a) * i) / (n - 1);
+    let x = a + ((b - a) * i) / (n - 1);
+    // 끝점이 특이점(카이제곱 df<2의 x=0)이면 칸 폭의 1/10만큼 안쪽에서 잰다.
+    if ((i === 0 || i === n - 1) && !Number.isFinite(F.f(x, params))) x += ((i === 0 ? 1 : -1) * (b - a)) / (n - 1) / 10;
     pts.push([x, F.f(x, params)]);
   }
   return pts;

@@ -78,6 +78,11 @@ function layout(cv, spec) {
     const ys = data.flat().map((d) => d[1]);
     ylo = Math.min(0, ...ys);
     yhi = Math.max(...ys);
+    // 특이점 근처 몇 점(카이제곱 df=1의 0 근처)이 y 범위를 독차지하지 않게: 최댓값이 98백분위의
+    // 3배를 넘으면 위 2%는 빼고 잡는다. 넘친 곡선은 그림 영역(clipPath)에서 잘린다.
+    const sorted = [...ys].sort((p, q) => p - q);
+    const p98 = sorted[Math.floor(0.98 * (sorted.length - 1))];
+    if (p98 > 0 && yhi > 3 * p98) yhi = p98;
     if (yhi === ylo) yhi = ylo + 1;
     ytop = yhi; // 눈금은 데이터 범위까지만(위 여백 12%에는 안 단다)
     yhi += (yhi - ylo) * 0.12;
@@ -89,6 +94,10 @@ function layout(cv, spec) {
   const X = (x) => left + ((x - xlo) / (xhi - xlo)) * PW;
   const Y = (y) => top + PH - ((y - ylo) / (yhi - ylo)) * PH;
   const baseY = Y(ylo <= 0 && 0 <= yhi ? 0 : ylo);
+  // 곡선·음영은 그림 영역 안으로 자른다(id는 캔버스 접두어로 페이지 안에서 유일).
+  const clipId = `${cv.prefix}-clip`;
+  cv.parts.push(`<defs><clipPath id="${clipId}"><rect x="${r1(left - 2)}" y="${r1(top)}" width="${r1(PW + 4)}" height="${r1(PH + 2)}"/></clipPath></defs>`);
+  const clip = ` clip-path="url(#${clipId})"`;
 
   // y축 이름은 축 위 왼쪽에 가로로(회전 글자는 겹침 검사가 어렵다)
   cv.text(left, MARGIN + FS_NOTE, p.y.label, { fs: FS_NOTE, bold: true, fill: AXIS, anchor: "start", owner: "axis-y" });
@@ -100,14 +109,14 @@ function layout(cv, spec) {
     const pts = sample(s.fn, s.params, a, b, 60);
     if (!pts.length) continue;
     const d = `M${r1(X(pts[0][0]))},${r1(baseY)} ` + pts.map(([x, y]) => `L${r1(X(x))},${r1(Y(y))}`).join(" ") + ` L${r1(X(pts[pts.length - 1][0]))},${r1(baseY)} Z`;
-    cv.parts.push(`<path d="${d}" fill="var(--dg-${colorOf(s, sh.series)}-f)" stroke="none"/>`);
+    cv.parts.push(`<path d="${d}" fill="var(--dg-${colorOf(s, sh.series)}-f)" stroke="none"${clip}/>`);
   }
   cv.line(left, top + PH, left + PW + 8, top + PH, "arrow", "var(--dg-gray-s)");
   cv.line(left, top + PH, left, top - 8, "arrow", "var(--dg-gray-s)");
   if (isRoc) cv.parts.push(`<line x1="${r1(X(0))}" y1="${r1(Y(0))}" x2="${r1(X(1))}" y2="${r1(Y(1))}" stroke="var(--dg-gray-s)" stroke-width="1" stroke-dasharray="4,3"/>`);
   data.forEach((pts, i) => {
     const d = "M" + pts.map(([x, y]) => `${r1(X(x))},${r1(Y(y))}`).join(" L");
-    cv.parts.push(`<path d="${d}" fill="none" stroke="var(--dg-${colorOf(S[i], i)}-s)" stroke-width="2.2"/>`);
+    cv.parts.push(`<path d="${d}" fill="none" stroke="var(--dg-${colorOf(S[i], i)}-s)" stroke-width="2.2"${clip}/>`);
   });
   for (const v of p.vlines || []) {
     const vx = X(v.x);
@@ -122,7 +131,7 @@ function layout(cv, spec) {
   // 닿으면 음영 안에서 닿지 않는 가장 가까운 자리로 옮긴다(꼬리처럼 얇은 음영). 없으면 무게중심에
   // 두고 아래 "곡선이 라벨을 가림" 검사가 경고한다.
   const base = ylo <= 0 && 0 <= yhi ? 0 : ylo;
-  const polys = data.map((d) => d.map(([x, yv]) => [X(x), Y(yv)]));
+  const polys = data.map((d) => d.map(([x, yv]) => [X(x), Math.max(top, Y(yv))]));
   const hitsAny = (a, b, pad) => a.x < b.x + b.w + pad && b.x < a.x + a.w + pad && a.y < b.y + b.h + pad && b.y < a.y + a.h + pad;
   for (const sh of p.shade || []) {
     if (!sh.label) continue;
@@ -185,7 +194,7 @@ function layout(cv, spec) {
     }
   }
   // 곡선 표본점이 수직선·음영 라벨 사각형 안에 들어오면 경고
-  const pts = data.flatMap((d) => d.map(([x, yv]) => [X(x), Y(yv)]));
+  const pts = data.flatMap((d) => d.map(([x, yv]) => [X(x), Y(yv)])).filter(([, py]) => py >= top); // 잘린 부분은 안 보인다
   for (const t of cv.texts) {
     if (t.owner !== "vline" && t.owner !== "shade") continue;
     if (pts.some(([px, py]) => px > t.x && px < t.x + t.w && py > t.y && py < t.y + t.h)) cv.warns.push(`곡선이 라벨을 가림: "${t.label}"`);
