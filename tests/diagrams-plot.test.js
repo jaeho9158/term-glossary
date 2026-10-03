@@ -86,4 +86,37 @@ assert.ok(validateSpec({ ...power, plot: undefined }).some((e) => e.includes("pl
   assert.deepStrictEqual(rocT.x, ["0", "0.2", "0.4", "0.6", "0.8", "1.0"]);
   for (const t of [...tiny.x, ...tiny.y, ...big.x, ...fine.x, ...rocT.y]) assert.ok(!/0000\d|9999|^-0$/.test(t), t);
 }
+// 음영 라벨은 음영 넓이의 무게중심에: 끝이 열린 음영(from·to null)도 라벨이 음영 안에
+{
+  const textbook = { ...power, plot: { ...power.plot, vlines: [{ x: 1.64, label: "임계값" }], shade: [
+    { series: 0, from: 1.64, to: null, label: "α" },
+    { series: 1, from: null, to: 1.64, label: "β" },
+  ] } };
+  const withPower = { ...textbook, plot: { ...textbook.plot, shade: [...textbook.plot.shade, { series: 1, from: 1.64, to: null, label: "검정력" }] } };
+  for (const s of [textbook, withPower, power]) {
+    assert.deepStrictEqual(validateSpec(s), []);
+    const r = renderSpec(s, { title: "t" });
+    // 축 변환을 SVG에서 되찾는다: x축 선(가로 화살표)과 y축 선의 위치, 범위 [-4,6]
+    const ax = r.svg.match(/<line x1="([\d.]+)" y1="([\d.]+)" x2="([\d.]+)" y2="\2"/);
+    const left = +ax[1], baseY = +ax[2], PW = +ax[3] - 8 - left;
+    const X = (x) => left + ((x + 4) / 10) * PW;
+    for (const sh of s.plot.shade) {
+      const m = r.svg.match(new RegExp(`<text x="([\\d.]+)" y="([\\d.]+)" text-anchor="middle" font-size="11.5" font-weight="700"[^>]*>${sh.label}<`));
+      assert.ok(m, sh.label);
+      const tx = +m[1], ty = +m[2];
+      const a = sh.from ?? -4, b = sh.to ?? 6;
+      assert.ok(tx > X(a) && tx < X(b), `${sh.label}: x ${tx} 음영 [${X(a)}, ${X(b)}] 밖`);
+      assert.ok(ty <= baseY - 2, `${sh.label}: 축 아래 ${ty} > ${baseY}`);
+      // 라벨이 곡선에 가리면 경고가 나야 한다. β·검정력은 넓은 음영이라 가리지 않아야 한다.
+      if (sh.label !== "α") assert.ok(!r.warnings.some((w) => w.includes(`"${sh.label}"`)), `${sh.label}: ${r.warnings.join("; ")}`);
+    }
+    if (s === power) assert.deepStrictEqual(r.warnings, [], r.warnings.join("; "));
+    console.log(`  교과서 그림(${s.plot.shade.map((x) => x.label).join("·")}): 경고 ${r.warnings.length ? r.warnings.join("; ") : "없음"}`);
+  }
+  // 음영 끝이 x 범위 밖에만 있으면 오류
+  assert.ok(bad({ shade: [{ series: 0, from: 7, to: null }] }).some((e) => e.includes("shade")));
+  assert.ok(bad({ shade: [{ series: 0, from: null, to: -5 }] }).some((e) => e.includes("shade")));
+  assert.ok(bad({ shade: [{ series: 0, from: 6.5, to: 9 }] }).some((e) => e.includes("shade")));
+  assert.deepStrictEqual(bad({ shade: [{ series: 0, from: 5, to: 9 }] }), []);
+}
 console.log("diagrams-plot: all tests passed");

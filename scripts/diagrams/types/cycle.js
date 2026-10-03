@@ -1,6 +1,6 @@
 // cycle: 끝이 처음으로 돌아오는 순환(탄소 순환, PDCA). 노드 3~6개를 원 위에 시계방향으로.
 "use strict";
-const { FS, LINE, MARGIN, textWidth, wrap, validateNodes, measureNode, drawNode } = require("../core.js");
+const { FS, LINE, MARGIN, textWidth, wrap, segHitsRect, validateNodes, measureNode, drawNode } = require("../core.js");
 
 const CENTER_MAX = 110; // 가운데 글자 줄바꿈 폭
 const CLEAR = 8; // 가운데 글자와 화살표·상자 사이 최소 여백
@@ -20,19 +20,6 @@ function borderPoint(b, tx, ty) {
   return [cx + dx * s, cy + dy * s];
 }
 
-// 선분이 사각형(pad만큼 부풀림)과 만나는지(Liang–Barsky)
-function segHitsRect(x1, y1, x2, y2, r, pad = 0) {
-  const rx = r.x - pad, ry = r.y - pad, rw = r.w + 2 * pad, rh = r.h + 2 * pad;
-  const p = [-(x2 - x1), x2 - x1, -(y2 - y1), y2 - y1];
-  const q = [x1 - rx, rx + rw - x1, y1 - ry, ry + rh - y1];
-  let u1 = 0, u2 = 1;
-  for (let i = 0; i < 4; i++) {
-    if (p[i] === 0) { if (q[i] < 0) return false; continue; }
-    const t = q[i] / p[i];
-    if (p[i] < 0) u1 = Math.max(u1, t); else u2 = Math.min(u2, t);
-  }
-  return u1 < u2;
-}
 const rectsHit = (a, b, pad = 0) => a.x - pad < b.x + b.w && b.x < a.x + a.w + pad && a.y - pad < b.y + b.h && b.y < a.y + a.h + pad;
 
 // 반지름 R일 때 상자 위치와 화살표 선분. 원의 중심은 (0,0) 기준.

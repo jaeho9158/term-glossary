@@ -246,6 +246,19 @@ function checkOverlaps(cv) {
   return warns.concat(cv.warns || []);
 }
 
+// 선분이 사각형(pad만큼 부풀림)과 만나는지(Liang–Barsky)
+function segHitsRect(x1, y1, x2, y2, r, pad = 0) {
+  const rx = r.x - pad, ry = r.y - pad, rw = r.w + 2 * pad, rh = r.h + 2 * pad;
+  const p = [-(x2 - x1), x2 - x1, -(y2 - y1), y2 - y1];
+  const q = [x1 - rx, rx + rw - x1, y1 - ry, ry + rh - y1];
+  let u1 = 0, u2 = 1;
+  for (let i = 0; i < 4; i++) {
+    if (p[i] === 0) { if (q[i] < 0) return false; continue; }
+    const t = q[i] / p[i];
+    if (p[i] < 0) u1 = Math.max(u1, t); else u2 = Math.min(u2, t);
+  }
+  return u1 < u2;
+}
 // 글자 사각형이 viewBox [0,width]×[0,height] 밖으로 나가면 경고(잘려 보인다).
 function checkBounds(texts, width, height, tol = 0.5) {
   return texts
@@ -257,5 +270,5 @@ module.exports = {
   COLORS, EDGE_KINDS, TONES, SERIES_COLORS, AXIS_COLOR,
   FS, FS_SUB, FS_EDGE, FS_NOTE, LINE, MARGIN, H_WRAP_W,
   textWidth, wrap, esc, r1,
-  validateNodes, Canvas, measureNode, drawNode, edgeColor, drawEdge, drawNotes, checkOverlaps, checkBounds,
+  validateNodes, Canvas, measureNode, drawNode, edgeColor, drawEdge, drawNotes, checkOverlaps, checkBounds, segHitsRect,
 };

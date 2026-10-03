@@ -1,7 +1,7 @@
 // plot: 함수 곡선(분포, ROC, 용량-반응…). 스펙은 함수 이름·매개변수만, 점은 plot-fns.js가 계산.
 // 눈금 숫자는 기본으로 숨기고 figure에 "개념 설명용 모식도" 캡션을 단다.
 "use strict";
-const { FS_SUB, FS_NOTE, MARGIN, COLORS, SERIES_COLORS, AXIS_COLOR: AXIS, r1, textWidth } = require("../core.js");
+const { FS_SUB, FS_NOTE, MARGIN, COLORS, SERIES_COLORS, AXIS_COLOR: AXIS, r1, textWidth, segHitsRect } = require("../core.js");
 const { FNS, checkParams, sample } = require("../plot-fns.js");
 
 const PW = 440, PH = 200;
@@ -45,13 +45,14 @@ function validate(spec) {
   const rangeOk = Array.isArray(range) && range.length === 2 && range.every(Number.isFinite) && range[0] < range[1];
   if (!rangeOk) errs.push("plot x.range는 [작은 수, 큰 수]");
   const shade = arr(p.shade);
-  if (shade.length > 2) errs.push(`plot shade는 0~2개: ${shade.length}개`);
+  if (shade.length > 3) errs.push(`plot shade는 0~3개: ${shade.length}개`); // α·β·검정력 그림이 3개
   for (const sh of shade) {
     if (!sh || typeof sh !== "object") { errs.push("plot shade 항목이 객체가 아님"); continue; }
     if (!Number.isInteger(sh.series) || sh.series < 0 || sh.series >= S.length) errs.push(`plot shade의 series 번호가 올바르지 않음: ${sh.series}`);
     const okEnd = (v) => v === null || v === undefined || Number.isFinite(v);
     if (!okEnd(sh.from) || !okEnd(sh.to)) errs.push("plot shade from·to는 숫자 또는 null");
     else if (Number.isFinite(sh.from) && Number.isFinite(sh.to) && !(sh.from < sh.to)) errs.push("plot shade from < to 이어야 함");
+    else if (rangeOk && ((Number.isFinite(sh.from) && sh.from >= range[1]) || (Number.isFinite(sh.to) && sh.to <= range[0]))) errs.push(`plot shade가 x 범위 밖: ${sh.from}~${sh.to}`);
   }
   const vlines = arr(p.vlines);
   if (vlines.length > 3) errs.push(`plot vlines는 0~3개: ${vlines.length}개`);
@@ -116,13 +117,50 @@ function layout(cv, spec) {
     const right = vx + 4 + textWidth(v.label, FS_SUB, true) > left + PW + 8;
     cv.text(right ? vx - 4 : vx + 4, top + FS_SUB, v.label, { fs: FS_SUB, bold: true, fill: "var(--dg-navy)", anchor: right ? "end" : "start", owner: "vline" });
   }
+  // 음영 라벨: 음영 넓이의 무게중심(x̄ = ∫x·g/∫g, ȳ = ∫g²/2 / ∫g, g는 기준선에서 잰 높이)에 둔다.
+  // 끝이 열린 음영도 넓이가 몰린 곳에 라벨이 앉는다. 그 자리에서 라벨이 곡선·기준선·다른 글자에
+  // 닿으면 음영 안에서 닿지 않는 가장 가까운 자리로 옮긴다(꼬리처럼 얇은 음영). 없으면 무게중심에
+  // 두고 아래 "곡선이 라벨을 가림" 검사가 경고한다.
+  const base = ylo <= 0 && 0 <= yhi ? 0 : ylo;
+  const polys = data.map((d) => d.map(([x, yv]) => [X(x), Y(yv)]));
+  const hitsAny = (a, b, pad) => a.x < b.x + b.w + pad && b.x < a.x + a.w + pad && a.y < b.y + b.h + pad && b.y < a.y + a.h + pad;
   for (const sh of p.shade || []) {
     if (!sh.label) continue;
     const s = S[sh.series];
     const a = Math.max(xlo, sh.from ?? xlo), b = Math.min(xhi, sh.to ?? xhi);
-    const xm = (a + b) / 2;
-    const ym = FNS[s.fn].f(xm, s.params);
-    cv.text(X(xm), Y(ylo + (ym - ylo) * 0.4) + 4, sh.label, { fs: FS_SUB, bold: true, fill: `var(--dg-${colorOf(s, sh.series)}-t)`, owner: "shade" });
+    const pts = sample(s.fn, s.params, a, b, 241);
+    let A = 0, Mx = 0, My = 0;
+    for (let k = 1; k < pts.length; k++) {
+      const dx = pts[k][0] - pts[k - 1][0];
+      for (const [x, yv] of [pts[k - 1], pts[k]]) {
+        const g = yv - base, wgt = Math.abs(g) * dx / 2; // 사다리꼴 적분
+        A += wgt; Mx += x * wgt; My += (g / 2) * wgt;
+      }
+    }
+    const xm = A > 0 ? Mx / A : (a + b) / 2;
+    const ym = A > 0 ? base + My / A : base;
+    const w = textWidth(sh.label, FS_SUB, true), h = FS_SUB * 1.08;
+    const f = (px) => FNS[s.fn].f(xlo + ((px - left) / PW) * (xhi - xlo), s.params);
+    const fits = (cx, cy) => {
+      const rc = { x: cx - w / 2, y: cy - h / 2, w, h };
+      if (rc.x < X(a) + 2 || rc.x + rc.w > X(b) - 2 || rc.y < top || rc.y + rc.h > top + PH - 2) return false;
+      const yc = Y(f(cx)), yb = Y(base); // 음영은 기준선과 곡선 사이
+      if (rc.y < Math.min(yc, yb) + 2 || rc.y + rc.h > Math.max(yc, yb) - 2) return false;
+      if (cv.texts.some((t) => hitsAny(t, rc, 2))) return false;
+      return !polys.some((pl) => pl.some((q, k) => k > 0 && segHitsRect(pl[k - 1][0], pl[k - 1][1], q[0], q[1], rc, 1)));
+    };
+    const gx = X(xm), gy = Math.min(Y(ym), top + PH - 2 - h / 2); // 글자 사각형 중심을 무게중심에
+    let at = [gx, gy];
+    if (!fits(gx, gy)) {
+      let bestD = Infinity;
+      for (let cx = X(a); cx <= X(b); cx += 2) {
+        for (let cy = top; cy <= top + PH; cy += 2) {
+          const dd = Math.hypot(cx - gx, cy - gy);
+          if (dd < bestD && fits(cx, cy)) { bestD = dd; at = [cx, cy]; }
+        }
+      }
+    }
+    cv.text(at[0], at[1] + h / 2 - FS_SUB * 0.26, sh.label, { fs: FS_SUB, bold: true, fill: `var(--dg-${colorOf(s, sh.series)}-t)`, owner: "shade" });
   }
   let y = top + PH;
   if (p.x.ticks) {
