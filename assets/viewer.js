@@ -2931,6 +2931,17 @@ if (typeof document !== "undefined") {
       englishOnlyFilter.addEventListener("change", () => renderMatchedTerms(currentMatches, filterInput.value));
     }
 
+    // GA4 viewer_analyze: 논문 본문·파일명은 보내지 않고 출처와 용어 수 구간만 보낸다.
+    // 자동 분석이 타이핑마다 돌 수 있어 30초에 한 번만 보낸다.
+    let lastAnalyzeTrackAt = 0;
+    function trackAnalyze(count) {
+      const now = Date.now();
+      if (!window.trackEvent || now - lastAnalyzeTrackAt < 30000) return;
+      lastAnalyzeTrackAt = now;
+      const bucket = count === 0 ? "0" : count <= 10 ? "1-10" : count <= 50 ? "11-50" : "50+";
+      window.trackEvent("viewer_analyze", { source: pdfDoc ? "pdf" : "paste", term_count: bucket });
+    }
+
     async function runAnalysis(text, { updateInputPane = true } = {}) {
       findBtn.disabled = true;
       // 첫 실행은 2.7MB 인덱스를 받는 시간이 눈에 띄므로 "찾는 중"과 구분해
@@ -2963,6 +2974,7 @@ if (typeof document !== "undefined") {
         // 조여도 매번 새로운 오탐이 나왔다. 계획 4절대로 말뭉치 오탐 ≤ 5%를
         // 먼저 달성한 뒤에만 다시 검토한다(그때는 Fuse 도입부터 다시).
         logPaperHistory(text);
+        trackAnalyze(currentMatches.length);
       } catch (err) {
         countHeading.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
         termsList.innerHTML = "";

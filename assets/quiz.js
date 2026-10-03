@@ -1398,6 +1398,8 @@ function finishQuiz(){
 
 
 
+    if (window.trackEvent) window.trackEvent("quiz_complete", { score: score, total: totalQuestions });
+
     const accuracy =
     totalQuestions
 

@@ -5,6 +5,19 @@
 
   const base = document.body.getAttribute("data-base") || "";
 
+  // GA4 행동 이벤트 도우미(assets/track.js)를 모든 페이지에 한 번만 싣는 곳.
+  // 이 파일이 용어 페이지 포함 거의 모든 페이지에서 로드되므로 여기서 지연 로드한다.
+  // track.js가 오기 전 호출은 큐에 쌓였다가 로드되면 비워진다.
+  if (!window.trackEvent) {
+    window.__trackQueue = window.__trackQueue || [];
+    window.trackEvent = (...a) => window.__trackQueue && window.__trackQueue.push(["trackEvent", a]);
+    window.trackNoResult = (...a) => window.__trackQueue && window.__trackQueue.push(["trackNoResult", a]);
+    const ts = document.createElement("script");
+    ts.src = base + "assets/track.js";
+    ts.async = true;
+    document.head.appendChild(ts);
+  }
+
   // Local copy of assets/category-data.js CATEGORY_LABELS: term pages don't load
   // category-data.js, but this file needs category labels for search result tags.
   const LOCAL_CATEGORY_LABELS = {
@@ -265,6 +278,7 @@
     const matches = matchResults(value);
     renderResults(matches);
     scheduleZeroResultLog(value, matches.length);
+    window.trackNoResult(value, "header", matches.length);
   }
 
   input.addEventListener("compositionstart", () => {
@@ -328,6 +342,11 @@
     const link = e.target.closest("a");
     if (link) {
       saveRecent(input.value);
+      const m = /\/([^/]+)\.html$/.exec(link.getAttribute("href") || "");
+      window.trackEvent("search_select", {
+        search_term: input.value.trim().toLowerCase().slice(0, 60),
+        slug: m ? decodeURIComponent(m[1]) : "",
+      });
       return;
     }
     const recentItem = e.target.closest(".recent-search-item");
@@ -359,6 +378,67 @@
   input.setAttribute("aria-autocomplete", "list");
   input.setAttribute("aria-expanded", "false");
   input.setAttribute("aria-controls", resultsEl.id);
+
+  // 북마클릿("선택한 단어 사전에서 찾기") 진입점: 홈(index.html)에서만 ?q=를 읽어
+  // 검색창을 채우고 바로 검색을 돌린다. 용어 페이지 등 다른 페이지는 건드리지 않는다.
+  if (/(^|\/)(index\.html)?$/.test(location.pathname)) {
+    const q = (new URLSearchParams(location.search).get("q") || "").trim().slice(0, 60);
+    if (q) {
+      input.value = q;
+      input.focus();
+      runSearch();
+    }
+  }
+
+  // ---- 영어 발음 듣기(용어 페이지) ------------------------------------------
+  // 용어 페이지 3만여 개가 이미 이 파일을 싣기 때문에 여기서 런타임 주입한다.
+  (function initPronounce() {
+    if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") return;
+    const h1 = document.querySelector("main h1");
+    if (!h1 || !/\/terms\/[^/]+\.html$/.test(location.pathname)) return;
+    const m = /\(([^()]*[A-Za-z][^()]*)\)\s*$/.exec(h1.textContent.trim());
+    const en = m ? m[1].trim() : "";
+    if (!en) return;
+    const slug = decodeURIComponent(location.pathname.replace(/^.*\//, "").replace(/\.html$/, ""));
+
+    if (!document.getElementById("pronounce-style")) {
+      const st = document.createElement("style");
+      st.id = "pronounce-style";
+      st.textContent =
+        ".pronounce-btn{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:6px 14px;font:inherit;font-size:.85rem;font-weight:500;color:var(--muted);background:var(--card-bg);border:1px solid var(--border);border-radius:999px;cursor:pointer}" +
+        ".pronounce-btn:hover{border-color:var(--accent);color:var(--accent)}" +
+        ".pronounce-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}" +
+        ".pronounce-btn.is-speaking{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}" +
+        ".pronounce-btn .pronounce-en{color:var(--muted);font-weight:400;max-width:12em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}" +
+        "@media (prefers-reduced-motion:no-preference){.pronounce-btn{transition:color .15s,border-color .15s,background .15s}}";
+      document.head.appendChild(st);
+    }
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "pronounce-btn";
+    btn.setAttribute("aria-label", "영어 발음 듣기: " + en);
+    btn.innerHTML = '<span aria-hidden="true">🔊</span><span>발음 듣기</span><span class="pronounce-en" lang="en"></span>';
+    btn.querySelector(".pronounce-en").textContent = en;
+    btn.addEventListener("click", () => {
+      try {
+        const synth = window.speechSynthesis;
+        synth.cancel();
+        const u = new SpeechSynthesisUtterance(en);
+        u.lang = "en-US";
+        u.rate = 0.9;
+        const done = () => btn.classList.remove("is-speaking");
+        u.onend = done;
+        u.onerror = done;
+        btn.classList.add("is-speaking");
+        synth.speak(u);
+        window.trackEvent("pronounce_play", { slug });
+      } catch (e) { /* 음성 합성 실패는 조용히 무시 */ }
+    });
+    // 제목 아래 카테고리 배지 줄 다음, 즐겨찾기 버튼 앞에 둔다. 없으면 h1 바로 뒤.
+    const anchor = document.getElementById("bookmark-btn") || (h1.nextElementSibling && h1.nextElementSibling.classList.contains("category-badges") ? h1.nextElementSibling.nextSibling : h1.nextSibling);
+    h1.parentNode.insertBefore(btn, anchor);
+  })();
 
   // 예전에는 여기서 loadTerms()를 바로 불러, 검색을 쓰지 않는 방문자에게도
   // 모든 페이지에서 terms-index.json 7.1MB를 내려받게 했다(용어 상세 페이지

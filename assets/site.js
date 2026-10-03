@@ -299,8 +299,10 @@ async function initFieldPage(allTerms, code) {
       statusEl.textContent = `"${searchInput.value.trim()}" 검색: 이 분야 전체에서 ${rows.length}개` +
         (view === "all" ? "" : " (선택한 하위 주제와 상관없이 분야 전체를 검색합니다)");
       renderList(rows, false);
+      if (window.trackNoResult) window.trackNoResult(searchInput.value, "category", rows.length);
       return;
     }
+    if (window.trackNoResult) window.trackNoResult("", "category", -1); // 검색어가 비면 대기 중 전송을 취소
 
     if (view === "") {
       statusEl.textContent = `많이 찾는 용어 ${popular.length}개`;
@@ -397,7 +399,10 @@ async function initHub(allTerms) {
         `<div class="field-chips">${codes.map(chip).join("")}</div></section>`;
     }
     container.innerHTML = html;
-    if (!q) return;
+    if (!q) {
+      if (window.trackNoResult) window.trackNoResult("", "hub", -1);
+      return;
+    }
     const found = allTerms
       .map((t) => ({ t, r: termMatchRank(t, q) }))
       .filter((x) => x.r !== null)
@@ -409,6 +414,7 @@ async function initHub(allTerms) {
     if (found.length) wrap.appendChild(buildTermListFragment(found, { paged: true }));
     else if (!shown) wrap.insertAdjacentHTML("beforeend", '<p class="field-empty">일치하는 분야나 용어가 없습니다.</p>');
     container.appendChild(wrap);
+    if (window.trackNoResult) window.trackNoResult(query, "hub", found.length + shown);
   }
 
   draw("");

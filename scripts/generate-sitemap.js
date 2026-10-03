@@ -34,6 +34,10 @@ const TOP_LEVEL_PAGES = [
     filePath: "about.html"
   },
   {
+    loc: `${BASE_URL}/tools/bookmarklet.html`,
+    filePath: "tools/bookmarklet.html"
+  },
+  {
     loc: `${BASE_URL}/privacy.html`,
     filePath: "privacy.html"
   },

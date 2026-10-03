@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>선택한 단어 사전에서 찾기 (북마클릿) - 논문용어사전</title>
+<meta name="description" content="어떤 웹페이지에서든 드래그로 선택한 낯선 단어를 클릭 한 번으로 논문용어사전에서 찾아 주는 북마클릿 사용법을 안내합니다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/tools/bookmarklet.html">
+<link rel="stylesheet" href="../style.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 선택한 단어 사전에서 찾기</p>
+  <h1>선택한 단어 사전에서 찾기</h1>
+  <p>
+    논문이나 기사를 읽다가 모르는 단어를 만났을 때, 마우스로 단어를 선택하고
+    버튼 하나만 누르면 논문용어사전에서 바로 찾아 볼 수 있습니다.
+    별도 프로그램이나 로그인은 필요 없고, 한 번만 설정해 두면 됩니다.
+  </p>
+
+  <h2>1단계: 아래 버튼을 북마크 막대로 끌어다 놓기</h2>
+  <p>
+    <a class="nav-cta bookmarklet-link" href="javascript:(function(){var t=(window.getSelection()+'').trim();if(!t){t=(prompt('사전에서 찾을 단어를 입력하세요')||'').trim();}if(!t)return;t=t.slice(0,60);window.open('https://termglossary.kr/?q='+encodeURIComponent(t),'_blank','noopener');})();" draggable="true"
+       style="display:inline-block;padding:10px 18px;border-radius:999px;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:600;cursor:grab"
+       >선택한 단어 찾기</a>
+  </p>
+  <p>
+    위 버튼을 마우스로 잡아서 브라우저 맨 위의 <strong>북마크 막대(즐겨찾기 막대)</strong>에 끌어다 놓으세요.
+    북마크 막대가 보이지 않으면 <strong>Ctrl + Shift + B</strong>(맥은 Command + Shift + B)를 눌러 켤 수 있습니다.
+    이 페이지에서 버튼을 직접 누르면 단어 입력창이 뜨는데, 설정이 잘 되었는지 시험해 볼 때 쓰세요.
+  </p>
+
+  <h2>2단계: 사용하기</h2>
+  <ol>
+    <li>아무 웹페이지에서 모르는 단어를 마우스로 드래그해 선택합니다.</li>
+    <li>북마크 막대의 <strong>선택한 단어 찾기</strong>를 클릭합니다.</li>
+    <li>새 탭에서 논문용어사전이 열리고, 선택한 단어의 검색 결과가 바로 나타납니다.</li>
+  </ol>
+  <p>
+    선택한 글자가 없으면 단어를 직접 입력하는 창이 뜹니다.
+    선택한 글은 60자까지만 사용되며, 이 사이트로 보내는 것은 검색어뿐입니다.
+  </p>
+
+  <h2>참고</h2>
+  <ul>
+    <li>일부 보안이 강한 사이트(은행, 일부 PDF 뷰어 등)에서는 브라우저가 북마클릿 실행을 막을 수 있습니다. 그럴 때는 단어를 복사해서 사전 검색창에 붙여 넣어 주세요.</li>
+    <li>휴대폰 브라우저는 북마클릿 지원이 제한적이라, 컴퓨터에서 쓰시기를 권합니다.</li>
+    <li>북마크 막대에 추가한 뒤 이름은 얼마든지 바꿔도 됩니다.</li>
+  </ul>
+</main>
+<footer class="site-footer delay-1">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+</body>
+</html>

@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       bookmarked = true;
     }
     render();
+    if (window.trackEvent) window.trackEvent("bookmark_toggle", { slug, state: bookmarked ? "on" : "off" });
     btn.disabled = false;
   });
 });
