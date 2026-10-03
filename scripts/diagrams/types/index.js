@@ -11,4 +11,5 @@ module.exports = Object.assign(Object.create(null), {
   cycle: require("./cycle.js"),
   matrix: require("./matrix.js"),
   venn: require("./venn.js"),
+  timeline: require("./timeline.js"),
 });
