@@ -92,7 +92,10 @@ function layout(cv, spec) {
   for (const v of p.vlines || []) {
     const vx = X(v.x);
     cv.parts.push(`<line x1="${r1(vx)}" y1="${r1(top)}" x2="${r1(vx)}" y2="${r1(top + PH)}" stroke="var(--dg-navy)" stroke-width="1.2" stroke-dasharray="4,3"/>`);
-    if (v.label) cv.text(vx + 4, top + FS_SUB, v.label, { fs: FS_SUB, bold: true, fill: "var(--dg-navy)", anchor: "start", owner: "vline" });
+    if (!v.label) continue;
+    // 오른쪽에 붙이면 도식 밖으로 나가는 라벨은 선 왼쪽에 끝을 맞춘다.
+    const right = vx + 4 + textWidth(v.label, FS_SUB, true) > left + PW + 8;
+    cv.text(right ? vx - 4 : vx + 4, top + FS_SUB, v.label, { fs: FS_SUB, bold: true, fill: "var(--dg-navy)", anchor: right ? "end" : "start", owner: "vline" });
   }
   for (const sh of p.shade || []) {
     if (!sh.label) continue;

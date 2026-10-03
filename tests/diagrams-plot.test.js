@@ -58,4 +58,11 @@ assert.ok(validateSpec({ ...power, plot: undefined }).some((e) => e.includes("pl
   assert.deepStrictEqual(core.SERIES_COLORS, ["blue", "rose", "green"]);
   assert.strictEqual(core.AXIS_COLOR, "var(--dg-general)");
 }
+// 오른쪽 끝 수직선의 라벨은 왼쪽으로 붙여 보기 영역 안에
+{
+  const edge = { ...power, plot: { series: [power.plot.series[0]], x: { label: "x", range: [-3, 3] }, y: { label: "y" }, vlines: [{ x: 3, label: "상한 임계값 표시" }] } };
+  const r = renderSpec(edge, { title: "t" });
+  assert.deepStrictEqual(r.warnings, [], r.warnings.join("; "));
+  assert.ok(r.svg.includes('text-anchor="end" font-size="11.5" font-weight="700" fill="var(--dg-navy)">상한 임계값 표시'));
+}
 console.log("diagrams-plot: all tests passed");

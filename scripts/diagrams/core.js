@@ -246,9 +246,16 @@ function checkOverlaps(cv) {
   return warns.concat(cv.warns || []);
 }
 
+// 글자 사각형이 viewBox [0,width]×[0,height] 밖으로 나가면 경고(잘려 보인다).
+function checkBounds(texts, width, height, tol = 0.5) {
+  return texts
+    .filter((t) => t.x < -tol || t.y < -tol || t.x + t.w > width + tol || t.y + t.h > height + tol)
+    .map((t) => `보기 영역 밖: "${t.label}"`);
+}
+
 module.exports = {
   COLORS, EDGE_KINDS, TONES, SERIES_COLORS, AXIS_COLOR,
   FS, FS_SUB, FS_EDGE, FS_NOTE, LINE, MARGIN, H_WRAP_W,
   textWidth, wrap, esc, r1,
-  validateNodes, Canvas, measureNode, drawNode, edgeColor, drawEdge, drawNotes, checkOverlaps,
+  validateNodes, Canvas, measureNode, drawNode, edgeColor, drawEdge, drawNotes, checkOverlaps, checkBounds,
 };

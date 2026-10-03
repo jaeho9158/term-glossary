@@ -16,7 +16,7 @@
 
 const core = require("./core.js");
 const TYPE_MODS = require("./types/index.js");
-const { COLORS, TONES, MARGIN, H_WRAP_W, textWidth, wrap, esc, Canvas, drawNotes, checkOverlaps } = core;
+const { COLORS, TONES, MARGIN, H_WRAP_W, textWidth, wrap, esc, Canvas, drawNotes, checkOverlaps, checkBounds } = core;
 
 const TYPES = Object.keys(TYPE_MODS);
 
@@ -60,7 +60,7 @@ function renderSpec(spec, { title, orientation = "h", idPrefix } = {}) {
   // 주석은 도식 폭에 맞춰 줄바꿈하되, 도식이 아주 좁으면 최소 폭을 준다.
   if (spec.notes && spec.notes.length) width = Math.max(width, orientation === "v" ? 300 : 360);
   const height = Math.ceil(drawNotes(cv, spec.notes, width, ext.h + 6) + MARGIN);
-  const warnings = checkOverlaps(cv);
+  const warnings = [...checkOverlaps(cv), ...checkBounds(cv.texts, width, height)];
   const desc = describe(spec, t);
   const defs = cv.markers.size ? `<defs>${[...cv.markers.values()].map((m) => m.def).join("")}</defs>` : "";
   const svg =

@@ -158,6 +158,12 @@ assert.strictEqual((renderFigure(contrast, "t").html.match(/<svg/g) || []).lengt
   assert.ok(checkOverlaps(cv2).some((w) => w.includes("박스 넘침")));
 }
 
+// 보기 영역 밖으로 나간 글자는 경고
+{
+  const { checkBounds } = require("../scripts/diagrams/core.js");
+  const T = [{ x: 5, y: 5, w: 20, h: 10, label: "안" }, { x: 90, y: 5, w: 20, h: 10, label: "오른쪽" }, { x: 10, y: -3, w: 5, h: 10, label: "위" }];
+  assert.deepStrictEqual(checkBounds(T, 100, 50), ['보기 영역 밖: "오른쪽"', '보기 영역 밖: "위"']);
+}
 console.log("diagrams-render: all tests passed");
 
 // 되돌이 엣지가 없는 긴 선형 도식은 가로판에서 H_WRAP_W 안으로 줄을 감고, 세로판만 남기지 않는다
