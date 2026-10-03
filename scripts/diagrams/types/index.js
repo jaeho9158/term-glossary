@@ -12,4 +12,5 @@ module.exports = Object.assign(Object.create(null), {
   matrix: require("./matrix.js"),
   venn: require("./venn.js"),
   timeline: require("./timeline.js"),
+  plot: require("./plot.js"),
 });
