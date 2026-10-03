@@ -13,11 +13,24 @@ const ROOT_DIR = path.join(__dirname, "..");
 const DONOR_PAGE = path.join(ROOT_DIR, "terms", "nmda-receptor.html");
 const { escapeHtml } = require("../assets/escape.js");
 const seo = require("./lib/term-seo.js");
+const termMeta = require("./lib/term-meta.js");
 
 let categoryData = null;
 function labels() {
   if (!categoryData) categoryData = require("../assets/category-data.js");
   return categoryData;
+}
+
+let lastmodCache = null;
+function lastmodDate(slug) {
+  if (!lastmodCache) {
+    try {
+      lastmodCache = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, "data", "term-lastmod.json"), "utf8"));
+    } catch (e) {
+      lastmodCache = {};
+    }
+  }
+  return lastmodCache[slug] && lastmodCache[slug].date;
 }
 
 // 도너 페이지에서 <main> 앞/뒤 크롬을 한 번만 잘라 캐시한다.
@@ -149,7 +162,12 @@ function renderTermPage(term, ctx) {
       `<link rel="canonical" href="https://termglossary.kr/terms/${term.slug}.html">`
     );
 
-  return newHead + renderMain(term, ctx) + tail;
+  const page = newHead + renderMain(term, ctx) + tail;
+  // JSON-LD / OG / 최종 수정 줄 (insert-term-meta.js 와 같은 빌더)
+  return termMeta.applyTermMeta(page, term, {
+    categoryLabels: labels().CATEGORY_LABELS,
+    date: lastmodDate(term.slug),
+  }) || page;
 }
 
 function buildContext(terms, incomingSlugs = []) {
