@@ -8,7 +8,7 @@ const HIERARCHY_DUAL_MIN_W = 450;
 
 function validate(spec) {
   const errs = validateNodes(spec);
-  const nodes = spec.nodes || [];
+  const nodes = Array.isArray(spec.nodes) ? spec.nodes : [];
   const edges = Array.isArray(spec.edges) ? spec.edges : [];
   const hasParent = new Set(edges.map((e) => e.to));
   const roots = nodes.filter((n) => !hasParent.has(n.id));

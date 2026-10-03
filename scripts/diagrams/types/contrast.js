@@ -5,7 +5,7 @@ const { FS, FS_NOTE, MARGIN, r1, validateNodes, measureNode, drawNode } = requir
 function validate(spec) {
   const errs = validateNodes(spec);
   const rows = { left: new Set(), right: new Set() };
-  for (const n of spec.nodes || []) {
+  for (const n of Array.isArray(spec.nodes) ? spec.nodes : []) {
     if (n.side !== "left" && n.side !== "right") errs.push(`contrast 노드에 side 없음: ${n.id}`);
     else if (!Number.isInteger(n.row)) errs.push(`contrast 노드에 row 없음: ${n.id}`);
     else rows[n.side].add(n.row);
