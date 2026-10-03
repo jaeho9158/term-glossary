@@ -17,6 +17,7 @@ function strip(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/g, " ")
     .replace(/<figure[\s\S]*?<\/figure>/g, " ")
+    .replace(/<\/?(?:a|strong|em|b|i|span|code|sup|sub|mark|abbr)(?:\s[^>]*)?>/gi, "") // 인라인 태그: 공백 없이(조사가 떨어지지 않게)
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&")

@@ -52,6 +52,9 @@ const REPO = path.join(__dirname, "..");
   assert.strictEqual(p.caution, "인과 아님");
   assert.ok(p.hasLegacyFigure && p.hasConceptDiagram);
   assert.ok(!JSON.stringify(p).includes("회귀"), "관련 용어 절은 넣지 않음");
+  // 인라인 태그는 공백 없이 벗긴다(조사가 떨어지지 않게), 블록 태그는 공백
+  assert.strictEqual(extractPage('<h2>쉽게 풀면</h2><p>거리 <a href="#">사다리</a>의</p><p>다음</p></article>').easy, "거리 사다리의 다음");
+  assert.strictEqual(extractPage('<h2>쉽게 풀면</h2><p>가<b>나</b>다<sup>2</sup></p></article>').easy, "가나다2");
 
   // 실제 페이지 하나
   const real = extractPage(fs.readFileSync(path.join(REPO, "terms", "correlation.html"), "utf8"));
@@ -69,7 +72,8 @@ const REPO = path.join(__dirname, "..");
     { id: "c", text: "별아교세포 반응 염증 반응", meta: { type: "chain" } },
   ]);
   assert.strictEqual(idx.search("미세아교 염증", { k: 1 })[0].id, "a");
-  assert.deepStrictEqual(idx.search("염증", { k: 5, filter: (d) => d.meta.type === "plot" }).map((h) => h.id), ["b"]);
+  assert.deepStrictEqual(idx.search("zzzz qqqq", { k: 5 }), [], "맞는 토큰이 없으면 빈 결과");
+  assert.deepStrictEqual(idx.search("회귀 염증", { k: 5, filter: (d) => d.meta.type === "plot" }).map((h) => h.id), ["b"]);
 }
 
 // ── 참고 예시: 같은 type·분야군 → type만 → diagrams/examples ──

@@ -45,7 +45,7 @@ class BM25 {
         if (!f) continue;
         s += (this.idf(t) * f * (this.k1 + 1)) / (f + this.k1 * (1 - this.b + (this.b * d.len) / this.avg));
       }
-      hits.push({ id: d.id, score: s, meta: d.meta });
+      if (s > 0) hits.push({ id: d.id, score: s, meta: d.meta });
     }
     return hits.sort((a, b) => b.score - a.score || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)).slice(0, k);
   }
