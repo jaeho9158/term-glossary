@@ -20,4 +20,10 @@ assert.ok(r.desc.includes("왼쪽 위 1종 오류") && r.desc.includes("오른�
 assert.ok(validateSpec({ ...spec, nodes: spec.nodes.slice(0, 3) }).some((e) => e.includes("4개")));
 assert.ok(validateSpec({ ...spec, nodes: spec.nodes.map((n) => ({ ...n, cell: "tl" })) }).some((e) => e.includes("cell")));
 assert.ok(validateSpec({ ...spec, axes: { x: spec.axes.x } }).some((e) => e.includes("axes.y")));
+// x축 low·high 글자가 길면 칸을 넓혀 서로 겹치지 않게
+{
+  const long = { ...spec, axes: { ...spec.axes, x: { label: "시장", low: "기존 시장에서의 점유율 확대", high: "신규 시장 개척과 진출 전략" } } };
+  const r = renderSpec(long, { title: "t" });
+  assert.deepStrictEqual(r.warnings, [], r.warnings.join("; "));
+}
 console.log("diagrams-matrix: all tests passed");

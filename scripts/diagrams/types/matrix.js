@@ -27,7 +27,8 @@ function validate(spec) {
 function layout(cv, spec) {
   const { x: ax, y: ay } = spec.axes;
   const ms = new Map(spec.nodes.map((n) => [n.id, measureNode(n, 150)]));
-  const CW = Math.max(140, ...[...ms.values()].map((m) => m.w));
+  // 칸 폭은 x축 low·high 글자(칸 가운데 아래에 쓴다)도 담아야 이웃 칸 글자와 안 겹친다.
+  const CW = Math.max(140, ...[...ms.values()].map((m) => m.w), ...[ax.low, ax.high].map((t) => textWidth(t, FS_SUB) + 12));
   const CH = Math.max(56, ...[...ms.values()].map((m) => m.h));
   const G = 8;
   const yLabW = Math.max(textWidth(ay.high, FS_SUB), textWidth(ay.low, FS_SUB));
