@@ -10,4 +10,5 @@ module.exports = Object.assign(Object.create(null), {
   procedure: linear.procedure,
   cycle: require("./cycle.js"),
   matrix: require("./matrix.js"),
+  venn: require("./venn.js"),
 });
