@@ -19,3 +19,21 @@
 ```
 
 기존 스펙에서 실제로 관찰한 것만 쓴다. 추측으로 규칙을 만들지 않는다.
+
+## 분야군 코드 → 한글 이름
+| 코드 | 이름 |
+|---|---|
+| stats | 통계·방법론 |
+| natsci | 자연과학 |
+| life | 생명과학 |
+| health | 의학·보건 |
+| eng | 공학 |
+| computing | 컴퓨팅·정보 |
+| social | 사회과학 |
+| psyedu | 심리·교육 |
+| business | 경영·경제 |
+| humanities | 인문학 |
+| arts | 예술·디자인 |
+| agrifood | 농림·식품 |
+
+`scripts/diagrams/pipeline/batch.js` 명령은 실행하지 않는다(컨트롤러가 한다).

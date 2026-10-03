@@ -4,8 +4,10 @@
 출력: 같은 폴더의 `out-XX.json`(입력 번호와 같게) — 항목마다 아래 객체 하나, 입력 순서대로, JSON 배열만.
 
 ```json
-{"slug": "…", "verdict": "yes", "type": "chain", "intent": "이 그림을 보면 …을 알 수 있다", "confidence": "high", "missing_fn": null}
-{"slug": "…", "verdict": "no", "reason": "단일 물질명"}
+[
+  {"slug": "…", "verdict": "yes", "type": "chain", "intent": "이 그림을 보면 …을 알 수 있다", "confidence": "high", "missing_fn": null},
+  {"slug": "…", "verdict": "no", "reason": "단일 물질명"}
+]
 ```
 
 ## yes 조건 — 셋 다 충족할 때만
@@ -30,7 +32,9 @@
 | timeline | 사건·이론의 시간 순서(2~7개) |
 | plot | 분포·곡선의 모양 자체가 핵심(정규·t·카이제곱·지수·S자·직선·ROC·용량-반응·역U·감쇠) |
 
-plot이 맞는데 위 10개 함수로 못 그리면 `missing_fn`에 필요한 함수 이름(예: `"poisson"`)을 적고, 다른 type으로 그릴 수 있으면 그 type을, 없으면 no.
+plot이 맞는데 위 10개 함수로 못 그리면 `missing_fn`에 필요한 함수 이름(예: `"poisson"`)을 적고, 다른 type으로 그릴 수 있으면 그 type을, 없으면 no. `missing_fn`은 verdict가 no여도 적을 수 있다(그려야 마땅한 plot인데 함수가 없어 no로 한 경우) — 비어 있지 않은 문자열이거나 `null`.
 
 `confidence`: 근거가 본문에 분명하면 high, 그림 구성이 본문 밖 지식에 크게 기대면 low.
 대략 10~20%만 yes가 나오는 것이 정상이다. 애매하면 no.
+
+`scripts/diagrams/pipeline/batch.js` 명령은 실행하지 않는다(컨트롤러가 한다). 검사는 `node scripts/diagrams/check.js <파일>`만 쓴다.
