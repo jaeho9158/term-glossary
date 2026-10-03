@@ -57,13 +57,44 @@ function writeChunks(dir, items, size, extra) {
   return parts.length;
 }
 
+// out-*.json을 읽는다. 깨진 파일·배열 아님은 이름을 밝혀 건너뛴다(그대로 둔다 — 고쳐서 다시 돌릴 수 있게).
+// 반환: { entries: [{ file, index, value }], files: [정상으로 읽은 파일], errs }
 function readOutputs(dir) {
-  if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).filter((f) => /^out-.*\.json$/.test(f)).sort().flatMap((f) => {
-    const v = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
-    if (!Array.isArray(v)) throw new Error(`${f}: 배열이 아님`);
-    return v;
-  });
+  const res = { entries: [], files: [], errs: [] };
+  if (!fs.existsSync(dir)) return res;
+  for (const f of fs.readdirSync(dir).filter((x) => /^out-.*\.json$/.test(x)).sort()) {
+    let v;
+    try { v = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")); } catch (e) { res.errs.push(`${f}: JSON 오류 — ${e.message} (건너뜀)`); continue; }
+    if (!Array.isArray(v)) { res.errs.push(`${f}: 배열이 아님 (건너뜀)`); continue; }
+    res.files.push(f);
+    v.forEach((value, index) => res.entries.push({ file: f, index, value }));
+  }
+  return res;
+}
+
+// 처리한 출력은 <dir>/applied/<시각>-out-XX.json 으로 옮겨, 다음 apply가 새 출력만 보게 한다.
+function archiveOutputs(dir, files) {
+  if (!files.length) return;
+  const ap = path.join(dir, "applied");
+  fs.mkdirSync(ap, { recursive: true });
+  const ts = new Date().toISOString().replace(/\.\d+Z$/, "").replace(/:/g, "-");
+  for (const f of files) {
+    let dest = path.join(ap, `${ts}-${f}`);
+    for (let k = 2; fs.existsSync(dest); k++) dest = path.join(ap, `${ts}-${k}-${f}`);
+    fs.renameSync(path.join(dir, f), dest);
+  }
+}
+
+// 출력 항목에서 slug를 꺼낸다. 없으면 오류 문구를 errs에 넣고 null.
+function slugOf(e, errs) {
+  const r = e.value;
+  if (!r || typeof r.slug !== "string" || !r.slug) { errs.push(`항목 #${e.index + 1}: slug 없음 (${e.file})`); return null; }
+  return r.slug;
+}
+
+function reportNoVerdict(label, pendingSlugs, seen) {
+  const none = pendingSlugs.filter((s) => !seen.has(s));
+  if (none.length) console.log(`${label}판정 없음 ${none.length}개: ${none.slice(0, 10).join(", ")}${none.length > 10 ? ", …" : ""}`);
 }
 
 function termMap() {
@@ -79,13 +110,13 @@ function pageFor(slug) {
 
 // ── new ─────────────────────────────────────────────────
 function pruneExclusions(dir) {
-  const out = new Set();
-  if (!dir) return out;
+  const prune = new Set(), absorb = new Set();
+  if (!dir) return { prune, absorb, all: new Set() };
   const tiers = C.readJSON(path.join(dir, "tiers.json"), {});
-  for (const [slug, v] of Object.entries(tiers)) if (v && v.tier === "prune") out.add(slug);
+  for (const [slug, v] of Object.entries(tiers)) if (v && v.tier === "prune") prune.add(slug);
   const merge = C.readJSON(path.join(dir, "merge-candidates.json"), { groups: [] });
-  for (const g of merge.groups || []) for (const s of g.absorb || []) out.add(s);
-  return out;
+  for (const g of merge.groups || []) for (const x of g.absorb || []) if (!prune.has(x)) absorb.add(x);
+  return { prune, absorb, all: new Set([...prune, ...absorb]) };
 }
 
 function legacySlugs(pool) {
@@ -98,7 +129,7 @@ function legacySlugs(pool) {
 function cmdNew(n, o) {
   if (fs.existsSync(S.statusFile(n))) throw new Error(`배치 ${n} 이미 있음`);
   const size = Number(o.size || 200), seed = Number(o.seed || 1), order = o.order || "popular";
-  const have = C.specSlugs(), batched = S.allBatchedSlugs(), excluded = pruneExclusions(o["prune-dir"]);
+  const have = C.specSlugs(), batched = S.allBatchedSlugs(), ex = pruneExclusions(o["prune-dir"]), excluded = ex.all;
   if (o["prune-dir"] && !excluded.size) console.warn(`! --prune-dir에서 제외 목록을 못 읽음: ${o["prune-dir"]}`);
   const terms = C.loadTerms();
   const pool = terms.map((t) => t.slug).filter((s) => !have.has(s) && !batched.has(s) && !excluded.has(s));
@@ -107,22 +138,26 @@ function cmdNew(n, o) {
   else if (order === "popular") {
     const inPool = new Set(pool);
     const pop = C.readJSON(path.join(C.ROOT, "data", "popular-terms.json"), {});
-    const lists = Object.keys(pop).sort().map((k) => pop[k]);
-    const head = [];
+    const fields = (Array.isArray(pop._fields) ? pop._fields : Object.keys(pop).sort()).filter((k) => !k.startsWith("_") && Array.isArray(pop[k]));
+    const lists = fields.map((k) => pop[k]);
+    const head = [], headSet = new Set();
     for (let r = 0; r < Math.max(0, ...lists.map((l) => l.length)); r++) {
-      for (const l of lists) if (l[r] && inPool.has(l[r]) && !head.includes(l[r])) head.push(l[r]);
+      for (const l of lists) if (l[r] && inPool.has(l[r]) && !headSet.has(l[r])) { head.push(l[r]); headSet.add(l[r]); }
     }
-    const headSet = new Set(head);
-    const rest = pool.filter((s) => !headSet.has(s));
-    const legacy = legacySlugs(rest);
-    const legacySet = new Set(legacy);
-    ordered = [...head, ...legacy, ...C.shuffle(rest.filter((s) => !legacySet.has(s)), seed)];
+    if (head.length >= size) ordered = head; // 머리가 size를 채우면 옛 그림 스캔(파일 수만 개 읽기)이 필요 없다
+    else {
+      const rest = pool.filter((s) => !headSet.has(s));
+      const legacy = legacySlugs(rest);
+      const legacySet = new Set(legacy);
+      ordered = [...head, ...legacy, ...C.shuffle(rest.filter((s) => !legacySet.has(s)), seed)];
+    }
   } else throw new Error(`알 수 없는 --order: ${order}`);
   const tmap = termMap();
   const items = {};
   for (const slug of ordered.slice(0, size)) items[slug] = { state: "pending", group: C.groupOf(tmap.get(slug).categories) };
   S.save(n, { batch: n, created: new Date().toISOString(), order, seed, size, items });
-  console.log(`배치 ${n}: ${Object.keys(items).length}개 (후보 ${pool.length}, 제외 ${excluded.size})`);
+  console.log(`배치 ${n}: ${Object.keys(items).length}개 (후보 ${pool.length})`);
+  console.log(`제외: prune ${ex.prune.size}, 병합 흡수 ${ex.absorb.size}`);
 }
 
 // ── triage ──────────────────────────────────────────────
@@ -141,28 +176,42 @@ function cmdTriageIn(n) {
 
 function cmdTriageApply(n) {
   const st = S.load(n);
-  const errs = [];
+  const dir = path.join(S.batchDir(n), "triage");
+  const out = readOutputs(dir);
+  const errs = [...out.errs];
   const missingFn = C.readJSON(path.join(S.batchDir(n), "missing-fn.json"), {});
+  const pendingBefore = S.inState(st, "pending");
+  const seen = new Set();
   let applied = 0;
-  for (const r of readOutputs(path.join(S.batchDir(n), "triage"))) {
-    const it = r && st.items[r.slug];
-    if (!it) { errs.push(`${r && r.slug}: 배치에 없음`); continue; }
+  for (const e of out.entries) {
+    const slug = slugOf(e, errs);
+    if (!slug) continue;
+    const r = e.value, it = st.items[slug];
+    if (!it) { errs.push(`${slug}: 배치에 없음`); continue; }
+    seen.add(slug);
     if (it.state !== "pending") continue; // 이미 반영됨(재실행 안전)
-    if (r.verdict === "no") { S.setState(st, r.slug, "dropped", { reason: `triage:${r.reason || "no"}` }); applied++; continue; }
-    if (r.verdict !== "yes") { errs.push(`${r.slug}: verdict는 yes|no`); continue; }
-    const bad = [];
-    if (!TYPES.includes(r.type)) bad.push(`type ${r.type}`);
-    if (typeof r.intent !== "string" || r.intent.length < INTENT_MIN) bad.push("intent 너무 짧음");
-    if (r.confidence !== "high" && r.confidence !== "low") bad.push("confidence는 high|low");
-    if (bad.length) { errs.push(`${r.slug}: ${bad.join(", ")}`); continue; }
-    S.setState(st, r.slug, "triaged", { type: r.type, intent: r.intent, confidence: r.confidence });
-    if (r.missing_fn) missingFn[r.missing_fn] = (missingFn[r.missing_fn] || 0) + 1;
+    if (r.verdict === "no") S.setState(st, slug, "dropped", { reason: `triage:${r.reason || "no"}` });
+    else if (r.verdict !== "yes") { errs.push(`${slug}: verdict는 yes|no`); continue; }
+    else {
+      const bad = [];
+      if (!TYPES.includes(r.type)) bad.push(`type ${r.type}`);
+      if (typeof r.intent !== "string" || r.intent.length < INTENT_MIN) bad.push("intent 너무 짧음");
+      if (r.confidence !== "high" && r.confidence !== "low") bad.push("confidence는 high|low");
+      if (bad.length) { errs.push(`${slug}: ${bad.join(", ")}`); continue; }
+      S.setState(st, slug, "triaged", { type: r.type, intent: r.intent, confidence: r.confidence });
+    }
     applied++;
+    if (r.missing_fn !== undefined && r.missing_fn !== null) {
+      if (typeof r.missing_fn === "string" && r.missing_fn.trim()) missingFn[r.missing_fn.trim()] = (missingFn[r.missing_fn.trim()] || 0) + 1;
+      else errs.push(`${slug}: missing_fn은 비어 있지 않은 문자열이어야 함(판정은 반영됨)`);
+    }
   }
   S.save(n, st);
   C.writeJSON(path.join(S.batchDir(n), "missing-fn.json"), missingFn);
+  archiveOutputs(dir, out.files);
   console.log(`판정 반영 ${applied}개 · 오류 ${errs.length}개`);
   for (const e of errs) console.log(`  ✗ ${e}`);
+  reportNoVerdict("", pendingBefore, seen);
   console.log(JSON.stringify(S.counts(st)));
 }
 
@@ -202,15 +251,19 @@ function checkOne(slug, known) {
 function cmdCheck(n) {
   const st = S.load(n);
   const known = new Set(C.loadTerms().map((t) => t.slug));
-  let ok = 0, bad = 0;
+  let ok = 0, bad = 0, back = 0;
   for (const slug of S.inState(st, "triaged", "check_failed", "checked")) {
-    if (!fs.existsSync(C.specPath(slug))) continue;
+    if (!fs.existsSync(C.specPath(slug))) {
+      const cur = st.items[slug].state;
+      if (cur === "checked" || cur === "check_failed") { S.setState(st, slug, "triaged", { errors: [], note: "스펙 없음 — 작성 단계로 되돌림" }); back++; }
+      continue;
+    }
     const errors = checkOne(slug, known);
     if (errors.length) { S.setState(st, slug, "check_failed", { errors }); bad++; }
     else { S.setState(st, slug, "checked", { errors: [] }); ok++; }
   }
   S.save(n, st);
-  console.log(`검사 통과 ${ok} · 실패 ${bad}`);
+  console.log(`검사 통과 ${ok} · 실패 ${bad}${back ? ` · 스펙 없어 triaged로 ${back}` : ""}`);
   for (const slug of S.inState(st, "check_failed")) console.log(`  ✗ ${slug}: ${st.items[slug].errors.join("; ")}`);
 }
 
@@ -223,8 +276,11 @@ function copySpecs(slugs, dir) {
 
 function cmdRender(n) {
   const st = S.load(n);
-  const slugs = S.inState(st, "checked");
+  const all = S.inState(st, "checked");
+  const slugs = all.filter((s) => fs.existsSync(C.specPath(s)));
+  for (const s of all) if (!slugs.includes(s)) console.warn(`! 스펙 없음, 렌더 건너뜀: ${s}`);
   const dir = path.join(S.batchDir(n), "render");
+  if (!slugs.length) { console.log("렌더할 스펙 없음"); return; }
   copySpecs(slugs, dir);
   execFileSync(process.execPath, [path.join(__dirname, "..", "preview.js"), "--dir", dir, "--png"], { stdio: "inherit", env: process.env });
   console.log(`렌더 ${slugs.length}개 → ${rel(path.join(dir, "png"))}`);
@@ -236,8 +292,8 @@ function cmdReviewIn(n, o) {
   const png = path.join(S.batchDir(n), "render", "png");
   const items = S.inState(st, "checked").map((slug) => {
     const t = tmap.get(slug), it = st.items[slug];
-    const shots = Object.fromEntries(["desktop", "mobile", "dark"].map((k) => [k, path.join(png, `${slug}.${k}.png`)]));
-    if (!o["no-png"] && !fs.existsSync(shots.desktop)) throw new Error(`PNG 없음: ${slug} — 먼저 render ${n}`);
+    const shots = Object.fromEntries(["desktop", "mobile", "dark"].map((k) => [k, rel(path.join(png, `${slug}.${k}.png`))]));
+    if (!o["no-png"] && !fs.existsSync(path.join(C.ROOT, shots.desktop))) throw new Error(`PNG 없음: ${slug} — 먼저 render ${n}`);
     return {
       slug, title_ko: t.title_ko, group: it.group, type: it.type, intent: it.intent,
       page: pageFor(slug), spec: JSON.parse(fs.readFileSync(C.specPath(slug), "utf8")),
@@ -251,29 +307,41 @@ function cmdReviewIn(n, o) {
 function cmdReviewApply(n) {
   const st = S.load(n);
   const known = new Set(C.loadTerms().map((t) => t.slug));
-  const errs = [];
+  const dir = path.join(S.batchDir(n), "review");
+  const out = readOutputs(dir);
+  const errs = [...out.errs];
+  const checkedBefore = S.inState(st, "checked");
+  const seen = new Set();
   let applied = 0;
-  for (const r of readOutputs(path.join(S.batchDir(n), "review"))) {
-    const it = r && st.items[r.slug];
-    if (!it) { errs.push(`${r && r.slug}: 배치에 없음`); continue; }
+  for (const e of out.entries) {
+    const slug = slugOf(e, errs);
+    if (!slug) continue;
+    const r = e.value, it = st.items[slug];
+    if (!it) { errs.push(`${slug}: 배치에 없음`); continue; }
+    seen.add(slug);
     if (it.state !== "checked") continue;
     if (r.verdict === "drop") {
-      const keep = path.join(S.batchDir(n), "dropped-specs", `${r.slug}.json`);
-      fs.mkdirSync(path.dirname(keep), { recursive: true });
-      fs.renameSync(C.specPath(r.slug), keep);
-      S.setState(st, r.slug, "dropped", { reason: `review:${r.reason || "drop"}` });
-      applied++;
-      continue;
-    }
-    if (r.verdict !== "pass" && r.verdict !== "fix") { errs.push(`${r.slug}: verdict는 pass|fix|drop`); continue; }
-    const errors = checkOne(r.slug, known); // fix면 검수자가 고친 파일을 다시 검사
-    if (errors.length) S.setState(st, r.slug, "check_failed", { errors, review: r.verdict, reason: r.reason || "" });
-    else S.setState(st, r.slug, "reviewed", { review: r.verdict, reason: r.reason || "" });
+      const extra = { reason: `review:${r.reason || "drop"}` };
+      const src = C.specPath(slug);
+      if (fs.existsSync(src)) {
+        const keep = path.join(S.batchDir(n), "dropped-specs", `${slug}.json`);
+        fs.mkdirSync(path.dirname(keep), { recursive: true });
+        fs.renameSync(src, keep);
+      } else extra.note = "spec 없음 — 이미 치워졌거나 지워짐";
+      S.setState(st, slug, "dropped", extra);
+    } else if (r.verdict === "pass" || r.verdict === "fix") {
+      const errors = checkOne(slug, known); // fix면 검수자가 고친 파일을 다시 검사
+      if (errors.length) S.setState(st, slug, "check_failed", { errors, review: r.verdict, reason: r.reason || "" });
+      else S.setState(st, slug, "reviewed", { review: r.verdict, reason: r.reason || "" });
+    } else { errs.push(`${slug}: verdict는 pass|fix|drop`); continue; }
+    S.save(n, st); // 항목마다 저장: 중간에 죽어도 옮긴 파일과 상태가 어긋나지 않게
     applied++;
   }
   S.save(n, st);
+  archiveOutputs(dir, out.files);
   console.log(`검수 반영 ${applied}개 · 오류 ${errs.length}개`);
   for (const e of errs) console.log(`  ✗ ${e}`);
+  reportNoVerdict("검수 ", checkedBefore, seen);
   console.log(JSON.stringify(S.counts(st)));
 }
 
@@ -288,7 +356,8 @@ function cmdPreview(n, o) {
   const dir = path.join(S.batchDir(n), "approval");
   copySpecs(show, path.join(dir, "specs"));
   const lines = [`# 배치 ${n} 승인 요약`, "", `상태: ${JSON.stringify(S.counts(st))}`, "",
-    `미리보기: ${rel(path.join(dir, "specs", "preview.html"))} — 검수에서 고친 ${fixed.length}개 + 무작위 표본 ${sample.length}개`, "",
+    show.length ? `미리보기: ${rel(path.join(dir, "specs", "preview.html"))} — 검수에서 고친 ${fixed.length}개 + 무작위 표본 ${sample.length}개`
+      : "미리보기: 없음(reviewed 스펙이 없어 표본 0개)", "",
     "## 탈락", "", ...S.inState(st, "dropped").map((s) => `- ${s}: ${st.items[s].reason}`), "",
     "## 검사 실패(작성 재시도 필요)", "", ...S.inState(st, "check_failed").map((s) => `- ${s}: ${(st.items[s].errors || []).join("; ")}`), ""];
   fs.writeFileSync(path.join(dir, "summary.md"), lines.join("\n"), "utf8");
@@ -297,7 +366,7 @@ function cmdPreview(n, o) {
 }
 
 function cmdApprove(n, o) {
-  if (!o.yes) throw new Error("approve는 사용자 승인 뒤에만: --yes 필요");
+  if (o.yes !== true) throw new Error("approve는 사용자 승인 뒤에만: --yes 필요");
   const st = S.load(n);
   let k = 0;
   for (const slug of S.inState(st, "reviewed")) {
