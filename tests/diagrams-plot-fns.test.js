@@ -45,5 +45,8 @@ assert.ok(checkParams("roc", { auc: 1 }).some((e) => e.includes("범위")));
 assert.ok(checkParams("roc", { auc: 0.4 }).some((e) => e.includes("범위")));
 assert.ok(checkParams("linear", { a: 1, b: 2, c: 3 }).some((e) => e.includes("알 수 없는")));
 assert.ok(checkParams("logistic", { x0: 0, k: 0 }).some((e) => e.includes("범위")));
+// 프로토타입 속성 이름도 알 수 없는 매개변수
+assert.ok(checkParams("linear", { a: 1, b: 2, toString: 3 }).some((e) => e.includes("알 수 없는")));
+assert.ok(checkParams("normal", { mu: 0, sigma: 1, constructor: 1 }).some((e) => e.includes("알 수 없는")));
 
 console.log("diagrams-plot-fns: all tests passed");

@@ -28,8 +28,12 @@ function validateSpec(spec, knownSlugs) {
   if (!spec.slug) errs.push("slug 없음");
   else if (knownSlugs && !knownSlugs.has(spec.slug)) errs.push(`terms.json에 없는 slug: ${spec.slug}`);
   const mod = TYPE_MODS[spec.type];
+  // null 같은 항목이 섞이면 type 검증이 예외를 내므로 먼저 걸러 오류로 돌려준다.
+  const notObj = (k) => Array.isArray(spec[k]) && spec[k].some((v) => !v || typeof v !== "object");
+  const badItems = ["nodes", "edges"].filter(notObj);
+  for (const k of badItems) errs.push(`${k} 항목이 객체가 아님`);
   if (!mod) errs.push(`type이 올바르지 않음: ${spec.type}`);
-  else errs.push(...mod.validate(spec));
+  else if (!badItems.length) errs.push(...mod.validate(spec));
   for (const note of spec.notes || []) {
     if (note.tone && !TONES.includes(note.tone)) errs.push(`알 수 없는 note tone: ${note.tone}`);
   }

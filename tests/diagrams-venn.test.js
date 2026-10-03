@@ -24,4 +24,7 @@ assert.ok(renderSpec(two, { title: "t" }).desc.includes("양적 연구∩질적 
 assert.ok(validateSpec({ ...two, nodes: two.nodes.slice(0, 1) }).some((e) => e.includes("2~3")));
 assert.ok(validateSpec({ ...two, regions: [{ sets: ["zz"], label: "x" }] }).some((e) => e.includes("영역")));
 assert.ok(validateSpec({ ...two, regions: [...two.regions, { sets: ["l", "q"], label: "중복" }] }).some((e) => e.includes("중복")));
+// null 항목은 예외가 아니라 검증 오류
+assert.ok(validateSpec({ ...two, regions: [null] }).some((e) => e.includes("영역")));
+assert.ok(validateSpec({ ...two, nodes: [null, ...two.nodes] }).length > 0);
 console.log("diagrams-venn: all tests passed");

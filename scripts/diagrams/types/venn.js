@@ -13,6 +13,7 @@ function validate(spec) {
   if ((Array.isArray(spec.edges) ? spec.edges : []).length) errs.push("venn은 edges를 쓰지 않음");
   const seen = new Set();
   for (const rg of Array.isArray(spec.regions) ? spec.regions : []) {
+    if (!rg || typeof rg !== "object") { errs.push("venn 영역 항목이 객체가 아님"); continue; }
     const sets = Array.isArray(rg.sets) ? rg.sets : [];
     if (!sets.length || sets.some((s) => !ids.has(s))) { errs.push(`venn 영역의 sets가 집합 id가 아님: ${JSON.stringify(rg.sets)}`); continue; }
     if (!rg.label) errs.push(`venn 영역 label 없음: ${sets.join("+")}`);

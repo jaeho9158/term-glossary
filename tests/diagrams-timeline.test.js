@@ -23,4 +23,6 @@ assert.strictEqual((renderFigure(spec, "t").html.match(/<svg/g) || []).length, 2
 assert.ok(h.desc.includes("1908 t 검정"));
 assert.ok(validateSpec({ ...spec, events: spec.events.slice(0, 1) }).some((e) => e.includes("2~7")));
 assert.ok(validateSpec({ ...spec, events: [{ when: "", label: "x" }, ...spec.events] }).some((e) => e.includes("when")));
+// null 사건은 예외가 아니라 검증 오류
+assert.ok(validateSpec({ ...spec, events: [null, ...spec.events] }).some((e) => e.includes("사건 1")));
 console.log("diagrams-timeline: all tests passed");

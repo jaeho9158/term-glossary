@@ -10,6 +10,7 @@ function validate(spec) {
   const ev = Array.isArray(spec.events) ? spec.events : [];
   if (ev.length < 2 || ev.length > 7) errs.push(`timeline 사건은 2~7개: ${ev.length}개`);
   ev.forEach((e, i) => {
+    if (!e || typeof e !== "object") { errs.push(`timeline 사건 ${i + 1}이 객체가 아님`); return; }
     if (!e.when) errs.push(`timeline 사건 ${i + 1}에 when 없음`);
     if (!e.label) errs.push(`timeline 사건 ${i + 1}에 label 없음`);
     if (e.color && !COLORS.includes(e.color)) errs.push(`알 수 없는 color: ${e.color} (사건 ${i + 1})`);

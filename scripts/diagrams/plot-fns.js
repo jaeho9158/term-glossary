@@ -82,7 +82,7 @@ function checkParams(fn, params) {
       ("lt" in rule && !(v < rule.lt)) || ("ne" in rule && v === rule.ne);
     if (bad) errs.push(`${fn}: ${k}=${v} 범위 밖`);
   }
-  for (const k of Object.keys(given)) if (!(k in F.params)) errs.push(`${fn}: 알 수 없는 매개변수 ${k}`);
+  for (const k of Object.keys(given)) if (!Object.prototype.hasOwnProperty.call(F.params, k)) errs.push(`${fn}: 알 수 없는 매개변수 ${k}`);
   return errs;
 }
 
