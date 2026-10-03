@@ -23,8 +23,8 @@ const { buildIndex, exemplars } = require("./retrieve.js");
 const { TYPES, validateSpec, renderFigure } = require("../lib.js");
 
 const TRIAGE_CHUNK = 50;
-const WRITE_CHUNK = 10;
-const REVIEW_CHUNK = 10;
+const WRITE_CHUNK = 6;
+const REVIEW_CHUNK = 6;
 const INTENT_MIN = 10;
 
 const rel = (p) => path.relative(C.ROOT, p).replace(/\\/g, "/");
