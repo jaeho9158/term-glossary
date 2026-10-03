@@ -86,4 +86,17 @@ const REPO = path.join(__dirname, "..");
   assert.ok(!self.some((s) => s.slug === ex[0].slug), "자기 자신은 예시에서 뺀다");
 }
 
+// ── 상태 전이 ──────────────────────────────────────────────
+{
+  const { STATES, setState, counts } = require("../scripts/diagrams/pipeline/status.js");
+  const st = { items: { a: { state: "pending" }, b: { state: "pending" } } };
+  setState(st, "a", "triaged", { type: "chain" });
+  assert.strictEqual(st.items.a.state, "triaged");
+  assert.strictEqual(st.items.a.type, "chain");
+  assert.throws(() => setState(st, "zz", "triaged"), /배치에 없는/);
+  assert.throws(() => setState(st, "a", "flying"), /알 수 없는 상태/);
+  assert.deepStrictEqual(counts(st), { pending: 1, triaged: 1 });
+  assert.ok(STATES.includes("check_failed") && STATES.includes("approved"));
+}
+
 console.log("diagrams-pipeline: all tests passed");
