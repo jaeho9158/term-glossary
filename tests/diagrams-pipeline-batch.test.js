@@ -27,6 +27,19 @@ const run = (...args) => execFileSync(process.execPath, [path.join(REPO, "script
 const status = () => JSON.parse(fs.readFileSync(path.join(root, "diagrams/batches/001/status.json"), "utf8"));
 
 try {
+  // --fields + --order views: 분야 중 하나라도 해당, 조회 많은 순, 조회 0은 뒤에
+  w("ga.json", JSON.stringify({ "/terms/alpha-term.html": 9, "/terms/gamma-term.html": 2, "/index.html": 99 }));
+  run("new", "2", "--size", "10", "--order", "views", "--views", path.join(root, "ga.json"), "--fields", "stat,neuro", "--seed", "1");
+  const b2 = JSON.parse(fs.readFileSync(path.join(root, "diagrams/batches/002/status.json"), "utf8"));
+  assert.deepStrictEqual(Object.keys(b2.items).slice(0, 2), ["alpha-term", "gamma-term"]);
+  assert.ok(b2.items["beta-term"] && !b2.items["done-term"]);
+  assert.deepStrictEqual(b2.fields, ["stat", "neuro"]);
+  fs.rmSync(path.join(root, "diagrams/batches/002"), { recursive: true });
+  run("new", "2", "--size", "10", "--order", "random", "--fields", "neuro");
+  assert.deepStrictEqual(Object.keys(JSON.parse(fs.readFileSync(path.join(root, "diagrams/batches/002/status.json"), "utf8")).items), ["gamma-term"]);
+  fs.rmSync(path.join(root, "diagrams/batches/002"), { recursive: true });
+  assert.throws(() => run("new", "2", "--order", "views"), /--views/);
+
   // new: 기존 스펙 있는 done-term은 빠지고, popular 순서가 앞에 온다
   run("new", "1", "--size", "10", "--order", "popular", "--seed", "1");
   assert.deepStrictEqual(Object.keys(status().items), ["beta-term", "gamma-term", "alpha-term"]);

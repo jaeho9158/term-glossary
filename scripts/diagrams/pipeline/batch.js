@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // 도식 생성 배치 도구. LLM은 부르지 않는다 — 에이전트가 읽을 입력 묶음을 쓰고, 에이전트 출력을 검증해 반영한다.
 //
-//   batch.js new <n> --size 200 --order popular|random --seed 1 [--prune-dir <data/prune 경로>]
+//   batch.js new <n> --size 200 --order popular|random|views --seed 1 [--fields psych,stat] [--views <GA4 JSON>] [--prune-dir <data/prune 경로>]
 //   batch.js triage-in <n>        → batches/<n>/triage/in-XX.json (50개씩)
 //   batch.js triage-apply <n>     ← batches/<n>/triage/out-*.json
 //   batch.js write-in <n>         → batches/<n>/write/in-XX.json (10개씩, 참고 예시·스타일 경로 포함)
@@ -131,10 +131,21 @@ function cmdNew(n, o) {
   const size = Number(o.size || 200), seed = Number(o.seed || 1), order = o.order || "popular";
   const have = C.specSlugs(), batched = S.allBatchedSlugs(), ex = pruneExclusions(o["prune-dir"]), excluded = ex.all;
   if (o["prune-dir"] && !excluded.size) console.warn(`! --prune-dir에서 제외 목록을 못 읽음: ${o["prune-dir"]}`);
-  const terms = C.loadTerms();
+  // --fields psych,stat: 분야 중 하나라도 해당하는 용어만(첫 분야가 아니어도)
+  const fields = o.fields ? String(o.fields).split(",").map((x) => x.trim()).filter(Boolean) : null;
+  const terms = C.loadTerms().filter((t) => !fields || (t.categories || []).some((c) => fields.includes(c)));
   const pool = terms.map((t) => t.slug).filter((s) => !have.has(s) && !batched.has(s) && !excluded.has(s));
   let ordered;
   if (order === "random") ordered = C.shuffle(pool, seed);
+  else if (order === "views") {
+    // --views <GA4 JSON>: {"/terms/<slug>.html": 조회수}. 조회 많은 순(같으면 slug 순), 조회 0은 뒤에 무작위.
+    if (!o.views) throw new Error("--order views에는 --views <GA4 JSON 경로> 필요");
+    const ga = C.readJSON(o.views, null);
+    if (!ga) throw new Error(`조회수 파일을 못 읽음: ${o.views}`);
+    const v = (slug) => Number(ga[`/terms/${slug}.html`]) || 0;
+    const seen = pool.filter((x) => v(x) > 0).sort((x, y) => v(y) - v(x) || (x < y ? -1 : 1));
+    ordered = [...seen, ...C.shuffle(pool.filter((x) => v(x) === 0), seed)];
+  }
   else if (order === "popular") {
     const inPool = new Set(pool);
     const pop = C.readJSON(path.join(C.ROOT, "data", "popular-terms.json"), {});
@@ -155,7 +166,7 @@ function cmdNew(n, o) {
   const tmap = termMap();
   const items = {};
   for (const slug of ordered.slice(0, size)) items[slug] = { state: "pending", group: C.groupOf(tmap.get(slug).categories) };
-  S.save(n, { batch: n, created: new Date().toISOString(), order, seed, size, items });
+  S.save(n, { batch: n, created: new Date().toISOString(), order, seed, size, fields, items });
   console.log(`배치 ${n}: ${Object.keys(items).length}개 (후보 ${pool.length})`);
   console.log(`제외: prune ${ex.prune.size}, 병합 흡수 ${ex.absorb.size}`);
 }
