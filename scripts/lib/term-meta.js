@@ -113,10 +113,10 @@ function buildHeadBlock(term, opts = {}) {
   ].join("\n");
 }
 
-function buildUpdatedLine(date) {
-  if (!date) return "";
-  const d = escapeHtml(date);
-  return `<!-- term-updated:start --><p class="term-updated">최종 수정 <time datetime="${d}">${d}</time> · AI 도구를 활용해 작성했습니다</p><!-- term-updated:end -->`;
+// 화면의 "최종 수정" 줄은 쓰지 않는다(사용자 결정 2026-10-04). 이전에 넣은 줄은 UPDATED_RE로 지운다.
+// 수정일은 JSON-LD의 dateModified로만 남는다.
+function buildUpdatedLine() {
+  return "";
 }
 
 function isStub(html) {

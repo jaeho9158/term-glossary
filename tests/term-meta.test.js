@@ -67,14 +67,11 @@ test("og 설명은 150자 이내, 이미지·카드 태그 포함", () => {
   assert.match(html, /property="og:locale" content="ko_KR"/);
 });
 
-test("최종 수정 줄: stage-link 앞, 날짜 없으면 생략", () => {
+test("최종 수정 줄은 넣지 않고, 예전에 넣은 줄은 지운다", () => {
   const withDate = meta.applyTermMeta(PAGE, fixture, { date: "2026-09-01" });
-  assert.match(
-    withDate,
-    /<p class="term-updated">최종 수정 <time datetime="2026-09-01">2026-09-01<\/time> · AI 도구를 활용해 작성했습니다<\/p>/
-  );
-  assert.ok(withDate.indexOf("term-updated") < withDate.indexOf('class="stage-link"'));
-  assert.ok(!meta.applyTermMeta(PAGE, fixture, {}).includes("term-updated"));
+  assert.ok(!withDate.includes("term-updated"));
+  const old = PAGE.replace('<aside class="stage-link"', '<!-- term-updated:start --><p class="term-updated">최종 수정</p><!-- term-updated:end --><aside class="stage-link"');
+  assert.ok(!meta.applyTermMeta(old, fixture, { date: "2026-09-01" }).includes("term-updated"));
 });
 
 test("멱등: 두 번 적용해도 동일하고, 날짜가 바뀌면 교체된다", () => {
@@ -84,7 +81,6 @@ test("멱등: 두 번 적용해도 동일하고, 날짜가 바뀌면 교체된�
   assert.strictEqual(twice, once);
   const newer = meta.applyTermMeta(once, fixture, { ...opts, date: "2026-10-01" });
   assert.strictEqual((newer.match(/term-meta:start/g) || []).length, 1);
-  assert.strictEqual((newer.match(/term-updated"/g) || []).length, 1);
   assert.ok(newer.includes("2026-10-01") && !newer.includes("2026-09-01"));
   assert.strictEqual(meta.stripTermMeta(once), PAGE);
 });
