@@ -17,6 +17,8 @@
 
 <link rel="stylesheet" href="assets/quiz.css">
 
+<link rel="stylesheet" href="assets/learn.css">
+
 
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
@@ -108,7 +110,7 @@ gtag('config','G-7SW2PGCN27');
 
 
 <p class="subtitle">
-정의를 보고 알맞은 학술 용어를 맞혀보세요.
+분야를 고르고 방식을 정하면 10문제로 바로 시작합니다. 틀린 문제는 모아서 다시 풀 수 있어요.
 </p>
 
 
@@ -142,105 +144,35 @@ class="quiz-record-box">
 
 <p id="quiz-start-error" class="load-error" role="alert" hidden></p>
 
-<div class="quiz-card-head">
-<span class="quiz-card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-</span>
-<h2>퀴즈 설정</h2>
+<section id="lq-field-step" class="lq-step">
+<h2 class="lq-step-title"><span class="lq-num" aria-hidden="true">1</span> 분야 고르기</h2>
+<div id="field-picker" class="lq-picker"><p class="lq-muted">분야 목록을 불러오는 중...</p></div>
+</section>
+
+<section id="lq-mode-step" class="lq-step" hidden>
+<h2 class="lq-step-title"><span class="lq-num" aria-hidden="true">2</span> 방식 고르기</h2>
+
+<div id="lq-modes" class="lq-modes">
+<button type="button" class="lq-mode" data-mode="def2term" aria-pressed="true"><strong>뜻 → 용어</strong><span>설명을 보고 용어 고르기</span></button>
+<button type="button" class="lq-mode" data-mode="term2def" aria-pressed="false"><strong>용어 → 뜻</strong><span>용어를 보고 설명 고르기</span></button>
+<button type="button" class="lq-mode" data-mode="confuse" aria-pressed="false"><strong>헷갈리는 용어 구분</strong><span>비슷한 용어끼리 가려내기</span></button>
+<button type="button" class="lq-mode" data-mode="subjective" aria-pressed="false"><strong>주관식</strong><span>설명을 보고 직접 입력</span></button>
 </div>
 
-<div class="quiz-setup-grid">
-
-<div id="quiz-category-field" class="quiz-field">
-<label for="category-select">
-카테고리
-</label>
-
-<div class="quiz-select">
-<select id="category-select">
-
-<option value="all">
-전체
-</option>
-
-</select>
-</div>
+<div class="lq-count" role="group" aria-label="문제 수">
+<span class="lq-count-label">문제 수</span>
+<button type="button" class="lq-seg" data-count="10" aria-pressed="true">10문제</button>
+<button type="button" class="lq-seg" data-count="20" aria-pressed="false">20문제</button>
 </div>
 
-
-<div class="quiz-field">
-<label for="quiz-type">
-문제 유형
-</label>
-
-<div class="quiz-select">
-<select id="quiz-type">
-
-
-<option value="definition">
-정의 → 용어
-</option>
-
-
-<option value="term">
-용어 → 정의
-</option>
-
-
-<option value="random">
-랜덤
-</option>
-
-
-<option value="subjective">
-주관식 (정의 → 직접 입력)
-</option>
-
-
-</select>
-</div>
-</div>
-
-
-<div class="quiz-field">
-<label for="question-count">
-문제 수
-</label>
-
-<div class="quiz-select">
-<select id="question-count">
-
-
-<option value="10">
-10문제
-</option>
-
-
-<option value="20">
-20문제
-</option>
-
-
-<option value="30">
-30문제
-</option>
-
-
-</select>
-</div>
-</div>
-
-
-
-</div>
-
-
+<div class="lq-actions">
 <button id="start-btn" type="button">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
 퀴즈 시작
 </button>
-
-
+<button id="lq-retry-entry" class="lq-retry-entry" type="button" hidden></button>
+</div>
+</section>
 
 </div>
 
@@ -332,6 +264,8 @@ class="quiz-record-box">
 
 </p>
 
+<div id="lq-feedback" class="lq-feedback" aria-live="polite" hidden></div>
+
 
 
 
@@ -362,6 +296,8 @@ hidden>
 
 
 
+<div id="result-area" class="lq-result" hidden></div>
+
 </main>
 
 
@@ -390,6 +326,10 @@ hidden>
 <script src="assets/mobile-nav.js"></script>
 
 <script src="assets/quiz-core.js"></script>
+
+<script src="assets/learn-core.js"></script>
+
+<script src="assets/learn-picker.js"></script>
 
 <script src="assets/quiz.js"></script>
 

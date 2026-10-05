@@ -96,6 +96,103 @@ function buildChoiceOptions(answer, pool, mode, rand){
 }
 
 
+// ===== 퀴즈 리메이크: 문제 구성·헷갈리는 보기·오답 목록 규칙 (순수 함수) =====
+
+function shuffleCopy(arr, rand){
+    rand = rand || Math.random;
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(rand() * (i + 1));
+        const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+}
+
+// 헷갈리는 오답 후보: 정답과 related로 이어진 용어(양방향) → 같은 소분야 → 나머지 순.
+// 제목이 같은 보기는 한 번만 쓴다. 가까운 후보(앞의 두 단계)가 n개 미만이면
+// 나머지(같은 분야 무작위)로 채우고 fallback=true를 돌려준다.
+function pickConfusables(answer, pool, rand, n){
+    rand = rand || Math.random;
+    n = n || 3;
+    const relSet = new Set(answer.related || []);
+    const near = [], same = [], rest = [];
+    for(const t of pool){
+        if(!t || t.slug === answer.slug) continue;
+        if(relSet.has(t.slug) || (t.related || []).includes(answer.slug)) near.push(t);
+        else if(answer.subcategory && t.subcategory === answer.subcategory) same.push(t);
+        else rest.push(t);
+    }
+    const used = new Set([answer.title_ko]);
+    const picked = [];
+    const take = list => {
+        for(const t of shuffleCopy(list, rand)){
+            if(picked.length >= n) return;
+            if(!used.has(t.title_ko)){ used.add(t.title_ko); picked.push(t); }
+        }
+    };
+    take(near);
+    take(same);
+    const confusable = picked.length;
+    take(rest);
+    return { terms: picked, fallback: confusable < n };
+}
+
+// kind: "def2term" | "term2def" | "confuse" | "subjective"
+// 반환: { slug, kind, prompt, answer, options(섞임, 주관식은 []), fallback? }
+function buildQuestion(term, kind, pool, rand){
+    rand = rand || Math.random;
+    const asDef = pool.map(t => ({ title_ko: t.title_ko, definition: t.meaning }));
+    const q = { slug: term.slug, kind: kind, options: [] };
+    if(kind === "term2def"){
+        q.prompt = term.title_ko + (term.title_en ? " (" + term.title_en + ")" : "");
+        q.answer = term.meaning;
+        q.options = shuffleCopy(buildChoiceOptions(q.answer, asDef, "term", rand), rand);
+    }
+    else if(kind === "confuse"){
+        const c = pickConfusables(term, pool, rand, 3);
+        q.prompt = term.meaning;
+        q.answer = term.title_ko;
+        q.fallback = c.fallback;
+        q.options = shuffleCopy([term.title_ko].concat(c.terms.map(t => t.title_ko)), rand);
+    }
+    else if(kind === "subjective"){
+        q.prompt = term.meaning;
+        q.answer = term.title_ko;
+    }
+    else {
+        q.kind = "def2term";
+        q.prompt = term.meaning;
+        q.answer = term.title_ko;
+        q.options = shuffleCopy(buildChoiceOptions(q.answer, asDef, "definition", rand), rand);
+    }
+    return q;
+}
+
+// 주관식은 긴 제목·괄호 표기 용어가 입력 부담이라 풀에서 거른다(4개 미만이면 그대로).
+function typableTerms(list){
+    const typable = list.filter(t => t.title_ko && t.title_ko.length <= 10 && !/[()（）]/.test(t.title_ko));
+    return typable.length >= 4 ? typable : list;
+}
+
+// 오답 목록 갱신 규칙. list = [{slug, streak}]. 틀리면 목록에 넣고(이미 있으면 streak 0),
+// 목록에 있는 용어를 맞히면 streak+1, 2에 도달하면(연속 두 번 정답) 목록에서 뺀다.
+// 목록에 없는 용어를 맞히면 변화 없음. 원본은 바꾸지 않는다.
+const WRONG_CLEAR_STREAK = 2;
+function updateWrongList(list, slug, correct){
+    const out = (list || []).map(e => ({ slug: e.slug, streak: e.streak || 0 }));
+    const i = out.findIndex(e => e.slug === slug);
+    if(!correct){
+        if(i === -1) out.push({ slug: slug, streak: 0 });
+        else out[i].streak = 0;
+        return out;
+    }
+    if(i === -1) return out;
+    out[i].streak++;
+    if(out[i].streak >= WRONG_CLEAR_STREAK) out.splice(i, 1);
+    return out;
+}
+
+
 if (typeof module !== "undefined" && module.exports) {
-    module.exports = { normalizeAnswer, acceptedAnswers, toChoseong, CHOSEONG, buildChoiceOptions };
+    module.exports = { normalizeAnswer, acceptedAnswers, toChoseong, CHOSEONG, buildChoiceOptions, shuffleCopy, pickConfusables, buildQuestion, typableTerms, updateWrongList, WRONG_CLEAR_STREAK };
 }

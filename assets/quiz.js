@@ -1,1618 +1,757 @@
-// assets/quiz.js
-
-let allTerms = [];
-
-let currentTerms = [];
-
-let currentQuestion = 0;
-
-let score = 0;
-
-let answer = "";
-
-let totalQuestions = 10;
-
-let wrongQuestions = [];
-
-let retryMode = false;
-
-// 로드맵 플래시카드에서 넘어온 경우, 해당 범위의 slug 목록 (없으면 null)
-let roadmapScopeSlugs = null;
-
+// assets/quiz.js — 학습 퀴즈 (분야 칩 → 방식 → 10/20문제 → 결과).
+// 데이터: data/learn/<분야>.json (core 용어만). 순수 로직은 quiz-core.js / learn-core.js.
 
 // ===============================
-// 기록 저장
+// 저장소 (모두 try/catch)
 // ===============================
 
-const RECORD_KEY = "term_quiz_record";
+const RECORD_KEY = "term_quiz_record";   // 기존 키 그대로: {played, correct, bestScore, bestCombo}
+const WRONG_KEY = "quiz_wrong_v1";       // 신규: { 분야코드: [{slug, streak}] }
 
+function lsGet(key){
+    try{ return localStorage.getItem(key); }catch(e){ return null; }
+}
+
+function lsSet(key, value){
+    try{ localStorage.setItem(key, value); }catch(e){ /* 저장 실패는 무시 */ }
+}
 
 function getRecord(){
-
-    const saved =
-    localStorage.getItem(RECORD_KEY);
-
-
-    if(!saved){
-
-        return {
-            played:0,
-            correct:0,
-            bestScore:0,
-            bestCombo:0
-        };
-
-    }
-
-
+    const empty = { played:0, correct:0, bestScore:0, bestCombo:0 };
+    const saved = lsGet(RECORD_KEY);
+    if(!saved) return empty;
     try{
-
-        return JSON.parse(saved);
-
+        const r = JSON.parse(saved);
+        return Object.assign(empty, r && typeof r === "object" ? r : {});
+    }catch(e){
+        return empty;
     }
-
-    catch{
-
-        return {
-            played:0,
-            correct:0,
-            bestScore:0,
-            bestCombo:0
-        };
-
-    }
-
 }
-
-
 
 function saveRecord(data){
+    lsSet(RECORD_KEY, JSON.stringify(data));
+}
 
-    // 프라이빗 모드·쿼터 초과에서 setItem이 throw하면 퀴즈 진행 자체가
-    // 중단되므로(checkAnswer 경로) 기록 저장 실패는 조용히 넘긴다.
+function readWrongStore(){
     try{
-
-        localStorage.setItem(
-            RECORD_KEY,
-            JSON.stringify(data)
-        );
-
+        const o = JSON.parse(lsGet(WRONG_KEY) || "{}");
+        return o && typeof o === "object" && !Array.isArray(o) ? o : {};
+    }catch(e){
+        return {};
     }
-
-    catch(e){ /* 저장 실패는 무시 */ }
-
 }
 
+function getWrongList(field){
+    const l = readWrongStore()[field];
+    return Array.isArray(l) ? l.filter(e => e && typeof e.slug === "string") : [];
+}
 
+function recordWrongResult(field, slug, correct){
+    const store = readWrongStore();
+    const next = updateWrongList(getWrongList(field), slug, correct);
+    if(next.length) store[field] = next;
+    else delete store[field];
+    lsSet(WRONG_KEY, JSON.stringify(store));
+}
 
 // ===============================
-// 상태
+// 상태 / DOM
 // ===============================
 
+const $ = id => document.getElementById(id);
+
+const MODE_LABEL = {
+    def2term: "뜻 → 용어",
+    term2def: "용어 → 뜻",
+    confuse: "헷갈리는 용어 구분",
+    subjective: "주관식"
+};
+
+let learnIndex = null;      // data/learn/index.json
+let popularFields = [];
+let slugIdx = null;         // data/learn/slug-index.json (필요할 때 로드)
+const catCache = new Map(); // code -> terms[]
+
+let field = "";             // "", "all", 분야 코드
+let mode = "def2term";
+let count = 10;
+let customSlugs = null;     // ?slugs= 로 들어온 목록 (null이면 일반 모드)
+
+let run = null;             // 진행 중인 퀴즈
 let combo = 0;
-
 let timer = null;
-
 let timeLeft = 15;
+let answered = false;
+let scrollAfter = false;   // 칩을 눌러 고른 경우에만 방식 선택 위치로 스크롤
 
+const startArea = $("start-area");
+const quizArea = $("quiz-area");
+const resultArea = $("result-area");
+const questionEl = $("question");
+const choicesEl = $("choices");
+const resultEl = $("result");
+const feedbackEl = $("lq-feedback");
+const nextBtn = $("next-btn");
+const quizCount = document.querySelector(".quiz-count");
+const timerEl = $("quiz-timer");
+const comboEl = $("quiz-combo");
+const recordBox = $("quiz-record");
+const startErrorEl = $("quiz-start-error");
 
-// ===============================
-// DOM
-// ===============================
-
-
-const quizType =
-document.getElementById("quiz-type");
-
-
-const categorySelect =
-document.getElementById("category-select");
-
-
-const questionCount =
-document.getElementById("question-count");
-
-
-
-
-const question =
-document.getElementById("question");
-
-
-const choices =
-document.getElementById("choices");
-
-
-const result =
-document.getElementById("result");
-
-
-const quizArea =
-document.getElementById("quiz-area");
-
-
-const startArea =
-document.getElementById("start-area");
-
-
-const nextBtn =
-document.getElementById("next-btn");
-
-
-const quizCount =
-document.querySelector(".quiz-count");
-
-
-const timerEl =
-document.getElementById("quiz-timer");
-
-
-const comboEl =
-document.getElementById("quiz-combo");
-
-
-const recordBox =
-document.getElementById("quiz-record");
-
-
-const startErrorEl =
-document.getElementById("quiz-start-error");
-
-
-// 시작 영역(#start-area)에 표시하는 안내 문구. #question은 아직 숨겨진
-// #quiz-area 안에 있어서 시작 전 오류를 담을 수 없다.
 function showStartError(message){
-
-    if(!startErrorEl)
-        return;
-
+    if(!startErrorEl) return;
     startErrorEl.textContent = message;
-
     startErrorEl.hidden = !message;
-
 }
 
-
-
+function shuffle(arr){
+    return shuffleCopy(arr);
+}
 
 // ===============================
-// 기록 표시
+// 기록 표시 (기존 통계 그대로)
 // ===============================
 
 function updateRecord(){
-
-
-    if(!recordBox)
-        return;
-
-
-    const r =
-    getRecord();
-
-
-
-    const accuracy =
-    r.played
-    ?
-    Math.round(
-        r.correct /
-        r.played *
-        100
-    )
-    :
-    0;
-
-
-
+    if(!recordBox) return;
+    const r = getRecord();
+    const accuracy = r.played ? Math.round(r.correct / r.played * 100) : 0;
     recordBox.innerHTML = `
-
-        <h3>
-        📊 퀴즈 기록
-        </h3>
-
-        <p>
-        총 풀이:
-        ${r.played}
-        </p>
-
-        <p>
-        정답률:
-        ${accuracy}%
-        </p>
-
-        <p>
-        최고 점수:
-        ${r.bestScore}
-        점
-        </p>
-
-        <p>
-        최고 콤보:
-        ${r.bestCombo}
-        </p>
-
+        <h3>📊 퀴즈 기록</h3>
+        <p>총 풀이: ${r.played}</p>
+        <p>정답률: ${accuracy}%</p>
+        <p>최고 점수: ${r.bestScore}점</p>
+        <p>최고 콤보: ${r.bestCombo}</p>
     `;
-
 }
-
-
-
 
 // ===============================
 // 데이터 로딩
 // ===============================
 
-async function loadTerms(){
-
-
-    try{
-
-
-        const res =
-        await fetch("terms-lite.json");
-
-
-        if(!res.ok)
-            throw new Error();
-
-
-
-        allTerms =
-        await res.json();
-
-
-
-        makeCategoryList();
-
-
-        updateRecord();
-
-
-        applyRoadmapScope();
-
-
-    }
-
-
-    catch(e){
-
-
-        showStartError(
-            "용어 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요."
-        );
-
-
-    }
-
-
+async function loadCat(code){
+    if(catCache.has(code)) return catCache.get(code);
+    const data = await LearnPicker.fetchJson("data/learn/" + encodeURIComponent(code) + ".json");
+    const list = Array.isArray(data) ? data : [];
+    catCache.set(code, list);
+    return list;
 }
 
+async function loadSlugIndex(){
+    if(!slugIdx) slugIdx = (await LearnPicker.fetchJson("data/learn/slug-index.json")) || {};
+    return slugIdx;
+}
 
+// slug 목록 → 용어 객체 (분야 파일을 필요한 만큼만 불러온다). 모르는 slug는 빠진다.
+async function termsBySlugs(slugs){
+    const idx = await loadSlugIndex();
+    const cats = [...new Set(slugs.map(s => idx[s]).filter(Boolean))];
+    await Promise.all(cats.map(loadCat));
+    const out = [];
+    for(const s of slugs){
+        const c = idx[s];
+        const t = c && (catCache.get(c) || []).find(x => x.slug === s);
+        if(t) out.push(t);
+    }
+    return out;
+}
 
-
+// 문제 보기 풀: 분야 퀴즈는 그 분야 전체, "전체"·맞춤 퀴즈는 그 용어의 첫 분야.
+function poolFor(term){
+    if(field && field !== "all" && !customSlugs && catCache.get(field)) return catCache.get(field);
+    return catCache.get(slugIdx && slugIdx[term.slug]) || [];
+}
 
 // ===============================
-// 카테고리 생성
+// 시작 화면
 // ===============================
 
-function makeCategoryList(){
+function currentFieldKey(){
+    if(customSlugs){
+        const f = LearnCore.parseFieldHash(location.hash, learnIndex || {});
+        if(f) return f;
+        return (slugIdx && slugIdx[customSlugs[0]]) || "all";
+    }
+    return field;
+}
 
+function roadmapCode(){
+    const k = currentFieldKey();
+    return k && k !== "all" && learnIndex && learnIndex[k] ? k : "";
+}
 
-    const set =
-    new Set();
+function updateRetryEntry(){
+    const btn = $("lq-retry-entry");
+    const n = field || customSlugs ? getWrongList(currentFieldKey()).length : 0;
+    btn.hidden = n === 0;
+    btn.textContent = `틀린 문제 ${n}개 다시 풀기`;
+}
 
-
-
-    allTerms.forEach(t=>{
-
-
-        (t.categories || [])
-        .forEach(c=>set.add(c));
-
-
+function setPressed(container, attr, value){
+    container.querySelectorAll("button[" + attr + "]").forEach(b => {
+        b.setAttribute("aria-pressed", b.getAttribute(attr) === String(value) ? "true" : "false");
     });
-
-
-
-    // Was a hand-maintained list of only 12 categories, so any category added
-    // to the glossary afterward (math, acct, agri, ...) fell through to `|| cat`
-    // below and showed the raw internal code instead of a Korean label. Use
-    // the same shared CATEGORY_LABELS every other page (site.js, viewer.js)
-    // already draws from, so this list can't go stale again.
-    const labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
-
-
-
-
-    [...set].forEach(cat=>{
-
-
-        const option =
-        document.createElement("option");
-
-
-        option.value =
-        cat;
-
-
-        option.textContent =
-        labels[cat] || cat;
-
-
-        categorySelect.appendChild(option);
-
-
-
-    });
-
-
 }
 
-
-// ===============================
-// 로드맵 플래시카드 범위 적용
-// ===============================
-
-function applyRoadmapScope(){
-
-    const params =
-    new URLSearchParams(location.search);
-
-    if(params.get("scope") !== "roadmap")
-        return;
-
-    let slugs = [];
-
-    try{
-        slugs =
-        JSON.parse(sessionStorage.getItem("quiz_scope_slugs") || "[]");
+function applyHash(){
+    if(customSlugs) return;
+    field = LearnCore.parseFieldHash(location.hash, learnIndex || {}, ["all"]);
+    LearnPicker.setSelected($("field-picker"), field);
+    $("lq-mode-step").hidden = !field;
+    if(field && scrollAfter){
+        scrollAfter = false;
+        $("lq-mode-step").scrollIntoView({ block: "start" });
     }
-    catch(e){
-        slugs = [];
-    }
-
-    const label =
-    sessionStorage.getItem("quiz_scope_label") || "선택한 범위";
-
-    if(!Array.isArray(slugs) || slugs.length === 0)
-        return;
-
-    roadmapScopeSlugs = slugs;
-
-    const categoryField =
-    document.getElementById("quiz-category-field");
-
-
-    const banner =
-    document.getElementById("quiz-scope-banner");
-
-    if(categoryField) categoryField.hidden = true;
-
-    if(banner){
-        banner.hidden = false;
-        banner.textContent =
-        `"${label}" 범위(${slugs.length}개 용어)로 퀴즈를 풉니다.`;
-    }
-
-}
-
-
-
-// ===============================
-// 시작
-// ===============================
-
-document
-.getElementById("start-btn")
-.onclick=function(){
-
-
-
-    let list =
-    [...allTerms];
-
-
-
-    if(roadmapScopeSlugs){
-
-
-        const scopeSet =
-        new Set(roadmapScopeSlugs);
-
-
-        list =
-        list.filter(t=>scopeSet.has(t.slug));
-
-
-        if(list.length === 0){
-
-            showStartError(
-                "이 범위의 용어를 찾을 수 없습니다. 로드맵으로 돌아가 다시 시도해주세요."
-            );
-
-            return;
-
-        }
-
-
-    }
-
-    else{
-
-
-    const category =
-    categorySelect.value;
-
-
-
-    if(category !== "all"){
-
-
-        list =
-        list.filter(t=>
-
-            (t.categories || [])
-            .includes(category)
-
-        );
-
-
-    }
-
-
-
-
-
-    }
-
-
-
-    // 주관식은 답을 직접 타이핑해야 하므로, 제목이 길거나 괄호 표기가
-    // 붙은 용어("로(옵션 그릭스)" 등)는 출제 풀에서 제외해 입력 부담을
-    // 줄인다. 객관식 모드는 기존 풀 그대로.
-    if(quizType.value === "subjective"){
-
-        const typable =
-        list.filter(t =>
-            t.title_ko &&
-            t.title_ko.length <= 10 &&
-            !/[()（）]/.test(t.title_ko)
-        );
-
-        if(typable.length >= 4)
-            list = typable;
-
-    }
-
-
-
-    // 고른 분야에 용어가 하나도 없으면 totalQuestions가 0이 되고, 곧바로
-    // finishQuiz로 빠져 "정답률 NaN%"가 뜬다. 시작 자체를 막고 안내한다.
-    if(list.length === 0){
-
-        showStartError(
-            "이 분야에는 출제할 용어가 없습니다. 다른 분야를 선택해주세요."
-        );
-
-        return;
-
-    }
-
-
     showStartError("");
+    updateRetryEntry();
+}
 
+function totalCore(){
+    return slugIdx ? Object.keys(slugIdx).length : 0;
+}
 
+async function init(){
+    updateRecord();
 
-    shuffle(list);
+    const loaded = await LearnPicker.loadIndex();
+    learnIndex = loaded.index;
+    popularFields = loaded.popularFields;
 
+    if(!learnIndex){
+        $("field-picker").textContent = "";
+        showStartError("학습 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요.");
+        return;
+    }
 
+    const params = new URLSearchParams(location.search);
+    let raw = params.get("slugs");
 
-    currentTerms =
-    list;
+    // 예전 로드맵 플래시카드가 sessionStorage로 넘기던 범위도 같은 경로로 처리한다.
+    if(!raw && params.get("scope") === "roadmap"){
+        try{
+            const s = JSON.parse(sessionStorage.getItem("quiz_scope_slugs") || "[]");
+            if(Array.isArray(s)) raw = s.join(",");
+        }catch(e){ /* 무시 */ }
+    }
 
+    if(raw !== null && raw !== undefined && raw !== ""){
+        await initCustom(raw);
+        return;
+    }
 
+    await loadSlugIndex();
 
-    currentQuestion=0;
+    LearnPicker.render($("field-picker"), {
+        index: learnIndex,
+        popularFields: popularFields,
+        groups: typeof CATEGORY_GROUPS !== "undefined" ? CATEGORY_GROUPS : [],
+        selected: "",
+        allCount: totalCore(),
+        onSelect: code => { scrollAfter = true; location.hash = code; }
+    });
 
+    window.addEventListener("hashchange", applyHash);
+    applyHash();
+}
 
-    score=0;
+async function initCustom(raw){
+    const idx = await loadSlugIndex();
+    const slugs = LearnCore.parseSlugsParam(raw, idx, 50);
+    $("lq-field-step").hidden = true;
 
+    if(!slugs.length){
+        showStartError("이 링크의 용어를 찾을 수 없습니다. 분야를 직접 골라 시작해주세요.");
+        $("lq-mode-step").hidden = true;
+        const back = document.createElement("a");
+        back.href = "quiz.html";
+        back.textContent = "퀴즈 처음으로";
+        startErrorEl.appendChild(document.createTextNode(" "));
+        startErrorEl.appendChild(back);
+        return;
+    }
 
-    combo=0;
+    customSlugs = slugs;
+    const banner = $("quiz-scope-banner");
+    banner.hidden = false;
+    banner.textContent = `선택한 용어 ${slugs.length}개로 퀴즈를 풉니다.`;
+    $("lq-mode-step").hidden = false;
+    updateRetryEntry();
+}
 
+// 방식·문제 수 버튼
+$("lq-modes").addEventListener("click", e => {
+    const b = e.target.closest(".lq-mode");
+    if(!b) return;
+    mode = b.dataset.mode;
+    setPressed($("lq-modes"), "data-mode", mode);
+});
 
+document.querySelector(".lq-count").addEventListener("click", e => {
+    const b = e.target.closest(".lq-seg");
+    if(!b) return;
+    count = Number(b.dataset.count);
+    setPressed(document.querySelector(".lq-count"), "data-count", count);
+});
 
-    const requested =
-    Number(questionCount && questionCount.value);
+$("start-btn").onclick = startNew;
+$("lq-retry-entry").onclick = () => startRetry();
 
+// ===============================
+// 퀴즈 시작
+// ===============================
 
-    totalQuestions =
-    Math.min(
+async function startNew(){
+    showStartError("");
+    let terms = [];
 
-        Number.isFinite(requested) && requested > 0 ? requested : 10,
+    try{
+        if(customSlugs){
+            terms = await termsBySlugs(customSlugs);
+        }
+        else if(field === "all"){
+            const idx = await loadSlugIndex();
+            // 주관식은 입력 가능한 용어만 남기므로 넉넉히 뽑는다.
+            const take = mode === "subjective" ? count * 3 : count;
+            terms = await termsBySlugs(shuffle(Object.keys(idx)).slice(0, take));
+        }
+        else if(field){
+            await loadSlugIndex();
+            terms = await loadCat(field);
+        }
+    }catch(e){
+        terms = [];
+    }
 
-        currentTerms.length
+    if(mode === "subjective") terms = typableTerms(terms);
 
-    );
+    if(!terms.length){
+        showStartError("이 분야에는 출제할 용어가 없습니다. 다른 분야를 선택해주세요.");
+        return;
+    }
 
+    terms = shuffle(terms);
 
+    launch(terms.slice(0, count), mode, false);
+}
 
-    wrongQuestions=[];
+async function startRetry(){
+    showStartError("");
+    const key = currentFieldKey();
+    const slugs = getWrongList(key).map(e => e.slug).slice(0, 20);
+    const idx = await loadSlugIndex();
+    if(field && field !== "all" && !customSlugs) await loadCat(field);
+    const terms = await termsBySlugs(slugs.filter(s => idx[s]));
+    if(!terms.length){
+        showStartError("다시 풀 문제를 찾지 못했습니다.");
+        return;
+    }
+    launch(shuffle(terms), mode, true);
+}
 
-
-    retryMode=false;
-
-
-
-    startArea.hidden=true;
-
-
-    quizArea.hidden=false;
-
-
-
+function launch(terms, runMode, isRetry){
+    run = {
+        terms: terms,
+        mode: runMode,
+        retry: isRetry,
+        idx: 0,
+        score: 0,
+        missed: [],
+        key: currentFieldKey()
+    };
+    combo = 0;
     updateCombo();
-
-
-
+    startArea.hidden = true;
+    resultArea.hidden = true;
+    quizArea.hidden = false;
     nextQuestion();
-
-
-
-};
-
-
+}
 
 // ===============================
 // 문제 출제
 // ===============================
 
 function nextQuestion(){
-
-
     clearTimer();
-
-
-    result.textContent = "";
-
-
+    answered = false;
+    resultEl.textContent = "";
+    feedbackEl.hidden = true;
+    feedbackEl.textContent = "";
     nextBtn.hidden = true;
 
-
-
-    if(currentQuestion >= totalQuestions){
-
-
+    if(run.idx >= run.terms.length){
         finishQuiz();
-
-
         return;
-
-
     }
 
+    const term = run.terms[run.idx];
+    const q = buildQuestion(term, run.mode, poolFor(term));
+    run.q = q;
+    run.term = term;
 
+    quizCount.textContent = `${run.idx + 1} / ${run.terms.length}`;
+    questionEl.textContent = q.prompt;
+    choicesEl.innerHTML = "";
 
-
-    const term =
-    currentTerms[currentQuestion];
-
-
-
-    let mode =
-    quizType.value;
-
-
-
-    if(mode==="random"){
-
-
-        mode =
-        Math.random() > 0.5
-        ?
-        "definition"
-        :
-        "term";
-
-
+    if(q.kind === "subjective"){
+        renderSubjective(term);
+    }
+    else {
+        q.options.forEach((op, i) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "choice";
+            btn.textContent = op;
+            btn.dataset.key = String(i + 1);
+            btn.onclick = () => checkAnswer(btn, op);
+            choicesEl.appendChild(btn);
+        });
     }
 
-
-
-
-
-    if(mode==="subjective"){
-
-
-        renderSubjectiveQuestion(term);
-
-
-        return;
-
-
-    }
-
-
-
-    if(mode==="definition"){
-
-
-        answer =
-        term.title_ko;
-
-
-        question.textContent =
-        term.definition;
-
-
-
-    }
-
-    else{
-
-
-        answer =
-        term.definition;
-
-
-        question.textContent =
-        term.title_ko;
-
-
-    }
-
-
-
-
-
-    quizCount.textContent =
-    `${currentQuestion + 1} / ${totalQuestions}`;
-
-
-
-
-
-    // 보기 4개 구성은 quiz-core.js의 순수 함수로 분리 (테스트 대상)
-    const options =
-    buildChoiceOptions(answer, allTerms, mode);
-
-
-
-    shuffle(options);
-
-
-
-    choices.innerHTML = "";
-
-
-
-
-    options.forEach(op=>{
-
-
-        const btn =
-        document.createElement("button");
-
-
-        btn.className =
-        "choice";
-
-
-        btn.textContent =
-        op;
-
-
-
-        btn.onclick =
-        ()=>checkAnswer(btn,op);
-
-
-
-        choices.appendChild(btn);
-
-
-
-    });
-
-
-
-
+    nextBtn.firstChild.textContent = run.idx === run.terms.length - 1 ? "\n결과 보기\n" : "\n다음 문제\n";
     updateProgress();
-
-
     startTimer();
-
-
 }
 
-
-
-
-
 // ===============================
-// 주관식 (정의 → 용어 직접 입력)
+// 주관식 (기존 채점·초성 힌트 로직 유지)
 // ===============================
 
-// 자동 초성 힌트: 주관식 문제에서 남은 시간이 절반이 되면 ○○○ 패턴을
-// 초성(ㄷㅈㅌ…)으로 바꿔 보여준다. 별도 버튼 없이 시간 경과로만 열린다.
 let subjectiveHintTerm = null;
-
 let subjectiveHintShown = false;
 
-// CHOSEONG / toChoseong 은 assets/quiz-core.js(전역)로 이동 — 페이지가 먼저 로드함.
 function revealChoseongHint(){
-
-    if(subjectiveHintShown || !subjectiveHintTerm)
-        return;
-
-    const patternEl =
-    document.querySelector(".subjective-pattern");
-
-    if(!patternEl)
-        return;
-
-    patternEl.firstChild.textContent =
-    toChoseong(subjectiveHintTerm.title_ko);
-
-    const lenEl =
-    patternEl.querySelector(".subjective-len");
-
+    if(subjectiveHintShown || !subjectiveHintTerm) return;
+    const patternEl = document.querySelector(".subjective-pattern");
+    if(!patternEl) return;
+    patternEl.firstChild.textContent = toChoseong(subjectiveHintTerm.title_ko) + " ";
+    const lenEl = patternEl.querySelector(".subjective-len");
     if(lenEl) lenEl.textContent = "(초성)";
-
     subjectiveHintShown = true;
-
 }
 
-
-// normalizeAnswer / acceptedAnswers 는 assets/quiz-core.js(전역)로 이동.
-
-
-function renderSubjectiveQuestion(term){
-
-
-    answer =
-    term.title_ko;
-
-
-    question.textContent =
-    term.definition;
-
-
-    quizCount.textContent =
-    `${currentQuestion + 1} / ${totalQuestions}`;
-
-
-
-    // 지하철 이름 맞히기처럼 글자 수를 ○ 로 보여준다.
-    const pattern =
-    "○".repeat(term.title_ko.length);
-
-
-
-    choices.innerHTML = "";
-
-
-    const wrap =
-    document.createElement("div");
-
-    wrap.className =
-    "subjective-wrap";
-
-
+function renderSubjective(term){
+    const pattern = "○".repeat(term.title_ko.length);
+    const wrap = document.createElement("div");
+    wrap.className = "subjective-wrap";
     wrap.innerHTML = `
         <p class="subjective-pattern" aria-label="글자 수 힌트">${pattern} <span class="subjective-len">(${term.title_ko.length}글자)</span></p>
         <div class="subjective-row">
-            <input type="text" id="subjective-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="용어를 입력하세요">
+            <input type="text" id="subjective-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="용어를 입력하세요" aria-label="정답 입력">
             <button type="button" id="subjective-submit">제출</button>
         </div>
         <p class="subjective-hint-note">시간이 절반 지나면 초성이 공개됩니다</p>
     `;
+    choicesEl.appendChild(wrap);
 
-
-    choices.appendChild(wrap);
-
-
-
-    const input =
-    document.getElementById("subjective-input");
-
-    const submit =
-    document.getElementById("subjective-submit");
-
-
-    // 타이머가 절반까지 줄면 startTimer의 tick이 이 용어의 초성을
-    // 자동으로 공개한다 (버튼 없이).
+    const input = $("subjective-input");
     subjectiveHintTerm = term;
-
     subjectiveHintShown = false;
 
-
-
-    submit.onclick = function(){
-
-        checkSubjectiveAnswer(term, input.value);
-
-    };
-
-
-    input.addEventListener("keydown", function(e){
-
+    $("subjective-submit").onclick = () => checkSubjective(term, input.value);
+    input.addEventListener("keydown", e => {
         if(e.key === "Enter"){
-
             e.preventDefault();
-
-            checkSubjectiveAnswer(term, input.value);
-
+            checkSubjective(term, input.value);
         }
-
     });
-
-
     input.focus();
-
-
-
-    updateProgress();
-
-
-    startTimer();
-
-
 }
-
 
 function lockSubjectiveInput(){
-
-    const input =
-    document.getElementById("subjective-input");
-
-    const submit =
-    document.getElementById("subjective-submit");
-
+    const input = $("subjective-input");
+    const submit = $("subjective-submit");
     if(input) input.disabled = true;
-
     if(submit) submit.disabled = true;
-
 }
 
-
-function checkSubjectiveAnswer(term, value){
-
-
-    if(!String(value || "").trim())
-        return; // 빈 제출은 무시
-
-
-    clearTimer();
-
-
+function checkSubjective(term, value){
+    if(answered) return;
+    if(!String(value || "").trim()) return; // 빈 제출은 무시
+    const ok = acceptedAnswers(term).has(normalizeAnswer(value));
     lockSubjectiveInput();
-
-
-
-    const record =
-    getRecord();
-
-
-    record.played++;
-
-
-
-    const ok =
-    acceptedAnswers(term).has(normalizeAnswer(value));
-
-
-
-    if(ok){
-
-
-        score++;
-
-        combo++;
-
-        record.correct++;
-
-
-        if(combo > record.bestCombo){
-
-            record.bestCombo = combo;
-
-        }
-
-
-        result.textContent =
-        `정답! 🔥 ${combo}연속 정답`;
-
-
-        const input =
-        document.getElementById("subjective-input");
-
-        if(input) input.classList.add("correct");
-
-
-    }
-
-    else{
-
-
-        combo = 0;
-
-
-        wrongQuestions.push(
-            currentTerms[currentQuestion]
-        );
-
-
-        result.textContent =
-        `오답! 정답 : ${term.title_ko}` +
-        (term.title_en ? ` (${term.title_en})` : "");
-
-
-        const input =
-        document.getElementById("subjective-input");
-
-        if(input) input.classList.add("wrong");
-
-
-    }
-
-
-
-    saveRecord(record);
-
-
-    updateCombo();
-
-
-    currentQuestion++;
-
-
-    nextBtn.hidden = false;
-
-
-    nextBtn.focus();
-
-
+    const input = $("subjective-input");
+    if(input) input.classList.add(ok ? "correct" : "wrong");
+    settle(ok, ok ? null : "오답!");
 }
-
-
-
 
 // ===============================
 // 타이머
 // ===============================
 
-
 function startTimer(){
-
-
-    // 주관식은 답을 직접 타이핑해야 하므로 객관식(15초)보다 길게 준다.
-    timeLeft =
-    quizType.value === "subjective" ? 30 : 15;
-
-
+    const subj = run.mode === "subjective";
+    timeLeft = subj ? 30 : 15;
     updateTimer();
-
-
-
-    timer =
-    setInterval(()=>{
-
-
+    timer = setInterval(() => {
         timeLeft--;
-
-
         updateTimer();
-
-
-        // 주관식: 남은 시간이 절반이 되는 순간 초성을 자동 공개
-        if(quizType.value === "subjective" && timeLeft === 15){
-
-            revealChoseongHint();
-
-        }
-
-
+        if(subj && timeLeft === 15) revealChoseongHint();
         if(timeLeft <= 0){
-
-
             clearTimer();
-
-
             timeoutAnswer();
-
-
         }
-
-
-
-    },1000);
-
-
-
+    }, 1000);
 }
-
-
-
 
 function updateTimer(){
-
-
-    if(timerEl){
-
-
-        timerEl.textContent =
-        `⏱ ${timeLeft}초`;
-
-    }
-
-
+    if(timerEl) timerEl.textContent = `⏱ ${timeLeft}초`;
 }
-
-
 
 function clearTimer(){
-
-
     if(timer){
-
-
         clearInterval(timer);
-
-
-        timer=null;
-
-
+        timer = null;
     }
-
-
 }
-
-
-
-
-// ===============================
-// 시간 초과
-// ===============================
-
 
 function timeoutAnswer(){
-
-
-    // 시간 초과도 "푼 문제"로 세지 않으면 정답률(correct/played)의 분모에서
-    // 빠져 실제보다 높은 정답률이 표시된다 — 정답/오답 경로와 똑같이 센다.
-    const record = getRecord();
-
-    record.played++;
-
-    saveRecord(record);
-
-
-
-    wrongQuestions.push(
-        currentTerms[currentQuestion]
-    );
-
-
-
-    combo=0;
-
-
-    updateCombo();
-
-
-
-    result.textContent =
-    `시간 초과! 정답 : ${answer}`;
-
-
+    if(answered) return;
     lockSubjectiveInput();
-
-
-
-    [...choices.children]
-    .forEach(c=>{
-
-
-        c.onclick=null;
-
-
-        if(c.textContent===answer){
-
-
-            c.classList.add(
-                "correct"
-            );
-
-
-        }
-
-
-    });
-
-
-
-    currentQuestion++;
-
-
-    nextBtn.hidden=false;
-
-
+    settle(false, "시간 초과!");
 }
-
-
-
-
 
 // ===============================
 // 정답 확인
 // ===============================
 
+function checkAnswer(btn, value){
+    if(answered) return;
+    const ok = value === run.q.answer;
+    btn.classList.add(ok ? "correct" : "wrong");
+    settle(ok, ok ? null : "오답!");
+}
 
-function checkAnswer(btn,value){
-
-
-
+// 한 문제의 결과를 한 곳에서 처리: 기록·오답 목록·콤보·해설·다음 버튼.
+function settle(ok, failLabel){
+    answered = true;
     clearTimer();
 
-
-
-    [...choices.children]
-    .forEach(c=>{
-
-
-        c.onclick=null;
-
-
+    [...choicesEl.children].forEach(c => {
+        if(c.classList.contains("choice")){
+            c.onclick = null;
+            if(c.textContent === run.q.answer) c.classList.add("correct");
+        }
     });
 
-
-
-    const record =
-    getRecord();
-
-
-
+    const record = getRecord();
     record.played++;
 
-
-
-
-    if(value === answer){
-
-
-
-        score++;
-
-
+    if(ok){
+        run.score++;
         combo++;
-
-
         record.correct++;
-
-
-
-        if(combo > record.bestCombo){
-
-
-            record.bestCombo =
-            combo;
-
-
-        }
-
-
-
-
-        btn.classList.add(
-            "correct"
-        );
-
-
-
-        result.textContent =
-        `정답! 🔥 ${combo}연속 정답`;
-
-
-
+        if(combo > record.bestCombo) record.bestCombo = combo;
+        resultEl.textContent = `정답! 🔥 ${combo}연속 정답`;
     }
-
-    else{
-
-
-
-        combo=0;
-
-
-
-        wrongQuestions.push(
-            currentTerms[currentQuestion]
-        );
-
-
-
-        btn.classList.add(
-            "wrong"
-        );
-
-
-
-
-        [...choices.children]
-        .forEach(c=>{
-
-
-            if(c.textContent===answer){
-
-
-                c.classList.add(
-                    "correct"
-                );
-
-
-            }
-
-
-        });
-
-
-
-        result.textContent =
-        `오답! 정답 : ${answer}`;
-
-
+    else {
+        combo = 0;
+        run.missed.push(run.term);
+        resultEl.textContent = `${failLabel} 정답 : ${run.q.answer}`;
     }
-
-
 
     saveRecord(record);
-
-
-
+    recordWrongResult(run.key, run.term.slug, ok);
     updateCombo();
+    showFeedback(run.term);
 
-
-
-    currentQuestion++;
-
-
-
-    nextBtn.hidden=false;
-
-
-
+    run.idx++;
+    nextBtn.hidden = false;
+    nextBtn.focus();
 }
 
-
-
-
-
-
-// ===============================
-// 콤보 표시
-// ===============================
+function showFeedback(term){
+    feedbackEl.textContent = "";
+    const head = document.createElement("strong");
+    head.textContent = term.title_ko + (term.title_en ? ` (${term.title_en})` : "");
+    const p = document.createElement("p");
+    p.textContent = term.meaning;
+    const a = document.createElement("a");
+    a.href = "terms/" + encodeURIComponent(term.slug) + ".html";
+    a.textContent = "용어 페이지 보기 →";
+    feedbackEl.appendChild(head);
+    feedbackEl.appendChild(p);
+    feedbackEl.appendChild(a);
+    feedbackEl.hidden = false;
+}
 
 function updateCombo(){
-
-
-
-    if(comboEl){
-
-
-        comboEl.textContent =
-        `🔥 ${combo} 콤보`;
-
-
-    }
-
-
+    if(comboEl) comboEl.textContent = `🔥 ${combo} 콤보`;
 }
-
-
-
-
-
-// ===============================
-// 진행률
-// ===============================
 
 function updateProgress(){
-
-
-    const bar =
-    document.getElementById(
-        "progress-bar"
-    );
-
-
-    if(!bar)
-        return;
-
-
-
-    bar.style.width =
-
-    (
-
-        totalQuestions
-
-        ?
-        currentQuestion / totalQuestions * 100
-
-        :
-        0
-
-    )
-
-    + "%";
-
-
+    const bar = $("progress-bar");
+    if(!bar) return;
+    bar.style.width = (run && run.terms.length ? run.idx / run.terms.length * 100 : 0) + "%";
 }
 
+nextBtn.onclick = nextQuestion;
 
-
-
-
+// 숫자키 1~4로 보기 선택 (입력창에 포커스가 있을 때는 무시)
+document.addEventListener("keydown", e => {
+    if(quizArea.hidden || answered || !run) return;
+    if(e.target && /^(input|textarea)$/i.test(e.target.tagName)) return;
+    if(e.ctrlKey || e.metaKey || e.altKey) return;
+    const btn = choicesEl.querySelector('.choice[data-key="' + e.key + '"]');
+    if(btn) btn.click();
+});
 
 // ===============================
-// 종료
+// 종료 / 결과 화면
 // ===============================
-
 
 function finishQuiz(){
-
-
-
     clearTimer();
-
-
-
-    const record =
-    getRecord();
-
-
-
-    if(score > record.bestScore){
-
-
-        record.bestScore =
-        score;
-
-
+    const record = getRecord();
+    if(run.score > record.bestScore){
+        record.bestScore = run.score;
         saveRecord(record);
-
-
     }
 
-
-
-
-
-    question.textContent =
-    "퀴즈 종료!";
-
-
-
-    choices.innerHTML="";
-
-
-
-
-    if (window.trackEvent) window.trackEvent("quiz_complete", { score: score, total: totalQuestions });
-
-    const accuracy =
-    totalQuestions
-
-    ?
-    Math.round(score / totalQuestions * 100)
-
-    :
-    0;
-
-
-
-
-    result.innerHTML = `
-
-    <div class="quiz-result">
-
-    <h2>
-    🎉 결과
-    </h2>
-
-
-    <p>
-    점수 :
-    <strong>
-    ${score}/${totalQuestions}
-    </strong>
-    </p>
-
-
-    <p>
-    정답률 :
-    ${accuracy}%
-    </p>
-
-
-    <p>
-    최고 점수 :
-    ${record.bestScore}
-    </p>
-
-
-    <p>
-    최고 콤보 :
-    ${record.bestCombo}
-    </p>
-
-
-    ${
-        wrongQuestions.length
-
-        ?
-
-        `
-        <button id="retry-btn">
-        틀린 문제 다시 풀기
-        (${wrongQuestions.length})
-        </button>
-        `
-
-        :
-
-        `
-        <p>
-        모든 문제 정답 🎉
-        </p>
-        `
-
+    const total = run.terms.length;
+    if(window.trackEvent){
+        window.trackEvent("quiz_complete", {
+            score: run.score,
+            total: total,
+            mode: run.mode,
+            field: run.key || "all"
+        });
     }
 
+    const accuracy = total ? Math.round(run.score / total * 100) : 0;
+    const wrongN = getWrongList(run.key).length;
+    const rm = roadmapCode();
 
-    </div>
+    quizArea.hidden = true;
+    resultArea.hidden = false;
+    resultArea.textContent = "";
 
+    const box = document.createElement("div");
+    box.className = "quiz-result";
+    box.innerHTML = `
+        <h2>🎉 결과</h2>
+        <p>점수 : <strong>${run.score}/${total}</strong></p>
+        <p>정답률 : ${accuracy}%</p>
+        <p>최고 점수 : ${record.bestScore}</p>
+        <p>최고 콤보 : ${record.bestCombo}</p>
     `;
+    resultArea.appendChild(box);
 
+    if(run.missed.length){
+        const h = document.createElement("h3");
+        h.className = "lq-missed-title";
+        h.textContent = `틀린 용어 ${run.missed.length}개`;
+        const ul = document.createElement("ul");
+        ul.className = "lq-missed";
+        run.missed.forEach(t => {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = "terms/" + encodeURIComponent(t.slug) + ".html";
+            a.textContent = t.title_ko;
+            const s = document.createElement("span");
+            s.textContent = t.meaning;
+            li.appendChild(a);
+            li.appendChild(s);
+            ul.appendChild(li);
+        });
+        resultArea.appendChild(h);
+        resultArea.appendChild(ul);
+    }
+    else {
+        const p = document.createElement("p");
+        p.className = "lq-allright";
+        p.textContent = "모든 문제 정답 🎉";
+        resultArea.appendChild(p);
+    }
 
+    const actions = document.createElement("div");
+    actions.className = "lq-actions";
 
-    nextBtn.hidden=true;
+    if(wrongN){
+        actions.appendChild(actionButton(`틀린 문제 다시 (${wrongN})`, () => startRetryFromResult(), "lq-btn-primary"));
+    }
+    if(rm){
+        const a = document.createElement("a");
+        a.className = "lq-btn";
+        a.href = "roadmap.html#" + rm;
+        a.textContent = "이 분야 로드맵 보기";
+        actions.appendChild(a);
+    }
+    const bm = actionButton("즐겨찾기에 담기", null, "lq-btn");
+    bm.hidden = true;
+    bm.id = "lq-bookmark-btn";
+    actions.appendChild(bm);
+    actions.appendChild(actionButton("처음으로", backToStart, "lq-btn"));
+    resultArea.appendChild(actions);
 
-
-    startArea.hidden=false;
-
-
+    const note = document.createElement("p");
+    note.className = "lq-muted";
+    note.id = "lq-bookmark-note";
+    note.setAttribute("role", "status");
+    resultArea.appendChild(note);
 
     updateRecord();
+    if(run.missed.length) setupBookmark(bm, note, run.missed);
+    resultArea.querySelector(".lq-actions button, .lq-actions a").focus();
+}
 
+function actionButton(label, onClick, cls){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = cls;
+    b.textContent = label;
+    if(onClick) b.onclick = onClick;
+    return b;
+}
 
+async function startRetryFromResult(){
+    const key = run.key;
+    const slugs = getWrongList(key).map(e => e.slug).slice(0, 20);
+    const idx = await loadSlugIndex();
+    const terms = await termsBySlugs(slugs.filter(s => idx[s]));
+    if(!terms.length) return backToStart();
+    launch(shuffle(terms), run.mode, true);
+}
 
-    const retry =
-    document.getElementById(
-        "retry-btn"
-    );
+function backToStart(){
+    resultArea.hidden = true;
+    quizArea.hidden = true;
+    startArea.hidden = false;
+    $("progress-bar").style.width = "0%";
+    updateRetryEntry();
+    window.scrollTo(0, 0);
+}
 
-
-
-    if(retry){
-
-
-        retry.onclick =
-        startRetryQuiz;
-
-
+// 즐겨찾기: 로그인한 사용자만 (term-bookmark.js와 같은 tg_bookmarks 테이블). 비로그인이면 버튼을 숨긴다.
+async function setupBookmark(btn, note, missed){
+    let sb, session;
+    try{
+        const auth = await import("./assets/auth.js");
+        session = await auth.getSession();
+        sb = auth.supabase;
+    }catch(e){
+        return;
     }
-
-
-
+    if(!session) return;
+    btn.hidden = false;
+    btn.onclick = async () => {
+        btn.disabled = true;
+        try{
+            const uid = session.user.id;
+            const slugs = missed.map(t => t.slug);
+            const { data } = await sb.from("tg_bookmarks").select("term_slug").eq("user_id", uid).in("term_slug", slugs);
+            const have = new Set((data || []).map(r => r.term_slug));
+            const rows = missed.filter(t => !have.has(t.slug)).map(t => ({ user_id: uid, term_slug: t.slug, term_title: t.title_ko }));
+            if(rows.length){
+                const { error } = await sb.from("tg_bookmarks").insert(rows);
+                if(error) throw error;
+            }
+            note.textContent = `즐겨찾기에 ${rows.length}개를 담았습니다.` + (have.size ? ` (이미 담긴 ${have.size}개 제외)` : "");
+        }catch(e){
+            note.textContent = "즐겨찾기에 담지 못했습니다. 잠시 후 다시 시도해주세요.";
+            btn.disabled = false;
+        }
+    };
 }
-
-
-
-
-// ===============================
-// 오답 다시 풀기
-// ===============================
-
-
-function startRetryQuiz(){
-
-
-
-    currentTerms =
-    [...wrongQuestions];
-
-
-
-    wrongQuestions=[];
-
-
-
-    currentQuestion=0;
-
-
-
-    score=0;
-
-
-
-    combo=0;
-
-
-
-    totalQuestions =
-    currentTerms.length;
-
-
-
-    startArea.hidden=true;
-
-
-    quizArea.hidden=false;
-
-
-
-    nextQuestion();
-
-
-}
-
-
-
-
-
-
-
-// ===============================
-// 배열 섞기
-// ===============================
-
-
-function shuffle(arr){
-
-
-
-    for(
-        let i=arr.length-1;
-        i>0;
-        i--
-    ){
-
-
-        const j =
-        Math.floor(
-            Math.random()*(i+1)
-        );
-
-
-        [
-            arr[i],
-            arr[j]
-        ]
-        =
-        [
-            arr[j],
-            arr[i]
-        ];
-
-
-    }
-
-
-}
-
-
-
-
-// ===============================
-// 다음 문제 버튼
-// ===============================
-
-nextBtn.onclick =
-nextQuestion;
-
-
 
 // 실행
-
-loadTerms();
+init();

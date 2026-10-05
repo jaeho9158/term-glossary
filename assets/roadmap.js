@@ -1,188 +1,290 @@
-import { supabase, getSession } from "./auth.js";
-import { openFlashcards } from "./flashcards.js";
+// assets/roadmap.js — 분야별 3단계 로드맵 (입문/중급/심화).
+// 진도 저장: 로컬 roadmap_progress_v1 (slug 배열, 기존 키 그대로) + 로그인 시 Supabase tg_roadmap_progress.
+// 진도는 분야가 아니라 slug 기준이라 예전에 체크한 용어는 새 목록에 남아 있으면 그대로 체크로 보인다.
 
 const LOCAL_KEY = "roadmap_progress_v1";
-const deckMap = new Map();
+const OPEN_KEY = "roadmap_open_v1"; // 편의용: { 분야: [열린 단계 level…] } — 없어도 동작
 
-// escapeHtml은 assets/escape.js(전역)를 사용한다 — 페이지가 먼저 로드함.
-function getLocalProgress() {
-  try {
-    return new Set(JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]"));
-  } catch (e) {
+let sb = null;          // supabase 클라이언트 (불러온 경우에만)
+let session = null;
+let remoteDone = new Set();
+let localDone = new Set();
+
+let learnIndex = null;
+let field = "";
+let terms = [];
+let stages = [];
+let openLevels = new Set();
+let scrollAfter = false; // 칩을 눌러 고른 경우에만 결과 위치로 스크롤
+
+const $ = id => document.getElementById(id);
+const content = $("roadmap-content");
+const emptyState = document.querySelector(".learn-empty-state");
+
+function readLocal(){
+  try{
+    const a = JSON.parse(localStorage.getItem(LOCAL_KEY) || "[]");
+    return new Set(Array.isArray(a) ? a.filter(s => typeof s === "string") : []);
+  }catch(e){
     return new Set();
   }
 }
 
-function setLocalProgress(set) {
-  // 프라이빗 모드·쿼터 초과에서 setItem이 throw — 조용히 넘긴다.
-  try {
-    localStorage.setItem(LOCAL_KEY, JSON.stringify([...set]));
-  } catch (e) { /* 저장 실패는 무시 */ }
+function writeLocal(set){
+  try{ localStorage.setItem(LOCAL_KEY, JSON.stringify([...set])); }catch(e){ /* 저장 실패는 무시 */ }
 }
 
-function topoSort(terms) {
-  const bySlug = new Map(terms.map((t) => [t.slug, t]));
-  const visited = new Set();
-  const result = [];
+function readOpen(code){
+  try{
+    const o = JSON.parse(localStorage.getItem(OPEN_KEY) || "{}");
+    return Array.isArray(o[code]) ? o[code] : null;
+  }catch(e){
+    return null;
+  }
+}
 
-  function visit(slug, stack) {
-    if (visited.has(slug) || !bySlug.has(slug) || stack.has(slug)) return;
-    stack.add(slug);
-    const t = bySlug.get(slug);
-    for (const p of t.prerequisites || []) {
-      visit(p, stack);
+function writeOpen(code, levels){
+  try{
+    const o = JSON.parse(localStorage.getItem(OPEN_KEY) || "{}");
+    o[code] = levels;
+    localStorage.setItem(OPEN_KEY, JSON.stringify(o));
+  }catch(e){ /* 무시 */ }
+}
+
+function doneSet(){
+  return session ? remoteDone : localDone;
+}
+
+async function setDone(slug, checked){
+  if(checked) localDone.add(slug); else localDone.delete(slug);
+  writeLocal(localDone);
+  if(!session || !sb) return;
+  try{
+    if(checked){
+      await sb.from("tg_roadmap_progress").insert({ user_id: session.user.id, term_slug: slug });
     }
-    stack.delete(slug);
-    if (!visited.has(slug)) {
-      visited.add(slug);
-      result.push(t);
+    else {
+      await sb.from("tg_roadmap_progress").delete().eq("user_id", session.user.id).eq("term_slug", slug);
     }
+  }catch(e){ /* 서버 저장 실패: 화면은 그대로 둔다 */ }
+  if(checked) remoteDone.add(slug); else remoteDone.delete(slug);
+}
+
+async function initAuth(){
+  try{
+    const auth = await import("./auth.js");
+    sb = auth.supabase;
+    session = await auth.getSession();
+    if(!session) return;
+    const { data } = await sb.from("tg_roadmap_progress").select("term_slug").eq("user_id", session.user.id);
+    remoteDone = new Set((data || []).map(r => r.term_slug));
+    // 로컬에만 있는 진도는 서버로 올린다. 로컬 값은 지우지 않는다.
+    const toMigrate = [...localDone].filter(s => !remoteDone.has(s));
+    if(toMigrate.length){
+      const { error } = await sb.from("tg_roadmap_progress").insert(toMigrate.map(term_slug => ({ user_id: session.user.id, term_slug })));
+      if(!error) toMigrate.forEach(s => remoteDone.add(s));
+    }
+  }catch(e){
+    session = null;
+  }
+}
+
+// ===============================
+// 렌더
+// ===============================
+
+function el(tag, cls, text){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(text !== undefined) e.textContent = text;
+  return e;
+}
+
+function bar(pct, label){
+  const b = el("div", "lr-bar");
+  b.setAttribute("role", "progressbar");
+  b.setAttribute("aria-valuemin", "0");
+  b.setAttribute("aria-valuemax", "100");
+  b.setAttribute("aria-valuenow", String(pct));
+  b.setAttribute("aria-label", label);
+  const f = el("div", "lr-bar-fill");
+  f.style.width = pct + "%";
+  b.appendChild(f);
+  return b;
+}
+
+function termHref(slug){
+  return "terms/" + encodeURIComponent(slug) + ".html";
+}
+
+function render(){
+  const focusSlug = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.slug : null;
+  const done = doneSet();
+  const all = stages.flatMap(s => s.terms);
+  const overall = LearnCore.progressOf(all, done);
+  const info = learnIndex[field];
+
+  content.textContent = "";
+
+  const head = el("div", "lr-head");
+  head.appendChild(el("h2", "lr-field", info.label + " 로드맵"));
+  head.appendChild(el("p", "lr-meta", `핵심 용어 ${info.core}개 중 ${all.length}개 · 전체 ${overall.done}/${overall.total} (${overall.pct}%)`));
+  head.appendChild(bar(overall.pct, "전체 진행률"));
+  content.appendChild(head);
+
+  if(info.core < 6){
+    content.appendChild(el("p", "lr-note", `이 분야는 아직 핵심 용어가 ${info.core}개뿐이라 있는 용어만 보여드려요.`));
   }
 
-  const ordered = [...terms].sort((a, b) => (a.difficulty || 3) - (b.difficulty || 3));
-  for (const t of ordered) visit(t.slug, new Set());
-  return result;
+  // 다음에 볼 용어
+  const next = LearnCore.nextTerm(stages, done);
+  const card = el("section", "lr-next");
+  card.setAttribute("aria-label", "다음에 볼 용어");
+  if(next){
+    card.appendChild(el("span", "lr-next-label", `다음에 볼 용어 · ${next.stage.name}`));
+    const a = el("a", "lr-next-title", next.term.title_ko);
+    a.href = termHref(next.term.slug);
+    card.appendChild(a);
+    card.appendChild(el("p", "lr-next-meaning", next.term.meaning));
+  }
+  else {
+    card.appendChild(el("span", "lr-next-label", "모든 단계를 마쳤어요"));
+    const a = el("a", "lr-next-title", "이 분야 퀴즈로 복습하기");
+    a.href = "quiz.html#" + field;
+    card.appendChild(a);
+  }
+  content.appendChild(card);
+
+  // 단계
+  for(const stage of stages){
+    const p = LearnCore.progressOf(stage.terms, done);
+    const d = el("details", "lr-stage");
+    d.dataset.level = String(stage.level);
+    if(openLevels.has(stage.level)) d.open = true;
+
+    const sum = el("summary", "lr-stage-sum");
+    sum.appendChild(el("span", "lr-stage-name", `${stage.level}단계 ${stage.name}`));
+    sum.appendChild(el("span", "lr-stage-count", `${p.done}/${p.total}`));
+    d.appendChild(sum);
+    d.appendChild(bar(p.pct, `${stage.name} 진행률`));
+
+    if(stage.available > stage.terms.length){
+      d.appendChild(el("p", "lr-stage-note", `${stage.name} 용어 ${stage.available}개 중 많이 찾는 순서로 ${stage.terms.length}개를 담았어요.`));
+    }
+
+    const ul = el("ul", "lr-list");
+    for(const t of stage.terms){
+      const li = el("li", "lr-item");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.className = "lr-check";
+      cb.dataset.slug = t.slug;
+      cb.checked = done.has(t.slug);
+      cb.setAttribute("aria-label", `${t.title_ko} 학습 완료`);
+      li.appendChild(cb);
+      const body = el("div", "lr-item-body");
+      const a = el("a", "lr-term", t.title_ko);
+      a.href = termHref(t.slug);
+      body.appendChild(a);
+      if(t.title_en) body.appendChild(el("span", "lr-term-en", t.title_en));
+      body.appendChild(el("p", "lr-meaning", t.meaning));
+      li.appendChild(body);
+      ul.appendChild(li);
+    }
+    d.appendChild(ul);
+
+    if(p.total && p.done === p.total){
+      const q = el("a", "lr-quiz", "이 단계 퀴즈 풀기");
+      q.href = "quiz.html?slugs=" + stage.terms.map(t => encodeURIComponent(t.slug)).join(",") + "#" + field;
+      d.appendChild(q);
+    }
+
+    d.addEventListener("toggle", () => {
+      if(d.open) openLevels.add(stage.level); else openLevels.delete(stage.level);
+      writeOpen(field, [...openLevels]);
+    });
+    content.appendChild(d);
+  }
+
+  const foot = el("p", "lr-foot");
+  const fa = el("a", "lr-foot-link", "이 분야 퀴즈 풀기");
+  fa.href = "quiz.html#" + field;
+  foot.appendChild(fa);
+  content.appendChild(foot);
+
+  if(focusSlug){
+    const f = content.querySelector('.lr-check[data-slug="' + CSS.escape(focusSlug) + '"]');
+    if(f) f.focus();
+  }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const select = document.getElementById("roadmap-category-select");
-  const content = document.getElementById("roadmap-content");
-  if (!select || !content) return;
+content.addEventListener("change", async e => {
+  const cb = e.target.closest(".lr-check");
+  if(!cb) return;
+  await setDone(cb.dataset.slug, cb.checked);
+  render();
+});
 
-  let terms;
-  try {
-    const res = await fetch("terms-lite.json");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    terms = await res.json();
-  } catch (err) {
-    console.error("terms-lite.json 로드 실패:", err);
-    content.innerHTML =
-      '<p class="load-error">용어 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요.</p>';
+// ===============================
+// 분야 선택
+// ===============================
+
+async function showField(code){
+  field = code;
+  LearnPicker.setSelected($("field-picker"), code);
+  if(!code){
+    content.textContent = "";
+    if(emptyState) emptyState.hidden = false;
     return;
   }
-  const labels = window.CATEGORY_LABELS || {};
+  if(emptyState) emptyState.hidden = true;
+  content.textContent = "";
+  content.appendChild(el("p", "lq-muted", "불러오는 중..."));
 
-  const catSet = new Set();
-  terms.forEach((t) => (t.categories || []).forEach((c) => catSet.add(c)));
-  select.innerHTML +=
-    [...catSet]
-      .sort()
-      .map((c) => `<option value="${c}">${escapeHtml(labels[c] || c)}</option>`)
-      .join("");
-
-  const session = await getSession();
-  let remoteProgress = new Set();
-  if (session) {
-    const { data } = await supabase
-      .from("tg_roadmap_progress")
-      .select("term_slug")
-      .eq("user_id", session.user.id);
-    remoteProgress = new Set((data || []).map((r) => r.term_slug));
-
-    const local = getLocalProgress();
-    const toMigrate = [...local].filter((slug) => !remoteProgress.has(slug));
-    if (toMigrate.length > 0) {
-      await supabase
-        .from("tg_roadmap_progress")
-        .insert(toMigrate.map((term_slug) => ({ user_id: session.user.id, term_slug })));
-      toMigrate.forEach((slug) => remoteProgress.add(slug));
-      localStorage.removeItem(LOCAL_KEY);
-    }
+  const data = await LearnPicker.fetchJson("data/learn/" + encodeURIComponent(code) + ".json");
+  if(code !== field) return; // 그 사이 다른 분야로 바뀜
+  if(!Array.isArray(data)){
+    content.textContent = "";
+    content.appendChild(el("p", "load-error", "로드맵 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요."));
+    return;
   }
-
-  // 렌더 한 번 동안 쓸 로컬 진도 스냅샷. 예전엔 isDone이 용어마다
-  // localStorage를 다시 읽고 JSON.parse까지 해서, 620개짜리 분야를 그리면
-  // 읽기·파싱이 각각 1,240회 일어났다(용어당 2회 호출). 렌더 시작과 토글
-  // 시점에만 갱신하면 같은 결과를 1회 읽기로 얻는다.
-  let localProgressSnapshot = null;
-
-  function isDone(slug) {
-    if (session) return remoteProgress.has(slug);
-    if (!localProgressSnapshot) localProgressSnapshot = getLocalProgress();
-    return localProgressSnapshot.has(slug);
+  terms = data;
+  stages = LearnCore.selectRoadmap(terms);
+  localDone = readLocal();
+  const saved = readOpen(code);
+  openLevels = new Set(saved || [LearnCore.firstOpenLevel(stages, doneSet())].filter(Boolean));
+  render();
+  if(scrollAfter){
+    scrollAfter = false;
+    content.scrollIntoView({ block: "start" });
   }
+}
 
-  async function toggleDone(slug, checked) {
-    if (session) {
-      if (checked) {
-        await supabase
-          .from("tg_roadmap_progress")
-          .insert({ user_id: session.user.id, term_slug: slug });
-        remoteProgress.add(slug);
-      } else {
-        await supabase
-          .from("tg_roadmap_progress")
-          .delete()
-          .eq("user_id", session.user.id)
-          .eq("term_slug", slug);
-        remoteProgress.delete(slug);
-      }
-    } else {
-      const local = getLocalProgress();
-      if (checked) local.add(slug);
-      else local.delete(slug);
-      setLocalProgress(local);
-      localProgressSnapshot = local; // 스냅샷도 같이 갱신해 다음 렌더와 어긋나지 않게
-    }
+function applyHash(){
+  showField(LearnCore.parseFieldHash(location.hash, learnIndex));
+}
+
+async function init(){
+  localDone = readLocal();
+  const loaded = await LearnPicker.loadIndex();
+  learnIndex = loaded.index;
+  if(!learnIndex){
+    $("field-picker").textContent = "";
+    content.appendChild(el("p", "load-error", "학습 데이터를 불러오지 못했습니다. 네트워크 상태를 확인하고 새로고침해주세요."));
+    return;
   }
-
-  function render(category) {
-    localProgressSnapshot = null; // 렌더 시작 시 한 번만 다시 읽는다
-    if (!category) {
-      content.innerHTML = "";
-      return;
-    }
-    const inCategory = terms.filter((t) => (t.categories || []).includes(category));
-    const bySubcat = new Map();
-    inCategory.forEach((t) => {
-      const sub = t.subcategory || "미분류";
-      if (!bySubcat.has(sub)) bySubcat.set(sub, []);
-      bySubcat.get(sub).push(t);
-    });
-
-    deckMap.clear();
-    content.innerHTML = [...bySubcat.entries()]
-      .map(([sub, list]) => {
-        const sorted = topoSort(list);
-        deckMap.set(sub, sorted);
-        const doneCount = sorted.filter((t) => isDone(t.slug)).length;
-        const pct = Math.round((doneCount / sorted.length) * 100);
-        const items = sorted
-          .map(
-            (t) => `<li class="roadmap-item">
-              <label>
-                <input type="checkbox" class="roadmap-checkbox" data-slug="${t.slug}" ${isDone(t.slug) ? "checked" : ""}>
-                <span class="roadmap-difficulty roadmap-difficulty-${t.difficulty || 3}">Lv${t.difficulty || 3}</span>
-                <a href="terms/${encodeURIComponent(t.slug)}.html">${escapeHtml(t.title_ko || t.slug)}</a>
-              </label>
-            </li>`
-          )
-          .join("");
-        return `<section class="roadmap-subcat">
-          <h2>${escapeHtml(sub)} <span class="roadmap-progress-label">${doneCount}/${sorted.length} (${pct}%)</span>
-            <button type="button" class="flashcard-start-btn" data-subcat="${escapeHtml(sub)}">🃏 플래시카드로 암기</button>
-          </h2>
-          <div class="roadmap-progress-bar"><div class="roadmap-progress-fill" style="width:${pct}%"></div></div>
-          <ul class="roadmap-list">${items}</ul>
-        </section>`;
-      })
-      .join("");
-  }
-
-  select.addEventListener("change", () => render(select.value));
-
-  content.addEventListener("change", async (e) => {
-    const cb = e.target.closest(".roadmap-checkbox");
-    if (!cb) return;
-    await toggleDone(cb.dataset.slug, cb.checked);
-    render(select.value);
+  LearnPicker.render($("field-picker"), {
+    index: learnIndex,
+    popularFields: loaded.popularFields,
+    groups: typeof CATEGORY_GROUPS !== "undefined" ? CATEGORY_GROUPS : [],
+    selected: "",
+    onSelect: code => { scrollAfter = true; location.hash = code; }
   });
+  window.addEventListener("hashchange", applyHash);
+  applyHash();
+  // 로그인 확인은 화면을 막지 않게 뒤에서 하고, 끝나면 서버 진도로 다시 그린다.
+  await initAuth();
+  if(session && field) render();
+}
 
-  content.addEventListener("click", (e) => {
-    const btn = e.target.closest(".flashcard-start-btn");
-    if (!btn) return;
-    const deck = deckMap.get(btn.dataset.subcat);
-    if (!deck || deck.length === 0) return;
-    openFlashcards(btn.dataset.subcat, deck);
-  });
-});
+init();
