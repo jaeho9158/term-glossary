@@ -15,7 +15,9 @@
 //   pop           = data/popular-terms.json[분야] 안의 순위(1이 가장 인기). 없으면 생략
 //
 // 난이도 규칙(level): terms.json 의 difficulty(1·2·3)를 그대로 쓴다. 값이 없거나
-// 1~3이 아니면 2. 별도 추정식은 두지 않는다 — 이미 용어마다 편집된 값이 있다.
+// 1~3이 아니면 2. 다만 data/learn-levels/<분야>.json({slug: 1|2|3})이 있으면 그 값이 우선한다.
+// terms.json 의 difficulty 가 부정확해(통계 입문에 내생성·이중차분법 등) 집중 분야 13개는
+// 2026-10-05에 분야별로 다시 판정했다. 같은 용어라도 분야에 따라 단계가 다를 수 있다.
 const fs = require("fs");
 const path = require("path");
 const { shortenText } = require("./short-text");
@@ -28,7 +30,8 @@ function deriveLevel(term) {
 }
 
 // 순수 함수: terms(전체) + archive slug 배열 + popular 맵 + 라벨/그룹 → 분야별 데이터
-function buildLearnData({ terms, archive, popular, labels, groups }) {
+function buildLearnData({ terms, archive, popular, labels, groups, levelOverrides }) {
+  const overrides = levelOverrides || {};
   const archiveSet = new Set(archive || []);
   const core = terms.filter((t) => t && t.slug && !archiveSet.has(t.slug));
   const coreSet = new Set(core.map((t) => t.slug));
@@ -52,7 +55,7 @@ function buildLearnData({ terms, archive, popular, labels, groups }) {
         title_en: t.title_en || "",
         meaning: shortenText(t.definition, 70),
         subcategory: t.subcategory || "",
-        level: deriveLevel(t),
+        level: (overrides[c] && overrides[c][t.slug]) || deriveLevel(t),
         related: (t.related || []).filter((s) => coreSet.has(s) && s !== t.slug),
         prerequisites: (t.prerequisites || []).filter((s) => coreSet.has(s) && s !== t.slug),
       };
@@ -75,9 +78,16 @@ function main() {
   const terms = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
   const tiers = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "index-tiers.json"), "utf8"));
   const popular = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "popular-terms.json"), "utf8"));
+  const levelOverrides = {};
+  const levelDir = path.join(ROOT, "data", "learn-levels");
+  if (fs.existsSync(levelDir)) {
+    for (const f of fs.readdirSync(levelDir)) {
+      if (f.endsWith(".json")) levelOverrides[f.slice(0, -5)] = JSON.parse(fs.readFileSync(path.join(levelDir, f), "utf8"));
+    }
+  }
   const { byCat, index, slugIndex } = buildLearnData({
     terms, archive: tiers.archive, popular,
-    labels: cat.CATEGORY_LABELS, groups: cat.CATEGORY_GROUPS,
+    labels: cat.CATEGORY_LABELS, groups: cat.CATEGORY_GROUPS, levelOverrides,
   });
   const out = path.join(ROOT, "data", "learn");
   fs.mkdirSync(out, { recursive: true });

@@ -84,3 +84,16 @@ test("generator: archive 제외, 분야별 포함, related/prerequisites는 core
   assert.strictEqual(r.slugIndex.a, "stat");
   assert.strictEqual(r.slugIndex.z, undefined);
 });
+
+test("buildLearnData: 분야별 levelOverrides 가 difficulty 보다 우선한다", () => {
+  const { buildLearnData } = require("../scripts/generate-learn-data.js");
+  const terms = [
+    { slug: "a", title_ko: "가", categories: ["stat", "method"], difficulty: 1, definition: "정의" },
+    { slug: "b", title_ko: "나", categories: ["stat"], difficulty: 3, definition: "정의" },
+  ];
+  const r = buildLearnData({ terms, archive: [], popular: {}, labels: { stat: "통계", method: "연구방법론" }, groups: [], levelOverrides: { stat: { a: 3 } } });
+  const lv = (c, s) => r.byCat[c].find((x) => x.slug === s).level;
+  assert.strictEqual(lv("stat", "a"), 3);
+  assert.strictEqual(lv("method", "a"), 1);
+  assert.strictEqual(lv("stat", "b"), 3);
+});
