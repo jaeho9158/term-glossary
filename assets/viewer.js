@@ -1754,8 +1754,45 @@ function resolveAnnotationAnchor(pageText, anchor) {
   return ANNOTATION_LOST;
 }
 
+// 원본 보기에서 선택한 글을 읽기 모드 본문에서 다시 찾는다. 줄바꿈·공백 차이는
+// 무시하고(공백을 하나로 접어 비교) 못 찾으면 앞 20글자로 재시도한다.
+// 반환: 본문(bodyText) 기준 { start, end } 또는 null.
+function findSelectionInText(bodyText, selected) {
+  const body = String(bodyText || "");
+  const want = String(selected || "").replace(/\s+/g, " ").trim();
+  if (!body || !want) return null;
+  // 공백을 접은 문자열과 원문 오프셋 대응표
+  let collapsed = "";
+  const map = [];
+  let prevSpace = true;
+  for (let i = 0; i < body.length; i++) {
+    const isSpace = /\s/.test(body[i]);
+    if (isSpace) {
+      if (prevSpace) continue;
+      collapsed += " ";
+      map.push(i);
+      prevSpace = true;
+    } else {
+      collapsed += body[i];
+      map.push(i);
+      prevSpace = false;
+    }
+  }
+  const tries = [want];
+  if (want.length > 20) tries.push(want.slice(0, 20).trim());
+  for (const needle of tries) {
+    if (!needle) continue;
+    const at = collapsed.indexOf(needle);
+    if (at === -1) continue;
+    const start = map[at];
+    const end = map[at + needle.length - 1] + 1;
+    return { start, end };
+  }
+  return null;
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
+  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber };
 }
 
 if (typeof document !== "undefined") {
@@ -1889,10 +1926,13 @@ if (typeof document !== "undefined") {
       pendingSelection = null;
     }
 
-    function showHighlightToolbar(rect) {
+    // 터치에서는 선택 위쪽에 OS 선택 메뉴(복사 등)가 뜨므로 아래쪽에 둔다.
+    function showHighlightToolbar(rect, below) {
       if (!highlightToolbar) return;
       highlightToolbar.hidden = false;
-      const top = Math.max(8, rect.top - highlightToolbar.offsetHeight - 8);
+      const h = highlightToolbar.offsetHeight;
+      let top = below ? rect.bottom + 14 : rect.top - h - 8;
+      top = Math.min(Math.max(8, top), window.innerHeight - h - 8);
       const left = Math.min(
         Math.max(8, rect.left + rect.width / 2 - highlightToolbar.offsetWidth / 2),
         window.innerWidth - highlightToolbar.offsetWidth - 8
@@ -2089,6 +2129,21 @@ if (typeof document !== "undefined") {
         notesBadge.textContent = String(annotationsCache.length);
       }
       if (notesEmptyMsg) notesEmptyMsg.hidden = annotationsCache.length > 0;
+      updateHlNotice();
+    }
+
+    // 원본 보기에는 형광펜이 안 보이므로, 저장된 것이 있으면 한 줄로 알려 준다.
+    function updateHlNotice() {
+      const el = document.getElementById("pdf-hl-notice");
+      if (!el) return;
+      const n = annotationsCache.filter((a) => !a.lost).length;
+      const show = pdfOriginalVisible && n > 0;
+      el.hidden = !show;
+      if (show) el.textContent = `형광펜 ${n}개 · 텍스트 보기에서 확인`;
+    }
+    {
+      const hlNotice = document.getElementById("pdf-hl-notice");
+      if (hlNotice) hlNotice.addEventListener("click", () => setPdfOriginalVisible(false));
     }
 
     if (noteList) {
@@ -2096,6 +2151,7 @@ if (typeof document !== "undefined") {
         const card = e.target.closest(".note-card");
         if (!card) return;
         const id = card.dataset.id;
+        if (pdfOriginalVisible) setPdfOriginalVisible(false);
         const mark = document.querySelector(`#viewer-rendered mark.user-mark[data-annotation-id="${CSS.escape(id)}"]`);
         if (!mark) {
           // 위치를 못 찾은 메모는 본문에 표시가 없다. 아무 반응이 없으면
@@ -2299,44 +2355,200 @@ if (typeof document !== "undefined") {
     // 하이라이트는 읽기 모드에서만 만든다. 원본 보기(캔버스)에서는 드래그
     // 선택은 되지만 색 툴바가 뜨지 않는다 — 텍스트 레이어 좌표에 표시를 얹는
     // 방식이 계속 어긋났기 때문에 표시 자체를 읽기 모드로 일원화했다.
+    // 읽기 모드 선택 → pendingSelection + 색 툴바. 마우스·터치·펜이 함께 쓴다.
+    function evaluateReadingSelection(below) {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+        hideHighlightToolbar();
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      const anchorEl =
+        range.commonAncestorContainer.nodeType === 1
+          ? range.commonAncestorContainer
+          : range.commonAncestorContainer.parentElement;
+      const section = anchorEl && anchorEl.closest("section.pdf-page-text");
+      if (!section) {
+        hideHighlightToolbar();
+        return;
+      }
+      // 선택이 페이지 경계를 넘으면 앵커가 한 페이지에 담기지 않는다.
+      const body = section.querySelector(".pdf-page-text-body");
+      const quoteText = range.toString().trim();
+      if (!body || !body.contains(range.startContainer) || !body.contains(range.endContainer) || !quoteText) {
+        hideHighlightToolbar();
+        return;
+      }
+      pendingSelection = {
+        container: body,
+        page: Number(section.dataset.page),
+        range: range.cloneRange(),
+        quoteText,
+      };
+      showHighlightToolbar(range.getBoundingClientRect(), below);
+    }
+
+    let lastPointerType = "mouse";
+    let lastToolbarTouchAt = 0;
+    document.addEventListener("pointerdown", (e) => { lastPointerType = e.pointerType || "mouse"; }, true);
+    if (highlightToolbar) {
+      highlightToolbar.addEventListener("pointerdown", () => { lastToolbarTouchAt = Date.now(); });
+      highlightToolbar.addEventListener("touchstart", () => { lastToolbarTouchAt = Date.now(); }, { passive: true });
+    }
+
     if (renderedPane) {
       renderedPane.addEventListener("mouseup", (e) => {
         const downPos = pdfMouseDownPos;
         pdfMouseDownPos = null;
         const dragDistance = downPos ? Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) : 0;
         setTimeout(() => {
-          const sel = window.getSelection();
-          if (!sel || sel.isCollapsed || sel.rangeCount === 0 || dragDistance < 4) {
-            hideHighlightToolbar();
-            return;
-          }
-          const range = sel.getRangeAt(0);
-          const anchorEl =
-            range.commonAncestorContainer.nodeType === 1
-              ? range.commonAncestorContainer
-              : range.commonAncestorContainer.parentElement;
-          const section = anchorEl && anchorEl.closest("section.pdf-page-text");
-          if (!section) {
-            hideHighlightToolbar();
-            return;
-          }
-          // 선택이 페이지 경계를 넘으면 앵커가 한 페이지에 담기지 않는다.
-          const body = section.querySelector(".pdf-page-text-body");
-          const quoteText = range.toString().trim();
-          if (!body || !body.contains(range.startContainer) || !body.contains(range.endContainer) || !quoteText) {
-            hideHighlightToolbar();
-            return;
-          }
-          pendingSelection = {
-            container: body,
-            page: Number(section.dataset.page),
-            range: range.cloneRange(),
-            quoteText,
-          };
-          showHighlightToolbar(range.getBoundingClientRect());
+          if (dragDistance < 4) { hideHighlightToolbar(); return; }
+          evaluateReadingSelection(false);
         }, 0);
       });
+      // 터치·펜: mouseup 이 오지 않거나 선택 핸들 조정 뒤에야 확정된다.
+      const touchEval = () => {
+        if (lastPointerType === "mouse") return;
+        setTimeout(() => evaluateReadingSelection(true), 0);
+      };
+      renderedPane.addEventListener("touchend", touchEval);
+      renderedPane.addEventListener("pointerup", (e) => {
+        if (e.pointerType && e.pointerType !== "mouse") touchEval();
+      });
     }
+
+    let selChangeTimer = null;
+    document.addEventListener("selectionchange", () => {
+      clearTimeout(selChangeTimer);
+      selChangeTimer = setTimeout(() => {
+        if (lastPointerType === "mouse") return; // 마우스는 mouseup 경로가 맡는다
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+          // 툴바를 누르는 순간 선택이 풀리는 기기가 있어 직후에는 닫지 않는다.
+          if (Date.now() - lastToolbarTouchAt > 800) hideHighlightToolbar();
+          return;
+        }
+        const node = sel.getRangeAt(0).commonAncestorContainer;
+        const el = node.nodeType === 1 ? node : node.parentElement;
+        if (el && el.closest && el.closest(".pdf-page-text-body")) evaluateReadingSelection(true);
+      }, 350);
+    });
+
+    // ----- 원본 보기 → 텍스트 보기 다리 -----
+    // 원본(canvas)에서 글을 드래그하면 "형광펜·메모 남기기" 버튼을 띄우고, 누르면
+    // 같은 쪽의 같은 글을 읽기 모드에서 찾아 선택한 뒤 색 툴바로 이어 준다.
+    const pdfViewerEl = document.getElementById("pdf-viewer");
+    let bridgeBtn = null;
+    let bridgeData = null;
+    function hideBridge() {
+      if (bridgeBtn) bridgeBtn.hidden = true;
+      bridgeData = null;
+    }
+    function ensureBridgeBtn() {
+      if (bridgeBtn) return bridgeBtn;
+      bridgeBtn = document.createElement("button");
+      bridgeBtn.type = "button";
+      bridgeBtn.id = "pdf-bridge-btn";
+      bridgeBtn.className = "pdf-bridge-btn";
+      bridgeBtn.textContent = "형광펜·메모 남기기";
+      bridgeBtn.hidden = true;
+      // 버튼을 누르는 순간 선택이 풀리지 않게 한다(마우스).
+      bridgeBtn.addEventListener("mousedown", (e) => e.preventDefault());
+      bridgeBtn.addEventListener("click", runBridge);
+      document.body.appendChild(bridgeBtn);
+      return bridgeBtn;
+    }
+
+    function evaluateOriginalSelection(below) {
+      if (!pdfOriginalVisible || !pdfViewerEl) { hideBridge(); return; }
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || sel.rangeCount === 0) { hideBridge(); return; }
+      const range = sel.getRangeAt(0);
+      const text = range.toString().replace(/\s+/g, " ").trim();
+      const node = range.commonAncestorContainer;
+      const el = node.nodeType === 1 ? node : node.parentElement;
+      if (text.length < 2 || !el || !pdfViewerEl.contains(el)) { hideBridge(); return; }
+      const wrap = (range.startContainer.nodeType === 1 ? range.startContainer : range.startContainer.parentElement)
+        .closest(".pdf-page-wrap");
+      const page = wrap ? Number(wrap.dataset.page) : 0;
+      if (!page) { hideBridge(); return; }
+      bridgeData = { text, page };
+      const btn = ensureBridgeBtn();
+      btn.hidden = false;
+      const rect = range.getBoundingClientRect();
+      const w = btn.offsetWidth;
+      const h = btn.offsetHeight;
+      let top = below ? rect.bottom + 14 : rect.top - h - 8;
+      if (top < 8) top = rect.bottom + 8;
+      top = Math.min(Math.max(8, top), window.innerHeight - h - 8);
+      const left = Math.min(Math.max(8, rect.left + rect.width / 2 - w / 2), window.innerWidth - w - 8);
+      btn.style.top = `${top}px`;
+      btn.style.left = `${left}px`;
+    }
+
+    function runBridge() {
+      const data = bridgeData;
+      hideBridge();
+      if (!data) return;
+      setPdfOriginalVisible(false);
+      const section = renderedPane && renderedPane.querySelector(`section.pdf-page-text[data-page="${data.page}"]`);
+      const body = section && section.querySelector(".pdf-page-text-body");
+      if (section) section.scrollIntoView({ block: "start" });
+      if (!body) {
+        showPdfNotice("텍스트 보기에서 다시 선택해 주세요");
+        return;
+      }
+      const { text, map } = buildTextNodeOffsetMap(body);
+      const hit = findSelectionInText(text, data.text);
+      const a = hit && resolvePosition(map, hit.start);
+      const b = hit && resolvePosition(map, hit.end);
+      if (!a || !b) {
+        showPdfNotice("텍스트 보기에서 다시 선택해 주세요");
+        return;
+      }
+      const r = document.createRange();
+      r.setStart(a.node, a.offset);
+      r.setEnd(b.node, b.offset);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+      const rect = r.getBoundingClientRect();
+      window.scrollBy({ top: rect.top - window.innerHeight / 3 });
+      evaluateReadingSelection(lastPointerType !== "mouse");
+    }
+
+    if (pdfViewerEl) {
+      pdfViewerEl.addEventListener("mouseup", (e) => {
+        if (e.button !== 0) return;
+        setTimeout(() => evaluateOriginalSelection(false), 0);
+      });
+      pdfViewerEl.addEventListener("touchend", () => {
+        setTimeout(() => evaluateOriginalSelection(true), 0);
+      });
+      pdfViewerEl.addEventListener("scroll", hideBridge, { passive: true });
+    }
+    window.addEventListener("scroll", () => { if (bridgeBtn && !bridgeBtn.hidden) hideBridge(); }, { passive: true });
+    document.addEventListener("mousedown", (e) => {
+      if (bridgeBtn && !bridgeBtn.hidden && e.target !== bridgeBtn) hideBridge();
+    });
+    document.addEventListener("selectionchange", () => {
+      if (!bridgeBtn || bridgeBtn.hidden) {
+        if (lastPointerType !== "mouse") {
+          clearTimeout(bridgeSelTimer);
+          bridgeSelTimer = setTimeout(() => {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+            const n = sel.getRangeAt(0).commonAncestorContainer;
+            const el = n.nodeType === 1 ? n : n.parentElement;
+            if (pdfOriginalVisible && el && pdfViewerEl && pdfViewerEl.contains(el)) evaluateOriginalSelection(true);
+          }, 350);
+        }
+        return;
+      }
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed) hideBridge();
+    });
+    let bridgeSelTimer = null;
 
     document.addEventListener("mousedown", (e) => {
       if (highlightToolbar && !highlightToolbar.hidden && !highlightToolbar.contains(e.target)) {
@@ -3116,6 +3328,7 @@ if (typeof document !== "undefined") {
       }
       // 검색 대상 DOM 이 바뀌므로 진행 중인 검색을 다시 건다.
       if (pdfSearchInput && pdfSearchInput.value.trim()) runPdfSearch(pdfSearchInput.value);
+      updateHlNotice();
     }
 
     if (pdfOriginalToggle) {
