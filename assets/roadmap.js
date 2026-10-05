@@ -231,7 +231,7 @@ content.addEventListener("change", async e => {
 
 async function showField(code){
   field = code;
-  LearnPicker.setSelected($("field-picker"), code);
+  LearnPicker.setSelected($("field-picker"), code, code && learnIndex[code] ? learnIndex[code].label + " " + learnIndex[code].core : "");
   if(!code){
     content.textContent = "";
     if(emptyState) emptyState.hidden = false;
@@ -256,7 +256,7 @@ async function showField(code){
   render();
   if(scrollAfter){
     scrollAfter = false;
-    content.scrollIntoView({ block: "start" });
+    $("field-picker").previousElementSibling.scrollIntoView({ block: "start" });
   }
 }
 
@@ -278,7 +278,7 @@ async function init(){
     popularFields: loaded.popularFields,
     groups: typeof CATEGORY_GROUPS !== "undefined" ? CATEGORY_GROUPS : [],
     selected: "",
-    onSelect: code => { scrollAfter = true; location.hash = code; }
+    onSelect: code => { scrollAfter = true; if(location.hash === "#" + code) applyHash(); else location.hash = code; }
   });
   window.addEventListener("hashchange", applyHash);
   applyHash();

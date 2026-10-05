@@ -62,10 +62,37 @@
     }
   }
 
-  function setSelected(container, selected) {
+  // 분야가 선택되면 칩 격자를 접고 "분야: 통계 150 · [분야 바꾸기]" 한 줄만 보여준다.
+  // label: 한 줄에 쓸 "통계 150". 선택이 없으면 격자를 펼친 채 둔다.
+  function setSelected(container, selected, label) {
     container.querySelectorAll(".field-chip").forEach((b) => {
       b.setAttribute("aria-pressed", b.dataset.code === selected ? "true" : "false");
     });
+    let bar = container._bar;
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.className = "lq-fieldbar";
+      const t = document.createElement("span");
+      t.className = "lq-fieldbar-text";
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "lq-fieldbar-btn";
+      btn.textContent = "분야 바꾸기";
+      btn.setAttribute("aria-expanded", "false");
+      btn.addEventListener("click", () => {
+        const open = container.hidden;
+        container.hidden = !open;
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      bar.appendChild(t);
+      bar.appendChild(btn);
+      container.parentNode.insertBefore(bar, container);
+      container._bar = bar;
+    }
+    bar.hidden = !selected;
+    bar.querySelector(".lq-fieldbar-text").textContent = "분야: " + (label || selected);
+    bar.querySelector("button").setAttribute("aria-expanded", "false");
+    container.hidden = !!selected;
   }
 
   root.LearnPicker = { loadIndex, render, setSelected, fetchJson };

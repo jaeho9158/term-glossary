@@ -196,11 +196,11 @@ function setPressed(container, attr, value){
 function applyHash(){
     if(customSlugs) return;
     field = LearnCore.parseFieldHash(location.hash, learnIndex || {}, ["all"]);
-    LearnPicker.setSelected($("field-picker"), field);
+    LearnPicker.setSelected($("field-picker"), field, field === "all" ? "전체 " + totalCore() : field && learnIndex[field] ? learnIndex[field].label + " " + learnIndex[field].core : "");
     $("lq-mode-step").hidden = !field;
     if(field && scrollAfter){
         scrollAfter = false;
-        $("lq-mode-step").scrollIntoView({ block: "start" });
+        $("field-picker").previousElementSibling.scrollIntoView({ block: "start" });
     }
     showStartError("");
     updateRetryEntry();
@@ -247,7 +247,7 @@ async function init(){
         groups: typeof CATEGORY_GROUPS !== "undefined" ? CATEGORY_GROUPS : [],
         selected: "",
         allCount: totalCore(),
-        onSelect: code => { scrollAfter = true; location.hash = code; }
+        onSelect: code => { scrollAfter = true; if(location.hash === "#" + code) applyHash(); else location.hash = code; }
     });
 
     window.addEventListener("hashchange", applyHash);
