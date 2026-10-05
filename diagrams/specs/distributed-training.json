@@ -1,0 +1,70 @@
+{
+  "slug": "distributed-training",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "분산 학습",
+      "color": "blue",
+      "sub": "여러 장치로 동시 학습"
+    },
+    {
+      "id": "d",
+      "label": "데이터 병렬화",
+      "color": "violet",
+      "sub": "같은 모델·다른 데이터"
+    },
+    {
+      "id": "m",
+      "label": "모델 병렬화",
+      "color": "violet",
+      "sub": "모델을 쪼개 나눠 담음"
+    },
+    {
+      "id": "p",
+      "label": "파이프라인 병렬화",
+      "color": "violet",
+      "sub": "층 단위로 분할"
+    },
+    {
+      "id": "t",
+      "label": "텐서 병렬화",
+      "color": "violet",
+      "sub": "텐서 단위로 분할"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "m",
+      "kind": "arrow"
+    },
+    {
+      "from": "m",
+      "to": "p",
+      "kind": "arrow"
+    },
+    {
+      "from": "m",
+      "to": "t",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "여러 병렬화를 함께 결합해 쓰기도 함(3차원 병렬화)",
+      "tone": "general"
+    },
+    {
+      "text": "장치 간 통신 오버헤드 때문에 GPU 수만큼 선형으로 빨라지지는 않음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

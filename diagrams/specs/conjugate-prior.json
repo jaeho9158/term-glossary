@@ -1,0 +1,55 @@
+{
+  "slug": "conjugate-prior",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "베타 사전분포",
+      "color": "blue",
+      "sub": "Beta(α, β)"
+    },
+    {
+      "id": "b",
+      "label": "이항 자료 결합",
+      "color": "amber",
+      "sub": "n회 중 성공 k회"
+    },
+    {
+      "id": "c",
+      "label": "모수 가감 갱신",
+      "color": "violet",
+      "sub": "α+k, β+n−k"
+    },
+    {
+      "id": "d",
+      "label": "베타 사후분포",
+      "color": "green",
+      "sub": "같은 분포족·닫힌 형태"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "켤레 관계가 없는 복잡한 모형은 MCMC 등 근사가 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

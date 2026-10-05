@@ -1,0 +1,70 @@
+{
+  "slug": "count-min-sketch",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "원소 도착",
+      "color": "gray",
+      "sub": "스트림에서 한 건"
+    },
+    {
+      "id": "b",
+      "label": "해시 d개 계산",
+      "color": "violet",
+      "sub": "행마다 다른 해시함수"
+    },
+    {
+      "id": "c",
+      "label": "카운터 증가",
+      "color": "blue",
+      "sub": "각 행의 해당 칸"
+    },
+    {
+      "id": "d",
+      "label": "조회: d칸 읽기",
+      "color": "violet",
+      "sub": "같은 해시 위치"
+    },
+    {
+      "id": "e",
+      "label": "최솟값 반환",
+      "color": "green",
+      "sub": "빈도 추정치"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "폭 w·깊이 d의 2차원 카운터 배열 사용",
+      "tone": "general"
+    },
+    {
+      "text": "해시 충돌로 과대추정만 생김: 드문 항목은 상대 오차가 클 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

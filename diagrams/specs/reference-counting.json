@@ -1,0 +1,82 @@
+{
+  "slug": "reference-counting",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "참조 생성",
+      "color": "blue",
+      "sub": "카운트 +1"
+    },
+    {
+      "id": "n1",
+      "label": "참조 해제",
+      "color": "amber",
+      "sub": "카운트 −1"
+    },
+    {
+      "id": "n2",
+      "label": "카운트 0",
+      "color": "violet",
+      "sub": "아무도 안 씀"
+    },
+    {
+      "id": "n3",
+      "label": "즉시 회수",
+      "color": "green",
+      "sub": "메모리 반환"
+    },
+    {
+      "id": "n4",
+      "label": "0이 되지 않음",
+      "color": "rose",
+      "sub": "서로를 계속 참조"
+    },
+    {
+      "id": "n5",
+      "label": "메모리 누수",
+      "color": "rose",
+      "sub": "회수되지 못함"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "순환 참조"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "전체를 멈추고 훑지 않아 회수 시점이 예측 가능하다",
+      "tone": "pos"
+    },
+    {
+      "text": "순환 참조는 약한 참조나 순환 탐지기로 보완한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

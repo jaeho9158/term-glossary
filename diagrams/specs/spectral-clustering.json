@@ -1,0 +1,70 @@
+{
+  "slug": "spectral-clustering",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "유사도 행렬",
+      "color": "gray",
+      "sub": "가우시안 커널 등"
+    },
+    {
+      "id": "n1",
+      "label": "그래프 라플라시안",
+      "color": "blue",
+      "sub": "차수 행렬 − 유사도 행렬"
+    },
+    {
+      "id": "n2",
+      "label": "고유벡터 선택",
+      "color": "violet",
+      "sub": "가장 작은 고유값들"
+    },
+    {
+      "id": "n3",
+      "label": "저차원 임베딩",
+      "color": "violet",
+      "sub": "고유벡터를 좌표로"
+    },
+    {
+      "id": "n4",
+      "label": "k-평균 군집화",
+      "color": "green",
+      "sub": "새 좌표에서 적용"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "고유벡터 좌표에서는 얽혀 있던 덩어리가 단순한 모양으로 펼쳐져 비볼록 군집도 나뉨",
+      "tone": "pos"
+    },
+    {
+      "text": "커널 폭 설정에 민감하고, 표본이 매우 크면 고유분해 비용 때문에 근사 기법 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

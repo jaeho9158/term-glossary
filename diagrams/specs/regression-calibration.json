@@ -1,0 +1,59 @@
+{
+  "slug": "regression-calibration",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "검증 하위표본",
+      "color": "gray",
+      "sub": "기준 측정 X·오차 측정 W"
+    },
+    {
+      "id": "n1",
+      "label": "보정식 작성",
+      "color": "violet",
+      "sub": "X를 W·공변량 Z에 회귀"
+    },
+    {
+      "id": "n2",
+      "label": "주 연구 W 대체",
+      "color": "amber",
+      "sub": "E[X|W,Z] 예측값으로"
+    },
+    {
+      "id": "n3",
+      "label": "회귀 재적합",
+      "color": "green",
+      "sub": "희석편향 교정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "비선형 모형은 근사, 차별적 오차는 교정 안 될 수 있음",
+      "tone": "limit"
+    },
+    {
+      "text": "표준오차는 붓스트랩 등으로 보정",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

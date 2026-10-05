@@ -1,0 +1,75 @@
+{
+  "slug": "adam-optimizer",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "g",
+      "label": "기울기 계산",
+      "color": "blue",
+      "sub": "현재 위치의 경사"
+    },
+    {
+      "id": "m",
+      "label": "1차 모멘트",
+      "color": "violet",
+      "sub": "관성·감쇠율 β1"
+    },
+    {
+      "id": "v",
+      "label": "2차 모멘트",
+      "color": "violet",
+      "sub": "변화 크기·감쇠율 β2"
+    },
+    {
+      "id": "c",
+      "label": "편향 보정",
+      "color": "amber",
+      "sub": "초반 0 근처 치우침"
+    },
+    {
+      "id": "u",
+      "label": "파라미터 갱신",
+      "color": "green",
+      "sub": "파라미터별 보폭"
+    }
+  ],
+  "edges": [
+    {
+      "from": "g",
+      "to": "m",
+      "kind": "arrow"
+    },
+    {
+      "from": "g",
+      "to": "v",
+      "kind": "arrow"
+    },
+    {
+      "from": "m",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "v",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "u",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "ε: 분모가 0에 가까워지는 것을 막는 작은 상수",
+      "tone": "general"
+    },
+    {
+      "text": "빠르고 안정적인 기본값이지 항상 최고 성능은 아님",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

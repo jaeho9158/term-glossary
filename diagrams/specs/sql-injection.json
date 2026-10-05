@@ -1,0 +1,70 @@
+{
+  "slug": "sql-injection",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "p",
+      "label": "매개변수화 쿼리",
+      "color": "green",
+      "sub": "입력과 명령 분리"
+    },
+    {
+      "id": "n0",
+      "label": "악성 입력",
+      "color": "amber",
+      "sub": "SQL 코드를 심음"
+    },
+    {
+      "id": "n1",
+      "label": "쿼리에 직접 결합",
+      "color": "blue",
+      "sub": "검증 없이 이어 붙임"
+    },
+    {
+      "id": "n2",
+      "label": "명령으로 실행",
+      "color": "rose",
+      "sub": "데이터가 SQL로 해석"
+    },
+    {
+      "id": "n3",
+      "label": "인증 우회·유출",
+      "color": "rose",
+      "sub": "조회·조작·삭제"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "p",
+      "to": "n1",
+      "kind": "blocked"
+    }
+  ],
+  "notes": [
+    {
+      "text": "길이 제한·특수문자 일부 필터링만으로는 못 막음; 암호화도 인젝션 자체는 막지 못함",
+      "tone": "limit"
+    },
+    {
+      "text": "최소 권한 원칙과 웹 방화벽(WAF)을 함께 적용",
+      "tone": "pos"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

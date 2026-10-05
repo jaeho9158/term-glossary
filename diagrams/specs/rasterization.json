@@ -1,0 +1,55 @@
+{
+  "slug": "rasterization",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "정점 변환",
+      "color": "blue",
+      "sub": "3차원 → 화면 투영"
+    },
+    {
+      "id": "n1",
+      "label": "스캔 변환",
+      "color": "violet",
+      "sub": "삼각형을 픽셀로 채움"
+    },
+    {
+      "id": "n2",
+      "label": "깊이 테스트",
+      "color": "violet",
+      "sub": "가려진 면 제거"
+    },
+    {
+      "id": "n3",
+      "label": "셰이딩",
+      "color": "green",
+      "sub": "색·조명 계산"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "반사·그림자 등 물체 간 빛 상호작용은 직접 계산하지 않음 → 레이 트레이싱·근사 기법 추가",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

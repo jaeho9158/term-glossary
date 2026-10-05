@@ -1,0 +1,58 @@
+{
+  "slug": "dissolution-similarity-factor",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "시점별 용출률 차이",
+      "color": "blue",
+      "sub": "두 제제 비교"
+    },
+    {
+      "id": "b",
+      "label": "차이 제곱 평균",
+      "color": "violet"
+    },
+    {
+      "id": "c",
+      "label": "로그 변환",
+      "color": "violet",
+      "sub": "0~100 값 (f2)"
+    },
+    {
+      "id": "d",
+      "label": "유사성 판정",
+      "color": "green",
+      "sub": "50 이상이면 유사"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "완전히 겹치면 100, 모든 시점 차이가 10%p면 약 50 — 차이가 커질수록 비선형으로 급락",
+      "tone": "general"
+    },
+    {
+      "text": "통계적 동일성의 증명이 아닌 관례적 판정선이며 시점 선택에 따라 값이 달라짐",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

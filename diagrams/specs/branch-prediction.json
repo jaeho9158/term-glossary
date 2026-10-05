@@ -1,0 +1,83 @@
+{
+  "slug": "branch-prediction",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "조건 분기",
+      "color": "gray",
+      "sub": "결과는 뒤늦게 확정"
+    },
+    {
+      "id": "n1",
+      "label": "방향 예측",
+      "color": "violet",
+      "sub": "과거 분기 이력"
+    },
+    {
+      "id": "n2",
+      "label": "투기 실행",
+      "color": "blue",
+      "sub": "예측 경로 미리 실행"
+    },
+    {
+      "id": "n3",
+      "label": "그대로 진행",
+      "color": "green",
+      "sub": "시간 절약"
+    },
+    {
+      "id": "n4",
+      "label": "결과 폐기",
+      "color": "rose",
+      "sub": "투기 실행분 취소"
+    },
+    {
+      "id": "n5",
+      "label": "파이프라인 재시작",
+      "color": "rose",
+      "sub": "올바른 경로로 다시"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "적중"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "실패"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "예측이 틀려도 프로그램 결과는 올바르고 성능만 손해",
+      "tone": "general"
+    },
+    {
+      "text": "실패 대가는 파이프라인이 깊을수록 커지고, 폐기된 작업의 캐시 흔적은 스펙터 부채널의 통로",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

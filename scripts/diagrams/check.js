@@ -13,6 +13,8 @@ for (const f of process.argv.slice(2)) {
   try { spec = JSON.parse(fs.readFileSync(f, "utf8")); } catch (e) { console.log(`✗ ${f}: JSON 오류 ${e.message}`); bad++; continue; }
   const errs = validateSpec(spec, known);
   if (path.basename(f, ".json") !== spec.slug) errs.push("파일명과 slug 불일치");
+  // linear 렌더러는 간선을 자동으로 만들지 않는다 — edges가 비면 화살표 없는 그림이 된다
+  if ((spec.type === "chain" || spec.type === "procedure") && (spec.nodes || []).length > 1 && !(spec.edges || []).length) errs.push("edges 비어 있음(화살표 없음)");
   if (errs.length) { console.log(`✗ ${f}: ${errs.join("; ")}`); bad++; continue; }
   const w = renderFigure(spec, spec.slug).warnings;
   if (w.length) { console.log(`! ${f}: ${w.join("; ")}`); bad++; }

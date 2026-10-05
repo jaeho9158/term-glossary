@@ -1,0 +1,71 @@
+{
+  "slug": "reviewer-impersonation",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "추천 심사자 입력",
+      "color": "amber",
+      "sub": "저자가 직접 기입"
+    },
+    {
+      "id": "n1",
+      "label": "실존 이름 도용",
+      "color": "rose",
+      "sub": "저자가 통제하는 이메일"
+    },
+    {
+      "id": "n2",
+      "label": "신원 확인",
+      "color": "green",
+      "sub": "기관 이메일·ORCID 대조"
+    },
+    {
+      "id": "n3",
+      "label": "심사 요청이 저자에게",
+      "color": "rose",
+      "sub": "편집 시스템 발송"
+    },
+    {
+      "id": "n4",
+      "label": "자기 논문 자기 심사",
+      "color": "rose",
+      "sub": "동료심사 무력화"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "blocked",
+      "label": "확인 시 차단"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "개인 이메일 서비스 주소는 사칭 위험 신호 — 도용당한 연구자는 심사 사실을 모르는 경우가 많음",
+      "tone": "general"
+    },
+    {
+      "text": "수법이 정교해져 완전한 차단은 어렵다는 평가",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

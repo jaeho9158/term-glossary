@@ -66,7 +66,7 @@ body{margin:0;padding:12px;background:var(--bg);font-family:'Pretendard','Noto S
 .wrap{width:${width}px;box-sizing:border-box}.concept-diagram{margin:0}${narrowCss}</style></head><body><div class="wrap">${figureHtml}</div></body></html>`;
 }
 
-function run() {
+async function run() {
   const titles = loadTitles();
   const known = dirArg ? null : new Set(titles.keys());
   const rows = [];
@@ -123,15 +123,29 @@ h2{font-size:16px;margin:0 0 8px} small{color:#888;font-weight:400}
     if (!chrome) console.warn("Chrome을 찾지 못해 PNG를 건너뜁니다(CHROME_PATH로 지정 가능).");
     else {
       fs.mkdirSync(OUT_PNG, { recursive: true });
-      const tmp = path.join(OUT_PNG, "_page.html");
+      // Chrome은 프로필 하나에 한 프로세스만 돌므로, 일꾼마다 프로필·임시 페이지를 따로 줘서 병렬로 찍는다.
+      const jobs = [];
       for (const r of rows.filter((x) => x.html)) {
-        for (const [tag, w, theme, narrow] of [["desktop", 796, "light", false], ["mobile", 376, "light", true], ["dark", 796, "dark", false]]) {
+        for (const [tag, w, theme, narrow] of [["desktop", 796, "light", false], ["mobile", 376, "light", true], ["dark", 796, "dark", false]]) jobs.push({ r, tag, w, theme, narrow });
+      }
+      const workers = Math.max(1, Number(process.env.PNG_WORKERS) || 6);
+      const profileBase = fs.mkdtempSync(path.join(require("os").tmpdir(), "dg-png-"));
+      const shoot = (args2) => new Promise((resolve) => require("child_process").execFile(chrome, args2, { stdio: "ignore", timeout: 90000 }, () => resolve()));
+      let next = 0;
+      await Promise.all(Array.from({ length: workers }, async (_, k) => {
+        const tmp = path.join(OUT_PNG, `_page-${k}.html`);
+        const profile = path.join(profileBase, String(k));
+        while (next < jobs.length) {
+          const { r, tag, w, theme, narrow } = jobs[next++];
           fs.writeFileSync(tmp, pngPage(r.html, theme, w, narrow), "utf8");
           const out = path.join(OUT_PNG, `${r.slug}.${tag}.png`);
-          execFileSync(chrome, ["--headless=new", "--disable-gpu", "--hide-scrollbars", `--window-size=${w + 24},${narrow ? 1100 : 640}`, `--screenshot=${out}`, `file:///${tmp.replace(/\\/g, "/")}`], { stdio: "ignore" });
+          // 중단된 렌더를 이어 갈 때: PNG_RESUME=1이면 이미 찍힌 것은 건너뛴다.
+          if (process.env.PNG_RESUME && fs.existsSync(out) && fs.statSync(out).size > 0) continue;
+          await shoot(["--headless=new", "--disable-gpu", "--hide-scrollbars", `--user-data-dir=${profile}`, `--window-size=${w + 24},${narrow ? 1100 : 640}`, `--screenshot=${out}`, `file:///${tmp.replace(/\\/g, "/")}`]);
         }
-      }
-      fs.rmSync(tmp, { force: true });
+        fs.rmSync(tmp, { force: true });
+      }));
+      fs.rmSync(profileBase, { recursive: true, force: true });
     }
   }
 
@@ -145,4 +159,4 @@ h2{font-size:16px;margin:0 0 8px} small{color:#888;font-weight:400}
   if (errors || (args.has("--strict") && warned)) process.exitCode = 1;
 }
 
-run();
+run().catch((e) => { console.error(e); process.exitCode = 1; });

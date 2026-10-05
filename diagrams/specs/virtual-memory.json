@@ -1,0 +1,78 @@
+{
+  "slug": "virtual-memory",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "가상 주소",
+      "color": "blue",
+      "sub": "프로세스가 쓰는 주소"
+    },
+    {
+      "id": "n1",
+      "label": "TLB",
+      "color": "violet",
+      "sub": "변환을 빠르게 하는 캐시"
+    },
+    {
+      "id": "n2",
+      "label": "페이지 테이블",
+      "color": "violet",
+      "sub": "가상→물리 변환"
+    },
+    {
+      "id": "n3",
+      "label": "페이지 폴트",
+      "color": "rose",
+      "sub": "디스크에서 불러옴"
+    },
+    {
+      "id": "n4",
+      "label": "물리 주소",
+      "color": "green",
+      "sub": "물리 메모리(RAM)"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "TLB에 없음"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "메모리에 없음"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "메모리에 있음"
+    }
+  ],
+  "notes": [
+    {
+      "text": "TLB에 변환 정보가 있으면 페이지 테이블을 거치지 않고 바로 물리 주소를 얻는다",
+      "tone": "general"
+    },
+    {
+      "text": "디스크와의 이동(스와핑)이 지나치게 잦으면 스래싱으로 성능 저하",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,664 @@
+- grounded-theory: 본문에 '카밴'(Charmaz 오기, 차마즈가 맞음) — 검수 b2/04
+- ultracentrifugation (deep): 속도구배법을 '밀도에 따라 층층이'로 설명 — 실제로는 크기·모양(침강계수) 기준, 밀도 기준은 등밀도법. 그룹도 stats로 잘못 분류 — 검수 b2/07
+- turnover-intention (easy): 이직의도를 '그만둘 생각'과 동일시 — Mobley 모형에선 별개 단계 — 검수 b2/07
+- chi-square-goodness-of-fit-test (usage): 'p < .001' 이후 잘림 — '<'가 HTML로 제거된 듯(다른 페이지에도 같은 버그 가능) — 검수 b2/09
+- boyles-charles-law (easy): 타이어 예시는 샤를이 아니라 게이뤼삭 법칙(P∝T); usage의 고도 설명도 의문 — 검수 b2/09
+- electrostatic-induction (caution): '도체와 부도체에서' → '도체에서'(다음 문장과 모순) — 검수 b2/12
+- dunn-test (deep): '순위 중앙값 차이' → 평균순위 차이 — 검수 b2/12
+- northern-blot (usage): 'DNA 염기서열분석' → RNA-seq; 그룹 stats 오분류 — 검수 b2/15
+- load-cell-testing-equipment (deep): 브리지가 '증폭된 신호'를 낸다는 서술 오류(브리지는 mV/V, 증폭은 별도); 그룹 stats 오분류 — 검수 b2/13
+- 참고: 실험기법(초원심분리·노던블롯·로드셀)이 group=stats로 분류된 사례 다수
+- main-effect (caution): '학습 방법의 교호작용효과가 유의' → 주효과/교호작용 혼동, '교호작용이 유의하므로 합쳐 계산한 주효과가 오해 소지'로 — 검수 b2/18
+- three-chamber-social-test (deep): 1단계에서 '가운데 방만 탐색'과 '좌우 선호 확인'이 모순 — 표준은 빈 세 방 모두 탐색 — 검수 b2/19
+- hopelessness-theory-of-depression (definition): 'internal' 원인은 Abramson 1989의 필수 차원 아님; 무망감은 '무망감 우울' 아형에 대한 충분원인 — 검수 b2/17
+- self-perception-theory (caution): 오타 '인지부조화과'→'인지부조화와' — 검수 b2/22
+- partition-function (deep): F=−kT ln Z가 정준 앙상블 한정임을 명시 안 함 — 검수 b2/22
+- cauchy-distribution (usage/deep): 회귀계수 사전분포는 반코시가 아닌 Cauchy(0,2.5); 반코시는 척도(표준편차) 모수용 — 검수 b2/20
+- list-experiment (caution): '기존 항목 무작위응답기법' 문구 깨짐 — 검수 b2/20
+- file-drawer-problem (usage): fail-safe N 설명 오류(실제 존재 추정 아님, 결과를 뒤집는 데 필요한 수) — 검수 b2/23
+- exemplar-theory (deep): 학습 초기 사례·후기 원형이라는 서술이 Smith & Minda(1998)와 반대 — 검수 b2/23
+- potentiometric-titration (usage 2): 템플릿 문장 '…은(는) 측정·도구 분야의 여러 선행연구에서…' 그대로 노출 — 검수 b2/24 (다른 페이지도 '은(는)' 잔여 검색 권장)
+- '기존 항목 ~' 잔여 문구: list-experiment, diagnostic-accuracy-study caution — 생성 템플릿 찌꺼기로 보임, 전수 검색 권장
+- terror-management-theory: Many Labs 4(2022) 재현 실패 미언급, '실증 이론'으로 단정 — 검수 b2/26
+- magnetic-resonance-imaging: '수소 원자' → 수소 원자핵(양성자) — 검수 b2/26
+- standard-error-of-measurement (usage): 변화 유의 기준은 1.96×√2×SEM(RCI); easy의 ±1 SEM이 약 68%임을 명시 안 함 — 검수 b2/25
+- forgetting-curve (caution): '작업기억에서 스키마 이론과 얼마나 잘 연결되었는지' — 자동 링크 삽입 찌꺼기로 보이는 비문 — 검수 b2/28 (같은 패턴 전수 검색 권장)
+- time-projection-chamber (deep/caution): 순도는 확산이 아니라 전자 부착(신호 손실) 문제; 자기장은 보통 E와 평행해 횡확산 억제 — 검수 b2/27
+- information-power (easy): 사례 간 비교를 많이 할수록 정보력↑ — Malterud와 반대 — 검수 b2/32
+- gist-memory (deep): '오배치 정보' → '오정보'?, 중복 서술 — 검수 b2/32
+- non-probability-sampling (deep): 할당표집 '임의로' → 비무작위 — 검수 b2/30
+- debye-length (deep): 지수 감쇠는 디바이 길이 '안에서'가 아니라 그 이상에서; why 첫·끝 문장 중복 — 검수 b2/36
+- statistical-conclusion-validity (caution): 오타 '유의확률가'→'유의확률이' — 검수 b2/36
+- freeze-dryer (deep): '2차 건조(2차 건조)' 반복 — 검수 b2/34
+- dynamic-light-scattering (caution): 마지막 문장 비약 — 검수 b2/33
+- kjeldahl-method (caution): 표준 킬달법은 질산염 질소 미회수 — '질산염' 오류 — 검수 b2/39
+- shape-memory-alloy (easy/caution): 마르텐사이트 변형은 미끄럼이 아닌 쌍정 재배열; 무확산 변태는 상평형그림 위 아님 — 검수 b2/39
+- type-1-type-2-error-tradeoff (definition): '반비례'→ 상충(trade-off) — 검수 b2/39
+- quechers-method (easy): '윗층'→'위층' — 검수 b2/47
+- renormalization (usage/deep): '차원 재규격화'→'차원 정규화'(정규화와 재규격화 혼동) — 검수 b2/51
+- pressure-pascals-principle (usage): 압력 필름은 파스칼 원리 응용 아님; deep의 비압축성 필수 조건 과장 — 검수 b2/51
+- robins-i-tool (deep): 최고 등급 이름 '매우 심각'/'치명적' 혼용 — 검수 b2/52
+- zone-of-proximal-development (caution): '적절한 스키마 이론 형성' — 자동 링크 삽입 비문 — 검수 b2/52
+- repertory-grid-technique (caution): '기존 항목' 잔여; deep 중복 — 검수 b2/53
+- grade-evidence-framework: 한 요인이 1~2단계 하향 가능('한 단계씩' 부정확) — 검수 b2/54
+- selective-attention (deep): 약화이론을 '모두 처리 후 의미로 약화'로 서술 — Treisman은 초기 물리적 약화(후기선택론과 혼동) — 검수 b2/46
+- lenzs-law (easy): 유도전류가 자속 변화를 '상쇄' → '반대'(억제) — 검수 b2/46
+- transitive-inference (deep): 4항목 B-D 검사는 끝 항목 문제로 자기모순 — 검수 b2/46
+- grade-approach (easy): 근거 수준 '매우 높음·높음·중간·낮음' → '높음·중간·낮음·매우 낮음' — 검수 b2/48
+- garden-path-sentence (easy): 한국어 예문이 중의성 없음(번역 과정에서 소실) — 검수 b2/48
+- procedural-declarative-memory (caution): '절차기억은 외현기억과 암묵기억과…' 비문 — 검수 b2/50
+- phenol-chloroform-extraction: group=stats 오분류 — 검수 b2/55
+- taste-aversion-learning: Koelling 표기 '쾨링'/'코엘링' 혼용 — 검수 b2/57
+- target-trial-emulation (caution): '기존 항목 자연실험' 잔여 — 검수 b2/56
+- rescue-experiment (why): 구제실험이 '충분조건에 가깝게' 보여 준다는 서술 오류(충분성은 기능획득 실험) — 검수 b2/59
+- fight-or-flight-response (deep): fawn='굴복' 번역 부정확, 확립된 생리 반응 아님 — 검수 b2/59
+- marginal-structural-model: '주변구조모형'/'한계구조모형' 혼용, deep·caution 끝 문장 중복 — 검수 b2/60
+- sensory-memory (def): '1초 안팎'을 일반 지속시간으로 제시(청각 잔향기억은 2~4초) — 검수 b2/60
+- holm-bonferroni-method (deep): 남은 가설 '자동으로 채택' — '기각하지 않음'이 정확 — 검수 b2/60
+- framework-method: 5단계 중복 서술, caution '기존 항목 주제분석' 잔여, usage 따옴표 누락 — 검수 b2/61
+- hedonic-adaptation (usage): 복권·사고 5년 추적 — Brickman(1978)은 횡단연구 — 검수 b2/61
+- unlearning: '비학습(탈학습)'/'탈학습' 혼용, deep에 새 학습 서술 섞임 — 검수 b2/62
+- trizol-reagent: DNA는 중간층에만 있다는 단순화; group=stats 오분류 — 검수 b2/62
+- in-situ-hybridization: group=stats 오분류 — 검수 b2/63
+- group-sequential-design (easy): 문장 잘림('매번 p') — 검수 b2/63
+- autobiographical-memory (usage): 예문 따옴표 누락·문체 혼용 — 검수 b2/63
+- error-correction-model (deep): Engle-Granger/Johansen 절차 중복 — 검수 b2/63
+- standard-setting (usage): '컨투어링 방법' 오역(대조집단 방법), 분류 주체 오기; (easy) Angoff 절단점은 문항별 평균 확률의 합 — 검수 b2/65
+- consistency-of-estimator (deep): '불편성과 분산의 소멸' — 편향→0과 분산→0이 정확 — 검수 b2/65
+- parallel-key: 나란한조 용어를 같은으뜸음조 의미로도 혼용 — 작성 b4/127
+- types-of-radioactive-decay: def '모든 붕괴가 다른 원자핵으로' (감마는 아님), easy β+·전자포획 누락, caution 핵분열은 항상 인공(자발 핵분열 존재) — 검수 b2/67
+- lenses-and-mirrors (caution): 실상 조건은 단일 소자 기준 — 경미 — 검수 b2/67
+- boltzmann-distribution (easy): 운동장 비유가 봉우리형(맥스웰 속력분포) 설명 — 본문 요지(낮은 에너지일수록 많음)와 모순 — 검수 b2/66
+- randomized-response-technique: easy는 강제응답법, deep은 Warner 모형이라 칭함 — 검수 b2/66
+- adam-optimizer (deep): 2차 모멘트를 '분산'이라 서술 — 기울기 제곱의 비중심 평균이 정확 — 작성 b5/11
+- appreciative-inquiry (deep): 효과 검증 문장 중복, 합니다/이다 문체 혼용 — 작성 b5/11
+- tooth-avulsion (deep): '하고(Hank's) 용액' 표기 깨짐(행크 용액/HBSS) — 작성 b5/10
+- rough-cut-capacity-planning, stewardship-theory: deep·caution 문장 중복; stewardship usage가 서지 인용으로 시작 — 작성 b5/09
+- sales-and-operations-planning (usage): '5단계'라면서 4단계만 나열, 단계명·제목 표기 혼용 — 작성 b5/19
+- intergenerational-transmission-of-attachment (deep): 반영기능을 '조절'로 서술(문헌상 매개) — 작성 b5/19
+- theory-of-didactical-situations (deep): 형식화/정식화 등 단계명 혼용 — 작성 b5/19
+- polyarchy (easy): '선출되지 않은 권력으로부터의 자율성'을 Dahl 조건으로 귀속(Schmitter & Karl 추가분) — 작성 b5/19
+- immortal-time-bias (usage): 코호트 진입을 처방일로 잡으면 편향이 생긴다는 예문 부정확; deep의 new-user design 설명 느슨 — 작성 b5/18
+- balanced-binary-search-tree (deep): 스플레이 트리를 균형 트리로 나열(높이 보장 없음) — 작성 b5/18
+- closing-entries (usage): 임시계정도 집합손익을 거치지 않는 것처럼 읽히는 문장 — 작성 b5/18
+- group-function-occlusion (easy): '여러 어금니' — 견치 포함 작업측 치아가 정확 — 작성 b5/02
+- crown-fracture: 복합파절/복잡파절 혼용 — 작성 b5/14
+- creative-problem-solving-model: 파네스/판스 혼용, 3부 구조를 Osborn-Parnes로 귀속(Treffinger 등) — 작성 b5/14
+- coronal-leakage (deep): 일정 관리 문장 3회 중복 — 작성 b5/14
+- centric-occlusion (def): 최대교두감합위와 동일시(deep은 구분) — 작성 b5/13
+- revised-bloom-taxonomy (def): 평가·종합 순서 교체 누락 — 작성 b5/06
+- capacity-requirements-planning: deep·caution 중복 단락 — 작성 b5/06
+- occlusal-trauma: 외상성교합/교합성외상 혼용, 제목-정의 불일치 — 작성 b5/08
+- highscope-curriculum: Plan-Do-Review를 '계획-실행-평가'로 번역(회상이 일반적) — 작성 b5/07
+- golden-chain-of-salvation: 롬 8:29-30 요약에서 '미리 아심' 누락 — 작성 b5/07
+- dropout (deep): inverted dropout이 추론 때 출력을 나눈다고 서술 — 실제는 학습 때 1/(1−p)로 키우고 추론은 그대로 — 작성 b5/15
+- comprehensive-income: '매도가능금융자산 평가손익' — IAS 39 용어(IFRS 9로 대체) — 작성 b5/03
+- cognitive-apprenticeship: 반성/성찰 혼용, 단계 목록이 절마다 다름 — 작성 b5/03
+- iconographic-analysis (usage): 본문에 slug 노출 — 작성 b5/04
+- defamiliarization (usage): '(으)로 …을/를' 템플릿 잔여, 시클로프스키/슈클로프스키 혼용 — 작성 b5/03
+- a-not-b-error (usage): 자세 변경 예문·해설이 그대로 두 번 반복되고 첫 예문에 따옴표가 이중("")으로 들어감, 문체(-합니다/-다) 혼용 — 작성 b5/23
+- self-regulated-learning (deep): '반영된다.자기조절학습은' 띄어쓰기 누락, 한 문단 안에서 -다/-합니다 문체 혼용 — 작성 b5/23
+- child-protective-services (deep): 끝의 '투명한 절차 공개가 신뢰를 높인다.'가 맥락 없이 붙은 문장, 문체 혼용 — 작성 b5/23
+- council-of-constantinople (definition/deep): 정의는 '4세기와 7세기'라 하나 본문은 553년(6세기) 회의도 포함; 기독론 논의가 '칼케돈에서 시작'됐다는 서술은 부정확(에페소스 431 등 선행) — 작성 b5/23
+- neoclassical-realism (why): '로버트 게이트 등이 발전시킨 이론'은 오류로 보임 — 용어는 기디언 로즈(Gideon Rose, 1998)가 명명. deep의 '립스먼, 리플리, 슈웰러'도 '립스먼·탈리아페로·로벨'(및 슈웰러)의 오기로 보임 — 작성 b5/27
+- practical-theology-methodology (deep): '리처드 오슬랜더(Osmer)'는 인명 오기(리처드 오스머). 같은 단락에 네 과제 설명이 '기술적-경험적'/'서술적-경험적'으로 표기만 달리해 중복 — 작성 b5/27
+- hash-table (caution): '최악의 경우 시간복잡도와 빅오 표기법가 크게 느려질 수 있습니다' — 링크 텍스트가 끼어든 비문(조사 오류 포함) — 작성 b5/27
+- ray-tracing (easy): '화면의 각 픽셀에서 눈(카메라)을 향해 광선을 쏘아'는 방향이 거꾸로(정의는 카메라에서 각 픽셀을 향해). caution의 '화면에 미리 정해둔 정점과 면을 화면에 투영'도 '화면' 중복 비문 — 작성 b5/27
+- organizational-justice (deep): '절차공정성이 이 조직공정성이라는 상위 개념을 구성하는 세 차원 중 하나로…'는 다른 페이지(절차공정성)에서 옮겨 온 듯한 비문 — 작성 b5/27
+- active-learning (deep): 기대 오류 감소 설명 '모델 파라미터나 오류를 가장 많이 줄여줄'은 기대 모델 변화와 기대 오류 감소가 섞인 부정확한 서술 — 작성 b5/27
+- present-value (easy): 할인율 10%에서 1년 뒤 110만 원의 현재가치는 '대략'이 아니라 정확히 100만 원 — 작성 b5/27
+- lamport-timestamp (caution): 타임스탬프가 같으면 인과를 알 수 없다는 서술 부정확(같으면 인과 무관, 다를 때가 모호); why '모든 분산 알고리즘' 과장 — 작성 b5/22
+- four-cs-of-marketing: 첫 C가 정의는 'Customer value', deep은 'Consumer wants and needs'; 라우터본/로터본 혼용 — 작성 b5/22
+- capital-expenditure (easy): 기계 전면 교체 예시는 후속지출보다 신규 취득에 가까움 — 작성 b5/21
+- child-welfare-facility (deep): '아동보호치료시설 등으로을 세분화하여' 조사 오타(목적어 누락) — 작성 b5/26
+- deferred-tax (why·deep·caution): 한 섹션 안에서 '~합니다'체와 '~한다'체가 섞임 — 작성 b5/25
+- project-approach (usage): 3단계를 '도입·전개·마무리'로 써 정의·deep의 '시작·전개·마무리'와 명칭 불일치 — 작성 b5/37
+- normal-costing (usage): 절충 대상을 '예정원가계산'이라 쓰고 deep에서는 '표준원가계산'이라 써 용어 불일치 — 작성 b5/37
+- osteoinduction (caution): 과도한 용량 부작용 문장이 같은 섹션에 두 번 반복, deep 첫 문장은 자가골을 '골전도성·골유도성' 둘만 갖춘 것으로 써 뒤의 세 성질 서술과 어긋남 — 작성 b5/37
+- goodwill (caution): 손상차손 환입 불가 문장이 같은 섹션에 두 번 반복 — 작성 b5/37
+- five-phases-thought (easy): 끝에 정의문이 한 번 더 붙고 '중국 고유의 사상'이라 해 정의의 '동아시아의 사상 체계'와 표현 불일치 — 작성 b5/37
+- hieratic-scale (deep): 이집트 벽화 시기를 '원근법이 아직 없던 시기'의 관습으로 설명해 바로 앞의 '원근법 이전의 미숙함으로 보면 안 된다'와 어조 충돌 — 작성 b5/37
+- conscientization (deep): 프레이리의 첫 단계 의식을 '반본질적 의식'으로 표기 — 통상 '반자동적(준변화불능, semi-intransitive)·주술적 의식'이며 오역으로 보임 — 작성 b5/39
+- acid-etching (deep/caution): '레진테그'(레진 태그), '스머어층'(스미어층·도말층) 표기 오류 — 작성 b5/39
+- abrasion (deep): '수복 전에 원인 습관을 먼저 교정' 취지의 문장이 끝부분에 세 번 반복 — 작성 b5/39
+- conscientization (easy): 같은 정의와 농민 사례가 두 번 반복 — 작성 b5/39
+- moral-hazard-health-insurance (deep): 사전적 도덕적 해이를 '보험 가입 전 위험 행동이 달라지는' 것으로 서술 — 실제는 가입 후·질병 발생 전의 예방 소홀. 사전/사후 구분 설명도 두 번 반복 — 작성 b5/35
+- emotional-availability (easy/deep): 인명 표기가 '비링겐'과 '비어링겐'으로 섞임, usage 첫 예문에 따옴표 중복("") — 작성 b5/35
+- vocabulary-spurt (usage): 첫 예문에 따옴표 중복("") — 작성 b5/35
+- organizational-structure (usage): '조정 비용를' 조사 오류, '해당 논문은 … 검토하였다' 예문이 템플릿 문장처럼 어색 — 작성 b5/35
+- self-fulfilling-prophecy-classroom (caution): 같은 문장('부정적 기대가 낙인으로 …')이 두 번 반복되고 deep의 양방향 서술도 그대로 중복 — 작성 b5/35
+- bad-debt-expense (deep): 충당금설정법 설명(확정 시 추가 비용 없이 충당금과 상계)이 연속 두 문장으로 중복 — 작성 b5/35
+- simulation-baudrillard (why·deep): 이행을 '세 단계'로 서술 — 보드리야르 원전은 네 단계(반영→은폐·변질→부재의 은폐→실재와 무관한 순수 시뮬라크르) — 작성 b5/30
+- erosion (deep): 끝부분 '이 때문에 식습관 상담…' 문장이 세 번 중복 — 작성 b5/30
+- horizontal-integration (deep): '앞서 설명한 수직적 통합'이라 하나 앞에 그런 설명이 없음 — 작성 b5/30
+- angoff-method (deep): '앙고프'와 '안고프' 표기 혼용 — 작성 b5/29
+- gradient-boosting (deep): '손실 함수를 가장 빠르게 줄이는 방향인 그래디언트'는 부정확 — 줄이는 방향은 음의 그래디언트이며, 제곱오차 손실에서는 그것이 잔차와 같음 — 작성 b5/33
+- markan-priority (deep): 같은 내용의 문장이 반복되고 '두 자료설'과 '이자료설' 표기가 혼용됨 — 작성 b5/33
+- mutation-testing (why·usage·deep): '변이 테스팅/돌연변이 테스팅', '변이체/뮤턴트', '변이 점수/뮤테이션 점수/뮤턴트 킬율' 용어 혼용, deep에 같은 설명 중복 — 작성 b5/33
+- imputation-of-sin (deep): '죄의 전가'를 원죄 전가와 이중 전가로 나눈다고 하나, 이중 전가의 한 축(그리스도의 의 → 신자)은 죄의 전가가 아니라 의의 전가여서 분류 서술이 어긋남 — 작성 b5/33
+- group-cohesion (usage): 예문 자리에 서지 사항(Festinger 1950)이 그대로 들어가 있음; deep의 '매력의 개인 대 집단 차원'은 '집단에 대한 개인적 매력' 차원의 어색한 번역 — 작성 b5/31
+- regulative-principle-of-worship (deep): 규범원리와의 대비 문장이 거의 같은 내용으로 두 번 반복 — 작성 b5/31
+- separation-anxiety (caution): '과도하게 지속되거나 심한 경우에만 임상적 문제' 문장 중복, 평어체·경어체 혼용 — 작성 b5/31
+- product-development-strategy (why/deep): 안소프/앤소프 표기 혼용, 평어체·경어체 혼용 — 작성 b5/31
+- net-promoter-score (why): 정의 문장이 한 단락 안에서 반복, 평어체·경어체 혼용 — 작성 b5/31
+- leader-election (deep): 정의 문장('분산 시스템에서 여러 노드 중 하나를…알고리즘입니다')이 단락 중간에 다시 끼어 있음 — 작성 b5/31
+- work-breakdown-structure (usage): 신제품 개발 예문과 그 해설 문장이 통째로 두 번 반복됨. 또 제목은 '작업분류체계'인데 why는 '작업분해구조'로 표기 불일치 — 작성 b5/43
+- eucharist (deep): 화체설·공재설·영적 임재설·기념설의 교파 대응 설명이 같은 문단에서 두 번 반복됨 — 작성 b5/43
+- norm-entrepreneur (deep): '핑크와 시킹크'는 핀모어와 시킨크의 오기, '규범 기업가'·'규범 주창자' 용어 혼용, 같은 내용 세 번 반복 — 작성 b5/45
+- verbal-autopsy-method (deep·caution): 구술부검법·언어 부검·구두부검 세 가지 번역어 혼용, 정의 문장 중복 — 작성 b5/45
+- problem-based-learning (usage·deep): 배로우스/배로스 표기 혼용, 'Barrows, 1986 도입'과 '1960년대 말 도입' 서술 충돌, '촉진한다.동일한' 띄어쓰기 누락 — 작성 b5/45
+- withholding-tax (deep): 이자·배당소득을 일괄 분리과세 종결로 서술(일정 금액 초과 시 종합과세) — 과잉 일반화; 문체(합니다/한다) 혼용 — 작성 b5/45
+- strategic-planning (deep): '앞서 다룬 SWOT, PEST' — 페이지에 앞선 서술이 없는 지시 표현 — 작성 b5/45
+- clinical-supervision (deep): '전제로 한다.행정적' 띄어쓰기 누락, 순환 절차 설명 중복 — 작성 b5/45
+- standard-costing (caution): 표준원가를 외부보고에 '그대로 사용될 수 없다'는 단정 — 실제원가와 유사하면 허용되므로 과함 — 작성 b5/45
+- rentier-state-theory (deep): '자원 수입이 반드시 권위주의를 강화한다고 단정'은 이론을 과장한 서술(경향 주장임) — 작성 b5/42
+- team-based-learning (usage/deep): Michaelsen 표기가 '미켈슨'·'마이클슨'으로 혼용, deep에 '확보하려 한다.고정된' 띄어쓰기 누락과 고정 팀 설명 중복 — 작성 b5/42
+- team-based-learning (easy): '팀 단위로 확인 시험'이라고만 해 개인 준비도 시험(iRAT)이 빠짐 — 작성 b5/42
+- rough-and-tumble-play (usage/deep): 예문 따옴표 중복(""…""), '거친신체놀이' 띄어쓰기 불일치 — 작성 b5/41
+- hash-table-collision-resolution (전체): 문체가 '~다'와 '~습니다'로 섹션마다 혼용 — 작성 b5/41
+- treaty-ir (usage·deep): '각국 의회의 비준'이라 했으나 비준은 통상 국가원수·행정부의 행위이고 의회는 동의(비준동의)를 함. 또 '체결, 서명, 비준, 발효'로 체결을 서명 앞 단계처럼 나열(교섭·채택이 적절) — 작성 b5/47
+- secondary-circular-reaction (caution): 새 방법의 능동적 실험이 '다음 단계'에서 나타난다고 했으나 피아제 단계에서 2차 순환반응 바로 다음은 2차 도식의 협응이고 3차 순환반응은 그 뒤 — 작성 b5/47
+- lexical-analysis (caution): '문법적으로 올바른 토큰의 나열을 만들 뿐 … 문법 규칙에 맞는지는 검사하지 않으며'가 자기모순적 표현('어휘 규칙에 맞는 토큰'이 적절) — 작성 b5/47
+- resin-infiltration (caution): '레진침투 재료가 에탄올 등 용매를 함유'라 했으나 침투 레진(TEGDMA 기반)은 대개 무용매이고 에탄올은 침투 전 별도 건조 단계에 쓰임 — 확인 필요 — 작성 b5/47
+- emotion-coaching (usage·deep·caution): 예문 따옴표 중복(""…""), '감정코칭'과 '정서코칭' 표기 혼용, '가장 가까운 기존 항목인 허용적양육'이라는 편집용 문구가 본문에 노출 — 작성 b5/47
+- healthy-city (why·deep): why는 요건이 '단계별'이라며 운영위원회 구성을 맨 끝에 두는데 deep은 부서 간 협력 조직을 프로파일·계획보다 앞에 나열 — 순서 서술 불일치 — 작성 b5/50
+- largest-remainder-method (why·deep): '최대잔여방식'과 '최대잉여법'이 같은 페이지에서 혼용 — 작성 b5/50
+- special-order-decision (usage·deep): '고정원가는 이미 회수되므로/회수되었다는 전제'는 부정확 — 고정원가는 수락 여부와 무관하게 발생하는 비관련원가라는 설명이 맞음; 합니다체·한다체 혼용 — 작성 b5/49
+- task-technology-fit (deep): '적합도가 실제 활용도와 성과에 대한 지각된 유용성을 함께 매개한다'는 문장이 모호하고 앞 문장(적합성이 활용과 개인 성과에 영향)과 어긋남 — 작성 b5/49
+- return-on-equity (deep): 듀폰 셋째 요소를 '자기자본비율(레버리지)'로 표기 — 곱해지는 것은 자기자본승수(총자산÷자기자본)로 자기자본비율의 역수 — 작성 b5/51
+- inquiry-based-learning (deep): 안내된 탐구를 앞에서는 '교사가 질문과 절차를 대부분 제공', 뒤에서는 '질문만 제시'로 달리 설명(앞쪽은 구조화된 탐구에 해당); '구분된다.미국' 띄어쓰기 누락 — 작성 b5/51
+- ranked-choice-voting (easy): '5명의 후보…' 예시가 바로 앞 문장의 개표 설명을 거의 그대로 반복 — 작성 b5/51
+- hierarchy-of-effects-model (why·deep): Vakratsas·Ambler 결론 문장이 why와 deep에 중복; '~에요/~합니다/~한다' 문체 혼용 — 작성 b5/51
+- brand-awareness (why·usage·deep): 같은 지표를 '최상위 상기/최초상기도/최초 상기', '보조 인지/브랜드재인/재인'으로 혼용하고, deep에 '부정적 사건으로 유명해진 브랜드' 설명이 두 번 반복됨 — 작성 b5/53
+- academic-self-concept (usage): 표제어는 '학업적 자기개념'인데 예문에서 '학업적 자아개념'으로 표기 혼용 — 작성 b5/53
+- preventive-war (deep·caution): 대비 개념을 '선제공격'과 '예방적 선제타격'으로 혼용하고, '예방적 선제타격'은 예방(preventive)·선제(preemptive)를 섞은 표현이라 혼동 소지. usage 둘째 예문은 내용 없는 상투 문장('은(는)' 조사 미처리 포함) — 작성 b5/53
+- weighted-average-contribution-margin (deep·caution): 매출배합 일정 가정·재계산 필요라는 같은 내용이 deep에 두 번, caution에 세 번 반복됨 — 작성 b5/53
+- chaos-engineering (caution): 'blast radius 제한'을 안전장치(즉시 중단 수단)의 괄호 풀이로 달았으나 blast radius는 영향 범위를 뜻해 대응이 어긋남 — 작성 b5/53
+- organizational-socialization (deep): '사회화가 지나치게 획일적이고 통제적인 방식으로…부작용이 있을 수 있다' 문장이 같은 문단에 두 번 반복됨 — 작성 b5/61
+- organizational-socialization (caution): 동일한 문장('사회화 전략에 따라…달라질 수 있다')이 두 번 연달아 반복됨 — 작성 b5/61
+- organizational-socialization (usage): 예문 대신 서지사항(Van Maanen & Schein 1979)이 예문 자리에 들어가 있고, 문체가 '-다'체로 다른 섹션과 불일치 — 작성 b5/61
+- mental-health-first-aid (deep): 단계 설명이 두 번 나오는데 앞은 4단계(안정화 포함), 뒤는 3단계(안정화 없음)로 서로 불일치 — 작성 b5/61
+- modified-jones-model (deep): 성과대응(ROA 통제) 방식 설명이 같은 문단에서 두 번 반복됨 — 작성 b5/61
+- value-added-model-education (deep): 추정치의 연도 간 불안정성 한계가 같은 문단에서 두 번 반복됨 — 작성 b5/61
+- instructional-design (usage): 'ADDIE 모형은 분석·설계·개발·실행·평가…' 문장과 해설이 통째로 두 번 반복됨 — 작성 b5/55
+- instructional-design (deep): '가네'(why)와 '가녜'(deep) 표기 혼용, '구분되는 점이다.행동주의' 띄어쓰기 누락, 평어체·경어체 혼용 — 작성 b5/55
+- educational-inequality-reproduction-theory (caution): '격차의 재생산 경로가 국가와 교육정책에 따라…' 문장이 두 번 반복됨 — 작성 b5/55
+- smoking-periodontal-disease (usage): 치주낭깊이 감소 비교 예문이 거의 같은 내용으로 두 번 반복됨 — 작성 b5/55
+- smoking-periodontal-disease (deep): '흡연을 대체 수단으로 안전하다고 단정'은 문맥상 '전자담배를 대체 수단으로'의 오기로 보임 — 작성 b5/55
+- relevant-cost (caution): '이미 확정된 비배분원가'라는 표현이 통용 용어가 아니고 뜻이 불분명함(기발생·확정 원가 의도로 보임), 감가상각비 설명도 두 문장에 중복 — 작성 b5/55
+- targeting-strategy (usage): '무차별적 마케팅'과 '비차별적 마케팅' 표기가 같은 단락에서 혼용됨 — 작성 b5/55
+- cache-memory-hierarchy (caution): '시간복잡도와 빅오 표기법가 같은 알고리즘이라도' — 자동 링크 치환으로 보이는 비문(원래 '시간복잡도가 같은') — 작성 b5/57
+- type-inference (deep): '제약을 모으는 단일화(unification) 과정' — 단일화는 제약을 모으는 것이 아니라 모은 제약을 푸는 단계라 서술이 부정확 — 작성 b5/57
+- space-maintainer (why): '반대측 치아의 정출' — 정출은 통상 대합치(맞물리는 치아)에 대해 쓰는 말이라 '대합치의 정출'이 정확 — 작성 b5/57
+- teacher-expectancy-effect (caution): '기대효과의 크기는 상황과 대상에 따라…유의해야 한다' 문장이 두 번 연속 반복 — 작성 b5/63
+- team-effectiveness-model (why·deep): why는 과정을 '의사소통·갈등관리'로, deep은 '노력·지식 적용·수행 전략'으로 달리 설명해 과정 요인 서술이 불일치 — 작성 b5/63
+- strategic-voting (easy·why·deep): '뒤베르제'와 '듀베르제' 표기 혼용; 합니다체·한다체 혼용 — 작성 b5/64
+- information-systems-success-model (definition·deep·caution): '이용/사용', '이용자 만족/사용자만족' 용어 혼용; 합니다체·한다체 혼용 — 작성 b5/64
+- public-health-surveillance (deep): 수동·능동 감시 구분 설명이 세 번 반복되고 수동감시 정의가 '의무적으로 신고받는'/'모든 사례를 신고받는'으로 엇갈림; '신드로믹 감시'와 '증후군 감시'가 같은 개념인데 별개처럼 중복 서술 — 작성 b5/64
+- counter-school-culture (caution): 같은 문장이 두 번 반복됨; usage의 '폴 윌리스의 노동학습론'은 통용 서명(학교와 계급재생산/Learning to Labour)과 다른 어색한 표기 — 작성 b5/59
+- negative-control-outcome (deep): 음성대조노출 설명이 두 번 반복되고, 첫 문장의 '노출과 무관한 대조 노출'은 '결과와 무관한 대조 노출'이 맞음 — 작성 b5/59
+- agenda-setting-health-policy (caution·deep): '의제 채택이 곧 정책 실행은 아니다'와 다중흐름모형 설명이 각각 두 번 반복됨 — 작성 b5/59
+- mcgregor-theory-xy (deep): Ouchi의 Z이론 설명이 두 번 반복됨; 합니다체·한다체 혼용 — 작성 b5/59
+- virtual-memory (caution): '각 프로세스와 스레드는 서로의 메모리 공간을 침범하지 않고 격리'라고 했으나 같은 프로세스의 스레드는 주소 공간을 공유함 — 격리 단위는 프로세스 — 작성 b5/65
+- oauth (usage): PKCE를 '재발급 토큰 탈취 위험을 줄이기 위한' 확장으로 설명했으나 PKCE는 인가 코드 가로채기 방어용 — 작성 b5/65
+- depression-screening-tool (deep): PHQ-9·절단점·'확진이 아니라 선별용' 설명이 세 차례 반복되고 '~합니다/~된다' 문체 혼용 — 작성 b5/65
+- donatism (deep): 사효론(ex opere operato) 설명이 두 번 반복; 이 용어는 중세 스콜라 신학의 표현으로 아우구스티누스 본인의 용어가 아니라는 점이 빠져 있음 — 작성 b5/66
+- procedural-cartel-theory (easy·why·deep): '콕스와 매커빈스가 제시' 소개와 '표결보다 절차적 권한' 요지가 구획마다 중복 — 작성 b5/66
+- memory-strategies-child (deep): 같은 현상을 앞에서는 '산출결함', 뒤에서는 '생산결핍'으로 달리 표기 — 작성 b5/72
+- relative-risk-reduction (easy): RRR 50%를 '위험이 원래의 50%로 줄었다'로 풀이 — '50%만큼 감소'와 '50%로 감소'가 이 예에서만 우연히 같아 일반 설명으로는 오해 소지 — 작성 b5/71
+- quorum (deep): R+W>N 겹침 설명이 문단 앞뒤에서 거의 그대로 반복 — 작성 b5/72
+- paxos-algorithm (easy·deep): '~이다'와 '~습니다' 문체 혼용; caution이 easy 마지막 문장(라프트 대안)을 반복 — 작성 b5/71
+- classical-studies-confucianism (easy): 마지막 문장 '성리학의 후대 해석을 배제하고 … 원문 자체에서 직접 찾으려 한 학풍이다'는 경학 전체가 아니라 고증학류 학풍 설명이라 문맥에 맞지 않게 끼어 있음 — 작성 b5/67
+- classical-studies-confucianism (why): 마지막 문장이 경학을 성리학과 대립하는 훈고·고증 학문으로만 서술해, 송명대 의리학(성리학)도 경학의 한 흐름이라는 usage·deep 서술과 어긋남 — 작성 b5/67
+- dijkstra-algorithm (deep): '우선순위 큐와 힙를' 조사 오류(힙을) — 작성 b5/67
+- bullwhip-effect-logis (deep): '상위 단계의 실수요 정보 없이'는 방향이 반대 — 상류 단계가 못 보는 것은 하류(최종 소비자)의 실수요 정보임 — 작성 b5/75
+- absorption-costing (usage): '동일한 판매량에서도 생산량을 늘린 분기의…' 예문과 해설이 그대로 두 번 반복됨 — 작성 b5/75
+- sales-volume-variance (deep·caution·why): 판매수량차이를 매출배합차이+매출수량차이로 나눈다고 하면서 why에서는 매출배합차이와 '분리해서' 본다고 해 상충, caution 끝 문장은 정의 없이 '매출조업도차이'로 용어가 바뀜(통상 매출조업도차이=배합+수량차이, 수량차이→점유율·규모차이) — 작성 b5/76
+- performance-management-system (deep·caution): deep의 '시스템을 지나치게 정교하게…'·'인사평가가…' 문장과 caution 문장이 각각 두 번씩 중복됨 — 작성 b5/76
+- bodily-tooth-movement (deep): '저항 중심을 통과하는 단일 힘만으로는 실현되지 않습니다'가 사실과 반대(저항중심을 지나는 힘은 치체이동을 만들며, 문제는 브라켓에서 그 위치에 힘을 줄 수 없다는 것)이고 뒤 문장 '저항중심에 힘이 작용하도록…'과도 충돌; 치체이동·각형 와이어 설명 3회 반복 — 작성 b5/69
+- vrin-framework (why·deep): 같은 조건을 '비대체성'·'대체불가능성'·'대체가능성 조건'으로 섞어 씀; deep에서 '~한다/~합니다' 문체 혼용 — 작성 b5/69
+- event-sourcing (caution): deep의 재생 비용·CQRS 설명을 거의 그대로 반복 — 작성 b5/69
+- pagerank (deep): 댐핑 팩터·순간이동 설명이 앞뒤로 중복; 앞은 d를 '링크를 따라갈 확률', 뒤는 '일정 확률로 순간이동하는 댐핑 팩터(0.85)'로 써 0.85가 순간이동 확률처럼 읽힘 — 작성 b5/69
+- swot-analysis (deep): TOWS 매트릭스 후속 필요 문장이 두 번 반복; '뒤에 소개할 TOWS 매트릭스'라 했으나 뒤에 소개가 없음 — 작성 b5/69
+- competitive-dynamics (usage): 둘째 인용문에 따옴표 중복(""…"") — 작성 b5/69
+- three-bonds-five-relationships (easy·why): 정의 문장이 easy 안에서, 규범 체계 설명이 why 안에서 각각 두 번 반복 — 작성 b5/69
+- dose-response-assessment (deep): 무역치 물질의 저용량 외삽을 '벤치마크용량(BMD) 접근법'이라 서술 — BMD는 NOAEL을 대신하는 출발점 산출법으로 역치·무역치 모두에 쓰이며, 무역치 물질에는 선형 저용량 외삽(usage 예문과 같음)이 해당 — 작성 b5/73
+- gradient-checkpointing (deep): '메모리 사용량은 대략 구간 수의 제곱근에 비례해 줄어든다'가 부정확 — 통상 층 수 n에 대해 √n개 구간일 때 메모리가 O(√n)으로 준다는 뜻; '재계산 비용과 통신 비용' 중 통신 비용은 맥락 불명 — 작성 b5/73
+- survey-feedback (deep·caution): '관리자가 방어적으로 반응하면 냉소와 참여 의욕 저하' 문장이 deep 안에서 두 번 반복, '후속 조치가 없으면 불신' 문장도 caution에서 중복 — 작성 b5/73
+- peri-implant-mucositis (deep): '골 소실 없는 가역적 단계·치은염에 해당' 설명이 같은 섹션에서 세 차례 반복 — 작성 b5/73
+- flipped-learning (deep): '제안했다.거꾸로학습' 띄어쓰기 누락; 인명 표기 '샘즈/샘스', '베르그만/버그만' 혼용; '~한다/~습니다' 문체 혼용 — 작성 b5/73
+- second-strike-capability (deep): 삼각체계(triad)를 '지상 사일로·이동식 발사대·SLBM'으로 설명하나 통상 핵 삼각체계는 지상 ICBM·SLBM·전략폭격기임(폭격기 누락, 지상 전력을 둘로 나눔) — 작성 b5/77
+- academic-engagement (usage·deep): 둘째 예문의 '활력과 헌신 차원'은 UWES 계열(활력·헌신·몰두) 구분으로 본문의 행동·정서·인지 3차원 틀과 다른데 설명 없이 섞였고, deep 중간부터 용어가 '학업몰입'으로 바뀜 — 작성 b5/77
+- political-opportunity-theory (easy·why·deep): 같은 인물 표기가 '타로/타로우', '맥아담/매캐덤'으로 섞여 있음 — 작성 b5/77
+- class-inclusion (usage·deep): 첫 예문에 따옴표가 이중(""…"")으로 들어갔고, deep에 정의 문장과 예시(빨간 꽃·나무구슬·장미/튤립)가 중복 서술되며 '유목포함/유목 포함' 띄어쓰기 혼용 — 작성 b5/77
+- https-tls (easy·deep): '공개키 암호화 방식으로 세션 키를 교환'은 부정확한 단순화 — TLS 1.3은 RSA 키 전송을 없애고 (EC)DHE 키 합의만 쓰며 인증서의 공개키는 서명 검증에 쓰임 — 작성 b5/77
+- microteaching (deep): 수업 길이가 '5~20분 내외'와 '5~10분'으로 엇갈리고, 순환 구조·'기능 하나 집중' 설명이 세 번 반복되며 '반복한다.복잡한' 띄어쓰기 누락 — 작성 b5/79
+- teacher-socialization (deep): 표제어는 '교직사회화'인데 본문 중간에 '교사사회화'로 표기가 바뀜 — 작성 b5/79
+- safety-stock (deep·caution): '안전재고를 지나치게 많이 보유하면…', '재주문점이 발주를…' 문장이 deep에서 두 번, caution 문장도 통째로 두 번 반복 — 작성 b5/79
+- academic-learning-time (deep): '캐롤의학교학습모형' 띄어쓰기 누락; '배정시간/배당시간', '학업학습시간/학업적 학습시간' 표기 혼용; 위계 설명이 문단 안에서 두 번 반복 — 작성 b5/83
+- variable-costing (deep·caution): K-IFRS 외부보고 불인정 내용이 deep 1회·caution 2회로 거의 그대로 반복; '~이다'와 '~습니다' 문체 혼용 — 작성 b5/83
+- static-budget (deep·caution): 같은 내용(고정예산차이 분해 / 조업도 차이 시 유용성 저하)을 두 문장으로 거의 그대로 반복 — 작성 b5/83
+- communication-disorder (why·deep): '~습니다'와 '~이다' 문체 혼용 — 작성 b5/83
+- cook-levin-theorem (usage): 'SAT 계열 문제로의 환원을 통해' NP-완전임을 입증한다고 써 환원 방향이 반대(SAT 계열 문제로부터 환원해야 함) — 작성 b5/84
+- policy-effectiveness-evaluation (definition·why·usage): definition은 '교육정책' 평가로, usage는 '교육정책평가의 하위 방법론'으로 쓰는데 why는 분야를 가리지 않는 일반 방법론이라 해 범위가 서로 어긋남 — 작성 b5/84
+- herd-effect-epidemiology (easy): 우산 비유 문장('비를 맞지 않는 아이가 몇 명 우산이 없어도')이 비문이라 뜻이 불분명 — 작성 b5/84
+- organizational-power (deep): '합법적, 보상적, 강제적 권력처럼 공식 직위에 기반한 권력은…' 문장이 거의 그대로 두 번 반복됨 — 작성 b5/81
+- organizational-power (caution): 같은 문장('권력은 그 자체로 부정적인 것이 아니라…')이 두 번 반복됨 — 작성 b5/81
+- organizational-power (usage): 예문 대신 서지(Pfeffer 1981)로 시작하고, 예산 승인권 예시가 deep과 중복됨 — 작성 b5/81
+- life-cycle-costing (definition): 수명주기를 고객서비스까지만 열거해 deep·why의 '폐기' 단계와 범위가 어긋남 — 작성 b5/81
+- direct-instruction (deep): '구분해 다뤄진다.1970년대' 띄어쓰기 누락, 팔로우 스루 설명이 두 번 나오며 문체(다/습니다) 혼용 — 작성 b5/81
+- direct-instruction (caution): '두 의미를 혼동하지 않도록'이 가리키는 DI/di 구분이 caution 안에 없어 문맥이 끊김 — 작성 b5/81
+- softmax-function (easy): 로짓 5.2·3.1·0.7의 소프트맥스는 약 88%·11%·1%인데 본문은 83%·15%·2%로 적어 예시 수치가 맞지 않음 — 작성 b5/87
+- softmax-function (deep): 온도 파라미터를 '곱해'라고 했으나 로짓을 온도로 나누는 것이 통례(곱하면 뒤 문장의 '온도가 낮을수록 몰림'과 반대) — 작성 b5/87
+- functionalism-integration (caution·definition): 확산을 spillover로 표기하나 이는 신기능주의(하스) 용어이고 미트라니는 ramification(분기)을 씀; 또 미트라니는 지역 통합·연방에 비판적이었는데 '초기 지역통합이론'으로 소개 — 작성 b5/87
+- contextual-theology (deep·usage): 토착화를 한 번은 inculturation, 한 번은 indigenization으로 병기하고 '상황신학'과 '맥락신학' 표기가 섞임; 'sitz im leben'은 'Sitz im Leben' 표기가 맞음 — 작성 b5/87
+- levels-of-analysis (easy/why/deep): 같은 인물 Kenneth Waltz가 '월츠'와 '왈츠'로 섞여 표기됨 — 작성 b5/85
+- sacrament (usage/deep): 일곱 성사 명칭이 문단마다 다름(성체/성찬, 신품/성품성사, 혼인/혼인성사) — 작성 b5/85
+- sacrament (why): 평서체 본문 중 마지막 문장만 '다뤄집니다' 경어체로 문체 혼용 — 작성 b5/85
+- session-and-cookie (caution): '앞서 다룬 크로스사이트 스크립팅 공격'은 독립 용어 페이지에서 지시 대상이 없는 표현 — 작성 b5/85
+- patristic-exegesis (usage): '오리게네스의 교부 주석학'은 분야명을 개인의 주석 방법 뜻으로 써서 정의(연구 분야)와 어긋남 — 작성 b5/85
+- mrp-ii (deep·caution): deep의 ERP 전신·도입 교훈 단락이 통째로 두 번 반복, caution도 같은 문장이 두 번 반복 — 작성 b5/91
+- inclusivist-theology-of-religions (deep·caution): 같은 입장을 '포용주의'와 '포괄주의'로 섞어 표기 — 작성 b5/91
+- southern-northern-schools-theory (deep): '남북종론은 명대 (화가) 동기창이 …' 정의 문장이 연달아 두 번 반복 — 작성 b5/91
+- osteoradionecrosis (deep): 방사선치료 전 예방적 발치·고압산소요법 설명이 두 번 반복, 평어체와 경어체 혼용 — 작성 b5/91
+- vedanta (caution): 본문은 '불이론'인데 caution만 '불이일원론'으로 표기 불일치 — 작성 b5/91
+- strengths-and-difficulties-questionnaire (deep): 다섯 하위척도 구성 설명이 문단 끝에서 반복되고 '총 난점 점수'와 '총 어려움 점수'로 용어가 엇갈림 — 작성 b5/93
+- special-class (why·deep): why는 자원실을 특수학급과 구분되는 배치로, deep은 자원교실을 특수학급의 운영 형태로 서술해 서로 어긋남 — 작성 b5/93
+- grievance-procedure (deep): '고충 건수가 많은 것이 나쁜 신호가 아니며…' 문장이 두 번 반복, 합니다체·한다체 혼용 — 작성 b5/93
+- heat-related-illness-surveillance (deep): 응급실·구급 자료 수집 방식 설명이 첫 문장과 마지막 문장에서 반복 — 작성 b5/93
+- mastery-learning (deep): '투입된다.블룸은' 띄어쓰기 누락, 한다체·합니다체 혼용 — 작성 b5/93
+- self-directed-learning (deep): '재정의된다.자기주도성은' 띄어쓰기 누락, 한다체·합니다체 혼용 — 작성 b5/93
+- other-comprehensive-income (definition·why): '매도가능증권/매도가능금융자산'(구 기준)과 usage의 '기타포괄손익-공정가치 측정 금융자산'(IFRS 9)이 설명 없이 섞임 — 작성 b5/93
+- health-production-function (usage): 의료지출의 건강 기여 감소를 '한계효용 체감 현상'이라 설명 — 생산함수 맥락이므로 '한계생산 체감'이 맞음(caution 절은 한계생산 체감으로 표기) — 작성 b5/89
+- return-on-investment (usage): 같은 절에서 분해 요소를 '매출액이익률'과 '매출액순이익률'로 섞어 씀 — 정의가 영업이익 기준이므로 순이익률 표기는 불일치 — 작성 b5/89
+- expectancy-theory (definition·why·usage): 같은 요소를 '유의성'과 '유인가'로 섞어 쓰고, '매슬로우·허즈버그와 함께 동기부여 3대 이론'이라는 표현은 통용 근거가 불분명 — 작성 b5/89
+- problem-of-evil (easy·deep): easy의 '앞서 다룬 신정론'은 단독 페이지에서 가리키는 대상이 없는 표현이고, deep은 자유의지 '변론(defense)'을 신정론의 유형으로 분류하나 통상 변론은 신정론과 구별됨(플랜팅가) — 작성 b5/97
+- total-quality-management (why·deep): 같은 용어가 '전사적품질경영/총체적품질경영'으로 섞여 쓰이고 '~한다/~합니다' 문체가 한 섹션 안에서 혼용됨 — 작성 b5/97
+- multiversion-concurrency-control (deep): 'PostgreSQL, Oracle 등 대다수 상용 DB'에서 PostgreSQL은 오픈소스라 '상용'이 부정확하고, '스냅숏/스냅샷' 표기와 정의 문장이 deep 끝에 중복됨 — 작성 b5/97
+- business-process-management (deep·caution): '프로세스 문서화가 곧 개선은 아니며…' 두 문장이 문체만 바뀌어 통째로 중복되고 caution도 같은 문장이 두 번 반복됨 — 작성 b5/97
+- quality-costing (caution): 외부실패원가의 측정 곤란·과소평가 내용이 세 문장에 걸쳐 거의 같은 말로 반복됨 — 작성 b5/97
+- filioque-controversy (why): 대분열에서의 비중을 '중요한 요인 중 하나'와 '가장 핵심적인 쟁점'으로 다르게 서술한 문장이 중복되어 있음 — 작성 b5/97
+- subsequent-events (deep): 본문 중간에 '[예문]' 표지와 usage용 예문·해설이 섞여 들어가 있음 — 작성 b5/97
+- core-competencies (deep): 2015 개정 교육과정의 역량명을 '협업 및 소통 역량'으로 적었으나 공식 명칭은 '의사소통 역량'(‘협력적 소통’은 2022 개정) — 작성 b5/95
+- enamel-remineralization (deep): '타액이나 불소가 제공하는 칼슘·인산 이온'은 부정확 — 불소는 칼슘·인산을 공급하지 않고 재침착을 촉진(같은 단락 뒷부분 서술과도 어긋남) — 작성 b5/95
+- norm-referenced-assessment (why/deep): 문체 혼용('~다'와 '~됩니다')·'대학수학능력시험'과 '대입 수학능력시험' 중복 서술, deep에 마침표 뒤 띄어쓰기 누락('있다.선발') — 작성 b5/95
+- core-competencies (deep): 마침표 뒤 띄어쓰기 누락('규정된다.OECD'), DeSeCo 세 범주 설명이 usage와 중복 — 작성 b5/95
+- equilibration (why/usage): 주어 없는 '그는 …' 문장이 반복되고, '평형화'와 '균형화' 용어가 혼용됨 — 작성 b5/95
+- inclusive-leadership (deep·caution): deep의 두 문단('개방성·접근성·가용성…', '포용은 소속감과…')이 어미만 바꿔 그대로 반복되고 caution도 같은 문장이 두 번 들어감 — 작성 b5/99
+- white-spot-lesion (caution): '수복보다 재광화 우선'이라는 같은 내용이 세 문장에 걸쳐 반복 서술됨 — 작성 b5/99
+- emergency-medical-services-response-time (deep·caution): '반응시간/대응시간' 용어 혼용, 구간 구분이 deep(신고 접수·출동·이동·현장 도착)과 caution(신고접수·출동지령·출동준비·이동)에서 다르고, NFPA 1710 설명의 '경방소방대의 첫 구급대' 표현이 어색하며 4분 기준은 이동시간(travel time) 기준인데 '출동 후'로만 적힘 — 작성 b5/99
+- matching-principle (caution): 즉시 비용처리를 '기간대응 방식'이라 부르는데 deep은 같은 것을 '즉시비용화', 감가상각을 '기간배분'이라 불러 용어가 헷갈림 — 작성 b5/99
+- theology-of-religions (deep): 같은 세 유형 설명이 두 번 반복되고 두 번째에서는 '포용주의'가 '포괄주의'로 표기되어 용어가 혼용됨 — 작성 b5/101
+- icon-index-symbol (why): '크라우스의 「지표에 관한 노트」, 로절린드 크라우스의 사진론'으로 같은 인물이 중복 나열됨 — 작성 b5/101
+- icon-index-symbol (easy): '지도 위 발자국 모양 아이콘은 상징에 가깝다'는 예시는 모양이 닮은 도상적 성격이 강해 상징의 예로 부적절(혼동 유발) — 작성 b5/101
+- kotter-eight-step-model (deep·caution): Appelbaum 리뷰·2014년 이중 운영체제 문장이 deep에 두 번, '단계를 순차적으로만 따르면…' 문장이 caution에 두 번 중복. 본문 어디에도 8단계 전체 목록이 없음(1·7·8단계만 언급) — 작성 b5/101
+- parenting-attitude (definition·why·deep): 차원이 정의에서는 '애정-거부, 자율-통제'인데 deep에서는 '애정×통제'로 달라지고, 네 유형 전체를 바움린드 분류로 서술하나 방임적 유형은 Maccoby·Martin(1983)이 추가한 것 — 작성 b5/101
+- primary-activities (usage): '본원적활동은(는) 경영학 분야의 여러 선행연구에서…'라는 자동 생성 틀 문장이 조사 미처리('은(는)') 상태로 남아 있고, why의 '마케팅및영업' 띄어쓰기 누락 — 작성 b5/101
+- fourfold-sense-of-scripture (easy·deep): easy의 네 렌즈 '역사적 사실, 교훈, 실천 지침, 소망'에서 알레고리(교리)가 '교훈'으로 적혀 도덕적 의미와 혼동되고, deep에 라틴어 운문 풀이가 두 번 중복 — 작성 b5/101
+- solar-mythology (usage·deep): 뮐러를 태양신으로 '증명'한 풍자의 저자가 usage에서는 리틀데일, deep에서는 앤드루 랭으로 엇갈림(풍자글 저자는 리틀데일, 랭은 주된 비판자) — 작성 b5/105
+- transubstantiation (definition·deep): 정의는 '떡', 나머지는 '빵'으로 표기가 섞이고, deep에서 화체설 정의 문장이 세 번 반복되며 '우유성'과 '우연적 속성·우연' 번역어 혼용 — 작성 b5/105
+- salafism (deep): 순수주의·정치참여·지하드주의 세 갈래 설명이 표현만 바꿔 세 번 반복 — 작성 b5/105
+- augmentative-alternative-communication (usage·deep): '로우테크/하이테크', '저테크/고테크', '저기술'로 표기가 섞이고, 구어 발달 저해 우려 반박이 deep과 caution에 중복 — 작성 b5/105
+- generation-time-infection (usage·deep): 표제어 '세대기'가 deep 끝에서 '세대시간'으로, '연속감염구간'이 '연속발병간격'·'연속구간'으로 바뀌고 '변이株'에 한자가 섞임. '실효재생산수'와 '유효재생산수'도 혼용 — 작성 b5/105
+- cad-cam-dentistry (deep): 스캔→설계→제작 흐름 설명이 deep 안에서 두 번 반복되고 '해요체'와 '합니다체'가 섞임 — 작성 b5/105
+- income-statement (usage): '손익계산서상 매출총이익률의 변동은…'과 그 해설 문장이 통째로 두 번 반복 — 작성 b5/107
+- coroutine (why·deep): why에서 '스레드보다 훨씬 가볍다'가 두 번 반복되고, deep 중간에 정의문('함수 실행 도중 임의의 지점에서…')이 다시 끼어 있음 — 작성 b5/107
+- agile-software-development (caution·deep): caution 첫 문장이 통째로 두 번 반복, deep도 '애자일은 특정 방법론이 아니라 가치 선언' 설명이 두 번 — 작성 b5/107
+- fair-value-method (deep): '유의적 영향력이 없을 때 공정가치법을 쓰고 있으면 지분법을 쓰므로'가 비문('있으면'의 주어 누락 — 영향력이 있으면 지분법) — 작성 b5/107
+- enamel-demineralization (deep): 섭취 빈도를 줄이는 식이 조언 문장이 끝에서 사실상 세 번 반복 — 작성 b5/107
+- flexible-budget (usage·deep·caution): 고정예산과의 차이를 usage는 '조업도차이', deep은 '매출조업도차이'로 달리 부르고, 실제와의 차이도 '소비차이'/'변동예산차이'로 혼용; caution의 '변동예산차이를 매출조업도차이와 변동예산차이로 분해'는 자기 자신을 분해하는 오류(총차이·고정예산차이여야 함) — 작성 b5/107
+- european-integration (deep·usage): 단계 나열이 '유로화 통화동맹, 솅겐' 순이라 솅겐(협정 1985·시행 1995)이 유로 도입(1999) 뒤처럼 읽힘; '신기능주의·정부간주의의 대표적 경험적 사례' 설명도 why에서 두 번 반복 — 작성 b5/107
+- attained-curriculum (usage·easy): 의도된·실행된·달성된 3층위는 IEA(TIMSS) 틀인데 굿래드(Goodlad, 1979)의 구분으로 귀속함(굿래드는 이상적·공식적·지각된·운영된·경험된 5수준). '달성된/습득된 교육과정' 용어 혼용, 문체(-다/-습니다) 혼용 — 작성 b5/103
+- recursive-function (caution): '스택과 큐의 스택 구조에 차곡차곡 쌓였다가'는 깨진 문장(링크 제목 '스택과 큐'가 문장에 끼어든 듯) — 작성 b5/103
+- binary-tree-traversal (easy): 계보도 비유가 '나·왼쪽 형제·오른쪽 형제'로 되어 있으나 순회는 부모와 왼쪽·오른쪽 자식의 순서라 '형제'는 틀린 비유 — 작성 b5/103
+- diversification-strategy (why·deep): '안소프/앤소프 매트릭스', '비관련다각화/무관계 다각화' 표기 혼용 — 작성 b5/103
+- shift-work-and-health (definition): '주간, 야간, 교대 근무 등 비정형적인 근무 시간대'에서 주간 근무를 비정형에 포함한 표현이 어색함 — 작성 b5/103
+- dependent-origination (caution): '어느 고리를 끊어도 순환이 멈출 수 있다'(deep)와 문체 혼용(-다/-습니다), 같은 내용(12연기 설명)이 deep에 두 번 중복 서술됨 — 작성 b5/103
+- skilbeck-scbcd (usage·deep): 마지막 단계가 '모니터링과 평가'(usage)와 '모니터링과 재구성'(deep)으로 다르게 적힘, 문체(-다/-습니다) 혼용 — 작성 b5/141
+- organizational-trust (usage·deep): integrity 번역이 '성실성'(usage)과 '진실성'(why·deep)으로 혼용, 인명도 '마이어/메이어' 혼용 — 작성 b5/141
+- confounding-in-epidemiology (deep·caution): '교란변수/혼란변수' 용어 혼용, 교란변수 세 조건 설명이 deep에 두 번 중복 — 작성 b5/141
+- polymerization-shrinkage (deep): 끝부분에 '재료와 술식… 함께 다뤄진다', '연구가 계속 이어지고 있다' 류의 같은 내용 문장이 4~5회 반복 — 작성 b5/141
+- upper-echelons-theory (deep·caution): deep에 '관찰하기 쉬운 인구통계적 특성…' 문장이 통째로 두 번, caution도 같은 문장이 두 번 반복 — 작성 b5/141
+- child-abuse-prevention (deep): 끝의 '지역사회 전체의 감시망… 지속적 홍보가 필요하다.'가 맥락 없는 덧붙임 문장, 문체(-다/-습니다) 혼용 — 작성 b5/141
+- tolerable-daily-intake (easy·why·usage·deep·caution): 표제어는 '일일내용섭취량(TDI)'인데 본문은 줄곧 '일일섭취허용량'(통상 ADI의 역어)으로 써 용어가 뒤섞임 — 작성 b5/117
+- test-driven-development (deep): 테스트 우선 개발을 'TDD와 순서가 다른' 방법이라 했으나 둘 다 테스트를 먼저 쓰므로 순서 차이 서술이 부정확함 — 작성 b5/117
+- learning-stories (usage): 첫 예문에 큰따옴표가 이중(""…"")으로 들어감 — 작성 b5/117
+- service-department-cost-allocation (caution): '보조부문원가를 제조부문에만 전액 배분하면 원가가 과대계상'이라는 문장이 배분 절차의 정의(제조부문에 배분)와 충돌해 뜻이 불분명함 — 작성 b5/117
+- economic-voting (deep): '사회지향'과 '사회향적 투표' 표기 혼용, 회고적·전망적/개인·사회 구분이 같은 문단에 두 번 중복 서술됨 — 작성 b5/117
+- academic-burnout (easy·deep): 셋째 하위요인을 '무능감'과 '효능감 저하'로 혼용, 세 하위요인 설명이 deep에 두 번 중복됨 — 작성 b5/117
+- scholasticism (전체): '스콜라철학'과 '스콜라주의' 표기 혼용, -다/-습니다 문체 혼용 — 작성 b5/117
+- joint-cost-allocation (caution·deep): caution은 배분 결과를 '개별 수익성 평가에는 사용할 수 있다'고 하나 deep은 판매가치 기준이 '제품별 수익성 비교를 무의미하게 한다'고 해 서로 어긋남 — 작성 b5/109
+- first-strike-capability (deep·caution): '제1격 능력'과 '선제타격능력'을 같은 말로 혼용(선제타격은 통상 별개 개념으로 쓰임) — 작성 b5/109
+- transnational-advocacy-network (easy·deep): 인명 '켁과 시킹크'/'케크와 시킨크', 용어 '초국적'/'초국가적' 표기 혼용 — 작성 b5/109
+- air-pollution-attributable-mortality (deep): 노출-반응 함수·노출 분포·기저 사망률을 결합하는 과정 전체를 '인구집단 기인분율 산출'이라 했으나, 기인분율은 앞의 둘로 구하고 기저 사망(자 수)에 곱해 기인사망을 얻는 것이 통상적 — 작성 b5/109
+- millennialism (easy): '예수님이 다시 오셔서 이 땅에서 천 년 동안 다스리실 것이라는 믿음'은 전천년설의 설명이라 세 입장을 포괄하는 정의(definition)와 맞지 않음 — 작성 b5/109
+- learning-to-labour (caution): 같은 문장이 두 번 반복됨. why와 usage에도 동일 문장 중복 — 작성 b5/109
+- capacity-planning (usage·deep): '선제적전략/선행전략', '지연전략/추종전략' 표기 혼용, 반도체 팹·리드타임 문장이 deep에 두 번 중복 — 작성 b5/109
+- iconoclasm-controversy (usage·deep): '제2차 니케아 공의회'/'니케아 제2차 공의회', '성상'/'성화상' 표기 혼용. usage의 '787년 공의회가 논쟁을 일단락'은 이후 재개(deep)와 함께 읽어야 함 — 작성 b5/109
+- star-business-unit (deep·caution): '개'와 '도그' 표기 혼용 — 작성 b5/109
+- ethical-criticism-of-art (why·deep): 저코비슨을 '자율주의'로 소개하나 서술 내용(결함 덕에 미적으로 뛰어날 수 있음)은 부도덕주의에 해당하고 저코비슨은 통상 부도덕주의 논자로 분류됨. 문체도 -습니다/-다 혼용 — 작성 b5/129
+- screening-hypothesis-education (caution): '선별가설만으로는 … 반론도 존재한다' 문장이 두 번 연속 중복됨 — 작성 b5/129
+- tax-base (easy·why·deep·caution): 과세표준(법인세 계산 기준 금액)과 세무기준액(IAS 12의 자산·부채 tax base, 이연법인세 개념)을 한 항목에 섞어 서술함. easy의 예시는 과세표준이 아니라 세무기준액 설명 — 작성 b5/129
+- levels-of-use (why): 실행수준 단계를 비사용→기계적→일상적→정교화·통합으로만 제시해 Hall의 원 단계(오리엔테이션·준비·갱신 등)가 빠져 있음. 문체 -다/-습니다 혼용 — 작성 b5/129
+- lifelong-education-program-development (easy): '-에요'와 '-다' 문체 혼용 — 작성 b5/129
+- cracked-tooth-syndrome (easy·deep): easy는 '힘을 뺄 때 찌릿하게 아픈'이라 하고 deep은 '힘을 떼면 통증이 사라지는'이라 해 서로 어긋남, deep 안에서 문체(-다/-습니다) 혼용 — 작성 b5/133
+- exit-barrier (deep): 둘 다 높은 산업을 앞에서는 '호황 때 수익성 높고 불황 때 위험'(Porter)이라 하고 끝에서는 '만성적 낮은 수익성의 최악의 조합'이라 해 모순(Porter의 최악은 진입장벽 낮고 철수장벽 높은 경우), 철수장벽/퇴출장벽 표기 혼용 — 작성 b5/133
+- institutional-veto-points (easy·why·deep): 인명 표기가 '이머것', '임머굿', '임머구트' 세 가지로 혼용 — 작성 b5/133
+- printmaking (usage): '판화은(는)', '판화이' 조사 오류가 있는 틀 문장이 그대로 남아 있음 — 작성 b5/133
+- symbolic-violence-education (caution): '폭력이라는 표현이 물리적 강제를 의미하지 않으며…' 문장이 거의 그대로 두 번 반복됨 — 작성 b5/133
+- mirror-self-recognition-test (caution·usage): caution에 '시각적 자기인식만을 측정하므로' 문장이 두 번 반복, usage의 '거울 속 표시를 자신이 아닌 다른 아이로 인식'은 표시가 아니라 거울 속 모습을 가리켜야 함 — 작성 b5/133
+- yield-variance (usage): 예문이 '수율차이를 원재료 배합 변경과 설비 노후화로 분해'라고 해, 배합 변경(배합차이의 원인)을 수율차이의 원인으로 섞어 씀 — 작성 b5/133
+- customer-loyalty (deep): '브랜드충성도 항목에서 다룬', '뒤에 설명할 순추천지수'처럼 다른 문서의 앞뒤 맥락을 가리키는 표현이 남아 있음 — 작성 b5/133
+- status-attainment-theory (caution): '경로분석에 포함되지 않은 문화적, 사회적 자본 요인…' 문장이 두 번 반복됨 — 작성 b5/125
+- labeling-theory-school (caution): '낙인이 항상 부정적으로만 작동하는 것은 아니며…' 문장이 두 번 반복됨 — 작성 b5/125
+- time-study (deep): 호손 효과를 여유율로 보정한다고 서술하나 여유율은 피로·개인 용무 보전용이며 관측 의식에 따른 속도 차이는 평정(레이팅)의 대상 — 작성 b5/125
+- transactional-distance-theory (deep·caution): '구조와 대화가 부족하면 거리가 커진다', '구조 설계가 부실하면 거리가 커진다'는 서술이 같은 본문의 '구조화가 강할수록 거리가 커진다'(무어)와 방향이 어긋남 — 작성 b5/125
+- surge-capacity-hospital (deep): 네 요소 설명이 두 번 반복되고 물자의 영문 표기가 supplies와 stuff로 서로 다름 — 작성 b5/125
+- pneumoconiosis (deep): 분진 종류별 세분(규폐증·석면폐증·탄광부진폐증) 문장이 세 번 중복 서술됨 — 작성 b5/137
+- cultural-reproduction-theory-education (caution): '문화재생산이 곧 경제재생산과 동일시되지 않으며…' 문장이 거의 그대로 두 번 반복, 문체 혼용(-다/-습니다) — 작성 b5/137
+- principle-learning (deep): '가네/가녜' 표기 혼용, '구분된다.원리학습' 띄어쓰기 누락, 같은 위계 설명이 여러 번 중복 — 작성 b5/137
+- work-engagement (why·usage): why는 '소진의 반대 개념으로 이론화', usage는 '반대 개념이 아닌 독립적인 긍정 상태'로 서로 어긋남; usage 예문·해설이 통째로 두 번 중복; '워커홀리즘/워크홀리즘' 표기 혼용 — 작성 b5/137
+- overhead-variance (전체): '제조간접원가/제조간접비' 용어 혼용, 문체 혼용(-다/-습니다) — 작성 b5/137
+- transformational-leadership (why): 네 구성요소를 '카리스마'로 적은 why와 '이상화된 영향력(카리스마)'로 적은 deep의 표기가 다름 — 작성 b5/137
+- language-disorder (why·usage): why는 표현언어를 '말하고 쓰기', 화용 포함으로 쓰고 definition은 '어휘, 문법, 담화'로 써 구성 영역 나열이 문단마다 다름 — 작성 b5/137
+- chemical-biological-radiological-nuclear-hazard (deep): 핫존을 '오염 여부가 확인되지 않은 구역'으로 설명하나 통상 핫존은 오염(위험) 구역 자체를 가리킴 — 작성 b5/113
+- adhocracy-culture (deep·caution): 같은 두 문장('항상 우월한 것은 아니며…', '네 유형은 상호배타적 범주가 아니라…')이 문체만 바꿔 중복, caution도 첫 문장 중복 — 작성 b5/113
+- regional-integration (usage·deep): 단계 목록이 '자유무역지대·관세동맹·공동시장·경제통화동맹'(usage)과 '관세동맹·공동시장·통화동맹·정치동맹'(deep)으로 서로 다름 — 작성 b5/113
+- master-budget (definition·why·deep): 최종 요약 재무제표가 '예산손익계산서·예산재무상태표'와 '예산현금흐름표·예산재무상태표'로 엇갈리고 문체(-다/-습니다) 혼용 — 작성 b5/113
+- incremental-cost-effectiveness-ratio (usage): 인용문에 큰따옴표가 이중(""…"")으로 들어감, 문체 혼용 — 작성 b5/113
+- critical-juncture-theory (deep): '카포치아와 케일렘머' — Kelemen의 통용 표기는 '켈레멘' — 작성 b5/113
+- learning-curve (deep·caution): 표준을 초기 원가로 정하면 '유리한 차이'가 계속 난다는 서술과 caution의 '초기 불리한 차이 후 유리한 차이' 서술이 전제가 달라 혼동 소지, 누적평균시간모형 설명에서 '단위당 노동시간'은 '누적평균시간'이어야 정확 — 작성 b5/113
+- gagne-nine-events (usage·deep): 사태 이름 표기 혼용(주의집중/주의 획득, 목표제시/목표 안내, 수업사태/교수사태), deep에 '대응된다.모든' 띄어쓰기 누락과 생략 가능 설명 중복 — 작성 b5/121
+- absorptive-capacity (deep): 인명 표기 혼용(레빈탈/레빈설), 자라·조지 재개념화 설명이 두 번 반복, 문체 혼용(-어요/-습니다) — 작성 b5/121
+- knowledge-management (deep·caution): '1세대 실패의 원인' 문장이 deep에 두 번, '시스템 구축만으로는 부족' 문장이 caution에 두 번 중복, 문체 혼용(-다/-습니다) — 작성 b5/121
+- diffusion-of-innovations (usage·deep): 유형 이름 혼용(혁신자/혁신가, 지각수용자/지체자), '초기 수용자부터 지각 수용자까지'는 혁신가를 빠뜨림, '설명했다.혁신의' 띄어쓰기 누락, 다섯 속성 설명 중복 — 작성 b5/121
+- maternal-sensitivity (usage): 인용문 앞뒤에 큰따옴표가 이중으로 들어감(""생후 6개월의 …"") — 작성 b5/121
+- thompson-sampling (deep·caution): '사전 확률을 유지하다가 이 사후 분포에서'로 사전·사후가 뒤섞임, 사전분포 오설정 경고가 caution에 두 번 중복 — 작성 b5/121
+- transaction-isolation-level (caution): '동시 처리 성능(로드밸런싱 등)' — 로드밸런싱은 격리 수준의 동시성 성능과 무관한 예시 — 작성 b5/121
+- liturgical-calendar (why·deep): 표제는 교회력인데 본문에서 '전례력'과 혼용 — 작성 b5/121
+- [b3/04] poka-yoke: deep의 3분류(접촉식·정정(定程)방식·경고식)가 표준 분류와 다름 — 신고 시게오 분류는 설정 기능(접촉식·정수식·동작스텝식)과 규제 기능(규제식·경고식)의 두 축이며, 본문은 두 축을 섞었고 "정정방식"은 통용 용어가 아님
+- [b3/14] autonomic-nervous-system: usage 예문이 심박변이도(HRV)를 "교감신경 활성 지표"라고 부름 — HRV(특히 RMSSD·HF)는 주로 부교감(미주신경) 활성을 반영하며, 같은 페이지 deep 설명과도 어긋남
+- [b3/14] ace-inhibitor-mechanism: caution 문장 "안지오텐신수용체차단제 작용기전로 대체하기도 한다" — 약물이 아니라 "작용기전"으로 대체한다는 비문(조사 오류 포함), "안지오텐신수용체차단제(ARB)로 대체"가 맞음
+- [b3/18] liminality-turner: 같은 인물(Arnold van Gennep)을 "아르놀드 반 주네프"와 "반 헤네프"로 섞어 표기 — 표기 통일 필요
+- [b3/17] gibson-assembly: deep에서 DNA 폴리머라제가 "겹침 서열을 짝지어 붙인다"고 했으나, 겹침 서열 결합(annealing)은 자발적으로 일어나고 폴리머라제는 결합 뒤 남은 빈칸을 메운다
+- [b3/17] glycogenolysis: easy에서 "근육에서는 인산화효소가 없어"라고 했으나, 근육에 없는 것은 포도당-6-인산 가수분해효소(glucose-6-phosphatase)이며 글리코겐 인산화효소는 근육에도 있다
+- [b3/12] kato-katz-thick-smear-technique: 주의 문단이 요충란을 "알 껍질이 얇아" 잘 검출되지 않는 예로 들지만, 요충란은 항문 주위에 산란되어 대변 검사로 잘 안 잡히는 것이고 껍질이 얇아 셀로판(글리세린) 투명화로 빨리 사라지는 것은 구충란임
+- [b3/12] photocatalysis: 주의 문단 "특정 파장 이상의 빛 에너지가 필요" — 밴드갭 이상의 에너지(=특정 파장 이하의 빛)가 필요하므로 "파장 이상"은 방향이 반대로 읽힘
+- [b3/12] insect-metamorphosis: 주의 문단 "서로 다른 생식과 발생 방식" — 변태는 생식 방식이 아니라 발생(발달) 방식이므로 "생식"은 부정확
+- [b3/05] producer-consumer-decomposer: easy 마지막 문장 "물질과 에너지 흐름이 끊기지 않고 순환" — 순환하는 것은 물질뿐이고 에너지는 한 방향으로 흐르며 열로 빠져나감
+- [b3/03] wallerian-degeneration: 쉬운 설명이 잔해 청소 주체를 "미세아교세포와 슈반세포"로 묶어 씀 — 미세아교세포는 중추, 슈반세포는 말초에만 있고 말초에서 주된 청소 세포인 대식세포가 빠져 있음
+- [b3/09] sirna-mechanism: easy 문단 "21~23개 정도의 짧은 RNA 조각"은 단위가 빠져 RNA 21~23개로 읽힘 — "21~23 뉴클레오타이드 길이"로 고쳐야 함
+- [b3/15] bisulfite-sequencing: RRBS(reduced representation)를 "축소 표현형 바이설파이트 시퀀싱"으로 옮김 — 표현형(phenotype)이 아니라 "축소 대표" 의미라 오역
+- [b3/15] bisulfite-sequencing: deep에서 CpG 섬을 "메틸화가 상대적으로 풍부한" 곳으로 서술 — CpG 섬은 CpG 밀도가 높은 영역이며 대체로 비메틸화 상태
+- [b3/15] channelrhodopsin: easy에서 크림슨을 "채널로돕신을 개량한 것"으로 서술 — 크림슨은 다른 조류에서 발견된 자연형 적색 이동 채널로돕신(개량 변형체가 아님)
+- [b3/02] galvanic-corrosion: caution의 "작은 금속이 큰 금속과 접촉하면 더 위험"은 부정확 — 작은 쪽이 양극(부식되는 금속)일 때만 해당(deep 문단의 면적비 설명과 맞춰야 함)
+- [b3/02] markovnikov-rule: 과산화물에 의한 반마르코브니코프 첨가가 HX 일반에 적용되는 것처럼 서술됨 — 실제로는 주로 HBr에서만 나타남(HCl·HI는 해당 없음)
+- [b3/16] ec50: "EC50이 낮을수록 수용체에 잘 결합"이라는 설명은 효력(potency)과 친화도(affinity, Kd)를 혼동 — EC50은 결합력만이 아니라 신호 증폭·수용체 예비량에도 좌우됨
+- [b3/20] photolithography: 사용 예문 해설에서 "미세유체소자(MEMS)"로 적어 미세유체소자와 MEMS를 같은 것으로 표기함(서로 다른 개념). 또 소프트 리소그래피는 빛 노광이 아니라 몰드 성형 기법이라 "동일한 원리" 응용 사례로 보기 어려움
+- [b003/23] active-transport: 용례 해설이 상피세포의 포도당 능동수송을 "ATP를 소모하는 펌프 단백질을 이용"한 것으로 풀이하나, 포도당 흡수는 SGLT에 의한 2차 능동수송(Na⁺ 기울기 이용)으로 ATP를 직접 분해하는 펌프가 아님
+- [b003/45] steroidogenesis: caution 문단에 "선천성 부신過형성증"처럼 한자가 섞인 오기(→ 부신과형성증)
+- [b003/29] dose-response-curve: usage 해설이 곡선의 왼쪽 이동을 "효능이 더 강하다"로 설명하나, 왼쪽 이동은 효력(potency) 증가이며 효능(efficacy, 최대 반응)과 다름 — 같은 페이지 caution과도 모순
+- [b003/27] catalase-test: 주의 항목이 니크롬 백금이는 안전한 것처럼 서술하나, 일반적으로 니크롬선 백금이는 과산화수소와 반응해 위양성을 낼 수 있어 백금 백금이나 나무 막대를 권장함
+- [b003/48] iron-chelation-therapy: 심화 설명이 "데페리프론과 데페라시록스는 주로 대변으로 배출"이라 하지만 데페리프론은 주로 소변으로 배출됨(대변 배출은 데페라시록스)
+- [b003/48] suzuki-coupling: "스즈키 아키라와 미야우라 노리오는 2010년 노벨화학상 수상"은 오류 — 2010년 수상자는 헤크·네기시·스즈키이며 미야우라는 수상하지 않음
+- [b003/48] lineage-commitment: 쉬운 설명은 "더 이상 다른 계통으로 갈 수 없도록 고정"이라 하고 심화 설명은 "아직 되돌릴 수 있는 여지가 남은 단계"라 해 서로 모순(가역적 단계는 보통 specification, commitment는 결정까지 포함)
+- [b003/21] separation-of-powers: 주의 항목이 "국회가 만든 법이 헌법을 침해하는지는 법원이 심사"라고 하나, 한국에서 위헌법률심판은 헌법재판소 권한(법원은 제청만)
+- [b003/42] d-test: 심화 설명이 "에리트로마이신 디스크 주변 억제환이 클린다마이신 쪽으로 납작해지는"이라고 하나, 납작해지는 것은 클린다마이신 디스크의 억제환(에리스로마이신 디스크를 향한 쪽)임. 같은 문서 안에서 에리스로마이신/에리트로마이신 표기도 혼용
+- [b003/56] common-descent: 주의 문단의 "수백만 년 전에 살았던 상동기관과 상사기관을 공유하는 하나의 조상 종"은 문장이 어긋남 — 상사기관은 공통조상이 아니라 수렴진화의 결과이므로 조상 종을 수식하는 "상동기관과 상사기관을 공유하는"은 삭제·수정 필요
+- [b003/33] animal-plant-classification: 종자식물을 "꽃이 피어 씨로 번식"한다고 일괄 서술하나 겉씨식물(소나무·은행나무 등)은 꽃 없이 씨로 번식함
+- [b003/34] nerve-conduction-study: deep의 "전도속도와 잠복기의 저하"는 부정확 — 탈수초에서는 전도속도는 저하되고 잠복기는 연장(지연)됨
+- [b003/40] arterial-blood-gas-analysis: usage 해설이 pH 저하를 "산성도가 낮고"라고 풀이함 — pH 저하는 산성도가 높아진 것(산증)이므로 반대로 쓰임
+- [b003/40] electrostatic-precipitator: easy의 "양력과 항력이 큰 필터식(백필터) 집진"은 부적절 — 백필터의 단점은 압력손실이 큰 것(why 문단의 "낮은 압력손실"과도 대응)
+- [b003/32] order-of-draw: deep 문단에 채혈 순서 설명이 세 번 중복되고, 3번째 관이 "혈청관(응고촉진제·겔 포함)"과 "첨가제 없는 튜브"로 서로 다르게 적혀 있음
+- [b003/58] drug-antagonism-interaction: 활용 예문 해설이 비타민K–와파린 길항을 "약물동태학적 길항작용"이라 하지만, 이는 유효 농도를 낮추는 것이 아니라 비타민K 의존 응고인자 합성 경로에서 반대로 작용하는 약력학적(기능적) 길항임. 또 "나록손"은 "날록손" 오기
+- [b003/26] blood-brain-barrier-penetration: deep 문단이 운반체 매개 수송을 "능동 수송"의 하위로 분류하나, 혈뇌장벽의 운반체 매개 수송(GLUT1·LAT1 등)은 대개 촉진 확산이며 수용체 매개 세포통과도 엄밀히는 능동 수송과 구분됨
+- [b003/54] oxidative-addition: deep에서 transmetalation을 "리간드 교환"으로 옮김 — 금속교환(트랜스메탈화)이 맞고 리간드 교환(ligand exchange)은 다른 단계
+- [b003/51] van-der-waals-force: 용례의 "두 표면 사이에 작용하는 반데르발스 힘은 거리의 여섯제곱에 반비례"는 부정확 — r⁻⁶은 분자 쌍 사이 퍼텐셜 에너지의 거리 의존성이며(힘은 r⁻⁷), 거시적 표면 사이에서는 의존성이 훨씬 완만함. 또 정의가 "전자의 순간적 분포 치우침"(분산력)만으로 서술돼 배향력·유도력을 포함한다는 심화 설명과 어긋남
+- [b003/67] hyperdirect-pathway: deep에 "피질에서 시상하핵으로 시냅스 두 개만 거쳐 도달"이라 했으나 피질→시상하핵은 단일 시냅스 투사이며 시냅스 두 개는 피질→시상하핵→출력핵까지임. 같은 문단에서 용어도 "과직접경로"로 표기가 섞임
+- [b003/64] kynurenine-3-monooxygenase: 심화 설명의 "Ro 61-8048, UPF-648, GSK3335065 … 일부는 헌팅턴병 임상시험에도 진입"은 근거가 없음 — GSK3335065는 급성 췌장염 대상 1상이었고 헌팅턴병 임상에 들어간 KMO 억제제는 확인되지 않음
+- [b003/52] wolff-kishner-reduction: 심화 설명의 "다이아자이드 중간체"는 잘못된 명칭 — 하이드라존 음이온이 양성자 이동을 거쳐 생기는 중간체는 다이이미드(diimide/다이아젠) 음이온이며 아자이드와 무관함. 같은 페이지에서 클레멘젠/클레멘슨, 하이드라진/히드라진 표기도 혼용됨
+- [b003/79] aquaporin-4: caution이 AQP4를 "반응성 별아교세포의 막 단백질"이라고 한정함 — 반응성 여부와 무관하게 별아교세포 일반에 발현되므로 "반응성"은 부정확
+- [b003/84] biomagnification: 표제어는 생물확대(biomagnification)인데 본문 전체가 이 현상을 "생물농축"이라 부르고 BMF를 "생물농축지수"로 옮김 — 생물농축은 통상 bioconcentration(BCF)의 역어이므로 용어 혼용(BMF는 생물확대계수)
+- [b003/71] phase-ii-metabolism: caution의 "2상 대사 효소도 개인 간 CYP2D6 유전적 다형성에 따라"는 오류 — CYP2D6는 1상(CYP450) 효소이며, 2상 효소의 다형성 예는 UGT1A1·NAT2·TPMT 등임
+- [b003/72] lineweaver-burk-plot: usage의 "기울기가 크게 증가하여 친화도가 낮아졌음" 해석은 부정확 — 기울기는 Km/Vmax라 Vmax 감소로도 커지므로 기울기만으로 친화도 저하를 단정할 수 없음(Km은 x절편 -1/Km으로 판단)
+- [b003/95] pore-water-pressure: deep의 "압밀도는 배수 경로의 길이 제곱에 반비례해 소요 시간이 결정되므로"는 문장이 어긋남 — 압밀 소요 시간이 배수 경로 길이의 제곱에 비례한다고 써야 함
+- [b003/88] sulfur-cycle: easy에 "박테리아는 황산염(SO4²⁻)을 흡수해 식물이 쓸 수 있는 형태로 바꾸고"라 했으나 식물은 황산염을 직접 흡수함(세균은 환원형 황을 황산염으로 산화). deep의 "황산염을 산화 또는 환원시키는"도 황산염은 더 산화되지 않으므로 "황 화합물을 산화·환원"이 맞음
+- [b003/100] lipoprotein-metabolism: deep 문단이 "카일로마이크론과 VLDL이 LPL에 의해 분해되면서 LDL로 전환"된다고 하나, LDL로 전환되는 것은 VLDL(IDL 경유)뿐이고 카일로마이크론은 잔유물이 되어 간에 흡수됨
+- [b003/107] degrees-of-freedom: 운동제어의 자유도 페이지인데 usage에 통계학 자유도 예문("표본 크기에 따른 자유도 변화가 통계 검정력에…", "검정통계량의 분포를 결정하는 핵심 모수")이 섞여 있음(caution은 두 개념이 다르다고 명시)
+- [b003/121] chelate-effect: deep에서 거대고리 효과를 '여러 개의 서로 다른 리간드가 금속을 둘러싸 만드는' 효과로 설명하나, 실제로는 하나의 고리형(거대고리) 다자리 리간드가 금속을 둘러쌀 때 나타나는 추가 안정화임
+- [b003/123] giga-seal: 예문의 "피펫 저항이 1 GΩ을 초과하는 giga-seal"은 피펫 저항이 아니라 실(seal) 저항이어야 함(피펫 저항은 보통 MΩ 단위)
+- [b003/125] gluconeogenesis: deep 문단이 젖산·알라닌·글리세롤 모두 "옥살로아세트산과 포스포엔올피루브산을 거쳐" 포도당이 된다고 쓰지만, 글리세롤은 글리세롤-3-인산→DHAP로 들어와 옥살로아세트산·PEP를 거치지 않음. 또 우회 효소로 과당-1,6-이인산분해효소(FBPase-1)가 빠져 있음
+- [b003/115] ebv-test: "VCA IgG는 과거 감염을 시사"는 과도한 단순화 — VCA IgG는 급성기부터 양성이 되어 평생 지속되므로 단독으로는 과거 감염을 뜻하지 않음(IgM 음성·EBNA 항체 양성과 함께일 때 과거 감염)
+- [b003/108] hofmann-rearrangement: why에 "쿠르티우스 자리옮김, 커티우스 반응과 함께"라고 같은 반응(Curtius)을 표기만 달리해 두 번 나열함
+- [b003/108] purinergic-signaling: usage 예문이 "ATP가 P2Y12 수용체를 통해"라고 쓰나 P2Y12의 주 작용제는 ADP(ATP 분해산물)임 — "ATP·ADP" 정도로 고치는 편이 정확
+- [b003/85] paradox-of-voting: 용례에서 시민적 의무감 효용(D항) 도입을 "다운스(Downs, 1957)의 합리적 선택 모델"로 돌림 — D항을 넣은 확장 효용함수는 라이커·오데슉(1968)의 것으로, 같은 페이지 심화 설명과도 어긋남
+- [b003/110] claisen-condensation: deep의 "소듐에톡사이드처럼 짝염기가 되는 알콕사이드보다 약한 염기를 쓰는 경우가 많고"는 틀림 — 실제로는 에스터의 알콕시기와 같은 알콕사이드 염기를 1당량 써서 에스터 교환을 피하고, 생성물 β-케토에스터의 탈양성자화로 평형을 끌어감
+- [b003/117] cortical-spreading-depression: easy 문단이 전파 속도를 "초당 몇 mm"로 적음. 정의 문단(분당 몇 mm)과 모순이며 실제 CSD 속도는 분당 약 2~5 mm
+- [b003/118] von-willebrand-factor-assay: deep 문단이 2형 전체를 "고분자량 멀티머가 선택적으로 소실"로 설명함. 이는 2A·2B에 해당하고 2M·2N은 멀티머 분포가 정상인 질적 이상
+- [b003/118] genotoxicity-testing: caution 문단 "음성이라고 해서 발암성 시험이 전혀 없다고 단정할 수는 없으며"는 "발암성이 전혀 없다고"의 오기로 보임
+- [b003/86] state-observer: 주의점에서 칼만 필터를 상태 관측기와 "출발점이 다른" 별개 도구처럼 서술하나 심화 설명은 칼만 필터를 대표적 상태 관측기로 꼽아 서로 어긋남. 또 관측기 성립 조건을 "가제어성과 가관측성"이라 했으나 필요한 것은 가관측성(가검출성)이며, 내부 상태를 필요로 하는 것도 PID가 아니라 상태 되먹임 제어기임
+- [b003/86] levodopa-induced-dyskinesia: 심화 설명의 "남은 소수의 말단이 L-도파를 … 박동성으로 방출"은 부정확 — 말단이 방출하는 것은 L-도파에서 만들어진 도파민임
+- [b003/103] spike-triggered-average: 표제어 "스파이크 삼각평균"은 spike-triggered average의 오역(triggered를 삼각으로 옮김) — 통용 표기는 "스파이크 유발 평균(STA)"
+- [b003/124] prokaryote-and-eukaryote: 쉬운 설명의 "미토콘드리아나 미토콘드리아 같은 여러 세포소기관"은 같은 낱말 중복(뒤쪽은 엽록체·소포체 등 다른 소기관이어야 함)
+- [b003/114] surgisphere-scandal: 본문은 랜싯과 NEJM에 하이드록시클로로퀸 논문이 "동시에" 실렸다고 하나, 하이드록시클로로퀸 논문은 랜싯(2020-05-22)뿐이고 NEJM 논문(2020-05-01)은 심혈관 약물과 코로나19 사망을 다룬 별개 논문임
+- [b003/114] surgisphere-scandal: caution의 "게재 후 단 며칠 만에 철회"는 easy의 "몇 주 만에"와 모순(실제 철회는 2020-06-04로 랜싯 약 2주, NEJM 약 5주 뒤)
+- [b003/131] pure-substance-and-mixture: easy 문단 "물처럼 한 가지 원소로 이루어진 홑원소 물질" — 물은 화합물이므로 홑원소 물질 예시로 틀림(산소·구리 등으로 교체 필요). 같은 문단에서 물을 화합물 예시로도 써 자기모순
+- [b003/131] hepatic-extraction-ratio: usage "낮은 간추출률 약물은 효소 억제제 병용 시에도 청소율 변화가 제한적" — 저추출률 약물은 청소율이 효소 활성(고유청소율)에 민감하므로 반대이며 deep 문단과도 모순. "웰-스터드 모델" 표기도 "잘 섞인(well-stirred) 모델"이 적절
+- [b003/132] proton-pump-inhibitor-mechanism: caution "비경쟁적 길항작용 방식" — PPI는 수용체 길항제가 아니라 공유결합에 의한 비가역적 효소 억제이므로 용어가 부정확
+- [b003/111] quinolinic-acid: 본문이 퀴놀린산을 "신경세포뿐 아니라 소교세포와 대식세포에서도" 만든다고 하나, 뇌에서 주 생성원은 활성화된 소교세포·침윤 대식세포이며 신경세포는 주된 생성 세포가 아님
+- [b003/111] arynes: 본문 deep의 전구체 표기 "오르토-트리플레이트 실릴아릴 화합물"은 부정확 — 통상 오르토-실릴아릴 트리플레이트(2-(트라이메틸실릴)아릴 트리플레이트)
+- [b003/137] endorphin: why 문단의 "침술이나 태반 통증 조절"은 위약(placebo) 진통의 오역으로 보임(태반 → 위약)
+- [b003/138] drug-induced-qt-prolongation: caution 문장 "약물을 다약제 복용 위험 쓰면"이 깨진 문장(→ "약물을 여러 개 함께 쓰면")
+- [b003/130] lactic-acid-fermentation: easy 문단이 "일부 세균, 효모의 발효 과정에서 이 경로가 활발히 일어납니다"라고 하나 효모의 대표 발효는 알코올(에탄올) 발효이며 젖산 발효가 아님
+- [b003/139] transduction-phage: 일반형질도입을 "용균성 파지"가 일으킨다고 서술하나, 예문의 P1을 비롯해 P22 등 대표적 일반형질도입 파지는 온건(용원성) 파지임 — "용균 주기 중 잘못 포장"으로 써야 정확
+- [b003/133] osmolal-gap: caution이 "중독 초기"에도 삼투압차가 정상일 수 있다고 쓰지만 deep은 초기에 모 알코올이 남아 삼투압차가 크다고 설명해 서로 모순(정상으로 나올 수 있는 쪽은 대사가 진행된 후기)
+- [b003/149] game-of-chicken: deep 문단의 "소진 전술(brinkmanship)" 표기 오류 — brinkmanship은 "벼랑 끝 전술"이며 소진 전술은 war of attrition에 해당
+- [b003/140] e-test: 표제어 "이트레스트"는 오기로 보임 — E-test의 한글 표기는 "이테스트"(E-테스트)
+- [b003/161] reproductive-isolation: easy·deep이 "수정이 안 되는 경우"를 합체 후 격리에 넣음. 수정 실패(배우자 격리)는 합체 전 격리이며, 합체 후 격리는 수정 이후 잡종의 생존·번식 문제에 한정됨
+- [b003/150] price-discrimination: usage 첫 예문이 "개인 맞춤형 가격"을 3급 가격차별의 확장이라 설명 — 개인별 가격은 1급에 근접한 형태(deep 문단 서술과도 어긋남)
+- [b003/165] aphasia: 쉬운 설명의 "손상된 부위가 브로카 영역과 베르니케 영역이냐 베르니케 영역이냐에 따라"는 문장이 깨져 있음(→ "브로카 영역이냐 베르니케 영역이냐에 따라")
+- [b003/163] fermentation: easy가 발효를 "무산소호흡"과 같은 것으로 표기 — 무산소호흡은 산소 외 전자수용체를 쓰는 전자전달계 호흡으로 발효와 다른 개념
+- [b003/163] fermentation: easy가 젖산을 운동 후 근육이 뻐근해지는 이유 중 하나로 설명 — 지연성 근육통의 원인이 젖산 축적이라는 설명은 현재 지지되지 않음
+- [b003/168] unemployment: 쉬운 설명이 경제활동인구를 "적극적으로 일자리를 찾고 있는 사람"으로 풀이함 — 경제활동인구는 취업자+실업자이며 구직 중인 사람만이 아님
+- [b003/156] nephelometry: deep 마지막 문장이 "비탁법은 … 산란광 자체를 직접 측정"이라 써서 같은 본문의 "비탁법=투과광 감소 측정" 설명과 모순(주어가 네펠로메트리여야 함)
+- [b003/156] nephelometry: caution이 항원 과잉에 의한 후크 효과를 "(prozone)"으로 표기 — 엄밀히 prozone은 항체 과잉, 항원 과잉은 postzone
+- [b003/153] lymphocyte: 림프구를 적응 면역 세포로만 정의하고 B·T세포 두 종류만 제시 — 선천 면역에 속하는 림프구인 NK세포가 빠져 있음
+- [b003/169] feedback-loop-signaling: deep이 bistability를 "양쌍안정성"으로 표기 — 표준 역어는 "쌍안정성"
+- [b003/169] schaffer-collateral: deep이 삼시냅스 회로를 "치상회 → CA3 → CA1"로만 적고 샤퍼 곁가지를 "두 번째 연결"이라 함 — 삼시냅스 회로는 내후각피질→치상회(관통로), 치상회→CA3(이끼섬유), CA3→CA1(샤퍼 곁가지)의 세 시냅스이며 샤퍼 곁가지는 세 번째
+- [b003/172] mitsunobu-reaction: 심화 설명이 "베타인 중간체가 알코올에서 양성자를 빼앗고"라고 쓰지만 통상 기전에서 베타인이 탈양성자화하는 것은 산성 친핵체(카복실산 등)이며, 같은 문단 뒤쪽 서술(친핵체가 베타인에 의해 탈양성자화)과도 어긋남
+- [b003/152] adverse-drug-reaction-classification: deep이 확장 유형을 C형=지연성, D형=금단성, E형=치료 실패로 적음 — 표준 분류(Edwards & Aronson 2000)는 C=만성(용량·시간 누적), D=지연성, E=중단(금단), F=치료 실패로, 글자가 한 칸씩 밀려 있음
+- [b003/178] adverse-event: 중대한 이상반응(SAE)을 "생명을 위협할 정도로 심각한 경우"로만 설명 — 표준 정의는 사망·생명 위협·입원(연장)·지속적 장애·선천 기형 등 결과 기준이며 심각도(severity)와 구분됨
+- [b003/185] osmotic-fragility-test: deep 끝문장 "정상보다 낮은 저장성 농도에서도 쉽게 용혈"은 표현이 모호해 easy/deep 앞부분(구상적혈구는 더 진한=높은 농도에서 용혈)과 반대로 읽힐 수 있음
+- [b003/195] zaitsev-rule: easy의 "강한 염기를 쓰지 않는 E2 반응"은 부정확 — E2는 강한 염기가 필요하며, 자이체프 규칙이 잘 맞는 조건은 "부피가 큰 염기를 쓰지 않는" E2임
+- [b003/196] lanthanide-contraction: easy의 "4주기와 5주기의 전이금속(예: 지르코늄과 하프늄)"은 오류 — Zr은 5주기, Hf은 6주기(4d·5d 계열)임. 또 "원자번호가 커질수록 원자 크기도 커지는 것이 일반적"은 같은 주기 안에서는 원래 반지름이 줄어드는 경향과 어긋나 오해 소지
+- [b003/196] illumina-sequencing: easy의 "형광이 붙은 염기를 한 번에 한 종류씩 결합시키고"는 부정확 — 일루미나 SBS는 네 종류의 형광 표지 가역적 종결 염기를 동시에 넣고 사이클마다 한 염기씩 결합시킴
+- [b003/189] mtt-assay: deep이 "형광 기반의 MTS, WST"라고 쓰지만 MTS·WST는 MTT와 같은 테트라졸륨염 비색(흡광도) 어세이로 형광 기반이 아님(형광 기반은 레사주린 등)
+- [b003/190] therapeutic-equivalence: caution이 "치료학적동등성이 인정되어도 서방형과 속방형처럼 제형이 다른 경우"라고 쓰지만, deep의 설명대로 치료학적동등성은 성분·함량·제형이 같은 약학적 동등을 전제하므로 제형이 다른 제품은 애초에 치료학적동등 대상이 아님(자기모순)
+- [b003/191] titration-curve: "곡선의 중간 지점에서 pH가 산 해리상수와 같아진다"는 부정확 — 약산 적정의 반당량점에서 pH = pKa(Ka 자체가 아님)이며 "중간 지점"은 반당량점으로 명시해야 함
+- [b003/191] lead-toxicity-mechanism: 뼈 납 지표의 예로 "골밀도 기반 측정"을 든 것은 오류 — 뼈 납은 K-XRF(X선 형광)로 측정하며 골밀도 측정과 무관
+- [b003/192] talen: FokI 이합체 형성 요구 "덕분에" ZFN보다 오프타겟이 낮다는 설명은 논리 오류 — ZFN도 동일하게 FokI 이합체가 필요함(차이는 인식 도메인의 특이성)
+- [b003/192] crossing-over: "교차는 감수분열 과정에서만 일어난다"는 단정은 부정확 — 드물지만 체세포분열에서도 교차(유사분열 재조합)가 일어남. 또 "사국(tetrad)"은 통용 용어 "사분체/2가 염색체"로 써야 함
+- [b003/192] rectifier: "1초에 60번씩 방향이 앞뒤로 바뀌는 교류"는 부정확 — 60Hz는 초당 60주기이며 전류 방향은 초당 120번 바뀜
+- [b003/192] clonorchis-sinensis-egg: 간흡충란이 "폐흡충 알과 형태가 유사"하다는 서술은 부정확 — 폐흡충란은 약 80~120µm로 훨씬 커서 혼동 대상이 아님(혼동 대상은 이형흡충류 알)
+- [b003/184] leaving-group: deep의 "짝염기의 pKa가 낮을수록"은 주체가 틀림(pKa는 짝산의 값 — "짝산의 pKa가 낮을수록"이 맞음)
+- [b003/184] leaving-group: deep의 "염소화이온"은 비표준 표기(염화 이온이 맞음)
+- [b003/205] cope-rearrangement: deep에서 의자형 전이 상태 선호를 "우드워드-호프만 규칙에 따라"라고 설명하나, 해당 규칙은 [3,3] 자리옮김의 열적 허용만 말할 뿐(의자형·배형 모두 허용) 의자형 선호는 입체·궤도 상호작용에 따른 에너지 차이 때문임
+- [b003/200] arrhythmia-mechanism: deep 문단 "촉발활동은 다시 조기탈분극과 후탈분극으로 구분"은 부정확 — 촉발활동은 후탈분극에 의한 것이며 조기 후탈분극(EAD)과 지연 후탈분극(DAD)으로 구분됨
+- [b003/194] catalytic-surface-mechanism: usage 예문이 CO 산화를 "기상 O2가 흡착된 CO와 직접 반응"하는 엘리-리디얼 사례로 들지만, 금속 표면 CO 산화는 랑그뮤어-힌셜우드의 대표 사례이며 O2는 해리 흡착해야 반응하므로 예시가 부적절함
+- [b003/201] atomic-layer-deposition: "한 사이클마다 정확히 원자 한 층 두께만큼만 막이 자란다"는 과장 — 실제 GPC는 입체 장애 등으로 보통 단분자층 미만(예: Al2O3 약 0.1 nm/사이클)
+- [b003/202] histaminergic-system: 사용 예문의 "기면증 환자군에서 결절유두체핵 히스타민성 신경세포 수가 유의하게 감소"는 사실과 반대 — 기면증(1형) 부검 연구에서는 히스타민 신경세포 수가 오히려 증가한 것으로 보고됨(감소하는 것은 오렉신 신경세포)
+- [b003/181] chemosynthesis-marine: definition이 메탄을 "무기화합물"로 분류하나 메탄은 유기화합물임(메탄 산화는 엄밀히 화학무기독립영양이 아님) — "황화수소 등 무기화합물이나 메탄 같은 환원 물질"로 고쳐야 함
+- [b003/182] kowzan-sign-systems: definition의 "티데우시 코잔"은 오기 — Tadeusz Kowzan은 "타데우시 코잔"
+- [b003/207] merip-seq: caution에서 m6A-SEAL을 miCLIP과 함께 "단일염기 해상도 기법"으로 소개하나, m6A-SEAL은 항체를 쓰지 않는 FTO 보조 화학 표지법으로 해상도는 MeRIP과 비슷한 조각 수준이며 단일 염기 해상도가 아님
+- [b004/03] relative-key: deep 본문 "으뜸음이 같은 나란한조(동주조)"는 자기모순 — 으뜸음이 같은 조는 나란한조가 아니라 같은으뜸음조(동주조)임
+- [b004/39] consent-withdrawal: deep에서 "완전 분석군(per-protocol set)"이라 했으나 per-protocol set은 계획서 순응 분석군이고, 완전 분석군은 full analysis set(FAS)임
+- [b004/05] sonata-rondo-form: deep 섹션이 발전부 역할의 C부분을 "마지막 후렴(A) 직전"에 온다고 서술하나, ABACABA에서 C는 세 번째 A 앞(가운데)이고 마지막 A 직전은 B 재현이다
+- [b004/11] energy-availability: easy 본문이 에너지가용성을 "몸무게당" 값이라 설명하나 정의·공식은 체중이 아니라 제지방량(FFM)당 값임 — "제지방량(지방을 뺀 몸무게)당"으로 고쳐야 함
+- [b004/27] phase-plane-analysis: deep의 "고유값이 모두 음의 실수부를 가지면 안정 노드"는 부정확 — 음의 실수부를 가진 켤레복소수면 안정 나선이므로 "안정(점근 안정)"이 맞고, "실수부가 양이면 불안정"도 "하나라도 양이면"이어야 함(같은 문장들이 deep에 두 번 중복됨)
+- [b004/27] cook-value: deep의 "살균가와 조리가치를 모두 낮추면서 안전성을 확보하는 것이 고온단시간 살균의 핵심 목표"는 오류 — 살균가(F값)는 목표치를 채워야 하는 값이고 낮추는 대상은 조리가치(C값)뿐임
+- [b004/26] bifurcation-dynamical: 심화 설명이 피치포크 분기를 "대칭이 유지되는 초임계형과 대칭이 급격히 붕괴하는 아임계형"으로 구분하나, 초임계형도 대칭이 깨지며 두 유형의 차이는 연속적 전이 대 불연속 도약·이력현상임. 또 "안정성이 뒤바뀌는 갈래 분기"는 초월임계 분기의 설명과 혼동됨
+- [b004/10] belmont-report: why 문단이 "IRB/IACUC 심사 기준"도 벨몬트 보고서를 준거로 삼는다고 쓰지만 IACUC는 동물실험 위원회로 벨몬트 보고서(인간 대상 연구)와 무관함
+- [b004/10] colloidal-system: deep 문단이 서스펜션(코코아 음료)을 1nm~1μm 콜로이드의 한 유형으로 들지만 코코아 입자는 대개 1μm보다 큰 조대 분산(현탁액)이며, 액체 속 고체 콜로이드는 졸(sol)이라 부름
+- [b004/31] blood-flow-restriction-training: limb occlusion pressure를 "사지혈압"으로 옮김 — 사지(동맥) 폐쇄압이 맞고 같은 문단의 "동맥 폐쇄압"과도 용어가 어긋남
+- [b004/31] triple-helix-innovation-model: 세 주체의 삼중나선을 "DNA의 두 가닥처럼"이라 비유 — 가닥 수가 맞지 않음(세 가닥 나선 비유여야 함)
+- [b004/17] release-velocity: 운동사슬 순서를 "어깨의 외회전 → 팔꿈치 신전 → 손목 굴곡"으로만 적어, 실제로 가장 큰 각속도를 내는 어깨 내회전이 빠져 있음(외회전은 가속 전 코킹 동작)
+- [b004/30] dietary-pattern-derivation-cluster-analysis: deep에서 군집분석만 "데이터 주도적"이고 요인분석 기반 방법과 다르다고 서술하나, 요인분석·주성분분석도 사전 가중치 없이 자료에서 패턴을 뽑는 사후(a posteriori) 방법임
+- [b004/01] newton-raphson-method: why 문단이 경사하강법 등을 "뉴턴-랩슨법의 아이디어를 확장한 형태"라고 쓰지만 경사하강법은 1차 미분만 쓰는 별개의 1차 방법이며, 뉴턴법 쪽이 2차(헤시안) 정보를 추가로 쓰는 방법임
+- [b004/02] harris-benedict-equation: deep 문단의 1984년 개정자 표기 "로자-샤이저트"는 Roza·Shizgal(로자·시즈갈)의 오기이며, 같은 문단에서 Mifflin-St Jeor를 "미프린-세인트 지어"와 "미플린-세인트지어"로 다르게 표기함
+- [b004/35] false-cause-fallacy: deep 항목이 post hoc("이후에 일어났으므로 이로 인해")을 "후건긍정식 사고"와 관련짓는데, 후건긍정은 별개의 형식적 오류(P→Q, Q ∴ P)로 선후 인과 오류와 다름
+- [b004/15] conditional-probability: caution의 "두 값을 연결하려면 이항분포처럼 사건의 기본 확률 구조를 함께 고려" — P(A|B)와 P(B|A)를 잇는 것은 이항분포가 아니라 베이즈 정리·기저율(사전확률)임. 또 prosecutor's fallacy의 통용 번역은 "검사관의 오류"보다 "검사의 오류"
+- [b004/16] dominant-function: why에서 증6화음을 딸림기능으로 묶는다고 서술 — 증6화음은 통상 V로 해결하는 선딸림(프리도미넌트) 기능으로 분류됨
+- [b004/04] tabletop-exercise: why 본문이 HSEEP 운영 기반 훈련을 기능훈련·전실전형 훈련 둘로만 적음 — HSEEP는 드릴(drill)·기능훈련·전실전형 훈련 셋으로 구분함
+- [b004/41] anthocyanin-color-change: deep에서 무색 카비놀 유사 구조를 "중성 부근"이라 했으나 실제로는 약산성(pH 4~6)에서 우세하고 중성 부근은 보라색 퀴노이드 염기임(easy의 "중성이면 보라색" 서술과도 어긋남)
+- [b004/41] ld50-test-replacement: deep의 "모두 사망을 최종 지표로 삼는 대신 중독 징후를 근거로"는 고정용량법(OECD 420)에만 해당 — 급성독성등급법(423)·용량단계법(425)은 여전히 사망을 지표로 쓰되 동물 수를 줄인 방법임
+- [b004/41] two-step-floating-catchment-area: 표제 "촉매권역"은 catchment(이용권역)의 오역 — catchment는 촉매(catalyst)와 무관하며 통용 표기는 "2단계 유동권역법/이동권역법"
+- [b004/57] first-in-human-trial: deep에서 시작 용량을 "동물에서 관찰된 최소 독성 용량에 안전계수"로 산정한다고 하나 통상 기준은 무독성량(NOAEL)임. usage의 "무독성 최대용량에서 산출한 MABEL"도 부정확(MABEL은 약리 자료 기반으로 NOAEL과 별개 접근). MABEL 번역어도 본문 안에서 두 가지로 혼용
+- [b004/49] accessibility-index-gis: 2SFCA를 "공급 대비 수요 비율 지수"라고 썼으나 실제로는 수요(인구) 대비 공급 비율임
+- [b004/14] arousal-theory: 쉬운 설명이 "너무 낮아도 너무 높아도 좋지 않다는 게 핵심"이라고 해 역U가설과 동일시함 — 주의점(각성이론≠역U가설, 추동이론 포함)과 모순
+- [b004/47] small-scale-housing-improvement-project: usage에서 "2018년 특례법 제정으로 도입"이라 했으나 「빈집 및 소규모주택 정비에 관한 특례법」은 2017년 2월 제정, 2018년 2월 시행임
+- [b004/56] coherentism: why 문단은 "봉소와 하먼", deep 문단은 "봉주르"로 같은 인물(BonJour) 표기가 불일치 — "봉소"는 오표기로 보임
+- [b004/54] hypovolemic-shock: usage의 "순환혈액량의 15% 이상 손실 시부터 보상기전이 한계에 부딪혀"는 부정확 — 15~30%(2단계)는 빈맥·맥압 감소로 보상이 유지되는 구간이고 보상 실패(저혈압)는 대략 30% 이상에서 나타남
+- [b004/48] emulsion-stability: deep에서 크리밍을 "무거운 상이 가라앉거나 뜨는" 현상이라 했으나 크리밍은 밀도가 낮은 분산상이 떠오르는 것이고 가라앉는 것은 침강(sedimentation)임
+- [b004/59] injective-surjective-function: caution이 "두 조건을 모두 만족해야만 합성함수와 역함수를 만들 수 있는"이라고 하나, 합성함수는 전단사가 아니어도 정의됨(전단사가 필요한 것은 역함수뿐)
+- [b004/46] persistence-through-time: deep 단락이 "지속론(존속론)"을 "각 시점에 전체로서 존재"하는 입장(내구주의)의 이름으로 쓰고 why 단락도 "존속주의와 지속주의"라 적어, caution의 "지속주의(perdurantism)=시간적 부분 이론" 및 easy·usage의 "내구주의 vs 지속주의" 용어와 충돌함(용어 통일 필요)
+- [b004/43] nursing-diagnosis-statement: deep의 "위험 진단(위험요인만 서술)"이 why의 "문제와 위험요인만으로 진술"과 어긋남 — 위험 진단도 문제(진단명)+위험요인으로 진술
+- [b004/52] 3d-city-model-citygml: deep 본문이 CityGML 2.0 상세수준을 LOD1~LOD4로만 서술하나 2.0 표준은 LOD0(평면·2.5D 수준)부터 LOD4까지 5단계임
+- [b004/73] contextual-interference-effect: deep 마지막 문장이 "매 시행마다 이전 해법을 작업기억에서 재구성"하는 설명을 정교화 가설이라 부름 — 이는 재구성(망각-재구성) 가설의 내용이며 같은 단락 앞부분 설명과도 모순
+- [b004/74] return-of-individual-results: deep에서 analytic validity를 "임상적 타당성"으로 옮김 — "분석적 타당성"이 맞음
+- [b004/74] common-rule: Subpart B~D를 커먼룰의 하위조항처럼 서술하나 커먼룰은 45 CFR 46 Subpart A만 가리키며 B~D는 HHS 추가 규정임. 또 "인지적으로 취약한 성인"에 대한 별도 Subpart는 없음
+- [b004/68] clubfoot: usage 예문이 "아킬레스건 경피적 절제술"이라 썼으나 tenotomy는 힘줄을 잘라 내는 절제가 아니라 절단(건절단술)임 — why 문단의 "경피적 건절단술"과도 표기 불일치
+- [b004/69] synthetic-proposition: why 항목이 종합명제를 "경험을 통해서만 참거짓이 확인되는" 것으로 서술해, 같은 페이지의 종합적 선험 판단(주의 항목: 종합성과 후험성을 동일시하면 안 됨) 설명과 모순
+- [b004/76] frozen-shoulder-rehabilitation: usage 예문이 "동결기 환자"를 통증이 가장 심한 단계로 설명하지만, 본문 3단계 구분상 통증이 가장 심한 시기는 동통기이고 동결기(frozen)는 통상 강직기를 가리킴 — 용어 불일치(deep에 같은 문장도 2회 중복)
+- [b004/91] chromatic-harmony: usage에 반음계적화성과 무관한 색채조화(배색 실험·소비자 선호도) 예문과 해설이 섞여 있음
+- [b004/85] hypertonia: why 문단이 과긴장을 "상위운동신경원 손상 후 근긴장도가 증가한 상태를 총칭"이라 하면서 강직(파킨슨병 등 기저핵·추체외로 질환)을 포함시켜 모순이며, easy의 "근육 자체가 굳는 강직"도 부정확(강직은 근육 자체가 아니라 기저핵 이상에 의한 근긴장 증가)
+- [b004/89] ring-and-field: 심화 설명의 정역 정의 "모든 곱이 0이 아닌 두 원소로 나뉘지 않는 환"이 뜻이 통하지 않음 — 정역은 0이 아닌 두 원소의 곱이 0이 되지 않는(영인자가 없는) 가환환
+- [b004/86] pragmatic-theory-of-truth: easy 문단이 "퍼스나 제임스 같은 실용주의 철학자들은 진리를 탐구 공동체가 장기적으로 검증해도 유지되는 믿음으로 규정"이라 해 퍼스의 견해를 제임스에게도 귀속시켜, 두 사람을 구분하는 deep 문단과 어긋남
+- [b004/86] massive-hemorrhage-control: why는 "MARCH 순서"를 예로 들지만 usage가 설명하는 대량출혈-기도-호흡-순환-장애는 <C>ABCDE(xABCDE) 순서로, MARCH(대량출혈-기도-호흡-순환-저체온/두부손상)와 다른 약어임
+- [b004/95] best-before-date: 소비기한의 영문 대응어를 best-before-date로 표기(슬러그·usage). best before는 품질유지기한(품질 기준)에 해당하고 소비기한(안전 기준)은 use-by date가 맞음
+- [b004/83] diamond-open-access: caution이 약탈적 학술지를 "게재료가 없다는 점을 악용"한다고 서술하나, 약탈적 학술지는 통상 게재료(APC)를 받고 심사 없이 싣는 것이 특징이라 부정확
+- [b004/83] joint-reaction-force: why·caution은 관절 내부 부하의 "실측/직접 측정이 불가능"하다고 하나 deep은 센서 삽입 인공관절의 실측 자료를 검증 기준으로 든다 — 서로 모순(일반적으로는 어렵지만 이식 센서로는 가능)
+- [b004/101] healthcare-associated-infection: 수술부위감염 추적 기간 "인공삽입물 시 최대 1년"은 2013년 이전 CDC/NHSN 기준 — 현행 NHSN·KONIS는 수술 종류에 따라 30일 또는 90일
+- [b004/96] irb-approval: definition이 IRB 심사 대상을 "사람(또는 동물)"로 적고 caution도 반려동물 실험을 IRB 심사 대상처럼 서술 — 동물실험은 IRB가 아니라 동물실험윤리위원회(IACUC) 소관(같은 페이지 usage와도 모순)
+- [b004/96] irb-approval: caution이 승인 계획과 다른 절차 변경을 "그 자체로 연구부정행위(FFP)"라고 서술 — FFP는 위조·변조·표절이며 계획 이탈은 프로토콜 위반·윤리 위반에 해당
+- [b004/82] mutual-information: deep 문단의 "결합확률분포와 각 변수의 주변확률분포를 비교하는 결합확률분포와 주변확률분포으로 정의되며"는 문장이 깨져 있음(쿨백-라이블러 발산 등 정의 용어가 빠지고 조사도 틀림)
+- [b004/82] formal-fallacy: "매개념 다의성의 오류"를 형식적 오류로 들면서 "기호로 대체해도 오류로 남는다"고 설명하는데, 다의성은 낱말 뜻을 봐야 드러나므로 4개념의 오류로 명칭·설명을 정리할 필요
+- [b004/100] glasgow-outcome-scale: deep에서 GOS-E를 "중증장애와 경증장애를 각각 상·하로 나누어 8단계"라고 했으나 좋은 회복도 상·하로 나뉘어야 8범주가 됨(1+1+2+2+2). 또 같은 범주를 easy는 "중등도 장애", deep은 "경증장애"로 달리 표기(moderate disability=중등도 장애)
+- [b004/103] denying-the-antecedent: caution 첫 문장이 타당한 형식을 "전건 부정식(모두스 톨렌스)"이라 적음 — 모두스 톨렌스는 후건 부정식(바로 뒤 문장은 올바르게 표기해 서로 모순)
+- [b004/103] denying-the-antecedent: deep이 "P일 때만 Q"를 필요충분조건(쌍조건문)이라 설명 — "P일 때만 Q"는 P가 필요조건(Q→P)이라는 뜻이고, 쌍조건문은 "P일 때 그리고 그때만 Q"
+- [b004/104] ship-of-theseus: caution의 "내구주의와 지속주의"는 표준 역어가 아님 — endurantism/perdurantism은 보통 이동지속론(지속주의)/확장지속론(영속주의)으로 옮기며 두 낱말의 대응이 불분명
+- [b004/113] mitochondrial-replacement-therapy: 방추체이식(MST)을 "미수정 난자 단계에서 핵을 옮겨"라고 서술하나, 성숙 난자(MII)에는 핵막이 없어 실제로 옮기는 것은 방추체–염색체 복합체임
+- [b004/113] diaphragm-structure: 예문이 강체 다이아프램이 횡하중을 "전단벽 위치에 비례하여" 분배한다고 하나, 강체 다이아프램은 수직 요소의 상대 강성에 비례해 분배함(위치는 비틀림 효과에 관여)
+- [b004/114] neural-tube-defect-prevention: "수정 후 약 3~4주"와 "임신 3~4주경"을 섞어 써 기준이 모호함 — 신경관 폐쇄는 수정 후 3~4주(임신 주수로는 약 5~6주)
+- [b004/120] a-theory-of-time: why 항목의 "매켄타가트"는 오기 — 같은 페이지의 다른 곳처럼 "맥타가트"(McTaggart)로 통일해야 함
+- [b004/123] frailty: usage 예문이 "Fried 노쇠 지표(frailty index)"라고 적어 Fried 표현형 모델과 노쇠 지수(frailty index)를 혼동 — deep은 둘을 별개 방식으로 설명하므로 "Fried 노쇠 표현형(frailty phenotype)"으로 고쳐야 함
+- [b004/123] duo-trio-test: why의 "시료 두 개만 비교하면 되어 감각 피로가 삼점검사보다 적어"는 부정확 — 듀오트리오도 기준 시료 포함 세 개를 맛보므로 시식 수는 삼점검사와 같음
+- [b004/118] aspiration: caution 필드에 같은 문장(무증상 흡인 경고)이 두 번 반복됨
+- [b004/117] physical-examination-nursing: deep 필드에 "계통별 접근과 두미 접근" 문장이 중복되고, 일반 검진 순서를 시진-촉진-타진-청진으로 적었으나 표준 표기는 대개 시진-촉진-타진-청진(IPPA)이고 복부는 시진-청진-타진-촉진임을 명시하지 않음(타진과의 순서 누락)
+- [b004/112] german-sixth: 정의의 구성음 "낮춘 6음도, 근음, 3음도, 올린 4음도"에서 "근음"은 화음의 근음이 아니라 으뜸음(1음도)이어야 하고, "3음도"는 장조 기준으로는 낮춘 3음도(♭3)여야 함(단조에서만 그대로 3음도)
+- [b004/126] septic-shock: easy 예시는 "손발이 차가워지는" 상태로 설명하지만 usage·deep은 초기 패혈성쇼크의 특징을 따뜻하고 붉은 피부(온난성 쇼크)로 서술해 서로 어긋남
+- [b004/127] parallel-key: why·deep 필드가 같은으뜸음조를 "나란한조(parallel)"라 부르며 "나란한조는 으뜸음이 같고 조표가 다르다"고 서술해, 나란한조=관계조(relative, 조표 같고 으뜸음 다름)로 쓰는 easy·caution 및 표준 용어와 모순됨
+- [b004/138] meniscus-injury-rehabilitation: caution의 "봉합술을 받은 경우 이식된 조직이 아물 시간" — 봉합술은 이식이 아니므로 "봉합된 조직"이 맞음
+- [b004/138] real-time-pcr-gmo-detection: easy의 "형광 신호가 일정 기준선을 넘는 시점(Ct값)" — Ct는 기준선(baseline)이 아니라 역치선(threshold)을 넘는 사이클
+- [b004/148] peptide-transporter-pept1: deep의 "저단백식이 상태에서 PepT1 발현이 오히려 증가"는 통설(고단백식이·공복에서 증가, 저단백식이에서는 감소)과 어긋남
+- [b004/148] isotonic-contraction: caution의 "엄밀한 의미의 등장성수축은 등속성 기구에서만 구현 가능"은 부정확(등속성 기구는 속도를 일정하게 할 뿐 장력을 일정하게 하지 않음)
+- [b004/150] parenteral-nutrition: deep가 정맥영양을 "말초혈관 vs 중심정맥관을 이용하는 총정맥영양(TPN)"으로 나눠 TPN을 중심정맥 경로와 동일시함 — TPN은 필요 영양 전량을 정맥으로 공급한다는 뜻(부분정맥영양의 반대)이고, 투여 경로 구분은 말초정맥영양(PPN) 대 중심정맥영양(CPN)임
+- [b004/151] green-roof: deep는 경량형·중량형의 "효과와 하중, 관리 부담이 크게 다릅니다"라고 하고 caution은 "단열·열섬 완화 효과 자체는 유사"라고 해 유형별 효과 서술이 서로 어긋남
+- [b004/129] moral-luck: usage 예문의 "네이글은 … 도덕적 운이라 명명했다"는 부정확 — moral luck이라는 용어는 버나드 윌리엄스가 1976년 논문에서 도입했고 네이글은 같은 제목의 답변 논문에서 네 유형을 구분함(deep의 서술과도 어긋남)
+- [b004/129] suspension-structure: usage 해설이 타코마 다리 붕괴를 "바람에 의한 공진 현상"으로 설명 — 통설은 단순 공진이 아니라 공탄성 플러터(자려 진동)이며 deep의 플러터 서술과도 맞지 않음
+- [b004/129] moral-relativism: deep 첫 문장이 메타윤리적 상대주의를 "규범적 주장"이라 부르는데 바로 뒤에서 규범적 상대주의를 별개 입장으로 정의해 용어가 충돌 — "메타윤리적 주장"으로 고쳐야 함
+- [b004/142] sambun-sonik: deep의 "12번째 율이 출발음과 정확히 일치하지 않는 오차"는 부정확 — 12번째 율은 중려이며, 어긋나는 것은 12율 산출 뒤 한 번 더 삼분익해 얻는 음(황종 옥타브 자리)임. 또 손·익이 끝까지 정확히 번갈지는 않음(응종→유빈→대려에서 익이 연속)
+- [b006/68] fiscal-illusion: deep·caution에서 flypaper effect를 "파리지옥 효과"로 표기 — 통용 역어는 "끈끈이 효과"(파리지옥은 식충식물 Venus flytrap)
+- [b006/49] tight-container: 표제는 밀봉용기인데 정의·쉬운 설명·예문은 밀폐용기를 서술("완전히 밀폐되지는 않지만", "밀폐용기는 기밀용기보다 낮은 등급")해, deep의 "밀봉용기(기체까지 차단)"와 모순. 밀폐·기밀·밀봉 용어가 섞여 있음
+- [b006/74] peptide-receptor-radionuclide-therapy: deep의 "이론유사체 접근"은 테라노스틱스(theranostics, 진단·치료 병용)의 오역으로 보이는 잘못된 용어
+- [b006/23] grid-sensitivity-analysis-fire: 본문(usage·deep)이 D*를 "화재 특성속도"라 부르나 D*는 특성 화재 직경(길이 차원)임 — 같은 deep 앞 문장은 "특성 직경"이라 써서 서로 어긋남
+- [b006/69] transitional-attack: why 마지막 문장과 deep 마지막 문장에 스포츠(공수 전환 시 득점을 노리는 전환공격·역습) 설명이 섞여 있음 — 소방 진압전술 항목과 무관한 동음 용어 내용
+- [b006/81] administrative-values: deep 안에서 민주성을 앞 문장은 수단적 가치로, 뒤 문장은 본질적 가치로 분류하고, 능률성·효과성 대비 서술도 앞뒤가 어긋남
+- [b006/90] function-behaviour-structure: deep 필드에서 제안자를 앞에서는 존 제로·캐넨기서로, 뒤에서는 "고어와 카나차나발"로 써 인명 표기가 어긋남(Gero·Kannengiesser의 오기로 보임)
+- [b006/93] mongyurok: usage에서 「원생몽유록」을 김시습 작으로 서술 — 통설상 작자는 임제(김시습 작은 「금오신화」)
+- [b005/16] lowest-observed-adverse-effect-level: 활용 예문 "최고 용량군까지 유의한 영향이 관찰되어, 해당 용량이 LOAEL로 설정" 은 해설(가장 낮은 시험 용량이 LOAEL)과 모순 — "최저 용량군에서도 유의한 영향이 관찰되어"가 맞음
+- [b005/10] tooth-avulsion: why·caution이 치아를 "물로 씻는" 것 자체를 예후 악화 요인으로 서술 — IADT 지침은 오염 시 우유·식염수(또는 흐르는 물)로 짧게 헹구는 것은 허용하고, 문지르기·치근 접촉·물에 담가 보관을 금함
+- [b005/13] collective-defense: why·deep이 나토 5조를 "자동적인 군사적 대응 의무"로 서술하나, 북대서양조약 제5조는 각 회원국이 "필요하다고 인정하는 조치(무력 사용 포함)"를 취하도록 한 것으로 자동 군사 개입 의무가 아님. 또 "나토 헌장"이 아니라 북대서양조약임
+- [b005/19] sales-and-operations-planning: usage가 "수요계획-공급계획-사전경영검토-경영진 검토의 5단계"라 하나 나열된 단계는 4개(통상 첫 단계인 자료 수집·제품 검토가 빠짐)이고, deep의 "사전조율회의"와 용어도 불일치
+- [b005/40] osi-model: 쉬운 설명에서 4계층 전송을 "데이터가 순서대로 잘 도착했는지 확인, TCP/UDP"로 묶었으나 UDP는 순서·도착 확인을 하지 않음(TCP만 해당)
+- [b005/37] cors: 심화 설명이 사전 요청(preflight) 유발 조건으로 "인증 정보를 포함"을 들지만, 쿠키 등 자격 증명 포함 자체는 preflight를 유발하지 않음(비단순 메서드·헤더·Content-Type이 조건; Authorization 헤더를 직접 붙일 때만 해당)
+- [b005/37] cors: 주의 문단이 모든 출처 허용 시 위험을 XSS·CSRF로 설명하지만, 느슨한 CORS의 직접 위험은 타 출처가 응답을 읽어 가는 데이터 유출이며 CSRF는 CORS로 막히지 않고 XSS와도 별개 문제
+- [b005/28] ray-tracing: 쉬운 설명의 "화면의 각 픽셀에서 눈(카메라)을 향해 광선을 쏘아"는 방향이 거꾸로다 — 광선은 눈(카메라)에서 각 픽셀을 지나 장면 쪽으로 쏜다(정의 문단과도 불일치)
+- [b005/14] crown-fracture: definition은 "단순파절과 복합파절"로, deep은 "복잡파절"로 써서 같은 분류(치수 노출 complicated crown fracture)의 용어가 어긋남
+- [b005/14] crucifixion-iconography: why가 승리한 그리스도(Christus triumphans)를 "비잔틴의" 유형으로 서술하나, 통설상 triumphans는 중세 전기 서방·이탈리아 채색 십자가의 유형이고 고통받는(죽은) 그리스도 유형이 오히려 중기 비잔틴에서 먼저 나타나 13세기 이탈리아로 전해짐
+- [b005/20] disaster-recovery-plan: usage가 "RTO 4시간"을 맞추는 복구 인프라 예로 콜드사이트를 들지만, 콜드사이트는 장비·데이터를 새로 들여와야 해 복구에 통상 수일 이상 걸리므로 4시간 RTO의 예로는 부적절(핫사이트·미러사이트가 맞음)
+- [b005/15] dropout: deep이 인버티드 드롭아웃을 "추론 시 ... 학습 때 적용했던 꺼짐 확률만큼 출력을 나눠주는" 방식으로 서술하나, 인버티드 드롭아웃은 학습 때 남은 출력을 유지 확률(1−p)로 나눠(1/(1−p)배) 두고 추론 때는 아무 조정도 하지 않는 방식임
+- [b005/06] compellence: 본문은 셸링이 강제이행의 어려움으로 "시한을 명확히 설정하기 어렵다"는 점을 들었다고 쓰지만, 셸링의 논지는 억지와 달리 강제이행에는 명확한 시한이 반드시 있어야 한다(너무 짧으면 순응 불가, 너무 길면 순응 불필요)는 것이므로 서술 귀속을 확인할 필요
+- [b005/45] norm-entrepreneur: deep 본문에 저자명이 "핑크와 시킹크"로 잘못 표기됨(같은 본문의 "핀모어와 시킨크", Finnemore & Sikkink가 맞음)
+- [b005/22] four-cs-of-marketing: definition은 첫 C를 고객가치(Customer value)로 라우터본에 귀속하지만 원안(Lauterborn 1990)과 본문 deep은 Consumer wants and needs — 본문 내 불일치. 인명 표기도 라우터본/로터본 혼용
+- [b005/26] neoclassical-realism: why 항목의 "로버트 게이트 등이 발전시킨 이론"은 오류 — 그런 학자는 없고, 용어는 기디언 로즈(Gideon Rose, 1998)가 명명했으며 대표 학자는 슈웰러·자카리아·립스먼·탈리아페로·로벨 등. deep 항목의 "리플리"도 탈리아페로/로벨의 오기로 보임
+- [b005/50] return-on-equity: deep에서 듀폰분석 세 번째 요인을 "자기자본비율(레버리지)"로 적었으나 자기자본비율(자기자본÷총자산)은 그 역수임 — 재무레버리지(자기자본승수=총자산÷자기자본)로 고쳐야 함
+- [b005/38] conscientization: 심화 설명의 "반본질적 의식"은 프레이리 용어가 아님 — semi-intransitive consciousness의 오역으로 보이며 통용 번역은 반(半)비이행적(준변이적) 의식 또는 주술적(마술적) 의식
+- [b005/27] practical-theology-methodology: deep 항목의 "리처드 오슬랜더(Osmer)"는 인명 오기 — 리처드 오스머(Richard Osmer). 같은 문단에서 첫 과제를 "기술적-경험적"과 "서술적-경험적"으로 혼용
+- [b005/27] hash-table: caution 항목 "최악의 경우 시간복잡도와 빅오 표기법가 크게 느려질 수 있습니다"는 깨진 문장 — "최악의 경우 시간복잡도가 O(n)까지 느려질 수 있습니다"가 맞음
+- [b005/51] topological-sort: deep의 "칸 알고리즘에서는 큐가 비기 전에 처리되지 않은 노드가 남고"는 부정확 — 순환이 있으면 큐가 비었는데도(진입 차수 0인 노드가 더 없는데도) 처리되지 않은 노드가 남는다고 써야 함
+- [b005/30] simulation-baudrillard: 본문은 이미지의 이행을 반영→은폐→부재의 "세 단계"로 서술하지만, 보드리야르 원전(1981)은 반영·변질(은폐)·부재의 은폐·순수 시뮬라크르의 네 국면을 제시한다
+- [b005/73] gradient-checkpointing: deep의 "메모리 사용량은 대략 구간 수의 제곱근에 비례해 줄어드는"은 부정확 — 최적 구간 배치 시 메모리가 층 수 n의 제곱근(O(√n)) 수준으로 줄어든다는 것이 정확함
+- [b005/91] transactional-leadership: deep의 "거래적리더십이 변혁적리더십을 대체하는 것이 아니라 그 기반 위에서 함께 작동"은 방향이 뒤집힘 — 배스의 증대 효과는 변혁적리더십이 거래적리더십을 기반으로 그 위에 더해진다는 것
+- [b005/103] solar-mythology: deep은 뮐러를 태양신으로 "증명"한 풍자의 저자를 앤드루 랭이라 하고 usage는 리틀데일이라 해 서로 모순 — 해당 풍자글(The Oxford Solar Myth, 1870)의 저자는 R. F. 리틀데일이며, 랭은 인류학적 관점에서 뮐러를 비판한 논적
+- [b005/68] bodily-tooth-movement: 심화 설명의 "저항 중심을 통과하는 단일 힘만으로는 (치체이동이) 실현되지 않습니다"는 부정확 — 저항중심을 지나는 단일 힘은 이론상 치체이동을 만들며, 문제는 브라켓(치관)에 가한 힘이 저항중심을 지나지 않아 모멘트 보정이 필요하다는 점
+- [b005/94] core-competencies: 2015 개정 교육과정의 다섯째 핵심역량을 "협업 및 소통 역량"으로 적었으나 공식 명칭은 "의사소통 역량"이다(협력적 소통 역량은 2022 개정)
+- [b005/94] enamel-remineralization: "타액이나 불소가 제공하는 칼슘·인산 이온"이라 했으나 불소는 칼슘·인산 이온을 공급하지 않는다(공급원은 타액, 불소는 재침착 촉진·불화인회석 형성)
+- [b005/106] flexible-budget: 용어 불일치 — "변동예산과 실제결과의 차이는 소비차이, 변동예산과 고정예산의 차이는 조업도차이"라고 쓰지만 표준 용어는 각각 변동예산차이·매출조업도차이(같은 본문 deep과도 불일치). 또 caution의 "변동예산차이를 매출조업도차이와 변동예산차이로 분해"는 자기모순(분해 대상은 고정예산차이/총차이)
+- [b005/109] air-pollution-attributable-mortality: deep에서 노출-반응 함수·노출 분포·기저 사망률을 결합하는 전 과정을 "인구집단 기인분율 산출"이라 부른다고 했으나, 기인분율(PAF)은 노출 분포와 노출-반응 함수로 구하고 기저 사망(률)은 그 뒤 곱해 기인사망을 얻는 단계임
+- [b005/98] hash-collision-resolution: deep의 적재율 풀이 "저장된 데이터 수 대비 테이블 크기"는 비율이 뒤집혀 읽힘 — 적재율은 테이블 크기 대비 저장된 데이터 수(n/m)
+- [b005/112] chemical-biological-radiological-nuclear-hazard: 핫존을 "오염 여부가 확인되지 않은 구역"이라 했으나 핫존은 오염이 있는(또는 오염된 것으로 간주되는) 위험·통제 구역이다
+- [b005/112] critical-juncture-theory: "카포치아와 케일렘머"의 인명 표기 오류 — Capoccia & Kelemen이므로 "켈레멘"이 맞다
+- [b005/66] classical-studies-confucianism: easy 마지막 문장("성리학의 후대 해석을 배제하고 … 원문 자체에서 직접 찾으려 한 학풍")과 why 마지막 문장은 경학 전체가 아니라 청대 고증학(또는 고학) 계열에만 해당하는 설명인데 경학 일반의 정의처럼 서술됨(송명 의리학도 경학에 포함된다는 본문 다른 부분과 모순)
+- [b005/89] health-production-function: usage 해설이 의료지출의 건강 개선 기여 감소를 "한계효용 체감"이라 부르는데, 생산함수 맥락에서는 "한계생산 체감(수확 체감)"이 맞음(caution 절에서는 한계생산 체감으로 표기)
+- [b005/75] second-strike-capability: deep에서 삼각체계(triad)를 "지상 사일로, 이동식 발사대, SLBM"으로 설명 — 핵 삼각체계는 지상발사 ICBM·잠수함발사 SLBM·전략폭격기의 세 축이며 사일로와 이동식 발사대는 모두 지상 축에 속함
+- [b005/75] lead-time-bias: usage 예문 "본 코호트 연구는 … 무작위배정 시점부터"는 설계가 모순(무작위배정이면 코호트 연구가 아니라 무작위대조시험)
+- [b005/104] audit-opinion: deep의 "충분한 감사증거를 얻지 못하면 의견거절을 표명한다"는 부정확 — 감사범위 제한의 영향이 중요하지만 전반적이지 않으면 한정의견, 중요하고 전반적일 때 의견거절이다(한정의견 사유를 왜곡표시로만 서술한 것도 같은 누락)
+- [b005/110] vector-clock: deep의 "한쪽이 다른 쪽을 모든 항목에서 앞서면 인과관계"는 부정확 — 모든 항목에서 같거나 크고 하나 이상에서 크면 선후 관계임. easy의 "각 서버마다 자신만의 숫자 카운터"도 각 노드가 노드 수만큼의 벡터를 유지하고 수신 시 항목별 최댓값으로 병합한다는 점이 빠져 램포트 클럭처럼 읽힘
+- [b005/117] tolerable-daily-intake: 표제어는 일일내용섭취량(TDI)인데 본문 전체가 이를 "일일섭취허용량"이라 부름 — 일일섭취허용량은 식품첨가물·농약 등 의도적 사용 물질에 쓰는 ADI의 번역어이므로 본문 용어를 일일내용섭취량(내용일일섭취량)으로 통일해야 함
+- [b005/133] institutional-veto-points: 학자명 Immergut 표기가 본문 안에서 "이머것"·"임머굿"·"임머구트" 세 가지로 뒤섞임("이머것"은 오기로 보임)
+- [b005/136] work-engagement: 「왜 중요한가」는 샤우펠리가 직무열의를 소진의 반대 개념으로 이론화했다고 하고 「용례」는 "소진의 반대 개념이 아닌 독립적인 긍정 상태"로 개념화했다고 해 서로 모순(용례 예문도 같은 문장이 두 번 중복)
+- [b005/128] ethical-criticism-of-art: 본문이 대니얼 저코비슨을 자율주의자로 소개하지만, 저코비슨("In Praise of Immoral Art")은 통상 부도덕주의(immoralism) 쪽으로 분류되고 자율주의(온건한 자율주의)는 앤더슨·딘 등이 대표함 — "결함을 형상화해 오히려 미적으로 뛰어날 수 있다"는 설명도 자율주의가 아닌 부도덕주의의 논지
+- [b005/126] time-study: 본문(deep)이 호손 효과를 보정하기 위해 여유율을 적용한다고 서술하나, 여유율은 피로·개인 용무·불가피한 지연을 위한 것이고 작업 속도 차이는 평정계수로 보정함
+- [b005/126] transactional-distance-theory: 본문(deep)이 "구조와 대화가 부족하면 상호작용거리가 커진다"고 하나, 무어 이론에서는 구조가 강할수록 거리가 커지므로(같은 문단 뒷부분과도 모순) "대화가 부족하면"으로 고쳐야 함
+- [b005/129] special-education-eligibility: 정의·중요성 단락이 대상을 "영유아"로만 한정하지만 「장애인 등에 대한 특수교육법」의 특수교육대상자 선정은 영유아뿐 아니라 학생 전체를 대상으로 함
+- [b005/134] exit-barrier: deep 끝 문장이 진입·철수장벽이 모두 높은 산업을 "낮은 수익성이 나타나는 최악의 조합"이라 하나, Porter의 틀에서 그 조합은 수익이 높지만 위험한 경우이고 최악(낮고 위험한 수익)은 진입장벽 낮음·철수장벽 높음 — 같은 deep 앞 문장("호황 때 수익성이 높지만 불황 때 위험")과도 모순
+- [b006/01] isostasy: 프래트 모델을 "지각 두께는 같다고 보고"라고 설명하나, 프래트 모델은 보상 깊이(지각 기둥 밑면 깊이)가 같고 지형이 높을수록 밀도가 낮다고 보는 모델이라 두께(높이)는 기둥마다 다름
+- [b006/49] tight-container: 표제어는 밀봉용기인데 definition·easy·usage·caution이 밀폐용기/기밀용기 수준(“완전히 밀폐되지는 않지만”, 액체·고체·증기 차단)을 설명하고, deep은 “밀폐용기는 수증기·이물질을 완전히 차단하는 기밀용기보다 낮은 등급”이라며 밀폐용기를 주어로 서술함 — 밀봉용기(기체 침입까지 차단) 정의와 불일치, slug(tight container=기밀용기)와도 어긋남
+- [b006/22] waka: why 단락이 "『만요슈』, 『고킨와카슈』 같은 칙찬 와카집"이라 하나 만요슈는 칙찬집이 아님(최초의 칙찬 가집은 고킨와카슈 — 같은 단락 뒷문장과도 모순)
+- [b006/13] automatic-exposure-control: easy 단락은 센서가 "검출기 뒤"에 있다고 하나 usage·deep 단락은 이온챔버(전리함)가 "환자와 검출기 사이"에 있다고 해 본문 안에서 위치 설명이 모순(일반 촬영은 검출기 앞이 표준)
+- [b006/40] fire-safety-performance-evaluation: 본문이 RSET을 "화재 인지부터 대피 완료까지"로 정의하지만, 통상 RSET은 발화 시점부터 대피 완료까지(감지·경보 시간 포함)이며 ASET과 같은 기산점으로 비교함
+- [b006/07] water-resistance-test-sunscreen: 본문(caution)이 내수성시험을 "정지된 물에서의 노출 기준"이라 하나, 표준 시험법(ISO 16217·COLIPA·식약처)은 물을 순환·교반시키는 욕조 침수를 사용함
+- [b006/04] self-closing-fire-door: deep의 "상시 여자(勵磁) 방식이 아닌 통전 시 흡착 방식"은 자기모순 — 통전 시 흡착(정전 시 해제)이 곧 상시 여자 방식임
+- [b006/14] container-closure-integrity-test: deep 단락이 헬륨누출시험을 무조건 비파괴적 방법(전수검사 가능)으로 분류하나, 추적가스(헬륨) 누출시험은 용기에 헬륨을 주입·천공하는 방식이면 파괴적이어서 USP <1207>도 조건에 따라 파괴·비파괴로 구분함 — 단정 표현 완화 필요
+- [b006/23] grid-sensitivity-analysis-fire: usage·deep가 D*를 "화재 특성속도"라 부르나 D*는 화재 특성 직경(characteristic fire diameter)임 — deep 첫 문장("특성 직경과 격자 크기의 비율")과도 용어가 어긋남
+- [b006/11] spontaneous-combustible-material: 표제어는 자기발열성물질인데 본문은 줄곧 "자연발화성물질"로 서술하고 공기 노출 즉시 발열하는 금속분 예문까지 섞여 있어, 자기발열성(축열형)과 자연발화성(pyrophoric) 분류가 혼용됨
+- [b006/11] skin-sensitization: 예문 해설이 국소림프절시험(LLNA)을 "동물 대체시험 등"으로 설명하나 LLNA는 동물시험임(심화 설명과도 불일치)
+- [b006/30] moon-rotation-revolution: deep가 "달의 자전 에너지 소실의 반작용으로 달이 지구에서 멀어진다"고 서술하나, 달의 후퇴는 지구의 조석 팽대부가 지구 자전 각운동량을 달 궤도로 넘겨주기(지구 자전 감속) 때문이며 달 자전 감속의 반작용이 아님
+- [b006/08] apparent-diffusion-coefficient: 본문(deep)의 "가유사정상화"는 비표준 용어 — 통용 표현은 "가성정상화(pseudonormalization)"; 같은 문장이 deep·caution에 중복됨
+- [b006/08] build-up-region: 본문(usage)의 "6MV 표면 선량은 처방선량의 약 30~40%"는 통상 보고값(10×10cm 조사야 기준 약 15~30%)보다 높음 — 조사야 조건 없이 단정
+- [b006/08] bureaucratic-agency-problem: 본문(deep)이 화재 경보형이 더 널리 쓰인다는 것을 "실증 연구의 결론"이라 하나 이는 McCubbins·Schwartz(1984)의 이론적 주장이며 후속 실증(Aberbach 등)은 순찰형 감독 증가도 보고함; 저자 표기 "매컵빈스"도 통상 "매커빈스"
+- [b006/52] local-government-types: caution이 특별자치시·특별자치도를 모두 기초자치단체 없는 단층제라 하나, 단층제는 세종·제주뿐이고 강원·전북특별자치도는 시·군을 두는 이층제임
+- [b006/52] solubility-pump: deep의 "헨리의 법칙에 따라 기체의 용해도가 수온에 반비례"는 부정확 — 헨리의 법칙은 용해도가 분압에 비례한다는 법칙이고, 수온이 오르면 용해도가 낮아지지만 반비례 관계는 아님
+- [b006/53] sequence-stratigraphy: deep이 T-R 시퀀스를 "해수면 하강 개시 기준"이라 하나 T-R 시퀀스(Embry)의 경계는 육상 부정합과 최대 해퇴면이며, genetic sequence의 역어 "창조 시퀀스"도 부적절(성인 시퀀스)
+- [b006/15] stellar-magnitude: deep 단락이 거리 지수를 "겉보기 등급에서 절대등급을 빼거나 더해 얻는" 값이라 하나, 거리 지수는 겉보기 등급에서 절대등급을 뺀 값(m−M)으로만 정의되므로 "더해"는 오류
+- [b006/51] equivalent-dose: usage의 "중성자선의 방사선 가중치는 에너지에 따라 5에서 20"은 ICRP 60 계단값 기준이며, 현행 ICRP 103은 에너지의 연속함수(약 2.5~20)로 규정함 — 기준 명시 또는 갱신 필요
+- [b006/54] fitts-law: why의 "도달 시간이 거리에 비례하고 목표 크기에 반비례"는 부정확 — 이동시간은 log2(D/W+1)에 선형 비례(로그 관계)이며, definition의 "목표物"은 한자 혼입 오타
+- [b006/09] doppler-weather-radar: 본문(deep)의 "기본적인 도플러 레이더가 강수의 이동 속도만 측정"은 정의(반사 세기와 주파수 변화 모두 분석)와 모순 — 단일편파 도플러 레이더도 반사도를 측정함; easy의 "바람의 방향과 속도"도 실제로는 시선 방향 속도 성분만 측정
+- [b006/67] insar: 정의가 "상하 변위"를 측정한다고 하나 InSAR가 재는 것은 위성 시선방향(LOS) 변위이며, easy의 "걸린 시간(위상)" 표현도 위상과 왕복 시간을 동일시해 부정확
+- [b006/91] glowing-connection: deep가 글로잉 커넥션을 "국소적으로 낮은 온도의 발열", "저온 발열"로 서술하지만 같은 본문에서 접속부가 붉게 달아오른다고 하며 실제로는 고온(약 1,000℃ 이상) 현상이라 서로 모순
+- [b006/74] peptide-receptor-radionuclide-therapy: deep의 "이론유사체 접근"은 없는 용어 — theranostics(테라노스틱스·진단치료 일체) 접근의 오역으로 보임
+- [b006/79] thermoluminescent-dosimeter: caution의 "실시간으로 선량을 확인할 수 없다는 점이 필름이나 전자선량계와의 차이"에서 필름은 현상·판독이 필요해 실시간 확인이 안 되므로 대비 대상으로 부적절(전자선량계·다이오드 등만 해당)
+- [b006/79] gihaeng-munhak: definition의 "국문·한문 기행가사"는 부정확 — 가사는 국문 시가 갈래이므로 "국문·한문"은 기행문학 전반을 수식하도록 고쳐야 함(예: 국문·한문으로 쓰인 기행가사·사행록·유산기)
+- [b006/62] required-safe-egress-time: definition은 "화재 인지 후" 대피에 걸리는 시간이라 하나 usage·deep은 화재 인지시간까지 포함한 합(인지+반응+이동)으로 설명해 서로 모순 — 통상 RSET은 발화 시점부터 계산해 인지(감지)시간을 포함
+- [b006/77] skin-glycation: caution이 피부당화를 광노화·산화 스트레스와 "별개의 기전"이라고 단정하나, AGEs 형성(당화산화)에는 산화 반응이 관여하고 자외선·산화 스트레스가 당화를 촉진하므로 서로 얽힌 경로임
+- [b006/70] hadley-cell: usage 예문이 해들리 순환 강도가 "엘니뇨 시기에 약해지고 라니냐 시기에 강해진다"고 하나, 일반적으로는 엘니뇨 때 강화(및 수축), 라니냐 때 약화되는 것으로 알려져 방향이 반대임
+- [b006/72] user-centered-design: why 문단이 "도널드 노먼이 ISO 9241-210 표준의 기반이 된 인간중심설계 프로세스를 체계화"했다고 하나, 노먼은 용어를 대중화한 인물이고 표준(ISO 13407→9241-210)은 ISO 위원회 작업이라 귀속이 과장됨
+- [b006/92] eratosthenes-earth-measurement: easy의 "두 도시 사이의 거리를 곱한 뒤 50을 곱하는 간단한 비례식"은 무엇에 거리를 곱하는지 없는 잘못된 문장(거리에 50을 곱하는 것이 맞음)
+- [b006/90] function-behaviour-structure: deep 문단의 "고어와 카나차나발이 제시한 FBS 모형"은 인명 오류 — 같은 문단 앞부분대로 존 제로(Gero)와 캐넨기서(Kannengiesser)가 맞음
+- [b006/90] ice-core: easy 문단이 보스토크와 EPICA를 묶어 "약 80만 년 전까지"라고 서술하나, 80만 년 기록은 EPICA 돔 C이고 보스토크 코어는 약 42만 년임
+- [b006/64] uv-filter: 무기 자외선 차단제가 "화학적 흡수 반응 없이" 반사·산란만으로 작용한다는 서술은 부정확 — 산화아연·이산화티타늄도 자외선 흡수가 주된 기전이고 반사·산란은 일부
+- [b006/64] stellar-evolution: caution의 "별의 나이나 거리를 가늠할 때는 허블의 법칙과 함께 쓰이는 경우가 많습니다"는 부적절 — 허블 법칙은 외부 은하의 후퇴속도-거리 관계로 별의 나이·거리 추정과 직접 관련 없음
+- [b006/81] administrative-values: deep 단락이 민주성을 앞에서는 수단적 가치로, 같은 단락 뒤에서는 "민주성·형평성처럼 그 자체로 추구되는 본질적 가치"로 분류해 자기모순 — 한쪽으로 통일 필요
+- [b006/93] mongyurok: usage가 「원생몽유록」을 김시습의 작품으로 적었으나 작자는 임제(林悌)로 보는 것이 통설
+- [b006/93] skin-permeation: deep의 "각질세포와 지질층을 번갈아 통과하는 경로가 대부분의 소분자 성분에서 주된 경로"는 통설(대부분의 성분에서 세포 사이 지질 경로가 주 경로)과 어긋남
+- [b006/69] transitional-attack: 소방 진압전술 용어인데 why 마지막 문장과 deep 마지막 문장에 축구의 전환공격(득점·역습·수비 조직) 설명이 섞여 있음

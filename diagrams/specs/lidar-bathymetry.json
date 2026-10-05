@@ -1,0 +1,64 @@
+{
+  "slug": "lidar-bathymetry",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "녹색 레이저 발사",
+      "color": "amber",
+      "sub": "항공기·532 nm 부근"
+    },
+    {
+      "id": "b",
+      "label": "수면 반사 수신",
+      "color": "blue"
+    },
+    {
+      "id": "c",
+      "label": "바닥 반사 수신",
+      "color": "blue",
+      "sub": "물을 투과한 신호"
+    },
+    {
+      "id": "d",
+      "label": "도착 시간차",
+      "color": "violet"
+    },
+    {
+      "id": "e",
+      "label": "수심 계산",
+      "color": "green",
+      "sub": "빛 속도·굴절 고려"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "물이 탁하면 레이저가 바닥에 닿지 못해 맑고 얕은 물에서만 효과적",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

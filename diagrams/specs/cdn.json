@@ -1,0 +1,72 @@
+{
+  "slug": "cdn",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "사용자 요청",
+      "color": "gray"
+    },
+    {
+      "id": "n1",
+      "label": "엣지 서버 연결",
+      "color": "violet",
+      "sub": "DNS·애니캐스트"
+    },
+    {
+      "id": "n2",
+      "label": "캐시 확인",
+      "color": "blue",
+      "sub": "사본이 있는가"
+    },
+    {
+      "id": "n3",
+      "label": "원본 서버 조회",
+      "color": "amber",
+      "sub": "가져와 저장"
+    },
+    {
+      "id": "n4",
+      "label": "응답",
+      "color": "green",
+      "sub": "가까운 서버에서"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "미스"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "히트"
+    }
+  ],
+  "notes": [
+    {
+      "text": "원본이 갱신된 직후에는 일부 지역에서 오래된 사본이 잠시 제공될 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

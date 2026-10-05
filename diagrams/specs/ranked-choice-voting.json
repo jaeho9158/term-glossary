@@ -1,0 +1,77 @@
+{
+  "slug": "ranked-choice-voting",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "1순위 집계",
+      "color": "blue",
+      "sub": "순위를 매긴 투표지"
+    },
+    {
+      "id": "n1",
+      "label": "과반 확인",
+      "color": "violet",
+      "sub": "과반 득표자가 있는가"
+    },
+    {
+      "id": "n2",
+      "label": "최하위 탈락",
+      "color": "amber",
+      "sub": "과반이 없을 때"
+    },
+    {
+      "id": "n3",
+      "label": "표 이양",
+      "color": "amber",
+      "sub": "다음 순위 후보에게"
+    },
+    {
+      "id": "n4",
+      "label": "당선 확정",
+      "color": "green",
+      "sub": "과반 득표자"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "재집계·반복"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "과반이면"
+    }
+  ],
+  "notes": [
+    {
+      "text": "1순위 집계에서 바로 과반이 나오면 탈락·이양 없이 당선 확정",
+      "tone": "general"
+    },
+    {
+      "text": "개표가 복잡해 결과 확정까지 시간이 걸릴 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

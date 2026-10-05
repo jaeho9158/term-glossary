@@ -1,0 +1,85 @@
+{
+  "slug": "lottery-ticket-hypothesis",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "무작위 초기화",
+      "color": "gray",
+      "sub": "초깃값 기억"
+    },
+    {
+      "id": "n1",
+      "label": "큰 신경망 학습",
+      "color": "blue"
+    },
+    {
+      "id": "n2",
+      "label": "가지치기",
+      "color": "violet",
+      "sub": "작은 가중치 제거"
+    },
+    {
+      "id": "n3",
+      "label": "초깃값 되감기",
+      "color": "amber",
+      "sub": "남은 연결만"
+    },
+    {
+      "id": "n4",
+      "label": "재학습",
+      "color": "blue"
+    },
+    {
+      "id": "n5",
+      "label": "당첨 부분망",
+      "color": "green",
+      "sub": "원 모델과 대등한 성능"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "부분망을 무작위로 다시 초기화하면 성능이 떨어지는 경우가 많음",
+      "tone": "general"
+    },
+    {
+      "text": "큰 모델을 먼저 학습해야 하므로 학습 비용은 줄지 않음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; Frankle & Carbin (2019)",
+  "reviewed": true
+}

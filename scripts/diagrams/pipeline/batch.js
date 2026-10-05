@@ -115,7 +115,8 @@ function pruneExclusions(dir) {
   const tiers = C.readJSON(path.join(dir, "tiers.json"), {});
   for (const [slug, v] of Object.entries(tiers)) if (v && v.tier === "prune") prune.add(slug);
   const merge = C.readJSON(path.join(dir, "merge-candidates.json"), { groups: [] });
-  for (const g of merge.groups || []) for (const x of g.absorb || []) if (!prune.has(x)) absorb.add(x);
+  // 병합 후보는 흡수되는 쪽뿐 아니라 남는 쪽(keeper)도 뺀다 — 병합되면 본문이 바뀌어 지금 그린 그림이 헛일이 된다.
+  for (const g of merge.groups || []) for (const x of [g.keeper, ...(g.absorb || [])]) if (x && !prune.has(x)) absorb.add(x);
   return { prune, absorb, all: new Set([...prune, ...absorb]) };
 }
 
@@ -280,7 +281,9 @@ function cmdCheck(n) {
 
 // ── render ──────────────────────────────────────────────
 function copySpecs(slugs, dir) {
-  fs.rmSync(dir, { recursive: true, force: true });
+  // PNG_RESUME=1이면 중단된 렌더를 이어 가도록 이미 찍힌 png/는 남기고 스펙 사본만 갈아 끼운다.
+  if (process.env.PNG_RESUME && fs.existsSync(dir)) { for (const f of fs.readdirSync(dir)) if (f.endsWith(".json")) fs.rmSync(path.join(dir, f)); }
+  else fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
   for (const s of slugs) fs.copyFileSync(C.specPath(s), path.join(dir, `${s}.json`));
 }
@@ -356,6 +359,72 @@ function cmdReviewApply(n) {
   console.log(JSON.stringify(S.counts(st)));
 }
 
+// ── recheck: 검수자가 고친(fix) 스펙을 다시 렌더해 그림으로 재확인 ──
+function recheckPending(st) {
+  return S.inState(st, "reviewed").filter((s) => st.items[s].review === "fix" && st.items[s].rechecked !== true && fs.existsSync(C.specPath(s)));
+}
+
+function cmdRecheckIn(n) {
+  const st = S.load(n), tmap = termMap();
+  const slugs = recheckPending(st);
+  if (!slugs.length) { console.log("재확인할 스펙 없음"); return; }
+  const dir = path.join(S.batchDir(n), "recheck");
+  const render = path.join(dir, "render");
+  copySpecs(slugs, render);
+  execFileSync(process.execPath, [path.join(__dirname, "..", "preview.js"), "--dir", render, "--png"], { stdio: "inherit", env: process.env });
+  const png = path.join(render, "png");
+  const items = slugs.map((slug) => {
+    const t = tmap.get(slug), it = st.items[slug];
+    const shots = Object.fromEntries(["desktop", "mobile", "dark"].map((k) => [k, rel(path.join(png, `${slug}.${k}.png`))]));
+    if (!fs.existsSync(path.join(C.ROOT, shots.desktop))) throw new Error(`PNG 없음: ${slug}`);
+    return {
+      slug, title_ko: t.title_ko, group: it.group, type: it.type, intent: it.intent,
+      page: pageFor(slug), spec: JSON.parse(fs.readFileSync(C.specPath(slug), "utf8")),
+      spec_file: rel(C.specPath(slug)), png: shots, first_review: it.reason || "",
+    };
+  });
+  const k = writeChunks(dir, items, REVIEW_CHUNK, { prompt: "diagrams/prompts/review.md", readme: "diagrams/README.md" });
+  console.log(`재확인 입력 ${k}묶음 (${items.length}개)`);
+}
+
+function cmdRecheckApply(n) {
+  const st = S.load(n);
+  const known = new Set(C.loadTerms().map((t) => t.slug));
+  const dir = path.join(S.batchDir(n), "recheck");
+  const out = readOutputs(dir);
+  const errs = [...out.errs];
+  const c = { pass: 0, fix: 0, drop: 0 };
+  for (const e of out.entries) {
+    const slug = slugOf(e, errs);
+    if (!slug) continue;
+    const r = e.value, it = st.items[slug];
+    if (!it) { errs.push(`${slug}: 배치에 없음`); continue; }
+    if (it.state !== "reviewed") continue;
+    if (r.verdict === "drop") {
+      const src = C.specPath(slug);
+      if (fs.existsSync(src)) {
+        const keep = path.join(S.batchDir(n), "dropped-specs", `${slug}.json`);
+        fs.mkdirSync(path.dirname(keep), { recursive: true });
+        fs.renameSync(src, keep);
+      }
+      S.setState(st, slug, "dropped", { reason: `recheck:${r.reason || "drop"}` });
+    } else if (r.verdict === "pass") {
+      S.setState(st, slug, "reviewed", { rechecked: true, recheck_reason: r.reason || "" });
+    } else if (r.verdict === "fix") { // 다시 고쳤으면 다음 recheck-in에서 한 번 더 그려 본다
+      const errors = checkOne(slug, known);
+      if (errors.length) S.setState(st, slug, "check_failed", { errors, reason: r.reason || "" });
+      else S.setState(st, slug, "reviewed", { rechecked: false, reason: r.reason || "" });
+    } else { errs.push(`${slug}: verdict는 pass|fix|drop`); continue; }
+    c[r.verdict]++;
+    S.save(n, st);
+  }
+  S.save(n, st);
+  archiveOutputs(dir, out.files);
+  console.log(`재확인 반영 pass ${c.pass} · fix ${c.fix} · drop ${c.drop} · 오류 ${errs.length}개 · 남은 재확인 ${recheckPending(st).length}개`);
+  for (const e of errs) console.log(`  ✗ ${e}`);
+  console.log(JSON.stringify(S.counts(st)));
+}
+
 // ── preview / approve / report ─────────────────────────
 function cmdPreview(n, o) {
   const st = S.load(n);
@@ -404,6 +473,7 @@ function cmdReport(n) {
 const COMMANDS = {
   new: cmdNew, "triage-in": cmdTriageIn, "triage-apply": cmdTriageApply, "write-in": cmdWriteIn,
   check: cmdCheck, render: cmdRender, "review-in": cmdReviewIn, "review-apply": cmdReviewApply,
+  "recheck-in": cmdRecheckIn, "recheck-apply": cmdRecheckApply,
   preview: cmdPreview, approve: cmdApprove, report: cmdReport,
 };
 

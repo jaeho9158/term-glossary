@@ -1,0 +1,62 @@
+{
+  "slug": "real-time-pcr-gmo-detection",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "logistic",
+        "params": {
+          "x0": 18,
+          "k": 0.5
+        },
+        "label": "초기 DNA 많음",
+        "color": "blue"
+      },
+      {
+        "fn": "logistic",
+        "params": {
+          "x0": 28,
+          "k": 0.5
+        },
+        "label": "초기 DNA 적음",
+        "color": "gray"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 13.6,
+        "label": "Ct 작음"
+      },
+      {
+        "x": 23.6,
+        "label": "Ct 큼"
+      }
+    ],
+    "x": {
+      "label": "PCR 사이클 수",
+      "range": [
+        0,
+        40
+      ]
+    },
+    "y": {
+      "label": "형광 신호"
+    }
+  },
+  "notes": [
+    {
+      "text": "Ct = 형광 신호가 역치선(threshold)을 처음 넘는 사이클 — 점선은 각 곡선의 Ct",
+      "tone": "general"
+    },
+    {
+      "text": "표준시료 검량선에 Ct를 대입해 삽입유전자/내재유전자 카피수 비로 혼입률(%) 산출",
+      "tone": "general"
+    },
+    {
+      "text": "가공 중 DNA가 분해되면 Ct가 늦어져 혼입률이 과소평가될 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

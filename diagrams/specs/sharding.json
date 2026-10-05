@@ -1,0 +1,70 @@
+{
+  "slug": "sharding",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "요청·데이터",
+      "color": "gray",
+      "sub": "예: 사용자 ID"
+    },
+    {
+      "id": "b",
+      "label": "샤드 키",
+      "color": "violet",
+      "sub": "나누는 기준 값"
+    },
+    {
+      "id": "c",
+      "label": "샤드 결정",
+      "color": "violet",
+      "sub": "해시 또는 범위 기준"
+    },
+    {
+      "id": "d",
+      "label": "해당 샤드 서버",
+      "color": "blue",
+      "sub": "전체 중 일부만 담당"
+    },
+    {
+      "id": "e",
+      "label": "부하 분산",
+      "color": "green",
+      "sub": "수평적 확장"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "해시 기반은 고른 분산에 유리하나 범위 조회가 어렵고, 범위 기반은 범위 조회가 쉬우나 핫스팟이 생기기 쉬움",
+      "tone": "general"
+    },
+    {
+      "text": "샤드 키를 잘못 고르면 특정 샤드에 몰리고, 여러 샤드에 걸친 조회·수정과 리샤딩은 복잡함",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

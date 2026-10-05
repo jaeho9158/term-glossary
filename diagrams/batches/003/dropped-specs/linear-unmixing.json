@@ -1,0 +1,69 @@
+{
+  "slug": "linear-unmixing",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "b",
+      "label": "기준 스펙트럼",
+      "color": "gray",
+      "sub": "염료별·미리 측정"
+    },
+    {
+      "id": "a",
+      "label": "혼합 신호",
+      "color": "blue",
+      "sub": "픽셀·채널별 측정"
+    },
+    {
+      "id": "c",
+      "label": "가중합 모델",
+      "color": "violet",
+      "sub": "스펙트럼×양의 합"
+    },
+    {
+      "id": "d",
+      "label": "최소제곱 풀이",
+      "color": "amber",
+      "sub": "비음수 제약 흔함"
+    },
+    {
+      "id": "e",
+      "label": "염료별 기여량",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "a",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "기준 스펙트럼이 실제 촬영 조건과 다르면 오차가 생김",
+      "tone": "limit"
+    },
+    {
+      "text": "스펙트럼이 너무 비슷하면 누출이 남아 대조군 검증 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": false
+}

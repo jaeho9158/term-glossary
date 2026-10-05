@@ -1,0 +1,71 @@
+{
+  "slug": "re-identification-risk",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "직접 식별자 삭제",
+      "color": "gray",
+      "sub": "이름 등 제거"
+    },
+    {
+      "id": "n1",
+      "label": "준식별자 잔존",
+      "color": "amber",
+      "sub": "생년월일·성별·우편번호"
+    },
+    {
+      "id": "n2",
+      "label": "외부 데이터 결합",
+      "color": "amber",
+      "sub": "다른 공개 데이터셋"
+    },
+    {
+      "id": "n3",
+      "label": "개인 재특정",
+      "color": "rose",
+      "sub": "재식별"
+    },
+    {
+      "id": "n4",
+      "label": "일반화",
+      "color": "violet",
+      "sub": "k-익명성: 같은 조합 k명 이상"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n3",
+      "kind": "inhibit",
+      "label": "위험 낮춤"
+    }
+  ],
+  "notes": [
+    {
+      "text": "l-다양성·t-근접성·차등 프라이버시가 보완 개념으로 함께 논의됨",
+      "tone": "general"
+    },
+    {
+      "text": "어떤 방법도 위험을 0으로 만들기 어려워 데이터 유용성과 절충 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,74 @@
+{
+  "slug": "predicted-mean-vote",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "물리 변수 4개",
+      "color": "blue",
+      "sub": "기온·평균복사온도·기류·습도"
+    },
+    {
+      "id": "n1",
+      "label": "개인 변수 2개",
+      "color": "amber",
+      "sub": "착의량·대사량"
+    },
+    {
+      "id": "n2",
+      "label": "인체 열수지",
+      "color": "violet",
+      "sub": "대사 생산열 − 복사·대류·증발 손실"
+    },
+    {
+      "id": "n3",
+      "label": "예상온열감지수",
+      "color": "green",
+      "sub": "PMV −3~+3, 0은 중립"
+    },
+    {
+      "id": "n4",
+      "label": "예상불만족률(PPD)",
+      "color": "rose",
+      "sub": "PMV 0에서도 약 5%"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "표준에서는 대체로 −0.5~+0.5 범위를 권장한다",
+      "tone": "general"
+    },
+    {
+      "text": "자연환기 건물에서는 실제보다 덥게 예측하는 경향이 보고된다",
+      "tone": "limit"
+    },
+    {
+      "text": "집단 평균 예측값이라 개인의 쾌적 판정에 그대로 쓰기 어렵다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

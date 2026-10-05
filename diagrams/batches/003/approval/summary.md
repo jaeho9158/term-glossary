@@ -1,0 +1,2900 @@
+# 배치 3 승인 요약
+
+상태: {"dropped":2888,"triaged":15,"reviewed":1221,"check_failed":1}
+
+미리보기: diagrams/batches/003/approval/specs/preview.html — 검수에서 고친 534개 + 무작위 표본 25개
+
+## 탈락
+
+- habitus: triage:개념 정의 위주 — 아비투스·장·자본 관계는 본문에 구체적 구조로 제시되지 않음
+- wire-drawing: triage:가공법 설명 — 다이를 통과하며 단면이 줄어든다는 단일 과정 반복이라 새 정보가 적음
+- colorimetry: triage:발색→흡광도→농도의 직선 흐름으로 베르-람베르트 법칙과 중복되며 정의 반복
+- hegemony: triage:강제 대 동의의 2항 대비뿐이라 구성 요소 3개에 못 미침
+- magic-if: triage:연기 훈련 개념 — 정서기억과의 대비 외에 관계 맺는 구성 요소가 없음
+- sonicator: triage:장비 설명 — 캐비테이션 원리는 한 줄 인과라 도식 이득이 작음
+- dna-methylation: triage:기전은 직선적이고 정의 반복에 가까워 보류(유지·새 메틸화·탈메틸화 순환은 본문 근거가 약함)
+- uv-vis-spectroscopy: triage:분석 기법 소개 — 스펙트럼 모양은 물질마다 달라 일반적 도식으로 그릴 수 없음
+- via-negativa-theatre: triage:훈련 철학 개념 — 제거 과정이 순서·구조로 서술되지 않음
+- atp: merge-candidate: 병합 후보라 보류(was reviewed)
+- dramaturg: triage:직무 역할 설명 — 관계 구성 요소 없음
+- shear-stress: triage:수직응력과의 2항 대비뿐이며 수식 정의 중심
+- hemispatial-neglect: triage:증상 서술 — 손상 부위와 증상의 단순 대응이라 구성 요소 2개
+- neuron-doctrine: triage:논쟁 중인 전제를 단정적 도식으로 그리기 어렵고 구성 요소 관계가 모호
+- ventral-tegmental-area: triage:뇌 영역 하나 — 보상 회로 경로는 본문에서 단일 경로(VTA→측좌핵) 수준
+- default-mode-network: triage:과제양성 네트워크와의 2항 대비 외 구성 요소 관계가 약함
+- gamma-glutamyl-transferase: triage:단일 효소 검사 지표 — 해석 기준이 ALP와의 짝 비교 정도
+- mosaicism: triage:변이 시점별 분포 설명은 본문에 수치·단계가 없어 구체적 도식 근거 부족
+- myelination: triage:수초 유무의 2항 대비 외 구성 요소가 적고 정의 반복
+- od600-measurement: triage:측정법 소개 — 성장곡선과 직선성 이탈은 본문에 수치 근거가 부족하고 베르-람베르트와 중복
+- prodrug: triage:비활성→활성 전환의 단순 2단계 직선이라 정의 반복
+- widal-test: triage:단일 검사법 — 항체가 해석은 수치 기준 없이 서술만 있음
+- aspirator-lab: triage:벤츄리 효과의 하위 사례에 불과한 장치
+- eddy-current-testing: triage:검사법 설명 — 유도 원리는 한 줄 인과이며 표피 효과 상충관계는 수치 근거 없음
+- agarose-gel-electrophoresis: triage:실험 방법 — 크기-이동거리 곡선은 plot이 못 그리나 본문에 수치가 없고 정의 반복
+- bandwagon-effect: triage:두 사회적 영향 갈래만 있어 구성 요소 2개이며 정보 폭포와의 구분이 논쟁적
+- blocking-film: triage:연출 용어 — 연극 블로킹과의 2항 대비뿐이고 구성 요소가 없음
+- carotid-doppler-ultrasound: triage:검사 방법 설명 — 협착도 기준 수치 없이 서술만 있음
+- design-of-experiments: triage:통계 기법 총칭 — 하위 방법 나열뿐이고 관계 구조가 본문에 없음
+- exodos: triage:그리스 비극 구성 단위 중 하나 — 본문에 앞 단계가 이름만 나열되고 순서 근거 부족
+- indigo-carmine-solution: triage:단일 시약명
+- lean-manufacturing: triage:7대 낭비 나열은 목록이라 관계 구조가 없음
+- mirror-neuron: triage:원숭이 단일세포 대 사람 영역 수준의 2항 구분이며 해석이 학계 논쟁 중
+- critical-path-method: triage:네트워크 일정도가 필요하나 지원 도식 유형 없음 — 정의와 예시 중심
+- diegesis: triage:다이제틱 대 비다이제틱의 2항 구분뿐
+- diffuse-axonal-injury: triage:손상 기전 서술이 본문에 단계별로 제시되지 않고 영상 지표 중심
+- er-golgi-apparatus: triage:단순한 직선 경로 — 리보솜→소포체→골지체 3~4단계 나열이라 정의 반복
+- fischer-esterification: triage:반응 메커니즘은 구조식 중심이라 블록 도식으로는 정의 반복
+- high-resolution-ct: triage:영상 촬영법 — 판독 패턴 나열일 뿐 관계 구조 없음
+- hyperbolic-discounting: triage:지수형 대 쌍곡선형 할인 곡선 비교가 핵심이나 쌍곡선 함수가 plot에 없음
+- le-chatelier-principle: triage:정의 반복 — 외부 변화와 이동 방향의 일대일 규칙, 그림이 새로 보여 줄 구조 없음
+- nad: triage:단일 보조효소 이름; 산화형-환원형 두 상태 왕복뿐이라 구성 요소 2개
+- rack-focus: triage:단일 촬영 기법; 초점 이동은 앞뒤 두 피사체뿐
+- run-through-rehearsal: triage:단일 리허설 유형; 단계가 아니라 중단 없이 진행한다는 정의가 전부
+- trypsin: triage:단일 효소명; 절단 특이성(Lys/Arg 뒤)은 한 줄 규칙
+- apolipoprotein-b: triage:단일 단백질·지표명; 입자당 1개라는 단일 속성
+- aspartate-aminotransferase: triage:단일 효소·검사 지표명; 손상 시 혈중 유출이라는 단일 속성
+- auc-pharmacokinetics: triage:시간-농도 곡선과 면적이 핵심이나 경구 흡수 곡선(상승 후 감소)을 그릴 plot 함수가 없음
+- cardiac-preload-afterload: triage:두 개념의 정의 나열; 본문에 프랭크-스탈링 곡선 등 구성 요소가 없고 상호작용도 서술뿐
+- cavitation: merge-candidate: 병합 후보라 보류(was reviewed)
+- dorsolateral-prefrontal-cortex: triage:뇌 영역명; 위치·기능 설명만 있고 관계 구조 없음
+- frailty-index: triage:단일 계산 지표; 결손 수/전체 항목 수라는 한 줄 공식
+- habituation: triage:반응 감소 곡선 하나(decay)로 정의를 되풀이할 뿐 새로 보여 줄 구조 없음
+- lactate-dehydrogenase: triage:단일 효소명; 피루브산-젖산 변환과 NAD 재생은 두세 요소의 짧은 반응식
+- overton-window: triage:비유 개념; 허용 범위 한 축뿐이고 구성 요소가 3개 미만이며 검증된 구조가 아님
+- plot: triage:서사 용어; 스토리 대 플롯 두 개념의 정의 반복
+- super-objective: triage:계층(초목표-비트 목표)이 본문에 두 층뿐이라 정의 반복
+- vaudeville: triage:공연 장르명; 나열식 구성이라 관계 구조 없음
+- yield-strength: triage:응력-변형률 곡선(탄성 후 항복, 소성)이 핵심이나 꺾이는 구간을 그릴 plot 함수가 없음
+- acetylcholinesterase: triage:단일 효소명; 분비-분해로 신호 종료라는 두 단계 설명
+- antibody-screening-test: triage:단일 검사명; 선별 후 동정 두 단계뿐
+- conspicuous-consumption: triage:소비 행태 정의; 베블런재 가격-수요 관계는 본문에 곡선 근거 없음
+- cortical-homunculus: triage:뇌 속 신체 지도 비유; 부위별 비율 수치 없이 정의 반복
+- desensitization-protocol: triage:용량을 단계적으로 올리는 계단 곡선이 핵심이나 이를 그릴 plot 함수가 없음
+- fibroblast: triage:세포 종류명; 활성화·근섬유아세포 전환은 본문에서 한 줄 언급
+- gyrus-sulcus: triage:해부 용어 두 개(볼록 대 오목); 정의 반복
+- hamartia-drama: triage:극작 용어; 해석이 성격 결함 대 판단 착오로 갈리는 논쟁이라 단정 도식 곤란
+- hedonic-pricing-model: triage:회귀 모형 정의; 속성이 가격에 기여한다는 단일 관계, 구체적 구조 없음
+- implantable-loop-recorder: triage:단일 의료기기명; 자동·수동 기록 두 기능 서술
+- laban-effort-actions: triage:네 요소 목록을 나열한 분석틀; 요소 간 관계가 없어 정의 반복
+- ldl-cholesterol: triage:단일 검사 지표; 동맥경화 기전은 본문에서 짧게 언급
+- left-shift: triage:검사 소견 용어; 성숙 단계 순서는 본문에 없고 외부 지식에 의존
+- michael-chekhov-technique: triage:연기 방법론 이름; 핵심 개념이 나열뿐 관계 구조 없음
+- osmotic-pressure: triage:단일 물리량; 반투막 사이 물 이동이라는 정의 반복
+- poka-yoke: review:본문의 3분류(접촉식·정정방식·경고식)가 신고 시게오의 표준 분류와 어긋남 — 설정 기능(접촉식·정수식·동작스텝식)과 규제 기능(규제식·경고식)의 두 축을 섞었고 '정정방식'은 통용 용어가 아니어서, 분류 트리로 그리면 잘못된 체계를 굳힘
+- reference-group: triage:사회학 용어; 유형 구분이 중첩되어 단일 분류로 그리면 논쟁 소지
+- tableau-vivant: triage:무대 기법명; 정지 자세 재현이라는 정의 반복
+- wound-culture: triage:단일 검사명; 채취 방식 주의사항이 짧게 나열되어 절차 근거 부족
+- acting-beat: triage:단일 연기 용어; 장면보다 작은 단위라는 정의 반복
+- anterior-cingulate-cortex: triage:뇌 영역명; 하위 영역별 기능 나열이라 관계 구조 없음
+- anti-ccp-antibody-test: triage:단일 항CCP항체검사 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- arrows-impossibility-theorem: triage:조건 목록과 불가능 결론만 있어 관계 구성이 아닌 명제 나열이라 단정 없이 그리기 어려움
+- biopsy: triage:단일 생검 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- blood-culture: triage:검사 절차 설명이 짧고 구성 요소 간 관계가 단순한 선형 흐름이라 새로 알려 주는 것이 적음
+- broca-wernicke-area: triage:단일 브로카 영역과 베르니케 영역 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- buchner-funnel-lab: triage:단일 뷰흐너깔때기 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- conflict-theory: triage:사회이론 일반 서술이라 구체적 구성 요소·관계가 없음
+- conjoint-analysis: triage:방법 개요가 정의 반복 수준이고 그림이 보태는 정보가 적음
+- conservation-of-mass: triage:단일 질량보존의 법칙 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- coronary-angiography: triage:단일 관상동맥조영술 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- creatine-kinase: triage:단일 크레아틴키나아제 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- dexa-scan: triage:단일 골밀도 검사 (DEXA) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- electron-affinity: triage:단일 속성 정의
+- endoscopic-ultrasound: triage:단일 내시경 초음파 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- fourier-law-of-conduction: triage:식 하나의 비례 관계 정의 반복
+- gastroscopy: triage:단일 위내시경 (상부위장관내시경) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- gerrymandering: triage:단일 게리맨더링 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- gobo-lighting: triage:단일 고보(조명 패턴판) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- hvac-system: triage:단일 냉난방공조 시스템 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- hysteresis: triage:계단·루프 모양 곡선이 핵심인데 올림·내림 경로가 다른 폐곡선이라 plot 함수로 못 그림
+- insular-cortex: triage:단일 섬엽 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- loading-dose: triage:부하용량 유무에 따른 농도 상승 비교 곡선이 핵심이나 누적·반복 투여 곡선 함수가 없음
+- money-illusion: triage:단일 화폐환상 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- nernst-equation: triage:수식 하나가 핵심이라 그림이 식을 되풀이함
+- political-efficacy: triage:단일 정치효능감(정치적 효능감) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- quality-adjusted-life-year: triage:생존기간×삶의 질 곱 하나의 지표 정의 반복
+- sf-36-health-survey: triage:단일 SF-36 건강설문조사 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- slam: triage:단일 SLAM (동시적 위치추정 및 지도작성) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- tensile-strength: triage:단일 물성값 정의
+- toll-like-receptor: triage:수용체 계열 이름과 병원체 대응 나열이라 관계 구조가 약함
+- total-protein-test: triage:알부민+글로불린 합 두 요소뿐이라 구성 요소 3개 미만
+- transferrin-saturation: triage:혈청철÷총철결합능 단순 비율 정의 반복
+- urine-leukocyte-esterase-test: triage:단일 요백혈구에스테라제검사 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- alkaline-phosphatase: triage:단일 알칼리 인산분해효소 (ALP) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- amygdala: triage:단일 편도체 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- axon-guidance-molecular-mechanism: triage:유인·반발 분자 종류 나열 위주이고 본문 밖 지식에 크게 기대야 도식화 가능
+- cardiac-catheterization: triage:단일 심장 카테터삽입술 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- cd4-helper-t-cell: triage:단일 CD4 양성 도움T세포 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- chirality: triage:단일 성질 정의라 구성 요소 2개(거울상 쌍)뿐
+- cnc-lathe: triage:단일 CNC 선반 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- coordinate-covalent-bond: triage:결합 1종의 정의라 전자쌍 제공자·수용자 2요소뿐
+- culture-medium-lab: triage:단일 배지(培地) 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- cutaway-shot: triage:단일 컷어웨이숏 개념·검사·장비·부위의 정의 설명이라 3개 이상 구성 요소의 관계가 없음
+- d-dimer: triage:정의 반복 — 피브린 분해산물 하나의 검사 지표, 구성 요소 간 구조가 단순
+- data-safety-monitoring-board: triage:기관 이름이며 IRB와의 역할 구분 두 항목뿐
+- depth-of-field: triage:본문이 변수 나열 위주이며 방향성 있는 구조가 약함
+- diderot-effect: triage:일화 중심의 소비 심리 현상, 정의 반복
+- electrochemical-impedance-spectroscopy: triage:분석법 설명, 나이퀴스트 선도는 현재 도식 type으로 불가하고 본문에 수치 형태 없음
+- epic-theatre: triage:본문이 짧고 아리스토텔레스극과의 비교 근거가 서술 몇 줄뿐
+- extreme-close-up: triage:쇼트 유형 하나, 단일 속성
+- fluid-mosaic-model: triage:막 단면 구조도이지 지원 type이 없음
+- fluoroscopy: triage:영상 기법 하나, 구성 요소 관계 없음
+- freeze-frame: triage:영화 기법 하나, 정의 반복
+- henrys-law: triage:정비례 직선 하나가 핵심이라 정의를 되풀이하는 그림이 됨
+- hunds-rule: triage:오비탈 채움 그림은 지원 type으로 표현 불가
+- indifference-curve: triage:볼록한 쌍곡선 곡선족이 핵심이나 해당 함수가 없음
+- lewy-body: triage:루이소체 자체가 원인인지 방어 부산물인지 논쟁 중이라 단정적 기전 도식 부적합
+- local-field-potential: triage:신호 종류 하나, LFP 대 단일세포 두 항목 비교뿐
+- long-take: triage:촬영 기법 하나, 상대적 길이 개념
+- micelle: triage:구조 모양 설명이며 CMC 이상에서만 형성된다는 한 가지 정보
+- miller-indices: triage:표기법, 격자 그림은 지원 type으로 불가
+- monocyte: triage:세포 한 종류, 정의 반복
+- mycotoxin: triage:독소 부류 이름
+- neurofilament: triage:단일 세포골격 단백질과 바이오마커
+- phosphodiesterase: triage:효소 하나와 아형 목록, 단계 구성이 얇음
+- plasmid: triage:구성 요소가 구조 목록이고 지원 type과 맞지 않음
+- populism: triage:정치 스타일 개념, 국민 대 엘리트 두 축뿐
+- potentiostat: triage:장비 이름
+- potlatch: triage:관습 사례, 구성 요소 관계 약함
+- power-factor: triage:역률 삼각형이 핵심이나 지원 type 없음
+- queueing-theory: triage:이용률이 1에 가까울수록 대기시간이 급증하는 곡선이 핵심이나 해당 함수가 없음
+- relative-deprivation-household: triage:심리 개념, 정의 반복
+- rent-seeking: triage:정의 반복, 손실 삼각형은 지원 type으로 불가
+- root-locus-method: triage:극점 궤적 그림이 핵심이나 지원 type 없음
+- seismic-design: triage:설계 전략 나열, 구성 요소 간 관계 없음
+- social-capital-putnam: triage:결속형 대 가교형 두 항목뿐
+- transpiration: merge-candidate: 병합 후보라 보류(was reviewed)
+- vibration-damping: triage:감쇠 진동 곡선이 핵심이나 해당 함수가 없음
+- vsepr-theory: triage:전자쌍 수별 모양 목록이며 지원 type으로 불가
+- acousmatic-sound: triage:음향 기법 하나, 정의 반복
+- anagnorisis: triage:서사 개념 하나, 정의 반복
+- anomie: triage:본문에 사회 구조 개념 설명만 있고 단계·분류 구성이 약함
+- auditory-cortex: triage:뇌 영역 하나와 주파수 지도, 구성 요소 관계 약함
+- bipolar-disorder: triage:질환명, 조증과 우울 두 상태뿐
+- blood-agar: triage:단일 배지명 — 용혈 3분류는 본문 정의 반복 수준
+- clock-reaction-apparatus: triage:실험장치 이름 — 구성 요소 관계가 본문에 거의 없음
+- convergent-evolution: triage:정의 반복 — 비유연 생물 간 유사 진화 구성 요소가 구체적이지 않음
+- crowding-out-effect: merge-candidate: 병합 후보라 보류(was reviewed)
+- dual-energy-ct: triage:영상 기법 정의 반복 — 두 에너지로 물질 구분, 구성 요소 2개
+- dual-use-research-of-concern: triage:정책 개념 정의 반복 — 단계·관계가 약함
+- endocytosis: triage:세포 과정 일반 정의 — 하위 유형 근거가 본문에 부족해 애매
+- engel-coefficient: triage:단일 비율 지표 — 소득과 식료품 비중 관계 하나뿐
+- ergonomics: triage:학문 분야 소개 — 구체적 구성 요소 관계 없음
+- ethnocentrism: triage:단일 태도 개념 — 구성 요소 2개뿐
+- false-positive: triage:정의 반복 — 양성예측도 도식과 중복되는 하위 사례
+- foldscope-lab: triage:단일 기구 이름
+- follicular-helper-t-cell: triage:세포 하위 유형 설명 — 논쟁 여지 있고 도식 근거 부족
+- ft-ir-spectrometer: triage:장비 정의 반복 — 스펙트럼 모양은 본문에 구체 없음
+- funnel-lab: triage:단일 실험 기구명
+- gap-junction: triage:구조 정의 반복 — 구성 요소 2개(세포·통로)
+- gestus: triage:연극 개념 정의 — 관계 구조가 모호
+- giffen-good: triage:가격 상승에 수요량이 늘어나는 우상향 수요곡선이 필요하나 구성 요소가 단일 곡선뿐이라 도식 이득 작음
+- hemolysis-index-test: triage:검사 정의 반복 — 단계·비교 축이 본문에 없음
+- imagined-community: triage:사회학 개념 정의 반복 — 구성 요소 불명확
+- iron-ii-chloride: triage:단일 시약명
+- irony-dramatic: triage:문학 용어 정의 반복 — 정보 격차 구성 요소 2개뿐
+- jahn-teller-effect: triage:에너지 준위 도식은 plot 함수 밖이고 본문에 수치 근거 없음
+- labeling-theory: triage:이론 서술 중심 — 논쟁 여지 있어 단정적 도식 곤란
+- lipid-nanoparticle-delivery: triage:전달 기법 정의 반복 — 단계 근거가 본문에 부족해 애매
+- locus-coeruleus: triage:단일 뇌 영역명
+- mammography: triage:영상 검사 정의 반복 — 구성 요소 관계 없음
+- mast-cell: triage:단일 세포 유형명
+- mean-corpuscular-hemoglobin-concentration: triage:단일 검사 지표 — 두 값의 비율 정의 반복
+- meso-compound: triage:단일 화합물 유형 정의 — 구조 도식은 지원 범위 밖
+- metal-reactivity-series: triage:단순 순위 나열 — 관계 구조 없음
+- method-acting: triage:연기 기법 정의 — 본문 짧고 구성 요소 불명확
+- moral-panic: triage:사회학 개념 정의 반복 — 단계 근거 약함
+- multimorbidity: triage:정의 중심 개념 — 구성 요소 관계 없음
+- neuropathic-pain: triage:일반 정의 — 기전 단계가 본문에 구체적이지 않음
+- obstructive-sleep-apnea: triage:질환 정의 중심 — AHI 중증도 구간만 있어 구성 요소 단순
+- osmolality-test: triage:단일 검사 정의 반복
+- plasmid-miniprep: triage:실험법 단계가 본문에 구체적이지 않아 애매
+- prothrombin-time: triage:응고검사 정의 반복 — 경로 구성이 본문에 구체적이지 않음
+- resting-membrane-potential: triage:단일 전압 값 — 정의 반복
+- sickle-cell: triage:단일 세포 형태 소견
+- signaling-theory: triage:이론 정의 반복 — 구성 요소 관계가 간단하고 논쟁 여지
+- slit-lamp-examination: triage:검사 장비 설명 — 구성 요소 간 관계 없음
+- social-constructionism: triage:추상 관점 설명 — 그림으로 보일 구조 없음
+- solubility-product: triage:단일 상수 정의 — 포화·침전 두 상태뿐
+- spike-timing-dependent-plasticity: triage:좌우 비대칭 STDP 창은 현재 plot 함수로 못 그림, 구성 요소는 선후 두 경우뿐
+- statistical-process-control: triage:시계열 관리도는 현재 plot 함수로 못 그림, 나머지는 정의 반복
+- stoichiometry: triage:계수비 계산 개념 — 비유 외 그릴 구조 없음
+- striatum: triage:뇌 부위 해부 설명 — 하위 구분이 있으나 정의 반복 수준
+- suzuki-method-acting: triage:특정 연기 훈련법 — 인물·방법 이름
+- symbolism-theatre: triage:연극 사조 설명 — 비교 축 부족
+- teardrop-cell: triage:단일 세포 형태 소견 — 정의 반복
+- transfer-function-poles-zeros: triage:복소평면 극점·영점 지도는 현재 plot 함수로 못 그림
+- verbatim-theatre: triage:다큐멘터리연극의 하위 형식 — 구성 요소 2개뿐
+- acetic-orcein-solution: triage:단일 시약명
+- actuator: triage:장치 정의 — 센서와의 2요소 관계뿐
+- affect-theory-performance: triage:추상적 이론 관점 — 논쟁적이고 도식화 근거 부족
+- allosteric-site: triage:활성 부위와 조절 부위 2개 구분 — 정의 반복
+- amylase-test: triage:단일 혈청 효소검사
+- angular-gyrus: triage:단일 뇌 부위
+- aquaporin: triage:단일 통로 단백질 — 정의 반복
+- ball-mill: triage:단일 장비명
+- beam-deflection: triage:처짐 곡선은 현재 plot 함수로 못 그림, 본문에 수치 근거 없음
+- bounded-rationality: triage:합리적 선택 대 만족화 2개 개념 — 정의 반복
+- buffer-solution: triage:약산·짝염기 2요소 — 본문이 흡수 비유 위주라 근거 부족
+- camera-angle: triage:앵글 종류 나열 — 심리 효과는 맥락 의존적이라 단정 어려움
+- choroid-plexus: triage:단일 뇌 구조물 — 정의 반복
+- chroma-key: triage:촬영 기법 설명 — 단계가 단순하고 정의 반복
+- circadian-rhythm: triage:분자 되먹임 회로가 본문에 간략히만 언급, 근거 부족
+- citric-acid: triage:단일 화합물명
+- coenzyme-a: triage:단일 조효소 — 대사 교차로 서술이 나열 위주
+- commedia-dellarte: triage:연극 형식 이름 — 구성 요소 관계 없음
+- common-ion-effect: triage:르샤틀리에 적용 단일 현상 — 용해도곱 용어와 내용 중복
+- contingent-valuation-method: triage:설문 기반 평가법 — 단계가 정의를 되풀이
+- contrast-enhanced-ct: triage:영상 검사 설명 — 시점별 양상이 본문에 정성적으로만 나옴
+- core-needle-biopsy: triage:검사 기법 — 비교 대상 세침흡인 정보가 본문에 부족
+- crystal-violet-solution: triage:단일 시약명 — 그람염색 절차는 별도 용어의 내용
+- cytochrome-p450: triage:효소군 이름 — 대사 단계 서술이 짧음
+- decorum-classical-drama: triage:고전 규범 개념 — 신분·언어·장르 대응이 정의 반복
+- deus-ex-machina-drama: triage:극작 장치 이름 — 구성 요소 관계 없음
+- dna-double-helix: triage:구조 설명 위주, 정의 반복 — 상보적 염기쌍 규칙 외 관계 구성 요소 없음
+- dna-methylation-profiling: triage:측정 방식 세 가지의 단순 나열, 순서나 인과 구조가 본문에 없음
+- doppler-ultrasound: triage:원리가 주파수 변화 하나뿐이고 검사 유형은 단순 나열
+- dual-labor-market: triage:1차·2차 시장 두 항 비교로 정의 반복에 가까움
+- elastography: triage:변형률·전단파 두 방식 나열로 구성 요소 2개뿐
+- electrophysiology-study: triage:침습 검사 절차 설명이 개략적이고 그림으로 얻을 새 정보가 적음
+- emic-etic: triage:두 관점 대비는 정의 자체이며 본문 밖 지식 없이 새 정보를 못 줌
+- enantiomer: triage:거울상 관계 단일 개념, 구성 요소 2개뿐
+- euler-buckling-formula: triage:공식 하나로 곡선(P~1/L^2)은 가능하나 본문이 곡선을 다루지 않음
+- excitatory-inhibitory-balance: triage:흥분·억제 두 요소의 비유적 균형, 정량 구조는 본문 밖
+- extensometer: triage:접촉식·비접촉식 두 장치 나열, 단일 계측기
+- fad: triage:단일 조효소명, 산화·환원형 2상태뿐
+- fibrinogen-test: triage:단일 검사 항목, 본문 짧음
+- food-desert-concept: triage:공간적 불평등 개념 정의, 관계 구성 요소 부족
+- forum-theatre: triage:연극 기법 설명, 장면-개입 2단계로 구조가 단순
+- freezing-behavior: triage:방어 반응 연속체는 deep에서 한 줄 언급뿐이라 근거 부족
+- geci: triage:gcamp 상위 개념 설명으로 염료 대비 두 항 비교 위주, gcamp 도식과 중복
+- genetic-bottleneck: triage:사건 후 다양성 감소의 단순 인과 2단계, 정의 반복
+- genome-wide-association-study: triage:맨해튼 플롯 등 핵심 시각이 plot 함수로 불가, 단계 구조는 본문에 약함
+- glass-ceiling: triage:비유적 사회 개념, 도식화할 관계 구성 요소 없음
+- greek-episode: triage:합창-에피소드 교차 구조 두 요소뿐
+- hdl-cholesterol: triage:단일 검사 지표명
+- hebbian-learning: triage:동시 활성화-강화 2단계 원리이고 STDP 곡선은 본문에 간략 언급뿐
+- hot-plate-stirrer-lab: triage:단일 실험기구 설명
+- human-capital: triage:일반·특수 인적자본 2분류로 정의 반복
+- hydrolase: triage:효소군 하위 유형 나열, 분류 근거 없이 정의 반복
+- iminium-ion: triage:단일 화학종, 반응 경로가 본문에 단계별로 없음
+- inbreeding-coefficient: triage:단일 지표 정의, 계산 구조가 본문에 없음
+- income-redistribution: triage:조세·이전지출 2요소 정의 설명, 정의 반복
+- international-normalized-ratio: triage:환산 공식 하나의 검사 지표
+- intersectionality: triage:정체성 축 겹침은 개념 해석 위주이고 도식 구성이 본문 밖 지식에 의존
+- ionic-strength: triage:공식 하나의 단일 속성, 활동도 곡선은 본문에서 상세하지 않음
+- koh-preparation: triage:4단계 단순 검체 처리, 정의 반복에 가까움
+- mach-number: triage:단일 무차원 수 정의, 속도 구간 나열
+- marginal-rate-of-substitution: triage:무차원 수치 아닌 무차별곡선 기울기가 핵심이나 함수 없음
+- micropipette-lab: triage:단일 실험기구, 사용법이 짧고 단순
+- mise-en-scene-theatre: triage:시각 요소 나열, 요소 간 관계 구조 없음
+- modal-analysis: triage:해석 기법 설명, 해석적·실험적 두 방식 나열
+- moral-hazard: triage:보험-부주의 2단계 인과로 정의 반복
+- nanodrop-spectrophotometer: triage:단일 장비, 260/280 비율은 수치 기준 나열
+- neural-network: triage:일반 개요 중심 - 층 구조 그림이 정의 반복이고 9개 type으로 표현하기 애매함
+- new-public-management: triage:정의와 비판의 나열 - 서로 관계 맺는 구성 요소가 명확하지 않음
+- nitric-acid-lab: triage:단일 시약명(질산)
+- non-inferiority-trial: triage:핵심은 신뢰구간과 마진의 위치 관계인데 구간 도식 불가
+- off-label-use: triage:4가지 분류 나열뿐이라 정의 반복 수준
+- opioid-receptor-pharmacology: triage:G단백질·아레스틴 편향 경로는 아직 가설 단계라 단정해 그리기 어려움
+- oxalic-acid: triage:단일 물질명(옥살산)
+- palliative-care: triage:호스피스와의 개념 구분 위주 - 구성 요소 2개뿐
+- parietal-lobe: triage:영역 해부 설명이라 도식보다 뇌 그림이 필요하고 관계 구조가 약함
+- ph-test-paper-lab: triage:단일 실험기구명(pH 시험지)
+- phosphoric-acid-lab: triage:단일 물질명(인산) - 단계 해리는 이름만의 속성
+- piezoelectric-effect: triage:정압전·역압전 2개 구성 요소뿐으로 정의 반복
+- poikilocytosis: triage:모양 이상 목록과 질환 대응이 비특이적이라 단정해 그리기 어려움
+- power-spectral-density-analysis: triage:분석 기법 설명 - PSD 그래프는 임의 스펙트럼 모양이라 핵심 도식이 아님
+- practical-lighting-object: triage:단일 소품 용어 - 구성 요소 1개
+- pressure-injury: triage:단계 분류 나열 위주라 정의 반복
+- redox-reaction: triage:산화와 환원 2개 요소뿐이고 정의 반복
+- rheobase: triage:강도-지속시간 곡선은 plot 함수로 못 그림
+- rigging-theatre: triage:두 방식 분류뿐 - 정의 반복
+- routine-urinalysis: triage:시험지·침사 2단계 묶음 - 구성 요소 2개뿐
+- satyr-play: triage:공연 순서 나열뿐 - 근거가 짧음
+- soft-power: triage:하드·소프트 파워 2개 개념과 정의 반복
+- stem-cell-niche: triage:조직마다 다르고 신호 구성이 본문에 불명확해 그림 구성이 외부 지식에 의존
+- surface-profilometer: triage:단일 장비명(표면 조도계)
+- thermal-conductivity: triage:단일 물성 단위 - 구성 요소 없음
+- thermoreceptor: triage:온도수용기 분류가 단순해 정의 반복
+- thromboelastography: triage:TEG 곡선 모양이 핵심인데 plot으로 못 그림
+- title-sequence: triage:정의 한 줄 수준의 영화 용어
+- tracking-shot: triage:단일 촬영 기법명 - 정의 반복
+- transport-medium: triage:단일 배지 용어 - 구성 요소 2개뿐
+- truss: triage:구조물 이름 - 삼각형 원리가 정의 반복
+- turnover-number: triage:kcat 단일 속성 - 비경쟁적 억제와 중복되는 포화곡선 하위 사례
+- tympanometry: triage:고실도 유형별 곡선 모양이 핵심인데 plot으로 못 그림
+- type-4-hypersensitivity: triage:제3형과 유사한 기전 나열 - 정의 반복
+- verfremdungseffekt: triage:브레히트 대비는 본문 밖 지식에 의존
+- veto-player-theory: merge-candidate: 병합 후보라 보류(was reviewed)
+- whip-pan: triage:단일 촬영 기법명(휩팬)
+- white-blood-cell-count: triage:백혈구 5종 나열로 정의 반복
+- wipe-transition: triage:단일 편집 기법명(와이프)
+- zero-sum-game: triage:정의 반복 — 고정 파이 대 확대 파이 두 개념 비교뿐
+- adsorption: triage:단일 현상 정의 — 표면 부착과 탈착 두 요소뿐, 흡수와의 구분은 글로 충분
+- alienation-effect: triage:연극 기법 하나의 정의, 본문 짧고 관계 구성 요소 없음
+- ambulatory-blood-pressure-monitoring: triage:검사 장비 설명 — 구성 요소 간 관계 없음
+- anti-hbs-test: triage:단일 검사 항목, 해석이 항체 유무 이분법
+- anti-smooth-muscle-antibody-test: triage:단일 자가항체 검사, 정의 반복
+- archaerhodopsin: triage:단일 옵신 이름, 대비 구도는 채널로돕신 쪽에서 다룸
+- arterial-blood-gas-analyzer: triage:장비 설명, 측정 항목 나열일 뿐 관계 구조 없음
+- ascitic-fluid-cytology: triage:검사 하나의 목적 설명, 구성 요소 간 관계 약함
+- astrocyte: triage:세포 유형 하나의 기능 나열, 인과 구조 불분명
+- atlas-ti: triage:소프트웨어 제품명
+- axon: triage:뉴런의 단일 구조물, 정의 수준의 해부 설명
+- bacteremia: triage:단일 임상 상태 정의
+- basal-metabolic-rate: triage:단일 수치 개념, 도식으로 보일 관계 없음
+- base-dissociation-constant: triage:단일 평형상수, Ka×Kb=Kw 한 줄 관계뿐
+- basophil: triage:단일 세포 종류, 기능 한 줄
+- bet-isotherm: triage:다층 흡착 등온선이 핵심이나 plot 함수 부족으로 그릴 수 없음
+- bet-surface-area-analyzer: triage:분석 장비 설명, 원리가 BET 등온식과 중복
+- bioanalyzer-tapestation: triage:장비 이름, 전기영동 원리 한 단계 설명
+- black-box-theatre: triage:공간 형태 정의, 본문 짧음
+- black-comedy-genre: triage:장르 정의, 희극-비극 사이 위치는 두 극 사이 스펙트럼일 뿐
+- blood-brain-barrier: triage:구조 설명이 비유 중심, 구성 요소 간 인과 단계가 본문에 부족
+- brechtian-directing: triage:연출 기법 나열, 정의 반복
+- buckling: triage:핵심은 임계하중 분기 곡선이나 본문에 수치 구조가 없고 정의 반복
+- buckling-load-theory: triage:좌굴 정의 재서술, 공식·구성 요소 없음
+- bureaucracy: triage:조직 형태 정의, 장단점 서술은 두 항목뿐
+- capacitance: triage:단일 물리량, 비유와 단위 설명
+- capillary-electrophoresis-dna: triage:단일 장비 기술, 크기별 이동 속도 한 가지 원리
+- carbocation: triage:반응 중간체 단일 개념, 안정성 순서 근거가 본문에 부족
+- catalase: triage:단일 효소명, 반응 한 줄
+- catalytic-efficiency: triage:단일 지표 kcat/Km, 정의 반복
+- cd8-cytotoxic-t-cell: triage:단일 세포 유형, 인식-살상 두 단계뿐
+- central-pattern-generator: triage:개념 정의와 일화 중심, 뇌-회로-다리 세 요소 관계가 단순
+- charpy-impact-test: triage:시험 방법 한 가지, 천이온도 곡선은 본문 근거 약함
+- chemical-vapor-deposition: triage:합성 기법 정의, 전구체-반응-증착 단순 흐름이 글로 충분
+- chiaroscuro-lighting: triage:조명 기법 하나의 정의, 본문 짧음
+- chromatography: triage:분리 원리가 비유로 이미 충분, 구성 요소 두 가지뿐
+- chronic-traumatic-encephalopathy: triage:질환 단일 정의, 기전 논쟁 중이라 단정 불가
+- cinephilia: triage:문화적 태도 정의, 구성 요소 없음
+- clutch: triage:장치 하나의 연결-차단 두 상태뿐
+- colony-forming-unit: triage:단일 단위 정의
+- color-grading: triage:정의 반복 — 보정과 그레이딩 두 구성 요소뿐
+- computable-general-equilibrium-model: triage:본문이 구체적 연쇄·분류 없이 모형 개요만 서술
+- concrete-compressive-strength: triage:단일 속성(강도) 정의, 구성 요소 관계 없음
+- constitutional-rights: merge-candidate: 병합 후보라 보류(was reviewed)
+- copper-ii-nitrate: triage:단일 시약명
+- corpus-callosum: triage:단일 해부 구조명, 반구 2개 연결뿐
+- creative-destruction: triage:정의 반복 — 파괴와 창조 두 요소뿐
+- critical-period: triage:본문의 기전 설명이 짧고 논쟁 중인 개폐 기전을 단정하기 어려움
+- crossmatch-test: triage:검사 하위 2종 구분뿐, 구성 요소 3개 미만
+- cysteine-protease: triage:효소 계열 설명, 도식으로 보여줄 관계가 약함
+- daly: triage:YLL과 YLD 합산 두 요소뿐, 정의 반복
+- dc-power-supply: triage:장비명, CV/CC 두 모드뿐
+- de-novo-mutation: triage:발생 시점 2종 구분뿐, 정의 반복
+- dialysis-membrane: triage:분리 방법 개요, 단계 구성이 본문에 없음
+- dohle-body: triage:단일 혈구 소견명
+- dorsal-root-ganglion: triage:단일 해부 구조명
+- drug-fever: triage:단일 증후군명, 기전이 열거에 그침
+- drug-screening-immunoassay: triage:검사법 개요, 구성 요소 관계가 약함
+- dye-penetrant-testing: triage:검사법 개요, 절차 단계가 본문에서 구체적이지 않음
+- dynamical-systems-theory-brain: triage:추상 이론, 본문 근거로 그릴 구체 관계가 약함
+- ecotone: triage:경계 지역 정의 반복, 구성 요소 2개뿐
+- electrolyte-imbalance: triage:증상 열거 위주, 구조적 관계가 약함
+- electrophoresis: triage:실험 기법 개요, 본문에 순서 단계가 구체적이지 않음
+- electroplating: triage:공정 개요, 변수 나열 위주
+- engram: triage:단일 개념명, 기억 흔적 정의 반복
+- entorhinal-cortex: triage:단일 뇌 영역명
+- epigenetics: triage:기전 열거 3개지만 정의 반복 수준이라 도식 이득이 적음
+- extracellular-matrix: triage:구조 설명이 열거에 그침
+- fourier-transform: triage:수학 개념, 정의 반복이며 plot 함수로 표현 어려움
+- fractography: triage:분석 기법 개요, 파괴 유형 나열 위주
+- framing-theory-social-movements: triage:세 과제 나열이지만 정의 반복 수준
+- free-body-diagram: triage:그림 그 자체를 설명하는 용어, 도식이 정의를 되풀이함
+- frontal-lobe: triage:단일 뇌엽명, 하위 영역 나열뿐
+- gas-exchange: triage:두 기체 반대 이동 정의 반복, 구성 요소 2개뿐
+- gc-ms-forensic-analysis: triage:분석 장비 개요, 단계가 본문에 구체적이지 않음
+- gelation: triage:정의 반복 — 졸에서 겔 전이 두 상태뿐
+- genetic-anticipation: triage:단일 현상명, 정의 반복
+- gfap: triage:단일 단백질 표지자명
+- glucose-6-phosphatase: triage:단일 효소명
+- glutamate-transporter-glt1: triage:단일 수송체명
+- glycogen-phosphorylase: triage:단일 효소명
+- golden-gate-assembly: triage:절단·연결 한 반응이라는 방법 설명 위주, 단계 구분이 본문에 없음
+- grams-iodine-solution: triage:단일 시약명(그람염색의 한 단계에 쓰이는 매염제)
+- greek-chorus: triage:그리스 연극의 역할·집단 이름, 구성 요소 관계 없음
+- greek-prologue: triage:비극 구조의 한 부분 이름, 정의 반복
+- greek-tragedy: triage:장르 소개 위주, 구조 서술이 짧고 반복적
+- group-and-period: triage:세로줄·가로줄 두 개념 정의 반복, 그림이 더할 정보 적음
+- hardy-weinberg-equilibrium: triage:원리 서술과 조건 나열, 구체적 그림 의도를 쓰기 어려움
+- health-equity-vs-equality: triage:균등성·형평성 두 개념 정의를 되풀이하는 수준
+- heart-failure-preserved-ejection-fraction: triage:질환 정의 위주, 비교 대상(수축부전)이 본문에 없음
+- hemolysis-mechanism: triage:혈관내/외 용혈 두 갈래만 있고 정의 반복
+- high-alert-medication: triage:약물 목록과 관리 방법 나열, 관계 구조 없음
+- hypothalamus: triage:뇌 구조 기능 나열, 하나의 구체적 경로가 중심이 아님
+- iatrogenic: triage:용어 뜻 설명과 예시 나열, 구성 요소 관계 없음
+- inflation: triage:단일 경제 현상 정의, 그림으로 더할 것이 없음
+- insert-shot: triage:쇼트 한 종류의 정의, 컷어웨이와 구분 설명뿐
+- institutional-isomorphism: triage:세 유형 나열이 전부여서 정의 반복
+- interneuron: triage:정의 반복 — 감각→연합→운동 세 단계뿐
+- isotope: triage:단일 개념, 질량 차이만 설명
+- italian-renaissance-theatre: triage:연극사 흐름 소개, 시간 순서 사건이 본문에 없음
+- kabuki: triage:특정 연극 양식 소개, 도식화할 관계 없음
+- laser-doppler-vibrometer: triage:측정 장비 한 종류, 원리 설명이 짧음
+- lateral-flow-immunoassay: triage:검사법 개요, 단계 구분이 본문에 거의 없음
+- leaf-structure-stomata: triage:잎 구성 요소 나열, 정의 반복
+- lighting-plot: triage:설계 문서 한 종류, 구성 요소 관계 없음
+- low-key-lighting: triage:조명 스타일 하나의 정의, 하이키 대비가 본문에서 부수적
+- macchiarini-scandal: triage:특정 사건 서술, 도식화할 구조가 아님
+- malaria-blood-smear: triage:검사법 소개, 절차 단계가 본문에 구체적이지 않음
+- master-shot: triage:촬영 기법 한 종류의 정의, 관계 구조 부족
+- medication-adherence: triage:단일 지표 정의(복용 비율), 그림으로 더할 것 없음
+- melodrama: triage:장르 소개, 구성 요소 관계 없음
+- metapopulation: triage:정의와 근원지·흡수지 부수 설명뿐, 그릴 단계가 분명하지 않음
+- microglia: triage:세포 한 종류의 역할 설명, 관계 구성이 적음
+- microscope-slide-lab: triage:단일 실험 도구 이름
+- mimesis-art: triage:철학 개념 정의, 학설 해석이 논쟁적이라 단정 도식 곤란
+- minimum-effective-concentration: triage:혈중농도-시간 곡선에 가로 기준선(MEC·MTC)이 필요한데 plot이 지원하지 않음
+- mitochondrial-heteroplasmy: triage:문턱효과 설명이 정의 반복, 곡선 근거가 본문에 정량적이지 않음
+- muscle-spindle: triage:정의 반복 수준의 단일 수용기, 반사 경로 서술이 간략
+- mutation: triage:단일 개념 정의, 두 분류 축이 부수적 서술
+- newman-projection: triage:표기법 설명 — 구성 요소 2개(앞·뒤 탄소) 위주, 에너지 곡선은 본문 부차 언급
+- no-observed-adverse-effect-level: triage:단일 기준값 정의 — 용량 한 점을 가리키는 개념이라 관계 요소 부족
+- normal-inferior-goods: triage:정의 반복 — 소득 증가 시 소비 증가/감소 두 갈래뿐
+- nucleofection: triage:단일 실험 기법 명칭 — 전기천공의 상용 변형으로 구성 요소가 없음
+- nucleotide-salvage-pathway: triage:대사 경로 이름 — 본문에 단계 구성이 구체적이지 않고 효소 나열 위주
+- nudge-theory: triage:유형 나열 — 넛지 유형 목록이라 그림이 글보다 얻을 게 적음
+- nyquist-stability-criterion: triage:주파수 응답 궤적(나이퀴스트 선도)이 핵심이나 plot 함수로 못 그림
+- orbital-mechanics: triage:정의와 변수 나열 — 케플러 요소 6개는 관계 구조가 아님
+- orexin: triage:단일 신경펩타이드 — 수용체·기능 나열이고 기전 단계가 약함
+- oscillator-circuit: triage:회로 개념 설명 — 두 방식 분류뿐이고 파형 정보 없음
+- pan-shot: triage:촬영 기법 한 가지 — 트래킹과 비교해도 구성 요소 2개
+- papanicolaou-smear: triage:검사 이름 — 채취·염색 단계가 본문에서 간략하고 구성 요소 부족
+- ph-acid-base: triage:단일 척도 정의 — pH 로그 관계는 정의 반복
+- phenology: triage:학문 분야명 — 사건 나열이고 구체적 관계 구조 없음
+- phq-9: triage:설문 도구 — 점수 구간 나열이라 정의 반복
+- physical-theatre: triage:공연 장르명 — 무용극과의 2자 구분뿐
+- pipette-filler-lab: triage:단일 실험 기구 — 사용법은 간단한 조작
+- plasma-cell: triage:분화 경로가 짧고(B세포→형질세포) 하위 구분이 2개뿐이라 정의 반복
+- plasma-protein-binding: triage:개념 설명 — 결합·유리 두 상태뿐이라 구성 요소 부족
+- platelet-count: triage:단일 검사 수치 — 저하 원인 두 갈래뿐
+- platelet-function-test: triage:검사 이름 — 해석 규칙이 표 형태이고 도식 이점 적음
+- plug-flow-reactor: triage:반응기 한 종류 — 비교 대상(CSTR)이 본문에 충분하지 않음
+- polymer: triage:분류 나열 — 구조 유형 목록이고 정의 반복 성격이 강함
+- potassium-permanganate: triage:단일 시약명
+- predictive-maintenance: triage:전략 정의 — RUL 지표 설명은 곡선 근거가 본문에 없음
+- prefrontal-cortex: triage:영역 목록 — 하위 영역별 기능 나열이라 근거가 약함
+- primary-motor-cortex: triage:단일 뇌 영역명 — 호문쿨루스 설명이 부차적
+- procalcitonin-test: triage:단일 검사 이름 — 상승 시점과 해석이 문장으로 충분
+- professional-engineering-code-of-ethics: triage:규범 문서 — 원칙 나열이고 관계 구조 없음
+- proprioception: triage:단일 감각 개념 — 수용체 2종 나열뿐
+- proscenium-arch: triage:건축 요소명 — 구성 요소 간 관계 설명이 약함
+- quick-change-theatre: triage:무대 기술 — 준비 요소 나열이고 논쟁 없는 단순 설명
+- raisonneur: triage:극 중 인물 유형 — 단일 역할 정의
+- rate-coding: triage:이론 정의 — 시간부호화와의 2자 비교뿐
+- reaction-quotient: triage:정의 반복 — Q와 K 비교 3경우로 단순
+- real-wage-vs-nominal-wage: triage:용어 쌍 정의 — 두 개념의 계산식 반복
+- refractory-period: triage:정의 반복 — 절대/상대 불응기 2구간뿐이며 시간 곡선은 본문 근거 약함
+- regulatory-capture: triage:정의 반복 — 포획 지표 나열이라 구성 요소 관계 약함
+- regulatory-sandbox: triage:제도 설명 위주 — 구성 요소 간 구조적 관계가 약함
+- residual-stress: triage:원인 서술이 짧아 정의 반복에 가까움
+- retaining-wall: triage:구조물 종류 나열뿐 — 그림으로 얻을 새 정보가 약함
+- reticulocyte-count: triage:단일 검사 항목 — 해석 분기 2개뿐
+- ribozyme: triage:단일 분자 종류 설명 — 구성 요소 2개 수준
+- ritual-theatre: triage:공연 형식 개념 — 도식화할 구조 근거가 본문에 부족
+- sabouraud-dextrose-agar: triage:단일 배지 이름
+- salience-network: triage:뇌 네트워크 개념 — 본문에 도식화할 구체적 관계 부족
+- saltatory-conduction: merge-candidate: 병합 후보라 보류(was reviewed)
+- selective-media: triage:배지 종류 개념 — 정의 반복
+- side-arm-flask-lab: triage:단일 실험 기구 이름
+- sinpageuk: triage:연극 갈래 이름 — 인물·작품 중심
+- skeletal-system: triage:기관계 총칭 — 본문에 구체적 관계 구조 부족
+- slow-wave-sleep: triage:수면 단계 하나 — 본문에 단계 순서 도식 근거 부족
+- social-capital: triage:결속형·교량형 구분은 사회자본이론 항목에서 다룸 — 중복
+- solid-state-synthesis: triage:합성법 하나 — 단계 근거 부족
+- stage-direction: triage:대본 용어 — 동작·무대 지문 2분류뿐
+- stall: triage:양력-받음각 곡선이 핵심이나 실속 후 급락 곡선을 그릴 plot 함수 없음
+- stanislavski-system: triage:본문이 한 줄뿐 — 근거 부족
+- stasimon: triage:연극 용어 하나 — 코러스 장면 위치 설명 정도
+- status-quo-bias: triage:기준점 대비 비대칭 가치함수가 핵심이나 해당 plot 함수 없음
+- steric-hindrance: triage:단일 현상 개념 — 구성 요소 2개 수준
+- stethoscope-lab: triage:기구 구조 설명 — 부품 3개 나열뿐
+- stool-culture: triage:검사 방법 서술 — 단계 근거 약함
+- stop-motion-animation: triage:애니메이션 기법 하나 — 하위 유형 나열 수준
+- strength-of-weak-ties: triage:강한·약한 유대 비교는 사회연결망 설명 반복 — 구성 요소 2개
+- structural-redundancy: triage:정성 개념 — 하중 재분배 구조 근거가 일반적
+- substantia-nigra: triage:뇌 부위 이름 — 구성 요소 근거 부족
+- surfactant-excipient: triage:부형제 하나 — 정의 반복
+- surrogate-endpoint: triage:지표 개념 하나 — 정의 반복
+- survivorship-curve: triage:I·II·III형 생존곡선이 핵심이나 각 곡선을 그릴 plot 함수 없음
+- suspension-system: triage:기계 장치 — 스프링·댐퍼 2요소
+- suture-theory: triage:본문이 한 줄뿐 — 근거 부족
+- synesthesia: triage:신경 현상 하나 — 본문에 도식 근거 약함
+- tax-shifting-and-incidence: triage:수요·공급 곡선과 세금 쐐기 그림이 필요하나 해당 plot 함수 없음
+- taylor-rule: triage:수식 개념 — 단순 입력·출력 구조
+- third-place: triage:개념 정의 중심 — 비교 축 근거 약함
+- through-line-of-action: triage:개념 하나 — 하위 요소 관계 근거 약함
+- thrust: triage:단일 물리량 — 작용·반작용 2요소
+- total-theatre: triage:예술 형식 개념 — 도식화할 관계 근거 부족
+- trickle-down-economics: triage:주장의 경로를 논쟁 없이 그리기 어려움 — 실증 논쟁 중
+- triglyceride-test: triage:단일 검사 항목
+- trypan-blue-exclusion: triage:막 온전성에 따라 염색 여부가 갈리는 이분 구분이라 구성 요소가 사실상 2개이고 정의를 되풀이하는 그림이 됨
+- tumor-microenvironment: triage:혈관·면역세포·섬유아세포·기질을 나열한 구성 목록일 뿐 본문에 요소 간 인과나 순서가 없고 암종마다 달라 단정해 그릴 수 없음
+- urban-sprawl: triage:저밀도 확산의 결과(차량 의존, 기반시설 비용)가 열거될 뿐 구체적 기전 순서가 약하고 지표·정책 대안 중심이라 도식의 근거가 흐림
+- urea-breath-test: triage:표지 요소 섭취 후 CO2 측정이라는 한 줄 원리의 단일 검사법으로 정의를 되풀이하는 3단계 그림에 그침
+- urine-ketone-test: triage:단일 소변 검사이며 포도당 이용 저하에서 케톤체 배출로 가는 2단 설명이 정의와 같고 시험지법 한계는 그림으로 옮기기 어려움
+- viscosity-newtonian-fluid: triage:뉴턴유체의 직선 대 전단박화·농화 곡선이 핵심 모양인데 거듭제곱(멱함수) 곡선 함수가 없어 그릴 수 없음
+- vitamin-b12-folate-test: triage:두 영양소 수치 측정 검사로 본문 설명이 짧고 B12·엽산 대비는 표로나 어울려 새로 보여 줄 구조가 부족함
+- white-matter: triage:회백질 대 백질 비유와 DTI 지표 나열일 뿐 정의 반복이며 관계 맺는 구성 요소가 3개 미만
+- wire-edm: triage:와이어·소재·방전·가공액이 있는 장비 개략도에 가깝고 본문에 단계나 기전의 차례가 뚜렷하지 않아 정의를 되풀이하게 됨
+- worm-gear: triage:리드각과 마찰각의 대소로 자기잠금이 갈린다는 단일 조건이 핵심이라 기계 부품 구조도 이상의 도식 근거가 없음
+- x-ray-diffraction: triage:브래그 조건과 피크 해석은 기구 배치·수식 그림이 필요하고 본문 지식만으로 정의 이상의 구조를 보여 주기 어려움
+- zeta-potential-analyzer: triage:전기영동 이동도에서 제타전위를 산출하는 장비 원리로 정의 반복에 가깝고 제타전위 용어 자체와 중복됨
+- acid-base-titration: triage:뷰렛 조작 순서와 계산이 정의 수준이며 적정 곡선은 약산·강산마다 모양이 달라 단일 S자 하나로 단정하면 오해를 낳음
+- activated-clotting-time: triage:고용량 헤파린 현장 응고 검사의 목표치·주의 사항 목록이며 단계적 기전이 없음
+- activation-energy: triage:반응 좌표 위 에너지 장벽과 촉매 효과를 그리는 에너지 프로파일이 핵심인데 이를 그릴 함수가 없음
+- activities-of-daily-living: triage:BADL과 IADL 두 갈래뿐이며 평가도구 점수 체계는 도식으로 옮길 구조가 아님
+- adverse-event-vs-adverse-reaction: triage:이상사례가 이상반응을 포함한다는 단순 포함 관계 두 겹이며 SAE 구분도 보조 설명이라 정의 반복 수준
+- afp-test: triage:AFP 수치 상승 해석 목록이며 위양성·위음성 한계는 표나 글로 충분하고 구성 요소 간 관계가 약함
+- agenda-setting-theory: triage:언론 보도량과 대중 중요도 인식의 상관이라는 2요소 관계가 전부이며 1차·2차 의제설정 구분도 학계에서 프레이밍과 경계가 논쟁 중
+- alanine-aminotransferase: triage:간 특이도가 높은 효소 한 가지 수치이며 AST와의 비교도 해석 팁 수준이라 도식화할 구조가 없음
+- alienation-marx: triage:네 가지 소외 층위가 정의에 이미 나열되어 있어 위계 도식이 정의를 그대로 되풀이함
+- allele-frequency: triage:집단 내 대립유전자 비율이라는 단일 수치 정의이며 관계 맺는 구성 요소가 없음
+- allosteric-modulator: triage:주 결합 부위와 다른 자리에 결합해 효과를 조절한다는 정의가 곧 그림 전부이며 PAM·NAM 2분류만 추가될 뿐 새 정보가 적음
+- ammonium-iron-citrate: triage:단일 착화합물(시약) 이름으로 광환원-청사진 반응은 부수 설명에 그침
+- amyloid-beta: triage:아밀로이드 가설 자체가 학계에서 논쟁 중이라 APP 절단에서 신경 사멸까지를 단정한 인과 사슬로 그리기 어려움
+- anaerobic-respiration: triage:무산소 호흡과 발효의 구분 설명이 중심이나 한 문단의 2분류이며 구성 요소가 3개에 못 미침
+- anhedonia: triage:소비적 쾌감과 기대·동기라는 2측면과 자당 선호 검사 설명뿐이라 그림이 정의를 되풀이함
+- anisocytosis: triage:적혈구 크기 불균일이라는 단일 소견 정의이며 RDW 연결은 보조 설명이고 분포 그림도 정보가 적음
+- antibody-identification-test: triage:패널세포 반응 패턴표를 읽는 검사로 본문 단계가 선별 양성 후 동정이라는 2단계뿐이며 몽타주 비유는 정의 반복
+- antigen-presenting-cell: triage:대표 세포 3종과 MHC 제시 설명이 정의 수준이고 교차제시 등 세부는 면역 경로 용어에서 다루는 별도 주제
+- arbitrage-pricing-theory: triage:다요인 민감도와 차익거래 균형을 말로 풀면 충분한 모형이며 요인 선택 기준이 없어 단정해 그릴 구조가 모호함
+- aspect-ratio: triage:1.33:1 등 규격 수치의 나열이며 본문이 짧고 시간 순서 도식으로도 새 정보가 적음
+- asymmetric-catalysis: triage:카이랄 촉매가 두 접근 경로 에너지 차를 만든다는 한 문장 기전이며 이를 그리려면 에너지 프로파일이 필요해 활성화에너지와 중복
+- auteurism-cahiers-du-cinema: triage:카이에 뒤 시네마 비평가와 감독 재평가라는 인물·잡지 중심 설명이며 본문에 시간 순서 사건이 2개 안팎뿐
+- autotitrator: triage:특정 장비 소개 — 구성 요소가 적고 종말점 판정 원리는 글로 충분
+- axon-guidance: triage:유인·반발 분자 이름 나열 위주라 단일 경로로 단정해 그리기 어렵고 분자별 반응이 맥락 의존적
+- balance-of-power: triage:균형화·편승, 내적·외적 균형의 대비가 서술 위주이며 균형이 안정을 보장하는지는 학계 논쟁 중
+- beam-bending-theory: triage:고전 이론의 가정 설명 — 응력 분포 그림은 정의 반복에 가까움
+- bending-moment: triage:굽힘모멘트도(삼각형 분포)가 핵심이나 현재 plot 함수로 못 그림
+- betweenness-centrality: triage:네트워크 그래프가 필요하나 해당 도식 type이 없음
+- biodiversity-hotspot: triage:두 기준(고유종 밀집·서식지 훼손)을 말로 되풀이하는 정도로 새 정보가 적음
+- biomechanics-meyerhold: triage:연기 훈련법 소개 — 구성 요소가 적고 심리 중심 연기와의 2항 대비에 그침
+- black-box-warning: triage:규제 절차 서술이고 경고와 처방 변화의 인과를 단정할 수 없음
+- body-mass-index: triage:단일 계산식 지표
+- body-surface-area-dosing: triage:단일 계산 방식(용량 산정 공식)
+- bond-dissociation-energy: triage:단일 물리량(결합 에너지 값)
+- bonding-bridging-social-capital: triage:결속형·교량형 2항 정의를 반복하는 수준
+- bone-marrow-cellularity: triage:단일 지표 — 연령별 기준 설명뿐이고 근거가 경험칙
+- bone-marrow-smear: triage:검사 절차 서술 위주로 도식이 새 정보를 주지 못함
+- bone-scintigraphy: triage:영상검사 개요 — 주사·촬영·판독의 평이한 흐름
+- boundary-layer-theory: triage:속도 프로파일 한 곡선과 설명 위주여서 정의 반복
+- brain-drain: triage:송출·수용 이동의 단순 서술이고 순기능·역기능 평가가 논쟁적
+- buck-boost-converter: triage:강압·승압 회로 소개 — 듀티비-전압 곡선은 현재 함수로 못 그리고 구성 설명이 중심
+- budget-constraint: recheck:x 범위를 0~5로 줄인 결과 처음 선과 소득 증가 선이 X축에 닿지 못하고 그래프 오른쪽 끝 허공에서 끊김 — 예산제약선의 핵심인 X절편이 사라지고 X재 가격 상승 시 절편이 안쪽으로 줄어드는 회전도 비교할 수 없음. plot 형식은 y를 0에서 자를 수 없어 범위를 넓히면 다시 음수 수량이 그려지므로 스펙 수정만으로는 못 고침
+- built-environment-and-health: triage:환경에서 건강으로의 인과가 거주지 선택 편향 때문에 단정하기 어려움
+- burlesque-theatre: triage:공연 장르 설명 — 시간 순서 근거가 본문에 부족
+- business-cycle-theory: triage:4국면 순환은 단순 나열이고 원인 이론은 학파 간 논쟁 중
+- cancer-cachexia: triage:기전 상세가 본문에 부족하고 병기 분류도 한 줄 언급뿐
+- cantilever-beam: triage:구조 형태 이름 — 처짐 계산은 별개 용어의 영역
+- capi: triage:조사 방식 이름 — 자매 방식 비교도 한 줄 언급뿐
+- carbon-nanotube: triage:단일 물질(구조체) 소개
+- cardiogenic-shock: triage:정의 반복 — 원인에서 쇼크로 이어지는 단순 서술
+- catalyst: triage:활성화 에너지 곡선(에너지 프로파일)이 핵심이나 현재 plot 함수로 못 그림
+- centrosome-function: triage:소기관 기능 서술 — 단계가 본문 근거 위주로 얕음
+- cerebrospinal-fluid: triage:정의와 순환 경로 한 줄 서술 — 글림프계 기전은 논쟁 중
+- cfos-mapping: triage:실험 절차의 평이한 서술이고 시간 해상도 한계가 핵심
+- chemical-equilibrium: triage:정의 반복 — 농도 평탄화 곡선은 비영 수렴이라 현재 함수에 맞지 않음
+- chemiluminescent-immunoassay: triage:면역측정 원리 소개 — 단계 근거가 본문에 부족
+- chlorophyll: triage:흡수 스펙트럼(이중 봉우리)이 핵심이나 현재 plot 함수로 못 그림
+- chocolate-agar: triage:배지 이름 — 구성 요소가 적고 가열·방출 설명은 글로 충분
+- cholinesterase-test: triage:검사 용도 두 가지 나열 — 구성 요소 관계 없음
+- chronic-kidney-disease-staging: triage:G1~G5 단일 축 병기 나열, 2x2 matrix·기전 아님
+- city-symphony-film: triage:장르 정의 — 영화사 개념, 구성 요소 관계 없음
+- clearance-toxicokinetics: triage:단일 PK 지표의 정의와 계산식
+- close-up-shot: triage:단일 쇼트 유형, 구조 없음
+- co2-incubator: triage:장비 설명, 조건 3가지 나열뿐
+- collision-theory: triage:조건 2개(에너지·배향)뿐이라 정의 반복에 가까움
+- colloid: triage:입자 크기 구분이 중심, 정의 반복
+- colloid-stability-dlvo: triage:에너지 곡선(인력+반발=장벽)이 핵심이나 plot 함수로 못 그림
+- commedia-dellarte-mask: triage:공연 소품 설명, 구성 요소 관계 약함
+- commedia-erudita: triage:다른 용어(델라르테)와의 대비만 있는 단일 장르
+- common-but-differentiated-responsibilities: triage:원칙 정의, 두 요소 구성이고 국가 분류 논쟁 중
+- conical-tube-lab: triage:실험 기구 하나
+- consumer-producer-surplus: triage:수요·공급 면적 도식이 필요하나 plot 함수·음영 구성으로 불확실
+- contact-angle: triage:단일 속성값, 각도 하나
+- corrosion: triage:정의와 유형 나열, 기전 단계가 본문에서 얕음
+- cortical-column: triage:구조 존재 자체가 논쟁 중이라 단정해 그릴 수 없음
+- creatinine-clearance: triage:검사 정의와 수집 주의사항, 도식 이득 적음
+- creatinine-test: triage:단일 검사 지표, 구성 요소 2개뿐
+- credit-sequence: triage:영화 관습 단일 개념
+- cue-to-cue: triage:단일 리허설 방식, 단계 근거 얕음
+- decisional-capacity-assessment: triage:평가 절차 개념, 하위 요소 4개 나열이 정의 반복
+- deep-brain-stimulation: triage:작용 기전이 아직 불분명해 단정해 그릴 수 없음
+- defibrillator: triage:단일 의료기기, 사용 조건만 설명
+- democracy-basics: triage:원리 나열, 관계 없는 개념 집합
+- denervation-innervation: triage:용어 두 개의 정의 대비, 구성 요소 2개
+- dentate-gyrus: triage:해부 영역 하나, 하위 사례
+- dependency-ratio: triage:계산식 중심, 정의 반복
+- dependency-theory: triage:이론 정의와 비판, 중심-주변 2요소이고 논쟁 중
+- diagnostic-odds-ratio: triage:단일 지표와 수식
+- diderot-paradox-of-actor: triage:이론가의 주장, 대립 개념 2개뿐
+- digestive-enzymes: merge-candidate: 병합 후보라 보류(was reviewed)
+- digital-divide: triage:1~3차 격차 개념 나열, 정의 반복
+- digital-twin: triage:세 요소 설명이지만 정의 반복에 가까움
+- dislocation-theory: triage:이론 개요 위주, 단계 구성이 본문에서 약함
+- dissection-tools-lab: triage:기구 모음 목록
+- dissolution-and-solution: triage:용질·용매·용액 정의 반복
+- dissolve-transition: triage:단일 편집 기법, 페이드와 2개 대비뿐
+- documentary-theatre: triage:장르 정의, 하위 유형 근거 얕음
+- dopamine-reward-pathway: triage:회로 경로 위치만 나열, 보상 가설과 겹침
+- drag-coefficient: triage:정의 반복 — 항력과 동압의 단일 무차원 지표, 레이놀즈수 곡선은 본문 근거가 약함
+- drug-delivery-system: triage:경로와 방출 방식 나열뿐 구성 요소 간 관계 근거가 부족한 포괄적 개념
+- drug-induced-liver-injury: triage:유형 구분이 여러 축으로 섞여 있어 하나의 그림으로 정리할 핵심 관계가 불분명
+- dutch-angle: triage:단일 촬영 기법, 각도와 의미의 관계는 본문이 고정 불가라고 명시
+- ecmo: triage:VV·VA 두 방식 비교뿐이고 본문 근거가 정의 반복 수준
+- ecological-footprint: triage:지표 정의와 토지 유형 나열, 정의 반복
+- edta-reagent: triage:단일 시약명
+- electrolyte-imbalance-mechanism: triage:섭취·배출·이동 이상의 일반론, 구체적 경로 도식 근거 부족
+- elements-compounds: triage:두 개념의 단순 정의 구분, 구성 요소 2개뿐
+- embodied-spectatorship: triage:추상 이론 개념으로 구성 요소 관계를 단정해 그릴 수 없음
+- emotional-labor: triage:표면행동·내면행동 2개 구분뿐, 정의 반복
+- total-iron-binding-capacity: triage:단일 검사 항목, 정의와 해석 방향 설명에 그침
+- laser-cutter: triage:장비명, 관계 맺는 구성 요소가 본문에 없음
+- elemental-analyzer: triage:분석 장비명, 정의로 충분하고 단계 근거가 약함
+- trichuris-trichiura-egg: triage:기생충 알의 형태 설명, 단일 대상
+- mitochondrial-dysfunction-toxicology: triage:여러 하위 기전 나열뿐 순서·인과 관계가 불명확
+- data-acquisition-system: triage:장비 개념, 사양 나열이며 관계 구조가 약함
+- mime-art: triage:공연 기법 정의, 마임·팬터마임 2개 비교뿐
+- civic-participation: triage:관습적·비관습적 2분 나열뿐
+- tribology: triage:마찰·마모·윤활 병렬 나열, 스트라이벡 곡선은 본문에서 부수적 언급
+- ucinet: triage:소프트웨어 이름
+- gene-flow: triage:정의와 FST 경향 서술, 본문만으로 구체적 곡선·구조를 정하기 어려움
+- primary-somatosensory-cortex: triage:뇌 영역명, 호문쿨루스는 본문 도식화 근거가 약함
+- ischemic-stroke: triage:경색 중심부와 주변부 2개 구분이 중심, 정의 반복에 가까움
+- acetic-anhydride: triage:단일 시약명
+- positional-goods: triage:개념 정의와 군비경쟁 비유, 구성 요소 3개 이상의 관계 근거가 약함
+- purkinje-cell: triage:세포 유형 설명, 입력 두 종류의 단순 대비 중심
+- visual-composition-stage: triage:연출 개념 정의, 구성 요소 관계를 정해 그릴 수 없음
+- bunraku: triage:공연 장르 명칭, 구성 요소 나열 수준
+- differential-interference-contrast-microscopy: triage:현미경 기법명, 원리 서술이 정의 반복
+- medulla-oblongata: triage:뇌 구조물 이름, 기능 나열뿐
+- 4f2-heavy-chain-slc3a2: triage:단백질명
+- futurist-theatre: triage:예술 사조명, 시간 순서 근거 없음
+- indirect-coombs-test: triage:단일 검사명, 두 단계 원리가 정의 반복 수준
+- grignard-reaction: triage:반응명, 생성물 분기는 본문 근거가 얕음
+- protein-c-assay: triage:단일 검사명
+- french-new-wave: triage:영화 운동명, 사후 구성이라 단정해 그릴 수 없음
+- activated-carbon-reagent: triage:단일 시약명
+- vaccine-antigen-design: triage:일반적 개발 과정 서술, 구체적 단계 근거가 부족
+- malonic-acid: triage:단일 화합물명
+- stress-intensity-factor: triage:단일 지표, 모드 구분과 파리스 법칙은 본문 근거가 얕음
+- thick-blood-film: triage:말라리아 진단용 표본 하나, 본문이 정의 반복
+- paired-recording: triage:기법 설명 위주, 두 전극·한 방향 반응 확인으로 구성 요소가 적음
+- gamma-delta-t-cell: triage:T세포 아형 하나, 알파베타와의 단순 대비로 정의 반복
+- cognitively-impaired-subjects-protection: triage:윤리 지침 개념, 네 가지 능력 요소만 나열해 관계가 없음
+- transgenerational-epigenetic-inheritance: triage:현상 정의 중심, 세대 구분 기준이 논쟁적이라 단정해 그리기 어려움
+- racine-tragedy: triage:문학 양식 설명, 구성 요소 간 구조가 없음
+- restless-legs-syndrome: triage:질환 증상 나열, 병태생리가 가설 수준
+- hla-typing: triage:검사법 이름 나열, 구성 요소 간 관계 약함
+- gut-associated-lymphoid-tissue: triage:조직 목록 나열, 분류 구조가 얕고 그림으로 얻는 추가 정보가 적음
+- bulk-modulus: triage:단일 물성치 정의, 공식 한 줄로 충분
+- fume-hood: triage:장비 설명, 구성 요소 관계 없음
+- drug-self-administration: triage:동물 실험 모델 설명, 훈련 스케줄 나열 수준
+- thyroid-stimulating-hormone-test: triage:검사 항목 하나, 되먹임 회로는 부가 언급뿐
+- lights-criteria: triage:세 기준 중 하나라도 충족이면 삼출액이라는 단순 규칙, 정의 반복
+- cadmium-toxicity-mechanism: triage:독성 기전이 짧게 서술돼 있고 경로가 논의 중이라 근거 부족
+- brucella-agglutination-test: triage:검사법 하나, 희석 단계 설명이 단순함
+- biochemical-identification-test: triage:개별 검사의 상위 범주 이름, 구체 단계가 없음
+- molecular-polarity: triage:단일 속성, 물과 이산화탄소 두 예시뿐
+- ph-sensor-lab: triage:장비 설명, 원리가 단순 전압 변환
+- point-of-view-shot: triage:영화 기법 하나, 삼단 구조 언급은 부가적
+- climate-zones-and-biomes: triage:분류 이름 나열, 대응 관계가 단순해 그림의 추가 정보가 적음
+- parodos-theatre: triage:극장 용어, 이중 의미 설명뿐
+- levey-jennings-chart: triage:관리도 자체가 그림 형태로 plot 함수로는 시계열 표현 불가
+- acute-myocardial-infarction: triage:진단 기준 나열, 세 요소 종합 판정이라 정의 반복
+- chymotrypsin: triage:효소 하나, 반응 기전은 본문이 짧아 근거 부족
+- quantity-theory-of-money: triage:공식 MV=PY 한 줄로 충분, 정의 반복
+- inductive-effect: triage:단일 화학 효과, 거리 감소만 언급
+- arcuate-fasciculus: triage:신경 다발 하나, 두 영역 연결 정의 반복
+- classical-hollywood-narrative: triage:서사 양식 특징 나열, 논쟁 있는 규범 개념
+- neurodegeneration: triage:질환 과정 일반 설명, 원인이 복합적이라 단정 곤란
+- ion-exchange-chromatography: triage:정제 기법 설명, 결합 후 염 농도 상승 두 단계뿐
+- planetary-gear: triage:기계 부품 설명, 구성 요소 3개지만 관계 고정 방식만 나열
+- perivascular-space: triage:뇌 구조 하나, 경로 가설이 논쟁 중
+- sigma-metric: triage:공식 하나, 세 값 입력만 있음
+- table-read: triage:공연 준비 활동 하나, 단계 구조 없음
+- spinner-flask: triage:장비 하나, 교반 속도 조건 설명뿐
+- incentive-compatible-mechanism: triage:설계 원칙 정의, 게임이론 개념과 연결만 언급
+- plasmid-maxiprep: triage:미니프렙의 규모 확대판, 구체 단계 서술 없음
+- glycine-reagent: triage:단일 시약명
+- environmental-justice-health: triage:분배·절차 두 정의 구분뿐, 구성 요소 2개
+- coagulation-analyzer: triage:검사 장비 설명 — PT·aPTT 두 지표 소개뿐 도식 근거 약함
+- ellipsoid-body: triage:회로 구성이 본문 밖 지식(링 어트랙터)에 크게 의존해 근거 부족
+- endemic-species: triage:정의 반복 — 고유종 vs 토착종·침입종 구분은 문장으로 충분
+- quantitative-culture: triage:방법 요약이 짧고 단계가 본문에 구체적으로 없음
+- cell-structure: triage:정의 반복 — 핵·세포막·세포질 세 부분 나열뿐
+- hla-matching: triage:일치 자리 수 세기라는 단일 평가 개념, 구성 요소 관계 약함
+- civil-society: triage:국가·시장·시민사회 구분이 정의 반복 수준이고 경계가 나라마다 다르다고 본문이 명시
+- sputum-culture: triage:검체 적합성 확인 절차가 본문에 단계로 정리돼 있지 않음
+- intergenerational-equity: triage:가치판단 개념, 할인율 설명은 구성 요소 3개 관계 도식 근거 약함
+- stagflation: triage:총공급·총수요 곡선 이동 모형이 필요하나 해당 plot 함수가 없고 본문 근거도 서술 수준
+- allometry: triage:로그-로그 직선 기울기 비교가 핵심이나 로그 축 plot 함수가 없음
+- robotic-surgery-system: triage:장비 구성 3요소 나열, 정의 반복 수준
+- renal-dose-adjustment: triage:eGFR 구간별 표 형태 지침이라 관계 도식으로 보여줄 구조 없음
+- pareto-efficiency: triage:생산가능곡선·효용 가능 경계 plot 함수가 없고 본문은 피자 비유 서술
+- pericyclic-reaction: triage:열·광 조건별 입체화학은 본문 밖 궤도 대칭 지식에 의존
+- isoenzyme: triage:LDH 소단위 조합 예시뿐 구성 관계가 본문에 구체적이지 않음
+- copper-ii-chloride: triage:단일 시약명, 염화 이온 농도에 따른 색 변화는 본문 수준 서술
+- new-drug-application: triage:규제 제출 절차가 범용적이며 본문에 단계별 구체 내용 부족
+- lindahl-equilibrium: triage:개인별 가격 합 = 한계비용 조건은 수요곡선 합산 plot이 필요하나 해당 함수 없음
+- acetone-lab: triage:단일 시약명
+- lateral-vestibular-nucleus: triage:핵 하나의 위치·역할 설명, 경로 구성 요소가 본문에 3개 이상 명확하지 않음
+- glycerin-reagent: triage:단일 물질명
+- sodium-hydroxide-lab: triage:단일 시약명
+- leading-economic-index: triage:시계열 선행 관계는 본문에 구체 수치·구성이 없고 정의 반복
+- laminar-flow-hood: triage:장비 하나의 작동 원리, 구성 요소 2개 수준
+- practical-effects: triage:CG와의 이분 대립은 본문이 오히려 하이브리드라고 정정, 도식 근거 약함
+- akgeuk: triage:한국 근대 공연 양식, 구성 요소 관계가 시간·구조로 명확히 제시되지 않음
+- percent-concentration: triage:단일 속성(농도 단위) — 계산식 하나
+- bioequivalence: triage:혈중농도-시간 곡선(Cmax·AUC) 두 개 비교가 핵심이나 경구 흡수 곡선 함수가 없음
+- epistasis: triage:색소 경로 차단 예시가 구체적 구성 없이 비유 수준
+- money-neutrality: triage:단기·장기 두 구간 비교뿐, 구성 요소 2개로 정의 반복
+- gephi: triage:소프트웨어 이름
+- postmodern-theatre: triage:사조 정의 반복, 포스트드라마·환경연극과 겹침만 언급
+- pkmzeta: triage:기억 유지 가설이 넉아웃 결과로 논쟁 중이라 경로를 단정적으로 그리기 어려움
+- monologue: triage:대사 형식 하나, 방백·솔릴로퀴와의 구분은 문장으로 충분
+- schechner-performance-theory: triage:효율성-오락성 스펙트럼이 본문에 수치·위치 없이 서술, 정의 반복
+- control-chart: triage:정의 반복 — 시간순 점과 관리한계선 그림은 본문 비유와 같고, 현재 plot 함수로는 시계열 점과 수평 한계선을 못 그림
+- onnagata: triage:가부키 배역 유형 하나의 설명이며 관계를 맺는 구성 요소가 없음
+- transition-state-stabilization: triage:활성화 에너지 장벽이 낮아지는 에너지 프로파일이 핵심이나 반응좌표 에너지 곡선 함수가 없음
+- g6pd-activity-test: triage:검사법 설명이며 결핍의 용혈 기전은 G6PD 결핍증 쪽 내용이라 이 용어만의 도식 근거가 약함
+- creatinine-clearance-dosing: triage:나이·체중·크레아티닌으로 청소율을 계산해 구간별로 감량한다는 일반 절차뿐이라 글로 충분하고 구체 단계 근거가 부족
+- food-frequency-questionnaire: triage:설문 도구 하나의 설명이며 응답에 섭취량을 곱한다는 정도의 단순 계산이라 도식 이득이 적음
+- food-web: triage:그물 구조 자체가 핵심이나 본문에 구체 종 연결이 한 줄 예시뿐이라 도식이 본문 밖 지식에 기대고 현재 유형으로 표현하기 어려움
+- fructosamine-test: triage:단일 검사 항목이며 당화혈색소와의 기간 차이 한 가지뿐
+- extracellular-recording: triage:전극 위치 하나로 갈리는 기록법 설명이고 스파이크와 국소장전위 구분은 두 갈래뿐
+- film-genre-theory: triage:의미론적·통사론적 두 층위뿐이며 이론가별 논쟁이 갈려 구성 요소가 적음
+- neurexin: triage:접착 단백질 하나의 설명이며 역할이 논쟁적이라 단정적 그림이 어렵고 변이체 조합은 본문 근거가 약함
+- market-failure-consumer-policy: triage:원인 유형 네 가지의 나열이며 정책 수단 연결은 본문에 구체적이지 않음
+- shadow-puppetry: triage:전통 공연 형식 설명이며 구성 요소 간 관계가 거의 없음
+- sodium-dodecyl-sulfate: triage:단일 시약명, SDS-PAGE 원리는 별도 용어의 몫
+- welfare-state: triage:세 가지 복지체제 분류가 한 문장으로 충분히 전달되고 유형론 자체가 비판받는 중
+- kinase: triage:효소 계열명이며 분류 두 축의 예시가 본문에 부족하고 신호 경로는 다른 용어에서 다룸
+- exchange-rate: triage:환율 변동의 영향 방향이 본문에서 일반 서술이고 단일 지표 개념이라 도식 이득이 적음
+- fracture-toughness-testing: triage:시험 방법 설명이며 단계가 규격 지식에 기대고 온도에 따른 천이 곡선은 plot 함수로 못 그림
+- asthma: triage:질환 일반 설명이며 자극에서 기도 수축까지의 흐름은 비유 설명으로 충분하고 표현형 구분은 두 갈래뿐
+- ionization-energy: triage:이온화에너지 단계별 급상승(계단 모양) 막대는 현재 plot 함수로 못 그림
+- bolted-joint-design: triage:예압 과소·과대 위험이 양쪽에 있다는 점은 글로 충분하고 구성 요소 관계가 느슨함
+- signal-conditioning-amplifier: triage:센서-증폭-필터-DAQ의 일반 블록 순서일 뿐 본문이 단계 간 관계를 구체화하지 않음
+- benzyl-alcohol-reagent: triage:단일 시약명, 산화 경로는 부수 설명
+- urinalysis-analyzer: triage:장비 설명이며 스트립 선별 후 현미경 확인이라는 일반 흐름 외 구성 요소 근거가 약함
+- zoonosis: triage:전파 방향 분류가 본문에서 두 가지 서술에 그치고 동물-사람 전파는 정의 반복
+- transferase: triage:효소 계열명이며 하위 분류가 나열에 가깝고 계통 근거가 본문에 부족
+- long-shot: triage:쇼트 크기 하나의 정의이며 비교 대상이 익스트림 롱숏·풀숏 언급뿐
+- theatre-of-the-body: triage:연극 경향을 일컫는 포괄 개념이며 구성 요소 간 관계 도식 근거가 없음
+- medieval-mystery-play: triage:중세 종교극 한 갈래 설명이며 시간 순서 구성 요소가 2개 정도뿐
+- chest-tube-insertion: triage:시술 설명이며 배액 장치 구조의 세부가 본문에 부족하고 수위·공기 방울 해석은 일부 단서뿐
+- medication-therapy-management: triage:서비스 개념이며 세 단계(검토, 치료계획, 의사 소통)가 일반적이라 도식 이득이 적음
+- plant-structure-and-function: triage:기관별 역할 나열이며 물관·체관 이동은 본문에서 한 문장뿐이라 교과서 수준 도식에 그침
+- substance-use-disorder: triage:진단 기준 개수에 따른 심각도 구분과 보상회로 언급이 단편적이라 구체적 경로가 본문에 없음
+- electron-microscope-edu: triage:기기 종류 설명이며 TEM과 SEM 비교는 두 항목뿐이고 교육용 모델 특성이 핵심
+- deadly-theatre: triage:브룩의 비판적 태도 개념이라 구성 요소 관계가 없고 즉각적연극과의 대비도 본문에서 이름만 언급됨
+- predictive-processing-consciousness: triage:예측 대 감각 입력 두 요소와 정밀도 가중치 언급뿐이며 학계 논쟁 중인 이론이라 단정해 그리기 어려움
+- liver-detoxification-metabolism: triage:해독과 대사 저장 두 기능 나열이며 1상·2상 반응은 두 단계뿐이라 그림이 정의를 되풀이함
+- cultural-relativism: triage:철학적 관점이며 방법론적 대 규범적 상대주의는 두 항목 구분에 그쳐 구성 요소가 부족함
+- frame-rate-film: triage:단일 수치 속성(초당 장수)이며 촬영·상영 프레임률 차이도 두 항목 비교에 불과함
+- freezing-point-depression: triage:ΔTf=i·Kf·m 단일 비례 관계로 직선 하나라 정의 반복이며 NaCl과 설탕 비교도 i 값 차이에 그침
+- information-goods: triage:높은 최초 비용과 낮은 한계비용의 비용 구조 설명이며 공공재와의 비교도 두 속성 대비에 그침
+- anaphylaxis-drug-induced: triage:아나필락시스 기전 항목의 약물 한정 하위 사례로 IgE 대 비IgE 구분은 두 갈래뿐이고 기전 도식은 그쪽에서 다룸
+- meninges: triage:세 겹 막 이름 나열과 공간 구분이 중심이라 정의를 반복하는 해부 명칭 목록이며 관계 구조가 약함
+- optical-coherence-tomography-eye: triage:검사 장비의 원리 설명이며 안저촬영·CT와의 비교는 짧은 주의 사항뿐이라 구성 요소가 부족함
+- biocompatibility: triage:성질 개념이며 이물반응 단계는 본문에서 한 문장 언급뿐이고 생체안정성·생분해성 구분도 이름 대비에 그침
+- patient-controlled-analgesia: triage:버튼-투여-잠금 시간의 단순 장치 동작이며 설정값 나열이라 글만으로 충분함
+- claudin-5: triage:단일 단백질이며 발현 감소 시 누수, 과도하면 약물 전달 곤란이라는 두 방향 설명뿐이라 구성 요소가 부족함
+- hydraulic-system: triage:파스칼 원리의 두 피스톤 힘 증폭이라 정의 반복이고 부품 목록 나열이 중심임
+- cult-film: triage:수용 과정에 관한 서술적 개념이며 컬트 성립 조건은 논쟁 중이라 단정적으로 그리기 어려움
+- total-cholesterol-test: triage:단일 검사 항목이며 LDL·HDL·VLDL 합산과 Friedewald 식은 정의의 반복에 가까움
+- mechanism-design: triage:역방향 게임이론이라는 추상 이론이며 유인양립성·개별합리성은 제약 조건 이름 나열이라 그릴 구조가 불분명함
+- extremophile: triage:호열성·호냉성 등 환경 조건별 명칭 나열이고 계통적으로 한 그룹이 아니라 분류 구조를 그리기 어려움
+- formulary-management: triage:병원 제도 설명으로 등재 심의와 예외 승인이 간략히 언급될 뿐 구체적 단계 구조가 본문에 없음
+- scene-change: triage:암전·작업등·노출 전환 기법을 나열한 연출 설명이며 두 항목 대비라 구성 요소가 부족함
+- immature-dentate-gyrus: triage:질환 모델의 표현형 개념이며 탈성숙 대 성숙 실패 원인은 미확정이라 단정해 그리기 어려움
+- convective-heat-transfer: triage:강제대류와 자연대류 두 유형 설명 및 누셀 수 언급에 그쳐 구성 요소가 부족함
+- chromosomal-translocation: triage:상호·로버트슨 전좌 두 유형과 융합유전자 설명이 흩어져 있어 하나의 명확한 도식 초점이 없음
+- ampa-nmda-ratio: triage:두 전류의 비율이라는 단일 지표이며 측정 전위 조건 설명은 두 단계뿐이라 정의 반복임
+- silver-nitrate-reagent: triage:단일 시약명이며 할로젠 침전 색이나 모르법은 용도 나열에 가까움
+- antiaromaticity: triage:4n 전자의 불안정성 개념이며 프로스트 원 에너지 준위 도식은 현재 도식 유형으로 그릴 수 없음
+- variable-expressivity: triage:침투도와의 차이 한 쌍 구분이고 원인 요인은 이름 나열 수준이라 정의 반복임
+- bispecific-antibody: triage:T세포와 암세포를 잇는 구조 한 가지 설명이 중심이며 IgG형 대 소형 포맷은 두 항목 구분이라 정의 반복임
+- wire-suspension-test: triage:동물 행동검사 방법 하나로 매달린 시간 측정이 전부이며 단계 구조가 없음
+- targeted-therapy-antimicrobial: triage:경험적 치료에서 표적치료로 바꾼다는 두 단계 전환이라 정의를 그대로 되풀이함
+- restriction-enzyme-digestion: triage:인식·절단·젤 확인의 단순 실험 절차 나열이고 점착말단 대 뭉툭말단도 두 항목 구분에 그침
+- immunofluorescence-assay: triage:직접법 대 간접법 두 갈래 구분이 전부이고 형광 패턴 분류는 이름 나열이라 구성 요소가 부족함
+- pressure-vessel-design: triage:후프응력과 축방향 응력 정도의 공학 설계 일반론이며 도식화할 관계 구조가 본문에 없음
+- volumetric-pipette-lab: triage:단일 실험기구 설명이며 사용 주의 사항 나열이라 관계 구조가 없음
+- efficient-market-hypothesis: triage:약형·준강형·강형 세 단계는 있으나 이론 자체가 논쟁 중이고 결합가설 문제도 있어 단정적으로 그리기 부담이 큼
+- flat-scenery: triage:무대 부품 하나의 구조 설명이며 북 플랫·삼절 플랫 조합은 제작 일반 설명이라 그림이 정의를 반복함
+- urban-regeneration: triage:물리·경제·사회 세 축 나열과 한국 사업 유형 이름 나열이며 정책 서술이라 관계 구조가 약함
+- tonometry: triage:검사법 설명이며 압평식·비접촉식 두 방식의 나열뿐, 관계 구조가 없음
+- palma-ratio: triage:상위 10%÷하위 40% 단일 비율 공식, 구성 요소 2개이고 정의를 되풀이함
+- dynamic-causal-modeling: triage:신경모형→관측모형→자료 비교 흐름이 일반적 모형 적합 절차와 구별되지 않고, 인과 추정의 한계가 논쟁적
+- cabaret-theatre: triage:공연 형식 소개로 본문이 역사적 설명 위주, 구성 요소 간 관계 없음
+- metallic-bond: triage:자유전자 바다라는 단일 모형 설명이며 이온·공유결합 비교는 곁가지 언급뿐이라 정의 반복
+- antibiotic-susceptibility-test: triage:디스크확산·MIC 방법 두 가지와 S/I/R 판정이 나열될 뿐 그릴 만한 고유 구조가 약하고 본문이 일반론적
+- dominant-strategy: triage:보수 행렬 도식이 되려면 구체적 게임과 수치가 필요한데 본문에 없고 정의 반복에 그침
+- serum-free-light-chain-assay: triage:단일 검사 항목(카파/람다 비)이며 기전 설명이 두 단계뿐이고 참고범위는 정의 반복
+- nanoparticle-drug-delivery: triage:재질별 세 유형과 EPR 효과가 한 줄씩 나열될 뿐 서로의 관계가 약해 분류도 기전도 뚜렷하지 않음
+- inclusive-fitness: triage:직접+간접 적합도 합이라는 정의 그대로의 분해이고, 이중계산 원칙은 그림보다 수식 설명이 적합하며 집단선택 논쟁이 얽혀 있음
+- structural-variant-detection: triage:변이 유형 4종 나열과 단거리/장거리 시퀀싱 비교가 섞여 하나의 도식 초점이 없고 정의 반복에 가까움
+- withholding-treatment-ethics: triage:허용 조건 판단이 사례별 심사 논쟁이라 단정적 도식으로 그리기 어렵고 구조가 조건 나열뿐
+- stage-simultaneity: triage:공간적·시간적 병치 두 유형 언급뿐이고 무대 연출 개념이라 정의 반복
+- cerebellar-motor-learning: triage:등정섬유 오차 신호 경로가 대표 이론일 뿐 여러 이론이 경쟁 중이라고 본문이 명시, 단정 도식 곤란
+- declaration-of-helsinki: triage:문서·선언문 이름이고 사전동의·위험평가·윤리위 검토 항목 나열뿐
+- nuclear-atypia: triage:정상 핵 대 비정형 핵 설명이 정의 반복이며 관찰 항목 나열이고 반응성 변화와의 경계가 모호
+- stimulus-omission-paradigm: triage:짝지음 반복 후 일부 생략이라는 두 단계 실험 설계로 구성 요소가 적고 글로 충분히 전달됨
+- production-possibility-frontier: triage:오목한 생산가능곡선과 내부·외부 점, 바깥 이동을 그리는 plot이 맞으나 현재 함수로 불가능해 그리지 못함
+- single-molecule-fish: triage:탐침 여러 개가 mRNA에 붙어 점 하나로 보이는 원리가 단순하고 계수 과정은 글로 충분함
+- translating-ribosome-affinity-purification: triage:표지 리보솜 발현 후 면역침강이라는 일반적 풀다운 절차이고 정제 단계가 짧아 글로 충분
+- corticocollicular-projection: triage:피질에서 하구로 가는 하행 경로 하나와 효과 목록이며 구성 요소가 2개 구조물뿐이고 효과 방향이 조건 의존적
+- heart-failure: triage:박출률 기준 HFrEF/HFpEF 분류 외에 구조가 없고 정의 반복에 가까우며 증후군이라 원인이 다양함
+- scopolamine: triage:단일 약물명이며 무스카린 수용체 차단→기억 저하의 두 단계 설명뿐
+- nucleus-accumbens: triage:뇌 부위 이름이고 core/shell, D1/D2 구분은 한 줄씩 나열이며 쾌락 중추 설명 자체가 단순화라고 본문이 경고
+- serum-iron-test: triage:단일 검사 항목이고 TIBC·페리틴과 조합 해석한다는 말만 있고 구체적 패턴 수치는 본문에 없음
+- sham-surgery-ethics: triage:윤리적 정당화 조건이 학계 찬반 논쟁 중이라 단정 도식 곤란하고 조건 나열 위주
+- clown-technique-theatre: triage:배우 훈련 태도 설명으로 구성 요소 간 구조적 관계가 없음
+- fly-system: triage:무대 장치 설명이며 구동 방식 세 가지 나열과 부품 이름뿐이라 관계 구조가 빈약
+- balanced-excitation-inhibition: triage:흥분 뒤 지연 억제의 시간 맞물림은 두 요소 관계이고 개념적 서술이 대부분이라 글만으로 충분
+- neural-correlates-of-consciousness: triage:내용 대 수준의 두 접근 구분이 있으나 개념 분류 한 줄이고 인과 여부가 논쟁적이라 단정 도식 곤란
+- new-queer-cinema: triage:영화 사조 명칭이고 본문이 감독·명명 배경 서술 위주이며 구조적 관계 없음
+- voluntary-wheel-running: triage:동물 행동 검사 하나이며 바퀴 사용량 측정 방법 설명뿐 구성 요소 관계 없음
+- resource-mobilization-theory: triage:단일 이론의 요지(불만보다 자원) 반복 — 관계 맺는 구성 요소가 뚜렷한 단계로 제시되지 않음
+- gig-economy: triage:정규직 대 플랫폼 노동의 2항 대비와 법적 지위 쟁점뿐, 정의 반복 수준
+- leptospira-test: triage:검사 방법 나열과 초기 음성 주의뿐, 시간 경과별 항체 수치 등 그릴 근거가 본문에 없음
+- dose-titration: triage:저용량 시작-관찰-증량이라는 정의 되풀이, 별도 구성 요소나 수치 구조가 없음
+- gmo: triage:GMO 제작 방법 3종 나열과 오해 해소뿐, 관계 구조가 약하고 정의 반복
+- human-rights-basics: triage:자유권·사회권 2분류와 역사 서술이 섞여 한 그림으로 정리할 핵심 구조가 모호함
+- chromatin-accessibility: triage:열린 상태 대 닫힌 상태 2항 대비와 측정법 나열뿐
+- albumin-globulin-ratio: triage:알부민/글로불린 단순 비율 지표, 구성 요소 2개
+- okuns-law: triage:단일 음의 선형 관계를 말하는 단일 속성 법칙, 계수·형태가 나라마다 달라 고정 곡선으로 그리기 어려움
+- stool-antigen-test: triage:단일 검사 소개로 항원 검출과 보관 주의사항 나열, 구성 요소 간 관계 없음
+- perisynaptic-astrocyte-process: triage:돌기가 시냅스를 감싼다는 단일 구조 설명, 삼중 시냅스는 다른 용어의 영역
+- sodium-oxalate-reagent: triage:단일 시약명, 반응식 한 줄이 전부
+- central-executive-network: triage:네트워크 이름과 영역 정의 중심, 삼중 네트워크 도식은 별도 용어에서 다뤄야 하고 본문 근거도 얕음
+- sulfamic-acid: triage:단일 시약명(고체 강산)
+- meritocracy: triage:이상적 원칙 대 현실 진단의 2항 대비, 정의 반복
+- negative-staining-em: triage:시료 준비법 설명이 정의 반복이고 저온전자현미경과의 2항 비교뿐
+- rationalization-weber: triage:목적합리성·가치합리성 2분류와 철창 개념 언급 정도, 정의 반복
+- shaking-incubator: triage:장비 소개, 온도·rpm 조건 나열뿐
+- human-development-index: triage:세 지표 합산 지수라는 정의 반복, 기하평균 이유 외에 구성 요소 간 관계 구조가 약함
+- cmv-test: triage:항체·항원·유전자 검사 나열, 시기별 해석 구조가 본문에서 구체화되지 않음
+- receptive-field: triage:중심-주변 구조 언급은 있으나 단일 개념 설명, 도식화할 3요소 이상의 관계가 약함
+- hertzian-contact: triage:접촉압력 분포(반구형, 반타원형)가 핵심이나 plot이 못 그리는 모양이라 그릴 수 없음
+- atomic-molecular-mass: triage:원자량 기준 정의와 단순 합산(물 18) 계산 설명뿐
+- elasticity: triage:탄력적 대 비탄력적 2항 대비와 계수 기준(|e|>1) 정도로 정의 반복, 곡선은 plot 함수로 확정하기 어려움
+- ion-chromatography: triage:컬럼-검출기 장치 구성 설명이 정의 반복이고 단계별 구조가 얕음
+- signal-filter: triage:저역·고역 통과 필터를 정의 수준으로만 소개, 주파수 응답 곡선은 plot 함수로 정확히 못 그림
+- vasopressor-therapy: triage:승압제 대 강심제 2항 비교와 목표 혈압 상충뿐, 구성 요소 3개 미만의 관계
+- gram-stain: triage:그람양성 대 음성 2항 구분이고 염색 단계가 본문에 순서로 제시되지 않음
+- microinjection: triage:시술 도구 설명과 전기천공법과의 비교뿐, 단계 순서가 본문에 없음
+- types-of-nutrients: triage:교과서식 6종 분류 나열 — 3대 영양소와 조절 영양소 구분이 정의 반복 수준
+- lorenz-curve: triage:대각선과 아래로 휜 곡선이 핵심이나 현재 plot 함수로는 로렌츠 곡선 모양을 못 그림
+- drama-therapy: triage:기법 나열(역할극, 인형극, 가면)뿐 단계·관계 구조 없음
+- live-art: triage:제도적 우산 개념으로 본문이 스스로 공통 구조가 없다고 밝혀 그릴 관계가 없음
+- thiamine-pyrophosphate: triage:조효소 하나와 의존 효소 나열, 기전은 비타민 B1 결핍 서술의 반복
+- edgeworth-box: triage:에지워스 박스는 무차별곡선 접점과 계약곡선을 그리는 2차원 기하 도표라 plot 함수(곡선 겹치기)로 못 그림, 다른 type에도 안 맞음
+- antibiotic-resistance-gene-test: triage:PCR 유전자 검출 대 배양 감수성이라는 두 방식의 소요 시간 차이뿐이라 구성 요소 2개, 정의 반복
+- direct-cinema: triage:다큐멘터리 양식 하나의 특징 나열이며 시네마 베리테와의 구분은 문헌마다 달라 단정해 그리기 어려움
+- emergency-research-exception: triage:동의 면제 요건(지역사회 자문, 사후 동의 등) 나열이라 구성 요소 간 관계나 흐름이 없는 규정 목록
+- transcription-factor-binding: triage:전사인자가 서열에 결합해 전사를 조절한다는 일반 교과서 설명으로, 정의를 도식으로 되풀이하는 수준
+- titanium-dioxide-powder: triage:TiO2라는 단일 물질 시약명, 아나타제·루타일 구분은 물질 속성 두 가지뿐
+- neurodegeneration-mechanism: triage:단백질 응집·산화스트레스·신경염증 나열이며 본문 주의사항대로 공통 기전 하나로 단정해 그릴 수 없어 순서 근거가 약함
+- c-reactive-protein-test: triage:CRP 상승 시간(6~8시간)과 ESR 비교 언급은 있으나 구성 요소가 적고 검사 정의 반복 수준
+- alzheimers-disease: triage:아밀로이드·타우의 인과 순서가 논쟁 중이라 단정해 그리기 어렵고, 질환 서술은 정의 반복 중심
+- microfluidic-device: triage:미세유체 칩의 용도(단일세포·장기칩 등) 나열이며 층류 설명도 단일 속성이라 관계 구조 부족
+- quality-control-material: triage:표준 검체 하나의 용도 설명이며 관리도 해석은 다른 용어 영역, 본문에 구성 요소 관계가 없음
+- immunofluorescence-microscopy: triage:직접법과 간접법 두 가지 비교뿐이라 구성 요소가 2개, 본문 근거도 짧은 한 문장
+- influenza-rapid-antigen-test: triage:면역크로마토그래피 신속검사의 사용 흐름이 단순하고 PCR보다 민감도가 낮다는 점만 있어 구성 요소 2개
+- pesticide-toxicity-mechanism: triage:신경계·광합성·진균 표적 분류가 있지만 항목 간 관계 없이 나열된 일반 설명이라 정의 반복
+- myelodysplastic-syndrome: triage:혈구감소·급성백혈병 진행을 말하지만 본문이 일반 질환 서술과 평가 도구 이름 위주라 도식으로 새로 보일 내용이 약함
+- cadmium-standard-solution: triage:카드뮴 표준용액이라는 단일 시약명, 검량선은 다른 용어의 방법 설명
+- theatrical-aside: triage:방백과 독백의 구분은 두 개념 대비뿐이고 극작 관습 하나의 설명이라 구성 요소 2개
+- chrimson: triage:크림슨이라는 단일 옵신 이름이며 파장 분리는 실제 스펙트럼 데이터가 필요해 본문만으로 그리면 수치를 지어내게 됨
+- monoamine-oxidase: triage:MAO가 모노아민을 분해하고 억제제가 이를 막는다는 단순 2단 관계라 정의 반복, 아형 구분은 부가 설명
+- panel-data-analysis: triage:고정효과 대 확률효과 비교뿐이고 분석 기법 설명이라 그림으로 볼 구성 요소가 부족
+- loss-of-function-mutation: triage:완전 소실과 부분 소실의 두 갈래뿐이며 변이 효과는 유전자 용량 민감성에 달려 일반화해 그리기 어려움
+- inciting-incident: triage:평상 세계에서 사건, 반응으로 이어지는 극작 개념 설명이라 정의 반복이며 막 구조 근거가 본문에 부족
+- paper-tech: triage:극장 회의와 종이 전자소자라는 동음이의 내용이 섞여 있어 그림의 기준이 불명확함
+- psa-test: triage:PSA 상승 원인과 유리PSA 비율 등 지표 나열이며 구성 요소 간 흐름이 약해 정의 반복
+- innate-curiosity: triage:새 물체 탐색 선호라는 단일 행동 경향이며 검사 절차는 다른 용어 몫
+- musical-theatre: triage:성스루와 북 뮤지컬 두 유형 구분뿐이라 구성 요소 2개, 대사·노래·안무 겹침은 정의 반복
+- shared-decision-making: triage:의사 결정 방식 세 가지가 등장하나 설명이 비유 위주라 근거가 약하고 정의 반복 수준
+- electrolyte-nonelectrolyte: triage:강전해질·약전해질·비전해질의 단순 분류로 초등 수준 정의 반복, 그림이 새로 보여 줄 내용이 없음
+- drug-synergism: triage:상승·상가·길항 세 가지 비교는 있으나 효과 수치 막대는 plot 함수로 못 그리고 개념 정의 반복
+- intertextuality-in-film: triage:상호텍스트성의 유형 분류 언급이 짧고 개념 정의 반복이라 구성 요소가 구체적이지 않음
+- heredity-traits: triage:우성과 열성이라는 일반 설명이며 3대 1 분리는 별도 용어 영역, 구성 요소 관계 없음
+- formaldehyde-reagent: triage:폼알데하이드라는 단일 시약명
+- iron-chelation-therapy: merge-candidate: 병합 후보라 보류(was reviewed)
+- intertitle: triage:대사 자막·설명 자막 두 갈래뿐이고 나머지는 역사적 설명이라 정의 반복
+- fault-tolerance: triage:이중화·합의·자가치유가 나열될 뿐 서로 관계 맺는 구조가 없고 비유(신장 두 개)가 본문의 전부
+- multimodal-analgesia: triage:통증 경로 각 지점과 약제의 대응이 본문에 명시되지 않아 본문 밖 지식에 기대야 하고, 병용 효과가 합산인지 상승인지도 조합마다 달라 단정해 그리기 어렵다
+- sem-eds-analysis: triage:분석 장비 조합 설명이며 점·선·면분석 나열 외에 관계 구조가 없어 정의 반복
+- farce: triage:희극의 하위 장르 설명이며 신체 개그·오해·반복 기법이 나열될 뿐 구성 요소 간 관계가 없음
+- minjung-theatre: triage:1970~80년대 한국 연극 운동 하나를 설명하는 서술이고 마당극과의 관계 외에 구조화할 축이 없음
+- expanded-cinema: triage:실험영화 일반과의 범위 차이를 말하는 개념어로 비교 축이 두 개뿐이고 도식으로 얻을 새 정보가 없음
+- gain-margin-phase-margin: triage:핵심은 보드 선도에서 0dB 교차와 -180도 교차를 읽는 그림인데 이중 축 보드 선도를 plot으로 그릴 수 없다
+- sustainability-reporting: triage:ESG 공시 활동 설명이며 GRI·SASB 등 표준이 이름만 나열되고 관계 구조가 없음
+- circular-structure: triage:1막과 2막이 반복된다는 설명뿐 3개 이상의 관계 있는 요소나 단계가 없어 정의 반복
+- yeonswaegeuk: triage:무대 연기와 영화 상영이 번갈아 나온다는 한 문장으로 설명이 끝나고, 본문의 논점은 한국 영화 기점 논쟁이라 도식화하면 단정이 된다
+- fetal-heart-rate-monitoring: triage:수축과 심박 하강의 시간 정렬을 보여 주는 CTG 파형이 핵심이지만 두 파형을 같은 시간축에 겹쳐 그리는 함수가 plot에 없다
+- muscimol: triage:약물 하나가 GABA-A 수용체를 켜서 영역 활동을 줄이는 단일 작용 기전이며 단계가 2~3개뿐이라 정의 반복
+- strong-reciprocity: triage:비용을 치르는 처벌이 순수 이타인지 평판 동기인지 논쟁 중이라 단정하지 않고 그릴 구조가 없고, 구성 요소도 보답과 처벌 둘뿐
+- five-prime-nucleotidase: triage:ALP 상승 원인을 가르는 단일 효소 검사이며 5'-NT 정상 여부에 따른 분기 두 갈래라 정의 반복
+- input-resistance: triage:V=IR이라는 옴의 법칙 한 줄이 본체이고 세포 크기·채널 수 영향은 본문에서 정량 관계 없이 서술만 되어 있어 그림이 정의를 되풀이함
+- road-movie: triage:영화 장르 설명이며 이동과 내적 변화의 병행이라는 두 요소뿐이고 도식화할 구조가 없음
+- well-plate-lab: triage:웰 개수와 부피 반비례 같은 실험 도구 설명이며 바닥 모양 세 가지 외에 관계 구조가 없음
+- natural-capital: triage:약한·강한 지속가능성 두 입장과 가치 추정 기법 목록이 이름만 나열되고, 대체 가능성 논쟁은 단정해 그리기 어려움
+- site-specific-performance: triage:공연 형식 하나를 설명하는 서술이며 장소와 서사의 결합이라는 두 요소뿐이라 정의 반복
+- sound-design: triage:디에게시스·비디에게시스 구분 두 가지가 전부이고 나머지는 기술 작업 설명이라 도식으로 얻을 새 정보가 없음
+- rolling-process: triage:열간·냉간 두 방식의 비교와 가공경화-어닐링이 서술로 충분히 전달되고 롤러 형상은 본문에 구조화된 근거가 없어 정의 반복
+- eye-ear-structure: triage:눈과 귀를 카메라·마이크 비유로 훑는 광범위한 개요이며 구조 나열에 그쳐 하나의 관계를 보여 줄 수 없음
+- social-solidarity-economy: triage:협동조합·사회적기업 등 조직 유형 이름 나열과 소유·의사결정·배분 기준 언급뿐이고 값이 채워진 비교가 본문에 없음
+- antibiotic-stewardship-program: triage:병원 프로그램 설명이며 처방 전 승인·사후 검토·신속 진단이 나열될 뿐 서로 관계가 없고 de-escalation은 한 문장 언급
+- autoclave-reactor: triage:고압 반응 용기라는 장비 한 종류 설명이며 온도-압력-충전율이 정성적으로만 언급됨
+- polyethylene-glycol-reagent: triage:단일 고분자 시약명이며 용도(세포융합·침전·페길화)가 나열될 뿐 관계 구조가 없음
+- multiple-sclerosis: triage:수초 공격에서 증상까지 정의 안에 다 담긴 인과이고 재발-완화형 등 경과 구분은 이름만 나열되어 도식이 정의를 되풀이함
+- fiber-photometry: triage:GCaMP 발현-광섬유 삽입-형광 기록이 이어지는 실험 기법 설명으로 단계가 정의에 이미 담겨 있고 새로 보여 줄 구조가 없음
+- penetrance: triage:유전형 보유자 중 발현 비율이라는 단일 비율 개념이며 완전·불완전 두 경우뿐이고 연령 의존 곡선은 본문에 수치가 없다
+- t-cell-receptor: triage:분자 구조와 αβ·γδ 유형, CD3·공수용체가 나열된 개요라 하나의 관계로 단정해 그리기 어렵고 정의와 중복
+- generic-substitution: triage:약국 조제 제도 설명이며 국가별 허용 방식 차이가 서술될 뿐 구성 요소 3개 이상의 구조가 없음
+- slow-cinema: triage:비평가가 사후에 붙인 느슨한 범주이고 롱테이크·최소 서사 특징 나열이라 구조화하면 학계 논쟁을 단정하게 됨
+- hemodynamic-response-function: triage:2초 뒤 상승, 5~6초 정점, 언더슈트로 이어지는 이중 감마 파형이 핵심이나 감마 함수 곡선이 plot에 없다
+- pulvinar: triage:시상 고차핵 하나의 연결 설명 — 피질-시상-피질 3요소지만 외측슬상핵 대비는 한 줄 주의사항이고 주의 게이트 기전은 가설 단계라 단정해 그리기 어려움
+- small-world-network-brain: triage:무작위·격자·작은세상 비교는 네트워크 위상 그림이 핵심인데 지원 type으로 클러스터링/경로길이 관계를 보여 주기 어렵고, 지수 정의가 방법 의존적
+- indocyanine-green-lymphography: triage:ICG 주사→림프관 흐름→근적외선 촬영의 단순 3단계로 정의를 되풀이하고, 이상 패턴(역류 등)은 본문에 사례 한 줄뿐
+- biobank-broad-consent: triage:포괄·층화·동적 동의 모델이 나열될 뿐 같은 축으로 비교할 수치·단계가 없고, 논쟁적 윤리 입장이라 도식화 시 단정 위험
+- burrowing-test: triage:관 속 재료를 밀어낸 무게를 재는 단일 행동 지표 검사이며, 감소 원인(통증·불안·근력저하)이 나열식이라 관계 구조가 없음
+- transcranial-direct-current-stimulation: triage:양극/음극 극성에 따른 방향이 두 갈래뿐이고 효과 방향은 재현성 논란이 있어 단정 도식이 어려움; 몽타주 변수는 목록
+- rehabilitation-medicine: triage:의학 분과 소개로 팀 접근·FIM·회복 곡선이 흩어져 언급될 뿐 하나의 구조나 경로가 없음
+- genetically-encoded-voltage-indicator: triage:GCaMP와 비교한 단일 센서 도구 소개로 비교 축이 신호 크기·속도 정도뿐이고 작동 원리 분류는 두 줄 언급
+- environmental-theatre: triage:환경연극 대 전통극장의 두 항 비교뿐이고 셰크너 여섯 공리는 이름만 언급되어 구성 요소가 본문에 없음
+- sound-bridge: triage:J컷·L컷은 소리와 영상 절단 시점이 어긋난다는 한 가지 개념으로 구성 요소가 소리·영상 2개뿐이라 정의 반복
+- laminar-turbulent-flow: triage:층류·난류 두 상태와 레이놀즈수 임계 판단이 정의와 쉽게 풀이의 반복이고, 임계값이 조건 의존적이라 단일 경계로 그리면 오해
+- promoter-region: triage:프로모터 기능 설명은 코어 서열·조절 서열·RNA 중합효소의 위치 관계가 핵심인 서열 지도형이라 지원 type으로 정보가 늘지 않음
+- runs-of-homozygosity: triage:긴 구간은 최근 근친, 짧은 구간은 오래된 조상이라는 2구분뿐이고 창시자 효과 등 해석이 집단 배경에 의존해 단정 도식이 어려움
+- neuron-structure-dendrite: triage:수상돌기-세포체-축삭 순서는 정의 문장 그대로의 반복이고 가시 이야기는 개별 사례 나열
+- wildlife-research-ethics: triage:윤리 원칙 나열형(포획 시기·개체수 제한·원격 관찰)으로 서로 관계 맺는 단계나 분류 체계가 없음
+- limbic-system: triage:변연계 경계가 연구자마다 다르다고 본문이 직접 밝혀 구성 요소 범위를 단정해 그릴 수 없음; 편도체·해마·시상하부 역할은 목록 수준
+- acetaminophen-reagent: triage:단일 화합물·표준물질 시약명으로 구성 요소 간 관계가 없음
+- compression-test: triage:응력-변형률 곡선(탄성-평탄역-치밀화)이 핵심이지만 현재 plot 함수로는 계단형 평탄역 곡선을 못 그림
+- vre: triage:보균 감시배양·유전자 전달(VRSA)·격리 지침이 섞인 감염관리 항목으로 하나의 기전이나 단계로 묶이지 않음
+- sequential-neural-activity: triage:발생 기전(사슬 전파·되풀이 동역학·외부 입력)이 경쟁 중인 미결 쟁점이라 한 구조로 단정 못 함
+- pile-foundation: triage:선단지지력+주면마찰력의 합이라는 두 성분 공식이 정의 수준이고 시공법·시험은 목록 나열
+- cinematic-realism: triage:몽타주 대 딥포커스 두 입장의 대립이며 이론적 입장에 대한 논쟁이 핵심이라 단정 도식이 부적절
+- phasor: triage:정현파를 복소수로 바꾼다는 수학 표기법이라 구성 요소 관계보다 수식 규약이 핵심이고 그림이 정의를 되풀이
+- beta-hcg-test: triage:임신 초기 hCG의 2배 증가와 자궁외임신(느림)·포상기태(급등) 곡선 비교가 핵심이나 지수 증가 함수가 plot에 없음
+- interstitial-defect: triage:침입형 결함이라는 점결함 하나의 설명이고 고용강화는 한두 문장 인과로 끝나며 치환형 대비는 한 줄 주의사항
+- class-consciousness: triage:즉자적 계급에서 대자적 계급으로의 전환이 두 상태 사이 하나의 이행이고 매개 조건은 목록 나열이며 마르크스주의 이론 입장이라 단정 곤란
+- third-cinema: triage:제1·제2·제3영화 3분류가 정의에 담겨 있고 제3영화의 범위는 학계 논쟁이 있는 개념이라 도식이 정의 반복
+- otto-cycle: triage:정의가 네 행정을 그대로 나열 — 순환 그림은 정의 반복이고 핵심인 압력-부피 폐곡선은 plot 함수로 못 그림
+- ipsc-derived-neuron: triage:체세포→iPSC→신경세포의 일반적 분화 흐름뿐이고 구체 단계·조건이 본문에 없어 정의 반복
+- arachnoid-mater: triage:지주막 층 구조(경막·지주막·연막)와 뇌척수액 공간은 단면 해부도라 9개 type으로 못 그리고, 개구부 쟁점은 최근 연구라 단정 불가
+- marble-burying-test: triage:단일 행동검사 — 구슬 수와 약물 효과 관계는 요소 2개뿐이고 정의 반복
+- puppet-theatre: triage:손·막대·마리오네트 분류는 본문 한두 문장 수준이고 분류 기준 축이 불명확 — 그림 이득 적음
+- lift-theory: triage:핵심은 받음각-양력계수의 선형 구간 뒤 실속 급락 곡선인데 hill·logistic 등으로 못 그림(꺾인 곡선). 압력차 설명 chain은 학계 설명 논쟁이 있어 단정 곤란
+- time-to-positivity: triage:핵심은 양성 시점 하나의 측정값이고 중심정맥관-말초 차등 2시간 기준은 비교 대상 2개뿐
+- explicit-dynamics-fea: triage:Δt가 요소 크기·음속에 좌우된다는 관계는 있으나 구성 요소가 3개 남짓이고 내연적 기법 비교는 본문에 없음 — 정의 반복 수준
+- liturgical-drama: triage:Quem quaeritis→독립극 선형 발전은 본문 deep이 스스로 체임버스식 진화론이 재검토됐다고 밝힌 논쟁 주장이라 단정 불가
+- building-information-modeling: triage:설계-시공-유지관리 통합이라는 설명은 정의 반복이고 LOD·충돌검토·IFC는 비교축 없이 나열만 됨
+- placebo-controlled-trial-ethics: triage:위약 정당화 기준(중증도·표준치료·위해·임상적 평형)은 판단 요소 나열이고 윤리 쟁점이라 단정적 도식 곤란
+- environmental-cost-benefit-analysis: triage:비용 대 편익 비교는 정의 반복이고 가치평가 기법 3종은 나열뿐, 할인율 영향도 수치 없이 언급만 됨
+- liquid-modernity: triage:바우만의 시대 진단 은유라 단정 곤란하고 고체/액체 대비도 본문에 구체 비교 축이 일관되게 없음
+- subthreshold-potential: triage:EPSP·IPSP 합산과 역치 도달은 정의 반복이며 막전위 파형은 plot 함수로 못 그림 — 시냅스 통합 용어의 하위 사례
+- adult-neurogenesis-niche: triage:줄기세포 상태 전이와 구성세포 목록은 나열 수준이고 인간 신경발생 정도가 논쟁 중(caution)이라 단정 곤란
+- combustion-conditions: triage:탈 물질·산소·발화점 세 조건이 정의에 그대로 나열되어 있어 벤 그림은 정의 반복
+- droplet-microfluidics: triage:기름-물 교차점에서 방울 생성 후 세포·바코드 캡슐화로 이어지는 흐름이 일반론이고 단계별 근거가 본문에 약함 — 응용 사례 나열
+- granger-causality-test: triage:과거값이 예측에 기여하는지 보는 정의 반복 — F검정·VAR 절차는 본문에 단계로 안 나옴
+- therapeutic-substitution: triage:제네릭 대체와의 2항 비교뿐이고 구성 요소가 적어 정의 반복
+- slump-test: triage:콘 몰드 시험 절차는 단순하고 핵심인 주저앉은 높이는 단일 수치 — 슬럼프 형태 분류도 본문 한 줄 언급
+- tissue-engineering: triage:스캐폴드·세포·분해라는 일반 설명이 정의와 겹치고 단계별 근거가 얕음 — 스캐폴드 재료 목록은 나열뿐
+- strontium-chloride-reagent: triage:단일 시약명(SrCl2) — 불꽃색 비교 축 없이 정의 반복
+- broad-consent: triage:동의 폭·철회권·위원회 심사는 윤리 거버넌스 쟁점이라 단정적 도식이 곤란하고 구성 요소 관계가 단순
+- spinal-cord-organoid: triage:iPSC→패터닝→검증 일반 흐름이 구체 단계 없이 서술되고 한계 설명은 나열 — 정의 반복
+- degrowth: triage:탈성장 대 녹색성장 논쟁은 학계에서 활발히 다투는 주장이라 단정 곤란하고 비교 축이 본문에 불충분
+- yeoseong-gukgeuk: triage:특정 공연 양식(고유 장르)명 — 시기·관객 서술뿐, 구성 요소 관계 없음
+- dna-structure: triage:이중나선 분자 구조 그림은 화학 구조 도해라 9개 type으로 못 그리고, 염기쌍 규칙은 정의 반복
+- state-space-representation: triage:상태변수·행렬 방정식 표기를 풀어 쓴 정의이며 블록선도는 type이 없음
+- energy-conversion-conservation: triage:위치→운동→열 전환은 정의 반복 수준이고 엑서지 언급은 한 문장뿐
+- immediate-theatre: triage:브룩 4유형은 기준 축이 본문에 없고 상호배타적이 아니라고 명시 — 인물 이론 개념의 정의 서술뿐
+- well-made-play-structure: triage:구조 요소(비밀·오해·반전·해소)가 정의에 이미 있고 순서 근거 약함 — 정의 반복
+- ionic-radius: triage:양이온은 작아지고 음이온은 커진다는 단일 속성 설명이고 비교 대상이 2개뿐 — 정의 반복
+- costume-design-in-film: triage:의상 설계 작업 서술이고 본문에 단계·분류 구조 없음 — 정의 반복
+- reproduction-development: triage:수정→난할→낭배→기관형성 순서는 있으나 정의 반복 수준이고 범위가 넓어 구체 그림 intent가 안 나옴
+- panopticon: triage:푸코 은유 개념이고 감시탑-감방 구조 그림은 type으로 못 그림 — 시놉티콘 언급은 이름뿐
+- prion-like-protein-propagation: triage:프리온유사 전파는 뇌 영역 순차 확산 가설이고 유력한 단일 가설이라 단정 곤란, 영역 순서도 본문에 없음
+- asilomar-conference: triage:회의 사건명 — 1975년 단일 사건이고 봉쇄 등급 체계도 본문에 구체 단계 없음
+- coagulase-test: triage:단일 검사 — 양성/음성 판정 2갈래이고 슬라이드법·튜브법 비교는 두 방법의 한 줄 서술뿐
+- transfer-function: triage:G(s)와 극점·영점 설명은 수식 중심이라 type으로 못 그리고 정의 반복
+- chamber-play: triage:연극 형식 하나의 정의 설명 — 관계 맺는 구성 요소가 없고 실내악 비유뿐
+- desertification: triage:인간 활동·가뭄→식생 소실→황폐화라는 일반적 서술이라 글만으로 충분하고 정의를 되풀이하는 수준
+- neural-stem-cell: triage:자기 재생과 분화 두 능력 설명이 전부 — 계통 단계 구분은 본문 밖 지식에 의존
+- functional-connectivity: triage:상관 기반 지표 하나와 구조적 연결성 대비 주의문뿐 — 구성 요소 2개
+- social-memory: triage:개체 인식 대 친숙성 판단 구분이 한 문장이고 측정법 설명 위주
+- codominance: triage:공동우성 정의와 AB형 사례 반복 — 불완전 우성과의 대비도 한 문장
+- auditorium-layout: triage:좌석 배치·경사·음향 절충 설명이 평면적이고 본문에 단계나 분류가 없음
+- pluripotency: triage:만능성 정의 위주이며 전능성·다능성 위계는 본문 밖 지식이고 naive/primed 구분도 한 문장
+- manhattan-plot: triage:x축 염색체 위치·y축 -log10 p 산점도라 그림 자체가 용어인데 산점도와 유의성 기준선을 그릴 plot 함수가 없음
+- seneca-tragedy: triage:그리스 비극에서 엘리자베스 복수극으로 이어지는 영향은 서술하나 공연 여부가 미확정이라 시간 순서 도식의 근거가 얇음
+- iir-filter: triage:FIR 대비 비교 축이 본문에 일부뿐이고 되먹임 구조 설명이 정의 반복에 가까움
+- fisher-effect: triage:명목 = 실질 + 기대인플레이션 한 식의 분해이며 숫자 예시도 정의 반복
+- patient-reported-outcome: triage:환자 보고 대 임상 지표 두 범주 구분이고 PROM과의 관계는 한 줄 — 구성 요소 2개
+- feminist-film-theory: triage:이론 갈래 나열이 이름뿐이고 갈래 간 관계나 분류 구조를 본문이 제시하지 않음
+- bode-plot-analysis: triage:이득·위상 두 곡선과 0dB·-180도 기준선을 그려야 하는 주파수 응답 그래프인데 plot에 로그 주파수 축 보드 곡선이 없음
+- tragedy-of-blood: triage:세네카→키드→햄릿 영향 계보는 한 문장이고 장르 관습 나열이 중심이라 도식이 정의를 되풀이
+- inhibitory-synaptic-plasticity: triage:억제성 강화·약화와 흥분-억제 균형 서술이 열거식이라 관계가 분명한 3요소 구조가 없음
+- erlenmeyer-flask-lab: triage:실험 기구 하나의 형태·용도 설명 — 단일 물품
+- cortical-layer-6b: triage:피질 층 하나의 정의로, 하판 유래 설명이 짧고 구성 요소 관계가 희박
+- phthalic-anhydride: triage:단일 시약명 — 반응 몇 가지 나열은 있으나 화합물 사전 항목
+- immediate-release-formulation: triage:혈중농도-시간 곡선(Cmax·Tmax) 비교가 핵심이나 경구 흡수 곡선을 그릴 plot 함수가 없음
+- makeup-design: triage:분장 기법 설명이 서술식이고 교정 분장 대 특수 분장 구분도 한 문장
+- periodic-table: triage:표 자체가 용어라 도식 대상이 아니고 족·주기 경향은 본문이 개별 서술일 뿐
+- basket-cell: triage:세포 하나의 형태 설명이며 소뇌·피질 표적 위치 차이는 단발적 언급
+- gender-performativity: triage:수행성 대 연기 구분은 한 문장이고 철학적 논쟁이 있어 도식으로 단정하기 어려움
+- kitchen-sink-drama: triage:키친싱크 드라마 양식 설명 — 웨스트엔드 대비 한 문장뿐이고 구성 요소가 적음
+- musical-film: triage:서사와 퍼포먼스 이중 리듬이 개념 두 개이고 백스테이지·통합 뮤지컬 구분은 한 문장
+- galactose-solution: triage:단일 시약 용액이며 포도당과의 에피머 관계 한 문장
+- number-needed-to-harm: triage:절대위험도 차이의 역수 하나이며 NNT와의 비교도 서술 수준
+- costume-design: triage:의상 디자인 작업 설명 위주 — 단계나 분류 구조가 없음
+- dichloromethane-reagent: triage:단일 용매명 — 물보다 무거워 아래층이라는 단일 속성 중심
+- s100-beta-protein: triage:칼슘결합 단백질 하나의 바이오마커 정의이고 뇌 외 조직 발현이 있어 경로 도식은 단정 곤란
+- genetic-code: triage:코돈-아미노산 대응표(64 대 20 다대일)는 표 형태 정보이고 9개 type으로 새로 보여 줄 관계가 없음
+- ascorbic-acid-lab: triage:단일 시약명(비타민C)이며 사용법 위주 설명
+- exchange-current-density: triage:Butler-Volmer·Tafel 곡선이 핵심 그림이지만 plot 함수로 못 그림. 단일 속성값이기도 함
+- liquidity-trap: triage:LM 곡선의 수평 구간(유동성 선호 곡선)이 핵심인데 plot 함수가 없고, 나머지는 정의 반복
+- radial-arm-water-maze: triage:작업기억·참조기억 오류 두 가지 구분뿐이라 정의 반복, 행동검사 한 가지 소개
+- eyeline-match: triage:시선 쇼트와 대상 쇼트 두 개를 잇는다는 정의 반복이고 시점숏과의 구분도 두 개념뿐
+- race: triage:사회적 구성 개념 논쟁 소지가 크고 인과·구조 관계 요소가 부족한 정의 중심 항목
+- attractor-network: triage:기억 안정 상태의 에너지 지형이 핵심이나 다중 우물 곡선을 plot으로 못 그리고, 이산·연속 구분은 두 유형뿐
+- water-t-maze: triage:학습 단계와 반전 학습 단계 둘뿐인 행동검사 소개, 구성 요소 2개
+- eugenol-reagent: triage:단일 화합물 시약명(유게놀)
+- mask-drama: triage:연극 형식 총칭의 정의 반복, 관계 맺는 구성 요소가 없음
+- restored-behavior: triage:퍼포먼스 이론의 추상 개념 하나, 도식으로 보여 줄 구조가 없고 정의 반복
+- molecular-beam-epitaxy: triage:장비 구성 설명이 중심이라 정의 반복, 새로 드러낼 관계가 약함
+- observational-fear: triage:시연 동물과 관찰 동물 두 주체의 실험 소개이며 단계가 2개 정도라 정의 반복
+- given-circumstances: triage:외적·내적 조건·직전 사건으로 나누는 열거는 본문에 한 줄뿐이고 정의 반복
+- g-ratio-myelin: triage:축삭 지름 대 전체 지름 단일 비율 지표, 구성 요소 2개
+- paragonimus-westermani-egg: triage:충란 형태 검사 항목이며 생활사 단계 대부분은 본문 밖 지식에 의존
+- number-needed-to-treat: triage:ARR의 역수라는 한 줄 공식 지표, 구성 요소 2~3개의 계산 정의 반복
+- colorimetric-enzyme-assay: triage:기질-효소-발색-흡광도라는 일반적 측정 원리 설명으로 정의 반복에 가까움
+- sight-lines-theatre: triage:객석-무대 시야 점검이라는 단일 개념, 도식화할 단계·분류가 부족
+- collective-creation-theatre: triage:대본 순서를 뒤집는다는 한 가지 비교만 있고 단계가 일반론적임
+- crystal-anisotropy: triage:방향 의존성이라는 단일 속성이고 흑연 예시 하나가 전부
+- distinction-bourdieu: triage:계급-취향 이론 개념 설명이고 단정 도식화가 이론 논쟁을 지나치게 단순화함
+- dissociative-disorder: triage:하위 유형 열거가 중심이고 과조절 모델은 논쟁적이라 단정 도식이 부적절
+- troponin-test: triage:농도 상승-하강 시간 곡선이 핵심이지만 plot 함수 없음, 나머지는 정의 반복
+- anil-potti-scandal: triage:특정 사건 한 건이고 날짜 근거가 본문에 없어 시간 순서 도식이 부정확해짐
+- mycobacterial-culture: triage:검체 처리 후 배양하는 일반 실험 절차 소개로 도식의 추가 정보가 적음
+- quantitative-trait-locus-mapping: triage:염색체 위 LOD 점수 프로파일이 핵심이나 plot 함수로 못 그림, 나머지는 정의 반복
+- michael-addition: triage:친핵체와 불포화 카르보닐 두 요소의 반응 한 줄 정의이고 구조식이 필요해 도식 type과 안 맞음
+- miniature-excitatory-postsynaptic-current: triage:크기·빈도 해석 두 축뿐이며 기록법 정의 중심, 구성 요소 2개
+- dienophile: triage:딜스-알더 반응 상대 분자라는 다른 용어의 하위 사례, 구성 요소 2개
+- procedural-sedation: triage:진정 깊이 연속선 4단계 열거가 정의에 가깝고 약물 처치 소개 위주
+- azeotrope: triage:T-x 상평형도에서 액체선·증기선이 접하는 점이 핵심이나 plot 함수 없음
+- carbon-offset: triage:상쇄 메커니즘이 정의 반복이고 추가성·영속성 평가는 논쟁이 큼
+- heterozygosity: triage:관찰값 대 기대값 두 지표 비교뿐, 정의 반복
+- immediate-early-gene: triage:전사 유도 설명이 정의 반복이고 유형 구분은 두 가지뿐
+- scanning-electron-microscopy: triage:전처리-관찰 장비 절차가 일반 설명 위주이고 도식이 더하는 관계가 적음
+- neural-oscillation: triage:주파수 대역과 인지 기능 일대일 대응은 오해라고 명시되어 단정 도식이 부적절
+- mole-fraction: triage:단일 농도 표기 정의 — 몰수 비율 한 줄 식이고 서로 관계 맺는 구성 요소가 없음
+- calbindin: triage:단일 단백질 이름 — 칼슘 완충·성숙 표지라는 속성 나열뿐 경로·단계 근거가 본문에 부족
+- kyogen: triage:노와의 대비가 본문에 서술되나 비교 축이 분위기·인물 정도로 얕고 교겐 쪽 정보만 있어 정의 반복에 가까움
+- rotary-encoder: triage:원판 줄무늬→센서→펄스 수라는 단순 원리로 정의·쉽게 풀면의 반복이고 증분형/절대형 차이도 두 항목 비교에 그침
+- research-assessment-reform: triage:추상적 정책 운동 — 편수 중심 평가→유인 쏠림 서술은 있으나 DORA 등 구체 구성 요소 관계가 얕아 그림이 정의 반복
+- drug-interaction-checker: triage:처방 대조→경고 표시라는 일반 전산 흐름이고 핵심(경고피로)은 두세 단계 서술로 충분해 그림이 정의 반복
+- cranial-nerve: triage:12쌍 중 본문이 제시하는 예시가 몇 개뿐이라 감각·운동·혼합 분류 도식을 근거 있게 채우기 어렵고 본문 밖 지식 의존이 큼
+- thalamus: triage:감각→시상→피질 중계 구조는 정의·비유와 중복되고 핵 구분은 예시 몇 개뿐이라 그림이 추가로 보여 줄 것이 적음
+- event-related-desynchronization: triage:핵심은 기준선에서 ERD로 떨어졌다 베타 반등(ERS)으로 넘치는 시간 경과 곡선인데 현재 plot 함수로 그릴 수 없고 chain으로 그리면 모양 정보가 사라짐
+- perspective-scenery: triage:소실점 원리를 무대에 적용했다는 기법 설명으로 구성 요소 관계(플랫·레이크·시점)가 시각적 위치 정보 위주라 지원 유형으로 그리기 어려움
+- particle-image-velocimetry: triage:입자 살포→레이저 시트→두 장 촬영→교차상관의 일반 계측 절차로 정의와 쉽게 풀면이 이미 같은 순서를 서술해 그림이 정보 추가가 적음
+- climate-adaptation: triage:완화와의 구분, 계획적/자율적 적응, 취약성 구성요소가 흩어져 나열되어 하나의 관계 도식으로 모으기엔 중심 구조가 불분명함
+- stress-strain-relationship: triage:탄성구간 직선 후 항복·소성·파단으로 이어지는 조각 곡선이 핵심인데 현재 plot 함수로는 그릴 수 없고 다른 유형으로는 모양이 소실됨
+- colligative-properties: triage:입자 수만 중요하다는 한 원리의 반복 — 어는점·끓는점·삼투압이 나열되나 서로 관계가 없고 정의·쉽게 풀면로 충분
+- ferritin-test: triage:저장철 고갈이 혈청철보다 먼저 떨어진다는 비유 위주이며 단계 구분이 본문에 구체적이지 않고 염증 교란은 한 문장 주의사항
+- acute-vs-chronic-disease: triage:두 질환군의 정의 구분이고 비교 축이 발병·기간 두 가지 정도이며 본문이 연속 스펙트럼이라 강조해 이분 대조 그림이 오해 소지
+- magnesium-sulfate-reagent: triage:단일 시약명 — 건조제·엡솜염 용도 나열뿐
+- immunoglobulin-quantification-test: triage:검사 항목(IgG·IgA·IgM) 수치 나열과 해석 주의가 중심이라 관계 구조 없음, 후속 검사 언급은 한 줄
+- magnesium-chloride-reagent: triage:단일 시약명 — 간수·마그네슘 이온 공급원이라는 속성 나열뿐
+- tourette-syndrome: triage:전조충동→틱 해소 고리는 한 문장 언급뿐이고 회로 이상은 본문이 구체 구성 요소를 주지 않아 그림이 본문 밖 지식에 기댐
+- cnc-machining: triage:절삭 대 적층 대비는 한 문장이고 나머지는 공정 용어 나열 — 정의 반복 수준
+- compilation-film: triage:다큐 형식 하나의 정의와 사례 소개 — 구성 요소 간 구조 없음
+- prevention-health: merge-candidate: 병합 후보라 보류(was reviewed)
+- neo-formalism-film: triage:영화학 학파 소개 — 인물·저서·개념 나열이고 파불라/슈제트 외엔 구성 요소 관계가 없음
+- enzyme-specificity-optimal-temperature: triage:핵심 시각 정보는 최적온도까지 완만히 오르다 변성으로 급락하는 비대칭 곡선인데 현재 plot 함수(대칭 역U 등)로는 표현 못 하고 특이성은 비유 위주
+- state-space-modeling: triage:상태방정식·출력방정식이라는 수식 형식 소개 — 구성 요소 관계가 행렬 식이라 도식이 수식 반복
+- lod-score: triage:점수 정의와 3.0 기준 서술 위주로 곡선 모양 자체는 본문에 근거가 없고 임계 가로선은 plot이 지원하지 않음
+- fast-fourier-transform-analysis: triage:시간→주파수 변환 개념은 정의와 비유가 이미 설명하고 그림은 실제 파형·스펙트럼이 필요해 지원 유형으로 그리기 어려움
+- stichomythia: triage:두 인물이 한 행씩 주고받는 대사 기법 정의 — 구성 요소 2개뿐
+- carbon-tax: triage:세금 부과→배출 비용 내재화라는 두세 단계 정의이고 배출권거래제 대비는 한 문장이라 그림이 정의 반복
+- tuberculin-skin-test: triage:단일 검사법 — 주사 후 48~72시간에 경결을 재는 한 줄 절차이고 위양성(BCG)은 정의 반복 수준
+- soliloquy: triage:극작 기법 하나의 정의 — 어사이드와의 대비는 두 요소뿐이라 그림이 글보다 얻는 게 없음
+- quotable-gesture: triage:브레히트 연기론의 단일 개념 — 몰입 연기 대 거리두기 두 항 대비로 정의 반복
+- gwas-fine-mapping: triage:3단계 이상이지만 사후확률·신뢰집합 세부가 본문 밖 통계 지식에 크게 의존하고 본문의 단계 서술이 빈약함
+- thesis-play: triage:희곡 유형명 — 문제극과의 구분도 두 개념 대비에 그치고 정의 반복
+- wing-and-drop-set: triage:무대 장치 이름 — 윙과 드롭 두 요소의 배치 설명으로, 구성 요소 3개 미만
+- perineuronal-net: triage:세포외기질 구조물 하나 — 임계기 폐쇄와의 인과는 본문에서 단정적이지 않고 요소 간 관계가 부족
+- anterograde-amnesia: triage:증상 하나의 정의 — 역행성과의 대비는 두 항 구분이고 부위별 유형 차이는 보조 설명
+- torque: triage:단일 물리량 — 힘×거리 공식 하나이고 곡선·단계가 아님(토크-속도 곡선은 부수 언급)
+- ethyl-acetate-reagent: triage:단일 유기용매 시약명 — 추출·전개액 용도 나열뿐 관계 구조 없음
+- beta-lactamase-test: triage:단일 검사 — 효소가 고리를 끊어 색이 변한다는 2~3요소 서술이고 한계점은 정의 보완 수준
+- cambrian-explosion: triage:원인 가설(산소·유전자망·포식·화석화 편향)이 학계에서 논쟁 중이라 단정 없이 그리기 어렵고 시간 사건 수가 적음
+- vasopressin: triage:호르몬 물질명 — 신장 V2와 뇌 V1a 이중 작용은 두 항 나열이고 옥시토신과의 관계도 논쟁적이라 단정 어려움
+- binding-problem: triage:난제 자체가 미해결이며 진동결합가설 등 해법이 논쟁 중이라 단정 없이 도식화하기 어렵고 구성 요소 관계가 모호함
+- property-rights: triage:사용·수익·처분 권리 묶음은 정의에서 이미 열거되고, 성장과의 관계는 실증 논쟁이라 그림 이득이 작음
+- halotag: triage:단일 단백질 태그 — 태그·리간드·염료 결합 2~3요소 설명으로 정의 반복에 가까움
+- hemoglobin-electrophoresis: triage:단일 검사 — 분획 종류(HbA/A2/F) 나열이고 판독 패턴이 본문에 구체적으로 없음
+- allogrooming: triage:행동 지표 하나 — 자가 그루밍 대비와 옥시토신 관여는 서술 수준이고 인과 해석이 논쟁적
+- chitosan-reagent: triage:단일 고분자 시약명 — 키틴 탈아세틸화 한 단계와 용도 나열
+- barthel-index: triage:평가척도 하나 — 10항목 점수 합산이고 항목 간 관계가 없는 목록
+- postoperative-complications: triage:Clavien-Dindo 등급은 있으나 본문에 등급별 내용이 일부만 제시되어 근거가 얇고 분류 세부는 본문 밖 지식 의존
+- neurovascular-unit: triage:뉴런·별아교세포·혈관세포 구성 나열 위주 — 구성 세포 범위가 논의 중이고 협업 기전은 은유 설명에 머묾
+- potassium-nitrate-reagent: triage:단일 시약명 — 용해도 곡선은 소재 데이터이고 흑색화약·비료 용도는 나열
+- welfare-theorems: triage:제1·제2정리는 조건부 명제 두 개로 에지워스 상자 없이는 그림이 글보다 얻는 게 적고 가정 목록이 핵심
+- mtbf: triage:평균값 지표 하나 — 욕조곡선은 본문 부수 언급이고 MTBF 자체의 도식은 단순 나눗셈
+- urinary-crystal-examination: triage:단일 검사 — pH별 결정 종류는 부수 설명이고 구성 관계를 그릴 만큼 구조화돼 있지 않음
+- model-organism: triage:종 선택 기준 목록 — 단순종 대 복잡종 두 묶음 분류이고 분류 경계가 연구 목적별로 가변적
+- reference-standard-material: triage:소급성 사슬은 있으나 본문엔 1차·2차 두 단계 정도만 있고 저울 비유로 충분히 이해됨
+- foil-character-drama: triage:인물 기능 유형 — 주인공과 대조 인물 두 항 관계이고 정의 반복
+- zonula-occludens-1: triage:단일 단백질 — 클라우딘·오클루딘-ZO-1-액틴 연결은 정의 문장이 이미 서술한 구조 반복
+- low-pass-filter-design: triage:핵심은 차단주파수 근처 이득 곡선(평탄 후 감쇠, 차수별 기울기)이나 기존 plot 함수로는 못 그림
+- theatre-of-nonsense: triage:부조리극의 하위 경향명 — 형식 설명뿐이고 구성 요소 3개 이상의 관계가 없음
+- natyashastra: triage:고전 문헌명 — 저자·성립 시기 불확실하고 구성 장 나열뿐
+- simple-cell: triage:고전 모델이 연속 분포 관점과 피질 내 연결로 논쟁 중이라 단정적 도식화가 어렵고 구성 요소 서술이 정의 반복에 가까움
+- economies-of-scale: triage:평균비용 감소 후 규모의 비경제로 이어지는 U자형 곡선이 핵심이나 기존 plot 함수로는 못 그림
+- french-neoclassical-tragedy: triage:양식명 — 삼일치와 품위 규범은 정의에 이미 열거되어 있고 삼일치의 아리스토텔레스 기원 해석이 논쟁적
+- sputter-coater: triage:장비 하나 — 아르곤 이온 충돌로 원자가 증착되는 기전은 정의 문장이 이미 서술
+- heparin-induced-thrombocytopenia-antibody-test: triage:면역검사 후 기능검사로 확진하는 2단계이며 요소가 적고 임상 점수 결합은 본문 밖 판단에 의존
+- round-bottom-flask-lab: triage:실험 기구 하나 — 목 개수별 변형 나열이고 관계 구조 없음
+- clinical-breakpoint: triage:기준값(경계선) 하나를 설명하는 항목이고 분포 그림은 본문 밖 지식에 기대 ECOFF 비교도 정의 반복에 가까움
+- kunqu-opera: triage:전통극 양식 하나의 소개로 구성 요소 간 관계가 없고 곤곡-경극 비교도 서술 한 줄뿐
+- symbolic-interactionism: triage:사회학 관점 소개로 상징→의미 형성이 정의 반복이며 미드·블루머·고프먼 계보는 나열 수준
+- stage-mise-en-scene: triage:연출 요소(배우·조명·장치) 나열이 정의 그대로이고 요소 간 관계나 순서가 없음
+- mitochondria: triage:세포소기관 하나의 구조·기능 설명으로 이중막 단면도 같은 해부도는 9개 type으로 못 그림
+- autoclave-sterilization: triage:단일 멸균 조작으로 121도·15분 조건과 인디케이터 확인뿐 단계 구조가 약함
+- buret: triage:적정용 유리기구 하나의 설명이며 적정곡선은 본문에 변곡점 언급만 있고 이 항목의 주제가 아님
+- frenkel-defect: triage:결함 한 쌍(공공+침입형) 구조 설명이며 쇼트키 결함 대비는 한 문장뿐이라 정의 반복이 큼
+- species-richness: triage:종 수를 세는 단일 지표이고 희박화 곡선은 곁가지 언급이라 이 용어의 핵심 그림이 아님
+- sigmoidoscopy: triage:내시경 검사 하나의 범위 소개로 대장내시경 대비는 관찰 범위 한 가지 축뿐
+- cd5l: triage:분비 단백질 하나의 이름 항목이며 사멸 억제·대사·염증 기능이 맥락별로 따로 보고돼 하나의 경로로 묶이지 않음
+- resting-state-connectivity: triage:측정 지표 하나의 정의이며 fMRI 상관 계산 방법은 문장 설명뿐이라 구성 요소 3개 관계가 없음
+- heist-film: triage:장르 소개이고 3단 구조가 본문 안에서도 계획·팀구성·실행 vs 계획·실행·반전으로 엇갈려 일관된 단계로 단정 불가
+- expressionism-theatre: triage:연극 사조의 특징 나열로 요소 간 관계가 없고 상징주의·초현실주의 구분도 서술에 그침
+- flashback: triage:서사 기법 하나로 객관·주관 플래시백 구분만 있고 시간 구조를 그릴 근거 수치나 순서가 본문에 없음
+- cryptococcal-antigen-test: triage:협막 항원을 항체로 찾는 검사 하나의 설명이며 단계 구조 없이 방법 종류·전지대 현상은 주의사항 나열
+- jrgeco: triage:형광 지시자 도구 이름이고 GCaMP와 파장만 다른 같은 원리라 새로 보여줄 관계가 없음
+- metapopulation-dynamics: triage:국소 개체군 소멸·재정착 개념 소개로 레빈스 모형 식 설명은 본문에 없고 서식지 연결도 같은 그림은 현 type으로 안 그려짐
+- microalbuminuria-test: triage:요 알부민 선별검사 하나의 설명이며 위양성 요인은 주의사항 나열이고 병기 구조는 본문에 없음
+- ketone-bodies: triage:화합물 3종 이름과 생성 경위 설명으로 물질명 항목에 가깝고 생성-이용 경로는 본문에 문장 서술뿐
+- tanztheater: triage:무용 장르 소개이고 발레 대비는 서술 위주라 같은 기준 비교가 근거 수준에 못 미침
+- physical-vs-chemical-change: triage:두 개념 정의를 반복하는 항목이고 판정 기준 하나(새 물질 생성 여부)로 갈려 구성 요소가 2개뿐
+- community-cohesion: triage:신뢰·소속감·규범 같은 하위 요소 나열이 정의 반복이며 요소 간 관계나 순서가 없음
+- thermal-radiation: triage:온도 네제곱 비례 곡선이 핵심일 수 있으나 지수 증가 외에 plot 함수가 없고 본문 근거도 한 문장뿐
+- tilt-shot: triage:카메라 회전 기법 하나로 틸트업·다운과 팬 구분이 두 축 비교에 그침
+- methyl-red-reagent: triage:단일 지시약 이름이며 pH 4.4~6.2 색 변화 범위만 있고 MR 시험은 부수 용례
+- high-flow-nasal-cannula: triage:산소 공급 장치 하나의 설명이고 일반 캐뉼라 대비와 효과 세 가지는 서술 나열에 그침
+- pharmacogenomics: triage:학문 분야 정의이고 대사형 4분류는 나열 수준이라 정의 반복이 큼
+- transcription-factor: triage:단백질 기능 정의 반복이며 결합-전사 촉진·억제는 두 단계뿐이고 도메인 설명도 요소 간 관계가 약함
+- mvpa: triage:평균 대 패턴 두 분석 비교는 정의 설명과 겹치고 분류 정확도 판정 절차는 본문 밖 지식에 의존
+- tunneling-nanotube: triage:세포 간 막 관 구조 하나의 이름 항목이고 이동 물질 예시가 나열뿐 경로 단계가 없음
+- technicolor: triage:고유명사 기술 브랜드 소개로 2색→3색 변화는 두 점뿐이고 3색 분리 합성은 본문 설명이 얕음
+- ca19-9-test: triage:종양표지자 검사 하나이고 양성 질환 상승·루이스음성 예외는 주의점 나열
+- universal-basic-income: triage:정책 구상 정의가 반복되고 부의 소득세 등과의 비교는 축이 본문에 구체화되지 않음
+- geotechnical-engineering: triage:공학 분야 소개로 지지력·침하·액상화·사면 주제 나열이고 관계나 순서가 없음
+- sofa-score: triage:여섯 장기 점수 합산 도구로 6항목 나열이 정의 반복이고 APACHE II 대비는 한 문장
+- orbitofrontal-cortex: triage:뇌 영역 하나의 기능 소개이며 내측·외측 구분은 두 부위 나열뿐
+- bourgeois-drama: triage:연극 장르 소개이고 귀족 비극에서 시민극으로 이동은 두 점 비교로 시간순 사건 3개 이상이 없음
+- risk-society: triage:이론 개념 소개이며 성찰적 근대화·하위정치는 용어 나열이라 구성 요소 간 관계가 본문에 없음
+- pleiotropy: triage:한 유전자에서 여러 형질로 갈라지는 일대다 구조일 뿐이라 마르판 예시를 되풀이하는 그림이 됨
+- synfire-chain: triage:집단이 줄줄이 이어진다는 한 줄 사슬이 정의 그대로이고, 본문의 핵심은 대안 기전과의 데이터 구분이라 구성 요소가 부족
+- infrared-thermography-testing: triage:적외선 촬영 → 온도 분포 → 결함 판독이라는 정의 반복이며 수동·능동 구분도 두 칸뿐
+- hardness-testing: triage:압입자로 눌러 자국을 재는 한 가지 원리의 설명이며 로크웰·비커스·브리넬은 이름만 나열될 뿐 비교 축이 본문에 없음
+- e2-reaction: triage:염기·수소·이탈기가 한 번에 작용한다는 정의 반복이며 SN2와의 경쟁 비교는 별도 용어에서 다루는 편이 낫다
+- buckling-analysis: triage:임계하중·모드 계산이라는 설명이 정의 반복이고 하중-변위 분기 곡선은 본문에 수치 근거가 없어 그릴 근거가 없음
+- perioperative-care: triage:수술 전·중·후 3단계는 정의에 이미 있고 단계별 내용이 열거에 그쳐 그림이 정의를 되풀이함
+- spectrum-analyzer: triage:시간 영역 대 주파수 영역 2항 대비와 장비 설명뿐이라 구성 요소 3개 미만
+- historicization: triage:현재를 낯설게 만든다는 효과가 한 줄 인과이며 본문이 역사극과의 구분을 말로 설명하는 데 그침
+- economies-of-scope: triage:품목 확대 대 생산량 확대라는 2항 대비뿐이고 구성 요소가 2개라 정의 반복
+- chemical-formula-notation: triage:표기 규칙(아래첨자=원자 수) 설명이라 관계를 맺는 요소가 없고 실험식·분자식 구분도 한 문장뿐
+- remittances: triage:이주노동자 → 가족이라는 단순 흐름이며 순효과는 논쟁 중이라 단정해 그릴 수 없음
+- digital-multimeter: triage:전압·전류·저항을 재는 장비 설명이며 관계를 맺는 구성 요소가 없는 단일 기기
+- adhesion-gpcr: triage:GAIN 절단 후 결합 리간드 모델이 모든 접착 GPCR에 일반화되지 않는다고 본문이 경고하므로 하나의 경로로 단정해 그리기 어려움
+- robot-dynamics: triage:기구학과의 2항 대비와 운동방정식 항 나열이 중심이라 정의를 되풀이하는 그림
+- shunting-inhibition: triage:분로 대 과분극 억제의 나눗셈·뺄셈 차이는 수식 수준이고 본문에 곡선 수치나 구조가 없어 근거가 부족
+- energy-storage-system: triage:남을 때 저장하고 부족할 때 방출한다는 정의 그대로의 2단계이며 성능 지표는 단순 나열
+- dipotassium-phosphate: triage:단일 시약명(K2HPO4)
+- living-polymerization: triage:종결·이동 없음이라는 단일 속성이며 비교 대상인 일반 라디칼 중합이 본문에서 구체적 축으로 제시되지 않음
+- absolute-advantage: triage:빵·쿠키 수치 예시는 있으나 개념 자체는 생산성 비교 한 가지이고 핵심 대조인 비교우위는 별도 용어
+- sensory-neuron: triage:수용기 → 감각신경 → 중추라는 정의 그대로의 한 줄 경로이고 섬유 유형 구분은 본문에서 간략히 언급될 뿐
+- social-entrepreneurship: triage:사회문제 해결 대 이윤이라는 2항 대비이며 기업 사회공헌과의 차이도 말로 충분한 정의 반복
+- hippocampus: triage:뇌 구조명이며 하위 영역과 기억 역할이 나열식이고 성체 신경발생은 논쟁 중이라 단정해 그리기 어려움
+- rule-of-law: triage:인치 대 법치, 형식 대 실질의 2항 대비가 말로 충분하고 구성 요소 3개 이상의 관계가 없음
+- consumer-surplus: triage:수요곡선 아래·가격선 위 면적이 핵심이나 수평 가격선과 두 선 사이 음영을 지원하는 plot 함수가 없음
+- social-exchange-theory: triage:보상 - 비용과 대안 비교라는 계산 식이 정의 반복이고 경제 거래로 단순화한다는 비판이 있어 단정해 그리기 어려움
+- nasopharyngeal-lymphatic-plexus: triage:2024년 전후 동물 연구에서 제안된 구조로 사람에서의 비중이 미확정이라 경로를 단정해 그릴 수 없음
+- radiographic-testing: triage:방사선이 결함 부위를 더 투과해 필름이 검게 나온다는 원리가 정의 반복이며 IQI·촬영각은 부가 설명
+- pericyte: triage:내피세포·별아교세포와 함께한다는 구조 설명이나 관계 구성이 서술적이고 기능 목록이 나열식이라 도식화할 근거가 약함
+- deep-space-composition: triage:전경·중경·후경 배치라는 정의 반복이며 딥포커스와의 구분과 몽타주 대비도 말로 충분
+- pitot-tube: triage:정체압 - 정압 = 동압으로 유속을 구한다는 정의 반복이며 구성 요소가 두세 개에 그침
+- cognitive-film-theory: triage:정신분석 대 인지주의 2항 대비이며 본문이 단일 이론이 아닌 느슨한 연합이라 경고해 하나의 구조로 그릴 수 없음
+- ions: triage:단일 개념 정의 — 원자가 전자를 잃고 얻는 것 외에 서로 관계 맺는 구성 요소가 없고 이온결합·이온채널은 별개 용어로 넘어감
+- lumbar-puncture: triage:시술 하나의 설명 — 단계별 절차가 아니라 적응증·합병증 나열이라 정의 반복에 가깝고 그림이 새로 보여 줄 관계가 약함
+- molecular-clock: triage:정의 반복 — 서열 차이가 시간에 비례한다는 직선 하나와 보정점 정도라 구성 요소가 부족하고, 속도 가변성은 논쟁 영역이라 단정 어려움
+- fusiform-face-area: triage:뇌 영역 하나의 위치·기능 설명 — 얼굴 전용 여부가 논쟁 중이라 단정 도식이 어렵고 관계 구성 요소도 부족
+- script-analysis: triage:연극 분석 작업의 개념 설명 — 네 층위가 나열되지만 서로 맺는 관계나 순서가 본문에 없어 정의 반복이 됨
+- infralimbic-cortex: triage:설치류 뇌 영역 하나 — 위치·기능 서술 중심이고 사람과의 대응도 논쟁 중이라 단정 도식이 어렵다
+- polymer-extruder: triage:장비 하나의 부품 나열 — 호퍼·스크루·다이의 흐름은 정의 문장을 되풀이하는 수준이고 개념적 논점이 없음
+- radical-initiator: triage:화합물 부류 설명 — 분해 후 개시라는 한 단계 외에 구성 요소가 적고 반감기는 단일 속성이라 정의 반복
+- prosopagnosia: triage:증상 하나의 설명 — 지각형·연합형 분류는 본문이 "구분되기도 한다" 수준이고 얼굴 처리 경로 자체가 논쟁 영역이라 단정 도식이 어렵다
+- pyridoxal-phosphate: triage:보조인자 한 물질 — 시프 염기 형성 한 단계 외에 서로 관계 맺는 구성 요소가 없고 물질명에 해당
+- open-field-test: triage:행동 검사 하나 — 이동 거리→활동성, 중앙 체류→불안의 두 지표 대응은 정의 문장의 되풀이
+- powder-xrd: triage:분석 기법 하나 — 회절 패턴과 표준 패턴 비교는 정의 반복이고 봉우리 모양은 plot 함수로 그릴 수 없으며 그려야 할 핵심 논점도 약함
+- mucosal-immunity: triage:면역 체계 개요 — 분비형 IgA·M세포·림프조직이 나열될 뿐 본문에 순서나 관계가 명시되지 않아 정의 반복
+- extended-producer-responsibility: triage:제도 정의 — 개별 이행과 공동 이행 두 갈래 외에 구성 요소가 적은 정책 개요
+- synchronous-sound: triage:연출·영화 용어 — 입 모양과 소리의 일치라는 단일 속성 설명이고 관계 구성 요소가 없음
+- theory-of-directing: triage:연극 이론 분야 설명 — 여러 연출가의 입장이 나열될 뿐 비교 축이 본문에 정해져 있지 않고 인물·유파 이름 위주
+- chitin-reagent: triage:단일 물질명 — 키틴 자체가 시약·고분자 이름이고 탈회→탈단백→키토산 전환은 원료 가공 설명에 그침
+- social-gestus: triage:브레히트 개념 하나 — 게스투스의 하위 개념이라는 두 층 관계뿐이고 인물·작품 사례 중심이라 구성 요소 부족
+- brainstem: triage:뇌 구조 하나 — 중뇌·뇌교·연수 구분과 기능 나열이 정의 반복이고 해부 위치 설명이라 관계 도식의 이점이 작음
+- cortical-reorganization: triage:현상 설명 — 억제 해제의 빠른 변화와 구조 변화의 느린 변화가 있으나 환지통과의 관련성이 본문에서 논쟁 중이라 단정 도식이 어렵고 효과 방향도 가변
+- transfer-function-analysis: triage:분석 기법 개요 — 입력·전달함수·출력과 극점·영점이 나열되지만 블록 하나로 정의를 되풀이하고 핵심 개념이 수식에 있어 그림으로 새로 보일 것이 약함
+- steadicam: triage:영화 장비 하나 — 핸드헬드와 삼각대의 중간이라는 정의 외에 구성 요소가 없고 사례·상표명 설명 위주
+- sputter-deposition: triage:정의 그대로의 3단 공정(이온 충돌→원자 방출→기판 적층)이라 그림이 글을 되풀이함
+- genetic-recombination: triage:감수분열 교차·상동재조합·세균 유전자 이동이 서로 겹치는 맥락 나열이라 깔끔한 분류 구조로 그리기 어려움
+- principal-stress: triage:핵심은 모어 원 등 응력 텐서의 고유값 기하인데 지원 type·plot 함수로 못 그림
+- liposomal-drug-delivery: triage:일반·스텔스·표적형 세 갈래가 정의·본문에 그대로 서술된 단순 분류라 새로 보여줄 것이 적음
+- multibody-dynamics-simulation: triage:여러 부품을 조인트로 연결해 방정식을 푼다는 일반 해석 기법 소개라 구성 요소 간 구체 관계가 없음
+- renewable-energy: triage:태양광·풍력·수력 예시를 나열한 포괄 범주명이라 구조적 관계가 없음
+- circular-dichroism-spectroscopy: triage:스펙트럼 모양(222 nm 음의 띠 등)이 핵심이나 다중 피크 곡선 함수가 없고 본문에 수치 근거도 부족
+- morpholino-knockdown: triage:번역 차단형·스플라이싱 차단형 두 유형과 한계 서술뿐이라 구성 요소 2개 수준이고 정의와 겹침
+- electroporation: triage:펄스→막 구멍→물질 유입→막 회복의 직선 설명이 정의·쉽게 풀면과 중복되며 새 정보가 적음
+- wings-theatre-space: triage:무대 좌우 공간이라는 단일 공간 개념이고 평면도는 지원 type으로 못 그림
+- vacuum-filtration-apparatus: triage:깔때기·플라스크·펌프 연결 배치도 위주의 기구 구성 설명이라 관계 구조보다 장비 그림에 가까움
+- beijing-opera: triage:경극 장르 소개로 배역 4종 나열 외에 구조적 관계가 약함
+- market-economy: triage:시장경제 대 계획경제 두 개념 대비가 정의에 이미 들어 있고 스펙트럼도 정성적이라 새 정보가 없음
+- neutralization-reaction: triage:산+염기→염+물 단일 반응식을 정의가 그대로 반복하며 pH 7 아님은 곡선 함수로 근거 부족
+- participatory-performance: triage:참여 정도 스펙트럼은 정성적 나열이고 정의·쉽게 풀면의 설명을 되풀이할 뿐 구체 관계가 없음
+- director-concept: triage:대본 분석→맥락 조사→주제 설정→디자인 협업의 일반 작업 순서라 개념 특유의 통찰이 없음
+- atomic-structure: triage:핵(양성자·중성자)과 전자라는 교과서 정의의 포함 관계를 그대로 반복하며 새로 보여줄 것이 없음
+- concrete-mix-design: triage:물-결합재비·작업성·강도의 정성적 상충이 중심이고 곡선 형태 수치 근거가 본문에 부족함
+- surrealist-theatre: triage:초현실주의 연극의 특징 서술과 영향 관계 나열이라 구조적 구성 요소가 없음
+- surfactant-micelle-formation: triage:친수 머리·소수 꼬리 분자가 CMC 이상에서 구형 집합체를 이룬다는 정의 반복이며 CMC 곡선은 구간 함수가 없음
+- deprescribing: triage:기준 도구 선별 후 단계적 감량과 모니터링이라는 일반 임상 절차 나열이며 개념 특유의 구조가 약함
+- kirchhoffs-circuit-laws: triage:전류법칙과 전압법칙 두 개념 대비이며 핵심 도식은 회로도라 지원 type으로 못 그림
+- vacuum-filtration: triage:압력차로 여과가 빨라진다는 단일 원리이고 진공 여과장치 항목과 사실상 동일해 새로 보여줄 것이 없음
+- distillation: triage:가열→증기→응축으로 끓는점 차이 분리라는 정의 반복이며 McCabe-Thiele 도표는 지원 함수가 없음
+- transesophageal-echocardiography: triage:식도에서 심장을 보는 침습 검사 소개라 구성 요소 간 관계가 없음
+- apparatus-theory: triage:보드리의 이론 소개라 카메라·극장·관객 관계가 서술적이고 논쟁적 주장을 단정 없이 그리기 어려움
+- care-guidelines: triage:13개 보고 항목 체크리스트 나열이라 관계 구조가 없음
+- one-carbon-metabolism: triage:메티오닌 회로와 엽산 회로의 구체 반응 단계가 본문에 부족해 본문 밖 지식에 크게 의존함
+- political-theatre: triage:비판적 연극이라는 장르 개념이고 하위 형식 두어 개 언급에 그쳐 구조가 없음
+- talchum: triage:가면극 장르 소개이고 지역 갈래·과장 구분도 나열이라 구조적 관계가 없음
+- zinc-acetate-reagent: triage:단일 시약명이며 용도 나열뿐이라 구성 요소 간 관계가 없음
+- screen-direction: triage:180도 규칙과 방향 일관성은 공간 배치도가 핵심이라 지원 type으로 못 그리고 일관 대 반전 두 경우뿐임
+- quantum-yield: triage:단일 비율 지표 — 흡수 광자 대비 결과 횟수라는 정의 한 줄로 끝나고 구성 요소가 둘뿐
+- real-world-evidence-drug-safety: triage:자료원(전자의무기록·청구자료·레지스트리) 나열과 교란 보정 한계 서술 — 그림으로 보일 관계 구조가 없음
+- chemotherapy-adverse-effect-management: triage:부작용 종류와 예방 조치의 목록형 설명 — 부작용별 대응이 병렬 나열이라 도식이 정의를 되풀이함
+- gukrip-geukdan: triage:기관 고유명사(국립극단) — 역사 연표를 그릴 근거가 연도 두 개뿐
+- salicylic-acid: triage:단일 화합물명 — 아스피린 합성 출발물질이라는 사실 외에 구성 요소 관계가 없음
+- theatre-in-education: triage:교육 활동 개념 — 기법 나열과 목적 서술만 있고 단계·분류 구조가 본문에 없음
+- nash-equilibrium: triage:2x2 보수표를 그릴 수는 있으나 본문에 보수 수치나 전략 구성이 없어 본문 밖 가정에 의존함
+- deconstruction-theatre-criticism: triage:비평 방법론 — 이분법 해체라는 추상 개념으로 시각화할 구성 요소 관계가 없음
+- middle-cerebral-artery-occlusion-model: triage:실험 모델 설명 — 필라멘트 삽입·재관류 절차가 서술되나 단계가 2~3개로 얕고 일과성 대 영구 비교도 본문에서 간단함
+- zeami-noh-theory: triage:인물의 이론 총칭 — 수련 단계는 암시만 되고 구체적 순서·구성 요소가 본문에 없음
+- responsible-research-innovation: triage:네 차원(예견·성찰·포용·반응성)을 나열한 틀 — 차원 간 관계나 순서가 본문에 없어 목록을 되풀이할 뿐
+- pharmacogenetic-testing: triage:유전형에서 대사 표현형을 거쳐 처방 조정으로 가는 설명이 일반론이고 본문에 구체적 경로가 없음
+- bergmann-glia: triage:특정 세포 유형 — 위치·돌기 형태 서술이 중심이고 관계 구조는 발달기 길잡이와 성체 글루타메이트 제거 두 가지뿐
+- smart-grid: triage:기존 전력망과의 차이가 서술형이고 구성 요소가 열거되어 있어 도식으로 보강할 새 관계가 없음
+- yes-and-principle: triage:즉흥극의 단일 원칙 — 수용 후 추가 대 차단이라는 두 요소뿐
+- iodine-solution-reagent: triage:단일 시약 용액 — 용도 나열(적정·녹말 검출·소독)만 있고 관계 구조 없음
+- enterobius-vermicularis-egg: triage:충란 하나의 형태와 검출법 서술 — 채취 방법 하나가 핵심이라 단계 구조가 없음
+- heart-failure-reduced-ejection-fraction: triage:질환 유형 정의가 중심 — 손상에서 리모델링으로의 경로는 한 문장 수준이고 상세 기전이 본문에 없음
+- esterification: triage:산+알코올 ⇌ 에스테르+물이라는 반응식 하나 — 구성 요소는 넷이나 식 자체가 정의를 되풀이함
+- petroleum-benzine: triage:혼합 용매 시약 — 끓는점 등급과 용도 나열뿐
+- anti-dsdna-antibody-test: triage:항핵항체 후 추가 검사라는 순서가 있으나 두 단계뿐이고 보체 추적은 한 문장 언급에 그침
+- inactivated-vaccine: triage:생백신과의 안전성·면역원성 대비가 요점이나 본문에 생백신 쪽 구성이 없어 한쪽만 그려짐
+- golgi-staining: triage:염색 기법 — 은 염색으로 일부 뉴런만 물든다는 단일 특징이고 원리도 미규명이라 단계를 그릴 수 없음
+- lift-and-drag: triage:받음각-양력계수의 선형 상승 후 실속 급락 곡선이 핵심이나 plot의 기존 함수로 못 그림
+- solid-solution-alloy: triage:치환형·침입형 두 갈래와 강화 효과 — 결정 격자 그림이 필요한데 지원 type으로는 정의 반복에 그침
+- antithrombin-iii: triage:결핍 아형과 오탐 요인이 방대하나 도식 후보인 항응고 경로는 본문에 한 줄 언급뿐이고 아형 분류는 검사 해석 목록에 가까움
+- yangju-byeolsandae-nori: triage:전통 가면극 고유명사 — 과장 구성 나열뿐 관계 구조 없음
+- thalamocortical-loop-theory: triage:이론 주장 서술 중심 — 중계핵·피질·시상그물핵 구성은 있으나 의식 기여는 가설 수준이라 단정 도식이 부담됨
+- postdramatic-theatre: triage:이론가가 개념화한 연극 경향 — 텍스트 위계 해체라는 추상 설명뿐
+- gray-matter: triage:회백질 대 백질 색 차이 설명 — 정의 반복 수준의 두 요소 대비
+- ecosystem-resilience: triage:공학적·생태학적 회복력의 구분은 있으나 안정 상태 전환 그림은 본문 밖 지식(공 컵 모형)에 크게 의존함
+- poor-theatre: triage:이론가의 연극 미학 — 요소 제거라는 단일 주장이고 구성 요소 관계 없음
+- latex-agglutination-test: triage:항체 코팅 입자가 항원과 응집한다는 단일 원리 — 3단계 이하라 정의를 되풀이함
+- sandae-nori: triage:전통 연희 고유명사 — 과장 구성과 인물 나열뿐
+- thermal-transmittance: triage:열저항 합의 역수라는 공식 한 줄이 핵심이고 층 구성 나열 외에 관계 구조가 없음
+- myeloblast: triage:분화 순서는 deep에 한 줄 나올 뿐 본문 핵심은 20% 진단 기준 수치와 형태 감별
+- thevenins-theorem: triage:등가회로 변환은 회로도 자체가 핵심인데 지원 type으로 회로를 그릴 수 없고 절차는 두 단계뿐
+- asynchronous-sound: triage:정의 반복 수준이며 동시·비동시 두 개념 대비 외에 구성 요소가 없음
+- exchange-rate-regime: triage:스펙트럼 나열과 삼불원칙은 별도 용어 영역이며 이 페이지만으론 분류 축이 모호함
+- screwball-comedy: triage:장르 이름이며 시기·특징 나열뿐 구성 요소 간 관계가 없음
+- theil-index: triage:총불평등을 집단 내와 집단 간으로 나눈다는 공식 분해라 정의 반복이고 수치 도식 가치가 낮음
+- law-of-definite-proportions: triage:법칙 진술 하나와 배수비례법칙과의 비교 2요소뿐이며 정의 반복
+- health-diplomacy: triage:외교 활동의 층위 나열이며 인과·순서 구조가 없고 동기 해석이 논쟁적
+- drug-tolerance-mechanism: triage:약력학·약동학 두 분류 외 구성이 얕고 본문에 정의와 예시 반복이 많아 새로 보여줄 구조가 적음
+- scada: triage:시스템 구성(센서·PLC·관제실)이 선형 나열이고 PLC와의 차이는 두 항목 대비에 그침
+- pid-controller-tuning: triage:핵심은 P·I·D 이득에 따른 오버슈트·정착 곡선인데 감쇠 진동 응답 곡선을 그릴 수 있는 함수가 없음
+- cancer-stem-cell: triage:자가재생·분화 능력의 정의 서술이며 고정 위계인지 가소성인지 논쟁 중이라 단정 도식이 어려움
+- superior-colliculus: triage:해부 구조 기술 위주로 다양한 층 입력이 나열되며 기능 연결은 단일 구조 설명에 그침
+- theatrical-double: triage:아르토 철학 개념으로 구성 요소가 거울 대 분신 두 개뿐이고 도식화할 관계가 없음
+- throat-culture: triage:신속검사 후 배양이라는 2단계가 본문에 이미 충분히 서술되고 단계 간 숨은 관계가 적음
+- lattice-energy: triage:격자에너지 크기 경향은 쿨롱 비례 한 줄이며 보른-하버 순환은 별도 용어 범위
+- trap-door-stage: triage:무대 장치 하나의 설명이며 구성 요소 관계가 단순함
+- resonance-structure: triage:분자 구조식 그리기가 핵심이라 지원 type으로 표현할 수 없고 정의 반복
+- coordinate-measuring-machine: triage:장비 하나이며 접촉식 대 비접촉식 두 갈래 외에 구조가 없음
+- ng2-glia: triage:OPC의 동의어 설명이며 시냅스 입력의 기능적 역할이 아직 논쟁 중이라 단정할 수 없음
+- guatemala-syphilis-experiment: triage:역사적 사건명이며 터스키기 사건과의 대비 2개뿐
+- immunoglobulin-classes: triage:다섯 클래스 나열은 표가 더 적합하고 클래스 전환은 한 줄 언급이라 도식이 새로 보여줄 것이 적음
+- present-bias: triage:핵심은 지수형 대 쌍곡형 할인 곡선의 모양 차이인데 쌍곡형 할인 곡선 함수가 없음
+- antimicrobial-stewardship: triage:병원 관리 프로그램이며 전략 두 가지 비교와 정의 반복이라 단계 구조가 약함
+- field-study-animal-welfare: triage:복지 기준 규범 나열이고 3R은 한 줄 언급이라 관계 구조가 없음
+- eeg-microstate: triage:네 클래스와 네트워크 대응이 논쟁적이고 분석 단계는 일반적인 군집화 흐름에 그침
+- hidden-curriculum: triage:공식 대 숨은 교육과정 2요소이고 기능주의·갈등론 해석 차이가 논쟁적이라 단정 곤란
+- oxidoreductase: triage:효소 군 분류명 나열이며 구성 요소 관계가 단순하고 정의 반복
+- molecular-orbital-theory: triage:에너지 준위 그림이 핵심인데 지원 type으로 그릴 수 없고 결합·반결합 두 개념 설명에 그침
+- ephemerality-performance: triage:개념과 이를 둘러싼 이론가 간 논쟁 소개뿐이라 단정 도식 곤란하고 구성 요소 2개
+- karnofsky-performance-status: triage:0~100 단일 척도이며 ECOG와의 대응은 환산표 한 줄뿐
+- topoisomerase: triage:기전은 흥미롭지만 I·II형 두 유형 비교와 약물 작용이 본문에 이미 충분히 서술되어 새로 보여줄 것이 적음
+- pleural-fluid-cytology: triage:흉수 채취 후 도말 판독이라는 단순 절차이며 라이트 기준은 다른 용어 영역
+- respiratory-system: triage:코에서 폐포까지 구조 나열이며 일반 상식 수준의 정의 반복
+- fta-abs-test: triage:원리와 절차가 정의에 담겨 있고 선별 대 확인검사는 두 항목 대비뿐
+- controlled-release-formulation: triage:복용 후 혈중농도 곡선(급등락 대 평탄)이 핵심이나 평탄 구간 곡선 함수가 없고 방출 기전 나열만으로는 그림 근거가 약함
+- luminometer: triage:측정 장비 설명 — 발광 대 형광 구분은 한 문장이고 구성 요소 관계가 없음
+- somatostatin-interneuron: triage:PV·SST·VIP 대비는 본문에 한 줄 언급뿐이라 회로도를 그릴 근거가 부족하고 SST 자체 설명은 단일 세포 유형 정의
+- enantiomeric-excess: triage:단일 지표(ee) 정의와 계산 설명, 라세미 0%·순수 100% 두 극단 외 구성 요소 없음
+- organotypic-slice-culture: triage:배양 방법 소개 — 본문에 순서 있는 단계나 비교 축이 구체적으로 없고 장단점도 한 줄 수준
+- spanish-golden-age-theatre: triage:연극 시기·양식 개설, 본문에 연대나 분류 구성 요소가 없고 특징 나열뿐
+- thrust-to-weight-ratio: triage:추력÷무게 단일 비율, 구성 요소 2개뿐이며 값 1 기준은 정의 반복
+- first-law-thermodynamics: triage:에너지 보존 정의 반복, 닫힌계·열린계 구분은 있으나 본문이 도식화할 만큼 구체적이지 않음
+- polymorphism-crystal: triage:안정형·준안정형 구분이 한 문장이고 흑연·다이아몬드 예시는 정의 반복 수준
+- polymer-crystallinity: triage:결정질·비정질 비율 단일 지표, 정의 반복이며 라멜라 구조는 본문에서 간략히만 언급
+- anti-periplanar: triage:이면각 180도 한 조건의 입체화학 개념, 뉴먼 투영도 같은 구조식은 도식 타입으로 표현 불가
+- ependymal-cell: triage:뇌척수액 순환 보조 세포 설명 — 맥락총과 역할 구분 한 줄뿐 구성 요소 관계 부족
+- breakthrough-therapy-designation: triage:규제 지원 제도 설명, 상담·우선심사 등 단계가 구체적 순서로 제시되지 않고 신속심사 등과의 중복만 언급
+- hexamethylenediamine: triage:단일 시약명, 나일론 6,6 반응은 아디프산 등 다른 용어의 설명 범위
+- black-triangle-scheme: triage:제도 표시 설명, 본문이 표시 부착과 해제를 서술할 뿐 구성 요소 3개 이상 관계가 없음
+- auer-rod: triage:세포 내 봉입체 하나의 형태 소견, 골수구계와 림프구계 감별은 본문에 한 줄뿐
+- community-theatre: triage:연극 장르 정의와 사례 서술, 단계나 비교 축 없음
+- fst-statistic: triage:분화 지표 단일 값(0~1) 정의, 값 해석은 정의 반복이며 곡선 함수와도 무관
+- development-length: triage:최소 매입 길이 정의, 산정식 변수 나열과 갈고리 보정은 본문이 개념적 관계 도식을 주지 않음
+- welding: triage:접합 공법 총칭 설명, 용접 변수와 결함 나열뿐이고 공정 순서·분류 체계가 본문에 정리되어 있지 않음
+- automated-chemistry-analyzer: triage:장비 설명 — 혼합·반응 판독·세척 모듈을 언급하나 순서 있는 절차로 제시되지 않고 간섭 주의사항이 중심
+- studio-system: triage:수직 통합과 1948년 판결을 말하지만 구성 요소 간 관계가 본문에서 구체적 구조로 제시되지 않고 위계 언급도 한 줄뿐
+- digital-twin-simulation: triage:실물-가상 동기화 정의 설명, 칼만 필터 등은 한 줄 언급이며 상태 관측기와 중복되는 개념
+- elam-semiotics-of-theatre: triage:이론 소개 — 극텍스트·공연텍스트 구분 두 요소와 논점 서술뿐이라 그림이 정의를 반복
+- preview-performance: triage:공연 단계 하나의 정의, 리허설·프리뷰·개막 순서는 한 줄 비교에 그침
+- yuan-zaju: triage:희곡 양식 설명 — 4절 구조와 일창 규칙은 사실 나열이고 구성 요소 관계 도식 근거 부족
+- law-of-multiple-proportions: triage:CO와 CO2 한 예시의 비율 수치 법칙, 구성 요소 2개이며 정의 반복
+- theatre-sound-design: triage:공연 창작 영역 개설, 단계·분류·비교가 본문에 정리되어 있지 않음
+- dance-drama: triage:공연 형식 총칭 설명, 발레·탄츠테아터 범주가 한 줄 언급이라 분류 도식 근거 약함
+- chair-transition-state: triage:전이 상태 입체구조(의자 대 배)는 분자 기하라 도식 타입으로 표현 불가, 에너지 비교도 수치 없음
+- proscenium-stage: triage:극장 구조 정의, 원형·돌출무대 등 대안 형태는 한 줄 언급뿐 구성 요소 부족
+- absurdist-humor: triage:유머 양식 설명, 블랙코미디와의 대비도 한 문장 수준이라 구성 요소 3개 미만
+- graphene-properties: triage:물성 나열(전기·열·강도) 속성 목록이고 서로의 관계나 단계가 없음
+- simulation: triage:시뮬레이션 일반 개념, 수치·몬테카를로·에이전트 세 유형은 목록 나열이며 정의 반복 성격
+- albumin-test: triage:검사 항목 하나; 알부민 저하→부종은 정의 설명의 반복이고 검사 해석 단순
+- paracentesis: triage:시술 하나; 진단용·배액용 두 갈래와 알부민 차이 판정이 있으나 구성 요소 관계가 얕아 글로 충분
+- phase-diagram-alloy: triage:합금 상평형도는 곡선 겹치기로 못 그리는 상태도라 plot 함수가 없고 다른 type으로 대체도 어려움
+- thermal-expansion: triage:단일 물성(온도↑ 길이↑); 열팽창계수 차이는 한 줄 설명으로 충분
+- arterial-line-monitoring: triage:의료 감시 기법 하나; 파형·합병증 나열이고 서로 얽힌 구성 요소 구조가 없음
+- computational-fluid-dynamics: triage:시뮬레이션 방법론 개괄; 격자·난류모델·검증은 나열일 뿐 관계 구조가 뚜렷하지 않음
+- pacemaker: triage:이식 기기 하나; 감지 후 자극 원리는 정의 반복이고 NBG 코드는 본문 근거 부족
+- hydrogen-bond: triage:분자 간 인력 하나; 물·DNA 예시는 용례일 뿐 단계나 분류 구조 없음
+- von-mises-yield-criterion: triage:다축 응력 항복 판정 기준; 핵심은 항복곡면(타원 대 트레스카 육각형) 모양이나 plot 함수로 못 그림
+- navier-stokes-equations: triage:지배방정식 하나; 압력·점성·관성 균형은 항 나열이고 DNS·RANS·LES는 CFD 쪽 내용
+- nvivo: triage:소프트웨어 제품명; 개방·축·선택 코딩은 근거이론 절차이지 이 도구 고유 구조가 아님
+- perianal-swab-method: triage:요충란 채취 검사법; 테이프 부착-관찰의 짧은 절차라 글로 충분하고 구성 요소 3개 이상의 관계 구조는 약함
+- safranin-o-solution: triage:단일 염색 시약; 그람염색 단계 흐름은 그람염색 용어에서 다룰 내용이라 시약 항목에서는 중복
+- hypertension: triage:질환 정의와 측정; 본태성/2차성·백의/가면 구분은 부가 설명이고 중심 구조가 약함
+- restoration-comedy: triage:장르 개요; 폐쇄 해제→여성 배우 등장은 구성 요소 2개 정도라 시간 순서 도식 근거 부족
+- revue-theatre: triage:공연 형식 개요; 장면 나열 구조라 3개 이상 요소 간 관계가 없고 보드빌과의 차이는 문장 설명
+- ethnographic-fieldwork: triage:질적 연구방법; 참여관찰 정도 스펙트럼은 양 끝 둘뿐이고 나머지는 정의 반복
+- copy-number-variation: triage:구조 변이 개념; 중복/결실 두 갈래와 병원성 판정은 도식으로 얻을 새 정보가 적음
+- slapstick-comedy: triage:희극 양식 개요; 역사적 계보 언급뿐이라 도식화할 구조가 얇음
+- relaxed-performance: triage:공연 운영 방식; 조명·음향 조정 나열이라 구성 요소 간 관계 구조가 없음
+- de-narrativization: triage:연극 경향 개념; 몽타주·파편화된서사와의 구분은 문장 설명이고 단계나 축이 없음
+- occult-blood-test: triage:선별검사 하나; 양성→내시경 흐름은 두 단계이고 구아이악법 대 FIT 비교는 부가 정보
+- therapeutic-vs-nontherapeutic-research: triage:두 범주 구분 자체가 정의의 전부; 비교 축이 직접 이익 유무와 위험 한도 정도라 정의 반복이 됨
+- morality-play-drama: triage:장르 개요; 유혹-타락-회개-구원은 줄거리 요약이고 미스터리극과의 차이는 두 항목 비교뿐
+- hot-cold-plate-test: triage:동물 행동 검사; 반응 잠재기 길고 짧음 해석이 한 축뿐이고 하그리브스와의 비교는 문장 수준
+- gel-lighting: triage:무대 소품 설명; 색 번호 체계와 CTO/CTB 교정은 나열이라 관계 구조가 없음
+- automated-hematology-analyzer: triage:검사 장비 하나; 원리 나열과 플래그 후 도말 확인 두 단계뿐이라 도식 근거 부족
+- sodium-nitrite-reagent: triage:단일 시약명; 디아조화 반응은 서술 한 단계이고 육가공 용도는 부가 설명
+- gear-ratio: triage:단일 변수 설명; 속도-토크 맞교환은 한 문장이고 곡선으로 그릴 만큼의 수치 구조가 없음
+- stard-statement: triage:보고 지침 이름; 30개 항목 체크리스트와 흐름도 언급뿐이라 도식으로 보여줄 관계 구조가 본문에 없음
+- sodium-bicarbonate-reagent: triage:단일 시약명; 산과 반응해 CO2 발생은 한 줄 반응식으로 충분
+- sociodrama: triage:참여형 기법 개요; 웜업-액션-나누기 세 단계가 있으나 단순 나열이고 사이코드라마 구분은 문장 설명
+- performance-art: triage:미술 형식 개요; 일회성 대 기록의 긴장은 두 항목 대비일 뿐 구조 요소가 부족
+- neural-oscillation-band: triage:다섯 대역을 나열한 표 성격이라 관계·메커니즘이 없고 정의 반복에 가까움
+- serine-protease: triage:촉매 삼조체 설명이 정의와 같은 내용이며 단계적 기전 서술이 본문에 없음
+- special-effects-film: triage:상위 개념 아래 실사효과·시각효과 둘뿐이라 정의 반복 수준
+- pageant-wagon: triage:중세 연극 구조물 하나를 설명한 역사 용어, 구성 요소 관계가 약함
+- free-thyroxine-test: triage:단일 검사명, TSH와 짝지어 해석한다는 내용뿐이라 그릴 구조가 없음
+- precipitation-reaction: triage:이온 짝 교환 예시 하나(AgNO3+NaCl)로 정의를 되풀이하는 수준
+- gain-of-function-mutation: triage:기능소실과의 대비·세분류가 언급되지만 본문 근거가 얇아 그림 구성이 본문 밖 지식에 의존
+- changgeuk: triage:한국 전통 공연 장르명, 판소리와의 2항 구분뿐
+- uv-vis-spectrophotometer: triage:장비명이며 흡광도-농도 관계는 단일 비례식이라 새로 보여줄 구조 없음
+- power-transformer: triage:1차·2차 코일과 권선비라는 정의 수준의 설명이고 3요소 이상의 관계 서술이 약함
+- free-cinema: triage:영화 운동명·인물·사건 나열, 시각화할 구조 없음
+- electromagnetic-interference: triage:발생원-경로-피해 구도는 있으나 본문이 정의·예시 반복이고 경로 구분 설명이 얕음
+- drug-drug-interaction-mechanism: merge-candidate: 병합 후보라 보류(was reviewed)
+- deconstruction-of-language: triage:극작 기법명, 정의 반복이며 구성 요소 관계 없음
+- womans-film: triage:할리우드 장르명과 비평사 설명, 도식화할 구조 없음
+- bravais-lattice: triage:14종 격자 전체를 그리기엔 복잡하고 본문은 7계×4중심 개요 한 줄뿐
+- science-diplomacy: triage:세 유형 구분이 언급되나 추상적이고 학계 해석이 갈려 단정해 그리기 어려움
+- schwann-cell: triage:슈반세포 대 희소돌기아교세포의 2항 대비가 전부이며 하나는 이미 정의에 있음
+- kirchhoffs-laws: triage:법칙 2개로 구성되고 정의 반복, 회로도 자체는 지정된 type으로 못 그림
+- difficult-airway: triage:하위 유형 나열과 알고리즘 언급은 있으나 단계 순서가 본문에 구체적으로 없음
+- flash-chromatography: triage:기법명, 컬럼 크로마토그래피와의 가압 여부 차이 하나뿐
+- sharp-wave-ripple: triage:재생 방향과 기능이 연구마다 달라 논쟁 중이라 단정 도식이 어려움
+- bethesda-system: triage:등급 용어 나열 중심이고 등급 간 관계·절차가 본문에 구체적이지 않음
+- perovskite-structure: triage:ABX3 원자 배치는 결정 격자 3D 구조라 지정된 9개 type으로 표현 불가
+- teratogenicity: triage:노출 시기별 위험 설명이지만 위험 곡선 값이 본문에 없어 정성 서술 수준
+- production-design: triage:미술 부서 직책 위계가 있으나 직능 설명이라 학습 가치가 낮고 구성 요소 관계가 얕음
+- periodic-safety-update-report: triage:제출 주기·검토 흐름을 서술하나 단계 구성이 정의 수준으로 단순함
+- memory-transformation: triage:표준 공고화 대 다중흔적 이론 논쟁 중인 틀이라 단정해 그리기 어려움
+- transition-metal-oxidation-state: triage:산화수 개념과 철·망간 예시 나열, 구성 요소 간 관계 없음
+- balance-beam-test: triage:단일 행동검사로 측정 지표 나열뿐이고 절차 단계가 본문에 없음
+- integrated-information-theory: triage:파이 값 하나로 의식을 정량화한다는 이론 주장이고 논쟁 중이라 단정 불가
+- myelin-basic-protein: triage:단일 단백질 이름, 기능이 접착제 역할 하나뿐
+- methamphetamine: triage:단일 약물명, 기전 서술이 있으나 물질 항목이며 병용 효과 중심이라 구조 불명확
+- dna-polymerase-i: triage:단일 효소 항목이며 활성 3종 나열과 클레노우 단편 설명이 중심
+- overlapping-generations-model: triage:세대 겹침 구조는 있으나 정의 반복이고 학계 모형 비교 서술은 텍스트가 대부분
+- gene-and-chromosome: triage:DNA와 염색체 포장 관계 기초 개념, 정의 반복이며 다른 항목과 중복
+- piping-system-design: triage:설계 고려 항목 나열이고 절차 순서·관계 구조가 본문에 없음
+- single-nucleus-rna-sequencing: triage:방법 이름과 단일세포 방식 대비 장단점 서술이 중심이라 순서 있는 단계나 3요소 관계가 본문에 없음
+- resorcinol: triage:단일 시약명 — 구조와 셀리바노프 반응 용도 나열일 뿐 관계 구성 요소 없음
+- sensorimotor-gating: triage:PPI 측정은 사전자극→놀람 감소의 2단계 정의 반복이고 회로 설명은 본문에 구체 구성 요소가 부족함
+- parabasis: triage:고대 희극의 한 대목을 가리키는 용어로 구성 요소 간 관계가 없고 정의 반복
+- potassium-chloride-reagent: triage:단일 무기염 시약명 — 용도 나열뿐
+- modulation: triage:진폭·주파수·위상 세 갈래 분류이나 정의 문장이 이미 전부 말해 주며 파형 그림은 plot 함수로 못 그림
+- rna-localization-zip-code: triage:서열-결합단백질-운반 흐름이 있으나 본문이 비유 설명 중심이고 필요성·충분성 구분 외에 새 구조가 없음
+- fit-and-tolerance: triage:헐거운·중간·억지 끼워맞춤 3분류지만 정의 반복 수준이고 치수 공차대 그림은 본문 수치 근거가 없음
+- adaptation-theory: triage:이론 개요와 학자 소개 중심의 서술로 도식화할 구조 없음
+- sodium-percarbonate: triage:단일 시약명 — 물에 녹아 과산화수소를 내는 1단계 분해뿐
+- luminol-reagent: triage:단일 화학발광 시약명 — 산화제·촉매에 의한 발광 한 단계 설명이 전부
+- script-supervisor: triage:직책 이름 — 현장 기록 업무를 나열한 설명이라 관계 구조 없음
+- redox-titration: triage:적정 일반 절차 설명이고 전위 적정곡선은 산염기 적정과 모양이 같은 S자라 새 정보가 적으며 본문에 수치 근거 없음
+- maxwells-equations: triage:네 방정식 개요 — 전기장·자기장 상호 유도 서술이 있으나 식 없이는 구성 요소가 모호해 도식이 정의를 되풀이함
+- electrochemical-cell: triage:3전극 셀 구성 설명은 장치 배치도에 가까워 제공 type으로 의미 있게 못 그림
+- public-goods-game: triage:무임승차 딜레마 설명이지만 보수 구조 수치가 본문에 없어 표나 곡선을 근거 있게 그릴 수 없음
+- acetanilide-reagent: triage:단일 화합물 시약명 — 재결정·융점 표준 시료 용도 나열
+- thermoregulation: triage:시상하부 되먹임 서술이 정의·쉬운 설명 수준이고 갑상선 축 등 다른 항목과 구분되는 새 구조가 없음
+- deotboegi-puppetry: triage:인형 조종기법 하나를 가리키는 용어 — 구성 요소 관계 없음
+- time-image: triage:들뢰즈 개념 두 체제 대비는 있으나 철학적 해석이 갈리고 시각화 근거가 되는 구성 요소가 부족함
+- superacid: triage:산 세기 척도 설명 — 본문에 비교할 수치 순서가 해밋 값 -20 외에 없어 도식화 근거 부족
+- film-editing: triage:편집 정의와 머치의 여섯 기준 언급뿐 가중치 등 구조 정보가 본문에 없음
+- y-maze-test: triage:행동검사 하나 — 교대 비율 계산 외 단계·구성 요소 없음
+- negative-skin-friction: triage:중립점 위아래 마찰 방향 변화는 말뚝 단면 스케치가 필요해 제공 type으로 못 그림
+- innovation-policy: triage:공급 측 대 수요 측 두 분류와 정책 수단 나열 — 구성 요소 2개 수준
+- commutability: triage:회귀선과 예측구간 안에 물질이 드는지 보는 산점도 개념이라 제공 plot 함수로 못 그리고 글 설명이 충분함
+- viral-capsid: triage:정이십면체·나선 대칭 분류와 외피 구분이 정의 수준이고 삼각분할수 설명은 그림 근거 수치가 없음
+- urbanism-way-of-life: triage:워스 이론의 세 변수와 결과가 있으나 반론과 함께 서술된 개념 설명이라 정의 반복에 가까움
+- histone-dopaminylation: triage:새로 정립 중인 변형이라 기전 단계가 연구마다 달라 단정해서 그리기 어렵고 구성 요소도 도파민·히스톤 2개 중심
+- superimposition: triage:영화 기법 하나 — 디졸브와의 구분이 전부라 구성 요소 2개
+- import-substitution-industrialization: triage:수입대체 대 수출지향 비교가 핵심이나 국가별 평가가 갈리는 논쟁이라 단정 도식이 어렵고 구성 요소가 적음
+- cerebral-amyloid-angiopathy: triage:아밀로이드가 혈관벽에 쌓여 출혈에 이르는 직선 서술이 정의 반복이며 배출 모델은 논쟁 중
+- cardiofaciocutaneous-syndrome: triage:증후군 이름 — 원인 유전자 나열과 누난 증후군과의 유사성 서술뿐
+- synaptogenesis: triage:형성 후 가지치기라는 두 단계 설명이고 시기별 시냅스 수 수치가 본문에 없음
+- shannon-diversity-index: triage:종 수와 균등도를 합친 지표 정의 — 본문에 비교할 수치 구조 없음
+- intron-retention: triage:인트론 잔류의 결과 경로가 여러 가설로 갈려 있고 단일 인과 흐름을 단정할 수 없음
+- potassium-chromate-reagent: triage:단일 시약명 — 모르법 지시약 역할 한 가지뿐
+- thin-blood-film: triage:표본 종류 하나 — 후층도말과의 2요소 비교 정도라 도식 근거 부족
+- injection-molding-machine: triage:장비 이름이고 가소화·사출·보압냉각 3단계 설명은 정의와 쉽게 풀면에서 이미 충분히 전달됨
+- n-hexane-reagent: triage:단일 용매 시약명; 대사 경로 언급은 곁가지일 뿐 용어의 중심이 아님
+- silent-engram: triage:침묵 엔그램 대 일반 엔그램 비교는 설치류 조작적 정의에 의존하고 본문이 기억 저장 구조를 단정하기 어렵게 논쟁 중
+- macs: triage:양성·음성 선택 두 방식과 컬럼 분리 단계는 쉽게 풀면과 깊게에서 문장으로 이미 명료하고 그림이 추가로 보여줄 구조가 얕음
+- brinell-hardness-test: triage:시험법 이름이며 압입→지름 측정→HB 계산의 단순 절차 외에 3개 이상 관계 요소를 가진 구조가 없음
+- central-venous-pressure: triage:단일 측정값; 값 해석 논쟁은 서술이고 구성 요소 관계를 그릴 만한 기전이 본문에 없음
+- rpr-test: triage:검사법 이름; VDRL과 원리 같고 탄소 입자 육안 판독이 차이의 전부라 구성 요소 2개뿐
+- phosphocreatine-system: triage:에너지 3계통의 시간 중첩 곡선이 핵심이나 본문에 수치가 없고 순서 서술만으로 충분하며 겹치는 곡선은 plot 함수로도 안 됨
+- digital-breast-tomosynthesis: triage:영상 기법 정의 반복; 여러 각도 촬영→재구성 단면은 정의문에 그대로 들어 있고 비교 축 없음
+- benedicts-solution: triage:단일 시약명; 색 변화 단계는 단순 나열이라 관계 구조가 없음
+- total-cinema-myth: triage:바쟁의 관념적 명제이며 기술사를 목적론으로 그리면 본문 주의점의 논쟁을 단정하게 되므로 도식화 부적합
+- criticality-hypothesis: triage:핵심 증거인 신경사태 거듭제곱 분포는 plot 함수에 없고, 가설 자체가 논쟁 중이며 거듭제곱 분포가 임계성을 증명하지 않는다는 주의가 있어 단정 도식이 어려움
+- sodium-bisulfate: triage:단일 시약명; 해리 반응식 한 줄 외에 구성 요소 관계가 없음
+- informal-economy: triage:개념 정의와 측정 방법 두 갈래 나열이며 본문에 그림으로 구조화할 구체적 관계가 부족
+- social-fact: triage:물질적·비물질적 두 하위 구분뿐이고 구속·외재성은 정의 반복이라 그림이 보탤 것이 없음
+- time-lapse: triage:촬영 기법 이름; 패스트모션·하이스피드와의 대비도 문장 한두 줄로 충분
+- mitochondrial-inheritance: triage:정자 미토콘드리아 제거→모계 전달은 정의 반복이며 핵심인 가계도 전달 양상은 지원 type이 없음
+- viral-culture: triage:검사법 이름이고 접종→배양→CPE 관찰의 단순 절차이며 정의와 쉽게 풀면이 이미 순서를 설명함
+- bond-order: triage:단일 수치 개념; 결합 길이·에너지와의 관계는 한 문장이고 MO 에너지 준위도는 지원되지 않아 그림화 곤란
+- transient-ischemic-attack: triage:임상 증후군 정의 반복; 막힘→재개통→증상 소실은 단순 서술이고 비교 구조 없음
+- cross-reactivity-drug-allergy: triage:약물 A에서 유사 구조 약물 B로 이어진다는 정의 반복이며 본문이 위험도를 계열별 수치로 제시하지 않음
+- raphe-nuclei: triage:뇌 구조명; 소핵별 투사 영역 차이는 본문에 구체 내용이 없어 그릴 근거가 부족
+- biodiversity: triage:유전자·종·생태계 3수준은 정의문에 이미 있고 지수 설명은 수치 없는 서술이라 그림이 보탤 새 정보가 적음
+- noradrenergic-system: triage:청반에서 피질·편도로 투사한다는 허브 구조 정도이며 역U 관계는 별개 법칙으로 인용될 뿐이라 본문 근거가 약함
+- mixed-selectivity: triage:고차원 표상 이점은 이론적 주장이고 본문에 그림화할 구체적 변수 조합 구조나 수치가 없음
+- post-translational-modification: merge-candidate: 병합 후보라 보류(was reviewed)
+- tannic-acid: triage:단일 화합물·혼합물명이고 단백질·철 이온과의 결합 성질은 속성 나열임
+- arenium-ion: triage:EAS 메커니즘의 한 중간체이며 상위 용어 반응 단계의 하위 사례라 독립 도식의 가치가 낮고 에너지 준위도는 지원 안 됨
+- physical-training-method: triage:연극 훈련 철학 개념; 구조적 구성 요소나 순서가 본문에 없음
+- 5xfad-mouse: triage:동물 모델명이고 다섯 돌연변이·플라크 조기 형성은 속성 나열임
+- monetary-policy-tools: triage:세 수단 나열 정의 반복이며 전달경로 네 갈래는 이름만 언급되고 본문에 구체 구조가 없음
+- serum-indices-interference: triage:용혈·황달·지질혈증 세 지수의 간섭 원인을 문장으로 나열한 것이 전부라 그림이 보탤 관계가 적음
+- paramount-decree: triage:특정 판결(사건)이며 수직통합→해체→쇠퇴 인과는 한두 문장으로 충분히 전달됨
+- ground-plan-theatre: triage:도면 종류 이름; 구성 요소 간 관계가 아니라 도면 자체가 정의 대상
+- n400-component: triage:파형 자체가 핵심(일치·불일치 조건의 약 400ms 음전위)이나 plot 함수에 ERP 파형이 없고, 의미 통합 대 어휘 접근 해석이 논쟁 중
+- sodium-carbonate-reagent: triage:단일 시약명; 가수분해·열분해 반응식 나열뿐
+- dematuration: triage:성숙→미성숙 유사 상태로의 되돌림이라는 두 상태 전환뿐이고 표지·전기 특성은 나열이어서 3요소 관계 도식이 안 나옴
+- complex-spike: triage:단일 스파이크와의 파형 대비가 핵심인데 소뇌·해마 기전이 달라 하나의 도식으로 단정하기 어렵고 정의 반복에 가까움
+- metabolic-syndrome: triage:다섯 진단 항목 중 3개 이상이라는 기준 계산이며, 내장지방-인슐린 저항성 기전은 deep에서 흔히 설명된다 수준이라 도식의 근거가 약함
+- hardware-description-language: triage:프로그래밍 언어의 정의·용도 설명이고 도식화할 관계 구조(순차 vs 동시 동작)가 본문에 단계로 제시되지 않음
+- compulsive-drug-seeking: triage:처벌에도 약물 추구를 지속한다는 행동 정의와 측정 방식 기술이며 구성 요소 간 관계가 단계·분류로 정리되지 않음
+- random-vibration-testing: triage:PSD로 정의한 무작위 진동을 가하는 시험이라는 설명이 전부이고 정현파 시험과의 비교도 한 줄에 그침
+- pharmacogenomic-biomarker: triage:대사 관련 대 표적 관련 두 갈래 분류뿐이고 사례도 유전자 이름 나열이어서 정의 반복 수준
+- lat1-large-neutral-amino-acid-transporter: triage:단일 수송체 단백질 항목이며 4F2hc 복합체와 교환수송 설명은 구성 요소가 2개 수준이라 도식 이득이 적음
+- open-science: triage:오픈액세스·데이터·방법론·피어리뷰·시민과학 나열 분류로 정의 반복 성격이 강하고 항목 간 관계가 약함
+- viewpoints-technique-theatre: triage:시간 4요소와 공간 5요소 목록이며 요소 간 관계 없이 나열 구조라 그림이 정의를 되풀이함
+- centrality-measures: triage:네 지표의 정의 나열이고 차이를 보이려면 실제 네트워크 그래프가 필요해 현재 9개 type으로는 못 그림
+- topology-optimization: triage:반복 계산으로 밀도 변수를 조정한다는 일반적 최적화 루프이고 본문에 구별되는 단계 구조가 없음
+- purchasing-power-parity: triage:절대적 PPP 대 상대적 PPP 두 개념뿐이고 빅맥지수 예시도 단일 계산이라 구성 요소 3개 미만
+- cel-animation: triage:배경과 셀 두 층을 겹친다는 단순 구조이고 공정 분업은 언급만 되어 단계가 제시되지 않음
+- green-public-procurement: triage:정책 정의와 효과 서술이며 인증 기준·전과정평가는 한 줄 언급이라 도식화할 관계 구조가 없음
+- beaker-lab: triage:단일 실험 기구 이름
+- temperature-preference-test: triage:두 칸 장치 설명이고 이원판형 대 원형 구배판형 비교는 2개 항목뿐
+- foley: triage:후반 작업 효과음 제작 방식을 가리키는 영화 용어이며 어원과 사례 서술이라 관계 구조가 없음
+- transition-state-theory: triage:반응 좌표에 따른 에너지 장벽 도표가 핵심인데 반응물·전이상태·생성물 비대칭 에너지 곡선을 그릴 함수가 없음
+- intellectual-montage: triage:쇼트 충돌로 개념을 전달한다는 편집 이론이고 효과가 논쟁적이라 단정 도식이 어려움, 층위 설명도 본문에 없음
+- iron-ii-sulfate: triage:단일 시약명(FeSO4)
+- valproic-acid-autism-model: triage:HDAC 억제 기전은 추정으로 제시되고 모델 설명은 투여 후 행동 관찰이라는 방법 서술이라 단정적 도식이 어려움
+- risk-evaluation-mitigation-strategy: triage:교육·등록·검사·제한 유통 등 조치 목록 나열이며 요소 간 관계나 순서가 없음
+- lyase: triage:효소 분류군 하나의 정의이며 EC 계층은 본문에서 4번 부류라는 언급뿐이라 도식 구성 요소가 부족
+- clinically-significant-drug-interaction: triage:심각도와 근거 확실성 기준 설명이며 약동학/약력학 이분은 상호작용 일반 분류라 이 용어 고유 도식이 아님
+- anhydrous-ethanol: triage:단일 시약명, 순도와 보관 주의 중심
+- macguffin: triage:서사 장치 개념으로 인물 동기와 관객 관심의 차이를 말로 설명하는 정의 반복이고 구성 요소가 2개뿐
+- opportunistic-infection: triage:면역저하 유형별 병원체 사례 몇 가지를 든 수준이고 본문만으로는 대응 관계가 완결되지 않아 외부 지식 의존이 큼
+- press-brake: triage:펀치와 다이로 판재를 굽히는 장비 설명이고 바닥굽힘 대 에어벤딩은 2개 항목 비교에 그침
+- participatory-theatre: triage:개방형 대 분기형 구분과 참여 정도 스펙트럼이 서로 다른 축으로 섞여 있고 논문별 분류가 달라 단정하기 어려움
+- schottky-defect: triage:양이온·음이온 공공 쌍이라는 단일 결함 정의이고 프렌켈 결함과의 비교는 한 줄 언급뿐이라 구성 요소 2개
+- woodward-hoffmann-rules: triage:전자 수와 열·광 조건에 따라 콘로테이션·디스로테이션이 갈리는 2x2 구조이나 본문에는 각 칸의 대응이 직접 적혀 있지 않아 외부 지식 의존이 큼
+- vacuum-chamber: triage:밀폐 용기 장비 설명이고 진공 등급 구분은 저·고·초고진공 나열에 그침
+- prior-authorization: triage:보험자 승인 절차의 일반 서술이며 심사 기준과 처리 절차가 국가·보험자마다 달라 단정할 단계 순서가 본문에 없음
+- hemovigilance: triage:수혈 이상반응을 모아 분석·개선한다는 일반적 보고 체계 설명이고, 본문에 구분되는 단계 구성이 거의 없어 정의 반복
+- flashforward: triage:시간 순서를 뒤바꾸는 서사 장치라는 정의가 전부이고 구성 요소가 현재와 미래 장면 둘뿐이라 그림이 정의를 되풀이함
+- bearing-mechanical: triage:기계 부품 이름 설명이고 본문의 내륜·외륜·전동체 결함 구분은 진단 알고리즘 이야기라 독립된 관계 구조가 약함
+- atkinson-index: triage:균등분배대등소득과 평균소득의 비율이라는 지표 정의 설명이라 구성 요소가 2개이고 ε 민감도는 기존 plot 함수로 못 그림
+- slew-rate: triage:사인파가 삼각파로 일그러지는 파형 비교가 핵심이나 plot에 사인파 계열 함수가 없어 그릴 수 없음
+- obsessive-compulsive-disorder: triage:본문에 강박사고-행동 고리의 단계(불안, 안도 등)가 적혀 있지 않고 회로명만 나열되어 근거가 부족함
+- surface-treatment: triage:도금·코팅 방식의 목록형 설명이고 방식 간 관계가 단순 나열이라 정의를 되풀이함
+- genetic-drift: triage:핵심은 대립유전자 빈도가 작은 집단에서 무작위로 요동치는 궤적인데 plot에 확률적 경로 함수가 없고 병목·창시자 분류는 구성 요소가 적음
+- autoregulation-cerebral-blood-flow: triage:혈압 변화에도 혈류가 일정한 평탄 구간과 그 밖에서 수동적으로 변하는 곡선이 핵심인데 plot에 평탄 구간 함수가 없음
+- socialist-realism-theatre: triage:국가 창작 방침이라는 정의와 특징 나열이 전부이고 3개 이상 요소 사이의 구조적 관계가 본문에 없음
+- living-theatre-company: triage:특정 극단 이름과 그 활동 소개라 기관 설명에 해당함
+- theatre-of-dionysus: triage:고대 아테네의 특정 극장 유적이라 지명·장소 설명이며 공간 구조도는 지원되지 않음
+- population-coding: triage:픽셀 비유로 개별 뉴런 대비 집단의 정확성을 말하는 정의 반복이고 튜닝 곡선 같은 구체 모양은 본문에 없음
+- steady-state-kinetics: triage:핵심은 과도기 뒤 효소-기질 복합체가 일정해지는 시간 곡선인데 plot에 그 모양이 없고 Km·Vmax 곡선은 미카엘리스-멘텐 항목의 몫
+- metal-ion-cofactor: triage:촉매 참여와 구조 안정화 두 역할 설명 위주이고 구성 요소가 적어 정의를 되풀이함
+- chloroauric-acid: triage:금 나노입자 합성의 전구체 시약 이름이라 단일 시약명
+- place-cell-theory: triage:발화 영역 개념을 말로 되풀이하는 이론 소개이고 겹치는 장 곡선은 본문 밖 지식에 기대며 리맵핑 구분은 2개뿐
+- elizabethan-theatre: triage:시대 개괄이며 극작가·극장·관습이 나열될 뿐 구조적 관계가 없음
+- lecoq-physical-theatre: triage:인물이 정립한 교육 체계 소개로 단계가 중립가면 이후 장르 훈련 정도로 모호하며 인물·기관 설명에 가까움
+- vanadium-pentoxide: triage:접촉법 촉매로 쓰이는 단일 시약명이고 V5+/V4+ 순환은 황산 제조 공정 설명에 속함
+- sanskrit-drama: triage:고전 희곡 전통의 시대·양식 소개이며 구성 요소 간 관계가 본문에 없음
+- entropy-generation: triage:비가역 요인 네 가지를 나열한 수준이고 열역학적 손실의 정의를 되풀이하는 그림이 됨
+- resistor: triage:전자회로 부품 하나의 설명이고 옴의 법칙 선형 관계는 정의 반복
+- fourier-transform-signal-analysis: triage:시간 신호를 사인파 합으로 분해하는 개념이 핵심이나 plot에 사인파 합성 함수가 없어 그릴 수 없음
+- heme-cofactor: triage:보조인자 하나가 여러 단백질에 쓰인다는 나열 수준이고 관계 구조가 없음
+- compressor: triage:용적형과 터보형 두 갈래만 언급되고 하위 구성이 얕아 정의를 되풀이하는 수준
+- effective-population-size: triage:실측 개체 수 대비 유효 크기 개념이 정의 반복이고 수식·구성 요소가 본문에 없음
+- acid-dissociation-constant: triage:pKa에 따른 이온화 곡선을 암시할 뿐 본문에 곡선 모양 근거가 없고 단일 상수 정의에 가까움
+- fungi-and-protists: triage:균류와 원생생물 두 무리를 묶은 용어이며 원생생물 분류 자체가 학계에서 재편 중이라 단정해 그리기 어려움
+- thermal-simulation-analysis: triage:전도·대류·복사 나열 외에 구조가 없는 일반 해석 기법 설명
+- in-yer-face-theatre: triage:1990년대 영국 연극 경향이라는 비평 용어로 구성 요소 간 관계가 없음
+- census-data-analysis: triage:센서스의 전수 특성이 표본조사와 다르다는 한 가지 설명이고 구성 요소가 3개 미만
+- sodium-thiosulfate: triage:단일 시약명이며 적정 반응식 한 줄 외에 도식화할 구조가 없음
+- power-flow-analysis: triage:4변수 중 2개를 알고 푼다는 설명뿐이며 해석 절차나 구성이 본문에 구체적이지 않음
+- torsion: triage:토크와 전단응력 한 가지 관계 설명이고 구성 요소가 2개 수준
+- ocean-photic-zone: triage:광층과 무광층 두 구간 정의 반복이며 경계도 탁도 따라 변해 고정 구조로 그리기 어려움
+- translational-control: triage:개시 인자·mTOR·UTR 요소를 나열할 뿐 서로의 관계나 순서가 본문에 없음
+- oxytocin: triage:신경펩타이드 한 물질의 역할을 나열한 것이며 단일 호르몬명
+- kainate-receptor: triage:이온통로형 글루탐산 수용체 하위군 이름이며 서브유닛 나열 외에 관계 구조가 약함
+- structural-functionalism: triage:가족·교육·법 제도와 기능을 나열한 정의 반복이고 학파 내 AGIL 등은 본문에 세부 관계가 없음
+- interactive-performance-art: triage:개방형과 제한형 두 극을 말하나 구체 구성이 얕고 예술 형식 정의 반복
+- dendritic-spine: triage:필로포디아·버섯형·뭉툭형 형태 나열이고 동역학 항목과 내용이 겹침
+- neural-manifold: triage:차원축소로 드러나는 저차원 구조라는 개념이며 본문이 느슨한 의미라고 밝혀 구성 요소가 모호함
+- orphan-drug-designation: triage:희귀질환 지원 제도의 혜택 나열이고 구성 요소 간 관계가 약함
+- wind-tunnel: triage:실험 시설 하나의 설명이며 구성 요소 간 관계가 없음
+- ethylene-glycol-reagent: triage:단일 시약명이며 용도 나열뿐
+- radiation-shielding: triage:재료·두께로 방사선을 줄인다는 정의의 반복이고, 반가층 감쇠 곡선은 일반적 지수감쇠라 도식으로 새로 알려 줄 내용이 부족하다
+- ammonium-chloride-reagent: triage:단일 시약명(NH4Cl) — 완충용액·비료 용도 나열일 뿐 구성 요소 간 관계가 없다
+- reactive-ion-etching: triage:화학+물리 식각 결합이라는 두 요소 설명이며 핵심인 식각 단면 형상은 현재 도식 유형으로 표현할 수 없다
+- dopamine-hydrochloride: triage:신경전달물질 염산염 시약 하나 — 보관·산화 특성 나열이라 관계 구조가 없다
+- dna-replication: triage:반보존적 복제의 일반 교과서 개념으로, 본문의 서술(풀기-주형-새 가닥)이 이미 충분히 명확해 도식이 새로 보여 줄 것이 적다
+- covalent-modification: triage:인산화·유비퀴틴화·메틸화 등 변형 종류의 나열이라 관계 구조 없이 정의를 되풀이한다
+- research-integrity: triage:위조·변조·표절 대 QRP의 구분은 두 범주 나열이라 관계 구조가 빈약하고 정의 반복에 가깝다
+- computational-electromagnetics: triage:FDTD·모멘트법·FEM 기법 목록이고, 기법 선택 기준은 본문에 정량적 축 없이 서술되어 도식 근거가 약하다
+- fluorescein-reagent: triage:단일 형광 염료 시약명 — 흡수·방출 파장과 pH 의존성 나열이라 도식 대상이 아니다
+- postoperative-nausea-and-vomiting: triage:위험인자·병용 예방요법 목록 성격이고, 구토 경로 도식은 본문 근거가 개략적이라 애매하다
+- real-business-cycle-theory: triage:케인스주의와의 대비가 핵심이나 본문이 두 입장을 말로 충분히 설명하고 구성 요소가 2개뿐이다
+- macroscale-gradient: triage:연결성 유사도에서 차원 축소로 얻는 추상적 연속 좌표 개념으로, 본문 근거만으로 구체적 그림을 그리기 어렵다
+- lipase-test: triage:리파아제 대 아밀라아제 비교는 두 항목 수준이고 시간 곡선도 본문에 수치 근거가 없다
+- schiller-theory-tragedy: triage:실러 대 아리스토텔레스 카타르시스의 철학적 대비로 정의 반복에 가깝고 구성 요소가 2개뿐이다
+- coherence-synchrony: triage:두 신호의 위상 일관성이라는 단일 지표 개념으로, 비유(손뼉)와 계산 변형 나열에 그치고 구성 요소 관계가 없다
+- giemsa-solution: triage:염색 시약 하나 — 아주르 B·에오신 염색 대비를 말하지만 시약 특성 나열이다
+- phylogenetics: triage:계통수를 그리는 학문이라는 정의를 계통수 그림으로 되풀이할 뿐 새 정보가 없다
+- delta-check: triage:이전 결과와 비교해 한계 초과 시 경고라는 단순 2단계 절차로 정의 반복이다
+- mismatch-negativity: triage:표준 대비 일탈 자극의 차이파라는 파형 개념으로, 필요한 파형(ERP 차이파)은 현재 plot 함수로 못 그리고 chain으로는 정의 반복이다
+- horatian-precepts: triage:교훈과 쾌락의 결합이라는 실용 규범 모음으로, 구성 요소 간 구조가 없고 정의 반복이다
+- repetition-and-variation: triage:극작 기법 설명으로 반복 대사의 미세 변주를 말할 뿐 도식화할 구성 요소가 없다
+- brain-interstitial-fluid: triage:글림프 경로의 대류 기여가 학계에서 논쟁 중이라 단정적 도식이 곤란하고, 간질액 자체는 단일 체액 개념이다
+- cytopathology: triage:세포검사 대 조직검사의 단계적 보완 관계는 두 항목 수준이며 검사 분야 정의 위주이다
+- paraspeckle: triage:NEAT1 골격에 단백질·RNA가 모인다는 단일 구조체 설명이고, 조립 순서는 본문 근거가 개략적이다
+- tissue-immunometabolism: triage:세포 내 관점과 조직 관점의 구분 정도이고 아직 정의가 정립 중인 틀이라 단정해 그리기 어렵다
+- cataract: triage:수정체 혼탁 질환의 위치별·원인별 분류 나열이고 기전 구조가 없어 정의 반복이다
+- r-s-configuration: triage:CIP 우선순위 후 방향 판정이라는 규칙인데 핵심인 3차원 입체 배치는 현재 도식 유형으로 표현이 어렵다
+- cumulative-antibiogram: triage:균종별 감수성 비율을 모은 요약표 설명이라 관계 구조가 없고 표 작성 규칙의 나열이다
+- chondroitin-sulfate-proteoglycan: triage:분자군 범주 이름이라 본문이 맥락별로 의미가 달라진다고 경고하며, 도식화하면 오해를 줄 위험이 있다
+- live-attenuated-vaccine: triage:생백신 대 사백신의 두 항목 비교이고 정의와 주의 사항 반복에 가깝다
+- proskenion: triage:고대 극장 무대 구조물 명칭으로 공간 배치 그림은 현재 도식 유형에 없고 고유 용어 정의에 불과하다
+- aspirin-reagent: triage:단일 화합물 시약명 — 합성 반응은 두 원료 하나의 생성물 수준이라 도식 근거가 약하다
+- character-analysis: triage:초목표·비트·주어진 상황 등 분석 항목을 나열한 작업 방법이라 구성 요소 간 구조가 없다
+- lqr-control: triage:비용함수 가중치 Q·R과 리카티 방정식으로 이득을 구하는 수식 기법이라 도식으로 보여 줄 구조가 부족하다
+- therapeutic-misconception: triage:연구와 진료 목적의 혼동이라는 두 개념 구분으로 구성 요소가 2개뿐이다
+- two-bottle-choice-test: triage:두 병 설치 후 섭취량 비교라는 단순 실험 절차로 정의 반복이다
+- frontier-molecular-orbital-theory: triage:HOMO·LUMO 에너지 준위와 궤도 겹침이 핵심인데 현재 도식 유형으로는 표현할 수 없고 단순 두 요소 정의 반복이다
+- causality-assessment-adr: triage:평가 항목(시간관계·재투여·다른 원인 배제)이 나열된 체크리스트이고 등급 기준 수치가 본문에 없어 그림이 정의를 되풀이함
+- new-psychoactive-substances: triage:하위군 3개 이름만 있고 수용체·증상 차이가 본문에 구체적이지 않으며 규제 회피 서술도 정의 반복
+- body-plethysmography: triage:검사 원리(보일 법칙)가 한 줄 설명이고 구성 요소가 상자·압력·부피 정도라 정의 반복, 폐용적 지표는 나열뿐
+- interleukin-family: triage:계열 분류가 대략적 경향이라고 본문이 스스로 단서를 달고 번호는 발견순이라 분류 그림이 오해를 부름
+- elevated-plus-maze: triage:폐쇄 팔과 개방 팔 2개뿐이고 체류 시간이 불안 지표라는 정의 반복
+- bacterial-transformation: triage:DNA 흡수→유전형 변화 두세 단계 설명이 글만으로 충분하고 세 수평전달 방식은 하나만 서술됨
+- linkage-analysis: triage:가까운 유전자 공동 유전 원리가 글로 충분하고 LOD 점수 곡선의 수치 근거가 본문에 없음
+- nonlinear-narrative: triage:시간 순서 뒤섞기 일반론이고 구체 사건 순서 예시가 없어 그림이 정의를 되풀이함
+- canonical-cortical-microcircuit: triage:논쟁 중인 가설이고 층 간 연결 경로의 구체 내용이 본문에 없어 단정 없이 그리기 어려움
+- fast-track-designation: triage:다른 촉진 제도와의 비교가 한 문장 수준이라 구성 요소가 부족하고 정의 반복
+- polypharmacy-risk: triage:다약제 복용이 위험을 누적한다는 정의를 되풀이하며 인과 단계가 없음
+- satirical-drama: triage:연극 장르 설명이고 구유희극·신희극 변화는 곁가지 서술이라 구성 요소 부족
+- damping-ratio: triage:부족·임계·과감쇠 응답은 시간 곡선이 핵심이나 감쇠 진동 곡선을 그릴 함수가 plot에 없음
+- mechanical-ventilator: triage:장치 이름이고 모드 구분은 별도 용어(기계환기 방식)에서 다루는 내용이라 중복
+- cpi: triage:장바구니 가격 비율을 하나의 지수로 만든다는 단일 지표 설명이라 구성 요소 부족
+- autoethnographic-performance: triage:공연 형식 설명이고 구성 요소 간 구조가 없으며 정의 반복
+- fractional-distillation-apparatus: triage:분별관 속 증발·응축 반복은 한 문단 설명으로 충분하고 구조 그림이 새 정보를 주지 못함
+- isothermal-titration-calorimetry: triage:열 측정 후 결합상수 도출은 설명 위주이고 곡선 수치가 본문에 없어 그림이 정의를 되풀이함
+- juxtacellular-recording: triage:전극 근접 기록과 염료 표지 두 동작뿐이라 단계 구성 요소가 부족
+- attention-schema-theory: triage:검증이 부족한 논쟁 이론이고 본문에 주의-도식-자각 외 구성 요소가 없어 단정 없이 그리기 어려움
+- sodium-acetate-reagent: triage:단일 시약명이고 완충·결정화 두 용도는 관계 없는 병렬 나열
+- pcb-etching: triage:보호막 씌우기, 부식, 제거의 세 단계가 글만으로 충분히 이해되고 새 정보 없음
+- lighting-cue: triage:스냅과 페이드 두 가지 구분뿐이고 밝기 곡선을 그려도 정의를 되풀이함
+- sintering: triage:가루 성형 후 저온 가열 확산의 짧은 흐름이 본문 비유로 충분하고 구성 요소가 적음
+- teneurin: triage:파트너별 접착·반발 모델이 연구마다 달라 단정 없이 그리기 어렵고 구체 구성 요소가 부족
+- cranial-window: triage:창 제작 방식 두 가지의 장단점 나열이고 순서 있는 절차가 본문에 없음
+- moment-of-inertia: triage:질량 분포와 회전 저항 관계 단일 개념이고 구성 요소가 부족
+- kinematic-viscosity: triage:점성을 밀도로 나눈다는 단일 양의 정의 반복이고 단위 설명 위주
+- reaction-shot: triage:촬영 기법 한 가지 정의이고 구성 요소가 인물 반응 하나뿐
+- complexometric-titration: triage:적정 절차 설명이 글로 충분하고 EDTA 1:1 결합과 지시약 색변화가 정의 반복
+- winner-take-all-economy: triage:소득 쏠림 구조의 인과가 글로 충분하고 논쟁 여지가 있는 설명이며 분포 수치가 없음
+- transfusion-threshold: triage:제한적·관대적 두 전략의 기준값 비교가 두 수치뿐이라 정의 반복
+- outcome-expectancy: triage:결과 기대는 OFC가 맥락과 경험으로 예측을 만들고 오차로 갱신한다는 서술이 정의의 풀이에 가깝고, 구성 요소 관계가 글로 충분히 전달됨
+- ladder-rung-test: triage:행동검사 하나의 채점 방식 설명(정상·미끄러짐·헛디딤 등급)이라 관계 맺는 구성 요소가 사실상 없음
+- rule-of-180-degrees: triage:카메라와 축선의 공간 배치가 핵심이라 제공 type 9개로는 그릴 수 없고, 정의 반복 성격이 강함
+- safety-integrity-level: triage:SIL 1~4 등급과 PFD 구간을 나열하는 표 수준이며 도식이 정의를 되풀이할 뿐 새로 보여 줄 관계가 없음
+- emotional-recall-acting: triage:감각 단서로 감정을 떠올리는 훈련 기법 하나의 설명이고 단계 구성이 2개 정도라 도식이 정의를 반복함
+- vestibular-system: triage:반고리관·이석기관 두 갈래와 뇌줄기 전달이 있으나 대부분 정의와 쉬운 설명에서 이미 직선적으로 서술되어 도식이 새로 보여 줄 것이 적음
+- neurotransmitter-imbalance-hypothesis: triage:원인인지 결과인지 불분명하다는 점과 학계 비판이 본문에 명시되어 있어 단정 없이 그리기 어렵고, 약물 반응 근거도 상관 서술에 그침
+- formal-charge: triage:형식 전하 계산식과 구조 비교 규칙이며 산화수와의 대비도 구성 요소가 2개뿐이라 도식 이득이 작음
+- stratum-lacunosum-moleculare: triage:해마 CA1 층 구조 설명이나 층·입력 경로의 공간 배치가 핵심이라 type에 맞지 않고, 비교 대상은 방사층과 2개뿐
+- hydrogen-peroxide-lab: triage:H2O2 단일 시약명이며 분해 반응식과 보관 주의가 본문 전부라 도식으로 보여 줄 관계가 없음
+- melting-curve-analysis: triage:융해 온도 이동을 곡선으로 그리고 싶으나 본문에 미분 피크 등 곡선 형태 근거가 없고 형광 감소 시그모이드를 표현할 함수도 불명확함
+- postcolonial-theatre-criticism: triage:비평 접근법 하나의 정의이며 구성 요소 간 구조적 관계가 서술되지 않음
+- copper-i-chloride: triage:CuCl 단일 화합물 이름이고 산화·불균등화·착이온 서술은 속성 나열에 그침
+- terence-comedy: triage:로마 극작가의 작품군 소개이며 이중 플롯 설명은 두 요소의 대비에 그침
+- physical-language-of-theatre: triage:아르토의 연극관 정의이며 몸과 무대 공간이 언어와 대등하다는 주장 하나라 구성 요소 관계가 없음
+- sex-linked-inheritance: triage:반성유전의 퍼넷 사각형 같은 교배도가 유용할 수 있으나 본문에 보인자 교배 조합이나 확률 수치가 없고 XX/XY 대비는 2개 요소뿐이라 근거 부족
+- single-unit-recording: triage:전극으로 스파이크를 기록한다는 기법 하나의 설명이며 스파이크 정렬 언급은 단계가 2개뿐
+- z-transform: triage:z평면 극점과 단위원 안정성 개념은 곡선이 아니라 복소평면 도형이라 제공 type으로 못 그리며 plot 함수 범위 밖
+- angry-young-men: triage:1950년대 영국 작가 집단 명칭이며 본문이 강령 없는 사후 묶음임을 강조해 도식화할 관계가 없음
+- composition-in-film: triage:프레임 배치 원리 일반론이고 삼분할·대칭 등이 병렬 나열에 그쳐 구성 요소 간 관계가 없음
+- pole-test: triage:막대 위에서 방향 전환 후 하강하는 시간 측정(T-turn, T-total) 두 구간뿐이라 단계가 2개이고 정의 반복
+- mixed-strategy-equilibrium: triage:무차별 조건으로 확률이 정해진다는 원리는 서술되나 본문에 보수 행렬이나 수치가 없어 칸을 채울 근거가 부족하고 정의 반복에 가까움
+- deep-focus: triage:전경·중경·후경이 모두 선명하다는 촬영 기법 하나의 정의이고 도식이 정의를 반복함
+- memory-allocation: triage:흥분성 높은 뉴런이 엔그램에 선택된다는 서술은 있으나 결과가 이어지는 단계가 2~3개 수준이고 가설 단계 서술이라 도식이 정의를 크게 넘지 못함
+- pick-and-place-machine: triage:장비 하나의 작동 설명이며 인식, 흡착, 이동, 배치, 리플로우가 나열돼 있으나 장비 소개 수준이고 학술 논점 없이 정의 반복에 가까움
+- hamiltons-rule: triage:rB>C라는 부등식 하나이며 근연도 값 나열 외에 구성 요소 관계가 없고 규칙의 일반성에 논쟁이 있어 단정이 어려움
+- wetland-ecosystem: triage:습지 유형과 기능이 병렬 나열이고 전이 지대라는 정의 반복 비중이 커서 새로 보여 줄 관계가 약함
+- electrolysis: triage:전극, 전원, 분해 생성물로 이루어진 장치도가 필요하나 제공 type에 맞지 않고 화학전지와의 대비도 정의 서술 수준
+- nugent-score: triage:0~10점 구간과 세 세균 형태를 점수로 합산하는 판정표이며 구간 3개 나열 외에 새로 보여 줄 관계가 없음
+- dramatic-tension: triage:서스펜스와 미스터리의 정보 배분 구분이 있으나 칸 두 개만 채워지고 나머지는 서술이 없어 도식이 불완전함
+- neoclassicism-theatre: triage:삼일치 법칙과 장르 구분을 나열한 사조 정의이고 구성 요소 간 인과·분류 관계 서술이 약함
+- cerebral-cortex: triage:피질 4엽과 층 구조를 나열했을 뿐 엽별 기능 대응이 본문에 명시되지 않아 근거 부족
+- technology-foresight: triage:방법 나열(델파이·시나리오·특허분석)뿐이며 구성 요소 간 관계나 단계가 본문에 없음
+- herfindahl-hirschman-index: triage:제곱합 공식 하나와 임계 구간 수치로, 구성 요소 2개 수준이고 plot 함수로도 의미 있는 곡선이 안 나옴
+- grip-strength-test: triage:앞발 잡기, 당기기, 최대 힘 기록의 3단계가 정의 문장 반복이고 추가 통찰이 없음
+- esbl: triage:ESBL 효소가 카바페넴 전환으로 이어진다는 서술이 있으나 구성 요소 3개 미만 수준의 서술형 악순환이라 도식 이득이 작음
+- border-associated-macrophage: triage:위치별 세포군 분류는 있으나 표지자 혼용 논쟁이 있고 해부학적 위치도가 필요해 노드 도식으로는 정보 이득이 작음
+- lvdt: triage:코어 이동에서 유도 전압차, 복조까지의 3단 원리 설명이나 단일 센서 원리로 정의 반복 성격이 강함
+- tachyphylaxis: triage:탈감작·고갈·하향조절 세 기전 나열과 일반 내성과의 시간 규모 차이 하나뿐이라 정의 반복
+- icd-11: triage:코드 체계 소개로 구성 요소 간 관계가 없고 DSM과의 비교도 2개 항목뿐
+- formalism-film-theory: triage:리얼리즘과의 대립 구도를 본문 자체가 단순화로 경고해 논쟁적 주장을 단정 없이 그리기 어려움
+- food-chain: triage:생산자에서 최종 소비자 나열과 에너지 감소는 정의에 이미 담긴 내용이고 생태 피라미드는 별도 용어
+- real-time-operating-system: triage:경성과 연성 구분 정도이고 일반 OS와의 비교도 2개 항목이라 도식 이득 작음
+- maintenance-dose: triage:부하용량과의 관계 서술이 정의 반복이고 정상상태 도달 곡선은 별도 개념이라 이 용어만으로는 구성 요소가 부족
+- vertebrate-invertebrate: triage:척추 유무 이분 분류와 문 나열이라 정의 반복이며 하위 분류 근거가 본문에 간략함
+- cinematography: triage:촬영 요소(카메라·조명·렌즈) 나열의 총칭이라 구성 요소 간 관계가 본문에 없음
+- noncompetitive-antagonism: triage:최대 반응이 낮아지는 용량-반응 곡선이 핵심 plot이나 hill에 최대치 조절 인자가 없고 표로 그리면 핵심이 사라짐
+- logic-analyzer: triage:오실로스코프와의 2항목 비교이며 정의 반복
+- computational-psychiatry: triage:모델 종류와 매개변수 나열이며 본문이 인과 해석을 경계해 관계를 단정 없이 그리기 어려움
+- reenactment-theatre: triage:당사자 재연과 비당사자 재연의 2분법뿐이고 나머지는 정의 반복
+- set-design: triage:사실주의와 상징주의 2축 서술과 전환 방식 나열이라 관계가 느슨하고 정의 반복
+- cross-frequency-coupling: triage:결합 유형 나열과 해석 쟁점(인공 결합)이 섞여 있고 위상-진폭 결합 핵심은 파형 그림이 필요해 구성도로는 근거 부족
+- proxemics-theatre: triage:에드워드 홀 4거리는 이름만 있고 의미 대응이 본문에 없으며 문화 일반화 경고가 있음
+- lancet-lab: triage:단일 채혈 도구 이름이며 사용 절차는 부수적 주의사항
+- venous-thromboembolism-prophylaxis: triage:정체-혈전-색전의 서술은 정의 반복이고 예방 수단 이분류도 구성 요소가 2개뿐
+- poissons-ratio: triage:단일 물성 비율이며 값 범위(-1~0.5) 나열만 있고 곡선·단계 구조가 없음
+- mean-corpuscular-hemoglobin: triage:MCV·MCHC에서 파생된 계산 지표라 독자적 구조가 없고, 본문도 "다른 지표로 이미 파악되는 정보"라고 밝힘
+- documentary-modes: triage:니콜스 6양식은 이름 나열이고 본문에 양식 간 관계(축·포함)가 제시되지 않으며 "고정된 정답이 아님"이라 도식화하면 단정이 됨
+- paraffin-reagent: triage:단일 시약(파라핀)명이며 용도 두 가지는 별개 응용이라 구성 요소 관계가 없음
+- comedy-literary: triage:희극 장르 정의에 가깝고 비극과의 대비는 한 문장뿐이라 정의 반복 수준
+- metacognition-neural-basis: triage:전두극·DLPFC·ACC 등 영역별 역할이 합의되지 않았다고 본문이 밝혀 논쟁 중 주장을 단정하게 됨
+- performative-presence: triage:현존성은 형이상학적 개념이고 구성 요소가 없으며 본문도 "말로 설명하기 어려운 에너지"라 함
+- docudrama: triage:사실과 허구 사이 스펙트럼이라는 2극 구도뿐이고 하위 유형 설명도 정의 반복이라 구성 요소 3개 미만
+- antenna: triage:송수신 변환 장치 설명이며 성능 지표는 나열일 뿐 서로 관계 짓는 구조가 본문에 없음
+- curtain-call: triage:공연 관례(인사 의례) 설명으로 단계·분류 구조 없이 의미 해석만 반복됨
+- fdtd-simulation: triage:격자·시간간격·경계조건이 나열되나 서로 연결되는 절차나 인과가 본문에 없고 수치 기법 정의의 반복에 가까움
+- mediodorsal-thalamus: triage:특정 뇌 핵 하나의 연결 서술이며 MD-전전두 상호연결은 두 구성 요소뿐이고 하위 구획 기능은 확립되지 않았다고 함
+- load-path-analysis: triage:하중→보→기둥→기초 흐름이 정의·쉽게 풀면에 이미 다 쓰여 있어 그림이 정의를 되풀이함
+- autism-spectrum-disorder: triage:다유전자·흥분억제 불균형 등 원인이 다중이고 합의되지 않아 도식화하면 단정이 되며 스펙트럼은 진단 개념
+- theatron: triage:고대 그리스 극장 관객석 건축을 가리키는 용어로 어원 설명 중심이며 구성 요소 관계가 약함
+- biosafety-cabinet: triage:기류 방향 설명은 공간 배치 그림이라 9개 type에 맞지 않고 Class 구분은 본문에 세부가 없음
+- visual-effects: triage:시각효과와 실사효과의 2분 구분만 있고 제작 단계 설명은 정의 반복 수준
+- sentimental-comedy: triage:풍자희극→감상희극→멜로드라마 계보는 본문에 한 줄씩만 있고 특징도 정의 반복이라 도식으로 보탤 것이 적음
+- noonan-syndrome: triage:유전자 목록과 증상 나열이며 변이 위치별 양상 차이는 본문에 구체 관계로 제시되지 않아 근거 부족
+- subthalamic-nucleus: triage:기저핵 경로의 핵심 중간 구조가 본문에 없어 회로를 그리면 본문 밖 지식에 의존하고 초직접경로 해석은 논의 중
+- test-tube-lab: triage:단일 실험 도구명이며 사용법은 주의사항 나열
+- infrared-thermography: triage:수동/능동 두 방식 구분 외에는 원리 서술이라 구성 요소 관계가 약하고 측정 조건 목록에 가까움
+- allelic-heterogeneity: triage:같은 유전자 내 변이 위치별 중증도 차이를 말하는 정의 반복이고 유전자좌 이질성과의 대비도 한 문장뿐
+- agon: triage:두 인물의 논쟁 장면이라는 단일 극작 개념이며 파라바시스와의 위치 관계는 작품에 따라 달라 단정 불가
+- switching-costs-lock-in: triage:세 전환비용 유형과 락인의 인과가 정의·쉽게 풀면에 거의 그대로 나와 그림이 정의를 되풀이함
+- tribometer: triage:마찰·마모 측정 장비 한 종류이며 접촉 형상 구분은 이름 나열이고 마찰계수 곡선은 기존 plot 함수로 근거가 부족
+- viewpoints-technique: triage:시간·공간 두 갈래 아래 요소 이름 나열이며 아홉 요소가 본문에 모두 제시되지 않아 근거 부족
+- isothermal-amplification: triage:PCR 대비 온도 순환 유무라는 한 축의 대비이고 LAMP 프라이머 구조는 설명이 부족해 정의 반복 수준
+- implantable-cardioverter-defibrillator: triage:감시→충격 흐름이 정의에 이미 담겨 있고 일차·이차 예방은 대상 구분 두 가지뿐이라 보탤 것이 적음
+- madanggeuk: triage:열린 마당 구조·참여성 설명이며 탈춤과의 계승 관계 외 구성 요소 관계가 없음
+- nitrene: triage:카벤의 질소 유사체라는 중간체 이름 설명이 중심이고, 단일항·삼중항 구분 외에 본문에 근거한 관계망이 빈약하며 쿠르티우스 관여 여부도 불확실
+- nitrogen-balance: triage:섭취 질소 빼기 배설 질소라는 한 줄 산식과 양·음 두 상태 서술이라 정의 반복에 가깝고 구성 요소 관계가 얕다
+- sodium-nitrate-reagent: triage:NaNO3 단일 시약명이며 본문도 성질·보관 주의 나열뿐
+- epilogue-in-film: triage:서사 끝 장면이라는 단일 서사 장치 설명이고 에필로그-쿠키영상 구분도 두 요소 위치 차이뿐
+- fatigue-life-analysis: triage:S-N법과 변형률법 구분 및 레인플로우-마이너 절차가 언급되나 한두 문장 수준이고 S-N 곡선 모양은 본문에 근거가 부족해 구체적 그림 의도를 세우기 어렵다
+- federal-theatre-project: triage:1930년대 미국 정부 사업이라는 기관·사업명이며 관계 구조 없이 연혁 서술
+- repertory-system-theatre: triage:런 시스템과의 대비가 언급되지만 요일별 교대 vs 장기 상연이라는 두 항목 정의 수준 비교라 글로 충분
+- activity-coefficient: triage:이온세기에 따라 1에서 감소하다 매우 높으면 1을 넘기도 하는 U자형이라 핵심 모양을 현재 plot 함수로 정직하게 못 그린다(decay만으로는 caution의 역전을 누락)
+- phosphatase: triage:키나아제-포스파타아제 on/off 한 쌍 설명이 중심이며 소분류(세린/트레오닌, 티로신)도 단순 나열이라 정의 반복
+- hexokinase-reaction: triage:포도당+ATP에서 G6P 하나 생기는 단일 반응이고 글루코키나아제와의 대비는 별도 용어 몫이라 이 항목만의 관계망이 부족
+- iris-shot: triage:원형 마스크 편집 기법 하나이며 아이리스 인과 아웃의 반대 방향 두 가지 외 구성 요소가 없다
+- communitas: triage:터너의 개념으로 구조-코뮤니타스 교대와 세 유형이 거론되지만 순례 현장 반론 등 학계 논쟁이 있고 본문만으로 순환·분류 구도를 단정해 그리기 어렵다
+- zinc-nitrate-reagent: triage:Zn(NO3)2 단일 시약명이며 양쪽성 침전-재용해 언급은 부수 정보
+- phase-contrast-microscopy: triage:위상 차이를 위상판으로 명암 변환한다는 한 단계 원리가 정의와 중복되고 DIC 비교도 한 줄이라 새로 보여줄 구조가 적다
+- nest-building-test: triage:압축 둥지 재료의 완성도를 0~4점으로 채점하는 행동검사 방법 설명일 뿐 단계 간 관계나 기전이 없다
+- nissl-staining: triage:니슬 소체 염색 방법 하나이며 용도 나열과 골지염색 대비 한 줄뿐
+- central-nervous-system: triage:뇌+척수 대 말초신경계라는 상위 신경계 구분 한 줄 수준으로 정의 반복이며 해부 세부는 본문에 없다
+- xanthan-gum-reagent: triage:잔탄검이라는 단일 시약 물질명이며 전단담화 거동은 본문에서 수치·모양 근거 없이 언급만 된다
+- clonal-deletion: triage:음성 선택의 한 갈래로 자가반응 클론이 사멸된다는 단일 단계이고, anergy·조절 T세포 등 다른 관용 기전은 별도 용어에서 다룰 사안
+- opportunity-cost: triage:명시적 비용+암묵적 비용=경제적 비용이라는 한 줄 합산식이고 나머지는 사례 설명이라 정의 반복
+- verse-drama: triage:운문 대사 희곡이라는 장르 정의와 시대별 사례 나열뿐이며 그림으로 보여줄 구조가 없다
+- globus-pallidus: triage:GPe/GPi 역할이 설명되지만 선조체·시상하핵·흑질을 포함한 회로 연결이 본문만으로 완결되지 않아 외부 지식에 크게 기대야 한다
+- basal-forebrain-cholinergic-system: triage:핵별 투사 표적이 본문에 있으나 대체로라는 단서가 붙고 콜린성 가설의 원인·결과 논쟁이 있어 단정적 투사도를 그리기 어렵다
+- chloroform-reagent: triage:CHCl3 단일 용매명이며 본문은 성질·보관·독성 나열
+- social-closure: triage:배제적 폐쇄와 찬탈적 폐쇄 두 방향이 있으나 개념 정의 수준의 대비이고 구성 요소 관계가 단순
+- bioaccumulation: triage:BCF와 BAF 구분과 생물확대와의 차이가 한두 줄 언급될 뿐이며 먹이사슬 경로 등 구성 요소는 본문에 없다
+- intercultural-theatre-theory: triage:낙관적 시각과 비대칭 권력 비판이라는 두 해석이 병존하는 추상적 이론 논쟁이라 그림으로 단정하기 어렵다
+- cognitive-map-theory: triage:공간 지도의 추상 공간 확장 여부가 caution에서 아직 논쟁 중이라 했고 세포 유형 관계도 본문만으로 구체화되지 않는다
+- raoults-law: triage:증기압-몰분율 직선(이상)과 양·음 편차 곡선이 핵심이나 편차 곡선을 그릴 함수가 없어 직선 하나로는 정의를 되풀이할 뿐
+- bleeding-time: triage:듀크·아이비 두 방법과 한계를 나열한 폐기 추세 검사이며 단계 구조나 기전을 보여줄 내용이 없다
+- oral-glucose-tolerance-test: triage:일단계·이단계 프로토콜이 언급되나 혈당 곡선 모양과 기준치가 본문에 없고 절차도 몇 줄이라 근거가 부족
+- linear-unmixing: merge-candidate: 병합 후보라 보류(was reviewed)
+- gabaergic-neuron: triage:GAD로 글루탐산에서 GABA 합성, PV·SST·VIP 하위 유형 등이 있으나 흥분성 대비와 유형 나열 수준이라 새 구조를 보여주지 못한다
+- orchestra-pit: triage:극장 건축의 물리적 공간 하나를 설명하며 구성 요소 간 관계가 없다
+- adipoyl-chloride: triage:염화아디포일 단일 시약명이며 계면중합은 반응 실험 별개 용어 소관
+- theatre-of-the-absurd: triage:비평가가 사후적으로 묶은 사조로 작가별 차이가 크고 실존주의극과의 대비도 한 줄이라 그림 구성이 불명확
+- vmax: triage:최대 반응 속도라는 단일 효소 파라미터이며 포화 곡선과 Km 관계는 미카엘리스-멘텐 용어에서 다룰 몫
+- centromere-function: triage:중심절과 동원체 두 요소의 구분 정도라 구성 요소가 3개에 못 미치고 정의를 되풀이함
+- pattern-completion: triage:부분 단서가 끌개로 수렴한다는 한 줄 기전으로, 끌개신경망·패턴분리 항목과 겹치고 그림이 정의를 반복함
+- metal-organic-framework: triage:물질 계열 이름이며 금속 마디와 리간드 두 부품 설명뿐이라 관계 구조가 없음
+- corticosterone: triage:설치류 호르몬 이름으로, HPA축 경로는 별도 항목에서 다룰 내용이고 본문은 수치 해석 주의가 중심
+- neuroinflammation: triage:미세아교세포 활성화의 급성 대 만성 효과가 서술돼 있으나 구성 요소가 모호하고 질환별 논의가 분산돼 단일 구조로 그리기 어려움
+- impedance-method: triage:자동혈구분석기 계수 원리 하나를 설명하는 항목이라 구멍 통과→저항 변화→펄스 3단계가 정의를 되풀이하는 수준
+- globalization-ir: triage:거시적 현상 개념으로 논쟁 중심이며 관계 구조를 중립적으로 그릴 구성 요소가 없음
+- reinforced-concrete: triage:콘크리트와 철근 두 재료의 역할 분담뿐이라 구성 요소 2개이고 정의 반복
+- orchestra-greek: triage:고대 극장의 공간 이름이라 장소 명칭 항목이며 스케네·객석과의 배치는 지원되는 도식 유형이 없음
+- falling-action: triage:프라이타크 5막 구조의 한 단계에 불과하고 구조 전체는 상위 용어의 몫
+- arena-stage: triage:프로시니엄과의 대비 하나뿐인 무대 형식 이름으로 구성 요소가 2개
+- star-theory: triage:다이어의 이론이 영화 텍스트·홍보·팬 담론을 합친다는 논의는 있으나 이론 해석이 갈려 중립적 단일 구조로 그리기 어렵고 정의 반복에 가까움
+- hydrochloric-acid-lab: triage:단일 시약명이며 질산과의 비교도 부가 설명 수준
+- carbon-compound-basics: triage:포괄적 입문 분류 개념으로 사슬형·고리형·예외 설명이 흩어져 있어 하나의 구체적 구조가 없음
+- film-semiotics: triage:이론적 접근의 이름이며 메츠의 통합체 유형은 본문에 구체적으로 나열되지 않아 근거가 부족함
+- ion-selective-electrode-method: triage:특정 이온→선택막→전위차의 측정 원리 한 줄이며 직접법·간접법 비교는 구성 요소 2개로 정의 반복
+- tonotopic-map: triage:주파수 순서가 공간 배열로 보존된다는 단일 속성이며 지원하는 도식 유형으로 그릴 구조가 아님
+- impedance-admittance: triage:복소수 수식 정의가 중심이라 실수부·허수부 분해 외에 그림으로 새로 보여 줄 관계가 없음
+- fact-based-theatre: triage:다큐멘터리 연극과의 비교 하나뿐이고 사실과 허구의 비중은 정도 차이라 구성 요소가 부족함
+- isosbestic-point: triage:두 종의 스펙트럼과 반응 진행 중 혼합 스펙트럼이 한 파장에서 교차하는 그림이 핵심이나 혼합 곡선(두 정규분포의 가중합)을 그릴 함수가 없음
+- non-diegetic-sound: triage:디제시스 분류의 한 칸이며 다이제틱과의 2분법이라 구성 요소가 2개
+- airfoil: triage:날개 단면 형상 자체를 가리키는 항목이고 양력-받음각 곡선은 이 항목의 중심이 아님
+- screening-test: triage:선별 양성이 확진검사로 이어진다는 2단계 흐름이며 민감도·특이도·윌슨-융너 기준은 별도 항목의 몫
+- tumor-marker: triage:암에서 늘어나는 물질을 재는 지표 개념으로 PSA·CA-125는 사례일 뿐 관계 구조가 없음
+- pressure-transducer: triage:다이어프램 변형→감지→전기 신호라는 센서 일반 원리의 정의 반복이며 감지 방식 세 종류도 나열 수준
+- acid-fast-stain: triage:염색약 침투→산 탈색→색 잔존 판정 3단계가 정의 문장과 같은 내용이며 본문에 세부 절차(대조염색 등)가 없음
+- scenic-painting: triage:무대미술 기법 이름이고 원근 왜곡·조명 계산은 구성 요소 간 관계로 정리되지 않음
+- fuel-cell-kit-lab: triage:교육용 기구 이름이고 연료전지 원리는 별도 항목에서 다룰 내용이며 기구 사용 순서는 본문에 없음
+- induced-fit-model: triage:자물쇠-열쇠 모델과의 2자 비교이며 형태선택 모델과의 관계는 논쟁 중이라 단정하기 어렵고 구성 요소가 적음
+- peer-review-system: triage:심사 절차 단계가 본문에 구체적으로 없고 맹검 방식 나열과 한계 논의 중심이라 그릴 근거가 부족함
+- nmr-chemical-shift: triage:차폐 효과와 ppm 값 설명이 한 줄 인과이며 작용기별 이동 영역 수치는 본문에 거의 없어 정의 반복 수준
+- fasting-plasma-glucose-test: triage:금식 후 혈당 측정이라는 단일 검사이고 기준치는 126 하나뿐이라 구성 요소가 없음
+- patient-reported-outcome-measure: triage:설문 도구 개념이며 질환 특이 대 일반 도구 구분이 있으나 2분류 설명 수준
+- kinematic-chain: triage:링크와 관절 구조의 정의이며 개연쇄·폐연쇄 2종 비교 외에 새로 보여 줄 관계가 적음
+- mole: triage:개수 단위 하나이고 몰질량·몰농도 환산은 계산 규칙 설명이라 구성 요소 관계가 아님
+- new-historicism-theatre: triage:방법론 서술 — 정전 텍스트와 비문학 자료를 병치한다는 한 문장 정의의 반복이며 뚜렷한 단계·분류 구조 없음
+- hemoglobin-a1c: triage:단일 검사 지표 — 구성 요소가 적고 정의("3개월 평균 혈당")가 곧 설명의 전부
+- essay-film: triage:장르 경계가 유동적이라 학자 간 분류 이견이 큼(본문 주의 절) — 허구/다큐 사이 위치를 단정해 그리기 어렵고 정의 반복
+- vibroacoustic-testing: triage:측정 시험 하나의 설명 — 진동→방사 소음 두 요소 외에 순서·분류 구조가 본문에 없음
+- potassium-carbonate-reagent: triage:단일 시약명(K2CO3) — 용도 나열일 뿐 관계 구조 없음
+- jingju-facial-makeup: triage:색-성격 대응 목록 성격이며 본문 주의 절이 단순 대응표화를 경계함 — 단정해 그리기 부적절
+- social-determinants-of-health: triage:개념 정의 위주 — 소득·교육·주거 등 나열이고 서로의 관계나 경로가 본문에 구체화되지 않음
+- analytical-balance: triage:단일 장비(저울) — 방풍·검교정 등 사용 요령 나열, 관계 구조 없음
+- histone-methylation: triage:위치·메틸기 수에 따른 활성/억제 대응을 늘어놓는 성격 — 본문에 정리된 구조 없이 개별 표지 목록에 가까움
+- arthroscopy: triage:단일 시술명 — 소절개·카메라 삽입 정도의 정의 반복, 단계 구조가 본문에 없음
+- bacterial-growth-curve: triage:네 시기 곡선이 핵심이나 유도기·정지기·사멸기를 포함한 곡선은 plot 함수(logistic 등)로 못 그림
+- generic-drug-bioequivalence: triage:Cmax·AUC 농도-시간 곡선 비교가 핵심이나 흡수 곡선(약동학) 함수가 plot에 없음
+- comparative-advantage: triage:두 나라·두 재화 기회비용 비교가 핵심이나 본문에 수치가 없어 칸을 채울 근거 부족, 정의 반복 위험
+- regietheater: triage:특정 연출 경향을 가리키는 비평 용어 — 충실성 대 자율성 논쟁이 있어 단정 곤란하고 구성 요소 2개뿐
+- retinotopic-map: triage:위치 대응이라는 공간 배치가 핵심이나 지원 type 어디에도 맞지 않음(대응·반전·확대 도식)
+- realism-theatre: triage:연극 사조 일반 설명 — 특징 나열이고 자연주의와의 비교도 한 문장뿐
+- apolipoprotein-a1: triage:단일 단백질 지표 — apoB/apoA1 비율 언급은 곁가지이며 구조 없음
+- boundary-element-method: triage:수치해석 기법 하나 — 유한요소법과의 차이를 문장으로 설명하며 3요소 구조 없음
+- depotentiation: triage:LTP 상태에서 기준선으로 되돌림이라는 두 상태 역전이 전부 — 정의 반복, 시간창·기전은 본문 근거가 얕음
+- spectatorship-theory: triage:이론 분야 소개 — 수동 대 능동 관객 논쟁이 핵심이라 단정해 그리기 어렵고 구성 요소 부족
+- williams-syndrome: triage:유전자-증상 연결이 본문에서 "가능성이 연구되는 중"이라 단정 불가, 자폐와의 대비도 두 항목뿐
+- brain-bank: triage:기관 소개 — 기증·보관·분양 절차가 언급될 뿐 순서 구조가 본문에 구체적이지 않음
+- environmental-chamber: triage:단일 시험 장비 — 온습도 제어 용도 설명 위주, 관계 구조 없음
+- brake-system: triage:장치 일반 설명 — 디스크/드럼 두 유형 비교뿐이고 구성 요소 간 관계가 본문에 정리되지 않음
+- vesicular-neurotransmitter-transporter: triage:수송체 아형-전달물질 대응 목록 — 본문 핵심이 분류 나열이며 재흡수와의 구분도 두 항목뿐
+- pansori: triage:공연 형식 설명 — 창·아니리·발림 단순 나열이고 정의 반복
+- organoid-culture: triage:배양 기법 소개 — 2D 대 3D 비교 한 줄과 유래 두 종류 구분뿐, 순서 있는 절차는 본문에 없음
+- fiscal-policy: triage:정의 반복 — 확장/긴축 두 방향 설명뿐이고 본문에 칸을 채울 구체 구조 없음
+- dithyramb: triage:기원 전승이 후대 기록에 의존해 학자 간 해석 차이가 있어 단정해 그릴 수 없음(본문 주의 절)
+- red-blood-cell-count: triage:단일 검사 수치 — 헤마토크릿·MCV 연동 언급은 곁가지
+- autofluorescence: triage:단일 현상 정의 — 배경 잡음이라는 한 속성, 구성 요소 2개뿐
+- revolve-stage: triage:단일 무대 장치 — 회전 방식 두 종류 설명 위주, 관계 구조 없음
+- brechtian-distanciation: triage:연출 전략 정의 — 몰입 대 거리두기 두 축뿐, 본문 주의 절이 완전 배제가 아님을 강조해 단순 대비로 그리면 왜곡
+- happening-art: triage:개념·인물 중심 — 즉흥/스코어 여부에 대한 논쟁적 서술, 단계 구조 없음
+- living-newspaper: triage:연극 기법 정의 반복 — 자료 선별·재구성이라는 한 흐름 외에 구성 요소 부족
+- graphic-match: triage:편집 기법 하나 — 두 쇼트 연결이 전부라 구성 요소 2개뿐
+- teatro-olimpico: triage:특정 극장 건물 하나의 사례, 관계 맺는 구성 요소 없음
+- fluorescence-in-situ-hybridization: triage:프로브 결합→형광이라는 2단 원리 설명뿐, 단계·비교 축이 본문에 없음
+- glut1-glucose-transporter: triage:단일 수송체 단백질 설명, GLUT4·SGLT와의 대비는 주의 문장 한 줄에 그침
+- finite-difference-method: triage:격자 근사 개념 설명, 전진·중심 차분 비교나 단계 순서가 본문에서 구체적으로 주어지지 않음
+- drama-in-education: triage:교육 방법론 소개, 기법 목록은 있으나 서로의 관계나 순서가 본문에 없음
+- medication-error-types: triage:처방·조제·투약·복약 단계별 유형 나열로 정의 반복에 가깝고 유형 간 관계가 본문에 없음
+- tritagonist: triage:연극 인물 배역 하나를 가리키는 용어, 주인공·부주인공과의 단순 순서 외에 구성 요소 관계가 없음
+- reference-change-value: triage:분석변이와 개인내변이를 합치는 공식 설명, 구성 요소가 사실상 2개이고 수식 반복
+- differential-gear: triage:기계 장치 설명이지만 내부 기어 구성이 본문에 없고 LSD 언급은 한 문단 나열에 그침
+- pyruvate-kinase: triage:단일 효소 설명, 해당과정 마지막 반응 하나와 아형 언급뿐
+- rising-action: triage:Freytag 5단계 중 한 단계를 설명하는 하위 사례, 긴장 곡선은 plot 함수로 못 그리고 다른 type도 부적합
+- anti-thyroglobulin-antibody-test: triage:단일 항체검사 설명, 항체가 Tg 측정값을 왜곡한다는 한 가지 관계뿐
+- cea-test: triage:단일 종양표지자 검사, 수술 전후 수치 추이는 plot 함수로 못 그림
+- active-place-avoidance: triage:실험 과제 설명, 회전판·방 단서의 공간 배치는 제공 type으로 못 그림
+- migratory-aptitude: triage:치환기 이동 순서 일부 예시뿐, 완전한 순위나 단계가 본문에 없음
+- material-anisotropy: triage:등방성·횡등방성·이방성 3수준 언급은 있으나 정의 반복에 가까움
+- urine-dipstick-test: triage:시험지 칸별 반응 원리 나열, 항목 간 관계나 순서가 본문에 없음
+- testimonial-theatre: triage:연극 형식 하나의 설명, 생존자 직접 출연 대 배우 대행 구분이 한 문장에 그침
+- functional-group: triage:개념 정의와 예시 몇 개뿐, 작용기별 반응 비교나 분류가 본문에 없음
+- hardness-tester: triage:경도 측정 방식 3종 나열이 한 문장으로 끝나 관계·단계가 본문에 거의 없음
+- wearable-medical-device: triage:기기 범주 설명, 구성 요소 간 관계가 없고 의료기기 대 피트니스 트래커 대비도 한 줄
+- intracerebral-hemorrhage: triage:혈관 파열→혈종의 단순 기전과 위치 분류 언급뿐, 정의 반복에 가까움
+- compressible-flow: triage:마하수 영역 이름은 나오나 영역별 현상·경계 값이 본문에 충분히 제시되지 않음
+- state-feedback-control: triage:피드백 구조는 블록선도 개념이라 제공 type으로 어색하고 본문도 구성 설명 위주
+- structuralism-anthropology: triage:이론 소개로 이항 대립 예시 나열이 중심, 구성 요소 간 관계가 본문에서 명확하지 않음
+- csf-culture: triage:검체 접종·배양이라는 일반 절차로, 단계 순서와 판독 기준이 본문에 구체적이지 않음
+- hieroglyphic-language: triage:아르토의 무대 언어 개념, 몸짓·소리·조명 나열뿐 서로 관계가 없음
+- aminophenol-reagent: triage:단일 시약명 — 오르토·메타·파라 이성질체 구분은 구조식 문제이고 관계도로 풀 대상이 아님
+- standard-penetration-test: triage:해머 타격수 N값을 세는 단순 현장시험 — 보정 요인(N60, 상재압)은 나열일 뿐 구성 요소 간 관계가 약함
+- fibrotic-scar: triage:섬유아세포 흉터 조직 하나를 서술 — 글리아 반흔과의 두 층 구조는 있으나 요소 2개이고 재생 영향은 논쟁 중
+- ramsey-cass-koopmans-model: triage:모형 이름 — 오일러 방정식·균제상태 설명이 수식 중심이고 솔로우와의 외생/내생 저축률 차이는 요소 2개 비교뿐
+- off-screen-space: triage:프레임 밖 공간 개념 — 버치의 6구획은 공간 배치 도해라 정해진 type으로 의미 있게 그리기 어렵고 정의 반복에 가까움
+- repertory-theatre: triage:레퍼토리 대 장기공연 런 두 운영 방식 비교뿐 — 구성 요소 2개, 본문이 같은 문장을 되풀이함
+- tuned-mass-damper: triage:추+스프링+댐퍼가 건물과 반대 위상으로 움직인다는 단일 장치 원리 — 핵심은 주파수응답 곡선인데 쌍봉 응답 함수가 없음
+- cinema-verite: triage:다이렉트 시네마와의 개입 대 관찰 대립은 2요소 비교이고 본문 스스로 그 구분이 학술적 정리에 가깝다고 밝혀 단정하기 어려움
+- molar-mass: triage:질량-몰-입자수 환산 단위 개념 — 구성 요소 3개이나 정의를 되풀이하는 단순 환산식
+- bence-jones-protein: triage:소변 속 경쇄라는 단일 검사 표지 — 형질세포→경쇄→신장 배설 흐름은 있으나 검출법 설명 위주이고 구성이 단순
+- transcranial-alternating-current-stimulation: triage:교류 자극→위상 끌림이라는 2단계 요약 — 효과 크기와 재현성이 논쟁 중이라 기전을 단정해 그리기 어려움
+- gini-coefficient: triage:로렌츠 곡선과 완전평등선 사이 면적이 핵심이나 로렌츠 곡선을 그릴 함수가 없어 정해진 plot으로 불가
+- invasive-species: triage:유입-정착-확산 단계는 단순 선형이고 외래종 대 침입종 구분은 정의 설명 — 가설(천적방출 등)은 별개 논쟁
+- german-expressionism-cinema: triage:영화 양식 서술 — 크라카우어 해석은 비판받는 논쟁적 주장이라 인과로 단정할 수 없음
+- latrophilin: triage:단일 접착 GPCR 단백질명 — 아형별 경로 특이성은 분자 목록이고 독소 수용체 명칭 유래는 부수 정보
+- hanamichi: triage:가부키 극장의 통로 시설 하나 — 공간 위치(시치산) 설명이라 관계도 대상이 아님
+- load-balancing: triage:요청을 여러 서버에 나눈다는 정의 그대로 — 정적 대 동적 구분은 2요소 비교이고 알고리즘별 차이는 본문에 구체적 근거 부족
+- oxidative-stress-mechanism: triage:활성산소 대 항산화 균형 붕괴는 정의 반복 — 본문이 질환의 원인인지 결과인지 상황별로 다르다고 밝혀 인과 단정 곤란
+- neural-gain-modulation: triage:곱셈적 대 덧셈적 조절은 조율곡선의 크기 대 기준선 이동이 핵심이나 이를 겹쳐 그릴 곡선 함수가 마땅치 않음
+- airway-remodeling: triage:평활근 비대, 기저막 비후 등 하위 변화 나열 — 본문이 선후 관계와 발생 기전이 미규명이라고 밝혀 단정 불가
+- waterjet-cutter: triage:고압수 절단 장비 하나 — 순수 대 연마제 방식은 2요소 비교, 열영향부 없음은 단일 속성
+- wire-bonding: triage:칩 패드와 리드를 금속선으로 잇는 공정 — 볼 대 웨지 본딩 2요소 분류이고 본문에 단계별 절차 근거가 부족
+- tensile-testing: triage:응력-변형률 곡선(탄성·항복·인장강도·파단)이 핵심이나 이 모양을 그릴 함수가 없음
+- ligand-field-theory: triage:결정장 이론 확장 이론 — d 오비탈 갈라짐 에너지 준위도가 핵심이나 정해진 type으로 표현 불가하고 본문은 서술 위주
+- poetic-realism: triage:1930년대 프랑스 영화 양식 서술 — 사실성 대 서정성 결합은 정의 반복이고 네오리얼리즘 비교는 2요소
+- cam-mechanism: triage:캠 윤곽에 따른 팔로워 변위선도가 핵심이나 사이클로이드 등 구간별 곡선을 그릴 함수가 없음
+- capsule-endoscopy: triage:삼킴-촬영-전송-배출의 단순 선형 검사 설명 — 정의와 쉽게 풀면이 같은 내용이고 한계는 단일 속성 나열
+- marginal-cost: triage:U자형 한계비용 곡선과 평균비용 교차가 핵심이나 U자 곡선 두 개 함수가 없음
+- delirium-elderly: triage:섬망 대 치매의 급성/만성 2요소 비교와 3개 하위 유형 나열 — 구조가 단순하고 새 관계를 보여 주지 못함
+- blindsight: triage:V1 우회 경로(상구-시상 베개핵)는 본문 스스로 기여 경로가 연구 중이라 밝혀 단정 못 하고, 1형/2형 구분은 2요소
+- stage-setting: triage:무대 배경·구조물 전체를 가리키는 일반 용어 — 배경막 대 입체 세트는 2요소이고 정의 반복
+- nucleic-acid-amplification-test: triage:PCR 등 증폭 기법의 통칭 — 증폭으로 검출한다는 정의 반복이고 위양성 주의는 단일 속성
+- specific-impulse: triage:추진제 효율을 나타내는 단일 성능 지표 — 연비 비유와 추력과의 구분은 단일 속성 설명
+- barium-hydroxide: triage:Ba(OH)2 단일 시약명 — CO2 검출·전도도 적정 용도는 나열이고 구성 요소 관계가 없음
+- arterial-spin-labeling: triage:혈액 표지-지연-영상 3단계 단순 설명 — PASL/CASL/pCASL 분류는 기술 목록이라 그림으로 얻을 새 통찰이 적음
+- sodium-sulfate-reagent: triage:Na2SO4 건조제 단일 시약명 — 수화물 형성 성질은 단일 속성
+- germ-cells-vs-somatic-cells: triage:체세포와 생식세포 두 범주의 정의 대비일 뿐, 본문에 비교 축이 염색체 수(2n 대 n) 하나로 좁아 글로 충분하다
+- calcium-sulfate-reagent: triage:단일 무기 시약명(CaSO4)이며 수화 상태 세 가지 나열 외에 관계 구조가 없다
+- cross-cutting: triage:두 장면을 번갈아 보여준다는 정의가 곧 그림이라 정의 반복이고, 지원하는 type으로 교차 구조를 새로 보일 것이 없다
+- dystonia: triage:근긴장이상증의 분류(범위별·원인별)가 단순 나열 수준이고 병태생리 연결이 본문에서 정량·구조적으로 제시되지 않는다
+- hexanediol-reagent: triage:단일 시약명(헥산디올)이며 사슬 길이와 용해도의 경향은 한 문장으로 전달된다
+- electronegativity: triage:전기음성도 차이와 결합 성격의 연속선이나 주기적 경향은 주기율표 히트맵이 필요해 지원 type에 맞지 않고, 본문의 비교 구성 요소도 이온/공유 둘뿐이다
+- western-blot-imaging-system: triage:영상 장비 하나에 대한 설명이며 필름 대 CCD 비교 외 구성 요소가 없고 절차도 일반적이다
+- theatre-semiotics: triage:연극학의 이론적 접근 정의로, 관계 구조 없이 서술만 반복된다
+- zeta-potential: triage:핵심은 pH에 따라 제타전위가 양에서 음으로 부호가 바뀌며 등전점에서 0이 되는 곡선인데 기존 곡선 함수(hill·logistic 등)로는 부호가 바뀌는 S자 감소를 그릴 수 없다
+- aluminum-chloride-reagent: triage:단일 시약명(AlCl3)이며 루이스 산 촉매 작용과 습기 주의는 문장으로 충분하다
+- forging: triage:단조는 냉간·열간 두 갈래와 주조 대비라는 두 가지 구성뿐이라 정의 반복에 가깝고, 유동선 배열은 단면 형상 그림이 필요해 지원 type에 맞지 않는다
+- connectome: triage:커넥톰은 거시·미시 규모와 구조적·기능적 연결로 나뉘는 개념 나열이고, 핵심인 네트워크 그래프 자체는 지원 type으로 그릴 수 없다
+- cribriform-plate: triage:해부학적 위치 설명이 핵심이라 공간 도해가 필요하고, 뇌척수액 배출 경로는 논쟁 중이라 단정해 그리기 어렵다
+- avogadros-number: triage:상수 하나(6.02×10²³)이며 질량-몰-개수 환산은 단위 정의 설명으로 구성 요소 관계가 없다
+- gangneung-danoje-mask-drama: triage:한국 가면극 하나의 고유명사 항목이며 본문에 시간순서·분류 구조가 없다
+- holy-actor: triage:그로토프스키의 배우상이라는 철학적 개념 하나로, 구성 요소 간 관계가 본문에 없다
+- nanomaterials: triage:나노소재는 크기 효과 설명과 형태별 나열이 전부이고, 이를 그릴 만큼 구체적 관계 구조(수치·분류 체계)가 부족하다
+- existentialist-theatre: triage:부조리극과의 대비가 두 항목 사이 서술뿐이고 비교 축이 문학적이라 구체적 intent를 쓰기 어렵다
+- manganese-dioxide-reagent: triage:단일 시약명(MnO2)이며 촉매 작용은 반응식 한 줄로 충분하다
+- feminist-theatre-criticism: triage:비평 흐름 하나를 설명하는 정의 중심 항목이며 구조적 관계가 없다
+- biopic: triage:장르 정의이며 재능 발견-시련-인정의 반복 구조는 한 문장으로 전달되고 하위 유형 설명도 근거가 얇다
+- multidrug-resistant-organism: triage:항생제 과용과 내성의 인과가 상식 수준 서술이고 내성 기전 세 가지는 이름만 나열되어 도해로 보일 구체 관계가 약하다
+- chair-conformation: triage:고리 뒤집기의 에너지 프로파일(의자-뒤틀린 배-의자)이 핵심 그림인데 기존 곡선 함수로 그릴 수 없다
+- new-german-cinema: triage:운동 하나의 역사 서술이며 날짜가 오버하우젠 선언 하나뿐이라 시간 구조가 없다
+- cystatin-c-test: triage:시스타틴C 대 크레아티닌의 비교가 두 항목 사이 짧은 서술이라 정의 반복에 가깝다
+- audiometry: triage:청력도는 주파수별 역치 그래프로 일반 곡선 함수에 맞지 않고 기도·골도 비교는 본문 근거가 두 문장뿐이다
+- gibbard-satterthwaite-theorem: triage:불가능성 정리의 진술 한 문장이며 세 조건의 동시 불성립을 보이려면 논증이 필요해 도해로 새로 알려줄 것이 부족하다
+- sogeukjang-movement: triage:연극 운동의 정의 중심 항목이며 본문의 유럽·미국·한국 전개가 구체적 시간 순서나 분류로 제시되지 않는다
+- embodiment-performance: triage:연기론 개념 하나의 설명이며 구성 요소 간 구조가 없다
+- z-tree: triage:단일 소프트웨어 도구 이름이며 서버-클라이언트 구조는 한 문장으로 전달된다
+- social-stratification: triage:베버의 세 차원 구분이 caution에 한 번 나올 뿐이고 본문 전체는 정의 서술이라 구체적 도해 intent를 쓰기 어렵다
+- fatty-acid-synthesis: merge-candidate: 병합 후보라 보류(was reviewed)
+- spatial-composition-of-stage: triage:초점 위계·깊이 층위 두 축은 언급되나 수준·칸이 정의되지 않았고 나머지는 사례 나열이라 그림으로 보일 구조가 없음
+- theatre-casting: triage:선발 과정이 오디션 한 단계 외에 구체화되지 않았고 논점(비전통 캐스팅)은 서술형 논쟁이라 구성 요소 관계가 없음
+- cover-slip-lab: triage:실험 소모품 하나이며 두께 등급과 덮는 요령만 있어 관계 맺는 요소가 없음
+- systems-thinking: triage:피드백 루프가 언급되지만 구체적 요소·인과 고리가 본문에 없어 그릴 내용이 일반론에 그침
+- eosinophil: triage:세포 종류 하나로 기능(기생충 방어·알레르기)과 IL-5 언급이 병렬 나열이며 단계 관계가 약함
+- kathakali: triage:특정 전통 공연 장르 이름으로 분장·무드라·반주가 병렬 서술이며 요소 간 관계 구조가 없음
+- sound-plot: triage:스피커·마이크·콘솔 배치를 정리한 문서 개념이며 본문에 구체적 신호 흐름 단계가 없어 정의 반복 수준
+- ribosome: triage:세포소기관 하나로 대·소 소단위 두 부분만 있고 번역 과정은 별도 용어(번역)의 몫이라 정의 반복
+- longitudinal-panel-survey: triage:동일 응답자 반복 추적과 반복횡단조사의 대비가 핵심이나 비교 항목이 두 개뿐이고 나머지는 분석 모형 나열
+- italianate-stage: triage:프로시니엄·경사무대·윙·배경막의 공간 배치 설명이며 위계나 단계가 아닌 단순 요소 나열이라 도식 유형에 맞지 않음
+- pt-liver-function-assessment: triage:간 합성 저하에서 PT 연장으로 가는 단순 2단계 인과이고 비타민K 감별은 곁가지라 정의를 되풀이하는 수준
+- touring-production: triage:한 공연을 여러 극장에서 올리는 방식 설명으로 단계나 분류 구조 없이 실무 과제 나열
+- field-excitatory-postsynaptic-potential: triage:기록 신호(파형 구성)가 핵심인데 plot 함수로 못 그리고, 자극 강도-반응 포화 곡선은 부수적 언급이라 단정할 도식 없음
+- wayang-kulit: triage:특정 인도네시아 공연 장르 이름이며 다랑·인형·스크린·가믈란 구성은 단순 서술이라 추상화할 관계가 약함
+- performance-studies: triage:학문 분야 이름이며 터너의 사회적 드라마 4단계는 곁가지 언급이라 본 용어의 구조가 아님
+- asa-physical-status-classification: triage:여섯 등급 목록을 나열하는 것이 곧 정의라 그림이 같은 내용을 되풀이할 뿐 관계 구조가 없음
+- tissue-engineering-bioreactor: triage:관류형·회전형·압축형을 언급하지만 형태별 서술이 짧고 장치 설명이라 도식으로 드러낼 관계가 약함
+- self-assembly-nanomaterials: triage:약한 비공유 힘 네 가지가 구조를 만든다는 일반론이며 단계·분류가 구체화되지 않아 그림이 정의 반복
+- supplementary-motor-area: triage:M1과의 역할 대비와 pre-SMA/SMA proper 세분이 전부여서 구성 요소가 2개씩이고, 위치·기능이 해부 지도에 의존해 도식이 정의를 되풀이한다
+- sinkeuk-movement: triage:신파극→근대극 이행과 1908년 원각사만 언급될 뿐 연도가 부족해 타임라인 근거가 얇고, 운동의 범위·성격은 논쟁적이다
+- mass-extinction: triage:5회 대멸종의 연대·규모가 본문에 없고, 원인이 사건마다 달라 하나의 기전으로 그릴 수 없으며 다양도 곡선은 현재 plot 함수 밖이다
+- proletarian-theatre: triage:극 흐름의 정의와 아지프로·서사극 계보 언급뿐이며 관계가 명확한 구성 요소나 단계가 없다
+- fornix: triage:해마→유두체로 가는 해부 경로가 핵심인데 구조 위치도에 의존하고, 손상 부위별 증상은 본문 밖 지식이 필요해 도식이 어렵다
+- genomic-imputation: triage:참조 패널·연관불평형 활용이 핵심이나 단계 구분이 본문에 없고 '측정 위치 사이를 추정한다'는 정의 반복에 가깝다
+- tiebout-hypothesis: triage:이사→지방정부 경쟁→효율 배분 인과는 비현실적 가정 위의 주장이고 바닥 경쟁 반론도 있어 논쟁 없이 단정해 그리기 어렵다
+- protein-secondary-structure: triage:알파나선과 베타병풍 두 종류의 수소결합 방식이 핵심이라 구성 요소가 2개이고 모양은 분자 구조 그림이 필요해 정의 반복에 그친다
+- potassium-dichromate: triage:K2Cr2O7 단일 시약 이름이며 주황에서 초록으로 변하는 산화 반응은 단일 속성 설명에 그친다
+- hegel-dramatic-collision: triage:정당한 두 가치(가족 대 국가)의 충돌이라는 구성 요소 2개로 정의를 되풀이하며 안티고네 한 사례 외에 추가 관계가 없다
+- valence-electron: triage:최외각 전자라는 단일 개념이며 설명은 정의와 예시 나열뿐 새로 보여줄 관계가 없다
+- found-footage-film: triage:자료 재활용형과 페이크 파운드푸티지 극영화의 2분 구분이 전부이고 단계나 인과가 없다
+- peripheral-blood-smear: triage:웨지법 도말 제작과 판독 보고가 서술되지만 단계가 뚜렷하게 나뉘지 않고 자동분석기 대비 필요성만 반복된다
+- iron-iii-sulfate: triage:Fe2(SO4)3 단일 시약명이며 응집 원리는 한 문장 언급이라 독립된 도식 근거가 부족하다
+- match-on-action: triage:동작 중간 컷 연결이라는 단일 편집 기법이고 30도 규칙 등은 문장 언급일 뿐 관계 구조가 없다
+- individualization-thesis: triage:해방·안정감 상실·새 통합의 세 차원이 언급되나 비판 논쟁이 크고 관계를 단정해 그리기 어려우며 서술 중심의 논제다
+- glutamatergic-system: triage:뇌 전체의 흥분성 신경계라는 포괄적 개념으로 수용체 종류 나열 외에 단일 경로나 단계가 없다
+- vant-hoff-equation: triage:π=iMRT라는 공식 하나이며 i값 예시는 단일 속성이라 관계 구조를 보여줄 그림이 필요 없다
+- administrative-data-linkage: triage:기관 자료를 식별자로 결합한다는 정의가 핵심이고 결정적·확률적 연계 2가지 구분 외에 순서 있는 단계가 본문에 없다
+- sparse-coding: triage:소수 뉴런만 활성화된다는 정의 반복이며 밀집 표현과의 대비도 문장 언급 수준이라 구체적 그림 의도를 쓰기 어렵다
+- silencer-element: triage:억제 인자가 결합해 전사를 막는다는 정의 되풀이이며 인핸서와의 대비도 한 문장이고 맥락에 따라 반대 작용도 보고돼 일반화하기 어렵다
+- climate-finance: triage:공적·민간, 완화·적응 구분이 언급되나 목록 수준이고 자금 흐름의 구체 경로가 본문에 없으며 추가성 논란은 단정하기 어렵다
+- factor-of-safety: triage:강도÷하중이라는 단일 비율 공식이며 기준값 예시 외에 구성 요소 간 관계가 없다
+- high-spin-low-spin: triage:갈라짐 에너지와 짝짓기 에너지의 비교가 핵심이라 결정장 갈라짐 항목과 내용이 겹치고 2분 대비에 그친다
+- forced-swim-test: triage:예비 훈련·본 검사와 부동 시간 측정이 서술되나 단계가 구분되지 않고 우울증과의 대응성 논쟁이 있어 단정해 그리기 어렵다
+- cystoscopy: triage:내시경 삽입·식염수 충만·관찰의 단순 절차로 정의 반복 수준이며 경성·연성 구분도 2가지뿐이다
+- cellular-differentiation: triage:미분화에서 특화 세포로 변한다는 정의 반복이며 중간 단계나 계통 분기 같은 구체적 구성 요소가 본문에 없다
+- imprinting: triage:민감기 내 단회 노출로 성립한다는 개념이고 필리얼·성적 각인 2분 외에 구성 요소가 적으며 가역성 논의가 달라 단정하기 어렵다
+- manganese-ii-sulfate: triage:MnSO4 단일 시약명이며 윙클러법 반응은 해당 방법의 항목에서 다룰 내용이다
+- circle-of-willis: triage:동맥들이 고리로 이어진 해부 구조라 현재 도식 유형으로 표현하기 어렵고 개인 변이가 커서 이상형 그림이 오독을 부른다
+- process-drama: triage:결과보다 과정을 중시하는 교육연극 방법이라는 정의 반복이며 기법 나열 외에 순서나 관계가 없다
+- decoupling-economic-growth: triage:절대·상대 디커플링은 GDP 증가 대비 배출 곡선의 모양 차이지만 지수 증가 곡선이 없어 그리기 어렵고 탄소 누출 논의로 해석도 갈린다
+- hla-antibody-testing: triage:감작 여부 확인이라는 검사 목적 설명이고 PRA·단일항원비드법은 용어 나열이라 구체적 관계 구조가 없다
+- biochemical-oxygen-demand: triage:오염 지표 하나의 정의와 측정법(5일 배양) 설명이고, 관계 맺는 구성 요소가 BOD·COD 비교 정도뿐이라 도식이 정의를 되풀이한다
+- blood-urea-nitrogen: triage:BUN 해석 규칙(비율 20 이상/10 근처)과 간·식이 영향이 열거식이라 하나의 그림으로 모이는 구조가 약하고, 임상 기준 수치가 논쟁적이다
+- social-choice-theory: triage:애로우 정리·공리 나열 중심의 분야 개괄이라 구체적으로 그릴 단일 구조나 기전이 없다
+- match-cut: triage:편집 기법 하나의 정의이며 동작·시선·그래픽 매치 세분화는 용어 목록 수준이라 시각화할 관계가 없다
+- trophic-support: triage:신경이 표적에 물질을 공급한다는 개념 설명이고 물질별 기전이 본문에서 조직마다 다르다고 유보되어 있어 단정적 도식이 어렵다
+- szondi-theory-of-modern-drama: triage:특정 이론가의 서술적 위기 진단으로, 작가별 해법 유형화는 본문에 구체 구성 요소가 없고 해석이 학계 논쟁적이다
+- e-z-isomerism: triage:Z/E 두 가지 표기뿐이고 핵심은 CIP 우선순위 규칙이라 분자 구조 그림이 필요해 현재 도식 유형으로 표현하기 어렵다
+- everyman-morality-play: triage:개별 작품명이며 줄거리 단계 나열은 작품 요약에 가깝고 작품 선후 관계 등 학계 견해가 갈린다
+- conductivity-meter: triage:측정 장비 하나의 원리 설명이고 전극-전류-이온 농도의 단순 관계라 구성 요소가 부족하다
+- hydrostatic-pressure: triage:P=ρgh 한 줄 공식으로 요약되는 단일 속성이며 깊이에 비례한다는 사실은 글만으로 충분히 전달된다
+- stage-sign: triage:연극기호학 개념 하나이며 지팡이 예시 외에 서로 관계 맺는 요소가 없고 의미는 맥락 의존적이라 고정 도식이 맞지 않는다
+- hargreaves-test: triage:행동검사 하나의 설명이며 열 자극에서 발 빼기까지의 잠재기 측정은 정의 반복 수준의 단선 구조다
+- electron-configuration: triage:쌓음·파울리·훈트 규칙은 오비탈 에너지 준위 그림이 필요한데 현재 유형으로는 규칙 나열만 되어 정의를 되풀이한다
+- thalamic-reticular-nucleus: triage:시상-피질-망상핵 회로 서술은 본문에 구성은 있으나 수면방추·주의 기능이 가설 중심이라 확정 도식으로 그리기 어렵고 정의 반복 성격이 강하다
+- mannich-reaction: triage:이민 양이온 형성 후 엔올 공격이라는 기전은 분자 구조식 없이는 의미가 없어 현재 도식 유형으로 표현할 수 없다
+- sigmatropic-rearrangement: triage:[i,j] 번호 표기와 전이상태 오비탈 겹침은 구조식이 필수라 본문만으로 구체 도식을 만들 수 없다
+- treatment-resistant-depression: triage:치료 실패 횟수 기준이 연구마다 달라 정의 자체가 논쟁적이라 단정적 도식을 그리기 어렵다
+- rutin-hydrate: triage:단일 시약명(플라보노이드 배당체)으로 구조 설명이 중심이라 도식화할 관계가 없다
+- handheld-camera: triage:촬영 기법 하나의 정의와 미학적 해석이며 스테디캠 구분도 두 요소 비교에 그친다
+- icp-oes: triage:분석 장비 원리(플라스마 들뜸, 파장 방출 측정)가 단선적이고 ICP-MS와의 차이는 두 요소 비교에 그쳐 정의를 반복한다
+- psychedelic-5ht2a: triage:수용체 결합과 환각 효과 관계는 가설 단계(DMN 교란)이고 청소년 노출 영향 등이 섞여 있어 논쟁적 주장을 단정 없이 그리기 어렵다
+- structural-health-monitoring: triage:센서 수집-특징 추출-손상 판별 3단계는 일반적 모니터링 흐름이라 핵심 정보가 본문 밖 사례에 있고 구체성이 부족하다
+- public-choice-theory: triage:이론 개괄로 합리적 무지·예산극대화·지대추구가 병렬로 언급될 뿐 서로의 관계가 본문에서 정의되지 않는다
+- matte-painting: triage:특수효과 기법 하나이며 유리 매트와 디지털의 차이는 두 요소 비교로 정의 반복에 가깝다
+- film-stock: triage:필름 재료 일반이고 감도에 따른 입자감 차이는 두 요소 비교에 그치며 네거티브·포지티브 구분은 용어 목록 수준이다
+- electronic-balance-lab: triage:실험 기구 하나의 사용법이며 로드셀-전기신호-표시의 단순 3단 구조는 정의를 되풀이한다
+- osteoporosis-elderly: triage:질환 정의와 골절 위험 설명이며 폐경·골밀도·골절 간 인과가 본문에 도식화할 만큼 구체적으로 제시되지 않는다
+- c-difficile-toxin-test: triage:검사 하나의 설명이고 균 검출과 독소 검출의 차이는 두 요소 비교에 그쳐 구성 요소가 부족하다
+- subtext: triage:표면 대사와 속마음 두 층의 개념 설명이며 해석이 정답 없는 구성물이라고 본문이 밝힌다
+- activated-sludge-process: triage:폭기조-침전조-슬러지 반송 순환은 있으나 본문이 비유와 운전 문제 설명 중심이라 그림이 정의를 반복하고 변형 공정은 이름만 나열된다
+- footprint-analysis: triage:동물 행동검사 하나이고 보폭·좌우 간격 등은 측정 지표 열거라 도식화할 관계가 없다
+- photovoltaic-cell: triage:효율 퍼센트라는 단일 지표이며 세부 지표 나열과 측정 조건 주의가 중심이라 그릴 구조가 없다
+- shock-wave-theory: triage:수직·경사·이탈 충격파 분류는 있으나 형상 그림이 필수이고 본문이 정의와 적용 예 위주라 3요소 관계가 약하다
+- problem-play: triage:연극 장르명이고 입센·쇼 사례 나열이라 도식화할 구조가 없으며 장르 경계가 논쟁적이다
+- shallow-foundation: triage:독립·줄기·온통 기초 분류는 형상 그림이 필요하고 본문의 핵심은 지지력·침하 설명이라 정의 반복에 가깝다
+- calcium-carbonate-reagent: triage:단일 시약명 — 산과 반응해 CO2를 낸다는 설명이 전부
+- trinucleotide-repeat-expansion: triage:정상·전돌연변이·완전돌연변이 구간은 있으나 수치와 질환별 경계가 본문에 없어 구체 그림의 근거가 부족
+- ionic-bond: triage:교과서 수준의 전자 이동→인력 설명으로 정의 반복에 가깝고 글만으로 충분히 이해됨
+- laparoscopy: triage:수술 기법의 개요와 개복 대비 장점 나열이며 고정된 단계 절차나 관계 구조가 본문에 드러나지 않음
+- metalloprotease: triage:효소군 설명이며 아연 보조인자·EDTA 억제·TIMP 조절이 흩어져 있어 하나의 관계도로 묶을 중심 구조가 약함
+- transfer-pricing: triage:세율 차이와 가격 조정의 인과는 글로 충분하고 구성 요소가 사실상 가격-이익-세금 세 개의 평이한 연결뿐
+- dipole-moment: triage:결합 쌍극자 벡터 합과 대칭 상쇄(H2O 대 CO2)가 핵심이나 분자 구조 그림이 필요하고 본문에 수치 비교가 없어 현 도식 유형으로 보여 줄 새 정보가 적음
+- peripheral-nervous-system: triage:체성·자율 두 갈래뿐이라 구성 요소 3개 미만이고 정의를 되풀이하는 분류
+- urine-nitrite-test: triage:질산염→아질산염 한 단계 반응과 위음성 조건 나열이라 정의 반복이며 새로 보여 줄 구조가 얇음
+- science-fiction-film: triage:장르 정의와 알레고리 기능 서술이며 구성 요소 간 관계 구조가 없음
+- natural-frequency: triage:공진 곡선 모양이 핵심이지만 plot에 공진 피크 함수가 없어 그릴 수 없음
+- oxidation-number: triage:가상 전하 계산 규칙 설명으로 단일 개념이며 그림이 정의를 반복할 뿐
+- haplotype-analysis: triage:연관불평형·위상 추정이 언급되나 정의 중심이며 수치나 구조 근거가 부족
+- handling-non-aversive: triage:터널 대 꼬리 잡기 두 방식 비교뿐이고 비교 축이 본문에 정량적으로 주어지지 않음
+- autoverification: triage:규칙 통과 시 자동 보고, 걸리면 수동 검토라는 조건 분기가 있으나 정의 반복이고 규칙 수치도 없음
+- animism-religion: triage:타일러의 진화론적 단계 도식은 현재 비판받는 틀이라 단정 없이 그리기 어렵고 정의 위주
+- separatory-funnel-lab: triage:기구 설명과 흔들기·벤팅 팁 나열이며 구성 요소 관계도로 얻을 새 정보가 적음
+- tonotopic-organization: triage:주파수 순서 배열이라는 한 문장 원리로 정의 반복이며 위치-주파수 관계 곡선은 본문에 없음
+- echocardiography: triage:검사 장비와 지표 소개이며 유형(TTE·TEE 등)만 나열해 관계 구조가 약함
+- iucn-red-list: triage:등급 이름 나열과 기준 A~E 목록이라 순서·문턱값 수치가 본문에 없어 정보가 빈약함
+- exposition-dramatic: triage:극작 기법 정의와 처리 방식 두 가지 서술이라 구성 요소 3개 미만
+- overtreatment: triage:원인 나열과 과잉진단 구분 문장 정도로 인과 구조가 느슨하고 정의 반복
+- perfect-competition: triage:조건 나열이며 P=MC 균형은 언급만 되고 수요·공급 곡선 수치는 본문에 없음
+- mems: triage:제조 기술 범주 설명이며 구동 원리 세 가지 나열 외 관계 구조가 없음
+- one-act-play: triage:형식 분류 정의이며 단막극 대 장편극 두 항 비교뿐
+- zinc-finger-nuclease: triage:ZF 모듈-FokI 이량체 구조 설명이 있으나 크리스퍼 이전 도구 하나의 구성 설명이라 정의 반복이고 비교 대상 수치도 없음
+- political-polarization: triage:쌍봉 분포 모양이 핵심이나 본문에 수치가 없고 이념·정서 두 축 구분이 정의 반복 수준
+- sickness-behavior: triage:사이토카인 신호가 뇌로 가는 경로가 있으나 급성 정상 반응과 만성 병리 구분이 쟁점이라 단정 곤란하고 우선순위 낮음
+- vector-network-analyzer: triage:계측 장비 소개이며 S11·S21 정의 외 단계나 관계 구조가 없음
+- dimensionality-reduction-neural-population: triage:선형·비선형 기법 두 갈래 소개이며 수치·구조 근거 부족하고 정의 반복
+- nephrotoxin-mechanism: triage:세뇨관 농축→미토콘드리아 손상 순서가 일반 서술이며 본문에 물질별 경로 구분이 없어 구체 그림 근거 부족
+- interferon-gamma-release-assay: triage:채혈-항원 자극-IFN-γ 측정이라는 단순 3단계로 정의 반복이며 판정 기준 수치가 본문에 없음
+- digital-scenography: triage:기술 목록 나열이며 관계가 있는 구성 요소 구조가 없음
+- telephoto-lens: triage:원근 압축 효과를 광각과 비교하는 구체 수치가 본문에 없어 정의 반복에 가까움
+- epigenetic-inheritance: triage:세대 간 전달이 학계에서 논쟁 중이며 포유류 초기화 정도가 본문에 정량화돼 있지 않아 단정 없이 그리기 어려움
+- adverse-drug-reaction-classification: review:본문을 따라 C=지연성, D=금단성, E=치료 실패로 그렸으나 표준 확장 분류(Edwards·Aronson)는 C=만성(누적), D=지연성, E=중단(금단), F=치료 실패라 글자가 한 칸씩 밀려 있음. 고치면 본문과 어긋나므로 본문 수정 후 다시 그려야 함
+- empty-space-theory: triage:두 항(걷는 사람·지켜보는 사람)뿐인 최소 정의라 구성 요소 3개 미만
+- method-comparison-study: triage:Bland-Altman·Passing-Bablok 산점도가 핵심이나 plot 곡선 함수로 그릴 수 없고 본문에 수치도 부족
+- bdnf: triage:운동→BDNF→기억 개선 인과를 단정하기 쉬운 주제이고 본문도 BDNF 수치와 효과가 비례하지 않는다고 경고해 근거가 약함
+- emotional-memory: triage:정서기억 대 신체적행동법 두 기법의 대비가 전부여서 구성 요소 2개 — 도식이 글을 되풀이
+- hyperconjugation: triage:오비탈 겹침이 핵심인데 허용된 도식 유형으로 그릴 수 없고, 3차>2차>1차 안정성 순서는 정의 반복에 그침
+- polycythemia-vera: triage:JAK2 변이→적혈구 과다→혈전이라는 직선 서술이 본문 정의와 같고, 이차성 적혈구증가증과의 비교는 구성 요소 2개뿐
+- cultural-materialism-theatre: triage:문화유물론 대 신역사주의 비교와 이론 계보 설명뿐인 비평 방법론, 시각화할 구조 없음
+- general-equilibrium-theory: triage:여러 시장의 상호 영향을 말로 서술한 개념이고 구체적 곡선·단계 구조가 본문에 없음, 부분균형과의 대비도 2개 개념
+- neutrophil: triage:호중구 방어기전 세 가지는 나열 수준이고 서로 관계 구조 없음, 세포 이름 항목
+- crispr-base-editing: triage:절단 없는 염기 치환이라는 정의에 CBE·ABE 두 유형 나열이 더해진 정도, 정의 반복
+- dietary-fiber: triage:수용성 대 불용성 두 유형의 효과 나열이 본문 caution에 이미 정리돼 있어 도식이 글을 되풀이
+- insulin-like-growth-factor-1: triage:GH→간→혈중 IGF-1과 국소 합성 두 경로 설명이지만 구성 요소가 적고 본문 서술로 충분
+- planetary-boundaries: triage:아홉 한계선을 늘어놓은 목록으로 서로 관계가 없고 허용 유형에 해당하는 구조 없음(수치 경계 레이더는 미지원)
+- tig-welding: triage:전극·아크·보호가스·모재의 장치 구성은 허용 유형으로 그릴 구조가 아님, 공정 기술 설명
+- aufbau-principle: triage:1s→2s→2p… 채움 순서는 본문 설명만으로 충분하고 예외 설명 위주라 도식 이득이 작음
+- thrombocytosis: triage:반응성 대 본태성 두 갈래 구분이 정의에 그대로 있고 도식이 정의 반복
+- step-therapy: triage:저가 약 먼저→실패 시 고가 약이라는 정책 순서가 단순하고 정의에 이미 서술됨
+- zoom-shot: triage:줌 대 달리인의 광학적 차이는 서술로 충분하고 구성 요소가 2~3개 수준
+- kinetic-vs-thermodynamic-control: triage:반응 좌표에 따른 두 활성화 장벽과 두 생성물의 자유에너지를 겹쳐 그리는 에너지 프로파일이 핵심인데 plot 함수로 못 그림
+- drug-metabolizer-phenotype: triage:저대사형~초고속대사형 분류가 정의에 열거돼 있고 약물별 효과 예시는 두 건뿐
+- iron-cage: triage:프로테스탄트 윤리가 껍데기만 남는다는 서술은 정의와 같고 구성 요소가 은유 하나에 가까움
+- glucose-solution-reagent: triage:단일 시약 용액이며 구조가 없고 환원당 검출 용도 설명뿐
+- bode-plot-stability: triage:주파수에 따른 이득·위상 두 곡선과 여유 표시가 핵심인데 로그 주파수 보드 선도는 plot 함수로 못 그림
+- total-allowable-error: triage:편향+1.65×CV와 허용 한계 비교는 수식 한 줄로 충분하고 본문에 분포 구조가 없음
+- social-dilemma: triage:죄수의 딜레마·공유지의 비극·무임승차 나열은 정의 반복이고 구성 요소 간 관계 약함
+- urine-sediment-examination: triage:원심분리 후 관찰이라는 단순 절차가 본문에 이미 서술돼 있고 소견 해석은 열거 수준
+- gas-turbine: triage:압축-연소-팽창 세 단계는 정의에 그대로 서술돼 도식이 정의를 되풀이
+- myocardial-infarction: triage:관상동맥 폐색→괴사라는 정의 반복이고 STEMI/NSTEMI 구분은 두 갈래뿐
+- noninvasive-ventilation: triage:이중 양압 대 지속 양압 구분과 산소요법과의 차이가 있으나 구성 요소 2~3개의 나열 수준
+- transcranial-magnetic-stimulation: triage:자극 패턴 구분(단발·rTMS)과 광유전학과의 정밀도 대비는 서술로 충분, 유형별 효과 방향도 본문에 단정적 구조 없음
+- n-pentane-reagent: triage:단일 용매 시약명, 이성질체 끓는점 언급은 부수적
+- cad: triage:설계 소프트웨어 도구 소개로 구성 요소 관계가 없음
+- carnot-cycle: triage:네 단계 순환 자체는 본문에 나오지 않아 근거가 약하고 효율은 온도비 하나의 식
+- anti-mitochondrial-antibody-test: triage:PBC 진단 표지 자가항체 한 가지 검사로 구성 요소 관계가 거의 없음, 해석 주의점 나열
+- bertrand-model: triage:가격 인하 경쟁이 한계비용까지 이어지는 핵심은 최적반응곡선 교점인데 plot 함수로 못 그림
+- historical-drama: triage:장르 정의와 시대극과의 구분뿐인 문학·연극 개념, 구조 없음
+- cyclorama: triage:무대 장치 하나에 대한 설명이라 구성 요소 관계가 없음
+- potassium-hydroxide-lab: triage:단일 시약명이고 용도·보관 주의 서술뿐
+- ascaris-lumbricoides-egg: triage:수정란 대 미수정란 형태 구분이 전부로 구성 요소 2개, 특정 알 이름 항목
+- therapeutic-drug-monitoring: triage:투약→채혈→목표범위 비교→용량조정은 정의에 다 서술돼 도식이 정의 반복
+- medial-amygdala: triage:여러 맥락이 공격·양육으로 갈린다는 서술이 정의와 caution에 이미 있고 경로 단계가 본문에서 구체적이지 않음
+- evolutionarily-stable-strategy: triage:매-비둘기 보수표가 본문에 없고 ESS 부등식 조건은 수식이라, 그림 구성이 본문 밖 지식에 기댐
+- apron-stage: triage:프로시니엄과 에이프런 두 공간 요소뿐인 무대 위치 용어라 관계망이 없음
+- symbolic-violence: triage:아비투스·오인 등 추상 개념의 서술이라 단계가 분명하지 않고 정의를 되풀이하는 그림이 됨
+- optical-rotation: triage:카이랄 물질의 단일 물리 성질(회전 방향·각도)이며 구성 요소 관계가 없음
+- dissociative-state: triage:행동 지표와 신경 신호의 대응 관계가 본문에서 확정되지 않았고 타당성 논쟁 중이라 단정해 그릴 수 없음
+- methylene-blue-reagent: triage:단일 염료·시약명이며 산화형/환원형 두 상태 전환뿐
+- diseconomies-of-scale: triage:U자형 평균비용곡선이 핵심이나 현재 plot 함수로는 U자를 못 그림
+- moving-light-theatre: triage:조명 장비 한 종류의 소개로 팬·틸트·색상 등 기능 나열일 뿐 관계 구조가 없음
+- copper-ii-sulfate: triage:단일 무기염 시약명이며 수화물과 무수물 색 변화 두 상태뿐
+- reproductive-toxicology: triage:독성학 하위 분야 명칭이며 본문이 영향 종류를 나열할 뿐 순서나 구조 관계가 없음
+- research-injury-compensation: triage:무과실 보상 규정이라는 제도 설명이며 구성 요소 간 구조나 흐름이 없음
+- cultural-omnivore: triage:옴니보어와 유니보어 대비를 말하지만 측정·해석 논쟁이 커서 단정해 그리면 정의 반복에 가까움
+- portfolio-diversification-theory: triage:핵심은 위험-수익 평면의 효율적 투자선 곡선인데 현재 plot 함수로 못 그림
+- dramaturgy-goffman: triage:무대 앞과 무대 뒤 두 영역의 대비가 사실상 전부이며 분석적 은유라 그림이 정의를 되풀이함
+- cisterna-magna: triage:단일 해부 구조의 위치 설명으로 구성 요소 관계가 없음
+- active-analysis: triage:탁상 분석 후 암기와 즉흥 먼저의 순서 차이가 핵심이나 단계 3개 미만이고 본문 예문이 반복돼 근거가 얇음
+- look-alike-sound-alike-drugs: triage:혼동 원인과 예방책(대문자 표기, 분리 보관 등)을 나열하는 목록형이라 관계 구조가 없음
+- italian-neorealism: triage:영화 운동 명칭이며 특징 나열이고 단일 양식이 아니라는 수정주의 논쟁이 있어 단정해 그릴 수 없음
+- free-energy-principle: triage:지각 갱신과 행동의 두 경로 구조는 있으나 검증 가능성을 두고 학계 논쟁이 커서 단정해 그리기 어려움
+- glutamate: triage:단일 신경전달물질 이름이며 수용체 나열과 역할 소개뿐
+- bouffon-theatre: triage:연기 장르 하나이며 중립가면과의 대조만 언급돼 구성 요소가 2개뿐
+- beta-d-glucan-test: triage:단일 검사법으로 검출 균종과 위양성 원인 목록 중심이며 순서나 구조가 없음
+- carbon-sink: triage:산림·해양·토양 등 흡수원 종류 나열이고 흡수량과 저장량 구분도 구성 요소가 2개뿐
+- uncertainty-quantification: triage:우연적·인식적 불확실성 분류와 몬테카를로 등 기법 나열이며 그림으로 새로 얻을 구조가 약함
+- limiting-reagent: triage:샌드위치 비유로 충분한 단일 개념이며 몰수 비교 계산이 핵심이라 그림이 정의를 되풀이함
+- density-gradient-centrifugation: triage:구배 형성, 시료 적재, 원심, 회수의 단순한 4단계 방법이며 등밀도와 속도구배 구분도 본문이 짧아 그림 이득이 작음
+- minimum-inhibitory-concentration-clinical: triage:농도-시간 곡선과 MIC 수평 기준선이 핵심이나 plot에 수평 기준선이 없어 그릴 수 없음
+- rapid-antigen-test: triage:검사 원리와 민감도 한계 서술이며 바이러스 농도에 따른 민감도 변화 모양이 본문에 구체적이지 않음
+- medical-futility: triage:생리적·질적 무익성 두 갈래이며 가치판단이 개입되는 논쟁적 개념이라 단정해 그릴 구조가 아님
+- maladaptive-plasticity: triage:적응적과 부적응적 가소성의 대비는 있으나 같은 변화가 상황에 따라 달라진다고 본문이 밝혀 단정 도식이 어렵고 예시 나열에 그침
+- intergenerational-justice: triage:규범 원칙 서술이며 현재 세대와 미래 세대 두 주체뿐이고 합의된 기준도 없음
+- policy-diffusion: triage:학습·경쟁·강제·네트워크 네 경로 나열일 뿐 정의를 되풀이하며 실증 구분이 연구마다 다름
+- samuelson-condition: triage:개인 한계편익 곡선을 세로로 합산하고 한계비용과 맞추는 그림이 핵심이나 세로합산을 plot이 못 하고 곡선도 3개를 넘음
+- focus-group: triage:소집단 토론이라는 단일 조사기법 소개이며 단계 구분이 없고 표본 대표성 한계만 언급
+- conflict-structure: triage:극적 갈등 항목과 같은 인물 대 인물·사회·내면 분류의 반복이라 별도 도식이 필요 없음
+- scarcity: triage:정의 반복 — 무한한 욕구와 한정된 자원, 기회비용 연결이 정의·caution 문장과 같아 새로 보여 줄 것이 없음
+- off-target-toxicity: triage:정의 반복 — 약물이 표적 외 분자에 결합해 부작용이라는 2단 구조뿐이고 hERG·CRISPR는 사례 나열
+- rites-of-passage-theatrical: triage:분리-전이-통합과 공연 구조의 대응은 유비 수준이라 학계가 단정을 경계함(caution) — 단정 없이 그리기 어려움
+- nickel-ii-nitrate: triage:단일 시약명 — 색 변화와 용도는 속성 나열
+- diels-alder-reaction: triage:정의 반복 — 디엔+친디엔체→6원자 고리의 한 단계 반응이라 구성 요소 3개가 정의와 동일하고 구조식 그림이 필요
+- greek-comedy: triage:장르 이름 — 초기·후기 2구분과 특징 나열뿐, 관계 맺는 구성 요소 없음
+- population-bottleneck: merge-candidate: 병합 후보라 보류(was reviewed)
+- rivet-joint: triage:정의 반복 — 구멍 뚫기, 핀 삽입, 끝 뭉개기 3단계가 정의 문장과 같고 그림이 더 알려 주는 것이 적음
+- concrete-curing: triage:정의 반복 — 수분·온도 유지로 수화반응을 지속시킨다는 2요소뿐이며 방법은 나열 수준
+- founder-effect: triage:유전적 부동의 하위 사례 — 소수 정착이라는 구성이 병목효과와 같은 구도이고 비유(도서관)가 설명의 전부
+- sulfuric-acid-lab: triage:단일 시약명 — 이염기산 이온화 설명과 희석 주의는 속성·안전 수칙 나열
+- nicotinic-receptor: triage:정의 반복 — ACh 결합, 통로 개방, 빠른 전달은 정의와 동일하고 이온성/대사성 수용체 항목의 하위 사례
+- root-and-stem-structure: triage:정의 반복 — 뿌리털 흡수와 물관·체관 운반 방향이 정의 문장에 이미 다 담겨 있음
+- structural-film: triage:영화 갈래 이름 — 고정 프레임·루프 등 특징 나열이고 대표작 서술 위주
+- moment-of-inertia-section: triage:단일 기하 속성값 — 중립축에서 멀수록 커진다는 한 관계이며 수식 의존이라 구성 요소가 부족
+- elliptical-editing: triage:정의 반복 — 시간 구간을 건너뛰어 압축한다는 한 동작이며 점프컷과의 비교도 2개 개념뿐
+- ca15-3-test: triage:단일 검사명 — 종양표지자 수치 해석 주의 사항 나열
+- best-available-technology: triage:규제 개념 하나 — 기술·경제 고려와 BREF 언급은 나열이고 단계·관계가 뚜렷하지 않으며 판단 기준도 논쟁적
+- aggrecan: triage:단일 분자명 — 히알루론산·링크단백질 복합체 설명은 본문이 간략해 구성 관계를 확정해 그리기 어려움
+- costume-plot: triage:제작 문서(표) 이름 — 배우·장면·의상 표 자체가 정의이고 관계 구조가 없음
+- semen-analysis: triage:검사 항목 나열 — 정액량·농도·운동성·형태 사이의 관계 구조가 없음
+- multiplex-pcr: triage:정의 반복 — 여러 프라이머를 한 관에 넣어 동시에 검출한다는 한 문장이 설명의 전부
+- eye-level-shot: triage:정의 반복 — 눈높이 중립 앵글이라는 한 속성이며 하이·로우앵글과의 대비도 본문에 구체적 내용이 없음
+- laban-movement-analysis: triage:분석 체계 이름 — 본문 안에서 네 요소와 네 범주 서술이 엇갈려 구조를 단정해 그릴 수 없음
+- weight-based-dosing: triage:단일 계산 원칙 — 체중×mg/kg 곱셈과 체중 종류 나열뿐이며 구성 요소 간 구조가 없음
+- hemoglobin-reagent: triage:단일 단백질·시약명 — 헴 철의 산소 결합과 루미놀 촉매는 속성 나열
+- dentate-granule-cell: triage:세포 유형 이름 — 내후각피질→CA3 입력·출력이 정의 한 줄과 같고 나머지는 속성 나열
+- modernization-theory: triage:로스토우 5단계는 본문에 나열된 줄거리 그대로이며 그림이 정의를 되풀이할 뿐, 논쟁 많은 단선 발전 가정을 단정해 그리게 됨
+- mystery-cycle: triage:중세 종교극 장르 설명으로 관계 구조가 없고 길드-에피소드 배정은 단순 나열
+- coefficient-of-performance: triage:COP는 단일 효율 지표이고 3~4배 비율 설명뿐, 카르노 한계 대비 곡선은 본문에 구체적 근거가 없음
+- electrolysis-apparatus-lab: triage:장치 구성(용기·전극·전원)과 음극 환원·양극 산화 두 갈래뿐이라 정의 반복, 실험기구 배치도는 지원 유형 밖
+- lead-ii-nitrate: triage:단일 시약 Pb(NO3)2, PbI2 침전 반응 한 가지 예시와 안전 수칙 위주
+- domestic-tragedy: triage:비극의 하위 장르 설명으로 신분 확장 서술만 있고 비교할 구성 요소가 없음
+- theatre-sound-effects: triage:음향효과 대 배경음악, 폴리 대 녹음 재생은 두 개념 대조뿐이고 구성 요소가 3개 미만
+- wide-angle-lens: triage:광각 대 망원 두 렌즈의 원근 차이 설명뿐, 구성 요소 2개로 정의 반복
+- urea-reagent: triage:단일 화합물 요소, 변성제·비료·최초 유기합성 사례 나열
+- old-comedy-greek: triage:고대 그리스 희극 양식 서술, 파라바시스 등 특징 나열이라 관계 구조 없음
+- turbidimetry: triage:비탁법 원리는 탁도 측정 한 줄이고 네펠로법과의 2항 대조, 후크 효과는 주의 한 줄뿐이라 근거 부족
+- heparin-anticoagulation-monitoring: triage:UFH는 aPTT, LMWH는 항Xa로 모니터링한다는 2항 대응이라 구성 요소가 적고 표 한 줄로 충분
+- hofmann-elimination: triage:호프만 대 자이체프 선택성 대비는 2항이고 이탈기 크기→접근성 인과도 한 문장이라 그림이 정의를 되풀이
+- gothic-drama: triage:공연 양식 장르 설명, 고딕 소설 소재 차용과 무대 기술 서술뿐
+- scaffold-protein-signaling: triage:스캐폴드가 신호 단백질을 묶는다는 단일 기능 설명, 농도 과잉 억제는 주의 한 줄이라 근거 약함
+- flow-net: triage:유선·등수두선 직교 격자는 도해 그림 자체가 개념이라 지원되는 9개 유형으로 그릴 수 없음
+- earth-retaining-system: triage:가설 구조물 설명, 벽체·지지 방식 나열은 있으나 분류 관계가 얕고 도식 필요도가 낮음
+- phylogenetic-tree-construction: triage:계통수 구축 방법 세 가지 나열과 부트스트랩 언급뿐이라 단계·관계 근거가 본문에 부족
+- blue-economy: triage:발전 모델 개념, 산업 나열과 지표 한계 서술뿐 관계 구조 없음
+- helicase: triage:단일 효소 기능 설명(수소결합 분해), 아형 분류는 나열 수준
+- wildlife-field-research-ethics: triage:윤리 기준 설명이고 포획·허가·공동체 동의는 병렬 나열이라 관계 구조 없음
+- stage-business: triage:연기 용어 정의, 소품·습관 동작 예시 나열뿐
+- dose-tapering: triage:일정 감량 대 비율 감량은 한 문장 논의 수준이고 학계 지침이 갈려 단정 곤란
+- off-broadway: triage:뉴욕 극장 규모 3단계 구분이나 좌석 수 기준 수치 나열에 가깝고 정의 반복
+- star-system: triage:스튜디오 전속 관행 서술이며 단계 순서 근거가 약하고 인물 사례 위주
+- click-chemistry: triage:클릭 화학은 반응 부류 총칭이며 CuAAC 대 SPAAC 2항 대조뿐
+- red-nucleus: triage:적핵 하위 구분과 소뇌 되먹임 고리가 있으나 사람에서의 기여 설명이 논쟁적이고 본문만으로 고리를 확정하기 어려움
+- rheumatoid-factor-test: triage:단일 검사 항목, 항CCP와 병용한다는 언급뿐 구성 요소 2개
+- hox-gene: triage:혹스 공선성은 염색체 순서와 몸 축 대응이 핵심인데 지원 유형으로 그릴 수 없음
+- subarachnoid-space: triage:막 3겹 해부 위치 설명이고 뇌척수액 흐름은 본문에 단편적이라 정의 반복
+- lessing-hamburg-dramaturgy: triage:레싱의 저작물 하나를 가리키는 문헌명, 시간·구조 관계 없음
+- posterior-parietal-cortex: triage:뇌 부위 설명, LIP·VIP·MIP 하위 영역 나열은 있으나 분류 근거가 얕음
+- red-cell-distribution-width: triage:RDW는 단일 지표, MCV와 결합한 감별은 본문에서 서술 수준
+- polysome: triage:폴리솜은 구조 정의가 곧 그림 내용, 구성 요소가 mRNA와 리보솜 2개뿐
+- amyotrophic-lateral-sclerosis: triage:질환 설명 위주, 병인·진행 기전의 관계가 본문에 단계로 제시되지 않음
+- social-network-theory: triage:노드·연결선 네트워크 그래프는 지원 유형으로 그릴 수 없고 지표 나열뿐
+- thevenin-norton-theorem: triage:회로 등가 변환 정리, 회로도는 지원 유형 밖이고 개방전압·단락전류는 두 값 대응
+- temporal-continuity: triage:편집 원칙의 정의 반복이며 구성 요소 관계가 본문에 없고 공간적연속성과의 비교도 한 줄뿐
+- previsualization: triage:스토리보드와의 2항 비교가 전부이고 단계·관계 구조가 본문에 구체적으로 없음
+- conjugate-acid-base-pair: triage:산과 H⁺ 하나 뺀 염기라는 정의 반복이며 구성 요소가 두세 개뿐이고 완충 원리는 별도 용어에서 다룸
+- mechanical-shock-testing: triage:시험 종류 설명이며 반사인파·사다리꼴 펄스 형상이 핵심은 아니고 SRS도 본문에 수치 근거가 없음
+- political-opportunity-structure: triage:개방성·엘리트 균열 등 요인 나열에 그치고 요인 간 관계나 인과 구조가 본문에 없음
+- interest-rate: triage:원금 대비 비율이라는 단일 변수이며 명목-실질 구분은 빼기 한 번이라 구조 그림 가치가 낮음
+- electroconvulsive-shock: triage:동물 처치 방법 설명이며 단회와 반복 처치 비교는 두 항목뿐이고 기전 경로가 본문에 구체적이지 않음
+- faradays-laws-of-electrolysis: triage:전하량과 생성량의 단순 비례식 하나로 직선 그림은 정의를 되풀이하는 정도임
+- box-set-theatre: triage:세 벽과 보이지 않는 제4의 벽이라는 정적 무대 형식 설명이며 윙앤드롭 비교는 한 줄 언급뿐
+- tragedy-genre: triage:장르 정의이며 아리스토텔레스와 니체의 해석이 엇갈려 하나의 구조로 단정해 그리기 어려움
+- myosin: triage:단백질 명칭 항목이며 부착·당기기·분리 주기는 본문에 상세하지 않고 교차결합 주기 용어가 별도로 다룰 내용
+- thermal-stress: triage:온도변화→구속→응력이라는 세 단계 단순 인과이며 정의 반복에 가깝고 크기 계산식은 본문에 정량 근거가 없음
+- gdp: triage:생산·지출·소득 세 접근과 명목·실질 구분이 단순 병렬 나열이고 서로의 관계 구조가 본문에 없음
+- amphitheatre-greek: triage:극장 건축 공간 배치 설명이며 제시된 도식 유형으로는 관객석·오케스트라의 공간 구조를 보여줄 수 없음
+- colonoscopy: triage:검사 한 건 소개이며 장정결·삽입·용종절제 순서가 본문에 구체 단계로 서술되지 않고 지표만 나열
+- extrusion-process: triage:재료를 다이로 밀어내 단면을 만든다는 정의 반복이며 냉간·열간 구분도 두 항목뿐임
+- stage-props: triage:배우가 다루는 무대 물건이라는 정의이며 실용·장식 소품 두 분류가 전부임
+- chemoaffinity-hypothesis: triage:분자 표지가 연결을 안내한다는 가설 설명이며 개구리 눈 회전 실험은 있으나 가설 해석이 현대에는 활동 의존 조정과 함께 재해석되어 단정해 그리기 어려움
+- meisner-technique: triage:연기 훈련법 이름이며 반복 훈련 하나를 소개할 뿐 구성 요소 간 관계가 없음
+- solid-electrolyte-ionic-conductivity: triage:물성 하나의 정의이며 결함 징검다리 이동과 아레니우스 분석은 본문에서 문장 수준 설명이라 구성 요소 관계가 부족
+- czechoslovak-new-wave: triage:영화 운동 소개이며 1960년대 형성과 1968년 위축 두 시점뿐이라 시간 순서 도식의 구성 요소가 부족
+- giardia-lamblia-test: triage:병원체 검출 검사 한 건 소개이며 영양형·포낭 두 형태와 반복검사 권고 외에 관계 구조가 없음
+- urban-ecology-theory: triage:동심원 모델의 다섯 지대는 공간 배치이고 경쟁·침입·계승은 개념 설명이며 생물학 은유 비판도 있어 단정해 그리기 어려움
+- standard-electrode-potential: triage:수소전극 기준 값 하나의 정의이며 전기화학 서열은 단순 줄 세우기 목록임
+- dna-ligase: triage:효소 하나의 기능 정의이며 복제·복구·클로닝 용도는 나열이고 반응 단계는 문장 한 줄뿐
+- creep: triage:1차 감속, 2차 정상, 3차 가속 세 단계 변형률-시간 곡선이 핵심 그림이나 현재 plot 함수로는 그릴 수 없음
+- assistant-director-theatre: triage:직무 소개이며 연출가와 무대감독 역할 구분이 문장으로 있을 뿐 도식화할 구조가 없음
+- periaqueductal-gray: triage:뇌 구조 하나의 이름과 기능 서술 위주, 하행 경로(PAG-RVM-척수)는 본문에서 한 문장 언급에 그쳐 그림 근거가 약함
+- vegf-c: triage:단일 성장인자명 항목, 절단 활성화 설명이 있으나 이름 풀이에 가까워 구성 요소 관계가 얕음
+- theatre-of-cruelty: triage:아르토의 연극 이론 하나를 서술한 개념, 구성 요소 간 관계 구조 없음
+- platelet-antibody-test: triage:검사명 항목, 적용 질환 나열과 해석 주의가 중심이라 도식화할 관계가 없음
+- coverage-filmmaking: triage:제작 관행 정의와 장단점 논의가 전부, 3개 이상 요소의 관계 구조 없음
+- ultrasonic-cleaner-lab: triage:실험기구 하나, 캐비테이션 원리는 한 줄 설명이라 정의 반복에 가까움
+- producer-surplus: triage:공급곡선 아래 면적 개념으로 곡선 위 음영 도식이 맞지만 plot 함수에 공급-가격 잉여 영역이 없어 보류
+- fplc: triage:장비명 항목, 정제 단계 나열은 일반 크로마토그래피 설명이고 FPLC 고유 관계 구조는 없음
+- cytokine-therapy: triage:치료법 정의와 사례 나열 중심, 기전 경로나 비교 구조가 본문에 구체적으로 없음
+- stage-directions: triage:희곡 용어 정의, 작가별 지문 스타일 비교는 두 사례 언급에 그쳐 그림 근거 부족
+- tail-suspension-test: triage:동물 행동 검사 방법 정의, 절차는 매달기와 부동 측정 두 단계뿐이라 정의 반복
+- liebig-condenser-lab: triage:유리기구 하나의 구조 설명, 역류 냉각 원리는 한 줄이라 정의 반복 수준
+- presubiculum: triage:뇌 영역 이름 항목, 시상 앞핵에서 내후각피질로 가는 경로가 있으나 영역 정의 설명이 중심
+- integrin: triage:수용체 단백질 가족 항목, 안-밖 신호 양방향은 두 방향 언급뿐이라 구성 요소가 부족
+- protecting-group: triage:일반 합성 개념으로 보호-반응-탈보호 3단계가 있으나 정의의 되풀이이고 새로 보여줄 것이 적음
+- double-plot: triage:극작 구조 용어, 주플롯과 서브플롯 두 요소 관계로 정의 반복
+- hypoxia-chamber: triage:장비명 항목, 만성 대 간헐 저산소 구분은 두 가지 언급뿐이고 도식 근거 부족
+- whole-exome-sequencing: triage:기법 이름, 포획-시퀀싱-해석 흐름은 있으나 일반적 NGS 절차이며 본문에 단계 구조가 약함
+- sla-3d-printer: triage:장비명 항목, 한 층씩 경화하는 반복은 정의에 이미 담겨 있어 정의 반복
+- sodium-citrate-reagent: triage:단일 시약명, 완충·항응고 두 용도 나열뿐
+- chip-formation: triage:칩 유형 4가지 나열이 있으나 목록 수준이고 형성 조건별 관계가 서술에 흩어져 있어 보류
+- luciferase: triage:효소 하나의 이름 항목, 루시페린 산화 발광 반응은 한 줄 정의로 충분
+- transamination: triage:효소 반응 정의 항목, PLP 매개 전달 순서가 일부 있으나 기질 두 쌍 교환 설명이 중심이라 정의 반복
+- preoperative-fasting: triage:금식 시간 수치 목록, 요소 간 관계보다 값 나열이고 지침에 따라 달라지는 기준이라 도식 근거 약함
+- pressure: triage:단일 물리량 정의(힘/면적), 단위 환산과 절대압/게이지압 구분은 두 가지 언급뿐
+- fdm-3d-printer: triage:장비명 항목, 공정 변수 나열과 이방성 주의로 구성되어 도식화할 관계 구조 없음
+- synaptic-turnover: triage:개념 정의 위주, 생성과 소실의 균형은 두 요소뿐이라 정의 반복
+- lehrstuck: triage:연극 형식 정의, 서사극과의 대비는 한 문장 언급에 그침
+- end-effector: triage:로봇 부품 하나, 팔과 끝단 구분은 두 요소뿐이고 유형 나열은 예시 수준
+- morris-water-maze: triage:행동 검사 방법 정의, 학습 곡선이 언급되나 훈련-프로브 두 단계와 지표 나열 수준
+- income-polarization: triage:쌍봉 분포 모양이 핵심이지만 plot 함수로 두 봉우리 혼합 분포를 그릴 수 없어 no, 혼합 정규 필요
+- poverty-line: triage:절대 대 상대 빈곤선 두 가지 정의 비교로 구성 요소 2개뿐이고 정의 반복
+- gut-microbiome-dysbiosis: triage:상태 정의와 질환 연관 나열, 원인-결과 방향이 본문에서도 미정이라 단정해 그릴 수 없음
+- weimar-classicism-theatre: triage:문예사조 정의와 작가 이름 언급 위주, 도식화할 관계 구조 없음
+- ketamine: triage:단일 약물명, 항우울 기전 경로가 제시되나 본문이 기전 논쟁 중이라 밝혀 단정해 그릴 수 없음
+- seed-germination-conditions: triage:발아 조건 세 가지 나열이 전부라 정의 반복, 휴면은 한 줄 부가 설명
+- post-production: triage:제작 단계 정의, 후반 공정 나열이 있으나 순서가 본문에 확정되어 있지 않아 목록 수준
+- performativity-butler: triage:이론 개념 설명 — 반복 행위가 정체성을 구성한다는 한 문장 구도로 구성 요소가 모호하고 해석이 갈림
+- model-based-systems-engineering: triage:문서 중심 대 모델 중심이라는 방법론 대비뿐이고 본문에 구체적 단계·축이 없음
+- rate-constant: triage:단일 속성(k) 설명 — 온도 의존은 아레니우스 항목 몫이며 지수 증가 곡선은 plot 함수에 없음
+- thrust-stage: triage:극장 형태 하나의 설명 — 프로시니엄·아레나 사이 절충이라는 서술뿐 구성 요소 관계가 얕음
+- chronoamperometry: triage:핵심은 전위 계단 뒤 전류가 시간 제곱근에 반비례해 줄어드는 단일 곡선인데 해당 함수가 plot에 없음
+- bode-plot: triage:로그 주파수축 이득·위상 두 그래프와 여유 표시가 핵심이라 plot 함수로 못 그림
+- reservoir-engineering: triage:분야명 — 회수 1·2·3차 단계가 있으나 본문이 분야 소개 중심이고 단계 간 관계가 얕음
+- emergency-severity-index: triage:1~5등급 분류표 나열 — 구성 요소는 많으나 정의의 등급 목록을 되풀이할 뿐
+- new-comedy-greek: triage:극 양식 하나 — 구희극과의 대비가 언급되나 비교 축이 소재·합창단 정도로 얕고 사조 설명 중심
+- critical-value-reporting: triage:검사실 절차 소개 — 단계(발견·통보·재확인·기록)가 본문에 순서로 제시되지 않고 품질지표 설명 위주
+- theatre-architecture: triage:분야 소개 — 그리스 극장·프로시니엄·블랙박스 열거는 있으나 관계·기준 축이 없고 본문 반복이 많음
+- financial-literacy: triage:능력 개념 하나 — 측정 문항·행동 간극 논의뿐 구조적 구성 요소가 없음
+- glomerular-filtration-rate: triage:단일 수치 지표(mL/min) — eGFR 추정과 병기 분류는 언급되나 병기 구간 수치가 본문에 없음
+- gear-train: triage:단순·복합·유성 기어열 분류는 있으나 정의 수준 나열이고 감속비는 곱이라는 한 줄 외에 그림이 더 보여줄 것이 없음
+- voxel-based-morphometry: triage:분석 기법 소개 — 전처리 순서가 본문에 간략히 있으나 핵심은 복셀 비교라는 한 문장
+- path-integration: triage:개념 하나 — 속도·방향 누적과 오차 누적은 서술뿐이고 신경 기전은 논쟁 중이라 단정하기 어려움
+- noise-correlations-neural: triage:상관 방향에 따라 정보가 늘거나 준다는 조건 서술 — 조율곡선 정렬 구도는 본문만으론 그림 구성이 불분명하고 plot 함수로 못 그림
+- noh-theatre: triage:일본 고전극 명칭 — 시테·와키·지우타이 구성과 현재노·몽환노 분류가 있으나 장르 소개 중심이라 정의 반복
+- high-angle-shot: triage:카메라 앵글 하나 — 로우앵글과의 대비가 언급되지만 하위 사례 수준이고 본문이 같은 말을 반복
+- ligase: triage:효소 부류 이름 — DNA·유비퀴틴 리가아제 예시뿐이고 E1-E2-E3는 다른 항목이 다룸
+- prologue-in-film: triage:서사 장치 하나 — 본문이 짧고 구성 요소 관계가 없음
+- ecological-niche: triage:기본 지위와 실현 지위 대비가 있으나 두 개념 비교에 그치고 경쟁배타·분화 서술은 정의 반복에 가까움
+- precision-medicine: triage:접근법 소개 — 표준 치료 대 맞춤 치료 대비뿐 구성 요소가 3개 미만
+- von-mises-stress: triage:단일 등가응력 값 — 항복 판정 기준 설명뿐, 응력 상태 도식은 plot 함수로 못 그림
+- bentley-life-of-the-drama: triage:특정 저서의 이론 소개 — 장르별 감정 대응이 서술만 있고 구조화할 근거가 약함
+- plautus-comedy: triage:작가 작품군 — 신희극에서 근대 희극까지의 영향이 언급되나 작품·인물 소개 중심
+- subgame-perfect-equilibrium: triage:내쉬균형의 정제 개념 — 포함 관계(부분집합)와 후방귀납이 언급되나 게임 트리 없이는 그림이 정의 반복에 그침
+- british-new-wave: triage:영화 사조 명칭 — 대표작 나열과 시기 구분 위주로 시간 순서 근거가 약하고 사조 설명 중심
+- higher-order-theory-consciousness: triage:의식 이론 하나 — 경쟁 이론(전역작업공간·통합정보)과 논쟁 중이라 단정해서 그릴 수 없음
+- anomeric-effect: triage:입체전자 현상 — 초접합 설명은 구조식이 필요해 도식 유형 9개로 못 그림
+- cati: triage:조사 방식 하나 — CAPI·CAWI 비교는 언급만 되고 구성 요소 관계가 얕음
+- optogenetic-tagging: triage:기법 소개 — 빛 자극 후 짧은 잠재기 판정이 핵심 한 줄이고 단계 구조가 약함
+- finite-element-method: triage:수치해석 기법 — 요소 분할과 정확도·계산량 절충 서술뿐, 도식이 줄 새 정보가 적음
+- limewater-reagent: triage:단일 시약 — 반응식 한 줄과 과량 시 재용해 설명뿐
+- mertk: triage:단일 수용체 단백질 — 포식 기전 서술이 있으나 단백질 이름 항목이고 구성 요소가 부분적
+- cardiac-remodeling: triage:보상 비대에서 섬유화·확장으로 넘어가는 악순환이 서술되나 초기 보상 여부를 일률적으로 단정할 수 없다는 주의가 있고 단계 구분이 흐림
+- bacterial-meningitis-antigen-test: triage:검사 한 종 — 라텍스응집법 설명과 해석 주의뿐 구성 요소가 3개 미만
+- mechanoreceptor: triage:수용기 부류 — 빠른·느린 적응 두 유형 분류가 있으나 정의의 하위 사례 수준
+- roman-theatre: triage:연극 전통 소개 — 그리스 영향과 로마 변형 서술 위주, 시간 순서 구성 요소가 없음
+- aristophanes-comedy: triage:작가 작품군 이름 — 구희극 특징 서술은 있으나 인물·작품 소개 중심
+- bone-marrow-fibrosis-assessment: triage:등급화 검사 — MF-0~3 등급 설명이 있으나 등급 기준이 본문에 구체화되지 않고 정의 반복
+- gaze-theory-theatre: triage:보는 자와 보이는 자의 권력 관계라는 추상 이론 설명이고 구성 요소가 둘뿐이라 구조도로 그릴 단계가 없음
+- cad-cam-software: triage:CAD 설계 후 CAM 경로·G코드로 넘어간다는 단순 2단 흐름이고 정의와 쉽게 풀이가 이미 같은 내용을 되풀이함
+- durational-performance: triage:아브라모비치 사례 중심의 공연 형식 설명이며 서로 관계 맺는 구성 요소를 3개 이상 뽑을 수 없음
+- overshoot: triage:감쇠 진동하며 목표값을 넘었다 수렴하는 계단 응답 곡선이 핵심인데 현재 plot 함수로는 그릴 수 없음
+- rna-binding-protein: triage:RBP가 가공·운반·안정성·번역을 조절한다는 기능 나열로 정의 반복이고 단계나 인과 구조가 본문에 없음
+- atomic-orbital: triage:양자수와 마디 수 등 수식 위주 설명이고 본문에 s·p 모양 외의 구조 관계가 정리되어 있지 않아 근거가 부족함
+- fragmented-narrative: triage:비선형 서사와의 구분은 개념 두 개 비교이고 조각난 장면 사이 관계는 정해진 구조가 없어 도식화할 수 없음
+- pneumatic-system: triage:컴프레서에서 밸브, 실린더로 이어지는 흔한 동력 전달 흐름이고 본문이 일반적 예시와 유압 대비 장단점 서술에 그침
+- slow-motion: triage:고속촬영과 후반 보간이라는 두 제작 방식 구분일 뿐 구성 요소 3개 이상의 관계가 없음
+- cobalt-ii-chloride: triage:단일 시약명이며 파랑 무수물과 분홍 수화물 두 상태 변화만 있어 구성 요소가 부족함
+- technology-transfer: triage:연구 성과가 라이선싱·판매·스핀오프로 산업계로 가는 나열형 설명이고 정의 반복에 가까움
+- social-drama: triage:사회 구조 문제를 다루는 장르 설명이며 정치극과의 구분도 두 개념 비교에 그침
+- focused-ultrasound-neuromodulation: triage:작동 기전이 가설 단계로 아직 논쟁 중이고 경두개자기자극과의 비교도 단순 대조에 그쳐 단정 없이 그릴 근거가 약함
+- psychodrama: triage:주인공·보조자아·연출자 등 역할 나열이고 이들 사이의 인과나 순서 관계가 본문에 제시되지 않음
+- temporal-coding: triage:발화율 부호화와의 대비가 핵심이나 스파이크 타이밍을 그리려면 래스터 형태가 필요해 현재 type으로 표현할 수 없음
+- chromosome: triage:DNA가 히스톤에 감겨 염색체가 된다는 정의 반복이고 단계별 포장 구조가 본문에 구체적으로 없음
+- zinc-metal-drop: triage:단일 금속 시약명이며 산·염기 반응과 갈바니 전지 사례는 별개 설명이라 한 구조로 묶이지 않음
+- sustained-release-formulation: triage:즉시방출 대비 완만한 혈중 농도 변동이 핵심이나 반복 투여 농도 곡선은 현재 plot 함수로 표현할 수 없고 본문에 곡선 수치도 없음
+- gwangdae-performer: triage:전통 예능인 집단을 가리키는 직업 명칭이며 소리광대 등 종류 나열뿐 구조적 관계가 약함
+- globe-theatre: triage:특정 극장 건물이라는 고유 대상이며 마당·회랑·에이프런 무대 설명은 공간 배치 서술이라 지원 type이 없음
+- vacancy-defect: triage:공공 농도가 온도에 따라 지수적으로 늘어나는 곡선이 핵심이나 현재 plot 함수로는 그릴 수 없고 쇼트키·프렌켈 분류는 본문 비중이 작음
+- balancing-chemical-equations: triage:계수 조정이라는 계산 규칙이며 산화수법과 반쪽반응법은 방법 이름만 나열되어 단계 구조가 없음
+- enzyme-linked-immunosorbent-assay: triage:직접법·간접법·샌드위치법의 단계별 구성이 본문 밖 지식에 크게 의존하고 본문은 판정과 위양성 주의 위주임
+- measurable-residual-disease: triage:유세포·PCR·NGS 세 방법의 검출 한계 비교는 수치가 본문에 일부뿐이고 핵심은 개념 설명이라 도식의 추가 통찰이 작음
+- art-cinema-narration: triage:고전 할리우드 서사와의 이분 대비 이론 정의이며 서술 양식 내부 구성 요소의 관계가 제시되지 않음
+- rational-expectations: triage:정책 무력성 논증은 가정 위의 이론 주장이고 본문이 적응적 기대와의 비교와 비판 서술에 치우쳐 단일 구조로 잡기 어려움
+- theatre-audition: triage:1차·재오디션·최종 배역 결정이라는 평범한 선발 절차 나열이고 캐스팅과의 구분도 두 단계 대비일 뿐임
+- invisible-hand: triage:이기심에서 가격 신호를 거쳐 사회적 이익으로 가는 은유이며 본문 대부분이 정의 반복과 시장실패 단서 설명임
+- spin-coater: triage:박막 제작 장비명이며 회전 속도와 두께의 반비례 관계는 본문에 수치 없이 경향만 언급되어 plot 근거가 부족함
+- queer-theatre-theory: triage:이성애 규범 비판과 수행성 개념을 쓰는 이론적 시각이며 구성 요소 간 구조나 순서가 없음
+- polyvinyl-alcohol-reagent: triage:단일 고분자 시약명이며 붕사 가교 겔 형성과 합성 경로는 시약 하나의 부수 설명임
+- says-law: triage:생산이 소득과 수요를 만든다는 명제와 케인스 반박의 이분 대립이고 논쟁 중인 이론을 한 그림으로 단정하기 어려움
+- lewis-acid-base: triage:전자쌍 받개와 주개가 부가물을 만든다는 정의 반복이며 브뢴스테드와의 포함 관계도 두 개념뿐임
+- projection-design-theatre: triage:무대 영상 투사 직무 영역 설명이고 프로젝션 매핑과 실시간 카메라는 사례 나열일 뿐 관계 구조가 없음
+- light-scattering-method: triage:전방·측방 산란이 크기와 과립도를 반영한다는 두 항목 대응이 전부이고 나머지는 플래그 확인 절차 주의사항임
+- compensatory-mechanism-homeostasis: triage:이탈 후 보상, 대상부전으로 넘어가는 일반 경과 서술이고 경계 기준이 질환마다 달라 본문이 단정적 구조를 주지 않음
+- nbome-psychedelics: triage:합성 환각제 계열 이름이며 5-HT2A 선택성과 LSD 오인 유통이라는 두 속성만 있어 관계 구성 요소가 부족
+- reaction-kinetics: triage:농도·온도·활성화에너지를 나열한 분야 총칭이라 하나의 그림으로 모을 구조가 없고, 아레니우스 곡선은 개별 용어 몫
+- trust-game: triage:투자자 송금, 증식, 수탁자 반환의 3단계 흐름이 정의 문장에 이미 다 담겨 있어 그림이 글보다 더하는 것이 없음
+- histone-modification-mapping: triage:ChIP-seq 절차가 한 문장 수준으로만 서술되고 표지별 의미는 본문에 구체적이지 않아 근거 부족
+- parvalbumin-interneuron: triage:세포 유형 하나의 설명이며 바구니세포와 샹들리에세포 두 하위형 외에 관계 구성 요소가 없음
+- genetic-diversity: triage:생태계·종·유전 세 층위 분류는 생물다양성 용어의 몫이고 이 용어 고유의 구조가 아님
+- isothermal-process: triage:P-V 평면의 반비례 곡선이 핵심이지만 plot 함수로 못 그림(보일 쌍곡선)
+- fatigue-crack-growth-testing: triage:da/dN-ΔK 곡선이 핵심이나 로그축 3구간 곡선이라 현 plot 함수로 그릴 수 없고 균열성장률 용어와 중복
+- liposome: triage:이중층 구조와 봉입 위치 설명이 중심인데 해당 구조도를 그릴 type이 없고 단일층·다층 2분류만 있음
+- lipoprotein-a: triage:지질 지표 하나이며 LDL+apo(a) 구조 설명과 임상 해석이 주라 기전 경로가 얕고 정의 반복에 가까움
+- carcinogenicity-testing: triage:2년 투여와 2종 동물 사용이라는 설계 개요만 있고 순서 있는 단계나 구성 요소 관계가 구체적이지 않음
+- line-attractor: triage:점 끌개와 선 끌개의 2개 대비뿐이며 평평한 바닥 퍼텐셜은 현 plot 함수로 그릴 수 없음
+- pulsed-field-gel-electrophoresis: triage:제한효소 절단과 전기장 방향 교대의 단계가 단순하고 정의를 되풀이하는 수준
+- receptive-field-mapping: triage:자극 위치를 바꿔 반응을 재는 일반적 절차로 정의 반복이고 흥분 중심·억제 주변 구조는 본문에서 한 줄뿐
+- butane-reagent: triage:단일 화합물명이고 n-뷰테인과 아이소뷰테인 2개 이성질체 외에 관계 구조가 없음
+- fpga: triage:장치 소개 중심이고 합성-배치배선-프로그래밍 흐름은 본문에서 부수적으로만 언급됨
+- laboratory-economics-experiment: triage:연구방법 개요로 구성 요소가 유인양립성·정보공개 등 나열뿐이며 시각화할 구조가 없음
+- reticulocyte-hemoglobin-content: triage:검사 지표 하나이며 페리틴·MCH와의 비교는 해석 주의점 수준이라 그림으로 보강할 구조가 약함
+- aromatic-compound: triage:고리형과 전자 비편재라는 정의가 전부이고 다환·헤테로 하위 분류는 이름만 언급됨
+- ocular-dominance-plasticity: triage:단안 박탈 뒤 박탈눈 반응 감소와 뜬눈 증가라는 정의 반복이고 임계기 기전은 한 줄 언급에 그침
+- path-planning: triage:알고리즘 세 갈래 분류는 나열 수준이고 각 갈래의 관계나 흐름이 본문에 없음
+- ontology-of-the-photographic-image: triage:회화 대 사진 2항 대비의 이론 명제이고 구성 요소가 3개에 못 미침
+- ctb-tracer: triage:실험 도구 하나이며 흡수-역행수송 경로는 한 문장 서술이고 구성 요소가 적음
+- excretory-system: triage:여과·재흡수·분비 세 단계는 있으나 교과서 수준 개요이고 네프론 용어와 겹쳐 새로 보여 줄 내용이 부족
+- fir-filter: triage:가중합 구조 설명인데 탭 지연선 도식은 지원 type이 없고 IIR과의 2항 비교뿐
+- acetic-acid-lab: triage:단일 시약명이며 해리 평형과 완충용액 용도는 개별 개념 나열임
+- limited-animation: triage:완전 애니메이션과의 2항 대비와 역사 서술이 중심이며 시간 순서 구성 요소가 2개 이하
+- verstehen: triage:실증주의와 해석적 접근의 방법론 대비이며 구성 요소가 2개뿐
+- constructivist-stage-design: triage:미학 경향 설명으로 기능적 구조물 예시 나열뿐이고 관계가 있는 구성 요소가 없음
+- autoimmune-hemolysis-testing: triage:검사 항목 묶음의 방향성 나열이고 온난·냉응집 2유형 구분 외에 새로 보여 줄 구조가 약함
+- heat-conduction: triage:푸리에 법칙과 열전도율 일반 설명이며 선형 온도 분포 이상의 구조가 없음
+- cerebellum: triage:뇌 구조 하나의 기능 소개이며 영역 구분은 이름만 나열되고 관계 서술이 없음
+- immunophenotyping: triage:항체 표지 후 유세포분석으로 계통 판정이라는 일반 절차이며 표지자별 구체 구조가 본문에 없음
+- event-study-methodology: triage:정상수익률 추정 후 비정상수익률 누적이라는 개념 설명이 정의와 중복되고 단계 세부가 얕음
+- homolysis: triage:이질 분해와의 2항 대비이고 라디칼 생성 조건은 나열에 그침
+- macrophage-polarization: triage:M1과 M2 두 극성 대비이고 본문 주의점대로 연속 스펙트럼이라 이분 도식이 오해를 부를 수 있음
+- fade-in-fade-out: triage:편집 전환 기법 한 가지로 본문이 정의와 상징 해석 반복이고 구성 요소가 없음
+- urine-culture: triage:정의 반복 — 접종·집락수 계산·기준 비교 정도이며 도식이 새 정보를 주지 못함
+- cholinergic-system: triage:수용체 두 계열과 중추·말초 구분이 있으나 본문이 나열 수준이라 그림이 정의를 되풀이함
+- nietzsche-birth-of-tragedy: triage:니체의 두 원리 대립이 핵심이지만 구성 요소가 사실상 둘과 쇠퇴 서술뿐이라 정의 반복
+- photographic-indexicality: triage:지표 기호 개념 설명이며 도상·지표 대비도 본문 근거가 얇고 논쟁 중심이라 단정해 그리기 어려움
+- syndromic-multiplex-panel: triage:다중PCR 기반 검사 묶음 정의 위주로 구성 요소 관계가 없음
+- fungal-culture: triage:접종·배양·슬라이드배양 서술이 짧고 새 구조 없이 정의 반복
+- bearing-capacity: triage:극한·허용지지력 구분만 있어 구성 요소 2개이며 하중-침하 곡선은 plot 함수로 못 그리고 본문도 근거 부족
+- structural-indeterminacy: triage:정정 대 부정정 대비는 두 개념 정의 반복이며 구성 요소가 적음
+- topeng-mask-dance: triage:특정 공연 양식 소개로 도식화할 관계 구조가 없음
+- diffusion-map-embedding: triage:절차 4단계가 방법론 나열이며 그림이 글보다 얻는 정보가 적고 축 해석이 불안정함
+- denouement: triage:극작 5단계 중 마지막 한 단계만 다루며 본문에 나머지 단계 근거가 없음
+- neural-circuit: triage:신경회로 일반 개념으로 기능 단위 비유뿐이라 구체 구성 요소가 없음
+- coagulation-factor-inhibitor-assay: triage:베데스다법 절차는 있으나 단계가 2~3개에 불과하고 정의 반복
+- ad-libitum: triage:사육 조건 하나(자유 급여)와 제한 급여 대비뿐이라 구성 요소 2개
+- carbanion: triage:안정성 요인 설명이나 구성 요소 관계가 얇고 정의 반복 수준
+- two-shot: triage:촬영 구도 하나의 정의로 구성 요소 관계가 없음
+- lateral-geniculate-nucleus: triage:시각 경로 중계지 설명이나 층 구분이 서술 위주라 그림이 정의를 되풀이함
+- horror-film-conventions: triage:관습 목록 나열이며 시대·하위 장르별로 달라 단정해 그리기 어려움
+- phenolphthalein-solution: triage:단일 시약 이름이며 색 변화는 단순 속성
+- fecal-immunochemical-test: triage:단일 검사 정의이며 기준치 절충은 곡선 근거 수치가 본문에 없음
+- conspicuous-leisure: triage:개념 정의와 과시적 소비와의 대비만 있어 구성 요소가 적음
+- tariff-and-non-tariff-barriers: triage:관세 대 비관세 두 항목 비교에 가까워 정의 반복
+- randomized-field-experiment: triage:무작위 배정 후 비교라는 단순 구조이며 정의 반복
+- filter-paper-lab: triage:실험 소모품 이름이며 여과 원리는 단일 속성
+- opioid-system: triage:수용체 아형과 리간드 나열 위주이며 정의 반복
+- whole-genome-sequencing-analysis: triage:분석 단계 서술이 짧고 엑솜과의 비교도 정의 반복
+- sustainable-development-goals: triage:17개 목표 나열이며 관계 구조가 본문에 구체적으로 없음
+- thermal-resistance: triage:단일 물리량 정의이며 직렬·병렬 합산은 본문 설명이 짧음
+- fine-needle-aspiration: triage:단일 검사 기법 정의이며 단계가 없음
+- regional-repertory-theatre: triage:기관 유형 정의이며 상업 극장 대비도 구성 요소 2개
+- sucrose-preference-test: triage:행동 검사 설명이며 단계가 2개 물병 비교 정도
+- amyl-alcohol-reagent: triage:단일 화합물 이름
+- surface-roughness: triage:단일 지표(Ra) 정의이며 구성 요소 관계 없음
+- nanoparticle-size-effect: triage:크기-표면 원자 비율 경로는 있으나 본문이 정의 반복이고 효과가 크기 외 요인에도 좌우됨
+- inverter: triage:장치 기능 한 줄 정의이며 정류기와의 단순 대비
+- sweat-chloride-test: triage:단일 검사 정의와 임계값 구간 나열뿐
+- molecular-diagnostics: triage:검사 분야 총칭이며 방법 나열이라 관계 구조 없음
+- operational-amplifier: triage:소자 기능 설명이며 회로 구성 요소 관계가 본문에 구체적으로 없음
+- politique-des-auteurs: triage:비평 원칙 설명이며 논쟁적 입장이라 도식화하기 어려움
+- sls-3d-printer: triage:장비 이름이며 층 반복 원리는 본문 두 문장으로 충분하고 정의를 되풀이하는 그림이 됨
+- unreliable-narrator-film: triage:서술 기법 정의 위주이며 도식화할 단계·축이 본문에 없고 영화 예시 나열에 그침
+- intergenerational-mobility: triage:부모-자녀 상관이라는 단일 지표 개념으로 본문에 구성 요소 관계가 거의 없음 (회귀선 그림은 plot 함수로 불가)
+- pantomime: triage:공연 장르 설명이며 마임과의 용어 차이 언급뿐 구조적 관계가 없음
+- structuration-theory: triage:구조와 행위 두 요소의 상호구성이라는 추상 논변으로 쟁점이 해석에 의존해 단정 도식이 어려움
+- hibernation: triage:동면 정의와 하면과의 구분이 핵심이며 torpor-arousal 반복은 한 줄 언급뿐이라 도식 근거 부족
+- method-of-physical-actions: triage:연기 방법론 정의이며 감정기억과의 이분 대비 외에 구성 요소가 없고 본문이 같은 말을 반복함
+- blood-culture-contamination: triage:채혈 시 피부균 유입이라는 단일 현상 정의이며 판정 기준 나열은 도식 대상이 아님
+- x-inactivation: triage:무작위 선택과 모자이크 결과가 핵심이나 본문 단계가 정의 재진술 수준이고 과정 설명이 약함
+- reenactment-performance: triage:퍼포먼스 실천 개념이며 충실-변형 스펙트럼 언급은 있으나 구성 요소·관계가 명확치 않음
+- immersive-theatre: triage:공연 형식 정의와 관람 방식 서술이며 도식화할 단계나 비교 축이 부족함
+- heckman-selection-model: triage:2단계 추정이지만 프로빗-역밀스비율-임금식 설명이 수식 의존적이라 그림으로 얻는 통찰이 적음
+- reception-theory-theatre: triage:관객 중심 해석이라는 이론적 입장 설명이며 기대지평 외에 관계 맺는 구성 요소가 없음
+- ideological-criticism-film: triage:비평 갈래의 정의와 사례 소개로 도식화할 구조가 없음
+- automated-identification-system: triage:장비 소개이며 카드 접종-판독-데이터베이스 비교 흐름은 본문에 단계로 명시되지 않고 정의를 반복함
+- noddi-imaging: triage:3구획 모형이 언급되나 수식·적합 중심이고 각 구획 관계가 본문에서 구체적이지 않아 도식 근거 부족
+- water-hammer: triage:밸브 급폐쇄에서 압력파까지 원인 결과 두 세 단계로 정의와 쉬운 설명이 이미 같은 내용을 다룸
+- photosystem-i: triage:전자전달 경로가 하위 단계이나 광계 I 단일 복합체 설명이며 광계 II와 이어지는 전체 경로가 본문 밖 지식에 의존
+- sodium-hypochlorite-reagent: triage:NaClO 단일 시약명이며 안전·보관 정보 위주
+- bone-marrow-biopsy: triage:검사법 정의이며 흡인검사와의 비교가 있으나 구성 요소가 두 개뿐이고 절차 단계는 본문에 없음
+- winner-take-all-network: triage:상호억제 회로 개념으로 뉴런 간 억제 구조를 그리면 정의를 반복하게 되고 단계적 시간 정보가 부족
+- quantitative-easing: triage:정책 정의와 효과 연구 소개가 중심이며 파급 경로 세 가지는 본문에 이름만 열거되어 도식 내용이 얕음
+- engram-cell-theory: triage:이론 정의와 광유전학 실험 서술로 표지-재활성화-회상 흐름이 정의 반복 수준이며 논쟁 여지도 있음
+- atomic-radius: triage:주기적 경향이 핵심이나 주기율표 위 추세 그림은 현재 plot 유형으로 불가하고 단일 속성 개념
+- reservoir-computing-neural: triage:고정 저장소와 선형 읽기라는 두 구성 요소 계산 모델이며 신경 데이터 적용 서술이 중심이고 유비적 설명이라 단정 도식이 어려움
+- sodium-chloride-reagent: triage:NaCl 단일 시약명
+- ca125-test: triage:종양표지자 검사 하나의 정의와 해석 주의사항 위주로 구성 요소 관계가 없음
+- fatigue-sn-curve: triage:로그 반복 횟수 축의 하강 곡선과 피로한도 수평 구간은 현재 decay 곡선과 수직선만으로 그릴 수 없음
+- phenomenology-of-performance: triage:공연 분석 접근의 철학적 입장 설명으로 도식화할 구성 요소가 없음
+- wealth-inequality: triage:자산 불평등은 소득과의 stock-flow 차이 외에 구성 요소가 없고 지니계수 등 분포 곡선은 본문에서 다루지 않음
+- nocebo-effect: triage:위약효과의 반대편이라는 두 개념 대비뿐이고 형성 경로 두 가지는 이름만 언급되어 도식 근거 부족
+- sodium-borohydride: triage:NaBH4 단일 시약명
+- bioluminescence: triage:루시페린-루시페라아제-산소 반응이 한 문장 요약에 그치며 정의를 되풀이함
+- object-location-test: triage:행동 검사 방법이나 학습-지연-검사 단계가 본문에 두세 줄로 간단하고 정의로 충분히 전달됨
+- trade-balance: triage:수출 수입 차이라는 단일 지표이며 J커브는 부수 언급이고 현재 plot 함수로 그릴 수 없음
+- care-principles-indigenous-data: triage:네 원칙의 병렬 나열과 FAIR 보완 관계로 위계나 흐름이 없음
+- spontaneous-adverse-event-reporting: triage:보고제도 정의이며 신호탐지 지표 언급은 이름뿐이고 흐름 근거가 약함
+- genotoxicity: triage:DNA 손상 성질이라는 정의 중심이고 시험 분류는 본문에서 간략 열거에 그침
+- polygenic-risk-score: triage:여러 변이 가중합이라는 정의가 비유로 충분하고 이식성 한계는 구성 요소 관계보다 주의사항 성격
+- tight-junction: triage:지퍼처럼 틈을 막는 구조 하나의 서술이고, 틈 봉쇄 대 수송체 통과의 두 갈래뿐이라 구성 요소가 부족함
+- film-noir: triage:장르냐 양식이냐를 두고 논쟁 중이고 소급 명명 문제라 단정해 그릴 수 없음
+- wavelet-transform-analysis: triage:FFT 대 웨이블릿의 시간-주파수 해상도 차이는 타일링 그림이 필요한데 plot 함수로 못 그리고 본문에 비교 축이 둘뿐임
+- reciprocal-altruism: triage:조건(반복 만남·인식·배신자 감지)이 나열 수준이고 팃포탯 등 결과는 본문 밖 게임이론 지식에 기대며 상리공생과의 구분도 단정하기 어려움
+- social-epidemiology-network-effects: triage:사회적 전염 대 동류교배 두 설명이 관찰연구로는 구분되지 않는 논쟁 중인 쟁점이라 그림으로 단정하기 어려움
+- rotoscoping: triage:실사 촬영 후 덧그리기라는 단순 2~3단계 기법이고 정의를 되풀이하는 그림이 됨
+- presence-performance: triage:배우 존재감이라는 추상 개념으로 구성 요소 간 구조적 관계가 본문에 없음
+- government-failure: triage:원인 목록(정보 비대칭·관료 유인·표심·포획)이 나열형이라 구조적 관계가 약하고 공공선택이론의 평가에 기대는 논쟁적 틀임
+- collagen: triage:단일 단백질 이름이며 하위 유형(1·2·3형)도 각 조직 한 줄 언급뿐임
+- psychological-gesture: triage:큰 동작을 반복한 뒤 축소해 내면화한다는 단계가 한 문장 정도뿐이라 근거가 얇고 훈련 도구 서술임
+- investigational-new-drug: triage:전임상에서 IND 승인으로 이어지는 단계가 단순 선형이고 본문이 지위 정의와 규제 설명 위주라 그림이 정의 반복임
+- dada-performance: triage:운동의 예술 양식 설명이고 공연마다 편차가 커서 구조화할 구성 요소가 없음
+- proteinuria-test: triage:검사 방법 목록(시험지봉·비율·24시간 채집)이고 병태 기전이 아니라 측정 절차 서술이라 그림으로 보여줄 구조가 약함
+- equilibrium-constant: triage:식과 정의 설명 위주이고 K 대 Q 비교는 구성 요소 둘뿐이며 평형 도달 곡선은 본문에 근거가 없음
+- moliere-comedy: triage:작가·작품 양식 설명이고 지배적 결함이 갈등을 이끈다는 서술 외에 구성 요소 관계가 없음
+- magnesium-powder-ribbon: triage:단일 원소 시약 이름이고 반응식 두 개와 안전 주의 위주임
+- prompt-book: triage:공연 기록물이라는 문서 종류 설명이고 정의 반복임
+- widescreen-format: triage:텔레비전 대응 전략이라는 산업사 서술이고 포맷 규격들이 서로 비교 축 없이 나열됨
+- direct-bilirubin: triage:검사 수치 해석 서술이 중심이고 포합 후 배출 경로는 본문에 단편적이며 델타빌리루빈·소변 등 세부 조건이 많아 그림이 모호함
+- composite-material-theory: triage:섬유와 기지재 두 요소의 조합 설명이고 혼합법칙은 식 수준이라 구성 요소가 부족함
+- light-dark-box-test: triage:밝은 칸과 어두운 칸 체류 시간을 재는 동물 행동 검사이고 불안 지표 정의 반복임
+- protein-interaction-domain: triage:SH2·PDZ·WW 등 도메인 이름 나열이고 표적이 본문에 일부만 있어 비교 축을 채울 수 없음
+- pons: triage:뇌 구조 하나이며 기저부와 피개부 구분이 있으나 기능 서술 위주라 위치 도식으로 정의를 되풀이함
+- crystal-twinning: triage:성장 쌍정과 기계적 쌍정의 둘 구분과 거울 대칭 구조는 원자 배열 그림이 필요해 현재 type으로 표현이 어려움
+- myeloid-erythroid-ratio: triage:두 계열 세포 수의 비율 지표 하나이고 정상 범위와 변동 방향이 단순 비교임
+- intracellular-recording: triage:기록 방식 분류(전류고정/전압고정, 날카로운 전극/패치)가 명칭 나열 수준이라 그림으로 보여줄 관계가 약함
+- space-group: triage:결정계·격자·점군 분류가 표기법과 숫자(230, 73, 157) 위주이고 대칭 요소는 기호 지식이 필요해 구조 그림이 정의 반복임
+- ibogaine: triage:다중 표적으로 단일 기전 설명이 어렵다고 본문이 밝히고, 억제 회로 이완 기전은 단일 연구 결과라 단정해 그리기 어려움
+- pluralism: triage:다원주의 대 엘리트이론의 두 입장 비교이고 누가 권력을 갖는지는 학계 논쟁 중인 쟁점이라 단정해 그릴 수 없음
+- pregnant-women-research-ethics: triage:태아 보호 대 산모 자율성의 규범적 긴장이라 논쟁 중이고 구성 요소 간 구조가 아닌 윤리 논증임
+- pharmacogenomic-testing-clinical: triage:검사에서 처방 조정으로 가는 단순 흐름이고 본문이 임상 근거 평가 지표 위주로 구체 구조가 없음
+- redundancy: triage:예비 요소를 둔다는 설계 원칙 하나이고 공통 원인 고장 주의도 서술 수준임
+- invisible-theatre: triage:관객이 모르게 연기한다는 공연 형식 정의이고 윤리적 정당성이 논쟁 중임
+- weathering-hypothesis: triage:가설 단계로 인과 경로를 본문이 상관관계 한계를 들어 단정하지 못하게 하며 알로스타틱 부하 연결도 간략함
+- pollination: triage:꽃가루가 암술머리에 옮겨지는 단순 단계이고 수분과 수정 구분 외에 구조적 관계가 적어 교과서 정의 반복임
+- method-validation: triage:정밀도·정확도·직선성·검출한계가 나열된 평가 항목 목록이고, 항목 간 관계나 비직관적 구조가 없다
+- green-growth: triage:정책 전략 개념이며 도식이 될 만한 디커플링은 본문에서 절대적 달성 가능성이 논쟁 중이라 단정해 그리기 어렵다
+- improvisational-theatre: triage:공연 형식 정의에 쇼트폼/롱폼 두 갈래만 있고 예스-앤드 규칙은 단일 원칙이라 구성 요소 관계가 부족하다
+- monodrama: triage:배우 한 명이라는 단일 속성 기반 형식 범주이며 독백과의 구분도 두 개념 대조에 그친다
+- inverted-screen-test: triage:매달리기 시간을 재는 단일 행동검사로, 올리기-뒤집기-측정이 자명한 짧은 순서이고 새로 보여줄 구조가 없다
+- rotavirus-antigen-test: triage:대변 검체를 키트에 넣어 줄무늬를 읽는 단순 신속검사이며 구성 요소 관계와 설명할 기전이 빈약하다
+- voice-over-narration: triage:동시적/회고적 서술자 구분 정도의 서사 기법 설명이고 논쟁적 해석이 많아 도식으로 단정하기 어렵다
+- audience-development-theatre: triage:유지 전략과 확대 전략 두 갈래의 마케팅 활동 개념이라 관계 구조가 약하고 정의 반복에 가깝다
+- improvisation-technique: triage:예스-앤드 원칙 하나와 즉흥극과의 구분만 있어 구성 요소가 3개 이상 관계를 맺지 않는다
+- inborn-errors-of-metabolism: triage:하위 범주 목록은 있으나 단일 질환이 아닌 큰 범주의 나열이라 그림이 이름 목록 이상을 보여주지 못한다
+- fatigue-testing-machine: triage:장비 종류(축하중·회전굽힘·비틀림)와 응력비 설명이며 S-N 곡선 자체가 본문 주제가 아니라 도식 가치가 낮다
+- theatrical-sign: triage:기호 범주를 서술만 하고 구조가 명시되지 않으며 의미의 맥락 의존성을 강조해 고정된 도식으로 단정할 수 없다
+- lewis-structure: triage:그 자체가 이미 그림 표기법이고 본문도 공명구조·형식전하를 간략히 언급하는 데 그친다
+- csf-cytology: triage:요추천자-원심분리-도말-관찰의 자명한 일직선 절차이고 본문이 기전보다 주의사항 위주다
+- hematology-analyzer: triage:CBC를 자동 측정하는 장비 설명이며 임피던스와 유세포 방식 나열 외에 관계 구조가 없다
+- vickers-hardness-test: triage:압입자-자국-대각선 측정-계산이라는 짧은 단일 시험법이고 로크웰과의 비교도 본문에 구체 축이 없다
+- axis-of-action: triage:카메라 위치와 축의 공간 기하 배치가 핵심인데 9개 type 중 공간 배치도를 그릴 형식이 없다
+- single-crystal-xrd: triage:결정 성장-회절 측정-위상 문제 해결-정밀화로 이어지는 일반적 분석 절차이며 기법 설명 위주라 새 통찰이 적다
+- vibration-shaker-table: triage:시험 장비 설명이며 사인 스윕과 랜덤 진동 두 방식과 PSD 언급만 있어 도식으로 보여줄 구조가 부족하다
+- anisomycin: triage:단일 약물 이름이며 기전 흐름이 단순하고 비특이적 효과 논쟁이 있어 단정적 도식이 어렵다
+- heat-exchanger: triage:뜨거운 유체-벽-찬 유체의 자명한 구성이고 본문 속 형태 분류는 이름 나열 수준이다
+- cladistics: triage:공유파생형질로 분기도를 그린다는 방법론 설명이며 일반적 계통수 모양 외에 본문에 구체적 구성 요소가 부족하다
+- sodium-perborate: triage:단일 시약명이며 물에 녹아 과산화수소를 내놓는 한 줄 반응이 전부다
+- chronic-disease-self-management: triage:지식·행동·정서 하위 요소를 언급만 하고 관계가 설명되지 않아 정의 반복이며 복약순응도와의 대조도 단순하다
+- multisensory-integration: triage:신뢰도 가중 합산 등 모형 의존적 설명이고 통합 여부 판정이 논쟁적이라 본문만으로 구체 도식을 확정하기 어렵다
+- microwave-reactor: triage:전도 가열 대비 마이크로파 가열이라는 두 방식 비교에 그치며 비열적 효과는 학계 논쟁이라 단정해 그릴 수 없다
+- pattern-recognition-receptor: triage:막·세포질 수용체 분류와 인플라마좀이 언급되나 정의 중심 개요라 내용이 나열에 가깝고 그림이 새로 보여줄 관계가 약하다
+- delay-period-activity: triage:지속형과 순차형의 시간 경과 모양이 핵심인데 평탄한 고원형 곡선이 plot에 없고 활동 없는 기억 견해 등 논쟁도 크다
+- specimen-rejection-criteria: triage:라벨 불일치·응고·용혈 등 거부 사유의 나열이며 사유 간 구조나 인과 관계가 없다
+- namsadang-nori: triage:풍물·버나·살판·어름·덧뵈기·덜미 여섯 종목의 목록이며 종목 간 관계나 구조적 인과가 본문에 없다
+- endo-rule: triage:속도론 대 열역학 지배를 반응 에너지 프로파일로 보여줘야 하나 해당 함수가 없고, 이차 궤도 설명 자체도 논쟁 중이다
+- hydrocephalus: triage:뇌척수액 순환 막힘과 교통성/비교통성 구분이 있으나 일반적인 순환 설명 수준이라 이 항목에서는 보류한다
+- potassium-ferricyanide: triage:단일 시약명이며 Fe(III)/Fe(II) 레독스 쌍과 프러시안 블루 반응은 짧은 개별 사실이다
+- lighting-design: triage:밝기·색·방향·타이밍을 나열한 창작 영역 설명이며 요소 간 관계가 규정되지 않고 의미가 관습적이라 도식이 어렵다
+- nyquist-shannon-sampling-theorem: triage:표본점이 겹친 사인파로 에일리어싱을 보여줘야 하는데 사인 곡선과 표본점 표시가 plot 함수에 없다
+- variant-effect-prediction: triage:보존성·구조·앙상블 세 방식 분류 정도이며 도구 간 불일치로 단정이 어렵고 실질 내용은 종합 판단 권고에 그친다
+- resonance-frequency: triage:공진 곡선은 고유주파수 근처의 뾰족한 봉우리(Q값에 따라 폭 변화)가 핵심인데 정규·t 곡선으로는 모양이 다르다. 현재 함수로 불가
+- polyethylene-microplastic: triage:단일 시료(폴리에틸렌 입자) 이름이며 구성 요소 간 관계가 없다
+- purifying-selection: triage:dN/dS 비율 해석과 겹치는 자연선택 한 유형의 정의 설명이고 정화 대 양성의 2항 대비뿐이라 그림이 정의를 되풀이한다
+- dendritic-arborization: triage:가지가 뻗는 일반 과정 설명이며 Sholl 분석은 방법 소개에 그쳐 그릴 수치 구조가 본문에 없다
+- incomplete-dominance: triage:공동우성·완전우성과의 구분이 전부이고 분홍꽃 사례는 한 줄로 설명되어 그림이 정의를 반복한다
+- scenario-based-improv: triage:즉흥극 방식의 정의와 조건 개수 증가라는 단일 속성 설명뿐이라 관계 구조가 없다
+- sodium-azide-reagent: triage:단일 시약명(NaN3)이며 용도 두 가지가 나열될 뿐 관계 구조가 없다
+- adrenaline-solution: triage:단일 호르몬 용액 시약명이고 수용체별 반응은 본문에서 세부 구조 없이 언급된다
+- bioeconomy: triage:정의 위주의 상위 개념이며 바이오리파이너리 언급은 한 문장이라 구성 요소 간 관계를 그릴 근거가 약하다
+- fear-generalization: triage:유사도에 따른 반응 기울기를 말하지만 축이 정성적이고 단일 현상 설명이라 그림이 정의를 되풀이한다
+- social-safety-net: triage:사회보험과 공공부조 구분이 한 문장 수준이고 제도 목록 위주라 정의 반복에 가깝다
+- anterograde-tracer: triage:주입 후 축삭 수송이라는 한 방향 설명이며 방법 소개 수준이라 단계 수가 적고 새 정보가 적다
+- episodic-memory: triage:부호화-응고화-인출은 모든 기억 일반의 단계라 일화기억 고유의 구조가 아니고 의미기억과의 2항 비교뿐이다
+- ocular-dominance-column: triage:단안 박탈 시 기둥 폭 변화 한 사례가 중심이며 종별 차이 등 근거가 흩어져 있어 단정적으로 그리기 어렵다
+- imprinting-disorder: triage:원인 유형 나열과 증후군 사례가 위주이며 영역별 구체 관계는 본문 밖 지식에 의존한다
+- mudang-gut-nori: triage:굿 안의 극적 대목이라는 정의와 지역 비교 서술이 전부이고 구성 요소 3개 관계가 없다
+- subplot: triage:주 플롯과 부 플롯이라는 2개 구성 요소와 병렬·거울 구조 서술이라 도식이 정의를 반복한다
+- cortical-spreading-depolarization: triage:파동 확산 설명이 위주로 이온 변화·억제 후속 단계가 정성적이고 정상 뇌와 손상 뇌의 병리 의미가 학계에서 맥락 의존적이라 단정하기 어렵다
+- potassium-iodide-reagent: triage:단일 시약명(KI)이며 적정 용도가 나열될 뿐이다
+- motor-neuron: triage:세포 유형 설명이며 상위·하위운동신경 구분이 짧게 언급될 뿐 정의 반복이다
+- calcium-chloride-reagent: triage:단일 시약명(CaCl2)이고 알긴산 가교는 부수 설명이다
+- memory-trace-reactivation: triage:재활성화 현상의 정의와 해마-피질 이동이 한 문장씩 나열되어 단계 구조가 약하고 인과가 연구 단계다
+- mendelian-inheritance: triage:멘델 법칙 전체를 아우르는 넓은 개념이며 본문에 구체적 교배 구조가 없어 그림의 구성 요소가 모호하다
+- cellular-reprogramming: triage:다능성 경유와 직접 전환 두 방식 비교뿐이며 정의 설명과 크게 다르지 않다
+- nanowire: triage:물질 형태 이름이며 성질 나열이고 구성 요소 간 관계가 없다
+- lactate: triage:젖산 농도가 운동강도에 따라 완만하다 역치 이후 급상승하는 꺾인 곡선이 핵심이나 현재 plot 함수로 그릴 수 없다
+- oligopoly-monopolistic-competition: triage:두 시장 구조 비교로 보이지만 본문이 사례 서술 중심이고 기업 수·차별화 축이 완전경쟁·독점까지 확장되어 한 그림으로 정리하기 어렵다
+- one-on-one-performance: triage:공연 형식의 정의와 특징 나열이며 구성 요소 3개 이상의 관계가 없다
+- stage-traffic-pattern: triage:블로킹의 상위 개념이라는 2개 항목 구분이 전부이고 정성적 개념이다
+- dn-ds-ratio: triage:dN/dS가 1보다 작음, 같음, 큼에 따른 해석 3분류 설명이지만 정화선택 용어와 중복되고 수치 스케일 한 줄이라 정의 반복에 가깝다
+- invisible-editing: triage:편집 스타일의 정의와 이데올로기 논쟁 서술이 전부이고 그릴 구성 요소가 없다
+- heat-exchanger-effectiveness: triage:NTU와 효율의 관계는 유동 배열별 포화 곡선이지만 본문에 식이나 수치 모양 근거가 없어 hill로 근사하는 것도 부정확하다
+- angiogenesis: triage:내피세포 싹트기 설명이 단계 구조로 제시되어 있지 않고 팁세포·줄기세포 언급이 한 줄이라 정의 반복에 가깝다
+- heat-sink: triage:표면적 증가로 방열한다는 단일 원리이며 열저항 직렬 합산은 한 문장이라 정의를 되풀이한다
+- iba-1: triage:단일 표지 단백질명이며 염색 사용 방법 설명이다
+- schizophrenia: triage:도파민 가설은 학계에서 논쟁 중이고 증상 세 범주 구분도 정의의 연장이라 단정해서 그리기 어렵다
+- renal-clearance: triage:세 과정의 순효과라는 설명이 한 문장이며 수식 구조 외에 새 정보가 적고 정의 반복에 가깝다
+- modigliani-miller-theorem: triage:가정 완화에 따른 이론 확장이 있으나 본문이 서술 위주이고 수식이 없어 구성 요소 관계를 정확히 그리기 어렵다
+- microcontroller: triage:마이크로프로세서와의 2항 비교가 주이고 칩 내부 구성은 정의에 이미 나열되어 있다
+- unit-cell: triage:단일 구조 개념. 7결정계·14브라베·230공간군은 본문에서 숫자만 언급될 뿐 구성 요소가 전개되지 않음
+- brdu-labeling: triage:S기 삽입 후 항체 염색이라는 방법 소개 수준이며 정의 반복에 가까움. 시간 간격별 증식·생존·분화 판정도 문장 한 줄뿐
+- dna-polymerase-iii: triage:홀로효소 소단위(촉매·교정·클램프)가 나열될 뿐 소단위 간 관계나 단계가 본문에서 구체적으로 전개되지 않음
+- hippocampal-replay: triage:순방향·역방향·전방 재현의 기능 해석이 연구마다 달라 단정해 그리기 어렵고, 발화 순서 압축은 정의 반복에 가까움
+- kkokdugaksi-noreum: triage:고유 공연 예술 명칭. 박첨지 마당 등 에피소드가 이름만 언급되고 구성 관계가 없음
+- octet-rule: triage:8전자 채우기 경향 하나를 반복 설명. Na·Cl 예시는 정의의 사례이고 예외(H·B·P·S)는 나열 수준
+- stool-ova-and-parasite-examination: triage:직접도말·농축·3회 반복은 부수 정보이고 핵심 절차(식염수·아이오딘 슬라이드 관찰)는 두 단계뿐이라 그림 이득이 작음
+- risk-premium: triage:위험자산 초과수익이라는 정의 반복. 주식·신용스프레드·기간프리미엄 구분은 이름 나열이고 CAPM 식은 다른 용어의 몫
+- direct-fluorescent-antibody-test: triage:도말-반응-세척-관찰 4단계지만 일반 면역형광 절차와 같고, 간접법과의 비교도 본문이 한 문장으로만 언급
+- cobb-douglas-production-function: triage:다변수 생산함수 식 해석 중심이라 2차원 곡선 하나로 담기 어렵고, 지수 의미는 정의 문장으로 충분
+- cinema-of-attractions: triage:초기 영화 대 고전 서사의 이분 대립 설명이 개념 정의를 되풀이하는 수준이며 비교 축이 구체적 구성 요소로 나뉘지 않음
+- legislative-theatre: triage:포럼연극→법안 초안→의회 제출 3단계가 정의 안에 이미 다 담겨 있고, 통과 여부는 일반 정치 과정에 달려 별도 요소가 없음
+- paratheatre: triage:가난한연극에서 파라시어터로의 이행은 구성 요소 2개뿐이며 본문에 세부 단계가 없음
+- sham-surgery: triage:실험군·대조군 설계를 한 쌍으로 비교하는 수준이며 윤리 논쟁이 중심이라 구성 요소 3개 이상의 관계가 본문에 없음
+- artaud-theatre-of-cruelty: triage:언어 중심 대 감각 중심의 이분법 서술이며 구성 요소 관계 없는 이론 소개
+- cyclic-voltammetry: triage:전압 왕복에 따른 산화·환원 피크 곡선이 핵심이나 plot 함수로 못 그리는 오리 모양 곡선이고, 다른 type으로는 곡선 모양이 사라짐
+- digital-image-correlation: triage:반점 도포·전후 촬영·상관 비교의 3단계는 있으나 정의와 쉽게 풀기에 이미 순서가 다 적혀 있어 정의 반복
+- mise-en-abyme: triage:거울 속 거울이라는 자기반영 구조 하나를 반복 설명하며 극중극과의 구분은 정의 안에서 끝남
+- textual-deconstruction-theatre: triage:원작 텍스트를 재배열·병치하는 연출 전략 서술이며 단계나 분류가 본문에 없음
+- barium-chloride-reagent: triage:단일 시약명. 황산바륨 침전 반응은 한 줄 반응식
+- neun: triage:단일 세포 표지자 단백질. 염색 후 계수는 일반 면역염색 절차
+- composite-beam: triage:전단연결재로 일체화한다는 핵심이 정의와 같고, 응력 분포 단면도는 지원 type으로 그릴 수 없음
+- restriction-enzyme: triage:인식·절단·결찰 순서는 정의와 예문에 한 줄씩 있을 뿐이고 효소 유형 구분도 짧아 구성 요소가 얇음
+- comparative-embryology: triage:초기 배아 유사성을 공통조상 증거로 삼는 논리이나 헤켈 반복설 오해 논쟁이 있어 단정적으로 그리기 곤란
+- weibull-reliability-analysis: triage:형상모수 β<1·=1·>1에 따른 고장률 곡선이 핵심 plot이지만 와이블 함수가 없음
+- lactic-acid: triage:단일 화합물명. 대사 경로·이성질체 언급은 곁가지
+- molecular-model-kit-lab: triage:교구 도구 소개. 볼-스틱과 공간채움 두 모형 비교뿐이라 구성 요소 2개
+- impedance-spectroscopy: triage:나이퀴스트 반원과 등가회로 해석이 핵심 plot인데 반원 곡선 함수가 없음
+- zinc-sulfate-reagent: triage:단일 시약명. 수산화아연 침전·양쪽성 반응은 부수 설명
+- migraine: triage:삼차신경혈관계·CGRP 기전이 완전히 규명되지 않아 단정적 경로로 그리기 어려움. 전조 유무 하위유형은 한 줄
+- reflexive-modernization: triage:근대화→부작용→재구성이라는 추상 이론 서술이고 학자 간 해석 차이가 커서 단일 도식으로 단정하기 어려움
+- aperiodic-component: triage:1/f 배경과 알파 봉우리 분리가 핵심이나 로그-로그 축의 스펙트럼 모양은 현재 plot 함수로 확신하기 어렵고 정의 반복 성격이 강함
+- slasher-film: triage:장르 공식과 영화 연표가 나열될 뿐이며 이해를 돕는 구조 관계가 약함. 최후의 여성 해석도 연구자마다 이견
+- rock-mechanics: triage:학문 분야 명칭. 절리·RMR·규모 효과가 흩어져 언급되고 하나의 구조로 이어지지 않음
+- isopropyl-alcohol-reagent: triage:단일 시약명. 2차 알코올 산화는 한 줄 반응이라 구성 요소 부족
+- cone-penetration-test: triage:시험 장비·측정량(qc, fs, 마찰비) 나열이 중심이고 그림으로 풀 인과·단계가 약함. 분류 도표는 plot 함수로 못 그림
+- sudden-cardiac-death: triage:정의의 시간 기준과 연령별 원인 분포가 핵심인데 수치 없이 두 항목 비교뿐이라 도식 근거 부족
+- concrete-workability: triage:슬럼프 등 측정 지표와 영향 요인 나열 수준이며 서로 관계 짓는 구조 없이 한 성질의 설명에 그침
+- hong-kong-new-wave: triage:특정 시기의 영화 사조 서술이고 사건 연쇄·구성 요소가 인물·작품 나열에 그침
+- software-design-pattern: triage:생성·구조·행위 세 분류 이름만 있고 구조 패턴 예시가 본문에 없어 분류도를 채울 근거 부족
+- choice-experiment: triage:속성 제시 후 반복 선택·모형 추정으로 가는 흐름이 본문에 단계로 정리돼 있지 않고 정의 반복 수준
+- microbiome: triage:미생물 군집을 가리키는 포괄 개념어이며 16S와 메타지놈 대비도 부수적 언급이라 핵심 도식이 없음
+- amoeba-trophozoite: triage:이질아메바 활동형 하나의 형태와 검체 취급 주의가 중심이며 포낭과의 대비도 본문에서 구성 요소가 2개뿐
+- dogme-95: triage:선언 규칙 나열과 해석 논쟁 위주이고 도식으로 보일 관계 구조가 없음
+- von-frey-test: triage:필라멘트 굵기와 회피 역치 해석이라는 단일 측정 개념의 정의 반복 수준
+- stress-concentration: triage:응력집중계수 정의와 형상 예시가 중심이며 응력 분포 그림은 현재 plot 함수로 못 그리고 단계·분류 구조도 약함
+- fourth-wall: triage:관습적 개념 하나와 브레히트 대비 언급 정도라 구성 요소 3개 이상의 관계가 없음
+- free-rider-problem: triage:공공재 성질에서 과소공급으로 가는 설명이 서술 위주이고 정의 반복에 가까워 별도 도식 가치가 낮음
+- organocatalysis: triage:촉매 작용 방식 두 분류가 한 문장 언급뿐이고 촉매 순환은 본문에 단계로 제시되지 않음
+- backdrop: triage:무대 장치 하나를 설명하는 사전식 정의이며 스크림 효과 외에 구성 요소 관계가 없음
+- agitprop-theatre: triage:연극 형식 하나의 특징 나열이며 사건 순서나 분류 체계가 없음
+- leukopenia: triage:원인과 감염 위험이 정의 수준으로 서술되고 호중구 등급 기준은 본문에 수치 없이 언급돼 도식 구성이 약함
+- viral-load-test: triage:정량 검사의 정의·단위·로그 해석 서술이며 치료 반응 곡선 수치는 본문에 없어 도식 근거 부족
+- occludin: triage:클라우딘·ZO-1과의 역할 분담이 논쟁 중이라 단정 도식이 어렵고 본문 구조 서술도 모호
+- gain-field-theory: triage:곱셈적 이득 조절이 핵심이나 본문에 구체 곡선·분류가 없고 현재 plot 함수로도 이득 변조를 못 그림
+- hbsag-test: triage:단일 표지자 검사의 용도와 한계 서술이며 감염 경과의 시간 축은 수치 없이 언급에 그침
+- astrocyte-endfoot: triage:혈관을 감싸는 구조의 위치 서술이 중심이고 장벽 본체가 아니라는 주의만 있어 인과·분류 도식이 약함
+- blood-ammonia-test: triage:검사 항목 소개 — 기전(간 해독 저하→뇌 영향)은 간성뇌증 쪽 개념이고 이 용어 고유의 구성 요소는 채혈·해석 주의뿐
+- object-placement-test: triage:훈련→위치 이동→시험 3단계뿐이고 새 물체 인식 검사와의 2항 대비라 본문 정의를 되풀이하는 수준
+- brain-computer-interface: triage:측정 방식 3종과 디코딩 흐름은 있으나 일반적 신호처리 순서로 정의 반복 성격이 강하고 방식별 수치 근거가 본문에 없음
+- strain-energy-theory: triage:부피·왜곡 에너지 2분류와 카스틸리아노 정리는 수식 중심이라 구성 요소 관계를 그림으로 보여줄 근거가 약함
+- hydrothermal-synthesis: triage:밀폐 가열→용해→재결정 과정은 있으나 단일 합성법 설명으로 정의의 순서를 풀어 쓴 수준이라 새로 보여줄 정보가 적음
+- nucleophilicity: triage:친핵성 대 염기성 2항 대비와 할로젠 순서 반전이 전부라 구성 요소가 2개이고 정의를 되풀이함
+- btb-solution: triage:단일 시약명 — pH별 세 가지 색 변화 외에 구성 요소 관계가 없음
+- amoeba-cyst: triage:병원체의 한 생활 단계를 가리키는 용어로 본문에 생활사 단계 설명이 없고 분변-경구 전파 한 줄뿐
+- light-sheet-microscopy: triage:조명·검출 수직 배치는 공간 광학 배치도라 제공되는 9개 형식에 맞지 않고 공초점과의 비교도 본문이 얕음
+- bioequivalence-study-design: triage:교차투여·Cmax/AUC 비교 설명은 있으나 순서 단계가 2회 투여 수준이라 정의 반복에 가깝고 세부 설계 절차가 본문에 없음
+- drug-recall: triage:회수 등급을 가장 높은/낮은 등급으로만 언급하고 구체 단계가 없어 분류 근거가 부족하며 사유 열거 수준
+- automated-cell-counter: triage:장비 소개 — 혈구계산판 대비 2항과 측정 원리 열거뿐 구성 요소 관계가 없음
+- claustrum: triage:단일 해부 구조이며 기능은 합의 없는 가설 단계라 단정 없이 그릴 구성 요소가 없음
+- specific-activity: triage:단일 지표 정의 — 정제표 수치가 본문에 없어 단계별 변화 그림의 근거가 부족
+- complement-level-test: triage:C3·C4 동반 저하/C3 단독 저하 해석 두 줄이 전부이고 보체 경로 자체는 본문에 설명되지 않음
+- disodium-phosphate: triage:단일 시약명 — 인산 해리 pKa와 완충 조성은 다른 용어(인산염 완충액)의 하위 사례
+- diethyl-ether-reagent: triage:단일 용매명 — 추출·무수 반응 용도와 과산화물 위험의 열거뿐
+- potassium-iodate: triage:단일 시약명 — IO3⁻+5I⁻ 반응식이 하나 있으나 요오드 적정의 하위 사례
+- anamorphic-lens: triage:압축 촬영→상영 시 복원의 2단계로 정의를 되풀이하고 클로즈업 왜곡·와이드스크린 비교는 본문에 수치 근거가 없음
+- structural-transformation-theory: triage:농업→제조업→서비스업 3단 이동은 정의 문장에 그대로 있고 조기 탈산업화 변형을 그릴 수치가 본문에 없음
+- rapid-strep-test: triage:양성이면 항생제, 음성이면 배양 추가라는 분기 두 개뿐이며 검사 원리는 정의 반복
+- drug-shortage-management: triage:원인 열거와 대응 전략 열거만 있어 서로의 관계를 보여 줄 구조가 없는 정책 개요
+- dil-tracing: triage:막을 따라 확산이라는 단일 원리와 온도·시간 변수 설명이 전부로 정의 반복
+- vagus-nerve: triage:단일 해부 구조 — 원심·구심 2방향과 장기 열거라 정의 반복이며 장-뇌 축 기전은 본문에 구체화되지 않음
+- current-clamp: triage:전류 통제·전압 관찰 vs 전압고정의 2항 대비라 정의 반복이고 F-I 곡선 모양은 본문에 제시되지 않음
+- metabolism-basics: triage:이화·동화 2분류가 정의에 그대로 나오며 교육 과정 수준 기본 개념으로 새 정보가 없음
+- coordination-complex: triage:리간드 결합과 d 오비탈 분리에 따른 색 변화가 설명되나 구조 그림이 정의 반복이고 분광화학계열 수치가 본문에 없음
+- minimum-wage: triage:고용 효과가 경제학에서 논쟁 중이라 단정 없이 그리기 어렵고 수요공급 가격하한은 plot 함수로 못 그림(supply_demand 필요)
+- efficient-coding-hypothesis: triage:가설 정의와 희소부호화·예측부호화 열거가 추상적이라 구체 구성 요소 관계로 그리기 어려움
+- symbolic-anthropology: triage:기어츠와 터너 학파 2인 비교로 이론적 관점 서술이며 구성 요소 관계가 없음
+- bronchoscopy: triage:관찰·생검·세침흡인·세척 4가지 시행 항목의 목록이고 서로의 관계가 없음
+- antiphospholipid-antibody-test: triage:항체 3종과 12주 재검 원칙이 목록 수준이라 정의 반복이고 검사별 원리 차이도 짧음
+- clinical-decision-support: triage:규칙 기반 대 데이터 기반 2분류와 입력→권고 흐름이 정의를 되풀이하는 수준
+- synaptic-loss-hypothesis: triage:시냅스 소실이 사멸의 원인인지 결과인지 논쟁 중이라 사건 순서를 단정하는 그림이 되기 쉬움
+- anti-tpo-antibody-test: triage:특정 자가항체 검사 — TPO 효소 공격과 하시모토 연관은 한 문장이며 구성 요소 3개 이상의 구조가 없음
+- bongsan-talchum: triage:지역 전통 예능 고유명 — 과장 4개 나열뿐이고 관계 구조가 없음
+- kinship-system: triage:포괄 개념 — 부계·모계·양계 나열 외에 구성 요소 간 관계가 본문에 없음
+- film-rating-system: triage:MPA 대 한국 등급위 비교는 두 개념뿐이고 등급 4단계는 단순 나열
+- genomic-imprinting: triage:부계/모계 결실에 따른 PWS·안젤만 대비는 두 칸뿐이라 구성 요소 3개 미달
+- grin-lens: triage:광학 장치 하나의 설명, 관계 맺는 구성 요소가 없음
+- quantal-release: triage:N×p×q 곱셈식 설명이라 도식으로 얻을 새 정보가 적음
+- applied-theatre: triage:교육연극·소시오드라마 등 하위 사례 나열이고 구분 기준이 본문에 없음
+- sirt2: triage:단일 효소명이며 TDP-43 축적 경로는 한 연구 예시에 의존
+- coagulation-factor-assay: triage:검사법 설명과 중증도 구간 수치 나열, 구조적 관계 없음
+- relational-aesthetics-performance: triage:미학 개념 정의 위주, 도식화할 구성 요소가 없음
+- sleep-spindle: triage:파형 자체는 plot 함수로 못 그리고, 시상-피질 결합 기전은 본문이 단편적
+- low-angle-shot: triage:단일 촬영 기법, 앵글 효과 설명이 정의 반복
+- claisen-rearrangement: triage:[3,3] 전이상태 구조가 핵심인 반응이라 박스 도식으로는 정의 반복
+- stereospecific-reaction: triage:입체선택적 반응과의 2개념 비교에 그치고 구성 요소 3개 미달
+- polluter-pays-principle: triage:단일 원칙 정의, 부담금·설비 두 구현 방식은 단순 병렬
+- serotonergic-system: triage:신경계 개관과 SSRI 일화, 도식으로 보일 단일 흐름이 없음
+- differential-media: triage:선택배지와의 2개념 구분이 중심이고 정의 반복
+- megakaryocyte: triage:세포 한 종류의 설명, 성숙 과정은 본문에 한 문장뿐
+- melodrama-19th-century: triage:장르 정의와 특징 나열, 구성 요소 간 관계 없음
+- yugen-aesthetic: triage:미학 개념 정의, 도식화할 구조 없음
+- stepper-motor: triage:스테퍼 대 서보 비교는 두 개념뿐, 하위 유형은 이름 나열
+- dress-rehearsal: triage:리허설 단계는 한 문장 언급이고 대부분 정의 반복
+- apache-ii-score: triage:점수 계산 도구 설명, 점수-사망률 곡선은 본문에 모양 근거가 없음
+- corral-de-comedias: triage:극장 건축 형태 하나의 설명, 관계 구조 없음
+- western-genre: triage:장르 정의, 이항 대립은 학자 해석이라 단정 곤란
+- lidar: triage:거리=시간×광속/2 한 원리의 설명이라 정의 반복
+- grande-syntagmatique: triage:8유형 중 일부만 본문에 제시되어 분류 전체를 그릴 근거 부족
+- tail-flick-test: triage:단일 실험 방법, 절차 단계가 본문에 구체적이지 않음
+- toxic-granulation: triage:단일 형태학적 소견, 독성변화 삼총사는 나열뿐
+- representational-drift: triage:기능·원인에 학계 합의가 없어 단정 없이 그리기 어려움
+- spatial-continuity: triage:편집 원칙 하나, 180도 규칙 등은 이름만 언급
+- theatre-producer: triage:직책 설명, 연출가와의 2자 비교뿐
+- effective-nuclear-charge: triage:Zeff 정의와 주기성 설명이 중복되고 새 구성 요소 없음
+- battery-management-system: triage:기능 나열(감시·밸런싱·차단) 위주, 관계 구조 없음
+- langmuir-adsorption-isotherm: merge-candidate: 병합 후보라 보류(was reviewed)
+- continuity-equation: triage:수식 하나의 의미 설명, 정의 반복
+- neutral-mask-lecoq: triage:훈련 도구 하나의 설명, 단계가 중립가면→부퐁 두 개뿐
+- mansion-staging-medieval: triage:무대 형식 설명, 도식화할 관계가 본문에 구체적으로 없음
+- alcohol-use-disorder: triage:진단 기준 개수 구분은 수치 나열, 신경 적응 기전은 서술이 얕음
+- totemism-religion: triage:뒤르켐 대 레비스트로스 2자 해석 대립뿐, 논쟁 단정 위험
+- memory-cell-formation: triage:1차 반응 후 기억세포 잔존 → 재감염 시 빠른 반응이라는 단순 2단계 설명
+- propylene-glycol-reagent: triage:단일 시약명
+- stage-manager: triage:직책 설명 — 연출가와의 역할 구분은 구성 요소 2개뿐
+- acetylcholine-solution: triage:단일 시약 용액 — 보관·취급 설명뿐이고 관계 구조 없음
+- tubular-necrosis: triage:원인(허혈·독성)→손상 두 갈래뿐이고 본문이 정의 반복 수준이라 새 정보 없음
+- naturalism-theatre: triage:사조 정의 — 사실주의와의 차이만 언급되고 비교 축이 부족함
+- tetrahydrofolate: triage:단일 조효소 — 유도체별 반응 연결은 본문 밖 대사 지식에 크게 의존
+- regulatory-t-cell: triage:자연발생·유도 두 유형과 억제 방식 나열 수준이며 면역 맥락 구성이 본문 밖 지식에 기댐
+- ventromedial-hypothalamus: triage:핵 하위 구역 나열 — 본문이 구역별 기능 근거를 충분히 주지 않고 연결 구조도 모호
+- visual-field-test: triage:검사 방법 설명 — 결손 패턴과 병변 대응은 본문 밖 신경해부 지식이 필요
+- stage-blackout: triage:연출 기법 정의 — 구성 요소 2개뿐이고 정의 반복
+- gephyrin: triage:단일 단백질 — 수용체 고정 역할은 구성 요소 2개뿐
+- thespis: triage:인물 — 전승 서술이고 사료 근거가 불확실해 도식화 부적합
+- transdermal-drug-delivery: triage:패치 투여 방식 설명 — 각질층 통과와 촉진법은 나열 수준이고 새 구조 없음
+- total-fertility-rate: triage:단일 지표 — 기간 대 코호트 두 개념 비교뿐이라 구성 요소 부족
+- fecal-calprotectin-test: triage:염증→호중구→대변 배출은 정의 반복이고 감별 용도도 두 질환 비교 수준
+- nationally-determined-contributions: triage:제도 설명 — 5년 갱신 외에 단계 구조가 없고 목표 설정 방식은 나열 수준
+- gradient-thermal-cycler: triage:장비 기능 설명 — 구배 설정 후 젤 확인 단계는 있으나 장비 중심이라 도식 이득이 적음
+- high-key-lighting: triage:조명 스타일 정의 — 로우키와의 2항 대비와 조명비 수치뿐
+- masque-courtly: triage:장르 설명 — 안티마스크와 마스크 대비는 2요소이고 역사 서술 위주
+- fast-motion: triage:촬영 속도 조작 기법 — 언더크랭킹·후반작업 두 방식과 타임랩스 구분이 정의 반복
+- pantomime-british: triage:공연 장르 설명 — 관습 나열이고 구성 요소 간 관계 없음
+- nature-based-solutions: triage:개념 정의와 사례 나열 — 회색 인프라 대비는 2항이고 관계 구조 약함
+- partial-agonist: triage:용량-반응에서 최대 반응이 낮은 곡선이 핵심이나 hill은 최대 1로 고정
+- green-room-theatre: triage:공간 명칭 — 유래 설이 정설 없이 갈리고 구성 요소 없음
+- hemoglobin: triage:단일 검사 지표 — 정상범위가 성별·연령에 따라 다르다는 점뿐
+- social-mobility: triage:세대내·세대간과 상대·절대 두 이분법이 서로 독립이라 네 칸 매트릭스로 묶기 어색
+- fundus-photography: triage:검사 방법 설명 — 용도 나열이고 단계·분류 구조 없음
+- walras-law: triage:항등식 — 시장 간 초과수요 합이 0이라는 서술이 정의 반복이며 도식으로 새 정보 없음
+- liveness: triage:개념 정의 — 라이브니스 논쟁이 글로 충분하고 구성 요소가 2개뿐
+- simultaneous-eeg-fmri: triage:뇌파·영상 두 장비 상호 보완 설명 — 정의 반복이고 인공물 처리는 절차 나열 수준
+- continuous-glucose-monitor: triage:장치 설명 — 측정 지표(TIR 등)는 나열 수준이고 구조 관계 없음
+- mincer-earnings-function: triage:회귀식 설명 — 경력 곡선은 역U 반쪽이라 도식 이득이 작고 핵심은 계수 해석
+- spinel-structure: triage:정상·역스피넬 구분은 있으나 어느 이온이 어느 자리인지 본문 밖 결정학 지식이 필요
+- polypharmacy: triage:5종 이상 병용이라는 개수 기준 정의 하나에 위험 증가를 덧붙인 개념이라 서로 관계 맺는 구성 요소가 뚜렷하지 않음
+- sodium-alginate-reagent: triage:단일 시약명. 칼슘 가교 겔화 기전은 정의 문장에 이미 담겨 있고 단계가 2개뿐
+- battery-energy-density: triage:질량·부피 기준 단일 속성 지표. 출력밀도와의 트레이드오프는 언급만 있고 구성 요소가 부족
+- arc-welding: triage:TIG·MIG·SMAW 이름만 나열될 뿐 유형별 차이 축이 본문에 없어 분류도가 이름 목록의 반복이 됨
+- x-ray-diffractometer: triage:장비 이름. 광원-고니오미터-검출기 3요소는 장치 구성 나열이라 관계나 기전을 보여주지 못함
+- creep-testing: triage:시험 방법 이름. 시간-변형률 곡선(정상상태 크리프율, 파단)이 핵심이지만 3단계 곡선을 그릴 함수가 없음
+- central-complex: triage:곤충 뇌 구조 이름. 하위 구조는 이름만 나오고 고리 끌개 모델은 본문 근거가 얇아 구성 관계를 단정하기 어려움
+- eclampsia: triage:전자간증에서 경련이 더해진 말단 단계 하나. 진행 경로는 자간전증 항목에서 그리는 편이 낫고 여기서는 구성 요소가 2~3개에 그침
+- inflation-targeting: triage:목표 공표-기대 안정-신뢰성이라는 단순 연결뿐이고 정의를 되풀이하는 수준이며 점목표·구간목표 등은 이름만 언급됨
+- personalized-medicine-dosing: triage:유전형 기반과 생리지표 기반 두 갈래에 TDM을 얹은 목록 수준이라 구성 관계가 얕고 정의 반복에 가까움
+- biotin: triage:비타민·조효소 이름. 카복실화효소 보조인자 역할과 스트렙타비딘 결합 응용이 병렬 설명일 뿐 하나의 구조로 묶이지 않음
+- coefficient-of-friction: triage:단일 물성값. 정지·운동 계수 구분은 두 개 개념의 대비라 구성 요소가 부족
+- inductor: triage:부품 이름. 축전기와의 반대 성질 비교는 두 항목뿐이라 정의 반복에 그침
+- viral-vector-transduction: triage:렌티바이러스와 AAV 두 벡터 비교에 혈청형 이야기가 붙은 기법 소개라 구성 요소가 2개 중심이고 정의의 확장에 가까움
+- stap-cell-scandal: triage:특정 인물과 연구기관이 얽힌 고유 사건. 재현 실패에서 조사위원회까지 경로는 일화이고 개인과 관련된 서술이라 도식화에 부적합
+- adr-looping: triage:녹음 작업 이름. 현장음 불량에서 재녹음, 후처리까지 단계가 단순해 글만으로 충분하고 정의 반복에 가까움
+- rasa-theory: triage:여덟·아홉 라사 유형 나열과 바바 전환 설명이 학자마다 다르게 정리되고 이론사적 논의에 기대어 단정해서 그리기 어려움
+- starch-reagent: triage:단일 시약(다당류)명. 아밀로스·아밀로펙틴 두 성분의 요오드 반응 차이는 구성 요소가 2개뿐
+- just-transition-development: triage:형평성 원칙을 가리키는 규범적 개념이라 단계나 기전이 없고 재교육·사회안전망 항목은 정책 목록에 가까움
+- association-cortex: triage:뇌 영역 이름. 두정·측두·전두 연합피질 3분류는 위치별 역할 나열이고 일차피질과의 관계도 정의 반복에 가까움
+- spinal-cord: triage:해부 구조 이름. 회백질·백질 구분과 반사 이야기가 흩어져 있어 하나의 구조도로 묶을 기전이나 단계가 본문에 없음
+- patriarchy: triage:사회구조 개념어. 물질적 구조 대 이데올로기 흐름의 이분은 이론적 입장 차이라 단정해 그리면 논쟁을 하나로 고정할 위험이 있음
+- spin-spin-coupling: triage:n+1 규칙과 파스칼 삼각형 세기비로 갈라지는 다중선이 핵심이지만 막대 다중선 그림을 그릴 함수가 없음
+- simple-centrifuge-lab: triage:실험기구 이름. 밀도 차에 의한 침강 원리는 단일 단계이고 rpm과 RCF 관계도 짧은 설명뿐
+- solvent-effect: triage:양성자성·비양성자성 용매의 SN2 영향은 흥미롭지만 극성, 스펙트럼, 계산 모델이 한 항목에 섞여 있어 하나의 도식으로 묶이지 않고 정의 반복에 그침
+- hematocrit: triage:적혈구 부피 비율이라는 단일 검사 수치. 탈수 시 상승과 헤모글로빈 약 3배 관계는 짧은 설명이라 구성 요소가 부족
+- anechoic-chamber: triage:시험 공간 이름. 흡음재가 반사를 줄인다는 한 가지 원리와 음향용·전자파용 구분이 전부
+- protestant-ethic: triage:베버 명제는 본문 자체가 직접 인과가 아닌 선택적 친화성이라고 경고하고 검증 논쟁이 많아 칼뱅주의에서 자본주의 정신으로의 화살표로 단정해 그리면 오해를 부름
+- bcm-theory: triage:문턱값 아래는 억압, 위는 강화가 되고 문턱이 평균 활동에 따라 미끄러지는 비선형 곡선이 핵심이지만 이런 응답 곡선을 그릴 함수가 없음
+- labor-market-matching-theory: triage:매칭함수와 내쉬 협상은 수식 중심이고 베버리지 곡선은 용례에서만 언급됨. 그리려면 쌍곡선 함수가 필요하나 본문 근거가 약함
+- population-pyramid: triage:이미 그래프 자체인 대상이라 새로 그릴 구성 관계가 없고 피라미드·종·항아리 세 유형은 이름 분류에 그침
+- schmitt-trigger: triage:상승·하강 문턱값이 다른 히스테리시스 입출력 곡선이 핵심이지만 두 문턱을 가진 계단형 전달 곡선을 그릴 함수가 없음
+- middle-income-trap: triage:본문이 사후적으로 사례를 묶은 개념이라는 비판을 직접 언급하고 원인도 나라마다 다르다고 하여 단일 인과 도식으로 단정해 그리기 부적절
+- iso-15189-accreditation: triage:표준·인정 제도 명칭. 서류와 현장 평가, 재심사 같은 행정 절차 설명이고 개념 구조가 얇음
+- acute-phase-reactant-test: triage:CRP와 적혈구침강속도 두 지표의 반응 속도 차이가 핵심이나 비교 대상이 둘뿐이고 검사 항목 소개 수준
+- pyramidal-neuron: triage:세포 유형 이름. 정단·기저 수상돌기 형태는 해부 묘사로 관계 구조가 없고 하위 유형 분류는 본문에서 이름조차 안 나옴
+- frame-story: triage:외부 이야기가 내부 이야기를 감싼다는 정의를 되풀이하는 구조라 도식으로 보여줘도 새로 알게 되는 것이 적고 사례 중심 서술
+- elite-theory: triage:엘리트이론 대 다원주의 대비는 언급되나 다원주의 쪽 서술이 한 줄뿐이라 비교 축이 부족하고 정의 반복에 가깝다
+- shear-modulus: triage:단일 물성 값. 응력-변형률 관계나 영률과의 연결은 본문에 수치 근거 없이 언급만 됨
+- corneille-tragedy: triage:특정 작가의 극 양식. 라신 대비가 한 문장 있으나 비교 축이 구체적이지 않고 딜레마 구조도 두 가치 충돌 서술에 그침
+- production-dramaturgy: triage:드라마투르그 업무 나열(조사·리허설 참관·자료 제작)로 단계 간 관계가 없고 범위도 극단마다 다르다고 본문이 밝힘
+- play-script: triage:문학 장르 정의. 대사·지시문 두 요소 외에 관계를 가진 구성 요소 없음
+- oxidative-stress: triage:활성산소 증가와 항산화 감소 불균형이라는 정의를 풀어쓴 수준이며, 지표 목록 외에 새로 보여줄 구조가 약함
+- criegee-intermediate: triage:바이어-빌리거 반응 중 한 중간체 이름. 반응 메커니즘 단계는 별도 반응 용어의 몫이고 본문 설명도 짧음
+- byeonsa-narrator: triage:특정 직업·공연자 명칭. 구성 요소 간 구조 관계가 없고 시대 서술도 한두 문장
+- system-identification: triage:입력-출력-모델 추정이라는 일반 작업 흐름이며 단계가 정의를 되풀이할 뿐 새로 드러나는 구조가 약함
+- lever-principle: triage:시소 비유와 모멘트 평형식 위주라 공식 반복이며, 1·2·3종 지레는 본문에 구분 기준 서술이 없음
+- indirect-bilirubin: triage:단일 검사 항목. 직접빌리루빈과의 대비는 언급되나 비교 축이 구체적이지 않고 용혈 판별은 검사 조합 서술에 그침
+- blood-components-function: triage:혈액 네 성분과 기능을 나열한 교과서적 정의 반복이며 구성 요소 간 관계 구조가 없음
+- neuroligin: triage:단일 단백질. 뉴렉신 결합과 스캐폴드 연결이 있으나 아형별 위치 차이가 논쟁적이고 본문 단계가 얕음
+- vestigial-structure: triage:진화 증거의 사례 나열(충수돌기·고래 골반뼈 등). 구성 요소 간 관계 구조가 약하고 기능 상실 경로도 본문이 두 가지를 가볍게 언급할 뿐
+- promenade-theatre: triage:관객 이동 관람 형식 정의. 비교 대상(몰입형 연극)은 이름만 언급되고 구성 요소 3개 이상의 관계가 없음
+- lifestyle-disease: triage:질환군 이름과 위험요인 나열. 누적 기전은 비유 수준이고 위험요인 간 관계는 본문 밖 지식에 기대야 함
+- ultrasonic-vocalization: triage:설치류 행동 지표. 새끼·성체 맥락 구분은 있으나 관계 구조가 없고 정의 반복
+- spect-actor: triage:보알이 만든 단일 개념. 포럼연극·이미지연극과의 관계가 언급되나 구조가 두 가지 기법 예시에 그침
+- wound-healing-process: merge-candidate: 병합 후보라 보류(was reviewed)
+- reliability-engineering: triage:분야 이름. 욕조 곡선(초기·우발·마모 고장기)이 본문에 있으나 현재 plot 함수로 못 그림
+- analytical-measurement-range: triage:범위 개념 정의에 가까워 범위 이탈 시 희석·재검 절차는 있으나 구성 요소가 적고 정의 반복
+- aesthetics-of-silence: triage:연극 미학 개념. 휴지와 침묵 구분이 있으나 두 요소 대비에 그치고 구조적 관계가 없음
+- random-digit-dialing: triage:표집 기법 정의. 국번 유지 후 뒷자리 무작위라는 절차가 정의에 이미 포함되어 도식이 추가 정보를 주지 못함
+- menander-comedy: triage:특정 작가의 작품군. 구희극과의 대비가 한 문장이고 구성 요소 관계가 없음
+- isentropic-efficiency: triage:효율 정의 비율. 엔탈피-엔트로피 선도 설명이 있으나 h-s 선도는 지원 plot 유형이 아님
+- crane-shot: triage:촬영 기법 하나의 정의. 시기별 의미 변화 언급이 있으나 구성 요소 간 구조가 없음
+- dialysis-adequacy: triage:지표 정의. Kt/V 계산 입력과 한계 서술은 있으나 단계·분류 구조가 없고 수식 설명에 가까움
+- gangster-film: triage:장르 정의. 상승-몰락 줄거리 관습이 있으나 장르 서사 요약이 정의 반복에 가깝고 시대 변화도 서술이 짧음
+- transnational-cinema: triage:이론적 관점. 산업·주제·미학 세 층위가 언급되나 한 문장 나열이고 민족영화 대비도 구체적 축이 없음
+- ensemble-acting: triage:연기 방식 정의. 오케스트라 비유 외에 구성 요소 간 관계 구조가 없음
+- tryptophan-2-3-dioxygenase: merge-candidate: 병합 후보라 보류(was reviewed)
+- vacuum-pump: triage:장비 정의. 저진공 후 고진공 순차 배기가 있으나 본문 서술이 한 문장이며 압력대별 구조는 본문 밖 지식에 의존
+- electrophoresis-apparatus-lab: triage:실험 장치 설명. 이동 원리가 있으나 크기별 이동 속도 차이라는 단일 속성이며 실험 절차 단계는 본문에 없음
+- potassium-dihydrogen-phosphate: triage:단일 시약명. 짝염기와 완충 작용은 헨더슨-하셀바흐 식 수준의 일반 설명
+- dramatic-exposition: triage:극 구조 단계 중 하나. 다른 단계와의 관계는 본문에 없고 자연스러운 전달 기법 논의 위주
+- caffeine-reagent: triage:단일 시약명(카페인) — 추출·승화 용도는 곁가지이고 관계 구성 요소 없음
+- shot-composition: triage:쇼트 안 배치 원리를 말로 풀이한 개념 — 구성 요소 간 구조적 관계가 본문에 없음
+- command-and-control-regulation: triage:명령통제식 vs 시장기반 두 방식 비교인데 본문이 장단점 나열 수준이라 정의 반복에 가까움
+- total-institution: triage:고프먼 개념 정의와 사례(병원·교도소·군대) 나열 — 관계 구조 없이 정의 반복
+- counterfeit-medicine: triage:범주 개념(위조 vs 저품질)은 두 항목뿐이고 나머지는 대응책 나열
+- field-theory-bourdieu: triage:부르디외 개념 설명 — 장·자본·아비투스가 이론적 서술이라 단정 없이 그릴 근거 약함, 정의 반복
+- inoculating-loop-lab: triage:실험 도구 하나의 설명 — 획선 도말 절차는 다른 용어의 몫이고 본문에 단계 구조 없음
+- inequity-aversion: triage:페어-슈미트 비대칭 가치함수 모양이 핵심인데 조각선형 함수가 없어 못 그림
+- target-cell: triage:적혈구 형태 소견 하나 — 두 기전이 있으나 구성 요소 2개로 정의 반복 수준
+- serological-test: triage:검사 통칭 용어 — 본문이 검사 종류 열거 없이 정의·창문기 설명 위주라 도식 근거 약함
+- head-twitch-response: triage:동물 행동 지표 — 5-HT2A 활성 단일 경로이고 구성 요소 2개 수준
+- experimental-film: triage:상업 서사에 반대되는 갈래 총칭 — 계보 구분이 느슨하고 학계 이견이 커 단정해 그리기 어려움
+- urine-protein-test: triage:소변 검사 하나 — 사구체 손상에서 단백뇨로의 단순 2단계라 정의 반복
+- mental-accounting: triage:탈러 개념의 정의와 사례 — 도식화할 구조적 관계 없음
+- insulin-assay: triage:혈중 인슐린 측정 검사 — HOMA-IR·C펩타이드 언급은 있으나 구성 요소 관계가 얕음
+- autocrine-signaling: triage:자가·주변·내분비 구분 3종은 있으나 본문 대부분이 정의 반복이고 단일 용어
+- skene: triage:건축 요소 하나(스케네) — 공간 배치 설명이라 지원 type 없음
+- glia-neuron-ratio: triage:수치 범위(0.2:1~10:1) 하나이고 학계 추정이 분분해 단정해 그릴 수 없음
+- genome-annotation: triage:구조적·기능적 주석 2분류뿐이고 나머지는 정의 반복
+- yeonhui-concept: triage:상위 개념 아래 장르 나열 — 세분 기준이 혼재하고 학술 범주가 논쟁적
+- head-direction-cell: triage:방향 선택 발화 세포 하나 — 입력 통합 서술이 단정적이지 않고 구성 요소 관계가 얕음
+- sound-design-in-film: triage:소리 요소(대사·음악·효과음) 나열 — 정의 반복
+- psychoanalytic-film-theory: triage:메츠 이론 소개 — 개념들이 서술적이고 논쟁적이라 구조화 곤란
+- comedia-nueva: triage:양식 특징 나열 — 비교 대상(신고전주의)이 본문에 구체적이지 않음
+- framing-within-the-frame: triage:구도 기법 하나 — 구성 요소 2개이고 정의 반복
+- controlled-cortical-impact: triage:동물 모델 조작 설명 — 단계가 짧고 2차 손상 기술은 단일 관찰 예시
+- comorbidity: triage:두 질환 공존 상태를 가리키는 단일 개념 — 구성 요소 관계가 없고 정의 반복
+- aniline-reagent: triage:단일 시약명(아닐린) — 디아조늄 경로는 곁가지 언급
+- revenue-equivalence-theorem: triage:네 경매 방식이 같은 수입이라는 명제 — 조건 나열이라 도식이 정의를 되풀이함
+- ammonium-hydroxide: triage:단일 시약명(암모니아수) — 약염기 평형 한 줄과 착이온 사례뿐
+- scenography: triage:하위 분야 나열 포괄 개념 — 정의 반복
+- liquidity-preference-theory: triage:이자율 결정은 곡선 교차이지만 유동성 함정의 평탄 구간이 현 함수로 안 되고 핵심 의미를 그리기 어려움
+- face-to-face-interview: triage:조사 방식 하나 — 장단점 나열이고 구성 요소 관계 없음
+- neurogenesis: triage:성체 신경발생의 단계 서술이 deep 한 줄뿐이고 사람에서의 지속 여부가 논쟁 중이라 단정해 그리기 어려움
+- ecosystem-services: triage:공급·조절·문화·지지 네 분류가 정의 문장에 이미 예시와 함께 나열되어 그림이 정의 반복
+- wagon-stage: triage:무대 장치 하나의 이동 방식 설명이며 서로 관계 맺는 구성 요소 3개 이상 없음
+- intersectionality-in-health: triage:여러 정체성이 겹친다는 개념적 관점이라 구체적 구성 요소·수치 구조가 본문에 없고 벤으로 그리면 정의 반복
+- b-type-natriuretic-peptide-test: triage:심실 신전에서 BNP 분비, 소변 배출·혈관 확장으로 이어지는 짧은 연결이 easy에 이미 충분히 설명됨; 검사 해석은 임상 판단 의존
+- mesh-convergence-study: triage:요소 크기에 따른 결과값 수렴 곡선이 핵심이나 단일 절차 설명이고 반복 해석 흐름이 정의 반복 수준; 도식 가치 낮음
+- probe-hybridization: triage:FISH 등 응용 설명이 있으나 프로브가 상보 서열에 붙어 신호를 낸다는 한 단계 원리라 구성 요소 2개뿐
+- lope-de-vega-drama: triage:극작가 한 사람의 작품 세계 설명이라 인물·작품 범주이며 도식화할 구조가 없음
+- radial-glia-guided-migration: triage:방사 이동 경로 자체는 그릴 수 있으나 접선이동과의 대비는 caution·deep의 곁가지이고 하위 사례 성격이 강함
+- tris-buffer-reagent: triage:단일 시약명이며 완충 범위·pKa 같은 속성 설명뿐 구성 요소 관계 없음
+- sylvain-lesne-scandal: triage:특정 사건·인물 중심의 사례이며 시간 순서는 있으나 사실 열거 수준이고 의혹 단정 위험이 큼
+- apraxia: triage:실행증의 두 하위 유형 구분이 deep에 있으나 증상 정의 위주라 2개 유형뿐이고 관계가 약함
+- developmental-toxicology-teratogen: triage:임계기 개념이 핵심이나 노출 시기별 기형 부위의 구체 대응이 본문에 없어 그릴 근거 부족
+- cnc-milling-machine: triage:공작기계 장비 설명이며 절삭 조건과 품질 영향이 구체 수치·관계 없이 열거됨
+- total-factor-productivity: triage:잔차로 정의되는 지표 개념이며 성장회계 분해는 정의 반복이고 추정 방법이 논쟁적
+- grid-cell-theory: triage:격자 간격 구배·정삼각형 패턴은 공간 패턴이라 plot·도식 함수로 표현할 수 없고 본문에 구성 요소 관계 없음
+- poetics-aristotle: triage:고전 저작 한 권을 가리키며 여섯 요소 나열은 가능하나 카타르시스 해석이 갈려 단정 어렵고 정의 반복
+- seeding-trial: triage:마케팅 목적 임상시험의 식별 단서를 나열한 윤리 개념이라 관계 구조 없이 체크리스트 수준
+- visual-cortex: triage:V1에서 상위 영역, 복측·배측 경로로 이어지는 위계가 있으나 뇌 영역 이름 나열 성격이 강하고 정의·easy와 중복
+- methyl-orange-solution: triage:단일 시약 용액이며 pH 3.1~4.4 변색 범위 한 가지 속성뿐임
+
+## 검사 실패(작성 재시도 필요)
+
+- false-negative: [가로] 곡선이 라벨을 가림: "위음성"

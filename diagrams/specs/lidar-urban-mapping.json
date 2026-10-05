@@ -1,0 +1,70 @@
+{
+  "slug": "lidar-urban-mapping",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "레이저 펄스 발사",
+      "color": "blue",
+      "sub": "반사 왕복시간 측정"
+    },
+    {
+      "id": "n1",
+      "label": "점군 생성",
+      "color": "violet",
+      "sub": "좌표별 고도값"
+    },
+    {
+      "id": "n2",
+      "label": "지면·지상물 분류",
+      "color": "amber",
+      "sub": "건물·수목 구분"
+    },
+    {
+      "id": "n3",
+      "label": "DEM·DSM 작성",
+      "color": "violet",
+      "sub": "지면 / 표면 모델"
+    },
+    {
+      "id": "n4",
+      "label": "nDSM 산출",
+      "color": "green",
+      "sub": "DSM−DEM = 순수 높이"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "지면 모델은 수치지형모델(DTM)이라고도 부름",
+      "tone": "general"
+    },
+    {
+      "text": "색·재질 같은 분광 정보가 없어 토지이용 구분엔 항공사진·위성영상과 결합",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

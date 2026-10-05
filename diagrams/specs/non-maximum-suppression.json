@@ -1,0 +1,76 @@
+{
+  "slug": "non-maximum-suppression",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "겹친 후보 박스",
+      "color": "gray",
+      "sub": "탐지 모델의 제안"
+    },
+    {
+      "id": "n1",
+      "label": "최고 신뢰도 선택",
+      "color": "blue",
+      "sub": "이 박스는 남김"
+    },
+    {
+      "id": "n2",
+      "label": "겹침 계산",
+      "color": "violet",
+      "sub": "나머지 박스와 IoU"
+    },
+    {
+      "id": "n3",
+      "label": "겹친 박스 제거",
+      "color": "amber",
+      "sub": "IoU가 임계값 초과"
+    },
+    {
+      "id": "n4",
+      "label": "최종 박스",
+      "color": "green",
+      "sub": "물체당 하나"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "남은 박스로"
+    }
+  ],
+  "notes": [
+    {
+      "text": "모델의 일부가 아니라 결과를 다듬는 후처리 단계",
+      "tone": "general"
+    },
+    {
+      "text": "임계값이 낮으면 다른 물체까지 지우고, 높으면 중복이 남음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

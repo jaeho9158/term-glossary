@@ -1,0 +1,65 @@
+{
+  "slug": "residual-connection",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력",
+      "color": "gray",
+      "sub": "지금까지 온 표현"
+    },
+    {
+      "id": "n1",
+      "label": "층 연산",
+      "color": "blue",
+      "sub": "변화분(잔차)만 학습"
+    },
+    {
+      "id": "n2",
+      "label": "덧셈",
+      "color": "violet",
+      "sub": "입력 + 변화분"
+    },
+    {
+      "id": "n3",
+      "label": "출력",
+      "color": "green",
+      "sub": "다음 층으로 전달"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n0",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "지름길"
+    }
+  ],
+  "notes": [
+    {
+      "text": "역전파 때 기울기가 덧셈 경로로 앞쪽 층까지 전달되어 기울기 소실이 완화된다",
+      "tone": "pos"
+    },
+    {
+      "text": "층을 무한정 늘려도 좋아진다는 뜻은 아니며, 정규화 등 다른 기법과 함께 쓴다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; He et al.(2016) ResNet",
+  "reviewed": true
+}

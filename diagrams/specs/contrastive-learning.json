@@ -1,0 +1,70 @@
+{
+  "slug": "contrastive-learning",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "라벨 없는 이미지",
+      "color": "gray",
+      "sub": "정답 라벨 불필요"
+    },
+    {
+      "id": "b",
+      "label": "두 번 변형",
+      "color": "violet",
+      "sub": "자르기·색상 변화"
+    },
+    {
+      "id": "c",
+      "label": "양성 쌍 당기기",
+      "color": "blue",
+      "sub": "임베딩 공간에서 가깝게"
+    },
+    {
+      "id": "d",
+      "label": "부정 샘플 밀기",
+      "color": "amber",
+      "sub": "다른 이미지는 멀게"
+    },
+    {
+      "id": "e",
+      "label": "특징 표현 학습",
+      "color": "green",
+      "sub": "이후 소량 라벨로 미세조정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "당기기와 밀어내기는 하나의 손실(InfoNCE 등)로 함께 일어난다",
+      "tone": "general"
+    },
+    {
+      "text": "쌍 구성(증강·부정 샘플 선택)에 성능이 좌우되고, 부정 샘플 다수·큰 배치가 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

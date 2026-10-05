@@ -1,8 +1,8 @@
 # 배치 1 승인 요약
 
-상태: {"dropped":244,"reviewed":56}
+상태: {"dropped":248,"reviewed":52}
 
-미리보기: diagrams/batches/001/approval/specs/preview.html — 검수에서 고친 35개 + 무작위 표본 21개
+미리보기: diagrams/batches/001/approval/specs/preview.html — 검수에서 고친 33개 + 무작위 표본 19개
 
 ## 탈락
 
@@ -61,6 +61,7 @@
 - entropy: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
 - ingroup-outgroup-bias: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
 - internal-consistency-reliability: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- spacing-effect: merge-candidate: 병합 후보라 보류(was reviewed)
 - ucla-loneliness-scale: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
 - attribution-theory: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
 - emic-etic-perspective: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
@@ -186,6 +187,7 @@
 - snowball-sampling: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - spearman-correlation: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - standardized-residual: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- statistical-power: merge-candidate: 병합 후보라 보류(was reviewed)
 - theory-of-mind-child: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - thermistor: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - trail-making-test: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
@@ -204,6 +206,7 @@
 - attention-restoration-theory: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - barratt-impulsiveness-scale: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - bioelectrical-impedance-analysis: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- bootstrap-resampling: merge-candidate: 병합 후보라 보류(was reviewed)
 - bouins-solution: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - breusch-pagan-test: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
 - buoyancy: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
@@ -227,6 +230,7 @@
 - false-consensus-effect: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
 - fleiss-kappa: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
 - flooding-therapy: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- flow-theory: merge-candidate: 병합 후보라 보류(was reviewed)
 - generalized-method-of-moments: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
 - grit: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
 - groupthink-ir: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음

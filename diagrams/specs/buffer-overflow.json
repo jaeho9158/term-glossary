@@ -1,0 +1,63 @@
+{
+  "slug": "buffer-overflow",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "초과 입력",
+      "color": "amber",
+      "sub": "버퍼 크기보다 큰 데이터"
+    },
+    {
+      "id": "n1",
+      "label": "인접 메모리 덮어씀",
+      "color": "rose",
+      "sub": "스택·힙 영역 침범"
+    },
+    {
+      "id": "n2",
+      "label": "반환 주소 변조",
+      "color": "rose",
+      "sub": "스택의 함수 복귀 주소"
+    },
+    {
+      "id": "n3",
+      "label": "공격 코드 실행",
+      "color": "rose",
+      "sub": "원격 실행·권한 상승"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "스택 카나리: 함수 종료 때 덮어쓰기 탐지 · ASLR: 주소 무작위 배치",
+      "tone": "pos"
+    },
+    {
+      "text": "DEP/NX: 데이터 영역을 실행 불가로 만들어 심은 코드 실행 차단",
+      "tone": "pos"
+    },
+    {
+      "text": "메모리를 직접 다루는 C·C++에서 특히 흔함",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

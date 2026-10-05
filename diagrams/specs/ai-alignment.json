@@ -1,0 +1,61 @@
+{
+  "slug": "ai-alignment",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "사람의 진짜 의도",
+      "sub": "가치·원하는 결과",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "설계한 목표",
+      "sub": "목표함수·보상 신호",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "모델이 익힌 목표",
+      "sub": "학습으로 내면화",
+      "color": "amber"
+    },
+    {
+      "id": "n3",
+      "label": "실제 행동",
+      "sub": "새로운 상황 포함",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "외적 정렬"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "내적 정렬"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "외적 정렬이 어긋나면 지표는 달성해도 의도와 다른 결과(목표 오지정)",
+      "tone": "limit"
+    },
+    {
+      "text": "내적 정렬이 어긋나면 학습 때는 멀쩡하다가 새 상황에서 의도치 않게 행동",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

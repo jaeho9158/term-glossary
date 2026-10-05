@@ -1,0 +1,50 @@
+{
+  "slug": "message-queue",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "생산자",
+      "color": "amber",
+      "sub": "작업 요청을 보냄"
+    },
+    {
+      "id": "n1",
+      "label": "메시지 큐",
+      "color": "violet",
+      "sub": "순서대로 쌓아 둠"
+    },
+    {
+      "id": "n2",
+      "label": "소비자",
+      "color": "blue",
+      "sub": "자기 속도로 처리"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "넣기"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "꺼내기"
+    }
+  ],
+  "notes": [
+    {
+      "text": "속도 차이와 소비자의 일시 장애를 큐가 흡수 — 요청이 사라지지 않고 쌓여 있음",
+      "tone": "pos"
+    },
+    {
+      "text": "순서 보장·중복 처리 여부는 큐의 종류와 설정에 따라 다름",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

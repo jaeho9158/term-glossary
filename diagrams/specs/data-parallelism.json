@@ -1,0 +1,70 @@
+{
+  "slug": "data-parallelism",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "모델 복사",
+      "color": "blue",
+      "sub": "여러 GPU에 동일하게"
+    },
+    {
+      "id": "n1",
+      "label": "배치 분할",
+      "color": "gray",
+      "sub": "GPU마다 다른 데이터"
+    },
+    {
+      "id": "n2",
+      "label": "그레이디언트 계산",
+      "color": "violet",
+      "sub": "각 GPU 독립"
+    },
+    {
+      "id": "n3",
+      "label": "모아서 평균",
+      "color": "amber",
+      "sub": "올리듀스(all-reduce)"
+    },
+    {
+      "id": "n4",
+      "label": "동시 갱신",
+      "color": "green",
+      "sub": "모든 복사본"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "동기식 기준 — 비동기식은 대기 시간을 줄이는 대신 학습 안정성이 떨어질 수 있다",
+      "tone": "general"
+    },
+    {
+      "text": "모델 전체가 GPU 하나의 메모리에 들어가야 하며, 장치 수가 늘수록 통신 비용이 커진다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

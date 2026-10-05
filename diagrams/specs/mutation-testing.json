@@ -1,0 +1,71 @@
+{
+  "slug": "mutation-testing",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "변이체 생성",
+      "color": "amber",
+      "sub": "변이 연산자 적용"
+    },
+    {
+      "id": "n1",
+      "label": "테스트 실행",
+      "color": "violet",
+      "sub": "기존 테스트 스위트"
+    },
+    {
+      "id": "n2",
+      "label": "결과 분류",
+      "color": "blue",
+      "sub": "실패=killed · 통과=survived"
+    },
+    {
+      "id": "n3",
+      "label": "변이 점수",
+      "color": "green",
+      "sub": "테스트가 실패시킨 비율"
+    },
+    {
+      "id": "n4",
+      "label": "테스트 보강",
+      "color": "rose",
+      "sub": "검사하지 않던 부분"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "생존 변이"
+    }
+  ],
+  "notes": [
+    {
+      "text": "등가 변이체 판별은 일반적으로 결정 불가능",
+      "tone": "limit"
+    },
+    {
+      "text": "변이 점수 100%도 결함 없음을 뜻하지 않음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

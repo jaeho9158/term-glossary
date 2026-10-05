@@ -1,0 +1,73 @@
+{
+  "slug": "cache-memory-hierarchy",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "CPU",
+      "color": "blue",
+      "sub": "데이터 요청"
+    },
+    {
+      "id": "n1",
+      "label": "L1 캐시",
+      "color": "green",
+      "sub": "가장 빠르고 작음"
+    },
+    {
+      "id": "n2",
+      "label": "L2 캐시",
+      "color": "violet",
+      "sub": "조금 크고 느림"
+    },
+    {
+      "id": "n3",
+      "label": "L3 캐시",
+      "color": "violet",
+      "sub": "더 크고 느림"
+    },
+    {
+      "id": "n4",
+      "label": "주기억장치",
+      "color": "gray",
+      "sub": "RAM·가장 크고 느림"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "미스"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "미스"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "미스"
+    }
+  ],
+  "notes": [
+    {
+      "text": "자주 쓰는 데이터일수록 빠른 단계에 남아, 위쪽 캐시에서 적중할수록 빨리 끝난다",
+      "tone": "pos"
+    },
+    {
+      "text": "캐시는 클수록 검색이 느려져 계층을 나눈다. 효과는 데이터 접근 패턴(지역성)에 좌우된다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

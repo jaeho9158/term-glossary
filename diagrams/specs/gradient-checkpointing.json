@@ -1,0 +1,65 @@
+{
+  "slug": "gradient-checkpointing",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "구간 분할",
+      "color": "gray",
+      "sub": "신경망을 세그먼트로"
+    },
+    {
+      "id": "n1",
+      "label": "순전파",
+      "color": "blue",
+      "sub": "경계 활성값만 저장"
+    },
+    {
+      "id": "n2",
+      "label": "구간 재계산",
+      "color": "amber",
+      "sub": "경계값에서 순전파 재실행"
+    },
+    {
+      "id": "n3",
+      "label": "구간 역전파",
+      "color": "violet",
+      "sub": "재계산 값으로 기울기"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "다음 구간"
+    }
+  ],
+  "notes": [
+    {
+      "text": "구간 내부 중간 결과를 저장하지 않아 GPU 메모리 사용량 감소",
+      "tone": "pos"
+    },
+    {
+      "text": "재계산만큼 순전파 연산량과 학습 시간이 늘어남",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

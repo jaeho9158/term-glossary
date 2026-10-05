@@ -1,0 +1,68 @@
+{
+  "slug": "marginal-structural-model",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "이전 처치",
+      "color": "amber",
+      "sub": "앞 시점 치료"
+    },
+    {
+      "id": "n1",
+      "label": "시간가변 교란",
+      "color": "rose",
+      "sub": "예: 건강·중증도"
+    },
+    {
+      "id": "n2",
+      "label": "다음 처치",
+      "color": "amber",
+      "sub": "교란에 따라 결정"
+    },
+    {
+      "id": "n3",
+      "label": "결과",
+      "color": "blue",
+      "sub": "추적 관찰 결과"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "교란이 이전 처치의 결과라 회귀로 보정하면 인과 경로 중간을 막아 왜곡됨",
+      "tone": "general"
+    },
+    {
+      "text": "역확률가중: 시점별 처치 확률의 역수로 가중해 교란→처치 연결을 끊은 가상 표본에서 효과 추정",
+      "tone": "pos"
+    },
+    {
+      "text": "교란이 모두 측정되었다는 가정 필요; 극단 가중치는 추정을 불안정하게 함",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

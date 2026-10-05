@@ -23,7 +23,7 @@
       "reason": "triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음"
     },
     "hierarchical-regression": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 독립변수를 단계별로 투입하며 단계마다 R² 증가분을 확인하는 순서를 알 수 있다",
@@ -38,14 +38,16 @@
       "reason": "triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음"
     },
     "endogeneity": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "social",
       "type": "chain",
       "intent": "이 그림을 보면 누락변수·역인과·측정오차가 설명변수와 오차항의 상관을 거쳐 추정 편향으로 이어지는 경로를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "첫 노드 라벨이 '누락변수'뿐이라 역인과·측정오차가 그 하위처럼 읽힘 → '내생성 원인'(누락변수·역인과·측정오차)으로 바꾸고 중복 주석 제거"
+      "reason": "첫 노드 라벨이 '누락변수'뿐이라 역인과·측정오차가 그 하위처럼 읽힘 → '내생성 원인'(누락변수·역인과·측정오차)으로 바꾸고 중복 주석 제거",
+      "rechecked": true,
+      "recheck_reason": "원인 3종→설명변수-오차항 상관→추정 편향이 본문과 일치, 3장 모두 잘림·겹침 없음(첫 노드 sub가 2줄로 접히지만 읽힘)"
     },
     "positive-and-negative-syndrome-scale": {
       "state": "dropped",
@@ -78,14 +80,16 @@
       "reason": "triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음"
     },
     "calibration-curve": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 표준시료의 농도-측정값 직선에서 미지 시료의 값을 읽어 농도를 추정하는 방식을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "intent인 '미지 시료 값을 읽어 농도 역산'이 그림에 없음 → 미지 시료 세로선 추가, x축 '농도'로 일반화"
+      "reason": "intent인 '미지 시료 값을 읽어 농도 역산'이 그림에 없음 → 미지 시료 세로선 추가, x축 '농도'로 일반화",
+      "rechecked": true,
+      "recheck_reason": "원점 지나는 직선 검량선과 미지 시료 세로선·역산 라벨이 의도대로 보이고 3장 모두 잘림 없음"
     },
     "cronbachs-alpha": {
       "state": "dropped",
@@ -118,14 +122,16 @@
       "reason": "triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음"
     },
     "newtons-law-of-cooling": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "plot",
       "intent": "이 그림을 보면 물체 온도가 주변 온도를 향해 지수적으로 감쇠하며 처음에 더 빨리 식는다는 것을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "y축은 '온도 차'인데 범례가 '물체 온도'라 0으로 감쇠하는 곡선과 모순 → 범례를 '물체−주변 온도 차'로 수정(decay 방향은 맞음)"
+      "reason": "y축은 '온도 차'인데 범례가 '물체 온도'라 0으로 감쇠하는 곡선과 모순 → 범례를 '물체−주변 온도 차'로 수정(decay 방향은 맞음)",
+      "rechecked": true,
+      "recheck_reason": "y축 '온도 차'와 범례 '물체−주변 온도 차'가 일치하고 0으로 지수 감쇠, 주석 2개 본문 근거 있음, 가독성 양호"
     },
     "null-hypothesis": {
       "state": "dropped",
@@ -148,17 +154,19 @@
       "reason": "triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음"
     },
     "heat-conduction-convection-radiation": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "hierarchy",
       "intent": "이 그림을 보면 열의 이동이 전도·대류·복사 세 방식으로 나뉘고 각각 어떤 매개로 일어나는지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "주석 '높은 곳에서 낮은 곳으로'가 공간적 위치로 오독될 수 있음(대류는 위로 상승) → '온도 높은 쪽에서 낮은 쪽으로'; 전도 sub를 한 물체 내부도 포함하도록 '맞닿아 직접 전달'로"
+      "reason": "주석 '높은 곳에서 낮은 곳으로'가 공간적 위치로 오독될 수 있음(대류는 위로 상승) → '온도 높은 쪽에서 낮은 쪽으로'; 전도 sub를 한 물체 내부도 포함하도록 '맞닿아 직접 전달'로",
+      "rechecked": true,
+      "recheck_reason": "전도·대류·복사 3분류와 sub가 본문 정의와 맞고 주석도 '온도 높은 쪽→낮은 쪽'으로 명확, 모바일·다크 모두 읽힘"
     },
     "testing-effect": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "contrast",
       "intent": "이 그림을 보면 다시 읽기와 인출연습이 같은 시간에서 노력·장기 기억 효과가 어떻게 다른지 알 수 있다",
@@ -263,7 +271,7 @@
       "reason": "triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음"
     },
     "gibbs-free-energy": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "matrix",
       "intent": "이 그림을 보면 엔탈피 변화와 엔트로피 변화의 부호 조합에 따라 반응의 자발성이 어떻게 달라지는지 알 수 있다",
@@ -328,7 +336,7 @@
       "reason": "triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함"
     },
     "mass-spectrometry": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "procedure",
       "intent": "이 그림을 보면 이온화, 질량 대 전하비에 따른 분리, 검출로 이어지는 측정 순서를 알 수 있다",
@@ -338,7 +346,7 @@
       "reason": "시료 도입→이온화→m/z 분리→검출→스펙트럼 순서가 표준 원리와 일치, 정량 한계 주석 적절"
     },
     "nominal-group-technique": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 개별 기록, 순회 발표, 토론, 투표로 이어지는 순서가 집단 쏠림을 막는 구조임을 알 수 있다",
@@ -358,14 +366,16 @@
       "reason": "triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함"
     },
     "allostatic-load": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "chain",
       "intent": "이 그림을 보면 만성 스트레스 반응이 반복되며 생리 시스템에 마모가 누적되는 경로를 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "fix",
-      "reason": "'생리 시스템 마모→알로스타틱 부하'는 같은 것을 원인-결과로 그려 중복·과장 → 부하를 누적 마모 노드로 합치고 본문의 2차 결과(고혈압·인슐린 저항성)로 연결"
+      "reason": "'생리 시스템 마모→알로스타틱 부하'는 같은 것을 원인-결과로 그려 중복·과장 → 부하를 누적 마모 노드로 합치고 본문의 2차 결과(고혈압·인슐린 저항성)로 연결",
+      "rechecked": true,
+      "recheck_reason": "만성 스트레스→반복 반응→누적 마모(부하)→2차 결과가 본문 단계 모델과 일치, 데스크톱 줄바꿈 화살표도 방향 명확, 겹침 없음"
     },
     "cohort-study": {
       "state": "dropped",
@@ -388,7 +398,7 @@
       "reason": "triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함"
     },
     "retrospective-prospective-design": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "contrast",
       "intent": "이 그림을 보면 후향적은 과거를 거슬러 자료를 보고 전향적은 현재에서 미래로 수집한다는 시간 방향 차이를 알 수 있다",
@@ -398,14 +408,14 @@
       "reason": "좌우 대비가 본문(과거 기록 거슬러 분석 vs 시작 시점부터 미래로 수집, 장단점)과 일치하고 세 화면 모두 잘림·겹침 없음"
     },
     "spacing-effect": {
-      "state": "reviewed",
+      "state": "dropped",
       "group": "psyedu",
       "type": "plot",
       "intent": "이 그림을 보면 몰아서 학습할 때와 간격을 두고 학습할 때 기억 유지량이 시간에 따라 감쇠하는 모양이 어떻게 다른지 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "pass",
-      "reason": "망각을 decay(감소)로 그려 방향이 맞고 몰아서 학습이 더 빨리 감쇠하는 모양이 의도대로 보임, 모식도 캡션 있음"
+      "reason": "merge-candidate: 병합 후보라 보류(was reviewed)"
     },
     "ucla-loneliness-scale": {
       "state": "dropped",
@@ -418,14 +428,16 @@
       "reason": "triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함"
     },
     "cohens-d": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 두 집단 분포가 평균 차이를 표준편차 단위로 잴 때 겹치는 정도가 d에 따라 달라짐을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "집단 2 평균이 더 큰데 주석이 d=(평균1−평균2)라 부호가 그림과 반대 → (집단 2 − 집단 1)로 수정"
+      "reason": "집단 2 평균이 더 큰데 주석이 d=(평균1−평균2)라 부호가 그림과 반대 → (집단 2 − 집단 1)로 수정",
+      "rechecked": true,
+      "recheck_reason": "집단 2가 0.5 SD 오른쪽에 있고 주석 식 부호(집단 2−집단 1)와 일치, 3장 모두 잘림 없음"
     },
     "emic-etic-perspective": {
       "state": "dropped",
@@ -468,24 +480,28 @@
       "reason": "triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함"
     },
     "prisma-statement": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 검색 식별, 선별, 적격성 평가, 포함으로 이어지며 각 단계에서 논문이 탈락하는 흐름을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "의도(단계마다 탈락)가 그림에 안 보여 단계별 sub를 '중복 제거·제목·초록으로 제외·전문 검토·제외 사유'로 바꿈"
+      "reason": "의도(단계마다 탈락)가 그림에 안 보여 단계별 sub를 '중복 제거·제목·초록으로 제외·전문 검토·제외 사유'로 바꿈",
+      "rechecked": true,
+      "recheck_reason": "식별→선별→적격성 평가→최종 포함 순서와 단계별 제외 sub가 PRISMA 흐름도·본문과 맞고, 3장 모두 번호·글자 잘림 없음"
     },
     "roc-curve": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 기준을 바꿀 때 민감도와 거짓양성률이 함께 변하는 곡선의 모양과 무작위 대각선 대비 성능을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "렌더러의 점선 우연 대각선 위에 회색 roc(auc 0.5) 계열이 중복으로 그려져 이를 빼고, 주석에 점선=무작위(AUC 0.5)라고 밝히고 곡선 범례에 AUC 0.85 표기"
+      "reason": "렌더러의 점선 우연 대각선 위에 회색 roc(auc 0.5) 계열이 중복으로 그려져 이를 빼고, 주석에 점선=무작위(AUC 0.5)라고 밝히고 곡선 범례에 AUC 0.85 표기",
+      "rechecked": true,
+      "recheck_reason": "AUC 0.85 곡선 하나와 점선 대각선만 남아 중복 없음, 축 라벨·눈금·주석이 본문과 일치하고 다크·모바일 가독성 양호"
     },
     "rumination": {
       "state": "dropped",
@@ -543,7 +559,7 @@
       "reason": "triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함"
     },
     "flow-cytometry": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 세포가 한 줄로 흘러 레이저를 지나며 산란광과 형광으로 측정되는 순서를 알 수 있다",
@@ -603,34 +619,40 @@
       "reason": "triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음"
     },
     "odds-ratio": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "health",
       "type": "matrix",
       "intent": "이 그림을 보면 노출 여부와 사건 발생 여부의 네 칸에서 오즈가 어떻게 계산되고 교차비가 만들어지는지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "'1보다 크면 위험 증가 방향'은 연관을 인과처럼 읽히게 하고 줄바꿈으로 '방향'만 남음 → 'ad/bc, 1보다 크면 노출군의 오즈가 더 큼'으로 수정"
+      "reason": "'1보다 크면 위험 증가 방향'은 연관을 인과처럼 읽히게 하고 줄바꿈으로 '방향'만 남음 → 'ad/bc, 1보다 크면 노출군의 오즈가 더 큼'으로 수정",
+      "rechecked": true,
+      "recheck_reason": "2×2 칸 배치(a,b,c,d)와 축 라벨이 일치하고 교차비 식 (a/b)÷(c/d)=ad/bc 정확, 주석 줄바꿈도 뜻이 끊기지 않음"
     },
     "self-discrepancy-theory": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "chain",
       "intent": "이 그림을 보면 실제-이상 간극은 실망·우울로, 실제-의무 간극은 죄책·불안으로 이어져 간극 종류별로 감정이 갈린다는 것을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "이론의 핵심 주장(간극↑→정서↑)이 limit 톤 주석에 섞여 있어 general 주석과 관점 차이를 다룬 limit 주석으로 나눔"
+      "reason": "이론의 핵심 주장(간극↑→정서↑)이 limit 톤 주석에 섞여 있어 general 주석과 관점 차이를 다룬 limit 주석으로 나눔",
+      "rechecked": true,
+      "recheck_reason": "실제-이상→실망·우울, 실제-의무→죄책·불안 대비가 본문과 일치하고 주석 톤 분리도 적절, 겹침·잘림 없음"
     },
     "self-serving-bias": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "matrix",
       "intent": "이 그림을 보면 성공·실패 결과가 각각 내부(능력·노력) 또는 외부(운·상황) 원인으로 어떻게 비대칭 귀속되는지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "성공 칸 sub '성공은 내 탓'은 '탓'의 부정 뜻이 어긋나 '내 덕'으로 고치고, 외부 칸을 '남·상황 탓'으로 바꾸고, 빈 칸에 '성공의 외부 귀속 회피'를 채워 대칭을 맞춤"
+      "reason": "성공 칸 sub '성공은 내 탓'은 '탓'의 부정 뜻이 어긋나 '내 덕'으로 고치고, 외부 칸을 '남·상황 탓'으로 바꾸고, 빈 칸에 '성공의 외부 귀속 회피'를 채워 대칭을 맞춤",
+      "rechecked": true,
+      "recheck_reason": "성공-내부·실패-외부 칸이 강조되고 나머지 두 칸은 회피로 대칭, '내 덕' 표기 올바름, 3장 모두 읽힘"
     },
     "socioemotional-selectivity-theory": {
       "state": "dropped",
@@ -718,14 +740,16 @@
       "reason": "triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음"
     },
     "illusory-truth-effect": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "chain",
       "intent": "이 그림을 보면 반복 노출이 처리 유창성을 높이고 그것이 진실감으로 오귀속되는 경로를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "주석이 사전 지식과 반대되는 진술에서는 효과가 불확실한 듯 읽혀, 본문대로 '그런 진술에서도 나타난다는 보고가 있어 경계 조건이 논의 중'으로 수정"
+      "reason": "주석이 사전 지식과 반대되는 진술에서는 효과가 불확실한 듯 읽혀, 본문대로 '그런 진술에서도 나타난다는 보고가 있어 경계 조건이 논의 중'으로 수정",
+      "rechecked": true,
+      "recheck_reason": "반복 노출→유창성→진실감 오귀속→믿음 증가 경로와 한계 주석이 본문과 일치, 줄바꿈 화살표 방향 명확하고 잘림 없음"
     },
     "mahalanobis-distance": {
       "state": "dropped",
@@ -743,14 +767,16 @@
       "reason": "triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음"
     },
     "n-of-1-trial": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 한 환자에게 치료 A와 B를 순서를 바꿔 반복 적용하고 비교하는 시험 절차를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "'A·B 번갈아 투여 → 세척기간' 순서는 세척이 모든 투여가 끝난 뒤 한 번만 하는 것처럼 읽힘. ③을 'A 또는 B 투여(한 기간씩)'로 바꾸고, 메모를 '③ 투여와 ④ 세척을 순서를 바꿔 여러 주기 반복'으로 수정"
+      "reason": "'A·B 번갈아 투여 → 세척기간' 순서는 세척이 모든 투여가 끝난 뒤 한 번만 하는 것처럼 읽힘. ③을 'A 또는 B 투여(한 기간씩)'로 바꾸고, 메모를 '③ 투여와 ④ 세척을 순서를 바꿔 여러 주기 반복'으로 수정",
+      "rechecked": true,
+      "recheck_reason": "③ 'A 또는 B 투여(한 기간씩)' → ④ 세척 → ⑤ 비교 순서와 '③·④를 순서 바꿔 여러 주기 반복' 메모가 본문과 일치. 3장 모두 잘림·겹침 없고 다크 가독성 양호"
     },
     "nd-yag-laser": {
       "state": "dropped",
@@ -783,7 +809,7 @@
       "reason": "triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음"
     },
     "skewness-kurtosis": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 정규분포와 비교해 오른쪽 꼬리가 긴 분포(왜도)와 꼬리가 두꺼운 분포(첨도)가 어떻게 다른지 알 수 있다",
@@ -793,24 +819,28 @@
       "reason": "chi2(3)과 normal(3, 2.4)은 평균·분산이 거의 같아 왜도만 깔끔하게 비교됨. 첨도가 빠진 점은 한계 메모가 밝히고 있음. t(df)는 0에 고정돼 있어(위치 매개변수 없음) 같은 축에 첨도 비교를 넣을 수 없음. intent가 약속한 첨도 부분은 채우지 못함"
     },
     "sobel-test": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "chain",
       "intent": "이 그림을 보면 독립변수가 매개변수를 거쳐 종속변수에 이르는 간접효과 경로(a·b)와 소벨 검정이 겨냥하는 대상을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "매개모형에 직접경로 c′가 없어 간접효과(a×b)가 무엇과 구별되는지 보이지 않음. x→y 'c′ 직접효과' 호를 추가하고 메모를 '소벨 검정 대상: 간접효과 a×b'로 수정"
+      "reason": "매개모형에 직접경로 c′가 없어 간접효과(a×b)가 무엇과 구별되는지 보이지 않음. x→y 'c′ 직접효과' 호를 추가하고 메모를 '소벨 검정 대상: 간접효과 a×b'로 수정",
+      "rechecked": true,
+      "recheck_reason": "a·b 경로와 c′ 직접효과 호가 구분되어 보이고 라벨이 노드·화살표와 겹치지 않음. 모바일에서 c′ 호가 왼쪽으로 돌아 읽힘. 메모(a×b가 0과 다른지, 부트스트랩 권장) 본문과 일치"
     },
     "spearman-brown-prophecy-formula": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 문항 수를 늘릴수록 신뢰도가 오르지만 증가 폭이 점점 줄어드는 포화 모양을 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "fix",
-      "reason": "hill(ec50=(1−ρ)/ρ, n=1)은 SB 공식 kρ/(1+(k−1)ρ)와 정확히 같아 곡선은 맞음. 다만 라벨에 ρ가 없고 기준점이 없어, 라벨을 '.50/.80'으로 바꾸고 x=1에 '현재 길이(1배)' 세로선과 수확 체감 메모를 추가"
+      "reason": "hill(ec50=(1−ρ)/ρ, n=1)은 SB 공식 kρ/(1+(k−1)ρ)와 정확히 같아 곡선은 맞음. 다만 라벨에 ρ가 없고 기준점이 없어, 라벨을 '.50/.80'으로 바꾸고 x=1에 '현재 길이(1배)' 세로선과 수확 체감 메모를 추가",
+      "rechecked": true,
+      "recheck_reason": "x=1 세로선에서 .50 곡선은 절반, .80 곡선은 0.8 높이를 지나 SB 공식과 맞고 포화 모양이 보임. 세로선 라벨·범례·메모 겹침 없음, 모바일은 글자가 작지만 읽힘"
     },
     "specific-gravity": {
       "state": "dropped",
@@ -883,7 +913,7 @@
       "reason": "triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음"
     },
     "explanatory-sequential-design": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 양적 단계의 결과에서 대상을 골라 질적 단계로 이어 해석하는 순서를 알 수 있다",
@@ -893,17 +923,19 @@
       "reason": "양적 수집→분석→질적 대상 선정→질적 수집→통합 순서가 본문과 일치하고 세 장 모두 잘 읽힘"
     },
     "explicit-memory-implicit-memory": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "hierarchy",
       "intent": "이 그림을 보면 기억이 외현·암묵으로 갈리고 각각 일화·의미, 점화·절차 등으로 세분되는 구조를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "본문 주의사항대로 기준은 '인출 시 의식이 필요한가'임. 루트 sub '의식 여부로 구분'을 '인출 시 의식 여부'로 고쳐 저장 기간 구분과 헷갈리지 않게 함"
+      "reason": "본문 주의사항대로 기준은 '인출 시 의식이 필요한가'임. 루트 sub '의식 여부로 구분'을 '인출 시 의식 여부'로 고쳐 저장 기간 구분과 헷갈리지 않게 함",
+      "rechecked": true,
+      "recheck_reason": "외현(일화·의미)/암묵(점화·절차) 위계와 루트 sub '인출 시 의식 여부'가 본문 주의사항과 일치. 데스크톱 트리·모바일 들여쓰기 모두 잘림 없음, 다크 양호"
     },
     "foot-in-the-door-technique": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "chain",
       "intent": "이 그림을 보면 작은 부탁의 수락이 자기지각·태도 조정을 거쳐 큰 부탁 수락 가능성을 높이는 경로를 알 수 있다",
@@ -948,7 +980,7 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "k-means-clustering": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 k-평균이 중심 초기화, 할당, 중심 갱신을 반복해 수렴하는 단계를 알 수 있다",
@@ -988,14 +1020,16 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "open-coding": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 개방코딩이 축코딩·선택코딩으로 이어지는 근거이론 분석의 단계 순서를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "이론적포화를 선택코딩 다음 단계로 그렸는데, 포화는 단계가 아니라 수집·코딩 내내 점검하는 기준임. ⑤를 '이론 도출'로 바꾸고 포화는 반복 조건 메모로 옮김"
+      "reason": "이론적포화를 선택코딩 다음 단계로 그렸는데, 포화는 단계가 아니라 수집·코딩 내내 점검하는 기준임. ⑤를 '이론 도출'로 바꾸고 포화는 반복 조건 메모로 옮김",
+      "rechecked": true,
+      "recheck_reason": "자료 → 개방 → 축 → 선택코딩 → 이론 도출 순서가 본문과 맞고 이론적포화는 반복 조건 메모로 처리됨. 3장 모두 글자 잘림·겹침 없음"
     },
     "percent-w-v": {
       "state": "dropped",
@@ -1008,7 +1042,7 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "priming-effect": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "chain",
       "intent": "이 그림을 보면 점화 자극이 연결된 개념을 활성화해 후속 반응을 빠르게 하는 경로를 알 수 있다",
@@ -1018,7 +1052,7 @@
       "reason": "점화 자극→활성화 확산→후속 자극 처리→반응시간 단축이 본문 예(의사-간호사)와 일치하고, 재현성 한계 메모가 있음"
     },
     "random-systematic-error": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "matrix",
       "intent": "이 그림을 보면 무선오차(정밀도)와 체계적오차(정확도)의 크고 작음 조합이 네 가지 측정 상태를 만드는 것을 알 수 있다",
@@ -1053,7 +1087,7 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "terminal-velocity": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "chain",
       "intent": "이 그림을 보면 속도가 커질수록 저항이 커져 중력과 균형을 이루며 등속이 되는 과정을 알 수 있다",
@@ -1088,14 +1122,16 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "auc-roc": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 ROC 곡선과 그 아래 면적이 0.5(대각선)에서 1 사이에서 판별 성능을 나타내는 방식을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "렌더러가 이미 점선 기회 대각선을 그리는데 회색 roc(auc 0.5) 계열이 중복 → 계열 삭제, shade 번호 0으로, '점선 대각선 = AUC 0.5' 주석 추가"
+      "reason": "렌더러가 이미 점선 기회 대각선을 그리는데 회색 roc(auc 0.5) 계열이 중복 → 계열 삭제, shade 번호 0으로, '점선 대각선 = AUC 0.5' 주석 추가",
+      "rechecked": true,
+      "recheck_reason": "ROC 곡선(AUC 0.85)·음영 'AUC'·점선 대각선이 중복 계열 없이 깔끔하게 보이고 축 눈금 0~1 정상. 메모(대각선=0.5, 특정 기준값 성능은 별도) 본문과 일치, 다크에서도 대각선 식별됨"
     },
     "barnum-effect": {
       "state": "dropped",
@@ -1123,7 +1159,7 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "control-group": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "hierarchy",
       "intent": "이 그림을 보면 통제집단이 무처치·위약·표준치료 대조군으로 나뉘는 유형 구조를 알 수 있다",
@@ -1183,14 +1219,16 @@
       "reason": "triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음"
     },
     "health-belief-model": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "chain",
       "intent": "이 그림을 보면 지각된 감수성·심각성·이익·장애물이 어떻게 합쳐져 예방행동 실천으로 이어지는지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "호 3개가 한 노드로 몰려 억제 끝이 안 보이고 세로로 늘어져 읽기 어려움 → 3노드 수렴형(위험 지각[감수성·심각성] → 실천 ← 이익 vs 장애물)으로 재구성, 방향 주석 보강"
+      "reason": "호 3개가 한 노드로 몰려 억제 끝이 안 보이고 세로로 늘어져 읽기 어려움 → 3노드 수렴형(위험 지각[감수성·심각성] → 실천 ← 이익 vs 장애물)으로 재구성, 방향 주석 보강",
+      "rechecked": true,
+      "recheck_reason": "위험 지각(감수성·심각성) → 실천 ← 이익 vs 장애물 수렴형이 3장 모두 깔끔하게 읽히고 화살표 끝이 분명함. 방향 메모와 한계 메모가 본문과 일치, 잘림·겹침 없음"
     },
     "jackknife-resampling": {
       "state": "dropped",
@@ -1203,14 +1241,16 @@
       "reason": "triage:그려야 할 plot이나 해당 함수가 없음"
     },
     "logistic-regression": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 선형 예측값이 S자 곡선을 거쳐 0~1 확률로 바뀌는 모양을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "logistic S자 곡선 방향은 맞으나 x=0 세로선 라벨 '확률 0.5'가 x값처럼 읽힘 → '로짓 0 → 확률 0.5'로 수정"
+      "reason": "logistic S자 곡선 방향은 맞으나 x=0 세로선 라벨 '확률 0.5'가 x값처럼 읽힘 → '로짓 0 → 확률 0.5'로 수정",
+      "rechecked": true,
+      "recheck_reason": "S자 곡선이 x=0 세로선에서 중간 높이(0.5)를 지나고 라벨 '로짓 0 → 확률 0.5'가 곡선과 겹치지 않음. 메모(%p는 출발점 따라 다름, 오즈비 해석) 본문과 일치, 모바일·다크 가독성 양호"
     },
     "mini-mental-state-examination": {
       "state": "dropped",
@@ -1233,14 +1273,16 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "perfusion-fixation": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "life",
       "type": "procedure",
       "intent": "이 그림을 보면 마취, 식염수 관류로 혈액 제거, 고정액 관류, 조직 적출로 이어지는 순서를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "'조직 적출' 단계는 표준 경심장 관류 프로토콜(관류 후 뇌 적출·후고정)과 본문('갓 꺼낸 뇌')에 부합해 유지; 다만 '구조·단백질 보존'이 적출 단계에 붙어 있었고 '4%'가 홀로 줄바꿈 → 고정액 sub '4% PFA로 고정', 적출 sub '염색·영상 분석용'"
+      "reason": "'조직 적출' 단계는 표준 경심장 관류 프로토콜(관류 후 뇌 적출·후고정)과 본문('갓 꺼낸 뇌')에 부합해 유지; 다만 '구조·단백질 보존'이 적출 단계에 붙어 있었고 '4%'가 홀로 줄바꿈 → 고정액 sub '4% PFA로 고정', 적출 sub '염색·영상 분석용'",
+      "rechecked": true,
+      "recheck_reason": "마취 → 식염수 관류 → 고정액 관류(4% PFA) → 조직 적출 순서가 본문과 맞고 '4% PFA로 고정'이 한 줄로 들어감. 3장 모두 잘림·겹침 없음"
     },
     "psychological-empowerment": {
       "state": "dropped",
@@ -1263,24 +1305,28 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "sds-page": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 SDS 변성, 겔 전개, 크기별 분리 밴드로 이어지는 과정을 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "fix",
-      "reason": "'균일한 음전하'는 조작 단계가 아닌 결과 상태라 번호 붙는 procedure가 부적절 → chain으로 변경, 본문 표기 '젤'로 통일, 주석을 '표지자 밴드와 비교해 추정한 상대값'으로 정확화"
+      "reason": "'균일한 음전하'는 조작 단계가 아닌 결과 상태라 번호 붙는 procedure가 부적절 → chain으로 변경, 본문 표기 '젤'로 통일, 주석을 '표지자 밴드와 비교해 추정한 상대값'으로 정확화",
+      "rechecked": true,
+      "recheck_reason": "번호 없는 chain으로 SDS 처리 → 균일한 음전하 → 젤 전기영동 → 크기별 밴드(작을수록 멀리)가 본문과 일치. '젤' 표기 통일, 한계 메모 정확, 3장 모두 가독성 양호"
     },
     "self-fulfilling-prophecy": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "cycle",
       "intent": "이 그림을 보면 기대가 행동을 바꾸고 그 결과가 다시 기대를 확인시키는 순환을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "'더 열심히 함'·초록(바람직한 결과)이 긍정적 기대만 가정 → sub '기대에 맞게 변함', 결과 노드 blue, '부정적 기대도 같은 고리로 실현' 주석 추가(본문 근거 있음)"
+      "reason": "'더 열심히 함'·초록(바람직한 결과)이 긍정적 기대만 가정 → sub '기대에 맞게 변함', 결과 노드 blue, '부정적 기대도 같은 고리로 실현' 주석 추가(본문 근거 있음)",
+      "rechecked": true,
+      "recheck_reason": "기대 → 행동 변화 → 상대의 반응 → 기대가 현실로 → 기대 순환이 시계 방향으로 분명하고 중앙 라벨과 노드가 겹치지 않음. 부정적 기대 메모 포함, 모바일에서도 노드 잘림 없음"
     },
     "semi-structured-interview": {
       "state": "dropped",
@@ -1303,17 +1349,17 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "statistical-power": {
-      "state": "reviewed",
+      "state": "dropped",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 귀무·대립 분포가 겹친 상태에서 임계값 오른쪽 대립분포 면적이 검정력(1−β)임을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "pass",
-      "reason": "귀무 N(0,1)·대립 N(2.5,1), 단측 임계 1.64 오른쪽 대립분포 면적=1−β로 정확, 모식도 캡션 붙고 세 렌더 모두 깔끔"
+      "reason": "merge-candidate: 병합 후보라 보류(was reviewed)"
     },
     "systematic-desensitization": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "procedure",
       "intent": "이 그림을 보면 이완 훈련, 불안 위계 작성, 약한 단계부터 순서대로 노출하는 절차를 알 수 있다",
@@ -1323,14 +1369,16 @@
       "reason": "이완 훈련→불안위계표→약한 단계 노출→상향→공포 약화 순서가 본문(Wolpe, 상호억제)과 일치하고 세 화면 모두 판독 가능"
     },
     "t-test": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 t분포에서 관측된 t값이 기각역에 드는지로 평균 차이를 판정하는 방식을 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "fix",
-      "reason": "기각역 음영에 라벨이 없어 붉은 영역의 의미가 그림에서 안 읽힘 → 음영 라벨 'α' 추가, 주석을 '붉은 기각역 α'로 맞춤(긴 '기각역 α'는 얇은 꼬리에서 곡선과 겹쳐 짧게 함)"
+      "reason": "기각역 음영에 라벨이 없어 붉은 영역의 의미가 그림에서 안 읽힘 → 음영 라벨 'α' 추가, 주석을 '붉은 기각역 α'로 맞춤(긴 '기각역 α'는 얇은 꼬리에서 곡선과 겹쳐 짧게 함)",
+      "rechecked": true,
+      "recheck_reason": "df 10 단측 임계값 1.81과 관측 t 2.6 위치가 타당하고 붉은 음영 'α'가 꼬리 안에서 읽힘. '임계값'·'관측된 t' 라벨이 가깝지만 서로·세로선과 겹치지 않으며 모바일·다크에서도 구분됨"
     },
     "theory-of-mind-child": {
       "state": "dropped",
@@ -1348,14 +1396,16 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "transverse-longitudinal-wave": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "contrast",
       "intent": "이 그림을 보면 매질 진동 방향과 진행 방향의 관계가 횡파와 종파에서 어떻게 다른지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "1행(수직/나란함)이 머리행 sub(진동⊥/∥진행)를 그대로 반복해 정보가 없음 → 줄 흔들기/스프링 밀기 시연 행으로 교체, 예시 행 sub를 지진 S파/P파로, 주석은 '역학적 파동' 한정(빛은 매질 없이도 진행)"
+      "reason": "1행(수직/나란함)이 머리행 sub(진동⊥/∥진행)를 그대로 반복해 정보가 없음 → 줄 흔들기/스프링 밀기 시연 행으로 교체, 예시 행 sub를 지진 S파/P파로, 주석은 '역학적 파동' 한정(빛은 매질 없이도 진행)",
+      "rechecked": true,
+      "recheck_reason": "3장 모두 잘림·겹침 없음; 진동⊥/∥진행, 줄·스프링 시연, S파/P파, 편광 유무가 본문과 일치하고 주석의 '역학적 파동' 한정도 정확"
     },
     "triangulation": {
       "state": "dropped",
@@ -1373,14 +1423,16 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "type-2-error": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "plot",
       "intent": "이 그림을 보면 임계값 왼쪽에 남는 대립분포 면적이 2종 오류 확률 β이고 α와 맞바뀜을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "그림(α·β·1−β 음영, 임계값)은 정확하나 주석 'α와 β가 맞바뀐다'는 교환(swap)으로 읽혀 부정확 → '임계값을 오른쪽으로 옮기면 α는 줄고 β는 커진다'로, 표본 크기 주석은 한계가 아니라 일반 설명이라 tone general로 바꾸고 이유(분포가 더 많이 겹침) 명시"
+      "reason": "그림(α·β·1−β 음영, 임계값)은 정확하나 주석 'α와 β가 맞바뀐다'는 교환(swap)으로 읽혀 부정확 → '임계값을 오른쪽으로 옮기면 α는 줄고 β는 커진다'로, 표본 크기 주석은 한계가 아니라 일반 설명이라 tone general로 바꾸고 이유(분포가 더 많이 겹침) 명시",
+      "rechecked": true,
+      "recheck_reason": "임계값 왼쪽 대립분포 면적 β, 오른쪽 1−β, 귀무분포 꼬리 α가 정확히 음영·표기되고 다크·모바일에서도 라벨이 읽힘; 주석 두 줄 모두 정확"
     },
     "umbrella-review": {
       "state": "dropped",
@@ -1443,24 +1495,26 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "bootstrap-resampling": {
-      "state": "reviewed",
+      "state": "dropped",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 원표본에서 복원추출을 반복해 통계량의 분포를 얻는 과정을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "주석 '원표본이 치우치면'은 분포가 치우친(비대칭) 표본으로 읽혀 오히려 부트스트랩이 유용한 경우와 혼동됨 → '모집단을 대표하지 못하면'(본문 caution)으로, 'B회 반복' sub를 '②~③을 수천 번'으로 해 무엇을 반복하는지 명시"
+      "reason": "merge-candidate: 병합 후보라 보류(was reviewed)"
     },
     "boson-fermion": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "contrast",
       "intent": "이 그림을 보면 스핀 값에 따라 같은 상태에 모일 수 있는 보손과 모일 수 없는 페르미온이 어떻게 다른지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "'한 상태에 하나'(파울리 배타)를 rose(문제·위험), 보손 쪽을 green(바람직)으로 칠해 가치 판단을 암시 → 양쪽 violet로 중립화, 통계 행은 sub에 '통계'를 넣어 '보스-아인슈타인'만 덩그러니 있는 라벨 보완"
+      "reason": "'한 상태에 하나'(파울리 배타)를 rose(문제·위험), 보손 쪽을 green(바람직)으로 칠해 가치 판단을 암시 → 양쪽 violet로 중립화, 통계 행은 sub에 '통계'를 넣어 '보스-아인슈타인'만 덩그러니 있는 라벨 보완",
+      "rechecked": true,
+      "recheck_reason": "스핀 정수/반정수, 점유 규칙, 통계·파동함수 대칭성, 예시가 본문과 일치하고 색이 중립적이며 3장 모두 잘림 없음"
     },
     "bouins-solution": {
       "state": "dropped",
@@ -1493,14 +1547,16 @@
       "reason": "triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)"
     },
     "clausius-clapeyron-equation": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "plot",
       "intent": "이 그림을 보면 온도가 오를수록 증기압이 직선이 아니라 점점 가파르게(지수적으로) 오른다는 것을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "exponential(rate)은 감소하는 분포 밀도라 '온도↑ 증기압↓'로 그려져 개념과 정반대 → plot을 버리고 contrast로 재작성(증기압 예측 vs 기화열 역산: ln P–1/T 직선 기울기 = −ΔH/R), 지수적 증가와 근사 가정은 주석으로"
+      "reason": "exponential(rate)은 감소하는 분포 밀도라 '온도↑ 증기압↓'로 그려져 개념과 정반대 → plot을 버리고 contrast로 재작성(증기압 예측 vs 기화열 역산: ln P–1/T 직선 기울기 = −ΔH/R), 지수적 증가와 근사 가정은 주석으로",
+      "rechecked": true,
+      "recheck_reason": "예측 vs 역산 대비가 본문(기화열로 증기압·끓는점 예측, 증기압 자료로 기화열·승화열 역산)과 맞고 기울기 −ΔH/R도 정확; 첫 주석이 '오른다' 한 단어만 줄바꿈되나 읽는 데 지장 없음"
     },
     "cochrans-q-test": {
       "state": "dropped",
@@ -1518,7 +1574,7 @@
       "reason": "triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음"
     },
     "computerized-adaptive-testing": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "cycle",
       "intent": "이 그림을 보면 응답→능력 추정→다음 문항 선택이 매 문항 반복되며 검사가 적응하는 과정을 알 수 있다",
@@ -1543,14 +1599,16 @@
       "reason": "triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음"
     },
     "convergent-parallel-design": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 양적·질적 자료가 동시에 독립적으로 수집·분석된 뒤 비교·통합되는 순서를 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "데스크톱에서 1번 라벨 '양적·질적 동시 수집'이 두 줄로 꺾여 박스가 들쭉날쭉하고 '일치·부분·상충'의 '부분'이 모호 → 라벨 '동시 수집'(sub '양적·질적, 같은 시기'), '따로 분석', sub '일치·부분 일치·상충'으로 수정"
+      "reason": "데스크톱에서 1번 라벨 '양적·질적 동시 수집'이 두 줄로 꺾여 박스가 들쭉날쭉하고 '일치·부분·상충'의 '부분'이 모호 → 라벨 '동시 수집'(sub '양적·질적, 같은 시기'), '따로 분석', sub '일치·부분 일치·상충'으로 수정",
+      "rechecked": true,
+      "recheck_reason": "동시 수집→따로 분석→비교→통합 순서가 본문과 일치, 데스크톱 박스가 한 줄 라벨로 정돈되고 모바일·다크 모두 화살표·글자 정상"
     },
     "criterion-sampling": {
       "state": "dropped",
@@ -1608,24 +1666,26 @@
       "reason": "triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음"
     },
     "flow-theory": {
-      "state": "reviewed",
+      "state": "dropped",
       "group": "psyedu",
       "type": "matrix",
       "intent": "이 그림을 보면 도전 수준과 실력의 높낮이 조합에 따라 몰입·불안·지루함·무관심으로 갈리는 것을 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "몰입 칸 sub '도전과 실력의 균형'은 둘 다 낮은 무관심 칸도 균형이라 구분이 안 됨(채널 모델에서 몰입은 둘 다 높을 때) → '둘 다 높고 균형'으로 수정"
+      "reason": "merge-candidate: 병합 후보라 보류(was reviewed)"
     },
     "fluid-crystallized-intelligence": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "psyedu",
       "type": "contrast",
       "intent": "이 그림을 보면 유동성 지능과 결정성 지능이 무엇에 기대고 어떤 성격의 과제에서 쓰이는지 나란히 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "fix",
-      "reason": "주석이 본문의 '완전히 독립된 능력이 아니다'를 '독립된 능력이 아니다'로 과장해 원문대로 고침; 축 문구 '지능이 기대는 것'은 1행에만 맞아 '기반 · 대표 과제 · 나이에 따른 변화'로 교체"
+      "reason": "주석이 본문의 '완전히 독립된 능력이 아니다'를 '독립된 능력이 아니다'로 과장해 원문대로 고침; 축 문구 '지능이 기대는 것'은 1행에만 맞아 '기반 · 대표 과제 · 나이에 따른 변화'로 교체",
+      "rechecked": true,
+      "recheck_reason": "기반·대표 과제·나이 변화 세 행이 본문과 일치하고 주석이 '완전히 독립된 능력이 아니며'로 원문대로임; 한계 주석의 '작동' 한 단어 줄바꿈 외 잘림·겹침 없음"
     },
     "generalized-method-of-moments": {
       "state": "dropped",
@@ -1648,14 +1708,16 @@
       "reason": "triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음"
     },
     "homoscedasticity-heteroscedasticity": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "contrast",
       "intent": "이 그림을 보면 예측값 구간별로 오차 퍼짐이 일정한 경우와 넓어지는 경우가 어떻게 다른지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "'표준오차 신뢰'를 '표준오차 정확'으로 바꿈(어색한 표현); 계수 주석을 '편향되지 않음(효율성은 떨어질 수 있음)'으로 정확히 함 — OLS는 불편이지만 비효율적"
+      "reason": "'표준오차 신뢰'를 '표준오차 정확'으로 바꿈(어색한 표현); 계수 주석을 '편향되지 않음(효율성은 떨어질 수 있음)'으로 정확히 함 — OLS는 불편이지만 비효율적",
+      "rechecked": true,
+      "recheck_reason": "오차 퍼짐 일정/변함과 표준오차 정확/왜곡 대비가 본문과 일치하고, 계수 불편·비효율 주석과 진단·보정 주석이 정확; 3장 모두 잘림·겹침 없음"
     },
     "imagej": {
       "state": "dropped",
@@ -1698,7 +1760,7 @@
       "reason": "triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음"
     },
     "multiple-imputation": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "procedure",
       "intent": "이 그림을 보면 결측치를 여러 번 대체해 각각 분석한 뒤 하나로 통합하는 단계를 알 수 있다",
@@ -1708,14 +1770,16 @@
       "reason": "결측→대체→분석→통합(럽빈 규칙) 단계가 본문과 맞고 MAR/MNAR 한계도 정확함; 세 렌더 모두 잘 읽힘"
     },
     "multitrait-multimethod-matrix": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "matrix",
       "intent": "이 그림을 보면 특성(같음/다름)과 방법(같음/다름)의 조합별 상관이 수렴·판별타당도 증거로 어떻게 읽히는지 알 수 있다",
       "confidence": "high",
       "errors": [],
       "review": "fix",
-      "reason": "이형특성·동일방법 칸의 부제 '방법 때문의 상관'이 어색하고 무엇을 기대하는지가 빠져 있어 '방법 효과 점검 / 높으면 공통방법편의'로 바꿈; 판별타당도는 수렴 상관을 두 이형특성 칸 모두와 비교해 판단한다는 Campbell-Fiske 주석 추가"
+      "reason": "이형특성·동일방법 칸의 부제 '방법 때문의 상관'이 어색하고 무엇을 기대하는지가 빠져 있어 '방법 효과 점검 / 높으면 공통방법편의'로 바꿈; 판별타당도는 수렴 상관을 두 이형특성 칸 모두와 비교해 판단한다는 Campbell-Fiske 주석 추가",
+      "rechecked": true,
+      "recheck_reason": "네 칸(신뢰도 계수·수렴타당도·방법 효과 점검·판별타당도)이 축 조합과 본문 심화 설명에 정확히 대응하고 Campbell-Fiske 비교 주석도 옳음; 축 라벨·칸 글자 3장 모두 정상"
     },
     "netnography": {
       "state": "dropped",
@@ -1763,7 +1827,7 @@
       "reason": "triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음"
     },
     "probability-addition-multiplication-rule": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "stats",
       "type": "venn",
       "intent": "이 그림을 보면 두 사건의 합집합과 교집합 관계, 덧셈정리에서 겹침을 빼는 이유를 알 수 있다",
@@ -1773,14 +1837,16 @@
       "reason": "벤 영역(A만·A∩B·B만)과 포함-배제·곱셈정리 공식이 정확함; 세 렌더 모두 잘림 없음"
     },
     "quantum-tunneling": {
-      "state": "reviewed",
+      "state": "approved",
       "group": "natsci",
       "type": "plot",
       "intent": "이 그림을 보면 입자의 파동함수가 장벽 안에서 지수적으로 감쇠하면서도 반대편에 0이 아닌 확률로 남는 것을 알 수 있다",
       "confidence": "low",
       "errors": [],
       "review": "fix",
-      "reason": "곡선이 장벽 끝(x=3)을 지나 x=3.4까지 계속 감쇠해 장벽 밖에서도 감쇠가 이어지는 것처럼 보이고(실제로는 투과파가 일정한 진폭으로 이어짐), rate 1.2라 끝 진폭이 약 3%로 거의 0처럼 보여 '0이 아님'과 어긋남 → 범위를 장벽 안 [0,3]으로 자르고 rate 0.6(끝 진폭 약 17%)으로 바꿈; 축과 한계 주석을 고침"
+      "reason": "곡선이 장벽 끝(x=3)을 지나 x=3.4까지 계속 감쇠해 장벽 밖에서도 감쇠가 이어지는 것처럼 보이고(실제로는 투과파가 일정한 진폭으로 이어짐), rate 1.2라 끝 진폭이 약 3%로 거의 0처럼 보여 '0이 아님'과 어긋남 → 범위를 장벽 안 [0,3]으로 자르고 rate 0.6(끝 진폭 약 17%)으로 바꿈; 축과 한계 주석을 고침",
+      "rechecked": true,
+      "recheck_reason": "곡선이 장벽 안 구간에서만 지수 감쇠하고 반대편 끝 점선에서 0이 아닌 진폭으로 끝나 의도와 맞음; 바깥 파동 생략을 한계 주석으로 밝혔고 라벨·주석이 3장 모두 읽힘"
     },
     "reaction-formation": {
       "state": "dropped",

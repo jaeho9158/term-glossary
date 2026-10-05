@@ -1,0 +1,70 @@
+{
+  "slug": "decision-tree",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "나이 30세 이상?",
+      "color": "blue",
+      "sub": "뿌리 노드·첫 질문"
+    },
+    {
+      "id": "q",
+      "label": "소득 기준 이상?",
+      "color": "violet",
+      "sub": "'예'일 때 다음 질문"
+    },
+    {
+      "id": "l0",
+      "label": "불합격",
+      "color": "gray",
+      "sub": "'아니오'·잎 노드"
+    },
+    {
+      "id": "l1",
+      "label": "합격",
+      "color": "green",
+      "sub": "'예'·잎 노드"
+    },
+    {
+      "id": "l2",
+      "label": "불합격",
+      "color": "gray",
+      "sub": "'아니오'·잎 노드"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "q",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "l0",
+      "kind": "arrow"
+    },
+    {
+      "from": "q",
+      "to": "l1",
+      "kind": "arrow"
+    },
+    {
+      "from": "q",
+      "to": "l2",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "각 분기의 질문은 정보 이득·지니 불순도로 자동 선택 (그림의 질문과 결론은 예시)",
+      "tone": "general"
+    },
+    {
+      "text": "가지가 너무 깊어지면 과적합 — 깊이 제한이나 앙상블로 보완",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

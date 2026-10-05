@@ -1,0 +1,68 @@
+{
+  "slug": "bloom-filter",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "해시 위치 계산",
+      "color": "violet",
+      "sub": "해시 함수 여러 개"
+    },
+    {
+      "id": "n1",
+      "label": "비트 켜기",
+      "color": "blue",
+      "sub": "삽입 · 비트 배열"
+    },
+    {
+      "id": "n2",
+      "label": "같은 위치 확인",
+      "color": "violet",
+      "sub": "조회 시"
+    },
+    {
+      "id": "n3",
+      "label": "확실히 없음",
+      "color": "green",
+      "sub": "항상 정확"
+    },
+    {
+      "id": "n4",
+      "label": "아마 있음",
+      "color": "amber",
+      "sub": "오탐 가능"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "하나라도 꺼짐"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "모두 켜짐"
+    }
+  ],
+  "notes": [
+    {
+      "text": "원소 자체는 저장하지 않음 — 기본형은 삭제도 지원하지 않음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

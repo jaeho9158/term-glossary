@@ -1,0 +1,65 @@
+{
+  "slug": "graph-neural-network",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "그래프 입력",
+      "color": "gray",
+      "sub": "노드와 엣지"
+    },
+    {
+      "id": "b",
+      "label": "이웃 정보 집계",
+      "color": "violet",
+      "sub": "평균·합·어텐션 가중"
+    },
+    {
+      "id": "c",
+      "label": "노드 표현 갱신",
+      "color": "blue",
+      "sub": "자신 + 이웃 정보"
+    },
+    {
+      "id": "d",
+      "label": "예측 출력",
+      "color": "green",
+      "sub": "예: 물성·추천·교통"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "b",
+      "kind": "arrow",
+      "label": "층마다 반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "메시지 전달 방식. 집계 방법에 따라 GCN·GraphSAGE·GAT 등으로 나뉨",
+      "tone": "general"
+    },
+    {
+      "text": "층을 너무 깊게 쌓으면 노드 표현이 비슷해지는 과평활화가 생김",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

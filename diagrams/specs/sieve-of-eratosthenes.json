@@ -1,0 +1,75 @@
+{
+  "slug": "sieve-of-eratosthenes",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "범위의 수 적기",
+      "color": "gray",
+      "sub": "예: 2~100 (1은 제외)"
+    },
+    {
+      "id": "n1",
+      "label": "남은 최소 수 = 소수",
+      "color": "blue",
+      "sub": "처음은 2"
+    },
+    {
+      "id": "n2",
+      "label": "그 배수 지우기",
+      "color": "violet",
+      "sub": "4·6·8…"
+    },
+    {
+      "id": "n3",
+      "label": "다음 남은 수로",
+      "color": "amber",
+      "sub": "3, 5, …"
+    },
+    {
+      "id": "n4",
+      "label": "남은 수 = 소수",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "시간 복잡도 약 O(n log log n); n이 크면 구간을 나눈 세그먼트 체로 메모리 절약",
+      "tone": "general"
+    },
+    {
+      "text": "범위 안의 소수를 한꺼번에 찾는 방법 — 수 하나의 소수 판별·소인수분해와는 목적이 다름",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "chain-rule",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력 x",
+      "color": "blue",
+      "sub": "변수"
+    },
+    {
+      "id": "n1",
+      "label": "중간값 g(x)",
+      "color": "violet",
+      "sub": "안쪽 함수"
+    },
+    {
+      "id": "n2",
+      "label": "출력 f(g(x))",
+      "color": "green",
+      "sub": "바깥 함수"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "dg/dx"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "df/dg"
+    }
+  ],
+  "notes": [
+    {
+      "text": "전체 변화율 = df/dg × dg/dx (고리별 변화율의 곱)",
+      "tone": "general"
+    },
+    {
+      "text": "역전파: 이 곱을 출력층에서 입력층 방향으로 거슬러 계산",
+      "tone": "general"
+    },
+    {
+      "text": "층이 깊으면 곱이 지나치게 작아지거나 커짐(그래디언트 소실·폭주)",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

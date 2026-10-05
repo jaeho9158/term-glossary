@@ -1,0 +1,87 @@
+{
+  "slug": "gaussian-elimination",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "확대행렬 작성",
+      "sub": "계수·우변을 나란히",
+      "color": "gray"
+    },
+    {
+      "id": "n1",
+      "label": "피벗팅",
+      "sub": "행 교환·0 피벗 회피",
+      "color": "amber"
+    },
+    {
+      "id": "n2",
+      "label": "전진소거",
+      "sub": "아래 행 계수를 0으로",
+      "color": "violet"
+    },
+    {
+      "id": "n3",
+      "label": "계단(상삼각) 꼴",
+      "sub": "맨 아래 미지수 1개",
+      "color": "blue"
+    },
+    {
+      "id": "n4",
+      "label": "역대입",
+      "sub": "아래에서 위로 대입",
+      "color": "violet"
+    },
+    {
+      "id": "n5",
+      "label": "해",
+      "sub": "모든 미지수",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "열마다 반복"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "피벗팅을 빠뜨리면 계산이 중단되거나 반올림 오차가 커진다",
+      "tone": "limit"
+    },
+    {
+      "text": "소거 과정을 LU 분해로 저장하면 같은 계수 행렬에 재사용 가능; 계산량 O(n³)",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

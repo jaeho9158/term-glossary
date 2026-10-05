@@ -1,0 +1,70 @@
+{
+  "slug": "joint-reaction-force",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "역동역학 계산",
+      "color": "violet",
+      "sub": "뉴턴-오일러 방정식"
+    },
+    {
+      "id": "n1",
+      "label": "순관절력",
+      "color": "gray",
+      "sub": "근수축 기여 빠짐"
+    },
+    {
+      "id": "n2",
+      "label": "근력 추가",
+      "color": "violet",
+      "sub": "근골격 모형"
+    },
+    {
+      "id": "n3",
+      "label": "관절 접촉력",
+      "color": "green",
+      "sub": "체중의 여러 배"
+    },
+    {
+      "id": "n4",
+      "label": "실측 검증",
+      "color": "blue",
+      "sub": "센서 삽입 인공관절"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "순관절력만 쓰면 근육 동시수축이 빠져 실제 접촉력을 크게 과소평가",
+      "tone": "limit"
+    },
+    {
+      "text": "센서 삽입 인공관절 외에는 직접 측정이 어려워 접촉력 추정은 근골격 모형의 가정에 크게 의존",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; Winter(2009)",
+  "reviewed": true
+}

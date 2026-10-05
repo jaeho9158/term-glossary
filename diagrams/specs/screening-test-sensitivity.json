@@ -1,0 +1,69 @@
+{
+  "slug": "screening-test-sensitivity",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "normal",
+        "params": {
+          "mu": 0,
+          "sigma": 1
+        },
+        "label": "비환자군",
+        "color": "gray"
+      },
+      {
+        "fn": "normal",
+        "params": {
+          "mu": 2.5,
+          "sigma": 1
+        },
+        "label": "환자군",
+        "color": "blue"
+      }
+    ],
+    "shade": [
+      {
+        "series": 1,
+        "from": 1.25,
+        "to": null,
+        "label": "민감도",
+        "color": "green"
+      },
+      {
+        "series": 0,
+        "from": null,
+        "to": 1.25,
+        "label": "특이도"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 1.25,
+        "label": "기준값"
+      }
+    ],
+    "x": {
+      "label": "검사 측정값",
+      "range": [
+        -4,
+        6.5
+      ]
+    },
+    "y": {
+      "label": "밀도"
+    }
+  },
+  "notes": [
+    {
+      "text": "민감도 = 참양성 / (참양성 + 위음성). 기준값 왼쪽의 환자군이 위음성, 오른쪽의 비환자군이 위양성",
+      "tone": "general"
+    },
+    {
+      "text": "기준값을 낮추면 민감도는 오르지만 위양성이 늘어 특이도가 낮아진다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

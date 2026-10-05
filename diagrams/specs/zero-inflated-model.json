@@ -1,0 +1,74 @@
+{
+  "slug": "zero-inflated-model",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "0이 많은 계수자료",
+      "color": "blue",
+      "sub": "두 잠재 집단의 혼합"
+    },
+    {
+      "id": "a",
+      "label": "구조적 0",
+      "color": "gray",
+      "sub": "발생 불가 집단"
+    },
+    {
+      "id": "b",
+      "label": "계수 분포",
+      "color": "violet",
+      "sub": "포아송·음이항"
+    },
+    {
+      "id": "c",
+      "label": "우연한 0",
+      "color": "violet",
+      "sub": "발생 가능·미관측"
+    },
+    {
+      "id": "d",
+      "label": "양의 계수",
+      "color": "violet",
+      "sub": "1 이상 값"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "a",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "1단계: 구조적 0 집단에 속할 확률을 로지스틱 회귀 등으로 추정",
+      "tone": "general"
+    },
+    {
+      "text": "2단계: 나머지 집단의 계수(0 포함)를 포아송·음이항으로 모형화",
+      "tone": "general"
+    },
+    {
+      "text": "0이 많다고 항상 적용하지 않음: 일반 모형 적합 후 확인",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

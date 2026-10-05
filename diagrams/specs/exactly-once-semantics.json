@@ -1,0 +1,81 @@
+{
+  "slug": "exactly-once-semantics",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "응답 유실",
+      "color": "rose",
+      "sub": "장애·네트워크 문제"
+    },
+    {
+      "id": "n1",
+      "label": "재전송",
+      "color": "amber",
+      "sub": "최소 한 번 전달"
+    },
+    {
+      "id": "n2",
+      "label": "중복 도착",
+      "color": "rose",
+      "sub": "같은 메시지 두 번"
+    },
+    {
+      "id": "n3",
+      "label": "중복 제거",
+      "color": "violet",
+      "sub": "고유 ID·일련번호"
+    },
+    {
+      "id": "n4",
+      "label": "원자적 커밋",
+      "color": "violet",
+      "sub": "상태·출력·진행 위치"
+    },
+    {
+      "id": "n5",
+      "label": "효과 한 번 반영",
+      "color": "green",
+      "sub": "결과는 한 번처럼"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "전송이 한 번이라는 뜻이 아니라 관찰 가능한 효과가 한 번이라는 뜻",
+      "tone": "general"
+    },
+    {
+      "text": "외부 시스템으로 나가는 부수효과는 그쪽도 트랜잭션·멱등 쓰기를 지원해야 보장 성립",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

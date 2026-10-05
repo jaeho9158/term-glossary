@@ -1,0 +1,66 @@
+{
+  "slug": "translation-lookaside-buffer",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "가상 주소",
+      "color": "gray",
+      "sub": "프로그램이 쓰는 주소"
+    },
+    {
+      "id": "n1",
+      "label": "TLB 조회",
+      "color": "blue",
+      "sub": "최근 번역 결과 캐시"
+    },
+    {
+      "id": "n2",
+      "label": "페이지 테이블 순회",
+      "color": "rose",
+      "sub": "여러 번 메모리 접근"
+    },
+    {
+      "id": "n3",
+      "label": "물리 주소",
+      "color": "green",
+      "sub": "실제 메모리 접근"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "미스"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "적중"
+    }
+  ],
+  "notes": [
+    {
+      "text": "미스 때는 순회 결과를 TLB에 채우며, 수십~수백 사이클의 추가 지연이 생긴다",
+      "tone": "general"
+    },
+    {
+      "text": "페이지 테이블을 고친 뒤 해당 항목을 무효화하지 않으면 옛 번역이 그대로 쓰인다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

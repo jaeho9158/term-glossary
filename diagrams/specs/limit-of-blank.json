@@ -1,0 +1,76 @@
+{
+  "slug": "limit-of-blank",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "normal",
+        "params": {
+          "mu": 0,
+          "sigma": 1
+        },
+        "label": "공백 시료",
+        "color": "gray"
+      },
+      {
+        "fn": "normal",
+        "params": {
+          "mu": 3.29,
+          "sigma": 1
+        },
+        "label": "저농도 시료",
+        "color": "blue"
+      }
+    ],
+    "shade": [
+      {
+        "series": 0,
+        "from": 1.645,
+        "to": null,
+        "color": "rose"
+      },
+      {
+        "series": 1,
+        "from": -4,
+        "to": 1.645,
+        "color": "amber"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 1.645,
+        "label": "LoB"
+      },
+      {
+        "x": 3.29,
+        "label": "LoD"
+      }
+    ],
+    "x": {
+      "label": "측정 신호",
+      "range": [
+        -4,
+        8
+      ]
+    },
+    "y": {
+      "label": "빈도"
+    }
+  },
+  "notes": [
+    {
+      "text": "LoB=공백 분포의 95번째 백분위수(정규 가정 시 평균+1.645 SD)",
+      "tone": "general"
+    },
+    {
+      "text": "붉은 영역=공백 시료가 LoB를 넘는 위양성 / 노란 영역=LoD 농도 시료가 LoB에 못 미치는 위음성",
+      "tone": "general"
+    },
+    {
+      "text": "실제 공백 대신 저농도 대체 시료로 추정하는 경우가 많아 대표성 검토 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문(CLSI EP17)",
+  "reviewed": true
+}

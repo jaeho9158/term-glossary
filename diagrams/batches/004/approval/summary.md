@@ -1,0 +1,3176 @@
+# 배치 4 승인 요약
+
+상태: {"dropped":3165,"reviewed":907,"triaged":4}
+
+미리보기: diagrams/batches/004/approval/specs/preview.html — 검수에서 고친 313개 + 무작위 표본 25개
+
+## 탈락
+
+- corresponding-author: triage:저자 역할 하나(연락·책임 창구)의 설명 — 제1저자와의 구분도 한 문장이면 충분하고 관계 구조가 없음
+- three-rs-principle: triage:대체·감소·개선 세 항목 나열이 곧 정의 — 항목 간 관계가 없어 그림이 목록을 되풀이할 뿐
+- straw-man-fallacy: triage:왜곡→공격이라는 2단 구조가 정의 자체에 다 들어 있고, 자선의 원칙과의 대비도 한 축뿐
+- non-sequitur: triage:전제와 결론 사이 연결 부재라는 단일 속성 — 그릴 구성 요소가 전제·결론 둘뿐
+- diminished-triad: triage:단3도 두 개를 쌓은 화음 구성 — 음정 구조는 악보 예시가 맞지 9개 type으로는 정의 반복
+- harm-principle: triage:자기관련 행위 대 타인관련 행위의 2분 구분이 전부이고, 핵심 쟁점인 '해악'의 범위는 학계에서 다투는 중이라 단정해 그리기 어려움
+- richmond-agitation-sedation-scale: triage:-5~+4 단일 서열 척도의 눈금 나열 — 부르기·흔들기·통증자극 순서도 점수 구간 매핑 근거가 본문에 없음
+- critical-care-pain-observation-tool: triage:관찰 항목 4개를 각 0~2점으로 합산하는 채점표 — 항목 간 관계가 없는 나열
+- scherzo: triage:미뉴에트보다 빠르고 극적이라는 대비가 본문 핵심이지만 비교 축이 템포·성격 정도로 얕아 그림이 문장 반복에 그침
+- tensile-force: triage:부재를 늘이는 힘이라는 단일 역학 개념 — 압축과의 대비는 본문에서 좌굴 여부 한 가지뿐
+- braden-scale-ltc: triage:6개 위험 항목 점수 합산 도구 — 항목 나열과 총점 구간뿐이고 위험 구간 절단값도 본문에 없음
+- gradient: triage:핵심 그림은 등고선에 수직인 화살표장인데 9개 type과 plot 함수로는 등고선·벡터장을 못 그림
+- nanda-taxonomy: triage:영역→과→진단 3단 위계는 언급되지만 13개 영역·과의 실제 이름이 본문에 없어 그림이 본문 밖 지식에 기대야 함
+- naturalistic-fallacy: triage:열린질문논증의 성공 여부와 '오류'라는 지위 자체가 본문에서도 논쟁 중이라고 밝힘 — 단정적 도식 불가
+- mass-study: triage:설계 초기 덩어리 검토 작업의 설명 — 단계나 비교 축이 없고 실제 그림은 건축 모형 사진이 적합
+- sentinel-event: triage:보고→근본원인분석→대책이라는 일반적 사고 대응 흐름으로, 적신호사건 고유의 구조라기보다 근본원인분석 항목에 속함
+- barcode-medication-administration: triage:스캔-대조-경고의 단순 확인 동작 — 투약 5단계 중 어디를 막는지는 본문이 단계 이름을 다 주지 않아 근거 부족
+- call-and-response: triage:중첩형/교대형·고정/즉흥 두 축이 언급되지만 칸마다 들어갈 사례가 본문에 없고, 아프리카 기원 논증은 본문도 순환적일 수 있다고 경고
+- phronesis: triage:소피아·처세술과의 구분이 문장으로 충분하고 비교 기준이 '보편 대 개별' 한 축뿐
+- active-assistive-range-of-motion: triage:수동과 능동 사이 중간 단계라는 위치 설명이 전부 — 보조량이 정량화되지 않는다고 본문도 밝혀 단계 그림의 근거가 약함
+- numeric-rating-scale: triage:0~10 자가보고 숫자 하나 — 단일 척도라 그림이 정의 반복
+- oropharyngeal-airway: triage:혀뿌리 처짐을 받쳐 주는 기구 — 핵심은 해부학적 위치 그림인데 9개 type 밖이고, 원인→결과 고리는 2단뿐
+- range-of-motion-exercise: triage:능동/수동 두 갈래 구분이 전부이고 능동보조는 별도 항목과 겹침 — 구성 요소 부족
+- shear-force: triage:지점 부근 전단 최대·중앙 휨 최대는 하중 조건(등분포 등)을 본문이 정하지 않아 전단력도를 그리면 본문 밖 가정에 기댐
+- basso-continuo: triage:저음 선율 악기와 화음 악기 두 역할의 조합 — 편성 자체도 본문이 논쟁적이라고 밝혀 단정 곤란
+- critical-pathway: triage:입원~퇴원 일정표라는 도구 설명 — 특정 질환의 실제 일정이 본문에 없어 그릴 단계 근거가 없음
+- enclosed-space: triage:D/H비에 따른 지각 변화가 핵심이지만 구간 경계값이 본문에 없어 그림이 본문 밖 수치에 기댐
+- fitt-principle: triage:빈도·강도·시간·형태 네 요소의 머리글자 나열 — 요소 간 관계가 그려질 만큼 서술되지 않음
+- modus-ponens: triage:'P→Q, P, 그러므로 Q' 한 줄 형식이 곧 정의 — 그림이 기호식보다 나을 것이 없음
+- pin-joint: triage:회전 자유·축력만 전달이라는 단일 속성 — 강접합 대비는 이름만 나오고 비교 기준이 서술되지 않음
+- range-of-motion: triage:능동·수동 가동범위 차이로 원인을 가르는 논리는 있으나 2×2 중 한 칸(능동 정상·수동 제한)이 성립하지 않아 matrix로 어색하고, 나머지는 문장으로 충분
+- supraglottic-airway: triage:후두마스크·후두튜브 등을 묶는 총칭 — 제품 나열과 기관내삽관과의 장단 한 줄 비교뿐
+- tourniquet: triage:근위부를 세게 묶어 동맥을 막는 단일 기구 사용법 — 적용 위치·시각 기록 등 주의사항 나열
+- water-activity: triage:미생물별 증식 하한(0.91·0.88·0.80·0.61)과 지질 산화·갈변의 구간별 반응 속도를 함께 보여 주는 안정성 지도가 핵심인데 U자·봉우리 곡선은 현재 plot 함수로 못 그림
+- chest-percussion-and-vibration: triage:두드리기와 진동 두 손기술의 설명 — 기전이 다르다는 말만 있고 차이의 내용이 본문에 없음
+- countermelody: triage:주선율과 동시에 흐르는 독립 부선율이라는 정의 — 그림보다 악보 예시가 맞는 개념
+- deck-plate: triage:시공 중 거푸집→경화 후 보강재라는 2단 역할 변화뿐 — 단면 형상은 9개 type 밖
+- modified-ashworth-scale: triage:0·1·1+·2·3·4 서열 등급의 나열 — 등급 간 관계가 단순 증가뿐
+- wong-baker-faces-scale: triage:표정 그림 6개에서 고르는 도구 — 도구 자체가 그림이라 도식이 덧붙일 것이 없음
+- berg-balance-scale: triage:14개 과제 0~4점 합산 56점 척도 — 항목 나열이며 절단값도 본문이 일관되지 않다고 밝힘
+- code-blue: triage:병원 비상코드 이름 — 본문이 발령 기준·대응 절차가 기관마다 다르다고 밝혀 공통 단계로 그릴 근거가 없음
+- data-fabrication: triage:위조·변조 두 행위의 구분은 가계부 비유로 이미 명료하고 구성 요소가 2개뿐
+- fartlek-training: triage:'지속 훈련과 인터벌의 중간'이라는 한 줄 위치 설명뿐, 단계나 기전 없는 자유 형식 훈련
+- functional-reach-test: triage:뻗기 전·후 손끝 위치 차이를 재는 단일 측정 — 절차가 두 동작뿐
+- nasopharyngeal-airway: triage:단일 기도 보조기구 — 크기 선택법과 두개저골절 금기는 문장 지침으로 충분
+- open-peer-review: triage:서명 심사·의견서 공개·상호작용 공개·개방형 논평이 서로 관계 없이 나열되는 선택 요소 목록
+- ostinato: triage:그라운드베이스를 포함하는 상위 개념이라는 포함 관계 하나뿐 — 구성 요소 2개
+- picardy-third: triage:마지막 으뜸화음의 3음 하나만 장3도로 바꾸는 국소 관습 — 그림보다 악보 한 마디가 맞음
+- sous-vide: triage:부위별 온도·시간 설계가 수치 문장으로 이미 전달되고, 진공포장→수조→시어링은 조리 순서 나열에 그침
+- abduction: triage:퍼스의 귀추-연역-귀납 분업은 그릴 만하나 본문이 귀추를 가설 생성으로 볼지 정당화로 볼지 해석이 갈린다고 밝혀 한 구도로 단정하기 어려움
+- active-range-of-motion: triage:능동·수동 가동범위 두 값을 비교하는 해석 규칙 한 줄 — 구성 요소 2개
+- da-capo-aria: triage:A-B-A 세 부분 구조가 정의 문장에 이미 다 들어 있어 그림이 정의를 되풀이함
+- functional-movement-screen: triage:7개 동작 각 0~3점 채점이라는 검사 항목 목록 — 항목 사이 관계 없음
+- grilling: triage:지방 낙하→연기→표면 재부착의 PAH 경로는 조리법 자체가 아니라 부수적 안전 이슈이고 본문 두 문장으로 충분
+- intestinal-permeability: triage:장벽 약화와 질환을 잇는 인과가 미확립이라고 본문이 경고해 경로를 그리면 논쟁 중 주장을 단정하게 됨
+- maitland-mobilization: triage:등급별 진폭·가동범위 내 위치를 보이는 그림이 필요하나 본문에 위치 정보가 없어 본문 밖 지식에 크게 기대야 함
+- rate-of-perceived-exertion: triage:6~20점×10≈심박수라는 단일 대응 관계와 척도 버전 이름뿐
+- shift-share-analysis: triage:전국성장·산업구조·지역할당 세 효과의 합이라는 분해가 정의에 그대로 있어 그림이 정의를 반복함
+- weight-bearing: triage:비체중·발끝·부분·완전 체중부하는 '더 많이 싣는다' 한 축의 단계 이름 나열
+- bubble-diagram: triage:그 자체가 원과 연결선으로 된 도식 기법 — 그림이 정의를 그대로 재현할 뿐
+- cohousing: triage:셰어하우스·일반 공동주택과의 차이가 '세대 독립 유지+계획 단계 참여' 두 속성으로 문장에서 충분히 정리됨
+- cross-product: triage:핵심은 평행사변형·오른손 법칙의 3차원 기하 그림인데 9개 type에 맞는 틀이 없고, 내적과의 차이는 caution 한 줄로 충분
+- food-emulsion: triage:O/W·W/O 구분이 '어느 쪽이 연속상인가' 한 기준이며 본문 예시도 O/W 쪽뿐이라 대비 근거가 얇음
+- leitmotif: triage:동기 하나가 인물·개념과 결부되어 변형 재등장한다는 단일 아이디어 — 구체 악곡 자료 없이는 일반론 그림
+- live-load: triage:용도별 하중 기준값(서고 5kN/㎡ 등)을 나열하는 단일 설계 변수
+- neo-riemannian-theory: triage:맞는 그림은 토네츠 격자인데 9개 type에 없고, P·L·R 변환별 음 이동은 본문에 없어 본문 밖 지식 필요
+- neuromuscular-control: triage:고유수용 입력·척수 반사·피질 계획이 '함께 작동한다'는 수준으로만 서술돼 화살표 관계를 그릴 근거가 부족
+- overload-principle: triage:'너무 작으면 적응 없음, 너무 크면 부상'이라는 한 문장 원리 — 곡선으로 그려도 축의 근거 수치가 없음
+- peabody-developmental-motor-scales: triage:6개 소검사 영역 이름 나열이며 대근육·소근육 지수와의 소속 관계는 본문에 명시되지 않음
+- peer-review: triage:심사자 평가→편집자 결정 흐름이 한 문장이고 맹검 방식은 이름 나열에 그침
+- reversibility-principle: triage:중단 시 능력이 점차 줄어든다는 단일 원리 — 요소별 감소 속도의 상대 순서만 있어 곡선 모양의 근거가 약함
+- righting-reaction: triage:시각·미로·체성감각 하위 유형 이름만 있고, 억제 대 통합 해석이 갈린다고 본문이 밝혀 발달 위계를 단정하기 어려움
+- rood-approach: triage:자극별 촉진·억제 도식이 현대 근거로 재현되지 않는다고 본문이 밝혀 그리면 폐기된 기전을 단정하게 됨
+- secondary-dominant: triage:V/x 한 화음과 목표 화음의 관계 — 도식보다 악보 진행 예시가 맞는 단일 화성 기법
+- appeal-to-authority: triage:정당한 호소와 오류를 가르는 기준이 '전문 영역 일치·합의 존재' 두 조건으로 caution에 이미 명료하게 정리됨
+- asymmetric-tonic-neck-reflex: triage:고개 방향에 따른 펜싱 자세 하나를 묘사하는 단일 원시반사 — 필요한 것은 자세 삽화이지 관계 도식이 아님
+- bag-valve-mask: triage:백·밸브·마스크로 된 단일 기구와 사용 주의사항 나열
+- brutalism: triage:노출 콘크리트·육중한 매스 등 양식 특징 나열 — 요소 간 관계 구조 없음
+- cadenza: triage:즉흥에서 작곡가 기보로 바뀐 변화가 '고전 즉흥→베토벤 이후 기보' 한 번의 전환이라 시간축 그림의 정보가 적음
+- facade: triage:건물 외피라는 단일 건축 요소 — 재료·창면적비·이중외피 등 속성이 나열될 뿐 서로 관계를 맺는 구조가 없음
+- flacc-scale: triage:5개 관찰 항목을 0~2점으로 합산하는 점수표 — 그림이 항목 목록을 그대로 되풀이함
+- fugue-answer: triage:실음응답·조성응답 차이는 구체적 음 진행(으뜸음↔딸림음 교체)을 악보로 봐야 드러나며 상자 대비로는 정의 반복에 그침
+- imagery-training: triage:심리신경근·생체정보·상징학습 이론이 병렬로 나열될 뿐, 서로 관계 짓는 구조 없이 기법 하나를 설명하는 항목
+- lactated-ringers: triage:단일 수액 제제명 — 생리식염수와의 차이도 염소 농도 한 가지 축뿐
+- minute-ventilation: triage:호흡수×1회호흡량이라는 곱셈 하나로 정의되는 단일 지표 — 그림이 공식을 반복함
+- modified-early-warning-score: triage:5개 활력징후 항목 점수 합산 도구 — EWS·NEWS 대비는 산소포화도 유무 한 가지라 구성 부족
+- morse-fall-scale: triage:6개 항목 단순 합산과 절단점 45점 — 점수표 이상의 관계 구조가 없음
+- natural-kind: triage:형이상학적 범주 개념 — 자의적 분류와의 대비가 한 문장으로 끝나고 생물종 포함 여부는 논쟁 중이라 단정해 그리기 어려움
+- pes-format: triage:문제-원인-증상 세 칸을 정해진 순서로 적는 진술 형식 — 그림이 정의 문장을 그대로 반복함
+- slippery-slope-fallacy: triage:첫 조치에서 파국까지의 연쇄를 그리면 정의를 재현할 뿐이고, 오류 여부는 연결고리의 근거 유무라 그림으로 드러나지 않음
+- starch-retrogradation: triage:호화의 역방향이라는 한 단계 변화 — 냉장 온도에서 가장 빠른 온도의존성은 본문에 곡선 근거가 부족함
+- suspension: triage:준비-계류-해결 세 단계가 정의·용례에 이미 명시되어 있고, 실제 이해는 4-3·7-6 같은 음정 진행을 악보로 봐야 생김
+- uht-processing: triage:135~150℃·2~5초라는 조건 하나가 핵심인 공정 — 단계나 저온살균 비교 수치가 본문에 충분하지 않음
+- ventilator-associated-pneumonia: triage:48시간 기준의 감염 정의 — 예방 번들 각 항목이 어느 발생 경로를 막는지는 본문에 연결되어 있지 않음
+- wheelchair-skills-training: triage:평지 추진에서 휠리까지 기술 항목의 난이도 목록 — 서로 관계를 맺는 구조가 아님
+- wind-load: triage:높이·형태·기본풍속에 따라 커지는 단일 하중 개념 — 산정 요인 나열에 그침
+- agonist-muscle: triage:근육 역할 하나의 정의 — 길항근·상호억제 관계는 별도 용어의 몫이고 여기서는 부수 설명
+- chest-compression-fraction: triage:압박 시간 ÷ 전체 소생술 시간이라는 단일 비율 지표
+- chinese-remainder-theorem: triage:나머지 조합과 수의 일대일 대응은 격자표로 보여야 하는데 9개 유형에 맞는 형태가 없고, 상자 그림은 정의 반복
+- critical-incident-stress-debriefing: triage:7단계는 이름 목록에 가깝고, 효과가 학계에서 논쟁 중이라 절차도를 그리면 표준 개입처럼 보일 위험이 있음
+- dasein: triage:하이데거 고유의 존재론적 용어 — 세계-내-존재 등 하위 구조는 언급만 되어 있어 관계를 그릴 근거가 없음
+- dihedral-angle: triage:공통 모서리에 수직인 두 선을 보여 주는 입체 기하 도형이 필요하며 9개 유형 어디에도 맞지 않음
+- dominant-chord: triage:이끔음 반음 상행·근음 5도 하행은 성부 진행이라 악보가 필요하고, 상자 그림은 V→I 한 화살표뿐
+- drowning: triage:액체 흡인→저산소→심정지 연쇄가 정의 문장 자체라 그림이 되풀이에 그침
+- erratum-corrigendum: triage:저자 실수(코리젠덤)와 학술지 실수(에라텀) 두 갈래 구분뿐 — 본문 한 문장으로 충분
+- gelling-agent: triage:첨가물 범주명 — 펙틴·젤라틴·카라기난 등 소재별 겔화 조건이 병렬 나열될 뿐
+- geodesic: triage:곡면 위 경로를 그려야 하는 기하 개념으로 9개 유형에 맞지 않음
+- hasty-generalization: triage:표본 크기와 대표성 두 축이 언급되지만 핵심은 '대표성 부족' 한 가지라 4칸 구분이 정의를 넘어서지 못함
+- he-jiankui-affair: triage:특정 사건명 — 체세포 대 생식세포 편집 대비는 별도 용어의 몫
+- heart-rate-reserve: triage:최대심박수−안정시심박수라는 뺄셈 하나와 카르보넨 공식 — 그림이 산술식을 반복함
+- interpolation-methods: triage:선형·다항식(룽게 진동)·스플라인 곡선을 같은 점 위에 겹쳐야 의미가 있는데 현재 plot 함수로 그릴 수 없음
+- lactase-persistence: triage:효소 생성이 유지되느냐 줄어드느냐 두 상태뿐인 유전 형질
+- le-corbusier-modulor: triage:적색·청색 수열 치수 체계 — 인체 도판과 수치표가 필요하고 관계 구조 그림으로는 부적합
+- minuet-and-trio-form: triage:미뉴에트-트리오-미뉴에트 세 덩어리라 정의가 이미 순서를 다 말함
+- musica-ficta: triage:악보 밖 변화음 관행 — 적용 여부가 학자마다 갈려 단정해 그릴 수 없음
+- neuromuscular-electrical-stimulation: triage:단일 치료 기법 — 자발적 수축과의 차이는 운동단위 동원 순서 한 가지뿐
+- octatonic-scale: triage:온음-반음 교대 패턴은 건반·음표로 보여야 하며 9개 유형으로는 정의 반복
+- paper-mill: triage:부정 조직의 정의 — 약탈적 학술지와의 생산/출구 구분은 한 문장 대비로 충분
+- phantom-limb-pain: triage:기전이 피질 재조직화와 말초 요인 사이에서 미정이라고 본문이 밝혀 경로를 단정해 그릴 수 없음
+- plyometric-training: triage:신장성→단축성 두 국면과 탄성 에너지뿐이라 정의를 되풀이하는 2단 그림에 그침
+- reification: triage:사회관계가 사물처럼 보이는 추상적 비판 개념으로, 상자 관계도로 옮기면 정의 문장 반복
+- scalar-triple-product: triage:핵심 그림이 평행육면체 기하 도형이라 9개 type 어느 것에도 맞지 않음
+- shear-wall: triage:단일 구조 부재로, 편심·연약층 설명은 평면·입면 도면이 필요해 type 밖
+- strophic-form: triage:AAA 반복이라는 정의 자체가 구조 전부이고 통절형식 대비는 한 줄 언급에 그침
+- swanson-caring-theory: triage:다섯 과정의 나열이며 주의할 점이 순서 없이 동시에 일어난다고 밝혀 절차·순환으로 그리면 오해 유발
+- swing-phase: triage:보행주기 중 한 구간과 하위 세 구간 이름뿐이라 비율 막대 이상의 관계가 없음
+- taylor-series: triage:1차·2차·3차 다항 근사가 원함수에 겹쳐지는 곡선이 핵심인데 plot에 다항식·삼각함수가 없음
+- tendon-gliding-exercise: triage:손 자세 다섯 개의 순서 목록으로, 자세별 건 활주 차이는 손 그림이 필요해 상자 절차도로는 정보가 늘지 않음
+- visual-analog-scale: triage:10cm 선 하나로 된 측정 도구라 그 자체가 그림이고, NRS 비교는 다른 용어 쪽 내용
+- absolute-value: triage:0으로부터의 거리라는 단일 속성 개념으로 구성 요소가 3개에 못 미침
+- altered-dominant: triage:b9·#9·#11·b13 변화음 목록이 중심이라 악보·음계 표기가 필요하고 9개 type으로는 이득이 적음
+- amino-acid-score: triage:필수아미노산 비율 중 최솟값을 고르는 단일 계산이라 그림이 정의를 반복함
+- art-nouveau: triage:양식 사조명으로, 아르데코 대비·지역 갈래는 한두 문장 언급에 그쳐 구조화할 근거 부족
+- begging-the-question: triage:결론이 전제에 숨어 있다는 한 가지 구조라 원 하나로 그려도 정의 반복
+- cardiac-arrest: triage:포괄적 임상 상태명으로 원인·리듬·장소 구분이 흩어져 있어 하나의 그림 축이 서지 않음
+- case-management: triage:조정자 역할이라는 관리 접근으로, 입원-외래-지역사회 연결은 서술 수준이라 단계나 위계가 본문에 없음
+- chaconne: triage:파사칼리아와의 구분 기준이 당대에도 혼용되어 논쟁 중이라 비교를 단정해 그릴 수 없음
+- chest-physical-therapy: triage:체위배액·타진·진동 등 기법을 묶은 통칭으로, 그림이 기법 목록 나열을 넘지 못함
+- coda: triage:재현부와의 경계 판정이 이론가마다 갈린다고 본문이 밝혀 형식 구간도에 시작점을 단정하기 어려움
+- convolution: triage:뒤집기·이동·곱·합 단계는 정의에 이미 있고, 핵심 직관인 겹침 면적의 이동은 정적 type으로 표현 불가
+- coordination: triage:근육 간·근육 내 협응 두 하위 구분뿐이라 구성 요소가 부족한 일반 능력 개념
+- credit-taxonomy: triage:14개 역할의 평면 목록이라 위계가 없고 표로 충분함
+- cross-education: triage:반구 간 억제 감소 기전이 '추정'으로 서술되어 경로를 단정하기 어렵고 효과 크기도 연구마다 다름
+- dynamic-stretching: triage:수행 향상이 스트레칭보다 체온·신경 활성 효과일 수 있다고 본문이 유보해 정적 방식 대비를 단정하기 어려움
+- edible-film: triage:포장재 소재 범주로, 가소제 상충 관계 등은 부수 사항이라 용어 자체를 설명하는 그림 축이 없음
+- enclosure-urban-space: triage:D/H 비율과 위요감의 관계는 단면 도해가 필요하고 곡선으로 그리면 본문에 없는 수치를 지어내야 함
+- ergogenic-aid: triage:영양·약물·기계·심리 수단을 아우르는 우산 용어로, 분류가 한 줄 언급뿐이라 위계 근거가 얇음
+- ergonomic-assessment: triage:평가 절차의 일반 개념으로 세부 도구가 특정되지 않아 단계를 구체적으로 그릴 근거 부족
+- flavor-enhancer: triage:글루탐산나트륨 등 첨가물 범주명이며, 핵산계 상승작용은 별도 용어(감칠맛 상승효과)의 내용
+- four-part-chorale-style: triage:네 성부와 음역 규칙은 오선 음역표가 맞고 9개 type으로는 정보가 늘지 않음
+- hedonic-scale: triage:9점 단계 척도라는 측정 도구 자체가 선형 눈금이라 별도 도식 이득이 없음
+- hemiplegia: triage:한쪽 뇌 손상→반대쪽 마비라는 2요소 대응이라 정의 반복
+- heterophony: triage:폴리포니와의 경계가 연속적이고 분석가 판단에 달렸다고 본문이 밝혀 대비를 깔끔히 단정하기 어려움
+- imperfect-authentic-cadence: triage:불완전 판정 조건이 이론서마다 달라 조건 분류도를 단정하기 어렵고, 악보 예시가 더 적합함
+- indirect-cost: triage:직접비와 간접비 두 항목 구분뿐이라 구성 요소가 부족한 재정 용어
+- innate-ideas: triage:합리론·경험론 사이의 철학 논쟁 개념으로, 그림이 한쪽 입장을 구조화해 단정할 위험이 있음
+- invasive-vs-noninvasive-procedure: triage:침습·비침습 두 범주의 이분 구분이 전부이고, 본문이 말하는 중증도 등급은 단계가 제시되지 않아 그릴 구성 요소가 부족함
+- irb-reliance-agreement: triage:중앙IRB 한 곳의 심의를 참여 기관이 인정한다는 단일 구조라 본문의 '본사-지점' 비유로 이미 충분히 잡힘
+- isotonic-exercise: triage:구심성·원심성 두 국면과 등척성과의 대비 정도로, 관계 맺는 구성 요소가 적고 계단 오르내리기 예로 설명이 끝남
+- job-housing-separation: triage:원인(지가·자족기능 부족·고용 집중)과 결과(통근·혼잡)가 나열되지만 결과 고리가 '통근 길어짐' 하나로 모여 글로 충분하고 자족도시와 내용이 겹침
+- just-about-right-scale: triage:'너무 약함-딱 적당함-너무 강함' 한 축의 양방향 척도라 그림이 척도 자체를 다시 그리는 데 그침
+- knee-ankle-foot-orthosis: triage:보조기 장비명으로, 잠금 방식 종류가 언급되나 구조 이해에는 사진·실물이 필요하고 관계 도식이 더할 것이 없음
+- korean-triage-acuity-scale: triage:5단계 중 1·5등급 외 각 등급 기준이 본문에 없어, 그리면 등급 이름만 쌓인 목록이 됨
+- long-spine-board: triage:고정 장비명이며 스트랩 적용 순서는 단순 나열이고 핵심 논점(장시간 사용의 부작용)은 글로 전달됨
+- mid-upper-arm-circumference: triage:줄자로 재는 단일 신체계측 지표로, 측정 위치 외에 관계 맺는 요소가 없음
+- model-of-human-occupation: triage:정의가 이미 의지·습관화·수행능력·환경 네 요소를 그대로 나열해, 상자 그림은 정의 반복에 그치고 상호작용 방식은 본문에 구체적이지 않음
+- muscle-strain: triage:손상 1~3등급이 미세손상·부분·완전 파열로 한 줄씩 설명되어 등급 나열을 넘는 구조가 없음
+- nasogastric-tube-feeding: triage:삽입·위치 확인·체위·잔여량 확인 단계가 흩어져 있으나 본문이 절차는 기관 지침에 따라 다르다고 밝혀 표준 순서로 단정해 그리기 어려움
+- osmotic-dehydration: triage:수분 유출·고형분 유입 이중 확산이 핵심이지만 두 흐름의 시간 곡선 모양은 본문에 근거가 약하고, 두 방향 이동은 글로 충분히 전달됨
+- peak-expiratory-flow-rate: triage:단일 측정 지표이며, 초록·노랑·빨강 구간을 나눌 기준 비율이 본문에 제시되지 않아 구간도를 그릴 근거가 없음
+- pedal-point: triage:지속음 위로 화음이 바뀌는 모습은 악보로 보여야 하며, 9개 도식 유형으로는 베이스·전위·내성 페달 위치 목록 이상을 못 보여 줌
+- perfect-authentic-cadence: triage:V-I·두 화음 근음위치·최상성부 으뜸음이라는 세 조건 체크리스트로, 본문이 여러 번 반복해 그림이 더할 것이 없음
+- price-to-income-ratio: triage:주택가격÷연소득이라는 단일 비율 지표로, 3배·5.1배 기준선 외에 관계 구조가 없음
+- primitive-reflex: triage:반사별 출현·소실 시기가 본문에 없고, 오히려 하나의 표로 획일 판단하지 말라고 경고해 시간표를 그릴 근거가 없음
+- raga: triage:음계·진행 규칙·파칼·가마카·시간대·라사 등 규정 요소의 나열로, 요소 간 관계가 아닌 목록이라 글로 충분함
+- respiratory-quotient: triage:VCO2/VO2 비율의 눈금 해석(지방 0.7, 탄수화물 1.0, 1.0 초과)이 숫자 세 개로 끝나 도식이 더할 이해가 적음
+- resting-hand-splint: triage:정적 보조기 장비명으로, 고정 자세 각도는 사진이 필요하고 관계 맺는 구성 요소가 없음
+- self-sufficient-city: triage:자족용지 후순위→자족기능 지체라는 짧은 인과가 있으나 본문 서술로 바로 이해되고 직주분리·베드타운과의 대비도 한두 문장 수준임
+- simmering: triage:보일링과의 차이(85~96도 대 100도, 약한 대류, 맑은 국물)가 본문에서 이미 직접 대비되어 표로 옮겨도 새로 보이는 것이 없음
+- specificity-principle: triage:'훈련한 대로 적응한다'는 단일 원리로, 사이클·수영 예시가 글로 충분하고 관계 구조가 없음
+- steel-reinforced-concrete-structure: triage:철골의 강성·자립성과 콘크리트의 내화성을 합친다는 장점 결합 설명으로, 세 구조를 비교할 2×2 기준이나 단계가 없음
+- temporary-mortuary: triage:재난 시 임시 안치 시설이라는 장소 개념으로, 운영 고려사항(냉장·신원확인 연계·유가족 배려)이 순서 없는 목록임
+- train-low-compete-high: triage:훈련기 저탄수화물·경기 고탄수화물이라는 두 국면 대비가 이름 자체에 담겨 있고, 경기력 이득은 본문도 결과가 엇갈린다고 해 그림으로 단정하기 어려움
+- triangle-circumcenter-incenter: triage:꼭짓점 기준(수직이등분선) 대 변 기준(각의 이등분선) 대비가 본문 비유로 명확하고, 실제 이해에 필요한 것은 작도 그림이라 9개 유형으로는 더할 것이 적음
+- urban-furniture-design: triage:벤치·가로등 등 시설물 설계 분야로, 기능성·심미성·내구성 세 측면이 서로 관계 맺기보다 고려 항목 나열에 그침
+- urban-village: triage:근린주구이론과의 차이(인구 규모·고용 기능 포함)가 두세 문장의 대비라 글로 충분하고, 개념 자체는 복합용도 생활권이라는 단일 상
+- vestibular-stimulation: triage:빠른 흔들림=흥분성, 느린 흔들림=억제성 구분이 본문 스스로 표준화되지 않았다고 해 대비도로 단정하기 어려움
+- vital-signs: triage:혈압·맥박·호흡수·체온·산소포화도의 지표 목록으로, 서로 관계를 맺는 구조가 아님
+- act-utilitarianism: triage:규칙 공리주의와의 대비가 핵심이지만 '개별 행위 계산 대 규칙 준수' 한 축이라 글로 충분하고, 붕괴 논변 등은 논쟁적이라 도식으로 단정하기 어려움
+- adaptive-reuse: triage:리노베이션(같은 용도)과의 차이가 한 문장으로 정리되고, 나머지는 법규·보강 검토 등 고려사항 나열임
+- anabolic-resistance-aging: triage:단백질 용량-근합성 반응 곡선이 노인에서 낮아지는 모양이 핵심이나 곡선 형태·류신 역치 위치가 본문에 정량 근거가 없어 그림이 본문 밖 지식에 기댐
+- anaerobic-threshold: triage:젖산·환기 곡선의 변곡점이 핵심인데 기울기가 꺾이는 모양은 현재 plot 함수로 그릴 수 없고, 본문도 판정법마다 값이 달라진다고 해 다른 유형으로 단정하기 어려움
+- antagonist-muscle: triage:주동근 반대편 근육이라는 역할 개념으로, 상호억제와 동시수축의 차이가 이두근·삼두근 예로 글에서 충분히 설명됨
+- ars-nova: triage:이분박 인정·붉은 음표·이소리듬 등 기보 혁신의 내용이 핵심인데 시기 구분(아르스 안티콰·숩틸리오르)은 본문에 연도 근거가 약해 시간표가 이름 나열에 그침
+- art-deco: triage:기하학 패턴·대칭이라는 시각 양식으로, 이해에는 건물 이미지가 필요하고 아르누보와의 대비는 한 문장으로 끝남
+- ascorbic-acid: triage:단일 비타민 물질명으로, 항산화·콜라겐 합성·철 흡수 기능이 서로 연결되지 않은 개별 역할의 나열임
+- authorship-order: triage:분야별 표기 관례(기여도순·알파벳순) 두 가지 나열뿐, 관계 구조 없음
+- autonomy-principle: triage:규범 원칙 하나; 사전동의와의 구분은 원칙-절차 두 항목이라 그림이 글을 넘지 못함
+- blood-doping: triage:적혈구 증가→산소운반 증가라는 짧은 선형 기전으로 '쉽게 풀면' 비유만으로 충분히 이해됨
+- bracing: triage:핵심이 사각 골조를 삼각형으로 만드는 기하 형태라 9개 type으로는 그 원리를 그릴 수 없음
+- cantus-firmus: triage:기법 정의 중심; 테너 장음가→패러프레이즈→패러디로의 변화는 시점이 모호해 시간 순서 그림의 근거가 약함
+- categorical-imperative: triage:가언명령과의 대비는 한 줄 언급뿐이고 세 정식의 관계는 해석 논쟁 중이라 단정해 그리기 어려움
+- cbrne-medical-response: triage:다섯 위험 요소 중 핵·폭발물의 대응 논리가 본문에 없어 유형별 분류도의 근거가 부족
+- cherry-picking-data: triage:선택적 보고라는 단일 행위; 정당한 자료 배제와의 구분은 두 항목뿐
+- cincinnati-stroke-scale: triage:안면·팔·발음 세 항목 체크리스트로 정의가 이미 전부 말해 줌
+- clonus: triage:상위운동신경 손상→억제 감소→반사 항진이라는 짧은 기전이 '쉽게 풀면' 한 문장으로 이미 전달됨
+- common-operating-picture: triage:정보를 한 화면에 통합하는 단일 도구 개념; 도구-상태 관계는 두 요소뿐
+- complex-conjugate: triage:실수축 대칭이라는 복소평면 기하 그림이 핵심인데 9개 type 밖이고 합·곱 성질은 수식으로 충분
+- concentric-contraction: triage:편심성수축과의 대비는 편심성 쪽 본문이 더 풍부해 그쪽에 맡기고, 이 페이지는 단축하며 힘을 내는 단일 양식 설명
+- concerto-grosso: triage:콘체르티노 대 리피에노의 교대라는 두 집단 대비가 정의에 이미 담겨 있어 그림이 새로 보여 줄 것이 적음
+- conflict-of-interest: triage:재정·비재정 두 갈래 분류뿐이고 핵심은 공개 의무라는 규범이라 도식 가치가 낮음
+- convex-optimization: triage:핵심은 그릇 모양(단일 최저점) 대 여러 지역 최소를 가진 곡선의 모양인데 U자·다봉 곡선을 그릴 함수가 없음
+- core-wall: triage:코어의 평면 배치와 강성 중심이 핵심인 공간 구조라 관계 도식으로는 정의 반복이 됨
+- countersubject: triage:성부별 진입 시점을 보여 주는 악보식 격자가 필요한데 9개 type으로는 표현되지 않음
+- debriefing-requirement: triage:사후 설명이라는 단일 절차; 정서 해소·자료 철회 기회 등은 본문 나열로 충분
+- defensible-space-theory: triage:영역성·자연적 감시·이미지·주변 환경 네 요소의 단순 나열로, 요소 간 관계가 본문에 없음
+- diagnostic-priority: triage:우선순위 판단 기준(생명 위협, 실제 대 잠재 진단 등)의 나열이고 매슬로우 위계는 별도 용어의 그림
+- differential-equation: triage:물통 예시의 감쇠 곡선은 미분방정식 일반이 아니라 한 사례의 해일 뿐이라 개념을 오히려 좁혀 보이게 함
+- discriminant: triage:판별식 부호에 따라 포물선이 x축과 2·1·0번 만나는 그림이 핵심인데 포물선 함수가 없고, 세 경우 나열은 정의 반복
+- distance-between-two-points: triage:좌표평면 위 직각삼각형이라는 기하 그림이 필요하나 9개 type 밖이고 공식 자체가 단순
+- dual-use-research: triage:IRB 심의와의 차이는 보호 대상 하나의 차이로 주의할 점 한 문단에서 충분히 설명됨
+- dysarthria: triage:이완형·경직형 등 하위 유형이 이름만 있고 손상 부위와의 대응이 본문에 없어 분류도 근거 부족
+- emergentism: triage:약한·강한 창발의 구분이 핵심이나 강한 창발과 하향 인과는 논쟁 중이라 나란히 단정해 그리기 어려움
+- equation-of-ellipse: triage:두 초점과 장·단축이라는 기하 도형이 핵심이라 9개 type으로 그릴 수 없음
+- equilibrium-reaction: triage:기울기에 따른 몸통·팔다리의 공간적 반응 패턴이라 관계 도식으로 옮기면 정의 반복
+- eternal-recurrence: triage:사고실험이자 해석이 갈리는 개념이라 순환도로 그리면 우주론적 주장을 단정하는 셈
+- ethical-egoism: triage:심리적 이기주의와의 사실-규범 구분은 한 축 차이라 본문 한 줄로 충분
+- euler-polyhedron-formula: triage:다면체별 V·E·F 계산 예시가 핵심이라 표나 입체 그림이 맞고 9개 type에 해당 없음
+- existence-precedes-essence: triage:종이칼과 인간의 순서 뒤집기라는 두 항목 대비로 '쉽게 풀면'에서 이미 선명함
+- fall-risk-assessment: triage:사정→점수화→예방조치→재사정의 흐름이 본문에 짧게 드러나 그림이 더할 이해가 적음
+- fatty-acid-desaturation: triage:포화→단일불포화 한 단계 효소 반응으로 구성 요소가 둘뿐
+- fifteen-minute-city: triage:여섯 생활 기능을 15분 반경에 두는 정책 슬로건; 기능 나열은 정의 반복
+- figure-ground-diagram: triage:그 자체가 흑백 지도 기법이라 관계 도식으로 다시 그릴 내용이 없음
+- fourier-series: triage:항을 더할수록 사각파에 가까워지는 부분합 곡선과 깁스 현상이 핵심인데 해당 plot 함수가 없음
+- free-counterpoint: triage:엄격대위법을 완화한 단계라는 한 축 대비이고 허용 범위가 양식마다 달라 고정된 비교표로 그리기 어려움
+- fugue: triage:본문이 고정 형식이 아닌 절차라고 강조하므로 제시부-에피소드-스트레토 순서도는 교과서적 틀을 단정하게 됨
+- hedonic-price-model-urban: triage:구조·입지·근린 특성을 회귀변수로 나열하는 수준이라, 그림이 '가격=속성별 계수의 합'이라는 정의를 되풀이할 뿐 추가 이해가 적음
+- hendrich-fall-risk-model: triage:평가 항목(혼돈·우울·배설·어지럼·약물·일어나 걷기) 목록일 뿐 항목 간 관계나 단계가 없음
+- hidden-fifths: triage:핵심이 악보 상의 성부 진행이라 9개 유형으로 그리기 어렵고, 외성·내성별 엄격도는 이론서마다 달라 단정하기 곤란
+- high-tech-architecture: triage:구조·설비 노출이라는 단일 미학 특징과 대표 건축가·사례 나열 — 관계 맺는 구성 요소가 없음
+- hip-spica-cast: triage:단일 고정 기구 설명; 적용→보조기 전환 정도의 2단계뿐이라 도식 근거 부족
+- integral: triage:곡선 아래 넓이 그림은 정의 자체의 반복이며, 직사각형 분할(리만 합) 같은 핵심 그림은 plot 함수로 표현 불가
+- iso-22000: triage:인증 규격명; HACCP+경영시스템 결합·PDCA는 일반 개념의 언급에 그쳐 이 용어 고유의 구조를 그릴 근거 부족
+- isomorphism: triage:준동형⊃동형⊃자기동형의 포함 관계가 본문에서 한 문장으로 충분히 전달되어 그림의 추가 가치가 작음
+- joint-moment: triage:핵심 그림은 힘×모멘트팔의 지렛대 역학 스케치인데 9개 유형에 맞지 않고, 역동역학 계산 절차는 본문에 단계가 드러나지 않음
+- knowledge-spillover-urban: triage:거리에 따른 감소는 정성적 언급뿐 곡선 모양의 근거가 없고, MAR형·제이콥스형 구분은 두 항목 나열에 그침
+- kolmogorov-axioms: triage:세 공리의 병렬 목록 — 서로 관계를 맺는 단계·구조가 없어 그림이 글을 되풀이함
+- lagrange-interpolation: triage:보여 줄 가치가 있는 것은 고차 다항식의 룬게 진동 곡선인데 현재 plot 함수로 그릴 수 없음
+- lipschitz-continuity: triage:기울기 상한(원뿔 조건)과 √x 반례 그림이 필요하나 plot 함수에 없고, 연속·립시츠·미분가능의 관계도 포함 관계가 아니라 벤으로 단정하기 애매
+- log-properties: triage:곱→합, 나눗셈→차, 거듭제곱→곱 세 공식의 나열로 수식 자체가 가장 명확한 표현
+- look-alike-sound-alike-drug: triage:발음 혼동·외관 혼동 두 유형과 대응 전략이라 구성 요소가 적고 본문 한 문장으로 충분
+- magill-forceps: triage:단일 기구명; 용도(이물 제거·비강삽관 유도) 설명뿐 관계 구조 없음
+- magnet-hospital: triage:인증 제도명; 심사 영역 언급이 산발적이라 그림의 구성 근거가 부족
+- mass-casualty-management: triage:분류·처치·이송·분산을 묶는 관리 활동 전반의 개념이라, 단계 그림은 중증도분류 용어의 절차를 되풀이하게 됨
+- medial-epicondylitis: triage:단일 질환명; 감별 대상(내측측부인대·척골신경)이 나열될 뿐 기전 단계가 없음
+- metabolism-movement: triage:건축 사조명; 코어-캡슐 분리라는 단일 아이디어와 나카긴 사례 위주로 3개 이상의 관계 요소가 없음
+- modular-coordination: triage:기준 모듈의 배수로 치수를 통일한다는 단일 원리; 그림이 정의를 반복할 뿐
+- morans-i: triage:양·음·무 자기상관의 지도 패턴 그림이 필요하나 9개 유형에 맞지 않고, 값 범위도 -1~1로 고정되지 않아 축을 정하기 어려움
+- mosaic-plagiarism: triage:표절의 한 유형(하위 사례)으로, 여러 출처 짜깁기라는 정의 외에 그릴 관계가 없음
+- motivational-interviewing: triage:OARS 네 기법의 나열과 상담 태도 설명뿐, 기법 간 순서·관계가 본문에 없음
+- muscle-hypertrophy: triage:근원섬유·근형질 비대 구분과 근섬유증식 여부가 학계 논쟁 중이라 분류 그림을 단정적으로 그리기 어려움
+- muscle-tone: triage:저긴장-정상-과긴장의 1차원 척도와 기계적·신경적 요소 두 가지뿐이라 그림 가치가 작음
+- muscular-dystrophy: triage:유전성 질환군명; 뒤센·베커 아형 언급 외에 기전 단계가 본문에 구체적이지 않음
+- near-miss: triage:'환자 도달 전 발견'이라는 단일 구분 기준; 하인리히 비율은 본문에 수치가 없어 그릴 근거 부족
+- negative-utilitarianism: triage:고전 공리주의 대비 '고통 감소 우선'이라는 한 축의 차이뿐이라 비교 그림이 정의를 되풀이함
+- one-repetition-maximum: triage:단일 측정값; %1RM-반복횟수 관계 곡선은 본문에 근거가 없어 그릴 수 없음
+- orcid-identifier: triage:식별번호 제도명; 연구자와 논문·소속·연구비 연결이라는 단순 기능 설명
+- panpsychism: triage:창발 문제와 결합 문제의 맞교환은 논쟁 중인 형이상학 입장이라 단정적 도식이 어렵고 구성 요소도 적음
+- passive-range-of-motion: triage:외부 힘으로 측정하는 가동범위라는 단일 측정 개념; 능동 대비는 한 축 차이뿐
+- post-structuralism: triage:이질적 사상가들을 사후적으로 묶은 명칭이라 본문도 단일 구조를 부정하며, 구조주의와의 관계를 단정적으로 그리기 어려움
+- postmodern-architecture: triage:역사적 인용·장식이라는 양식 특징과 사례 나열; 본문도 단일 양식이 아닌 느슨한 묶음이라고 함
+- preference-utilitarianism: triage:효용 기준을 쾌락에서 선호 충족으로 바꾼 한 축의 변형이며, 어떤 선호를 셀지는 이론 내부 쟁점으로 남아 있음
+- premise: triage:논증의 기본 단위 하나; 전제→결론 그림은 정의 반복이고 숨은 전제 논의는 문장 예시가 더 명확
+- progressive-overload: triage:부하를 점점 늘린다는 단일 원리; 계단식 증량 곡선은 plot 함수에 없고 변수 나열은 그림 가치가 작음
+- public-reason: triage:공유 가능한 이유로만 정당화하라는 단일 규범; 적용 범위(헌법 핵심 사항) 경계도 본문이 불분명하다고 인정
+- quadratic-formula: triage:판별식 부호에 따른 포물선 세 경우 그림이 유용하나 이차함수 plot이 없음; 공식 자체는 수식이 가장 명확
+- ragtime: triage:음악 양식명; 왼손 반주 위 오른손 당김음은 악보 예시가 필요해 9개 유형으로 표현 불가
+- rapid-response-team: triage:전문 팀이라는 조직 단위; 호출→출동→개입 흐름은 본문에서 한두 문장으로 충분히 전달됨
+- reductio-ad-absurdum: triage:가정→모순→부정이라는 3단계는 정의 문장 그대로이고, 직관주의와의 차이는 두 추론 규칙의 짧은 대비라 글로 충분
+- regulator-subsystem: triage:로이적응모형의 한 하위체계일 뿐이라 그리면 모형 전체(자극→조절·인지기전→네 적응양상)를 다시 그리게 됨
+- resting-energy-expenditure: triage:단일 측정량 — 측정법(간접열량법·예측공식)과 주의점 나열뿐, 관계 맺는 구성 요소 없음
+- retraction: triage:출판윤리 조치명 — 우려표명→철회, 자진·강제 구분 정도라 글로 충분
+- roasting: triage:조리법명 — 표면·내부 온도 구배와 그릴링 비교가 있으나 구성 요소 2개 수준
+- romanticism-music: triage:시대 양식명 — 특징 나열이 중심이고 초기·후기 구분만으로는 연표 구성이 빈약
+- rounding-estimation: triage:반올림·올림·버림 세 규칙은 본문 예시로 바로 이해되는 초등 개념; 계단 함수 그래프는 현재 plot 함수로 못 그림
+- section-formula: triage:선분 위 내분점·외분점 위치를 보여 줄 좌표 기하 그림이 필요한데 9개 type 어디에도 맞지 않음
+- slum: triage:UN-Habitat 다섯 결핍 요소의 나열형 정의 — 요소 간 관계가 없어 목록으로 충분
+- splint-fabrication: triage:가열·성형·고정의 단순 제작 술기이고 결과를 좌우하는 요인(교육·순응도)은 순서 관계가 아님
+- sport-injury-mechanism: triage:접촉·비접촉 × 급성·만성 네 칸을 채울 사례가 본문에 ACL 하나뿐이라 칸 내용을 본문 밖 지식에 기대야 함
+- stage-i-pressure-injury: triage:욕창 분류의 한 단계 — 비창백성 발적 판정 한 가지가 핵심인 하위 사례
+- standard-treatment-protocol-ems: triage:문서 형식·역할에 대한 설명이라 그릴 구체적 단계나 구성 관계가 없음
+- standing-frame: triage:재활 장비명 — 효과(골밀도·구축·순환) 나열과 점진적 각도 조절 주의뿐
+- statically-indeterminate-structure: triage:정정·부정정 대비는 가능하나 차이가 '평형식만으로 풀리는가'와 여유도 두 축이라 정의 반복에 가까움
+- synergist-muscle: triage:하위 유형이 진정한 협력근·중화근 2개뿐이고 회전근개 예시는 글로 충분
+- technology-transfer-conflict-of-interest: triage:공개와 관리 두 단계 구분이 전부라 구성 요소 2개
+- thrownness: triage:피투성·기투 두 개념의 철학적 짝 — 도식화하면 추상어 두 상자가 될 뿐
+- total-body-surface-area: triage:9의 법칙은 인체 부위 백분율 지도라 9개 type으로 표현 불가, 나머지는 단일 지표 설명
+- tu-quoque: triage:특정 오류 하나의 정의와 예시 — 인신공격 하위 분류는 본문에 상황적 인신공격 하나만 언급
+- unit-vector: triage:크기 1인 벡터라는 단일 속성 — 정규화는 한 줄 연산
+- unitary-human-being: triage:추상적 철학 개념으로 본문도 측정·구체화가 어렵다고 명시, 그릴 관계가 불분명
+- upper-limb-orthosis: triage:보조기 범주명 — 정적·동적 2유형 구분과 착용 주의 나열뿐
+- vector-field: triage:화살표 장(quiver) 그림이 필요한데 지원 type에 없고, 발산·회전은 별도 항목
+- vector-projection: triage:두 벡터와 그림자 성분을 보여 줄 기하 그림이 필요해 9개 type에 맞지 않음
+- virtue-ethics: triage:공리주의·의무론·덕 윤리 세 관점 비교인데 contrast는 두 개념용이고 본문의 데이터 조작 예시가 이미 그 비교를 글로 보여 줌
+- zoning: triage:건축 평면 구역화와 도시 용도지역이라는 동음 두 의미 구분이 핵심 — 관계 구조가 없음
+- a-posteriori-knowledge: triage:선험·후험 × 필연·우연 네 칸 중 '선험적 우연' 칸이 논쟁적이고 본문에 없어 단정 없이 채우기 어려움
+- abdominal-thrusts: triage:적용 대상 분기(부분폐쇄·임산부·의식 소실)는 하임리히 처치 흐름 전체로, 이 동작 항목에서는 글로 충분
+- absolute-conditional-convergence: triage:절대수렴 ⊂ 수렴이라는 포함 관계 하나뿐이라 구성 요소 2개
+- acceptable-macronutrient-distribution-range: triage:세 영양소 비율 범위 수치표로 충분 — 관계나 과정이 없음
+- acls: triage:리듬별 분기 알고리즘을 그리려면 본문에 없는 세부와 개정되는 지침 내용에 기대야 함
+- active-frontage: triage:도시설계 개념 — 평가 지표(출입구 빈도·투명 파사드 비율) 나열뿐
+- aleatoric-music: triage:작곡 단계의 우연과 연주 단계의 비결정성 두 층위 구분이 핵심이라 구성 요소 2개
+- algorithmic-accountability: triage:사전·사후 장치 목록과 편향·설명가능성과의 차이는 글 목록으로 충분
+- android-gynoid-fat-distribution: triage:두 체형 패턴 대비가 정의와 '쉽게 풀면'에서 이미 사과형·배형으로 다 설명됨
+- angst: triage:불안 대 공포 두 정서 구분이 핵심인 철학 개념 — 대상 유무 한 축뿐
+- ankle-foot-orthosis: triage:보조기명 — 고정형·관절형·탄성형 유형 차이는 짧은 목록으로 충분
+- anti-inflammatory-diet: triage:늘릴 식품·줄일 식품 목록형 식이 패턴이라 관계 구조 없음
+- antinutritional-factor: triage:물질 범주명 — 피틴산·트립신 저해제 등 개별 물질과 작용의 대응 목록
+- art-song-lied: triage:음악 장르명 — 성악·피아노 대등성과 언어권별 구분은 글로 충분
+- augmented-sixth-chord: triage:이탈리아·프랑스·독일식의 구성음이 본문에 없고, ♭6·♯4가 딸림음으로 수렴하는 성부진행은 악보 없이 9개 type으로 그리기 어려움
+- authorship-order-convention: triage:분야별 관행 세 가지(기여도순+교신 마지막, 알파벳순, 협력단)가 본문에 이미 병렬로 명료해 그림이 더할 구조가 없음
+- basic-human-needs-henderson: triage:14개 요구를 위계 없이 병렬 나열한 점검 목록이라 관계 구조가 없음
+- bayley-scales-of-infant-development: triage:평가 영역 다섯 개를 나열하는 검사 도구명으로, 영역 간 관계나 절차가 없음
+- beam-structure: triage:슬래브→보→기둥 하중 경로는 정의 반복이고, 지지 조건별 휨모멘트 분포는 9개 type과 plot 함수로 표현하기 어려움
+- bed-town: triage:주거 전용 도시라는 단일 기능 개념으로, 주간인구지수 하나 외에 그릴 구성 요소가 부족함
+- bilateral-transfer: triage:한쪽→반대쪽 전이와 그 비대칭이라는 두 요소뿐이라 글로 충분함
+- binomial-theorem: triage:핵심인 파스칼 삼각형·전개식은 수식 표기 대상이고 9개 type 어디에도 맞지 않음
+- blanching-enzyme-inactivation: triage:잔존 효소와 영양 손실의 시간 상충은 본문에 곡선 근거가 없고, 데침→급랭 절차는 두 단계라 글로 충분함
+- blue-green-infrastructure: triage:물·녹지 두 요소의 결합 개념으로, 회색인프라 대비도 본문에 축이 구체적이지 않음
+- blues-form: triage:12마디 I-IV-V 마디별 배치 격자는 9개 type에 맞지 않고, 마디별 화음 위치도 본문에 없음
+- body-composition-assessment: triage:측정법 세 가지를 나열하고 각 오차를 주의하는 내용이라 관계 구조가 약함
+- canadian-occupational-performance-measure: triage:활동 선정→수행도·만족도 채점→재평가라는 짧은 절차가 본문 문장으로 이미 충분함
+- capnography: triage:핵심인 카프노그램 파형 모양은 현재 plot 함수로 그릴 수 없고 본문도 파형 구간을 설명하지 않음
+- cardiopulmonary-exercise-testing: triage:측정 변수 나열 중심의 검사명이며, 심장·환기·근육 제한 감별은 기준 없이 언급만 됨
+- cardiorespiratory-endurance: triage:건강관련체력의 한 요소라는 단일 능력 개념으로 그릴 관계가 부족함
+- catheter-associated-urinary-tract-infection: triage:유치기간이 길수록 위험이 커진다는 단일 인과와 예방 원칙 나열이라 글로 충분함
+- central-venous-catheter: triage:삽입 부위·유형·번들 요소의 나열로, 그림이 더할 관계 구조가 없음
+- chromium-glucose-tolerance: triage:포도당내성인자의 구조·기전과 보충 효과 자체가 논쟁 중이라 경로를 단정해 그릴 수 없음
+- circular-permutation: triage:회전 동치 배치 그림은 9개 type 밖이고, n!/n=(n-1)! 공식은 글로 충분함
+- closed-kinetic-chain-exercise: triage:개방사슬과의 안전성 비교가 관절 각도에 따라 달라진다는 논쟁이 있어 대비표로 단정하기 어려움
+- clostridium-botulinum: triage:단일 세균 종 이름
+- co-first-authorship: triage:동등 기여 표기라는 단일 관행으로 구성 요소가 부족함
+- combined-sewer-overflow: triage:폭우→용량 초과→월류의 단순 인과가 쉽게 풀이에 이미 그대로 서술됨
+- come-up-time: triage:승온·유지 구간의 온도 이력 곡선이 핵심이나 꺾은선 형태는 현재 plot 함수로 그릴 수 없음
+- communitarianism: triage:자유주의와의 대비가 자아관 한 축에 집중되어 글로 충분하고, 사상가 입장 차이를 표로 단정하기 어려움
+- community-planning: triage:참여 기법 이름(워크숍, 플래닝셀, 차터렛) 나열 위주라 순서·관계 구조가 없음
+- compact-city: triage:밀도-에너지 효율 인과가 실증 논쟁 중이라 경로를 단정해 그릴 수 없음
+- competence-need: triage:자기결정성이론 세 욕구 중 하나로, 최적 도전 관계는 한 문장으로 충분하고 세 욕구 구조는 상위 용어 몫
+- complex-plane: triage:점·절댓값·편각을 나타내는 좌표 그림은 9개 type 밖임
+- congruence-and-similarity: triage:합동이 닮음비 1:1인 닮음이라는 두 요소 포함 관계뿐이라 글로 충분함
+- conic-sections: triage:곡선 종류 나열은 쉽게 풀이의 반복이고, 원뿔 절단 그림은 9개 type으로 그릴 수 없음
+- cool-jazz: triage:음색·편곡 특징의 미학 서술이 중심이고 계보는 언급 수준이라 그림 근거가 약함
+- core-stability-exercise: triage:일반 운동 대비 우월성과 효과 기전이 논쟁 중이라 단정해 그릴 수 없음
+- counterfactual-conditional: triage:가능세계 유사성 구조는 9개 type에 맞지 않고 '가장 가까움' 기준 자체가 논쟁 중임
+- counterpoint: triage:성부 독립성 원리를 보이려면 악보가 필요하고 9개 type으로는 정의 반복이 됨
+- cronobacter-sakazakii: triage:단일 병원균 종 이름
+- cylinder-cone-sphere-volume: triage:세 입체 공식 모음으로, 원뿔=원기둥의 1/3이라는 두 요소 관계 외에 구조가 없음
+- data-anonymization: triage:가명화와 익명화 두 수준의 구분이라 글로 충분하고 기법은 나열 수준
+- data-dredging: triage:검정 횟수에 따른 거짓 양성 누적 곡선은 본문에 수치 근거가 없고, 대응책 나열은 글로 충분함
+- data-management-plan: triage:계획서에 들어갈 항목(형식·저장·접근·보관 기간)의 나열일 뿐 항목 사이에 관계나 순서가 없고, 데이터공유 성명과의 구분도 사전·사후 두 개뿐이라 글로 충분
+- daytime-population-index: triage:주간인구÷야간인구×100이라는 단일 비율 지표 — 100 기준 위아래 해석 두 가지뿐
+- dead-load: triage:하중의 한 종류(자중)에 대한 정의 — 활하중과의 대비는 '변하느냐 아니냐' 한 축뿐이고 하중조합 세부는 본문에 없음
+- deconstructivism: triage:건축 사조명 — 대표 건축가와 1988년 MoMA 전시 외에 그림으로 구조화할 단계나 관계가 없음
+- dependent-nursing-intervention: triage:업무 범위 분류의 한 범주 — 독자적 중재와의 구분은 '처방에서 시작되는가' 하나뿐이고 본문 상당 부분이 반복 문장
+- diabetic-nephropathy-diet: triage:단백질·나트륨·칼륨·인 조절 항목의 나열이며, 신기능 단계별 제한 수준의 구체 수치가 본문에 없어 단계별 그림의 근거가 부족
+- diet-history-method: triage:개방형 질문·식품군 빈도 확인·3일 기록 결합이라는 설명이 한 문장에 그치고, 24시간 회상법과의 대비도 기간 길이 한 축이라 글로 충분
+- diophantine-equation: triage:'정수해만 허용'이라는 조건 하나로 정의되는 방정식 범주 — 선형/고차 난이도 차이는 서술로 충분하고 그릴 구조가 없음
+- directional-derivative: triage:그래디언트와 단위벡터의 내적이라는 벡터 기하 그림이 핵심인데, 9개 type(흐름·비교·분류·곡선) 어디에도 맞지 않음
+- district-unit-plan: triage:도시관리계획의 한 종류인 법정 제도 — 용도지역과의 관계(골격 대 세부)는 두 층뿐이고 수립 절차는 본문에 없음
+- dominant-seventh-chord: triage:핵심인 각 성부의 해결 방향(이끔음 상행·7음 하행)은 악보형 성부진행 그림이 필요해 9개 type으로 담기 어렵고, 글로 이미 명확
+- draize-test-alternatives: triage:시험법 묶음 이름 — 재구성 각막·표피 모델, HET-CAM 등 사례 나열이며 검증 절차의 단계가 본문에 구체적이지 않음
+- dynamical-systems-theory: triage:신체·환경·과제 제약의 상호작용이라는 핵심이 논쟁 중인 이론적 관점이고, 상변이(걷기→달리기)는 상태도형 그림이 필요해 기존 type으로 단정 없이 그리기 어려움
+- early-warning-score: triage:활력징후별 0~3점 합산이라는 단순 점수화 도구 — 항목별 절단점이 본문에 없어 그림이 '점수를 더한다'는 정의 반복에 그침
+- ecg-monitoring: triage:감시 방법 자체에 대한 설명과 주의사항(인공물·알람 피로) 나열 — 3유도와 12유도 대비 외에 구조화할 관계가 없음
+- emulsifier: triage:식품첨가물 범주명 — HLB에 따른 O/W·W/O 선호는 분자 계면 그림이 필요하고 본문 수치 근거도 없음
+- middle-range-theory: triage:이론의 추상성 수준 중 하나로, 대이론과의 대비 두 층뿐이며 본문에 실무이론 등 세 번째 층이 없어 위계 그림 근거 부족
+- critical-power: triage:파워-지속시간 쌍곡선(P=CP+W'/t)과 점근선이 핵심인 plot인데, decay는 점근선 오프셋이 없어 0으로 수렴하므로 현재 함수로 그릴 수 없음
+- surviving-sepsis-campaign: triage:국제 지침 캠페인 이름 — 번들 구성과 목표 시간이 개정마다 바뀐다고 본문이 경고해 순서를 단정해 그리기 어려움
+- nurse-staffing-model: triage:고정비율 방식과 중증도 기반 방식의 두 갈래뿐이며 본문도 특정 모형을 표준으로 단정하기 어렵다고 밝힘
+- werktreue: triage:규범적 이념 — 1800년 무렵 성립설은 고어의 논쟁적 주장이라 시간축 그림이 이를 단정하게 됨
+- minyo: triage:토리별(경기·서도·남도·동부)·기능별 분류가 있으나 이름 나열에 그쳐 그림이 목록 이상의 이해를 주지 못함
+- madrigal: triage:음악 장르명 — 초기 무반주 다성에서 몬테베르디 콘체르타토로의 변화가 서술돼 있으나 시점 두 개뿐이라 연표로 그릴 거리가 부족
+- isokinetic-contraction: triage:장비로 각속도를 고정한 수축 한 형태 — 등장성·등척성과의 비교가 본문에 없어 대비 그림의 근거가 없음
+- skepticism: triage:전면/국지, 피론주의/아카데미, 고대/근대 등 서로 다른 구분 축이 섞여 있어 하나의 위계로 그리면 오히려 혼동을 줌
+- glutamine-supplementation: triage:보충 전략 이름 — 글루타민 저하→면역 저하 인과 고리가 통제 연구에서 지지되지 않는다고 본문이 밝혀 기전 그림이 논쟁 주장을 단정하게 됨
+- transpersonal-caring: triage:주관적·경험적 순간을 가리키는 추상 개념으로, 본문도 측정·구조화가 어렵다고 강조 — 구성 요소가 없음
+- atomic-absorption-spectrometry-food: triage:분석기기법 이름 — 전처리·원자화·흡광 측정 단계가 본문에 순서 있게 서술되지 않고 불꽃/흑연로 구분 두 가지뿐
+- landscape-district: triage:용도지구의 한 종류 — 자연·시가지·특화 세 하위 유형이 있으나 정의에 이미 그대로 나열돼 있어 분류 그림이 정의 반복
+- development-charge: triage:부담금 제도 — 종료지가에서 개시지가·정상지가상승분·개발비용을 빼고 부담률을 곱하는 계산식은 한 줄 산식으로 충분하고 대상 사업별 적용은 본문이 단정을 피함
+- disaster-vulnerable-population: triage:집단 범주(노인·장애인·임산부·소아 등)의 나열이며, 본문은 취약성이 재난 유형에 따라 달라진다고 해 고정 분류 그림이 오해를 줌
+- change-of-direction-speed: triage:민첩성과의 구분이 '사전 경로냐 자극 반응이냐' 한 축이고, COD 결손도 검사 시간−직선 시간이라는 뺄셈 하나라 글로 충분
+- stakeholder-engagement-research: triage:참여 사다리 개념이 언급되나 정보 전달·자문·공동 설계 수준이 한 문장에 그쳐 단계 그림의 근거가 얇고 연구 참여 원칙 자체는 구조가 없음
+- central-fatigue: triage:피로의 발생 위치(중추 대 말초) 구분이 핵심이나 말초피로 기전이 본문에 없고, 세로토닌 가설은 논쟁 중이라 기전 그림이 단정하게 됨
+- whistleblower-protection: triage:보호 제도 — 신원 비공개와 보복 금지 두 축뿐이라 그림 없이 글로 충분
+- specific-pathogen-free: triage:실험동물 위생 등급 하나 — 무균동물과의 대비가 짧게 언급될 뿐 감시동물 검사 방식도 단계 구조가 아님
+- condition-number: triage:최대·최소 특이값의 비율이라는 단일 지표 — 큰 값/작은 값 해석 외에 관계 맺는 구성 요소가 없음
+- postmodernism: triage:느슨한 사상 경향의 명칭이며 본문 스스로 여러 사상가를 하나로 묶는 것을 경계해, 분류·계보 그림이 그 단정을 하게 됨
+- medical-post-deployment-plan: triage:고려 요인(인원·기온·음주·지형·이송로) 나열이며 계획 수립의 순서 있는 단계가 본문에 없음
+- rational-irrational-function: triage:y=1/x의 수직·수평 점근선과 y=√x의 제한된 정의역이라는 그래프 모양이 핵심이지만 현재 함수 목록에 쌍곡선·제곱근이 없음
+- medical-paternalism: triage:강성·연성 온정주의 두 유형 구분과 자율성-선행 충돌이 핵심이라 글로 충분, 그림 구성 요소 부족
+- minor-assent: triage:연령별 동의 방식이 국가·IRB마다 다르다고 본문이 밝혀 단계 구분을 단정해 그리기 어려움
+- meju: triage:세균→곰팡이 우점 전환이 '경우가 많다' 수준이고 핵심은 재료 정의라, 전통 장류 원료 하나로서 그림 이득이 작음
+- retrospective-ethics-approval: triage:사전 승인과 사후 승인의 시점 차이 하나뿐, 소급 동의와의 구분도 두 개념 대비라 글로 충분
+- equation-of-parabola: triage:초점·준선 기하 작도가 필요하지만 plot 함수에 포물선·원뿔곡선이 없음
+- enteral-nutrition: triage:정맥영양과의 대비·튜브 경로 언급이 흩어져 있고 핵심은 공급 방법 정의 하나
+- ethics-approval-statement: triage:논문 진술문 형식(기관명·승인번호·일자) 나열로 관계 구조가 없음
+- privacy-by-design: triage:하위 원칙(데이터 최소화·목적 제한 등) 나열이라 서로 관계 맺는 구조가 아님
+- song-cycle: triage:장르 정의와 작품 예시 중심, 조성·동기 회귀는 개별 작품마다 달라 일반 그림으로 그릴 것이 없음
+- zenos-paradoxes: triage:네 역설은 서로 독립적인 논증 목록이고 핵심 쟁점(무한 과제 완수)이 철학적으로 미해결이라 그림으로 정리하기 부적합
+- smoking-food: triage:리그닌 열분해 성분, 냉훈·온훈 차이, 액훈 대체 맞바꿈이 서로 다른 축으로 흩어져 한 그림에 묶이지 않음
+- thermal-degradation: triage:고온단시간 처리가 영양 손실을 줄인다는 deep과 더 많이 분해시킨다는 usage가 서로 엇갈려 감쇠 곡선 비교를 단정해 그릴 수 없음
+- action-research-arm-test: triage:4개 하위검사 이름과 0~57점 채점 규칙 나열에 그쳐 그림이 정의 이상을 주지 못함
+- equitable-selection-of-subjects: triage:위험 편중 방지와 혜택 배제 방지 두 측면뿐이라 구성 요소 2개
+- false-consciousness: triage:이데올로기 비판 개념으로, 어떤 신념을 '허위'로 볼지 자체가 논쟁적이라 단정적 그림이 곤란
+- exploitation-phase: triage:페플라우 이론의 한 단계일 뿐이고 다음 단계명이 본문에서 종결단계·해결단계로 엇갈림
+- projective-geometry: triage:쌍대성·복비 불변량 같은 추상 성질 중심으로, 변환군 포함관계는 본문 근거가 아핀 대비 한 줄뿐
+- sauteing: triage:단일 조리법 정의로, 팬프라잉·스터프라잉과의 차이는 기름 양·뒤집기 빈도 정도라 글로 충분
+- atrium: triage:채광·굴뚝효과 환기·화재 연기·음향 문제가 별개 쟁점으로 나열되어 한 구조로 묶이지 않음
+- household-formation-rate: triage:인구가 그대로여도 분가로 가구 수가 늘 수 있다는 한 가지 요점이라 본문 비유로 충분
+- build-to-line: triage:셋백(최소 이격)과 건축선(접면 강제) 두 규제 대비뿐, 구성 요소 2개
+- modal-realism: triage:형이상학 입장과 그에 대한 반론 목록으로, 그림이 논증 이상을 보여 주지 못함
+- nursing-grade-differentiation-fee: triage:등급 구간·감산 폭이 정책마다 바뀐다며 본문이 수치를 주지 않아 계단형 그래프의 근거가 없음
+- food-bleaching-agent: triage:산화형·환원형 두 갈래와 숙성 효과 유무 정도라 분류 그림으로 얻는 것이 적은 첨가물 범주명
+- urinary-catheterization: triage:처치 정의와 감염 예방 수칙 나열, 일회성·유치도뇨 두 유형 대비뿐
+- oxygen-debt: triage:운동 시작 시 산소 결손과 회복기 초과 섭취를 한 곡선에 잇는 구간별 그래프가 필요하나 plot 함수로 표현 불가하고, 본문도 EPOC로 대체된 고전 개념이라 설명
+- contact-precautions: triage:전파경로별 주의 세 유형 중 하나의 하위 사례로, 조치 항목(장갑·가운·전용물품) 나열
+- parallel-octaves: triage:두 성부가 옥타브로 나란히 움직이는 단일 진행 규칙, 구성 요소 2개
+- thiessen-polygon-service-area: triage:본질이 지도 위 공간 분할이라 9개 type 어디에도 맞지 않음
+- altmetric-gaming: triage:부정행위 정의와 탐지 신호(시간 쏠림·신규 계정·하위지표 불균형) 나열로 관계 구조가 없음
+- universal-design: triage:배리어프리와의 사전·사후 접근 대비와 7원칙 나열로, 두 개념 비교는 글로 충분
+- crowdsourced-research-labor-ethics: triage:건당 저보수 착취라는 단일 윤리 쟁점이며, 데이터 품질 문제와의 구별도 두 질문 대비라 글로 충분
+- beta-glucan-fiber: triage:식이섬유 물질명이며 점성-담즙산 기전은 한 문장 언급 수준
+- byeongchang: triage:한 사람이 연주와 노래를 겸하는 연행 형식 정의 하나
+- leap-of-faith: triage:심미·윤리·종교 단계 중 한 이행을 가리키는 실존 개념이라 그림이 '도약' 비유 이상을 주지 못함
+- depopulating-city: triage:세수 감소·기반시설 부담의 '악순환'이 언급만 되고 고리를 닫는 단계가 본문에 없음
+- urlinie: triage:3-2-1/5-4-3-2-1 하행 음열은 글로 이미 드러나고, 분석자마다 달리 설정된다는 단서도 있음
+- prerequisite-program: triage:HACCP의 기반 위생 조건 묶음으로, GMP·SSOP 구성 요소 범위가 규격마다 달라 계층을 단정하기 어려움
+- architectural-acoustics: triage:설계 분야 전체를 가리키는 넓은 용어로, 반사·흡음 균형 외에 특정 구조가 없음
+- waist-hip-ratio: triage:두 둘레를 나눈 단일 지표와 성별 기준값으로, 그림 구성 요소 부족
+- cardiac-rehabilitation: triage:1·2·3단계 구분이 본문에 한 문장으로만 나와 단계별 내용이 없고, 나머지는 효과·참여율 서술이라 그림으로 더할 구조가 약함
+- cervical-collar: triage:단일 고정 기구 — 헤드블록 병용·크기 선택 등 사용상 주의 나열이며 관계 구조 없음
+- jaw-thrust: triage:단일 도수 술기 — 손 위치와 한계 서술뿐이라 단계·관계 요소가 3개 미만
+- snakebite: triage:독소 3유형이 이름만 열거되고 각 기전 설명이 없어, 그리면 목록 반복에 그침; 나머지는 처치 금기 나열
+- manual-muscle-testing: triage:0~5 등급 척도라고만 하고 각 등급 기준은 본문에 없어 그림이 본문 밖 지식에 기대야 함; 나머지는 신뢰도 한계 서술
+- kripke-semantics: triage:접근관계 성질↔공리(T·B·4) 대응은 본문에 있으나 그 조합이 T·S4·S5로 쌓이는 포함 관계는 본문 밖 지식이 필요하고, 가능세계 그래프는 9개 type에 맞지 않음
+- serialism: triage:12음기법을 넘어 리듬·셈여림까지 순서로 통제한다는 확장 서술뿐, 그림으로 보일 관계가 정의 반복에 그침
+- contracture-prevention: triage:중재 목록과 근거 부족 논쟁이 중심이며, 원인 조직별 전략도 이름만 나와 관계 구조가 없음
+- the-gaze: triage:주체가 대상화되는 단일 실존 경험 — 열쇠구멍 예시 서사로 충분하고 구성 요소 2개뿐
+- peripheral-nerve-injury-rehabilitation: triage:손상 등급은 경·중 양 끝만 언급되고 하루 1mm 재생 속도는 단일 수치라, 그림이 본문 밖 분류(신경차단~신경절단)에 기대야 함
+- utility-corridor: triage:단일 시설 개념 — 여러 관을 한 터널에 넣는다는 정의를 넘는 관계 구조 없음
+- hydration-status-assessment: triage:지표(체중·소변색·비중·삼투압)의 장단점 나열로 표가 더 맞고, 두 기준 네 칸으로 깔끔히 나뉘지 않음
+- one-sided-limit: triage:핵심 그림은 점프 불연속(계단 함수) 양쪽 극한인데 plot 함수로 계단을 그릴 수 없음
+- disaster-preparedness-phase: triage:재난관리 순환의 한 단계일 뿐이고 훈련 3종(도상·기능·실전형)은 이름만 나와 단계별 차이가 본문에 없음
+- foam-stability: triage:붕괴 경로(배액·막 파열·오스트발트 숙성)는 있으나 기포력과 구분이라는 요점은 글로 충분하고, 경로 그림은 목록 반복에 가까움
+- leg-stiffness: triage:용수철-질량 모형 그림이 필요하나 9개 type에 맞지 않고, 힘/압축길이라는 단일 비율 정의
+- basis-and-dimension: triage:축 2개 지도 비유로 충분하며, 기저 선택과 무관하게 차원 불변이라는 요점은 type으로 그릴 구조가 아님
+- music-consumption: triage:음반→스트리밍 전환과 취향 이론을 다루는 넓은 연구 분야명이라 특정 관계 구조가 없음
+- divergence-vector-calculus: triage:소스·싱크 벡터장 그림이 필요한데 9개 type에 해당하지 않고, 양·음·0 세 경우는 정의 반복
+- online-medical-direction: triage:온라인·오프라인 의료지도 두 방식의 역할 분담 한 줄 비교라 구성 요소가 부족함
+- namdo-minyo: triage:지역 민요 갈래명 — 육자배기토리와 판소리 연관 서술뿐 그림으로 보일 구조 없음
+- music-industry-sociology: triage:연구 분야명으로 주제(플랫폼·저작권·레이블 격차) 나열이며 요소 간 관계가 특정되지 않음
+- neuromuscular-efficiency: triage:근전도/힘 단일 비율 지표이며, 운동단위 동원·발화 빈도 등 기전은 이름만 나와 연결이 없음
+- feasible-region: triage:제약 반평면이 겹친 다각형과 꼭짓점 최적해 그림이 필요한데 9개 type으로는 그릴 수 없음(venn은 꼭짓점 의미를 잃음)
+- disaster-mental-health-recovery-center: triage:기관명 — 운영 형태와 이용 추이 서술뿐 구성 요소 간 관계 구조 없음
+- facticity: triage:사실성과 초월 두 축의 긴장을 말하는 철학 개념으로, 그림은 두 단어 나란히 놓기에 그쳐 정의 반복
+- post-trial-access: triage:윤리 원칙 — 이행 방식 3가지가 이름만 나열되고 서로의 관계나 순서가 없음
+- synthetic-data-disclosure: triage:공개 의무 원칙 — 무엇을 밝힐지 나열이며 단계나 관계 구조가 없음
+- radical-empiricism: triage:관계도 직접 경험된다는 단일 주장이라 컵-책상 예시로 충분하고 구성 요소 2개뿐
+- oratorio: triage:음악 장르명 — 오페라·칸타타와 구분은 caution 한두 문장이고 같은 기준으로 견줄 축이 본문에 부족함
+- chorale-prelude: triage:장르명 — 정선율형·장식형 등 유형이 이름만 나열되어 그림이 목록 반복이 됨
+- nutrition-policy: triage:정책 수단 나열(교육·표시제·조세·규제)과 강도-합의 난이도 언급뿐, 그리기엔 근거가 얕음
+- isometric-exercise: triage:단일 운동 형태 — 벽 밀기 비유로 충분하고 각도 특이성·혈압 주의는 그림 구조가 아님
+- humectant: triage:식품첨가물 범주명 — 수분 유지·수분활성도 저하 효과 서술로 관계 구성 요소가 부족함
+- reviewer-conflict-of-interest: triage:경쟁형·우호형 두 갈래뿐이고 저자 이해상충과의 구분도 한 문장으로 충분함
+- bolted-connection: triage:단일 접합 방식 — 마찰접합 원리·풀림 주의 서술로 3개 이상 요소의 관계가 없음
+- renovation: triage:리모델링과 범위가 다르다는 거의 동의어 구분이 전부라 그림이 더할 것이 없음
+- crowdsourcing-research-ethics: triage:보상·동의·위험 고지 등 윤리 요구 항목 나열이며 항목 간 관계가 없음
+- gut-training-for-athletes: triage:반복 노출→SGLT1 증가 기전이 동물 연구 위주라 본문도 흡수 증가인지 내성 증가인지 불확실하다고 해, 기전 사슬로 단정해 그리기 어려움
+- david-harvey-urban-theory: triage:자본 2차 순환·공간적 조정 사슬을 그리면 본문 caution이 지적한 비판(지나친 단순화)이 있는 이론을 인과로 단정하는 그림이 됨
+- overlay-zoning: triage:기본 용도지역과 덧씌운 규제 두 층의 겹침뿐이고 '더 엄격한 쪽 적용' 원칙도 한 문장으로 충분함
+- mobility-as-a-service: triage:성숙도 단계가 '정보→예약·결제→구독' 정도로만 언급되고 단계 구분 기준이 본문에 불명확
+- psychological-first-aid: triage:안전·정서 지지·정보·연계 원칙은 순서 없는 나열이며 본문도 고정된 대화 절차가 아니라고 강조
+- active-design: triage:에너지 설비 설계와 건강 증진 설계라는 두 의미가 섞여 있어 그림 하나로 정리할 근거가 일관되지 않음
+- nurse-scheduling: triage:근무표 작성이라는 관리 활동으로, 순방향 교대 언급은 낮→저녁→밤 한 줄로 충분해 그림의 추가 이득이 작음
+- emergency-medical-service-region: triage:지리적 관할 구역이라는 행정 단위 이름으로, 경계 문제는 지도 없이는 도식화할 구성 요소가 없음
+- location-allocation-model: triage:목적함수별 유형 세 가지가 이름만 나열되어 있어 위계도로 그려도 정의 반복에 그침
+- sanitary-design-equipment: triage:매끈한 표면·배수 경사·용접 마감 등 설계 원칙 체크리스트로 서로 관계 맺는 구조가 아님
+- parallel-perpendicular-lines: triage:기울기 같음·곱 -1이라는 두 조건뿐이라 구성 요소가 부족하고, 직선 그래프는 축 비율에 따라 수직이 왜곡될 위험
+- homology-topology: triage:사슬군·경계사상·몫군의 추상 대수 구성은 박스 도식으로 옮기면 기호 나열이 되고 도형 직관은 9개 유형으로 표현 불가
+- tonic-key: triage:곡의 중심 조 하나를 가리키는 단일 개념으로, 원조 회귀는 소나타형식 쪽 도식에 속함
+- making-weight-recovery-strategy: triage:수분·전해질 다음 탄수화물이라는 두 단계 정도만 있고 세부 순서는 감량 폭과 개인차에 따라 달라진다고 명시
+- topological-space: triage:열린 집합 모임이라는 추상 구조 정의로, 위상 종류 예시(약한 위상·자리스키 위상)는 관계 없는 나열
+- fair-play: triage:윤리적 태도 개념이며 전술적 반칙 판단 등 핵심 쟁점이 종목 문화에 따라 갈려 단정적으로 그리기 어려움
+- village-making: triage:주민 주도 상향식 활동이라는 성격 설명이 중심이고 성미산마을 같은 사례는 도식 요소가 아님
+- local-disaster-and-safety-countermeasures-headquarters: triage:지자체 재난 조직 이름으로, 현장 지휘는 소방이라는 역할 구분은 한두 문장으로 충분
+- bone-mineral-density-in-athletes: triage:측정 지표이며 체중부하 자극과 낮은 에너지가용성의 상쇄는 두 요인뿐이라 그림으로 더할 것이 적음
+- field-emergency-surgery: triage:극단 상황의 최후 수단 시술 범주로, 핵심이 '할 것인가'의 판단·윤리라 순서나 구조로 그릴 근거가 없음
+- green-stormwater-infrastructure: triage:빗물정원·옥상녹화·투수성포장 등 개별 기법 목록이 LID 아래 나열될 뿐이라 위계도가 정의를 반복함
+- rental-housing-registration-system: triage:세제 혜택과 임대료·기간 의무의 맞교환이라는 두 측면뿐인 제도 설명
+- pubpeer: triage:특정 웹사이트(플랫폼) 고유명
+- lactation-nutrient-demand: triage:늘거나 줄거나 그대로인 영양소의 목록으로, 수치 비교는 표가 맞고 도식 관계가 없음
+- dmat-activation-protocol: triage:소집·출동·도착이라는 일반 단계 외 구체 순서는 기관마다 다르다고 서술되어 표준 절차로 그릴 근거가 약함
+- augmented-feedback: triage:결과지식·수행지식 두 하위 유형뿐이고, 빈도·시점 효과는 연습 대 파지의 실험 결과라 기존 type으로 그리면 단순화가 큼
+- sensory-defensiveness: triage:감각조절 문제의 한 유형명이며 원인(감각 처리 대 불안)과 중재 효과가 논쟁 중이라 단정적 도식이 어려움
+- national-disaster-and-safety-management-plan: triage:최상위 계획이라는 위상 설명으로, 하위 계획과의 관계가 '상위 지침→시행계획' 한 줄이라 구성 요소가 부족
+- postoperative-care-standards: triage:보온·진통·상처 점검·인도적 종료기준 등 관리 항목 나열로 순서나 인과가 없음
+- ring-abstract-algebra: triage:대수 구조의 공리 정의이며 가환환·정역·유클리드 환·체의 포함 사슬은 본문에 일부만 있어 그리려면 본문 밖 지식이 필요
+- good-clinical-practice: triage:IRB 승인·동의·기록·이상반응 보고 등 원칙 목록이며 헬싱키 선언과의 차이도 '왜 대 어떻게' 한 줄
+- preprint-ethics: triage:표절 금지·잠정성 명시·버전 연결 등 윤리 수칙 나열로 관계 구조가 없음
+- bystander-cpr-rate: triage:단일 비율 지표이며 분모 정의 문제는 문장으로 설명하는 편이 정확함
+- tetraplegia: triage:손상 수준별 기능 차이는 C6·C7 예시 하나뿐이라 수준별 도식을 만들려면 본문 밖 지식에 크게 기대야 함
+- predictive-microbiology: triage:1차·2차·3차 모델 구분이 이름 수준에 그치고, 증식 곡선 모양은 미생물생장곡선 항목의 몫이라 중복
+- plantar-pressure: triage:측정 지표이고 뒤꿈치·중족부·발볼·발가락 구역 구분은 발 그림이 필요해 9개 type으로는 표현이 안 됨
+- ideal-ring-theory: triage:소·극대 아이디얼과 몫환의 대응은 두 쌍뿐이라 표 한 줄로 충분하고 도식이 정의를 되풀이함
+- disabilities-of-the-arm-shoulder-and-hand: triage:특정 자기보고 설문 도구 이름(30문항·QuickDASH)
+- affine-transformation: triage:강체⊂아핀⊂사영 포함 관계는 그릴 수 있으나 핵심인 직선·평행 보존은 도형 변형 그림이 필요해 9개 type으로는 정의 반복에 그침
+- metaphysical-necessity: triage:논리적·형이상학적·인식적 필연성의 경계가 철학적으로 논쟁 중이라 포함 관계를 단정해 그리기 어려움
+- seizure: triage:증상 상태 자체가 표제어이고 응급처치 수칙·전신/국소 구분은 짧은 나열에 그쳐 그림이 새로 보여 줄 관계가 약함
+- f-value: triage:핵심은 냉점 온도-시간 이력(승온·유지·냉각)을 치사율로 바꿔 적분한 면적인데, 사다리꼴 가열 곡선을 그릴 함수가 없음
+- popular-sovereignty: triage:주권의 소재에 관한 단일 규범 원리로, 왕권신수설과의 대비도 두 항뿐이라 그림이 정의를 되풀이함
+- lagrange-multiplier: triage:이해의 핵심인 목적함수 등고선과 제약곡선이 접하는 기하 그림은 등고선 함수가 없어 못 그리고, 절차 도식은 정의 반복에 그침
+- urban-regeneration-support-center: triage:행정과 주민 사이 중간지원조직이라는 기관 설명으로, 관계 주체가 둘뿐이라 그림이 정의를 반복함
+- chronic-disease-risk-reduction-intake: triage:상한섭취량·권장섭취량과의 차이는 근거 종류와 방향 두 줄로 충분히 전달되어 그림의 추가 이득이 작음
+- outcome-measurement: triage:중재 전후 측정이라는 일반 절차로, ICF 수준 구분은 다른 용어(국제기능분류)의 내용이라 이 용어 고유의 구조가 약함
+- bauhaus: triage:특정 학교를 가리키는 고유명사이며, 바이마르·데사우·베를린 이전 연도가 본문에 없어 연표 근거도 부족함
+- texture-modified-diet: triage:IDDSI 0~7 단계의 단계별 기준이 본문에 다 나오지 않아(음료 1~4 이름만 제시) 척도 그림을 본문 근거로 채울 수 없음
+- least-publishable-unit: triage:살라미 슬라이싱의 다른 표현(동의어)이며 연구 하나를 여러 편으로 쪼갠다는 단일 관행
+- speed-distance-time: triage:거리=속력×시간 한 식의 변형으로, 세 값의 관계가 공식 하나로 이미 완결됨
+- urban-regeneration-strategic-plan: triage:상위 전략계획과 하위 활성화계획의 2단 관계와 포함 항목 나열뿐이라 그림이 글 이상을 보여 주지 못함
+- formal-aesthetics-theory: triage:비례·대칭·리듬을 다루는 이론이라는 설명과 상대주의 비판뿐으로, 요소 간 관계 구조가 본문에 없음
+- executive-function-training: triage:하위 요소(계획·시작·순서·점검·억제)가 이름만 나열되고 서로의 관계나 훈련 단계가 제시되지 않음
+- beall-list: triage:한 사서가 만든 특정 명단이라는 고유명사이며, 블랙리스트 대 화이트리스트 구분도 두 항뿐
+- journal-delisting: triage:색인 데이터베이스에서 빠진다는 단일 조치로, 논문 철회와의 혼동 주의는 두 항 대비라 글로 충분함
+- investigator-initiated-trial: triage:제약사 주도 시험과 책임 소재가 다르다는 대비 하나가 핵심이라 표 없이 글로 충분히 전달됨
+- peer-disagreement: triage:타협론과 강경론의 대립이 아직 진행 중인 논쟁이고 입장 두 개의 요지가 한 문장씩이라 그림 이득이 작음
+- sweat-rate-testing: triage:체중 변화+섭취량-소변량을 시간으로 나누는 계산식 하나로 끝나는 측정법
+- developmental-task: triage:단계별 과업 목록은 에릭슨 심리사회적발달이론의 내용이고, 이 용어 자체는 '단계마다 이룰 과제'라는 단일 개념
+- closing-section: triage:제시부 마지막 구간이라는 위치 하나가 핵심이며, 코다와의 구분도 한 줄 대비로 전달됨
+- obesity-nutrition: triage:체지방 과잉이라는 상태 정의와 원인·지표의 나열로, 구성 요소 간 기전 관계가 본문에 제시되지 않음
+- brush-border-enzyme: triage:락타아제·수크라아제·말타아제 등을 묶은 효소군 이름으로, 개별 효소명 나열 이상의 구조가 없음
+- linear-function-graph: triage:표제어가 곧 직선 그래프 자체여서 그림이 y=ax+b 정의를 되풀이할 뿐임
+- slab-structure: triage:바닥·지붕 판 부재라는 단일 구조 요소로, 1방향/2방향 구분도 두 항뿐
+- family-resemblance: triage:공통 교집합 없이 부분적으로만 겹치는 그물이 요지인데, 벤 그림은 중앙 교집합을 암시해 개념을 오히려 왜곡함
+- exercise-performance: triage:여러 체력요소가 종합된 능력이라는 포괄 개념으로, 요소 간 관계가 아니라 측정 방식 나열에 그침
+- self-concept-mode: triage:로이적응모형 네 양상 중 하나라는 하위 사례로, 상위 모형 그림의 일부에 해당함
+- glycemic-index-in-sports-nutrition: triage:운동 전 저GI 효과가 일관되지 않다고 본문이 밝혀, 시점별 전략 그림은 논쟁 중인 권고를 단정하게 됨
+- relatedness-need: triage:자기결정성이론 세 욕구 중 하나라는 하위 항목으로, 단독으로는 관계를 맺는 구성 요소가 없음
+- surplus-animal-ethics: triage:잉여동물 관리라는 윤리 고려 하나와 감소 방법 나열로, 단계·기전 구조가 약함
+- elsi-research: triage:신기술과 병행하는 연구 프로그램이라는 분야명으로, 규범·실증·정책 요소가 관계 없이 나열됨
+- universal-design-city: triage:모두가 쓸 수 있는 도시라는 지향 개념이며, 배리어프리와의 범위 차이도 두 항 비교라 글로 충분함
+- watson-human-caring-theory: triage:10가지 돌봄요인·카리타스 과정이 이름만 언급되고 내용이 없어 그림을 채울 근거가 부족함
+- linear-city: triage:교통축을 따라 띠 모양으로 뻗는 단일 도시 형태로, 그림이 '띠'라는 정의를 그대로 그릴 뿐임
+- 24-hour-dietary-recall: triage:다단계 면접의 구체적 단계가 본문에 다 나오지 않아 절차 그림을 본문 근거로 구성하기 어려움
+- seating-and-positioning: triage:좌석·쿠션·지지대를 맞추는 중재의 목표와 고려사항 나열로, 지지와 자유도의 절충도 두 항 대비에 그침
+- green-zone: triage:보전·생산·자연녹지 세 세분은 규제 강도 순서 한 줄로 전달되어 법정 용도지역 분류 그림의 추가 이득이 작음
+- symmetry-asymmetry: triage:대칭과 비대칭 두 조형 원리의 대비로, 본문이 둘 사이 위계가 없다고 강조해 비교 축이 '안정감 대 역동성' 하나뿐
+- land-banking: triage:정책 제도 하나의 설명 — 매입·보유·공급의 흐름이 본문 한 문장으로 충분하고 비교 축이 될 사후 수용 방식은 언급만 됨
+- tonicization: triage:전조와의 구분이 본문 스스로 '정도 차이·경계 주관적'이라 하여 대비 그림이 실제보다 날카로운 경계를 단정하게 됨
+- regionalism-architecture: triage:건축 사조·태도명 — 기후·재료·전통 반영이라는 나열뿐 관계 구조가 없음
+- problem-of-induction: triage:핵심 순환이 귀납과 제일성 원리 두 항목의 왕복이라 그림이 정의 문장을 되풀이할 뿐임
+- sentinel-animal-health-monitoring: triage:깔짚 노출→정기 검사→이상 시 격리라는 단순 감시 절차로 본문 예문이 이미 순서를 다 보여 줌
+- triangle-centroid-orthocenter: triage:기하 작도(중선·수선·오일러 선)가 핵심인데 9개 type 어디에도 도형 작도가 맞지 않음
+- freeze-concentration: triage:부분 동결→얼음 분리라는 2단계 공정이라 구성 요소가 부족하고 장단점은 글로 충분함
+- body-condition-scoring: triage:1~5점 등급 척도 하나 — 촉진 부위와 점수 기준이 본문에 구체적으로 없어 그릴 근거 부족
+- minimal-risk-standard: triage:위험 등급 판정 기준 하나 — 최소위험 여부에 따른 신속심의/정규심의 분기 두 갈래뿐
+- non-weight-bearing: triage:체중부하 단계 중 하나의 하위 사례 — 다른 단계 설명 없이 이 단계만 다뤄 단계 그림의 근거가 없음
+- possible-world: triage:양상실재론 대 현실주의 대립이 존재론적 논쟁이라 대비 그림이 어느 쪽도 단정하기 쉽고, 필연=모든 세계 번역은 글로 충분함
+- urban-innovation-district: triage:앵커기관·스타트업 생태계·복합용도 세 요소의 단순 나열로 상호 관계가 본문에 없음
+- bobath-concept: triage:치료 철학명이며 효과·이론 변천이 근거 논쟁 중이라 구조를 단정해 그리기 어려움
+- graph-matching: triage:이분 그래프 짝짓기 그림이 핵심인데 9개 type에 그래프(정점·간선) 표현이 없음
+- respiration-measurement: triage:활력징후 측정 항목 하나 — 1분간 세기라는 단일 행위로 관계 구조 없음
+- pungnyu: triage:문화 관행·향유 방식의 명칭으로 음악·시·수양이 어우러졌다는 서술뿐 구조적 관계가 없음
+- musical-meter: triage:단순·복합×2·3·4박 분류가 언급되나 칸별 예시가 본문에 없어 표 구성이 본문 밖 지식에 기댐
+- emergency-medical-information-network: triage:정보 시스템 명칭 — 병원 입력→조회→이송 결정이 자명한 흐름이고 핵심 쟁점(갱신 성실도)은 글로 전달됨
+- quality-retention-period: triage:유통기한·소비기한과의 시점 순서가 본문에서 일관되게 제시되지 않아(품질기한이 더 짧다는 결과만) 시간축을 단정할 수 없음
+- popular-music-studies: triage:학문 분야명 — 연구 대상 나열(산업·팬덤·사운드)뿐 관계 구조 없음
+- spinal-muscular-atrophy: triage:단일 질환명 — 유형 분류는 1형·2형 언급뿐이라 유형 체계를 그릴 근거 부족
+- utilization-review: triage:사전·동시·사후 심사라는 시점 구분 셋이 이름만으로 이해돼 그림이 정의를 되풀이함
+- data-availability-statement: triage:논문 구성 요소 하나 — 공개·요청 시 제공·비공개라는 접근 조건 나열뿐
+- long-term-public-rental-housing: triage:영구·국민·행복주택 유형 비교는 대상·기간·임대료의 표가 적합하고 분류 그림은 이름 나열에 그침
+- annual-animal-use-reporting: triage:보고 의무 제도 — 종·수·고통 등급이라는 보고 항목 나열뿐
+- bebop: triage:재즈 양식명 — 스윙에서의 이행이 점진적이라고 본문이 강조해 단절형 대비·연표를 단정하기 어려움
+- local-emergency-medical-center: triage:응급의료기관 등급 중 하나의 기관 유형 — 권역센터와의 위계가 한 문장으로 충분
+- humane-endpoint: triage:사전 기준 설정→도달 시 안락사라는 2단계 규칙이며 모델별 지표는 나열이라 그림 이득이 작음
+- epistemic-circularity: triage:능력 X의 신빙성을 X로 검증한다는 자기 참조 하나라 그림이 '눈으로 눈을 검증' 비유를 되풀이할 뿐
+- disaster-risk-reduction-planning: triage:위험분석→취약성평가→대책→이행의 일반적 계획 단계로 어느 계획에나 해당해 이 용어 고유의 이해를 더하지 않음
+- mereology: triage:무제한·제한적 합성의 대립이 형이상학 논쟁 중이고, 부분순서 공리는 그림보다 기호가 적합함
+- proxy-consent: triage:대체판단·최선이익 기준은 이름만 소개되어 비교 축을 채울 내용이 본문에 부족함
+- dna-barcoding-food-authentication: triage:검사 기법 — 표준 마커 증폭→DB 비교→종 동정의 짧은 절차로 본문 설명에 그림이 더할 것이 적음
+- light-rail-transit: triage:교통수단 하나 — 버스·BRT·중전철 사이 위치가 '중간 수요'라는 한 문장으로 요약됨
+- focus-charting: triage:D-A-R 세 칸 기록 형식이 정의에 이미 들어 있어 그림이 정의를 반복함
+- niacin-equivalent: triage:환산 단위 — 나이아신+트립토판/60이라는 공식 하나로 충분
+- calcium-and-vitamin-d-for-athletes: triage:영양 관리 전략 — 일조→비타민D→칼슘 흡수 연결은 일반 생리 상식이고 보충 효과는 논쟁 중
+- periodized-nutrition: triage:시기별 섭취 조정이라는 원칙 — 시기별 구체 수치가 본문에 없어 연표를 채울 근거 부족
+- fluid-resuscitation: triage:처치명이며 대량 대 제한적 수액 전략이 상황별로 논쟁 중이라고 본문이 명시해 단정적 그림 곤란
+- personnel-cost-pooling: triage:부정행위 유형 하나 — 개인 계좌 대신 공동 계좌로 모으는 단일 행위라 구성 요소 2개뿐
+- survival-surgery-ethics: triage:수술 전·중·후 관리 요건 나열로 시점 구분 외 관계가 없고 그림이 목록을 옮길 뿐임
+- replacement-3r: triage:3R의 한 요소 — 완전·부분 대체 사례 나열에 그쳐 분류 그림이 목록 이상을 보여 주지 못함
+- nutrition-facts-labeling: triage:표시 제도 설명 — 항목 나열과 1회 제공량 주의점뿐이라 관계 구조가 없음
+- fourteen-day-rule: triage:단일 기준선(14일·원시선)이 핵심이고 완화 여부가 현재 논쟁 중이라 단정적 그림이 부적절
+- genetic-discrimination-research: triage:우려와 법적 보호 범위 설명 — 보험·고용 영역 나열 외 그림으로 드러낼 구조가 약함
+- urban-growth-coalition: triage:행위자 나열형 이론 개념 — 개발업자·지방정부·언론의 결합을 그려도 정의 반복
+- getis-ord-gi-star: triage:지도 위 핫스팟 판별 기법 — 공간 지도가 필요해 9개 type으로 의미 있게 표현 불가
+- opera-buffa: triage:음악 장르명 — 세리아와의 대비는 별도 용어 몫이고 본문은 특징 나열 위주
+- revised-trauma-score: triage:세 생리지표 코드화·가중합 점수 — 구성 요소가 단순 나열이라 정의 반복에 그침
+- therapeutic-privilege: triage:거의 인정되지 않는 예외 개념 — 자율성 대 온정주의 긴장 외 그릴 구성 요소 부족
+- thing-in-itself: triage:두 세계·두 측면 해석이 논쟁 중이라 물자체-현상 관계를 단정적으로 그리기 어려움
+- data-curation: triage:정제·메타데이터·표준화·검증 하위작업이 순서 없는 나열이라 절차도가 정의를 되풀이
+- sori-kkun: triage:판소리 성악가를 가리키는 인물 범주 명칭
+- quality-of-life-assessment: triage:포괄적 평가 도구 개념 — 일반형·질환특이형 두 갈래뿐이라 그림 이득이 작음
+- receiving-hospital-selection-criteria: triage:고려 요소(중증도·역량·거리) 나열 — 우회이송 원칙도 한 문장으로 충분
+- frozen-storage: triage:저장 방법 일반 — 급속·완만동결 차이와 동결소는 각각 별도 용어 수준의 세부
+- infrastructure-capacity: triage:시설 최대 수용 수준이라는 단일 속성 개념
+- gait-belt: triage:단일 보조 도구명 — 착용·잡는 법 외 관계 구조 없음
+- lifeworld: triage:후설·하버마스 용법 차이는 서술로 충분하고 구성 요소가 3개에 못 미침
+- early-sport-specialization: triage:조기전문화 대 다양화 경로 비교가 가능하나 효과 자체가 논쟁 중이고 본문 근거가 회고적 자료뿐
+- daylighting-design: triage:설계 계획 일반 — 창·광선반·차양 요소 나열이며 채광-눈부심 균형은 글로 충분
+- public-access-defibrillation: triage:정책 개념 — 배치·안내·교육 병행 강조 외 그릴 기전이 없음
+- home-health-nursing: triage:서비스 제도명 — 방문 시 점검 항목 나열뿐
+- intersubjectivity: triage:추상적 현상학 개념 — 감정이입 설명의 성공 여부가 논쟁 중이라 도식화 근거 부족
+- matrix-operations: triage:세 연산 정의 나열 — 행·열 곱 계산 그림이 필요하나 9개 type에 맞지 않음
+- delirium-assessment: triage:사정 활동 — CAM 핵심 항목 나열과 치매 감별이 중심이라 관계 구조가 약함
+- temporary-urbanism: triage:저비용·단기·가역성 특징 나열 — 정식 개발로의 전환은 한 줄 서술로 충분
+- energy-conservation-technique: triage:계획·작업 단순화·자세·휴식 네 축이 단순 목록이라 그림이 정의를 되풀이
+- emergency-response-plan: triage:계획 문서 개념 — 포함 항목 나열과 갱신 필요성 외 구조 없음
+- prescriptivism: triage:메타윤리 입장 하나 — 명령성과 보편화 가능성 두 요소뿐
+- mobile-field-hospital: triage:임시 의료시설 명칭 — 설치·자원 보급 주의점 외 관계 구조 부족
+- ethnomusicology: triage:학문 분야명 — 방법론과 명칭 논쟁 서술 위주
+- sports-supplement-doping-risk: triage:교차오염→양성 판정의 2단계 위험 개념이라 그림 없이도 명확
+- musculoskeletal-ultrasound: triage:단일 영상검사명 — MRI 대비 장점과 검사자 의존성 나열
+- redevelopment: triage:정비사업 유형 — 재정착·분담금 쟁점 서술 중심으로 그릴 구조가 정의 반복
+- ground-bass: triage:작곡 기법 — 반복 베이스 위 변주는 악보 예시가 필요해 9개 type에 맞지 않음
+- sleep-and-athletic-recovery: triage:수면-회복 관련성 개념 — 효과 크기가 개인차로 단정 어렵고 요소 나열 위주
+- land-use-conflict: triage:갈등 세 유형과 대응 수단 나열 — 유형별 대응 대응관계가 느슨해 표가 더 적합
+- aufhebung: triage:한 단어의 세 뜻(없앰·보존·끌어올림) 설명 — 정-반-합 도식은 헤겔 본의와 다르다고 지적됨
+- malabsorption: triage:증상 상태명 — 원인 나열과 평가법 목록 위주
+- protective-extension-reaction: triage:단일 반사 반응 — 전방·측방·후방 세 방향 나열은 글로 충분
+- ventilatory-threshold: triage:운동강도에 따른 환기량 꺾임점(VT1·VT2)이 핵심이나 꺾인 직선형 곡선을 현재 함수로 못 그림
+- neapolitan-sixth-chord: triage:단일 화음명 — 성부 진행은 악보 표기가 필요
+- prime-number-theorem: triage:핵심은 계단형 π(x)가 x/ln x·로그적분에 점근하는 곡선 모양인데 현재 plot 함수로 그릴 수 없음
+- edge-condition-urban-design: triage:개방·반개방·폐쇄 유형과 담장·식재·고저차 같은 판단 요소가 나열될 뿐 서로 관계를 맺지 않아 그림이 목록 반복에 그침
+- samulnori: triage:장르명 — 네 악기 나열과 1978년 창안·작명 사실뿐, 관계 구조가 없음
+- discrete-probability: triage:확률론의 한 분야 총칭 — 그릴 만한 것은 확률질량 막대 대 밀도곡선 대비인데 막대형 PMF 함수가 없음
+- direct-care-intervention: triage:직접/간접 이분과 생리적·심리사회적 하위 구분이 본문 한두 문장으로 충분히 전달돼 분류도는 문장 반복
+- circuit-training: triage:스테이션을 짧은 휴식으로 돌아가는 순환 구조가 정의 자체라 순환도는 정의 반복
+- disaster-medical-assistance-team: triage:대응팀(조직) 명칭 — 분류·안정화·이송 조정 기능 나열 이상의 관계 구조가 없음
+- genetic-data-ownership: triage:규범적 쟁점 — 개인·기관·기업 간 권리 배분이 아직 논쟁 중이라 도식이 한쪽 입장을 단정하게 됨
+- edible-insect-food: triage:식품 원료(물질)명 — 단백질·키틴·알레르기 쟁점이 나열될 뿐 구조적 관계 없음
+- continuous-training: triage:단일 훈련 방식 — 인터벌훈련과의 비교가 시간 효율 한 축뿐이라 비교도의 근거가 부족
+- citi-program: triage:교육·인증 프로그램(기관) 이름 — 인간대상·동물·RCR 등 모듈 목록 나열
+- stretto: triage:핵심인 성부 진입의 시간적 겹침은 악보형 배치가 필요하고, 대비도로 그리면 '앞 주제가 끝나기 전 진입'이라는 정의를 되풀이할 뿐
+- post-tensioning: triage:타설→경화→강선 긴장 순서가 정의에 이미 담겨 있고 추가 단계는 그라우팅·정착 하나뿐이라 절차도가 정의 반복
+- care-ethics: triage:윤리 이론 — 돌봄의 다단계 과정은 한 문장 언급뿐이고 정의윤리와의 관계는 해석이 갈려 단정적 도식이 어려움
+- radian-measure: triage:각도 단위 — '호 길이÷반지름' 비율 하나로 끝나는 단일 속성
+- pica-in-pregnancy: triage:이식증과 철결핍의 인과 방향이 미확립이라 기전도로 그리면 논쟁 중인 주장을 단정하게 됨
+- brain-in-a-vat: triage:사고실험 — 회의주의 논증과 퍼트넘의 의미론적 반박은 논증 구조라 관계도로 옮기면 정의 반복
+- burn-injury: triage:광범위 외상 총칭 — 원인 4종 나열과 냉각·기도·수액 주의사항이 산발적이라 하나의 구조로 묶이지 않음
+- urban-farmland-conversion: triage:허가 신청→요건 검토→부담금→지목 변경 행정 절차가 본문에 한 문장으로 순서대로 있어 그림이 덧붙일 것이 적음
+- nutrition-plus-program: triage:국가 사업명 — 선정·식품 제공·교육·재평가가 정의 수준으로 서술돼 사업 개요 반복에 그침
+- maqam: triage:선법 체계 — 세이르(선율 경로)는 악보 예시가 필요하고 지역별 음정 차이는 미합의라 도식화 근거 부족
+- duplicate-research-funding: triage:은폐 여부·실질 중복이라는 두 판단 축은 있으나 네 칸 중 두 칸(공개+중복, 은폐+비중복)의 판정이 본문에 없음
+- prisoner-research-protections: triage:보호 규정 묶음 — 허용 연구 범주·IRB 구성·보상 제한이 나열될 뿐 상호 관계가 없음
+- deceptive-cadence: triage:V 다음 I 대신 vi(또는 대리화음)라는 두 화음 대체가 정의에 다 있어 구성 요소가 부족
+- ankle-sprain-rehabilitation: triage:부종 관리→가동범위→균형·근력→복귀의 단계가 정의에 이미 순서대로 나열돼 절차도가 정의 반복
+- walkable-city: triage:스펙의 네 조건이 서로 관계 없이 나열되고, 대중교통 이용률과의 연관은 인과 방향이 미정이라 연쇄로 그리기 어려움
+- deception-in-research: triage:완전·부분 기만 두 유형과 디브리핑 의무뿐 — 구성 요소가 적고 관계가 얕음
+- cage-space-requirements: triage:단일 기준 — 종·체중별 최소 사육 면적이라는 속성 하나
+- infection-control-nursing: triage:간호 전문 영역 총칭 — 감시·역학조사·프로토콜·교육 네 축이 한 문장에 나오고 관계는 '감시가 토대' 하나뿐
+- team-nursing: triage:기능적간호·일차간호와의 비교가 '중간 형태' 한 줄뿐이라 같은 기준의 비교도를 만들 근거가 부족
+- metropolitan-area-plan: triage:광역도시계획→도시기본계획 두 층만 본문에 있어 위계도가 정의 반복
+- heterotopic-ossification: triage:발생 기전이 '간엽줄기세포의 비정상 골분화' 한 단계뿐이라 연쇄도가 정의를 넘어서지 못함
+- health-deviation-self-care-requisites: triage:오렘 자가간호요구의 한 하위 유형 — 형제 범주(발달적 요구)가 본문에 없어 분류도가 불완전
+- galant-style: triage:음악 양식 명칭 — 바로크→갈랑→고전 이행은 시대 두세 개 나열이고 스키마(프리너·몬테 등)는 악보 예시가 필요
+- stress: triage:단일 물리량 — 힘÷단면적 비율과 인장·압축·전단 이름 나열
+- acidulant: triage:첨가물 범주(물질) — 신맛·pH·겔화·금속봉쇄 기능 나열
+- architectural-planning-process: triage:대지 분석→실시설계 단계가 정의에 이미 나열돼 있어 절차도는 정의 반복, 추가되는 것은 피드백 성격 하나
+- translation-of-consent-documents: triage:번역→역번역→대조 검증 3단계가 '쉽게 풀면'에 이미 서술돼 그림의 부가가치가 낮음
+- response-spectrum: triage:고유주기별 최대응답 곡선(상승→평탄→장주기 감소)의 모양이 핵심이나 해당 형태를 그릴 함수가 없음
+- nutritional-epigenetics: triage:인간에서 영양→메틸화→질병 인과가 미확립이라 기전 연쇄를 그리면 단정이 됨
+- urban-infrastructure: triage:교통·공급처리·공공공간 시설 목록 나열일 뿐 요소 간 관계가 없음
+- circulation-planning: triage:동선 분리·피난 동선 원칙의 서술형 고려사항이라 도식이 정의를 되풀이하게 됨
+- transcription-music: triage:기록 작업 자체의 정의와 해석 개입 경고 중심, 구조화할 관계 요소 부족
+- foot-strike-hemolysis: triage:착지 충격→적혈구 파괴 한 줄 인과로 본문만으로 충분하고 철 결핍 기여도도 작다고 본문이 유보
+- environmental-enrichment: triage:물리적·사회적·인지적 세 갈래 이름만 있고 하위 유형 간 관계나 대비가 본문에 없음
+- characteristic-polynomial: triage:A−λI의 행렬식을 0으로 두는 계산 한 단계로, 쉽게 풀면 절에서 이미 글로 충분히 설명됨
+- korean-food-code: triage:법정 기준서의 목차 구성(총칙·개별 규격·시험법)일 뿐 그림으로 얻을 이해가 적음
+- overweight: triage:BMI 척도 위 정상과 비만 사이 한 구간이라는 단일 범주 정의
+- regeneration-university-town: triage:도시재생 사업 유형 하나의 서술로 주체·수단 나열에 그침
+- vibrio-parahaemolyticus: triage:단일 세균 종 이름
+- bystander-cpr: triage:목격자 시행이라는 단일 행위 정의, 본문에 생존사슬 같은 단계 구조가 제시되지 않음
+- polyrhythm: triage:3대4 박 격자처럼 리듬 층을 겹쳐 그려야 의미가 있는데 9개 type 중 맞는 틀이 없음
+- bilateral-asymmetry: triage:좌우 차이를 수치화한 지수 하나, 공식 변형 논점은 그림보다 식으로 전달됨
+- total-polar-compounds: triage:튀김유 열화 지표 하나와 25% 법정 한도라는 단일 수치 기준
+- sound-insulation-performance: triage:핵심인 주파수별 투과손실 곡선(질량법칙 상승과 일치효과 골)은 현재 plot 함수로 그릴 수 없음
+- rogers-unitary-human-beings: triage:추상적 대이론으로 공명성·나선성·통합성 원리의 관계가 본문에 설명되지 않음
+- agent-causation: triage:형이상학적 정합성 자체가 논쟁 중인 개념이라 사건 인과와 나란히 단정적으로 그리기 어려움
+- reductive-analysis: triage:쉔커·화성환원·GTTM 등 하위 사례가 서로 관계없이 나열된 상위 개념
+- injury-surveillance: triage:핵심은 상해 건수÷노출시간이라는 발생률 계산식이라 도식보다 식이 적합
+- everyday-urbanism: triage:도시론적 관점·태도의 서술로 구조화할 구성 요소가 없음
+- numerical-integration: triage:구간을 직사각형·사다리꼴로 쪼갠 넓이 근사를 그려야 하는데 plot 함수에 없음
+- complete-streets: triage:모든 이용자를 고려한다는 설계 원칙 하나, 관계 구조 없음
+- dietary-assessment: triage:기록·회상·빈도조사의 정확도·부담 트레이드오프가 본문에 방법별로 구체화되지 않아 근거 부족
+- stage-iii-pressure-injury: triage:욕창 분류 체계의 한 단계로 상위 분류 용어에서 다룰 하위 사례
+- progressive-muscle-relaxation: triage:긴장 후 이완을 근육군마다 반복하는 단순 절차라 글로 충분히 전달됨
+- pulse-measurement: triage:기본 활력징후 측정 행위로 부위·방법 나열에 그침
+- acid-value: triage:단일 품질 지표의 정의, 과산화물가와의 구분은 문장 한 줄로 충분
+- random-variable-and-expected-value: triage:주사위 눈별 확률 막대와 기댓값 3.5 위치를 그려야 하는데 이산 확률질량 함수가 없음
+- food-ultrasound-processing: merge-candidate: 병합 후보라 보류(was checked)
+- daylighting-stream-restoration: triage:철거·하도정비·유지용수·교통 재편 사업 단계가 나열될 뿐 순서 의존성이 약함
+- plain-language-summary: triage:쉬운 말 요약이라는 관행 하나, 개인 결과 통보와의 구분은 문장으로 충분
+- creative-industry-district: triage:임대료 상승으로 초기 창작자가 밀려나는 역설은 젠트리피케이션 일반 사례로, 이 용어 고유의 구조가 아님
+- e-governance-urban: triage:정보공개·온라인 민원·참여 채널 구성요소 나열로 관계가 없음
+- ems-performance-indicator: triage:반응시간·생존율 등 지표 목록과 균형 평가 권고뿐, 지표 간 관계 구조 없음
+- edema-management: triage:압박·거상·운동 중재 나열이며 원인별 분기는 본문에서 이름만 언급
+- traffic-analysis-zone: triage:분석용 공간 단위 하나의 정의, 4단계 모형은 별도 용어의 몫
+- payment-for-research-participation: triage:보상과 부당한 유인의 경계 문제로 사례별 판단에 맡겨지는 규범 쟁점이라 도식화할 구조가 없음
+- novelty-bias: triage:출판편향과의 초점 차이가 한 문장으로 정리되어 두 원 겹침 그림이 정의 반복에 그침
+- spectral-music: triage:스펙트럼 분석을 작곡 재료로 쓴다는 사조 정의, 분석→재료 전환의 2단계뿐
+- recovery-nutrition-window: triage:효과 시간대 자체가 근거 논쟁 중이라 특정 창을 단정적으로 그릴 수 없음
+- kinesio-taping: triage:장력·방향 구분은 본문 스스로 근거가 약해 의미 부여를 경계하고, 효과도 위약과 차이 없다는 평가라 그릴 기전이 없음
+- casualty-status-board: triage:기록 도구 하나의 용도 설명 — 갱신 지연 문제는 글 한 줄로 충분하고 관계 맺는 구성 요소가 없음
+- ambulance-equipment-standard: triage:유형별 장비 목록을 정한 규정 — 최소 기준이라는 단일 속성과 운영상 주의점뿐
+- urban-livability-index: triage:하위 지표를 가중합한다는 한 문장 구조 — 지표 구성과 가중치가 기관마다 달라 고정된 그림을 그릴 수 없음
+- ohmic-heating: triage:전류가 흘러 식품 내부에서 줄열이 난다는 한 단계 원리 — 전도도 불균일로 인한 냉점도 글로 충분히 전달됨
+- secondary-leading-tone-chord: triage:부속화음의 변형 하나 — 감7·반감7 선택 규칙은 악보 예시가 필요하지 9개 도식 유형으로는 이해가 늘지 않음
+- accessibility-design: triage:물리·감각·인지를 모두 포괄하라는 원칙 진술이 중심 — 순서나 기전 없이 고려 범위의 나열뿐
+- immunonutrition: triage:성분별 작용이 '논의된다' 수준이고 효과도 연구마다 엇갈려 성분→효과 경로를 단정해 그리기 어려움
+- equivalence-relation: triage:세 조건과 동치류 분할의 대응이 핵심인데 집합 분할 그림은 9개 유형에 맞지 않고, 조건 나열만으로는 정의 반복이 됨
+- medical-control-physician: triage:직접·간접 지도 두 역할 구분 정도라 구성 요소가 2개뿐이고, 권한 범위도 지역마다 달라 일반화 곤란
+- athlete-burnout: triage:세 차원 나열과 과훈련증후군과의 구분이 본문에서 같은 문장으로 반복될 뿐이라 그림이 글보다 더 보여 줄 것이 적음
+- parenteral-nutrition-support: triage:말초·중심정맥 두 경로 구분뿐이고 나머지는 적응증과 합병증 서술이라 구성 요소 관계가 빈약함
+- transit-accessibility-measure: triage:커버리지·누적기회·중력모형 등 산출법 이름만 나열되고 각 방법의 계산 구조는 본문에 없어 근거 부족
+- stormwater-management-plan: triage:핵심인 첨두유출 감소는 수문곡선(비대칭 봉우리) 비교가 필요한데 plot 함수로 그릴 수 없고, 배제 대 LID 대비만으로는 글 이상이 없음
+- godel-incompleteness-theorems: triage:괴델 번호→자기참조 명제 구성은 추상적 논증이라 상자 그림으로 줄이면 오해 소지가 크고 철학적 확대 해석을 부를 수 있음
+- retail-gravity-model: triage:두 상권의 흡인력이 거리 제곱에 반비례해 만나는 분기점 그림이 맞지만 역제곱 감쇠 쌍은 decay(지수)로 표현되지 않고, 라일리→허프 변천만으로는 약함
+- binomial-distribution: triage:이산 확률질량(막대)과 n이 커질 때 정규근사로 가는 모양이 핵심인데 이산분포 함수가 없어 그릴 수 없음
+- research-misconduct-sanctions: triage:출판·기관·재정 조치 세 범주 나열이 본문 한 문장에 이미 정리되어 있어 분류도가 정의를 되풀이하는 수준
+- middleground: triage:배경-중경-전경 층위는 그릴 수 있으나 본문이 층 경계가 분석자 해석에 따라 유동적이라고 강조해 고정된 층 그림이 오해를 줌
+- handoff-communication: triage:정확한 정보 전달이라는 단일 목표에 누락·왜곡·지연 오류 유형 나열뿐 — SBAR 내용도 본문에 없어 단계 근거 부족
+- sponsor-investigator-conflict: triage:사전등록·DSMB·출판권 조항 등 관리 장치 목록이 중심이라 장치들 사이의 관계나 순서가 없음
+- leaching-loss: triage:물 양·시간·절단 크기가 클수록 손실이 커진다는 단순 비례 진술 — 열분해 손실과의 대비는 본문에 근거가 짧음
+- universal-self-care-requisites: triage:오렘의 여덟 가지 요구 목록 자체가 내용이라 그림이 목록을 되풀이할 뿐, 상위 세 요구 유형과의 관계는 본문에 없음
+- developmental-care-nicu: triage:환경·체위·처치 묶기·가족 참여 등 구성 요소 나열이고 연구마다 포함 요소가 달라 고정된 분류도를 단정하기 어려움
+- self-care-training: triage:기본·수단적 일상생활활동 두 갈래 구분과 훈련 원칙 서술뿐이라 관계 맺는 요소가 3개에 못 미침
+- citizen-participatory-budgeting: triage:제안→심사→투표→반영 순서가 본문에 문장으로 명확해 절차도가 글을 되풀이할 뿐이고, 쟁점은 대표성·실효성 같은 운영 문제임
+- applied-ethnomusicology: triage:학문 하위 분야의 지향과 실천 영역 나열이고, 개입의 정당성 자체가 논쟁 중이라 구조도로 단정하기 어려움
+- image-manipulation: triage:판단 기준이 '전체 균일 조정이냐 일부 선택 편집이냐' 하나뿐이고 조작 유형은 이름 나열이라 글로 충분함
+- diet-therapy: triage:제한·강화·물성 조정 방식이 예시 수준으로 언급될 뿐, 질환 상태에 따라 달라진다고 해 고정된 분류도가 오해를 줌
+- urbanism: triage:도시 스케일을 다루는 학문 분야 이름 — 본문도 범위가 넓다는 서술 반복뿐이라 그릴 구조가 없음
+- texture-profile-analysis: triage:두 번 압축의 힘-시간 곡선(두 봉우리와 면적 비)이 이해의 핵심이지만 이 모양을 그릴 plot 함수가 없음
+- regional-planning-body: triage:광역 협의 조직이라는 기관 유형 — 구속력 유무에 따른 실효성 차이는 구성 요소 2개짜리 대비라 그림이 불필요
+- nutrient-bioavailability: triage:섭취 중 흡수·이용되는 비율이라는 정의와 촉진·저해 요인 사례(비타민C, 수산염, 지방) 나열 — 그림이 사례 목록을 되풀이함
+- full-demolition-method: triage:정비 방식 하나의 장단점 서술 — 순환정비·현지개량 대안은 이름만 나와 같은 기준의 비교 근거가 없음
+- smoke-point: triage:연기 나는 온도라는 단일 물성값 — 정제도·유리지방산이 낮추고 높인다는 한 방향 관계뿐
+- henri-lefebvre-production-of-space: triage:지각·인지·체험 공간 삼원 구조가 있으나 본문이 연구자마다 해석이 다르고 실제로 잘 구분되지 않는다고 경고해 단정적 도식이 위험함
+- riemann-sum: triage:곡선 아래 직사각형을 쌓고 폭을 줄이면 넓이에 수렴하는 그림이 핵심인데 막대(직사각형) 겹침을 그릴 plot 함수가 없음
+- urban-block: triage:도로로 둘러싸인 구획이라는 공간 단위 — 블록 크기와 보행성의 관계는 평면도가 필요해 9개 유형으로는 이해가 늘지 않음
+- yeonrye-ak: triage:궁중음악 갈래 하나의 이름 — 제례악과의 목적 차이는 한 문장으로 끝나고 대표 곡목 나열뿐
+- casuistry: triage:패러다임 사례와 비교하는 유비추론이라는 한 단계 방법이고, 원칙주의와의 관계도 실제로 절충된다고 해 대비 구도가 흐려짐
+- mixolydian-mode: triage:장음계와 7음 하나만 다른 음계 — 차이가 한 음뿐이라 그림이 정의 반복
+- fluid-replacement: triage:운동 전·중·후 시점 구분은 이름만 있고 단계별 조성 차이가 본문에 없음, 과다·과소 위험은 글로 충분
+- holomorphic-function: triage:복소미분 한 번→무한 미분 가능이라는 성질 설명 위주, 그림으로 옮길 관계 구조가 추상적이고 정의 반복에 가까움
+- emt-continuing-education: triage:자격 유지용 재교육 제도 — 강의 대 시뮬레이션 효과 차이 외에 구성 요소 관계 없음
+- patient-identification: triage:두 가지 지표 확인이라는 단일 규칙 — 단계·관계가 2개 이하
+- housing-affordability: triage:소득 대비 주거비 비율 하나로 정의되는 단일 지표(RIR·PIR 이름 나열뿐)
+- existential-quantifier: triage:논리 기호 하나의 의미 — 전칭양화사와의 대비도 공허참 한 축뿐
+- data-clustering: triage:개별 자료→묶음→진단의 흐름이 정의 자체라 그림이 되풀이에 그침
+- foreign-direct-investment-urban: triage:입지 요인 나열과 효과에 대한 상반된 연구 — 인과 경로를 단정해 그릴 수 없음
+- regeneration-impact-evaluation: triage:평가 지표 목록과 전후비교·대조군비교 두 방법 소개뿐, 방법 간 차이 기준이 본문에 얕음
+- failure-to-thrive: triage:핵심은 백분위 곡선을 두 구간 이상 가로질러 떨어지는 성장 곡선 모양인데 백분위 띠 위 개인 궤적을 그릴 함수가 없고, 체중→신장→머리둘레 순서는 '경향'이라 근거가 약함
+- comprehensive-nursing-care-service: triage:입원 돌봄 제도명 — 정책 배경과 운영 과제 서술뿐, 구성 요소 관계 없음
+- drag-force: triage:속도 제곱 비례 곡선이 핵심이나 이차 곡선 함수가 없고, 형상·마찰·조파 세 성분은 이름만 있어 위계도의 근거가 부족
+- absolute-value-equation-inequality: triage:경우 나누기 풀이 절차가 정의에 이미 담겨 있어 그림이 반복, 수직선 거리 해석도 한 줄로 충분
+- fluidized-bed-drying: triage:최소유동화속도와 종말속도 사이 운전 범위라는 두 경계값 — 그릴 곡선이 본문에 없고 글로 충분
+- menstrual-cycle-based-training-periodization: triage:본문 스스로 효과가 일관되지 않다고 밝힌 접근 — 단계별 훈련 배치를 그리면 논쟁 중 주장을 단정하게 됨
+- reconstruction-excess-profit-levy: triage:산정 개시시점·면제 기준이 개정과 위헌 논란으로 바뀌어 온 제도 — 특정 산식을 그리면 시점에 따라 틀림
+- thermic-effect-of-food: triage:단백질 20~30%·지방 0~3% 두 수치 비교뿐, 총 에너지소비량의 다른 구성 요소는 본문에 없음
+- matrix: triage:수학 전반의 기본 도구 — 숫자 표·선형변환·분해 등 용도가 흩어져 하나의 관계 구조로 묶이지 않음
+- new-public-management-urban: triage:민간위탁·성과예산·경쟁 도입 등 수단 나열과 효율 대 공공성 비판뿐, 관계 구조 없음
+- utilitarianism: triage:행위/규칙, 양적/질적, 총량/평균 등 구분축이 여럿 섞여 한 위계나 2×2로 정리되지 않음
+- orthogonal-matrix: triage:행렬식 +1 회전/-1 반사 두 갈래뿐, 나머지는 전치=역행렬 같은 성질 나열
+- moral-status: triage:이성·감응력·생명 중 어느 기준을 택하느냐 자체가 논쟁이고, 각 기준에 어떤 존재가 드는지 본문 밖 판단이 필요
+- session-rpe: triage:자각강도×시간 곱셈 하나 — 파생 지표(단조도·급성만성부하비)는 이름만 나옴
+- inventory-management-foodservice: triage:입고·저장·출고는 정의 반복, 선입선출·ABC 분석 등 기법 나열이라 관계 구조 없음
+- warranted-assertibility: triage:듀이의 진리 대안 개념 — 탐구 단계가 본문에 구체적으로 없어 그릴 구성 요소 부족
+- stile-antico: triage:신양식과의 대비가 한쪽 특징만 서술돼 같은 기준으로 비교할 근거가 없음
+- compassionate-use: triage:응급사용승인·임상시험과의 차이가 대상 범위·근거 수준 한두 축뿐, 표로 나누기엔 근거가 얕음
+- ratio-and-proportion: triage:비와 비율의 용어 구분 — 구성 요소 2개뿐
+- group-theory-basics: triage:군의 세 조건과 아벨군 구분은 글로 충분, 순환군·대칭군과의 포함 관계는 본문에 명시되지 않음
+- sarcoplasmic-hypertrophy: triage:근원섬유비대와 독립된 현상인지 본문 스스로 이견이 있다고 밝힘 — 대비도를 그리면 논쟁을 단정
+- manifold: triage:국소 좌표를 이어붙이는 기하적 직관이 핵심인데 9개 type의 상자·화살표로는 표현이 안 되고 정의 반복에 그침
+- irrational-equation-inequality: triage:제곱 후 검산하는 풀이 순서가 정의에 이미 들어 있어 절차도가 되풀이에 그침
+- nursing-history: triage:면담으로 모은 정보 기록 — 수집 항목 나열뿐 관계 구조 없음
+- mass-casualty-incident-code-activation: triage:발령 신호 하나와 그 뒤 조치(인력 소집·병상 확보·수술 연기) 나열 — 순서·인과가 없음
+- use-zone: triage:용도지역·지구·구역 세 층위는 이름만 있고 서로의 관계가 본문에 구체적이지 않으며, 하위 구역은 목록 나열
+- diabetic-diet: triage:탄수화물 양·종류·배분·혈당지수 등 관리 요소 나열, 단계나 인과 구조 없음
+- pretensioning: triage:긴장→타설→경화→해제 순서가 정의 문장 그대로라 절차도가 되풀이에 그침
+- exchange-list-diet-planning: triage:6개 식품군과 1교환단위 열량은 숫자 표가 더 잘 전달함 — 군 사이 관계·흐름이 없음
+- postoperative-nursing: triage:회복실·병동 관찰 항목의 나열이 중심이고 단계 사이 인과나 분기가 본문에 약함
+- harmonic-sequence: triage:패턴의 음높이 이동은 악보로 보여야 하며 9개 도식 유형으로 옮길 구조가 없음
+- non-motorized-transport-plan: triage:보행망·자전거망·교통정온화 등 계획 요소 열거뿐, 요소 간 관계가 서술되지 않음
+- play-based-intervention: triage:아동주도형·치료사주도형 구분이 한 문장뿐이라 대비 기준을 세울 근거가 부족함
+- ground-reaction-force: triage:뉴턴 제3법칙의 반작용이라는 단일 물리량 — 본문에 시간 곡선 모양 서술이 없어 그릴 근거 부족
+- space-syntax: triage:통합도 계산은 축선 지도·위상 그래프가 필요해 9개 유형으로는 정의 반복에 그침
+- roof-garden: triage:단열·우수저감·하중·방수 효과의 나열이며 구성 요소 간 관계 구조가 없음
+- selenium-status-biomarker: triage:지표별 반응 범위 차이를 말하지만 곡선 모양·수치가 본문에 없어 그림이 외부 지식에 기댐
+- benefit-sharing-research: triage:금전적·비금전적 형태의 단순 이분과 예시 나열이라 글로 충분함
+- research-participant-compensation: triage:시간·노력 보상과 비용 보전의 두 산정 원칙과 IRB 유의점 서술 — 도식화할 3요소 관계가 없음
+- bohannon-sting-operation: triage:2013년 단일 사건 — 투고·통과라는 결과 하나로 그림이 정의를 되풀이함
+- principle-of-sufficient-reason: triage:단일 형이상학 원리 — 양상 붕괴 논증은 문장 추론이라 도식이 이해를 더하지 않음
+- b-theory-of-time: triage:A이론 쪽 특징이 본문에 명시되지 않아 대비 그림이 본문 밖 지식에 크게 기댐
+- funding-disclosure-statement: triage:출판 규정 하나 — 이해상충 공개와의 차이는 초점 한 가지라 비교 축이 부족함
+- expressionism-music: triage:양식·작품 소개가 중심이며 구성 요소 간 관계나 단계가 없음
+- researcher-degrees-of-freedom: triage:분석 선택지 나열이 핵심이라 갈림길 그림은 '선택이 많다'는 정의를 반복하는 데 그침
+- global-local-optimum: triage:봉우리·골짜기가 여럿인 목적함수 곡선이 핵심인데 현재 plot 함수로 다봉 곡선을 그릴 수 없음
+- parse-human-becoming-theory: triage:의미부여·리듬형성·초월 세 원리의 이름만 있고 원리 사이 관계 설명이 없음
+- cervical-dislocation: triage:단일 안락사 방법 — 숙련도·마취 병행 같은 주의사항이라 도식화할 구조가 없음
+- parametric-equations: triage:x(t)·y(t) 궤적 그림은 좌표 곡선 그리기라 9개 유형과 plot 함수 어디에도 맞지 않음
+- planning-gain-supplement: triage:계획 변경→지가 상승→환수의 한 줄 흐름이라 글로 충분하고 그림이 정의를 되풀이함
+- nursing-systems-theory: triage:세 체계의 이름과 개입 정도 차이가 쉽게 풀면 한 문장에 이미 다 들어 있음
+- environmental-impact-assessment-food-industry: triage:일반 법정 절차 설명이라 사전평가·사후관리 구분 외에 그림이 더할 내용이 적음
+- metaethics: triage:메타·규범·응용윤리의 층위 구분이 본문 여러 곳에 반복돼 그림이 정의를 되풀이함
+- baltimore-case: triage:날짜가 1986·1996 두 개뿐인 사건 사례로, 연표가 '10년 걸렸다' 이상을 보여주지 못함
+- universals: triage:세 입장(플라톤·아리스토텔레스·유명론)이 한 문장에 열거될 뿐이며 유명론 항목 도식과 겹침
+- architectural-phenomenology: triage:이론적 계보(하이데거·메를로퐁티·노르베르그슐츠·팔라스마)에 연도가 없고 관계 서술도 약함
+- moral-particularism: triage:원칙주의와의 대비 축이 '일반 원칙 필요 여부' 하나라 contrast 그림이 빈약함
+- urban-design-guidelines: triage:필수·권장 사항과 법정·권고 지위의 이분 설명이라 표 한 줄로 충분함
+- emergency-alert-broadcast: triage:위급·긴급·안전안내 3등급과 dB 값은 목록으로 충분하고 경보 피로는 두 요소 인과뿐
+- medication-administration-record: triage:기록 문서 하나 — 기재 항목 나열이라 관계 구조가 없음
+- eccentricity: triage:e 값 구간별 곡선 종류가 쉽게 풀면에 완결되어 있어 수직선 그림이 정의를 되풀이함
+- protein-turnover-in-athletes: triage:합성과 분해 두 요소의 차이가 핵심이고 운동 후 합성 곡선의 수치·시간 정보가 본문에 없음
+- jinyangjo: triage:단일 장단 — 24박(6박×4) 구조는 숫자 한 줄로 전달되고 다른 장단과의 배열은 본문에 없음
+- confirmation-of-death: triage:1차 안락사 뒤 2차 확인이라는 두 단계 절차라 도식이 정의를 넘어서지 못함
+- sensory-texture-evaluation: triage:관능검사 방법 하나 — 기기 측정과의 보완 관계는 서술로 충분함
+- law-of-identity: triage:'A는 A이다'라는 단일 논리 법칙 — 구성 요소가 없음
+- diet-induced-thermogenesis: triage:총에너지소비량의 한 구성요소(에너지대사의 하위 사례)이며 영양소별 수치가 본문에 없음
+- acculturation-music: triage:네틀의 결과 유형(소멸·병존·융합·강화)은 이름만 나열되고 각 유형의 기준이 본문에 없어 그림 근거가 약함
+- collective-efficacy: triage:핵심 관계가 효능감↔성공의 2요소 순환뿐이고 나머지는 신념의 정의 설명
+- open-science-fair-principles: triage:FAIR 네 글자 풀이는 본문 비유로 충분하고, 오픈사이언스 하위 실천은 이름만 나열돼 포함 관계 그림의 이득이 작음
+- mean-value-theorem: triage:할선과 평행한 접선을 곡선 위에 그려야 하는 기하 그림인데 plot 함수로 할선·접선을 표현할 수 없음
+- comparative-musicology: triage:학문사 전환(비교음악학→민족음악학→보편성 연구)의 시점이 1950년대 외에는 본문에 없어 연표 근거 부족
+- harm-benefit-analysis: triage:위해와 이익을 저울질한다는 정의 자체가 그림의 전부여서 저울 도식이 정의를 되풀이할 뿐임
+- mitochondrial-density: triage:훈련→PGC-1α→생합성→밀도 증가 사슬이 있으나 정의·용례가 이미 같은 인과를 직선적으로 서술해 그림의 추가 이득이 작음
+- meliorism: triage:낙관·비관·개선주의 세 입장 구분이 한 문장으로 충분히 전달되는 철학적 태도
+- open-science-badges: triage:배지 세 종류(데이터·자료·사전등록)의 단순 나열로 관계 구조가 없음
+- stiffness: triage:강성과 강도의 혼동 주의가 핵심이나 강도 쪽 설명이 한 줄뿐이라 대비 그림의 기준이 부족함
+- hypothetical-syllogism: triage:P→Q→R 연쇄는 정의의 기호식 자체여서 그림이 정의를 반복함
+- food-stabilizer: triage:점도 상승·약한 겔로 입자 이동을 늦춘다는 기전이 한 단계뿐이고 증점제·겔화제와 경계도 모호하다고 본문이 밝힘
+- cascading-peer-review: triage:반려→동의→이송→재판단의 단순 선형 절차로 정의 문장에 이미 담겨 있음
+- spinal-cord-independence-measure: triage:세 영역과 배점(20·40·40)은 표 한 줄로 충분한 척도 구성 정보
+- aquatic-therapy: triage:부력·저항·수압·수온 특성의 효과가 각각 독립적으로 나열될 뿐 서로 관계를 맺지 않음
+- phrase: triage:프레이즈 두 개가 악절이 된다는 2단계 포함 관계뿐이고 경계 판단은 청각적 서술이라 도식화 이득이 작음
+- meat-species-identification-pcr: triage:본문에 검사 단계(추출·증폭·판정)가 구체적으로 없고 한계 서술 위주라 절차 그림 근거 부족
+- proximate-analysis: triage:다섯 성분과 측정법의 대응은 표가 더 적합하고, 차감법 오차 누적은 한 문장으로 전달됨
+- pop-up-store-regeneration: triage:공실→임시 매장→유동인구 증가의 효과 지속성이 본문에서도 검증 필요로 남아 단정적 인과 그림이 어려움
+- self-care-requisites: triage:보편적·발달적·건강이탈적 세 범주가 정의에 이미 나열되어 있고 각 범주의 하위 항목이 본문에 없음
+- truth-table: triage:진리표 자체가 표 형식이라 별도 도식이 같은 정보를 반복함
+- statistical-review: triage:점검 항목(표본 크기·검정 방법·다중비교·결측치)의 단순 목록으로 항목 간 관계가 없음
+- ribbon-window: triage:자유입면에 종속된다는 관계가 핵심이나 5원칙 간 연결이 본문에 일부만 있어 의존 사슬을 그릴 근거가 부족함
+- music-anthropology: triage:민족음악학과의 차이가 본문에서도 '상당 부분 중첩, 혼용'으로 흐려 대비 그림이 단정을 만들 위험
+- intentionality: triage:정신 상태의 단일 성질(관함)을 가리키는 개념으로 관계 맺는 구성 요소가 없음
+- rigid-joint: triage:대비 대상인 핀접합의 성질이 본문에 거의 없고, 소성힌지 위치 유도는 한 문장 설명으로 충분함
+- assent-vs-consent: triage:제목 자체가 두 개념 구분이고 본문 차이는 '누가 하느냐' 한 기준뿐이라 대비 그림이 정의를 반복함
+- post-publication-peer-review: triage:정오표→정정→우려표명→철회 단계가 이름만 있고 각 단계의 판정 기준이 본문에 없음
+- secondary-transfer: triage:직행과 병원 경유 두 경로의 차이가 정의 한 문장으로 전달되는 단순 사건
+- nutritional-oncology: triage:분야명이며, 본문의 단계 구분(전악액질·악액질·불응성)은 하위 용어인 암 악액질의 내용
+- urban-regeneration-reit: triage:투자→매입·임대→배당의 자금 흐름은 일반 리츠 구조와 같아 이 용어 고유의 이해를 더하지 못함
+- maximal-strength: triage:결정 요인(단면적·운동단위 동원·발화빈도)의 나열이며 1RM 측정값이라는 단일 지표 개념
+- heart-rate-variability-monitoring: triage:측정 지표(SDNN·RMSSD)와 해석 주의점 위주라 구성 요소 간 관계가 없음
+- usda-pain-category: triage:등급 C와 D의 구분 기준이 본문에 'C나 D'로 뭉뚱그려져 있어 등급 위계를 정확히 그릴 수 없음
+- scar-management: triage:증식기·성숙기 시기별 개입 차이가 있으나 기간 경계가 '수개월', '1~2년 이상'으로 모호해 시간축 그림 근거가 약함
+- turing-test: triage:심사자·사람·기계 배치도는 9개 type에 맞지 않고, 설정은 본문 한 문장으로 충분함
+- relative-energy-deficiency-in-sport: triage:저에너지가용성이 여러 계통에 영향을 준다는 방사형 나열이라 계통 간 관계가 없음
+- timber-structure: triage:하위 유형(경골목구조·중목구조·CLT)이 이름만 언급되고 분류 기준이 본문에 없음
+- residential-environment-improvement-project: triage:시행 방식 네 가지가 나열만 되고 대상지 조건과의 대응이 없어 법적 사업 유형 설명에 그침
+- key-signature: triage:샵·플랫 순서와 5도권은 각각 별도 용어 내용이고, 조표 자체는 악보 기호 하나
+- local-extrema-inflection-point: triage:극대·극소·변곡점을 한 곡선에 보여야 하나 3차 곡선 함수가 없음 — 다른 type으로는 모양이 안 잡힘
+- affiliation-misrepresentation: triage:연구부정 행위 하나의 정의 — 관계 맺는 구성 요소 없이 판단 기준 나열뿐
+- peak-bone-mass: triage:생애 골량 곡선(청년기 정점 후 완만한 감소)이 핵심이나 비대칭 정점 곡선이라 inverted_u 부적합, 함수 없음
+- musique-concrete: triage:녹음→가공 두 단계뿐이고 전자음악과의 차이도 '출발 음원' 한 축이라 그림이 글을 넘지 못함
+- starter-culture: triage:자연발효와의 비교가 속도·균일성 대 풍미 다양성 정도로 짧아 글로 충분
+- clinical-score-sheet: triage:관찰→점수 합산→기준 초과 시 보고라는 단순 흐름이고 항목·기준은 연구마다 달라 일반 그림의 근거가 약함
+- iodine-value: triage:단일 분석 지표 — 이중결합 많을수록 값이 크다는 한 줄 관계가 전부
+- membrane-structure: triage:인장으로 형태 유지·이중곡률 필요가 핵심이나 이는 형상 그림 영역이고 9개 type으로 관계를 그릴 거리가 적음
+- cosmetics-animal-testing-ban: triage:법적 규제 하나 — 대체시험법 종류 나열은 있으나 규제 자체에 구조가 없음
+- counselor-role-social-work: triage:사회복지사 역할 하나의 설명 — 심리상담과의 차이도 '환경 고려' 한 축뿐
+- commercial-sterility: triage:완전 멸균과 구분되는 목표 상태 개념 — 판정 시험 절차는 규정마다 달라 일반화된 단계로 그리기 어려움
+- asymptote: triage:y=1/x 같은 곡선과 점근선을 함께 보여야 하나 유리함수 plot이 없고, 세 유형 분류만으로는 정의 반복
+- biogenic-amine: triage:아미노산→아민 대응(히스티딘→히스타민 등) 나열 수준 — 물질군 이름이라 그림이 목록을 넘지 못함
+- ketogenic-diet-therapy: merge-candidate: 병합 후보라 보류(was checked)
+- obesity-classification: triage:BMI·복부비만·대사이상 기준이 병렬 나열될 뿐 서로의 관계가 본문에 없어 목록 이상이 되기 어려움
+- fundamental-counting-principle: triage:합·곱의 법칙은 짧은 예시(3×4)로 글이 더 명확하고, 순열·조합으로의 확장은 별도 용어 몫
+- open-plan: triage:평면 계획 방식 하나 — 셀형 사무실과의 대비가 짧고 효과는 연구마다 엇갈림
+- joint-protection-technique: triage:작업치료 원칙 나열(큰 관절 사용·부하 분산·휴식) — 원칙 간 관계가 없는 목록
+- biopiracy: triage:부당 이용 행위 개념 — 나고야 의정서·PIC·MAT와의 대응은 짝 개념 둘 정도라 글로 충분
+- steaming: triage:조리법 하나 — 삶기와의 차이가 '물에 잠기지 않음·잠열' 한두 축이라 비교 그림이 빈약
+- expertise-sport: triage:의도적 연습의 기여도 자체가 논쟁 중이라 요인 관계를 단정적으로 그리기 어려움
+- pythagorean-theorem: triage:직각삼각형 기하 그림이 필요한데 9개 type에 해당 없음, 식 하나로 충분
+- dynamic-stability: triage:평형성의 하위 능력 — 정적 안정성과 상관이 낮다는 한 문장 외 구조 없음
+- multiple-integral: triage:3차원 부피 기하 그림 영역 — 9개 type으로 표현할 관계 구조가 없음
+- landscape-act: triage:개별 법률 — 기본·특정 경관계획 두 갈래뿐이라 분류 그림이 빈약
+- usda-regulated-species: triage:규제 포함·제외 종 목록과 감독 차이 서술 — 표 한 줄이면 되는 범위 정의
+- last-mile-mobility: triage:이동 서비스 개념 — 정류장→목적지 한 구간 연결이라 구성 요소가 부족
+- disaster-recovery-phase: triage:재난관리 4단계 중 한 단계 — 순환 전체는 상위 용어 몫이고 본문은 복구 내용 나열 위주
+- modal-harmony: triage:화성 어법 하나 — 기능화성과의 차이가 이끔음 유무 한 축이고 실제로는 악보 예시가 필요
+- nine-hole-peg-test: triage:단일 평가도구 — 꽂고 빼는 시간 측정 한 과제라 단계·관계가 없음
+- metropolitan-governance: triage:협력 체계 개념 — 통합형~특별지자체형 스펙트럼 언급뿐이고 형태 간 기준이 본문에 부족
+- crutch: triage:보조기구 이름 — 종류·보행 패턴 나열은 목록으로 충분
+- complex-number: triage:수 체계 개념 — 복소평면 좌표 그림이 필요한데 9개 type에 해당 없음
+- disaster-safe-city: triage:정책 목표형 도시 개념 — 포괄 요소 나열뿐 관계 구조 없음
+- mass-casualty-incident: triage:상황 정의(수요>자원) — 대응 구성 요소는 중증도분류 등 별도 용어의 몫
+- food-based-dietary-guidelines: triage:영양소 기반 지침과의 대비가 '단위가 식품이냐' 한 축뿐
+- planetary-urbanization: triage:포괄성 비판이 있는 이론적 관점 — 집적·확산 두 계기뿐이라 단정적 구조 그림이 부적절
+- french-sixth: triage:화음 하나의 구성음 — 독일식과 한 음 차이는 악보로 보여야 하고 type으로 그릴 구조 없음
+- patrick-geddes-planning-thought: triage:조사-분석-계획 세 단계가 정의 자체라 그림이 정의를 되풀이함
+- menu-planning: triage:고려 요소(영양·기호·예산·설비) 나열이 중심이고 절차 서술은 한 문장뿐
+- severity-classification: triage:EU 4등급(경도~비회복) 순서 목록 — 등급 간 관계가 아닌 나열
+- artificial-scale: triage:범주 이름 — 사례(옥타토닉·메시앙 선법)만 나열되고 관계 구조가 없으며 경계 자체가 유동적이라고 본문이 밝힘
+- responder-burnout: triage:일반 소진(번아웃)의 직군 적용 사례 — 세 요소 구조는 상위 용어 번아웃의 내용
+- financial-conflict-of-interest: triage:상황 정의와 신고·관리 조치 나열뿐, 관리 단계의 순서나 기준이 본문에 구체적으로 없음
+- influence-line: triage:핵심이 하중 위치에 따른 선도 모양(정정구조는 꺾인 직선 조합)인데 plot 함수로 꺾은선을 그릴 수 없고, 상자 도식으로는 가로축 의미 차이를 보여 주기 어려움
+- safety-needs: triage:매슬로우 욕구위계의 한 단계 — 위계 전체는 상위 용어의 도식이고 이 항목은 그 하위 칸 하나
+- hospital-emergency-operations-center: triage:조직·공간 이름 — 본문은 권한 사전 지정과 훈련 필요성을 강조할 뿐 구성 요소 간 흐름이 구체적이지 않음
+- static-progressive-splint: triage:동적 스플린트와의 차이가 '지속 견인 대 단계적 각도 재고정' 한 축뿐이라 그림이 정의를 되풀이하게 됨
+- caritas-process: triage:열 가지 요소의 목록 — 요소 간 관계가 없고 10개는 한 도식에 담기에 너무 많음
+- four-causes: triage:'쉽게 풀면'의 책상 예시가 이미 네 원인을 하나씩 대응시켜 그림이 글을 되풀이함
+- public-rental-housing: triage:유형(영구·국민·행복·매입·전세임대) 이름은 나오지만 묶는 기준이 본문에 일관되게 없어 분류도를 지어내야 함
+- sprite-technique: triage:'쉽게 풀면'의 퍼즐 비유가 탐색 절차를 충분히 설명하고, 단계가 입력→탐색→판정 셋으로 정의를 되풀이하는 수준
+- food-irradiation: triage:선량별 목적(발아 억제·살충·살균)이 이름만 있고 수치·경계가 본문에 없어 단순 목록에 그침
+- neoclassicism-music: triage:작곡 사조 — 특징(옛 형식+현대 어법) 서술뿐이고 지역별 강조점도 하나로 묶기 어렵다고 본문이 밝힘
+- hexachord: triage:같은 이름의 두 의미(중세 계명 틀·12음 6음 집합)를 구분하라는 주의뿐, 두 개념 사이에 비교 축이 공유되지 않음
+- explainable-ai-ethics: triage:윤리적 요구 자체가 핵심 — 내재적 해석 대 사후 설명 구분은 기법 하위 주제라 이 용어의 그림이 되지 못함
+- organology: triage:학문 분야 이름 — 다섯 발음 원리 분류는 혼보스텔-작스 분류법 항목의 내용
+- placemaking: triage:참여적 접근이라는 태도 개념이 핵심이고, 임시 개입→관찰→영구 전환 단계는 전술적 도시주의 쪽 내용인 데다 상품화 비판 등 논쟁 중
+- nursing-workload-measurement: triage:측정 방법(자가보고·시간-동작·환자분류) 나열과 각 한계뿐, 방법 사이의 관계나 순서가 없음
+- ockhams-razor: triage:단일 방법론 원리 — 구성 요소가 '더 단순한 쪽을 택하라' 하나뿐
+- geriatric-occupational-therapy: triage:전문 영역 이름 — 낙상·다약제·인지 선별 등 관심 주제 나열뿐 관계 구조가 없음
+- urban-design-framework-plan: triage:현황조사→컨셉→공간구조→실행전략은 어느 계획에나 쓰는 일반 절차라 이 용어만의 이해를 더하지 않음
+- undue-inducement: triage:판단 요소(금액·경제 상황·위험·지급 방식)를 종합한다는 원칙뿐, 경계를 수치로 정하지 않는다고 본문이 밝혀 그릴 구조가 없음
+- ultimate-strength: triage:응력-변형률 곡선 위 항복점 다음의 최고점으로 보여야 하는데 그 곡선 모양을 그릴 함수가 없음
+- therapeutic-ultrasound: triage:연속 대 펄스 모드 차이가 '온열 대 비열' 한 축이라 두 줄 설명으로 충분하고, 효과 크기는 위약과 구별되지 않는다는 논쟁 중
+- dorian-mode: triage:자연단음계와 여섯째 음 하나 차이 — 구성 요소 2개뿐이고 음정 배열은 상자 도식으로 표현되지 않음
+- opt-out-consent: triage:옵트인과의 차이가 기본값 하나(침묵=동의)이고 허용 요건은 체크리스트일 뿐 관계 구조가 없음
+- contingency: triage:필연·우연·불가능 세 범주는 정의(일부 가능세계에서만 참)를 상자로 옮기는 데 그침
+- bilateral-training: triage:기전이 반구 간 연결 '가설'이고 효과도 일관되지 않다고 본문이 밝힘 — 억제유도운동치료와의 대비는 그 항목 쪽 내용
+- climate-street-design: triage:세 축(열·우수·보행쾌적)에 설계 요소를 나열하는 체크리스트라 그림이 글 이상을 주지 못함
+- complex-regional-pain-syndrome: triage:기전이 여러 가설의 복합이라 경로를 단정할 수 없고, 부다페스트 네 범주는 진단 목록일 뿐
+- nutrigenetics: triage:유전형→식이 반응 한 방향 관계뿐이고, 영양유전체학과의 방향 대비는 근거가 한 문장이라 그림의 근거가 얇음
+- work-hardening-program: triage:단계적 부하 증가라는 정의 외에 단계 구조가 없고, 작업조건화와의 차이는 '심리사회 요소 포함' 한 축뿐
+- creatine-supplementation: triage:보충→크레아틴인산 저장↑→ATP 재합성 촉진은 정의를 그대로 옮긴 짧은 경로이고 무반응자 설명은 추정 단계
+- intrinsic-feedback: triage:외재적 피드백과의 비중이 학습 단계에 따라 바뀐다는 점이 핵심이나 수치·곡선 근거가 없어 두 개념 대비가 정의 반복에 그침
+- adolescent-growth-spurt-nutrition: triage:증가하는 영양소(칼슘·철·아연·단백질·비타민 D) 목록 — 관계 구조 없음
+- functional-electrical-stimulation: triage:센서 트리거→타이밍 맞춘 자극→근수축은 정의를 되풀이하는 3단계이고, 이월 효과는 아직 불확정이라고 본문이 밝힘
+- dash-diet: triage:줄일 것(나트륨)과 늘릴 것(칼륨·칼슘·마그네슘 식품)의 식품 목록 — 기전 경로가 본문에 없음
+- similarity-ratio-area-volume: triage:닮음비 k에 대해 넓이 k²·부피 k³로 벌어지는 곡선이 핵심인데 거듭제곱 함수가 없어 그릴 수 없음(linear로 흉내 불가)
+- experience-machine: triage:단일 사고실험 — 논증 구조가 '쾌락만 중요하면 들어가야 한다/망설인다'뿐이고 해석이 논쟁 중
+- pediatric-disaster-medical-response: triage:소아 특화 고려사항(분류 도구·장비·약물 용량·심리지원)의 나열일 뿐 항목 사이 관계나 순서가 없음
+- mobilization-with-movement: triage:활주 적용 중 능동 동작이라는 단일 기법 설명 — 무통 원칙에 따른 방향 조정은 글로 충분하고 기전은 미확정
+- cognitive-stage: triage:운동학습 3단계 중 첫 단계 하나만 다루는 하위 항목 — 단계 전체 그림은 상위 개념(학습 단계 모형)에 속하고 본문엔 나머지 단계 근거가 없음
+- urban-primacy: triage:핵심 측정은 1위/2위 인구비라는 단일 지표이고, 순위-규모 법칙 대비 이탈을 보여 줄 거듭제곱 곡선은 현재 plot 함수로 그릴 수 없음
+- cyclic-form: triage:주제가 여러 악장에 재등장한다는 구성 원리 하나 — 악보 없이 상자 그림으로는 정의 반복에 그침
+- microencapsulation: triage:심물질을 벽재로 감싼다는 2요소 구조 — 방출·보호 효과는 벽재·공정에 따라 달라진다는 서술뿐이라 관계 구조가 빈약
+- minimax-theorem: triage:maxmin과 minmax가 혼합전략에서 일치한다는 등식 하나가 핵심 — 9개 type 어디에도 이 수학적 관계가 맞지 않음
+- rule-following-paradox: triage:크립키 재구성의 해석 자체가 논쟁적(크립켄슈타인)이고 대응책들도 경합 중이라 단정적 도식이 어려움
+- divergence-theorem: triage:면적분=부피적분이라는 두 항의 등식 — 구성 요소 2개뿐이고 공간 그림 없이 상자 도식은 정의 반복
+- emergency-department-length-of-stay: triage:도착~이탈 사이 시간이라는 단일 지표 — 구성 구간(진료·검사 대기·병상 대기)이 본문에 순서 있게 정의되지 않아 그림 근거가 약함
+- inclusionary-zoning: triage:용적률 완화와 임대주택 공급의 맞교환이라는 2자 관계이고, 공급 효과는 실증이 엇갈리는 쟁점
+- lifeline-infrastructure: triage:다섯 시설의 목록이 중심이고 연쇄 마비 경로는 '전력→정수장' 한 예뿐이라 상호의존 그림을 그리면 본문 밖 지식에 기댐
+- helicopter-research: triage:현지 연구자 배제라는 단일 관행의 정의 — 방지책은 병렬 나열이고 명예저자와의 대비도 한 문장 차이라 글로 충분
+- nurse-call-system: triage:병실 호출 장치라는 설비 하나 — 버튼→단말 신호 전달은 자명해 그림이 더할 이해가 없음
+- free-will: triage:본문은 양립가능론·양립불가능론 두 진영만 언급하고 세부 입장 분류는 본문 밖 지식에 기대며, 개념 정의 자체가 합의되지 않음
+- nurse-manager: triage:직위(역할) 명칭 — 업무가 계획·조직·지휘·통제로 나열될 뿐 그림으로 보일 구조가 없음
+- vulnerable-population-disaster-response: triage:대상 집단별 지원 항목(시각 경보·수어·대피 인력)의 병렬 목록으로 관계나 순서가 없음
+- perpendicular-bisector-angle-bisector: triage:핵심이 작도 도형(선분·각) 자체라 상자 대비 도식으로는 등거리 성질이 보이지 않고, 외심·내심 대응은 글 한 줄로 충분
+- martingale: triage:다음 기댓값=현재값이라는 조건 하나와 부등호 방향만 다른 서브·슈퍼마팅게일 — 경로 그림 없이 상자 도식은 정의 반복
+- roman-numeral-analysis: triage:음도에 로마숫자를 붙이는 표기법 — 보여 줄 것은 악보상 표기 예시이지 개념 간 관계가 아님
+- bilateral-deficit: triage:양측 합 < 편측 합이라는 한 부등식이 핵심이고, 원인(반구 간 억제 대 자세 안정성)은 미합의라 기전 도식이 단정이 됨
+- metabolic-flexibility: triage:공복 지방·식후 탄수화물 전환이라는 2상태 비교로 구성 요소가 적고, 측정 프로토콜도 표준화되지 않았다고 본문이 밝힘
+- will-to-power: triage:니체 유고 개념으로 해석·문헌학적 지위가 논쟁적이고, 구성 요소 없는 형이상학적 원리라 도식화 근거가 없음
+- singapore-statement-research-integrity: triage:2010년 합의문 하나와 네 원칙의 목록 — 원칙과 실천 항목의 대응도 본문에 정해져 있지 않음
+- reaction-time: triage:단순·선택반응시간 구분은 글로 충분하고, 보여 줄 가치가 있는 힉의 법칙(대안 수에 따른 로그 증가) 곡선은 현재 함수로 그릴 수 없음
+- gut-transit-time: triage:입→위→소장→대장 경로는 상식이고 평가 구간도 구강-맹장·대장 두 개뿐이라 그림이 더할 것이 적음
+- apc-equity: triage:APC 부담이 출판 불평등을 낳는다는 단선적 논지 — 그린·다이아몬드 OA 대안은 언급 수준이라 비교 축이 없음
+- spina-bifida: triage:선천성 질환명 — 잠재이분척추와 척수수막류 구분, 합병증 관리가 나열될 뿐 그림으로 보일 구조가 약함
+- expropriation-method: triage:환지방식과의 비교가 '빠르지만 갈등이 크다'는 한 축에 그치고, 본문 스스로 속도 우위도 단정하기 어렵다고 함
+- parallel-fifths: triage:두 성부 진행 패턴은 악보로만 보이고, 역사적 수용 변화도 금지·재활용 두 국면 서술이라 type 도식이 더할 이해가 적음
+- double-angle-half-angle-formula: triage:덧셈정리에서 유도된다는 한 단계 관계와 공식 목록 — 상자 도식으로는 수식 나열과 다를 바 없음
+- geriatric-nutrition: triage:영양학 하위 분야명 — 노화 변화와 고려 영양소가 나열될 뿐 관계 구조가 없음
+- postmortem-research-ethics: triage:생전 의사·유족 동의·혈연 영향이 고려 대상으로 나열되며, 동의 범위 기준은 기관마다 달라 일반 도식을 세우기 어려움
+- fair-data-principles: triage:네 글자 약어의 풀이 — 네 원칙이 서로 독립 항목이라 그림은 정의 반복에 그침
+- top-guidelines: triage:8개 항목×0~3단계의 정책 채택 표 — 항목 목록과 수준 척도일 뿐 개념 간 관계가 없음
+- lactation-nutrition: triage:영양 관리 영역명 — 에너지·수분·칼슘·요오드 등 고려 항목 나열이며 본문도 단정을 피함
+- schroth-method: triage:인지·회전호흡·자세교정을 묶은 운동 기법 — 만곡 유형별 패턴은 본문에 구체적이지 않아 그림 근거가 부족
+- fall-prevention: triage:내인성·외인성 위험 요인 두 범주와 다요인 중재라는 간단한 분류로, 글로 충분히 전달됨
+- urban-planning-review: triage:결정 전 위원회 검토라는 단일 행정 절차 — 조건부 재상정·행정심판은 부수 서술이라 단계 도식 근거가 약함
+- food-texture-profile: triage:경도·응집성·탄성 등 속성 목록 — 씹힘성 곱셈 하나 외에 속성 간 관계 구조가 없어 표 이상을 보여주지 못함
+- nutritional-epidemiology: triage:학문 분야명 — 연구 설계·도구는 나열될 뿐 분야 고유의 기전이나 단계가 없음
+- social-participation: triage:개인 능력과 환경의 상호작용이라는 두 요소뿐이고, 활동·참여 구분 자체가 논쟁 중이라 구조를 단정하기 어려움
+- resistance-training: triage:훈련 형태의 포괄 명칭 — 부하·세트·휴식 등 처방 변인 나열로 관계 구조가 없음
+- ongoing-consent-process: triage:재동의·철회 안내·새 정보 고지가 병렬 관행으로만 제시되어 순서 있는 순환으로 그릴 근거가 약함
+- fat-oxidation: triage:핵심은 강도에 따른 지방 산화율 곡선(Fatmax 정점 후 급감하는 비대칭 곡선)인데 inverted_u는 대칭이라 맞지 않고, 대사 경로는 정의 반복
+- food-safety-culture: triage:조직 가치관 개념 — 리더십·의사소통 등 하위 차원이 합산 점수 항목으로만 나열됨
+- associative-stage: triage:피츠·포스너 3단계 모형의 한 단계 — 단계 순서 도식은 상위 모형 용어의 몫이고 단계 경계도 연속적이라 본문이 강조
+- reps-in-reserve: triage:단일 자각 척도값(남은 반복 수) — RPE와의 대략적 반비례 외에 그릴 구조 없음
+- wildfire-urban-interface: triage:접경 지역을 가리키는 공간 개념 — 위험 요인·대응책 목록과 접경형/혼재형 두 유형뿐
+- power-analysis-sample-size: triage:네 입력값이 표본크기를 정한다는 한 줄 관계 — 곡선 모양은 검정력·효과크기 용어의 plot이 이미 담당
+- implied-consent: triage:적용 조건 두 개(의사표현 불가·위급성)와 예외(사전 거부) 하나인 법리 — 글로 충분히 전달됨
+- creative-city-index: triage:합성 지표명 — 3T 등 하위지표 구성이 기관마다 달라 고정된 분류 구조를 그릴 수 없음
+- dysphagia-management: triage:자세·점도·훈련 세 축의 중재 묶음 — 평가 후 조합한다는 흐름이 일반적 임상 절차 이상을 보여주지 않음
+- spam-conference: triage:부실 학회 유형명 — 판별 단서(유사 명칭·빠른 수락 등)의 체크리스트일 뿐 관계 구조 없음
+- insulin-sensitivity: triage:조직의 반응 정도라는 단일 속성 — 측정법·운동 효과가 나열될 뿐 도식화할 구조가 약함
+- fubini-theorem: triage:토넬리로 확인 후 푸비니로 교환하는 2단계 논법뿐 — 영역 분할 그림은 9개 type 밖
+- nationalism-music: triage:작곡 경향명 — 나라별 작곡가 나열이라 그림이 목록 이상을 주지 못함
+- pansori-deoneum: triage:판소리의 특정 대목을 가리키는 명칭 — 명창→후대 전승 외에 구성 요소 관계가 없음
+- authenticity: triage:실존주의 이상 개념 — 본래성/비본래성 대비가 해석 의존적이고 철학자마다 강조가 달라 단정 어려움
+- reconstruction-safety-diagnosis: triage:평가 항목과 등급 나열 — 배점 비중이 시기별로 개정돼 고정된 구조를 그리면 오도 우려
+- gravity-model-accessibility: triage:핵심은 거리의 거듭제곱에 반비례하는 거리감쇠 곡선인데 decay는 지수형이라 모양을 흉내 낼 수 없음
+- grant-peer-review: triage:독립 채점→패널 조율→지원 결정의 일반 심사 절차 — 논문 심사와의 차이(계획 대 결과)는 한 문장으로 충분
+- poaching: triage:조리법명 — 70~85도라는 온도 구간 하나가 핵심이라 수치 문장으로 전달됨
+- microtonality: triage:음정 범주 개념 — 등분할 대 순정률 두 갈래뿐이고 정의 자체가 서양 기준이라는 논쟁이 있음
+- retail-vacancy-rate-downtown: triage:비율 지표 — 공실→유동인구 감소 악순환은 본문 한 문장 언급에 그침
+- choline-nutrient: triage:단일 영양소명 — 아세틸콜린·인지질·VLDL 역할이 나열될 뿐
+- schematic-design: triage:설계 과정의 한 단계 — 기획→계획→기본→실시 순서 도식은 상위 용어(건축계획프로세스)의 몫
+- meanwhile-use: triage:개발 확정→임시활용→착공의 단순 2~3구간 — 그림이 정의 반복에 그침
+- eco-city: triage:포괄적 도시 지향 개념 — 녹지·LID·재생에너지 등 요소 나열이고 연구마다 범위가 다름
+- conditional-expectation: triage:추상 수학 개념 — 조건별 평균을 다시 평균 내는 관계는 9개 type으로 가중치까지 담기 어려움
+- critical-theory-music: triage:아도르노 문화산업론 중심의 논쟁적 관점 — 반론이 강해 인과 구조를 단정할 수 없음
+- diatonic-mediant: triage:iii·vi 두 화음의 명칭 — 기능이 문맥에 따라 달라져 고정된 구조가 없음
+- knee-valgus: triage:정렬 이상명 — 외반이 부상을 예측한다는 연결이 연구마다 엇갈려 인과 사슬로 단정하기 어려움
+- home-modification: triage:환경수정의 구체 형태 — 손잡이·문턱 제거 등 개조 예시 나열
+- amateurism: triage:스포츠 이념 — 폐기 흐름은 있으나 시점이 '20세기 후반·1980년대 이후' 등 모호해 연표 근거가 약함
+- assistive-technology-device: triage:기기 총칭 — 저테크/하이테크 두 범주와 예시 나열뿐
+- copd-rehabilitation: triage:다학제 프로그램 구성요소(운동·호흡·영양·심리) 나열 — 구성요소 간 관계 없음
+- disaster-base-hospital: triage:지정 기관 유형 — 팀 파견·중증 수용 두 축과 지정 요건 나열
+- binomial-coefficient-properties: triage:파스칼 삼각형 자체가 그림이지만 9개 type으로 수 배열을 그릴 수 없고 성질은 수식으로 전달됨
+- error-theory: merge-candidate: 병합 후보라 보류(was checked)
+- sports-dietitian-nutritional-assessment: triage:식사기록·체성분·혈액지표 세 자료를 종합한다는 나열뿐 — 그림이 목록 이상을 보여 주지 못함
+- return-to-play-criteria: triage:평가 항목(가동범위·근력·홉검사 LSI·심리 준비)은 있으나 통과 순서가 본문에 없어 단계도를 지어내야 함
+- research-data-ownership: triage:연구자·기관·지원기관·참여자 네 주체 나열 — 권리 귀속이 계약마다 달라 고정된 관계도를 그릴 수 없음
+- diet-quality-index: triage:권장 식품군 점수와 제한 성분 점수를 합산한다는 두 덩어리 구조뿐 — 정의 문장으로 충분히 전달됨
+- self-plagiarism: triage:중복게재와의 차이(문장 단위 대 논문 전체)가 한 문장 대비로 끝나 두 칸 그림이 글보다 나을 게 없음
+- hylomorphism: triage:질료+형상=실체 두 요소 결합 — 청동상 예시 문장이 이미 그림 역할을 함
+- head-nurse: triage:직위명 — 업무(인력·물품·교육·질 관리) 나열이고 관계 구조가 없음
+- angles-basics: triage:정의와 쉽게 풀면이 이미 예각·직각·둔각·평각의 크기 구간을 다 말함 — 분류 상자는 반복
+- water-soluble-vitamin: triage:영양소군 이름 — 지용성과의 흡수·저장 대비는 지용성비타민 쪽과 겹치고 B12 등 예외가 많아 깔끔한 두 칸이 안 됨
+- knowledge-based-urban-development: triage:대학·기업·어메니티 세 축과 하위 자본 나열 — 축 사이의 작용 관계가 본문에 없음
+- sigimsae: triage:요성·추성·퇴성의 핵심은 음높이 움직임 모양인데 계층 상자로는 그 모양이 전달되지 않음
+- institutional-biosafety-committee: triage:위원회(기관) 명칭 — IRB와의 역할 구분은 한 줄 대비로 충분
+- breathing-assessment: triage:ABCDE의 한 단계 — 그림을 그리면 상위 절차나 확인 항목 목록이 되어 이 용어 고유의 이해를 더하지 못함
+- metric-space: triage:거리 공리 세 개 나열 — 삼각부등식의 기하 그림은 9개 type 밖
+- discourse: triage:이데올로기와의 차이가 인식론적 전제 하나에 걸린 추상 대비 — 두 칸 그림이 문장보다 명확하지 않음
+- idealism: triage:버클리·칸트·헤겔 갈래가 본문에서 '서로 근본적으로 다르다'고만 해 하위 유형의 기준을 그림으로 세울 근거 부족
+- patient-safety-management: triage:포괄 영역 용어 — 후향적(RCA)·전향적(FMEA) 접근은 각자 용어로 다룰 하위 사례
+- practice-level-theory: triage:대이론-중범위-실무 위계 중 한 층 — 위계 그림은 상위 용어(간호이론 범위) 쪽에 속함
+- sum-of-series: triage:시그마 표기법 설명 위주 — 유한합·무한급수 구분은 deep의 곁가지
+- vector-space-basis: triage:핵심 직관(두 방향 벡터로 평면 생성)은 좌표 그림이 필요한데 9개 type으로 그릴 수 없음
+- international-style: triage:양식명 — 1932년 명명과 전후 확산 두 사건뿐이라 연표가 빈약함
+- risk-factors-nursing: triage:진단 진술의 한 구성요소 — 정의적특성과의 대비는 '혼동 말라' 한 문장뿐
+- individuality-principle: triage:정의 반복 — '같은 자극, 개인 요인에 따라 다른 반응'을 그리면 정의를 다시 쓰는 셈이고 반응 분포 수치는 본문에 없음
+- solidarity-principle-bioethics: triage:원칙 하나와 실행 장치 나열 — 공동체 범위가 논쟁 중이라 구조를 단정해 그리기 어려움
+- speciesism: triage:인종·성차별과의 유비 한 줄이 논증의 전부 — 그림이 문장 이상을 주지 못함
+- patient-distribution: triage:'한 병원 쏠림을 막아 나눈다'는 단일 원리 — 중증→3차, 경증→2차 배정은 두 갈래뿐
+- greens-theorem: triage:경계 선적분=내부 면적분 등식 — 영역과 경계 곡선 그림이 필요한데 9개 type 밖
+- refrigerated-storage: triage:'늦출 뿐 멈추지 않음'을 성장곡선으로 그리려면 본문에 없는 온도별 곡선 수치를 지어내야 함
+- authentic-mode: merge-candidate: 병합 후보라 보류(was checked)
+- modular-nursing: triage:팀간호의 변형 — 차이는 '지리적 구역으로 고정' 하나라 정의가 이미 말함
+- fallibilism: triage:회의주의와의 구분이 caution에 같은 문장으로 반복될 만큼 단순 — 두 칸 그림 불필요
+- dora-declaration: triage:선언(문서) 이름 — 권고 내용 하나와 대안 지표 나열
+- olaw: triage:정부 기관명 — 보증서·IACUC 관계는 행정 사항 나열
+- bipartite-graph: triage:두 정점 집합 사이에만 간선이 있는 구조는 그래프 그림이어야 보이는데 9개 type 밖
+- skill-mix: triage:단일 비율 지표 — 관계는 '정규간호사 비율↑ 안전↑' 하나뿐
+- diatonic-harmony: triage:반음계적화성과의 구분이 본문 스스로 '상대적 경향'이라 함 — 두 칸 대비로 그리면 절대 구분처럼 오해됨
+- fire-and-disaster-headquarters: triage:기관명 — 지휘 범위와 재난안전대책본부와의 차이는 상설/임시 두 항목 구분이라 글로 충분
+- incentive-spirometry: triage:단일 호흡 훈련 기구 — 부피형/유량형 구분과 사용 지침 위주라 관계 구조가 없음
+- open-loop-theory: triage:대비 상대인 폐쇄회로 설명이 본문에 거의 없어 비교 근거 부족, 핵심은 '피드백 없이 사전 계획' 한 줄
+- moral-constructivism: triage:실재론·반실재론 사이 중간 위치라는 한 문장 요지 — 그림이 정의를 되풀이할 뿐
+- certainty: triage:심리적/인식적 확실성 두 층위 구분이 핵심이고 힌지 명제 논의는 논쟁적이라 단정해 그리기 어려움
+- trigonometric-ratio: triage:직각삼각형 변 표시 그림이 필요하나 9개 유형 어디에도 맞지 않음
+- principal-component-analysis-sensory: triage:핵심 시각물인 바이플롯은 9개 유형으로 못 그리고, 전처리 절차는 일반 PCA와 같아 이 용어 고유의 그림이 아님
+- disaster-emergency-medical-situation-room: triage:조직명 — 정보 취합·병상 조정 역할 설명이 산문으로 충분하고 경로 구성 근거가 얇음
+- quaternion: triage:수 체계 하나의 정의와 활용 사례 나열 — 오일러각·회전행렬 비교는 표가 적합하고 관계 구조가 없음
+- phenomenalism: triage:단일 철학 입장 — 순환 비판은 논증 한 단계라 그림으로 더할 것이 없음
+- growing-block-universe: triage:현재주의·영원주의와의 3입장×시점 비교표가 필요하나 2개념 대비·venn 등에 맞지 않고, 무지의 문제 등 논쟁 중 쟁점이 많음
+- public-design: triage:정책 범주명 — 대상 시설물 나열과 운영상 유의점 위주로 구성 요소 간 관계가 없음
+- feedback-motor-learning: triage:안내가설·자기조절 피드백 우위는 '제기된' 가설로 서술되어 인과 사슬로 단정해 그리기 어려움
+- peer-review-prestige-bias: triage:소속 공개→관대한 평가라는 단일 인과에 검증 설계 설명이 붙은 구조로, 글로 충분히 잡힘
+- weight-management: triage:감량기·유지기·재발방지기 단계명만 있고 단계 간 전환 기준이 없으며, 급감량→요요 경로는 상식 수준
+- complete-street-retrofit: triage:정책 사업명 — 이용자 집단과 세부 기법 나열뿐 상호 관계가 없음
+- toddler-nutrition: triage:생애주기 분야명 — 우유 과다→철결핍 경로는 본문의 한 하위 사례일 뿐 용어 전체를 대표하지 못함
+- designation-criteria-for-emergency-medical-institutions: triage:등급명(권역·지역센터·지역기관)만 있고 등급별 기준 차이가 본문에 없어 그릴 근거 부족
+- familial-genetic-privacy: triage:'내 유전정보=가족 정보'라는 한 단계 논리라 구성 요소 3개 이상의 관계가 아님
+- free-atonality: triage:조성→자유무조→12음기법의 시대 위치 3점은 글로 충분하고, 시기 평가는 논쟁 중
+- resident-council: triage:주민 대표 조직명 — 대표성 문제와 입주자대표회의와의 구분은 글로 충분
+- bicycle-road-network: triage:기반시설 명칭 — 전용·겸용·우선도로 합산 문제는 통계 해석 주의점일 뿐 구조도가 필요하지 않음
+- plantar-fasciitis: triage:질환명 — 기전은 '밤새 수축 후 첫걸음 부하' 한 줄이고 나머지는 위험요인·치료 나열
+- shared-governance: triage:전통 조직과의 차이가 '쉽게 풀면'에 이미 명료하고, 위원회 목록은 관계 없는 나열
+- chromatic-scale: triage:12음을 반음 간격으로 늘어놓은 단일 음 재료 — 건반 그림이 필요하나 유형에 없음
+- sanitation-standard-operating-procedure: triage:문서화된 위생 절차라는 정의가 핵심이고, 세척→소독 순서는 두 단계라 그림이 더할 것이 적음
+- fish-welfare-research: triage:실험 규정 — 침해수용과 통증 구분은 논쟁 중이고 나머지는 마취·종료점 항목 나열
+- pulmonary-diffusion-capacity: triage:결정 요인 3개(표면적·혈액량·막 두께)의 단순 목록으로 글만으로 충분히 잡힘
+- space-time-path-hagerstrand: triage:핵심인 3차원 시공간 입방체 궤적은 9개 유형으로 못 그리고, 세 제약은 목록 수준
+- infrastructure-capacity-assessment: triage:용량·이용률·장래수요 비교라는 일반적 평가 절차로, 병목시설 기준 결정도 한 문장으로 전달됨
+- tofu-coagulant: triage:응고제별 응고 속도 서술이 절마다 엇갈려(황산칼슘 빠름/느림) 분류도 근거가 불안정
+- troubadour: triage:중세 시인-작곡가 집단 — 트루베르·민네징거로의 영향은 두 갈래 언급뿐
+- movable-partition: triage:작동 방식 분류가 절마다 달라(폴딩·슬라이딩·아코디언 vs 포켓·스택) 근거가 일관되지 않고, 나머지는 성능 유의점
+- opera-seria: triage:레치타티보-아리아 두 요소 교대와 글루크 개혁이라는 한 단계 인과뿐이라 그림이 더할 것이 적음
+- chuimsae: triage:창자·고수·청중 삼각 관계를 언급하나 관계의 방향·내용이 본문에 구체적이지 않음
+- source-data-verification: triage:증례기록서와 원자료 두 기록을 대조하는 단일 작업 — 전수·위험기반 구분도 강도 차이일 뿐 관계 구조가 없음
+- geriatric-malnutrition-screening: triage:영양위험선별의 노인 대상 하위 사례 — 선별→정밀평가 2단계 흐름이 상위 개념과 같아 따로 그릴 이득 없음
+- four-color-theorem: triage:핵심 이해는 실제 지도·평면그래프 색칠 그림에서 오며 9개 type 중 맞는 틀이 없음; 오색정리 대비는 수치 하나 차이
+- melodic-minor-scale: triage:상행·하행에서 6·7음 높이만 다른 음계 — 악보나 음 이름 나열이 맞는 내용이라 chain·contrast 상자로는 이득이 적음
+- journal-indexing-tiers: triage:SCIE·SSCI·A&HCI·Scopus·KCI 약어 목록 — 기관별 기준이 달라 하나의 위계로 묶으면 오히려 오해 소지
+- reduction-3r: triage:검정력 분석으로 최소 마리 수를 정한다는 단일 원칙 — 과소표본→재실험 역설도 두 단계라 그림 불필요
+- pectin: triage:단일 다당류 물질명 — 고·저메톡실 겔화 조건 차이는 본문 문장으로 충분
+- internal-training-load: triage:외적부하 대비 몸의 반응이라는 대비가 caution 한 문장으로 이미 명확 — 지표(세션RPE·TRIMP·젖산)는 나열
+- tensor: triage:스칼라→벡터→행렬→텐서 차원 확장은 easy가 순서대로 설명; 축 개수의 시각화는 9개 type에 맞는 틀이 없음
+- integration-by-parts: triage:공식 하나(∫u dv = uv − ∫v du)와 u 선택 경험칙 — 관계 맺는 구성 요소가 아님
+- welded-connection: triage:단일 접합 방식 — 공장용접·현장볼트 혼용이나 열영향부는 주의 사항 나열이지 관계 구조가 아님
+- barrier-free-design: triage:경사로·점자블록 등 설비 나열 — 유니버설디자인과의 차이는 '별도 부가 대 처음부터 통합' 한 가지 기준뿐
+- motor-assessment-scale: triage:8개 평가 항목과 0~6점 채점의 나열 — 항목 간 관계나 흐름이 없음
+- quadratic-function-graph: triage:a의 부호에 따라 위·아래로 볼록한 포물선과 꼭짓점이 핵심인데, U자(a>0) 곡선은 현재 plot 함수로 그릴 수 없음
+- external-world-skepticism: triage:무어 상식논증·맥락주의 등 대응이 모두 미해결 논쟁 — 반박 구조를 그리면 우열을 단정할 위험
+- open-access-models: merge-candidate: 병합 후보라 보류(was checked)
+- nutrition-risk-screening: triage:선별→정밀판정 두 단계 관문 구조가 easy·caution에서 이미 명료 — 도구(NRS-2002·MUST·MNA)는 이름 나열
+- non-conforming-use: triage:용도지역 변경 전후 두 상태와 증축 제한 같은 관리 규칙 나열 — 단계적 소멸도 방향 하나라 그림 이득 적음
+- light-pollution-management: triage:밝기·차폐·점등시간 등 관리 수단의 나열 — 수단 간 관계나 흐름이 없음
+- alberta-infant-motor-scale: triage:4개 자세 × 3개 관찰 요소의 평가 도구 설명 — 항목 목록이고 관계 구조가 없음
+- extended-mind-thesis: triage:오토·잉가 패리티 논증 자체가 결합-구성 오류 비판과 맞서는 논쟁 중 주장 — 두 인물 대비는 easy 문장으로 충분
+- diagonal-bracing: triage:사각형 골조가 삼각형으로 안정되는 원리는 실제 골조 도면이 필요하고 9개 type으로는 형태를 못 보여 줌
+- five-rights-of-medication-administration: triage:환자·약물·용량·경로·시간 다섯 항목의 체크리스트 — 항목끼리 관계가 없는 나열
+- sustainable-architecture: triage:포괄적 설계 방향 개념 — 본문이 다차원 기준을 말할 뿐 구체적 구성 요소 관계가 없음
+- aseptic-surgical-technique: triage:기구 멸균·부위 준비·시술자 준비·환경 관리 네 요소는 병렬 목록이라 글로 충분
+- convex-set: triage:볼록·비볼록 도형 예시 그림이 핵심인데 9개 type에 기하 도형을 그릴 틀이 없음
+- langue-and-parole: triage:정의 자체가 두 개념의 대비 — 나란히 놓아도 정의 반복이 되고 체스 비유도 글로 충분
+- branched-chain-amino-acids: triage:세 아미노산 묶음의 물질명 — 중추피로 가설 경로는 통제 연구에서 재현되지 않아 단정적으로 그리기 어려움
+- fundamental-group: triage:고리의 연속 변형·감김수 같은 위상 그림이 필요한 개념 — 9개 type으로는 표현 불가
+- correspondence-theory-of-truth: triage:명제-사실 대응이라는 단일 관계 — 정합설·실용설과의 비교 기준이 본문에 없음
+- phs-policy: triage:미국 기관의 특정 정책명 — 보증서·IACUC 요구사항은 행정 요건 나열
+- toxin-exposure: triage:심정지 가역적 원인 5H5T 중 한 항목 — 상위 분류의 하위 사례에 불과
+- extended-tonality: triage:조성과 무조 사이 경계가 분석가마다 다른 모호한 범주 — 구간을 그리면 논쟁적 경계를 단정하게 됨
+- dietary-guidelines: triage:국가별 권장 사항이라는 일반 개념 — 내용이 시대·국가마다 달라 그릴 고정 구조가 없음
+- out-of-competition-testing: triage:소재지 신고→예고 없는 방문→시료 채취의 단선 절차 — 정의와 easy로 이미 충분
+- limit-state-design-offshore: triage:네 한계상태 목록과 허용응력설계법 대비가 caution 문장에 명확 — 그림이 정의를 되풀이하게 됨
+- tonic-pedal: triage:베이스 지속음 위 화음 진행이라는 단일 작곡 기법 — 악보 예시가 맞는 내용
+- assisted-coughing-technique: triage:호기 타이밍에 맞춘 복부 압박이라는 단일 술기 — 수기법·기계적 방법 선택도 잔존 근력 한 기준
+- lu-decomposition: triage:핵심인 L·U 삼각 구조는 행렬 모양 그림이 필요하고, 재사용 이점은 usage 문장으로 충분
+- legally-authorized-representative: triage:대리동의 자격을 가진 사람이라는 법적 지위 — 우선순위가 국가마다 달라 고정 위계를 그릴 수 없음
+- derivative-of-transcendental-functions: triage:sin·cos·e^x·ln x 미분 공식 모음 — sin의 4회 미분 순환은 부분 성질일 뿐 표제 전체를 대표하지 못함
+- restraint-stress-minimization: triage:보정 시간 단축·맞춤 기구·적응 훈련 등 조치의 나열 — 관계 구조가 없음
+- overlay-analysis: triage:벡터(불리언)·래스터(지도대수) 차이는 본문 두 문장으로 충분히 전달되고, 레이어를 겹치는 장면 자체는 9개 유형으로 정의 이상을 보여 주기 어렵다
+- research-scooping: triage:선취권을 잃는 상황 하나를 가리키는 개념 — 단계·기전으로 나눌 구성 요소가 없다
+- voluntary-housing-improvement-project: triage:소규모주택정비사업의 한 하위 유형 — 절차 단계가 본문에 제시되지 않음
+- adjacency-matrix: triage:그래프를 0/1 표로 옮기는 그림이 필요한데 9개 유형(행렬 칸 그림 없음)으로는 표현 불가
+- price-ceiling-new-housing: triage:산정식은 덧셈 한 줄이고, 공급 위축 등 효과는 본문도 우려·논쟁으로 다루어 인과 사슬로 단정하기 어렵다
+- ghostwriting-in-research: triage:유령저자(ghost-authorship) 항목과 사실상 같은 관행 — 도식은 그쪽 항목에 두는 것이 맞다
+- fermat-little-theorem: triage:단일 합동식 명제 — 오일러 정리로의 일반화는 두 항뿐이라 관계도가 정의를 되풀이한다
+- clinical-reasoning: triage:추론 유형 목록이 절마다 다르게 제시(절차적·상호작용적·조건적·서사적)되어 분류도를 확정할 근거가 불안정
+- impressionism-music: triage:양식명 — 음계·화성 특징 나열이며, 명칭 자체의 타당성이 본문에서 논쟁적으로 다뤄짐
+- ecosystem-service-valuation-urban: triage:4대 서비스 분류는 상위 개념 '생태계서비스'의 그림이고, 평가 방법은 나열이라 이 용어 고유의 구조가 없다
+- grid-planning: triage:좁은/넓은 격자의 상충은 한 문장으로 충분히 읽히고 구성 요소가 두 축뿐이다
+- sensory-processing-disorder: triage:독립 진단 여부가 본문에서도 논쟁 중이라 하위 유형 분류도를 그리면 장애 범주를 단정하는 인상을 준다
+- cultural-heritage-protection-zone: triage:규제 구역 제도 하나 — 역사문화환경보존지역과의 차이는 본문에 기준이 구체적으로 없다
+- constructability: triage:공기·비용·안전을 묶은 단일 평가 개념 — 구조화할 관계가 없다
+- gasa: triage:정가(가곡·가사·시조) 갈래의 한 사례 — 분류도는 상위 '정가' 항목의 몫
+- upper-respiratory-tract-infection-in-athletes: triage:훈련부하→면역저하→감염 인과가 본문에서도 복합 요인으로 유보되어 사슬로 단정할 수 없다
+- anaerobic-power: triage:단일 체력 지표(최고 파워) — 무산소성능력과의 구분도 한 문장이라 그림이 정의를 되풀이한다
+- in-between-space: triage:처마 밑·툇마루 등 사례로 설명되는 공간 성격 개념 — 관계 맺는 구성 요소가 없다
+- street-wall: triage:도시 형태 개념 — 핵심 지표인 높이/폭 적정비는 본문도 견해가 다양하다고 해 단정할 수 없다
+- mixed-use-development: triage:개발 방식 하나와 기대 편익 나열 — 편익의 인과는 조건부로 서술되어 사슬로 그리기 부적절
+- philosophy-of-nursing: triage:신념 체계 개념 — 실증주의/해석주의 대비는 연구 패러다임 항목의 그림이고 본문 근거도 반복 문장뿐
+- epistemic-internalism: triage:하위 구분이 접근주의·정신상태론 둘뿐이고, 외재주의 대비는 본문에 기준이 부족해 정의 반복에 그친다
+- fujii-yoshitaka-scandal: triage:특정 인물의 연구부정 사건명
+- vector-magnitude-components: triage:직각삼각형 성분 분해 그림이 필요한데 9개 유형으로는 그릴 수 없고 공식 하나로 끝난다
+- fire-resistance-design: triage:하중지지력·차염성·차열성 요건 나열 — 관계나 순서가 없는 목록이다
+- critical-theory: triage:정의 자체가 전통이론과의 대비라 대비도는 정의를 되풀이하고, 세대 구분도 두 단계뿐이다
+- central-line-associated-bloodstream-infection: triage:감염 지표 하나 — 예방 번들은 순서 없는 항목 목록이라 글로 충분하다
+- hazard-mitigation-plan: triage:구조적/비구조적 대책 두 범주 구분뿐 — 3개 이상 관계 요소가 없다
+- hijacked-journal: triage:약탈적 학술지와의 차이가 '실재 여부' 한 기준이라 주의 절의 한 문장으로 충분하다
+- ethics-dumping: triage:규제 회피 관행 하나 — 형식적 승인 대 실질적 보호 외에 구조화할 요소가 없다
+- special-architecture-zone: triage:규제 완화 구역 제도 하나 — 완화 대상 규정 나열 외 관계가 없다
+- factor-remainder-theorem: triage:인수정리가 나머지정리의 특수한 경우라는 두 항 관계 — 구성 요소 2개뿐
+- conflict-of-interest-disclosure: triage:재정적/비재정적 두 갈래와 예시 나열 — 도식이 더해 줄 구조가 없다
+- urban-disaster-prevention: triage:예방·대응·복구 단계는 일반 재난관리 주기의 그림이고 이 용어 본문은 단계 간 관계를 따로 설명하지 않는다
+- contrast-training: triage:복합훈련과 용어가 혼용되고 휴식시간·효과 크기도 본문에서 엇갈린다고 해 배치 대비를 단정하기 어렵다
+- minimal-state: triage:아나키즘–최소국가–복지국가 스펙트럼은 한 축 위 세 점이라 9개 유형에 맞지 않고 글로 충분하다
+- muscle-glycogen: triage:저장 물질명 — 고갈 곡선은 본문에 모양 근거가 없고 간글리코겐 대비도 한 문장이다
+- dominated-convergence-theorem: triage:조건-결론형 정리 — 핵심은 높이 n·폭 1/n 반례 그래프인데 plot 함수로 그릴 수 없고 다른 유형도 맞지 않는다
+- pentatonic-scale: triage:음계 범주명 — 5도 쌓기·중심음 선법은 음 배열 그림이 필요해 9개 유형으로는 정의 이상을 못 보여 준다
+- post-disaster-stress-management: triage:장기 지원 활동 개념 — 점검·상담 연계·자조모임 나열이며 단계 순서가 없다
+- non-shockable-rhythm: triage:하위 리듬 2개(무수축·무맥성전기활동)와 처치 항목(압박·에피네프린·원인 교정) 나열 — 정의가 이미 다 담고 있어 그림이 더할 관계가 없음
+- urban-renewal: triage:포괄 범위가 문헌마다 달라(도시재생 포함 여부, 법정 촉진지구 의미) 재개발·재건축·재생 분류도를 단정적으로 그리기 어려움
+- stretch-reflex: triage:신장→근방추 감지→척수→수축의 반사궁이 정의 한 문장과 같아 그림이 정의 반복에 그침
+- tube-feeding-tolerance: triage:위 잔류량·구토·설사·팽만 등 평가 지표 나열일 뿐 지표 사이의 관계나 순서가 없음
+- gamma-function: triage:핵심은 계승을 잇는 곡선과 0·음의 정수의 극점이라는 그래프 모양인데 plot 함수에 감마 함수가 없음
+- globalization-of-sport: triage:획일화 대 글로컬화·혼종화 관점이 공존하는 넓은 사회 현상 — 구성 요소 간 정해진 관계 없이 관점 논쟁이 중심
+- community-based-participatory-nutrition-research: triage:단계(문제 정의·수집·해석·실행)는 일반 연구와 같고 차이는 '주민이 전 과정에 동등 참여'라는 속성 하나라 글로 충분
+- congestion-pricing: triage:요금→통행비용 상승→시간대·수단 전환의 인과가 정의와 예문에서 바로 읽혀 그림이 더할 것이 적고, 유형(코든·구역·시설) 구분은 이름 나열 수준
+- inscribed-central-angle: triage:원 위의 점과 각을 직접 그려야 이해되는 기하 성질 — 9개 type으로는 원·각 도형을 그릴 수 없음
+- kronecker-product: triage:한 성분마다 행렬 전체를 블록으로 채우는 배열 구조가 핵심이라 행렬 블록 그림이 필요하고 type으로 표현 불가
+- hierarchy-in-design: triage:위계를 드러내는 수단(층고·위치·형태·재료·조명·동선) 나열일 뿐 수단 간 관계 구조가 없음
+- respiratory-exchange-ratio: triage:핵심은 0.7(지방)~1.0(탄수화물) 사이 눈금 하나와 강도 증가 시 상승이라는 방향뿐 — 곡선 모양에 대한 근거가 본문에 없음
+- protocol-deviation: triage:이탈과 위반의 구분 기준이 '참여자 안전·자료 신뢰성 영향의 심각도' 하나라 글로 충분
+- species-appropriate-housing: triage:'종 습성에 맞춰 사육하라'는 원칙 하나와 종별 예시 나열 — 부적합→스트레스→재현성 저하는 한 줄로 충분
+- individual-quick-freezing: triage:유동층 냉풍으로 띄워 표면부터 얼린다는 공정 설명이 본문에 순서대로 서술돼 있어 단계도가 글을 되풀이할 뿐
+- animal-rehoming-retirement: triage:적합성 판정 기준 나열과 종별 행선지(가정·생추어리) 두 갈래뿐이라 관계 구조가 빈약
+- leviathan: triage:자연상태→권리 양도→절대주권의 순서가 정의 한 문장에 이미 담겨 사슬 그림이 정의 반복이 됨
+- land-parcel: triage:지번 하나가 붙은 토지 등록 단위라는 법적 단일 개념 — 구성 요소 간 관계가 없음
+- article-processing-charge: triage:출판 비용이라는 단일 항목 — 완전 OA·하이브리드 구분과 면제 제도는 짧은 언급뿐
+- existentialism: triage:유신론·무신론 두 갈래와 대표 사상가 이름뿐이라 분류도가 이름 나열에 그침
+- eccentricity-structure: triage:질량중심과 강성중심의 평면상 위치 관계가 핵심이라 평면도가 필요하고, 사슬로 그리면 '어긋남→비틀림' 정의 반복
+- urban-tree-canopy-cover: triage:수관 면적 비율이라는 단일 지표 — 측정 자료(위성·라이다)와 효과 나열뿐
+- gel-formation: triage:망상구조가 물을 가둔다는 정의가 기전 전부이고, 겔화제별 가교 방식은 세부 예시 나열 수준
+- insulin-shock: triage:중증 저혈당의 폐기된 옛 이름(동의어) — 순환 쇼크와도 무관
+- abcd-nutritional-assessment-model: triage:A·B·C·D 네 영역을 종합한다는 머리글자 설명 자체가 정의라 그림이 영역 나열을 되풀이함
+- fluid-dynamics-sport: triage:역학의 한 분야 이름 — 항력·양력 등 개념은 언급되나 그릴 관계 구조가 없음
+- reliabilism: triage:핵심 관계가 '신빙성 있는 과정→정당화' 하나이고, 내재주의 대비와 반론은 그림으로 단정하기 어려운 논쟁
+- iodine-deficiency-disorder: triage:결핍→갑상선호르몬 합성 저하→갑상선종·발달 저하의 사슬이 정의와 같아 그림이 정의 반복
+- autonomous-stage: triage:3단계 운동학습 모형의 마지막 단계 하나 — 앞 단계(연합단계)는 본문에 없어 단계도 근거 부족
+- holistic-nursing: triage:신체·심리·사회·영적 네 영역 나열이 정의 그대로라 그림이 더할 관계 없음
+- spinal-immobilization: triage:본문이 일률적 전신 고정에서 선택적 척추운동제한으로 지침이 바뀌는 중이라고 밝혀, 고전적 고정 순서를 표준 절차로 그리면 오도할 수 있음
+- triangle-exterior-angle-theorem: triage:삼각형과 연장선을 그려야 하는 기하 성질 — 유도도 '180°에서 빼기' 한 줄이라 type 그림이 부적합
+- humane-killing-terminology: triage:두 용어의 구분 기준이 '죽음의 목적' 하나이고, 그마저 국가·학술지 관례마다 달라 비교표로 단정하기 어려움
+- exercise-induced-muscle-damage: triage:반복효과의 기전이 신경·결합조직·근절 등 여러 후보로 제시될 뿐 확정되지 않아 손상→적응 사슬을 단정적으로 그리기 어려움
+- euler-totient-function: triage:서로소 개수를 세는 함수 하나와 계산 예시 — RSA 연결은 언급뿐이라 그릴 구조가 없음
+- urban-flood-inundation-model: triage:입력→수문·수리모형→침수심 산출의 일반적인 모델 파이프라인이라 그림이 '시뮬레이션한다'는 정의 이상을 보여 주지 못함
+- replication-crisis: triage:원인(작은 표본·p해킹)과 대응(사전등록·등록보고서) 목록이며, 원인별 비중은 논쟁적이라 인과 사슬로 단정하기 어려움
+- inequality-and-system-of-inequalities: triage:해가 수직선·좌표평면 영역의 교집합이라 그 도형 그림이 필요한데 9개 type으로는 표현 불가
+- shannon-entropy-urban-sprawl: triage:집중(0)과 균등(최댓값) 두 극단 사이의 값 하나 — 비교 축이 하나뿐이라 글로 충분
+- athletic-identity: triage:자기개념의 강도라는 단일 변인이며, 정체성→부상·은퇴 부적응 관계는 상관 연구라 인과 사슬로 그리면 단정이 됨
+- glycogen-supercompensation: triage:핵심은 고갈 후 기저치를 넘어 올라가는 시간 경과 곡선(하강 뒤 초과 상승)인데 plot 함수로 그릴 수 없고, 사슬로 바꾸면 '고갈→고탄수화물→증가' 정의 반복에 그침
+- modeling-sport: triage:시범을 보고 따라 배우는 지도 기법 — 본문은 효과 조절 요인(숙련도·유사성·피드백)을 나열할 뿐 서로 관계 맺는 구조가 없음
+- noh-theater-music: triage:요쿄쿠와 하야시 악기 네 가지를 열거하는 편성 목록 — 그림이 본문 나열 이상을 보여 주지 못함
+- duplicate-publication: triage:출판윤리 위반 유형 하나 — 표절과의 차이(자기 연구 대 타인 저작)는 한 문장으로 충분하고 3개 이상 요소의 관계가 없음
+- shell-structure: triage:곡률로 면내 응력에 저항한다는 단일 원리 — 구조 형상 자체가 그림의 핵심이라 9개 type으로는 정의 반복 이상이 안 됨
+- brownfield: triage:유휴 산업 부지라는 토지 범주 명칭 — 재개발 단계(조사·정화·용도전환)는 부차적 설명이고 그린필드 대비도 한 줄 수준
+- sports-physical-therapy: triage:물리치료 전문 분야명 — 예방·처치·재활·복귀라는 업무 범위 나열뿐이고 복귀 기준은 근거 부족으로 본문이 유보함
+- grimace-scale: triage:표정 항목(눈·코뺨·귀·수염)을 0~2점으로 매겨 합산하는 채점 척도 — 항목 목록이라 그림이 표보다 나을 것이 없음
+- finalis: triage:선율이 귀결되는 중심음 하나를 가리키는 용어 — 으뜸음과의 차이·정격/변격 공유는 문장으로 충분하고 구성 요소 관계가 얕음
+- tactus: triage:손 내림-올림으로 표시하던 기준 박동 단위 — 비례 표기(3:2) 설명은 악보 예시가 필요해 9개 type으로 담기 어렵고 정의 반복에 그침
+- stage-iv-pressure-injury: triage:욕창 단계 분류 중 한 단계의 하위 사례 — 단독으로는 비교할 구성 요소가 없음
+- property-led-regeneration: triage:인센티브→민간투자→지가 상승 흐름은 있으나 낙수효과·형평성 효과가 본문에서도 논쟁 중이라 사슬로 그리면 인과를 단정하게 됨
+- townscape-theory: triage:보행자의 연속적 시각을 중시하는 설계 관점 — 핵심이 장면 스케치라 관계 도식으로는 '좁은 길→광장' 정의 반복에 그침
+- pantonality: triage:쇤베르크가 무조성 대신 쓴 명칭 — 사실상 무조성의 동의어로 용어 선택의 뉘앙스 차이만 다룸
+- nursing-interventions-classification: triage:표준 중재 용어집 — 영역·과·중재·활동 위계가 언급되지만 영역 이름 나열 수준이라 그림이 이해를 더하지 않음
+- sinawi: triage:공통 장단·조 안의 제한된 즉흥 합주라는 양식명 — 산조와의 차이는 한 문장 대비로 충분하고 도식화할 구조가 부족함
+- prosthesis-training: triage:착용 전·착용 후·일상 적용 세 단계가 있으나 각 단계 내용이 정의와 같아 절차도가 본문을 되풀이할 뿐임
+- jeonganbo: triage:칸으로 음 길이를 적는 기보법 — 핵심은 정간·대강 격자 그림 자체여서 9개 type의 관계 도식으로는 담기지 않음
+- tracheostomy: triage:목 앞 기관 절개 시술명 — 관 폐색 대응 단계는 본문 일부일 뿐이고 용어 자체에 관계 구조가 없음
+- mat-foundation: triage:건물 하부 전체를 한 판으로 받는 기초 형식 — 독립기초와의 대비(부등침하 유리, 물량 증가)가 두 줄로 끝나 그림이 더할 것이 없음
+- deflationary-theory-of-truth: triage:잉여설·수행설·최소주의를 하나로 묶기 어렵다고 본문이 밝히고, 대응설과 나란히 비교하는 것 자체가 부적절하다는 지적까지 있어 도식이 단정을 만듦
+- semi-quantitative-food-frequency-questionnaire: triage:식품 목록과 1회 분량으로 빈도를 묻는 설문 도구 하나 — 24시간 회상법과의 대비가 본문에 얕게만 나옴
+- urban-infrastructure-asset-management: triage:DB 구축·상태평가·LCC 분석이라는 방법 목록 — 순환 구조로 그리려면 본문에 없는 연결을 지어내야 함
+- arrive-guidelines: triage:동물실험 보고 체크리스트 — 3R·윤리위원회 승인과의 역할 구분은 겹침이 아니라 분업이어서 venn·contrast 어느 쪽에도 맞지 않음
+- pressure-injury-prevention: triage:위험사정·체위변경·압력분산·영양·피부관찰 다섯 요소의 병렬 목록 — 요소 간 관계가 없어 목록 이상이 안 됨
+- environmental-ethics: triage:응용윤리 분야명 — 인간중심·생명중심·생태중심 입장이 경쟁 중이고 서로 충돌한다고 본문이 밝혀 확장 위계로 그리면 단정이 됨
+- irb-continuing-review: triage:승인 후 정기 재검토라는 일반적 심의 절차 — 보고→심의→계속/수정/중단 흐름이 정의를 되풀이하는 수준
+- occupational-deprivation: triage:외부 요인으로 작업 기회를 빼앗긴 상태 — 작업소외·불균형과의 구분 근거(원인이 외부)가 한 문장이고 비교 대상 내용이 본문에 없음
+- public-hearing-process: triage:공고·열람·진술·반영 검토의 법정 4단계 — 순서가 자명해 절차도가 본문 문장을 옮겨 적는 데 그침
+- transport-mode-decision: triage:활성화 시간 때문에 단거리에서는 육상이 빠르다는 교차 개념은 있으나 본문에 거리·시간 수치 근거가 없고 나머지는 고려 요소 나열
+- interacting-systems-framework: triage:개인·대인관계·사회 세 체계 이름과 '서로 영향을 준다'는 서술뿐 — 체계 간 구체적 작용이 없어 그림이 세 칸 나열에 그침
+- enteral-nutrition-support: triage:비위관·비공장관·위루관·공장루관 경로와 주입 방식의 목록 — 선택 기준이 본문에 구체적이지 않음
+- public-development: triage:시행자가 공공이라는 한 기준으로 정의되는 개발 방식 — 민간개발과의 대비가 판별 기준 하나로 끝남
+- dominant-key: triage:원조의 딸림음을 으뜸음으로 하는 조 — 장조→딸림조, 단조→나란한조 규범은 두 줄 서술로 충분함
+- tracheostomy-care: triage:피부·드레싱, 흡인, 관 교환 세 영역의 간호 활동 목록 — 영역 간 관계가 없어 체크리스트 이상이 아님
+- futurism-music: triage:구체음악·전자음악으로 이어지는 계보가 직접 계승인지 사후적 선례 찾기인지 본문이 유보해 timeline으로 그리면 단정이 됨
+- data-validation: triage:진술과 관찰을 대조해 자료를 확인하는 단일 행위 — 간호과정 안의 한 단계라 독립 구조가 없음
+- urban-policy-evaluation: triage:사전/사후, 과정/결과, 전후/비교지역 등 평가 구분이 여러 축으로 흩어져 있어 하나의 matrix로 묶으면 본문에 없는 구조를 만듦
+- bronchiectasis-rehabilitation: triage:가래 정체→반복 감염→폐기능 저하 악순환은 언급되나 순환을 닫는 연결(기관지 손상 심화)이 본문에 없어 본문 밖 지식에 기대야 함
+- glycogen-loading: triage:섭취 처방(36~48시간, 10~12g/kg)과 수분 저류 같은 수치·주의 나열뿐, 관계 맺는 구성 요소 3개가 없음
+- visual-perceptual-training: triage:하위 영역(전경-배경·형태항상성·공간지각) 이름 나열과 전이 효과 논점이 중심 — 그림이 보탤 관계 구조가 약함
+- genetic-information-privacy: triage:보호 원칙과 보호 수단(통제 접근·연합분석·차분 프라이버시) 나열이 중심이라 그림이 글 이상을 주지 못함
+- natural-law-theory: triage:영원법-자연법-실정법 위계는 한 줄 언급뿐이고 본문 중심은 존재-당위 비약 논쟁이라 도식화할 구조가 얇음
+- gender-in-sport: triage:연구 영역 명칭 — 참여·보도·트랜스젠더 규정 등 주제 나열로 관계 구조가 없음
+- area-based-regeneration: triage:지역 단위로 묶는다는 단일 원칙의 설명이고 추진 절차는 한 문장 언급뿐
+- brachial-plexus-birth-palsy: triage:단일 질환명 — 손상 범위·관찰 시점 설명은 있으나 그림으로 드러낼 관계 구조가 없음
+- isokinetic-dynamometry: triage:측정 장비·방법 설명 — 등척성·등장성과의 차이도 한 줄이라 비교 축을 세울 근거 부족
+- aerobic-metabolism: triage:핵심 메시지가 에너지 시스템의 연속적 비율 변화인데 크렙스회로 그림과 겹치고, 대사 대비는 생성 속도·총량 한 줄뿐
+- topic-theory: triage:토픽 유형(춤곡·양식) 목록이 중심이고 해석 방법론 자체는 그림으로 옮길 구조가 없음
+- sedation-scale: triage:평가 도구 총칭 — 척도마다 점수 방향이 달라 공통 그림을 그릴 수 없음
+- conjugate-gradient-method: triage:경사하강법 지그재그 대 켤레 방향의 기하가 핵심인데 9개 type으로 표현되지 않고, 나머지는 조건·변형 나열
+- cold-water-immersion: triage:근비대 둔화 기전(mTOR 억제·염증 신호 차단)이 '설명이 제시된다' 수준의 가설이라 기전도로 단정하기 어려움
+- pulsed-light-sterilization: triage:UV→DNA 손상이라는 한 줄 기전과 '표면에만 작용'이라는 단일 한계가 핵심이라 글로 충분함
+- smart-growth: triage:계획 원칙(10대 원칙) 나열과 유사 개념 구분이 전부 — 관계 구조 없음
+- assistive-device: triage:지팡이·보행기·휠체어·자조도구를 아우르는 총칭이라 그림이 예시 나열에 그침
+- developmental-coordination-disorder: triage:진단명 — 배제 기준과 중재 근거 비교가 서술되나 그림으로 옮길 3요소 관계가 없음
+- drug-nutrient-interaction: triage:약→영양소, 영양소→약 두 방향과 예시(와파린·PPI)뿐이라 구성 요소 2개 수준
+- pantothenic-acid: triage:단일 비타민(물질)명
+- parking-demand-management: triage:요금제·상한제·공유주차 등 수단 나열 — 공급 중심과의 대비도 한 문장뿐
+- protein-digestibility-corrected-amino-acid-score: triage:제한아미노산 점수×소화율, 1.0 상한이라는 짧은 계산식이라 글로 충분하고 그림이 정의를 되풀이함
+- steel-structure: triage:구조 형식 이름과 장단점(경량·고강도·내화 취약) 속성 나열
+- essential-amino-acid-supplementation: triage:보충 전략 — 류신 역치·장기 효과가 논쟁 중이라 효과 경로를 단정해 그리기 어려움
+- single-blind-review: triage:단일맹검·이중맹검·오픈 리뷰 세 방식의 차이가 '누가 누구를 아는가' 한 축이라 글로 충분하고 2×2 넷째 칸은 본문에 없음
+- food-service-management: triage:식단·구매·조리·위생·원가 등 기능 영역 나열이고 영역 간 순서나 인과가 본문에 없음
+- coordinative-structure: triage:자유도 축소라는 추상 개념 — 상관 패턴에서 추론되는 구성물이라 그림으로 보여 줄 구체적 구조가 없음
+- chinese-room-argument: triage:사고실험 설정은 '쉽게 풀면'의 글로 충분하고, 본문 무게는 시스템·로봇 응답 등 지금도 논쟁 중인 반론 공방에 있음
+- dry-needling: triage:단일 시술 기법 — 바늘 삽입→근긴장 완화 외에 관계 요소가 없음
+- velocity-based-training: triage:부하-속도 직선 관계는 한 줄 전제이고 장비·속도 변수에 따라 기울기가 달라 대표 직선 하나로 그리기 어려움; 핵심은 세트 내 속도 저하율 처방
+- affektenlehre: triage:후대 재구성된 미학 경향이라 조성·음형→정서 대응표를 그리면 본문이 경계하는 기계적 등치를 단정하게 됨
+- switch-access-technology: triage:직접 선택과 스캐닝 두 방식 구분뿐이고 스캐닝 절차도 한 문장이라 구성 요소 부족
+- cryotherapy: triage:냉각→혈관수축·신경전도 저하라는 짧은 기전이 글로 충분하고, 급성기 염증 억제의 득실은 재검토 중이라 단정 불가
+- urinary-elimination-assessment: triage:간호 사정 활동 — 관찰 항목과 방광스캔 확인 나열로 관계 구조 없음
+- acute-chronic-workload-ratio: triage:1주 부하÷4주 평균이라는 단일 비율이고, 0.8~1.3 안전 구간·위험 곡선은 본문이 경험칙이자 방법론 비판 대상이라 그리면 단정이 됨
+- public-land-lease-system: triage:소유·사용 분리라는 단일 원리와 설계 변수(임대기간·임대료·갱신) 나열
+- quality-assurance: triage:CQI와의 차이(사후 시정 대 선제 개선)가 한 축의 대비라 글로 충분하고 감사-시정 순환도 두 단계뿐
+- digital-twin-city: triage:3D 모델·센서·플랫폼 구성 요소 나열과 모니터링형/제어형 구분 한 줄이 전부라 그림이 정의를 되풀이함
+- retort-processing: triage:승온·유지·배압 냉각 단계가 본문에 흩어진 언급뿐이고 핵심(F0·냉점)은 온도-시간 적분이라 9개 type으로 담기 어려움
+- moral-dilemma: triage:충돌하는 두 의무라는 2요소 구조이고, 진정한 딜레마의 실재 여부는 본문이 밝히듯 논쟁 중
+- artificial-sweetener: triage:물질군(식품첨가물) 명칭 — 감미도·기능 한계 속성 나열
+- goniometry: triage:단일 측정 기법 — 고정팔·이동팔·축 정렬과 능동/수동 구분은 문장으로 충분하고 관계 구조가 없음
+- political-obligation: triage:동의론·공정성·자연적 의무 세 근거의 나열일 뿐 서로 관계가 없고, 어느 쪽도 정설이 아닌 논쟁 지형이라 그림이 목록 이상을 주지 못함
+- weight-bearing-activity: triage:체중부하→압박·고유수용성 자극→자세조절은 정의를 되풀이하는 2~3단 연결뿐
+- altitude-training: triage:적혈구 증가→경기력 향상 연결 자체가 효과 크기·기전 논쟁 중이라 기전 사슬로 단정해 그리기 어려움
+- proprioceptive-neuromuscular-facilitation: triage:수축-이완 절차는 단순 2단 반복이고, 핵심인 효과 기전(상호억제·자가억제 대 신장 인내도)은 논쟁 중이라 단정해 그릴 수 없음
+- orem-self-care-theory: triage:세 하위 이론 이름의 나열뿐이고 하위 이론 간 관계·간호체계 유형은 본문에 없어 본문 밖 지식에 기대야 함
+- responsible-conduct-of-research-training: triage:의무 교육 제도 — 교육 주제(데이터 관리·저자 자격 등) 나열뿐 관계 구조 없음
+- downtown-hollowing: triage:교외화 원인(자동차·고속도로·대출)과 결과(세수·빈 점포)가 나열식이고 도넛 비유 이상의 구조를 그림이 더하지 못함
+- matrix-rank: triage:개수를 세는 수치 개념 — 이해에는 관계도보다 구체적 예시 행렬이 필요해 9개 type에 맞지 않음
+- instrumentalism: merge-candidate: 병합 후보라 보류(was checked)
+- urban-master-plan: triage:기본계획→관리계획→지구단위계획의 일직선 3단 위계라 문장으로 충분함
+- proportion-system: triage:황금비·모듈러·등차/등비 비례의 사례 나열이며, 그림이 필요하다면 치수 도해라 9개 type에 맞지 않음
+- rent-to-income-ratio: triage:임대료÷소득 단일 비율 지표 — 30% 기준선 하나뿐
+- spiritual-care: triage:영적 사정·현존·경청·의뢰 등 중재 요소의 나열로 순서나 인과가 본문에 없음
+- collaborative-planning: triage:탑다운 계획과의 대비가 한두 문장뿐이고 참여 주체 나열 이상 구조가 없음
+- empiricism: triage:합리론과의 대비 기준이 지식 원천 하나뿐이고, 로크→흄→논리실증주의→콰인 계보는 본문에 연대 근거가 없음
+- analgesia-in-animal-research: triage:통증 미통제→결과 교란 연결은 2단 논리이고 오피오이드·NSAID 병용은 약물 분류 나열이라 그림 효용이 낮음
+- quadriceps-setting-exercise: triage:단일 등척성 운동법 — 관절성 근억제 해제라는 한 가지 목적뿐
+- riboflavin-status: triage:EGRAC와 소변 배설량 두 평가 지표의 차이(장기 대 단기)는 표 한 줄 수준
+- cardiac-hypertrophy: triage:편심성(용적 부하)·동심성(압력 부하) 이분법을 본문 스스로 자료 겹침이 큰 단순화라고 밝혀, 깔끔한 대비 그림이 오히려 단정이 됨
+- editorial-board: triage:투고→데스크 리젝트→심사 배정→결정 흐름은 동료심사 절차 용어의 몫이고 편집위원회 자체는 기구명
+- anthropometric-assessment: triage:신장·체중·둘레·피부두겹 등 측정 항목 나열이고, BMI 한계와 생화학 검사 병행은 문장으로 충분함
+- many-analysts-one-dataset: triage:자료 배포→팀별 분석→결과 취합 절차는 일반적이고, 핵심인 결과의 폭(29팀 중 20 대 9)은 수치 한 줄로 전달됨
+- solar-access-regulation: triage:정북 사선제한은 단면 기하 도해가 필요해 9개 type에 맞지 않고, 동지 기준 시간은 수치 나열
+- field-forensic-examination: triage:현장 검안·기록·신원확인 활동의 나열이며 순서나 분기 근거가 본문에 정리되어 있지 않음
+- research-parasite: triage:2016년 논쟁에서 나온 비판적 표현 — 사건·용어 설명이지 구조가 없음
+- airway-management: triage:도수기법→기도유지기→성문상→삽관 단계화는 본문이 '고급이 항상 낫지 않다'는 논쟁을 함께 밝혀 사다리 그림이 우열을 단정할 위험
+- career-transition: triage:Taylor·Ogilvie 모델은 구성 요소 이름만 인용되고 요소 간 관계는 본문에 없어 본문 밖 지식에 기대야 함
+- voice-leading: triage:좁은 음정 이동·공통음 유지·병행5도 회피 같은 규칙 나열로, 이해에는 악보 예시가 필요해 9개 type에 맞지 않음
+- clinical-assessment: triage:ABCD 영양판정 중 C 한 축 — 체계 전체 그림은 상위 용어 몫이고 자체 구성은 관찰 항목 나열
+- argument-from-ignorance: triage:'반증 없음→참' '증명 없음→거짓' 두 추론 형식과 무죄 추정 예외뿐이라 문장으로 충분
+- growth-chart: triage:핵심은 연령별 백분위수 곡선 다발 위에서 궤적이 유지되는지인데, 여러 백분위 띠를 그리는 함수가 없고 다른 함수로 흉내 내면 안 됨
+- deflection: triage:강도와 사용성 구분, 크리프로 장기 처짐 2~3배 증가라는 두 사실뿐이라 관계 구조가 부족함
+- very-low-calorie-diet: triage:단일 식이요법 — 800kcal 기준과 부작용 나열뿐
+- planar-graph: triage:이해에는 K₅·K₃,₃ 같은 그래프 그림 자체가 필요해 9개 type에 맞지 않음
+- cultural-care-universality: triage:다양성과 짝을 이루는 개념이지만 겹치지 않는 문화별 영역에 들어갈 내용이 본문에 없어 벤 그림이 지어내기가 됨
+- satiety: triage:포만(식사 중)과 포만감(식사 후)의 구분은 한 문장이고 영향 요인은 나열
+- moral-realism: triage:실재론→자연주의·비자연주의 두 갈래는 목록 수준이고, 반실재론 쪽 하위 입장은 본문에 없음
+- grand-opera: triage:장르명 — 5막·발레·합창·역사 소재 같은 특징 나열이라 관계 구조가 없음
+- polar-coordinates: triage:핵심은 r·θ를 평면에 작도하는 기하 그림인데 9개 type으로는 표현 불가, 직교좌표와의 비교표는 정의 반복
+- nutrition-focused-physical-exam: triage:관찰 부위(측두근·삼각근·피하지방·부종) 목록일 뿐 부위 간 관계가 없음
+- relaxation-training: triage:호흡조절·점진적 근이완·심상 기법의 나열이며 본문에 구조적 관계가 약함
+- good-samaritan-law-for-ems: triage:일반인·전문가×선의·중과실 칸을 나눌 수 있어 보이나 면책 범위가 나라마다 달라 칸 내용을 단정할 수 없음
+- return-to-work-program: triage:단계적 복귀 대 완전 복귀 두 갈래뿐이고 단계 내용이 본문에 구체적이지 않음
+- injury-prevention-program: triage:프로그램 구성 요소(근력·균형·착지 교육) 나열과 순응도 강조뿐, 그릴 기전이 없음
+- charting-by-exception: triage:정상은 표준양식, 이상만 기록한다는 정의 하나로 끝나는 규칙이라 그림이 정의를 되풀이함
+- structural-analysis: triage:하중→응력·변형 산정이라는 일반 절차로, 본문에 그림으로 더할 구체적 단계·분기가 없음
+- public-contribution: triage:용적률 완화 대가로 공공에 환원한다는 교환 관계 2요소 — 정의 반복
+- branched-chain-amino-acid-supplementation: triage:단독 보충의 추가 효과가 연구마다 엇갈린다고 본문이 밝혀 류신-mTOR 경로를 효과로 단정해 그리기 어려움
+- partial-derivative: triage:곡면을 한 축 방향으로 자른 단면 기울기라는 3차원 기하 그림이 필요해 가용 type으로 표현 불가
+- image-duplication: triage:회전·반전·절단 등 변형 유형 나열이며 유형 간 관계가 없음
+- thick-and-thin-concepts: triage:개념 쌍 2개의 구분이고 분리 가능성 자체가 논쟁 중이라 비교 축을 단정하기 어려움
+- job-housing-proximity: triage:직주근접→통근시간 감소→여가 증가의 짧은 인과뿐이며 직주비와 직종 불일치 주의는 글로 충분함
+- fatigue-management: triage:활동조절·자세·우선순위·계획적 휴식 네 원칙의 나열로 원칙 사이 관계가 없음
+- aeolian-mode: triage:온음·반음 배열을 보여 줄 음계 도식이 필요한데 가용 type에 없고, 자연단음계와의 동일성은 정의 그대로
+- smart-city: triage:ICT를 교통·에너지·안전에 접목한다는 정책 개념으로, 적용 분야 나열 외에 구조가 없음
+- social-housing-requirement: triage:동종 개체와 함께 사육하라는 단일 기준과 예외 승인 절차뿐이라 구성 요소가 부족함
+- being-and-nothingness: triage:저작명 — 즉자·대자 구분은 별도 개념 항목의 몫이며 책 자체는 그릴 구조가 아님
+- redundant-publication: triage:새 기여·출처 표시 두 기준이 나오지만 네 칸 중 일부(기여 있음·출처 없음 등)의 판정이 본문에 없음
+- pico-format: triage:P·I·C·O 네 글자 요소 나열로, 그림이 약어 풀이를 되풀이할 뿐임
+- sacco-triage-method: triage:생존확률 계산 모델의 입력·산출 단계가 본문에 구체적이지 않아 순서도를 그리려면 본문 밖 지식에 기대야 함
+- henrietta-lacks-case: triage:시간 순 사건이지만 본문에 날짜가 1951·2013 두 개뿐이고 나머지는 시점 불명
+- multidisciplinary-rehabilitation-team: triage:직종별 역할 나열이고, 다학제·학제간 구분은 문헌에서 혼용된다고 본문이 밝혀 대비를 단정하기 어려움
+- altruism: triage:순수 이타적 동기의 존재 자체가 논쟁 중이라 혈연선택·호혜성 설명과의 관계를 단정해 그릴 수 없음
+- occupational-therapy-evaluation: triage:면담·관찰·표준화 검사의 병행이라는 나열이며 상향식·하향식 구분도 본문에서 짧게 언급될 뿐
+- demographic-dividend-urban: triage:생산가능인구 비중의 상승·하락 곡선이 핵심이나 본문에 모양 근거가 없고 비대칭이라 inverted_u로 흉내 낼 수 없음
+- death-of-god: triage:니체 해석의 문화 진단으로, 허무주의→위버멘쉬 연결을 도식으로 단정하면 해석을 지나치게 단순화함
+- chromatic-modulation: triage:온음계적·반음계적·이명동음 전조를 엄격히 가르는 것이 무리라고 본문이 밝혀 비교 도식이 오해를 부름
+- enharmonic-equivalence: triage:같은 음높이·다른 표기라는 2요소 관계로, 그림이 정의를 되풀이함
+- reception-history-music: triage:음악사학 방법론으로, 자료 유형(비평·프로그램·음반) 나열 외에 관계 구조가 없음
+- cardinality: triage:핵심인 일대일대응 짝짓기·대각선 논법은 가용 type에 없고, 가산/비가산 분류만으로는 정의를 되풀이함
+- aaalac-accreditation: triage:기관 인증 제도명 — 자체평가·현장방문·재평가 외에 그릴 구조가 없음
+- anesthetic-overdose-euthanasia: triage:의식 소실→호흡·심정지 순서가 정의 문장에 이미 있어 그림이 새로 보여 줄 것이 적음
+- anaerobic-capacity: triage:직접 측정법이 없다는 한계와 무산소파워(순간)·능력(총량) 2요소 구분이 핵심이라 도식 근거가 약함
+- extended-producer-responsibility-food: triage:재활용 등급→분담금→재질 개선이라는 단선 유인 하나로, 글로 충분히 잡힘
+- material-transfer-agreement: triage:계약 조항(사용 목적·재분양 금지·파생물 권리) 나열로 조항 간 관계가 없음
+- tunnel-handling-mice: triage:꼬리 잡기 대 터널 두 방법의 비교로 요소가 2개뿐이고 스트레스 감소라는 결론은 글로 충분함
+- cardiac-arrest-center: triage:갖춰야 할 치료 역량(관상동맥중재술·체온조절·집중치료) 나열이 전부이고, 우회 이송의 이득은 본문도 무작위 연구가 엇갈린다고 밝혀 단정해 그리기 어렵다
+- group-therapy-rehabilitation: triage:개별치료와의 장단점, 과제중심·지지중심 집단 구분이 짧게 언급될 뿐 서로 관계 맺는 구조가 없어 글로 충분하다
+- total-energy-expenditure: triage:안정시·활동·식사성발열 세 요소의 합이라는 정의를 그대로 되풀이하게 되고, 비중 수치는 본문에 없어 비율 그림의 근거가 부족하다
+- land-readjustment-project: merge-candidate: 병합 후보라 보류(was checked)
+- relative-risk-nutrition: triage:노출군 위험을 비노출군 위험으로 나눈 비율 하나라 그림이 공식을 반복할 뿐이고, 오즈비와의 차이도 글 설명으로 충분하다
+- food-elasticity: triage:TPA 두 번 압축 거리의 비율이라는 단일 조직감 지표로, 그리려면 TPA 힘-시간 곡선이 필요한데 본문은 계산식만 말로 설명한다
+- open-set-topology: triage:모든 점의 작은 이웃이 집합 안에 든다는 단일 정의 개념으로, 관계 맺는 구성 요소가 3개 이상 없다
+- dietary-diversity-score: triage:섭취한 식품군 수를 세는 단순 점수로, 개인·가구 단위 차이와 한계는 나열식 설명이라 그림으로 얻을 것이 적다
+- telerehabilitation: triage:실시간·비실시간·센서 모니터링 형태가 한 줄씩 언급될 뿐 서로의 관계나 과정이 없는 서비스 방식 이름이다
+- environmental-capacity-assessment: triage:요소별 한계를 분석해 종합한다는 일반적 평가 흐름뿐이고 구체 단계·모델이 본문에 없어 그림이 막연해진다
+- intravenous-therapy: triage:말초·중심정맥 경로 구분과 정맥염 등 합병증 나열이 중심인 일반 치료 경로명으로, 그림이 글 이상을 보여 주지 못한다
+- neck-disability-index: triage:10개 문항 0~5점 합산 설문 도구로, 문항 목록과 점수 구간은 표·글로 충분하다
+- support-system-nursing: triage:정서·정보·물질·평가적 지지의 유형 나열과 공식·비공식 구분이 있지만 서로 작동하는 관계가 없어 목록 이상이 되지 않는다
+- authorship-dispute: triage:저자 자격·순서를 둘러싼 갈등이라는 사회적 현상으로, 선물·유령저자 등 관련 개념 언급뿐 그림으로 보일 구조가 없다
+- gaussian-quadrature: triage:뉴턴-코츠와의 차이(표본점 위치 고정 여부, 2n-1차 정확도)가 핵심이지만 수식 성질이라 두 칸 비교 그림은 글을 옮겨 적는 수준에 그친다
+- implicit-differentiation: triage:연쇄법칙으로 dy/dx를 미지수처럼 푸는 계산 기법으로, 단계가 수식 조작이라 도식보다 예제 식이 이해에 낫다
+- species-counterpoint: triage:1종~5종의 음수 대응 비율 나열이 본문 그대로라 단계 그림이 목록을 반복할 뿐 새로 보여 줄 관계가 없다
+- protein-denaturation: triage:자극→입체구조 풀림→응집이라는 짧은 흐름이 정의에 이미 들어 있어 그림이 정의를 되풀이하게 된다
+- social-polarization-urban: triage:중간층이 줄고 양끝이 느는 소득분포 모양 변화가 핵심이지만 쌍봉 분포를 그릴 함수가 없고, 다른 type으로는 글 이상을 보이기 어렵다
+- maternal-nutrition: triage:엽산·철분 등 영양소와 체중 증가를 다루는 포괄적 분야명으로, 서로 관계 맺는 구조가 본문에 없다
+- creatine-phosphate-system: triage:크레아틴인산이 ADP에 인산을 넘겨 ATP를 재합성한다는 한 단계 반응이 정의와 거의 같아, 그림이 덧붙일 것이 적다
+- asthma-exercise-management: triage:워밍업·코호흡·흡입기 사용 등 관리 수칙 나열로, 운동 회피의 악순환도 한 문장 언급이라 그림 근거가 약하다
+- residential-zone: triage:전용·일반·준주거 세분과 1~3종 구분은 법정 분류 목록이라 표로 충분하고, 종별 용적률 수치도 일부만 있어 위계 그림 근거가 부족하다
+- rosc: triage:맥박이 돌아온 상태라는 한 시점이고, 이후 소생후 치료는 산소화·혈역학·체온유지의 나열이라 순서 있는 구조가 약하다
+- electrical-burn: triage:겉 화상보다 심부 손상이 크다는 한 가지 요점과 합병증 나열이 중심이라, 그림이 글의 경고를 넘어서는 구조를 주지 못한다
+- homeomorphism: triage:연속 양방향 일대일대응이라는 추상 정의로, 도넛-커피잔 예시는 그림이 필요하지만 허용된 9개 type으로는 표현되지 않는다
+- research-fund-expenditure-transparency: triage:지출 기록·공개라는 원칙과 전자정산 같은 실무 수단 나열로, 관계 맺는 구성 요소가 없다
+- anaerobic-glycolysis-energy-system: triage:포도당→피루브산→젖산 경로가 정의와 거의 겹치고, 에너지 체계 간 시간별 기여 변화를 그릴 근거 수치가 본문에 없다
+- preceptorship: triage:선배-신규간호사 1:1 교육 제도라는 단일 관계로, 멘토링과의 차이도 기간·공식성 두 가지 기준뿐이다
+- sponsor-publication-control: triage:계약상 통제→출판편향이라는 연결이 한 줄로 끝나고 나머지는 대책 나열이라 그림이 글을 넘지 못한다
+- land-consolidation-rural: triage:토지구획정리사업의 농촌판으로 환지·필지 교환 구조가 겹치고, 지구 지정~등기 단계는 행정 절차 목록에 가깝다
+- biosafety-level: triage:1~4단계 시설 기준 목록이며, 위험군과 BSL의 구분은 두 문장으로 충분히 전달돼 그림이 덧붙일 것이 적다
+- thought-experiment: triage:가상 상황으로 이론을 시험하는 방법론 개념이고, 지식 산출 방식에 관한 견해 대립은 논쟁 중이라 구조화해 그리기 어렵다
+- ecological-corridor: triage:도로로 끊긴 서식지를 잇는 시설이라는 정의가 곧 그림 내용이고, 파편화→고립의 연결도 2단계뿐이다
+- dual-loyalty: triage:환자 이익과 연구 목적 두 역할의 충돌이라 구성 요소가 둘뿐이고, 대책(독립 동의 취득자·옵트인)은 글로 충분하다
+- drum-drying: triage:회전 드럼 접촉 전도 건조라는 단일 공정으로, 분무건조와의 차이는 열전달 방식·제품 형태 두 항목이라 비교 그림의 이득이 작다
+- matroid: triage:독립성 공리를 추상화한 구조로, 선형·그래픽 매트로이드 예시와 탐욕 알고리즘 최적성은 증명 개념이라 도식이 이해를 크게 돕지 않는다
+- sarcomere: merge-candidate: 병합 후보라 보류(was checked)
+- peer-review-ai-policy: triage:전면 금지·제한 허용·고지 의무 세 정책 유형 나열로, 서로의 관계나 과정이 없는 학술지 규정이다
+- causation: triage:규칙성·반사실·과정·개입주의 이론이 경쟁하는 논쟁적 형이상학 개념이라, 분류 그림은 이름 목록이 되고 어느 쪽도 단정하기 어렵다
+- load-bearing-wall: triage:위층 하중을 기초로 전달하는 벽이라는 정의가 곧 하중 경로이고, 비내력벽·전단벽과의 구분은 용어 차이라 글로 충분하다
+- dominant-pedal: triage:베이스에 딸림음을 지속하는 페달포인트의 한 유형으로, 악보 예시가 필요할 뿐 허용 type으로 그릴 관계 구조가 없다
+- exposure-environmental-control: triage:ABCDE 중 한 단계의 '벗겨 확인 후 즉시 덮기' 두 동작 — 저체온 위험은 주의 문장으로 충분하고 그림으로 더할 구조가 없음
+- muscle-glycogen-resupercompensation: triage:핵심은 고갈 후 기준선을 넘어 다시 차오르는 초과회복 곡선인데 가진 함수(hill·decay 등)로는 내려갔다 기준 위로 오르는 모양을 그릴 수 없음
+- altmetrics: triage:SNS·뉴스·블로그·정책문서 등 출처를 가중 합산한다는 목록형 설명 — 출처 나열 이상의 관계 구조가 본문에 없음
+- pinch-strength-test: triage:지첨·측면·삼점집기 세 유형 나열이 전부이고 유형별 근육·신경 대응은 본문에 구체적으로 주어지지 않아 그림 근거 부족
+- yersinia-enterocolitica: triage:단일 병원균 종명 — 저온 증식·가성충수염은 속성 서술일 뿐 관계 구조가 아님
+- reverberation-time: triage:용적이 크면 길고 흡음이 많으면 짧다는 두 변수 관계와 용도별 적정값 차이 — 문장으로 충분히 전달되어 그림의 추가 이득이 작음
+- wingate-test: triage:핵심은 초반 몇 초에 정점을 찍고 30초 동안 떨어지는 출력 곡선(피크·평균·피로지수)인데, 빠른 상승 후 감소하는 모양은 decay로 흉내 내면 안 되고 맞는 함수가 없음
+- retrospective-consent: triage:포괄적 동의·동의 면제와의 구분이 핵심이지만 비교 대상이 셋이고 차이가 '시점·범위' 한 줄로 요약되어 contrast 그림의 이득이 작음
+- anti-gentrification-policy: triage:임대료 규제형·공공 개입형·상생협약형 정책 유형 나열 — 유형 간 관계나 작동 경로가 본문에 없어 목록 이상이 안 됨
+- food-colorant: triage:천연 대 합성 착색료의 안정성 차이는 한 문장 대비로 충분하고, 안토시아닌 pH 변색은 하위 사례라 이 용어의 그림으로 부적합
+- prosthesis: triage:소켓·현수장치·관절·발 부품의 구성 나열 — 부품 간 기능 관계가 본문에 없어 부품 목록에 그침
+- contextualism: triage:설계 태도·사조 개념 — 본문에 철학의 맥락주의 용례까지 섞여 있고 모방·대비 접근 구분도 관계 구조로 그릴 근거가 약함
+- food-safety-modernization-act: triage:법률명 — 예방관리·농산물 안전·FSVP·위생 운송 세부 규칙 나열이며 HACCP과의 차이도 '범위가 더 넓다' 한 가지라 그림 이득이 작음
+- symphonic-poem: triage:음악 장르명 — 교향곡과의 차이(단악장·표제)는 두 항목뿐이라 글로 충분
+- culture-led-regeneration: triage:앵커시설→방문객→상권 활성화→젠트리피케이션 흐름은 본문이 효과가 지역마다 다르다고 유보해 인과 사슬로 단정해 그리기 어려움
+- adjacency-diagram: triage:용어 자체가 공간 관계 다이어그램이라 맞는 그림은 실(室) 네트워크인데 9개 유형에 없고, 필수·선호·분리 세 관계 유형 나열만으로는 이득이 작음
+- minimalism-architecture: triage:건축 양식·태도 — 절제·정밀 디테일이라는 속성 서술뿐 구성 요소 간 관계가 없음
+- hand-therapy: triage:급성기 부종관리→아급성기 가동범위→만성기 근력강화 세 시기 순서는 본문 한 문장으로 이미 명확해 그림의 추가 이득이 작음
+- system-of-equations: triage:교점=해, 평행=해 없음, 일치=무수히 많음은 기초 수준이며 본문에 이미 그래프 비유로 설명되어 그림이 정의를 되풀이함
+- escro-committee: triage:기관(위원회)명 — 심의 항목 나열과 IRB 병행 운영 서술뿐
+- disaster-response-phase: triage:재난관리 주기의 한 단계로, 주기 그림은 상위 개념의 그림이 되고 단계 내 활동(지휘·분류·이송)은 본문상 동시 진행이라 순서도로 그리기 어려움
+- regional-trauma-center: triage:지정 의료기관 명칭 — 이송 경로는 중증외상 이송체계 항목이 담당하고 이 용어 자체는 기관 속성 서술
+- tangent-space: triage:필요한 그림은 곡면 위 한 점에 붙은 접평면의 기하 그림인데 9개 유형으로 표현할 수 없음
+- trigonometric-function: triage:핵심은 단위원 회전과 물결 모양의 주기 그래프인데 주기함수를 그릴 함수가 없음
+- labor-theory-of-property: triage:자기소유→노동 혼합→소유권 + 두 단서 조항 — 짧은 논증이라 글로 충분하고 비판(노직·식민지)은 별도 논쟁
+- shared-equity-housing: triage:지분 적립형·고정형 두 구조와 지분 추가 매입 — 구성 요소가 적고 비율·조건은 제도마다 달라 일반 그림으로 고정하기 어려움
+- lagrangian-duality: triage:쌍대값 ≤ 원문제값과 쌍대격차라는 두 수치의 대소 관계가 핵심 — 수직선 그림이 필요하나 유형에 없고 약·강쌍대 대비는 한 줄로 충분
+- residential-segregation: triage:원인이 주택가격·소득·학군·낙인·제도 등 복합적이고 본문이 원인 단순화를 경계해 인과 사슬로 그리면 단정이 됨
+- floor-area-ratio-regulation: triage:용적률 상한 규제와 인센티브 완화 — 개념 그림은 용적률 항목과 겹치고 규제 운용 자체는 관계 구조가 아님
+- occupational-justice: triage:작업박탈·소외·불균형·한계 하위 개념 이름만 나열되고 각각의 뜻이 본문에 없어 위계 그림의 근거 부족
+- harmonic-minor-scale: triage:7음을 반음 올려 이끔음과 증2도가 생긴다는 한 가지 변경 — 필요한 그림은 음계 간격 도식인데 유형에 없음
+- solar-shading-design: triage:남면 수평·동서면 수직 차양 원리가 본문 여러 곳에서 이미 명시적 대비로 설명되어 contrast 그림이 정의를 되풀이함
+- night-landscape-plan: triage:경관 연출과 빛공해 저감의 균형이라는 계획 원칙 — 구성 요소 간 관계보다 기준 나열
+- half-diminished-seventh-chord: triage:감7화음과의 차이가 7음 종류(단7도 대 감7도) 하나로 요약되어 대비 그림의 이득이 작고 음정 구성은 표가 아닌 악보 도식이 필요함
+- nutrition-education: triage:지식→자기효능감→식행동 흐름은 본문이 환경 지원 없이는 간극이 크다고 해 단선 사슬로 단정하기 어렵고 교육 활동 일반 서술임
+- research-data-repository: triage:범용·전문 저장소 구분과 FAIR 네 원칙 나열 — 원칙 간 관계가 없는 목록
+- communicative-action: triage:전략적 행위와의 대비, 세 타당성 요구 나열이 본문에 이미 명시되어 그림이 정의를 되풀이하고 실현 가능성은 논쟁 중
+- underserved-area-for-emergency-medical-services: triage:접근시간·인력 부족으로 지정되는 지역 개념 — 판정 기준이 국가마다 달라 고정된 구조로 그릴 근거가 부족
+- informed-consent-statement: triage:논문에 넣는 진술문 — 서면·전자·대리인 동의 방식 나열뿐
+- isorhythm: triage:탈레아·콜로르 두 주기가 어긋나며 겹치는 구조는 가로 악보형 배열이 필요해 9개 type으로 정의 이상을 보여 주기 어려움
+- genotyping-tissue-sampling-refinement: triage:귀·꼬리·발가락·분변 등 개선 방법의 나열일 뿐 서로 관계를 맺는 구조가 없음
+- disaster-medical-response-system: triage:인지→분류→처치→이송→병원 단계는 개별 하위 용어의 나열이고 핵심(연계 지점의 단절)은 순서도로 드러나지 않음
+- human-challenge-trial: triage:핵심이 위험-이익 정당화의 윤리 논쟁이라 자연감염 시험과의 비교 그림은 정의 반복에 그침
+- food-cost-control: triage:표준원가 대 실제원가 차이 분석이 중심이나 구성 요소가 사실상 두 값의 비교뿐임
+- non-rebreather-mask: triage:저장백·일방향 밸브 등 기구 구조 설명은 해부도형 그림이 필요하고 관계 도식으로 얻을 것이 적음
+- patient-classification-system: triage:분류등급→소요 간호시간→인력 배치가 정의의 반복이고 요인평가법·원형평가법 구분도 이름 수준
+- prehospital-cpap: triage:양압으로 폐포를 열어 둔다는 한 단계 기전과 적응증·금기 목록뿐이라 그림이 더할 구조가 약함
+- impact-force: triage:충격량-운동량 원리는 두 변수 관계이고 충격 최고값과 부상의 관련은 본문 스스로 일관되지 않다고 밝힘
+- target-heart-rate: triage:최대심박수 비율·칼보넨 공식으로 구한 범위 하나라 수치 예시 외에 관계 구조가 없음
+- peak-height-velocity: triage:연간 키 성장속도가 급증기에 솟았다 줄어드는 곡선이 핵심이나 정점 앞뒤가 비대칭이라 inverted_u로 그리면 왜곡됨
+- nursing-model: triage:모형 일반을 가리키는 상위 개념이라 특정 이론의 그림을 대표로 그리면 오도함
+- diffusionism-music: triage:전파론 대 독립 발생설의 대립 한 줄이라 비교 기준이 본문에 충분하지 않음
+- pattern-and-correspondence: triage:두 양의 대응을 표·식으로 나타내는 초등 교육 개념으로 표상 종류 나열 외 구조가 없음
+- mechanism-of-injury: triage:둔상·관통상 두 갈래와 고위험 기전 예시 목록이라 분류도가 정의를 넘지 못함
+- new-town-project: triage:특정 정책 사업명으로 지정·침체·해제 경과가 서술적이고 개념 구조가 아님
+- urban-planning-tax: triage:2011년 재산세에 통합된 폐지 세목 하나로 단일 제도 설명
+- cheoyongmu: triage:특정 궁중 무용 명칭으로 오방 상징은 관계 구조가 아닌 속성 설명
+- informed-consent: triage:정보 제공·이해·자발성·동의 능력 네 요소의 나열로 요소 간 관계가 없음
+- structuralism: triage:관계 속에서 의미가 정해진다는 추상적 방법론이라 그림이 정의를 되풀이할 뿐임
+- carbohydrate-availability-training: triage:train low 효과가 본문에서도 상반된 논의로 다뤄져 대비 그림이 논쟁을 단정할 위험
+- sport-injury-psychology: triage:하위 분야 명칭이며 스트레스-상해 모델은 별도 용어로 다루는 편이 맞음
+- dot-product: triage:투영 그림자라는 기하 도형이 핵심인데 9개 type 어디에도 벡터 투영을 그릴 틀이 없음
+- weighed-food-record: triage:담은 양에서 남은 양을 빼는 단순 계량법이라 단계가 사실상 둘뿐임
+- wolf-motor-function-test: triage:수행 시간과 기능 능력 점수 두 지표를 재는 검사 도구로 구성 요소가 둘뿐임
+- hypertrophy-training: triage:세 자극→mTOR→단백질 합성 경로는 본문이 장기 비대 예측력 부족을 밝혀 단정적 그림이 됨
+- scene-safety-management: triage:위험 평가·통제·재평가의 원칙 서술이고 세 구역 구분도 명칭 수준이라 그림 근거가 약함
+- substance-administration-limits: triage:경로별 부피·빈도 기준표가 핵심이라 도식이 아니라 표가 맞음
+- rrid-research-resource-identifier: triage:AB_·CVCL_·SCR_ 접두어를 가진 식별 코드 체계로 단일 도구 설명
+- principle-of-charity: triage:허수아비 공격과의 대비뿐이라 구성 요소 2개, 그림이 정의를 반복함
+- motion-analysis: triage:3차원·2차원·관성센서 세 방법의 나열로 장단점 외 관계 구조가 없음
+- ambulance-transport-system: triage:신고→출동→인계 흐름은 체계 명칭의 풀이이고 본문 핵심(병원 선정·사전 통보의 영향)은 순서도로 드러나지 않음
+- neighborhood-unit-theory: triage:초등학교 중심·반경 400m·통과교통 배제는 평면 배치도가 필요한 공간 개념이라 9개 type에 맞지 않음
+- urban-primate-city-hypothesis: triage:수위도시지수(1위/2위 인구비) 하나로 요약되는 현상이라 구성 요소가 부족함
+- resting-heart-rate: triage:지구성 훈련→1회박출량 증가→심박수 감소의 짧은 설명이 본문에 이미 충분하고 나머지는 측정 주의사항
+- two-circles-position-relationship: triage:d와 r₁+r₂, |r₁-r₂| 비교로 나뉘는 다섯 경우는 기하 도형이 필요해 제공 type으로 그리기 어려움
+- iontophoresis: triage:같은 극성 전극이 이온 약물을 밀어 넣는 한 단계 원리라 구성 요소가 부족함
+- energy-balance: triage:섭취-소비 차이의 부호에 따른 증감이라는 정의 자체가 그림이고 대사 적응은 단순 도식으로 단정하기 어려움
+- ferritin-monitoring: triage:정기 측정이라는 관리 방법이며 결핍 단계 진행은 본문 근거가 부족하고 염증 교란은 주의사항 한 줄
+- architectural-design-competition: triage:공개·지명·다단계 공모 유형 나열과 일반 입찰과의 목적 차이가 전부 — 글 한 줄로 충분해 그림이 더할 관계가 없음
+- neurorights: triage:정신적 사생활·정체성·자유의지 등 세부 권리 목록은 학자마다 분류가 달라 하나의 체계로 그리면 논쟁 중인 분류를 단정하게 됨
+- joint-mobilization: triage:핵심 기전(관절낭 신장 대 신경생리 반응)이 논쟁 중이고, 등급 I~II/III~IV 구분은 두 갈래 대비라 구성 요소가 부족함
+- citizen-charter-planning: triage:주민 합의 헌장이 계획의 상위 기준이 된다는 한 가지 관계뿐 — 절차 단계(제정→검토)도 본문에서 구체화되지 않음
+- climate-change-adaptation: triage:구조적·비구조적·자연기반 적응의 예시 나열과 완화와의 구분이 전부 — 본문에 하위 유형 간 관계나 선택 기준이 없어 목록 이상이 안 됨
+- absolute-value-function-graph: triage:꺾인 V자 모양 자체가 핵심인 plot인데 linear는 직선 하나, inverted_u는 매끄러운 곡선이라 꺾이는 꼭짓점을 그릴 함수가 없음
+- casualty-collection-point: triage:흩어진 환자를 한 곳에 모은다는 단일 기능 장소 — 처치소와의 차이는 한 문장 구분이고 위치 선정은 거리 균형 한 축뿐
+- sport-nationalism: triage:역사 사례(베를린 올림픽, 냉전 메달 경쟁)와 해석 틀의 서술 위주 — 고정된 기전이나 단계가 없고 효과 평가도 논쟁적
+- growth-machine-theory: triage:성장 연합 구성원 나열과 교환가치·사용가치 대립 한 쌍이 핵심 — 연합의 작동 경로가 본문에 구체적이지 않아 정의 반복에 그침
+- transport-priority-classification: triage:1·2·3순위가 색상 코드에 대응한다는 단순 순서 목록 — 순위 명칭·색 대응도 체계마다 달라 고정해 그리기 어려움
+- the-other: triage:사르트르·레비나스·보부아르의 해석 차이를 다루지만 비교 기준이 서술적이고 철학자마다 강조점이 달라 표 형태로 단순화하면 왜곡됨
+- animal-rights: triage:싱어와 리건의 근거 차이는 본문에서 이미 두 문장으로 명료하게 대비되어 그림이 새로 보여 줄 것이 적음
+- total-parenteral-nutrition: triage:중심정맥 경로로 전 영양소를 공급하는 방법 하나 — 합병증·투여 속도 주의사항 나열이라 구조적 관계가 없음
+- right-to-the-city: triage:르페브르(1968)→하비 재해석 두 시점뿐이고 개념이 규범적 구호라 그릴 구성 요소가 부족함
+- running-economy: triage:같은 속도에서의 산소섭취량이라는 단일 지표 — 최대산소섭취량과의 구분은 한 문장이고 영향 요인은 병렬 나열이라 관계 구조가 없음
+- food-composition-table: triage:식품별 영양소 함량 자료라는 도구 자체 — 식사조사 자료를 섭취량으로 환산한다는 한 단계 외 관계가 없음
+- athletes-heart: triage:비대성 심근병증과의 감별이 핵심이지만 본문의 감별 기준이 탈훈련 퇴행 여부 정도로 단편적이고, 지구성·근력형 이분법도 본문이 부정함
+- evacuation-route: triage:이중피난 원칙, 보행거리 상한, 출구 폭 산정 등 설계 기준 나열 — 단계나 기전이 아닌 규정 목록이라 평면도 없이는 그림 이점이 없음
+- sol-gel-transition: triage:핵심인 겔화 온도와 융해 온도가 다른 이력현상은 히스테리시스 고리 plot이 필요한데 지원 함수에 없고, 졸↔겔 두 상태만으로는 다른 type도 구성 요소가 부족함
+- compressive-force: triage:힘의 한 종류(단일 속성) — 세장비가 커지면 재료 강도 전에 좌굴로 파괴되는 내용은 세장비-파괴응력 곡선이 필요하나 지원 함수에 없음
+- singspiel: triage:오페라 부파(레치타티보 세코)·악극과의 차이가 '대사를 말로 하는가' 한 기준뿐이라 그림 없이도 분명함
+- nonhuman-primate-research-ethics: triage:3R 원칙의 영장류 적용 사례 나열 — 3R 자체는 일반 동물실험 원칙이라 이 용어 고유의 구조를 보여 주지 못함
+- rigid-frame-structure: triage:강접합 골조라는 형식 하나 — 핵심인 접합부 모멘트 전달은 구조 도면이 필요해 9개 type으로 표현이 안 되고, 브레이싱과의 트레이드오프는 두 축뿐
+- nursing-care-bundle: triage:근거 있는 중재 3~5개를 묶어 전부 수행(all-or-none)한다는 방법 정의 하나 — 묶이는 요소는 번들마다 달라 고정된 구조가 없음
+- phrygian-cadence: triage:베이스 반음 하행과 상성부 반진행이라는 성부 진행이 핵심이라 악보 예시가 필요하고 9개 type으로는 표현되지 않음
+- cyclic-quadrilateral: triage:원 위 네 점과 대각 합 180도는 기하 작도 그림이 필요한 내용으로 개념 도식 type에 맞지 않음
+- muscular-endurance: triage:근력·심폐지구력과 구분되는 체력 요소 하나 — 저중량·고반복 대 고중량·저반복 대비는 한 축뿐이라 그림 이득이 적음
+- essence-and-existence: triage:아퀴나스와 사르트르의 선후 관계 역전이 핵심인데 실재적·개념적 구별 여부가 토마스주의 안에서도 논쟁 중이라 단정적 도식이 어려움
+- golden-ratio: triage:1:1.618이라는 단일 수치 — 건축 적용 여부는 학계 논쟁 중이라 그림으로 정당화하면 안 되고, 자기유사 사각형은 기하 작도라 type에 맞지 않음
+- libertarian-free-will: triage:사건 인과·행위자 인과·클라크 통합 모형의 구분은 운의 문제를 둘러싼 논쟁 서술이고, 양립가능론 등 상위 분류는 본문에 충분히 없음
+- airway-assessment: triage:ABCDE의 첫 단계로서 발성·이물질·부종 확인 항목 나열 — 확인 후 개방한다는 한 갈래뿐이라 절차 그림이 정의를 반복함
+- buffer-analysis: triage:점·선·면 버퍼의 모양 차이가 핵심인데 지도 그림이 필요해 type에 맞지 않고, 분류 자체는 세 가지 나열에 그침
+- gluten-free-diet: triage:글루텐을 빼는 식이요법 하나 — 셀리악병 기전은 다른 용어의 내용이고 나머지는 주의사항 나열
+- hard-bop: triage:쿨재즈에 대한 반작용 구도가 당대 저널리즘의 과장일 수 있다고 본문이 밝혀 대립 도식으로 그리면 논쟁을 단정하게 됨
+- traffic-calming: triage:과속방지턱·시케인·차로폭 축소 등 장치 나열이 중심이고, 속도 저하→치사율 감소는 두 단계 관계라 구성 요소가 부족함
+- historical-musicology: triage:음악학의 하위 분야 하나 — 아들러의 역사적/체계적 이분과 신음악학 확장은 두 갈래·두 시점으로 그림이 필요할 만큼 복잡하지 않음
+- thermotherapy: triage:열로 혈류를 늘리고 근육을 이완한다는 정의 반복 — 표재열 대 심부열 구분은 깊이 한 기준뿐이고 단독 효과 근거도 제한적
+- metaparadigm-nursing: triage:인간·환경·건강·간호 네 개념의 이름 나열 — 서로 영향을 준다는 일반 진술뿐 개념 간 구체적 관계가 본문에 없음
+- fusion-jazz: triage:비치스 브루 이후 재즈록·세계음악·스무드재즈로 범위가 넓어졌다는 서술이 있으나 시점이 대부분 불명확해 연표로 그리기에 근거가 약함
+- determinant: triage:핵심 직관이 도형 넓이가 늘고 뒤집히는 기하 그림이라 9개 type으로는 못 그림; 0이면 역행렬 없음 같은 경우 나눔은 글로 충분
+- coma-recovery-scale-revised: triage:식물상태→최소의식→탈출의 판정 단계가 본문에 한 문단으로 이미 정리돼 있고, 23항목 위계 자체는 본문에 구체 항목이 없어 그림 근거 부족
+- adolescent-nutrition: triage:영양학의 한 분야 이름 — 늘어나는 영양소(칼슘·철·단백질) 나열뿐 서로 관계 맺는 구조 없음
+- eigenvalue-eigenvector: triage:변환 뒤에도 방향이 유지되는 벡터를 보여 주는 벡터 그림이 필요한데 해당 type 없음; PCA·안정성 등 응용은 병렬 나열
+- medieval-music: triage:성가→오르가눔→아르스 안티콰→아르스 노바 순서는 있으나 연대가 본문에 없고 지역별 종료 시점도 다르다고 밝혀 타임라인 근거가 약함
+- temperature-danger-zone: triage:핵심이 5~60도 온도 구간 하나라 띠 표시면 되는데 해당 type 없음; 이단계 냉각 기준은 용어 자체보다 냉각 지침 내용
+- suite-form: triage:알르망드-쿠랑트-사라반드-지그 배열은 순서 있는 목록일 뿐 단계 간 인과·기능 관계가 없어 글로 충분
+- spatial-segregation-index: triage:하위 지표가 비유사성지수·고립지수 두 개 이름뿐이고 산식이 본문에 없음
+- sport-socialization: triage:스포츠로의/통한/로부터의 사회화 세 구분이 본문에 순환 구조로 제시되지 않아 cycle로 그리면 본문 밖 추론; 주체 목록은 나열
+- truthmaker-theory: triage:극대주의와 존재론 부담 사이 긴장이 핵심인데 학계 논쟁 중인 입장들이라 단정 없이 구조화하기 어렵고, 구성 요소가 명확한 관계로 이어지지 않음
+- force-velocity-relationship: triage:핵심인 힐의 쌍곡선형 반비례 곡선(속도 최대에서 힘 0)을 그릴 함수가 없음 — decay로 흉내 내면 안 됨; 다관절 직선 근사만으로는 정의 반복
+- compact-space: triage:유한 부분덮개라는 추상 위상 성질 — 동치 조건(닫힘+유계, 점렬 컴팩트)은 성립 범위가 공간마다 달라 단순 도식이 오해를 부름
+- polynomial-operations: triage:동류항 덧셈·분배법칙 곱셈 등 계산 규칙 모음 — 규칙끼리 관계 구조가 없음
+- character-piece: triage:형식이 아닌 미학적 장르 범주라 내부 구조가 작품마다 달라 공통 도식 근거가 없음
+- sense-datum-theory: triage:사물-감각자료-지각자 매개 구조는 정의 반복이고, 이접설·직접실재론과의 쟁점은 본문 서술이 얕아 대비 축을 세우기 어려움
+- transition-bridge-passage: triage:제1주제와 제2주제 사이라는 위치 하나가 요지 — 전조 시점 두 유형도 짧은 구분이라 글로 충분
+- nonghyeon: triage:떠는 소리·추성·퇴성 분류가 문헌마다 다르다고 본문이 밝혀 확정 위계를 그리기 어렵고, 핵심인 음높이 궤적은 type 밖
+- remainder-factor-theorem: triage:f(a)가 나머지, f(a)=0이면 인수라는 두 단계 관계가 정의에 이미 다 들어 있음
+- air-ambulance-dispatch-criteria: triage:임상·운영 변수(이송 30분, 기상, 착륙장) 목록 — 판단 흐름의 분기·순서가 본문에 구체적으로 없음
+- weight-training: triage:부하·반복·세트·휴식·운동 선택 다섯 변인 이름만 있고 어떤 조합이 어느 능력으로 가는지 본문에 없음
+- fan-identity: triage:승리 시 BIRGing·패배 시 CORFing 두 반응 대비뿐이라 구성 요소가 적고 글로 충분
+- body-weight-supported-treadmill-training: triage:하네스 지지율을 점점 줄인다는 한 가지 진행 원칙뿐; 중추패턴발생기 배경은 효과 논쟁이 있다고 본문이 밝힘
+- protein-timing-hypothesis: triage:단백질 창 대 하루 총량·분배 논쟁이 결론 나지 않은 가설 — 단정 없이 그릴 구조가 없음
+- geriatric-physical-therapy: triage:물리치료의 대상 분야 이름 — 낙상예방·근감소증 등 과제 나열이며 노쇠 다섯 기준도 단순 목록
+- cultural-relativism-music: triage:평가 기준을 문화 내부에서 가져오자는 방법론적 태도 하나 — 비교음악학 비판은 서술이 짧아 대비 축이 서지 않음
+- basal-metabolic-rate-measurement: triage:공복·안정 후 호흡가스 측정이라는 짧은 절차가 본문에 이미 한 줄로 서술됨; 예측공식 대비는 오차 언급 수준
+- core-plan: triage:중앙·편심·양측·분리 코어 유형의 장단점은 평면 배치 그림이 있어야 드러나는데 해당 type 없음; 유형 위계만으로는 나열
+- psychophysical-supervenience: triage:물리 동일→정신 동일이라는 의존 관계 하나 — 그리면 정의 반복
+- body-temperature-measurement: triage:직장>…>액와 순으로 부위별 0.3~0.5도 차이라는 단일 서열 정보 — 글로 충분
+- nutrient-density: triage:에너지 대비 영양소 비율이라는 단일 지표 — INQ 산식도 분수 하나라 도식 불필요
+- statcheck: triage:추출→재계산→비교라는 직선 처리 세 단계가 정의·쉽게 풀이에 이미 그대로 있음
+- causal-theory-of-reference: triage:최초 명명→전달의 사슬은 정의와 쉽게 풀이에 이미 그대로 서술돼 그림이 더하는 바가 적음
+- research-ethics-guideline-korea: triage:교육부 훈령 이름 — 예비조사·본조사·판정 절차는 본문이 이미 한 줄로 나열하고 분기가 없음
+- transit-node: triage:환승 거점이라는 장소 개념 — 위계·TOD 연계는 언급 수준이라 구조 근거 부족
+- insoluble-fiber: triage:부피 증가→장 통과 단축 기전이 정의에 이미 요약돼 있어 chain이 정의 반복
+- milieu-therapy: triage:군더슨의 다섯 기능(봉쇄·지지·구조화·참여·인정)은 서로 관계 없는 병렬 목록
+- personalized-nutrition: triage:유전·대사·장내미생물 입력 목록이고 본문 스스로 근거가 충분히 검증되지 않았다고 밝힘
+- agent-based-urban-simulation: triage:행위자 규칙→상호작용→거시 패턴이라는 흐름이 정의 문장 자체와 같고, 세포자동자 대비도 한 줄뿐이라 그림이 더할 내용이 적음
+- residential-environment-improvement: triage:정책·사업 명칭이며, 전면철거형 재개발과의 차이가 재정착률·점진성 정도로 글로 충분히 전달됨
+- traumatic-brain-injury-rehabilitation: triage:포괄적 재활 영역 이름으로, 본문이 연구 동향과 주의점 위주이고 단계나 기전의 구조가 제시되지 않음
+- whole-tone-scale: triage:핵심인 옥타브 6등분 대칭과 두 가지 이조 형태는 음높이 원·악보로 보여야 하는데 9개 유형에 맞지 않음
+- ubermensch: triage:낙타-사자-어린아이 비유는 별도 개념(정신의 세 변화)이고, 위버멘쉬 자체는 해석 논쟁이 큰 철학적 이상형이라 단계도로 단정하기 어려움
+- gender-music-studies: triage:연구 분야명으로, 본문이 학자·논쟁·연구 흐름 서술이라 관계 구조로 그릴 구성 요소가 없음
+- polyphony-music: triage:짜임새 하나의 정의이며 모방·자유 폴리포니 구분과 대위법과의 관계가 글로 충분하고, 짜임새 자체는 악보로 보여야 함
+- green-infrastructure: triage:녹지 요소 나열과 편익 나열이 중심이고, 회색인프라와도 대립이 아닌 결합 관계라 대비도의 축이 서지 않음
+- hepatic-encephalopathy-diet: triage:식이요법 항목으로 핵심 메시지가 '과도한 단백질 제한 금지'라는 한 가지 균형 원칙이며, 기전은 간성뇌증 쪽 내용임
+- musculoskeletal-modeling: triage:시뮬레이션 기법 이름으로, 본문이 활용 사례와 한계(개인차·검증 필요) 위주이고 모델링 단계가 구체적으로 제시되지 않음
+- biochemical-assessment: triage:정적·동적 지표 구분과 교란 요인이 개별 지표 예시로 흩어져 있어, 그림보다 표나 글이 적합한 평가법 개념
+- adjuvant-use-ethics: triage:실험동물 지침 항목으로, 첫 주사는 CFA·이후 IFA라는 두 단계 규칙이 전부여서 그림이 정의를 되풀이하게 됨
+- central-disaster-and-safety-countermeasures-headquarters: triage:특정 정부 기구명이며 조직 구조나 지휘 체계의 구성 요소가 본문에 구체적으로 나오지 않음
+- nighttime-population: triage:인구 지표 하나로, 주간인구와의 비율이라는 단일 대비만 있어 구성 요소가 2개뿐
+- subspace: triage:닫힘 조건과 원점 포함 여부는 3차원 공간 속 평면·직선 그림으로 보여야 하는데 9개 유형에 해당하지 않음
+- polyphenol: triage:식물성 화합물군 이름이며, 플라보노이드·비플라보노이드 분류는 한 문장 언급이라 분류도가 정의를 되풀이하는 수준
+- indirect-care-intervention: triage:간호 업무 범주 정의와 활동 예시 나열뿐이며 요소 간 관계가 없음
+- psychological-egoism: triage:윤리적 이기주의와의 구분(사실 대 규범)과 반증불가능성 비판이 한 줄로 전달되며, 비교 축이 하나뿐
+- offline-medical-direction: triage:사전 승인 프로토콜과 예외 시 온라인 지도 전환이라는 두 요소뿐이라 도식이 정의를 반복함
+- one-person-household-city: triage:인구 구성 변화에 따른 도시 유형을 가리키는 서술적 용어로, 수요 변화 예시 나열이 전부임
+- radial-urban-structure: triage:핵심이 바큇살 모양의 공간 배치라 지도형 그림이 필요하며, 격자형과의 비교 근거는 본문에서 한두 줄에 그침
+- haccp-verification-procedure: triage:모니터링·검증·밸리데이션 구분은 수행 시점과 주체의 차이로 본문에 이미 명료해, 그림이 정의를 되풀이할 가능성이 큼
+- muscle-protein-breakdown: triage:합성 대비 분해라는 두 항의 순균형 개념이 핵심이라 구성 요소가 2개에 그침
+- rapid-weight-loss-methods: triage:감량 방법과 해로운 결과를 나열하는 관행 용어로, 각 결과가 탈수 하나에서 갈라지는 단순 목록이라 그림의 이점이 적음
+- patulin: triage:단일 곰팡이독소 이름
+- tactical-urbanism: triage:임시 개입→반응 확인→영구 변경의 3단계가 정의 문장 그대로라 도식이 새로 보여 줄 것이 없음
+- repeated-sprint-ability: triage:체력 요인 하나와 수행 저하율 지표가 중심이며, 회복 기전(PCr 재합성·H+ 제거)은 요인 나열 수준
+- land-donation: triage:사업자 제공과 용적률 완화라는 두 당사자 간 맞교환 하나로 구성 요소가 부족함
+- lactate-curve: triage:강도에 따라 완만하다 급격히 치솟는 지수형 증가 곡선과 훈련 후 오른쪽 이동이 핵심인데, 증가형 지수 함수가 없고 다른 유형으로는 대체가 안 됨
+- development-gain-recapture: triage:토지가치포착과 사실상 같은 원리의 상위 개념이라 도식이 겹치고, 본문은 법령·논쟁 서술 위주
+- low-back-pain-rehabilitation: triage:재활 프로그램 총칭으로, 급성·아급성·만성 구분은 기간 기준 하나뿐이고 운동법 우열은 근거가 엇갈림
+- living-soc: triage:한국 정책 신조어로, 전통 SOC와의 대비는 시설 규모라는 단일 기준이라 그림이 덧붙일 것이 없음
+- spiritual-needs: triage:돌봄 영역의 요구 개념으로 의미·용서·연결감 같은 요소를 나열할 뿐 관계 구조가 없음
+- addition-formula-trigonometric: triage:공식 자체가 내용이며, 이해를 돕는 단위원 위 기하적 증명은 9개 유형에 해당하지 않음
+- cardiac-arrest-registry: triage:자료 수집 체계 이름으로, 본문이 수집 항목 나열과 해석상 주의점 위주임
+- splintering-urbanism: triage:보편 서비스에서 등급화된 네트워크로의 전환이라는 서사 하나뿐이고 실증적 단정도 경계해야 하는 이론 개념
+- figured-bass: triage:기보 체계라 숫자 표기의 실제 예시를 악보로 보여야 하며, 로마숫자분석과의 차이는 한 기준(음정 대 기능) 비교에 그침
+- diagonalization: triage:핵심인 고유벡터 방향으로 좌표축을 바꿔 축별 확대로 보는 아이디어는 기하 변환 그림이 필요하며 9개 유형에 맞지 않음
+- amiodarone: triage:단일 약물명
+- special-planning-district: triage:지정→세부계획 유보→별도 결정이라는 제도 설명이 글로 충분하고, 제안형·유도형 구분도 두 갈래뿐이라 그림이 더할 구조가 약함
+- six-minute-walk-test: triage:6분간 걸은 거리를 재는 단일 검사 — 단계나 관계 구조 없이 측정 조건·해석 주의만 나열됨
+- lagrange-theorem-group: triage:핵심은 잉여류로 군을 같은 크기 조각으로 나누는 분할 그림인데 9개 type 어디에도 맞지 않고, |G|=|H|·지표 관계는 식 하나로 전달됨
+- vacant-house-improvement: triage:철거 또는 리모델링 후 부지 활용이라는 정책 내용 나열 — 실태조사·판정 기준도 한 줄이라 단계 구조가 빈약함
+- polytonality: triage:두 조성의 동시 사용이라는 정의 자체가 전부이고, 두 층이 독립 조성으로 지각되는지는 본문도 논쟁 중이라 밝혀 그림으로 단정하기 어려움
+- resolution-phase: triage:페플라우 이론 네 단계 중 마지막 하나 — 앞 단계들이 본문에 없어 단계 흐름을 그릴 근거가 부족한 하위 항목
+- tinetti-balance-assessment: triage:균형 16점+보행 12점 두 하위척도로 된 평가 도구 — 구성 요소 2개라 정의 반복에 그침
+- activities-specific-balance-confidence-scale: triage:16개 활동 자신감 평균을 내는 자기보고 설문 — 능력·자신감 불일치 4분면은 본문에 두 칸만 언급돼 나머지를 지어내야 함
+- group-theory: triage:분야 전체를 가리키는 넓은 용어 — 공리 네 개와 관련 개념(아벨군·환·체·표현론)이 흩어져 있어 한 그림의 관계로 묶이지 않음
+- modified-barthel-index: triage:10개 ADL 항목을 세분 채점하는 단일 평가 도구 — 원판과의 차이도 채점 단계 수 하나뿐
+- necessity: triage:논리적⊃형이상학적⊃자연법칙적 함축 관계는 포개진 원 그림이 필요한데 venn(겹침) 형식과 맞지 않고, 후험적 필연성 등 본문 논의는 그림보다 글이 적합
+- occupational-performance-analysis: triage:활동분석과의 대비는 '특정인의 실제 수행 대 활동의 일반 요구' 한 축뿐이라 contrast로 그릴 비교 기준이 부족함
+- expressivism: triage:메타윤리 입장 하나 — 정서주의→표현주의→준실재론 계보와 프레게-기치 문제는 해석이 갈리는 논쟁 영역이라 도식으로 단정하기 어려움
+- transit-oriented-corridor: triage:노선 따라 결절점을 잇는 선형 개발이라는 공간 개념 — 단일 역세권 TOD와의 차이는 '점 대 선' 하나라 지도 없이는 그림이 정의 반복이 됨
+- pediatric-occupational-therapy: triage:작업치료의 한 전문 영역 이름 — 대상 질환·중재 방식이 나열될 뿐 서로 관계 맺는 구조가 없음
+- gutgeori-jangdan: triage:3소박 4박 12박 장단 — 박 구조는 악보·장단보 형식이 필요하고 9개 type로는 표현되지 않으며, 본문도 지역별 변형이 커 고정 패턴을 그리지 말라고 함
+- sodium-loss-through-sweat: triage:땀 나트륨 농도의 개인차라는 단일 현상 — 저나트륨혈증 연결도 물만 마실 때의 한 줄 인과라 구성 요소 3개 미만
+- bundle-theory: triage:기체 없이 속성 다발만 있다는 주장 — 기체 이론과의 대비 그림은 정의를 되풀이하고, 개별화 난제는 논증이라 도식이 더할 것이 없음
+- descriptive-analysis: triage:훈련 패널이 정의된 용어·척도로 강도를 매기는 방법 — 절차 단계가 본문에 순서로 제시되지 않고 결과 레이더 차트는 9개 type 밖
+- animal-model-justification: triage:안면·구성·예측 타당성 세 기준과 3R의 나열 — 기준 간 관계나 순서가 없어 목록 이상의 구조가 없음
+- nurse-patient-ratio: triage:간호사 1인당 환자 수라는 단일 비율 지표 — 사망 위험과의 선형 관계는 직선 하나라 그림이 글 이상을 주지 않음
+- flexible-line-of-defense: triage:뉴만 모형의 동심원 중 한 층 — 본문은 정상방어선과의 관계만 다루고 저항선·기본구조가 없어 동심원 전체를 그리려면 본문 밖 지식이 필요함
+- research-on-deceased-persons: triage:동의 면제·비식별화·유족 고려 등 윤리적 고려사항의 나열 — 단계나 분류 구조 없이 기관별로 다르다는 주의가 핵심
+- biopower: triage:주권권력 대 생명권력 대비가 가능하나 규율권력과의 중첩, 아감벤 확장의 정합성 등 해석이 논쟁적이라 도식으로 단정하기 어려움
+- polygon-interior-angle-sum: triage:(n-2)×180° 공식 — 핵심인 한 꼭짓점 삼각형 분할은 기하 그림이라 9개 type에 맞지 않고, n에 대한 직선 plot은 자명함
+- omega-3-fatty-acid-supplementation: triage:보충 전략 하나 — 항염→회복 효과가 본문 스스로 '일관되지 않다'고 밝힌 미확립 주장이라 경로로 그리면 단정이 됨
+- specialized-ambulance: triage:장비·인력 기준이 강화된 차량 종류 — 일반구급차와의 차이가 장비 목록 나열에 그침
+- pes-planus: triage:까치발 검사로 유연성/경직성 두 갈래로 나뉘는 구분 하나 — 분기가 2개뿐이라 글로 충분함
+- housing-supply-elasticity: triage:공급곡선 기울기 비교 plot이 떠오르지만 본문에 수요곡선·가격 축 설정 근거가 없어 그림 구성이 본문 밖 경제학 지식에 크게 기댐
+- flexible-space: triage:완전·부분·가구 기반 가변형 세 유형 나열 — 유형 간 구분이 설명 한 줄씩이라 위계 그림이 정의 반복에 그침
+- dangak: triage:궁중음악 계통 이름 — 송 사악 유입→향악화의 흐름은 시대 구분 근거(연도)가 본문에 없어 timeline 사건을 세울 수 없음
+- glycemic-load: triage:GI×탄수화물량÷100이라는 곱셈 지표 — 수박 예시 하나로 전달되며 두 요인 곱은 그림보다 식이 명확함
+- tocopherol-equivalent: triage:형태별 함량×상대활성을 합산하는 환산 단위 — 계산식 하나라 관계 구조가 없음
+- nutrigenomics: triage:영양소→유전자 발현을 다루는 분야명 — 영양유전학과의 차이는 화살표 방향 하나이고, 건강 결과로의 연결은 본문이 미검증이라 함
+- musical-motive: triage:동기→작은악절→큰악절 포함 관계와 변형 기법 목록 — 악보 예시 없이는 그림이 단위 이름 나열에 그침
+- unsold-housing-inventory: triage:일반 미분양과 준공 후 미분양 두 유형 구분뿐 — 구성 요소 2개
+- embargo-policy: triage:출판 전 보도 제한 규정 — 해제 시각 하나를 기준으로 하는 규칙이라 단계·관계가 없고 프리프린트 예외는 저널별로 달라 일반화 불가
+- voluntariness-of-consent: triage:강요·부당 유인 배제 원칙과 보장 장치(동의자 분리, 불이익 없음 고지)의 나열 — 요소 간 순서나 인과 구조가 없음
+- case-report-consent: triage:증례 게재 시 받는 별도 서면 동의 하나 — IRB 면제와 다르다는 주의가 핵심이라 구성 요소 3개 미만
+- munmyo-jeryeak: triage:개별 악곡 전통 — 종묘제례악과의 차이도 '송대 아악 대 향악·당악' 계통 한 줄뿐이라 그림 축이 부족
+- epistemic-closure: triage:회의주의 논증 3단 추론과 대응 전략(노직·맥락주의)이 학계 논쟁 중이라 어느 쪽이 끊는지 단정하지 않고 그리기 어렵고, 글로 이미 충분히 따라감
+- driving-rehabilitation: triage:평가→판정→훈련 흐름이 정의에 이미 담겨 있고, 세 갈래 판정도 글로 한 문장이면 충분
+- supervenience: triage:핵심인 하위-상위 속성의 다대일 대응은 9개 유형에 맞지 않고, 환원과의 구분은 '더 약한 의존' 한 축뿐
+- recruitment-advertisement-review: triage:심의 기준(정확성·위험 균형·보상·문의처) 나열일 뿐 기준 사이에 관계나 순서가 없음
+- nursing-professionalism: triage:설문으로 재는 태도 변수 — 이직의도 매개 경로는 개별 연구 결과 하나라 개념 도식이 아님
+- stroke: triage:질환명 — 허혈성·출혈성 두 유형 구분과 '시간이 곧 뇌' 원칙은 글로 충분하고 병원전 선별 절차는 다른 항목의 몫
+- akrasia: triage:소크라테스·아리스토텔레스·데이비슨 세 해석이 각자 다른 설명이라 순서 그림이 이해를 더하지 않고 서로 경합하는 입장임
+- neurodevelopmental-treatment: triage:치료 접근법 명칭 — 시행 내용이 논문마다 달라 재현성 논란이 있어 고정된 기전·단계로 그리기 어려움
+- life-cycle-housing-demand: triage:청년 소형→출산기 중형→노년 소형의 단계가 정의·쉽게 풀면에서 이미 나열됨(정의 반복), 만혼·비혼으로 경로 자체도 약화 중
+- constructive-empiricism: triage:실재론·도구주의와의 차이가 '믿음을 관찰 가능한 부분까지로 한정' 한 축이라 표 한 줄로 충분
+- housing-benefit-system: triage:급지별 기준임대료·자기부담 차감 산정식은 제도 세부 규정이라 수시로 바뀌고, 개념 이해용 도식 구성 요소가 부족
+- homomorphism: triage:핵심인 '연산 후 사상 = 사상 후 연산' 가환 사각형은 9개 유형에 없고, 핵·상·몫구조는 추상적이라 박스 그림이 정의 반복에 그침
+- polynomial-function-graph-shape: triage:도함수 0점→부호 변화→개형 절차는 정의 반복이고, 정말 필요한 3차 함수 곡선은 plot 함수에 없음
+- solipsism: triage:형이상학적·인식론적 두 갈래 구분뿐이라 구성 요소 3개 미만
+- training-volume: triage:핵심 곡선(일정량 이후 정체·역전)이 '보고도 있다' 수준의 논쟁적 주장이고 비대칭이라 inverted_u로 그리면 왜곡됨
+- torsional-stiffness: triage:편심→회전→모서리 부재 응력 집중 인과가 짧고 본문에서 이미 직설적으로 서술되어 박스 그림이 더하는 것이 적음(평면 배치 그림이 필요하나 유형 밖)
+- hedonism: triage:심리적/윤리적, 양적/질적, 에피쿠로스식 등 구분 축이 서로 달라 한 그림으로 묶이지 않음
+- linear-programming: triage:핵심인 '실행가능 다각형의 꼭짓점에서 최적' 그림은 곡선 plot이 아닌 영역 도형이라 현재 유형으로 못 그림
+- hydration-status: triage:평가 지표(체중·소변 비중·색·삼투압) 나열 중심이라 지표 사이 관계가 없음
+- music-drama: triage:넘버 오페라와의 대비(무한선율·라이트모티프·관현악 위상)는 본문에 충분히 풀려 있고 바그너 자신도 개념 규정이 흔들려 고정된 대비표가 위험
+- deviance-in-sport: triage:규범 위반형·과잉순응형 두 갈래 구분이라 글로 충분하고, 기준이 종목·시대에 따라 바뀐다는 단서가 붙음
+- gamelan: triage:지역 앙상블 전통명 — 조율·구조 특징이 서로 관계를 맺지 않는 나열이고 자바·발리 차이로 단일 도식이 어려움
+- augmented-triad: triage:단일 화음 — 옥타브 3등분 대칭은 원형 음높이 도식이 필요해 9개 유형 밖
+- basal-energy-expenditure: triage:단일 생리 수치 — 안정시대사량과의 차이는 측정 조건 한 축뿐
+- stanford-prison-experiment: triage:개별 역사적 사건 — 윤리·방법론 두 층위 비판은 글로 충분
+- hemostatic-agent: triage:물품 범주명 — '충전 후 3분 이상 압박' 사용법은 2단계뿐
+- smart-specialization-strategy: triage:하향식 대 상향식(기업가적 발견) 한 축 대비라 구성 요소가 부족
+- ems-quality-assurance: triage:기록 검토→피드백→재교육 순환은 일반적 품질관리 고리라 이 용어 고유의 이해를 더하지 않음
+- data-retention-period: triage:단일 규정(최소 보존 기간) — 기간이 기관마다 달라 그릴 구조가 없음
+- moores-paradox: triage:두 문장 형태와 두 해석 입장이 서로 맞물리지 않아 관계 도식이 성립하지 않음
+- series-convergence-tests: triage:판정법 목록(비율·근·비교·적분)일 뿐 언제 어느 것을 쓰는지의 판단 흐름이 본문에 없음
+- urban-growth-boundary: triage:개발제한구역과의 차이(주기 재평가·광역 관리)는 제도 비교 서술로 충분하고 지가 효과는 논쟁 중
+- overlay-journal: triage:프리프린트 게시→심사→링크 등재 흐름이 정의를 되풀이할 뿐
+- generating-function: triage:수열→급수→대수 조작→계수 추출 흐름이 추상적이라 박스 그림이 식 없이 의미를 전하지 못함
+- renal-diet: triage:투석 전후로 방향이 뒤집히는 것은 단백질 한 항목뿐이고 나머지는 검사 수치별 개별 조정이라 표로 고정 불가
+- peer-support-program: triage:프로그램 형태 설명 — 매칭·교육·연계 요소가 인과나 단계를 이루지 않음
+- wearable-physiological-monitoring: triage:측정→기준선 비교→강도 조정은 일반적 모니터링 고리로 정의 반복에 가까움
+- nursing-fee-schedule: triage:제도명 — 행위별·정액 두 방식 언급뿐이고, 수가→인력 연결은 본문 스스로 성립하지 않을 수 있다고 함
+- publication-embargo: triage:비공개 약속 하나의 관행 — 게재일 전후 두 시점뿐이라 시간축 그림이 정의 반복
+- textured-vegetable-protein: triage:단일 식품 소재명 — 저·고수분 압출 차이는 본문 두 문장으로 충분
+- self-talk: triage:지시적·동기적 두 유형 구분뿐이고 과제별 효과 차이도 메타분석 결론 한 줄이라 그림 근거 부족
+- mobius-inversion: triage:핵심이 g=f*1 ⇔ f=g*μ 한 줄 수식이라 상자 도식이 수식 이상을 보여 주지 못함
+- passing-tone: triage:핵심인 선율 윤곽(계속 나아감 대 되돌아옴)은 악보 그림이 필요한데 9개 type으로는 표현이 안 됨
+- yeongsanhoesang: triage:특정 악곡명 — 성악곡에서 기악 모음곡으로의 변천에 연대가 없어 timeline 근거가 약함
+- harmonic-progression: triage:T-S-D-T 기능 순환은 주의 절 한 줄에만 있고 근음 5도·3도·2도 분류도 글 나열로 충분
+- food-desert: triage:거리·교통·소득 요인 나열형 개념이고 접근성→식습관 연결은 본문이 약하다고 단서를 달아 경로도로 단정하기 어려움
+- williams-flexion-exercise: triage:맥켄지 신전법과의 대비가 본문에 한두 줄뿐이라 같은 기준의 비교 축을 채울 근거가 부족
+- self-ownership: triage:노직 논증이 전제→과세=강제노동의 짧은 직선이라 글로 이미 명료하고 코헨 반론도 한 줄
+- state-anxiety: triage:인지적·신체적 하위 구분과 시간 패턴은 다차원불안이론의 내용이고, 본 항목은 특성불안과의 대비 한 축뿐
+- natural-period: triage:핵심은 건물·지반 주기비에 따른 공진 증폭 곡선인데 비대칭 정점이라 inverted_u로 그릴 수 없음
+- green-building-certification: triage:인증 제도명 — G-SEED·LEED·BREEAM 가중치 차이는 언급만 있고 수치가 없어 비교 축을 세울 수 없음
+- phenylalanine-restricted-diet: triage:효소 결핍→페닐알라닌 축적 기전은 페닐케톤뇨증 항목 몫이고 식이 자체는 제한+보충의 단일 처방
+- intraosseous-infusion: triage:대체 투여 경로 하나 — 삽입 부위·식염수 확인 등 절차가 본문에 산발적이라 단계도 근거가 얇음
+- size-principle: triage:힘 증가에 따른 운동단위 순차 동원은 계단형 곡선이 맞는데 제공 함수가 없음; 소·대형 단위 대비만으론 순서가 안 드러남
+- nursing-care-plan: triage:간호과정 5단계 중 한 단계라 순환도는 간호과정 항목의 하위 사례에 불과
+- return-of-results: triage:통보 조건(타당성·임상 유의성·조치 가능성)이 한 문장 나열이라 판단 흐름도가 글을 되풀이함
+- publish-or-perish: triage:편수 평가→압박→살라미·부실 저널 연결이 '지적된다' 수준의 구조 비판이라 인과 경로로 단정하기 어려움
+- exoskeleton: triage:기기 범주명 — 구동형·부분형, 재활·산업 구분이 각각 둘뿐이라 분류도가 빈약
+- desensitization-technique: triage:솜→거친 질감으로 올리는 자극 위계가 한 줄 나열이라 사다리 그림이 글을 반복함
+- transit-oriented-development: triage:역 중심 동심원 반경별 밀도 배치는 공간 배치도가 필요한데 9개 type에 맞는 틀이 없음
+- affordable-housing: triage:소득 30% 기준선 하나로 정의되는 상대 개념 — 구성 요소 3개 미만
+- isokinetic-exercise: triage:속도 고정 운동 형태 하나 — 등장성과의 비교가 언급만 있고 기준별 내용이 본문에 없음
+- hyangak: triage:향악·당악·아악 경계가 시대마다 달랐다고 본문이 강조해 고정 분류도는 오해 소지, 당악·아악 세부도 없음
+- childrens-foodservice-management-center: triage:공공 기관명 — 식단 제공·위생 지도·교육 업무 목록뿐
+- triangle-congruence-conditions: triage:SSS·SAS·ASA와 SSA·AAA의 차이는 변·각의 위치 그림이 핵심인데 상자형 contrast로는 그 기하가 안 드러남
+- babinski-sign: triage:정상(발가락 굽힘) 대 병적(엄지 신전) 두 반응 대비뿐이라 글로 충분
+- training-zone: triage:구간 수·경계가 체계마다 다르다고 본문이 밝혀 5단계 구간도를 표준처럼 그리기 어려움
+- animal-sentience: triage:어느 분류군까지 인정할지 논쟁 중이라 분류군 위계도는 단정 위험, 유해회피와의 구분도 두 항목뿐
+- nightingale-environmental-theory: triage:환기·채광·청결 등 환경 요소 목록이 자연치유를 돕는다는 단순 구조라 그림이 목록 반복
+- surge-capacity: triage:병상·인력·물자·시스템 차원을 나열할 뿐 관계 구조가 없어 분류도가 정의 반복
+- food-rheology: triage:학문 분야명 — 대표 현상인 전단박화(점도-전단속도 감소 곡선)는 멱법칙 함수가 없어 decay로 흉내 낼 수 없음
+- adiponectin: triage:단일 호르몬 물질명 — 렙틴과 반대 분비 패턴은 한 문장 대비
+- architectural-program: triage:설계 기초 문서 — 면적·인접관계·이용시간 등 요구조건 목록이라 관계 구조가 없음
+- development-density-management-district: triage:법정 구역명 — 기반시설부담구역(부담금)과의 수단 차이는 한 문장
+- inverted-spectrum: triage:단일 사고실험 — 철학적 좀비와의 대비가 주의 절 한 줄뿐이라 비교 축이 부족
+- microclimate-urban-planning: triage:그늘·알베도·증발산 등 영향 요인 나열형이라 그림이 목록을 되풀이함
+- wic-program: triage:단일 제도명 — 지원 항목(바우처·교육·연계) 나열이고 SNAP과의 차이도 대상 범위 한 줄뿐
+- lidocaine: triage:단일 약물명 — 나트륨채널 차단 기전이 정의 한 줄로 끝나고 나머지는 시험 결과·금기·독성 서술
+- patient-centered-care: triage:핵심 요소(존중·정보공유·참여·협력)가 서로 관계 없이 나열될 뿐이고 IOM 6요소는 상위 개념(의료의 질) 그림
+- bikeshare-system: triage:도킹형·도크리스 구분과 재배치 문제가 각각 한 문장 — 비교 축이 부족한 서비스 유형명
+- massing: triage:용적률·사선·코어·스팬 등 제약 나열 — 3차원 형태 자체가 핵심이라 9개 유형으로 옮길 관계가 없음
+- supremum-infimum: triage:수직선 위 상계·상한 위치를 그려야 이해되는 개념이라 9개 유형(곡선 함수 포함)으로 표현 불가
+- dietary-intake-assessment: triage:회상법·기록법·빈도조사법 이름만 나오고 방법별 정확도·기간·부담 차이가 본문에 구체화되지 않아 분류도가 정의 반복에 그침
+- development-agreement: triage:계획 특례↔공공기여 맞교환 한 쌍과 협약 조항 나열뿐 — 순서나 3개 이상 관계가 약함
+- fieldwork-music: triage:녹음·면담·참여관찰 등 활동 나열과 윤리 쟁점 서술 — 단계 순서나 구조가 본문에 없음
+- cross-relation: triage:두 성부의 악보 예시가 있어야 보이는 현상 — 노드·화살표 도식으로는 정의 반복
+- vacuum-packaging: triage:산소 제거→호기성균·산화 억제가 정의와 같고, 혐기성균 위험은 단일 주의점이라 연쇄가 짧음
+- measure-theory-basics: triage:분야 개관 항목 — 시그마 대수·측도·르베그 적분이 언급되지만 관계 설명이 얕아 그림이 목차 나열이 됨
+- magnesium-deficiency: triage:결핍 상태명 — 위험요인·증상·동반 전해질 이상이 각각 나열될 뿐 기전 연결이 본문에 없음
+- waiver-of-consent: triage:IRB 승인 조건 4개가 체크리스트로 나열 — 순서나 조건 간 관계가 없어 글 목록으로 충분
+- flamenco: triage:음악·춤 전통 이름 — 칸테·바일레·토케 세 요소는 정의 반복이고 팔로·콤파스는 들어야 이해됨
+- occupational-balance: triage:주관적 만족 개념이라 활동 영역 4개를 그려도 정해진 비율·관계가 없음(본문이 기준 일반화를 경고)
+- landmark: triage:도시 요소 이름 — 대·소규모 구분과 린치 5요소 중 하나라는 언급뿐이라 관계 구조 부족
+- column-structure: triage:슬래브→보→기둥→기초 하중 경로가 정의 그대로이고 단주·장주 구분은 한 문장
+- sarcopenia-elderly: triage:진단 단계(근력→근육량→수행능력)가 한 문장 언급뿐이고 기준값이 본문에 없어 절차도 근거가 얕음
+- odd-even-function: triage:y=x²·y=x³의 대칭 그래프가 핵심인데 plot 함수 목록에 다항함수가 없음
+- national-rd-innovation-act: triage:단일 법률명 — 규정 항목 나열이고 연구윤리 지침과의 구분도 한 문장
+- multi-residue-analysis-method: triage:개별분석법과의 차이가 효율 대 정밀도 한 축뿐 — 분석기법명으로 정의 반복에 가까움
+- grab-bar-installation: triage:환경개조 한 가지 방법 — 수직·수평·대각선 형태와 시공 주의점 나열뿐
+- location-theory: triage:농업·공업·중심지 갈래가 이론가·모형 내용 없이 한 문장씩만 있어 분류도가 이름 나열에 그침
+- return-to-sport-testing: triage:근력 대칭·기능 동작·심리 준비도를 종합한다는 영역 나열 — 순서나 판정 흐름이 본문에 없음
+- dietary-misreporting: triage:과소·과대 두 방향과 검증법(이중표식수·Goldberg) 나열 — 그림이 정의의 두 갈래를 반복할 뿐
+- logocentrism: triage:말>글 위계 한 쌍이 핵심이고 본문이 단순 반전 도식을 오해로 경고 — 그림이 비판 대상 위계를 재현할 위험
+- nursing-assessment: triage:간호과정의 첫 단계일 뿐 — 사정→진단→계획 순환도는 상위 용어(간호과정) 몫이고 주관·객관 자료 구분은 두 칸
+- peer-review-fraud: triage:자기 추천·심사자 사칭·논문 공장 등 수법 3가지 나열 — 서로 관계 없는 사례 목록
+- food-waste-resource-recycling-law: triage:단일 법령명 — 사료화·퇴비화·바이오가스화 경로는 처리 기술 용어 몫이고 법 자체는 책임 주체 나열
+- randomization-animal-studies: triage:무작위배정의 일반 원리를 동물실험에 적용한 하위 사례 — 층화·어미 단위 배정도 한 문장씩
+- cephalopod-research-welfare: triage:규제 적용 범위에 관한 단일 규정 — 국가별 차이와 보고 항목 나열뿐
+- hypotonia: triage:여러 질환의 공통 임상 소견(증상명) — 근력 약화와의 구분·원인 감별 필요성 외에 3요소 이상 관계 구조가 본문에 없음
+- tapering: triage:핵심이 '훈련량 41~60% 감소·강도 유지'라는 수치 처방이고, 점진형·계단형 감소 곡선은 종목·개인에 따라 우열이 갈린다고만 서술돼 그림으로 단정할 근거가 약함
+- portion-control: triage:배식 도구 표준화 실무 활동 — 국자·1인분 팩·접시 크기 등 수단 나열뿐, 요소 간 기전·단계 관계가 없음
+- data-use-agreement: triage:계약 조항(목적 제한·재공유 금지·파기·재식별 금지) 목록 — 관계 구조가 아니라 항목 나열이며 물질이전계약과의 차이도 대상 하나뿐
+- historic-cultural-environment-preservation-area: triage:문화재 외곽 500m 내 조례 지정 구역이라는 공간·법제 규정 — 동심 구역 배치는 9개 type에 맞지 않고 규제 강도는 지자체별 편차라 일반화 불가
+- primary-nursing: triage:담당간호사 1인 전담이라는 배정 원칙 — 연계간호사 대체 외에 비교 대상 전달체계(팀간호 등)가 본문에 없어 구성 요소 부족
+- regional-extinction: triage:용어 자체가 과장 논란이 있고, 핵심 지표(20~39세 여성/65세 이상 < 0.5)는 단일 비율이라 그림이 정의를 되풀이하는 데 그침
+- power-mobility-device: triage:기기 범주명 — 조작 인터페이스·실내외 유형 나열과 전환 시점 논쟁뿐, 관계 구조가 없음
+- foreground: triage:쉔커 층위(전경·중경·배경) 중 하나 — 층위 그림은 상위 개념인 쉔커분석의 몫이고, 이 항목 단독으로는 층위 이름을 되풀이하는 데 그침
+- anarchism: triage:갈래(아나코코뮤니즘·생디칼리즘·상호주의·아나코-자본주의) 나열은 가능하나 서로 대립하는 전통의 포함 여부 자체가 논쟁적이라 분류도로 단정하기 어려움
+- chebyshev-inequality: triage:핵심은 1/k² 상한 곡선과 정규분포 실제 꼬리확률(2σ에서 25% 대 약 5%)의 비교인데, 1/k² 감소 곡선을 그릴 함수가 없음(decay는 지수형이라 모양이 다름)
+- advanced-practice-nurse: triage:자격 제도 — 한국 13개 분야·미국 4개 역할의 목록 나열로, 분야 수가 많고 관계 정보가 없음
+- aeromedical-team: triage:인력 단위 명칭 — 의사·간호사·응급구조사 구성형이 나라마다 다르다는 서술뿐, 기전·단계 구조가 없음
+- rationalism: triage:경험론과의 대비가 핵심이나 본문 스스로 그 대립이 도식적이라 경계가 절대적이지 않다고 경고하고, 경험론 측 근거가 본문에 거의 없음
+- solid-of-revolution: triage:평면도형을 축 둘레로 돌리는 기하 형상 자체가 핵심 — 관계도 9개 type으로는 회전·입체를 보여 줄 수 없음
+- development-section: triage:제시부-발전부-재현부 배치는 상위 개념인 소나타형식의 그림이고, 발전부의 기법(분해·전조·모델-시퀀스)은 본문 스스로 시대마다 예외가 많다고 밝힘
+- iacuc-approval: triage:사전 심사·승인번호 명시라는 일반 승인 절차 — 3R 원칙은 별도 개념이고 절차 단계가 본문에 구체적으로 나뉘어 있지 않음
+- nutrition-in-critical-illness: triage:과소·과잉 공급 모두 해롭다는 U자형 관계가 핵심이나 그 모양을 그릴 함수가 없고, 급성기 저열량 전략은 학회별로 아직 논의 중
+- net-to-gross-area-ratio: triage:전용면적/연면적이라는 단일 비율 지표 — 분모 기준 주의와 용적률·건폐율과의 구분은 글로 충분함
+- orcid: triage:16자리 연구자 식별자 — 단일 식별 도구로 관계 구조 없음
+- lead-contamination-food: triage:오염원(토양·배관·유약·향신료 혼입) 나열과 뼈 축적이라는 단일 특성 — 경로 간 관계가 아니라 목록이라 그림이 더할 이해가 적음
+- riemann-zeta-function: triage:임계띠·Re(s)=1/2 직선·자명한 영점 등 복소평면 배치도가 필요한 개념 — 9개 type 밖이며 리만 가설은 미해결
+- low-impact-development: triage:분산형 대 중앙집중형 우수관리 대비가 있으나 본문 스스로 대체가 아닌 보완 관계라 밝혀, 두 줄 비교 이상의 구조가 나오지 않음
+- algorithmic-design: triage:규칙→형태 생성이라는 일반 설계 방식 — 파라메트릭과의 차이는 강조점 한 문장이고 단계 구조가 본문에 없음
+- disaster-response-organizational-structure: triage:역할·보고체계 틀의 추상적 정의 — 실제 조직도(기관·직위 배치)가 본문에 없어 그릴 근거가 없음
+- traction-splint: triage:장비명 — 근경련이 골절편 겹침을 만들고 견인이 이를 상쇄한다는 2요소 기전과 금기 목록뿐
+- preoperative-nursing: triage:사정·교육·최종 점검이라는 일반 체크리스트 — 단계 이름이 정의를 되풀이할 뿐 순서 자체가 주는 새 이해가 적음
+- mirror-therapy: triage:착시→운동피질 활성화→기능 회복 연결을 본문 스스로 검증되지 않았다고 밝혀, 기전도로 그리면 단정이 됨
+- recovery-principle: triage:핵심은 훈련 후 피로로 떨어졌다가 기준선 위로 올라오는 초과회복 곡선인데 이 모양을 그릴 함수가 없음
+- happy-house-policy: triage:공공임대 정책명 — 계층별 거주기간·임대료 비율은 표로 충분하고 관계 구조가 없음
+- squeeze-theorem: triage:하한 g·상한 h 사이에 낀 f가 같은 극한으로 모이는 그래프가 핵심이나 그런 세 곡선(예: x·sin(1/x)와 ±|x|)을 그릴 함수가 없음
+- muscle-memory-myonuclear: triage:근핵 보존 기전이 설치류에서만 일관되고 사람에서는 엇갈리며 후성유전 대안 가설도 경쟁 중이라, 경로도로 그리면 단정이 됨
+- urban-planning-committee: triage:심의기구 — 중앙·시도·시군구 3단 위계는 이름 나열에 그치고 본문 핵심은 투명성 논쟁
+- linkage-project-regeneration: triage:정의가 부처 사업 결합과 교차보조 두 뜻으로 섞여 있고, 교차보조 흐름도 수익→비수익 재투자 2요소뿐
+- transport-priority-determination: triage:중증도·이송수단·병원 수용·거리 같은 고려 요소의 나열과 '계속 재조정한다'는 원칙뿐이라 요소 사이의 관계 구조가 없음
+- low-birth-weight: triage:2.5·1.5·1kg 체중 구간과 조산/자궁내성장지연 두 원인 구분은 글 두 줄로 충분하고, 그림이 기준 수치를 되풀이하는 데 그침
+- lhopitals-rule: triage:'부정형이면 분자·분모를 미분해 다시 극한' 한 단계 규칙이라 절차 그림이 정의를 그대로 되풀이함
+- disaster-scene-communication-system: triage:무전·위성전화·이동기지국 등 통신 수단 나열과 이중화 원칙뿐, 구성 요소 간 관계가 없음
+- delayed-onset-muscle-soreness-nutrition: triage:타트체리·오메가3 등의 효과가 본문 스스로 일관성이 제한적이라 밝혀 효과 경로를 단정해 그릴 수 없음
+- lease-on-deposit-loan: triage:보증-대출-보증금 지급-반환-상환의 돈 흐름은 금융상품 설명 수준이고 보증기관 역할이 본문에서 짧게만 언급되어 근거가 얇음
+- pediatric-physical-therapy: triage:치료 분야명; 뒤집기→걷기 발달 순서는 대운동 발달 용어의 소재이지 이 분야 자체의 구조가 아님
+- eliminative-materialism: triage:동일론과의 '환원 대 제거' 대비가 핵심이나 비교 축이 하나뿐이고 자기논박 논쟁이 진행 중이라 그림이 한쪽 입장을 단정할 위험
+- dome-structure: triage:자오선 압축과 원환 인장의 공간적 분포는 단면·입체 그림이 필요해 9개 type으로는 정의 이상을 보여 주기 어려움
+- ars-antiqua: triage:포함 범위(노트르담 악파 포함 여부)가 학자마다 달라 연표의 시작점을 단정할 수 없음
+- biological-hazard-food: triage:세균·바이러스·기생충·진균독소 하위 항목 나열이라 분류 그림이 목록을 되풀이할 뿐
+- pediatric-bls: triage:성인과의 차이가 압박 깊이·비율 같은 수치 몇 개라 표가 적합하고, 비교 대상인 성인 기준치는 본문에 없음
+- on-scene-command-system: triage:하부 조직의 이름과 역할이 본문에 없어 지휘 계통도를 근거 있게 그릴 수 없음
+- vital-signs-measurement: triage:체온·맥박·호흡·혈압(+통증·산소포화도) 측정 항목 나열로 항목 간 관계가 없음
+- cluster-randomized-trial-consent: triage:배정·개입·자료수집 단계별로 게이트키퍼 동의와 개인 동의를 나누는 내용이 본문 한 문단에 명료하게 정리되어 그림의 추가 이득이 작음
+- particulars: triage:다발이론 대 기체이론은 본문이 '여전히 논쟁 중'이라 밝힌 대립이며, 개별자 정의 자체는 보편자와의 단일 대비뿐
+- theoretical-framework-nursing: triage:이론→개념→변수로 이어지는 연결은 연구방법 일반론이라 이 용어만의 그림이 되지 않음
+- emergency-department-bed-turnover-rate: triage:단일 운영 지표; 입원 대기 점유가 회전율을 낮춘다는 원인 설명은 한 문장으로 충분
+- joint-play: triage:활주·구름·돌기·견인 네 부속운동은 관절면의 기하학적 움직임 그림이 필요해 9개 type으로는 이해를 더하지 못함
+- connectedness-topology: triage:경로연결⊂연결이라는 포함 관계 하나뿐이라 구성 요소가 2개
+- airborne-precautions: triage:음압실·N95·밀착도검사 같은 조치 항목 나열이며, 비말주의와의 비교 기준은 본문에 한쪽만 있음
+- multi-agency-coordination-system: triage:합동회의·합동훈련·연락관 파견 세 축은 나란한 수단 목록이라 관계 구조가 없음
+- quantifier: triage:전칭·존재 두 기호와 부정을 통한 상호 정의가 전부라 구성 요소가 2개
+- industrial-complex-development: triage:국가·일반·도시첨단 유형 이름만 있고 유형별 차이가 본문에 없어 분류도가 이름 나열에 그침
+- food-industry-wastewater-treatment: triage:혐기성→호기성 두 단계와 바이오가스 회수가 전부라 공정도가 정의를 넘지 못함
+- modern-architecture: triage:라멘 구조→5원칙→국제주의로 이어지는 인과는 그릴 수 있으나 사조 정의와 비판 관점이 섞여 있고 근대건축5원칙 항목에서 다룰 내용과 겹침
+- datasheets-for-datasets: triage:수집 동기·구성·절차·전처리·이용·배포 질문 항목의 목록이며 항목 사이 인과가 없음
+- variation-principle: triage:변화와 특이성의 균형이라는 원칙 진술뿐이고 정체·회복 곡선 같은 수치 근거가 본문에 없음
+- wound-healing-nutrition: triage:단백질·비타민C·아연의 역할은 나오지만 염증기·증식기·성숙기 중 어느 단계에 어느 영양소가 우선인지 본문이 밝히지 않아 단계 대응 그림을 근거 있게 못 그림
+- urban-underground-space-plan: triage:심도별 층 배치(보행·상업/공동구·주차/지하철)는 단면도가 맞는 모양이라 9개 type에 맞지 않음
+- combined-development: triage:개발권양도제·통합개발과의 차이가 권리관계 처리 방식이라는 제도 세부라 그림보다 문장 대비가 정확함
+- riveted-connection: triage:가열·삽입·성형·냉각 조임의 단순 공정이 정의에 이미 다 들어 있음
+- factors-and-multiples: triage:같은 관계를 반대 방향에서 본 두 개념뿐이라 구성 요소가 2개
+- nursing-record: triage:사정-계획-수행-평가 순환은 간호과정 용어의 그림이고, 기록 자체는 문서 형식·법적 요건 설명
+- algorithmic-bias-in-research-data: triage:편향된 데이터→편향된 모델 결과라는 한 줄 인과가 정의에 이미 있고, 표본 편향·측정 편향 구분은 두 항목뿐
+- central-obesity: triage:허리둘레 기준으로 판정하는 상태 정의이며 BMI와의 차이는 한 문장 대비로 충분
+- re-consent: triage:목적 변경·위험 정보·활용 확대·법적 지위 변화라는 재동의 사유 나열이 핵심이고 흐름은 한 단계뿐
+- theory-of-forms: triage:이데아와 감각 사물의 분유 관계가 정의 그대로이고, 아리스토텔레스 비판은 별도 항목 수준으로 짧게만 언급됨
+- mental-toughness: triage:4C 구성요소 나열이며 본문이 정의와 측정에 합의가 없다고 밝혀 구조를 단정하기 어려움
+- linear-independence: triage:동·북·북동 벡터 예시는 좌표 그림이 필요한데 9개 type으로는 벡터 방향을 못 그림 — 관계도로 바꾸면 정의 반복
+- preterm-infant-rehabilitation: triage:자세 관리·감각 자극·개별 신호 관찰이 나열될 뿐 순서나 인과 구조가 본문에 없음
+- zinc-deficiency: triage:결핍 상태 하나와 증상 목록(성장 지연·면역 저하·상처 치유 지연) — 기전 단계가 본문에 없어 목록 반복
+- skinfold-thickness-measurement: triage:캘리퍼로 집어 재고 회귀식에 넣는 2단계 측정법 — 그림이 측정 설명 이상을 주지 못함
+- pregnancy-related-physical-therapy: triage:릴렉신→인대 이완→안정화 운동 정도의 짧은 연결뿐, 대부분 금기·주의 나열이라 그림 이득 적음
+- leisure-participation: triage:여가 유형 3가지와 환경 요인이 언급되지만 분류가 짧은 나열이고 관계 구조가 약함
+- symbolism-music: triage:드뷔시·말라르메·마테를링크 등 인물·작품 중심의 사조 설명 — 인상주의와의 구분도 학자마다 달라 단정해 그리기 어려움
+- voluntary-recall: triage:자진회수 대 강제회수 구분은 '누가 먼저 시작하나' 한 기준뿐이라 대비 그림이 정의를 되풀이함
+- griot: triage:서아프리카 세습 음악가 계층이라는 사회 집단명 — 젤리·게웰 등 민족별 명칭 차이는 구조가 아닌 명칭 목록
+- materials-transfer-agreement: triage:재료 공유 계약 문서 한 종류 — 사용 범위·파생물 권리 조항은 계약 항목 나열이라 구조 없음
+- bus-rapid-transit: triage:전용차로·우선신호·사전요금징수 등 구성 요소 나열과 금·은·동 등급명뿐, 요소 간 관계가 본문에 없음
+- isometric-contraction: triage:근육 길이 불변 수축이라는 단일 속성 — 각도 특이성 곡선은 본문에 모양 근거가 없어 그리면 지어내게 됨
+- geometric-construction: triage:자와 컴퍼스 두 도구의 역할 구분이 핵심이라 구성 요소가 적고, 3대 작도 불능 문제는 목록일 뿐
+- urban-growth-model: triage:셀룰러오토마타·회귀·행위자 기반 모형이 이름만 나열되고 차이 설명이 없어 분류도가 이름 반복이 됨
+- critical-regionalism: triage:획일적 국제양식과 전통 모방 사이 '제3의 길'이라는 태도 — 양식이 아니라고 본문이 강조해 형태 대비로 그리면 오도함
+- substance: triage:실체-속성 2항 관계가 핵심이고, 철학자별 정의 차이는 서술형 논쟁이라 단정해 그리기 어려움
+- self-care: triage:스스로 하는 건강 활동이라는 포괄 개념 — 영향 요인(지식·경제·지지)은 나열일 뿐 경로가 아님
+- planned-unit-development: triage:사업자 제안→지자체 협의·승인 2단계 절차 정도라 그림이 정의 이상을 주지 못함
+- graph-coloring: triage:꼭짓점·변이 있는 실제 그래프 예시가 필요한데 9개 type에 그래프 그림이 없음 — 관계도로는 정의 반복
+- exponential-equation-inequality: triage:핵심인 밑 a>1(증가)과 0<a<1(감소) 그래프 대비 중 증가 지수곡선을 그릴 함수가 없음 — 풀이법(밑 맞추기·치환)은 단계 그림 가치가 낮음
+- partly-compensatory-system: triage:오렘 간호체계 셋 중 하나에 불과한 하위 사례 — 본문에 나머지 두 체계가 명시되지 않음
+- circle-of-fifths: triage:용어 자체가 12조 원형 도식인데 cycle type은 3~6단계라 12칸을 담지 못함 — 줄이면 개념이 훼손됨
+- multiple-realizability: triage:고통 하나가 뉴런·문어 신경계·기계에서 실현된다는 1대다 관계는 정의 반복이고, 김재권 반론 등 논쟁 중 내용이 큼
+- task-oriented-training: triage:특정 기법이 아닌 훈련 설계 원리라고 본문이 밝힘 — 구획 대 무작위 연습 언급은 한 줄뿐이라 그림 근거 부족
+- closely-related-key: triage:근친조 다섯 개의 목록이 본문에 없어 본문 밖 지식 의존, 범위 정의도 이론서마다 다르다고 명시됨
+- maximal-heart-rate: triage:'220-나이' 직선 감소는 그림 없이도 자명하고, 본문의 핵심인 큰 개인차는 직선 plot으로 표현 안 됨
+- urban-morphology: triage:콘젠·무라토리·프랑스 학파 대비가 있으나 학파별 강조점이 한 구절씩이라 표가 서술을 되풀이함
+- occupational-adaptation: triage:적응-숙달 경험-적응력 향상의 순환이 언급되나 단계가 2~3개로 모호해 cycle로 만들면 본문 밖 보충 필요
+- zoning-variance: triage:본문이 용도지역 변경(rezoning)과 개별 예외(variance)를 섞어 서술해 근거가 불일치 — 그리면 혼동을 고착시킴
+- event-specific-gmo-detection: triage:접합 서열을 표적으로 하는 PCR 검사 한 종류 — 스크리닝 검사와의 대비는 특이도·갱신 부담 두 줄이라 얕음
+- quantity-food-production: triage:열전달 불균일·수분 증발·온도 관리 등 주의점 나열로, 서로 연결된 공정 단계가 본문에 없음
+- russell-burch-principle: triage:3R 원칙의 1959년 역사적 기원을 다루는 항목 — 대체·감소·개선 분류는 3R 원칙 자체 용어와 중복
+- land-capability-classification: triage:경사도·토심·배수 등 지표를 종합해 등급을 매긴다는 서술뿐, 등급 수와 경계가 본문에 없어 그림 근거 부족
+- chronic-disease-management: triage:질환별 전략(심장·관절염·당뇨)이 한 줄 대응 목록일 뿐 공통 구조나 흐름이 없음
+- desiring-machine: triage:결핍 대 생산이라는 은유적 재해석 — 접속·절단 관계를 도식화하면 해석 폭이 넓은 개념을 단정하게 됨
+- substance-dualism: triage:사유실체·연장실체 2항과 상호작용 문제 하나 — 속성이원론과의 대비도 한 문장이라 구성 요소 부족
+- food-dehydration: triage:핵심은 항률건조기간에서 임계수분함량을 지나 감률건조기간으로 꺾이는 건조속도 곡선인데 이 구간형 곡선을 그릴 함수가 없음
+- primitivism-music: triage:스트라빈스키·바르톡 작품 중심의 사조 설명 — 페트루슈카→봄의 제전 흐름은 작품 2~3개라 연표 가치 낮음
+- manual-therapy: triage:기계적 대 신경생리학적 효과 설명이 경쟁 중이라 기전 사슬을 단정할 수 없고, 하위 기법은 이름 나열
+- emergency-medical-stockpile: triage:비축·유효기간 관리·배송이 언급되지만 '배송까지 포함해야 한다'는 주장 하나라 단계 그림이 서술을 반복함
+- volatile-basic-nitrogen: triage:단일 신선도 지표 — 측정법(알칼리화·포집·적정)은 부차적이고 수치 기준은 어종마다 달라 그림 근거가 약함
+- social-mix: triage:혼합 배치 정책 하나와 낙인 비판의 서술 — 관계 맺는 구성 요소가 3개 미만
+- rehydration-strategy: triage:체중 차이 측정→1.2~1.5배 섭취라는 두 단계 계산 규칙으로 글만으로 충분
+- high-intensity-interval-training-nutrition: triage:저글리코겐 훈련의 장기 효과가 미확인이라 기전 경로를 단정해 그리기 어려움
+- direct-calorimetry: triage:측정법 하나 — 간접열량측정법 대비도 정확도·비용 두 줄이라 대비 그림이 정의 반복에 그침
+- disaster-prevention-planning: triage:예방·대응·복구를 포괄한다는 범위 나열뿐, 단계 간 관계나 순서 근거가 본문에 없음
+- derivative: triage:핵심 그림은 할선이 접선으로 좁혀지는 곡선 위 기울기인데 9개 type과 plot 함수로 그릴 수 없음
+- prehospital-notification: triage:통보→병원 준비→처치 시간 단축의 짧은 일직선 효과 — 정의를 되풀이할 뿐
+- blood-pressure-measurement: triage:활력징후 측정 항목 — 커프 크기·자세 등 오차 요인 나열로 관계 구조가 없음
+- emt-scope-of-practice: triage:법령·지도의사·프로토콜 세 층위가 언급되나 포함 관계가 본문에서 명확하지 않아 단정하기 어려움
+- possible-world-semantics: triage:필연=모든 세계, 가능=한 세계라는 정의 자체가 핵심이라 그림이 정의 반복; 접근 관계별 체계(T·S4·S5) 구분은 본문 근거 부족
+- libertarianism: triage:정치철학 입장 — 하위 갈래가 최소국가론·무정부자본주의 둘뿐이고 대립 내용은 글로 충분
+- subjective-global-assessment: triage:병력·진찰 항목을 종합해 A·B·C로 나누는 평가 도구 — 항목 목록과 등급은 표·글로 충분
+- pregnant-women-research-protections: triage:보호 규정 조건(최소위험, 배우자 동의 등)의 나열로 관계 맺는 구조가 없음
+- minor-seventh-chord: triage:화음 하나의 구성 — 비교 대상(장7·속7·감7) 음정 구조가 본문에 없어 대비 그림을 본문 밖 지식으로 채워야 함
+- patient-education: triage:일반 간호중재 — 티치백·매체·시점 등 실무 팁 나열로 구조적 관계가 없음
+- permeability-urban-design: triage:그물망 대 막다른 골목의 공간 형태 차이가 핵심인데 9개 type으로는 글 이상의 것을 보여 주기 어려움
+- multimodal-transportation-hub: triage:시설 유형 하나 — 환승 저항을 줄인다는 단일 효과 서술
+- ai-authorship-disclosure: triage:저자 등재 불가·사용 공개라는 두 규범 — 구성 요소 2개뿐
+- hypothermia: triage:경도·중등도·중증 분류의 체온 기준이 본문에 없고 나머지는 처치 주의 나열
+- implementation-documentation: triage:순환 구조는 간호과정 전체의 것이고 이 용어는 그중 기록 행위 하나 — 그림이 상위 개념을 그리게 됨
+- urban-shrinkage: triage:인구 감소와 빈집 발생의 시차는 흥미롭지만 수치·곡선 근거가 없고 나머지는 정책 담론 서술
+- prehospital-triage: triage:현장 판단→이송 결정→재평가가 일반론 수준이라 그림이 정의를 되풀이함
+- swing-era: triage:음악사 시기 하나 — 스윙→비밥 두 사건뿐이라 타임라인 요소가 부족
+- dehydration: triage:수분 손실→수행력 저하의 단선 서술이고 2% 기준은 논쟁 중이라 핵심 수치를 그림으로 단정하기 어려움
+- agonal-breathing: triage:반응 없음+헐떡임이면 심정지로 본다는 판단 규칙 하나로 글로 충분
+- myoelectric-prosthesis: triage:근수축 신호→전극→모터의 작동 원리가 정의에서 이미 직선적으로 전달되어 그림의 추가 이득이 작음
+- cantata: triage:합창·레치타티보·아리아·코랄 구성은 서술로 충분하고 오라토리오와의 경계는 유동적이라 대비를 단정하기 어려움
+- high-speed-videography: triage:촬영 기법 하나 — 프레임률·셔터·조명의 절충이 나열될 뿐 구조가 없음
+- world-music-genre: triage:상업적 분류 범주와 그 비판 — 관계 맺는 구성 요소가 없음
+- muscle-protein-synthesis: triage:합성과 분해의 균형이라는 두 요소 서술이 중심이고 시간 경과 곡선은 수치 근거가 없음
+- muscular-endurance-training: triage:저강도·고반복 처방 수치 한 줄이 핵심 — 최대근력훈련과의 대비는 글 한 문장으로 충분
+- genetic-background-standardization: triage:근친교배→변이 감소→동물 수 감소의 단선 논리와 일반화 한계 한 줄로 글로 충분
+- pragmatic-maxim: triage:방법론적 원리 하나 — 검증원리·제임스와의 차이는 해석적 서술이라 도식화할 구조가 없음
+- citation-plagiarism: triage:표절의 한 유형 — 모자이크·자기표절 등 다른 유형은 이름만 나와 분류 그림 근거 부족
+- geometric-series: triage:부분합이 1에 계단식으로 다가가는 모양이 핵심인데 현재 plot 함수로는 표현 불가
+- function: triage:입력-출력 대응이라는 기초 정의 — 대응 화살표 그림은 정의를 되풀이할 뿐
+- public-housing-supply-plan: triage:정책 계획 하나 — 임대 유형 목록과 계획 대비 실적 격차 서술로 관계 구조 없음
+- social-infrastructure-regeneration: triage:재생 접근 방식 하나 — 대상 시설 목록과 운영 지원 필요성의 서술
+- hippotherapy: triage:말 걸음→골반 움직임→균형 자극의 짧은 원리와 치료적 승마와의 구분 한 줄로 글로 충분
+- bitonality: triage:다조성의 하위 사례 — 두 조의 겹침이라 구성 요소 2개뿐이고 지각 방식은 논쟁 중
+- urban-hierarchy: triage:대도시-중소도시-소도시 3층 서열은 정의 문장이 이미 말해 줌 — 그림이 더할 관계가 없음
+- equity-planning: triage:전통 계획과의 대비가 '효율 대 형평' 한 축으로 글에서 이미 분명 — 비교 칸을 채울 추가 기준이 얇음
+- mode-church: triage:핵심인 온음·반음 배열 차이는 악보·건반 그림이 필요해 9개 type에 맞지 않음 — 8개 선법을 matrix(2×2)로도 못 담음
+- void-space: triage:건축 공간 요소 하나 — 장단점(개방감 대 면적 손실·소음)은 두 항목 나열
+- head-immobilizer: triage:단일 고정 장비명 — 스트랩·헤드블록 부착 설명은 글로 충분
+- limit-of-sequence: triage:핵심인 ε-N 띠 안으로 이산 항들이 모여드는 그림은 수평 띠·점 표시가 필요해 plot 함수로 못 그림
+- lab-safety-act-korea: triage:법률명 — 점검·교육·보험 등 의무 항목의 단순 나열
+- semantic-theory-of-truth: triage:대상언어·메타언어 두 층 구분이 전부이고, 대응설과의 관계는 해석이 갈리는 쟁점
+- eulers-number-e: triage:본문 핵심인 연속 복리의 극한·지수 증가 곡선은 증가형 지수 함수가 없어 그릴 수 없음 — 다른 type으로는 상수 하나라 대상 없음
+- y-balance-test: triage:세 방향 뻗기라는 공간 배치가 핵심인데 9개 type 중 맞는 것이 없고, 절차로 그리면 정의 반복
+- walker: triage:표준형·롤레이터의 속도 대 안정성 비교뿐 — 전방 바퀴형 등 세부는 본문 근거 부족
+- office-of-research-integrity: triage:미국 정부 기관명 — 기관 자체 조사 후 ORI 검토라는 절차는 연구부정 조사 용어의 몫
+- landing-mechanics: triage:무릎 외반·곧은 무릎 같은 위험 패턴 나열이고 인과는 '패턴→손상 위험' 2단계에 그침
+- exempt-research-category: triage:면제 가능 연구 유형의 나열과 'IRB 확인 필수' 한 가지 규칙 — 심사 등급 체계 전체는 본문에 없음
+- materialism: triage:환원적·비환원적 구분에 동일론·기능주의를 어디 둘지 본문이 정하지 않아 분류도가 근거 부족
+- occupational-identity: triage:역할 상실 후 재구성이라는 서술이 단선적이라 글로 충분 — 주관적 개념이라 단계 구분 근거 약함
+- pedestrian-priority-zone: triage:보행자전용도로와의 차이가 '차량 통행 허용 여부' 한 기준뿐
+- hospital-disaster-management-plan: triage:계획 문서의 구성 항목(조직·절차·자원) 나열 — 항목 간 관계 없음
+- role-function-mode: triage:일차·이차·삼차 역할 구분은 세 항목 나열이라 글로 충분 — 로이 모형의 다른 적응양상은 본문에 없음
+- area-perimeter: triage:기초 개념 두 개 — 둘레가 같아도 넓이가 다르다는 점은 수치 예시로 충분
+- animal-transport-welfare: triage:수송·도착 점검·적응기간 규정의 나열 — 순서가 자명해 그림이 더할 것 없음
+- intermediate-value-theorem: triage:f(a)와 f(b) 사이 수평 기준값을 곡선이 가로지르는 그림이 핵심인데 plot은 수평 기준선을 못 그림
+- jungmori: triage:장단 하나 — 진양조 다음이라는 위치만 본문에 있고 전체 장단 순서는 본문 밖 지식에 기댐
+- nutrient-adequacy-ratio: triage:섭취량÷권장량 계산식 하나 — 1 절단과 MAR 평균은 글로 충분
+- lactose-intolerance-dairy: triage:기전은 '락타아제 부족→유당 미분해' 한 단계이고, 우유 알레르기 쪽 비교 항목은 본문 근거가 '면역 반응' 한마디뿐
+- pre-arrival-instruction: triage:전화 안내라는 단일 활동 — 도착 전 공백을 메운다는 한 문장으로 충분
+- doctor-helicopter: triage:일반 이송 헬기와의 차이가 '의사 탑승·현장 처치' 한 기준뿐인 운송 수단명
+- paraplegia: triage:흉수 상부·하부 손상의 재활 목표 차이는 두 경우 대비라 글로 충분 — 마비 상태 자체는 단일 진단명
+- iacuc: triage:기관 내 위원회명 — 심사 기준인 3R은 별도 용어의 몫
+- preterm-infant-nutrition: triage:정맥영양 병행·장관영양 증량·강화모유가 '병행·서서히'로만 서술돼 단계 구분 근거가 약함
+- community-nutrition-program: triage:대상 선정→요구도 조사→설계→실행→평가 순환은 어떤 사업에나 쓰이는 일반 틀이라 이 용어만의 이해를 더하지 않음
+- food-waste-management: triage:발주·손질·배식·처리 단계별 감축 방법의 나열 — 단계 간 인과가 없음
+- urban-ecosystem: triage:인공·자연 구성요소와 서비스 목록 나열 — 요소 간 관계 구조가 본문에 없음
+- coercive-citation: triage:편집자·심사자의 단일 부당 행위 — 임팩트 팩터 부풀림이라는 결과 연결은 한 줄
+- substandard-housing-district: triage:법적 지정 개념 — 판정 기준(구조·위생·면적) 나열과 정비구역과의 차이 한 줄뿐이라 관계 구조가 없음
+- prehospital-childbirth: triage:처치 항목(받치기·말리기·지연 결찰·출혈 확인)이 순서보다 동시 관찰 목록에 가깝고 고위험 상황은 별도 원칙이라 한 절차도로 묶기 어려움
+- modal-logic: triage:T·S4·S5와 하위 양상(시제·의무·인식)은 이름 나열 수준이고 접근관계 성질은 S5만 구체적이라 그림 근거 부족
+- major-food-allergen: triage:표시 의무 원료(난류·우유·땅콩 등) 목록이며 국가별 차이도 원료 나열이라 도식화할 관계가 없음
+- h-index-gaming: triage:자기 인용·인용 카르텔 등 수법 나열과 탐지 보조 지표 언급뿐, 구성 요소 간 구조적 관계가 없음
+- postural-drainage: triage:중력으로 분비물을 흘려보낸다는 단일 원리라 그림이 정의를 되풀이함 — 분절별 자세 도표는 해부도가 필요해 type 밖
+- nursing-outcome: triage:간호과정 중 한 단계의 산출물 정의 — 중재 전후 비교·기대결과 대조는 상위 간호과정 도식의 몫
+- leading-tone: triage:핵심 대비가 반음(이끎음) 대 온음(하주음) 한 축뿐이라 글로 충분하고, 트라이톤 해결은 악보 예시가 더 적합
+- health-functional-food-labeling: triage:표시 허용 범위·금지 표현을 정한 규제 제도 — 근거 등급 구분이 본문에 구체적이지 않아 위계를 그릴 근거 부족
+- antidote: triage:길항제형·킬레이트형 두 유형과 약물 사례 나열뿐이라 3개 이상의 관계 구조가 성립하지 않음
+- urban-disaster-prevention-plan: triage:법정 상위계획의 구성 요소(위험지구 지정·시설·토지이용 규제) 나열로, 단계 순서나 인과가 본문에 정리돼 있지 않음
+- rehabilitation-nursing: triage:전문 간호 분야명 — 욕창 예방·방광 관리·기능 연습 유도 등 업무 목록이라 관계를 맺는 구조가 없음
+- pelvic-floor-muscle-training: triage:단일 운동 중재 — 속근·지근 훈련 병행과 정확한 수축 지도 정도가 요점이라 그림이 더할 이해가 적음
+- wound-dressing: triage:습윤·건조 비교와 재료(폼·은·하이드로콜로이드) 나열이 있으나 본문이 구체적 선택 기준을 단정하지 말라고 해 선택 도식의 근거가 약함
+- general-systems-theory-social-work: triage:경계·투입·산출·피드백이 이름만 나오고 상호관계 설명이 없어, 그리면 본문 밖 일반 체계 도식에 기대게 됨
+- logarithm-exponential-function: triage:지수 증가 곡선과 그 역함수인 로그 곡선을 y=x에 대칭으로 겹쳐야 핵심이 보이는데 decay·linear로는 증가 지수·로그 곡선을 그릴 수 없음
+- splint: triage:고정 전후 원위부 순환 확인·상하 관절 포함이 요점인 단순 처치라, 절차도로 그려도 본문 주의사항을 되풀이할 뿐임
+- monody: triage:역사적 양식명 — 카메라타의 다성음악 비판→모노디→오페라라는 짧은 계보는 글로 충분하고 기원 우선권은 논쟁 중
+- period: triage:구성 요소가 선행구(반종지)와 후속구(정격종지) 둘뿐이라 그림이 정의를 되풀이함
+- stable-isotope-origin-analysis: triage:환경→동위원소비→측정→DB 대조 흐름이 정의에서 바로 읽혀 그림의 추가 이득이 작고, 주의 사항은 판별 한계 나열
+- contextual-stimulus: triage:로이적응모형의 자극 한 범주 — 초점·관련·잔여자극 관계는 상위 모형 항목에서 그릴 내용이고 본문도 범주 경계가 모호하다고 함
+- tonnetz: triage:음고류 격자(5도·장3도 축, 삼각형=3화음) 자체가 대상인데 9개 type에 격자·토러스 도식이 없음
+- genealogy-of-morals: triage:방법론 개념 — 르상티망에 의한 가치 전도는 니체의 한 적용 사례이고 규범적 함의는 발생적 오류 논쟁 중이라 인과 사슬로 단정하기 어려움
+- externality-urban-economics: triage:정·부 외부효과 구분과 사례(공장·공원)·교정 수단 나열로 교과서적 이분이라 그림이 정의 이상을 보여 주지 않음
+- heron-formula: triage:단일 공식 — 반둘레 계산 후 곱해 제곱근을 씌우는 계산 순서가 식 자체라 도식이 더할 것이 없음
+- mass-casualty-incident-threshold: triage:지역별 발동 기준값(5명·10명 등)이라는 단일 속성 개념으로 관계를 맺는 구성 요소가 없음
+- civic-virtue: triage:자유주의 대 공화주의·공동체주의 평가가 국가 중립성 논쟁과 얽혀 있어 대비 도식이 한쪽 입장을 단정하게 될 위험
+- urban-revitalization: triage:물리·경제·사회문화 수단을 아우르는 포괄 정책 목표로, 수단 나열과 젠트리피케이션 주의뿐이라 구조가 없음
+- street-network: triage:간선·집산·국지도로 3위계와 격자·방사형 패턴은 이름 나열이고, 연결성 효과는 평면 지도 없이는 전달되지 않음
+- bed-availability-status: triage:재난 시 공유되는 정보 항목(병상 종류·인력)의 정의 — 신뢰성 문제 지적은 있으나 도식화할 관계 구조가 없음
+- street-housing-improvement-project: triage:소규모주택정비의 한 사업 유형 — 면적 요건·특례·절차 간소화 같은 법적 속성 나열이라 그림 근거가 약함
+- summative-evaluation: triage:형성평가와의 대비가 시점(종료 대 과정 중) 한 축으로 수렴해 글로 충분함
+- harmonic-analysis-technique: triage:로마숫자·기능기호·피겨드베이스·쉔커·코드기호 등 하위 기법 이름 나열이라 위계도가 목록 이상을 보여 주지 않음
+- thumb-spica-splint: triage:특정 보조기 하나 — 고정 범위(엄지 수근중수관절+손목)가 핵심이라 해부 그림이 필요하고 관계 도식 대상이 아님
+- wheelchair: triage:수동·전동 두 유형과 처방 조정 항목 나열 — 바퀴축 위치의 추진·안정성 상충은 한 문장으로 충분함
+- minsogak: triage:갈래(판소리·산조·시나위·민요) 나열이고, 정악과의 이분 대비는 본문이 편의상 구분이라 경고해 그림으로 굳히기 부적절
+- trans-fatty-acid: triage:물질명 — 부분경화로 생성되어 LDL↑·HDL↓라는 한 줄 인과와 산업형·반추형 구분이라 글로 충분함
+- nutrition-surveillance-system: triage:자료원(섭취조사·신체계측·혈액지표)과 활용처 나열 — 수집→분석→정책의 일반 감시 흐름은 정의 반복
+- hospital-resource-management-in-disaster: triage:병상·인력·수술실 등 자원 나열과 '병목은 늘리기 어려운 자원에서 먼저 생긴다'는 한 문장 결론뿐이라 관계 구조가 없음
+- cosmopolitanism: triage:도덕적·제도적 세계시민주의 구분과 민족주의 비판이 언급되나 규범 논쟁 중인 입장이라 구도를 단정해 그리기 어렵고, 글로 충분히 전달됨
+- non-recovery-surgery: triage:마취→수술→마취 하 안락사라는 정의 자체의 반복이며 핵심 쟁점은 '마취 심도 유지' 한 가지
+- cultural-care-diversity: triage:대비 개념인 문화적 보편성은 이름만 나오고 내용이 없어, 그림 근거가 '문화마다 돌봄 표현이 다르다'는 정의뿐
+- sigma-algebra: triage:여집합·가산합집합에 닫힘이라는 공리 조건과 확률공간 3요소 나열이 중심이라 도식이 정의를 되풀이하게 됨
+- redistribution: triage:롤스 대 노직의 정당화 논쟁이 핵심인 규범적 쟁점으로, 대비 그림은 자유지상주의·차등의 원칙 용어의 몫이고 여기선 본문 서술로 충분
+- environmental-control-unit: triage:입력 방식(스위치·음성·시선)과 제어 대상 기기의 나열이라 구성 요소 간 기전이나 순서가 없음
+- duplicate-submission: triage:판별 기준이 '두 심사가 동시에 진행 중이었는가' 하나뿐이라 그림이 정의를 되풀이함
+- equivocation-fallacy: triage:깃털 예시처럼 한 단어의 두 의미가 바뀌는 구조는 문장 예시로 바로 전달되며 도식 type(연결·분류)과 맞지 않음
+- complementary-feeding: triage:묽은 죽에서 다양한 질감으로 늘린다는 일반론뿐이고 단계별 시기·내용 근거가 본문에 없음
+- urban-regeneration-special-act: triage:도시정비법과의 차이·이원적 계획체계가 각각 두 항목 대비라 caution·deep의 서술로 충분하고 3요소 이상의 관계가 약함
+- progressive-resistance-exercise: triage:핵심 그림은 적응할 때마다 부하가 한 칸씩 오르는 계단형 부하 곡선인데 plot 함수에 계단 곡선이 없고, 순환도로 그리면 정의 반복
+- personal-identity: triage:심리적 연속성·동물주의·파핏 환원주의가 경쟁 중인 형이상학 논쟁이라 각 이론 관계를 단정해 그리기 어렵고 사고실험은 글이 더 적합
+- weight-cycling: triage:제지방 손실·지방 위주 재증가·식욕호르몬 변화 기전을 caution이 연구마다 결과가 다르다고 밝혀, 순환 그림으로 그리면 미확정 기전을 단정하게 됨
+- circle-area-and-pi: triage:핵심 통찰은 반지름에 비례하는 둘레(직선)와 제곱으로 커지는 넓이(이차곡선)의 대비인데 plot에 거듭제곱 함수가 없고 다른 type으론 의미가 없음
+- minjung-gayo: triage:시대적 음악 장르명으로, 확산 방식·제도권 편입 서술이 있으나 연도 근거가 약해 시간 순서 도식의 근거가 부족함
+- ionian-mode: triage:장음계와 음정 구조는 같고 개념(피날리스 대 기능화성)이 다르다는 두 항목 대비 하나라 caution 문장으로 충분
+- urban-type-housing: triage:소형주택·단지형연립·단지형다세대 하위 유형 이름만 있고 유형별 기준 차이가 본문에 구체적이지 않음
+- shannon-entropy: triage:50:50에서 최대, 한쪽으로 쏠리면 0으로 가는 이진 엔트로피 곡선이 핵심인데 inverted_u(가우스형)는 양 끝이 0에 닿지 않아 모양을 흉내 낼 뿐이고 대체 type이 없음
+- irb-membership-composition: triage:최소 5인·비과학자 1인·외부 위원 1인이라는 요건 나열이라 목록으로 충분하고 한 사람이 두 요건을 겸하는지 본문 근거가 없음
+- imitative-counterpoint: triage:성부가 시간차로 따라 들어오는 모습은 악보형 그림이 필요해 9개 type에 맞지 않고, 카논-푸가 스펙트럼은 한 축 언급뿐
+- moral-agency: triage:행위자 대 피동자 구분이 핵심이나 집단·AI의 행위자성은 논쟁 중이고 포함 관계를 본문이 명시하지 않아 단정 위험
+- interstory-drift: triage:횡하중→층간변위→비구조부재 손상이라는 단선적 결과 서술로 정의와 caution을 되풀이하는 수준
+- nutrition-labeling-policy: triage:표시→소비자 선택, 표시→제품 재조성의 두 갈래가 단순하고 표시 형식(숫자형·색상형) 비교는 효과 근거가 한 줄뿐
+- bad-faith: triage:속이는 자=속는 자라는 역설 구조는 사르트르 해법 자체가 논쟁 중이고 웨이터 예시가 글로 더 잘 전달됨
+- web-scraping-research-ethics: triage:합리적 기대·이용약관·재식별 가능성 등 고려 요소 나열이고 개인 대 기업 데이터 사례는 두 개뿐이라 칸을 채울 근거가 부족
+- bel-canto: triage:양식명이며 범위 자체가 연구자마다 다르고, 칸타빌레-카발레타 아리아 구성은 이 용어보다 아리아 형식의 하위 주제
+- umami-taste: triage:기본 미각 하나의 이름으로, 글루탐산+이노신산 상승효과라는 단일 상호작용만 있어 구성 요소 관계가 얕음
+- site-analysis: triage:지형·일조·법규·인프라·맥락 조사 항목의 목록이며 본문이 강조하는 '우선순위 판단'은 구체 근거가 없어 그림이 목록 반복
+- weaning-nutrition: triage:6개월 전후 도입·철분 보충이라는 지침 서술로 단계 근거가 부족하고 이유보충식 용어와 내용이 겹침
+- leininger-culture-care-theory: triage:보존·조정·재구성 중재와 태양떠오름모형이 이름만 나오고 본문에 내용이 없어 그림이 본문 밖 지식에 기대야 함
+- integrative-thinking-nursing: triage:여러 정보원을 종합해 판단한다는 정의 반복이며, 베너 5단계 모형은 별도 용어의 내용
+- predatory-conference: triage:부실 학회 현상의 특징(빠른 승인·유사 명칭·초청 메일) 나열일 뿐 서로 관계 맺는 구성 요소가 없음
+- disaster-declaration: triage:선포→예산·동원 권한이라는 한 줄 연결이 본문에 이미 문장으로 명확해 그림이 정의를 되풀이함
+- law-of-sines-cosines: triage:핵심은 삼각형 변·각 기하 그림인데 9개 type으로 표현 불가하고, 법칙 선택 기준은 주의 문장 한 줄로 충분
+- emergency-medical-dispatch: triage:접수·질문·우선순위·전화 지도 단계가 정의 문장에 이미 순서대로 들어 있어 절차도는 정의 반복
+- stir-frying: triage:단일 조리법 — 고온·단시간이 영양 보존에 유리하다는 단선적 설명 외 구성 요소 간 구조가 없음
+- housing-supply-ratio: triage:주택 수÷가구 수 단일 비율 지표로, 한계(소유 집중·빈집)는 나열일 뿐 관계 구조가 아님
+- shared-space: triage:규제 제거가 주의력을 높인다는 위험보정 논리 자체가 접근성·교통량 비판과 함께 논쟁 중이라 인과 사슬로 단정하기 어려움
+- informed-consent-readability: triage:작성 요건 하나 — 가독성 공식과 이해도 확인 병행이라는 두 요소뿐
+- nutritional-transcriptomics: triage:연구 분야명 — 측정 대상(mRNA)과 측정법 설명이 중심이고 오믹스 형제 분야도 이름 나열에 그침
+- one-handed-technique-training: triage:보상전략 훈련 하나 — 활동별 요령 예시 나열로 단계나 관계 구조가 없음
+- urban-environment-improvement-project: triage:재개발사업에 통합된 옛 사업 유형 — 통합 전후 두 요소뿐인 법제 변천
+- difference-principle: triage:최소 수혜자 이익이라는 단일 조건의 원칙이며 무지의 베일→최소극대화 논증은 본문에 한 줄뿐
+- postmodern-music: triage:통일된 양식이 아닌 태도적 범주라 본문 스스로 경계가 모호하다고 밝혀 구조화할 근거가 약함
+- social-determinants-of-nutrition: triage:경제·지식·물리·사회 요인 층위가 이름만 나열되고 서로 얽힌다고만 해 분류도가 정의를 넘어서지 못함
+- land-use-zoning-map: triage:지도라는 자료 형식 자체가 표제이고, 용도지역 세분 체계는 별도 용어(용도지역)의 내용
+- box-and-block-test: triage:1분간 블록 옮기기라는 단일 절차의 검사도구 — 구멍말뚝검사와의 대비도 큰 동작/정밀 동작 한 축뿐
+- gross-motor-function-measure: triage:평가도구명 — 다섯 영역이 정의에 그대로 나열돼 있어 분류도는 정의 반복
+- metropolitan-region: triage:기능적 공간 단위의 개념 정의 — 행정구역과 어긋난다는 대비 하나뿐이고 획정 기준값도 연구마다 다름
+- water-supply-sewerage-planning: triage:취수·정수·배수·하수처리 흐름은 일반 상식 수준이고 본문은 계획 고려사항 나열이라 그림이 새로 보여 줄 것이 적음
+- stirling-approximation: triage:n!과 근사식의 상대오차는 줄고 절대오차는 커지는 두 곡선이 핵심인데 현재 plot 함수로 그릴 수 없음
+- building-code: triage:법적 기준 체계의 총칭 — 성능기준/사양기준 구분 외에는 국가·조례 차이 같은 주의사항 나열
+- modal-jazz: triage:비밥 대비 '화성 변화가 잦다/드물다' 한 축의 대비라 그림이 본문 문장 이상을 주지 못함
+- healthy-eating-index: triage:지수명 — 권장·제한 항목 목록만 있고 항목별 배점이 본문에 없어 구성도가 이름 나열에 그침
+- environmental-justice-urban: triage:분배·절차·인정 세 차원이 이름만 언급되고 각 차원의 내용이 본문에 거의 없음
+- pregnancy-induced-hypertension-nutrition: triage:나트륨·체중·칼슘·모니터링 관리 항목 나열이며 칼슘 효과는 기저 섭취에 따라 달라 인과로 그리기 어려움
+- urban-regeneration-new-deal: triage:특정 정부의 정책 브랜드명 — 다섯 사업 유형은 이름만 있고 유형별 기준이 본문에 없음
+- jeongak: triage:정악/민속악 이분법이 근대적 분류이고 가사·시조 등 경계 갈래가 많다고 본문이 밝혀 분류도로 단정하기 어려움
+- housing-welfare: triage:현물·현금·서비스 지원 3분류가 각 한 가지 예와 함께 한 문장으로 끝나 정책 총칭의 목록 수준
+- karvonen-formula: triage:한 줄 계산식으로 본문 예시(190·60·70%→151회)가 이미 계산 과정을 보여 주어 그림이 덧붙일 것이 적음
+- downtown-regeneration: triage:도시재생 유형명 — 상권·주거·공공공간 전략 나열과 젠트리피케이션 주의로 구조적 관계가 없음
+- woonerf: triage:공유공간 계열 생활도로의 한 사례 — 저속·경계 제거 설계 요소 나열로 별도 구조가 없음
+- development-restriction-zone: triage:법정 용도구역명 — 지정 목적과 해제·취락지구 예외·매수청구 제도 나열
+- synthetic-division: triage:핵심이 계수 표를 채우는 계산 배치인데 본문에 단계가 서술돼 있지 않아 절차도는 본문 밖 지식에 기대야 함
+- gift-authorship: triage:부적절한 관행 하나의 정의 — 상호 교환 방식과 CRediT 대응이 언급될 뿐 관계 구조가 없음
+- sensory-evaluation: triage:평가 방법 총칭 — 세부 검사법(차이식별·묘사분석·기호도)이 이름만 있고 각 검사의 내용은 별도 용어 몫
+- rice-protocol: triage:네 글자 약어(R·I·C·E)의 나열로 순서·관계가 없고 정의에 이미 네 항목이 모두 들어 있음
+- tonal-music: triage:음악 체계 전반의 개념 — 딸림→으뜸 해결 하나 외에 화성 위계 구조가 본문에 구체적이지 않음
+- hocket: triage:성부 간 음·쉼표 교대는 악보식 시간 배치 그림이 필요한데 9개 type에 맞는 형식이 없음
+- regional-emergency-medical-center: triage:지정 기관 유형명 — 3단계 전달체계의 하위 두 단계는 이름만 있고 단계별 기준이 본문에 없음
+- atonal-music: triage:조성 위계가 없다는 한 가지 속성의 정의이고, 자유무조·12음기법·범조성 구분은 용어 논쟁이라 구성 요소 관계로 그릴 거리가 없음
+- author-name-change-policy: triage:출판 행정 절차의 취지 설명 위주이며 갱신 대상(본문·DOI·색인)은 단순 나열이라 그림이 이해를 더하지 않음
+- disaster-response-drill: triage:도상·기능·실전형 훈련 유형은 이름만 나오고 비교 기준이 본문에 없어 위계·비교 그림의 근거가 부족함
+- propositional-logic: triage:연산자 네 개를 나열한 정의이고 핵심(진리값만으로 참거짓 결정)은 진리표가 맡을 일이라 9개 유형 그림으로는 정의 반복이 됨
+- limit-and-continuity-of-function: merge-candidate: 병합 후보라 보류(was checked)
+- infrastructure-charge-zone: triage:부과 대상·산정식(표준시설비용×유발계수)·납부 방식이 낱개 규정이라 관계 구조가 아니고, 유사 제도와의 차이도 본문에 기준이 없음
+- social-enterprise-regeneration: triage:부동산주도재생과의 대비가 한 문장뿐이고 공공지원→자립 전환도 목표 서술이라 비교 축·단계를 세울 근거가 얕음
+- clinical-trial-monitoring: triage:방문 단계는 이름만 있고 실제 내용은 점검 항목 목록이며, 감사·DSMB와의 구별도 한 줄이라 그림이 글보다 나을 게 없음
+- tocopherol: triage:단일 영양소(비타민E 이성질체)이며 지질과산화 사슬을 끊는다는 기전 설명이 한 문장뿐이라 단계를 그릴 근거 부족
+- bond-stress: triage:부착 구성(접착·마찰·마디 지압)과 쪼갬 파괴가 각각 짧게 언급될 뿐이며, 핵심은 단위면적당 전단저항이라는 단일 물리량임
+- exclusive-breastfeeding: triage:완전·혼합·지속 모유수유의 구분이 한 문장뿐이고 나머지는 영향 요인 나열이라 구성 요소 관계가 성기지 않음
+- predicate-logic: triage:명제논리·1차·고차논리 대비는 표현력과 완전성의 맞교환 한 가지라 글로 충분하고, 삼단논법 예시는 그림이 아니라 식으로 보여야 함
+- proportion-and-proportional-distribution: triage:사탕 12개를 2:1로 나누는 산술 예가 핵심인 기초 계산 개념으로 관계 구조가 없음
+- housing-tenure-status: triage:자가·전세·보증부월세·월세·무상거주를 나열한 분류명뿐이라 위계로 그려도 목록 반복임
+- null-space: triage:Ax=0의 해집합이라는 정의와 랭크-널리티 등식이 핵심이며, 기하적 직관(사라지는 방향)은 9개 유형으로 표현되지 않음
+- deteriorated-residential-area: triage:행정적 판정 대상 지역의 개념 설명이며, 전면철거와 점진재생 경합은 정책 논지라 구성 요소 관계 그림 근거가 약함
+- circulation-assessment: triage:ABCDE 중 한 단계(C)의 확인 항목 나열이 주이며, 대량출혈 시 순서 조정은 한 문장 예외라 절차 그림의 중심이 이 용어가 아님
+- moisture-sorption-isotherm: triage:본문의 핵심은 제2형 S자 등온선 모양과 흡습·탈습 이력현상인데, 제2형은 낮은 수분활성도에서 가파르게 오르다 평탄해진 뒤 다시 급증하는 곡률이라 logistic(완-급-완)으로 그리면 모양이 틀어짐
+- ternary-form: triage:A-B-A 세 부분이 정의에 이미 다 드러나 있어 그림이 정의를 되풀이할 뿐임
+- completing-the-square: triage:핵심은 a(x-p)²+q에서 꼭짓점 (p,q)가 보인다는 포물선 모양인데 U자 이차곡선 함수가 없어 plot 불가하고, 변형 단계 절차 그림은 식 전개를 되풀이할 뿐임
+- orthosis: triage:정적·동적, 척추·상지·하지 분류가 서로 다른 축의 이름 나열에 그쳐 위계 그림이 목록 이상을 주지 못함
+- urban-lifecycle-cohort-analysis: triage:횡단면 분석과의 차이가 한 가지(반복 관찰)뿐인 방법 정의라 비교 축이 부족함
+- voronoi-diagram-planning: triage:핵심이 평면 공간 분할 그림 자체인데 9개 유형(지도·기하 분할 없음)으로 표현할 수 없음
+- precautionary-principle: triage:규범 원칙이며 적용 형태(금지·단계적 승인·조건부 허용)와 엄격/비례 해석이 학계에서 논쟁 중이라 단정적 그림이 위험함
+- broselow-tape: triage:키 측정→색 구역→체중·용량 확인이 정의 한 문장에 그대로 있어 그림이 정의 반복이 됨
+- properties-of-equality: triage:양변에 같은 연산을 해도 등식이 유지된다는 단일 규칙이라 3개 이상의 관계 요소가 없음
+- hospital-malnutrition: triage:원인(금식·식욕부진·대사 항진)과 결과(재원 연장·감염)가 각각 나열될 뿐 단계적 기전이 아니어서 목록 글로 충분함
+- patellar-tendinopathy: triage:반복 착지 부하→힘줄 변성→통증의 인과가 정의 한 문장에 담겨 있어 그림이 새로 보여 줄 것이 없음
+- trait-anxiety: triage:특성불안→위협 지각 범위 확대→상태불안 증가가 한 줄 인과라 글로 충분하고, 상태불안과의 대비는 별도 용어의 몫임
+- four-dimensionalism: triage:시간적 부분의 존재가 형이상학에서 논쟁 중이고 벌레 이론·단계 이론도 대립해 단정 없이 그리기 어려우며, 시공간 벌레 그림은 9개 유형 밖임
+- chemical-incident-response-system: triage:물질 확인·구역 설정·제독·다기관 협력이 언급되지만 순서와 분기가 본문에 명확하지 않아 절차 그림이 본문 밖 지식에 기대게 됨
+- business-improvement-district: triage:소유주 동의→부담금 징수→관리조직 서비스라는 설립 구조가 정의와 deep에 이미 선형으로 서술되어 그림이 더할 것이 적음
+- personal-protective-equipment-level: triage:A~D 등급이 호흡·피부 보호 항목의 조합이라는 점이 핵심인데 본문은 A와 B만 구체적이고 C·D 구성이 없어 행렬을 채울 근거가 없음
+- hard-problem-of-consciousness: triage:쉬운 문제와 어려운 문제의 구분 자체를 물리주의자가 거부하는 등 논쟁 중이라 대비 그림이 한쪽 입장을 단정하게 됨
+- ancillary-care-obligation: triage:책임 범위 판단 기준(위중성·전문성·대안 유무)이 나열되나 결합 규칙이 없고, 범위 자체가 윤리학에서 논쟁 중임
+- institutional-conflict-of-interest: triage:개인 이해상충과의 차이(주체가 기관) 하나가 핵심인 개념으로 관리 방법도 외부위원회 하나라 구성 요소가 부족함
+- scat-singing: triage:단일 보컬 기법의 정의와 역사·오해 정정이 내용의 전부라 관계 맺는 구성 요소가 없음
+- urban-regime-theory: triage:레짐 유형(개발형·유지형·중산층 진보형·재분배형)이 이름만 나열되고 구분 기준이 없어 위계 그림이 목록 반복임
+- one-dimensional-man: triage:마르쿠제의 비판이론적 진단이며 스스로도 비관성 비판을 받는 해석적 주장이라 기전 그림으로 단정하기 어려움
+- timed-up-and-go-test: triage:일어서기·걷기·방향 전환·앉기 순서가 정의에 이미 그대로 있어 절차 그림이 정의 반복이 됨
+- gyeonggi-minyo: triage:지역 민요 갈래명 — 경토리·통속/토속 층위 구분은 서술로 충분하고 대비 축(음계 구성 등)의 구체 근거가 본문에 없음
+- motivational-internalism: triage:내재·외재주의 논쟁 중인 입장 — 그림으로 정리하면 아모럴리스트 쟁점을 단정할 위험, 구성 요소도 강/약 두 갈래뿐
+- solid-figures: triage:원기둥·원뿔·구 등 도형 이름과 부피 공식 나열 — 관계 구조가 없음
+- transpose-matrix: triage:행·열 맞바꾸기라는 단일 연산 — (i,j)→(j,i) 격자 그림이 필요하나 9개 type 중 맞는 틀이 없음
+- animal-ethics-committee: triage:IACUC의 국가별 다른 명칭 — 동의어 성격의 기관명
+- physical-hazard-food: triage:위해요소 3범주 중 하나인 하위 사례 — 이물 종류와 관리 조치 나열
+- training-monotony: triage:평균÷표준편차, ×주간부하=스트레인이라는 계산식 두 줄 — 그림이 식을 되풀이할 뿐
+- advocate-role: triage:간호사 역할 개념 — 정보제공적·행동적 옹호 두 유형뿐이라 구성 요소 부족
+- henderson-nursing-concept: triage:간호 정의를 담은 단일 이론 — 의존에서 독립으로 가는 방향 하나뿐, 단계·구성 요소가 본문에 없음
+- space-frame: triage:구조형식 설명 — 핵심이 3차원 형상 자체라 관계 도식(9개 type)으로 더할 이해가 적음
+- historically-informed-performance: triage:연주 사조 — 돌메치·아르농쿠르·명칭 변경 사건이 있으나 연대가 성기고 글로 충분히 잡힘
+- pyridoxine: triage:비타민 B6라는 영양소 물질명 — 결핍·과잉·조효소 기능 나열 중심
+- autonomous-vehicle-urban-impact: triage:주차수요 감소·용량 증대·유발수요 등 시나리오 예측 — 실증 없이 상반된 전망이라 인과 그림이 단정이 될 위험
+- salami-slicing-publication: triage:출판 관행명 — 판단 기준이 '독립된 연구 질문 여부' 하나뿐
+- risk-benefit-assessment: triage:심의 절차 — 위험(확률·심각도)과 이익(직접·간접) 저울질이 '저울' 은유 이상의 구조를 주지 않음
+- sigma-notation: triage:합 기호 표기 규칙 — 시작·끝 인덱스와 항 규칙은 수식 예시로 충분
+- korean-patient-classification-system: triage:국내 분류 도구명 — 항목 점수 합산 후 군 분류라는 일반 요인평가법, 구체 항목·구간 근거 없음
+- text-recycling: triage:빨강·노랑·초록 3단계가 본문에 이미 신호등 비유로 명확히 제시돼 그림이 되풀이에 그침
+- authorship-criteria: triage:ICMJE 네 조건 모두 충족이라는 체크리스트 — 조건 간 관계 없는 목록
+- prime-composite-numbers: triage:자연수를 1·소수·합성수로 나누는 정의 반복 수준의 분류
+- food-insecurity-measurement: triage:측정 도구(HFSSM·FIES·FCS) 이름 나열 — 단계 구분의 구체 기준이 본문에 없음
+- triage-tag: triage:기록 카드라는 단일 물품 — 색상 등급 구성도 본문에 명시되지 않음
+- regeneration-anchor-facility: triage:도시재생 시설 유형 개념 — 운영 주체 3가지 나열 외 관계 구조 없음
+- retrograde: triage:음렬 순서 뒤집기라는 단일 변형 — 원형과 역행 두 요소뿐
+- laboratory-animal-husbandry: triage:온도·습도·조명 등 사육 조건 수치 목록
+- vulnerable-population-research: triage:취약집단 예시와 보호 장치 나열 — 요소 간 기전·순서 없음
+- taiko: triage:악기·공연 장르명 — 구미다이코 성립(1950년대)·해외 확산 사건이 둘뿐이라 연표가 빈약
+- infant-nutrition: triage:영양 분야 총칭 — 모유·분유에서 이유식 전환이라는 단순 흐름뿐
+- editorial-independence: triage:출판윤리 원칙 — 외부 압력 주체 나열로 구성 요소 간 관계가 없음
+- love-belonging-needs: triage:매슬로우 욕구위계의 한 단계 — 상위 용어의 하위 항목
+- pyeongjo-gyemyeonjo: triage:두 선법의 정서 대비 — 음계 구성 근거가 본문에 없고 정악·민속악에서 같은 이름이 다른 실체라 비교표가 단정이 됨
+- export-control-research: triage:법적 제도명 — 이중용도 심의와의 차이는 주의 문단 한 줄(자율 vs 법률)로 충분
+- indirect-realism: triage:지각 이론 입장 — 대상→표상→마음 매개 구조가 정의 자체의 반복
+- talchum-music: triage:반주 음악 갈래 — 편성 악기와 장단 이름 나열
+- kendrick-extrication-device: triage:구조 장비명 — 고정 순서 서술이 본문 안에서 엇갈림(몸통·골반·두부 vs 몸통·다리·머리)
+- digestibility: triage:비율 지표 — 겉보기·진정 소화율 두 가지 계산 차이(내인성 보정)뿐
+- just-city-theory: triage:형평성·다양성·민주주의 세 원칙의 단순 나열 — 원칙 간 관계 없음
+- homeostatic-model-assessment: triage:공복 혈당×인슐린÷상수라는 계산식 지표 — 그림이 공식을 되풀이
+- kinesthesia-dance: triage:감각 능력 개념 — 무용수·관객 적용 서술로 구조적 관계가 없음
+- consequentialism: triage:규범윤리 총칭 — 하위 변형(쾌락·선호·규칙 결과주의)이 이름만 나열돼 분류 기준 근거 부족
+- surrogate-decision-maker: triage:역할(사람)을 가리키는 용어 — 대체판단·최선의 이익 두 기준과 대리인 순위가 나오지만 국가마다 달라 그림으로 고정할 구조가 없음
+- neighborhood-park: triage:도시공원 유형 중 하나 — 근린생활권·도보권 등 하위 구분은 법령상 유치거리 수치 나열이라 표가 더 적합
+- improper-integral: triage:핵심은 1/x와 1/x² 같은 꼬리의 수렴·발산 대비인데 거듭제곱 꼬리 곡선을 그릴 함수가 없음
+- riemannian-metric: triage:계량→접속→곡률 연쇄가 있으나 추상 구조라 상자 몇 개로는 '점마다 내적을 준다'는 핵심을 보여 주지 못함
+- urban-growth-management: triage:성장경계·개발허가총량제·기반시설 연동제 등 정책 수단 나열 — 수단 간 관계가 없어 목록 이상이 안 됨
+- data-sharing-mandate: triage:기관·학술지 정책 규정 — 전면공개 대 통제된 접근 두 갈래뿐이라 구성 요소가 부족
+- food-preservative: triage:식품첨가물 분류명 — 작용 방식 두 유형(세포막·효소) 외에 그릴 관계가 없음
+- organic-architecture: triage:건축 이념(대지·재료·기능의 통합) — 구조화된 단계나 기전이 없고 낙수장 사례 서술 중심
+- urban-sprawl-index: triage:합성 지표 — 하위 지표 조합이 연구마다 달라(주의할 점) 한 가지 구성을 그리면 오해를 낳음
+- community-reintegration: triage:재활 성과 개념 — 하위영역(가정·사회관계·생산활동)은 측정도구의 구성일 뿐 개념 자체의 구조가 아님
+- body-composition-analysis: triage:체중을 지방·근육·수분·뼈로 나눈다는 정의 반복 — 측정법 3종 비교는 장단점 표로 충분
+- spasticity-management: triage:중재 목록(자세·신장·보조기·약물·보톡스·수술)의 단계 순서가 절마다 달라 순서도를 근거 있게 정할 수 없음
+- treadmill-training: triage:단일 훈련 방법 — 속도·경사·체중지지 같은 조절 변수 나열뿐 관계 구조가 없음
+- virtue-epistemology: triage:덕신뢰주의 대 덕책임주의 두 갈래 구분이 핵심이나 비교 기준이 '덕의 성격' 하나뿐이라 그림이 caution 문장을 되풀이함
+- just-intonation: triage:정수비(2:1·3:2·5:4) 목록과 콤마 문제는 수치 표로 더 정확히 전달되며 상자 도식이 보탤 것이 적음
+- image-duplication-across-papers: triage:연구부정 유형명 — 탐지→조사→정정·철회 흐름은 연구진실성 절차 일반이라 이 용어 고유의 구조가 아님
+- linear-transformation: triage:핵심 직관이 격자의 회전·늘이기 같은 기하 변형이라 9개 도식 유형으로는 표현이 안 됨
+- universal-quantifier: triage:논리 기호 하나(∀) — 공허한 참·전칭 일반화는 문장 설명이 더 정확함
+- vacant-lot-temporary-greening: triage:임시 녹화 방식 — 잔디·화단·텃밭 형태 나열과 효과 서술뿐 단계나 기전이 없음
+- accidental-property: triage:본질적 속성과의 대비 2항뿐 — 소크라테스 앉음 예시로 이미 충분하고 그림은 정의를 반복함
+- synbiotics: triage:프로바이오틱스+프리바이오틱스라는 정의 자체가 2요소 합 — 벤 그림은 정의 반복
+- denying-the-antecedent: merge-candidate: 병합 후보라 보류(was checked)
+- locrian-mode: triage:단일 선법 — 으뜸음 위 감5도라는 한 가지 속성이 핵심이라 관계 구조가 없음
+- prime-factorization: triage:12=2×2×3 같은 인수 나무는 자명해 그림이 이해를 더하지 않음
+- urban-fringe-management: triage:성장경계·개발제한구역·단계적 시가화 등 수단 목록과 부작용 나열 — 수단 사이 관계 구조가 없음
+- k-pop-studies: triage:연구 대상(음악 장르·산업)명 — 연구 주제 나열뿐 그릴 관계가 없음
+- louver: triage:위성 열제어와 건축 차양이라는 동명이의 두 장치 — 기전도 개폐 2상태로 단순
+- predatory-journal: triage:학술지 유형명 — 식별 기준(편집위원 실재·심사 기간·색인 등재) 체크리스트라 그림보다 목록이 적합
+- framework-act-on-disaster-and-safety-management: triage:법률명 — 대책본부 조직·선포 요건 규정 서술이며 예방·대비·대응·복구는 정의에 한 번 언급될 뿐 본문 근거가 없음
+- urban-air-quality-management: triage:관리 수단(바람길·총량관리·운행제한) 나열 — 수단 간 연결 구조가 본문에 없음
+- educator-role-social-work: triage:사회복지사 역할 하나 — 교육 사례 나열뿐 구성 요소 간 관계가 없음
+- low-residue-diet: triage:저섬유식과의 포함 관계 하나가 핵심 — 2개념 포함은 문장으로 충분
+- prehospital-termination-of-resuscitation: triage:BLS·ALS 규칙 조건 비교가 가능하나 지역 프로토콜마다 다르다고 본문이 명시해 일반 규칙을 그림으로 고정하면 오용 위험
+- substrate-oxidation-rate: triage:핵심인 Fatmax(강도에 따라 지방산화율이 올랐다 떨어지는 비대칭 정점 곡선)를 그릴 함수가 없고 inverted_u는 대칭이라 부적합
+- campylobacter-jejuni: triage:단일 세균 종명 — 감염 경로·후유증 서술이 있으나 종 이름 항목
+- family-centered-care: triage:간호 철학 — 네 원칙(존엄·정보 공유·참여·협력) 나열이라 관계 구조가 없음
+- peak-load-infrastructure-demand: triage:하루 부하곡선과 평균선·설계용량선 대비가 핵심인데 일중 부하 곡선과 수평 기준선을 그릴 함수가 없음
+- interferential-current-therapy: triage:깊은 조직에서 저주파 효과가 생긴다는 기전 주장 자체가 근거 미확립(깊게 보기) — 기전도를 그리면 논쟁 주장을 단정하게 됨
+- generalized-motor-program: triage:불변·가변 매개변수 2분류가 핵심이나 상대적 타이밍 불변성이 반증되어 역동체계이론과 논쟁 중 — 그림이 이론을 단정하기 쉬움
+- rehabilitation-adherence: triage:결과 변수 개념 — 영향 요인(통증 두려움·기대·지지) 나열이라 경로 구조가 본문에 없음
+- infectious-disease-humane-endpoint: triage:임상점수가 기준을 넘으면 안락사한다는 단일 문턱 규칙 — 단계·관계 구조가 빈약
+- coordinate-plane: triage:기초 개념 자체가 그림이라 9개 type으로 정의 이상을 보여 줄 관계 구조가 없음
+- de-moivres-formula: triage:핵심은 복소평면 위 회전이라는 기하 이미지로, 제공 type(흐름·비교·곡선)으로 표현되지 않음
+- nutrient-gene-expression-regulation: triage:영양소→전사인자→유전자 발현 경로는 정의 문장을 그대로 옮긴 것에 그침
+- symmetric-matrix: triage:대각선 기준 거울 대칭이라는 단일 속성 — 관계 맺는 구성 요소가 없음
+- square-root-and-real-numbers: triage:유리수·무리수 포함 관계는 '유리수와 무리수' 항목의 몫이고 본문은 연산 활용 설명 위주
+- road-hierarchy-system: merge-candidate: 병합 후보라 보류(was checked)
+- co2-euthanasia: triage:단일 안락사 방법 — 흡입 속도의 너무 느림/너무 빠름 절충은 문장 하나로 충분
+- emotivism: triage:단일 메타윤리 입장 설명과 비판 나열 — 그림이 정의 이상을 보여 주지 못함
+- sport-subculture: triage:규범·가치·정체성의 총칭으로 구성 요소 간 관계가 본문에 없음
+- industrial-zone: triage:전용·일반·준공업 세분 나열뿐이고 일반공업지역 설명이 없어 비교 근거가 부족
+- causal-theory-of-perception: triage:정상 지각·환각·기이한 인과 연쇄 구분이 글로 충분하고 '적절한 경로'가 정의되지 않아 그림으로 고정하기 어려움
+- partial-fractions: triage:인수 유형별 분해 항의 형태가 본문에 구체적으로 없어 근거 부족 — 계산 기법
+- protocol-deviation-reporting: triage:경미/중대 두 갈래 보고 후 계획서 개정이라는 짧은 흐름 — 본문 문장으로 충분
+- cauchy-schwarz-inequality: triage:단일 부등식 — 증명 도구로서의 쓰임 나열이라 관계 구조가 없음
+- ligament-sprain: triage:1~3도 등급이 정의의 '늘어남·부분·완전 파열'을 되풀이할 뿐
+- gm-animal-welfare: triage:관찰→이상 발견→조치라는 일반적 모니터링 흐름으로 인도적 종료점 항목과 겹침
+- dissimilarity-index-segregation: triage:0~1 사이 단일 지표 — 계산 방식과 공간 단위 주의점이 중심이라 그림이 더할 것 없음
+- principle-of-alternate-possibilities: triage:프랑크푸르트 사례와 재반박이 이어지는 진행 중 논쟁이라 구조를 단정해 그리기 어려움
+- urban-development-project: triage:환지·수용·혼용 시행방식 대비는 하위 세부이고 본문 근거가 한두 문장뿐
+- random-variable-formal: triage:표본공간→실수 함수라는 정의 반복 — 측정 가능성 조건은 그림으로 잘 드러나지 않음
+- chimera-research-ethics: triage:쟁점 세 갈래와 규제 장치 나열 — 요소 간 관계 없는 목록
+- housing-occupancy-obligation-period: triage:단일 규제 제도 — 기간·예외가 시기마다 바뀌어 고정된 구조가 없음
+- respiratory-muscle-training: triage:저항 훈련의 적용 대상·강도 주의 설명 — 단계나 기전 구조가 약함
+- fee-for-service: triage:포괄수가·인두제와의 비교가 본문에 한 문장뿐이라 대비 그림의 근거 부족
+- continued-fraction: triage:중첩 분수 표기 자체가 핵심이라 type으로 정의 이상을 보여 주기 어려움
+- positive-list-system-pesticide: triage:기준 있음/없음 두 갈래 — 정의에 이미 담긴 분기
+- natural-ventilation: triage:부력·풍력 두 하위 방식뿐이라 위계 그림이 빈약하고 단면 그림이 필요한 내용
+- sijo-chang: triage:연행 방식 설명 위주 — 하위 창법도 이름만 언급되어 근거 부족
+- trace-of-matrix: triage:대각 원소의 합이라는 단일 연산과 성질 나열
+- logical-necessity: triage:논리적·형이상학적 필연성의 포함 관계를 두고 본문 예문끼리도 엇갈려(포함 vs 독립) 단정해 그리기 어려움
+- tenant-relocation-measures: triage:주거·상가 세입자별 보상 항목 나열 — 목록 이상의 관계가 없음
+- free-and-bound-variables: triage:양화사 범위 안팎의 구분은 논리식 예시로 보여 주는 편이 정확 — 도식 type이 맞지 않음
+- postural-sway: triage:측정 지표·조건 의존성 설명 — 압력중심 궤적은 9개 type으로 그릴 수 없음
+- stride-length: triage:발자국 위치 그림이 필요한 공간 정의 — 보장과의 차이는 문장으로 충분
+- theories-of-sport-participation: triage:여러 이론 이름과 강조 변수의 나열 — 이론 간 관계 구조가 본문에 없음
+- disaster-medical-kit: triage:물품 세트 — 휴대성과 처치 가능 환자 수의 절충은 문장 하나로 충분
+- inverse-matrix: triage:AA⁻¹=I라는 단일 정의와 계산상 주의 — 관계 맺는 요소 부족
+- occupational-therapy: triage:전문 분야 총칭 — 사람-환경-작업 모델은 이름 없이 한 문장만 언급되어 근거 부족
+- passacaglia: triage:반복 베이스 위 변주라는 형식은 악보 예시가 필요하고 샤콘느와의 구분도 관습적이라 대비가 불안정
+- urban-context: triage:물리·역사·사회 조건의 총칭 — 구성 요소 간 관계가 없는 포괄 개념
+- architectural-typology: triage:유형 예시(중정형·복도형·홀형)가 본문에 이름만 나오고 분류 기준이 정리돼 있지 않아 위계도를 세울 근거가 부족함 — 이론의 태도 설명이 중심
+- ontological-commitment: triage:콰인 기준의 핵심이 술어논리 재구성에 따라 개입 대상이 달라진다는 미묘한 논점이라 상자 몇 개로 그리면 '빨간 사물' 예문 이상을 보여 주지 못함
+- home-exercise-program: triage:치료사가 처방하는 운동 목록이라는 실무 개념 — 순응도 논점은 글로 충분하고 관계 맺는 구성 요소가 없음
+- communicative-planning-theory: triage:전문가형 계획가 대 중재자형 계획가 대비가 '쉽게 풀면'에서 이미 비유로 충분히 전달되고, 대비 상대(합리적 계획 모형)의 기준이 본문에 정리돼 있지 않음
+- copd: triage:질환명 항목 — 본문의 기전 논의는 산소 투여 문제 하나에 국한되고 그마저 '단순 설명은 부정확하다'는 단서가 붙어 질환 전체 도식의 근거가 못 됨
+- bruce-protocol: triage:3분마다 속도·경사가 오르는 계단식 부하가 핵심인데 계단 곡선 함수가 없고, 단계별 수치도 1단계 외에는 본문에 없음
+- pressure-ulcer-prevention: triage:체위변경·지지면·피부관찰 등 예방 수단의 나열 — 수단 간 순서나 인과 관계가 없어 목록 이상의 그림이 안 나옴
+- force-plate: triage:측정 장비 이름 — 점프 높이 계산법 차이(비행시간법 대 충격량법) 같은 논점은 글로 충분하고 장비 자체에 구성 관계가 없음
+- studentification: triage:임대 비중·업종 편중·연령 편중이라는 특징의 나열이고, 젠트리피케이션과의 차이도 원인 수요층 하나뿐이라 대비 축이 부족함
+- anchor-institution-regeneration: triage:지역 조달·지역 채용·부지 활용이라는 정책 수단 목록 — 그림으로 그려도 정의의 '기관 자원을 지역에 연결'을 반복할 뿐
+- nutrimetabolomics: triage:분야명 항목 — 표적/비표적 분석 두 갈래와 분석 장비 언급뿐이라 학문 분야 소개 이상의 관계 구조가 없음
+- new-musicology: triage:학문 사조와 대표 연구자(커먼·매클러리) 소개 — 인물·저서 중심이고 매클러리 독해는 논쟁적이라 단정적으로 그리기 어려움
+- smart-parking-system: triage:센서→통신→앱 안내라는 일반적 IoT 시스템 구성으로, 그림이 주차라는 특수성을 더 드러내지 못함
+- frequency-distribution-table: triage:계급 폭에 따라 히스토그램 모양이 달라진다는 점이 핵심인데 막대(히스토그램) 함수가 없어 plot으로 그릴 수 없고, 다른 type으로는 표 작성 순서만 반복됨
+- wholly-compensatory-system: triage:오렘의 세 간호체계 중 하나인데 부분보상·지지교육체계는 이름만 나와 위계나 대비를 그리려면 본문 밖 지식에 크게 기대야 함
+- diastasis-recti-abdominis: triage:해부학적 상태(복직근 간격 벌어짐) 이름 — 필요한 것은 해부 그림이지 관계도가 아니고, 9개 type으로 보탤 정보가 없음
+- syndrome-nursing-diagnosis: triage:증후군 진단이 하위 진단을 묶는다는 포함 관계가 정의와 폐용증후군 예문만으로 충분히 전달됨 — 그림이 정의 반복이 됨
+- urban-void: triage:발생 원인별 유형(유휴부지·기반시설 하부·소유권 분쟁지)이 짧은 나열에 그치고 활용 전략도 사례 목록이라 구조가 약함
+- agricultural-land-preservation: triage:농업진흥지역·전용허가·개발권 이양 같은 제도 수단 나열과 정책 쟁점 서술 — 관계 맺는 구성 요소가 아니라 목록
+- sports-nutrition: triage:응용 학문 분야명 — 경기 전·중·후 전략과 종목별 차이가 있지만 분야 전체를 대표하는 하나의 구조로 묶이지 않음
+- urban-and-residential-environment-improvement-act: triage:법률명 항목 — 정비사업 절차 단계가 본문에 구체적으로 나오지 않고 개정 이력도 연도 없이 서술돼 시간축 근거가 부족함
+- fractal-dimension: triage:핵심 직관은 코흐 곡선 같은 자기유사 도형의 그림인데 9개 type 밖이고, 로그-로그 직선만으로는 '기울기=차원' 정의를 반복할 뿐
+- cpr: triage:핵심 수치(속도·깊이·30:2)는 글로 충분하고, 흉강 내압 기전은 한 문장뿐이라 그리면 본문 밖 생리 지식에 기대야 함
+- syllogism: triage:대전제·소전제·결론과 매개념의 연결이 소크라테스 예문 하나로 이미 명료해 그림이 예문을 되풀이함
+- infinite-geometric-series: triage:|r|<1일 때 부분합이 a/(1-r)로 다가가는 모양이 핵심인데 부분합 계단·점근 상승 곡선 함수가 없고 hill로 흉내 내면 안 됨
+- bicycle-infrastructure: triage:통행·정차·서비스형 시설과 도로 유형의 단순 분류 목록 — 핵심 논점인 네트워크 연속성은 그림으로 보탤 것이 없음
+- international-classification-for-nursing-practice: triage:초점+행위 조합으로 진술문을 만든다는 원리가 레고 비유와 '통증 사정' 예로 이미 명확해 그림이 예시를 반복함
+- dual-task-training: triage:보행+인지/운동 과제를 함께 하는 훈련 방식 — 구성 요소가 두 과제뿐이고 효과 근거는 논쟁 중이라 인과 사슬로 단정하기 어려움
+- urban-agriculture: triage:식량·열섬 완화·우수관리·공동체 등 다기능 편익의 나열 — 편익 간 관계가 없어 목록 이상이 안 됨
+- grey-literature: triage:백색문헌·프리프린트와의 구분이 '쉽게 풀면'과 '주의할 점'에서 글로 충분히 정리되어 그림이 문장을 옮기는 데 그침
+- pre-performance-routine: triage:본문이 루틴의 형식·길이는 개인·종목마다 다르다고 명시해 표준 단계 순서를 그릴 근거가 없음
+- quadratic-residue: triage:정수론 정의 — 법 7 예시처럼 숫자 대응표가 적절하지 관계도 type이 맞지 않고, 르장드르 기호·상호법칙은 수식 내용
+- randomized-controlled-trial-in-nutrition: triage:무작위대조시험의 영양학 하위 사례 — 그림을 그리면 일반 RCT 절차와 같아지고 고유 논점(맹검 어려움)은 글로 충분함
+- transcendental-idealism: triage:사물 자체→인식 형식→현상 도식은 두 세계 해석을 암시해, 본문이 밝힌 두 세계 대 두 측면 해석 논쟁을 단정할 위험이 있음
+- force-length-relationship: triage:전체 곡선은 능동 성분(정점 곡선)과 길이에 따라 급증하는 수동 성분의 합이라 비대칭인데, 지수 증가 함수가 없고 inverted_u는 대칭이라 쓸 수 없음
+- icmje-guidelines: triage:네 요건이 모두 필요한 누적 조건이라는 점이 체크리스트 문장으로 충분하고, 요건 간 순서나 인과가 없음
+- urban-planning-facility: triage:법적 지정 제도 — 20년 실효·매수청구 같은 규정은 조문식 서술로 충분하고 단계 간 관계를 그림으로 보탤 것이 적음
+- ingelfinger-rule: triage:단일 편집 방침 — 출판 엠바고와의 구분과 프리프린트 완화 추세가 글로 명확해 대비 축이 하나뿐임
+- research-fund-misuse: triage:부정사용 유형(허위 인건비·항목 전용·허위 증빙) 나열과 FFP와의 구분뿐 — 관계 구조가 없어 글로 충분
+- biobank-governance: triage:포괄·특정 동의 긴장과 접근심사위원회 등 장치 나열 — 단계나 인과로 엮인 구성이 본문에 분명하지 않음
+- chest-compression: triage:깊이·속도·이완·교대 등 수기 수치 기준 목록 — 도식보다 수치 표기가 전달에 적합
+- moisture-migration: triage:수분활성도 높은 층→낮은 층 이동이라는 두 요소 관계가 핵심 — 정의 문장으로 이미 충분
+- dispatch-priority-system: triage:질문 흐름으로 등급을 매긴다는 설명뿐, 구체적 등급·단계가 본문에 없어 그릴 근거 부족
+- contract-cheating: triage:표절·유령저자와의 차이를 문장으로 설명 — 비교 기준이 하나(누가 쓰고 왜 숨기나)라 도식 이득 작음
+- paraffin-bath: triage:단일 온열치료 기법 — 적응증·금기 서술뿐 구성 요소 관계 없음
+- mega-city-region: triage:여러 대도시가 교통망으로 묶인다는 공간 개념 — 지도 없이 관계도로는 정의 반복
+- graded-exercise-test: triage:램프형(연속)과 단계형(계단식) 부하 곡선 비교가 핵심인데 계단 함수가 없어 plot 불가, 다른 type으로는 이득 작음
+- exercise-immunology: triage:강도-면역 J자 곡선은 비대칭이라 inverted_u 부적합하고, 본문도 열린 창 가설이 재검토 중이라 밝혀 단정적 그림 위험
+- naloxone: triage:단일 약물명 — 경쟁적 길항과 재마약화 주의는 문장으로 충분
+- skyline: triage:시각적 경관선이라는 단일 개념 — 관계 맺는 구성 요소 없음
+- physicalism: triage:환원/비환원 구분은 있으나 유형동일론·기능주의·제거주의의 배치가 본문에 명시되지 않아 분류도를 단정하기 어려움
+- dixieland: triage:초기 재즈 양식명 — 명칭 논쟁과 편성 변화 서술이 중심이라 도식 구성 요소 부족
+- maternal-child-nutrition-program: triage:생애주기별 지원 항목 나열 — 순서는 있으나 각 단계 간 관계가 단순 열거 수준
+- space-coordinates: triage:3축 좌표 표기 — 필요한 것은 3D 좌표 그림이지 9개 type 중 어느 것도 아님
+- rescue-and-ambulance-service-119: triage:기관(소방 구급조직) 설명 — 인물·기관명 유형
+- historic-preservation: triage:보존과 개발의 균형이라는 일반 정책 개념 — 구체적 단계·구성 관계 없음
+- heavy-metal-contamination-food: triage:토양·관개수→작물→축적 경로가 있으나 일반적 오염 경로라 그림이 새 이해를 더하지 못함
+- ascorbic-acid-degradation: triage:열·산소·빛·금속이온이 손실을 키운다는 요인 나열 — 감소 곡선을 그려도 '시간 길수록 줄어든다'는 정의 반복
+- transfer-training: triage:독립·미끄럼판·의존 이동 세 방법 나열 — 선택 기준이 잔존 근력 하나라 분류도 이득 작음
+- related-factors: triage:간호진단 문장의 원인 부분이라는 단일 요소 — 정의적특성과의 구분은 문장으로 충분
+- cross-boundary-cooperation-urban: triage:협약~특별지자체 등 제도 형태 언급뿐, 단계 순서가 본문에 명확하지 않음
+- simulation-based-nursing-education: triage:사전브리핑-시나리오-디브리핑 3단계가 용례 문장에 이미 명시되어 그림이 되풀이에 그침
+- maclaurin-series: triage:0 근처에서 부분합이 원함수에 붙고 멀어지면 벌어지는 모습이 핵심인데 sin·다항식 함수가 없어 plot 불가
+- tilt-table: triage:단일 재활 장비 — 각도를 점진적으로 올린다는 설명뿐 구성 요소 관계 없음
+- ursatz: triage:보편성 주장이 논쟁적이라고 본문이 경고하고, 우르리니에·베이스 아르페지오 결합은 악보 예시가 필요해 9개 type으로 표현 어려움
+- authorship-dispute-resolution: triage:기관·학술지가 기여 근거로 조정한다는 설명 — 정해진 절차 단계가 본문에 없음
+- clinical-practice-guideline-coi: triage:공개·의결 배제·자격 제한 등 관리 수단 나열 — 수단 간 관계가 없어 목록으로 충분
+- water-supply-master-plan: triage:수요 예측·시설 진단·확충·재원 구성 요소 나열 — 법정계획의 목차 수준이라 그림 이득 작음
+- incident-command-post: triage:물리적 지휘 장소라는 단일 개념 — 위치·표식 요건 서술뿐
+- limit-laws: triage:합·차·곱·몫 규칙은 수식이 가장 명확 — 도식은 수식 반복
+- lactate-threshold-in-sports-nutrition: triage:강도에 따라 완만하다 급등하는 젖산 곡선과 훈련 후 오른쪽 이동이 핵심인데 증가형 지수 곡선 함수가 없어 plot 불가
+- tangent-length-from-external-point: triage:기하 작도(원·접선·직각삼각형)가 필요한 성질 — 9개 type으로 표현 불가
+- nursing-practice-standard: triage:업무 범위·수준의 공인 기준이라는 단일 개념 — 공식 지침/원내 프로토콜 두 층위만 있어 구성 부족
+- power-series: triage:테일러 급수가 거듭제곱급수의 특수형이라는 2단 포함 관계뿐 — 주의할 점 한 문장으로 충분
+- orientation-phase: triage:페플라우 이론의 첫 단계 하나 — 전체 단계 구성은 상위 개념 용어에서 다룰 몫이고 본문에는 후속 단계 서술이 빈약
+- speech-language-pathology: triage:학문 분야명 — 하위 영역 나열만 있어 분류도가 목록 반복
+- string-quartet: triage:4대 악기 편성과 장르사 서술 — 구성은 정의에 이미 다 있음
+- prima-facie-duty: triage:일곱 의무가 판단으로 실제 의무가 된다는 구조이나 우선순위 규칙이 없다고 본문이 밝혀 그림이 정의 이상을 보이기 어려움
+- failure-to-thrive-infant: triage:본문이 기질적/비기질적 원인 이분법을 소개한 뒤 주의할 점에서 그 이분법이 혼재로 재인식되었다고 뒤집어, 원인 분류도를 그리면 낡은 틀을 단정하게 됨
+- slow-twitch-fiber: triage:속근섬유와의 대비(수축 속도·미토콘드리아·피로 저항)가 본문 문장 두세 개로 이미 명확하고, 훈련에 따른 아형 전환은 IIx→IIa 한 단계뿐이라 그림이 더할 구조가 없음
+- image-manipulation-detection: triage:복제-이동·이어붙이기·후처리 흔적이라는 탐지 기법 세 갈래가 서로 관계 없이 나열될 뿐이라 그림이 목록 반복에 그침
+- fundamental-movement-skills: triage:이동·조작·안정성 세 범주와 예시가 본문에 단순 목록으로 이미 정리돼 있고, 언급된 순환 모형(기술-활동량-지각된 능력)은 한 문장뿐이라 근거가 얇음
+- level-2-emergency-medical-technician: triage:자격 등급명 — 업무범위 항목(지혈·CPR·AED) 나열과 1급과의 범위 차이뿐이고 등급 대응도 나라마다 달라 일반화된 그림이 어려움
+- autonomy-need: triage:자기결정성이론 세 욕구 중 하나로, 의미 있는 그림(세 욕구 구조)은 상위 이론 항목에 속하며 이 항목 고유의 구성 요소는 '구조 속 선택권' 한 가지뿐
+- nomological-necessity: triage:논리적 필연 > 자연적 필연 > 우연이라는 강도 서열 한 줄이 핵심이고, 가능세계의 포함 관계는 venn의 '겹침'과 다르며 다른 type에도 맞지 않음
+- pragmatism: triage:사조명 — 퍼스·제임스·듀이의 차이가 언급되지만 각자의 입장이 비교 축으로 정리돼 있지 않아 인물 나열에 그침
+- patchwriting: triage:정당한 바꿔쓰기와의 구분 기준(구조 재구성·출처 표시)이 deep 한 문장으로 충분히 전달되며, 대비 표로 만들면 정의를 되풀이하게 됨
+- integer-partition: triage:4의 다섯 가지 분할 예시가 본문에 이미 열거돼 있고, 영 도표·켤레 연산은 9개 type 중 맞는 틀이 없음
+- emergency-medical-delivery-system: triage:지역기관-지역센터-권역센터 세 단계 이름과 '사슬 구조'라는 추상적 언급뿐이라 단계 간 전원·이송 기준이 본문에 없어 그림 근거가 부족
+- peripherally-inserted-central-catheter: triage:단일 의료기구명 — 삽입 정맥 이름과 관리 수칙 나열이며 경로는 해부 그림이 필요해 9개 type에 맞지 않음
+- sportsmanship: triage:규칙·상대·관습 존중 등 하위 차원이 서로 관계 없이 나열된 다차원 척도라 목록 반복에 그침
+- urban-ecological-network: triage:거점-통로-기질(patch-corridor-matrix)은 공간 배치도라 chain·hierarchy 등 9개 type으로 옮기면 핵심인 '연결성'이 사라짐
+- oxygen-therapy: triage:공급 장치 네 종류가 이름만 나열되고 농도 범위는 비강캐뉼라만 제시돼 장치별 비교 그림의 근거가 본문에 없음
+- secondary-triage: triage:1차 분류 뒤 집결지에서 상세 재평가라는 두 단계 차이가 전부라 절차도로 만들 구성 요소가 3개에 못 미침
+- epistemic-externalism: triage:내재주의와의 대비가 핵심이지만 '내적 접근 가능성 요구 여부' 한 축으로 요약돼, 대비 그림은 짝 개념(내재주의) 항목에서 그리는 편이 중복을 피함
+- selenium: triage:단일 미량무기질명 — 셀레노단백질 목록과 결핍·과잉 증상 나열이며 경로 관계가 없음
+- oxygen-uptake: triage:핵심 모양은 운동강도에 따라 선형 증가하다 VO2max에서 고원에 이르는 꺾인 곡선인데, hill은 처음부터 휘는 포화 곡선이라 흉내 낼 수 없고 픽의 원리는 두 항의 곱이라 chain 구성 요소가 부족함
+- field-abstract-algebra: triage:본문은 환과의 차이(나눗셈 가능 여부) 하나만 비교해 군-환-체 위계를 그리면 본문 밖 지식에 기대게 됨
+- public-open-space: triage:본문 안에서 정의가 엇갈림(시설 최소화한 공지 vs 광장·소공원 포함, 공개공지와 별개라 했다가 민간 필로티도 포함) — 비교 그림을 그리면 어느 한쪽을 단정하게 됨
+- probiotics: triage:위산·담즙 통과→장 도달이라는 생존 경로가 한두 문장으로 충분하고, 핵심 메시지인 '균주 특이성'은 그림으로 표현할 구조가 아님
+- fluoride-nutrition: triage:'적정 범위'가 핵심이지만 섭취량-충치 위험·불소증 위험의 곡선 모양이나 수치가 본문에 전혀 없어 plot을 그리면 본문 밖 지식에 크게 기댐
+- polygon-diagonals: triage:단일 공식 n(n-3)/2와 그 두 가지 유도(nC2−n)가 본문에 단계별로 이미 풀려 있어 도식이 더할 관계가 없음
+- video-laryngoscope: triage:직접 후두경과의 차이가 '일직선 정렬 불필요' 한 가지로 요약되고, 나머지(햇빛·분비물·간접 시야)는 단점 나열이라 대비 축이 얕음
+- tart-cherry-juice-supplementation: triage:본문이 효과가 일관되지 않다고 거듭 밝혀, 안토시아닌→항염→회복 경로를 그리면 미확립 기전을 단정하게 됨
+- high-density-development: triage:인프라 효율·대중교통 수요 대 일조권·기반시설 과부하라는 장단점 나열이며 서로 인과로 연결되지 않음
+- flexibility: triage:근육·신경계·관절낭 등 가동범위 결정 요인이 병렬로 언급될 뿐 관계 구조가 없고 정적/동적 구분도 두 항목뿐
+- conflict-of-interest-statement: triage:재정적/비재정적 이해상충 두 갈래와 공개 의무 대상 나열뿐이라 그림이 정의를 되풀이함
+- energy-density-of-food: triage:kcal/g라는 단일 비율 지표로, 수분·섬유(낮춤)와 지방(높임)이라는 요인 두 방향 언급뿐이라 그림이 필요 없음
+- psychosocial-rehabilitation: triage:사회기술훈련·직업재활·지역사회 통합·가족교육 등 하위 영역의 평면적 목록이고 영역 간 관계나 순서가 본문에 없음
+- utstein-style-reporting: triage:표준화 항목(목격 여부·초기 리듬·ROSC)과 '여러 시간 구간'이 언급되지만 구간의 순서·이름이 본문에 구체적으로 없어 timeline 근거 부족
+- raft-foundation: triage:매트기초의 동의어로 본문이 직접 밝히며, 부력 저항·부등침하 제어 같은 기능 언급만 있어 독자적 구조가 없음
+- equation-of-sphere: triage:단일 공식(원의 방정식에 z항 추가)이고, 삼변측량의 구 교점은 기하 도형이라 9개 type에 맞지 않음
+- pediatric-obesity-exercise-therapy: triage:저충격 유산소·놀이 중심·가족 개입 같은 설계 원칙의 나열이며 단계나 인과 구조가 없음
+- allergen-labeling: triage:의무 원료 표시와 교차오염 예방 표시의 법적 성격 차이 한 축이 핵심이라 문장으로 충분하고, 국가별 목록 차이는 그림 근거가 없음
+- objective-data: triage:주관적자료와의 대비 한 축(측정 가능 vs 대상자 호소)이 전부이고 나머지는 측정 오차 주의사항 나열
+- multiple-trauma: triage:그릴 만한 절차는 ABCDE 일차평가로 별도 용어의 내용이며, 이 항목 자체는 '두 부위 이상 중증 손상'이라는 정의와 동시 평가 강조뿐
+- resilient-city: triage:충격 후 기능이 떨어졌다 회복·적응하는 성능 곡선이 이 개념의 표준 도식이지만 본문에 모양이 서술되지 않고 그릴 함수도 없으며, 방재도시와의 대비는 '회복·학습 강조' 한 축뿐
+- ecclesiastical-modes: triage:8·12·재즈 7선법 구분은 본문 한 문장으로 충분하고, 정격·변격 짝짓기는 음역 차이라 보표 없이 9개 type으로 그리기 어려움
+- transit-catchment-area: triage:핵심인 원형 버퍼 대 보행망 권역의 차이는 지도 위 모양 문제라 type 틀로는 정의 반복 수준에 그침
+- vacuum-drying: triage:감압→끓는점 저하→저온 증발 사슬을 정의가 이미 그대로 서술함; 동결건조와의 차이도 한 문장
+- isovist-analysis: triage:시선을 뻗어 다각형을 만드는 계산은 평면도 위 기하 그림이 필요해 절차 상자로 옮기면 정의를 되풀이할 뿐
+- coordination-motor: triage:번스타인의 자유도 잠금→풀기는 두 단계뿐이고, 중추 프로그램 대 자기조직 관점은 논쟁 중이라 단정해 그리기 어려움
+- vocational-evaluation: triage:지필·작업표본·현장 시도 세 방법의 타당도-비용 경향 한 줄이 전부라 그림이 덧붙일 내용이 적고, 예측력 근거도 제한적이라고 본문이 밝힘
+- remote-sensing-land-cover-classification: triage:감독·무감독, 화소·객체 기반 구분은 용어 나열 수준이고 분류 절차는 일반적인 영상 분석 흐름이라 이 용어 고유의 통찰이 약함
+- desk-rejection: triage:투고→편집 검토→반려 또는 외부심사의 두 갈래가 전부라 구성 요소가 빈약함; 판단 기준은 목록일 뿐
+- virtual-reality-rehabilitation: triage:몰입형·비몰입형 이분과 효과가 훈련량 때문인지 분리 어렵다는 논쟁이 중심이라 그림이 단정을 낳을 위험
+- land-use-change-permit: triage:법적 허가 제도 하나로, 심사 단계가 본문에 순서 있게 나오지 않고 대상 행위(절토·성토 등)만 나열됨
+- congenital-muscular-torticollis: triage:목빗근 단축으로 인한 기울임·회전 자세 묘사가 중심이라 해부 그림이 필요하고, 관계 구조는 단축→자세 한 단계뿐
+- multiplication-formula: triage:공식 세 개의 나열이며, 도움이 될 넓이 모델은 9개 type 밖의 기하 그림
+- spinal-cord-injury-rehabilitation: triage:완전·불완전 손상에 따른 목표 차이(보상 대 회복) 한 쌍뿐이라 그림이 본문 문장보다 더 보여 줄 것이 적음
+- plagiarism: triage:문장·아이디어·자기·번역 표절 유형의 단순 목록이라 분류 그림이 정의 이상의 관계를 드러내지 않음
+- floating-point-error: triage:유한 비트 근사→오차 누적이라는 정의 그대로의 사슬이고, 자릿수 손실·조건수는 별개 현상이라 한 경로로 묶기 어려움
+- old-downtown: triage:신도심 성장→원도심 쇠퇴라는 정의 속 사슬의 반복이고, 지역 유형을 가리키는 용어
+- thermal-processing-food: triage:살균 강도 대 품질 손실의 상충은 핵심이지만 본문에 곡선 근거 수치가 없고, F값·C값 관계는 그림보다 식으로 설명되는 내용
+- gmo-labeling: triage:제품기반 대 공정기반 표시의 차이는 '고도정제 원료 포함 여부' 한 기준뿐이라 나란히 비교할 축이 부족함
+- monadology: triage:벌거벗은 단자→동물 영혼→인간 정신의 등급은 지각 명료도의 한 줄 서열이라 목록으로 충분하고, 예정조화는 그림으로 옮기기 어려운 형이상학 주장
+- nitrogen-flushing: triage:공기→질소 치환→산소 저하→산화 억제라는 정의 그대로의 사슬; 한계(혐기성균·수분)도 짧은 단서
+- structural-planning: triage:그리드 간격 트레이드오프와 코어 위치 구속 같은 개별 고려사항의 나열이라 순서나 구조로 묶이는 관계가 본문에 없음
+- plan-s: triage:특정 정책 협약명이며, 골드·그린 등 오픈액세스 경로 목록은 상위 개념인 오픈액세스 용어에 속함
+- cyclic-group: triage:생성원 반복이라는 정의를 넘어서는 부분군-약수 대응은 격자 구조라 9개 type으로 정확히 그리기 어렵고, 순환군⊂아벨군 포함은 한 줄로 충분
+- near-infrared-sorting-food: triage:검량모델→측정→판별의 일반 분광 검사 흐름이라 이 기술 고유의 통찰이 적고, 표면 위주라는 한계는 한 문장
+- standardized-care-plan: triage:미리 만든 계획 양식이라는 단일 개념에 개별화 필요성이라는 주의점뿐; 본문도 같은 문장이 반복됨
+- lymphedema: triage:림프절 손상→체액 정체→부종이라는 정의 그대로의 경로이고, 병기 분류는 단계 이름만 언급됨
+- nutritional-screening: triage:선별→위험군이면 정밀평가 의뢰의 두 단계뿐이라 그림이 '쉽게 풀면' 문장을 되풀이함
+- infant-cpr: triage:성인과의 차이(두 손가락 압박, 1/3 깊이, 인공호흡 중요성)가 본문에 목록으로 이미 정리되어 있고, 압박 위치 같은 핵심은 해부 그림의 영역
+- trigger-point: triage:개념의 타당성 자체가 논쟁 중이라고 본문이 밝혀 기전 그림이 단정이 될 위험; 활성·잠재 구분은 두 칸뿐
+- strength-to-weight-ratio: triage:근력÷체중이라는 단일 비율 지표; 근력 증가·체지방 감소 두 방향은 그림 없이 한 문장으로 전달됨
+- soundscape: triage:장소의 소리 총체를 가리키는 관점 개념이라 구성 요소 간 관계가 없고, 소리 분류도 본문에 체계적으로 나오지 않음
+- disjunctive-syllogism: triage:전제 2개와 결론 1개뿐인 단순 추론 형식이라 그림이 'P 또는 Q, P 아님, 그러므로 Q'를 되풀이할 뿐
+- linear-momentum: triage:p=mv라는 단일 물리량 정의; 보존·충격량 언급은 별도 용어 몫
+- urban-landscape-plan: triage:법정계획 명칭; 조망점·스카이라인·야간경관 등 수단 나열이라 관계 구조가 약함
+- stage-ii-pressure-injury: triage:욕창 분류의 한 단계일 뿐; 1~4단계 깊이 비교 그림은 상위 용어(욕창 단계) 몫
+- gras-status: triage:미국 규제 지위 하나; 자기판단·통지 두 경로 구분은 글 한 줄로 충분
+- sensory-evaluation-anova: triage:분산분석을 관능평가에 적용한 명칭; 집단 간/내 분산 비교와 사후검정 절차는 일반 ANOVA와 같음
+- placental-nutrient-transfer: triage:포도당·아미노산·지방산 3종의 수송 방식 대응 수준이라 표 한 줄로 충분, 관계 구조 약함
+- unidentified-patient-management: triage:임시번호 부여 후 신원 확인 시 기록 연결이라는 행정 절차; 단계가 단순해 글로 충분
+- emergency-medical-service-act: triage:법률명; 규율 대상 나열일 뿐 관계 구조 없음
+- disaster-mitigation-phase: triage:재난관리 주기 4단계 중 한 단계; 순환 그림은 상위 용어(재난관리 주기) 몫
+- clone-journal: triage:가짜 학술지 수법 하나; 탈취 저널과의 차이는 한 문장으로 충분
+- cold-plasma-food: triage:고전압→활성종→세포막·DNA 손상이라는 짧은 일직선 기전이라 그림 이득이 적음
+- postural-control: triage:시각·전정·고유수용 감각→중추→운동 출력은 일반 감각운동 도식과 같아 용어 고유의 이해를 더하지 않음
+- muscular-power: triage:핵심 그림은 부하에 따라 파워가 최대 힘의 30~60% 부근에서 정점을 찍는 비대칭 곡선인데 inverted_u(대칭)로는 그릴 수 없음
+- linear-equation: triage:기초 수학 개념; 저울 비유와 등식 변형은 글·수식으로 충분
+- peri-urban-area: triage:도시와 농촌 사이 전이지역이라는 위치 개념 하나; 구성 요소 간 관계 없음
+- thermal-death-time: triage:D값×로그 감소 수준이라는 곱셈 관계; 생존곡선 모양은 본문에 없어 그림 근거 부족
+- author-fee-scam: triage:사기 수법 하나; 판별 기준(DOAJ 등재·심사 투명성)은 목록일 뿐
+- identification-phase: triage:페플라우 이론의 둘째 단계 하나; 다른 단계가 본문에 없어 위치 그림 근거도 부족
+- dressing-technique-training: triage:핵심 규칙이 '입을 땐 마비측 먼저, 벗을 땐 건측 먼저' 두 줄이라 글로 충분
+- mind-body-problem: triage:이원론·동일론·기능주의 등 입장 나열인데 묶음 위계가 본문에 없고 미해결 논쟁이라 분류를 단정하기 어려움
+- clinical-competence-nursing: triage:척도 하위영역(간호과정·기술·의사소통 등) 목록 나열일 뿐 영역 간 관계가 없음
+- sector-area-arc-length: triage:중심각 비율을 곱하는 공식 두 개; 필요한 건 기하 도형이지 관계 도식이 아님
+- hydrotherapy: triage:부력·저항·수압·온도의 효과를 하나씩 대응시키는 목록 수준이라 그림 이득이 적음
+- power-training: triage:1RM 30~60%에서 파워 출력이 최대가 되는 부하-파워 곡선이 핵심인데 정점이 가운데가 아닌 비대칭이라 inverted_u로 흉내 낼 수 없음
+- lateral-epicondylitis: triage:반복 손목 신전→부착부 손상이라는 한 줄 기전의 흔한 과사용 질환; 진단 검사명 나열이 대부분
+- use-district: triage:경관·방재·보호·취락 지구 등 유형 나열; 용도지역 위 중첩이라는 핵심은 한 문장으로 충분
+- bougie: triage:단일 기구명; 먼저 넣고 관을 씌운다는 사용법이 정의에 이미 담김
+- field-medical-station: triage:분류·처치·이송 대기를 맡는 임시 시설 하나; 기능 나열이라 관계 구조가 약함
+- incident-report: triage:기록·보고라는 행정 절차와 비처벌 문화 강조가 주; 단계 구조가 본문에 뚜렷하지 않음
+- ranking-test: triage:시료를 순서대로 배열하는 단일 관능검사법; 차이 크기를 모른다는 한계는 글로 충분
+- analytic-synthetic-distinction: triage:두 범주의 대비가 정의에 이미 담겨 있고, 구분 자체가 콰인 이후 논쟁 중이라 경계를 단정해 그리기 어려움
+- body-composition: triage:체중을 지방량·제지방량으로 나누는 이분 구조가 정의만으로 충분히 잡힘
+- mesophilic-bacteria: triage:생장 온도 범주 하나; 저온·고온균 범위가 본문에 없어 비교 그림 근거 부족
+- bedside-shift-report: triage:인계 장소를 침상 옆으로 옮긴 방식; 알림·확인·질문 3단계가 단순해 글로 충분
+- community-advisory-board: triage:자문 조직 하나; IRB와 다르다는 점과 역할 범위는 글로 충분
+- retraction-watch: triage:단일 언론·데이터베이스 프로젝트(기관명) — 그릴 구조 없음
+- clinical-trial-results-reporting: triage:단일 제도상 의무 — 등록·출판과의 구분은 본문 두 문장으로 충분하고 구성 요소 관계가 얕음
+- rotator-cuff-rehabilitation: triage:재활 단계가 '수동→능동→근력' 정도로만 언급되고 시기·기준은 파열 크기에 따라 다르다고 해 단계 그림의 근거가 약함
+- cultural-competence-in-research: triage:연구자 역량을 뜻하는 추상 개념 — 번역·자문단 등 실무 예시 나열뿐, 관계 구조 없음
+- developmental-theory-nursing: triage:프로이트·에릭슨·피아제 이름과 강조점 한 줄씩 나열 — 각 단계 내용이 없어 분류 그림이 정의를 되풀이함
+- homotopy: triage:연속 변형이라는 기하적 직관은 9개 유형으로 못 그리고, 위상동형⊂호모토피 동치는 두 항뿐
+- nitroglycerin: triage:단일 약물명 — 혈관 확장 기전은 교과서적 한 줄이고 본문 대부분이 금기·투여 주의
+- buffer-zone-planning: triage:두 용도지역 사이 녹지를 두는 단일 계획 수단 — 폭·식재 밀도 고려 요소 나열뿐
+- shelf-stable-food: triage:식품 범주 이름 — 열처리+밀봉→상업적 무균은 정의 반복이며 상세는 상업적무균 항목 몫
+- delegation-nursing: triage:'권한은 넘기되 책임은 남는다'는 한 문장 핵심이고 다섯 원칙은 단순 목록 — 그림이 더할 관계 없음
+- music-sociology: triage:학문 분야명 — 베버·아도르노·부르디외 계보가 한 문장으로 언급될 뿐 관계 서술이 없음
+- trig-function-graph: triage:주기·진폭·위상이동을 보이려면 사인 곡선 plot이 필요한데 plot 함수에 주기함수가 없음 — 다른 type으로는 파형을 대신 못 함
+- renaissance-music: triage:음악사 시대명 — 특징(모방대위법·3도 협화·인쇄 보급) 나열이며 시대 경계도 유동적이라고 명시
+- data-falsification: triage:연구부정 유형 하나 — 위조와의 구분, 정당한 자료 처리와의 경계 모두 두 항 대비로 본문 문장이 충분
+- cyp1a2-caffeine-metabolism-polymorphism: triage:빠른/느린 대사형 두 칸 대비뿐이고 운동·심혈관 효과 차이는 '보고된 바 있다' 수준이라 단정해 그리기 어려움
+- ergogenic-aid-in-sports-nutrition: triage:보조제 통칭 범주 — 영양적·약리적·기계적 분류가 한 줄 언급뿐이고 나머지는 개별 물질 예시
+- angular-acceleration: triage:단일 운동학 물리량 — 미분 관계와 필터링 주의는 그림으로 더할 것이 적음
+- conflict-theory-sport: triage:구조기능주의와의 대비가 한두 문장뿐이라 같은 기준의 비교 축을 세울 근거가 본문에 부족
+- level-of-service-traffic: triage:A~F 등급 척도 하나 — 시설별 판정 지표(지체·밀도)도 두 항이라 그림 이득이 작음
+- stigmatization-research-risk: triage:집단 수준 해악이라는 단일 위험 개념 — 비밀보장과의 구분은 두 항 대비
+- confidentiality-in-research: triage:연구자 의무 하나 — 비식별화·가명처리 두 기법 대비와 보안 수단 나열뿐
+- hypoxic-training: triage:고지 거주·훈련 방식 비교는 가능하나 경기력 효과가 연구마다 엇갈린다고 명시돼 효과를 단정해 그릴 수 없음
+- pocket-park-design: triage:소규모 공원 설계 방식 — 특징(도보권·저비용) 나열로 관계 구조 없음
+- blood-sampling-volume-limits: triage:수치 복지 기준 하나 — 1회/반복 채혈 두 구분이며 수치는 종·기관마다 달라 고정해 그릴 수 없음
+- multicultural-district: triage:도시 내 특정 지역 유형 이름 — 형성 요인(임대료·이주 네트워크) 두 가지 언급뿐
+- legibility-urban-design: triage:인지가능성 자체는 단일 평가 개념이고, 린치의 다섯 요소는 도시 이미지 요소 항목에서 다룰 내용
+- mediterranean-diet-pattern: triage:식사패턴 이름 — 식품 구성 나열이며 정의도 연구마다 다르다고 명시
+- visceral-fat: triage:신체 조직 이름 — 염증 물질·문맥 유입 기전은 한두 문장 언급이고 피하지방 대비는 두 항
+- modular-housing: triage:주택 공법 하나 — 유닛형/패널형 두 갈래 대비가 본문 한 문장으로 충분
+- staging-area: triage:재난 현장의 지정 구역(장소) — 대기·배치 지시 흐름이 정의를 되풀이함
+- surface-integral: triage:스칼라/벡터 면적분 두 갈래와 정리 연결이 본문 문장으로 충분 — 곡면·법선 그림은 9개 유형 밖
+- beompae: triage:성악 갈래 이름 — 하위 구분이 절마다 다르게 서술(홑소리=안채비 vs 짓소리·홋소리·안채비 셋)되어 분류 그림 근거가 불안정
+- tumor-endpoint-criteria: triage:종료 기준 목록(지름·궤양·체중 감소) — 기관마다 수치가 달라 관계 구조 없는 나열
+- false-dilemma: triage:논리 오류 하나 — '두 극단 사이 대안이 가려짐'은 정의 반복
+- clinical-trial-registration: triage:사전 등록 대 소급 등록 두 시점 구분이 핵심 — 구성 요소가 적어 글로 충분
+- gukak: triage:상위 범주 명칭 — 정악·민속악·창작국악의 경계 자체가 논쟁 중이라고 명시돼 분류를 단정해 그릴 수 없음
+- rationalizing-denominator: triage:단순 계산 기법 — 단항 분모/켤레식 두 경우뿐이라 그림 이득 없음
+- defining-characteristics: triage:간호진단 구성 요소 하나 — 주관적/객관적 두 유형 구분뿐
+- patient-tracking-system: triage:정보관리 체계 이름 — 분류→처치소→이송→인계 기록 경로가 정의를 되풀이함
+- hwimori: triage:장단 하나 — 진양조→휘모리 가속 배열은 산조 상위 항목 몫이고 판소리에는 그대로 대응되지 않는다고 명시
+- sports-supplement-third-party-certification: triage:배치 수거·금지물질 검사·목록 등재라는 짧은 인증 절차뿐이라 그림이 본문 설명을 넘어서지 못함
+- language-game: triage:'의미는 쓰임'이라는 추상적 철학 개념으로, 명령·보고·농담 같은 예시 나열 외에 그릴 관계 구조가 없음
+- arithmetic-geometric-mean-between-terms: triage:(a+c)/2와 b²=ac 두 식과 2·5·8 대 2·4·8 예시로 본문이 이미 충분히 명확해 비교 그림이 덧붙일 것이 적음
+- urban-regeneration-priority-area: triage:2014년 지정된 특정 정책 지역 제도명 — 정책사 서술일 뿐 구성 요소 간 구조가 없음
+- accessibility-assessment: triage:물리적 점검과 기능적 평가 두 갈래를 함께 쓰라는 서술뿐이라 비교 축이 얕고 글로 충분함
+- disaster-prevention-performance-target: triage:확률강우량 기준의 설계 기준치라는 단일 수치 개념 — 재현기간·비용 트레이드오프도 한 문장 언급에 그침
+- curl-vector-calculus: triage:핵심 그림은 벡터장 속 소용돌이(바람개비) 공간 그림이라 9개 type으로 표현할 수 없음
+- traditional-neighborhood-development: triage:격자 가로망·후면 주차·혼합용도 같은 설계 특성의 나열이라 관계 구조가 없음
+- cpr-quality-metrics: triage:압박 깊이·속도·이완·압박분율 등 지표 목록이 중심이고, 속도-이완 상충은 한 문장 언급뿐
+- trope-theory: triage:보편자 대 개별 빨강 사례의 대비가 사과·장미 예시로 본문에 이미 선명해 그림이 정의를 되풀이하게 됨
+- data-minimization: triage:익명화(사후)와의 적용 시점 차이가 주의할 점 한 문단에 이미 분명히 정리되어 있고 대상 개념이 둘뿐
+- action-observation-therapy: triage:관찰→거울신경계 활성→운동 회복의 일직선 서술로 정의를 되풀이하며, 기전 자체도 미확립으로 명시됨
+- research-transparency-animal-use: triage:기관·논문·학술지 차원의 공개 노력을 다룬 제도 개념이라 그릴 기전이나 단계가 없음
+- law-of-non-contradiction: triage:'P이면서 P가 아님은 거짓'이라는 단일 논리 법칙 — 초일관 논리 등은 반론 소개일 뿐 구조가 아님
+- muscle-oxygen-saturation-nirs: triage:근적외선 흡수 차이를 이용한 측정 장비·방법 설명으로, 그림이 원리를 더 밝혀 주지 못함
+- patient-acuity-system: triage:요인평가법과 원형평가법의 차이가 본문에 두 문장으로 충분히 서술되어 있어 대비 그림의 이득이 작음
+- mechanical-efficiency: triage:소비 에너지 대비 역학적 일이라는 단일 비율 지표
+- zoning-ordinance-reform: triage:용도 혼합·대지면적·주차 기준 완화 등 개혁 방식의 나열인 제도 변경 개념
+- vector-norm: triage:L1·L2·L∞의 차이를 보여 줄 그림은 단위공 도형이라 9개 type 밖이고, 희소성 대비는 본문 서술로 충분
+- simpsons-rule: triage:포물선 근사 그림은 임의 곡선 위 기하 도형이라 plot 함수로 그릴 수 없고, 사다리꼴 공식과의 비교도 한 문장뿐
+- total-differential: triage:dz=(∂z/∂x)dx+(∂z/∂y)dy 한 식으로 요약되는 공식 개념
+- justice-principle: triage:부담과 혜택의 공정 분배라는 규범 원칙 하나 — 벨몬트 3원칙은 이 용어가 아닌 상위 개념의 구조
+- mean-adequacy-ratio: triage:영양소별 적정섭취비를 100% 상한으로 평균한다는 단순 계산식이라 그림이 덧붙일 것이 없음
+- quiet-eye: triage:동작 직전 마지막 주시 시간이라는 단일 측정 행동 — 숙련자가 더 길다는 비교 하나뿐
+- active-cycle-of-breathing-technique: triage:호흡조절·흉곽확장·강제호기 세 단계 순환이 정의 문장에 그대로 있어 순환 그림이 정의를 되풀이함
+- structural-functionalism-sport: triage:사회화·통합·긴장 해소 등 스포츠 기능의 나열이라 기능 간 관계 구조가 없음
+- initial-assessment: triage:첫 접촉 시 포괄 사정이 이후 재사정의 기준선이 된다는 서술로, 간호과정 일반 이상의 고유 구조가 없음
+- curb-cut-design: triage:보도-차도 턱을 경사로로 잇는 단일 환경 설계 요소(1:12 경사 기준)
+- in-silico-alternatives: triage:기존 데이터 학습→예측→후보 선별이라는 일반적 스크리닝 흐름으로, QSAR 고유의 구조를 보여 주지 못함
+- nursing-hours-per-patient-day: triage:총 간호시간÷환자 수라는 단일 비율 지표
+- jongmyo-jeryeak: triage:특정 무형유산 작품명 — 보태평·정대업과 전승 연혁은 사실 나열이라 개념 이해를 돕는 구조가 아님
+- quasi-realism: triage:표현주의 위에서 실재론적 언어를 '벌어들인다'는 기획으로, 붕괴 문제 등 논쟁 중이라 단정적 구조로 그리기 어려움
+- therapeutic-communication: triage:반영·명료화·개방형 질문·침묵 등 기법의 나열이라 기법 간 관계가 없음
+- mass-casualty-simulation-training: triage:분류·처치·이송을 모의로 재현하는 훈련 행사 — 절차 자체는 다른 용어(START 등)의 것
+- community-resilience-index: triage:경제·사회·기반시설·제도 하위 영역을 표준화해 합산하는 복합지수로, 그림이 하위 항목 나열에 그침
+- static-stability: triage:무게중심 높이·지지기저면 넓이·무게중심선 위치라는 세 요인 나열로, 본문 문장이 이미 그대로 정리함
+- derangement: triage:포함배제·점화식으로 세는 조합 공식 개념이며, 1/e 수렴 모양은 정수 n의 진동 수렴이라 plot 함수와 맞지 않음
+- nasal-cannula: triage:단일 산소투여 기구 — 유량 1~6L와 농도 24~44%는 수치 사양일 뿐이며 비례하지 않는다고 명시됨
+- mathematical-induction: triage:기초 단계·귀납 단계 두 요소의 도미노 비유가 본문에 이미 완결되어 그림이 정의를 되풀이함
+- chromaticism: triage:마드리갈에서 트리스탄까지의 역사는 서술 축일 뿐 사건 연표로 그리기엔 근거가 성기고, 무조성과의 구분은 개념 구분이라 글로 충분
+- charge-nurse: triage:직책·역할명 — 수간호사와의 차이(상시 대 근무조별)는 한 줄 대비로 끝나 그림이 더할 구조가 없음
+- nitrogen-balance-method: triage:섭취 질소 − 배출 질소의 뺄셈 하나와 양·0·음 해석뿐이라 그림이 계산식을 되풀이함
+- private-ambulance-service: triage:서비스 주체 구분(민간 대 공공)에 관한 제도 설명 — 국가별로 역할 분담이 달라 고정된 구조가 없음
+- serum-albumin-nutritional-marker: triage:핵심은 '염증·간질환·신장질환·수분 과다도 알부민을 낮춘다'는 교란 요인 나열로, 글 목록이 그림보다 명확함
+- secondary-use-of-data: triage:원 동의 범위(좁음/포괄)에 따른 절차 차이가 두 갈래뿐이고 비식별화 조건은 '완화되는 경우가 많다'로 불확정이라 칸을 채울 근거 부족
+- area-between-two-curves: triage:두 곡선 사이 영역을 교점에서 나눠 칠하는 그림이 핵심인데, plot은 곡선 아래 음영만 지원하고 두 임의 곡선 사이 채우기가 없음
+- nih-guide-care-use: triage:특정 지침서(문서) 이름 — 다루는 영역 목록 외에 관계 구조가 없음
+- laryngeal-mask-airway: triage:단일 의료기구명 — 기관삽관과의 비교는 흡인 방어 한계 등 산발적 언급에 그쳐 대비 축이 정돈돼 있지 않음
+- golden-hour: triage:본문 스스로 '1시간'이 실증 근거 없는 수사였다고 밝히는 논쟁적 개념이라 시간-생존 곡선을 단정해 그릴 수 없음
+- knowledge-of-performance: triage:결과지식과의 대비가 핵심이지만 결과지식 쪽 서술이 한두 구절뿐이라 같은 기준으로 나란히 놓을 근거가 부족함
+- nursing-ethical-principles: triage:네 원칙 나열은 정의에 이미 있고, 원칙 간 충돌은 사례마다 달라 고정된 관계로 그릴 수 없음
+- english-language-bias-in-publishing: triage:구조적 불평등 문제의 서술 — 원인·결과가 예문 수준으로 흩어져 있어 단계화할 기전이 없음
+- renewable-energy-urban-plan: triage:수요 예측·부지 분석·계통 검토·인허가가 '포함된다'는 구성 목록일 뿐 순서가 정해진 절차로 제시되지 않음
+- normal-line-of-defense: triage:뉴만 체계 모형의 한 구성 선(하위 요소) — 그림은 모형 전체(유연방어선·저항선·기본구조)를 그려야 의미가 있고 본문은 그 일부만 다룸
+- tonic-chord: triage:단일 화음 이름 — 딸림→으뜸 해결은 두 요소 관계라 그림이 정의를 되풀이함
+- data-citation: triage:인용 관행 설명 — 데이터공유 성명과의 차이는 한 문장 대비로 충분하고 기준 축이 하나뿐
+- identity: triage:질적·수적 동일성 구분은 정의 두 줄로 끝나고, 테세우스의 배·인격 동일성 논의는 입장이 갈리는 논쟁이라 단정해 그리기 어려움
+- attention-training: triage:주의 하위 요소 위계의 순서(분리적·교대적 주의)가 본문에서 정해지지 않아 단계 그림의 근거가 불안정함
+- nursing-unit-management: triage:인력·업무·환경·질관리 네 영역의 나열 — 영역 간 관계가 없어 목록 이상을 보여 주지 못함
+- subculture-music: triage:저항 스타일→상업적 흡수의 2단계 서사이고, 저항성 해석 자체가 비판받는 이론이라 단정적 경로로 그리기 어려움
+- triangle-area-formula: triage:주어진 정보별 공식(끼인각·헤론·신발끈)의 나열 — 공식 간 관계보다 식 자체가 핵심이라 그림이 덧붙일 것이 적음
+- reviewer-anonymity: triage:단일맹검·이중맹검·공개심사 세 방식만 서술돼 2×2 행렬의 네 번째 칸(저자 비공개·심사자 공개)을 본문 밖 지식으로 채워야 함
+- oral-motor-therapy: triage:감각자극 단계→능동운동 단계의 두 단계뿐이라 그림 요소가 부족함
+- psychological-skills-training: triage:Vealey의 기법·기초·수행·촉진 기술 구분이 이름만 있고 기법과 기술의 대응이 본문에 없어 위계를 채울 근거 부족
+- municipal-finance: triage:세입원(지방세·세외수입·이전재원·지방채) 나열 수준 — 재정자립도와의 관계도 한 문장이라 분류도가 목록을 되풀이함
+- manganese-superoxide-dismutase: triage:단일 효소명 — 초과산화물→과산화수소 반응은 SOD 일반의 것이라 이 용어 고유의 구조가 아님
+- neighborhood-regeneration: triage:도시재생 유형 하나의 정책 서술 — 마중물·민간투자 연계는 '안 되는 경우가 많다'는 평가뿐이라 경로로 그릴 근거가 약함
+- major-seventh-chord: triage:딸림7화음과의 차이(장7도 대 단7도, 해결 요구 약함)가 두세 항목 대비라 표 한 줄로 충분함
+- peking-opera-music: triage:음악 갈래 이름 — 시피·얼황, 배역 유형 등 고유명사 나열이 중심이라 관계 구조가 없음
+- journal-metrics-gaming: triage:강압적 인용·인용 카르텔·산정 기간 몰아주기 등 수법의 나열로, 수법 간 관계가 없음
+- interesterification-fat: triage:화학적(무작위) 대 효소적(위치 특이) 구분은 두 문장으로 충분하고, 분자 수준 재배열은 도식 type으로 표현하기 어려움
+- free-jazz: triage:음악 양식 이름 — 본문이 '단일 양식이 아니다'라고 강조해 하나의 구조로 묶어 그리기 부적절함
+- ego-orientation: triage:자아성향×지각된 유능감의 상호작용이 언급되지만 낮은 자아성향 쪽 칸이 서술되지 않고 확장 모형 논쟁도 있어 행렬 근거 부족
+- edible-coating: triage:가식성필름과의 차이(직접 도포 대 독립 막)가 축 하나뿐이고 소재 분류는 이름 나열 수준
+- functional-overreaching: triage:수행 저하 뒤 반등하는 초과회복 곡선이 핵심인데 plot 함수에 하강 후 상승 곡선이 없고, 본문도 초과회복 근거가 제한적이라고 밝혀 단정이 어려움
+- pulse-oximeter: triage:단일 측정기기 — 오차 요인(일산화탄소·관류 저하·매니큐어)은 나열일 뿐 관계 구조가 없음
+- urban-catalyst: triage:촉매 시설→주변 투자 유발이라는 비유적 2단계 관계로, 그림이 정의(화학 촉매 비유)를 되풀이함
+- dynamic-consent: triage:포괄적 동의와의 차이가 '한 번에 대 수시로'라는 축 하나라 대비 그림이 정의 이상을 보여 주지 못함
+- researcher-role-nursing: triage:간호사 역할 개념 — 학위별 기대 수준 구분이 두 층뿐이고 PDCA는 질 향상 활동의 것이라 이 용어 고유의 구조가 아님
+- post-intensive-care-syndrome: triage:신체·인지·정신 세 영역과 가족형 구분이 정의·깊게 절에 이미 나열되어 있어 분류 그림이 본문 반복에 그침
+- coherence-theory-of-truth: triage:대응설과의 대비가 핵심이지만 비교 축이 '정합성 대 세계와의 대응' 하나뿐이고 정합 대상 규정 문제는 논쟁 중
+- lab-power-dynamics-harassment: triage:권력 비대칭·침묵·제도 대안을 서술하는 윤리 쟁점으로, 순서나 구조가 정해진 구성 요소가 없음
+- space-syntax-analysis: triage:축선지도 변환과 통합도·선택도 지표가 나오지만 그래프 계산 자체는 실제 가로망 예시 없이 단계 상자만으로는 전달되지 않음
+- identity-matrix: triage:AI=A, A+O=A라는 단일 성질의 정의 — 그림이 숫자 1·0 비유 이상을 보여 주지 못함
+- conceptualism: triage:실재론·유명론 사이 위치를 말하지만 세 입장 비교는 contrast(두 개념)에 맞지 않고, 개념론의 성패 평가는 논쟁 중
+- cauchy-sequence: triage:유리수·실수 완비성 차이가 요점이나 수열 항의 간격을 그릴 함수가 없고 도식 구성 요소가 2개(코시·수렴)에 그침
+- inductive-argument: triage:연역과의 차이(타당성 대 강도) 한 축만 반복되어 그림이 정의·주의 문장을 다시 쓰는 수준
+- perdurantism: triage:벌레 이론·단계 이론과 지속주의 대립이 형이상학적으로 논쟁 중이라 단정적 도식이 어려움
+- sujecheon: triage:개별 악곡명 — 편성·산박 특징 서술뿐이고 관계 구조가 없음
+- informal-economy-urban: triage:노점·무등록 사업 등 사례 나열과 보완/경쟁 두 시각뿐이라 구성 요소 간 관계가 성기고 규모 추정도 불확실
+- antioxidant-nutrients: triage:영양소 묶음 이름이며, 보충제 효과·상승작용은 본문도 논쟁 중으로 다뤄 기전도를 단정하기 어려움
+- migration-testing-packaging: triage:모사용매 선택과 SML 비교가 나오지만 단계가 시험 조건 설명에 흩어져 있어 그림이 '측정 후 기준 비교'라는 정의를 반복함
+- sport-stratification: triage:경제·문화·사회자본 세 변수를 나열할 뿐 서로의 관계나 경로가 본문에 없음
+- citation-cartel: triage:상호 인용 담합이라는 관행 하나 — 탐지 지표(자기·상호인용률)는 그림보다 수치 설명이 맞고 의도 판단은 정황에 의존
+- epinephrine-auto-injector: triage:주사 기구명 — 사용·보관 수칙이 나열식 주의사항이라 순서 도식보다 목록이 적합
+- low-sodium-diet: triage:나트륨 제한이라는 단일 식사요법 — 혈압 감소 효과와 조리 팁뿐 구성 요소 관계가 없음
+- hand-hygiene: triage:5가지 손위생 순간은 순서가 아닌 상황 목록이고 비누·소독제 선택도 조건 두 개라 표가 더 적합
+- narrative-charting: triage:SOAP·PIE·예외기록과의 장단점 비교가 문장으로 충분하며 서술식 기록 자체에는 구조적 구성 요소가 없음
+- stroke-rehabilitation: triage:물리·작업·언어치료를 묶은 프로그램 이름 — 회복 경과는 개인차가 크다고 본문이 강조해 곡선·단계를 단정하기 어려움
+- disordered-eating-in-athletes: triage:임상 섭식장애 이전 단계라는 스펙트럼 위치 하나뿐이고 위험 종목 나열이 주라 도식 근거가 약함
+- line-equation: triage:직선 한 개를 그리면 y=mx+b 정의 반복 — 기울기·절편 외 새로운 관계가 없음
+- remodeling: triage:건축 개조 행위 이름 — 증축 허용 범위 등 법적 수치 서술뿐이고 단계·비교 축이 없음
+- muscular-strength: triage:신경 적응 후 근비대 순서가 언급되지만 시점 수치가 없어 곡선을 근거 있게 그릴 수 없고, 본체는 단일 체력 요소 정의
+- community-nutrition-program-evaluation: triage:과정·결과·영향평가 세 유형 이름을 나열할 뿐 각 유형이 어떤 지표로 이어지는지 본문 근거가 얕음
+- jangdan: triage:진양조~휘모리 위계가 언급되나 박 수·속도 값이 본문에 없고, 장단을 박자로 도식화하는 것 자체를 본문이 경계함
+- satellite-city: triage:통근형·산업형·복합형 유형과 베드타운·신도시 구분이 용어 정리 수준이라 그림이 추가 이해를 주지 않음
+- nicu-based-physical-therapy: triage:전문 물리치료 영역 이름 — 자세 지지·환경 조정 등 개입 나열뿐 순서나 기전이 없음
+- vestibular-rehabilitation: triage:적응·대체·습관화 세 보상 기전이 이름만 나오고 각 기전과 운동의 연결이 본문에 구체적이지 않음
+- cooking-nutrient-loss: triage:열분해·용출 두 기전과 조리법별 차이가 나오지만 조건 의존이 크다고 본문이 단서를 달아 일반 도식이 오해를 줄 수 있음
+- vieta-formulas: triage:두 근의 합·곱 공식 하나 — 계수 대응식으로 충분하고 그림이 보탤 관계가 없음
+- low-carbohydrate-diet: triage:식이 패턴 이름이며 장기 효과는 본문이 논쟁 중이라고 밝혀 비교 도식을 단정할 수 없음
+- liar-paradox: triage:참→거짓→참 순환이 두 상태뿐이라 구성 요소가 부족하고, 해법들은 서로 경쟁 중
+- fto-gene-obesity: triage:단일 유전자 변이와 BMI의 연관성 — 기전은 연구 중이고 결정론적 해석을 본문이 경계함
+- relative-sweetness: triage:설탕 기준 비율이라는 단일 척도 — 고감미도 감미료의 포화 경향은 언급뿐이고 농도 수치가 없어 곡선 근거가 약함
+- bimusicality: triage:후드의 방법론적 태도 하나 — 실기 습득을 통한 내부자 이해라는 주장이 문장으로 충분함
+- ochratoxin-a: triage:단일 곰팡이독소 물질명
+- lie-group: triage:리 대수·지수사상 관계가 나오지만 다양체 기하를 상자 도식으로 옮기면 오히려 오해 소지가 커 본문 밖 지식에 의존함
+- composite-and-inverse-function: triage:x→f→g 합성과 역방향 화살표는 기계 비유로 본문이 이미 충분히 설명해 그림이 정의를 되풀이함
+- high-pressure-processing: triage:비가열 살균 기술 하나 — 열처리 대비 장점과 아포 한계가 문장으로 충분하고 비교 축이 일관되게 제시되지 않음
+- sokal-affair: triage:1996년 단일 사건 일화 — 관계 맺는 구성 요소 없이 경위 서술뿐
+- height-restriction-district: triage:지정 목적(경관·일조·항공·문화재) 나열 수준이고 '가장 엄격한 기준 적용'도 한 문장으로 충분
+- natural-environment-conservation-zone: triage:단일 용도지역 — 보전녹지지역과의 위계 비교는 본문에 다른 용도지역 체계가 없어 근거 부족
+- modal-split-model: triage:4단계 모형 중 한 단계라는 위치 설명뿐이고 네 번째 단계(통행배정)는 본문에 없어 그림이 본문 밖 지식에 기댐
+- fat-replacer: triage:탄수화물·단백질·지질계 세 분류 나열로 표 한 줄이면 충분, 관계 구조는 없음
+- clinical-decision-making: triage:태너 4단계는 임상판단모형의 구조이고 이 용어는 그중 대안 선택 순간만 가리켜, 그리면 다른 개념을 그리게 됨
+- preprint: triage:동료심사 전 공개라는 시점 한 가지가 핵심 — 분야별 서버 이름(arXiv·bioRxiv·medRxiv)은 단순 나열
+- collaborative-nursing-intervention: triage:독자적간호중재와 대비된다고만 하고 비교 기준이 본문에 없음 — 협력 사례 나열뿐
+- italian-sixth: triage:세 구성음과 딸림음 옥타브로의 해결은 악보 예시가 맞는 내용이라 9개 type으로 그리면 오히려 덜 명확
+- sugaring: triage:고당 → 수분활성도 저하 → 미생물 억제의 정의 반복 사슬이고 예외(내삼투성 효모)는 한 문장으로 충분
+- translation-plagiarism: triage:단일 부정행위 유형 — 탐지 방법 언급도 짧아 구조적 관계 없음
+- motor-control: triage:운동프로그램·동적시스템 이론이 통합 추세라 대립 구도로 그리면 단정이 되고, 나머지는 연구 분야 소개
+- sodium-reduction-policy: triage:제품 재구성·표시·급식·캠페인·규제 다섯 정책 수단의 단순 나열로 수단 사이 관계가 없음
+- nongak: triage:전통 음악 장르명 — 지역 유파와 사물놀이 구분은 서술로 충분
+- jordan-normal-form: triage:핵심인 블록 대각 행렬 모양과 중복도-블록 대응은 행렬 그림이 필요해 9개 type에 맞지 않음
+- pneumothorax: triage:공기 유입 → 폐 허탈 → 호흡곤란의 정의 반복 사슬이고 자발성·외상성·긴장성 구분은 세 유형 나열
+- community-paramedicine: triage:서비스 모델 소개 — 가정방문·만성질환 관리 등 업무 나열이고 효과 일반화도 어렵다고 본문이 밝힘
+- management-zone: triage:보전·생산·계획관리 세분은 정의에 이미 있어 위계 그림이 정의를 되풀이함
+- nutrition-intervention: triage:영양관리과정 순환의 한 단계라 그림이 상위 과정을 그리게 되고, 판정 단계는 본문에 없음
+- angular-momentum: triage:L = Iω 보존에서 관성모멘트↓ → 각속도↑ 두 변수 관계뿐으로 정의 반복
+- urban-planning-ordinance: triage:상위 법령 위임 → 조례라는 2단계 관계와 담는 기준 나열뿐
+- gregorian-chant: triage:성가 전통 이름 — 기원·리듬 해석이 논쟁 중이라 시간순 도식도 단정 위험
+- axiom-of-choice: triage:체르멜로·괴델·코언 연도 나열과 동치 명제 목록은 글로 충분하고 독립성 개념을 그림이 더 밝혀 주지 않음
+- domain-and-range: triage:입력→출력 대응 화살표 그림이 핵심인데 9개 type에 없고, 공역⊃치역 포함관계 하나로는 부족
+- neurorehabilitation: triage:강도·반복·과제특이성 변수 나열이고 가소성 방향성·동물연구 적용은 논쟁 성격이라 인과 사슬로 단정하기 어려움
+- distress-scoring: triage:항목 채점 → 합산 → 기준 초과 시 조치 절차가 쉽게 풀면 절에 이미 그대로 있어 그림이 더할 것이 적음
+- building-envelope: triage:핵심인 단열·방습·기밀층 순서는 벽체 단면도가 필요해 9개 type으로는 표현이 부정확
+- four-arithmetic-operations: triage:기초 연산 네 가지의 이름 묶음 — 연산 순서 규칙도 예시 한 줄로 충분
+- carbohydrate-oxidation: triage:강도별 탄수화물·지방 비중 교차 곡선은 본문에 모양 근거가 없어 그림이 본문 밖 수치에 기댐
+- greenbelt: triage:제도 이름 — 확산 억제 효과와 풍선효과·재산권 논쟁은 평가가 엇갈려 인과로 단정하기 어렵고 영·한 비교는 법적 근거 한 축뿐
+- applied-ethics: triage:윤리학 삼분 체계 속 위치와 하위 분야 나열 — 반성적 평형도 두 요소 왕복이라 구성 요소 부족
+- hilbert-space: triage:벡터공간 + 내적 + 완비성 포함관계는 정의의 두 조건을 되풀이함
+- oviedo-convention: triage:단일 국제 조약 — 조항 번호별 내용 나열
+- specialized-rescue-team: triage:조직명 — 산악·수난·화학구조대 세분은 단순 나열
+- proprioceptive-input: triage:수용기 종류(근방추·골지건기관·관절수용기) 나열이고 무게 조끼 효과 등은 근거가 일관되지 않아 기전 사슬로 단정 불가
+- deliberate-practice: triage:조기 전문화 대 다종목 경험이 논쟁 중이고 설명 분산 20% 안팎 수치뿐이라 도식으로 정리할 구조가 약함
+- root-position-chord: triage:근음위치·첫째·둘째자리바꿈 세 배치와 숫자 표기는 악보 예시가 맞는 내용으로 단순 나열
+- environmental-modification: triage:문턱 제거·손잡이·조명 등 예시 나열과 물리/감각 두 갈래뿐 — 관계 구조가 없음
+- fire-compartmentation: triage:핵심은 관통부 시공 디테일이라는 실무 주의점, 층별/면적별 구획 두 갈래뿐이라 그림이 더할 것 없음
+- behavior-change-theory: triage:여러 이론을 묶는 우산 용어 — 단계 모형은 범이론적 모델 쪽 그림이고, 이론명 나열만으로는 이해가 늘지 않음
+- timbre: triage:배음·어택·스펙트럼 중심 등 지각 단서 목록 — 요소 간 관계가 아니라 병렬 나열
+- functionalism: triage:입력-상태-출력 역할 정의를 다시 그리는 수준이고 감각질 반론 등 논쟁 중인 쟁점이 핵심
+- percentage: triage:100 기준 비율이라는 단일 계산 개념 — %와 %p 혼동은 글로 충분
+- nursing-diagnosis: triage:실제적·위험·건강증진 유형 나열과 의학 진단과의 구분 — 정의 반복에 가까움
+- bioethics-safety-act: triage:특정 법률명 — 법과 IRB의 층위 구분은 한 문장으로 끝남
+- complex-number-polar-form: triage:복소평면 위 r·θ 기하 그림이 필요하나 9개 type 어디에도 맞지 않음
+- exercise-prescription: triage:FITT-VP 여섯 요소는 병렬 체크리스트일 뿐 서로 관계를 맺지 않음
+- community-nutrition-education: triage:요구도 조사→기획→실행→평가는 모든 프로그램에 공통인 일반 단계라 이 용어 고유의 이해를 더하지 않음
+- housing-microfinance: triage:단일 금융 상품 유형 — 대상·조건 서술뿐 구조적 관계 없음
+- research-misconduct-reporting-duty: triage:신고 의무라는 단일 규정 — 제보자 보호와의 짝 관계는 두 요소뿐
+- supportive-educative-system: triage:오렘의 세 간호체계 중 하나인데 본문에 다른 두 체계 설명이 없어 비교 근거 부족
+- spherical-coordinates: triage:r·θ·φ의 3차원 기하 그림이 필요하나 지원 type에 해당 없음
+- mega-journal: triage:전통 학술지와의 차이(참신성 심사 여부)가 정의 그 자체라 대조 그림이 정의를 되풀이함
+- cellular-automata: triage:핵심은 격자 위 이웃 규칙의 공간 그림인데 지원 type으로 표현 불가, 흐름도로는 정의 반복
+- contractualism: triage:스캔런·홉스·롤스·공리주의 구분이 해석 논쟁적이고 '합당한 거부' 기준도 비판 대상
+- nutrition-education-intervention: triage:교육 형태·평가 지표 나열 — 지역사회영양교육과 겹치고 고유 구조 없음
+- dynamometry: triage:측정 장비·방법명 — 등척성/등속성 두 갈래뿐
+- moment-arm: triage:단일 기하학적 거리 개념 — 토크=힘×거리는 식 한 줄로 충분하고 각도별 변화 곡선 모양은 본문에 정량 근거 없음
+- moral-absolutism: triage:예외 불허라는 단일 입장 — 보편주의·결과주의와의 구분은 글로 충분하고 해석이 논쟁적
+- embodiment: triage:현상학적 철학 개념으로 구성 요소 간 도식화할 관계가 없음
+- skyline-management: triage:정책 수단명 — 보전형/연출형 두 목표 대비뿐
+- grid-street-network: triage:장단점(분산·우회) 나열 — 방사형과의 비교는 본문에서 한두 항목뿐이라 그림 근거 부족
+- disaster-classification: triage:자연/사회 두 분류와 예시 나열 — 정의 반복
+- national-bioethics-committee: triage:특정 국가 기구명
+- numerical-stability: triage:반복 계산에 따른 오차 증폭(안정: 유계, 불안정: 지수적 증가) 곡선이 핵심이나 지수 증가 함수가 없음
+- gagok: triage:만대엽→중대엽→삭대엽 변천은 연대 없이 세 이름뿐이고 장르명 설명이 중심
+- independent-nursing-intervention: triage:의존적·협동적 중재와의 대비가 본문에 없어 단일 범주 정의에 그침
+- sport-dropout: triage:이탈 원인 목록(흥미 상실·경쟁 스트레스·부상) — 원인 간 관계 없음
+- positioning: triage:단일 간호 행위 — 체위 종류와 목적 나열뿐
+- research-spin: triage:2차 지표 강조·사후 하위분석·인과 표현 등 유형 나열은 예문으로 이미 충분히 전달됨
+- food-allergen-elisa-detection: triage:분석법명 — 본문에 검사 단계가 없고 한계(가열 변성·교차반응) 나열뿐
+- propositional-function: triage:변항 대입·양화로 명제가 된다는 정의를 그대로 반복하는 그림이 됨
+- bolzano-weierstrass-theorem: triage:단일 정리 진술 — 구간 이분 증명은 지원 type으로 의미 있게 표현하기 어려움
+- post-exercise-protein-timing: triage:아나볼릭 윈도우의 중요성 자체가 논쟁 중이라 단정적 그림이 불가
+- pigeonhole-principle: triage:단일 존재성 원리 — n+1개를 n칸에 넣는 장면은 예시일 뿐 관계 구조 없음
+- polygon-exterior-angle-sum: triage:핵심은 '외각 합은 항상 360°'라는 단일 불변량 — 내각 합과의 대비는 두 항목뿐이고, 도는 방향 그림은 도식 유형으로 표현 불가
+- being-in-the-world: triage:데카르트식 주객 분리와의 대비가 있으나 본문이 같은 비판을 반복할 뿐 비교 기준이 2개 이상 구체적으로 제시되지 않음
+- beneficence-nonmaleficence: triage:'적극적 이익'과 '해 회피' 두 원칙의 방향 차이가 정의·쉽게 풀면에서 이미 한 문장으로 전달됨 — 그림이 더할 구성 요소 부족
+- grip-strength-dynamometry: triage:표준 자세로 몇 번 쥐어 평균·최댓값 기록 — 단일 측정 행위라 단계 도식이 정의를 되풀이할 뿐
+- training-load: triage:외적·내적 부하 구분은 예시 나열 수준이고, 핵심인 급격한 증가·ACWR의 부상 예측력은 본문 스스로 논쟁 중이라 단정적으로 그리기 어려움
+- klezmer: triage:특정 지역·시대의 음악 장르명 — 편성·선법 특징과 부흥사가 서술형이라 관계 구조가 없음
+- origin-destination-analysis: triage:자료 수집→O-D행렬 정리 두 단계가 본문에서 이미 명확하고, 행렬 자체는 도식 유형으로 그릴 수 없음
+- tectonics-architecture: triage:비평 개념으로 텍토닉/스테레오토믹 대비가 한 문장 언급에 그쳐 비교 기준을 본문 근거로 채우기 어려움
+- concerto-form: triage:관현악·독주 이중 제시부의 조성 차이는 흥미롭지만 형식 판정 논쟁(소나타 vs 리토르넬로)과 시대별 변모가 커서 고전 규범만 그리면 단정이 됨
+- nutrition-support-team: triage:의사·영양사·약사·간호사의 역할 나열 — 직역 간 관계나 흐름이 없는 구성원 목록
+- blanching: triage:끓는 물에 데친 뒤 급랭하는 2~3단계 공정이라 글로 충분하고, 시간에 따른 효소 잔존·영양 손실 절충은 수치 근거 없이 곡선으로 그릴 수 없음
+- classical-symphony: triage:빠름-느림-미뉴에트-빠름 4악장 배열은 '쉽게 풀면' 한 줄로 전달되며, 본문이 4악장 규범이 절대적이지 않다고 강조해 도식화가 오히려 규범을 고정시킴
+- helicopter-emergency-medical-service: triage:서비스 체계명 — 생존 이득이 속도인지 처치 수준인지 분리 불가라는 논쟁이 핵심이라 인과 구조를 단정할 수 없음
+- animal-welfare-statement: triage:논문 진술문 형식에 관한 용어 — 그릴 만한 3R 구조는 별도 용어(3R 원칙)의 내용이라 하위 사례에 불과
+- faculty-startup-conflict-of-interest: triage:지분 보유가 객관성을 흔드는 상황 하나 — 관리 수단(공개·회피·제3자 검증)은 나열이라 일반 이해상충 도식과 다를 바 없음
+- parking-policy: triage:공급 기준·요금·단속의 세 수단 나열과 요금↑→자가용↓의 단순 인과뿐이라 그림이 본문을 넘어서는 이해를 주지 못함
+- musicking: triage:음악을 행위로 재정의하는 한 학자의 관점 — 작품 중심 음악학과의 대비가 추상적이고 비교 축이 본문에 정리되어 있지 않음
+- death-as-endpoint-avoidance: triage:'사망 전 대리 지표에서 안락사'라는 단일 규칙 — 점수표 기록→기준 초과→안락사는 정의 반복
+- sensory-specific-satiety: triage:먹은 음식 기호도만 떨어지는 곡선이 그럴듯하나 본문에 감소 형태·회복 시간 등 곡선 근거가 없어 모양을 지어내야 함
+- body-fat-percentage: triage:체중 대비 지방 비율이라는 단일 지표 — 측정법 차이·분포 문제는 주의 사항이지 관계 구조가 아님
+- cadential-six-four-chord: triage:핵심인 6-4→5-3 성부 해결은 악보 위 음 진행으로 보여야 하며, 블록 도식으로는 I6/4 대 V 해석 차이가 잘 드러나지 않음
+- through-composed-form: triage:유절(같은 선율 반복)과 통절(절마다 새 선율)의 대비가 한 문장으로 끝나고, 본문은 두 형식이 연속선이라고 해 이분 도식이 오히려 단순화
+- rent-control-policy: triage:공급 위축·이중시장화 등 효과가 연구마다 상반된다고 본문이 밝혀, 인과 사슬을 그리면 논쟁 중인 주장을 단정하게 됨
+- polycentric-urban-structure: triage:단핵 대 다핵 대비는 정의에 담겨 있고, 실제 효과(불완전 다핵화 등)가 계획과 어긋난다는 서술이 많아 비교 칸을 단정적으로 채우기 어려움
+- hemorrhage-control: triage:직접압박→지혈대→지혈제 순서가 상황(사지 대량출혈은 처음부터 지혈대)에 따라 바뀐다고 본문이 경고해, 단일 절차도는 오히려 혼동을 강화
+- resolution: triage:불협화→협화로의 이동이라는 2요소 개념 — 지연·불규칙 해결 등 변형은 사례 나열이라 도식 구조가 없음
+- cable-structure: triage:'인장만 받는다'는 단일 속성이 핵심이고, 처짐·프리스트레스는 형상 그림이 필요해 도식 유형으로 이점이 적음 — 하중 경로는 하위 용어 현수구조가 더 명확
+- functional-capacity-evaluation: triage:측정 항목과 직무 요구 대조가 서술되나 타당도·노력 일관성 지표 정확도가 논란이라 판정 흐름을 확정적으로 그리기 어려움
+- activity-analysis: triage:활동을 신체·인지·사회 요소로 쪼개 등급화에 쓴다는 일반적 흐름 — 정의와 '왜 중요한가'를 되풀이하는 수준
+- antimicrobial-agent-food: triage:니신·라이소자임·정유 등 물질군 총칭 — 정균/살균 구분은 두 항목뿐이고 개별 기전은 물질마다 달라 공통 도식이 없음
+- institutional-foodservice: triage:학교·병원·산업체·군대 등 대상 나열과 직영/위탁 구분뿐인 분류 목록 — 관계 구조가 없음
+- russells-paradox: triage:R∈R이면 R∉R, R∉R이면 R∈R인 두 상태 왕복이 핵심이라 cycle 최소 단계에 못 미치고, 글의 한 문장이 그림보다 명료함
+- quadratic-function-max-min: triage:포물선의 볼록 방향과 정의역 구간 끝점 비교가 핵심인데 inverted_u는 포물선이 아니고 아래로 볼록(U자) 경우를 그릴 함수가 없음
+- burn-rehabilitation: triage:화상→반흔 수축→구축 흐름은 단순하고, 핵심 중재인 압박 의류 효과와 운동 시점이 본문에서 논쟁적·미확립으로 서술되어 차단 경로를 단정하기 어려움
+- adaptive-equipment: triage:굵은 손잡이 숟가락·버튼후크 등 도구 범주명 — 활동영역별 나열과 교육 필요성뿐
+- wound-assessment: triage:크기·깊이·삼출물·주변 피부 등 평가 항목 체크리스트 — 항목 간 관계가 없고 반복 측정 권고는 한 문장으로 충분
+- coercion-in-research: triage:권력 관계에서 생기는 참여 압력이라는 단일 개념 — 부당한 유인과의 구분이 언급만 되고 비교 기준이 본문에 없음
+- crisis-theory: merge-candidate: 병합 후보라 보류(was checked)
+- disaster-supply-stockpiling: triage:중앙/분산 × 실물/가상 비축 2×2가 가능해 보이나 본문은 각 조합의 성격을 서술하지 않아 칸을 채우려면 본문 밖 지식이 필요
+- estimated-energy-requirement: triage:성별·연령·체중·신장·활동계수를 넣는 회귀식 값 — 입력 변수 나열일 뿐이며 계수가 없어 식 구조를 그려도 정의 반복
+- recognition: triage:호네트의 사랑·권리·존중 세 층위가 나오지만 층위별 무시 형태는 본문에 없어 그림이 세 단어 나열에 그침
+- intelligent-packaging: triage:시간-온도 지시계와 신선도 지시계 차이는 본문 한 문장으로 충분히 전달되고 그 밖은 한계 서술 위주
+- utopianism: triage:사상 전통과 포퍼 비판의 서술로, 구조화할 기전·단계 없이 평가적 논쟁만 담김
+- water-circulation-city: triage:불투수면→침투 감소 인과가 저영향개발 등 상위·인접 항목과 겹치고 이 항목 고유 구조는 정책 목표 서술
+- identity-of-indiscernibles: triage:라이프니츠 법칙의 역이라는 두 명제 관계뿐이고 블랙의 두 구 반례는 그림으로 보탤 것이 없음
+- passing-six-four-chord: triage:I-V6/4-I6 베이스 순차 진행은 악보 예시가 맞는 형식이고 노드 도식으로는 정의 반복이 됨
+- climate-resilient-infrastructure: triage:저항·흡수·회복 구분이 일반론 수준이라 도식이 정의를 다시 쓰는 데 그침
+- myofascial-release: triage:작용 기전이 기계적 변형인지 신경 매개인지 본문 스스로 미정이라 기전도를 단정해 그릴 수 없음
+- aerobic-training: triage:중추·말초 적응 두 갈래 언급뿐이고 나머지는 처방·효과 서술이라 그림의 고유 기여가 작음
+- land-value-tax: triage:토지만 과세→나대지 보유비용 상승→개발 촉진은 두세 단계로 글에서 이미 선명함
+- canning: triage:밀봉→가열살균 공정 자체는 정의에 다 들어 있고 산성·저산성 구분도 한 문장 대비라 도식 이득이 적음
+- disaster-trauma: triage:회복 궤적·2차 스트레스가 언급되지만 단계나 경로가 구체화되지 않아 그릴 근거 부족
+- coi-management-plan: triage:회피·독립 검토·역할 축소 세 조치가 단순 열거여서 그림이 목록 반복에 그침
+- double-skin-facade: triage:여름 굴뚝효과·겨울 완충층 두 작동이 본문에 여러 번 반복될 만큼 단순해 대비도가 정의를 되풀이함
+- vo2max-plateau: triage:핵심이 부하 증가에 직선으로 오르다 꺾여 평평해지는 곡선인데 hill은 처음부터 점점 느려지는 모양이라 흉내가 됨
+- formative-evaluation: triage:진행 중 점검→계획 수정의 두 요소뿐이고 총괄평가 대비도 한 문장이라 구성 요소 부족
+- colonic-fermentation-index: triage:난소화 탄수화물 발효→짧은사슬지방산·가스는 대장 발효 일반 기전이고 이 지수 고유의 구조는 측정법 나열
+- inorganic-arsenic-food: triage:무기·유기비소 독성 차이가 요지인 오염물질 항목으로, 두 형태 구분은 글로 충분함
+- floor-area-ratio-incentive: triage:공익 요건 충족→용적률 완화의 단일 교환 관계라 구성 요소가 3개에 못 미침
+- manager-role-nursing: triage:계획·조직·인력배치·지휘·통제는 경영관리 일반 기능 나열이라 이 역할 고유의 이해를 더하지 않음
+- numerical-differentiation: triage:핵심 그림은 간격 h에 따른 총오차의 U자 곡선(반올림 대 절단 오차)인데 그릴 함수가 없고 차분법 나열은 이득이 적음
+- activated-charcoal: triage:단일 해독 제제로, 흡착 안 되는 물질·흡인 위험 같은 주의 사항 열거가 대부분
+- client-centered-practice: triage:실천 철학 서술로, 전문가 중심 모델과의 대비가 한 문장뿐이라 비교 축을 세울 근거 부족
+- anticaking-agent: triage:식품첨가물 범주명이며 무기계·전분계 작용 차이는 부차적 설명
+- isolated-footing: triage:기둥별 단일 기초라는 형식 정의가 전부이고 매트기초 대비는 장단점 한 줄
+- eyes-on-the-street: triage:제이콥스의 세 조건이 나오지만 시선→범죄 억제의 단순 연결이라 그림이 정의를 반복함
+- bathroom-safety-equipment: triage:매트·샤워의자·손잡이 등 용품 총칭으로 관계 구조가 없는 목록
+- therapeutic-diet: triage:물성 조정형과 영양소 조정형 두 갈래뿐이고 나머지는 처방·모니터링 원칙 서술
+- hydrocolloid: triage:식물·해조·미생물·동물 유래 분류는 예시 목록일 뿐 기능 이해를 더하지 않고, 겔화 조건 차이도 두 문장 수준
+- developmental-dysplasia-of-the-hip: triage:질환명 항목으로 비구·대퇴골두 관계는 해부 그림 몫이고 본문 깊게 절이 짧아 근거 부족
+- actin: triage:단일 단백질명이며 칼슘-트로포닌-트로포마이오신 기전은 흥분수축연결·활주설 항목에 속함
+- dietary-record-method: triage:계량기록과 추정기록 두 방식 구분뿐이고 장단점은 글로 충분함
+- permutations-with-repetition: triage:n^r 공식 하나로 정리되는 개념이라 그림이 공식과 비밀번호 예시를 다시 쓰는 데 그침
+- in-vitro-alternatives: triage:대체 시험법 사례 나열과 밸리데이션 요건 서술로, 관계 맺는 구성 요소가 없음
+- bowel-elimination-assessment: triage:배변 횟수·양상 확인이라는 간호 활동 서술이고 브리스톨 7형은 척도 그림의 몫
+- food-fortification: triage:강화 대 복원, 의무 대 임의 구분이 각각 두 항이라 서로 엮이는 구조가 없음
+- food-contact-material: triage:이행량이 지방·온도·시간에 좌우된다는 요점은 한 문장으로 전달되고 그 외는 규제·시험 서술
+- nursing-informatics: triage:학문 분야 정의 — 자료·정보·지식·지혜 틀은 일반 틀을 짧게 언급할 뿐이고 주제 목록(용어 표준화·의사결정지원·사용성) 나열이라 그림이 새로 보여 줄 관계가 없음
+- food-environment-assessment: triage:평가 차원(물리적·경제적 접근성, 다양성·품질)의 단순 나열 — 차원 사이 관계나 순서가 본문에 없어 목록 이상이 안 됨
+- heterocyclic-amine: triage:단일 화합물군 이름 — 생성 경로(크레아틴·아미노산·당의 고온 반응)는 한 문장으로 충분하고 다환방향족탄화수소와의 대비도 한 줄 차이뿐
+- cadence: triage:단일 보행 지표(분당 걸음 수) — 속도 = 활보장 × 케이던스 관계는 두 요소뿐이라 글로 충분
+- catalan-number: triage:수열 자체 — 괄호식·이진트리·삼각분할의 일대일 대응은 구체적 예 그림이 필요한데 9개 type 중 맞는 형식이 없고, 증가 곡선은 이 개념의 핵심이 아님
+- gene-diet-interaction: triage:유전형×식이 교호작용이라는 단일 통계 관계 — 영양유전학·영양유전체학 구분은 방향 두 개뿐이고 예시(FTO·APOA2)도 단일 사례
+- clinical-indicator: triage:지표의 일반 정의 — 도나베디안 구조·과정·결과 분류는 다른 용어(도나베디안 모형)의 내용이고 여기서는 이름만 언급됨
+- animal-research-pain-category: triage:B~E 등급은 본문의 '쉽게 풀면'에 이미 순서대로 정리되어 있어 등급 사다리 그림은 문장 반복에 그침
+- modular-design: triage:설계 방식 정의 — 볼류메트릭/패널 구분과 장단점은 두 갈래 언급뿐이고 비교 기준이 본문에 체계적으로 없음
+- animal-use-protocol: triage:제출 문서 이름 — 심사 결과(승인·수정·반려)와 3R 검토 항목은 다른 용어(동물실험윤리위원회·3R 원칙)의 내용
+- postpartum-rehabilitation: triage:중재 영역 이름 — 선별 평가 후 운동 처방이라는 두 단계 외에 구성 요소 간 관계가 본문에 없음
+- urban-brand-value: triage:평가 차원(인지도·이미지·선호도·방문 의향)의 나열이고 측정법이 확립되지 않았다고 본문이 밝혀 구조를 그릴 근거가 약함
+- interdisciplinary-team-approach: triage:본문이 다학제(multidisciplinary)·초학제 구분을 들면서 표제어(interdisciplinary)를 어디에 둘지 섞여 있어 비교 그림이 본문 밖 판단에 기댐
+- essential-property: triage:우연적 속성과의 이분 구분 하나 — 양상적 테스트도 한 문장 기준이라 구성 요소가 2개뿐
+- gosu: triage:판소리 연행자 역할 이름 — 북·추임새·창자와의 상호작용은 서술적이라 관계도로 옮길 단계나 축이 없음
+- residual-stimulus: triage:로이 모형 세 자극 중 하나 — 초점·관련자극의 정의가 본문에 없어 재분류 관계를 그리면 본문 밖 지식에 기댐
+- declaration-of-taipei: triage:국제 선언 문서명 — 요구 원칙(거버넌스·철회권·이익 공유)의 목록이고 헬싱키 선언과의 차이도 한 줄
+- wayfinding-system: triage:사인 시스템과 환경 단서 두 축의 일반 설명 — 의사결정 지점 배치 원리는 문장으로 충분
+- controlled-access-data-committee: triage:위원회 기관 개념 — 신청→심사→조건부 승인 절차는 일반적 승인 흐름이라 그림이 글 이상을 주지 않음
+- peer-review-ai-confidentiality: triage:윤리 위반 유형 하나 — 원고 입력→서버 저장·학습 가능성이라는 두 단계뿐이고 저자 AI 공개와의 대비도 한 줄
+- blinding-animal-studies: triage:실행·평가·분석 단계 눈가림이 짧게 나열될 뿐 각 단계가 막는 편향이 본문에 구분되어 있지 않음
+- editorial-conflict-of-interest: triage:상황 정의와 해법(회피) 하나 — 관계 유형 나열과 저자 이해상충과의 한 줄 대비뿐
+- am-gm-inequality: triage:부등식 하나 — 직관적 그림(반원 기하 증명)은 9개 type에 없고 plot 함수로도 표현되지 않음
+- probiotic-supplementation-for-athletes: triage:효과가 균주 특이적이고 일반화하기 어렵다고 본문이 밝혀, 장내균→면역→감염 감소 경로를 그리면 미확립 효과를 단정하게 됨
+- biotin-deficiency: triage:단일 영양소 결핍 상태 — 원인(아비딘·정맥영양·약물)과 증상의 나열이고 기전은 아비딘 결합 한 단계뿐
+- ghost-management: triage:고스트 저자십과의 범위 차이가 핵심인데 대비 축이 '누가 썼나 대 누가 설계했나' 하나뿐이라 문장으로 충분
+- pulsed-electric-field-processing: triage:가공 기술명 — 막전위 임계값 초과 시 비가역 천공이라는 단일 분기이고 용도·한계는 목록형 서술
+- de-identification: triage:세밀도 대 재식별 위험의 상충은 정성적 서술뿐이라 곡선 모양을 근거 있게 그릴 수 없고, 삭제·일반화 두 방법은 구성 요소 2개
+- myofibrillar-hypertrophy: triage:근형질비대와의 구분 자체가 논쟁 중이라고 본문이 밝혀, 대비 그림이 이분법을 단정하게 됨
+- participatory-governance: triage:통치 원리의 일반 정의 — 정당성 증가와 비용 증가, 대표성 문제는 장단점 나열이고 구조적 관계가 없음
+- multiculturalism: triage:정치철학 입장명 — 외적 보호/내적 제약 구분은 두 개념의 한 줄 대비로 글로 충분하고 입장 자체가 논쟁적
+- muscle-activation: triage:근전도 기반 단일 측정 지표 — 진폭·개시 시점·협응 순서는 분석 항목 나열일 뿐 관계가 없음
+- trace-element: triage:영양소 범주명 — 원소별 역할(철·아연·요오드·셀레늄·구리)의 표 목록이고 다량원소와의 구분은 필요량 기준 한 가지
+- developmental-self-care-requisites: triage:오렘 이론의 세 요구 중 하위 유형 하나 — 본문이 반복 서술 위주이고 다른 두 요구의 정의가 없어 분류도를 근거 있게 못 그림
+- emergency-evacuation-planning: triage:계획 구성 요소(대상지역·경로·대피소·경보·취약계층) 나열 — 대피 완료시간 대 재해 도달시간 비교는 부등식 하나
+- ordinal-number: triage:따름서수·극한서수가 이어지는 수직선(0,1,…,ω,ω+1)이 필요한데 9개 type 중 맞는 형식이 없고 timeline으로 흉내 내면 오해 소지
+- right-to-withdraw: triage:단일 권리 — 철회 후 자료 처리(폐기/익명 사용)는 두 갈래 선택뿐
+- spinal-cord-injury: triage:손상 상태 정의 — 손상 높이별 결과(경추 상부 호흡근, 흉추 6번 이상 신경성쇼크)는 단편적이라 높이별 도식은 본문 밖 지식에 크게 기댐
+- golden-mean: triage:모자람-중용-지나침 세 점은 직선 위 구분이고 '산술 평균이 아니다'가 핵심이라 그림이 오히려 고정된 중간점을 암시함
+- amputation-rehabilitation: triage:잔존지 관리→의지 착용 전 훈련→의지 적합·보행이라는 일반 순서가 본문 한 문장에 이미 나와 있어 그림이 반복에 그침
+- secondary-use-consent: triage:재동의·포괄적 동의·IRB 면제라는 대안 경로가 문장으로 정리되어 있고 각 경로 간 판단 기준이 본문에 구체적이지 않음
+- basic-plan-for-emergency-medical-services: triage:법정 정책 문서 이름 — 법률→기본계획→시행계획 위계는 본문 한두 문장으로 충분하고 그림으로 더할 구조가 없음
+- basic-ambulance: triage:구급차 차종 하나 — 특수구급차와의 차이도 '태울 환자' 한 기준뿐
+- multiple-survival-surgery-restriction: triage:감소 대 개선 원칙의 충돌 한 쌍만 다루는 규정 — 구성 요소 2개
+- food-quality-control: triage:원료→공정→최종제품 단계가 정의에 이미 그대로 있어 그림이 정의 반복
+- level-1-emergency-medical-technician: triage:자격 등급 하나 — 2급과의 차이는 처치 범위 목록으로 충분
+- omega-3-to-omega-6-ratio: triage:적정 비율에 국제 합의가 없고 비율 대 절대량 논쟁 중이라 염증 경로를 단정해 그리기 어려움
+- refinement-3r: triage:3R 중 한 요소 — 본문은 개선 기법의 나열(마취·환경풍부화·핸들링)뿐
+- mass-ordinary: triage:다섯 부분 이름이 정의에 이미 나열 — 고유문과의 구분은 두 범주 대비라 글로 충분
+- bar-form: triage:AAB 세 부분 구조가 정의 자체 — 그림이 정의 반복
+- exertional-heat-illness: triage:열경련→열탈진→열사병 단계 이름만 있고 단계별 기준·기전이 본문에 없어 근거 부족
+- viscosity-control: triage:증점제로 점도를 맞추는 가공 기술 — 전단박화 대 뉴턴 유체 구분은 부수 설명이고 핵심은 첨가량-점도 단순 비례
+- normal-saline: triage:단일 수액 제제명
+- authorship-criteria-disputes: triage:ICMJE 네 기준 체크리스트 — 충족/미충족 두 갈래뿐이라 목록으로 충분
+- adipokine: triage:지방조직 분비 물질군 총칭 — 개별 기전(렙틴저항성·TNF-α)은 각 물질 용어의 몫
+- cogito-ergo-sum: triage:추론인지 직관인지 해석 논쟁 중인 명제 — 회의→코기토 흐름을 단정적 화살표로 그리기 곤란
+- standardized-recipe: triage:문서 기재 항목(중량·순서·온도·수율)의 나열 — 관계 구조 없음
+- dementia-care: triage:병기별 목표 전환이 '독립성→안전' 두 끝점뿐이고 중간 단계 내용이 본문에 없음
+- skyline-silhouette-plan: triage:높이 관리 계획 — 조망점 설정·고도지구 등 수단 나열뿐, 실루엣 자체는 9개 type으로 못 그림
+- counterfactual-theory-of-causation: triage:과잉결정·선점 반례가 핵심이나 루이스의 보완 방식이 계속 논쟁 중이라 결론을 단정하기 어려움
+- facadism: triage:전면보존·적응적 재사용과의 비교가 한 문장뿐이라 보존 범위 스펙트럼을 그릴 근거가 얇음
+- interval-vector: triage:여섯 자리 숫자 표기 — 그리려면 본문에 없는 구체 집합 예시가 필요
+- sport-related-concussion: triage:단계적 복귀 프로토콜을 언급하지만 단계 내용이 본문에 없음
+- concept-analysis-nursing: triage:워커와 아반트 절차 단계가 본문에 다 나오지 않고 방법 간 비교도 서술 수준이라 근거 부족
+- trigonometric-identities: triage:핵심 그림은 단위원 위의 점인데 9개 type으로 그릴 수 없음 — 공식 나열은 글로 충분
+- saponification-value: triage:단일 분석값 — 사슬 길이와의 반비례는 한 문장 관계
+- aak: triage:좁은·넓은 뜻이 시대별로 달라 아악·당악·향악 경계를 하나의 분류도로 단정하기 어려움
+- limb-dominance: triage:좌우 우세 경향 하나 — 학습·선천 요인은 두 가지 언급뿐
+- expedited-review-irb: triage:최소위험이면 신속, 아니면 전체위원회라는 두 갈래 분기라 구성 요소가 적음
+- qualia: triage:존재 자체가 논쟁 중인 심리철학 개념 — 그림으로 단정할 구조 없음
+- matrix-norm: triage:노름 종류(프로베니우스·스펙트럼 등)의 나열 — 관계 구조 없음
+- epinephrine: triage:단일 약물명 — 심정지 효과는 논쟁 중
+- leavening-agent: triage:효모 대 화학 팽창 두 갈래와 속효·지효 산 구분이 글로 충분 — 첨가물 종류 이름
+- point-to-line-distance: triage:필요한 그림은 좌표 위 수선 기하인데 9개 type으로 표현 불가 — 공식 하나
+- urban-forest: triage:법적 정의 중심의 녹지 유형 — 도시공원과의 차이는 소관·초점 한 줄
+- angina-pectoris: triage:안정형·불안정형 구분은 각 하위 용어의 몫 — 협심증 자체는 허혈 증상명
+- green-building: triage:설계→시공→운영→해체 생애주기가 정의에 그대로 있어 그림이 정의 반복
+- foreign-material-management: triage:이물 발생원 4종과 검출 장비의 나열 — 관계 없이 목록으로 충분
+- prime-form-tone-row: triage:P·R·I·RI 네 변형 그림은 상위 용어 톤로우와 같아 중복 — 원형은 기준점 하나
+- strain: triage:무차원 비율 하나의 정의 — 탄성·소성 구간을 보여 줄 응력-변형률 곡선(직선 후 항복·소성)은 plot 함수로 못 그림
+- sunset-zoning-review: triage:기한 도래 후 유지·연장·해제 중 택일이라는 단순 분기 — 회원권 비유로 글만으로 충분
+- muscle-fatigue: triage:중추·말초 피로 2분류에 원인 기전이 복합적이라 본문이 스스로 단정을 피함 — 원인별 계층도는 논쟁을 단정하게 됨
+- throat-singing: triage:기본음+배음 두 요소의 발성 원리이고, 하위 기법 분류는 지역·유파마다 달라 계층도로 고정하기 어려움
+- naturalized-epistemology: triage:콰인(강한)·골드먼(온건) 자연화의 차이가 '규범성 유지 여부' 한 축뿐 — 비교표로 얻는 것이 적음
+- insulation-design: triage:두께·열전도율·열교·방습층 등 고려 요소 나열이며, 내단열 쪽 특성이 본문에 거의 없어 내·외단열 비교도 근거 부족
+- division-fallacy: triage:합성의 오류와 방향만 반대인 전체→부분 추론 하나 — 화살표 두 개로는 정의 반복
+- curvature: triage:접촉원·곡률 반지름은 기하 작도라 9개 유형에 맞지 않고, 가우스·리치 곡률 등은 이름만 나열됨
+- borg-scale: triage:6~20점·CR10 두 버전의 숫자 척도 하나 — 범위 차이는 문장으로 충분
+- equation-of-circle: triage:거리 공식에서 나온 식과 표준형·일반형·매개변수형 변형 — 수식 전환이라 도식 유형에 맞지 않음
+- triangle-similarity-conditions: triage:AA·SAS·SSS 세 조건 나열 — 계층도로 그리면 정의 반복, 핵심인 '끼인각'은 삼각형 작도가 필요
+- curtain-wall: triage:자중·풍압이 앵커로 구조체에 전달된다는 짧은 하중 경로 — 비내력이라는 단일 속성이 핵심
+- escherichia-coli-o157: triage:특정 병원균(혈청형) 이름 — 감염원·합병증은 사실 나열이고 관계 구조가 약함
+- urban-park: triage:법정 공원 분류의 하위 유형이 본문에 생활권·주제공원, 근린·어린이공원 정도만 있어 계층도는 본문 밖 지식에 기댐
+- talent-identification: triage:탐색·확인·육성·선발 구분이 한 문장 언급뿐이고, 본문 핵심은 예측력이 낮다는 주장이라 단계도가 이해를 더하지 않음
+- extreme-value-theorem: triage:조건 둘(닫힌구간·연속)과 결론 하나 — 반례(열린구간·불연속) 그래프는 plot 함수로 표현 불가
+- region-of-inequality: triage:좌표평면 위 영역 색칠 — 9개 도식 유형 밖의 작도
+- original-resident-resettlement: triage:재정착률이라는 사후 지표 하나 — 분담금·생활 기반 등 낮은 원인은 임대료상승 항목의 기전과 겹치는 나열
+- logical-equivalence: triage:진리표로 확인하는 관계 — 드모르간·대우 등 동치 규칙 나열은 도식보다 표·식이 적합
+- romantic-virtuosity: triage:19세기 경향과 파가니니·리스트 일화 — 인물 중심 서술로 관계 맺는 구성 요소가 없음
+- fine-motor-skill-training: triage:훈련 활동 나열 — 근위-원위 원리·파악→집기 순서가 한 문장씩이라 단계도 근거 부족
+- co-living-housing: triage:전용 공간+공용 공간+서비스라는 주거 유형 설명 — 비교 대상(셰어하우스·원룸)의 기준이 본문에 없음
+- deep-frying: triage:기름 흡수 요인과 반복 가열 열화가 각각 독립 사실 — 하나의 경로로 엮이지 않음
+- masonry-structure: triage:압축에 강하고 인장·횡하중에 약하다는 속성 중심 — 개구부 아치·인방의 하중 우회는 단면 작도가 필요
+- rent-escalation: triage:매력도 상승 → 임대료 상승 → 임차인 이탈의 3고리는 정의 문장 자체 — 그림이 정의를 되풀이함
+- gcd-lcm: triage:본문에 소인수 벤 다이어그램 근거가 없고, 핵심(GCD×LCM=두 수의 곱, 유클리드 호제법)은 식으로 전달됨
+- acknowledgment-misuse: triage:누락과 부당 포함 두 방향의 오남용 — 2분류라 문장으로 충분
+- tree-graph-theory: triage:사이클 없음·간선 n-1이라는 정의적 성질 — 트리 그래프 자체 작도는 도식 유형 밖
+- milgram-obedience-experiment: triage:특정 실험 사례 — 핵심은 기만·디브리핑 윤리 쟁점이라 실험 절차도가 요점을 드러내지 않음
+- disaster-medical-activation-protocol: triage:인지 → 동시 통보 → 소집의 3단계가 본문 대부분 설계 원칙(의심 단계 가동·권한 위임) 서술이라 단계도가 정의를 되풀이
+- therapeutic-use-exemption: triage:사전 신청 → 승인 → 사용의 단순 승인 제도 — 세부 요건은 기관마다 달라 본문이 단정을 피함
+- genetic-discrimination: triage:적용 영역(고용·보험) 나열과 '미발현 위험 정보'라는 한 축의 구분뿐
+- food-poisoning-prevention: triage:청결·교차오염 방지·가열·냉각 네 원칙의 목록 — 서로 관계를 맺지 않는 병렬 항목
+- human-scale-architecture: triage:질적 설계 관점 — 겔의 감각 거리(25m·100m)는 수치 두 개로 도식 구조가 없음
+- transportation-demand-management: triage:가격 수단과 대안 장려 수단 두 갈래에 사례를 단 목록 — 계층도가 본문 문장을 그대로 옮기는 수준
+- ultimate-strength-design: triage:강도설계법의 옛 명칭에 가까움(본문도 용어 혼용 언급) — 허용응력→극한강도→강도설계법 변천은 동의어 정리 수준
+- blinding-code-break: triage:개별 응급 해제와 중간분석·종료 시 전체 해제의 구분이 핵심이나 비교 기준이 목적·승인 주체 둘뿐 — 표로 충분
+- cycle-menu: triage:정해진 메뉴표를 주기적으로 반복한다는 운영 방식 — 주기 길이의 득실은 두 줄 trade-off
+- smart-home-technology: triage:낙상감지·원격모니터링·환경제어 하위 기능 나열 — 통합 연동의 관계가 구체적으로 서술되지 않음
+- eu-directive-2010-63: triage:단일 법령(지침)명 — 침습도 3단계·보호 범위 등은 항목 나열이라 관계 구조가 없음
+- aflatoxin: triage:단일 곰팡이독소 물질명 — 생성균·발암 경로는 부수 설명이고 핵심은 물질 자체
+- quadratic-inequality: triage:핵심은 포물선이 x축 위·아래에 놓이는 구간인데, 아래로 볼록한 U자 포물선과 x축 교점을 그릴 함수가 없음(inverted_u는 x축 교차·U자 표현 불가)
+- sensory-panel-training: triage:용어 정립·표준시료 반복·재현성 확인이 흩어져 있을 뿐 순서가 본문에 확정돼 있지 않아 절차도로 그리면 근거가 약함
+- glycemic-response: triage:핵심은 흰빵 대 통곡물빵의 식후 혈당 곡선(빠르게 올랐다 천천히 내려오는 비대칭 정점)과 iAUC인데, inverted_u는 대칭이라 쓸 수 없고 맞는 함수가 없음
+- oswestry-disability-index: triage:10개 영역을 0~5점으로 합산하는 설문 도구 — 항목 나열이라 요소 간 관계가 없음
+- laser-therapy: triage:그릴 만한 것은 조사량에 따른 이상성(biphasic) 반응뿐인데 본문이 이를 이 분야 논쟁의 핵심으로 서술해, 곡선으로 그리면 미확정 주장을 단정하게 됨
+- five-times-sit-to-stand-test: triage:의자에서 5회 일어서는 시간을 재는 단일 검사 — 절단점도 연구마다 10~15초로 달라 그림으로 고정할 수치가 없음
+- disaster-psychological-support: triage:급성기 안정화→전문 상담 연계라는 단계가 언급되지만 단계 구성이 본문에 구체적으로 정해져 있지 않아 그림 근거 부족
+- relative-frequency: triage:도수÷전체 도수라는 단일 비율 정의 — 계산식 하나라 그림이 정의를 되풀이할 뿐
+- fascicle-length: triage:근섬유 다발 길이라는 단일 형태 지표 — 직렬 대 병렬 근절 구분이 있으나 구성 요소 2개뿐
+- procedure-habituation-training: triage:실험 전 장비·핸들링에 반복 노출시키는 단일 절차 — 단계 수·순서가 종과 절차마다 달라 그릴 고정 구조가 없음
+- sports-drink-electrolyte-replenishment: triage:스포츠음료 활용이라는 단일 수분 보충 전략 — 운동 시간·강도에 따른 권장 여부 외에 관계 구조가 없음
+- unstageable-pressure-injury: triage:가피 제거 후 재분류라는 흐름에 발뒤꿈치 안정 가피는 제거하지 않는 예외 분기가 핵심이라, 선형 절차도로 그리면 오히려 오도할 수 있음
+- stretching: triage:정적·탄성·PNF 세 방식의 단순 나열이고, 본문 핵심(신장 내성 해석·구축 예방 효과 논란)은 그림으로 드러나지 않음
+- total-parenteral-nutrition-formulation: triage:포도당·아미노산·지방·전해질 등 성분 목록 — 성분 간 관계나 순서가 없어 그림이 목록을 되풀이할 뿐
+- duty-to-warn-genetic-relatives: triage:자율성 대 혈연의 이익이라는 윤리적 쟁점 — 국가·기관별 대응이 갈리는 미결 논쟁이라 구조를 단정해 그릴 수 없음
+- rolles-theorem: triage:양 끝값이 같은 곡선과 수평 접선이 핵심인데 plot은 접선을 그릴 수 없고, 대칭 inverted_u 하나로는 '어떤 곡선이든'이라는 일반성을 오도함
+- urban-vitality: triage:제이콥스의 네 조건(용도 혼합·짧은 블록·건물 연령·밀도) 나열이고 조건 간 관계가 본문에 없어 목록 이상을 보여 주지 못함
+- bernsteins-problem: triage:다자유도 통제라는 추상적 문제 제기 — 해법이 인지주의·동적체계이론으로 갈려 하나의 구조로 그리면 논쟁을 단정하게 됨
+- flesh-of-the-world: triage:해석이 학자마다 갈리는 메를로퐁티의 은유적 존재론 개념 — 그림으로 고정하면 특정 해석을 단정함
+- parametric-design: triage:변수-관계 기반 설계 방법론 — 본문이 개념의 오해 교정에 집중해 단계·구성 요소 관계가 드러나지 않음
+- symmetric-group: triage:n개 대상의 치환 전체라는 대수 구조 — 교대군·케일리 정리 등은 부분 언급이고 그림으로 얻는 이해가 적음
+- caregiver-education: triage:기술 전수와 심리사회적 지원 두 영역뿐인 중재 — 구성 요소 2개로 관계도가 성립하지 않음
+- blue-note: triage:3·5·7음을 미분음으로 굴절시키는 음정 하나 — 유동적 음고가 핵심이라 고정 도식으로 그리기 어렵고 기원도 논쟁 중
+- feeding-evaluation: triage:구강 전·구강·인두 단계 관찰은 일반 연하 단계 나열이라 평가 고유의 이해를 더하지 못함
+- nursing-rounds: triage:정기 병실 순회라는 단일 활동 — 4P 점검 항목은 체크리스트일 뿐 상호 관계가 없음
+- impact-factor-manipulation: triage:자기 인용 유도·인용 카르텔·강압적 인용이라는 수법 목록 — 분류 그림이 본문 나열을 되풀이할 뿐
+- motor-learning-theory: merge-candidate: 병합 후보라 보류(was checked)
+- disability-assessment: triage:ABCDE 중 네 번째 단계라는 위치를 그리는 것은 정의 반복이고, 단계 자체는 AVPU·GCS·동공·혈당 확인 항목 나열임
+- body-mass-index-classification: triage:18.5·25·30 경계값으로 구간을 나누는 기준표 — 수치 구간은 표로 충분하고 9개 type 어디에도 맞지 않음
+- oxygen-scavenger: triage:포장 내 산소를 흡수하는 단일 활성포장 소재 — 용량 소진·투과도 등은 주의사항 나열이라 그릴 관계 구조가 약함
+- seodo-minyo: triage:서북 지역 민요 갈래 하나 — 창법·대표곡 설명이 중심이고 경기·남도민요와의 비교 기준이 본문에 충분하지 않음
+- improvement-master-plan: triage:10년 단위 법정 상위계획 하나 — 직권 지정 예외 등으로 기본계획→구역 지정 흐름이 고정되지 않아 순서도로 그리면 오해 소지
+- school-nutrition-program: triage:식단·위생·영양교육·잔반 관리를 묶은 정책 프로그램 — 구성 요소 나열일 뿐 관계나 순서가 없음
+- law-of-excluded-middle: triage:'P이거나 not-P'라는 단일 논리 법칙 — 무모순율과의 비교는 구성 요소 2개뿐이라 그림이 정의를 되풀이함
+- biochemical-nutrition-assessment: triage:알부민·페리틴 등 혈액 지표를 측정하는 평가법 — 지표 목록이 중심이고 관계 구조가 없음
+- sprechstimme: triage:말하듯 노래하는 단일 발성 기법 — 음높이에 얼마나 머물지가 해석 논쟁 중이라 고정 도식이 불가
+- shared-street-design: triage:보차 구분을 없애는 단일 가로 설계 방식 — 저속 유도 등 원리 나열이고 일반 도로와의 비교 축이 본문에 체계적으로 없음
+- constrained-optimization: triage:제약 아래 목적함수 최적화라는 일반 문제 정의 — 라그랑주·KKT 등은 후속 도구 이름 나열이라 그림으로 얻는 이해가 적음
+- tritone: triage:증4도/감5도라는 단일 음정 — 옥타브 절반 대칭성은 한 문장으로 충분하고 그림 구성 요소가 3개에 못 미침
+- salmonella-food-poisoning: triage:특정 병원체 식중독 하나 — 본문은 가열·교차오염 예방 수칙 나열이라 그림으로 묶을 관계 구조가 없음
+- punching-shear: triage:핵심이 기둥 둘레 원뿔형 파괴면·d/2 위험단면이라는 공간 형상인데, 9개 type으로는 단면 기하를 그릴 수 없음
+- low-vision-rehabilitation: triage:광학·환경·보상전략 세 접근의 나열뿐이라 그림이 목록 이상을 보여 주지 못함
+- vulnerable-population-nutrition: triage:대상 집단 정의 개념 — 정의 기준이 연구마다 다르다고 본문이 밝혀 고정된 분류도를 그릴 근거가 없음
+- vacuum-splint: triage:단일 기구명 — 공기부목과의 차이도 '공기를 뺀다/넣는다' 한 축뿐
+- physiological-needs: triage:매슬로우 욕구위계의 한 단계일 뿐 — 위계 그림은 상위 이론 몫이고, 순서 고정성에 대한 비판도 본문에 있음
+- laws-of-exponents: triage:곱·나눗셈·거듭제곱 세 규칙은 수식 자체가 그림보다 명확해 도식이 더할 것이 없음
+- benfords-law-fabrication: triage:첫째 자리 1~9의 이산 확률(log10(1+1/d)) 막대 모양이 핵심인데 plot 함수 중에 없음 — decay로 흉내 내면 안 됨
+- field-treatment-station: triage:본문이 현장응급의료소와 같은 뜻이라 밝힌 하위 시설 개념 — 환자 흐름도는 상위 용어 몫
+- actual-nursing-diagnosis: triage:위험간호진단과의 대비가 핵심이나 근거(정의적 특성 유무) 한 축으로 글에서 충분히 잡히고 진단 유형 분류도는 상위 용어 몫
+- cane: triage:단일 보조기구명 — 사용법(건측 손, 팔꿈치 20~30도)은 단일 수칙이라 관계 구조가 없음
+- risk-nursing-diagnosis: triage:실제적간호진단과 짝을 이루는 유형 하나 — 위험요인 기반 진술이라는 단일 차이가 핵심이라 독자적 구조가 없음
+- animal-welfare-act: triage:특정 법률명 — 3R·IACUC와의 관계는 언급 수준이라 그릴 구조가 아님
+- noise-pollution-zoning: triage:구역 등급별 허용 용도가 본문에 구체적으로 없고 지표(WECPNL→Lden)·국가별로 달라 근거 있는 구역도를 그릴 수 없음
+- delayed-onset-muscle-soreness: triage:핵심 모양인 24~72시간 뒤 정점 후 서서히 가라앉는 비대칭 통증 곡선은 대칭인 inverted_u로 그릴 수 없음; 기전은 미규명이라 단정적 chain도 부적절
+- whistleblower-protection-research: triage:보호 장치 네 요소의 나열 — 예비조사·본조사 절차는 연구부정 조사 일반의 것이라 이 용어의 그림이 아님
+- dynamic-gait-index: triage:8개 보행 과제 목록의 평가도구 — 항목 나열은 그림보다 목록이 낫고 관계 구조가 없음
+- dextrose-administration: triage:혈당 확인 → 투여가 핵심인 단일 처치 — 글루카곤·티아민 분기는 지역 지침 의존이 커 단정적 흐름도로 그리기 부적절
+- zombie-citation: triage:철회 후에도 인용이 이어진다는 현상 하나 — 원인(DB 반영 지연, 문헌관리 재사용)은 두 갈래 나열이라 그림이 글을 넘어서지 못함
+- eminent-domain: triage:사업인정→협의→재결→보상의 네 단계가 본문 한 문장에 그대로 있어 흐름도가 정의 반복에 그침
+- home-visit-evaluation: triage:평가 절차지만 본문에 단계 구조가 없고 관찰 항목(문턱·욕실·조명) 나열뿐
+- protein-energy-wasting: triage:염증·대사성 산증·식욕부진의 악순환을 말하지만 고리의 방향이 본문에 없어 cycle을 그리면 본문 밖 추정이 됨
+- transport-appropriateness-evaluation: triage:사후 질 관리 활동 — 판정 기준·절차가 구조화되어 있지 않고 주의점 서술 위주
+- modular-arithmetic: triage:시계 비유가 글로 이미 충분하고, 12칸 순환은 3~6단계 cycle type에 맞지 않음
+- training-intensity: triage:1RM%·심박수·RPE 지표 나열 — 본문이 지표 간 단순 환산이 어렵다고 해 관계를 그릴 수 없음
+- pre-exercise-meal: triage:섭취 시점·구성 권고는 개인차가 크다고 본문이 밝혀 고정된 시간축이나 단계를 그릴 근거가 없음
+- fraction: triage:기초 수 개념 — 분자·분모는 피자 비유로 충분하고 네 의미(분할·나눗셈·비율·척도)는 한 줄 언급뿐
+- sex-as-biological-variable: triage:설계(암수 포함)·분석(성별 공변량) 두 요구를 담은 원칙 — 구성 요소가 적어 그림이 정의를 되풀이함
+- half-cadence: triage:딸림화음 도착이라는 단일 조건 — 악절 속 정격종지와의 짝은 두 요소뿐이라 악보 예시가 더 적합
+- harmonic-rhythm: triage:화음 변화 빈도라는 단일 매개변수 — 표면 리듬과의 구분은 악보 없이 도식으로 보여 줄 수 없음
+- cantilever: triage:처짐이 돌출길이 세제곱에 비례하는 거듭제곱 곡선이 그림의 핵심인데 plot 함수에 없고, 상부 인장 위치는 부재 그림이 필요함
+- lydian-mode: triage:장음계와 넷째 음 하나만 다른 선법 — 차이가 음 하나라 건반·악보가 맞고 9개 type으로는 이점이 없음
+- atraumatic-care: triage:돌봄 철학 — 세 목표와 방법 나열은 목록으로 충분하고 목표 사이 관계 구조가 없음
+- logarithmic-equation-inequality: triage:밑이 1보다 클 때 증가·0과 1 사이일 때 감소하는 로그 곡선 대비가 핵심이나 plot에 log 함수가 없음
+- center-of-pressure: triage:측정 지표 하나 — 무게중심과의 구별은 시간 궤적을 그려야 드러나는데 9개 type으로 표현할 수 없음
+- cramers-rule: triage:공식 하나 — 행렬식 비율은 수식이 그림보다 명확하고 가우스 소거법과의 효율 비교는 한 줄 주석 수준
+- retort-pouch: triage:포장 용기명 — 3층 구조는 단면도가 필요해 hierarchy로 그리면 의미가 왜곡됨
+- origin-destination-matrix: triage:그 자체가 행렬 표라 도식이 표를 다시 그리는 것에 그침
+- postbiotics: triage:정의·범위가 학계에서 아직 통일되지 않은 물질군 개념 — 본문은 성분 예시 나열뿐이고 프로·프리바이오틱스 비교 근거가 본문에 없음
+- social-epistemology: triage:분야 개관 — 갈래가 온건·급진 둘뿐이고 증언·집단지식은 주제 나열이라 관계 구조가 없음
+- citation-manipulation: triage:강압적 인용·인용 카르텔·과다 자기인용 세 사례 나열 — 글로 충분하고 분류 기준이 본문에 명시되지 않음
+- intergovernmental-coordination-planning: triage:조정 수단(협의회·공동계획·의견제출) 나열 — 수준 차이도 한 줄 언급뿐이라 그림으로 더할 구조가 없음
+- moral-fictionalism: triage:메타윤리 입장 하나 — 대비 대상이 폐지주의 하나뿐이고 실천적 일관성 문제는 논쟁 중
+- place-value-and-decimal-system: triage:222=200+20+2 같은 예시로 글만으로 충분 — 발달 단계 서술은 '흔히 설명된다' 수준이라 근거가 약함
+- participatory-planning: triage:아른스타인 사다리 8단계가 본문에 양 끝만 언급돼 단계 구성이 본문 밖 지식에 의존
+- functional-nursing: triage:효율 대 전인간호 상충 한 쌍뿐 — 비교 대상인 팀간호·일차간호제 특성이 본문에 없음
+- nursing-evaluation: triage:간호과정의 다른 단계가 본문에 없어 순환도를 그리려면 본문 밖 지식 필요 — 평가→계획 수정 한 고리만 서술
+- sport-media: triage:매체·산업 전반을 가리키는 포괄 용어 — 연구 갈래 나열뿐 관계 구조 없음
+- open-kinetic-chain-exercise: triage:폐쇄운동사슬과의 대비가 핵심이나 폐쇄사슬 쪽 특성이 본문에 거의 없음 — 별도 용어 쪽 비교도에 맡길 사안
+- waist-circumference-measurement: triage:단일 신체계측 지표와 측정 위치 — BMI 보완 관계는 한 문장으로 충분
+- bronchodilator: triage:약물군 이름 — 베타2수용체 자극→평활근 이완→기도 확장은 정의 반복 수준의 한 줄 기전
+- training-frequency: triage:단일 훈련 변인 — 효과가 총 훈련량에 좌우된다는 조건부 서술이라 곡선 모양 근거가 없음
+- net-zero-energy-district: triage:효율·생산·저장 세 요소의 연간 합산 균형 — 단순 덧셈 관계라 그림이 정의를 되풀이할 뿐
+- musical-identity: triage:유동적 정체성 형성이라는 추상 개념 — 구성 요소가 특정되지 않음
+- shared-mobility: triage:수단별·거점형/자유형 유형 나열 — 자가용 대체 효과는 실증이 상반돼 단정 불가
+- functional-independence-measure: triage:18항목·7점 척도 평가도구 — 영역 구성은 글로 충분하고 항목 배치는 본문에 없음
+- phytochemical: triage:화합물군 총칭 — 하위 물질군은 이름 나열뿐이고 작용 경로는 물질마다 달라 공통 기전이 없음
+- gait-analysis: triage:측정 기법 개관 — 보행주기 구분이 입각기·유각기 둘뿐이고 장비는 나열
+- monte-carlo-method: triage:핵심인 '오차가 표본 수의 제곱근에 반비례해 줄어드는 곡선'을 그릴 함수가 없음 — 무작위 점 찍기 절차만으로는 정의 반복
+- grand-theory: triage:이론 추상 수준 중 한 층위 — 대이론→중범위이론 두 단계 관계가 반복 서술될 뿐 그림으로 더할 내용이 적음
+- achilles-tendinopathy: triage:질환명 — 중간부형·부착부형 두 유형 구분뿐
+- eulers-formula: triage:핵심은 복소평면 단위원 위 회전이라는 기하 그림 — 9개 type 중 맞는 틀이 없음
+- reduction-and-common-denominator: triage:4/8→1/2, 1/2·1/3→3/6·2/6 계산 예시로 본문이 이미 충분히 구체적
+- indeterminism: triage:형이상학 논제 — 자유의지와의 관계는 운의 문제 등 논쟁 중이라 단정적 도식 불가
+- classical-period-music: triage:시대 양식명 — 갈랑·감정과다·빈 고전주의가 겹쳐 시기 구분 자체가 논쟁적
+- oral-tradition-music: triage:전승 방식 개념 — 구비공식이론 언급은 한 줄이고 단계·구성 요소가 특정되지 않음
+- student-subject-pool: triage:운영 제도 — 대체 과제·분리·디브리핑 등 요건 나열이라 관계 구조 없음
+- species-selection-justification: triage:근거 세 축(유사성·모델 타당성·대체 가능성) 나열 — 신경계 '등급' 서열을 그리면 단정적 위계가 됨
+- food-aid-program: triage:지원 방식(현물·현지조달·현금기반) 나열 — 효과 비교가 논의 중이라 우열 도식은 단정 위험
+- factorization: triage:x²+5x+6=(x+2)(x+3) 예시로 충분 — 기법은 이름 나열뿐
+- interval-training: triage:고강도·회복 구간이 번갈아 나오는 시간-강도 계단 파형이 핵심이나 그릴 함수가 없고 2단계 반복이라 cycle도 부적합
+- beta-carotene: triage:단일 색소·영양소 이름 — 전환·흡수 이야기는 있지만 성분 하나에 대한 속성 서술
+- industrial-heritage-regeneration: triage:재생 방식 하나의 소개 — 고려 요소 세 가지가 나열될 뿐 서로 관계 맺는 구조가 없음
+- coaching-behavior: triage:관찰 가능한 코치 행동 범주의 나열 — 행동 간 관계나 순서가 없고 효과도 대상에 따라 다르다고만 서술
+- impaled-object-management: triage:'뽑지 말고 고정해 이송'이라는 단일 원칙 — 기전은 박힌 물체가 혈관을 막는다는 한 단계뿐
+- tamper-evident-packaging: triage:포장 방식(수축밴드·호일 씰·파괴형 라벨) 열거 — 그림으로 보탤 관계 구조가 없음
+- vegan-diet-nutritional-adequacy: triage:결핍 위험 영양소 목록(B12·철·아연·오메가-3 등)이 핵심이라 표나 글로 충분함
+- intermittent-fasting-protocol: triage:16:8·5:2·격일단식 등 방식 이름 나열 — 분류도가 정의를 되풀이할 뿐 추가 이해가 적음
+- motor-unit: triage:정의는 '신경원 1개 + 근섬유들'이라는 단일 구성 — 크기의 원리는 별도 용어 내용에 가까움
+- trunk-impairment-scale: triage:평가 척도 — 세 하위영역과 점수 범위는 숫자 목록이라 글로 충분
+- micromobility-regulation: triage:속도·주행구역·주차·총량제 등 규제 수단의 나열로 관계 구조가 없음
+- nursing-implementation: triage:간호과정 다섯 단계 중 한 단계 — 순환도는 상위 용어 '간호과정'의 그림이 됨
+- individualized-care-plan: triage:표준 계획을 개인에 맞춰 조정한다는 한 문장의 관계 — 구성 요소가 2개(표준안·개별 조정)뿐
+- first-inversion: triage:화음 배치 하나 — 근음위치·둘째자리바꿈과의 비교는 본문에 근거가 부족하고 성부 배치는 9개 type에 맞지 않음
+- memory-strategy-training: triage:내적 전략과 외적 보조의 예시 목록 — 분류도가 본문 열거를 반복할 뿐
+- neurogenic-bladder-management: triage:관리 수단(도뇨·약물·배뇨 시간표) 중심 서술 — 과활동성/무수축성 구분은 언급만 있어 대응 전략을 그림으로 확정할 근거가 얇음
+- equation-of-plane: triage:핵심은 법선과 평면의 기하 그림인데 9개 type(흐름·비교·분류도)으로는 공간 도형을 그릴 수 없음
+- dual-space: triage:추상 대수 개념 — V→V*→V** 관계를 화살표로 그려도 기저 의존 여부라는 핵심은 글로만 전달됨
+- lab-notebook-integrity: triage:기록 원칙(실시간·정정 방식·감사 추적)의 서술 — 단계나 관계 구조가 아닌 규범
+- fauxbourdon: triage:세 성부의 음정 배치(6도·4도)가 핵심인데 악보식 성부 그림은 9개 type에 해당하지 않음
+- bioethics: triage:학문 분야명 — 네 원칙은 목록이고 원칙 간 충돌 우선순위는 미정이라 구조로 그리기 어려움
+- gait-training: triage:단계적 진행(평행봉→보조기구→독립보행)이 예문 하나에만 나오고 훈련 방식마다 달라 절차로 확정할 근거가 약함
+- streetscape: triage:가로경관 구성 요소(파사드·가로수·보도) 나열 — 관계보다 시각적 총합을 뜻하는 개념
+- therapeutic-diet-modification: triage:상위 개념 아래 조정 축(영양소·질감·경로)이 나열될 뿐 분류도가 본문 문장을 그대로 옮기는 수준
+- supramalleolar-orthosis: triage:보조기 하나 — AFO와의 차이는 '발목 움직임 허용 여부' 단일 축이라 문장으로 충분
+- perioperative-nursing: triage:수술 전·중·후 활동 목록 — 시기별 업무 나열이라 표 이상의 구조가 없음
+- maximal-strength-training: triage:훈련 처방(85% 1RM 이상·1~5회) 중심 — 신경 적응 기전은 운동단위 등 다른 용어와 겹쳐 이 용어만의 그림이 약함
+- altered-chord: triage:상위 범주 용어인데 하위에 이차딸림화음을 넣을지 문헌마다 엇갈려 분류도를 단정할 수 없음
+- introduction: triage:곡의 도입부라는 형식 부분 하나 — 구성 요소 간 관계가 없음
+- pungmul: triage:전통 연행 명칭 — 농악과의 명칭 차이 논의가 중심이라 그림으로 보탤 것이 없음
+- patient-and-public-involvement: triage:참여 수준(자문·협업·사용자 주도)은 이름만 열거되고 각 수준의 차이를 그릴 본문 근거가 부족함
+- minimalism-music: triage:음악 양식명 — 위상 변이 원리는 두 패턴의 어긋남을 보여야 하는데 9개 type으로는 표현 불가
+- paired-comparison-test: triage:핵심은 50% 우연 확률 기준의 이항분포와 기각역인데 plot에 이항분포 함수가 없음
+- tuskegee-syphilis-study: triage:역사적 단일 사건 — 연표를 그리려면 벨몬트 보고서 연도 등 본문에 없는 날짜에 기대야 함
+- peripheral-parenteral-nutrition: triage:총정맥영양과의 차이가 '저농도·단기·정맥염 위험' 한 줄 비교라 글로 충분
+- protein-requirement-for-athletes: triage:체중당 섭취 기준(1.2~2.0 g/kg)이라는 수치 범위 — 수확체감은 한 문장 언급뿐이라 곡선의 근거가 약함
+- zinc-metabolism: triage:흡수·이용·배설 서술이 일반적이고 피틴산 저해는 단일 인과라 경로도가 정의를 되풀이함
+- planning-permission-system: triage:행정 허가 제도 — 허가 대상 행위와 심사 항목의 나열이고 절차 순서는 본문에 구체적이지 않음
+- indicator-organism: triage:간접 지표라는 단일 논리 — 분변오염 지표와 공정위생 지표 구분은 두 항목뿐
+- obesogenic-environment: triage:식품·건조·사회문화 환경 요소의 포괄 개념 — 요소 간 관계 없이 나열됨
+- humane-handling-training: triage:교육 제도명 — 터널·컵핑 같은 기법 예시만 있고 서로 관계 맺는 구성 요소 3개가 없음
+- identity-theory: triage:유형·개별자 동일론 두 갈래와 다중실현 반론은 글로 충분하고 그림이 정의를 반복할 뿐
+- epistemic-contextualism: triage:은행 사례의 저·고 이해관계 대비가 본문 비유로 이미 선명하고, 경쟁 세 입장 비교는 논쟁 중이라 단정하기 어려움
+- sewerage-master-plan: triage:법정계획의 구성 항목(발생량 예측·현황 진단·우선순위·재원) 나열일 뿐 항목 간 관계가 없음
+- district-heating-system: triage:열원→배관→건물 열교환기의 단순 공급 흐름으로 수돗물 비유가 이미 충분히 설명함
+- pie-charting: triage:P·I·E 세 칸을 번호로 잇는 기록 양식 자체라 그림이 정의를 그대로 되풀이함
+- agricultural-forest-zone: triage:용도지역 하나의 법적 지위 — 진흥구역·보호구역 등 하위 구분은 개별법 규정 나열에 가까움
+- chemical-burn: triage:응고괴사 대 액화괴사 대비 한 줄과 처치 수칙 나열 — 그림으로 더할 구조가 적음
+- whistleblowing-research-misconduct: triage:내부·외부 신고 경로 두 갈래뿐이라 구성 요소가 부족함
+- protein-energy-malnutrition: triage:영양 상태 진단명 — 평가 지표와 급·만성 구분 나열뿐 관계 구조가 없음
+- dry-heat-cooking: triage:조리법 범주명 — 공기·기름·복사 매체 나열은 정의 반복 수준
+- ataxia: triage:증상명 — 소뇌성·감각성·전정성 원인 구분은 목록 수준이고 관계 구조가 본문에 없음
+- eigendecomposition: triage:행렬 분해식 A=PDP⁻¹ 자체가 핵심이라 9개 도식 유형으로는 정의 이상을 보여 주기 어려움
+- filtering-down-housing: triage:고소득→중산→저소득으로 내려가는 흐름을 '물이 흐르듯' 비유가 이미 충분히 전달해 그림이 덧붙일 것이 적음
+- emergency-medical-fund: triage:정부 기금명 — 지원 사업 항목 나열뿐
+- food-balance-wheel: triage:그 자체가 그림인 교육 도구라 별도 도식은 원래 그림을 다시 그리는 셈
+- angular-velocity: triage:단일 운동학 변수(단위 시간당 각도 변화) — 운동사슬 순서는 다른 용어의 내용
+- pusher-syndrome: triage:기울어진 주관적 수직 지각→밀기라는 한 단계 기전뿐이라 구성 요소 3개 미만
+- ramsey-theory: triage:6명 두 색 칠하기 예시는 그래프 그림이 필요하나 9개 유형으로 표현 불가하고, 나머지는 정리 이름 나열
+- mechanical-cpr-device: triage:장비명 — 피스톤형·밴드형 두 방식 소개와 시험 결과 서술뿐
+- sport-specific-training: triage:스포츠손상재활의 마지막 단계에 해당하는 하위 사례
+- line-integral: triage:적분 연산 정의 — 경로 독립성 비교는 벡터장·곡선 그림이 필요해 주어진 유형으로는 식 이상을 못 보여 줌
+- circular-economy-city: triage:선형 대 순환이라는 일반 대비는 본문 비유로 충분하고 도시 고유의 구조가 드러나지 않음
+- land-lease-housing: triage:토지·건물 소유 분리라는 단일 특징 — 구성 요소 2개뿐
+- brownfield-liability: triage:책임 귀속 대상(원인자·소유자·개발자) 나열이고 국가별 차이가 커서 일반 구조로 단정하기 어려움
+- discrimination-test: triage:관능평가 방법군 이름 — 삼점·이점 검사의 우연 확률(1/3·1/2)은 숫자 한 줄로 충분
+- paleo-diet: triage:포함·배제 식품 목록인 식이 패턴이고 효과는 논쟁 중
+- de-identification-of-data: triage:직접 식별자·준식별자 두 구분뿐이라 그림이 덧붙일 관계가 적음
+- recurrence-relation: triage:수열 정의 방식 — 피보나치·분할정복 예시는 식으로 이해되며 도식 유형에 맞지 않음
+- triage-zone: triage:색상별 물리 구역 배치 — 배치도는 현장마다 달라 유형으로 일반화할 구조가 없음
+- repugnant-conclusion: triage:적고 풍요로운 세계 대 많고 겨우 살 만한 세계의 대비는 정의 자체를 되풀이하고, 회피 전략 평가는 논쟁 중
+- international-emergency-medical-team: triage:WHO 등록 팀 제도명 — 유형 1·2·3 분류 나열 수준
+- child-online-research-consent: triage:온라인 동의 확보 수단 나열 — 아동 연구동의(어세인트)의 하위 적용 사례
+- unit-conversion: triage:초등 산술 절차 — 1m=100cm 같은 비율 표기로 충분
+- lymphedema-management: triage:집중치료기→유지관리기 두 단계뿐이라 구성 요소 부족
+- exploitation-global-health-research: triage:윤리적 우려의 개념 — 반응성·공정한 이익 분배 두 원칙 서술로 충분
+- problem-of-universals: triage:실재론·유명론·개념론 세 답의 나열이며 열린 논쟁이라 하나의 구조로 그리기 어려움
+- commercialization-of-sport: triage:사회 경향 개념이고 긍정·부정 평가가 공존하는 논쟁적 주제
+- research-ethics-committee: triage:IRB·REC를 아우르는 기구 명칭 — 심사 종류 구분은 목록 수준
+- attending-veterinarian: triage:기관 내 직책명 — 감독 업무 나열뿐
+- certificate-of-confidentiality: triage:단일 법적 보호 장치 — 소환 요구를 거부할 근거라는 한 가지 효과와 예외 몇 개뿐이라 관계 구조가 없음
+- caregiver-role: triage:간호사 역할 하나의 서술 — 직접 돌봄이라는 정의 외에 서로 관계 맺는 구성 요소가 없음
+- biophilic-design: triage:식물·자연광·자연재료 같은 요소 나열이 전부이고 요소 사이 관계나 기전이 본문에 없음
+- freight-transport-planning: triage:물류거점·시간대 규제·공동배송 등 정책 수단 목록 — 수단 간 순서나 인과가 본문에 없어 그림이 목록 반복에 그침
+- explanatory-gap: triage:신경 과정과 주관적 경험 사이 '틈' 하나가 핵심 — 구성 요소 2개뿐이고 존재론적 함축은 논쟁 중
+- apoe-genotype-lipid-metabolism: triage:ε2·ε3·ε4별 LDL 경향은 본문이 효과 크기가 연구마다 다르다고 단서를 달고 ε2 예외도 있어, 그림으로 단정하면 왜곡 위험
+- subjective-data: triage:객관적자료와의 대비가 핵심이나 본문은 객관적자료를 거의 설명하지 않아 대비 축을 본문 근거로 세울 수 없음
+- metal-detector-food-inspection: triage:검사 장비 하나 — 통과·검출·배제로 흐름이 단순하고 핵심 내용은 감도 간섭 요인 나열이라 그림이 보탤 것이 적음
+- collaborator-role: triage:다학제 협업 역할의 태도·조건 서술 — 단계나 구조가 아니라 원칙 설명이라 그릴 관계가 없음
+- sequential-space: triage:압축·개방이 반복되는 공간 체험이 핵심인데 이는 평면·단면 같은 건축 도면이 필요하고 9개 type으로는 진입로-로비 나열에 그침
+- crisis-alert-level: triage:관심-주의-경계-심각 4단계가 정의에 이미 나와 있고 단계별 조치는 본문에 거의 없어 정의 반복
+- allen-cognitive-level-screen: triage:세 가지 바느질 과제와 6단계 판정이 언급되지만 단계별 내용이 본문에 없어 그림이 이름 나열에 그침
+- organ-on-a-chip: triage:대체 시험 플랫폼 소개 — 단일·다중장기칩 구분 외에 기전이나 단계 구조가 본문에 없음
+- therapeutic-use-of-self: triage:치료사의 태도를 의도적으로 쓰는 임상 기술 — 추상적 역량 서술이라 구성 요소 간 관계가 없음
+- disaster-medical-information-system: triage:환자추적·병상현황 기능을 묶은 전산 시스템 — 기능 나열과 운영상 한계뿐이라 구조적 관계가 약함
+- emergency-medical-support-team: triage:파견 인력 조직의 이름과 운영 원칙 — 재난의료지원팀과의 구분도 본문에 근거가 얕음
+- level-of-evidence: triage:체계적 문헌고찰부터 전문가 의견까지 6단계 순위(피라미드)가 핵심인데 순위형 type이 없어 hierarchy로 그리면 하위 유형 분류로 오해됨
+- sorites-paradox: triage:한 알씩 빼는 반복 전제는 정의·쉽게 풀면에 이미 충분하고, 해법(인식주의·초평가주의·퍼지)은 서로 경쟁 중이라 갈래를 확정해 그리기 어려움
+- ems-system: triage:신고접수-지령-현장대응-처치-이송-인계 순서가 정의에 그대로 나열돼 있어 그림이 정의 반복
+- static-stretching: triage:핵심이 '운동 직전 장시간은 피하라'는 시점 조언 하나 — 동적 스트레칭 쪽 근거가 본문에 거의 없어 대비 축을 못 세움
+- interdependence-mode: triage:로이 4개 적응양상 중 하나 — 본문엔 생리적양상만 언급돼 나머지 양상은 본문 밖 지식이고, 이 양상 자체는 단일 영역
+- nutrition-labeling: triage:포장 표기 제도 — 표시 방식 종류와 소비자 활용 한계 서술뿐이라 관계 구조가 없음
+- growth-management: triage:성장경계·단계적 개발·기반시설연동 등 정책 수단 목록 — 수단 사이 관계가 없어 그림이 나열에 그침
+- gastric-emptying-rate: triage:지방·섬유가 배출을 늦춘다는 요인-효과 쌍 몇 개 — 경로가 짧고 개인차가 커 그림이 글 이상을 보태지 못함
+- eudaimonia: triage:현대적 '행복'과의 대비가 핵심이나 번역 오해를 바로잡는 문장 수준이고, 세 가지 삶 비교는 해석이 갈려 단정하기 어려움
+- cadastral-resurvey-project: triage:측량-협의-공부 재작성-조정금이라는 행정 절차가 본문 한 문장에 나열돼 있고 분기나 순환이 없어 그림이 보탤 것이 적음
+- animal-care-use-program: triage:관리수의사·IACUC·시설·교육 네 요소 나열 — 요소 간 상호작용이 본문에 없어 목록 반복
+- instrumental-reason: triage:목적 성찰 없는 수단 계산이라는 한 가지 성격 — 비판적 이성과의 대비는 정의를 되풀이하는 2항 구도
+- jazz-improvisation: triage:연주 관행 서술 — 학습된 어휘 재조합과 앙상블 상호작용이라는 해석은 그릴 구조가 아니라 관점의 문제
+- urban-competitiveness-index: triage:지표 표준화 후 가중합산하는 일반적 합성지수 산출 — 이 지수만의 구조가 없어 그림이 범용 도식에 그침
+- clinical-trial-diversity: triage:참여자 편중이 일반화를 해친다는 한 줄 논리 — 구성 요소가 2~3개로 단순하고 글로 충분함
+- participation-restriction: triage:ICF 손상·활동·참여 관계는 양방향 모형이라 본문 근거만으로 연결 방향을 그리면 단정이 되고, 본문 요지(환경이 참여를 좌우)는 문장으로 충분
+- reproducibility-project-psychology: triage:97%→36% 수치 두 개와 효과크기 축소가 요지 — 관계 구조 없는 수치 비교라 도식이 보탤 것이 적음
+- health-promotion-diagnosis: triage:실제적간호진단과의 차이(결핍 전제 대 향상 동기)가 요지인데 정의·주의할 점에서 이미 한 문장으로 대비되어 그림이 반복
+- unesco-bioethics-declaration: triage:국제 선언 문서 — 원칙 조항 나열과 법적 성격 설명뿐이라 관계 구조가 없음
+- major-scale: triage:온-온-반-온-온-온-반 간격 배열이 정의 자체이고, 건반·음정 간격 그림은 9개 type에 맞는 것이 없음
+- canon: triage:성부가 시간차를 두고 겹쳐 들어가는 모습은 악보형 도식이 필요해 9개 type으로는 표현이 어렵고, 변형 카논 종류는 이름 나열
+- skin-integrity-assessment: triage:뼈 돌출부 시진·촉진 후 예방 중재로 연계한다는 일반 간호 사정 흐름 — 단계 구분이 본문에서 느슨해 그림이 체크리스트에 그침
+- recovery-position: triage:체위 하나의 자세 설명 — 측와위·팔·무릎 배치는 그림보다 사진 영역이고 관계 구조가 없음
+- standard-operating-procedure-for-disaster-response: triage:절차서라는 문서 유형의 정의 — 매뉴얼 대비 세부 단위라는 2층 관계뿐, 구체 단계는 본문에 없음
+- retinol-binding-protein: triage:단일 운반단백질명 — 간 합성→레티놀 결합→트랜스티레틴 복합체의 운반 경로가 직선적이라 글로 충분
+- food-packaging-waste-regulation: triage:규제 체계 일반 설명 — 단일재질화·등급표시 등 대응책 나열이며 구성 요소 간 관계가 약함
+- angle-of-release: triage:핵심은 투사높이가 있을 때 비거리-각도 곡선의 정점이 45도보다 왼쪽으로 치우치는 비대칭 곡선인데 inverted_u(대칭)로는 그릴 수 없음
+- sweat-rate-estimation: triage:단일 계산식((체중 감소+섭취량−소변량)/시간) — 수식 한 줄이 그림보다 명확
+- diaphragmatic-breathing: triage:호흡 기법 하나 — 흉식 대 복식의 대비가 단순하고 COPD 효과는 연구마다 상반되어 그림으로 단정하기 어려움
+- hwang-woo-suk-scandal: triage:특정 사건·인물 — 날짜가 있는 단계가 본문에 거의 없어 타임라인 근거 부족
+- nursing-work-environment: triage:레이크 척도 다섯 하위영역의 나열 — 분류 그림이 목록 이상을 보여 주지 못하고 매개 경로는 한 문장 예문뿐
+- speaker-bureau: triage:관행 하나의 정의 — 자율 강연과의 차이는 강연 내용 통제권 한 축뿐
+- do-not-resuscitate: triage:핵심은 'CPR만 하지 않는다'는 범위 한정 한 가지 — 글로 충분히 전달됨
+- compression-therapy: triage:중재 기법 소개 — 정적 압박 대 간헐적 공기압박 2유형과 금기 나열로 관계 구조 부족
+- invention: triage:곡 형식 이름 — 본문 스스로 형식 도식화가 곡마다 맞지 않는다고 경고함
+- respect-for-persons: triage:정의 반복 — 자율성 존중·추가 보호 두 요소가 정의에 이미 담겨 있음
+- ethnic-enclave: triage:도시 공간 유형 하나 — 정착 지원과 고립이라는 이중 평가 두 갈래뿐
+- food-additive: triage:물질 범주명 — 기능별 분류는 목록이고 ADI 산정은 무독성량÷100 한 단계
+- euler-lagrange-equation: triage:방정식 하나 — 범함수→조건식이라는 흐름은 2단계이며 필요조건 주의점은 글로 충분
+- robot-assisted-rehabilitation: triage:치료법 소개 — 말단조작형·외골격형 2유형 구분뿐이고 효과 우월성은 근거가 엇갈림
+- waste-management-master-plan: triage:법정 계획 문서 — 발생량 예측·수거·처리 등 목차 나열이며 고유한 관계 구조 없음
+- hospital-emergency-operations-plan-activation: triage:발동 선언 하나의 절차 — 기준 충족→선언→비상운영센터 가동은 일반적인 흐름이라 그림이 새로 주는 것이 적음
+- handwriting-intervention: triage:중재 영역 하나 — 기저요인 접근 대 과제특이 접근의 대비가 본문에 짧게만 있음
+- public-private-joint-development: triage:사업 시행방식 하나 — 공공·민간 두 주체의 역할 분담과 이익배분 쟁점으로 구성 요소가 적음
+- household-food-security-survey-module: triage:설문 도구 — 응답 합산 후 4단계 분류라는 단순 점수 구간이라 그림 이득이 적음
+- role-theory-nursing: triage:이론 하위 개념(역할기대·수행·갈등·부담) 나열 — 개념 간 관계가 본문에 설명되지 않음
+- sensory-threshold-test: triage:검사 기법 — 감지·인지·차이역치 구분은 정의 수준이고 상승법 절차도 한 문장
+- klangfarbenmelodie: triage:작곡 기법 — 악보 예시가 필요한 내용이며 적용 사례 해석도 연구자마다 갈림
+- ghrelin: triage:단일 호르몬명 — 위 분비→시상하부 자극의 짧은 경로이며 본문도 단일 호르몬으로 설명하지 말라고 경고
+- natural-logarithm: triage:ln x 곡선 모양이 plot 함수에 없고, 본문 중심은 로그 변환의 용례라 곡선 그림 이득도 제한적
+- satiety-index: triage:단일 지표 — 흰 빵 100 기준 상대값이라는 한 가지 설명이며 영향 요인은 나열
+- principlism: triage:정의 반복 — 네 원칙 나열이 정의에 이미 있고 저울질 절차는 그림으로 구체화할 근거가 없음
+- inequality: triage:기초 수학 기호 개념 — 부등호 방향 전환 규칙은 식 하나로 충분
+- self-citation-inflation: triage:관행 하나 — 자기인용→지표 상승이라는 2단계 관계, 인용 카르텔과의 구분은 한 줄
+- high-intensity-interval-training: triage:훈련법 하나 — 지속훈련과의 효과 차이는 연구마다 작거나 없어 비교 그림이 단정이 될 위험
+- monophony: triage:짜임새 유형 하나 — 성부 수라는 단일 기준이며 폴리포니·호모포니 비교는 각 용어 쪽 그림의 몫
+- cultural-competence-in-nursing: triage:역량 개념 — 지식·태도·기술 3영역 나열이며 영역 간 관계 설명 없음
+- irb-shopping: triage:부정 관행 하나 — 반려→타 위원회 재제출이라는 짧은 행태와 대응책 목록
+- parti-architecture: triage:파르티 자체가 도해라 개념을 도식으로 설명하면 예시 스케치가 되어 버림 — 구성 요소 관계 없음
+- banach-fixed-point-theorem: triage:정리 하나 — 조건 두 개(완비성·축약비율 k<1)와 결론의 진술이라 그림이 정리를 되풀이할 뿐
+- essential-amino-acid: triage:영양소 범주명 — 아미노산 목록과 조건부필수 구분은 분류 나열이며 제한아미노산은 한 줄 설명
+- end-feel: triage:최종느낌 유형(골성·연부조직·관절낭성·빈 느낌)이 흩어져 언급될 뿐 정상/비정상 배정이 본문에 정리돼 있지 않고, 유형-병리 대응이 임상 관례라 검사자 간 일치도 낮음을 지적 — 분류도로 그리면 단정이 됨
+- antimicrobial-packaging: triage:방출형·비이행형·휘발성, 혼합형·코팅형 구분이 각각 한두 문장씩만 있어 한 그림의 축으로 묶기 어렵고, 본문 중심은 인비트로 과대평가·이행 규제 같은 해석상 주의점
+- mertonian-norms: triage:CUDOS 네 규범은 쉽게 풀면 절에 이미 나열된 목록이라 그림이 되풀이에 그치고, 대비할 반대규범·PLACE는 이름만 나와 칸을 채울 근거가 없음
+- aerobic-capacity: triage:최대산소섭취량·젖산역치·운동경제성이 성적을 함께 결정한다는 서술이 요인 나열 수준이라, 결정 구조를 그리려면 본문 밖 모형(Joyner 식)에 기대야 함
+- fundamental-theorem-of-calculus: triage:미분과 적분이 서로 역연산이라는 두 연산 간 관계가 핵심이라 구성 요소가 사실상 둘이고, 넓이 누적을 보여 줄 plot 함수도 없음
+- urban-biodiversity-plan: triage:핵심서식지·생태통로·옥상녹화·자생종 식재 등 수단 나열이 중심이며, 서식지 연결 구조는 공간 지도형이라 9개 유형에 맞지 않음
+- muscle-imbalance: triage:H/Q 비율과 어깨 내·외회전근 비율 두 지표뿐이고, 불균형이 부상으로 이어진다는 인과는 본문 스스로 단정할 수 없다고 밝힘
+- probability: triage:0~1 사이 가능성이라는 기초 정의라 그림이 정의 반복이 되고, 빈도주의·베이지안 해석은 한 문장 언급뿐
+- resting-metabolic-rate: triage:측정값 하나의 정의와 측정 조건 주의점이 대부분이며, 기초대사율과의 차이도 '조건이 느슨하다' 한 줄이라 대비 축이 부족
+- physical-restraint: triage:기구명 — 손목·조끼형 등 형태 나열과 섬망·낙상 관련성은 연관 보고 수준이라 인과 경로로 그리면 과장
+- minnesang: triage:중세 독일어권 노래 장르명 — 트루바두르→민네장→마이스터징거 계승은 세 점의 단순 연대라 그림이 더할 것이 없음
+- reviewer-idea-theft: triage:단일 부정행위 유형 — 방지 장치(기밀 서약·원고 폐기·이해상충 회피)가 서로 관계 없이 나열됨
+- laryngoscope: triage:기도관리 기구명 — 직접·비디오 후두경 비교 연구 언급은 있으나 비교 기준이 본문에서 정리되지 않음
+- base-of-support: triage:질량중심 투영이 지지면 안에 있어야 한다는 공간 관계가 핵심이라 단면 도해가 필요하고, 9개 유형으로는 그 기하를 담지 못함
+- vulnerable-population: triage:아동·수감자·임산부 등 대상 집단 나열과 '거절하기 어려운 처지'라는 정의 설명이 중심이라 그림이 목록 반복이 됨
+- convex-hull: triage:점 집합을 감싸는 다각형이라는 기하 도형 자체가 핵심이라 고무줄 비유 이상의 구조 관계가 없고 9개 유형과 맞지 않음
+- metabolic-equivalent-of-task-nutrition: triage:안정 시 대사량의 배수라는 단일 단위 — 저·중·고강도 3구간은 숫자 경계 두 개뿐
+- tangent-line-equation: triage:한 점·기울기·직선 공식이라는 계산 절차가 정의에 다 들어 있고, 곡선 위 접선은 plot 함수 조합으로 그릴 수 없음
+- elastic-energy: triage:신장-단축주기의 하위 기전 하나 — 저장·방출 두 단계라 고무줄 비유로 충분하고, 기여도는 사전 활성화·신장반사와 나뉘어 논쟁적
+- sodium-potassium-balance: triage:칼륨이 신장 나트륨 재흡수를 억제한다는 기전이 한 문장뿐이고 나머지는 섭취 권고와 신질환 주의라 경로도의 근거가 얇음
+- new-urbanism: triage:보행·복합용도·격자 가로 등 설계 원칙 나열이며, 형태가 행태를 바꾼다는 핵심 가정 자체가 물리적 결정론 비판을 받는 논쟁 중 주장
+- self-esteem-needs: triage:매슬로 위계의 한 단계(하위 사례) — 내적·외적 두 하위 요소뿐
+- green-network-plan: triage:거점·녹지축·완충녹지(패치-코리더-매트릭스)의 공간 배치는 지도형 도해가 필요해 9개 유형으로는 정의 반복에 그침
+- hausdorff-space: triage:두 점을 서로소 열린집합으로 떼는 위상 그림이 핵심이고, T2·T3·T4 분리공리 위계는 이름만 나와 포함 관계를 그릴 근거가 부족
+- aspa-uk-licensing: triage:기관·프로젝트·개인 세 면허가 정의와 쉽게 풀면에 이미 나란히 설명돼 있어 그림이 같은 목록을 되풀이함
+- hypoglycemia: triage:응급 상태명 — 증상·원인·재발 주의가 나열되며 단일 처치(포도당 투여)로 귀결
+- first-theme: triage:소나타 제시부의 한 구성 요소 — 문장형·악절형 구분은 이름만 있고 예외 사례 서술이 대부분
+- gel-network: triage:가교 밀도와 강도·보수력 관계가 정성적 서술뿐이고 지나치면 이수가 생긴다는 비선형도 수치 근거가 없어 곡선으로 그릴 수 없음
+- cioms-guidelines: triage:국제 지침 문서명 — 헬싱키 선언과의 차이는 '원칙 대 해설' 한 축뿐이라 대비 그림이 빈약
+- iv-access: triage:단일 처치 — 말초정맥 2~3회 실패 시 골내 전환이라는 한 갈래 판단뿐이라 절차도가 정의를 넘지 못함
+- advocacy-planning: triage:중립적 전문가 대 약자 대변인이라는 대비가 정의 문장에 이미 들어 있어 그림이 정의를 되풀이함
+- positive-definite-matrix: triage:핵심인 '아래로 볼록한 그릇 대 안장' 모양은 3차원 곡면이라 plot으로 못 그리고, 정부호·준정부호 차이는 0 포함 여부 한 기준뿐
+- air-displacement-plethysmography: triage:측정법 하나 — 압력 변화→부피→밀도→체지방률은 정의와 쉽게 풀면의 설명을 그대로 옮긴 직선 연쇄
+- arousal-regulation: triage:본문은 최적 각성이 개인·종목마다 다르다는 IZOF 관점이라 역U 곡선(inverted_u)을 그리면 본문 밖 가설을 단정하게 되고, 기법 나열만 남음
+- arithmetic-geometric-sequence: triage:더하기 규칙(직선)과 곱하기 규칙(지수 증가·감소)의 모양 차이가 핵심인데 지수 증가 곡선 함수가 없음; 표 대비는 정의 반복
+- metabolic-equivalent: triage:1 MET = 3.5 mL/kg/min 기준의 배수 단위 하나 — 활동별 값 예시 외 관계 구조 없음
+- holistic-human-being: triage:신체·정신·사회·영적 네 차원이 통합된다는 관점 하나라 그림이 정의 반복에 그침
+- pulseless-electrical-activity: triage:리듬 상태명 — H's and T's 원인 목록이 본문에 없고 처치 원칙(압박 지속·원인 교정·제세동 비적응) 한 줄로 요약됨
+- pitch-class-set-theory: triage:정규형·기본형·집합류로 환원하는 절차가 이름만 나오고 계산 단계가 본문에 없어 절차도를 채울 근거가 없음
+- park-and-ride: triage:시설명 — 자가용 구간과 대중교통 구간 두 단계의 이동 경로뿐이고 성공 요인은 나열
+- maximal-voluntary-ventilation: triage:검사값 하나 — 환기 예비력은 최대수의환기량과 운동 중 최대 환기량 두 값의 차라 구성 요소가 둘뿐
+- harmonic-series-music: triage:정수배 진동수와 2:1·3:2·4:3·5:4로 좁아지는 음정이 핵심인데 이산 배음 나열은 9개 유형에 맞지 않고, 비율 목록은 본문 숫자 반복에 그침
+- down-syndrome-physical-therapy: triage:대상군 특화 치료 영역명 — 저긴장·관절 이완에 맞춘 훈련 원칙과 경추 주의가 나열될 뿐 단계·경로가 없음
+- limits-of-stability: triage:무게중심 이동 가능 범위라는 공간 개념 하나 — 방향·자세에 따른 변화는 지지기저면 도해가 필요해 9개 유형으로 그릴 수 없음
+- moral-intuitionism: triage:단일 인식론적 입장 — 개별 판단 직관 대 원칙 직관 구분과 반성적 평형은 한 문장씩이라 대비 칸을 채울 근거가 부족
+- cystic-fibrosis-rehabilitation: triage:재활 프로그램명 — 기도청결기법과 운동훈련 두 요소에 기법 이름(자율배액법·타진법·진동조끼) 나열뿐
+- air-splint: triage:부목 장비명 — 고도·온도에 따른 압력 변화 주의점 나열이 대부분
+- trace-element-homeostasis: triage:흡수 감소·배출 증가라는 일반적 항상성 되먹임이라 그림이 정의를 되풀이하고, 아연·구리별 경로는 한 문장씩뿐
+- scoliosis: triage:질환명 — 관찰·보조기·수술을 가르는 콥 각도 기준값이 본문에 없어 단계도를 그리면 본문 밖 수치에 기대게 됨
+- early-ambulation: triage:걸터앉기→서기→짧게 걷기의 일반적 점진 원칙이라 그림이 쉬운 설명 이상을 주지 못하고, 핵심 주장(부동 합병증 예방)은 정의에 이미 있음
+- taping: triage:리지드·탄력 테이핑 대비가 가능하나 효과 행이 본문에서도 엇갈리는 근거(기계적 지지의 빠른 감소, 키네시오의 위약 대비 작은 차이)라 칸을 채우면 단정이 됨
+- infrared-heating-food: triage:가열 방식 하나 — 근적외선·원적외선 차이는 침투 깊이 한 기준뿐이라 대비 그림이 빈약
+- food-color-measurement: triage:L*·a*·b* 3축 색공간과 ΔE 거리라는 기하 개념이라 9개 유형에 맞지 않고, 세 값 설명은 쉽게 풀면의 반복
+- core-temperature-monitoring: triage:측정법 — 직장·캡슐 대 고막·피부·겨드랑이 정확도 차이는 '정확/부정확' 한 축이고 40도 기준은 단독 판단을 경계함
+- carbon-neutral-city: triage:정책 방향 — 에너지·교통·건축·토지이용 부문 나열과 감축+상쇄=0이라는 정의 반복
+- tiered-data-access: triage:공개·등록·통제 세 등급과 조건이 쉽게 풀면 절에 번호로 이미 정리돼 있어 그림이 같은 목록을 되풀이함
+- compact-network-city: triage:공간구조 모델명 — 압축 거점과 연계 교통이라는 두 요소의 결합이며, 다핵구조와의 차이는 한 문장
+- stressor: triage:내적·대인관계적·외적 세 범주가 정의에 그대로 들어 있어 분류도가 정의 반복이 됨
+
+## 검사 실패(작성 재시도 필요)
+

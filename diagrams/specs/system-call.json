@@ -1,0 +1,70 @@
+{
+  "slug": "system-call",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "번호·인자 적재",
+      "color": "blue",
+      "sub": "레지스터에 담음"
+    },
+    {
+      "id": "b",
+      "label": "트랩 발생",
+      "color": "violet",
+      "sub": "trap/syscall 명령"
+    },
+    {
+      "id": "c",
+      "label": "커널 모드 전환",
+      "color": "amber",
+      "sub": "레지스터 저장·커널 스택"
+    },
+    {
+      "id": "d",
+      "label": "검증·처리",
+      "color": "blue",
+      "sub": "인자 검증·서비스 루틴"
+    },
+    {
+      "id": "e",
+      "label": "결과 반환",
+      "color": "green",
+      "sub": "결과·오류 코드, 사용자 모드로"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "모드 전환과 캐시 오염 때문에 일반 함수 호출보다 비용이 훨씬 큼",
+      "tone": "limit"
+    },
+    {
+      "text": "시간 조회 등 일부 호출은 vDSO로 전환 없이 처리",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}
