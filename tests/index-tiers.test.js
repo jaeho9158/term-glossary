@@ -3,7 +3,7 @@ const assert = require("node:assert");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
-const { computeTiers, applyIndexTier } = require("../scripts/lib/index-tier.js");
+const { computeTiers, applyIndexTier, filterRelatedLinks } = require("../scripts/lib/index-tier.js");
 const { main: applyMain } = require("../scripts/apply-index-tiers.js");
 const { buildGoogleSitemaps } = require("../scripts/generate-google-sitemap.js");
 const meta = require("../scripts/lib/term-meta.js");
@@ -11,15 +11,31 @@ const meta = require("../scripts/lib/term-meta.js");
 const PAGE = '<!DOCTYPE html><html><head>\n<title>t</title>\n<link rel="canonical" href="https://termglossary.kr/terms/a.html">\n<link rel="stylesheet" href="x.css">\n</head><body><main>\n<aside class="stage-link">x</aside>\n</main></body></html>\n';
 const STUB = '<html><head><link rel="canonical" href="https://termglossary.kr/terms/a.html"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=b.html"></head></html>';
 
-test("computeTiers: GA/df/popular 기준", () => {
+test("computeTiers: GA/df/주력분야/기색인 기준", () => {
   const r = computeTiers({
-    slugs: ["ga", "dfn", "df2", "df1", "pop", "none"],
-    ga: { "/terms/ga.html": 1, "/terms/none.html": 0, "/index.html": 9 },
-    stats: { dfn: { dfNeutral: 1, df: 1 }, df2: { df: 2 }, df1: { df: 1, dfNeutral: 0 } },
-    popular: { stat: ["pop"] },
+    slugs: ["ga2", "ga1df", "ga1", "focus", "focus2", "other3", "gsc", "none"],
+    ga: { "/terms/ga2.html": 2, "/terms/ga1df.html": 1, "/terms/ga1.html": 1, "/index.html": 9 },
+    stats: { ga1df: { dfNeutral: 1 }, focus: { dfNeutral: 3 }, focus2: { dfNeutral: 2 }, other3: { dfNeutral: 5 } },
+    primaryCat: { focus: "psych", focus2: "psych", other3: "phys" },
+    gsc: ["gsc"],
   });
-  assert.deepStrictEqual(r.keep.sort(), ["df2", "dfn", "ga", "pop"]);
-  assert.deepStrictEqual(r.archive.sort(), ["df1", "none"]);
+  assert.deepStrictEqual(r.core.sort(), ["focus", "ga1df", "ga2", "gsc"]);
+  assert.deepStrictEqual(r.archive.sort(), ["focus2", "ga1", "none", "other3"]);
+  const noGsc = computeTiers({ slugs: ["gsc"], ga: {}, stats: {}, primaryCat: {} });
+  assert.deepStrictEqual(noGsc.archive, ["gsc"]);
+});
+
+test("filterRelatedLinks: core 페이지에서 archive 링크 제거, 멱등, 빈 블록 제거", () => {
+  const NL = String.fromCharCode(10);
+  const mk = (links) => ["<main>", "  <h2>관련 용어</h2>", "  <div class=" + "\"" + "related-terms" + "\"" + ">", ...links.map((l) => `    <a href="${l}.html">${l}</a>`), "  </div>", "<aside>x</aside>", "</main>"].join(NL);
+  const arch = new Set(["x", "y"]);
+  const r = filterRelatedLinks(mk(["a", "x", "b"]), arch);
+  assert.strictEqual(r.removed, 1);
+  assert.strictEqual(r.html, mk(["a", "b"]));
+  assert.strictEqual(filterRelatedLinks(r.html, arch).removed, 0);
+  const e = filterRelatedLinks(mk(["x", "y"]), arch);
+  assert.ok(e.blockRemoved && !e.html.includes("관련 용어") && !e.html.includes("related-terms") && e.html.includes("<aside>"));
+  assert.strictEqual(filterRelatedLinks(e.html, arch).removed, 0);
 });
 
 test("applyIndexTier: googlebot만, 멱등, 왕복", () => {
@@ -28,8 +44,8 @@ test("applyIndexTier: googlebot만, 멱등, 왕복", () => {
   assert.ok(!/name="robots"/.test(a));
   assert.ok(a.indexOf("canonical") < a.indexOf("googlebot") && a.indexOf("googlebot") < a.indexOf("stylesheet"));
   assert.strictEqual(applyIndexTier(a, "archive"), a);
-  assert.strictEqual(applyIndexTier(a, "keep"), PAGE);
-  assert.strictEqual(applyIndexTier(PAGE, "keep"), PAGE);
+  assert.strictEqual(applyIndexTier(a, "core"), PAGE);
+  assert.strictEqual(applyIndexTier(PAGE, "core"), PAGE);
 });
 
 test("스텁은 건드리지 않는다", () => {
@@ -49,7 +65,7 @@ test("apply 스크립트: 왕복·스텁 불변", () => {
     assert.strictEqual(fs.readFileSync(path.join(dir, "s.html"), "utf8"), STUB);
     assert.strictEqual(fs.readFileSync(path.join(dir, "b.html"), "utf8"), PAGE);
     c = applyMain([], { termsDir: dir, tiers: { archive: [] } });
-    assert.strictEqual(c.toKeep, 1);
+    assert.strictEqual(c.toCore, 1);
     assert.strictEqual(fs.readFileSync(path.join(dir, "a.html"), "utf8"), PAGE);
   } finally { console.log = log; }
 });

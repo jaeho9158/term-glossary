@@ -11,22 +11,29 @@ function main() {
   const neutral = path.join(ROOT, "data/prune/oa-stats-neutral.json");
   const stats = fs.existsSync(neutral) ? rd("data/prune/oa-stats-neutral.json").terms : rd("data/oa-stats.json").terms;
   const terms = rd("terms.json");
-  const { keep, archive } = computeTiers({
-    slugs: terms.map((t) => t.slug), ga: rd("data/prune/ga4.json"), stats, popular: rd("data/popular-terms.json"),
+  const primaryCat = {};
+  for (const t of terms) primaryCat[t.slug] = (t.categories && t.categories[0]) || "etc";
+  let gsc = null;
+  const gscPath = path.join(ROOT, "data/gsc-indexed.json");
+  if (fs.existsSync(gscPath)) gsc = rd("data/gsc-indexed.json");
+  else console.warn("경고: data/gsc-indexed.json 없음 - 'Google 기색인' 기준 생략");
+  const { core: keep, archive } = computeTiers({
+    slugs: terms.map((t) => t.slug), ga: rd("data/prune/ga4.json"), stats, primaryCat, gsc,
   });
   const keepSet = new Set(keep);
   const perCat = {};
   for (const t of terms) {
     const c = (t.categories && t.categories[0]) || "etc";
-    perCat[c] = perCat[c] || { keep: 0, archive: 0 };
-    perCat[c][keepSet.has(t.slug) ? "keep" : "archive"]++;
+    perCat[c] = perCat[c] || { core: 0, archive: 0 };
+    perCat[c][keepSet.has(t.slug) ? "core" : "archive"]++;
   }
-  const out = { generatedAt: new Date().toISOString(), counts: { keep: keep.length, archive: archive.length, perCategory: perCat }, archive: archive.sort() };
+  const out = { generatedAt: new Date().toISOString(), counts: { core: keep.length, archive: archive.length, perCategory: perCat }, archive: archive.sort() };
   fs.writeFileSync(path.join(ROOT, "data/index-tiers.json"), JSON.stringify(out) + "\n");
-  const rows = Object.entries(perCat).sort((a, b) => b[1].keep - a[1].keep);
-  console.log("keep", keep.length, "archive", archive.length);
-  console.log("top", rows.slice(0, 10).map(([c, v]) => `${c}:${v.keep}`).join(" "));
-  console.log("bottom", rows.slice(-10).map(([c, v]) => `${c}:${v.keep}`).join(" "));
+  const rows = Object.entries(perCat).sort((a, b) => b[1].core - a[1].core);
+  console.log("core", keep.length, "archive", archive.length);
+  console.log("top", rows.slice(0, 10).map(([c, v]) => `${c}:${v.core}`).join(" "));
+  console.log("zero-core categories", rows.filter(([, v]) => v.core === 0).length, "of", rows.length);
+  console.log("bottom", rows.slice(-10).map(([c, v]) => `${c}:${v.core}`).join(" "));
 }
 module.exports = { main };
 if (require.main === module) main();

@@ -15,6 +15,7 @@ function readTerms() {
   return terms;
 }
 
+const { filterRelatedLinks, isStub } = require("./lib/index-tier.js");
 const { escapeHtml } = require("../assets/escape.js");
 const { buildFieldIndex, fieldFill, fieldFillLines } = require("./lib/term-seo.js");
 
@@ -50,6 +51,10 @@ function main() {
   const termBySlug = new Map(terms.map((term) => [term.slug, term]));
   const fieldIndex = buildFieldIndex(terms);
 
+  // core 페이지는 archive 링크를 다시 넣지 않는다(data/index-tiers.json 기준; 파일이 없으면 필터 없음).
+  const tiersPath = path.join(ROOT_DIR, "data", "index-tiers.json");
+  const archiveSet = fs.existsSync(tiersPath) ? new Set(JSON.parse(fs.readFileSync(tiersPath, "utf8")).archive) : null;
+
   const missingFiles = [];
   const missingBlocks = [];
   const unchanged = [];
@@ -73,12 +78,15 @@ function main() {
       /  <div\s+class=["']related-terms["'][^>]*>[\s\S]*?  <\/div>/;
 
     if (!relatedBlockPattern.test(html)) {
+      // core 페이지에서 링크가 모두 제거되어 블록 자체가 없는 경우는 정상
+      if (archiveSet && !archiveSet.has(term.slug) && !isStub(html)) { unchanged.push(term.slug); continue; }
       missingBlocks.push(term.slug);
       continue;
     }
 
     const generatedBlock = createRelatedBlock(term, termBySlug, fieldIndex);
-    const nextHtml = html.replace(relatedBlockPattern, generatedBlock);
+    let nextHtml = html.replace(relatedBlockPattern, generatedBlock);
+    if (archiveSet && !archiveSet.has(term.slug)) nextHtml = filterRelatedLinks(nextHtml, archiveSet).html;
 
     if (nextHtml === html) {
       unchanged.push(term.slug);

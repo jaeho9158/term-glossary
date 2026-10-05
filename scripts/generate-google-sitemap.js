@@ -1,4 +1,4 @@
-// Google 전용 사이트맵: keep 등급 용어 + 용어 외 페이지만 담는다. 기존 sitemap.xml/sitemaps/ 는 건드리지 않는다(네이버용).
+// Google 전용 사이트맵: core 등급 용어 + 용어 외 페이지만 담는다. 기존 sitemap.xml/sitemaps/ 는 건드리지 않는다(네이버용).
 //   node scripts/generate-google-sitemap.js   -> sitemap-google.xml + sitemaps-google/
 const fs = require("fs");
 const path = require("path");
@@ -32,7 +32,7 @@ function buildGoogleSitemaps(allEntries, archiveSet) {
   const files = [{ name: "pages.xml", xml: urlset(pages), count: pages.length, lastmod: maxLm(pages) }];
   for (let i = 0, n = 1; i < terms.length; i += CHUNK, n++) {
     const part = terms.slice(i, i + CHUNK);
-    files.push({ name: `terms-keep-${n}.xml`, xml: urlset(part), count: part.length, lastmod: maxLm(part) });
+    files.push({ name: `terms-core-${n}.xml`, xml: urlset(part), count: part.length, lastmod: maxLm(part) });
   }
   return { files, indexXml: index(files), pageCount: pages.length, termCount: terms.length };
 }
@@ -48,7 +48,7 @@ function main() {
   fs.mkdirSync(out);
   for (const f of r.files) fs.writeFileSync(path.join(out, f.name), f.xml, "utf8");
   fs.writeFileSync(path.join(ROOT, "sitemap-google.xml"), r.indexXml, "utf8");
-  console.log(`sitemap-google.xml: ${r.files.length} files; pages ${r.pageCount}, keep terms ${r.termCount}`);
+  console.log(`sitemap-google.xml: ${r.files.length} files; pages ${r.pageCount}, core terms ${r.termCount}`);
   r.files.forEach((f) => console.log(" ", f.name, f.count));
 }
 module.exports = { buildGoogleSitemaps, parseUrlset, slugOf };

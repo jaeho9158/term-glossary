@@ -15,7 +15,7 @@ function main(argv, opts = {}) {
   const dir = opts.termsDir || TERMS_DIR;
   const tiers = opts.tiers || JSON.parse(fs.readFileSync(path.join(ROOT, "data/index-tiers.json"), "utf8"));
   const archive = new Set(tiers.archive);
-  const c = { total: 0, changed: 0, unchanged: 0, stubs: 0, malformed: 0, toArchive: 0, toKeep: 0 };
+  const c = { total: 0, changed: 0, unchanged: 0, stubs: 0, malformed: 0, toArchive: 0, toCore: 0 };
   const changed = [];
   for (const f of fs.readdirSync(dir)) {
     if (!f.endsWith(".html")) continue;
@@ -25,10 +25,10 @@ function main(argv, opts = {}) {
     const p = path.join(dir, f);
     const html = fs.readFileSync(p, "utf8");
     const isArch = archive.has(slug);
-    const out = applyIndexTier(html, isArch ? "archive" : "keep");
+    const out = applyIndexTier(html, isArch ? "archive" : "core");
     if (out == null) { (/noindex/i.test(html) ? c.stubs++ : c.malformed++); continue; }
     if (out === html) { c.unchanged++; continue; }
-    c.changed++; isArch ? c.toArchive++ : c.toKeep++;
+    c.changed++; isArch ? c.toArchive++ : c.toCore++;
     changed.push("terms/" + f);
     if (!dry) fs.writeFileSync(p, out, "utf8");
   }
