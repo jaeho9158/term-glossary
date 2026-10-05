@@ -2937,7 +2937,47 @@ if (typeof document !== "undefined") {
       }
     }
 
+
+    // 찾은 용어로 퀴즈: 보이는(분야 거리로 강등되지 않은) 용어 중 퀴즈 데이터(core)에 있는 것만,
+    // 등장 횟수 순으로 최대 50개. URL에는 slug 목록 외에 아무것도 싣지 않는다.
+    // slug 색인(data/learn/slug-index.json)은 용어가 처음 찾아졌을 때 한 번 불러온다.
+    let quizSlugIndex = null;
+    let quizSlugIndexPromise = null;
+    let latestQuizMatches = null;
+    function loadQuizSlugIndex() {
+      if (!quizSlugIndexPromise) {
+        quizSlugIndexPromise = fetch("data/learn/slug-index.json")
+          .then((r) => (r.ok ? r.json() : {}))
+          .then((d) => { quizSlugIndex = d || {}; return quizSlugIndex; })
+          .catch(() => { quizSlugIndex = {}; return quizSlugIndex; });
+      }
+      return quizSlugIndexPromise;
+    }
+
+    function buildQuizSlugs(matches, index) {
+      return matches
+        .filter((m) => !m.distant && !hiddenSlugs.has(m.slug) && index[m.slug])
+        .sort((a, b) => (b.count || 0) - (a.count || 0))
+        .slice(0, 50)
+        .map((m) => m.slug);
+    }
+
+    async function updateQuizLink(matches) {
+      const link = document.getElementById("quiz-from-terms-btn");
+      if (!link) return;
+      const snapshot = matches;
+      latestQuizMatches = snapshot;
+      if (!snapshot.length) { link.hidden = true; return; }
+      const index = quizSlugIndex || (await loadQuizSlugIndex());
+      if (snapshot !== latestQuizMatches) return; // 그 사이 결과가 바뀜
+      const slugs = buildQuizSlugs(snapshot, index);
+      if (slugs.length < 4) { link.hidden = true; return; }
+      link.href = "quiz.html?slugs=" + slugs.map(encodeURIComponent).join(",");
+      link.hidden = false;
+    }
+
     function renderMatchedTerms(matches, filterQuery) {
+      updateQuizLink(matches);
       if (matches.length === 0) {
         countHeading.textContent = "본문에서 사전 등록된 용어를 찾지 못했습니다.";
         termsList.innerHTML = "";
@@ -3246,6 +3286,7 @@ if (typeof document !== "undefined") {
     function resetResults() {
       closeTermPopover();
       currentMatches = [];
+      updateQuizLink([]);
       countHeading.textContent = "";
       termsList.innerHTML = "";
       const moreBtn = document.getElementById("term-card-more-btn");
