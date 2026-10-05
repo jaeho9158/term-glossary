@@ -1,0 +1,65 @@
+{
+  "slug": "speculative-decoding",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "초안 생성",
+      "sub": "작은 모델·여러 토큰",
+      "color": "amber"
+    },
+    {
+      "id": "n1",
+      "label": "병렬 검증",
+      "sub": "목표 모델 순전파 1회",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "일치분 채택",
+      "sub": "처음 틀린 곳 앞까지",
+      "color": "green"
+    },
+    {
+      "id": "n3",
+      "label": "불일치 지점",
+      "sub": "여기부터 다시 생성",
+      "color": "rose"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "출력 분포는 목표 모델 단독 생성과 같고 호출 횟수만 줄어듦",
+      "tone": "pos"
+    },
+    {
+      "text": "초안의 수용률이 낮으면 오히려 느려질 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

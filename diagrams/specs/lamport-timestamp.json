@@ -1,0 +1,59 @@
+{
+  "slug": "lamport-timestamp",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "사건 발생",
+      "sub": "자기 카운터 +1",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "메시지 송신",
+      "sub": "카운터 값을 첨부",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "메시지 수신",
+      "sub": "max(자기·받은 값)+1",
+      "color": "violet"
+    },
+    {
+      "id": "n3",
+      "label": "인과 순서 보존",
+      "sub": "앞선 사건이 더 작은 값",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "값이 같으면 노드 식별자로 순서를 매겨 전순서를 만든다",
+      "tone": "general"
+    },
+    {
+      "text": "역은 성립하지 않음 — 값이 작다고 인과적으로 앞선 것은 아니며, 동시성 판별에는 벡터 시계가 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "Lamport (1978) / 용어 페이지 본문",
+  "reviewed": true
+}

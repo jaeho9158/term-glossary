@@ -1,0 +1,60 @@
+{
+  "slug": "instruction-tuning",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "사전학습 모델",
+      "color": "blue",
+      "sub": "글 이어 쓰기"
+    },
+    {
+      "id": "n2",
+      "label": "지도 미세조정",
+      "color": "violet",
+      "sub": "지시·응답 쌍으로 학습"
+    },
+    {
+      "id": "n3",
+      "label": "지시 수행 모델",
+      "color": "green",
+      "sub": "새 지시에도 일반화"
+    },
+    {
+      "id": "n4",
+      "label": "선호 기반 정렬",
+      "color": "violet",
+      "sub": "RLHF·DPO"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "이후"
+    }
+  ],
+  "notes": [
+    {
+      "text": "학습 데이터는 다양한 과제의 지시·응답 쌍, 손실은 다음 토큰 예측",
+      "tone": "general"
+    },
+    {
+      "text": "모범 답변을 모방할 뿐 답변의 사실성·안전성까지 보장하지는 않는다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

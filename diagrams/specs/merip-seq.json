@@ -1,0 +1,70 @@
+{
+  "slug": "merip-seq",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "RNA 절단",
+      "color": "blue",
+      "sub": "짧은 조각으로"
+    },
+    {
+      "id": "b",
+      "label": "m6A 항체 IP",
+      "color": "violet",
+      "sub": "메틸화 조각만 회수"
+    },
+    {
+      "id": "c",
+      "label": "IP·input 시퀀싱",
+      "color": "violet",
+      "sub": "input은 항체 미처리"
+    },
+    {
+      "id": "d",
+      "label": "두 결과 비교",
+      "color": "amber",
+      "sub": "input 대비 정규화"
+    },
+    {
+      "id": "e",
+      "label": "피크 호출",
+      "color": "green",
+      "sub": "m6A 풍부 영역"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "해상도는 약 100~200 염기 수준, 단일 염기 특정은 어려움",
+      "tone": "limit"
+    },
+    {
+      "text": "항체 교차반응(m6Am 등)과 재현성 문제, 독립 검증 권장",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

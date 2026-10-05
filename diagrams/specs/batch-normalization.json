@@ -1,0 +1,70 @@
+{
+  "slug": "batch-normalization",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "미니배치 입력",
+      "color": "gray",
+      "sub": "층에 들어오는 값"
+    },
+    {
+      "id": "n1",
+      "label": "평균·분산 계산",
+      "color": "violet",
+      "sub": "미니배치 단위"
+    },
+    {
+      "id": "n2",
+      "label": "정규화",
+      "color": "violet",
+      "sub": "평균 0·분산 1"
+    },
+    {
+      "id": "n3",
+      "label": "스케일·이동",
+      "color": "amber",
+      "sub": "학습 가능한 γ·β"
+    },
+    {
+      "id": "n4",
+      "label": "다음 층 입력",
+      "color": "green",
+      "sub": "분포가 일정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "추론 때는 배치 통계 대신 학습 중 이동평균으로 누적한 평균·분산을 쓴다",
+      "tone": "general"
+    },
+    {
+      "text": "배치 크기가 매우 작으면 평균·분산 추정이 불안정해진다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; Ioffe & Szegedy(2015)",
+  "reviewed": true
+}

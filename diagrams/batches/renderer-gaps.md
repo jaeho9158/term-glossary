@@ -1,0 +1,5 @@
+- inverted_u는 가우스형이라 양 끝이 0에 닿지 않음 → 이진 엔트로피·p(1-p) 같은 '0에서 0으로 가는 돔'은 표현 불가(entropy-information-theory drop). parabola/dome 함수 필요.
+- venn은 겹치는 원만 그림 → 포함(부분집합) 관계 표현 불가. 중첩 원(nested) 모드 필요.
+- cycle은 단방향만 → 상호결정론 같은 양방향 관계 표현 불가.
+- chain에 2×2 패널(교차지연) 레이아웃 없음.
+- (batch 1~6 triage missing_fn 집계, 595건) plot 함수 요청 상위: step/step_curve(22), u_shape/u_curve(19), exponential_growth/exp_growth(18), piecewise_linear(13), power_law(13), quadratic(10), sine(8), hyperbola(7), phase_diagram(6). 수평선·두 곡선 사이 음영도 반복 요청.

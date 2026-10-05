@@ -1,0 +1,77 @@
+{
+  "slug": "topological-sort",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "진입 차수 계산",
+      "color": "blue",
+      "sub": "방향 그래프의 각 노드"
+    },
+    {
+      "id": "b",
+      "label": "차수 0 노드를 큐에",
+      "color": "violet",
+      "sub": "선행 작업 없는 노드"
+    },
+    {
+      "id": "c",
+      "label": "꺼내어 제거",
+      "color": "amber",
+      "sub": "순서에 넣고 이웃 차수 감소"
+    },
+    {
+      "id": "d",
+      "label": "정렬 완료",
+      "color": "green",
+      "sub": "모든 노드 처리"
+    },
+    {
+      "id": "e",
+      "label": "순환 존재",
+      "color": "rose",
+      "sub": "정렬 불가"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "b",
+      "kind": "arrow",
+      "label": "반복"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "e",
+      "kind": "arrow",
+      "label": "큐 비어도 노드 남음"
+    }
+  ],
+  "notes": [
+    {
+      "text": "칸(Kahn) 알고리즘 기준. DFS 종료 순서를 뒤집는 방식도 있으며 둘 다 노드·간선 수에 선형",
+      "tone": "general"
+    },
+    {
+      "text": "같은 그래프라도 올바른 순서가 여러 개일 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

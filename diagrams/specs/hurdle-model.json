@@ -1,0 +1,56 @@
+{
+  "slug": "hurdle-model",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "0 과잉 계수자료",
+      "color": "gray",
+      "sub": "방문 횟수 등"
+    },
+    {
+      "id": "n1",
+      "label": "1단계: 0 여부",
+      "color": "blue",
+      "sub": "이항·로지스틱"
+    },
+    {
+      "id": "n2",
+      "label": "2단계: 양의 횟수",
+      "color": "violet",
+      "sub": "0절단 계수분포"
+    },
+    {
+      "id": "n3",
+      "label": "두 부분 결합",
+      "color": "green",
+      "sub": "단계별 따로 적합"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "허들 통과"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "0을 하나의 과정으로 봄 — 구조적 0과 우연한 0을 섞는 영과잉모형과 구별",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,76 @@
+{
+  "slug": "memory-barrier",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "코드상 접근 순서",
+      "color": "gray",
+      "sub": "프로그램에 적힌 대로"
+    },
+    {
+      "id": "n1",
+      "label": "순서 재배치",
+      "color": "amber",
+      "sub": "컴파일러·비순차 실행"
+    },
+    {
+      "id": "n2",
+      "label": "관찰 순서 어긋남",
+      "color": "rose",
+      "sub": "다른 코어가 본 순서"
+    },
+    {
+      "id": "n3",
+      "label": "메모리 배리어",
+      "color": "violet",
+      "sub": "경계 명령 삽입"
+    },
+    {
+      "id": "n4",
+      "label": "순서 고정",
+      "color": "green",
+      "sub": "이전 연산이 먼저 보임"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "대책"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "blocked"
+    }
+  ],
+  "notes": [
+    {
+      "text": "순서만 보장할 뿐 상호 배제는 제공하지 않음",
+      "tone": "limit"
+    },
+    {
+      "text": "과도한 배리어는 성능 저하 — x86보다 ARM에서 더 많이 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

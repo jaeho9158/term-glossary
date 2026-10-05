@@ -1,0 +1,59 @@
+{
+  "slug": "attenuation-bias",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "무작위 측정오차",
+      "color": "amber",
+      "sub": "설명변수에 잡음"
+    },
+    {
+      "id": "b",
+      "label": "관측 분산 증가",
+      "color": "blue",
+      "sub": "참 분산+오차 분산"
+    },
+    {
+      "id": "c",
+      "label": "신뢰도 하락",
+      "color": "violet",
+      "sub": "참 분산 ÷ 관측 분산"
+    },
+    {
+      "id": "d",
+      "label": "계수 0 쪽 축소",
+      "color": "rose",
+      "sub": "효과 과소추정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "결과변수의 오차는 계수 대신 표준오차를 키움",
+      "tone": "limit"
+    },
+    {
+      "text": "다중회귀에서는 단순 축소로 끝나지 않을 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

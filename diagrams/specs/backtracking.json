@@ -1,0 +1,66 @@
+{
+  "slug": "backtracking",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "선택 하나 시도",
+      "color": "blue",
+      "sub": "분기점에서 한 갈래"
+    },
+    {
+      "id": "n1",
+      "label": "조건 검사",
+      "color": "violet",
+      "sub": "지금까지의 선택"
+    },
+    {
+      "id": "n2",
+      "label": "가지치기",
+      "color": "rose",
+      "sub": "위반 시 탐색 중단"
+    },
+    {
+      "id": "n3",
+      "label": "직전 분기 복귀",
+      "color": "amber",
+      "sub": "선택 취소"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "위반"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "다른 선택"
+    }
+  ],
+  "notes": [
+    {
+      "text": "위반이 없으면 다음 선택으로 더 깊이 진행",
+      "tone": "general"
+    },
+    {
+      "text": "최악의 경우 여전히 지수적으로 많은 경우를 확인",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,77 @@
+{
+  "slug": "memoization",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "함수 호출",
+      "color": "amber",
+      "sub": "입력이 들어옴"
+    },
+    {
+      "id": "b",
+      "label": "캐시 조회",
+      "color": "violet",
+      "sub": "같은 입력의 결과가 있나"
+    },
+    {
+      "id": "c",
+      "label": "계산 수행",
+      "color": "blue",
+      "sub": "처음 보는 입력만"
+    },
+    {
+      "id": "d",
+      "label": "캐시에 저장",
+      "color": "violet",
+      "sub": "해시테이블 등"
+    },
+    {
+      "id": "e",
+      "label": "결과 반환",
+      "color": "green",
+      "sub": "중복 계산 없음"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow",
+      "label": "없음"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "e",
+      "kind": "arrow",
+      "label": "있음"
+    }
+  ],
+  "notes": [
+    {
+      "text": "같은 입력에 항상 같은 출력을 내는 순수 함수여야 캐시 값이 옳다",
+      "tone": "limit"
+    },
+    {
+      "text": "입력 조합이 많으면 캐시 메모리가 커지는 공간-시간 트레이드오프(LRU 등으로 제한)",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

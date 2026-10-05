@@ -1,0 +1,59 @@
+{
+  "slug": "interhospital-transfer-system",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "전원 여부 판단",
+      "color": "blue",
+      "sub": "이송 위험 대 치료 이득"
+    },
+    {
+      "id": "n1",
+      "label": "수용 병원 확보",
+      "color": "violet",
+      "sub": "수용 가능 여부 사전 확인"
+    },
+    {
+      "id": "n2",
+      "label": "이송 중 처치 결정",
+      "color": "amber",
+      "sub": "의료진 동승·장비 수준"
+    },
+    {
+      "id": "n3",
+      "label": "인계·문서화",
+      "color": "green",
+      "sub": "상태 변화 기록·정보 연속성"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "어느 단계가 빠져도 지연, 수용 확인 지연이 소요시간의 큰 몫",
+      "tone": "limit"
+    },
+    {
+      "text": "전원 거부·반복 전원은 체계 실패의 지표",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

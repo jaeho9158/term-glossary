@@ -1,0 +1,71 @@
+- [b006/13] amoc: cycle이 자동으로 그리는 심층수 남하→표층수 북상(되돌아오는 구간) 연결은 본문에 "순환 고리를 형성"이라고만 있고 경로 설명은 없음
+- [b006/16] smoke-venting: 양압·음압배연을 기계배연의 하위로 둔 것은 본문에 명시 없음(송풍기·배연기 사용 서술과 intent에 근거)
+- [b006/60] administrative-control: 비공식·내부 칸(공무원 직업윤리)과 네 칸 배치, Gilbert(1959) 연도는 본문에 없어 행정학 교과서 통설에 의존
+- [b006/59] explosion-overpressure: 거리 감쇠를 decay(지수)로 모식화했고 35 kPa·7 kPa 세로선의 x 위치는 비율(5배)만 맞춘 임의 값 — 실제 감쇠식·거리 아님
+- [b006/60] hansch-analysis: 포물선(2차항) 관계를 inverted_u(대칭 가우스)로 근사 — 정점·대칭은 맞지만 꼬리 모양은 포물선과 다름
+- [b006/59] biowaiver: 저용해성 두 칸은 본문에 클래스 번호가 없어 II·IV 표기 없이 "주 대상 아님"으로만 표시
+- [b006/77] no-observed-adverse-effect-level-cosmetic: 본문은 용량군 단위(계단 비유)로만 설명하고 곡선 모양은 말하지 않음. 계단 함수가 없어 logistic S자 모식 곡선에 NOAEL·LOAEL 세로선을 둠(위치는 임의)
+- [b006/78] pre-movement-time: 본문은 인지·판단·사회적 확인·개인 행동을 "등 여러 단계"로 나열만 하고 순서는 확정하지 않음. 나열 순으로 timeline에 배치하고 limit note로 밝힘
+- [b006/30] interfacial-tension-reduction: plot 대신 chain으로 작성 — 0이 아닌 일정값으로 수렴하고 CMC에서 꺾이는 곡선은 decay(0으로 수렴)·구간 함수 부재로 표현 불가
+- [b006/31] flame-temperature-adiabatic: inverted_u(대칭)로 그림 — 본문은 "화학양론 근처에서 최대"만 말하며 좌우 대칭 여부·감소 폭은 본문 근거 없음(모식)
+- [b006/31] equivalence-ratio-combustion: inverted_u(대칭)로 그림 — 본문은 "약 1.05에서 최대, 희박·농후로 갈수록 감소"만 말하며 대칭 모양은 본문 근거 없음(모식)
+- [b006/32] particle-size-distribution: 두 분포를 정규분포로 그림 — 본문은 평균 같고 폭이 다르다는 것만 말하며 분포 형태(정규)는 가정
+- [b006/05] fire-pump-performance-curve: plot 대신 chain으로 작성 — 유량 증가에 따라 내려가는 오목한 펌프 곡선을 표현할 plot 함수가 없음(체절·정격·150% 세 지점을 순서로 표현)
+- [b006/06] oxygen-enhancement-ratio: 선량-생존율 곡선 모양(decay 두 개, 어깨 없는 지수 감소)은 본문에 없는 일반 방사선생물학 지식에 의존; 기울기 비 2.75는 본문의 OER 2.5~3에 맞춤
+- [b006/06] natural-moisturizing-factor: intent의 "필라그린 분해 → 젖산·요소"는 본문 근거 없음(본문은 아미노산·유도체만 필라그린 유래) — 젖산염·요소는 NMF 구성 성분으로만 표기
+- [b006/08] apparent-diffusion-coefficient: matrix 대신 contrast로 작성 — DWI 저신호 쪽 두 칸은 본문 근거가 없어 채울 수 없음
+- [b006/08] build-up-region: plot 대신 chain으로 작성 — 비대칭 정점 곡선(급상승 후 완만한 감소)을 표현할 plot 함수가 없음; 최대선량점 이후 감소는 본문에 명시가 없어 넣지 않음
+- [b006/45] iterative-reconstruction: intent의 "투영" 단계는 본문에 없어 뺐다(임시 영상→측정값 비교→차이 보정 3노드)
+- [b006/46] repetition-time: 짧은 TR·긴 TE 칸은 본문에 언급이 없어 "일반 조합 아님"(gray)으로 채움 — 본문이 세 조합만 일반적이라 한 데서 추론
+- [b006/48] nuisance-alarm: 요인별 대책 대응은 본문에 없어(대책이 요인별로 나뉘어 있지 않음) 대책은 note 하나로만 묶음
+- [b006/04] available-safe-egress-time: 필요피난시간의 감지·피난개시·이동 세분은 본문에 없어 뺐다(대피 완료 시점 하나로만 표시)
+- [b006/38] unified-command-structure: 단일지휘 쪽 "단일 지휘관이 목표·우선순위 결정" 행은 본문의 "지휘권을 하나로 합치는 단일지휘"에서 추론한 것(본문에 명시 없음)
+- [b006/38] specific-flow-evacuation: 실제 SFPE 식은 포물선(밀도 0과 약 3.8에서 0)인데 inverted_u(가우시안)로 근사 — 양 끝이 정확히 0에 닿지 않음
+- [b006/37] heuristic-evaluation: 포화 곡선을 hill(ec50 1.5, n 1.5)로 근사 — 1명 약 35% 지점만 본문 수치에 맞춤
+- [b006/21] civil-service-discipline: 여섯 징계의 경중 순서는 본문 나열 순서(파면…견책)와 "견책부터 파면까지" 표현에 근거. 중징계·경징계 구분은 본문에 없어 넣지 않음
+- [b006/22] dissolution-rate: 포화 곡선을 hill 함수로 그림(렌더러에 1−exp 꼴 없음). 두 곡선의 매개변수는 모식용이며 본문 수치 아님
+- [b006/23] network-governance: 의도는 위계·시장·네트워크 3자 대비였으나 contrast는 좌우 2열이고 본문에 시장의 정부 역할 서술이 없어 위계 대 네트워크로 그리고 시장은 note로 처리
+- [b006/23] critical-temperature-steel: 강도 저하를 logistic(k<0) S자 곡선으로 그림 — 본문은 "온도가 오를수록 약해짐"만 서술. 가로선을 못 그려 하중비를 세로선 두 개(0.6=554℃, 낮은 하중비는 위치 모식)로 표현
+- [b006/24] jet-stream: limit note "확정된 법칙은 아님"은 본문에 명시되지 않은 한정(본문은 예문에서 "분석되었다"로만 서술)
+- [b006/51] narrative-frequency: 사건 여러 번·서술 여러 번 칸(tr)은 본문에 없어 주네트의 분류(n번 일을 n번 서술 = 단일 서술의 한 형태)를 외부 지식으로 채움
+- [b006/49] tight-container: 본문 3등급(밀폐<기밀<밀봉)을 단계로 보이려 contrast 대신 chain 사용. 표제 영문 tight container는 약전상 기밀용기에 해당하는 것으로 알고 있으나(외부 지식) 도식은 본문 서술만 따름
+- [b006/50] design-diffusion-theory: 수용자 집단 위치(vline x값)는 본문에 수치 근거 없는 모식적 배치
+- [b006/54] fitts-law: 로그 관계(MacKenzie 공식)를 그릴 함수가 없어 감소·완만해지는 모양을 decay로 근사함. 곡선 형태는 모식도 수준
+- [b006/54] design-portfolio-management: 본문은 위험도×기대 성과 두 축과 안정·도전 과제 비중 조절만 언급. 안정적 과제=저위험·저성과 칸, 도전적 과제=고위험·고성과 칸 배치와 나머지 두 칸 이름은 추론
+- [b006/54] enso: contrast가 좌우 2열이라 평상시는 노트로 내리고 엘니뇨·라니냐만 대비. 비구름 위치는 본문에 없어 뺌
+- [b006/55] hair-dye: contrast가 좌우 2열이라 일시적·산화형만 대비하고 반영구는 노트로 처리
+- [b006/33] apoptosis-radiation: p53 활성화를 카스파아제 활성화 앞에 둔 순서는 본문에 명시되지 않음(본문은 "p53와 밀접하게 연관"만 서술) — 판정 intent와 일반 지식에 따름
+- [b006/33] tonicity-agent: 판정 type contrast → hierarchy로 변경. 저장액·등장액·고장액 3자 비교라 좌우 2열 contrast로 표현 불가
+- [b006/35] value-sensitive-design: 판정 type cycle → hierarchy로 변경. 세 조사는 정해진 순서 없이 서로 오가는데 cycle은 단방향이라 순서를 오해시킴(반복성은 note로 표기)
+- [b006/70] hadley-cell: 넷째 노드 "지표 적도 복귀"(지표를 따라 적도로 되돌아오는 흐름)는 본문에 명시가 없고 "순환 고리"라는 표현과 일반 지식에 근거해 넣음
+- [b006/26] dissolution-similarity-factor: plot 대신 procedure로 작성 — f2의 로그형 급락 곡선을 표현할 plot 함수가 없어 계산·판정 절차로 바꿈
+- [b006/27] artifact-in-imaging: intent의 화학적이동 아티팩트와 "영상 원리" 분류는 본문에 없어 뺌 — 환자 요인 / 장비·물리 요인 2분류로 그림(접힘을 장비·물리 쪽에 둔 것은 본문 정의의 "물리적 한계"에 기댄 배치)
+- [b006/28] output-outcome-distinction: intent의 "투입" 단계는 본문에 없어 "정책활동"으로 시작
+- [b006/26] radiation-treatment-margin: 내부여유=장기 움직임, 셋업여유=셋업 오차 대응은 본문에 명시적 짝짓기 없이 용어명과 정의의 나열에서 추론
+- [b006/42] social-construction-framework: 경쟁집단(권력 강·이미지 부정)·의존집단(권력 약·이미지 긍정)의 칸 배치는 본문에 없어 Schneider & Ingram(1993) 원전 지식에 의존(본문은 수혜·이탈 두 칸만 명시)
+- [b006/43] therapeutic-ratio: 종양 제어·정상조직 손상을 선량에 대한 S자(logistic) 곡선 두 개로 그린 것은 본문에 곡선 모양 서술이 없어 방사선생물학 일반 지식(TCP/NTCP 곡선)에 의존
+- [b006/44] internal-margin: ITV에 셋업여유공간을 더해 PTV가 된다는 연결은 본문에 직접 서술이 없어(두 여유공간 구분과 계획표적체적 언급만 있음) ICRU 62 정의에 의존
+- [b006/61] zero-order-release: 1차 누적 방출 곡선(1−e^−kt)은 plot 함수에 없어 세로축을 "제제에 남은 약물량"으로 바꿔 0차=linear(감소), 1차=decay로 그림(본문 근거: 0차는 일정 속도, 1차는 남은 양에 비례)
+- [b006/62] disproportionality-analysis: PRR·ROR 계산식(a/(a+b)÷c/(c+d), (a/b)÷(c/d))은 본문에 없는 표준 정의를 notes에 사용
+- [b006/63] maximum-explosion-pressure: plot 대신 procedure로 작성 — inverted_u는 대칭·0에 닿지 않아 농도-압력 곡선을 왜곡하므로 본문의 측정·활용 절차로 표현
+- [b006/63] cytotoxicity: 농도-생존율을 logistic(k<0) S자로 그림 — 본문은 "농도 증가에 따라 감소"와 IC50 정의만 있고 S자 모양은 일반적 용량-반응 지식
+- [b006/17] anthropometry: 분포를 정규곡선(normal)으로 그림 — 본문은 "치수의 분포·백분위"만 말하고 정규분포라고 명시하지 않음
+- [b006/17] clinical-target-volume: venn은 포함(중첩) 관계를 못 그려 hierarchy(CTV → GTV + 잠재 침윤 여유)로 type 변경
+- [b006/17] t-score: −2.5 이하 꼬리 영역이 좁아 "골다공증" 음영 라벨이 곡선과 겹쳐 라벨을 빼고 notes에 적음
+- [b006/18] dry-granulation: intent의 "체질" 단계는 본문에 없어 제외
+- [b006/18] behavioral-theory-leadership: 네 칸 중 한쪽만 높은 두 칸의 이름("관계 중심"·"과업 중심")은 본문의 두 차원 설명에서 조합한 것으로, 본문은 네 유형 이름을 열거하지 않음
+- [b006/20] myocardial-perfusion-imaging: matrix의 넷째 칸(휴식기 이상·부하기 정상)이 본문에 없어 hierarchy(정상·가역적 결손·고정 결손)로 type 변경
+- [b006/82] half-value-layer: 감쇠 곡선을 지수 감쇠(decay)로 그림 — 본문은 "절반으로 줄어드는 두께"만 말하고 "지수적"이라는 표현은 없음(intent 근거)
+- [b006/83] pseudoplastic-behavior-cosmetic: plot에 거듭제곱(파워로) 함수와 뉴턴 유체용 수평선이 없어 chain(얽힘→전단→사슬 정렬→점도 감소→즉시 회복)으로 type 변경
+- [b006/84] odor-threshold: 농도-감지 비율을 S자(logistic) 두 곡선으로 그림 — 본문 근거는 "집단의 절반이 감지하는 농도"뿐이고 곡선 모양과 인지 역치가 더 높은 농도라는 순서는 정의에서 추론
+- [b006/84] pulmonary-embolism-imaging: 환기관류스캔은 CT 다음 단계가 아니라 조영제를 못 쓸 때의 대안인데 procedure 한 줄 배치라 4번째 단계로 놓고 sub에 "대안"으로 표시
+- [b006/88] fire-extinguisher: 화재 등급↔소화약제 짝짓기 엣지를 뺌 — 본문에 등급과 약제 목록만 있고 대응 관계가 없음(약제는 note로만 나열)
+- [b006/87] subgovernment: 세 행위자 사이 지지·혜택 교환 엣지를 뺌 — 본문에 구체적 교환 내용이 없어 세 행위자→정책영역 지배 수렴 구조로 그림
+- [b006/85] breast-mri: plot 대신 contrast로 작성 — 세척형(급상승 후 감소) 곡선을 표현할 plot 함수가 없음
+- [b006/91] policy-typology: 네 정치 상황의 칸 배치(비용 분산·편익 집중=고객, 둘 다 집중=이익집단, 비용 집중·편익 분산=기업가, 둘 다 분산=다수결)는 본문에 없어 Wilson 유형론 일반 지식에 의존
+- [b006/92] fire-point-suppression-theory: 냉각·희석·질식·화학적 억제를 고리의 어느 노드에 붙일지는 본문 괄호 설명(열 제거·증기 농도 저하·산소 차단·연쇄반응 차단)에서 추론한 배치, cycle이 단방향이라 차단 엣지 대신 sub로 표기
+- [b006/89] premixed-flame-combustion: inverted_u가 대칭이고 0에 닿지 않아 연소 한계에서 꺼지는 모양은 곡선이 아닌 limit 노트로만 표기, 폭(width 0.3)은 임의의 모식값
+- [b006/95] churn-operation-fire-pump: plot 대신 chain으로 작성 — 체절점에서 최고이고 오목하게 우하향하는 펌프 곡선을 그릴 plot 함수가 없음(세 운전점을 유량 증가 순으로 나열)
+- [b006/93] skin-permeation: chain 대신 hierarchy로 작성 — 세 경로 분기는 한 줄 chain으로 표현 불가
+- [b006/93] volcanic-eruption-mechanism: chain 대신 contrast로 작성 — 조용한/폭발적 분출 두 갈래 대비는 한 줄 chain으로 표현 불가
+- [b006/94] pi-rads: 이행대에서 조영증강의 역할은 본문에 없어 행으로 넣지 않고, 말초대 3점→4점 보조만 노트로 둠

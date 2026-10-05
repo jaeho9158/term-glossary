@@ -1,0 +1,70 @@
+{
+  "slug": "copy-on-write",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "프로세스 복제",
+      "color": "blue",
+      "sub": "페이지 테이블만 복제"
+    },
+    {
+      "id": "n1",
+      "label": "페이지 공유",
+      "color": "gray",
+      "sub": "읽기 전용으로 표시"
+    },
+    {
+      "id": "n2",
+      "label": "쓰기 시도",
+      "color": "amber",
+      "sub": "한쪽이 값 수정"
+    },
+    {
+      "id": "n3",
+      "label": "페이지 폴트",
+      "color": "violet",
+      "sub": "커널이 개입"
+    },
+    {
+      "id": "n4",
+      "label": "해당 페이지 복사",
+      "color": "green",
+      "sub": "권한 되돌리고 쓰기"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "읽기만 하는 동안은 복사가 일어나지 않아 메모리·시간 절약",
+      "tone": "pos"
+    },
+    {
+      "text": "첫 쓰기 시점에 지연이 몰려 실시간 환경에서는 예측 가능성이 떨어질 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

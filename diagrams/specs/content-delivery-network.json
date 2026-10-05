@@ -1,0 +1,77 @@
+{
+  "slug": "content-delivery-network",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "사용자 요청",
+      "color": "blue",
+      "sub": "이미지·동영상 등"
+    },
+    {
+      "id": "b",
+      "label": "가까운 엣지 서버",
+      "color": "violet",
+      "sub": "DNS·애니캐스트로 연결"
+    },
+    {
+      "id": "c",
+      "label": "캐시 확인",
+      "color": "violet",
+      "sub": "사본 저장 여부"
+    },
+    {
+      "id": "d",
+      "label": "원본 서버",
+      "color": "amber",
+      "sub": "사본이 없을 때"
+    },
+    {
+      "id": "e",
+      "label": "사용자에 응답",
+      "color": "green",
+      "sub": "지연 단축"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow",
+      "label": "미스"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "e",
+      "kind": "arrow",
+      "label": "적중"
+    }
+  ],
+  "notes": [
+    {
+      "text": "캐시 적중률: 원본까지 가지 않고 엣지에서 응답한 비율, 대표 성능 지표",
+      "tone": "general"
+    },
+    {
+      "text": "사본 유지 기간과 원본 변경 시 갱신 시점은 캐시 무효화 정책이 정함",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

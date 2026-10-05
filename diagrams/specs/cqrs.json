@@ -1,0 +1,71 @@
+{
+  "slug": "cqrs",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "명령",
+      "color": "amber",
+      "sub": "데이터를 바꾸는 요청"
+    },
+    {
+      "id": "n1",
+      "label": "쓰기 모델",
+      "color": "blue",
+      "sub": "검증 규칙에 집중"
+    },
+    {
+      "id": "n2",
+      "label": "변경 전파",
+      "color": "violet",
+      "sub": "이벤트·메시지 큐"
+    },
+    {
+      "id": "n3",
+      "label": "읽기 모델",
+      "color": "blue",
+      "sub": "비정규화 별도 저장소"
+    },
+    {
+      "id": "n4",
+      "label": "조회 응답",
+      "color": "green",
+      "sub": "읽는 요청에 답함"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "비동기"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "조회 요청은 쓰기 모델을 거치지 않고 읽기 모델로만 감",
+      "tone": "general"
+    },
+    {
+      "text": "전파 지연 동안 조회에 변경이 안 보일 수 있음(최종 일관성)",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

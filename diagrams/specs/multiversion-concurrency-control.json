@@ -1,0 +1,70 @@
+{
+  "slug": "multiversion-concurrency-control",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "행 갱신",
+      "color": "amber",
+      "sub": "쓰기 트랜잭션"
+    },
+    {
+      "id": "b",
+      "label": "새 버전 생성",
+      "color": "violet",
+      "sub": "옛 버전은 그대로 보관"
+    },
+    {
+      "id": "c",
+      "label": "스냅숏 읽기",
+      "color": "blue",
+      "sub": "시작 시점 버전 선택"
+    },
+    {
+      "id": "d",
+      "label": "서로 막지 않음",
+      "color": "green",
+      "sub": "읽기·쓰기 대기 없음"
+    },
+    {
+      "id": "e",
+      "label": "옛 버전 정리",
+      "color": "gray",
+      "sub": "아무도 안 보는 버전 회수"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "장기 실행 트랜잭션이 스냅숏을 붙잡으면 정리가 밀려 저장 공간이 부풂",
+      "tone": "limit"
+    },
+    {
+      "text": "스냅숏 격리만으로는 쓰기 왜곡을 막지 못해 직렬화 가능 수준에는 추가 장치가 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

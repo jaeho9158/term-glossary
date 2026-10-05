@@ -1,0 +1,68 @@
+{
+  "slug": "base-shear",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "유효 건물 중량",
+      "color": "blue"
+    },
+    {
+      "id": "n1",
+      "label": "지진응답계수",
+      "color": "violet",
+      "sub": "지반·고유주기·반응수정계수"
+    },
+    {
+      "id": "n2",
+      "label": "밑면전단력",
+      "color": "amber",
+      "sub": "중량 × 지진응답계수"
+    },
+    {
+      "id": "n3",
+      "label": "층별 수평력 분배",
+      "color": "violet",
+      "sub": "각 층 설계 하중"
+    },
+    {
+      "id": "n4",
+      "label": "층간변위 검토",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "연성이 좋은 구조형식일수록 반응수정계수가 커서 설계 밑면전단력은 작아지지만 연성 상세가 요구된다",
+      "tone": "general"
+    },
+    {
+      "text": "설계용 등가정적 하중이지 지진 중 실제 최대 힘이 아니며, 불규칙 건물은 동적 해석을 병행해야 한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

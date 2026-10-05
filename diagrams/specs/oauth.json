@@ -1,0 +1,75 @@
+{
+  "slug": "oauth",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "사용자 승인",
+      "color": "blue",
+      "sub": "비밀번호는 안 넘김"
+    },
+    {
+      "id": "n1",
+      "label": "접근 토큰 발급",
+      "color": "violet",
+      "sub": "서비스가 토큰 수령"
+    },
+    {
+      "id": "n2",
+      "label": "자원 접근",
+      "color": "green",
+      "sub": "허용된 범위만"
+    },
+    {
+      "id": "n3",
+      "label": "토큰 만료",
+      "color": "gray"
+    },
+    {
+      "id": "n4",
+      "label": "토큰 갱신",
+      "color": "violet",
+      "sub": "재발급 토큰 사용"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "새 접근 토큰"
+    }
+  ],
+  "notes": [
+    {
+      "text": "인증(신원 확인)이 아니라 인가용: 신원 확인은 OpenID Connect 계층",
+      "tone": "limit"
+    },
+    {
+      "text": "흐름(grant type)은 여러 가지: 서버 간에는 클라이언트 자격증명 방식",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

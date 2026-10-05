@@ -1,0 +1,56 @@
+{
+  "slug": "bayesian-model-averaging",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "후보 모형들",
+      "color": "blue",
+      "sub": "변수 조합마다"
+    },
+    {
+      "id": "n1",
+      "label": "사후모형확률",
+      "color": "violet",
+      "sub": "데이터 설명력 반영 가중치"
+    },
+    {
+      "id": "n2",
+      "label": "가중 평균",
+      "color": "green",
+      "sub": "예측·계수"
+    },
+    {
+      "id": "n3",
+      "label": "사후포함확률",
+      "color": "green",
+      "sub": "PIP, 변수별"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "그 변수 포함 모형만 합산"
+    }
+  ],
+  "notes": [
+    {
+      "text": "모형이 많으면 MCMC 등으로 확률 높은 모형 위주 근사 탐색",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

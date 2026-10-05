@@ -1,0 +1,70 @@
+{
+  "slug": "event-sourcing",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "명령",
+      "color": "amber",
+      "sub": "상태 변경 요청"
+    },
+    {
+      "id": "n1",
+      "label": "이벤트 생성",
+      "color": "violet",
+      "sub": "쓰기 모델"
+    },
+    {
+      "id": "n2",
+      "label": "이벤트 로그",
+      "color": "blue",
+      "sub": "불변·순서대로 누적"
+    },
+    {
+      "id": "n3",
+      "label": "이벤트 재생",
+      "color": "violet",
+      "sub": "스냅샷 이후만"
+    },
+    {
+      "id": "n4",
+      "label": "현재 상태",
+      "color": "green",
+      "sub": "임의 시점도 복원"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "조회는 읽기 전용 모델로 분리(CQRS)해 재생 부담을 조회 경로에서 떼어 낸다",
+      "tone": "general"
+    },
+    {
+      "text": "이벤트가 쌓일수록 재생 비용이 커지고, 순서 보장·스키마 버전 관리가 과제",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

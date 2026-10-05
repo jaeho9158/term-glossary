@@ -1,0 +1,13 @@
+- generalizability-theory — 대상·잔차 분산 성분 노드: 페이지 본문에 언급 없음(평가자·문항·시점만 근거)
+- percentile-score — 정규분포 누적곡선(원점수→백분위) plot: 정규 CDF에 해당하는 함수가 없고 logistic은 근사일 뿐이라 항목 생략
+- defense-mechanism — 합리화·억압 및 중간 단계 분류: 본문이 성숙도 단계에 배정하지 않아 제외
+- dark-triad — 두 특성 쌍 겹침 영역 라벨: 본문이 어느 쌍이 무엇을 공유하는지 밝히지 않아 제외
+- self-selection-bias — 참가자 성향→결과 직접 연결(호): 본문이 결과 변수에 대한 영향 경로를 명시하지 않아 제외(성향→참여→쏠림→구분 불가만 표기)
+- inhibitory-control — 하위 유형별 측정 과제(스트룹·고/노고·플랭커) 연결: 본문이 유형↔과제 짝을 명시하지 않음
+- social-anxiety-disorder — 4요소 사이의 방향·연결 순서: 본문은 유지 기제로만 나열하고 순서를 밝히지 않아 cycle 자동 연결 대신 limit 노트로 한정
+- comparative-case-study — matrix(배경 유사/상이 x 결과 같음/다름) 중 '유사·같음', '상이·다름' 두 칸: 본문에 해당 칸 설명이 없어 matrix 대신 최대유사/최대상이 두 접근의 contrast로 작성
+- stochastic-process-theory — 이산시간·연속상태 칸의 대표 모형: 본문에 해당 예가 없어 '대표 예 없음'으로 둠
+- selective-attention — 여과·약화 이론 세부(걸러진 정보 차단 등) 일부는 본문 요약 수준: confidence low라 내용 최소화
+- moderated-mediation — 조절변수→(매개 앞/뒤) 특정 경로 엣지: 본문이 조절 위치를 밝히지 않아 엣지 없이 노드·limit 노트로 처리
+- biopsychosocial-model — 두 요인 교집합 영역 라벨: 본문에 쌍별 상호작용 내용이 없어 단일·삼중 영역만 표기
+- path-analysis — 직무스트레스→이직의도 직접효과 화살표: 본문이 이 예시의 직접효과 존재를 명시하지 않음(일반 설명만)

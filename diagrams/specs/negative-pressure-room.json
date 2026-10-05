@@ -1,0 +1,71 @@
+{
+  "slug": "negative-pressure-room",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "복도",
+      "color": "gray",
+      "sub": "상대적 고압"
+    },
+    {
+      "id": "n1",
+      "label": "전실",
+      "color": "violet",
+      "sub": "이중 출입문 완충"
+    },
+    {
+      "id": "n2",
+      "label": "음압 병실",
+      "color": "blue",
+      "sub": "차압 −2.5Pa 이상"
+    },
+    {
+      "id": "n3",
+      "label": "헤파필터 배기",
+      "color": "green",
+      "sub": "전용 배기 계통"
+    },
+    {
+      "id": "n4",
+      "label": "두 문 동시 개방",
+      "color": "rose",
+      "sub": "압력차 붕괴"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n1",
+      "kind": "inhibit",
+      "label": "완충 상실"
+    }
+  ],
+  "notes": [
+    {
+      "text": "압력 감시 경보장치를 함께 갖추는 것이 원칙이다",
+      "tone": "general"
+    },
+    {
+      "text": "필터 관리가 부실하거나 출입이 잦으면 음압이 무너질 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,59 @@
+{
+  "slug": "adversarial-example",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "원본 입력",
+      "color": "blue",
+      "sub": "모델이 바르게 분류"
+    },
+    {
+      "id": "n1",
+      "label": "미세 노이즈 추가",
+      "color": "amber",
+      "sub": "그레이디언트 기반(FGSM)"
+    },
+    {
+      "id": "n2",
+      "label": "적대적 예제",
+      "color": "violet",
+      "sub": "사람 눈엔 같은 이미지"
+    },
+    {
+      "id": "n3",
+      "label": "모델 오분류",
+      "color": "rose",
+      "sub": "다른 클래스로 확신"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "유명 사례: 판다 사진 + 픽셀 노이즈 → 긴팔원숭이로 예측",
+      "tone": "general"
+    },
+    {
+      "text": "방어(적대적 학습)는 정상 데이터 정확도가 소폭 떨어질 수 있고, 다른 공격 방식에는 취약할 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

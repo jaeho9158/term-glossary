@@ -1,0 +1,76 @@
+{
+  "slug": "beam-search",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "후보 k개 유지",
+      "color": "blue",
+      "sub": "k = 빔 너비"
+    },
+    {
+      "id": "n1",
+      "label": "후보마다 확장",
+      "color": "violet",
+      "sub": "이어질 단어들"
+    },
+    {
+      "id": "n2",
+      "label": "점수 계산",
+      "color": "violet",
+      "sub": "로그 확률의 합"
+    },
+    {
+      "id": "n3",
+      "label": "상위 k개만 남김",
+      "color": "amber",
+      "sub": "나머지는 버림"
+    },
+    {
+      "id": "n4",
+      "label": "최고 점수 출력",
+      "color": "green",
+      "sub": "생성 종료 시"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "반복"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "빔 너비 1이면 그리디, 무한히 크면 완전 탐색에 가까워진다",
+      "tone": "general"
+    },
+    {
+      "text": "근사 탐색이라 전역 최적은 보장되지 않고, 너비를 키운다고 늘 좋아지지도 않는다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

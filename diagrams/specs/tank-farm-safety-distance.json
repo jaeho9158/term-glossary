@@ -1,0 +1,60 @@
+{
+  "slug": "tank-farm-safety-distance",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "한 탱크 화재",
+      "color": "rose",
+      "sub": "액표면화재"
+    },
+    {
+      "id": "b",
+      "label": "열복사",
+      "color": "amber",
+      "sub": "복사열유속"
+    },
+    {
+      "id": "c",
+      "label": "인접 탱크 가열",
+      "color": "amber",
+      "sub": "임계값 초과 시"
+    },
+    {
+      "id": "d",
+      "label": "연쇄 화재",
+      "color": "rose",
+      "sub": "도미노 효과"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "blocked",
+      "label": "안전거리"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "방유제와 함께 설계해 화재·유출 확산을 억제",
+      "tone": "pos"
+    },
+    {
+      "text": "기준 수치는 국가·물질·탱크 형태에 따라 다름",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

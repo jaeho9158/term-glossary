@@ -1,0 +1,43 @@
+{
+  "slug": "lock-free-data-structure",
+  "type": "cycle",
+  "center": "CAS 재시도",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "현재 값 읽기",
+      "sub": "락 없이",
+      "color": "blue"
+    },
+    {
+      "id": "b",
+      "label": "새 값 계산",
+      "color": "violet"
+    },
+    {
+      "id": "c",
+      "label": "비교 후 교환",
+      "sub": "기대값과 같을 때만 교체",
+      "color": "amber"
+    },
+    {
+      "id": "d",
+      "label": "실패하면 재시도",
+      "sub": "다른 스레드가 먼저 변경",
+      "color": "rose"
+    }
+  ],
+  "edges": [],
+  "notes": [
+    {
+      "text": "교환에 성공하면 순환을 빠져나옴 — 적어도 한 스레드는 반드시 진전",
+      "tone": "pos"
+    },
+    {
+      "text": "특정 스레드가 계속 실패하는 기아 가능성, ABA 문제가 구현의 난점",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

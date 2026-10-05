@@ -144,6 +144,10 @@
     <strong>한 줄 정의:</strong> 분산 시스템에서 연산이 유효하려면 동의해야 하는 최소한의 노드 수입니다.
   </div>
 
+  <!-- concept-diagram:start -->
+  <figure class="concept-diagram" data-type="venn"><svg class="dg dg-h" viewBox="0 0 360 315" style="max-width:360px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dg-quorum-h-t dg-quorum-h-d" font-family="'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif"><title id="dg-quorum-h-t">정족수</title><desc id="dg-quorum-h-d">정족수: 읽기 정족수 R, 쓰기 정족수 W의 겹침. 읽기 정족수 R: 읽기 응답, 쓰기 정족수 W: 쓰기 성공, 읽기 정족수 R∩쓰기 정족수 W: 최신 값.</desc><circle cx="106" cy="127" r="92" fill="var(--dg-blue-f)" fill-opacity="0.6" stroke="var(--dg-blue-s)" stroke-width="1.4"/><circle cx="222" cy="127" r="92" fill="var(--dg-amber-f)" fill-opacity="0.6" stroke="var(--dg-amber-s)" stroke-width="1.4"/><text x="73.8" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="var(--dg-blue-t)">읽기 정족수 R</text><text x="254.2" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="var(--dg-amber-t)">쓰기 정족수 W</text><text x="71.2" y="131" text-anchor="middle" font-size="11.5" fill="var(--dg-navy)">읽기 응답</text><text x="256.8" y="131" text-anchor="middle" font-size="11.5" fill="var(--dg-navy)">쓰기 성공</text><text x="164" y="131" text-anchor="middle" font-size="11.5" fill="var(--dg-navy)">최신 값</text><text x="14" y="254.5" text-anchor="start" font-size="11.5" fill="var(--dg-general)">R+W&gt;N이면 두 집합이 한 노드 이상에서 반드시 겹침 (예:</text><text x="14" y="270" text-anchor="start" font-size="11.5" fill="var(--dg-general)">N=5, R=3, W=3)</text><text x="14" y="285.5" text-anchor="start" font-size="11.5" fill="var(--dg-limit)">한계 어느 값이 최신인지 가리려면 버전 번호·벡터 클럭이</text><text x="14" y="301" text-anchor="start" font-size="11.5" fill="var(--dg-limit)">함께 필요</text></svg></figure>
+  <!-- concept-diagram:end -->
+
   <h2>쉽게 풀면</h2>
   <p>여러 대의 서버에 같은 데이터를 복제해 두면, 몇 대가 죽어도 서비스를 계속할 수 있지만 서로 다른 값을 들고 있을 위험이 생깁니다. 정족수 방식은 쓸 때 몇 대 이상에서 성공해야 하고 읽을 때 몇 대 이상에서 응답을 받아야 하는지를 정해 둡니다. 읽기 집합과 쓰기 집합이 반드시 겹치도록 수를 정하면 항상 최신 값을 볼 수 있습니다.</p>
 

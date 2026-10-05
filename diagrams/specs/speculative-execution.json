@@ -1,0 +1,81 @@
+{
+  "slug": "speculative-execution",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "분기 예측",
+      "color": "violet",
+      "sub": "미확정 조건을 추측"
+    },
+    {
+      "id": "n1",
+      "label": "선행 실행",
+      "color": "blue",
+      "sub": "예측 경로를 미리 수행"
+    },
+    {
+      "id": "n2",
+      "label": "재정렬 버퍼 보관",
+      "color": "blue",
+      "sub": "결과를 임시로 둠"
+    },
+    {
+      "id": "n3",
+      "label": "예측 실패 시 폐기",
+      "color": "gray",
+      "sub": "아키텍처 상태 복원"
+    },
+    {
+      "id": "n4",
+      "label": "캐시 흔적 잔존",
+      "color": "amber",
+      "sub": "미시적 상태는 그대로"
+    },
+    {
+      "id": "n5",
+      "label": "부채널 유출",
+      "color": "rose",
+      "sub": "스펙터 계열 공격"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "예측이 맞으면 순서대로 확정 반영되어 대기 시간을 아낀다",
+      "tone": "pos"
+    },
+    {
+      "text": "투기 장벽 명령 등 대응책은 대부분 성능 비용을 수반",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

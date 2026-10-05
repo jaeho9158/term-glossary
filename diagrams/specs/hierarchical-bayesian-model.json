@@ -1,0 +1,70 @@
+{
+  "slug": "hierarchical-bayesian-model",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "상위 초모수",
+      "color": "violet",
+      "sub": "공통 분포"
+    },
+    {
+      "id": "g1",
+      "label": "집단 모수 A",
+      "color": "blue",
+      "sub": "예: 학교 A"
+    },
+    {
+      "id": "g2",
+      "label": "집단 모수 B",
+      "color": "blue",
+      "sub": "예: 학교 B"
+    },
+    {
+      "id": "d1",
+      "label": "관측치 A",
+      "color": "gray",
+      "sub": "학생 5명 (적음)"
+    },
+    {
+      "id": "d2",
+      "label": "관측치 B",
+      "color": "gray",
+      "sub": "학생 많음"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "g1",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "g2",
+      "kind": "arrow"
+    },
+    {
+      "from": "g1",
+      "to": "d1",
+      "kind": "arrow"
+    },
+    {
+      "from": "g2",
+      "to": "d2",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "공통 분포를 공유하므로 표본 적은 A는 전체 평균 쪽으로 수축, 많은 B는 자기 자료를 더 따름",
+      "tone": "general"
+    },
+    {
+      "text": "층위가 많을수록 MCMC 수렴 점검이 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

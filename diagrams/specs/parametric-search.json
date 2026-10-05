@@ -1,0 +1,87 @@
+{
+  "slug": "parametric-search",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "최적화 문제",
+      "color": "gray",
+      "sub": "최적값은 얼마인가"
+    },
+    {
+      "id": "n1",
+      "label": "판별 문제로 변환",
+      "color": "violet",
+      "sub": "값 x로 가능한가"
+    },
+    {
+      "id": "n2",
+      "label": "후보 값 선택",
+      "color": "blue",
+      "sub": "탐색 범위의 중간값"
+    },
+    {
+      "id": "n3",
+      "label": "조건 판별",
+      "color": "blue",
+      "sub": "예/아니오"
+    },
+    {
+      "id": "n4",
+      "label": "범위 절반 축소",
+      "color": "amber",
+      "sub": "이진 탐색"
+    },
+    {
+      "id": "n5",
+      "label": "경계값 도달",
+      "color": "green",
+      "sub": "조건 만족 최적값"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "판별 함수를 얼마나 빨리 계산하느냐가 전체 효율을 좌우",
+      "tone": "general"
+    },
+    {
+      "text": "판별 조건이 단조로워야 성립 — 깨지면 정답을 놓칠 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

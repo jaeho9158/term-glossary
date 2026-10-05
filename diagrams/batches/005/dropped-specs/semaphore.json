@@ -1,0 +1,25 @@
+{
+  "slug": "semaphore",
+  "type": "procedure",
+  "nodes": [
+    {"id": "n0", "label": "wait(P) 요청", "color": "blue", "sub": "자원 요청"},
+    {"id": "n1", "label": "대기 큐", "color": "rose", "sub": "카운터 0이면 대기"},
+    {"id": "n2", "label": "카운터 −1·진입", "color": "violet", "sub": "카운터>0일 때"},
+    {"id": "n3", "label": "자원 사용", "color": "green"},
+    {"id": "n4", "label": "signal(V) 반납", "color": "amber", "sub": "카운터 +1"}
+  ],
+  "edges": [
+    {"from": "n0", "to": "n1", "kind": "arrow", "label": "0"},
+    {"from": "n0", "to": "n2", "kind": "arrow", "label": ">0"},
+    {"from": "n1", "to": "n2", "kind": "arrow"},
+    {"from": "n2", "to": "n3", "kind": "arrow"},
+    {"from": "n3", "to": "n4", "kind": "arrow"},
+    {"from": "n4", "to": "n1", "kind": "arrow", "label": "대기자 깨움"}
+  ],
+  "notes": [
+    {"text": "wait와 signal은 원자적으로 수행되어야 경쟁 상태를 막는다", "tone": "general"},
+    {"text": "소유권이 없어 다른 스레드도 반납할 수 있고, 반납 누락은 무한 대기를 부른다", "tone": "limit"}
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": false
+}

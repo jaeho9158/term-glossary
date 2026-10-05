@@ -1,0 +1,75 @@
+{
+  "slug": "failure-to-rescue",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "입원 환자",
+      "color": "blue",
+      "sub": "수술·입원 전체"
+    },
+    {
+      "id": "b",
+      "label": "합병증 발생",
+      "color": "rose",
+      "sub": "구조실패율의 분모"
+    },
+    {
+      "id": "e",
+      "label": "신속대응팀",
+      "color": "amber",
+      "sub": "조기경보점수"
+    },
+    {
+      "id": "c",
+      "label": "발견·대응 실패",
+      "color": "rose",
+      "sub": "악화 징후 놓침"
+    },
+    {
+      "id": "d",
+      "label": "사망",
+      "color": "rose",
+      "sub": "구조실패율의 분자"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow",
+      "label": "발생률"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "e",
+      "to": "c",
+      "kind": "inhibit"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "합병증 발생률(입원→합병증)과 구조실패율(합병증→사망)은 서로 다른 구간을 재므로 따로 해석한다",
+      "tone": "general"
+    },
+    {
+      "text": "심폐소생술 실패가 아니라 감시·대응 체계의 문제를 가리키며, 간호 인력 수준에 민감하다",
+      "tone": "general"
+    },
+    {
+      "text": "분모 정의(지정 합병증 목록 대 특정 수술 전체)에 따라 값이 달라 직접 비교할 수 없고, 청구자료는 합병증을 과소 기록할 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

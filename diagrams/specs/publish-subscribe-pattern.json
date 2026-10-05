@@ -1,0 +1,65 @@
+{
+  "slug": "publish-subscribe-pattern",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "발행자",
+      "color": "amber",
+      "sub": "토픽에 이벤트 발행"
+    },
+    {
+      "id": "n1",
+      "label": "브로커",
+      "color": "violet",
+      "sub": "토픽별 구독 목록 관리"
+    },
+    {
+      "id": "n2",
+      "label": "구독자들",
+      "color": "blue",
+      "sub": "구독자 모두 동시 수신"
+    },
+    {
+      "id": "n3",
+      "label": "각자 처리",
+      "color": "green",
+      "sub": "필요한 작업 수행"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n0",
+      "to": "n2",
+      "kind": "blocked",
+      "label": "직접 호출 없음"
+    }
+  ],
+  "notes": [
+    {
+      "text": "메시지 큐는 한 메시지를 소비자 한 명에게만, 발행-구독은 구독자 모두에게 전달",
+      "tone": "general"
+    },
+    {
+      "text": "브로커가 멈추면 소통 전체가 끊기므로 결함허용 설계가 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

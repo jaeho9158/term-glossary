@@ -1,0 +1,77 @@
+{
+  "slug": "job-order-costing",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "직접재료·노무비",
+      "color": "amber",
+      "sub": "작업별 추적"
+    },
+    {
+      "id": "n1",
+      "label": "제조간접비",
+      "color": "amber",
+      "sub": "예정배부율로 배부"
+    },
+    {
+      "id": "n2",
+      "label": "작업원가표",
+      "color": "violet",
+      "sub": "작업별 원가 집계"
+    },
+    {
+      "id": "n3",
+      "label": "재공품",
+      "color": "blue",
+      "sub": "진행 중인 작업"
+    },
+    {
+      "id": "n4",
+      "label": "제품",
+      "color": "blue",
+      "sub": "작업 완료 시 대체"
+    },
+    {
+      "id": "n5",
+      "label": "매출원가",
+      "color": "green",
+      "sub": "판매 시 대체"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "예정배부액과 실제 간접비의 차이(과소·과대배부)는 기말에 조정",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,71 @@
+{
+  "slug": "fire-pump-jockey-pump",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "배관 압력 저하",
+      "sub": "미세 누설·온도 변화",
+      "color": "amber"
+    },
+    {
+      "id": "n1",
+      "label": "압력스위치",
+      "sub": "설정값 감지",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "충압펌프 기동",
+      "sub": "소량 보충",
+      "color": "blue"
+    },
+    {
+      "id": "n3",
+      "label": "압력 회복·정지",
+      "sub": "주펌프는 대기",
+      "color": "green"
+    },
+    {
+      "id": "n4",
+      "label": "주펌프 기동",
+      "sub": "큰 유량이 필요할 때만",
+      "color": "rose"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n4",
+      "kind": "arrow",
+      "label": "화재 시"
+    }
+  ],
+  "notes": [
+    {
+      "text": "두 펌프의 기동압력 차이를 두어야 서로 간섭하지 않는다",
+      "tone": "general"
+    },
+    {
+      "text": "충압펌프는 화재 시 필요한 유량을 대신 감당하지 못한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

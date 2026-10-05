@@ -1,0 +1,259 @@
+# 배치 1 승인 요약
+
+상태: {"dropped":248,"reviewed":52}
+
+미리보기: diagrams/batches/001/approval/specs/preview.html — 검수에서 고친 33개 + 무작위 표본 19개
+
+## 탈락
+
+- lb-broth: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- implicit-association-test: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- pittsburgh-sleep-quality-index: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- positive-and-negative-syndrome-scale: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- schema-theory: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- hamilton-anxiety-rating-scale: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- ecological-fallacy: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- likert-scale: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- bradford-assay: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- cronbachs-alpha: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- blocking-buffer: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- ceiling-effect: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- mann-whitney-u-test: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- survivorship-bias: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- bonferroni-correction: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- null-hypothesis: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- schon-scandal: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- galvanometer-lab: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- kruskal-wallis-test: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- autoethnography: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- purposive-sampling: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- q-methodology: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- biomarker: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- bsa-blocking-agent: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- ethanol-precipitation: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- pico-framework: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- wilcoxon-signed-rank-test: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- zeigarnik-effect: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- borg-rpe-scale: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- dummy-variable: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- emotion-dysregulation: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- isotonic-solution: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- nonparametric-test: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- scoping-review: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- surface-tension: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- viscoelasticity: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- bragg-law: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- durbin-watson-test: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- hamilton-depression-rating-scale: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- hofstede-cultural-dimensions: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- misinformation-effect: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- asch-conformity-experiment: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- beck-anxiety-inventory: triage:정의가 단일 지표·도구·방법·효과 설명이어서 도식이 글 이상을 보태지 않음
+- cell-line: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- cohen-kappa: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- eta-squared: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- f1-score: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- glasgow-coma-scale: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- kinetic-and-potential-energy: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- normality: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- stereo-microscope: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- cohort-study: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- entropy: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- ingroup-outgroup-bias: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- internal-consistency-reliability: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- spacing-effect: merge-candidate: 병합 후보라 보류(was reviewed)
+- ucla-loneliness-scale: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- attribution-theory: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- emic-etic-perspective: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- fundamental-attribution-error: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- gage-r-and-r: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- imu: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- likelihood-ratio-test: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- load-cell: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- p-value: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- participant-observation: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- rumination: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- scid: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- vignette-method: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- weibull-distribution: triage:와이블분포 곡선이 핵심이나 해당 plot 함수가 없고 다른 type으로 대체 불가
+- abductive-reasoning: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- chunking-memory: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- criterion-validity: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- cyril-burt-scandal: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- enthalpy: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- ethnography: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- face-validity: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- focus-group-interview: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- g-power: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- ground-truth: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- growth-mindset: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- imaginary-audience-personal-fable: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- lorentz-force: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- magnetic-flux: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- manometer: triage:본문이 정의·단일 속성 수준이거나 도식이 글 이상의 이해를 주지 못함
+- nasa-tlx: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- negativity-bias: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- socioemotional-selectivity-theory: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- spectrophotometer: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- spss: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- strobe-statement: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- thin-layer-chromatography: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- think-aloud-protocol: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- welchs-t-test: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- ancova: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- center-of-gravity: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- compassion-fatigue: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- convenience-sampling: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- daltons-law-of-partial-pressures: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- dna-sequencing: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- dsm-5: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- experience-sampling-method: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- gestalt-principles: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- gricean-maxims: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- mahalanobis-distance: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- mcdonalds-omega: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- montreal-cognitive-assessment: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- nd-yag-laser: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- parallel-forms-reliability: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- perma-model: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- pilot-study: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- scaffolding: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- self-compassion: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- specific-gravity: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- texture-analyzer: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- thurstone-scale: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- wald-test: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- anchoring-effect: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- autoclave: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- availability-heuristic: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- big-five-personality: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- bracketing: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- capacitor: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- concurrent-validity: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- critical-point: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- depc-treated-water: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- discriminant-validity: triage:정의 반복에 그치거나 구성 요소 관계가 부족해 도식 이득이 작음
+- hermeneutic-phenomenology: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- horseradish-peroxidase: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- incubator: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- internal-working-model: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- interquartile-range: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- intrinsic-extrinsic-motivation: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- item-total-correlation: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- kaplan-meier-estimator: triage:계단 곡선 plot이나 함수 부재
+- longitudinal-study: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- mental-representation: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- microscopy: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- mixed-effects-model: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- nature-vs-nurture: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- percent-w-v: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- positionality-of-researcher: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- regression: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- regression-assumptions: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- scheffes-test: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- state-trait-anxiety-inventory: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- stroop-effect: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- wisconsin-card-sorting-test: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- within-subjects-design: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- yale-brown-obsessive-compulsive-scale: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- aliquot: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- attrition-bias: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- barnum-effect: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- bell-inequality: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- brittleness: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- capillary-action: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- centrifugal-force: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- coreq: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- cross-sectional-study: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- double-blind: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- effect-size: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- ego-depletion: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- external-validity: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- four-point-probe: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- free-fall-motion: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- gad-7: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- glucometer: triage:단일 개념·척도·장비·정의 위주로 도식이 추가로 알려 주는 것이 적음
+- jackknife-resampling: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- law-of-large-numbers: triage:그려야 할 plot이나 해당 함수가 없음
+- mini-mental-state-examination: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- molar-concentration: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- neo-pi-r: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- nomological-network: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- psychological-empowerment: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- quantum-zeno-effect: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- repeated-measures-anova: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- representativeness-heuristic: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- semi-structured-interview: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- snowball-sampling: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- spearman-correlation: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- standardized-residual: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- statistical-power: merge-candidate: 병합 후보라 보류(was reviewed)
+- theory-of-mind-child: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- thermistor: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- trail-making-test: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- triangulation: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- tris-buffer: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- trustworthiness: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- umbrella-review: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- vacuum-distillation: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- vicarious-trauma: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- visual-analogue-scale: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- water-bath: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- working-memory: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- actor-observer-bias: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- adverse-childhood-experiences: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- allophone: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- attention-restoration-theory: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- barratt-impulsiveness-scale: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- bioelectrical-impedance-analysis: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- bootstrap-resampling: merge-candidate: 병합 후보라 보류(was reviewed)
+- bouins-solution: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- breusch-pagan-test: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- buoyancy: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- buss-perry-aggression-questionnaire: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- catharsis-drama: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- centrifuge: triage:도식이 본문 이상의 이해를 주지 못함(단일 개념·척도·장비·정의형)
+- cochrans-q-test: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- cognitive-bias: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- cognitive-reserve: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- confirmatory-factor-analysis: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- continuous-performance-test: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- controlled-variable: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- criterion-sampling: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- crystal-violet-stain: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- data-saturation: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- dissection-dissociation: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- eeg: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- epworth-sleepiness-scale: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- ethidium-bromide: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- eyewitness-testimony: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- false-consensus-effect: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- fleiss-kappa: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- flooding-therapy: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- flow-theory: merge-candidate: 병합 후보라 보류(was reviewed)
+- generalized-method-of-moments: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- grit: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- groupthink-ir: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- heat-capacity: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- imagej: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- jarque-bera-test: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- kriging: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- light-microscope-lab: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- litmus-paper: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- loss-aversion: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- mauchlys-test-of-sphericity: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- monochromator: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- netnography: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- open-closed-ended-questions: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- overfitting: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- peak-end-rule: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- percentile: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- phoneme: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- photovoice: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- polarizing-filter-lab: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- predictive-validity: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- reaction-formation: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+- recall-bias: triage:정의 반복에 그치거나 단일 개념·도구·하위 사례여서 도식이 추가로 알려 줄 것이 적음
+
+## 검사 실패(작성 재시도 필요)
+

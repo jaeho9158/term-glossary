@@ -1,0 +1,70 @@
+{
+  "slug": "prompt-injection",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "공격자",
+      "color": "amber",
+      "sub": "악성 지시문 작성"
+    },
+    {
+      "id": "n1",
+      "label": "외부 문서에 은닉",
+      "color": "amber",
+      "sub": "웹페이지·이메일 등"
+    },
+    {
+      "id": "n2",
+      "label": "모델이 문서 읽음",
+      "color": "blue",
+      "sub": "지시와 데이터 미구분"
+    },
+    {
+      "id": "n3",
+      "label": "원래 지시 무시",
+      "color": "rose",
+      "sub": "숨은 문장을 명령으로"
+    },
+    {
+      "id": "n4",
+      "label": "공격자 명령 실행",
+      "color": "rose",
+      "sub": "정보 유출 등 피해"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "그림은 간접 인젝션 — 사용자가 직접 입력하는 직접 인젝션도 있음",
+      "tone": "general"
+    },
+    {
+      "text": "필터링·강건화 학습·권한 제한 어느 것도 모든 공격을 막지는 못함",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

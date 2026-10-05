@@ -1,0 +1,59 @@
+{
+  "slug": "query-optimization",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "규칙 기반 변환",
+      "color": "violet",
+      "sub": "선택·사영을 아래로"
+    },
+    {
+      "id": "n1",
+      "label": "후보 계획 열거",
+      "color": "blue",
+      "sub": "조인 순서·접근 방법"
+    },
+    {
+      "id": "n2",
+      "label": "비용 추정",
+      "color": "violet",
+      "sub": "통계로 행 수 예측"
+    },
+    {
+      "id": "n3",
+      "label": "최저 비용 선택",
+      "color": "green",
+      "sub": "실행 계획 확정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "조인 순서는 경우의 수가 폭발해 동적계획법 등으로 탐색",
+      "tone": "general"
+    },
+    {
+      "text": "통계가 오래되거나 열 사이 상관을 무시하면 추정이 빗나가 나쁜 계획 선택",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

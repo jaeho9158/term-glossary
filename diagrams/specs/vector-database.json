@@ -1,0 +1,70 @@
+{
+  "slug": "vector-database",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "문서 임베딩",
+      "color": "gray",
+      "sub": "텍스트·이미지→벡터"
+    },
+    {
+      "id": "n1",
+      "label": "색인 저장",
+      "color": "blue",
+      "sub": "ANN 색인(HNSW·IVF)"
+    },
+    {
+      "id": "n2",
+      "label": "질의 임베딩",
+      "color": "amber",
+      "sub": "질문을 벡터로 변환"
+    },
+    {
+      "id": "n3",
+      "label": "유사도 검색",
+      "color": "violet",
+      "sub": "가장 가까운 상위 k개"
+    },
+    {
+      "id": "n4",
+      "label": "생성 모델 입력",
+      "color": "green",
+      "sub": "검색증강생성"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "ANN은 탐색 범위를 줄여 빠르지만 정확도(재현율)와 속도가 절충 관계",
+      "tone": "limit"
+    },
+    {
+      "text": "검색 품질은 임베딩 모델에 크게 좌우됨",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

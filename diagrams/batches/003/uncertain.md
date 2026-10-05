@@ -1,0 +1,105 @@
+- cyp2d6-polymorphism — 기능 감소→중간대사형, 정상 기능→정상대사형 연결: 본문이 표현형을 대립유전자 조합으로 정한다고만 해서 개별 대응을 뺌(노트로 대체)
+- rem-sleep — 비렘 서파수면의 근긴장 행: 본문에 비렘 근긴장 서술이 없어 좌우 행을 맞출 수 없음(렘 무긴장은 note로만)
+- optic-chiasm — 병변 위치별 시야 결손 패턴(양이측반맹·동측반맹 대응): 본문에 병변-결손 대응이 명시되지 않음
+- catalase-test — 코아굴라제·담즙-에스쿨린검사를 각 가지 아래 하위 노드로 연결: 본문이 어느 가지에 어떤 후속 검사가 붙는지 명시하지 않음(노트로만 처리)
+- cell-cycle-checkpoint — S기 내(복제 중) 체크포인트 노드: 본문이 위치·역할을 구체적으로 설명하지 않아 뺌(노트로 언급)
+- channelrhodopsin — 할로로돕신·아르케로돕신의 작용 이온·파장: 본문에 억제성이라는 것 외 설명이 없어 뺌
+- autonomic-nervous-system — 부교감신경의 동공 반응: 본문에 교감(동공 확대)만 있어 뺌
+- car-t-cell-therapy — 체외 증식 단계: 의도문에만 있고 본문에 없어 뺌
+- phytochrome — PIF 분해→그늘회피반응 직접 연결: 본문은 Pfr 감소 시 그늘회피가 유도된다고 서술해 방향이 달라 연결을 뺌(노트로만 표기)
+- inflammatory-bowel-disease — 크론병 전층 염증 vs 궤양성대장염 점막 염증(염증 깊이 행): 본문에 염증 깊이 기술이 없어 뺌
+- directing-effect — 활성화+메타 배향 칸의 예: 본문에 사례가 없어 "뚜렷한 예 없음"으로 비움
+- compartment-model-pk — 중심구획에서 소실로 가는 연결: 본문에 소실 경로가 명시되지 않고 의도(intent)에만 있음, 유지했으나 확인 필요
+- triple-bottom-line — 두 축 겹침 영역(사람∩지구 등) 라벨: 본문에 두 축 교집합 설명이 없어 뺌
+- aggregate-demand-aggregate-supply — 곡선은 직선 모식(linear)으로 근사: 우하향 AD·우상향 SRAS·수직 LRAS(vline), 교점 위치는 임의
+- exocytosis — Ca²⁺ 신호가 작용하는 정확한 단계 연결: 본문이 단계를 지정하지 않아 융합 sub에만 병기
+- gut-brain-axis — 네 경로 각각의 방향(장→뇌/뇌→장) 화살표: 본문이 경로별 방향을 구분하지 않아 양방향 노트로만 처리
+- seigniorage — inverted_u 곡선(생략): 시뇨리지 곡선은 비대칭 정점이라 write.md 표상 inverted_u(대칭) 사용 불가, 항목 건너뜀
+- urinary-cast-examination — 상피세포원주→병변 연결: 본문이 상피세포원주의 시사 병변을 적지 않아 sub 생략
+- geometric-dimensioning-and-tolerancing — 흔들림 공차의 개별 공차(원주 흔들림 등): 본문이 구체 이름을 적지 않아 하위 노드 생략
+- heat-treatment — 오스테나이트화 단계: 본문에 용어가 없어 '가열'로 표기
+- cycle-threshold-value — 역치선·Ct 위치 vline: 세로선은 x좌표 임의 지정이 필요해 생략, 노트로 처리
+- sleep-dependent-memory-consolidation — 느린진동→방추→예파의 엄밀한 순서: 본문은 '시간 맞물림'만 서술, 화살표는 개략 흐름
+- psilocybin — 지각 변화→치료 효과 직접 연결: 본문이 환각의 필요성을 논쟁 중으로 적어 뺌
+- identity-by-descent — 우연한 일치 쪽의 "IBS(상태동일성)" 용어 병기와 "혈연 근거 안 됨" 행은 본문에 명시가 약해 일반화로만 표기: 본문에 IBS 언급 없음
+- telomere-biology — 텔로머레이스가 단축을 되돌린다는 연결: 본문은 암세포의 비정상 활성화만 언급
+- corticospinal-tract — 운동피질→뇌줄기 경유 노드: 본문에 뇌줄기 언급 없음
+- tamoxifen-inducible-cre — 평소 세포질 결박·타목시펜 대사물 결합 노드: 본문에 없음
+- shear-bending-moment-diagram — 모멘트 곡선을 포물선이 아닌 inverted_u(종 모양)로 근사: 정확한 함수 없음(저신뢰)
+- continuity-editing — 숏리버스숏 하위 노드: 본문에서 규칙 체계의 하위 요소로 명시되지 않고 사용 예에서만 시선일치와 결합 언급
+- stage-audience-relationship — 원형·스러스트 무대 열: 본문에 언급 없음
+- chromatin-remodeling — 계열별 작동 방식(밀어내기 등) 연결: 본문에 계열과 방식의 대응이 없음
+- establishing-shot — 미디엄숏→클로즈업으로 좁혀 가는 편집 순서: 본문에 설정숏 이후 쇼트 종류가 명시되지 않음
+- engram-maturation — 단백질 합성 억제에 취약한 시간창: 본문에 근거 없음
+- male-gaze — 카메라→남성 인물→관객 시선의 선후 인과: 본문은 세 시선이 함께 여성을 대상화한다고만 해서 순서 단정은 약함(화살표는 배열용, 노트로 한정)
+- climax-community — 교란 시 극상→초기 단계로의 되돌림 엣지: chain 인접 규칙상 노트(limit)로만 표시
+- his-tag-affinity-chromatography — 태그 절단 단계: 페이지 본문에 근거 없음(intent에만 있음)
+- temporal-credit-assignment-problem — 일시적 표시의 분자 정체(예: 적격 흔적의 구체 분자): 본문이 영역·학습 유형마다 다르게 제안된다고만 적어 뺌
+- lineweaver-burk-plot — 억제제 농도별 직선 여러 개: 본문에 억제제 언급이 없어 억제제 없음/경쟁적 억제제 2개만 그림(y절편 공유는 일반 지식)
+- refractive-error — 근시·원시의 원인(안구 길이·각막 굴절력) 행: 본문은 원인을 서술하지 않음(정시 열도 contrast 2열이라 노트로만 처리)
+- solar-cell — p-n 접합 내부 전기장이 전하를 분리한다는 연결: 본문은 "p-n 접합에서 분리"까지만 서술
+- atopic-dermatitis — 알레르겐 침투·긁음→장벽 추가 손상 연결: 본문에 없어 3노드 순환(장벽 약화→2형 염증→가려움·습진)으로 축소
+- standard-addition-method — plot 선형 직선 사용(신호 vs 첨가량, x절편 외삽): 렌더 후 절편 위치와 vlines 라벨 겹침 확인 필요(confidence low)
+- innate-lymphoid-cell — ILC별 분비 사이토카인 노드: 본문에 구체 사이토카인명이 없어 전사인자·Th 대응만 표기
+- neurotoxin-mechanism — 유형별 대표 독소(납·수은·유기인계·보툴리누스) 연결: 본문이 독소를 나열만 하고 유형과 짝짓지 않음
+- microsatellite-instability-test — 치료 대상 선정 단계: 페이지 본문에 근거 없음(intent에만 있음)
+- tdp-43 — 스트레스·번역후변형이 핵 이탈을 직접 유도한다는 인과: 본문은 상위 신호로 "작용할 수 있다"는 가설 수준(노트로 한정)
+- alcoholic-fermentation — NAD⁺ 재생을 별도 최종 노드로 잇는 엣지: 재생은 아세트알데히드→에탄올 환원 단계에서 동시에 일어나 선형 순서로 단정 어려움(엣지 라벨로 표시)
+- drug-allergy-vs-intolerance — 재투여 판단 행의 구체 결론(알레르기는 회피, 불내성은 재사용 가능): 본문은 "구분이 재사용 판단에 중요"까지만 말함
+- jablonski-diagram — 내부전환과 진동 이완의 순서·상태(S1/T1) 구분: 본문이 상태별 경로를 명시하지 않음
+- sudden-stop — 자금조달 악화에서 유입 중단으로의 되먹임 화살표, 산출 감소 독립 노드: 본문에 되먹임 고리와 산출 감소의 인과 연결이 명시되지 않음
+- anticoagulant-mechanism — 직접 경구 항응고제의 모니터링 여부: 본문에 와파린의 INR 검사만 구체적으로 언급됨
+- heinz-body — 용혈 노드: 본문에 용혈과의 연결이 명시되지 않음
+- catalytic-cycle — 베타-수소 제거 단계: 본문에 없고 산화첨가·삽입·환원제거만 언급
+- alternative-complement-pathway — 인자 H·CD55가 끊는 위치의 억제 엣지: cycle은 엣지 지정 불가라 note로만 표기
+- high-dose-hook-effect — plot inverted_u(대칭) 사용: 실제 후크 곡선은 비대칭일 수 있어 x축을 로그 눈금으로 표기하고 개념 모식도로 처리
+- polymer-molecular-weight-distribution — plot 대신 contrast: 분자량 분포는 치우친 곡선이라 normal로 Mn·Mw 간격을 그리면 왜곡
+- natural-monopoly — 비용 하위가법성(subadditivity) 기준: 평균비용 감소 곡선만 그리고 하위가법성은 plot으로 표현 불가해 생략(본문은 하위가법성이 더 엄밀하다고 서술)
+- agglomeration-economies — 세 경로(노동시장 매칭·공급자 공유·지식 파급)와 지역화/도시화 경제의 대응: 본문에 어느 경로가 어느 유형에 속하는지 없어 note로만 표기
+- cradle-to-cradle-design — 인증제도·맥도너/브라운가트 노드: 본문 근거는 있으나 확신 낮은 항목이라 두 순환 분기만 그림
+- game-theory — 순차·불완전정보 칸의 균형 개념: 본문에 이름이 없어 "그 밖의 균형 개념"으로 둠
+- chuanqi-drama — 원잡극의 구성(막 수)·작가층 행: 본문에 원잡극 쪽 서술이 없어 뺌(전기 문인 작가층만 서술됨)
+- purinergic-signaling — ADP·AMP 단계별 수용체 대응: 본문은 시간차 자극만 언급하고 물질별 대응은 명시하지 않아 뺌
+- mossy-fiber — 푸르키녜세포 연결: 본문에 평행섬유 이후 표적이 명시되지 않음(의도 문구와 표준 해부 기준으로 포함, 검수 시 확인)
+- cataplerosis — 중간산물 사이 회로 진행 순서 연결(옥살아세트산→알파케토글루타르산→숙시닐-CoA)은 본문에 없어 자동 순환 배치 순서에 의존: 본문은 세 중간산물의 유출 경로만 서술
+- von-willebrand-factor-assay — 2A·2B·2M별 기전 설명: 본문에 아형별 세부가 없음
+- nephrotoxicity-mechanism — 기전별 대표 약물 연결: 본문에 약물과 기전의 대응이 없음
+- cortical-layers — 1층의 역할: 본문에 1층 기능 서술이 없어 뺌(의도 문구도 2~6층만 언급)
+- subplate-neuron — 각 사건의 정확한 발달 시기: 본문은 순서만 서술해 연도 대신 단계명으로 표기
+- amorphous-solid — 느리게 식히면 결정이 되는 분기: 본문에 명시되지 않아 뺌(빠른 냉각 경로만 그림)
+- immune-system — 후천면역이 첫 반응이 느리다는 대비: 본문에 없어 "학습 후 대응·재감염에 더 빠름"으로만 표기
+- external-quality-assessment — 편차 시 교정·시약 점검 시정조치: 본문에 구체적 시정조치 언급 없음("개선 항목 파악"만 사용)
+- microgrid — 모드별 EMS 제어 차이: 본문에 모드별 EMS 차이 언급 없음(전환 시 불안정만 노트로)
+- hepatotoxicity-mechanism — 경로와 간세포형·담즙정체형·혼합형 양상의 대응: 본문에 대응 관계 없음(R값 구분만 노트로)
+- hepatic-encephalopathy — 장 유래·문맥 우회·락툴로오스 경로: 본문에 언급 없음
+- mycorrhiza — 광합성 당 교환: 본문은 "양분"만 언급
+- glyoxylate-cycle — 말산→옥살아세트산→구연산 연결: 본문에 옥살아세트산이 없어 뺌(자동 순환 배치가 말산→구연산으로 이어 그림, 검수 시 확인)
+- diuretic-mechanism — 계열별 작용 세뇨관 부위 매핑(티아지드=원위세뇨관 외): 본문에 계열-부위 대응이 루프 상류 언급뿐이라 sub는 의도문 근거만 사용
+- beijing-opera-role-types — 단·정·축의 세부 유형: 본문에 생(生)의 세분만 명시
+- nephelometry — 비탁법의 민감도·항원 과잉 영향 행: 본문이 비탁법 쪽 속성을 명확히 서술하지 않아 뺌(비탁법/탁도법 설명이 본문 안에서도 엇갈림)
+- bilirubin-metabolism — 비장에서의 적혈구 분해·장내세균의 유로빌리노겐 변환: 단계 수를 5개로 줄이려 뺌
+- glycine-receptor — 스트리크닌이 수용체를 막아 경련을 일으키는 연결: 페이지 본문에 스트리크닌 언급 없음(일반 "수용체가 막히면"만 limit 노트로 반영)
+- lymphocyte — 조절 T세포 노드: 페이지 본문에 조절 T 언급 없음
+- reactive-oxygen-species-toxicity — 약물·중금속·방사선 원인 노드: 페이지 본문에 없음("독성물질 대사"로 일반화)
+- kowzan-sign-systems — 세부 범주(언어·몸짓·조명 등)를 배우/배우 외 가지 아래에 배치하는 연결: 본문에 어느 범주가 어느 쪽에 속하는지 명시되어 있지 않음
+- aphasia — 우하 칸(유창·이해 양호)의 유형명: 본문에 해당 칸 유형의 유창성·이해력 서술이 없어 "그 외 유형(전도성 등)"으로만 표기, 축 방향 배치는 브로카·베르니케 서술만 근거
+- monopoly-pricing — 한계수입·한계비용·수요곡선 plot과 자중손실 영역: 자중손실 삼각형·MR=MC 교점을 그릴 plot 함수 없음, contrast(완전경쟁 대 독점)로 대체. 완전경쟁의 "자중손실 없음"은 본문에 명시되지 않아 비교 기준으로만 표기
+- social-contract-theory — 사상가별 자연상태·저항권 인정 범위 대비: 본문에 사상가별 자연상태 서술이 없어 hierarchy(계약 결과 3갈래)로만 그림
+- heat-pump — 팽창(감압) 단계 노드: 페이지 본문에 팽창밸브 언급 없음(증발·압축·응축 3노드와 limit 노트로 단순화 표시)
+- leukocytosis — 림프구 증가→백혈병 연결: 본문에 백혈병이 림프구 증가와 미성숙 세포 양쪽에 걸쳐 나와 limit 노트로만 반영
+- parallel-fiber — 등반섬유 오차 신호와 맞물린 장기저하 연결: 용어 페이지 본문에 등반섬유 언급이 없어 뺌
+- galvanic-cell — 전해질 이온 이동(염다리·이온 흐름) 단계: 본문에 전해질은 나오나 이온 이동 서술은 없음
+- hemolytic-disease-newborn-testing — "빌리루빈이 오르는" 단계: 본문은 빌리루빈 수치 확인만 언급, 상승 인과는 없음
+- 3-hydroxykynurenine — KAT가 키뉴레닌을 키뉴레닌산으로 바꾸는 연결(엣지 라벨): 페이지 본문이 KAT와 키뉴레닌산을 직접 잇지 않음("보호 가지"로만 표기)
+- unemployment — 취업자 노드(경제활동인구의 다른 갈래): 페이지 본문에 취업자 언급 없음
+- auction-theory — 일급가격 노드(밀봉입찰의 하위): 페이지 본문에 일급가격 명시 없음(이급가격·밀봉입찰만 언급). 의도문 기준으로 포함했으니 검수 요망
+- national-cinema — 생산·소비·텍스트·비평 담론 4개 층위: 페이지 본문에 없음(본문의 국적 규정 기준 제작 자본·배경·언어로 대체)
+- midbrain — 흑색질 치밀부·배쪽피개영역을 피개의 하위로 연결: 본문이 두 핵을 중뇌에 분포한다고만 하고 피개 소속은 밝히지 않아 중뇌 직속으로 둠
+- oxidative-stress-neurodegeneration — 신경염증을 순환 노드로 삽입: 본문이 염증이 손상을 악화시킨다고만 해 순환 순서가 불확실, notes로만 언급
+- estrous-cycle — 단계별 호르몬·배란 연결: 본문에 단계별 대응이 없어 뺌
+- monopsony — 노동수요(한계수입생산) 곡선과 경쟁시장 균형점: 본문에 수요곡선 설명이 없어 공급곡선·한계요소비용만 그림(고용·임금이 경쟁시장보다 낮다는 비교는 그림에 없음)
+- temporal-lobe — 중측두이랑 노드: 본문이 이름만 언급하고 기능을 서술하지 않음
+- mockumentary — 극영화 칸(허구·극영화 문법)과 가로축 "극영화 문법/다큐 관습" 구도: 본문에 4분면 설명이 없고 의도문에서 가져온 구성(판정 confidence low)
+- tryptophan-2-3-dioxygenase — 스트레스→TDO 증가, 키뉴레닌→T세포 억제: 본문에는 코르티솔 조절만 있고 스트레스·T세포 억제 언급 없음
+- new-hollywood — 이지 라이더(1969)·대부(1972): 본문에 없는 작품·연도라 뺌
+- kinase-phosphorylation-cascade — ERK→Raf 음성 되먹임 엣지: 본문이 어느 단계가 되먹임을 받는지 특정하지 않아 노트로만 표기

@@ -1,0 +1,81 @@
+{
+  "slug": "multi-head-attention",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력",
+      "color": "gray",
+      "sub": "토큰 표현"
+    },
+    {
+      "id": "n1",
+      "label": "헤드로 나눔",
+      "color": "blue",
+      "sub": "서로 다른 부분 공간"
+    },
+    {
+      "id": "n2",
+      "label": "헤드별 어텐션",
+      "color": "violet",
+      "sub": "독립·병렬 계산"
+    },
+    {
+      "id": "n3",
+      "label": "이어 붙이기",
+      "color": "blue",
+      "sub": "헤드 결과 연결"
+    },
+    {
+      "id": "n4",
+      "label": "선형변환",
+      "color": "amber",
+      "sub": "하나로 합침"
+    },
+    {
+      "id": "n5",
+      "label": "출력",
+      "color": "green",
+      "sub": "여러 관점의 문맥"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "헤드마다 다른 종류의 관계(문법적·의미적 등)에 주목하도록 학습됨",
+      "tone": "pos"
+    },
+    {
+      "text": "헤드를 늘린다고 항상 좋아지지 않으며, 일부 헤드는 학습 후 중복된다는 연구가 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; Vaswani et al.(2017) Attention Is All You Need",
+  "reviewed": true
+}

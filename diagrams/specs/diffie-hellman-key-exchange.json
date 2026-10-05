@@ -1,0 +1,70 @@
+{
+  "slug": "diffie-hellman-key-exchange",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "공개 기본값 합의",
+      "color": "gray",
+      "sub": "도청되어도 무방"
+    },
+    {
+      "id": "n1",
+      "label": "비밀 값 선택",
+      "color": "blue",
+      "sub": "각자 보관·전송 안 함"
+    },
+    {
+      "id": "n2",
+      "label": "섞은 값 교환",
+      "color": "amber",
+      "sub": "기본값+자기 비밀"
+    },
+    {
+      "id": "n3",
+      "label": "자기 비밀 다시 섞기",
+      "color": "violet",
+      "sub": "받은 값에 적용"
+    },
+    {
+      "id": "n4",
+      "label": "공통 비밀 키",
+      "color": "green",
+      "sub": "양쪽이 같은 값"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "교환된 값만으로 비밀 값을 알아내기 어렵다는 이산로그 문제에 기반",
+      "tone": "general"
+    },
+    {
+      "text": "상대 신원은 인증하지 않음 — 중간자 공격을 막으려면 디지털 서명 등과 병행",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; Diffie & Hellman (1976) New Directions in Cryptography",
+  "reviewed": true
+}

@@ -1,0 +1,70 @@
+{
+  "slug": "race-condition",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "요청 A 읽기",
+      "color": "blue",
+      "sub": "잔액 100만 원"
+    },
+    {
+      "id": "b",
+      "label": "요청 B 읽기",
+      "color": "amber",
+      "sub": "같은 100만 원"
+    },
+    {
+      "id": "c",
+      "label": "A 빼고 저장",
+      "color": "blue",
+      "sub": "90만 원 저장"
+    },
+    {
+      "id": "d",
+      "label": "B 빼고 저장",
+      "color": "amber",
+      "sub": "90만 원 덮어씀"
+    },
+    {
+      "id": "e",
+      "label": "출금 1건 소실",
+      "color": "rose",
+      "sub": "80만이어야 할 잔액 90만"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "뮤텍스·세마포어 등 잠금으로 읽기~저장을 한 덩어리로 묶어 예방",
+      "tone": "pos"
+    },
+    {
+      "text": "실행 순서(타이밍)에 따라 결과가 달라 재현·디버깅이 어려움",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 (계좌 100만 원에서 10만 원 동시 출금 예)",
+  "reviewed": true
+}

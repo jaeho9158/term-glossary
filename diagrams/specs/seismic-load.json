@@ -1,0 +1,63 @@
+{
+  "slug": "seismic-load",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "지반 진동",
+      "color": "amber",
+      "sub": "지반종류·구역계수"
+    },
+    {
+      "id": "n1",
+      "label": "건물 동적 특성",
+      "color": "blue",
+      "sub": "고유주기·감쇠"
+    },
+    {
+      "id": "n2",
+      "label": "응답스펙트럼",
+      "color": "violet",
+      "sub": "주기별 응답 산정"
+    },
+    {
+      "id": "n3",
+      "label": "층별 지진력",
+      "color": "amber",
+      "sub": "관성력·각 층에 분배"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "단순히 무게에 비례하는 정적 힘이 아니라 고유주기·감쇠에 따라 응답이 달라지는 동적 하중",
+      "tone": "general"
+    },
+    {
+      "text": "고유주기는 건물의 질량과 강성으로 정해진다",
+      "tone": "general"
+    },
+    {
+      "text": "실제 지진은 예측할 수 없어 특정 재현주기의 설계지진을 가정한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

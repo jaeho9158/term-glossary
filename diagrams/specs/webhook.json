@@ -1,0 +1,59 @@
+{
+  "slug": "webhook",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "콜백 주소 등록",
+      "color": "blue",
+      "sub": "수신 측이 미리"
+    },
+    {
+      "id": "n1",
+      "label": "사건 발생",
+      "color": "amber",
+      "sub": "송신 측 시스템"
+    },
+    {
+      "id": "n2",
+      "label": "HTTP 요청 전송",
+      "color": "violet",
+      "sub": "등록된 주소로"
+    },
+    {
+      "id": "n3",
+      "label": "수신 측 즉시 반응",
+      "color": "green",
+      "sub": "폴링 불필요"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "수신 측은 서명·비밀 토큰으로 요청 출처를 검증",
+      "tone": "general"
+    },
+    {
+      "text": "유실·중복·순서 뒤바뀜 가능 → 송신 측 재시도, 수신 측 멱등성 처리",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

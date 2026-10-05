@@ -1,0 +1,70 @@
+{
+  "slug": "sequence-to-sequence",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력 시퀀스",
+      "color": "gray",
+      "sub": "예: 5단어 문장"
+    },
+    {
+      "id": "n1",
+      "label": "인코더",
+      "color": "blue",
+      "sub": "입력 전체를 읽음"
+    },
+    {
+      "id": "n2",
+      "label": "문맥 벡터",
+      "color": "violet",
+      "sub": "의미를 하나로 압축"
+    },
+    {
+      "id": "n3",
+      "label": "디코더",
+      "color": "blue",
+      "sub": "한 단어씩 생성"
+    },
+    {
+      "id": "n4",
+      "label": "출력 시퀀스",
+      "color": "green",
+      "sub": "길이가 달라도 됨"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "고정 길이 벡터 하나로 압축하므로 입력이 길수록 정보 손실이 커짐",
+      "tone": "limit"
+    },
+    {
+      "text": "어텐션은 디코더가 매 단계 인코더의 여러 시점을 다시 참고하게 해 이를 보완",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

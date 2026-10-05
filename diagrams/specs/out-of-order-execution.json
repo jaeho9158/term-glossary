@@ -1,0 +1,70 @@
+{
+  "slug": "out-of-order-execution",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "레지스터 재명명",
+      "color": "violet",
+      "sub": "거짓 의존 제거"
+    },
+    {
+      "id": "n1",
+      "label": "예약 스테이션",
+      "color": "blue",
+      "sub": "피연산자 대기"
+    },
+    {
+      "id": "n2",
+      "label": "비순차 실행",
+      "color": "amber",
+      "sub": "준비된 명령부터"
+    },
+    {
+      "id": "n3",
+      "label": "재정렬 버퍼",
+      "color": "blue",
+      "sub": "결과 모음(ROB)"
+    },
+    {
+      "id": "n4",
+      "label": "순서대로 확정",
+      "color": "green",
+      "sub": "프로그램 순서 커밋"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "순서대로 확정하므로 예외·인터럽트 의미가 보존되고 투기적 실행을 되돌릴 수 있음",
+      "tone": "general"
+    },
+    {
+      "text": "다른 스레드가 보는 메모리 연산 순서는 달라질 수 있어 메모리 배리어 필요",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문(토마술로 알고리즘 계열)",
+  "reviewed": true
+}

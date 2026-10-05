@@ -1,0 +1,66 @@
+{
+  "slug": "session-and-cookie",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "로그인 요청",
+      "color": "gray",
+      "sub": "브라우저 → 서버"
+    },
+    {
+      "id": "n1",
+      "label": "세션 생성",
+      "color": "blue",
+      "sub": "서버에 로그인 정보 저장"
+    },
+    {
+      "id": "n2",
+      "label": "식별자 전달",
+      "color": "violet",
+      "sub": "쿠키로 브라우저에 저장"
+    },
+    {
+      "id": "n3",
+      "label": "쿠키 자동 전송",
+      "color": "amber",
+      "sub": "이후 요청마다 함께"
+    },
+    {
+      "id": "n4",
+      "label": "사용자 확인",
+      "color": "green",
+      "sub": "식별자로 세션 조회"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "쿠키 값이 노출되면 세션을 가로챌 수 있음 → HttpOnly·Secure·SameSite 속성으로 완화",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

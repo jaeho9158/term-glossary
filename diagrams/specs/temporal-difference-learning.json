@@ -1,0 +1,65 @@
+{
+  "slug": "temporal-difference-learning",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "한 스텝 진행",
+      "color": "amber",
+      "sub": "보상 관측"
+    },
+    {
+      "id": "n1",
+      "label": "TD 목표",
+      "color": "violet",
+      "sub": "보상+다음 상태 추정값"
+    },
+    {
+      "id": "n2",
+      "label": "TD 오차",
+      "color": "rose",
+      "sub": "목표와 현재 예측의 차"
+    },
+    {
+      "id": "n3",
+      "label": "가치 갱신",
+      "color": "green",
+      "sub": "현재 상태를 즉시"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "매 스텝 반복"
+    }
+  ],
+  "notes": [
+    {
+      "text": "에피소드가 끝나기를 기다리지 않고 갱신한다",
+      "tone": "pos"
+    },
+    {
+      "text": "자기 추정값을 목표로 쓰는 부트스트랩이라 분산은 줄지만 편향이 생긴다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; Sutton & Barto, Reinforcement Learning",
+  "reviewed": true
+}

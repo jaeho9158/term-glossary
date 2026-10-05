@@ -1,0 +1,59 @@
+{
+  "slug": "survey-weighting",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "기본가중치",
+      "color": "blue",
+      "sub": "추출확률의 역수"
+    },
+    {
+      "id": "b",
+      "label": "무응답 조정",
+      "color": "violet",
+      "sub": "응답률 차이 보정"
+    },
+    {
+      "id": "c",
+      "label": "사후층화·레이킹",
+      "color": "violet",
+      "sub": "센서스 분포에 맞춤"
+    },
+    {
+      "id": "d",
+      "label": "최종 가중치",
+      "color": "green",
+      "sub": "단계별 곱"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "극단적으로 큰 가중치는 유효표본크기를 줄여 신뢰구간을 넓힌다",
+      "tone": "limit"
+    },
+    {
+      "text": "무응답편의는 가중치로 완전히 사라지지 않는다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

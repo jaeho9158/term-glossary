@@ -1,0 +1,70 @@
+{
+  "slug": "vector-clock",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "노드별 카운터",
+      "color": "gray",
+      "sub": "노드마다 한 칸인 벡터"
+    },
+    {
+      "id": "n1",
+      "label": "사건마다 증가",
+      "color": "blue",
+      "sub": "자기 카운터를 올림"
+    },
+    {
+      "id": "n2",
+      "label": "메시지에 동봉",
+      "color": "violet",
+      "sub": "받는 쪽은 항목별 최댓값"
+    },
+    {
+      "id": "n3",
+      "label": "벡터 비교",
+      "color": "violet",
+      "sub": "두 사건의 카운터 목록"
+    },
+    {
+      "id": "n4",
+      "label": "선후·동시 판정",
+      "color": "green",
+      "sub": "happens-before"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "한쪽이 모든 항목에서 같거나 앞서면 선후 관계, 항목마다 엇갈리면 동시 발생",
+      "tone": "general"
+    },
+    {
+      "text": "노드 수가 늘수록 벡터가 커져 저장·전송 비용 부담",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

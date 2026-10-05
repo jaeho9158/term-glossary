@@ -1,0 +1,66 @@
+{
+  "slug": "backtracking-algorithm",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "선택지 하나 시도",
+      "color": "blue",
+      "sub": "해를 한 단계 확장"
+    },
+    {
+      "id": "n1",
+      "label": "제약 조건 검사",
+      "color": "violet",
+      "sub": "유효한 해로 이어지나"
+    },
+    {
+      "id": "n2",
+      "label": "가지치기",
+      "color": "rose",
+      "sub": "위반 경로는 포기"
+    },
+    {
+      "id": "n3",
+      "label": "되돌아가기",
+      "color": "amber",
+      "sub": "직전 갈림길로 복귀"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "위반"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n0",
+      "kind": "arrow",
+      "label": "다른 선택지"
+    }
+  ],
+  "notes": [
+    {
+      "text": "위반이 없으면 계속 확장해 해를 완성 (예: N-퀸, 스도쿠)",
+      "tone": "general"
+    },
+    {
+      "text": "최악의 경우 여전히 지수 시간, 성능은 가지치기 효율에 좌우",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

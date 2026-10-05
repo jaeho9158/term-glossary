@@ -1,0 +1,70 @@
+{
+  "slug": "lime-explainability",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "섭동 샘플 생성",
+      "color": "amber",
+      "sub": "설명 지점 주변 변형"
+    },
+    {
+      "id": "n1",
+      "label": "원 모델 예측",
+      "color": "blue",
+      "sub": "샘플별 예측값"
+    },
+    {
+      "id": "n2",
+      "label": "근접도 가중",
+      "color": "violet",
+      "sub": "가까울수록 큰 가중치"
+    },
+    {
+      "id": "n3",
+      "label": "대리 모델 학습",
+      "color": "violet",
+      "sub": "선형 등 해석 가능 모델"
+    },
+    {
+      "id": "n4",
+      "label": "특성 기여 해석",
+      "color": "green",
+      "sub": "긍정·부정 영향"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "국소 근사일 뿐이라 모델 전체의 행동으로 확대 해석 금지",
+      "tone": "limit"
+    },
+    {
+      "text": "섭동 방식·국소 범위에 따라 설명이 달라지는 안정성 문제",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

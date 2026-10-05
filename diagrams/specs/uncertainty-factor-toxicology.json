@@ -1,0 +1,70 @@
+{
+  "slug": "uncertainty-factor-toxicology",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "동물 NOAEL",
+      "color": "blue",
+      "sub": "동물실험 기준 용량"
+    },
+    {
+      "id": "n1",
+      "label": "종간 차이",
+      "color": "violet",
+      "sub": "동물→사람 외삽"
+    },
+    {
+      "id": "n2",
+      "label": "개인 간 차이",
+      "color": "violet",
+      "sub": "사람 사이 민감도"
+    },
+    {
+      "id": "n3",
+      "label": "추가 계수",
+      "color": "amber",
+      "sub": "아만성 자료·LOAEL 사용 시"
+    },
+    {
+      "id": "n4",
+      "label": "참고용량(RfD)",
+      "color": "green",
+      "sub": "NOAEL ÷ 계수의 곱"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "예: 종간 10 × 개인차 10 = 100으로 NOAEL을 나눔",
+      "tone": "general"
+    },
+    {
+      "text": "계수에는 정책적 판단이 섞이며, 지나치게 크면 비현실적으로 엄격한 기준이 된다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

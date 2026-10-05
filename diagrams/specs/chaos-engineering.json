@@ -1,0 +1,70 @@
+{
+  "slug": "chaos-engineering",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "정상 상태 정의",
+      "color": "gray",
+      "sub": "기준 지표 선정"
+    },
+    {
+      "id": "n1",
+      "label": "가설 설정",
+      "color": "violet",
+      "sub": "일어날 법한 사건"
+    },
+    {
+      "id": "n2",
+      "label": "장애 주입",
+      "color": "amber",
+      "sub": "영향 범위 작게 제한"
+    },
+    {
+      "id": "n3",
+      "label": "지표 비교",
+      "color": "violet",
+      "sub": "가설이 성립하는지"
+    },
+    {
+      "id": "n4",
+      "label": "범위 확대",
+      "color": "blue",
+      "sub": "서서히 넓혀 감"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "주입 유형: 인스턴스 종료, 네트워크 지연·패킷 손실, 의존 서비스 오류, 자원 고갈",
+      "tone": "general"
+    },
+    {
+      "text": "중단 스위치와 자동 롤백을 갖춘 뒤에만 수행: 무작정 운영 환경을 망가뜨리는 일이 아님",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

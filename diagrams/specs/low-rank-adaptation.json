@@ -1,0 +1,63 @@
+{
+  "slug": "low-rank-adaptation",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력",
+      "color": "gray"
+    },
+    {
+      "id": "n1",
+      "label": "원래 가중치",
+      "color": "blue",
+      "sub": "고정·학습 안 함"
+    },
+    {
+      "id": "n2",
+      "label": "저랭크 행렬 쌍",
+      "color": "amber",
+      "sub": "이 부분만 학습"
+    },
+    {
+      "id": "n3",
+      "label": "합쳐진 출력",
+      "color": "green",
+      "sub": "원래 가중치+변화량"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n0",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "가중치 변화량을 작은 두 행렬의 곱으로 근사",
+      "tone": "general"
+    },
+    {
+      "text": "랭크가 클수록 표현력↑, 파라미터·자원 소모도↑",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

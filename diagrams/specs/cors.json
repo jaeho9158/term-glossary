@@ -1,0 +1,74 @@
+{
+  "slug": "cors",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "교차 출처 요청",
+      "color": "blue",
+      "sub": "브라우저가 유형 판단"
+    },
+    {
+      "id": "b",
+      "label": "사전 요청",
+      "color": "violet",
+      "sub": "preflight"
+    },
+    {
+      "id": "c",
+      "label": "서버 허가 응답",
+      "color": "amber"
+    },
+    {
+      "id": "d",
+      "label": "본요청 전송",
+      "color": "blue"
+    },
+    {
+      "id": "e",
+      "label": "응답 헤더 확인",
+      "color": "green",
+      "sub": "허용 출처면 통과"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    },
+    {
+      "from": "a",
+      "to": "d",
+      "kind": "arrow",
+      "label": "단순 요청"
+    }
+  ],
+  "notes": [
+    {
+      "text": "단순 요청은 사전 요청 없이 바로 보내고 응답 헤더로 허용 여부를 확인",
+      "tone": "general"
+    },
+    {
+      "text": "브라우저가 지키는 규칙이라 서버 간 요청에는 적용되지 않음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 (Fetch 표준의 CORS 절차)",
+  "reviewed": true
+}

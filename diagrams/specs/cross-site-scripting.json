@@ -1,0 +1,59 @@
+{
+  "slug": "cross-site-scripting",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "악성 스크립트 삽입",
+      "color": "amber",
+      "sub": "공격자 · 댓글·검색어"
+    },
+    {
+      "id": "n1",
+      "label": "걸러지지 않고 출력",
+      "color": "blue",
+      "sub": "신뢰받는 사이트"
+    },
+    {
+      "id": "n2",
+      "label": "브라우저에서 실행",
+      "color": "rose",
+      "sub": "방문한 피해자"
+    },
+    {
+      "id": "n3",
+      "label": "쿠키 탈취",
+      "color": "rose",
+      "sub": "세션 정보·피싱"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "출력 인코딩은 화면에 표시하기 전 단계를, CSP는 브라우저의 스크립트 실행 단계를 끊음",
+      "tone": "pos"
+    },
+    {
+      "text": "방어 기법을 우회하는 새 공격 벡터가 계속 연구됨 · DOM 기반 XSS는 서버를 거치지 않음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

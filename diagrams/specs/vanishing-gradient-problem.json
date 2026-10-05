@@ -1,0 +1,60 @@
+{
+  "slug": "vanishing-gradient-problem",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "출력층 오차",
+      "color": "blue",
+      "sub": "기울기 계산"
+    },
+    {
+      "id": "n1",
+      "label": "층마다 곱셈",
+      "color": "violet",
+      "sub": "연쇄법칙·미분값<1"
+    },
+    {
+      "id": "n2",
+      "label": "기울기 급감",
+      "color": "amber",
+      "sub": "곱이 지수적으로 축소"
+    },
+    {
+      "id": "n3",
+      "label": "앞쪽 층 정체",
+      "color": "rose",
+      "sub": "가중치 거의 미갱신"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "역전파"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "ReLU 계열·가중치 초기화·배치 정규화·잔차 연결로 완화",
+      "tone": "pos"
+    },
+    {
+      "text": "반대로 기울기가 커져 발산하는 '기울기 폭발'도 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

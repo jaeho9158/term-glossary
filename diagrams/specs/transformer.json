@@ -1,0 +1,70 @@
+{
+  "slug": "transformer",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "입력 단어",
+      "color": "blue",
+      "sub": "문장 전체를 한 번에"
+    },
+    {
+      "id": "n1",
+      "label": "세 벡터로 변환",
+      "color": "violet",
+      "sub": "쿼리·키·값"
+    },
+    {
+      "id": "n2",
+      "label": "유사도 계산",
+      "color": "violet",
+      "sub": "쿼리와 키"
+    },
+    {
+      "id": "n3",
+      "label": "가중치 결정",
+      "color": "amber",
+      "sub": "어느 단어에 집중할지"
+    },
+    {
+      "id": "n4",
+      "label": "값 결합",
+      "color": "green",
+      "sub": "가중치로 합침"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "순서 정보는 위치 인코딩으로 보충, 멀티헤드는 이 연산을 여러 개 병렬로 둠",
+      "tone": "general"
+    },
+    {
+      "text": "문장이 길수록 단어 쌍이 급격히 늘어 계산량·메모리가 커짐",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

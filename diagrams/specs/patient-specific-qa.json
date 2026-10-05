@@ -1,0 +1,76 @@
+{
+  "slug": "patient-specific-qa",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "치료계획",
+      "color": "blue",
+      "sub": "IMRT·VMAT"
+    },
+    {
+      "id": "b",
+      "label": "팬텀 조사",
+      "color": "amber",
+      "sub": "동일 계획 그대로"
+    },
+    {
+      "id": "c",
+      "label": "선량 측정",
+      "color": "violet",
+      "sub": "검출기 배열"
+    },
+    {
+      "id": "d",
+      "label": "감마분석 비교",
+      "color": "violet",
+      "sub": "계획 대 측정 선량"
+    },
+    {
+      "id": "e",
+      "label": "계획 승인",
+      "color": "green",
+      "sub": "기준 통과 시 치료"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "a",
+      "kind": "arrow",
+      "label": "기준 미달: 재계획"
+    }
+  ],
+  "notes": [
+    {
+      "text": "통과 기준 예: 감마분석 통과율 95% 이상",
+      "tone": "general"
+    },
+    {
+      "text": "치료 전 한 시점의 검증 — 치료 중 변화는 영상유도로 따로 확인",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

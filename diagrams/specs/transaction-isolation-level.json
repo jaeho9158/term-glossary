@@ -1,0 +1,59 @@
+{
+  "slug": "transaction-isolation-level",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "READ UNCOMMITTED",
+      "color": "rose",
+      "sub": "dirty read 허용"
+    },
+    {
+      "id": "n1",
+      "label": "READ COMMITTED",
+      "color": "amber",
+      "sub": "커밋된 값만 읽음"
+    },
+    {
+      "id": "n2",
+      "label": "REPEATABLE READ",
+      "color": "blue",
+      "sub": "다시 읽어도 같은 값"
+    },
+    {
+      "id": "n3",
+      "label": "SERIALIZABLE",
+      "color": "green",
+      "sub": "phantom read 방지"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "화살표를 따라 격리가 엄격해질수록 허용되는 이상 현상이 줄어 일관성은 커지고 동시 처리 성능은 떨어진다",
+      "tone": "general"
+    },
+    {
+      "text": "같은 이름의 수준도 DBMS마다 내부 동작이 다르며, 가장 높은 수준이 늘 정답은 아니다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문; ANSI SQL-92 격리 수준",
+  "reviewed": true
+}

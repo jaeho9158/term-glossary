@@ -1,0 +1,62 @@
+{
+  "slug": "paging",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "논리 주소",
+      "color": "amber",
+      "sub": "페이지 단위"
+    },
+    {
+      "id": "n1",
+      "label": "TLB 조회",
+      "color": "violet",
+      "sub": "최근 변환 캐시"
+    },
+    {
+      "id": "n2",
+      "label": "페이지 테이블",
+      "color": "blue",
+      "sub": "페이지↔프레임 대응"
+    },
+    {
+      "id": "n3",
+      "label": "물리 주소",
+      "color": "green",
+      "sub": "프레임 위치"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "실패 시"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "적중"
+    }
+  ],
+  "notes": [
+    {
+      "text": "페이지를 키우면 TLB 적중률은 오르지만 내부 단편화가 늘어난다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

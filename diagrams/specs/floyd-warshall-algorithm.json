@@ -1,0 +1,76 @@
+{
+  "slug": "floyd-warshall-algorithm",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "거리표 준비",
+      "color": "gray",
+      "sub": "모든 정점 쌍"
+    },
+    {
+      "id": "n1",
+      "label": "경유지 k 선택",
+      "color": "violet",
+      "sub": "정점을 하나씩"
+    },
+    {
+      "id": "n2",
+      "label": "경로 비교",
+      "color": "blue",
+      "sub": "i→j 대 i→k→j"
+    },
+    {
+      "id": "n3",
+      "label": "더 짧으면 갱신",
+      "color": "amber",
+      "sub": "거리표 수정"
+    },
+    {
+      "id": "n4",
+      "label": "최단 거리표",
+      "color": "green",
+      "sub": "모든 쌍 완성"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n1",
+      "kind": "arrow",
+      "label": "다음 k"
+    }
+  ],
+  "notes": [
+    {
+      "text": "정점 N개면 경유지를 바꿔 N번 반복(삼중 반복문)",
+      "tone": "general"
+    },
+    {
+      "text": "계산량 O(V³) — 한 출발점만 필요하면 다익스트라가 가벼움",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

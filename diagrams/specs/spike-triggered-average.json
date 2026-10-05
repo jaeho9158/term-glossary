@@ -1,0 +1,70 @@
+{
+  "slug": "spike-triggered-average",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "무작위 자극",
+      "color": "amber",
+      "sub": "백색소음 등"
+    },
+    {
+      "id": "n1",
+      "label": "스파이크 기록",
+      "color": "blue",
+      "sub": "뉴런 반응"
+    },
+    {
+      "id": "n2",
+      "label": "직전 구간 수집",
+      "color": "violet",
+      "sub": "스파이크마다"
+    },
+    {
+      "id": "n3",
+      "label": "평균 내기",
+      "color": "violet",
+      "sub": "구간들을 평균"
+    },
+    {
+      "id": "n4",
+      "label": "수용장 커널",
+      "color": "green",
+      "sub": "선호 자극 패턴"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "자극이 충분히 무작위적이고 다양해야 정확히 추정됨",
+      "tone": "limit"
+    },
+    {
+      "text": "비선형 반응은 선형 커널만으로 설명 안 됨 — LN 모델로 확장",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

@@ -1,0 +1,39 @@
+# 분야군 스타일 가이드 작성
+
+입력: 분야군 이름 `<group>`과 그 분야 코드 목록(`scripts/diagrams/pipeline/groups.json`).
+읽을 것: `diagrams/README.md`, 그리고 `diagrams/specs/` 중 `reviewed: true`이고 첫 분야가 이 분야군에 속하는 스펙 전부(분야는 `terms.json`의 `categories[0]`). 30개가 넘으면 type별로 고르게 30개.
+출력: `diagrams/style/<group>.md` 한 파일, 60줄 이내, 아래 절 그대로.
+
+```markdown
+# <분야군 한글 이름> 스타일 가이드
+## 자주 맞는 type
+(이 분야 용어에 어떤 type이 잘 맞는지, 예 용어와 함께 3~5줄)
+## 라벨 관례
+(이 분야의 표기 관례: 영문 약어 병기, 단위, 기호, 고유명 표기, 길이)
+## 색 쓰는 법
+(README 역할 기준 색을 이 분야 개념에 어떻게 대응시키는지 — 예: 사회과학이면 정책·제도=blue, 개입=amber …)
+## 피할 것
+(이 분야 도식에서 흔한 오류: 인과 과장, 논쟁적 단정, 지나친 단순화 등 3~5줄)
+## 좋은 예
+(검수 통과 스펙 2개의 slug와 왜 좋은지 한 줄씩)
+```
+
+기존 스펙에서 실제로 관찰한 것만 쓴다. 추측으로 규칙을 만들지 않는다.
+
+## 분야군 코드 → 한글 이름
+| 코드 | 이름 |
+|---|---|
+| stats | 통계·방법론 |
+| natsci | 자연과학 |
+| life | 생명과학 |
+| health | 의학·보건 |
+| eng | 공학 |
+| computing | 컴퓨팅·정보 |
+| social | 사회과학 |
+| psyedu | 심리·교육 |
+| business | 경영·경제 |
+| humanities | 인문학 |
+| arts | 예술·디자인 |
+| agrifood | 농림·식품 |
+
+`scripts/diagrams/pipeline/batch.js` 명령은 실행하지 않는다(컨트롤러가 한다).

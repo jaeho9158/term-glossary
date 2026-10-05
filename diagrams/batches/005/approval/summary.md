@@ -1,0 +1,3424 @@
+# 배치 5 승인 요약
+
+상태: {"dropped":3413,"reviewed":843,"triaged":1}
+
+미리보기: diagrams/batches/005/approval/specs/preview.html — 검수에서 고친 192개 + 무작위 표본 25개
+
+## 탈락
+
+- rubric: triage:총체적·분석적 두 유형 언급뿐, 그림이 채점표 정의를 되풀이하게 됨
+- amortized-cost: triage:가감 항목이 나열된 계산식 — 그림보다 식 한 줄이 더 명확
+- analogia-relationis: triage:존재유비와의 대비가 한 기준(속성 대 관계)뿐이고 적용 해석이 학자마다 다름
+- institutional-review-board: triage:기관 명칭 — 심사 3등급은 부수 설명에 그침
+- mannerism: triage:미술 양식명, 위기의 미술 대 마니에라 해석이 대립 중
+- business-process-outsourcing: triage:위탁 형태 하나의 정의, 인력파견과의 대비가 한 문장 수준
+- facebow-transfer: triage:단일 임상 기록 절차, 임상적 가치 자체가 논쟁 중
+- ge-mckinsey-matrix: triage:3×3 아홉 칸 격자라 matrix(2×2) 틀로 그릴 수 없음
+- icon-painting: triage:성화 장르명 — 관계 맺는 구성 요소가 없음
+- api-gateway: triage:요청이 관문을 거쳐 서비스로 가는 구조가 정의와 안내 데스크 비유로 이미 충분
+- career-anchors: triage:8유형 이름 나열뿐, 유형 간 관계가 없음
+- rubric-assessment: triage:루브릭과 사실상 같은 용어, 두 유형 장단점 한 줄
+- socratic-method: triage:논박·산파술 두 단계뿐이라 그림이 정의를 반복함
+- net-realizable-value: triage:판매가에서 두 비용을 빼는 단일 측정치
+- servant-leadership: triage:리더십 유형 하나 — 성과 매개 경로가 한 문장 언급에 그침
+- gray-zone-conflict: triage:전쟁-평화 사이 한 구간 개념, 독자성 자체가 논쟁 중
+- perseverance-of-the-saints: triage:단일 교리 진술, TULIP 다른 항목이 본문에 없음
+- ablation-study: triage:요소 하나 빼고 비교하는 단순 실험 — 라면 비유로 이미 충분
+- hormesis: triage:핵심은 저용량 이득·고용량 유해로 기준선을 넘나드는 이상형 곡선인데 inverted_u는 0 아래로 내려가지 않아 그릴 수 없음
+- informel: triage:사조명, 유사 명칭·수용 경로가 연구 쟁점
+- maternal-mortality-ratio: triage:출생아 10만 명당 비율이라는 단일 지표
+- perinatal-mortality-rate: triage:임신 28주~생후 7일 구간 사망을 합친 비율 — 정의 문장으로 충분
+- precision-recall-curve: triage:곡선 모양이 핵심이나 기저율 수평 기준선과 PR 곡선을 그릴 함수가 없음
+- religious-pluralism: triage:배타·포용·다원 세 입장 이름만 나와 정의 반복 수준
+- relu: triage:max(0,x) 꺾인 직선이 핵심인데 linear로는 꺾임을 못 그림
+- apexification: triage:단일 술식, 재료 두 가지의 기간 차이 한 가지뿐
+- audience-costs: triage:공약 철회→국내 처벌 한 단계 인과, 실증 효과가 논쟁 중
+- journal-entry: triage:최초 기록 절차 하나, 차대변 일치 원칙은 차변과대변 항목과 중복
+- perspective-taking: triage:셀만 단계가 이름 없이 언급만 되어 근거 부족
+- postminimalism: triage:미술 경향명, 작가 간 공통점조차 약한 사후 범주
+- quadratura: triage:천장화 기법명 — 구성 요소 관계가 없음
+- realistic-job-preview: triage:솔직한 정보→조기이직 감소의 두 고리뿐
+- right-of-use-asset: triage:리스부채 가감 산정식과 상각 규칙 나열
+- vanitas: triage:도상 전통명, 상징물 목록만 있음
+- visual-cliff-experiment: triage:실험 장치 하나의 설명, 선천·학습 해석이 미결
+- abfraction: triage:기전 자체가 학계 논쟁 중이라 경로를 단정해 그릴 수 없음
+- abomination-of-desolation: triage:성경 표현, 성취 시점 해석이 갈림
+- activation-function: triage:포화형(시그모이드) 대 ReLU 기울기 비교가 핵심이나 ReLU를 그릴 함수가 없음
+- beers-criteria: triage:약물 목록 기준 — 범주 구분이 '경우가 많다' 수준으로 불확정
+- closed-reduction: triage:단일 치료법 — 관혈적 정복과의 비교는 장단점 나열에 그쳐 그림으로 더할 구조가 없음
+- denture-relining: triage:단일 술식 — 리베이싱과의 대비는 범위 차이 한 가지뿐이라 그림 근거 부족
+- dysgraphia: triage:장애 유형 하나의 서술 — 운동형·언어형 두 갈래만 있어 구성 요소 부족
+- gesamtkunstwerk: triage:미학적 이념 하나 — 장르 통합이라는 정의 외에 관계 구조가 없고 계보는 영향 나열 수준
+- implant-scan-body: triage:단일 보조 기구명 — 오차 요인 나열뿐 순서 있는 구조 없음
+- kalam-cosmological-argument: triage:전제마다 논쟁 중인 논증이라 구조도가 전제를 정당한 것처럼 보이게 할 위험
+- paid-in-capital: triage:자본금+주식발행초과금이라는 합산 정의 반복 — 구성 요소 2개
+- person-time: triage:개인별 추적 막대를 합산하는 그림이 필요하나 9개 유형 어디에도 맞지 않음
+- pop-art: triage:미술 사조명 — 작가·기법 나열이며 해석은 논쟁 중
+- pyogenic-granuloma: triage:단일 병변명 — 원인과 경과 서술뿐 다단계 구조 없음
+- servqual-model: triage:다섯 차원 목록은 정의 반복이고 차원 보편성 자체가 논쟁 중
+- stake-responsive-evaluation: triage:평가 접근의 성격 서술 — 단계나 2x2 구조가 본문에 없음
+- career-development: triage:인사관리 일반 과정 — 구성 요소가 제도 나열이라 구조가 흐림
+- carnivalesque-bakhtin: triage:문화 논리 개념 — 전복과 질서 재확인 두 축뿐이고 기능 해석이 엇갈림
+- cross-docking: triage:입고→분류→출고 세 단계에 보관 생략이라는 정의 반복
+- curse-of-dimensionality: triage:차원에 따른 필요 표본 수의 지수 증가 곡선이 핵심인데 plot 함수로 못 그림
+- deferred-imitation: triage:관찰→지연→재현의 정의 반복 — 그림이 더할 내용 없음
+- denture-rebasing: triage:리라이닝과의 차이가 교체 범위 하나로 요약돼 정의 반복
+- dynamic-inspiration: triage:신학적 입장 하나 — 축자영감설과의 대비가 층위 한 가지이고 입장 간 논쟁 중
+- french-and-raven-power-bases: triage:다섯 권력 원천 목록 자체가 정의라 그림이 반복에 그침
+- geoeconomics: triage:분석 접근 개념 — 수단 사례 나열이며 해석이 엇갈림
+- great-white-throne-judgment: triage:천년왕국설에 따라 시점·성격이 갈리는 종말론 사건이라 순서도를 단정적으로 그릴 수 없음
+- hybrid-warfare: triage:수단 목록의 결합이라는 정의 반복 — 관계 구조 없음
+- iconography: triage:도상학적 분석과 같은 파노프스키 3단계 그림이 되어 중복
+- numinous: triage:두려움과 매혹 두 요소뿐 — 구성 요소 3개 미만
+- occupational-exposure-limit: triage:TWA·STEL·ceiling 세 형태 나열 — 시간-농도 곡선에 수평 기준선을 긋는 그림이 필요하나 plot에 없음
+- orphism: triage:단명 사조명 — 명칭 유래와 특징 서술뿐
+- overbite: triage:단일 측정 지표
+- purposiveness-without-purpose: triage:칸트 미학의 추상 개념 — 그림으로 나눌 구성 요소 없음
+- walker-naturalistic-model: triage:강령·숙의·설계 세 단계 이름이 정의에 그대로 있어 반복이고 숙의는 순환적이라 선형 단계도가 오해 소지
+- area-deprivation-index: triage:합성 지수 하나 — 지표 표준화·합산이라는 정의 반복
+- aura-benjamin: triage:해석이 텍스트마다 갈리는 미학 개념 — 구조화할 구성 요소 부족
+- behavioral-inhibition: triage:기질 특성 하나 — 불안 위험과의 연결은 확률적이고 조절 요인 서술이 짧음
+- book-value: triage:취득원가에서 상각·손상을 뺀다는 계산 정의 반복
+- cantilever-bridge: triage:단일 보철 설계 — 일반 브릿지와의 차이가 지지 방식 하나
+- coleman-report: triage:단일 보고서 — 결과 해석이 논쟁적이라 단정 그림 곤란
+- core-competence: triage:개념 정의와 세 판별 기준 나열 — 역량→제품군 그림은 사례(혼다)에 기대는 수준
+- cost-center: triage:책임중심점 하위 유형 하나 — 세분 유형 둘뿐이라 구조 빈약
+- cost-leadership-strategy: triage:원가 원천 나열(규모의 경제·경험곡선 등)뿐, 본원적 전략 2x2 구도는 본문에 없어 단일 전략 설명에 그침
+- data-pipeline: triage:수집→정제→변환→저장 단계가 쉽게 풀면 절에 이미 그대로 나열돼 그림이 정의를 되풀이함
+- defensive-realism: triage:공격적 현실주의와의 우열이 미결 논쟁이고, 팽창→균형연합→안보 악화 연쇄를 그리면 논쟁적 주장을 단정하게 됨
+- deism: triage:유신론·무신론과의 구분이 계시·기적 인정 여부 한 기준뿐인 입장 설명
+- dental-extrusion: triage:느린/빠른 정출 차이는 치주조직 동반 여부 하나로 문장 설명이 충분하고, 실제 이해엔 해부 그림이 필요
+- dental-intrusion: triage:단일 치아 이동 양식 — 본문 대부분이 치근흡수 주의사항이라 관계 맺는 구성 요소가 없음
+- disegno: triage:콜로리토와의 대립 한 쌍이 핵심이며 본문이 이미 문장으로 선명하게 대비, 실제로는 절충이었다는 단서도 붙음
+- furcation-involvement: triage:I~III도 등급은 탐침 깊이의 해부학적 그림이 필요해 9개 type으로는 정의 반복이 됨
+- individualized-transition-plan: triage:IEP 안의 구성요소라는 포함 관계 하나가 요점 — 구성 요소 간 관계 구조가 빈약
+- installation-art: triage:미술 형식(장르) 이름 — 관람자·공간 관계를 서술할 뿐 도식화할 구조 없음
+- large-language-model: triage:포괄적 상위 용어 — 사전학습·지시 미세조정·RLHF 등은 각각 별도 용어의 내용이라 이 페이지 그림은 개요 반복에 그침
+- maitreya-faith: triage:상생·하생 두 갈래 구분이 본문 문장으로 충분히 전달돼 두 항목 대비에 그침
+- megachurch-phenomenon: triage:사회현상 서술 — 규모 기준도 연구마다 달라 그릴 구조나 수치 근거가 없음
+- modernist-painting-greenberg: triage:규범인지 서술인지부터 논쟁적인 비평 이론이라 자기비판→평면성 흐름을 단정적으로 그리기 어려움
+- orthognathic-surgery: triage:술전교정→수술→술후교정 순서와 선수술 변형이 문장 한두 줄로 충분, 수술 종류는 해부 그림이 필요
+- pre-iconographic-description: triage:파노프스키 3단계 중 첫 단계라는 하위 사례 — 3단계 도식은 상위 방법론 용어에서 그려야 함
+- primary-health-care: triage:보편 접근·주민 참여·부문 간 협력 등 원칙 나열이라 서로 관계 맺는 구조가 아님
+- profitability-index: triage:단일 비율 지표(PV/투자액) — NPV와의 순위 차이도 수치 예로 충분
+- realism-ir: triage:하위 갈래 분류가 가능하나 각 갈래의 경계·계보가 학파마다 달라 본문 근거만으로 위계를 확정하기 어려움
+- reflection-theory-marxist: triage:토대-상부구조 관계의 해석 자체가 논쟁 대상이라 반영 경로를 단정적으로 그리게 됨
+- regionalism-art: triage:미술 사조 이름 — 대표 작가·소재 서술뿐 관계 구조 없음
+- residual-value: triage:감가상각 계산의 한 입력값(단일 추정치) — 그림은 감가상각 용어의 몫
+- salon-system: triage:역사적 제도 이름 — 낙선전 등장 배경이 한 줄 인과로 충분
+- serious-adverse-event: triage:규제 기준 목록(사망·입원·장애 등) 나열이 핵심이라 그림이 정의를 되풀이함
+- service-level-agreement: triage:계약 문서 유형 — 지표·배상 조항 구성 나열뿐 관계 구조 없음
+- thin-capitalization-rule: triage:기준배수 초과분 이자만 손금불산입한다는 한 단계 규칙 — 구성 요소 간 관계가 단선적
+- three-mountains-task: triage:단일 실험 과제 — 장면 설명은 삽화가 필요하고 관계 도식 대상이 아님
+- unschooling: triage:홈스쿨링과의 구분 한 축뿐인 교육 방식 이름
+- will-and-representation-schopenhauer: triage:예술 장르 위계는 서열이라 분류 hierarchy에 안 맞고, 저서·철학 체계 전체를 요약하게 됨
+- zirconia-crown: triage:보철 재료·제품 이름 — 상변태 강화 기전은 재료 일반의 하위 내용
+- affective-domain-taxonomy: triage:감수→인격화 5단계가 정의문에 그대로 나열돼 그림이 정의 반복
+- anaphora-liturgical: triage:구성 요소 순서가 교단·전통마다 달라 하나의 절차로 그리면 오도할 수 있음
+- apophatic-theology: triage:긍정신학과의 보완 관계 두 항목뿐인 신학적 방법 개념
+- arte-povera: triage:미술 운동 이름 — 재료·작가 서술뿐
+- biblical-canon: triage:본문의 연대 근거가 367·397년 둘뿐이고 전통별 범위 차이도 목록 수준이라 도식 근거 부족
+- bondage-of-the-will: triage:단일 신학적 입장 — 일상 선택과 영적 선택의 2분 구분뿐
+- buck-passing: triage:공격적 현실주의 내부 개념으로 다극체제 빈발 주장 등이 이론 의존적이라 단정적 연쇄 도식은 부적절
+- cache-memory: triage:L1·L2·L3 계층의 용량-속도 상충이 문장 한 줄로 전달되고, 계층도는 메모리 계층 용어의 몫
+- casus-belli: triage:명분 개념 하나 — 표면 명분과 실제 동기의 구분 두 항목뿐
+- clasp: triage:단일 보철 부품명 — 암 구성·재료 나열은 있으나 관계 구조가 없음
+- class-1-malocclusion: triage:Angle 분류의 한 하위 유형 — 개별 치아 이상 나열뿐, 상위 분류 그림은 이 항목의 몫이 아님
+- class-3-malocclusion: triage:Angle 분류의 하위 사례 — 원인(상악 후퇴·하악 전돌·복합) 열거만 있고 치료 경로는 성장기 여부 한 갈래뿐
+- cloisonnism: triage:화풍 기법명 — 종합주의와의 구분은 개념 뉘앙스 설명이라 그림으로 보탤 것이 없음
+- collage: triage:미술 기법명 — 입체주의에서 팝아트까지 계보 언급은 있으나 시간 순서 근거가 본문에 부족
+- color-field-painting: triage:회화 사조명 — 액션페인팅과의 대비는 '정적 대 격정적' 한 축뿐
+- complex-interdependence: triage:세 특징(다중 채널·이슈 위계 부재·무력 효용 저하)이 서로 관계 없이 나열될 뿐이라 목록 이상을 보여 주지 못함
+- component-display-theory: triage:내용 4유형×수행 3수준의 12칸 행렬이라 2×2 matrix로 담을 수 없고 칸별 처방도 본문에 없음
+- conceptual-art: triage:미술 사조명 — 르윗·코수스 입장 차 등 논점 서술이 중심이고 구조적 구성 요소가 없음
+- concerns-based-adoption-model: triage:관심 단계가 본문에서 '자기→과제→영향' 세 묶음으로만 언급돼 실제 7단계 구성은 본문 밖 지식에 기대야 함
+- contribution-margin-ratio: triage:단일 비율 지표 — 공헌이익÷매출액 공식 하나로 정의 반복
+- controlled-foreign-corporation-rule: triage:세법 제도명 — 적용 요건·예외 서술이지만 단계나 비교 축이 그림이 될 만큼 갖춰지지 않음
+- crony-capitalism: triage:비판적 경제 체제 개념 — 정경유착 사례 서술 위주이고 적용 기준 자체가 논쟁적
+- crown-lengthening: triage:단일 외과 술식 — 골절제 여부 판단 한 갈래뿐이라 구성 요소가 부족
+- culturally-responsive-teaching: triage:교수 접근의 태도·원칙 서술 — 단계나 분류 구조가 없음
+- curriculum-mapping: triage:문서화 기법 자체가 표 — 학년×교과 지도를 그리면 정의를 되풀이할 뿐
+- depletion: triage:생산량비례 원가배분 공식 하나 — 예시 계산은 수식으로 충분
+- deutero-pauline-epistles: triage:저작권 자체가 학계 논쟁 중인 분류라 친서/제2서신 구분을 그림으로 단정하기 어려움
+- docker-container: triage:VM과의 차이는 '커널 공유 여부' 한 축이 핵심이고 Dockerfile→이미지→컨테이너도 두 단계뿐이라 그림 이득이 작음
+- dynamic-capabilities: triage:감지·포착·재구성 세 하위 역량이 나열될 뿐 상호 관계가 본문에 없고 개념 측정 자체가 논쟁적
+- economic-value-added: triage:세후영업이익−투하자본×WACC 공식 하나 — 정의 반복
+- edge-computing: triage:클라우드와의 대비가 '처리 위치' 하나에서 파생되는 장단점 나열이라 글로 충분
+- enduring-understanding: triage:백워드 설계의 한 요소 — 좋은 진술의 조건 나열뿐 구조 없음
+- entheogen: triage:물질 범주 명칭 — 체험 유발 대 구성 문제가 논쟁 중이라 기전 그림을 단정할 수 없음
+- filial-therapy: triage:개입 모델명 — 부모 훈련·가정 놀이·슈퍼비전 언급은 있으나 순서 구조가 뚜렷하지 않음
+- flatness-greenberg: triage:비평 개념 — 평면성 인정 대 순수 평면의 뉘앙스는 그림으로 보탤 것이 없음
+- floating-point-representation: triage:부호·지수·가수 비트 배치도가 핵심인데 9개 type 어느 것에도 맞지 않음
+- found-object: triage:미술 개념 — 레디메이드와의 구분은 의도 차이 서술이라 축이 하나뿐
+- general-ledger: triage:회계 장부명 — 분개장→원장→시산표 흐름은 회계순환과정 용어의 몫이고 이 항목만의 구조는 통제계정·보조원장 대사 하나
+- gingivectomy: triage:단일 외과 술식 — 적응증·절제 방법 나열뿐
+- grand-strategy: triage:최상위 전략 개념 — 군사·외교·경제 수단 통합이라는 정의 반복 이상의 구조 없음
+- hard-power: triage:소프트파워와의 대비가 '강제 대 매력' 한 축이라 정의 반복
+- hegemonic-stability-theory: triage:이론의 설명력 자체가 논쟁 중이고 패권국→공공재→안정의 인과를 그리면 단정이 됨
+- hyperreality: triage:철학 개념 — 실재/모사 구별 붕괴라는 존재론적 진단이라 구성 요소 관계로 그릴 것이 없음
+- imitative-magic: triage:유감주술의 하위 사례 — 감염주술과 짝을 이루는 분류는 상위 용어의 몫
+- integration-testing: triage:상향식·하향식·빅뱅 전략이 이름만 나열되고 각 전략의 차이 근거가 본문에 짧음
+- international-regime: triage:원칙·규범·규칙·절차 네 요소 나열 — 요소 간 관계가 본문에 없음
+- job-enrichment: triage:직무설계 방식 — 직무확대와의 대비는 본문에 없고 실행 원칙 다섯 개 나열뿐
+- justification-by-faith: triage:교리명 — 칭의·성화 구분이 있으나 단회 대 지속 한 축이고 새 관점 논쟁도 걸려 있음
+- kenosis: triage:기독론 개념 — 해석 스펙트럼이 논쟁적이라 단정적으로 그리기 어려움
+- kmp-algorithm: triage:알고리즘 핵심인 실패 함수 표와 포인터 이동은 9개 type으로 표현이 어려움
+- lateral-cephalogram: triage:단일 영상 촬영 방식 — 관계 맺는 구성 요소가 없음
+- loss-function: triage:일반 개념 — 특정 곡선이나 단계 구조가 본문에 없음
+- mechanical-reproduction: triage:해석이 갈리는 미학 논제 — 판본·독해 논쟁이 있어 단정적 도식화가 어려움
+- mesosystem: triage:생태학적체계이론의 한 층 — 중첩 구조는 상위 용어에서 그릴 일이고 venn으로 포함 관계 불가
+- microsystem: triage:생태학적체계이론의 하위 층 정의 — 독립 도식 근거 부족
+- mimetic-desire: triage:모방→경쟁→폭력→희생의 사슬이 경험적 검증이 약한 논쟁적 주장이라 단정 위험
+- montessori-education: triage:교육 사조명 — 원리 나열뿐 관계 구조 없음
+- motion-study: triage:기법 설명 위주 — 단계 순서가 본문에 뚜렷하지 않음
+- neo-orthodoxy: triage:신학 운동명 — 인물·저작 중심 서술
+- net-present-value: triage:단일 산식 지표 — 할인율 민감도 곡선이 본문에 구체적으로 없음
+- new-heaven-and-new-earth: triage:신학 개념 — 소멸설·갱신설 해석이 갈려 단정 불가
+- non-state-actors: triage:유형 나열만 있는 포괄 범주 — 분류도가 정의를 되풀이할 뿐
+- normalization-principle: triage:정책 이념 — 구성 요소 간 관계 구조 없음
+- odontogenic-infection: triage:감염 총칭 — 확산 경로가 해부학 그림 영역이라 9개 유형으로 부적합
+- off-balance-sheet-financing: triage:거래 구조화 기법 총칭 — 수단 나열뿐
+- orientalism-art: triage:미술 경향명 — 작가·작품 중심 서술
+- ornament-and-crime: triage:단일 에세이의 명제 — 관계 구조 없음
+- outsourcing: triage:경영 전략 일반 — 장단점 나열에 그침
+- pastiche: triage:패러디와의 차이가 풍자적 거리 하나뿐 — 비교 축 부족
+- pedagogy-of-encounter: triage:철학적 관점 — 도식화할 구성 요소 없음
+- photonic-computing: triage:기술 분야명 — 소자 나열뿐 관계 구조 없음
+- plein-air: triage:회화 방식명 — 단일 기법
+- political-accountability: triage:수직·수평 구분이 짧게 언급될 뿐 하위 유형 근거가 얇음
+- practical-skill-assessment: triage:평가 유형 하나 — 구조적 관계 없음
+- preconventional-level: triage:콜버그 이론의 하위 수준 — 하위 단계가 2개뿐이고 상위 용어의 일부
+- prepaid-expenses: triage:단일 계정 — 자산→비용 대체 한 단계뿐
+- putto: triage:도상 요소명 — 단일 형상
+- rate-limiting: triage:알고리즘 이름만 나열 — 각 방식의 차이가 본문에 구체적이지 않음
+- readymade: triage:미술 실천 개념 — 작품 사례 중심
+- rest-api: triage:설계 방식 — 메서드 목록은 정의 반복
+- rooting-reflex: triage:단일 원시반사
+- scope-and-sequence: triage:두 차원 정의 — 구성 요소 2개뿐
+- sfumato: triage:단일 회화 기법
+- situated-learning: triage:학습이론 관점 — 주변→완전 참여 궤적만 있어 구성 요소 부족
+- statement-of-changes-in-equity: triage:재무제표 양식 — 표 구조는 9개 유형으로 표현 부적합
+- still-life: triage:회화 장르명
+- taxable-income: triage:세무조정 계산 흐름이 있으나 과세표준 등 인접 용어와 겹치고 구성이 본문 밖 지식에 기댐
+- threefold-office-of-christ: triage:선지자·제사장·왕 세 직분의 병렬 나열뿐 — 그림이 정의를 되풀이함
+- total-productive-maintenance: triage:8대 기둥이 본문에 3개만 언급되고 OEE 곱셈식 외에 관계 구조가 빈약함
+- unearned-revenue: triage:현금 수령→부채→수익 전환의 2단계 이동으로 정의 반복에 가까움
+- unio-mystica: triage:합일의 성격(존재 동일화 대 의지 일치) 자체가 전통마다 논쟁적이라 구조를 단정해 그리기 어려움
+- variable-cost: triage:총액 직선 증가·단위당 일정이라는 정의 자체를 그리는 데 그침
+- workflow-management-system: triage:일반적인 결재 흐름 소개뿐, 고유한 구성 요소 관계가 본문에 없음
+- zen-buddhism: triage:종파 개관 — 간화선·묵조선 구분과 계보가 짧게 언급될 뿐 돈오·점수 논쟁에 걸쳐 있음
+- abstract-data-type: triage:인터페이스와 구현의 분리라는 정의를 되풀이하는 2층 구조
+- abstract-expressionism: triage:액션페인팅·색면회화 두 갈래 나열 수준으로 그림이 더해 주는 정보가 적음
+- accommodation: triage:동화와 조절의 하위 개념 — 평형화 그림은 상위 항목(동화와 조절)에서 다룸
+- achievement-level-evaluation: triage:등급 판정 방식 설명뿐, 등급 경계 문제 외 관계 구조 없음
+- actinic-cheilitis: triage:자외선→병변→암 진행이라는 정의 속 단선 경로 반복
+- action-learning: triage:L=P+Q 공식과 요소 나열 — 단계·관계 근거가 약함
+- action-painting: triage:추상표현주의의 한 갈래(하위 사례)로 독자 구조 없음
+- adolescent-reproductive-health: triage:포괄적 정책 개념 — 서비스 요소 나열뿐 관계 구조 없음
+- adult-attachment-interview: triage:네 분류와 낯선상황 분류의 대응이 이름 짝짓기 수준이라 표로 충분함
+- adult-basic-education: triage:문해→수리→학력인정 단계가 짧게 언급될 뿐 그림으로 얻는 통찰이 적음
+- adult-development-theory: triage:여러 이론 갈래를 묶은 우산 개념으로 갈래 간 관계가 본문에 얕음
+- adult-education: triage:포괄 영역명 — 하위 영역 나열만 있음
+- adult-education-program-evaluation: triage:커크패트릭 4수준 모형의 적용 사례로 그 모형 항목에서 그릴 내용
+- adult-learner: triage:학습자 특성 나열 — 구성 요소 간 관계 없음
+- aesthetic-contemplation-schopenhauer: triage:단일 인식 상태에 대한 철학적 서술로 단계·구조 근거 부족
+- aesthetic-experience-theory: triage:비어즐리·디키 논쟁이 얽힌 이론으로 특징 목록 외 구조가 없음
+- aggressive-periodontitis: triage:폐지된 분류명 — 신분류(단계·등급)로의 통합 한 줄 외 구성 요소 부족
+- alveolar-ridge: triage:해부 구조명 — 흡수 경과 곡선은 본문 근거가 정성적이라 그리기 어려움
+- alveolectomy: triage:단일 술식 — 골 삭제량과 치조제 보존의 트레이드오프 한 가지뿐
+- analogia-entis: triage:신앙유비와의 대립이 현재 진행 중인 신학 논쟁이라 단정 없는 구성 요소가 2개뿐
+- analogy-of-faith: triage:해석 원칙 하나 — 명료한 본문으로 난해 본문을 읽는다는 정의 반복
+- anarchy-international-system: triage:이론 간 해석 대립이 핵심이라 구조를 그리면 어느 한 입장을 전제하게 될 위험
+- annunciation: triage:도상 주제명 — 상징물 목록 위주라 관계 구조 없음
+- antenatal-care-coverage: triage:단일 지표 — 권장 방문 횟수 기준 변경 한 건뿐
+- anti-essentialism-art: triage:철학적 입장 하나 — 반론의 흐름이 짧게 언급될 뿐 구성 요소 근거 부족
+- anticholinergic-burden: triage:약물별 점수 합산이라는 정의를 넘는 구조가 없음
+- apache-spark: triage:소프트웨어 제품명 — 맵리듀스와의 차이가 디스크 대 메모리 한 축뿐
+- api-basics: triage:요청→응답이라는 정의 자체의 반복
+- archetype-jung: triage:검증 불가능성이 논쟁 중인 가설로 원형 목록 외 관계 구조 없음
+- arm-architecture: triage:프로세서 계열명 — x86과의 대비가 전력 효율 한 축뿐
+- arms-length-principle: triage:판단 기준 하나 — 산출 방법이 이름만 언급되어 절차를 그릴 근거 부족
+- assemblage-art: triage:미술 기법명 — 콜라주·레디메이드와의 구별이 서술 수준
+- assurance-of-salvation: triage:신학 개념 — 세 근거 나열과 전통 간 입장 차이뿐
+- asymmetric-warfare: triage:강약 격차와 비정규 전술이라는 한 가지 대비뿐이라 정의 반복 이상을 그릴 구성 요소가 없음
+- attribution: triage:증거 종류 나열과 귀속 등급 표현이 있으나 서로 작동 관계가 없고 정의를 되풀이하는 수준
+- augsburg-confession: triage:단일 역사 문서명 — 구조(전반부·후반부) 2부분뿐
+- auteur-theory: triage:비평 관점과 그 비판의 서술로, 관계 맺는 구성 요소 3개 이상이 없음
+- authentic-leadership: triage:4요인은 목록 나열에 그치고 개념 독립성 자체가 논쟁 중이라 그림 가치 낮음
+- axis-mundi: triage:상징 개념 — 하늘·땅·지하 연결 이미지는 정의 반복이고 비교종교학적 일반화도 비판받는 중
+- bandwagoning: triage:균형과의 대비가 핵심이지만 비교 축이 '누구 편에 서는가' 하나라 글로 충분함
+- bank-street-approach: triage:교육 철학 지향을 서술한 접근법 이름 — 단계나 구조가 본문에 없음
+- baroque-art: triage:뵐플린 대비 쌍이 일부만 언급되고 '등'으로 끝나 비교 축을 본문만으로 채우기 어려움; 양식 범위도 논쟁적
+- barrier-membrane: triage:연조직 차단이라는 단일 기능 재료 — 그림이 정의를 되풀이함
+- barthian-theology: triage:신학자 개인의 사상 체계 서술 — 도식화할 관계 구조가 없음
+- basic-reproduction-number: triage:R0>1 증가·R0<1 소멸의 지수 곡선이 핵심이나 지수 증가 함수가 없고 다른 type으로는 정의 반복
+- batna: triage:협상 결렬 시 대안이라는 단일 기준점 개념 — 유보가치와의 관계 외 구성 요소 부족
+- bilateral-sagittal-split-osteotomy: triage:수술 술식명 — 본문이 합병증·고정법 서술 위주이고 해부학적 절단선 그림은 본문 밖 지식 필요
+- bilateralism: triage:다자주의와의 장단점 대비가 짧은 나열에 그쳐 그림이 글 이상을 보여 주지 못함
+- bipolarity: triage:힘의 분포 상태 하나를 가리키며 안정성 주장은 본문 스스로 논쟁 중이라 밝힘
+- black-hairy-tongue: triage:양성 구강 병변명 — 유두 신장과 착색이라는 두 요소뿐
+- bodhicitta: triage:세속적·승의적 두 층위 구분뿐이라 구성 요소 2개
+- body-of-christ-doctrine-paul: triage:신학적 은유 — 본문별 강조점 차이는 있으나 관계 구조로 그릴 요소가 없음
+- bretton-woods-system: triage:역사적 체제명 — 성립과 붕괴 두 시점뿐이고 고정 연결 구조는 정의 반복
+- brinkmanship: triage:위기 고조로 양보를 끌어내는 단일 전략 — 그림으로 보탤 다단계 기전이 본문에 약함
+- budgetary-slack: triage:정보비대칭·보상연동이 슬랙을 키운다는 두 요인 서술로, 그림 없이도 명확
+- buffer-state: triage:지정학적 위치를 가리키는 국가 유형 — 두 강대국 사이라는 배치가 정의 그대로
+- bureaucratic-authoritarianism: triage:체제 유형명 — 발생 기전(경제 심화와 계급 갈등)은 후속 논쟁이 있는 오도넬의 가설
+- bureaucratic-politics-model: triage:부처 간 협상의 산물이라는 단일 명제 — 앨리슨의 세 모델 중 나머지 비교 기준이 본문에 부족
+- business-continuity-planning: triage:BIA→우선순위→대체 자원 확보 정도의 일반 계획 절차로 실무 상식 수준
+- business-intelligence: triage:기술 묶음 총칭 — ETL·DW·OLAP 계층은 언급되나 BI 고유의 통찰을 주는 그림은 아님
+- byzantine-fault-tolerance: triage:충돌 장애와의 차이는 한 문장 비교로 충분하고 PBFT 단계는 이름만 나와 근거 부족
+- cappadocian-fathers: triage:인물 세 명의 집합 명칭
+- chronosystem: triage:생태학적 체계의 시간 차원 하나 — 다른 체계(외체계·거시체계 등)가 본문에 없어 그림 구성 근거 부족
+- civic-culture: triage:정치문화 혼합 유형 하나 — 세 하위 유형이 본문에 다 나오지 않음
+- civil-religion: triage:사회 현상 개념 — 의례·상징 나열 외 관계 구조 없음
+- climate-diplomacy: triage:외교 활동 범주 — 교토 대 파리 방식 대비가 한 문장뿐이라 비교 축 부족
+- cluster-theory-of-art: triage:기준 목록 중 일부 충족이라는 정의 방식 — 열 가지 기준도 본문에 다 나오지 않음
+- coercion-ir: triage:억지·강제이행 두 하위 유형뿐이라 상위 포함 관계가 글로 충분
+- coercive-diplomacy: triage:강제의 하위 사례 — 성공 조건 나열 수준이며 억지와의 구분은 상위 개념 문서와 겹침
+- communication-domain: triage:교육과정 영역명 — 세 하위 내용은 정의를 그대로 되풀이함
+- communion-of-saints: triage:신앙고백 항목 — 전통별 해석 차이가 두 갈래뿐
+- community-college: triage:교육기관 유형명 — 특징(개방 입학·저학비·편입) 나열뿐 관계 구조 없음
+- competency-based-hr: triage:역량을 채용·평가·개발에 공통 기준으로 쓴다는 정의 반복 — 그림이 더할 구조가 약함
+- conflict-management-styles: triage:두 축 다섯 유형이지만 타협형이 중앙에 놓여 2×2 matrix 네 칸에 맞지 않고 본문은 유형 이름 나열 수준
+- conflict-resolution-ir: triage:협상·중재·조정 등을 아우르는 학문 분야 상위 개념 — 수단 나열뿐 관계 구조 없음
+- constructivism-ir: triage:이론 관점 설명 — 규범·정체성 구성 과정이 본문에 단계로 제시되지 않음
+- cosmic-christology-colossians: triage:성서 본문 기반 기독론 해석 — 도식화할 기전·단계 없음
+- cost-pool: triage:원가를 묶어 배분 단위로 삼는다는 정의 반복 — 배분 흐름은 상위 개념(원가배분) 몫
+- covenant-of-redemption: triage:구속언약→은혜언약 두 요소 관계뿐이고 존재 여부 자체가 신학적 논쟁 중
+- credible-commitment: triage:억지이론의 신뢰성 조건과 겹치는 하위 개념 — 되돌리기 어려운 조치로 신뢰를 얻는다는 단일 논지
+- cultural-industry: triage:수용자 수동성 전제를 둘러싼 논쟁이 진행 중이라 순응 기전을 단정적으로 그리기 어려움
+- curve-of-spee: triage:단일 해부학적 교합 곡선 — 깊이에 따른 임상 의미 설명뿐
+- dada: triage:예술 운동명 — 도시별 확산은 순서·관계가 본문에 정리되지 않음
+- death-of-the-author: triage:해석 권위가 저자에서 독자로 이동한다는 단일 논지 — 구성 요소 2개
+- deferred-tax-asset: triage:인식·감액 판단 설명이 정의와 실현가능성 조건 반복 수준 — 그림이 더할 구조 약함
+- deficit-theory-education: triage:원인을 학생 쪽에 돌리는 관점 대 구조적 관점의 두 요소 대비뿐
+- definitive-sanctification: triage:결정적 성화와 점진적 성화 두 국면 구분 — 본문 서술로 충분하고 학자별 강조점 차이 있음
+- degree-of-operating-leverage: triage:손익분기점에서 무한대로 발산하고 매출이 늘수록 1로 줄어드는 쌍곡선이 핵심인데 decay로는 수직 점근선을 표현할 수 없음
+- democratic-peace-theory: triage:민주국가 쌍 간 전쟁 희소라는 단일 명제이고 인과 방향·기전은 학계 논쟁 중
+- dental-bridge: triage:보철물 이름 — 임플란트와의 장단점 비교가 단편적
+- dental-crown: triage:보철물 이름 — 재료별 특성 나열뿐
+- depreciation: triage:원가 배분 절차의 정의 — 정액법·정률법 곡선 모양이 본문에 제시되지 않아 근거 부족
+- detournement: triage:기법명 — 인용·패러디와의 차이는 세 항목 서술 대비로 contrast(두 개념) 틀에 맞지 않음
+- developmental-plasticity: triage:초기에 가소성이 크다는 단일 속성 — 감쇠 곡선은 정의를 되풀이할 뿐
+- diffusion-of-innovation: merge-candidate: 병합 후보라 보류(was checked)
+- diploma-disease: triage:요구 학력 상승이라는 단일 추세 — 순환 기전은 본문에 명시되지 않아 근거 부족
+- diplomacy: triage:포괄적 상위 개념 — 외교 형태 나열뿐 관계 구조 없음
+- distribution-of-the-sensible: triage:추상적 미학 개념 — 세 감성 체제 언급이 짧아 그림으로 옮길 근거 부족
+- diversionary-war-theory: triage:국내 위기→대외 강경책 경로가 실증적으로 엇갈려 기전을 단정적으로 그리기 어려움
+- divided-government: triage:행정부·의회 다수당 불일치라는 단일 상태 — 교착 효과는 논쟁 중
+- double-burden-of-disease: triage:두 질병군 공존이라는 정의 반복 — 이행 곡선 모양은 본문 근거가 약함
+- double-predestination: triage:교파 간 논쟁 중인 교리 — 적극적·소극적 유기 구분이 짧게 언급될 뿐
+- doxological-theology: triage:신학함의 태도에 관한 관점 — 구성 요소·단계 없음
+- dropout-reflection-period: triage:의사 표명→숙려·상담→결정의 단순 제도 — 정의 반복
+- economic-interdependence: triage:상호의존과 평화의 관계가 논쟁 중이고 대칭·비대칭 구분은 두 요소뿐
+- economic-sanctions: triage:무역·금융·표적 제재 세 유형 나열 — 효과는 논쟁 중
+- ecumenical-movement: triage:교회 일치 운동명 — 기구·사건 언급이 시간 순서로 정리되지 않음
+- educational-habitus: triage:체화된 성향이 선택에 영향을 준다는 단일 논지 — 정의 반복
+- electoral-threshold: triage:문턱 아래에서 의석 0, 위에서 비례 배분되는 꺾인 직선이 핵심인데 계단·구간 함수가 없음
+- employee-value-proposition: triage:보상·성장·문화를 묶은 약속이라는 정의 — 구성 요소 나열뿐
+- ontological-argument: triage:단일 귀류 논증 — 그림이 정의 속 추론을 되풀이할 뿐이고 타당성 자체가 논쟁 중
+- reconstructionism: triage:교육철학 사조 하나의 입장 설명 — 4대 사조 비교는 본문 밖 지식에 기대야 함
+- latin-american-liberation-theology: triage:신학 운동의 배경·문제의식 서술 — 관계 맺는 구성 요소가 뚜렷하지 않음
+- sociology-of-religion: triage:학문 분야명 — 다루는 주제 나열뿐
+- buber-dialogical-education: triage:나와너·나와그것 두 관계의 대비가 정의에 이미 담겨 그림이 반복이 됨
+- special-revelation: triage:일반계시의 짝 개념 — 대비는 정의 수준을 넘지 않음
+- postcolonial-theology: triage:비판적 관점·문제의식 서술 — 구조화할 단계나 경로가 없음
+- containerization: triage:기술 개념 정의와 활용 사례 위주 — 가상머신 대비는 한 문장뿐이라 근거 부족
+- reorder-point: triage:핵심은 재고가 톱니 모양으로 줄다가 재주문점에서 발주되는 그래프인데 plot 함수로 못 그림
+- labor-rate-variance: triage:노무비 차이분석의 하위 항목 하나 — 분해 구조는 상위 개념의 그림
+- intergovernmentalism: triage:통합이론 한 입장 — 신기능주의 대비는 이론 간 논쟁이라 단정하기 어려움
+- shadow-education: triage:사교육 통칭 개념과 은유 설명 — 구성 요소 간 관계 없음
+- learning-management-system: triage:소프트웨어 플랫폼 기능 나열 — 관계나 순서가 없음
+- vajrayana-buddhism: triage:불교 전통 명칭 — 수행 요소(만다라·진언·관정) 나열뿐
+- consubstantiation: triage:성찬론 한 입장 — 화체설·기념설과의 비교는 상위 개념(성찬론)의 그림
+- child-depression-screening: triage:선별→임상면담 확인이라는 일반 선별 절차의 사례 — 고유 구조가 약함
+- emotional-abuse-child: triage:학대 유형 하나 — 행위 예시 나열에 그침
+- internationalization-of-civil-war: triage:외부 개입이 분쟁을 단축하기도 장기화하기도 해 한 방향 경로로 단정하기 어려움
+- visible-invisible-pedagogy: triage:개념 자체가 두 교육법의 대비라 그림이 정의를 되풀이함
+- new-sociology-of-education: triage:교육사회학 조류 — 문제의식 서술 위주로 구성 요소 관계가 없음
+- book-tax-difference: triage:일시적·영구적 차이 두 갈래뿐 — 구성 요소가 적어 그림 이득이 작음
+- primary-tooth: triage:해부학적 대상 명칭 — 치아 종류 나열
+- priestly-source: triage:문서설의 자료층 하나 — 성격·연대 자체가 학계 논쟁 중
+- basic-academic-skills: triage:3R's 최소 학력 개념 — 정의 반복 외에 보여 줄 구조 없음
+- implementation-science-health-policy: triage:학문 분야명 — CFIR 영역 구조는 별도 프레임워크의 그림
+- participationist-soteriology: triage:바울 해석 논쟁 속 한 입장 — 법정적 칭의와의 관계가 학계에서 미정
+- immediate-implant-placement: triage:지연 식립과의 비교는 상위 개념(식립 시기)의 그림 — 단일 술식
+- dansaekhwa: triage:미술 사조명과 대표 작가 — 해석 담론도 논쟁 중
+- cohabitation-politics: triage:대통령·총리 두 행위자의 권한 분담 관행 — 구성 요소 2개
+- pregnancy-drug-categories: triage:A~X 등급의 각 기준이 본문에 없고 체계도 폐지 추세라 근거 부족
+- tutelary-democracy: triage:체제 유형 하나 — 사례 나열 위주
+- force-of-infection: triage:단일 모수(λ) — 접촉률·감염확률·유병률의 곱이라는 식 하나로 충분
+- collective-bargaining: triage:교섭 절차가 본문에 흩어져 있고 결렬·조정 분기는 법 지식에 기대야 함
+- corporate-reputation: triage:집합적 평가라는 구성개념 — 측정 차원 나열뿐
+- knowledge-graph: triage:노드·간선 데이터 모델 — 예시 그래프는 정의를 그림으로 옮길 뿐
+- guided-participation: triage:비계설정과의 차이가 한 문장 수준 — 대비 기준이 부족함
+- directly-observed-treatment: triage:복약 확인이라는 단일 관리 방식 — DOTS 구성 요소는 상위 전략의 그림
+- population-ecology-of-organizations: triage:적응 대 선택 대비는 이론 간 논쟁이고 밀도 의존 곡선은 본문에 모양이 없음
+- green-supply-chain-management: triage:공급사슬 단계 나열이 정의를 그대로 반복함
+- informed-consent-process: triage:설명·이해·서명이 정의에 이미 다 담겨 있음. 대리동의와 사후동의는 예외 언급일 뿐 단계 구조가 아님
+- health-workforce-density: triage:인구 대비 인력 수라는 단일 지표. 관계 맺는 구성 요소가 없음
+- intangible-assets: triage:인식·상각·손상 규정이 여러 갈래로 흩어져 있어 하나의 그림으로 묶으면 정의 나열에 그침
+- pelagian-controversy: triage:펠라기우스 대 아우구스티누스 두 입장의 대비가 본문 비유(백지 대 기울어진 저울)로 이미 충분히 잡힘
+- paedobaptism: triage:신자세례주의와의 대비는 짝 용어에서 다룰 내용이고, 이 용어만으로는 정의 반복
+- revenue-expenditure: triage:자본적지출과의 대비가 핵심인데 그 대비는 짝 용어 쪽 그림과 겹침. 단독으로는 구성 요소 2개
+- harlem-renaissance-art: triage:인물과 시기 중심의 예술 운동. 관계 구조를 그릴 근거가 없음
+- aesthetic-cognitivism: triage:현재 논쟁 중인 미학 입장이라 구조화하면 한쪽을 단정할 위험이 있음
+- humanism-renaissance: triage:사상사적 운동이며 본문이 해석사 수정에 치우쳐 있어 관계 구조가 없음
+- behavior-modification: triage:ABC 분석은 하위 절차일 뿐이고, 강화·소거·벌 목록은 정의 반복에 가까움
+- global-burden-of-disease-study: triage:연구 프로젝트 이름. DALY 구성(YLL+YLD)은 별도 용어의 내용
+- social-prescribing: triage:의사→링크워커→지역자원 연결은 '쉽게 풀면' 설명으로 충분하고 그림이 더할 것이 적음
+- prospective-application: triage:소급적용과의 이분 대비로 구성 요소가 2개뿐이며 정의 반복에 가까움
+- apostasy-doctrine: triage:알미니안 대 개혁주의 사이에서 열려 있는 교리 논쟁이라 단정 없이 구조화하기 어려움
+- self-referenced-assessment: triage:규준·준거·자기참조 비교 틀은 상위 개념의 그림이고, 이 용어의 하위 구분은 2개뿐
+- incremental-layering-technique: triage:수축응력 감소 효과에 대한 실험 결과가 엇갈린다고 본문이 밝혀, 기전을 단정해서 그리기 어려움
+- tome-of-leo: triage:단일 역사 문서. 그릴 관계 구조가 없음
+- iconology: triage:파노프스키의 세 층위 중 본문에 명시된 것은 둘뿐이라 그림 구성이 본문 밖 지식에 기댐
+- undecidable-problem: triage:환원 증명의 논리는 본문 한 문단으로 충분히 전달되고, 그림이 정의 이상을 더하기 어려움
+- sunnah: triage:규범 원천 개념. 다섯 등급 분류는 피크흐 전체의 틀이지 순나 자체의 구조가 아님
+- vertical-dimension-loss: triage:원인과 증상의 나열에 가까워 그림이 목록 이상의 관계를 보여 주지 못함
+- biobank: triage:수집·보관·접근 절차가 일반적 설명에 그쳐 그림이 정의 이상을 보여 주지 못하는 시설 개념
+- warehouse-management-system-logis: triage:입고·보관·피킹·포장·출고 흐름이 정의 문장에 그대로 나열되어 있어 그림이 반복이 됨
+- yale-school-theology: triage:학파·인물 중심 신학 흐름. 세 갈래 교리 이해 비교는 린드벡 개념 쪽 내용
+- democratic-legitimacy: triage:절차적·실질적 정당성의 이분 구분 정도이고 개념 정의가 학자마다 달라 구조화 근거가 약함
+- genioplasty: triage:수술 술식명. 이동 방향별 변형은 단순 하위 사례 나열
+- constitutional-court-review: triage:심사 기관과 시점에 따른 유형이 국가 사례와 섞여 있어, 네 칸 대응이 본문만으로 확정되지 않음
+- early-intervention: triage:포괄 개념이고 '이를수록 좋다'는 시점 효과도 본문이 단서를 달아 단정하기 어려움
+- service-marketing: triage:4P에 3P를 더한 7P와 서비스 4특성의 목록이 정의에 이미 있음
+- grasping-reflex: triage:단일 신생아 반사. 소실 시기 한 가지 속성뿐
+- monothelitism: triage:양의론과의 이분 대비로 정리되는 이단 교설. 구성 요소가 적고 정의로 충분함
+- statecraft: triage:외교·군사·경제·정보 수단을 묶어 부르는 포괄 표현. 수단 간 관계 구조가 없음
+- difficult-temperament: triage:기질 유형 하나. 조화의 적합성과 차별적 민감성 재해석이 진행 중이라 결과 경로를 단정하기 어려움
+- institution-of-eucharist: triage:성서 사건 하나. 해석 차이는 교단 간 논쟁 영역
+- diagnostic-assessment: triage:수업 전 시점이라는 한 가지 속성이 핵심이고, 형성·총괄평가와의 시점 배열은 상위 분류 그림의 몫
+- bhakti: triage:종교 운동 이름. 역사적 확산 서술 중심이라 관계 구조가 없음
+- wholly-other: triage:단일 현상학 개념. 보편성 주장 자체가 구성주의와 논쟁 중
+- comorbidity-index-charlson: triage:가중합 점수 하나. 질환별 가중치 표는 그림보다 표가 맞음
+- constraint-satisfaction-problem: triage:변수·도메인·제약 세 요소는 정의 그대로이고, 풀이 기법은 개별 알고리즘 용어의 몫
+- school-evaluation: triage:정책 제도 개념. 자체평가와 개선계획의 순환이 본문에 한 줄 언급뿐이라 근거가 약함
+- oop-four-principles: triage:캡슐화·상속·다형성·추상화 네 원칙의 나열로, 그림이 정의를 되풀이할 뿐 원칙 간 관계는 본문에서도 느슨하게만 언급됨
+- true-view-landscape-painting: triage:특정 시대의 화풍 개념이고 '민족 고유 양식' 해석 자체가 논쟁 중이라 구성 요소 관계를 단정해 그리기 어려움
+- special-education-related-services: triage:상담·치료·가족·통학 지원 등 하위 서비스의 나열이라 분류도가 정의를 반복함
+- humanistic-curriculum: triage:교육과정 유형 하나의 철학적 지향 설명으로, 교과·경험중심과의 비교 기준이 본문에 제시되지 않음
+- logos-christology: triage:교부신학 개념으로, 요한복음→교부→니케아로 이어지는 흐름은 본문에서 단편적이고 종속론 여부 해석이 갈림
+- useful-life: triage:감가상각 배분 기간이라는 단일 추정치 개념으로 관계 맺는 구성 요소가 부족함
+- ecclesia: triage:교회-분파 유형론의 한 유형이며 본문은 분파와의 2항 대비만 제시해 구성 요소가 2개뿐
+- self-ligating-bracket: triage:특정 교정 장치명으로, 능동형·수동형 차이도 짧게 언급되고 치료기간 효과는 연구마다 엇갈림
+- electronic-health-record-research: triage:자료원 활용 연구 일반을 가리키며 단계·기전보다 장단점 서술 위주라 그림이 보탤 구조가 약함
+- integrated-curriculum: triage:다학문·간학문·초학문 세 수준이 한 문장 나열에 그쳐 그림이 정의 이상의 것을 보여 주기 어려움
+- trismus: triage:증상명이며 관절 외·관절 내 원인 구분은 원인 목록 나열 수준이라 분류도가 본문을 반복함
+- procedural-democracy: triage:실질적 민주주의와의 2항 대비가 중심이고 본문 설명만으로 충분해 그림이 보탤 것이 적음
+- multi-rater-evaluation: triage:평가 주체(상급자·동료·학생·학부모)의 나열로, 그림이 정의를 반복함
+- odontogenic-maxillary-sinusitis: triage:질환명으로, 치아-상악동 인접성에 따른 확산은 본문의 비유로 충분하고 원인 구분은 목록 수준
+- millennial-kingdom: triage:전·후·무천년설의 사건 순서 비교는 세 갈래 병렬 순서가 필요해 단일 timeline·contrast로 담기 어렵고 해석 논쟁이 큼
+- cognitive-behavioral-therapy-child: triage:성인 CBT를 아동에 맞춘 조정 사항 서술 위주이고 단계 순서는 본문에서 느슨하게만 제시됨
+- maya-hinduism: triage:철학 개념 하나의 학파별 해석 차이로, 구성 요소 관계를 그릴 구조가 없음
+- low-birth-weight-prevalence: triage:단일 보건 지표(2,500g 미만 비율)이며 하위 구분도 조산·성장지연 2개뿐
+- intrinsic-extrinsic-religiosity: triage:본문은 두 지향의 대비와 독립 차원 가능성만 언급하고 네 칸 유형의 근거가 없어 그림이 본문 밖 지식에 기댐
+- deferred-tax-liability: triage:가산할 일시적차이→미래 세금 부담이라는 정의 자체의 인과라 그림이 정의를 되풀이함
+- context-free-grammar: triage:촘스키 위계 내 위치는 포함 중첩 관계라 venn·hierarchy로 정확히 못 그리고 위계 자체는 별도 용어 몫
+- dead-sea-scrolls-studies: triage:사본군을 다루는 연구 분야명으로, 관계 맺는 구성 요소가 아닌 자료 성격 서술 위주
+- pensive-bodhisattva: triage:불상 도상 유형명이며 기원·존명·고류지 상 제작지가 모두 학계 논쟁 중이라 전파 경로를 단정해 그릴 수 없음
+- auditor-independence: triage:다섯 가지 독립성 위협 요인은 목록 나열이라 분류도가 본문을 반복함
+- national-assessment-educational-achievement: triage:특정 국가 평가 제도명으로, 전수·표집 전환 이력은 시점이 불분명해 timeline 근거가 약함
+- mixed-precision-training: triage:FP32 마스터 가중치·손실 스케일링 흐름은 본문에 단편적으로만 있어 절차도가 본문 밖 지식에 크게 기댐
+- enamel-matrix-derivative: triage:치주 재생 재료명이며 조직유도재생술과의 차이는 '신호 대 막' 한 줄 대비에 그침
+- performance-obligation: triage:IFRS 15 5단계 모형 중 한 단계의 하위 개념이라 단계도는 상위 용어 몫
+- consolidated-tax-return-system: triage:모회사·완전자회사 소득과 결손 합산이라는 제도 정의를 넘는 구조가 없음
+- sudden-enlightenment-sudden-cultivation: triage:돈오점수와의 대비가 핵심이나 열린 논쟁이고 차이가 '수행의 성격 규정'이라는 해석 문제라 도식화가 단정을 낳기 쉬움
+- play-based-curriculum: triage:교사 역할 전환(지시→관찰·지원)이라는 2항 대비가 중심이고 그림이 보탤 구조가 없음
+- mencius-innate-goodness: triage:사단 네 가지와 맹자·순자·고자 세 입장의 나열이라 그림이 정의를 반복하고 대립 구도의 단순화 위험이 있음
+- involvement-theory: triage:고·저관여에 따른 중심·주변 경로는 정교화 가능성 모형이라는 별도 용어의 그림 몫
+- local-income-tax-surtax: triage:세목명이며 국세 과세표준 연계·안분 규정 서술로, 관계 구조가 아닌 제도 설명
+- patient-safety-culture: triage:조직문화 개념으로, 보고 증가와 오류 감소의 역설은 본문 서술로 충분하고 구성 요소 관계가 2~3개에 그침
+- cash-cow: triage:BCG 매트릭스의 한 칸이라 다른 용어의 하위 사례에 불과함
+- free-choice-activity: triage:일과 활동 형태명으로, 흥미영역 목록 외에 관계 맺는 구성 요소가 없음
+- chronic-disease-risk-factors: triage:교정 가능·불가능 두 범주의 요인 목록이라 분류도가 정의를 그대로 반복함
+- ultimate-concern: triage:틸리히의 단일 신학 개념 — 유한/궁극 대상 구분 하나뿐이라 구성 요소 부족
+- doxology: triage:예배 문구 명칭 — 소송영·대송영 두 갈래 외에 관계 구조 없음
+- noncommunicable-disease-prevention: triage:1·2·3차 예방과 인구집단·고위험군 전략은 예방 일반 용어의 하위 사례로, 이 용어 고유 구조가 아님
+- earnings-per-share: triage:비율 지표 하나(순이익÷가중평균주식수) — 기본·희석 구분은 공식 차이에 그침
+- academy-of-fine-arts: triage:역사적 기관명 — 장르 위계는 최상위·최하위만 언급되어 그림 근거 부족
+- ecological-study: triage:연구설계 정의 — 시계열형·횡단형 두 하위유형뿐이고 생태학적 오류는 별도 용어
+- bonds-payable: triage:부채 계정명 — 할인·할증발행 상각은 사채할인발행차금 등 하위 용어의 내용
+- person-job-fit: triage:적합성 개념 하나 — 요구-능력·필요-공급 두 방향 구분만 있어 구성 요소 2개
+- mental-health-parity: triage:보험 급여 원칙 — 형식적·실질적 동등성 대비 외에 관계 구조 없음
+- overjet: triage:단일 치과 계측값(앞니 수평 거리)
+- social-marketing-health: triage:4P 변형은 마케팅 믹스 용어의 응용 사례 — 이 용어만의 구조로 보기 어려움
+- industrial-hygiene-monitoring: triage:측정 활동 정의 — TWA·STEL·Ceiling은 노출기준 하위 용어이고 시간별 농도 곡선은 본문 근거 부족
+- educational-welfare-priority-support-project: triage:특정 정책 사업명 — 지원 영역 나열뿐
+- illuminated-manuscript: triage:서적 미술 장르명 — 시기별 양식은 이름만 나열되고 연대 근거 부족
+- elliptic-curve-cryptography: triage:곡선 위 점 덧셈 모양이 핵심이나 plot 함수로 그릴 수 없고, 다른 type으로는 정의 반복
+- best-interests-of-the-child: triage:규범 원칙 하나 — 판단 요소가 사안별이라 고정된 구조가 없음
+- sphere-of-influence: triage:국제정치 개념 정의 — 강대국과 영향권 국가 관계뿐, 구성 요소 부족
+- equality-of-educational-opportunity: triage:평등 개념의 단계 구분이 본문에 체계적으로 제시되지 않고 규범적 논쟁 성격이 강함
+- septuagint-studies: triage:학문 분야명 — 연구 관심사 나열뿐
+- advent-theology: triage:절기 신학 — 세 가지 오심 구도는 '설명되기도 한다' 수준의 해석이라 그림 근거 약함
+- magic-religion-distinction: triage:주술-종교 이분법 자체가 학계에서 비판·논쟁 중이라 대비 그림이 단정이 됨
+- pediatric-dosing-considerations: triage:고려 요인 나열(장기 성숙도·체구성) — 관계 구조 없음
+- tax-return-filing: triage:신고 절차 정의 — 가산세 종류는 별도 용어이고 단계 구조가 본문에 없음
+- sublimation-freud: triage:충동→예술 전환의 단일 기제이고 이론 자체가 환원주의 논쟁 중
+- last-supper-theology: triage:신학 논의 주제 — 유월절 식사 여부 등 쟁점 나열, 구조 없음
+- elderly-poverty-and-health: triage:빈곤-건강 인과 방향이 상호적이라 본문도 단정 불가로 명시
+- adhd-screening-child: triage:선별→정밀평가 의뢰는 선별검사 일반의 흐름이라 이 용어 고유 구조가 아님
+- flat-tax-rate: triage:단일 세율 구조 — 기초공제에 따른 실효세율 곡선은 0에서 시작하는 공제 구간 표현이 안 돼 정확히 그리기 어려움
+- soteriology: triage:구원의 서정 순서는 전통마다 다르게 배열되어 논쟁 중이라 단정적 그림 불가
+- disease-x-concept: triage:미지 병원체를 가리키는 대비 개념 — 구성 요소 관계 없음
+- ceremonial-law: triage:율법 삼분법이 후대 신학적 분류로 본문도 절대적 구분이 아니라고 경고 — 분류도가 단정이 될 위험
+- village-education-community: triage:이념적 지향 — 참여 주체 나열뿐이고 본문이 중복 문장 위주
+- code-of-ethics-for-childcare-teachers: triage:대상별 4개 영역의 단순 목록 — 그림이 정의 반복에 그침
+- meritocracy-myth: triage:비판적 이념 개념 — 규범적 논쟁 성격이고 구조적 구성 요소 없음
+- unity-of-self-and-things: triage:사상적 경지 개념 — 성리학·도가 경로 차이는 2개 대비뿐이고 해석 의존적
+- free-education: triage:정책 개념 — 직접비 면제와 간접비 잔존 두 요소뿐
+- entrepreneurial-orientation: triage:혁신성·진취성·위험감수성 차원 나열은 정의 반복이고, 차원 간 관계·성과 효과는 실증 결과가 엇갈림
+- superspreading-event: triage:핵심은 2차 감염 수의 과산포 분포 모양인데 plot 함수로 그릴 수 없고 다른 type으로는 정의 반복
+- social-constructivism: triage:피아제 구성주의와의 대비가 본문에 짧게 언급될 뿐 비교 기준이 구체적으로 제시되지 않음
+- aseity: triage:단일 신론 속성 — 다른 속성 도출 관계는 서술이 추상적이라 구성 요소 관계를 그릴 근거 부족
+- foreign-tax-credit-taxation: triage:한도 계산식 중심의 제도 설명으로, 그림이 공식 이상을 보여주지 못함
+- eternal-return: triage:순환 대 직선 시간관 이분법 자체가 도식적이라는 비판이 본문에 있어 단정적으로 그리기 어려움
+- allegory-art: triage:미술 표현 방식 정의 — 상징과의 차이 외에 구조화된 구성 요소가 없음
+- environmental-security: triage:환경 요인→분쟁 인과가 실증적으로 엇갈린다고 본문이 밝혀 기전 사슬로 단정할 수 없음
+- parenting-efficacy: triage:네 형성 경로는 상위 개념인 자기효능감 이론의 내용이고 이 용어 고유의 구조는 단일 신념 척도
+- scientific-management: triage:인간관계론과의 대비 정도만 있고 원리 간 관계·단계가 본문에 구체화되지 않음
+- stainless-steel-crown: triage:단일 치과 수복 재료·술식명
+- rational-choice-institutionalism: triage:세 신제도주의 분류는 상위 개념의 그림이고, 이 이론 자체는 구조유발균형 설명이 형식모형 수준이라 그림으로 옮길 근거 부족
+- antenatal-depression: triage:질환명 — 위험 요인 나열만 있고 요소 간 관계 구조가 없음
+- oral-and-maxillofacial-surgery: triage:진료 분야명 — 다루는 영역 나열에 그침
+- orthodontic-retainer: triage:가철성·고정성 두 유형뿐인 장치명
+- gnostic-christology: triage:가현설·분리주의 두 형태뿐이고 영지주의 문헌마다 다르다는 단서가 붙음
+- cross-functional-team: triage:기능 다양성과 성과의 역U자 관계는 일반적 다양성 연구의 곡선이라 이 팀 형태 고유의 그림이 아님
+- gainsharing: triage:스캔론·럭커 플랜 두 공식 비교뿐이라 구성 요소가 부족
+- narrative-theology: triage:신학적 접근 정의 — 명제 신학과의 대비가 추상적 서술에 머묾
+- covenant-of-works: triage:개혁신학 내 해석적 구성물이라는 논쟁이 있어 아담-그리스도 구조를 단정해 그리기 어려움
+- aging-out-support: triage:지원 항목(정착금·수당·주거) 나열로, 단계·관계 구조가 본문에 없음
+- marshmallow-test: triage:단일 실험 — 원 연구와 재현 연구의 차이는 서술로 충분하고 구성 요소가 적음
+- installment-sales-method: triage:인도기준 대비 이익 인식 지연은 계단형 누적 곡선이 필요하고, 현행 기준에서 별도 방법이 아니라는 점도 있음
+- vote-buying: triage:단일 행위 개념 — 선택 매수 대 참여 매수 논쟁이 미결이라 단정적 도식 불가
+- apocalyptic-paul: triage:학자마다 강조점이 다른 해석 흐름이라 통일된 구조로 그리기 어려움
+- functional-currency: triage:1차·2차 지표 순차 적용은 두 단계뿐이라 그림이 판단 기준 나열 이상을 보여주지 못함
+- gaap: triage:회계기준 체계를 가리키는 일반 명칭 — 국가별로 다르다는 단일 속성
+- hash-function: triage:용도별 해시 계열 구분은 가능하나 본문 핵심은 입력→고정 길이 출력의 단일 변환이라 정의 반복에 가까움
+- limited-atonement: triage:교파 간 논쟁 중인 교리라 충분성·유효성 구분을 단정적으로 그리기 어려움
+- lower-criticism: triage:본문비평의 다른 명칭(동의어)
+- consolidated-financial-statements: triage:연결 절차의 순서가 본문에 명시되지 않고 내부거래 제거·비지배지분은 개별 언급에 그침
+- huayan-thought: triage:사법계 네 단계가 언급되나 상즉상입 개념이 추상적이라 그림 구성이 본문 밖 해석에 크게 기댐
+- verstehen-religion: triage:방법론 개념 — 이해와 설명의 보완 관계 외에 구성 요소가 부족
+- pedagogy-of-the-oppressed: triage:저작명 — 은행저금식 대 문제제기식 대비는 별도 용어의 내용
+- label-smoothing: triage:원-핫 대 평활 목표값 비교는 막대 분포 그림이 필요한데 지원 함수가 없음
+- broadcast-correspondence-university: triage:교육기관 유형명
+- preventable-hospitalization: triage:질 지표 정의 — 대상 질환 목록 나열뿐
+- esg-management: triage:E·S·G 세 축 나열은 정의 반복이고 재무 성과와의 관계는 결과가 혼재
+- aristotle-poetics: triage:저작명 — 비극 여섯 요소 등은 개별 개념 항목에서 다룰 내용
+- structural-theory-democratization: triage:계급 연합이 경로를 정한다는 설명이 국가별 반례·논쟁에 크게 열려 있어 단정적 인과도로 그리기 어려움
+- syndromic-surveillance: triage:비특이 지표를 모아 기준선과 비교한다는 정의 반복 수준 — 그림이 더할 구조가 약함
+- concupiscence: triage:단일 신학 개념, 가톨릭·개신교 견해차는 한 줄 대비로 충분
+- play-therapy: triage:아동중심·지시적 두 접근 대비가 본문에 짧게만 있어 그림 근거 부족
+- associative-play: triage:파튼 놀이단계의 한 범주(하위 사례) — 단계 전체 그림은 상위 용어 몫
+- benchmarking: triage:경쟁적·기능적·내부 세 유형 나열뿐, 관계 구조가 얕음
+- blockchain: merge-candidate: 병합 후보라 보류(was checked)
+- phenomenological-pedagogy: triage:연구 태도에 관한 설명뿐, 구성 요소 간 관계가 없음
+- hasidism: triage:특정 종교 운동명 — 역사 서술은 있으나 운동 자체의 고유명사 항목
+- bodhisattva-ideal: triage:이상적 인간상 개념, 십지 단계는 본문에 이름만 일부 언급되어 근거 부족
+- clinical-trial-registry: triage:제도명 — 등록 후 보고 대조라는 단일 논리로 그림이 정의를 되풀이함
+- halakha: triage:규범 체계명, 형성사(미슈나·탈무드·법전·응답서)는 연대 근거가 본문에 부족
+- global-health-financing-mechanism: triage:재원 조달 기구 유형명, 글로벌펀드·Gavi 같은 기관 사례 중심
+- positional-encoding: triage:임베딩+위치 벡터 합산이라는 구성 요소 2개뿐, 사인 곡선 그림은 plot 함수로 표현 불가
+- political-knowledge: triage:측정 변수 하나(사실 정보 보유량)에 대한 설명
+- deconstructive-theology: triage:사조·방법론명, 관계 구조 없이 개념 서술 위주
+- new-objectivity: triage:미술 사조명, 베리스트·고전주의 두 갈래만 있어 구성 요소 부족
+- lenten-theology: triage:절기 신학 — 금식·기도·자선 세 실천의 나열에 그침
+- robotic-process-automation: triage:기술명, 유인·무인형 2분류와 지능형 자동화 언급뿐
+- accounting-entity: triage:단일 회계 가정 — 소유주와 기업 분리라는 정의 외 구조 없음
+- four-ps-of-marketing: triage:네 요소가 정의에 이미 나열되어 그림이 정의를 반복함
+- reverse-perspective: triage:선원근법과의 대비가 본문에서 소실점 위치 한 축뿐이라 그림이 정의를 반복
+- indoor-air-quality-assessment: triage:측정 후 기준 비교라는 일반 평가 활동, 고유한 구조 없음
+- stakeholder-theory: triage:1·2차 분류와 현저성 모형이 함께 있어 어느 그림도 이론 전체를 대표하지 못함
+- mandibular-fracture: triage:부위별 해부 그림이 필요한 질환명 — 9개 type으로 표현 부적합
+- ability-referenced-assessment: triage:평가 유형 중 하나(하위 사례), 성장참조와의 대비는 기준점 한 축뿐
+- margin-of-exposure: triage:두 값의 비율인 단일 지표 — 로그 척도 용량축 없이 그리면 오해 소지
+- epiclesis: triage:성찬 기도의 한 부분 이름, 동서방 강조 차이는 짧은 언급
+- health-workforce-migration: triage:현상명 — 유출·유입 두 시각 외 구성 요소가 약함
+- hospital-readmission: triage:단일 성과 지표, 위험 보정 설명만 덧붙음
+- identity-politics: triage:정치 형태 개념, 좌우 비판 등 논쟁적 서술이 중심
+- humanistic-learning-theory: triage:학습이론 하나의 태도·원리 서술, 매슬로 위계는 별도 용어 몫
+- finance-lease: triage:리스 유형 하나 — 운용리스 대비는 IFRS 16 이후 리스제공자에게만 남아 그림이 오해를 부를 수 있음
+- algorithm-concept: triage:입력→절차→출력이라는 정의를 그대로 되풀이하게 됨
+- landscape-painting: triage:회화 장르명, 흐름 나열은 있으나 그림 하나로 묶을 구조 없음
+- reception-aesthetics: triage:문예이론 개념 서술 — 기대지평·빈자리 두 개념뿐
+- sitz-im-leben: triage:양식비평의 단일 분석 개념, 사례 나열(예배·재판·장례)뿐
+- health-system-resilience: triage:흡수·적응·변혁 세 능력의 이름 나열 — 본문에 관계 설명이 없음
+- apocalypticism: triage:종교 사상·문헌 전통명, 두 시대 구도는 한 줄 언급
+- kaizen-costing: triage:목표원가계산과의 시점 대비가 본문의 전부로, 대비 축이 사실상 '설계 vs 생산' 하나라 그림이 정의를 되풀이함
+- textus-receptus: triage:특정 본문 계열 명칭 — 비평본과의 관계 외에 구성 요소가 드러나지 않음
+- electoral-authoritarianism: triage:경쟁적 권위주의와의 경계가 본문 스스로 모호하다고 밝혀 비교 그림이 단정이 됨
+- special-education-act-for-disabled: triage:단일 법률명 — 조항 나열일 뿐 관계 구조가 없음
+- history-painting: triage:회화 장르명 — 장르 위계는 본문에 일부 장르만 언급돼 서열 그림의 근거가 부족함
+- effective-tax-rate: triage:단일 비율 지표 — 세율조정표의 가감 구조는 9개 type으로 그리기 어려움
+- higher-life-movement: triage:특정 경건 운동 — 케직·성결운동과의 계보가 서술 수준에 그쳐 그림 근거 부족
+- beatific-vision: triage:단일 신학 개념 — 현세의 간접 인식과 내세의 직접 인식 두 항뿐
+- westphalian-sovereignty: triage:기원 서사 자체가 학계에서 반박되는 통설이라 단정 없이 그리기 어려움
+- co-np-complexity-class: triage:NP·co-NP·P 관계가 미해결 문제(NP=co-NP?)에 걸려 있고 P를 교집합 안에 넣는 포함 관계를 venn으로 그릴 수 없음
+- critical-theory-of-education: triage:교육철학 입장 — 본문에 반복이 많고 관계 맺는 구성 요소가 3개 미만
+- allegorical-interpretation: triage:사중적 의미 체계의 한 층위에 불과한 하위 사례 — 그 체계 자체는 별도 용어 몫
+- universalism-doctrine: triage:논쟁 중인 소수 신학 견해로 구조 그림이 특정 입장을 단정할 위험
+- e-learning: triage:포괄적 교육 형태명 — 원격교육의 하위 유형이라는 것 외에 구조가 없음
+- decidability: triage:결정 가능 ⊂ 반결정 가능의 포함 관계라 venn으로는 중첩만 그려져 왜곡됨, 구성 요소도 2~3개로 얕음
+- pantheism: triage:신관 유형명 — 범재신론·유신론과의 구분이 학계 분류 논쟁을 안고 있어 단정 위험
+- spoilage-accounting: triage:정상/비정상 두 갈래 분류뿐이라 표 한 줄로 충분 — 그림이 정의를 반복함
+- taiji-thought: triage:무극과 태극을 한 단계로 볼지 두 단계로 볼지가 성리학 내부 논쟁이라 생성 순서도가 한쪽 해석을 단정하게 됨
+- parent-involvement-education: triage:참여 유형 나열 — 참관·봉사·의사결정·교육형의 깊이 서열이 본문에서 일관되게 제시되지 않음
+- case-based-learning: triage:문제중심학습과의 차이가 한두 문장 수준이라 비교 축이 빈약함
+- balance-sheet: triage:자산=부채+자본 회계등식은 정의 반복 — 그림이 새로 보여 주는 것이 없음
+- embarrassment-criterion: triage:단일 논증 기준 — 전제와 결론 두 항의 추론일 뿐 구성 요소 부족
+- tax-evasion: triage:조세회피와의 적법성 대비가 핵심인데 대비 축이 사실상 하나뿐
+- relative-evaluation: triage:규준참조평가의 실제 적용 형태로 상위 개념의 하위 사례 — 등급 경계 여러 개는 plot 기준선 3개 한도를 넘음
+- mediation: triage:분쟁해결 방식명 — 중재와의 대비가 본문에 한 번 언급될 뿐 비교 근거 부족
+- braille: triage:문자 체계 명칭 — 관계 구조 없음
+- holocaust-theology: triage:신학적 응답들이 서로 논쟁 중인 입장들이라 구조화가 단정이 됨
+- cognitive-science-of-religion: triage:연구 분야명 — 부산물 가설 등 핵심 주장 자체가 비판받는 이론이라 기전 도식이 단정이 됨
+- political-trust-decline: triage:추세 현상 — 원인과 의미(비판적 시민 대 냉소)가 학계 논쟁 중이라 인과 그림이 단정이 됨
+- world-and-earth-heidegger: triage:개념 쌍 두 항의 긴장 — 구성 요소 2개뿐이고 존재론적 해석이 그림으로 환원되지 않음
+- multivariable-logistic-regression: triage:통계 기법명 — 로지스틱 곡선은 단변량에도 같은 모양이라 '여러 변수 동시 보정'이라는 핵심을 보여 주지 못함
+- belief-propagation: triage:메시지 주고받기 반복은 그래프 구조 자체가 핵심이라 9개 type으로는 정의를 넘는 그림이 나오지 않음
+- subordinationism: triage:배격된 교리 입장 — 극단·온건 두 형태 구분뿐이라 구성 요소 부족
+- surrealism: triage:미술 사조명 — 기법과 인물 나열일 뿐 관계 구조 없음
+- social-reproduction-theory-education: triage:갈등론 이론 — 재생산 기전이 결정론 논쟁을 안고 있고 두 하위 이론 대비도 짧음
+- peacebuilding: triage:평화유지·평화강제와의 단계 구분이 주의할 점 한 문장뿐이라 근거 부족
+- accrued-liabilities: triage:단일 부채 계정 — 미지급금·충당부채와의 구분은 확정성 한 축뿐
+- entrepreneurship: triage:포괄적 상위 개념 — 슘페터·커즈너 대비는 짧은 언급이라 비교 축 근거 부족
+- issue-voting: triage:투표 행태 명칭 — 근접·방향 모형은 공간 그림이 필요해 9개 type에 맞지 않음
+- health-workforce-planning-and-management: triage:양성·배치·유지 세 축이 나열될 뿐 관계 구조가 일반적이어서 그림이 정의 이상을 보여 주지 못함
+- kitsch: triage:비평 개념의 계보와 논쟁 서술 중심, 관계 맺는 구성 요소 구조가 없음
+- socialist-realism: triage:특정 시대 국가 주도 미술 사조 설명, 도식화할 기전·단계 없음
+- positioning-strategy: triage:STP의 한 단계일 뿐이고 지각도는 2축 산점도라 현재 type으로 의미 있게 그리기 어려움
+- deuteronomist-source: triage:학계 논쟁 중인 자료층 가설이고 본문도 문체·신학 특징 나열이라 단정 없이 그릴 구조가 약함
+- metal-ceramic-crown: triage:단일 보철물 종류 — 금속 코핑과 도재 두 층 구조뿐
+- absolute-music: triage:음악미학 이념의 역사적 의미 논의, 도식으로 옮길 구성 요소 관계 없음
+- sensus-plenior: triage:해석학 개념 하나와 그 논쟁 소개, 3개 이상 요소의 구조 없음
+- romanticism: triage:사조의 감수성 서술 중심, 신고전주의 대비도 본문에서 기준이 체계적이지 않음
+- unity-of-action: triage:삼일치 오해 교정은 문장 한 줄로 충분, 그림이 더할 구조가 약함
+- election: triage:무조건적·예지적 선택 두 견해 소개뿐이고 비교 기준이 본문에 부족함
+- chlorhexidine: triage:단일 항균제 물질명
+- fiber-post: triage:재료 유형 하나, 금속 포스트 대비 효과는 '주장이 있다' 수준이라 대비 그림이 근거를 넘어섬
+- triptych: triage:세 패널 형식 자체가 정의라 그림이 정의를 되풀이함
+- alveolar-bone: triage:해부학적 조직 이름, 구성층 나열과 발치 후 흡수 언급뿐
+- non-current-liabilities: triage:회계 분류 항목 하나, 하위 계정 나열과 재분류 예외 규칙이라 그림 이득이 작음
+- oral-squamous-cell-carcinoma: triage:질환명 — 위험 인자와 예후 인자 나열
+- child-centered-education: triage:교육사상 계보 언급이 단편적이고 구성 요소 관계를 세울 근거가 부족함
+- teacher-certification-system: triage:본문이 같은 문장 반복 위주이고 자격·임용 구분은 두 요소뿐
+- nudge-theory-health: triage:기법 사례 나열 수준, 그림이 정의 이상을 보여 주지 못함
+- causal-inference-epidemiology: triage:방법론 이름 목록(힐 기준, 성향점수, 도구변수 등)일 뿐 서로의 관계가 본문에 없음
+- zuowang: triage:도가 수양 개념, 잊음의 대상 나열은 해석적이라 단계로 단정하기 어려움
+- prosocial-behavior: triage:하위 유형 나열과 이타주의 구분이 중심, 포함 관계는 venn으로 못 그리고 그림 이득이 작음
+- binary-search-tree: triage:자료구조 자체는 트리 그림이 필요하나 9개 type 중 노드 트리를 그릴 틀이 없음
+- benchmark-contamination: triage:유출→암기→점수 부풀림은 정의 반복이고 탐지법은 목록에 그침
+- creation-myth: triage:유형 이름 나열(무로부터, 알, 거인 해체)뿐이라 글로 충분히 잡힘
+- calcium-hydroxide: triage:단일 치과 재료 물질명
+- constitutional-engineering: triage:제도→결과 인과는 본문 스스로 맥락 의존적이라 하여 그림이 단정을 낳을 위험
+- human-papillomavirus-oral: triage:감염 상태 이름, 핵심 대비는 다른 용어(구인두암 아형)에 속함
+- erosion: merge-candidate: 병합 후보라 보류(was checked)
+- autonomous-private-high-school: triage:학교 유형 하나와 정책 논란 서술, 본문 문장 중복 많고 구조 없음
+- patient-centered-medical-home: triage:운영 모델 구성 요소 나열(접근성·지속성·팀 진료 등)뿐
+- intercountry-adoption: triage:보충성 원칙 우선순위는 한 문장으로 충분하고 나머지는 정책 쟁점 서술
+- self-study-degree-system: triage:4단계 시험 이름이 일렬로 이어질 뿐이라 글로 충분함
+- credit-system: triage:학년제와의 차이가 진급 기준 하나로 요약되어 비교 그림 이득이 작음
+- minimally-invasive-dentistry: triage:치료 철학 원칙, 하위 전략 목록 수준
+- comparative-mythology: triage:학문 분야 이름, 유사성 설명 접근들은 목록이라 그림 이득이 작음
+- priesthood-of-all-believers: triage:단일 교리, 오해 교정 서술 위주로 구성 요소 구조 없음
+- rational-actor-model: triage:앨리슨 세 모델 중 하나로, 목표→대안 비교→최적 선택은 정의 반복이고 다른 두 모델 내용은 본문에 거의 없음
+- test-positivity-rate: triage:검사 건수 대비 양성 비율이라는 단일 비율 지표, 분모 주의사항은 글로 충분
+- humanitarian-intervention: triage:주권 대 인권의 규범 논쟁 개념으로 정당성 자체가 학계 논쟁 중이며 구성 요소 관계가 뚜렷하지 않음
+- peer-support-program-mental-health: triage:프로그램 형태 설명뿐, 관계 맺는 구성 요소나 기전이 없음
+- extra-calvinisticum: triage:개혁파·루터파 속성 교류 해석 차이는 있으나 신학 논쟁의 한쪽 입장 교리로, 그림이 논쟁을 단정할 위험
+- comparative-theology: triage:비교종교학과의 태도 차이(신앙 전제 여부) 하나뿐인 정의 반복
+- reversibility: triage:역조작·보상조작 두 형태 구분 정도로 구성 요소가 적고 보존 실험 예시는 글로 충분
+- upanishads: triage:문헌군 이름, 관계 구조 없음
+- international-health-regulations: triage:국제법 틀 이름으로 통보 절차 기준이 나열될 뿐 단계 순서가 본문에 분명하지 않음
+- lifelong-education-instructor: triage:자격·직무 명칭
+- vineland-adaptive-behavior-scales: triage:검사 도구명, 하위 영역 나열 외에 관계 구조 없음
+- intertextuality: triage:영향 대 상호텍스트성 방향 차이 외에 그릴 구성이 약하고 정의 범위 자체가 이론가마다 갈림
+- sacred-canopy: triage:비유적 이론 개념으로 순환 단계가 본문에 두 단계만 있어 근거 부족
+- free-will-defense: triage:논증의 전제·결론 나열은 정의 반복이며 종교철학 논쟁 중인 논증
+- spiritual-presence-view: triage:성찬론 한 입장으로, 다른 세 입장은 이름만 나와 비교 근거가 본문에 부족
+- organizational-agility: triage:조직 역량을 뜻하는 추상 개념, 구성 요소 관계가 본문에 없음
+- axial-age: triage:시기 구분의 동시성·독립성 자체가 논쟁 중이고 전통별 연대가 본문에 없음
+- speech-therapy: triage:치료 분야 총칭으로 조음·언어·유창성 나열 정도
+- root-planing: triage:단일 시술명, 단계나 기전 구성이 부족
+- postcolonial-aesthetics: triage:비평적 지향의 총칭으로 단일 구조가 없다고 본문이 밝힘
+- unrelated-diversification: triage:다각화의 하위 유형으로 관련다각화와의 대비가 정의 수준에 그침
+- transportation-management-system-logis: triage:정보 시스템 이름, 기능 나열
+- educational-welfare-indicator: triage:지표 총칭, 하위 지표 나열과 가중치 한계뿐
+- sjogren-syndrome: triage:질환명으로 자가면역→분비 감소→건조 증상은 정의 반복 수준
+- neo-expressionism: triage:미술 운동명, 작가·전시 나열
+- childcare-classroom: triage:학교 돌봄 서비스 명칭
+- topical-preaching: triage:본문설교와의 대비가 '여러 본문 대 한 본문' 하나뿐
+- goal-attainment-model: triage:목표 명세→도구 개발→측정이 정의 반복 수준이고 단계 구성이 본문에 단편적
+- post-and-core: triage:보철 구조물 이름, 재료 구분과 페룰 수치만
+- linear-perspective: triage:회화 기법으로 그림이 곧 기법 시연이며 diagram type에 맞는 관계 구조 없음
+- object-oriented-programming: triage:네 원칙의 단순 나열, 서로 관계 구조 없음
+- investing-activities: triage:현금흐름표 한 구분, 항목 분류 경계는 보유 목적에 따라 달라짐
+- niche-party: triage:정당 유형 이름, 사례 나열
+- interactional-justice: triage:대인·정보 공정성 두 하위 차원뿐이고 그 구분 자체가 논쟁 중
+- monarchic-regime: triage:정치체제 유형, 절대·입헌 두 갈래뿐
+- resurrection: triage:교리명, 영혼불멸·소생과의 구분은 글로 충분
+- pricing-strategy: triage:포괄 상위 개념으로 하위 전략 이름 나열에 그침
+- virtual-team: triage:팀 형태 명칭, 운영 과제 서술뿐
+- antenatal-care: triage:보건 서비스 총칭, 검사 항목 나열
+- democratic-backsliding: triage:점진적 후퇴 현상 개념으로 판정 시점 자체가 논쟁적이고 단계가 본문에 정형화돼 있지 않음
+- job-demand-control-support-model: triage:본문은 고긴장 조합 하나만 명시하고 나머지 칸 이름(능동·수동·저긴장)은 본문 밖 지식이라 매트릭스 근거가 약함
+- fundamentalism: triage:종교 운동·태도에 대한 개념사 서술 — 관계 맺는 구성 요소가 없음
+- parent-effectiveness-training: triage:기법 나열(적극적 경청·나-전달법·무패법) 수준이고 문제 소유자별 기법 대응은 본문에 명시되지 않음
+- sky-god: triage:신격 유형명 — 천신·지고신 구분은 문장으로 충분
+- origin-of-the-work-of-art: triage:철학 텍스트 제목 — 사물·도구·작품 구분은 짧게 언급될 뿐 그림으로 보탤 구조가 없음
+- connoisseurship: triage:미술사 감정 기술 하나 — 단계·관계 구조 없음
+- creation-care-theology: triage:생태신학과의 강조점 차이 한 가지뿐이라 비교 축이 부족
+- multipolarity: triage:다극체제 안정성은 학계 견해가 엇갈려 단정 없이 그리기 어렵고, 힘 분포 자체는 정의 반복
+- preferential-looking-paradigm: triage:두 자극 제시 후 응시 시간 비교라는 단일 절차 — 정의 반복
+- re-enchantment: triage:사회 현상 개념 — 탈주술화와의 관계는 서술로 충분하고 구성 요소가 부족
+- embedding: triage:벡터 공간 산점도가 필요한데 9개 type으로 표현 불가, 개념 자체는 정의로 충분
+- cognitivism: triage:학습이론 사조명 — 정보처리 단계 그림은 하위 이론(정보처리이론) 쪽에 어울림
+- silhak: triage:사상 사조명 — 본문의 갈래는 경세치용·이용후생 두 개뿐
+- sales-price-variance: triage:매출차이 분해의 한 항목 — 계산식 한 줄로 충분하고 분해 트리는 상위 용어 몫
+- flood-myth: triage:신화 모티프 유형 — 파괴·재건 서사는 문장으로 충분하고 기원 논쟁은 단정 불가
+- prajna: triage:불교 지혜 개념 — 문혜·사혜·수혜 언급은 한 문장뿐이라 그림 근거가 약함
+- empowering-leadership: triage:리더 행동 유형 — 심리적 임파워먼트 매개 경로는 일반적 매개모형 반복에 그침
+- pulp-necrosis: triage:진단명 — 혈류 차단에서 근단 병소까지의 경로가 정의에 이미 담겨 그림이 되풀이에 그침
+- special-school: triage:학교 유형 하나 — 배치 연속체는 언급만 있고 본문의 중심이 아님
+- media-addiction-prevention-education: triage:교육 프로그램명 — 권장 접근 나열뿐 관계 구조 없음
+- curriculum-articulation: triage:수직·수평 연계 두 축 구분뿐이라 구성 요소 2개
+- yield-management: triage:운영 기법 — 성립 3조건은 목록으로 충분하고 그림이 보탤 관계가 없음
+- generative-ai: triage:포괄적 기술 범주 — 판별형과의 차이는 한 축뿐
+- differentiation-strategy: triage:본원적 전략의 하위 유형 — 4칸 매트릭스는 상위 용어 몫이고 본문엔 원가우위 대비만 있음
+- apotheosis: triage:도상 유형명 — 승천 도상과의 유사성은 문장으로 충분
+- willingness-to-pay-for-health: triage:측정 대상 금액 개념 — 진술선호·현시선호 구분은 방법론 용어 쪽 그림
+- technocratic-populism: triage:정치 스타일 하위 유형 — 두 요소 결합은 한 문장으로 전달되고 사례 근거가 얇음
+- taboo: triage:금기 개념 — 세 이론(프로이트·래드클리프브라운·더글러스) 비교는 contrast 2항 틀에 맞지 않음
+- b-tree: triage:자료구조 — 노드 분할·높이 관계는 트리 구조도가 필요해 9개 type으로 살리기 어려움
+- health-gradient: triage:단조 증가 직선 하나는 정의(연속적 기울기) 반복이고 계단형 대비 곡선은 그릴 함수가 없음
+- sacred-narrative: triage:상위 서사 범주 — 경계가 공동체 태도에 달려 고정 분류도를 그리면 오도
+- stochastic-gradient-descent: triage:미니배치로 경사 추정·갱신 반복이라는 정의 그대로 — 그림이 보탤 것이 적음
+- purgatory: triage:교파별 수용이 갈리는 교리 — 사후 경로도는 가톨릭 견해를 단정할 위험
+- comprehensive-geriatric-assessment: triage:평가 영역 나열 수준 — 영역별 도구 목록이라 관계 구조가 약함
+- cult-typology: triage:유형론의 한 범주 — 교회·분파·컬트 분류는 상위 유형론 용어 몫이고 학계도 용어를 폐기하는 추세
+- soul-sleep: triage:소수 교단의 신학적 입장 — 중간상태론과의 차이는 의식 유무 한 축뿐
+- sialadenitis: triage:질환명 — 세균성·바이러스성 감별 단서는 표 한 줄 수준
+- political-behavior-in-organizations: triage:조직행동 개념 — 전술 사례 나열뿐 구조 없음
+- hadith: triage:이슬람 문헌 장르 — 이스나드·마튼 두 부분과 등급명은 문장으로 충분
+- against-interpretation: triage:비평 에세이 제목 — 입장 하나라 구성 요소 없음
+- cultural-arbitrariness: triage:재생산 이론의 전제 개념 하나 — 본문이 정당화 논리를 서술할 뿐 단계·구성 요소로 나눌 구조가 약함
+- plural-society-theory: triage:사회 유형 진단 개념 — 시장 접촉·문화 분리라는 서술 외에 그림으로 나눌 관계 구조가 부족
+- tax-haven: triage:국가·지역 유형을 가리키는 명칭 — 정의 기준도 기관마다 달라 고정된 구조가 없음
+- related-diversification: triage:비관련다각화와의 대비가 본문에 있으나 비교 축이 시너지 하나로 수렴해 정의 반복에 가까움
+- version-control: triage:브랜치·머지 이력 그래프가 핵심인데 9개 유형 어디에도 맞지 않고, 나머지는 백업과의 차이 설명 수준
+- negative-partisanship: triage:상대 정당 반감이라는 단일 심리 차원 — 정서적 양극화와의 구분은 본문 설명으로 충분
+- tabernacle-theology: triage:뜰·성소·지성소 공간 배치는 평면도가 필요해 9개 유형으로 그리기 어렵고 상징 해석은 알레고리화 주의 대상
+- compulsory-education-debate: triage:국가·부모·아동 권리가 충돌하는 논쟁 이름 — 결론이 나라마다 달라 고정 구조로 그리기 어려움
+- polytheism: triage:종교 분류 범주명 — 신의 수로 나누는 이분법 자체를 경계하라는 본문이라 위계도로 단정하기 어려움
+- support-for-vulnerable-children: triage:정책·지원체계 명칭 — 드림스타트 운영 서술은 있으나 단계나 기전으로 정리되지 않음
+- issue-ownership-theory: triage:정당별 쟁점 평판이라는 아이디어가 핵심 — 연관적·역량 소유권 구분은 두 항목뿐이라 그림 이득이 적음
+- medium-specificity: triage:모더니즘 미학 규범 하나 — 그린버그·크라우스·미첼의 입장 차이는 정의 논쟁이라 단정적 도식화가 어려움
+- ukiyo-e: triage:미술 장르명 — 분업 체계 언급은 부수적이고 본문 중심은 작가·작품·자포니즘 영향
+- concert-of-powers: triage:역사적 국제체제 사례 — 정례 협의라는 운영 방식 외에 구성 요소 간 관계 구조가 없음
+- implant-supported-overdenture: triage:보철물 종류 하나 — 볼·바 어태치먼트 차이는 두 항목 비교라 그림 없이도 이해됨
+- aniconism: triage:형상 재현 회피 전통 — 사례 나열 중심이고 성상파괴와의 구분도 문장으로 충분
+- non-deductible-expense-corporate-tax: triage:세무조정 항목 범주 — 하위 유형 나열은 있으나 법령 항목 목록이라 도식이 정의를 되풀이함
+- cluster-computing: triage:시스템 구성 방식 명칭 — 노드 연결 외에 단계·비교 구조가 없고 스케일링 곡선은 본문에 수치 근거 없음
+- neo-corporatism: triage:다원주의 대비가 있지만 노사정 삼자 협의라는 정의를 넘어서는 구조를 그림이 더하지 못함
+- accrued-revenue: triage:단일 회계 계정 — 매출채권·계약자산과의 경계는 조건 설명 문장으로 충분
+- school-maladjustment: triage:학생 상태를 가리키는 개념 — 원인이 복합적이라는 언급뿐 구체적 경로가 제시되지 않음
+- sinlessness-of-christ: triage:신학 명제 하나 — 불가죄성·가죄성 논쟁은 교리적으로 갈리는 쟁점이라 단정적 비교가 부적절
+- common-grace: triage:특별은총과 구분되는 은혜 범주 — 하위 범주 언급이 짧고 교단 논쟁이 있어 고정 구조로 그리기 어려움
+- tooth-extraction: triage:외과 술식 총칭 — 단순·외과적 발치 두 갈래뿐이고 치유 단계는 부수 언급
+- expression-theory-art: triage:미학 이론 하나 — 전달 모델과 명료화 모델의 구분은 두 항목이라 그림 이득이 적음
+- tempera: triage:회화 매체 하나 — 빠른 건조와 해칭 기법이라는 속성 설명이 중심
+- labor-efficiency-variance: triage:단일 계산식(시간 차이 × 표준임률) — 원인 해석은 주의 사항 나열에 그침
+- essential-medicines-list: triage:정책 도구 명칭 — 선정 기준 나열 외에 단계나 관계 구조가 없음
+- discontinued-operations: triage:손익 표시 구분 하나 — 요건 판단은 조건 문장으로 충분하고 구성 요소가 2개뿐
+- childcare-teacher-training-program: triage:자격 양성 과정 명칭 — 경로별 차이 언급은 있으나 비교 축이 정리되어 있지 않음
+- suprematism: triage:미술 사조명 — 창시자·대표작·성격 설명뿐이라 관계 구조가 없음
+- more-knowledgeable-other: triage:근접발달영역 이론의 한 역할 개념 — 그림이 필요한 쪽은 상위 개념인 ZPD이고 이 용어 자체는 정의 반복
+- torah: triage:경전 명칭 — 좁은 뜻(다섯 책)과 넓은 뜻(구전 포함)의 범위 구분은 문장으로 충분
+- oil-painting-technique: triage:회화 매체 하나 — 템페라와의 차이는 느린 건조라는 단일 속성으로 귀결
+- inclusivism: triage:배타주의–포괄주의–다원주의 스펙트럼의 한 입장 — 일직선 3점 배치는 9개 유형에 맞지 않고 정의 반복에 가까움
+- root-canal-filling: triage:근관 안 충전 재료 자체를 가리키는 말 — 단일 물체 개념
+- ancestor-worship: triage:종교 실천 명칭 — 독립 종교인지 여부도 견해가 갈려 구조화 근거가 부족
+- antichrist-doctrine: triage:해석이 갈리는 종말론 교리 — 미래론·역사적 관점 대립은 논쟁 중인 해석이라 단정적 도식화가 부적절
+- church-as-body-of-christ: triage:교회론 은유 하나 — 머리와 지체라는 이미지 자체가 정의이고 그림이 더할 관계가 없음
+- instructional-supervision: triage:하위 유형(임상·동료·자기·약식·컨설팅) 나열은 있으나 각 유형의 차이가 본문에 거의 설명되지 않아 이름 목록에 그침
+- underachievement-in-basic-skills: triage:검사 기준선 미달이라는 조작적 판정 상태 — 기준점 하나뿐이라 그림 요소가 부족
+- inheritance-tax: triage:공제 후 누진세율 적용은 일반 세금 계산 수준이고, 유산세·유산취득세 대비는 본문에 각 방식의 구조 설명이 부족함
+- dogmatics: triage:학문 분야명 — 조직신학과의 구분이 뉘앙스 차이에 그쳐 그림 축이 서지 않음
+- niche-marketing: triage:전략 하나의 정의와 위험 서술뿐, 관계 맺는 구성 요소 3개 이상이 없음
+- solitary-play: triage:파튼 놀이발달단계의 한 하위 단계에 불과하며 본문은 해석상 주의점 위주
+- divination: triage:다양한 실천의 총칭 — 해석 관점 논의만 있고 그릴 구조가 없음
+- business-combination: triage:취득법 절차가 본문에 흩어져 있어 단계 구성이 본문 밖 지식에 기대고, 영업권 계산 그림과 겹침
+- deferred-assets: triage:폐지된 회계 분류명 — 역사적 개념 설명과 유사 용어 혼동 주의뿐
+- alpha-beta-pruning: triage:게임 트리 위의 가지 절단 그림이 필요하지만 9개 type으로는 트리 탐색을 표현할 수 없음
+- total-rewards: triage:보상 요소의 목록 나열 — 위계 그림이 정의를 되풀이하는 수준
+- childcare-staff: triage:법적 포괄 직종명 — 직종 나열 외에 구성 요소 간 관계가 없음
+- carolingian-renaissance: triage:특정 시기의 문화 부흥 명칭 — 성과 나열 위주이고 시간 순서 사건이 2개 미만으로 서술됨
+- self-regulation-child: triage:정서·행동·인지 세 측면이 한 문장으로만 언급되어 그림 근거가 얇음
+- calligraphy-art: triage:예술 장르명 — 서체 이름 나열만 있고 서체 간 관계 설명이 없음
+- residential-child-care: triage:아동복지시설 한 유형 — 탈시설화 흐름 언급뿐 비교 축이 본문에 정리돼 있지 않음
+- unmet-healthcare-needs: triage:설문 지표 하나 — 사유 범주 나열과 측정 한계가 중심이라 그림이 정의 이상을 보여 주지 못함
+- peripheral-giant-cell-granuloma: triage:단일 병변명 — 감별진단 언급은 있으나 비교 기준이 체계적으로 서술되지 않음
+- nirvana: triage:유여·무여 열반 두 구분뿐이고 해석 자체가 부파 간 논쟁 중
+- virtue-education-theory: triage:교육이론 하나 — 습관화와 실천적 지혜 언급뿐, 콜버그 대비는 상호배타 여부가 논쟁 중
+- global-south: triage:국가군 지칭어 — 범주의 이질성 주의 외에 구조가 없음
+- durkheim-moral-education-theory: triage:세 요소가 정의에 이미 다 나와 있어 그림이 정의 반복이 됨
+- education-safety-net: triage:정책 프레임 용어 — Wee 3단계는 하나의 실행 사례일 뿐 개념 자체의 구조가 아님
+- teacher-performance-pay: triage:보수 제도명 — 본문이 타당성 논쟁 반복이고 구성 요소가 없음
+- trompe-loeil: triage:회화 기법명 — 사례와 함의 설명뿐 관계 구조 없음
+- organizational-identification: triage:심리 상태 개념 — 조직몰입과의 차이가 '깊이' 서술에 그쳐 비교 축 부족
+- futurism: triage:미술 사조명 — 인물·특징 나열 위주
+- intermediate-state: triage:죽음-부활 사이 상태의 성격(의식 존속·영혼수면·연옥)이 전통 간 논쟁이라 단정 없이 그리기 어려움
+- easy-temperament: triage:기질 유형 중 하나 — 상위 분류의 하위 사례에 불과
+- vat-tax-invoice: triage:법정 증빙서류명 — 매입세액공제 연결은 부가가치세 구조 그림의 몫이고 서류 자체는 단일 대상
+- alexandrian-school: triage:신학 학파명 — 안디옥 학파와의 대비가 본문에 한쪽만 서술되고 경계도 불명확하다고 명시
+- dental-fluorosis: triage:단일 질환 상태 — 용량 의존 곡선은 본문에 수치 근거가 없어 모양이 본문 밖 지식에 기댐
+- adult-literacy-education: triage:평생교육 영역명 — 제도·대상 설명뿐 관계 구조 없음
+- post-adoption-support: triage:서비스 체계명 — 지원 항목 나열뿐 순서나 관계가 없음
+- distribution-channel: triage:생산자→중간상→소비자 경로는 정의 반복이고 커버리지 유형은 이름만 언급됨
+- sunk-cost: triage:단일 원가 개념 — 의사결정에서 제외한다는 한 가지 원칙뿐
+- interim-financial-statements: triage:보고 기간이 짧은 재무제표 — 독립기간 접근 등은 세부 처리 규정이라 그림 축이 약함
+- punishment-and-obedience-orientation: triage:콜버그 6단계 중 1단계 — 상위 이론의 하위 사례
+- distributed-leadership: triage:분석 관점 — 협응·공동수행 구분이 이름만 나와 구성 근거 부족
+- puja: triage:의례 절차가 지역·종파마다 크게 다르다고 본문이 명시해 표준 단계로 그리기 어려움
+- proportional-representation-system: triage:선거제도 하나 — 다수제 대비와 배분 공식은 이름만 언급되어 본문 근거 부족
+- purity-and-danger: triage:더글러스의 해석틀 하나 — '분류 이탈=오염' 한 줄 논리라 그림이 정의를 되풀이함
+- puritan-theology: triage:신학 사조명 — 온건파·분리주의 두 갈래와 특징 나열뿐, 관계 구조 없음
+- best-fit-hrm: triage:관점 하나의 주장 — 원가우위·차별화 대비 사례는 정의 반복 수준이고 최선의 관행 쪽 서술이 빈약
+- hybrid-regime: triage:포괄 범주명 — 하위 유형 이름만 나열되고 유형 간 기준이 본문에 없음
+- consistency-principle: triage:단일 회계 원칙 — 정책 변경·추정 변경 구분은 다른 용어의 내용
+- canonicity: triage:신학 개념 — 판단 기준 나열과 '결정 대 인식' 논쟁뿐, 그림으로 더할 구조 없음
+- stock-option-plan: triage:보상 제도명 — 부여·가득·행사 서술이 흩어져 있고 그림이 정의를 되풀이할 뿐
+- mobilization: triage:병력·물자·산업·정보 동원 유형의 단순 나열 — 그림이 목록 이상을 보여 주지 못함
+- analytic-philosophy-of-education: triage:철학적 접근 방법론 — 관계 맺는 구성 요소가 없음
+- full-cost-pricing: triage:원가+이익가산이라는 정의 자체가 전부 — 그림이 정의 반복
+- market-share: triage:단일 비율 지표 — 점유율·수익성 관계는 논쟁 중이라 단정적 경로를 그리기 어려움
+- military-regime: triage:체제 유형명 — 군부지배형·개인독재형 두 갈래뿐
+- open-list-pr: triage:선거제도 한 방식 — 폐쇄형과의 대비가 선택권·결속력 상충 한 축뿐이라 글로 충분
+- no-free-lunch-theorem: triage:추상적 정리 — 9개 type 중 맞는 그림 형식이 없고 글 설명으로 충분
+- denture-tooth-arrangement: triage:보철 술식 — 배열 원칙 간 절충 서술뿐, 순서 있는 단계가 본문에 정리되어 있지 않음
+- religious-symbol: triage:포괄 개념 — 상징 예시 나열과 해석 모형 언급뿐, 구성 요소 관계 없음
+- national-health-insurance: triage:제도명 — 민간보험과의 원리 차이가 한두 문장이라 비교 그림의 근거가 얇음
+- etiological-myth: triage:신화 유형명 — 우주개벽신화와의 구분 한 줄뿐
+- finite-automaton: triage:핵심 그림이 상태 전이도인데 9개 type으로 그릴 수 없고, DFA·NFA 구분만으로는 그림이 정의 반복
+- beautiful: triage:미학 범주 — 객관주의·주관주의 대립은 논쟁적이고 구성 요소 관계가 분명치 않음
+- brand-equity: triage:구성요소 목록이 정의에 이미 들어 있어 그림이 정의 반복
+- charismata: triage:은사 목록 나열 — 관계 구조 없음, 지속 여부 논쟁 포함
+- individualized-education-plan: triage:법정 문서명 — 진단·목표·방법·평가 항목은 문서 구성 나열에 가까움
+- discovery-learning: triage:학습이론 — 순수·안내된 발견의 효과는 학계 논쟁 중이라 단정적 비교가 어려움
+- oracles-against-nations: triage:예언 문학 양식명 — 민족명·죄목·심판 3요소 구조는 정의 반복 수준
+- firewall: triage:보안 장치명 — 패킷 필터링·상태 기반·애플리케이션 계층 유형 나열은 글로 충분
+- earnings-quality: triage:포괄 개념 — 측정치 세 범주 나열뿐, 범주 간 관계가 없음
+- power-vacuum: triage:상태 개념 — 이후 전개가 경쟁·협력·대리전 등으로 갈려 하나의 경로로 그리기 어려움
+- decentralization-of-health-services: triage:정책 개념 — 분권 유형 분류가 두 체계로 엇갈려 제시되고 효과는 결과가 혼재
+- dentin-bonding-agent: triage:재료명 — 세대 구분 세부가 본문에 없어 근거 부족
+- lifelong-education-facility: triage:법률상 포괄 용어 — 학교형태·비학교형태 두 갈래 분류뿐
+- childcare-center: triage:기관명 — 설립 유형 나열과 소관 부처 변경 사실뿐
+- horizon-of-expectation: triage:수용미학 개념 — 기대와의 거리라는 단일 축, 구성 요소 관계 부족
+- educational-equity: triage:규범적 가치 개념 — 평등과의 대비는 한 문장으로 충분하고 배분 기준은 논쟁 중
+- equivalent-units: triage:계산 단위 — 수량×완성도라는 한 단계 계산이라 그림이 정의 반복
+- glass-ionomer-cement: triage:재료명 — 전통형·레진강화형 차이와 불소 재충전은 부가 성질 서술
+- binary-number-base-conversion: triage:기초 계산법 — 나눗셈 반복 절차는 예제 숫자 표로 보이는 편이 낫고 개념 도식의 이득이 적음
+- value-relevance: triage:실증 측정 개념 — 가격모형·수익률모형 언급뿐, 구성 요소 관계 부족
+- social-selection-function-school: triage:기능 개념 — 시험→지위 한 줄 연결뿐이고 해석은 기능주의·갈등론 논쟁
+- evolutionism-religion: triage:폐기된 단계론 — 애니미즘→다신교→일신교 도식을 그리면 극복된 서열적 주장을 단정하는 그림이 될 위험
+- crimes-against-humanity: triage:법적 범주 구분 — 전쟁범죄·제노사이드와의 차이를 본문이 두 문장으로 이미 정리, 그림 이득 적음
+- working-length: triage:단일 측정 기준값 — 구성 요소 관계 없음
+- final-impression: triage:임상 술식 하나 — 이중 점도 기법 등 단계 근거가 단편적
+- headgear: triage:단일 교정 장치명 — 견인형 나열만 있음
+- point-cloud: triage:데이터 표현 형식 하나 — 구조적 관계보다 성질 설명 위주
+- ordo-of-worship: triage:모임-말씀-성찬-파송 4단 나열은 글로 충분히 잡힘
+- cognitive-decline-screening: triage:선별→정밀평가 두 단계뿐 — 구성 요소 부족
+- passion-narrative: triage:복음서 서사 단락 — 사건 나열은 정의 반복, 형성 시기는 논쟁 중
+- one-health-approach: merge-candidate: 병합 후보라 보류(was checked)
+- platform-business-model: triage:선형 가치사슬과의 대비가 본문에 한 문장뿐 — 네트워크효과 순환은 두 집단이라 구성 요소 부족
+- strategy-canvas: triage:범주형 가로축 위 가치곡선 비교가 핵심인데 plot 함수로 못 그림
+- works-of-the-law: triage:새관점·전통 해석 논쟁 — 어느 쪽 범위도 단정하기 어렵고 대비 축이 하나뿐
+- abrasion: merge-candidate: 병합 후보라 보류(was checked)
+- ex-opere-operato: triage:신학 원리 하나 — 인효론과의 대비가 본문에 이름만 나옴
+- asean-way: triage:외교 규범 원칙 세 가지 나열 — 관계 구조 없이 EU 대비 한 줄
+- water-sanitation-and-hygiene: triage:세 요소(물·위생시설·위생행태) 나열로 정의 반복
+- parliamentarism: triage:정부 형태 하나 — 대통령제 쪽 비교 근거가 본문에 부족
+- contextualization: triage:신학적 작업 개념 — 형식·내용 상황화 두 구분뿐
+- direct-democracy-theory: triage:제도 사례 나열 위주 — 구성 요소 관계 없음
+- assessment-criteria: triage:성취기준→평가기준→채점기준 위계가 본문 문장으로 충분히 잡힘
+- lifelong-learning-city: triage:정책 지정 명칭 — 구조적 요소 없음
+- yogacara: triage:학파 사상 체계 — 팔식설·종자 순환은 본문 근거가 짧고 해석 갈림
+- project-spectrum: triage:교육 프로그램명 — 일곱 영역 나열뿐
+- microleakage: triage:계면 현상 하나 — 임상 결과와의 인과가 본문에서도 약하다고 함
+- performance-appraisal: triage:인사 활동 하나 — 평가 방식 나열 위주
+- infantile-amnesia: triage:현상 이름 — 원인 설명 세 가설은 병렬 나열
+- aesthetic-properties: triage:추상 철학 개념 — 미적·비미적 속성 두 요소뿐
+- temporomandibular-disorder: triage:질환군 명칭 — DC/TMD 하위 유형이 짧게 언급될 뿐
+- minimum-tax: triage:세액 하한 장치 하나 — 큰 값 비교 규칙으로 정의 반복
+- biomonitoring-of-pollutants: triage:측정 방법 하나 — 환경모니터링 대비가 단순
+- symmetric-key-encryption: triage:암호 방식 하나 — 같은 키로 잠그고 여는 정의 반복
+- transitology: triage:학문 분야명 — 학설사 흐름이 서술 위주
+- timss: triage:국제 평가 명칭 — PISA 대비는 한 축뿐
+- presenteeism: triage:현상 이름 — 결근과의 비교가 단일 축
+- trust-vs-mistrust: triage:8단계 중 한 단계 — 하위 사례에 불과
+- root-caries: triage:특정 부위 우식 — 단일 속성(낮은 임계 pH) 중심
+- mutual-exclusivity-assumption: triage:단어학습 경향 하나 — 실험 장면 하나로 충분
+- teleological-argument: triage:신 존재 논증 하나 — 시대 흐름 근거(연도)가 본문에 없음
+- quantum-computing: triage:분야 개괄 — 큐비트 중첩 설명은 비유로 충분
+- social-integration: triage:물리적·기능적·사회적 통합 위계가 한 문장 언급뿐
+- xerostomia: triage:증상 이름 — 원인 나열 위주
+- banking-concept-of-education: triage:교육 비판 개념 — 대안(문제제기식교육) 내용이 본문에 없음
+- catastrophic-health-expenditure: triage:단일 지표 — 기준선 비율 하나
+- history-of-art-discipline: triage:학문 분야명 — 방법론 나열(양식사·도상학·사회사)뿐 관계 구조가 본문에 없음
+- continuance-commitment: triage:3요소 모형의 한 하위 유형 — 두 하위차원(높은 희생·대안 부족)만으로 그림 요소 부족
+- settings-based-approach-health-promotion: triage:개인 대 세팅 접근의 단순 대비를 정의가 이미 설명함 — 세팅 목록 외 구조 없음
+- brand-association: triage:브랜드 자산의 구성 단위 정의 — 속성·편익·태도 분류는 목록 수준이라 그림이 정의를 반복
+- open-work-eco: triage:미학 이론 개념 — 열린/닫힌 텍스트 구분 외 관계 요소가 부족
+- np-completeness: triage:핵심 그림인 P·NP·NP-완전 포함관계는 벤 중첩으로 못 그리고 P≠NP를 단정하게 됨
+- nap-time-guidance: triage:보육 활동 지침 — 안전 수칙 나열일 뿐 단계·관계 구조 없음
+- vector-borne-disease: triage:질환군 상위 범주 — 매개체 경유라는 정의를 넘어서는 구조가 본문에 약함
+- lora: triage:핵심인 고정 가중치+저랭크 행렬 곱 구조는 9개 type에 맞지 않고 대비는 정의 반복 수준
+- four-gentlemen-plants: triage:네 식물과 상징의 대응 목록 — 관계 없는 나열
+- cavity-preparation: triage:수복 기본 단계명 — 아말감 대 접착 원칙 대비가 본문에서 두어 항목뿐
+- political-theology: triage:학제적 논의 명칭 — 용법이 논자마다 달라 고정된 구성 요소를 그릴 근거 없음
+- imaginative-resistance: triage:단일 현상 — 물리 위반 대 도덕 전도 대비는 정의·용례가 이미 한 문장으로 전달
+- cohesion-and-coupling: triage:개념 쌍 정의 — 등급 목록은 본문에 일부만 있고 네 칸 매트릭스 근거 없음
+- total-asset-turnover: triage:단일 재무비율 공식 — 듀폰 분해는 요소 세 개의 곱셈식이라 그림이 식을 반복
+- psychoanalytic-criticism: triage:비평 방법론명 — 프로이트·라캉·독자반응 계열 언급만 있고 관계 구조 없음
+- relational-aggression: triage:공격성 하위 유형 — 성차가 연구마다 불일치해 대비를 단정하기 어려움
+- encryption: triage:대칭키·공개키 두 방식 구분은 정의 단계에서 이미 전달되는 2요소 대비
+- standalone-kindergarten: triage:기관 유형명 — 병설유치원과의 차이는 문장으로 충분한 단순 대비
+- child-counselor-ethics-code: triage:윤리 지침 명칭 — 비밀보장·동의 원칙 나열로 도식 구조 없음
+- learning-community: triage:포괄적 집단 개념 — 하위 유형 언급뿐 체계적 분류나 단계가 본문에 없음
+- six-paramitas: triage:여섯 덕목 목록 — 반야가 나머지를 완성한다는 관계도 목록 서술로 충분
+- chicago-school-religion: triage:학파·기관 명칭 — 인물 중심 학문 흐름으로 구성 요소 관계 없음
+- pneumatology: triage:신학 분과명 — 쟁점(필리오케·은사) 나열이며 도식화할 구조 없음
+- segment-reporting: triage:공시 제도명 — 10% 기준·경영자접근법 서술은 단일 규칙 설명
+- depth-first-search: triage:핵심인 그래프 방문 순서는 9개 type으로 표현 불가하고 단계 서술은 정의 반복
+- antimicrobial-resistance-surveillance: triage:감시 체계 명칭 — 자료 수집 범위 언급뿐 단계나 순환 구조가 본문에 없음
+- child-centered-play-therapy: triage:치료 접근명 — 반영·제한 설정 등 기법 나열로 관계 구조 없음
+- holiness-movement: triage:역사적 신앙 운동명 — 오순절주의와의 연결 언급만 있어 시점 근거 부족
+- employer-branding: triage:HR·마케팅 활동명 — 외부·내부 브랜드 구분은 2요소뿐
+- human-capital-theory-education: triage:선별가설과 경합 중인 이론이라 대비를 그리면 논쟁을 단정할 위험
+- expenses: triage:회계 기본 요소 정의 — 성격별·기능별 분류는 두 방식 나열
+- integrated-marketing-communication: triage:전략 개념 — 채널 목록과 통합 원칙만 있어 관계 구조 없음
+- sola-gratia: triage:교리 원리 하나 — 다섯 솔라는 표어 목록
+- cubism: triage:미술 사조명 — 분석적·종합적 구분은 사후적 정리라 본문이 시기 구분을 경계함
+- candidate-selection: triage:라하트·하잔 네 차원은 독립 질문 목록이라 그림이 나열을 반복
+- modernism-art: triage:포괄적 시대 범주 — 해석이 학자마다 경합해 구조를 단정하기 어려움
+- vanishing-point: triage:선원근법의 단일 기하학적 점 — 작도 그림은 9개 type 밖
+- electoral-volatility: triage:단일 지표(페데르센 지수) — 계산식 하나로 그림 요소 부족
+- cellular-manufacturing: triage:공정별·제품별 배치의 절충이라는 정의 이상으로 그림이 더할 구조가 약함 — GT→셀 구성은 정의 반복에 가까움
+- knhanes: triage:국가 조사 기관·사업명 — 설문·검진·영양 세 부문 나열은 관계 구조가 아님
+- attack-rate: triage:단일 비율 지표 — 노출군 대 비노출군 두 값 비교뿐이라 구성 요소 부족
+- christus-victor: triage:속죄론 모델 간 관계(배타·보완)가 학계 논쟁 중이라 대비 그림이 단정이 됨
+- developmental-milestone: triage:이정표 연령 근거가 본문에 거의 없음(보행 9~18개월 하나) — 시간축 그림을 세울 자료 부족
+- late-mover-advantage: triage:선발자우위의 반대 명제로 조건 나열 수준 — 그림이 정의를 되풀이함
+- childcare-room-area-standard: triage:단일 법정 기준(수치 규정) — 연령별 구체 수치도 본문에 없음
+- clientelist-linkage: triage:강령적 연계와의 대비 하나뿐이며 같은 쌍 도식이 짝 용어와 중복됨
+- semi-adjustable-articulator: triage:단일 기구명 — 평균값·완전조절성과의 정밀도 차이는 한 줄 비교로 충분
+- samatha: triage:선정 단계 세부가 본문에 이름만 있어(사선·사무색정) 단계 그림 근거 부족
+- health-in-all-policies-approach: triage:정책 원칙 선언 — 부처 나열 외에 관계 구조가 본문에 없음
+- already-not-yet: triage:두 시점 사이 긴장이라는 신학 표현 — 요소 2개이고 균형점 해석이 논쟁 중
+- genre-painting: triage:회화 장르명 — 화가·시대 나열뿐이고 상징 해석은 미해결 논쟁
+- rfm-analysis: triage:세 지표 등급화라는 정의 자체가 구조의 전부 — 그림이 정의 반복
+- rococo: triage:미술 양식명 — 바로크·신고전주의 사이 위치는 문장으로 충분
+- manichaeism: triage:종교 전통명 — 빛과 어둠 이원 대립 2요소
+- programmatic-linkage: triage:후견주의적 연계의 짝 개념 — 대비 그림이 짝 용어와 같아 단독 근거 약함
+- orientalism-religion: triage:비판적 관점·논의 명칭 — 범주 형성 과정에 대한 주장이 논쟁 중
+- locality-of-reference: triage:시간적·공간적 두 갈래뿐 — 구성 요소가 2개라 분류 그림이 빈약
+- hegel-end-of-art: triage:해석이 갈리는 철학 명제(판본·'종말' 표현 쟁점) — 단계 그림이 한 해석을 단정
+- bayesian-hierarchical-model: triage:핵심인 수축(shrinkage)은 점 이동 그림이 필요한데 지원 type이 없고 층 나열만으로는 정의 반복
+- umap: triage:알고리즘 내부 단계가 본문에 개략적이라(이웃 그래프→최적화) 그림 근거 얕음
+- load-balancer: triage:요청 분산이라는 단일 기능 — 서버 여러 대 그림은 정의 반복
+- art-for-arts-sake: triage:미학 슬로건 — 유래·수용사 나열이고 자율성 평가는 논쟁 중
+- parent-child-interaction: triage:광범위한 관계 요인 개념 — 민감성·반응성 같은 질 지표 나열뿐
+- search-algorithm: triage:상위 범주어 — 순차·이진·해시·BFS/DFS가 각기 별도 용어로 다룰 하위 사례
+- bollnow-existential-pedagogy: triage:연속 대 비연속 형성 2요소 대비 — 계기 유형 나열은 관계 구조가 아님
+- last-observation-carried-forward: triage:단순 대체 규칙 — 탈락 후 값을 수평으로 잇는 계단 궤적이 필요하나 지원 함수 없음
+- brand-image: triage:소비자 인식 개념 — 아이덴티티와의 괴리 2요소 대비뿐
+- implicit-religion: triage:기능적 종교 정의 확장 개념 — 정의 범위 자체가 논쟁 중
+- tutoring: triage:교수 형태 명칭 — 2시그마 결과는 한 수치라 그림 불필요
+- curriculum-learning: triage:쉬운 것→어려운 것 순서라는 정의가 곧 그림 — 정의 반복
+- hyperparameter-tuning: triage:탐색 방법 이름 나열 수준 — 방법 간 관계 구조가 본문에 약함
+- assistive-technology: triage:기기·서비스 총칭 — 저테크~고테크 연속체 하나뿐
+- hard-law: triage:연성법과의 2요소 대비 — 구속력 유무 한 기준뿐
+- preemptive-strike: triage:예방전쟁과 임박성 한 기준으로 갈리는 2요소 대비이며 경계 판단이 논쟁적
+- redaction-criticism: triage:해석 방법명 — 자료·양식비평과의 선후 관계 외에 그림 거리 부족
+- reggio-emilia-approach: triage:교육철학 접근 — 특징(백 가지 언어, 제3의 교사) 나열이라 관계 구조 없음
+- naive-bayes-classifier: triage:알고리즘명 — 변형 3종은 데이터 유형별 이름 목록일 뿐
+- macedonianism: triage:4세기 신학 입장명 — 성령 지위 하나를 둔 이단 규정
+- four-immeasurables: triage:자·비·희·사 네 마음의 나열이 중심이고 평정의 균형 역할은 한 문장 설명이라 그림이 정의 이상을 보여 주지 못함
+- missiology: triage:학문 분야명 — 상황화·혼합주의 등 주제 나열일 뿐 관계 구조가 없음
+- stream-processing: triage:배치 대비 설명과 창 종류(텀블링·슬라이딩·세션) 나열이 흩어져 있어 한 그림의 핵심 구조로 묶이지 않음
+- episcopalianism: triage:감독제·장로제·회중제 분류의 한 갈래일 뿐 이 용어 고유의 다요소 구조가 본문에 없음
+- sensorimotor-stage: triage:여섯 하위단계 중 본문이 1~3차 순환반응만 이름을 대고 나머지는 근거가 없어 단계도를 채울 수 없음
+- recovery-oriented-mental-health-care: triage:임상적 회복과 개인적 회복의 대비가 한 문장 수준이라 정의를 되풀이하는 데 그침
+- school-readiness: triage:다섯 발달 영역의 나열과 '준비된 학교' 관점 언급뿐이라 영역 간 관계가 없음
+- early-childhood-caries: triage:단일 질환명 — 원인 요인 나열(수유 습관·당분·수직 감염)이 기전 경로로 연결되어 있지 않음
+- recurrent-aphthous-stomatitis: triage:소형·대형·헤르페스양 분류가 있으나 헤르페스양형의 특징이 본문에 없어 하위 유형 비교를 채울 근거 부족
+- confidentiality-limits-child-counseling: triage:예외 사유 목록(자타해·학대·법원 명령)과 고지 의무 서술로 단계·관계 구조가 없음
+- great-unity-thought: triage:이상 사회 개념 — 소강과의 대비가 한 문장뿐이고 해석 논쟁 중심이라 그림 근거 부족
+- remnant-theology: triage:신학 주제 개념 — 심판과 회복의 긴장이 서술되나 그릴 구성 요소가 3개 미만
+- compensation-management: triage:내부 형평과 외부 경쟁력 두 축의 긴장 외에는 쟁점 나열이라 구조가 성기고 본문 중복 많음
+- angular-cheilitis: triage:단일 병변명 — 원인(칸디다·수직고경·영양결핍)이 병렬 나열이라 경로도가 정의 반복에 그침
+- ranula: triage:단일 병변명 — 구강내형과 잠수함형, 개창술과 절제술 비교가 재발률 언급에 그쳐 그림 근거 부족
+- international-public-goods: triage:비배제성·비경합성 두 성질의 정의 반복 — 사분면 분류는 본문에 없어 본문 밖 지식에 의존
+- digital-transformation: triage:디지타이제이션·디지털라이제이션·전환의 세 층위 구분이 있으나 범위가 넓어지는 개념 구분일 뿐 순서 단계가 아니고 venn은 포함 관계를 못 그림
+- periodicity-assumption: triage:회계 가정 하나 — 적시성과 추정 오차의 교환 관계 서술뿐이라 구성 요소 부족
+- uncrc: triage:국제 조약명 — 4대 권리·4대 원칙의 목록 나열로 관계 구조 없음
+- seriation-concrete-operational: triage:단일 인지 능력 — 쌍 비교에서 체계적 배열로의 변화가 두 상태 대비라 구성 요소 부족
+- formalist-criticism-fry: triage:특정 비평가의 방법론 — 형식과 재현의 관계 논의가 서술적이라 그림 구성 요소가 없음
+- unified-government: triage:분점정부와 짝을 이루는 이분 개념 — 비교 축이 입법 효율 대 견제 약화 하나뿐이라 정의 반복
+- minor-prophets: triage:성경 책 열두 권의 목록 — 명칭 유래 설명뿐 관계 구조 없음
+- exclusivism: triage:배타·포용·다원 유형론의 한 갈래로 본문은 배타주의만 다뤄 비교 축을 채울 근거 부족
+- by-product-costing: triage:순실현가치를 결합원가에서 차감하는 방식과 잡이익 인식 방식 두 가지의 대비가 짧아 정의 반복에 가까움
+- individualized-education-program: triage:법정 문서명 — 순환적 재검토를 말하지만 단계 구성이 본문에 제시되지 않음
+- ekphrasis: triage:수사 기법명 — 사례·이론가 나열로 구조적 관계가 없음
+- federal-view-of-original-sin: triage:실재론적 견해와 다투는 신학적 입장이라 전가 구조를 단정해 그리기 어렵고 비교 축도 본문에 부족
+- psychiatric-epidemiology: triage:학문 분야명 — 현재·평생 유병률 구분 정도로 그림이 보여 줄 관계가 없음
+- simulacrum: triage:보드리야르의 이미지 네 단계가 있으나 해석이 갈리는 철학적 주장이라 단계도로 단정하기 어려움
+- antiochene-school: triage:신학 학파명 — 알렉산드리아 학파와의 대비가 해석법 한 축에 그쳐 정의 반복
+- historical-cost: triage:단일 측정 속성 — 구입가에 부대비용을 더하는 구성과 공정가치 대비가 짧아 그림 근거 부족
+- community-water-fluoridation: triage:보건 사업명 — 적정 농도 관리가 핵심이나 용량-반응 곡선 수치가 본문에 없고 효과 논쟁도 남아 있음
+- zeitgeist-art: triage:해석적 개념 — 헤겔에서 뵐플린·파노프스키로의 계승이 언급되나 비판 중심이라 그림 구성 요소 부족
+- goryeo-buddhist-painting: triage:특정 시대 회화 장르명 — 기법·소장처·주제의 나열
+- north-south-health-cooperation: triage:정책 협력 활동명 — 정부·국제기구·민간 채널 언급뿐이라 관계 구조가 성김
+- school-climate: triage:다차원 구성개념 — 안전·관계·교수학습·제도 하위영역 나열로 영역 간 관계가 없음
+- assessment-center: triage:평가 방법명 — 인바스켓·집단토의·역할연기 연습 나열과 타당도 논쟁 서술뿐
+- data-warehouse: triage:ETL·OLAP 대비가 deep에 한 줄씩만 언급되어 저장소 정의 이상의 구조 근거가 약함
+- local-education-subsidy: triage:국내 재정 제도 설명 — 재원 비율·배분 산식 등 그릴 수치가 본문에 없음
+- aesthetic-supervenience: triage:수반 기반 범위를 두고 논쟁 중인 철학 원리라 구조를 단정해 그리기 어려움
+- childcare-center-establishment-standard: triage:법정 최소 요건 목록 — 요소 간 관계가 없는 규정 나열
+- soul-making-theodicy: triage:신정론 입장 — 고난의 목적에 대한 논쟁적 주장을 단정하게 됨
+- transaction-cost-theory: triage:자산특수성→내부화 명제가 정의를 되풀이할 뿐이고 계량화 한계로 구체 경로 근거가 약함
+- business-model-canvas: triage:아홉 블록 배치도 자체가 도구라 9개 type으로 옮기면 블록 나열에 그침
+- atman: triage:종교철학 개념 — 브라흐만과의 관계 해석이 학파마다 갈려 단정 불가
+- avalokitesvara-faith: triage:특정 신앙 대상과 그 전승 — 관계 구조가 없는 문화사 서술
+- curriculum-fidelity: triage:상호적응 관점과의 대비가 한 줄뿐이라 비교 축이 본문에서 충분히 나오지 않음
+- five-pillars-of-islam: triage:다섯 실천 의무의 단순 열거 — 항목 간 관계가 없음
+- beneish-m-score: triage:8개 변수 가중합 모형 — 변수 나열 외에 그림으로 더할 구조가 없음
+- gantt-chart: triage:그 자체가 시각화 도구라 도식으로 다시 그리면 정의 반복
+- reputation-ir: triage:평판 효과의 실재 여부 자체가 실증적으로 논쟁 중
+- sociology-of-school-knowledge: triage:연구 분야 소개 — 구성 요소 간 관계가 본문에 정리되어 있지 않음
+- one-point-perspective: triage:핵심이 소실점 작도라 9개 type으로는 투시 구성을 보여 줄 수 없음
+- rehearsal-strategy: triage:단일 기억전략 — 조직화·정교화와의 비교가 짧게 언급될 뿐
+- obturation: triage:근관치료 마지막 한 단계 — 기법 비교가 본문 중심이라 순서 도식 근거가 약함
+- mind-is-principle: triage:성리학과의 대비가 해석 의존적인 철학 명제로 단정적 비교 위험
+- codex-vaticanus: triage:특정 사본 이름 — 고유 대상
+- meritocracy-in-education: triage:규범적 이념과 그 비판 — 논쟁적 주장을 단정하게 됨
+- multiparty-system: triage:정당체계 유형 하나 — 비례대표제와의 관계는 상관 수준이라 인과 경로로 그리기 어려움
+- collective-conscience-education: triage:뒤르켐 기능론 관점 서술 — 요소 2개(학교·공유 가치) 중심
+- postliberal-theology: triage:신학 사조 — 세 모델 대비가 한 문장뿐이고 평가가 논쟁적
+- day-of-the-lord: triage:성경 해석 개념 — 근접·종말 지시 관계가 학계 논점
+- lru-cache: triage:교체 정책의 동작은 접근 순서 예시가 필요해 9개 type으로는 정의 반복에 그침
+- fissured-tongue: triage:혀의 양성 형태 변이 — 단일 소견
+- tooth-transplantation: triage:성공 변수 나열 위주이고 술식 단계가 본문에 순서로 제시되지 않음
+- congregational-polity: triage:세 교회정치 유형 중 하나 — 나머지 둘의 설명이 본문에 없음
+- payback-period: triage:단순 나눗셈 지표 — 직선 누적 현금흐름은 계산 예시 반복에 그침
+- interim-denture: triage:임시 보철물 한 종류 — 재이장 반복 외 뚜렷한 단계 구분이 없음
+- absolute-grading-internal-assessment: triage:상대평가 대비가 정의 수준에 머물고 성적 인플레이션 등은 우려 서술
+- maximum-anchorage: triage:고정원 분류 기준이 연구마다 달라 단정적 구분 불가
+- ecumenism: triage:교회 일치 운동 — 모델 간 견해차가 참여 교단 사이에서도 갈림
+- interactionist-theory-of-language: triage:절충적 입장 — 생득주의·행동주의와의 관계가 '둘 다 부분 인정'으로 정의 반복
+- community-health-survey: triage:특정 국가 조사 사업 이름 — 기관·제도 고유명
+- priority-queue-and-heap: triage:힙 트리 동작은 노드 그림이 필요해 9개 type으로 담기 어려움
+- deus-absconditus: triage:루터 신학 개념 — 계시된 하나님과의 긴장 관계가 해석 논점
+- process-based-assessment: triage:국내 정책 용어 — 결과중심평가와의 대비 기준이 본문에 정리되지 않음
+- purism-art: triage:단명한 미술 사조 — 사건 2개(입체주의 비판·건축 영향)뿐
+- wastewater-epidemiology: triage:채취→측정→보정→추세 추정의 흐름이 정의에서 바로 읽혀 그림이 더할 것이 적음
+- distributed-file-system: triage:블록 분산·복제·메타데이터 서버 구조도는 9개 type 어디에도 맞지 않음
+- kerygma: triage:신학 용어 — 디다케와의 대비 외에 관계 맺는 구성 요소가 부족
+- johannine-theology: triage:주제 나열(로고스·이원론·현재적 종말론)일 뿐 구성 요소 사이 관계가 없음
+- psychosocial-work-environment: triage:상위 포괄 개념 — 직무요구-재량 사분면은 본문에 두 칸만 나오고 별도 모형의 내용
+- out-of-pocket-payment: triage:정액·정률·공제 방식과 법정·비급여 구분이 나열 수준이라 그림 근거 약함
+- divestiture-strategy: triage:매각·분사·청산 세 방식 나열은 정의 반복
+- memorialism: triage:성찬론 입장 하나 — 다른 입장들과의 위치는 상위 용어(성찬론)의 그림 몫
+- eternal-functional-subordination: triage:학계 논쟁 중인 삼위일체론 입장이라 단정 없이 그리기 어려움
+- office-of-education-evaluation: triage:행정 제도명 — 본문이 반복 문장 위주로 구성 요소 관계가 없음
+- pilgrimage: triage:터너 대 이드·샐노의 대비는 해석 두 개뿐이고 리미널리티 단계는 본문 밖 지식
+- strategic-human-resource-management: triage:인사 기능을 전략에 정렬한다는 단일 주장 — 구성 요소 관계가 본문에 구체적이지 않음
+- total-worker-health-approach: triage:산업안전과 건강증진 두 영역의 통합이라는 정의 반복, 구성 요소 2개
+- rsa-algorithm: triage:키 사용 방향(암호화·서명)은 공개키 암호 일반의 그림이고 RSA 고유 구조는 소인수분해 난이도 하나
+- block-play: triage:탐색→반복 구성→표상적 구성 세 단계가 문장으로 충분히 전달되고 맞는 type이 애매
+- ritual-theory: triage:이론 계보 나열(뒤르켐·반 헤네프·라파포트·벨) — 학자 목록이라 관계보다 열거
+- specialized-purpose-high-school: triage:과학고·외국어고·국제고 유형 나열은 정의 반복, 본문도 중복 문장 위주
+- standard-of-taste-hume: triage:단일 논고 — 이상적 비평가 자격 목록 외에 관계 구조가 없음
+- constructivism: triage:미술 사조명 — 절대주의와의 대비·세 갈래 구분이 짧은 언급 수준
+- abrahamic-covenant: triage:후손·땅·복 세 약속은 병렬 목록일 뿐 관계 맺는 구성 아님
+- nt-manuscript-tradition: triage:사본 계통·형태 분류가 이름 나열 수준이고 계통 간 관계는 학계 판단이 갈림
+- noise-induced-hearing-loss: triage:핵심 그림인 4000Hz 청력 함몰(C5-dip)은 아래로 꺼지는 모양이라 현재 plot 함수로 못 그림
+- inerrancy: triage:무류성과의 범위 구분이 본문에서도 학자마다 다르다고 해 단정적으로 그리기 어려움
+- image-segmentation: triage:의미론적·인스턴스 두 하위 유형 구분뿐이고 분류·탐지와의 비교는 세 항목이라 contrast에 안 맞음
+- authoritarian-regime-typology: triage:군사·일당·인물 세 유형이 정의에 이미 나열돼 위계도가 정의 반복
+- dual-income-family-childcare-support: triage:연장보육·시간제보육·아이돌봄 등 지원 수단 목록, 수단 간 관계 없음
+- interest-on-tax-underpayment: triage:미납세액×일수×이율의 단순 비례 계산 — 직선 하나라 그림 이득이 적음
+- northern-renaissance: triage:이탈리아 르네상스와의 대비가 원근법 대 세밀 묘사 한 축 위주로 얇음
+- long-term-debt: triage:재무제표 계정 분류 — 유동성장기부채 재분류는 규정 설명이지 구조 아님
+- party-discipline: triage:기율 대 응집성 구분이 핵심이나 두 원인→같은 결과 한 줄이라 구성 요소가 적음
+- missional-church-movement: triage:교회성장운동과의 관점 차이 한 가지 — 그림으로 보여 줄 구조가 부족
+- mercury-safety: triage:안전 관리 기준 — 환자 안전성 대 환경 배출 쟁점 구분 외 구조 없음
+- market-culture: triage:경쟁가치모형 네 칸 중 한 칸 — 나머지 세 유형은 본문 밖 지식이라 하위 사례에 가까움
+- cyclomatic-complexity: triage:E-N+2 공식 하나가 핵심인 단일 지표, 제어흐름 그래프 예시는 type에 없음
+- vector-borne-disease-control: triage:관리 수단(IRS·ITN·서식지·백신) 열거가 중심이라 그림이 목록을 옮기는 데 그침
+- pspace-complexity-class: triage:P⊆NP⊆PSPACE 포함 관계는 중첩 그림이 필요한데 venn이 포함 관계를 못 그림
+- tathagatagarbha: triage:불교 교리 하나 — 번뇌가 본성을 덮는다는 비유 외 관계 구조 없음
+- orthodontic-mini-screw: triage:단일 장치명, 식립·제거 주의사항 위주
+- cooperative-play: triage:파튼 단계 중 마지막 하나 — 단계 전체 그림은 상위 용어 몫이고 본문도 순서가 엄격하지 않다고 경고
+- disease-eradication: triage:통제·제거·근절 세 수준 구분은 쉽게 풀면 절에서 문장으로 이미 충분
+- dissolution-of-parliament: triage:제도 하나의 정의 — 불신임과 해산의 상호 견제는 두 요소뿐이고 국가별 차이는 글로 충분
+- peer-relationships: triage:넓은 발달 맥락 개념 — 또래 지위 네 유형은 부수 언급이고 분류 축이 본문에 없음
+- pedagogical-anthropology: triage:학문 분야명 — 미성숙성·교육가능성이라는 관점 설명이라 관계 구조가 없음
+- hanslick-musical-formalism: triage:특정 미학 입장 — 감정미학과의 대비는 두 요소뿐이고 해석 논쟁 여지가 큼
+- childcare-allowance: triage:단일 현금급여 제도 — 보육료지원과의 대체 관계 외에 그릴 구성 요소 부족
+- anti-art: triage:태도 개념 — 제도 흡수 순환은 뷔르거 이후 논쟁 중이라 단정해 그리기 어려움
+- health-equity-index: triage:단일 지표 — 산출 방법이 여러 갈래로 열거될 뿐 모양이나 단계가 없음
+- periodic-auditor-designation: triage:6년 자유선임·3년 지정의 두 구간뿐인 법 제도로 글로 충분
+- sufism: triage:종교 전통명 — 역사 서술 중심이라 도식 근거 부족
+- international-terrorism: triage:정의 자체가 정치적으로 논쟁 중인 폭력 유형 개념 — 단정적 도식화 부적합
+- reflective-practitioner: triage:교사상 개념 — 행위 중·행위 후 성찰 두 구분은 글로 충분
+- occlusal-adjustment: triage:단일 술식 — 표시·삭제·재확인 반복은 짧은 설명으로 충분하고 적응증 근거가 논쟁적
+- cephalometric-analysis: triage:진단 도구명 — 계측점 표시 후 계측이라는 단순 절차로 정의 반복
+- xenolalia: triage:종교 현상 유형 — 발화·청취 기적 해석이 신학적으로 갈려 단정 불가
+- sacred-kingship: triage:통치 관념 — 문명마다 형태가 달라 일반 도식이 과잉 일반화가 됨
+- double-descent: triage:곡선 모양이 핵심이나 U자 하강 뒤 봉우리와 재하강을 그릴 함수가 없음
+- gongan: triage:선불교 수행 방편 — 공안집·계파 설명뿐 관계 구조 없음
+- parallel-play: triage:파튼 단계 중 한 유형 — 본문이 단계를 절대 지표로 보지 말라 하고 전체 단계 근거가 부족
+- perennialism: triage:교육철학 사조 하나 — 본질주의·진보주의와의 비교 축이 본문에 빈약
+- teacher-evaluation-system: triage:상위 제도 명칭 — 본문이 같은 문장 반복이고 하위 제도 구분은 두 갈래 언급에 그침
+- tiantai-thought: triage:불교 사상 체계 — 오시팔교·삼제 구성이 본문에 없어 외부 지식 의존
+- arts-and-crafts-movement: triage:역사적 운동명 — 바우하우스로의 계보는 한 줄 언급뿐이라 시간 순서 근거 부족
+- e-procurement-logis: triage:정의 반복 — 요청·견적·발주·계약 순서가 정의문에 이미 다 있음
+- trickster-figure: triage:신화 인물 유형 — 보편 유형화 자체가 과잉 일반화 비판을 받음
+- aesthetic-attitude-theory: triage:미학 이론 하나 — 계보는 이름 나열이고 디키 비판으로 논쟁적
+- topical-corticosteroid: triage:약물 제형 범주명 — 역가 구분은 나열로 충분
+- triumphal-entry: triage:성서 속 단일 사건
+- deque: triage:자료구조 하나 — 양끝 삽입·삭제라는 정의와 비유로 이미 명확
+- pork-barrel-politics: triage:정치 행태 개념 — swing·core 전략 결과가 엇갈려 기전 단정이 어려움
+- occupational-cohort-study: triage:코호트 설계의 하위 사례 — 건강근로자효과 외 고유 구조가 약함
+- historical-jesus: triage:연구 분야명 — 단계 구분이 본문에 구체화되지 않고 재구성이 논쟁적
+- cataphatic-theology: triage:부정신학과의 대비 두 요소뿐이며 상호 보완이라 대립 도식도 부적절
+- empty-tomb-tradition: triage:성서 전승 하나 — 역사성 논쟁 중이라 단정 불가
+- closed-list-pr: triage:개방형 명부와의 대비가 핵심이나 개방형 쪽 설명이 본문에 거의 없음
+- personal-fable: triage:청소년 자기중심성의 한 형태 — 상상의 청중과 두 요소 짝뿐
+- mergers-and-acquisitions: triage:넓은 기업활동 범주 — 실패율 등 핵심 주장이 논쟁적
+- teacher-child-ratio: triage:단일 법정 수치 기준 — 연령별 숫자는 표로 충분
+- feminist-aesthetics: triage:이론 흐름명 — 갈래가 여럿이지만 관계 구조로 정리되지 않음
+- after-school-academy: triage:특정 정책 프로그램명
+- return-on-education-investment: triage:단일 비율 지표 — 사적·사회적 수익률 두 구분뿐
+- contingency-theory-of-leadership: triage:상황 호의성에 따른 과업형(U자)·관계형(역U) 효과가 핵심이나 U자 곡선 함수가 없음
+- international-health-regulations-ihr: triage:국제 규범 체계명 — 신고 의무 설명 위주로 단계 근거 부족
+- adoptionism: triage:단일 기독론 입장 — 세례·부활 양자론 두 갈래뿐이라 구성 요소 부족
+- homiletical-method: triage:주해·대지·전개·적용 단계가 일반론 수준이고 방법론마다 달라 고정된 절차로 그리기 어려움
+- seeing-in-wollheim: triage:곰브리치 입장과의 대비는 있으나 미학 논쟁 중인 주장이라 한쪽 그림으로 단정하기 어려움
+- open-reduction: triage:절개·정복·고정 술식 설명 — 비관혈적 정복과의 대비가 정의 반복 수준
+- symbolic-ai: triage:연결주의와의 대비가 정의에서 이미 드러나 그림이 더할 정보가 적음
+- government-grants: triage:자산차감법·이연수익법 두 표시 방법 선택 — 회계처리 세부라 그림 이득 작음
+- contemporary-worship-movement: triage:예배 흐름의 서술적 설명 — 구조화된 관계 요소 없음
+- semi-pelagianism: triage:펠라기우스주의와의 구분이 핵심이나 비판적 함의가 담긴 신학 입장이라 단정적 비교가 부적절
+- role-play: triage:놀이 유형 하나 — 피아제·비고츠키 해석 차이만으로는 도식 근거 부족
+- nicene-creed: triage:325·381 두 시점과 필리오케 추가뿐 — 문서 자체가 대상이라 시간축 그림 이득 작음
+- marginal-tax-rate: triage:계단식 한계세율과 평균세율 곡선 비교가 핵심인데 plot에 계단 함수가 없음
+- revitalization-movement: triage:월리스 단계 모델이 본문에 일부만 나오고 기능주의 한계 비판이 함께 있어 단계 그림은 본문 밖 지식 의존
+- hallucination: triage:충실성·사실성 두 유형 구분뿐 — 구성 요소 2개
+- integration-of-early-childhood-education-and-childcare: triage:진행 중인 정책 개혁 — 단계 구분이 논문마다 달라 근거 약함
+- work-related-musculoskeletal-disorder: triage:위험요인 나열 후 누적 손상 — 위험요인 목록 반복에 그침
+- inquiry-based-learning: merge-candidate: 병합 후보라 보류(was checked)
+- available-for-sale-securities: triage:폐지된 K-GAAP 분류 — 평가손익 재분류 흐름은 회계처리 세부라 그림 이득 작음
+- fibonacci-heap: triage:자료구조 하나의 상각 성능 설명 — 도식 대상 관계 요소 부족
+- mlflow: triage:특정 소프트웨어 도구명 — 구성요소 나열에 불과
+- congregationalism: triage:교회 정치 한 유형 — 장로교·감독제 비교 내용이 본문에 거의 없음
+- joint-attention: triage:반응적·주도적 공동주의 두 유형 구분뿐
+- pulpectomy: triage:근관치료의 한 단계인 단일 술식 — 정의 반복
+- private-tutoring-expenses: triage:지출 통계 항목 — 단일 지표
+- atonement: triage:여러 속죄 모델이 배타적이지 않다고 본문이 강조 — 분류·계보로 그리면 단정 위험
+- elohist-source: triage:존재 자체가 논쟁 중인 가설적 자료층
+- model-pruning: triage:구조적·비구조적 두 유형 대비가 본문 설명으로 충분
+- roll-call-vote-analysis: triage:분석 자료·접근 이름 — 지표 나열 수준
+- special-education-assessment: triage:다중정보원 종합 평가라는 원칙 설명 — 단계 구성이 본문에 명확하지 않음
+- related-party-transaction: triage:회계 공시와 세법 규제의 초점 차이 두 가지 — 그림 이득 작음
+- notifiable-disease: triage:1~4급 구분은 있으나 등급별 신고 시한이 본문에 없어 근거 부족
+- multiple-attestation: triage:진정성 판단 기준 하나 — 자료 독립성 전제가 논쟁적
+- tax-treaty: triage:양자 협약 제도 — 조항이 조약마다 달라 일반 도식 근거 약함
+- war-weariness: triage:여론 피로 현상 — 지지 감소 곡선 모양이 본문에 근거 없음
+- academic-cliquism: triage:사회 관행 개념 — 학력·학벌 구분 외 관계 요소 없음
+- historical-cost-principle: triage:측정 원칙 하나 — 공정가치와의 대비는 신뢰성 대 목적적합성 한 줄로 충분
+- school-accounting: triage:학교 단위 회계 제도명 — 본문이 반복적이고 구조 근거 약함
+- counter-reformation-art: triage:트리엔트→바로크 인과를 본문이 지나친 단순화라고 경계
+- special-education-support-center: triage:지역 기관명 — 기능 목록에 그침
+- varna-system: triage:네 신분 위계를 그리면 이념형을 실제 질서처럼 단정할 위험
+- code-profiler: triage:분석 도구 일반명 — 표본추출·계측 두 방식 구분뿐
+- aesthetic-education-schiller: triage:감각충동·형식충동·유희충동 구도는 있으나 미적 상태가 도덕·정치적 자유로 이행하는지가 해석 논쟁 중이라 경로를 단정해 그리기 어려움
+- bone-density: triage:단일 측정 지표 — 상악·하악 차이와 CT 값 한계는 서술로 충분
+- innovation-education-district: triage:정책 사업명 — 혁신학교와의 범위 차이 하나뿐이라 관계 구성 요소 부족
+- representative-democracy-theory: triage:직접민주주의와의 대비가 전부인 기초 정의, 그림이 위임 관계를 반복할 뿐
+- denture-stomatitis: triage:뉴튼 3유형 목록은 있으나 유형별 기전은 가설 단계이고 나열만으로는 정의 반복에 가까움
+- sociotropic-voting: triage:사회지향적 대 개인지향적 두 평가 기준의 이분 구분뿐 — 구성 요소 2개
+- memento-mori: triage:도상 주제명 — 해골·모래시계 등 상징 나열로 관계 구조 없음
+- developmental-test: triage:검사 도구 범주 — 선별검사와의 정밀도 차이 외에 그릴 구조 없음
+- trade-regime: triage:GATT→WTO→지역협정 흐름이 언급되나 파편화 평가가 엇갈려 시간 순서 외 그림 근거가 얇음
+- osteoconduction: triage:골유도와의 대비 두 항목뿐이고 발판 비유는 글로 충분히 전달됨
+- cache-invalidation: triage:TTL 대 이벤트 기반 두 방식 언급뿐이고 방식별 득실이 본문에 구체적으로 없음
+- network-protocol-basics: triage:계층 모델 언급은 있으나 계층별 역할이 개략적이고 쌓인 계층 구조는 9개 type에 잘 맞지 않음
+- formal-operational-stage: triage:피아제 단계 중 하나인 하위 사례 — 앞 단계들은 본문에 없음
+- necrotizing-periodontal-disease: triage:위험요인 나열과 괴사성 치은염·치주염 연속 개념뿐, 단계·기전이 그림으로 정리될 만큼 구체적이지 않음
+- medication-related-osteonecrosis-of-the-jaw: triage:약물→골재형성 억제→치유 실패 기전이 '추정'으로만 서술되어 경로를 단정하기 어려움
+- monetary-unit-assumption: triage:회계 기본가정 하나 — 측정 범위 제한과 화폐가치 불변 두 측면뿐
+- pictorial-turn: triage:언어적 전환 이후 미첼·뵘의 제안이라는 짧은 사상사로 사건이 적고 '전환' 실재 여부도 비판받음
+- human-security: triage:일곱 세부 영역이 두 축에 어떻게 배속되는지 본문에 없어 목록 나열에 그침
+- postmodern-aesthetics: triage:이론가마다 정의가 갈리는 광범위한 경향 — 단절·연속 논쟁을 단정하지 않고 그릴 구조 없음
+- path-dependence-theory: merge-candidate: 병합 후보라 보류(was checked)
+- neoclassicism: triage:로코코→신고전주의→낭만주의 순서는 있으나 양식이 병존했다는 단서가 붙어 단순 시간선이 오해를 줌
+- matrix-organization: triage:이중 보고 구조는 조직도가 맞고 9개 type으로는 정의 반복 이상을 보여 주기 어려움
+- resurrection-appearances: triage:현현 순서·장소가 복음서마다 달라 하나의 시간선으로 그리면 비평적 논점을 단정하게 됨
+- phase-4-clinical-trial: triage:임상시험 단계 중 한 단계 — 1~3상은 본문에 거의 없어 하위 사례에 불과
+- internet-gaming-disorder: triage:진단 지위가 DSM-5와 ICD-11에서 엇갈리고 인과 방향도 논쟁 중이라 단정적 그림이 어려움
+- xiaoyaoyou: triage:철학적 경지 개념 — 대붕 비유 등 서사는 있으나 관계 구성 요소가 없음
+- substantive-democracy: triage:절차적 민주주의와의 두 개념 대비로 본문 정의가 이미 그 대비를 말함
+- maslow-hierarchy-of-needs: triage:본문이 피라미드 도식은 매슬로 본인 것이 아니며 순차 위계에 실증 지지가 없다고 명시 — 위계도를 그리면 비판받는 단순화를 재생산
+- elder-abuse-screening: triage:선별→후속평가 연결은 일반적 선별 절차 설명이라 정의를 되풀이하는 수준
+- minhwa: triage:회화 범주명 — 소재 나열이고 정의·범위 자체가 논쟁 중
+- particulate-matter-exposure: triage:PM10 안에 PM2.5가 포함되는 관계는 venn으로 중첩 표현 불가, 나머지는 노출 평가 방법 나열
+- means-of-grace: triage:말씀·성례·기도 구성이 전통마다 달라 하나의 분류도로 단정하기 어려움
+- eisner-artistic-curriculum: triage:행동적·문제해결·표현적 목표 세 유형 목록은 있으나 각 유형 설명이 본문에 짧아 근거가 얇음
+- skill-based-pay: triage:직무급·성과급과 보상 근거가 다르다는 대비 정도로 정의를 넘는 구조 부족
+- homeschooling-movement: triage:교육 형태·운동명 — 국가별 규제 차이 서술뿐 관계 구조 없음
+- working-capital: triage:유동자산−유동부채라는 단일 차액 지표 — 현금전환주기는 언급만 있어 순환을 그릴 근거 부족
+- periodontal-ligament: triage:해부 조직명 — 섬유군 구분은 해부도가 맞고 섬유군별 저항 방향이 본문에 없음
+- mana: triage:토착 종교 개념 — 실체·상태동사·떠다니는 기표 해석이 갈려 구조화 근거 없음
+- information-warfare: triage:전략 활동 범주 — 수단 나열과 효과 측정 논쟁뿐 관계 구조 없음
+- coalition-theory: triage:최소승리연합과 최소연결승리연합 등 모형 계보 서술 위주라 그림이 이론 이름 나열에 그침
+- numa: triage:로컬·원격 메모리 접근 속도 차이 하나가 핵심 — 구성 요소가 2개 대비뿐이고 9개 type에 맞는 구조가 없음
+- horizontal-accountability: triage:수직적 책임성과의 구분이 본문에서 한 줄 언급에 그쳐 비교 축을 세울 근거가 얇음
+- aesthetics-of-the-ugly: triage:미학 사조·저작 소개 — 로젠크란츠·아도르노 해석 논의라 관계 구조로 그릴 요소가 없음
+- secondary-prevention: triage:1·3차 예방이 본문에 없어 단계 비교가 본문 밖 지식에 기대고, 2차예방 자체는 정의 반복
+- tax-planning: triage:합법적 절세 활동의 일반 설명 — 시기·형태 조정 예시 나열뿐 단계나 기전이 없음
+- high-school-equalization-policy: triage:정책 소개와 효과 논쟁 — 학교 간·학교 내 편차 대비 2요소뿐이고 평가가 갈리는 주제
+- programmatic-party: triage:후견주의 정당과의 대비가 정의 수준에서 이미 드러나 그림이 정의를 되풀이함
+- perceived-quality: triage:외재적 단서가 품질 지각에 영향을 준다는 설명이 정의의 연장 — 객관적 품질과의 괴리 한 축뿐
+- allogeneic-bone-graft: triage:단일 이식재 유형 — 처리 방식·형태 구분은 있으나 자가골과의 비교 축이 본문에 체계적으로 없음
+- body-art: triage:미술 형식·작가 소개 — 퍼포먼스 아트와의 관계 언급뿐 관계 구조가 없음
+- childcare-teacher-continuing-education: triage:법정 직무교육 제도 소개 — 직무·승급·특별직무 교육 구분은 목록 수준
+- divine-impassibility: triage:고전 신론과 몰트만 등의 현대 비판이 맞서는 논쟁적 교리로 단정적 그림이 어려움
+- belief-systems-mass-publics: triage:컨버스 주장과 측정오차·잘러 반론 등 논쟁 중인 해석 위주라 단정해서 그리기 어려움
+- gingival-index: triage:0~3점 채점 기준표 — 단일 지수의 등급 나열이라 표가 그림보다 적합
+- tcp-ip: triage:4계층 구조가 한 문장 언급에 그치고 본문 초점은 TCP·IP 역할 분담 2요소
+- conservation-concept: triage:영역별 획득 순서는 본문이 편차가 크다고 경고하고, 과제 실패 원인도 논쟁 중
+- peer-supervision: triage:수평적 장학 형태 정의 — 유형 구분이 이름 나열뿐이고 위계 장학 대비도 정의 반복
+- malocclusion: triage:총칭 개념 — Angle 분류가 이름만 언급되어 하위 유형을 그릴 본문 근거가 없음
+- public-health-emergency-preparedness: triage:예방·대비·대응·복구 단계가 한 문장 언급에 그치고 순환 여부도 본문에 없음
+- gaps-of-indeterminacy: triage:해석학 개념 — 잉가르덴·이저 해석 차이 논의라 구조화할 관계가 약함
+- multinational-enterprise: triage:기업 유형 정의 — 수출기업과의 구분 기준 하나뿐이고 전략 유형은 이름만 언급
+- perry-preschool-project: triage:개별 연구 프로젝트 — 무작위 배정 후 추적이라는 일반적 RCT 설계라 그림이 새로 보여줄 것이 없음
+- cone-beam-computed-tomography: triage:단일 영상 장비 — 장단점(피폭·아티팩트) 나열뿐 관계 구조 없음
+- github-actions: triage:특정 도구·서비스명 — 이벤트·워크플로·잡·스텝 구조는 사용법 설명 수준
+- cash-dividend: triage:단일 배당 형태 — 결의일·지급일 회계처리는 세부 서술이고 신호 가설은 논쟁 중
+- horizontal-equity-in-healthcare: triage:수직적 형평과의 짝 대비는 2요소뿐이고 측정 절차는 집중지수 계산 설명에 그침
+- offshore-balancing: triage:학술적 제안 단계의 대전략 — 효과에 대한 찬반이 갈려 단정적 그림이 어려움
+- medical-error-disclosure: triage:공개-사과-제안이 프로그램 이름으로만 언급되어 단계 그림의 본문 근거가 얇음
+- instructional-media: triage:포괄적 매체 개념 — 분류는 목록 수준이고 매체 효과는 클라크 논쟁 중
+- tokenization: triage:BPE·WordPiece 등 기법 이름 나열 — 단위 차이 설명은 정의 반복
+- attrition: triage:단일 치아 마모 현상 — 침식·마모와의 감별 기준이 서술에 섞여 있어 구조화 근거 약함
+- summit-diplomacy: triage:외교 방식 정의와 장단점 서술뿐 — 구성 요소 간 관계 없음
+- few-shot-learning: triage:구현 방법 3가지가 이름 수준으로 나열되어 그림이 목록을 옮기는 데 그침
+- concept-learning: triage:예·비예 제시 원칙 등 교수 지침 나열 — 고전적 정의와 원형 이론이 병존해 단정 어려움
+- homoiousios: triage:단일 신학 용어 — 호모우시오스와의 철자·의미 대비 2요소뿐
+- doctrine-of-providence: triage:보존·협력·통치 세 요소가 이름 나열 수준이라 그림이 정의 목록을 되풀이함
+- chicago-statement-inerrancy: triage:특정 문서명 — 선언의 조항 형식 설명뿐 관계 구조 없음
+- monism-anthropology: triage:이분설·삼분설과의 대비가 정의에 이미 담겨 있고 신학·인류학 용례가 섞여 기준이 불명확
+- group-dynamics: triage:분야 전체를 가리키는 포괄 개념 — 단계 모형(Tuckman)은 본문 스스로 실증 기반이 약하다고 밝혀 단정적으로 그리기 어려움
+- interest-coverage-ratio: triage:영업이익÷이자비용 단일 재무비율 — 구성 요소 2개뿐
+- old-perspective-on-paul: triage:새 관점과의 신학 논쟁 중인 해석 입장 — 대비 도식이 한쪽 해석을 단정할 위험
+- educational-alienation: triage:상태를 기술하는 추상 개념 — 원인이 '경쟁적 구조' 정도로만 제시돼 관계 요소가 빈약
+- industrial-accident-rate-indicators: triage:재해율·도수율·강도율 세 지표의 분모 정의 나열 — 표 한 줄로 충분해 그림이 더할 것이 적음
+- divine-simplicity: triage:신론 교리의 추상 명제 — 그릴 관계 구조가 없고 현대 논쟁 중
+- oral-hygiene-instruction: triage:교육 중재 일반 — 칫솔질법·치실 등 내용 나열일 뿐 순서 있는 절차가 아님
+- organizational-silence: triage:원인 3요인과 침묵 유형 3가지가 있으나 본문 서술로 충분히 전달되는 목록형 — 그림 고유의 정보가 적음
+- progressivism: triage:교육철학 사조 하나의 특징 서술 — 대비 대상인 본질주의·항존주의의 기준이 본문에 없음
+- silent-illumination-chan: triage:간화선과의 대비가 있으나 본문이 우열·성격 단순화를 경계하며 비교 축이 깨달음관 하나뿐
+- pulp-vitality-test: triage:검사법 분류(감각신경 기반 대 혈류 기반)가 두 갈래뿐이고 핵심은 위음성 주의라는 단일 메시지
+- imaginary-audience: triage:청소년 자기중심성의 하위 사례 — 짝 개념(개인적 우화) 하나뿐이고 원인 설명도 학계 이견
+- tax-audit: triage:행정절차 정의 — 조사 유형(정기·비정기, 부분·종합)과 불복 절차명 나열에 그쳐 그림 고유 정보가 적음
+- religious-experience: triage:주관적 체험 개념 — 제임스의 4특징 나열뿐이고 실재성·공통 구조는 논쟁 중
+- ability-grouping: triage:효과 방향이 편성 방식에 따라 달라 학계 결론이 엇갈림 — 인과를 단정하는 그림 불가
+- jupyter-notebook: triage:소프트웨어 도구명 — 셀·커널 구조 언급은 있으나 핵심은 사용 관행 설명
+- wisdom-literature: triage:문학 장르명 — 잠언적/사변적 지혜 두 갈래와 책 이름 나열 정도
+- childcare-policy: triage:정책 영역 전반을 묶는 포괄어 — 영역 4개 나열과 기조 변화 서술뿐
+- nature-mythology-school: triage:이미 극복된 19세기 학파명 — 학설사적 위치 서술뿐 그릴 구조 없음
+- dentigerous-cyst: triage:단일 병변(질환)명 — 위치·영상 소견 기술이 중심
+- neighborhood-effect-on-health: triage:근린→건강 인과가 선택적 이주 편향으로 논쟁적 — 경로를 단정해 그리기 어려움
+- hermeneutic-aesthetics: triage:미학 입장 자체 — 지평융합 등 추상 개념이 많아 그림으로 구체화하기 어렵고 비판 논쟁 존재
+- heavy-metal-exposure-biomonitoring: triage:측정 방법 정의 — 금속별 표본 대응(납-혈액 등)은 표가 더 적합
+- raison-detat: triage:정치사상 개념 — 도덕과 국가 판단의 긴장이라는 단일 축
+- birth-cohort-study: triage:연구 설계 정의 — 출생부터 추적이라는 단순 구조로 정의 반복에 그침
+- feminist-biblical-criticism: triage:비평 방법 — 세 흐름 나열이 본문 문장으로 충분히 전달됨
+- catch-all-party: triage:정당 유형 하나 — 대중정당→포괄정당 전환 두 점뿐이고 카르텔 정당은 언급만 됨
+- japonisme: triage:미술사 현상명 — 영향 요소 나열이며 전유 대 상호구성 해석이 논쟁 중
+- director-qualification-standard: triage:법정 자격 요건 — 기관 유형별 요건 목록이라 표가 적합
+- investment-in-associates: triage:회계 항목 — 종속기업과의 대비가 언급되나 본문 중심은 지분법 세부 규칙
+- scaling: triage:시술명 — 초음파 대 수기구 비교는 하위 세부사항이고 핵심은 시술 정의
+- government-formation: triage:과정 개념이나 본문이 연합 이론 모형 이름 나열 위주 — 절차 단계가 명확히 서술되지 않음
+- geriatric-pharmacology: triage:임상 고려사항 묶음 — 노화 변화와 다약제 위험 나열로, 경로 그림이 본문 이상을 보여 주기 어려움
+- optical-flow: triage:프레임 간 이동 벡터라는 단일 개념 — 응용 분야 나열 위주
+- implant-fixture: triage:단일 부품(구조물)명 — 표면 처리 종류 나열
+- russian-formalism: triage:문예 학파명 — 계보(프라하 학파→구조주의) 언급은 있으나 시점이 일부만 제시돼 연표 근거 부족
+- adoption-doctrine: triage:구원론 교리 하나 — 칭의·성화와의 관계 언급뿐으로 비유 설명이 중심
+- noncommunicable-disease-epidemiology: triage:역학 하위 분야명 — 질환·위험요인 나열이며 다요인 모형은 구체 구조 없음
+- iconological-interpretation: triage:파노프스키 3단계 중 하나의 하위 사례 — 앞 두 단계가 본문에 없어 그림이 본문 밖 지식에 의존
+- environmental-epidemiology: triage:학문 분야명 — 연구 설계 나열뿐, 관계 구조 없음
+- lease-liability: triage:단일 회계 계정의 측정 규칙 — 현재가치 할인 외 구성 요소 간 관계가 약함
+- apocrypha: triage:문헌 범주명 — 교파별 수록 차이는 목록이라 그림 이득 적음
+- heap-data-structure: triage:자료구조 정의 반복 — 힙 속성 자체는 단일 규칙
+- antifungal-therapy: triage:약물치료 범주 — 국소·전신 제제 나열 수준
+- imputation-of-righteousness: triage:교리 정의 — 주입된 의와의 대비가 본문에 한 줄뿐이라 비교 축 부족
+- pauline-anthropology: triage:용어군 해설 — 구성 관계를 그리면 이원론으로 오독될 위험을 본문이 경고
+- machine-learning: triage:포괄 분야명 — 학습 유형 분류는 상식적 목록이라 글로 충분
+- onnx: triage:표준 형식명 — 변환·실행 흐름이 정의와 거의 같음
+- johannine-community: triage:학계 합의 없는 가설적 재구성 — 형성 단계를 단정해 그리기 어려움
+- authoritarian-resilience: triage:기제 목록형 개념 — 기제 간 관계가 본문에 구조화되지 않음
+- broadbanding: triage:다단계 직급제와의 대비가 밴드 수 차이 하나로 요약돼 그림 이득 적음
+- brand-identity: triage:발신·수신 두 개념 대비뿐 — 구성 요소 2개
+- amillennialism: triage:종말론 입장 하나 — 초림·재림 사이 구간 표시는 정의 반복
+- safe-food-education: triage:교육 프로그램명 — 내용 영역 나열
+- early-childhood-education-act: triage:법률명 — 규정 항목 나열
+- integrated-vector-management: triage:수단 조합 전략 — 순서·인과 구조 없이 축 목록에 그침
+- categories-of-art-walton: triage:철학 이론 — 표준·가변·반표준 속성 구분은 사고실험 맥락 없이 그리기 어려움
+- east-west-schism: triage:누적 원인의 비중이 학계에서 다양하게 평가돼 인과 사슬로 단정하기 어려움
+- client-server-architecture: triage:요청-응답 두 역할 — 구성 요소 2개로 정의 반복
+- corporate-childcare-center: triage:시설 설립 유형 하나 — 분류 근거 설명뿐
+- anecdotal-record-method: triage:관찰 기법 — 작성 원칙 나열, 단계 구조 없음
+- fauvism: triage:미술 사조명 — 짧은 국면의 특징 서술
+- core-knowledge-theory: triage:영역 목록(사물·행위자·수·공간) — 영역 간 관계가 없고 해석 논쟁 중
+- school-consulting: triage:지원 활동명 — 자발성 강조 반복, 구성 관계 없음
+- study-of-ritual-propriety: triage:학문 분야명 — 예송 사례 서술 중심
+- constructed-response-assessment: triage:문항 하위 유형 나열(단답·완성·서술·논술) — 글로 충분
+- iconoclasm: triage:역사적 사례 산재 — 원인 비중 복합적이고 연대가 본문에 일부만 있음
+- gross-motor-development: triage:이정표 순서가 문화·개인에 따라 바뀐다고 본문이 경고해 고정 순서로 그리기 애매
+- multi-agent-system: triage:시스템 설계 개념 — 연구 축 나열, 그림이 사례 의존
+- fine-tuning: triage:사전학습→추가학습 2단계 — 정의 반복
+- democratic-consolidation-criteria: triage:세 차원 나열 — 차원 간 관계가 독립이라 목록 이상 정보 없음
+- alveolar-bone-loss: triage:단일 병적 현상 — 수평·수직 소실 두 양상 구분뿐
+- pit-and-fissure: triage:해부학적 구조명 — 형태 분류는 단면 그림이 필요해 9개 유형 밖
+- mode-of-baptism: triage:시행 방식 3가지 나열 — 신학 논쟁 사안
+- job-evaluation: triage:절차명 — 기법 목록(서열법·분류법·점수법) 수준
+- tradition-criticism: triage:비평 방법명 — 구전 단계 재구성이 가설적이라 단계 고정 어려움
+- servant-songs: triage:본문 묶음명 — 종의 정체 해석이 논쟁 중
+- verbal-plenary-inspiration: triage:신학적 입장 하나 — 기계적 영감설과 한 줄 대비뿐
+- differential-cost-analysis: triage:분석 기법 — 공통원가 제외라는 단일 원리 반복
+- radio-frequency-identification: triage:단일 기술명 — 바코드 대비 장점과 수동형·능동형 두 갈래 나열뿐
+- prompt-engineering: triage:하위 기법(제로샷·퓨샷·사고연쇄) 이름 나열로 관계 구조가 약함
+- stock-dividend: triage:이익잉여금→자본금 재분류 한 단계라 정의 반복에 그침
+- pauline-theology: triage:연구 분야 개관 — 주제 나열이고 칭의·새 관점 해석이 논쟁 중
+- oral-lichen-planus: triage:단일 질환명 — 임상형 구분은 본문에 짧게 언급될 뿐
+- prevenient-grace: triage:교파별 정의가 다른 교리 개념으로 구성 요소 관계가 그림으로 잡히지 않음
+- dental-onlay: triage:단일 수복물 — 인레이·크라운과의 경계가 문헌마다 달라 비교 축이 불안정
+- home-school-connection-education: triage:보육 실천 방식 설명 — 매체 나열과 양방향 소통 강조뿐
+- korean-developmental-screening-test: triage:특정 검사 도구명 — 영역 나열 외 관계 구조 없음
+- christology: triage:신학 분야 개관 — 공의회 순서는 연대가 본문에 없고 두 본성 균형은 정의 반복
+- rogue-state: triage:정치적 수사 용어 — 학술적 구조 없고 지정 기준 자체가 논쟁적
+- meal-and-snack-guidance: triage:보육 활동 지침 — 위생·식단·예절 요소 나열에 그침
+- sign-language: triage:언어 일반 개념 — 그림으로 보일 기전이나 단계가 없음
+- paradox-of-fiction: triage:세 명제 중 무엇을 버리느냐는 논쟁 지형이라 9개 type에 맞게 그리기 어렵고 이론 평가가 엇갈림
+- hapax-legomenon-nt: triage:문헌학 단일 용어 — 한 번 나오는 단어라는 정의가 전부
+- sustainable-development-goals-and-health: triage:국제 의제 이름 — 세부 목표 나열이고 목표 간 연결은 추상적
+- christian-perfection: triage:웨슬리안 교리 개념 — 전통마다 수용이 갈리고 구성 요소가 둘 남짓
+- management-information-system: triage:시스템 유형 분류(TPS·MIS·DSS·EIS)는 언급 수준이라 근거가 얕음
+- aesthetica-baumgarten: triage:학문 창시 사건 — 감성적 대 이성적 인식 두 항뿐이라 정의 반복
+- social-movement-cycle-theory: triage:확산·쇠퇴 원인이 다양하다고 본문이 밝혀 곡선 모양이나 단일 경로로 단정하기 어려움
+- ink-wash-painting: triage:회화 형식명 — 기법(발묵·파묵·준법) 나열뿐
+- health-budgeting-process: triage:예산 절차 일반 설명 — 단계가 본문에 순서대로 제시되지 않음
+- theory-of-mind-and-nature: triage:학파마다 심·성 관계 규정이 달라 하나의 구조로 그리면 논쟁을 단정하게 됨
+- sacramentology: triage:분과 개관 — 하위 쟁점은 성찬신학·인효론 항목과 겹침
+- stigma-toward-mental-illness: triage:공적 낙인과 자기 낙인 두 유형뿐이고 내면화 경로는 짧게 언급
+- acute-toxicity: triage:노출 기간 기준의 독성 범주 — LD50 곡선은 별도 지표 항목의 몫
+- political-clientelism: triage:교환 관계 정의 — 후견인·피후견인 두 항과 브로커 언급뿐
+- exclusivist-theology-of-religions: triage:종교신학 유형론의 한 갈래로 상위 유형론의 하위 사례
+- assets: triage:회계 기본 정의 — 인식 요건 서술이 정의를 되풀이함
+- self-supervision: triage:장학 한 형태 — 방법 나열과 장단점뿐
+- vestigium-trinitatis: triage:신학적 유비 개념 — 사례 나열이고 타당성 자체가 논쟁적
+- daejonggyo: triage:특정 종교 단체명
+- political-socialization: triage:통로(가정·학교·또래·미디어) 나열 — 그림이 정의를 반복함
+- checklist-method: triage:관찰 기법 하나 — 유무 기록이라는 정의와 한계 서술에 그침
+- jus-ad-bellum: triage:개전 기준의 병렬 목록 — 기준 간 관계나 순서가 없음
+- rhetorical-criticism-biblical: triage:비평 방법 — 두 갈래 언급뿐이라 구성 요소 부족
+- significant-form: triage:형식주의 미학 단일 개념 — 순환논법 비판 등 해석 논쟁 중심
+- capability-approach-education: triage:자원→전환→역량 경로가 본문에 명시되지 않아 그림이 본문 밖 지식에 기댐
+- lifelong-learning-in-knowledge-society: triage:담론 성격의 배경 개념 — 구성 요소 관계가 추상적
+- blood-brain-barrier-toxicant-penetration: triage:투과 경로 2가지(수동 확산·능동 수송)와 영향 요인 나열뿐, 관계 구조가 약함
+- flesh-and-spirit-paul: triage:두 삶의 방향 대조이나 핵심 해석(로마서 7장 화자 등)이 학계 논쟁 중
+- cultural-linguistic-theology: triage:린드벡 세 모델 중 하나라는 언급뿐, 다른 두 모델의 내용이 본문에 없어 비교 근거 부족
+- formal-learning: triage:형식·비형식·무형식 구분의 한 항목, 나머지 두 유형 설명이 본문에 없음
+- fresco: triage:단일 회화 기법, 부온·세코 두 갈래 외 관계 구조 없음
+- elaborated-restricted-code: triage:두 코드의 대조가 정의 문장으로 이미 충분히 전달되어 그림의 추가 이득 적음
+- minimum-spanning-tree: triage:개념 정의형 자료구조 결과물, 알고리즘 절차는 크루스칼·프림 각각의 하위 주제
+- centration: triage:단일 인지 특성, 탈중심화와의 대비는 한 축뿐
+- patripassianism: triage:역사적 이단 견해 하나, 위격 구별 부정이라는 단일 주장
+- sedentary-behavior: triage:행동 정의와 측정 방법 서술 중심, 24시간 구성비 언급만으로는 그림 근거 약함
+- essay-assessment: triage:평가 방식 하나, 분석적·총체적 채점 두 갈래만 언급
+- psychomotor-domain-taxonomy: triage:학자마다 단계 체계가 달라 단일 표준 분류가 없다고 본문이 명시
+- full-disclosure-principle: triage:회계 원칙 하나, 중요성 판단과의 관계 외 구성 요소 부족
+- growth-referenced-assessment: triage:평가 기준점 하나, 규준·준거참조와 세 갈래 비교는 contrast 2개 틀에 맞지 않고 본문 근거도 짧음
+- dentinal-tubule: triage:해부학적 구조물 이름, 수력학설 기전은 언급만 있고 단계 설명 없음
+- dyscalculia: triage:학습장애 하위유형 하나, 원인 견해(수감각·작업기억)도 논쟁적
+- education-production-function: triage:투입→산출 두 칸 구조로 정의 반복, 효과 크기 자체가 논쟁 중
+- behavioral-objectives: triage:진술 방식 하나, 메이거 세 요소는 나열일 뿐 서로 관계 없음
+- meritocratic-ideology: triage:비판적 이념 개념, 단정적 인과 그림은 논쟁적 주장을 확정하게 됨
+- ottawa-charter-for-health-promotion: triage:국제 선언 문서명, 다섯 전략은 서로 관계 없는 목록
+- participatory-democracy: triage:민주주의 모델 하나, 대의제와의 대비 외 구성 요소 부족
+- service-mesh: triage:인프라 기술명, 데이터·컨트롤 플레인 두 구성만 있어 그림 이득 적음
+- sliding-window-technique: triage:빼고 더하는 갱신 한 동작이 핵심, 본문 비유로 충분
+- great-power-politics: triage:국제정치 현상 일반, 이론마다 설명이 갈려 단정 어려움
+- priority-queue: triage:추상 자료구조 하나, 삽입·꺼냄 인터페이스만 있음
+- person-organization-fit: triage:보충적·상보적 적합 두 갈래 외 관계 구조 약함
+- thread-pool: triage:작업 큐와 일꾼 재사용이라는 단순 구조로 본문 비유가 이미 충분
+- school-socialization: triage:과정 개념이나 공식·잠재적 교육과정 두 경로뿐, 단계 근거 없음
+- open-education: triage:역사적 교육운동, 구현 형태 나열 중심
+- status-quo-state: triage:국가 유형 하나, 현상타파국가와 대비 한 축뿐
+- free-year-system: triage:자유학기제의 기간 확장판, 별도 구조 없음
+- presbyterianism: triage:당회·노회·총회 위계가 정의에 이미 서술되어 그림이 정의 반복에 가까움
+- holy-orders: triage:성사 하나, 주교·사제·부제 세 품계 나열뿐
+- hyperloglog: triage:확률적 자료구조, 해시 비트 처리 세부는 도식보다 수식 이해가 핵심
+- tota-scriptura: triage:해석학 원리 하나, 솔라 스크립투라와의 구분만 있음
+- fasb: triage:기관명
+- early-childhood-environment-rating-scale: triage:측정 도구명, 하위 영역은 서로 관계 없는 목록
+- montage-theory-eisenstein: triage:충돌로 제3의 의미가 생긴다는 단일 주장, 유형 세분은 이름만 나열
+- transparency-thesis-photography: triage:미학 논제 하나, 찬반 논쟁 중인 주장
+- free-beauty: triage:부수미와의 대비가 정의 반복에 그치고, 자유미/부수미 구분 자체가 판단 종류인지 대상 종류인지 해석이 갈림
+- political-institution-design: triage:연구 분야명 — 구성 요소 간 구체적 관계가 본문에 없음
+- autonomy-vs-shame-and-doubt: triage:에릭슨 8단계 중 한 단계(하위 사례) — 양극 두 항만 있음
+- mandatory-reporting: triage:법적 의무 제도 — 신고 이후 절차는 다른 기관 소관으로만 언급되어 단계 근거가 약함
+- migrant-health-access: triage:접근성 차원 구분이 절마다 3개·4개로 달라 일관된 분류를 그리기 어려움
+- minimalism-art: triage:미술 사조명 — 작가·문헌 나열이 중심
+- suffering-servant: triage:성서 인물상 — 정체 해석이 논쟁 중이고 본문 구조 분석은 일부 학자의 구분
+- daodejing-thought: triage:경전 사상 전반 — 저자·판본 논쟁이 있고 관계 구조가 본문에 없음
+- emergent-curriculum: triage:교육과정 운영 방식 — 관찰·기록·반영의 단계가 명확한 순서로 제시되지 않음
+- evidence-based-policy-making: triage:정책 접근 방식 — 근거 위계는 별도 용어 내용이고 본문 자체는 원칙 서술
+- under-five-mortality-rate: triage:단일 보건 지표 — 신생아·영아 사망률과의 포함 관계는 venn으로 중첩 표현 불가
+- jesus-seminar: triage:특정 학자 모임(기관) — 방법론과 결론이 학계 논쟁 대상
+- merit-pay: triage:보상 방식 하나 — 효과가 실증적으로 혼재해 인과 사슬을 단정하기 어려움
+- disability-awareness-education: triage:교육 프로그램명 — 강의형 대 체험형 효과 차이 외에 구성 요소가 부족
+- semi-supervised-learning: triage:학습 패러다임 — 전략들이 병렬 나열이고 각 전략은 별도 용어로 다뤄질 내용
+- fourth-party-logistics: triage:물류 사업자 유형 — 화주·4PL·3PL 관계가 정의 반복 수준
+- bruxism: triage:단일 구강 행동 — 수면형·각성형 두 유형 구분뿐
+- autonomy-of-art: triage:미학 원리 — 층위 구분과 계보가 논자마다 달라 단정적 도식이 어려움
+- achievement-ideology: triage:비판적 이념 개념 — 내면화 기제가 서술적이라 정의를 되풀이하는 그림이 됨
+- forgery-and-authenticity: triage:미학 논쟁 — 굿맨·더튼 등 입장 대립 자체가 핵심이라 단정 불가
+- rawlsian-educational-justice: triage:규범 이론 적용 — 두 원칙의 선후 관계뿐이고 교육 적용 해석이 갈림
+- sensory-integration-therapy: triage:치료 접근 — 이론적 근거와 효과가 논쟁 중이라 기전 도식이 단정이 됨
+- manifest-latent-functions-schooling: triage:두 기능 구분 자체가 정의 — 대비 그림이 정의를 되풀이함
+- hypothetical-intentionalism: triage:해석 이론의 한 입장 — 실제 의도주의와의 대립이 진행 중인 논쟁
+- disease-registry: triage:데이터베이스 사업 — 활용 사례 나열 위주로 관계 구조가 없음
+- disinterestedness: triage:단일 미적 태도 — 세 만족 방식 구분은 한 문장 언급뿐이고 해석 논쟁이 큼
+- education-tax: triage:단일 세목 — 교부금 재원으로 흘러간다는 한 단계 관계뿐
+- biological-assets: triage:회계 자산 범주 — 수확물·생산용식물과의 구분은 각 기준서 세부 사항
+- weberian-state-theory: triage:고전적 국가 정의 하나 — 폭력 독점이라는 단일 기준
+- income-smoothing: triage:보고이익 대 원래 이익의 시계열 모양이 핵심인데 plot 함수로 그릴 수 없음
+- relationship-marketing: triage:마케팅 접근법 — 거래마케팅 대비가 정의 반복 수준
+- realism-in-education: triage:교육철학 입장 — 관념론과의 대비가 한 기준뿐이고 내부 입장도 갈림
+- interaction-centered-education: triage:교육 원리 — 세 상호작용 유형은 정의 그대로 반복
+- workers-compensation-claim: triage:청구 절차명 — 두 승인 요건 외에 단계 정보가 본문에 부족
+- telehealth-chronic-disease-monitoring: triage:관리 방식 — 측정·전송·경보 흐름이 정의를 거의 그대로 되풀이함
+- developmental-rehabilitation-service: triage:바우처 지원 제도 — 대상·요건 서술 위주
+- center-periphery-model: triage:구조 모형 — 종속이론 계열 주장으로 비판(동아시아 사례)이 있어 단정적 도식이 어려움
+- molar-incisor-hypomineralization: triage:단일 치아 결함 질환 — 원인 미규명, 감별은 진단 세부
+- functional-organization: triage:조직 형태 하나의 장단점 서술 — 기능 부서 나열은 정의 반복
+- policy-responsiveness: triage:여론-정책 관계 지표 개념, 인과 방향·불평등 반응성이 논쟁 중이라 단정해 그리기 어려움
+- liturgics: triage:학문 분야명, 관계 맺는 구성 요소 근거 없음
+- echo-state-network: triage:입력→고정 저수지→학습 출력층 구조는 정의 문장이 이미 그대로 말함
+- religious-exclusivism: triage:배타·포용·다원 유형론의 한 항목일 뿐, 상위 유형론 용어에서 그릴 내용
+- periapical-radiograph: triage:단일 영상검사명, 평행·등각 촬영 비교는 부수적
+- perennial-philosophy: triage:구성주의와 정면 대립하는 논쟁적 입장이라 공통 핵심 구조를 단정해 그릴 수 없음
+- historical-institutionalism: triage:점진적 변화 4유형은 별도 용어의 내용이고, 이론 자체는 경로의존성 서술 반복
+- transnational-disease-surveillance: triage:IHR·이벤트 감시·유전체 감시 등 구성 요소 나열, 관계 구조가 약함
+- crisis-intervention-child: triage:응급보호 후 사례관리 연계라는 두 단계 강조뿐, 기관 연계 순서 근거 부족
+- democratic-deficit: triage:대표성·책임성 공백을 지적하는 비판 개념, 적용 기준 자체가 논쟁 중
+- sublime: triage:버크·칸트 이론에 따라 구조가 달라 하나의 기전으로 단정하기 어려움
+- patent: triage:출원·심사·등록과 세 요건은 단순 나열, 그림이 더할 관계가 없음
+- kindergarten: triage:기관명, 어린이집과의 법적 차이는 표로 충분
+- caching-strategy: triage:교체 정책·일관성 정책 예시 나열 수준, 정책 간 관계 서술 빈약
+- peer-tutoring: triage:동연령·이연령, 구조화·상호적 유형 나열에 그치고 축 결합 근거 없음
+- form-follows-function: triage:디자인 표어 하나, 해석 논쟁 서술 중심
+- misconception-education: triage:개념 정의 중심, 인지갈등 수업 절차는 개념변화 용어의 몫이고 이론·파편 관점도 논쟁 중
+- workplace-childcare-center: triage:시설 유형 하나와 설치 의무 기준 서술, 관계 구조 없음
+- renaissance: triage:미술 양식 총칭, 시기 구분 근거가 본문에 부족
+- sovereignty-ir: triage:크래스너 4차원은 이름만 나열되고 차원 간 관계 설명이 없음
+- camp-aesthetics: triage:감수성 범주, 키치와의 차이는 한 문장 대비로 충분
+- multi-core-processor: triage:하드웨어 구성 하나, 암달의 법칙은 별도 용어의 내용
+- banishment-of-poets: triage:두 논거(교육적 해악·모방의 지위) 대비뿐이고 해석 논쟁 서술이 중심
+- settings-approach-health-promotion: triage:세팅 예시 나열, 개인 접근과의 대비가 정의 반복
+- covenant-theology: triage:행위 언약·은혜 언약 구조는 특정 전통의 해석 틀이며 세대주의와 논쟁 중
+- electoral-integrity: triage:선거 주기 단계가 길게 나열될 뿐 단계 간 관계 서술이 없음
+- pericoronitis: triage:치은판 아래 세균 번식이라는 단일 원인 중심, 치료 순서도 두 단계뿐
+- mysticism: triage:포괄적 종교 범주, 핵심 쟁점(영원철학 대 구성주의)이 미해결 논쟁
+- signs-source: triage:존재 자체가 논쟁 중인 가상 문헌 가설
+- portfolio-allocation: triage:갬슨 법칙의 비례 관계 하나와 반론 한 줄, 구성 요소 2개 수준
+- security-architecture: triage:동맹·기구·대화체를 아우르는 총칭, 요소 간 관계 근거 없음
+- root-rotation-movement: triage:단일 치아 이동 양식, 재발 경향 서술 반복
+- net-operating-loss: triage:이월·소급 공제 두 방식 설명 정도, 구성 요소 부족
+- shuttle-diplomacy: triage:외교 방식 하나, 중재자가 오가는 구조는 정의 반복
+- market-segmentation: triage:세분화 기준 4종 나열, STP 흐름은 상위 용어의 내용
+- debt-ratio: triage:단일 재무비율(부채/자본)
+- prototyping-methodology: triage:시제품→피드백→수정 반복은 정의 문장 그대로
+- primitivism-art: triage:미술 경향명, 식민주의 비판 등 평가 서술 중심
+- divisionism: triage:회화 이론·양식명 — 광학 혼합 효과 자체가 검증되지 않은 주장이라 기전으로 단정해 그리기 어려움
+- infant-care-act: triage:단일 법률명 — 조문 항목 나열뿐 구성 요소 간 관계 없음
+- dental-sealant: triage:단일 예방 술식 — 본문이 유지율·방습 강조에 그치고 순서 있는 단계가 제시되지 않음
+- academic-art: triage:19세기 미술 양식명 — 재평가 서술 위주로 도식화할 구조 없음
+- medically-underserved-area: triage:행정적 지역 구분 — 접근성 지표로 지정한다는 정의 반복 수준
+- sui-generis-religion: triage:학계에서 찬반이 엇갈리는 논쟁적 입장으로 단정 없이 그리기 어려움
+- human-resource-management: triage:관리 기능 나열(채용·교육·평가·보상) — 그림이 정의를 되풀이할 뿐
+- religious-tolerance: triage:윤리적 태도 개념 — 종교다원주의와의 구분이 한 문장이라 구성 요소 3개 미만
+- internet-of-things: triage:포괄적 기술 환경 개념 — 센서→전송→자동 동작은 정의 반복에 가까움
+- lex-orandi-lex-credendi: triage:예배와 믿음 두 요소의 상호 영향뿐 — 구성 요소 2개
+- child-rights-education: triage:교육 프로그램 개념 — 4대 권리 범주는 아동권리협약의 하위 분류 나열에 불과
+- purgatory-doctrine: triage:특정 교단 교리 — 교파 간 입장이 갈리는 신학 쟁점이라 단정 없이 도식화하기 어려움
+- paragone: triage:르네상스 장르 우열 논쟁 — 수사적 담론으로 관계 구조가 아님
+- complete-denture-related: triage:병소 총칭 — 하위 병변명 나열과 위험요인 서술뿐
+- deuteronomic-theology: triage:순종-축복/불순종-심판 두 쌍의 대응뿐이며 편집 가설 자체가 학설 논의
+- dyothelitism: triage:단일 기독론 입장 — 두 의지의 조화라는 정의 반복, 비교 대상(단의론) 설명 부족
+- neuromorphic-chip: triage:하드웨어 범주명 — 클록 방식과의 차이는 한두 문장이라 비교 축이 빈약
+- halitosis: triage:증상명 — 원인 목록(설태·치주·이비인후과)은 나열 수준이라 그림이 더할 것이 적음
+- non-current-assets-held-for-sale: triage:자산 분류 항목 — 측정 규칙(작은 금액·상각 중단)이 손상차손 절차와 겹치는 하위 사례
+- structuralism-religion: triage:이론적 방법론 — 이항 대립의 실재성 자체가 비판받는 쟁점이라 구조를 단정하기 어려움
+- arms-control: triage:정책 개념 — 군축과의 차이가 '폐기 대 제한' 한 축뿐인 정의 반복
+- sustainable-competitive-advantage: triage:결과 상태 개념 — 조건 구조는 VRIN프레임워크 항목이 담당하므로 중복
+- happy-school-policy: triage:특정 지역 교육정책명 — 혁신학교의 지역 사례
+- vorticism: triage:단명한 미술 운동명 — 입체주의·미래주의 결합이라는 정의 반복
+- plaque-control: triage:구강위생 활동 총칭 — 자가관리와 전문가 관리 두 갈래뿐이고 본문이 꾸준함 강조에 치우침
+- unit-testing-framework: triage:도구 범주명 — 단위·통합·종단 간 테스트 구분은 별도 용어의 내용
+- output-tax: triage:단일 세액 항목 — 매출세액−매입세액=납부세액이라는 공식 하나로 그림이 정의를 되풀이함
+- school-ideological-state-apparatus: triage:알튀세르 이론의 교육 적용 — 억압적/이데올로기적 국가기구 구분은 상위 개념 항목의 몫
+- patronage: triage:미술 제작의 사회제도 개념 — 후원자와 예술가 두 주체의 협상 서술뿐
+- neglectful-parenting: triage:양육유형 4분류의 한 칸 — 반응성×요구성 매트릭스는 상위 양육유형 항목의 몫
+- organizational-culture-strength: triage:단일 차원 속성(공유 정도) — 구성 요소 간 관계 없음
+- inferior-alveolar-nerve: triage:해부학적 구조물명 — 분지 경로 서술이 있으나 단일 신경의 위치·주의점 위주
+- archaic-smile: triage:단일 양식적 특징 — 시대 전환이 두 단계뿐
+- maxillary-protrusion: triage:부정교합 상태명 — 치성/골격성 감별 서술은 진단 주의점 수준
+- intergenerational-education: triage:교육활동 개념 — 프로그램 유형 3개는 이름 나열뿐이라 그림이 더할 정보가 없음
+- susceptibility-biomarker: triage:바이오마커 하위 유형 — 노출·영향·감수성 3분류는 상위 바이오마커 항목의 몫
+- long-term-care-insurance-system: triage:사회보험 제도명 — 신청·판정·이용 3단계는 정의에 가까운 단순 행정 절차
+- gross-profit: triage:단일 이익 지표 — 매출액−매출원가라는 정의 반복
+- accumulated-depreciation: triage:차감계정 항목 — 취득원가−누계액=장부금액이라는 단일 산식
+- true-and-false-prophets: triage:판별 기준 자체가 본문에서 한계·논쟁으로 제시되어 단정적 도식화 어려움
+- implant-primary-stability: triage:초기고정 단일 속성 — 이차고정과의 시간 곡선은 본문에 수치·모양 근거가 없음
+- suffix-array: triage:자료구조 정의 — banana 예시는 정렬 표로 충분하고 관계 구성 요소가 없음
+- tooth-whitening: triage:과산화물→색소 산화 기전이 한두 단계라 그림이 정의 반복에 가까움
+- gnosticism: triage:범주 자체의 실재성이 논쟁 중인 사상 경향 — 단정적 도식 불가
+- amalgam-restoration: triage:수복 재료·술식명 — 감마상 설명은 재료학 세부라 도식 가치 낮음
+- confidence-vote-mechanism: triage:부결 시 사퇴·해산 두 갈래뿐이고 국가별 차이가 커 일반 흐름도로 단정하기 어려움
+- labor-relations: triage:노사관계 전반을 가리키는 포괄 영역어 — 세 관점은 언급뿐 비교 기준이 본문에 없음
+- page-replacement-algorithm: triage:알고리즘 이름 나열(FIFO·LRU·OPT·Clock) — 그림보다 참조열 예시 표가 맞음
+- textual-exegesis: triage:한대 발달·송대 위축·청대 부흥 3단계가 있으나 본문에 성서주해 내용이 섞여 근거가 흐림
+- education-policy-evaluation: triage:일반 활동명 — 총괄·형성평가 구분 외에 그림으로 보일 구조가 약함
+- employee-motivation: triage:포괄 주제어 — 내용·과정이론 목록은 개별 이론 용어들의 나열에 그침
+- tenebrism: triage:회화 기법명 — 키아로스쿠로의 하위 범주라는 점은 문장으로 충분
+- childcare-center-director: triage:직위·역할명 — 책임 목록뿐 관계 구조 없음
+- international-ngos: triage:기관 유형명 — 부메랑 패턴은 별도 용어의 내용이라 여기서 그릴 대상 아님
+- human-resource-planning: triage:수요·공급 예측→갭 도출 절차가 일반적이라 그림이 정의를 되풀이함
+- realist-view-of-original-sin: triage:신학적 견해 하나 — 언약적 견해와의 대비가 강조점 차이로 논쟁 중
+- child-growth-monitoring: triage:백분위 성장곡선이 핵심이나 여러 백분위 곡선 묶음은 현재 plot으로 의미 있게 그리기 어려움
+- resilience-and-mental-health: triage:다차원 개념 설명뿐 — 요인 간 관계나 회복 곡선의 근거가 본문에 없음
+- priestly-writer: triage:문서가설 자료층 — 형성 시기가 학계 논쟁 중이라 JEDP 순서를 단정하기 어려움
+- shamanic-initiation: triage:엘리아데의 죽음-재생 도식이 전통별로 맞지 않는다는 비판이 본문에 있어 단일 절차로 단정 불가
+- vinaya: triage:계율 체계명 — 처벌 등급은 바라이·승잔 두 개만 제시됨
+- status-competition-theory: triage:이론 주장 하나 — 인적자본론과의 대비가 짧아 그림이 정의를 되풀이함
+- heidelberg-catechism: triage:문서명 — 비참·구원·감사 세 부분은 목차 나열
+- attachment-q-sort: triage:측정 도구명 — 낯선상황실험과의 차이는 연속 점수 대 범주라는 한 가지 축이 중심
+- co-teaching: triage:교수 형태 모형 이름 나열 — 유형 간 비교 기준이 본문에 고르게 없음
+- rapid-palatal-expansion: triage:단일 교정 술식 — 확장·골재생·유지 순서가 정의 설명 수준
+- doctrine-of-grace: triage:교파별로 갈리는 논쟁적 교리 — 입장 배치를 단정하기 어려움
+- abecedarian-project: triage:개별 연구 사업명 — 무작위 두 집단 비교 외 구조 없음
+- regional-educational-gap: triage:현상명 — 원인 요인 나열뿐이고 인과 비중이 논쟁 중
+- immanent-trinity: triage:경륜적 삼위일체와의 동일시 여부가 논쟁 중이라 관계를 단정할 수 없음
+- artificial-tooth: triage:보철 부품명 — 레진치·도재치 장단점은 짧은 문장 비교로 충분
+- information-bias: triage:하위 유형 둘(회상·관찰자 편향)뿐이라 분류 그림이 빈약함
+- organizational-structure-types: triage:기능식·사업부제·매트릭스 이름 나열 — 비교 기준이 매트릭스 외에는 본문에 없음
+- extraction-orthodontics: triage:교정 방식명 — 비발치와의 비교가 근거 부족 논쟁으로 남아 있음
+- free-rider-problem-international: triage:공공재 무임승차 일반 개념의 국제 적용 사례 — 독자적 구조 없음
+- high-low-method: triage:두 점으로 직선을 긋는 단순 계산 — 산점과 이상치를 찍는 기능이 없어 plot이 정의 반복에 그침
+- minjung-theology: triage:신학 운동명 — 인물·개념 설명뿐 관계 구조 없음
+- lifelong-learning-account-system: triage:행정 제도명 — 학점은행제와의 차이는 목적 한 가지
+- sublime-unpresentability: triage:미학 개념 하나 — 낭만주의 숭고와의 대비가 추상적이라 그림이 정의를 되풀이함
+- one-party-state: triage:일당우위체제와의 구분 기준이 하나(경쟁 정당 허용 여부)뿐이라 구성 요소가 2개로 정의 반복
+- multi-member-district-system: triage:선거구당 선출 인원이라는 단일 속성이고 소선거구·비례대표와의 비교도 서술뿐이라 그림이 추가하는 정보 없음
+- national-health-account: triage:재원·공급자·기능 세 분류 축은 나열일 뿐 수치나 흐름 구조가 본문에 없어 정의를 되풀이하는 그림이 됨
+- spirit-possession: triage:종교 현상 서술과 해석 논쟁이 중심이고 요소 간 구조·순서가 없음
+- discretionary-accruals: triage:총발생액 = 비재량 + 재량(회귀 잔차)이라는 관계가 본문 한 문장 수준의 분해이고 정의를 그대로 그림으로 옮기는 것
+- accounts-receivable: triage:단일 계정 항목이며 외상판매에서 회수까지의 시차 설명은 요소가 2개뿐
+- insider-outsider-problem: triage:신자 대 연구자 두 입장의 장단점 대립으로 구성 요소 2개이며 학계 논쟁이라 한쪽으로 단정해 그리기 어려움
+- phenomenology-of-art: triage:철학적 방법 태도에 대한 서술로 단계나 구성 요소가 구체적으로 제시되지 않음
+- thucydides-trap: triage:신흥국 부상, 두려움, 전쟁 위험의 단선 인과로 정의 반복이며 사례 선정이 논쟁 중인 주장이라 단정적 도식이 부적절
+- strategic-group: triage:집단 이름과 축 값이 본문에 없어 그림의 칸 내용을 본문 밖에서 지어내야 함
+- cyber-university: triage:기관 유형 정의이고 방송통신대학과의 비교도 2자 대비에 그침
+- school-level-articulation: triage:유치원-초-중-고 나열 외에 구조가 없어 정의 반복
+- swing-voter: triage:측정 기준 세 가지가 나열될 뿐 서로의 관계나 구조가 서술되지 않음
+- functional-programming: triage:명령형과의 2자 비교이며 순수함수·불변성 같은 개념 나열로 그림이 보여줄 관계가 없음
+- amelogenesis-imperfecta: triage:유형 분류는 형성부전·석회화부전·성숙부전으로 이름만 나열되고 단계별 상세는 없어 정의 반복이며 질환명이라 개체 서술에 가까움
+- shema: triage:성경 본문 세 단락을 나열한 것일 뿐 구성 요소 간 관계가 없는 본문 인용 용어
+- periodic-inventory-system: triage:계속기록법과의 2자 대비이고 산식 구조는 본문에 제시되지 않음
+- divine-immutability: triage:본질적 불변성과 관계적 불변성 2분이고 신학 논쟁이 중심이라 도식화 시 단정 위험
+- meritocracy-trap: triage:상위계층 투자와 불평등 고착의 되먹임을 말하지만 단계가 본문에 구체적이지 않고 비판 개념이라 단정해 그리기 어려움
+- school-choice-system: triage:제도 정의와 찬반 논쟁 서술이며 단계나 구성 요소 구조가 없음
+- substitute-teacher-system: triage:파견형과 원내 예비인력형 두 운영 방식뿐이라 구성 요소 2개
+- high-god-concept: triage:지고신과 하위 정령의 위계는 단순 2단이고 기원 논쟁(원시일신론 등)이 학계에서 갈려 단정 도식이 부적절
+- informal-learning: triage:형식·비형식·무형식 세 유형이 언급되나 앞의 둘에 대한 내용이 본문에 없어 비교축을 채울 근거 부족
+- early-childhood-education-promotion-center: triage:특정 기관명이며 세 기능 나열이 전부
+- adjacency-list: triage:인접행렬과의 2자 비교이고 본문의 30명 친구 예시는 구조 설명보다 정의 반복
+- relative-risk: triage:발생률 비 하나의 단일 지표이며 흡연자 20% 대 비흡연자 2% 예시는 정의 반복
+- method-of-correlation: triage:실존적 물음과 계시적 답변의 2요소 대응이고 철학 질문이 답을 규정한다는 비판 논쟁도 있어 단정이 어려움
+- lingual-orthodontic-appliance: triage:순측 장치와의 2자 비교 속성 나열(발음, 위생 등)이고 구조 관계가 없음
+- canons-of-dort: triage:다섯 교리와 항론파 반박의 대응표는 가능하나 항론파 항목 내용이 본문에 없고 TULIP 명칭 자체가 후대 정리라 정확한 도식화 근거 부족
+- wedge-issue: triage:상대 지지층 분열 전략이라는 단선 서술이고 2차원 쟁점 공간은 본문 밖 지식에 의존
+- mandibular-retrognathism: triage:단일 골격 상태 서술이며 치료 선택지는 나열뿐
+- codex-sinaiticus: triage:특정 사본명이라 개체 서술
+- business-continuity-plan-hospital: triage:계획 구성 요소(핵심기능 식별·위험평가·연락체계 등)가 순서 없이 나열되어 단계 도식의 근거가 부족
+- sensus-communis: triage:칸트 미학의 규제적 이념으로 단계나 구성 요소 구조가 없음
+- national-health-screening-program: triage:검진 종류 나열과 일반적인 이상소견 후 연계 서술이 전부라 정의 반복
+- pelagianism: triage:아우구스티누스와의 2자 대립이고 정죄 연도 정보(418, 431)도 2건뿐이라 시간 순서 도식 근거 부족
+- biofilm: triage:형성 단계가 본문에 제시되지 않고 항균제 저항성 서술이 주라 도식화할 구조가 없음
+- hellenistic-art: triage:양식 서술과 대표작 나열이며 고전기와의 2자 비교에 그침
+- slurm-scheduler: triage:제출-대기-배정의 단선 흐름이 정의 문장 자체와 같아 그림이 더하는 정보가 적음
+- hypothetico-deductive-reasoning: triage:가설-예측-검증 3단계가 정의에 이미 담겨 있고 귀납과의 방향 대비도 2자 구도라 도식 이득이 작음
+- mediation-ir: triage:제3자 개입이라는 단일 역할 서술이고 중재(arbitration)와의 2자 구분뿐이라 도식 근거 부족
+- early-admission: triage:전형 이름 나열과 수능 최저 유무 이분이 전부여서 정의를 되풀이하는 분류도가 됨
+- stockpile-management-emergency: triage:적정 재고, 유효기간, 순환, 신속 배분이 순서 없이 열거되고 순환 재고도 한 문단 서술이라 구조가 불분명
+- peacekeeping-operations: triage:평화강제와의 2자 구분과 임무 확대 서술이며 시점·단계가 구체적이지 않음
+- pivotal-politics-theory: triage:1차원 이념축 위 위치 모형은 곡선 함수나 기존 type으로 그릴 수 없고 중위의원·중추의 상대 위치가 본문 밖 지식에 의존
+- socially-engaged-art: triage:실천 방향 서술과 관계미학과의 2자 구분, 평가 논쟁 중심이라 구성 요소 구조가 없음
+- working-memory-development: triage:배들리 4구성 요소는 한 문장 언급뿐이고 연령별 증가는 모양이 제시되지 않아 도식화할 근거 부족
+- docker-compose: triage:컨테이너 구성 요소 이름 열거와 도구 설명이며 쿠버네티스와의 2자 비교뿐
+- attention-deficit-hyperactivity-disorder: triage:부주의·과잉행동충동·복합 세 하위 유형의 단순 나열이라 정의 반복이고 진단 기준 서술이 중심
+- light-curing-unit: triage:기기 하나의 작동 설명이고 광개시제 활성화와 거리별 에너지 감소는 본문에 수치가 없어 곡선도 못 그림
+- classroom-management: triage:예방 대 사후 대응의 2자 대비와 규칙 나열이며 쿠닌 연구도 두 변수 언급뿐
+- postpartum-depression-screening: triage:설문 선별 후 고위험이면 임상 평가로 연계라는 2단계가 정의와 같음
+- retained-earnings-tax: triage:과세 요건과 제도 변경 서술이며 투자·임금·배당 차감 구조도 산식 수준의 열거
+- spiritual-direction: triage:상담과의 구분을 말하는 실천 서술이고 단계나 구성 관계가 없음
+- gossip-protocol: triage:푸시·풀·푸시-풀 전파 방식과 log n 라운드는 언급되나 확산 곡선 모양이 본문에 제시되지 않아 도식 근거 부족
+- digital-education-divide: triage:접근 격차와 활용 격차 2층 구분과 요인 나열이 전부
+- intrinsic-value-of-education: triage:내재적 가치 대 도구적 가치의 2자 대립이고 인적자본론과의 철학적 논쟁 서술
+- collective-unconscious: triage:개인무의식과 집단무의식 2층이며 검증 불가 가설이라 구조를 단정해 그리기 부적절
+- mujerista-theology: triage:특정 신학 흐름의 방법 서술이고 인접 신학과의 구분은 서술에 그침
+- organizational-diagnosis: triage:진단 후 피드백·개입이라는 선후만 한 줄 언급되고 진단 모형별 차이는 이름만 나열
+- liturgical-renewal-movement: triage:세 축 나열과 제2차 바티칸 공의회 한 사건뿐이라 시간 순서·구조 도식 근거 부족
+- git-version-control: triage:커밋·브랜치·머지·태그 용어가 나열될 뿐 관계 구조가 본문에 서술되지 않음
+- cafeteria-plan: triage:선택지 수와 만족도의 역U 관계가 실증 수치 없이 경고 문장으로만 나오고 설계 유형 3종은 이름만 열거
+- window-dressing: triage:분식과 역분식, 합법적 이익조정과의 구분이 2자 비교의 반복
+- neuroaesthetics: triage:뇌 영역과 미적 반응의 대응은 환원주의 논쟁이 중심이라 단정해 그리기 어렵고 구조 도식 근거도 없음
+- attributable-risk: triage:발생률 차이라는 단일 산식이고 상대위험도와의 비율 대 차이 2자 비교뿐
+- lactobacillus: triage:단일 세균명이며 뮤탄스연쇄상구균과의 개시 대 진행 구분도 2자 비교
+- avatara: triage:화신 목록의 수와 구성이 문헌마다 다르다고 본문이 밝혀 단정적 목록도가 어렵고 성육신과의 2자 비교뿐
+- metal-bracket: triage:특정 재질 장치의 장단점 나열이며 세라믹브라켓과의 2자 비교
+- mother-goddess: triage:여러 문화 여신을 하나로 묶는 것 자체가 비판받는 개념이라 도식화가 오히려 과잉 일반화를 조장
+- closure: triage:함수와 외부 변수라는 2요소 관계이며 렉시컬 스코프 설명은 본문에 구조도 수준으로 제시되지 않음
+- interim-analysis: triage:자료모니터링위원회 검토 후 조기종료 판단이라는 흐름이 정의 문장과 같고 경계값 곡선은 본문에 수치가 없음
+- nosql-database: triage:문서·키-값·컬럼·그래프 4유형이 정의에서 이미 열거되어 분류도가 정의 반복
+- infant-and-toddler-assessment: triage:평가와 계획의 순환은 한 문장 언급이고 목적 4차원과 방법 병행도 나열에 그침
+- fire-evacuation-drill: triage:훈련 구성 요소(경로 숙지, 신호 인지, 집결지 이동) 나열과 실시 원칙이 전부
+- cooperative-childcare-center: triage:특정 어린이집 유형의 운영 특징 서술이며 총회·운영위원회 외 관계 구조가 없음
+- childhood-obesity-prevention: triage:개인 수준과 환경 수준 2층 구분과 요인 나열이라 구성 요소가 적음
+- garbage-collection: triage:마크-앤-스윕·복사·참조 카운팅 이름만 열거되고 각 단계가 설명되지 않아 도식 근거 부족
+- life-cycle-ritual: triage:출생·성년·결혼·죽음 의례 나열이고 통과의례 삼단계는 이름만 언급되어 본문 밖 지식에 의존
+- war-crime: triage:로마규정 8조 유형화는 항목 나열 서술이며 국제·비국제 충돌 2분이 전부
+- rating-scale-method: triage:숫자평정척도와 도식평정척도 2유형 비교이며 척도 자체는 단일 도구
+- non-formal-learning: triage:형식·비형식·무형식 3유형 구분이 본문 대부분이나 조직성·의도성 두 기준의 단순 대비라 정의 반복에 그침
+- nvlink: triage:단일 하드웨어 기술명; NVLink·NVSwitch·인피니밴드 계층은 한 문장 언급이라 그릴 관계 근거 부족
+- disenchantment: triage:베버의 추상적 문화 과정 서술뿐, 구성 요소 간 구조·단계가 본문에 없음
+- everyday-aesthetics: triage:분야 소개와 학자 입장 나열(레디 대 사이토)이라 구조화된 관계 3개 이상이 없음
+- systematic-theology: triage:하위 영역 7개 나열은 목차 수준이고 글로 충분; 성서·역사신학과의 구분도 단순 대비
+- phenomenology-of-religion: triage:방법론적 태도(판단중지)와 비판 서술 위주라 단계·분류 구조가 본문에 없음
+- contrapposto: triage:단일 조각 자세 개념; 체중 다리와 이완 다리의 대비는 구성 요소 2개뿐
+- video-art: triage:미술 사조 소개와 작가 사례 위주, 관계 구조가 없음
+- plausibility-structure: triage:신념과 공동체·관행의 관계 설명이 모호한 서술이라 명확한 3요소 구조가 본문에 없음
+- gilding-technique: triage:볼루스→금박 부착 순서가 한 문장 언급에 그치고 나머지는 의미 해석이라 절차로 그리기엔 근거 빈약
+- dentinogenesis-imperfecta: triage:Shields 분류 I·II·III형은 단순 나열이고 구분 근거가 골형성부전증 동반 여부 하나뿐이며 나머지는 소견 서술
+- affective-commitment: triage:3요소 모형의 한 하위 요소이며 본문이 지속적 몰입과의 이분 대비와 선행변수 나열에 그침
+- childcare-teacher: triage:직종·자격 제도 설명, 도식화할 기전이나 구조 없음
+- theology-of-glory: triage:십자가 신학과의 두 항 대비뿐이고 비교 축이 이성·업적 대 고난 한 가지로 얕음
+- epidemic-doubling-time: triage:핵심이 지수 증가 곡선 모양이나 plot에 지수 증가 함수가 없고 다른 type으로는 그릴 수 없음
+- right-to-play: triage:아동권리협약 조항 하나에 관한 권리 개념, 구성 요소 간 관계 없음
+- audit-committee: triage:이사회 내 기구 설명과 법규 서술, 도식화할 3요소 이상의 관계 구조가 본문에 명시되지 않음
+- wpa-art: triage:역사적 정책 사례 하나; 인물과 양식 언급은 나열이라 도식화할 구조 없음
+- maximum-flow-problem: triage:핵심 그림은 용량 네트워크 그래프인데 9개 type으로 그릴 수 없고 포드-풀커슨 절차도 본문에 단계 서술이 빈약
+- mucoperiosteal-flap: triage:단일 수술 술식명; 기저부가 넓은 판막 설계는 도형 하나로 요소 간 관계가 아님
+- rotary-position-embedding: triage:2차원 쌍 회전 기하와 내적 성질은 수식·벡터 그림이 필요한데 지원 type이 없고 본문 근거도 설명 위주
+- hard-disk-drive: triage:단일 장치명; 탐색 시간·회전 지연 외에 구조 관계 없고 SSD 비교도 단순 대비
+- tachisme: triage:앵포르멜의 하위 사조명 한 개와 액션페인팅 대비뿐인 사조 소개
+- compulsory-education: triage:의무와 무상 두 개념 구분이 전부이고 네 칸 근거(두 기준 각 2수준)가 본문에 없음
+- track-ii-diplomacy: triage:1트랙·2트랙 두 층 대비와 신뢰 구축 효과 서술이라 정의 반복 수준, 구체적 3요소 구조가 약함
+- enrollment-capacity-system: triage:행정 제도 설명이며 정원과 현원 두 값의 구분 외 구조가 없음
+- health-insurance-system: triage:재원 조달 3유형 나열은 글로 충분하고 각 유형의 구체 구조·차이를 비교할 축이 본문에 부족
+- sincere-voting: triage:전략적 투표와의 두 항 대비일 뿐이고 제도 영향은 한 줄 서술이라 비교 축이 부족
+- occupational-disease-surveillance: triage:수동·능동·코호트 방식 나열은 구성 요소 관계가 아닌 분류 목록에 그치고 서로 관계 구조가 약함
+- suturing: triage:봉합 방법과 재료 종류의 나열이며 유기적 관계 구조 없음
+- penalty-tax: triage:가산세 유형(무신고·과소신고·납부지연) 나열이며 계층이나 흐름 구조가 본문에 구체적이지 않음
+- nutritional-epidemiology-cohort: triage:연구 설계 일반 설명(식이 측정, 추적, 연관 분석)이라 구체적 단계 구조와 글 외의 정보가 없음
+- partial-inclusion: triage:완전통합과 특수학급 사이 중간 지점이라는 연속체 위치 설명뿐이고 구성 요소가 3개 미만으로 구조화되지 않음
+- market-based-transfer-pricing: triage:이전가격 방식 하나; 핵심 논거는 수요·비용 곡선 지식이 필요해 본문 밖 지식에 의존
+- unitary-system-theory: triage:연방제와의 단순 대비이며 비교 축이 권한 출처 하나뿐
+- dyslexia: triage:학습장애 하위유형 한 가지의 특성 서술, 도식화할 3요소 이상의 관계 없음
+- underachieving-student: triage:학습지진·학습장애와의 구분은 지능과 인지결함 두 기준이나 네 번째 칸이 본문에 정의되지 않아 네 칸으로 그릴 수 없음
+- theology-of-crisis: triage:변증법적 신학의 다른 이름일 뿐인 동의어이며 구조 설명이 없음
+- metabolic-syndrome-prevalence: triage:유병률은 통계 수치이며 기준 5가지 나열이나 진단기준 차이 서술은 구조·관계가 아님
+- council-of-nicaea: triage:사건 하나이며 325년과 381년 두 시점뿐이라 타임라인 구성 요소가 2개에 그침
+- domain-adaptation: triage:방법 3종(분포 거리 축소·적대적·가짜 라벨) 나열이 중심이고 분포 정렬 원리를 보여 줄 그림은 본문 밖의 특징 공간 지식에 의존
+- sequencing-debate-democratization: triage:선거 선행 대 법치 선행 두 입장의 대립 서술이라 비교 축이 순서 하나뿐이고 논쟁을 단정 없이 그릴 구조가 없음
+- activity-based-budgeting: triage:활동량 추정에서 자원을 역산한다는 서술이 정의·쉬운 풀이와 같은 내용의 반복이고 증분 예산과의 대비도 한 줄
+- active-obedience-of-christ: triage:능동·수동 순종 두 항의 짝과 전가 교리 논쟁이라 구성 요소가 2개이고 논쟁 중인 교리를 단정 없이 그리기 어려움
+- multicultural-education-policy: triage:이주배경 학생 지원과 전체 학생 교육의 두 축 및 결핍 보완에서 확장으로의 변화 한 줄이라 구조 요소가 2개 수준
+- daoist-nourishing-life: triage:도인·토납·복식 수련법 나열이며 서로의 관계나 단계가 본문에 제시되지 않음
+- compensatory-education: triage:추가 지원 정책의 소개와 결핍 관점 비판 서술이며 헤드스타트 사례 하나 외에 도식화할 구조 없음
+- it-governance: triage:원형 6종과 의사결정 영역 5개가 나열될 뿐 어느 영역에 어느 원형이 대응하는지 본문에 없어 그림의 근거가 부족
+- learning-organization: triage:다섯 규율과 다섯 판별 지표를 나열한 서술이며 요소 간 관계가 본문에 제시되지 않음
+- edi: triage:단일 기술명이며 EDIFACT와 ANSI X12 표준 변환 언급 외에 구성 요소 간 관계가 없음
+- mediated-learning: triage:매개 기준(의도성·상호성·의미 부여·초월)의 나열이고 관계 구조나 단계가 본문에 없음
+- contribution-margin-income-statement: triage:매출에서 변동원가, 다시 고정원가를 빼는 산식이 정의 문장에 이미 있어 그림이 정의를 되풀이함
+- kruskal-algorithm: triage:4단계 절차는 쉬운 풀이에 이미 서술돼 있고 의미 있는 그림은 정점·간선 그래프인데 지원 type으로 못 그림
+- two-pointers-technique: triage:포인터 이동 규칙은 배열 위 위치 그림이 핵심이나 지원 type으로 못 그리고 두 가지 규칙 서술은 글로 충분
+- self-conscious-emotions: triage:수치심 대 죄책감 구분이 한 문장씩이고 출현 시기는 단일 값이라 도식화할 구성 요소가 부족
+- amended-tax-return: triage:수정신고와 경정청구 두 방향 대비가 핵심이고 감면 단계는 구체 수치가 본문에 없어 그릴 수 없음
+- mucocele: triage:일출형과 저류형 두 유형 대비와 재발 서술뿐이라 구성 요소가 2개
+- dominant-party-system: triage:일본·남아공 사례 나열과 일당제와의 한 줄 대비라 비교 축이 부족
+- romantic-educationalism: triage:사상적 태도와 루소·발도르프 사례 서술이며 구체적 모형이 아니라고 본문이 밝힘
+- tipping-tooth-movement: triage:저항중심을 축으로 한 기울임 기하는 힘 벡터 그림이 필요한데 지원 type이 없고 치체이동으로의 전환은 2단계뿐
+- tax-basis: triage:장부금액과 세무기준가액 두 값의 비교가 핵심이며 이연법인세 연결은 한 줄이라 구성 요소 3개 미만
+- college-scholastic-ability-test: triage:단일 시험 제도 소개이며 표준점수 환산은 한 문장이라 도식 구조 없음
+- work-life-balance: triage:시간·긴장·행동 기반 갈등 3유형이 한 문장씩 나열돼 있어 그림이 분류 목록을 되풀이할 뿐 새 정보를 주지 못함
+- glazing-technique: triage:층 쌓기와 빛 반사 단면은 지원 type에 없고 본문의 층 순서 언급도 한 문장
+- pastoral-theology: triage:학문 분야 소개이며 상담·심방 나열과 인접 학문과의 대화 서술뿐 구조 없음
+- unlimited-atonement: triage:제한속죄와의 두 입장 대립과 절충 정식 한 줄뿐이라 비교 축이 부족하고 교리 논쟁을 단정 없이 그리기 어려움
+- cost-plus-pricing: triage:원가에 가산율을 더하는 산식은 정의 반복이고 고정비 악순환 서술은 한 문장뿐
+- cpu-scheduling: triage:FCFS·SJF·라운드 로빈 이름만 나열되고 분류 기준이나 동작 비교가 본문에 없음
+- civic-nationalism: triage:종족적 민족주의 쪽 내용이 거의 없어 같은 기준으로 나란히 비교할 칸을 채울 수 없고 혼재 경고가 핵심
+- two-kingdoms-doctrine: triage:영적·세속 두 왕국의 대비뿐이고 해석이 엇갈리는 논쟁 주제라 비교 기준이 좁음
+- vertical-accountability: triage:수직·수평·사회적 책임성 구분이 본문에 짧게 곁들여진 정도이고 정의 반복 수준
+- yin-yang-thought: triage:음과 양 두 요소의 상보 관계 서술이라 구성 요소 2개이고 오행과의 결합은 한 줄 언급
+- primary-election: triage:폐쇄형·개방형·top-two 유형 나열뿐이고 유형 간 비교 기준이 본문에 없음
+- postmodern-condition-lyotard: triage:거대서사에서 언어게임으로의 이행을 진단하는 철학적 서술이며 구성 요소 관계 구조가 없음
+- theodicy: triage:답변 유형이 이름만 나열되고 각 유형의 구조나 관계가 서술되지 않으며 용법 구분이 핵심
+- diabetes-periodontal-disease: triage:치주 치료가 혈당을 낮추는 반대 방향 경로는 메타분석이 일관되지 않아 양방향을 단정해 그릴 수 없고 단방향은 정의 반복
+- childcare-voucher: triage:지급 방식 소개이며 양육수당과의 구분 외에 구성 요소 간 관계 구조 없음
+- cariogenic-bacteria: triage:특이균 가설 대 생태학적 치태 가설의 두 이론 대비가 핵심이고 학계 전환 중인 논쟁을 두 항으로만 비교하게 됨
+- tondo: triage:원형 회화 형식 소개와 사례 나열이며 구성 요소 관계가 없음
+- support-vector-machine: triage:마진과 서포트 벡터는 산점도 위 경계선 기하가 핵심인데 plot 함수로 못 그리고 다른 type도 없음
+- audit-fees: triage:단일 가격 개념 — 본문은 결정모형 회귀 설명이라 도식 가능한 구성 관계가 없음
+- health-governance: triage:추상 개념 — 평가 원칙 나열뿐 구성 요소 간 관계가 불명확
+- cadre-party: triage:정당 유형 하나의 설명 — 대중정당과의 비교 축이 본문에 충분히 제시되지 않음
+- goodness-of-fit: triage:기질×환경 2x2 칸의 결과가 본문에 없어 외부 지식 의존
+- cyst-enucleation: triage:단일 술식 — 단계 순서가 본문에 구체적으로 없고 정의 반복
+- bradford-hill-criteria: triage:아홉 관점의 나열 — 서로 관계 없는 목록이고 힐 본인이 체크리스트로 쓰지 말라 함
+- notes-payable: triage:단일 계정과목 — 정의 반복, 외상매입금과의 관계도 2개 항목뿐
+- panoramic-radiograph: triage:단일 검사법 — 정의·한계 서술뿐 도식 가능한 구조 없음
+- union-with-christ: triage:칭의·성화의 근거 구조 자체가 신학적 논쟁 중이라 단정해 그릴 수 없음
+- epithelial-dysplasia: triage:3단계 등급 목록 — 등급 체계 자체가 개정 중이고 관계가 단순 서열
+- international-political-economy: triage:세 이론 전통의 나열 — 분야 소개로 정의 반복
+- guessing-parameter: triage:3PL 하한 있는 S자 곡선이 핵심이나 logistic으로는 0이 아닌 하한을 못 그림
+- just-in-time-costing: triage:역류원가계산 서술 — 정의 반복, 구성 요소 2개뿐
+- mosaic-covenant: triage:조건적 대 무조건적 언약 대비 한 쌍뿐 — 본문에 비교 축이 부족하고 학설도 갈림
+- froebel-education: triage:인물·사상 소개 — 은물/작업 외 관계 구조 없음
+- sialolithiasis: triage:결석 형성→폐쇄→통증 인과가 정의 반복이고 치료 분기는 크기·위치 두 변수 서술뿐
+- free-school-movement: triage:역사적 운동 소개 — 서머힐 사례와 비판 서술 위주, 도식 구성 요소 없음
+- nuri-curriculum: triage:정책명 — 두 부처 이원화 설명이 2개 항목 대비뿐
+- vocational-competency-development-training: triage:훈련 종류 3개 나열과 제도 설명 — 분류 이상의 관계 없음
+- official-development-assistance-health: triage:양자/다자, 수직/수평 두 분류를 나열한 수준 — 관계 없는 구분
+- epigenesis: triage:전성설과의 2항 대비만 있고 전성설 내용이 본문에 거의 없음
+- trading-securities: triage:단일 계정 분류 — 매도가능증권과의 대비가 한 문장뿐
+- neidan: triage:정→기→신→허 단계 명칭과 순서가 유파마다 달라 단정해 그릴 수 없음
+- geographic-tongue: triage:단일 병변 서술 — 도식 가능한 구조·경로 없음
+- profit-center: triage:책임중심점 유형 비교가 본문에 투자중심점 한 줄뿐
+- change-resistance: triage:원인·완화 방법이 본문에 구조화되어 있지 않고 저항 개념 자체가 논쟁적
+- entertainment-expense-limit: triage:한도 계산 구조가 구체적 수치 없이 서술뿐이고 정의 반복
+- postmodern-art: triage:이질적 경향의 포괄 범주 — 시기 구분 자체가 논쟁적이라 단정 불가
+- evangelicalism: triage:베빙턴 네 요소의 나열 — 요소 간 관계 없는 목록
+- discipline-centered-curriculum: triage:교육과정 접근 하나의 서술 — 비교 대상이 본문에 구체화되지 않음
+- urmonotheismus: triage:검증 안 된 논쟁적 가설이라 단정해 그릴 수 없음
+- early-stopping: triage:훈련 손실은 감소·검증 손실은 U자 곡선이 핵심이나 U자 함수가 없음
+- paid-educational-leave: triage:제도 하나의 정의 서술 — 구성 요소 관계 없음
+- free-childcare: triage:정책 소개 — 국고·지방비 분담 서술뿐 도식 가능한 관계 없음
+- ridge-splitting: triage:동시/단계 식립 두 갈래뿐 — 단계 절차가 본문에 구체적이지 않음
+- textual-variants-nt: triage:이문 발생 원인과 판단 증거가 나열 수준이며 원인 간 관계가 없음
+- nerve-block-anesthesia: triage:단일 마취법 — 침윤마취와의 대비가 서술뿐 구성 요소 부족
+- throughput-accounting: triage:정의 반복 — 병목 중심 논리가 구성 요소 2~3개로 단순
+- neorealism: triage:정의 반복 — 구조→행동 인과와 두 분파가 요약 수준이고 학파 구분이 논쟁적
+- microgenetic-method: triage:횡단·종단과의 관찰 간격 대비 한 쌍뿐이고 본문에 비교 수치·구성 요소가 구체적이지 않아 정의 반복
+- franchising: triage:본사-가맹점 관계 서술과 두 유형 분류 수준 — 경로·순서가 본문에 없고 직영 대 가맹 논쟁은 가설 경합 중
+- information-systems-audit: triage:설계평가/운영평가 두 항목과 통제 항목 나열 — 정의 반복
+- oral-candidiasis: triage:위험 요인→과증식→병변이 정의 반복이고 유형 분류 4개는 임상 서술 나열
+- art-activity: triage:활동 정의와 지도 원칙 서술 — 관계 구조 없음, 발달 단계 이름만 언급
+- educational-field-theory: triage:자본 전환 경로가 특정 연구 사례에 한정되고 구조결정론 논쟁이 있어 단정 불가
+- data-leakage: triage:누수 유형 3가지 나열 — 유형 간 관계 없이 사례 목록뿐
+- initiative-vs-guilt: triage:에릭슨 8단계 중 한 단계 — 단독으로는 구성 요소 2개(주도성, 죄책감)뿐
+- psychological-control: triage:행동통제와의 2항 대비뿐이고 본문이 같은 내용을 반복해 비교 축이 얕음
+- cannibalization: triage:신제품 매출=순증+잠식 분해가 정의 반복 — 구성 요소 2개뿐
+- general-revelation: triage:세 통로 나열과 특별계시 대비 한 쌍 — 구원 지식 여부는 신학 전통별 해석 차이
+- theory-of-educational-equality: triage:세 층위 나열이고 층위 이동 서사가 논쟁적이라 위계로 단정 불가
+- divine-omnipotence: triage:추상 속성 교리 — 정의 정교화 논쟁뿐 도식 가능한 구조 없음
+- bellman-equation: triage:한 줄 재귀식 정의 반복 — 기대·최적 두 변형 외 구성 요소 부족
+- minority-government: triage:의석 과반 미달 정부 정의와 안정성 논쟁 — 도식 구조 없음
+- yahwist-source: triage:가설적 자료층이라 존재·범위가 논쟁 중이며 단정해 그릴 수 없음
+- school-collapse-theory: triage:언론·담론 성격이 강한 진단으로 실제 정도에 대한 학계 이견이 있어 단정 불가
+- felix-culpa: triage:타락→구속→더 큰 선 3항 서사 자체가 신정론 쟁점이라 단정해 그릴 수 없음
+- health-federalism: triage:중앙집중/분권 장단점 2항 서술 — 국가별 편차가 커 일반 구조를 단정 불가
+- tensor-core: triage:정밀도 조합 서술 — 단계가 곱셈·누적 두 개뿐
+- ensemble-learning: triage:배깅 대 부스팅 대비가 서술 수준으로 본문의 구성 요소가 2개뿐
+- investigation-of-things: triage:핵심이 주희 대 왕양명 해석 논쟁이라 단일 구조로 단정 불가
+- religion-as-cultural-system: triage:기어츠 정의에 대한 비판이 큰 단일 이론 소개 — 상징·세계관·에토스 관계가 정의 반복
+- extended-deterrence: triage:동맹 공약→신뢰성 의문 인과가 정의·주의점과 겹치고 단계가 불명확
+- edentulous: triage:단일 상태 정의 — 부분/완전 무치악 구분 외 구성 요소 없음
+- secular-theology: triage:급진·온건 갈래가 혼재한 사조 — 하나의 구조로 단정 불가
+- transition-education: triage:정책 목적 서술 — 단계·구성 요소가 본문에 구체적으로 없음
+- intraoral-scanner: triage:단일 장비 소개 — 스캔→CAD/CAM 흐름이 정의 반복
+- stability-instability-paradox: triage:작동 여부가 경험적으로 엇갈리고 성립 조건이 까다로워 단정해 그릴 수 없음
+- gaze-lacan: triage:추상 정신분석 개념 — 구성 요소 관계가 정의 반복이고 해석 논쟁 있음
+- curatorial-criticism: triage:비평 영역 정의 — 큐레이터 저자성이 논쟁적이고 구성 요소 관계 없음
+- surrealist-automatism: triage:단일 창작 기법 — 매체별 변형 나열뿐 순서·관계 없음
+- vaccine-preventable-disease: triage:접종률-집단면역 관계는 곡선 수치가 본문에 없고 질환 분류 정의 반복
+- lifelong-learning-society: triage:이념형 개념 — 정책 사례 나열뿐 도식 가능한 구조 없음
+- notes-receivable: triage:단일 계정 — 할인 처리 매각/차입 분기가 서술뿐이고 단계가 구체적이지 않음
+- postmaterialism-theory: triage:경제 위기 이후 반례로 수정된 이론이라 일방향 인과로 단정해 그릴 수 없음
+- distributive-justice: triage:형평·평등·필요 규칙 나열 — 규칙 간 관계 없이 관계 유형별 선호 서술뿐
+- service-dominant-logic: triage:재화 지배논리와의 관점 대비가 정의 반복 — 구성 요소 2개
+- mysterium-tremendum: triage:누미노제의 한 요소 소개 — 세부 계기 3개 나열이고 보편성 비판이 있음
+- professional-learning-community: triage:핵심 요소 5개의 나열 — 요소 간 관계 없는 목록
+- pacted-transition: triage:이행 유형 분류의 한 칸일 뿐이고 본문에 나오는 비교 축·유형이 협약형 하나뿐이라 네 칸을 채울 근거가 없다
+- international-law: triage:법원 네 가지를 나열하는 수준이고 이론 간 논쟁은 도식으로 단정하기 어렵다. 정의 반복에 가깝다
+- character-education: triage:직접적 접근 대 간접적 접근 두 가지 비교뿐이고 덕목 목록·위계 구조는 본문에 구체적 관계로 없다
+- communio-theology: triage:신학 흐름의 정의와 계보 설명 위주라 관계 맺는 구성 요소 3개가 도식화될 만큼 구체적이지 않다
+- glossolalia: triage:사적 기도 방언 대 공적 방언·제노랄리아 구분이 신학 논쟁 중이라 단정해 그리기 어렵고 구성 요소도 2개 수준이다
+- preoperational-stage: triage:피아제 4단계 중 한 단계의 특징 나열이고 단계 간 관계는 다른 용어(피아제 발달단계)의 몫이다
+- age-period-cohort-analysis: triage:세 효과가 선형 종속이라 식별 불가능하다는 점은 방법론 논쟁 사안이고 본문만으로 정직하게 그릴 수 있는 그림이 세 요인 나열에 그친다
+- inventory-turnover-ratio: triage:단일 비율 하나의 정의이고 현금전환주기 연결은 다른 용어의 내용이다. 본문에 그림이 될 순서 구조가 약하다
+- achievement-standards: triage:교육과정-수업-평가 연결 서술은 있으나 단계 구조가 불분명하고 정의 반복에 가깝다
+- adoption: triage:입양 대 위탁, 친양자 대 일반양자 모두 2항 비교에 그치고 구체 기준 축이 다 다르다
+- experience-centered-curriculum: triage:교과중심 대 경험중심 2항 대비뿐이며 구성 요소가 3개 미만이다
+- leukoplakia: triage:균질형 대 비균질형 두 유형 구분뿐이고 위험도 요인은 나열 수준이다
+- judicialization-of-politics: triage:정치에서 사법으로의 이동이라는 방향 하나를 말할 뿐 단계·분류가 없고 원인 목록은 학설별로 다르다
+- liberation-theology: triage:신학 입장 소개와 논쟁 설명이라 도식화할 구성 요소 관계가 없다
+- conventional-level: triage:콜버그 3수준 체계의 한 수준으로 하위 두 단계만 나오고 전체 위계는 다른 용어의 몫이다
+- profit-sharing: triage:현금분배형 대 이연분배형, 스톡옵션과의 비교가 각각 2항이고 정의 반복에 가깝다
+- cellulitis: triage:질환 하나의 정의와 임상 특징 서술이며 확산 경로 단계는 본문에 구체적으로 열거되지 않았다
+- life-course-epidemiology: triage:결정적 시기·누적·경로 세 모형은 이름만 나오고 각 모형의 구체적 형태는 본문 밖 지식에 크게 기대야 한다
+- total-cost-of-ownership-logis: triage:구매·운영·처분 비용 세 범주는 합산 개념의 정의 반복이고 그림이 더해 주는 통찰이 없다
+- school-life-record-subject-admission: triage:전형 하나의 정량평가 특성 설명이고 비교 대상 전형은 이름만 언급된다
+- disease-burden-measurement: triage:DALY=YLL+YLD라는 합산 한 줄 공식이라 그림이 정의를 되풀이한다
+- hermeneutic-pedagogy: triage:해석학적 순환이 부분과 전체 두 요소뿐이라 3단계 이상의 순환이 되지 않는다
+- buddha-nature: triage:교리 개념 설명이며 본각 대 시각 해석 스펙트럼은 논쟁 중이라 단정해 그릴 수 없다
+- federal-headship: triage:아담과 그리스도의 대표 구조는 개혁신학 특정 전통의 해석이고 실재적 연합론과의 논쟁이 얽혀 단정해 그리기 어렵다
+- education-benefit: triage:제도 하나의 지급 항목과 대상 설명이며 구성 요소 간 관계가 없다
+- penal-substitution: triage:속죄론 여러 모델 간 논쟁 중인 한 모델이라 인과 사슬로 단정해 그리기 어렵고 본문 서술도 정의 반복이다
+- learning-circle: triage:소모임 형태의 정의와 특성 서술이고 구성 요소 관계나 순서가 없다
+- child-protection-plan: triage:계획 수립 후 재평가라는 순환이 암시될 뿐 단계가 본문에 명확히 열거되지 않고 제도 절차는 사례마다 다르다
+- general-judgment: triage:개별심판과의 2항 비교이고 세대주의와 개혁주의가 심판 단계 수를 다르게 보는 논쟁 사안이다
+- mean-length-of-utterance: triage:형태소 수를 발화 수로 나누는 단일 지표이며 발달 곡선은 본문에 수치가 없어 그릴 근거가 부족하다
+- childcare-teacher-certification-system: triage:1급·2급·3급 등급 언급은 있으나 승급 요건이 본문에 구체적으로 없어 제도 설명 수준이다
+- lifelong-learning-center: triage:기관 하나의 기능 목록과 운영 주체 구분이고 구성 요소 간 관계 구조가 없다
+- sensus-literalis: triage:문자적 의미 대 알레고리적 의미 2항 대비이고 콰드리가 도식은 본문에 구체적이지 않다
+- lateral-window-sinus-lift: triage:술식 이름만 있고 절차 단계가 순서대로 서술되어 있지 않으며 치조정접근법과의 비교는 2항뿐이다
+- energy-security: triage:안정·가격·다변화·회복력을 나열한 다차원 개념 설명이라 구성 요소 간 관계가 드러나지 않는다
+- minimal-winning-coalition: triage:최소승리·과대연합·소수정부 세 유형 이름만 나오고 의석 수 기준 그림은 도식 유형으로 그릴 수 없으며 이론 예측력 자체가 논쟁 중이다
+- bonhoeffer-theology: triage:인물 중심 신학 사상 소개이며 해석이 갈려 단정해 그릴 구조가 없다
+- high-church-worship: triage:고교회 대 저교회 2항 대비이고 스펙트럼은 교단마다 기준이 달라 단정하기 어렵다
+- school-self-evaluation: triage:외부평가 대 자체평가 2항 대비에 환류 필요성 언급뿐이며 구체적 단계가 없다
+- one-way-function: triage:정방향 쉬움 대 역방향 불가능이라는 두 방향 대비 하나이고 트랩도어 변형은 한 줄 언급이라 구성 요소가 3개에 못 미친다
+- community-education: triage:교육 유형의 정의와 효과 연구 서술이며 단계나 구성 요소 관계가 없다
+- covenant-premillennialism: triage:세대주의·무천년설과의 입장 구분은 종말론 내부 논쟁이고 두 축으로 나눠도 한 칸이 비어 네 칸 도식이 성립하지 않는다
+- neo-evangelicalism: triage:근본주의와의 태도 차이를 말하는 운동사 서술이고 대표 인물·사건 몇 개는 시간 순서나 구조로 이어지지 않는다
+- pastoral-care: triage:심방·상담·기도 등 활동 나열이며 서로의 관계나 순서가 본문에 없다
+- freire-pedagogical-thought: triage:프락시스가 성찰과 실천 두 요소의 순환일 뿐이고 은행저금식·문제제기식 교육은 이름만 언급되어 비교 축이 없다
+- simulation-modeling: triage:몬테카를로 대 이산사건 두 기법 이름만 나오고 비교 기준이 본문에 구체적이지 않다
+- demand-forecasting: triage:시계열·인과·정성 세 범주 분류는 단순 나열이라 그림이 정의를 되풀이한다
+- immunization-coverage-rate: triage:접종 완료자 비율이라는 단일 지표이고 집단면역 임계치는 별도 용어(집단효과)의 내용이다
+- street-art: triage:그래피티와 스트리트 아트 구분이 2항이고 제도화 논쟁은 단정해 그릴 수 없다
+- genius-theory: triage:칸트의 천재 네 특징은 속성 나열이고 낭만주의 해석과의 관계는 해석 논쟁 중인 사안이다
+- madhyamaka: triage:사구부정은 철학 학파 내부 해석이 갈리는 논증이고 상견·단견 2극단 외에는 도식 요소가 부족하다
+- corporatism: triage:다원주의와의 2항 비교인데 다원주의 쪽 내용이 본문에 거의 없고 국가·사회조합주의 구분도 한 줄뿐이다
+- signaling-ir: triage:값싼 신호 대 값비싼 신호 2항이고 청중비용은 한 문장 설명이라 도식이 정의를 되풀이한다
+- eternal-generation: triage:성부·성자 한 관계에 대한 교리 설명이며 영원한 기능적 종속론과의 해석 논쟁 중이라 단정해 그릴 수 없다
+- prepared-environment: triage:질서·크기·이동성·종결 네 원리 나열일 뿐 서로의 관계가 없다
+- constructivist-aesthetics: triage:미학 이념 소개이고 구축과 구성의 구분은 필연성 주장이 검증 어려운 논쟁 중 사안이다
+- maturation-child-development: triage:성숙 대 학습 이분법 2항이고 본문도 그 이분법이 유지되기 어렵다고 서술해 도식으로 단정할 수 없다
+- property-tax: triage:세목 하나의 과세 대상과 기준일 설명이고 보유세 대 거래세는 2항 대비뿐이다
+- internal-rate-of-return: triage:NPV를 0으로 만드는 할인율이라는 정의 중심이고 NPV와의 순위 상충은 두 지표 비교 서술에 그친다
+- alternative-school: triage:인가형 대 비인가형 2항 구분이고 나머지는 학교 소개 서술이다
+- steam-education: triage:다섯 분야 이름 나열이고 3단계 수업 모형은 한 줄 언급뿐이라 순서 구조를 그릴 근거가 부족하다
+- permanent-difference: triage:영구적차이 대 일시적차이 2항 대비이고 일시적차이 쪽 내용이 본문에 거의 없다
+- unilateralism: triage:다자주의와의 2항 대비이고 사례는 개별 사건 인용에 그친다
+- at-risk-student-support: triage:지원 체계 소개와 다기관 협력 필요성 반복 서술이며 단계가 열거되지 않는다
+- integrated-care-delivery: triage:수평·수직 통합 2항 구분이고 1차·2차·3차 연계는 일반 정의 반복이다
+- fenwick-tree: triage:lowbit 연산 원리는 있으나 구간 배치 예시 없이 본문 밖 지식에 크게 기대야 해서 어느 도식 유형으로도 근거가 약하다
+- idealism-in-education: triage:철학 입장 소개이고 동굴 비유와 이데아 설명은 개념 설명에 그친다
+- burning-mouth-syndrome: triage:원발성 대 속발성 2항 구분과 배제 진단 서술이며 기전은 가설 단계다
+- iasb: triage:기구 이름이고 재단·위원회·각국 채택 관계는 기관 설명 수준이다
+- market-development-strategy: triage:안소프 매트릭스의 한 칸 설명이고 다른 세 칸은 본문에 없어 네 칸을 채울 근거가 없다
+- last-judgment: triage:도상 배치 설명이고 좌우 대비 2항이며 여러 작품 사례 언급은 비교 축으로 이어지지 않는다
+- elementary-care-classroom: triage:제도 하나의 운영 소개이며 지역아동센터와의 역할 분담은 한 줄 언급이다
+- out-of-distribution-detection: triage:탐지 기법 이름 나열과 모델 보정과의 목표 차이 한 줄뿐이고 도식 유형으로 관계가 잡히지 않는다
+- creationism-soul: triage:영혼창조설 대 영혼유전설 2항 대비이고 논쟁이 종결되지 않아 단정해 그릴 수 없다
+- intertestamental-period: triage:시기 명칭이고 헬레니즘 유입, 마카베오 항쟁, 분파 형성의 순서가 본문에서 명확하지 않아 시간 순서 도식의 근거가 약하다
+- political-culture-theory: triage:문화 요소 나열과 이론 비판 위주이고 잉글하트 두 축은 네 칸 내용이 없어 도식으로 채울 수 없다
+- outdoor-playground-safety-standard: triage:바닥재·안전거리·검사 항목 나열의 법정 기준이라 구성 요소 간 관계가 없다
+- role-ambiguity: triage:세 하위 요소는 한 줄 언급이고 역할갈등과의 구분은 2항 비교다
+- dynamic-pricing: triage:실시간 가격 조정이라는 정의 반복이며 알고리즘 구성은 개략 언급이다
+- sales-promotion: triage:소비자 대상 대 유통업체 대상 2항 구분이고 광고와의 대비도 한 줄이라 정의 반복에 가깝다
+- talmud: triage:미슈나와 게마라 두 층 구성은 문헌 개요 서술이고 판본 차이는 2항뿐이다
+- child-maltreatment-recurrence: triage:재학대율 지표 해석 주의점 중심이고 위험요인은 나열이며 감시 강화 효과도 단순 설명이다
+- outdoor-play: triage:교육 활동 일반론 — 효과 나열뿐 관계 있는 구성 요소 구조 없음
+- biomechanical-hazard-assessment: triage:RULA·REBA·NIOSH 등 도구 나열 — 도구 간 관계나 순서 구조가 본문에 없음
+- efficacious-grace: triage:저항 가능한 은혜와의 2항 대비 외에 구성 요소 없고 논쟁적 교리
+- polypharmacy-elderly: triage:정의(5종 이상)와 위험 증가 나열 — 처방연쇄는 한 줄 언급뿐이라 도식 근거 부족
+- rest-seat: triage:단일 치과 시술 부위 — 구성 요소 2개(레스트·지대치) 수준
+- procession-of-the-spirit: triage:출생·발출 관계는 신비로 남는다고 본문이 명시하고 필리오케 논쟁 중 — 단정 없이 그리기 어려움
+- policy-network-theory: triage:정책공동체 대 이슈네트워크 양극 스펙트럼 하나뿐 — 구성 요소 2개
+- missing-children-prevention: triage:제도 나열(사전등록·코드아담·경보) — 서로 간 구조·순서 없음
+- totalitarianism-theory: triage:6대 요소는 단순 목록이며 서로 관계 없고 개념 자체가 냉전기 도구라는 비판 대상
+- koinonia-ecclesiology: triage:제도 대 관계 2항 대비뿐, 본문도 둘을 함께 아우른다고 하여 구분선이 모호
+- context-window: triage:한 변수(최대 길이)의 정의 — 비유 외 구성 요소 관계 없음
+- incision-and-drainage: triage:단일 응급 시술 — 절개→배농→원인 처치 단계가 한 줄씩 나올 뿐 근거 빈약
+- global-health-security: triage:예방·탐지·대응 3단 언급은 정의 반복이고 평가 도구는 단순 목록
+- effective-interest-method: triage:상각액 증가 패턴은 표 계산 문제 — 곡선 모양이 핵심이 아니고 구성 요소 2개
+- oral-cancer-screening: triage:선별검사 한 종류 — 보조 도구는 목록이고 단계 구조 없음
+- doctrine-of-the-mean: triage:중(미발)과 화(이발) 두 상태 구분 외 구조 없고 산술적 중간이 아니라는 서술이라 그림화 시 오해 위험
+- internal-control: triage:5개 구성요소가 목록으로만 제시되어 요소 간 관계 근거 없음
+- dentoalveolar-protrusion: triage:골격성 돌출과의 감별 2항 — 구성 요소 2개
+- maternal-nutrition-cohort: triage:연구 설계 한 종류 — 등록·추적 서술뿐 도식 근거 부족
+- tf-idf: triage:TF×IDF 곱셈 정의 반복 — 공식 외 구성 요소 관계 없음
+- world-religions-paradigm: triage:분류 관행에 대한 비판 개념 — 도식화하면 비판 대상 분류를 정당화할 위험
+- sect: triage:교회-분파 2항에 제도화 경향은 본문이 반례로 수정된다고 하여 단정 불가
+- sunni-islam: triage:네 법학파·두 신학파 나열 위주 — 집단 분류 설명이고 도식이 정의를 되풀이
+- process-costing: triage:평균법 대 선입선출법 2항 비교와 계산 설명 — 도식으로 보일 구조 부족
+- predella: triage:제단화 부속 구조 하나 — 본체와 하단 패널 2요소
+- skip-list: triage:층층 연결 리스트는 자료구조 그림이라 9개 type 어디에도 안 맞음
+- drug-induced-gingival-overgrowth: triage:약물·치태·개인 감수성 요인 병렬 나열 — 기전이 가설 수준이라 확정 도식 불가
+- occlusal-splint: triage:단일 치과 장치 — 경성·연성 차이도 한 줄 비교
+- mix-variance: triage:수량차이를 배합·수율로 분해한다는 언급이 짧아 구조가 정의 반복 수준
+- double-burden-of-malnutrition-public-health: triage:영양부족·과잉 2항 공존 — 구성 요소 2개
+- public-art: triage:정의가 논쟁 중이고 전통형·새 장르형 2항뿐
+- ijtihad: triage:이즈티하드 대 타클리드 2항, 관계 구조 없음
+- mind-mindedness: triage:측정 방식 서술 — 적절·부적절 2분류뿐이라 구성 요소 부족
+- social-relations-domain: triage:교육과정 영역과 세부 내용 3개 목록 — 관계 없는 나열
+- incumbency-advantage: triage:자원 요인 나열이고 나라마다 방향이 달라 단정 도식 불가
+- ceramic-bracket: triage:단일 재료 제품 — 심미성 대 마찰·파절 장단점뿐
+- suicide-cluster-investigation: triage:지도화·사회적 연결 확인 두 단계 서술뿐이고 기준이 지침마다 다름
+- abject-art: triage:미술 경향과 작가 목록 — 이론 개념과의 구분 외 구조 없음
+- risk-stratification: triage:저·중·고위험 일반 3단 분류 — 구체 구조 없는 정의 반복
+- monergism: triage:단독설 대 신인협력설 2항 대립이며 논쟁 중인 교리
+- paradox-of-tragedy: triage:해결 시도들이 논쟁 중이어서 하나로 단정해 그릴 수 없고 구조 근거 약함
+- visible-church: triage:보이는 교회 대 보이지 않는 교회 2항 짝 개념 — 구성 요소 2개
+- sandplay-therapy: triage:치료 기법 하나 — 모래상자·소품·해석 서술이고 단계 구조가 본문에 없음
+- sexual-violence-prevention-education: triage:인식·거부·신고 한 줄 언급과 법정 의무 서술 — 교육 내용이 정의 반복
+- curriculum-autonomy: triage:국가 통제와 학교 자율 사이 정도 문제일 뿐 구성 요소가 2극단뿐
+- kaizen: triage:혁신 대비 점진 개선 2항 대비와 운영 사례 나열 — 순환 구조는 본문에 없음
+- criteria-of-authenticity: triage:4개 기준이 독립된 목록이고 기준 자체의 전제가 학계에서 비판받는 중
+- zero-based-budgeting: triage:점증식 대 영기준 2항 비교 — 의사결정패키지는 한 줄 언급뿐
+- sensitivity-training: triage:T그룹 기법 설명과 효과 지속성 서술 — 구성 요소 관계 구조 없음
+- health-promotion-levy: triage:소비 억제와 재원 조성 두 효과 서술 — 효과 크기가 논쟁 중이라 단정 도식 곤란
+- relational-theology: triage:고전적 유신론과의 긴장 2항 서술 — 구성 요소 구조 없음
+- textual-preaching: triage:주해 후 본문 구조 따라 전개하는 방식 설명 — 주제설교와의 2항 대비뿐
+- cuda: triage:특정 제조사 플랫폼명 — 버전 호환 서술이 핵심이고 스레드·블록·그리드는 한 줄뿐
+- hurdle-rate: triage:IRR과 기준선 비교 하나 — 구성 요소 2개이고 정의 반복
+- exchange-rate-politics: triage:수출업계 대 수입 의존 산업의 선호 대립 서술 — 구조 근거가 약하고 사례 나열
+- aesthetic-judgment: triage:취향 표현 대 보편 요구의 이중성 한 쌍 — 이율배반 해결은 칸트 해석에 의존하는 논쟁
+- dodream-school: triage:정책 사업명 — 다중지원팀 구성이 직군 나열뿐이고 관계 구조 없음
+- desert-fathers: triage:역사적 집단 명칭 — 은수자 대 반은수자 2항에 일화 기록 신빙성도 불확실
+- percentage-of-completion-method: triage:진행률 비례 인식이라는 정의 반복 — 측정 방법 세 가지는 단순 목록
+- single-non-transferable-vote: triage:표 이전 없음이라는 단일 규칙 — STV와의 2항 대비와 사례 서술
+- prosperity-gospel: triage:신학적 정당성이 논쟁 중이고 씨앗 심기 원리 한 줄 외 구조 없음
+- principal-agent-theory-politics: triage:본인·대리인 2주체와 통제 수단 나열 — 위임 관계 정의의 반복
+- new-criticism: triage:비평 방법론 서술 — 의도·감정 오류 개념이 목록이고 도식화할 관계 없음
+- naturalism-in-education: triage:루소 사상 서술 — 방임과의 구분 외 구성 요소 구조 없음
+- dentin-hypersensitivity: triage:배제 진단이라는 서술이 반복될 뿐 감별 절차 단계가 구체적이지 않음
+- atheism: triage:강한·약한 무신론 2분류 — 정의 자체가 논쟁 중이라 경계 단정 불가
+- expression-collingwood: triage:예술 대 기예 2항 구분 — 기준에 대한 반론이 본문에 있어 단정 곤란
+- ridge-preservation: triage:발치와 이식 단일 술식 — 이식재와 차폐막 병용 여부는 목록 수준
+- learning-progression: triage:단계 구조 자체가 가설 경로이고 단일 사다리인지 갈래인지 본문이 쟁점으로 남겨 두어 단정 불가
+- narrative-preaching: triage:긴장과 해소 구조 언급뿐이고 전통 설교와의 2항 대비
+- olivet-discourse: triage:성전 멸망과 재림 해석이 학계 논쟁 중이라 단정 도식 불가
+- party-switching: triage:행위 정의와 지역구·비례 제도 차이 서술 — 구성 요소 구조 없음
+- fusion-of-horizons: triage:두 지평의 만남이라는 정의 반복이고 동화가 아니라는 단서까지 있어 벤으로 그리면 오해
+- biblical-inerrancy-debate: triage:완전무오·제한무오·무류성 입장 나열이고 입장 간 포함 관계를 본문이 명시하지 않음
+- arrival-and-departure-guidance: triage:안전 지침 항목 나열 — 인계 확인 절차가 순서 있는 단계로 서술되지 않음
+- avl-tree: triage:트리 모양과 회전 그림이 핵심이라 9개 type에 안 맞고 단계는 균형 확인 뒤 회전 두 가지뿐
+- performance-assessment: triage:평가 방식 정의 반복 — 하위 방법은 나열이고 루브릭 필요성만 강조
+- overhead-allocation: triage:배부 방법 세 가지가 목록이고 정의 반복 — 방법 간 구조 없음
+- anamnesis: triage:단순 회상 대 현재화 2항 구분이고 에피클레시스와의 짝은 한 줄 서술
+- volatile-sulfur-compound: triage:황화수소·메틸메르캅탄·디메틸설파이드 물질 나열 — 화합물 이름 중심
+- collective-action-theory: triage:무임승차 유인 정의 반복 — 규모 효과는 정성 서술이고 오스트롬 수정으로 단정 곤란
+- pac-learning: triage:핵심이 ε·δ·표본수 공식 한 줄이라 구성 요소 관계가 정의 반복이고 plot 함수로도 안 그려진다
+- embodied-aesthetics: triage:신체 대 인지 두 축뿐인 입장 설명이라 구성 요소가 2개이고 정의를 되풀이한다
+- magisterium: triage:통상·비상 두 갈래뿐이라 구성 요소가 사실상 2개이며 도식이 정의를 되풀이한다
+- oral-ulcer: triage:원인 분류와 급성·만성 구분이 나열형 목록이라 그림이 글 이상을 보여주지 못한다
+- industry-attractiveness: triage:GE맥킨지 매트릭스와 포터 5요인은 별도 용어의 내용이고 이 페이지는 평가 요인 나열이다
+- distance-education: triage:실시간·비실시간·혼합의 단순 분류이며 각 항목의 본문 근거가 얇다
+- health-concentration-index: triage:집중곡선과 대각선 사이 면적이 핵심인 곡선이지만 plot에 해당 함수가 없고 다른 type으로도 못 그린다
+- alternative-school-movement: triage:운동의 정의와 비판 나열이며 구성 요소 간 관계나 단계가 없다
+- comparative-religion: triage:학문 분야의 방법론 설명이라 관계 맺는 구성 요소나 수치 모양이 없다
+- anhypostasis: triage:무인격성·내인격성 두 측면의 신학 논쟁이라 구성 요소 2개이고 논쟁 쟁점을 단정하기 어렵다
+- technical-art-history: triage:분석 기법 목록을 나열한 융합 분야 소개라 구성 요소 간 관계가 없다
+- nude-art: triage:네이키드 대 누드 두 개념 구분과 비판 담론이라 2개뿐이고 논쟁적이다
+- community-child-center: triage:시설 기능 나열이며 단계·분류·관계 구조가 본문에 없다
+- loosely-coupled-system: triage:긴밀 대 이완 결합 두 개념 대비뿐이라 구성 요소가 2개다
+- retained-earnings: triage:순이익에서 배당을 뺀 유보라는 산식 하나라 정의 반복이다
+- failed-state: triage:정의와 비판 나열이며 기능 상실의 구성 요소 간 인과가 본문에서 구조화되지 않는다
+- pre-existence-of-christ: triage:선재·성육신·아리우스 논쟁은 신학적 쟁점이라 단정적 도식이 위험하고 구성 요소가 적다
+- advaita-vedanta: triage:참자아와 브라만의 동일성 주장이라 구성 요소가 적고 철학 논쟁을 단정하게 된다
+- dharmakaya: triage:삼신 중 법신만 설명하고 보신·화신의 내용이 본문에 없어 3요소 관계를 그릴 근거가 부족하다
+- contentious-politics: triage:정의와 메커니즘 이름만 나열되고 이들 사이의 관계가 본문에 구체화되지 않는다
+- apex-locator: triage:단일 기기 이름이며 원리 설명도 전기저항 한 줄이다
+- observation-method: triage:다섯 기록 기법을 나열한 목록이고 비교 축이 두 개 정도의 서술에 그친다
+- indirect-pulp-capping: triage:단일 술식이며 단계적 우식제거와의 비교는 별개 용어의 내용이다
+- external-root-resorption: triage:세 유형이 나열되나 분류 근거 설명이 짧아 도식이 글을 넘어서는 정보를 못 준다
+- disease-management-program: triage:프로그램 구성 요소를 나열한 정의 반복이며 요소 간 관계가 없다
+- tensorrt: triage:단일 제품명이며 최적화 기법 나열은 부수적이다
+- impeccability-of-christ: triage:라틴어 두 구분의 신학 논쟁이라 구성 요소 2개이고 쟁점을 단정할 수 없다
+- brahman: triage:니르구나·사구나 두 층위뿐이며 학파 간 논쟁이 얽혀 있다
+- phase-3-clinical-trial: triage:임상시험 단계 중 하나의 설명이라 단일 단계이고 구성 요소가 없다
+- malaria-elimination-program: triage:단계 이름만 나열되고 각 단계의 내용이 본문에 없어 그릴 근거가 부족하다
+- confucius-thought: triage:인·예·서 등 덕목이 언급되나 관계가 본문에 구조화되지 않고 후대 해석 논쟁이 있다
+- subchronic-toxicity: triage:기간별 독성 구분과 NOAEL 언급은 있으나 용량-반응 곡선 형태 설명이 본문에 없다
+- triple-p-program: triage:다섯 수준의 이름과 제공 형태가 정확히 대응되지 않아 위계 구성이 본문 밖 지식에 기댄다
+- curriculum-localization: triage:국가와 지역 수준 두 층의 조정 설명이라 구성 요소가 2개이며 정의 반복이다
+- sister-arts-doctrine: triage:회화와 시의 유비 및 레싱의 반박 두 입장 설명이라 구성 요소가 적다
+- daoist-philosophy: triage:도가와 유가·도교의 구분 설명이며 관계 구조가 2개 개념 대비에 그친다
+- aestheticism: triage:사조 정의와 인물 나열이며 인과·단계 구조가 없다
+- resurrection-of-the-body: triage:영혼불멸과의 구분 한 쌍이며 변화 정도를 두고 신학 견해가 갈린다
+- case-management-child-welfare: triage:사정부터 종결까지 5단계 이름만 나열되고 각 단계 내용이 본문에 없다
+- ground-of-being: triage:틸리히의 한 신 개념 규정이라 구성 요소가 적고 철학적 논쟁이 얽혀 있다
+- overapplied-overhead: triage:예정배부율 대비 실제 발생액이라는 차액 정의 하나이고 과소배부와의 대비는 별개 용어다
+- reshoring: triage:오프쇼어링의 반대 방향이라는 2항 대비이며 니어쇼어링 언급도 단계 구조가 아니다
+- universal-health-coverage: triage:WHO 세 축이 입체 구조라 9개 type 어디에도 맞지 않고 본문도 정의 반복이다
+- theology-of-the-cross: triage:영광의 신학 대 십자가 신학 두 입장 대비뿐이라 구성 요소가 2개다
+- temperament-theory: triage:아홉 차원과 세 유형의 대응이 본문에 없어 분류 근거를 그릴 수 없고 연속 점수라는 주의도 있다
+- seon-meditation: triage:간화선 대 묵조선 두 갈래뿐이라 구성 요소가 2개다
+- millenarianism: triage:콘의 네 기준 목록은 있으나 구성 요소 간 관계나 단계가 없고 정의 반복이다
+- effective-reproduction-number: triage:Rt 1 기준 증가·정체·감소 궤적이 핵심이나 plot에 지수 증가 함수가 없고 decay만으로는 반쪽이다
+- folk-religion: triage:제도종교와의 경계가 모호하다는 서술이라 구성 요소 간 관계가 없다
+- cash-budget: triage:이익과 현금 시차 설명뿐이며 현금 유입·유출 구조의 단계가 본문에 없다
+- generative-ai-art: triage:확산 모델의 노이즈 가감은 한 줄 언급이고 주된 내용은 저작권 쟁점이라 도식 근거가 얇다
+- two-party-system: triage:소선거구제와 양당제의 인과(뒤베르제)는 한 줄이고 캐나다·인도 같은 예외가 있어 단정하기 어렵다
+- altman-z-score: triage:다섯 비율을 가중합해 구간 판정한다는 산식 설명이며 구간 경계 수치도 본문에 없다
+- social-network-analysis-epidemiology: triage:연결 중심성 대 매개 중심성 두 지표 비교뿐이라 구성 요소가 2개다
+- political-legitimacy-theory: merge-candidate: 병합 후보라 보류(was checked)
+- school-effectiveness-research: triage:연구 분야 소개이며 통제와 순효과의 구성 요소가 3개 이상 나오지 않는다
+- after-school-program: triage:제도 목적과 한계 나열이며 단계나 분류 구조가 없다
+- mariology: triage:교파별 교리 입장 차이를 나열한 논쟁적 주제라 단정 도식이 어렵다
+- weight-decay: triage:가중치가 매 단계 줄어든다는 설명이라 곡선으로 그려도 정의 반복이다
+- worship-theology: triage:예배의 두 측면(은혜 사건·응답)만 있어 구성 요소가 2개다
+- glorified-body: triage:자연적 몸 대 신령한 몸 두 상태 대비뿐이고 구체 속성은 견해 차이가 있다
+- psychological-analogy-trinity: triage:아우구스티누스와 아퀴나스의 삼중 구조가 위격에 어떻게 대응하는지 본문이 일관되게 명시하지 않아 그릴 근거가 부족하다
+- simd: triage:스칼라 대 벡터 처리 두 방식 대비이며 4배 곱셈 예시도 정의 반복이다
+- task-shifting-health-workforce: triage:의사에서 하위 인력으로의 업무 이양이라는 2층 구조이며 성공 조건은 목록일 뿐이다
+- trichotomy-anthropology: triage:영·혼·육 세 요소 나열이고 혼과 영의 구분 자체가 이분설과 논쟁 중이라 단정하기 어렵다
+- number-needed-to-screen: triage:단일 지표(필요 검진 인원) 정의이며 구성 요소 간 관계가 없다
+- alliance: triage:공식 동맹과 준동맹, 방기·연루의 서로 다른 축 언급이 흩어져 있어 하나의 구조로 묶이지 않는다
+- hazard-identification: triage:위해성평가 4단계 중 첫 단계 하나이며 전체 절차는 다른 용어의 내용이다
+- domestic-adoption: triage:국내외 입양 대비와 절차 나열이며 순서 있는 단계가 본문에 구조화되지 않았다
+- assistant-teacher: triage:역할 설명과 운영 이슈 나열이라 구성 요소 간 관계가 없다
+- stunting-prevalence: triage:단일 지표 정의이며 소모증과의 구분도 2항 비교다
+- social-contract-orientation: triage:콜버그 5단계 하나만 다루며 6단계 전체 위계는 다른 용어의 내용이다
+- ages-and-stages-questionnaires: triage:다섯 영역명 나열뿐이며 영역 간 관계나 판정 절차가 본문에 없다
+- dual-pricing-transfer: triage:공급·구매 부문 가격 설명이 페이지마다 서로 반대로 서술되어 그릴 기준이 불명확하다
+- disaster-mental-health-intervention: triage:단계별 구성이라는 언급뿐 각 단계 내용이 본문에 일부만 나와 도식 근거가 부족하다
+- herpetic-gingivostomatitis: triage:초감염 대 재발성 두 형태 대비이며 구성 요소가 2개다
+- business-ecosystem: triage:참여자 역할 구분이 본문에서 오케스트레이터와 보완자 두 종류 언급에 그친다
+- achievement-standards-based-curriculum: triage:교육과정-수업-평가 일체화라는 구호 수준이며 구성 요소 간 구조가 본문에 없다
+- kunstwollen: triage:촉각적에서 시각적으로의 이행 한 쌍이 전부이며 집단 심리인지 논쟁도 열려 있다
+- marketing-mix: triage:4P 나열은 단순 목록이고 7P·4C 확장도 대안 논쟁이라 관계 구조가 약하다
+- exile-theology: triage:애도 대 회복 선포 두 흐름이며 문헌별 시기 차이가 커 단일 체계로 단정할 수 없다
+- parousia: triage:재림 시기·양상에 교파별 해석이 갈려 도식으로 단정하기 어렵고 구성 요소도 적다
+- quick-ratio: triage:(유동자산-재고)/유동부채 산식 하나이며 유동비율과의 비교도 2항이다
+- shap-values: triage:기여도 가산 분해는 지정 type으로 그리기 어렵고 정의 반복 수준
+- low-church-worship: triage:고교회와의 대비가 본문에 한 줄씩뿐이라 비교 축 근거가 약함
+- denomination: triage:교회-분파 유형론의 중간 범주 하나일 뿐, 양 끝 범주 내용이 본문에 없음
+- postconventional-level: triage:콜버그 3수준 중 마지막 수준 하나만 다뤄 전체 위계 근거가 본문에 없음
+- hedging-strategy: triage:균형·편승과의 스펙트럼이 본문 한 줄 언급이고 개념 범위 논쟁이 큼
+- peer-victimization: triage:피해 유형 나열이며 유형 간 관계나 숨은 구조가 없음
+- messianic-prophecy: triage:본문 해석이 학계 쟁점이라 단정 없이 그리기 어렵고 유형 분류도 나열뿐
+- perceptual-mapping: triage:2차원 산점 지도라 9개 type에 맞지 않고 정의 반복
+- upper-confidence-bound: triage:점수식 설명이 중심이고 순환 구성 요소의 근거가 수식 서술에 치우침
+- database-replication: triage:마스터-슬레이브와 멀티마스터 비교는 본문 근거가 짧아 칸 내용이 부족
+- claims-data-research: triage:자료원 활용 연구방법 소개로 구성 요소 관계가 없음
+- fluoride-varnish: triage:단일 제제 용어이며 재광화 기전이 본문에 서술되지 않음
+- provisional-crown: triage:단일 임시 보철물 용어로 관계 구조가 없음
+- objectivity-principle: triage:객관성 대 관련성 상충은 정의 반복이며 수준 1~3 위계는 다른 용어의 내용
+- north-south-divide: triage:선진국 대 개도국 이분법 두 요소뿐이고 격차 원인은 학계 논쟁
+- gift-tax: triage:세목 정의이며 공제·합산 규정은 나열 수준
+- core-curriculum: triage:본문이 공통교육과정 설명과 뒤섞여 일관된 구성 요소를 특정할 수 없음
+- belbin-team-roles: triage:9역할 구분이 본문에 열거되지 않고 타당성 비판이 큼
+- effect-modification: triage:교란과의 구분이 글로 충분하고 상호작용 그림은 지정 type으로 불명확
+- credential-society: triage:경쟁-학력 인플레이션 순환이 한 문장뿐이고 이론 자체가 지역·학설 한정
+- talent-management: triage:발굴·육성·유지·배치 나열이며 단계 간 관계 근거가 없음
+- contagious-magic: triage:프레이저 분류 두 갈래 중 하나이며 진화 도식은 폐기됨
+- fixed-assets: triage:자산 계정 정의이며 회계처리 흐름은 본문 한 줄 언급
+- salt-intake-reduction-strategy: triage:정책 수단 나열이며 수단 간 구조나 경로 근거가 약함
+- system-development-life-cycle: triage:정의에 나열된 단계 순서를 그대로 되풀이하는 그림이 됨
+- interfaith-dialogue: triage:대화 목적 유형 나열이며 유형 간 관계 근거가 약함
+- dental-crowding: triage:공간 부족이라는 단일 조건이며 단계적 구조가 없음
+- out-of-pocket-maximum: triage:누적 본인부담이 상한에서 평평해지는 모양이 핵심이나 plot 함수가 없음
+- glossodynia: triage:증상명이며 이차성·특발성 두 갈래뿐
+- inferior-alveolar-nerve-injury: triage:원인과 손상 정도 나열이며 경로 단계가 명확하지 않음
+- atraumatic-restorative-treatment: triage:우식 제거 후 충전이라는 두 단계 술식 설명
+- structuralist-criticism: triage:비평 방법론의 추상 설명이며 구체 구성 요소가 거의 없음
+- project-method: triage:4단계 나열이 정의 반복 수준이며 단계 간 관계 설명이 없음
+- episcopal-polity: triage:장로제·회중제는 이름만 언급되어 비교 축 근거가 부족
+- basic-emotions-infancy: triage:보편성과 출현 순서 모두 학계 논쟁이라 단정적 도식이 어려움
+- telemedicine: triage:실시간·비동기·모니터링 유형 나열이며 관계 구조가 없음
+- bitmask: triage:비트 연산 기법 설명이며 도식 구성 요소가 본문에 없음
+- kubernetes: triage:조정 루프 한 문장 외에 컴포넌트 구조가 본문에 없음
+- process-art: triage:미술 경향 정의이며 과정 단계나 구성 요소가 없음
+- sainte-lague-method: triage:나눗수 표 계산이라 지정 type에 안 맞고 동트 방식과 차이는 글로 충분
+- autogenous-bone-graft: triage:세 가지 골 능력과 채취 부위가 나열될 뿐 다른 이식재와의 비교 근거가 본문에 없음
+- advance-organizer: triage:상위 틀이 새 내용을 포섭한다는 정의 반복이며 설명·비교 조직자 두 유형뿐
+- intuition-expression-croce: triage:직관=표현 동일시라는 철학적 명제이며 구성 요소 3개가 없음
+- sacred-time: triage:성시간 대 세속시간 두 개념뿐이고 순환적 시간관 전통에 한정된 학설
+- eschaton: triage:종말론 체계들의 갈림은 언급만 되고 구체 구성 요소와 단정 가능한 관계가 없음
+- stained-glass: triage:공예 매체 설명이며 기술·상징 구성이 본문에 구조화되어 있지 않음
+- absolute-evaluation: triage:상대평가와의 두 개념 대비이며 준거참조평가의 적용 형태로 하위 사례 성격
+- inclusive-classroom: triage:특수학급 용어와 같은 배치 형태 비교를 중복하게 되며 단독 근거가 약함
+- new-religious-movement: triage:분류 용어 자체가 논쟁적이고 구성 요소가 사례 나열뿐
+- meister-high-school: triage:특성화고의 한 유형이라는 제도 설명으로 관계 구조가 없음
+- process-costing-weighted-average: triage:선입선출법과의 대비가 한 줄 언급이며 계산 단계는 본문에 없음
+- costly-grace: triage:값싼 은혜와의 두 개념 대비를 정의 수준에서 반복하게 됨
+- gender-identity-child: triage:단일 발달 개념이며 단계 관계가 연령 서술에 그침
+- health-savings-account: triage:미국 세제 사례 하나에 한정되고 흐름의 구성 요소 근거가 약함
+- disability-weight: triage:가중치 곱하기 기간이라는 산식 설명이며 정의 반복 수준
+- marketing-myopia: triage:제품 중심 대 고객 욕구 중심의 두 가지 사업 정의 대비일 뿐 구성 요소 2개
+- ifrs: triage:기관·기준 체계 명칭이며 원칙 대 규칙 중심 대비만 있음
+- logos-doctrine-john: triage:본문 해석을 둘러싼 학계 이견이 있고 구성 요소 관계가 본문에 구조화되지 않음
+- expressionism: triage:사조 정의이며 다리파·청기사파 이질성만 언급되고 비교 축이 없음
+- essay-based-admission: triage:전형 방식 정의로 계열별 출제 차이 한 줄뿐
+- crowdsourcing: triage:유형 나열과 아웃소싱 구분이 글로 충분하고 관계 구조가 약함
+- eternal-punishment: triage:소멸설 등 대안과의 신학 논쟁이 핵심이라 단정 없이 그리기 어려움
+- personalist-regime: triage:게데스 유형론의 한 범주일 뿐이고 다른 유형 내용은 본문에 없음
+- ummah: triage:공동체 개념 정의이며 구성 요소와 단계가 없고 해석이 담론적
+- employee-benefits: triage:법정 대 임의 두 범주뿐이며 보상 항목 나열 수준
+- conditional-election: triage:무조건적 선택 쪽 내용이 본문에 거의 없어 대비 축을 못 채우고 교리 논쟁이 중심
+- denture-base: triage:단일 보철 구성품이며 재료별 장단점이 나열됨
+- augustinianism: triage:신학 전통 정의이며 사상 변화 논쟁이 있고 구성 요소 관계가 없음
+- occlusal-caries: triage:단일 병소 용어이며 진단 방법이 나열됨
+- school-autonomy: triage:원리 정의가 반복 서술되고 구성원 관계 구조가 없음
+- idempotency: triage:성질 정의 중심이며 멱등키 처리 흐름은 한 문장이라 도식 근거가 약함
+- social-emotional-development: triage:하위 영역 구분이 연구마다 달라 단일 구조로 단정하기 어렵고 정의 반복
+- red-black-tree: triage:색 규칙과 회전 설명이며 트리 구조 도식은 지정 type으로 그릴 수 없음
+- educational-accountability: triage:책무성 세 유형이 한 문장 나열이고 정책 효과 논쟁이 중심
+- humanism-in-education: triage:사상 정의이며 구성 요소와 단계가 없음
+- ecological-transition-education: triage:환경교육과의 두 개념 대비이며 구성 요소 관계가 정의 반복
+- unconscious-bias: triage:심리 개념이며 교육 대 구조적 개입의 효과 비교가 글로 충분함
+- english-school-ir: triage:세 층위 구분이 적용하기 어렵다는 방법론 비판이 있고 학파 정의 반복
+- three-self-principle: triage:자립·자치·자전 세 항목 나열이 정의 반복 수준이며 항목 간 관계가 없음
+- approximate-nearest-neighbor-search: triage:색인 계열 나열이며 재현율-속도 곡선의 모양 근거가 본문에 없음
+- technology-roadmapping: triage:세 계층이 시간축에 놓인 격자 배치라 9개 type으로 표현이 어렵고 본문이 정의 반복
+- pay-for-performance-healthcare: triage:행위별수가제 대 성과연동 두 방식 비교뿐이고 정의 반복
+- lukacs-realism: triage:문예이론 주장 자체가 쟁점이라 단정 없이 그릴 구성 요소가 없음
+- public-theology: triage:신학 흐름 설명 위주로 관계 맺는 구성 요소가 뚜렷하지 않음
+- low-income-student-support: triage:여러 지원 제도의 나열 포괄 명칭이라 관계 구조가 없음
+- special-health-examination: triage:검진 종류와 판정 구분 나열 수준이고 정의 반복
+- boolean-logic-operations: triage:AND/OR/NOT 세 연산의 진리표가 핵심인데 venn·matrix로 한 그림에 담기 어려움
+- education-information-disclosure: triage:제도 소개 문장 위주로 구성 요소 간 관계가 없음
+- equity: triage:자본 세부 항목을 나열한 분류 수준이고 새로 알려 주는 구조가 약함
+- materiality: triage:판단 임계치 개념이라 구성 요소 3개 이상의 관계가 없음
+- diversity-management: triage:다양성-성과 효과가 조건에 따라 엇갈려 단정 없이 그릴 단일 구조가 없음
+- nutritional-deficiency: triage:결핍 영양소별 병변이 비특이적이라 일대일 경로로 그리기 어려움
+- old-quest-historical-jesus: triage:시기 구분 설명뿐이고 본문에 연도 근거가 부족해 timeline 근거 약함
+- keratinized-mucosa: triage:조직 종류와 폭 기준 설명이고 구성 요소 관계가 적음
+- organizational-development: triage:정의 반복이고 개입 기법 나열뿐
+- deep-bite: triage:단일 부정교합 상태 설명이라 관계 구조 없음
+- enacted-curriculum: triage:의도된 대 실행된 두 층위뿐으로 구성 요소 2개
+- ergonomic-risk-assessment: triage:평가 도구 이름 나열과 등급 구분 정도라 정의 반복
+- key-audit-matters: triage:공시 제도 설명이고 단계 구조는 정의 반복에 가까움
+- nature-is-principle: triage:성즉리 대 심즉리 두 명제 대비이고 철학적 논쟁 사항
+- cooperative-learning: triage:다섯 요소와 모형 이름 나열이라 그림이 새로 보여 줄 관계가 약함
+- norm-referenced-assessment: merge-candidate: 병합 후보라 보류(was checked)
+- current-liabilities: triage:1년 기준 분류 규칙이라 구성 요소 관계가 단순함
+- retrospective-application: triage:전진적용·수정소급법과의 구분이 문장 설명으로 충분하고 정의 반복
+- doctrine-of-hell: triage:세 입장이 신학적으로 논쟁 중이라 단정 없이 구조화하기 어려움
+- reversible-pulpitis: triage:가역과 비가역 두 상태뿐이라 구성 요소 2개
+- synthetism: triage:미술 이론 정의 반복이고 구조적 관계가 없음
+- school-based-management: triage:권한 이양 모형 네 가지 이름만 나열되고 비교 축 내용이 없음
+- arch-length-discrepancy: triage:가용 공간 빼기 요구 공간 단일 수치 개념이라 정의 반복
+- appropriation-art: triage:미술 실천 개념이고 구성 요소 관계 없음
+- kingdom-parables: triage:비유 여러 개의 의미 나열이고 해석이 학자마다 달라 단정 어려움
+- school-steering-committee: triage:법정 기구 소개이고 구성 요소 관계가 없음
+- behaviorist-theory-of-language-acquisition: triage:모방·강화 두 기제와 비판이 핵심이라 구성 요소 2개와 논쟁 사항
+- theravada-buddhism: triage:불교 전통 소개 위주로 시각화할 관계 구조가 없음
+- object-storage: triage:파일 시스템 대 오브젝트 두 개념 대비뿐이라 정의 반복
+- byzantine-art: triage:미술 양식 설명이고 구성 요소 관계 없음
+- masoretic-text: triage:본문 전승 설명이라 3개 이상 구성 요소의 관계가 약함
+- monotropism: triage:애착 위계가 논쟁 중인 개념이라 단정 없이 그리기 어려움
+- sabellianism: triage:양태론 대 정통 두 입장 대비이고 신학 논쟁 사항
+- noetic-effects-of-sin: triage:신학적 개념 설명이라 구조적 구성 요소가 없음
+- aesthetic-idea: triage:칸트 미학 개념 하나의 정의 설명이고 이성 이념과의 대칭 2개뿐
+- itinerant-education: triage:배치 연속체 단계 이름만 나열되고 관계 설명이 얕음
+- digital-health-divide: triage:1차·2차 격차 구분 정도라 정의 반복 수준
+- teacher-competency-development-evaluation: triage:평가 제도 소개이고 환류 경로 근거가 정의 반복
+- horizontal-articulation: triage:수직적 연계와의 대비가 언급될 뿐 구성 요소 2개
+- diagnostic-wax-up: triage:모형 제작 용도 설명 위주이고 단계 근거가 본문에 약함
+- national-interest: triage:개념 정의 위주로 구성 요소 관계가 없고 정치적 구성 논쟁이 얽혀 있음
+- orthodontic-relapse: triage:재발 원인을 나열한 수준이고 인과 구조가 본문에 명확하지 않음
+- froebel-gifts: triage:은물 단계 중 일부만 설명되어 전체 순서 근거가 부족함
+- tmj-disc-displacement: triage:정복성과 비정복성 두 상태 구분이라 구성 요소 2개
+- recurrent-education: triage:교육·노동·여가 교대 구조가 개념 정의 반복에 가까움
+- quality-circle: triage:소집단 활동 소개이고 구성 요소 간 관계 없음
+- gated-recurrent-unit: triage:게이트 두 개 설명이지만 수식·흐름 근거가 본문에 부족해 정의 반복
+- inclusive-education: triage:물리적 통합과 교육적 통합 두 구분뿐이고 배치 단계는 나열 수준
+- attachment-based-intervention: triage:프로그램 목적 설명이라 구성 요소 관계가 정의 반복
+- ascension-theology: triage:사건 연대 근거가 본문에 없고 신학적 해석 위주
+- primitive-religion: triage:용어 비판사 설명이고 진화론적 서열화 비판이 논쟁 사항
+- entire-sanctification: triage:점진적 성화·웨슬리안 비교와 겹치고 전통 간 논쟁이라 단정해 그리기 어려움
+- progressive-sanctification: triage:전통 간 견해 차가 갈려 단정 없이 그릴 단일 구조가 없음
+- sacred-space: triage:엘리아데와 스미스의 관점 차가 논쟁 사항이라 단정 어려움
+- summa-theologiae: triage:저작 구성과 문답 형식이 설명되지만 본문만으로는 정의 반복 수준
+- comprehensive-learning-clinic-center: triage:기관 소개이고 구성 요소 관계가 없음
+- product-layout: triage:공정 순서 배치와 병목 설명이 정의 반복이고 공정별 배치와 대비는 일부만 언급
+- desensitizing-agent: triage:제제 성분별 분류 나열이고 근거가 임상 비교 위주
+- database-index: triage:색인 비유의 정의 반복이고 인덱스 종류는 이름 나열 수준
+- earnings-management: triage:회계적·실체적 조정 두 갈래 나열이고 모형 논쟁이 얽혀 있음
+- music-and-movement-activity: triage:활동 구성요소 나열이고 관계 구조가 없음
+- lambda-calculus: triage:함수 정의와 적용 두 연산뿐이고 시각화로 새로 보여 줄 관계가 약함
+- approximation-algorithm: triage:근사 비율 개념 정의 위주이고 완화 후 반올림 절차는 일부만 언급
+- iron-deficiency-anemia-prevalence: triage:단일 지표 정의이고 구성 요소 관계 없음
+- organizational-change-management: triage:코터 8단계의 내용이 본문에 없어 단계 구성 근거 부족
+- history-of-religions-school: triage:학파 방법론 설명이고 비교 대상이 논쟁적임
+- arminianism: triage:칼뱅주의와의 대립 입장이라 신학적 논쟁 사항
+- moral-argument-for-god: triage:논증 전제 자체가 논쟁 중이라 단정 없이 그리기 어려움
+- change-in-accounting-estimate: triage:정책변경·오류수정과의 구분이 문장 설명으로 충분하고 정의 반복
+- return-on-assets: triage:비율 공식 하나이고 구성 요소 관계가 단순함
+- portfolio-assessment: triage:포트폴리오 유형 세 가지 이름 나열 수준이라 정의 반복
+- covenant-of-grace: triage:언약 개념 소개이고 단정할 수 없는 신학 전통 간 차이가 큼
+- lithium-disilicate: triage:단일 재료명이고 결정화 공정 설명이 일부뿐
+- sacramental-union: triage:화체설·기념설과의 대비가 논쟁 사항이라 단정 어려움
+- second-blessing-doctrine: triage:전통마다 두 번째 은혜의 내용이 달라 단일 구조로 그리기 어려움
+- fluxus: triage:예술 운동·네트워크 이름. 본문은 정의와 논점 나열이라 그림으로 보여 줄 구조가 없다
+- dialogic-reading: triage:PEER 4단계가 있으나 본문에 한 줄 언급뿐이고 정의 반복에 가까워, 글만으로도 충분히 잡힌다
+- context-switch: triage:저장→복원의 2단계 전환과 직접·간접 비용 구분뿐이라 구성 요소가 적고 정의를 되풀이하는 수준이다
+- capital-adjustment: triage:K-GAAP 분류 항목 목록과 K-IFRS 대응이 본문에 불완전하게만 나와 구조를 확정해 그릴 근거가 부족하다
+- removable-retainer: triage:호리형 대 투명형 두 가지 비교뿐이며 단일 기기 유형 설명 수준이다
+- regime-durability: triage:음의 시간의존성(위험률 감소) 한 줄뿐 곡선 근거가 약하고, 존속 요인은 열거라 관계 구조가 없다
+- exploration-exploitation-tradeoff: triage:탐색 대 활용 두 축뿐이고 전략들(ε-탐욕, UCB 등)은 나열이라 위계·관계 구조가 없으며, 역U 곡선은 본문 근거가 없다
+- total-depravity: triage:교리 해석이 신학 전통별로 갈려 단정해 그리기 어렵고 TULIP 연결도 언급 수준이다
+- vipassana: triage:수행법 이름·교리 열거(삼법인, 사념처)이고 구성 요소 간 관계 구조가 본문에 없다
+- dualism-religious: triage:윤리적/존재론적, 근원적/파생적 구분은 말뿐이고 칸을 채울 사례가 본문에 없어 단정적 분류도가 된다
+- periapical-abscess: triage:급성 대 만성 두 병태 비교와 봉와직염 진행은 문장 한두 줄이라 구성 요소가 부족하다
+- man-of-lawlessness: triage:성경 인물에 대한 해석이 학계에서 갈리는 논쟁 주제라 단정해 그릴 수 없다
+- transition-activity: triage:일과 전환 때 쓰는 활동의 정의와 효과 서술뿐, 관계 구조가 없다
+- kinetic-art: triage:동력원 세 유형은 나열이고 미술 사조 설명 중심이라 그림이 정의를 되풀이한다
+- school-bureaucratization-weber: triage:베버 관료제 특징 목록 나열이며 학교 적용의 상충점은 문장 서술에 그친다
+- high-performance-work-system: triage:포함 관행이 연구마다 다르고 성과 경로가 블랙박스라는 비판이 있어 확정 구조를 그릴 수 없다
+- common-cost-allocation: triage:개별원가법과 증분원가법 두 방식 소개뿐이고 구체 수치·구조가 본문에 없다
+- tmj-arthrocentesis: triage:단일 시술명이며 원리 설명은 문장 서술에 그친다
+- public-religion: triage:세속화 명제 세 요소 분해는 있으나 카사노바 개별 논지를 단정해야 해 논쟁적이고 구성이 개념 서술 위주다
+- apostolicity: triage:가톨릭·정교회 대 개신교 두 입장 대립이라 교단 간 신학 논쟁을 단정하기 어렵다
+- symbolic-play: triage:놀이 유형 이름과 발달 상관 서술뿐이라 그릴 구조가 없다
+- indiscernibles-danto: triage:사고실험이지만 본문에 칸을 채울 구체 구조가 없고 논증의 타당성이 논쟁적이다
+- perichoretic-theology: triage:삼위일체 상호내주는 유비의 한계가 논쟁적이고 벤다이어그램으로 단정해 그리면 양태론·삼신론 오해를 낳는다
+- health-information-system: triage:수집·관리·분석 3단계 일반 서술이며 개별 시스템 구조가 본문에 없다
+- nickel-titanium-wire: triage:초탄성 응력-변형률 곡선(평탄 구간)이 핵심이나 plot 함수로 못 그린다
+- skimming-pricing: triage:고가 후 인하의 두 시점 전략이며 침투가격과의 대비도 두 요소뿐이다
+- calendrical-ritual: triage:의례 범주의 정의와 기능 서술뿐 구성 요소 관계가 없다
+- parental-participation: triage:제도적 대 비제도적 참여 두 갈래 나열이며 관계 구조가 없다
+- knowledge-transfer: triage:점착성 영향 요인 열거와 형식지·암묵지 구분뿐이라 정의를 되풀이하는 수준이다
+- temporary-restoration: triage:재료 종류와 방치 위험 서술이며 단계·관계 구조가 없다
+- cross-entropy-loss: triage:-log p 곡선이 핵심이나 plot 함수로 못 그린다
+- universal-approximation-theorem: triage:존재 정리의 조건·한계 서술이며 그림으로 보일 구조가 본문에 없다
+- graph-theory-basics: triage:정점·간선과 방향 유무 구분뿐인 기초 정의이며 지표 열거 외 구조가 없다
+- term-limits: triage:제도 이름과 국가별 사례 나열, 찬반론 두 축뿐이다
+- primary-tooth-exfoliation: triage:맹출 압력→치근흡수→탈락의 짧은 생리 과정이라 정의 반복에 가깝다
+- master-theorem: triage:세 경우 비교는 수식 대입이라 그림이 점화식 정의를 되풀이하며 본문에 구체 구조가 없다
+- sensory-play: triage:놀이 유형 이름과 재료 예시 나열뿐이다
+- tafsir: triage:전승 대 이성 두 갈래 구분만 있고 해석 학문 일반 설명이라 구조가 단순하다
+- funds-of-knowledge: triage:개념 정의와 교육 사례 서술이며 구성 요소 관계가 없다
+- multilateralism: triage:셋 이상 국가의 협력 방식 정의이며 구조 대신 사례 나열이다
+- whistleblowing: triage:내부·외부 고발 단계 모형이 한 문장 언급이라 정의 중심이며 구조가 얕다
+- parenting-stress: triage:PSI의 부모 영역·자녀 영역 두 갈래와 완충 변수 언급뿐이라 구성 요소가 부족하다
+- emotional-behavioral-disorder: triage:특수교육대상자 유형명이며 진단 기준 설명이라 관계 구조가 없다
+- physical-disability: triage:장애 유형명과 지원 방법 나열이며 인지와 무관하다는 단일 속성 설명이다
+- ordination-theology: triage:성사적 대 공동체 위임 두 입장이 교단 간 신학 쟁점이라 단정해 그리기 어렵고 두 요소뿐이다
+- learning-analytics: triage:로그 수집·분석·환류는 일반 설명이며 EDM과의 차이도 강조점 서술에 그친다
+- scrap-accounting: triage:잡수익 처리 대 원가 차감 두 방식뿐이라 구성 요소가 부족하다
+- all-ceramic-crown: triage:크라운 재료 종류 나열과 심미성 대 강도 서술이며 구조 근거가 약하다
+- development-of-doctrine: triage:발전과 변질을 가르는 기준이 신학 전통별로 논쟁적이고 씨앗 비유 외에 구조가 없다
+- theophany: triage:자연현상·반응·말씀 선포 흐름은 문학 양식 서술 한 줄이며 해석이 논쟁적이다
+- apocalyptic-literature: triage:문학 장르 이름과 특징 나열이며 구성 요소 간 관계가 없다
+- child-participation-right: triage:참여 단계가 있다고만 하고 단계 내용이 본문에 없어 그릴 근거가 부족하다
+- waldorf-education: triage:교육사조 이름과 7년 주기 설명이 일반 서술이고 단계 내용이 구체적이지 않다
+- momentum-optimization: triage:진동하는 SGD 경로 대 매끄러운 모멘텀 경로가 핵심이나 2차원 궤적이라 plot 함수로 못 그린다
+- fine-motor-development: triage:손바닥잡기에서 집게잡기로의 발달 언급 두 단계뿐이다
+- credit-bank-system: triage:학점 인정 경로 나열이며 제도 설명이라 정의 반복 수준이다
+- theopaschitism: triage:용어 의미가 맥락마다 달라 정통 여부가 논쟁적이어서 단정해 그릴 수 없다
+- childcare-facility-accreditation: triage:폐지된 제도의 변천 설명이며 자체점검·서류·현장심사 절차는 한 문장 언급이다
+- papyrus-manuscripts-nt: triage:사본 자료군 이름과 표기법 나열뿐이다
+- holiness-code: triage:레위기 17-26장을 가리키는 본문 이름이며 자료층 H 여부가 학계 논쟁 중이다
+- sultanistic-regime: triage:체제 유형명과 사례 나열, 네 가지 특징은 항목 열거라 관계 구조가 없다
+- visual-culture-studies: triage:학제 분야 소개이며 미술사와의 차이도 두 항목 대비뿐이다
+- splinting: triage:단일 술식이며 영구·일시 두 방식 구분 외에 구조가 없다
+- program-music: triage:표제음악 대 절대음악 두 요소 대비뿐이고 미학 논쟁이라 단정이 어렵다
+- zion-theology: triage:세 요소 결합과 예언자 비판이 해석 논쟁적이며 단선적 안전 보장으로 그리기 어렵다
+- back-channel-diplomacy: triage:공식 채널 대 비공식 채널 두 요소의 장단점 서술이다
+- distributive-negotiation: triage:고정 파이 협상의 정의이며 통합적 협상과의 대비도 두 요소뿐이다
+- inclusive-childcare-for-children-with-disabilities: triage:완전통합 대 부분통합 두 방식 설명이며 구조가 단순하다
+- missio-dei: triage:파송 구조는 한 문장 언급이고 신학 진영별 해석이 갈려 단정하기 어렵다
+- key-performance-indicator: triage:측정 지표 정의와 설계 조건 나열이며 BSC 관점도 언급 수준이다
+- alcohol-policy-population-level: triage:정책 수단 목록 나열이며 효과 경로가 본문에 구체적이지 않다
+- individualized-family-service-plan: triage:IEP와의 대비 두 요소와 절차 언급뿐이다
+- future-education: triage:우산 개념이라 구체 구조가 없고 정책 이름 나열이다
+- policy-implementation-fidelity: triage:하위 요소와 측정 방법 열거뿐이라 관계 구조가 없다
+- entire-sanctification-wesleyan: triage:칭의에서 성화로의 두 단계이고 개혁주의와의 해석 차이가 논쟁적이다
+- bulk-fill-composite: triage:적층 충전 대 벌크필 두께 차이 두 요소 비교뿐이고 제품별 차이가 크다
+- supervision-and-guidance: triage:장학 유형 이름 나열이며 임상장학 순환은 한 문장 언급이다
+- patristics: triage:학문 분야 이름이며 교부 시기·언어권 구분은 열거에 그친다
+- democratic-diffusion: triage:확산 경로 세 가지가 열거 수준이고 국가별 결과가 달라 단정적 인과 그림이 어렵다
+- impacted-third-molar: triage:치아 상태명이며 매복 분류와 발치 시기는 연구마다 기준이 달라 구조를 확정할 수 없다
+- audit-quality: triage:발견 확률과 보고 확률의 결합 두 요소뿐이고 대리변수는 열거이다
+- feminist-art: triage:정치적 운동 이름이며 세대 간 논쟁은 단정하기 어렵다
+- years-of-life-lost: triage:단일 지표의 정의와 사례 계산 — 구성 요소가 사망연령·기대수명 둘뿐이고 DALY 관계는 한 줄 언급
+- supernumerary-tooth: triage:단일 질환 항목 — 형태 분류는 이름 나열에 그쳐 관계가 없음
+- theological-anthropology: triage:신학 분과 이름 — 입장 차이가 교파별 쟁점이라 단정 없이 그릴 도식 요소가 없음
+- dental-calculus: triage:단일 침착물 — 상·하 치석 두 유형 비교뿐이라 구성 요소 2개
+- named-entity-recognition: triage:기술명 — BIO 태깅 예시는 있으나 관계 구조가 없고 정의를 되풀이하는 그림이 됨
+- head-start-program: triage:특정 국가 프로그램 이름 — 효과 소멸 논쟁은 학계 쟁점이라 단정 곡선으로 그릴 수 없음
+- relational-aesthetics: triage:이론·인물 개념 — 오브제 중심 대 관계 중심의 2항 대비뿐
+- split-ticket-voting: triage:행동 유형 하나 — 일괄투표와 대비되는 2항뿐이고 원인 목록은 병렬 나열
+- regional-security-complex: triage:개념 서술뿐 — 본문에 구성 요소 간 구조 설명이 없고 지역 범위가 유동적이라 도식화 근거 약함
+- sacred-space-theology: triage:신학 분야명 — 구약 성전과 신약 몸된 성전의 2항 연속성뿐
+- epidemic-curve: triage:점감염 단일봉 대 전파형 다중봉 비교가 핵심인데 plot은 대칭 단일 봉우리만 그릴 수 있음
+- depreciation-limit-tax: triage:세무 제도 규칙 — 회계상 상각과 한도의 크기 비교 2항이고 숫자 규칙 설명이 중심
+- altered-states-of-consciousness: triage:심리 개념 총칭 — 유도 수단 목록은 병렬 나열이고 개념 정의 자체가 논쟁적
+- summative-assessment: triage:형성평가와의 2항 대비뿐 — 구성 요소 2개
+- dictation-theory-of-inspiration: triage:영감론 한 입장 — 유기적 영감론과의 2항 대비에 그치고 교파 논쟁 소지
+- priority-setting-health-resource-allocation: triage:정책 과정 서술 — 단계 순서나 기전이 본문에 명시되지 않고 접근 방식 2종만 나열
+- dadaist-chance: triage:예술 전략 하나 — 사례(아르프, 차라) 나열이고 구조적 관계 없음
+- virtual-environment: triage:도구 개념 — venv 대 conda 및 도커와의 2항 비교뿐이고 정의 반복
+- childcare-support-center: triage:기관명 — 기능 목록 병렬 나열이고 어린이집과의 2항 구분뿐
+- impacted-tooth: triage:단일 상태 항목 — 원인 목록과 치료 선택지가 병렬 나열이라 관계 구조 약함
+- scoring-rubric-table: triage:도구 자체가 표 — 항목×수준 표를 그리면 정의를 되풀이하고 수준이 2수준이 아님
+- breakthrough-infection: triage:현상 하나 — 기저율 오류 설명은 수치 예시 없이 글로만 있어 그림 구성이 본문 밖 수치에 의존
+- minimum-achievement-level-guarantee: triage:제도 이름 — 기준 40% 미달 시 보충이라는 한 단계 규칙뿐
+- gradient-clipping: triage:기법 하나 — 값 클리핑과 노름 클리핑 2항뿐이고 벡터 크기 조정은 제공 type으로 그릴 수 없음
+- orthodontic-anchorage: triage:교정 개념 하나 — 최소·중등도·최대 구분은 이름 나열이고 힘의 방향 도식은 본문에 구성 요소가 부족
+- op-art: triage:미술 사조명 — 키네틱 아트와의 2항 대비뿐
+- overt-curriculum: triage:교육과정 층위 하나 — 잠재적교육과정과의 2항 대비이고 다른 층위는 이름만 나옴
+- doctrine-of-sanctification: triage:교리 설명 — 칭의→성화 두 단계뿐이고 교파별 완전성화 입장은 논쟁 중이라 단정 불가
+- service-blueprint: triage:도구가 이미 도식 자체 — 호텔 사례 요소가 본문에 둘뿐이라 정의를 되풀이하는 그림이 됨
+- cosine-similarity: triage:수식 하나 — 벡터 각도 도식은 type에 맞는 것이 없고 정의 반복
+- womanist-theology: triage:신학 유파명 — 인종·성·계급 교차는 3개 나열이나 관계 구조가 없음
+- kindergarten-evaluation: triage:제도 이름 — 자체평가·서면·현장 절차는 한 줄 언급이고 어린이집평가와의 2항 비교
+- hearing-impairment: triage:장애 유형명 — 손실 정도 구분은 단계 수치 없이 서술이고 지원 수단은 병렬 나열
+- electronic-health-record: triage:시스템 이름 — 데이터 활용 용례가 병렬 나열이고 구성 요소 관계 없음
+- irredentism: triage:정치 개념 — 모국·거주국·동족집단 세 행위자 관계는 본문에 화살표 수준 설명이 없어 본문 밖 지식 의존
+- universal-health-coverage-equity: triage:개념 서술 — 세 측면 나열이고 각각의 관계나 순서가 없음
+- customer-churn-rate: triage:단일 지표 — 이탈 고객 수÷기초 고객 수 한 줄 공식
+- orthodontic-bracket: triage:단일 장치 부품 — 슬롯·토크 설명이 병렬이고 구성 요소 간 흐름 없음
+- art-therapy-child: triage:치료 접근 이름 — 표현 후 대화라는 2단계뿐이고 효과 근거 논쟁 중
+- monasticism: triage:제도 총칭 — 공동 대 독거 2항이고 전통별 조합이 달라 단정 도식 불가
+- tooth-ankylosis: triage:단일 병태 — 임플란트 골융합과의 2항 대비 외에는 구성 요소 관계가 없음
+- independent-living: triage:이념 서술 — 시설중심 대 지역사회중심 2항뿐이고 지원 영역은 병렬 나열
+- soft-law: triage:경성법과의 2항 대비 — 경성화 경로는 한 문장 언급이고 경계가 유동적이라고 본문이 스스로 밝힘
+- facemask-maxillary-protraction: triage:단일 장치 — 이마·턱 지지와 30도 견인 방향은 기하 도식이라 제공 type으로 그릴 수 없고 효과 해석도 논쟁적
+- forensic-interview-child: triage:면담 기법 — 라포 형성과 본 면담 2단계 언급뿐이고 NICHD 단계 전체는 본문에 없음
+- legal-reserve: triage:법정 규칙 하나 — 배당액 10분의 1을 자본금 2분의 1까지 적립한다는 산식 한 줄
+- bultmannian-theology: triage:특정 신학자 사상 — 비신화화 대 역사적 예수 새 탐구의 논쟁이라 단정해 그릴 수 없음
+- partisan-dealignment: triage:정당재편성과의 2항 대비 — 애착 약화 현상 하나로 구성 요소 2개
+- wilson-jungner-criteria: triage:열 가지 조건의 병렬 체크리스트 — 항목 간 관계나 순서가 없어 그림이 목록 반복이 됨
+- organizational-learning: triage:단일·이중고리 2항 구분이 전부 — 도식 구성이 본문 밖 지식(지배변수 피드백)에 크게 의존
+- notes-to-financial-statements: triage:재무제표 구성 요소의 내용 목록 — 항목 나열이고 관계 구조가 없음
+- hamartiology: triage:신학 분과명 — 원죄와 자범죄 2항 구분뿐이고 전통별 강조가 달라 단정 도식 불가
+- provenance: triage:기록 문서 개념 — 시간 순 기록이라는 정의의 반복이고 특정 사건 연쇄가 본문에 없음
+- perpetual-inventory-system: triage:실지재고조사법과의 2항 대비 — 입고·출고 즉시 기록이라는 정의 반복
+- sanctification: triage:지위적·점진적 2항 구분 — 단일 교리이고 동력 강조가 교파별로 갈림
+- multicultural-education: triage:뱅크스 다섯 차원은 병렬 나열이고 접근 심화 단계도 한 문장 — 관계 구조가 약함
+- case-crossover-design: triage:비교 방법 서술 — 사건 직전 시점과 대조 시점 2구간 비교이고 대조 기간 선정은 설계 변형 논의라 구성 요소가 제한적
+- existentialist-theology: triage:신학 흐름 총칭 — 불트만과 틸리히를 병렬 언급할 뿐 공통 구조가 없음
+- international-gothic: triage:미술 양식명 — 특징 목록과 작품·화가 나열이고 초기 르네상스와의 관계는 단선 도식 금지로 명시
+- learning-contract: triage:문서화 도구 — 목표·전략·증거·평가·일정이 병렬 나열이고 항목 간 관계가 없음
+- aggregate-exposure-assessment: triage:여러 경로 노출을 합산한다는 정의 반복 — 합산 구조 외에 관계가 없고 참고용량 항목과 중복
+- fiqh: triage:법학 체계명 — 샤리아와 피크흐 2항 구분이고 학파 위계는 본문에 구조화되어 있지 않음
+- decision-support-system: triage:시스템 정의 — 세 하위 시스템은 한 문장 언급이고 관계 설명이 없음
+- gross-income-tax: triage:세법 금액 개념 — 총수입에서 필요경비를 빼는 산식 한 줄이고 대사 설명은 규칙 서술
+- veduta: triage:미술 장르명 — 화가·작품 나열이고 카프리치오와의 2항 대비뿐
+- responsibility-accounting: triage:네 책임중심점은 이름 나열 — 권한 범위 차이가 한 문장이고 통제가능성 원칙은 규칙 서술
+- nationalism-theory: triage:학계 핵심 논쟁(원초론·근대론·종족상징주의) 자체라 한쪽으로 단정해 그릴 수 없음
+- textual-criticism-biblical: triage:학문 방법명 — 이문 판단 기준은 병렬 원칙 나열이고 순서 있는 절차가 없음
+- marcionism: triage:특정 사상·인물 — 구약 신과 신약 신의 2항 구분뿐
+- educational-welfare: triage:상위 개념 이름 — 세부 정책 이름을 나열할 뿐 관계가 없음
+- credentialism-in-education: triage:사회 경향 하나 — 학력사회론과의 2항 층위 구분뿐
+- moralism-vs-autonomism: triage:미학 논쟁 자체 — 입장이 극단·온건으로 나뉘나 학계 쟁점이라 단정 불가이고 축이 1차원 스펙트럼
+- linear-vs-painterly: triage:뵐플린 5쌍 중 한 쌍의 2항 대비 — 비교 기준이 윤곽선 하나이고 이행 방향은 학계에서 확답 없음
+- distraction-osteogenesis: triage:술식 하나 — 절단 후 신장이라는 2단계이고 속도 조건은 정량 수치 없이 서술
+- career-experience-activities: triage:활동 총칭 — 체험 유형은 병렬 나열이고 사전·체험·사후 단계는 한 문장 언급
+- historical-definition-of-art: triage:한 철학자의 정의 — 제도론과의 2항 대비이고 정의 자체가 논쟁 중
+- employee-involvement: triage:관리 관행 총칭 — 구현 형태는 병렬 나열이고 참여 수준 구분은 본문에 단계가 열거되지 않음
+- ecological-early-childhood-education: triage:교육 철학 이름 — 실천 사례 나열이고 숲유치원과의 상하위 2항 언급뿐
+- thinking-skills-education: triage:독립형 대 통합형 2항 구분 — 사고 기능 세 가지는 이름 나열
+- four-virtues-confucianism: triage:사단과 사덕의 1대1 짝지음 목록 — 관계가 대응 나열이고 성리학적 재해석은 학파별로 달라짐
+- asymmetric-federalism: triage:제도 형태 — 특별 지위 지역과 다른 주의 2항 비교이고 효과(분리 완화 대 심화)가 상반돼 단정 불가
+- educational-expansion-theory: triage:경쟁하는 설명모형(근대화·인적자본·지위경쟁·세계체제) 나열이라 학계 논쟁을 단정 없이 한 그림에 얹기 어렵고 정의 반복에 가까움
+- source-criticism: triage:성서 해석 방법의 서술이며 양식비평·편집비평과의 관계도 보완적이라 그림으로 보일 고정된 구조가 없음
+- party-fragmentation: triage:정당 수 증가라는 단일 현상 설명이고 관계 맺는 구성 요소가 3개 미만
+- educational-planning: triage:사회수요·인력수요·수익률 접근을 나열할 뿐 서로의 관계나 순서가 본문에 없음
+- feature-engineering: triage:전처리·인코딩·파생·선택이 순서나 포함 관계 없이 느슨하게 나열되어 도식이 정의를 되풀이함
+- edtech: triage:디지털 교육 기술 통칭이며 하위 기술이 서로 관계 없이 나열됨
+- dmft-index: triage:D+M+F를 더하는 단순 합산 지표라 구조적 관계가 없고 수식 한 줄로 충분함
+- grand-manner: triage:본문에 위계 항목이 역사화와 풍속화·초상화 정도로 부족하고 장르 위계는 별개 용어의 영역임
+- price-elasticity-of-demand-for-healthcare: triage:단일 탄력성 지표이며 곡선 모양에 대한 구체적 서술이 없어 plot 근거가 약함
+- market-follower-strategy: triage:복제자·모방자·적응자 세분이 한 문장뿐이고 나머지는 전략 설명이라 도식 근거 부족
+- health-service-accessibility: triage:접근성 4차원 나열은 정의를 되풀이하는 분류이고 차원 간 관계가 없음
+- value-based-healthcare: triage:행위별수가제 대 성과 보상의 두 항 대비뿐이며 비교 축이 얕고 정의 반복
+- best-practice-hrm: triage:보편 관행 목록의 주장과 비판이며 관행 간 관계 구조가 없고 목록도 연구자마다 다름
+- non-resorbable-membrane: triage:차폐막 재질 하나의 특성 설명으로 흡수성 막과의 비교 축도 본문에 부족
+- secondary-caries: triage:수복물 변연에 생기는 우식이라는 단일 병태 정의의 반복
+- symbolism-art: triage:미술 사조 소개로 인상주의와의 지향 대비 외에 구성 요소가 없음
+- start-stopp-criteria: triage:중단할 약과 누락된 약의 두 갈래 정의가 전부이고 이를 넘는 구조가 본문에 없음
+- liberal-theology: triage:신학 사조 서술이며 슐라이어마허·하르낙 등 인물 나열과 비판사로 구조화할 축이 없음
+- fast-mapping: triage:빠른 연결 후 느린 연결로 가는 두 단계가 전부여서 구성 요소가 3개 미만
+- deus-revelatus: triage:숨어계신 하나님과 짝을 이루는 두 측면의 개념이고 같은 하나님의 두 인식 방식이라 도식이 정의 반복
+- authenticity-in-art: triage:존재론적·표현적 두 층위와 자필·타필 구분이 얽혀 논쟁적이고 단정 없이 그리기 어려움
+- annihilationism: triage:영원한 형벌 교리와의 두 입장 대비 중심이고 조건적 불멸설과의 관계는 학자마다 달라 단정 불가
+- e-business-model: triage:거래주체 유형과 수익모델이 여러 분류 기준으로 섞여 일관된 단일 구조가 없음
+- constructive-vote-of-no-confidence: triage:불신임과 후임 선출 동시 요건이라는 두 요소의 규칙이고 분기가 단순해 정의 반복
+- compulsory-voting: triage:제재와 투표율이라는 단일 제도 설명이며 효과가 논쟁적이라 인과를 단정하기 어려움
+- rites-and-music-thought: triage:예와 악의 두 요소 보완 관계뿐이라 구성 요소가 3개 미만
+- big-o-notation: triage:O(log n)·O(n)·O(n log n)·O(n^2) 성장곡선 비교가 핵심이나 plot 함수로 못 그림
+- gingival-recession: triage:잇몸 퇴축이라는 단일 병태이고 원인 나열과 분류 소개만 있어 관계 구조가 약함
+- formal-verification: triage:정리 증명과 모델 체킹 두 접근 소개이고 명세 의존성은 주의점일 뿐 도식화할 관계가 얕음
+- inductive-bias: triage:편향-분산 설명이 개념적이며 본문에 곡선이나 단계 구조가 없고 정의 반복
+- layer-normalization: triage:배치 정규화와의 통계 계산 축 차이는 있으나 두 항 대비로 구성 요소가 부족하고 도식은 정의 반복
+- private-supplementary-education: triage:학원·과외·인터넷강의 형태 나열뿐이고 정의 반복
+- vc-dimension: triage:점 3개 분리 가능성 예시가 핵심이나 본문의 도식 요소가 좌표 배치뿐이라 정의 반복이고 plot 함수로 못 그림
+- school-life-record-comprehensive-admission: triage:전형 방식 소개와 공정성 논쟁이고 평가 구조가 본문에 구체적이지 않음
+- income-tax-expense: triage:당기법인세와 이연법인세를 합친 두 항 합산식이라 수식 한 줄이면 충분함
+- class-based-educational-gap: triage:사회경제적 지위와 성취 차이의 단일 관계로 구성 요소가 부족하고 원인 경로는 연구마다 다름
+- all-day-care: triage:돌봄교실과 지역아동센터 두 기관 연계 정책이라 구성 요소가 3개 미만
+- apollinarianism: triage:로고스가 이성적 영혼을 대신한다는 한 주장의 설명이고 정통 입장과의 비교 항목이 본문에 부족
+- accounts-payable: triage:외상매입 부채 계정 하나의 정의이며 미지급금과 구분은 단순 분류 문장뿐
+- linear-time-religious: triage:순환적 시간관과의 이분법 대비는 본문이 스스로 단순화 위험을 경고하고 두 항이라 구성 부족
+- learning-rate-scheduling: triage:워밍업 후 코사인·계단식 감소 곡선 모양이 핵심이나 plot 함수(decay·hill 등)로는 못 그림
+- flowchart: triage:그림 표기 도구 자체를 설명하는 용어이고 도형 의미 목록은 정의 반복
+- vertical-scaling: triage:공통문항으로 학년별 검사를 잇는다는 한 장치 설명이고 본문 구성 요소가 검사 두세 개 수준이라 정의 반복
+- confederation: triage:연방제와의 두 항 대비 위주이며 연방제는 별도 용어이고 EU 성격은 논쟁 중이라 단정해 그리기 어려움
+- farewell-discourse: triage:세 부분 구분이 편집 단계 논쟁과 얽혀 학계 이견이 있고 내용 목록이라 도식 근거 약함
+- associational-life: triage:참여와 신뢰의 상관 서술이고 결속형·가교형 구분도 한 문장이며 인과를 단정하기 어려움
+- thomism: triage:사상 전통 소개이며 이성-신앙 조화라는 두 요소와 오도논증 목록뿐이라 구조가 약함
+- apostolic-succession: triage:인적 계승과 교리적 계승 두 축을 교파별로 달리 평가하는 논쟁이라 단정해 그릴 수 없음
+- social-welfare-corporation-childcare-center: triage:어린이집 설치 주체 유형 하나의 정의이며 비교 항목이 구체적이지 않음
+- neo-dada: triage:사조 소개이며 추상표현주의와 팝아트 사이 위치 언급 외에 구조가 없고 용어 자체가 논쟁적
+- make-believe-theory-walton: triage:소품과 상상 규칙 개념 설명이 추상적이고 상상 규칙이 어떻게 정해지는지 불명확하다고 본문이 인정함
+- dutch-golden-age-painting: triage:장르 나열과 후원 구조 대비 외에 순서나 위계가 본문에 없고 상징 해석 논쟁이 얽혀 있음
+- new-age-movement: triage:느슨한 범주라 통일된 구조가 없고 본문이 스스로 하나의 체계로 서술하지 말라고 경고함
+- refactoring: triage:동작 보존 변환과 테스트 확인이라는 두 요소 설명이라 구성 요소가 부족하고 정의 반복
+- resin-bonded-bridge: triage:보철물 한 종류의 특성과 실패 요인 나열로 관계 구조가 없음
+- k-ifrs: triage:회계기준 한 가지의 도입 경위 설명으로 비교 축이나 구조가 약함
+- xenogeneic-bone-graft: triage:이식재 유형 하나의 흡수·골전도 특성 서술이라 도식으로 보일 관계가 없음
+- neoplasticism: triage:선과 색의 사용 규칙 목록이고 요소 간 관계나 순서가 본문에 없음
+- story-sharing-activity: triage:유아교육 활동 하나의 운영 방식 설명이며 순서나 분류가 구체적으로 제시되지 않음
+- bone-fixation-plate: triage:고정판 재질 비교 중심의 장치 설명이고 구성 요소 간 관계가 약함
+- free-gingival-graft: triage:이식편 생착의 두 단계(혈장 삼투, 혈관 신생)와 결합조직이식 대비뿐이라 구성이 부족
+- oroantral-fistula: triage:병변 정의와 크기에 따른 자연치유·수술 갈림이 간단한 서술이라 정의 반복에 가까움
+- inspiration: triage:기계적·유기적 영감설 논쟁을 교파별 평가와 함께 다루어 단정해 그리기 어렵고 본문 비교축이 얕음
+- mutual-adaptation: triage:충실도 관점과의 두 항 대비이고 별도 용어와 겹치며 구성 요소가 부족
+- messianism: triage:구원자 기대라는 포괄 개념이며 유대교·기독교의 갈래 설명이 논쟁적이라 구조화하기 어려움
+- information-processing-theory-child: merge-candidate: 병합 후보라 보류(was checked)
+- virgin-birth-doctrine: triage:교리 설명과 역사적·상징적 해석 논쟁이며 구성 요소 관계가 본문에 구체적이지 않음
+- cost-driver: triage:자원동인과 활동동인 구분이 한 문장이고 배분 단계가 본문에 명시되지 않아 근거 부족
+- anatta: triage:오온 나열과 윤회 주체 문제는 불교 내부 논쟁이 계속되고 있어 단정해 그릴 수 없음
+- lifelong-education-management: triage:기획·조직·지휘·통제를 평생교육에 적용한다는 일반 경영 기능 나열이며 관계가 없음
+- large-and-small-group-activity: triage:집단 크기 두 유형과 동질·이질 구성 언급뿐이고 정의 반복
+- occlusal-rim: triage:의치 제작 중간 단계의 임시 구조물 하나이며 본문에 단계 순서가 구체적이지 않음
+- basic-living-habits-education: triage:일상 습관 영역 나열(식사, 배변, 정리 등)이며 영역 간 관계가 없음
+- pluralist-theology-of-religions: triage:배타·포괄·다원 유형론이 있으나 신학 논쟁 중인 입장 비교라 단정해 그리기 어렵고 본문 서술이 얕음
+- parent-counseling: triage:정기·수시·위기 상담 구분이 짧은 언급뿐이며 활동 정의 반복
+- community-mental-health-service: triage:프로그램 나열과 입원 중심 대비 서술이며 구성 요소 간 구조가 본문에 없음
+- developmental-delay: triage:잠정적 진단 범주라는 단일 개념 설명이고 영역 나열이라 정의 반복
+- particulate-matter-health-effect: triage:입자 크기와 침투 깊이의 설명이 간단하고 PM10과 PM2.5 두 항뿐이라 구성이 부족
+- periapical-periodontitis: triage:치수 괴사에서 근단 염증으로 번지는 정의 반복이며 급성·만성 두 갈래만 있음
+- absolute-grading-scale: triage:점수 구간별 등급 부여라는 단일 방식으로 상대평가와의 두 항 대비뿐이고 곡선 서술은 없음
+- high-renaissance: triage:세 거장과 시기 구분이 논쟁적이며 시기 설정 자체가 방법론적 쟁점이라 단정해 그리기 어려움
+- word-of-faith-movement: triage:긍정 고백이라는 단일 교리 설명이며 사상 계보에 학자 간 이견이 있음
+- carryforward-of-losses: triage:결손금 이월공제 제도를 한 방향으로 설명할 뿐이라 정의 반복, 구성 요소가 사실상 결손연도-공제연도 둘
+- atopy-safe-childcare-center: triage:지정 어린이집 유형 하나의 운영 기준 나열이라 구성 요소 간 관계가 없음
+- child-behavior-checklist: triage:단일 평가 척도 도구명이며 내재화·외현화 2분류와 응답자 버전 나열뿐 그림으로 얻을 통찰이 적음
+- recruitment-and-selection: triage:모집 다음 선발이라는 두 단계뿐이고 본문이 정의를 되풀이함
+- fertility-cult: triage:프레이저식 범주 자체가 논쟁적이라 단정적 도식이 위험하고 구성 요소 간 구조도 불분명
+- operating-activities: triage:현금흐름표 세 활동 중 하나의 정의로, 본문의 순이익 조정 설명이 짧아 단계 구조를 근거 있게 그리기 어려움
+- reciprocal-anchorage: triage:두 치아군이 같은 힘을 주고받는다는 단일 원리로 구성 요소가 둘뿐이며 대비 개념도 본문에 없음
+- divisional-structure: triage:본사와 사업부 구조는 정의로 충분히 전달되고 본문이 기능별 조직 비교 축을 제시하지 않음
+- impressionism: triage:미술 사조 이름으로 인물·전시 나열이며 양식이 통일되지 않아 단일 도식으로 단정하기 어려움
+- technical-debt: triage:금융 부채 비유의 정의 반복이고 사분면 분류도 본문에 구체 칸이 없어 근거가 부족
+- mural-painting: triage:장르 개념이며 프레스코와 세코의 2분류가 전부라 구성 요소가 적고 정의 반복
+- child-sexual-abuse: triage:학대 유형 정의와 면담 주의사항 나열이며 민감 주제로 구조 도식의 실익이 없음
+- human-resource-development: triage:개인·경력·조직개발 세 영역 나열이 있으나 정의를 되풀이하는 수준이라 도식의 추가 통찰이 작음
+- perspicuity-of-scripture: triage:신학 교리 입장 진술이며 내적·외적 명료성 2분류와 가톨릭 대비뿐 구조가 약함
+- credobaptism: triage:신자세례 대 유아세례 두 입장의 대립이라 구성 요소가 둘이고 신학적 논쟁 단정 위험
+- deinstitutionalization: triage:정책 흐름과 지원체계 선행 필요성을 말로 설명하는 수준이며 단계·요소가 명확히 열거되지 않음
+- sustaining-innovation: triage:파괴적혁신과의 2항 대비로 본문에 성능 궤적 같은 수치적 구성 요소가 없음
+- grand-tour: triage:역사적 관행 하나의 설명이며 시간 순서 사건이 2개 안팎이라 도식 근거가 부족
+- vaccine-effectiveness-study: triage:효능 대 효과성 2항 대비와 설계 이름 나열이며 정의 반복에 가까움
+- vatican-ii-theology: triage:공의회 신학 변화의 서술이며 문헌 이름 나열과 해석 논쟁이 많아 단정적 도식이 어려움
+- homoousios: triage:단일 신학 용어로 호모우시오스 대 호모이우시오스 2항 대립과 연도 2개뿐
+- mentalizing: triage:개념 정의와 마음이론과의 구분이 전부라 구성 요소 간 관계가 없음
+- dream-start-program: triage:국내 사업 하나의 소개이며 서비스 나열 외에 구성 요소 간 관계가 없음
+- malapportionment: triage:인구 편차 사례의 단일 현상이며 5만 대 20만 예시의 수치 하나가 전부라 도식 구성 요소가 부족
+- gnosis: triage:추상적 종교 개념으로 신앙에서 영지로의 위계가 문헌별로 달라 단정할 수 없음
+- originality-in-art: triage:미학적 가치 개념이며 이론가 나열과 비판적 상대화 중심이라 시각화할 구조가 없음
+- fair-value-method: merge-candidate: 병합 후보라 보류(was checked)
+- trance: triage:의식 상태 개념으로 유도 방법 나열이며 본문이 연속선·다차원 접근 논쟁을 말해 단일 도식으로 단정하기 어려움
+- a-star-search: triage:알고리즘 하나의 정의와 f=g+h 수식 설명이며 다익스트라와의 2항 비교 외 구성 요소가 적음
+- brute-force: triage:모든 경우를 확인한다는 단일 기법의 정의 반복이며 기하급수 증가는 곡선 자체가 핵심은 아님
+- parent-education: triage:교육 활동의 정의이며 세 유형 나열 외에 관계 구조가 없음
+- active-aging: triage:건강·참여·안전 세 축 나열이 정의 반복이며 본문이 관계나 단계를 제시하지 않음
+- slow-to-warm-up-temperament: triage:기질 세 유형 중 하나이며 15% 비율과 적응 속도 서술만 있어 비교 축 자료가 부족
+- parent-participation: triage:에프스타인 여섯 유형 나열이 있으나 개념 범주 설명에 가깝고 관계 구조가 없음
+- effortful-control: triage:기질 차원 하나의 정의이며 구성 요소 간 구조가 없음
+- single-payer-system: triage:재정체계 정의와 다보험자체제 2항 대비라 구성 요소가 적고 국가별 변이가 큼
+- education-as-initiation: triage:교육철학의 은유 하나로 구조적 구성 요소가 없고 비판 논쟁 중심
+- pip-package-manager: triage:단일 도구명이며 requirements.txt 설치 설명이 전부라 정의 반복
+- social-education: triage:용어 변천 설명으로 1982년과 1999년 두 시점뿐이며 다른 용어의 선행 명칭에 불과
+- silver-diamine-fluoride: triage:단일 약제명이며 은의 항균과 불소의 재광화 두 요소의 작용 설명이 전부
+- instrumentalism-autonomism: triage:두 입장의 이분법 대립이며 본문이 중간 입장과 두 범주로 나눌 수 없는 사례를 경고해 단정 도식이 부적절
+- cheondogyo: triage:특정 교단 하나의 역사이며 교리 3단계도 인물 이름 나열 수준이라 도식의 추가 통찰이 작음
+- tawhid: triage:3층위 구분을 본문이 모든 신학파가 따르지는 않는다고 단서를 달아 단정적으로 그리기 어려움
+- epistemic-community: triage:전문가 네트워크가 정책에 영향을 준다는 서술 하나이며 단계가 본문에 구체적으로 열거되지 않고 영향력이 조건부라 논쟁적
+- odontogenic-keratocyst: triage:단일 질환명이며 분류 변천과 재발률 서술뿐이라 구성 요소 간 구조가 없음
+- spiral-curriculum: triage:같은 개념을 학년마다 심화한다는 정의 반복이며 분수 예시 하나가 전부라 그림이 정의를 되풀이함
+- health-system-fragility: triage:WHO 구성요소 6개를 나열하는 수준이며 요소 간 관계나 취약성이 심화되는 경로가 본문에 없음
+- ideal-type: triage:방법론적 도구 개념이며 이념형과 현실 사례의 편차 비교는 구성 요소가 둘뿐이고 연구자 관점에 따라 달라짐
+- negotiation-theory: triage:분배적 대 통합적 협상의 2항 대비라 구성 요소가 적고 본문이 정의를 되풀이함
+- alloplastic-bone-graft-material: triage:재료 범주 이름이며 하이드록시아파타이트와 베타삼칼슘인산염의 흡수 속도 비교 외에 구조가 없음
+- normative-principle-of-worship: triage:예배규정원리와의 2항 대립이며 교파별 입장이라 구성 요소가 둘뿐
+- separate-financial-statements: triage:별도 대 연결 재무제표 2항 비교와 투자평가 방법 나열이며 정의 반복에 가까움
+- responsibility-to-protect: triage:세 기둥 나열이 있으나 안보리 승인과 리비아·시리아 적용을 둘러싼 규범 논쟁이 얽혀 단정적 도식이 곤란
+- descriptive-representation: triage:서술적 대 실질적 대표 2항 대비이며 여성 비율 예시 수치가 전부라 구성 요소가 적음
+- bytecode: triage:소스에서 바이트코드, 가상 머신으로 이어지는 3단 흐름이 있으나 정의 반복에 가깝고 번역 비유 설명으로 충분
+- third-party-logistics: triage:아웃소싱 형태 하나의 정의이며 자산기반형과 비자산기반형 2분류뿐이라 구성 요소가 적음
+- curriculum-diversification: triage:선택과목 확대라는 정책 방향 정의이며 학교 유형별 대 교내 선택 2분류 외에 구조가 없음
+- interactionist-perspective-education: triage:거시 이론 대 미시 관점의 2항 대비이며 본문이 교사 호명 예시 하나로 구성 요소를 제시하지 않음
+- regulatory-impact-assessment-health: triage:필요성 검토부터 이행 가능성까지 단계가 deep에 한 줄 나열되어 있을 뿐이고 나머지 본문은 정의 반복
+- alienation-effect-brecht: triage:연출 기법 개념이며 감정 배제 오해 설명과 인물 대비가 중심이라 구성 요소 간 관계가 없음
+- infiniband: triage:단일 네트워크 기술명이며 이더넷과 속도 비교 서술이 전부
+- articular-disc: triage:해부 구조물 하나이며 전방·중간·후방부 나열과 MRI 소견 서술이라 관계 구조가 약함
+- autographs-doctrine: triage:원본과 사본의 2항 구분이고 신앙적 전제라 검증 논쟁이 있어 단정 도식이 부적절
+- investment-center: triage:책임회계 단위 하나의 정의이며 ROI와 잔여이익 2지표 비교 외에 구조가 없음
+- intended-curriculum: triage:굿래드의 의도·실행·경험 세 층위 중 한 층위만 다루고 하나의 구분 틀에서 층위 간 격차를 말로 서술하는 정도
+- lead-user: triage:선행성과 높은 기대 편익 두 조건의 정의이며 구성 요소가 둘이라 정의 반복
+- pre-attachment-phase: triage:애착 단계 중 첫 단계 하나이며 다음 단계 이름은 본문에 간략히 언급될 뿐이고 이견도 있음
+- ebs-linked-policy: triage:정책 하나의 설명이며 직접 연계와 간접 연계 2분류와 역설적 비판 서술이라 구조가 약함
+- complete-denture: triage:보철물 이름이며 유지·안정·지지 세 요소 나열과 하악 틀니 서술이라 관계 구조가 없음
+- occupational-disease: triage:질병 범주의 정의이며 예시 질환 나열과 인과 인정 기준 서술뿐 구성 요소 간 관계가 없음
+- high-school-credit-system: triage:제도 정의와 부수 과제 나열이며 선택, 이수, 누적, 졸업 흐름은 한 문장 정의로 충분
+- audit-sampling: triage:통계적 대 비통계적 2분류와 표본위험 서술이며 단계 구조가 본문에 없음
+- cheap-grace: triage:값싼 은혜 대 값비싼 은혜 2항 대비이며 신학 비판 개념이라 구성 요소가 적음
+- private-childcare-center: triage:설립 주체에 따른 시설 유형 하나이며 국공립과의 2항 비교 외 구조가 없음
+- grid-search: triage:모든 조합을 시도한다는 단일 탐색 기법의 정의 반복이며 조합 수 증가는 서술로 충분
+- traducianism: triage:영혼창조설과의 2항 대립이며 신학적 쟁점이라 구성 요소가 둘뿐
+- cultural-tools: triage:도구 종류와 내면화 설명이 있으나 구성 요소 간 관계가 서술 한두 문장이고 정의 반복이 큼
+- merleau-ponty-body-aesthetics: triage:현상학적 미학 개념이며 철학자 저작 나열과 세잔 해석 논쟁이 중심이라 도식화할 구조가 없음
+- plaque-index: triage:측정 지표 하나이며 0~3점 평가와 부위 나열뿐 구성 요소 간 관계가 없음
+- appeasement-policy: triage:뮌헨협정 사례 하나가 중심이고 항상 실패는 아니라는 반론이 있어 인과를 단정해 그리기 어려움
+- salivary-flow-rate: triage:측정값 하나이며 자극 대 비자극 2종과 진단 기준 수치 나열뿐
+- pastoral-epistles-authorship: triage:저작 시기·저자를 둘러싼 두 입장의 대립 서술이며 확정 합의가 없어 그림으로 단정해 구조화하기 어렵고 구성 요소가 2개뿐
+- sealer: triage:단일 재료명(근관 충전 보조 페이스트)이며 재료 종류 나열은 본문에서 비교 축 없이 언급됨
+- style-period: triage:개념 정의 위주이며 시대별 양식 구분은 본문에 구체 구성 없이 예시 몇 개뿐이라 근거 부족
+- unoccupied-behavior: triage:파튼 놀이발달 중 단일 단계 하나만 다루며 다른 단계 구성은 본문에 없음
+- seeker-sensitive-movement: triage:목회 전략 정의와 비판 서술이 중심이며 구도자 예배/양육 예배 2분법 외에 관계 맺는 요소가 없음
+- local-health-plan: triage:법정 계획 문서 설명이며 진단→계획→시행→평가가 일반적 행정 절차로 본문에서 구체적 단계 구조가 약함
+- probabilistic-graphical-model: triage:방향/무방향 그래프 2갈래 구분뿐이며 구성 요소 3개 이상의 관계 구조가 본문에 없음
+- messianic-secret: triage:침묵 명령 모티프 서술이며 역사적 사실인지 문학 장치인지 논쟁 중이라 단정해 그릴 수 없음
+- essential-questions: triage:교육설계 도구 설명이며 영속적 이해와 짝이라는 2개 관계 외 구조 없음
+- cultural-deprivation-theory: triage:결핍→학업 불리 한 줄 인과이며 보상교육 연결도 정의 반복 수준이고 이론 자체가 비판받는 중
+- input-tax-credit: triage:과세·공제 규정과 요건 나열이며 거래 단계별 세액 흐름을 그릴 수치 구조가 본문에 없음
+- montessori-materials: triage:몬테소리 교구 영역 나열과 자기수정 특성이 중심이며 관계·순서 구조가 없음
+- high-performance-computing: triage:인프라 구성 요소 나열(프로세서·네트워크·스케줄러)이며 상호 관계 구조나 단계가 명시되지 않음
+- leader-member-exchange: triage:내집단·외집단 2분법이 핵심이며 비교 대상이 2개뿐이고 이론 내부 긴장이 있어 도식화 근거 약함
+- abstraction-art: triage:구상에서 비구상까지 스펙트럼이라는 단일 속성 서술이며 첫 추상화 기원은 논쟁 중
+- visual-impairment: triage:전맹/저시력 2분류와 지원 방식 차이뿐이라 구성 요소가 2개
+- vertical-root-fracture: triage:파절 기전이 문장으로 기술된 단일 병변 설명이며 단계·분류 구조가 명확히 구분되지 않음
+- periodontal-pocket-depth: triage:단일 측정 지표(깊이)이며 임상부착수준 등과의 관계는 주의사항 수준
+- accruals-anomaly: triage:발생액 크기와 수익률의 음의 관계 한 줄이며 원인 설명이 이익조정·위험요인 등으로 논쟁 중이라 단정 불가
+- professional-skepticism: triage:감사인의 태도 개념이며 trait/state 구분 외 구성 요소 관계가 없음
+- class-composition-standard: triage:동일연령/혼합연령 2분류와 교사 비율 규정 나열이며 비교 축이 구체적 수치 없이 서술됨
+- bitewing-radiograph: triage:촬영 방식 한 가지에 대한 설명이며 치근단 사진과의 2개 비교뿐
+- polyvinyl-siloxane-impression-material: triage:단일 재료명이며 점도 2종 구분 외 구조 없음
+- non-extraction-orthodontics: triage:치료 접근 방식 하나이며 공간 확보 수단 나열은 단순 목록으로 서로의 관계가 없음
+- psychiatric-deinstitutionalization: triage:병상 감축과 지역서비스 구축 2요소의 병행 필요성 서술이며 결과가 국가별로 상이해 단정적 경로 도식 불가
+- essentialism-religion: triage:본질주의 대 구성주의 2개 입장 대립이며 학계 논쟁 중이라 단정 곤란
+- revenue: triage:정의 중심의 단일 회계 항목이며 인식 단계는 본문에서 언급만 되고 구체 단계가 없음
+- sunyata: triage:단일 사상 정의이며 연기와의 동일시 서술은 구성 요소 2개뿐
+- environmental-aesthetics: triage:인지주의 대 참여 모델 2개 입장 대립으로 구성 요소가 적고 논쟁 중인 주장
+- major-prophets: triage:책 이름 4권 나열과 대/소 구분이 분량 기준이라는 명칭 설명이며 관계 구조가 없음
+- anti-establishment-politics: triage:정치 현상 정의이며 배경 요인 나열 외에 구체적 단계 구조가 본문에 없음
+- animatism: triage:애니미즘과의 2개 비교이며 진화 단계 가설 자체가 비판받아 단정적 도식 불가
+- son-of-god-title: triage:구약·신약 용례의 심화 과정이 학계에서 논쟁 중이라 단정해 그릴 수 없음
+- organizational-ambidexterity: triage:탐색 대 활용 2개 활동 대비와 구조적 분리 한 가지 방법 서술이라 구성 요소가 2개 중심
+- kinship-foster-care: triage:위탁 형태 하나이며 일반위탁과의 2개 비교와 장단점 나열뿐
+- dental-inlay: triage:단일 보철물 종류 설명이며 온레이와의 관계는 한 줄 언급뿐
+- risk-factor-modification: triage:생활습관 개입 정의이며 개인/인구 수준 구분 외에 구조적 관계가 구체적으로 없음
+- natural-theology: triage:계시신학과의 2개 대비이며 유효성 자체가 신학 전통별로 논쟁 중
+- penetration-pricing: triage:스키밍과의 2개 비교로 구성 요소가 2개뿐이고 가격 곡선 등 수치 모양은 본문에 없음
+- cybersecurity-ir: triage:귀속 문제 중심의 안보 이슈 서술이며 구성 요소 간 단계나 분류 구조가 없음
+- innovative-education: triage:혁신학교·혁신교육지구 등 정책 이름 나열의 상위 개념 서술로 관계 구조가 구체적이지 않음
+- part-time-childcare: triage:제도 설명이며 전일제 보육과의 2개 비교뿐이고 단계나 구조가 없음
+- social-solidarity-education: triage:기계적/유기적 연대 2유형 대비이며 학교 역할은 한 줄 서술이라 구성 요소 3개 미만
+- ressourcement-theology: triage:방법론적 태도 정의이며 누벨 테올로지와 한 쌍으로 언급될 뿐 구성 요소 3개 이상의 관계 구조가 없음
+- abhidharma: triage:논서 전통 설명이며 법 75범주 분류가 언급만 되고 본문에 구체 범주 구성이 없어 그릴 근거 부족
+- interleaved-practice: triage:집중연습 대 교차연습 2개 비교로 구성 요소가 2개이며 그림이 정의 반복에 그침
+- institutional-theory-of-art: triage:디키 이론의 지위 부여 한 줄 구조이며 순환성 비판 등 논쟁 중인 주장이라 단정 도식이 어려움
+- ecological-education: triage:교육 개념 정의 위주이며 인과·단계·분류 구조가 본문에 없음
+- alternative-education: triage:대안학교 유형 나열(위탁형·인가형·비인가형)이 있으나 법적 지위 구분이 지역별로 다르고 관계 구조 없이 목록 수준
+- tooth-sectioning: triage:발치 술식 하나이며 분할 방향 선택은 문장 서술이라 단계가 명확하지 않음
+- social-doctrine-of-trinity: triage:유비 적용의 타당성이 신학적으로 논쟁 중이며 심리적 유비와의 2개 대비뿐
+- mandatory-safety-education: triage:6대 영역 목록과 법정 시수 서술이며 영역 간 관계가 없는 단순 나열
+- dog-business-unit: triage:BCG 매트릭스의 한 칸에 불과한 하위 사례이며 다른 칸 구성이 본문에 없음
+- functionalist-perspective-education: triage:교육 관점 정의이며 갈등론과의 2개 대비와 파슨스 학급 서술이 구조화되지 않음
+- accounting-comparability: triage:측정 방법과 효과가 문장으로 서술되며 관계 구조가 회귀 유사성 한 줄뿐
+- exclusive-breastfeeding-rate: triage:단일 지표이며 산출 정의 한 문장과 권고 수치 나열뿐
+- endodontic-retreatment: triage:치료 술식 하나이며 실패 원인 나열은 단순 목록
+- democratic-consolidation: triage:공고화의 행태·태도·헌법 3차원이 언급되나 앞 둘만 설명되고 개념이 목적론 논란 중이라 구성 근거 부족
+- model-calibration: triage:신뢰도 곡선(대각선 대 과신 곡선)이 핵심 모양이지만 plot 함수로 그리기 어려움
+- graph-database: triage:점·선 저장 방식이라는 단일 정의이며 관계형 DB와의 2개 비교뿐
+- midline-diastema: triage:증상 한 가지의 원인 나열이며 단계·분류 구조가 명확하지 않음
+- customer-relationship-management: triage:시스템·전략 정의이며 단계 구조 없이 도입 실패 원인 서술 중심
+- local-anesthesia: triage:나트륨통로 차단이라는 한 문장 기전과 약제 종류 나열뿐이라 구성 요소 간 구체적 연쇄가 약함
+- articulation-disorder: triage:오류 유형 4가지 나열과 음운장애와의 2개 구분뿐이라 단순 목록 수준
+- metaphysical-painting: triage:화풍 정의이며 인물·시기 나열과 수용사 논쟁 서술로 구성 요소 관계가 없음
+- economic-trinity: triage:내재적 삼위일체와의 2개 대비이며 파송 순서는 서방·동방 전통 간 논쟁 중이라 단정 불가
+- water-quality-monitoring-health: triage:검사 항목 나열이며 검사 주기 등은 구조가 없는 단순 목록
+- postmillennialism: triage:전천년설·무천년설과의 비교는 상위 항목에서 다룰 사례이며 후천년설 자체는 하위 사례로 구성 요소가 적음
+- child-safety-education: triage:6대 영역 나열과 반복 교육 원칙이며 관계 구조가 없음
+- nouvelle-theologie: triage:신학 운동 정의이며 인물 나열과 공의회 영향 서술로 도식화할 구조가 없음
+- facial-asymmetry: triage:원인 나열이며 평가·치료 서술이 구조화되지 않은 단일 병태 설명
+- gallagher-index: triage:계산식 한 줄(차이 제곱 합 후 제곱근)로 그림이 정의를 되풀이할 뿐 새로 보여 줄 것이 없음
+- religious-pluralism-hypothesis: triage:학계 비판이 큰 논쟁적 가설이며 실재와 종교의 2개 관계뿐이라 단정해 그릴 수 없음
+- organizational-inertia: triage:조직 속성 정의이며 원인 나열(구조·매몰비용·권력)이 단순 목록 수준
+- pieta: triage:도상 정의이며 형식 변천은 인물·시기 서술이라 그릴 구성 요소 구조가 없음
+- self-recognition: triage:거울 검사 절차가 한 줄 서술이며 발달 시기가 문화별로 달라 단정 도식 불가
+- unit-testing: triage:개념 정의와 비유 위주이며 mock 대체 등 관행 서술이 단계 구조 없이 나열됨
+- chiaroscuro: triage:기법 정의이며 테네브리즘과의 2개 구분뿐이고 단계적 이행은 문장 서술이라 구조 근거 부족
+- inculturation: triage:혼합주의와의 2개 대비이며 토착화 범위가 신학적으로 논쟁 중이라 단정 곤란
+- tertiary-circular-reaction: triage:3차 순환반응 하나의 설명이며 1·2차 단계는 언급만 되어 본문에 비교 구성이 없음
+- operations-management: triage:원가·품질·납기·유연성 네 목표 나열이며 그림이 정의 반복에 가깝고 관계 구조가 본문에 구체적이지 않음
+- photorealism: triage:미술 경향 정의이며 제작 방식 나열(격자·투사)이 단순 목록
+- biblical-criticism: triage:방법론 이름 나열(본문·자료·양식·편집·서사)이며 그림이 정의 반복이고 신학적 긴장이 논쟁 중
+- justification: triage:개신교·가톨릭 이해가 갈리는 논쟁적 교리이며 칭의-성화 2개 구분뿐이라 구성 요소가 적음
+- simul-justus-et-peccator: triage:의인·죄인 두 신분의 역설 명제로 구성 요소가 둘뿐이고, 전가 대 주입 대비는 본문 밖 지식에 기대며 신학 쟁점 단정 위험이 크다
+- rouge-score: triage:겹침 측정 지표라는 정의 반복이고 ROUGE-N/L 변형은 수식 설명이라 글만으로 충분하며 시각화로 더해지는 정보가 없다
+- curriculum-compacting: triage:4단계 절차가 정의 문장에 이미 그대로 나와 도식이 새로 보여 줄 것이 없고 속진과의 차이도 한 줄 대비에 그친다
+- narrative-criticism-biblical: triage:역사비평 대 서사비평의 방향 차이를 말하는 두 입장 대비이고 문학 요소 나열은 정의 반복이라 관계 구조가 없다
+- early-childhood-public-education: triage:정책 방향을 설명하는 서술형 개념으로 단계나 관계 구조가 본문에 없고 국공립·사립 지원 격차는 수치 자료 없이 그릴 수 없다
+- master-production-schedule: triage:총괄계획-MPS-MRP 3단 위계는 정의 한 문장으로 충분하고 확정구간 시간울타리는 기간 수치가 본문에 없어 그림 근거가 부족하다
+- heat-island-effect-health: triage:원인 나열(표면·녹지·인공열)과 결과가 일반적 서술 수준이라 정량 경로나 단계 구조가 없고 도식이 정의를 되풀이한다
+- literal-sense-of-scripture: triage:사중 의미 체계의 나머지 세 층은 이름만 언급되고 문자주의와의 구분도 두 개념 대비에 그쳐 구성 요소가 부족하다
+- multi-armed-bandit: triage:탐색-활용 두 축 대비가 핵심이고 로그 증가 후회 곡선은 plot 함수(hill·decay 등)로 못 그리며 필요한 로그 곡선을 지원하지 않는다
+- kindergarten-teacher-certificate: triage:1급·2급 자격 및 임용시험 경로는 제도 서술이고 보육교사 자격과의 비교도 본문에 구체적 기준 축이 없다
+- pisa: triage:OECD 시험 개요이고 읽기·수학·과학 세 영역은 단순 나열이며 순위·추이 수치가 본문에 없어 그릴 근거가 없다
+- physical-activity-guidelines: triage:주당 분 수 권고치를 나열한 수치 규정이라 관계 구조가 없고 좌식행동과의 구분도 서술로 충분하다
+- pygmalion-effect-classroom: triage:기대→상호작용→성취의 3단 경로가 정의에 이미 담겨 있고 효과크기 재현 논쟁 때문에 단정적 인과 화살표는 위험하다
+- district-magnitude: triage:선거구 크기와 비례성의 단일 방향 관계이고 1/(M+1) 봉쇄선 곡선은 수식만 주어져 plot 함수로 정확히 못 그리며 구성 요소가 둘뿐이다
+- partisan-realignment: triage:급격한 재편 대 장기적 재편의 두 경로 대비와 사례 연도 나열뿐이라 3개 이상의 관계 구성 요소가 없고 이론 자체가 논쟁 중이다
+- angelology: triage:아홉 계급 위계는 본문에 이름 일부만 나올 뿐 전통마다 다르고 성서 근거도 논쟁 중이라 단정적 위계도를 본문 밖 지식에 기대 그려야 한다
+- tax-avoidance: triage:합법 절세와 불법 포탈의 이분 대비이고 경계 모호성은 서술이라 구성 요소가 둘뿐이다
+- multiple-choice-assessment: triage:문두·정답·오답지의 단순 구성 목록이고 문항반응이론 세 모수는 수치 없이 나열되어 정의 반복에 그친다
+- degeneration-theory-religion: triage:진화론의 방향을 뒤집은 단선 도식에 불과하고 이론 자체가 검증 불가·학계 지지 상실이라 도식으로 단정하기 부적절하다
+- state-capture: triage:입법·규제·사법 포획 세 유형은 이름만 언급되고 일반 부패와의 대비가 핵심이라 관계 구조가 빈약하다
+- strongly-connected-components: triage:방향 그래프 자체가 핵심인데 9개 type에 그래프·네트워크가 없어 점-간선 구조를 표현할 수 없고 DAG 압축은 type 밖이다
+- pulpotomy: triage:치관부 치수 제거라는 단일 술식이고 약제 세 종류는 기전 차이를 짧게 언급할 뿐 비교 기준 축이 없다
+- biomonitoring: triage:시료 종류와 측정 지표 나열 및 일반론적 노출-체내농도 서술로 단계 구조나 수치 모양이 본문에 없다
+- preferential-option-for-poor: triage:윤리적 원칙을 설명하는 서술형 개념이며 메데인·푸에블라 연대기는 본문에 두 사건뿐이라 timeline 요소가 부족하다
+- child-care-support-service: triage:시간제·영아종일제 두 유형과 소득별 지원 비율은 제도 서술이고 수치가 본문에 없어 그릴 근거가 없다
+- immunocompromised-host: triage:환자군 정의이고 원인 나열(당뇨·항암·이식·HIV)은 단순 목록이며 감염 진행의 단계 구조가 본문에 없다
+- rolling-budget: triage:기간 하나를 빼고 하나를 더하는 창 이동 한 가지 규칙이 정의에 이미 있고 구성 요소가 사실상 둘이다
+- grief-theology: triage:신학 분야 소개이며 심리학 애도 단계는 이름만 언급되고 이 용어 고유의 관계 구조가 없다
+- insecure-resistant-attachment: triage:낯선상황 C유형 하나의 특징 서술이고 A·B·D 유형과의 비교는 본문에 기준 축 없이 흩어져 있어 도식 근거가 약하다
+- minilateralism: triage:양자-소다자-다자를 참여국 수로 줄 세운 단일 축 대비라 정의 반복이고 장단점은 서술이며 쿼드·오커스는 사례 이름뿐이다
+- investigational-new-drug-application: triage:전임상-IND-1상이라는 3칸 관문 위치만 말하고 각 단계 내용은 본문 밖 지식이라 정의 반복 수준이다
+- henotheism: triage:다신교-단일신교-일신교 스펙트럼은 범주 용어 자체가 논쟁적이고 일신숭배와의 구분도 뮐러 개념의 한정이라 단정적 도식이 부적절하다
+- onboarding: triage:신규 구성원 적응 과정이라는 정의 반복이고 90일·프리보딩은 단계 구성 없이 언급될 뿐이다
+- pure-land-thought: triage:자력 대 타력 대비와 정행·조업·잡행 분류가 이름만 나오고 종파별 차이 서술이라 도식 구성 요소가 본문에 충분히 없다
+- transaction-price: triage:고정 대가에 변동대가 등을 더하는 조정 항목 나열이고 금액 수치 예시가 하나뿐이며 5단계 모형은 이름만 언급된다
+- cross-border-health-threat: triage:감염병·대기오염·항생제 내성 등 사례 나열이고 국경을 넘는 경로는 일반론이라 정의 반복이다
+- net-income: triage:수익에서 비용·세금을 빼는 단순 산식이고 계층 구성 요소 수치가 본문에 없어 워터폴을 그릴 근거가 없으며 9개 type에도 맞지 않는다
+- grand-narrative-collapse: triage:리오타르 진단에 대한 제임슨의 반박 등 논쟁이 핵심이라 단정적 관계도가 불가하고 거대서사 두 사례는 단순 나열이다
+- simple-extraction: triage:단순발치 대 외과적발치의 두 유형 대비일 뿐이고 술기 단계는 한두 문장 설명이라 도식이 정의를 반복한다
+- health-insurance-risk-pooling: triage:집단 규모와 위험 예측성의 관계 서술이고 위험조정·의무가입은 이름 언급 수준이며 수치나 단계 구조가 본문에 없다
+- resource-room: triage:통합학급과 자원교실을 오가는 시간제 배치 개념이라 비교 축이 둘뿐이고 시간 배분 수치도 본문에 없다
+- comparative-religion-method: triage:형태론적 비교와 역사적 비교 두 갈래 대비가 전부이고 나머지는 위험성 서술이라 3개 이상의 구성 요소가 없다
+- quarantine-period: triage:잠복기 분포의 95백분위수를 기준으로 삼는다는 한 줄뿐이고 분포 모수나 모양이 본문에 없어 구체적 곡선을 근거 있게 그릴 수 없다
+- problem-solving-learning: triage:듀이 5단계와 폴리아 4단계가 서로 다른 단계 목록으로 병기되어 하나의 절차로 단정하기 어렵고 정의의 순차 서술과 겹친다
+- pedagogy: triage:페다고지 대 안드라고지의 이분 대비이고 비교 축 일부(자기주도성 등)만 안드라고지 쪽에 제시되어 대칭 비교를 채울 근거가 부족하다
+- covenant-code: triage:출애굽기 20-23장 법전 소개이고 신명기·성결법전과의 선후 관계는 형성 연대 이견이 커서 시간순을 단정할 수 없다
+- majoritarian-democracy: triage:합의제 대비는 이름만 나오고 합의제 쪽 특징이 본문에 없어 대칭 비교를 채울 수 없으며 열 가지 특징도 세 개만 언급된다
+- e-waste-health-hazard: triage:소각·산 처리로 물질이 퍼져 노출된다는 일반적 노출 서술이고 단계별 기전이나 용량 구조가 본문에 없다
+- surgical-extraction: triage:단순발치 대비 복잡한 술식이라는 정의가 핵심이고 술식 순서는 한 문장에 나열된 외과 절차라 개념 자체의 구조 도식은 새 정보가 적다
+- tertiary-care-hospital: triage:1·2·3차 3단계 구분은 정의에 이미 있고 의뢰 흐름도 한 줄이라 도식이 정의를 반복한다
+- conflict-perspective-education: triage:기능론 대 갈등론의 이분 대비이고 하위 이론 둘은 이름 나열이며 단계나 수치 구조가 본문에 없다
+- fixed-retainer: triage:전치부 설측 접착 와이어라는 단일 장치 설명이고 탈락 위험은 서술이라 3개 이상 관계 구성이 없다
+- earned-income-tax-credit: triage:공제액이 급여 구간에 따라 늘다가 줄어드는 모양이지만 구간 수치가 본문에 없고 오르다 꺾이는 비대칭 곡선은 plot 함수로 못 그린다
+- sociodramatic-play: triage:상징놀이와 협동놀이의 겹침은 두 원이라 약하고 스밀란스키 여섯 요건은 단순 목록이라 관계 구조가 아니다
+- vicarious-atonement: triage:형벌 대속·만족설 등 속죄 이론 이름의 나열이고 각 이론의 기전 설명이 빈약하며 이론 간 관계 자체가 신학적 논쟁이다
+- lecture-method: triage:강의식 대 능동적 학습의 이분 대비이고 장단점은 서술이며 주의집중 저하도 시간 수치가 본문에 없어 곡선으로 그릴 수 없다
+- job-analysis: triage:수집 기법 목록과 산출물 두 가지를 나열한 정의 반복이라 단계 간 관계가 본문에 구체적이지 않다
+- tobacco-control-policy: triage:가격·비가격·금연지원 정책 수단의 목록이고 MPOWER 여섯 항목도 이름 나열이라 수단 간 관계나 단계가 없다
+- person-time-incidence-rate: triage:분모를 관찰 기간 합으로 두는 계산 정의이고 1인년 환산 예시는 산식 설명이라 그림이 추가하는 구조가 없다
+- oversized-coalition: triage:최소승리연합과의 대비와 형성 이유 나열이 전부이며 의석 수치 구조는 본문에 없어 그릴 근거가 없다
+- herem-warfare: triage:성서 본문의 관행 설명이고 해석 틀들이 논쟁 중이라 단정적 도식이 부적절하며 구성 요소가 둘 정도이다
+- cost-of-capital: triage:부채 비중에 따라 자본비용이 먼저 낮아졌다 오르는 U자 모양이지만 수치가 본문에 없고 U자는 plot 함수로 못 그린다
+- tpu: triage:GPU와의 비교가 한 줄 대비이고 시스톨릭 어레이는 구조 설명이 짧아 도식 근거가 부족하며 단일 장치 소개에 가깝다
+- altarpiece: triage:중앙 패널·날개·프레델라 같은 부위는 이름만 언급되고 공간 배치 도식은 9개 type으로 표현할 수 없으며 구성 관계도 서술이다
+- eventual-consistency: triage:갱신 후 복제본이 수렴한다는 정의 반복이고 일관성 스펙트럼은 분산 일관성 모델 항목에서 다루는 구조와 중복되며 수렴 시간 상한도 본문에 없다
+- keswick-theology: triage:웨슬리 전적성화와의 억제 대 근절 대비가 핵심이고 성결운동-오순절 사이 계보는 평가가 갈려 단정적 선후도를 그리기 어렵다
+- nominalism-theology: triage:실재론 대 유명론, 절대적 능력 대 규정된 능력이라는 두 쌍의 이분 대비가 전부이고 학설사 구도는 본문 밖 지식이 필요하다
+- doubly-linked-list: triage:양방향 포인터로 이어진 노드 구조가 핵심인데 chain은 한쪽 화살표 순서라 양방향 연결을 표현할 type이 없다
+- catholicity-of-church: triage:지리적 보편성과 질적 보편성의 두 측면과 전통별 실현 방식 차이로 구성 요소가 둘 수준이며 네 표지는 하나만 다룬다
+- community-health-worker-program: triage:요원이 보건소와 주민을 잇는다는 역할 설명이고 설계 요소는 요인 나열이라 단계나 수치 구조가 없다
+- non-intervention-principle: triage:주권 존중과 인도적 개입 사이 긴장이라는 두 힘의 대비이고 보호책임 적용 범위는 논쟁 중이라 단정할 수 없다
+- participative-budgeting: triage:몰입 증가와 예산슬랙 위험의 상충 서술이고 상향식 대 하향식 두 방식 대비라 비교 축이 둘뿐이다
+- bildung-formation-theory: triage:교육을 형성 과정으로 본다는 철학 개념 서술이며 구성 요소 간 관계나 단계가 본문에 없고 번역어 범위도 불안정하다
+- going-concern: triage:가정 성립 시 취득원가, 불성립 시 청산기준이라는 두 갈래 전환이고 12개월 경계 판단은 서술이라 구성 요소가 부족하다
+- grandparent-caregiving: triage:조부모 보조 양육과 조손가정 두 형태 구분과 용어 정의 반복이며 연구 변수는 목록이라 관계 구조가 없다
+- dietary-supplement-use-survey: triage:설문 방법으로 섭취 실태를 파악하는 조사 개요이고 24시간 회상과 FFQ는 이름만 나오며 단계 구조가 없다
+- dental-caries-risk-assessment: triage:위험요인 목록을 저중고위험으로 분류하는 서술이고 요인 간 관계나 가중치가 본문에 없어 그림이 정의를 반복한다
+- romanesque-art: triage:고딕과의 한 줄 대비와 특징 나열이고 팀파눔·두꺼운 벽 등은 양식 특징 목록이며 시간순 사건도 둘뿐이다
+- ecological-theology: triage:인간 중심 해석 대 청지기적 재해석의 대비와 신학 주제 나열이라 단계나 수치 구조가 없고 정의 반복이다
+- degree-of-conversion: triage:전환율이 낮으면 미반응 단량체 때문에 물성이 떨어진다는 단일 지표의 단순 인과이고 광조사 시간별 전환율 수치가 본문에 없어 곡선도 근거가 없다
+- indirect-cost-of-illness: triage:결근·프리젠티즘·조기사망·무급간병의 단순 나열이고 정의 반복에 가까움
+- individualized-instruction: triage:수업 형태 개념 설명이며 위네트카·달톤·PSI 언급은 나열뿐 관계 구조가 없음
+- enhypostasis: triage:무인격성과 짝을 이루는 기독론 개념 하나, 구성 요소 2개뿐이고 도식화 근거 부족
+- gothic-art: triage:양식 명칭이며 구조적 요소 나열 외에 관계·단계가 없고 파노프스키 상응론은 논쟁 중
+- succession-planning: triage:인사 활동 정의 반복, 9블록 매트릭스는 3x3이라 2x2 matrix로 못 그림
+- executive-information-system: triage:시스템 유형 설명, DSS와의 대비도 한 문장뿐이고 구성 관계 없음
+- nestorianism: triage:이단 규정 자체가 학계 논쟁 중(네스토리우스 본인 입장 불확실)이라 단정적 도식 곤란
+- pure-land-sukhavati: triage:불국토 하나의 개념 설명, 서원-왕생-수행 관계가 본문에 구조화되어 있지 않고 해석이 갈림
+- liabilities: triage:정의 중심이며 유동·비유동 구분은 두 갈래뿐이라 새로 보여줄 구조가 약함
+- photomontage: triage:미술 기법명, 콜라주와의 구분 외에 단계·관계 구조 없음
+- social-smile: triage:단일 발달 이정표(반사적 미소와 이분 구분만 존재), 구성 요소 3개 미만
+- babbling: triage:발달 단계 서술이 흩어져 있어 시기·단계 근거가 모호하고 정의 반복 성격이 강함
+- gutta-percha: triage:단일 치과 재료명
+- selection-allocation-function-education: triage:기능 하나의 개념 설명, 기능론 대 갈등론 대비는 한 문장뿐이고 구성 요소 부족
+- low-information-rationality: triage:팝킨 대 바텔스 논쟁이 진행 중이라 단정 불가, 지름길 나열 외 구조 없음
+- type-theory: triage:이론 계보가 추상적이며 체계 나열(단순 타입~의존 타입)만 있어 관계 근거 부족
+- food-security-index: triage:지표 개념, 4차원 나열만 있고 서로의 관계 없음
+- job-crafting: triage:3유형·4범주가 서로 다른 학파의 나열이고 정의가 학계에서 갈려 단일 도식화 어려움
+- global-burden-of-disease: triage:연구 체계 소개이며 YLL+YLD=DALY 합산 외에 새 구조 없음, 하위 용어(YLD)로 다룰 내용
+- fixed-cost: triage:총액 일정·단위당 감소 곡선을 그리려면 쌍곡선·계단 함수가 필요하나 plot에 없음
+- operating-lease: triage:금융리스와의 구분이 본문에 짧게만 있고 기준 변경 설명 위주라 도식 근거 부족
+- original-sin: triage:전가설·유전적 부패설 해석이 전통마다 갈리는 논쟁 중 주제라 단정 불가
+- church-triumphant: triage:세 교회 구분이 연옥 인정 여부에 따라 전통마다 달라 단정 불가, 다른 용어의 하위 항목
+- art-as-experience-dewey: triage:저서 기반 이론 소개, 시작·전개·완결 언급은 짧아 구체적 도식 근거 부족
+- years-lived-with-disability: triage:유병기간×장애가중치 단일 계산식, DALY 구조는 상위 용어에서 다룸
+- specialized-vocational-high-school: triage:학교 유형 하나, 마이스터고와의 구분이 한 문장뿐
+- tax-deduction: triage:소득공제와 세액공제 대비가 본문에서 계산 방식 차이만 언급되고 절세 효과 구조 설명은 한계세율 문장뿐이라 정의 반복 수준
+- public-childcare-center: triage:시설 유형 하나, 직영·위탁 구분은 두 갈래 나열뿐
+- observational-assessment: triage:기록 기법 6종 단순 나열로 서로의 관계 구조가 없음
+- cognitive-constructivism: triage:사회적 구성주의와의 대비가 한 문장뿐이고 이 용어 자체의 구조는 정의 반복
+- media-selection: triage:선정 변인 나열과 흐름도 모형 언급만 있고 구체적 단계·순서가 본문에 없으며 매체 논쟁은 진행 중
+- chinoiserie: triage:양식 명칭, 자포니즘과의 구분 외에 구조 없음
+- qiwulun: triage:장자 편명·사상 설명이고 우화 나열 외 구조 없음, 해석 논쟁
+- post-evangelicalism: triage:용어 범위가 학자마다 달라 정의 자체가 불확정이며 구성 요소 부족
+- standard-childcare-curriculum: triage:6개 영역 나열과 누리과정 구분만 있어 관계 구조 없음
+- global-citizenship-education: triage:인지·사회정서·행동 3영역 단순 나열, 정의 반복 성격
+- typology: triage:예표-성취 쌍 두 요소만 있고 알레고리와의 구분은 정의 보강
+- regime-complex: triage:중첩 레짐 개념이며 우위 위계 존재 여부가 연구 중인 쟁점이라 단정 불가
+- cyclical-time: triage:직선적 시간관과의 이분법 자체가 단순화라고 본문이 경고, 순환 단계도 구체화되지 않음
+- survival-analysis: triage:카플란-마이어 계단 곡선이 핵심이나 plot에 계단 함수가 없음
+- health-disparities: triage:사회적 결정요인 나열과 정의 반복, 구성 요소 간 관계가 본문에 구조화되어 있지 않음
+- truth-commission: triage:기구 정의 요건 나열과 사례(CONADEP, TRC) 소개 위주이고 관계 구조 없음
+- madonna-and-child: triage:도상 유형 명칭 나열(호데게트리아·엘레우사 등)이며 서로의 관계나 순서가 구체적이지 않음
+- licensing: triage:계약 방식 정의와 위험 서술, 프랜차이징과의 구분은 한 문장뿐
+- defined-benefit-obligation: triage:DBO에서 사외적립자산을 뺀 순부채 한 줄 계산과 가정 나열, 정의 반복 수준
+- filibuster: triage:종결 요건(60표/5분의 3) 수치 설명이 중심이고 단계·구조 도식 근거가 약함
+- point-in-time-recognition: triage:기간인식과의 대비가 언급만 있고 통제 이전 지표는 단순 나열
+- atmospheric-perspective: triage:거리에 따라 채도·대비가 변한다는 정의 반복이며 정량 곡선은 본문에 없음
+- religious-market-theory: triage:독점 대 경쟁의 인과 주장이 재분석 이후 경험적 근거가 약화된 논쟁 중 이론이라 단정 불가
+- model-checking: triage:검증 절차의 단계가 본문에 구체적으로 없고 시제논리·상태 폭발 용어 나열 위주
+- symbolic-thought: triage:기호적 기능 아래 지연모방·가상놀이·언어 등 표현 형태를 나열하는 수준이고 관계가 약함
+- open-and-relational-theology: triage:여러 흐름을 포괄하는 우산 개념이고 신학적 입장 자체가 논쟁 중이라 단정 도식 곤란
+- career-transition-education: triage:훈련·상담 두 요소 병행이라는 설명뿐, 구성 요소 3개 미만
+- pragmatism-in-education: triage:철학적 입장 소개와 PBL 사례 나열, 관계·순서 구조 없음
+- pathosformel: triage:단일 개념(감정 몸짓 정형)과 용례 나열, 구성 요소 관계 없음
+- case-fatality-rate: triage:분자/분모 한 줄 비율이며 CFR·IFR·사망률 대비는 정의 보충 수준
+- word-embedding: triage:벡터 공간 개념이며 왕-남자+여자 예 외에 단계·관계 구조가 본문에 부족
+- religionless-christianity: triage:본회퍼의 단편적 문제 제기로 해석이 갈리는 미완 개념, 구성 요소 부족
+- sentinel-surveillance: triage:수동·능동 감시의 두 갈래 소개뿐이고 표본 선정과 추세 파악 단계는 본문에 구조화되지 않음
+- corporate-governance: triage:내부·외부 통제 두 갈래와 이해관계자 나열, 모델 우열 논쟁이 있어 단정 도식 곤란
+- syncretism: triage:현상 정의와 사례 나열이며 병존과 통합 구분도 본문에서 구체화되지 않음
+- presidentialism: triage:린츠 주장(이중 정당성에서 교착으로)이 조건부 반론과 함께 논쟁 중이라 인과 사슬 단정 곤란
+- global-budget-payment: triage:행위별·포괄수가·인두제와의 비교가 문장 수준이고 총액 조정 구조는 도식 근거가 약함
+- polyptych: triage:패널 수에 따른 이연화·삼연화 이름 구분이 전부이고 구조 관계는 단순함
+- in-vitro-in-vivo-extrapolation: triage:세포 농도를 PBPK로 혈중농도·용량으로 환산한다는 개념 설명이 중심이고 단계가 본문에 구체적이지 않아 근거 부족
+- foster-care-system: triage:위탁 유형 나열과 종료 후 경로 언급뿐, 서로의 관계 구조가 약함
+- ameloblastoma: triage:단일 종양 질환명
+- tax-exemption-vat: triage:면세·영세율·과세 비교는 본문에 한 문장뿐이라 근거 부족
+- general-calling: triage:효과적 부르심과의 구분이 개혁주의 전통에 한정된 신학 입장이라 단정 불가, 2개 개념 대비에 그침
+- tax-refund: triage:차액 환급이라는 단일 개념이며 경정청구는 한 줄 언급
+- photography-aesthetics: triage:벤야민·바쟁·손택 등 이론가 나열이며 구조적 관계가 모호하고 해석이 갈림
+- big-data-marketing: triage:정의 반복과 개인화 역설 같은 쟁점 나열, 도식화할 구체 구조 없음
+- free-semester-system: triage:제도 소개이며 4개 활동 나열과 한 학기-학년제 확대 언급 외에 구조 없음
+- jeungsan-religions: triage:여러 교단의 총칭이고 교단 분화 계보는 본문에 구체적 구조 없음
+- intermaxillary-fixation: triage:고정 방법 설명이며 와이어·고무링·스크류 장단점 나열뿐 관계 구조 없음
+- shia-islam: triage:분파 나열과 교리 소개, 이맘 계보 수가 분파마다 달라 단일 구조로 도식화하기 어려움
+- political-trust: triage:특정적·확산적 지지 구분이 있으나 신뢰 하락의 해석이 노리스 등과 논쟁 중이라 단정 불가
+- held-to-maturity-securities: triage:분류 요건과 오염규정이 문장으로 서술될 뿐 구성 관계 도식 근거 부족
+- unipolarity: triage:단극체제 안정성 여부가 신현실주의자와 월포스 간 논쟁 중이라 단정 불가
+- marginal-bone-loss: triage:첫해 급감 후 연 0.2mm 이하로 완만해지는 곡선이 핵심이나 plot에 구간선형 함수가 없음
+- care-coordination: triage:하위 메커니즘 3개 나열과 운영 모델 이름 나열뿐 관계 구조 없음
+- peace-enforcement: triage:평화유지와의 이분 대비뿐이고 구성 요소가 2개, 나머지는 위험 서술
+- innovation-school: triage:정책 사례 서술, 단계·분류 구조 없고 성과 연구 결과가 엇갈려 단정 불가
+- cost-allocation: triage:배분원칙 4개는 나열일 뿐 관계 구조가 약하고 보조부문 항목과 중복
+- online-class: triage:유형 3가지 나열이며 효과 차이는 본문에 수치·구조가 없음
+- temple-theology: triage:해석 전통이라 단정 도식이 어렵고 성전 4개 나열은 근거가 얇음
+- baptism: triage:교파별 입장 차이가 논쟁 중이라 중립적으로 그리기 어렵고 구성 요소가 2개 대립
+- streptococcus-mutans: triage:단일 세균 종 이름, 기전은 우식 용어 쪽 몫
+- kingdom-of-god: triage:이미와 아직 두 측면뿐으로 정의 반복, 해석이 논쟁적
+- co-branding: triage:하위 유형 2개와 효과 서술뿐이라 도식이 정의를 되풀이
+- conditional-random-field: triage:모형 구조는 본문에 수식·노드 정보 없이 서술뿐이라 근거가 부족
+- open-theism: triage:신학 논쟁 중인 입장을 단정 도식으로 그리기 어려움
+- perichoresis: triage:삼위일체 교리 해석으로 논쟁적이며 시각화가 정의를 되풀이
+- secessionism: triage:운동·현상 정의와 사례 나열, 탈중앙화 효과는 양론 대립이라 단정 불가
+- ontology-engineering: triage:방법론 이름 나열뿐 단계 순서가 본문에 명시되지 않음
+- student-teacher-ratio: triage:단일 지표 정의와 계산 예, 구성 요소가 2개
+- docetism: triage:이단 사상 하나의 정의, 비교 축이나 단계 없음
+- periapical-cyst: triage:단일 병변 명칭이고 육아종과의 대비 2개뿐
+- stainless-steel-wire: triage:단일 재료 이름, 니켈티타늄과의 비교 2개뿐
+- non-controlling-interest: triage:회계 항목 하나로 지배·비지배 2분 배분뿐, 정의 반복
+- value-proposition: triage:캔버스 구성은 본문이 간략히 언급할 뿐이고 핵심은 정의 반복
+- code-linting: triage:도구 정의, 스타일 대 버그 2분류뿐
+- world-council-of-churches: triage:기관명이고 구조·절차 정보가 없음
+- negative-dialectics: triage:철학 개념 정의와 해석, 헤겔과의 대비 2개뿐이며 논쟁적
+- scotism: triage:토미즘과의 2자 비교, 사조 이름이라 구성 요소 부족
+- population-attributable-fraction: triage:공식 하나의 지표, 곡선 모양이 핵심이 아니며 구성 요소가 부족
+- denver-developmental-screening-test: triage:검사도구 이름, 네 영역은 단순 나열
+- special-education-teacher: triage:직업·역할 나열이라 관계 구조 없음
+- test-coverage: triage:단일 지표 정의, 커버리지 종류 나열뿐
+- essentialism: triage:교육철학 하나의 정의, 항존주의와 2자 구분뿐
+- celadon: triage:도자기 종류 이름, 산화·환원 대비는 하위 설명에 그침
+- structuralism-in-education: triage:관점 정의와 구조 대 행위자 대비뿐, 논쟁적 이론 틀
+- capriccio-art: triage:장르 이름이고 베두타와의 2자 구분뿐
+- impasto: triage:단일 회화 기법, 구성 요소 관계 없음
+- desecularization: triage:세속화 명제 대 반대 흐름 2자 구도로 논쟁적
+- curriculum-reconstruction: triage:활동 정의 반복, 단계 순서가 본문에 없음
+- recursive-descent-parser: triage:파싱 기법 하나, 규칙-함수 대응은 정의 반복
+- lyrical-abstraction: triage:미술 사조 이름, 두 경향은 관련 없는 별개 용어
+- control-structures: triage:순차·선택·반복 3개 나열로 본문 설명만으로 충분하고 도식이 정의 반복
+- physical-exercise-health-domain: triage:교육과정 영역 이름, 세부 내용 3개 나열뿐
+- postmodern-theology: triage:넓은 범주의 신학 흐름으로 논쟁적이고 구조가 없음
+- core-rigidity: triage:역량과 경직성 두 얼굴뿐인 개념 정의, 코닥 사례는 일화이고 구성 요소 2개
+- step-cost: triage:핵심이 계단 모양 곡선인데 현재 plot 함수로는 못 그려 도식을 만들 수 없음
+- waidan: triage:외단에서 내단으로 이동한다는 2항 흐름뿐, 전통 정의 중심
+- music-therapy-child: triage:치료 개입 정의, 능동·수용 기법 2분류 언급뿐
+- amitabha-faith: triage:염불 3종은 나열이고 정토 해석이 종파마다 갈려 단정 어려움
+- first-aid-education: triage:교육 항목 나열, 성인·영유아 구분 2개뿐으로 관계 구조 없음
+- semaphore: merge-candidate: 병합 후보라 보류(was checked)
+- hierophany: triage:엘리아데 개념 하나이고 사회학적 접근과 정면 대립하는 논쟁적 주장
+- early-adopter: triage:채택자 범주 중 한 집단이고 본문에는 13.5%와 캐즘 언급뿐이라 근거가 얇음
+- switching-cost: triage:비용 3유형은 나열이며 높을수록 록인이라는 단선적 설명
+- periodontitis-staging-and-grading: triage:병기 4단계 곱하기 등급 3단계 격자라 2x2 matrix 범위를 벗어나고 기준표 자체가 본문에 없음
+- private-tutoring-reduction-policy: triage:정책 수단 나열, 대체재형 대 유인구조형 2분류뿐이고 효과 인과는 단정 불가
+- religious-inclusivism: triage:배타·포용·다원 3분법의 한 입장이고 신학적으로 논쟁적
+- power-sharing-arrangement: triage:제도 정의와 사례, 항구적 대 과도적 2분류, 고착 효과는 논쟁 중
+- sensus-fidelium: triage:교회론 개념 하나이고 교도권과의 관계는 해석이 갈림
+- son-of-man-title: triage:칭호 의미의 기원을 두고 학설이 갈려 단정 도식 불가
+- make-or-buy-decision: triage:비용 비교 규칙 서술이고 단계나 분류 구조가 약함
+- religious-coping: triage:긍정·부정 대처 2분이 중심이고 나머지는 연구 결과 서술
+- internal-control-over-financial-reporting: triage:법정 제도 설명이고 COSO 5요소는 나열, 계층 관계가 본문에 불분명
+- market-orientation: triage:측정 요소 3개 나열과 두 연구 전통 소개, 성과 효과는 논쟁적
+- lactation-drug-safety: triage:평가 활동 정의, 영향 요인 나열뿐 구조가 없음
+- competency-based-curriculum: triage:교육과정 접근 정의, 역량 정의가 문헌마다 달라 쟁점 서술뿐
+- procedural-justice: triage:분배·절차·상호작용 공정성 3분과 규칙 나열이지만 본문에 관계 구조가 불충분
+- chronic-disease-surveillance: triage:감시 활동 정의, 자료원 나열과 감염병 감시와의 2자 대비뿐
+- industrial-accident-compensation: triage:사회보험 제도 설명, 급여 종류 나열뿐
+- bema-seat-judgment: triage:세대주의 틀 안의 신학적 구성물로 타 전통은 수용하지 않는 논쟁 개념
+- caliphate: triage:역사적 제도 정의와 연표 언급이 산발적이고 정통성 해석이 논쟁적
+- gifted-education: triage:교육 분야 정의이고 속진·심화 2분과 기관 3단계는 목록 수준
+- diffusionism-kulturkreise: triage:이론 이름이고 방법론 비판이 핵심, 본문에 구조가 없음
+- fundamentalist-modernist-controversy: triage:2진영 대립 역사 서술로 논쟁 당사자를 단정 없이 그리기 어려움
+- pneumatomachianism: triage:고대 이단의 명칭이고 정통 대 이단 2자 구도뿐
+- diptych: triage:미술 형식 이름, 세폭화와 구분하는 정의 반복
+- 360-degree-feedback: triage:평가 방식 정의, 평가자 유형 나열뿐 구조가 약함
+- exposure-route-classification: triage:흡입·경구·경피 단순 나열이라 도식이 정의를 되풀이
+- middle-power: triage:정의 방식 3가지 나열과 국가 예시, 공식 지위가 아닌 분석 개념
+- ecclesiology: triage:신학 분야 이름이고 교파 간 권위 이해는 논쟁적
+- strategic-stability: triage:위기·군비경쟁 두 차원을 언급하지만 칸 구성이 본문에 없고 정의 중심
+- process-theology: triage:특정 철학에 근거한 신학 입장이고 정통성 논쟁 중
+- process-costing-fifo: triage:완성도 계산 규칙 서술이고 수치 없이는 단계가 불분명, 평균법과의 2자 비교뿐
+- neglected-tropical-diseases: triage:질병군 지정 목록이고 대응 전략 3가지는 나열
+- mandibular-advancement-appliance: triage:단일 장치 이름, 양압기와의 2자 비교뿐
+- cabinet-government: triage:집단책임 원칙 하나를 설명하는 정의 반복 — 총리 대 내각 두 요소뿐
+- de-stijl: triage:예술가 집단·운동 이름 — 선과 삼원색 규칙은 나열일 뿐 요소 간 관계가 없음
+- holophrastic-stage: triage:언어발달 한 시기의 정의 — 본문은 이 시기 하나만 다루고 앞뒤 단계 순서를 구체적으로 제시하지 않음
+- constructivism-religion: triage:본질주의와의 이분 대비뿐이고 구성 요소가 2개 — 그림이 정의를 되풀이함
+- connective-tissue-graft: triage:수술법 이름 — 본문에 순서 있는 단계가 없고 공여부·수혜부 설명만 있음
+- emerging-church-movement: triage:종교 운동 소개 — 비교 축이나 관계 구조가 없고 서술형 평가 위주
+- gingivitis: triage:치태→치은염→치주염 진행은 본문에 한 줄뿐이고 진행 여부는 숙주 요인에 좌우된다는 설명이라 구성 요소가 부족
+- regression-cost-estimation: triage:원가추정 기법 이름 — 산점도와 회귀선은 plot 함수로 못 그리고 본문도 고저점법과의 단순 비교에 그침
+- sangha: triage:사부대중 4개 명칭 나열이 전부이고 삼보 3요소와 갈마도 정의 풀이 수준이라 글만으로 충분
+- current-ratio: triage:단일 재무비율(유동자산÷유동부채) — 관계 구성 요소가 분자·분모뿐
+- death-of-god-theology: triage:신학 흐름의 서술적 소개 — 비교 축·단계가 없고 오해 방지 설명 위주
+- democracy-indices: triage:지표 이름 나열(Freedom House, Polity, V-Dem) — 같은 축으로 비교한 구조가 본문에 없음
+- earnings-persistence: triage:회귀 기울기라는 단일 속성 — 계수 1과 0 두 값의 설명뿐이라 그림이 정의를 되풀이함
+- safe-haven: triage:안전기지와의 2요소 짝 설명 — 위협→접근→위안→탐색 복귀는 본문에서 순서 구조로 명시되지 않음
+- flat-organization: triage:계층 축소 조직형태의 정의 — 위계 대 수평 두 요소 대비일 뿐 단계·분류가 없음
+- implant-supported-prosthesis: triage:보철 종류(크라운·브릿지·전악)와 나사·시멘트 유지 방식이 별개 축으로 흩어진 목록이라 관계 구조가 모호
+- over-time-recognition: triage:수익인식 방식 정의 — 시점인식과의 2요소 대비와 요건 나열이라 새로 보여줄 구조가 약함
+- effectual-calling: triage:구원 서정 한 고리이고 황금사슬 나열은 한 줄뿐이며 일반적 부르심과의 2요소 구분 위주
+- just-in-time: triage:생산관리 기법 정의 — 간판·풀 방식은 한 줄 언급이고 재고 최소화 취약성 설명이 중심
+- church-dogmatics: triage:저작물(책) 이름 — 권별 구성 나열일 뿐 개념 간 관계가 없음
+- childcare-teacher-burnout: triage:소진의 세 차원 나열과 요인·결과가 산발적으로 언급될 뿐 구조화된 경로가 없음
+- comprehensive-income-statement: triage:재무제표 양식 이름 — 당기순이익에 기타포괄손익 가산이라는 단순 합산 정의
+- quality-function-deployment: triage:품질의 집은 고객요구×기술특성의 대형 행렬이라 2×2 matrix로 못 그리고 본문에 구체 항목이 없음
+- parent-child-interaction-therapy: triage:치료 프로그램 이름 — CDI→PDI 2단계뿐이라 구성 요소가 3개 미만
+- shared-leadership: triage:팀 변수 정의 — 신뢰 매개 경로는 예문 한 줄 수준이고 본문이 구조를 제시하지 않음
+- bite-registration: triage:임상 기록 과정 — 재료·위치 변수 나열일 뿐 순서 있는 단계가 본문에 없음
+- customer-lifetime-value: triage:단일 지표 정의(순이익 현재가치 합) — 민감도 설명만 있고 구성 요소 관계가 없음
+- creative-experiential-activities: triage:교육과정 영역 이름 — 하위 영역 4개는 평평한 목록이고 시기별 개편도 구조 없이 병기됨
+- inventory: triage:단일 회계 계정 정의 — 저가법·소유권 귀속은 개별 주의사항 나열
+- classical-orders: triage:세 오더(도리아·이오니아·코린트) 나열이고 토스카나·콤포지트 추가는 한 문장이며 형태 비교는 그림 없이 못 보여줌
+- overdenture: triage:보철물 한 종류 — 부착장치 종류 나열일 뿐 요소 간 관계가 없음
+- imaginary-companion: triage:아동 현상 정의 — 두 유형 언급뿐이고 단계·분류 구조가 약함
+- asic: triage:반도체 칩 종류 이름 — 범용 칩과의 2요소 대비이고 설계 흐름은 한 줄 언급
+- developmentally-appropriate-practice: triage:교육 원칙 — 세 가지 지식 차원 나열이 전부이고 겹침이나 관계 구조가 본문에 없음
+- phase-1-clinical-trial: triage:임상 단계 하나 — 본문이 2상·3상 순서를 구체적으로 다루지 않고 용량증량 방식 설명 위주
+- work-study: triage:방법연구·시간연구 두 하위 기법의 단순 포함 관계 — 구성 요소 3개 미만
+- pseudepigrapha: triage:문헌 분류 이름 — 외경과의 구분은 한 문장이고 구성 요소 관계 구조가 없음
+- mandate-of-heaven: triage:정치사상 정의 반복 — 덕→천명 부여·상실의 2~3요소 서사이고 혁명 정당화와 기존 왕조 정당화의 양면성이 논쟁적임
+- political-polarization-theory: triage:이슈·정서적 양극화 두 유형 구분과 원인 나열 — 실제 심화 정도가 논쟁 중이라 구조를 단정해 그리기 어려움
+- montanism: triage:고대 종교 운동 소개 — 새 예언·금욕·종말 임박이 나열될 뿐 관계 구조가 없음
+- agnosticism: triage:무신론과의 2요소 구분이 핵심이고 유신론적 불가지론 언급은 한 줄뿐이라 2×2를 채울 근거가 본문에 부족
+- dental-explorer: triage:단일 기구 이름 — 사용 권고 변화는 서술형이고 구성 요소 관계가 없음
+- static-vs-dynamic-typing: triage:검사 시점 두 가지의 이분 대비이고 점진적 타이핑은 한 줄 언급 — 앞의 컴파일러·인터프리터류와 겹치는 정의 반복
+- spectacle-society: triage:사상가 이론의 개념 설명 — 집중·분산 스펙터클 2분류가 전부이고 단계·경로가 없음
+- passive-obedience-of-christ: triage:능동적 순종과의 2요소 짝이고 두 순종의 구분과 비중에 신학자 간 이견이 있어 구도를 단정하기 어려움
+- lectionary-preaching: triage:설교 방식 소개 — 3년 주기 언급이 한 줄이고 구성 요소 관계가 없음
+- electoral-democracy: triage:최소주의 개념 정의 — 자유민주주의와의 2단계 대비이고 V-Dem 확장 지수는 한 문장 언급
+- exposure-biomarker: triage:측정 지표 한 종류의 정의 — 영향 바이오마커 언급은 한 줄이고 시료별 반영 시기는 단순 나열
+- self-managed-team: triage:팀 형태 정의 반복 — 외부 리더 역할 변화는 서술형이고 구성 요소 3개 관계가 없음
+- cash-basis: triage:발생주의와의 2요소 대비 — 외상매출 예시는 한 건의 시점 차이일 뿐 구성 요소가 부족
+- formalism-aesthetics: triage:미학 입장 소개 — 형식과 내용 이분법 및 학자 계보는 구조 없이 나열됨
+- principalities-and-powers: triage:성서 표현의 지칭 대상에 대한 해석이 학자마다 갈려 구조를 단정해 그릴 수 없음
+- replacement-cost: triage:단일 원가 측정 속성 — 공정가치와의 차이 설명뿐이고 구성 요소 관계가 없음
+- authentic-assessment: triage:평가 방식 정의 — 수행평가와의 2요소 구분이고 단계·분류 구조가 없음
+- wu-wei: triage:사상 개념 정의 — 자연과 짝이라는 한 줄과 유가와의 대비뿐이라 3개 이상 요소 관계가 없음
+- aims-of-education: triage:교육 목적 우선순위에 대한 철학적 논쟁이라 다섯 갈래의 관계나 위계를 단정해 그리기 어려움
+- natural-language-processing: triage:넓은 기술 분야 이름 — 처리 단계는 한 줄 나열이고 응용 예시 위주
+- early-childhood-teacher-professionalism: triage:카츠의 4단계가 한 문장뿐이고 지식·기술·태도 세 요소는 측정 척도 소개 수준이라 관계 구조가 약함
+- early-childhood-special-education: triage:교육 분야 정의 — 조기 개입 효과 설명 위주이고 단계·분류 구조가 없음
+- double-entry-bookkeeping: triage:차변·대변 두 요소의 정의 반복 — 사학적 논쟁은 서술형
+- tail-call-optimization: triage:컴파일러 최적화 한 기법 — 일반 재귀와 꼬리 재귀 두 경우의 스택 차이일 뿐 구성 요소가 부족
+- status-attainment-theory: merge-candidate: 병합 후보라 보류(was checked)
+- net-art: triage:예술 운동 이름 — 대표 작가 나열과 보존 문제는 관계 구조 없이 서술됨
+- learning-loss: triage:교육 현상 정의 — 개별 학습부진과의 구분 설명 위주이고 구성 요소 관계가 없음
+- divine-omniscience: triage:신의 속성 교리 — 필연적·중간·자유로운 지식 구분은 몰리나주의 등 논쟁적 구도라 단정해 그리기 어려움
+- health-literacy: triage:능력 개념 정의 — 찾기·이해·평가·적용은 한 문장 나열이고 본문이 관계를 더 설명하지 않음
+- rite-of-intensification: triage:통과의례와의 2요소 대비가 정의에 이미 들어 있어 그림이 반복할 뿐
+- apologetics: triage:신학 분야 정의 — 세 학파 나열이 있으나 학파 간 구분 기준이 본문에서 한 쌍씩만 제시되어 위계로 그리기 약함
+- grisaille: triage:회화 기법 이름 — 제단화 열림·닫힘 대비는 한 사례 서술이고 구성 요소 관계가 없음
+- threshold-dose-toxicology: triage:역치 모형과 무역치 선형 모형의 대비가 핵심이지만 꺾인 선(역치 후 상승)을 plot 함수로 그릴 수 없음
+- platelet-rich-fibrin: triage:생체재료 한 종류 — PRP와의 2요소 비교이고 제조 과정은 단계 없이 서술됨
+- realized-eschatology: triage:신학 해석 관점 정의 — 이미와 아직 구도가 한 문장 수정이고 입장 간 위계가 약함
+- synergism: triage:본문이 구원론과 약물 협력작용 설명이 섞여 있어 구성 요소를 정확히 단정해 그리기 어려움
+- lean-management: triage:경영 철학 정의 — 일곱 가지 낭비와 다섯 원칙은 평면적 목록이고 관계 구조가 없음
+- purchase-method: triage:회계처리 방법 정의 — 이전대가와 순자산 공정가치 차이 처리는 조건 분기 하나라 구성 요소가 부족
+- industry-vs-inferiority: triage:에릭슨 4단계 중 한 시기 — 이웃 단계 순서는 본문에서 다루지 않고 2요소 대립 설명뿐
+- protective-factor-child-development: triage:완충 변인 개념 정의 — 위험요인·보호요인·결과 모형은 비유 수준이고 구체 구조가 약함
+- team-building: triage:조직개발 개입 활동 정의 — 터크만 모델 언급은 한 줄이고 구성 요소 관계가 없음
+- smart-power: triage:하드·소프트파워의 단순 결합 정의 — 결합 방법 지침이 없어 겹침을 구체적으로 그릴 수 없음
+- asceticism: triage:수행 방식 정의 — 세계 도피적과 세계 내적 구분이 한 문장이고 실천 목록 나열
+- effective-number-of-parties: triage:단일 지수 정의와 계산 예시 — 점유율 막대 비교는 plot 곡선 함수로 표현되지 않음
+- pooling-layer: triage:구성 요소가 최대·평균 두 방식 정도뿐이고 본문이 정의를 반복하며 그림으로 새로 알려줄 관계가 없음
+- agile-organization: triage:본문에 서로 관계 맺는 구성 요소나 단계가 제시되지 않음 (자율팀 vs 위계의 단순 대비 + 전환 부작용 서술)
+- lorenz-attractor: triage:핵심이 3차원 궤적의 나비 모양과 초기 조건 민감성인데 plot 함수로 못 그리고 다른 type에도 맞지 않음
+- pre-raphaelite-brotherhood: triage:미술 집단 이름이고 본문은 아카데미 양식 거부라는 단일 대립뿐, 3개 이상의 구성 요소 관계가 없음
+- full-inclusion-education: triage:완전통합 대 부분통합·분리 정도의 대비로만 언급되고 단계나 구성 요소가 구체적으로 제시되지 않음
+- education-finance: triage:조달·배분·지출을 나열하는 정의 반복이며 본문이 같은 문장을 중복해 그림이 새로 보여줄 것이 없음
+- tooth-eruption: triage:본문에 맹출 단계가 명시되지 않고 지연 원인 분류도 짧게 스치는 수준이라 그릴 근거가 부족함
+- sacrifice-theory: triage:이론가별 설명(교환·정화·결속)이 병렬 나열이고 이론마다 자료 편향 논쟁이 있어 단정 없이 구조화하기 어려움
+- reductionism-religion: triage:환원주의 대 독자적 실재론 두 입장의 대립이라 구성 요소가 2개뿐이고 다층 설명은 본문에 구체화되지 않음
+- moro-reflex: triage:단일 신생아 반사 하나이며 소실 시기 외에 관계 맺는 요소가 없음
+- treasury-stock: triage:취득·소각·처분의 회계 처리 차이가 서술에 흩어져 있고 계정 구조가 본문만으로 명확히 정리되지 않아 그림 근거가 약함
+- clinical-pastoral-education: triage:프로그램 이름이며 행동-성찰 순환은 한 문장 언급뿐, 정의 반복 수준이라 그림이 새로 알려줄 것이 적음
+- root-canal-irrigation: triage:세척액별 역할 나열(차아염소산·EDTA·클로르헥시딘)로 구성 요소 관계가 약하고 단계 순서도 불명확
+- religious-conversion: triage:급진적 회심 대 점진적 회심 두 유형 대비뿐이며 단계 모델이 본문에 구체적으로 없음
+- national-curriculum: triage:총론과 각론 두 요소만 있고 정의를 반복하는 문장이 대부분
+- variable-and-data-type: triage:자료형 네 가지 나열은 정의 반복이고 관계나 기전이 없어 그림이 새로 알려줄 것이 없음
+- demythologization: triage:신화적 표현을 걷어내고 의미를 재해석한다는 정의 반복이며 논쟁이 있는 해석 방법이라 구성 요소 관계가 구체적이지 않음
+- cryptographic-hash-function: triage:세 가지 보안 성질과 해시 체인이 있으나 개별 설명이 정의에 가깝고 그림이 새로 보여줄 구조가 약함
+- iconodulism: triage:공경 대 경배 구분 하나의 논변이라 구성 요소가 2개 정도뿐
+- self-management-support-chronic-disease: triage:지원 요소(교육·목표설정·문제해결)가 나열될 뿐 단계나 관계가 없음
+- job-rotation: triage:인사관리 기법 하나이며 효과와 비용이 서술로만 나열되고 구조화할 관계가 없음
+- praxis-in-education: triage:성찰과 실천 두 요소의 상호작용이라는 정의 반복이며 단계 구조가 본문에 구체화되지 않음
+- bit-manipulation: triage:AND·OR·XOR 등 연산 나열이고 그림으로 새로 알려줄 관계나 곡선이 없음
+- mandorla: triage:도상 하나의 형태 설명이며 구성 요소 간 관계가 없음 (후광과의 단순 구분)
+- burden-of-mental-illness: triage:DALY와 YLD 지표 언급에 그치며 지표 구성 관계가 본문에 구체적으로 설명되지 않음
+- lower-of-cost-or-market: triage:원가와 순실현가능가치 둘 중 낮은 쪽 선택이라는 정의 반복, 구성 요소 2개
+- monotheism: triage:일신교 대 다신교 대비와 단일숭배로의 이행이 학계 쟁점이라 단정적으로 단계화하기 어렵고 중간 범주도 이름만 나열됨
+- amortized-analysis: triage:세 방법이 이름 나열 수준이고, 핵심인 이따금 튀는 비용 막대 그림은 plot 함수로 못 그림
+- curriculum-modification: triage:목표·내용·활동·평가 수정 요소가 이름만 나열되고 요소 간 관계나 순서가 본문에 없음
+- ethnic-nationalism: triage:시민적 민족주의와의 대비 기준이 본문에 구체적으로 제시되지 않고 이념형 구분이라 비교 축을 단정하기 어려움
+- apicoectomy: triage:수술 단계 순서가 본문에 명확히 제시되지 않고 성공 요인이 흩어진 서술임
+- chronic-toxicity: triage:NOAEL·LOAEL·불확실성 계수가 한 문단에 스치듯 언급될 뿐 용량-반응 수치나 단계가 구체적이지 않음
+- anchored-instruction: triage:교수법 하나이며 문제기반학습과의 단순 비교 외에 구성 요소 간 관계가 없음
+- null-curriculum: triage:표면적·잠재적 교육과정이 이름만 언급되고 영교육과정은 정의 반복 중심이라 그림 구성 근거가 부족함
+- shekinah: triage:신학 개념 하나이며 영광 개념과의 단순 연관 서술뿐 구성 요소 3개 관계가 없음
+- macrosystem: triage:생태학적체계이론의 한 층위로 상위 이론의 하위 사례에 불과하고 본문에 다른 층위 설명이 거의 없음
+- meta-learning: triage:최적화·메트릭·모델 기반 세 접근이 이름만 나열되어 그림이 새로 알려줄 관계가 약함
+- noahic-covenant: triage:성서 사건 하나의 서술이며 다른 언약과의 비교도 구성 요소가 구체적이지 않음
+- ideal-point-estimation: triage:이념 공간상 점 배치가 핵심이나 본문에 구체적 구성이 없고 plot 함수로도 표현하기 어려움
+- der-blaue-reiter: triage:미술 집단 이름이며 다리파와의 단순 대비 외에 구성 요소 관계가 없음
+- conflict-free-replicated-data-type: triage:자료형 이름 나열(G-Counter 등)이고 수렴 성질은 정의 반복에 가까움
+- child-protection-agency: triage:기관 정의 반복이고 조사·판단 권한이 이관된 과도기 서술이라 접수-조사-개입 단계를 현행대로 단정해 그리기 어려움
+- combined-financial-statements: triage:연결재무제표와의 2개 개념 비교(기준 차이)이고 대부분 정의 반복, 폐지된 제도라 구성 요소가 부족함
+- units-of-production-method: triage:총 예상 생산량 대비 당기 생산량 비율이라는 단일 공식이며 구성 요소 간 관계가 단순함
+- referral-system-health-care: triage:1·2·3차 기관 단계는 정의에 그대로 나와 있어 그림이 새로 보여줄 내용이 적음
+- gifted-student-identification: triage:추천-선별-심층평가 단계가 한 문장 언급뿐이고 도구 나열 중심이라 그림이 새로 알려줄 관계가 약함
+- operating-committee-of-early-childhood-institution: triage:위원회 구성원 나열이고 구성 요소 간 관계나 절차가 본문에 없음
+- abutment-tooth: triage:보철물 지지 치아라는 단일 해부 용어이며 선정 지표들이 나열될 뿐 구조적 관계가 없음
+- minimum-viable-product: triage:핵심 기능 먼저 출시한다는 정의 반복이고 본문에 순환 단계나 구성 요소 관계가 명시되지 않음
+- mentoring: triage:경력 기능과 심리사회 기능 두 가지 구분뿐이며 나머지는 효과 서술이라 구성 요소가 부족함
+- multicultural-family-child-support: triage:지원 서비스 종류 나열(언어·부모교육·문화 프로그램)이고 관계나 단계가 없음
+- career-exploration: triage:자기 탐색과 환경 탐색 두 활동이며 탐색과 결정은 별개라는 주의 위주라 그릴 구조가 약함
+- role-overload: triage:양적·질적 과부하 구분은 두 갈래뿐이고 역할 스트레스 3유형은 다른 용어(역할갈등·역할모호성)가 주축임
+- bracket-ligation: triage:결찰 방식별 마찰·힘 차이가 상반된 연구 결과와 서술로 흩어져 있어 단정적 비교 구조를 그릴 수 없음
+- network-latency: triage:전파·전송·처리·큐잉 지연 네 요소 나열이 있으나 정의 수준 열거이고 대역폭과의 구분이 핵심이라 새 구조를 보여주기 약함
+- filial-piety: triage:효에서 충으로 이어지는 확장이 한 문장 언급이고 유교 덕목 정의 반복 중심이며 비판 논쟁도 있어 구성 요소 단정이 어려움
+- continual-learning: triage:정규화·재생·구조 세 접근이 이름만 나열되고 핵심인 망각 곡선은 본문에 수치 근거가 없음
+- substance-use-disorder-treatment: triage:해독-약물-심리사회-사후관리가 한 문장 나열이고 정의 반복이라 그림이 새로 알려줄 것이 적음
+- pushdown-automaton: triage:스택 추가 기계라는 정의 반복이며 언어 부류 위계는 촘스키 위계라는 다른 용어의 몫이고 상태 전이 그림은 본문에 없음
+- irreversible-pulpitis: triage:진단 증상 나열과 압력 상승 악순환이 한 문장 언급뿐이며 가역성 구분이 논쟁 중이라 단정해 그리기 어려움
+- child-neglect: triage:물리·의료·교육·정서 하위 유형 나열이 정의 반복에 가깝고 정서적 방임은 정의가 연구마다 달라 단정하기 어려움
+- union-find: triage:find·union 두 연산과 최적화 두 기법 설명이 서술 위주이고 트리 구조 그림은 본문에 구체적으로 없음
+- resorbable-membrane: triage:비흡수성막과의 2개 대비이고 가교 처리 장단점은 상반된 보고라 구조화할 근거가 약함
+- dynamic-assessment: triage:검사-교수-재검사 세 단계가 정의에 이미 반복되어 있고 정적평가와의 대비도 2개뿐임
+- feminist-theology: triage:입장 스펙트럼이 폭넓은 서술뿐이고 다른 신학과의 대비도 이름 나열 수준임
+- immortality-thought: triage:천선·지선·시해선 등급과 외단·내단 나열이며 의미가 유파마다 달라 단정하기 어려움
+- material-price-variance: triage:(실제가격-표준가격)x구입량이라는 단일 공식이고 수량차이 등 다른 차이와의 관계는 다른 용어의 몫임
+- incomplete-course-system: triage:미이수와 낙제의 2개 대비이고 같은 문장이 반복되는 정의 중심 본문임
+- arbitration: triage:조정과의 2개 대비이고 최종제안중재 등은 한 문단 서술이라 구조화할 구성 요소가 부족함
+- satellite-state: triage:형식적 주권과 실질적 종속의 단일 대비이며 세력권·완충국가와의 구분은 다른 용어에 속함
+- torus: triage:구개융기와 하악융기 두 위치 구분의 해부 변이 하나이고 구성 요소 관계가 없음
+- random-search: triage:그리드 서치와의 2개 대비이며 핵심 설명은 서술이고 탐색 점 분포 그림은 본문에 구체적이지 않음
+- material-quantity-variance: triage:(실제사용량-표준수량)x표준가격이라는 단일 공식이며 가격차이와의 상호작용은 다른 용어에서 다룸
+- animism-child-cognition: triage:점진적 축소 3단계가 한 문장 언급이고 후속 연구가 보편성을 반박하는 논쟁 중인 주장이라 단정하기 어려움
+- liberation-hermeneutics: triage:삶의 자리-본문-실천 순환이 한 문장 언급이고 정의 반복이 대부분임
+- model-parallelism: triage:파이프라인과 텐서 병렬화 2개 유형 구분이고 장치 배치 그림이 본문에 구체적으로 설명되지 않음
+- regular-expression-theory: triage:정규 표현식-NFA-DFA 변환이 한 문단 서술이고 정규 언어 한계는 촘스키 위계의 몫이라 구조화 근거가 약함
+- logrolling: triage:의원 간 표 교환이라는 정의 반복이며 구성 요소가 2명 의원 사이 교환뿐임
+- tillich-theology: triage:상관관계 방법론의 질문-답변 짝짓기가 정의 반복이고 신 개념 평가가 엇갈려 단정하기 어려움
+- tooth-replantation: triage:탈구 후 시간과 세포 생존의 감소 관계가 서술뿐이고 수치 근거가 없어 곡선으로 단정하기 어려움
+- political-machine: triage:혜택과 표의 교환이라는 정의 반복이며 쇠퇴 요인과 역책임성 논의는 본문에 구조화된 구성 요소로 제시되지 않음
+- health-inequality: triage:정의 반복 — 소득·지역 등 요인과 격차를 나열한 개념이고 구성 요소 간 관계가 본문에 없음
+- perplexity: triage:단일 평가 지표 — 교차엔트로피의 지수라는 한 줄 관계뿐
+- sacred-violence: triage:지라르 계열과 유르겐스마이어 계열이 섞인 논쟁 개념이라 한 도식으로 단정하기 어렵고 본문의 인과 단계도 2~3개뿐
+- hypodontia: triage:결손 개수에 따른 세 가지 명칭(부분무치·다수치아결손·무치증)은 한 줄 기준이라 글로 충분하고 나머지는 병변 서술
+- cumulative-disadvantage-hypothesis: triage:초기 불이익에서 소득·건강 격차로 이어지는 단선적 인과 한 줄이고, 격차가 벌어지는 곡선은 plot 함수로 못 그림
+- five-aggregates: triage:다섯 요소 나열이 정의와 같고 요소 간 관계나 추가 구조가 본문에 없어 그림이 정의를 되풀이함
+- telemedicine-global-health: triage:원격의료 형태 나열과 일반 효과 서술뿐 구성 요소 간 구조가 없음
+- supracrestal-tissue-attachment: triage:해부학적 폭 개념이라 제공 type으로 구조를 못 그리고 침범 시 염증 반응은 한 줄 인과
+- modeling-social-learning: triage:관찰학습의 하위 사례 — 주의·파지·재생·동기 단계는 별도 용어의 내용이고 본문은 보보인형 실험 위주
+- private-kindergarten: triage:설립 주체 기준의 단순 유형 설명으로 국공립과 비교할 축이 본문에 거의 없음
+- invisible-church: triage:보이는 교회와의 두 관점 구분이 전부라 정의 반복이고 포함 관계는 venn으로 못 그림
+- cosmogony: triage:창조 서사 유형 나열이 정의 안에 이미 있고 유형 간 관계나 단계 구조는 없음
+- reciprocal-teaching: triage:네 전략의 순서가 절마다 다르고 본문이 순서대로 기계 적용하지 말라고 하므로 순환으로 단정할 수 없음
+- eisegesis: triage:주석(exegesis)과의 대비 두 항목뿐이고 비교 축이 부족함
+- child-abuse: triage:네 유형 분류가 정의 문장에 그대로 있고 중복 학대는 도식화 어려움
+- centralization-decentralization: triage:권한 집중 정도라는 한 축 개념이고 상황이론 한 줄 외에 구성 요소가 없음
+- family-resemblance-art: triage:겹치는 유사성 그물은 3원 venn으로 그리면 삼중 교집합이 생겨 공통 본질 없음을 오히려 훼손함
+- defective-democracy: triage:메르켈 하위 유형 이름이 절마다 달라(위임·후견·제한 대 배제·영역·비자유·위임) 분류를 확정해 그릴 수 없음
+- educational-gap: triage:정의 반복 — 배경 요인과 격차를 나열했고 구성 요소 간 구조가 없음
+- teacher-employment-examination: triage:필기 후 시연·면접 두 단계뿐인 제도 설명이라 도식 이득이 없음
+- new-media-art: triage:포괄적 우산 용어 설명이며 구성 요소 간 관계나 단계가 없음
+- caretaker-government: triage:한시 정부라는 정의와 관행 서술뿐 구조가 없고 소수정부와의 구분은 한 줄
+- secular-trend-analysis: triage:장기 추세선 분석 방법이고 임의 시계열은 제공 plot 함수로 못 그림
+- postmodern-philosophy-of-education: triage:이질적 사상가를 포괄하는 흐름이라 본문이 단일 구조화를 오히려 경계함
+- church-militant: triage:이중 구분과 삼중 구분이 전통마다 달라 확정 불가하고 항목도 2~3개뿐
+- scaling-law: triage:핵심은 로그 축 직선인 거듭제곱 곡선인데 plot에 해당 함수가 없고 다른 type으로는 못 그림
+- problem-posing-education: triage:은행저금식교육과의 대비인데 상대 쪽 내용이 본문에 한 줄뿐이라 비교 축이 부족함
+- artistic-experience-domain: triage:교육과정 영역의 세부 내용 세 범주 나열이라 정의 반복
+- subgingival-calculus: triage:치은연상치석과의 대비 두 항목이고 본문 대부분이 진단·제거 서술
+- federal-system-theory: triage:단방제와의 대비 쪽 내용이 거의 없고 리커 조건 등 논쟁이 많아 한 도식으로 단정 곤란
+- epulis-fissuratum: triage:부적합 의치 자극에서 병변, 절제와 의치 재제작이라는 직선 인과 한 줄이라 글로 충분
+- repertoire-of-contention: triage:전통적 대 현대적 레퍼토리 두 항목뿐이라 구성 요소가 부족함
+- behaviorism: triage:자극-반응-강화 한 줄 정의이고 인지주의와의 대비 내용이 본문에 부족함
+- revealed-theology: triage:자연신학과의 대비 두 항목이고 둘의 관계가 전통마다 달라 단정 곤란
+- tongue-coating: triage:구성 물질과 위치 설명이 중심이라 도식화할 구조가 없음
+- highest-good-like-water: triage:도덕경의 비유 한 문장 사상이라 구성 요소 간 구조가 없음
+- issue-linkage: triage:거래적 연계와 강압적 연계 두 유형뿐이고 나머지는 정의 반복
+- discussion-method: triage:토의 형식 나열은 정의 반복이고 토론과의 대비도 한 줄뿐
+- attachment-style: triage:네 유형 목록이 정의 문장에 그대로 있고 유형별 행동 특징이 본문에 없어 그림이 되풀이에 그침
+- apostles-creed: triage:신경 문서 하나의 설명이고 삼위일체 구조는 정의에 한 줄뿐
+- the-picturesque: triage:아름다움-숭고 사이 위치와 경계가 이론가마다 다르다고 본문이 밝혀 단정 도식이 어렵고 비교 축 정보도 부족함
+- health-promoting-school: triage:여러 영역 나열(정책·환경·교육과정·지역사회)이라 정의 반복이고 영역 간 관계 설명 없음
+- return-from-exile: triage:연대는 기원전 538년 하나뿐이고 후속 귀환의 순서와 시기가 본문에 구체적이지 않아 시간 순서 그림 근거 부족
+- critical-pedagogy: triage:은행저금식 대 대화식 대비 한 쌍이 전부이고 비교 축이 본문에 한 줄뿐이라 정의 반복
+- goal-corrected-partnership: triage:애착 발달 단계의 마지막 단계 하나만 서술하고 앞선 단계 내용이 본문에 없어 순서 그림 근거 부족
+- childcare-fee-support: triage:기관 직접 지원 대 바우처 두 방식 언급뿐인 제도 설명
+- share-based-payment: triage:주식결제형과 현금결제형 차이는 회계 기준 세부 서술이라 글로 충분하고 도식 이득이 작음
+- heinz-dilemma: triage:측정 도구 한 개의 설명이며 응답 근거와 발달 수준 대응이 본문에 구체적이지 않음
+- hidden-caries: triage:병소 위치 서술과 불소 가설이 중심이고 가설이 확증되지 않아 인과 도식으로 단정하기 어려움
+- clear-aligner: triage:순차 교체라는 정의가 곧 절차 전부이고 한계 서술은 수치 나열
+- semi-presidentialism: triage:대통령 우위형과 총리 우위형 두 하위형뿐이고 동거정부 조건은 한 줄 서술이라 정의 반복
+- dependent-beauty: triage:자유미와의 두 개념 대비이고 칸트 해석이 갈린다고 본문이 밝혀 비교 축을 확정하기 어려움
+- developmental-screening-test: triage:선별 후 정밀진단 연계라는 두 단계뿐이고 민감도·특이도는 별도 개념
+- special-education-technology: triage:보조공학과 교수공학 두 갈래 나열이라 정의 반복
+- party-system-theory: triage:정당 수와 이념 거리 두 기준의 네 번째 칸(양당제에 큰 이념 거리)이 본문에 없어 네 칸을 확정할 수 없고 유형 이름도 절마다 다름
+- revisionist-state: triage:현상유지국가와의 두 항목 대비이고 세력전이 충돌 위험은 한 줄 인과
+- loss-carryback: triage:이월공제와의 대비 한 쌍이고 세무 요건 서술이 많아 구조 도식 이득이 작음
+- value-innovation: triage:본문이 실제 동시 달성 가능성에 회의적 시각이 있다고 밝히고, ERRC 네 항목 구성은 서술이 얕아 도식 근거 부족
+- financing-activities: triage:차입·증자·배당·자사주 취득 항목 나열이라 정의 반복
+- climate-sensitive-disease: triage:질환 범주 나열과 기후 요인 한 줄 인과이며 교란 요인으로 기전이 불명확
+- portrait-painting: triage:장르 설명이며 구성 요소 간 구조나 단계가 없음
+- academic-tracking: triage:옹호론과 비판론 두 입장 대립이고 근거가 한 줄씩이라 비교 축이 부족함
+- school-dropout: triage:중단 유형과 이후 경로를 나열한 정책 설명이라 구성 요소 간 구조가 없음
+- johannine-epistles: triage:서신 세 편 묶음 설명이고 저술 순서와 관계는 확정되지 않았다고 본문이 밝힘
+- council-of-ephesus: triage:연대는 431년 하나뿐이고 칼케돈과의 연속선은 연도 없이 서술되어 시간 순서 그림 근거 부족
+- parables-of-jesus: triage:비유 분류가 형식·해석 여부 등 기준이 섞여 한 도식으로 정리하기 어렵고 정의 반복
+- health-related-quality-of-life: triage:측정 영역 나열(신체·정신·통증·사회적 역할)이라 정의 반복
+- correspondence-principle-education: triage:학교와 직장의 대응이라는 한 쌍 주장이고 단계별 세분화는 한 문장뿐
+- functional-activator-appliance: triage:교정 장치 하나의 설명이며 효과 크기는 논쟁 중이라 기전 도식으로 단정 곤란
+- negotiated-transfer-pricing: triage:공급 하한과 구매 상한 사이 협상 범위는 수직선 한 구간이라 제공되는 type과 plot 함수로 그릴 구조가 없음
+- mandibular-prognathism: triage:골격 상태 설명이며 치료 서술은 성인 수술 한 줄 위주
+- competitive-position: triage:코틀러 네 유형 나열이고 전략은 도전자 한 줄뿐이라 비교 근거 부족
+- zero-shot-learning: triage:퓨샷·파인튜닝과의 예시 수 대비 한 줄이 전부이고 비교 값이 본문에 없음
+- differential-privacy: triage:중앙형 대 지역형 두 방식과 ε 트레이드오프는 한 줄씩이라 구조 도식 이득이 작음
+- major-connector: triage:의치 부품 하나의 설계 설명이며 형태 나열뿐
+- achievement-standards-based-evaluation: triage:준거참조 대 상대평가 대비 한 쌍이고 정책 변동 연혁 서술이 중심
+- big-data-analytics: triage:3V·5V 특성 나열이 정의 반복이고 분석 경로는 한 줄
+- oral-pigmentation: triage:생리적 대 악성 감별 단서를 나열한 서술이고 진단 알고리즘 구조는 본문에 없음
+- information-security-management-system: triage:PDCA는 일반 순환이고 본문 고유의 위험평가 단계 서술이 파편적이라 정의 반복
+- health-literacy-disparity: triage:격차 원인 나열과 일반 효과 서술이라 구성 요소 간 구조가 없음
+- memory-leak: triage:할당 후 미반환이라는 직선 한 줄 인과이고 원인 예시는 나열
+- sinai-covenant: triage:사건 설명이며 조약 형식 구성과 모세 언약 범주 구분은 학자별로 달라 확정 도식 곤란
+- suicide-prevention-strategy: triage:보편·선택·지시 세 층 구분은 정의 안에서 이미 파악되고 층별 구체 내용이 본문에 부족함
+- immutability: triage:가변 대 불변 두 항목 대비이고 얕은/깊은 불변성도 한 줄 구분
+- residual-income: triage:단일 계산식(영업이익-자본비용) 하나라 구성 요소 관계가 없고 정의를 되풀이함
+- big-bath-accounting: triage:정의가 곧 인과(손실 몰아 인식→이후 이익 개선)라 그림이 새로 보여 줄 것이 없고 실제 악화와의 구분은 본문만으로 못 그림
+- subject-centered-curriculum: triage:경험중심과의 대비가 언급될 뿐 비교 축이 본문에 없어 정의 반복
+- beloved-disciple: triage:익명 인물의 정체 논쟁으로 인물 가설 나열일 뿐 구조·관계가 없음
+- divine-council: triage:문학적 모티프 서술이며 관계 구조 없이 본문 예시 나열
+- margin-of-safety: triage:현재 매출과 손익분기점의 차이라는 2요소 정의; CVP 직선 도표는 plot 함수로 못 그림
+- baptismal-regeneration: triage:세례 이해 두 입장의 대립이 핵심이라 구성 요소 2개뿐이고 교파 간 논쟁이라 단정해 그리기 어려움
+- cost-based-transfer-pricing: triage:원가 기준 가격 산정 방식 설명으로 단계·분류 구조가 약하고 단점 나열에 그침
+- learning-disability: triage:지적장애·학습부진과의 구분 서술이며 불일치 모형 대 RTI 두 방법의 이행뿐 구성 요소가 적음
+- executive-compensation: triage:보상 구성 항목 나열과 최적계약·경영자권력 관점 대비가 모호하게 섞여 하나의 구조로 그리기 어려움
+- education-expense-support: triage:보편적 대 선별적 지원 2분류와 지역 차이 서술로 그림이 새로 보여 줄 것이 없음
+- romantic-sublime: triage:미학 개념 설명이며 칸트 숭고와의 차이 외에 구성 요소 관계가 없음
+- vertical-articulation: triage:학년 간 내용 심화라는 단일 원리 서술로 수평적 연계와의 대비만 암시됨
+- deuterocanonical-books: triage:교파별 정경 범위가 포함 관계라 venn으로 못 그리고 명칭 차이 외 구조 설명이 부족하며 정경 논쟁이 얽혀 있음
+- physical-abuse-child: triage:학대 유형 하나의 정의와 진단 단서 나열이라 관계 구조가 없음
+- new-perspective-on-paul: triage:전통적 해석 대 새 관점의 2요소 대비뿐이고 학계 논쟁 중이라 단정 도식화 부적절
+- pentecost-theology: triage:사건 해석 서술이며 교파별 해석 차이가 커서 단정 도식 불가, 구성 요소 관계 약함
+- icdas: triage:0~6 코드 목록 자체가 정의라 서열 나열일 뿐 새로 보여 줄 관계가 없음
+- tragedy-of-the-commons-international: triage:공유지 비극의 일반 논리를 국제로 옮긴 사례이며 정의를 되풀이하는 인과 한 줄뿐
+- capital-surplus: triage:세 항목 나열과 이익잉여금과의 구분이라 정의 반복, 분류가 얕음
+- static-analysis: triage:실행 없이 코드를 검사한다는 단일 속성 정의이며 정밀도·재현율 언급은 구조가 아님
+- essential-package-of-health-services: triage:우선순위 서비스 목록이라는 정의 중심이며 기준 나열 외 구조가 없음
+- existentialist-philosophy-of-education: triage:철학적 태도 설명뿐이며 비교 대상이나 단계가 없음
+- cash-generating-unit: triage:손상검사 단위라는 정의 중심이며 손상 인식 규칙은 용어의 핵심이 아니고 구성 요소 관계가 약함
+- teacher-supply-demand-plan: triage:학령인구 추계 의존이라는 한 줄 인과이고 단계·분류 구조 없음
+- coparenting: triage:하위 차원 4개 나열이 전부이고 모델 구조나 관계가 본문에 구체적으로 없음
+- mahayana-buddhism: triage:상좌부와의 대비와 중관·유식 두 축 언급뿐이며 분류 구조가 본문에서 명확히 드러나지 않음
+- matrix-factorization: triage:행렬 곱 근사는 type 9개로 그릴 수 없고 글만으로도 충분히 이해되는 구조라 새 정보가 적음
+- adolescent-health-epidemiology: triage:연구 분야명이며 유병률·발생률 구분 외 구조가 없음
+- smartphone-overdependence: triage:세 요인 척도 나열이 전부이며 인과 구조가 단정적이지 않음
+- allowance-for-doubtful-accounts: triage:차감계정 정의이며 기대신용손실 단계 언급은 일부일 뿐 핵심 구조가 아님
+- task-shifting-global-health: triage:의사에서 간호사·CHW로 업무 이전이라는 단순 2단계 서술로 구성 요소가 적음
+- westminster-confession: triage:문서명이며 33장 구성이나 예정론 등은 목록일 뿐 관계 구조가 없음
+- accessibility: triage:설계·의료복지 두 의미를 아우르는 속성 개념이라 단일 구조로 그리기 어렵고 정의 반복
+- aggregate-planning: triage:추종 대 평준화 두 전략의 비용 상충이 핵심이나 수치 곡선 없이 2요소 대비라 새 정보가 적음
+- smear-layer: triage:제거할지 개질할지 임상 판단이 갈리는 사안이라 단정 도식 곤란하고 구성 요소가 적음
+- literacy-education: triage:기초·기능·디지털 문해 확장 언급이 있으나 본문이 정의 위주이고 관계 구조가 약함
+- adult-learning-motivation-theory: triage:동기 3유형 나열이 전부이며 COR 모형은 부수 언급이라 용어 자체의 구조 아님
+- regeneration: triage:중생과 믿음의 선후가 개혁주의·알미니안 간 신학 논쟁이라 단정해 도식화할 수 없음
+- form-criticism: triage:해석 방법론이며 구두 전승 재구성이 가설적이라 단정 도식 곤란
+- lived-religion: triage:공식 교리 대 일상 실천의 2요소 대비 접근론이고 구조가 없음
+- coattail-effect: triage:상위 후보 인기가 하위 후보 득표로 번진다는 단순 인과 한 줄이며 구성 요소 2개
+- tooth-mobility: triage:밀러 0~3도 등급 척도 하나와 원인 감별 주의뿐이라 구성 요소 관계가 없음
+- development-of-empathy: triage:인지·정서 두 요소 구분이 전부이고 발달 시기별 구조가 본문에 구체적으로 없음
+- symbolic-forms-cassirer: triage:언어·신화·예술·과학이 위계 없이 병렬이라고만 서술되어 관계 구조가 없고 정의 반복
+- pollution-taboo: triage:정화 의례 언급은 있으나 더글러스 상징 해석의 한계가 논쟁 중이라 단정해 그릴 수 없고 단계가 얕음
+- land-art: triage:미국·영국 두 흐름 대비와 작가 나열뿐이며 비교 축이 본문에 없음
+- sacra-conversazione: triage:분리 폴립틱 대 통일 공간이라는 2요소 대비로 정의를 되풀이함
+- open-theism-controversy: triage:전통적 전지 이해 대 개방적 이해의 신학 논쟁이라 단정 도식화가 곤란하고 구성 요소 2개
+- health-impairment: triage:지원 방식 나열(병원학교·화상수업·순회교육)과 3개월 기준 정도라 관계 구조가 약함
+- erythroplakia: triage:백반증 대비 악성 전환 위험이 높다는 단일 속성 비교이고 수치 근거가 본문에 없음
+- kangaroo-mother-care: triage:돌봄법 하나의 효과 나열(체온·수유·애착)이라 단계나 비교 구조가 없음
+- microservice-architecture: triage:모놀리식과의 대비가 비유 수준이고 같은 축의 비교 항목이 본문에 정리돼 있지 않아 정의 반복
+- acid-transaction: triage:네 성질 나열이 정의 그 자체이고 격리 수준이나 구현 메커니즘은 본문에서 구조로 정리되지 않음
+- populism-theory: triage:국민 대 엘리트 이분 구도 하나이며 좌우 결합 논의와 위협 여부 평가가 학계에서 엇갈림
+- immature-permanent-tooth: triage:치근단 개방이라는 상태 설명이고 치료 선택지 비교는 한 줄 언급에 그침
+- shamanism: triage:탈혼형 대 빙의형 구분은 범주 구성 자체가 비판받는 논쟁이라 단정해 그리기 어렵고 구성 요소가 적음
+- transfer-of-learning: triage:근전이/원전이, 긍정/부정 등 여러 이분법이 겹쳐 나열될 뿐 하나의 구조로 합치기 어렵고 구분 기준도 학자마다 다름
+- child-development-account: triage:저축에 정부 매칭을 더한다는 단일 제도 설명이고 1:2 비율 같은 수치만 있어 구조 그림 필요가 없음
+- seven-sacraments: triage:일곱 성사 목록과 개신교 두 성례 대비로 나열형이며 분류 기준이 본문에 명시되지 않음
+- dental-articulator: triage:교합기 세 종류 나열과 장착 절차 단편 언급뿐 구조적 관계가 약함
+- artworld: triage:단토·디키·베커 세 용법의 철학 논의로 구성 요소 관계가 모호하고 용법 자체가 논쟁됨
+- conditional-conservatism: triage:나쁜 소식/좋은 소식 반영 속도 차이는 꺾인 직선이라 plot 함수로 못 그리고 정의를 되풀이함
+- formalization: triage:문서화 정도라는 단일 차원 정의이며 강압적·조력적 구분 외에 구조 없음
+- panentheism: triage:범신론·유신론 사이 중간 입장이라는 정의 반복이고 '안에' 의미 자체가 불분명하다는 논쟁 중 개념
+- removable-denture-care: triage:세정·보관·점검의 권장 행동 나열이고 연구 결과가 엇갈려 단정 도식 곤란
+- nature-versus-nurture-debate: triage:유전 대 환경 양자 대립이 이미 상호작용 관점으로 수렴되어 두 요소만 남고 정의 반복
+- market-nicher-strategy: triage:틈새 선택 전략 하나와 위험 서술이며 비교 대상(원가우위 등)이 본문에서 구조화되지 않음
+- crossbite: triage:전치부·구치부 위치 구분과 기능성 편위 언급뿐이며 구성 요소 관계가 얕음
+- liberal-democracy: triage:선거민주주의에 법치·권리를 더한 속성 나열이라 포함 관계 외 새 정보가 없고 정의 반복
+- un-security-council-veto: triage:상임이사국 한 곳이 막으면 무산된다는 단일 규칙이며 구성 요소 관계가 없음
+- accounting-equation: triage:자산=부채+자본 한 줄 식으로 정의 그 자체이고 확장 항목은 본문에서 구조로 제시되지 않음
+- davidic-covenant: triage:조건적·무조건적 성격 공존이 학계 쟁점이라 단정 도식화 부적절하고 구성 요소가 적음
+- one-hot-encoding: triage:세 색을 (1,0,0) 식으로 바꾸는 단순 변환 하나이며 정의에 이미 예시가 있어 그림이 새 정보를 주지 않음
+- black-theology: triage:신학 운동 설명이며 학자 간 입장 차와 영향 관계가 나열일 뿐 구조가 없음
+- infiltration-anesthesia: triage:상악 대 하악 효과 차이라는 2요소 비교가 중심이고 효과도 논쟁 중
+- regularization: triage:L1 대 L2 두 방식 대비이며 람다와 오차의 U자 곡선은 plot 함수로 못 그림
+- relational-database: triage:표와 키로 연결한다는 정의 반복이며 NoSQL 비교는 한 줄 언급에 그침
+- career-vocational-education: triage:진로교육과 직업교육 두 요소의 병렬 설명이며 현장실습 순서는 예시 수준
+- midrash: triage:할라카·아가다 두 유형과 문헌 형식 분류가 겹쳐 나열될 뿐 단일 구조로 합치기 어려움
+- vertical-dimension-of-occlusion: triage:여러 채득 방법이 나열되나 방법 간 관계 구조가 없고 단일 길이 값이 핵심
+- lifelong-education-policy: triage:전 생애를 포괄하는 정책 묶음이라는 정의 반복이고 하위 정책은 이름만 나열됨
+- nature-exploration-domain: triage:세 세부 내용 나열이 전부이고 영역 간 관계나 비교 축이 없음
+- neopatrimonialism: triage:형식 관료제와 사적 후견의 병존이라는 2요소 대비가 정의 반복이고 본문에 단계·분류 구조가 없음
+- childcare-center-evaluation-system: triage:평가 영역 4개와 A~D 등급은 목록일 뿐 서로 관계 맺는 구조가 아니고 제도 정의 반복
+- weighted-average-method: triage:(기초재고+매입액)/총수량 한 줄 공식이라 도식이 정의를 되풀이하며, 이동평균법과의 차이도 구성 요소 2개뿐
+- unconditional-election: triage:예정 교리의 신학적 주장으로 칼뱅·알미니안 논쟁 중인 사안을 단정 없이 그리기 어렵고 구성 요소 관계가 본문에 없음
+- selected-response-assessment: triage:진위형·선다형·배합형 3유형 나열뿐이라 글로 충분하고 유형 간 관계나 비교 축이 본문에 없음
+- wholesale-and-retail: triage:제조-도매-소매-소비자 유통 단계는 정의 그대로의 직선 흐름이며 도식이 새 정보를 주지 못함
+- onlooker-behavior: triage:파튼 놀이단계 중 한 단계만 다루고 본문에 인접 단계 명칭이 2개뿐이라 단계 도식 근거 부족
+- cobra-group: triage:예술가 그룹명(인물·집단)이며 구성 요소 관계가 아니라 사실 나열
+- broken-color: triage:병치→눈에서 혼합이라는 정의 반복이고 광학적 혼합 실재 여부가 논쟁적이라 기전 도식을 단정하기 어려움
+- career-education: triage:교육활동의 목표 서술이 중심이며 단계·분류 구조가 없고 정의 반복
+- community-periodontal-index: triage:코드 0~4 점수표는 목록이라 9개 type에 맞지 않고 CPITN→CPI 연혁도 2단계뿐
+- taste-disorder: triage:원인(구강건조·약물·신경손상·아연)과 증상 3종이 섞인 나열이며 원인-증상 대응이 본문에 없어 단정 도식이 어려움
+- hr-bundles: triage:관행 간 시너지라는 추상 개념으로 번들 구성 자체가 연구자마다 달라 그릴 구성 요소가 확정되지 않음
+- cost-reconciliation: triage:조정 방법 3종의 이름만 나열되고 선택 기준은 중요성 판단 한 줄이라 도식화할 구조가 부족
+- balanced-occlusion: triage:교합 접촉 세 지점 설명은 공간 해부 그림이 필요하고 plot·hierarchy 등 type에 맞지 않으며 임상 이점 자체가 논쟁 중
+- implant-abutment: triage:픽스처-지대주-크라운 3부품 위치 설명이 정의 반복이고 재료·연결방식은 독립 속성 나열
+- gingival-hyperplasia: triage:약물·유전·염증·백혈병 원인이 분류 기준 없이 열거되어 있고 용어 자체도 과형성 대 비대 명칭 논의 수준
+- competitive-authoritarianism: triage:연계·레버리지·조직 역량이 세 결과로 갈린다고 하나 변수와 결과의 대응이 본문에 명시되지 않아 단정 도식이 어려움
+- fetishism-religion: triage:신앙 형태 정의와 용어사 비판이 중심이며 구성 요소 간 구조가 없음
+- dental-trauma: triage:외상 유형이 진탕~완전탈구라고만 언급되고 유형 목록·기전이 본문에 없어 그릴 근거 부족
+- strategic-culture: triage:역사 경험이 안보관을 만든다는 단순 인과 한 줄이고 측정 불가 순환논리 비판이 있어 단정 도식 곤란
+- die-brucke: triage:예술가 그룹이라 단체명·연혁 나열이며 청기사파 비교도 서술 한 줄
+- community-mental-health: triage:조기발견·위기개입·재활·사례관리가 기능 목록일 뿐 서로의 관계나 순서가 본문에 없음
+- infant-directed-speech: triage:음향 특징 나열과 선호 효과 서술이며 보편성이 논쟁 중이라 특징-기능 관계를 단정하기 어려움
+- twenty-first-century-skills: triage:4C 목록 나열이며 역량 간 관계가 없고 프레임워크마다 목록이 달라 합의된 구조가 없음
+- postcolonial-biblical-criticism: triage:비평 방법의 관점 서술이며 방법론이 단일하지 않다고 본문이 경고해 구조를 단정할 수 없음
+- genocide-convention: triage:집단살해 행위 5종은 조약 조문 나열이며 서로 관계 맺는 구조가 아니고 의도 입증 문제도 서술 한 줄
+- solus-christus: triage:오직 그리스도 한 원리의 교리 설명이고 다섯 솔라는 이름 나열일 뿐 관계가 본문에 없음
+- data-mining: triage:기법군 이름과 CRISP-DM 여섯 단계가 곁가지로만 언급되고 용어 본문이 정의 중심이며 방법론 논쟁이 있음
+- irresistible-grace: triage:TULIP 중 한 항목의 교리 설명이며 자유의지 논쟁 중인 주장을 단정 없이 그리기 어렵고 구성 요소 2개뿐
+- greedy-algorithm: triage:거스름돈 예시의 반복 선택이 정의 그대로이며 최적 보장 조건은 매트로이드 한 줄 언급뿐
+- regular-admission: triage:수능 중심 선발 시기·방식 설명이 정의 반복이고 수시와의 대비도 본문에서 구성 요소 2개뿐
+- third-quest-historical-jesus: triage:세 탐구 중 제3탐구만 다뤄 시간 순서 요소가 2개뿐이며 시기 구분 자체가 학자마다 다름
+- bolton-analysis: triage:전체비 91.3%와 전치비 77.2% 두 비율 계산이라 구성 요소 2개이고 수치 곱셈 정의 반복
+- social-trinitarianism: triage:삼신론 논쟁이 걸린 신론 입장으로 세 위격 관계를 단정 도식화하기 어렵고 구성 요소 설명이 정의 반복
+- composite-resin-restoration: triage:재료 비교와 실패 원인이 서술형이며 술식 단계가 본문에 없고 아말감 대비 우열도 연구마다 다름
+- cost-of-goods-sold: triage:기초재고+매입-기말재고 한 줄 공식이라 도식이 정의 반복이며 평가방법 영향은 표 수준 설명
+- healthy-life-expectancy: triage:기대수명과 건강수명의 격차 2요소 비교이며 산출 방법 2종도 나열뿐
+- lustration: triage:배제형·고백형·문서공개형 사례가 국가별 서술에 묻혀 있고 효과 우열이 논쟁적이라 단정 도식이 어려움
+- multilevel-governance: triage:층위 3개 나열과 유형 I·II 두 구분이 본문에서 정의 중심으로만 설명되고 층위 간 관계 정보가 없음
+- gingivoplasty: triage:술식 정의와 치은절제술과의 구분이 중심이고 단계나 구성 요소 관계가 본문에 없음
+- moksha: triage:지혜·헌신·행위 세 길이 나오지만 전통마다 도달 방법과 상태 규정이 달라 단일 도식으로 단정하기 어려움
+- positivism-in-education: triage:실증주의 대 해석학 2요소 대비가 정의 반복이고 RCT 예시는 단계 구조가 아님
+- learning-ecosystem: triage:형식·비형식·무형식 세 층위 연결망은 은유 개념이고 조작적 정의가 없어 그릴 관계가 본문에 확정되지 않음
+- work-environment-measurement: triage:개인시료 대 지역시료 구분과 측정-비교-조치 흐름이 있으나 법정 제도 설명이 중심이라 정의 반복에 가까움
+- mobility-barrier: triage:장벽 요인 나열과 진입·철수장벽과의 구분이 서술 중심이며 효과를 그릴 두 번째 기준이 본문에 없음
+- theocracy: triage:신 직접통치·성직정치·왕권신수설 구분이 스펙트럼이라고만 서술되고 경계가 불명확해 단정 도식이 어려움
+- lifelong-learning-in-later-life: triage:인지·사회·정서 효과 서술과 연구 한계 나열이며 구성 요소 간 관계 구조 없음
+- financial-restatement: triage:주가 하락·경영진 교체·소송 등 결과 나열이고 원인 구분 기준이 본문에서 서술형으로만 제시됨
+- posttribulationism: triage:종말론 휴거 시점 논쟁 중인 입장으로 환난전·환난후 시간표를 한 입장 기준으로 단정해 그리기 어려움
+- mooc: triage:cMOOC와 xMOOC 2요소 대비와 네 글자 구성 설명이 있으나 정의 반복이고 관계 구조가 약함
+- jihad: triage:큰·작은 지하드 구분의 전승 근거가 학계에서 논쟁 중이라 단정 없이 도식화하기 어려움
+- joint-venture: triage:합작 대 단독투자 장단점 서술이고 지분 구조와 해산 원인이 나열 수준이며 정의 반복
+- direct-pulp-capping: triage:지혈·재료 도포·밀폐 수복이 주의 사항으로 흩어져 있고 재료별 성공률 비교가 중심이라 확정된 단계 구조 부족
+- karuna: triage:중생연·법연·무연 3층위는 있으나 불교 교리 설명 중심이고 반야와의 짝도 2요소 서술이라 도식이 정의 반복에 가까움
+- person-environment-fit: triage:직무·조직·집단 적합성 하위 유형 나열이고 유형 간 관계나 비교 축이 본문에 없음
+- creativity-education: triage:유창성·융통성·독창성·정교성 4요소 목록과 확산·수렴 2요소 병렬일 뿐 서로 관계 맺는 구조가 아님
+- fiscal-federalism: triage:중앙 대 지방 기능 배분이 2요소 대비이고 분권화 정리와 형평성 우려는 서술형 상충 관계
+- lifelong-education-voucher: triage:바우처 대 기관 보조금 2요소 비교와 대상 선정 설명이며 정책 정의 반복
+- expository-preaching: triage:주제설교와의 2요소 대비와 주해·적용 두 단계 언급뿐이라 도식이 정의 반복
+- early-warning-outbreak-detection: triage:기준선 대비 이상치 탐지라는 한 줄 구조이고 민감도·특이도 균형은 서술형이라 단계 도식 근거가 약함
+- game-based-learning: triage:게임기반학습 대 게이미피케이션 2요소 대비와 구조적 특징 나열이라 정의 반복
+- sorting-algorithm: triage:버블·퀵·병합·힙 이름과 평가 기준 나열이며 각 알고리즘 동작이나 관계 구조가 본문에 없음
+- sacred-profane: triage:성과 속 2요소 이분법이고 뒤르켐·엘리아데 해석 차이와 보편성 비판이 논쟁 중이라 단정 도식이 어려움
+- forest-kindergarten: triage:전일형 대 연계형 2요소 구분과 운영 특징 서술이며 구성 요소 3개 이상의 관계가 없음
+- believers-church: triage:국가교회 대 신자교회 2요소 대비이고 회원권 근거 서술이 정의 반복
+- pointillism: triage:점 병치로 눈에서 혼합된다는 정의 반복이며 광학적 혼합 효과 자체와 인상주의와의 대비가 2요소뿐
+- six-principles-of-painting: triage:여섯 기준은 이름 목록이고 순서가 중요도라는 해석과 구두 해석에 학설 논쟁이 있어 관계 구조를 단정할 수 없음
+- non-objective-art: triage:추상과 비구상의 포함 관계 2요소 서술이 정의 반복이고 말레비치·몬드리안 예시는 사례 나열
+- sales-mix: triage:배합 변화가 가중평균공헌이익률과 손익분기점을 바꾼다는 한 줄 인과이며 수치 예시 A 60%·B 40% 외 구성 요소 구조가 없음
+- liberal-education: triage:자유교육 대 직업교육 2요소 대비와 피터스 재정의 서술이라 정의 반복
+- ferrule-effect: triage:페룰 있음 대 없음 2요소 효과 서술이고 높이 기준 1.5~2mm와 보완 시술은 수치·목록 수준
+- exponential-time-complexity: triage:입력 크기에 따른 2^n 폭발적 증가가 핵심이라 곡선 도식이 마땅하나 plot 함수가 지수 증가를 그리지 못함
+- industrial-democracy: triage:공동결정제도·노사협의회 등 제도 나열이고 참여 수준 비교 기준이 본문에 단계화되어 있지 않음
+- national-immunization-program: triage:제도 정의와 운영 방식 서술이며 접종 일정표·감시체계 등 요소가 병렬 나열이라 관계 구조 없음
+- boolean-satisfiability-problem: triage:DPLL에서 CDCL로 확장된다는 알고리즘 이름 나열과 NP-완전 증명 서술이며 그림이 정의를 되풀이함
+- coleman-social-capital-education: triage:가정 내·지역사회 사회자본 구분이 한 줄이고 부르디외와의 관점 차이가 2요소 대비라 구조가 약함
+- theotokos: triage:네스토리우스와 에베소의 대립 구도 2요소이고 431·451 시간 순서도 2건뿐이며 기독론 논쟁이라 단정 도식이 어려움
+- imputation-system: triage:배당 가산 후 세액 공제라는 계산 절차가 서술형이고 고전적 이중과세 및 부분포함법과의 비교도 항목 나열 수준
+- kunstkammer: triage:naturalia·artificialia·scientifica·exotica 네 분류가 명칭 나열이며 분류 간 관계나 위계가 없다고 본문이 서술함
+- risk-factor-child-development: triage:누적 효과는 서술만 있고 곡선 모양·구성 요소 관계가 본문에 없음, 정의 반복
+- cargo-cult: triage:해석이 학계에서 논쟁 중(범주 자체 비판)이라 인과 도식으로 단정 불가
+- turing-machine: triage:테이프·헤드·규칙표 설명이 정의 반복, 본문이 그림으로 보강할 새 관계를 주지 않음
+- skeletal-anchorage: triage:장치 개념 설명, 단계·분류·관계 구성 요소가 3개 미만
+- instruction-set-architecture: triage:소프트웨어-ISA-구현 계층은 정의 반복이고 RISC/CISC 구분은 2갈래뿐
+- avant-garde: triage:그린버그 대 뷔르거 용법이 대립하는 논쟁 개념이라 단정 도식 불가
+- orthodontic-band: triage:단일 장치 부품 설명, 관계 맺는 구성 요소 없음
+- feminist-pedagogy: triage:관점·이론 정의, 도식화할 단계나 비교 축이 본문에 없음
+- pcie: triage:세대×레인 수 조합은 곱셈 서술뿐이라 그림이 정의를 되풀이함
+- amortization: triage:감가상각의 무형자산판이라 단일 절차 정의, 정액법 직선은 새 정보가 없음
+- cost-benefit-constraint: triage:비용 대 효익 두 요소의 비교뿐, 구성 요소 2개
+- revised-nuri-curriculum-2019: triage:특정 교육과정 고유명 개정 내용 서술, 369개에서 59개 수치 외 관계 구조 없음
+- antiviral-therapy: triage:치료법 정의, 투약 시점 효과는 정성 서술이라 곡선 근거 부족
+- stride-convolution: triage:단일 하이퍼파라미터, 크기·패딩과의 출력 공식은 본문에 없음
+- continuationism: triage:은사중지론과의 신학 논쟁 입장이라 단정 도식 불가, 대비도 2갈래뿐
+- internal-sense-hutcheson: triage:주관/객관 해석이 갈리는 철학 이론 서술, 구성 요소 관계 없음
+- dental-cement: triage:시멘트 종류 나열과 성능 비교는 서술 위주, 같은 축 비교 구조가 본문에 없음
+- clear-cut-attachment-phase: triage:애착 발달 단계 중 하나만 다루며 전후 단계는 이름만 언급됨
+- illiberal-democracy: triage:민주주의 하위 유형인지 논쟁 중이고 2x2 칸 구성 근거가 본문에 없음
+- teacher-efficacy: triage:신념→노력→성취는 정의 반복, 하위 영역 구분도 2개뿐
+- aesthetic-value-theory: triage:실재론·반응의존 등 입장이 대립하는 철학 논쟁이라 단정 도식 불가
+- mineral-trioxide-aggregate: triage:단일 재료명, 용도와 한계 나열
+- resistance-theory-education: triage:재생산이론과의 논쟁 맥락 이론, 저항의 결과가 양면적이라 단정 도식 불가
+- alginate-impression: triage:단일 인상재, 시간 경과 변형은 정성 서술
+- school-violence-prevention: triage:정책 활동 총칭, 사전 대 사후 대비는 2요소뿐
+- standard-education-cost: triage:기준 경비 산정 개념, 학교급·규모별 산식이 본문에 없음
+- religious-nationalism: triage:사례별 양상이 다양해 일반화 금지, 구성 요소 관계가 정의 반복
+- cultural-reproduction-theory-education: merge-candidate: 병합 후보라 보류(was checked)
+- medication-induced-xerostomia: triage:약물 수와 증상의 용량-반응이 정량 모양 없이 서술뿐
+- complexity-class-p: triage:P-NP 포함 관계는 미해결 문제라 단정 불가, venn은 포함 중첩을 못 그림
+- realism-art: triage:사조 정의, 낭만주의·신고전주의와의 대비는 서술 수준
+- security-community: triage:융합형·다원형 2유형뿐이라 정의 수준 분류
+- ethic-of-care: triage:정의 대 배려 두 관점 대비이며 성차 해석이 논쟁 중
+- rational-choice-theory-religion: triage:비용·편익 저울질 정의 반복, 핵심 예측이 재분석에서 불일치
+- nuclear-non-proliferation-regime: triage:조약·기구 나열이며 형평성 논쟁이 있어 구조 단정 곤란
+- interfaith-dialogue-theology: triage:배타·포괄·다원 스펙트럼이 논쟁 중인 신학 유형론
+- psychosocial-crisis: triage:에릭슨 8단계 중 일부 예시만 있고 단계 전체가 본문에 없음
+- electoral-system-effects: triage:제도 효과가 맥락에 따라 달라 단정 인과 도식 불가, 정의 반복
+- concrete-operational-stage: triage:피아제 단계 하나만 서술, 전후 단계 근거 부족
+- loss-to-follow-up: triage:결측 유형 구분은 이름만 언급되고 흐름도는 인원 수치 서술뿐
+- disaster-epidemiology: triage:역학 하위 분야 정의, 직접·간접 피해는 2갈래
+- strategic-alliance: triage:비지분형·지분형 2유형과 M&A 대비 정도로 정의 반복
+- homogeneous-unit-principle: triage:교회성장 전략 원리이며 인종·계급 분리 정당화 논쟁이 있음
+- business-process-reengineering: triage:점진 개선 대 급진 재설계 두 요소 대비일 뿐 정의 반복, 단계가 본문에 없음
+- corporate-tax-rate: triage:누진 구간 세율은 수치 없이 서술만 있어 구성 요소와 관계가 정의 반복
+- canonical-criticism: triage:역사비평과 대비되는 해석 방법론 서술, 단계나 구성 요소 3개 미만
+- segregation-index-health: triage:지수와 건강의 연관이 상관 수준이고 매개 경로가 인과로 확정되지 않아 단정 도식 곤란
+- transformational-leadership: merge-candidate: 병합 후보라 보류(was checked)
+- monomyth: triage:보편 구조 자체가 구성물이라는 비판이 학계에서 일관되어 단정 도식 곤란
+- church-growth-movement: triage:운동 개요와 비판 서술, 도식화할 구조가 본문에 없음
+- teacher-training-system: triage:폐쇄형 대 개방형 두 유형 비교뿐, 정책 개요 서술
+- reinfection-risk-epidemiology: triage:면역 약화와 변이 설명은 정성 서술, 위험 곡선 수치나 구성 요소 근거 없음
+- geometric-abstraction: triage:사조 계보가 날짜 없이 나열되고 서정적 추상과의 대비는 2요소뿐
+- chain-of-thought-prompting: triage:문제에서 중간 풀이를 거쳐 답이 나온다는 정의 반복, 풀이가 실제 근거인지도 불확실
+- charismatic-renewal: triage:제1·2·3의 물결 삼단계는 이름만 언급되고 나머지는 교단 사례 서술
+- climate-change-health-impact: triage:직접·간접 영향 분류가 정의 반복이며 인과를 상관으로만 다룸
+- ecstasy-religious: triage:체험의 보편성이 영원철학 대 구성주의로 논쟁 중이라 단정 도식 불가
+- junzi: triage:군자 대 소인 대비 축이 둘뿐이고 정의 반복
+- gingival-bleeding-index: triage:단일 임상 지표, 한계 서술만 있고 구성 요소 관계 없음
+- periodontal-pathogen: triage:균군 이름 하나만 구체적이고 정착 순서는 본문에 단계로 제시되지 않음
+- prior-period-error-correction: triage:소급재작성이라는 단일 처리 규칙, 정책변경·추정변경과의 비교는 언급 수준
+- adolescent-egocentrism: triage:상상적청중·개인적우화 두 하위 개념뿐이며 인지단계 설명이 학계에서 논쟁 중
+- sola-scriptura: triage:권위 서열 원리 서술, 2요소 대비와 신학 논쟁 맥락
+- arianism: triage:동일본질 대 피조물 두 입장의 신학 논쟁 서술, 구성 요소 2개
+- free-high-school-education: triage:한국 정책 사례 서술, 지원 항목 나열 외 구조 없음
+- xunzi-innate-evil: triage:맹자 성선설과의 인성론 대립이고 악의 의미 해석도 갈려 단정 도식 불가
+- masked-language-modeling: triage:가리기와 맞히기 두 단계가 정의 반복이고 새 관계 정보가 적음
+- futurist-aesthetics: triage:선언문 주장 나열과 정치 논쟁, 구성 요소 간 관계 구조 없음
+- laocoon-lessing: triage:공간 대 시간 구분이 이데올로기적 구성이라는 비판이 있고 대비 요소 2개
+- public-school-affiliated-kindergarten: triage:단설유치원과의 운영 차이 서술, 3개 이상의 관계 요소 없음
+- overregularization: triage:U자형 발달 곡선이 핵심이나 plot 함수로 못 그림
+- pregnancy-gingivitis: triage:호르몬 증가와 염증 증폭은 정성 서술, 단계나 비교 구조 없음
+- infant-mortality-rate: triage:신생아·후기영아·5세 미만 구간 구분은 지표 정의 수준 서술
+- invisible-religion: triage:세속화 해석 관점이며 개인화 가정이 실증으로 불확실한 논쟁 개념
+- patron-saint-iconography: triage:성인과 속성물 대응 나열, 속성이 중복돼 식별 구조를 단정하기 어려움
+- radical-orthodoxy: triage:신학 사조의 비판 입장 서술, 학자별 편차가 커 구조 도식 곤란
+- deschooling-society: triage:학교 폐지 주장은 논쟁적 사상이고 학습망 대안도 구성 요소가 구체화되지 않음
+- developmental-origins-of-health-and-disease: triage:초기 노출에서 성인 질환으로의 경로가 연관 시사 수준이라 인과 단정 불가
+- papal-infallibility: triage:교리 적용 조건 서술과 교회론 논쟁, 도식화할 관계가 약함
+- sharia: triage:법원 목록과 규범 등급 나열 위주이고 샤리아·피크흐 구분은 2요소
+- cessationism: triage:은사지속론과 논쟁 중인 신학 입장이라 단정 도식 불가
+- informal-organization: triage:공식 대 비공식 두 요소와 효과 서술, 단계나 분류 없음
+- horror-vacui: triage:밀도 경향 기술 용어로 사례 나열뿐, 관계 구조 없음
+- criterion-referenced-assessment: triage:규준참조평가와 두 방식 대비이며 정의 반복
+- critical-section: triage:본문이 뮤텍스·락 등 보호 수단만 나열할 뿐 진입-임계-퇴출 같은 단계 구조를 제시하지 않아 정의 반복에 그침
+- fibroma: triage:단일 병변명 — 만성 자극→과증식이라는 2요소 설명뿐
+- eschatology: triage:신학 전통마다 해석이 갈리는 개념이고 개인적/우주적 구분 2개뿐이라 단정 없이 그릴 구성 요소가 부족
+- emergent-literacy: triage:의미 중심/글자·소리 중심 2범주뿐이며 관점 소개 위주라 관계를 그릴 요소가 부족
+- eternal-security: triage:교리 입장과 비판 소개 위주이고 전통 간 논쟁이라 단정해 그릴 구조가 없음
+- health-behavior-theory: triage:건강신념모형·계획된 행동이론·범이론모형을 이름만 나열하는 총칭어로 각 모형 내부 구조는 본문에 없음
+- sick-building-syndrome: triage:원인물질 나열과 비특이적 증상 설명뿐이고 원인이 단일하게 특정되지 않아 경로를 그릴 수 없음
+- food-service-hygiene-management: triage:검수·조리·보존식·배식 점검 항목의 나열로 단계 순서나 관계가 본문에서 확정되지 않음
+- advanced-planning-and-scheduling: triage:MRP 대 APS 2개 비교뿐이며 알고리즘 내부 단계는 본문에 없음
+- customer-equity: triage:고객생애가치의 합산이라는 정의 반복이며 3개 하위 자산은 이름만 열거되어 그림이 더 알려 주는 것이 없음
+- pandemic-preparedness-framework: triage:감시·의료대응·거버넌스·R&D 축의 단순 나열이며 축 간 관계나 순서가 본문에 없음
+- gestalt-learning-theory: triage:통찰 대 시행착오 2개 대비뿐이고 쾰러 실험 일화 중심이라 구성 요소 3개 미만
+- moral-influence-theory: triage:형벌대속론과의 2개 대비뿐이며 신학 전통 간 논쟁이라 단정 없이 그릴 구조가 부족
+- capacity-utilization-rate: triage:실제 산출/최대 능력이라는 단일 비율 지표로 구성 요소가 2개뿐
+- qubit: triage:비트 대 큐비트 2개 대비와 물리·논리 큐비트 설명뿐이며 상태·오류 정정 절차는 본문에 구체화되지 않음
+- common-stock: triage:우선주와의 2개 비교와 권리 나열뿐인 단일 증권 종류
+- conditional-immortality: triage:소수 신학 견해로 학계 논쟁 중이며 구원/비구원 2갈래뿐이라 단정 없이 그리기 어려움
+- technological-sublime: triage:자연 숭고에서 기술 숭고로의 전이라는 2요소 개념이며 사례 나열 위주
+- bond-premium: triage:할증발행→상각→액면 수렴이 정의 반복 수준이고 상각 곡선은 본문에 수치가 없으며 현재 plot 함수로 표현도 안 됨
+- civil-society-theory: triage:국가·시장·시민사회 위치 관계가 정의에 이미 담겨 있고 규범적 평가가 논쟁적
+- job-enlargement: triage:직무충실화와의 2개 대비(수평 대 수직)뿐으로 직무설계의 하위 사례 수준
+- turing-completeness: triage:성질 정의와 환원 증명 방식 설명뿐으로 3개 이상의 관계 요소가 없음
+- pluralism-theory: triage:엘리트론과의 2개 대비이며 권력 구조 실증 여부가 논쟁 중
+- board-independence: triage:사외이사 비율 등 측정 지표 나열이며 관계 구조가 아닌 단일 속성
+- inculturation-theology: triage:복음과 문화의 2요소 관계이고 본질/표현 경계가 논쟁적이라 단정해 그리기 어려움
+- devolution-theory: triage:연방제와의 2개 대비와 영국 사례 소개 위주로 구성 요소가 부족
+- retail-marketing: triage:매장환경·상품·가격·프로모션을 나열하는 활동 총칭이며 요소 간 관계 없음
+- ethical-leadership: triage:도덕적 인격/도덕적 관리자 2차원뿐이고 나머지는 인접 리더십과의 구분 설명
+- spiritual-formation: triage:영적 훈련 방법 나열과 점진적 변화라는 서술뿐이며 단계 순서가 본문에 없음
+- underfitting: triage:과적합과의 2개 대비이며 본문에 복잡도-오차 곡선 수치가 없어 단독 용어로 그릴 구조가 부족
+- investment-property: triage:원가모형/공정가치모형 2개 선택과 분류 기준 설명뿐인 회계 항목
+- support-activities: triage:가치사슬 지원활동 4개 이름의 열거이며 본원적활동이 본문에 없어 관계를 그릴 수 없음
+- solid-state-drive: triage:HDD 대비 2개 비교와 쓰기 증폭 등 특성 나열이며 구조·단계 관계가 없음
+- gpu: triage:CPU 대 GPU 2개 비유와 사양·병렬화 언급뿐이라 그릴 구조가 없음
+- authoritarian-parenting: triage:바움린드 4유형 중 한 유형이며 나머지 세 유형이 본문에 없어 네 칸 구조가 성립하지 않는 하위 사례
+- knowledge-management-system: triage:SECI 모델은 별도 개념이고 본문 자체는 저장중심/네트워크중심 2갈래와 활용 문제 서술 위주
+- church-as-bride-of-christ: triage:신랑-신부 은유의 2요소 관계이며 전통별 해석이 갈림
+- business-model-innovation: triage:가치 제안·창출·수익이라는 개념 정의 열거이며 순서나 인과가 없음
+- spiritual-but-not-religious: triage:자기 규정 범주 설명이며 종교 소속 여부와 영성 추구 2축 정도로 구성 요소가 부족하고 해석이 논쟁적
+- leadership-style: triage:변혁적·거래적·서번트 등 유형명을 나열하는 총칭어이며 유형 간 관계나 기준이 본문에서 확정되지 않음
+- tritheism: triage:이단 판정을 둘러싼 교리 논쟁 용어이며 본문이 위격/본질 양극단 설명뿐이라 단정 없이 그릴 3개 이상의 구성 요소가 없음
+- bauhaus-functionalism: triage:교장 시기별 방향 전환을 다루지만 본문 연대('1923 이후 마이어')가 불명확하고 사건 순서가 근거 불충분해 시간순 도식을 확정하기 어려움
+- sunset-clause-health-regulation: triage:만료일 설정과 재검토라는 2~3단계 정의 반복이며 구성 요소 간 새로운 관계를 보여 주지 않음
+- traumatic-ulcer: triage:단일 병변명 — 자극 제거 시 치유라는 단순 2요소 설명
+- self-portrait: triage:장르명이며 작가 사례 나열 위주로 관계 구조가 없음
+- dynamic-programming: triage:부분 문제 저장·재사용이라는 정의 반복이고 하향식/상향식 2개 구분뿐이라 그림이 추가로 보여 줄 구조가 약함
+- incarnation: triage:신성과 인성의 결합이라는 2요소 교리이며 신학 전통별 해석이 갈려 단정해 그릴 수 없음
+- griesbach-hypothesis: triage:학계 소수 가설 간 논쟁이며 본문은 마태→누가→마가 의존 순서와 마가 우선설의 반대라는 정도에 그쳐 근거가 얇음
+- expert-system: triage:지식베이스·추론엔진 2요소 구조에 전향/후향 추론 언급이 있으나 본문이 구성 요소 간 흐름을 구체적으로 기술하지 않음
+- sacred-marriage: triage:신화·의례 모티프로 의례 실재 여부가 학계에서 엇갈려 단정해 그릴 수 없음
+- attachment-in-the-making-phase: triage:볼비 4단계 중 한 단계일 뿐이며 나머지 단계는 이름만 언급되어 하위 사례 수준
+- completed-contract-method: triage:진행기준과의 2개 대비뿐이며 수익 인식 시점 차이는 정의에 이미 담겨 있음
+- theories-of-language-acquisition: triage:행동주의·생득주의·상호작용주의를 이름과 한 줄 강조점으로 열거하는 총칭어이며 절충적 관점이라 구조 도식의 실익이 작음
+- pentecostalism: triage:교단·지역별 편차가 큰 운동이고 세분 갈래가 이름 나열에 그쳐 단정해 그릴 구조가 없음
+- voter-turnout-theory: triage:비용-편익에 의무감 항을 더한 설명이 문장으로 충분하며 이론 간 논쟁 중심이라 도식으로 단정하기 어려움
+- health-communication-campaign: triage:대상 분석·메시지·채널·평가 항목의 일반적 나열이며 순서나 인과가 본문에서 확정되지 않음
+- deuteronomistic-history: triage:성서 본문이 아닌 학자 가설이고 편집 단계 수를 두고 단일/이중 편집설이 대립해 단정해 그릴 수 없음
+- le-fort-1-osteotomy: triage:술식 정의와 이동 방향별 안정성 언급이 중심이며 수술 단계 순서는 본문에 제시되지 않음
+- value-based-pricing: triage:원가기반 대 가치기반 2개 대비뿐으로 EVC 방법은 한 줄 언급
+- rabbinic-judaism: triage:성전 파괴 후 재편 시기를 두고 즉각 주도설과 수 세기 걸림설이 엇갈려 순서를 단정해 그릴 수 없음
+- project-based-learning: triage:7개 설계 요소의 체크리스트일 뿐 요소 간 순서·관계가 없고 PBL 원형과 현재의 차이는 서술형
+- facility-location-decision: triage:요인평가법·무게중심법 등 기법 이름의 나열이며 결정 단계는 본문에 없음
+- empowerment-approach-health-education: triage:전통적 일방 전달 대 촉진자 방식의 2개 대비와 비유 중심 설명
+- network-bandwidth: triage:단일 속성(단위 시간당 전송량)이며 지연시간과의 구분 언급이 전부로 2요소뿐
+- semiotics-of-art: triage:소쉬르·퍼스 두 전통과 외시/함의를 소개하는 방법론 총칭이며 학계 비판이 많아 단정해 그릴 구조가 부족
+- separation-of-church-and-state: triage:국가별 제도 사례와 두 조항 소개가 중심이고 분류 차원이 연구에서 아직 정리되지 않아 단정하기 어려움
+- conservatism-principle: triage:손실 선인식·이익 후인식이라는 비대칭 원칙이며 조건부/무조건부 2구분뿐이라 정의 반복에 가까움
+- word-of-mouth: triage:광고와의 신뢰도 비교 등 2요소 설명 위주이며 확산 경로는 본문에 구체화되지 않음
+- site-specific-art: triage:장소와 작품의 불가분성이라는 단일 속성이고 이전 가능 여부는 논쟁 중
+- new-quest-historical-jesus: triage:탐구 시기 구분이 학자마다 다르다고 본문이 명시하며 연도도 1953년 하나뿐이라 시간순 도식의 근거가 부족
+- pest-analysis: triage:정치·경제·사회·기술 네 범주를 나열하는 체크리스트이며 범주 간 관계가 없음
+- liturgy: triage:말씀의 전례/성찬의 전례 2개 구분과 전통별 차이 설명에 그치며 순서 구조가 본문에 없음
+- council-of-chalcedon: triage:단일 사건명이며 모든 전통이 수용하지 않은 신학 결정이라 본문 구도가 정통 대 이단 2~3입장 서술에 머묾
+- normative-commitment: triage:마이어-앨런 3요소 모델의 한 요소로 하위 사례이며 개념적 독립성도 논쟁 중
+- iconostasis: triage:층별 이콘 배치 설명은 있으나 공간 배치도는 현재 제공 도식 유형으로 그릴 수 없고 층 이름만 3개 나열
+- lifelong-education-institution: triage:설립 주체별 기관 유형을 나열하는 범주어이며 관계나 순서 구조가 없음
+- home-based-childcare-center: triage:어린이집 설립 유형의 하나이며 정원 기준 등 속성 나열뿐
+- ancestral-sin: triage:서방 원죄론과의 2개 대비이며 신학 전통 간 해석 차이라 단정해 그리기 어려움
+- levitical-purity: triage:의례적/도덕적 부정의 경계가 학계 논쟁 대상이고 회복 절차 3종이 나열에 그쳐 단정적 도식 근거가 부족
+- gadamer-play-concept: triage:철학 개념 설명이며 요소가 놀이→형상으로의 변화→작품 2~3개 추상어뿐이고 해석 논쟁적
+- cooing: triage:쿠잉→옹알이라는 2단계 이정표 중 한 단계로 하위 사례 수준
+- instructional-adaptation: triage:수정 영역 5개를 열거하는 총칭이며 영역 간 관계나 순서가 없고 교육과정수정과의 2개 구분 위주
+- homiletics: triage:실천신학 분야명이며 주해·성찰·청중 분석·수사 구성이 단계 순서나 관계 없이 나열되고 설교 형식 유형은 이름만 제시됨
+- dharma-concept: triage:우주 질서·도덕 의무·가르침의 다의어 설명이며 힌두교와 불교에서 의미가 달라 하나의 구조로 단정할 수 없음
+- tensorboard: triage:단일 소프트웨어 도구명이며 기능 나열뿐
+- rectification-of-names: triage:명칭과 실질 일치라는 2요소 원리이며 군군신신부부자자는 예시 나열이고 후대 해석 차이가 큼
+- institutional-critique: triage:1세대/2세대 2구분과 작가·사건 나열 중심이고 미술사 서술이 논쟁적이라 단정해 그릴 구조가 부족
+- icon-veneration: triage:경배 대 공경 2개 구분과 형상에서 원형으로 넘어간다는 논리가 한 문장 수준이며 성상파괴 논쟁을 둘러싼 교리 입장이라 도식 근거가 부족
+- group-home-child: triage:아동 보호 시설 유형 하나이며 소규모 대 대규모 2개 비교와 운영 쟁점 나열뿐
+
+## 검사 실패(작성 재시도 필요)
+

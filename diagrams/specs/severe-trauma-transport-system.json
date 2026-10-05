@@ -1,0 +1,88 @@
+{
+  "slug": "severe-trauma-transport-system",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "중증외상 발생",
+      "color": "gray",
+      "sub": "사고 현장"
+    },
+    {
+      "id": "n1",
+      "label": "현장 선별",
+      "color": "violet",
+      "sub": "기전·활력징후·의식"
+    },
+    {
+      "id": "n2",
+      "label": "과소 선별",
+      "color": "rose",
+      "sub": "기준 미충족으로 판정"
+    },
+    {
+      "id": "n3",
+      "label": "인근 병원 경유",
+      "color": "amber",
+      "sub": "일반 병원 먼저 도착"
+    },
+    {
+      "id": "n4",
+      "label": "재이송",
+      "color": "rose",
+      "sub": "치료 지연"
+    },
+    {
+      "id": "n5",
+      "label": "권역외상센터",
+      "color": "green",
+      "sub": "최종 치료"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow",
+      "label": "중증을 놓치면"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n5",
+      "kind": "arrow",
+      "label": "기준 충족: 직접 이송"
+    }
+  ],
+  "notes": [
+    {
+      "text": "과다 선별은 외상센터 부담을 키우지만, 기준은 과소 선별을 막도록 민감하게 설계되는 경향",
+      "tone": "limit"
+    },
+    {
+      "text": "센터가 너무 멀면 인근 병원 응급처치 후 전원하는 절충 전략도 검토",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}

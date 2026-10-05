@@ -1,0 +1,70 @@
+{
+  "slug": "automated-planning",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "init",
+      "label": "초기 상태",
+      "color": "amber",
+      "sub": "현재 상황"
+    },
+    {
+      "id": "act",
+      "label": "행동 모형",
+      "color": "amber",
+      "sub": "전제조건·효과"
+    },
+    {
+      "id": "goal",
+      "label": "목표 상태",
+      "color": "amber",
+      "sub": "도달할 조건"
+    },
+    {
+      "id": "search",
+      "label": "계획기 탐색",
+      "color": "violet",
+      "sub": "휴리스틱 탐색"
+    },
+    {
+      "id": "plan",
+      "label": "행동 순서",
+      "color": "green",
+      "sub": "초기→목표 계획"
+    }
+  ],
+  "edges": [
+    {
+      "from": "init",
+      "to": "search",
+      "kind": "arrow"
+    },
+    {
+      "from": "act",
+      "to": "search",
+      "kind": "arrow"
+    },
+    {
+      "from": "goal",
+      "to": "search",
+      "kind": "arrow"
+    },
+    {
+      "from": "search",
+      "to": "plan",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "세 입력은 PDDL 같은 형식언어로 기술 — 푸는 방법이 아니라 문제 정의만 준다",
+      "tone": "general"
+    },
+    {
+      "text": "고전적 계획은 완전 관측·결정론적 행동을 가정",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}
