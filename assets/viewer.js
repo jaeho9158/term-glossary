@@ -1778,16 +1778,29 @@ function findSelectionInText(bodyText, selected) {
       prevSpace = false;
     }
   }
-  const tries = [want];
-  if (want.length > 20) tries.push(want.slice(0, 20).trim());
-  for (const needle of tries) {
-    if (!needle) continue;
+  const locate = (needle) => {
+    if (!needle) return null;
     const at = collapsed.indexOf(needle);
-    if (at === -1) continue;
-    const start = map[at];
-    const end = map[at + needle.length - 1] + 1;
-    return { start, end };
+    if (at === -1) return null;
+    return { start: map[at], end: map[at + needle.length - 1] + 1 };
+  };
+  const exact = locate(want);
+  if (exact) return exact;
+  // 원본 화면의 텍스트 레이어는 줄 사이에 공백이 없고 읽기 화면은 줄바꿈이 있다.
+  // 공백을 아예 뺀 문자열끼리 한 번 더 맞춰 본다(두 줄 이상 선택이 앞 20자로 줄어들지 않게).
+  let bare = "";
+  const bareMap = [];
+  for (let i = 0; i < body.length; i++) {
+    if (/\s/.test(body[i])) continue;
+    bare += body[i];
+    bareMap.push(i);
   }
+  const bareWant = want.replace(/\s+/g, "");
+  if (bareWant) {
+    const at = bare.indexOf(bareWant);
+    if (at !== -1) return { start: bareMap[at], end: bareMap[at + bareWant.length - 1] + 1 };
+  }
+  if (want.length > 20) return locate(want.slice(0, 20).trim());
   return null;
 }
 

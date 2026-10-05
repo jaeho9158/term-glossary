@@ -25,3 +25,9 @@ test("findSelectionInText: 없거나 빈 입력이면 null", () => {
   assert.strictEqual(findSelectionInText("", "a"), null);
   assert.strictEqual(findSelectionInText("abc", "  "), null);
 });
+
+test("findSelectionInText: 원본 화면처럼 줄 사이 공백이 없는 선택도 전체를 찾는다", () => {
+  const t = "신경교세포는 활동전위를\n직접 전달하지 않는다";
+  const r = findSelectionInText(t, "활동전위를직접 전달하지");
+  assert.strictEqual(t.slice(r.start, r.end), "활동전위를\n직접 전달하지");
+});
