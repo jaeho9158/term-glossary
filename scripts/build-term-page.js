@@ -14,6 +14,7 @@ const DONOR_PAGE = path.join(ROOT_DIR, "terms", "nmda-receptor.html");
 const { escapeHtml } = require("../assets/escape.js");
 const seo = require("./lib/term-seo.js");
 const termMeta = require("./lib/term-meta.js");
+const indexTier = require("./lib/index-tier.js");
 
 let categoryData = null;
 function labels() {
@@ -164,10 +165,22 @@ function renderTermPage(term, ctx) {
 
   const page = newHead + renderMain(term, ctx) + tail;
   // JSON-LD / OG / 최종 수정 줄 (insert-term-meta.js 와 같은 빌더)
-  return termMeta.applyTermMeta(page, term, {
+  const withMeta = termMeta.applyTermMeta(page, term, {
     categoryLabels: labels().CATEGORY_LABELS,
     date: lastmodDate(term.slug),
   }) || page;
+  // 색인 등급: archive 용어는 Googlebot 전용 noindex 마커를 유지한다(재생성해도 사라지지 않게).
+  return archiveSet().has(term.slug) ? indexTier.applyIndexTier(withMeta, "archive") || withMeta : withMeta;
+}
+
+let archiveCache = null;
+function archiveSet() {
+  if (!archiveCache) {
+    try {
+      archiveCache = new Set(JSON.parse(fs.readFileSync(path.join(ROOT_DIR, "data", "index-tiers.json"), "utf8")).archive);
+    } catch (e) { archiveCache = new Set(); }
+  }
+  return archiveCache;
 }
 
 function buildContext(terms, incomingSlugs = []) {
