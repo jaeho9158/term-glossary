@@ -58,7 +58,7 @@ function renderSpec(spec, { title, orientation = "h", idPrefix } = {}) {
   const ext = mod.layout(cv, spec, orientation);
   let width = Math.ceil(ext.w);
   // 주석은 도식 폭에 맞춰 줄바꿈하되, 도식이 아주 좁으면 최소 폭을 준다.
-  if (spec.notes && spec.notes.length) width = Math.max(width, orientation === "v" ? 300 : 360);
+  if (spec.notes && spec.notes.length) width = Math.max(width, orientation === "v" ? 340 : 360);
   const height = Math.ceil(drawNotes(cv, spec.notes, width, ext.h + 6) + MARGIN);
   const warnings = [...checkOverlaps(cv), ...checkBounds(cv.texts, width, height)];
   const desc = describe(spec, t);
@@ -68,7 +68,7 @@ function renderSpec(spec, { title, orientation = "h", idPrefix } = {}) {
     // 컬럼 폭까지 늘어나 글자가 체인 도식의 두 배 크기로 보인다.
     `<svg class="dg dg-${orientation}" viewBox="0 0 ${width} ${height}" style="max-width:${width}px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="${prefix}-t ${prefix}-d" font-family="'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif">` +
     `<title id="${prefix}-t">${esc(t)}</title><desc id="${prefix}-d">${esc(desc)}</desc>${defs}${cv.parts.join("")}</svg>`;
-  return { svg, width, height, warnings, desc };
+  return { svg, width, height, warnings, desc, texts: cv.texts, boxes: cv.boxes };
 }
 
 // 본문 컬럼(--max-width 760 − 여백)에서 도식이 원래 크기로 들어가는 최대 폭. 가로판이

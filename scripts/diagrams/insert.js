@@ -2,6 +2,8 @@
 //
 //   node scripts/diagrams/insert.js           검수된 스펙 반영 + 검수 취소·삭제된 도식 제거
 //   node scripts/diagrams/insert.js --dry-run 무엇이 바뀔지 출력만
+//   node scripts/diagrams/insert.js --skip=a,b 해당 slug의 페이지는 건드리지 않는다(다른 세션이 편집 중일 때).
+//                                             매니페스트에는 그대로 남긴다.
 //
 // - 위치: 한 줄 정의 박스(.definition-box) 바로 아래.
 // - 이미 키워드 매칭으로 들어간 범용 도식(<figure class="term-figure">)이 있으면
@@ -43,6 +45,8 @@ function removeDiagram(html) {
 
 function run() {
   const dry = process.argv.includes("--dry-run");
+  const skipArg = process.argv.find((a) => a.startsWith("--skip="));
+  const skip = new Set(skipArg ? skipArg.slice(7).split(",").filter(Boolean) : []);
   const terms = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
   const titles = new Map(terms.map((t) => [t.slug, t.title_ko]));
   const known = new Set(titles.keys());
@@ -62,6 +66,7 @@ function run() {
     }
     const page = path.join(ROOT, "terms", `${spec.slug}.html`);
     if (!fs.existsSync(page)) { skipped++; continue; }
+    if (skip.has(spec.slug)) { now.add(spec.slug); skipped++; continue; }
     const fig = renderFigure(spec, titles.get(spec.slug));
     if (fig.warnings.length) {
       warned++;

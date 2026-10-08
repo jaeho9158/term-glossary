@@ -47,13 +47,28 @@ function textWidth(str, fs, bold = false) {
   return em * fs * (bold ? 1.05 : 1) * SAFETY;
 }
 
-// 공백 단위로 욕심껏 채우고, 한 단어가 max보다 길면 글자 단위로 자른다.
+// 줄바꿈 후보: 공백, 그리고 가운뎃점·화살표·쉼표·슬래시·세미콜론 뒤(숫자 사이 쉼표·슬래시 제외).
+// 한국어 라벨은 공백 없이 "만성질환·급성출혈"처럼 이어 쓰는 일이 많아, 공백만 보면
+// 단어 한가운데서 끊긴다. 조각 하나가 한 줄보다 길 때만 글자 단위로 자른다(최후 수단).
+const BREAK_AFTER = /(?<=[·→;])|(?<=[,/])(?![0-9])/;
+function pieces(str) {
+  const out = [];
+  for (const word of String(str).split(/\s+/).filter(Boolean)) {
+    word.split(BREAK_AFTER).filter(Boolean).forEach((p, i) => out.push({ t: p, sp: i === 0 }));
+  }
+  return out;
+}
+// 줄바꿈 후보 조각 가운데 가장 넓은 것: 이보다 좁은 칸에는 단어를 못 끊고 넣을 수 없다.
+function longestPiece(str, fs, bold = false) {
+  let m = 0;
+  for (const p of pieces(str)) m = Math.max(m, textWidth(p.t, fs, bold));
+  return m;
+}
+
 function wrap(str, maxW, fs, bold = false) {
-  const words = String(str).split(/\s+/).filter(Boolean);
   const lines = [];
   let cur = "";
-  const push = (w) => {
-    if (textWidth(w, fs, bold) <= maxW) return lines.push(w);
+  const pushLong = (w) => {
     let piece = "";
     for (const ch of w) {
       if (piece && textWidth(piece + ch, fs, bold) > maxW) {
@@ -61,16 +76,16 @@ function wrap(str, maxW, fs, bold = false) {
         piece = ch;
       } else piece += ch;
     }
-    if (piece) lines.push(piece);
+    cur = piece;
   };
-  for (const w of words) {
-    const next = cur ? `${cur} ${w}` : w;
+  for (const { t, sp } of pieces(str)) {
+    const next = cur ? (sp ? `${cur} ${t}` : cur + t) : t;
     if (textWidth(next, fs, bold) <= maxW) cur = next;
     else {
       if (cur) lines.push(cur);
       cur = "";
-      if (textWidth(w, fs, bold) <= maxW) cur = w;
-      else push(w);
+      if (textWidth(t, fs, bold) <= maxW) cur = t;
+      else pushLong(t);
     }
   }
   if (cur) lines.push(cur);
@@ -133,7 +148,7 @@ class Canvas {
   text(x, y, t, { fs = FS, fill = "var(--dg-navy)", anchor = "middle", bold = false, owner = "free" } = {}) {
     const w = textWidth(t, fs, bold);
     const left = anchor === "middle" ? x - w / 2 : anchor === "end" ? x - w : x;
-    this.texts.push({ x: left, y: y - fs * 0.82, w, h: fs * 1.08, label: t, owner });
+    this.texts.push({ x: left, y: y - fs * 0.82, w, h: fs * 1.08, label: t, owner, fs, bold, base: y });
     const weight = bold ? ' font-weight="700"' : "";
     this.parts.push(`<text x="${r1(x)}" y="${r1(y)}" text-anchor="${anchor}" font-size="${fs}"${weight} fill="${fill}">${esc(t)}</text>`);
   }
@@ -163,33 +178,67 @@ class Canvas {
 }
 
 // 노드 박스 크기: 라벨(굵게)·sub를 줄바꿈해서 잰다.
+// 단어(줄바꿈 후보 조각)가 칸보다 길면 단어 한가운데서 끊기므로, 먼저 칸을 넓히고
+// (최대 maxText의 NODE_GROW_MAX배) 그래도 안 되면 글자 크기를 FS_FLOOR까지 줄인다.
+// 후보는 앞쪽일수록 원래 모양에 가깝다. 끊김 0·줄 수 적정(라벨 2줄·전체 3줄 이내)이
+// 처음으로 충족되는 후보를 쓰고, 없으면 끊김이 가장 적은 후보를 쓴다.
+const FS_FLOOR = 11;
+const NODE_GROW_MAX = 1.4;
+const NODE_CANDIDATES = [[FS, 1], [FS, 1.2], [12, 1.2], [FS, NODE_GROW_MAX], [12, NODE_GROW_MAX], [FS_FLOOR, NODE_GROW_MAX]];
+
+function layoutNodeText(node, maxText, fsL) {
+  const fsS = Math.max(FS_FLOOR, fsL - 1.5);
+  const labelLines = wrap(node.label, maxText, fsL, true);
+  const subLines = node.sub ? wrap(node.sub, maxText, fsS) : [];
+  return { labelLines, subLines, fsL, fsS };
+}
+
+function splitCount(lines, original) {
+  const toks = new Set(pieces(original).map((p) => p.t));
+  // 줄을 공백으로 나눈 뒤, 후보 조각 경계에서 이어 붙은 것까지 다시 쪼개 온전한 조각인지 본다.
+  let bad = 0;
+  for (const l of lines) for (const w of l.split(" ")) if (w && !pieces(w).every((p) => toks.has(p.t))) bad++;
+  return bad;
+}
+
 function measureNode(node, maxText = BOX_TEXT_MAX) {
-  const labelLines = wrap(node.label, maxText, FS, true);
-  const subLines = node.sub ? wrap(node.sub, maxText, FS_SUB) : [];
+  let best = null;
+  for (const [fsL, grow] of NODE_CANDIDATES) {
+    const t = layoutNodeText(node, maxText * grow, fsL);
+    const bad = splitCount(t.labelLines, node.label) + (node.sub ? splitCount(t.subLines, node.sub) : 0);
+    const tooTall = t.labelLines.length > 2 || t.labelLines.length + t.subLines.length > 3;
+    const score = bad * 100 + (tooTall ? 1 : 0);
+    if (!best || score < best.score) best = { ...t, score };
+    if (score === 0) break;
+  }
+  const { labelLines, subLines, fsL, fsS } = best;
   const textW = Math.max(
-    ...labelLines.map((l) => textWidth(l, FS, true)),
-    ...subLines.map((l) => textWidth(l, FS_SUB)),
+    ...labelLines.map((l) => textWidth(l, fsL, true)),
+    ...subLines.map((l) => textWidth(l, fsS)),
     0
   );
   const w = Math.max(BOX_MIN_W, textW + PAD_X * 2);
-  const h = PAD_Y * 2 + labelLines.length * LINE + (subLines.length ? subLines.length * (FS_SUB + 2.5) + 2 : 0);
-  return { w, h, labelLines, subLines };
+  const lh = fsL + 2.5, sh = fsS + 2.5;
+  const h = PAD_Y * 2 + labelLines.length * lh + (subLines.length ? subLines.length * sh + 2 : 0);
+  return { w, h, labelLines, subLines, fsL, fsS };
 }
 
 function drawNode(cv, node, x, y, w, h, m) {
   const color = node.color || "blue";
   cv.rect(x, y, w, h, color, node.id);
   const tc = `var(--dg-${color}-t)`;
-  const blockH = m.labelLines.length * LINE + (m.subLines.length ? m.subLines.length * (FS_SUB + 2.5) + 2 : 0);
-  let by = y + (h - blockH) / 2 + FS;
+  const fsL = m.fsL || FS, fsS = m.fsS || FS_SUB;
+  const lh = fsL + 2.5, sh = fsS + 2.5;
+  const blockH = m.labelLines.length * lh + (m.subLines.length ? m.subLines.length * sh + 2 : 0);
+  let by = y + (h - blockH) / 2 + fsL;
   for (const l of m.labelLines) {
-    cv.text(x + w / 2, by, l, { fill: tc, bold: true, owner: node.id });
-    by += LINE;
+    cv.text(x + w / 2, by, l, { fs: fsL, fill: tc, bold: true, owner: node.id });
+    by += lh;
   }
   if (m.subLines.length) by += 2;
   for (const l of m.subLines) {
-    cv.text(x + w / 2, by - 2, l, { fs: FS_SUB, fill: tc, owner: node.id });
-    by += FS_SUB + 2.5;
+    cv.text(x + w / 2, by - 2, l, { fs: fsS, fill: tc, owner: node.id });
+    by += sh;
   }
 }
 
@@ -210,15 +259,21 @@ function drawEdge(cv, e, x1, y1, x2, y2, lx, ly, anchor) {
 }
 
 // ── 주석(notes) ─────────────────────────────────────────
+// 꼬리표("한계"·"＋")는 따로 굵게 그리고, 본문은 꼬리표 폭만큼 들여 써서 줄이 바뀌어도
+// 꼬리표가 문장에 붙어 읽히지 않게 한다(내어쓰기).
+const NOTE_TAG_GAP = 7;
 function drawNotes(cv, notes, width, top) {
   let y = top;
   for (const n of notes || []) {
     const color = `var(--dg-${n.tone === "pos" ? "pos" : n.tone === "limit" ? "limit" : "general"})`;
-    const prefix = n.tone === "pos" ? "＋ " : n.tone === "limit" ? "한계  " : "";
-    for (const l of wrap(prefix + n.text, width - MARGIN * 2, FS_NOTE)) {
+    const tag = n.tone === "pos" ? "＋" : n.tone === "limit" ? "한계" : "";
+    const indent = tag ? textWidth(tag, FS_NOTE, true) + NOTE_TAG_GAP : 0;
+    const lines = wrap(n.text, width - MARGIN * 2 - indent, FS_NOTE);
+    lines.forEach((l, i) => {
       y += FS_NOTE + 4;
-      cv.text(MARGIN, y, l, { fs: FS_NOTE, fill: color, anchor: "start", owner: "note" });
-    }
+      if (i === 0 && tag) cv.text(MARGIN, y, tag, { fs: FS_NOTE, fill: color, anchor: "start", bold: true, owner: "note-tag" });
+      cv.text(MARGIN + indent, y, l, { fs: FS_NOTE, fill: color, anchor: "start", owner: "note" });
+    });
   }
   return y;
 }
@@ -269,6 +324,6 @@ function checkBounds(texts, width, height, tol = 0.5) {
 module.exports = {
   COLORS, EDGE_KINDS, TONES, SERIES_COLORS, AXIS_COLOR,
   FS, FS_SUB, FS_EDGE, FS_NOTE, LINE, MARGIN, H_WRAP_W,
-  textWidth, wrap, esc, r1,
+  textWidth, wrap, pieces, longestPiece, esc, r1, FS_FLOOR,
   validateNodes, Canvas, measureNode, drawNode, edgeColor, drawEdge, drawNotes, checkOverlaps, checkBounds, segHitsRect,
 };

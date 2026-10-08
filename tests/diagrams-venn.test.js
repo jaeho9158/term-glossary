@@ -73,7 +73,7 @@ function regionCheck(s, r) {
   }
   for (const s of [two, three]) assert.deepStrictEqual(regionCheck(s, renderSpec(s, { title: "t" })), [], s.slug);
   // 들어갈 자리가 없을 만큼 긴 라벨은 조용히 엉뚱한 곳에 두지 않고 경고
-  const huge = all7(["유전과 신경 생리 그리고 내분비계의 복합적 작용", "인지", "문화", "기질", "건강", "학습", "통합"]);
+  const huge = all7(["유전과 신경 생리 그리고 내분비계의 복합적 작용".repeat(4), "인지", "문화", "기질", "건강", "학습", "통합"]);
   const r = renderSpec(huge, { title: "t" });
   assert.ok(r.warnings.some((w) => w.includes("영역 라벨이 영역에 들어가지 않음")), r.warnings.join("; "));
 }
