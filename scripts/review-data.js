@@ -19,7 +19,12 @@ function parseTermPage(html) {
   let end = html.indexOf("<h2>관련 용어</h2>", start);
   if (end === -1) end = html.indexOf("</main>", start);
   if (end === -1) end = html.length;
-  const body = html.slice(start, end);
+  const raw = html.slice(start, end);
+  // 도식(figure.concept-diagram)은 본문 지문에서 빼고 따로 지문을 만든다.
+  // 도식을 다시 그려도 본문 검수는 유지되고, 도식 확인만 다시 하면 된다.
+  const figures = raw.match(/<figure[^>]*class="[^"]*concept-diagram[\s\S]*?<\/figure>/g) || [];
+  const diagram = figures.map(strip).join("\n");
+  const body = raw.replace(/<figure[^>]*class="[^"]*concept-diagram[\s\S]*?<\/figure>/g, "");
   const parts = body.split(/<h2[^>]*>/);
   const definition = strip(parts[0]);
   const sections = {};
@@ -28,14 +33,14 @@ function parseTermPage(html) {
     if (i === -1) continue;
     sections[strip(p.slice(0, i))] = strip(p.slice(i + 5));
   }
-  return { definition, sections, full: strip(body) };
+  return { definition, sections, full: strip(body), hasDiagram: figures.length > 0, diagram };
 }
 
 function fingerprints(html) {
   const p = parseTermPage(html);
   if (!p) return null;
   const core = [p.definition, p.sections["쉽게 풀면"] || "", p.sections["주의할 점"] || ""].join("\n");
-  return { core: hash(core), full: hash(p.full), definition: p.definition, easy: p.sections["쉽게 풀면"] || "" };
+  return { core: hash(core), full: hash(p.full), diagram: p.hasDiagram ? hash(p.diagram) : "", definition: p.definition, easy: p.sections["쉽게 풀면"] || "" };
 }
 
 function main() {
@@ -56,7 +61,7 @@ function main() {
     const fp = fingerprints(fs.readFileSync(file, "utf8"));
     if (!fp) { missing++; continue; }
     const c = (t.categories || [])[0] || "";
-    rows.push({ s: t.slug, k: t.title_ko, e: t.title_en || "", c, v: ga["/terms/" + t.slug + ".html"] || 0, hc: fp.core, hf: fp.full, d: clip(fp.definition, 220), y: clip(fp.easy, 200) });
+    rows.push({ s: t.slug, k: t.title_ko, e: t.title_en || "", c, v: ga["/terms/" + t.slug + ".html"] || 0, hc: fp.core, hf: fp.full, hg: fp.diagram, d: clip(fp.definition, 220), y: clip(fp.easy, 200) });
   }
   rows.sort((a, b) => b.v - a.v || a.k.localeCompare(b.k, "ko"));
   const cats = {};

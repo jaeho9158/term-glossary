@@ -28,3 +28,16 @@ test("관련 용어 블록과 태그·공백 차이는 지문에 영향을 주�
   assert.strictEqual(a.core, b.core);
   assert.strictEqual(a.full, b.full);
 });
+
+test("도식은 본문 지문에서 빠지고 따로 지문을 갖는다", () => {
+  const fig = (t) => `<figure class="concept-diagram dg-flow"><svg><text>${t}</text></svg></figure>`;
+  const withFig = (t) => page("정의", "풀이", "주의").replace("</div>\n<h2>쉽게 풀면", "</div>\n" + fig(t) + "\n<h2>쉽게 풀면");
+  const plain = fingerprints(page("정의", "풀이", "주의"));
+  const a = fingerprints(withFig("상자 하나"));
+  const b = fingerprints(withFig("상자 둘"));
+  assert.strictEqual(plain.diagram, "");
+  assert.ok(a.diagram && b.diagram && a.diagram !== b.diagram);
+  assert.strictEqual(a.core, plain.core);
+  assert.strictEqual(a.full, plain.full);
+  assert.strictEqual(a.definition, "정의");
+});
