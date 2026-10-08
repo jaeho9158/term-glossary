@@ -15,6 +15,7 @@ const { escapeHtml } = require("../assets/escape.js");
 const seo = require("./lib/term-seo.js");
 const termMeta = require("./lib/term-meta.js");
 const indexTier = require("./lib/index-tier.js");
+const { splitPageHtml } = require("./lib/split-paragraphs.js");
 
 let categoryData = null;
 function labels() {
@@ -163,7 +164,8 @@ function renderTermPage(term, ctx) {
       `<link rel="canonical" href="https://termglossary.kr/terms/${term.slug}.html">`
     );
 
-  const page = newHead + renderMain(term, ctx) + tail;
+  // 긴 단일 문단은 문장 단위로 나눈다(일괄 적용 스크립트 split-long-paragraphs.js 와 같은 규칙).
+  const page = newHead + splitPageHtml(renderMain(term, ctx)).html + tail;
   // JSON-LD / OG / 최종 수정 줄 (insert-term-meta.js 와 같은 빌더)
   const withMeta = termMeta.applyTermMeta(page, term, {
     categoryLabels: labels().CATEGORY_LABELS,
