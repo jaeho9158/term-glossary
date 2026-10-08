@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/hierarchical-regression.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,29 @@
   <h2>왜 중요한가</h2>
   <p>위계적 회귀분석은 통제변수의 영향을 제외한 뒤에도 관심 변수가 추가적인 설명력을 갖는지를 단계적으로 검증할 수 있어, 심리학·경영학·교육학 등 사회과학 전반에서 이론 검증의 표준적인 도구로 쓰입니다. 특히 매개효과나 조절효과 검증의 기초가 되는 절차이기 때문에, 새로운 변수나 상호작용 효과가 기존 모형을 넘어서는 설명력을 갖는지 논증할 때 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>통제변수를 먼저 모형에 넣어 그 영향을 걷어낸 뒤, 관심 변수를 추가했을 때 <strong>설명력이 얼마나 더 늘어나는지</strong>를 보고 싶을 때 씁니다. 상호작용항을 마지막 단계에 넣어 조절효과를 검증하는 데도 흔히 쓰입니다. 이름은 비슷하지만 서로 다른 세 가지를 구분해 두세요.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방식</th><th>변수를 넣는 순서</th><th>순서를 정하는 근거</th></tr></thead><tbody><tr><td>위계적 회귀분석</td><td>묶음(블록) 단위로 단계별 투입</td><td>연구자의 이론·연구 설계</td></tr><tr><td>동시투입(enter)</td><td>모든 변수를 한 번에 투입</td><td>순서 없음</td></tr><tr><td>단계적(stepwise) 회귀</td><td>프로그램이 하나씩 넣고 뺌</td><td>통계적 기준(p, F, AIC 등)</td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li><strong>모형별 R²</strong>: 각 단계까지 투입한 변수들이 종속변수 분산의 몇 %를 설명하는지입니다.</li><li><strong>ΔR²</strong>: 이번 단계에서 새로 늘어난 설명력(R²₂ − R²₁)입니다. 이 분석의 핵심 숫자입니다.</li><li><strong>ΔF와 p</strong>: 늘어난 설명력이 우연으로 보기엔 큰지를 검정합니다. ΔF = [(R²₂ − R²₁)/(k₂ − k₁)] / [(1 − R²₂)/(n − k₂ − 1)]이며, 자유도는 (k₂ − k₁, n − k₂ − 1)입니다(k는 각 모형의 독립변수 수).</li><li><strong>회귀계수 B와 표준화 계수 β</strong>: 단계마다 어떻게 바뀌는지 봅니다. 새 변수를 넣었더니 앞 단계 변수의 계수가 크게 변했다면 변수들이 서로 겹치는 정보를 갖고 있다는 신호입니다(<a href="multicollinearity.html">다중공선성</a> 점검).</li><li>R²는 변수를 추가하면 거의 항상 늘기 때문에, 변수가 많은 모형을 비교할 때는 수정된 R²도 함께 봅니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>단계별 모형 요약 표(R², ΔR², ΔF, p)와 계수 표를 함께 싣는 것이 관례입니다. (수치는 형식을 보여 주려는 가상의 값이며, n = 150, 1단계 통제변수 3개, 2단계 관심변수 1개를 가정했습니다.)</p><p><code>1단계에서 통제변수만 투입한 모형은 유의했고(R² = .20, F(3, 146) = 12.17, p &lt; .001), 2단계에서 직무만족을 추가하자 설명력이 유의하게 증가했다(ΔR² = .12, ΔF(1, 145) = 25.59, p &lt; .001, β = .41).</code></p><p>조절효과 검증에서는 상호작용항을 만들기 전에 두 변수를 평균 중심화했다는 점과 상호작용항을 최종 단계에 넣었다는 점을 방법 절에 밝히고, 유의했다면 단순기울기(simple slope) 그림을 덧붙입니다. 변수를 넣은 순서와 그 이론적 근거도 한두 문장으로 적어야 독자가 순서에 따른 결과 변화를 의심하지 않습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“결과: 전체 대상자 121명 중 29명(23.9%)이 치매위험군으로 분류되었으며, 위계적 회귀분석결과 인구사회학적․질병관련 특성을 통제한 상태에서 인지기능 수준은 노인 심부전 환자의 자가간호 이행을 통계적으로 유의하게 설명하고 있었다(β=0.209, P=0.031).”</blockquote><p class="te-cite">노인 심부전 환자의 인지기능 수준이 자가간호 이행에 미치는 영향, Korean Journal of Health Promotion, 2010 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001457800" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이를 위해 101명 환자들의 유머양식, 삶의 만족도, 우울, 불안 자료를 상관분석한 뒤 위계적 회귀분석을 통해 유머양식의 조절효과를 분석했다.”</blockquote><p class="te-cite">정신건강의학과 환자들의 우울 및 불안이 삶의 만족도에 미치는 영향 : 유머양식의 조절효과, 한국융합학회논문지, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002183440" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“각 변인들이 우울에 미치는 영향을 살펴보기 위해 위계적 회귀분석을 사용하였으며, 다변량 분산분석법을 통해 국내 출생과 중도입국 집단에 따라 평균의 차이를 분석하였다.”</blockquote><p class="te-cite">이주배경 청년들의 우울과 인구통계학적 특성 및 개인·사회·환경적 변인 간의 관계, 문화교류와 다문화교육, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002697798" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"1단계에서 인구통계학적 변수를 투입한 뒤, 2단계에서 직무만족도를 추가로 투입한 결과 ΔR²=.12로 유의한 설명력 증가가 나타났다 (p &lt; .01)."</div>
   <p>이 문장은 통제변수만으로 설명되던 것보다, 직무만족도라는 새 변수를 추가했을 때 설명력이 12%p만큼 통계적으로 유의하게 늘어났다는 뜻입니다.</p>
   <div class="example">"1단계에서 개인 특성 변수를, 2단계에서 조직 특성 변수와 두 변수 간 상호작용항을 투입하여 조절효과를 검증하였다."</div>
@@ -165,6 +188,20 @@
 
   <h2>주의할 점</h2>
   <p>위계적 회귀분석에서 변수를 투입하는 순서는 통계적 기준이 아니라 연구자의 이론적 판단에 따라 미리 정해야 합니다. 순서를 바꾸면 각 단계의 ΔR² 값이 달라질 수 있으므로, 임의로 순서를 바꿔가며 유의한 결과가 나올 때까지 시도하는 것은 지양해야 합니다. 또한 각 단계마다 새로 추가하는 변수가 <a href="multicollinearity.html">다중공선성</a>을 일으키지 않는지도 함께 점검해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘위계적(hierarchical)’이라는 말이 붙어서 서로 혼동되는 분석들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇이 위계적인가</th><th scope="col">목적</th></tr></thead><tbody><tr><th scope="row"><a href="hierarchical-regression.html">위계적 회귀분석</a></th><td>변수를 넣는 단계(순서)</td><td>통제 후 추가 설명력(ΔR²) 확인, 조절효과 검증</td></tr><tr><th scope="row"><a href="mixed-effects-model.html">다층모형·혼합효과모형(HLM)</a></th><td>자료의 구조(학생이 학급에, 학급이 학교에 속함)</td><td>집단 안 관측치의 비독립성을 반영해 추정</td></tr><tr><th scope="row"><a href="hierarchical-clustering.html">계층적 군집분석</a></th><td>묶이는 단계(덴드로그램)</td><td>비슷한 관측치끼리 묶기(예측 모형이 아님)</td></tr></tbody></table></div>
+  <p class="te-note">‘위계적 회귀’는 단계를 나누어 넣는 방식일 뿐 회귀식 자체는 보통의 <a href="regression.html">회귀분석</a>입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J., Cohen, P., West, S. G., &amp; Aiken, L. S. (2003). Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences (3rd ed.). Lawrence Erlbaum.</li>
+    <li>Petrocelli, J. V. (2003). Hierarchical multiple regression in counseling research: Common problems and possible remedies. Measurement and Evaluation in Counseling and Development, 36(1), 9–22.</li>
+    <li>Aiken, L. S., &amp; West, S. G. (1991). Multiple Regression: Testing and Interpreting Interactions. Sage.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="regression.html">회귀분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="robust-regression.html">강건회귀</a><a href="loess-regression.html">국소회귀</a><a href="lasso-regression.html">라쏘 회귀</a><a href="ridge-regression.html">릿지 회귀</a><a href="partial-least-squares-regression.html">부분최소제곱회귀</a><a href="quantile-regression.html">분위수회귀</a><a href="elastic-net-regression.html">엘라스틱넷 회귀</a><a href="generalized-additive-model.html">일반화가법모형</a><a href="generalized-linear-model.html">일반화선형모형</a><a href="principal-component-regression.html">주성분회귀</a><a href="cox-proportional-hazards-model.html">콕스 비례위험모형</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

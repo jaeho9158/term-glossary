@@ -1,0 +1,34 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>한 모형이 다른 모형의 특수한 경우(변수 일부를 빼거나 모수에 제약을 건 모형)일 때, 제약을 푼 큰 모형이 <strong>유의하게 더 잘 맞는지</strong> 확인하려고 씁니다. 로지스틱 회귀의 전체 유의성(절편만 있는 모형 대 변수 포함 모형), 변수 묶음을 한꺼번에 추가·제거할 때, 다층모형에서 무선효과를 넣을지 정할 때가 대표적입니다.</p><table><thead><tr><th>방법</th><th>필요한 적합</th><th>비교 가능한 모형</th><th>비고</th></tr></thead><tbody><tr><td>우도비검정(LRT)</td><td>제약 모형과 비제약 모형 둘 다</td><td>중첩(nested) 모형</td><td>큰 모형에서 제약을 풀어 정한 두 모형 비교</td></tr><tr><td>[[wald-test|왈드 검정]]</td><td>큰 모형 하나</td><td>같은 모수에 대한 제약</td><td>계산이 간단하나 표본이 작을 때 우도비검정보다 불안정</td></tr><tr><td>[[score-test|스코어 검정]]</td><td>제약 모형 하나</td><td>같은 모수에 대한 제약</td><td>큰 모형을 적합하기 어려울 때 유용</td></tr><tr><td>[[information-criterion|AIC·BIC]]</td><td>각 모형</td><td>중첩이 아니어도 됨</td><td>가설검정이 아니라 모형 선택 기준</td></tr></tbody></table>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>LR 통계량</strong> = −2 × (제약 모형의 로그우도 − 비제약 모형의 로그우도). 이탈도(deviance)의 차이와 같습니다.</li><li><strong>자유도</strong> = 두 모형의 모수 개수 차이(추가한 변수의 모수 수).</li><li><strong>p</strong>: 제약이 맞다(작은 모형으로 충분하다)는 귀무가설 아래에서, 표본이 충분히 크면 LR이 카이제곱분포를 따른다는 윌크스(Wilks) 정리로 구합니다.</li><li>같은 자료와 같은 종속변수로 적합한 모형끼리만 비교할 수 있습니다. 결측 때문에 두 모형의 표본이 달라지면 비교가 성립하지 않습니다.</li><li>고정효과를 비교할 때는 REML이 아니라 최대우도(ML) 추정값을 써야 합니다.</li></ul><p><strong>작은 예.</strong> 제약 모형의 로그우도가 −245.3, 변수 2개를 추가한 모형이 −238.9라면 LR = 2 × (−238.9 + 245.3) = 12.8, 자유도 2입니다. 자유도 2의 카이제곱분포에서 12.8 이상이 나올 확률은 e<sup>−12.8/2</sup> ≈ .002이므로 추가한 두 변수는 모형을 유의하게 개선했다고 봅니다.</p><p>다층모형에서 무선효과의 분산이 0인지 검정하는 것처럼 모수가 허용 범위의 <strong>경계</strong>에 있는 경우에는 표준 카이제곱 근사가 맞지 않습니다. 분산 성분 하나를 검정한다면 카이제곱(자유도 1)에서 구한 p를 대략 절반으로 줄여 쓰는 것이 알려진 보정입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>비교한 두 모형이 무엇인지, 카이제곱 값, 자유도, p를 함께 적습니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>연령과 소득을 추가한 모형은 절편만 있는 모형보다 적합도가 유의하게 향상되었다(χ²(2) = 12.80, p = .002).</code></p><p>한국어 논문에서는 “우도비 검정(likelihood ratio test, LRT)”, “−2 로그우도의 변화량(Δ−2LL)”, “모형 χ²” 등으로 표기됩니다. 구조방정식모형에서 같은 이름의 ‘χ² 차이 검정’이 쓰이는 것도 같은 원리입니다. 우도비검정은 큰 모형이 더 좋다는 것만 알려 주므로, 모형 선택에는 AIC·BIC 같은 정보기준을 함께 보고하는 경우가 많습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘우도비’라는 말은 두 가지 다른 뜻으로 쓰입니다.",
+    "headers": ["용어", "계산", "쓰임"],
+    "rows": [
+      ["[[likelihood-ratio-test|우도비검정(LRT)]]", "두 모형의 최대 우도의 비(로그를 취해 −2배)", "중첩 모형을 비교하는 가설검정"],
+      ["진단검사의 우도비(LR+, LR−)", "LR+ = 민감도 / (1 − 특이도), LR− = (1 − 민감도) / 특이도", "검사 결과가 진단 확률을 얼마나 바꾸는지 나타내는 지표([[sensitivity-specificity|민감도와 특이도]]에서 계산)"],
+      ["[[wald-test|왈드 검정]]", "추정값 ÷ 표준오차 (제곱하면 카이제곱)", "회귀계수 개별 검정의 기본 출력"]
+    ],
+    "note": "논문에서 ‘우도비’가 나오면 모형 비교인지 진단 지표인지 맥락으로 구분하세요."
+  },
+  "references": [
+    "Wilks, S. S. (1938). The large-sample distribution of the likelihood ratio for testing composite hypotheses. Annals of Mathematical Statistics, 9(1), 60–62.",
+    "Neyman, J., & Pearson, E. S. (1933). On the problem of the most efficient tests of statistical hypotheses. Philosophical Transactions of the Royal Society of London, Series A, 231, 289–337.",
+    "Self, S. G., & Liang, K.-Y. (1987). Asymptotic properties of maximum likelihood estimators and likelihood ratio tests under nonstandard conditions. Journal of the American Statistical Association, 82(398), 605–610.",
+    "Casella, G., & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury."
+  ]
+}

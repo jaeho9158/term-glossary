@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/weibull-distribution.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,29 @@
   <h2>왜 중요한가</h2>
   <p>와이블분포는 하나의 모양 모수만으로 위험률이 시간에 따라 증가·감소·일정한 다양한 패턴을 모두 표현할 수 있기 때문에, 의학의 생존분석뿐 아니라 공학의 신뢰성 분석, 품질관리, 재난·재해 발생 주기 분석 등 "시간이 지날수록 사건 발생 위험이 변하는" 현상을 다루는 폭넓은 분야에서 표준적으로 쓰입니다. 실제 관측 데이터의 위험 패턴이 복잡할 때도 모양 모수 하나를 조정해 유연하게 적합시킬 수 있다는 점이 이 분포가 여러 학문에서 반복적으로 채택되는 이유입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>시간 t ≥ 0에 대한 분포로, 모양 모수 k(&gt; 0)와 척도 모수 λ(&gt; 0)로 정해집니다. 생존함수 <code>S(t) = exp[−(t/λ)<sup>k</sup>]</code>, 위험함수 <code>h(t) = (k/λ)(t/λ)<sup>k−1</sup></code>입니다.</li><li><strong>모양 모수 k가 위험이 시간에 따라 어떻게 변하는지를 결정</strong>합니다. k &lt; 1이면 감소, k = 1이면 일정, k &gt; 1이면 증가합니다.</li><li><strong>척도 모수 λ</strong>는 시간의 단위를 정합니다. t = λ일 때 S(λ) = e<sup>−1</sup> ≈ 36.8%이므로, λ는 대상의 약 63.2%가 사건을 겪는 시점입니다(k와 무관). 평균은 λΓ(1 + 1/k)이며 λ와 같지 않습니다.</li><li>k = 1이면 지수분포(위험이 일정, 평균 = λ)가 되고, k = 2이면 레일리 분포입니다. 그래서 와이블분포는 지수분포를 포함하는 유연한 확장으로 쓰입니다.</li><li>모수는 보통 최대우도법으로 추정하고, 자료가 와이블분포를 따르는지는 와이블 확률지(로그-로그 도표)에서 점들이 직선에 가까운지로 점검합니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>모양 모수 k</th><th>위험함수 h(t)</th><th>전형적 상황</th></tr></thead><tbody><tr><td>k &lt; 1</td><td>시간이 갈수록 감소</td><td>초기 불량, 수술 직후 위험처럼 일찍 사건이 몰림</td></tr><tr><td>k = 1</td><td>일정(지수분포)</td><td>우발적 고장, 노화 효과가 없는 경우</td></tr><tr><td>k &gt; 1</td><td>시간이 갈수록 증가</td><td>마모·노화로 고장 위험이 커지는 경우</td></tr></tbody></table></div>
+
+  <h2>예시로 보기</h2>
+  <p>어떤 부품의 수명이 k = 2, λ = 1,000시간인 와이블분포를 따른다고 합시다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시점 t</th><th>생존확률 S(t)</th><th>위험함수 h(t)</th></tr></thead><tbody><tr><td>500시간</td><td>exp(−0.5²) = exp(−0.25) ≈ 0.78</td><td>(2/1000) × 0.5 = 0.001 /시간</td></tr><tr><td>1,000시간</td><td>exp(−1) ≈ 0.37</td><td>(2/1000) × 1 = 0.002 /시간</td></tr><tr><td>1,500시간</td><td>exp(−1.5²) = exp(−2.25) ≈ 0.11</td><td>(2/1000) × 1.5 = 0.003 /시간</td></tr></tbody></table></div><p>1,000시간까지 살아남은 부품은 37%이고, 이 시점의 순간 고장 위험은 500시간 때의 두 배입니다(k = 2라서 h(t)가 t에 비례). 중앙값 수명은 λ(ln 2)<sup>1/k</sup> ≈ 833시간, 평균 수명은 λΓ(1.5) ≈ 886시간으로 모두 λ와 다릅니다. 같은 λ에서 k = 1이었다면 위험은 시간과 상관없이 0.001로 일정했을 것입니다. 수치는 원리를 보이기 위한 가상의 값입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>척도 모수 λ가 평균 수명이다.</td><td>평균은 λΓ(1 + 1/k)입니다. k = 1일 때만 평균이 λ와 같습니다.</td></tr><tr><td>k &gt; 1로 추정되면 개체 하나하나의 위험이 시간이 갈수록 커진다.</td><td>집단 전체의 위험함수를 말하는 것입니다. 개체마다 취약성이 다른 이질적인 집단에서는 취약한 사람이 먼저 떠나면서 집단 위험이 감소하는 것처럼 보일 수 있습니다.</td></tr><tr><td>와이블분포는 수명 자료에 항상 잘 맞는다.</td><td>유연하지만 위험함수가 단조(계속 증가 또는 감소)여야 합니다. 위험이 올랐다 내려가는(욕조 곡선) 자료에는 다른 모형이 필요합니다. 확률지와 적합도로 확인하세요.</td></tr><tr><td>프로그램마다 같은 모수를 준다.</td><td>R, Python, SAS 등은 척도(λ)를 쓰는지, 비율(λ<sup>−k</sup>)을 쓰는지, 가속수명(AFT)식 계수로 보여 주는지가 다릅니다. 매뉴얼의 매개변수화를 확인하지 않으면 값이 뒤바뀝니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“그 결과 소방펌프차의 수명분포는 와이블(Weibull)분포를 따르며 평균수명은 7.65년으로 현재 경제적 수명인 내용연수 10년에2.35년이 짧은 결과를 보여 주었다.”</blockquote><p class="te-cite">소방펌프차의 수명 예측을 위한 통계적 방법 연구, 한국화재소방학회 논문지, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002713819" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“기존의 임분수확표 작성 절차인 직경분포의 추정, 적합, 예측의단계를 거쳤으며, 직경분포모델은 Weibull 함수를 이용하였다.”</blockquote><p class="te-cite">현실임분 생장특성에 의한 편백 임분수확표 개발, 한국산림과학회지, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002659386" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 논문에서는 기존 모형의 분포를 적용하고 추가적인 소프트웨어 고장 해석을 위하여 감마 및 와이블 분포를 이용하였다.”</blockquote><p class="te-cite">일반화 감마 분포를 이용한 NHPP소프트웨어 신뢰도 모형에 관한 연구, 한국컴퓨터정보학회논문지, 2005 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART000984328" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"환자의 생존 시간이 와이블분포(Weibull distribution)를 따른다고 가정하고 모수적 생존모형을 적합하였다."</div>
   <p>이 문장은 "생존 시간 자료의 위험률이 시간에 따라 일정하지 않을 수 있다고 보고, 이를 유연하게 반영할 수 있는 분포를 모형의 기본 가정으로 삼았다"는 뜻입니다. <a href="kaplan-meier-estimator.html">카플란-마이어 추정법</a>처럼 분포를 가정하지 않는 방법과 달리, 와이블분포를 가정하면 생존곡선을 수식으로 매끄럽게 표현하고 미래 시점까지 외삽할 수 있습니다.</p>
 
@@ -162,6 +185,21 @@
 
   <h2>주의할 점</h2>
   <p>와이블분포를 가정한 모수적 생존모형은 실제 위험 패턴이 이 분포의 형태와 크게 다를 경우 결과가 왜곡될 수 있습니다. 분포 가정이 데이터에 맞는지 확신이 서지 않는다면, 분포를 가정하지 않는 <a href="kaplan-meier-estimator.html">카플란-마이어 추정법</a>이나 <a href="cox-proportional-hazards-model.html">콕스 비례위험모형</a>과 결과를 비교해보는 것이 안전합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>시간-사건 자료에 쓰는 대표적인 분포들은 위험함수의 모양이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">분포</th><th scope="col">위험함수 h(t)</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="exponential-distribution.html">지수분포</a></th><td>일정</td><td>무기억성, 모수 하나(와이블의 k = 1)</td></tr><tr><th scope="row"><a href="weibull-distribution.html">와이블분포</a></th><td>단조 감소·일정·단조 증가</td><td>모수 둘, 위험의 증감을 k로 표현</td></tr><tr><th scope="row"><a href="gamma-distribution.html">감마분포</a></th><td>단조 증가·감소(수렴하는 형태)</td><td>독립 사건의 대기 시간 합, 와이블과 비슷한 모양이지만 위험함수가 점근적으로 수렴</td></tr><tr><th scope="row"><a href="log-normal-distribution.html">로그정규분포</a></th><td>올랐다 내려감(비단조)</td><td>곱셈적 요인으로 생기는 양수 자료, 위험이 일시적으로 상승 후 하락할 수 있음</td></tr></tbody></table></div>
+  <p class="te-note">생존분석에서 분포를 가정하지 않는 <a href="kaplan-meier-survival-analysis.html">카플란-마이어 추정</a>이나 <a href="cox-proportional-hazards-model.html">콕스 모형</a>과 결과를 비교해 보면 와이블 가정의 적절성을 확인할 수 있습니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Weibull, W. (1951). A statistical distribution function of wide applicability. Journal of Applied Mechanics, 18(3), 293–297.</li>
+    <li>Meeker, W. Q., &amp; Escobar, L. A. (1998). Statistical Methods for Reliability Data. Wiley.</li>
+    <li>Klein, J. P., &amp; Moeschberger, M. L. (2003). Survival Analysis: Techniques for Censored and Truncated Data (2nd ed.). Springer.</li>
+    <li>Rinne, H. (2008). The Weibull Distribution: A Handbook. CRC Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

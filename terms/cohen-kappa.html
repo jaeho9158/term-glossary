@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cohen-kappa.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,29 @@
   <h2>왜 중요한가</h2>
   <p>연구에서 사람이 직접 자료를 범주로 분류하거나 코딩하는 절차는 필연적으로 주관이 개입할 여지가 있습니다. 코헨의 카파는 이런 판단 절차가 얼마나 믿을 만한지를 수치로 검증하는 도구이기 때문에, 질적 연구의 코딩 신뢰도 보고, 의료 영상이나 임상 진단의 판독자 간 일치도 평가, 자연어처리 데이터셋 구축 시 레이블러 간 일치도 검증 등 다양한 상위 연구주제와 연결됩니다. 논문 심사자들도 분류 결과를 신뢰하기 전에 이 값을 먼저 확인하는 경우가 많아, 방법론의 타당성을 뒷받침하는 핵심 근거로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>관찰된 일치 비율 p<sub>o</sub>에서 우연히 일치했을 비율 p<sub>e</sub>를 빼고, 우연 일치를 뺀 최대치로 나눕니다.</p><p><code>κ = (p<sub>o</sub> − p<sub>e</sub>) / (1 − p<sub>e</sub>), p<sub>e</sub> = Σ (평가자 A가 범주 i를 고른 비율 × 평가자 B가 범주 i를 고른 비율)</code></p><ul><li><strong>범위</strong>: 최대 1(완전 일치). 0이면 우연 수준의 일치, 음수이면 우연보다도 덜 일치합니다. 범주 분포에 따라 도달 가능한 최댓값이 1보다 작을 수 있습니다.</li><li>두 평가자가 같은 대상들을 서로 독립적으로 범주(명목 척도)로 분류했을 때 씁니다.</li></ul><p><strong>작은 예 1.</strong> 100건을 두 사람이 ‘있음/없음’으로 분류해 둘 다 있음 40, 둘 다 없음 40, 서로 엇갈림 20(10+10)이었다면 p<sub>o</sub> = .80입니다. 각자 ‘있음’을 50%씩 골랐으므로 p<sub>e</sub> = .5 × .5 + .5 × .5 = .50, κ = (.80 − .50)/(1 − .50) = <strong>.60</strong>입니다.</p><p><strong>작은 예 2 (치우친 분포).</strong> 둘 다 있음 85, 둘 다 없음 5, 엇갈림 10(5+5)이면 p<sub>o</sub> = .90으로 일치율은 더 높습니다. 그러나 각자 ‘있음’을 90%나 골라서 p<sub>e</sub> = .9 × .9 + .1 × .1 = .82가 되고 κ = (.90 − .82)/(1 − .82) ≈ <strong>.44</strong>입니다. 한쪽 범주가 압도적으로 많으면 일치율이 높아도 κ가 낮게 나오는 이 현상을 ‘카파의 역설’이라고 부릅니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>해석 기준은 모두 <strong>관례</strong>이며 학자마다 다릅니다. 가장 많이 인용되는 것은 Landis와 Koch(1977)의 구분인데, 이들 스스로도 경계가 임의적이라고 밝혔습니다. 의학·진단 연구에서는 이보다 엄격한 McHugh(2012)의 기준을 인용하기도 합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>κ</th><th>Landis &amp; Koch(1977)</th><th>McHugh(2012)</th></tr></thead><tbody><tr><td>0 이하</td><td>우연보다 나쁨(poor)</td><td>일치 없음</td></tr><tr><td>.01 ~ .20</td><td>약간(slight)</td><td>없음~약간</td></tr><tr><td>.21 ~ .40</td><td>어느 정도(fair)</td><td>.21~.39 미미함</td></tr><tr><td>.41 ~ .60</td><td>보통(moderate)</td><td>.40~.59 약함</td></tr><tr><td>.61 ~ .80</td><td>상당함(substantial)</td><td>.60~.79 보통</td></tr><tr><td>.81 ~ 1.00</td><td>거의 완벽(almost perfect)</td><td>.80~.90 강함, .90 초과 거의 완벽</td></tr></tbody></table></div><p>같은 κ = .70이라도 Landis &amp; Koch로는 ‘상당함’, McHugh로는 ‘보통’이 됩니다. 어떤 기준을 인용했는지 밝히고, 기준에 따른 이름표보다 κ 값과 신뢰구간을 먼저 제시하는 것이 안전합니다. 임상 판정처럼 오분류의 비용이 큰 경우에는 더 높은 κ를 요구해야 합니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>κ 값, 신뢰구간, 표본 수, 범주 수와 평가자 수를 적고, 각 범주의 분포가 심하게 치우쳤다면 일치율(p<sub>o</sub>)도 함께 보고합니다. (수치는 위의 작은 예 1의 값이며, 신뢰구간은 근사식 SE ≈ √[p<sub>o</sub>(1 − p<sub>o</sub>) / (n(1 − p<sub>e</sub>)²)]로 계산했습니다.)</p><p><code>두 평가자 간 일치도는 보통 수준이었다(Cohen’s κ = .60, 95% CI [.44, .76], n = 100, 일치율 80%).</code></p><p>한국어 논문에서는 “카파 계수” 또는 “Kappa 값 0.82로 매우 높은 일치도”처럼 한 줄로 쓰는 경우가 많고, 검사 간 일치도(진단 도구 비교)나 코딩 신뢰도(질적 자료의 범주화)를 보고할 때 방법 절에 평가자가 몇 명이고 몇 건을 이중 코딩했는지 함께 적습니다. 순서가 있는 범주는 가중 카파, 세 명 이상은 Fleiss의 카파를 쓰며 어떤 변형인지 밝혀야 합니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“연구결과, 초음파 영상 소견과 조직 내 감쇠 지수 간 일치도 분석 결과 Kappa 값이 0.82(p&lt;0.05)로 두 검사 방법 간 매우 높은 일치도를 보였다.”</blockquote><p class="te-cite">초음파 검사 영상의 정량적인 측정 연구를 통한 지방간 분석, 한국방사선학회논문지, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002917853" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“또한 전문의 2명에 의한 화질 평가의 경우 Cohen's Kappa 값이 K=0.814로 판독에 영향이 없는 것으로 나타났다.”</blockquote><p class="te-cite">영상의학 검사 시 탄소섬유 발열매트의 유용성 평가, 한국콘텐츠학회 논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003148381" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“수기법의 R15와 비교하여 자동화 검사법의 R15는 4개의 검체(kappa value 0.904) 또는 3개의 검체(kappa value 0.880)를 이용하여도 좋은 일치도를 보였다.”</blockquote><p class="te-cite">자동화학분석기를 이용한 인도시아닌 그린(ICG) R15 검사의 수행능 평가, Laboratory Medicine Online, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002115007" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"두 평가자 간 진단 분류의 일치도는 코헨의 카파 0.76으로 상당한 수준이었다."</div>
   <p>두 평가자가 매긴 진단 분류가 우연을 감안하고도 상당히 일치했다는 것을 카파값으로 보여준 것입니다.</p>
 
@@ -162,6 +185,21 @@
 
   <h2>주의할 점</h2>
   <p>카파값은 범주별 비율이 한쪽으로 크게 치우쳐 있으면 실제 일치도가 높아도 낮게 계산되는 역설이 나타날 수 있어 해석에 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘일치도’를 재는 지표는 자료 유형과 평가자 수에 따라 달라집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">자료</th><th scope="col">평가자 수</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">단순 일치율</th><td>범주</td><td>2명 이상</td><td>계산이 쉽지만 우연 일치를 포함해 과대평가</td></tr><tr><th scope="row"><a href="cohen-kappa.html">코헨의 카파</a></th><td>명목 범주</td><td>2명</td><td>우연 일치를 보정, 분포가 치우치면 낮게 나옴</td></tr><tr><th scope="row">가중 카파</th><td>순서 있는 범주</td><td>2명</td><td>큰 불일치에 더 큰 벌점</td></tr><tr><th scope="row"><a href="fleiss-kappa.html">플라이스의 카파</a></th><td>명목 범주</td><td>3명 이상</td><td>여러 평가자로 확장</td></tr><tr><th scope="row"><a href="intraclass-correlation-coefficient.html">급내상관계수(ICC)</a></th><td>연속형 점수</td><td>2명 이상</td><td>점수의 일관성·일치를 분산 비율로 평가</td></tr></tbody></table></div>
+  <p class="te-note">평가자 간 신뢰도 전반은 <a href="inter-rater-reliability.html">평가자 간 신뢰도</a>를 참고하세요.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37–46.</li>
+    <li>Cohen, J. (1968). Weighted kappa: Nominal scale agreement with provision for scaled disagreement or partial credit. Psychological Bulletin, 70(4), 213–220.</li>
+    <li>Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159–174.</li>
+    <li>McHugh, M. L. (2012). Interrater reliability: The kappa statistic. Biochemia Medica, 22(3), 276–282.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -1,0 +1,33 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>통제변수를 먼저 모형에 넣어 그 영향을 걷어낸 뒤, 관심 변수를 추가했을 때 <strong>설명력이 얼마나 더 늘어나는지</strong>를 보고 싶을 때 씁니다. 상호작용항을 마지막 단계에 넣어 조절효과를 검증하는 데도 흔히 쓰입니다. 이름은 비슷하지만 서로 다른 세 가지를 구분해 두세요.</p><table><thead><tr><th>방식</th><th>변수를 넣는 순서</th><th>순서를 정하는 근거</th></tr></thead><tbody><tr><td>위계적 회귀분석</td><td>묶음(블록) 단위로 단계별 투입</td><td>연구자의 이론·연구 설계</td></tr><tr><td>동시투입(enter)</td><td>모든 변수를 한 번에 투입</td><td>순서 없음</td></tr><tr><td>단계적(stepwise) 회귀</td><td>프로그램이 하나씩 넣고 뺌</td><td>통계적 기준(p, F, AIC 등)</td></tr></tbody></table>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>모형별 R²</strong>: 각 단계까지 투입한 변수들이 종속변수 분산의 몇 %를 설명하는지입니다.</li><li><strong>ΔR²</strong>: 이번 단계에서 새로 늘어난 설명력(R²₂ − R²₁)입니다. 이 분석의 핵심 숫자입니다.</li><li><strong>ΔF와 p</strong>: 늘어난 설명력이 우연으로 보기엔 큰지를 검정합니다. ΔF = [(R²₂ − R²₁)/(k₂ − k₁)] / [(1 − R²₂)/(n − k₂ − 1)]이며, 자유도는 (k₂ − k₁, n − k₂ − 1)입니다(k는 각 모형의 독립변수 수).</li><li><strong>회귀계수 B와 표준화 계수 β</strong>: 단계마다 어떻게 바뀌는지 봅니다. 새 변수를 넣었더니 앞 단계 변수의 계수가 크게 변했다면 변수들이 서로 겹치는 정보를 갖고 있다는 신호입니다([[multicollinearity|다중공선성]] 점검).</li><li>R²는 변수를 추가하면 거의 항상 늘기 때문에, 변수가 많은 모형을 비교할 때는 수정된 R²도 함께 봅니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>단계별 모형 요약 표(R², ΔR², ΔF, p)와 계수 표를 함께 싣는 것이 관례입니다. (수치는 형식을 보여 주려는 가상의 값이며, n = 150, 1단계 통제변수 3개, 2단계 관심변수 1개를 가정했습니다.)</p><p><code>1단계에서 통제변수만 투입한 모형은 유의했고(R² = .20, F(3, 146) = 12.17, p &lt; .001), 2단계에서 직무만족을 추가하자 설명력이 유의하게 증가했다(ΔR² = .12, ΔF(1, 145) = 25.59, p &lt; .001, β = .41).</code></p><p>조절효과 검증에서는 상호작용항을 만들기 전에 두 변수를 평균 중심화했다는 점과 상호작용항을 최종 단계에 넣었다는 점을 방법 절에 밝히고, 유의했다면 단순기울기(simple slope) 그림을 덧붙입니다. 변수를 넣은 순서와 그 이론적 근거도 한두 문장으로 적어야 독자가 순서에 따른 결과 변화를 의심하지 않습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘위계적(hierarchical)’이라는 말이 붙어서 서로 혼동되는 분석들입니다.",
+    "headers": ["용어", "무엇이 위계적인가", "목적"],
+    "rows": [
+      ["[[hierarchical-regression|위계적 회귀분석]]", "변수를 넣는 단계(순서)", "통제 후 추가 설명력(ΔR²) 확인, 조절효과 검증"],
+      ["[[mixed-effects-model|다층모형·혼합효과모형(HLM)]]", "자료의 구조(학생이 학급에, 학급이 학교에 속함)", "집단 안 관측치의 비독립성을 반영해 추정"],
+      ["[[hierarchical-clustering|계층적 군집분석]]", "묶이는 단계(덴드로그램)", "비슷한 관측치끼리 묶기(예측 모형이 아님)"]
+    ],
+    "note": "‘위계적 회귀’는 단계를 나누어 넣는 방식일 뿐 회귀식 자체는 보통의 [[regression|회귀분석]]입니다."
+  },
+  "references": [
+    "Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003). Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences (3rd ed.). Lawrence Erlbaum.",
+    "Petrocelli, J. V. (2003). Hierarchical multiple regression in counseling research: Common problems and possible remedies. Measurement and Evaluation in Counseling and Development, 36(1), 9–22.",
+    "Aiken, L. S., & West, S. G. (1991). Multiple Regression: Testing and Interpreting Interactions. Sage."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cohens-d.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,29 @@
   <h2>왜 중요한가</h2>
   <p>통계적 유의성(p-value)은 "차이가 우연이 아니다"만 말해줄 뿐, 그 차이가 실제로 얼마나 의미 있는 크기인지는 알려주지 않습니다. 표본 크기가 커지면 아주 작은 차이도 쉽게 유의하게 나오기 때문에, 연구자들은 유의성과 별개로 효과크기를 함께 보고해 결과의 실질적 중요성을 판단합니다. 특히 여러 연구를 종합하는 메타분석에서는 각 연구의 척도가 달라도 Cohen's d 같은 표준화된 지표가 있어야 결과를 한데 모아 비교·통합할 수 있습니다. 이 때문에 심리학, 교육학, 의학 등 실험·개입 연구가 많은 분야의 논문에서 거의 빠짐없이 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>두 집단의 평균 차이를 합동표준편차로 나눈 값입니다.</p><p><code>d = (M₁ − M₂) / s<sub>p</sub>, s<sub>p</sub> = √[ ((n₁ − 1)s₁² + (n₂ − 1)s₂²) / (n₁ + n₂ − 2) ]</code></p><ul><li><strong>범위</strong>: 이론상 −∞~+∞이며 부호는 어느 집단이 높은지를 뜻합니다. 크기를 말할 때는 보통 절댓값을 봅니다. 0이면 평균 차이가 없습니다.</li><li><strong>t검정 결과에서 구하기</strong>: 두 집단 크기가 같으면 d = 2t/√df (df = n₁ + n₂ − 2), 다르면 d = t × √(1/n₁ + 1/n₂)입니다.</li><li><strong>대응표본</strong>은 분모가 달라 값이 달라집니다. 차이의 표준편차를 쓰는 d<sub>z</sub> = 평균 차이 / SD<sub>차이</sub>와, 두 측정의 표준편차 평균을 쓰는 d<sub>av</sub> = 평균 차이 / ((s₁ + s₂)/2)가 있고, 둘은 다른 값이므로 어떤 것인지 밝혀야 합니다.</li><li><strong>소표본 보정</strong>: Hedges의 g = d × J, J ≈ 1 − 3/(4(n₁ + n₂) − 9)로 d의 약한 과대추정을 줄입니다.</li></ul><p><strong>작은 예.</strong> 집단 1이 평균 78, 표준편차 10, 집단 2가 평균 72, 표준편차 12이고 각각 30명이라면 s<sub>p</sub> = √[(10² + 12²)/2] ≈ 11.05, d = 6 / 11.05 ≈ <strong>0.54</strong>입니다. 보정하면 g ≈ 0.54로 거의 같습니다(J ≈ 0.987).</p>
+
+  <h2>해석 기준</h2>
+  <p>가장 널리 인용되는 기준은 Cohen(1988)이 제안한 0.2·0.5·0.8입니다. 코헨 자신이 이는 연구 분야의 효과크기에 대한 지식이 없을 때 쓰는 <strong>임시 기준(관례)</strong>이라고 밝혔으므로, 절대적 등급표가 아닙니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>|d|</th><th>Cohen(1988) 관례</th><th>확률우위 Φ(d/√2)</th><th>η²로 환산(두 집단, 같은 크기)</th></tr></thead><tbody><tr><td>0.2</td><td>작은 효과</td><td>약 56%</td><td>약 .01</td></tr><tr><td>0.5</td><td>중간 효과</td><td>약 64%</td><td>약 .06</td></tr><tr><td>0.8</td><td>큰 효과</td><td>약 71%</td><td>약 .14</td></tr></tbody></table></div><p>‘확률우위’는 두 집단에서 한 명씩 무작위로 뽑았을 때 평균이 높은 집단의 사람이 더 높은 값을 가질 확률(정규분포·등분산 가정)로, d를 직관적으로 바꿔 읽는 방법입니다(McGraw &amp; Wong, 1992). Sawilowsky(2009)는 0.01(아주 작음)부터 1.2(매우 큼), 2.0(거대)까지 기준을 확장하자고 제안했지만 역시 관례일 뿐입니다. 실제 해석은 같은 분야 선행 연구의 d, 효과의 실질적 의미(예: 점수 몇 점이 임상적으로 의미 있는가), 신뢰구간의 폭과 함께 해야 합니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>d의 점추정값만 적기보다 <strong>신뢰구간</strong>과, 어느 d(독립/대응, 합동 SD 등)인지를 함께 적는 것이 좋습니다. (수치는 위의 작은 예에서 계산했습니다.)</p><p><code>실험집단(M = 78.0, SD = 10.0)이 통제집단(M = 72.0, SD = 12.0)보다 높았고, 그 차이는 유의하였다(t(58) = 2.10, p = .040, Cohen’s d = 0.54, 95% CI [0.03, 1.06]).</code></p><p>한국어 논문에서는 “효과크기(Cohen’s d)는 0.49로 중간 수준이었다”처럼 점추정값과 등급을 함께 적는 경우가 많은데, 위 이유로 등급 이름 대신 값과 신뢰구간을 적고 선행 연구와 비교하는 서술을 덧붙이면 더 정확합니다. 여러 번의 비교에서 d를 보고한다면 분모(합동 SD인지 대조군 SD인지, Glass의 Δ인지)를 통일해야 서로 비교할 수 있습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“성별·연령대 비교에서는 상대악력과 하지 근지구력에서 유의한 차이가 나타났으며, 효과크기는 작은 수준이었다(Cohen’s d = 0.35~0.42).”</blockquote><p class="te-cite">지체장애인의 BMI와 기초체력 요인 간의 관계 분석: 신체조성지표가 체력수행능력에 미치는 영향, 국제문화예술, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003254181" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“경기도 소재 중학교 1학년 학생 53명을 대상으로 ‘정수와 유리수’ 단원 10차시 수업을 실시한 결과, 첫째, 정의적 태도는 통계적으로 유의미하게 향상되었으며(p &lt; .001), 효과 크기(Cohen’s d)는 0.49로 실질적인 변화를 확인하였다.”</blockquote><p class="te-cite">AI 기반 플랫폼 ‘하이러닝’을 활용한 수학 수업이 중학생의 정의적 태도에 미치는 효과 및 교사·학생의 인식 분석 : 정수와 유리수 단원을 중심으로, 중등교육연구, 2026 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003352082" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“비동등 두 집단 비교를 위한 사전/사후 연구 설계에서 메타분석을 위한 개별연구의 효과크기는 두 집단의 평균 차를 모 표준편차의 추정치인 합동표본표준편차로 나눈 Cohen’s d 또는 Hedges’ g가 일반적으로 많이 사용되고 있다.”</blockquote><p class="te-cite">국내 메타분석 연구에서의 효과크기 계산의 정확도 비교, Journal of The Korean Data Analysis Society, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002238763" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"실험군과 대조군의 우울 점수 차이는 통계적으로 유의했으며, 효과크기는 컸다 (Cohen's d = 0.82)."</div>
   <p>이 문장은 단순히 "차이가 우연이 아니다(p-value)"에서 그치지 않고, "그 차이가 표준편차의 0.82배에 해당할 만큼 실질적으로 크다"는 정보까지 함께 전달하고 있습니다.</p>
 
@@ -166,6 +189,22 @@
 
   <h2>주의할 점</h2>
   <p>0.2/0.5/0.8이라는 기준은 코헨 본인도 "절대적인 규칙이 아니라 대략적인 눈대중"이라고 밝힌 값입니다. 연구 분야에 따라 0.3만 되어도 큰 효과로 취급되는 영역이 있고, 반대로 0.8이 그리 대단하지 않은 영역도 있으므로, 기계적으로 등급을 매기기보다는 선행 연구들과 비교해 해석해야 합니다. Cohen's d는 여러 <a href="effect-size.html">효과크기</a> 지표 중 하나이며, 표본 크기가 작을 때는 보정된 Hedges' g를 함께 보고하는 경우도 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>효과크기 지표는 ‘무엇을 비교하느냐’에 따라 쓰는 것이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">주로 쓰는 곳</th><th scope="col">무엇을 나타내나</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row"><a href="cohens-d.html">코헨의 d</a></th><td>두 집단의 평균 비교(t검정)</td><td>평균 차이가 표준편차의 몇 배인가</td><td>−∞ ~ +∞ (방향 있음)</td></tr><tr><th scope="row"><a href="hedges-g.html">헤지스의 g</a></th><td>코헨의 d와 같은 상황, 특히 소표본·메타분석</td><td>d의 소표본 편향을 보정한 값</td><td>−∞ ~ +∞</td></tr><tr><th scope="row"><a href="eta-squared.html">에타제곱(η²)</a></th><td>분산분석(세 집단 이상)</td><td>종속변수 분산 중 집단이 설명하는 비율</td><td>0 ~ 1</td></tr><tr><th scope="row">상관계수 r</th><td>두 변수의 관계, 메타분석의 공통 단위</td><td>선형 관계의 강도</td><td>−1 ~ +1</td></tr></tbody></table></div>
+  <p class="te-note">두 집단·같은 크기라면 d와 r은 r = d/√(d² + 4), η² = d²/(d² + 4)로 서로 바꿀 수 있어, 위 해석 기준 표의 η² 값도 이렇게 계산한 것입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Hedges, L. V. (1981). Distribution theory for Glass's estimator of effect size and related estimators. Journal of Educational Statistics, 6(2), 107–128.</li>
+    <li>Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863.</li>
+    <li>McGraw, K. O., &amp; Wong, S. P. (1992). A common language effect size statistic. Psychological Bulletin, 111(2), 361–365.</li>
+    <li>Sawilowsky, S. S. (2009). New effect size rules of thumb. Journal of Modern Applied Statistical Methods, 8(2), 597–599.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="effect-size.html">효과크기</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="eta-squared.html">에타제곱</a><a href="cramers-v.html">크래머 V</a><a href="hedges-g.html">헤지스의 g</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

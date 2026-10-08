@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/multiple-comparisons-correction.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,24 +144,60 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>동전을 한 번 던져서 앞면이 나오면 "신기하다"고 할 사람은 없습니다. 하지만 동전을 20개 동시에 던져서 그중 하나라도 10번 연속 앞면이 나온다면, 그 동전만 보고 "조작된 동전이다"라고 하기엔 억울한 면이 있습니다. 20번 시도하다 보면 우연히 하나쯤은 그런 결과가 나올 수 있기 때문입니다. 다중비교보정은 바로 이런 상황, 즉 한 논문에서 검정을 수십 번 반복할 때 "우연히 유의한 것처럼 보이는 결과"가 섞여 들어가는 것을 막기 위한 장치입니다. 검정을 많이 할수록 <a href="p-hacking.html">피해킹</a> 기준(보통 0.05)을 그대로 쓰면 안 되고, 검정 횟수에 맞춰 기준을 더 까다롭게 낮춰야 한다는 것이 핵심 아이디어입니다. 가장 잘 알려진 방법이 본페로니(Bonferroni) 보정으로, 유의수준 0.05를 검정 횟수로 나누어 사용합니다.</p>
+  <p>동전을 한 번 던져서 앞면이 나오면 "신기하다"고 할 사람은 없습니다. 하지만 동전을 20개 동시에 던져서 그중 하나라도 10번 연속 앞면이 나온다면, 그 동전만 보고 "조작된 동전이다"라고 하기엔 억울한 면이 있습니다. 20번 시도하다 보면 우연히 하나쯤은 그런 결과가 나올 수 있기 때문입니다. 다중비교보정은 바로 이런 상황, 즉 한 논문에서 검정을 수십 번 반복할 때 "우연히 유의한 것처럼 보이는 결과"가 섞여 들어가는 것을 막기 위한 장치입니다. 검정을 많이 할수록 <a href="significance-level.html">유의수준</a>(보통 0.05)을 그대로 쓰면 안 되고, 검정 횟수에 맞춰 기준을 더 까다롭게 낮춰야 한다는 것이 핵심 아이디어입니다. 가장 잘 알려진 방법이 본페로니(Bonferroni) 보정으로, 유의수준 0.05를 검정 횟수로 나누어 사용합니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>유전체학, 뇌영상, 대규모 설문조사처럼 수백에서 수만 개의 변수를 동시에 검정하는 연구가 늘어나면서, 우연히 유의한 결과가 섞여 들어가는 문제는 연구 결과의 신뢰성을 좌우하는 핵심 쟁점이 되었습니다. 다중비교보정을 제대로 적용했는지는 논문 심사와 재현성 논의에서 자주 점검되는 항목이며, 이를 소홀히 하면 우연한 발견을 실제 효과로 잘못 보고하는 문제로 이어질 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>같은 자료로 여러 번 검정할수록 “적어도 하나는 우연히 유의하게 나올 확률”이 빠르게 커지기 때문에, 하나의 질문에 속한 검정들(가설족)을 한꺼번에 해석할 때 보정합니다. 개별 검정의 유의수준을 .05로 둘 때 검정이 서로 독립이라면 적어도 하나가 거짓 양성일 확률은 1 − .95<sup>m</sup>입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>검정 수 m</th><th>적어도 하나가 우연히 유의할 확률</th></tr></thead><tbody><tr><td>1</td><td>5.0%</td></tr><tr><td>3</td><td>14.3%</td></tr><tr><td>5</td><td>22.6%</td></tr><tr><td>10</td><td>40.1%</td></tr><tr><td>20</td><td>64.2%</td></tr><tr><td>100</td><td>99.4%</td></tr></tbody></table></div><ul><li><strong>보정이 필요한 편</strong>: 분산분석 뒤의 모든 쌍별 비교, 여러 결과변수를 각각 검정해 “하나라도 유의하면 효과 있음”이라고 결론 내릴 때, 탐색적으로 수십 개 변수를 훑을 때.</li><li><strong>논쟁이 있는 경우</strong>: 사전에 정한 서로 다른 질문에 각각 답하는 검정들이라면 보정이 필수가 아니라는 견해도 있습니다. 이 경우에도 검정을 몇 번 했는지는 투명하게 밝혀야 합니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>같은 p값이라도 방법에 따라 몇 개가 ‘살아남는지’가 다릅니다. m = 5, 원래 p가 오름차순으로 .001, .008, .020, .041, .300이라고 해 봅시다(목표 수준 .05).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>순번별 기준</th><th>유의한 검정</th></tr></thead><tbody><tr><td>보정 없음</td><td>모두 .05</td><td>4개 (.001, .008, .020, .041)</td></tr><tr><td><a href="bonferroni-correction.html">본페로니</a></td><td>모두 .01</td><td>2개 (.001, .008)</td></tr><tr><td><a href="holm-bonferroni-method.html">홀름</a></td><td>.010, .0125, .0167, .025, .05</td><td>2개 (.020은 .0167을 넘어 멈춤)</td></tr><tr><td><a href="false-discovery-rate.html">벤자미니-호크버그(FDR)</a></td><td>i번째 기준 = i/5 × .05 = .01, .02, .03, .04, .05</td><td>3개 (.020 ≤ .03, 그러나 .041 &gt; .04)</td></tr></tbody></table></div><p>FWER 통제(본페로니·홀름)는 “거짓 양성이 하나라도 섞일 확률”을, FDR 통제는 “유의하다고 한 것 중 거짓의 <em>비율</em>”을 α 수준으로 묶습니다. 그래서 FDR 쪽이 더 많이 발견하는 대신 그중 일부가 거짓일 수 있음을 받아들이는 방식입니다. FDR로 보정한 p값은 흔히 q값이라고 부릅니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>보정이 <strong>무엇에 대해, 어떤 방법으로, 몇 개의 검정에 적용되었는지</strong>를 방법 절에 한 번 밝히고, 결과에는 보정 전·후 어느 값인지 표시합니다.</p><p><code>다섯 개 하위척도에 대한 검정에는 Benjamini–Hochberg 절차로 FDR을 .05 수준에서 통제하였다. 보정 후 세 개 척도에서 집단 차이가 유의하였다(q &lt; .05).</code></p><p>같은 자료를 여러 방식으로 분석해 본 뒤 유의한 것만 골라 싣는 관행은 보정으로 해결되지 않으며, <a href="p-hacking.html">p-해킹</a>의 한 형태가 됩니다. 분석 계획을 미리 정하고(사전등록), 해 본 검정은 모두 보고하는 것이 가장 확실한 방어입니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“반복측정 상관분석 시행 시, 총 3개의 임상 변수들을 대상으로 한 다중 비교에 대한 보정은 false discovery rate (FDR) 보정을 사용하였다.”</blockquote><p class="te-cite">정신증 환자에서 전기경련치료가 불일치음전위와 양성 증상에 미치는 정상화 효과, Korean Journal of Schizophrenia Research, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095758" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“원시 p값 기준으로는 18개 문항 중 16개에서 유의한 감소가 관찰되었으나, Bonferroni correction 적용 후에는 14개 문항에서만 유의성이 유지되었다(Table 4).”</blockquote><p class="te-cite">장기 입원 정신장애 환자를 위한 구조화된 사이코드라마의 효과: 예비 연구, Korean Journal of Schizophrenia Research, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095760" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“자료분석은 일원배치 분산분석을 통해 세 집단 간 총 점수와 하위 항목 점수를 비교하였고, 이어 Scheffé의 다중비교법을 이용하여 사후검정을 실시하였다.”</blockquote><p class="te-cite">정신건강의학과에 내원한 군 복무 부적합 판정을 받은 환자들의 BGT 수행 특성: 내재화 및 외현화 장애를 중심으로, 연구방법논총, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002864748" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"총 15개 유전자에 대해 개별 검정을 수행하였으며, 본페로니 보정을 적용한 결과 유의수준은 p &lt; 0.0033(0.05/15)로 조정되었다."</div>
   <p>이 문장은 유전자 15개를 각각 검정하다 보면 우연히 유의한 결과가 나올 가능성이 커지므로, 원래 기준인 0.05를 검정 횟수 15로 나눈 더 엄격한 기준으로 판단했다는 뜻입니다.</p>
   <div class="example">"전체 뇌 영역을 대상으로 한 복셀 단위 분석에서 다중비교 문제를 고려하여 오탐지율(FDR) 기반의 보정을 적용하였다."</div>
   <p>이 문장은 뇌 영상 연구에서 수만 개의 작은 단위(복셀)를 동시에 검정할 때, 지나치게 보수적인 본페로니 방식 대신 위양성 비율을 통제하는 FDR 방법으로 유의성 기준을 조정했다는 뜻입니다.</p>
-  <div class="example">"설문 문항 간 다중비교로 인한 1종 오류 팽창을 방지하기 위해 하올름-본페로니(Holm-Bonferroni) 절차를 적용하였다."</div>
+  <div class="example">"설문 문항 간 다중비교로 인한 1종 오류 팽창을 방지하기 위해 홀름-본페로니(Holm-Bonferroni) 절차를 적용하였다."</div>
   <p>이 문장은 여러 설문 문항을 동시에 비교 검정할 때, 단순 본페로니보다 검정력을 조금 더 확보할 수 있는 단계적 보정 절차를 사용했다는 의미입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>다중비교보정 방법은 크게 가족단위 오류율(family-wise error rate)을 엄격하게 통제하는 방법(본페로니, 하올름-본페로니 등)과, 유의하다고 판정된 결과 중 실제로는 거짓인 비율을 관리하는 오탐지율(false discovery rate, FDR) 기반 방법(벤자미니-호크버그 절차 등)으로 나뉩니다. 앞의 방법은 보수적이라 검정 수가 매우 많아지면 실제 효과도 놓치기 쉬운 반면, FDR 기반 방법은 상대적으로 덜 보수적이어서 유전체학이나 뇌영상처럼 검정 수가 극히 많은 분야에서 더 흔히 선택됩니다. 어떤 방법을 쓸지는 연구의 목적이 "거짓 양성을 절대 허용하지 않는 것"인지, "적당한 수준의 거짓 양성을 감수하고 발견을 늘리는 것"인지에 따라 달라집니다.</p>
+  <p>다중비교보정 방법은 크게 가족단위 오류율(family-wise error rate)을 엄격하게 통제하는 방법(본페로니, 홀름-본페로니 등)과, 유의하다고 판정된 결과 중 실제로는 거짓인 비율을 관리하는 오탐지율(false discovery rate, FDR) 기반 방법(벤자미니-호크버그 절차 등)으로 나뉩니다. 앞의 방법은 보수적이라 검정 수가 매우 많아지면 실제 효과도 놓치기 쉬운 반면, FDR 기반 방법은 상대적으로 덜 보수적이어서 유전체학이나 뇌영상처럼 검정 수가 극히 많은 분야에서 더 흔히 선택됩니다. 어떤 방법을 쓸지는 연구의 목적이 "거짓 양성을 절대 허용하지 않는 것"인지, "적당한 수준의 거짓 양성을 감수하고 발견을 늘리는 것"인지에 따라 달라집니다.</p>
 
   <h2>주의할 점</h2>
   <p>다중비교보정을 적용하지 않으면 <a href="p-hacking.html">피해킹</a>과 비슷하게 우연한 결과를 진짜 효과처럼 보고할 위험이 커집니다. 반대로 본페로니 보정처럼 너무 보수적인 방법을 쓰면 실제로 존재하는 효과까지 "유의하지 않다"고 놓쳐버리는 <a href="type-2-error.html">2종 오류</a>가 늘어날 수 있습니다. 그래서 상황에 따라 덜 보수적인 FDR(위양성률 통제) 방법을 쓰기도 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>다중비교보정과 이웃한 용어를 구분해 두면 논문 방법 절을 읽기 쉬워집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정체</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><a href="multiple-comparisons-correction.html">다중비교보정</a></th><td>여러 검정의 오류율을 관리하는 방법들의 총칭</td><td>상위 개념</td></tr><tr><th scope="row"><a href="bonferroni-correction.html">본페로니 교정</a></th><td>α를 검정 수로 나누는 가장 단순한 보정</td><td>다중비교보정의 한 방법</td></tr><tr><th scope="row"><a href="post-hoc-test.html">사후검정</a></th><td>분산분석이 유의한 뒤 어느 집단 쌍이 다른지 보는 검정</td><td>사후검정은 보통 다중비교보정을 내장하거나 함께 씀</td></tr><tr><th scope="row"><a href="multiple-comparisons-problem.html">다중비교 문제</a></th><td>검정을 많이 할수록 거짓 양성이 늘어나는 현상 자체</td><td>보정이 해결하려는 문제</td></tr><tr><th scope="row"><a href="p-hacking.html">p-해킹</a></th><td>유의한 결과가 나올 때까지 분석을 바꾸는 관행</td><td>보정을 안 하면 비슷한 결과를 낳을 수 있으나 같은 개념은 아님</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Benjamini, Y., &amp; Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 57(1), 289–300.</li>
+    <li>Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65–70.</li>
+    <li>Dunn, O. J. (1961). Multiple comparisons among means. Journal of the American Statistical Association, 56(293), 52–64.</li>
+    <li>Rothman, K. J. (1990). No adjustments are needed for multiple comparisons. Epidemiology, 1(1), 43–46.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="bonferroni-correction.html">본페로니 교정</a><a href="false-discovery-rate.html">위양성발견율</a><a href="holm-bonferroni-method.html">홀름-본페로니 절차</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

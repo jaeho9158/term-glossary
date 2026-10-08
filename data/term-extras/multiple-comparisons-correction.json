@@ -1,0 +1,69 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>같은 자료로 여러 번 검정할수록 “적어도 하나는 우연히 유의하게 나올 확률”이 빠르게 커지기 때문에, 하나의 질문에 속한 검정들(가설족)을 한꺼번에 해석할 때 보정합니다. 개별 검정의 유의수준을 .05로 둘 때 검정이 서로 독립이라면 적어도 하나가 거짓 양성일 확률은 1 − .95<sup>m</sup>입니다.</p><table><thead><tr><th>검정 수 m</th><th>적어도 하나가 우연히 유의할 확률</th></tr></thead><tbody><tr><td>1</td><td>5.0%</td></tr><tr><td>3</td><td>14.3%</td></tr><tr><td>5</td><td>22.6%</td></tr><tr><td>10</td><td>40.1%</td></tr><tr><td>20</td><td>64.2%</td></tr><tr><td>100</td><td>99.4%</td></tr></tbody></table><ul><li><strong>보정이 필요한 편</strong>: 분산분석 뒤의 모든 쌍별 비교, 여러 결과변수를 각각 검정해 “하나라도 유의하면 효과 있음”이라고 결론 내릴 때, 탐색적으로 수십 개 변수를 훑을 때.</li><li><strong>논쟁이 있는 경우</strong>: 사전에 정한 서로 다른 질문에 각각 답하는 검정들이라면 보정이 필수가 아니라는 견해도 있습니다. 이 경우에도 검정을 몇 번 했는지는 투명하게 밝혀야 합니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>같은 p값이라도 방법에 따라 몇 개가 ‘살아남는지’가 다릅니다. m = 5, 원래 p가 오름차순으로 .001, .008, .020, .041, .300이라고 해 봅시다(목표 수준 .05).</p><table><thead><tr><th>방법</th><th>순번별 기준</th><th>유의한 검정</th></tr></thead><tbody><tr><td>보정 없음</td><td>모두 .05</td><td>4개 (.001, .008, .020, .041)</td></tr><tr><td>[[bonferroni-correction|본페로니]]</td><td>모두 .01</td><td>2개 (.001, .008)</td></tr><tr><td>[[holm-bonferroni-method|홀름]]</td><td>.010, .0125, .0167, .025, .05</td><td>2개 (.020은 .0167을 넘어 멈춤)</td></tr><tr><td>[[false-discovery-rate|벤자미니-호크버그(FDR)]]</td><td>i번째 기준 = i/5 × .05 = .01, .02, .03, .04, .05</td><td>3개 (.020 ≤ .03, 그러나 .041 &gt; .04)</td></tr></tbody></table><p>FWER 통제(본페로니·홀름)는 “거짓 양성이 하나라도 섞일 확률”을, FDR 통제는 “유의하다고 한 것 중 거짓의 <em>비율</em>”을 α 수준으로 묶습니다. 그래서 FDR 쪽이 더 많이 발견하는 대신 그중 일부가 거짓일 수 있음을 받아들이는 방식입니다. FDR로 보정한 p값은 흔히 q값이라고 부릅니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>보정이 <strong>무엇에 대해, 어떤 방법으로, 몇 개의 검정에 적용되었는지</strong>를 방법 절에 한 번 밝히고, 결과에는 보정 전·후 어느 값인지 표시합니다.</p><p><code>다섯 개 하위척도에 대한 검정에는 Benjamini–Hochberg 절차로 FDR을 .05 수준에서 통제하였다. 보정 후 세 개 척도에서 집단 차이가 유의하였다(q &lt; .05).</code></p><p>같은 자료를 여러 방식으로 분석해 본 뒤 유의한 것만 골라 싣는 관행은 보정으로 해결되지 않으며, [[p-hacking|p-해킹]]의 한 형태가 됩니다. 분석 계획을 미리 정하고(사전등록), 해 본 검정은 모두 보고하는 것이 가장 확실한 방어입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "다중비교보정과 이웃한 용어를 구분해 두면 논문 방법 절을 읽기 쉬워집니다.",
+    "headers": [
+      "용어",
+      "정체",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[multiple-comparisons-correction|다중비교보정]]",
+        "여러 검정의 오류율을 관리하는 방법들의 총칭",
+        "상위 개념"
+      ],
+      [
+        "[[bonferroni-correction|본페로니 교정]]",
+        "α를 검정 수로 나누는 가장 단순한 보정",
+        "다중비교보정의 한 방법"
+      ],
+      [
+        "[[post-hoc-test|사후검정]]",
+        "분산분석이 유의한 뒤 어느 집단 쌍이 다른지 보는 검정",
+        "사후검정은 보통 다중비교보정을 내장하거나 함께 씀"
+      ],
+      [
+        "[[multiple-comparisons-problem|다중비교 문제]]",
+        "검정을 많이 할수록 거짓 양성이 늘어나는 현상 자체",
+        "보정이 해결하려는 문제"
+      ],
+      [
+        "[[p-hacking|p-해킹]]",
+        "유의한 결과가 나올 때까지 분석을 바꾸는 관행",
+        "보정을 안 하면 비슷한 결과를 낳을 수 있으나 같은 개념은 아님"
+      ]
+    ]
+  },
+  "references": [
+    "Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 57(1), 289–300.",
+    "Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65–70.",
+    "Dunn, O. J. (1961). Multiple comparisons among means. Journal of the American Statistical Association, 56(293), 52–64.",
+    "Rothman, K. J. (1990). No adjustments are needed for multiple comparisons. Epidemiology, 1(1), 43–46."
+  ],
+  "fixes": [
+    {
+      "find": "<a href=\"p-hacking.html\">피해킹</a> 기준(보통 0.05)",
+      "replace": "<a href=\"significance-level.html\">유의수준</a>(보통 0.05)"
+    },
+    {
+      "find": "하올름-본페로니",
+      "replace": "홀름-본페로니"
+    }
+  ]
+}

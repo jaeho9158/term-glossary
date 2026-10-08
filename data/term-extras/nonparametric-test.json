@@ -1,0 +1,34 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>모집단이 특정 분포(주로 정규분포)를 따른다는 가정 없이 검정하고 싶을 때, 또는 자료가 서열 척도이거나 표본이 작고 분포가 심하게 치우쳐 있을 때 씁니다. 대부분의 비모수검정은 원래 값 대신 <strong>순위</strong>로 계산하기 때문에 이상치의 영향을 덜 받습니다. 대응되는 모수검정과 짝으로 외워 두면 편합니다.</p><table><thead><tr><th>상황</th><th>모수검정</th><th>비모수 대안</th></tr></thead><tbody><tr><td>독립 두 집단 비교</td><td>[[t-test|독립표본 t검정]]</td><td>[[mann-whitney-u-test|맨-휘트니 U 검정]]</td></tr><tr><td>대응 두 측정 비교</td><td>[[paired-t-test|대응표본 t검정]]</td><td>[[wilcoxon-signed-rank-test|윌콕슨 부호순위검정]]</td></tr><tr><td>독립 세 집단 이상</td><td>[[anova|일원분산분석]]</td><td>[[kruskal-wallis-test|크루스칼-왈리스 검정]]</td></tr><tr><td>반복측정 세 조건 이상</td><td>[[repeated-measures-anova|반복측정 분산분석]]</td><td>[[friedman-test|프리드먼 검정]]</td></tr><tr><td>두 변수의 관계</td><td>Pearson 상관</td><td>[[spearman-correlation|스피어만 상관]]</td></tr></tbody></table><ul><li>표본이 충분히 크면 평균의 분포가 정규분포에 가까워지므로(중심극한정리) 모수검정도 정규성 위반에 꽤 강합니다. “정규성이 깨졌으니 무조건 비모수”는 아닙니다.</li><li>정규성 검정(Shapiro-Wilk 등)의 p값만 보고 검정법을 갈라 쓰면, 표본이 크면 사소한 이탈에도 기각되고 작으면 큰 이탈도 못 잡습니다. Q-Q 도표 같은 그림과 자료의 성격(서열인지, 이상치가 있는지)을 함께 보는 것이 좋습니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li>검정통계량은 순위에서 만들어집니다: U(맨-휘트니), W 또는 T(윌콕슨), H(크루스칼-왈리스), χ²(프리드먼), ρ(스피어만). 값 자체보다 p와 효과크기를 함께 읽습니다.</li><li>요약 통계는 평균·표준편차 대신 <strong>중앙값(사분위범위)</strong> 또는 평균 순위를 씁니다.</li><li>비교하는 대상은 ‘평균’이 아니라 분포의 위치(순위)입니다. 분포의 모양이 비슷할 때에 한해 중앙값의 차이로 읽을 수 있습니다.</li><li>효과크기는 순위 기반 지표를 씁니다: r = |z|/√N, 순위 이연상관, ‘한쪽이 더 클 확률’ 등.</li><li>정규분포 자료에서도 윌콕슨·맨-휘트니 검정의 상대 효율은 t검정의 약 95%(점근상대효율 3/π ≈ 0.955)로, 가정이 맞는 자료에서 잃는 검정력은 크지 않습니다. 꼬리가 두꺼운 분포에서는 오히려 더 좋을 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>왜 비모수 검정을 골랐는지를 방법 절에 한 문장으로 적고, 결과에는 중앙값과 검정통계량, p, 효과크기를 함께 적습니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>Shapiro-Wilk 검정에서 두 집단 모두 정규성이 기각되어(p &lt; .05) 맨-휘트니 U 검정을 사용하였다. 실험집단의 중앙값(Mdn = 12.0)이 통제집단(Mdn = 9.5)보다 유의하게 높았다(U = 180.0, p = .016, r = .34).</code></p><p>한국어 논문에서는 “정규성 가정이 충족되지 않아 비모수 검정을 실시하였다”가 가장 흔한 문장이며, 어떤 검정을 썼는지는 괄호로 병기합니다. 정규성 판단 근거(검정, 왜도·첨도, 도표 중 무엇인지)를 함께 밝히면 설득력이 높아집니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "정규성을 만족하지 못할 때 쓸 수 있는 방법은 비모수검정만이 아닙니다.",
+    "headers": ["방법", "하는 일", "예"],
+    "rows": [
+      ["[[nonparametric-test|비모수검정]]", "분포 가정 없이 순위 등으로 검정", "맨-휘트니 U, 윌콕슨, 크루스칼-왈리스"],
+      ["변환", "값에 로그 등을 취해 정규분포에 가깝게 만든 뒤 모수검정", "로그 변환 후 t검정"],
+      ["[[robust-standard-errors|강건한 표준오차]]", "분포나 분산 가정이 틀려도 오차를 바로잡는 추정", "회귀에서 이분산성 대응"],
+      ["[[bootstrap-confidence-interval|부트스트랩]]", "표본에서 반복 재추출해 분포를 직접 근사", "정규성 없이 평균 차이의 신뢰구간 구하기"]
+    ]
+  },
+  "references": [
+    "Conover, W. J. (1999). Practical Nonparametric Statistics (3rd ed.). Wiley.",
+    "Hollander, M., Wolfe, D. A., & Chicken, E. (2014). Nonparametric Statistical Methods (3rd ed.). Wiley.",
+    "Fagerland, M. W. (2012). t-tests, non-parametric tests, and large studies—a paradox of statistical practice? BMC Medical Research Methodology, 12, 78.",
+    "Siegel, S. (1956). Nonparametric Statistics for the Behavioral Sciences. McGraw-Hill."
+  ]
+}
