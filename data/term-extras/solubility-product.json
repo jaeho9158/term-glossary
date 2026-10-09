@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>난용성 염 A<sub>m</sub>B<sub>n</sub>이 포화 용액과 평형일 때 <code>A<sub>m</sub>B<sub>n</sub>(s) ⇌ mA<sup>n+</sup>(aq) + nB<sup>m−</sup>(aq)</code>이면 <code>K<sub>sp</sub> = [A<sup>n+</sup>]<sup>m</sup>[B<sup>m−</sup>]<sup>n</sup></code>입니다. 고체의 농도는 식에 넣지 않습니다. 무차원 상수이지만 교재에서는 농도(mol/L)를 그대로 넣는 약식 표기가 흔합니다.</p><p>순수한 물에서 용해도 <em>s</em>(mol/L)는 다음과 같이 K<sub>sp</sub>에서 계산합니다: <code>s = ( K<sub>sp</sub> / (m<sup>m</sup>n<sup>n</sup>) )<sup>1/(m+n)</sup></code>. 25 °C에서 교재에 흔히 실리는 값을 쓰면(출처에 따라 값이 조금 다릅니다)</p><table><thead><tr><th>염</th><th>K<sub>sp</sub> (예시값)</th><th>표현</th><th>용해도 s (mol/L)</th></tr></thead><tbody><tr><td>AgCl</td><td>1.8×10<sup>−10</sup></td><td>Ksp = [Ag<sup>+</sup>][Cl<sup>−</sup>] = s²</td><td>1.34×10<sup>−5</sup></td></tr><tr><td>BaSO<sub>4</sub></td><td>1.1×10<sup>−10</sup></td><td>Ksp = [Ba<sup>2+</sup>][SO<sub>4</sub><sup>2−</sup>] = s²</td><td>1.05×10<sup>−5</sup></td></tr><tr><td>Ag<sub>2</sub>CrO<sub>4</sub></td><td>1.1×10<sup>−12</sup></td><td>Ksp = [Ag<sup>+</sup>]²[CrO<sub>4</sub><sup>2−</sup>] = 4s³</td><td>6.50×10<sup>−5</sup></td></tr><tr><td>CaF<sub>2</sub></td><td>3.9×10<sup>−11</sup></td><td>Ksp = [Ca<sup>2+</sup>][F<sup>−</sup>]² = 4s³</td><td>2.14×10<sup>−4</sup></td></tr></tbody></table><p>위 표에서 Ag<sub>2</sub>CrO<sub>4</sub>는 K<sub>sp</sub>가 AgCl보다 100배 넘게 작은데도 용해도 s는 AgCl보다 큽니다(6.5×10<sup>−5</sup> 대 1.3×10<sup>−5</sup>). 이온의 개수비가 다르면 K<sub>sp</sub>의 크기만으로 용해도를 비교할 수 없다는 뜻입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>이온곱 <code>Q</code>(그 순간의 농도로 같은 식을 계산한 값)를 K<sub>sp</sub>와 비교합니다.</p><table><thead><tr><th>비교</th><th>상태</th><th>결과</th></tr></thead><tbody><tr><td>Q &lt; K<sub>sp</sub></td><td>불포화</td><td>고체가 있으면 더 녹음</td></tr><tr><td>Q = K<sub>sp</sub></td><td>포화(평형)</td><td>변화 없음</td></tr><tr><td>Q &gt; K<sub>sp</sub></td><td>과포화</td><td>침전이 생길 수 있음(속도는 별개 문제)</td></tr></tbody></table><p>가상의 예입니다. 0.0020 M AgNO<sub>3</sub> 50 mL와 0.0020 M NaCl 50 mL를 섞으면 각 이온이 0.0010 M이 되어 <code>Q = 0.0010 × 0.0010 = 1.0×10<sup>−6</sup></code>입니다. K<sub>sp</sub> = 1.8×10<sup>−10</sup>의 약 5,556배이므로 AgCl이 침전합니다.</p><ul><li><strong>과포화가 오래 가기도 합니다</strong>. Q &gt; K<sub>sp</sub>는 침전이 열역학적으로 가능하다는 뜻이지, 눈에 보이게 즉시 생긴다는 뜻이 아닙니다.</li><li><strong>활동도</strong>: 이온 세기가 높으면 이온의 유효 농도가 농도보다 작아집니다. 이온 세기 0.10 M, 1가 이온에서 데이비스 식(<code>log γ = −0.509(√I/(1+√I) − 0.3I)</code>)으로 γ ≈ 0.78이므로, 활동도 기준 K<sub>sp</sub>를 지키려면 농도 기준 용해도가 1/γ ≈ 1.28배 커집니다(AgCl: 1.3×10<sup>−5</sup> → 1.7×10<sup>−5</sup> M).</li><li><strong>다른 평형이 겹칩니다</strong>: 착물 형성(AgCl이 진한 Cl<sup>−</sup>에서 AgCl<sub>2</sub><sup>−</sup>로 녹음), 약산염의 pH 의존성(탄산염, 인산염, 수산화물, 황화물) 등은 단순 K<sub>sp</sub> 계산에 들어 있지 않습니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>어떤 K<sub>sp</sub>를 썼는지 <strong>출처, 온도, 이온 세기, 고체의 상</strong>(예: 방해석과 아라고나이트는 값이 다름)을 적습니다.</li><li>농도 기준 상수인지 활동도 기준 열역학 상수인지 구분해 씁니다. 조건부 상수(K<sub>sp</sub>′)를 썼다면 적용 조건(pH, 착화제 농도)을 밝힙니다.</li><li>침전 조건을 계산해 제시할 때는 반응 후 남는 이온 농도까지 보이면 읽는 사람이 검증할 수 있습니다.</li><li>용해도를 실험으로 측정했다면 평형에 도달한 시간, 고체-용액 분리 방법, 분석법(ICP, 이온 크로마토그래피 등)을 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "세 용어 모두 이온 농도의 곱 꼴이지만 쓰임이 다릅니다.",
+    "headers": [
+      "용어",
+      "정의",
+      "언제 값이 정해지나"
+    ],
+    "rows": [
+      [
+        "용해도곱 K<sub>sp</sub>",
+        "포화 평형에서의 이온곱(상수)",
+        "온도(와 이온 세기)에 따라 정해짐"
+      ],
+      [
+        "[[solubility|용해도]] s",
+        "포화 용액의 농도(mol/L 또는 g/L)",
+        "K<sub>sp</sub>, 공통 이온, pH, 착물에 따라 달라짐"
+      ],
+      [
+        "[[reaction-quotient|반응지수]] Q (이온곱)",
+        "그 순간 농도로 계산한 이온곱",
+        "용액을 섞는 순간마다 달라짐"
+      ],
+      [
+        "[[common-ion-effect|공통이온효과]]",
+        "이미 있는 같은 이온이 용해도를 낮추는 현상",
+        "K<sub>sp</sub>는 그대로, s만 변함"
+      ]
+    ]
+  },
+  "references": [
+    "Harris, D. C. (2016). Quantitative Chemical Analysis (9th ed.). W. H. Freeman.",
+    "Skoog, D. A., West, D. M., Holler, F. J., & Crouch, S. R. (2014). Fundamentals of Analytical Chemistry (9th ed.). Cengage Learning.",
+    "Stumm, W., & Morgan, J. J. (1996). Aquatic Chemistry: Chemical Equilibria and Rates in Natural Waters (3rd ed.). Wiley."
+  ]
+}
