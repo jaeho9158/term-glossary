@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/imagej.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,27 @@
   <p>ImageJ는 무료이면서도 논문 수준의 정량 분석이 가능해, 실험실 규모나 예산에 상관없이 이미지 기반 정량 데이터를 생성하는 표준 도구로 자리잡았습니다. 세포 계수, 형광 강도 측정, 조직 면적 계산처럼 반복적이고 객관적인 측정이 필요한 실험에서 연구자 간 재현 가능한 결과를 얻는 데 핵심적인 역할을 합니다.</p>
   <p>오픈소스이자 플러그인 확장이 자유롭다는 특성 덕분에 특정 분야에 특화된 분석 도구(Fiji 등)로 파생되어, 여러 학문 분야의 이미지 분석 파이프라인에 폭넓게 통합되어 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>ImageJ는 NIH의 Wayne Rasband가 만든 NIH Image의 후속으로 Java로 작성된 이미지 분석 프로그램입니다(Schneider 외, 2012). 정량 분석의 기본 순서는 다음과 같습니다.</p><ol><li><strong>길이 보정(Set Scale)</strong>: 영상 속 스케일 바 길이(픽셀)와 실제 길이(µm 등)를 입력해 픽셀을 실제 단위로 바꿉니다.</li><li><strong>전처리</strong>: 배경 보정, 필요하면 잡음 제거. 같은 비교 군에는 <em>모든 영상에 똑같이</em> 적용합니다.</li><li><strong>관심 영역(ROI) 지정</strong>: 손으로 그리거나, 임계값(Threshold)으로 신호와 배경을 나눈 뒤 입자·세포를 자동으로 찾습니다(Analyze Particles).</li><li><strong>측정(Measure)</strong>: 면적, 평균 회색값, 적분 밀도(IntDen = 면적 × 평균 회색값) 등을 얻어 표로 내보냅니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>쓰임</strong>: 현미경 사진의 세포 크기, 조직 절편의 염색 면적 비율, 웨스턴 블롯 밴드의 밝기, 형광 강도, 상처 치유(scratch) 면적, 재료 단면의 입자 크기 등.</li><li><strong>확장판</strong>: Fiji는 ImageJ에 생물영상 분석용 플러그인을 묶어 배포한 것이고(Schindelin 외, 2012), ImageJ2는 ImageJ 구조를 새로 만든 다음 세대판입니다(Rueden 외, 2017).</li><li>반복 작업은 매크로(macro)로 자동화해 사람마다 달라지는 편차를 줄입니다.</li></ul><p><strong>작은 예 1: 길이 보정</strong>(가상). 스케일 바 100 µm가 영상에서 250 픽셀이면 1픽셀 = 0.40 µm입니다. 어떤 구조의 면적이 1,800 픽셀²였다면 실제 면적은 1,800 × 0.40² = <strong>288 µm²</strong>입니다.</p><p><strong>작은 예 2: 보정 전체 세포 형광(CTCF)</strong>(가상, 널리 쓰이는 계산식). CTCF = IntDen − (ROI 면적 × 배경의 평균 회색값). 세포 ROI의 면적이 2400픽셀², 적분 밀도가 128,000, 근처 빈 곳(배경)의 평균 회색값이 12.5라면 CTCF = 128,000 − 2,400 × 12.5 = <strong>98,000</strong>입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>프로그램 이름과 <strong>버전</strong>(ImageJ 1.x / Fiji / ImageJ2), 사용한 플러그인, 임계값 설정 방식(자동 알고리즘 이름 또는 고정값), ROI를 정한 방법, 스케일 보정 방법을 적습니다.</li><li>촬영 조건(노출, 배율)을 모든 군에서 같게 했는지, 분석자가 군을 모르는 상태였는지(맹검)를 밝히면 재현성이 높아집니다. 소프트웨어의 정확도만큼 <em>원본 영상의 질</em>이 결과를 좌우합니다.</li><li>영상 수와 시료 수를 구분해 적고(한 시료에서 여러 시야를 잰 값을 독립 표본처럼 다루지 않습니다), 결과 값을 어떻게 요약했는지(시료별 평균 등) 적습니다.</li></ul><p><em>보고 예.</em> “영상 분석은 ImageJ(버전 1.53)를 사용하였다. 스케일 바로 길이를 보정한 후 임계값(Otsu 방법)을 모든 영상에 동일하게 적용하여 입자의 면적을 측정하였다.” (버전·방법은 예시입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“측정에는 ImageJ와 3D Slicer를 사용하였으며, 통계 분석은 반복측정 분산분석(one-way repeated-measures ANOVA)과 Bonferroni 보정이 적용된 대응표본 t-검정을 통해 수행하였다.”</blockquote><p class="te-cite">법의학적 심비대 평가를 위한 심흉곽비 측정치 비교 예비 연구, Journal of Radiological Science and Technology, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003287225" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"형광 신호의 강도는 ImageJ 소프트웨어를 이용하여 정량화하였다."</div>
   <p>ImageJ 프로그램으로 형광 사진 속 신호의 밝기를 숫자로 측정했다는 뜻이다.</p>
 
@@ -162,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>분석 결과는 이미지를 얼마나 일관되게 촬영했는지(노출, 배경 보정 등)에 크게 좌우되므로, 소프트웨어 자체의 정확성만큼 원본 이미지 품질도 중요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>ImageJ라는 이름 아래 여러 갈래가 있어 논문에서 구분해 적어야 합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">이름</th><th scope="col">무엇인가</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><strong>ImageJ(1.x)</strong></th><td>NIH에서 만든 이미지 분석 프로그램</td><td>널리 쓰이는 기본판. 플러그인·매크로로 확장</td></tr><tr><th scope="row">ImageJ2</th><td>ImageJ의 구조를 새로 만든 다음 세대판</td><td>기존 ImageJ 기능과 호환되도록 설계</td></tr><tr><th scope="row">Fiji</th><td>ImageJ를 기반으로 플러그인을 묶은 배포판</td><td>생물영상 분석용 플러그인과 업데이트 기능 포함</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Schneider, C. A., Rasband, W. S., &amp; Eliceiri, K. W. (2012). NIH Image to ImageJ: 25 years of image analysis. Nature Methods, 9(7), 671–675.</li>
+    <li>Schindelin, J., Arganda-Carreras, I., Frise, E., Kaynig, V., Longair, M., Pietzsch, T., et al. (2012). Fiji: An open-source platform for biological-image analysis. Nature Methods, 9(7), 676–682.</li>
+    <li>Rueden, C. T., Schindelin, J., Hiner, M. C., DeZonia, B. E., Walter, A. E., Arena, E. T., &amp; Eliceiri, K. W. (2017). ImageJ2: ImageJ for the next generation of scientific image data. BMC Bioinformatics, 18, 529.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

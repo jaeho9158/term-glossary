@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>ImageJ는 NIH의 Wayne Rasband가 만든 NIH Image의 후속으로 Java로 작성된 이미지 분석 프로그램입니다(Schneider 외, 2012). 정량 분석의 기본 순서는 다음과 같습니다.</p><ol><li><strong>길이 보정(Set Scale)</strong>: 영상 속 스케일 바 길이(픽셀)와 실제 길이(µm 등)를 입력해 픽셀을 실제 단위로 바꿉니다.</li><li><strong>전처리</strong>: 배경 보정, 필요하면 잡음 제거. 같은 비교 군에는 <em>모든 영상에 똑같이</em> 적용합니다.</li><li><strong>관심 영역(ROI) 지정</strong>: 손으로 그리거나, 임계값(Threshold)으로 신호와 배경을 나눈 뒤 입자·세포를 자동으로 찾습니다(Analyze Particles).</li><li><strong>측정(Measure)</strong>: 면적, 평균 회색값, 적분 밀도(IntDen = 면적 × 평균 회색값) 등을 얻어 표로 내보냅니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰임</strong>: 현미경 사진의 세포 크기, 조직 절편의 염색 면적 비율, 웨스턴 블롯 밴드의 밝기, 형광 강도, 상처 치유(scratch) 면적, 재료 단면의 입자 크기 등.</li><li><strong>확장판</strong>: Fiji는 ImageJ에 생물영상 분석용 플러그인을 묶어 배포한 것이고(Schindelin 외, 2012), ImageJ2는 ImageJ 구조를 새로 만든 다음 세대판입니다(Rueden 외, 2017).</li><li>반복 작업은 매크로(macro)로 자동화해 사람마다 달라지는 편차를 줄입니다.</li></ul><p><strong>작은 예 1: 길이 보정</strong>(가상). 스케일 바 100 µm가 영상에서 250 픽셀이면 1픽셀 = 0.40 µm입니다. 어떤 구조의 면적이 1,800 픽셀²였다면 실제 면적은 1,800 × 0.40² = <strong>288 µm²</strong>입니다.</p><p><strong>작은 예 2: 보정 전체 세포 형광(CTCF)</strong>(가상, 널리 쓰이는 계산식). CTCF = IntDen − (ROI 면적 × 배경의 평균 회색값). 세포 ROI의 면적이 2400픽셀², 적분 밀도가 128,000, 근처 빈 곳(배경)의 평균 회색값이 12.5라면 CTCF = 128,000 − 2,400 × 12.5 = <strong>98,000</strong>입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>프로그램 이름과 <strong>버전</strong>(ImageJ 1.x / Fiji / ImageJ2), 사용한 플러그인, 임계값 설정 방식(자동 알고리즘 이름 또는 고정값), ROI를 정한 방법, 스케일 보정 방법을 적습니다.</li><li>촬영 조건(노출, 배율)을 모든 군에서 같게 했는지, 분석자가 군을 모르는 상태였는지(맹검)를 밝히면 재현성이 높아집니다. 소프트웨어의 정확도만큼 <em>원본 영상의 질</em>이 결과를 좌우합니다.</li><li>영상 수와 시료 수를 구분해 적고(한 시료에서 여러 시야를 잰 값을 독립 표본처럼 다루지 않습니다), 결과 값을 어떻게 요약했는지(시료별 평균 등) 적습니다.</li></ul><p><em>보고 예.</em> “영상 분석은 ImageJ(버전 1.53)를 사용하였다. 스케일 바로 길이를 보정한 후 임계값(Otsu 방법)을 모든 영상에 동일하게 적용하여 입자의 면적을 측정하였다.” (버전·방법은 예시입니다.)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "ImageJ라는 이름 아래 여러 갈래가 있어 논문에서 구분해 적어야 합니다.",
+    "headers": [
+      "이름",
+      "무엇인가",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[imagej|ImageJ(1.x)]]",
+        "NIH에서 만든 이미지 분석 프로그램",
+        "널리 쓰이는 기본판. 플러그인·매크로로 확장"
+      ],
+      [
+        "ImageJ2",
+        "ImageJ의 구조를 새로 만든 다음 세대판",
+        "기존 ImageJ 기능과 호환되도록 설계"
+      ],
+      [
+        "Fiji",
+        "ImageJ를 기반으로 플러그인을 묶은 배포판",
+        "생물영상 분석용 플러그인과 업데이트 기능 포함"
+      ]
+    ]
+  },
+  "references": [
+    "Schneider, C. A., Rasband, W. S., & Eliceiri, K. W. (2012). NIH Image to ImageJ: 25 years of image analysis. Nature Methods, 9(7), 671–675.",
+    "Schindelin, J., Arganda-Carreras, I., Frise, E., Kaynig, V., Longair, M., Pietzsch, T., et al. (2012). Fiji: An open-source platform for biological-image analysis. Nature Methods, 9(7), 676–682.",
+    "Rueden, C. T., Schindelin, J., Hiner, M. C., DeZonia, B. E., Walter, A. E., Arena, E. T., & Eliceiri, K. W. (2017). ImageJ2: ImageJ for the next generation of scientific image data. BMC Bioinformatics, 18, 529."
+  ]
+}

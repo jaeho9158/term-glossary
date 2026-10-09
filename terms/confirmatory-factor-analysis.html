@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/confirmatory-factor-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,29 @@
   <h2>왜 중요한가</h2>
   <p>새로운 척도를 개발하거나 기존 척도를 다른 집단·문화권에 적용할 때, 그 척도가 실제로 의도한 하위 요인 구조대로 작동하는지 확인하는 절차가 반드시 필요합니다. 확인적 요인분석은 이러한 척도 타당화 연구의 핵심 단계로, 논문에서 측정도구의 신뢰성과 타당성을 뒷받침하는 근거로 자주 인용됩니다. 또한 구조방정식모형(SEM)의 측정모형 단계로도 쓰이기 때문에, 심리·교육·경영학 등 설문 기반 연구 전반에서 빠지지 않고 등장하는 개념입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>문항이 어떤 요인에 속하는지에 대한 <strong>이론이나 이전 연구의 가설</strong>이 있고, 그 구조가 자료와 맞는지 검증할 때 씁니다(Jöreskog, 1969). 대표적인 쓰임은 다음과 같습니다.</p><ul><li>설문 척도의 요인구조(예: 6요인 25문항)가 새 표본에서도 성립하는지 확인할 때. 탐색적 요인분석(EFA)으로 구조를 찾은 뒤에는 <em>다른 표본</em>으로 CFA를 하는 것이 권장됩니다.</li><li>번안한 척도가 원 척도와 같은 구조를 가지는지 볼 때, 그리고 집단·시점 간 <a href="measurement-invariance.html">측정 동일성</a>을 단계적으로 검증할 때.</li><li>구성타당도의 증거(수렴·판별)와 <a href="composite-reliability.html">합성신뢰도</a>를 구하는 기반으로.</li></ul><p><strong>모형을 세울 때의 기본</strong>: 어떤 문항이 어느 요인에 적재하는지 연구자가 미리 지정하고, 나머지 적재는 0으로 고정합니다. 요인의 척도를 정하기 위해 요인마다 한 문항의 적재를 1로 고정하거나 요인 분산을 1로 고정합니다. 모형이 식별되려면 자유도가 0 이상이어야 합니다(자유도 = 관측 변수의 분산·공분산 개수 p(p+1)/2 − 추정하는 모수 개수).</p><p>(가상의 예) 문항 6개, 3문항씩 2요인, 요인 간 상관을 허용하면 분산·공분산은 6×7/2 = 21개, 추정 모수는 요인적재 4(나머지 2개는 척도 고정) + 요인 분산 2 + 요인 공분산 1 + 오차 분산 6 = 13개이므로 자유도는 21 − 13 = 8입니다.</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li><strong>카이제곱(χ²), 자유도, p</strong>: 모형이 자료의 공분산 구조를 완벽히 재현한다는 가설의 검정입니다. 표본이 크면 사소한 어긋남도 유의해지므로 단독 기준으로 쓰지 않고 다른 지수와 함께 봅니다.</li><li><strong>CFI·TLI</strong>(기준 모형에 견준 증분 적합도), <strong>RMSEA</strong>(자유도 대비 어긋남, 90% 신뢰구간과 함께), <strong>SRMR</strong>(잔차 상관의 평균적 크기). 흔히 인용되는 기준은 Hu와 Bentler(1999)의 CFI·TLI ≥ .95, RMSEA ≤ .06, SRMR ≤ .08(지수를 조합해 판단하자는 제안)이며, 이 기준을 모든 상황에 적용하는 ‘황금률’로 삼는 것에는 비판이 있습니다(Marsh 외, 2004).</li><li><strong>표준화 요인적재량</strong>과 그 유의성, 요인 간 상관(너무 높으면 요인 구분이 어려움)을 봅니다.</li><li><strong>수정지수</strong>가 큰 곳은 모형을 고칠 단서이지만, 이론적 근거 없이 자료에 맞추려고 계속 고치면 그 표본에만 맞는 모형이 됩니다.</li><li><strong>모형 비교</strong>: 중첩된 모형은 Δχ²검정을 쓰고, 측정 동일성에서는 ΔCFI ≤ .01을 변화 기준으로 쓰자는 제안이 있습니다(Cheung와 Rensvold, 2002).</li></ul><p>RMSEA는 대략 <code>√( max(χ² − df, 0) / (df·(N − 1)) )</code>로 계산됩니다(소프트웨어에 따라 N − 1 대신 N을 쓰기도 합니다). 위 가상 모형에서 N = 200, χ² = 14.2, df = 8이면 RMSEA ≈ 0.062입니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>추정 방법(ML, 강건 ML, 순서형 자료의 WLSMV 등), 사용한 프로그램, 결측 처리, 적합도 지수 전부와 기준의 출처를 적습니다. (아래 수치는 형식을 보여 주려는 가상의 값이며, RMSEA만 위 식으로 계산했습니다.)</p><p><code>2요인 모형은 자료와 수용 가능한 수준으로 부합하였다(χ²(8) = 14.2, p = .077; CFI = .98, TLI = .97, RMSEA = 0.06 [90% CI .00, .11], SRMR = .03). 표준화 요인적재량은 .58~.81이었다.</code></p><ul><li>모형을 수정했다면 어떤 근거로 무엇을 바꿨는지, 수정 전 모형의 적합도도 함께 밝힙니다.</li><li>같은 자료에서 EFA로 구조를 정하고 같은 자료로 CFA를 하면 적합도가 부풀려집니다. 표본을 나눴는지 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“탐색적 요인분석과 확인적 요인분석을 통해 6개 하위요인 25문항이 도출되었다.”</blockquote><p class="te-cite">청년의 사회적 고립 측정 척도 개발, 한국사회복지학, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002842980" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“확인적 요인분석을 통해 모델 적합도와 수렴-판별타당도를 확인하였다.”</blockquote><p class="te-cite">유아 기후행동 검사도구의 개발 및 타당화, 유아교육연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002928185" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“확인적 요인분석 결과는 미국판 원검사의 요인구조를 한국판에도 동일하게 적용할 수 있음을 시사하였고, 각 하위척도들의 내적 합치도 수준(Cronbach’s α=.59-.97, 기타문제: .39)과 검사-재검사 신뢰도 값(.53-.96)이 모두 양호하였다.”</blockquote><p class="te-cite">한국판 아동․청소년행동평가 척도 교사용(TRF) 표준화 연구, 한국심리학회지:학교, 2012 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001689838" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"확인적 요인분석(CFA)을 실시한 결과, 2요인 모형의 적합도 지수는 CFI = .96, RMSEA = .05로 양호한 수준을 보였다."</div>
   <p>이 문장은 연구자가 미리 설정한 "2요인 구조"가 실제 데이터와 잘 맞아떨어졌다는 뜻으로, 이 설문 도구가 이론적으로 의도한 구조대로 작동하고 있음을 보여줍니다.</p>
 
@@ -160,12 +183,28 @@
   <p>이 문장은 CFA가 단일 집단의 구조 검증을 넘어, 서로 다른 집단 간에 같은 척도가 동일한 방식으로 작동하는지(측정 동일성)를 검증하는 데도 활용됨을 보여줍니다. 비교 연구나 문화 간 연구에서 자주 쓰이는 방식입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>CFA 모형이 데이터와 얼마나 잘 맞는지는 여러 적합도 지수를 종합적으로 살펴 판단합니다. 절대적합지수인 카이제곱 검정과 함께, 표본 크기에 덜 민감한 CFI·TLI 같은 증분적합지수, 그리고 모형의 간명성까지 고려하는 RMSEA·SRMR 같은 지수를 함께 보는 것이 일반적입니다.</p>
+  <p>CFA 모형이 데이터와 얼마나 잘 맞는지는 여러 적합도 지수를 종합적으로 살펴 판단합니다. 절대적합지수인 카이제곱 검정과 함께, 표본 크기에 덜 민감한 CFI·TLI 같은 증분적합지수, 그리고 모형의 간명성까지 고려하는 RMSEA, 잔차의 평균 크기를 보는 SRMR 같은 지수를 함께 보는 것이 일반적입니다.</p>
   <p>또한 다집단 CFA를 통해 서로 다른 집단(성별, 문화권, 시점 등) 간에 형태 동일성, 요인부하량 동일성, 절편 동일성 등 여러 수준의 측정 동일성이 성립하는지를 단계적으로 검증할 수 있습니다.</p>
   <p>요인부하량이 낮은 문항이나 수정지수(modification index)가 크게 나타나는 부분은 모형 재설정의 단서로 활용되지만, 이론적 근거 없이 사후적으로 모형을 계속 수정하는 것은 과적합의 위험이 있어 신중해야 한다는 지적도 있습니다.</p>
 
   <h2>주의할 점</h2>
   <p>확인적 요인분석은 요인 구조에 대한 명확한 사전 가설이 있을 때 사용하는 방법입니다. 아직 요인 구조에 대한 가설이 없어 데이터를 탐색적으로 살펴봐야 하는 단계라면 먼저 탐색적 요인분석(EFA)을 수행해야 하며, CFA 결과는 <a href="construct-validity.html">구성타당도</a>를 뒷받침하는 근거 중 하나로 해석됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>요인분석은 ‘구조를 미리 정하느냐’로 두 갈래입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">구분</th><th scope="col">탐색적 요인분석(EFA)</th><th scope="col">확인적 요인분석(CFA)</th></tr></thead><tbody><tr><th scope="row">요인 수·구조</th><td>자료에서 찾음</td><td>연구자가 미리 지정</td></tr><tr><th scope="row">문항이 여러 요인에 적재</th><td>원칙적으로 모두 허용</td><td>지정하지 않은 적재는 0으로 고정</td></tr><tr><th scope="row">주된 목적</th><td><a href="exploratory-factor-analysis.html">구조의 탐색</a>, 문항 선별</td><td>가설화된 구조의 검증, 측정 동일성</td></tr><tr><th scope="row">모형 적합도 검정</th><td>보통 없음(요인 수 판단용 지표는 있음)</td><td>χ², CFI, RMSEA 등으로 평가</td></tr></tbody></table></div>
+  <p class="te-note">CFA에서 나온 적합도는 ‘이 구조가 맞다’는 증명이 아니라 ‘이 구조가 자료와 크게 어긋나지 않는다’는 증거입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Jöreskog, K. G. (1969). A general approach to confirmatory maximum likelihood factor analysis. Psychometrika, 34(2), 183–202.</li>
+    <li>Hu, L., &amp; Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. Structural Equation Modeling, 6(1), 1–55.</li>
+    <li>Marsh, H. W., Hau, K.-T., &amp; Wen, Z. (2004). In search of golden rules: Comment on hypothesis-testing approaches to setting cutoff values for fit indexes and dangers in overgeneralizing Hu and Bentler's (1999) findings. Structural Equation Modeling, 11(3), 320–341.</li>
+    <li>Cheung, G. W., &amp; Rensvold, R. B. (2002). Evaluating goodness-of-fit indexes for testing measurement invariance. Structural Equation Modeling, 9(2), 233–255.</li>
+    <li>Brown, T. A. (2015). Confirmatory Factor Analysis for Applied Research (2nd ed.). Guilford Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="factor-analysis.html">요인분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="factor-loading.html">요인적재량</a><a href="exploratory-factor-analysis.html">탐색적요인분석</a></div></div><p class="concept-family-map"><a href="../concept-map/tool.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

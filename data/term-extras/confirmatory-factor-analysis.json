@@ -1,0 +1,62 @@
+{
+  "type": "test",
+  "fixes": [
+    {
+      "find": "그리고 모형의 간명성까지 고려하는 RMSEA·SRMR 같은 지수를",
+      "replace": "그리고 모형의 간명성까지 고려하는 RMSEA, 잔차의 평균 크기를 보는 SRMR 같은 지수를"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>문항이 어떤 요인에 속하는지에 대한 <strong>이론이나 이전 연구의 가설</strong>이 있고, 그 구조가 자료와 맞는지 검증할 때 씁니다(Jöreskog, 1969). 대표적인 쓰임은 다음과 같습니다.</p><ul><li>설문 척도의 요인구조(예: 6요인 25문항)가 새 표본에서도 성립하는지 확인할 때. 탐색적 요인분석(EFA)으로 구조를 찾은 뒤에는 <em>다른 표본</em>으로 CFA를 하는 것이 권장됩니다.</li><li>번안한 척도가 원 척도와 같은 구조를 가지는지 볼 때, 그리고 집단·시점 간 [[measurement-invariance|측정 동일성]]을 단계적으로 검증할 때.</li><li>구성타당도의 증거(수렴·판별)와 [[composite-reliability|합성신뢰도]]를 구하는 기반으로.</li></ul><p><strong>모형을 세울 때의 기본</strong>: 어떤 문항이 어느 요인에 적재하는지 연구자가 미리 지정하고, 나머지 적재는 0으로 고정합니다. 요인의 척도를 정하기 위해 요인마다 한 문항의 적재를 1로 고정하거나 요인 분산을 1로 고정합니다. 모형이 식별되려면 자유도가 0 이상이어야 합니다(자유도 = 관측 변수의 분산·공분산 개수 p(p+1)/2 − 추정하는 모수 개수).</p><p>(가상의 예) 문항 6개, 3문항씩 2요인, 요인 간 상관을 허용하면 분산·공분산은 6×7/2 = 21개, 추정 모수는 요인적재 4(나머지 2개는 척도 고정) + 요인 분산 2 + 요인 공분산 1 + 오차 분산 6 = 13개이므로 자유도는 21 − 13 = 8입니다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>카이제곱(χ²), 자유도, p</strong>: 모형이 자료의 공분산 구조를 완벽히 재현한다는 가설의 검정입니다. 표본이 크면 사소한 어긋남도 유의해지므로 단독 기준으로 쓰지 않고 다른 지수와 함께 봅니다.</li><li><strong>CFI·TLI</strong>(기준 모형에 견준 증분 적합도), <strong>RMSEA</strong>(자유도 대비 어긋남, 90% 신뢰구간과 함께), <strong>SRMR</strong>(잔차 상관의 평균적 크기). 흔히 인용되는 기준은 Hu와 Bentler(1999)의 CFI·TLI ≥ .95, RMSEA ≤ .06, SRMR ≤ .08(지수를 조합해 판단하자는 제안)이며, 이 기준을 모든 상황에 적용하는 ‘황금률’로 삼는 것에는 비판이 있습니다(Marsh 외, 2004).</li><li><strong>표준화 요인적재량</strong>과 그 유의성, 요인 간 상관(너무 높으면 요인 구분이 어려움)을 봅니다.</li><li><strong>수정지수</strong>가 큰 곳은 모형을 고칠 단서이지만, 이론적 근거 없이 자료에 맞추려고 계속 고치면 그 표본에만 맞는 모형이 됩니다.</li><li><strong>모형 비교</strong>: 중첩된 모형은 Δχ²검정을 쓰고, 측정 동일성에서는 ΔCFI ≤ .01을 변화 기준으로 쓰자는 제안이 있습니다(Cheung와 Rensvold, 2002).</li></ul><p>RMSEA는 대략 <code>√( max(χ² − df, 0) / (df·(N − 1)) )</code>로 계산됩니다(소프트웨어에 따라 N − 1 대신 N을 쓰기도 합니다). 위 가상 모형에서 N = 200, χ² = 14.2, df = 8이면 RMSEA ≈ 0.062입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>추정 방법(ML, 강건 ML, 순서형 자료의 WLSMV 등), 사용한 프로그램, 결측 처리, 적합도 지수 전부와 기준의 출처를 적습니다. (아래 수치는 형식을 보여 주려는 가상의 값이며, RMSEA만 위 식으로 계산했습니다.)</p><p><code>2요인 모형은 자료와 수용 가능한 수준으로 부합하였다(χ²(8) = 14.2, p = .077; CFI = .98, TLI = .97, RMSEA = 0.06 [90% CI .00, .11], SRMR = .03). 표준화 요인적재량은 .58~.81이었다.</code></p><ul><li>모형을 수정했다면 어떤 근거로 무엇을 바꿨는지, 수정 전 모형의 적합도도 함께 밝힙니다.</li><li>같은 자료에서 EFA로 구조를 정하고 같은 자료로 CFA를 하면 적합도가 부풀려집니다. 표본을 나눴는지 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "요인분석은 ‘구조를 미리 정하느냐’로 두 갈래입니다.",
+    "headers": [
+      "구분",
+      "탐색적 요인분석(EFA)",
+      "확인적 요인분석(CFA)"
+    ],
+    "rows": [
+      [
+        "요인 수·구조",
+        "자료에서 찾음",
+        "연구자가 미리 지정"
+      ],
+      [
+        "문항이 여러 요인에 적재",
+        "원칙적으로 모두 허용",
+        "지정하지 않은 적재는 0으로 고정"
+      ],
+      [
+        "주된 목적",
+        "[[exploratory-factor-analysis|구조의 탐색]], 문항 선별",
+        "가설화된 구조의 검증, 측정 동일성"
+      ],
+      [
+        "모형 적합도 검정",
+        "보통 없음(요인 수 판단용 지표는 있음)",
+        "χ², CFI, RMSEA 등으로 평가"
+      ]
+    ],
+    "note": "CFA에서 나온 적합도는 ‘이 구조가 맞다’는 증명이 아니라 ‘이 구조가 자료와 크게 어긋나지 않는다’는 증거입니다."
+  },
+  "references": [
+    "Jöreskog, K. G. (1969). A general approach to confirmatory maximum likelihood factor analysis. Psychometrika, 34(2), 183–202.",
+    "Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. Structural Equation Modeling, 6(1), 1–55.",
+    "Marsh, H. W., Hau, K.-T., & Wen, Z. (2004). In search of golden rules: Comment on hypothesis-testing approaches to setting cutoff values for fit indexes and dangers in overgeneralizing Hu and Bentler's (1999) findings. Structural Equation Modeling, 11(3), 320–341.",
+    "Cheung, G. W., & Rensvold, R. B. (2002). Evaluating goodness-of-fit indexes for testing measurement invariance. Structural Equation Modeling, 9(2), 233–255.",
+    "Brown, T. A. (2015). Confirmatory Factor Analysis for Applied Research (2nd ed.). Guilford Press."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/microplate-reader.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>마이크로플레이트 리더는 수십에서 수백 개의 시료를 동시에 정량적으로 비교할 수 있게 해주기 때문에, 세포독성 검사, 효소 활성 측정, 신약 후보물질 스크리닝 등 반복 실험이 많은 생명과학·의약학 연구에서 처리량(throughput)을 크게 높여주는 핵심 장비로 다뤄집니다.</p>
   <p>흡광도뿐 아니라 형광, 발광까지 다양한 방식으로 측정할 수 있어 ELISA, 세포생존율 검사(MTT assay), 리포터 유전자 분석 등 여러 실험 프로토콜에 공통적으로 활용됩니다. 자동화된 정량 측정이 가능하다는 점에서 대규모 화합물 라이브러리를 검사하는 고처리량 스크리닝 연구의 기반 장비로도 자주 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <p>마이크로플레이트 리더는 96, 384, 1536개 같은 작은 웰이 있는 플레이트의 각 웰에서 <strong>흡광도, 형광, 발광</strong> 가운데 하나 이상을 순서대로 읽는 장비입니다. 단백질 정량(BCA 등), ELISA(<a href="elisa.html">효소면역측정법</a>), 세포 생존율 시험 등 색 변화나 빛의 세기로 읽는 거의 모든 플레이트 분석에 쓰입니다.</p><ul><li><strong>흡광도</strong>: 시료를 통과한 빛의 감소량. 원리는 <a href="spectrophotometer.html">분광광도계</a>와 같지만 빛이 지나는 거리가 큐벳 1 cm가 아니라 웰 속 액체 높이라 시료 부피에 따라 달라집니다.</li><li><strong>형광</strong>: 특정 파장으로 들뜨게 한 뒤 방출되는 다른 파장의 빛을 읽습니다. 흔히 흡광도보다 미량을 민감하게 검출합니다(Lakowicz, 2006).</li><li><strong>발광</strong>: 효소 반응 등으로 스스로 내는 빛을 읽습니다.</li></ul>
+
+  <h2>구성과 채점</h2>
+  <ul><li><strong>구성</strong>: 광원(램프 또는 LED), 파장 선택부(필터 또는 단색기), 플레이트를 옮기는 스테이지, 검출기(광전자증배관 등), 온도 조절·진탕 기능. 여러 모드를 갖춘 다기능(multi-mode) 리더가 많습니다.</li><li><strong>플레이트 선택</strong>: 흡광도는 투명 바닥, 형광은 빛 번짐(크로스토크)을 막는 검은 플레이트, 발광은 빛을 모으는 흰 플레이트가 보통 쓰입니다.</li><li><strong>설정</strong>: 파장(예: 흡광 450 nm), 읽기 횟수, 진탕 여부, 시간에 따라 반복해 읽는 반응속도(kinetic) 모드.</li><li><strong>블랭크(시료가 없는 웰)</strong>의 값을 모든 웰에서 빼서 배경을 보정하고, 시료는 최소 2~3개의 반복 웰에 놓습니다. 가장자리 웰은 증발과 온도 차이로 값이 다를 수 있습니다.</li></ul>
+
+  <h2>결과 읽는 법</h2>
+  <p>읽은 값은 농도가 아니라 <strong>신호</strong>입니다. 농도를 아는 표준 시료로 <strong>표준곡선</strong>을 만들어 미지 시료를 역산합니다(<a href="calibration-curve.html">검량선</a>). 흡광도와 농도가 비례하는 구간(베르-람베르트 법칙)에서는 직선 회귀를 쓰고, ELISA처럼 곡선 모양이면 4-매개변수 로지스틱 같은 곡선 맞춤을 씁니다(Crowther, 2009).</p><p><strong>작은 예</strong>(가상). 표준 농도(µg/mL)와 읽은 흡광도입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>농도(µg/mL)</th><th>0</th><th>25</th><th>50</th><th>100</th><th>200</th></tr></thead><tbody><tr><td>원 흡광도</td><td>0.082</td><td>0.141</td><td>0.205</td><td>0.322</td><td>0.560</td></tr><tr><td>블랭크 보정 후</td><td>0.000</td><td>0.059</td><td>0.123</td><td>0.240</td><td>0.478</td></tr></tbody></table></div><p>보정 후 값에 직선을 맞추면 기울기 0.00239, 절편 0.0008, R² = 1.000입니다. 미지 시료의 원 흡광도가 0.268이면 블랭크 보정 후 0.186이므로 농도 = (0.186 − 0.0008) ÷ 0.00239 ≈ <strong>77.5 µg/mL</strong>입니다. 시료를 희석했다면 희석배수를 곱합니다. 표준 범위 밖의 값은 추정하지 않고 희석해 다시 측정합니다.</p><p><em>보고 예.</em> “흡광도는 마이크로플레이트 리더(파장 562 nm)로 읽었고, 블랭크를 뺀 값으로 BSA 표준곡선(0~200 µg/mL)에서 단백질 농도를 구하였다. 모든 시료는 3개 웰에 반복하였다.” (조건은 예시입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"ELISA 반응이 완료된 96웰 플레이트는 마이크로플레이트 리더를 이용해 450 nm 파장에서 흡광도를 측정하였다."</div>
   <p>이 문장은 "면역 반응 실험이 끝난 시료판을 장비에 넣어, 정해진 빛 파장에서 색깔이 얼마나 진한지를 기계로 자동 측정했다"는 뜻입니다. 흡광도 값은 이후 표준곡선과 비교해 시료 속 물질의 농도를 계산하는 데 사용됩니다.</p>
 
@@ -166,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>측정값은 플레이트마다, 실험 배치마다 미세하게 달라질 수 있으므로 시료가 들어 있지 않은 "블랭크" 홈의 값을 빼서 보정하고, 매번 장비를 정확한 파장으로 교정한 뒤 측정해야 합니다. 이 보정을 빠뜨리면 실제로는 같은 농도인 시료도 다른 수치로 읽혀 결과가 왜곡될 수 있습니다. 흡광도 측정의 기본 원리 자체는 <a href="spectrophotometer.html">분광광도계</a>와 같으며, 마이크로플레이트 리더는 이를 여러 시료에 동시에 적용할 수 있게 확장한 장비라고 볼 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>장비, 분석법, 신호의 종류를 서로 섞어 부르기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>마이크로플레이트 리더</strong></th><td>플레이트의 웰을 읽는 장비</td><td>여러 분석의 ‘읽는’ 단계를 맡음</td></tr><tr><th scope="row"><a href="spectrophotometer.html">분광광도계</a></th><td>큐벳 하나의 흡광도를 재는 장비</td><td>같은 흡광도 원리, 한 번에 한 시료</td></tr><tr><th scope="row"><a href="elisa.html">효소면역측정법(ELISA)</a></th><td>항원·항체 반응으로 물질을 정량하는 분석법</td><td>플레이트 리더로 결과를 읽는 대표적 분석</td></tr><tr><th scope="row"><a href="flow-cytometry.html">유세포분석</a></th><td>세포를 하나씩 통과시키며 형광을 재는 방법</td><td>세포 단위 측정. 웰 전체의 평균 신호를 읽는 리더와 다름</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lakowicz, J. R. (2006). Principles of Fluorescence Spectroscopy (3rd ed.). Springer.</li>
+    <li>Crowther, J. R. (2009). The ELISA Guidebook (2nd ed.). Humana Press.</li>
+    <li>Harris, D. C. (2015). Quantitative Chemical Analysis (9th ed.). W. H. Freeman.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
