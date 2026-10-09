@@ -1,0 +1,51 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>대표 식은 <strong>Paris–Erdogan 식</strong>: da/dN = C·(ΔK)<sup>m</sup>. a는 균열 길이, N은 하중 반복 횟수, ΔK는 응력확대계수 범위, C와 m은 재료·환경·응력비에 따른 실험 상수입니다.</li><li>ΔK = Y·Δσ·√(πa)로 쓰며, Y는 형상 계수, Δσ는 응력 범위입니다. 균열이 자랄수록 ΔK가 커지므로 성장 속도가 점점 빨라집니다.</li><li>성장 곡선은 보통 세 영역으로 나눕니다: I 영역(문턱 ΔK<sub>th</sub> 부근, 매우 느림), II 영역(log–log 그래프에서 직선, Paris 식이 잘 맞는 구간), III 영역(K<sub>max</sub>가 파괴인성 K<sub>c</sub>에 다가가 급가속).</li><li>금속에서 m은 흔히 2~4 범위로 보고됩니다(Anderson). III 영역과 응력비 R의 영향을 넣으려는 확장식으로 Forman 식이 있고, 균열 닫힘(crack closure)을 고려하는 접근(Elber)도 있습니다.</li><li>이 모델은 이미 있는 균열이 <em>자라는</em> 단계를 다룹니다. 균열이 처음 <em>생기는</em> 단계는 S-N 곡선이나 변형률–수명 접근이 다룹니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 값으로 계산해 보겠습니다. 한쪽 가장자리 균열(Y = 1.12로 일정 가정), Δσ = 100 MPa, C = 1×10<sup>−11</sup>(da/dN은 m/cycle, ΔK는 MPa√m), m = 3, 초기 균열 a<sub>0</sub> = 1 mm, 최종 a<sub>f</sub> = 10 mm.</p><ul><li>ΔK는 균열 1 mm에서 약 6.3, 10 mm에서 약 19.9 MPa√m입니다. 성장 속도는 약 2.5×10<sup>−9</sup>에서 7.8×10<sup>−8</sup> m/cycle로 30배 넘게 빨라집니다.</li><li>식을 적분하면 N = [a<sub>f</sub><sup>1−m/2</sup> − a<sub>0</sub><sup>1−m/2</sup>] / [C·(Y·Δσ·√π)<sup>m</sup>·(1−m/2)] 이고, 값은 약 5.5×10<sup>5</sup> 사이클입니다(수치 적분도 같은 값).</li><li>Δσ를 100에서 80 MPa로 낮추면 수명은 (100/80)<sup>3</sup> ≈ 1.95배가 됩니다. m이 클수록 응력 범위에 민감합니다.</li><li>최종 길이를 10 mm에서 5 mm로 줄여도 수명은 약 4.5×10<sup>5</sup> 사이클(약 19% 감소)에 그칩니다. 수명의 대부분은 균열이 작을 때 소비되므로 초기 균열 크기를 얼마로 보느냐가 더 큰 영향을 줍니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>Paris 식은 균열 성장 전 구간에 성립한다.</td><td>II 영역에서 잘 맞는 식입니다. 문턱 부근과 파괴 직전에는 직선에서 벗어나므로 확장식이나 별도 모형이 필요합니다.</td></tr><tr><td>C와 m은 재료의 고유 상수다.</td><td>응력비, 환경, 시험편 조건에 따라 달라지는 실험값이며, C의 단위는 m에 따라 바뀝니다. 조건이 다른 값을 그대로 가져다 쓰면 안 됩니다.</td></tr><tr><td>ΔK가 문턱값 아래면 균열이 절대 자라지 않는다.</td><td>ΔK<sub>th</sub>는 시험 조건에서 정한 실용적 기준이며, 짧은 균열이나 부식 환경에서는 더 낮은 ΔK에서도 성장이 보고됩니다.</td></tr><tr><td>이 모델로 피로 수명 전체를 예측할 수 있다.</td><td>균열 성장 수명만 계산합니다. 균열이 생기기까지의 수명은 포함되지 않습니다.</td></tr><tr><td>ΔK는 최대 응력으로 계산한다.</td><td>ΔK는 K<sub>max</sub>와 K<sub>min</sub>의 차이, 즉 응력 범위로 계산합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "피로 연구에는 단계와 도구가 서로 다른 용어가 모여 있습니다.",
+    "headers": [
+      "용어",
+      "다루는 것",
+      "대표 도구"
+    ],
+    "rows": [
+      [
+        "[[fatigue-crack-propagation-model|피로균열 전파 모델]]",
+        "균열이 얼마나 빨리 자라는지 예측하는 수식",
+        "Paris 식 등"
+      ],
+      [
+        "[[fatigue-crack-propagation|피로균열 전파]]",
+        "이미 생긴 균열이 주기마다 늘어나는 현상(단계)",
+        "성장 곡선 관찰"
+      ],
+      [
+        "[[fatigue-testing-s-n-curve|S-N 곡선]]",
+        "응력 크기별 파단까지의 사이클 수",
+        "피로시험"
+      ]
+    ]
+  },
+  "references": [
+    "Paris, P. C., & Erdogan, F. (1963). A critical analysis of crack propagation laws. Journal of Basic Engineering, 85(4), 528–533.",
+    "Paris, P. C., Gomez, M. P., & Anderson, W. E. (1961). A rational analytic theory of fatigue. The Trend in Engineering, 13(1).",
+    "Forman, R. G., Kearney, V. E., & Engle, R. M. (1967). Numerical analysis of crack propagation in cyclic-loaded structures. Journal of Basic Engineering, 89(3).",
+    "Elber, W. (1970). Fatigue crack closure under cyclic tension. Engineering Fracture Mechanics, 2(1), 37–45.",
+    "Anderson, T. L. (2017). Fracture Mechanics: Fundamentals and Applications (4th ed.). CRC Press.",
+    "Suresh, S. (1998). Fatigue of Materials (2nd ed.). Cambridge University Press."
+  ]
+}

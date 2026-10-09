@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>행위자기반모델링(ABM)은 시스템을 <strong>각자 상태와 규칙을 가진 개별 행위자</strong>의 집합으로 만들어, 행위자들의 상호작용에서 전체 패턴이 나타나는지를 컴퓨터로 실험하는 방법입니다. 위에서 평균을 내려보내는 방식이 아니라 아래에서 쌓아 올리는 접근입니다.</li><li>구성 요소: ① 행위자(위치, 속도, 정보 수준, 의사결정 규칙), ② 환경(공간, 장애물, 출구), ③ 상호작용 규칙(충돌 회피, 따라가기, 도움 행동), ④ 시간 진행 방식, ⑤ 관측 변수(대피 시간, 병목 위치, 밀도).</li><li>재난 연구에서는 대피, 군중 거동, 구호 자원 배분, 정보 확산에 쓰입니다. 군중 공황 연구의 사회력 모형(Helbing 등, 2000)이 대표적인 예입니다. 사회과학 쪽에서는 Schelling(1971)의 분리 모형이 ABM의 고전으로 꼽힙니다.</li><li>모형을 문서화하는 표준 틀로 ODD 프로토콜(개요, 설계 개념, 세부 항목)이 제안되어 있습니다(Grimm 등, 2010).</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 사람마다 속도, 지연, 정보가 달라서 평균값으로는 설명되지 않고, 상호작용(병목, 군집 행동)이 결과를 좌우할 때. 출구 폭, 안내 방식 같은 정책을 가상 실험할 때.</li><li><strong>무엇을 얻나</strong>: 평균이 아니라 분포(대기 시간의 최댓값, 병목 위치), 규칙의 작은 변화가 전체 결과에 주는 영향.</li><li><strong>한계</strong>: 결과는 행위자에게 부여한 규칙과 가정에 크게 좌우됩니다. 실제 행동 자료로 규칙을 정하고 검증하지 않으면 현실과 동떨어질 수 있습니다.</li></ul><p><strong>간단한 모의 실험(가상의 예).</strong> 200명이 출구 하나(초당 1명 통과)를 이용하고, 각자 출발 지연이 0~D초 사이에서 무작위, 출구까지 이동 시간이 10~30초 사이에서 무작위라고 합니다. 선착순으로 통과시키며 100회 반복한 평균입니다.</p><table><thead><tr><th>출발 지연 범위 D</th><th>전원 탈출 시간(평균)</th><th>가장 오래 기다린 사람의 대기(평균)</th><th>단순 합산식 추정*</th></tr></thead><tbody><tr><td>0초</td><td>약 210초</td><td>약 179초</td><td>220초</td></tr><tr><td>60초</td><td>약 215초</td><td>약 128초</td><td>250초</td></tr><tr><td>120초</td><td>약 218초</td><td>약 75초</td><td>280초</td></tr><tr><td>240초</td><td>약 265초</td><td>약 8초</td><td>340초</td></tr></tbody></table><p>*단순 합산식 = 평균 출발 지연 + 평균 이동 시간(20초) + 200명 ÷ 통과율. 지연이 분산되면 출발 지연과 문 앞 대기가 겹치기 때문에 단순 합산식은 탈출 시간을 크게 과대 추정합니다. 반면 지연 범위가 아주 넓어지면 출구가 비는 시간이 생겨 총 시간이 다시 늘어납니다. 평균만 쓰는 모형으로는 보기 어려운 이런 결과가 개별 행위자를 두는 이유입니다. 위 수치는 가정한 단순 모형의 결과입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>모형을 ODD 프로토콜 순서로 서술하고, 행위자 속성과 규칙의 근거(관측 자료, 선행연구)를 표로 제시합니다.</li><li>난수를 쓰면 반복 횟수와 시드, 결과의 분포(평균만이 아니라 표준편차나 구간)를 적습니다.</li><li>민감도 분석으로 어떤 가정이 결과를 크게 바꾸는지 보이고, 가능하면 실제 대피 훈련이나 실험 자료와 비교해 검증한 범위를 밝힙니다.</li><li>재난 상황의 심리 요인(공황 등)을 넣었다면 그 규칙이 어떤 자료에 근거했는지 명시하고, 일반화 한계를 서술합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "재난 모의 실험 용어는 대상과 접근 방식이 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇을 가리키나",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[agent-based-modeling-disaster|행위자기반모델링]]",
+        "개별 행위자의 규칙과 상호작용으로 전체 패턴을 보는 방법",
+        "접근 방식"
+      ],
+      [
+        "[[evacuation-simulation-model|대피 시뮬레이션 모형]]",
+        "사람들이 안전한 곳으로 이동하는 과정을 모의 실험",
+        "용도(ABM으로 구현하는 경우가 많음)"
+      ],
+      [
+        "[[traffic-microsimulation-evacuation|교통 미시 시뮬레이션(대피)]]",
+        "차량 단위의 대피 이동을 도로망에서 모의 실험",
+        "차량 중심의 개별 단위 모형"
+      ],
+      [
+        "[[disaster-simulation-modeling|재난 시뮬레이션 모델링]]",
+        "재난의 발생·전개·확산을 가상으로 재현",
+        "더 넓은 범주"
+      ]
+    ]
+  },
+  "references": [
+    "Macal, C. M., & North, M. J. (2010). Tutorial on agent-based modelling and simulation. Journal of Simulation, 4(3).",
+    "Helbing, D., Farkas, I., & Vicsek, T. (2000). Simulating dynamical features of escape panic. Nature, 407.",
+    "Schelling, T. C. (1971). Dynamic models of segregation. Journal of Mathematical Sociology, 1(2).",
+    "Grimm, V., Berger, U., DeAngelis, D. L., Polhill, J. G., Giske, J., & Railsback, S. F. (2010). The ODD protocol: A review and first update. Ecological Modelling, 221(23).",
+    "Epstein, J. M., & Axtell, R. (1996). Growing Artificial Societies: Social Science from the Bottom Up. Brookings Institution Press and MIT Press."
+  ]
+}
