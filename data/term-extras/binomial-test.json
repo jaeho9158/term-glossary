@@ -1,0 +1,60 @@
+{
+  "type": "test",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "비율과 이분형 자료를 다루는 검정이 여럿 있습니다.",
+    "headers": [
+      "검정",
+      "언제 쓰나",
+      "비교 대상"
+    ],
+    "rows": [
+      [
+        "[[binomial-test|이항검정]]",
+        "성공/실패 자료 하나를 정확한 확률로",
+        "표본 하나의 비율 vs 기준 비율 p0"
+      ],
+      [
+        "[[sign-test|부호검정]]",
+        "대응 자료의 부호만 쓰는 비모수 검정",
+        "이항검정에서 p0 = 0.5인 특수한 경우"
+      ],
+      [
+        "[[normal-approximation-to-binomial|정규근사 z검정]]",
+        "표본이 충분히 클 때의 근사",
+        "표본 하나의 비율, 근사 방법"
+      ],
+      [
+        "[[chi-square-goodness-of-fit-test|카이제곱 적합도검정]]",
+        "범주가 셋 이상이어도 되는 적합도",
+        "관찰 분포 vs 기대 분포"
+      ],
+      [
+        "[[fishers-exact-test|피셔의 정확검정]]",
+        "2×2 표에서 두 집단 비교",
+        "두 집단의 연관"
+      ]
+    ]
+  },
+  "references": [
+    "Clopper, C. J., & Pearson, E. S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika, 26(4), 404–413.",
+    "Agresti, A., & Coull, B. A. (1998). Approximate is better than \"exact\" for interval estimation of binomial proportions. The American Statistician, 52(2), 119–126.",
+    "Brown, L. D., Cai, T. T., & DasGupta, A. (2001). Interval estimation for a binomial proportion. Statistical Science, 16(2), 101–133.",
+    "Conover, W. J. (1999). Practical Nonparametric Statistics (3rd ed.). Wiley.",
+    "Agresti, A. (2013). Categorical Data Analysis (3rd ed.). Wiley."
+  ],
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<ul><li>결과가 <strong>성공/실패 두 가지뿐</strong>인 독립 시행 n번에서, 관찰된 성공 횟수가 가정한 성공 확률 p<sub>0</sub>와 맞는지 검정할 때 씁니다(예: 합격률이 기준 비율과 다른가, 불량률이 기준값을 넘는가).</li><li>이항분포로 p값을 직접 계산하는 <strong>정확검정</strong>이라 표본이 작아도 쓸 수 있고, 정규근사([[normal-approximation-to-binomial|이항분포의 정규근사]])가 어긋나기 쉬운 p<sub>0</sub>가 0이나 1에 가까울 때도 안전한 선택입니다.</li><li>p<sub>0</sub> = 0.5이면 [[sign-test|부호검정]]과 같은 계산이 됩니다.</li><li><strong>집단 둘을 비교</strong>하는 문제에는 쓰지 않습니다. 이때는 [[fishers-exact-test|피셔의 정확검정]]이나 카이제곱검정을 씁니다.</li><li>가정: 시행이 서로 독립이고 성공 확률이 매번 같다는 점. 같은 사람을 여러 번 관찰해 모두 표본 크기로 세면 독립성이 깨집니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 자료로 읽어 봅니다. 40명 중 18명이 반응했고(관찰 비율 0.45), 기준 비율은 p<sub>0</sub> = 0.3입니다. 기대 성공 횟수는 12입니다(코드로 계산).</p>\n<table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>\n<tr><td>단측 p (P(X ≥ 18))</td><td>.032</td></tr>\n<tr><td>양측 p, 확률이 관찰값 이하인 결과를 모두 합산(R의 binom.test 방식)</td><td>.056</td></tr>\n<tr><td>양측 p, 작은 쪽 꼬리를 2배(많은 책의 방식)</td><td>.064</td></tr>\n<tr><td>95% 클로퍼–피어슨 신뢰구간</td><td>.293 ~ .615</td></tr>\n<tr><td>참고: 정규근사 z검정(연속성 보정 없음) 양측 p</td><td>z = 2.07, p = .038</td></tr></tbody></table>\n<ul><li>p<sub>0</sub> = 0.3은 신뢰구간 안에 있고(하한 .293), 양측 p는 .05보다 약간 큽니다. 두 결과가 서로 일치합니다.</li><li>양측 p의 정의가 둘이라 .056와 .064처럼 값이 다릅니다. p<sub>0</sub>가 0.5가 아니면 분포가 비대칭이기 때문입니다. 어느 방식인지 적어야 합니다.</li><li>정규근사는 p = .038로 .05 아래라 정확검정과 결론이 달라집니다. 표본이 작고 p<sub>0</sub>가 치우쳐 있을 때 근사 대신 정확검정을 쓰는 이유입니다.</li><li>정확검정은 일반적으로 보수적이어서 실제 제1종 오류율이 명목 수준보다 낮게 나옵니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>검정 이름(<strong>정확 이항검정</strong>), 귀무가설의 p<sub>0</sub>와 그 근거(사전에 정한 기준값인지), 대립가설의 방향(양측/단측)</li><li>n, 성공 횟수 k(관찰 비율), p값, 그리고 <strong>신뢰구간</strong>(보통 클로퍼–피어슨 정확 구간)</li><li>양측 p의 계산 방식, 사용한 소프트웨어</li></ul>\n<p>예: “40명 중 18명(45%)이 반응하였고, 기준 비율 .30과의 정확 이항검정 결과 p = .056 (양측), 95% CI [.293, .615]였다.” 단측검정을 쓴다면 방향을 자료를 보기 전에 정했음을 밝힙니다.</p>"
+    }
+  ]
+}

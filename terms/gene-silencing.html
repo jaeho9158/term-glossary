@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,32 @@
   <h2>왜 중요한가</h2>
   <p>유전자 사일런싱은 특정 유전자가 없어졌을 때 세포나 생물체에 어떤 변화가 생기는지 관찰함으로써 그 유전자의 기능을 밝히는 데 널리 쓰입니다. 또한 질병을 유발하는 유전자의 발현을 억제하는 치료 전략의 기반이 되기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>전사 수준 사일런싱</strong>: DNA 메틸화나 히스톤 변형으로 염색질이 닫혀 유전자가 아예 읽히지 않는 경우입니다(<a href="dna-methylation.html">DNA 메틸화</a>, <a href="epigenetics.html">후성유전학</a>).</li><li><strong>전사 후 수준 사일런싱</strong>: 이미 만들어진 mRNA를 소간섭RNA(siRNA)나 마이크로RNA가 분해하거나 번역을 막는 경우입니다(<a href="rna-interference.html">RNA 간섭</a>).</li><li>자연에서도 일어납니다. 1990년 페튜니아에 색소 합성 유전자를 더 넣었더니 오히려 꽃 색이 옅어지는 “공억제(co-suppression)”가 관찰되었고(Napoli et al., 1990), 이후 이중가닥 RNA가 유전자 발현을 억제하는 RNA 간섭이 선충에서 규명되었습니다(Fire et al., 1998).</li><li>실험에서는 siRNA·shRNA(RNA 간섭), 안티센스 올리고뉴클레오티드, 그리고 DNA를 자르지 않고 전사만 막는 <a href="crispr-interference.html">크리스퍼 간섭</a>이 대표 도구입니다(Qi et al., 2013).</li><li>핵심은 <strong>유전체의 염기서열은 그대로 두고 발현만 줄인다</strong>는 점이며, 효과는 보통 정도와 지속 시간이 정해져 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>사일런싱 효과는 흔히 정량 PCR의 2<sup>−ΔΔCt</sup> 방법(Livak &amp; Schmittgen, 2001)으로 보고합니다. 아래는 가상의 Ct 값입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시료</th><th>표적 유전자 Ct</th><th>기준 유전자 Ct</th><th>ΔCt(표적−기준)</th></tr></thead><tbody><tr><td>대조 siRNA</td><td>24.0</td><td>18.0</td><td>6.0</td></tr><tr><td>표적 siRNA</td><td>26.0</td><td>18.2</td><td>7.8</td></tr></tbody></table></div>
+  <p>ΔΔCt = 7.8 − 6.0 = 1.8이므로 상대 발현량은 2<sup>−1.8</sup> ≈ 0.29입니다. 즉 대조 대비 mRNA가 약 71% 줄어든 것으로 읽습니다. 이 계산은 두 유전자의 증폭 효율이 비슷하다는 가정을 깔고 있습니다.</p>
+  <p>mRNA가 줄었다고 단백질이 같은 비율로 줄었다는 뜻은 아닙니다. 단백질 반감기가 길면 줄어드는 데 시간이 걸리므로, 보통 웨스턴 블롯 등으로 단백질 수준을 따로 확인합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody>
+  <tr><td>사일런싱은 유전자를 없애는 것이다.</td><td>발현을 줄일 뿐 서열은 남아 있어 잔여 발현이 있고 효과가 가역적일 수 있습니다. 유전자를 영구히 망가뜨리는 것은 녹아웃이며, 크리스퍼-카스9처럼 DNA를 자르는 방법이 대표적입니다(<a href="crispr-cas9.html">크리스퍼-카스9</a>).</td></tr>
+  <tr><td>siRNA 하나로 표현형이 나오면 그 유전자 기능이 증명된다.</td><td>의도하지 않은 유전자까지 억제하는 오프타깃 효과가 있을 수 있습니다. 서로 다른 서열의 siRNA 여러 개, 대조 siRNA, 가능하면 구제(rescue) 실험으로 확인하는 것이 권고됩니다.</td></tr>
+  <tr><td>mRNA가 줄면 곧 기능이 사라진다.</td><td>단백질 안정성과 잔여 활성에 따라 표현형이 늦게 나타나거나 약할 수 있습니다.</td></tr>
+  <tr><td>효과는 영구적이다.</td><td>siRNA는 세포가 분열하면서 희석되어 며칠 안에 약해집니다. 오래 유지하려면 shRNA 발현 벡터 등을 쓰지만 그 경우도 침묵 정도는 계대에 따라 변할 수 있습니다.</td></tr>
+  </tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"Gene silencing was achieved using siRNA duplexes targeting the 3' untranslated region of the mRNA."</div>
   <p>mRNA의 3' 비번역 영역을 표적으로 하는 siRNA 이중가닥을 이용해 유전자 사일런싱을 달성했다는 의미입니다.</p>
   <div class="example">"Stable gene silencing of the target locus was maintained through shRNA-mediated knockdown over multiple passages."</div>
@@ -163,6 +189,21 @@
 
   <h2>주의할 점</h2>
   <p>siRNA나 shRNA를 이용한 사일런싱은 완전한 유전자 제거가 아니라 발현량을 줄이는 것이므로, 잔여 발현이 실험 결과에 영향을 줄 수 있습니다. 또한 의도한 표적 외의 유전자에도 영향을 미치는 오프타깃 효과가 발생할 수 있어 대조군 설계가 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>유전자 발현을 낮추는 방법들은 이름이 비슷하지만 대상 수준이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">작용 수준</th><th scope="col">유전체 서열 변화</th><th scope="col">지속성</th></tr></thead><tbody><tr><th scope="row"><strong>유전자 사일런싱</strong></th><td>전사 또는 전사 후 단계에서 발현 억제를 통칭</td><td>없음(방법에 따라 후성유전적 표지만 변함)</td><td>방법에 따라 일시적~장기</td></tr><tr><th scope="row"><a href="rna-interference.html">RNA 간섭(RNAi)</a></th><td>mRNA 분해·번역 억제(전사 후)</td><td>없음</td><td>siRNA는 일시적, shRNA는 장기 가능</td></tr><tr><th scope="row"><a href="crispr-interference.html">크리스퍼 간섭(CRISPRi)</a></th><td>dCas9가 DNA에 붙어 전사 억제(전사 수준)</td><td>없음(DNA를 자르지 않음)</td><td>유도 가능, 가역적</td></tr><tr><th scope="row"><a href="crispr-cas9.html">크리스퍼-카스9 녹아웃</a></th><td>DNA를 절단해 유전자를 파괴</td><td>있음(삽입·결실 등)</td><td>영구적</td></tr><tr><th scope="row"><a href="morpholino-knockdown.html">모르폴리노 넉다운</a></th><td>안티센스 올리고로 번역·스플라이싱 차단</td><td>없음</td><td>일시적</td></tr></tbody></table></div>
+  <p class="te-note">‘넉다운(knockdown)’은 발현을 줄이는 방법, ‘녹아웃(knockout)’은 유전자를 망가뜨리는 방법을 가리키는 것이 일반적입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fire, A., Xu, S., Montgomery, M. K., Kostas, S. A., Driver, S. E., &amp; Mello, C. C. (1998). Potent and specific genetic interference by double-stranded RNA in Caenorhabditis elegans. Nature, 391, 806–811.</li>
+    <li>Napoli, C., Lemieux, C., &amp; Jorgensen, R. (1990). Introduction of a chimeric chalcone synthase gene into petunia results in reversible co-suppression of homologous genes in trans. The Plant Cell, 2(4), 279–289.</li>
+    <li>Livak, K. J., &amp; Schmittgen, T. D. (2001). Analysis of relative gene expression data using real-time quantitative PCR and the 2−ΔΔCT method. Methods, 25(4), 402–408.</li>
+    <li>Qi, L. S., Larson, M. H., Gilbert, L. A., Doudna, J. A., Weissman, J. S., Arkin, A. P., &amp; Lim, W. A. (2013). Repurposing CRISPR as an RNA-guided platform for sequence-specific control of gene expression. Cell, 152(5), 1173–1183.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="small-interfering-rna.html">소간섭RNA</a><a href="antisense-oligonucleotide.html">안티센스 올리고뉴클레오티드</a><a href="short-hairpin-rna.html">짧은머리핀RNA</a></div></div><p class="concept-family-map"><a href="../concept-map/biotech.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

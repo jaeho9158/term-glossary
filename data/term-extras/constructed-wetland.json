@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "습지와 관련된 용어는 목적이 다릅니다.",
+    "headers": [
+      "용어",
+      "성격",
+      "목적"
+    ],
+    "rows": [
+      [
+        "[[constructed-wetland|인공습지]]",
+        "사람이 설계한 처리 시설",
+        "물 정화"
+      ],
+      [
+        "[[wetland-ecosystem|습지 생태계]]",
+        "자연적으로 형성된 습지",
+        "생태계 기능과 보전"
+      ],
+      [
+        "[[nonpoint-source-pollution|비점오염원]]",
+        "오염 발생원의 종류",
+        "인공습지가 줄이려는 대상"
+      ]
+    ]
+  },
+  "references": [
+    "Kadlec, R. H., & Wallace, S. D. (2009). Treatment Wetlands (2nd ed.). CRC Press.",
+    "Vymazal, J. (2011). Constructed wetlands for wastewater treatment: Five decades of experience. Environmental Science & Technology, 45(1), 61–69.",
+    "Vymazal, J. (2007). Removal of nutrients in various types of constructed wetlands. Science of the Total Environment, 380(1–3), 48–65.",
+    "Brix, H. (1997). Do macrophytes play a role in constructed treatment wetlands? Water Science and Technology, 35(5), 11–17."
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>인공습지는 습지 식물, 토양·자갈 같은 기질, 미생물의 작용을 이용해 물을 정화하도록 <strong>사람이 설계해 만든 시설</strong>입니다. 흐름 방식에 따라 크게 나눕니다.</p>\n<ul><li><strong>표면흐름형(FWS)</strong>: 물이 식물 사이로 지표 위를 흐릅니다.</li><li><strong>수평 지하흐름형(HF)</strong>: 물이 기질 아래를 수평으로 지나갑니다.</li><li><strong>수직 흐름형(VF)</strong>: 물이 기질을 위에서 아래로 통과해 산소 공급이 좋습니다.</li><li><strong>복합형</strong>: 위 형식을 조합해 질소 제거 등을 높입니다(Vymazal, 2011).</li></ul>\n<p>정화는 침강·여과, 기질에 흡착·침전(인), 미생물의 분해와 질산화–탈질(질소), 식물의 영양염류 흡수가 복합적으로 일으킵니다(Brix, 1997; Vymazal, 2007). 질산화는 산소가, 탈질은 산소가 적은 조건이 필요해서 형식마다 질소 제거 성능이 다릅니다. 설계 변수는 체류시간과 수리학적 부하(단위 면적당 유입 유량), 오염물질 부하입니다. 전처리로 침전조를 두는 경우가 많습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>에너지와 약품 투입이 적어 <strong>소규모 하수, 농촌 비점오염 저감([[nonpoint-source-pollution|비점오염원]]), 하수처리장 방류수의 마무리 처리</strong>에 쓰입니다. 오염 제거와 함께 생물서식처, 경관 기능을 겸하는 점도 장점으로 꼽힙니다([[wetland-ecosystem|습지 생태계]]와 달리 처리 기능을 목적으로 설계했다는 점이 다릅니다).</p>\n<p>한계는 넓은 부지가 필요하고, 계절(수온, 식생 생장 주기)과 유입 부하 변동에 효율이 흔들리며, 인은 기질이 포화되면 오히려 용출될 수 있다는 점입니다. 식생 관리와 퇴적물 준설 같은 유지관리도 필요합니다. 설계에는 흔히 배경 농도를 둔 1차 반응 모형을 씁니다. 아래는 플러그 흐름을 가정한 k–C* 꼴이고, 여기에 직렬 탱크 수 P를 더한 것이 P-k-C* 모형입니다(Kadlec &amp; Wallace, 2009): C<sub>out</sub> = C* + (C<sub>in</sub> − C*)·exp(−k/q). C*는 도달 가능한 배경 농도, k는 면적 기준 속도상수, q는 수리학적 부하입니다. 가상의 값(k = 30 m/yr, C* = 0.5 mg/L, C<sub>in</sub> = 5 mg/L, 유량 100 m³/일)으로 계산했습니다(코드로 계산).</p>\n<table><thead><tr><th>부하 q (m/yr)</th><th>필요 면적 (m²)</th><th>유출 농도 (mg/L)</th><th>농도 제거율</th></tr></thead><tbody><tr><td>25</td><td>1,460</td><td>1.86</td><td>63%</td></tr><tr><td>50</td><td>730</td><td>2.97</td><td>41%</td></tr><tr><td>100</td><td>365</td><td>3.83</td><td>23%</td></tr><tr><td>200</td><td>183</td><td>4.37</td><td>13%</td></tr></tbody></table>\n<p>같은 유량이면 부하를 키울수록(면적을 줄일수록) 제거율이 떨어집니다. 면적을 줄이는 비용 절감이 성능 저하로 이어진다는 점을 숫자로 확인하게 해 줍니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>시설 정보: 형식, 면적과 깊이, 기질, 식생, 유입수 성상과 유량, <strong>체류시간과 수리학적 부하</strong></li><li>제거효율: (유입 − 유출) ÷ 유입으로 쓰는 <strong>농도 기준 효율</strong>과 단위 면적당 제거량(g/m²/일) 같은 <strong>질량 기준 효율</strong>을 구분합니다. 증발산으로 물이 줄면 유출수가 농축되어 농도 효율이 질량 효율보다 작게 나올 수 있습니다.</li><li>연평균만 제시하지 말고 <strong>계절별</strong>(특히 겨울철 질소) 자료와 시료 채취 빈도, 평균 방식(유량 가중 여부)을 적습니다.</li><li>인 제거는 기질 포화 가능성이 있으므로 장기 운전 자료가 필요합니다.</li></ul>"
+    }
+  ]
+}

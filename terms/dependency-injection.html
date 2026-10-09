@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/dependency-injection.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,26 @@
   <h2>왜 중요한가</h2>
   <p>소프트웨어공학 논문에서 의존성 주입은 단위 테스트 가능성, 유지보수성, 모듈 재사용성을 논할 때 빠지지 않는 개념입니다. 대규모 시스템일수록 모듈 간 결합도가 낮아야 요구사항 변경이나 컴포넌트 교체에 유연하게 대응할 수 있기 때문에, 마이크로서비스 아키텍처나 프레임워크 설계 연구에서 핵심 설계 원리로 다뤄집니다. 또한 자동화된 테스트, 지속적 통합(CI) 파이프라인의 신뢰성을 높이는 실무적 기반으로도 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>의존 대상을 추상(인터페이스)으로 정의합니다.</strong> 예컨대 “저장소”라는 인터페이스만 정해 두고 실제로 데이터베이스인지 파일인지는 구분하지 않습니다.</li><li><strong>사용하는 객체는 그 의존 대상을 스스로 만들지 않고 밖에서 받습니다.</strong> 받는 방식이 세 가지입니다. 생성자 주입(객체를 만들 때 인수로 받음), 세터 주입(만든 뒤 메서드로 설정), 인터페이스 주입(Fowler, 2004). 객체가 완성될 때 의존 관계가 확정되는 생성자 주입이 널리 권장됩니다.</li><li><strong>조립은 한 곳에서 합니다.</strong> 프로그램 시작 지점이나 DI 컨테이너(스프링, 대거, Hilt 등 프레임워크)가 어떤 구현을 연결할지 정하고 주입합니다(Seemann &amp; van Deursen, 2019).</li><li>테스트에서는 실제 구현 대신 가짜(목, 스텁) 객체를 주입해 <a href="unit-testing.html">단위 테스트</a>를 합니다.</li></ol>
+  <p>의존성 주입은 ‘제어의 역전(IoC)’의 한 형태입니다. 객체가 자기 부품을 직접 고르는 제어를 바깥으로 넘긴다는 뜻입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>얻는 것은 <strong>결합도 낮추기, 교체 가능성, 테스트 용이성</strong>입니다(<a href="cohesion-and-coupling.html">응집도와 결합도</a>). 구현을 바꿔도 사용하는 쪽 코드를 고치지 않아도 되고, 테스트 때 데이터베이스나 네트워크 없이 모듈을 검증할 수 있습니다. 의존성 역전 원칙(고수준 모듈이 저수준 구현이 아닌 추상에 의존해야 한다는 원칙)을 실현하는 대표 수단으로 설명됩니다(Martin, 2003).</p>
+  <p>비용도 있습니다. 코드가 어디서 어떻게 조립되는지 한눈에 보기 어려워지고, 컨테이너 설정이 복잡해지며, 순환 의존이나 설정 오류가 실행 시점에야 드러날 수 있습니다. 의존이 단순하고 바뀔 일이 없는 작은 프로그램에서는 과한 설계가 될 수 있습니다. 필요한 곳에 쓰는 설계 기법이지 그 자체가 목적은 아닙니다(<a href="software-design-pattern.html">디자인 패턴</a>).</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>어떤 <strong>주입 방식</strong>(생성자/세터/인터페이스)과 어떤 컨테이너·프레임워크(이름과 버전)를 썼는지</li><li>어떤 객체가 어떤 구현으로 조립되는지를 보이는 <strong>구성도</strong>와, 테스트에서 가짜 객체로 바꾼 방법</li><li>효과를 말할 때의 <strong>측정 지표</strong>: 결합도 지표, 테스트 커버리지, 변경 시 수정 범위, 실행 시간·메모리 오버헤드 등 무엇을 비교했는지</li><li>DI를 쓰지 않은 대조 구현과 비교했는지, 비교했다면 같은 기능 조건인지</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"테스트 용이성을 높이기 위해 의존성 주입 패턴을 적용하여, 실제 데이터베이스 연결 없이도 각 모듈을 목(mock) 객체로 손쉽게 교체하며 검증할 수 있도록 시스템을 설계했다."</div>
   <p>이 문장은 모듈이 사용할 부품(예: 데이터베이스 연결)을 코드 내부에서 직접 만들지 않고 외부에서 전달받게 만들어서, 테스트할 때는 가짜 부품으로 손쉽게 바꿔 끼울 수 있었다는 뜻입니다.</p>
 
@@ -168,6 +188,20 @@
 
   <h2>주의할 점</h2>
   <p>의존성 주입은 코드 간 결합도를 낮추는 대표적인 <a href="software-design-pattern.html">디자인 패턴</a>이지만, 무분별하게 남용하면 어떤 부품이 어디서 어떻게 조립되는지 한눈에 파악하기 어려워지고 설정(configuration)이 복잡해질 수 있습니다. 이는 <a href="oop-four-principles.html">객체지향 프로그래밍의 4대 원칙</a> 중 캡슐화·추상화를 지키기 위한 수단이지, 그 자체가 목적은 아니라는 점을 기억해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷한 말이 여러 개 섞여 쓰입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">의존성 주입과의 관계</th></tr></thead><tbody><tr><th scope="row"><strong>의존성 주입(DI)</strong></th><td>필요한 객체를 밖에서 전달받게 하는 기법</td><td>—</td></tr><tr><th scope="row">제어의 역전(IoC)</th><td>객체 생성·연결의 제어를 프레임워크나 바깥에 넘기는 원리</td><td>DI는 IoC를 구현하는 한 방법</td></tr><tr><th scope="row">서비스 로케이터</th><td>객체가 중앙 저장소에 스스로 의존 대상을 요청</td><td>주입이 아니라 ‘끌어오기’이며 대안으로 비교됨(Fowler, 2004)</td></tr><tr><th scope="row"><a href="unit-testing.html">단위 테스트</a></th><td>작은 단위를 따로 검증하는 테스트</td><td>DI가 가짜 객체 교체를 쉽게 해 줌</td></tr><tr><th scope="row"><a href="cohesion-and-coupling.html">결합도</a></th><td>모듈이 서로 얼마나 얽혀 있는가</td><td>DI가 낮추려는 대상</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fowler, M. (2004). Inversion of Control Containers and the Dependency Injection pattern [online article].</li>
+    <li>Seemann, M., &amp; van Deursen, S. (2019). Dependency Injection Principles, Practices, and Patterns. Manning.</li>
+    <li>Martin, R. C. (2003). Agile Software Development: Principles, Patterns, and Practices. Prentice Hall.</li>
+    <li>Gamma, E., Helm, R., Johnson, R., &amp; Vlissides, J. (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

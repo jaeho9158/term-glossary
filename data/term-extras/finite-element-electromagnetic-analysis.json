@@ -1,0 +1,60 @@
+{
+  "type": "method",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "전자기장을 수치로 푸는 방법들은 쓰임새가 다릅니다.",
+    "headers": [
+      "방법",
+      "풀이 대상",
+      "강점",
+      "주로 쓰는 문제"
+    ],
+    "rows": [
+      [
+        "[[finite-element-electromagnetic-analysis|유한요소 전자기 해석]]",
+        "영역 전체를 요소로 나눈 장(場)",
+        "복잡한 형상, 비선형·비균질 재료",
+        "전동기, 변압기, 센서 설계"
+      ],
+      [
+        "[[finite-difference-time-domain-method|시간영역 유한차분법(FDTD)]]",
+        "격자 위에서 시간을 전진시키는 장",
+        "넓은 주파수 대역을 한 번의 계산으로 얻음",
+        "고주파, 전파 전파, 마이크로파 구조"
+      ],
+      [
+        "[[method-of-moments-antenna-analysis|모멘트법]]",
+        "표면 전류(경계에서의 적분방정식)",
+        "열린 영역과 방사 문제에 자연스러움",
+        "안테나, 산란"
+      ],
+      [
+        "[[finite-element-method|구조 유한요소해석]]",
+        "변위·응력 등 역학량",
+        "같은 요소법의 틀을 공유함",
+        "구조물의 강도·변형"
+      ]
+    ],
+    "note": "구조 유한요소해석과 같은 수학적 틀이지만 미지수와 지배방정식이 다릅니다."
+  },
+  "references": [
+    "Jin, J.-M. (2014). The Finite Element Method in Electromagnetics (3rd ed.). Wiley-IEEE Press.",
+    "Bastos, J. P. A., & Sadowski, N. (2003). Electromagnetic Modeling by Finite Element Methods. Marcel Dekker.",
+    "Silvester, P. P., & Ferrari, R. L. (1996). Finite Elements for Electrical Engineers (3rd ed.). Cambridge University Press.",
+    "Salon, S. J. (1995). Finite Element Analysis of Electrical Machines. Kluwer Academic Publishers."
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>문제 정의</strong>: 해석 영역, 재료(투자율·도전율·B–H 곡선), 전류·전압·자석 같은 가진(excitation)을 정합니다.</li><li><strong>지배방정식 고르기</strong>: 정자기(시간에 따라 변하지 않는 자기장), 와전류를 포함하는 준정적 해석, 시간 영역 과도해석, 고주파 전파 해석 등 문제에 맞는 맥스웰 방정식 꼴을 택합니다([[maxwells-equations|맥스웰 방정식]]). 2차원 정자기에서는 자기벡터퍼텐셜의 한 성분만 미지수로 두는 경우가 흔합니다.</li><li><strong>요소망(mesh) 생성</strong>: 영역을 삼각형(2차원)이나 사면체(3차원) 요소로 나눕니다. 공극이나 모서리처럼 자속이 급변하는 곳은 더 조밀하게 합니다. 3차원 벡터장에서는 불필요한 가짜 해를 피하기 위해 변(edge)에 자유도를 두는 요소를 쓰는 것이 일반적입니다(Jin, 2014).</li><li><strong>경계조건</strong>: 자속이 경계에 평행하거나 수직인 조건, 회전기에서 한 극만 떼어 해석하기 위한 주기·반주기 조건 등을 줍니다.</li><li><strong>풀이</strong>: 포화되는 철심은 비선형이므로 반복법(뉴턴–랩슨 등)으로 수렴할 때까지 계산합니다.</li><li><strong>후처리</strong>: 자속밀도 분포, 토크(맥스웰 응력 텐서나 가상일 원리), 인덕턴스, 손실 등을 계산합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>해석적으로 풀기 어려운 <strong>복잡한 형상과 재료 비선형성</strong>이 있을 때 쓰입니다. 전동기·변압기·발전기·액추에이터의 설계 단계에서 시제품 없이 토크 리플, [[cogging-torque-reduction|코깅토크]], 자속 포화, 손실을 예측하고 구조 변경의 효과를 비교하는 것이 대표적인 용도입니다. 얻는 결과는 필드 분포(그림)와 그로부터 적분한 집약 양(토크, 쇄교자속, 인덕턴스)입니다.</p>\n<p>다른 수치 방법과의 선택은 문제에 달려 있습니다. 복잡한 형상과 비균질·비선형 재료에는 유한요소법이 유리하고, 공간 전체를 균일 격자로 나누어 시간을 전진시키는 [[finite-difference-time-domain-method|시간영역 유한차분법]]은 고주파 전파 문제에 많이 쓰이며, 안테나 표면 전류를 미지수로 두는 [[method-of-moments-antenna-analysis|모멘트법]]은 열린 영역의 방사 문제에 자주 쓰입니다. 유한요소법에서는 해석 영역을 유한하게 잘라야 하므로 열린 영역은 충분히 큰 영역을 잡거나 흡수 경계·무한요소 같은 처리가 필요합니다. 3차원 해석은 계산량이 크게 늘어납니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>결과를 다른 연구가 재현하고 검토하려면 다음을 밝혀야 합니다.</p>\n<ul><li>사용한 해석 방식(소프트웨어와 버전, 2차원/3차원, 정자기/준정적/과도)과 지배방정식의 종류</li><li>요소 종류와 개수, 공극 같은 핵심 부위의 요소 크기, 요소망을 촘촘히 했을 때 결과(토크 등)가 더 이상 달라지지 않음을 보인 <strong>수렴 확인</strong>([[finite-element-method|유한요소법 일반]]에서도 같은 요구입니다)</li><li>재료 물성(B–H 곡선의 출처), 경계조건, 시간 영역이면 시간 간격</li><li>측정 결과나 다른 해석값과 비교한 <strong>검증</strong>(오차의 크기와 조건)</li></ul>\n<p>설계 변경 효과를 말할 때는 요소망 오차가 변경 효과보다 작은지 함께 확인해야 합니다.</p>"
+    }
+  ]
+}

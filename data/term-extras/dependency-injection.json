@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "비슷한 말이 여러 개 섞여 쓰입니다.",
+    "headers": [
+      "용어",
+      "의미",
+      "의존성 주입과의 관계"
+    ],
+    "rows": [
+      [
+        "[[dependency-injection|의존성 주입(DI)]]",
+        "필요한 객체를 밖에서 전달받게 하는 기법",
+        "—"
+      ],
+      [
+        "제어의 역전(IoC)",
+        "객체 생성·연결의 제어를 프레임워크나 바깥에 넘기는 원리",
+        "DI는 IoC를 구현하는 한 방법"
+      ],
+      [
+        "서비스 로케이터",
+        "객체가 중앙 저장소에 스스로 의존 대상을 요청",
+        "주입이 아니라 ‘끌어오기’이며 대안으로 비교됨(Fowler, 2004)"
+      ],
+      [
+        "[[unit-testing|단위 테스트]]",
+        "작은 단위를 따로 검증하는 테스트",
+        "DI가 가짜 객체 교체를 쉽게 해 줌"
+      ],
+      [
+        "[[cohesion-and-coupling|결합도]]",
+        "모듈이 서로 얼마나 얽혀 있는가",
+        "DI가 낮추려는 대상"
+      ]
+    ]
+  },
+  "references": [
+    "Fowler, M. (2004). Inversion of Control Containers and the Dependency Injection pattern [online article].",
+    "Seemann, M., & van Deursen, S. (2019). Dependency Injection Principles, Practices, and Patterns. Manning.",
+    "Martin, R. C. (2003). Agile Software Development: Principles, Patterns, and Practices. Prentice Hall.",
+    "Gamma, E., Helm, R., Johnson, R., & Vlissides, J. (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley."
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>의존 대상을 추상(인터페이스)으로 정의합니다.</strong> 예컨대 “저장소”라는 인터페이스만 정해 두고 실제로 데이터베이스인지 파일인지는 구분하지 않습니다.</li><li><strong>사용하는 객체는 그 의존 대상을 스스로 만들지 않고 밖에서 받습니다.</strong> 받는 방식이 세 가지입니다. 생성자 주입(객체를 만들 때 인수로 받음), 세터 주입(만든 뒤 메서드로 설정), 인터페이스 주입(Fowler, 2004). 객체가 완성될 때 의존 관계가 확정되는 생성자 주입이 널리 권장됩니다.</li><li><strong>조립은 한 곳에서 합니다.</strong> 프로그램 시작 지점이나 DI 컨테이너(스프링, 대거, Hilt 등 프레임워크)가 어떤 구현을 연결할지 정하고 주입합니다(Seemann &amp; van Deursen, 2019).</li><li>테스트에서는 실제 구현 대신 가짜(목, 스텁) 객체를 주입해 [[unit-testing|단위 테스트]]를 합니다.</li></ol>\n<p>의존성 주입은 ‘제어의 역전(IoC)’의 한 형태입니다. 객체가 자기 부품을 직접 고르는 제어를 바깥으로 넘긴다는 뜻입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>얻는 것은 <strong>결합도 낮추기, 교체 가능성, 테스트 용이성</strong>입니다([[cohesion-and-coupling|응집도와 결합도]]). 구현을 바꿔도 사용하는 쪽 코드를 고치지 않아도 되고, 테스트 때 데이터베이스나 네트워크 없이 모듈을 검증할 수 있습니다. 의존성 역전 원칙(고수준 모듈이 저수준 구현이 아닌 추상에 의존해야 한다는 원칙)을 실현하는 대표 수단으로 설명됩니다(Martin, 2003).</p>\n<p>비용도 있습니다. 코드가 어디서 어떻게 조립되는지 한눈에 보기 어려워지고, 컨테이너 설정이 복잡해지며, 순환 의존이나 설정 오류가 실행 시점에야 드러날 수 있습니다. 의존이 단순하고 바뀔 일이 없는 작은 프로그램에서는 과한 설계가 될 수 있습니다. 필요한 곳에 쓰는 설계 기법이지 그 자체가 목적은 아닙니다([[software-design-pattern|디자인 패턴]]).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 <strong>주입 방식</strong>(생성자/세터/인터페이스)과 어떤 컨테이너·프레임워크(이름과 버전)를 썼는지</li><li>어떤 객체가 어떤 구현으로 조립되는지를 보이는 <strong>구성도</strong>와, 테스트에서 가짜 객체로 바꾼 방법</li><li>효과를 말할 때의 <strong>측정 지표</strong>: 결합도 지표, 테스트 커버리지, 변경 시 수정 범위, 실행 시간·메모리 오버헤드 등 무엇을 비교했는지</li><li>DI를 쓰지 않은 대조 구현과 비교했는지, 비교했다면 같은 기능 조건인지</li></ul>"
+    }
+  ]
+}

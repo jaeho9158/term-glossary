@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,33 @@
   <h2>왜 중요한가</h2>
   <p>이색옵션은 표준 콜·풋과 다른 손익 구조나 조건을 가진 옵션의 통칭으로, <a href="barrier-option.html">배리어</a>·<a href="asian-option.html">아시아형</a>·<a href="lookback-option.html">룩백</a>·<a href="binary-option.html">디지털</a> 옵션 등이 포함됩니다. 기업의 맞춤형 헤지 수요와 구조화상품 설계에서 광범위하게 쓰이며, 수치 가치평가 기법과 헤지 이론이 발전한 주요 무대입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>이색옵션은 표준적인 콜·풋(바닐라옵션)과 다른 <strong>지급 구조</strong>를 가진 옵션의 통칭입니다. 만기 시점 가격 하나로 손익이 정해지지 않거나, 여러 기초자산이 얽히거나, 특정 조건에서 지급이 생기거나 사라집니다.</li><li>분류(Hull, 2018): <strong>경로의존형</strong>(아시안옵션은 평균가격, 배리어옵션은 가격이 특정 수준을 넘었는지, 룩백은 기간 중 최고·최저가격에 따라 지급), <strong>다중자산형</strong>(바스켓 등), <strong>시간의존형</strong>, 디지털(바이너리) 옵션 등.</li><li>일부는 닫힌 형태의 가격 공식이 있고(기하평균 아시안, 배리어 일부; Kemna &amp; Vorst, 1990; Reiner &amp; Rubinstein, 1991), 그렇지 않으면 몬테카를로 시뮬레이션이나 격자·편미분방정식 같은 수치 방법으로 평가합니다(Boyle, 1977; Boyle et al., 1997).</li><li>대부분 거래소가 아닌 장외시장(OTC)에서 맞춤형으로 거래되어 시장 가격이 없고, 모형으로 산출한 가격에 의존합니다. 그래서 모형 선택(변동성 가정 등)에 따라 값이 달라지는 <strong>모형 위험</strong>이 큽니다. 배리어 근처처럼 헤지가 어려운 구간도 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>경로의존성이 무엇인지는 가상의 두 가격 경로로 확인할 수 있습니다. 행사가격 K = 100, 네 차례 관측한 가격이 다음과 같고, 두 경로 모두 마지막 가격은 105입니다(코드로 계산).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>경로</th><th>관측 가격</th><th>평균</th><th>바닐라 콜</th><th>아시안(산술평균) 콜</th><th>룩백(최고가−K) 콜</th><th>상향 배리어 110 아웃 콜</th><th>하향 배리어 95 아웃 콜</th></tr></thead><tbody>
+  <tr><td>A</td><td>92, 96, 101, 105</td><td>98.5</td><td>5</td><td>0</td><td>5</td><td>5</td><td>0</td></tr>
+  <tr><td>B</td><td>108, 112, 110, 105</td><td>108.75</td><td>5</td><td>8.75</td><td>12</td><td>0</td><td>5</td></tr></tbody></table></div>
+  <p>두 경로의 바닐라 콜 지급은 같지만, 이색옵션의 지급은 경로에 따라 달라집니다. 경로 B는 중간에 110을 넘어 상향 배리어가 소멸시키고, 경로 A는 중간에 95 아래로 내려가 하향 배리어가 소멸시킵니다(관측 시점마다 확인하는 이산 감시 가정).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody>
+  <tr><td>이색옵션은 항상 바닐라옵션보다 싸다.</td><td>배리어옵션은 소멸 조건 때문에 보통 더 싸지만, 룩백옵션은 더 유리한 가격을 얻을 수 있어 더 비쌉니다. 구조마다 다릅니다.</td></tr>
+  <tr><td>이색옵션은 모두 장외에서만 거래된다.</td><td>대부분 맞춤형 장외 거래이지만, 일부 단순한 구조는 시장에 표준화되어 나옵니다. 표준화되고 많이 거래되면 ‘이색’이라는 이름이 약해지기도 합니다.</td></tr>
+  <tr><td>이색옵션이면 복잡해서 위험하다.</td><td>위험은 구조와 사용 목적에 달려 있습니다. 헤지가 어려워 발행자가 감당하는 위험이 크다는 점과 투자자가 구조를 이해하기 어렵다는 점은 별개입니다.</td></tr>
+  <tr><td>실물옵션은 이색옵션의 한 종류다.</td><td>실물옵션은 투자안의 확장·포기 같은 경영상 유연성을 옵션으로 평가하는 개념이며 금융 이색옵션과는 다른 맥락입니다(<a href="real-options-analysis.html">실물옵션분석</a>).</td></tr>
+  </tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Hull(교재 『Options, Futures, and Other Derivatives』)은 이색옵션을 경로의존형(아시안, 배리어, 룩백), 다중자산형(바스켓), 시간의존형 등으로 분류하는 체계를 제시했다.</div>
   <p>그는 각 유형이 표준옵션으로 헤지·복제하기 어려운 특수한 위험구조를 가지므로 몬테카를로 시뮬레이션 등 수치적 방법이 평가에 자주 활용된다고 설명했다.</p>
   <div class="example">배리어옵션을 활용한 헤지 전략을 분석한 연구에서는 표준옵션 대비 프리미엄 비용이 낮아지는 대신 특정 가격 구간에서 헤지 효과가 상실되는 구조적 한계가 확인되었다.</div>
@@ -162,6 +189,21 @@
   <p>이색옵션은 표준화된 거래소보다 장외시장(OTC)에서 주로 거래되어 유동성이 낮고 상대방위험(신용위험)에 노출될 수 있다는 점에 유의해야 한다.</p>
 
   <p>이색옵션은 표준화된 가격결정 공식이 없는 경우가 많아 몬테카를로 시뮬레이션 같은 수치적 방법에 의존하는 경우가 많고, 이 때문에 모형 자체의 오류나 가정에서 비롯되는 모형위험이 표준옵션보다 크게 나타날 수 있다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이색옵션은 하나가 아니라 여러 구조의 묶음입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">지급을 정하는 것</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>이색옵션</strong></th><td>구조마다 다름</td><td>표준 콜·풋이 아닌 옵션의 총칭</td></tr><tr><th scope="row">바닐라옵션</th><td>만기 시점의 기초자산 가격</td><td>표준 콜·풋</td></tr><tr><th scope="row"><a href="asian-option.html">아시안옵션</a></th><td>기간 중 평균가격</td><td>평균을 쓰므로 변동이 완화됨</td></tr><tr><th scope="row"><a href="barrier-option.html">배리어옵션</a></th><td>가격이 특정 수준을 넘었는지</td><td>소멸하거나 활성화됨</td></tr><tr><th scope="row">룩백옵션</th><td>기간 중 최고·최저가격</td><td>유리한 가격을 사후에 고름</td></tr><tr><th scope="row">바이너리(디지털) 옵션</th><td>조건 충족 여부</td><td>조건이 맞으면 정해진 금액을 지급</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hull, J. C. (2018). Options, Futures, and Other Derivatives (10th ed.). Pearson.</li>
+    <li>Kemna, A. G. Z., &amp; Vorst, A. C. F. (1990). A pricing method for options based on average asset values. Journal of Banking &amp; Finance, 14(1), 113–129.</li>
+    <li>Reiner, E., &amp; Rubinstein, M. (1991). Breaking down the barriers. Risk, 4(8), 28–35.</li>
+    <li>Boyle, P. P. (1977). Options: A Monte Carlo approach. Journal of Financial Economics, 4(3), 323–338.</li>
+    <li>Boyle, P., Broadie, M., &amp; Glasserman, P. (1997). Monte Carlo methods for security pricing. Journal of Economic Dynamics and Control, 21(8–9), 1267–1321.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="lookback-option.html">룩백옵션</a><a href="binary-option.html">바이너리옵션</a><a href="barrier-option.html">배리어옵션</a><a href="asian-option.html">아시안옵션</a></div></div><p class="concept-family-map"><a href="../concept-map/finance.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

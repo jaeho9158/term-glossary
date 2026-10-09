@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,34 @@
   <p>익현선은 받음각·캠버·두께비 같은 익형 파라미터의 기준축이므로, 익형 형상을 수치화해 비교하거나 최적화 알고리즘에 넘길 때 반드시 먼저 정의해야 하는 좌표계 역할을 합니다. 실무에서도 날개 장착각이나 비틀림각을 동체 기준선에 대해 표기할 때 익현선을 기준으로 삼습니다.</p>
   <p>시위선은 받음각과 캠버 등 날개 형상을 정의하는 기준선으로 쓰여, 공력 계산의 출발점이 된다. 시위선과 실제 기류 방향이 이루는 각이 바로 받음각으로 정의된다. 날개 뿌리와 끝의 시위선 길이 차이는 테이퍼비를 정의하는 데도 그대로 사용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>익현선(시위선)은 익형의 <strong>앞전과 뒷전을 잇는 직선</strong>이고, 그 길이가 익현길이(시위길이) c입니다.</li><li>많은 익형 변수가 이 선을 기준으로 정의됩니다. <a href="angle-of-attack.html">받음각</a>은 익현선과 다가오는 흐름 방향 사이의 각, <a href="camber.html">캠버</a>는 평균 캠버선이 익현선에서 벗어난 정도(보통 익현길이의 백분율), 두께는 익현선에 수직으로 잰 값(NACA 익형은 평균 캠버선에 수직)입니다(Abbott &amp; von Doenhoff, 1959; <a href="airfoil.html">익형</a>).</li><li>공력 계수와 레이놀즈 수도 익현길이를 기준 길이로 삼아 무차원화합니다(Re = ρVc/μ).</li><li>날개 전체에서는 뿌리와 끝의 익현길이로 테이퍼비를 정의하고, 평균공력시위(MAC)는 면적 가중으로 날개 전체를 대표하는 시위입니다.</li><li>익현선은 기하학적으로 정의된 <strong>가상의 선</strong>이고, 영양력선(양력이 0이 되는 방향)이나 평균 캠버선과는 다른 선입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>익현선 기준 받음각이 0이라도 캠버가 있으면 양력이 생깁니다. 얇은 익형 이론에서는 작은 받음각 영역에서 양력계수가 C<sub>L</sub> = 2π(α − α<sub>L0</sub>)(각은 라디안)로 근사됩니다(Anderson, 2017). α<sub>L0</sub>는 양력이 0이 되는 받음각입니다. 가상의 값으로 계산합니다(코드로 계산).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>익형</th><th>α<sub>L0</sub></th><th>α(익현선 기준)</th><th>C<sub>L</sub></th></tr></thead><tbody>
+  <tr><td>대칭 익형</td><td>0°</td><td>4°</td><td>0.439</td></tr>
+  <tr><td>캠버 익형(가상)</td><td>-2°</td><td>4°</td><td>0.658</td></tr></tbody></table></div>
+  <p>같은 받음각 4°에서 캠버 익형이 더 큰 양력계수를 냅니다. 대칭 익형은 익현선, 영양력선, 평균 캠버선이 모두 일치하지만 캠버가 있으면 영양력선이 익현선에서 벗어납니다. 이 근사는 실속 이전의 작은 받음각에서만 성립합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody>
+  <tr><td>익현선은 날개 윗면이나 아랫면의 선이다.</td><td>앞전과 뒷전을 곧게 이은 가상의 기준선이며 표면 곡선이 아닙니다.</td></tr>
+  <tr><td>받음각이 0이면 양력도 0이다.</td><td>캠버가 있는 익형은 익현선 기준 받음각이 0이어도 양력이 생깁니다. 양력이 0이 되는 기준은 영양력선입니다.</td></tr>
+  <tr><td>익현선 기준 받음각과 동체 기준 각은 같다.</td><td>날개 장착각(설치각)은 동체 기준선에 대한 익현선의 각이며, 받음각은 흐름에 대한 각입니다. 기준이 다릅니다.</td></tr>
+  <tr><td>익현길이는 윗면 곡선의 길이다.</td><td>익현길이는 앞전–뒷전을 잇는 직선 거리입니다. 곡면의 호 길이가 아닙니다.</td></tr>
+  <tr><td>앞전의 위치는 항상 같다.</td><td>둥근 앞전에서는 앞전 점을 어떻게 잡느냐(뒷전에서 가장 먼 점 등)에 따라 익현선이 미세하게 달라질 수 있어, 표준 좌표와 비교할 때 정의를 확인해야 합니다.</td></tr>
+  </tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"익현길이를 기준 길이로 삼아 압력계수를 무차원화한 뒤 익현선 상의 위치별 분포를 비교하였다."</div>
   <p>날개 단면의 기준 선분 길이를 이용해 압력 값을 표준화하고, 앞에서 뒤로 가면서 압력이 어떻게 변하는지 비교했다는 분석 방법 설명입니다.</p>
 
@@ -158,6 +186,20 @@
 
   <h2>주의할 점</h2>
   <p>익현선은 실제 물리적 표면이 아니라 기하학적으로 정의된 가상의 기준선이라는 점에서 날개의 실제 윗면·아랫면 곡선과 혼동하면 안 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>익형의 기준선들은 서로 다른 목적으로 쓰입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정의</th><th scope="col">쓰임</th></tr></thead><tbody><tr><th scope="row"><strong>익현선(시위선)</strong></th><td>앞전과 뒷전을 잇는 직선</td><td>받음각·캠버 등을 재는 기준</td></tr><tr><th scope="row">평균 캠버선</th><td>윗면과 아랫면의 중간점을 이은 곡선</td><td>익형의 휨 정도를 나타냄(<a href="camber.html">캠버</a>)</td></tr><tr><th scope="row">영양력선</th><td>양력이 0이 되는 흐름 방향의 선</td><td>캠버 익형의 양력 기준</td></tr><tr><th scope="row"><a href="angle-of-attack.html">받음각</a></th><td>익현선과 흐름 방향이 이루는 각</td><td>양력 변화를 나타내는 변수</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Anderson, J. D., Jr. (2017). Fundamentals of Aerodynamics (6th ed.). McGraw-Hill Education.</li>
+    <li>Abbott, I. H., &amp; von Doenhoff, A. E. (1959). Theory of Wing Sections: Including a Summary of Airfoil Data. Dover.</li>
+    <li>Houghton, E. L., &amp; Carpenter, P. W. (2003). Aerodynamics for Engineering Students (5th ed.). Butterworth-Heinemann.</li>
+    <li>Katz, J., &amp; Plotkin, A. (2001). Low-Speed Aerodynamics (2nd ed.). Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
