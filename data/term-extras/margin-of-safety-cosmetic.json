@@ -1,0 +1,47 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><strong>MoS = NOAEL ÷ SED</strong></p><ul><li><strong>NOAEL</strong>(무영향관찰용량, mg/kg 체중/일): 반복투여독성시험 등에서 유해 영향이 관찰되지 않은 최고 용량입니다. 경구 시험값이면 피부로 들어가는 전신 노출과 비교하기 위해 경구 흡수율 등으로 보정한 ‘전신’ NOAEL을 씁니다.</li><li><strong>SED</strong>(전신노출량, mg/kg 체중/일) = A × C × DA<sub>p</sub> ÷ BW. A는 하루 제품 사용량(mg/일), C는 성분 농도(분율), DA<sub>p</sub>는 피부 흡수율(분율), BW는 체중입니다(SCCS, 2021). 성인 체중은 60 kg을 기본값으로 쓰고, 적절한 흡수 자료가 없으면 50%를 기본값으로 쓰는 것이 SCCS 지침의 기본 접근입니다.</li><li>범위는 0보다 큰 임의의 실수이며 클수록 여유가 큽니다. 단위가 없는 비율입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>관례적 기준은 100 이상입니다.</strong> 이는 종간 차이(동물→사람) 10배와 개인 간 차이 10배를 곱한 기본 불확실성 계수 100에서 나옵니다(IPCS, 2005; SCCS, 2021). 값이 클수록 안전하다는 방향은 명확하지만, 100은 법칙이 아니라 지침상의 관례입니다.</li><li>100 미만이라고 해서 곧바로 위험하다는 뜻은 아닙니다. 보수적 가정(기본값 흡수율, 최악의 경우 가정 등)을 실제 흡수 시험값으로 바꾸거나 사용량·농도를 조정해 다시 계산하는 근거가 됩니다.</li><li>입력이 달라지면 결과가 크게 달라집니다. 가상의 예로, NOAEL 50 mg/kg/일, 하루 사용량 1,000 mg, 체중 60 kg일 때 입력별 결과는 다음과 같습니다.</li></ul><table><thead><tr><th>농도 C</th><th>피부 흡수율 DAp</th><th>SED(mg/kg/일)</th><th>MoS</th><th>100 이상?</th></tr></thead><tbody><tr><td>1%</td><td>10%</td><td>0.0167</td><td>3,000</td><td>예</td></tr><tr><td>1%</td><td>100%(최악의 경우 가정)</td><td>0.1667</td><td>300</td><td>예</td></tr><tr><td>5%</td><td>100%(최악의 경우 가정)</td><td>0.8333</td><td>60</td><td>아니오</td></tr></tbody></table><p>(가상의 예. SED = 1,000 × C × DAp ÷ 60, MoS = 50 ÷ SED로 계산.) 같은 성분도 농도와 흡수 가정에 따라 판단이 달라지는 것을 보여줍니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li><strong>NOAEL의 출처:</strong> 시험 종류·동물종·기간·투여 경로와 보정 방법.</li><li><strong>SED의 모든 입력:</strong> 사용량, 빈도, 농도, 흡수율의 출처, 체중, 제품 유형(체류형/씻어내는 형).</li><li><strong>대상 집단:</strong> 성인만 계산했는지, 영유아·민감 집단을 따로 계산했는지.</li><li><strong>복합 노출:</strong> 같은 성분이 여러 제품에서 들어올 때 합산했는지.</li><li><strong>기준과 결과:</strong> 사용한 기준(예: 100 이상)과 계산된 MoS 값. 불확실성 가정은 제한점에 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "정체",
+      "안전역(화장품)과의 관계"
+    ],
+    "rows": [
+      [
+        "[[margin-of-safety-toxicology|안전역(독성학)]]",
+        "독성이 나타나는 용량과 실제 노출 용량 사이의 격차를 나타내는 일반 지표",
+        "화장품 분야는 NOAEL과 SED로 구체화한 사용법"
+      ],
+      [
+        "[[no-observed-adverse-effect-level-cosmetic|무영향관찰용량(화장품)]]",
+        "MoS의 분자가 되는 값",
+        "입력 값"
+      ],
+      [
+        "노출 여유(MoE)",
+        "유전독성 발암물질 등에서 쓰는, 노출량과 출발점 용량의 비",
+        "별개 개념. 기준 수치와 해석이 다름"
+      ]
+    ]
+  },
+  "references": [
+    "Scientific Committee on Consumer Safety. (2021). The SCCS Notes of Guidance for the Testing of Cosmetic Ingredients and Their Safety Evaluation (11th revision). European Commission.",
+    "World Health Organization, International Programme on Chemical Safety. (2005). Chemical-Specific Adjustment Factors for Interspecies Differences and Human Variability: Guidance Document for Use of Data in Dose/Concentration–Response Assessment. WHO.",
+    "European Parliament and Council of the European Union. (2009). Regulation (EC) No 1223/2009 on cosmetic products. Official Journal of the European Union, L 342."
+  ]
+}
