@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/measurement-invariance.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,45 @@
   <h2>왜 중요한가</h2>
   <p>비교문화 연구, 종단연구, 다국가 설문조사처럼 서로 다른 집단이나 시점의 점수를 비교하는 논문에서는 측정불변성 검증이 선행되지 않으면 집단 간 차이가 실제 차이인지 척도 자체의 오작동인지 구분할 수 없습니다. 그래서 심리학, 교육학, 조직행동학 등 설문 기반 비교연구에서는 측정불변성 검증이 본 분석에 앞서 거의 표준적인 사전 절차로 자리 잡았습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>점수를 <strong>집단 간(성별, 국가, 연령대)이나 시점 간</strong>에 비교하기 전에, 척도가 모든 집단에서 같은 구성개념을 같은 방식으로 재는지 확인할 때 씁니다. 보통 다집단 <a href="confirmatory-factor-analysis.html">확인적 요인분석</a>으로 모형에 제약을 단계적으로 더해 갑니다(Meredith, 1993; Vandenberg &amp; Lance, 2000).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>수준</th><th>같게 두는 것</th><th>이것이 성립하면 가능한 비교</th></tr></thead><tbody>
+  <tr><td>형태(configural)</td><td>요인 구조(어떤 문항이 어떤 요인에 속하는지)</td><td>같은 개념이 같은 구조를 이룬다고 말하기</td></tr>
+  <tr><td>측정단위(metric)</td><td>요인적재량</td><td>요인 간 상관·회귀 계수의 비교</td></tr>
+  <tr><td>절편(scalar)</td><td>문항 절편</td><td>잠재 평균(집단 평균)의 비교</td></tr>
+  <tr><td>엄격(strict)</td><td>오차분산</td><td>관측 점수 수준의 완전한 비교</td></tr>
+  </tbody></table></div>
+  <p>이 개념은 문항 수준에서는 IRT의 <a href="differential-item-functioning.html">차별기능문항</a> 분석과 같은 취지입니다.</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>각 단계의 모형을 적합하고 직전 단계 모형과 비교합니다.</p>
+  <ul>
+  <li><strong>χ² 차이 검정</strong>: 제약을 더하자 적합도가 유의하게 나빠지면 불변성이 기각됩니다. 표본이 크면 사소한 차이도 기각되기 쉽습니다.</li>
+  <li><strong>CFI의 변화</strong>: Cheung과 Rensvold(2002)는 제약을 더했을 때 CFI가 .01보다 크게 떨어지면(ΔCFI &lt; −.01) 불변성을 기각하자고 제안했고, 이 기준이 널리 쓰입니다. RMSEA·SRMR의 변화를 더한 기준은 Chen(2007)이 표본 조건별로 제시했습니다.</li>
+  </ul>
+  <p>(가상의 예) 모형별 CFI가 형태 .962, 측정단위 .958, 절편 .931이라고 합시다. ΔCFI는 측정단위 단계에서 .958 − .962 = −.004로 감소 폭이 .01보다 작아 통과하고, 절편 단계에서는 .931 − .958 = −.027로 감소 폭이 .01을 넘어 기각됩니다(코드로 계산). 이 경우 요인 간 관계는 비교할 수 있지만 <strong>잠재 평균을 비교하기에는 근거가 부족</strong>합니다.</p>
+  <p>일부 문항만 문제일 때는 그 문항의 제약을 풀고 나머지로 비교하는 <strong>부분 불변성</strong>(partial invariance)을 검토합니다. 풀어 주는 문항은 이론적 이유가 있어야 하며, 많이 풀수록 비교의 근거가 약해집니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul>
+  <li>비교한 집단·시점, 집단별 표본 크기, 추정 방법(서열 문항이면 범주형 자료 방법)을 적습니다.</li>
+  <li>단계별 모형의 χ², 자유도, CFI, RMSEA, SRMR와 단계 간 변화량을 <strong>표</strong>로 싣고, 판정 기준의 출처(예: Cheung &amp; Rensvold, 2002)를 적습니다(Putnick &amp; Bornstein, 2016에 정리된 보고 관행 참고).</li>
+  <li>부분 불변성을 썼다면 풀어 준 문항과 이유를 적습니다.</li>
+  <li>(가상의 문장) “다집단 분석에서 측정단위 불변성은 지지되었으나(ΔCFI = −.004) 절편 불변성은 지지되지 않아(ΔCFI = −.027), 집단 평균 비교는 하지 않았다.”</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“이는 측정불변성을 사전에 검증하지 않고 IPD가 나타나는 문항을 사용하였을 경우 측정하고자 하는 구인의 변화 추정에 큰 차이가 발생할 수 있음을 시사한다.”</blockquote><p class="te-cite">Item Parameter Drift 분석을 통한 진로성숙도 척도의 종단적 측정불변성 검증, 교육평가연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002943308" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"성별에 따른 우울 척도의 측정불변성을 검증하기 위해 다집단 확인적 요인분석을 실시한 결과, 형태동일성과 요인부하량 동일성이 확인되었다."</div>
   <p>이 문장은 우울을 측정하는 설문 문항이 남성과 여성 집단 모두에서 같은 구조와 같은 강도로 작동하는지를 통계적으로 확인했다는 뜻입니다. 이 확인을 거쳐야 "남성이 여성보다 우울 점수가 높다"는 식의 집단 간 비교가 타당해집니다.</p>
   <div class="example">"한국과 미국 응답자 간 조직몰입 척도의 측정불변성을 검증한 결과, 절편 동일성까지 성립하여 두 국가 간 평균 비교가 가능함을 확인하였다."</div>
@@ -157,6 +196,21 @@
 
   <h2>주의할 점</h2>
   <p>측정불변성이 확보되지 않은 상태에서 집단 간 평균 점수를 비교하면, 실제 차이가 아니라 척도 자체의 작동 방식 차이 때문에 생긴 착시일 수 있습니다. 이는 <a href="construct-validity.html">구성타당도</a>와도 관련이 깊은 개념입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>번역과 문항 점검 방법은 단계가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">무엇을 확인하나</th><th scope="col">자료 필요 여부</th></tr></thead><tbody><tr><th scope="row">측정불변성</th><td>척도가 집단 간에 같은 방식으로 작동하는가</td><td>예: 두 집단의 응답</td></tr><tr><th scope="row"><a href="differential-item-functioning.html">차별기능문항</a></th><td>능력이 같은 사람에게 문항 반응이 집단별로 다른가</td><td>예: 문항 응답</td></tr><tr><th scope="row"><a href="back-translation.html">역번역법</a></th><td>번역이 원문 의미를 보존하는가</td><td>아니오(번역 단계)</td></tr><tr><th scope="row"><a href="confirmatory-factor-analysis.html">확인적 요인분석</a></th><td>정한 요인 구조의 적합도</td><td>예</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Meredith, W. (1993). Measurement invariance, factor analysis and factorial invariance. Psychometrika, 58, 525–543.</li>
+    <li>Vandenberg, R. J., &amp; Lance, C. E. (2000). A review and synthesis of the measurement invariance literature: suggestions, practices, and recommendations for organizational research. Organizational Research Methods, 3, 4–70.</li>
+    <li>Cheung, G. W., &amp; Rensvold, R. B. (2002). Evaluating goodness-of-fit indexes for testing measurement invariance. Structural Equation Modeling, 9, 233–255.</li>
+    <li>Chen, F. F. (2007). Sensitivity of goodness of fit indexes to lack of measurement invariance. Structural Equation Modeling, 14, 464–504.</li>
+    <li>Putnick, D. L., &amp; Bornstein, M. H. (2016). Measurement invariance conventions and reporting: the state of the art and future directions for psychological research. Developmental Review, 41, 71–90.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

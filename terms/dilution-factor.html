@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/dilution-factor.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,44 @@
   <h2>왜 중요한가</h2>
   <p>실제 시료는 대개 기기의 직선성 범위보다 진하기 때문에 희석은 거의 모든 정량 실험에 들어갑니다. 논문에 보고되는 농도는 사실상 측정값에 희석배수를 곱한 값이므로, 희석배수를 기록하고 검산하는 일이 데이터 신뢰성의 기본이 됩니다. 세균 배양의 집락 수 계산이나 임상 검체 분석에서도 같은 원리가 그대로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p><strong>희석배수(DF) = 최종 부피 ÷ 시료 부피</strong>입니다. 시료 1 mL에 용매 9 mL를 더해 10 mL가 되면 DF = 10입니다. 농도는 1/DF가 되고, 측정값에 DF를 곱하면 원래 농도로 돌아갑니다. 연속 희석에서는 단계별 배수를 모두 곱합니다. 범위는 1 이상(희석하지 않으면 1)입니다.</p>
+  <ul>
+  <li>(가상) 20배로 희석한 시료의 측정값이 0.47 μg/mL → 원래 농도 0.47 × 20 = 9.4 μg/mL.</li>
+  <li>(가상) 50배, 이어서 10배를 희석해 2.5 μg/mL로 측정 → 총 DF = 500, 원래 농도 2.5 × 500 = 1,250 μg/mL.</li>
+  <li>10배씩 4번 희석하면 10⁴ = 10,000배입니다(코드로 계산).</li>
+  </ul>
+  <p>‘1:10 희석’은 문헌에 따라 시료 1 : 최종 10(= DF 10)인지, 시료 1 : 용매 10(= DF 11)인지 달라 모호합니다. 숫자 앞에 정의를 적는 것이 안전합니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul>
+  <li><strong>목적</strong>: 측정값이 기기의 정량 범위 또는 검량선 범위 안에 들어오게 합니다. 범위를 넘는 시료를 그대로 읽으면 부정확합니다(<a href="calibration-curve.html">검량선</a>).</li>
+  <li><strong>희석 선형성</strong>: 시료를 여러 배수로 희석해 DF를 곱한 값이 서로 일치하면 희석이 올바르게 보정되고 매트릭스 간섭이 작다는 증거입니다. 임상검사에서는 이를 CLSI EP06 같은 지침으로 평가합니다(CLSI, 2020).</li>
+  <li><strong>오차 증폭</strong>: 희석 단계마다 피펫 오차가 더해지고 DF를 곱해 결과에 반영됩니다. (가상) 단계당 상대 오차 0.5%라면 두 단계에서 독립이라 가정할 때 √(0.5² + 0.5²) ≈ 0.71%입니다. 단계 수는 필요한 만큼만 둡니다(Harris, 2010).</li>
+  <li>점성이 높거나 휘발성인 시료는 부피 대신 질량으로 희석하고 밀도로 환산하기도 합니다.</li>
+  </ul>
+
+  <h2>보고 방법</h2>
+  <ul>
+  <li>희석 정의를 명시합니다. 예: “10배 희석(시료 1 mL + 용매 9 mL, 최종 10 mL)”.</li>
+  <li>희석액(용매, 완충액, 매트릭스), 단계 수, 사용한 기구(부피 플라스크, 피펫)를 적습니다.</li>
+  <li>보고하는 농도가 희석 전 원래 시료 기준인지 적고, 결과에 DF를 곱했는지 밝힙니다.</li>
+  <li>희석 선형성이나 회수율을 확인했으면 그 결과를 함께 적습니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“비록 직선성과 희석배수를 위한 최신 지침인 CLSI EP06, EP34가 나와 있지만, 많은 검사실에서는 이를 실제로 적용하지 못하는 경우가 많다.”</blockquote><p class="te-cite">직선구간과 확장측정구간의 평가 및 설정, Laboratory Medicine Online, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003090026" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이에 본 종설은 직선구간 및 확장측정구간의 설정을 위한 직선성과 희석배수의 검증 및 검정 과정에 대해 기본 개념 및 실무적 측면에서 전반적이며 포괄적으로 서술하여 국내 진단검사의학과 전문의, 전공의, 임상병리사 및 관련 업계 종사자들에게 실질적인 도움이 되고자 한다.”</blockquote><p class="te-cite">직선구간과 확장측정구간의 평가 및 설정, Laboratory Medicine Online, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003090026" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"검량선 범위를 벗어난 시료는 20배 희석 후 재측정하였고, 산출 농도에 희석배수를 반영하였다."</div>
   <p>농도가 너무 진해 측정할 수 없을 때 묽혀서 재고, 계산 단계에서 그만큼 되돌렸다는 뜻입니다.</p>
   <div class="example">"시료를 10배씩 4단계 연속 희석한 뒤 배양한 평판의 집락 수에 최종 희석배수인 1만을 곱해 원래 시료의 세균 농도를 구하였다."</div>
@@ -164,6 +202,19 @@
   <h2>주의할 점</h2>
   <p><a href="serial-dilution.html">연속 희석</a>은 희석을 여러 번 반복하는 절차를 가리키고, 희석배수는 그 결과 농도가 몇 분의 1이 되었는지를 나타내는 수치입니다. 또한 배수를 부피비로 적는 관행이 문헌마다 달라, 논문에서는 최종 부피 기준임을 밝혀 적는 것이 안전합니다.</p>
   <p>희석배수를 시료 대 용매의 비로 표기하는 방식과 최종 부피 대 시료 부피의 비로 표기하는 방식이 혼용되므로, 두 표기를 착각하면 희석배수가 1씩 어긋납니다(예: 시료 1에 용매 4를 섞은 것은 4배가 아니라 5배 희석).</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>희석에 관한 용어는 서로 비슷하지만 가리키는 것이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">예</th></tr></thead><tbody><tr><th scope="row">희석배수</th><td>최종 부피 ÷ 시료 부피</td><td>1 mL + 9 mL → 10</td></tr><tr><th scope="row"><a href="serial-dilution.html">연속 희석</a></th><td>희석을 단계적으로 되풀이하는 절차</td><td>10배씩 4단계</td></tr><tr><th scope="row"><a href="stock-solution.html">원액</a></th><td>미리 진하게 만들어 둔 저장 용액</td><td>10× 완충액</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Harris, D. C. (2010). Quantitative Chemical Analysis (8th ed.). W. H. Freeman.</li>
+    <li>Skoog, D. A., West, D. M., Holler, F. J., &amp; Crouch, S. R. (2014). Fundamentals of Analytical Chemistry (9th ed.). Cengage Learning.</li>
+    <li>Clinical and Laboratory Standards Institute. (2020). EP06: Evaluation of Linearity of Quantitative Measurement Procedures (2nd ed.). CLSI.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

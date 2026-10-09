@@ -1,0 +1,55 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>점수를 <strong>집단 간(성별, 국가, 연령대)이나 시점 간</strong>에 비교하기 전에, 척도가 모든 집단에서 같은 구성개념을 같은 방식으로 재는지 확인할 때 씁니다. 보통 다집단 [[confirmatory-factor-analysis|확인적 요인분석]]으로 모형에 제약을 단계적으로 더해 갑니다(Meredith, 1993; Vandenberg &amp; Lance, 2000).</p>\n<table><thead><tr><th>수준</th><th>같게 두는 것</th><th>이것이 성립하면 가능한 비교</th></tr></thead><tbody>\n<tr><td>형태(configural)</td><td>요인 구조(어떤 문항이 어떤 요인에 속하는지)</td><td>같은 개념이 같은 구조를 이룬다고 말하기</td></tr>\n<tr><td>측정단위(metric)</td><td>요인적재량</td><td>요인 간 상관·회귀 계수의 비교</td></tr>\n<tr><td>절편(scalar)</td><td>문항 절편</td><td>잠재 평균(집단 평균)의 비교</td></tr>\n<tr><td>엄격(strict)</td><td>오차분산</td><td>관측 점수 수준의 완전한 비교</td></tr>\n</tbody></table>\n<p>이 개념은 문항 수준에서는 IRT의 [[differential-item-functioning|차별기능문항]] 분석과 같은 취지입니다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>각 단계의 모형을 적합하고 직전 단계 모형과 비교합니다.</p>\n<ul>\n<li><strong>χ² 차이 검정</strong>: 제약을 더하자 적합도가 유의하게 나빠지면 불변성이 기각됩니다. 표본이 크면 사소한 차이도 기각되기 쉽습니다.</li>\n<li><strong>CFI의 변화</strong>: Cheung과 Rensvold(2002)는 제약을 더했을 때 CFI가 .01보다 크게 떨어지면(ΔCFI &lt; −.01) 불변성을 기각하자고 제안했고, 이 기준이 널리 쓰입니다. RMSEA·SRMR의 변화를 더한 기준은 Chen(2007)이 표본 조건별로 제시했습니다.</li>\n</ul>\n<p>(가상의 예) 모형별 CFI가 형태 .962, 측정단위 .958, 절편 .931이라고 합시다. ΔCFI는 측정단위 단계에서 .958 − .962 = −.004로 감소 폭이 .01보다 작아 통과하고, 절편 단계에서는 .931 − .958 = −.027로 감소 폭이 .01을 넘어 기각됩니다(코드로 계산). 이 경우 요인 간 관계는 비교할 수 있지만 <strong>잠재 평균을 비교하기에는 근거가 부족</strong>합니다.</p>\n<p>일부 문항만 문제일 때는 그 문항의 제약을 풀고 나머지로 비교하는 <strong>부분 불변성</strong>(partial invariance)을 검토합니다. 풀어 주는 문항은 이론적 이유가 있어야 하며, 많이 풀수록 비교의 근거가 약해집니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul>\n<li>비교한 집단·시점, 집단별 표본 크기, 추정 방법(서열 문항이면 범주형 자료 방법)을 적습니다.</li>\n<li>단계별 모형의 χ², 자유도, CFI, RMSEA, SRMR와 단계 간 변화량을 <strong>표</strong>로 싣고, 판정 기준의 출처(예: Cheung &amp; Rensvold, 2002)를 적습니다(Putnick &amp; Bornstein, 2016에 정리된 보고 관행 참고).</li>\n<li>부분 불변성을 썼다면 풀어 준 문항과 이유를 적습니다.</li>\n<li>(가상의 문장) “다집단 분석에서 측정단위 불변성은 지지되었으나(ΔCFI = −.004) 절편 불변성은 지지되지 않아(ΔCFI = −.027), 집단 평균 비교는 하지 않았다.”</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "번역과 문항 점검 방법은 단계가 다릅니다.",
+    "headers": [
+      "방법",
+      "무엇을 확인하나",
+      "자료 필요 여부"
+    ],
+    "rows": [
+      [
+        "측정불변성",
+        "척도가 집단 간에 같은 방식으로 작동하는가",
+        "예: 두 집단의 응답"
+      ],
+      [
+        "[[differential-item-functioning|차별기능문항]]",
+        "능력이 같은 사람에게 문항 반응이 집단별로 다른가",
+        "예: 문항 응답"
+      ],
+      [
+        "[[back-translation|역번역법]]",
+        "번역이 원문 의미를 보존하는가",
+        "아니오(번역 단계)"
+      ],
+      [
+        "[[confirmatory-factor-analysis|확인적 요인분석]]",
+        "정한 요인 구조의 적합도",
+        "예"
+      ]
+    ]
+  },
+  "references": [
+    "Meredith, W. (1993). Measurement invariance, factor analysis and factorial invariance. Psychometrika, 58, 525–543.",
+    "Vandenberg, R. J., & Lance, C. E. (2000). A review and synthesis of the measurement invariance literature: suggestions, practices, and recommendations for organizational research. Organizational Research Methods, 3, 4–70.",
+    "Cheung, G. W., & Rensvold, R. B. (2002). Evaluating goodness-of-fit indexes for testing measurement invariance. Structural Equation Modeling, 9, 233–255.",
+    "Chen, F. F. (2007). Sensitivity of goodness of fit indexes to lack of measurement invariance. Structural Equation Modeling, 14, 464–504.",
+    "Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance conventions and reporting: the state of the art and future directions for psychological research. Developmental Review, 41, 71–90."
+  ]
+}

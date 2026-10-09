@@ -1,0 +1,48 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><strong>희석배수(DF) = 최종 부피 ÷ 시료 부피</strong>입니다. 시료 1 mL에 용매 9 mL를 더해 10 mL가 되면 DF = 10입니다. 농도는 1/DF가 되고, 측정값에 DF를 곱하면 원래 농도로 돌아갑니다. 연속 희석에서는 단계별 배수를 모두 곱합니다. 범위는 1 이상(희석하지 않으면 1)입니다.</p>\n<ul>\n<li>(가상) 20배로 희석한 시료의 측정값이 0.47 μg/mL → 원래 농도 0.47 × 20 = 9.4 μg/mL.</li>\n<li>(가상) 50배, 이어서 10배를 희석해 2.5 μg/mL로 측정 → 총 DF = 500, 원래 농도 2.5 × 500 = 1,250 μg/mL.</li>\n<li>10배씩 4번 희석하면 10⁴ = 10,000배입니다(코드로 계산).</li>\n</ul>\n<p>‘1:10 희석’은 문헌에 따라 시료 1 : 최종 10(= DF 10)인지, 시료 1 : 용매 10(= DF 11)인지 달라 모호합니다. 숫자 앞에 정의를 적는 것이 안전합니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul>\n<li><strong>목적</strong>: 측정값이 기기의 정량 범위 또는 검량선 범위 안에 들어오게 합니다. 범위를 넘는 시료를 그대로 읽으면 부정확합니다([[calibration-curve|검량선]]).</li>\n<li><strong>희석 선형성</strong>: 시료를 여러 배수로 희석해 DF를 곱한 값이 서로 일치하면 희석이 올바르게 보정되고 매트릭스 간섭이 작다는 증거입니다. 임상검사에서는 이를 CLSI EP06 같은 지침으로 평가합니다(CLSI, 2020).</li>\n<li><strong>오차 증폭</strong>: 희석 단계마다 피펫 오차가 더해지고 DF를 곱해 결과에 반영됩니다. (가상) 단계당 상대 오차 0.5%라면 두 단계에서 독립이라 가정할 때 √(0.5² + 0.5²) ≈ 0.71%입니다. 단계 수는 필요한 만큼만 둡니다(Harris, 2010).</li>\n<li>점성이 높거나 휘발성인 시료는 부피 대신 질량으로 희석하고 밀도로 환산하기도 합니다.</li>\n</ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul>\n<li>희석 정의를 명시합니다. 예: “10배 희석(시료 1 mL + 용매 9 mL, 최종 10 mL)”.</li>\n<li>희석액(용매, 완충액, 매트릭스), 단계 수, 사용한 기구(부피 플라스크, 피펫)를 적습니다.</li>\n<li>보고하는 농도가 희석 전 원래 시료 기준인지 적고, 결과에 DF를 곱했는지 밝힙니다.</li>\n<li>희석 선형성이나 회수율을 확인했으면 그 결과를 함께 적습니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "희석에 관한 용어는 서로 비슷하지만 가리키는 것이 다릅니다.",
+    "headers": [
+      "용어",
+      "의미",
+      "예"
+    ],
+    "rows": [
+      [
+        "희석배수",
+        "최종 부피 ÷ 시료 부피",
+        "1 mL + 9 mL → 10"
+      ],
+      [
+        "[[serial-dilution|연속 희석]]",
+        "희석을 단계적으로 되풀이하는 절차",
+        "10배씩 4단계"
+      ],
+      [
+        "[[stock-solution|원액]]",
+        "미리 진하게 만들어 둔 저장 용액",
+        "10× 완충액"
+      ]
+    ]
+  },
+  "references": [
+    "Harris, D. C. (2010). Quantitative Chemical Analysis (8th ed.). W. H. Freeman.",
+    "Skoog, D. A., West, D. M., Holler, F. J., & Crouch, S. R. (2014). Fundamentals of Analytical Chemistry (9th ed.). Cengage Learning.",
+    "Clinical and Laboratory Standards Institute. (2020). EP06: Evaluation of Linearity of Quantitative Measurement Procedures (2nd ed.). CLSI."
+  ]
+}

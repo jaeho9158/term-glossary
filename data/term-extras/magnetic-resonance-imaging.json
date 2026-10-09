@@ -1,0 +1,49 @@
+{
+  "type": "instrument",
+  "sections": [
+    {
+      "heading": "무엇을 재는가",
+      "html": "<p>강한 정자기장(B₀) 안에서 몸속 수소 원자핵(주로 물과 지방)이 라디오파에 반응해 내는 신호를 받아 영상으로 만듭니다. 경사자장 코일이 위치마다 공명 주파수를 조금씩 다르게 만들어 위치 정보를 줍니다. X선을 쓰지 않으며, 첫 영상화는 Lauterbur(1973)가 보고했고 암 조직과 정상 조직의 NMR 신호 차이는 Damadian(1971)이 보고했습니다.</p>\n<p>수소 핵의 공명 주파수는 자기장에 비례합니다(42.577 MHz/T). 1.5 T에서는 약 63.9 MHz, 3 T에서는 약 127.7 MHz입니다(코드로 계산).</p>"
+    },
+    {
+      "heading": "구성과 채점",
+      "html": "<ul>\n<li><strong>구성</strong>: 초전도 자석, 경사자장 코일, 라디오파(RF) 송수신 코일, 컴퓨터. 조영제(가돌리늄 계열)를 정맥 주사해 대비를 높이기도 합니다.</li>\n<li><strong>영상 대비</strong>: 조직마다 다른 이완 시간(T1, T2)과 양성자 밀도를 이용합니다. T1 강조, T2 강조, FLAIR, 확산강조(DWI) 같은 시퀀스를 상황에 맞게 고릅니다.</li>\n<li><strong>주요 매개변수</strong>: 시야(FOV), 매트릭스, 슬라이스 두께, TR, TE, 신호 평균 횟수(NEX).</li>\n</ul>\n<p><strong>가상의 계산</strong>: FOV 240 mm, 매트릭스 256 × 256이면 화소 크기는 240 ÷ 256 ≈ 0.94 mm이고, 슬라이스 두께 5 mm이면 복셀 부피는 0.94² × 5 ≈ 4.4 mm³입니다. 기본 2차원 스핀에코 영상의 촬영 시간은 TR × 위상 부호화 횟수 × NEX이므로, TR = 500 ms, 위상 부호화 256회, NEX = 1이면 500 ms × 256 × 1 = 128초입니다(코드로 계산). 해상도를 높이면 시간이 늘고 신호 대 잡음비가 줄어드는 상충 관계가 있습니다(Brown &amp; Semelka, 2010; McRobbie 등, 2017).</p>"
+    },
+    {
+      "heading": "결과 읽는 법",
+      "html": "<ul>\n<li>영상의 밝기는 장비·시퀀스에 따라 달라지는 <strong>상대적인 값</strong>이라 숫자 단위가 없고, 같은 조건끼리 비교합니다. 정량이 필요하면 T1·T2 지도나 확산계수 같은 정량 시퀀스를 따로 씁니다.</li>\n<li>구조 영상으로 병변 위치, 조직의 부피(예: 뇌의 회백질 부피)를 측정합니다. 뇌 활동을 보려면 [[fmri|기능적 MRI]]처럼 별도의 시퀀스가 필요합니다.</li>\n<li>움직임, 금속에 의한 왜곡 같은 <strong>아티팩트</strong>를 영상 질 평가에 포함합니다.</li>\n<li>강한 자기장 때문에 체내 이식 기기나 금속의 확인 등 안전 절차를 지켜야 하며, 연구 참여자에게도 시설의 규정에 따라 사전 점검을 합니다.</li>\n<li>논문에는 장비 제조사·자기장 세기, 코일, 시퀀스 이름과 TR/TE/FOV/매트릭스/두께, 분석 소프트웨어를 적습니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘자기공명’이 들어간 용어는 쓰임이 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇을 보나",
+      "정보"
+    ],
+    "rows": [
+      [
+        "MRI",
+        "몸속 구조(해부학)",
+        "조직의 모양, 크기"
+      ],
+      [
+        "[[fmri|기능적 MRI]]",
+        "뇌 활동에 따른 혈류 변화",
+        "활성화 위치"
+      ],
+      [
+        "[[nuclear-magnetic-resonance|핵자기공명(NMR)]]",
+        "시료 속 핵의 신호",
+        "분자 구조·조성"
+      ]
+    ]
+  },
+  "references": [
+    "Lauterbur, P. C. (1973). Image formation by induced local interactions: examples employing nuclear magnetic resonance. Nature, 242, 190–191.",
+    "Damadian, R. (1971). Tumor detection by nuclear magnetic resonance. Science, 171, 1151–1153.",
+    "Brown, M. A., & Semelka, R. C. (2010). MRI: Basic Principles and Applications (4th ed.). Wiley-Blackwell.",
+    "McRobbie, D. W., Moore, E. A., Graves, M. J., & Prince, M. R. (2017). MRI from Picture to Proton (3rd ed.). Cambridge University Press."
+  ]
+}

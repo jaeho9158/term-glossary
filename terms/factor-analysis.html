@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/factor-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,53 @@
   <p>요인분석은 새로 개발한 설문이나 척도가 이론적으로 의도한 하위 구성 개념대로 실제 응답 데이터에서도 구분되는지를 검증하는 핵심 절차이기 때문에, 심리학·경영학·교육학 등 척도를 다루는 거의 모든 실증연구 논문의 초반부에 등장합니다.</p>
   <p>또한 수십 개의 변수를 소수의 요인으로 압축함으로써 이후 회귀분석이나 구조방정식모형 같은 후속 분석을 단순하고 해석 가능하게 만들어주는 전처리 단계로도 널리 쓰입니다. 척도의 타당도를 확보하는 표준적인 절차로 자리 잡고 있어, 새 척도를 제안하는 논문에서 빠지지 않고 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>여러 관측 변수 사이의 상관이 소수의 공통 요인으로 설명된다고 보고, 그 요인과 각 변수의 관계를 추정하는 통계 기법입니다. 쓰임새는 크게 세 가지입니다.</p>
+  <ul>
+  <li><strong>구조 탐색</strong>: 문항이 몇 개 차원으로 묶이는지 알아봅니다(<a href="exploratory-factor-analysis.html">탐색적</a>).</li>
+  <li><strong>구조 검증</strong>: 이론이 정한 구조가 자료에 맞는지 봅니다(<a href="confirmatory-factor-analysis.html">확인적</a>).</li>
+  <li><strong>변수 요약</strong>: 점수를 요인점수로 줄여 후속 분석에 씁니다.</li>
+  </ul>
+  <p>기본 모형은 x = Λf + ε입니다. 관측 변수 x가 공통 요인 f의 선형 결합과 변수별 고유 오차 ε로 이뤄진다는 가정으로, 요인이 변수들의 상관을 만들어 낸다는 생각입니다(Spearman, 1904; Thurstone, 1947). 변수 전체 분산을 요약하는 <a href="principal-component-analysis.html">주성분분석</a>과는 가정이 다릅니다.</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>(가상의 예) 문항 1~3이 한 요인에 각각 적재량 .78, .72, .69로 적재된다고 합시다. 한 요인 모형은 두 문항 사이의 상관이 두 적재량의 곱이라고 예측합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>문항 쌍</th><th>모형이 예측하는 상관</th><th>실제 상관(가상)</th><th>잔차</th></tr></thead><tbody>
+  <tr><td>1–2</td><td>.78 × .72 = .562</td><td>.60</td><td>.038</td></tr>
+  <tr><td>1–3</td><td>.78 × .69 = .538</td><td>.52</td><td>−.018</td></tr>
+  <tr><td>2–3</td><td>.72 × .69 = .497</td><td>.50</td><td>.003</td></tr>
+  </tbody></table></div>
+  <p>잔차가 작으면 요인 모형이 상관 구조를 잘 재현하는 것입니다(코드로 계산). 결과표는 다음 순서로 읽습니다.</p>
+  <ol>
+  <li><strong>적재량</strong>: 문항이 어느 요인에 속하는지(자세한 기준은 <a href="factor-loading.html">요인적재량</a> 참조).</li>
+  <li><strong>공통성</strong>: 요인들이 문항 분산을 설명하는 비율. 낮은 문항은 요인 구조에 잘 맞지 않습니다.</li>
+  <li><strong>설명 분산, 요인 간 상관</strong>: 사각회전에서는 요인 간 상관을 확인합니다.</li>
+  <li><strong>확인적 분석이라면 모형 적합도</strong>: Hu와 Bentler(1999)는 CFI .95 이상, RMSEA .06 이하, SRMR .08 이하 같은 기준을 제안했으나, 모든 상황에 통하는 값은 아닙니다(<a href="model-fit-indices.html">적합도 지수</a>).</li>
+  </ol>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul>
+  <li>표본 크기, 변수 척도, 분석 목적(탐색인지 확인인지)을 밝힙니다.</li>
+  <li>추출·회전 방법, 요인 수 결정 기준, 문항 제거 규칙을 씁니다. 요인에 붙인 이름은 연구자의 해석임을 분명히 합니다.</li>
+  <li>적재량 표(공통성, 설명 분산), 요인 간 상관, 신뢰도 지표를 함께 싣습니다.</li>
+  <li>확인적 분석이면 적합도 지수와 그 해석 기준의 출처를 적습니다. 탐색 후 확인은 서로 다른 표본에서 합니다.</li>
+  </ul>
+  <p>(가상의 문장) “탐색적 요인분석(최대우도, oblimin 회전)으로 3요인이 도출되었고, 별도 표본의 확인적 요인분석에서 CFI = .96, RMSEA = .05를 얻었다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“또한 한국직업사전에서 제공하는 직종 숙련 정보를 요인분석을 통해 신체적 숙련, 인지적 숙련, 조작적 숙련, 소통적 숙련으로 구분하였다.”</blockquote><p class="te-cite">수도권 임금 근로자의 성별 임금격차 : 직종 숙련특성에 따른 직종 간 임금격차와 직종 내성별 임금격차, 지역연구, 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001944105" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이를 위해 자폐 범주성 장애 아동 248명을 대상으로 K-CBCL을 측정하고 요인분석을 실시하였다.”</blockquote><p class="te-cite">자폐 범주성 장애 아동에서 아동ㆍ청소년 행동평가척도의 요인분석, 한국콘텐츠학회 논문지, 2011 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001581378" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“탐색적 요인분석과 확인적 요인분석을 통해 6개 하위요인 25문항이 도출되었다.”</blockquote><p class="te-cite">청년의 사회적 고립 측정 척도 개발, 한국사회복지학, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002842980" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설문 문항 20개에 대해 탐색적 요인분석을 실시한 결과, 고유값 1 이상인 4개의 요인이 추출되었으며 이는 전체 분산의 62%를 설명하였다."</div>
   <p>20개의 설문 문항 응답들 사이의 상관관계를 분석했더니, 서로 비슷하게 움직이는 문항들끼리 4개의 그룹(요인)으로 묶였고, 이 4개의 요인만으로도 전체 데이터가 퍼진 정도의 62%를 설명할 수 있었다는 뜻입니다.</p>
 
@@ -167,6 +214,21 @@
 
   <h2>주의할 점</h2>
   <p>요인분석에서 몇 개의 요인을 추출할지, 각 요인을 무엇이라 이름 붙일지는 회전 방법이나 고유값 기준 설정 등 연구자의 판단에 따라 달라질 수 있습니다. 그래서 결과를 볼 때는 설문에 쓰인 <a href="likert-scale.html">리커트척도</a> 문항들이 애초에 얼마나 일관되게 응답되었는지, 즉 신뢰도도 함께 확인하는 것이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>요인분석이라는 이름 아래 여러 기법이 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">초점</th><th scope="col">대표 쓰임</th></tr></thead><tbody><tr><th scope="row">요인분석</th><td>공통 요인 모형 전반</td><td>척도 구조 이해</td></tr><tr><th scope="row"><a href="exploratory-factor-analysis.html">탐색적 요인분석</a></th><td>구조를 자료에서 찾음</td><td>척도 개발 초기</td></tr><tr><th scope="row"><a href="confirmatory-factor-analysis.html">확인적 요인분석</a></th><td>정해진 구조의 적합 검증</td><td>타당화·측정불변성</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>분산 요약</td><td>변수 축소</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Spearman, C. (1904). “General intelligence,” objectively determined and measured. American Journal of Psychology, 15, 201–292.</li>
+    <li>Thurstone, L. L. (1947). Multiple-Factor Analysis. University of Chicago Press.</li>
+    <li>Fabrigar, L. R., &amp; Wegener, D. T. (2012). Exploratory Factor Analysis. Oxford University Press.</li>
+    <li>Hu, L., &amp; Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: conventional criteria versus new alternatives. Structural Equation Modeling, 6, 1–55.</li>
+    <li>Brown, T. A. (2015). Confirmatory Factor Analysis for Applied Research (2nd ed.). Guilford Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="factor-loading.html">요인적재량</a><a href="exploratory-factor-analysis.html">탐색적요인분석</a><a href="confirmatory-factor-analysis.html">확인적 요인분석</a></div></div><p class="concept-family-map"><a href="../concept-map/tool.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
