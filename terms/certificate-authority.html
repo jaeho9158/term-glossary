@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <p>실제로 과거 일부 인증기관에서 부정 발급 사고가 발생하면서, 이 분야에 대한 검증과 감시의 중요성이 부각되기도 했습니다.</p>
   <p>인터넷의 모든 참여자가 서로의 공개키를 직접 검증할 방법이 없기 때문에, 인증기관은 이를 대신 보증해주는 신뢰의 닻 역할을 하며, 인증기관 자체가 침해되면 그 아래 발급된 모든 인증서의 신뢰성이 함께 무너지는 구조적 취약점을 지닙니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>인증기관(CA)은 “이 공개키는 이 주체의 것”이라는 사실을 확인한 뒤, 자신의 <strong>개인키로 서명한 디지털 인증서</strong>를 발급하는 기관입니다. 인증서의 서명을 검증하면 공개키와 주체의 결합이 CA의 보증을 받은 것인지 확인할 수 있습니다.</li><li>인증서 형식은 흔히 X.509이며, 형식과 검증 절차는 RFC 5280(Cooper 등, 2008)에 정리되어 있습니다. 인증서에는 주체, 공개키, 유효기간, 발급자, 서명이 들어갑니다.</li><li>사용자의 브라우저·운영체제에는 신뢰하기로 한 <strong>루트 CA</strong>의 인증서 목록(신뢰 저장소)이 들어 있고, 검증은 서버 인증서 → 중간 CA → 루트 CA로 이어지는 <strong>인증서 체인</strong>을 따라 올라갑니다. 루트 키는 오프라인에 보관하고 실제 발급은 중간 CA가 맡는 구성이 흔합니다.</li><li>이미 발급한 인증서를 더는 믿지 못하게 되면 <a href="certificate-revocation-list.html">인증서 폐지목록(CRL)</a>이나 온라인 상태 확인(OCSP; 서버가 응답을 미리 받아 전달하는 방식은 <a href="ocsp-stapling.html">OCSP 스테이플링</a>)으로 알립니다.</li><li>발급이 올바르게 이루어졌는지 외부에서 감시하려는 장치가 <a href="certificate-transparency.html">인증서 투명성</a>입니다(Laurie 등, 2013): 발급된 인증서를 공개 로그에 남기도록 합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>웹 브라우저가 https 사이트에 접속하는 장면을 봅시다.</p><ol><li>서버가 자신의 인증서(와 중간 CA 인증서)를 보냅니다.</li><li>브라우저는 인증서의 서명을 발급자의 공개키로 검증하고, 같은 방식으로 체인을 따라 올라가 신뢰 저장소에 있는 루트 CA에 닿는지 봅니다.</li><li>유효기간, 접속한 도메인 이름과 인증서의 주체 일치 여부, 폐지 여부를 함께 확인합니다.</li></ol><p>이 과정이 모두 통과해야 “이 공개키가 이 도메인의 것”이라고 믿고 암호화 통신을 시작합니다. 신뢰의 출발점이 루트 CA이므로, CA가 잘못된 인증서를 발급하거나 CA 자체가 침해되면 그 아래 인증서 전체의 신뢰가 흔들립니다. 실제로 2011년 네덜란드 CA 디지노타(DigiNotar)가 침해되어 부정 인증서가 발급되었고, 주요 브라우저가 이 CA를 신뢰 목록에서 제외한 사례가 널리 알려져 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>CA가 인증서를 발급했으니 그 사이트는 안전하다.</td><td>인증서는 키와 주체(도메인)의 결합을 보증할 뿐, 사이트 운영자가 선량하다거나 서버가 안전하다는 보증이 아닙니다.</td></tr><tr><td>인증서가 유효하면 항상 폐지 여부까지 확인된다.</td><td>폐지 확인은 CRL·OCSP 같은 별도 수단에 달려 있고, 구현에 따라 확인을 생략하거나 실패를 허용(soft-fail)하기도 합니다.</td></tr><tr><td>CA는 하나뿐이거나 모든 CA가 동등하다.</td><td>많은 CA가 신뢰 저장소에 들어 있고, 어느 CA든 어느 도메인의 인증서나 발급할 수 있는 구조여서 가장 약한 CA의 수준이 전체 위험을 좌우합니다.</td></tr><tr><td>‘인증기관’은 언제나 PKI의 CA를 뜻한다.</td><td>한국어 논문에서 ‘인증기관’은 의료교육·식품 할랄 등의 <strong>평가·인증(accreditation) 기관</strong>을 가리키는 말로도 많이 쓰입니다. 이 페이지는 공개키 기반구조의 CA를 다룹니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 인증기관이 단일 실패 지점이 되는 구조적 문제를 지적하고 분산형 신뢰 모델을 제안하였다."</div>
   <p>중앙집중형 인증기관 구조가 가진 한계를 개선하려는 연구 방향을 보여줍니다.</p>
   <div class="example">"제안된 프레임워크는 다수의 인증기관 간 신뢰 관계를 검증하여 인증서 남용을 조기에 탐지한다."</div>
@@ -163,6 +181,19 @@
 
   <h2>주의할 점</h2>
   <p>인증기관이 발급한 인증서라도 발급 절차에 허점이 있거나 인증기관 자체가 침해당하면 부정한 인증서가 발급될 위험이 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>인증서 주변 용어는 역할이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">역할</th><th scope="col">누가/무엇이 하나</th></tr></thead><tbody><tr><th scope="row"><strong>인증기관(CA)</strong></th><td>신원을 확인하고 인증서에 서명해 발급</td><td>신뢰받는 제3의 기관</td></tr><tr><th scope="row"><a href="digital-certificate.html">디지털 인증서</a></th><td>공개키와 주체의 결합을 담은 전자 문서</td><td>CA가 서명한 결과물</td></tr><tr><th scope="row"><a href="certificate-revocation-list.html">인증서 폐지목록</a></th><td>유효기간 전에 무효가 된 인증서의 목록</td><td>CA가 게시</td></tr><tr><th scope="row"><a href="certificate-transparency.html">인증서 투명성</a></th><td>발급 내역을 공개 로그에 남겨 감시</td><td>공개 로그 서버와 감시자</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., &amp; Polk, W. (2008). Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile. RFC 5280. IETF.</li>
+    <li>Laurie, B., Langley, A., &amp; Kasper, E. (2013). Certificate Transparency. RFC 6962. IETF.</li>
+    <li>Kohnfelder, L. M. (1978). Towards a Practical Public-key Cryptosystem. Bachelor's thesis, Massachusetts Institute of Technology.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="public-key-infrastructure.html">공개키 기반구조(PKI)</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="digital-certificate.html">디지털 인증서</a><a href="cross-certification.html">상호인증</a><a href="certificate-transparency.html">인증서 투명성</a><a href="certificate-revocation-list.html">인증서 폐지목록</a><a href="ocsp-stapling.html">OCSP 스테이플링</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

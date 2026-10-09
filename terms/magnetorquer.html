@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>추진제 없이 전력만으로 자세 제어가 가능하다는 점 때문에 소형위성과 큐브위성 설계에서 특히 중요하게 다뤄집니다. 반작용휠의 모멘텀을 주기적으로 덜어내는 모멘텀 덤핑에도 필수적이어서 자세제어 시스템 논문에서 자주 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>자기토커는 코일(또는 막대)에 전류를 흘려 <strong>자기모멘트 <em>m</em></strong>을 만들고, 지구 자기장 <em>B</em>와 상호작용시켜 토크를 얻는 구동기입니다. 토크는 <code>τ = m × B</code> (벡터의 외적)입니다.</li><li>외적이므로 토크는 항상 <em>B</em>에 수직입니다. <strong>자기장 방향의 토크는 만들 수 없습니다.</strong> 위성이 궤도를 돌면 <em>B</em>의 방향이 바뀌므로 시간에 걸쳐 모든 축을 제어할 수 있을 뿐, 한 순간에는 3축 완전 제어가 불가능합니다.</li><li>자기모멘트의 크기는 감은 수 <em>N</em>, 전류 <em>I</em>, 코일 면적 <em>A</em>로 <code>m = N·I·A</code>입니다.</li><li>추진제를 쓰지 않고 전력만 쓰며 구조가 단순해 소형위성·큐브위성에 많이 쓰입니다. 대신 토크가 작습니다.</li><li>대표적 용도는 발사 후 회전을 줄이는 디텀블링(B-dot 제어, 자기장 변화율에 비례해 자기모멘트를 내는 방식; Stickler &amp; Alfriend, 1976)과, <a href="reaction-wheel.html">반작용휠</a>에 쌓인 각운동량을 덜어내는 모멘텀 덤핑입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예</strong>: 큐브위성 한 축의 코일이 감은 수 200, 전류 0.1 A, 코일 면적 0.01 m²라고 합시다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>양</th><th>식</th><th>값</th></tr></thead><tbody><tr><td>자기모멘트 <em>m</em></td><td>N·I·A = 200 × 0.1 × 0.01</td><td>0.20 A·m²</td></tr><tr><td>저궤도 자기장 <em>B</em>(가정)</td><td>—</td><td>30 μT</td></tr><tr><td>최대 토크</td><td>m·B (m ⟂ B일 때)</td><td>6.0×10<sup>-6</sup> N·m</td></tr></tbody></table></div><p>토크는 마이크로 뉴턴미터 수준(6 μN·m)입니다. 이는 반작용휠이 내는 토크(밀리 뉴턴미터 단위)보다 작아, 빠른 자세 기동보다는 느린 감쇠와 보조 제어에 맞는 장치임을 보여 줍니다. 위의 자기장 값은 저궤도에서 대략 수십 μT 범위라는 점에서 고른 가정이며, 실제 값은 궤도 위치에 따라 달라집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>자기토커만으로 어느 방향이든 자유롭게 돌릴 수 있다.</td><td>토크가 자기장에 수직이라 방향 제약이 있습니다. 보통 반작용휠 등과 함께 쓰거나 저정밀 제어에 한정합니다.</td></tr><tr><td>어느 궤도에서나 똑같이 동작한다.</td><td>지구 자기장은 고도가 오를수록 약해져, 자기장이 약한 고궤도·심우주에서는 효율이 크게 떨어집니다.</td></tr><tr><td>연료가 필요 없으니 에너지도 거의 안 든다.</td><td>추진제는 쓰지 않지만 코일에 흐르는 전류만큼 전력을 소모합니다.</td></tr><tr><td>자기토커는 자세를 측정하는 센서이다.</td><td>구동기입니다. 자기장을 재는 자력계와 구분해야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"자기토커 세 축을 이용해 반작용휠의 각운동량을 지구 자기장 방향으로 덤핑하는 제어 기법을 제안하였다."</div>
   <p>반작용휠에 쌓인 회전 에너지를 자기토커로 서서히 줄여 위성이 계속 안정적으로 작동하도록 하는 연구를 설명한 문장입니다.</p>
   <div class="example">"저궤도 큐브위성의 자세 안정화를 위해 자기토커만을 이용한 B-dot 제어 알고리즘을 적용하였다."</div>
@@ -160,6 +178,19 @@
 
   <h2>주의할 점</h2>
   <p>자기토커는 저궤도처럼 지구 자기장이 비교적 강한 궤도에서 효과적이며, 자기장이 약한 고궤도나 심우주 임무에서는 효율이 크게 떨어집니다. 또한 발생 토크가 작아 빠른 자세 기동에는 적합하지 않습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>자세제어에서 토크를 내는 장치와 그 용도입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">토크를 내는 원리</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><strong>자기토커</strong></th><td>코일 자기모멘트와 지구 자기장의 상호작용</td><td>연료 불필요, 토크 작음, 자기장 방향 제약</td></tr><tr><th scope="row"><a href="reaction-wheel.html">반작용휠</a></th><td>바퀴의 가속·감속에 대한 반작용</td><td>정밀한 제어, 각운동량이 쌓이면 덜어내야 함</td></tr><tr><th scope="row"><a href="detumbling.html">디텀블링</a></th><td>발사 직후 회전을 줄이는 과정(목적)</td><td>자기토커의 B-dot 제어가 자주 쓰임</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wertz, J. R. (Ed.). (1978). Spacecraft Attitude Determination and Control. D. Reidel.</li>
+    <li>Markley, F. L., &amp; Crassidis, J. L. (2014). Fundamentals of Spacecraft Attitude Determination and Control. Springer.</li>
+    <li>Stickler, A. C., &amp; Alfriend, K. T. (1976). Elementary magnetic attitude control system. Journal of Spacecraft and Rockets.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="attitude-determination-control-system.html">자세결정 및 제어시스템</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="angular-momentum-management.html">각운동량관리</a><a href="momentum-wheel.html">모멘텀휠</a><a href="reaction-wheel.html">반작용휠</a><a href="star-tracker.html">별추적기</a><a href="three-axis-stabilization.html">삼축안정화</a><a href="spin-stabilization.html">스핀안정화</a><a href="dual-spin-stabilization.html">이중스핀안정화</a><a href="control-moment-gyroscope.html">제어모멘트자이로</a><a href="gravity-gradient-stabilization.html">중력구배안정화</a><a href="sun-sensor.html">태양센서</a><a href="bdot-control.html">B-닷제어</a></div></div><p class="concept-family-map"><a href="../concept-map/aviation.html">분야 전체 개념 지도 보기 →</a> 발생 가능한 토크가 지구 자기장 방향에 종속되어 임의의 방향으로 자유롭게 토크를 낼 수 없다는 한계가 있어, 정밀 자세제어보다는 보조적·저정밀 제어 수단으로 주로 활용됩니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

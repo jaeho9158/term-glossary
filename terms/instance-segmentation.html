@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>영상에서 물체 종류뿐 아니라 개체 하나하나의 픽셀 영역을 구분하므로, 겹쳐 쌓인 부품을 하나씩 집는 <a href="bin-picking.html">빈피킹</a>이나 과실 개별 인식에서 파지 위치를 정하는 근거가 됩니다. <a href="semantic-segmentation.html">의미론적 분할</a>로는 같은 종류 물체가 붙어 있을 때 개체를 나눌 수 없다는 한계를 해결합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>인스턴스분할은 영상의 각 개체마다 <strong>클래스 이름과 개체 하나하나의 픽셀 마스크</strong>를 함께 내놓는 과제입니다. 같은 영상에 사람이 세 명 있으면 마스크도 세 장이 나옵니다. 흔히 쓰는 계열은 둘로 나뉩니다.</p><ul><li><strong>검출 기반(2단계)</strong>: 먼저 개체의 경계상자를 찾고, 그 상자 안에서 마스크를 예측합니다. 대표 모델이 Mask R-CNN(He 등, 2017)으로, Faster R-CNN에 마스크를 예측하는 가지를 덧붙인 구조입니다.</li><li><strong>직접 예측(1단계) 계열</strong>: 경계상자를 거치지 않고 개체별 마스크를 곧바로 만들어 내는 모델들입니다.</li></ul><p>학습에는 개체마다 따로 그린 픽셀 단위 주석이 필요합니다. 공개 자료 가운데 가장 널리 쓰이는 것이 MS COCO(Lin 등, 2014)입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>같은 종류의 물체가 붙어 있거나 겹쳐 있어 “몇 개인지, 각각 어디까지인지”가 필요할 때 씁니다. 종류만 구분하는 <a href="image-segmentation.html">이미지 분할(의미론적 분할)</a>은 붙어 있는 두 사람을 하나의 ‘사람’ 영역으로 묶지만, 인스턴스분할은 둘을 따로 가릅니다. 반대로 하늘·도로처럼 개수를 셀 수 없는 배경 영역(stuff)은 인스턴스분할의 대상이 아니고, 이를 함께 다루는 확장이 판옵틱 분할(Kirillov 등, 2019)입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>과제</th><th>출력</th><th>같은 종류가 붙어 있을 때</th></tr></thead><tbody><tr><td><a href="object-detection.html">객체 검출</a></td><td>클래스 + 경계상자</td><td>상자는 나뉘지만 윤곽은 없음</td></tr><tr><td>의미론적 분할</td><td>픽셀마다 클래스</td><td>하나의 영역으로 합쳐짐</td></tr><tr><td>인스턴스분할</td><td>개체마다 클래스 + 마스크</td><td>개체별로 분리됨</td></tr></tbody></table></div><p>평가는 보통 마스크 단위의 평균정밀도(AP)로 합니다. 예측 마스크 A와 정답 마스크 B의 겹침 정도를 IoU(교집합÷합집합)로 재고, IoU가 기준(예: 0.5)을 넘으면 맞힌 것으로 셉니다. COCO 방식은 IoU 기준을 0.50에서 0.95까지 0.05 간격으로 바꿔 가며 구한 AP를 평균합니다.</p><p><strong>가상의 예: 마스크 IoU 계산</strong> 6×6 격자에서 정답 마스크가 3×4 = 12칸, 예측 마스크가 같은 크기로 한 칸씩 어긋나 있다고 합시다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>정답 칸 수</th><th>예측 칸 수</th><th>교집합</th><th>합집합</th><th>IoU</th></tr></thead><tbody><tr><td>12</td><td>12</td><td>6</td><td>18</td><td>6 ÷ 18 ≈ 0.33</td></tr></tbody></table></div><p>크기가 같은 두 마스크가 가로·세로로 한 칸씩만 어긋나도 IoU는 약 0.33으로 떨어져, 기준이 0.5이면 맞힌 것으로 세지 못합니다. 이처럼 작은 물체일수록 몇 픽셀의 오차가 IoU를 크게 흔듭니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>데이터셋과 분할 방식(훈련·검증·시험 개수), 클래스 수, 주석 방식(다각형인지 픽셀 마스크인지)을 적습니다.</li><li>모델 이름과 사전학습 가중치, 입력 해상도, 학습 설정을 적습니다.</li><li>지표는 “마스크 AP, AP<sub>50</sub>, AP<sub>75</sub>”처럼 <strong>마스크 기준인지 경계상자 기준인지</strong>를 구분해 적습니다. 두 값은 서로 다릅니다.</li><li>반사·투명 물체, 심한 겹침처럼 약한 조건은 오류 사례로 따로 보여 줍니다.</li></ul><p>문장 예(가상): “마스크 AP는 IoU 0.50:0.95 평균이며, 경계상자 AP와 구분하여 보고하였다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">인스턴스 분할은 의미론적 분할과 객체 검출을 결합하여 각 객체 인스턴스마다 독립적인 픽셀 마스크와 클래스 레이블을 동시에 예측한다.</div>
   <p>화면 속 물체의 종류를 아는 것에 더해, 같은 종류라도 개체별로 서로 다른 영역임을 구분해 각각의 윤곽을 따로 그려준다는 의미입니다.</p>
   <div class="example">"박스 안에 무작위로 쌓인 동일 부품을 대상으로 한 실험에서 인스턴스 분할 기반 파지 계획은 의미론적 분할만 사용한 방식보다 개별 부품을 정확히 집어내는 성공률이 유의하게 높았다."</div>
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>객체 간 겹침이 심한 장면에서는 개별 개체의 경계를 정확히 구분하기가 특히 어렵습니다. 투명하거나 반사가 심한 물체는 색상 정보만으로 경계를 구분하기 어려워, 깊이 정보와 결합해도 마스크 경계가 실제 형상과 어긋나는 경우가 흔하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>영상을 ‘잘게 나누는’ 과제가 여럿이라 이름이 쉽게 섞입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 내놓나</th><th scope="col">개체 구분</th></tr></thead><tbody><tr><th scope="row"><a href="object-detection.html">객체 검출</a></th><td>개체마다 클래스와 경계상자</td><td>된다(윤곽은 없음)</td></tr><tr><th scope="row"><a href="image-segmentation.html">이미지 분할</a>(의미론적 분할)</th><td>모든 픽셀의 클래스</td><td>안 된다</td></tr><tr><th scope="row"><strong>인스턴스분할</strong></th><td>개체마다 클래스와 픽셀 마스크</td><td>된다</td></tr><tr><th scope="row">판옵틱 분할</th><td>셀 수 있는 개체는 개체별로, 배경 영역은 클래스별로 한 장에</td><td>개체는 된다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>He, K., Gkioxari, G., Dollár, P., &amp; Girshick, R. (2017). Mask R-CNN. Proceedings of the IEEE International Conference on Computer Vision.</li>
+    <li>Lin, T.-Y., Maire, M., Belongie, S., Hays, J., Perona, P., Ramanan, D., Dollár, P., &amp; Zitnick, C. L. (2014). Microsoft COCO: Common objects in context. European Conference on Computer Vision.</li>
+    <li>Kirillov, A., He, K., Girshick, R., Rother, C., &amp; Dollár, P. (2019). Panoptic segmentation. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
