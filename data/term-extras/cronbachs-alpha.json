@@ -1,0 +1,61 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>문항이 <em>k</em>개인 척도에서 <code>α = k ÷ (k − 1) × (1 − 문항 분산의 합 ÷ 총점의 분산)</code>입니다(Cronbach, 1951). 문항들이 서로 비슷하게 움직일수록 총점 분산이 문항 분산의 합보다 커져 α가 올라갑니다.</p><p><strong>가상의 예</strong>: 5문항을 8명이 1~5점으로 답했습니다. 문항 분산의 합이 5.96, 총점 분산이 24.21이어서 α = 5/4 × (1 − 5.96 ÷ 24.21) ≈ 0.94입니다(코드로 계산).</p><p>문항 간 평균 상관이 같아도 <strong>문항 수가 늘면 α가 커집니다</strong>. 표준화 α = k r ÷ (1 + (k − 1) r)(r은 문항 간 평균 상관)로 계산하면 다음과 같습니다.</p><table><thead><tr><th>문항 수 k</th><th>평균 상관 0.2</th><th>평균 상관 0.3</th></tr></thead><tbody><tr><th scope=\"row\">5</th><td>0.56</td><td>0.68</td></tr><tr><th scope=\"row\">10</th><td>0.71</td><td>0.81</td></tr><tr><th scope=\"row\">20</th><td>0.83</td><td>0.90</td></tr></tbody></table><p>범위는 이론상 상한이 1이고, 역채점을 빠뜨렸거나 문항들이 서로 반대로 움직이면 0보다 작아질 수도 있습니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>흔히 인용되는 기준은 Nunnally(1978)의 제안으로, 초기 연구에서는 .70 정도, 중요한 결정에 쓰는 도구는 .90 이상이 바람직하다는 식입니다. 이는 관례이지 통계적 문턱이 아닙니다.</li><li>너무 높은 값(예: .95 이상)은 문항이 서로 거의 같은 내용을 반복한다는 신호일 수 있습니다(Streiner, 2003).</li><li>α는 <strong>문항 간 일관성</strong>을 말할 뿐 척도가 한 개념만 재는지(단일차원성)를 보증하지 않습니다(Sijtsma, 2009). 여러 하위요인이 섞인 척도는 요인분석으로 구조를 확인한 뒤 하위척도별로 계산합니다.</li><li>α는 문항들이 같은 크기로 개념을 반영한다는(tau-등가) 가정이 맞을 때 신뢰도와 같고, 그렇지 않으면 신뢰도의 하한에 가깝습니다. 이 가정이 어려우면 오메가 계수가 대안으로 제안됩니다(McNeish, 2018).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>신뢰도는 척도 자체의 고정 속성이 아니라 <strong>이 표본에서의 점수</strong>가 가진 성질입니다. 기존 논문의 α를 그대로 옮기지 말고 본 연구 자료에서 다시 계산해 적습니다.</li><li>문항 수와 응답 척도, 역채점 처리 여부, 전체 척도와 하위척도별 α를 구분해 적습니다.</li><li>소수점 둘째 자리(예: α = .87)로 쓰고, 가능하면 오메가 계수나 신뢰구간을 함께 보고합니다.</li></ul>"
+    }
+  ],
+  "fixes": [
+    {
+      "find": "같은 방의 온도를 재는 저울 여러 개가 있다고 해봅시다. 저울마다 재는 값이 들쭉날쭉하다면 그 저울들을 믿기 어렵겠죠.",
+      "replace": "같은 방의 온도를 재는 온도계 여러 개가 있다고 해봅시다. 온도계마다 재는 값이 들쭉날쭉하다면 그 온도계들을 믿기 어렵겠죠."
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "신뢰도에는 여러 종류가 있고, 각각 다른 질문에 답합니다.",
+    "headers": [
+      "용어",
+      "무엇을 보나",
+      "필요한 자료"
+    ],
+    "rows": [
+      [
+        "[[cronbachs-alpha|크론바흐 알파]]",
+        "문항 간 내적 일관성",
+        "한 번 측정한 문항별 응답"
+      ],
+      [
+        "[[mcdonalds-omega|맥도날드 오메가]]",
+        "요인 모형에 기초한 일관성(문항별 부하량 차이 허용)",
+        "한 번 측정한 문항별 응답과 요인 모형"
+      ],
+      [
+        "[[split-half-reliability|반분 신뢰도]]",
+        "문항을 반으로 나눈 두 점수의 일치",
+        "한 번 측정한 문항별 응답"
+      ],
+      [
+        "[[test-retest-reliability|검사-재검사 신뢰도]]",
+        "시간이 지나도 점수가 안정적인가",
+        "두 시점의 같은 척도 점수"
+      ]
+    ]
+  },
+  "references": [
+    "Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests. Psychometrika, 16(3), 297–334.",
+    "Nunnally, J. C. (1978). Psychometric theory (2nd ed.). McGraw-Hill.",
+    "Streiner, D. L. (2003). Starting at the beginning: An introduction to coefficient alpha and internal consistency. Journal of Personality Assessment, 80(1), 99–103.",
+    "Sijtsma, K. (2009). On the use, the misuse, and the very limited usefulness of Cronbach's alpha. Psychometrika, 74(1), 107–120.",
+    "McNeish, D. (2018). Thanks coefficient alpha, we'll take it from here. Psychological Methods, 23(3), 412–433."
+  ]
+}

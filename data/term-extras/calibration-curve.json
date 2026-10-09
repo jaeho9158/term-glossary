@@ -1,0 +1,50 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li>농도를 정확히 아는 <strong>표준시료</strong>를 농도 단계별로 만듭니다(농도 0인 블랭크 포함, 보통 5~8점).</li><li>표준시료와 미지 시료를 같은 조건(같은 시약, 같은 시간, 같은 기기 설정)으로 측정합니다.</li><li>농도(x)와 신호(y)에 최소제곱 직선 <code>y = a + bx</code>를 맞춥니다.</li><li>미지 시료의 신호 y₀를 <code>x₀ = (y₀ − a) ÷ b</code>에 넣어 농도로 되돌립니다.</li></ol><p><strong>가상의 예</strong>: 농도 0, 2, 4, 6, 8, 10 μg/mL에서 신호가 0.02, 0.21, 0.39, 0.62, 0.80, 1.01이었습니다. 직선을 맞추면 기울기 0.0993, 절편 0.0119, R² = 0.9991이고, 신호 0.50인 미지 시료는 (0.50 − 0.0119) ÷ 0.0993 ≈ 4.92 μg/mL입니다(코드로 계산). 미지 시료의 신호는 표준시료의 범위(여기서는 0.02~1.01) 안에 있어야 합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>정량</strong>이 필요한 모든 기기 분석에서 쓰입니다: 분광광도법, 크로마토그래피, 질량분석, ELISA, 실시간 PCR 등.</li><li>직선이 아닌 반응(예: ELISA의 S자형 곡선)은 직선 대신 4-매개변수 로지스틱 같은 곡선을 맞춥니다(Findlay &amp; Dillard, 2007). 농도가 커질수록 측정 변동도 커지는 경우에는 낮은 농도의 점에 더 큰 비중을 주는 <strong>가중 회귀</strong>를 쓰기도 합니다(Almeida 등, 2002).</li><li>ICH Q2(R1) 지침은 검출한계(LOD)와 정량한계(LOQ)를 잔차 표준편차 σ와 기울기 S로 계산하는 방법을 제시합니다: LOD = 3.3σ ÷ S, LOQ = 10σ ÷ S. 위 예에서 σ ≈ 0.0127이므로 LOD ≈ 0.42, LOQ ≈ 1.28 μg/mL입니다(코드로 계산).</li><li>시료의 바탕 성분이 신호를 바꾸면 표준시료도 같은 바탕에서 만들어야(매트릭스 일치) 합니다. 전처리 손실이나 기기 변동은 <strong>내부표준물질</strong>을 넣어 보정하기도 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>표준시료의 농도 범위, 점의 수, 반복 측정 여부를 적습니다.</li><li>회귀식과 R², 가중치를 썼는지, 직선인지 곡선인지를 밝힙니다. R²만으로 곡선의 적합을 판단하지 않고 잔차나 정확도(되돌려 계산한 표준 농도의 오차)도 함께 보고하면 더 믿을 만합니다.</li><li>LOD, LOQ와 그 계산 방식, 검량선을 매 실험마다 새로 만들었는지 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "미지 시료의 농도를 구하는 보정 방식은 여러 가지입니다.",
+    "headers": [
+      "방법",
+      "어떻게 하나",
+      "주로 쓰는 경우"
+    ],
+    "rows": [
+      [
+        "검량선(외부 표준법)",
+        "깨끗한 표준시료의 농도–신호 관계를 따로 만들어 둠",
+        "시료 바탕의 영향이 작을 때"
+      ],
+      [
+        "표준 첨가법",
+        "미지 시료 자체에 표준물질을 단계별로 더해 신호 변화를 봄",
+        "시료 바탕이 신호에 영향을 줄 때"
+      ],
+      [
+        "내부표준법",
+        "모든 시료에 일정량의 기준 물질을 넣고 신호 비를 사용",
+        "전처리 손실·기기 변동을 보정할 때"
+      ]
+    ]
+  },
+  "references": [
+    "ICH. (2005). Validation of analytical procedures: Text and methodology Q2(R1). International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use.",
+    "Harris, D. C. (2010). Quantitative chemical analysis (8th ed.). W. H. Freeman.",
+    "Miller, J. N., & Miller, J. C. (2010). Statistics and chemometrics for analytical chemistry (6th ed.). Pearson.",
+    "Almeida, A. M., Castel-Branco, M. M., & Falcão, A. C. (2002). Linear regression for calibration lines revisited: Weighting schemes for bioanalytical methods. Journal of Chromatography B, 774(2), 215–222.",
+    "Findlay, J. W. A., & Dillard, R. F. (2007). Appropriate calibration curve fitting in ligand binding assays. The AAPS Journal, 9(2), E260–E267."
+  ]
+}

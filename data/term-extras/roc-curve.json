@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li>검사나 모델이 내는 <strong>연속 점수</strong>와 실제 양성·음성(기준 표준)을 준비합니다.</li><li>기준점(절단점)을 모든 가능한 값으로 바꿔 가며 각 기준점에서 <strong>민감도</strong>와 <strong>1 − 특이도</strong>를 계산합니다.</li><li>(1 − 특이도, 민감도) 점을 이어 곡선을 그립니다. 곡선 아래 면적이 AUC이며, 무작위로 고른 양성이 음성보다 높은 점수를 받을 확률로 해석됩니다(Hanley &amp; McNeil, 1982).</li></ol><p><strong>가상의 예</strong>: 양성 8명, 음성 8명의 점수로 AUC를 계산하면 0.891입니다. 기준점별 값은 다음과 같습니다(일부).</p><table><thead><tr><th>기준점(점수 이상을 양성)</th><th>민감도</th><th>특이도</th><th>민감도 + 특이도 − 1</th></tr></thead><tbody><tr><th scope=\"row\">0.66</th><td>0.625</td><td>1.000</td><td>0.625</td></tr><tr><th scope=\"row\">0.58</th><td>0.750</td><td>0.875</td><td>0.625</td></tr><tr><th scope=\"row\">0.49</th><td>0.875</td><td>0.750</td><td>0.625</td></tr><tr><th scope=\"row\">0.35</th><td>1.000</td><td>0.500</td><td>0.500</td></tr></tbody></table><p>마지막 열은 Youden(1950) 지수입니다. 이 예에서는 세 기준점이 같은 최댓값(0.625)이어서 지수만으로는 하나를 고를 수 없고, 임상적 비용(놓침 대 오경보)을 따져야 합니다(코드로 계산).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>진단 검사·예측 모델의 변별력 평가</strong>와 <strong>척도의 절단점 설정</strong>에 씁니다. 양성·음성을 정하는 기준 표준(<a href=\"ground-truth.html\">그라운드 트루스</a>)이 필요합니다.</li><li>두 모델의 곡선이 교차하면 AUC 하나로 우열을 단정하기 어렵습니다. 같은 자료에서 두 AUC를 비교할 때는 상관을 고려하는 방법(DeLong 등, 1988)을 씁니다.</li><li>양성이 아주 드문 자료에서는 ROC 곡선이 낙관적으로 보일 수 있어 정밀도–재현율 곡선을 함께 보라는 제안이 있습니다(Saito &amp; Rehmsmeier, 2015).</li><li>같은 자료에서 최적 절단점을 고르고 성능을 평가하면 성능이 부풀려집니다. 교차검증이나 별도 검증 자료가 필요합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>AUC와 95% 신뢰구간, 구한 방법(비모수 또는 모수, 신뢰구간 방식)을 적습니다.</li><li>절단점을 어떤 기준(Youden 지수 최대, 민감도 고정 등)으로 골랐는지 밝히고, 그 절단점에서의 민감도·특이도와 신뢰구간을 적습니다.</li><li>기준 표준이 무엇이었는지, 양성·음성 사례 수, 검증 방식(교차검증, 외부 검증)을 함께 적습니다. 진단 정확도 연구의 보고 항목은 STARD 지침(Bossuyt 등, 2015)에 정리되어 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[roc-curve|ROC 곡선]]",
+        "모든 기준점에서의 (1 − 특이도, 민감도)를 이은 그래프",
+        "곡선 전체"
+      ],
+      [
+        "[[auc-roc|AUC]]",
+        "ROC 곡선 아래 면적(0~1)",
+        "곡선을 한 숫자로 요약"
+      ],
+      [
+        "[[youden-index|Youden 지수]]",
+        "민감도 + 특이도 − 1",
+        "곡선 위 한 점(절단점)을 고를 때 쓰는 기준"
+      ],
+      [
+        "[[sensitivity|민감도]]·[[specificity|특이도]]",
+        "한 기준점에서의 성능",
+        "곡선 위 한 점의 좌표"
+      ]
+    ]
+  },
+  "references": [
+    "Hanley, J. A., & McNeil, B. J. (1982). The meaning and use of the area under a receiver operating characteristic (ROC) curve. Radiology, 143(1), 29–36.",
+    "Youden, W. J. (1950). Index for rating diagnostic tests. Cancer, 3(1), 32–35.",
+    "DeLong, E. R., DeLong, D. M., & Clarke-Pearson, D. L. (1988). Comparing the areas under two or more correlated receiver operating characteristic curves: A nonparametric approach. Biometrics, 44(3), 837–845.",
+    "Fawcett, T. (2006). An introduction to ROC analysis. Pattern Recognition Letters, 27(8), 861–874.",
+    "Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLoS ONE, 10(3), e0118432.",
+    "Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., Gatsonis, C. A., Glasziou, P. P., Irwig, L., et al. (2015). STARD 2015: An updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527."
+  ]
+}

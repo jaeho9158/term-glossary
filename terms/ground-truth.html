@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/ground-truth.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>그라운드트루스는 지도학습 모델의 학습과 평가 전체를 떠받치는 기준점이기 때문에, 머신러닝·컴퓨터비전·의료영상·원격탐사 등 데이터 기반 연구 전반에서 빠지지 않고 등장하는 개념입니다.</p>
   <p>모델 성능을 비교하는 모든 지표(정확도, 정밀도, 재현율 등)는 결국 그라운드트루스와의 일치도를 계산한 것이므로, 그라운드트루스를 어떻게 확보했는지가 연구 결과의 신뢰성을 좌우합니다. 이 때문에 논문에서는 그라운드트루스의 출처와 확보 방법을 명확히 밝히는 것이 표준적인 관행입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>그라운드 트루스는 모델이나 측정을 평가할 때 비교 기준으로 삼는 <strong>정답으로 간주한 자료</strong>입니다. 기계학습에서는 사람이 붙인 라벨, 진단 연구에서는 기준 표준(reference standard), 원격탐사에서는 현장에서 직접 관측한 값(지상 실측)을 가리킵니다.</li><li>‘진리’가 아니라 ‘현재 가장 믿을 만한 기준’이라는 뜻입니다. 진단 정확도 연구의 보고 지침(Bossuyt 등, 2015)은 기준 표준이 무엇이고 어떻게 적용되었는지를 밝히라고 요구합니다.</li><li>정답을 만드는 과정(누가, 어떤 지침으로, 몇 명이, 불일치는 어떻게 해결했나)이 곧 그라운드 트루스의 품질입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>라벨 오류가 평가에 미치는 영향(가상의 예)</strong>: 모델의 실제 정확도가 90%인데 정답 라벨의 5%가 무작위로 틀렸다고 합시다(이진 분류, 오류는 두 부류에 같은 비율). 모델이 맞히는 건 ‘맞는 라벨’과 일치한 경우(0.90 × 0.95)와 ‘틀린 라벨’과 우연히 일치한 경우(0.10 × 0.05)이므로 측정되는 정확도는 0.855 + 0.005 = 0.86입니다. 모델은 그대로인데 점수가 4%p 낮게 나옵니다(코드로 계산).</p><p><strong>평가자 일치도(가상의 예)</strong>: 두 평가자가 100건을 판정해 둘 다 ‘양성’ 40건, 둘 다 ‘음성’ 48건, 불일치 12건이었습니다. 단순 일치율은 0.88이고, 우연히 일치할 몫(0.503)을 빼면 코헨의 카파는 약 0.76입니다(코드로 계산). 관례적으로 .61~.80을 ‘상당한(substantial)’ 일치라 부르는 해석(Landis &amp; Koch, 1977)이 자주 인용됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“그라운드 트루스는 틀리지 않는다.”</strong> 사람이 붙인 라벨에는 오류와 주관이 섞입니다. 널리 쓰이는 벤치마크의 시험 자료에서도 라벨 오류가 발견되었고, 이는 모델 순위에 영향을 줄 수 있다는 보고가 있습니다(Northcutt 등, 2021).</li><li><strong>“평가자들이 일치하면 정답이다.”</strong> 평가자가 같은 오해를 공유하면 함께 틀립니다. 일치도는 신뢰성의 증거이지 정확성의 증거가 아닙니다.</li><li><strong>“모델 출력으로 만든 라벨도 정답으로 쓸 수 있다.”</strong> 평가 대상 모델과 같은 방식으로 만든 라벨로 평가하면 성능이 부풀려집니다. 독립적으로 만든 기준이어야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"전문의 3인의 판독 결과를 그라운드트루스로 삼아 모델의 예측 정확도를 비교하였다."</div>
   <p>이 문장은 "모델이 내놓은 예측이 실제로 맞는지 확인하기 위해, 전문의가 직접 확인한 진단 결과를 정답 기준으로 삼아 비교했다"는 뜻입니다.</p>
 
@@ -166,6 +184,20 @@
 
   <h2>주의할 점</h2>
   <p>그라운드트루스라는 이름 때문에 "절대적으로 완벽한 정답"처럼 느껴지지만, 실제로는 사람이 라벨링한 것이라 오류나 주관적 판단이 섞일 수 있습니다. 그라운드트루스 자체의 품질이 낮으면, 그것을 기준으로 계산한 정확도나 <a href="roc-curve.html">ROC 곡선</a> 같은 성능 지표도 신뢰하기 어려워집니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">주로 쓰는 분야</th><th scope="col">뜻</th></tr></thead><tbody><tr><th scope="row"><a href="ground-truth.html">그라운드 트루스</a></th><td>기계학습·원격탐사</td><td>평가의 기준이 되는 정답 자료</td></tr><tr><th scope="row">기준 표준(reference standard)</th><td>진단 정확도 연구</td><td>검사 결과를 비교하는 가장 좋은 이용 가능한 방법</td></tr><tr><th scope="row">금 기준(gold standard)</th><td>임상·측정</td><td>기준 표준과 비슷하게 쓰이나 ‘완벽하다’는 오해를 부를 수 있는 표현</td></tr><tr><th scope="row"><a href="cohen-kappa.html">코헨의 카파</a></th><td>평가자 간 일치도</td><td>라벨의 신뢰성을 재는 지표(정확성이 아님)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37–46.</li>
+    <li>Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159–174.</li>
+    <li>Frénay, B., &amp; Verleysen, M. (2014). Classification in the presence of label noise: A survey. IEEE Transactions on Neural Networks and Learning Systems, 25(5), 845–869.</li>
+    <li>Northcutt, C. G., Athalye, A., &amp; Mueller, J. (2021). Pervasive label errors in test sets destabilize machine learning benchmarks. Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks.</li>
+    <li>Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., Gatsonis, C. A., Glasziou, P. P., Irwig, L., et al. (2015). STARD 2015: An updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

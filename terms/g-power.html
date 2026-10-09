@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/g-power.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,29 @@
   <h2>왜 중요한가</h2>
   <p>연구윤리위원회(IRB)나 학술지 심사에서는 표본크기를 어떤 근거로 정했는지 요구하는 경우가 많아, 사전에 통계적으로 산출한 표본크기 계산 결과를 제시하는 것이 사실상 표준 관행이 되었습니다. 표본크기가 부족하면 실제 효과가 있어도 통계적으로 유의하게 검출하지 못하는 검정력 부족 문제가 생기고, 지나치게 많으면 자원 낭비와 윤리적 문제(불필요한 실험동물 사용 등)로 이어지므로, G*Power를 이용한 사전 검정력 분석은 실험심리학·의학·교육학 등 다양한 분야의 정량 연구 설계 단계에서 필수적으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>G*Power는 독일 뒤셀도르프 대학교(Heinrich-Heine-Universität Düsseldorf)에서 배포하는 무료 검정력 분석 프로그램입니다(Faul 등, 2007, 2009).</li><li>t검정, F검정(분산분석·회귀), χ² 검정, z검정, 정확 검정 등 검정 계열을 고르고, 다음 네 값 중 세 가지를 입력하면 나머지 하나를 구해 줍니다: 효과크기, 유의수준(α), 검정력(1 − β), 표본 크기.</li><li>분석 유형은 연구 전 표본 크기를 구하는 <strong>사전(a priori)</strong>, 표본 크기가 정해졌을 때 검출 가능한 효과크기를 구하는 <strong>민감도(sensitivity)</strong> 분석, 연구 후 <strong>사후(post hoc)</strong> 분석 등이 있습니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>예(사전 분석)</strong>: 독립표본 t검정, 양측, 유의수준 .05, 검정력 .80에서 필요한 집단당 표본 크기는 효과크기 Cohen의 d에 따라 달라집니다. 비중심 t 분포로 직접 계산해 확인한 값입니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>효과크기 d</th><th>집단당 표본</th><th>총 표본</th></tr></thead><tbody><tr><th scope="row">0.8 (Cohen의 ‘큰’ 효과)</th><td>26</td><td>52</td></tr><tr><th scope="row">0.5 (‘중간’ 효과)</th><td>64</td><td>128</td></tr><tr><th scope="row">0.3</th><td>176</td><td>352</td></tr></tbody></table></div><p>0.2, 0.5, 0.8을 ‘작은·중간·큰’ 효과로 부르는 것은 Cohen(1988)이 제안한 관례일 뿐 연구 분야의 실제 효과크기와 무관할 수 있습니다. 탈락이 예상되면 필요 인원을 탈락률로 나눕니다: 탈락률 15%이면 64 ÷ 0.85 ≈ 75.3이므로 집단당 76명을 모집합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>예: “표본 크기는 G*Power 3.1.9.7로 산출하였다. 독립표본 t검정(양측), 유의수준 .05, 검정력 .80, 효과크기 d = 0.5를 가정하여 집단당 64명이 필요하였다.”</li><li>프로그램 <strong>버전</strong>, 검정 계열과 방법, <strong>모든 입력값</strong>을 적습니다. 특히 효과크기를 어떻게 정했는지(선행 연구 값, 파일럿, 임상적으로 의미 있는 최소 차이)를 근거와 함께 밝혀야 합니다.</li><li>탈락률 보정 여부와 최종 모집 인원을 적습니다.</li><li>연구 후에 얻은 효과크기로 ‘관찰된 검정력’을 계산하는 사후 분석은 p값만으로 정해지는 값이어서 새로운 정보를 주지 않는다는 비판이 있습니다(Hoenig &amp; Heisey, 2001).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“표본의 크기는 G*power 3.1.9.4를 이용하여 독립 t검정으로 분석할 때 유의수준 .05, 효과크기 .50 [8], 검정력 .80으로 하여 산출하였다.”</blockquote><p class="te-cite">음악요법이 초산부의 경막하 무통 분만 중 분만통증, 분만경험, 자아존중감에 미치는 효과: 유사실험 연구, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516083728" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“위의 가정(p₁ = 0.30; OR, 1.5)에 따라 G*Power 3.1.9.2에서 로지스틱 회귀분석(z-test)을 이용하여 최소 표본 수를 산출한 결과, 필요 표본 크기는 약 200명으로 나타났다.”</blockquote><p class="te-cite">한국 가임기 여성의 COVID-19 백신 접종이 월경 주기 변화에 미치는 요인: 탐색적 상관성 연구, Womens Health Nursing, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094115" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 연구의 정량조사 표본 수는 G*Power 3.1 (Heinrich Heine University, Düsseldorf)을 활용해 산출하 였다.”</blockquote><p class="te-cite">유아교육기관의 식생활•영양교육에 대한 학부모의 요구도와 인식도: 혼합연구, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094132" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"G*Power 3.1을 이용하여 유의수준 .05, 검정력 .80, 효과크기 .25를 기준으로 표본크기를 산출한 결과 총 128명이 필요한 것으로 나타났다."</div>
   <p>이 문장은 연구자가 실험을 설계하는 단계에서 지파워를 사용해 필요한 최소 참가자 수를 미리 계산했다는 뜻으로, 연구 결과의 신뢰성을 높이기 위한 사전 준비 과정을 보여줍니다.</p>
 
@@ -159,6 +182,19 @@
 
   <h2>주의할 점</h2>
   <p>지파워로 계산한 표본크기는 어디까지나 연구자가 미리 가정한 <a href="effect-size.html">효과크기</a>가 실제와 비슷할 때 의미가 있습니다. 효과크기를 근거 없이 낙관적으로 크게 잡으면 계산된 표본크기가 실제보다 훨씬 작게 나와, 정작 논문을 쓸 때는 검정력이 부족한 연구가 될 수 있습니다. 선행연구나 파일럿 연구 결과를 참고해 효과크기를 신중하게 설정해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">성격</th><th scope="col">G*Power에서의 역할</th></tr></thead><tbody><tr><th scope="row"><a href="g-power.html">G*Power</a></th><td>소프트웨어(도구)</td><td>아래 개념들을 입력해 표본 크기를 계산</td></tr><tr><th scope="row"><a href="statistical-power.html">검정력</a></th><td>개념(1 − β)</td><td>입력 또는 출력값</td></tr><tr><th scope="row"><a href="effect-size.html">효과크기</a></th><td>개념(d, f, r 등)</td><td>가장 정하기 어려운 입력값</td></tr><tr><th scope="row"><a href="sample-size.html">표본 크기</a></th><td>연구 설계 값</td><td>주로 사전 분석의 출력값</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Faul, F., Erdfelder, E., Lang, A.-G., &amp; Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. Behavior Research Methods, 39(2), 175–191.</li>
+    <li>Faul, F., Erdfelder, E., Buchner, A., &amp; Lang, A.-G. (2009). Statistical power analyses using G*Power 3.1: Tests for correlation and regression analyses. Behavior Research Methods, 41(4), 1149–1160.</li>
+    <li>Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum Associates.</li>
+    <li>Hoenig, J. M., &amp; Heisey, D. M. (2001). The abuse of power: The pervasive fallacy of power calculations for data analysis. The American Statistician, 55(1), 19–24.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
