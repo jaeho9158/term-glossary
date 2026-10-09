@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,24 @@
   <h2>왜 중요한가</h2>
   <p>표적강도는 표적이 입사음을 얼마나 되돌려보내는지를 dB로 나타낸 값으로, <a href="sonar-equation.html">소나방정식</a>에서 능동 탐지거리를 결정하는 표적 측 변수입니다. 잠수함의 음향 스텔스 설계, 기뢰 탐지 성능 평가, 어군탐지기에서 어종·체장 추정 등 표적을 정량화하는 모든 연구가 이 값을 기준으로 삼습니다. 동일한 송신 조건이라도 표적강도가 큰 대상은 훨씬 먼 거리에서 탐지되므로, 표적 종류별 데이터베이스 구축이 탐지거리 예측의 전제입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>표적강도(TS, target strength)는 표적이 음파를 되돌려 보내는 정도를 dB로 나타낸 값입니다. 표적에서 음원 방향으로 1 m 떨어진 곳에서의 반사 음파 세기 I<sub>r</sub>를 입사 음파 세기 I<sub>i</sub>와 비교합니다: <code>TS = 10 log<sub>10</sub>(I<sub>r</sub>/I<sub>i</sub>)</code>.</li><li>같은 정보를 후방산란 단면적 σ<sub>bs</sub>(m²)로 쓰면 <code>TS = 10 log<sub>10</sub>(σ<sub>bs</sub> / 1 m²)</code>이고 거꾸로 <code>σ<sub>bs</sub> = 10<sup>TS/10</sup></code>입니다(MacLennan 등, 2002의 표기 정리 참조).</li><li>능동 소나 방정식에서 표적에 의한 항으로 들어갑니다: <code>SL − 2TL + TS − (NL − DI) = DT</code> (SL 음원 준위, TL 전달 손실, NL 소음 준위, DI 지향성 지수, DT 탐지 문턱). TS가 클수록 탐지 거리가 늘어납니다.</li><li>물고기 같은 작은 표적은 음수 dB(−30~−60 dB 수준이 흔함), 잠수함 같은 큰 표적은 Urick(1983)이 방향에 따라 대략 +10 dB(선수·선미)에서 +25 dB(정횡) 정도로 제시한 예가 자주 인용됩니다. 이 값은 대표값일 뿐 표적 자세·주파수·표적의 상태에 따라 크게 달라집니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>단순한 기준 도형으로 감을 잡을 수 있습니다. 파장보다 훨씬 큰 단단한 구(반지름 a)의 TS는 <code>10 log<sub>10</sub>(a²/4)</code>입니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구의 반지름 a</th><th>TS</th></tr></thead><tbody><tr><td>0.1 m</td><td>-26.0 dB</td></tr><tr><td>0.5 m</td><td>-12.0 dB</td></tr><tr><td>1 m</td><td>-6.0 dB</td></tr><tr><td>5 m</td><td>8.0 dB</td></tr></tbody></table></div><p>dB 규칙: TS가 −20 dB이면 σ<sub>bs</sub> = 0.01 m²이고, −40 dB이면 0.0001 m²입니다. 20 dB 차이는 단면적이 100배 차이라는 뜻입니다.</p><ul><li><strong>주파수 의존.</strong> 같은 표적도 주파수가 다르면 TS가 수십 dB까지 달라집니다. 물고기에서는 부레(공기 주머니)가 후방산란의 큰 부분을 차지해, 부레가 있는 종과 없는 종의 차이가 큽니다.</li><li><strong>방향 의존.</strong> 잠수함은 정횡(옆면)에서 크고 선수·선미 방향에서 작은 방향성을 보입니다. 입사각에 따라 수십 dB 변동할 수 있어 단일 값은 대표값입니다.</li><li><strong>어류 연구.</strong> 어류의 TS를 몸길이 L로 <code>TS = 20 log<sub>10</sub> L + b<sub>20</sub></code> 꼴로 나타내고 상수 b<sub>20</sub>을 종마다 추정하는 방식이 쓰입니다(Love, 1971; Foote, 1987).</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>TS 값을 쓸 때는 반드시 <strong>주파수, 입사(관측) 각도, 표적의 종류와 크기(길이, 자세), 측정 방법</strong>(실험실 측정, 현장 측정, 이론·수치 모형)을 같이 적습니다.</li><li>이론 모형(구, 원기둥, 유체 채운 구 등)을 썼는지, 축소 모형 실험을 했는지, 보정구(교정용 금속구)로 장비를 보정했는지 밝힙니다.</li><li>레이더의 산란단면적(RCS)과 비슷한 개념이지만 기준 거리(1 m)와 단위 정의가 달라 수치를 그대로 비교하면 안 됩니다. 또 이 값은 <em>능동 소나</em>의 물리량이고 수동 소나의 방사 소음과는 다른 개념입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">표적강도는 표적의 형상, 크기, 재질, 입사각에 따라 달라지며 잠수함이나 어군 등 표적 종류별 통계적 표적강도 모델이 탐지성능 예측에 활용된다.</div>
   <p>잠수함의 함형별 표적강도 자료를 이용해 다양한 입사각에서의 능동소나 탐지거리를 시뮬레이션한다.</p>
   <div class="example">"체장별 표적강도 관계식을 이용해 어군탐지기로 측정한 음향 산란 강도를 개체수와 자원량으로 환산하였다."</div>
@@ -159,6 +177,21 @@
 
   <h2>주의할 점</h2>
   <p>표적강도는 입사각에 따라 수십 dB까지 변동할 수 있어 특정 각도의 값만으로 전체 탐지성능을 대표할 수 없다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>소나 방정식과 레이더에서 비슷하게 쓰이는 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">대상</th><th scope="col">기준</th></tr></thead><tbody><tr><th scope="row"><strong>표적강도(TS)</strong></th><td>수중 표적이 음파를 반사하는 정도</td><td>1 m 거리에서의 반사 세기 / 입사 세기(dB)</td></tr><tr><th scope="row"><a href="radar-cross-section.html">레이더 산란단면적</a></th><td>표적이 전파를 산란시키는 정도</td><td>원거리장 기준(m² 또는 dBsm)</td></tr><tr><th scope="row"><a href="sonar-equation.html">소나방정식</a></th><td>소나 성능을 dB 항으로 정리한 식</td><td>TS는 그 구성 항 중 하나</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Urick, R. J. (1983). Principles of Underwater Sound (3rd ed.). McGraw-Hill.</li>
+    <li>MacLennan, D. N., Fernandes, P. G., &amp; Dalen, J. (2002). A consistent approach to definitions and symbols in fisheries acoustics. ICES Journal of Marine Science, 59(2).</li>
+    <li>Simmonds, E. J., &amp; MacLennan, D. N. (2005). Fisheries Acoustics: Theory and Practice (2nd ed.). Blackwell Science.</li>
+    <li>Love, R. H. (1971). Dorsal-aspect target strength of an individual fish. The Journal of the Acoustical Society of America, 49(3).</li>
+    <li>Foote, K. G. (1987). Fish target strengths for use in echo integrator surveys. The Journal of the Acoustical Society of America, 82(3).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="sonar-equation.html">소나방정식</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="transmission-loss-acoustic.html">전파손실</a></div></div><p class="concept-family-map"><a href="../concept-map/naval.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

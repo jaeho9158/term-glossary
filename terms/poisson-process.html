@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <p>고객의 도착, 전화 요청, 기계 고장 등 여러 현상이 포아송과정으로 잘 근사되는 경우가 많아, 대기행렬 이론과 시뮬레이션에서 도착 과정을 표현하는 기본 모형으로 널리 사용됩니다. 산업공학에서는 서비스 시스템의 설계와 용량 계획, 재고 관리 등 다양한 분야에서 포아송과정을 활용해 시스템의 성능을 분석합니다.</p>
   <p>포아송과정은 대기행렬이론의 가장 기본적인 가정으로 자리잡고 있어, 고객센터 인력 배치나 서버 용량 산정처럼 대기 상황을 다루는 다양한 실무 모형의 출발점이 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>포아송과정 N(t)는 시각 t까지 일어난 사건의 누적 횟수입니다. 평균 발생률(강도) λ가 일정한 <strong>(동질) 포아송과정</strong>은 다음 성질을 가집니다.</li><li><strong>독립 증분.</strong> 서로 겹치지 않는 구간의 발생 횟수는 서로 독립입니다.</li><li><strong>정상 증분.</strong> 구간의 길이가 같으면 위치와 상관없이 발생 횟수의 분포가 같습니다.</li><li>길이 t인 구간의 발생 횟수는 평균 λt인 <strong><a href="poisson-distribution.html">포아송분포</a></strong>를 따르고(<code>P(N = k) = e<sup>−λt</sup>(λt)<sup>k</sup>/k!</code>), 평균과 분산이 같습니다.</li><li>연속한 두 사건 사이의 시간은 평균 1/λ인 <strong><a href="exponential-distribution.html">지수분포</a></strong>를 따르며 서로 독립입니다. 지수분포의 무기억성 때문에 “지금까지 기다린 시간”이 앞으로 기다릴 시간에 영향을 주지 않습니다.</li><li>두 포아송과정을 합치면 강도가 더해진 포아송과정이 되고(중첩), 각 사건을 확률 p로 골라내도 포아송과정이 됩니다(솎아내기).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 콜센터에 전화가 시간당 평균 12건(λ = 12) 포아송과정으로 걸려 온다고 해 봅시다. 15분(0.25시간) 동안 평균 3건이 옵니다. 코드로 계산하면:</p><ul><li>15분 동안 한 통도 없을 확률: <code>e<sup>−3</sup></code> = 5.0%</li><li>정확히 3통일 확률: 22.4%</li><li>5통 이하일 확률: 91.6% (6통 이상: 8.4%)</li><li>다음 전화까지 10분(1/6시간)보다 오래 걸릴 확률: <code>e<sup>−12/6</sup></code> = 13.5%</li></ul><p>이 값들로 상담원 수와 대기 확률을 계산하는 것이 대기행렬 모형의 출발입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>무작위이면 간격이 고르다.</td><td>포아송과정의 사건은 뭉치기도 하고 길게 비기도 합니다. 간격이 지수분포라서 짧은 간격이 많이 나옵니다.</td></tr><tr><td>도착 데이터는 항상 포아송이다.</td><td>시간대에 따라 도착률이 달라지면 비동질 포아송과정이 필요하고, 사건끼리 영향이 있으면(단체 도착, 연쇄 고장) 맞지 않습니다. 평균 대비 분산이 1보다 크게(과산포) 나오면 의심합니다.</td></tr><tr><td>포아송분포와 포아송과정은 같다.</td><td>포아송분포는 정해진 구간의 <em>횟수</em>의 분포이고, 포아송과정은 시간에 따라 사건이 일어나는 <em>과정</em> 전체입니다.</td></tr><tr><td>평균 발생률이 높으면 간격이 규칙적이다.</td><td>간격의 변동계수는 항상 1입니다(지수분포). 규칙적인 도착은 포아송이 아니라 더 낮은 변동성을 가집니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"고객 도착은 평균 도착률을 갖는 포아송과정을 따른다고 가정하였다."</div>
   <p>손님이 오는 패턴을 수학적으로 다루기 쉬운 표준적인 확률 모형으로 가정했다는 뜻입니다.</p>
   <div class="example">"콜센터의 통화 요청 데이터를 분석한 결과 포아송과정에 부합함을 통계적으로 확인하였다."</div>
@@ -164,6 +182,19 @@
 
   <h2>주의할 점</h2>
   <p>실제 도착 패턴이 시간대에 따라 크게 달라지거나 사건들 사이에 상관관계가 있는 경우에는 단순한 포아송과정 가정이 잘 맞지 않을 수 있어, 실제 데이터로 적합성을 확인하는 과정이 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>관련된 개념이 많아 역할을 나누어 정리합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 나타내나</th><th scope="col">연결</th></tr></thead><tbody><tr><th scope="row"><strong>포아송과정</strong></th><td>시간에 따라 일어나는 사건의 누적 횟수</td><td>횟수는 포아송분포, 간격은 지수분포</td></tr><tr><th scope="row"><a href="poisson-distribution.html">포아송분포</a></th><td>정해진 구간의 사건 횟수의 확률분포</td><td>포아송과정의 한 시점 분포</td></tr><tr><th scope="row"><a href="exponential-distribution.html">지수분포</a></th><td>사건 사이 시간의 분포</td><td>포아송과정의 도착 간격</td></tr><tr><th scope="row"><a href="queueing-theory.html">대기행렬이론</a></th><td>도착과 서비스의 대기 현상을 분석</td><td>도착을 포아송과정으로 가정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ross, S. M. (2014). Introduction to Probability Models (11th ed.). Academic Press.</li>
+    <li>Kingman, J. F. C. (1993). Poisson Processes. Oxford University Press.</li>
+    <li>Law, A. M. (2015). Simulation Modeling and Analysis (5th ed.). McGraw-Hill Education.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>모든 투자자가 위험선호와 무관하게 동일한 위험자산 포트폴리오(시장포트폴리오)를 보유해야 한다는 CAPM의 핵심 이론적 기초를 제공하며, 인덱스펀드 투자 전략의 이론적 정당성을 뒷받침합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <ul><li>투자자가 평균(기대수익률)과 분산(위험)만 보고 포트폴리오를 고르고, <strong>무위험자산에 자유롭게 빌리고 빌려줄 수 있다</strong>면, 최적 선택은 두 단계로 갈라집니다.</li><li><strong>1단계(투자 결정).</strong> 위험자산들 가운데 샤프 비율이 가장 높은 하나의 조합(접점포트폴리오)을 고릅니다. 이 조합은 투자자의 위험 선호와 관계없이 같습니다.</li><li><strong>2단계(금융 결정).</strong> 그 접점포트폴리오와 무위험자산에 자금을 어떻게 나눌지만 위험 선호에 따라 달라집니다. 위험을 덜 싫어하면 빌려서 접점포트폴리오에 더 넣고, 더 싫어하면 무위험자산 비중을 높입니다.</li><li>이를 흔히 <strong>2펀드 분리</strong>라고도 부릅니다. 어떤 투자자의 포트폴리오든 ‘접점 펀드 + 무위험자산’이라는 두 펀드의 조합으로 쓸 수 있다는 뜻입니다.</li></ul><p>주의할 점은, 이 정리 자체는 <em>각 투자자가 동일한 기대와 분산 추정치를 가진다</em>는 전제에서 같은 접점포트폴리오가 나온다는 것이고, 그 포트폴리오가 시장 전체 포트폴리오와 같아진다는 결론은 균형 모형(CAPM)을 더해야 나온다는 점입니다.</p>
+
+  <h2>근거와 대표 연구</h2>
+  <ul><li><strong>Tobin(1958).</strong> 화폐 수요를 위험에 대한 태도로 설명하려던 논문에서, 위험자산 구성의 선택과 현금(무위험자산) 보유 비율의 선택이 분리된다는 점을 보였습니다. 제임스 토빈은 이 분야의 업적으로 1981년 노벨 경제학상을 받았습니다.</li><li><strong>Markowitz(1952).</strong> 평균-분산 틀과 효율적 투자선을 세웠고, 토빈의 결과는 여기에 무위험자산을 더한 결과로 읽힙니다.</li><li><strong>Sharpe(1964).</strong> 모두가 같은 위험자산 조합을 보유한다는 분리의 결과에 동질적 기대와 시장 청산 조건을 더해, 그 조합이 시장포트폴리오임을 이끌어 냈습니다.</li></ul><p><strong>가상의 계산 예.</strong> 위험자산 두 개(A: 기대수익률 8%, 표준편차 15%; B: 12%, 25%), 상관계수 0.3, 무위험수익률 3%라고 두고 코드로 계산했습니다.</p><ul><li>접점포트폴리오 비중: A 59.1%, B 40.9% (기대수익률 9.6%, 표준편차 15.4%, 샤프 비율 0.43)</li></ul><p>효용이 평균-분산형 <code>E − (γ/2)·분산</code>인 투자자(γ = 위험회피 정도)는 자산 중 <code>y = (E − r<sub>f</sub>)/(γ·분산)</code>을 접점포트폴리오에 넣습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>위험회피 계수 γ</th><th>접점 펀드 비중</th><th>무위험자산 비중</th><th>자산 A : 자산 B (전체 대비)</th></tr></thead><tbody><tr><td>2</td><td>139.7%</td><td>-39.7%</td><td>82.5% : 57.1%</td></tr><tr><td>4</td><td>69.8%</td><td>30.2%</td><td>41.3% : 28.6%</td></tr><tr><td>8</td><td>34.9%</td><td>65.1%</td><td>20.6% : 14.3%</td></tr></tbody></table></div><p>γ가 작은 투자자는 100%를 넘게 접점 펀드에 넣어(무위험이자율로 차입) 두 위험자산의 비율은 모두 같고 ‘펀드에 얼마를 넣느냐’만 다릅니다.</p>
+
+  <h2>비판과 한계</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>가정</th><th>현실과의 차이</th></tr></thead><tbody><tr><td>무위험 이자율로 얼마든지 빌리고 빌려줄 수 있다</td><td>차입 금리가 예금 금리보다 높고 차입 한도도 있습니다. 이 경우 접점이 하나가 아니라 구간별로 달라져, 모두가 같은 조합을 갖지 않을 수 있습니다. Black(1972)은 무위험 차입이 없는 경우의 균형을 따로 다뤘습니다.</td></tr><tr><td>모든 투자자가 기대수익률과 공분산에 대해 같은 추정치를 가진다</td><td>투자자마다 전망이 다르면 최적의 위험자산 조합도 달라집니다.</td></tr><tr><td>평균과 분산만으로 선택한다</td><td>수익률이 정규분포가 아니거나 비대칭·두꺼운 꼬리가 있으면 평균-분산 기준이 부족할 수 있습니다.</td></tr><tr><td>입력값을 정확히 안다</td><td>평균과 공분산은 추정값이며, 작은 오차에도 접점 비중이 크게 흔들립니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Tobin(1958)은 「Liquidity Preference as Behavior Towards Risk」에서 화폐수요 이론을 확장하여 위험자산과 무위험자산 배분의 분리 문제를 정식화했다.</div>
   <p>그는 투자자의 자산배분 결정이 최적 위험포트폴리오 선택과 그에 대한 레버리지(또는 무위험자산 편입) 결정, 두 단계로 분리될 수 있음을 보였다.</p>
   <div class="example">"연구는 차입금리와 대출금리가 다른 현실적 조건을 반영한 모형에서 토빈분리정리가 예측하는 단일 위험포트폴리오 결론이 어떻게 수정되는지를 분석하였다."</div>
@@ -158,6 +176,20 @@
 
   <h2>주의할 점</h2>
   <p>이 정리는 모든 투자자가 동질적 기대와 동일한 무위험이자율에 접근 가능하다는 강한 가정에 기반하므로 현실에서는 완전히 성립하기 어렵다. 이 정리는 모든 투자자가 동일한 기대수익률과 위험에 대한 예측을 공유한다는 동질적 기대 가정을 전제로 하며, 현실에서 투자자마다 전망이 다르면 최적 위험자산 포트폴리오도 투자자별로 달라질 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>분리정리는 포트폴리오 이론과 균형 모형 사이에서 쓰이는 말이라 함께 나오는 용어가 많습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">무엇이 추가되나</th></tr></thead><tbody><tr><th scope="row"><a href="efficient-frontier.html">효율적 투자선</a></th><td>위험자산만으로 만들 수 있는, 위험 대비 기대수익률이 가장 높은 조합들의 선</td><td>무위험자산 없음</td></tr><tr><th scope="row"><a href="capital-market-line.html">자본시장선</a></th><td>무위험자산과 접점포트폴리오를 잇는 직선(효율적 포트폴리오의 위험-수익 관계)</td><td>무위험자산 추가</td></tr><tr><th scope="row"><strong>토빈분리정리</strong></th><td>접점포트폴리오 선택과 자금 배분이 분리된다는 정리</td><td>개별 투자자의 최적화 결과</td></tr><tr><th scope="row"><a href="capital-asset-pricing-model.html">CAPM</a></th><td>동질적 기대 아래 접점이 시장포트폴리오가 되고 베타로 기대수익률이 결정된다는 균형 모형</td><td>시장 균형과 동질적 기대</td></tr><tr><th scope="row"><a href="sharpe-ratio.html">샤프 비율</a></th><td>초과수익률을 표준편차로 나눈 값. 접점포트폴리오는 이 값이 최대인 조합</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Tobin, J. (1958). Liquidity preference as behavior towards risk. The Review of Economic Studies, 25(2).</li>
+    <li>Markowitz, H. (1952). Portfolio selection. The Journal of Finance, 7(1).</li>
+    <li>Sharpe, W. F. (1964). Capital asset prices: A theory of market equilibrium under conditions of risk. The Journal of Finance, 19(3).</li>
+    <li>Black, F. (1972). Capital market equilibrium with restricted borrowing. The Journal of Business, 45(3).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

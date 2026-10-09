@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>지구는 곡면이라 그대로는 평면 좌표로 쓸 수 없으므로, 좁은 지역을 <strong>지도 투영</strong>으로 평면에 옮기고 그 위에 직교 좌표 (X, Y)를 정합니다. 단위는 미터이고 거리·면적을 피타고라스 식으로 곧바로 계산할 수 있습니다.</li><li>측량 관례에서는 <strong>X가 남북(북쪽이 +), Y가 동서(동쪽이 +)</strong>입니다. 수학에서 x를 가로축, y를 세로축으로 쓰는 것과 반대입니다.</li><li>한국의 평면직각좌표계는 횡메르카토르(TM) 투영을 쓰며, 지역별로 서부·중부·동부·동해 원점(대략 동경 125°, 127°, 129°, 131°)을 둡니다. 원점에서 멀어질수록 투영 왜곡이 커지기 때문에 원점을 여러 개 두어 왜곡을 지역별로 나눕니다.</li><li>전국을 하나의 좌표계로 다룰 필요가 있는 자료(수치지도, 도로명주소 등)에는 단일 투영의 UTM-K 좌표계가 병행해 쓰입니다.</li><li>좌표값에는 어느 원점·어느 측지계(기준 타원체)를 기준으로 했는지 항상 함께 기록해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>TM 투영에서는 중앙 경선에서 동서로 멀어질수록 축척이 커집니다. 근사식 <code>k ≈ k₀(1 + d²/(2R²))</code>(R = 6,371 km, 중앙 경선에서 축척계수 k₀ = 1로 가정)로 코드로 계산한 가상의 값입니다.</p><table><thead><tr><th>중앙 경선에서의 거리 d</th><th>축척 오차</th><th>실제 거리와의 차이</th></tr></thead><tbody><tr><td>50 km</td><td>31 ppm</td><td>1.5 m (50 km당)</td></tr><tr><td>100 km</td><td>123 ppm</td><td>12.3 m (100 km당)</td></tr><tr><td>200 km</td><td>493 ppm</td><td>98.5 m (200 km당)</td></tr></tbody></table><p>원점 간격이 약 2°(위도 38°에서 약 175 km)이므로 어느 지점이든 가장 가까운 원점에서 약 88 km 안에 들어와, 오차는 대략 100 ppm(1 km당 10 cm) 안팎으로 억제됩니다. 이 때문에 지적·공공측량에서는 지역 원점을 고르는 것이 정확도의 전제가 됩니다. 다른 원점의 좌표를 섞어 쓰면 같은 지점이라도 좌표값이 크게 달라 보입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>위경도와 같은 좌표다.</td><td>위경도는 구면 좌표(각도)이고 평면직각좌표는 투영한 평면의 미터 단위 좌표입니다. 변환식이 필요합니다.</td></tr><tr><td>X가 가로축이다.</td><td>측량에서는 X가 남북 방향입니다.</td></tr><tr><td>좌표 숫자만 같으면 같은 위치다.</td><td>원점, 측지계(Bessel, GRS80 등), 가산 수치가 다르면 같은 숫자도 다른 위치를 가리킵니다.</td></tr><tr><td>범위가 넓어도 정확하다.</td><td>원점에서 멀수록 왜곡이 누적되어, 넓은 지역에는 투영 왜곡을 고려하거나 다른 좌표계를 써야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "위치를 나타내는 좌표 체계는 겹치는 용어가 많습니다.",
+    "headers": [
+      "용어",
+      "좌표 종류",
+      "단위"
+    ],
+    "rows": [
+      [
+        "[[plane-rectangular-coordinate-system|평면직각좌표계]]",
+        "투영한 평면의 직교 좌표(지역별 원점)",
+        "미터"
+      ],
+      [
+        "UTM-K",
+        "전국 단일 투영(TM)",
+        "미터"
+      ],
+      [
+        "위경도 좌표",
+        "지구 타원체 위의 각도 좌표",
+        "도·분·초"
+      ]
+    ],
+    "note": "[[coordinate-system|좌표계]], [[map-projection|지도 투영]], [[geodetic-datum|측지계]] 페이지도 함께 보세요."
+  },
+  "references": [
+    "Snyder, J. P. (1987). Map Projections: A Working Manual. U.S. Geological Survey Professional Paper 1395. U.S. Government Printing Office.",
+    "Iliffe, J., & Lott, R. (2008). Datums and Map Projections for Remote Sensing, GIS and Surveying (2nd ed.). Whittles Publishing.",
+    "Bugayevskiy, L. M., & Snyder, J. P. (1995). Map Projections: A Reference Manual. Taylor & Francis."
+  ]
+}

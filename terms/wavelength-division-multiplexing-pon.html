@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>가입자 수가 늘고 요구 대역폭이 커지면서, 기존 시분할 방식으로는 개별 가입자에게 충분한 속도를 보장하기 어려워졌습니다. 파장분할다중 방식은 가입자별로 독립된 파장 채널을 제공해 대역폭 경쟁 없이 고속 서비스를 제공할 수 있어, 차세대 광가입자망 기술로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>수동광가입자망(PON)은 중앙 국사와 가입자를 잇는 광섬유 망에서 중간에 전원이 필요한 능동 장비 대신 분배기 같은 수동 소자만 쓰는 구조입니다.</li><li>기존 TDM-PON(GPON, EPON 등)은 하나의 파장을 시분할로 여러 가입자가 나눠 씁니다. 반면 <strong>WDM-PON은 가입자마다 서로 다른 파장을 할당</strong>해, 가입자 하나가 파장 하나를 전용으로 갖는 점대점 같은 연결을 제공합니다.</li><li>원격 노드에는 파장을 가려 나누어 주는 소자(대표적으로 배열 도파로 격자, AWG)를 두고, 중앙 국사에는 파장별 송수신기, 가입자 단말에는 자기 파장만 받는 송수신기를 둡니다.</li><li>장점으로 거론되는 것: 가입자별 전용 대역과 낮은 지연, 가입자 사이 보안 분리, 프로토콜과 속도의 독립성. 단점: 파장별 광부품 비용, 파장 관리, 재고 부담.</li><li>가입자 단말마다 다른 파장의 광원을 두는 비용을 줄이려는 <strong>무색(colorless) 단말</strong> 연구가 핵심 과제입니다. 대표 방식에는 외부 광을 주입해 파장을 고정하는 방식(주입 잠금 패브리-페로 레이저)과 반사형 반도체 광증폭기(RSOA)를 쓰는 방식이 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 비교입니다. 가입자 32명이 있는 망에서,</p><ul><li><strong>TDM-PON:</strong> 하나의 하향 파장을 32명이 시간 칸으로 나눠 쓰고, 분배기가 광 신호를 32갈래로 나눕니다. 한 사람이 쓰는 대역이 다른 사람의 사용량에 영향을 받을 수 있습니다.</li><li><strong>WDM-PON:</strong> 32개의 파장을 AWG가 가입자별로 나눠 줍니다. 한 사람이 쓰는 파장은 다른 사람과 겹치지 않아 대역 경쟁이 없습니다.</li></ul><p>두 방식을 섞은 구조(TWDM-PON, 여러 파장 위에 시분할을 얹음)는 ITU-T의 NG-PON2 표준에서 채택되어 실제 망 진화의 중간 단계로 논의됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>WDM-PON은 광섬유를 가입자마다 따로 깐다.</td><td>하나의 광섬유 선로를 공유하되 파장으로 가입자를 구분합니다.</td></tr><tr><td>WDM-PON은 이미 TDM-PON을 대체했다.</td><td>비용 때문에 상용망에서는 TDM-PON 계열이 널리 쓰이고, WDM-PON은 주로 연구·일부 도입 단계이며 하이브리드 구조도 검토됩니다.</td></tr><tr><td>수동 망이니 전원이 전혀 필요 없다.</td><td>중간 구간이 수동일 뿐이고, 중앙 국사와 단말에는 전원이 필요합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"In the proposed WDM-PON architecture, each optical network unit is assigned a dedicated wavelength using a low-cost colorless transceiver."</div>
   <p>제안된 파장분할다중 수동광가입자망 구조에서 각 광네트워크유닛에 저비용 무색 트랜시버를 이용해 전용 파장을 할당했다는 의미입니다.</p>
   <div class="example">"The WDM-PON supports symmetric high-speed transmission by allocating separate wavelength channels for upstream and downstream traffic per subscriber."</div>
@@ -165,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>파장별 전용 채널을 제공하는 만큼 시분할 방식보다 광부품 비용이 높아질 수 있어, 실제 배치 시 경제성과 성능 사이의 균형을 고려해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>광가입자망의 다중화 방식은 이름이 비슷합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">나누는 기준</th><th scope="col">가입자 대역</th></tr></thead><tbody><tr><th scope="row"><a href="passive-optical-network.html">수동광가입자망(PON)</a></th><td>(상위 개념) 수동 소자만 쓰는 광가입자망</td><td>방식에 따라 다름</td></tr><tr><th scope="row">TDM-PON</th><td>시간 칸</td><td>시간 공유(통계적 공유)</td></tr><tr><th scope="row"><strong>WDM-PON</strong></th><td>파장</td><td>가입자별 전용 파장</td></tr><tr><th scope="row"><a href="wavelength-division-multiplexing.html">파장분할다중화</a></th><td>(기술) 한 광섬유에 여러 파장을 실음</td><td>PON에 한정되지 않음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kramer, G., &amp; Pesavento, G. (2002). Ethernet passive optical network (EPON): Building a next-generation optical access network. IEEE Communications Magazine, 40(2).</li>
+    <li>Grobe, K., &amp; Elbers, J.-P. (2008). PON in adolescence: From TDMA to WDM-PON. IEEE Communications Magazine, 46(1).</li>
+    <li>Keiser, G. (2006). FTTX Concepts and Applications. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="wavelength-division-multiplexing.html">파장분할다중화</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/pushdown-automaton.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>푸시다운 오토마타는 문맥 자유 언어라는 언어 계급을 정확히 규정하는 계산 모델이라, 컴파일러 이론과 프로그래밍 언어 설계뿐 아니라 이론 컴퓨터과학에서 계산 능력의 위계(촘스키 위계)를 논의할 때 빠지지 않는 기준점입니다. 자연어처리 분야에서도 문장의 중첩 구조를 다루는 파서를 설계할 때 이 모델의 개념이 이론적 근거로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>푸시다운 오토마타(PDA)는 유한 오토마타에 <strong>스택(후입선출 메모리) 하나</strong>를 더한 계산 모형입니다. 형식적으로는 상태 집합 Q, 입력 기호 Σ, 스택 기호 Γ, 전이 함수 δ, 시작 상태, 시작 스택 기호, 수용 상태 집합의 7-튜플로 정의됩니다.</li><li>각 단계에서 입력 기호(또는 ε)와 스택 맨 위 기호를 보고 상태를 바꾸고 스택 맨 위를 다른 문자열로 바꿉니다. 수용 방식은 ‘수용 상태에서 끝남’과 ‘스택이 빔’의 두 가지가 있고 서로 같은 능력입니다.</li><li>PDA가 인식하는 언어의 집합이 정확히 <strong>문맥 자유 언어</strong>입니다. 문맥 자유 문법과 PDA가 동등하다는 결과는 1960년대 초 Chomsky(1962) 등이 보였습니다.</li><li>비결정적 PDA(NPDA)는 결정적 PDA(DPDA)보다 강합니다. 예컨대 회문 <code>w wᴿ</code>(가운데를 모르고 대칭을 맞추는 언어)는 NPDA는 인식하지만 DPDA는 못 합니다. 이 점이 유한 오토마타(결정/비결정이 동등)와 다릅니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>괄호의 짝이 맞는지 판별하는 PDA의 아이디어를 코드로 돌려 보았습니다. 여는 괄호는 스택에 쌓고, 닫는 괄호는 하나 꺼냅니다. 꺼낼 것이 없거나 끝에 남으면 거부합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>입력</th><th>결과</th><th>스택 최대 깊이</th></tr></thead><tbody><tr><td><code>(()())</code></td><td>받아들임</td><td>2</td></tr><tr><td><code>(()</code></td><td>거부</td><td>2</td></tr><tr><td><code>())(</code></td><td>거부</td><td>1</td></tr><tr><td><code>((()))</code></td><td>받아들임</td><td>3</td></tr></tbody></table></div><p>스택 깊이가 괄호 중첩의 깊이만큼 커져야 하므로 상태 수가 정해진 유한 오토마타로는 모든 깊이를 처리할 수 없습니다. 같은 이유로 PDA는 <code>aⁿbⁿ</code>(n ≥ 0)은 인식하지만, <code>aⁿbⁿcⁿ</code>은 스택 하나로 세 개의 개수를 동시에 맞출 수 없어 인식하지 못합니다(이 언어는 문맥 자유 언어가 아니며 펌핑 보조정리로 보입니다).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>스택이 있으면 계산 능력이 무한하다.</td><td>스택 하나는 문맥 자유 언어까지입니다. 스택을 둘로 늘리면(또는 테이프를 쓰면) 튜링 기계와 같은 능력이 됩니다.</td></tr><tr><td>결정적 PDA와 비결정적 PDA는 같다.</td><td>능력이 다릅니다. 결정적으로 인식되는 언어는 결정적 문맥 자유 언어이고 더 좁습니다.</td></tr><tr><td>컴파일러의 파서는 임의의 PDA이다.</td><td>실제 파서(LL, LR 등)는 결정적 PDA에 가까운 방식이 주로 쓰입니다.</td></tr><tr><td>PDA는 프로그래밍 언어 구문에만 쓰인다.</td><td>자연어 구문 분석 모형, 형식언어 이론의 위계, 신경망의 표현력 비교 등에도 기준 모형으로 쓰입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"구문 분석기는 푸시다운 오토마타의 동작 원리에 따라 스택을 이용해 중첩된 괄호와 블록 구조를 처리한다."</div>
   <p>컴파일러의 구문 분석 과정이 스택 기반으로 동작하는 이론적 이유를 설명할 때 사용된다.</p>
 
@@ -161,6 +179,20 @@
 
   <h2>주의할 점</h2>
   <p>푸시다운 오토마타는 스택 하나만 가지므로, 두 개 이상의 독립적인 셈을 동시에 해야 하는 언어(예: a^n b^n c^n 형태)는 인식할 수 없다는 한계가 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>촘스키 위계의 계산 모형과 문법을 짝지어 보면 구분이 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">계산 모형</th><th scope="col">메모리</th><th scope="col">인식하는 언어 부류</th><th scope="col">대응 문법</th></tr></thead><tbody><tr><th scope="row"><a href="finite-automaton.html">유한 오토마타</a></th><td>상태만(유한)</td><td>정규 언어</td><td>정규 문법</td></tr><tr><th scope="row"><strong>푸시다운 오토마타</strong></th><td>스택 하나</td><td>문맥 자유 언어</td><td><a href="context-free-grammar.html">문맥 자유 문법</a></td></tr><tr><th scope="row"><a href="turing-machine.html">튜링 기계</a></th><td>무한 테이프</td><td>재귀적 가산 언어</td><td>무제한 문법</td></tr></tbody></table></div>
+  <p class="te-note">위계 전체는 <a href="chomsky-hierarchy.html">촘스키 위계</a> 페이지를 참고하세요.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sipser, M. (2013). Introduction to the Theory of Computation (3rd ed.). Cengage Learning.</li>
+    <li>Hopcroft, J. E., Motwani, R., &amp; Ullman, J. D. (2006). Introduction to Automata Theory, Languages, and Computation (3rd ed.). Pearson.</li>
+    <li>Chomsky, N. (1962). Context-free grammars and pushdown storage. MIT Research Laboratory of Electronics Quarterly Progress Report, 65.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
