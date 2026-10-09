@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/divide-and-conquer.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>분할정복은 정렬, 탐색, 행렬 연산 등 컴퓨터과학의 기초 알고리즘 설계 패러다임 중 하나로, 문제의 규모가 커질수록 계산량이 얼마나 늘어나는지를 분석하는 알고리즘 복잡도 이론과 밀접하게 연결됩니다. 또한 부분 문제들이 서로 독립적이라는 특성 덕분에 병렬·분산 컴퓨팅 환경에 자연스럽게 적용할 수 있어, 대규모 데이터를 다루는 시스템 논문에서 성능 개선 전략으로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>분할</strong>: 문제를 같은 종류의 더 작은 문제 a개로 나눕니다(각 크기 약 n/b).</li><li><strong>정복</strong>: 부분 문제를 재귀로 풉니다. 충분히 작아지면(기저 사례) 직접 풉니다.</li><li><strong>결합</strong>: 부분 문제의 답을 합쳐 원래 문제의 답을 만듭니다.</li></ol><p>실행 시간은 점화식 <code>T(n) = a·T(n/b) + f(n)</code>으로 씁니다. f(n)은 나누고 합치는 비용입니다. 이 형태의 점화식은 <a href="master-theorem.html">마스터 정리</a>로 풉니다. 병합 정렬은 T(n) = 2T(n/2) + Θ(n)이어서 Θ(n log n), 이진 탐색은 T(n) = T(n/2) + Θ(1)이어서 Θ(log n)입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>정렬, 탐색, 행렬 곱셈, 고속 푸리에 변환처럼 문제를 독립적인 부분으로 나눌 수 있을 때 씁니다. 부분 문제가 서로 독립이라 여러 프로세서에서 병렬로 풀기 좋습니다.</p><p><strong>가상의 예(실험)</strong> 같은 난수 배열에서 병합 정렬(분할정복)과 삽입 정렬이 한 비교 횟수를 센 결과입니다(시드 고정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>입력 크기 n</th><th>병합 정렬</th><th>삽입 정렬</th><th>n·log₂n</th></tr></thead><tbody><tr><td>100</td><td>543</td><td>2,234</td><td>664</td></tr><tr><td>1,000</td><td>8,702</td><td>251,459</td><td>9,966</td></tr><tr><td>10,000</td><td>120,495</td><td>24,788,345</td><td>132,877</td></tr></tbody></table></div><p>n이 100배 커질 때 병합 정렬의 비교 횟수는 약 220배, 삽입 정렬은 약 1만 1천 배가 됩니다. n·log₂n은 병합 정렬 횟수의 상한 근처에 있는 값입니다.</p><p>부분 문제가 서로 겹치면 같은 계산을 반복하므로 <a href="dynamic-programming.html">동적계획법</a>이 낫습니다. 나누고 합치는 비용이 크면 분할이 이득이 되지 않을 수도 있고, 항상 <a href="greedy-algorithm.html">탐욕 알고리즘</a>보다 빠른 것도 아닙니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>분할 방식</strong>: 몇 개로, 어떤 기준으로 나누는지와 기저 사례의 크기를 적습니다.</li><li><strong>결합 비용</strong>: 합치는 단계의 비용을 명시하고 점화식과 풀이(마스터 정리 등)를 제시합니다.</li><li><strong>병렬화</strong>: 부분 문제를 장치에 어떻게 나누는지, 통신 비용과 부하 균형을 논합니다.</li><li><strong>실험</strong>: 입력 크기별로 실행 시간이나 연산 횟수를 보고하고 이론 복잡도와 맞는지 확인합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"대용량 이미지 데이터를 다수의 부분 영역으로 분할한 뒤 병렬로 처리하는 분할정복(divide and conquer) 전략을 통해 전체 처리 시간을 단축하였다."</div>
   <p>이 문장은 하나의 크고 복잡한 작업을 여러 개의 작은 독립적인 작업으로 나누어 동시에 처리한 다음, 그 결과들을 합쳐서 최종 결과를 얻는 방식을 사용했다는 뜻입니다. 정렬 알고리즘, 대규모 데이터 병렬 처리, 신호·이미지 처리 분야에서 계산 효율을 높이기 위해 자주 언급됩니다.</p>
   <div class="example">"본 연구에서는 대규모 유전체 서열 정렬 문제를 다수의 하위 구간으로 분할정복 방식으로 나누어 처리함으로써 계산 시간을 크게 줄였다."</div>
@@ -163,6 +181,18 @@
 
   <h2>주의할 점</h2>
   <p>분할정복은 부분 문제들이 서로 겹치지 않고 독립적일 때 가장 효과적입니다. 만약 나뉜 부분 문제들이 같은 계산을 반복해서 포함한다면, 그 결과를 저장해두고 재사용하는 <a href="dynamic-programming.html">동적계획법</a>을 쓰는 편이 더 효율적일 수 있습니다. 또한 문제를 나누고 합치는 과정 자체에도 비용이 들기 때문에, 항상 <a href="greedy-algorithm.html">탐욕 알고리즘</a>보다 빠른 것은 아닙니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">기법</th><th scope="col">문제를 어떻게 푸나</th><th scope="col">적합한 경우</th></tr></thead><tbody><tr><th scope="row">분할정복</th><td>독립적인 부분 문제로 나눠 각각 풀고 합침</td><td>부분 문제가 겹치지 않을 때</td></tr><tr><th scope="row"><a href="dynamic-programming.html">동적계획법</a></th><td>부분 문제의 답을 저장해 재사용</td><td>부분 문제가 겹칠 때</td></tr><tr><th scope="row"><a href="greedy-algorithm.html">탐욕 알고리즘</a></th><td>매 단계 지금 가장 좋은 선택을 반복</td><td>국소 최선이 전체 최선이 되는 구조일 때</td></tr><tr><th scope="row"><a href="master-theorem.html">마스터 정리</a></th><td>분할정복 점화식의 복잡도를 구하는 공식</td><td>분석 도구</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.</li>
+    <li>Knuth, D. E. (1998). The Art of Computer Programming, Volume 3: Sorting and Searching (2nd ed.). Addison-Wesley.</li>
+    <li>Bentley, J. L., Haken, D., &amp; Saxe, J. B. (1980). A general method for solving divide-and-conquer recurrences. ACM SIGACT News, 12(3), 36–44.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="algorithm-concept.html">알고리즘의 개념</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="approximation-algorithm.html">근사 알고리즘</a><a href="dynamic-programming.html">동적계획법</a><a href="randomized-algorithm.html">무작위 알고리즘</a><a href="brute-force.html">완전탐색</a><a href="sorting-algorithm.html">정렬 알고리즘</a><a href="search-algorithm.html">탐색 알고리즘</a><a href="greedy-algorithm.html">탐욕 알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

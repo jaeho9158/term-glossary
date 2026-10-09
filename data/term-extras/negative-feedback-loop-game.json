@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>피드백 루프는 게임의 상태가 규칙을 거쳐 다시 그 상태에 영향을 주는 구조입니다. 살렌과 짐머만은 『Rules of Play』에서 게임을 시스템으로 보고 이런 루프를 설명했습니다.</li><li><strong>부적(음의) 피드백</strong>은 격차를 줄이는 방향으로 작용합니다. 뒤처진 쪽에 유리한 조건을 주거나 앞선 쪽에 불리한 조건을 줍니다. 반대로 [[positive-feedback-loop-game|정적(양의) 피드백]]은 우위가 더 큰 우위를 낳아 격차를 키웁니다.</li><li>‘음/부적’은 격차가 줄어드는 방향을 뜻하는 기술적 용어이고 좋고 나쁨의 평가가 아닙니다.</li><li>구현 방식은 다양합니다. 순위에 따른 아이템 확률(레이싱 게임), 선두를 따라잡는 AI의 속도 보정(러버밴딩), 점수나 경험치 보정, 지형 설계 등입니다.</li><li>[[dynamic-difficulty-adjustment|동적 난이도 조절]]과 원리를 공유하지만, 부적 피드백은 플레이어들 사이의 상대 격차에 반응하고 동적 난이도 조절은 개별 플레이어의 수행에 맞춰 난이도를 조절합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 시뮬레이션입니다. 두 플레이어가 30라운드 동안 매 라운드 1~6의 주사위 눈만큼 점수를 얻습니다. 부적 피드백을 켜면 <strong>점수 차 5점마다 뒤처진 쪽에 +1(최대 +2)</strong>을 줍니다. 난수 시드를 고정하고 각 설정을 2,000게임씩 돌렸습니다.</p><table><thead><tr><th>설정</th><th>최종 점수 차(평균)</th><th>선두가 바뀐 횟수(게임당 평균)</th></tr></thead><tbody><tr><td>부적 피드백 없음</td><td>10.6점</td><td>2.2회</td></tr><tr><td>부적 피드백 있음</td><td>4.0점</td><td>3.4회</td></tr></tbody></table><p>격차가 절반 이하로 줄고 선두 교체가 늘어납니다. 대신 이 보정은 실력과 무관하게 작용하므로, 숙련된 플레이어의 우위가 결과에 덜 반영된다는 점이 설계의 대가입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>‘음’의 피드백은 나쁜 설계라는 뜻이다.</td><td>음은 격차를 줄이는 방향을 뜻하는 용어입니다. 접근성과 긴장감을 우선하는 캐주얼 경쟁 게임에서 의도적으로 씁니다.</td></tr><tr><td>뒤처진 사람에게 도움을 주면 항상 공정하다.</td><td>과하면 선두의 노력과 실력이 무의미해져 성취감이 훼손됩니다. 실력 반영을 중시하는 경쟁 게임에서는 약하게 쓰거나 쓰지 않습니다.</td></tr><tr><td>부적 피드백은 숨길수록 좋다.</td><td>러버밴딩처럼 존재가 지나치게 드러나면 ‘실력이 반영되지 않는다’는 불신을 낳아 공정성 지각을 해칠 수 있습니다.</td></tr><tr><td>부적 피드백은 아이템에서만 쓴다.</td><td>트랙 디자인, 경험치 보정 등으로도 구현할 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "격차에 대한 효과",
+      "반응하는 대상"
+    ],
+    "rows": [
+      [
+        "부적(음의) 피드백 루프",
+        "격차를 줄임",
+        "플레이어 사이의 상대 순위·점수"
+      ],
+      [
+        "[[positive-feedback-loop-game|정적(양의) 피드백 루프]]",
+        "격차를 키움(눈덩이 효과)",
+        "플레이어 사이의 상대 순위·점수"
+      ],
+      [
+        "[[dynamic-difficulty-adjustment|동적 난이도 조절]]",
+        "격차가 아니라 난이도를 맞춤",
+        "개별 플레이어의 수행 데이터"
+      ]
+    ]
+  },
+  "references": [
+    "Salen, K., & Zimmerman, E. (2004). Rules of Play: Game Design Fundamentals. MIT Press.",
+    "Schell, J. (2008). The Art of Game Design: A Book of Lenses. Morgan Kaufmann.",
+    "Adams, E., & Dormans, J. (2012). Game Mechanics: Advanced Game Design. New Riders.",
+    "Hunicke, R. (2005). The case for dynamic difficulty adjustment in games. Proceedings of the ACM SIGCHI International Conference on Advances in Computer Entertainment Technology."
+  ]
+}

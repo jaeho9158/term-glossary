@@ -1,0 +1,51 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>볼록 최적화 문제는 <code>최소화 f<sub>0</sub>(x), 조건 f<sub>i</sub>(x) ≤ 0, h<sub>j</sub>(x) = 0</code>에서 f<sub>0</sub>와 f<sub>i</sub>가 [[convex-function|볼록 함수]]이고 등식 제약 h<sub>j</sub>는 아핀(일차식)인 문제입니다. 이때 실행가능 영역은 [[convex-set|볼록집합]]이 됩니다.</li><li>볼록 함수는 그래프 위의 두 점을 이은 선분이 그래프보다 아래로 내려가지 않는 함수입니다. <code>f(θx + (1−θ)y) ≤ θf(x) + (1−θ)f(y)</code>.</li><li>핵심 성질은 <strong>지역 최적해가 곧 전역 최적해</strong>라는 것입니다. 목적함수가 강볼록이면 최적해는 유일합니다.</li><li>[[linear-programming|선형계획]], 최소제곱, 릿지·라쏘 회귀, 서포트 벡터 머신의 학습 문제가 볼록 최적화에 속합니다. 쌍대성([[lagrangian-duality|라그랑주 쌍대성]])과 최적성 조건으로 해를 확인할 수 있고, 내부점법 등 효율적인 알고리즘이 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예입니다. 같은 경사하강법(학습률 0.01, 2,000회)을 시작점만 바꾸어 두 함수에 적용했습니다.</p><table><thead><tr><th>함수</th><th>시작점 −2</th><th>시작점 0.5</th><th>시작점 2</th></tr></thead><tbody><tr><td>(x − 1)² (볼록)</td><td>x = 1.00</td><td>x = 1.00</td><td>x = 1.00</td></tr><tr><td>x⁴ − 3x² + x (비볼록)</td><td>x = −1.30, f = −3.51</td><td>x = 1.13, f = −1.07</td><td>x = 1.13, f = −1.07</td></tr></tbody></table><p>볼록한 함수는 어디서 출발해도 같은 점에 도착합니다. 비볼록 함수는 시작점에 따라 다른 지역 최솟값에 멈추고, 시작점 0.5와 2에서 도착한 점은 전역 최소점(x ≈ −1.30, f ≈ −3.51)이 아닙니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>목적함수가 볼록이면 볼록 최적화다.</td><td>제약이 만드는 영역도 볼록이어야 합니다. 볼록 목적함수에 비볼록 제약이 있으면 볼록 최적화가 아닙니다.</td></tr><tr><td>볼록이면 최적해가 유일하다.</td><td>최솟값은 하나지만 그 값을 주는 점이 여러 개일 수 있습니다(예: 바닥이 평평한 함수). 강볼록이면 유일합니다.</td></tr><tr><td>볼록이면 대규모에서도 항상 쉽게 풀린다.</td><td>전역 최적이 보장된다는 말이지, 계산량이 작다는 뜻은 아닙니다. 변수가 매우 많으면 알고리즘 선택과 수렴 속도가 중요합니다.</td></tr><tr><td>비볼록 문제는 풀 수 없다.</td><td>변수 변환으로 볼록 형태로 바꾸거나 볼록 완화로 근사하고, 지역 해로 만족하기도 합니다. 논문에서 ‘볼록’이 원문제인지 완화된 문제인지 구분해 읽어야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "볼록 최적화",
+        "볼록 목적함수와 볼록 실행가능 영역을 가진 최적화 문제(지역해 = 전역해)"
+      ],
+      [
+        "[[convex-function|볼록 함수]]",
+        "그래프가 밥그릇 모양인 함수. 문제의 구성 요소"
+      ],
+      [
+        "[[convex-set|볼록집합]]",
+        "집합 안의 두 점을 이은 선분이 집합 안에 머무는 집합"
+      ],
+      [
+        "[[linear-programming|선형계획법]]",
+        "목적과 제약이 모두 일차식인 최적화. 볼록 최적화의 특수한 경우"
+      ],
+      [
+        "[[lagrangian-duality|라그랑주 쌍대성]]",
+        "원문제의 값에 대한 하한을 주는 또 다른 문제를 만드는 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Boyd, S., & Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press.",
+    "Rockafellar, R. T. (1970). Convex Analysis. Princeton University Press.",
+    "Nesterov, Y. (2004). Introductory Lectures on Convex Optimization: A Basic Course. Kluwer Academic Publishers."
+  ]
+}

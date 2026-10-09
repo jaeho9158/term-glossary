@@ -1,0 +1,52 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>분할</strong>: 문제를 같은 종류의 더 작은 문제 a개로 나눕니다(각 크기 약 n/b).</li><li><strong>정복</strong>: 부분 문제를 재귀로 풉니다. 충분히 작아지면(기저 사례) 직접 풉니다.</li><li><strong>결합</strong>: 부분 문제의 답을 합쳐 원래 문제의 답을 만듭니다.</li></ol><p>실행 시간은 점화식 <code>T(n) = a·T(n/b) + f(n)</code>으로 씁니다. f(n)은 나누고 합치는 비용입니다. 이 형태의 점화식은 [[master-theorem|마스터 정리]]로 풉니다. 병합 정렬은 T(n) = 2T(n/2) + Θ(n)이어서 Θ(n log n), 이진 탐색은 T(n) = T(n/2) + Θ(1)이어서 Θ(log n)입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>정렬, 탐색, 행렬 곱셈, 고속 푸리에 변환처럼 문제를 독립적인 부분으로 나눌 수 있을 때 씁니다. 부분 문제가 서로 독립이라 여러 프로세서에서 병렬로 풀기 좋습니다.</p><p><strong>가상의 예(실험)</strong> 같은 난수 배열에서 병합 정렬(분할정복)과 삽입 정렬이 한 비교 횟수를 센 결과입니다(시드 고정).</p><table><thead><tr><th>입력 크기 n</th><th>병합 정렬</th><th>삽입 정렬</th><th>n·log₂n</th></tr></thead><tbody><tr><td>100</td><td>543</td><td>2,234</td><td>664</td></tr><tr><td>1,000</td><td>8,702</td><td>251,459</td><td>9,966</td></tr><tr><td>10,000</td><td>120,495</td><td>24,788,345</td><td>132,877</td></tr></tbody></table><p>n이 100배 커질 때 병합 정렬의 비교 횟수는 약 220배, 삽입 정렬은 약 1만 1천 배가 됩니다. n·log₂n은 병합 정렬 횟수의 상한 근처에 있는 값입니다.</p><p>부분 문제가 서로 겹치면 같은 계산을 반복하므로 [[dynamic-programming|동적계획법]]이 낫습니다. 나누고 합치는 비용이 크면 분할이 이득이 되지 않을 수도 있고, 항상 [[greedy-algorithm|탐욕 알고리즘]]보다 빠른 것도 아닙니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>분할 방식</strong>: 몇 개로, 어떤 기준으로 나누는지와 기저 사례의 크기를 적습니다.</li><li><strong>결합 비용</strong>: 합치는 단계의 비용을 명시하고 점화식과 풀이(마스터 정리 등)를 제시합니다.</li><li><strong>병렬화</strong>: 부분 문제를 장치에 어떻게 나누는지, 통신 비용과 부하 균형을 논합니다.</li><li><strong>실험</strong>: 입력 크기별로 실행 시간이나 연산 횟수를 보고하고 이론 복잡도와 맞는지 확인합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "기법",
+      "문제를 어떻게 푸나",
+      "적합한 경우"
+    ],
+    "rows": [
+      [
+        "분할정복",
+        "독립적인 부분 문제로 나눠 각각 풀고 합침",
+        "부분 문제가 겹치지 않을 때"
+      ],
+      [
+        "[[dynamic-programming|동적계획법]]",
+        "부분 문제의 답을 저장해 재사용",
+        "부분 문제가 겹칠 때"
+      ],
+      [
+        "[[greedy-algorithm|탐욕 알고리즘]]",
+        "매 단계 지금 가장 좋은 선택을 반복",
+        "국소 최선이 전체 최선이 되는 구조일 때"
+      ],
+      [
+        "[[master-theorem|마스터 정리]]",
+        "분할정복 점화식의 복잡도를 구하는 공식",
+        "분석 도구"
+      ]
+    ]
+  },
+  "references": [
+    "Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.",
+    "Knuth, D. E. (1998). The Art of Computer Programming, Volume 3: Sorting and Searching (2nd ed.). Addison-Wesley.",
+    "Bentley, J. L., Haken, D., & Saxe, J. B. (1980). A general method for solving divide-and-conquer recurrences. ACM SIGACT News, 12(3), 36–44."
+  ]
+}

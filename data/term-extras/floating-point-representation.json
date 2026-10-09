@@ -1,0 +1,44 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>정규화된 수는 <code>(−1)<sup>s</sup> × 1.f × 2<sup>e − bias</sup></code>로 저장합니다. s는 부호 1비트, e는 지수, f는 소수부(가수)입니다.</li><li>비트 배분은 형식마다 다릅니다. IEEE 754의 binary16(반정밀도)은 1+5+10비트, binary32(단정밀도)는 1+8+23, binary64(배정밀도)는 1+11+52입니다. 딥러닝에서 쓰는 bfloat16은 1+8+7로 지수는 FP32와 같고 가수만 줄였습니다(IEEE 표준 형식은 아님).</li><li>상대 오차의 크기는 기계 엡실론(1과 그 다음 수 사이의 간격)으로 가늠합니다. binary64는 2<sup>−52</sup> ≈ 2.2×10<sup>−16</sup>, binary32는 2<sup>−23</sup> ≈ 1.2×10<sup>−7</sup>, binary16은 2<sup>−10</sup> ≈ 9.8×10<sup>−4</sup>입니다.</li><li>표현 가능한 최댓값은 binary16이 65,504, binary32가 약 3.4×10<sup>38</sup>, bfloat16이 약 3.4×10<sup>38</sup>입니다.</li><li>NaN(수가 아님), ±∞, 0 근처의 비정규수 같은 특수한 값이 있고, 연산 결과는 기본적으로 가장 가까운 표현 가능한 값으로 반올림됩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>파이썬(binary64)에서 직접 계산한 값입니다.</p><ul><li>0.1을 이진수로 저장한 실제 값은 0.1000000000000000055511151231257827…으로 정확히 0.1이 아닙니다.</li><li><code>0.1 + 0.2</code>의 결과는 0.30000000000000004입니다.</li><li>0.1을 반복문으로 10번 더하면 1.0이 아니라 0.9999999999999999가 됩니다.</li><li>2<sup>53</sup> = 9,007,199,254,740,992 이상에서는 모든 정수를 표현할 수 없어서, 2<sup>53</sup>에 1을 더해도 값이 변하지 않습니다.</li></ul><p>이 오차는 오류가 아니라 유한한 비트로 실수를 표현하는 방식에서 오는 성질입니다. 같음을 비교할 때는 <code>==</code> 대신 허용 오차를 둔 비교를 쓰고, 금액처럼 십진 정확성이 필요하면 십진 형식을 씁니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>정밀도(비트 수)를 늘리면 오차가 없어진다.</td><td>오차가 줄어들 뿐, 0.1 같은 값은 어떤 이진 형식에서도 정확히 표현되지 않습니다.</td></tr><tr><td>FP16과 BF16은 같은 16비트라서 비슷하다.</td><td>FP16은 가수 10비트로 정밀하지만 범위가 좁고(최댓값 65,504), BF16은 지수 8비트로 FP32와 같은 범위를 가지는 대신 가수가 7비트라 정밀도가 낮습니다.</td></tr><tr><td>배정밀도는 소수점 이하 15자리까지 정확하다.</td><td>정밀도는 소수점 이하 자리가 아니라 유효숫자(약 15~17자리)로 말합니다. 큰 수에서는 소수 자릿수가 훨씬 적습니다.</td></tr><tr><td>오차는 한 번의 연산에서만 생긴다.</td><td>연산마다 반올림 오차가 생기고, 큰 수와 작은 수의 덧셈이나 비슷한 두 수의 뺄셈에서는 오차가 크게 드러납니다. 반복 계산에서 누적될 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "부동소수점 표현",
+        "부호·지수·가수로 실수를 근사해 저장하는 방식 자체"
+      ],
+      [
+        "[[floating-point-error|부동소수점 오차]]",
+        "그 표현 때문에 필연적으로 생기는 계산 오차"
+      ],
+      [
+        "[[mixed-precision-training|혼합정밀도 학습]]",
+        "연산 단계별로 16비트와 32비트를 섞어 쓰는 딥러닝 학습 기법"
+      ]
+    ]
+  },
+  "references": [
+    "IEEE. (2019). IEEE Standard for Floating-Point Arithmetic (IEEE Std 754-2019). Institute of Electrical and Electronics Engineers.",
+    "Goldberg, D. (1991). What every computer scientist should know about floating-point arithmetic. ACM Computing Surveys, 23(1), 5–48.",
+    "Higham, N. J. (2002). Accuracy and Stability of Numerical Algorithms (2nd ed.). SIAM.",
+    "Micikevicius, P., Narang, S., Alben, J., Diamos, G., Elsen, E., Garcia, D., Ginsburg, B., Houston, M., Kuchaiev, O., Venkatesh, G., & Wu, H. (2018). Mixed precision training. International Conference on Learning Representations."
+  ]
+}
