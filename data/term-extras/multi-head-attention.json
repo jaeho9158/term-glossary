@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>선형 변환으로 쿼리·키·값 만들기</strong>: 입력 표현 X(토큰 수 n × 모델 차원 d<sub>model</sub>)에 헤드마다 다른 가중치 행렬 W<sub>i</sub><sup>Q</sup>, W<sub>i</sub><sup>K</sup>, W<sub>i</sub><sup>V</sup>를 곱해 Q<sub>i</sub>, K<sub>i</sub>, V<sub>i</sub>를 만듭니다. 각 헤드의 차원은 보통 d<sub>k</sub> = d<sub>model</sub> ÷ h로 정합니다.</li><li><strong>헤드별 스케일드 점곱 어텐션</strong>: 헤드마다 softmax(Q<sub>i</sub>K<sub>i</sub><sup>T</sup> ÷ √d<sub>k</sub>)V<sub>i</sub>를 계산합니다. 헤드끼리 서로 독립이므로 병렬로 계산할 수 있습니다.</li><li><strong>이어 붙이기</strong>: h개 헤드의 결과를 옆으로 이어 붙입니다.</li><li><strong>출력 변환</strong>: 이어 붙인 결과에 W<sup>O</sup>를 곱해 d<sub>model</sub> 차원으로 합칩니다.</li></ol><p>Vaswani 외(2017)의 기본 모델은 h = 8, d<sub>model</sub> = 512, d<sub>k</sub> = d<sub>v</sub> = 64를 썼습니다. 관련 개념은 [[attention-mechanism|어텐션 메커니즘]]과 [[transformer-architecture|트랜스포머 구조]]에서 다룹니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>언제 쓰나</strong>: 트랜스포머의 인코더 자기어텐션, 디코더 자기어텐션, 인코더-디코더 교차어텐션에 모두 쓰이며, 비전 트랜스포머 같은 다른 영역에도 그대로 옮겨졌습니다.</p><p><strong>무엇을 얻나</strong>: 헤드마다 서로 다른 부분 공간에서 토큰 사이의 관계를 보므로, 한 번의 어텐션보다 다양한 관계를 동시에 표현할 수 있습니다. 매개변수 수를 늘리지 않고 이렇게 나눌 수 있다는 점이 설계의 특징입니다. d<sub>model</sub> = 512에서 헤드 수만 바꿔 계산하면 다음과 같습니다(편향 제외).</p><table><thead><tr><th>헤드 수 h</th><th>헤드 차원 d<sub>k</sub></th><th>투영 가중치 수 (3·h·d<sub>model</sub>·d<sub>k</sub> + d<sub>model</sub>²)</th></tr></thead><tbody><tr><td>1</td><td>512</td><td>1,048,576</td></tr><tr><td>8</td><td>64</td><td>1,048,576</td></tr><tr><td>16</td><td>32</td><td>1,048,576</td></tr></tbody></table><p>헤드 수와 관계없이 가중치 수가 같습니다. 헤드를 늘려도 모델이 자동으로 좋아지는 것은 아닙니다. Voita 외(2019)는 학습된 번역 모델에서 소수의 헤드가 주된 역할을 하고 나머지는 성능 손실이 작게 잘라 낼 수 있음을 보였고, Michel 외(2019)도 많은 헤드를 테스트 때 제거해도 성능이 크게 떨어지지 않는 경우가 많다고 보고했습니다.</p><p><strong>변형</strong>: 디코딩의 메모리 비용을 줄이려고 모든 헤드가 키와 값을 공유하는 멀티쿼리 어텐션(Shazeer, 2019), 그 중간 단계인 그룹쿼리 어텐션 같은 변형이 쓰입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>구조를 적을 때는 층 수, 헤드 수 h, 모델 차원 d<sub>model</sub>, 헤드 차원 d<sub>k</sub>, 드롭아웃 비율을 함께 제시합니다. 예: “인코더는 h = 8인 멀티헤드 어텐션 층으로 구성하였다.”</li><li>헤드 수를 바꾼 실험(절제 연구)이라면 d<sub>model</sub>을 고정했는지, 매개변수 수를 맞췄는지를 밝혀야 공정한 비교가 됩니다.</li><li>“헤드가 문법 관계에 주목한다”처럼 헤드의 역할을 해석하는 문장에는 근거(어텐션 가중치 시각화, 가지치기 실험)를 붙여야 합니다. 어텐션 가중치가 곧 설명이라는 해석은 논쟁이 있으므로 단정하지 않는 것이 안전합니다.</li><li>[[gradient-descent|경사하강법]]으로 학습하는 일반 매개변수와 같으므로, 학습 설정(옵티마이저, 학습률)은 별도로 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "어텐션 관련 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "핵심",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[attention-mechanism|어텐션 메커니즘]]",
+        "입력의 각 부분에 가중치를 주어 합치는 일반 원리",
+        "상위 개념"
+      ],
+      [
+        "[[multi-head-attention|멀티헤드 어텐션]]",
+        "어텐션을 여러 헤드로 나누어 병렬 수행하고 합침",
+        "어텐션의 구성 방식"
+      ],
+      [
+        "셀프어텐션 / 교차어텐션",
+        "쿼리·키·값이 같은 입력에서 오는지, 다른 입력에서 오는지의 차이",
+        "멀티헤드와 독립된 축"
+      ],
+      [
+        "[[transformer-architecture|트랜스포머 구조]]",
+        "멀티헤드 어텐션과 피드포워드 층을 쌓은 모델",
+        "멀티헤드가 들어가는 상위 구조"
+      ]
+    ]
+  },
+  "references": [
+    "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems 30.",
+    "Voita, E., Talbot, D., Moiseev, F., Sennrich, R., & Titov, I. (2019). Analyzing multi-head self-attention: Specialized heads do the heavy lifting, the rest can be pruned. Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics.",
+    "Michel, P., Levy, O., & Neubig, G. (2019). Are sixteen heads really better than one? Advances in Neural Information Processing Systems 32.",
+    "Shazeer, N. (2019). Fast transformer decoding: One write-head is all you need. arXiv preprint arXiv:1911.02150."
+  ]
+}

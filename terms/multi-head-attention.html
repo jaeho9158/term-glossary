@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/multi-head-attention.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>멀티헤드 어텐션은 트랜스포머 아키텍처의 핵심 구성요소로, 자연어처리뿐 아니라 이미지, 음성, 멀티모달 모델에 이르기까지 폭넓게 재사용되고 있습니다. 단일 어텐션보다 다양한 유형의 관계를 동시에 표현할 수 있어 모델의 표현력을 크게 높이며, 이 때문에 대규모 언어모델과 비전 트랜스포머를 다루는 논문에서 거의 예외 없이 등장하는 기본 구성요소로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>선형 변환으로 쿼리·키·값 만들기</strong>: 입력 표현 X(토큰 수 n × 모델 차원 d<sub>model</sub>)에 헤드마다 다른 가중치 행렬 W<sub>i</sub><sup>Q</sup>, W<sub>i</sub><sup>K</sup>, W<sub>i</sub><sup>V</sup>를 곱해 Q<sub>i</sub>, K<sub>i</sub>, V<sub>i</sub>를 만듭니다. 각 헤드의 차원은 보통 d<sub>k</sub> = d<sub>model</sub> ÷ h로 정합니다.</li><li><strong>헤드별 스케일드 점곱 어텐션</strong>: 헤드마다 softmax(Q<sub>i</sub>K<sub>i</sub><sup>T</sup> ÷ √d<sub>k</sub>)V<sub>i</sub>를 계산합니다. 헤드끼리 서로 독립이므로 병렬로 계산할 수 있습니다.</li><li><strong>이어 붙이기</strong>: h개 헤드의 결과를 옆으로 이어 붙입니다.</li><li><strong>출력 변환</strong>: 이어 붙인 결과에 W<sup>O</sup>를 곱해 d<sub>model</sub> 차원으로 합칩니다.</li></ol><p>Vaswani 외(2017)의 기본 모델은 h = 8, d<sub>model</sub> = 512, d<sub>k</sub> = d<sub>v</sub> = 64를 썼습니다. 관련 개념은 <a href="attention-mechanism.html">어텐션 메커니즘</a>과 <a href="transformer-architecture.html">트랜스포머 구조</a>에서 다룹니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>언제 쓰나</strong>: 트랜스포머의 인코더 자기어텐션, 디코더 자기어텐션, 인코더-디코더 교차어텐션에 모두 쓰이며, 비전 트랜스포머 같은 다른 영역에도 그대로 옮겨졌습니다.</p><p><strong>무엇을 얻나</strong>: 헤드마다 서로 다른 부분 공간에서 토큰 사이의 관계를 보므로, 한 번의 어텐션보다 다양한 관계를 동시에 표현할 수 있습니다. 매개변수 수를 늘리지 않고 이렇게 나눌 수 있다는 점이 설계의 특징입니다. d<sub>model</sub> = 512에서 헤드 수만 바꿔 계산하면 다음과 같습니다(편향 제외).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>헤드 수 h</th><th>헤드 차원 d<sub>k</sub></th><th>투영 가중치 수 (3·h·d<sub>model</sub>·d<sub>k</sub> + d<sub>model</sub>²)</th></tr></thead><tbody><tr><td>1</td><td>512</td><td>1,048,576</td></tr><tr><td>8</td><td>64</td><td>1,048,576</td></tr><tr><td>16</td><td>32</td><td>1,048,576</td></tr></tbody></table></div><p>헤드 수와 관계없이 가중치 수가 같습니다. 헤드를 늘려도 모델이 자동으로 좋아지는 것은 아닙니다. Voita 외(2019)는 학습된 번역 모델에서 소수의 헤드가 주된 역할을 하고 나머지는 성능 손실이 작게 잘라 낼 수 있음을 보였고, Michel 외(2019)도 많은 헤드를 테스트 때 제거해도 성능이 크게 떨어지지 않는 경우가 많다고 보고했습니다.</p><p><strong>변형</strong>: 디코딩의 메모리 비용을 줄이려고 모든 헤드가 키와 값을 공유하는 멀티쿼리 어텐션(Shazeer, 2019), 그 중간 단계인 그룹쿼리 어텐션 같은 변형이 쓰입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>구조를 적을 때는 층 수, 헤드 수 h, 모델 차원 d<sub>model</sub>, 헤드 차원 d<sub>k</sub>, 드롭아웃 비율을 함께 제시합니다. 예: “인코더는 h = 8인 멀티헤드 어텐션 층으로 구성하였다.”</li><li>헤드 수를 바꾼 실험(절제 연구)이라면 d<sub>model</sub>을 고정했는지, 매개변수 수를 맞췄는지를 밝혀야 공정한 비교가 됩니다.</li><li>“헤드가 문법 관계에 주목한다”처럼 헤드의 역할을 해석하는 문장에는 근거(어텐션 가중치 시각화, 가지치기 실험)를 붙여야 합니다. 어텐션 가중치가 곧 설명이라는 해석은 논쟁이 있으므로 단정하지 않는 것이 안전합니다.</li><li><a href="gradient-descent.html">경사하강법</a>으로 학습하는 일반 매개변수와 같으므로, 학습 설정(옵티마이저, 학습률)은 별도로 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"트랜스포머 인코더는 8개의 헤드를 가진 멀티헤드 어텐션으로 구성되었다."</div>
   <p>어텐션 연산을 8개의 독립된 헤드로 나누어 병렬 수행하고 그 결과를 결합하는 구조를 사용했다는 뜻이다.</p>
   <div class="example">"비전 트랜스포머는 이미지 패치 시퀀스에 멀티헤드 셀프어텐션을 적용하여 패치 간 전역적 관계를 학습하였다."</div>
@@ -165,6 +183,20 @@
 
   <h2>주의할 점</h2>
   <p>헤드 개수를 늘린다고 항상 성능이 좋아지는 것은 아니며, 오히려 일부 헤드는 학습 후에 거의 중복되거나 불필요한 역할을 하는 경우도 있다는 연구가 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>어텐션 관련 용어는 층위가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><a href="attention-mechanism.html">어텐션 메커니즘</a></th><td>입력의 각 부분에 가중치를 주어 합치는 일반 원리</td><td>상위 개념</td></tr><tr><th scope="row"><strong>멀티헤드 어텐션</strong></th><td>어텐션을 여러 헤드로 나누어 병렬 수행하고 합침</td><td>어텐션의 구성 방식</td></tr><tr><th scope="row">셀프어텐션 / 교차어텐션</th><td>쿼리·키·값이 같은 입력에서 오는지, 다른 입력에서 오는지의 차이</td><td>멀티헤드와 독립된 축</td></tr><tr><th scope="row"><a href="transformer-architecture.html">트랜스포머 구조</a></th><td>멀티헤드 어텐션과 피드포워드 층을 쌓은 모델</td><td>멀티헤드가 들어가는 상위 구조</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems 30.</li>
+    <li>Voita, E., Talbot, D., Moiseev, F., Sennrich, R., &amp; Titov, I. (2019). Analyzing multi-head self-attention: Specialized heads do the heavy lifting, the rest can be pruned. Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics.</li>
+    <li>Michel, P., Levy, O., &amp; Neubig, G. (2019). Are sixteen heads really better than one? Advances in Neural Information Processing Systems 32.</li>
+    <li>Shazeer, N. (2019). Fast transformer decoding: One write-head is all you need. arXiv preprint arXiv:1911.02150.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="transformer.html">트랜스포머</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="vision-transformer.html">비전 트랜스포머</a><a href="positional-encoding.html">위치 인코딩</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/lipschitz-continuity.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <p>딥러닝 분야에서는 신경망의 안정성이나 적대적 공격(adversarial attack)에 대한 강건성을 분석할 때, 신경망을 하나의 함수로 보고 그 립시츠 상수를 추정하거나 제한하는 방식으로 이론적 보장을 얻으려는 연구가 활발히 이루어집니다.</p>
   <p>이처럼 립시츠 연속은 순수 수학뿐 아니라 최적화, 제어이론, 머신러닝 전반에서 이론적 보장을 얻기 위한 공통의 도구로 기능합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>함수 f가 구간 D에서 <strong>L-립시츠 연속</strong>이라는 것은, D 안의 모든 x, y에 대해 |f(x) − f(y)| ≤ L·|x − y|가 성립하는 상수 L ≥ 0이 있다는 뜻입니다. 두 점 사이 기울기(차분몫)의 크기가 L을 넘지 않는 것입니다.</li><li>L이 작을수록 함수가 완만합니다. 조건을 만족하는 L 중 가장 작은 값을 립시츠 상수라고 부르기도 합니다.</li><li>포함 관계는 <strong>구간에서 미분 가능하고 도함수가 유계 ⇒ 립시츠 ⇒ <a href="uniform-continuity.html">균등연속</a> ⇒ 연속</strong> 순으로 약해집니다. 반대 방향은 성립하지 않습니다.</li><li>립시츠 연속이면 거의 모든 점에서 미분 가능하다는 것이 Rademacher 정리입니다. 그러나 |x|처럼 꼭짓점에서 미분 불가능한 함수도 1-립시츠입니다(<a href="differentiability.html">미분가능성</a>과 다릅니다).</li><li>쓰임: 상미분방정식의 초기값 문제에서 해의 국소적 존재와 유일성(Picard–Lindelöf), <a href="gradient-descent.html">경사하강법</a>의 수렴 분석(기울기가 L-립시츠이면 학습률 1/L 이하에서 매 단계 목적함수가 줄어듭니다), 신경망의 안정성 분석 등입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>√x가 왜 립시츠 연속이 아닌지 숫자로 확인해 봅시다. [0, 1]에서 두 점 0과 h를 잡으면 차분몫은 |√h − √0| / |h − 0| = 1/√h입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>간격 h</th><th>차분몫 1/√h</th></tr></thead><tbody><tr><td>0.01</td><td>10</td></tr><tr><td>0.0001</td><td>100</td></tr><tr><td>0.000001</td><td>1000</td></tr></tbody></table></div><p>h를 줄일수록 차분몫이 한없이 커지므로 어떤 상수 L로도 위에서 막을 수 없습니다. 반면 f(x) = 2x는 모든 쌍에서 차분몫이 정확히 2이므로 L = 2이고, f(x) = |x|는 차분몫이 −1과 1 사이에 있어 L = 1입니다.</p><p>같은 √x도 [1, ∞)나 [ε, 1] (ε &gt; 0)에서는 도함수 1/(2√x)가 1/(2√ε) 이하이므로 L = 1/(2√ε)로 립시츠입니다. 그래서 구간을 함께 밝히는 것이 중요합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>연속이면 립시츠 연속이다.</td><td>√x는 [0, 1]에서 연속이지만 립시츠가 아닙니다. 립시츠는 변화의 속도에 상한이 있다는 훨씬 강한 조건입니다.</td></tr><tr><td>립시츠 연속이면 미분 가능하다.</td><td>|x|는 x = 0에서 미분 불가능하지만 1-립시츠입니다. 립시츠 함수는 거의 모든 점에서 미분 가능할 뿐입니다.</td></tr><tr><td>미분 가능하면 립시츠 연속이다.</td><td>도함수가 유계가 아니면 아닙니다. 예를 들어 x² sin(1/x²)(x ≠ 0, f(0) = 0)는 미분 가능하지만 도함수가 유계가 아니어서 [0, 1]에서 립시츠가 아닙니다.</td></tr><tr><td>“립시츠 연속”이라고만 써도 충분하다.</td><td>정의역과 상수 L을 함께 적어야 합니다. 구간에 따라 성립 여부와 L이 달라집니다.</td></tr><tr><td>딥러닝에서 립시츠 상수를 정확히 구할 수 있다.</td><td>깊은 신경망의 립시츠 상수를 정확히 구하기는 어려워 상한을 추정하거나 가중치 정규화로 제한하는 방법을 씁니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"손실 함수의 그래디언트가 L-립시츠 연속이라고 가정하면, 경사하강법은 학습률 1/L 이하에서 수렴함을 보일 수 있다."</div>
   <p>이 문장은 "손실 함수가 얼마나 급격하게 변할 수 있는지에 상한(L)이 있다고 가정하면, 그 정보를 이용해 알고리즘이 안전하게 수렴하는 학습률 범위를 계산할 수 있다"는 뜻입니다. 최적화, 딥러닝, 미분방정식의 해가 유일하게 존재함을 보이는 증명(피카르-린델뢰프 정리) 등에서 핵심 가정으로 자주 등장합니다.</p>
 
@@ -167,6 +185,20 @@
 
   <h2>주의할 점</h2>
   <p>립시츠 연속은 일반적인 연속보다 훨씬 강한 조건이며, 심지어 미분가능성과도 다른 개념입니다. 립시츠 연속인 함수가 항상 미분가능한 것은 아니고(꼭짓점이 있는 |x| 같은 함수도 립시츠 연속입니다), 반대로 미분가능해도 도함수가 무한히 커질 수 있다면 립시츠 연속이 아닐 수 있습니다. 또한 "립시츠 연속"이라고만 쓰면 어떤 구간에서, 어떤 립시츠 상수로 성립하는지가 빠져 있으므로, 엄밀한 논문에서는 반드시 상수 L과 적용 범위를 함께 명시해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>연속성의 강도를 구분하는 용어들입니다. 연속, 균등연속, 립시츠 순으로 조건이 강해지고, 미분가능은 이 순서에 끼지 않는 별개의 조건입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">조건 요지</th><th scope="col">예</th></tr></thead><tbody><tr><th scope="row">연속</th><td>각 점에서 입력이 가까우면 출력이 가까움</td><td>√x on [0, 1]</td></tr><tr><th scope="row"><a href="uniform-continuity.html">균등연속</a></th><td>정의역 전체에서 같은 기준으로 성립</td><td>√x on [0, 1]도 균등연속</td></tr><tr><th scope="row"><a href="differentiability.html">미분가능</a></th><td>각 점에서 도함수가 존재 (미분가능하면 연속이지만, 균등연속·립시츠와는 포함 관계가 없음)</td><td>|x|는 x = 0에서 불가능</td></tr><tr><th scope="row"><strong>립시츠 연속</strong></th><td>차분몫의 크기가 상수 L 이하</td><td>2x는 L = 2, |x|는 L = 1</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rudin, W. (1976). Principles of Mathematical Analysis (3rd ed.). McGraw-Hill.</li>
+    <li>Nesterov, Y. (2004). Introductory Lectures on Convex Optimization: A Basic Course. Kluwer Academic Publishers.</li>
+    <li>Arjovsky, M., Chintala, S., &amp; Bottou, L. (2017). Wasserstein generative adversarial networks. Proceedings of the 34th International Conference on Machine Learning, PMLR 70.</li>
+    <li>Miyato, T., Kataoka, T., Koyama, M., &amp; Yoshida, Y. (2018). Spectral normalization for generative adversarial networks. International Conference on Learning Representations.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="uniform-continuity.html">균등연속</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

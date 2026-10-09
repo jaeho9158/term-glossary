@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/luenberger-observer.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 시스템에서는 비용이나 물리적 제약 때문에 모든 상태를 센서로 직접 측정할 수 없는 경우가 많아, 측정 가능한 출력으로부터 나머지 상태를 추정하는 관측기가 제어 시스템 설계에서 핵심적으로 다뤄집니다. 루엔버거 관측기는 잡음에 대한 확률적 가정 없이 설계할 수 있어 구조가 비교적 단순하고 직관적이라는 점에서 널리 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>모델 세우기</strong>: 대상 시스템을 상태공간식 ẋ = Ax + Bu, y = Cx로 씁니다(<a href="state-space-representation.html">상태공간 표현</a>).</li><li><strong>가관측성 확인</strong>: (A, C) 쌍이 가관측해야 모든 상태를 추정할 수 있습니다(<a href="controllability-observability.html">가제어성과 가관측성</a>). 가관측이 아니면 관측기 이득을 어떻게 골라도 추정할 수 없는 상태가 남습니다.</li><li><strong>관측기 구성</strong>: 모델의 복사본을 돌리면서 실제 출력과 모델 출력의 차이를 이득 행렬 L로 되먹임합니다. x̂̇ = Ax̂ + Bu + L(y − Cx̂).</li><li><strong>오차 동역학</strong>: 추정 오차 e = x − x̂는 ė = (A − LC)e를 따릅니다. 입력 u와 상태 x가 오차식에서 사라지므로, 오차가 0으로 가는 속도는 (A − LC)의 고유값(극점)이 정합니다.</li><li><strong>이득 설계</strong>: 극점 배치(pole placement)로 (A − LC)의 극점을 원하는 곳에 두어 L을 구합니다. 관례적으로 관측기의 극점을 폐루프 제어기의 극점보다 몇 배 빠르게 잡습니다. 다만 너무 빠르게 잡으면 측정 잡음이 크게 증폭됩니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>언제 쓰나</strong>: 센서로 모든 상태를 재기 어렵거나 비싼 경우(예: 전동기 회전자 자속, 속도), 측정 가능한 출력에서 나머지 상태를 복원해 상태 피드백 제어에 쓰는 경우입니다(<a href="observer-based-control.html">관측기 기반 제어</a>). 선형 시스템에서는 분리 원리 덕분에 제어기와 관측기를 따로 설계할 수 있습니다.</p><p><strong>무엇을 얻나</strong>: 확률적 잡음 모델 없이 결정론적 설계만으로 추정기를 얻습니다. 구조가 단순해 구현이 쉽습니다. 한편 잡음의 통계적 특성을 알고 그것을 최적으로 활용하려면 <a href="kalman-filter.html">칼만 필터</a>가 적합합니다. 같은 구조의 관측기에 이득을 최적화한 것이 정상상태 칼만 필터라고 볼 수 있습니다.</p><p><strong>간단한 계산 예</strong> (가상의 시스템): 위치를 측정하고 속도를 추정해야 하는 이중 적분기 A = [[0, 1], [0, 0]], C = [1, 0]을 생각합니다. 관측기 극점을 −4(중근)로 두면 특성다항식이 (s + 4)² = s² + 8s + 16이고, A − LC = [[−l₁, 1], [−l₂, 0]]이므로 L = [8, 16]ᵀ입니다. 초기 추정 오차를 e(0) = [1, 0]ᵀ(위치 오차 1, 속도 오차 0)로 하면 오차는 e(t) = e^(−4t)·[1 − 4t, −16t]ᵀ입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시간 t</th><th>위치 오차</th><th>속도 오차</th><th>오차 크기</th></tr></thead><tbody><tr><td>0</td><td>1.0000</td><td>0.0000</td><td>1.0000</td></tr><tr><td>0.25</td><td>0.0000</td><td>-1.4715</td><td>1.4715</td></tr><tr><td>0.5</td><td>-0.1353</td><td>-1.0827</td><td>1.0911</td></tr><tr><td>1</td><td>-0.0549</td><td>-0.2931</td><td>0.2982</td></tr><tr><td>1.5</td><td>-0.0124</td><td>-0.0595</td><td>0.0608</td></tr><tr><td>2</td><td>-0.0023</td><td>-0.0107</td><td>0.0110</td></tr></tbody></table></div><p>오차가 결국 0으로 수렴하지만, 초기에는 속도 오차가 먼저 커졌다가 줄어듭니다(오차 크기가 t = 0.25 부근에서 1을 넘음). 극점이 빠르다고 해서 수렴 과정이 단조로운 것은 아닙니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>논문에는 대상 모델(상태변수, 행렬 A, B, C), 가관측성 조건, 관측기 이득 L과 극점의 선정 근거를 적습니다. “관측기 극점을 제어기 극점보다 빠르게 선정했다”처럼 설계 기준을 함께 씁니다.</li><li>성능은 추정 상태와 실제(또는 기준 센서) 상태의 비교 그림, 추정 오차의 수렴 시간과 정상상태 오차로 제시합니다.</li><li>잡음이 있는 실험이라면 측정 잡음에 대한 민감도를 확인하고 이득을 정한 이유를 밝혀야 합니다.</li><li>비선형 시스템에는 이 구조를 그대로 쓸 수 없으므로 선형화나 비선형 관측기를 쓴다는 점과 수렴 보장의 범위를 구분해 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"A Luenberger observer is designed to estimate the unmeasured rotor flux from the measured stator currents."</div>
   <p>측정 가능한 고정자 전류로부터 측정되지 않는 회전자 자속을 추정하기 위해 루엔버거 관측기를 설계했다는 내용입니다.</p>
   <div class="example">"The observer gain is chosen such that the estimation error dynamics converge faster than the closed-loop system."</div>
@@ -157,6 +175,19 @@
 
   <h2>주의할 점</h2>
   <p>측정 잡음이 큰 환경에서는 확률적 접근인 칼만 필터 계열이 더 나은 추정 성능을 보일 수 있으므로, 잡음 특성에 따라 적절한 관측기를 선택해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>상태 추정기는 종류가 많아 이름이 겹쳐 보입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심</th><th scope="col">잡음 가정</th></tr></thead><tbody><tr><th scope="row"><strong>루엔버거 관측기</strong></th><td>모델과 출력 오차를 되먹임해 상태를 추정하는 결정론적 관측기</td><td>확률적 잡음 모델을 쓰지 않음</td></tr><tr><th scope="row"><a href="kalman-filter.html">칼만 필터</a></th><td>잡음의 통계적 특성을 이용해 추정오차 분산을 최소화하는 최적 추정기</td><td>잡음의 통계(공분산)를 가정</td></tr><tr><th scope="row"><a href="disturbance-observer.html">외란 관측기</a></th><td>상태가 아니라 외란이나 모델 불확실성을 추정</td><td>대상이 다름</td></tr><tr><th scope="row"><a href="observer-based-control.html">관측기 기반 제어</a></th><td>추정한 상태를 제어에 쓰는 제어 구조</td><td>관측기의 종류와 무관</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Luenberger, D. G. (1964). Observing the state of a linear system. IEEE Transactions on Military Electronics, 8.</li>
+    <li>Luenberger, D. G. (1971). An introduction to observers. IEEE Transactions on Automatic Control, 16(6), 596–602.</li>
+    <li>Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. Journal of Basic Engineering, 82(1), 35–45.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
