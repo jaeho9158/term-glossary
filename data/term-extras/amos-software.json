@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>AMOS에서 구조방정식모형 분석은 대체로 아래 순서로 진행됩니다. 작업 방식이 ‘그리기’인 것이 특징입니다.</p><ol><li><strong>자료 연결</strong>: SPSS 자료 파일 등을 불러옵니다.</li><li><strong>경로도 그리기</strong>: 관측변수는 사각형, 잠재변수는 타원, 오차항은 원으로 그리고 화살표로 관계를 지정합니다.</li><li><strong>모형 식별 확인</strong>: 추정할 모수보다 자료의 분산·공분산 정보가 충분한지(자유도가 0 이상) 점검합니다.</li><li><strong>추정</strong>: 최대우도법이 기본이며 결측치가 있을 때 완전정보최대우도 같은 선택지가 있습니다.</li><li><strong>결과 확인</strong>: 경로계수와 적합도 지수를 봅니다.</li><li><strong>간접효과 검증</strong>: 매개효과는 부트스트래핑으로 간접효과의 신뢰구간을 구하는 방식이 소표본에서도 상대적으로 안정적이라 널리 권장됩니다(Preacher &amp; Hayes, 2008).</li></ol><p>모형 수정에 수정지수를 쓸 때는 이론적 근거 없이 적합도만 높이려는 사용을 피해야 합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>설문 기반의 사회과학 연구에서 잠재변수와 측정변수의 관계(확인적 요인분석), 변수 간 인과 경로, 매개·조절 효과, 집단 간 비교(다집단 분석)를 한 모형 안에서 검증할 때 씁니다. 국내 경영학 분야 다중집단분석 연구 문헌을 살핀 논문에서도 AMOS 사용이 압도적으로 많다고 정리했습니다.</p><p>적합도는 여러 지수를 함께 봅니다. 널리 인용되는 기준은 후와 벤틀러의 조합 기준으로, CFI와 TLI는 .95 이상, RMSEA는 .06 이하, SRMR은 .08 이하를 제안했습니다(Hu &amp; Bentler, 1999). 이는 특정 모의실험 조건에서 얻은 <strong>관례적 지침</strong>이지 모형이 맞다는 증명이 아닙니다(Kline, 2016). RMSEA는 카이제곱, 자유도, 표본 크기로 계산합니다.</p><p><code>RMSEA = √( max(χ² − df, 0) ÷ (df × (N − 1)) )</code></p><p>가상의 값 χ² = 85.4, df = 48, N = 300이면 RMSEA = √(37.4 ÷ 14352) = <strong>0.051</strong>, χ²/df = 1.78입니다.</p><p>제약도 있습니다. Windows에서만 동작하는 상용 프로그램이고 최신 통계기법의 지원이 R의 lavaan 같은 오픈소스 패키지(Rosseel, 2012)보다 늦은 편이라는 평가가 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>프로그램과 <strong>버전</strong>을 적습니다(예: SPSS 26.0, AMOS 26.0). 버전에 따라 기능과 추정 방식이 다를 수 있습니다.</li><li>추정 방법(최대우도 등), 결측 처리, 표본 크기를 밝힙니다.</li><li>사용한 적합도 지수와 기준, 값을 보고하고, 카이제곱과 자유도도 함께 적습니다.</li><li>부트스트래핑을 썼다면 표본 추출 횟수, 신뢰구간 종류(편향 수정 여부), 신뢰수준을 적습니다.</li><li>모형 수정을 했다면 어떤 근거로 어떤 경로를 추가·삭제했는지 설명합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "AMOS는 분석 방법이 아니라 소프트웨어의 이름입니다.",
+    "headers": [
+      "용어",
+      "종류",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "AMOS",
+        "소프트웨어",
+        "경로도를 그려 구조방정식모형을 분석하는 도구"
+      ],
+      [
+        "[[structural-equation-modeling|구조방정식모형]]",
+        "분석 기법",
+        "측정 과정과 변수 간 인과관계를 한 모형에서 동시에 검증"
+      ],
+      [
+        "[[confirmatory-factor-analysis|확인적 요인분석]]",
+        "분석 기법",
+        "미리 설정한 요인 구조가 자료에 맞는지 검증"
+      ],
+      [
+        "[[path-analysis|경로분석]]",
+        "분석 기법",
+        "관측변수 사이의 인과 경로 강도를 계산"
+      ]
+    ],
+    "note": "같은 분석을 Mplus, LISREL, R의 lavaan 등 다른 소프트웨어로도 할 수 있습니다."
+  },
+  "references": [
+    "Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. Structural Equation Modeling, 6(1), 1–55.",
+    "Preacher, K. J., & Hayes, A. F. (2008). Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models. Behavior Research Methods, 40(3), 879–891.",
+    "Rosseel, Y. (2012). lavaan: An R package for structural equation modeling. Journal of Statistical Software, 48(2), 1–36.",
+    "Kline, R. B. (2016). Principles and Practice of Structural Equation Modeling (4th ed.). Guilford Press."
+  ]
+}

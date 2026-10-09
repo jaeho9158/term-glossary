@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>시스템을 <code>x<sub>k</sub> = f(x<sub>k−1</sub>, u<sub>k</sub>) + w<sub>k</sub></code>, 관측을 <code>z<sub>k</sub> = h(x<sub>k</sub>) + v<sub>k</sub></code>로 둡니다. f와 h는 비선형 함수이고, w와 v는 평균 0인 잡음으로 공분산이 각각 Q, R입니다. 한 번의 반복은 두 단계입니다.</p><ol><li><strong>예측</strong>: 상태는 비선형 모델 그대로 전파합니다. <code>x̂<sup>−</sup> = f(x̂, u)</code>. 공분산은 f를 현재 추정치에서 선형화한 야코비안 F로 전파합니다. <code>P<sup>−</sup> = F P F<sup>T</sup> + Q</code>.</li><li><strong>갱신</strong>: h를 예측치에서 선형화한 야코비안 H로 칼만 이득을 구합니다. <code>K = P<sup>−</sup>H<sup>T</sup>(H P<sup>−</sup>H<sup>T</sup> + R)<sup>−1</sup></code>. 그리고 <code>x̂ = x̂<sup>−</sup> + K(z − h(x̂<sup>−</sup>))</code>, <code>P = (I − K H)P<sup>−</sup></code>.</li></ol><p>선형 [[kalman-filter|칼만 필터]]와 다른 점은 상태 전파와 예측 관측에는 <em>비선형 함수 자체</em>를 쓰고, 선형화는 공분산과 이득을 구하는 데만 쓴다는 것입니다(Gelb, 1974).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>이동 로봇의 위치추정, 관성 센서와 GPS의 융합, 거리·방위 같은 비선형 관측을 쓰는 항법에서 쓰입니다([[multi-sensor-fusion|다중센서융합]], [[imu|IMU]]). 계산이 가볍고 구현이 쉬워 실무의 기본 추정기로 자리잡았습니다(Thrun, Burgard, &amp; Fox, 2005).</p><p>가상의 한 단계 예를 계산해 보겠습니다. 직선 위의 위치 x를 추정하고, 직선에서 옆으로 3 m 떨어진 비콘까지의 거리 <code>h(x) = √(x² + 3²)</code>를 잽니다. 사전 추정치 x̂ = 4, 분산 P = 1, 관측 잡음 분산 R = 0.04, 관측값 z = 5.3입니다.</p><table><thead><tr><th>양</th><th>값</th><th>계산</th></tr></thead><tbody><tr><td>예측 관측 h(x̂)</td><td>5.000</td><td>√(4² + 3²)</td></tr><tr><td>야코비안 H</td><td>0.800</td><td>x ÷ √(x² + 9) = 4 ÷ 5</td></tr><tr><td>혁신(잔차) z − h</td><td>0.300</td><td>5.3 − 5</td></tr><tr><td>혁신 분산 S</td><td>0.680</td><td>H·P·H + R</td></tr><tr><td>칼만 이득 K</td><td>1.176</td><td>P·H ÷ S</td></tr><tr><td>갱신 추정치 x̂</td><td>4.353</td><td>4 + K × 0.3</td></tr><tr><td>갱신 분산 P</td><td>0.0588</td><td>(1 − K·H) × P</td></tr></tbody></table><p>관측이 아주 정확(R이 작음)해서 분산이 1에서 0.059로 크게 줄었습니다. 관측이 더 멀리 떨어진 위치에서 만들어졌다면 H의 값이 달라져 같은 관측이라도 정보량이 달라진다는 점이 선형 필터와의 차이입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>상태 벡터, 운동 모델 f와 관측 모델 h, 입력 u를 식으로 제시하고, 야코비안을 해석적으로 유도했는지 수치 미분을 썼는지 밝힙니다.</li><li>잡음 공분산 Q, R의 값과 <strong>결정 방법</strong>(센서 사양, 시험 데이터, 시행착오 조정)을 적습니다. EKF의 성능은 이 값에 민감합니다.</li><li>초기 상태와 초기 공분산을 적고, 발산 여부를 점검한 방법(잔차가 평균 0 부근에 머무는지, 추정 공분산이 실제 오차와 맞는지)을 보고합니다.</li><li>비교 대상([[unscented-kalman-filter|무향 칼만 필터]], [[particle-filter|파티클필터]])과 같은 데이터·초기 조건에서 정확도와 계산 시간을 함께 제시합니다.</li><li>선형화 오차 때문에 비일관성이 생길 수 있고, 가우시안 단봉 분포만 표현한다는 한계를 명시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "필터",
+      "비선형 처리",
+      "분포 가정",
+      "대표적 용도"
+    ],
+    "rows": [
+      [
+        "[[kalman-filter|칼만 필터]]",
+        "선형 모델 필요",
+        "가우시안",
+        "선형 시스템의 상태 추정"
+      ],
+      [
+        "확장 칼만 필터(EKF)",
+        "야코비안으로 선형화",
+        "가우시안 단봉",
+        "로봇 위치추정, 센서 융합"
+      ],
+      [
+        "[[unscented-kalman-filter|무향 칼만 필터]]",
+        "시그마 포인트를 비선형 함수에 직접 통과",
+        "가우시안",
+        "강한 비선형에서 EKF의 대안"
+      ],
+      [
+        "[[particle-filter|파티클필터]]",
+        "다수의 가중 입자로 분포 근사",
+        "제한 없음(다봉 가능)",
+        "위치를 잃은 상황의 전역 위치추정"
+      ]
+    ]
+  },
+  "references": [
+    "Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. Journal of Basic Engineering, 82(1), 35–45.",
+    "Gelb, A. (Ed.). (1974). Applied Optimal Estimation. MIT Press.",
+    "Thrun, S., Burgard, W., & Fox, D. (2005). Probabilistic Robotics. MIT Press.",
+    "Julier, S. J., & Uhlmann, J. K. (1997). A new extension of the Kalman filter to nonlinear systems. Proceedings of SPIE, 3068."
+  ]
+}

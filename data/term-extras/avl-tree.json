@@ -1,0 +1,57 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>AVL 트리는 모든 노드에서 <strong>왼쪽·오른쪽 하위 트리의 높이 차(균형 인수)가 −1, 0, 1 중 하나</strong>가 되도록 유지하는 이진 탐색 트리입니다. 1962년 아델슨-벨스키와 랜디스가 제안한 최초의 자가 균형 이진 탐색 트리로 알려져 있습니다(Adelson-Velsky &amp; Landis, 1962).</li><li>삽입이나 삭제로 균형 인수가 ±2가 되면 <strong>회전</strong>으로 바로잡습니다. 단일 회전(좌·우)과 이중 회전(좌-우, 우-좌) 네 경우가 있습니다.</li><li>높이는 노드 수 n에 대해 약 log<sub>2</sub> n 수준으로 유지되어, 탐색·삽입·삭제가 모두 O(log n)입니다. 높이가 h인 AVL 트리의 최소 노드 수는 N(h) = N(h−1) + N(h−2) + 1로 피보나치 수열과 비슷하게 자라고, 이로부터 높이가 약 1.44 log<sub>2</sub>(n+2)를 넘지 않음이 나옵니다(Knuth, 1998).</li><li>삽입 뒤의 재균형은 단일 또는 이중 회전 한 번으로 충분하지만, 삭제는 경로를 따라 여러 번의 회전이 필요할 수 있습니다(Knuth, 1998).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>키 1, 2, 3, 4, 5, 6, 7을 이 순서로 넣는 경우를 실제로 시뮬레이션했습니다.</p><table><thead><tr><th>구조</th><th>높이</th><th>회전 횟수</th><th>7번째 노드 탐색 비교 횟수(최대)</th></tr></thead><tbody><tr><td>일반 이진 탐색 트리</td><td>7</td><td>0</td><td>7</td></tr><tr><td>AVL 트리</td><td>3</td><td>4</td><td>3</td></tr></tbody></table><p>정렬된 순서로 넣으면 일반 이진 탐색 트리는 연결 리스트처럼 한쪽으로 늘어져 높이가 7이 되지만, AVL 트리는 회전 4번으로 높이 3(루트는 4)을 유지합니다. 높이가 h인 AVL 트리가 가질 수 있는 최소 노드 수는 다음과 같이 빨리 늘어납니다.</p><table><thead><tr><th>높이 h</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead><tbody><tr><td>최소 노드 수 N(h)</td><td>1</td><td>2</td><td>4</td><td>7</td><td>12</td><td>20</td><td>33</td><td>54</td><td>88</td><td>143</td></tr></tbody></table><p>반대로 말하면 노드가 1,000개여도 높이는 많아야 14 정도이며(이론 최소는 약 10), 일반 이진 탐색 트리는 최악에 1,000이 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>AVL 트리는 완전 균형 트리다.</td><td>높이 차 1까지 허용합니다. 완전 이진 트리와는 다릅니다.</td></tr><tr><td>균형 인수는 노드 수의 차이다.</td><td>하위 트리의 <strong>높이</strong> 차입니다. 노드 수는 많이 다를 수 있습니다.</td></tr><tr><td>AVL은 항상 레드-블랙 트리보다 좋다.</td><td>AVL은 균형 조건이 더 엄격해 탐색이 조금 빠르지만 삽입·삭제 때 회전이 더 자주 일어납니다. 갱신이 많으면 레드-블랙 트리가, 조회가 많으면 AVL이 유리한 경우가 많습니다.</td></tr><tr><td>균형 트리라고 하면 모두 AVL이다.</td><td>레드-블랙 트리, B-트리 등 균형 조건이 다른 구조가 많습니다. 논문에서 어떤 구조를 말하는지 확인해야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "구조",
+      "균형 조건",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[binary-search-tree|이진탐색트리]]",
+        "없음",
+        "삽입 순서에 따라 높이가 n까지 늘어날 수 있음"
+      ],
+      [
+        "AVL 트리",
+        "모든 노드에서 높이 차 ≤ 1",
+        "탐색에 유리, 갱신 시 회전이 잦음"
+      ],
+      [
+        "[[red-black-tree|레드-블랙 트리]]",
+        "색 규칙으로 간접 유지(가장 긴 경로가 가장 짧은 경로의 2배 이내)",
+        "갱신에 유리, 구현에 널리 쓰임"
+      ],
+      [
+        "[[balanced-binary-search-tree|균형 이진 탐색 트리]]",
+        "높이가 log n에 비례하도록 유지하는 구조의 총칭",
+        "AVL과 레드-블랙이 대표적"
+      ],
+      [
+        "[[b-plus-tree|B+ 트리]]",
+        "다진 트리, 모든 잎 높이 동일",
+        "데이터베이스와 파일시스템 색인"
+      ]
+    ]
+  },
+  "references": [
+    "Adelson-Velsky, G. M., & Landis, E. M. (1962). An algorithm for the organization of information. Doklady Akademii Nauk SSSR, 146, 263–266.",
+    "Knuth, D. E. (1998). The Art of Computer Programming, Volume 3: Sorting and Searching (2nd ed.). Addison-Wesley.",
+    "Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press."
+  ]
+}
