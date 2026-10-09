@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>수동 센서는 자체 신호를 보내지 않고 <strong>지표가 반사한 태양 복사와 지표가 스스로 내는 복사</strong>를 기록합니다. 반사 복사는 가시광선·근적외선·단파적외선에서, 방출 복사는 열적외선과 마이크로파에서 주로 관측합니다(Lillesand 등, 2015).</li><li>대표 사례는 Landsat, Sentinel-2, MODIS 같은 광학·열 위성과 항공사진, 드론 카메라입니다. 영상 레이더(합성개구레이더)나 라이다는 스스로 신호를 쏘므로 [[active-remote-sensing|능동형]]입니다.</li><li>수동 센서의 값은 촬영 시각의 태양 고도, 구름, 대기, 지표 상태에 영향을 받으므로 분석 전에 보정이 필요합니다. 반사 밴드는 밤에 관측할 수 없고, 열적외선은 밤에도 관측할 수 있습니다(Jensen, 2007).</li><li>밴드를 조합해 만든 지수가 자주 쓰입니다. 대표가 정규식생지수(NDVI)로, <code>NDVI = (NIR − Red) / (NIR + Red)</code>입니다(Tucker, 1979).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>세 가지 지표의 반사율(가상의 값)로 NDVI를 계산해 봅니다. 식물은 붉은 빛을 흡수하고 근적외선을 많이 반사한다는 특성이 지수에 드러납니다.</p><table><thead><tr><th>피복</th><th>Red 반사율</th><th>NIR 반사율</th><th>NDVI</th></tr></thead><tbody><tr><td>무성한 식생</td><td>0.08</td><td>0.50</td><td>0.724</td></tr><tr><td>나지(맨땅)</td><td>0.25</td><td>0.30</td><td>0.091</td></tr><tr><td>물</td><td>0.04</td><td>0.02</td><td>−0.333</td></tr></tbody></table><p>NDVI가 클수록 녹색 식생이 많고, 물은 음수가 되는 경향이 있습니다. 같은 지역을 다른 시기의 영상으로 비교할 때는 대기 보정과 촬영 시기를 맞춰야 값을 비교할 수 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>수동형은 항상 낮에만 관측한다.</td><td>반사 밴드는 낮에만 쓸 수 있지만 열적외선 센서는 밤에도 지표의 방출 복사를 관측합니다.</td></tr><tr><td>영상의 값이 곧 지표의 고유한 성질이다.</td><td>대기·태양 고도·관측각이 섞여 있어, 보정 없이는 지표의 반사율과 같지 않습니다.</td></tr><tr><td>수동형은 구름에 영향을 받지 않는다.</td><td>구름은 반사 밴드와 열 밴드 모두를 가립니다. 구름 투과가 가능한 것은 일부 마이크로파 관측과 능동형 레이더입니다.</td></tr><tr><td>고해상도 영상이 항상 더 정확하다.</td><td>해상도는 공간 세부를 뜻할 뿐이며 분광·시간 해상도와 보정 상태도 정확도에 영향을 줍니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "관측 방식과 센서를 구분합니다.",
+    "headers": [
+      "용어",
+      "에너지원",
+      "예"
+    ],
+    "rows": [
+      [
+        "수동형 원격탐사",
+        "태양 복사 반사 또는 지표의 방출",
+        "Landsat 광학 영상, 열적외 영상"
+      ],
+      [
+        "[[active-remote-sensing|능동형 원격탐사]]",
+        "센서가 신호를 직접 송신",
+        "합성개구레이더, 라이다"
+      ],
+      [
+        "[[lidar|라이다]]",
+        "레이저 펄스를 쏘고 반사를 측정",
+        "능동형의 한 종류"
+      ],
+      [
+        "[[multispectral-imagery|다중분광영상]]",
+        "여러 파장 밴드의 수동 관측 영상",
+        "수동형의 한 영상 형태"
+      ]
+    ]
+  },
+  "references": [
+    "Lillesand, T. M., Kiefer, R. W., & Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.",
+    "Jensen, J. R. (2007). Remote Sensing of the Environment: An Earth Resource Perspective (2nd ed.). Pearson Prentice Hall.",
+    "Tucker, C. J. (1979). Red and photographic infrared linear combinations for monitoring vegetation. Remote Sensing of Environment, 8(2), 127–150."
+  ]
+}

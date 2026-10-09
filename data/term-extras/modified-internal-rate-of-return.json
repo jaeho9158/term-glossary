@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>MIRR은 현금유출을 <strong>자금조달 이자율</strong>로 현재가치화하고, 현금유입을 <strong>재투자 이자율</strong>로 사업 종료 시점까지 불린 뒤, 둘을 맞추는 수익률입니다(Lin, 1976).</p><p><code>MIRR = ( FV(유입, 재투자율) / PV(유출, 조달이자율) )<sup>1/n</sup> − 1</code></p><p>n은 사업 기간입니다. 재투자율과 조달이자율을 모두 자본비용 r로 두는 것이 일반적입니다. 범위는 −100%보다 크고, 현금 흐름의 부호가 몇 번 바뀌든 <strong>항상 하나의 값</strong>이 나옵니다.</p><p>계산 예(가상): 초기 −1,000, 이후 4년간 +300, +400, +500, +600, r = 10%.</p><ul><li>유입의 미래가치 = 300×1.1³ + 400×1.1² + 500×1.1 + 600 = 2,033.3</li><li>유출의 현재가치 = 1,000</li><li>MIRR = (2,033.3 ÷ 1,000)<sup>1/4</sup> − 1 ≈ 19.4%</li><li>같은 흐름의 IRR ≈ 24.9%, NPV(10%) ≈ 388.8</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>채택 기준</strong>: MIRR이 요구수익률(자본비용)보다 크면 채택합니다. 재투자율과 조달이자율을 모두 자본비용으로 두면 이 판단은 NPV &gt; 0 판단과 같은 결론을 줍니다(Lin, 1976).</li><li><strong>IRR과의 관계</strong>: 위 예처럼 IRR이 자본비용보다 큰 전형적 사업에서는 MIRR이 자본비용과 IRR 사이에 놓입니다. IRR이 재투자율을 IRR 자체로 가정하는 것과 달리, MIRR은 이를 자본비용으로 두기 때문입니다.</li><li><strong>복수해 문제</strong>: 현금 흐름 부호가 여러 번 바뀌면 IRR이 여러 개 나올 수 있지만 MIRR은 하나만 나옵니다. 다만 재투자율은 연구자가 외생적으로 정하므로 그 선택에 따라 값이 달라집니다.</li><li><strong>상호 배타적 사업 비교</strong>: 규모나 기간이 다른 사업을 순위로 정할 때는 MIRR이 NPV와 순위가 다를 수 있어 NPV를 함께 봅니다(Kierulff, 2008).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li><strong>가정</strong>: 재투자율과 조달이자율의 값과 근거, 사업 기간 n.</li><li><strong>현금 흐름</strong>: 연도별 현금 흐름표.</li><li><strong>함께 제시</strong>: NPV와 IRR을 함께 보고하면 MIRR이 왜 다른지 설명할 수 있습니다.</li><li><strong>민감도</strong>: 재투자율을 바꿔 가며 MIRR이 어떻게 달라지는지 보입니다.</li></ul><p>서술 예(형식 예시): “재투자율과 조달이자율은 가중평균자본비용 10%로 가정하여 MIRR을 산출하였다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "투자안 평가 지표를 구분합니다.",
+    "headers": [
+      "지표",
+      "결과 단위",
+      "핵심 가정·특징"
+    ],
+    "rows": [
+      [
+        "[[internal-rate-of-return|내부수익률(IRR)]]",
+        "%",
+        "NPV=0이 되는 할인율, 재투자율을 IRR로 가정, 복수해 가능"
+      ],
+      [
+        "수정내부수익률(MIRR)",
+        "%",
+        "재투자율을 명시적으로 지정, 해가 하나"
+      ],
+      [
+        "[[net-present-value|순현재가치(NPV)]]",
+        "금액",
+        "자본비용으로 할인한 현금 흐름의 합"
+      ],
+      [
+        "[[payback-period|회수기간]]",
+        "기간",
+        "투자금을 회수하는 데 걸리는 시간, 화폐의 시간가치 무시(단순 회수기간)"
+      ]
+    ]
+  },
+  "references": [
+    "Lin, S. A. Y. (1976). The modified internal rate of return and investment criterion. The Engineering Economist, 21(4), 237–247.",
+    "Kierulff, H. (2008). MIRR: A better measure. Business Horizons, 51(4), 321–329.",
+    "McDaniel, W. R., McCarty, D. E., & Jessell, K. A. (1988). Discounted cash flow with explicit reinvestment rates: Tutorial and extension. The Financial Review, 23(3), 369–385."
+  ]
+}

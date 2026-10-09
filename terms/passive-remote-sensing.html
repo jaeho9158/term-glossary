@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/passive-remote-sensing.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <p>태양광을 그대로 이용하기 때문에 비교적 구조가 단순하고 넓은 지역을 자연스러운 색상으로 관측할 수 있어, 토지피복 분류나 식생 모니터링 등 다양한 지도학·원격탐사 연구의 기본 관측 방식으로 활용됩니다.</p>
   <p>수동원격탐사는 자체 신호원이 필요 없어 상대적으로 저렴하고 소형화된 센서로도 구현할 수 있어, 위성·항공기뿐 아니라 소형 드론에 이르기까지 가장 널리 보급된 원격탐사 방식으로 자리잡았습니다. 다만 관측 대상의 반사·방출 특성이 촬영 시각과 계절에 따라 달라진다는 점은 자료 해석 시 항상 함께 고려해야 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>수동 센서는 자체 신호를 보내지 않고 <strong>지표가 반사한 태양 복사와 지표가 스스로 내는 복사</strong>를 기록합니다. 반사 복사는 가시광선·근적외선·단파적외선에서, 방출 복사는 열적외선과 마이크로파에서 주로 관측합니다(Lillesand 등, 2015).</li><li>대표 사례는 Landsat, Sentinel-2, MODIS 같은 광학·열 위성과 항공사진, 드론 카메라입니다. 영상 레이더(합성개구레이더)나 라이다는 스스로 신호를 쏘므로 <a href="active-remote-sensing.html">능동형</a>입니다.</li><li>수동 센서의 값은 촬영 시각의 태양 고도, 구름, 대기, 지표 상태에 영향을 받으므로 분석 전에 보정이 필요합니다. 반사 밴드는 밤에 관측할 수 없고, 열적외선은 밤에도 관측할 수 있습니다(Jensen, 2007).</li><li>밴드를 조합해 만든 지수가 자주 쓰입니다. 대표가 정규식생지수(NDVI)로, <code>NDVI = (NIR − Red) / (NIR + Red)</code>입니다(Tucker, 1979).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>세 가지 지표의 반사율(가상의 값)로 NDVI를 계산해 봅니다. 식물은 붉은 빛을 흡수하고 근적외선을 많이 반사한다는 특성이 지수에 드러납니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>피복</th><th>Red 반사율</th><th>NIR 반사율</th><th>NDVI</th></tr></thead><tbody><tr><td>무성한 식생</td><td>0.08</td><td>0.50</td><td>0.724</td></tr><tr><td>나지(맨땅)</td><td>0.25</td><td>0.30</td><td>0.091</td></tr><tr><td>물</td><td>0.04</td><td>0.02</td><td>−0.333</td></tr></tbody></table></div><p>NDVI가 클수록 녹색 식생이 많고, 물은 음수가 되는 경향이 있습니다. 같은 지역을 다른 시기의 영상으로 비교할 때는 대기 보정과 촬영 시기를 맞춰야 값을 비교할 수 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>수동형은 항상 낮에만 관측한다.</td><td>반사 밴드는 낮에만 쓸 수 있지만 열적외선 센서는 밤에도 지표의 방출 복사를 관측합니다.</td></tr><tr><td>영상의 값이 곧 지표의 고유한 성질이다.</td><td>대기·태양 고도·관측각이 섞여 있어, 보정 없이는 지표의 반사율과 같지 않습니다.</td></tr><tr><td>수동형은 구름에 영향을 받지 않는다.</td><td>구름은 반사 밴드와 열 밴드 모두를 가립니다. 구름 투과가 가능한 것은 일부 마이크로파 관측과 능동형 레이더입니다.</td></tr><tr><td>고해상도 영상이 항상 더 정확하다.</td><td>해상도는 공간 세부를 뜻할 뿐이며 분광·시간 해상도와 보정 상태도 정확도에 영향을 줍니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"수동형 원격탐사 센서로 촬영한 다중분광영상을 이용해 도시 지역의 토지피복을 분류하였다."</div>
   <p>태양빛 반사를 이용하는 일반적인 위성영상으로 토지 종류를 구분했다는 의미입니다.</p>
   <div class="example">"구름이 많은 계절에는 수동형 원격탐사 자료의 취득이 제한되어 관측 공백이 발생하였다."</div>
@@ -160,6 +178,19 @@
 
   <h2>주의할 점</h2>
   <p>야간이나 구름이 많은 날씨에는 관측이 어렵거나 품질이 떨어질 수 있어, 지속적인 시계열 관측이 필요한 경우 능동형 원격탐사와 함께 활용되기도 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>관측 방식과 센서를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">에너지원</th><th scope="col">예</th></tr></thead><tbody><tr><th scope="row">수동형 원격탐사</th><td>태양 복사 반사 또는 지표의 방출</td><td>Landsat 광학 영상, 열적외 영상</td></tr><tr><th scope="row"><a href="active-remote-sensing.html">능동형 원격탐사</a></th><td>센서가 신호를 직접 송신</td><td>합성개구레이더, 라이다</td></tr><tr><th scope="row"><a href="lidar.html">라이다</a></th><td>레이저 펄스를 쏘고 반사를 측정</td><td>능동형의 한 종류</td></tr><tr><th scope="row"><a href="multispectral-imagery.html">다중분광영상</a></th><td>여러 파장 밴드의 수동 관측 영상</td><td>수동형의 한 영상 형태</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lillesand, T. M., Kiefer, R. W., &amp; Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.</li>
+    <li>Jensen, J. R. (2007). Remote Sensing of the Environment: An Earth Resource Perspective (2nd ed.). Pearson Prentice Hall.</li>
+    <li>Tucker, C. J. (1979). Red and photographic infrared linear combinations for monitoring vegetation. Remote Sensing of Environment, 8(2), 127–150.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="multispectral-imagery.html">다중분광영상</a><a href="thermal-infrared-remote-sensing.html">열적외선 원격탐사</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> 자연 에너지원에 의존하기 때문에 야간이나 구름이 짙게 낀 날에는 가시광선 대역의 관측이 불가능하거나 품질이 크게 떨어져, 이런 조건에서는 능동원격탐사 기법을 대신 활용해야 합니다. 그림자가 지는 이른 아침이나 늦은 오후에 촬영된 영상은 같은 지역이라도 정오 촬영 영상과 반사값이 달라질 수 있어 촬영 시각을 함께 기록해 두어야 합니다.</p></section><!-- concept-family:end -->
 <aside class="stage-link">
