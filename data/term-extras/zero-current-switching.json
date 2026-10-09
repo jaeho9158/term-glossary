@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>영전류 스위칭(ZCS)은 반도체 스위치의 <strong>전류가 0인 순간에 켜고 끄도록</strong> 회로를 구성해 스위칭 손실을 줄이는 소프트 스위칭 기법입니다. 일반 하드 스위칭에서는 전압과 전류가 동시에 큰 구간에서 스위치가 동작해 손실이 생기는데, ZCS는 스위치와 직렬로 공진 인덕터 L<sub>r</sub>을 넣고 공진 커패시터 C<sub>r</sub>과 함께 전류를 정현파 모양으로 만들어 전류가 자연히 0을 지나는 시점에 스위치를 조작합니다(Erickson &amp; Maksimović, 2001).</p><p>공진 주파수는 <code>f<sub>0</sub> = 1/(2π√(L<sub>r</sub>C<sub>r</sub>))</code>, 특성 임피던스는 <code>Z<sub>0</sub> = √(L<sub>r</sub>/C<sub>r</sub>)</code>입니다. 예를 들어 L<sub>r</sub> = 10 μH, C<sub>r</sub> = 10 nF(가상의 값)이면 f<sub>0</sub> ≈ 503 kHz, Z<sub>0</sub> ≈ 31.6 Ω입니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>ZCS가 특히 유리한 경우와 한계는 다음과 같이 정리됩니다(Kazimierczuk &amp; Czarkowski, 2011).</p><ul><li><strong>유리한 점</strong>: 끄는 순간 전압-전류 겹침이 없어 턴오프 손실이 작습니다. IGBT처럼 턴오프 때 꼬리 전류가 남는 소자에서 효과가 큽니다. 직렬 인덕터가 전류 상승률을 제한해 턴온 때 스트레스도 줄입니다.</li><li><strong>한계</strong>: 스위치 출력 커패시턴스에 쌓인 에너지는 켜질 때 소모되므로(용량성 턴온 손실) MOSFET을 고주파로 쓰는 경우에는 이 손실이 부담이 됩니다. 공진 전류의 첨두값이 부하 전류보다 커서 도통 손실과 전류 스트레스가 늘어납니다.</li><li>부하나 입력이 크게 바뀌면 공진 타이밍이 달라져 소프트 스위칭 조건을 잃을 수 있어, 많은 설계가 주파수 변조로 제어합니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“ZCS는 손실을 완전히 없앤다.”</strong> 줄이는 것이지 없애는 것이 아닙니다. 도통 손실, 공진 소자의 손실, 용량성 턴온 손실은 남습니다.</li><li><strong>“ZCS와 ZVS 중 하나가 항상 낫다.”</strong> 소자와 동작 영역에 따라 다릅니다. IGBT 중심의 고전압·대전력에서는 ZCS가, MOSFET 고주파에서는 ZVS가 흔히 선호됩니다(Mohan 외, 2003).</li><li><strong>“전류가 0일 때 스위치를 켜는 것이므로 항상 0에서 켜진다.”</strong> 부하와 제어에 따라 영전류 조건이 깨질 수 있어, 논문에서는 소프트 스위칭 유지 범위를 별도로 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "영전류와 영전압 스위칭은 짝을 이루는 소프트 스위칭 기법입니다.",
+    "headers": [
+      "기법",
+      "스위치를 조작하는 때",
+      "주로 줄이는 손실"
+    ],
+    "rows": [
+      [
+        "영전류 스위칭(이 항목)",
+        "스위치 전류가 0일 때",
+        "전류와 전압이 겹치는 턴오프 손실, 꼬리 전류 손실"
+      ],
+      [
+        "[[zero-voltage-switching|영전압 스위칭]]",
+        "스위치 양단 전압이 0일 때",
+        "출력 커패시턴스 방전 손실(턴온 손실)"
+      ],
+      [
+        "[[soft-switching-technique|소프트 스위칭 기법]]",
+        "ZCS·ZVS를 포괄",
+        "스위칭 손실과 스트레스 전반"
+      ]
+    ]
+  },
+  "references": [
+    "Erickson, R. W., & Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic.",
+    "Kazimierczuk, M. K., & Czarkowski, D. (2011). Resonant Power Converters (2nd ed.). Wiley.",
+    "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley."
+  ]
+}

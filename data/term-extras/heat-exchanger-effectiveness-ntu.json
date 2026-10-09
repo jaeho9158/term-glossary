@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>유효도-NTU법은 출구 온도를 모르는 상태에서 열교환기가 전달하는 열량을 구하는 절차입니다.</p><ol><li>두 유체의 열용량률 <code>C = ṁ·c<sub>p</sub></code>를 구하고 작은 쪽을 C<sub>min</sub>, 큰 쪽을 C<sub>max</sub>로 둡니다. <code>C<sub>r</sub> = C<sub>min</sub>/C<sub>max</sub></code>.</li><li><code>NTU = UA / C<sub>min</sub></code> (U: 총괄열전달계수, A: 전열면적).</li><li>유동 배열(대향류·병류 등)에 맞는 관계식으로 유효도 ε를 구합니다. 대향류는 <code>ε = [1 − e<sup>−NTU(1−C<sub>r</sub>)</sup>] / [1 − C<sub>r</sub>·e<sup>−NTU(1−C<sub>r</sub>)</sup>]</code>, 병류는 <code>ε = [1 − e<sup>−NTU(1+C<sub>r</sub>)</sup>] / (1 + C<sub>r</sub>)</code>입니다.</li><li><code>q = ε·C<sub>min</sub>·(T<sub>h,in</sub> − T<sub>c,in</sub>)</code>로 열량을 얻고, 그에 따라 출구 온도를 계산합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>배열이 성능에 미치는 영향은 C<sub>r</sub> = 0.5일 때 다음 계산값으로 확인됩니다.</p><table><thead><tr><th>NTU</th><th>대향류 ε</th><th>병류 ε</th></tr></thead><tbody><tr><td>0.5</td><td>0.362</td><td>0.352</td></tr><tr><td>1</td><td>0.565</td><td>0.518</td></tr><tr><td>2</td><td>0.775</td><td>0.633</td></tr><tr><td>3</td><td>0.874</td><td>0.659</td></tr></tbody></table><p>NTU가 커질수록 대향류는 1에 다가가지만 병류는 <code>1/(1+C<sub>r</sub>)</code>(여기서는 0.667)에 머뭅니다.</p><p><strong>작은 예(가상의 값).</strong> 고온 유체 C = 2,000 W/K(= C<sub>min</sub>), 저온 유체 C = 4,000 W/K, UA = 4,000 W/K이면 NTU = 2, C<sub>r</sub> = 0.5입니다. 입구가 90 ℃와 20 ℃인 대향류에서 ε = 0.775이므로 q = 0.775 × 2,000 × 70 ≈ 108 kW, 출구는 고온 측 약 35.8 ℃, 저온 측 약 47.1 ℃입니다. 같은 조건의 병류는 ε = 0.633이라 q ≈ 88.7 kW에 그칩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 방법(유효도-NTU 또는 LMTD)과 유동 배열, 사용한 ε–NTU 관계식의 출처를 적습니다.</li><li>C<sub>min</sub>, C<sub>r</sub>, NTU, ε를 모두 제시하고, U 값은 가정(오염계수 포함 여부)인지 실측인지 밝힙니다.</li><li>상변화·물성 변화가 큰 구간은 구간을 나누어 계산했는지 적습니다(표준 관계식은 정상상태·물성 일정을 전제로 합니다).</li><li>실험 검증 시 측정한 입출구 온도에서 ε를 역산해 해석값과 비교하는 표현이 흔합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "두 방법은 같은 열교환기를 서로 다른 변수로 계산합니다.",
+    "headers": [
+      "방법",
+      "알고 있어야 하는 것",
+      "구하는 것"
+    ],
+    "rows": [
+      [
+        "[[lmtd-method|대수평균온도차법(LMTD)]]",
+        "입출구 온도 모두(또는 반복 계산)",
+        "필요한 전열면적 또는 열량"
+      ],
+      [
+        "유효도-NTU법(이 항목)",
+        "입구 온도, 유량, UA(또는 형상)",
+        "열량과 출구 온도"
+      ],
+      [
+        "[[heat-exchanger-effectiveness|열교환기 효율]]",
+        "—",
+        "유효도 ε 자체의 정의와 쓰임. NTU법은 ε를 NTU로 예측하는 절차"
+      ]
+    ]
+  },
+  "references": [
+    "Kays, W. M., & London, A. L. (1984). Compact Heat Exchangers (3rd ed.). McGraw-Hill.",
+    "Incropera, F. P., DeWitt, D. P., Bergman, T. L., & Lavine, A. S. (2007). Fundamentals of Heat and Mass Transfer (6th ed.). Wiley."
+  ]
+}

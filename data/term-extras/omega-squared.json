@@ -1,0 +1,54 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>오메가제곱 ω²는 모집단에서 한 요인이 설명하는 변동의 비율을 추정한 효과크기입니다. 일원 분산분석(고정효과, k개 집단)에서는 다음과 같이 계산합니다(Hays, 1963).</p><p><code>ω² = [SS<sub>집단간</sub> − (k − 1)·MS<sub>집단내</sub>] / [SS<sub>전체</sub> + MS<sub>집단내</sub>]</code></p><p>F 값이 있으면 <code>ω² = (k − 1)(F − 1) / [(k − 1)(F − 1) + N]</code>으로도 얻습니다. F &lt; 1이면 음수가 될 수 있고, 최댓값은 1보다 작습니다.</p><p><strong>작은 예(가상의 자료, 집단당 10명).</strong></p><table><thead><tr><th>집단</th><th>점수</th><th>합</th></tr></thead><tbody><tr><td>A</td><td>4 5 6 5 5 7 6 4 5 3</td><td>50</td></tr><tr><td>B</td><td>6 7 8 6 7 9 7 5 7 8</td><td>70</td></tr><tr><td>C</td><td>7 8 9 8 6 10 9 8 7 8</td><td>80</td></tr></tbody></table><p>SS<sub>집단간</sub> = 46.67, SS<sub>집단내</sub> = 36.00, SS<sub>전체</sub> = 82.67, MS<sub>집단내</sub> = 36/27 = 1.333, F(2, 27) = 17.50입니다. 에타제곱 η² = .565, 오메가제곱 ω² = .524, 엡실론제곱 ε² = .532로, 보정을 한 지표들이 더 작게 나옵니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>흔히 인용되는 구분은 η²·ω² 모두 .01(작음), .06(중간), .14(큼)이며, 이는 Cohen(1988)이 제안한 관례적 기준입니다. 같은 기준을 ω²에 적용하는 것은 편의에 따른 것이므로 분야의 맥락을 우선합니다.</p><ul><li>η²는 표본에서 계산한 값이라 우연한 차이까지 설명된 것으로 쳐 모집단 값보다 큰 쪽으로 치우치며, 표본이 작을수록 이 편향이 큽니다. ω²와 ε²는 이를 줄인 지표입니다(Okada, 2013).</li><li>ω²는 효과의 종류(고정/임의)와 설계에 따라 식이 달라집니다. 반복측정이나 다요인 설계에서는 일반화된 지표가 제안되었습니다(Olejnik &amp; Algina, 2003).</li><li>음수가 나오면 0으로 보고하거나 음수 그대로 적는 관행이 섞여 있습니다. 어느 쪽을 택했는지 밝히면 됩니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>형식 예: <code>F(2, 27) = 17.50, p &lt; .001, ω² = .52</code> (위 예시 자료 기준). 신뢰구간을 함께 주는 것이 바람직합니다.</li><li>어떤 식을 썼는지(일원 고정효과, 다요인 등)와 소프트웨어를 밝힙니다. 같은 이름의 지표라도 식이 다를 수 있습니다.</li><li>[[eta-squared|에타제곱]], [[partial-eta-squared|부분 에타제곱]]과 함께 보고하는 경우 지표 사이의 차이가 편향 보정 때문임을 설명합니다.</li><li>신뢰도 계수인 [[mcdonalds-omega|맥도날드 오메가]]와 이름이 같은 ‘오메가’이므로 혼동하지 않도록 ω²(제곱)를 분명히 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "분산분석의 효과크기 지표는 이름이 비슷해 혼동하기 쉽습니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "차이"
+    ],
+    "rows": [
+      [
+        "오메가제곱(이 항목)",
+        "모집단 설명 비율의 추정(편향 보정)",
+        "η²보다 작게 나옴. 음수 가능"
+      ],
+      [
+        "[[eta-squared|에타제곱]]",
+        "표본의 SS집단간/SS전체",
+        "표본 값 그대로라 모집단 값보다 큰 경향"
+      ],
+      [
+        "[[partial-eta-squared|부분 에타제곱]]",
+        "한 효과의 제곱합 / (그 효과+오차)",
+        "다요인 설계에서 다른 효과를 제외하고 계산"
+      ],
+      [
+        "[[mcdonalds-omega|맥도날드 오메가]]",
+        "척도의 내적 일관성(신뢰도)",
+        "효과크기가 아닌 신뢰도 지표"
+      ]
+    ]
+  },
+  "references": [
+    "Hays, W. L. (1963). Statistics for Psychologists. Holt, Rinehart and Winston.",
+    "Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum.",
+    "Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: Measures of effect size for some common research designs. Psychological Methods, 8, 434–447.",
+    "Okada, K. (2013). Is omega squared less biased? A comparison of three major effect size indices in one-way ANOVA. Behaviormetrika, 40, 129–147."
+  ]
+}

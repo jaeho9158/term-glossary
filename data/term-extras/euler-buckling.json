@@ -1,0 +1,57 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>오일러 좌굴하중은 양 끝이 힌지로 지지된 이상적인 기둥에 대해 <code>P<sub>cr</sub> = π²EI / L²</code>이고, 다른 지지 조건에서는 유효길이 계수 K를 써서 <code>P<sub>cr</sub> = π²EI / (KL)²</code>로 일반화합니다(Timoshenko &amp; Gere, 1961). 이 식은 Euler(1744)의 기둥 연구에서 비롯된 고전 결과입니다.</p><ul><li>E: 탄성계수, I: 단면2차모멘트, L: 기둥 길이. 좌굴하중은 <strong>재료의 항복강도가 아니라 E와 형상(EI, L)</strong>으로 정해집니다.</li><li>K의 이론값은 양단 힌지 1.0, 한쪽 고정·한쪽 자유 2.0, 한쪽 고정·한쪽 힌지 약 0.7, 양단 고정 0.5입니다. 설계 기준은 실제 구속이 완전하지 않음을 고려해 더 보수적인 값을 쓰기도 합니다.</li><li>세장비 λ = KL/r(r: 단면2차반경)로 쓰면 임계응력은 <code>σ<sub>cr</sub> = π²E/λ²</code>입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>작은 예(가상의 값).</strong> 지름 20 mm의 강봉(E = 200 GPa)이면 I = πd⁴/64 ≈ 7.85×10<sup>−9</sup> m⁴, r = d/4 = 5 mm입니다. 길이 1 m에서 지지 조건별 계산 결과는 다음과 같습니다.</p><table><thead><tr><th>지지 조건(K)</th><th>세장비 λ</th><th>P<sub>cr</sub></th><th>σ<sub>cr</sub></th></tr></thead><tbody><tr><td>양단 힌지(1.0)</td><td>200</td><td>15.5 kN</td><td>49.3 MPa</td></tr><tr><td>양단 고정(0.5)</td><td>100</td><td>62.0 kN</td><td>197 MPa</td></tr><tr><td>한쪽 고정·한쪽 자유(2.0)</td><td>400</td><td>3.88 kN</td><td>12.3 MPa</td></tr></tbody></table><p>같은 봉의 길이를 2 m로 늘리면 양단 힌지의 좌굴하중은 3.88 kN이 되어 1/4로 줄어듭니다(L²에 반비례). 한편 오일러 식은 σ<sub>cr</sub>이 비례한도(또는 항복강도) 아래일 때만 맞습니다. σ<sub>y</sub> = 250 MPa로 가정하면 한계 세장비는 π√(E/σ<sub>y</sub>) ≈ 89이므로, 위 세 경우는 모두 이보다 큰 λ를 가져 오일러 식을 쓸 수 있는 범위입니다(양단 고정은 100이라 한계에 가깝습니다).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“더 강한 강재로 바꾸면 좌굴하중이 오른다.”</strong> E가 거의 같으므로 거의 오르지 않습니다. 항복강도 향상은 좌굴이 아닌 항복이 지배하는 짧은 기둥에서 의미가 큽니다.</li><li><strong>“오일러 식이 모든 기둥에 맞는다.”</strong> 세장비가 작은 기둥은 좌굴 전에 항복하므로 존슨 공식 같은 비탄성 좌굴 이론이 필요합니다.</li><li><strong>“시험 좌굴하중은 이론값과 같다.”</strong> 실제 기둥은 완전히 곧지 않고 하중이 정확히 중심에 걸리지 않으며 잔류응력이 있어, 시험값이 이론값보다 낮은 경우가 흔합니다.</li><li>이 식은 기둥의 압축 좌굴에 관한 것으로, 보의 횡비틀림좌굴 등 다른 좌굴 유형의 식과는 다릅니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "좌굴과 관련된 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[buckling|좌굴]]",
+        "압축을 받는 가는 부재가 옆으로 휘며 불안정해지는 현상",
+        "상위 현상"
+      ],
+      [
+        "[[buckling-load|좌굴하중]]",
+        "좌굴이 시작되는 하중의 크기",
+        "오일러 이론이 구하는 값"
+      ],
+      [
+        "오일러 좌굴(이 항목)",
+        "탄성 기둥의 좌굴하중 이론",
+        "세장비가 큰 기둥에 유효"
+      ],
+      [
+        "[[slenderness-ratio|세장비]]",
+        "KL/r. 가늘고 긴 정도",
+        "오일러 식의 적용 한계 판단에 사용"
+      ],
+      [
+        "보의 횡좌굴(횡비틀림좌굴)",
+        "보가 옆으로 비틀리며 휘는 좌굴",
+        "기둥 좌굴과 다른 유형"
+      ]
+    ]
+  },
+  "references": [
+    "Timoshenko, S. P., & Gere, J. M. (1961). Theory of Elastic Stability (2nd ed.). McGraw-Hill.",
+    "Euler, L. (1744). Methodus inveniendi lineas curvas maximi minimive proprietate gaudentes, Additamentum I. Bousquet."
+  ]
+}

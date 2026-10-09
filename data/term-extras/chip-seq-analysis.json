@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>ChIP-seq은 특정 단백질(전사인자·히스톤 변형 등)이 결합한 DNA 조각을 항체로 걸러 내 시퀀싱하는 실험이며, 분석은 다음 순서의 생물정보학 절차로 이루어집니다(Johnson 외, 2007; Landt 외, 2012).</p><ol><li><strong>품질 관리·정렬</strong>: 리드의 품질을 확인하고 참조 유전체에 정렬합니다. 중복 리드와 낮은 매핑 품질 리드를 정리합니다.</li><li><strong>피크 호출(peak calling)</strong>: 대조군 대비 리드가 유의하게 몰린 구간을 통계적으로 찾습니다. MACS가 널리 쓰이는 도구입니다(Zhang 외, 2008).</li><li><strong>재현성 평가</strong>: 생물학적 반복 사이에서 피크가 얼마나 겹치는지를 봅니다(IDR 같은 방법).</li><li><strong>후속 해석</strong>: 피크의 위치(프로모터·인핸서), 결합 서열 모티프, 가까운 유전자와의 연결, 다른 데이터(발현량, 염색질 접근성)와의 통합.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>피크의 모양은 대상 단백질에 따라 다릅니다. 전사인자는 비교적 좁은 피크(수백 bp)를, H3K27me3처럼 넓게 퍼지는 히스톤 표지는 넓은 영역을 만들어 피크 호출 옵션이 달라집니다(Barski 외, 2007). 이 분석으로 얻는 것은 다음과 같습니다.</p><ul><li>유전체 전체의 결합 부위 지도와 개수.</li><li>결합 모티프 enrichment와 조절 가능성이 있는 유전자 목록.</li><li>조건(처리·세포 유형) 간 결합 변화(차등 결합 분석).</li></ul><p>다만 결합 위치는 곧바로 ‘유전자 조절’을 뜻하지 않습니다. 결합이 발현 변화로 이어지는지는 RNA-seq 같은 기능 실험으로 따로 확인해야 합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>항체(제조사·제품 번호, 가능하면 ChIP 적합성 검증 근거), 세포·조직 조건, 생물학적 반복 수를 적습니다.</li><li>대조군(입력 DNA 또는 비특이 IgG)과 시퀀싱 깊이, 정렬·피크 호출 도구와 버전, 임계값(q 값 등)을 밝힙니다.</li><li>품질 지표(정렬률, 라이브러리 복잡도, 피크 내 리드 비율 FRiP 등)와 반복 간 재현성을 제시합니다. ENCODE 컨소시엄 지침이 기준으로 자주 인용됩니다(Landt 외, 2012).</li><li>원자료는 공공 저장소에 등록하고 접수 번호를 적는 것이 관례입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "결합 지도를 만드는 기법 사이의 차이를 구분해야 합니다.",
+    "headers": [
+      "기법",
+      "무엇을 보나",
+      "특징"
+    ],
+    "rows": [
+      [
+        "ChIP-seq(이 항목)",
+        "특정 단백질이 결합한 DNA 위치",
+        "대상 단백질에 대한 항체가 필요"
+      ],
+      [
+        "[[chromatin-immunoprecipitation|염색질면역침강법(ChIP)]]",
+        "같은 원리의 침강 단계(분석은 qPCR 등)",
+        "소수 표적 확인용. 시퀀싱 없이도 가능"
+      ],
+      [
+        "[[atac-sequencing|염색질접근성 시퀀싱(ATAC-seq)]]",
+        "열려 있는 염색질 영역",
+        "항체가 필요 없음. 결합 단백질의 정체는 모름"
+      ],
+      [
+        "[[histone-modification-mapping|히스톤 변형 지도화]]",
+        "히스톤 변형의 분포",
+        "히스톤 표지에 대한 ChIP-seq가 주된 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Johnson, D. S., Mortazavi, A., Myers, R. M., & Wold, B. (2007). Genome-wide mapping of in vivo protein-DNA interactions. Science, 316, 1497–1502.",
+    "Barski, A., Cuddapah, S., Cui, K., Roh, T.-Y., Schones, D. E., Wang, Z., Wei, G., Chepelev, I., & Zhao, K. (2007). High-resolution profiling of histone methylations in the human genome. Cell, 129, 823–837.",
+    "Zhang, Y., Liu, T., Meyer, C. A., Eeckhoute, J., Johnson, D. S., Bernstein, B. E., Nusbaum, C., Myers, R. M., Brown, M., Li, W., & Liu, X. S. (2008). Model-based analysis of ChIP-Seq (MACS). Genome Biology, 9(9), R137.",
+    "Landt, S. G., Marinov, G. K., Kundaje, A., Kheradpour, P., Pauli, F., Batzoglou, S., Bernstein, B. E., Bickel, P., Brown, J. B., Cayting, P., Chen, Y., DeSalvo, G., Epstein, C., Fisher-Aylor, K. I., Euskirchen, G., Gerstein, M., Gertz, J., Hartemink, A. J., Hoffman, M. M., … Snyder, M. (2012). ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. Genome Research, 22(9), 1813–1831."
+  ]
+}

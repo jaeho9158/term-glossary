@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "fixes": [
+    {
+      "find": "인구가 많고 통계 인프라가 잘 갖춰진 국가에서 5년 또는 10년에 한 번씩 작성됩니다",
+      "replace": "인구가 많고 통계 인프라가 잘 갖춰진 국가에서 주로 작성됩니다. 작성 주기는 나라마다 달라 한국 통계청은 매년 공표하고, 일본처럼 인구총조사에 맞춰 5년마다 작성하는 나라도 있습니다"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>완전생명표는 사망률 자료를 1세 단위로 나누어 생명표 함수를 만드는 절차입니다(Preston, Heuveline &amp; Guillot, 2001; Chiang, 1984).</p><ol><li>연령별 사망률을 구합니다: <code>m<sub>x</sub> = D<sub>x</sub> / P<sub>x</sub></code> (D: 사망자 수, P: 연앙인구).</li><li>사망확률로 바꿉니다: <code>q<sub>x</sub> = m<sub>x</sub> / [1 + (1 − a<sub>x</sub>)·m<sub>x</sub>]</code>. a<sub>x</sub>는 해당 연령 구간에서 사망자가 평균적으로 구간의 어디서 죽는지를 나타내며, 보통 0.5를 쓰지만 영아기(0세)는 사망이 출생 직후에 몰려 있어 0.5보다 훨씬 작은 값을 씁니다.</li><li>생존자 수 <code>l<sub>x+1</sub> = l<sub>x</sub>(1 − q<sub>x</sub>)</code>, 사망자 수 <code>d<sub>x</sub> = l<sub>x</sub>q<sub>x</sub></code>, 정상인년수 <code>L<sub>x</sub> = l<sub>x</sub> − (1 − a<sub>x</sub>)d<sub>x</sub></code>, 누적 <code>T<sub>x</sub> = ΣL</code>, 기대여명 <code>e<sub>x</sub> = T<sub>x</sub>/l<sub>x</sub></code>를 차례로 구합니다.</li><li>최고령 열린 구간은 외삽·평활화로 처리합니다(곰퍼츠 계열 모형 등).</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>m<sub>x</sub>와 q<sub>x</sub>는 사망률이 낮은 연령에서는 거의 같지만 높은 연령에서는 달라집니다(a<sub>x</sub> = 0.5로 계산).</p><table><thead><tr><th>m<sub>x</sub></th><th>q<sub>x</sub></th></tr></thead><tbody><tr><td>0.0005</td><td>0.000500</td></tr><tr><td>0.02</td><td>0.0198</td></tr><tr><td>0.25</td><td>0.2222</td></tr><tr><td>0.50</td><td>0.4000</td></tr></tbody></table><p>완전생명표는 연금 계리, 보험 요율, 정밀한 기대여명 산출처럼 한 살 단위의 생존확률이 필요한 곳에 쓰입니다. 대신 고연령에서 한 살 단위 사망자가 적어 사망률이 들쭉날쭉하므로 평활화와 고연령 외삽이 필수이고, 그 방법이 기대수명 값을 좌우합니다. 인구가 작은 지역에서는 한 살 단위 자료가 너무 희소해 [[abridged-life-table|간이생명표]]가 대신 쓰입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>기반 자료(사망 통계와 인구 추계·총조사의 연도), 연령 구간(1세 단위, 최고령 구간의 시작 연령)을 밝힙니다.</li><li>a<sub>x</sub> 가정(특히 0세)과 고연령 평활화·외삽 방법(모형 이름과 적용 시작 연령)을 적습니다. 같은 해의 생명표라도 이 처리 때문에 고연령 기대여명이 조금씩 달라질 수 있기 때문입니다.</li><li>기간 자료인지 코호트 자료인지 구분합니다([[period-life-table|기간생명표]], [[cohort-life-table|코호트생명표]]).</li><li>기대여명 등 결과는 0세 기대여명, 특정 연령 기대여명처럼 기준 연령을 분명히 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "완전/간이는 연령 구간의 크기, 기간/코호트는 자료의 성격을 가르는 서로 다른 기준입니다.",
+    "headers": [
+      "용어",
+      "구분 기준",
+      "내용"
+    ],
+    "rows": [
+      [
+        "완전생명표(이 항목)",
+        "연령 구간: 1세 단위",
+        "세밀하지만 고연령 불안정, 자료 요구가 큼"
+      ],
+      [
+        "[[abridged-life-table|간이생명표]]",
+        "연령 구간: 5세 또는 10세 단위",
+        "자료가 적어도 작성 가능, 구간 내 가정 필요"
+      ],
+      [
+        "[[period-life-table|기간생명표]]",
+        "자료: 특정 연도의 연령별 사망률",
+        "가상의 코호트가 그 사망률을 겪는다고 가정"
+      ],
+      [
+        "[[cohort-life-table|코호트생명표]]",
+        "자료: 같은 해 출생 집단의 실제 추적",
+        "실제 경험이나 완결까지 오래 걸림"
+      ]
+    ]
+  },
+  "references": [
+    "Preston, S. H., Heuveline, P., & Guillot, M. (2001). Demography: Measuring and Modeling Population Processes. Blackwell.",
+    "Chiang, C. L. (1984). The Life Table and Its Applications. Krieger."
+  ]
+}

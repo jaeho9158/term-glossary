@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>OTA는 연속시간 필터(Gm-C 필터), 발진기, 아날로그 신호처리 회로의 핵심 요소로서 저전력·저전압 아날로그 IC 설계 연구에서 자주 다뤄집니다. 트랜스컨덕턴스를 바이어스 전류로 조절할 수 있어 프로그래머블 아날로그 회로 구현에도 유용합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>OTA는 두 입력 전압의 차이에 비례하는 <strong>전류</strong>를 내보내는 증폭기입니다. 핵심 관계는 <code>I<sub>out</sub> = g<sub>m</sub>·(V<sub>+</sub> − V<sub>−</sub>)</code>이고, 비례상수 g<sub>m</sub>(트랜스컨덕턴스, 단위 S)이 이득의 역할을 합니다. 이상적인 OTA는 입력·출력 임피던스가 모두 무한대라고 가정합니다.</p><ul><li>g<sub>m</sub>은 바이어스 전류로 조절합니다. 쌍극접합 트랜지스터 차동쌍에서는 g<sub>m</sub> = I<sub>B</sub>/(2V<sub>T</sub>)(I<sub>B</sub>는 꼬리 전류, V<sub>T</sub>는 열전압)로, 바이어스 전류에 거의 비례합니다.</li><li>출력이 전류이므로 출력 단자에 커패시터만 달아도 적분기가 됩니다. 이 적분기를 이어 붙여 만든 필터가 Gm-C 필터입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>작은 예(가상의 값).</strong> g<sub>m</sub> = 100 μS인 OTA에 C = 10 pF 커패시터를 달아 1차 저역통과 필터를 만들면 차단 주파수는 <code>f<sub>c</sub> = g<sub>m</sub>/(2πC)</code> ≈ 1.59 MHz입니다. 바이어스 전류를 두 배로 늘려 g<sub>m</sub>이 두 배가 되면 커패시터를 바꾸지 않고도 f<sub>c</sub>가 약 3.18 MHz로 올라갑니다. 이것이 ‘전류로 조정되는 필터’라는 말의 의미입니다.</p><p>한편 이 식은 선형 구간에서만 성립합니다. 입력 차 전압이 크면 차동쌍이 포화되어 g<sub>m</sub>이 입력에 따라 변하고(비선형 왜곡), 이를 줄이는 선형화 기법이 별도의 연구 주제가 됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“OTA는 연산증폭기의 다른 이름이다.”</strong> 아닙니다. 연산증폭기는 보통 부궤환을 걸어 전압 이득을 정하고 출력 임피던스가 낮습니다. OTA는 대개 궤환 없이 개방 루프로 쓰이며, 출력 임피던스가 높아 부하에 따라 이득이 달라집니다.</li><li><strong>“g<sub>m</sub>은 상수다.”</strong> 바이어스 전류·온도·입력 진폭에 따라 달라지므로, 논문에서는 g<sub>m</sub>의 조정 범위와 온도 의존성을 함께 보고합니다.</li><li>‘OTA’라는 약어는 같은 분야에서 ‘이득이 높은 2단 증폭기’를 가리키는 말로도 쓰이는 경우가 있어, 전류 출력 소자를 뜻하는지 문맥으로 확인해야 합니다. 이 항목은 전류 출력 소자를 다룹니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The OTA-based Gm-C filter achieves a tunable cutoff frequency by adjusting the bias current."</div>
   <p>OTA 기반 Gm-C 필터가 바이어스 전류 조절로 차단 주파수를 가변할 수 있음을 설명하는 문장입니다.</p>
   <div class="example">"A two-stage OTA with class-AB output stage is proposed to improve slew rate for low-power applications."</div>
@@ -159,6 +177,19 @@
 
   <h2>주의할 점</h2>
   <p>OTA는 이상적인 연산증폭기와 달리 출력 임피던스가 유한하기 때문에, 실제 회로에서는 부하 조건에 따라 이득 특성이 달라질 수 있다는 점에 유의해야 합니다. OTA는 입력 전압 차가 커지면 차동쌍의 선형 동작 구간을 벗어나 트랜스컨덕턴스가 일정하지 않게 되는 비선형 왜곡이 발생하므로, 선형 입력 범위를 넓히기 위한 선형화 기법이 함께 연구됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름은 비슷하지만 출력의 종류와 쓰임이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">항목</th><th scope="col">일반 연산증폭기</th><th scope="col">OTA</th></tr></thead><tbody><tr><th scope="row"><a href="operational-amplifier.html">연산증폭기</a></th><td>전압 입력, 전압 출력. 부궤환으로 이득을 정하며 출력 임피던스가 낮음</td><td>전압 입력, 전류 출력. 이득은 gm이고 출력 임피던스가 높음</td></tr><tr><th scope="row">이득을 바꾸는 방법</th><td>피드백 저항의 비</td><td>바이어스 전류(gm 조절)</td></tr><tr><th scope="row">대표 쓰임</th><td>증폭·가산·버퍼</td><td>Gm-C 필터, 가변 이득 증폭, 발진기</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Geiger, R. L., &amp; Sánchez-Sinencio, E. (1985). Active filter design using operational transconductance amplifiers: A tutorial. IEEE Circuits and Devices Magazine, 1(2), 20–32.</li>
+    <li>Razavi, B. (2001). Design of Analog CMOS Integrated Circuits. McGraw-Hill.</li>
+    <li>Schaumann, R., &amp; Van Valkenburg, M. E. (2001). Design of Analog Filters. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

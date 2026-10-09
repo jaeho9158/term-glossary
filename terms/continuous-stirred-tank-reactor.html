@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>CSTR은 균일한 조건에서 반응이 일어나기 때문에 반응 속도론 분석과 반응기 설계 계산이 비교적 간단해, 화학공학의 기본 반응기 모델로 교과서와 논문에서 널리 사용됩니다. 발열 반응의 열 제어나 온도 민감 반응의 운전에도 유리해 산업 공정에서 실제로 많이 채택됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>이상적인 CSTR은 <strong>완전혼합</strong>을 가정하므로 반응기 안의 농도·온도가 어디서나 같고, 이 값이 곧 출구 값과 같습니다. 정상상태에서 성분 A의 물질수지는 <code>F<sub>A0</sub> − F<sub>A</sub> = (−r<sub>A</sub>)·V</code>이고, 전환율 X에 대한 설계식은 <code>V = F<sub>A0</sub>·X / (−r<sub>A</sub>)<sub>출구</sub></code>입니다. 반응속도를 출구 조건에서 한 번만 계산하면 되므로 대수 방정식으로 풀립니다.</p><p>1차 반응(속도상수 k, 평균 체류시간 τ = V/v<sub>0</sub>, 부피유량 일정)의 경우 CSTR의 전환율은 <code>X = kτ/(1 + kτ)</code>입니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>같은 반응·같은 부피에서 반응기 형태에 따라 전환율이 어떻게 달라지는지를 1차 반응으로 계산하면 다음과 같습니다(kτ = 2로 가정한 예시이며 계산식은 교과서의 표준식입니다).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구성</th><th>전환율 X</th></tr></thead><tbody><tr><td>CSTR 1기</td><td>0.667</td></tr><tr><td>같은 총부피를 3등분한 CSTR 3기 직렬</td><td>0.784</td></tr><tr><td><a href="plug-flow-reactor.html">플러그흐름반응기</a></td><td>0.865</td></tr></tbody></table></div><p>(CSTR N기 직렬: <code>X = 1 − (1 + kτ/N)<sup>−N</sup></code>, 플러그흐름: <code>X = 1 − e<sup>−kτ</sup></code>.) 직렬 단수 N을 늘릴수록 플러그흐름 값에 다가갑니다. 반면 CSTR은 반응물이 들어오자마자 낮은 출구 농도로 희석되므로 반응차수가 양(+)인 대부분의 반응에서 같은 부피 대비 전환율이 낮습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“CSTR은 항상 전환율이 낮아 불리하다.”</strong> 전환율만 보면 그렇지만, 발열 반응의 온도 제어, 균일한 조성 유지, 연속 운전의 편의 때문에 선택합니다. 반응차수가 음(−)인 경우처럼 CSTR이 유리한 경우도 있습니다.</li><li><strong>“교반하면 곧 이상적 CSTR이다.”</strong> 실제 반응기에는 사영역(dead zone)과 단락 흐름이 생길 수 있어 <a href="residence-time-distribution.html">체류시간분포</a> 실험으로 이상 거동에서 벗어난 정도를 확인합니다.</li><li><strong>“정상상태는 하나뿐이다.”</strong> 발열 반응에서는 같은 운전 조건에서도 여러 정상상태가 존재할 수 있어 안정성 분석이 별도 주제입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The polymerization was carried out in a continuous stirred-tank reactor to maintain constant monomer concentration."</div>
   <p>일정한 단량체 농도를 유지하기 위해 중합 반응을 연속교반탱크반응기에서 수행했다는 설명입니다.</p>
   <div class="example">"A series of CSTRs was used to approximate plug-flow behavior while retaining the ease of temperature control."</div>
@@ -156,6 +174,18 @@
 
   <h2>주의할 점</h2>
   <p>CSTR은 반응물이 유입 즉시 낮은 농도로 희석되는 특성 때문에 플러그흐름 반응기에 비해 동일 부피 대비 전환율이 낮게 나타나는 경우가 많다는 점을 고려해야 합니다. 출구 농도가 반응기 내부 농도와 같다는 특성 때문에 같은 부피의 관형 반응기보다 대개 전환율이 낮게 나타나는 경향이 있어, 높은 전환율이 필요하면 여러 단을 직렬로 연결해 보완합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>연속 운전 반응기 두 가지와 회분식은 흐름 가정이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">반응기</th><th scope="col">내부 농도</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">CSTR(이 항목)</th><td>어디서나 균일, 출구와 같음</td><td>정상상태 연속 운전, 온도 제어 쉬움, 같은 부피에서 전환율 낮은 편</td></tr><tr><th scope="row"><a href="plug-flow-reactor.html">플러그흐름반응기</a></th><td>흐름 방향으로 연속적으로 변함</td><td>혼합 없이 흐르며 같은 부피에서 전환율이 높은 편</td></tr><tr><th scope="row"><a href="batch-reactor.html">회분식 반응기</a></th><td>시간에 따라 변함(공간적으로는 균일)</td><td>물질 출입 없이 운전, 시간 경과가 PFR의 위치 변화에 대응</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fogler, H. S. (2016). Elements of Chemical Reaction Engineering (5th ed.). Prentice Hall.</li>
+    <li>Levenspiel, O. (1999). Chemical Reaction Engineering (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

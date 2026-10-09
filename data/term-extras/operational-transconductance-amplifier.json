@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>OTA는 두 입력 전압의 차이에 비례하는 <strong>전류</strong>를 내보내는 증폭기입니다. 핵심 관계는 <code>I<sub>out</sub> = g<sub>m</sub>·(V<sub>+</sub> − V<sub>−</sub>)</code>이고, 비례상수 g<sub>m</sub>(트랜스컨덕턴스, 단위 S)이 이득의 역할을 합니다. 이상적인 OTA는 입력·출력 임피던스가 모두 무한대라고 가정합니다.</p><ul><li>g<sub>m</sub>은 바이어스 전류로 조절합니다. 쌍극접합 트랜지스터 차동쌍에서는 g<sub>m</sub> = I<sub>B</sub>/(2V<sub>T</sub>)(I<sub>B</sub>는 꼬리 전류, V<sub>T</sub>는 열전압)로, 바이어스 전류에 거의 비례합니다.</li><li>출력이 전류이므로 출력 단자에 커패시터만 달아도 적분기가 됩니다. 이 적분기를 이어 붙여 만든 필터가 Gm-C 필터입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>작은 예(가상의 값).</strong> g<sub>m</sub> = 100 μS인 OTA에 C = 10 pF 커패시터를 달아 1차 저역통과 필터를 만들면 차단 주파수는 <code>f<sub>c</sub> = g<sub>m</sub>/(2πC)</code> ≈ 1.59 MHz입니다. 바이어스 전류를 두 배로 늘려 g<sub>m</sub>이 두 배가 되면 커패시터를 바꾸지 않고도 f<sub>c</sub>가 약 3.18 MHz로 올라갑니다. 이것이 ‘전류로 조정되는 필터’라는 말의 의미입니다.</p><p>한편 이 식은 선형 구간에서만 성립합니다. 입력 차 전압이 크면 차동쌍이 포화되어 g<sub>m</sub>이 입력에 따라 변하고(비선형 왜곡), 이를 줄이는 선형화 기법이 별도의 연구 주제가 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“OTA는 연산증폭기의 다른 이름이다.”</strong> 아닙니다. 연산증폭기는 보통 부궤환을 걸어 전압 이득을 정하고 출력 임피던스가 낮습니다. OTA는 대개 궤환 없이 개방 루프로 쓰이며, 출력 임피던스가 높아 부하에 따라 이득이 달라집니다.</li><li><strong>“g<sub>m</sub>은 상수다.”</strong> 바이어스 전류·온도·입력 진폭에 따라 달라지므로, 논문에서는 g<sub>m</sub>의 조정 범위와 온도 의존성을 함께 보고합니다.</li><li>‘OTA’라는 약어는 같은 분야에서 ‘이득이 높은 2단 증폭기’를 가리키는 말로도 쓰이는 경우가 있어, 전류 출력 소자를 뜻하는지 문맥으로 확인해야 합니다. 이 항목은 전류 출력 소자를 다룹니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름은 비슷하지만 출력의 종류와 쓰임이 다릅니다.",
+    "headers": [
+      "항목",
+      "일반 연산증폭기",
+      "OTA"
+    ],
+    "rows": [
+      [
+        "[[operational-amplifier|연산증폭기]]",
+        "전압 입력, 전압 출력. 부궤환으로 이득을 정하며 출력 임피던스가 낮음",
+        "전압 입력, 전류 출력. 이득은 gm이고 출력 임피던스가 높음"
+      ],
+      [
+        "이득을 바꾸는 방법",
+        "피드백 저항의 비",
+        "바이어스 전류(gm 조절)"
+      ],
+      [
+        "대표 쓰임",
+        "증폭·가산·버퍼",
+        "Gm-C 필터, 가변 이득 증폭, 발진기"
+      ]
+    ]
+  },
+  "references": [
+    "Geiger, R. L., & Sánchez-Sinencio, E. (1985). Active filter design using operational transconductance amplifiers: A tutorial. IEEE Circuits and Devices Magazine, 1(2), 20–32.",
+    "Razavi, B. (2001). Design of Analog CMOS Integrated Circuits. McGraw-Hill.",
+    "Schaumann, R., & Van Valkenburg, M. E. (2001). Design of Analog Filters. Oxford University Press."
+  ]
+}

@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -140,12 +141,29 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>간이생명표가 몇 년씩 묶어서 보여준다면, 완전생명표는 0세, 1세, 2세 이렇게 한 살 단위로 촘촘하게 사망률과 기대여명을 계산한 것입니다. 더 정밀한 분석이 가능하지만 그만큼 정확한 연령별 사망 통계가 뒷받침되어야 하므로, 인구가 많고 통계 인프라가 잘 갖춰진 국가에서 5년 또는 10년에 한 번씩 작성됩니다.</p>
+  <p>간이생명표가 몇 년씩 묶어서 보여준다면, 완전생명표는 0세, 1세, 2세 이렇게 한 살 단위로 촘촘하게 사망률과 기대여명을 계산한 것입니다. 더 정밀한 분석이 가능하지만 그만큼 정확한 연령별 사망 통계가 뒷받침되어야 하므로, 인구가 많고 통계 인프라가 잘 갖춰진 국가에서 주로 작성됩니다. 작성 주기는 나라마다 달라 한국 통계청은 매년 공표하고, 일본처럼 인구총조사에 맞춰 5년마다 작성하는 나라도 있습니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>완전생명표는 1세 단위로 작성한 생명표로, 연금 계리와 보험 요율 산정처럼 특정 연령의 정확한 생존확률이 필요한 분야에서 필수입니다. 통계청이 매년 공표하는 공식 생명표가 이 형식이며 <a href="life-expectancy-at-birth.html">기대수명</a> 공식 수치의 근거입니다. 연금 계리나 보험 요율처럼 특정 한 살 단위의 정확한 생존확률이 필요한 분야에서는 간이생명표로 대체할 수 없는 필수 자료입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>완전생명표는 사망률 자료를 1세 단위로 나누어 생명표 함수를 만드는 절차입니다(Preston, Heuveline &amp; Guillot, 2001; Chiang, 1984).</p><ol><li>연령별 사망률을 구합니다: <code>m<sub>x</sub> = D<sub>x</sub> / P<sub>x</sub></code> (D: 사망자 수, P: 연앙인구).</li><li>사망확률로 바꿉니다: <code>q<sub>x</sub> = m<sub>x</sub> / [1 + (1 − a<sub>x</sub>)·m<sub>x</sub>]</code>. a<sub>x</sub>는 해당 연령 구간에서 사망자가 평균적으로 구간의 어디서 죽는지를 나타내며, 보통 0.5를 쓰지만 영아기(0세)는 사망이 출생 직후에 몰려 있어 0.5보다 훨씬 작은 값을 씁니다.</li><li>생존자 수 <code>l<sub>x+1</sub> = l<sub>x</sub>(1 − q<sub>x</sub>)</code>, 사망자 수 <code>d<sub>x</sub> = l<sub>x</sub>q<sub>x</sub></code>, 정상인년수 <code>L<sub>x</sub> = l<sub>x</sub> − (1 − a<sub>x</sub>)d<sub>x</sub></code>, 누적 <code>T<sub>x</sub> = ΣL</code>, 기대여명 <code>e<sub>x</sub> = T<sub>x</sub>/l<sub>x</sub></code>를 차례로 구합니다.</li><li>최고령 열린 구간은 외삽·평활화로 처리합니다(곰퍼츠 계열 모형 등).</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>m<sub>x</sub>와 q<sub>x</sub>는 사망률이 낮은 연령에서는 거의 같지만 높은 연령에서는 달라집니다(a<sub>x</sub> = 0.5로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>m<sub>x</sub></th><th>q<sub>x</sub></th></tr></thead><tbody><tr><td>0.0005</td><td>0.000500</td></tr><tr><td>0.02</td><td>0.0198</td></tr><tr><td>0.25</td><td>0.2222</td></tr><tr><td>0.50</td><td>0.4000</td></tr></tbody></table></div><p>완전생명표는 연금 계리, 보험 요율, 정밀한 기대여명 산출처럼 한 살 단위의 생존확률이 필요한 곳에 쓰입니다. 대신 고연령에서 한 살 단위 사망자가 적어 사망률이 들쭉날쭉하므로 평활화와 고연령 외삽이 필수이고, 그 방법이 기대수명 값을 좌우합니다. 인구가 작은 지역에서는 한 살 단위 자료가 너무 희소해 <a href="abridged-life-table.html">간이생명표</a>가 대신 쓰입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>기반 자료(사망 통계와 인구 추계·총조사의 연도), 연령 구간(1세 단위, 최고령 구간의 시작 연령)을 밝힙니다.</li><li>a<sub>x</sub> 가정(특히 0세)과 고연령 평활화·외삽 방법(모형 이름과 적용 시작 연령)을 적습니다. 같은 해의 생명표라도 이 처리 때문에 고연령 기대여명이 조금씩 달라질 수 있기 때문입니다.</li><li>기간 자료인지 코호트 자료인지 구분합니다(<a href="period-life-table.html">기간생명표</a>, <a href="cohort-life-table.html">코호트생명표</a>).</li><li>기대여명 등 결과는 0세 기대여명, 특정 연령 기대여명처럼 기준 연령을 분명히 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"인구총조사 자료를 바탕으로 완전생명표를 작성하여 연령별 사망확률을 세밀하게 추정하였다."</div>
   <p>한 살 단위로 정밀하게 계산한 생명표로 나이마다 죽을 확률을 구체적으로 제시했다는 뜻이다.</p>
   <div class="example">"&quot;완전생명표의 연령별 사망확률을 이용해 특정 연령 집단의 기대여명을 재산정하였다.&quot;"</div>
@@ -160,6 +178,18 @@
 
   <h2>주의할 점</h2>
   <p>고령 인구처럼 표본 수가 적은 연령대에서는 한 살 단위 사망률 추정치가 불안정해질 수 있어 평활화(스무딩) 기법이 함께 쓰인다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>완전/간이는 연령 구간의 크기, 기간/코호트는 자료의 성격을 가르는 서로 다른 기준입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">구분 기준</th><th scope="col">내용</th></tr></thead><tbody><tr><th scope="row">완전생명표(이 항목)</th><td>연령 구간: 1세 단위</td><td>세밀하지만 고연령 불안정, 자료 요구가 큼</td></tr><tr><th scope="row"><a href="abridged-life-table.html">간이생명표</a></th><td>연령 구간: 5세 또는 10세 단위</td><td>자료가 적어도 작성 가능, 구간 내 가정 필요</td></tr><tr><th scope="row"><a href="period-life-table.html">기간생명표</a></th><td>자료: 특정 연도의 연령별 사망률</td><td>가상의 코호트가 그 사망률을 겪는다고 가정</td></tr><tr><th scope="row"><a href="cohort-life-table.html">코호트생명표</a></th><td>자료: 같은 해 출생 집단의 실제 추적</td><td>실제 경험이나 완결까지 오래 걸림</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Preston, S. H., Heuveline, P., &amp; Guillot, M. (2001). Demography: Measuring and Modeling Population Processes. Blackwell.</li>
+    <li>Chiang, C. L. (1984). The Life Table and Its Applications. Krieger.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="life-table.html">생명표</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="abridged-life-table.html">간이생명표</a><a href="period-life-table.html">기간생명표</a><a href="life-expectancy-ex.html">기대여명</a><a href="multiple-decrement-life-table.html">다중감소생명표</a><a href="multistate-life-table.html">다중상태생명표</a><a href="force-of-mortality.html">사력</a><a href="probability-of-dying.html">사망확률</a><a href="survival-curve.html">생명표 생존곡선</a><a href="survivorship-function-lx.html">생존자수</a><a href="probability-of-surviving.html">생존확률</a><a href="cause-deleted-life-table.html">원인제거생명표</a><a href="person-years-lived-lx.html">정상인년수</a><a class="concept-family-more" href="../concept-map/demog.html#r-life-table">외 4개 →</a></div></div><p class="concept-family-map"><a href="../concept-map/demog.html">분야 전체 개념 지도 보기 →</a> 고령 구간으로 갈수록 관측 사망자 수가 줄어 사망률 추정치가 들쭉날쭉해지므로, 실제로는 특정 연령(예: 85세 또는 90세) 이상에서 곰퍼츠-메이컴 법칙이나 칸니스토(Kannisto) 모형으로 외삽·평활화하는 절차를 거친다. 이 처리 방식이 기관마다 달라, 같은 해의 완전생명표라도 고연령 기대여명이 미세하게 다르게 발표될 수 있다.</p></section><!-- concept-family:end -->
 <aside class="stage-link">

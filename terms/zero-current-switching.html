@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>전류가 큰 스위치를 갑자기 끌 때 생기는 전압 스파이크와 손실은 소자 신뢰성과 효율을 저해하기 때문에, 영전류 스위칭은 고전력·고전류 응용의 공진형 컨버터 설계에서 스위칭 손실을 낮추는 방법으로 연구됩니다. 특히 IGBT처럼 턴오프 시 꼬리전류가 남는 소자에서 손실 저감 효과가 두드러져 고전압 대전력 응용에서 자주 채택됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>영전류 스위칭(ZCS)은 반도체 스위치의 <strong>전류가 0인 순간에 켜고 끄도록</strong> 회로를 구성해 스위칭 손실을 줄이는 소프트 스위칭 기법입니다. 일반 하드 스위칭에서는 전압과 전류가 동시에 큰 구간에서 스위치가 동작해 손실이 생기는데, ZCS는 스위치와 직렬로 공진 인덕터 L<sub>r</sub>을 넣고 공진 커패시터 C<sub>r</sub>과 함께 전류를 정현파 모양으로 만들어 전류가 자연히 0을 지나는 시점에 스위치를 조작합니다(Erickson &amp; Maksimović, 2001).</p><p>공진 주파수는 <code>f<sub>0</sub> = 1/(2π√(L<sub>r</sub>C<sub>r</sub>))</code>, 특성 임피던스는 <code>Z<sub>0</sub> = √(L<sub>r</sub>/C<sub>r</sub>)</code>입니다. 예를 들어 L<sub>r</sub> = 10 μH, C<sub>r</sub> = 10 nF(가상의 값)이면 f<sub>0</sub> ≈ 503 kHz, Z<sub>0</sub> ≈ 31.6 Ω입니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>ZCS가 특히 유리한 경우와 한계는 다음과 같이 정리됩니다(Kazimierczuk &amp; Czarkowski, 2011).</p><ul><li><strong>유리한 점</strong>: 끄는 순간 전압-전류 겹침이 없어 턴오프 손실이 작습니다. IGBT처럼 턴오프 때 꼬리 전류가 남는 소자에서 효과가 큽니다. 직렬 인덕터가 전류 상승률을 제한해 턴온 때 스트레스도 줄입니다.</li><li><strong>한계</strong>: 스위치 출력 커패시턴스에 쌓인 에너지는 켜질 때 소모되므로(용량성 턴온 손실) MOSFET을 고주파로 쓰는 경우에는 이 손실이 부담이 됩니다. 공진 전류의 첨두값이 부하 전류보다 커서 도통 손실과 전류 스트레스가 늘어납니다.</li><li>부하나 입력이 크게 바뀌면 공진 타이밍이 달라져 소프트 스위칭 조건을 잃을 수 있어, 많은 설계가 주파수 변조로 제어합니다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“ZCS는 손실을 완전히 없앤다.”</strong> 줄이는 것이지 없애는 것이 아닙니다. 도통 손실, 공진 소자의 손실, 용량성 턴온 손실은 남습니다.</li><li><strong>“ZCS와 ZVS 중 하나가 항상 낫다.”</strong> 소자와 동작 영역에 따라 다릅니다. IGBT 중심의 고전압·대전력에서는 ZCS가, MOSFET 고주파에서는 ZVS가 흔히 선호됩니다(Mohan 외, 2003).</li><li><strong>“전류가 0일 때 스위치를 켜는 것이므로 항상 0에서 켜진다.”</strong> 부하와 제어에 따라 영전류 조건이 깨질 수 있어, 논문에서는 소프트 스위칭 유지 범위를 별도로 보고합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 직렬 공진형 컨버터는 영전류 스위칭 조건에서 동작하여 스위치의 턴오프 손실을 크게 줄였다."</div>
   <p>공진형 컨버터가 영전류 스위칭을 통해 턴오프 손실을 줄이는 대표적 사례입니다.</p>
   <div class="example">"사이리스터 기반 회로에서는 영전류 스위칭을 이용해 소자의 전류 차단 스트레스를 완화하는 설계가 보고되었다."</div>
@@ -164,6 +182,19 @@
   <p>영전류 스위칭 역시 부하 조건에 따라 공진 타이밍이 달라질 수 있어, 설계된 부하 범위를 벗어나면 소프트 스위칭 조건을 잃고 손실이 증가할 수 있습니다.</p>
 
   <p>영전압 스위칭이 스위치 접합 커패시턴스 손실 저감에 유리한 반면 영전류 스위칭은 전류 관련 손실 저감에 유리해, 소자 특성과 회로 조건에 따라 적합한 기법을 선택해야 합니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>영전류와 영전압 스위칭은 짝을 이루는 소프트 스위칭 기법입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">기법</th><th scope="col">스위치를 조작하는 때</th><th scope="col">주로 줄이는 손실</th></tr></thead><tbody><tr><th scope="row">영전류 스위칭(이 항목)</th><td>스위치 전류가 0일 때</td><td>전류와 전압이 겹치는 턴오프 손실, 꼬리 전류 손실</td></tr><tr><th scope="row"><a href="zero-voltage-switching.html">영전압 스위칭</a></th><td>스위치 양단 전압이 0일 때</td><td>출력 커패시턴스 방전 손실(턴온 손실)</td></tr><tr><th scope="row"><a href="soft-switching-technique.html">소프트 스위칭 기법</a></th><td>ZCS·ZVS를 포괄</td><td>스위칭 손실과 스트레스 전반</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Erickson, R. W., &amp; Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic.</li>
+    <li>Kazimierczuk, M. K., &amp; Czarkowski, D. (2011). Resonant Power Converters (2nd ed.). Wiley.</li>
+    <li>Mohan, N., Undeland, T. M., &amp; Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="soft-switching-technique.html">소프트 스위칭 기법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="zero-voltage-switching.html">영전압 스위칭</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>영상잡음은 영상에서 <strong>같은 조건이라도 화소마다 달라지는 무작위 변동</strong>입니다. 방사선 영상에서는 크게 다음 원천이 있습니다(Hendee &amp; Ritenour, 2002).</p><ul><li><strong>양자잡음</strong>: 검출기에 도달하는 X선 광자 수가 푸아송 분포를 따라 흔들리면서 생깁니다([[quantum-mottle|양자반점]]이 이것입니다). 평균 광자 수가 N이면 상대 변동은 약 1/√N입니다.</li><li><strong>전자잡음</strong>: 검출기와 증폭 회로에서 생기며 선량과 무관한 부분입니다.</li><li><strong>구조잡음</strong>: 검출기 불균일, 격자 패턴 등 반복적 구조.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>양자잡음에서는 선량(광자 수)을 4배로 늘리면 상대 잡음이 절반이 됩니다. 계산해 보면 다음과 같습니다(푸아송 가정, 가상의 값).</p><table><thead><tr><th>평균 광자 수 N</th><th>상대 잡음 1/√N</th></tr></thead><tbody><tr><td>100</td><td>10%</td></tr><tr><td>400</td><td>5%</td></tr><tr><td>10,000</td><td>1%</td></tr></tbody></table><p>그래서 저선량 촬영은 잡음이 늘기 쉽고, 체구가 큰 환자에서 광자가 덜 도달하는 상황도 같은 이유로 설명됩니다. CT에서는 균일한 영역의 CT 값 표준편차로 잡음을 재는 것이 일반적이며, 선량 대비 잡음을 줄이려는 영상재구성 방법의 발전이 연구 주제입니다(Bushberg 외, 2002).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“잡음은 클수록 영상이 나쁘다.”</strong> 진단 과제에 따라 중요한 것은 잡음 자체보다 병변 대비와 비교한 값, 곧 [[contrast-to-noise-ratio|대조대잡음비]]입니다.</li><li><strong>“잡음을 지우는 처리는 정보를 보존한다.”</strong> 반복재구성이나 딥러닝 잡음 제거는 잡음 크기를 줄이지만 질감(잡음의 공간 특성)을 바꿀 수 있어, 미세 병변 검출에 영향을 줄 수 있다는 점이 평가 대상입니다.</li><li><strong>“선량을 늘리면 잡음이 없어진다.”</strong> 전자잡음은 줄지 않고, 선량 증가는 피폭을 늘리므로 ALARA 원칙에 따라 진단에 필요한 최소 화질을 목표로 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "잡음과 관련된 지표는 의미가 서로 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "차이"
+    ],
+    "rows": [
+      [
+        "영상잡음(이 항목)",
+        "화소 값의 무작위 변동",
+        "원인 현상"
+      ],
+      [
+        "[[quantum-mottle|양자반점]]",
+        "광자 수 부족으로 생긴 잡음",
+        "영상잡음의 한 원천(양자잡음)"
+      ],
+      [
+        "[[contrast-to-noise-ratio|대조대잡음비]]",
+        "두 영역의 신호 차이 ÷ 잡음",
+        "병변이 보이는 정도를 나타내는 화질 지표"
+      ]
+    ]
+  },
+  "references": [
+    "Hendee, W. R., & Ritenour, E. R. (2002). Medical Imaging Physics (4th ed.). Wiley-Liss.",
+    "Bushberg, J. T., Seibert, J. A., Leidholdt, E. M., Jr., & Boone, J. M. (2002). The Essential Physics of Medical Imaging (2nd ed.). Lippincott Williams & Wilkins."
+  ]
+}
