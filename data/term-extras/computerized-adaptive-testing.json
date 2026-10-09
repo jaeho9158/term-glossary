@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>문항은행 준비.</strong> 문항마다 난이도(b)와 변별력(a) 같은 모수를 [[item-response-theory|문항반응이론]]으로 미리 추정해 둡니다.</li><li><strong>시작.</strong> 중간 난이도 문항이나 사전 정보로 첫 문항을 고릅니다. 이때 능력(θ) 추정치는 평균 근처로 둡니다.</li><li><strong>능력 추정 갱신.</strong> 응답할 때마다 θ를 다시 추정합니다(최대우도, EAP 등).</li><li><strong>다음 문항 선택.</strong> 현재 θ에서 정보량이 가장 큰 문항을 고릅니다.</li><li><strong>종료.</strong> 추정의 표준오차가 기준 이하가 되었거나 최대 문항 수에 이르면 마칩니다.</li></ol><p>가상의 예(2모수 모형, 코드로 계산): 문항 5개의 (a, b)가 (1.5, 0), (1.0, 1), (2.0, −1), (0.8, 0), (1.8, 0.5)일 때 θ = 0에서 각 문항의 정보량은 0.563, 0.197, 0.420, 0.160, 0.666입니다. 정보량이 가장 큰 5번 문항이 먼저 출제됩니다. 정답을 맞혀 θ가 0.5로 올라갔다고 하면 남은 문항의 정보량은 0.490, 0.235, 0.181, 0.154이므로 다음에는 1번 문항이 나옵니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>얻는 것.</strong> 같은 정밀도를 더 적은 문항으로 얻을 수 있습니다(Weiss, 1982). 고정형 검사는 중간 수준의 응시자에게 정밀하고 극단 수준에는 부정확한 반면, 적응형은 능력 수준과 관계없이 비슷한 정밀도를 낼 수 있습니다.</li><li><strong>문항 수의 감각.</strong> 표준오차 SE = 1/√(정보량의 합)이므로, SE를 0.5 이하로 하려면 정보량의 합이 4 이상, 0.3 이하로 하려면 약 11.1이 필요합니다. 문항 하나가 평균 0.5의 정보를 준다면 SE 0.3까지 약 23문항이 필요합니다(11.1 ÷ 0.5 = 22.2에서 올림).</li><li><strong>쓰이는 곳.</strong> 시험, 입사 선발, 임상 증상 평가 도구 개발 등. 대규모 문항은행을 갖춘 시험이나 환자보고 결과 측정에서 주로 쓰입니다.</li><li><strong>제약.</strong> 문항 모수를 정확히 추정할 표본이 큰 규모로 필요하고, 문항이 특정 문항에 몰려 노출되면 보안 문제가 생깁니다. 문항을 되돌려 수정하기 어렵고, 내용 균형을 맞추는 별도 장치가 필요합니다(Wainer 등, 2000).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>방법 절에 적을 항목은 다음과 같습니다.</p><ul><li>문항은행의 규모와 문항 모수의 추정 방법(사용한 IRT 모형, 보정 표본)</li><li>시작 방식, 능력 추정법(MLE, EAP 등), 문항 선택 규칙(최대 정보량 등)</li><li>종료 규칙(표준오차 기준, 최소·최대 문항 수)</li><li>문항 노출 통제(예: Sympson–Hetter)와 내용 균형 장치</li><li>결과: 평균 문항 수, 표준오차나 신뢰도의 분포, 고정형 검사와의 점수 일치도</li></ul><p>시뮬레이션 연구인지 실제 응시 자료인지도 구분합니다. 시뮬레이션에서 좋은 결과가 나왔다고 실제 응시에서도 같다는 보장은 없습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "방식",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[computerized-adaptive-testing|컴퓨터 적응검사(CAT)]]",
+        "문항 단위로 난이도를 조정",
+        "문항마다 θ를 갱신하는 방식"
+      ],
+      [
+        "고정형 검사",
+        "모든 응시자에게 같은 문항",
+        "중간 수준에서 정밀, 극단에서는 덜 정밀"
+      ],
+      [
+        "다단계 검사(MST)",
+        "문항 묶음(모듈) 단위로 조정",
+        "응시자가 모듈 안에서 문항을 검토·수정 가능"
+      ],
+      [
+        "[[item-response-theory|문항반응이론]]",
+        "문항과 능력을 같은 척도에 놓는 측정 모형",
+        "CAT의 이론적 기반"
+      ]
+    ]
+  },
+  "references": [
+    "Lord, F. M. (1980). Applications of Item Response Theory to Practical Testing Problems. Lawrence Erlbaum.",
+    "Weiss, D. J. (1982). Improving measurement quality and efficiency with adaptive testing. Applied Psychological Measurement, 6(4), 473–492.",
+    "Wainer, H., Dorans, N. J., Eignor, D., Flaugher, R., Green, B. F., Mislevy, R. J., Steinberg, L., & Thissen, D. (2000). Computerized Adaptive Testing: A Primer (2nd ed.). Lawrence Erlbaum.",
+    "Embretson, S. E., & Reise, S. P. (2000). Item Response Theory for Psychologists. Lawrence Erlbaum.",
+    "van der Linden, W. J., & Glas, C. A. W. (Eds.). (2010). Elements of Adaptive Testing. Springer."
+  ]
+}
