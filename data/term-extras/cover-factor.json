@@ -1,0 +1,40 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>정의:</strong> 직물 표면이 실로 덮인 정도를 나타내는 값으로, 올 수(밀도)와 실의 굵기를 함께 반영합니다.</li><li><strong>흔한 계산식(면 번수 체계):</strong> 한 방향의 커버팩터 <em>K</em> = <em>n</em> / √<em>N</em>. <em>n</em>은 1인치당 올 수, <em>N</em>은 면 번수(Ne)입니다. 경사와 위사 각각 계산해 더한 값을 직물의 커버팩터로 쓰는 방식이 흔합니다.</li><li><strong>덮임 비율(Peirce 모형):</strong> 실의 직경을 약 1/(28√<em>N</em>) 인치로 근사하면 <em>n</em>·<em>d</em> = <em>K</em>/28가 한 방향의 덮임 비율입니다. 두 방향이 겹치는 부분을 빼면 직물의 덮임 비율 <em>e</em> = <em>e</em><sub>1</sub> + <em>e</em><sub>2</sub> − <em>e</em><sub>1</sub><em>e</em><sub>2</sub>입니다(Peirce, 1937).</li><li><strong>단위 체계가 다릅니다.</strong> 텍스(tex)나 데니어 기반 정의에서는 계수와 단위가 달라지므로, 논문의 공식을 그대로 가져다 쓸 때는 번수 체계를 확인해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 평직물로 계산한 예입니다(코드로 확인). 경사 100올/인치, 위사 80올/인치, 두 방향 모두 면 30번수(Ne 30)라고 합시다.</p><table><thead><tr><th>방향</th><th>올 수 n</th><th>K = n/√N</th><th>덮임 비율 K/28</th></tr></thead><tbody><tr><td>경사</td><td>100</td><td>18.26</td><td>0.652</td></tr><tr><td>위사</td><td>80</td><td>14.61</td><td>0.522</td></tr><tr><td>합 (직물 커버팩터)</td><td>—</td><td>32.86</td><td>—</td></tr></tbody></table><p>겹침을 뺀 덮임 비율은 0.652 + 0.522 − 0.652×0.522 ≈ 0.834로, 표면의 약 83%가 실로 덮인다고 모형이 예측합니다. 같은 밀도라도 실이 굵으면(<em>N</em>이 작으면) <em>K</em>가 커집니다. 이상적 원형 실을 가정한 모형이어서 실의 편평화나 조직의 굴곡을 반영하지 않습니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<table><thead><tr><th>질문</th><th>해석</th></tr></thead><tbody><tr><td><em>K</em> 값이 클수록?</td><td>실로 덮인 면적이 크고 실 사이의 틈이 줄어드는 방향입니다. 통기성은 낮아지고 방풍성은 높아지는 경향을 해석하는 데 쓰입니다.</td></tr><tr><td>덮임 비율 <em>e</em>가 1에 가까우면?</td><td>모형상 틈이 거의 없는 상태입니다. 실제 직물은 구조적 한계(실의 겹침, 굴곡)가 있어 완전히 1이 되지는 않는다고 봅니다.</td></tr><tr><td>계산값과 실측 통기도가 다를 때</td><td>이론 계산값이므로 실의 편평도, 가공 과정의 수축, 단면이 원형이 아닌 경우 등이 차이를 만든다고 해석합니다. 공식을 보정하거나 실측값과 함께 보고합니다.</td></tr><tr><td>어떤 값과 비교하나</td><td>같은 번수 체계와 같은 조직의 직물끼리 비교해야 의미가 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "직물 구조 용어를 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[fabric-count|직물밀도]]",
+        "일정 길이 안의 경사·위사 올 수 (실의 굵기는 반영하지 않음)"
+      ],
+      [
+        "[[cover-factor|커버팩터]]",
+        "올 수에 실의 굵기를 함께 반영해 표면이 덮인 정도를 나타낸 값"
+      ]
+    ]
+  },
+  "references": [
+    "Peirce, F. T. (1937). The geometry of cloth structure. Journal of the Textile Institute Transactions, 28(3), T45–T96.",
+    "Hearle, J. W. S., Grosberg, P., & Backer, S. (1969). Structural Mechanics of Fibers, Yarns, and Fabrics. Wiley-Interscience.",
+    "Saville, B. P. (1999). Physical Testing of Textiles. Woodhead Publishing."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>정의:</strong> 자유흐름 마하수 <em>M</em><sub>∞</sub>를 높여 갈 때, 날개 표면 어느 한 점의 국소 마하수가 처음으로 1이 되는 <em>M</em><sub>∞</sub> 값이며 <em>M</em><sub>cr</sub>로 씁니다. 무차원 수이고, 항상 0과 1 사이(아음속)입니다.</li><li><strong>고정된 상수가 아닙니다.</strong> 같은 날개라도 받음각·양력계수가 커져 표면의 최소압력(흡입)이 강해지면 <em>M</em><sub>cr</sub>는 낮아집니다.</li><li>고전적 계산은 두 곡선의 교점으로 구합니다. (1) 압축성 보정(예: Prandtl–Glauert)으로 구한 최소압력계수 <em>C</em><sub>p,min</sub>(<em>M</em><sub>∞</sub>) = <em>C</em><sub>p0</sub> / √(1 − <em>M</em><sub>∞</sub><sup>2</sup>), (2) 국소 마하수가 1일 때의 압력계수 <em>C</em><sub>p,cr</sub>(<em>M</em><sub>∞</sub>). 두 값이 같아지는 <em>M</em><sub>∞</sub>가 <em>M</em><sub>cr</sub>입니다(Anderson, 2011).</li><li>풍동·CFD 연구에서는 표면 압력 분포나 국소 마하수 분포에서 최대 국소 마하수가 1이 되는 순간을 찾아 직접 구하기도 합니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>아래는 가상의 날개를 가정해 위 두 곡선의 교점을 수치로 푼 결과입니다. 비열비 γ = 1.4, 비압축성 최소압력계수 <em>C</em><sub>p0</sub>를 바꿔 가며 계산했습니다(코드로 이분법 계산, 가상의 예).</p><table><thead><tr><th>비압축성 최소압력계수 Cp0</th><th>임계마하수 Mcr(근사)</th></tr></thead><tbody><tr><td>−0.4</td><td>0.747</td></tr><tr><td>−0.6</td><td>0.689</td></tr><tr><td>−0.8</td><td>0.643</td></tr><tr><td>−1.0</td><td>0.606</td></tr></tbody></table><p>흡입이 강해질수록(<em>C</em><sub>p0</sub>가 더 음수일수록) <em>M</em><sub>cr</sub>가 낮아집니다. 이것이 두껍고 캠버가 큰 날개, 또는 양력계수가 큰 비행 조건에서 충격파가 더 이른 마하수에 나타나는 이유입니다. 이 표는 Prandtl–Glauert 보정이 유효한 범위의 단순 모델 결과이며 실제 날개의 값은 풍동·수치해석으로 확인합니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<table><thead><tr><th>질문</th><th>해석</th></tr></thead><tbody><tr><td><em>M</em><sub>∞</sub> &lt; <em>M</em><sub>cr</sub></td><td>날개 어디에도 초음속 영역이 없는 순수 아음속 흐름입니다.</td></tr><tr><td><em>M</em><sub>cr</sub> &lt; <em>M</em><sub>∞</sub> &lt; 1</td><td>국소 초음속 영역이 생기고 커집니다. 천음속 영역이며 약한 충격파가 생길 수 있습니다.</td></tr><tr><td>[[drag-divergence-mach-number|항력발산마하수]]와의 관계</td><td>항력 급증은 보통 <em>M</em><sub>cr</sub>를 어느 정도 넘은 뒤에 시작하므로 <em>M</em><sub>cr</sub>는 ‘경고선’, 항력발산마하수는 실제 성능 저하 지점으로 구분합니다.</td></tr><tr><td><em>M</em><sub>cr</sub>를 높이는 설계</td><td>얇은 날개(두께비 감소), 후퇴각, 최소압력을 완화하는 익형(예: 초임계 익형)이 쓰입니다. 초임계 익형은 Whitcomb과 Clark(1965)의 연구로 알려져 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "마하수 계열 용어를 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[mach-number|마하수]]",
+        "속도를 그 위치의 음속으로 나눈 값"
+      ],
+      [
+        "[[critical-mach-number|임계마하수]]",
+        "날개 위 어느 한 점이 처음 마하 1에 도달하는 자유흐름 마하수"
+      ],
+      [
+        "[[drag-divergence-mach-number|항력발산마하수]]",
+        "항력계수가 급격히 늘기 시작하는 마하수 (임계마하수보다 높은 것이 보통)"
+      ]
+    ]
+  },
+  "references": [
+    "Anderson, J. D., Jr. (2011). Fundamentals of Aerodynamics (5th ed.). McGraw-Hill.",
+    "Glauert, H. (1928). The effect of compressibility on the lift of an aerofoil. Proceedings of the Royal Society of London, Series A, 118(779), 113–119.",
+    "Whitcomb, R. T., & Clark, L. R. (1965). An airfoil shape for efficient flight at supercritical Mach numbers (NASA TM X-1109). National Aeronautics and Space Administration.",
+    "Anderson, J. D., Jr. (1999). Aircraft Performance and Design. McGraw-Hill."
+  ]
+}

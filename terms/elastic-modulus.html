@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/elastic-modulus.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,28 @@
   <h2>왜 중요한가</h2>
   <p>탄성계수는 재료의 강성을 나타내는 가장 기본적인 지표이기 때문에, 재료공학, 기계·구조 설계, 생체역학 등 힘과 변형을 다루는 거의 모든 공학 논문에서 필수적으로 보고됩니다. 새로운 재료를 개발하거나 기존 재료를 비교할 때 탄성계수는 강도, 밀도와 함께 재료 성능을 요약하는 핵심 수치이며, 구조물이 하중을 받았을 때 얼마나 처지거나 진동하는지를 계산하는 시뮬레이션의 기본 입력값이 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li><strong>정의(영률):</strong> 재료가 탄성 구간에서 받는 응력 σ를 그때의 변형률 ε으로 나눈 값, <em>E</em> = σ/ε입니다. 응력-변형률 곡선 초기의 선형 구간 기울기에 해당합니다. 단위는 Pa이며 GPa로 많이 씁니다.</li><li><strong>범위:</strong> 강철은 약 200 GPa, 알루미늄 합금은 약 70 GPa 수준이고, 고무는 이보다 수천 배 이상 낮은 값을 갖습니다(Ashby, 2011; Callister와 Rethwisch, 2018).</li><li><strong>종류:</strong> 인장·압축 방향 강성은 영률 <em>E</em>, 비틀림(전단)에 대한 저항은 전단탄성계수 <em>G</em>, 부피 변화에 대한 저항은 체적탄성계수 <em>K</em>입니다. 등방성 재료에서는 포아송비 ν로 이어집니다: <em>E</em> = 2<em>G</em>(1+ν) = 3<em>K</em>(1−2ν).</li><li><strong>유효 범위:</strong> 힘을 제거하면 원래대로 돌아오는 구간에서만 성립합니다. 항복 이후의 소성 변형에는 적용하지 않습니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>가상의 시험 데이터로 기울기를 구해 봅니다(코드로 최소제곱 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>변형률 ε</th><th>응력 σ (MPa)</th></tr></thead><tbody><tr><td>0.0005</td><td>105</td></tr><tr><td>0.0010</td><td>198</td></tr><tr><td>0.0015</td><td>310</td></tr><tr><td>0.0020</td><td>402</td></tr></tbody></table></div><p>원점을 지나는 직선이 아니라 평균을 이용한 기울기로 구하면 약 200,600 MPa, 곧 <em>E</em> ≈ 200.6 GPa입니다. 강철 수준의 값이라는 해석이 가능합니다.</p><p>값의 쓰임: 길이 2 m, 단면적 100 mm²인 봉에 10 kN의 인장력이 걸리면 늘어난 길이는 ΔL = FL/(AE)입니다. <em>E</em> = 200 GPa이면 1.0 mm, <em>E</em> = 70 GPa이면 약 2.9 mm입니다(가상의 예). 같은 하중에서 <em>E</em>가 작은 재료가 더 많이 늘어납니다.</p>
+
+  <h2>보고 방법</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>질문</th><th>해석</th></tr></thead><tbody><tr><td><em>E</em>가 크면 강한가?</td><td>아닙니다. <em>E</em>는 뻣뻣함(강성)이고, 강도는 <a href="yield-strength.html">항복강도</a> 등 별개의 성질입니다.</td></tr><tr><td>정적 값과 동적 값이 다르면</td><td>인장·굽힘 시험으로 구한 정적 값과 초음파 전달 속도로 구한 동적 값은 측정 원리가 달라 차이가 날 수 있으므로 어떤 방법인지 밝혀 비교합니다.</td></tr><tr><td>박막·미세 시편</td><td>나노압입시험으로 환산 탄성계수를 구하는 방법이 쓰입니다(Oliver와 Pharr, 1992). 벌크 값과 다를 수 있습니다.</td></tr><tr><td>방향에 따라 값이 다를 때</td><td>목재·복합재·결정은 이방성이라 방향별로 구하고 방향을 명시합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“촉진열화 처리재의 초음파 전달속도는 무처리재보다 높았는데 이는 촉진열화에 의해 목재의 탄성계수가 높아졌거나 밀도가 감소했다고 할 수 있다.”</blockquote><p class="te-cite">촉진열화목재의 흡습성과 초음파전달속도, 목재공학, 2002 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART000883041" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“초음파 전달 속도 측정을 통하여 동적 탄성 계수를 평가하고 이를 3점 휨 시험을 통하여 측정한 정적 탄성계수와 비교분석하였다.”</blockquote><p class="te-cite">촉진 열화 목재의 초음파 전달 시간 측정을 통한 탄성 계수의 평가, 목재공학, 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001876903" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"복합재료의 탄성계수는 섬유 함량이 증가함에 따라 선형적으로 증가하였다."</div>
   <p>복합재료 설계에서 성분 비율과 기계적 강성 간의 관계를 정량적으로 다루는 실제 연구 서술이다.</p>
   <div class="example">"골 조직의 탄성계수를 초음파 측정법으로 산출한 결과, 골밀도가 낮은 시편에서 유의하게 낮은 값이 나타나 골다공증 진단 지표로서의 가능성을 확인하였다."</div>
@@ -160,6 +182,20 @@
 
   <h2>주의할 점</h2>
   <p>탄성계수는 재료가 항복점을 넘어 영구 변형되기 전, 즉 힘을 제거하면 원상 복귀되는 구간에서만 유효하며 그 이후의 소성 변형에는 적용되지 않는다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>강성·강도 관련 용어를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="youngs-modulus.html">영률</a></th><td>인장·압축 방향의 탄성계수 (일반적으로 ‘탄성계수’와 같은 뜻으로 쓰임)</td></tr><tr><th scope="row"><a href="shear-modulus.html">전단탄성계수</a></th><td>전단(비틀림)에 대한 강성</td></tr><tr><th scope="row"><a href="bulk-modulus.html">체적탄성계수</a></th><td>부피 변화에 대한 저항</td></tr><tr><th scope="row"><a href="yield-strength.html">항복강도</a></th><td>영구 변형이 시작되는 응력 (강성이 아니라 강도)</td></tr><tr><th scope="row"><a href="stress-strain-curve.html">응력-변형률 곡선</a></th><td>탄성계수를 읽어 내는 시험 곡선</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Callister, W. D., Jr., &amp; Rethwisch, D. G. (2018). Materials Science and Engineering: An Introduction (10th ed.). Wiley.</li>
+    <li>Ashby, M. F. (2011). Materials Selection in Mechanical Design (4th ed.). Butterworth-Heinemann.</li>
+    <li>Oliver, W. C., &amp; Pharr, G. M. (1992). An improved technique for determining hardness and elastic modulus using load and displacement sensing indentation experiments. Journal of Materials Research, 7(6), 1564–1583.</li>
+    <li>ASTM International. (2017). ASTM E111-17: Standard test method for Young’s modulus, tangent modulus, and chord modulus.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

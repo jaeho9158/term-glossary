@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/constitutional-supercooling.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,17 +147,48 @@
   <h2>왜 중요한가</h2>
   <p>조성적 과냉은 주조, 용접, 적층제조 등 거의 모든 금속 응고 공정에서 미세조직의 형태(평면형, 셀형, 수지상형)를 결정짓는 핵심 개념입니다. 이 현상을 이해하고 제어하면 편석이나 결함을 줄이고 원하는 미세조직을 얻을 수 있어, 합금 설계와 공정 최적화에 직접적으로 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>합금이 응고할 때 용질이 액체 쪽으로 밀려나면, 계면 앞 액체의 <strong>조성이 달라져 평형 액상선 온도가 계면 앞에서 낮아집니다</strong>. 이 액상선 온도보다 실제 액체 온도가 낮으면 그 구간이 과냉 상태가 되는데, 열이 아니라 조성 때문에 생기므로 조성적 과냉이라고 부릅니다(Rutter와 Chalmers, 1953; Tiller 등, 1953).</li><li><strong>평면 계면이 안정한 조건</strong>(단순 모델, 정상상태 가정)은 G/R ≥ |m|C<sub>0</sub>(1 − k) / (kD)입니다. G는 액체 쪽 온도 구배, R은 응고 속도, m은 액상선 기울기, C<sub>0</sub>는 합금 조성, k는 평형 분배계수, D는 액체 내 용질 확산계수입니다(Kurz와 Fisher, 1998).</li><li>이 조건이 깨지면(G/R이 작아지면) 평면이 불안정해져 <strong>셀형 → 수지상형</strong>으로 바뀝니다. 일반적으로 G가 작거나 R이 크거나 용질 농도가 높을수록 조성적 과냉이 커집니다.</li><li>이 판정은 열역학적 평형과 단순화한 확산 가정에 기반한 <strong>기준</strong>입니다. 계면 장력(곡률 효과)을 포함한 더 완전한 안정성 이론은 Mullins와 Sekerka(1964)의 선형 안정성 해석입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 합금에 대해 위 조건으로 한계 응고 속도를 계산해 봅니다(코드로 계산, 숫자는 설명용 가정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>입력</th><th>값</th></tr></thead><tbody><tr><td>|m| (액상선 기울기)</td><td>5 K/wt%</td></tr><tr><td>C0 (조성)</td><td>1 wt%</td></tr><tr><td>k (분배계수)</td><td>0.3</td></tr><tr><td>D (액체 내 확산계수)</td><td>3 × 10⁻⁹ m²/s</td></tr><tr><td>G (온도 구배)</td><td>10 K/mm = 1 × 10⁴ K/m</td></tr></tbody></table></div><p>액상선 온도 범위 ΔT<sub>0</sub> = |m|C<sub>0</sub>(1 − k)/k ≈ 11.7 K이고, 한계 비 G/R = ΔT<sub>0</sub>/D ≈ 3.9 × 10⁹ K·s/m²입니다. G = 10⁴ K/m에서 평면 계면이 유지되는 최대 응고 속도는 R = G·D/ΔT<sub>0</sub> ≈ 2.6 × 10⁻⁶ m/s, 곧 약 2.6 μm/s입니다. 그보다 빠르게 응고시키면 조성적 과냉으로 평면이 불안정해진다고 예측합니다.</p><p>이 숫자는 모형 계산이며, 실제 합금에서는 대류, 비정상 상태, 매우 큰 R에서의 절대 안정성(평면 계면이 다시 안정해지는 영역) 등을 따로 고려해야 합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>순금속에서도 조성적 과냉이 생긴다.</td><td>용질이 있는 합금에서만 생깁니다. 순금속의 과냉은 열적 과냉입니다.</td></tr><tr><td>응고 속도를 높이면 조성적 과냉이 줄어든다.</td><td>다른 조건이 같다면 R이 커지면 G/R이 작아져 조성적 과냉이 커집니다. 매우 빠른 응고에서 평면이 다시 안정해지는 현상은 별개의 영역입니다.</td></tr><tr><td>G/R 기준을 만족하면 응고가 완전히 평면이다.</td><td>이는 단순 모델의 안정 조건입니다. 교란의 성장은 계면 에너지 등으로도 억제·촉진되므로 선형 안정성 이론이 보완합니다.</td></tr><tr><td>조성적 과냉은 곧 결함이다.</td><td>미세조직을 결정하는 메커니즘이며, 편석이나 결함이 생길 수도, 원하는 셀·수지상 조직을 만드는 데 쓰일 수도 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The degree of constitutional supercooling ahead of the solidification front was estimated to explain the transition from planar to cellular growth."</div>
   <p>응고 계면 앞의 조성적 과냉 정도를 추정하여 평면 성장에서 셀형 성장으로의 전이를 설명했다는 내용입니다.</p>
-  <div class="example">"Increasing the solidification velocity reduced the constitutional supercooling zone, resulting in a finer dendritic structure."</div>
-  <p>응고 속도를 높이자 조성적 과냉 영역이 줄어들어 더 미세한 수지상 조직이 형성되었다는 내용입니다.</p>
+  <div class="example">"Increasing the solidification velocity enlarged the constitutionally supercooled zone, and the interface changed from cellular to dendritic growth."</div>
+  <p>응고 속도를 높이자 조성적 과냉 영역이 넓어져 계면이 셀형에서 수지상형으로 바뀌었다는 내용입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
   <p>조성적 과냉이 발생하는지 여부는 흔히 온도 구배(G)와 응고 속도(R)의 비율(G/R)로 판단하며, 이 비율이 특정 임계값보다 작아질수록 계면이 불안정해지고 평면형에서 셀형, 수지상형으로 미세조직이 전이됩니다. 이 개념은 확산 지배 응고에서 액상선 기울기, 분배계수, 용질 확산계수 등과 함께 계면 안정성 이론(Mullins-Sekerka 이론 등)으로 확장되어 다뤄집니다.</p>
 
   <h2>주의할 점</h2>
   <p>조성적 과냉은 순금속에서는 발생하지 않으며, 용질이 존재하는 합금계에서만 나타나는 현상이라는 점에 유의해야 합니다. 또한 실제 응고는 열적 과냉과 조성적 과냉이 함께 작용하는 경우가 많아 단순화하여 해석하면 오류가 생길 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>응고 계면 관련 용어를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>조성적 과냉</strong></th><td>계면 앞 용질 분포 때문에 액체가 국소 액상선 온도보다 낮아지는 현상</td></tr><tr><th scope="row"><a href="dendritic-solidification.html">수지상 응고</a></th><td>계면이 불안정해져 나뭇가지 모양으로 성장하는 응고 방식 (조성적 과냉이 흔한 원인)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rutter, J. W., &amp; Chalmers, B. (1953). A prismatic substructure formed during solidification of metals. Canadian Journal of Physics, 31(1), 15–39.</li>
+    <li>Tiller, W. A., Jackson, K. A., Rutter, J. W., &amp; Chalmers, B. (1953). The redistribution of solute atoms during the solidification of metals. Acta Metallurgica, 1(4), 428–437.</li>
+    <li>Mullins, W. W., &amp; Sekerka, R. F. (1964). Stability of a planar interface during solidification of a dilute binary alloy. Journal of Applied Physics, 35(2), 444–451.</li>
+    <li>Kurz, W., &amp; Fisher, D. J. (1998). Fundamentals of Solidification (4th ed.). Trans Tech Publications.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
