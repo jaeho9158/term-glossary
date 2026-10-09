@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/signal-detection-theory.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>신호탐지이론은 정답률이라는 단일 지표 뒤에 숨어 있는 "능력"과 "성향"을 분리해낼 수 있게 해주기 때문에, 지각·기억·의사결정을 다루는 심리학 연구에서 필수적인 분석 틀로 자리잡았습니다. 같은 정답률이라도 반응편향이 다르면 전혀 다른 인지 과정을 반영할 수 있다는 통찰 덕분에, 의료 영상 진단의 정확도 평가나 레이더·통신 시스템의 탐지 성능 평가 같은 응용 분야에서도 폭넓게 채택됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <ul><li>불확실한 상황에서 "신호가 있다/없다"를 판단하는 일은 <strong>변별 능력</strong>과 <strong>판단 기준(반응 편향)</strong> 두 가지로 나뉩니다. 정답률 하나로는 둘을 구분할 수 없다는 것이 출발점입니다.</li><li>신호가 있을 때와 없을 때(소음만 있을 때)의 내적 증거 크기가 각각 분포를 이루고, 두 분포가 겹치기 때문에 오류가 생깁니다. 관찰자는 기준선을 정해 그보다 증거가 크면 "있다"고 답합니다.</li><li>네 결과: <strong>적중(H)</strong>, <strong>누락</strong>, <strong>오경보(FA)</strong>, <strong>정기각</strong>. 변별력 <strong>d′ = z(H) − z(FA)</strong> (z는 표준정규분포의 역누적함수), 기준 <strong>c = −[z(H) + z(FA)]/2</strong> (0이면 중립, 음수면 "있다" 쪽으로 기운 자유로운 기준, 양수면 보수적 기준). 등분산 정규분포를 가정한 식입니다.</li></ul>
+
+  <h2>근거와 대표 연구</h2>
+  <ul><li>Tanner와 Swets(1954)가 시각 탐지에 적용했고, Green과 Swets(1966)가 체계를 정리했습니다. 이후 기억 재인, 의료 판독, 목격자 식별, 품질 검사 등 "있다/없다" 판단이 있는 분야로 퍼졌습니다.</li><li><strong>계산 예시</strong>(가상의 예, 정규 역함수를 이용해 직접 계산): 세 명의 관찰자가 신호 시행과 소음 시행을 같은 비율로 받았다고 합시다.<div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>관찰자</th><th>적중률</th><th>오경보율</th><th>d′</th><th>c</th><th>정답률</th></tr></thead><tbody><tr><td>A</td><td>.84</td><td>.16</td><td>1.99</td><td>0.00</td><td>.84</td></tr><tr><td>B</td><td>.93</td><td>.31</td><td>1.97</td><td>−0.49</td><td>.81</td></tr><tr><td>C</td><td>.69</td><td>.07</td><td>1.97</td><td>+0.49</td><td>.81</td></tr></tbody></table></div>B는 쉽게 "있다"고 말하는 자유로운 기준, C는 확실할 때만 "있다"고 말하는 보수적 기준을 쓰지만, 변별력은 A와 거의 같습니다. 정답률만 보면 A가 가장 좋아 보이지만, 변별력 차이는 거의 없습니다.</li><li>기준을 바꿔 가며 (오경보율, 적중률) 점을 이으면 <a href="roc-curve.html">ROC 곡선</a>이 되고, 그 아래 면적이 <a href="auc-roc.html">AUC</a>입니다.</li></ul>
+
+  <h2>비판과 한계</h2>
+  <ul><li><strong>가정 의존</strong>: d′와 c의 식은 두 분포가 정규이고 분산이 같다는 가정에 의존합니다. 기억 재인 연구에서는 zROC 기울기가 1이 아닌 경우가 많아, 등분산 가정이 맞지 않는다는 보고가 있습니다. 이 경우 비모수 지표나 불등분산 모형을 씁니다.</li><li><strong>극단 비율</strong>: 적중률이나 오경보율이 0 또는 1이면 z값이 무한대가 되므로, 보정(예: Hautus, 1995의 방법)이 필요합니다. 어떤 보정을 썼는지 밝혀야 합니다.</li><li><strong>시행 수</strong>: 시행이 적으면 d′ 추정이 불안정합니다. 시행 수와 신호 비율을 함께 보고해야 합니다.</li><li>용어 혼동: 의학의 민감도(=적중률)와 특이도(=1−오경보율)는 같은 네 칸에서 나오지만, 신호탐지이론의 d′는 이 둘을 분포 기준으로 합친 지표입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"참가자의 재인기억 수행은 신호탐지이론에 따라 민감도(d′)와 반응편향(c)으로 각각 산출하여 분석하였다."</div>
   <p>이 문장은 단순히 정답률만 계산한 것이 아니라, 참가자가 "봤다/못 봤다"를 판단할 때 실제 변별 능력과 응답 성향을 분리해서 측정했다는 뜻입니다. 인지심리학의 기억·지각 연구뿐 아니라 의료 진단, 목격자 증언의 신뢰도 연구에서도 널리 쓰입니다.</p>
 
@@ -164,7 +182,22 @@
   <p>신호탐지이론에서 민감도(d′)와 반응편향(criterion, c 또는 β)은 적중률과 오경보율로부터 표준정규분포를 가정해 계산되며, 이 둘의 관계를 그래프로 나타낸 것이 수신자조작특성(ROC) 곡선입니다. ROC 곡선 아래 면적(AUC)은 판단 기준과 무관하게 순수한 변별 능력을 나타내는 지표로 널리 쓰이며, 여러 편향 수준에서의 수행을 종합적으로 비교할 때 유용합니다.</p>
 
   <h2>주의할 점</h2>
-  <p>단순 정답률(hit rate)만으로 판단 능력을 평가하면 반응편향까지 뒤섞여 실제 지각·기억 능력을 과대 또는 과소평가할 수 있습니다. 그래서 <a href="eyewitness-testimony.html">목격자 증언</a>의 정확도를 연구할 때도 정답률 대신 민감도와 반응편향을 분리해 분석하는 것이 권장됩니다.</p>
+  <p>적중률(hit rate)이나 단순 정답률만으로 판단 능력을 평가하면 반응편향까지 뒤섞여 실제 지각·기억 능력을 과대 또는 과소평가할 수 있습니다. 그래서 <a href="eyewitness-testimony.html">목격자 증언</a>의 정확도를 연구할 때도 정답률 대신 민감도와 반응편향을 분리해 분석하는 것이 권장됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">내용</th></tr></thead><tbody><tr><th scope="row">d′ (변별력)</th><td>신호와 소음을 구별하는 능력. 기준과 독립적</td></tr><tr><th scope="row">c, β (반응 편향)</th><td>애매할 때 '있다' 쪽으로 기울지 '없다' 쪽으로 기울지의 성향</td></tr><tr><th scope="row"><a href="roc-curve.html">ROC 곡선</a></th><td>기준을 바꿔 가며 (오경보율, 적중률)을 그린 곡선. 신호탐지이론의 시각화</td></tr><tr><th scope="row"><a href="auc-roc.html">AUC</a></th><td>ROC 곡선 아래 면적. 기준과 무관한 변별력의 요약</td></tr><tr><th scope="row"><a href="sensitivity-specificity.html">민감도·특이도</a></th><td>진단검사의 적중률과 정기각률. 같은 네 칸에서 계산하지만 편향과 변별력을 따로 나누지는 않음</td></tr></tbody></table></div>
+  <p class="te-note">정답률(정확도)은 변별력과 반응 편향이 섞인 값입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Green, D. M., &amp; Swets, J. A. (1966). Signal Detection Theory and Psychophysics. Wiley.</li>
+    <li>Tanner, W. P., Jr., &amp; Swets, J. A. (1954). A decision-making theory of visual detection. Psychological Review, 61(6), 401–409.</li>
+    <li>Macmillan, N. A., &amp; Creelman, C. D. (2005). Detection Theory: A User's Guide (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Stanislaw, H., &amp; Todorov, N. (1999). Calculation of signal detection theory measures. Behavior Research Methods, Instruments, &amp; Computers, 31(1), 137–149.</li>
+    <li>Hautus, M. J. (1995). Corrections for extreme proportions and their biasing effects on estimated values of d′. Behavior Research Methods, Instruments, &amp; Computers, 27(1), 46–51.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
