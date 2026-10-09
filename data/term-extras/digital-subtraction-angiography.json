@@ -1,0 +1,21 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>조영제 주입 <strong>전</strong>에 마스크 영상(뼈·연부조직만 보임)을 촬영합니다.</li><li>조영제를 혈관에 주입하고 연속 촬영(후 영상)합니다.</li><li>컴퓨터가 후 영상에서 마스크 영상을 감산합니다. 보통 로그 변환 후 뺍니다.</li><li>환자·장기가 움직이면 어긋나므로 필요하면 영상 정합(픽셀 이동 보정)을 합니다. 촬영 시 숨을 멈추게 하는 등 움직임을 줄입니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>뇌혈관, 말초혈관, 색전술·스텐트 같은 중재적 시술에서 혈관만 선명하게 보기 위해 쓰입니다. [[catheter-angiography|카테터혈관조영술]]의 영상을 처리하는 방식이며, [[computed-tomography-angiography|CT혈관조영술]]이나 [[magnetic-resonance-angiography|MR혈관조영술]]과 달리 시술 중 실시간 안내에 쓰입니다.</p><p>로그 감산이 배경을 지우는 이유 (가상의 예, 단색 X선을 가정): 투과 세기는 I = I₀·exp(−Σμt)입니다. I₀ = 1000, 연부조직 μt = 0.8, 혈관 속 조영제가 더하는 μt = 0.3이라 합시다. 뼈의 μt가 1.2인 화소와 2.0인 화소에서 코드로 계산한 결과는 다음과 같습니다.</p><table><thead><tr><th>뼈 μt</th><th>전 영상</th><th>후 영상</th><th>단순 차이</th><th>로그 차이</th></tr></thead><tbody><tr><td>1.2</td><td>135.3</td><td>100.3</td><td>−35.1</td><td>−0.300</td></tr><tr><td>2.0</td><td>60.8</td><td>45.0</td><td>−15.8</td><td>−0.300</td></tr></tbody></table><p>단순 차이는 뼈 두께에 따라 달라지지만 로그 차이는 조영제 항(−0.3)만 남습니다. 실제 X선은 여러 에너지가 섞여 있어 이 상쇄가 완전하지는 않습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>영상 품질 연구는 움직임 인공물(모션 아티팩트), 감산 후 잡음 증가, 정합 알고리즘 성능을 다룹니다.</li><li>진단 연구는 협착·동맥류 검출의 민감도·특이도를 다른 검사(CT/MR혈관조영술) 및 기준 검사와 비교합니다.</li><li>방사선 안전 연구는 환자·시술자 선량을 [[fluoroscopy|투시]] 시간, 프레임 수와 함께 보고합니다.</li><li>방법 절에는 장비, 프레임 속도, 조영제 종류·용량·주입 속도, 감산 방법(마스크 선택, 정합)을 적습니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Bushberg, J. T., Seibert, J. A., Leidholdt, E. M., & Boone, J. M. (2012). The Essential Physics of Medical Imaging (3rd ed.). Lippincott Williams & Wilkins.",
+    "Pooley, R. A., McKinney, J. M., & Miller, D. A. (2001). The AAPM/RSNA physics tutorial for residents: Digital fluoroscopy. RadioGraphics, 21(2), 521–534."
+  ]
+}

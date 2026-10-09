@@ -1,0 +1,42 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>긴 채널에서는 소스–채널 전위 장벽을 게이트가 거의 혼자 정합니다. 채널이 짧아지면 드레인 전압도 장벽을 낮춥니다. 이것이 DIBL입니다.</li><li>결과: 드레인 전압이 높을수록 문턱전압이 낮아지고, 꺼진 상태의 누설전류(서브문턱 전류)가 늘어납니다.</li><li>정량화: DIBL = (V<sub>th</sub>(낮은 V<sub>ds</sub>) − V<sub>th</sub>(높은 V<sub>ds</sub>)) ÷ (V<sub>ds,높음</sub> − V<sub>ds,낮음</sub>), 단위는 mV/V를 흔히 씁니다. 어떤 V<sub>ds</sub> 두 값과 어떤 문턱전압 정의를 썼는지에 따라 값이 달라집니다.</li><li>게이트의 정전기적 제어력이 클수록 작습니다. 얇은 산화막, 얇은 채널(SOI), 게이트가 채널을 둘러싸는 구조(FinFET, 나노시트)가 DIBL을 줄이는 대표 방법입니다(Taur &amp; Ning, 2009).</li><li>[[short-channel-effect|단채널 효과]]의 한 형태이며 같은 말은 아닙니다. Troutman(1979)이 VLSI 한계의 관점에서 정리했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예) 선형 영역 측정(V<sub>ds</sub> = 0.05 V)에서 문턱전압 0.45 V, 포화 영역 측정(V<sub>ds</sub> = 1.0 V)에서 0.37 V라면 DIBL = (0.45 − 0.37) ÷ (1.0 − 0.05) ≈ 0.0842 V/V, 즉 약 84 mV/V입니다(코드로 계산). 이 소자는 드레인 전압이 1 V 올라갈 때 문턱전압이 약 84 mV 내려가는 셈입니다. 같은 공정에서 채널 길이를 줄여 가며 이 값을 재면 채널이 짧을수록 커지는 경향이 보입니다. 값의 크기는 공정과 구조에 따라 크게 다르므로 절대적인 합격선은 없습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>DIBL은 단채널 효과와 같은 말이다.</td><td>단채널 효과에는 문턱전압 롤오프, 캐리어 속도 포화, 핫캐리어 등도 포함됩니다. DIBL은 드레인 전압에 의한 장벽 저하 한 가지입니다.</td></tr><tr><td>DIBL이 크면 문턱전압이 항상 낮은 것이다.</td><td>드레인 전압이 높을 때 문턱전압이 더 내려간다는 뜻이며, 낮은 V<sub>ds</sub>에서의 문턱전압(롤오프)과는 별도로 봅니다.</td></tr><tr><td>DIBL 값은 소자의 고유 상수다.</td><td>측정에 쓴 V<sub>ds</sub> 조건, 문턱전압 추출 방법에 따라 달라지므로 보고할 때 조건을 같이 적어야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구별 포인트"
+    ],
+    "rows": [
+      [
+        "[[short-channel-effect|단채널 효과]]",
+        "채널이 짧아져 나타나는 여러 현상의 총칭",
+        "DIBL은 그중 하나"
+      ],
+      [
+        "[[subthreshold-swing|서브문턱 스윙]]",
+        "전류를 10배 바꾸는 데 필요한 게이트 전압",
+        "게이트 제어력의 다른 지표. DIBL과 함께 나빠지는 경향"
+      ]
+    ]
+  },
+  "references": [
+    "Troutman, R. R. (1979). VLSI limitations from drain-induced barrier lowering. IEEE Journal of Solid-State Circuits, 14(2).",
+    "Taur, Y., & Ning, T. H. (2009). Fundamentals of Modern VLSI Devices (2nd ed.). Cambridge University Press.",
+    "Sze, S. M., & Ng, K. K. (2007). Physics of Semiconductor Devices (3rd ed.). John Wiley & Sons."
+  ]
+}

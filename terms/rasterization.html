@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rasterization.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>실시간 렌더링에서는 매초 수십 번씩 화면 전체를 다시 그려야 하므로 계산 속도가 무엇보다 중요한데, 래스터화는 물리적으로 정확한 빛 시뮬레이션 없이도 빠르게 화면을 채울 수 있어 게임과 실시간 그래픽 응용의 기본 렌더링 방식으로 자리잡았습니다. 그래픽스 연구에서는 GPU 하드웨어와 밀접하게 맞물린 래스터화 파이프라인을 최적화하거나, 사실감이 뛰어난 레이 트레이싱과 결합해 속도와 화질을 동시에 잡으려는 하이브리드 렌더링 연구가 활발히 진행됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li><strong>정점 변환</strong>: 3차원 정점을 카메라 기준으로 옮기고 화면 좌표로 투영합니다.</li><li><strong>삼각형 설정과 커버리지 판정</strong>: 각 삼각형이 어느 픽셀을 덮는지 변 함수(edge function)로 판정합니다. 픽셀 중심이 세 변의 같은 쪽에 있으면 삼각형 안으로 봅니다(Pineda, 1988).</li><li><strong>깊이 테스트</strong>: z-버퍼에 저장된 깊이와 비교해 앞의 것만 남깁니다(Catmull, 1974).</li><li><strong>셰이딩</strong>: 색과 조명을 계산해 프레임버퍼에 씁니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>실시간 그래픽(게임, 시각화)의 기본 방식입니다. 삼각형마다 독립적으로 계산할 수 있어 GPU에서 병렬화하기 쉽습니다(Akenine-Möller 외, 2018). 반사·그림자 같은 광역 조명 효과는 직접 계산하지 않아, <a href="ray-tracing.html">레이 트레이싱</a>이나 근사 기법을 보탭니다.</p><p>(가상의 예) 8×8 픽셀 격자에서 꼭짓점 (1,1), (7,2), (3,7)의 삼각형을 픽셀 중심(x+0.5, y+0.5)에서 판정하면(코드) 18개 픽셀이 덮이고 아래와 같습니다(#이 덮인 픽셀).</p><p><code>........ / .###.... / .######. / ..####.. / ..###... / ..##.... / ........ / ........</code></p><p>삼각형의 실제 면적은 17입니다. 18과 17의 차이는 픽셀 단위의 표본화 오차이며, 계단 현상(앨리어싱)의 원인입니다. 부표본(멀티샘플링) 등으로 줄입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>어떤 래스터화 파이프라인(하드웨어 GPU API, 소프트웨어 구현)을 썼는지 적습니다.</li><li>해상도, 표본 수(안티앨리어싱), 깊이 버퍼 정밀도를 밝힙니다.</li><li>성능은 프레임 시간(ms)과 삼각형 수·하드웨어 사양과 함께 보고합니다.</li><li>미분 가능 래스터화나 3D 가우시안 스플래팅(Kerbl 외, 2023)처럼 변형된 방식이면 일반 래스터화와 달라진 점을 설명합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안 파이프라인은 전통적인 rasterization 단계와 신경망 기반 셰이딩을 결합한 하이브리드 렌더링 구조를 채택하였다."</div>
   <p>이 문장은 "삼각형을 픽셀로 빠르게 채우는 기존 방식은 그대로 쓰되, 색과 조명을 입히는 부분에는 AI 기법을 더한 렌더링 구조를 제안했다"는 뜻입니다. 대부분의 실시간 3D 게임과 그래픽 응용 프로그램은 속도가 빠른 래스터화를 기본으로 하고, 필요한 부분에만 <a href="ray-tracing.html">레이 트레이싱</a>을 부분적으로 섞어 쓰는 방식을 많이 채택합니다.</p>
   <div class="example">"모바일 GPU 환경에서 래스터화 단계의 오버드로우를 줄이기 위해 타일 기반 지연 렌더링 기법을 적용하였다."</div>
@@ -165,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>래스터화는 각 삼각형을 화면에 투영하는 계산만 빠르게 할 뿐, 물체 사이의 반사나 그림자처럼 여러 물체 간의 빛 상호작용은 직접 계산하지 않습니다. 이런 사실적인 빛 표현이 필요하면 <a href="ray-tracing.html">레이 트레이싱</a>이나 별도의 근사 기법을 추가로 적용해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구별 포인트</th></tr></thead><tbody><tr><th scope="row">래스터화</th><td>3D 도형을 픽셀 격자로 변환</td><td>속도가 빠름, 광역 조명은 근사</td></tr><tr><th scope="row"><a href="ray-tracing.html">레이 트레이싱</a></th><td>화면 픽셀에서 빛의 경로를 추적</td><td>반사·그림자를 자연스럽게 계산하지만 비용이 큼</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Catmull, E. (1974). A subdivision algorithm for computer display of curved surfaces (Doctoral dissertation). University of Utah.</li>
+    <li>Pineda, J. (1988). A parallel algorithm for polygon rasterization. ACM SIGGRAPH Computer Graphics, 22(4), 17–20.</li>
+    <li>Akenine-Möller, T., Haines, E., Hoffman, N., Pesce, A., Iwanicki, M., &amp; Hillaire, S. (2018). Real-Time Rendering (4th ed.). CRC Press.</li>
+    <li>Kerbl, B., Kopanas, G., Leimkühler, T., &amp; Drettakis, G. (2023). 3D Gaussian splatting for real-time radiance field rendering. ACM Transactions on Graphics, 42(4).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

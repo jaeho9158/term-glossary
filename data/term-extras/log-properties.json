@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>밑 b &gt; 0, b ≠ 1, 진수 x, y &gt; 0일 때: log<sub>b</sub>(xy) = log<sub>b</sub>x + log<sub>b</sub>y, log<sub>b</sub>(x/y) = log<sub>b</sub>x − log<sub>b</sub>y, log<sub>b</sub>(xⁿ) = n·log<sub>b</sub>x.</li><li>밑 변환: log<sub>b</sub>x = log<sub>c</sub>x ÷ log<sub>c</sub>b. 그래서 계산기의 자연로그·상용로그만으로 어떤 밑의 로그도 구합니다.</li><li>log<sub>b</sub>1 = 0, log<sub>b</sub>b = 1, b^(log<sub>b</sub>x) = x.</li><li>이 성질들은 로그가 지수함수의 역함수([[logarithm-exponential-function|로그와 지수함수]])라는 정의에서 나옵니다. 곱셈을 덧셈으로 바꾸기 위해 Napier(1614)가 로그를 도입했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(코드 확인) log₁₀2 ≈ 0.30103, log₁₀3 ≈ 0.47712이므로 log₁₀12 = log₁₀(2²×3) = 2×0.30103 + 0.47712 = 1.07918이고, 직접 계산한 log₁₀12 = 1.07918과 일치합니다.</p><p><strong>회귀분석에서의 해석.</strong> 종속변수에 [[natural-logarithm|자연로그]]를 취한 회귀 ln y = a + b·x에서 x가 1 단위 늘면 y는 정확히 (e<sup>b</sup> − 1)×100 % 변합니다. b가 작을 때만 “약 b×100 %”로 근사됩니다(Wooldridge, 2016; Gelman &amp; Hill, 2007). 코드로 비교하면:</p><table><thead><tr><th>b</th><th>b×100 %</th><th>정확한 변화율</th></tr></thead><tbody><tr><td>0.05</td><td>5 %</td><td>5.13 %</td></tr><tr><td>0.10</td><td>10 %</td><td>10.52 %</td></tr><tr><td>0.30</td><td>30 %</td><td>34.99 %</td></tr><tr><td>0.70</td><td>70 %</td><td>101.38 %</td></tr></tbody></table><p>b가 0.3을 넘으면 근사의 차이가 눈에 띄므로 정확한 식을 쓰는 편이 안전합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>log(A+B) = log A + log B이다.</td><td>로그의 성질은 곱셈·나눗셈·거듭제곱에 대해서만 성립합니다. 합의 로그는 단순화되지 않습니다.</td></tr><tr><td>log A ÷ log B = log(A÷B)이다.</td><td>log(A/B) = log A − log B입니다. 로그끼리의 나눗셈은 밑 변환 공식에 쓰입니다.</td></tr><tr><td>0이나 음수에도 로그를 취할 수 있다.</td><td>진수는 양수여야 합니다. 0이 포함된 자료는 log(x+1)처럼 변환하는데, 이는 해석이 달라지므로 방법 절에 적어야 합니다.</td></tr><tr><td>(log x)ⁿ = n·log x이다.</td><td>n·log x는 log(xⁿ)입니다. (log x)ⁿ은 로그 값의 거듭제곱으로 다릅니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구별 포인트"
+    ],
+    "rows": [
+      [
+        "[[natural-logarithm|자연로그]]",
+        "밑이 e인 로그",
+        "회귀분석·미분에서 기본"
+      ],
+      [
+        "[[logarithm-exponential-function|로그와 지수함수]]",
+        "로그는 지수함수의 역함수",
+        "정의의 바탕"
+      ],
+      [
+        "[[decibel|데시벨]]",
+        "세기의 비를 로그 눈금으로 나타낸 단위",
+        "로그의 성질(곱 → 합)을 이용"
+      ]
+    ]
+  },
+  "references": [
+    "Napier, J. (1614). Mirifici Logarithmorum Canonis Descriptio. Andrew Hart.",
+    "Wooldridge, J. M. (2016). Introductory Econometrics: A Modern Approach (6th ed.). Cengage Learning.",
+    "Gelman, A., & Hill, J. (2007). Data Analysis Using Regression and Multilevel/Hierarchical Models. Cambridge University Press."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>제한 단위를 정합니다: 사용자, IP, API 키, 엔드포인트별로 “시간당 요청 수”를 정합니다.</li><li>알고리즘을 고릅니다. <strong>고정 윈도우</strong>는 구간마다 개수를 세고, <strong>슬라이딩 윈도우</strong>는 직전 일정 시간을 계속 세며, <strong>[[token-bucket-algorithm|토큰 버킷]]</strong>은 일정 속도로 토큰을 채우고 요청마다 소모합니다. <strong>리키 버킷</strong>은 요청을 대기열에 넣고 일정 속도로 내보냅니다(Turner, 1986의 leaky bucket이 원형).</li><li>초과하면 거절(HTTP 429 Too Many Requests, RFC 6585), 지연, 대기열 처리 중 하나를 합니다. 보통 남은 횟수나 재시도 시간을 응답 헤더로 알립니다.</li><li>분산 환경에서는 카운터를 여러 서버가 공유할 저장소가 필요합니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>API 남용 방지, 서버 보호, 사용자 간 공정한 자원 배분, 과금 정책에 씁니다. [[load-balancing|로드 밸런싱]]은 요청을 서버들에 고르게 나누는 것이고 레이트 리미팅은 요청량 자체를 제한하는 것입니다.</p><p>알고리즘마다 순간 폭주(버스트)를 다루는 방식이 다릅니다. (가상의 예) “10초에 5건” 제한을 가정하고 코드로 시뮬레이션했습니다.</p><ul><li><strong>고정 윈도우</strong>: 요청이 9.0, 9.2, 9.4, 9.6, 9.8초에 5건, 10.0, 10.2, …, 10.8초에 5건 들어오면 창이 10초에서 바뀌므로 10건 모두 허용됩니다. 1.8초 안에 한도의 2배가 통과합니다.</li><li><strong>토큰 버킷</strong>(용량 5, 초당 1개 충전): t = 0초에 8건이 한꺼번에 오면 5건 허용, 3건 거절(429)되고, 이후 1초에 1건씩 허용됩니다. 평균 속도는 제한하되 용량만큼의 버스트는 허용합니다.</li></ul><p>한계: 한 IP당 제한은 많은 IP로 나뉜 분산 공격([[distributed-denial-of-service-attack|DDoS]])을 혼자서 막지 못합니다. 공유 IP(회사, 학교)에서는 정상 사용자가 함께 제한될 수 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>제한의 단위(키)와 한도, 윈도우 길이, 알고리즘 이름을 적습니다.</li><li>초과 시 동작(거절/지연)과 응답 코드, 재시도 안내를 적습니다.</li><li>평가는 허용된 요청 비율, 거절률, 지연, 공정성 지표(사용자 간 처리량 차이), 정상 사용자 오차단율을 보고합니다.</li><li>분산 구현이면 카운터 저장 방식과 정확도·지연의 절충을 설명합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구별 포인트"
+    ],
+    "rows": [
+      [
+        "레이트 리미팅",
+        "요청량 상한을 두는 정책",
+        "서버 보호·공정성"
+      ],
+      [
+        "[[load-balancing|로드 밸런싱]]",
+        "요청을 서버들에 나눔",
+        "총량 제한이 아님"
+      ],
+      [
+        "[[api-gateway|API 게이트웨이]]",
+        "요청 진입 관문",
+        "레이트 리미팅을 구현하는 위치가 되곤 함"
+      ],
+      [
+        "[[token-bucket-algorithm|토큰 버킷]]",
+        "레이트 리미팅의 알고리즘 하나",
+        "버스트를 용량만큼 허용"
+      ]
+    ]
+  },
+  "references": [
+    "Turner, J. S. (1986). New directions in communications (or which way to the information age?). IEEE Communications Magazine, 24(10), 8–15.",
+    "Tanenbaum, A. S., & Wetherall, D. J. (2011). Computer Networks (5th ed.). Pearson.",
+    "Nottingham, M., & Fielding, R. (2012). Additional HTTP Status Codes (RFC 6585). Internet Engineering Task Force."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>듀티비 D = 스위치가 켜진 시간 ÷ 스위칭 주기입니다(0~1).</li><li>이상적인 연속 전도 모드(CCM)에서 컨버터의 출력은 D로 정해집니다: [[buck-converter|벅]] V<sub>o</sub> = D·V<sub>in</sub>, [[boost-converter|부스트]] V<sub>o</sub> = V<sub>in</sub>/(1−D), [[buck-boost-converter|벅-부스트]] V<sub>o</sub> = −D·V<sub>in</sub>/(1−D)(반전 출력).</li><li>폐루프에서는 출력 전압을 측정해 기준값과 비교한 오차를 PI 같은 보상기에 넣고, 그 출력(제어 신호)을 삼각파와 비교해 [[pwm|PWM]] 스위칭 신호를 만듭니다.</li><li>전압모드는 출력 전압만, 전류모드는 인덕터 전류도 함께 되먹임합니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>(가상의 예) V<sub>in</sub> = 12 V일 때 코드로 계산한 이상적 출력입니다.</p><table><thead><tr><th>D</th><th>벅</th><th>부스트</th><th>벅-부스트</th></tr></thead><tbody><tr><td>0.2</td><td>2.4 V</td><td>15 V</td><td>−3 V</td></tr><tr><td>0.4</td><td>4.8 V</td><td>20 V</td><td>−8 V</td></tr><tr><td>0.5</td><td>6 V</td><td>24 V</td><td>−12 V</td></tr><tr><td>0.6</td><td>7.2 V</td><td>30 V</td><td>−18 V</td></tr><tr><td>0.8</td><td>9.6 V</td><td>60 V</td><td>−48 V</td></tr></tbody></table><p>12 V를 5 V로 낮추려면 D = 5/12 ≈ 0.417(벅), 12 V를 24 V로 올리려면 D = 0.5(부스트)입니다. 부스트에서는 D가 1에 가까워질수록 식이 급격히 커지지만 실제 회로는 손실 때문에 그만큼 오르지 않고 효율이 떨어지므로, 설계에서는 D의 상·하한을 둡니다. 위 식은 손실을 무시한 이상적인 경우이며, 불연속 전도 모드에서는 식이 달라집니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>컨버터 토폴로지, 입력·출력 전압, 스위칭 주파수, 인덕터·커패시터 값을 적습니다.</li><li>제어 방식(전압모드/전류모드), 보상기 종류와 이득, PWM 구현 방법을 밝힙니다.</li><li>D를 변화시킨 실험이면 범위와 간격, 측정 장비를 적고 출력 전압–D 곡선을 이론식과 함께 보입니다.</li><li>부하·입력 변동 때의 과도 응답(정착 시간, 오버슈트)과 정상상태 오차를 정량 보고합니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Erickson, R. W., & Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic Publishers.",
+    "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). John Wiley & Sons.",
+    "Middlebrook, R. D., & Ćuk, S. (1976). A general unified approach to modelling switching-converter power stages. IEEE Power Electronics Specialists Conference Record, 18–34."
+  ]
+}

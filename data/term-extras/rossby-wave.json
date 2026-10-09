@@ -1,0 +1,60 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "파장이 길수록 전파 속도가 느려지는 분산 관계를 가집니다.",
+      "replace": "파장이 길수록 서쪽으로 향하는 위상 전파 속도가 빨라지는 분산 관계를 가집니다."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>지구 자전이 만드는 코리올리 매개변수 f가 위도에 따라 달라지고(변화율 β = df/dy), 이 때문에 회전하는 유체에서 복원력이 생겨 로스비파가 만들어집니다. Rossby(1939)가 대기의 대규모 흐름 변동에 적용했습니다.</li><li>가장 단순한 모형(β-평면, 비발산 순압)에서 위상 속도는 c = U − β/k²입니다(U: 평균 동서 바람, k: 동서 방향 파수). 평균 흐름에 대해 상대적으로는 <strong>서쪽</strong>으로 위상이 전파하고, <strong>파장이 길수록 더 빠릅니다</strong>(Holton &amp; Hakim, 2013; Vallis, 2017).</li><li>U와 β/k²가 같아지는 파장에서는 지면에 대해 정지한 정체 로스비파가 됩니다. 정체 파장은 L<sub>s</sub> = 2π√(U/β)입니다.</li><li>대기에서는 제트기류의 사행과 열대 가열의 중위도 영향(원격상관) 설명에 쓰입니다(Hoskins &amp; Karoly, 1981). 해양에서는 느리게 서쪽으로 전파하는 신호가 위성 해면고도에서 관측되었습니다(Chelton &amp; Schlax, 1996).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 계산) 위도 45°에서 β = 2Ω cos φ / a ≈ 1.62×10⁻¹¹ m⁻¹s⁻¹(Ω = 7.292×10⁻⁵ s⁻¹, a = 6,371 km), 평균 바람 U = 15 m/s로 하면 정체 파장은 약 6,050 km입니다. 45° 위도권의 둘레는 약 28,300 km이므로 약 4.7개 파수에 해당합니다. 코드로 계산한 위상 속도는 다음과 같습니다.</p><table><thead><tr><th>파장</th><th>5,000 km</th><th>10,000 km</th><th>20,000 km</th></tr></thead><tbody><tr><td>c = U − β/k² (m/s)</td><td>+4.7(동쪽)</td><td>−26.0(서쪽)</td><td>−149(서쪽)</td></tr></tbody></table><p>정체 파장보다 짧은 파는 평균 바람에 실려 동쪽으로, 긴 파는 서쪽으로 갑니다. 이 식은 평균 흐름이 균일하고 흐름이 발산하지 않는다는 이상화에서 나온 것이어서 실제 대기에서는 지형, 가열, 순환의 세기에 따라 달라집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>로스비파는 동쪽으로 간다.</td><td>평균 흐름에 대한 위상은 서쪽입니다. 지면에서 보면 바람에 실려 동쪽으로 갈 수도 있습니다.</td></tr><tr><td>제트기류의 굽이는 모두 로스비파다.</td><td>사행은 로스비파로 설명되지만 구체적 사행은 불안정, 지형, 가열의 영향도 받습니다.</td></tr><tr><td>대기와 해양의 로스비파는 같은 속도다.</td><td>해양의 파는 훨씬 느립니다(보통 cm/s 단위).</td></tr><tr><td>로스비파는 소리처럼 에너지가 위상 방향으로 간다.</td><td>군속도(에너지)는 위상 속도와 방향이 다를 수 있습니다. 원격상관 해석에서는 군속도를 봐야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구별 포인트"
+    ],
+    "rows": [
+      [
+        "로스비파",
+        "β 효과로 생기는 대규모 파동",
+        "위도에 따른 f 변화가 복원력"
+      ],
+      [
+        "[[coriolis-effect-ocean|코리올리 효과]]",
+        "자전하는 계에서 생기는 겉보기 힘",
+        "로스비파의 근원이 되는 f의 위도 의존성"
+      ],
+      [
+        "[[jet-stream|제트기류]]",
+        "상층의 좁고 빠른 바람 띠",
+        "로스비파가 사행으로 나타나는 대상"
+      ],
+      [
+        "[[teleconnection|원격상관]]",
+        "먼 지역의 기후 이상이 통계적으로 연관",
+        "로스비파 전파가 그 물리적 설명이 되곤 함"
+      ]
+    ]
+  },
+  "references": [
+    "Rossby, C.-G. (1939). Relation between variations in the intensity of the zonal circulation of the atmosphere and the displacements of the semi-permanent centers of action. Journal of Marine Research, 2(1), 38–55.",
+    "Holton, J. R., & Hakim, G. J. (2013). An Introduction to Dynamic Meteorology (5th ed.). Academic Press.",
+    "Vallis, G. K. (2017). Atmospheric and Oceanic Fluid Dynamics (2nd ed.). Cambridge University Press.",
+    "Hoskins, B. J., & Karoly, D. J. (1981). The steady linear response of a spherical atmosphere to thermal and orographic forcing. Journal of the Atmospheric Sciences, 38(6), 1179–1196.",
+    "Chelton, D. B., & Schlax, M. G. (1996). Global observations of oceanic Rossby waves. Science, 272(5259), 234–238."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/distance-between-two-points.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>두 점 사이의 거리 공식은 유클리드 거리라는 이름으로 데이터과학, 기계학습, 지리정보시스템 등 매우 광범위한 분야에서 유사도나 근접성을 수치화하는 기초 도구로 쓰이기 때문에 여러 학문 분야의 방법 섹션에서 반복적으로 등장합니다. 군집분석이나 최근접 이웃 알고리즘처럼 '거리'라는 개념을 필요로 하는 거의 모든 정량적 분석의 출발점이 되며, 고차원 데이터에서는 이 공식을 일반화한 다양한 거리 척도 연구로 이어지기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>평면에서 A(x₁, y₁), B(x₂, y₂)의 거리는 d = √((x₂−x₁)² + (y₂−y₁)²)입니다. 피타고라스 정리를 좌표에 적용한 것입니다.</li><li>n차원으로 확장한 것이 유클리드 거리이고, 같은 점 사이의 다른 거리 척도로는 맨해튼 거리(좌표 차의 절댓값 합), 체비쇼프 거리(좌표 차 중 최댓값)가 있습니다.</li><li>거리의 성질: 0 이상, 같은 점일 때만 0, A→B와 B→A가 같고, 삼각부등식 d(A,C) ≤ d(A,B) + d(B,C)가 성립합니다.</li><li>공식은 <em>평평한 좌표</em>와 <em>같은 단위의 좌표축</em>을 전제로 합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>A(1, 2), B(4, 6)에서 가로 차 3, 세로 차 4이므로 유클리드 거리는 5, 맨해튼 거리는 7, 체비쇼프 거리는 4입니다(코드로 확인).</p><p><strong>단위가 다르면 거리가 한 변수에 지배됩니다.</strong> (가상의 예) 사람 P₁(나이 30, 소득 3,000만 원), P₂(31, 5,000), P₃(60, 3,010)에서 P₁에 가까운 사람을 찾습니다. 원자료로 계산하면 P₁–P₂ 거리는 약 2,000, P₁–P₃ 거리는 약 31.6이라 P₃(30세 차이)가 “가장 가깝다”고 나옵니다. 각 변수를 표준편차로 나눠(표본 표준편차: 나이 약 17.0, 소득 약 1,151.8) 다시 계산하면 P₁–P₂는 약 1.74, P₁–P₃는 약 1.76이 되어 순위가 바뀝니다. 소득의 숫자 단위가 거리를 결정했던 것입니다. 군집분석·k-최근접이웃에서 표준화를 먼저 하는 이유입니다.</p><p><strong>위도·경도는 평면 좌표가 아닙니다.</strong> 서울(37.5665°N, 126.9780°E)과 부산(35.1796°N, 129.0756°E)을 도(degree) 단위로 그대로 공식에 넣으면 약 3.18이라는 단위 없는 값이 나옵니다. 지구를 반지름 6,371 km의 구로 보고 하버사인 공식으로 계산하면 약 325 km입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>변수들의 단위가 달라도 그대로 거리를 구하면 된다.</td><td>단위가 다른 변수는 표준화 등으로 척도를 맞춘 뒤 계산하는 것이 일반적입니다.</td></tr><tr><td>위경도 좌표에도 같은 공식을 쓸 수 있다.</td><td>좁은 지역이 아니면 오차가 커집니다. 구면 거리(하버사인 등)나 투영 좌표를 씁니다.</td></tr><tr><td>직선거리는 실제 이동 거리다.</td><td>도로망을 따라가는 거리는 직선거리보다 길 수 있어 네트워크 거리를 따로 구해야 합니다.</td></tr><tr><td>변수 사이의 상관은 거리에 영향을 주지 않는다.</td><td>유클리드 거리는 변수 간 상관을 무시합니다. 상관을 반영하려면 <a href="mahalanobis-distance.html">마할라노비스 거리</a>를 씁니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"두 관측 지점 간의 공간적 근접성을 정량화하기 위해 좌표평면상 두 점 사이의 거리 공식을 적용하여 유클리드 거리를 산출하였다."</div>
   <p>이 문장은 지리정보, 클러스터링, 위치 기반 분석 등을 다루는 논문에서 두 대상(지점, 데이터, 좌표 등) 사이의 근접 정도를 수치로 표현할 때 이 거리 공식을 기초로 사용했다는 뜻입니다.</p>
 
@@ -163,6 +181,18 @@
 
   <h2>주의할 점</h2>
   <p>이 공식은 평면(2차원) 위의 직선 거리를 구할 때 쓰는 것이며, 실제 도로나 곡선을 따라가는 이동 거리와는 다릅니다. 또한 3차원 이상의 공간에서는 좌표 차이의 제곱을 더 많은 항으로 확장해서 계산하며, 이는 <a href="pythagorean-theorem.html">피타고라스의 정리</a>를 일반화한 것에 해당합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구별 포인트</th></tr></thead><tbody><tr><th scope="row">유클리드 거리(두 점 사이의 거리)</th><td>제곱합의 제곱근, 직선거리</td><td>기본 척도</td></tr><tr><th scope="row"><a href="mahalanobis-distance.html">마할라노비스 거리</a></th><td>변수 간 상관과 분산을 반영한 거리</td><td>공분산 행렬이 필요</td></tr><tr><th scope="row"><a href="cosine-similarity.html">코사인 유사도</a></th><td>두 벡터의 방향이 얼마나 비슷한지</td><td>크기(길이)는 보지 않음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Deza, M. M., &amp; Deza, E. (2009). Encyclopedia of Distances. Springer.</li>
+    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
+    <li>Sinnott, R. W. (1984). Virtues of the haversine. Sky and Telescope, 68(2), 159.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

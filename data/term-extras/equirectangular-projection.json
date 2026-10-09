@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "fixes": [
+    {
+      "find": "면적, 각도, 거리 중 어느 것도 정확히 보존하지 않는 임의도법이라는 점에 유의해야 합니다.",
+      "replace": "면적과 각도를 보존하지 않고, 거리는 경선 방향(과 표준 위선)에서만 정확한 도법이라는 점에 유의해야 합니다."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>경도 λ, 위도 φ(라디안)를 평면 좌표로 바꿉니다: x = R·(λ − λ₀)·cos φ₁, y = R·(φ − φ₀). R은 지구 반지름, λ₀는 중앙 경선, φ₀는 기준 위도, φ₁은 <strong>표준 위선</strong>입니다(Snyder, 1987).</li><li>φ₁ = 0(적도)이면 x = R·(λ − λ₀)로 경도와 위도에 선형 비례하며, 이를 등거리원통도법(Plate Carrée)이라 부릅니다. 이때 위도 1°와 경도 1°의 격자 간격이 같습니다.</li><li>φ₁이 0이 아니면 그 위도에서 동서 방향 축척이 정확해지도록 가로를 줄입니다.</li><li>삼각함수 계산이 거의 필요 없어 구현이 쉽고, 위경도 격자 자료를 그대로 이미지처럼 저장할 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>전지구 격자 자료(기후 모델 출력, 위성 영상의 위경도 격자)를 저장·표시할 때 흔합니다. 좌표 변환이 필요 없어 자료 처리가 단순하다는 것이 장점입니다.</p><p>대가는 왜곡입니다. φ₁ = 0인 경우 남북 방향 축척은 항상 1이지만 동서 방향 축척은 1/cos φ입니다(코드 계산).</p><table><thead><tr><th>위도</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>75°</th></tr></thead><tbody><tr><td>동서 방향 축척</td><td>1.00</td><td>1.15</td><td>1.41</td><td>2.00</td><td>3.86</td></tr></tbody></table><p>면적 축척도 같은 배수(1/cos φ)라서 위도 60°에서는 면적이 약 2배로 늘어납니다. 면적이나 각도가 보존되지 않는 도법이므로 면적 통계나 방향 분석에는 [[web-mercator|메르카토르 계열]]이나 등적도법을 따로 검토해야 합니다. [[mercator-projection|메르카토르]]는 각도를, 등장방형도법은 위도 간격을, 어느 쪽도 면적을 보존하지 않습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>도법 이름과 표준 위선, 중앙 경선, 지구 모형(구/타원체)을 적습니다. EPSG 좌표계 번호를 쓰는 경우가 많습니다.</li><li>격자 해상도(예: 0.25° × 0.25°)와 격자가 위경도 균등이라는 점을 밝힙니다.</li><li>면적 가중이 필요한 평균(전지구 평균 등)은 cos(위도) 가중을 했는지 적습니다. 단순 평균은 고위도 격자를 과대 반영합니다.</li><li>그림에 이 도법을 썼다면 고위도의 형태·면적 왜곡이 해석에 영향을 줄 수 있음을 설명합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구별 포인트"
+    ],
+    "rows": [
+      [
+        "[[mercator-projection|메르카토르도법]]",
+        "각도(형태)를 보존하는 원통도법",
+        "고위도 면적 과장이 훨씬 큼. 위선 간격이 위도에 따라 달라짐"
+      ],
+      [
+        "[[miller-cylindrical-projection|밀러 원통도법]]",
+        "메르카토르의 극지 과장을 줄인 절충도법",
+        "위선 간격이 등장방형보다 넓음"
+      ],
+      [
+        "[[cassini-projection|카시니 도법]]",
+        "횡축 등거리 원통도법",
+        "중앙 경선을 따라 축척 유지. 좁은 남북 띠 지역에 적합"
+      ],
+      [
+        "등장방형도법",
+        "위경도를 선형 좌표로 옮김",
+        "단순하지만 면적·각도 모두 왜곡"
+      ]
+    ]
+  },
+  "references": [
+    "Snyder, J. P. (1987). Map Projections—A Working Manual (U.S. Geological Survey Professional Paper 1395). U.S. Government Printing Office.",
+    "Snyder, J. P., & Voxland, P. M. (1989). An Album of Map Projections (U.S. Geological Survey Professional Paper 1453). U.S. Government Printing Office.",
+    "Slocum, T. A., McMaster, R. B., Kessler, F. C., & Howard, H. H. (2009). Thematic Cartography and Geovisualization (3rd ed.). Pearson Prentice Hall."
+  ]
+}

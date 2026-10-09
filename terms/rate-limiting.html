@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rate-limiting.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>레이트 리미팅은 시스템의 가용성과 공정성을 동시에 지키는 기본 방어 수단이기 때문에, 분산시스템·클라우드 인프라·보안 연구에서 빠지지 않고 다뤄집니다. 서비스 거부 공격 방어뿐 아니라 여러 사용자가 유한한 서버 자원을 나눠 쓰는 멀티테넌트 환경에서 자원을 공평하게 배분하는 기법으로도 연구되며, API 경제가 커지면서 과금 정책과 결합된 레이트 리미팅 설계도 활발히 논의되는 주제입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>제한 단위를 정합니다: 사용자, IP, API 키, 엔드포인트별로 “시간당 요청 수”를 정합니다.</li><li>알고리즘을 고릅니다. <strong>고정 윈도우</strong>는 구간마다 개수를 세고, <strong>슬라이딩 윈도우</strong>는 직전 일정 시간을 계속 세며, <strong><a href="token-bucket-algorithm.html">토큰 버킷</a></strong>은 일정 속도로 토큰을 채우고 요청마다 소모합니다. <strong>리키 버킷</strong>은 요청을 대기열에 넣고 일정 속도로 내보냅니다(Turner, 1986의 leaky bucket이 원형).</li><li>초과하면 거절(HTTP 429 Too Many Requests, RFC 6585), 지연, 대기열 처리 중 하나를 합니다. 보통 남은 횟수나 재시도 시간을 응답 헤더로 알립니다.</li><li>분산 환경에서는 카운터를 여러 서버가 공유할 저장소가 필요합니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>API 남용 방지, 서버 보호, 사용자 간 공정한 자원 배분, 과금 정책에 씁니다. <a href="load-balancing.html">로드 밸런싱</a>은 요청을 서버들에 고르게 나누는 것이고 레이트 리미팅은 요청량 자체를 제한하는 것입니다.</p><p>알고리즘마다 순간 폭주(버스트)를 다루는 방식이 다릅니다. (가상의 예) “10초에 5건” 제한을 가정하고 코드로 시뮬레이션했습니다.</p><ul><li><strong>고정 윈도우</strong>: 요청이 9.0, 9.2, 9.4, 9.6, 9.8초에 5건, 10.0, 10.2, …, 10.8초에 5건 들어오면 창이 10초에서 바뀌므로 10건 모두 허용됩니다. 1.8초 안에 한도의 2배가 통과합니다.</li><li><strong>토큰 버킷</strong>(용량 5, 초당 1개 충전): t = 0초에 8건이 한꺼번에 오면 5건 허용, 3건 거절(429)되고, 이후 1초에 1건씩 허용됩니다. 평균 속도는 제한하되 용량만큼의 버스트는 허용합니다.</li></ul><p>한계: 한 IP당 제한은 많은 IP로 나뉜 분산 공격(<a href="distributed-denial-of-service-attack.html">DDoS</a>)을 혼자서 막지 못합니다. 공유 IP(회사, 학교)에서는 정상 사용자가 함께 제한될 수 있습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>제한의 단위(키)와 한도, 윈도우 길이, 알고리즘 이름을 적습니다.</li><li>초과 시 동작(거절/지연)과 응답 코드, 재시도 안내를 적습니다.</li><li>평가는 허용된 요청 비율, 거절률, 지연, 공정성 지표(사용자 간 처리량 차이), 정상 사용자 오차단율을 보고합니다.</li><li>분산 구현이면 카운터 저장 방식과 정확도·지연의 절충을 설명합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"API 게이트웨이는 토큰 버킷 알고리즘 기반의 레이트 리미팅을 적용해 사용자별 요청을 초당 10건으로 제한함으로써 서비스 거부 공격에 대한 내성을 높였다."</div>
   <p>이 문장은 사용자마다 초당 보낼 수 있는 요청 수에 상한을 두는 방식으로, 트래픽이 갑자기 몰려도 서버가 견딜 수 있게 설계했다는 뜻입니다.</p>
 
@@ -163,6 +181,18 @@
 
   <h2>주의할 점</h2>
   <p>레이트 리미팅은 대량의 요청을 보내 서버를 마비시키는 <a href="distributed-denial-of-service-attack.html">분산서비스거부공격</a>을 막는 데도 쓰이지만, 정상적인 사용자의 요청까지 지나치게 자주 막으면 서비스 이용에 불편을 줄 수 있습니다. 그래서 실제 서비스에서는 사용자 등급이나 상황에 따라 제한 기준을 다르게 두는 경우가 많으며, 여러 서버로 요청을 고르게 분배하는 <a href="load-balancing.html">로드밸런싱</a>과는 목적이 다르다는 점(트래픽 분산 vs. 요청량 자체를 제한)을 구분해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구별 포인트</th></tr></thead><tbody><tr><th scope="row">레이트 리미팅</th><td>요청량 상한을 두는 정책</td><td>서버 보호·공정성</td></tr><tr><th scope="row"><a href="load-balancing.html">로드 밸런싱</a></th><td>요청을 서버들에 나눔</td><td>총량 제한이 아님</td></tr><tr><th scope="row"><a href="api-gateway.html">API 게이트웨이</a></th><td>요청 진입 관문</td><td>레이트 리미팅을 구현하는 위치가 되곤 함</td></tr><tr><th scope="row"><a href="token-bucket-algorithm.html">토큰 버킷</a></th><td>레이트 리미팅의 알고리즘 하나</td><td>버스트를 용량만큼 허용</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Turner, J. S. (1986). New directions in communications (or which way to the information age?). IEEE Communications Magazine, 24(10), 8–15.</li>
+    <li>Tanenbaum, A. S., &amp; Wetherall, D. J. (2011). Computer Networks (5th ed.). Pearson.</li>
+    <li>Nottingham, M., &amp; Fielding, R. (2012). Additional HTTP Status Codes (RFC 6585). Internet Engineering Task Force.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="token-bucket-algorithm.html">토큰 버킷 알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/laser-doppler-vibrometer.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>미세 구조물이나 얇은 소자의 진동 특성을 정확히 파악하는 일은 음향공학, 미세전자기계시스템(MEMS) 설계, 재료 진단 등 다양한 연구에서 필수적입니다. 접촉식 센서를 붙이면 질량이 추가되어 진동 특성 자체가 왜곡될 수 있는데, 레이저 도플러 진동계는 이런 부가질량 문제 없이 실제 거동을 측정할 수 있어 정밀 진동 해석 연구에서 표준적인 도구로 자리잡고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <ul><li>진동하는 표면의 <strong>속도</strong>(레이저 빔 방향 성분)를 접촉 없이 잽니다. 속도를 시간에 대해 적분하면 변위를 얻습니다.</li><li>원리: 움직이는 표면에서 반사된 빛의 주파수가 도플러 효과로 f<sub>D</sub> = 2v/λ만큼 이동합니다(v: 빔 방향 속도, λ: 레이저 파장). 반사이므로 2배가 곱해집니다.</li><li>(가상의 예) 파장 633 nm(He-Ne 레이저)에서 표면이 1 mm/s로 움직이면 f<sub>D</sub> = 2×0.001 ÷ 633×10⁻⁹ ≈ 3.16 kHz, 10 mm/s이면 약 31.6 kHz입니다(코드 계산).</li><li>진동계라는 이름 때문에 가속도계처럼 부착되는 센서로 오해하기 쉬우나 부착이 필요 없는 광학 측정이라 대상의 질량·강성을 바꾸지 않습니다.</li></ul>
+
+  <h2>구성과 채점</h2>
+  <ul><li><strong>레이저와 간섭계</strong>: 측정 빔(표면으로)과 기준 빔을 합쳐 두 빔의 맥놀이를 검출기로 읽습니다.</li><li><strong>브래그 셀(주파수 편이기)</strong>: 기준 빔에 일정한 주파수 편이를 주어, 표면이 다가오는지 멀어지는지(속도의 부호)를 구별하게 합니다. 이 방식을 헤테로다인 검출이라 합니다.</li><li><strong>복조기(디코더)</strong>: 검출 신호의 주파수 편이를 속도 신호로 바꿉니다. 속도 범위와 필터 설정에 따라 분해능이 달라집니다.</li><li><strong>스캐닝 헤드</strong>(선택): 거울로 빔을 여러 점에 옮겨 가며 재서 표면 전체의 진동 모드 형상을 구성합니다.</li><li>측정 값은 시간 신호이므로 주파수 스펙트럼(FFT)과 진동 모드 해석이 이어집니다. 점수화되는 척도가 아니라 속도(m/s)나 변위(m) 단위의 물리량입니다.</li></ul>
+
+  <h2>결과 읽는 법</h2>
+  <ul><li>속도 신호를 해석할 때 빔 방향 성분만 측정된다는 점을 기억합니다. 빔과 수직인 움직임은 보이지 않습니다. 3차원 운동은 여러 방향에서 측정해 합성합니다.</li><li>신호 대 잡음비는 반사광의 세기에 좌우됩니다. 반사가 약하면 스펙클 잡음(드롭아웃)이 생기며, 반사 테이프나 표면 처리가 쓰이기도 합니다.</li><li>높은 주파수일수록 같은 속도 진폭에서 변위가 작아지므로(변위 = 속도 ÷ 2πf) 저주파 변위를 보려면 속도 신호의 저주파 잡음에 유의해야 합니다.</li><li>보고 시 측정 거리, 빔 지름, 측정 대역, 표면 처리 여부를 함께 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"박막 스피커 진동판의 변위는 레이저 도플러 진동계를 이용하여 비접촉으로 측정하였다."</div>
   <p>매우 얇아서 센서를 붙이기 어려운 스피커 진동판의 움직임을 레이저 도플러 진동계로 접촉 없이 측정했다는 뜻이다.</p>
   <div class="example">"MEMS 공진기의 공진 주파수와 진폭은 레이저 도플러 진동계를 통해 주파수 스윕 실험으로 확인하였다."</div>
@@ -160,6 +178,16 @@
 
   <h2>주의할 점</h2>
   <p>측정하려면 레이저가 표면에 정확히 초점을 맞추고 반사광이 충분히 돌아와야 하므로, 표면이 매우 거칠거나 투명한 경우 반사율을 높이는 처리가 필요할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Yeh, Y., &amp; Cummins, H. Z. (1964). Localized fluid flow measurements with an He–Ne laser spectrometer. Applied Physics Letters, 4(10), 176–178.</li>
+    <li>Drain, L. E. (1980). The Laser Doppler Technique. John Wiley &amp; Sons.</li>
+    <li>Castellini, P., Martarelli, M., &amp; Tomasini, E. P. (2006). Laser Doppler vibrometry: Development of advanced solutions answering to technology's needs. Mechanical Systems and Signal Processing, 20(6), 1265–1285.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

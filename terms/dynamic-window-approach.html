@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/dynamic-window-approach.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>로봇의 가감속 한계 안에서 다음 짧은 시간 동안 도달 가능한 속도 조합만 후보로 놓고 그중 목표 접근·장애물 거리·속도를 평가해 고르는 방식으로, ROS 내비게이션의 기본 지역 계획기로 오랫동안 쓰였습니다. 동역학 제약을 계획 단계에서 직접 고려한다는 점이 실용적 강점입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>매 제어 주기마다 로봇의 현재 속도 (v, ω)에서 가속도 한계로 도달할 수 있는 속도 범위, 곧 <strong>동적 윈도우</strong>를 구합니다.</li><li>그 범위 안의 (v, ω) 후보마다 짧은 시간 그 속도를 유지했을 때의 궤적을 예측합니다.</li><li>장애물까지 거리 때문에 멈출 수 없는 속도는 버립니다(허용 속도). 멈출 수 있으려면 v ≤ √(2 · dist · 감속도) 여야 합니다.</li><li>남은 후보를 목적함수로 점수 매깁니다. Fox 외(1997)의 목적함수는 목표 방향 정렬(heading), 장애물까지 거리(dist), 속도(velocity)의 가중합을 평활화한 형태입니다. 최고점 (v, ω)를 실행하고 다음 주기에 반복합니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>바퀴 이동 로봇이 실시간으로 장애물을 피하며 <a href="global-path-planning.html">전역 경로</a>를 따라갈 때 <a href="local-path-planning.html">지역 계획</a> 단계로 씁니다. 장점은 가속도 한계를 후보 생성 단계에서 직접 반영해 명령이 물리적으로 실행 가능하다는 점입니다.</p><p>(가상의 예) 현재 v = 0.4 m/s, ω = 0 rad/s, 선가속도 한계 0.5 m/s², 각가속도 한계 1.0 rad/s², 제어 주기 0.2 s라면 v ∈ [0.4 − 0.5×0.2, 0.4 + 0.5×0.2] = [0.3, 0.5] m/s, ω ∈ [−0.2, 0.2] rad/s입니다. 장애물이 1.0 m 앞이고 감속도가 0.5 m/s²이면 멈출 수 있는 최대 속도는 √(2×1.0×0.5) = 1.0 m/s이므로 이 후보 전부가 허용됩니다. 장애물이 0.2 m 앞이면 √(2×0.2×0.5) ≈ 0.45 m/s이라 0.5 m/s 후보는 탈락합니다.</p><p>한계: 짧은 구간만 보므로 막다른 곳(국소 최소)에 빠질 수 있어 전역 경로와 함께 씁니다. 가중치에 따라 행동이 달라져 환경별 조정이 필요합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>제어 주기, 예측 시간, 속도·가속도 한계, 속도 샘플링 간격을 표로 제시합니다.</li><li>목적함수의 가중치와 정규화 방식을 밝힙니다(결과 재현에 필요).</li><li>시뮬레이터·실물 로봇, 장애물 배치(정적/동적), 성공률·충돌 횟수·소요시간을 보고합니다.</li><li>구현 출처(자체 구현인지, ROS 패키지의 어떤 버전인지)와 전역 계획기를 함께 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">DWA는 현재 속도에서 가속도 제약으로 도달 가능한 속도 공간(동적 윈도우) 내에서 목표 정렬, 장애물 거리, 속도를 가중합한 목적함수를 최대화하는 (v, ω)를 선택한다.</div>
   <p>로봇이 다음 순간 실제로 낼 수 있는 속도 범위 안에서만 후보를 고르고, 그중 안전하면서도 목표에 가까워지는 속도를 매번 새로 계산한다는 뜻입니다.</p>
 
@@ -166,6 +184,15 @@
   <p>지역적 최적화이기 때문에 좁은 통로나 복잡한 구조에서는 전역 경로 계획과 함께 사용해야 막다른 길에 갇히지 않습니다.</p>
 
   <p>짧은 시간 창 안의 속도만 평가하는 근시안적 특성 때문에 회전 반경이 큰 로봇이 좁은 출입구를 그대로 지나치는 국소 최소 상황에 빠질 수 있어, 전역경로계획 이 정한 경유점으로 이를 보완해야 한다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fox, D., Burgard, W., &amp; Thrun, S. (1997). The dynamic window approach to collision avoidance. IEEE Robotics &amp; Automation Magazine, 4(1), 23–33.</li>
+    <li>Brock, O., &amp; Khatib, O. (1999). High-speed navigation using the global dynamic window approach. Proceedings of the 1999 IEEE International Conference on Robotics and Automation, 341–346.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="local-path-planning.html">지역경로계획</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
