@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sample-size-calculation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,8 +150,32 @@
   <h2>왜 중요한가</h2>
   <p>표본크기산출은 연구 결과가 통계적으로 신뢰할 만한지, 그리고 참여자와 자원을 윤리적으로 적절하게 사용했는지를 판가름하는 연구 설계의 핵심 단계이기 때문에, 임상시험을 포함한 대부분의 실증 연구 논문에서 방법론 절에 반드시 포함됩니다. 특히 규제 기관의 승인이 필요한 임상시험이나 동물실험에서는 사전에 산출된 표본 크기 근거 없이는 연구계획 자체가 심사를 통과하기 어려운 경우가 많아, 연구 설계의 타당성을 뒷받침하는 필수 요소로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>표본크기 산출은 연구를 시작하기 전에 다음 순서로 진행합니다.</p>
+  <ol><li><strong>주요 가설과 분석 방법을 정합니다.</strong> 계산식은 분석 방법(두 집단 평균 비교, 비율 비교, 상관, 생존분석 등)마다 다릅니다.</li><li><strong>유의수준과 검정력을 정합니다.</strong> 관습적으로 양측 α = .05와 검정력 80%가 많이 쓰이는데, 이는 Cohen(1988)이 널리 퍼뜨린 관례이며 규칙이 아닙니다.</li><li><strong>기대하는 효과 크기와 변동성을 정합니다.</strong> 선행 연구, 예비 연구, 임상적으로 의미 있는 최소 차이에서 가져옵니다. 여기가 계산에서 가장 불확실한 부분입니다.</li><li><strong>공식이나 소프트웨어(예: G*Power)로 계산합니다</strong>(Faul 외, 2007).</li><li><strong>탈락, 결측, 군집 구조를 보정합니다.</strong></li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예로 두 독립 집단의 평균을 양측 검정으로 비교한다고 하겠습니다(α = .05, 검정력 80%, 두 집단 크기 동일). 표준화 효과크기(Cohen의 d)에 따라 필요한 <strong>집단당</strong> 인원은 다음과 같습니다(비중심 t분포로 계산).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>d</th><th>집단당 n</th></tr></thead><tbody><tr><td>0.2</td><td>394</td></tr><tr><td>0.3</td><td>176</td></tr><tr><td>0.5</td><td>64</td></tr><tr><td>0.8</td><td>26</td></tr></tbody></table></div>
+  <p>효과크기가 절반이 되면 필요 인원은 약 네 배가 됩니다. Lehr(1992)의 간편식 n ≈ 16/d²(집단당)도 d = 0.5에서 64로 같은 값을 줍니다.</p>
+  <p>보정 예시: 같은 d = 0.5에서 중도 탈락이 15%일 것으로 예상하면 64 / 0.85 ≈ 75.3이므로 집단당 76명을 모집합니다. 또 마을·학교처럼 집단 단위로 배정하는 설계에서는 군집 크기 m = 20, 급내상관 ρ = 0.05라고 가정할 때 설계효과가 1 + (m − 1)ρ = 1.95여서 필요 인원이 약 두 배가 됩니다(Donner &amp; Klar, 2000).</p>
+  <p>이 표의 값은 이 설정에서만 맞습니다. 분석 방법이나 효과크기 정의가 다르면 같은 d라도 인원이 달라집니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>방법 절에는 계산의 <strong>모든 입력값과 그 출처</strong>를 적어야 독자가 계산을 다시 확인할 수 있습니다.</p>
+  <ul><li>분석 방법과 단측·양측 구분</li><li>유의수준, 검정력</li><li>효과크기(또는 평균 차이와 표준편차)와 그 근거가 된 선행 연구</li><li>탈락률 보정 전후의 인원, 군집 설계라면 설계효과와 급내상관계수</li><li>사용한 소프트웨어와 버전</li></ul>
+  <p>“효과크기 0.5, 검정력 80%, 유의수준 .05로 집단당 64명이 필요하였고, 탈락률 15%를 고려해 76명을 모집하였다”처럼 입력과 결과를 한 문장에 담는 형태가 전형적입니다. 연구가 끝난 뒤에 관찰된 효과크기로 계산하는 사후 검정력은 해석이 어려워 권장되지 않는 경우가 많습니다. 자세한 구분은 <a href="power-analysis.html">검정력분석</a>과 <a href="sample-size-justification.html">표본크기 근거</a> 페이지를 보세요.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"1차 평가변수의 효과 크기 0.3, 검정력 80%, 유의수준 0.05를 가정하여 필요한 표본 크기는 군당 128명으로 산출되었다."</div>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
+  <div class="example">"1차 평가변수의 효과 크기 0.3, 검정력 80%, 유의수준 0.05를 가정하여 필요한 표본 크기는 군당 176명으로 산출되었다."</div>
   <p>원하는 통계적 신뢰도로 효과를 검출하는 데 필요한 최소 참여자 수를 사전에 계산했다는 뜻이다.</p>
   <div class="example">"선행 연구에서 보고된 평균 차이와 표준편차를 바탕으로, 탈락률 15%를 고려하여 최종 필요 표본 크기를 각 군 45명으로 상향 조정하였다."</div>
   <p>중도 탈락을 고려해 표본 크기를 보정하는 실제 연구 설계 관행을 보여주는 예문입니다.</p>
@@ -162,6 +187,20 @@
 
   <h2>주의할 점</h2>
   <p>표본크기산출에 사용한 가정이 실제와 다르면 연구가 검정력 부족으로 끝날 수 있어, 사전 근거의 타당성을 함께 살펴봐야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>표본크기를 둘러싼 용어는 시점이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">시점</th></tr></thead><tbody><tr><th scope="row">표본크기 산출</th><td>필요한 인원을 계산하는 절차</td><td>연구 설계 단계</td></tr><tr><th scope="row"><a href="sample-size.html">표본크기</a></th><td>실제로 연구에 참여한 사람 수(n)</td><td>연구 종료 후</td></tr><tr><th scope="row"><a href="power-analysis.html">검정력분석</a></th><td>효과크기·α·검정력으로 표본이나 검정력을 계산하는 방법</td><td>설계 단계(사전)</td></tr><tr><th scope="row"><a href="sample-size-justification.html">표본크기 근거</a></th><td>그 숫자를 어떻게 정했는지 논문에 설명하는 절차</td><td>보고 단계</td></tr><tr><th scope="row"><a href="effect-size.html">효과크기</a></th><td>차이나 관계가 얼마나 큰가를 나타내는 수치</td><td>계산의 입력값</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum Associates.</li>
+    <li>Lehr, R. (1992). Sixteen S-squared over D-squared: A relation for crude sample size estimates. Statistics in Medicine, 11(8), 1099–1102.</li>
+    <li>Faul, F., Erdfelder, E., Lang, A.-G., &amp; Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. Behavior Research Methods, 39(2), 175–191.</li>
+    <li>Donner, A., &amp; Klar, N. (2000). Design and Analysis of Cluster Randomization Trials in Health Research. Arnold.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

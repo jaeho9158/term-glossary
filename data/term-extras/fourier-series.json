@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>주기가 T인 함수 f(t)를 사인·코사인 항의 합으로 쓴 것이 푸리에 급수입니다.<br><code>f(t) = a<sub>0</sub>/2 + Σ [ a<sub>n</sub> cos(nωt) + b<sub>n</sub> sin(nωt) ]</code>, ω = 2π/T</li><li>n = 1인 항을 기본파, n ≥ 2인 항을 고조파(harmonic)라 하며, 계수 a<sub>n</sub>, b<sub>n</sub>은 함수에 각 사인·코사인을 곱해 한 주기 동안 적분해서 얻습니다(Folland, 1992).</li><li>모든 주기함수가 아니라 <strong>적분 가능한 조건</strong>(예: 구간별 매끈한 함수)에서 급수가 함수로 수렴하며, 불연속점에서는 좌우 극한의 평균으로 수렴합니다.</li><li>주기가 없는 신호까지 다루도록 확장한 것이 [[fourier-transform|푸리에 변환]]입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가장 유명한 예는 높이 +1과 −1을 번갈아 갖는 사각파입니다. 사각파는 홀수 고조파만으로 이루어진 급수 <code>(4/π) Σ sin((2k−1)ωt)/(2k−1)</code>로 표현됩니다. 항을 몇 개까지 더하느냐에 따라 정확도가 달라지는데, 급수를 코드로 계산해 불연속점 근처의 최댓값을 보면 다음과 같습니다.</p>\n<table><thead><tr><th>더한 홀수 고조파 수</th><th>최댓값</th><th>튀어나온 정도(도약 크기 2 대비)</th></tr></thead><tbody><tr><td>5</td><td>1.182</td><td>9.1%</td></tr><tr><td>25</td><td>1.179</td><td>9.0%</td></tr><tr><td>100</td><td>1.179</td><td>8.9%</td></tr><tr><td>500</td><td>1.179</td><td>8.9%</td></tr></tbody></table>\n<p>항을 늘려도 튀어나온 정도가 약 9%로 줄지 않는 것이 이 페이지가 말하는 <strong>깁스 현상</strong>입니다. 튀어나온 구간이 점점 좁아질 뿐 높이는 변하지 않습니다(Hewitt &amp; Hewitt, 1979 참조).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>항을 충분히 많이 더하면 불연속점에서도 오차가 사라진다.</td><td>불연속점 부근의 최대 오차는 줄지 않고(약 9%), 좁은 구간에 모일 뿐입니다.</td></tr><tr><td>푸리에 급수는 아무 신호에나 쓴다.</td><td>기본적으로 주기함수를 다룹니다. 비주기 신호에는 푸리에 변환을 씁니다.</td></tr><tr><td>푸리에 급수의 계수는 신호의 시간 정보를 담는다.</td><td>계수는 각 주파수 성분의 크기와 위상을 나타내며, 신호의 한 주기 전체에서 구한 값입니다.</td></tr></tbody></table>\n<p>공학 논문에서는 주기 신호를 유한 개의 고조파로 근사하는 모델을 제안하는 방식으로 자주 등장합니다(Oppenheim 외, 1997).</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 비슷한 세 가지입니다.",
+    "headers": [
+      "용어",
+      "대상",
+      "주파수 성분"
+    ],
+    "rows": [
+      [
+        "푸리에 급수",
+        "주기함수",
+        "기본 주파수의 정수배(이산)"
+      ],
+      [
+        "[[fourier-transform|푸리에 변환]]",
+        "주기가 없는 일반 함수",
+        "연속 주파수"
+      ],
+      [
+        "이산 푸리에 변환(DFT)",
+        "유한 개의 표본값",
+        "표본 수만큼의 이산 주파수"
+      ]
+    ]
+  },
+  "references": [
+    "Folland, G. B. (1992). Fourier Analysis and Its Applications. Wadsworth & Brooks/Cole.",
+    "Hewitt, E., & Hewitt, R. E. (1979). The Gibbs-Wilbraham phenomenon: An episode in Fourier analysis. Archive for History of Exact Sciences, 21(2), 129–160.",
+    "Oppenheim, A. V., Willsky, A. S., & Nawab, S. H. (1997). Signals and Systems (2nd ed.). Prentice Hall."
+  ]
+}

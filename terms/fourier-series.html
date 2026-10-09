@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/fourier-series.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,31 @@
   <p>푸리에 급수는 복잡한 주기 신호를 단순한 사인·코사인 성분들의 합으로 쪼개어 분석할 수 있게 해주기 때문에, 신호처리·진동공학·전력공학 등 주기적으로 반복되는 현상을 다루는 거의 모든 공학 분야에서 기본 분석 도구로 쓰입니다.</p>
   <p>어떤 주파수 성분이 신호의 특성을 좌우하는지 알면, 잡음을 걸러내거나 시스템의 공진 문제를 진단하는 데 활용할 수 있습니다. 또한 편미분방정식의 해를 구하는 고전적 방법(변수분리법)에서도 핵심적인 역할을 하기 때문에 응용수학과 물리학 논문에서도 자주 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>주기가 T인 함수 f(t)를 사인·코사인 항의 합으로 쓴 것이 푸리에 급수입니다.<br><code>f(t) = a<sub>0</sub>/2 + Σ [ a<sub>n</sub> cos(nωt) + b<sub>n</sub> sin(nωt) ]</code>, ω = 2π/T</li><li>n = 1인 항을 기본파, n ≥ 2인 항을 고조파(harmonic)라 하며, 계수 a<sub>n</sub>, b<sub>n</sub>은 함수에 각 사인·코사인을 곱해 한 주기 동안 적분해서 얻습니다(Folland, 1992).</li><li>모든 주기함수가 아니라 <strong>적분 가능한 조건</strong>(예: 구간별 매끈한 함수)에서 급수가 함수로 수렴하며, 불연속점에서는 좌우 극한의 평균으로 수렴합니다.</li><li>주기가 없는 신호까지 다루도록 확장한 것이 <a href="fourier-transform.html">푸리에 변환</a>입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가장 유명한 예는 높이 +1과 −1을 번갈아 갖는 사각파입니다. 사각파는 홀수 고조파만으로 이루어진 급수 <code>(4/π) Σ sin((2k−1)ωt)/(2k−1)</code>로 표현됩니다. 항을 몇 개까지 더하느냐에 따라 정확도가 달라지는데, 급수를 코드로 계산해 불연속점 근처의 최댓값을 보면 다음과 같습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>더한 홀수 고조파 수</th><th>최댓값</th><th>튀어나온 정도(도약 크기 2 대비)</th></tr></thead><tbody><tr><td>5</td><td>1.182</td><td>9.1%</td></tr><tr><td>25</td><td>1.179</td><td>9.0%</td></tr><tr><td>100</td><td>1.179</td><td>8.9%</td></tr><tr><td>500</td><td>1.179</td><td>8.9%</td></tr></tbody></table></div>
+  <p>항을 늘려도 튀어나온 정도가 약 9%로 줄지 않는 것이 이 페이지가 말하는 <strong>깁스 현상</strong>입니다. 튀어나온 구간이 점점 좁아질 뿐 높이는 변하지 않습니다(Hewitt &amp; Hewitt, 1979 참조).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>항을 충분히 많이 더하면 불연속점에서도 오차가 사라진다.</td><td>불연속점 부근의 최대 오차는 줄지 않고(약 9%), 좁은 구간에 모일 뿐입니다.</td></tr><tr><td>푸리에 급수는 아무 신호에나 쓴다.</td><td>기본적으로 주기함수를 다룹니다. 비주기 신호에는 푸리에 변환을 씁니다.</td></tr><tr><td>푸리에 급수의 계수는 신호의 시간 정보를 담는다.</td><td>계수는 각 주파수 성분의 크기와 위상을 나타내며, 신호의 한 주기 전체에서 구한 값입니다.</td></tr></tbody></table></div>
+  <p>공학 논문에서는 주기 신호를 유한 개의 고조파로 근사하는 모델을 제안하는 방식으로 자주 등장합니다(Oppenheim 외, 1997).</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“비틀림 강성과 히스테리시스에 관한 다양한 모델이 제안되었으나, 기구학적 오차는 간단한 푸리에 급수를 활용한 모델만이 제안되었다.”</blockquote><p class="te-cite">B-스플라인 기반의 듀얼 엔코더 토크 측정 알고리즘, 대한기계학회논문집 A, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002863059" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“제안된 방법은 실험을 통해 검증되며, 푸리에 급수의 기존 모델과 비교된다.”</blockquote><p class="te-cite">B-스플라인 기반의 듀얼 엔코더 토크 측정 알고리즘, 대한기계학회논문집 A, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002863059" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"주기적으로 반복되는 진동 신호를 푸리에 급수(Fourier series)로 전개하여 유한 개의 고조파(harmonics) 항으로 근사한 모델을 제안하였다."</div>
   <p>이 문장은 신호처리나 진동 해석 논문에서 흔히 볼 수 있습니다. 반복되는 신호의 각 주파수 성분(고조파)이 얼마나 강한지를 분석해 신호의 특성을 파악하거나, 데이터를 압축하는 데 활용된다는 뜻입니다.</p>
   <div class="example">"전력계통에서 비선형 부하로 인해 발생하는 전류 왜곡은 푸리에 급수로 전개하여 각 고조파 성분의 크기를 정량적으로 평가하였다."</div>
@@ -160,6 +185,19 @@
 
   <h2>주의할 점</h2>
   <p>푸리에 급수는 '주기함수'를 사인·코사인의 이산적인 합으로 나타내는 방법인 반면, <a href="fourier-transform.html">푸리에 변환</a>은 주기가 없는 일반 함수까지 다루기 위해 합을 연속적인 적분으로 확장한 개념입니다. 두 개념은 이름이 비슷하지만 적용 대상(주기 신호 vs 비주기 신호)이 다르므로 혼동하지 않아야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷한 세 가지입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">대상</th><th scope="col">주파수 성분</th></tr></thead><tbody><tr><th scope="row">푸리에 급수</th><td>주기함수</td><td>기본 주파수의 정수배(이산)</td></tr><tr><th scope="row"><a href="fourier-transform.html">푸리에 변환</a></th><td>주기가 없는 일반 함수</td><td>연속 주파수</td></tr><tr><th scope="row">이산 푸리에 변환(DFT)</th><td>유한 개의 표본값</td><td>표본 수만큼의 이산 주파수</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Folland, G. B. (1992). Fourier Analysis and Its Applications. Wadsworth &amp; Brooks/Cole.</li>
+    <li>Hewitt, E., &amp; Hewitt, R. E. (1979). The Gibbs-Wilbraham phenomenon: An episode in Fourier analysis. Archive for History of Exact Sciences, 21(2), 129–160.</li>
+    <li>Oppenheim, A. V., Willsky, A. S., &amp; Nawab, S. H. (1997). Signals and Systems (2nd ed.). Prentice Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

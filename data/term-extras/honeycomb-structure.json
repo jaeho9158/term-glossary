@@ -1,0 +1,59 @@
+{
+  "type": "structure",
+  "fixes": [
+    {
+      "find": "하니컴구조는 면 방향의 압축·전단 강성은 뛰어나지만, 셀이 뚫려 있는 방향(두께 방향)의 국부적인 충격에는 상대적으로 취약해 표피 손상 시 내부 셀이 찌그러질 수 있습니다.",
+      "replace": "하니컴구조는 셀 축 방향(두께 방향)의 압축 강성과 전단 강성은 뛰어나지만, 표피에 가해지는 국부적인 충격에는 상대적으로 취약해 표피 손상 시 내부 셀이 찌그러질 수 있습니다."
+    },
+    {
+      "find": "면 방향의 강도만 보고 두께 방향 충격 저항까지 우수하다고 단정해서는 안 됩니다.",
+      "replace": "두께 방향의 강성만 보고 면 방향 강성이나 국부 충격 저항까지 우수하다고 단정해서는 안 됩니다."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어디에 있고 어떻게 생겼나",
+      "html": "<p>하니컴구조는 얇은 판(알루미늄 호일, 아라미드 종이, 섬유강화 재료 등)을 <strong>육각형 셀이 이어진 벌집 모양</strong>으로 만든 구조입니다. 항공기에서는 주로 두 장의 얇은 표피 사이에 끼우는 심재(core)로 쓰여, 전체가 [[sandwich-structure|샌드위치구조]]([[honeycomb-sandwich-structure|허니콤 샌드위치 구조]])를 이룹니다(Bitzer, 1997).</p>\n<ul><li><strong>왜 육각형인가</strong>: 평면을 같은 면적의 칸으로 나눌 때 둘레 길이가 가장 짧은 방법이 정육각형 격자라는 것이 ‘벌집 추측’이며 Hales(2001)가 증명했습니다. 재료를 적게 쓰면서 칸을 채운다는 직관과 맞습니다.</li><li><strong>얼마나 비어 있나</strong>: 벽 두께 t, 벽 길이 l인 정육각형 셀의 상대밀도는 ρ*/ρ<sub>s</sub> ≈ (2/√3)(t/l)입니다(Gibson &amp; Ashby, 1997). t/l = 0.02이면 약 2.3%로, 심재 부피의 약 98%가 빈 공간입니다.</li></ul>"
+    },
+    {
+      "heading": "맡은 기능",
+      "html": "<p>심재가 맡는 역할은 <strong>두 표피를 일정한 거리로 떼어 놓고 그 사이의 힘을 전달</strong>하는 것입니다. 판의 굽힘 강성은 표피 사이 거리의 제곱에 비례해 커지므로, 가벼운 심재로 거리를 벌리면 무게를 거의 늘리지 않고 굽힘 강성을 크게 올릴 수 있습니다(Zenkert, 1995).</p>\n<p>심재 자체의 강성은 방향마다 매우 다릅니다. Gibson &amp; Ashby(1997)의 분석에서 셀 축 방향(두께 방향)의 강성은 상대밀도에 거의 비례하지만, 셀 벽이 휘는 방향의 강성은 (t/l)의 세제곱에 가깝게 변합니다. 아래는 이 관계를 상대값으로 나타낸 값입니다(가상의 비교, 코드로 계산).</p>\n<table><thead><tr><th>t/l</th><th>상대밀도</th><th>축 방향 강성(상대)</th><th>벽이 휘는 방향 강성(상대)</th></tr></thead><tbody><tr><td>0.01</td><td>약 1.2%</td><td>×0.5</td><td>×0.125</td></tr><tr><td>0.02</td><td>약 2.3%</td><td>×1 (기준)</td><td>×1 (기준)</td></tr><tr><td>0.04</td><td>약 4.6%</td><td>×2</td><td>×8</td></tr></tbody></table>\n<p>이 페이지가 말하는 “셀 크기를 줄이면 강성이 올라가지만 무게도 늘어난다”는 관계와 같은 방향이며, 이방성 때문에 한 방향의 강도만으로 다른 방향을 판단하면 안 된다는 설명과도 이어집니다.</p>"
+    },
+    {
+      "heading": "연구에서 다루는 방식",
+      "html": "<p>연구에서는 셀 크기, 벽 두께, 심재 높이, 재질을 바꾸며 다음을 시험하거나 모델링합니다.</p>\n<ul><li><strong>평탄 압축(flatwise compression)</strong>과 <strong>전단</strong> 시험: 심재 재료의 두께 방향 거동. 표준 시험법으로 ASTM C365(압축), ASTM C273(전단)이 흔히 인용됩니다.</li><li><strong>굽힘과 충격 시험</strong>: 샌드위치 패널의 처짐, 국부 충격에 의한 표피 함몰, 심재 찌그러짐.</li><li><strong>수분과 접합 손상</strong>: 셀 안으로 스며든 물이나 표피와 심재 사이의 박리가 사용 중 문제가 되는 사례가 보고됩니다.</li><li><strong>수치해석</strong>: 심재를 한 방향씩 다른 값을 갖는 균질한 재료로 대체해 계산 비용을 줄이는 방법이 흔합니다.</li></ul>\n<p>논문에는 사용한 심재의 재질, 셀 크기, 벽 두께, 밀도, 시험 방향을 반드시 적어야 결과를 비교할 수 있습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "구조 자체와 그 구조를 쓴 패널은 다릅니다.",
+    "headers": [
+      "용어",
+      "가리키는 것",
+      "관계"
+    ],
+    "rows": [
+      [
+        "하니컴구조",
+        "육각형 셀로 이루어진 벌집 모양의 구조(심재)",
+        "부품"
+      ],
+      [
+        "[[honeycomb-sandwich-structure|허니콤 샌드위치 구조]]",
+        "벌집 심재를 표피 사이에 접합한 복합 구조",
+        "하니컴을 쓴 패널 전체"
+      ],
+      [
+        "[[sandwich-structure|샌드위치구조]]",
+        "표피 사이에 가벼운 심재(벌집이나 폼)를 넣은 구조 일반",
+        "상위 개념"
+      ]
+    ]
+  },
+  "references": [
+    "Gibson, L. J., & Ashby, M. F. (1997). Cellular Solids: Structure and Properties (2nd ed.). Cambridge University Press.",
+    "Bitzer, T. (1997). Honeycomb Technology: Materials, Design, Manufacturing, Applications and Testing. Chapman & Hall.",
+    "Zenkert, D. (1995). An Introduction to Sandwich Construction. Engineering Materials Advisory Services.",
+    "Hales, T. C. (2001). The honeycomb conjecture. Discrete & Computational Geometry, 25(1), 1–22."
+  ]
+}

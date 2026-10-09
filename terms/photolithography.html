@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/photolithography.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,32 @@
   <h2>왜 중요한가</h2>
   <p>포토리소그래피는 반도체 집적도를 결정하는 핵심 공정이기 때문에, 회로 선폭을 얼마나 미세하게 구현할 수 있는지가 곧 반도체 성능과 소형화 경쟁력을 좌우합니다. 이 때문에 반도체공학 연구에서는 더 짧은 파장의 광원(극자외선 등)이나 새로운 감광액 소재를 개발해 해상도 한계를 극복하려는 시도가 핵심 주제로 다뤄집니다. 또한 마이크로유체소자나 미세전자기계시스템(MEMS) 제작처럼 반도체 외의 미세가공 분야에서도 동일한 원리가 폭넓게 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>기본 흐름은 이 페이지의 그림처럼 <strong>감광액 도포 → 노광 → 현상 → 식각</strong>입니다. 문헌에서는 여기에 앞뒤 단계가 더 붙습니다.</p>
+  <ol><li>웨이퍼 표면을 처리하고 포토레지스트를 얇고 고르게 도포합니다.</li><li>가열(소프트 베이크)로 용매를 날려 막을 안정시킵니다.</li><li>마스크(레티클)를 통해 빛을 쬐는 노광으로 회로 모양을 감광막에 옮깁니다.</li><li>노광 후 가열(필요한 레지스트에서)과 현상으로 빛을 받은 부분 또는 받지 않은 부분을 녹여 냅니다.</li><li>남은 감광막을 보호막 삼아 식각하거나 이온을 주입한 뒤 감광막을 제거합니다.</li></ol>
+  <p>이 과정은 한 장의 웨이퍼에서 층마다 반복됩니다. 층을 쌓을 때마다 앞 층과 위치를 맞추는 정렬(overlay)이 중요해서, 노광 장비의 정렬 정확도가 별도의 성능 지표로 논의됩니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>이 공정으로 얻는 핵심 결과는 <strong>얼마나 가는 선을 얼마나 정확하게 새길 수 있는가</strong>입니다. 노광 장비의 해상도는 흔히 레일리 식 형태로 정리합니다.</p>
+  <p><code>CD = k<sub>1</sub> · λ / NA</code> (CD: 구현 가능한 최소 선폭, λ: 빛의 파장, NA: 렌즈의 개구수, k<sub>1</sub>: 공정 계수)</p>
+  <p>가상의 값으로 계산하면 다음과 같습니다(Mack(2007)이 정리한 이 관계식에 숫자를 넣어 본 것이며, 실제 장비 사양이 아닙니다).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>가정</th><th>λ (nm)</th><th>NA</th><th>k<sub>1</sub></th><th>CD (nm)</th></tr></thead><tbody><tr><td>ArF 액침(가상)</td><td>193</td><td>1.35</td><td>0.28</td><td>약 40</td></tr><tr><td>EUV(가상)</td><td>13.5</td><td>0.33</td><td>0.40</td><td>약 16</td></tr></tbody></table></div>
+  <p>파장을 줄이거나 NA를 키우거나 k<sub>1</sub>을 낮추면 선폭이 줄어든다는 점이 이 식의 읽는 법입니다. 다만 k<sub>1</sub>에는 단일 노광에서 이론상 하한(0.25)이 있어, 그 이하로 가려면 다중 패터닝 같은 별도 기법이 필요하다고 문헌에서 설명합니다(Levinson, 2005; Wagner &amp; Harned, 2010). 계산에 쓴 숫자는 위 표에서 그대로 확인할 수 있습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>공정 논문은 어떤 층을 어떤 조건으로 패터닝했는지가 재현 가능하게 적혀야 합니다. 보통 다음을 밝힙니다.</p>
+  <ul><li>광원(파장), 노광 방식(투영·접촉·액침 등), 노광 장비의 NA</li><li>포토레지스트의 종류(포지티브·네거티브), 두께, 베이크·현상 조건</li><li>구현한 최소 선폭과 측정 방법(주사전자현미경 등), 정렬 오차</li><li>식각 또는 이온 주입 등 후속 공정</li></ul>
+  <p>“본 연구에서는 ○○ nm 파장의 노광을 이용해 ○○ nm 선폭을 구현하였다”처럼 파장과 선폭을 함께 적는 문장이 전형적이며, 선폭이 파장보다 작을 때는 어떤 해상도 향상 기법을 썼는지 덧붙입니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 심자외선(DUV) 노광 공정을 이용한 포토리소그래피를 통해 선폭 45nm의 게이트 패턴을 구현하였다."</div>
   <p>이 문장은 연구팀이 특정 파장의 빛(심자외선)을 이용한 포토리소그래피 공정으로, 45나노미터라는 매우 가는 폭의 반도체 회로 선을 실제로 만들어냈다는 뜻입니다.</p>
   <div class="example">"극자외선(EUV) 리소그래피 공정을 적용하여 기존 DUV 공정 대비 더 미세한 패턴을 단일 노광으로 구현할 수 있었다."</div>
@@ -167,6 +193,16 @@
 
   <h2>주의할 점</h2>
   <p>포토리소그래피로 새길 수 있는 회로 선폭은 빛의 파장에 크게 좌우되며, 파장이 짧을수록 더 가는 패턴을 그릴 수 있습니다. 다만 이 공정은 웨이퍼 표면에 패턴만 새길 뿐이며, 실제로 전류가 흐르는 통로를 만들려면 이후 <a href="semiconductor-doping.html">반도체 도핑</a> 같은 별도의 공정으로 특정 부위의 전기적 성질을 바꿔주어야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Mack, C. (2007). Fundamental Principles of Optical Lithography: The Science of Microfabrication. Wiley.</li>
+    <li>Levinson, H. J. (2005). Principles of Lithography (2nd ed.). SPIE Press.</li>
+    <li>Wagner, C., &amp; Harned, N. (2010). Lithography gets extreme. Nature Photonics, 4(1), 24–26.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

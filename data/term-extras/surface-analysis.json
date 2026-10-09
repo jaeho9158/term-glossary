@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>지리정보시스템(GIS)에서 표면분석은 보통 다음 순서로 진행됩니다.</p>\n<ol><li>연속적으로 변하는 현상(고도, 기온, 강수량 등)의 값을 격자(래스터) 표면으로 준비합니다. 측정점만 있으면 먼저 [[spatial-interpolation|공간보간]]으로 표면을 만듭니다.</li><li>각 격자 셀을 중심으로 주변 8개 셀을 함께 보는 이동창(3×3)으로 변화율을 계산합니다.</li><li>경사, 사면향, 곡률, 음영기복도 같은 파생 표면을 만듭니다.</li><li>결과를 등고선·색 단계·음영 등으로 시각화하고 해석합니다.</li></ol>\n<p>예를 들어 [[dem|DEM]]에서 경사를 구하는 방법으로는 Horn(1981)이 제안한 3×3 가중 차분 식이 널리 쓰이며, Zevenbergen &amp; Thorne(1987)의 방법은 곡률 등 2차 파생변수에 쓰입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>표면분석은 관측점 사이의 값을 채우거나, 한 장의 표면에서 여러 지형 정보를 뽑아낼 때 씁니다. [[slope-analysis|경사분석]], 사면향 분석, 가시권 분석, 유역 분석이 모두 같은 표면 자료에서 나옵니다(Burrough &amp; McDonnell, 1998).</p>\n<p>가상의 3×3 DEM으로 Horn 방식의 경사를 계산해 보겠습니다(격자 간격 30 m, 고도 단위 m, 코드로 계산한 값).</p>\n<table><thead><tr><th>행  열</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><th scope=\"row\">1</th><td>100</td><td>102</td><td>105</td></tr><tr><th scope=\"row\">2</th><td>101</td><td>104</td><td>108</td></tr><tr><th scope=\"row\">3</th><td>103</td><td>107</td><td>112</td></tr></tbody></table>\n<p>가운데 셀에서 동서 방향 기울기 dz/dx ≈ 0.117, 남북 방향 dz/dy ≈ 0.083이고, 경사는 arctan(√(dz/dx² + dz/dy²)) ≈ 8.2°입니다. 이 값은 3×3 칸에서 얻은 <strong>추정치</strong>이며 격자 간격이 달라지면 같은 지형에서도 값이 달라집니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>방법 절에는 아래 항목을 밝혀야 다른 사람이 결과를 다시 만들 수 있습니다.</p>\n<ul><li>원자료의 종류와 해상도(DEM의 격자 크기, 출처), 좌표계</li><li>보간을 했다면 방법과 매개변수, 검증 결과</li><li>경사·사면향 등 파생변수를 구한 알고리즘(예: Horn 방식)과 소프트웨어</li><li>다른 자료와 겹칠 때의 재표본화 방법</li></ul>\n<p>결과는 실측값이 아니라 모델링으로 얻은 추정값이므로, 이 페이지의 설명처럼 원자료의 해상도와 오차가 결과에 그대로 반영된다는 점을 한계로 함께 적는 것이 관례입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "표면 자료를 다루는 용어들은 서로 이어져 있습니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "관계"
+    ],
+    "rows": [
+      [
+        "표면분석",
+        "연속 표면에서 변화율·형태 정보를 계산하는 기법의 총칭",
+        "상위 틀"
+      ],
+      [
+        "[[spatial-interpolation|공간보간]]",
+        "측정점 값으로 측정하지 않은 곳의 값을 추정",
+        "표면을 만드는 단계"
+      ],
+      [
+        "[[dem|DEM]]",
+        "표고를 격자로 나타낸 자료",
+        "표면분석의 입력 자료"
+      ],
+      [
+        "[[slope-analysis|경사분석]]",
+        "DEM에서 각 지점의 기울기를 계산",
+        "표면분석의 한 종류"
+      ]
+    ]
+  },
+  "references": [
+    "Burrough, P. A., & McDonnell, R. A. (1998). Principles of Geographical Information Systems. Oxford University Press.",
+    "Horn, B. K. P. (1981). Hill shading and the reflectance map. Proceedings of the IEEE, 69(1), 14–47.",
+    "Zevenbergen, L. W., & Thorne, C. R. (1987). Quantitative analysis of land surface topography. Earth Surface Processes and Landforms, 12(1), 47–56."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/plug-flow-reactor.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,27 @@
   <h2>왜 중요한가</h2>
   <p>PFR은 CSTR과 함께 화학공학에서 반응기 설계의 두 기본 모델 중 하나로, 촉매 공정, 석유화학 정제, 환경 처리 공정 등 관형 장치를 이용하는 거의 모든 연속 공정 연구에서 반응기 성능을 예측하고 설계하는 기준으로 쓰입니다. 실제 산업 반응기는 대체로 PFR이나 CSTR, 혹은 이 둘의 조합으로 근사되기 때문에, 새로운 촉매나 공정을 평가할 때 PFR 모델을 기준으로 전환율과 체류시간 관계를 비교하는 것이 표준적인 접근입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>이상적인 PFR은 <strong>흐름 방향으로 섞임이 없고, 같은 단면에서는 조성이 균일하다</strong>고 가정한 관형 반응기입니다. 모든 유체 요소가 같은 시간 τ = V/v<sub>0</sub>(부피 ÷ 부피유량)을 보내고 나갑니다.</li><li>그 결과 반응물 농도는 입구에서 출구로 갈수록 연속적으로 낮아지고, 반응은 관을 따라 서서히 진행됩니다. 미소 부피에 물질수지를 세워 적분해 설계합니다(Fogler, 2016; Levenspiel, 1999).</li><li>반대편 극단이 <a href="continuous-stirred-tank-reactor.html">연속교반탱크반응기(CSTR)</a>입니다. 내부가 완전히 섞여 어디서나 출구와 같은 농도로 반응합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>1차 비가역 반응(A → 생성물, 속도 r = k·C<sub>A</sub>)에서 전환율은 다음과 같습니다.</p>
+  <p>PFR: X = 1 − e<sup>−kτ</sup> / CSTR: X = kτ / (1 + kτ)</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>kτ</th><th>PFR 전환율</th><th>CSTR 전환율</th></tr></thead><tbody><tr><td>0.5</td><td>0.393</td><td>0.333</td></tr><tr><td>1</td><td>0.632</td><td>0.500</td></tr><tr><td>2</td><td>0.865</td><td>0.667</td></tr><tr><td>4</td><td>0.982</td><td>0.800</td></tr></tbody></table></div>
+  <p>전환율 90%를 얻는 데 필요한 kτ는 PFR이 약 2.30, CSTR이 9.0이므로, 같은 유량·같은 k에서 CSTR은 PFR의 약 3.9배 부피가 필요합니다(코드로 계산). 이 페이지가 “같은 부피에서 PFR이 더 높은 전환율을 낸다”고 하는 설명과 같은 방향입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>PFR이 CSTR보다 언제나 유리하다.</td><td>반응속도가 농도가 높을수록 커지는 일반적인 경우(양의 반응차수)에는 PFR이 유리하지만, 자촉매 반응처럼 속도가 반응 중에 오히려 커지는 경우에는 달라질 수 있습니다(Levenspiel, 1999).</td></tr><tr><td>관형 반응기는 곧 PFR이다.</td><td>실제 관에서는 속도 분포와 확산으로 흐름 방향 혼합(축방향 분산)이 생깁니다. 이상 PFR은 모형입니다.</td></tr><tr><td>이상 PFR과 실제의 차이는 알 수 없다.</td><td>체류시간분포(RTD)를 측정해 이상 거동에서 벗어난 정도를 정량합니다(Danckwerts, 1953). 자세한 내용은 <a href="residence-time-distribution.html">체류시간분포</a> 페이지를 보세요.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 플러그흐름반응기(PFR)를 이용하여 촉매 반응의 전환율을 체류시간의 함수로 측정하였다."</div>
   <p>이 문장은 원료가 관형 반응기를 통과하는 데 걸린 시간(체류시간)에 따라 반응물이 얼마나 생성물로 바뀌었는지(전환율)를 측정했다는 뜻입니다. PFR은 관을 따라 흐르는 위치마다 조성이 다르기 때문에, 반응기 전체 길이에 걸친 반응 결과를 적분하여 계산합니다.</p>
 
@@ -165,6 +186,19 @@
 
   <h2>주의할 점</h2>
   <p>PFR은 <a href="continuous-stirred-tank-reactor.html">연속교반탱크반응기</a>과 자주 비교되는데, 둘은 정반대의 혼합 특성을 가집니다. CSTR은 탱크 내부가 즉시 완전히 섞여 어느 위치에서나 농도가 동일하다고 가정하지만, PFR은 흐름 방향으로 전혀 섞이지 않는다고 가정합니다. 실제 반응기는 이 두 극단 사이 어딘가에 위치하며, 동일한 반응이라도 같은 부피에서 PFR이 CSTR보다 대체로 더 높은 전환율을 낼 수 있다는 점이 자주 오해되지 않도록 주의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>반응기 모델은 혼합 가정으로 구분됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">혼합 가정</th><th scope="col">운전 방식</th></tr></thead><tbody><tr><th scope="row">플러그흐름반응기(PFR)</th><td>흐름 방향으로 혼합 없음</td><td>연속 운전, 위치에 따라 농도 변화</td></tr><tr><th scope="row"><a href="continuous-stirred-tank-reactor.html">CSTR</a></th><td>내부가 완전 혼합, 어디서나 균일</td><td>연속 운전, 출구 농도로 반응</td></tr><tr><th scope="row"><a href="batch-reactor.html">회분식 반응기</a></th><td>내부 완전 혼합, 시간에 따라 농도 변화</td><td>한 번에 투입, 물질 출입 없음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fogler, H. S. (2016). Elements of Chemical Reaction Engineering (5th ed.). Prentice Hall.</li>
+    <li>Levenspiel, O. (1999). Chemical Reaction Engineering (3rd ed.). Wiley.</li>
+    <li>Danckwerts, P. V. (1953). Continuous flow systems: Distribution of residence times. Chemical Engineering Science, 2(1), 1–13.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

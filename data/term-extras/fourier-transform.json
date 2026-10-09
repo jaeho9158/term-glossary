@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>푸리에 변환은 시간(또는 공간)의 함수 f(t)를 주파수의 함수 F(ν)로 바꿉니다. <code>F(ν) = ∫ f(t) e<sup>−i2πνt</sup> dt</code>. F의 크기는 그 주파수 성분이 얼마나 들어 있는지를, 위상은 그 성분의 시작 위치를 나타냅니다(Bracewell, 2000).</li><li>변환은 되돌릴 수 있어서, 같은 정보를 시간 영역과 주파수 영역 양쪽에서 볼 수 있습니다.</li><li>컴퓨터에서는 유한 개의 표본에 대한 이산 푸리에 변환(DFT)을 쓰며, 이를 빠르게 계산하는 알고리즘이 고속 푸리에 변환(FFT)입니다(Cooley &amp; Tukey, 1965).</li><li>주파수 해상도는 관측 시간의 역수입니다. 1초 동안 관측하면 해상도는 1 Hz입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 신호로 확인해 보겠습니다. 5 Hz에서 진폭 2, 12 Hz에서 진폭 0.5인 두 사인파를 더한 신호를 초당 100번(100 Hz) 표본화해 1초 분량의 FFT를 코드로 계산했습니다.</p>\n<table><thead><tr><th>FFT에서 나온 큰 성분</th><th>주파수 (Hz)</th><th>진폭</th></tr></thead><tbody><tr><td>1번째</td><td>5</td><td>2.0</td></tr><tr><td>2번째</td><td>12</td><td>0.5</td></tr><tr><td>그 밖의 성분</td><td>—</td><td>0</td></tr></tbody></table>\n<p>시간 파형만 보면 두 파가 섞여 구분이 어렵지만 주파수 영역에서는 두 개의 뚜렷한 봉우리로 나타납니다. 실제 자료에서는 잡음과 표본화로 인해 봉우리가 퍼지고 다른 주파수 성분이 조금씩 생깁니다.</p>\n<p>이 도구는 분광(FT-IR), X선 결정 구조 해석, 영상 필터링, 임피던스 측정 등 서로 다른 분야에서 같은 원리로 쓰입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>푸리에 변환은 “언제 그 주파수가 나타났는지”도 알려준다.</td><td>전체 구간의 성분만 알려 줍니다. 시간에 따라 주파수가 바뀌면 단시간 푸리에 변환(STFT)이나 웨이블릿 변환을 씁니다.</td></tr><tr><td>FFT는 푸리에 변환과 다른 방법이다.</td><td>FFT는 이산 푸리에 변환을 빠르게 계산하는 알고리즘일 뿐 같은 결과를 줍니다.</td></tr><tr><td>고주파 성분은 모두 잡음이다.</td><td>날카로운 모서리나 짧은 펄스도 고주파 성분을 가집니다. 제거하면 신호 자체가 변형됩니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "푸리에 계열 용어는 대상에 따라 구분됩니다.",
+    "headers": [
+      "용어",
+      "대상",
+      "결과"
+    ],
+    "rows": [
+      [
+        "[[fourier-series|푸리에 급수]]",
+        "주기함수",
+        "이산 주파수의 계수"
+      ],
+      [
+        "푸리에 변환",
+        "비주기 포함 일반 함수",
+        "연속 스펙트럼"
+      ],
+      [
+        "DFT / FFT",
+        "유한 개의 표본",
+        "이산 스펙트럼(FFT는 빠른 계산법)"
+      ],
+      [
+        "[[fourier-transform-infrared-spectroscopy|FT-IR 분광법]]",
+        "적외선 분광 측정 기법",
+        "간섭 신호를 푸리에 변환해 스펙트럼 획득"
+      ]
+    ]
+  },
+  "references": [
+    "Bracewell, R. N. (2000). The Fourier Transform and Its Applications (3rd ed.). McGraw-Hill.",
+    "Cooley, J. W., & Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. Mathematics of Computation, 19(90), 297–301.",
+    "Oppenheim, A. V., Willsky, A. S., & Nawab, S. H. (1997). Signals and Systems (2nd ed.). Prentice Hall."
+  ]
+}
