@@ -1,0 +1,60 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>회귀불연속설계(RDD)는 처치가 <strong>배정변수(running variable)가 기준값(절단점 c)을 넘는지</strong>로 정해질 때 쓰는 설계입니다. 예를 들어 시험 점수 80점 이상에게 장학금을 주는 경우 배정변수는 점수, 절단점은 80입니다.</p>\n<ol>\n<li><strong>설계 유형 확인.</strong> 기준을 넘으면 모두 처치를 받는 <strong>명료한(sharp)</strong> 설계인지, 기준을 넘으면 처치를 받을 확률만 크게 높아지는 <strong>모호한(fuzzy)</strong> 설계인지 구분합니다. 모호한 설계는 기준점 위·아래에서 결과의 점프를 처치 확률의 점프로 나누는 방식(도구변수와 같은 구조)으로 추정합니다.</li>\n<li><strong>절단점 양쪽을 따로 적합.</strong> 절단점 가까이의 관측치(대역폭 안)만 써서 좌우에서 각각 국소 선형회귀를 적합하고, 절단점에서 두 직선의 값의 차이를 처치 효과로 봅니다.</li>\n<li><strong>대역폭 선택.</strong> 대역폭이 좁으면 편향은 줄지만 표본이 적어 분산이 커지고, 넓으면 반대입니다. 임벤스·칼리야나라만(2012)이나 칼로니코·카타네오·티투닉(2014)의 자료 기반 선택 방법이 많이 쓰입니다.</li>\n<li><strong>타당성 점검.</strong> 아래 ‘보고’ 항목의 점검을 합니다.</li>\n</ol>\n<p>핵심 가정은 <strong>절단점에서 처치 외의 모든 요인이 연속적으로 변한다</strong>는 것입니다. 사람들이 점수를 정확히 조작해 기준을 넘기지 못한다는 조건이 여기에 해당합니다. 이 조건이 지켜지면 기준점 바로 위와 아래의 사람들은 사실상 무작위로 갈린 것과 같다고 볼 수 있습니다(Lee, 2008).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>언제 쓰나.</strong> 정책이 점수, 나이, 소득, 득표율 같은 연속적 변수의 기준으로 갈릴 때입니다. 장학금과 입학 컷, 나이 기준 제도(만 65세 이후 복지 혜택), 득표율 50%를 넘긴 후보의 당선, 규모 기준 지원사업 등이 이에 해당합니다.</p>\n<p><strong>무엇을 얻나.</strong> 기준점 근처에서의 <strong>국소적 처치 효과</strong>입니다. 모호한 설계에서는 기준점 근처에서 기준에 따라 처치를 받게 되는 사람들(순응자)의 효과입니다. 기준점에서 멀리 떨어진 대상까지 일반화하기는 어렵습니다.</p>\n<p><strong>한계.</strong> ① 기준점 근처에 관측치가 충분히 필요합니다. ② 높은 차수의 다항식을 전체 범위에 적용하면 기준점 근처의 추정이 불안정해지므로 권하지 않습니다(Gelman &amp; Imbens, 2019). ③ 같은 기준점에서 여러 정책이 동시에 바뀌면 효과를 가려내기 어렵습니다. ④ 설계가 타당해도 외적 타당성이 제한적입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul>\n<li>배정변수와 절단점, 처치 규칙(sharp/fuzzy)을 정의하고 정책 배경을 설명합니다.</li>\n<li><strong>그림</strong>: 배정변수 구간별 평균 결과를 점으로 찍고 절단점에서 점프가 보이는지 보여 줍니다. 가장 중요한 증거로 취급됩니다.</li>\n<li>추정 방법: 국소 선형/다항 차수, 커널, 대역폭 선택 방식과 선택된 값. 신뢰구간 계산 방식(예: 편향 보정 강건 신뢰구간).</li>\n<li><strong>조작 검정</strong>: 절단점 주변 밀도의 불연속 여부(McCrary, 2008).</li>\n<li><strong>사전 결정 공변량</strong>의 연속성: 절단점에서 처치와 무관한 변수(성별, 이전 성적 등)가 점프하지 않는지.</li>\n<li>민감도: 대역폭을 바꿔도, 가짜 절단점을 두어도 결과가 유지되는지.</li>\n<li>해석 범위: 추정치가 절단점 근처의 국소 효과임을 명시합니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "정책 효과를 추정하는 준실험 방법들이 서로 닮았습니다.",
+    "headers": [
+      "방법",
+      "비교하는 것",
+      "일반화 범위"
+    ],
+    "rows": [
+      [
+        "회귀불연속설계",
+        "기준점 바로 위와 아래",
+        "기준점 근처"
+      ],
+      [
+        "[[propensity-score-matching|성향점수매칭]]",
+        "관찰된 특성이 비슷한 개체",
+        "매칭된 표본"
+      ],
+      [
+        "[[difference-in-differences|이중차분법]]",
+        "처치 전후 변화의 집단 간 차이",
+        "처치 집단"
+      ],
+      [
+        "[[instrumental-variable|도구변수]]",
+        "도구변수가 움직이는 부분만큼의 변화",
+        "순응자"
+      ],
+      [
+        "[[natural-experiment|자연실험]]",
+        "우연한 사건으로 갈린 집단",
+        "사건에 따라 다름"
+      ]
+    ]
+  },
+  "references": [
+    "Thistlethwaite, D. L., & Campbell, D. T. (1960). Regression-discontinuity analysis: An alternative to the ex post facto experiment. Journal of Educational Psychology, 51(6), 309–317.",
+    "Imbens, G. W., & Lemieux, T. (2008). Regression discontinuity designs: A guide to practice. Journal of Econometrics, 142(2), 615–635.",
+    "Lee, D. S., & Lemieux, T. (2010). Regression discontinuity designs in economics. Journal of Economic Literature, 48(2), 281–355.",
+    "McCrary, J. (2008). Manipulation of the running variable in the regression discontinuity design: A density test. Journal of Econometrics, 142(2), 698–714.",
+    "Calonico, S., Cattaneo, M. D., & Titiunik, R. (2014). Robust nonparametric confidence intervals for regression-discontinuity designs. Econometrica, 82(6), 2295–2326."
+  ]
+}

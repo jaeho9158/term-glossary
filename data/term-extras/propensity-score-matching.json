@@ -1,0 +1,60 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>성향점수는 관찰된 특성 X가 같을 때 처치를 받을 확률, e(X) = P(처치 = 1 | X)입니다. 로즈바움과 루빈(1983)은 처치 여부가 X와 무관해지도록 맞추는 데 X 전체 대신 이 점수 하나만 맞추면 충분하다는 성질을 보였습니다. 절차는 보통 다음과 같습니다.</p>\n<ol>\n<li><strong>성향점수 추정.</strong> 처치 여부를 종속변수로 두고 공변량으로 로지스틱(또는 프로빗) 회귀를 돌려 개체마다 점수를 얻습니다. 공변량은 처치와 결과 모두에 영향을 줄 만한 변수를 처치 <em>이전</em> 시점에서 고릅니다.</li>\n<li><strong>매칭.</strong> 처치 집단의 각 개체에 점수가 가까운 대조 개체를 짝지웁니다. 가장 가까운 한 명을 고르는 최근접이웃, 허용 거리(캘리퍼)를 두는 방식, 여러 명을 가중하는 커널 방식이 있습니다. 대조 개체를 다시 쓸 수 있는지(복원), 몇 명을 붙이는지(1:1, 1:k)도 정해야 합니다.</li>\n<li><strong>균형 진단.</strong> 매칭 후에 공변량 분포가 두 집단에서 비슷해졌는지 확인합니다. 지표는 표준화 평균차(SMD)가 흔히 쓰이고, 처치 집단과 대조 집단의 점수가 겹치는 구간(공통지지)이 있는지도 봅니다.</li>\n<li><strong>효과 추정.</strong> 매칭된 표본에서 처치 집단 평균 효과(ATT)를 계산합니다.</li>\n</ol>\n<p>핵심 가정은 두 가지입니다. ① 처치 여부에 영향을 주는 변수가 모두 관찰되었다는 <strong>강한 무시가능성</strong>, ② 모든 X에서 처치를 받을 확률이 0과 1 사이라는 <strong>공통지지</strong>입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>언제 쓰나.</strong> 무작위 배정이 불가능하고, 처치(정책 참여, 지원 사업, 수술 등)를 받은 집단과 받지 않은 집단이 처음부터 달랐을 때입니다. 한국 논문에서는 중소기업 지원사업의 성과, 정책도구 인식과 혁신, 졸업생의 직업 이동, 농가 지원사업 평가 등에서 성향점수매칭을 쓰고, 매칭 후 사업 전후 변화를 비교하는 <strong>이중차분(DID)</strong>과 합친 PSM-DID도 많이 쓰입니다.</p>\n<p><strong>균형 진단의 가상 예.</strong> 처치 집단의 평균 나이가 52세, 대조 집단이 44세이고 표준편차가 둘 다 10이라면 SMD = (52 − 44) / 10 = 0.8입니다. 매칭 후 대조 집단의 평균이 51세가 되었다면 SMD = (52 − 51) / 10 = 0.1입니다. 이처럼 절댓값이 작을수록 균형이 좋다고 보며, 0.1 이하를 기준으로 삼는 것이 관례입니다(0.25를 쓰는 경우도 있어 확정된 규칙은 아닙니다).</p>\n<p><strong>무엇을 얻나.</strong> 관찰된 변수만큼은 처치 집단과 닮은 대조군을 만들어, 그 변수들의 차이 때문에 생긴 왜곡을 줄입니다. 한편 <strong>관찰되지 않은 요인</strong>이 처치와 결과에 함께 영향을 준다면 편향은 남습니다. 킹과 닐슨(2019)은 성향점수로 매칭하는 방식이 오히려 불균형과 모형 의존성을 키울 수 있다고 비판해, 다른 매칭 방법을 권합니다. 성향점수 모형은 처치를 잘 예측하는 것이 목표가 아니라 공변량 균형을 맞추는 것이 목표라는 점도 자주 지적됩니다(Austin, 2011).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul>\n<li>처치와 결과의 정의, 비교 대상(처치 집단과 대조 집단)과 선택 방식.</li>\n<li>성향점수 모형: 어떤 공변량을 넣었고 왜 처치 이전의 변수로 판단했는지, 추정 방법(로짓 등).</li>\n<li>매칭 알고리즘과 설정: 최근접이웃·캘리퍼·커널, 복원 여부, 1:1 또는 1:k, 캘리퍼 크기.</li>\n<li>매칭 전후 <strong>균형 표</strong>(공변량별 평균, SMD)와 점수 분포 그림(공통지지 확인).</li>\n<li>매칭 후 표본 크기와 매칭되지 못해 제외된 처치 개체 수.</li>\n<li>효과 추정치(ATT)와 표준오차 계산 방법. 최근접이웃 매칭 추정량에서는 부트스트랩이 타당하지 않다는 지적이 있어(Abadie &amp; Imbens, 2008) 전용 표준오차를 쓰는지 밝힙니다.</li>\n<li>민감도 분석: 관찰되지 않은 교란이 얼마나 강해야 결론이 뒤집히는지(예: Rosenbaum 한계).</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "관찰 자료에서 인과 효과를 추정하는 방법들이 서로 비교됩니다.",
+    "headers": [
+      "방법",
+      "교란을 다루는 방식",
+      "필요한 핵심 가정"
+    ],
+    "rows": [
+      [
+        "성향점수매칭",
+        "관찰된 특성이 비슷한 개체끼리 비교",
+        "관찰되지 않은 교란이 없다(무시가능성)"
+      ],
+      [
+        "[[difference-in-differences|이중차분법]]",
+        "처치 전후 변화를 집단 사이에서 비교",
+        "처치가 없었다면 두 집단의 추세가 평행했을 것"
+      ],
+      [
+        "[[regression-discontinuity-design|회귀불연속설계]]",
+        "기준점 바로 위·아래를 비교",
+        "기준점 근처에서 결과가 연속적"
+      ],
+      [
+        "[[instrumental-variable|도구변수]]",
+        "처치에만 영향을 주는 외부 변수를 이용",
+        "도구변수가 결과에 직접 영향이 없다(배제제약)"
+      ],
+      [
+        "[[randomized-controlled-trial|무작위대조시험]]",
+        "무작위 배정으로 집단을 처음부터 동등하게",
+        "배정이 실제로 무작위"
+      ]
+    ]
+  },
+  "references": [
+    "Rosenbaum, P. R., & Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41–55.",
+    "Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. Journal of Economic Surveys, 22(1), 31–72.",
+    "Stuart, E. A. (2010). Matching methods for causal inference: A review and a look forward. Statistical Science, 25(1), 1–21.",
+    "Austin, P. C. (2011). An introduction to propensity score methods for reducing the effects of confounding in observational studies. Multivariate Behavioral Research, 46(3), 399–424.",
+    "King, G., & Nielsen, R. (2019). Why propensity scores should not be used for matching. Political Analysis, 27(4), 435–454."
+  ]
+}

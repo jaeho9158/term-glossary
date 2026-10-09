@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/instrumental-variable.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,51 @@
   <p>노동경제학, 보건경제학, 정치경제학 등 관찰자료를 다루는 분야에서는 처치가 무작위로 배정되지 않아 내생성 문제가 거의 항상 발생합니다.</p>
   <p>도구변수는 이런 상황에서도 인과효과를 식별할 수 있게 해주는 대표적인 방법이기 때문에, 실증연구 논문에서 식별전략(identification strategy)을 설명할 때 빠지지 않고 등장합니다. 최근에는 자연실험이나 정책 변화, 지리적·역사적 특성 등을 도구변수로 활용하는 창의적인 설계도 활발히 논의되고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>설명변수 X(예: 교육 연수)가 오차항과 상관되어 있으면(내생성) 회귀 계수는 편향됩니다. 도구변수 Z는 이 문제를 풀기 위한 외부 변수로 다음 조건이 필요합니다.</p>
+  <ol>
+  <li><strong>관련성</strong>: Z가 X와 상관되어 있다.</li>
+  <li><strong>외생성</strong>: Z는 오차항(관찰되지 않은 교란요인)과 상관되지 않는다.</li>
+  <li><strong>배제제약</strong>: Z는 X를 통해서만 결과 Y에 영향을 준다.</li>
+  </ol>
+  <p>가장 흔한 추정은 <strong>2단계 최소제곱(2SLS)</strong>입니다. 1단계에서 X를 Z(와 통제변수)에 회귀해 예측값 X̂를 구하고, 2단계에서 Y를 X̂에 회귀합니다. Z가 하나이고 X, Z가 둘 다 변수 하나씩이면 IV 추정치는 Cov(Z, Y) / Cov(Z, X)입니다. Z가 0 또는 1이라면 (Z=1일 때 Y 평균 − Z=0일 때 Y 평균) / (Z=1일 때 X 평균 − Z=0일 때 X 평균)이 되어 ‘왈드(Wald) 추정량’이라고 부릅니다. 직접 두 번 회귀하면 두 번째 회귀의 표준오차가 틀리므로 통계 프로그램의 IV 명령을 사용합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>작은 모의실험(가상).</strong> 관찰되지 않은 능력 u가 있어 X(교육)와 Y(소득)에 모두 영향을 주는 자료를 만들었습니다. 진짜 효과는 0.5이고, 도구변수 Z는 X에만 영향을 줍니다(표본 100,000, 난수 고정).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>추정 방법</th><th>X의 계수</th></tr></thead><tbody>
+  <tr><td>진짜 값(자료를 만든 값)</td><td>0.50</td></tr>
+  <tr><td>OLS (u를 통제하지 못함)</td><td>0.90</td></tr>
+  <tr><td>도구변수(2SLS)</td><td>0.50</td></tr>
+  </tbody></table></div>
+  <p>OLS는 능력 때문에 효과를 크게 잡고(0.90), 도구변수는 진짜 값에 가깝습니다. 현실에서는 진짜 값을 모르고, 도구변수가 정말 조건을 지키는지가 문제입니다.</p>
+  <p><strong>실제 연구 예.</strong> 카드(Card, 1995)는 가까운 대학까지의 거리를 교육의 도구변수로 사용했고, 앵그리스트와 크루거(1991)는 출생 분기를 이용했습니다. 이 사례들은 배제제약에 대한 논쟁도 불러왔습니다. 예를 들어 집 근처에 대학이 있는 지역이 노동시장도 좋다면 거리가 소득에 직접 영향을 줄 수 있습니다.</p>
+  <p><strong>무엇을 얻나.</strong> 이질적 효과가 있는 경우 도구변수 추정치는 도구변수에 의해 처치 여부가 달라지는 사람들(순응자)의 평균 효과, 즉 <strong>국소평균처치효과(LATE)</strong>입니다(Imbens &amp; Angrist, 1994). 모집단 전체의 효과와 다를 수 있습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul>
+  <li><strong>도구변수의 이론적 근거</strong>: 왜 Z가 X에는 영향을 주고 Y에는 X를 거치지 않으면 영향을 주지 않는지. 배제제약은 데이터로 증명할 수 없으므로 논증이 중심입니다.</li>
+  <li><strong>1단계 결과</strong>: Z의 계수와 1단계 F 통계량. 약한 도구변수는 추정치를 편향시키고 분산을 키우며(Bound, Jaeger, &amp; Baker, 1995), F가 10 미만이면 우려한다는 것이 스타이거와 스톡(1997)이 제시한 어림 기준입니다. 더 엄밀한 기준은 스톡과 요고(2005)의 임계값을 참조합니다.</li>
+  <li><strong>OLS와 IV의 나란한 비교</strong>와 둘이 크게 다른 이유에 대한 해석.</li>
+  <li><strong>표준오차</strong>: 이분산이나 군집을 고려한 강건 표준오차.</li>
+  <li><strong>과대식별 검정</strong>(도구변수가 2개 이상일 때 Sargan/Hansen J): 도구변수들끼리 일관적인지 검정합니다. 통과해도 배제제약이 맞다는 증명은 아닙니다.</li>
+  <li><strong>내생성 검정</strong>(Durbin–Wu–Hausman): OLS와 IV가 실제로 다른지.</li>
+  <li>해석 범위: 추정치가 LATE임을 명시하고, 약한 도구변수에도 유효한 신뢰구간(Anderson–Rubin)을 함께 제시하기도 합니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 연구의 목적은 (1) 회귀분석에서 내생성(endogeneity)이 발생하는 주요 원인을 살펴보고, (2) 이러한 내생성의 해결방안 중 하나인 도구변수(instrumental variable)를 소개하면서 활용 가능성을 제시하는 것이다.”</blockquote><p class="te-cite">도구변수의 활용: 정책학･행정학 연구를 중심으로, 현대사회와 행정, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002386321" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“특히, 보험 가입으로 인한 의료 이용 증가를 규명하는 인과관계분석에서는 도구변수를 활용하거나 결합모형 및 성향매칭분석 방법을 적용하여 보험 가입의 내생성 문제를 극복하고자 하였다.”</blockquote><p class="te-cite">민간의료보험, 공보험과의 공진화: 최근 20년간 우리나라의 민간의료보험 연구 동향, 보건경제와 정책연구, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002273010" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“신뢰와 건강에 동시에 영향을 미치는 요인이나, 건강이 오히려 신뢰에 영향을 미치는 역 인과관계(reverse causality), 혹은 관측되지 않는 누락된 변수(omitted variable) 등의 내생성 문제를 해결하기 위해 도구변수 기법을 사용하였다.”</blockquote><p class="te-cite">신뢰가 중국인의 건강에 미치는 영향 －도구변수 분석－, 동북아경제연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002915091" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"거주지에서 가장 가까운 대학까지의 거리를 대학 진학 여부의 도구변수로 사용하여 내생성 문제를 완화하였다."</div>
   <p>대학까지의 거리라는, 소득에 직접 영향을 주지 않는 변수를 이용해 교육이 소득에 미치는 효과를 더 정확하게 추정하려 했다는 뜻입니다.</p>
   <div class="example">"강수량 변동을 농업 생산성 충격의 도구변수로 사용하여 소득이 분쟁 발생에 미치는 인과효과를 추정하였다."</div>
@@ -164,6 +209,21 @@
 
   <h2>주의할 점</h2>
   <p>좋은 도구변수를 찾기는 매우 어렵습니다. 그 변수가 정말로 결과에 직접적인 영향을 주지 않는지(배제 제약)는 데이터만으로 증명할 수 없어, 이론적 논증이 함께 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>내생성을 다루는 용어들이 서로 얽혀 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><a href="instrumental-variable.html">도구변수</a></th><td>원인에는 영향을 주되 결과에는 원인을 통해서만 영향을 주는 변수</td><td>문제를 푸는 도구</td></tr><tr><th scope="row"><a href="two-stage-least-squares.html">2단계 최소제곱법</a></th><td>도구변수를 이용한 대표적 추정 방법</td><td>추정 방법</td></tr><tr><th scope="row"><a href="endogeneity.html">내생성</a></th><td>설명변수가 오차항과 상관되어 추정이 편향되는 문제</td><td>풀어야 할 문제</td></tr><tr><th scope="row"><a href="omitted-variable-bias.html">누락변수 편향</a></th><td>중요한 변수를 빠뜨려서 생기는 편향</td><td>내생성이 생기는 원인의 하나</td></tr><tr><th scope="row"><a href="exclusion-restriction.html">배제제약</a></th><td>도구변수가 결과에 직접 영향을 주지 않는다는 가정</td><td>도구변수의 핵심 가정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Angrist, J. D., &amp; Krueger, A. B. (1991). Does compulsory school attendance affect schooling and earnings? The Quarterly Journal of Economics, 106(4), 979–1014.</li>
+    <li>Bound, J., Jaeger, D. A., &amp; Baker, R. M. (1995). Problems with instrumental variables estimation when the correlation between the instruments and the endogenous explanatory variable is weak. Journal of the American Statistical Association, 90(430), 443–450.</li>
+    <li>Imbens, G. W., &amp; Angrist, J. D. (1994). Identification and estimation of local average treatment effects. Econometrica, 62(2), 467–475.</li>
+    <li>Staiger, D., &amp; Stock, J. H. (1997). Instrumental variables regression with weak instruments. Econometrica, 65(3), 557–586.</li>
+    <li>Angrist, J. D., &amp; Pischke, J.-S. (2009). Mostly Harmless Econometrics: An Empiricist's Companion. Princeton University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
