@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,30 @@
   <h2>왜 중요한가</h2>
   <p>로봇 자세를 노드로, 오도메트리와 관측을 간선 제약으로 두고 전체를 비선형 최소제곱으로 푸는 방식으로, 대규모 환경에서 일관된 지도를 만드는 현대 SLAM의 표준 구조입니다. <a href="pose-graph-optimization.html">포즈그래프 최적화</a> 라이브러리들이 널리 쓰이며 라이다·비주얼 SLAM 모두 이 뼈대를 공유합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>그래프기반 SLAM은 문제를 <strong>자세 그래프(pose graph)</strong>로 바꿔 푸는 방법입니다. 노드는 로봇의 시간별 자세(필요하면 랜드마크), 에지는 두 노드 사이의 상대 측정(오도메트리, 루프클로저)입니다(Lu &amp; Milios, 1997; Thrun &amp; Montemerlo, 2006).</p>
+  <ol><li><strong>프런트엔드</strong>: 센서 데이터에서 제약을 만듭니다. 연속한 자세 사이의 상대 변환은 오도메트리나 스캔 정합으로, 먼 자세 사이의 제약은 <a href="slam.html">SLAM</a>의 루프클로저 검출로 얻습니다.</li><li><strong>백엔드</strong>: 모든 제약의 오차를 합친 목적함수를 최소화합니다. 각 에지의 오차를 정보행렬로 가중해 제곱합을 만들고(마할라노비스 거리), 이를 비선형 최소제곱으로 풉니다. 가우스-뉴턴이나 레벤버그-마쿼트로 반복하며, 선형화한 연립방정식이 희소하다는 점을 활용합니다(Grisetti et al., 2010).</li><li><strong>기준 고정</strong>: 전체를 평행이동해도 목적함수는 같으므로, 첫 자세를 고정해 해를 유일하게 만듭니다.</li><li><strong>이상치 처리</strong>: 잘못된 루프클로저 에지가 지도를 크게 왜곡할 수 있으므로 강건 비용함수나 이상치 거부를 씁니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 1차원 예(숫자는 설명용)로 ‘오차가 그래프 전체에 퍼진다’는 점을 봅니다. 자세 x0=0에서 출발해 세 번 이동했고 오도메트리는 매번 1.0을 가리킵니다. 그러나 루프클로저는 x3가 x0에서 2.7만큼 떨어져 있다고 말합니다. 모든 제약에 같은 가중치를 주고 최소제곱으로 풀면 결과는 다음과 같습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>노드</th><th>오도메트리만 쓴 값</th><th>최적화 후</th></tr></thead><tbody><tr><td>x1</td><td>1.0</td><td>0.925</td></tr><tr><td>x2</td><td>2.0</td><td>1.850</td></tr><tr><td>x3</td><td>3.0</td><td>2.775</td></tr></tbody></table></div>
+  <p>세 오도메트리 에지와 루프클로저 에지가 각각 0.075만큼씩 어긋난 값을 나누어 떠안습니다. 한 에지에 모든 오차를 몰아주지 않고 전체에 분산하는 것이 최적화의 결과입니다. 정보행렬로 가중치를 다르게 주면 분배가 달라집니다.</p>
+  <ul><li><strong>쓰임</strong>: 대규모 환경에서 일관된 지도를 만드는 현대 SLAM의 표준 구조이며, 라이다 SLAM과 비주얼 SLAM이 이 뼈대를 공유합니다. 프런트엔드가 센서별로 제약을 만들고 백엔드는 그대로 재사용할 수 있습니다.</li><li><strong>실시간성</strong>: 처음에는 후처리에 적합한 방식으로 보였지만, 증분식 해법(Kaess et al., 2012)으로 실시간 동작이 가능해졌습니다. g2o(Kümmerle et al., 2011) 같은 라이브러리가 널리 쓰입니다.</li><li><strong>비교</strong>: <a href="kalman-filter.html">칼만 필터</a>를 쓰는 EKF-SLAM은 과거를 요약해 현재 상태만 유지하지만, 그래프 방식은 전체 궤적을 유지해 재선형화가 가능합니다. 지도 표현은 <a href="occupancy-grid-map.html">점유격자지도</a>와 병용되기도 합니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>그래프기반 SLAM 논문은 방법을 다음처럼 서술하는 편입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>그래프 구성</td><td>노드·에지의 정의, 에지를 만드는 프런트엔드(스캔 정합, 특징 정합)</td></tr><tr><td>루프클로저</td><td>검출 방법, 오검출 처리(강건 커널, 이상치 거부)</td></tr><tr><td>최적화</td><td>목적함수, 정보행렬 설정, 사용한 솔버와 라이브러리</td></tr><tr><td>평가</td><td>궤적 오차(절대·상대), 지도 품질, 계산 시간, 데이터셋 이름</td></tr></tbody></table></div>
+  <p>평가에서 가장 먼저 확인할 점은 루프클로저를 잘못 잡았을 때 결과가 어떻게 되는지를 보였는지입니다. 이를 보이지 않으면 방법이 실제 환경의 오검출에 얼마나 견디는지 알 수 없습니다. 이 분야의 개관은 Cadena 등(2016)에서 볼 수 있습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Graph-SLAM은 비선형 최소제곱 문제로 정식화되어, 모든 제약 조건의 마할라노비스 거리 제곱합을 최소화하는 자세들의 집합을 구한다.</div>
   <p>각 제약이 어긋난 정도를 오차로 보고, 이 오차 총합이 가장 작아지는 방향으로 그래프 전체의 노드 위치를 반복적으로 최적화한다는 뜻입니다.</p>
   <div class="example">루프 클로저를 잘못 검출해 서로 다른 두 지점을 같은 장소로 오인하면, 이후 최적화 과정에서 지도 전체가 크게 왜곡될 수 있다.</div>
@@ -161,6 +185,22 @@
 
   <h2>주의할 점</h2>
   <p>온라인 실시간 처리보다는 후처리(batch) 최적화에 강점이 있어, 실시간성이 중요하면 증분식 최적화 기법과 결합해야 합니다. 잘못된 루프클로저 에지 하나가 전체 그래프에 섞이면 강건 커널 없이는 최적화가 크게 왜곡된 지도로 수렴할 수 있어, 이상치 제거 절차가 실무에서 필수적이다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>SLAM 관련 용어는 문제와 해법의 층위가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">층위</th><th scope="col">설명</th></tr></thead><tbody><tr><th scope="row"><a href="slam.html">SLAM</a></th><td>문제</td><td>지도를 만들면서 자기 위치를 추정하는 문제 전체</td></tr><tr><th scope="row">그래프기반 SLAM</th><td>해법 틀</td><td>자세 그래프를 최적화해 푸는 접근</td></tr><tr><th scope="row"><a href="kalman-filter.html">칼만 필터</a></th><td>추정 기법</td><td>EKF-SLAM에서 현재 상태를 순차적으로 추정</td></tr><tr><th scope="row"><a href="occupancy-grid-map.html">점유격자지도</a></th><td>지도 표현</td><td>격자 셀의 점유 확률로 환경을 나타냄</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lu, F., &amp; Milios, E. (1997). Globally consistent range scan alignment for environment mapping. Autonomous Robots, 4(4), 333–349.</li>
+    <li>Thrun, S., &amp; Montemerlo, M. (2006). The GraphSLAM algorithm with applications to large-scale mapping of urban structures. International Journal of Robotics Research, 25(5–6), 403–429.</li>
+    <li>Grisetti, G., Kümmerle, R., Stachniss, C., &amp; Burgard, W. (2010). A tutorial on graph-based SLAM. IEEE Intelligent Transportation Systems Magazine, 2(4), 31–43.</li>
+    <li>Kümmerle, R., Grisetti, G., Strasdat, H., Konolige, K., &amp; Burgard, W. (2011). g2o: A general framework for graph optimization. In Proceedings of the IEEE International Conference on Robotics and Automation (ICRA).</li>
+    <li>Kaess, M., Johannsson, H., Roberts, R., Ila, V., Leonard, J. J., &amp; Dellaert, F. (2012). iSAM2: Incremental smoothing and mapping using the Bayes tree. International Journal of Robotics Research, 31(2), 216–235.</li>
+    <li>Cadena, C., Carlone, L., Carrillo, H., Latif, Y., Scaramuzza, D., Neira, J., Reid, I., &amp; Leonard, J. J. (2016). Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. IEEE Transactions on Robotics, 32(6), 1309–1332.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

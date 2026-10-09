@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>시스템 x' = Ax + Bu에 상태 피드백 u = −Kx를 걸면 폐루프 행렬은 A − BK가 됩니다. 극배치 설계는 <strong>A − BK의 고유값(폐루프 극점)이 원하는 위치에 오도록 K를 정하는 것</strong>입니다.</p>\n<ol><li>요구 성능(오버슈트, 정착시간, 감쇠비)을 목표 극점으로 바꿉니다.</li><li>쌍 (A, B)가 <strong>제어가능</strong>한지 확인합니다. 제어가능성 행렬의 계수가 상태 수 n과 같으면 극점을 임의로 옮길 수 있다는 것이 Wonham(1967)의 결과입니다.</li><li>특성다항식을 맞춰 K를 구합니다. 입력이 하나인 경우 Ackermann 공식이 대표적인 계산법입니다.</li><li>폐루프의 고유값과 시간 응답을 검증합니다.</li></ol>\n<p>입력이 둘 이상이면 같은 극점을 만드는 K가 하나로 정해지지 않으므로, 남는 자유도를 강건성에 쓰는 방법이 연구되었습니다(Kautsky et al., 1985).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>예로 이중 적분기 x1' = x2, x2' = u를 봅니다. A = [[0, 1], [0, 0]], B = [0, 1]이고 제어가능합니다. 요구 성능을 감쇠비 ζ = 0.7, 고유진동수 ωn = 2 rad/s로 잡습니다(숫자는 설명용). 목표 특성다항식은 s² + 2ζωn s + ωn² = s² + 2.8s + 4입니다. 폐루프 특성다항식은 s² + k2 s + k1이므로 K = [4, 2.8]입니다.</p>\n<table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>목표 극점</td><td>−1.4 ± j1.43</td></tr><tr><td>오버슈트(2차 표준형 근사)</td><td>약 4.6%</td></tr><tr><td>정착시간(2% 기준, 4 ÷ (ζωn))</td><td>약 2.9초</td></tr></tbody></table>\n<p>극점이 왼쪽으로 갈수록 응답이 빠르고, 허수부가 커질수록 진동이 커집니다. 다만 극점을 지나치게 왼쪽으로 옮기면 이득이 커져 액추에이터 한계나 잡음 증폭 문제가 생깁니다. 이 예의 오버슈트와 정착시간은 영점이 없는 2차 시스템의 표준 공식에 따른 근사입니다.</p>\n<ul><li><strong>얻는 것</strong>: 성능 지표를 극점 위치라는 수치로 바꿔 설계할 수 있고, 다입력 다출력 시스템에도 적용됩니다.</li><li><strong>관측기와 함께</strong>: 모든 상태를 측정하지 못하면 관측기로 상태를 추정해 피드백에 쓰며, 이때 제어기와 관측기를 따로 설계할 수 있다는 분리 원리가 이용됩니다.</li><li><strong>다른 설계와의 선택</strong>: 가중치로 비용을 조절하는 [[linear-quadratic-regulator|선형이차조절기]]나 오차 기반의 [[pid-control|PID제어]]와 설계 입력이 다릅니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>극배치 설계를 쓴 논문은 보통 다음을 적습니다.</p>\n<table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>모델</td><td>A, B(, C) 행렬, 제어가능성 확인(행렬 계수)</td></tr><tr><td>목표</td><td>원하는 성능과 목표 극점, 극점을 고른 근거</td></tr><tr><td>결과</td><td>이득 K, 폐루프 고유값</td></tr><tr><td>검증</td><td>계단응답 등 시간 응답의 오버슈트·정착시간, 제어 입력의 크기와 포화</td></tr><tr><td>현실성</td><td>잡음·모델 오차에 대한 강건성, 관측기 극점의 선택</td></tr></tbody></table>\n<p>이득과 응답을 보이는 것으로 끝내지 않고 제어 입력이 액추에이터 한계 안에 있는지를 함께 보이는 것이 신뢰성을 높입니다. 제어이론 교재의 표준 설명은 Franklin 등(2019)과 Åström와 Murray(2021)에 있습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "상태 피드백 설계법은 설계 입력이 다릅니다.",
+    "headers": [
+      "방법",
+      "설계 입력",
+      "특징"
+    ],
+    "rows": [
+      [
+        "극배치",
+        "목표 극점",
+        "성능 지표를 극점으로 직접 지정"
+      ],
+      [
+        "[[linear-quadratic-regulator|선형이차조절기(LQR)]]",
+        "상태와 입력에 대한 가중치",
+        "비용을 최소화하는 이득을 구함"
+      ],
+      [
+        "[[pid-control|PID제어]]",
+        "P·I·D 이득",
+        "오차 신호만으로 구현이 단순"
+      ]
+    ]
+  },
+  "references": [
+    "Wonham, W. M. (1967). On pole assignment in multi-input controllable linear systems. IEEE Transactions on Automatic Control, 12(6), 660–665.",
+    "Kautsky, J., Nichols, N. K., & Van Dooren, P. (1985). Robust pole assignment in linear state feedback. International Journal of Control, 41(5), 1129–1155.",
+    "Franklin, G. F., Powell, J. D., & Emami-Naeini, A. (2019). Feedback Control of Dynamic Systems (8th ed.). Pearson.",
+    "Åström, K. J., & Murray, R. M. (2021). Feedback Systems: An Introduction for Scientists and Engineers (2nd ed.). Princeton University Press."
+  ]
+}

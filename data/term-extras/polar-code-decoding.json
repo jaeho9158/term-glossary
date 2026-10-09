@@ -1,0 +1,51 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>극부호는 채널 분극화(Arıkan, 2009)를 이용합니다. 같은 채널을 여러 번 결합·분할하면 부채널의 신뢰도가 좋은 쪽과 나쁜 쪽으로 갈라지므로, 정보 비트는 좋은 부채널에 싣고 나머지 자리(고정 비트)는 송수신이 미리 약속한 값으로 둡니다. 복호는 이 구조를 거꾸로 푸는 것입니다.</p>\n<ol><li><strong>연속 제거(SC) 복호</strong>: 비트를 u1, u2, …, uN 순서로 하나씩 정합니다. 고정 비트 자리는 약속한 값을 그대로 쓰고, 정보 비트 자리는 수신 신호와 이미 정한 앞쪽 비트를 바탕으로 더 가능성이 높은 값을 고릅니다. 복잡도는 N log N 수준입니다.</li><li><strong>SC 리스트(SCL) 복호</strong>: 한 비트를 정할 때마다 후보 경로를 최대 L개까지 함께 유지하고, 마지막에 가장 가능성이 높은 경로를 고릅니다(Tal &amp; Vardy, 2015).</li><li><strong>CRC 보조 SCL</strong>: 정보 비트에 순환중복검사(CRC)를 붙여 두고, 리스트 가운데 CRC를 통과하는 경로를 고릅니다(Niu &amp; Chen, 2012).</li></ol>\n<p>부채널의 신뢰도 순서를 정하는 절차를 부호 구성이라 하며, Tal과 Vardy(2013)가 효율적인 방법을 제시했습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>분극화를 이해하기 쉽도록 이진 소거 채널(BEC)의 예를 계산합니다(수치는 설명용 설정). 소거 확률 0.5인 BEC를 세 번 결합·분할하면 N = 8개의 부채널이 만들어지고, 한 번의 분할에서 소거 확률 ε은 나쁜 쪽 2ε − ε², 좋은 쪽 ε²가 됩니다.</p>\n<table><thead><tr><th>부채널</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead><tbody><tr><td>소거 확률</td><td>0.9961</td><td>0.8789</td><td>0.8086</td><td>0.3164</td><td>0.6836</td><td>0.1914</td><td>0.1211</td><td>0.0039</td></tr></tbody></table>\n<p>소거 확률이 낮은 4개(4, 6, 7, 8번)에 정보 비트 4개를 싣고 나머지 4개를 고정 비트로 두면 부호율 1/2입니다. 용량의 합(8 × 0.5 = 4)은 분극화 뒤에도 보존되고, 소거 확률이 0 또는 1 쪽으로 갈라집니다. N이 커질수록 이 갈라짐이 뚜렷해집니다.</p>\n<ul><li><strong>쓰임</strong>: 채널 용량에 도달하는 부호로 알려져 있으며, 5G NR에서는 제어 채널의 부호화 방식으로 채택되었습니다(3GPP, 2018).</li><li><strong>한계</strong>: SC 복호는 순차적이라 병렬화가 어렵고 한 번 틀린 비트가 뒤로 전파됩니다. 짧은 부호 길이에서는 SC만으로 성능이 낮아 리스트 크기와 CRC 결합이 중요합니다.</li><li><strong>절충</strong>: 리스트 크기 L을 키우면 오류 성능은 좋아지지만 메모리와 지연이 함께 늘어납니다. LLR 기반으로 구현을 다듬은 연구가 있습니다(Balatsoukas-Stimming et al., 2015).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>극부호 복호 논문은 아래 항목을 적는 편입니다.</p>\n<table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>부호</td><td>부호 길이 N, 정보 비트 수 K, 고정 비트 선택법(부호 구성), CRC 길이</td></tr><tr><td>복호기</td><td>SC, SCL, CRC 보조 SCL, 리스트 크기 L</td></tr><tr><td>채널과 변조</td><td>AWGN 등 채널 모델, 변조 방식</td></tr><tr><td>성능</td><td>블록 오류율(BLER)이나 프레임 오류율 대 신호대잡음비 곡선</td></tr><tr><td>복잡도·지연</td><td>연산량, 메모리, 하드웨어 구현 시 지연시간과 처리량</td></tr><tr><td>비교</td><td>같은 N, K에서 LDPC나 터보 부호와의 비교</td></tr></tbody></table>\n<p>부호 길이와 부호율을 고정하고 비교해야 공정합니다. 리스트 크기만 달리한 결과를 서로 다른 복잡도의 방법과 한 그래프에 놓으면 성능 이득이 복잡도 증가의 결과인지 구분되지 않습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "극부호 연구에는 서로 다른 단계의 용어가 섞여 있습니다.",
+    "headers": [
+      "용어",
+      "단계",
+      "설명"
+    ],
+    "rows": [
+      [
+        "채널 분극화",
+        "원리",
+        "부채널의 신뢰도가 양극으로 갈라지는 현상"
+      ],
+      [
+        "부호 구성",
+        "설계",
+        "정보 비트를 실을 부채널을 고르는 절차"
+      ],
+      [
+        "복호",
+        "수신",
+        "수신 신호에서 정보 비트를 복원하는 절차(SC, SCL 등)"
+      ]
+    ]
+  },
+  "references": [
+    "Arıkan, E. (2009). Channel polarization: A method for constructing capacity-achieving codes for symmetric binary-input memoryless channels. IEEE Transactions on Information Theory, 55(7), 3051–3073.",
+    "Tal, I., & Vardy, A. (2013). How to construct polar codes. IEEE Transactions on Information Theory, 59(10), 6562–6582.",
+    "Tal, I., & Vardy, A. (2015). List decoding of polar codes. IEEE Transactions on Information Theory, 61(5), 2213–2226.",
+    "Niu, K., & Chen, K. (2012). CRC-aided decoding of polar codes. IEEE Communications Letters, 16(10), 1668–1671.",
+    "Balatsoukas-Stimming, A., Parizi, M. B., & Burg, A. (2015). LLR-based successive cancellation list decoding of polar codes. IEEE Transactions on Signal Processing, 63(19), 5165–5179.",
+    "3GPP. (2018). TS 38.212: NR; Multiplexing and channel coding (Release 15). 3rd Generation Partnership Project."
+  ]
+}

@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,29 @@
   <h2>왜 중요한가</h2>
   <p>하중을 정확히 분류하고 산정하는 일은 구조설계의 출발점이기 때문에, 구조공학 논문에서 하중 종류는 해석 모델을 세우는 가장 기본적인 전제로 등장합니다. 특히 기후변화로 인한 극한 풍하중이나 지진 빈도 변화와 같은 이슈가 부각되면서, 기존 하중 기준을 재검토하거나 새로운 하중 조합을 제안하는 연구도 활발히 이루어지고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>구조물에 작용하는 하중은 <strong>어디서 오는가</strong>를 기준으로 나눕니다. 이렇게 나누는 이유는 종류마다 크기를 정하는 방법과 시간에 따른 성질이 다르기 때문입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>하중</th><th>어디서 오나</th><th>시간에 따른 성질</th></tr></thead><tbody><tr><td><a href="dead-load.html">고정하중</a></td><td>구조체·마감재·고정 설비의 자중</td><td>사실상 일정</td></tr><tr><td><a href="live-load.html">활하중</a></td><td>사람·가구·물품 등 사용 중 달라지는 무게</td><td>변동</td></tr><tr><td><a href="wind-load.html">풍하중</a></td><td>바람이 건물 표면에 가하는 압력</td><td>높이·형태·풍속에 의존, 동적 성분이 있음</td></tr><tr><td><a href="seismic-load.html">지진하중</a></td><td>지반 진동에 따른 관성력</td><td>질량과 동적 특성에 의존, 동적</td></tr></tbody></table></div>
+  <p>이 밖에 적설하중, 토압·수압, 온도 변화에 의한 하중 등도 설계에서 다룹니다.</p>
+  <ul><li>실제 설계에서는 하중을 하나씩 따로 보지 않고 <strong>하중조합</strong>으로 묶어 검토합니다. 각 하중에 계수를 곱해 더하는 방식이며, 불확실성이 큰 하중일수록 큰 계수를 쓰는 것이 한계상태설계의 기본 발상입니다.</li><li>조합식과 계수는 기준과 개정판마다 다릅니다. 예를 들어 미국 ASCE 7의 강도설계 조합에는 1.4D, 그리고 1.2D + 1.6L에 지붕 활하중·적설·우수 가운데 하나를 계수를 곱해 더하는 식 등이 있습니다(D는 고정하중, L은 활하중).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예로 조합이 어떻게 지배 조건을 바꾸는지 봅니다. 바닥 슬래브에서 고정하중 D = 5 kN/m², 활하중 L = 3 kN/m²이고 다른 하중은 없다고 합시다(숫자는 설명용입니다).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>조합</th><th>계산</th><th>결과(kN/m²)</th></tr></thead><tbody><tr><td>1.4D</td><td>1.4 × 5</td><td>7.0</td></tr><tr><td>1.2D + 1.6L</td><td>1.2 × 5 + 1.6 × 3 = 6.0 + 4.8</td><td>10.8</td></tr></tbody></table></div>
+  <p>두 값 가운데 큰 쪽(10.8)이 이 부재를 설계하는 지배 조합이 됩니다. 활하중이 고정하중에 비해 작지 않으면 1.2D + 1.6L 쪽이 지배하는 경우가 많다는 점을 보여 주는 단순 예입니다. 풍하중·지진하중이 더해지면 조합식과 계수가 달라집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>하중은 모두 아래로 누르는 무게다.</td><td>풍하중은 옆으로 미는 압력이고, 지진하중은 흔들림에서 생기는 관성력입니다. 방향과 시간 변동이 각기 다릅니다.</td></tr><tr><td>고정하중은 정확히 정해져 있어 불확실성이 없다.</td><td>재료 밀도나 마감 두께, 이후 증설 등으로 실제 값은 설계값과 다를 수 있어 고정하중에도 계수가 붙습니다.</td></tr><tr><td>활하중은 사람의 몸무게만 뜻한다.</td><td>사람뿐 아니라 가구·물품·이동 설비처럼 사용 중 달라지는 모든 하중을 포함합니다.</td></tr><tr><td>모든 하중이 동시에 최대로 걸린다고 가정하고 설계한다.</td><td>조합에서는 동시에 나타날 가능성이 낮은 하중에 낮은 계수를 쓰고, 어떤 기준에서는 풍하중과 지진하중을 함께 더하지 않습니다.</td></tr><tr><td>하중의 종류를 알면 부재가 안전한지도 알 수 있다.</td><td>하중이 어떤 경로로 지반까지 전달되는지(하중 경로)와 부재의 저항 능력을 함께 봐야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"해당 골조는 고정하중과 활하중의 조합 하에서 허용 응력 범위 내에 있었으나, 지진하중을 추가로 고려하면 일부 부재에서 항복이 발생하는 것으로 나타났다."</div>
   <p>이 문장은 평상시 무게만 고려하면 안전하지만, 지진 상황까지 포함하면 일부 구조 부재가 버티는 한계를 넘어설 수 있다는 해석 결과를 설명하고 있습니다.</p>
 
@@ -168,6 +191,18 @@
 
   <h2>주의할 점</h2>
   <p>하중 종류를 구분하는 것과, 그 하중이 구조물 내부의 어느 부재를 거쳐 지반까지 전달되는지를 추적하는 <a href="load-path.html">하중 경로</a>는 서로 다른 개념입니다. 하중의 크기와 방향을 정확히 분류했더라도, 그 힘이 실제로 어떤 경로로 흘러가는지를 함께 살펴야 구조물의 안전성을 온전히 평가할 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>하중 종류와 이웃한 용어를 구분하면 다음과 같습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">하중 종류와의 관계</th></tr></thead><tbody><tr><th scope="row">하중 종류</th><td>힘을 원천에 따라 분류한 것</td><td>—</td></tr><tr><th scope="row">하중조합</th><td>여러 하중에 계수를 곱해 더한 설계용 조합</td><td>종류별 하중을 실제 설계에 쓰는 단계</td></tr><tr><th scope="row">하중 경로</th><td>하중이 부재를 거쳐 지반으로 전달되는 길</td><td>분류가 아니라 전달 과정</td></tr><tr><th scope="row"><a href="seismic-design.html">내진설계</a></th><td>지진에 견디도록 하는 설계 행위</td><td>지진하중을 다루는 설계의 영역</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>American Society of Civil Engineers. (2022). Minimum Design Loads and Associated Criteria for Buildings and Other Structures (ASCE/SEI 7-22). American Society of Civil Engineers.</li>
+    <li>Hibbeler, R. C. (2017). Structural Analysis (10th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="dead-load.html">고정하중</a><a href="seismic-load.html">지진하중</a><a href="wind-load.html">풍하중</a><a href="live-load.html">활하중</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

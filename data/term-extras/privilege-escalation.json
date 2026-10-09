@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>권한상승은 시스템 안에서 주체(사용자, 프로세스)가 <strong>원래 허용된 것보다 높은 접근 권한을 얻는 일</strong>입니다. 설계상의 결함이나 설정 오류가 원인이 됩니다.</li><li>방향에 따라 둘로 나눕니다. <strong>수직적 권한상승</strong>은 낮은 권한에서 관리자 같은 높은 권한으로 올라가는 경우이고, <strong>수평적 권한상승</strong>은 같은 등급이지만 다른 사용자의 자원에 접근하는 경우입니다.</li><li>원인은 개념 수준에서 소프트웨어 결함, 잘못된 권한 설정, 인증·인가 논리의 결함, 자격증명의 노출 등으로 분류합니다.</li><li>공격 연쇄에서는 침투 이후 단계에 놓입니다. MITRE ATT&amp;CK 프레임워크는 이를 독립된 전술(Privilege Escalation)로 분류합니다(Strom et al., 2018).</li><li>방어의 핵심 원칙은 <strong>최소 권한 원칙</strong>입니다. 주체에게 임무에 꼭 필요한 권한만 주면, 한 지점이 뚫려도 피해가 제한됩니다(Saltzer &amp; Schroeder, 1975).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>개념을 가상의 상황으로만 구분해 봅니다(특정 시스템의 공략법이 아니라 분류 예시입니다).</p>\n<table><thead><tr><th>상황</th><th>유형</th><th>무엇이 문제인가</th></tr></thead><tbody><tr><td>일반 회원이 관리자 전용 기능에 접근할 수 있게 되어 있음</td><td>수직</td><td>기능별 접근 권한 검사가 없거나 잘못됨</td></tr><tr><td>한 회원이 다른 회원의 개인 자료를 볼 수 있음</td><td>수평</td><td>요청한 사람이 그 자료의 소유자인지 확인하지 않음</td></tr><tr><td>실행 중인 서비스가 필요 이상으로 높은 권한으로 돌아감</td><td>수직의 위험 요인</td><td>권한 분리 부족, 최소 권한 원칙 위반</td></tr></tbody></table>\n<p>웹 서비스에서는 접근통제 결함이 가장 흔한 위험 범주로 정리되어 왔고, OWASP(2021)는 이를 상위 항목으로 올렸습니다. 연구 논문은 대개 취약점을 재현하는 방법보다 <strong>탐지 지표, 분류 체계, 방어 설계</strong>를 제시하는 방식으로 이 주제를 다룹니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>권한상승은 해킹의 전부다.</td><td>침투 이후에 이어지는 한 단계이며, 정보 수집·이동·유출 등 다른 단계가 따로 있습니다.</td></tr><tr><td>권한상승은 항상 관리자(루트) 권한을 얻는 것이다.</td><td>관리자까지 가지 않아도 다른 사용자의 권한이나 더 넓은 범위의 접근을 얻는 수평적 상승도 심각한 피해를 낳습니다.</td></tr><tr><td>기술 하나를 막으면 해결된다.</td><td>다른 취약점이나 설정 오류의 결과로 나타나는 경우가 많아, 최소 권한, 패치, 접근통제 검증, 감사 등 여러 방어 계층이 함께 필요합니다.</td></tr><tr><td>권한상승 방어는 보안팀만의 일이다.</td><td>권한을 설계하고 부여하는 개발·운영 단계에서 줄이는 것이 효과적입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "권한상승과 이웃한 용어는 역할이 다릅니다.",
+    "headers": [
+      "용어",
+      "성격",
+      "설명"
+    ],
+    "rows": [
+      [
+        "[[privilege-escalation|권한상승]]",
+        "공격 행위·결과",
+        "허용 범위를 넘는 권한을 얻는 일"
+      ],
+      [
+        "[[principle-of-least-privilege|최소 권한 원칙]]",
+        "방어 설계 원칙",
+        "필요한 권한만 부여해 권한상승의 피해를 제한"
+      ],
+      [
+        "[[rootkit|루트킷]]",
+        "악성 도구",
+        "관리자 권한에서 존재와 활동을 숨기는 도구 모음"
+      ]
+    ]
+  },
+  "references": [
+    "Saltzer, J. H., & Schroeder, M. D. (1975). The protection of information in computer systems. Proceedings of the IEEE, 63(9), 1278–1308.",
+    "Anderson, R. (2020). Security Engineering: A Guide to Building Dependable Distributed Systems (3rd ed.). Wiley.",
+    "OWASP Foundation. (2021). OWASP Top 10: 2021. OWASP Foundation.",
+    "Strom, B. E., Applebaum, A., Miller, D. P., Nickels, K. C., Pennington, A. G., & Thomas, C. B. (2018). MITRE ATT&CK: Design and Philosophy. The MITRE Corporation."
+  ]
+}
