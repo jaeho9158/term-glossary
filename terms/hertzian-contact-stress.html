@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/hertzian-contact-stress.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -142,12 +143,29 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>구슬 두 개를 서로 눌러 맞대면 맞닿은 부분이 아주 작은 타원 모양으로 눌리게 됩니다. 헤르츠 접촉응력은 이렇게 곡면끼리 눌릴 때 그 좁은 접촉 부위 안에서 압력이 중심에서 가장 크고 가장자리로 갈수록 줄어드는 형태로 분포한다는 것을 수식으로 나타낸 개념입니다. 이 이론은 볼베어링, 기어, 롤러처럼 곡면끼리 접촉하는 부품의 강도를 계산할 때 기본 도구로 쓰입니다.</p>
+  <p>구슬 두 개를 서로 눌러 맞대면 맞닿은 부분이 아주 작은 원 모양으로 눌리게 됩니다(곡률이 방향마다 다른 일반적인 곡면끼리는 타원 모양이 됩니다). 헤르츠 접촉응력은 이렇게 곡면끼리 눌릴 때 그 좁은 접촉 부위 안에서 압력이 중심에서 가장 크고 가장자리로 갈수록 줄어드는 형태로 분포한다는 것을 수식으로 나타낸 개념입니다. 이 이론은 볼베어링, 기어, 롤러처럼 곡면끼리 접촉하는 부품의 강도를 계산할 때 기본 도구로 쓰입니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>접촉 부위의 최대 응력을 정확히 알아야 부품이 얼마나 큰 하중을 견딜 수 있는지, 피로 손상이 언제 시작될지를 예측할 수 있기 때문에 기계 설계에서 핵심적으로 다뤄집니다. 베어링이나 기어처럼 반복 하중을 받는 부품의 수명 설계에도 직접 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>헤르츠 이론은 두 탄성체가 점이나 선에서 맞닿을 때 접촉 반경과 압력 분포를 닫힌 식으로 줍니다(Hertz, 1882; Johnson, 1985). 구와 평면의 접촉(구-구도 같은 형태)에서는 다음과 같습니다.</p><ul><li>등가 탄성계수: <code>1/E* = (1 − ν₁²)/E₁ + (1 − ν₂²)/E₂</code></li><li>접촉 반경: <code>a = (3FR / 4E*)<sup>1/3</sup></code> (F 하중, R 등가 곡률 반경)</li><li>최대 접촉압력(중심): <code>p₀ = 3F / (2πa²)</code>. 압력은 중심에서 가장 크고 가장자리에서 0이 되는 반타원체 모양으로 분포합니다.</li><li>표면 아래 최대 전단응력: 푸아송비 0.3 정도에서 대략 <code>0.31 p₀</code>이며, 깊이는 대략 <code>0.48 a</code>입니다(Johnson, 1985).</li></ul><p>원통과 평면 같은 선 접촉에서는 단위 길이당 하중을 쓰는 비슷한 식이 따로 있으며, 최대 전단응력은 대략 0.30 p₀, 깊이는 대략 0.78 a(접촉 반폭)로 알려져 있습니다.</p>
+
+  <h2>해석 기준</h2>
+  <p><strong>가상의 예.</strong> 강철 구(R = 5 mm)가 강철 평면을 100 N으로 누른다고 합시다(E = 210 GPa, ν = 0.3).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>양</th><th>값</th></tr></thead><tbody><tr><td>등가 탄성계수 E*</td><td>약 115 GPa</td></tr><tr><td>접촉 반경 a</td><td>약 0.148 mm</td></tr><tr><td>최대 접촉압력 p₀</td><td>약 2.18 GPa</td></tr><tr><td>표면 아래 최대 전단응력</td><td>약 0.67 GPa (깊이 약 0.071 mm)</td></tr></tbody></table></div><ul><li>하중을 8배로 올리면 a는 2배, p₀도 2배가 됩니다. 접촉압력은 하중에 비례하지 않고 하중의 1/3제곱으로 커집니다.</li><li>수 GPa의 압력이 나오는 것은 접촉 면적이 작기 때문이며, 같은 100 N이 넓은 면에 가해지는 경우와 비교할 수 없습니다.</li><li>이 값을 재료의 허용 접촉응력이나 항복 조건과 비교해 안전 여부를 판단합니다. 피로 균열이 표면 아래 최대 전단응력 위치에서 시작할 수 있다는 점이 베어링 수명 설계에서 중요하게 다뤄집니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>하중, 곡률 반경, 재료의 탄성계수와 푸아송비, 접촉 형상(점/선 접촉)을 적습니다. 계산한 값(a, p₀, 최대 전단응력과 깊이)과 사용한 식의 출처를 밝힙니다.</li><li>헤르츠 이론의 전제를 점검했는지 적습니다: 선형 탄성, 접촉 면적이 곡률 반경에 비해 매우 작음, 마찰이 없음, 매끈한 표면.</li><li>유한요소해석과 비교한 논문은 요소 크기와 접촉 정의를 함께 밝힙니다. 접촉 부근에서 수렴하려면 격자를 촘촘히 해야 합니다.</li><li>이론값을 ‘실제 응력’처럼 쓰지 않습니다. 표면 거칠기와 소성 변형이 있으면 실제 응력은 이론과 달라집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"볼베어링 전동체와 궤도면 사이의 헤르츠 접촉응력을 계산하여 최대 접촉압력이 허용 응력 이내임을 확인하였다."</div>
   <p>베어링 볼이 레이스에 눌릴 때 생기는 최대 압력을 계산해서 설계가 안전한지 검토했다는 의미입니다.</p>
   <div class="example">"롤러 표면의 헤르츠 접촉응력 분포를 유한요소해석 결과와 비교하여 이론식의 타당성을 검증하였다."</div>
@@ -161,6 +179,19 @@
   <p>헤르츠 이론은 마찰이나 소성 변형, 표면 거칠기를 고려하지 않는 이상화된 모델이므로, 실제 조건이 이 가정에서 크게 벗어나면 오차가 커질 수 있습니다.</p>
 
   <p>헤르츠 이론은 접촉면이 전체 곡률 반경에 비해 매우 작다는 가정과 완전 탄성 거동을 전제로 하므로, 접촉면이 커지거나 국부 항복이 발생하는 경우에는 실제 응력과 큰 차이를 보일 수 있습니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>접촉과 파손을 말할 때 자주 함께 나오는 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 다루나</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">헤르츠 접촉응력</th><td>곡면 접촉에서의 압력과 응력</td><td>이 항목</td></tr><tr><th scope="row"><a href="contact-mechanics.html">접촉역학</a></th><td>접촉 변형과 응력을 다루는 분야 전체</td><td>헤르츠 이론이 그 고전적 출발점</td></tr><tr><th scope="row"><a href="yield-strength.html">항복강도</a></th><td>영구변형이 시작되는 응력</td><td>접촉응력이 이를 넘는지를 비교</td></tr><tr><th scope="row"><a href="fatigue-failure.html">피로 파손</a></th><td>반복 하중에 의한 파손</td><td>반복 접촉이 표면 아래 균열을 시작시킬 수 있음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hertz, H. (1882). Über die Berührung fester elastischer Körper. Journal für die reine und angewandte Mathematik, 92.</li>
+    <li>Johnson, K. L. (1985). Contact Mechanics. Cambridge University Press.</li>
+    <li>Timoshenko, S. P., &amp; Goodier, J. N. (1970). Theory of Elasticity (3rd ed.). McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="contact-mechanics.html">접촉역학</a></div></div><p class="concept-family-map"><a href="../concept-map/mechanical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

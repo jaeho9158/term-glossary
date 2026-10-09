@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>헤도닉 가격모형은 상품을 속성의 묶음으로 보고, 가격이 속성에 따라 어떻게 달라지는지를 회귀로 추정하는 방법입니다. 이론적 틀은 Rosen(1974)이, 속성 묶음으로서의 상품이라는 관점은 Lancaster(1966)가 놓았고, 방법의 뿌리는 자동차 가격에 적용한 Court(1939)까지 거슬러 올라갑니다.</p><ol><li><strong>자료.</strong> 주택 거래 가격과 속성(면적, 층, 건축 연도 같은 구조 특성, 역·공원까지의 거리 같은 입지 특성, 학군·소음 같은 환경 특성, 거래 시점).</li><li><strong>함수형 선택.</strong> 선형, 반로그(종속변수에 로그), 로그-로그 등. 가격이 오른쪽으로 치우치기 쉬워 종속변수에 로그를 쓰는 경우가 흔합니다.</li><li><strong>추정.</strong> 최소자승 회귀로 각 속성 계수를 추정합니다.</li><li><strong>진단.</strong> 다중공선성([[multicollinearity|다중공선성]])과 공간적 자기상관([[spatial-autocorrelation|공간적 자기상관]])을 확인하고, 필요하면 공간 모형으로 바꿉니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>가상의 예.</strong> 종속변수가 ln(가격)이고 역까지의 거리(100 m 단위)의 계수가 −0.010이라고 합시다. 반로그 모형에서는 100 m 더 멀어질 때 가격이 exp(−0.010) − 1 ≈ −1.0% 변하고, 500 m 멀어질 때는 exp(−0.050) − 1 ≈ −4.9% 변합니다. 다른 속성을 같게 둔 비교이며, 역 근처의 소음이나 혼잡처럼 가격을 깎는 요인이 함께 있으면 이 계수는 순효과(편익에서 불편을 뺀 값)로 읽어야 합니다.</p><ul><li><strong>언제 쓰나.</strong> 공원, 지하철, 학교, 환경 개선 같은 공공 투자가 인접 주택 가치에 얼마나 반영(자본화)되는지 어림할 때 쓰입니다.</li><li><strong>무엇을 얻나.</strong> 속성 하나가 가격에 미치는 한계 효과, 정책 전후의 가치 변화. 단 이 계수는 시장가격에 반영된 값으로, 개인의 지불의사를 곧바로 뜻하지는 않습니다. 지불의사를 구하려면 Rosen(1974)의 2단계 접근처럼 추가 단계가 필요합니다.</li><li>비슷한 방법을 환경재 가치 추정에 쓰는 것은 [[hedonic-pricing-method|헤도닉 가격법]]이라 부르기도 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>종속변수가 실거래가인지 호가인지, 자료 기간과 표본 수, 지역 범위를 적습니다.</li><li>변수 정의와 단위를 표로 보입니다. 거리 변수가 직선거리인지 보행거리인지도 적습니다.</li><li>함수형을 고른 이유(로그 변환의 근거)와 계수 해석 방식(퍼센트 변화인지, 금액 변화인지)을 적습니다.</li><li>다중공선성 진단(분산팽창계수 등), 이분산에 강한 표준오차, 공간적 자기상관 검정(모란 I)을 보고합니다([[morans-i|모란 I]]). 공간 모형으로 바꾼 경우 그 이유와 결과 변화를 함께 적습니다(Sirmans et al., 2005는 이 문헌을 폭넓게 정리).</li><li>누락 변수의 가능성과 인과 해석의 한계를 밝힙니다. 공원이나 역이 있는 동네는 이미 다른 이유로 비싼 경우가 있어, 사전·사후 비교나 대조군을 쓰는 설계가 보강으로 쓰입니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Rosen, S. (1974). Hedonic prices and implicit markets: Product differentiation in pure competition. Journal of Political Economy, 82(1).",
+    "Lancaster, K. J. (1966). A new approach to consumer theory. Journal of Political Economy, 74(2).",
+    "Court, A. T. (1939). Hedonic price indexes with automotive examples. In The Dynamics of Automobile Demand. General Motors Corporation.",
+    "Sirmans, G. S., Macpherson, D. A., & Zietz, E. N. (2005). The composition of hedonic pricing models. Journal of Real Estate Literature, 13(1)."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "헤도닉 계열 용어는 같은 이름이지만 분야와 쓰임이 조금씩 다릅니다.",
+    "headers": [
+      "용어",
+      "분야",
+      "한 줄"
+    ],
+    "rows": [
+      [
+        "헤도닉 가격모형(도시)",
+        "도시계획·부동산",
+        "주택 가격을 구조·입지·환경 속성으로 분해해 정책 효과를 가치화"
+      ],
+      [
+        "[[hedonic-pricing-model|헤도닉 가격모형(일반)]]",
+        "경제학",
+        "재화 가격을 속성의 함수로 분해하는 일반 모형"
+      ],
+      [
+        "[[hedonic-pricing-method|헤도닉 가격법]]",
+        "환경경제학",
+        "시장가격에 반영된 환경질 차이로 환경재 가치를 추정하는 현시선호 기법"
+      ],
+      [
+        "[[spatial-autocorrelation|공간적 자기상관]]",
+        "통계",
+        "가까운 곳의 값이 비슷한 정도. 모형 진단에서 점검하는 대상"
+      ]
+    ]
+  }
+}

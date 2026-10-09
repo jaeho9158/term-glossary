@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>핸드아이 캘리브레이션은 로봇 손끝과 카메라 사이의 고정된 변환 X를 구하는 절차입니다. 흐름은 다음과 같습니다.</p><ol><li><strong>준비.</strong> 카메라의 내부 파라미터를 먼저 구합니다([[camera-calibration|카메라 캘리브레이션]]). 모양을 아는 표적(체스보드나 마커)을 준비합니다.</li><li><strong>배치.</strong> 카메라가 로봇 손끝에 붙어 있으면(eye-in-hand) 표적을 작업대에 고정하고, 카메라가 밖에 고정되어 있으면(eye-to-hand) 표적을 손끝에 붙입니다.</li><li><strong>자료 수집.</strong> 로봇을 여러 자세로 움직이며 매번 (a) 로봇의 순기구학으로 얻은 손끝 자세와 (b) 카메라가 본 표적 자세를 짝지어 기록합니다.</li><li><strong>방정식.</strong> 자세 i와 j 사이의 로봇 이동 A와 카메라가 본 이동 B가 <code>AX = XB</code>를 만족하므로, 여러 쌍에서 X를 최소자승으로 구합니다.</li><li><strong>풀이.</strong> 회전을 먼저 풀고 이를 써서 이동을 푸는 방법(Tsai &amp; Lenz, 1989; Shiu &amp; Ahmad, 1989)과 회전과 이동을 함께 푸는 방법(Daniilidis, 1999)이 있습니다.</li><li><strong>검증.</strong> 수집에 쓰지 않은 자세에서 잔차를 확인합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제.</strong> 카메라가 본 물체 위치를 로봇 좌표로 옮겨 집거나 조립해야 할 때, 비전 기반 제어([[visual-servoing|비주얼 서보잉]])의 전 단계로 필요합니다.</li><li><strong>무엇을 얻나.</strong> 손끝-카메라(또는 로봇 기저-카메라) 사이의 4×4 동차변환행렬 하나, 곧 회전 3자유도와 이동 3자유도입니다.</li><li><strong>풀리는 조건.</strong> 해가 하나로 정해지려면 회전축이 서로 평행하지 않은 이동이 최소 둘 필요하다고 알려져 있습니다(Tsai &amp; Lenz, 1989; Park &amp; Martin, 1994). 같은 축 둘레의 회전만 반복하면 방정식이 퇴화합니다.</li><li><strong>정확도를 깎는 요인.</strong> 로봇 기구학 오차([[robot-calibration|로봇 캘리브레이션]]이 선행되지 않은 경우), 카메라 내부 파라미터 오차, 표적 자세 추정의 잡음(특히 카메라가 표적을 비스듬히 볼 때), 영상과 로봇 자세의 시각 동기 어긋남입니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>카메라 배치(eye-in-hand 또는 eye-to-hand)와 사용한 표적, 사용한 방정식 형태를 먼저 밝힙니다.</li><li>자세 수와 회전 범위를 적습니다. 자세가 서로 비슷하면 결과가 불안정하다는 점을 논문도 인정하는 편입니다.</li><li>풀이 방법(2단계, 동시 최적화 등)과 소프트웨어를 적습니다.</li><li>정확도는 <strong>회전 오차(도)와 이동 오차(mm)</strong>를 따로, 수집에 쓰지 않은 검증 자세에서 보고합니다. 학습에 쓴 자세의 잔차만 제시하면 과대평가가 될 수 있습니다.</li><li>이후 작업(집기·조립)의 정밀도를 말할 때는 이 오차가 포함된 값임을 밝힙니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Tsai, R. Y., & Lenz, R. K. (1989). A new technique for fully autonomous and efficient 3D robotics hand/eye calibration. IEEE Transactions on Robotics and Automation, 5(3).",
+    "Shiu, Y. C., & Ahmad, S. (1989). Calibration of wrist-mounted robotic sensors by solving homogeneous transform equations of the form AX=XB. IEEE Transactions on Robotics and Automation, 5(1).",
+    "Park, F. C., & Martin, B. J. (1994). Robot sensor calibration: Solving AX=XB on the Euclidean group. IEEE Transactions on Robotics and Automation, 10(5).",
+    "Daniilidis, K. (1999). Hand-eye calibration using dual quaternions. International Journal of Robotics Research, 18(3)."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "로봇 비전에는 ‘캘리브레이션’이 여러 종류 있습니다.",
+    "headers": [
+      "용어",
+      "구하는 것",
+      "관계"
+    ],
+    "rows": [
+      [
+        "핸드아이 캘리브레이션",
+        "카메라와 로봇 손끝(또는 기저) 사이의 변환 X",
+        "이 항목"
+      ],
+      [
+        "[[camera-calibration|카메라 캘리브레이션]]",
+        "카메라 내부 파라미터(초점 거리, 왜곡)와 외부 자세",
+        "핸드아이 전에 먼저 수행"
+      ],
+      [
+        "[[robot-calibration|로봇 캘리브레이션]]",
+        "로봇의 기구학 파라미터 오차",
+        "정확도의 바탕이 되는 선행 작업"
+      ],
+      [
+        "[[visual-servoing|비주얼 서보잉]]",
+        "영상 피드백으로 로봇을 제어하는 기법",
+        "핸드아이 결과를 사용하는 쪽"
+      ]
+    ]
+  }
+}

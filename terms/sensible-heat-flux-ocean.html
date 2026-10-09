@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sensible-heat-flux-ocean.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,12 +146,29 @@
 
   <h2>쉽게 풀면</h2>
   <p>현열플럭스는 물질의 상태 변화 없이 단순히 온도 차이 때문에 열이 이동하는 것으로, 해수면이 그 위 공기보다 따뜻하면 바다에서 대기로 열이 전달되고 반대의 경우에는 대기에서 바다로 열이 전달됩니다.</p>
-  <p>대개 해양의 열 손실은 잠열플럭스가 현열플럭스보다 훨씬 큰 비중을 차지하지만, 겨울철 찬 대륙 공기가 상대적으로 따뜻한 바다 위로 흘러나가는 해역에서는 현열플럭스도 상당히 커질 수 있습니다. 두 열플럭스를 합친 값이 해양이 대기로 전달하는 전체 열 손실량을 나타냅니다.</p>
+  <p>대개 해양의 열 손실은 잠열플럭스가 현열플럭스보다 훨씬 큰 비중을 차지하지만, 겨울철 찬 대륙 공기가 상대적으로 따뜻한 바다 위로 흘러나가는 해역에서는 현열플럭스도 상당히 커질 수 있습니다. 두 열플럭스를 합친 값은 해양이 대기로 전달하는 난류 열 손실량을 나타내며, 해수면의 전체 열수지에는 이 밖에 순복사 항이 더해집니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>현열플럭스는 해양과 대기 사이의 에너지 교환량을 산정하는 열수지 계산의 한 항목으로, 잠열플럭스와 함께 해양이 대기로부터 받거나 대기로 내보내는 총 열량을 정량화하는 데 필수적입니다. 겨울철 강한 현열플럭스는 해수면 냉각을 가속시켜 대류에 의한 심해 혼합을 촉진하는 원동력이 되어, 지중해나 래브라도해 같은 심층수 형성 해역에서 중요하게 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>해양-대기 사이 현열플럭스는 보통 <strong>벌크 공식</strong>으로 계산합니다.</p><p><code>Q<sub>s</sub> = ρ<sub>a</sub> c<sub>p</sub> C<sub>H</sub> U (T<sub>s</sub> − T<sub>a</sub>)</code></p><ul><li>ρ<sub>a</sub>: 공기 밀도(약 1.2 kg/m³), c<sub>p</sub>: 공기의 정압 비열(약 1,004 J/kg/K), C<sub>H</sub>: 현열 교환 계수(약 10<sup>-3</sup> 크기, 대기 안정도에 따라 달라지는 경험 계수), U: 해면 위 풍속, T<sub>s</sub>: 해면 수온, T<sub>a</sub>: 기온</li><li>단위는 W/m²입니다. 해양학에서는 보통 바다에서 대기로 나가는 방향을 양(+)으로 둡니다(논문마다 반대인 경우가 있어 부호 규약 확인이 필요합니다).</li><li>C<sub>H</sub>는 관측으로 구한 매개변수화가 쓰이며, 대표적으로 Large &amp; Pond(1982)와 COARE 알고리즘(Fairall et al., 2003)이 있습니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p><strong>가상의 예.</strong> ρ<sub>a</sub> = 1.2, c<sub>p</sub> = 1,004, C<sub>H</sub> = 1.1×10<sup>-3</sup>, U = 10 m/s, T<sub>s</sub> − T<sub>a</sub> = 5 K이면 Q<sub>s</sub> ≈ 66 W/m²입니다. 풍속이 20 m/s로 두 배가 되어도, 온도 차가 10 K로 두 배가 되어도 각각 약 133 W/m²로 두 배가 됩니다(두 변수에 선형).</p><ul><li>그래서 온도 차만으로 크기를 어림하면 풍속에 따른 큰 오차가 생깁니다.</li><li>전 지구 평균으로는 현열이 잠열보다 훨씬 작다고 설명되는 경우가 많습니다(<a href="latent-heat-flux-ocean.html">잠열플럭스</a>). 보웬비(현열/잠열)가 작은 열대·아열대 바다와 달리, 겨울철 찬 대륙 공기가 따뜻한 해류 위로 나오는 해역에서는 현열이 크게 늘어 수십 W/m² 이상이 되기도 합니다.</li><li>겨울의 강한 해면 냉각은 해양 표층을 불안정하게 하여 깊은 혼합과 심층수 형성에 기여하는 것으로 논의됩니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>부호 규약(바다에서 대기로 +)과 단위(W/m²)를 먼저 밝힙니다.</li><li>자료의 출처를 적습니다: 부이·선박 관측, 위성 기반 산출물, 재분석 자료. 어떤 벌크 알고리즘과 C<sub>H</sub> 매개변수화를 썼는지도 적습니다.</li><li>풍속과 온도를 잰 높이를 적습니다. 높이에 따라 값이 달라지므로 기준 높이(예: 10 m)로 변환했는지 밝힙니다.</li><li>평균 기간(일, 월, 연 평균)과 공간 범위를 적고, 현열과 잠열을 함께 제시하면 비교하기 좋습니다.</li><li>현열만으로 해양-대기 열교환 전체를 설명하지 않습니다. 해면의 전체 열수지에는 잠열, 순복사 등도 포함됩니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"겨울철 계절풍 시기 동해에서 현열플럭스와 잠열플럭스의 상대적 기여도를 비교 분석하였다."</div>
   <p>겨울에 찬 바람이 부는 시기의 동해 자료를 이용해 두 종류의 열 전달이 각각 얼마나 큰 비중을 차지하는지 비교했다는 뜻입니다.</p>
   <div class="example">"수치모델 재분석자료를 이용해 전 지구 해양의 연평균 현열플럭스 분포를 산출하고 위도별 변동 특성을 분석하였다."</div>
@@ -163,6 +181,19 @@
   <p>현열플럭스는 대기와 해수면의 온도 차이뿐 아니라 바람 속도에도 영향을 받으므로, 온도 차이만으로 열플럭스의 크기를 단순 추정하면 오차가 생길 수 있습니다.</p>
 
   <p>전 지구 열수지에서 현열플럭스는 잠열플럭스에 비해 상대적으로 작은 비중을 차지하는 경우가 많아, 현열만으로 해양, 대기 열교환 전체를 대표한다고 여겨서는 안 됩니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>해면 열수지의 항목들은 서로 다른 물리 과정입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇이 열을 옮기나</th><th scope="col">핵심 변수</th></tr></thead><tbody><tr><th scope="row">현열플럭스</th><td>직접 전도와 대류(온도 차)</td><td>해면-공기 온도 차, 풍속</td></tr><tr><th scope="row"><a href="latent-heat-flux-ocean.html">잠열플럭스</a></th><td>증발에 따른 수증기(상태 변화)</td><td>해면-공기 습도 차, 풍속</td></tr><tr><th scope="row"><a href="latent-heat.html">잠열</a></th><td>상태 변화 때 드나드는 열</td><td>열 에너지 형태(플럭스가 아니라 양)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Large, W. G., &amp; Pond, S. (1982). Sensible and latent heat flux measurements over the ocean. Journal of Physical Oceanography, 12(5).</li>
+    <li>Fairall, C. W., Bradley, E. F., Hare, J. E., Grachev, A. A., &amp; Edson, J. B. (2003). Bulk parameterization of air–sea fluxes: Updates and verification for the COARE algorithm. Journal of Climate, 16(4).</li>
+    <li>Talley, L. D., Pickard, G. L., Emery, W. J., &amp; Swift, J. H. (2011). Descriptive Physical Oceanography: An Introduction (6th ed.). Academic Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="air-sea-interaction.html">대기-해양 상호작용</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="wind-stress.html">바람응력</a><a href="latent-heat-flux-ocean.html">잠열플럭스</a></div></div><p class="concept-family-map"><a href="../concept-map/ocean.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

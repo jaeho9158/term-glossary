@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>합성개구소나(SAS)는 <strong>움직이면서 여러 번 받은 신호를 위상까지 살려 더해</strong> 실제보다 긴 수신 배열을 흉내 내는 영상화 절차입니다. 큰 흐름은 다음과 같습니다.</p><ol><li>플랫폼이 일정 간격으로 핑을 송신하고, 각 핑의 반사 신호를 진폭과 위상이 보존된 형태로 기록합니다.</li><li>거리 방향은 펄스 압축으로 해상도를 얻습니다. 거리 해상도는 신호 대역폭이 정합니다.</li><li>핑 사이에 플랫폼이 얼마나 움직였는지를 관성항법장치, 도플러속도계, 그리고 신호 자체에서 이동을 추정하는 미세항법으로 구합니다.</li><li>영상의 각 점마다 핑별 왕복 전파시간을 보정해 신호를 같은 위상으로 맞춘 뒤 합산합니다(시간영역 역투영이나 주파수영역 알고리즘 등).</li><li>남은 위상 오차를 자동초점 알고리즘으로 보정해 영상을 완성합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>이상적인 경우, 길이 L인 실제 배열의 방위 방향 해상도는 대략 λR/L(파장 λ, 거리 R)로 거리가 멀수록 나빠집니다. 반면 SAS는 대략 L/2로, 거리와 상관없이 일정하다고 알려져 있습니다(Cutrona, 1975; Hayes &amp; Gough, 2009).</p><table><caption>가상의 예: 중심주파수 100 kHz, 음속 1,500 m/s(파장 1.5 cm), 배열 길이 0.3 m</caption><thead><tr><th>거리 R</th><th>실제 배열 방위 해상도 (λR/L)</th><th>SAS 방위 해상도 (L/2)</th></tr></thead><tbody><tr><td>100 m</td><td>5 m</td><td>0.15 m</td></tr><tr><td>200 m</td><td>10 m</td><td>0.15 m</td></tr></tbody></table><p>쓰임새는 기뢰 탐색, 해저 정밀 조사, 잔해나 구조물 확인처럼 작은 표적을 먼 거리에서 가려내야 하는 일입니다. 대가는 분명합니다. 핑 사이 위치를 파장의 일부 수준으로 알아야 하고, 수중 매질 변동이 신호의 일관성(코히어런스)을 깨면 합성이 어려워지며, 영상 한 장에 많은 핑이 필요해 처리량이 늘어납니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>합성개구소나를 쓴 논문은 보통 다음을 함께 적습니다. 독자가 영상의 해상도 수치가 어디에서 왔는지 알 수 있어야 하기 때문입니다.</p><ul><li>중심주파수, 대역폭, 배열 길이와 소자 수, 플랫폼 종류와 속도, 운용 고도</li><li>사용한 항법 장비와 미세항법·자동초점 방법</li><li>합성 알고리즘의 종류</li><li>해상도를 이론값으로 제시했는지, 점표적 반사체 등으로 실측했는지</li><li>자료를 얻은 해역의 수심과 해저 상태(코히어런스에 영향)</li><li>사이드스캔소나 영상과 비교했다면 같은 지점·같은 조건인지</li></ul>"
+    }
+  ],
+  "references": [
+    "Cutrona, L. J. (1975). Comparison of sonar system performance achievable using synthetic-aperture techniques with the performance achievable by more conventional means. Journal of the Acoustical Society of America, 58(2).",
+    "Hayes, M. P., & Gough, P. T. (2009). Synthetic aperture sonar: A review of current status. IEEE Journal of Oceanic Engineering, 34(3).",
+    "Hansen, R. E. (2011). Introduction to synthetic aperture sonar. In N. Kolev (Ed.), Sonar Systems. InTech."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "해저 영상을 만드는 소나끼리 자주 비교됩니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "합성개구소나와의 관계"
+    ],
+    "rows": [
+      [
+        "[[side-scan-sonar-subsea|사이드스캔 소나]]",
+        "측면으로 부채꼴 음파를 쏘아 반사 세기를 영상화",
+        "실제 배열의 빔폭에 해상도가 묶여 거리가 멀수록 방위 해상도가 나빠짐. SAS는 이를 합성 처리로 완화"
+      ],
+      [
+        "[[parametric-sonar|파라메트릭소나]]",
+        "두 고주파의 비선형 상호작용으로 좁은 저주파 빔을 만듦",
+        "좁은 빔을 음원 쪽에서 만드는 방식이고, SAS는 수신 신호를 처리로 합성하는 방식"
+      ],
+      [
+        "[[active-sonar|능동소나]]",
+        "음파를 쏘고 반향을 받아 표적을 탐지",
+        "SAS는 능동소나에 속하는 영상화 기법"
+      ]
+    ]
+  }
+}
