@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>두피에 붙인 전극으로 뇌의 전기적 활동을 기록하는 방법입니다. 한스 베르거가 1929년 사람 뇌파를 처음 보고했습니다(Berger, 1929).</li><li>전극 위치는 국제 10–20 체계(Jasper, 1958)를 따르는 것이 일반적이며, 코뿌리와 뒤통수 융기 사이 거리의 10%, 20% 간격으로 전극을 놓습니다.</li><li>기록 순서: ① 전극 부착과 접촉 저항 확인 ② 기준(reference) 전극과 샘플링 속도 설정 ③ 과제 중 연속 기록 ④ 필터링, 눈 깜빡임·근육 신호 같은 인공물 제거 ⑤ 구간 나누기(epoch)와 분석(사건관련전위, 주파수 분석 등).</li><li>기록되는 신호는 주로 대뇌피질 피라미드 세포의 시냅스 후 전위가 모인 것이고, 개별 활동전위가 아니라 수많은 세포의 합입니다(Buzsáki 등, 2012).</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>강점</strong>: 밀리초 단위의 시간 해상도, 비침습, 비용이 낮음. 피험자가 움직이거나 일상에 가까운 환경에서도 측정할 수 있습니다.</li><li><strong>약점</strong>: 두개골과 두피를 지나며 신호가 퍼져 공간 해상도가 낮고, 깊은 구조의 활동은 잡기 어렵습니다. 어디에서 나온 신호인지 추정하는 문제(역문제)는 해가 하나로 정해지지 않습니다.</li><li><strong>얻는 지표</strong>: 주파수 대역별 파워(관례적으로 델타 약 1–4 Hz, 세타 4–8 Hz, 알파 8–12 Hz, 베타 13–30 Hz, 감마 30 Hz 이상이며 연구마다 경계가 다름), 사건관련전위(ERP)의 크기·잠재기, 위상 동기화 등.</li><li><strong>활용 분야</strong>: 수면 단계 판정([[polysomnography|수면다원검사]]), 뇌전증 진단, 인지 과제 연구, 뇌-컴퓨터 인터페이스 등. 공간 정보가 필요하면 [[fmri|fMRI]]와 함께 쓰는 경우가 많습니다.</li><li>가상의 예: 샘플링 속도를 250 Hz로 하면 분석 가능한 최대 주파수(나이퀴스트 주파수)는 125 Hz이고, 2초 구간은 500개 표본이 되어 주파수 분해능은 0.5 Hz입니다(코드로 계산).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>Keil 등(2014)의 지침이 권하는 항목: 전극 수와 배치, 기준 전극, 샘플링 속도, 온라인·오프라인 필터(고역·저역 통과), 접촉 저항 기준, 인공물 처리 방법(독립성분분석 포함 여부), 구간 길이, 구간별 제거 기준과 최종 사용 시행 수, 사용한 소프트웨어.</li><li>한국의 전원 주파수는 60 Hz이므로 노치 필터(60 Hz)를 썼는지도 적습니다. 필터 설정에 따라 파형이 달라질 수 있습니다.</li><li>예시(가상의 문구): “EEG는 32채널 전극을 10–20 체계로 부착하여 500 Hz로 기록하였고, 0.1–40 Hz 대역 통과 필터와 기준 전극 평균 재참조를 적용하였다.” 값은 실제 조건에 맞춰 적습니다.</li><li>결과 해석에서 뇌 부위를 말할 때는 전극 위치(예: Pz)와 뇌 부위 추정을 구분하여, “두피 전극 위치에서 관찰된 신호”임을 분명히 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "방법",
+      "측정하는 것",
+      "시간 해상도",
+      "공간 해상도"
+    ],
+    "rows": [
+      [
+        "EEG",
+        "두피 전위(시냅스 전위의 합)",
+        "ms",
+        "낮음(cm 수준)"
+      ],
+      [
+        "MEG",
+        "같은 전류가 만드는 자기장",
+        "ms",
+        "EEG보다 약간 나음"
+      ],
+      [
+        "[[fmri|fMRI]]",
+        "혈류 변화에 따른 [[bold-signal|BOLD 신호]]",
+        "초",
+        "높음(mm 수준)"
+      ],
+      [
+        "[[local-field-potential|국소장전위(LFP)]]",
+        "뇌 조직 속 전극으로 잰 전위",
+        "ms",
+        "국소적(침습)"
+      ]
+    ]
+  },
+  "references": [
+    "Berger, H. (1929). Über das Elektrenkephalogramm des Menschen. Archiv für Psychiatrie und Nervenkrankheiten, 87, 527–570.",
+    "Jasper, H. H. (1958). The ten-twenty electrode system of the International Federation. Electroencephalography and Clinical Neurophysiology, 10, 371–375.",
+    "Luck, S. J. (2014). An Introduction to the Event-Related Potential Technique (2nd ed.). MIT Press.",
+    "Keil, A., Debener, S., Gratton, G., et al. (2014). Committee report: Publication guidelines and recommendations for studies using electroencephalography and magnetoencephalography. Psychophysiology, 51(1), 1–21.",
+    "Buzsáki, G., Anastassiou, C. A., & Koch, C. (2012). The origin of extracellular fields and currents — EEG, ECoG, LFP and spikes. Nature Reviews Neuroscience, 13, 407–420."
+  ]
+}

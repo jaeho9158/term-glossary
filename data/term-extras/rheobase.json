@@ -1,0 +1,58 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>기전류(rheobase)는 뉴런이나 신경이 <strong>활동전위를 일으키는 데 필요한 최소 전류</strong>입니다. 원래 정의는 충분히 긴 시간 동안 흘렸을 때의 문턱 전류이며, 단위는 세포 기록에서는 pA, 신경 자극 검사에서는 mA입니다.</li><li>세포 기록에서는 전류 고정([[patch-clamp|패치클램프]])으로 0.5–1초 길이의 전류 계단을 10–50 pA씩 올려 가며 주어 <strong>처음으로 활동전위가 나오는 계단의 전류값</strong>을 기전류로 삼는 방식이 흔합니다. 계단 길이와 증가 간격에 따라 값이 달라지므로 정해진 표준은 없습니다.</li><li>전류 세기와 지속 시간의 관계(세기-기간 곡선)는 Lapicque(1907)가 정량적으로 연구했습니다. 자극이 짧을수록 더 센 전류가 필요하고, 길어질수록 문턱 전류가 기전류에 가까워집니다. 흔히 쓰는 근사식(Weiss 식)은 I(t) = I<sub>rh</sub> × (1 + t<sub>c</sub> / t)이며, 여기서 t<sub>c</sub>를 <strong>크로낙시(chronaxie)</strong>라고 부릅니다. 문턱 전류가 기전류의 2배가 되는 자극 지속 시간으로 정의합니다.</li><li>단순한 수동 막 모델에서는 기전류가 대략 (문턱 전압 − 안정막전위) ÷ 입력 저항으로 추정됩니다. 실제 뉴런은 전압 의존성 통로를 가지므로 근삿값일 뿐입니다.</li></ul><p>가상의 예(코드로 계산): I<sub>rh</sub> = 100 pA, 크로낙시 = 2 ms인 뉴런의 문턱 전류입니다.</p><table><thead><tr><th>자극 지속 시간(ms)</th><th>문턱 전류(pA)</th></tr></thead><tbody><tr><td>1</td><td>300</td></tr><tr><td>2</td><td>200</td></tr><tr><td>5</td><td>140</td></tr><tr><td>10</td><td>120</td></tr><tr><td>100</td><td>102</td></tr></tbody></table><p>안정막전위 −70 mV, 문턱 전압 −50 mV, 입력 저항 200 MΩ이면 (−50 − (−70)) ÷ 200 MΩ = 100 pA로, 위의 기전류와 같은 크기입니다. 지속 시간이 길수록 문턱 전류가 기전류에 가까워지는 모습이 보입니다. 범위는 세포 종류에 따라 다르며 수십~수백 pA로 보고되는 경우가 많습니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>기전류가 <strong>낮을수록</strong> 같은 입력으로 활동전위를 더 쉽게 내므로 흥분성이 높다고 해석하고, 높을수록 낮다고 해석합니다.</li><li>기전류는 입력 저항, 안정막전위, 활동전위 문턱 전압, 막 통로 구성 등이 합쳐진 결과입니다. 값이 달라졌다면 무엇 때문인지 이 값들을 함께 봐야 합니다(Zhang &amp; Linden, 2003).</li><li>기전류가 같아도 시냅스 입력(예: mEPSC·mIPSC의 빈도와 크기)이 다르면 실제 발화 빈도가 달라집니다. 그래서 내재적 흥분성(기전류)과 시냅스 입력은 구분해서 해석합니다.</li><li>발화 능력은 별도로 <strong>전류-발화 빈도 곡선(F–I 곡선)</strong>의 기울기로 평가합니다. 기전류는 “시작”의 쉬운 정도, F–I 기울기는 “이득”을 나타냅니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>측정 조건을 함께 적습니다: 계단 길이, 증가 간격(예: 10 pA), 유지한 막전위(전류 주입으로 같은 값에 맞추었는지), 온도, 세포 종류, 기록 방식(전세포 기록 등).</li><li>집단 비교에서는 안정막전위와 입력 저항, 문턱 전압을 같이 표로 제시하면 기전류 차이의 이유를 독자가 판단할 수 있습니다.</li><li>예시(가상의 문구): “기전류는 500 ms 길이의 전류 계단을 10 pA씩 증가시켜 처음으로 활동전위가 발생한 계단의 값으로 정의하였다.”</li><li>세포마다 측정한 값이므로 통계 단위가 동물인지 세포인지 밝혀야 합니다(한 동물에서 여러 세포를 얻으면 독립이 아닙니다).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "단위"
+    ],
+    "rows": [
+      [
+        "기전류(rheobase)",
+        "활동전위를 일으키는 최소 전류",
+        "pA (또는 mA)"
+      ],
+      [
+        "문턱 전압",
+        "[[action-potential|활동전위]]가 시작되는 막전압",
+        "mV"
+      ],
+      [
+        "크로낙시",
+        "문턱 전류가 기전류의 2배일 때의 자극 지속 시간",
+        "ms"
+      ],
+      [
+        "입력 저항",
+        "전류에 대한 막 전압 변화의 비",
+        "MΩ"
+      ],
+      [
+        "[[resting-membrane-potential|안정막전위]]",
+        "자극이 없을 때의 막전압",
+        "mV"
+      ]
+    ]
+  },
+  "references": [
+    "Lapicque, L. (1907). Recherches quantitatives sur l'excitation électrique des nerfs traitée comme une polarisation. Journal de Physiologie et de Pathologie Générale, 9, 620–635.",
+    "Zhang, W., & Linden, D. J. (2003). The other side of the engram: experience-driven changes in neuronal intrinsic excitability. Nature Reviews Neuroscience, 4, 885–900.",
+    "Brette, R., & Gerstner, W. (2005). Adaptive exponential integrate-and-fire model as an effective description of neuronal activity. Journal of Neurophysiology, 94(5), 3637–3642.",
+    "Bean, B. P. (2007). The action potential in mammalian central neurons. Nature Reviews Neuroscience, 8(6), 451–465."
+  ]
+}

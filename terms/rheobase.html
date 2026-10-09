@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rheobase.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -72,8 +73,8 @@
 }</script>
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="논문용어사전">
-<meta property="og:title" content="기전류 (rheobase) - 논문용어사전">
-<meta property="og:description" content="뉴런이 첫 스파이크를 일으키는 데 필요한 최소 전류량으로, 뉴런 자체의 내재적 흥분성을 나타내는 지표.">
+<meta property="og:title" content="기전류(rheobase) 뜻 - 뉴런이 첫 스파이크를 일으키는 데 필요한… | 논문용어사전">
+<meta property="og:description" content="뉴런이 첫 스파이크를 일으키는 데 필요한 최소 전류량으로, 뉴런 자체의 내재적 흥분성을 나타내는 지표. 신경세포·전달물질 분야 용어 기전류(rheobase)의 뜻을 쉬운 풀이와 논문 예문, 관련 용어까지 정리했습니다 - 논문용어사전">
 <meta property="og:url" content="https://termglossary.kr/terms/rheobase.html">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://termglossary.kr/assets/og-default.png">
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>기전류는 뉴런 내재적 흥분성과 시냅스 입력의 변화를 구분해내는 표준적인 지표이기 때문에, 신경가소성이나 질환 모델에서 관찰된 활동 변화의 원인을 정확히 밝히려는 논문에서 자주 등장합니다. 특히 만성 통증, 간질, 신경발달장애 모델에서 뉴런이 왜 과흥분 상태가 되었는지를 세포 내재적 요인과 회로 수준 요인으로 나누어 설명할 때 핵심 근거로 쓰입니다. 이 때문에 패치클램프 전기생리학 실험 논문에서 다른 흥분성 지표와 함께 표준적으로 보고됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>기전류(rheobase)는 뉴런이나 신경이 <strong>활동전위를 일으키는 데 필요한 최소 전류</strong>입니다. 원래 정의는 충분히 긴 시간 동안 흘렸을 때의 문턱 전류이며, 단위는 세포 기록에서는 pA, 신경 자극 검사에서는 mA입니다.</li><li>세포 기록에서는 전류 고정(<a href="patch-clamp.html">패치클램프</a>)으로 0.5–1초 길이의 전류 계단을 10–50 pA씩 올려 가며 주어 <strong>처음으로 활동전위가 나오는 계단의 전류값</strong>을 기전류로 삼는 방식이 흔합니다. 계단 길이와 증가 간격에 따라 값이 달라지므로 정해진 표준은 없습니다.</li><li>전류 세기와 지속 시간의 관계(세기-기간 곡선)는 Lapicque(1907)가 정량적으로 연구했습니다. 자극이 짧을수록 더 센 전류가 필요하고, 길어질수록 문턱 전류가 기전류에 가까워집니다. 흔히 쓰는 근사식(Weiss 식)은 I(t) = I<sub>rh</sub> × (1 + t<sub>c</sub> / t)이며, 여기서 t<sub>c</sub>를 <strong>크로낙시(chronaxie)</strong>라고 부릅니다. 문턱 전류가 기전류의 2배가 되는 자극 지속 시간으로 정의합니다.</li><li>단순한 수동 막 모델에서는 기전류가 대략 (문턱 전압 − 안정막전위) ÷ 입력 저항으로 추정됩니다. 실제 뉴런은 전압 의존성 통로를 가지므로 근삿값일 뿐입니다.</li></ul><p>가상의 예(코드로 계산): I<sub>rh</sub> = 100 pA, 크로낙시 = 2 ms인 뉴런의 문턱 전류입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>자극 지속 시간(ms)</th><th>문턱 전류(pA)</th></tr></thead><tbody><tr><td>1</td><td>300</td></tr><tr><td>2</td><td>200</td></tr><tr><td>5</td><td>140</td></tr><tr><td>10</td><td>120</td></tr><tr><td>100</td><td>102</td></tr></tbody></table></div><p>안정막전위 −70 mV, 문턱 전압 −50 mV, 입력 저항 200 MΩ이면 (−50 − (−70)) ÷ 200 MΩ = 100 pA로, 위의 기전류와 같은 크기입니다. 지속 시간이 길수록 문턱 전류가 기전류에 가까워지는 모습이 보입니다. 범위는 세포 종류에 따라 다르며 수십~수백 pA로 보고되는 경우가 많습니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>기전류가 <strong>낮을수록</strong> 같은 입력으로 활동전위를 더 쉽게 내므로 흥분성이 높다고 해석하고, 높을수록 낮다고 해석합니다.</li><li>기전류는 입력 저항, 안정막전위, 활동전위 문턱 전압, 막 통로 구성 등이 합쳐진 결과입니다. 값이 달라졌다면 무엇 때문인지 이 값들을 함께 봐야 합니다(Zhang &amp; Linden, 2003).</li><li>기전류가 같아도 시냅스 입력(예: mEPSC·mIPSC의 빈도와 크기)이 다르면 실제 발화 빈도가 달라집니다. 그래서 내재적 흥분성(기전류)과 시냅스 입력은 구분해서 해석합니다.</li><li>발화 능력은 별도로 <strong>전류-발화 빈도 곡선(F–I 곡선)</strong>의 기울기로 평가합니다. 기전류는 “시작”의 쉬운 정도, F–I 기울기는 “이득”을 나타냅니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>측정 조건을 함께 적습니다: 계단 길이, 증가 간격(예: 10 pA), 유지한 막전위(전류 주입으로 같은 값에 맞추었는지), 온도, 세포 종류, 기록 방식(전세포 기록 등).</li><li>집단 비교에서는 안정막전위와 입력 저항, 문턱 전압을 같이 표로 제시하면 기전류 차이의 이유를 독자가 판단할 수 있습니다.</li><li>예시(가상의 문구): “기전류는 500 ms 길이의 전류 계단을 10 pA씩 증가시켜 처음으로 활동전위가 발생한 계단의 값으로 정의하였다.”</li><li>세포마다 측정한 값이므로 통계 단위가 동물인지 세포인지 밝혀야 합니다(한 동물에서 여러 세포를 얻으면 독립이 아닙니다).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"GABA성 뉴런의 기전류와 발화 패턴은 관찰자군과 대조군 사이에 차이가 없었으나, mIPSC 빈도는 유의하게 감소했다."</div>
   <p>이 문장은 뉴런 자체의 흥분성은 바뀌지 않았고, 그 뉴런이 받는 억제성 입력만 줄었다는 것을 보여줌으로써 문제의 원인을 "뉴런 내부"가 아니라 "뉴런이 받는 시냅스 입력"으로 정확히 좁히는 데 쓰였습니다.</p>
 
@@ -165,16 +183,31 @@
   <h2>주의할 점</h2>
   <p>기전류만으로는 뉴런이 실제로 얼마나 자주 발화하는지까지는 알 수 없습니다. 기전류가 같아도 받는 시냅스 입력의 양(예: mIPSC나 mEPSC 빈도)에 따라 실제 발화 빈도는 크게 달라질 수 있으므로, 두 지표를 함께 봐야 뉴런의 흥분성 변화가 어디서 왔는지 온전히 설명할 수 있습니다.</p>
 
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">단위</th></tr></thead><tbody><tr><th scope="row">기전류(rheobase)</th><td>활동전위를 일으키는 최소 전류</td><td>pA (또는 mA)</td></tr><tr><th scope="row">문턱 전압</th><td><a href="action-potential.html">활동전위</a>가 시작되는 막전압</td><td>mV</td></tr><tr><th scope="row">크로낙시</th><td>문턱 전류가 기전류의 2배일 때의 자극 지속 시간</td><td>ms</td></tr><tr><th scope="row">입력 저항</th><td>전류에 대한 막 전압 변화의 비</td><td>MΩ</td></tr><tr><th scope="row"><a href="resting-membrane-potential.html">안정막전위</a></th><td>자극이 없을 때의 막전압</td><td>mV</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lapicque, L. (1907). Recherches quantitatives sur l'excitation électrique des nerfs traitée comme une polarisation. Journal de Physiologie et de Pathologie Générale, 9, 620–635.</li>
+    <li>Zhang, W., &amp; Linden, D. J. (2003). The other side of the engram: experience-driven changes in neuronal intrinsic excitability. Nature Reviews Neuroscience, 4, 885–900.</li>
+    <li>Brette, R., &amp; Gerstner, W. (2005). Adaptive exponential integrate-and-fire model as an effective description of neuronal activity. Journal of Neurophysiology, 94(5), 3637–3642.</li>
+    <li>Bean, B. P. (2007). The action potential in mammalian central neurons. Nature Reviews Neuroscience, 8(6), 451–465.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="patch-clamp.html">패치클램프</a>
     <a href="action-potential.html" class="related-same-field">활동전위</a>
-    <a href="long-term-potentiation.html" class="related-same-field">장기강화</a>
     <a href="synapse.html" class="related-same-field">시냅스</a>
+    <a href="long-term-potentiation.html" class="related-same-field">장기강화</a>
     <a href="microglia.html" class="related-same-field">미세아교세포</a>
+    <a href="neurotransmitter.html" class="related-same-field">신경전달물질</a>
     <a href="astrocyte.html" class="related-same-field">성상세포</a>
     <a href="neuroplasticity.html" class="related-same-field">신경가소성</a>
-    <a href="neurotransmitter.html" class="related-same-field">신경전달물질</a>
+    <a href="neurogenesis.html" class="related-same-field">신경발생</a>
+    <a href="synaptic-pruning.html" class="related-same-field">시냅스 가지치기</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
