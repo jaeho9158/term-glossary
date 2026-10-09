@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/dilution-of-precision.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>같은 수신기와 같은 관측 오차라도 위성 배치에 따라 최종 측위 정확도가 크게 달라질 수 있기 때문에, DOP는 GNSS 측위 품질을 평가하고 관측 시간을 계획하는 데 중요한 기준으로 활용됩니다. 지도학 및 측량 연구에서는 DOP 값을 함께 제시해 측위 결과의 신뢰성을 뒷받침하는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>정밀도저하율(DOP)은 위성 측위에서 <strong>위성들의 기하학적 배치가 거리 측정 오차를 위치 오차로 키우는 정도</strong>를 하나의 수로 나타낸 값입니다. 수신기에서 각 위성으로 향하는 단위 시선 벡터와 시계 항을 모은 기하 행렬 G로부터 Q = (GᵀG)<sup>−1</sup>를 만들고, 대각 성분을 조합합니다(Langley, 1999).</p><ul><li>HDOP = √(Q<sub>EE</sub> + Q<sub>NN</sub>) (수평), VDOP = √Q<sub>UU</sub> (수직), PDOP = √(Q<sub>EE</sub> + Q<sub>NN</sub> + Q<sub>UU</sub>) (3차원 위치), TDOP = √Q<sub>tt</sub> (시간), GDOP = √(trace Q).</li><li>PDOP² = HDOP² + VDOP², GDOP² = PDOP² + TDOP²의 관계가 있습니다.</li><li>값은 <strong>작을수록 좋습니다</strong>. 위성이 하늘 전체에 고르게 퍼져 있으면 작고, 한쪽에 몰려 있으면 큽니다.</li><li>대략적인 위치 오차는 (위치 오차의 표준편차) ≈ DOP × (사용자 등가 거리오차, UERE)로 어림합니다(Misra &amp; Enge, 2006; Kaplan &amp; Hegarty, 2017).</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>DOP가 어느 정도면 좋은가에 대한 구분(예: 1~2는 아주 좋음, 5~10은 보통, 20 초과는 나쁨)은 교재와 수신기 문서에서 비슷하게 소개되지만, 공인된 단일 기준은 아닙니다. 연구에서는 분석에서 허용할 상한(마스크)을 정해 그보다 큰 구간을 제외하는 방식을 씁니다. 다중경로, 대기 지연, 시계 오차 같은 다른 오차원은 DOP에 반영되지 않습니다(<a href="multipath-propagation.html">다중경로 전파</a>).</p><p><strong>가상의 위성 배치 비교</strong>(코드로 계산, 5개 위성의 방위각·고도각):</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>배치</th><th>HDOP</th><th>VDOP</th><th>PDOP</th><th>GDOP</th></tr></thead><tbody><tr><td>고르게 퍼짐(방위 0·90·180·270°, 천정 근처 1개)</td><td>1.25</td><td>2.45</td><td>2.76</td><td>3.21</td></tr><tr><td>한쪽에 몰림(방위 20~65°, 고도 40~60°)</td><td>18.37</td><td>19.44</td><td>26.75</td><td>37.06</td></tr></tbody></table></div><p>같은 UERE 5 m라면 PDOP 2.76인 배치의 위치 오차 표준편차는 약 13.8 m, PDOP 26.75인 배치는 약 133.7 m로 어림됩니다. 위성 수가 같아도 배치에 따라 큰 차이가 납니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li><strong>종류를 명시</strong>: 어떤 DOP(HDOP, VDOP, PDOP, GDOP)를 썼는지 적습니다. 수평 위치 연구는 HDOP, 3차원은 PDOP가 흔합니다.</li><li><strong>사용 위성 수와 마스크</strong>: 고도각 마스크(예: 10°, 15°), 사용한 위성군(GPS·GLONASS 등 <a href="gnss.html">GNSS</a>), 관측 구간의 DOP 평균·최댓값·분포를 제시합니다.</li><li><strong>다른 오차와 구분</strong>: 위치 정확도는 DOP와 관측 오차(신호 품질, 다중경로, 지연 등)의 곱으로 정해지므로, DOP만으로 정확도를 주장하지 않습니다. 정밀 측위(<a href="rtk-positioning.html">RTK</a>, <a href="differential-gps.html">차분 GPS</a>) 보고서에서는 DOP와 해(solution) 상태를 함께 보고합니다.</li><li><strong>환경 보고</strong>: 도심처럼 하늘 시야가 가려지는 곳에서는 위성이 줄고 배치가 편중되어 DOP가 나빠지는 경향이 있으므로 관측 환경을 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"DOP 값이 낮은 시간대를 선택하여 GNSS 관측을 수행함으로써 정확도를 높였다."</div>
   <p>관측 계획 단계에서 DOP를 고려하는 문맥입니다.</p>
   <div class="example">"측위 오차와 DOP 값 사이의 상관관계를 분석한 결과, DOP가 높을수록 오차가 증가하였다."</div>
@@ -160,6 +178,20 @@
 
   <h2>주의할 점</h2>
   <p>DOP는 위성 기하 배치에 따른 오차 확대 정도를 나타낼 뿐이며, 실제 측위 오차의 절대적인 크기를 직접 알려주지는 않습니다. 실제 정확도는 DOP와 관측 오차(신호 품질 등)를 함께 고려해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>측위 정확도를 가리키는 용어는 원인이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 나타내나</th><th scope="col">오차 원천</th></tr></thead><tbody><tr><th scope="row"><strong>정밀도저하율(DOP)</strong></th><td>위성 배치가 오차를 증폭하는 정도</td><td>기하학</td></tr><tr><th scope="row"><a href="multipath-propagation.html">다중경로 전파</a></th><td>신호가 반사되어 늦게 도달하는 현상</td><td>신호 환경</td></tr><tr><th scope="row"><a href="gnss.html">위성항법시스템</a></th><td>측위용 위성군의 총칭</td><td>체계</td></tr><tr><th scope="row"><a href="rtk-positioning.html">실시간이동측위(RTK)</a></th><td>기준국 보정으로 정밀도를 높이는 방법</td><td>보정 방식</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Langley, R. B. (1999). Dilution of precision. GPS World, 10(5).</li>
+    <li>Misra, P., &amp; Enge, P. (2006). Global Positioning System: Signals, Measurements, and Performance (2nd ed.). Ganga-Jamuna Press.</li>
+    <li>Kaplan, E. D., &amp; Hegarty, C. J. (Eds.). (2017). Understanding GPS/GNSS: Principles and Applications (3rd ed.). Artech House.</li>
+    <li>Hofmann-Wellenhof, B., Lichtenegger, H., &amp; Wasle, E. (2008). GNSS: Global Navigation Satellite Systems. Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="gnss-positioning.html">GNSS 측위</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="carrier-phase-measurement.html">반송파 위상 측정</a><a href="rtk-positioning.html">실시간이동측위(RTK)</a><a href="pseudorange-measurement.html">의사거리 측정</a><a href="ppp-positioning.html">정밀단독측위(PPP)</a><a href="differential-gps.html">차분 GPS</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a> DOP는 위성 배치에 따른 오차 증폭 정도만을 나타낼 뿐 실제 신호 품질이나 다중경로 오차는 반영하지 않으므로, DOP 값이 낮다고 해서 관측 결과의 정확도가 항상 보장되는 것은 아닙니다.</p></section><!-- concept-family:end -->
 <aside class="stage-link">

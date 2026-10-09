@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/integral.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,28 @@
   <h2>왜 중요한가</h2>
   <p>적분은 순간의 변화율(미분)만으로는 알 수 없는 전체 누적량을 구하는 핵심 도구이기 때문에, 물리학의 일이나 에너지 계산, 공학의 신호 처리, 통계학의 확률 계산 등 정량적 분석을 다루는 거의 모든 분야에서 기본 도구로 쓰입니다. 논문에서 확률, 총량, 평균 등을 수식으로 정의할 때 적분 표기가 자주 등장하는 것도 이 때문입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>정적분 ∫<sub>a</sub><sup>b</sup> f(x) dx 는 구간을 잘게 나눈 조각들의 합이 조각을 무한히 얇게 할 때 수렴하는 값입니다(리만 합의 극한, <a href="riemann-sum.html">리만 합</a>).</li><li>기하학적으로는 f의 그래프와 x축 사이의 <strong>부호 있는 넓이</strong>입니다. x축 아래 부분은 음수로 더해집니다.</li><li><a href="fundamental-theorem-of-calculus.html">미적분학의 기본정리</a>에 따라, f의 원시함수(부정적분) F를 알면 ∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a) 로 계산합니다.</li><li>원시함수를 닫힌 식으로 구하기 어렵거나 자료가 표 형태로만 있으면 <a href="numerical-integration.html">수치적분</a>(사다리꼴 공식 등)으로 근사합니다.</li><li>적분은 일차원 구간 위에서만 쓰이지 않고 곡선(<a href="line-integral.html">선적분</a>)·곡면(<a href="surface-integral.html">면적분</a>)·영역(<a href="multiple-integral.html">중적분</a>)으로 확장됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>약물 농도를 시간에 대해 적분한 값이 곡선하면적(AUC)입니다(약동학 교재에서 흔히 쓰는 사다리꼴 방법, Gibaldi &amp; Perrier, 1982). 아래는 <strong>가상의 예</strong>로, 농도가 C(t) = 10·e<sup>−0.3t</sup> (mg/L)라고 가정하고 몇몇 시점의 값을 소수 둘째 자리로 반올림해 “측정값”으로 삼았습니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시간 t (h)</th><th>농도 (mg/L)</th></tr></thead><tbody><tr><td>0</td><td>10.00</td></tr><tr><td>1</td><td>7.41</td></tr><tr><td>2</td><td>5.49</td></tr><tr><td>4</td><td>3.01</td></tr><tr><td>8</td><td>0.91</td></tr><tr><td>12</td><td>0.27</td></tr></tbody></table></div><p>인접한 두 점 사이를 직선으로 보고 사다리꼴 넓이를 모두 더하면 0–12 h 구간의 AUC ≈ <strong>33.86</strong> mg·h/L입니다. 이 가상의 곡선은 닫힌 식이 있어 정적분의 참값을 구할 수 있는데, 10/0.3 × (1 − e<sup>−3.6</sup>) ≈ <strong>32.42</strong> mg·h/L입니다. 곡선이 아래로 볼록하기 때문에 직선 근사는 참값보다 조금 크게 나옵니다(측정 시점이 성길수록 차이가 커집니다).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>적분 값은 항상 넓이이므로 양수다.</td><td>정적분은 부호 있는 값입니다. 그래프가 x축 아래에 있으면 그 부분은 음수로 계산되어 전체를 상쇄합니다. 순수한 넓이를 원하면 절댓값 함수를 적분합니다.</td></tr><tr><td>적분은 미분을 거꾸로 하는 계산일 뿐이다.</td><td>기본정리로 둘이 연결되지만, 적분의 정의는 합의 극한이고 미분과 독립적으로 정의됩니다. 원시함수가 없는 함수도 적분은 존재할 수 있습니다.</td></tr><tr><td>부정적분과 정적분은 같은 것이다.</td><td>부정적분은 함수(상수 차이를 허용하는 원시함수 족)이고 정적분은 구간이 정해진 수입니다.</td></tr><tr><td>수치적분 결과는 정확한 값이다.</td><td>근사값입니다. 점 간격, 사용한 공식(사다리꼴·심프슨 등)에 따라 오차가 생기므로 논문에서는 방법을 밝힙니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“마지막으로 분류된 구름을 두개의 층으로 구분하여 각각의 층에 존재하는 구름에 대한 시야각을 계산하고 이를 적분하여 0 ~ 10 사이의 운량을 산출하였다.”</blockquote><p class="te-cite">MTSAT-1R 정지기상위성 자료를 이용한 전운량 산출 알고리즘 개발, 대기, 2007 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001060430" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“연속확률변수와 적분의 관계 삭제 측면에서는 확률밀도함수의 정의 및 이항분포와 정규분포의 관계 서술에 차이가 있음을 알 수 있었다.”</blockquote><p class="te-cite">2015 개정 교육과정과 2022 개정 교육과정의  교과서 비교 분석: ‘통계’ 영역을 중심으로, 수학교육, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003183646" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"확률밀도함수를 특정 구간에서 적분하여 해당 구간에 값이 속할 확률을 계산하였다."</div>
   <p>이 문장은 "가능한 값들이 퍼져 있는 모양을 나타낸 그래프에서, 관심 있는 구간 아래의 넓이를 구해 그 구간에 속할 <a href="probability.html">확률</a>을 계산했다"는 뜻입니다. 이처럼 적분은 확률, 넓이, 누적 통계량 등을 구할 때 널리 쓰입니다.</p>
   <div class="example">"약물 농도-시간 곡선의 곡선하면적(AUC)을 적분을 통해 산출하여 전신 노출량을 추정하였다."</div>
@@ -157,6 +179,20 @@
 
   <h2>주의할 점</h2>
   <p>적분은 <a href="derivative.html">미분</a>의 반대 과정입니다 - 미분이 "그래프를 잘게 쪼개 순간 변화율을 구하는 것"이라면, 적분은 "그 변화들을 다시 모아 전체 누적량을 복원하는 것"입니다. 넓이라고 해서 항상 양수인 것은 아니며, 그래프가 x축 아래로 내려가면 그 부분은 음수로 계산되어 전체 넓이를 상쇄할 수 있다는 점도 주의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷한 이름의 계산이 많아 구분이 필요합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">결과</th></tr></thead><tbody><tr><th scope="row"><strong>적분</strong></th><td>조각의 합의 극한으로 정의되는 누적량</td><td>수(정적분) 또는 함수(부정적분)</td></tr><tr><th scope="row"><a href="derivative.html">미분</a></th><td>순간 변화율</td><td>함수</td></tr><tr><th scope="row"><a href="riemann-sum.html">리만 합</a></th><td>적분을 정의하는 유한 합</td><td>근사값</td></tr><tr><th scope="row"><a href="numerical-integration.html">수치적분</a></th><td>적분을 컴퓨터로 근사하는 방법</td><td>근사값</td></tr><tr><th scope="row"><a href="improper-integral.html">이상적분</a></th><td>구간이 무한하거나 함수가 발산하는 적분</td><td>극한으로 정의된 값</td></tr></tbody></table></div>
+  <p class="te-note">이 쪽의 “적분”은 수학의 적분이며, 인공위성·기후모형에서 말하는 ‘적분 시간(모형 실행 구간)’과는 쓰임이 다릅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rudin, W. (1976). Principles of Mathematical Analysis (3rd ed.). McGraw-Hill.</li>
+    <li>Atkinson, K. E. (1989). An Introduction to Numerical Analysis (2nd ed.). Wiley.</li>
+    <li>Gibaldi, M., &amp; Perrier, D. (1982). Pharmacokinetics (2nd ed.). Marcel Dekker.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="lebesgue-integral.html">르베그 적분</a><a href="surface-integral.html">면적분</a><a href="line-integral.html">선적분</a><a href="improper-integral.html">이상적분</a><a href="multiple-integral.html">이중적분과 삼중적분</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

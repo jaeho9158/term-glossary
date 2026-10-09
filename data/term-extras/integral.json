@@ -1,0 +1,59 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>정적분 ∫<sub>a</sub><sup>b</sup> f(x) dx 는 구간을 잘게 나눈 조각들의 합이 조각을 무한히 얇게 할 때 수렴하는 값입니다(리만 합의 극한, [[riemann-sum|리만 합]]).</li><li>기하학적으로는 f의 그래프와 x축 사이의 <strong>부호 있는 넓이</strong>입니다. x축 아래 부분은 음수로 더해집니다.</li><li>[[fundamental-theorem-of-calculus|미적분학의 기본정리]]에 따라, f의 원시함수(부정적분) F를 알면 ∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a) 로 계산합니다.</li><li>원시함수를 닫힌 식으로 구하기 어렵거나 자료가 표 형태로만 있으면 [[numerical-integration|수치적분]](사다리꼴 공식 등)으로 근사합니다.</li><li>적분은 일차원 구간 위에서만 쓰이지 않고 곡선([[line-integral|선적분]])·곡면([[surface-integral|면적분]])·영역([[multiple-integral|중적분]])으로 확장됩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>약물 농도를 시간에 대해 적분한 값이 곡선하면적(AUC)입니다(약동학 교재에서 흔히 쓰는 사다리꼴 방법, Gibaldi &amp; Perrier, 1982). 아래는 <strong>가상의 예</strong>로, 농도가 C(t) = 10·e<sup>−0.3t</sup> (mg/L)라고 가정하고 몇몇 시점의 값을 소수 둘째 자리로 반올림해 “측정값”으로 삼았습니다(코드로 계산).</p><table><thead><tr><th>시간 t (h)</th><th>농도 (mg/L)</th></tr></thead><tbody><tr><td>0</td><td>10.00</td></tr><tr><td>1</td><td>7.41</td></tr><tr><td>2</td><td>5.49</td></tr><tr><td>4</td><td>3.01</td></tr><tr><td>8</td><td>0.91</td></tr><tr><td>12</td><td>0.27</td></tr></tbody></table><p>인접한 두 점 사이를 직선으로 보고 사다리꼴 넓이를 모두 더하면 0–12 h 구간의 AUC ≈ <strong>33.86</strong> mg·h/L입니다. 이 가상의 곡선은 닫힌 식이 있어 정적분의 참값을 구할 수 있는데, 10/0.3 × (1 − e<sup>−3.6</sup>) ≈ <strong>32.42</strong> mg·h/L입니다. 곡선이 아래로 볼록하기 때문에 직선 근사는 참값보다 조금 크게 나옵니다(측정 시점이 성길수록 차이가 커집니다).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>적분 값은 항상 넓이이므로 양수다.</td><td>정적분은 부호 있는 값입니다. 그래프가 x축 아래에 있으면 그 부분은 음수로 계산되어 전체를 상쇄합니다. 순수한 넓이를 원하면 절댓값 함수를 적분합니다.</td></tr><tr><td>적분은 미분을 거꾸로 하는 계산일 뿐이다.</td><td>기본정리로 둘이 연결되지만, 적분의 정의는 합의 극한이고 미분과 독립적으로 정의됩니다. 원시함수가 없는 함수도 적분은 존재할 수 있습니다.</td></tr><tr><td>부정적분과 정적분은 같은 것이다.</td><td>부정적분은 함수(상수 차이를 허용하는 원시함수 족)이고 정적분은 구간이 정해진 수입니다.</td></tr><tr><td>수치적분 결과는 정확한 값이다.</td><td>근사값입니다. 점 간격, 사용한 공식(사다리꼴·심프슨 등)에 따라 오차가 생기므로 논문에서는 방법을 밝힙니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "비슷한 이름의 계산이 많아 구분이 필요합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "결과"
+    ],
+    "rows": [
+      [
+        "[[integral|적분]]",
+        "조각의 합의 극한으로 정의되는 누적량",
+        "수(정적분) 또는 함수(부정적분)"
+      ],
+      [
+        "[[derivative|미분]]",
+        "순간 변화율",
+        "함수"
+      ],
+      [
+        "[[riemann-sum|리만 합]]",
+        "적분을 정의하는 유한 합",
+        "근사값"
+      ],
+      [
+        "[[numerical-integration|수치적분]]",
+        "적분을 컴퓨터로 근사하는 방법",
+        "근사값"
+      ],
+      [
+        "[[improper-integral|이상적분]]",
+        "구간이 무한하거나 함수가 발산하는 적분",
+        "극한으로 정의된 값"
+      ]
+    ],
+    "note": "이 쪽의 “적분”은 수학의 적분이며, 인공위성·기후모형에서 말하는 ‘적분 시간(모형 실행 구간)’과는 쓰임이 다릅니다."
+  },
+  "references": [
+    "Rudin, W. (1976). Principles of Mathematical Analysis (3rd ed.). McGraw-Hill.",
+    "Atkinson, K. E. (1989). An Introduction to Numerical Analysis (2nd ed.). Wiley.",
+    "Gibaldi, M., & Perrier, D. (1982). Pharmacokinetics (2nd ed.). Marcel Dekker."
+  ]
+}
