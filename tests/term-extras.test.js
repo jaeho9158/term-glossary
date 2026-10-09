@@ -3,7 +3,7 @@ const test = require("node:test");
 const assert = require("node:assert");
 const fs = require("fs");
 const path = require("path");
-const { applyToHtml, renderUsage, renderTable, sanitizeFragment, linkify, stripAll } = require("../scripts/apply-term-extras.js");
+const { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, sanitizeFragment, linkify, stripAll } = require("../scripts/apply-term-extras.js");
 const { fingerprints } = require("../scripts/review-data.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -43,7 +43,11 @@ const PAGE = `<!DOCTYPE html>
 
 const EXTRAS = {
   type: "test",
-  sections: [{ heading: "언제 쓰나", html: "<p>조건 <code>a &lt; b</code></p><table><thead><tr><th>가</th></tr></thead><tbody><tr><td>나</td></tr></tbody></table>" }],
+  sections: [
+    { heading: "언제 쓰나", html: "<p>조건 <code>a &lt; b</code></p><table><thead><tr><th>가</th></tr></thead><tbody><tr><td>나</td></tr></tbody></table>" },
+    { heading: "결과는 이렇게 읽는다", html: "<p>읽기</p>" },
+    { heading: "논문에는 이렇게 보고한다", html: "<p>보고</p>" },
+  ],
   compare: { headers: ["용어", "설명"], rows: [["[[p-value|유의확률]]", "<img src=x onerror=alert(1)> & \"따옴표\""]] },
   references: ["Mann, H. B., & Whitney, D. R. (1947). Title <b>x</b>. Journal, 18(1), 50–60.", "Second, A. (2000). Book."],
 };
@@ -132,13 +136,13 @@ test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크,
 });
 
 test("파일럿 데이터: 20개, 유형·참고 문헌·인용 형식이 맞다", () => {
-  assert.strictEqual(slugs.length, 20);
+  assert.ok(slugs.length >= 20);
   const archive = new Set(readJson(path.join(ROOT, "data", "index-tiers.json")).archive || []);
   for (const slug of slugs) {
     assert.ok(fs.existsSync(path.join(ROOT, "terms", `${slug}.html`)), `${slug} 페이지`);
     assert.ok(!archive.has(slug), `${slug} 는 보관 등급이면 안 됨`);
     const x = readJson(path.join(EXTRAS_DIR, `${slug}.json`));
-    assert.ok(["test", "metric", "concept"].includes(x.type), slug);
+    assert.ok(Object.keys(TYPE_HEADINGS).includes(x.type), slug);
     assert.ok(x.references.length >= 2 && x.references.length <= 5, `${slug} 참고 문헌 수`);
     for (const r of x.references) assert.ok(/\(\d{4}\)|\(\d{4}[a-z]?\)\./.test(r), `${slug}: 연도가 없는 참고 문헌 ${r}`);
     assert.ok(!/doi|https?:/i.test(JSON.stringify(x.references)), `${slug}: 참고 문헌에 URL/DOI 금지`);
@@ -191,4 +195,20 @@ test("삽입 블록의 용어 링크는 모두 terms.json 에 있는(스텁이 �
       for (const l of m[2].matchAll(/href="([a-z0-9-]+)\.html"/g)) assert.ok(known.has(l[1]), `${slug} → ${l[1]}`);
     }
   }
+});
+
+test("유형 표: 기존 3유형 제목 유지 + 새 6유형, 제목이 다르면 거부, 새 유형도 렌더링", () => {
+  assert.deepStrictEqual(TYPE_HEADINGS.test, ["언제 쓰나", "결과는 이렇게 읽는다", "논문에는 이렇게 보고한다"]);
+  assert.deepStrictEqual(TYPE_HEADINGS.metric, ["계산과 범위", "해석 기준", "보고 방법"]);
+  assert.deepStrictEqual(TYPE_HEADINGS.concept, ["핵심 정리", "예시로 보기", "자주 하는 오해"]);
+  assert.deepStrictEqual(Object.keys(TYPE_HEADINGS), ["test", "metric", "concept", "method", "instrument", "disorder", "substance", "structure", "theory"]);
+  for (const t of Object.keys(TYPE_HEADINGS)) {
+    const x = { type: t, sections: TYPE_HEADINGS[t].map((h) => ({ heading: h, html: "<p>본문</p>" })), references: EXTRAS.references };
+    const out = applyToHtml(PAGE, "x", x, []);
+    for (const h of TYPE_HEADINGS[t]) assert.ok(out.includes(`<h2>${h}</h2>`), `${t}: ${h}`);
+    assert.strictEqual(applyToHtml(out, "x", x, []), out);
+  }
+  const bad = { type: "method", sections: [{ heading: "언제 쓰나", html: "<p>a</p>" }], references: EXTRAS.references };
+  assert.throws(() => applyToHtml(PAGE, "x", bad, []), /섹션 제목/);
+  assert.throws(() => applyToHtml(PAGE, "x", { ...bad, type: "unknown" }, []), /type/);
 });

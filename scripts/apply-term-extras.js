@@ -33,7 +33,19 @@ const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const CSS_LINE_RE = new RegExp(escRe(CSS_LINK) + "\\r?\\n", "g");
 const NAV_LINE_RE = new RegExp("(" + escRe(NAV_CSS_LINK) + ")(\\r?\\n)");
 const ANCHOR_H2 = "<h2>논문에서는 이렇게 쓰입니다</h2>";
-const TYPES = ["test", "metric", "concept"];
+// 유형별 섹션 제목(정확히 이 순서). 새 유형은 여기에 한 줄 추가한다.
+const TYPE_HEADINGS = {
+  test: ["언제 쓰나", "결과는 이렇게 읽는다", "논문에는 이렇게 보고한다"],
+  metric: ["계산과 범위", "해석 기준", "보고 방법"],
+  concept: ["핵심 정리", "예시로 보기", "자주 하는 오해"],
+  method: ["어떤 절차인가", "언제 쓰고 무엇을 얻나", "논문에는 이렇게 적는다"],
+  instrument: ["무엇을 재는가", "구성과 채점", "결과 읽는 법"],
+  disorder: ["어떤 상태인가", "진단과 평가", "연구에서 다루는 방식"],
+  substance: ["무엇이고 어디서 작용하나", "주요 기능과 기전", "연구에서 다루는 방식"],
+  structure: ["어디에 있고 어떻게 생겼나", "맡은 기능", "연구에서 다루는 방식"],
+  theory: ["핵심 주장", "근거와 대표 연구", "비판과 한계"],
+};
+const TYPES = Object.keys(TYPE_HEADINGS);
 const ALLOWED_TAGS = new Set(["p", "ul", "ol", "li", "strong", "em", "code", "sub", "sup", "br", "table", "thead", "tbody", "tr", "th", "td", "caption", "a", "span", "h3", "small"]);
 const ALLOWED_ATTRS = new Set(["href", "class", "colspan", "scope"]);
 
@@ -102,6 +114,9 @@ function validateExtras(x, slug) {
   if (!TYPES.includes(x.type)) throw new Error(`${slug}: type 은 ${TYPES.join("/")} 중 하나`);
   if (!Array.isArray(x.sections) || !x.sections.length) throw new Error(`${slug}: sections 필요`);
   for (const s of x.sections) if (!s.heading || !s.html) throw new Error(`${slug}: section 에 heading/html 필요`);
+  const want = TYPE_HEADINGS[x.type].join(" / ");
+  const got = x.sections.map((s) => s.heading).join(" / ");
+  if (want !== got) throw new Error(`${slug}: ${x.type} 유형의 섹션 제목은 "${want}" 이어야 합니다 (현재 "${got}")`);
   if (!Array.isArray(x.references) || x.references.length < 2) throw new Error(`${slug}: 참고 문헌 2건 이상 필요`);
   if (x.compare && (!Array.isArray(x.compare.headers) || !Array.isArray(x.compare.rows))) throw new Error(`${slug}: compare 형식 오류`);
 }
@@ -223,5 +238,5 @@ function main() {
   console.log(`반영 ${changed}, 변경 없음 ${same}, 건너뜀 ${skipped}`);
 }
 
-module.exports = { applyToHtml, renderUsage, renderTable, renderCell, sanitizeFragment, linkify, esc, stripAll };
+module.exports = { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, renderCell, sanitizeFragment, linkify, esc, stripAll };
 if (require.main === module) main();
