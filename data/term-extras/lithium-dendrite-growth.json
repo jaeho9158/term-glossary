@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>충전 때 음극 표면으로 들어온 리튬 이온(Li⁺)이 금속 리튬으로 석출되는데, 이 석출이 고르지 않으면 뾰족한 가지(덴드라이트) 또는 이끼 모양(모시, mossy) 구조가 자랍니다.</li><li>불균일을 낳는 원인은 전류 밀도의 국소 편차, 이온 농도의 구배, 보호막(SEI)의 불균일, 표면 결함입니다. 뾰족한 끝에는 전기장과 이온 공급이 모여 성장이 더 빨라집니다.</li><li>결과는 두 가지입니다. 하나는 분리막을 뚫고 양극과 닿는 내부 단락(발열, 화재 위험)이고, 다른 하나는 뿌리가 끊겨 전기적으로 고립된 “죽은 리튬”으로 인한 용량과 쿨롱 효율 저하입니다.</li><li>전류 밀도가 높을수록, 이온 전도가 느릴수록, 낮은 온도일수록 쉬워집니다. 흑연 음극의 급속충전에서 생기는 리튬 도금(plating)도 같은 계열의 문제입니다.</li><li>억제 전략은 전해질 조성과 첨가제, 인공 SEI 보호층, 3차원 구조의 음극 호스트, 분리막 개선, 고체 전해질 등입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>묽은 전해질 모형에서는 음극 표면의 Li⁺ 농도가 0에 가까워지는 순간(Sand 시간, τ)부터 덴드라이트가 급격히 자란다고 설명합니다(Chazalviel 모형). 식은 τ = π D (z F C₀ / (2 J t<sub>a</sub>))² 입니다(D: 확산 계수, C₀: 초기 염 농도, J: 전류 밀도, t<sub>a</sub>: 음이온의 수송수). 핵심은 τ가 전류 밀도의 제곱에 반비례한다는 것입니다. 기준(J = 1, t<sub>a</sub> = 0.7)에 대한 상대값을 코드로 계산했습니다.</p><table><thead><tr><th>전류 밀도 J(기준 1 단위)</th><th>상대 Sand 시간</th></tr></thead><tbody><tr><td>0.5</td><td>4.0000</td></tr><tr><td>1</td><td>1.0000</td></tr><tr><td>2</td><td>0.2500</td></tr><tr><td>4</td><td>0.0625</td></tr></tbody></table><table><thead><tr><th>음이온 수송수 t<sub>a</sub> (J 고정)</th><th>상대 Sand 시간</th></tr></thead><tbody><tr><td>0.7</td><td>1.00</td></tr><tr><td>0.5</td><td>1.96</td></tr><tr><td>0.35</td><td>4.00</td></tr></tbody></table><p>전류를 두 배로 올리면 덴드라이트 시작 시간이 4분의 1로 줄고, 음이온 수송수가 줄면(곧 리튬 이온 수송수가 커지면) 시작이 늦어집니다. 이것이 급속충전이 위험하고 리튬 이온 수송수를 높인 전해질이 연구되는 이유입니다. 이 모형은 이온 농도 고갈만 고려한 단순화이므로 표면 반응과 SEI의 영향은 따로 다룹니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>덴드라이트와 이끼형(모시) 리튬은 같은 것이다.</td><td>형태와 발생 조건이 다릅니다. 전류 밀도가 낮을 때는 이끼형이, 높을 때는 가지형이 주로 보고되며, 연구에 따라 용어 사용이 엇갈립니다.</td></tr><tr><td>단단한 고체 전해질이면 덴드라이트가 막힌다.</td><td>Monroe와 Newman의 모형은 전해질이 리튬보다 충분히 단단하면(전단탄성률이 리튬의 약 2배 이상) 억제될 수 있다고 예측했지만, 세라믹 고체 전해질에서도 결정립계나 결함을 따라 리튬이 침투한 실험이 보고됩니다.</td></tr><tr><td>덴드라이트는 안전 문제일 뿐이다.</td><td>안전 문제 외에 죽은 리튬과 SEI의 반복 형성으로 수명과 효율을 떨어뜨리는 성능 문제이기도 합니다.</td></tr><tr><td>리튬이온전지(흑연 음극)에는 해당하지 않는다.</td><td>저온, 급속충전, 과충전에서는 흑연 표면에 금속 리튬이 석출되는 리튬 도금이 생기며, 덴드라이트로 이어질 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "리튬 덴드라이트",
+        "음극 표면에서 자라는 가지 모양의 금속 리튬"
+      ],
+      [
+        "이끼형(모시) 리튬",
+        "낮은 전류에서 보이는 섬유·이끼 모양의 석출"
+      ],
+      [
+        "죽은 리튬",
+        "전기적으로 고립된 금속 리튬. 용량 손실의 원인"
+      ],
+      [
+        "[[solid-electrolyte-interphase|SEI]]",
+        "전해질이 분해되어 음극 표면에 생기는 보호막. 불균일하면 덴드라이트의 씨앗"
+      ]
+    ]
+  },
+  "references": [
+    "Chazalviel, J.-N. (1990). Electrochemical aspects of the generation of ramified metallic electrodeposits. Physical Review A, 42(12), 7355–7367.",
+    "Bai, P., Li, J., Brushett, F. R., & Bazant, M. Z. (2016). Transition of lithium growth mechanisms in liquid electrolytes. Energy & Environmental Science, 9(10), 3221–3229.",
+    "Cheng, X.-B., Zhang, R., Zhao, C.-Z., & Zhang, Q. (2017). Toward safe lithium metal anode in rechargeable batteries: A review. Chemical Reviews, 117(15), 10403–10473.",
+    "Monroe, C., & Newman, J. (2005). The impact of elastic deformation on deposition kinetics at lithium/polymer interfaces. Journal of The Electrochemical Society, 152(2), A396–A404."
+  ]
+}

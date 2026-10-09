@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/confounding-variable.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,27 @@
   <p>관찰연구는 실험처럼 조건을 인위적으로 통제할 수 없기 때문에, 두 변수 사이에서 발견한 연관성이 진짜 인과관계인지 교란변수 때문에 생긴 착시인지 구분하는 일이 연구 설계의 핵심 과제가 됩니다.</p>
   <p>역학, 사회과학, 경제학처럼 사람과 사회를 대상으로 무작위 실험이 어렵거나 윤리적으로 제한되는 분야일수록 교란변수를 얼마나 잘 식별하고 통제했는지가 논문의 신뢰도를 좌우합니다. 그래서 저널 심사에서도 "어떤 교란변수를 고려했는가"는 방법론 검증의 단골 질문입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>교란변수(confounder)는 “노출(원인 후보)과 결과 둘 다와 얽혀 있어서, 둘 사이의 연관을 실제와 다르게 보이게 하는 변수”입니다. 역학 교과서(Rothman 등)가 드는 전통적 조건은 세 가지입니다.</p><ol><li>노출과 연관되어 있다(노출 집단과 비노출 집단에서 분포가 다르다).</li><li>노출이 없는 사람들 사이에서도 결과의 위험요인이다.</li><li>노출의 결과(노출과 결과 사이의 경로 위에 있는 변수)가 아니다.</li></ol><p>세 번째 조건 때문에 <strong>매개변수</strong>(노출 → 변수 → 결과)는 교란변수가 아닙니다. 매개변수를 통제하면 노출 효과의 일부를 스스로 지워 버립니다. 또 교란은 통계 검정으로 판별하는 성질이 아니라 <strong>비교하는 집단이 서로 견줄 만한가</strong>의 문제여서, “p값이 유의한 변수 = 교란변수”라고 단정할 수 없습니다. 인과 도표(DAG)를 쓰는 현대적 정의에서는 노출과 결과의 공통 원인(또는 공통 원인의 대리 변수)을 교란변수로 봅니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. 어떤 치료의 회복률을 비교하는데, 중증 환자일수록 치료를 많이 받고 회복률은 낮습니다(중증도가 교란변수).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>중증도</th><th>치료군 회복</th><th>비치료군 회복</th></tr></thead><tbody><tr><td>경증</td><td>16/20 (80%)</td><td>56/80 (70%)</td></tr><tr><td>중증</td><td>40/80 (50%)</td><td>6/20 (30%)</td></tr><tr><td>합계(층 무시)</td><td>56/100 (56%)</td><td>62/100 (62%)</td></tr></tbody></table></div><p>층을 무시하고 합치면 치료군 회복률이 56%, 비치료군이 62%로 치료가 오히려 불리해 보입니다(위험비 0.90). 그러나 경증에서는 위험비 1.14, 중증에서는 1.67로 두 층 모두 치료가 유리합니다. 층별 추정치를 Mantel–Haenszel 방법으로 합친 위험비는 1.30입니다(코드로 계산). 합친 값과 층별 값이 서로 다른 방향이면 교란을 의심할 근거가 됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>많이 통제할수록 좋다.</td><td>매개변수나 충돌변수(노출과 결과의 공통 결과)를 통제하면 오히려 편향이 생길 수 있습니다. 어떤 변수를 넣을지는 인과 구조(DAG)로 판단합니다.</td></tr><tr><td>표본이 크면 교란이 사라진다.</td><td>교란은 표본 크기가 아니라 비교집단의 구성 문제입니다. 표본이 커져도 같은 방향으로 치우친 추정치가 더 정밀해질 뿐입니다.</td></tr><tr><td>무작위 배정을 하면 교란이 없다.</td><td>기대값에서는 균형이 맞지만 표본이 작으면 우연한 불균형이 남을 수 있어, 기저 특성표를 확인하고 필요하면 공변량 보정을 합니다.</td></tr><tr><td>측정한 교란변수만 통제하면 충분하다.</td><td>측정되지 않은 교란변수는 그대로 남습니다. 민감도 분석으로 그 영향의 크기를 가늠합니다.</td></tr><tr><td>교란변수는 p값으로 가려낸다.</td><td>교란 여부는 인과 구조와 선행 지식에 근거해 정하며, 유의성만으로 고르면 오류가 생길 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“이를 위하여 교란변수, 충돌변수, 매개변수에 대한 개념을 간략히 소개하고, 이러한 변수들이 양적연구의 인과적 타당성에 어떻게 연관되는지를 설명하였다.”</blockquote><p class="te-cite">보이는 것은 보이지 않는 것에 기반한다: 교육학 양적연구에 있어서의 식별의 문제, 학습자중심교과교육연구, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003079992" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"연령, 성별, 흡연 여부를 교란변수로 통제한 후에도 두 그룹 간 혈압 차이는 유의했다."</div>
   <p>이 문장은 "혈압 차이가 사실은 나이나 흡연 습관 때문일 가능성을 통계적으로 배제하고 나서도, 여전히 진짜 차이가 남아있었다"는 뜻입니다. 즉 관찰된 결과가 다른 숨은 요인 때문이 아니라는 것을 확인했다는 의미입니다.</p>
 
@@ -170,6 +191,21 @@
 
   <h2>주의할 점</h2>
   <p>교란변수는 실험을 설계하기 전에 미리 예상하고 통제해야 하며, 논문을 읽을 때도 "이 결과에 영향을 줄 만한 다른 요인을 통제했는가"를 항상 확인해야 합니다. 무작위 배정을 하는 <a href="randomized-controlled-trial.html">무작위대조시험</a>은 교란변수의 영향을 구조적으로 줄이는 대표적인 방법입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>인과 구조에서 변수가 놓인 자리에 따라 이름과 다루는 방법이 달라집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">놓인 자리</th><th scope="col">통제하면</th></tr></thead><tbody><tr><th scope="row">교란변수</th><td>노출과 결과의 공통 원인</td><td>편향이 줄어듭니다(통제 대상)</td></tr><tr><th scope="row">매개변수</th><td>노출 → 변수 → 결과 경로 위</td><td>노출 효과의 일부(간접효과)가 가려집니다</td></tr><tr><th scope="row">충돌변수</th><td>노출과 결과의 공통 결과</td><td>없던 연관이 생길 수 있습니다</td></tr><tr><th scope="row">조절변수</th><td>경로 위가 아니라 효과의 크기를 바꾸는 변수</td><td>통제가 아니라 상호작용·층별 분석으로 다룹니다</td></tr><tr><th scope="row"><a href="confounding-in-epidemiology.html">교란(역학)</a></th><td>교란변수가 만드는 편향 현상 자체</td><td>—</td></tr></tbody></table></div>
+  <p class="te-note">변수 이름이 아니라 인과 구조상의 위치가 역할을 정합니다. 같은 변수가 연구 질문에 따라 교란변수도, 매개변수도 될 수 있습니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rothman, K. J., Greenland, S., &amp; Lash, T. L. (2008). Modern Epidemiology (3rd ed.). Lippincott Williams &amp; Wilkins.</li>
+    <li>Greenland, S., Pearl, J., &amp; Robins, J. M. (1999). Causal diagrams for epidemiologic research. Epidemiology, 10(1), 37–48.</li>
+    <li>VanderWeele, T. J., &amp; Shpitser, I. (2013). On the definition of a confounder. Annals of Statistics, 41(1), 196–220.</li>
+    <li>Pearl, J. (2009). Causality: Models, Reasoning, and Inference (2nd ed.). Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
