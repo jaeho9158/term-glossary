@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>패널자료는 <strong>같은 개체(사람·기업·국가)를 여러 시점에 걸쳐 반복 관측한 자료</strong>입니다. 개체 차원(N)과 시간 차원(T)이 함께 있어 ‘횡단면+시계열’ 자료라고도 합니다.</li><li>모든 개체가 모든 시점에서 관측되면 <strong>균형 패널</strong>, 일부가 빠지면 <strong>불균형 패널</strong>입니다. N이 크고 T가 짧은 경우(미시 패널)와 T가 긴 경우(거시 패널)는 분석 방법이 다릅니다.</li><li>핵심 이점은 개체마다 다르지만 관측되지 않고 시간에 따라 변하지 않는 특성(예: 기업 문화, 개인 능력)을 통제할 수 있다는 점입니다. Hsiao(2014)와 Baltagi(2021)가 교과서로 널리 쓰입니다.</li><li>대표 모형은 [[fixed-effects-model|고정효과 모형]]과 [[random-effects-model|확률효과 모형]]입니다. 두 모형 중 무엇을 쓸지는 [[hausman-test|하우스만 검정]]으로 판단하는 것이 관례입니다(Hausman, 1978).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: 3개 기업을 4개 연도 동안 관측하면 균형 패널의 관측치는 3×4 = 12개입니다. 한 기업의 한 해 자료가 없으면 11개가 되어 불균형 패널입니다.</p><table><thead><tr><th>기업</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th></tr></thead><tbody><tr><td>A</td><td>매출</td><td>매출</td><td>매출</td><td>매출</td></tr><tr><td>B</td><td>매출</td><td>매출</td><td>매출</td><td>매출</td></tr><tr><td>C</td><td>매출</td><td>매출</td><td>결측</td><td>매출</td></tr></tbody></table><ul><li>고정효과 모형은 개체별 상수항을 두어 개체 내 시간에 따른 변화만으로 효과를 추정합니다. 따라서 시간에 따라 변하지 않는 변수(성별 등)의 효과는 추정할 수 없습니다.</li><li>확률효과 모형은 개체 효과가 설명변수와 무관하다고 가정합니다. 이 가정이 틀리면 편의가 생깁니다.</li><li>Mundlak(1978)은 확률효과 모형에 개체별 평균을 추가해 두 모형을 연결하는 방법을 제시했습니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>패널자료는 표본 수가 많으면 충분하다.</td><td>같은 개체의 관측치는 서로 독립이 아니므로 표준오차를 개체 단위로 군집(cluster)해 계산하는 것이 일반적입니다.</td></tr><tr><td>고정효과를 쓰면 인과가 증명된다.</td><td>시간에 따라 변하는 교란은 통제하지 못합니다.</td></tr><tr><td>패널자료는 횡단면 자료를 여러 해 모은 것이다.</td><td>같은 개체를 추적하지 않고 해마다 다른 표본을 뽑은 것은 반복 횡단면 자료이지 패널이 아닙니다.</td></tr><tr><td>불균형이면 항상 문제다.</td><td>불균형 자체는 추정에 문제가 되지 않습니다. 결측이 무작위가 아닌 이탈(예: 폐업)일 때 편의 문제가 생깁니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "자료 구조를 구분합니다.",
+    "headers": [
+      "유형",
+      "관측 구조",
+      "예"
+    ],
+    "rows": [
+      [
+        "횡단면 자료",
+        "한 시점, 여러 개체",
+        "2023년 기업 매출"
+      ],
+      [
+        "시계열 자료",
+        "한 개체, 여러 시점",
+        "한 나라의 연도별 GDP"
+      ],
+      [
+        "패널자료",
+        "여러 개체, 여러 시점",
+        "300개 기업의 10년 재무자료"
+      ],
+      [
+        "[[difference-in-differences|이중차분]]",
+        "처치 전후, 처치/비처치 집단 비교",
+        "패널 구조를 흔히 활용"
+      ]
+    ]
+  },
+  "references": [
+    "Hausman, J. A. (1978). Specification tests in econometrics. Econometrica, 46(6), 1251–1271.",
+    "Mundlak, Y. (1978). On the pooling of time series and cross section data. Econometrica, 46(1), 69–85.",
+    "Wooldridge, J. M. (2010). Econometric Analysis of Cross Section and Panel Data (2nd ed.). MIT Press.",
+    "Hsiao, C. (2014). Analysis of Panel Data (3rd ed.). Cambridge University Press.",
+    "Baltagi, B. H. (2021). Econometric Analysis of Panel Data (6th ed.). Springer."
+  ]
+}
