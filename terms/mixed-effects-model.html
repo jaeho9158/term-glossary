@@ -164,29 +164,7 @@
   <p>모형 식(어느 변수가 고정·무선인지), 소프트웨어와 추정법, 묶음 수와 관측치 수, 고정효과와 무선효과 추정치, ICC, 모형 선택 근거를 적습니다.</p><p><code>학생(Level 1)이 학교(Level 2, 5개교)에 속한 구조를 반영하여 무선절편 선형혼합모형을 적합하였다(REML, lme4 패키지). 학교 간 분산은 32.6, 학교 내 분산은 5.12로 급내상관계수는 .86이었다.</code></p><ul><li>무선효과를 무엇으로 정했는지 이유를 적습니다. 실험 자료에서는 가능한 한 설계에 맞는 무선효과 구조를 먼저 적합하고, 수렴이 안 되면 단순화하는 순서를 쓰자는 제안이 있습니다(Barr 외, 2013).</li><li>묶음 수가 적으면(위 예의 5개처럼) 무선효과 분산 추정이 불안정합니다. 필요한 묶음 수는 설계와 목적에 따라 다르니 표본 수 근거를 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>관측치들이 서로 독립이 아닐 때, 곧 <strong>한 묶음(학교, 병원, 사람) 안의 관측치가 서로 닮을 때</strong> 씁니다. 일반 회귀를 그대로 쓰면 표준오차가 지나치게 작아져 p값이 실제보다 좋게 나옵니다.</p><ul><li>학생이 학급에, 학급이 학교에 속한 자료(위계 자료, 다층모형이라고도 부름).</li><li>같은 사람을 여러 시점에 측정한 종단·반복측정 자료. 시점 수나 간격이 사람마다 달라도, 일부가 빠져도 쓸 수 있다는 점이 <a href="repeated-measures-anova.html">반복측정 분산분석</a>과 다릅니다(결측이 무작위로 생겼다는 가정 아래 최대우도 추정을 쓰는 경우).</li><li>실험 참가자와 자극 항목이 모두 무작위로 뽑힌 설계처럼 무선효과가 교차하는 자료.</li></ul><p>구성은 두 부분입니다. <strong>고정효과</strong>는 모두에게 공통인 평균적 관계(예: 공부 시간의 효과)이고, <strong>무선효과</strong>는 묶음마다 다르게 나타나는 부분(예: 학교마다 다른 출발점=무선절편, 학교마다 다른 기울기=무선기울기)을 분산으로 추정합니다.</p>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>가상의 예: 5개 학교에서 6명씩 뽑아 점수를 쟀습니다. 학교 평균은 63.3, 71.5, 56.2, 66.2, 60.5입니다.</p><ul><li><strong>분산 분해</strong>(균형 설계의 분산분석 추정): 학교 간 분산 32.6, 학교 내 분산 5.12. 전체 변동 중 학교가 차지하는 비율인 <strong>급내상관계수(ICC)</strong> = 32.6 / (32.6 + 5.12) = .86입니다. 같은 학교 학생끼리 매우 닮았다는 뜻입니다.</li><li><strong>설계효과</strong> = 1 + (학교당 인원 − 1) × ICC = 1 + 5 × .86 = 5.3. 30명의 자료가 독립 관측치 약 5.6명분의 정보밖에 주지 못한다는 뜻입니다.</li><li>그래서 30명을 독립이라 보고 전체 평균의 표준오차를 구하면 1.03이지만, 학교 평균 5개를 기준으로 하면 2.59로 2.5배 큽니다. 묶음을 무시한 분석이 위험한 이유입니다.</li><li>혼합모형 출력에서는 <strong>고정효과표</strong>(계수, SE, 자유도, t, p)와 <strong>무선효과표</strong>(절편·기울기의 분산 또는 SD, 상관)를 따로 봅니다. 자유도와 p는 Satterthwaite나 Kenward-Roger 근사로 구하기도 합니다(Kuznetsova 외, 2017).</li><li>추정법은 대개 제한최대우도(REML)이며, 고정효과가 다른 두 모형을 우도비로 비교할 때는 REML이 아니라 최대우도(ML)로 적합한 값을 써야 합니다.</li><li>무선효과 구조가 자료에 비해 너무 복잡하면 ‘수렴하지 않음’이나 ‘특이 적합(분산이 0, 상관이 ±1)’ 경고가 뜹니다.</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>모형 식(어느 변수가 고정·무선인지), 소프트웨어와 추정법, 묶음 수와 관측치 수, 고정효과와 무선효과 추정치, ICC, 모형 선택 근거를 적습니다.</p><p><code>학생(Level 1)이 학교(Level 2, 5개교)에 속한 구조를 반영하여 무선절편 선형혼합모형을 적합하였다(REML, lme4 패키지). 학교 간 분산은 32.6, 학교 내 분산은 5.12로 급내상관계수는 .86이었다.</code></p><ul><li>무선효과를 무엇으로 정했는지 이유를 적습니다. 실험 자료에서는 가능한 한 설계에 맞는 무선효과 구조를 먼저 적합하고, 수렴이 안 되면 단순화하는 순서를 쓰자는 제안이 있습니다(Barr 외, 2013).</li><li>묶음 수가 적으면(위 예의 5개처럼) 무선효과 분산 추정이 불안정합니다. 필요한 묶음 수는 설계와 목적에 따라 다르니 표본 수 근거를 밝힙니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“ECT군이 약물치료군에 비해 ECT 시행 후 MMN 진폭 또 는 잠복기에 유의한 차이를 보였는지를 평가하기 위해, 반복 측정을 위한 혼합모형(mixed models for repeated measures) 을 사용하여 MMN 진폭 및 잠복기의 군-시간 상호작용을 추 정하였다.”</blockquote><p class="te-cite">정신증 환자에서 전기경련치료가 불일치음전위와 양성 증상에 미치는 정상화 효과, Korean Journal of Schizophrenia Research, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095758" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“이로 인한 집단 구성의 가변성을 통계적으로 제어하고 데 이터의 활용도를 극대화하여 구강건강교육 사업의 연도별 성과를 분 석하기 위해 선형혼합모형(Linear Mixed-effects Model, LMM)을 시 행하였다.”</blockquote><p class="te-cite">유치원 기반 구강건강교육 사업을 통한 구강위생 개선과 치아우식 예방 효과 분석, Journal of Korean Academy of Oral Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096008" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“이때 사용하는 방법이 경시적 자료 분석 (longitudinal data analysis) 또는혼합모형 (mixed model) 분석이다.”</blockquote><p class="te-cite">환경생태 자료 분석을 위한 시계열 분석 방법 연구, 환경생물, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002188737" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -212,23 +190,6 @@
 
   <h2>주의할 점</h2>
   <p>혼합효과모형에서는 어떤 변수를 무선효과로 넣을지 결정하는 것이 결과에 큰 영향을 줍니다. 무선효과를 빠뜨리면 <a href="repeated-measures-design.html">반복측정설계</a> 자료의 개체 간 상관을 무시하게 되어 유의확률이 실제보다 과소평가될 수 있고, 반대로 표본 수에 비해 무선효과를 너무 복잡하게 넣으면 모형이 수렴하지 않을 수도 있습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>묶인 자료를 다루는 방법은 여러 가지입니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">하는 일</th><th scope="col">한계</th></tr></thead><tbody><tr><th scope="row"><a href="repeated-measures-anova.html">반복측정 분산분석</a></th><td>같은 대상의 반복 측정 비교</td><td>결측이 있으면 대상을 통째로 제외하는 경우가 많음, 구형성 필요</td></tr><tr><th scope="row"><a href="mixed-effects-model.html">혼합효과모형(다층모형)</a></th><td>고정효과와 묶음별 무선효과를 함께 추정</td><td>무선효과 구조를 정해야 하고 수렴 문제 가능</td></tr><tr><th scope="row"><a href="clustered-standard-errors.html">군집 강건 표준오차</a></th><td>계수는 그대로 두고 표준오차만 보정</td><td>묶음별 차이를 모형으로 설명하지는 않음</td></tr><tr><th scope="row"><a href="hierarchical-regression.html">위계적 회귀</a></th><td>변수 블록을 단계별로 투입</td><td>이름에 ‘위계’가 있어도 묶음 구조를 다루는 방법이 아님</td></tr></tbody></table></div>
-  <p class="te-note">‘다층모형’, ‘위계선형모형(HLM)’, ‘무선효과모형’은 같은 계열을 가리키는 이름으로 쓰이는 일이 많습니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Laird, N. M., &amp; Ware, J. H. (1982). Random-effects models for longitudinal data. Biometrics, 38(4), 963–974.</li>
-    <li>Raudenbush, S. W., &amp; Bryk, A. S. (2002). Hierarchical linear models: Applications and data analysis methods (2nd ed.). Sage.</li>
-    <li>Gelman, A., &amp; Hill, J. (2007). Data analysis using regression and multilevel/hierarchical models. Cambridge University Press.</li>
-    <li>Bates, D., Mächler, M., Bolker, B., &amp; Walker, S. (2015). Fitting linear mixed-effects models using lme4. Journal of Statistical Software, 67(1), 1–48.</li>
-    <li>Barr, D. J., Levy, R., Scheepers, C., &amp; Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. Journal of Memory and Language, 68(3), 255–278.</li>
-    <li>Kuznetsova, A., Brockhoff, P. B., &amp; Christensen, R. H. B. (2017). lmerTest package: Tests in linear mixed effects models. Journal of Statistical Software, 82(13), 1–26.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

@@ -163,28 +163,7 @@
   <p>세미베리오그램 모형(구형·지수형·가우스형 등)과 그 모수(너깃, 문턱값, 범위), 이웃 점의 선택 방식, 크리깅 종류를 적고, <strong>교차검증</strong> 결과를 평균오차(ME)와 제곱근평균제곱오차(RMSE) 등으로 제시합니다.</p><p><code>세미베리오그램에는 구형 모형을 적합하였다(너깃 0.12, 문턱값 0.85, 범위 3.4 km). 정규크리깅의 교차검증 결과 평균오차는 0.01, RMSE는 0.31이었으며, 같은 자료에 IDW를 적용했을 때(RMSE 0.38)보다 작았다.</code> (가상의 문장)</p><ul><li>예측 지도에는 불확실성 지도를 함께 싣는 것이 좋습니다.</li><li>자료가 심하게 치우쳐 있으면 로그변환 등을 한 뒤 크리깅하고 역변환 방법을 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>일부 지점에서만 측정한 값(토양 오염 농도, 강수량, 광물 품위, 지하수 수위 등)으로 측정하지 않은 지점의 값을 <strong>예측하고, 그 예측의 불확실성까지</strong> 함께 구하고 싶을 때 씁니다. 단순히 가까운 값을 평균하는 거리역가중법(IDW)과 달리, 자료에서 추정한 공간 구조(세미베리오그램)로 가중치를 정하고 예측오차 분산도 계산한다는 점이 다릅니다.</p><ul><li>전제: 값이 공간적으로 서로 관련되어 있어야 합니다(공간자기상관). 세미베리오그램이 거의 평평하면(순수한 너깃 효과) 크리깅의 이점이 없습니다.</li><li>정규크리깅은 평균을 모르지만 지역 안에서는 일정하다고 보고, 범용크리깅은 추세가 있는 경우, 공동크리깅은 보조 변수를 함께 쓰는 경우에 씁니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>결과는 두 장의 지도로 나옵니다: <strong>예측값 지도</strong>와 <strong>크리깅 분산(또는 표준오차) 지도</strong>. 관측점에서 멀수록 분산이 커집니다.</p><p><strong>작은 예</strong>(가상의 값, 계산 결과). 직선 위 세 관측점 x = 0, 4, 10에서 값이 5, 9, 7이고, 구간(range) 12, 문턱값(sill) 4, 너깃 0인 구형(spherical) 세미베리오그램을 가정합니다. x = 5에서 정규크리깅 가중치는 −0.02(x = 0), 0.85(x = 4), 0.17(x = 10)이며 합은 1입니다. 예측값은 약 8.74, 크리깅 분산은 약 0.85(표준오차 약 0.92)입니다.</p><ul><li>가장 가까운 x = 4가 가중치 대부분을 가져가고, x = 0은 그 뒤에 가려져 가중치가 거의 0(약간 음수)이 됩니다. 크리깅 가중치는 거리뿐 아니라 관측점들 사이의 배치에도 좌우되며, 음수가 될 수도 있습니다.</li><li>정규크리깅은 관측점에서 정확히 관측값을 되돌려 줍니다(x = 4에서 예측값이 9).</li><li>크리깅 분산은 세미베리오그램 모형이 맞다는 전제 아래의 값입니다. 모형이 틀리면 예측오차도 틀립니다.</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>세미베리오그램 모형(구형·지수형·가우스형 등)과 그 모수(너깃, 문턱값, 범위), 이웃 점의 선택 방식, 크리깅 종류를 적고, <strong>교차검증</strong> 결과를 평균오차(ME)와 제곱근평균제곱오차(RMSE) 등으로 제시합니다.</p><p><code>세미베리오그램에는 구형 모형을 적합하였다(너깃 0.12, 문턱값 0.85, 범위 3.4 km). 정규크리깅의 교차검증 결과 평균오차는 0.01, RMSE는 0.31이었으며, 같은 자료에 IDW를 적용했을 때(RMSE 0.38)보다 작았다.</code> (가상의 문장)</p><ul><li>예측 지도에는 불확실성 지도를 함께 싣는 것이 좋습니다.</li><li>자료가 심하게 치우쳐 있으면 로그변환 등을 한 뒤 크리깅하고 역변환 방법을 밝힙니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“공간변이성을 구현할 수 있는 좋은 방법은 variogram과 kriging의 특성을 평가하여 정량화하지 못하는 곳들의 공간연속성을 해명하여 분포도를 작성하는 것이다”</blockquote><p class="te-cite">고령지 개간지 밭의 토양수분과 경도 및 작물수량의 공간변이성, 한국토양비료학회지(Korean Journal of Soil Science and Fertilizer), 2006 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001124533" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“ICPAES 및 PXRF를 통해 구축된 다변량 데이터를 사용한 GMM의 결과를 단변량 및 이변량 데이터를 사용한 정규 크리깅(Ordinary Kriging; OK) 및 정규 공동크리깅(Ordinary Co-Kriging; OCK)의 결과와 비교하였다.”</blockquote><p class="te-cite">다변량 지구과학 데이터와 가우시안 혼합 모델을 이용한 공간 분포 추정, 자원환경지질, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002868763" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -209,21 +188,6 @@
 
   <h2>주의할 점</h2>
   <p>크리깅은 <a href="spatial-autocorrelation.html">공간자기상관</a>이 안정적으로 존재한다는 가정, 즉 공간적 패턴이 지역 전체에서 크게 변하지 않는다는 가정(정상성)에 의존합니다. 관측 지점 밀도가 낮거나 공간 패턴이 지역마다 급격히 달라지는 경우 예측 신뢰도가 크게 떨어질 수 있어, 예측값과 함께 반드시 예측 오차(분산)를 함께 보고해야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>크리깅은 ‘공간 보간’의 한 가지이고, 이름이 붙은 변형도 많습니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">차이</th></tr></thead><tbody><tr><th scope="row"><a href="kriging-interpolation.html">크리깅 보간</a></th><td>크리깅으로 값을 채우는 일 전반</td><td>같은 계열의 설명 페이지</td></tr><tr><th scope="row"><a href="ordinary-kriging.html">정규크리깅</a></th><td>평균을 모르지만 일정하다고 가정</td><td>가장 널리 쓰이는 형태</td></tr><tr><th scope="row"><a href="universal-kriging.html">범용크리깅</a></th><td>평균에 공간 추세가 있다고 가정</td><td>추세를 함께 모형화</td></tr><tr><th scope="row"><a href="cokriging.html">공동크리깅</a></th><td>보조 변수의 정보를 함께 사용</td><td>보조 변수가 값싸고 촘촘할 때</td></tr><tr><th scope="row"><a href="semivariogram-analysis.html">세미베리오그램 분석</a></th><td>거리에 따른 값의 차이를 모형화</td><td>크리깅 가중치를 정하는 입력</td></tr></tbody></table></div>
-  <p class="te-note">거리역가중법(IDW)은 세미베리오그램 없이 거리만으로 가중치를 정하므로 크리깅이 아닙니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Krige, D. G. (1951). A statistical approach to some basic mine valuation problems on the Witwatersrand. Journal of the Chemical, Metallurgical and Mining Society of South Africa, 52(6), 119–139.</li>
-    <li>Matheron, G. (1963). Principles of geostatistics. Economic Geology, 58(8), 1246–1266.</li>
-    <li>Isaaks, E. H., &amp; Srivastava, R. M. (1989). An Introduction to Applied Geostatistics. Oxford University Press.</li>
-    <li>Cressie, N. (1993). Statistics for Spatial Data (Rev. ed.). Wiley.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

@@ -165,24 +165,7 @@
   <p>분산 이질성을 확인한 근거(Levene 검정 등)와 Welch 보정을 쓴 이유, 사후검정 종류를 적습니다. (아래 수치는 위 가상의 예의 형식 예시입니다.)</p><p><code>집단 간 분산이 동일하지 않아(Levene 검정, p = .012) Welch의 분산분석을 실시하였다. 집단 간 평균 차이는 유의하지 않았다, F(2, 13.85) = 1.49, p = 0.260.</code></p><ul><li>유의했다면 “사후검정은 Games–Howell 검정을 사용하였다”를 함께 적습니다.</li><li>자유도가 소수로 보고되는 것은 정상입니다.</li><li>SPSS에서는 일원분산분석의 옵션에 Welch와 Brown–Forsythe 통계량이 있습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>세 집단 이상의 평균을 비교하는데 <strong>집단별 분산이 다르다고 의심될 때</strong> 일원분산분석(ANOVA)의 대안으로 씁니다. 집단별 표본 크기가 다를수록 일반 ANOVA의 오류가 커지므로 더 중요합니다.</p><ul><li>세 집단 이상 평균 비교, 독립된 집단, 종속변수는 연속형이라는 점은 일반 ANOVA와 같습니다.</li><li>분산이 같다는 가정만 빠집니다. 정규성은 여전히 필요합니다(표본이 어느 정도 크면 완화).</li><li>Levene 검정으로 등분산을 검정한 뒤 일반 F와 Welch F 중에 고르는 방식은 널리 쓰이지만, 처음부터 Welch를 쓰는 편이 안전하다는 주장도 있습니다(Delacre 외, 2019).</li><li>두 집단이면 <a href="welchs-t-test.html">웰치 t검정</a>과 같은 결과입니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>집단 <em>i</em>의 표본 크기 n<sub>i</sub>, 분산 s<sub>i</sub>²로 가중치 w<sub>i</sub> = n<sub>i</sub>/s<sub>i</sub>²를 두고, 가중평균 x̄<sub>w</sub>를 중심으로 집단 평균들의 흩어짐을 잽니다. 분산이 큰 집단은 가중치가 작아집니다.</p><ul><li><strong>통계량</strong> F*를 분모 자유도가 보정된 F 분포와 비교합니다. 분자 자유도는 k − 1이고, <strong>분모 자유도는 소수</strong>로 나옵니다(예: 13.85).</li><li><strong>사후검정</strong>은 등분산을 가정하지 않는 Games–Howell 검정을 씁니다. Tukey HSD는 등분산을 가정하므로 맞지 않습니다.</li><li><strong>효과크기</strong>(ω² 등)는 p값과 별도로 계산해 보고합니다. p값만으로는 평균 차이의 크기를 알 수 없습니다.</li></ul><p>(가상의 예, 직접 계산) 표본 크기가 8, 15, 30이고 표준편차가 10, 6, 3(작은 집단의 분산이 큰 경우)인 모의 상황에서 <strong>평균이 모두 같을 때</strong> 20,000번 반복하여 유의수준 .05에서 귀무가설을 기각한 비율을 셉니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>분산이 큰 집단</th><th>일반 F의 기각률</th><th>Welch F의 기각률</th></tr></thead><tbody><tr><td>표본이 작은 집단 (8명, SD 10)</td><td>0.214</td><td>0.055</td></tr><tr><td>표본이 큰 집단 (30명, SD 10)</td><td>0.012</td><td>0.049</td></tr></tbody></table></div><p>작은 집단의 분산이 클 때 일반 F는 1종 오류율이 약 21%로 치솟고, 반대 조합에서는 오히려 1.2%로 지나치게 보수적입니다. Welch F는 두 경우 모두 5% 근처를 유지합니다. 한 번 뽑은 자료(집단 평균 52.2, 52.1, 54.5, SD 7.5, 5.5, 2.7)에서는 일반 F(2, 50) = 1.76, p = 0.183, Welch F(2, 13.85) = 1.49, p = 0.260로 결론은 같지만 p가 다릅니다.</p>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>분산 이질성을 확인한 근거(Levene 검정 등)와 Welch 보정을 쓴 이유, 사후검정 종류를 적습니다. (아래 수치는 위 가상의 예의 형식 예시입니다.)</p><p><code>집단 간 분산이 동일하지 않아(Levene 검정, p = .012) Welch의 분산분석을 실시하였다. 집단 간 평균 차이는 유의하지 않았다, F(2, 13.85) = 1.49, p = 0.260.</code></p><ul><li>유의했다면 “사후검정은 Games–Howell 검정을 사용하였다”를 함께 적습니다.</li><li>자유도가 소수로 보고되는 것은 정상입니다.</li><li>SPSS에서는 일원분산분석의 옵션에 Welch와 Brown–Forsythe 통계량이 있습니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -204,20 +187,6 @@
 
   <h2>주의할 점</h2>
   <p>웰치의 분산분석에서 유의한 차이가 나왔다면, 어느 집단과 어느 집단이 다른지 확인하기 위한 사후검정도 등분산을 가정하지 않는 방법(예: Games-Howell 검정)을 사용해야 합니다. <a href="tukey-hsd-test.html">튜키의 HSD 검정</a>처럼 등분산을 전제로 하는 사후검정을 함께 쓰면 앞뒤가 맞지 않게 됩니다. 또한 웰치 방법은 분산 문제만 보정할 뿐, <a href="normal-distribution.html">정규분포</a> 가정까지 해결해주지는 않습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>분산이 다를 때의 검정과 사후검정이 짝으로 따라다닙니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">집단 수</th><th scope="col">등분산 가정</th></tr></thead><tbody><tr><th scope="row">Welch ANOVA</th><td>3개 이상</td><td>필요 없음</td></tr><tr><th scope="row"><a href="anova.html">일원분산분석(F)</a></th><td>3개 이상</td><td>필요함</td></tr><tr><th scope="row"><a href="welchs-t-test.html">웰치 t검정</a></th><td>2개</td><td>필요 없음(Welch ANOVA의 2집단 버전)</td></tr><tr><th scope="row"><a href="games-howell-test.html">Games–Howell 검정</a></th><td>사후검정</td><td>필요 없음 — Welch ANOVA 뒤에 짝으로 사용</td></tr><tr><th scope="row"><a href="tukey-hsd-test.html">Tukey HSD</a></th><td>사후검정</td><td>필요함 — 일반 ANOVA 뒤에 사용</td></tr><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼–왈리스 검정</a></th><td>3개 이상</td><td>평균이 아니라 순위 비교. 분포 모양 차이에는 민감</td></tr><tr><th scope="row"><a href="levenes-test.html">Levene 검정</a></th><td>—</td><td>분산이 같은지 확인하는 검정</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Welch, B. L. (1951). On the comparison of several mean values: An alternative approach. Biometrika, 38(3–4), 330–336.</li>
-    <li>Brown, M. B., &amp; Forsythe, A. B. (1974). The small sample behavior of some statistics which test the equality of several means. Technometrics, 16(1), 129–132.</li>
-    <li>Games, P. A., &amp; Howell, J. F. (1976). Pairwise multiple comparison procedures with unequal n’s and/or variances: A Monte Carlo study. Journal of Educational Statistics, 1(2), 113–125.</li>
-    <li>Delacre, M., Leys, C., Mora, Y. L., &amp; Lakens, D. (2019). Taking parametric assumptions seriously: Arguments for the use of Welch’s F-test instead of the classical F-test in one-way ANOVA. International Review of Social Psychology, 32(1), 13.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

@@ -161,28 +161,7 @@
   <p>방법 절에 고정효과/임의효과 선택 근거(하우스만 검정 결과, 변수의 성격)를 쓰고, 결과에는 개체 수와 총 관측 수를 함께 적습니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>하우스만 검정 결과 고정효과와 임의효과 추정치 사이에 유의한 차이가 없어(χ²(4) = 5.31, p = .257) 임의효과모형을 선택하였다. 개체 수는 120개, 총 관측치는 600개이며 ρ = .46이었다.</code></p><ul><li>시간불변 변수의 효과를 보고하려는 것이 선택 이유라면 그 점을 분명히 적습니다.</li><li>하우스만 검정 통과 여부만으로 가정이 참이라고 단정하지 않습니다(검정력이 낮을 수 있음).</li><li>σ<sub>u</sub>, σ<sub>ε</sub>, ρ를 함께 제시하면 개체 간·개체 내 변동 크기를 알 수 있습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>같은 개체(사람, 기업, 학교)를 여러 번 관측한 패널·반복측정 자료에서, 개체마다의 관측되지 않는 차이를 <strong>무작위로 뽑힌 값</strong>으로 보고 추정할 때 씁니다.</p><ul><li>핵심 가정: 개체 고유 효과가 설명변수와 <strong>상관없다</strong>(외생성). 이 가정이 틀리면 계수가 편향됩니다.</li><li>성별·국가처럼 시간에 따라 변하지 않는 변수의 효과를 추정하려면 고정효과모형으로는 불가능하고 임의효과모형이 필요합니다.</li><li>개체는 많고 관측 시점은 적은 자료에서 고정효과보다 효율적입니다(표준오차가 작습니다).</li><li>같은 모형을 분야에 따라 확률효과·변량효과·랜덤효과모형이라고도 부릅니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>모형은 y<sub>it</sub> = x<sub>it</sub>′β + u<sub>i</sub> + ε<sub>it</sub>이고, u<sub>i</sub>(분산 σ<sub>u</sub>²)가 개체 효과, ε<sub>it</sub>(분산 σ<sub>ε</sub>²)가 오차입니다.</p><ul><li><strong>ICC(급내상관) ρ = σ<sub>u</sub>² / (σ<sub>u</sub>² + σ<sub>ε</sub>²)</strong>: 전체 변동 중 개체 간 차이가 차지하는 비율입니다. 같은 개체의 두 관측치 사이의 상관과 같습니다.</li><li><strong>θ (준차분 계수)</strong>: 임의효과 추정은 y<sub>it</sub> − θ·ȳ<sub>i</sub>로 변환한 뒤 회귀하는 것과 같으며 θ = 1 − √[σ<sub>ε</sub>² / (σ<sub>ε</sub>² + Tσ<sub>u</sub>²)]입니다. θ = 0이면 단순 통합(pooled) OLS, θ = 1이면 고정효과(개체 평균을 완전히 뺌)입니다.</li><li><strong>하우스만 검정</strong>: 귀무가설은 “임의효과 추정이 일치(편향 없음)”입니다. 기각되면 고정효과를 선택합니다. 군집 강건 표준오차를 쓸 때는 기본 하우스만 검정이 맞지 않아 Mundlak 접근 등을 씁니다.</li></ul><p>(공식에서 직접 계산) 관측 시점 수 T와 분산비(σ<sub>u</sub>²/σ<sub>ε</sub>²)에 따른 θ입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>분산비 0.5 (ICC .33)</th><th>분산비 1 (ICC .50)</th><th>분산비 4 (ICC .80)</th></tr></thead><tbody><tr><td>T = 2</td><td>0.293</td><td>0.423</td><td>0.667</td></tr><tr><td>T = 5</td><td>0.465</td><td>0.592</td><td>0.782</td></tr><tr><td>T = 10</td><td>0.592</td><td>0.698</td><td>0.844</td></tr></tbody></table></div><p>개체 간 차이가 클수록, 그리고 관측 시점이 많을수록 θ가 1에 가까워져 임의효과 추정이 고정효과 추정과 비슷해집니다.</p>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>방법 절에 고정효과/임의효과 선택 근거(하우스만 검정 결과, 변수의 성격)를 쓰고, 결과에는 개체 수와 총 관측 수를 함께 적습니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>하우스만 검정 결과 고정효과와 임의효과 추정치 사이에 유의한 차이가 없어(χ²(4) = 5.31, p = .257) 임의효과모형을 선택하였다. 개체 수는 120개, 총 관측치는 600개이며 ρ = .46이었다.</code></p><ul><li>시간불변 변수의 효과를 보고하려는 것이 선택 이유라면 그 점을 분명히 적습니다.</li><li>하우스만 검정 통과 여부만으로 가정이 참이라고 단정하지 않습니다(검정력이 낮을 수 있음).</li><li>σ<sub>u</sub>, σ<sub>ε</sub>, ρ를 함께 제시하면 개체 간·개체 내 변동 크기를 알 수 있습니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“본 연구에서는 연금보험 가입의 결정요인을 분석하기 위해 로지스틱모형, 고정효과 패널로지스틱모형, 확률효과 패널로지스틱모형을 적용하였다.”</blockquote><p class="te-cite">연금보험 가입 결정요인에 관한 연구, 보험학회지, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002276228" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“수출보험 공급 함수의 종속변수를 단기수출보험 공급량으로, 설명변수를 보험 손해율, 우리나라 GDP성장률 및 수출증가율의 상호작용항 더미변수와 중력모형 변수들로 설정하고, 연도별 수입국별 패널자료를 합동OLS, 고정효과, 확률효과 모형으로 분석하였다.”</blockquote><p class="te-cite">수출보험 공급에 영향을 미치는 요인에 대한 연구 - 한국무역보험공사의 사례를 중심으로 -, 무역금융보험연구, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002426632" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -205,21 +184,6 @@
 
   <h2>주의할 점</h2>
   <p>임의효과모형은 개체별 고유 특성이 모형에 포함된 다른 독립변수들과 상관관계가 없다는 가정이 필요합니다. 이 가정이 어긋나면 계수 추정치가 편향될 수 있으며, 이런 경우에는 계산 효율은 다소 떨어지더라도 이 가정이 필요 없는 고정효과모형을 사용하는 것이 안전합니다. 두 모형 중 무엇이 적절한지는 하우스만 검정으로 판단하는 것이 일반적입니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>패널 자료의 개체 효과를 다루는 방법을 구분합니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">개체 효과를 어떻게 보나</th><th scope="col">가정·특징</th></tr></thead><tbody><tr><th scope="row">임의효과모형</th><td>분포에서 뽑힌 확률변수</td><td>개체 효과가 설명변수와 무상관이어야 함. 시간불변 변수 추정 가능</td></tr><tr><th scope="row"><a href="fixed-effects-model.html">고정효과모형</a></th><td>개체마다 고정된 상수</td><td>설명변수와 상관 허용. 시간불변 변수 효과는 추정 불가</td></tr><tr><th scope="row"><a href="mixed-effects-model.html">혼합효과모형</a></th><td>고정효과 + 임의효과를 함께 포함</td><td>계층·반복측정 자료의 더 일반적인 틀. 임의절편·임의기울기 가능</td></tr><tr><th scope="row"><a href="random-effects-meta-analysis.html">랜덤효과 메타분석</a></th><td>연구마다 다른 참 효과(분포에서 뽑힘)</td><td>같은 “임의효과” 개념을 메타분석에 적용</td></tr><tr><th scope="row"><a href="hausman-test.html">하우스만 검정</a></th><td>—</td><td>두 모형 중 무엇을 쓸지 정하는 검정</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Wooldridge, J. M. (2010). Econometric Analysis of Cross Section and Panel Data (2nd ed.). MIT Press.</li>
-    <li>Hausman, J. A. (1978). Specification tests in econometrics. Econometrica, 46(6), 1251–1271.</li>
-    <li>Mundlak, Y. (1978). On the pooling of time series and cross section data. Econometrica, 46(1), 69–85.</li>
-    <li>Laird, N. M., &amp; Ware, J. H. (1982). Random-effects models for longitudinal data. Biometrics, 38(4), 963–974.</li>
-    <li>Baltagi, B. H. (2021). Econometric Analysis of Panel Data (6th ed.). Springer.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

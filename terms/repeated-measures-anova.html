@@ -157,28 +157,7 @@
   <p>구형성 검정 또는 보정 여부, 보정된 자유도, F, p, 효과크기, 사후비교 방법을 적습니다. (위 가상 자료 기준)</p><p><code>모클리 구형성 검정 대신 그린하우스-가이서 보정(ε = .81)을 적용하였다. 점수는 시점에 따라 유의하게 달라졌다, F(1.62, 8.11) = 94.14, p &lt; .001, 부분 η² = .95. 본페로니 보정 사후비교에서 모든 시점 쌍이 유의하였다(p &lt; .01).</code></p><ul><li>모클리 검정은 표본이 작으면 위반을 잡아내지 못하는 일이 흔해서, 검정 결과와 상관없이 그린하우스-가이서(또는 후인-펠트) 보정을 기본으로 보고하는 방식도 쓰입니다.</li><li>사후비교는 시점 쌍마다 비교하므로 다중비교 보정이 필요합니다(<a href="multiple-comparisons-correction.html">다중비교보정</a>).</li><li>한국어 논문의 ‘반복측정 분산분석’은 구형성 위반 시 “Greenhouse-Geisser 수정값을 사용하였다”고 짧게 적는 경우가 많습니다. 자유도가 소수로 나타나면 보정된 값입니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>같은 대상을 세 번 이상 측정하거나 같은 대상에게 세 가지 이상의 조건을 모두 주고 평균이 달라지는지 볼 때 씁니다(두 번이면 <a href="paired-t-test.html">대응표본 t검정</a>과 같습니다). 개인차를 오차에서 분리해 낼 수 있어서 같은 사람 수로도 독립 집단 설계보다 검정력이 높습니다.</p><ul><li>피험자 내 요인(시간, 조건)만 있으면 일원 반복측정, 집단(피험자 간 요인)도 함께 있으면 혼합 설계이고 시간 × 집단 상호작용이 보통 핵심 결과입니다.</li><li>주요 가정은 <strong>구형성</strong>입니다. 모든 시점 쌍의 차이 점수의 분산이 서로 같아야 합니다. 시점이 셋 이상일 때만 문제가 되며, 깨지면 F검정이 너무 관대해집니다(<a href="mauchlys-test-of-sphericity.html">모클리 구형성 검정</a>).</li><li>전통적 방법은 결측이 있는 대상을 통째로 제외합니다. 결측이 많거나 측정 간격이 들쑥날쑥하면 <a href="mixed-effects-model.html">혼합효과모형</a>이 대안입니다.</li><li>서열 자료이거나 정규성을 믿기 어려우면 <a href="friedman-test.html">프리드먼 검정</a>을 씁니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>가상의 예: 6명이 세 시점에서 잰 점수. (72, 78, 85), (65, 70, 74), (80, 83, 90), (58, 66, 69), (75, 77, 86), (68, 74, 80). 시점별 평균은 69.7, 74.7, 80.7입니다.</p><ul><li><strong>변동 분해</strong>: 시점 SS = 364.0 (df 2), 대상 간 SS = 780.7 (df 5), 오차 SS = 19.3 (df 10). 사람마다 점수 수준이 크게 다르다는 사실(780.7)을 오차에서 덜어 내기 때문에 오차가 작아집니다.</li><li><strong>F(2, 10)</strong> = (364.0/2) / (19.3/10) = 94.14, p &lt; .001. 부분 η² = 364.0 / (364.0 + 19.3) = .95, 일반화 η²는 .31입니다. 부분 η²는 개인차를 뺀 분모를 쓰므로 일반화 η²보다 훨씬 크게 나옵니다. 어느 효과크기인지 밝혀야 합니다(Bakeman, 2005).</li><li><strong>대상을 무시하고 일원분산분석을 하면</strong> F(2, 15) = 3.41, p = .060으로 유의하지 않습니다. 같은 값인데도 개인차가 오차에 섞이면 신호가 묻혀 버립니다.</li><li><strong>구형성</strong>: 차이 점수의 분산이 4.8, 2.0, 4.8로 완전히 같지는 않습니다. 그린하우스-가이서 입실론 ε = .81이며(1이면 구형성이 완벽, 하한은 1/(k−1) = .5), 자유도에 ε을 곱해 F(1.62, 8.11)으로 판정해도 p &lt; .001입니다. 후인-펠트는 ε을 덜 보수적으로 추정합니다(Greenhouse &amp; Geisser, 1959; Huynh &amp; Feldt, 1976).</li><li><strong>사후비교</strong>: 쌍별 대응표본 t검정을 본페로니로 보정하면 1–2시점 p = .008, 1–3시점 p &lt; .001, 2–3시점 p = .003입니다.</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>구형성 검정 또는 보정 여부, 보정된 자유도, F, p, 효과크기, 사후비교 방법을 적습니다. (위 가상 자료 기준)</p><p><code>모클리 구형성 검정 대신 그린하우스-가이서 보정(ε = .81)을 적용하였다. 점수는 시점에 따라 유의하게 달라졌다, F(1.62, 8.11) = 94.14, p &lt; .001, 부분 η² = .95. 본페로니 보정 사후비교에서 모든 시점 쌍이 유의하였다(p &lt; .01).</code></p><ul><li>모클리 검정은 표본이 작으면 위반을 잡아내지 못하는 일이 흔해서, 검정 결과와 상관없이 그린하우스-가이서(또는 후인-펠트) 보정을 기본으로 보고하는 방식도 쓰입니다.</li><li>사후비교는 시점 쌍마다 비교하므로 다중비교 보정이 필요합니다(<a href="multiple-comparisons-correction.html">다중비교보정</a>).</li><li>한국어 논문의 ‘반복측정 분산분석’은 구형성 위반 시 “Greenhouse-Geisser 수정값을 사용하였다”고 짧게 적는 경우가 많습니다. 자유도가 소수로 나타나면 보정된 값입니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“지표들에 대한 처치 효과 비교를 검증하기 위하여 일원 반복측정 분산분석(one-way repeated-measures analysis of variance [ANOVA]) 을 실시하였다.”</blockquote><p class="te-cite">등척성 운동 유형이 고혈압 전단계 젊은 남성의 24시간 활동혈압에 미치는 영향 비교: 급성 예비 연구, The Korean Journal of Sports Medicine, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095096" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“자료의 통계적 분석을 위해 반복측정분산분석, Pearson의 적률상관계수, 그리고 단계적 중다회귀분석을 실시하였다.”</blockquote><p class="te-cite">학령 전 어휘발달지연 및 또래 일반 아동의 언어학적 비유창성 특성과 표현어휘력의 관계, Communication Sciences and Disorders, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002307870" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -203,22 +182,6 @@
 
   <h2>주의할 점</h2>
   <p>반복측정분산분석은 모든 시점 쌍에서 차이 점수의 분산이 서로 같다는 구형성(sphericity) 가정을 전제로 하며, 이 가정이 깨지면 검정 결과가 부정확해질 수 있어 별도의 보정이 필요합니다. 이 분석을 적용하려면 먼저 데이터가 <a href="repeated-measures-design.html">반복측정설계</a>로 수집되었어야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>같은 대상을 여러 번 재는 자료에는 후보가 여럿 있습니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">자료</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="paired-t-test.html">대응표본 t검정</a></th><td>같은 대상 2회 측정</td><td>두 시점만</td></tr><tr><th scope="row"><a href="repeated-measures-anova.html">반복측정 분산분석</a></th><td>같은 대상 3회 이상</td><td>구형성 필요, 결측에 약함</td></tr><tr><th scope="row"><a href="friedman-test.html">프리드먼 검정</a></th><td>같은 대상 3회 이상, 서열·비정규</td><td>비모수 대안</td></tr><tr><th scope="row"><a href="mixed-effects-model.html">혼합효과모형</a></th><td>반복·위계 자료</td><td>결측·불균형에 유연</td></tr><tr><th scope="row"><a href="anova.html">(독립) 분산분석</a></th><td>서로 다른 집단</td><td>같은 대상이라면 오류</td></tr></tbody></table></div>
-  <p class="te-note">“반복측정”은 같은 대상을 여러 번 쟀다는 설계 이름이고, 통계 방법의 이름이 아닙니다. 방법으로는 반복측정 ANOVA, 혼합모형, 프리드먼 등이 가능합니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Mauchly, J. W. (1940). Significance test for sphericity of a normal n-variate distribution. Annals of Mathematical Statistics, 11(2), 204–209.</li>
-    <li>Greenhouse, S. W., &amp; Geisser, S. (1959). On methods in the analysis of profile data. Psychometrika, 24(2), 95–112.</li>
-    <li>Huynh, H., &amp; Feldt, L. S. (1976). Estimation of the Box correction for degrees of freedom from sample data in randomized block and split-plot designs. Journal of Educational Statistics, 1(1), 69–82.</li>
-    <li>Maxwell, S. E., &amp; Delaney, H. D. (2004). Designing experiments and analyzing data: A model comparison perspective (2nd ed.). Lawrence Erlbaum.</li>
-    <li>Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

@@ -161,28 +161,7 @@
   <p>(수치는 위 가상의 예에 맞춘 형식 예시입니다.)</p><p><code>상관행렬에 대한 주성분분석 결과, 고유값 1 이상인 성분은 1개였고 전체 분산의 61.0%를 설명하였다. 평행분석에서도 1개 성분이 지지되었다.</code></p><ul><li>표준화 여부(상관행렬/공분산행렬), 사용한 프로그램, 성분 수 결정 기준을 명시합니다.</li><li>적재값 표를 제시하고(절댓값 작은 값은 생략하는 경우 그 기준 명시), 각 성분의 고유값과 설명 분산 비율을 함께 적습니다.</li><li>회전(varimax 등)을 했다면 밝힙니다. 회전하면 성분 간 분산 배분이 달라집니다.</li><li>성분 이름은 해석을 위한 라벨일 뿐이며 실재하는 요인이라고 서술하지 않습니다.</li><li>성분 점수를 후속 분석에 썼다면 그 사실을 적습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>서로 상관이 높은 여러 연속형 변수를 몇 개의 요약 점수로 줄이고 싶을 때 씁니다.</p><ul><li>차원 축소: 변수가 많아 시각화나 후속 분석(예: 회귀의 다중공선성 완화)이 어려울 때.</li><li>종합지수 만들기: 여러 지표를 하나의 점수로 합칠 때.</li><li>탐색: 자료가 소수의 방향으로 주로 변하는지 알아볼 때.</li></ul><p>주성분분석은 자료의 <strong>전체 분산</strong>을 가장 많이 담는 방향을 찾는 요약 방법일 뿐, 눈에 보이지 않는 요인이 문항을 만든다는 모형이 아닙니다. 그래서 척도의 <strong>신뢰도를 검증</strong>하거나 잠재구조를 확인하는 목적이라면 <a href="exploratory-factor-analysis.html">탐색적 요인분석</a>이나 <a href="cronbachs-alpha.html">크론바흐 알파</a>를 쓰는 것이 맞고, 주성분분석 결과만으로 타당도·신뢰도를 주장하기는 어렵습니다(Preacher &amp; MacCallum, 2003).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 방법</th></tr></thead><tbody><tr><td>변수를 적은 수의 점수로 압축</td><td>주성분분석</td></tr><tr><td>문항 뒤의 잠재 요인 구조 추정</td><td><a href="factor-analysis.html">요인분석</a></td></tr><tr><td>변수 대신 대상 간 거리 정보로 지도 그리기</td><td><a href="multidimensional-scaling.html">다차원척도법</a></td></tr><tr><td>고차원 자료의 비선형 시각화</td><td><a href="t-sne.html">t-SNE</a></td></tr></tbody></table></div>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <ul><li><strong>고유값(eigenvalue)</strong>: 각 주성분이 담은 분산의 크기입니다. 상관행렬로 분석하면 변수가 p개일 때 고유값의 합이 p입니다. 고유값 ÷ p가 그 주성분의 <strong>설명 분산 비율</strong>입니다.</li><li><strong>성분 수 정하기</strong>: 고유값 1 이상만 남기는 Kaiser(1960) 기준, 고유값이 급히 꺾이는 지점까지만 남기는 스크리 도표(Cattell, 1966), 무작위 자료의 고유값과 비교하는 평행분석(Horn, 1965)이 흔합니다. Kaiser 기준은 성분을 지나치게 많이 남긴다는 지적이 있어 평행분석을 권하는 경우가 많습니다. 누적 설명 비율을 보조로 참고합니다.</li><li><strong>적재값(loading)</strong>: 각 변수와 주성분의 상관(상관행렬 사용 시)입니다. 절댓값이 큰 변수들이 그 성분의 성격을 정합니다. 부호는 임의여서 전체를 뒤집어도 같은 해입니다.</li><li><strong>성분 점수</strong>: 각 관측치가 성분 축에서 갖는 값으로, 후속 분석에 투입할 수 있습니다.</li><li>변수의 단위가 서로 다르면 큰 단위의 변수가 분산을 독차지하므로, 보통 표준화(= 상관행렬 사용)한 뒤 분석합니다.</li></ul><p><strong>작은 예</strong>(가상의 상관행렬): 변수 4개 중 앞의 셋은 서로 상관이 .6~.8로 높고 네 번째는 거의 무관(.1~.2)합니다. 고유값은 2.44, 0.97, 0.41, 0.18이고 설명 분산 비율은 61.0%, 24.3%, 10.2%, 4.4%입니다. Kaiser 기준으로는 1개(0.97은 1에 약간 못 미침), 누적 85.3%인 2개까지 남기는 것도 가능합니다. 첫 성분의 적재값은 .93, .90, .84, .25로, 앞의 세 변수를 대표하는 축임을 알 수 있습니다.</p>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>(수치는 위 가상의 예에 맞춘 형식 예시입니다.)</p><p><code>상관행렬에 대한 주성분분석 결과, 고유값 1 이상인 성분은 1개였고 전체 분산의 61.0%를 설명하였다. 평행분석에서도 1개 성분이 지지되었다.</code></p><ul><li>표준화 여부(상관행렬/공분산행렬), 사용한 프로그램, 성분 수 결정 기준을 명시합니다.</li><li>적재값 표를 제시하고(절댓값 작은 값은 생략하는 경우 그 기준 명시), 각 성분의 고유값과 설명 분산 비율을 함께 적습니다.</li><li>회전(varimax 등)을 했다면 밝힙니다. 회전하면 성분 간 분산 배분이 달라집니다.</li><li>성분 이름은 해석을 위한 라벨일 뿐이며 실재하는 요인이라고 서술하지 않습니다.</li><li>성분 점수를 후속 분석에 썼다면 그 사실을 적습니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“이 연구는 O*NET의 숙련, 지식, 직업 활동으로 구성된 총 109개의 지표를 대상으로 기술통계와 주성분 분석을 하였다.”</blockquote><p class="te-cite">과학, 기술, 공학, 수학(STEM) 직종에 요구되는 핵심 역량 분석, 한국과학교육학회지, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002431577" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“그리고 주성분 분석에 의하면 금강 하구해역의 식물플랑크톤 군집은 연간 금강 하굿둑을 통해 유입되는 높은 영양염을 포함하는 담수의 유입량과 확장 정도에 크게 영향을 받고 있었다.”</blockquote><p class="te-cite">2018년 금강 하구해역 식물플랑크톤 군집의 시ㆍ공간적 분포 및 생물해양학적 환경특성, 환경생물, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002603013" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -205,21 +184,6 @@
 
   <h2>주의할 점</h2>
   <p>주성분분석은 <a href="factor-analysis.html">요인분석</a>과 자주 혼동되지만 목적이 다릅니다. 요인분석은 "관측되지 않은 잠재 개념(요인)이 문항들을 만들어낸다"고 가정하고 그 잠재 개념을 추정하는 반면, 주성분분석은 그런 가정 없이 순수하게 "데이터의 분산을 가장 잘 설명하는 방향"을 수학적으로 찾아 압축할 뿐입니다. 따라서 심리 측정 도구의 잠재 구조를 확인하려는 목적이라면 요인분석이 더 적절할 수 있습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">목적</th><th scope="col">가정</th></tr></thead><tbody><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>분산을 최대한 보존하며 변수를 요약</td><td>잠재 요인 모형 없음. 성분은 변수의 합성</td></tr><tr><th scope="row"><a href="factor-analysis.html">요인분석</a></th><td>문항 사이 공통 변동을 만드는 잠재 요인 추정</td><td>요인이 문항을 만든다는 측정 모형을 가정</td></tr><tr><th scope="row"><a href="multidimensional-scaling.html">다차원척도법</a></th><td>대상 간 거리를 보존하는 지도</td><td>거리(비유사도) 행렬이 입력</td></tr><tr><th scope="row"><a href="t-sne.html">t-SNE</a></th><td>가까운 점들의 이웃 구조를 시각화</td><td>축의 의미·거리 크기는 해석 불가</td></tr></tbody></table></div>
-  <p class="te-note">유클리드 거리를 입력으로 한 고전적 다차원척도법은 주성분분석과 같은 좌표를 줍니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Jolliffe, I. T. (2002). Principal Component Analysis (2nd ed.). Springer.</li>
-    <li>Jolliffe, I. T., &amp; Cadima, J. (2016). Principal component analysis: A review and recent developments. Philosophical Transactions of the Royal Society A, 374(2065), 20150202.</li>
-    <li>Hotelling, H. (1933). Analysis of a complex of statistical variables into principal components. Journal of Educational Psychology, 24(6), 417–441.</li>
-    <li>Cattell, R. B. (1966). The scree test for the number of factors. Multivariate Behavioral Research, 1(2), 245–276.</li>
-    <li>Preacher, K. J., &amp; MacCallum, R. C. (2003). Repairing Tom Swift’s electric factor analysis machine. Understanding Statistics, 2(1), 13–43.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

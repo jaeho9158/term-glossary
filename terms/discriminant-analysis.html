@@ -155,28 +155,7 @@
   <ul><li>집단의 정의와 크기, 사용한 변수, 가정(정규성, 공분산 동질성) 점검 결과를 적습니다.</li><li>전체 검정(윌크스 람다, χ², 자유도, p)과 표준화 판별계수 또는 구조계수를 표로 제시합니다.</li><li>분류 결과는 <strong>교차검증 적중률</strong>을 중심으로 적고, 우연 수준과 비교합니다. 예: <code>교차검증 적중률은 76.7%로 우연 수준(50%)보다 높았다.</code> (위 가상의 예 기준입니다.)</li><li>집단 크기가 다를 때는 사전확률을 어떻게 설정했는지(같게/집단 비율대로) 밝힙니다.</li><li>설명변수 선택(단계적 방법)을 썼다면 같은 자료에서 변수를 고르면 적중률이 과대평가될 수 있음을 함께 서술합니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>이미 소속이 알려진 둘 이상의 집단이 있고, 여러 연속형 변수로 <strong>집단을 가장 잘 구분하는 규칙</strong>을 만들어 새 대상을 분류하거나 어떤 변수가 구분에 기여하는지 알고 싶을 때 씁니다. 출발점은 Fisher(1936)의 선형판별입니다.</p><ul><li>가정: 각 집단 안에서 변수들이 다변량 정규분포를 따르고 집단 간 공분산행렬이 같다는 것입니다(선형판별분석). 공분산행렬이 다르면 이차판별분석을 씁니다.</li><li>이런 가정이 의심스럽거나 설명변수에 범주형이 섞여 있으면 <a href="logistic-regression.html">로지스틱 회귀</a>가 더 안전한 대안으로 많이 권해집니다(Press &amp; Wilson, 1978).</li><li>집단이 g개이고 변수가 p개이면 판별함수는 min(g − 1, p)개까지 만들 수 있습니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 방법</th></tr></thead><tbody><tr><td>집단 구분이 있고 분류 규칙을 만들고 싶음</td><td>판별분석, 로지스틱 회귀</td></tr><tr><td>집단 구분이 없고 유형을 찾고 싶음</td><td><a href="cluster-analysis.html">군집분석</a></td></tr><tr><td>집단 간 평균 차이가 있는지 검정</td><td><a href="manova.html">다변량 분산분석</a></td></tr></tbody></table></div>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <ul><li><strong>판별함수 계수</strong>: 변수의 가중합 <code>D = w₁x₁ + w₂x₂ + …</code>입니다. 변수들의 단위가 다르면 표준화 계수로 상대적 기여를 비교합니다. 구조계수(변수와 판별점수의 상관)는 함수의 의미를 해석할 때 봅니다.</li><li><strong>윌크스 람다(Λ)</strong>: 집단 간 구별이 있는지 검정합니다. 작을수록(0에 가까울수록) 집단 평균이 잘 구분됩니다.</li><li><strong>분류표와 적중률</strong>: 실제 소속과 예측 소속의 교차표에서 맞게 분류한 비율입니다. 이 값을 우연히 맞힐 비율과 비교합니다(집단 비율이 같다면 둘이면 50%).</li><li>모형을 만든 바로 그 자료로 분류하면(재대입) 적중률이 <strong>과대평가</strong>됩니다. 교차검증(남겨놓고 검증, <a href="cross-validation.html">교차검증</a>)이나 별도의 검증 표본으로 평가합니다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료): 두 변수, 집단당 30명인 두 집단입니다. 선형판별함수의 계수는 (1.44, 0.29)였습니다. 모형을 만든 자료로 분류한 적중률은 80.0%(48/60)지만, 한 명씩 빼놓고 예측하는 교차검증 적중률은 76.7%(46/60)로 더 낮습니다. 변수가 많고 표본이 작을수록 이 차이는 커집니다.</p>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <ul><li>집단의 정의와 크기, 사용한 변수, 가정(정규성, 공분산 동질성) 점검 결과를 적습니다.</li><li>전체 검정(윌크스 람다, χ², 자유도, p)과 표준화 판별계수 또는 구조계수를 표로 제시합니다.</li><li>분류 결과는 <strong>교차검증 적중률</strong>을 중심으로 적고, 우연 수준과 비교합니다. 예: <code>교차검증 적중률은 76.7%로 우연 수준(50%)보다 높았다.</code> (위 가상의 예 기준입니다.)</li><li>집단 크기가 다를 때는 사전확률을 어떻게 설정했는지(같게/집단 비율대로) 밝힙니다.</li><li>설명변수 선택(단계적 방법)을 썼다면 같은 자료에서 변수를 고르면 적중률이 과대평가될 수 있음을 함께 서술합니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“판별분석 결과에서는 K-CBCL 8개 문제행동 증후군 척도 모두 하위군집 구분에 유의한 변인으로 확인되었고 산출된 판별함수에 따른 하위군집 분류정확도는 96.1%로 나타났다.”</blockquote><p class="te-cite">심리장애 진단아동의 K-CBCL 아동 청소년 행동평가척도 군집분석, Korean Journal of Clinical Psychology, 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001931440" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“연구방법으로는 재무비율들을 T-test를 실시하여 유의수준 5%이내의 의미 있는 비율들을 찾아내어 다변량 판별분석과 도산예측모형(유의수준 1%이내)을 개발하여 검증하였다.”</blockquote><p class="te-cite">대구경북지역의 섬유업체 재무비율을 통한 도산예측에 관한 연구, 지역산업연구, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002524935" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -201,20 +180,6 @@
 
   <h2>주의할 점</h2>
   <p>판별분석은 각 집단 내 변수들이 다변량 정규분포를 따르고 집단 간 공분산행렬이 동질적이라는 가정을 필요로 한다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">집단 정보</th><th scope="col">목적</th></tr></thead><tbody><tr><th scope="row"><a href="discriminant-analysis.html">판별분석</a></th><td>알려진 집단</td><td>집단을 잘 가르는 변수의 결합과 분류 규칙</td></tr><tr><th scope="row"><a href="logistic-regression.html">로지스틱 회귀</a></th><td>알려진 집단(결과)</td><td>집단 소속 확률과 변수 효과(오즈비). 분포 가정이 덜 엄격</td></tr><tr><th scope="row"><a href="cluster-analysis.html">군집분석</a></th><td>없음</td><td>집단 자체를 새로 만듦</td></tr><tr><th scope="row"><a href="manova.html">다변량 분산분석</a></th><td>알려진 집단</td><td>집단 평균 벡터가 다른지 검정. 판별분석과 수학적으로 닮음</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>—</td><td>집단 정보 없이 분산을 최대로 보존하는 축 (판별은 집단을 가르는 축)</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Fisher, R. A. (1936). The use of multiple measurements in taxonomic problems. Annals of Eugenics, 7(2), 179–188.</li>
-    <li>McLachlan, G. J. (1992). Discriminant Analysis and Statistical Pattern Recognition. Wiley.</li>
-    <li>Press, S. J., &amp; Wilson, S. (1978). Choosing between logistic regression and discriminant analysis. Journal of the American Statistical Association, 73(364), 699–705.</li>
-    <li>Huberty, C. J., &amp; Olejnik, S. (2006). Applied MANOVA and Discriminant Analysis (2nd ed.). Wiley.</li>
-    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

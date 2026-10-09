@@ -161,28 +161,7 @@
   <p>검토했다는 사실과 사용한 기준, 결과를 적습니다. 영향력 큰 관측치가 있으면 포함/제외 결과를 모두 제시해 결론이 견고한지 보여 줍니다.</p><p><code>영향력 분석 결과 쿡의 거리의 최댓값은 0.12로 1.0보다 작아 영향력이 큰 관측치는 없었다.</code></p><p><code>쿡의 거리가 4/n를 넘은 관측치가 1건(D = 15.4) 있었다. 이 관측치를 제외하면 기울기가 0.71에서 2.00으로 달라졌으므로 두 결과를 모두 제시한다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>제외한 경우 이유를 연구 맥락에서 설명해야 합니다. ‘결과를 좋게 만들려고’ 제외한 것으로 보이면 안 됩니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>계산과 범위</h2>
-  <p>관측치 i를 빼고 회귀를 다시 적합했을 때 <strong>모든 관측치의 예측값이 합쳐서 얼마나 변하는지</strong>를 하나의 숫자로 요약합니다. 다음 식으로도 같은 값을 얻습니다.</p><p><code>D<sub>i</sub> = [e<sub>i</sub>² ÷ (p × s²)] × [h<sub>i</sub> ÷ (1 − h<sub>i</sub>)²]</code></p><ul><li>e<sub>i</sub>: 잔차, p: 모수 개수(절편 포함), s²: 잔차분산, h<sub>i</sub>: 레버리지.</li><li><strong>범위</strong>: 0 이상이며 상한은 없습니다. 0에 가까울수록 그 관측치를 빼도 모형이 거의 안 변합니다. 잔차가 크고(이상치) <em>동시에</em> 레버리지가 클수록 커집니다.</li></ul><p><strong>작은 예</strong>(가상의 자료, 계산 결과). x = 1, 2, …, 9, 20이고 y = 2.1, 3.9, 6.2, 7.8, 10.1, 12.2, 13.8, 16.1, 18.0, 15.0인 10개 점에서 마지막 점(x = 20)만 y가 직선에서 크게 벗어나 있습니다. 모든 점으로 적합하면 y = 5.89 + 0.71x인데, 마지막 점을 빼면 y = 0.04 + 2.00x로 기울기가 거의 3배가 됩니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>관측치</th><th>레버리지 h</th><th>쿡의 거리 D</th></tr></thead><tbody><tr><td>x = 1</td><td>0.215</td><td>0.22</td></tr><tr><td>x = 5</td><td>0.109</td><td>0.002</td></tr><tr><td>x = 9</td><td>0.124</td><td>0.16</td></tr><tr><td><strong>x = 20</strong></td><td><strong>0.794</strong></td><td><strong>15.42</strong></td></tr></tbody></table></div>
-
-  <h2>해석 기준</h2>
-  <p>정해진 절대 기준은 없고, 관례적으로 다음 두 가지가 많이 쓰입니다.</p><ul><li><strong>D &gt; 1</strong>: 영향력이 크다고 보는 보수적인 기준.</li><li><strong>D &gt; 4/n</strong>: 표본 크기를 반영한 더 엄격한 기준. 위 예에서 4/10 = 0.4이므로 x = 20 점(15.42)만 넘습니다.</li></ul><p>기준보다 중요한 것은 <strong>다른 관측치와 비교해 유독 튀는지</strong>(막대그래프나 인덱스 도표)입니다.</p><ul><li>D가 크다고 자동으로 ‘제거 대상’이 되는 것은 아닙니다. 입력 오류인지, 다른 모집단의 사례인지, 실제로 존재하는 드문 사례인지 먼저 확인합니다.</li><li>D가 큰 점은 레버리지가 크거나 잔차가 크기 때문입니다. 어느 쪽인지 레버리지와 표준화 잔차를 함께 보면 원인이 드러납니다.</li><li>한 점의 영향이 다른 점에 가려질 수 있어(마스킹), 영향력 큰 점이 둘 이상이면 하나씩 지우는 방식으로는 못 찾을 수도 있습니다.</li></ul>
-
-  <h2>보고 방법</h2>
-  <p>검토했다는 사실과 사용한 기준, 결과를 적습니다. 영향력 큰 관측치가 있으면 포함/제외 결과를 모두 제시해 결론이 견고한지 보여 줍니다.</p><p><code>영향력 분석 결과 쿡의 거리의 최댓값은 0.12로 1.0보다 작아 영향력이 큰 관측치는 없었다.</code></p><p><code>쿡의 거리가 4/n를 넘은 관측치가 1건(D = 15.4) 있었다. 이 관측치를 제외하면 기울기가 0.71에서 2.00으로 달라졌으므로 두 결과를 모두 제시한다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>제외한 경우 이유를 연구 맥락에서 설명해야 합니다. ‘결과를 좋게 만들려고’ 제외한 것으로 보이면 안 됩니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“또한, 영향력 분석을 위해 Cook distance 기술통계량을 통해 분석한 결과 1.0 이상을 보이는 값이 없음을 확인했다.”</blockquote><p class="te-cite">여대생의 e헬스 문해력, 생식건강 증진 행위가 삶의 질에 미치는 영향, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096486" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“DFFITS, Cook’s distance 분석결과, 표류속도의 경우 데이터 index 1, 27, 28, 72, 73, 74번째, 표류방향의 경우 index 2, 8, 68, 70, 71, 73, 74번째에서 회귀모형에 영향을 미치는 것으로 나타났다.”</blockquote><p class="te-cite">실선에 의한 표류 예측모델에 관한 연구, 수산해양기술연구, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003059144" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -206,21 +185,6 @@
 
   <h2>주의할 점</h2>
   <p>쿡의 거리가 큰 관측치라고 해서 무조건 제거해서는 안 되며, 입력 오류인지 아니면 실제로 존재하는 극단적이지만 유효한 값인지를 먼저 확인해야 합니다. 값이 크다고 무조건 <a href="outlier.html">이상치</a>인 것도 아니고, 이상치라고 해서 항상 쿡의 거리가 큰 것도 아니라는 점에서 두 개념은 구분됩니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>‘튀는 점’을 가리키는 용어들은 보는 면이 다릅니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 재나</th><th scope="col">쿡의 거리와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="outlier.html">이상치</a></th><td>y(또는 잔차)가 유독 동떨어진 정도</td><td>이상치라고 영향력이 큰 것은 아님</td></tr><tr><th scope="row"><a href="leverage.html">레버리지</a></th><td>설명변수 값이 중심에서 먼 정도</td><td>쿡의 거리의 한 구성요소</td></tr><tr><th scope="row"><a href="residual-analysis.html">잔차</a></th><td>모형이 그 점을 설명하지 못하는 정도</td><td>쿡의 거리의 다른 구성요소</td></tr><tr><th scope="row">쿡의 거리</th><td>점 하나가 모형 전체를 얼마나 움직이나</td><td>레버리지와 잔차를 함께 반영</td></tr><tr><th scope="row">DFBETAS · DFFITS</th><td>계수 또는 예측값의 변화량(개별)</td><td>쿡의 거리와 같은 ‘삭제 후 변화’ 계열</td></tr></tbody></table></div>
-  <p class="te-note">이상치는 ‘값이 튀는 것’, 영향력 있는 관측치는 ‘결과를 바꾸는 것’입니다. 둘은 겹칠 수도, 아닐 수도 있습니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Cook, R. D. (1977). Detection of influential observation in linear regression. Technometrics, 19(1), 15–18.</li>
-    <li>Cook, R. D., &amp; Weisberg, S. (1982). Residuals and Influence in Regression. Chapman and Hall.</li>
-    <li>Belsley, D. A., Kuh, E., &amp; Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.</li>
-    <li>Bollen, K. A., &amp; Jackson, D. J. (1985). Regression diagnostics: An expository treatment of outliers and influential cases. Sociological Methods &amp; Research, 13(4), 510–542.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

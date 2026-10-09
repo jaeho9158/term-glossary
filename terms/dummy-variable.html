@@ -159,29 +159,7 @@
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>범주마다 더미를 모두 만들어 넣어야 한다.</td><td>절편이 있는 모형에서는 하나를 빼야 합니다. 절편을 빼고 k개를 모두 넣는 방법도 있지만 이때는 각 계수가 범주별 평균이 되어 해석이 달라집니다.</td></tr><tr><td>더미 계수가 유의하지 않으면 그 범주는 영향이 없다.</td><td>기준 범주와 차이가 유의하지 않다는 뜻일 뿐, 다른 범주와의 차이는 따로 봐야 합니다. 범주 전체의 효과는 더미 묶음에 대한 F검정으로 봅니다.</td></tr><tr><td>순서가 있는 범주(교육수준 등)는 1, 2, 3으로 넣으면 된다.</td><td>그렇게 하면 범주 사이 간격이 같다고 가정하는 것입니다. 간격이 같지 않을 수 있으면 더미변수로 풀어 넣습니다.</td></tr><tr><td>남자=1, 여자=2처럼 코딩해도 같다.</td><td>1/2 코딩이라도 기울기(계수)는 0/1 코딩과 같은 두 집단의 차이로 읽힙니다. 달라지는 것은 절편으로, 코드가 0인 가상의 집단(실제로는 없는 집단)의 값이 되어 해석하기 어려워집니다. 그래서 절편을 기준집단의 값으로 읽으려면 0/1 코딩이 편합니다.</td></tr><tr><td>더미변수의 표준화 계수를 비교하면 중요도를 알 수 있다.</td><td>0/1 변수는 표준화하면 범주 비율에 따라 값이 달라져 비교가 왜곡됩니다. 원 척도의 계수(차이)로 해석하는 것이 낫습니다.</td></tr></tbody></table></div>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>핵심 정리</h2>
-  <ul><li>범주형 변수(성별, 직급, 지역 등)를 회귀식에 넣기 위해 <strong>0 또는 1만 갖는 변수</strong>로 바꾼 것이 더미변수(가변수)입니다. 해당 범주이면 1, 아니면 0입니다.</li><li>범주가 k개이면 더미변수는 <strong>k − 1개</strong>만 만들고, 빠진 한 범주가 <strong>기준(참조) 범주</strong>가 됩니다. 모두 넣으면 더미들의 합이 항상 1이 되어 절편과 완전한 공선성이 생깁니다(더미변수 함정).</li><li>더미변수의 회귀계수는 “다른 변수를 고정했을 때 <strong>기준 범주에 비해</strong> 그 범주의 평균이 얼마나 다른가”를 뜻합니다. 계수 자체는 그 범주의 효과가 아니라 기준 범주와의 차이입니다.</li><li>절편은 모든 더미가 0인 집단, 곧 기준 범주의 기댓값입니다(다른 변수가 있다면 그것들이 0일 때).</li><li>더미변수와 연속변수의 곱(상호작용항)을 넣으면 범주에 따라 기울기가 달라지는 모형을 만들 수 있습니다(<a href="interaction-effect.html">상호작용 효과</a>).</li></ul>
-
-  <h2>예시로 보기</h2>
-  <p>직급(사원·대리·과장)에 따른 월급(만원)을 회귀분석한다고 합시다. 사원을 기준 범주로 하면 두 개의 더미변수를 만듭니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>직급</th><th>대리 더미</th><th>과장 더미</th></tr></thead><tbody><tr><td>사원</td><td>0</td><td>0</td></tr><tr><td>대리</td><td>1</td><td>0</td></tr><tr><td>과장</td><td>0</td><td>1</td></tr></tbody></table></div><p>추정된 식이 <code>월급 = 300 + 50 × 대리 + 120 × 과장</code>이라면</p><ul><li>사원의 평균 월급은 절편 <strong>300</strong>,</li><li>대리는 300 + 50 = <strong>350</strong>, 과장은 300 + 120 = <strong>420</strong>입니다.</li><li>“과장 계수 120”은 사원 대비 차이입니다. 대리 대비 과장의 차이는 120 − 50 = 70이며, 기준 범주를 대리로 바꿔 다시 추정하면 과장 계수가 70으로 나옵니다.</li></ul><p>기준 범주를 무엇으로 정하느냐에 따라 계수의 값과 유의성이 달라 보이지만 모형의 예측은 같습니다. 가장 표본이 많거나 해석이 자연스러운 범주를 기준으로 삼는 것이 일반적입니다. 수치는 원리를 보이기 위한 가상의 값입니다.</p>
-
-  <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>범주마다 더미를 모두 만들어 넣어야 한다.</td><td>절편이 있는 모형에서는 하나를 빼야 합니다. 절편을 빼고 k개를 모두 넣는 방법도 있지만 이때는 각 계수가 범주별 평균이 되어 해석이 달라집니다.</td></tr><tr><td>더미 계수가 유의하지 않으면 그 범주는 영향이 없다.</td><td>기준 범주와 차이가 유의하지 않다는 뜻일 뿐, 다른 범주와의 차이는 따로 봐야 합니다. 범주 전체의 효과는 더미 묶음에 대한 F검정으로 봅니다.</td></tr><tr><td>순서가 있는 범주(교육수준 등)는 1, 2, 3으로 넣으면 된다.</td><td>그렇게 하면 범주 사이 간격이 같다고 가정하는 것입니다. 간격이 같지 않을 수 있으면 더미변수로 풀어 넣습니다.</td></tr><tr><td>남자=1, 여자=2처럼 코딩해도 같다.</td><td>1/2 코딩이라도 기울기(계수)는 0/1 코딩과 같은 두 집단의 차이로 읽힙니다. 달라지는 것은 절편으로, 코드가 0인 가상의 집단(실제로는 없는 집단)의 값이 되어 해석하기 어려워집니다. 그래서 절편을 기준집단의 값으로 읽으려면 0/1 코딩이 편합니다.</td></tr><tr><td>더미변수의 표준화 계수를 비교하면 중요도를 알 수 있다.</td><td>0/1 변수는 표준화하면 범주 비율에 따라 값이 달라져 비교가 왜곡됩니다. 원 척도의 계수(차이)로 해석하는 것이 낫습니다.</td></tr></tbody></table></div>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“공동경영자는 복수경영자가 존재하면 1, 단독경영자가 존재하면 0인 더미변수로, 재무분석가 수는 해당 기업에 대한 이익예측치의 수로 정의하였다.”</blockquote><p class="te-cite">공동경영자와 재무분석가 수, 국제회계연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002896418" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“또한 교육훈련비는 외부적인 환경요인 즉, 외환위기 더미변수와 통계적으로 1% 수준에서 유의한 음(-)의 관계를 보임으로써 다른 요소에 비해 외부환경요인에 직접적인 영향을 받고 있음을 알 수 있다.”</blockquote><p class="te-cite">재량적원가의 추세와 결정요인, 관리회계연구, 2006 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001177970" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“또한, 기업의 고용안정성 측정치를 더미변수 대신 연속변수를 이용한 경우에도 동일한 결과로 보고되고 있다.”</blockquote><p class="te-cite">기업의 고용안정과 미래 재무성과와의 관계에 관한 실증적 연구, 상업경영연구, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002582941" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -205,21 +183,6 @@
 
   <h2>주의할 점</h2>
   <p>범주가 k개일 때 더미변수를 k개 전부 만들어 넣으면 "더미변수 함정(dummy variable trap)"이라는 문제가 생겨, 변수들이 서로 완벽하게 종속되면서 <a href="multicollinearity.html">다중공선성</a>이 극단적으로 심해지고 회귀계수를 아예 추정할 수 없게 됩니다. 반드시 하나의 범주는 "기준 범주"로 남겨두고 나머지 k-1개만 더미변수로 만들어야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>범주를 모형에 넣는 방식은 하나가 아닙니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방식</th><th scope="col">계수가 뜻하는 것</th><th scope="col">언제 쓰나</th></tr></thead><tbody><tr><th scope="row"><a href="dummy-variable.html">더미변수(처치코딩)</a></th><td>기준 범주와의 차이</td><td>회귀분석의 기본, 해석이 직관적</td></tr><tr><th scope="row">효과코딩</th><td>전체 평균과의 차이(기준 범주가 −1)</td><td>분산분석 같은 해석이 필요하거나 상호작용 계수를 읽기 쉽게 할 때</td></tr><tr><th scope="row">연속변수로 취급(1, 2, 3 …)</th><td>한 단계 증가당 일정한 변화</td><td>범주 간격이 같다고 볼 수 있을 때</td></tr><tr><th scope="row"><a href="fixed-effects-model.html">고정효과 모형</a></th><td>개체(또는 시점)별 더미를 모두 넣은 것과 같은 효과 제거</td><td>패널 자료에서 개체 고유의 시간 불변 특성을 통제할 때</td></tr></tbody></table></div>
-  <p class="te-note">더미변수를 만들기 전에 변수의 척도 수준(<a href="levels-of-measurement.html">측정 수준</a>)이 명목인지 서열인지 먼저 확인하세요.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Suits, D. B. (1957). Use of dummy variables in regression equations. Journal of the American Statistical Association, 52(280), 548–551.</li>
-    <li>Hardy, M. A. (1993). Regression with Dummy Variables. Sage.</li>
-    <li>Cohen, J., Cohen, P., West, S. G., &amp; Aiken, L. S. (2003). Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences (3rd ed.). Lawrence Erlbaum.</li>
-    <li>Wooldridge, J. M. (2020). Introductory Econometrics: A Modern Approach (7th ed.). Cengage Learning.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

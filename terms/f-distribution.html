@@ -156,24 +156,7 @@
   <ul><li><strong>“F값이 크면 효과가 크다.”</strong> F는 자유도와 표본 크기에 영향을 받습니다. 효과의 크기는 <a href="eta-squared.html">에타제곱</a> 같은 <a href="effect-size.html">효과크기</a>로 따로 봅니다.</li><li><strong>“F검정은 두 분산이 같은지 볼 때도 믿을 만하다.”</strong> 두 분산비의 F검정은 자료가 정규분포에서 벗어나면 결과가 크게 흔들리는 것으로 알려져 있습니다(Box, 1953). 등분산성은 보통 레빈(Levene) 검정 등 더 강건한 방법으로 확인합니다.</li><li><strong>“분산분석의 F는 양측검정이다.”</strong> 평균들이 서로 다르면 F가 커지므로 오른쪽 꼬리만 봅니다.</li><li><strong>“F분포의 자유도는 표본 수다.”</strong> 일원분산분석에서 d₁ = 집단 수 − 1, d₂ = 전체 표본 수 − 집단 수입니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>핵심 정리</h2>
-  <ul><li>서로 독립인 두 카이제곱 변수를 각자의 자유도로 나눈 값의 비율, 즉 <code>F = (U₁/d₁) / (U₂/d₂)</code> (U₁ ~ χ²(d₁), U₂ ~ χ²(d₂))가 따르는 분포입니다. 분자 자유도 d₁과 분모 자유도 d₂ <strong>두 개</strong>로 모양이 정해지며 순서가 중요합니다(F(2, 27)과 F(27, 2)는 다릅니다).</li><li>0 이상의 값만 가지며 오른쪽으로 치우쳐 있습니다. 분모 자유도가 2보다 크면 평균은 d₂/(d₂ − 2)로 1보다 조금 큽니다(d₂ = 27이면 1.08). 두 분산이 같다면 F는 1 근처에 몰립니다.</li><li>분산분석과 회귀의 전체 모형 F검정에서는 <strong>오른쪽 꼬리</strong>의 확률만 p값으로 씁니다. F가 작아도(1보다 훨씬 작아도) 집단 간 차이가 없다는 쪽으로 해석할 뿐이며 별도의 기각 영역이 없습니다.</li><li>관계식: ① F(1, d₂)의 값은 자유도 d₂의 t값을 제곱한 것과 같습니다. 그래서 두 집단 비교의 F검정은 <a href="t-test.html">t검정</a>과 같은 결론입니다. ② F<sub>1−α</sub>(d₁, d₂) = 1 / F<sub>α</sub>(d₂, d₁).</li><li>이름은 Fisher의 이름을 따서 Snedecor가 붙였다고 알려져 있어 Fisher-Snedecor 분포라고도 부릅니다.</li></ul>
-
-  <h2>예시로 보기</h2>
-  <p>세 집단(N = 30)을 비교하는 일원분산분석이면 자유도는 d₁ = 2, d₂ = 27입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>값</th><th>의미</th></tr></thead><tbody><tr><td>F<sub>.95</sub>(2, 27) = 3.354</td><td>F가 3.354 이상일 확률이 5%. 5% 수준의 임계값</td></tr><tr><td>F = 4.20이면</td><td>오른쪽 꼬리 확률 p = .026 → 5% 수준에서 유의</td></tr><tr><td>F<sub>.95</sub>(1, 27) = 4.210</td><td>t<sub>.975</sub>(27)² = 2.052² = 4.210과 일치</td></tr></tbody></table></div><p>분모 자유도가 커지면 임계값이 줄어듭니다. 분자 자유도 5일 때 5% 임계값은 분모 자유도 60이면 2.368, 1,000이면 2.223입니다(분모 자유도가 무한대일 때는 χ²(5)/5의 임계값에 접근). 표본이 클수록 같은 F값이 더 쉽게 유의해진다는 뜻입니다.</p><p>분산분석표에서는 이렇게 읽습니다. <code>F(2, 27) = 4.20, p = .026</code>은 “집단 간 평균제곱이 집단 내 평균제곱의 약 4.2배이며, 모든 집단 평균이 같다면 이런 값이 나올 확률이 2.6%”라는 뜻입니다. 어느 집단 사이에 차이가 있는지는 <a href="post-hoc-test.html">사후검정</a>으로 확인해야 합니다.</p>
-
-  <h2>자주 하는 오해</h2>
-  <ul><li><strong>“F값이 크면 효과가 크다.”</strong> F는 자유도와 표본 크기에 영향을 받습니다. 효과의 크기는 <a href="eta-squared.html">에타제곱</a> 같은 <a href="effect-size.html">효과크기</a>로 따로 봅니다.</li><li><strong>“F검정은 두 분산이 같은지 볼 때도 믿을 만하다.”</strong> 두 분산비의 F검정은 자료가 정규분포에서 벗어나면 결과가 크게 흔들리는 것으로 알려져 있습니다(Box, 1953). 등분산성은 보통 레빈(Levene) 검정 등 더 강건한 방법으로 확인합니다.</li><li><strong>“분산분석의 F는 양측검정이다.”</strong> 평균들이 서로 다르면 F가 커지므로 오른쪽 꼬리만 봅니다.</li><li><strong>“F분포의 자유도는 표본 수다.”</strong> 일원분산분석에서 d₁ = 집단 수 − 1, d₂ = 전체 표본 수 − 집단 수입니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -192,19 +175,6 @@
 
   <h2>주의할 점</h2>
   <p>F값이 유의하다는 것은 "집단들 사이 어딘가에 차이가 있다"는 것만 말해줄 뿐, 구체적으로 어느 집단과 어느 집단이 다른지는 알려주지 않습니다. 이를 확인하려면 <a href="anova.html">분산분석</a> 이후 사후검정을 별도로 실시해야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정의</th><th scope="col">주로 쓰이는 곳</th></tr></thead><tbody><tr><th scope="row"><a href="f-distribution.html">F분포</a></th><td>두 카이제곱의 자유도 보정 비</td><td>분산분석, 회귀 전체 검정, 모형 비교</td></tr><tr><th scope="row"><a href="t-distribution.html">t분포</a></th><td>정규 변수를 추정된 표준편차로 나눈 값</td><td>평균 비교, 회귀계수 검정. 제곱하면 F(1, df)</td></tr><tr><th scope="row"><a href="chi-squared-distribution.html">카이제곱분포</a></th><td>표준정규 변수 제곱합</td><td>분산 추정, 적합도·독립성 검정</td></tr><tr><th scope="row"><a href="normal-distribution.html">정규분포</a></th><td>종 모양의 기본 분포</td><td>큰 표본의 평균, 오차</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Fisher, R. A. (1925). Statistical Methods for Research Workers. Oliver and Boyd.</li>
-    <li>Snedecor, G. W., &amp; Cochran, W. G. (1989). Statistical Methods (8th ed.). Iowa State University Press.</li>
-    <li>Johnson, N. L., Kotz, S., &amp; Balakrishnan, N. (1995). Continuous Univariate Distributions, Volume 2 (2nd ed.). Wiley.</li>
-    <li>Box, G. E. P. (1953). Non-normality and tests on variances. Biometrika, 40(3–4), 318–335.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

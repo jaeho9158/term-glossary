@@ -163,29 +163,7 @@
   <p>부트스트랩 대상 통계량, 재표본 횟수, 구간의 종류, 난수 시드, 소프트웨어를 적습니다. (위 가상 자료 기준)</p><p><code>중앙값(5.5)의 95% 신뢰구간은 10,000회 부트스트랩 재표본에서 BCa(편향 수정 가속) 방법으로 구하였다[4.5, 7.5].</code></p><ul><li>매개효과 분석에서는 “부트스트랩 5,000회를 실시하여 간접효과의 95% 신뢰구간이 0을 포함하지 않아 유의하다고 판단하였다”와 같이 쓰이는 일이 많습니다(Preacher &amp; Hayes, 2008).</li><li>“유의한 결과를 얻기 위해 부트스트랩을 썼다”는 오해를 피하려면 사전에 분석 계획으로 선택했음을 밝힙니다.</li><li>자료가 독립이 아니라면(같은 사람의 반복 측정 등) 단순 부트스트랩이 SE를 과소추정합니다. 사람 단위로 재표본해야 합니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>통계량의 표준오차나 신뢰구간을 구하는 공식이 없거나 분포 가정이 의심스러울 때, <strong>가진 표본을 모집단 대신 삼아 복원추출을 반복</strong>해서 그 통계량의 변동을 직접 관찰합니다(Efron, 1979).</p><ol><li>원래 표본(크기 n)에서 n개를 복원추출해 부트스트랩 표본을 만든다.</li><li>그 표본에서 관심 통계량(평균, 중앙값, 상관, 간접효과 등)을 계산한다.</li><li>1~2를 수천 번 반복한다.</li><li>얻은 통계량들의 표준편차를 표준오차로, 백분위수를 신뢰구간으로 쓴다.</li></ol><ul><li>쓰임: 중앙값·비율·회귀계수의 신뢰구간, 매개효과의 간접효과 신뢰구간(<a href="sobel-test.html">소벨 검정</a>의 대안), 머신러닝의 앙상블 등.</li><li>표본이 모집단을 잘 대표하고 관측치가 독립이어야 합니다. 시계열·군집 자료는 덩어리째 뽑는 블록(군집) 부트스트랩이 필요합니다.</li><li>최댓값처럼 극단에 의존하는 통계량이나 표본이 아주 작을 때는 잘 작동하지 않습니다. 부트스트랩은 <em>새 정보를 만들어 내지 못하므로</em> 표본이 작다고 데이터를 불려 주지 않습니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>가상의 예: 12개 값 3, 5, 4, 12, 6, 5, 7, 4, 30, 6, 5, 8 (평균 7.92, SD 7.34, 중앙값 5.5). 큰 값 30이 있어 분포가 오른쪽으로 치우쳤습니다. 10,000번 복원추출했습니다(난수 시드 42).</p><ul><li><strong>평균</strong>: 부트스트랩 표준오차 2.04(공식 s/√n = 2.12와 비슷). 백분위수 95% 구간은 [5.0, 12.5]로 오른쪽이 깁니다. t분포 구간 [3.25, 12.58]은 좌우 대칭이라 왼쪽이 너무 넓습니다. 편향·비대칭을 보정한 BCa 구간은 [5.3, 15.5]입니다.</li><li><strong>중앙값</strong>: 공식이 간단하지 않은 통계량인데 부트스트랩으로 표준오차 0.87, 95% 구간 [4.5, 7.5]를 쉽게 얻습니다. 다만 표본이 12개라 부트스트랩 중앙값이 17가지 값밖에 취하지 않아 매우 이산적입니다.</li><li>각 부트스트랩 표본에는 평균적으로 원래 관측치의 약 63%만 들어갑니다. 한 관측치가 어떤 표본에 한 번도 안 뽑힐 확률은 (1 − 1/n)<sup>n</sup>이며 n = 12에서 .35, n이 크면 e<sup>−1</sup> = .37로 수렴합니다.</li><li>횟수 B: 표준오차는 수백 번으로도 안정되지만 신뢰구간 끝점은 수천 번 이상을 쓰는 것이 관행입니다. B가 작으면 같은 자료도 실행마다 값이 달라집니다.</li><li><strong>구간 종류</strong>: 정규 근사(추정값 ± 1.96×부트스트랩 SE), 백분위수, BCa 등이 있고, 분포가 치우쳤을 때는 BCa가 낫다고 알려져 있습니다(DiCiccio &amp; Efron, 1996).</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>부트스트랩 대상 통계량, 재표본 횟수, 구간의 종류, 난수 시드, 소프트웨어를 적습니다. (위 가상 자료 기준)</p><p><code>중앙값(5.5)의 95% 신뢰구간은 10,000회 부트스트랩 재표본에서 BCa(편향 수정 가속) 방법으로 구하였다[4.5, 7.5].</code></p><ul><li>매개효과 분석에서는 “부트스트랩 5,000회를 실시하여 간접효과의 95% 신뢰구간이 0을 포함하지 않아 유의하다고 판단하였다”와 같이 쓰이는 일이 많습니다(Preacher &amp; Hayes, 2008).</li><li>“유의한 결과를 얻기 위해 부트스트랩을 썼다”는 오해를 피하려면 사전에 분석 계획으로 선택했음을 밝힙니다.</li><li>자료가 독립이 아니라면(같은 사람의 반복 측정 등) 단순 부트스트랩이 SE를 과소추정합니다. 사람 단위로 재표본해야 합니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“(4) 매개 효과의 유의도를 검증하기 위해서 부트스트랩 표본 5,000 개를 추출하여 95% 신뢰구간(confidence interval, CI)을 분석하 였다.”</blockquote><p class="te-cite">여성 노인의 디지털 정보활용능력이 우울에 미치는 영향: 사회적 지지의 매개 효과를 중심으로, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516084809" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“Process macro를 활용하여 매개 효과 분석을 하였고, 매개 효과의 유의성은 Bootstrapping-test를 통해 확인하였다.”</blockquote><p class="te-cite">서비스업종에서의 안전리더십이 안전문화, 안전행동에 미치는 영향연구, 안전문화연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002961475" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“162명의 자료를 기초로 SPSS 25.0과 SPSS Macro를 사용하여 상관분석과 Bootstrapping 분석이 실시되었다.”</blockquote><p class="te-cite">정신건강의학과 환자의 수면의 질과 우울 증상의 관계: 모호함에 대한 해석 편향과 불안 증상의 매개효과, 정신신체의학, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002920294" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -214,22 +192,6 @@
 
   <h2>주의할 점</h2>
   <p>부트스트랩은 원래 표본을 반복해서 재사용하는 방법이기 때문에, 원래 표본 자체가 모집단을 제대로 대표하지 못하면 아무리 반복해도 편향된 결과만 계속 재생산하게 됩니다. "표본이 작으니 부트스트랩으로 데이터를 늘리면 된다"는 생각은 오해이며, 부트스트랩은 새로운 정보를 만들어내는 것이 아니라 가진 정보의 불확실성을 가늠하는 도구입니다. <a href="confidence-interval.html">신뢰구간</a>과 함께 이해하면 좋습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>재표본 방법들은 ‘무엇을 섞고 무엇을 구하나’가 다릅니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">재표본 방식</th><th scope="col">주로 구하는 것</th></tr></thead><tbody><tr><th scope="row"><a href="bootstrap-resampling.html">부트스트랩</a></th><td>표본에서 n개 복원추출</td><td>표준오차, 신뢰구간</td></tr><tr><th scope="row"><a href="jackknife-resampling.html">잭나이프</a></th><td>한 개씩 빼기</td><td>편향, 표준오차</td></tr><tr><th scope="row"><a href="permutation-test.html">순열검정</a></th><td>집단 라벨을 무작위로 섞기(비복원)</td><td>귀무가설 아래의 p값</td></tr><tr><th scope="row"><a href="monte-carlo-method.html">몬테카를로 방법</a></th><td>가정한 모형에서 난수 생성</td><td>확률·기대값 근사</td></tr></tbody></table></div>
-  <p class="te-note">부트스트랩 신뢰구간은 <a href="bootstrap-confidence-interval.html">부트스트랩 신뢰구간</a>에서 방법별로 더 자세히 다룹니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Efron, B. (1979). Bootstrap methods: Another look at the jackknife. The Annals of Statistics, 7(1), 1–26.</li>
-    <li>Efron, B., &amp; Tibshirani, R. J. (1993). An introduction to the bootstrap. Chapman &amp; Hall.</li>
-    <li>Davison, A. C., &amp; Hinkley, D. V. (1997). Bootstrap methods and their application. Cambridge University Press.</li>
-    <li>DiCiccio, T. J., &amp; Efron, B. (1996). Bootstrap confidence intervals. Statistical Science, 11(3), 189–228.</li>
-    <li>Preacher, K. J., &amp; Hayes, A. F. (2008). Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models. Behavior Research Methods, 40(3), 879–891.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

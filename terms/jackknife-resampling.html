@@ -164,29 +164,7 @@
   <p>어떤 통계량에 잭나이프를 썼는지, 무엇을 구했는지(표준오차, 편향 보정, 신뢰구간), 소프트웨어를 적습니다. (위 가상 자료 기준)</p><p><code>상관계수의 표준오차는 잭나이프 방법(leave-one-out, 8회)으로 추정하였다(r = .91, SE = 0.04).</code></p><ul><li>반복 가중치(replicate weights)가 제공되는 복합표본조사를 분석했다면 “반복 가중치를 이용한 잭나이프 분산 추정”처럼 씁니다. 이 경우의 잭나이프는 군집 단위로 하나씩 빼는 방식입니다.</li><li>신뢰구간이 목적이면 오늘날에는 부트스트랩이 더 많이 쓰이므로, 잭나이프를 택한 이유(통계량이 매끄러움, 계산 비용, 재현성)가 있다면 적습니다.</li><li>잭나이프와 부트스트랩 결과가 크게 다르면 통계량이 매끄럽지 않거나 표본이 매우 작다는 신호일 수 있습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>평균처럼 공식이 있는 통계량이 아니라 <strong>상관계수, 비율, 복잡한 추정량</strong>의 편향과 표준오차를 구하고 싶은데 이론적 공식이 번거로울 때 씁니다. 관측치를 한 번에 하나씩 빼고 통계량을 다시 계산합니다(leave-one-out).</p><ul><li>n개의 표본이면 정확히 n번 다시 계산하므로 난수가 필요 없고 결과가 항상 같습니다.</li><li>쓰임: 편향 추정과 보정(Quenouille, 1956), 표준오차 추정(Tukey가 이를 확장), 복합표본조사의 분산 추정(여러 재현 가중치를 만드는 방식, Wolter, 2007), 영향력 큰 관측치 점검.</li><li>통계량이 표본에 대해 ‘매끄러운’ 함수여야 잘 작동합니다. 평균·분산·상관계수에는 잘 맞지만, 중앙값·분위수처럼 값이 뚝뚝 끊기는 통계량에는 적합하지 않습니다(Miller, 1974).</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>재표본 방식</th><th>주 용도</th></tr></thead><tbody><tr><td>잭나이프</td><td>하나씩 빼기(n번)</td><td>편향·표준오차</td></tr><tr><td><a href="bootstrap-resampling.html">부트스트랩</a></td><td>복원추출(수천 번)</td><td>표준오차·신뢰구간</td></tr><tr><td><a href="cross-validation.html">교차검증</a>(leave-one-out)</td><td>하나씩 빼서 예측</td><td>예측 성능 평가</td></tr></tbody></table></div>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>가상의 예: 8개 값 12, 15, 9, 20, 14, 11, 18, 13 (평균 14.0). 한 값씩 빼고 구한 평균은 14.29, 13.86, 14.71, 13.14, 14.00, 14.43, 13.43, 14.14입니다.</p><ul><li><strong>표준오차</strong> = √((n−1)/n × Σ(θ<sub>(i)</sub> − θ̄<sub>(·)</sub>)²) = 1.28. 평균에 대해서는 이것이 공식 s/√n = 1.28과 정확히 같습니다.</li><li><strong>편향 추정</strong> = (n−1) × (θ̄<sub>(·)</sub> − θ). 평균은 불편 추정량이라 0입니다. 반면 분모를 n으로 나눈 분산(11.5)은 편향 추정이 −1.64이고, 이를 빼 보정하면 13.14로 분모를 n−1로 나눈 표본분산과 같아집니다.</li><li><strong>상관계수(가상 8쌍)</strong>: r = .907, 하나씩 뺀 상관은 .887~.942, 잭나이프 표준오차 .038, 편향 +.032, 편향보정 r = .875. 한 점을 뺄 때 값이 얼마나 변하는지가 곧 그 점의 영향력입니다.</li><li><strong>중앙값은 어긋납니다.</strong> 위 8개 값의 중앙값은 13.5이고 하나씩 뺀 중앙값은 13 또는 14 두 가지뿐입니다. 잭나이프 표준오차는 1.32, 부트스트랩(1만 회)은 1.52입니다. 표준정규 난수 40개로 모의 실험해도 잭나이프는 두 가지 값만 반복되어 표준오차 .22로, 부트스트랩의 .15와 달랐습니다. 중앙값에는 잭나이프가 일관되지 않는다는 이론과 맞는 결과입니다.</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>어떤 통계량에 잭나이프를 썼는지, 무엇을 구했는지(표준오차, 편향 보정, 신뢰구간), 소프트웨어를 적습니다. (위 가상 자료 기준)</p><p><code>상관계수의 표준오차는 잭나이프 방법(leave-one-out, 8회)으로 추정하였다(r = .91, SE = 0.04).</code></p><ul><li>반복 가중치(replicate weights)가 제공되는 복합표본조사를 분석했다면 “반복 가중치를 이용한 잭나이프 분산 추정”처럼 씁니다. 이 경우의 잭나이프는 군집 단위로 하나씩 빼는 방식입니다.</li><li>신뢰구간이 목적이면 오늘날에는 부트스트랩이 더 많이 쓰이므로, 잭나이프를 택한 이유(통계량이 매끄러움, 계산 비용, 재현성)가 있다면 적습니다.</li><li>잭나이프와 부트스트랩 결과가 크게 다르면 통계량이 매끄럽지 않거나 표본이 매우 작다는 신호일 수 있습니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“또한, 대체변동을 반영한 분산을 추정하기 위해 수정된 잭나이프분산(jackknife variance)를 구하여 세가지 대체법의 효율을 비교하였다.”</blockquote><p class="te-cite">농가경제조사에 대한 대체법 비교, 통계연구, 2004 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART000948614" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“대표확률분포형 후보군으로 선정된 확률분포형에 대하여 resampling방법인 Jackknife기법을 적용하여 변동성을 파악하고, 변동성이 가장 작게 나타난 분포형을 그 지점의 대표확률분포형으로 결정하였다.”</blockquote><p class="te-cite">연최대강우량의 대표확률분포형 결정을 위한 Jackknife기법의 적용, 한국수자원학회 논문집, 2009 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001386096" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“또한 잭나이프 방법을 응용하여 태풍 대표 경로의 확률 범위와 태풍 통과 예상지역을 추정하였다.”</blockquote><p class="te-cite">태풍의 대표 경로 추출 및 통과 예상지역 추정, 국토지리학회지, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002153005" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -211,22 +189,6 @@
 
   <h2>주의할 점</h2>
   <p>잭나이프는 표본에서 만들어지는 부분표본의 수가 표본 크기만큼으로 제한되어 있어, 매번 무작위로 표본을 다시 뽑아 훨씬 많은 재표본을 만드는 <a href="bootstrap-resampling.html">부트스트랩</a>보다 신뢰구간 추정의 정밀도가 떨어질 수 있습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>‘표본을 다시 뽑는다’는 방법들이 비슷해 보이지만 목적이 다릅니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">핵심 아이디어</th><th scope="col">얻는 것</th></tr></thead><tbody><tr><th scope="row"><a href="jackknife-resampling.html">잭나이프</a></th><td>하나씩 제외하며 반복</td><td>편향·표준오차(결정적)</td></tr><tr><th scope="row"><a href="bootstrap-resampling.html">부트스트랩</a></th><td>표본에서 복원추출 반복</td><td>분포 전체, 신뢰구간</td></tr><tr><th scope="row"><a href="permutation-test.html">순열검정</a></th><td>집단 라벨을 섞어 귀무분포 생성</td><td>가설검정의 p값</td></tr><tr><th scope="row"><a href="cross-validation.html">교차검증</a></th><td>학습/검증 자료를 나눠 반복</td><td>예측 오차</td></tr></tbody></table></div>
-  <p class="te-note">‘잭나이프’는 튜키가 이 방법을 ‘어느 문제에나 쓸 수 있는 만능 칼’에 비유해 붙인 이름으로 알려져 있습니다. 퀘누이(Quenouille)가 편향 보정의 아이디어를 먼저 냈습니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Quenouille, M. H. (1956). Notes on bias in estimation. Biometrika, 43(3–4), 353–360.</li>
-    <li>Miller, R. G. (1974). The jackknife—a review. Biometrika, 61(1), 1–15.</li>
-    <li>Efron, B. (1982). The jackknife, the bootstrap and other resampling plans. SIAM.</li>
-    <li>Efron, B., &amp; Tibshirani, R. J. (1993). An introduction to the bootstrap. Chapman &amp; Hall.</li>
-    <li>Wolter, K. M. (2007). Introduction to variance estimation (2nd ed.). Springer.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

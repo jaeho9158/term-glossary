@@ -157,27 +157,7 @@
   <p>어떤 종류의 잔차를 썼는지, 기준값, 기준을 넘은 사례 수와 처리 방법을 적습니다. (위 가상 자료 기준)</p><p><code>스튜던트화 삭제 잔차의 절댓값이 3을 넘는 사례가 1건(−32.5) 확인되었고 쿡의 거리도 11.8로 컸다. 자료를 확인한 결과 입력 오류는 아니어서 이 사례를 포함한 분석과 제외한 분석 결과를 모두 제시하였다.</code></p><ul><li>“표준화 잔차의 절댓값이 3 이하였다”는 서술만 있으면 위의 e/s인지 스튜던트화 잔차인지 알 수 없습니다. 소프트웨어와 변수 이름(ZRESID, SRESID, SDRESID 등)을 밝힙니다.</li><li>이상치를 삭제하는 것보다 원인을 조사하고 포함·제외 결과를 모두 보여 주는 편이 투명합니다.</li><li>분할표(교차분석) 사후 분석에서의 ‘표준화 잔차’와는 다른 개념입니다. 분할표에서는 (관측−기대)/√기대(피어슨 잔차)와 그것을 행·열 비율로 더 보정한 조정된 잔차가 쓰이며, 조정된 잔차는 대략 표준정규분포를 따라 |값| &gt; 1.96이면 5% 수준에서 눈에 띄는 칸으로 봅니다(Haberman, 1973). 예를 들어 2×2 표의 관측도수가 30, 20 / 20, 30이면 기대도수는 모두 25이고 피어슨 잔차는 ±1.0, 조정된 잔차는 ±2.0입니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>계산과 범위</h2>
-  <p>같은 이름으로 불리는 값이 소프트웨어마다 조금씩 다릅니다. 잔차 e<sub>i</sub> = 관측값 − 예측값, 잔차의 표준오차 s = √(SSE/(n−p)), 레버리지 h<sub>i</sub>(그 점이 설명변수 공간에서 얼마나 외진 곳에 있는지)라 할 때:</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>이름</th><th>계산</th><th>비고</th></tr></thead><tbody><tr><td>표준화 잔차 (SPSS ZRESID 등)</td><td>e<sub>i</sub> / s</td><td>모든 점에 같은 s로 나눔</td></tr><tr><td>내부 스튜던트화 잔차 (R의 rstandard, SPSS의 ‘스튜던트화 잔차’)</td><td>e<sub>i</sub> / (s·√(1 − h<sub>i</sub>))</td><td>레버리지로 분산 차이를 보정</td></tr><tr><td>외부 스튜던트화(삭제) 잔차 (R의 rstudent)</td><td>e<sub>i</sub> / (s<sub>(i)</sub>·√(1 − h<sub>i</sub>))</td><td>그 점을 뺀 모형의 s<sub>(i)</sub> 사용, 모형이 맞으면 t(n−p−1)</td></tr></tbody></table></div><p>범위에 이론적 제한은 없으며 정규 오차 모형이면 대부분 −2~2 안에 들어옵니다.</p><p><strong>작은 예(가상).</strong> x = 1, 2, …, 10과 20, y = 2.1, 3.9, 6.2, 7.8, 10.1, 12.2, 13.8, 16.1, 18.0, 19.9, 30.0으로 단순회귀를 하면 ŷ = 2.41 + 1.515x, s = 1.73입니다. 마지막 점(x = 20, y = 30)은:</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>잔차 e</th><th>레버리지 h</th><th>e/s</th><th>내부 스튜던트화</th><th>외부 스튜던트화</th><th>쿡의 거리</th></tr></thead><tbody><tr><td>x = 10인 점</td><td>2.34</td><td>.13</td><td>1.35</td><td>1.45</td><td>1.56</td><td>.15</td></tr><tr><td>x = 20인 점</td><td>−2.71</td><td>.73</td><td>−1.56</td><td>−2.99</td><td>−32.5</td><td>11.8</td></tr></tbody></table></div><p>그냥 s로 나눈 값(−1.56)으로는 이 점이 정상으로 보이지만, 레버리지가 커서 회귀선이 이 점 쪽으로 끌려왔기 때문에 잔차가 작아졌을 뿐입니다. 보정하면 −2.99, 이 점을 빼고 판단하면 −32.5로 뚜렷한 이상치입니다.</p>
-
-  <h2>해석 기준</h2>
-  <ul><li><strong>|값| &gt; 2</strong>: 정규 오차라면 전체의 약 5%가 넘으므로 표본이 크면 몇 개는 그냥 나옵니다. <strong>|값| &gt; 3</strong>: 약 0.3%로 드물어 이상치 후보로 검토합니다. 모두 연구자들이 쓰는 관례적 기준이며 절대적인 판정선이 아닙니다.</li><li>엄밀하게 ‘가장 큰 |외부 스튜던트화 잔차|가 이상치인가’를 검정하려면 표본 수 n으로 본페로니 보정한 t 임계값을 씁니다. 위 예(n = 11)에서는 t<sub>8</sub>의 .05/(2×11) 지점인 3.90이며 −32.5는 이를 크게 넘습니다.</li><li>잔차가 크다고 곧 영향력이 큰 것은 아닙니다. 영향력은 잔차와 레버리지를 결합한 <a href="cooks-distance.html">쿡의 거리</a>로 봅니다. 위 예의 쿡의 거리 11.8은 흔히 쓰는 기준(1 정도, 또는 4/n)을 크게 넘습니다.</li><li>잔차 대 예측값 도표에 표준화 잔차를 그려 패턴(곡선, 깔때기 모양)을 보면 선형성·등분산성도 점검할 수 있습니다(<a href="residual-analysis.html">잔차분석</a>).</li></ul>
-
-  <h2>보고 방법</h2>
-  <p>어떤 종류의 잔차를 썼는지, 기준값, 기준을 넘은 사례 수와 처리 방법을 적습니다. (위 가상 자료 기준)</p><p><code>스튜던트화 삭제 잔차의 절댓값이 3을 넘는 사례가 1건(−32.5) 확인되었고 쿡의 거리도 11.8로 컸다. 자료를 확인한 결과 입력 오류는 아니어서 이 사례를 포함한 분석과 제외한 분석 결과를 모두 제시하였다.</code></p><ul><li>“표준화 잔차의 절댓값이 3 이하였다”는 서술만 있으면 위의 e/s인지 스튜던트화 잔차인지 알 수 없습니다. 소프트웨어와 변수 이름(ZRESID, SRESID, SDRESID 등)을 밝힙니다.</li><li>이상치를 삭제하는 것보다 원인을 조사하고 포함·제외 결과를 모두 보여 주는 편이 투명합니다.</li><li>분할표(교차분석) 사후 분석에서의 ‘표준화 잔차’와는 다른 개념입니다. 분할표에서는 (관측−기대)/√기대(피어슨 잔차)와 그것을 행·열 비율로 더 보정한 조정된 잔차가 쓰이며, 조정된 잔차는 대략 표준정규분포를 따라 |값| &gt; 1.96이면 5% 수준에서 눈에 띄는 칸으로 봅니다(Haberman, 1973). 예를 들어 2×2 표의 관측도수가 30, 20 / 20, 30이면 기대도수는 모두 25이고 피어슨 잔차는 ±1.0, 조정된 잔차는 ±2.0입니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“종속변수인 삶의 질의 왜도와 첨 도의 심각한 비정규성은 없었고, 표준화 잔차 또한 정규 분포하 였다.”</blockquote><p class="te-cite">여대생의 e헬스 문해력, 생식건강 증진 행위가 삶의 질에 미치는 영향, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096486" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -201,21 +181,6 @@
 
   <h2>주의할 점</h2>
   <p>표준화잔차가 크다고 해서 그 관측치를 무조건 삭제해서는 안 됩니다. 자료 입력 오류가 아니라 실제로 존재하는 극단적인 사례일 수도 있으므로, <a href="cooks-distance.html">쿡의 거리</a> 등 다른 진단 지표와 함께 종합적으로 판단해야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>잔차 계열 용어는 이름이 비슷하지만 역할이 다릅니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">무엇에 쓰나</th></tr></thead><tbody><tr><th scope="row">잔차</th><td>관측값 − 예측값(원래 단위)</td><td>오차의 크기</td></tr><tr><th scope="row"><a href="standardized-residual.html">표준화 잔차</a></th><td>잔차를 표준편차 단위로 환산</td><td>서로 다른 모형·변수의 잔차 비교, 이상치 후보</td></tr><tr><th scope="row">스튜던트화 잔차</th><td>레버리지까지 보정(내부) 또는 그 점을 빼고 계산(외부)</td><td>이상치 검정</td></tr><tr><th scope="row"><a href="leverage.html">레버리지</a></th><td>설명변수 공간에서 얼마나 외진 점인가</td><td>영향력의 한 요소</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 점이 전체 예측을 얼마나 바꾸는가</td><td>영향력 진단</td></tr></tbody></table></div>
-  <p class="te-note">이상치(잔차가 큼)와 영향점(회귀선을 바꿈)은 같지 않습니다. 레버리지가 큰 점은 잔차가 작아 보이면서도 회귀선을 좌우합니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Cook, R. D., &amp; Weisberg, S. (1982). Residuals and influence in regression. Chapman &amp; Hall.</li>
-    <li>Belsley, D. A., Kuh, E., &amp; Welsch, R. E. (1980). Regression diagnostics: Identifying influential data and sources of collinearity. Wiley.</li>
-    <li>Fox, J. (2016). Applied regression analysis and generalized linear models (3rd ed.). Sage.</li>
-    <li>Haberman, S. J. (1973). The analysis of residuals in cross-classified tables. Biometrics, 29(1), 205–220.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

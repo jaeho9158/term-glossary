@@ -163,27 +163,7 @@
   <p>표준화 여부, λ를 정한 방법(교차검증의 겹 수와 평가 지표), 선택된 λ, 그리고 예측 성능을 적습니다.</p><p><code>설명변수를 표준화한 뒤 릿지 회귀를 적합하였다. 벌점 모수 λ는 10-겹 교차검증에서 평균제곱오차가 최소가 되는 값(λ = 12.4)으로 정하였다. 교차검증 RMSE는 최소제곱 회귀 0.91, 릿지 회귀 0.84였다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>라쏘, 엘라스틱넷과 성능을 비교한 경우 같은 교차검증 분할을 썼는지 밝힙니다.</li><li>λ에 따른 계수 경로(path) 그림을 부록에 넣으면 독자가 어떻게 줄어드는지 볼 수 있습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>설명변수가 서로 강하게 상관되어 최소제곱 추정이 불안정하거나(다중공선성), 변수 수가 표본에 비해 많아 과적합이 걱정될 때 씁니다. 목적이 <strong>예측 정확도</strong>일 때 특히 유용합니다.</p><ul><li>목적함수: <code>RSS + λ × Σβ<sub>j</sub>²</code> (λ ≥ 0). 계수 크기의 제곱합에 벌점을 줍니다. 절편에는 벌점을 주지 않는 것이 일반적입니다.</li><li>변수의 단위가 다르면 벌점이 불공평하게 걸리므로 <strong>설명변수를 먼저 표준화</strong>합니다.</li><li>λ = 0이면 최소제곱, λ가 커질수록 계수가 0으로 줄어듭니다. 라쏘와 달리 계수를 정확히 0으로 만들지는 않아 변수 선택은 하지 못합니다.</li><li>λ는 보통 k-겹 교차검증으로 고릅니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p><strong>작은 예</strong>(모의 자료, n = 60, 두 변수의 상관 .94, 실제로는 두 변수의 효과가 같음, 표준화한 단위의 계수, 계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>λ</th><th>x₁ 계수</th><th>x₂ 계수</th></tr></thead><tbody><tr><td>0 (최소제곱)</td><td>1.46</td><td>0.35</td></tr><tr><td>1</td><td>1.32</td><td>0.47</td></tr><tr><td>10</td><td>0.97</td><td>0.69</td></tr><tr><td>100</td><td>0.50</td><td>0.46</td></tr></tbody></table></div><p>최소제곱은 두 변수의 효과를 한쪽에 몰아 1.46과 0.35로 갈라 놓았습니다. λ가 커지면 계수가 서로 비슷해지고 전체적으로 줄어듭니다. 표본을 2,000번 다시 뽑는 부트스트랩으로 보면 계수의 표준편차가 최소제곱에서는 0.34·0.33, λ = 10의 릿지에서는 0.10·0.09로 크게 줄어, 추정이 안정됩니다.</p><ul><li>대가: 계수가 0 쪽으로 <strong>편향</strong>됩니다(편향-분산 절충). 벌점이 커질수록 편향은 늘고 분산은 줄어드는데, 합친 예측오차가 최소가 되는 λ를 교차검증으로 찾습니다.</li><li>릿지 계수는 최소제곱처럼 간단한 표준오차·p값을 주지 않습니다. 가설검정이 목적이라면 부적합할 수 있습니다.</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>표준화 여부, λ를 정한 방법(교차검증의 겹 수와 평가 지표), 선택된 λ, 그리고 예측 성능을 적습니다.</p><p><code>설명변수를 표준화한 뒤 릿지 회귀를 적합하였다. 벌점 모수 λ는 10-겹 교차검증에서 평균제곱오차가 최소가 되는 값(λ = 12.4)으로 정하였다. 교차검증 RMSE는 최소제곱 회귀 0.91, 릿지 회귀 0.84였다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>라쏘, 엘라스틱넷과 성능을 비교한 경우 같은 교차검증 분할을 썼는지 밝힙니다.</li><li>λ에 따른 계수 경로(path) 그림을 부록에 넣으면 독자가 어떻게 줄어드는지 볼 수 있습니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“산불 건수의 선형 변화를 살펴보기 위해 다중회귀분석, 능형회귀분석, LASSO를 이용하였고, 산불조심기간을 선정하기 위해K-means 군집분석을 수행하였다.”</blockquote><p class="te-cite">통계 분석을 통한 산불조심기간 추정, Crisisonomy, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002532258" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -209,21 +189,6 @@
 
   <h2>주의할 점</h2>
   <p>릿지 회귀는 계수를 줄여주긴 하지만 정확히 0으로 만들지는 않기 때문에 "변수 선택" 기능은 없습니다. 불필요한 변수를 아예 제거하고 싶다면 <a href="lasso-regression.html">라쏘 회귀</a>처럼 L1 규제를 쓰는 방법을 고려해야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>규제 회귀와 공선성 대응 방법이 한꺼번에 등장합니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">벌점</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">릿지(L2) 회귀</th><td>계수의 제곱합</td><td>계수를 줄이되 0으로 만들지 않음. 상관된 변수의 계수를 함께 줄임</td></tr><tr><th scope="row"><a href="lasso-regression.html">라쏘(L1) 회귀</a></th><td>계수 절댓값의 합</td><td>일부 계수를 정확히 0으로 만들어 변수 선택 효과</td></tr><tr><th scope="row">엘라스틱넷</th><td>L1과 L2의 혼합</td><td>상관된 변수가 많을 때 라쏘의 불안정을 완화</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분회귀</a></th><td>벌점 대신 변수 축소</td><td>변수를 주성분으로 바꾼 뒤 회귀</td></tr><tr><th scope="row"><a href="multicollinearity.html">다중공선성</a></th><td>—</td><td>릿지가 다루려는 문제 자체</td></tr></tbody></table></div>
-  <p class="te-note">릿지는 ‘모든 변수를 남기고 크기를 줄이는’ 방법, 라쏘는 ‘일부 변수를 버리는’ 방법으로 구분하면 됩니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Hoerl, A. E., &amp; Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55–67.</li>
-    <li>Hoerl, A. E., &amp; Kennard, R. W. (1970). Ridge regression: Applications to nonorthogonal problems. Technometrics, 12(1), 69–82.</li>
-    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
-    <li>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2013). An Introduction to Statistical Learning. Springer.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

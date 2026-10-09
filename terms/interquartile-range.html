@@ -161,29 +161,7 @@
   <p>정규성이 의심되거나 이상치가 있는 연속형 변수는 평균±표준편차 대신 <strong>중앙값(사분위범위)</strong>로 요약합니다. (위 가상 값 기준)</p><p><code>중앙값 9.0 (Q1–Q3: 6.5–12.5, IQR = 6.0)</code></p><ul><li>IQR을 하나의 숫자(6.0)로만 적기보다 Q1과 Q3 두 값을 같이 적으면 자료의 위치까지 알 수 있어 더 많은 정보를 줍니다.</li><li>방법 절에 “연속형 변수는 정규성 검정 결과에 따라 평균±표준편차 또는 중앙값(사분위범위)으로 제시하였다”처럼 선택 기준을 적습니다.</li><li>비모수 검정(맨-휘트니 U, 크루스칼-왈리스)을 쓴 연구에서는 중앙값과 IQR을 짝으로 제시하는 것이 관행입니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>계산과 범위</h2>
-  <p><code>IQR = Q3 − Q1</code> (3사분위수 − 1사분위수). 자료를 크기순으로 놓았을 때 아래에서 25%, 75% 지점의 값입니다. 가운데 50%의 폭이며 자료와 같은 단위입니다. 0 이상이고 값이 모두 같으면 0입니다.</p><p><strong>사분위수 계산법이 여러 가지</strong>라서 같은 자료도 값이 달라집니다. 가상의 11개 값 3, 5, 6, 7, 8, 9, 10, 12, 13, 15, 40으로 확인해 보면:</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>Q1</th><th>Q3</th><th>IQR</th></tr></thead><tbody><tr><td>선형 보간(R 기본값, numpy 기본값, 엑셀 QUARTILE.INC)</td><td>6.5</td><td>12.5</td><td>6.0</td></tr><tr><td>(n+1)p 위치 사용(엑셀 QUARTILE.EXC, R의 type 6)</td><td>6.0</td><td>13.0</td><td>7.0</td></tr><tr><td>튜키의 힌지(중앙값으로 나눈 아래·위 절반의 중앙값)</td><td>6.5</td><td>12.5</td><td>6.0</td></tr></tbody></table></div><p>표본이 작으면 이 차이가 눈에 띕니다. 논문에서는 어떤 소프트웨어의 기본값인지만 밝혀도 충분합니다(Hyndman &amp; Fan, 1996).</p><p>정규분포에서는 IQR이 표준편차의 약 1.349배이므로, 정규에 가까운 자료라면 IQR / 1.349를 표준편차 대용으로 쓸 수 있습니다.</p>
-
-  <h2>해석 기준</h2>
-  <ul><li><strong>이상치에 강합니다.</strong> 위 11개 값에서 40이 있으면 평균 11.6, 표준편차 10.1이지만 40을 빼면 평균 8.8, 표준편차 3.8로 표준편차가 2.7배나 줄어듭니다. 반면 IQR은 6.0(40을 뺀 경우 5.25)으로 거의 변하지 않습니다.</li><li><strong>1.5×IQR 규칙(튜키)</strong>: Q1 − 1.5×IQR보다 작거나 Q3 + 1.5×IQR보다 큰 값을 상자그림에서 바깥 점으로 표시합니다. 위 예의 울타리는 −2.5와 21.5라서 40이 표시됩니다. 3×IQR 밖은 ‘아주 먼 값’으로 따로 구분하기도 합니다. 이는 튜키(1977)가 제안한 관례이며 이상치를 판정하는 검정이 아닙니다. 정규분포에서도 약 0.7%의 값이 이 울타리를 넘습니다.</li><li>IQR은 가운데 50%의 폭만 말해 줍니다. 분포의 모양(치우침, 봉우리 수)이나 꼬리는 알려 주지 않으므로 중앙값과 함께, 가능하면 그림과 함께 봅니다.</li><li>두 집단의 IQR을 비교할 때 중앙값이 크게 다르면 비율(IQR/중앙값)을 보기도 합니다.</li></ul>
-
-  <h2>보고 방법</h2>
-  <p>정규성이 의심되거나 이상치가 있는 연속형 변수는 평균±표준편차 대신 <strong>중앙값(사분위범위)</strong>로 요약합니다. (위 가상 값 기준)</p><p><code>중앙값 9.0 (Q1–Q3: 6.5–12.5, IQR = 6.0)</code></p><ul><li>IQR을 하나의 숫자(6.0)로만 적기보다 Q1과 Q3 두 값을 같이 적으면 자료의 위치까지 알 수 있어 더 많은 정보를 줍니다.</li><li>방법 절에 “연속형 변수는 정규성 검정 결과에 따라 평균±표준편차 또는 중앙값(사분위범위)으로 제시하였다”처럼 선택 기준을 적습니다.</li><li>비모수 검정(맨-휘트니 U, 크루스칼-왈리스)을 쓴 연구에서는 중앙값과 IQR을 짝으로 제시하는 것이 관행입니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“통계 분석 연속형 변수는 분포에 따라 평균과 표준편차(mean±standard deviation) 또는 중앙값과 사분위범위[median (interquartile range)]로 제시하였다.”</blockquote><p class="te-cite">임산부 대상 6주 가정 기반 디지털 호흡훈련 프로그램의 실행가능성과 예비 효과: 단일군 사전-사후 예비연구, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096487" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“연직방향 풍속의 이상치를 파악하기 위해 적용된 통계분석방법은 사분위수를 바탕으로 상자그림(boxplot)의 분석결과 중에 이상치를 판별하기 위한 interquartile range (IQR)을 적용하여 이상치를 탐색하였다.”</blockquote><p class="te-cite">실제증발산 측정 시 연직 풍속 이상치 탐색 및 대체, 대한토목학회논문집(국문), 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001915509" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“둘째, 중학교 통계영역 교육과정의 학습 요소 개선 측면에서, 사분위범위와 상자 그림을 학습 요소로 추가하는 것을 고려할 필요가 있다.”</blockquote><p class="te-cite">중학교 통계영역의 교육과정 개선을 위한 외국 교육과정의 탐색: 한국, 미국, 싱가포르, 일본의 학습 요소 중심으로, 한국학교수학회논문집, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002537198" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -211,21 +189,6 @@
   <h2>주의할 점</h2>
   <p>IQR은 "가운데 50%의 폭"만 알려줄 뿐, 그 안의 분포 모양(치우침이나 봉우리 개수)까지 말해주지는 않습니다. 또한 표본 크기가 매우 작으면 사분위수 계산 방식(소프트웨어마다 보간법이 다를 수 있음)에 따라 IQR 값이 조금씩 달라질 수 있으니, 표본이 극히 적을 때는 해석에 주의해야 합니다.</p>
   <p>이상치를 다루는 또 다른 접근으로는 극단값을 자르는 대신 특정 백분위수로 눌러 대체하는 <a href="winsorizing.html">윈저화</a>나, 양 끝을 아예 제거하고 평균을 내는 <a href="trimmed-mean.html">절사평균</a>이 있습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>산포를 나타내는 지표는 이상치에 대한 반응이 다릅니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">계산</th><th scope="col">이상치에 대한 민감도</th></tr></thead><tbody><tr><th scope="row">범위</th><td>최댓값 − 최솟값</td><td>매우 민감</td></tr><tr><th scope="row"><a href="standard-deviation.html">표준편차</a></th><td>평균에서 떨어진 정도의 제곱평균 제곱근</td><td>민감</td></tr><tr><th scope="row"><a href="interquartile-range.html">사분위범위(IQR)</a></th><td>Q3 − Q1</td><td>둔감(가운데 50%만 사용)</td></tr><tr><th scope="row"><a href="median-absolute-deviation.html">중위절대편차(MAD)</a></th><td>중앙값에서 떨어진 절댓값의 중앙값</td><td>더 둔감(50%까지 이상치 허용)</td></tr></tbody></table></div>
-  <p class="te-note">사분위수를 상자그림에서 어떻게 그리는지는 <a href="box-plot-quartiles.html">상자그림과 사분위수</a>에서 볼 수 있습니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Tukey, J. W. (1977). Exploratory data analysis. Addison-Wesley.</li>
-    <li>Hyndman, R. J., &amp; Fan, Y. (1996). Sample quantiles in statistical packages. The American Statistician, 50(4), 361–365.</li>
-    <li>Frigge, M., Hoaglin, D. C., &amp; Iglewicz, B. (1989). Some implementations of the boxplot. The American Statistician, 43(1), 50–54.</li>
-    <li>Rousseeuw, P. J., &amp; Croux, C. (1993). Alternatives to the median absolute deviation. Journal of the American Statistical Association, 88(424), 1273–1283.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

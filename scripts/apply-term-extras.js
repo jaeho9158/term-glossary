@@ -168,7 +168,7 @@ function renderTail(x) {
   return out.join("\n  ");
 }
 
-const blockRe = (name) => new RegExp(`[ ]*<!-- term-extras:${name}:start -->[\\s\\S]*?<!-- term-extras:${name}:end -->\\n\\n?`, "g");
+const blockRe = (name) => new RegExp(`[ ]*<!-- term-extras:${name}:start -->[\\s\\S]*?<!-- term-extras:${name}:end -->(?:\\n\\n?|\\r\\n(?:\\r\\n)?)`, "g");
 
 function stripAll(html) {
   for (const n of ["sections", "usage", "tail"]) html = html.replace(blockRe(n), "");
@@ -193,6 +193,8 @@ function applyToHtml(html, slug, extras, usage) {
   let out = stripAll(html);
   for (const f of extras.fixes || []) {
     if (!f.find || typeof f.replace !== "string") throw new Error(`${slug}: fixes 형식 오류`);
+    // 바꿀 문구가 찾을 문구를 품고 있으면 이미 반영된 페이지에 다시 적용하지 않는다(멱등)
+    if (f.replace.includes(f.find) && out.includes(f.replace)) continue;
     out = out.split(f.find).join(f.replace);
   }
   if (!out.includes(ANCHOR_H2) || !out.includes(NAV_CSS_LINK)) return null;

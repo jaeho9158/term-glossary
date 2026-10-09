@@ -171,27 +171,7 @@
   <ul><li>등분산 검정(레빈 등)의 결과와 그 때문에 Games-Howell을 선택했다는 이유를 밝힙니다.</li><li>쌍별 비교는 표로, 평균차·표준오차(또는 신뢰구간)·보정된 p값을 제시합니다. 별표만 쓰기보다 정확한 p값이 좋습니다.</li><li>전체 검정을 웰치 분산분석으로 했다면 그 결과(F, 두 자유도, p)를 먼저 적습니다.</li><li>예: <code>웰치 분산분석 후 Games-Howell 사후검정을 실시한 결과, 집단 1과 집단 2의 평균 차이는 유의하지 않았다(평균차 = −5.73, p = .052).</code> (위 가상의 예 기준입니다.)</li><li>효과크기는 집단 크기와 분산이 다르므로 <a href="cohens-d.html">코헨의 d</a>를 쌍별로 계산할 때 어떤 표준편차(합동/개별)를 썼는지 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>세 집단 이상을 비교한 일원분산분석에서 전체 효과가 있다고 나온 뒤, <strong>집단 간 분산이 같다고 보기 어려울 때</strong> 어느 집단 쌍이 다른지 가려내는 사후검정입니다. Games와 Howell(1976)이 표본 크기나 분산이 다른 경우를 대상으로 한 모의실험에서 제안했습니다.</p><ul><li>등분산 가정이 필요한 <a href="tukey-hsd-test.html">튜키 HSD</a>의 대안입니다. 레빈 검정 등으로 등분산이 의심되거나 집단 크기가 많이 다를 때 고릅니다.</li><li>전체 검정도 등분산을 가정하지 않는 <a href="welch-anova.html">웰치 분산분석</a>으로 하는 것이 짝이 맞습니다(Welch, 1951). 분산이 다른데 일반 분산분석의 F로 전체 검정을 한 뒤 Games-Howell을 쓰는 조합은 일관성이 떨어집니다.</li><li>각 쌍마다 자기 분산·표본 크기를 쓰므로 한 쌍의 결과가 다른 집단의 분산에 영향을 받지 않습니다.</li><li>집단별 표본이 아주 작으면 쌍별 자유도 근사가 불안정해질 수 있어 결과를 조심해 읽습니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 사후검정</th></tr></thead><tbody><tr><td>등분산, 집단 크기 비슷</td><td><a href="tukey-hsd-test.html">튜키 HSD</a></td></tr><tr><td>분산 다름 (+ 표본 크기 다름)</td><td>Games-Howell (Tamhane T2, Dunnett T3 등도 있음)</td></tr><tr><td>순위 기반 (<a href="kruskal-wallis-test.html">크루스칼-왈리스</a> 뒤)</td><td><a href="dunn-test.html">던 검정</a></td></tr><tr><td>대조군 하나와 나머지 비교</td><td><a href="dunnetts-test.html">던넷 검정</a></td></tr></tbody></table></div>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>각 쌍 (i, j)에 대해 웰치 방식의 표준오차와 근사 자유도를 계산하고, 통계량 <code>q = |x̄<sub>i</sub> − x̄<sub>j</sub>| / √( (s<sub>i</sub>²/n<sub>i</sub> + s<sub>j</sub>²/n<sub>j</sub>) / 2 )</code>를 <strong>스튜던트화 범위 분포</strong>(집단 수가 k일 때)와 비교해 다중비교를 보정한 p값을 구합니다. 같은 값을 t = q/√2로 바꾸어 읽는 프로그램도 있습니다.</p><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료): 세 집단의 크기가 12, 20, 9, 평균이 48.6, 54.3, 61.1, 표준편차가 4.8, 8.4, 23.3입니다. 레빈 검정이 유의(p &lt; .001)해 등분산을 가정하기 어렵고, 일반 분산분석은 F(2, 38) = 2.56, p = .090입니다. Games-Howell 결과는 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>비교</th><th>평균차</th><th>표준오차</th><th>근사 df</th><th>q</th><th>p(GH)</th><th>(참고) p(튜키)</th></tr></thead><tbody><tr><td>1–2</td><td>−5.73</td><td>2.34</td><td>30.0</td><td>3.47</td><td>.052</td><td>.429</td></tr><tr><td>1–3</td><td>−12.48</td><td>7.89</td><td>8.5</td><td>2.24</td><td>.304</td><td>.074</td></tr><tr><td>2–3</td><td>−6.74</td><td>7.99</td><td>9.0</td><td>1.19</td><td>.687</td><td>.381</td></tr></tbody></table></div><p>튜키 검정은 세 집단의 분산을 하나로 합쳐 쓰기 때문에, 분산이 큰 소표본 집단(3번)이 낀 쌍(1–3)의 불확실성을 작게 어림잡아 p가 .074로 더 작게 나왔습니다. 그 집단의 실제 표준오차는 7.89로 큽니다. Games-Howell은 이를 반영해 p = .304를 줍니다. 분산이 다를 때 어느 방법이 맞는지에 따라 결론이 갈릴 수 있습니다.</p>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <ul><li>등분산 검정(레빈 등)의 결과와 그 때문에 Games-Howell을 선택했다는 이유를 밝힙니다.</li><li>쌍별 비교는 표로, 평균차·표준오차(또는 신뢰구간)·보정된 p값을 제시합니다. 별표만 쓰기보다 정확한 p값이 좋습니다.</li><li>전체 검정을 웰치 분산분석으로 했다면 그 결과(F, 두 자유도, p)를 먼저 적습니다.</li><li>예: <code>웰치 분산분석 후 Games-Howell 사후검정을 실시한 결과, 집단 1과 집단 2의 평균 차이는 유의하지 않았다(평균차 = −5.73, p = .052).</code> (위 가상의 예 기준입니다.)</li><li>효과크기는 집단 크기와 분산이 다르므로 <a href="cohens-d.html">코헨의 d</a>를 쌍별로 계산할 때 어떤 표준편차(합동/개별)를 썼는지 밝힙니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“자료 분석은 t-test, ANOVA, Games-Howell, Pearson correlation coefficient와 Multiple regression을 사용하였다.”</blockquote><p class="te-cite">임상간호사의 윤리풍토와 윤리적 간호역량이 도덕적 고뇌에 미치는 영향, 간호행정학회지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003172003" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -216,19 +196,6 @@
 
   <h2>주의할 점</h2>
   <p>게임스-하우웰 검정은 <a href="welch-anova.html">웰치의 분산분석 (Welch's ANOVA)</a>과 짝을 이루는 방법입니다. 등분산 가정이 충족된 데이터에 굳이 게임스-하우웰 검정을 쓰면 검정력이 다소 낮아질 수 있으므로, 먼저 레빈 검정 등으로 등분산 여부를 확인한 뒤 상황에 맞는 사후검정을 선택하는 것이 중요합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">분산 가정</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row"><a href="games-howell-test.html">Games-Howell</a></th><td>이분산 허용</td><td>쌍별 웰치 방식 + 스튜던트화 범위 분포</td></tr><tr><th scope="row"><a href="tukey-hsd-test.html">튜키 HSD</a></th><td>등분산</td><td>합동분산 하나로 모든 쌍 비교. 집단 크기 다르면 Tukey-Kramer</td></tr><tr><th scope="row"><a href="welch-anova.html">웰치 분산분석</a></th><td>이분산 허용</td><td>전체 평균 차이 검정(사후검정이 아님)</td></tr><tr><th scope="row"><a href="bonferroni-correction.html">본페로니 보정</a></th><td>—</td><td>쌍별 t검정의 유의수준을 나누는 일반적 보정 방법</td></tr><tr><th scope="row"><a href="dunn-test.html">던 검정</a></th><td>분포 가정 없음(순위)</td><td>크루스칼-왈리스 이후의 쌍별 비교</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Games, P. A., &amp; Howell, J. F. (1976). Pairwise multiple comparison procedures with unequal n’s and/or variances: A Monte Carlo study. Journal of Educational Statistics, 1(2), 113–125.</li>
-    <li>Welch, B. L. (1951). On the comparison of several mean values: An alternative approach. Biometrika, 38(3–4), 330–336.</li>
-    <li>Delacre, M., Leys, C., Mora, Y. L., &amp; Lakens, D. (2019). Taking parametric assumptions seriously: Arguments for the use of Welch’s F-test instead of the classical F-test in one-way ANOVA. International Review of Social Psychology, 32(1), 13.</li>
-    <li>Kirk, R. E. (2013). Experimental Design: Procedures for the Behavioral Sciences (4th ed.). Sage.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

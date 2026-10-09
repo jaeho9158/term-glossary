@@ -164,29 +164,7 @@
   <p>처치·비교집단을 어떻게 정했는지, 평행추세를 어떻게 점검했는지, 표준오차를 어떻게 계산했는지를 반드시 밝힙니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>정책 도입 이후 처치집단의 평균 점수는 비교집단에 비해 6.0점 더 상승하였다(DID = 6.0, SE = 2.1, p = .004; 지역 수준 군집표준오차). 도입 이전 4개 분기의 사건연구 계수는 모두 0과 유의하게 다르지 않아 평행추세 가정과 모순되지 않았다.</code></p><p>한국어 논문에서는 “이중차분법(Difference-in-Differences, DID)”을 쓴다고 방법 절에 적고 상호작용항 계수를 ‘정책효과’로 해석하는 경우가 많습니다. 평행추세를 검증하지 않았거나 비교집단 선정 근거가 약하면 심사에서 가장 먼저 지적되는 부분이므로, 그림(집단별 추이)과 사전추세 검정을 함께 싣는 것이 좋습니다.</p>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>정책이나 사건의 효과를 알고 싶은데 무작위 배정을 할 수 없을 때, <strong>처치집단</strong>과 <strong>비교집단</strong>을 처치 <strong>전·후</strong> 두 시점 이상에서 관찰해 쓰는 준실험 설계입니다. 두 가지 단순 비교가 각각 무엇을 놓치는지 보면 필요성이 보입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>비교 방법</th><th>무엇을 비교하나</th><th>놓치는 것</th></tr></thead><tbody><tr><td>단순 전후 비교</td><td>처치집단의 처치 전과 후</td><td>시간이 지나며 모두에게 생기는 변화(경기, 계절, 성장)</td></tr><tr><td>단순 집단 비교</td><td>처치 후 처치집단과 비교집단</td><td>원래부터 달랐던 집단 간 차이</td></tr><tr><td>이중차분법</td><td>두 집단의 ‘변화량’의 차이</td><td>집단 고유의 고정된 차이와 공통 시간 효과를 모두 제거</td></tr></tbody></table></div><p>핵심 전제는 <strong>평행추세 가정</strong>입니다. 처치가 없었다면 두 집단이 같은 속도로 변했을 것이라는 가정이며, 데이터로 직접 증명할 수는 없고 처치 이전 여러 시점의 추세가 비슷했는지로 간접 점검합니다. 또한 처치를 예상하고 미리 행동을 바꾸는 경우(예상 효과)나 처치가 비교집단에도 번지는 경우(파급 효과)가 없어야 합니다.</p>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <p>추정치는 DID = (처치집단의 후 − 전) − (비교집단의 후 − 전)입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>처치 전</th><th>처치 후</th><th>변화</th></tr></thead><tbody><tr><td>처치집단</td><td>60</td><td>72</td><td>+12</td></tr><tr><td>비교집단</td><td>58</td><td>64</td><td>+6</td></tr><tr><td>차이의 차이</td><td></td><td></td><td>12 − 6 = <strong>6</strong></td></tr></tbody></table></div><p>처치집단이 12 올랐지만 그중 6은 비교집단도 겪은 공통 변화이므로, 처치의 효과는 6으로 추정합니다. 회귀로 쓰면 Y = β₀ + β₁·처치집단 + β₂·후기간 + β₃·(처치집단 × 후기간) + 오차이고, <strong>상호작용항의 계수 β₃</strong>가 DID 추정치입니다.</p><ul><li>표준오차는 같은 집단·같은 지역의 관측치들이 서로 독립이 아닌 경우가 많아 군집표준오차(cluster-robust)를 쓰는 것이 일반적입니다(Bertrand, Duflo, Mullainathan, 2004).</li><li>처치 이전 시점들의 계수(사건연구 그래프)가 0 근처라는 것이 평행추세를 뒷받침하는 정황 증거입니다.</li><li>처치 시점이 집단마다 다른 경우, 이원 고정효과 회귀가 이미 처치받은 집단을 비교집단으로 쓰며 편향될 수 있어 Goodman-Bacon(2021)은 이 편향이 어디서 생기는지 분해해 진단하는 방법을, Callaway와 Sant’Anna(2021) 등은 이를 피하는 추정량을 제안했고, 후자와 같은 추정량을 씁니다.</li></ul>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>처치·비교집단을 어떻게 정했는지, 평행추세를 어떻게 점검했는지, 표준오차를 어떻게 계산했는지를 반드시 밝힙니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>정책 도입 이후 처치집단의 평균 점수는 비교집단에 비해 6.0점 더 상승하였다(DID = 6.0, SE = 2.1, p = .004; 지역 수준 군집표준오차). 도입 이전 4개 분기의 사건연구 계수는 모두 0과 유의하게 다르지 않아 평행추세 가정과 모순되지 않았다.</code></p><p>한국어 논문에서는 “이중차분법(Difference-in-Differences, DID)”을 쓴다고 방법 절에 적고 상호작용항 계수를 ‘정책효과’로 해석하는 경우가 많습니다. 평행추세를 검증하지 않았거나 비교집단 선정 근거가 약하면 심사에서 가장 먼저 지적되는 부분이므로, 그림(집단별 추이)과 사전추세 검정을 함께 싣는 것이 좋습니다.</p>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“특히, 본 연구를 통해 이중차분 추정기법을 올바로 활용하기 위해서는 이중차분 추정기법의 식별조건인 “평행 추세 가정”을 통계적으로 그리고 실질적으로 검정해야 함을 강조하였다.”</blockquote><p class="te-cite">행정학･정책학 연구에서의 이중차분 추정기법의 활용과 쟁점, 현대사회와 행정, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002386316" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“본 연구는 「경제활동인구조사」 자료와 「경제활동인구조사 근로형태별 부가조사」 자료를 연계하여 인구집단 단위 패널 자료를 구축하였고, 이중 차분 사건 연구 모형을 이용하여 코로나19 위기 전 비정규직 비중과 코로나19 위기 발생 후 전년 동월 대비 고용 증가율 간의 관계를 추정하였다.”</blockquote><p class="te-cite">인구집단별 비정규직 비중과 코로나19 위기 중 고용 증가율 간 관계: 이중 차분 사건 연구 방법론을 이용한 고빈도 분석, 인문사회과학연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002901081" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“연구결과, 「교육행정학연구」에서 가장 많이 사용되고 있는 준실험연구방법은 경향점수를 이용한 방법(67.6%)으로 나타났으며, 이중차분법(21.6%)이 그 뒤를 이었다.”</blockquote><p class="te-cite">한국 교육행정학 분야 증거기반 연구 동향 분석:「교육행정학연구」를 중심으로, 교육행정학연구, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003108345" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -210,22 +188,6 @@
 
   <h2>주의할 점</h2>
   <p>이중차분법이 성립하려면 처리집단과 비교집단이 정책 시행 전에는 비슷한 추세로 변화하고 있었어야 한다는 "평행추세 가정(parallel trends assumption)"이 필요합니다. 두 집단이 애초에 서로 다른 이유로 다르게 변화하고 있었다면, 추정된 효과에는 정책 효과가 아닌 다른 요인이 섞여 <a href="endogeneity.html">내생성</a> 문제가 발생할 수 있습니다. 그래서 분석 전에 정책 시행 이전 기간의 추세가 비슷했는지 반드시 확인해야 합니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>비무작위 자료에서 인과효과를 추정하는 준실험 방법들은 ‘무엇에 의존하느냐’로 구분됩니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">비교하는 것</th><th scope="col">핵심 가정</th></tr></thead><tbody><tr><th scope="row"><a href="difference-in-differences.html">이중차분법</a></th><td>처치·비교집단의 전후 변화량의 차이</td><td>평행추세</td></tr><tr><th scope="row"><a href="synthetic-control-method.html">합성통제법</a></th><td>처치집단과, 비교집단들을 가중 조합해 만든 ‘가상의 비교집단’</td><td>처치 전 추이가 가상 집단과 잘 맞음</td></tr><tr><th scope="row"><a href="regression-discontinuity-design.html">회귀불연속설계</a></th><td>기준점 바로 위·아래의 개체</td><td>기준점 근처에서 다른 조건이 연속적</td></tr><tr><th scope="row"><a href="fixed-effects-model.html">고정효과 모형</a></th><td>같은 개체의 시점 간 변화</td><td>시간에 따라 변하는 숨은 교란이 없음</td></tr></tbody></table></div>
-  <p class="te-note">이중차분법을 여러 시점·여러 집단으로 확장한 이원 고정효과 모형은 위 표의 이중차분법과 고정효과를 합친 형태입니다.</p>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Card, D., &amp; Krueger, A. B. (1994). Minimum wages and employment: A case study of the fast-food industry in New Jersey and Pennsylvania. American Economic Review, 84(4), 772–793.</li>
-    <li>Angrist, J. D., &amp; Pischke, J.-S. (2009). Mostly Harmless Econometrics: An Empiricist's Companion. Princeton University Press.</li>
-    <li>Bertrand, M., Duflo, E., &amp; Mullainathan, S. (2004). How much should we trust differences-in-differences estimates? Quarterly Journal of Economics, 119(1), 249–275.</li>
-    <li>Callaway, B., &amp; Sant'Anna, P. H. C. (2021). Difference-in-differences with multiple time periods. Journal of Econometrics, 225(2), 200–230.</li>
-    <li>Goodman-Bacon, A. (2021). Difference-in-differences with variation in treatment timing. Journal of Econometrics, 225(2), 254–277.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

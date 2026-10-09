@@ -39,7 +39,9 @@ function parseTermPage(html) {
 function fingerprints(html) {
   const p = parseTermPage(html);
   if (!p) return null;
-  const core = [p.definition, p.sections["쉽게 풀면"] || "", p.sections["주의할 점"] || ""].join("\n");
+  // 검수 지문(core)은 보강 블록을 뺀 본문으로 계산한다: 블록의 <h2> 가 '주의할 점' 구간의 끝을 바꾸지 않게 한다
+  const bare = parseTermPage(html.replace(/[ ]*<!-- term-extras:(\w+):start -->[\s\S]*?<!-- term-extras:\1:end -->/g, "")) || p;
+  const core = [bare.definition, bare.sections["쉽게 풀면"] || "", bare.sections["주의할 점"] || ""].join("\n");
   return { core: hash(core), full: hash(p.full), diagram: p.hasDiagram ? hash(p.diagram) : "", definition: p.definition, easy: p.sections["쉽게 풀면"] || "" };
 }
 

@@ -161,29 +161,7 @@
   <p>변수 선택과 단위, 정상성 검정 결과, 시차 선택 기준, 안정성, 잔차 진단(자기상관 등)을 방법 절에 적고, 결과는 그레인저 검정과 충격반응함수·분산분해 중심으로 보고합니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>AIC에 따라 시차를 1로 정하였고 모든 고유값의 절댓값이 1 미만으로 모형은 안정적이었다. 그레인저 인과성 검정에서 X는 Y를 유의하게 선행하였다(χ²(1) = 6.20, p = .013). 촐레스키 분해(순서: X, Y)에 따른 충격반응함수는 …</code></p><ul><li>충격반응함수에는 신뢰구간(부트스트랩 등)을 함께 제시합니다.</li><li>변수 수에 비해 관측 시점이 적으면 추정이 불안정하므로 표본 길이를 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>언제 쓰나</h2>
-  <p>금리·물가·환율처럼 여러 시계열이 <strong>서로 영향을 주고받는</strong> 상황에서, 변수 사이의 동태적 관계를 이론적 제약을 최소화하고 추정하고 싶을 때 씁니다(Sims, 1980).</p><ul><li>모든 변수를 “자기 자신과 다른 변수들의 과거값”으로 설명하는 방정식 K개를 세웁니다. 변수가 K개, 시차가 p이면 방정식마다 절편 포함 1 + Kp개 계수를 추정합니다(전체 K + K²p개).</li><li>변수들이 정상 시계열이어야 합니다. 비정상이면 차분하거나, 변수들 사이에 공적분 관계가 있을 때는 오차수정모형(VECM)을 씁니다.</li><li>목적은 보통 예측, 그레인저 인과성 검정, 충격반응함수, 예측오차 분산분해 중 하나입니다.</li></ul>
-
-  <h2>결과는 이렇게 읽는다</h2>
-  <ul><li><strong>개별 계수</strong>는 변수 사이에 상관이 있어 단독으로 해석하기 어렵습니다. 대신 그레인저 인과성 검정(“X의 과거값이 Y 예측을 개선하는가”)과 충격반응함수를 봅니다.</li><li><strong>시차 선택</strong>: AIC, BIC, HQ 같은 정보기준이 가장 작은 p를 고릅니다. AIC는 더 긴 시차를, BIC는 더 짧은 시차를 고르는 경향이 있습니다.</li><li><strong>안정성</strong>: 계수 행렬(동반 행렬)의 고유값의 절댓값이 모두 1 미만이어야 모형이 정상입니다.</li><li><strong>충격반응함수와 분산분해</strong>는 변수의 순서(촐레스키 분해)나 구조적 가정에 따라 달라집니다. 순서를 어떻게 정했는지가 결과의 일부입니다.</li></ul><p>(가상의 예) 변수 2개, 시차 1인 VAR에서 만든 모의 자료 300개 시점을 분석해 직접 계산한 값입니다. 참 모형의 계수 행렬은 [[.5, .1], [.2, .4]]입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><caption>정보기준(작을수록 좋음. ln|Σ̂| + 벌점 형태)</caption><thead><tr><th>시차 p</th><th>AIC</th><th>BIC</th></tr></thead><tbody><tr><td>1</td><td>0.250</td><td>0.325</td></tr><tr><td>2</td><td>0.254</td><td>0.379</td></tr><tr><td>3</td><td>0.262</td><td>0.437</td></tr><tr><td>4</td><td>0.285</td><td>0.509</td></tr></tbody></table></div><p>AIC와 BIC 모두 p = 1을 고릅니다. 시차 1 모형의 추정 계수 행렬은 [[0.47, 0.09], [0.23, 0.31]]이고 고유값의 절댓값은 0.55, 0.23로 1보다 작아 안정적입니다.</p>
-
-  <h2>논문에는 이렇게 보고한다</h2>
-  <p>변수 선택과 단위, 정상성 검정 결과, 시차 선택 기준, 안정성, 잔차 진단(자기상관 등)을 방법 절에 적고, 결과는 그레인저 검정과 충격반응함수·분산분해 중심으로 보고합니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>AIC에 따라 시차를 1로 정하였고 모든 고유값의 절댓값이 1 미만으로 모형은 안정적이었다. 그레인저 인과성 검정에서 X는 Y를 유의하게 선행하였다(χ²(1) = 6.20, p = .013). 촐레스키 분해(순서: X, Y)에 따른 충격반응함수는 …</code></p><ul><li>충격반응함수에는 신뢰구간(부트스트랩 등)을 함께 제시합니다.</li><li>변수 수에 비해 관측 시점이 적으면 추정이 불안정하므로 표본 길이를 밝힙니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
-  <ul class="te-quotes">
-  <li><blockquote class="te-quote">“본 연구는 아시아권 15개국을 고소득⋅중소득⋅저소득 국가로 구분하여 ICT 발전이 아시아권 국가들의 무역에 미치는 영향을 VAR 모형을 이용하여 비교⋅분석 하였다.”</blockquote><p class="te-cite">ICT의 발전이 아시아권 국가들의 무역에 미치는 영향 비교⋅분석, 한중사회과학연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002808548" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“실증분석 결과 기후변화와 생명보험 보험금지급액 변화에 그랜저 인과성이 확인되었으며, VAR 모형 IRF 결과 및 예측오차 분산분해분석 결과에서도 생명보험 보험금지급액 시계열 변화에 기후변화가 통계적으로 유의한 설명력을 갖는 것으로 나타났다.”</blockquote><p class="te-cite">기후변화가 생명보험 보험금지급액 변화에 미치는 영향, 보험학회지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002982496" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  <li><blockquote class="te-quote">“시계열 분석은 벡터자기회귀모형과 벡터오차수정모형을 사용하였으며, 다음의 세 부분으로 분류하여 분석하였다.”</blockquote><p class="te-cite">리츠와 건설경기, 부동산경기, 주식시장과의 관계 분석, 한국건설관리학회 논문집, 2010 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001481656" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
-  </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -209,21 +187,6 @@
 
   <h2>주의할 점</h2>
   <p>벡터자기회귀모형에서 한 변수가 다른 변수를 통계적으로 잘 예측한다고 해서 실제로 원인과 결과 관계가 있다는 뜻은 아닙니다. 이는 시간상 선후 관계를 보는 <a href="granger-causality.html">그레인저 인과성</a>의 개념이며, 진짜 인과관계와는 구분해서 해석해야 합니다. 또한 변수 수가 늘어날수록 추정해야 할 계수가 급격히 많아져 관측 시점이 충분하지 않으면 추정이 불안정해질 수 있습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>시계열 모형들은 “변수가 몇 개인가”와 “무엇을 설명하려는가”로 구분합니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">변수</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row">벡터자기회귀(VAR)</th><td>여러 시계열을 동시에</td><td>모든 변수가 서로의 과거값으로 설명됨</td></tr><tr><th scope="row"><a href="autoregressive-model.html">자기회귀모형(AR)</a></th><td>시계열 하나</td><td>자기 자신의 과거값만 사용</td></tr><tr><th scope="row"><a href="granger-causality.html">그레인저 인과성</a></th><td>두 변수 이상</td><td>VAR 안에서 하는 “예측력” 검정. 진짜 인과와는 다름</td></tr><tr><th scope="row"><a href="panel-data.html">패널 VAR</a></th><td>여러 개체 × 여러 변수</td><td>개체 수가 많고 시점이 짧을 때 VAR을 확장</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>Sims, C. A. (1980). Macroeconomics and reality. Econometrica, 48(1), 1–48.</li>
-    <li>Lütkepohl, H. (2005). New Introduction to Multiple Time Series Analysis. Springer.</li>
-    <li>Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press.</li>
-    <li>Stock, J. H., &amp; Watson, M. W. (2001). Vector autoregressions. Journal of Economic Perspectives, 15(4), 101–115.</li>
-    <li>Granger, C. W. J. (1969). Investigating causal relations by econometric models and cross-spectral methods. Econometrica, 37(3), 424–438.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

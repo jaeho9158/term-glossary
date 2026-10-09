@@ -160,24 +160,7 @@
   <ul><li><strong>“n ≥ 30이면 항상 정규근사를 써도 된다”</strong>: 필요한 크기는 p에 달려 있습니다. p가 .01 같은 값이면 n = 30이어도 np = 0.3이라 정규근사는 맞지 않습니다.</li><li><strong>“근사는 항상 보수적이다”</strong>: 어느 방향으로 틀리는지는 p와 n에 따라 다릅니다.</li><li><strong>“정규근사 Wald 신뢰구간은 믿을 만하다”</strong>: 표본비율이 0이나 1 근처, 또는 n이 작을 때 포함확률이 목표(95%)에 많이 못 미칠 수 있습니다. Brown, Cai, DasGupta(2001)는 Wilson 구간이나 Agresti–Coull 구간을 권고했습니다.</li><li><strong>“근사는 정확검정보다 낫다”</strong>: 계산 자원이 충분한 지금은 정확 이항검정이 어렵지 않습니다. 근사는 이해와 손계산, 큰 n의 편의를 위한 도구입니다.</li></ul>
   <!-- term-extras:sections:end -->
 
-  <!-- term-extras:sections:start -->
-  <h2>핵심 정리</h2>
-  <p>X가 이항분포 B(n, p)를 따르면 평균은 np, 분산은 np(1 − p)입니다. n이 충분히 크고 p가 0이나 1에 너무 가깝지 않으면 X는 대략 N(np, np(1 − p))를 따릅니다. 이를 드무아브르–라플라스 정리라고 하며, 중심극한정리의 가장 오래된 형태입니다.</p><ul><li><strong>사용 기준</strong>: 흔히 np ≥ 5 그리고 n(1 − p) ≥ 5를 씁니다. 교재에 따라 10을 기준으로 삼기도 하므로 기준은 정해진 법칙이 아니라 경험칙입니다.</li><li><strong>연속성 수정</strong>: 이산분포를 연속분포로 근사할 때 P(X ≤ k) ≈ Φ((k + 0.5 − np) / √(np(1 − p)))처럼 0.5를 더해 오차를 줄입니다.</li><li><strong>비율</strong>로 쓰면 표본비율 p̂ ≈ N(p, p(1 − p)/n)이 되어, 비율의 z검정과 Wald 신뢰구간이 이 근사에 기대고 있습니다.</li><li>n이 크고 p가 매우 작을 때는 정규분포보다 <a href="poisson-distribution.html">포아송분포</a>가 더 적합한 근사입니다.</li></ul>
-
-  <h2>예시로 보기</h2>
-  <p>(가상의 예, 직접 계산) n = 100, p = .3일 때 P(X ≤ 25)를 구합니다. 평균 30, 표준편차 4.58입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>P(X ≤ 25)</th></tr></thead><tbody><tr><td>정확한 이항분포</td><td>0.1631</td></tr><tr><td>정규근사(수정 없음)</td><td>0.1376</td></tr><tr><td>정규근사(연속성 수정)</td><td>0.1631</td></tr></tbody></table></div><p>연속성 수정을 하면 정확한 값과 거의 같아집니다. 반대로 n = 20, p = .1(np = 2 &lt; 5)에서 P(X ≤ 0)(= P(X = 0))을 구하면 정확한 값은 0.1216인데, 수정 없는 정규근사는 0.0680, 수정한 근사도 0.1318로 차이가 납니다. 기준을 못 채우면 근사가 흔들린다는 뜻입니다.</p>
-
-  <h2>자주 하는 오해</h2>
-  <ul><li><strong>“n ≥ 30이면 항상 정규근사를 써도 된다”</strong>: 필요한 크기는 p에 달려 있습니다. p가 .01 같은 값이면 n = 30이어도 np = 0.3이라 정규근사는 맞지 않습니다.</li><li><strong>“근사는 항상 보수적이다”</strong>: 어느 방향으로 틀리는지는 p와 n에 따라 다릅니다.</li><li><strong>“정규근사 Wald 신뢰구간은 믿을 만하다”</strong>: 표본비율이 0이나 1 근처, 또는 n이 작을 때 포함확률이 목표(95%)에 많이 못 미칠 수 있습니다. Brown, Cai, DasGupta(2001)는 Wilson 구간이나 Agresti–Coull 구간을 권고했습니다.</li><li><strong>“근사는 정확검정보다 낫다”</strong>: 계산 자원이 충분한 지금은 정확 이항검정이 어렵지 않습니다. 근사는 이해와 손계산, 큰 n의 편의를 위한 도구입니다.</li></ul>
-  <!-- term-extras:sections:end -->
-
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <!-- term-extras:usage:start -->
-  <h3 class="te-sub">실제 논문에서</h3>
-  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
-  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -198,20 +181,6 @@
 
   <h2>주의할 점</h2>
   <p>표본크기가 작거나 성공확률이 0 또는 1에 가까울 때 정규근사를 적용하면 오차가 커집니다. 이런 경우에는 근사 대신 정확한 이항분포를 그대로 사용하는 정확검정을 쓰는 것이 안전합니다. 이항분포가 정규분포로 수렴하는 현상은 표본이 커질수록 표본평균의 분포가 정규분포에 가까워진다는 <a href="central-limit-theorem.html">중심극한정리</a>의 한 사례로 볼 수 있습니다.</p>
-
-  <!-- term-extras:tail:start -->
-  <h2>헷갈리기 쉬운 용어</h2>
-  <p>이항분포를 둘러싼 근사와 정리가 여럿이라 서로 바뀌어 쓰입니다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 한다</th><th scope="col">조건</th></tr></thead><tbody><tr><th scope="row">정규근사(드무아브르–라플라스)</th><td>이항분포 → 정규분포</td><td>n 크고 np, n(1 − p)가 충분히 큼</td></tr><tr><th scope="row"><a href="central-limit-theorem.html">중심극한정리</a></th><td>표본평균(합)의 분포 → 정규분포</td><td>이항 외에 일반적인 분포의 합에도 적용되는 더 넓은 정리</td></tr><tr><th scope="row"><a href="poisson-distribution.html">포아송 근사</a></th><td>이항분포 → 포아송분포</td><td>n 크고 p 아주 작음(np가 적당)</td></tr><tr><th scope="row"><a href="binomial-distribution.html">이항분포</a></th><td>근사의 대상</td><td>정확 확률은 이항 공식으로 계산 가능</td></tr></tbody></table></div>
-  <h2>참고 문헌</h2>
-  <ol class="te-refs">
-    <li>De Moivre, A. (1738). The Doctrine of Chances (2nd ed.). H. Woodfall.</li>
-    <li>Brown, L. D., Cai, T. T., &amp; DasGupta, A. (2001). Interval estimation for a binomial proportion. Statistical Science, 16(2), 101–133.</li>
-    <li>Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. Journal of the American Statistical Association, 22(158), 209–212.</li>
-    <li>Agresti, A., &amp; Coull, B. A. (1998). Approximate is better than “exact” for interval estimation of binomial proportions. The American Statistician, 52(2), 119–126.</li>
-  </ol>
-  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
-  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
