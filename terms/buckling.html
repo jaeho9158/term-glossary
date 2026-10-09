@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/buckling.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <p>그래서 항공우주 구조물의 경량 설계, 건축·토목 구조물의 기둥 및 트러스 설계, 배관이나 압력용기의 안정성 평가처럼 하중을 지지하는 가늘고 얇은 부재를 다루는 거의 모든 분야에서 좌굴 해석이 핵심 검토 항목으로 등장합니다.</p>
   <p>최근에는 복합재료나 박판 구조물처럼 가볍고 얇게 설계하려는 경향이 강해지면서, 좌굴에 대한 관심이 더욱 커지고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>좌굴은 가늘고 긴 부재(기둥)나 얇은 판이 압축을 받을 때, 재료가 항복·파괴되기 전에 <strong>옆으로 휘어 하중을 버티는 방식이 갑자기 바뀌는</strong> 현상입니다. 재료의 강도가 아니라 구조의 안정성 문제입니다.</li><li>이상적인 직선 기둥의 임계 좌굴하중은 오일러 식으로 구합니다(Euler, 1744): P<sub>cr</sub> = π²EI / (KL)². E는 탄성계수, I는 단면2차모멘트, L은 길이, K는 지지 조건에 따른 유효길이계수입니다.</li><li>길이에 제곱으로 반비례하므로 길이가 2배가 되면 임계하중은 1/4이 됩니다. 단면은 I를 키우는 형상(속이 빈 관 등)이 같은 재료량에서 유리합니다.</li><li>K는 양단 핀이면 1.0, 일단 고정·타단 자유면 2.0, 양단 고정이면 0.5, 일단 고정·타단 핀이면 약 0.7(이론값)입니다(Galambos &amp; Surovek, 2008).</li><li>실제 부재는 초기 휨, 잔류응력, 하중 편심 같은 결함이 있어 이론값보다 낮은 하중에서 좌굴이 시작됩니다. 판과 쉘에서는 부재 일부만 휘는 국부좌굴과 전체좌굴을 구분합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 계산입니다. 탄성계수 E = 200,000 MPa(강재), 단면 20 mm × 20 mm 정사각형 (A = 400 mm², I = 13,333 mm⁴), 길이 1000 mm, 항복응력 250 MPa로 둡니다. 재료가 압축 항복에 이르는 하중은 A × σ<sub>y</sub> = 100.0 kN입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>지지 조건</th><th>K</th><th>임계 좌굴하중 P<sub>cr</sub> (kN)</th><th>항복 하중 대비</th></tr></thead><tbody><tr><td>양단 핀</td><td>1</td><td>26.3</td><td>26%</td></tr><tr><td>일단 고정·타단 자유</td><td>2</td><td>6.6</td><td>7%</td></tr><tr><td>일단 고정·타단 핀</td><td>0.7</td><td>53.7</td><td>54%</td></tr><tr><td>양단 고정</td><td>0.5</td><td>105.3</td><td>105%</td></tr></tbody></table></div><p>양단 핀일 때 좌굴하중은 항복 하중의 약 26%여서, 재료가 충분히 강한데도 좌굴이 먼저 일어납니다(세장비 L/r ≈ 173). 같은 부재에서 길이를 2배(2000 mm)로 하면 양단 핀 기준 임계하중은 6.6 kN으로 1/4이 됩니다. 이 식은 응력이 비례한도 이하인 탄성 좌굴일 때 성립하며, 짧고 굵은 부재는 좌굴 전에 항복하므로 다른 식을 씁니다. 표의 양단 고정처럼 계산값이 항복 하중을 넘는 경우에는 오일러 식의 값이 그대로 실현되지 않습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>좌굴은 재료가 약해서 부러지는 것이다.</td><td>재료의 항복 전에 형상이 불안정해지는 현상입니다. 같은 재료라도 길이, 단면 형상, 지지 조건에 따라 달라집니다.</td></tr><tr><td>재료를 두껍게 하면 가장 효과적이다.</td><td>단면 형상을 바꿔 I를 키우거나 중간에 가새를 넣어 유효길이를 줄이는 것이 더 효과적인 경우가 많습니다.</td></tr><tr><td>이론 좌굴하중까지는 안전하다.</td><td>초기 결함과 편심 때문에 이론값보다 낮은 하중에서 휨이 커집니다. 설계에서는 안전율과 결함을 반영한 해석을 씁니다.</td></tr><tr><td>좌굴은 기둥에만 있다.</td><td>판, 쉘, 파이프, 보의 압축 플랜지 등 압축을 받는 얇은 부재 전반에서 나타납니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"세장비가 큰 기둥일수록 좌굴 하중이 감소하였으며, 오일러 좌굴 공식을 이용해 임계하중을 예측하였다."</div>
   <p>이 문장은 "기둥이 가늘고 길수록 재료가 파괴되기 전에 먼저 옆으로 휘어져 무너지는 하중이 낮아지며, 이 값을 수학적 공식으로 미리 계산할 수 있다"는 뜻입니다.</p>
 
@@ -167,6 +185,18 @@
 
   <h2>주의할 점</h2>
   <p>좌굴은 재료의 강도가 부족해서 일어나는 파괴가 아니라, 기둥의 길이와 단면 형상에 의해 결정되는 안정성 문제입니다. 그래서 같은 재료라도 압축을 받는 부재는 인장을 받는 부재와 달리 <a href="factor-of-safety.html">안전율</a>을 계산할 때 좌굴을 별도로 검토해야 하며, 단순히 재료를 두껍게 하는 것보다 단면 형상을 바꾸는 것이 좌굴 방지에 더 효과적인 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><strong>좌굴</strong></th><td>압축을 받는 가늘고 긴 부재가 갑자기 옆으로 휘는 현상</td><td>현상</td></tr><tr><th scope="row"><a href="buckling-load-theory.html">좌굴하중 이론</a></th><td>좌굴이 일어나는 하중을 설명하는 이론</td><td>이론</td></tr><tr><th scope="row"><a href="euler-buckling.html">오일러 좌굴</a></th><td>이상적 탄성 기둥의 임계하중을 길이·강성·지지 조건으로 계산하는 이론</td><td>고전 식</td></tr><tr><th scope="row"><a href="slenderness-ratio.html">세장비</a></th><td>기둥이 얼마나 가늘고 긴지를 나타내는 값</td><td>좌굴 위험 지표</td></tr><tr><th scope="row"><a href="buckling-analysis.html">좌굴해석</a></th><td>임계 하중을 예측하는 구조해석 기법</td><td>해석 방법</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Euler, L. (1744). Methodus inveniendi lineas curvas maximi minimive proprietate gaudentes. Bousquet.</li>
+    <li>Timoshenko, S. P., &amp; Gere, J. M. (1961). Theory of Elastic Stability (2nd ed.). McGraw-Hill.</li>
+    <li>Galambos, T. V., &amp; Surovek, A. E. (2008). Structural Stability of Steel: Concepts and Applications for Structural Engineers. John Wiley &amp; Sons.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="buckling-load-theory.html">좌굴하중 이론</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
