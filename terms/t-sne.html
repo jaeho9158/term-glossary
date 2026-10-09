@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/t-sne.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,28 @@
   <p>t-SNE는 이런 시각적 탐색을 가능하게 해 주는 대표적인 도구여서, 표현학습, 자연어처리 임베딩 분석, 단일세포 유전체 분석 등 군집 구조 확인이 중요한 여러 연구주제에서 결과를 설명하는 보조 수단으로 널리 쓰입니다.</p>
   <p>정량적 지표만으로는 드러나지 않는 데이터의 전반적인 패턴을 논문 독자에게 직관적으로 전달할 수 있다는 점에서 자주 채택됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>t-SNE(t-distributed Stochastic Neighbor Embedding)는 van der Maaten과 Hinton(2008)이 제안한 시각화용 차원 축소법으로, Hinton과 Roweis(2002)의 SNE를 개선한 것입니다. 큰 흐름은 다음과 같습니다.</p><ol><li>고차원에서 각 점 i에 대해 가까운 이웃일수록 큰 확률을 주는 가우스 분포로 “i가 j를 이웃으로 고를 확률”을 정합니다. 이웃의 유효 개수는 <strong>퍼플렉시티(perplexity)</strong>로 조절합니다.</li><li>저차원(보통 2차원)에도 점을 무작위 또는 PCA로 초기 배치하고, 같은 방식의 확률을 자유도 1인 스튜던트 t 분포로 정의합니다. 꼬리가 두꺼워 멀리 떨어진 점들을 더 넓게 퍼뜨릴 수 있습니다.</li><li>두 확률 분포의 차이(KL 발산)가 줄어들도록 경사하강법으로 저차원 점의 위치를 반복해서 옮깁니다.</li></ol><p>이웃 관계, 즉 가까운 점들의 구조를 보존하는 데 초점을 맞추는 방법입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>고차원 자료의 군집 구조를 눈으로 탐색할 때 씁니다. 단일세포 RNA 발현, 이미지·문서의 임베딩, 키워드 관계 같은 자료가 대표적입니다. 이 페이지에 인용된 국내 논문도 단어 임베딩 결과를 2차원에 시각화하는 데 사용했습니다. 선형 투영인 <a href="principal-component-analysis.html">주성분분석</a>과 달리 휘어진 구조를 펼쳐 보일 수 있지만, 그 대신 아래 성질을 이해하고 써야 합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>성질</th><th>의미</th></tr></thead><tbody><tr><td>비볼록 최적화</td><td>초기값과 난수 시드에 따라 결과 배치가 달라질 수 있어 여러 번 실행해 일관성을 봅니다.</td></tr><tr><td>퍼플렉시티 의존</td><td>보통 5~50 사이 값을 쓰도록 원 논문이 안내하며, 값에 따라 군집이 합쳐지거나 쪼개져 보입니다(Wattenberg 등, 2016).</td></tr><tr><td>군집 크기·거리의 비의미성</td><td>그림에서 군집의 크기나 군집 사이 거리는 원공간의 크기·거리와 같다고 읽을 수 없습니다.</td></tr><tr><td>새 점의 투영</td><td>기본 t-SNE는 학습에 쓰지 않은 새 점을 바로 배치하는 함수를 제공하지 않습니다.</td></tr></tbody></table></div>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에는 재현에 필요한 조건을 적습니다.</p><ul><li>사용한 구현(예: scikit-learn의 TSNE, Rtsne, openTSNE)과 입력(원자료인지 PCA로 줄인 뒤인지)</li><li>퍼플렉시티, 학습률, 반복 횟수, 초기화 방식, 난수 시드</li><li>여러 퍼플렉시티·시드로 확인했는지 여부</li></ul><p>해석 문장은 “이 자료에서 어떤 점들이 서로 가까운 이웃이다” 수준으로 제한하는 것이 안전합니다. 군집 간 거리나 크기를 근거로 한 정량적 주장은 피해야 합니다. 단일세포 자료에서의 사용 지침은 Kobak과 Berens(2019)가 정리했습니다. 비슷한 목적의 <a href="umap.html">UMAP</a>, 거리 보존을 목표로 하는 <a href="multidimensional-scaling.html">다차원척도법</a>과 비교해 쓰는 경우가 많습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“분석내용은 11,774편의 학술지 논문을 Python을 사용하여 키워드 빈도분석과 Word Embedding(Word2vec), t-SNE, Scattertext 등을 수행하였다.”</blockquote><p class="te-cite">초록 데이터를 이용한 한국무역연구 키워드, 문서간 관계성 모델링, 국제상학, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002604835" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“둘째, Word Embedding 분석에서는 상관관계 분석(키워드 Top 5)을 통해 각 키워드와의 높은 상관관계 단어들을 제시하였고, t-SNE를 활용해 전체 초록의 단어들 사이에서 키워드 Top 60의 연구적 연결성을 시각적으로 나타내었다.”</blockquote><p class="te-cite">초록 데이터를 이용한 한국무역연구 키워드, 문서간 관계성 모델링, 국제상학, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002604835" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"학습된 임베딩의 군집 구조를 시각화하기 위해 t-SNE를 사용하여 2차원 평면에 투영하였다."</div>
   <p>고차원 임베딩 벡터들을 t-SNE로 2차원에 배치해 데이터가 어떻게 군집을 이루는지 눈으로 확인할 수 있게 했다는 뜻이다.</p>
 
@@ -169,6 +191,19 @@
 
   <h2>주의할 점</h2>
   <p>t-SNE 결과에서 군집 사이의 거리나 군집 크기는 실제 고차원 공간의 거리를 그대로 반영하지 않으므로 정량적 해석보다는 정성적 탐색용으로 사용해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">t-SNE와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>분산이 큰 방향으로 선형 투영하는 차원 축소</td><td>선형이며 결정적(같은 입력이면 같은 결과). 전체 분산 구조를 보존</td></tr><tr><th scope="row"><a href="umap.html">UMAP</a></th><td>이웃 그래프의 위상 구조를 이용한 비선형 차원 축소</td><td>같은 목적이지만 계산이 빠르고 전역 구조가 상대적으로 더 보존된다고 알려져 있음</td></tr><tr><th scope="row"><a href="multidimensional-scaling.html">다차원척도법</a></th><td>거리 정보를 최대한 유지하며 저차원에 배치</td><td>전체 거리 관계의 보존이 목표이고, t-SNE는 국소 이웃 관계에 초점</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>van der Maaten, L., &amp; Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9, 2579–2605.</li>
+    <li>Hinton, G. E., &amp; Roweis, S. T. (2002). Stochastic neighbor embedding. Advances in Neural Information Processing Systems, 15.</li>
+    <li>Wattenberg, M., Viégas, F., &amp; Johnson, I. (2016). How to use t-SNE effectively. Distill, 1(10), e2.</li>
+    <li>Kobak, D., &amp; Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. Nature Communications, 10, 5416.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

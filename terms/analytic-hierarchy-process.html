@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/analytic-hierarchy-process.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,29 @@
   <p>여러 기준을 동시에 고려해야 하는 의사결정에서, 각 기준의 중요도를 사람이 직관적으로 정하면 일관성이 떨어지기 쉽습니다. 계층분석법은 쌍대비교라는 비교적 다루기 쉬운 판단을 반복해 중요도를 도출하고, 이 판단들이 논리적으로 일관되는지도 검증할 수 있어 다기준의사결정에서 널리 쓰이는 대표적 방법입니다.</p>
   <p>토마스 사티가 제시한 이 기법은 정성적 판단을 정량적 가중치로 전환하는 체계적 절차를 제공해, 공공정책 선정부터 공급업체 평가까지 다양한 실무 의사결정에서 폭넓게 채택되어 왔습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>AHP는 Saaty(1977, 1980)가 개발한 다기준 의사결정 기법입니다. 절차는 다음과 같습니다.</p><ol><li><strong>계층 구성</strong>: 목표 → 평가기준(필요하면 하위기준) → 대안으로 문제를 나눕니다.</li><li><strong>쌍대비교</strong>: 같은 층의 요소를 둘씩 짝지어 “어느 쪽이 얼마나 더 중요한가”를 1~9 척도로 답합니다. 1은 같은 중요도, 3은 약간 중요, 5는 중요, 7은 매우 중요, 9는 절대적으로 중요하다는 뜻이고 반대 방향은 역수로 적습니다.</li><li><strong>가중치 계산</strong>: 쌍대비교행렬의 주고유벡터를 정규화해 각 요소의 상대적 중요도를 얻습니다.</li><li><strong>일관성 검증</strong>: 일관성 지수 CI = (λ<sub>max</sub> − n)/(n − 1)를 임의지수 RI로 나눈 일관성 비율 CR을 구합니다. Saaty는 CR이 0.1 이하이면 받아들일 만하다고 제안했으며, 이는 관례입니다.</li><li><strong>종합</strong>: 기준 가중치와 대안별 점수를 곱해 합산해 대안의 우선순위를 정합니다.</li></ol><p>기준이 n개이면 쌍대비교는 n(n − 1)/2번 필요해서, 기준이 늘면 응답자 부담이 급격히 커집니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예: 이사할 집을 가격·위치·넓이 세 기준으로 비교한 응답자의 쌍대비교행렬입니다. 가격이 위치보다 약간 더 중요(3), 가격이 넓이보다 중요(5), 위치가 넓이보다 조금 더 중요(2)하다고 답했습니다. 코드로 계산했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>가격</th><th>위치</th><th>넓이</th></tr></thead><tbody><tr><th scope="row">가격</th><td>1</td><td>3</td><td>5</td></tr><tr><th scope="row">위치</th><td>1/3</td><td>1</td><td>2</td></tr><tr><th scope="row">넓이</th><td>1/5</td><td>1/2</td><td>1</td></tr></tbody></table></div><p>주고유벡터를 정규화한 가중치는 가격 0.648, 위치 0.230, 넓이 0.122입니다. λ<sub>max</sub> ≈ 3.004, CI ≈ 0.0018이고, n = 3일 때 RI는 0.58이므로 CR ≈ 0.003으로 0.1보다 훨씬 작아 일관된 응답으로 봅니다. 응답이 예를 들어 “가격 &gt; 위치, 위치 &gt; 넓이인데 넓이 &gt; 가격”처럼 순환하면 CR이 커져 다시 응답받아야 합니다.</p><p>주의: 가중치는 응답자의 주관적 판단에 따른 값이며 객관적 측정값이 아닙니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>AHP 연구에서는 보통 다음을 보고합니다.</p><ul><li>계층 구조 그림과 기준 선정 근거(문헌·전문가 면담)</li><li>응답자의 수와 구성(전문가 몇 명, 어떤 분야인지). 이 페이지의 주의 항목처럼 결과가 평가자 구성에 의존하기 때문입니다.</li><li>척도(Saaty의 1~9 척도 등)와 다수 응답자의 판단 통합 방식(기하평균 등)</li><li>일관성 비율과 기준(예: CR ≤ 0.1), 기준을 만족하지 못한 응답의 처리</li><li>기준별 가중치와 최종 우선순위 표</li></ul><p>전문가 집단의 합의 도출에는 <a href="delphi-method.html">델파이기법</a>을 앞 단계에서 함께 쓰는 연구가 많습니다. 더 넓은 분류는 <a href="multi-criteria-decision-making.html">다기준의사결정</a>에서 볼 수 있습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“이를 위해 농업 R&amp;D를 수행 중인 학계 및 연구계 전문가들을 대상으로 계층화분석방법(Analytic Hierarchy Process, AHP)을 적용하여 농학계 융·복합 R&amp;D 관련 어젠다를 제시한다.”</blockquote><p class="te-cite">4차 산업혁명 관련 농학계 융·복합 R&amp;D 어젠다 연구, 한국콘텐츠학회 논문지, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002490542" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“그리고 도시브랜드가치 수준을 측정하고 하나의 종합적인 지수를 제시하기 위해서 각 평가요소들의 상대적 가중치를 AHP 분석을 통해서 도출하였다.”</blockquote><p class="te-cite">측정요소의 가중치 적용을 통한 도시브랜드가치 측정 기법의 개발과 활용, 경영컨설팅연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002979430" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“또한 ‘정책 추진의 시급성’과 ‘정책 시행의 효과성’을 기준으로 AHP를 통해 정책과제의 우선순위를 분석하였으며, ‘R&amp;D 지원’ 정책과제가 1순위로 도출되었다.”</blockquote><p class="te-cite">순차적 혼합연구 방법론을 활용한 EU 탄소국경조정 메커니즘(CBAM) 대응 산업지원 정책과제 도출 및 정책효과 분석 연구, 기술혁신학회지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003014619" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설비 공급업체 선정을 위한 평가 기준의 가중치를 계층분석법으로 산출하였다."</div>
   <p>여러 평가 기준의 중요도를 쌍대비교 방식으로 계산해 공급업체 선정에 활용했다는 뜻입니다.</p>
   <div class="example">"전문가 설문을 바탕으로 계층분석법을 적용해 신기술 도입 우선순위를 도출하였다."</div>
@@ -166,6 +189,18 @@
 
   <h2>주의할 점</h2>
   <p>기준의 개수가 많아지면 쌍대비교 횟수가 급격히 늘어나 응답자의 피로도가 커지고 판단 일관성이 떨어질 수 있습니다. 또한 계층분석법의 결과는 평가자의 주관적 판단에 기반하므로, 평가자 구성에 따라 결과가 달라질 수 있다는 한계가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">AHP와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="multi-criteria-decision-making.html">다기준의사결정</a></th><td>여러 기준을 동시에 고려해 대안을 고르는 의사결정 분야 전체</td><td>AHP는 그 안의 한 기법</td></tr><tr><th scope="row"><a href="delphi-method.html">델파이기법</a></th><td>익명의 전문가에게 반복 설문해 합의를 모으는 방법</td><td>합의를 모으는 방법이고 AHP는 중요도를 수치로 계산하는 방법. 함께 쓰는 경우가 많음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Saaty, T. L. (1977). A scaling method for priorities in hierarchical structures. Journal of Mathematical Psychology, 15(3), 234–281.</li>
+    <li>Saaty, T. L. (1980). The analytic hierarchy process: Planning, priority setting, resource allocation. McGraw-Hill.</li>
+    <li>Saaty, T. L. (1990). How to make a decision: The analytic hierarchy process. European Journal of Operational Research, 48(1), 9–26.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="multi-criteria-decision-making.html">다기준의사결정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="analytic-network-process.html">네트워크분석법(ANP)</a><a href="electre-method.html">ELECTRE기법</a><a href="promethee-method.html">PROMETHEE기법</a><a href="topsis-method.html">TOPSIS기법(이상해근접선호도기법)</a></div></div><p class="concept-family-map"><a href="../concept-map/indeng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

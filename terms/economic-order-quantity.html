@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>주문 횟수를 줄이면 주문비용은 줄지만 재고 유지비용이 늘고, 반대로 소량씩 자주 주문하면 유지비용은 줄지만 주문비용이 느므로, 두 비용의 합을 최소화하는 최적 주문량을 계산해 재고비용을 관리하기 위해 활용된다. 재고관리의 가장 기본이 되는 이론적 모형으로, 실제 수요 변동이나 할인 조건을 반영한 확장 모형 연구가 생산관리·물류학 분야에서 폭넓게 이루어진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>EOQ 모형은 한 번에 얼마를 주문할지를 <strong>연간 주문비용과 재고 유지비용의 합</strong>이 최소가 되는 지점으로 정합니다. 연간 수요를 D, 1회 주문비용을 S, 단위당 연간 유지비용을 H라 하면 평균 재고는 Q/2이므로 총비용은 TC(Q) = (D/Q)·S + (Q/2)·H입니다. 이를 Q로 미분해 0으로 놓으면 <strong>Q* = √(2DS/H)</strong>를 얻습니다. 이 공식은 Harris(1913)가 처음 제시했고 Wilson(1934)이 실무 재고관리에 널리 알린 것으로 알려져 있습니다.</p><p>모형의 전제는 다음과 같습니다. 수요가 일정하고 알려져 있다, 주문 즉시(또는 일정한 조달기간 후) 전량이 한꺼번에 들어온다, 품절을 허용하지 않는다, 주문비용과 단위당 유지비용이 주문량과 무관하다, 가격 할인이 없다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예: 연간 수요 12,000개, 1회 주문비용 50,000원, 단위당 연간 유지비용 2,000원. 코드로 계산하면 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>1회 주문량</th><th>연간 주문비용</th><th>연간 유지비용</th><th>총비용</th></tr></thead><tbody><tr><td>500개</td><td>1,200,000원</td><td>500,000원</td><td>1,700,000원</td></tr><tr><td>775개(Q* ≈ 774.6)</td><td>약 774,597원</td><td>약 774,597원</td><td>약 1,549,193원</td></tr><tr><td>1,000개</td><td>600,000원</td><td>1,000,000원</td><td>1,600,000원</td></tr></tbody></table></div><p>최적점에서는 주문비용과 유지비용이 같아지고, 연간 주문 횟수는 12,000 ÷ 774.6 ≈ 15.5회입니다. 총비용 곡선이 최적점 근처에서 완만해서 주문량이 조금 벗어나도(1,000개에서 약 3%) 비용 증가는 크지 않다는 점도 보입니다. 이 때문에 포장 단위 등 현실 제약에 맞춰 반올림해 쓰는 경우가 많습니다.</p><p>실무에서는 EOQ로 정한 주문량에 <a href="reorder-point.html">재주문점</a>과 <a href="safety-stock.html">안전재고</a>를 결합합니다. 주문량은 EOQ가, 주문 시점은 재주문점이 정합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>연구에서 EOQ를 쓸 때는 다음을 밝힙니다.</p><ul><li>수요(D), 주문비용(S), 유지비용(H)의 값과 출처(실제 자료인지 가정인지)</li><li>어떤 전제를 완화했는지: 수요 불확실성(안전재고), 수량 할인, 점진적 입고(경제적 생산량), 품절 허용 등의 확장 모형</li><li>EOQ 결과와 현재 주문 방식의 비용 차이</li></ul><p>이 페이지의 주의 항목처럼 수요 변동이 크거나 계절성이 강한 품목에는 기본 EOQ가 맞지 않으므로, 모형 선택의 근거를 적어야 합니다. 재고관리 전반은 <a href="inventory-management.html">재고관리</a>, 재고를 최소화하려는 <a href="just-in-time.html">적시생산방식</a>과 대비해 설명하는 경우가 많습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">EOQ 모형을 적용한 결과 기존 주문 정책 대비 연간 재고유지비용이 절감되는 것으로 확인되었다.</div>
   <p>경제적주문량 공식으로 주문 방식을 바꿨더니 예전 방식보다 재고를 쌓아두는 데 드는 연간 비용이 줄었다는 결과다.</p>
   <div class="example">연간 수요 10,000개, 1회 주문비용 50,000원, 단위당 연간 재고유지비용 2,000원을 대입한 결과 경제적주문량은 약 707개로 계산되었다.</div>
@@ -158,6 +176,18 @@
 
   <h2>주의할 점</h2>
   <p>EOQ는 수요가 일정하고 알려져 있다는 가정에 기반하므로, 수요 변동이 큰 상황에서는 안전재고 등 보완 개념이 함께 필요하다. EOQ는 수요가 일정하다는 가정 위에 성립하는 이론적 모형이므로, 수요 변동이 크거나 계절성이 강한 품목에는 그대로 적용하기 어렵고 별도의 보정이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">EOQ와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="reorder-point.html">재주문점</a></th><td>재고가 이 수준으로 내려가면 주문하는 기준</td><td>EOQ는 ‘얼마를’, 재주문점은 ‘언제’ 주문할지를 정함</td></tr><tr><th scope="row"><a href="safety-stock.html">안전재고</a></th><td>불확실성 때문에 추가로 두는 재고</td><td>EOQ의 확실한 수요 전제를 보완하는 개념</td></tr><tr><th scope="row"><a href="just-in-time.html">적시생산방식</a></th><td>필요한 때 필요한 만큼만 조달해 재고를 줄이는 방식</td><td>EOQ는 재고를 두는 것을 전제로 비용을 최소화</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Harris, F. W. (1913). How many parts to make at once. Factory, The Magazine of Management, 10(2), 135–136, 152.</li>
+    <li>Wilson, R. H. (1934). A scientific routine for stock control. Harvard Business Review, 13(1), 116–128.</li>
+    <li>Silver, E. A., Pyke, D. F., &amp; Thomas, D. J. (2016). Inventory and production management in supply chains (4th ed.). CRC Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

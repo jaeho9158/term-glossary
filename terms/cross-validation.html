@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cross-validation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,28 @@
   <p>교차검증은 제한된 데이터로도 모델의 일반화 성능을 신뢰성 있게 추정할 수 있게 해주기 때문에, 머신러닝 논문에서 새로운 모델이나 알고리즘의 성능을 보고할 때 사실상 표준적인 평가 절차로 자리 잡았습니다.</p>
   <p>단일 검증셋만으로 평가하면 우연히 쉬운(혹은 어려운) 데이터가 검증셋에 포함되어 성능이 왜곡될 수 있는데, 교차검증은 여러 번의 반복을 통해 이런 변동성을 줄여줍니다. 또한 하이퍼파라미터 튜닝이나 모델 간 비교처럼 성능 차이의 통계적 신뢰성이 중요한 상황에서도 핵심적인 도구로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>교차검증은 모형을 학습시킨 자료로 성능을 재면 낙관적으로 나오므로, <strong>학습에 쓰지 않은 자료로 반복해 평가</strong>하는 절차입니다. 이 개념은 Stone(1974)의 교차검증적 선택·평가 연구가 대표적이며, 계량 심리학에서는 Mosier(1951) 이래 ‘교차 타당화’라는 이름으로 논의되어 왔습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방식</th><th>절차</th><th>특징</th></tr></thead><tbody><tr><td>K-겹</td><td>자료를 K조각으로 나눠 한 조각씩 검증용으로 쓰며 K번 반복하고 K개 성능을 평균</td><td>K = 5 또는 10을 많이 씀. <a href="k-fold-cross-validation.html">K-겹 교차검증</a> 참고</td></tr><tr><td>층화 K-겹</td><td>각 조각의 범주 비율을 전체와 비슷하게 유지</td><td>범주 불균형이 있는 분류 문제</td></tr><tr><td>1개 제외(LOOCV)</td><td>K = n으로 하나씩 제외</td><td>계산량이 크고 추정 분산이 클 수 있음</td></tr><tr><td>집단 K-겹</td><td>같은 집단(같은 환자 등)을 같은 조각에 묶음</td><td>집단 내 정보 누수 방지</td></tr><tr><td>시계열 분할</td><td>과거로 학습하고 이후 구간으로 검증</td><td>시간 순서 존중</td></tr><tr><td>중첩 교차검증</td><td>바깥 고리로 성능을 평가하고 안쪽 고리로 하이퍼파라미터 선택</td><td>튜닝과 평가를 분리</td></tr></tbody></table></div>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예: 표본 103건을 10겹으로 나눕니다. 103 = 10 × 10 + 3이므로 조각 크기는 11, 11, 11, 10, 10, 10, 10, 10, 10, 10입니다(코드로 확인, 합 103). 매번 한 조각(10~11건)이 검증용이고 나머지 92~93건으로 학습하며 모형은 총 10번 적합됩니다. 보고하는 성능은 10개 조각 성능의 평균(필요하면 표준편차)입니다.</p><p>교차검증 평가는 <a href="overfitting.html">과적합</a>을 발견하는 데 쓰입니다. 학습 오차는 낮은데 교차검증 오차가 높다면 과적합 신호입니다. 이 페이지에 인용된 국내 논문은 여러 머신러닝 모형의 오차(RMSE, MAE)를 교차검증으로 비교했습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>방법 부분에는 분할 방식(K 값, 층화·집단·시계열 분할 여부), 반복 횟수와 난수 시드, 하이퍼파라미터 선택을 성능 평가와 분리했는지(중첩 교차검증 또는 별도 시험 집합), 조각별 성능의 평균과 표준편차를 적습니다. 보고하고 해석할 때 자주 생기는 오해는 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>교차검증을 하면 무조건 일반화 성능이 보장된다.</td><td>교차검증은 성능 추정 방법이지 성능을 높이는 방법이 아닙니다. 자료가 실제 사용 상황을 대표하지 못하면 추정도 빗나갑니다.</td></tr><tr><td>무작위로 나누면 항상 괜찮다.</td><td>이 페이지가 경고하듯 시간 순서나 같은 대상의 반복 측정이 있으면 정보가 새어 결과가 실제보다 좋게 나옵니다.</td></tr><tr><td>같은 교차검증으로 변수 선택, 튜닝, 최종 평가를 모두 해도 된다.</td><td>선택에 쓴 자료로 평가하면 낙관적으로 편향됩니다(Varma와 Simon, 2006). 중첩 교차검증이나 별도 시험 집합이 필요합니다.</td></tr><tr><td>K가 클수록 항상 더 좋다.</td><td>K가 클수록 편향은 줄지만 계산이 늘고 분산은 달라질 수 있습니다. Kohavi(1995)는 10겹 정도를 권했지만 상황에 따라 다릅니다.</td></tr><tr><td>다른 분야의 ‘교차검증’과 같은 말이다.</td><td>측정 방법이나 결과를 서로 다른 방법으로 대조해 확인한다는 뜻으로 쓰이기도 하며 이는 예측 모형 평가와는 다른 의미입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“다양한 머신러닝 모형들을 비교하기 위해 두 가지 교차검증 방법을 사용하여 RMSE와 MAE를 비교하였다.”</blockquote><p class="te-cite">머신러닝과 통계 모형을 이용한 미술품 가격 예측, Journal of The Korean Data Analysis Society, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003055732" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“특히, 기계 학습 분야에서 가정 널리 사용되고 있으며, 계량 심리학 분야에서도 오래전부터 논의가 되어온(Mosier, 1951) 교차-타당성 입증법(cross-validation)을 일반화 오차의 추정량이라는 관점에서 소개하고 사용을 당부하였다.”</blockquote><p class="te-cite">빅 데이터와 기계 학습의 시대 심리학 연구 모형의 평가 원칙과 방법, 한국심리학회지:일반, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002788965" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델의 일반화 성능을 평가하기 위해 5-겹 교차검증(5-fold cross-validation)을 수행하였다."</div>
   <p>데이터를 다섯 조각으로 나눠 다섯 번 번갈아 학습·검증하며 평균 성능을 계산했다는 뜻입니다.</p>
 
@@ -167,6 +189,20 @@
 
   <h2>주의할 점</h2>
   <p>교차검증은 <a href="overfitting.html">과적합</a>을 발견하고 예방하는 데 유용하지만, 데이터 자체에 시간 순서나 그룹 간 의존성이 있는 경우(예: 같은 환자의 여러 기록) 무작위로 폴드를 나누면 정보가 새어나가 결과가 실제보다 지나치게 좋게 나올 수 있습니다. 데이터 특성에 맞는 분할 방식을 사용했는지 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">교차검증과의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="k-fold-cross-validation.html">K-겹 교차검증</a></th><td>교차검증의 가장 일반적인 방식</td><td>교차검증은 이를 포함한 방법의 총칭</td></tr><tr><th scope="row">홀드아웃</th><td>자료를 학습·검증으로 한 번만 나눔</td><td>한 번의 분할이라 추정이 분할에 민감</td></tr><tr><th scope="row">부트스트랩</th><td>복원추출한 표본으로 반복 평가</td><td>교차검증은 복원 없이 분할</td></tr><tr><th scope="row"><a href="overfitting.html">과적합</a></th><td>학습 자료에만 지나치게 맞는 현상</td><td>교차검증은 과적합을 점검하는 수단</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Stone, M. (1974). Cross-validatory choice and assessment of statistical predictions. Journal of the Royal Statistical Society: Series B, 36(2), 111–147.</li>
+    <li>Kohavi, R. (1995). A study of cross-validation and bootstrap for accuracy estimation and model selection. Proceedings of the 14th International Joint Conference on Artificial Intelligence.</li>
+    <li>Varma, S., &amp; Simon, R. (2006). Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics, 7, 91.</li>
+    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The elements of statistical learning (2nd ed.). Springer.</li>
+    <li>Mosier, C. I. (1951). Problems and designs of cross-validation. Educational and Psychological Measurement, 11(1), 5–11.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

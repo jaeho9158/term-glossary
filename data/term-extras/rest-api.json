@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>REST(Representational State Transfer)는 Fielding(2000)이 박사학위 논문에서 웹의 구조를 설명하며 정리한 <strong>아키텍처 스타일</strong>입니다. 프로토콜이나 표준 규격이 아니라 “이런 제약을 지키면 웹처럼 확장되기 쉽다”는 설계 원칙의 묶음입니다. 이 원칙을 따르는 웹 API를 REST API라고 부릅니다.</p><table><thead><tr><th>제약</th><th>뜻</th></tr></thead><tbody><tr><td>클라이언트-서버</td><td>화면(클라이언트)과 데이터 저장(서버)의 관심사를 분리</td></tr><tr><td>무상태성</td><td>각 요청에 처리에 필요한 정보가 모두 들어 있고, 서버는 요청 사이의 세션 상태를 기억하지 않음</td></tr><tr><td>캐시 가능성</td><td>응답이 캐시 가능한지 표시해 중복 요청을 줄임</td></tr><tr><td>균일한 인터페이스</td><td>자원 식별(URI), 표현을 통한 조작, 자기 서술적 메시지, 하이퍼미디어 연결</td></tr><tr><td>계층화된 시스템</td><td>중간 서버(프록시, 게이트웨이)가 있어도 클라이언트가 알 필요 없음</td></tr><tr><td>코드 온디맨드(선택)</td><td>서버가 실행 가능한 코드를 내려보내 기능을 확장</td></tr></tbody></table><p>HTTP 메서드의 성질도 알아 두면 좋습니다. HTTP 의미 규격(RFC 9110)에서 GET은 서버 상태를 바꾸지 않는 <em>안전</em>한 메서드이고, GET·PUT·DELETE는 같은 요청을 여러 번 보내도 결과가 같은 <em>멱등</em> 메서드입니다. POST는 일반적으로 멱등이 아닙니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>온라인 서점을 예로 들면 다음처럼 설계합니다(가상의 예).</p><table><thead><tr><th>하려는 일</th><th>요청</th><th>흔한 성공 응답</th></tr></thead><tbody><tr><td>책 목록 조회</td><td>GET /books</td><td>200 OK</td></tr><tr><td>123번 책 조회</td><td>GET /books/123</td><td>200 OK, 없으면 404 Not Found</td></tr><tr><td>새 책 등록</td><td>POST /books</td><td>201 Created(새 자원의 주소를 함께 알려 줌)</td></tr><tr><td>123번 책 수정(전체 교체)</td><td>PUT /books/123</td><td>200 OK 또는 204 No Content</td></tr><tr><td>123번 책 삭제</td><td>DELETE /books/123</td><td>204 No Content</td></tr></tbody></table><p>주소는 “무엇”(자원)을, 메서드는 “무엇을 한다”를 나타내므로 /getBook이나 /deleteBook처럼 동사를 주소에 넣지 않는 것이 REST 스타일의 관례입니다. 연구에서는 서비스 설계 사례나 시스템 구현을 서술할 때 이런 구조를 표로 제시합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>JSON으로 응답하면 REST다.</td><td>데이터 형식은 REST의 제약이 아닙니다. XML이나 HTML도 표현이 될 수 있습니다.</td></tr><tr><td>REST는 HTTP와 같은 말이다.</td><td>REST는 설계 원칙이고 HTTP는 그것을 구현하는 데 쓰는 프로토콜입니다. 웹이 REST의 대표 사례일 뿐입니다.</td></tr><tr><td>URL이 /books/123 모양이면 REST API다.</td><td>이 페이지가 말하듯 이름만 REST인 API가 많습니다. 균일한 인터페이스의 하이퍼미디어 요소(응답 안에 다음에 할 수 있는 동작의 링크를 담는 것)까지 지키는 API는 드뭅니다. ‘REST 스러운(RESTful)’이라는 표현이 더 정확할 때가 많습니다.</td></tr><tr><td>무상태성은 서버에 데이터를 저장하지 않는다는 뜻이다.</td><td>자원의 상태(DB의 데이터)는 저장합니다. 없어야 하는 것은 요청 사이의 <em>세션 상태</em>입니다.</td></tr><tr><td>항상 REST가 최선이다.</td><td>서버가 계속 연결을 유지하며 실시간으로 밀어 보내야 한다면 [[websocket|웹소켓]]이 더 맞고, 필요한 필드만 골라 받고 싶다면 [[graphql|GraphQL]]이 대안입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "REST API와의 차이"
+    ],
+    "rows": [
+      [
+        "[[graphql|GraphQL]]",
+        "클라이언트가 필요한 데이터 구조를 질의로 지정하는 쿼리 언어",
+        "보통 단일 주소로 질의를 보내며 자원별 주소+메서드 구조가 아님"
+      ],
+      [
+        "[[websocket|웹소켓]]",
+        "연결을 유지한 채 양방향으로 실시간 통신",
+        "요청-응답으로 끝나는 무상태 구조가 아님"
+      ],
+      [
+        "SOAP",
+        "XML 메시지 형식과 규약을 정의한 웹 서비스 프로토콜",
+        "규약이 정해진 프로토콜이고 REST는 스타일"
+      ]
+    ]
+  },
+  "references": [
+    "Fielding, R. T. (2000). Architectural styles and the design of network-based software architectures [Doctoral dissertation]. University of California, Irvine.",
+    "Fielding, R., Nottingham, M., & Reschke, J. (Eds.). (2022). HTTP semantics (RFC 9110). Internet Engineering Task Force.",
+    "Richardson, L., & Ruby, S. (2007). RESTful web services. O'Reilly Media."
+  ]
+}
