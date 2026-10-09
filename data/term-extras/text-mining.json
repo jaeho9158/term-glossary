@@ -1,0 +1,64 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>자료 수집</strong>: 신문, 사료, 논문 초록, 게시글 등 분석할 텍스트를 모읍니다. 출처와 기간을 기록합니다.</li><li><strong>전처리</strong>: 문장·단어 단위로 나누고(토큰화), 한국어는 형태소 분석으로 어근과 조사를 분리합니다. 불용어를 제거하고 표기를 정리합니다.</li><li><strong>표현</strong>: 문서를 단어 빈도 벡터(문서-단어 행렬)로 나타내고, 단어의 중요도를 TF-IDF 등으로 가중합니다.</li><li><strong>분석</strong>: 빈도 비교, 연관어(연어)와 의미연결망, 토픽 모델링(LDA 등), 감성 분석, 문서 분류 중에서 목적에 맞는 방법을 씁니다.</li><li><strong>검증과 해석</strong>: 결과를 숫자로만 두지 않고 원문 표본을 직접 읽어 확인합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제</strong>: 사람이 일일이 읽기 어려운 대량 텍스트(수십 년치 신문, 수천 편의 논문 초록)에서 경향과 주제를 보려 할 때 씁니다. 역사학에서는 개념사·디지털 인문학 연구와 결합합니다.</li><li><strong>얻는 것</strong>: 전체 자료의 개관과 가설 발굴입니다. 정독으로 확인할 후보 구간을 좁히는 길잡이 역할도 합니다.</li><li><strong>한계</strong>: 빈도는 의미 변화와 같지 않고(같은 단어가 맥락에 따라 다르게 쓰임), 토픽 이름은 연구자의 해석입니다.</li></ul><p><strong>TF-IDF 계산 예(가상의 3문서).</strong> d1 = [조약, 개항, 조약, 무역], d2 = [무역, 상인, 시장, 무역], d3 = [시장, 가격, 상인, 시장]입니다. TF = 문서 내 비율, IDF = ln(문서 수 / 단어가 나온 문서 수)로 계산하면 d1의 ‘조약’은 0.5 × ln(3/1) ≈ 0.55이고, 두 문서에 나오는 ‘무역’은 d2에서 0.5 × ln(3/2) ≈ 0.20입니다. 특정 문서에만 나오는 단어에 더 높은 가중치를 주는 것이 TF-IDF의 취지입니다. IDF의 정의(로그 밑, 평활화)는 구현마다 달라 값이 바뀔 수 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>자료의 출처, 기간, 규모(문서 수, 총 어휘 수)와 수집 방식을 적습니다.</li><li>전처리 단계를 밝힙니다: 형태소 분석기 이름과 버전, 불용어 목록, 사용자 사전. 이 선택이 결과를 바꾸므로 본문 설명대로 함께 공개합니다.</li><li>토픽 모델링은 토픽 수 선택 기준, 반복 실행 시 안정성, 토픽에 붙인 이름의 근거를 적습니다.</li><li>분석 도구가 만든 그래프를 그대로 논증으로 쓰지 않고, 표본 구성과 원문 확인 절차를 함께 제시합니다.</li><li>빈도 변화를 개념의 의미 변화와 동일시하지 않고, 같은 단어가 쓰인 용례를 표본으로 뽑아 확인합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "텍스트 분석 용어의 구분입니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "텍스트마이닝과의 관계"
+    ],
+    "rows": [
+      [
+        "[[text-mining|텍스트마이닝]]",
+        "대량 텍스트에서 패턴을 자동 추출",
+        "전체 방법의 이름"
+      ],
+      [
+        "[[topic-modeling|토픽모델링]]",
+        "문서 집합에서 단어 묶음(주제)을 통계로 추출",
+        "텍스트마이닝의 한 기법"
+      ],
+      [
+        "[[latent-dirichlet-allocation|잠재디리클레할당]]",
+        "대표적인 토픽모델링 알고리즘",
+        "토픽모델링의 한 방법"
+      ],
+      [
+        "[[tokenization|토큰화]]",
+        "텍스트를 단위로 쪼갬",
+        "전처리 단계"
+      ],
+      [
+        "[[stopword|불용어]]",
+        "분석에서 제외하는 흔한 단어",
+        "전처리 단계"
+      ],
+      [
+        "[[corpus-linguistics|코퍼스언어학]]",
+        "언어 사용의 패턴을 코퍼스로 연구",
+        "언어학적 질문에 초점"
+      ]
+    ]
+  },
+  "references": [
+    "Manning, C. D., Raghavan, P., & Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press.",
+    "Blei, D. M., Ng, A. Y., & Jordan, M. I. (2003). Latent Dirichlet allocation. Journal of Machine Learning Research, 3, 993–1022.",
+    "Hearst, M. A. (1999). Untangling text data mining. In Proceedings of the 37th Annual Meeting of the Association for Computational Linguistics (pp. 3–10).",
+    "Grimmer, J., & Stewart, B. M. (2013). Text as data: The promise and pitfalls of automatic content analysis methods for political texts. Political Analysis, 21(3), 267–297."
+  ]
+}

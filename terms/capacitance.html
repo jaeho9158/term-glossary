@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/capacitance.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,29 @@
   <p>필터·발진기·타이밍 회로처럼 전압과 전하의 시간적 변화가 성능을 좌우하는 시스템에서는 커패시턴스 값이 곧 동작 주파수나 응답 속도를 결정하기 때문에, 새로운 유전체 소재나 소자 구조를 제안하는 논문에서는 커패시턴스 개선 여부가 성능 향상의 핵심 지표로 자주 제시됩니다.</p>
   <p>최근에는 슈퍼커패시터 같은 에너지 저장 소자, 터치스크린 같은 정전용량 센서, 반도체 소자의 기생 커패시턴스 저감 연구 등 응용 범위도 계속 넓어지고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>정의: 도체 사이에 전압 V를 걸었을 때 저장되는 전하 Q의 비, <strong>C = Q / V</strong>입니다. 단위는 패럿(F = C/V)이며, 실제 소자는 pF(10⁻¹² F)에서 µF 범위가 흔하고 슈퍼커패시터는 F 단위 이상도 있습니다.</li><li>평행판 모형(가장자리 효과 무시): <strong>C = ε₀ε<sub>r</sub>A / d</strong>. ε₀ ≈ 8.854 × 10⁻¹² F/m, ε<sub>r</sub>은 유전체의 비유전율, A는 판 면적, d는 간격입니다.</li><li>합성: 병렬은 C = C₁ + C₂, 직렬은 1/C = 1/C₁ + 1/C₂입니다. 10 µF 두 개를 병렬로 이으면 20 µF, 직렬이면 5 µF가 됩니다.</li><li>저장 에너지: E = ½CV²입니다.</li></ul>
+  <p>면적 1 cm²인 평행판의 값을 코드로 계산하면 다음과 같습니다(가상의 예).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유전체</th><th>간격 d</th><th>C</th></tr></thead><tbody><tr><td>공기 (ε<sub>r</sub> = 1)</td><td>0.1 mm</td><td>8.85 pF</td></tr><tr><td>ε<sub>r</sub> = 3.9 (SiO₂ 정도)</td><td>0.1 mm</td><td>34.5 pF</td></tr><tr><td>ε<sub>r</sub> = 3.9</td><td>100 nm</td><td>34.5 nF</td></tr></tbody></table></div><p>간격을 1,000분의 1로 줄이면 C는 1,000배가 됩니다. 얇은 유전체 박막이 논문에서 중요하게 다뤄지는 이유입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>커패시턴스는 <strong>소자의 모양(면적, 간격)과 재료(유전율)가 함께 정하는 값</strong>입니다. 재료 자체의 성질은 유전율이고, 커패시턴스는 그 재료로 만든 구조의 값입니다.</li><li>이상적인 상수가 아닙니다. 측정 주파수, 인가한 직류 바이어스 전압, 온도에 따라 값이 달라질 수 있습니다. 반도체 MOS 구조의 C–V 측정은 이 전압 의존성을 이용해 계면 상태와 도핑을 해석하는 방법입니다.</li><li>배선이나 전극 사이에서 의도하지 않게 생기는 <strong>기생 커패시턴스</strong>는 따로 추정하거나 보정하지 않으면 측정값에 섞여 들어갑니다.</li><li>전기화학 소자(슈퍼커패시터 등)에서는 전극 면적이 불분명하므로 질량이나 면적으로 나눈 <strong>비(比)커패시턴스</strong>(F/g, F/cm²)를 씁니다. 정전류 방전에서는 C = I·Δt / (m·ΔV)로 구하는 것이 일반적입니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>단위와 정규화 기준(F, F/cm², F/g)을 분명히 씁니다. 면적을 기하학적 전극 면적으로 잡았는지, 실제 활성 면적으로 잡았는지도 밝힙니다.</li><li>측정 조건을 함께 적습니다: 장비(LCR 미터, 임피던스 분석기, 포텐셜스탯), 측정 주파수, 교류 신호 진폭, 직류 바이어스, 온도.</li><li>반복 측정 횟수와 편차를 제시하고, 소자 사이 비교는 같은 조건에서 얻은 값만 인용합니다.</li><li>“약 2.3배 증가”처럼 비율만 쓰기보다 기준(대조) 소자의 절대값을 함께 적으면 읽는 사람이 판단할 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“데이터 수집 및 LABVIEW 프로그래밍을 사용하여 MOS 커패시턴스를 얻는 두 가지 다른 방법, 즉 전압 램프 측정법과 임피던스 측정법을 개발하였다.”</blockquote><p class="te-cite">전기 용량 측정 프로그램 개발 및 SiC MOSFET 측정을 통한 성능 평가, 새물리, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003265768" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이 기술은 전기화학적 이온 이동을 통해 전기화학 이중층의 커패시턴스 변화를 유도하여 전해질 내에서도 작동이 가능하게 하며, 이를 통해 웨어러블 기기, 삽입형 의료 기기, 해양 모니터링 시스템 등 다양한 분야에 응용될 수 있습니다.”</blockquote><p class="te-cite">기계-전기화학 에너지 하베스터의 최근 응용과 진전, 전기화학회지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003174276" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 유전체 박막을 적용한 결과 커패시턴스(capacitance)가 기존 대비 약 2.3배 증가하였다."</div>
   <p>새로운 절연 물질을 사용했더니 같은 전압에서 더 많은 전하를 저장할 수 있게 되었다는 뜻이며, 이는 축전기의 에너지 저장 성능이나 회로의 필터링 특성을 개선하는 데 직결됩니다.</p>
 
@@ -167,6 +190,19 @@
 
   <h2>주의할 점</h2>
   <p>커패시턴스는 저항이나 <a href="impedance.html">임피던스</a>와 혼동되기 쉬우나 서로 다른 개념입니다. 커패시턴스는 "전하를 저장하는 능력" 자체를 나타내는 값이고, 임피던스는 교류 회로에서 전류의 흐름을 방해하는 정도(저항 성분과 커패시턴스·인덕턴스에 의한 리액턴스 성분을 모두 포함)를 나타내는 값이라는 점에서 다릅니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷한 회로 용어와의 구분입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">나타내는 것</th><th scope="col">단위</th></tr></thead><tbody><tr><th scope="row"><strong>커패시턴스</strong></th><td>전압당 저장 전하(저장 능력)</td><td>F</td></tr><tr><th scope="row"><a href="dielectric-constant.html">유전율(비유전율)</a></th><td>재료가 전기장 속에서 분극되는 정도(재료의 성질)</td><td>F/m (비유전율은 무차원)</td></tr><tr><th scope="row"><a href="impedance.html">임피던스</a></th><td>교류에서 전류 흐름을 방해하는 정도(저항과 리액턴스 포함)</td><td>Ω</td></tr><tr><th scope="row"><a href="inductor.html">인덕터</a></th><td>자기장에 에너지를 저장하는 소자(인덕턴스)</td><td>H</td></tr><tr><th scope="row"><a href="supercapacitor.html">슈퍼커패시터</a></th><td>전기이중층 등으로 큰 커패시턴스를 얻는 에너지 저장 소자</td><td>F</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Griffiths, D. J. (2017). Introduction to Electrodynamics (4th ed.). Cambridge University Press.</li>
+    <li>Sze, S. M., &amp; Ng, K. K. (2007). Physics of Semiconductor Devices (3rd ed.). Wiley.</li>
+    <li>Conway, B. E. (1999). Electrochemical Supercapacitors: Scientific Fundamentals and Technological Applications. Kluwer Academic/Plenum.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

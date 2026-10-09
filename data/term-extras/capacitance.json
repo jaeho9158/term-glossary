@@ -1,0 +1,58 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>정의: 도체 사이에 전압 V를 걸었을 때 저장되는 전하 Q의 비, <strong>C = Q / V</strong>입니다. 단위는 패럿(F = C/V)이며, 실제 소자는 pF(10⁻¹² F)에서 µF 범위가 흔하고 슈퍼커패시터는 F 단위 이상도 있습니다.</li><li>평행판 모형(가장자리 효과 무시): <strong>C = ε₀ε<sub>r</sub>A / d</strong>. ε₀ ≈ 8.854 × 10⁻¹² F/m, ε<sub>r</sub>은 유전체의 비유전율, A는 판 면적, d는 간격입니다.</li><li>합성: 병렬은 C = C₁ + C₂, 직렬은 1/C = 1/C₁ + 1/C₂입니다. 10 µF 두 개를 병렬로 이으면 20 µF, 직렬이면 5 µF가 됩니다.</li><li>저장 에너지: E = ½CV²입니다.</li></ul>\n<p>면적 1 cm²인 평행판의 값을 코드로 계산하면 다음과 같습니다(가상의 예).</p><table><thead><tr><th>유전체</th><th>간격 d</th><th>C</th></tr></thead><tbody><tr><td>공기 (ε<sub>r</sub> = 1)</td><td>0.1 mm</td><td>8.85 pF</td></tr><tr><td>ε<sub>r</sub> = 3.9 (SiO₂ 정도)</td><td>0.1 mm</td><td>34.5 pF</td></tr><tr><td>ε<sub>r</sub> = 3.9</td><td>100 nm</td><td>34.5 nF</td></tr></tbody></table><p>간격을 1,000분의 1로 줄이면 C는 1,000배가 됩니다. 얇은 유전체 박막이 논문에서 중요하게 다뤄지는 이유입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>커패시턴스는 <strong>소자의 모양(면적, 간격)과 재료(유전율)가 함께 정하는 값</strong>입니다. 재료 자체의 성질은 유전율이고, 커패시턴스는 그 재료로 만든 구조의 값입니다.</li><li>이상적인 상수가 아닙니다. 측정 주파수, 인가한 직류 바이어스 전압, 온도에 따라 값이 달라질 수 있습니다. 반도체 MOS 구조의 C–V 측정은 이 전압 의존성을 이용해 계면 상태와 도핑을 해석하는 방법입니다.</li><li>배선이나 전극 사이에서 의도하지 않게 생기는 <strong>기생 커패시턴스</strong>는 따로 추정하거나 보정하지 않으면 측정값에 섞여 들어갑니다.</li><li>전기화학 소자(슈퍼커패시터 등)에서는 전극 면적이 불분명하므로 질량이나 면적으로 나눈 <strong>비(比)커패시턴스</strong>(F/g, F/cm²)를 씁니다. 정전류 방전에서는 C = I·Δt / (m·ΔV)로 구하는 것이 일반적입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>단위와 정규화 기준(F, F/cm², F/g)을 분명히 씁니다. 면적을 기하학적 전극 면적으로 잡았는지, 실제 활성 면적으로 잡았는지도 밝힙니다.</li><li>측정 조건을 함께 적습니다: 장비(LCR 미터, 임피던스 분석기, 포텐셜스탯), 측정 주파수, 교류 신호 진폭, 직류 바이어스, 온도.</li><li>반복 측정 횟수와 편차를 제시하고, 소자 사이 비교는 같은 조건에서 얻은 값만 인용합니다.</li><li>“약 2.3배 증가”처럼 비율만 쓰기보다 기준(대조) 소자의 절대값을 함께 적으면 읽는 사람이 판단할 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "비슷한 회로 용어와의 구분입니다.",
+    "headers": [
+      "용어",
+      "나타내는 것",
+      "단위"
+    ],
+    "rows": [
+      [
+        "[[capacitance|커패시턴스]]",
+        "전압당 저장 전하(저장 능력)",
+        "F"
+      ],
+      [
+        "[[dielectric-constant|유전율(비유전율)]]",
+        "재료가 전기장 속에서 분극되는 정도(재료의 성질)",
+        "F/m (비유전율은 무차원)"
+      ],
+      [
+        "[[impedance|임피던스]]",
+        "교류에서 전류 흐름을 방해하는 정도(저항과 리액턴스 포함)",
+        "Ω"
+      ],
+      [
+        "[[inductor|인덕터]]",
+        "자기장에 에너지를 저장하는 소자(인덕턴스)",
+        "H"
+      ],
+      [
+        "[[supercapacitor|슈퍼커패시터]]",
+        "전기이중층 등으로 큰 커패시턴스를 얻는 에너지 저장 소자",
+        "F"
+      ]
+    ]
+  },
+  "references": [
+    "Griffiths, D. J. (2017). Introduction to Electrodynamics (4th ed.). Cambridge University Press.",
+    "Sze, S. M., & Ng, K. K. (2007). Physics of Semiconductor Devices (3rd ed.). Wiley.",
+    "Conway, B. E. (1999). Electrochemical Supercapacitors: Scientific Fundamentals and Technological Applications. Kluwer Academic/Plenum."
+  ]
+}
