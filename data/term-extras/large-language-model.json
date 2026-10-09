@@ -1,0 +1,60 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>대규모 언어 모델(LLM)은 매우 많은 텍스트로 <strong>다음에 올 말을 예측하도록 학습한</strong> 신경망입니다. 대부분 [[transformer|트랜스포머]] 구조(Vaswani 등, 2017)를 쓰며, 파라미터(가중치) 수가 수십억에서 수천억 개에 이릅니다.</li><li>Brown 등(2020)의 GPT-3는 1,750억 개 파라미터 모델로, 예시 몇 개만 프롬프트에 넣어도 새 과제를 수행하는 ‘few-shot’ 능력을 보였습니다. 이후 사전학습 뒤 사람의 선호나 지시에 맞춰 추가 학습(미세조정)하는 방식이 일반화되었습니다.</li><li>Kaplan 등(2020)은 모델 크기, 데이터 양, 계산량을 늘릴수록 손실이 멱법칙으로 줄어든다는 경험적 규칙(스케일링 법칙)을 보고했습니다.</li><li>활용 방식은 프롬프트로 지시하는 방식([[prompt-engineering|프롬프트 엔지니어링]]), 특정 자료로 추가 학습하는 미세조정, 외부 문서를 검색해 붙이는 검색증강생성(RAG) 등입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>트랜스포머 모델의 크기를 어림해 봅시다. Kaplan 등(2020)은 임베딩을 뺀 파라미터 수를 N ≈ 12 · L · d²로 어림했습니다(L은 층 수, d는 은닉 차원). GPT-3는 L = 96, d = 12,288로 알려져 있어 코드로 계산하면 12 × 96 × 12,288² ≈ 1,739억 개로, 보고된 1,750억 개와 비슷합니다.</p><p>메모리도 어림할 수 있습니다. 파라미터마다 16비트(2바이트)로 저장하면 1,750억 × 2바이트 = 350 GB로, 단일 그래픽 카드 한 장에 올릴 수 없는 크기입니다. 그래서 논문에서는 모델 병렬화나 양자화(더 적은 비트로 저장)를 쓴다고 적습니다. 위 계산은 저장에 필요한 최소 메모리 어림이며, 실제로는 활성값과 학습 상태 때문에 훨씬 더 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>LLM은 사실을 저장한 데이터베이스다.</td><td>통계적으로 그럴듯한 말을 생성하는 모델이어서 사실과 다른 내용을 자신 있게 만들어 낼 수 있습니다([[hallucination|환각현상]]; Ji 등, 2023).</td></tr><tr><td>모델이 클수록 항상 좋다.</td><td>Hoffmann 등(2022)은 주어진 계산량에서 모델 크기와 학습 데이터 양을 함께 늘려야 한다고 보고했습니다. 크기만의 문제는 아닙니다.</td></tr><tr><td>모델이 말을 이해한다는 증거다.</td><td>이해 여부는 논쟁이 있는 주제입니다. Bender 등(2021)은 형태만 학습한 모델의 한계와 위험을 지적했습니다.</td></tr><tr><td>같은 질문에는 늘 같은 답을 낸다.</td><td>샘플링 설정(온도 등)에 따라 달라지므로, 논문에서는 모델 버전, 날짜, 설정을 적어야 재현이 가능합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[large-language-model|대규모 언어 모델]]",
+        "대량 텍스트로 사전학습한 초대형 신경망",
+        "대상"
+      ],
+      [
+        "[[transformer|트랜스포머]]",
+        "어텐션 기반의 신경망 구조",
+        "대부분의 LLM의 뼈대"
+      ],
+      [
+        "[[hallucination|환각현상]]",
+        "언어모델이 사실이 아닌 내용을 그럴듯하게 생성",
+        "LLM의 대표 한계"
+      ],
+      [
+        "[[prompt-engineering|프롬프트 엔지니어링]]",
+        "모델 가중치를 바꾸지 않고 입력을 설계해 출력을 유도",
+        "사용 방식"
+      ],
+      [
+        "[[machine-learning|머신러닝]]",
+        "데이터로부터 패턴을 학습하는 방법 전체",
+        "상위 분야"
+      ]
+    ]
+  },
+  "references": [
+    "Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.",
+    "Brown, T. B., Mann, B., Ryder, N., et al. (2020). Language models are few-shot learners. Advances in Neural Information Processing Systems, 33.",
+    "Hoffmann, J., Borgeaud, S., Mensch, A., et al. (2022). Training compute-optimal large language models. arXiv preprint arXiv:2203.15556.",
+    "Kaplan, J., McCandlish, S., Henighan, T., et al. (2020). Scaling laws for neural language models. arXiv preprint arXiv:2001.08361.",
+    "Bender, E. M., Gebru, T., McMillan-Major, A., & Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency, 610–623.",
+    "Ji, Z., Lee, N., Frieske, R., et al. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), Article 248."
+  ]
+}

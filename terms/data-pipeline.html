@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/data-pipeline.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>실제 연구나 서비스에서 다루는 데이터는 대부분 형식이 제각각이고 결측치나 오류가 섞여 있어, 이를 분석 가능한 형태로 바꾸는 과정 자체가 연구의 재현성과 결과의 신뢰도를 좌우합니다.</p>
   <p>그래서 데이터 파이프라인은 머신러닝, 데이터 공학, 생물정보학 등 대용량 데이터를 다루는 거의 모든 분야의 논문에서 실험 방법론의 일부로 언급됩니다. 또한 파이프라인을 얼마나 체계적으로 자동화했는지가 실험을 다른 데이터셋이나 환경에서 재현할 수 있는지와도 직결됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>데이터 파이프라인은 원천 데이터를 <strong>수집 → 정제 → 변환 → 적재(저장)</strong>하는 일련의 자동화된 처리 흐름입니다. 각 단계의 출력이 다음 단계의 입력이 되는 구조입니다.</li><li>처리 시점에 따라 일정 주기로 묶어 처리하는 <strong>배치</strong>와 들어오는 대로 처리하는 <strong>스트리밍</strong>으로 나눕니다(Kleppmann, 2017).</li><li>변환과 적재의 순서에 따라 ETL(변환 후 적재)과 ELT(적재 후 데이터웨어하우스 안에서 변환)로 나뉩니다(<a href="etl-pipeline.html">ETL 파이프라인</a>, <a href="data-warehouse.html">데이터 웨어하우스</a>).</li><li>좋은 파이프라인의 특징: 같은 입력에 같은 결과를 내는 <strong>재현성</strong>, 다시 돌려도 결과가 중복되지 않는 <strong>멱등성</strong>, 단계별 검증과 로그, 코드와 설정의 버전 관리.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>아주 작은 예로 단계를 확인해 봅시다. 가상의 센서 로그 7줄이 있습니다. S1은 섭씨 값, S2는 화씨(F) 값이고, 비어 있는 값과 결측 표시 -999, 중복 줄이 섞여 있습니다. 코드로 처리한 규칙은 다음과 같습니다.</p><ol><li>같은 (시각, 센서, 값) 줄은 하나만 남깁니다(중복 제거).</li><li>값이 비어 있거나 -999인 줄을 뺍니다(결측 처리).</li><li>화씨는 (F − 32) × 5/9로 섭씨로 바꾸고 소수 첫째 자리까지 둡니다(단위 통일).</li><li>센서별 평균을 구해 적재합니다.</li></ol><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>단계</th><th>줄 수</th></tr></thead><tbody><tr><td>수집(원시)</td><td>7</td></tr><tr><td>중복 제거 후</td><td>6</td></tr><tr><td>결측 제거 후</td><td>4</td></tr></tbody></table></div><p>최종 결과: S1은 2건, 평균 23.7℃. S2는 2건(75.2F → 24.0℃, 77.0F → 25.0℃), 평균 24.5℃. 규칙을 문서화하고 코드에 남겨 두면 다른 사람이 같은 결과를 재현할 수 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>파이프라인은 곧 ETL이다.</td><td>ETL은 한 유형일 뿐이고, 스트리밍·ELT·기계학습 학습 파이프라인 등 다양합니다.</td></tr><tr><td>한 번 만들면 끝이다.</td><td>원천 스키마 변경이나 자료 분포 변화로 쉽게 깨지므로 검증과 모니터링이 필요합니다. Sculley 등(2015)은 기계학습 시스템에서 이런 파이프라인·자료 의존성이 숨은 기술 부채가 된다고 지적했습니다.</td></tr><tr><td>정제는 전처리일 뿐 연구 결과에 영향이 없다.</td><td>결측 처리와 이상치 제거 규칙이 결과를 바꿀 수 있어, 논문에서는 규칙을 방법에 적어야 합니다.</td></tr><tr><td>자동화하면 오류가 없다.</td><td>자동화는 오류도 같은 규칙으로 자동 반복합니다. 단계별 검사(행 수, 값 범위, 중복 수)를 두는 것이 좋습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"수집된 센서 로그는 데이터 파이프라인(data pipeline)을 거쳐 결측치 처리와 정규화 과정을 자동으로 수행한 뒤 학습 데이터셋으로 저장되었다."</div>
   <p>이 문장은 "센서에서 들어온 원시 데이터를 자동화된 절차를 통해 빠진 값 처리와 스케일 조정까지 마친 후, 모델 학습에 쓸 수 있는 형태로 정리해 두었다"는 뜻입니다.</p>
 
@@ -164,6 +182,19 @@
 
   <h2>주의할 점</h2>
   <p>데이터 파이프라인의 중간 단계 중 하나라도 오류가 생기면(예: 형식이 다른 데이터가 섞이면) 뒤 단계에 있는 모든 분석 결과가 함께 왜곡될 수 있습니다. 그래서 각 단계마다 데이터 품질을 검증하는 절차가 필요하며, 이는 <a href="database-index.html">데이터베이스 인덱스</a>처럼 데이터를 빠르고 정확하게 다루기 위한 여러 기법들과 함께 설계되는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row"><strong>데이터 파이프라인</strong></th><td>수집·정제·변환·적재의 자동화된 흐름 전체</td><td>상위 개념</td></tr><tr><th scope="row"><a href="etl-pipeline.html">ETL 파이프라인</a></th><td>추출·변환·적재 순서의 파이프라인</td><td>한 유형</td></tr><tr><th scope="row"><a href="data-warehouse.html">데이터 웨어하우스</a></th><td>분석용으로 정리해 저장하는 저장소</td><td>파이프라인의 도착점</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media.</li>
+    <li>Kimball, R., &amp; Ross, M. (2013). The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling (3rd ed.). Wiley.</li>
+    <li>Reis, J., &amp; Housley, M. (2022). Fundamentals of Data Engineering. O'Reilly Media.</li>
+    <li>Sculley, D., Holt, G., Golovin, D., et al. (2015). Hidden technical debt in machine learning systems. Advances in Neural Information Processing Systems, 28.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="etl-pipeline.html">ETL 파이프라인</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/large-language-model.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,28 @@
   <p>그 결과 기계번역, 요약, 질의응답 같은 전통적인 자연어처리 분야뿐 아니라 의료, 법률, 교육, 소프트웨어 개발 등 실무 전반에서 LLM을 활용한 응용 연구가 폭발적으로 늘어났습니다.</p>
   <p>동시에 환각, 편향, 비용, 안전성 같은 LLM 고유의 문제들이 새로운 연구 주제로 떠오르면서, 오늘날 컴퓨터과학·AI 논문에서 가장 빈번하게 다뤄지는 주제 중 하나가 되었습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>대규모 언어 모델(LLM)은 매우 많은 텍스트로 <strong>다음에 올 말을 예측하도록 학습한</strong> 신경망입니다. 대부분 <a href="transformer.html">트랜스포머</a> 구조(Vaswani 등, 2017)를 쓰며, 파라미터(가중치) 수가 수십억에서 수천억 개에 이릅니다.</li><li>Brown 등(2020)의 GPT-3는 1,750억 개 파라미터 모델로, 예시 몇 개만 프롬프트에 넣어도 새 과제를 수행하는 ‘few-shot’ 능력을 보였습니다. 이후 사전학습 뒤 사람의 선호나 지시에 맞춰 추가 학습(미세조정)하는 방식이 일반화되었습니다.</li><li>Kaplan 등(2020)은 모델 크기, 데이터 양, 계산량을 늘릴수록 손실이 멱법칙으로 줄어든다는 경험적 규칙(스케일링 법칙)을 보고했습니다.</li><li>활용 방식은 프롬프트로 지시하는 방식(<a href="prompt-engineering.html">프롬프트 엔지니어링</a>), 특정 자료로 추가 학습하는 미세조정, 외부 문서를 검색해 붙이는 검색증강생성(RAG) 등입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>트랜스포머 모델의 크기를 어림해 봅시다. Kaplan 등(2020)은 임베딩을 뺀 파라미터 수를 N ≈ 12 · L · d²로 어림했습니다(L은 층 수, d는 은닉 차원). GPT-3는 L = 96, d = 12,288로 알려져 있어 코드로 계산하면 12 × 96 × 12,288² ≈ 1,739억 개로, 보고된 1,750억 개와 비슷합니다.</p><p>메모리도 어림할 수 있습니다. 파라미터마다 16비트(2바이트)로 저장하면 1,750억 × 2바이트 = 350 GB로, 단일 그래픽 카드 한 장에 올릴 수 없는 크기입니다. 그래서 논문에서는 모델 병렬화나 양자화(더 적은 비트로 저장)를 쓴다고 적습니다. 위 계산은 저장에 필요한 최소 메모리 어림이며, 실제로는 활성값과 학습 상태 때문에 훨씬 더 필요합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>LLM은 사실을 저장한 데이터베이스다.</td><td>통계적으로 그럴듯한 말을 생성하는 모델이어서 사실과 다른 내용을 자신 있게 만들어 낼 수 있습니다(<a href="hallucination.html">환각현상</a>; Ji 등, 2023).</td></tr><tr><td>모델이 클수록 항상 좋다.</td><td>Hoffmann 등(2022)은 주어진 계산량에서 모델 크기와 학습 데이터 양을 함께 늘려야 한다고 보고했습니다. 크기만의 문제는 아닙니다.</td></tr><tr><td>모델이 말을 이해한다는 증거다.</td><td>이해 여부는 논쟁이 있는 주제입니다. Bender 등(2021)은 형태만 학습한 모델의 한계와 위험을 지적했습니다.</td></tr><tr><td>같은 질문에는 늘 같은 답을 낸다.</td><td>샘플링 설정(온도 등)에 따라 달라지므로, 논문에서는 모델 버전, 날짜, 설정을 적어야 재현이 가능합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 연구에서는 대규모 언어 모델(LLM)을 활용한 전장 상황 분석 시스템을 제안하며, 특히 검색증강 생성(RAG)과 지도 학습 미세조정(SFT)을 결합한 고도화된 접근 방식을 제시한다.”</blockquote><p class="te-cite">RAG 특화 소규모 대규모 언어 모델: 대규모 언어 모델의 지식 증류를 통한 전장 상황 분석 능력 강화, 한국컴퓨터정보학회논문지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003187502" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“ChatGPT는 다양한 문서를 학습한 대규모 언어 모델로서 코드 생성, 디버깅 등의능력은 물론 소프트웨어 분석 설계 영역에서도 활용할 수 있는 능력을 갖고 있는 것으로 연구되고 있다.”</blockquote><p class="te-cite">ChatGPT 기반 소프트웨어 요구공학, 사물인터넷융복합논문지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003029527" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 GPT-4 기반 대규모 언어 모델(LLM)을 활용하여 환자 상담 기록을 자동으로 요약하는 파이프라인을 제안한다."</div>
   <p>이 문장은 연구자가 방대한 텍스트로 학습된 언어 모델을 도구로 사용해, 긴 글을 짧게 요약하는 작업을 자동화했다는 뜻입니다.</p>
   <div class="example">"소규모 법률 문서 코퍼스로 LLM을 파인튜닝한 결과, 판례 검색 과제에서 범용 모델 대비 정확도가 유의하게 향상되었다."</div>
@@ -166,6 +188,21 @@
 
   <h2>주의할 점</h2>
   <p>LLM은 다음에 올 단어를 확률적으로 예측할 뿐, 사실 여부를 직접 "확인"하지는 않습니다. 그래서 그럴듯하지만 틀린 내용을 마치 사실처럼 만들어내는 <a href="hallucination.html">환각현상</a>이 발생할 수 있으며, 이는 LLM의 근본적인 한계로 논의됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>대규모 언어 모델</strong></th><td>대량 텍스트로 사전학습한 초대형 신경망</td><td>대상</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>어텐션 기반의 신경망 구조</td><td>대부분의 LLM의 뼈대</td></tr><tr><th scope="row"><a href="hallucination.html">환각현상</a></th><td>언어모델이 사실이 아닌 내용을 그럴듯하게 생성</td><td>LLM의 대표 한계</td></tr><tr><th scope="row"><a href="prompt-engineering.html">프롬프트 엔지니어링</a></th><td>모델 가중치를 바꾸지 않고 입력을 설계해 출력을 유도</td><td>사용 방식</td></tr><tr><th scope="row"><a href="machine-learning.html">머신러닝</a></th><td>데이터로부터 패턴을 학습하는 방법 전체</td><td>상위 분야</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>
+    <li>Brown, T. B., Mann, B., Ryder, N., et al. (2020). Language models are few-shot learners. Advances in Neural Information Processing Systems, 33.</li>
+    <li>Hoffmann, J., Borgeaud, S., Mensch, A., et al. (2022). Training compute-optimal large language models. arXiv preprint arXiv:2203.15556.</li>
+    <li>Kaplan, J., McCandlish, S., Henighan, T., et al. (2020). Scaling laws for neural language models. arXiv preprint arXiv:2001.08361.</li>
+    <li>Bender, E. M., Gebru, T., McMillan-Major, A., &amp; Shmitchell, S. (2021). On the dangers of stochastic parrots: Can language models be too big? Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency, 610–623.</li>
+    <li>Ji, Z., Lee, N., Frieske, R., et al. (2023). Survey of hallucination in natural language generation. ACM Computing Surveys, 55(12), Article 248.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="graph-neural-network.html">그래프 신경망</a><a href="generative-adversarial-network.html">생성적 적대 신경망</a><a href="recurrent-neural-network.html">순환 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="transformer.html">트랜스포머</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
