@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/beam-deflection.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>보의 처짐은 구조물이 실제로 부러지는지 여부와는 별개로, 사용성과 안전 기준을 판단하는 핵심 지표이기 때문에 구조공학·기계공학 논문에서 반복적으로 다뤄집니다. 다리, 건물 바닥, 항공기 날개, 로봇 팔처럼 하중을 지지하는 거의 모든 구조물 설계에서 처짐 계산이 강도 계산과 함께 필수적으로 요구됩니다.</p>
   <p>특히 신소재나 새로운 단면 형상을 제안하는 논문에서는 처짐을 얼마나 줄일 수 있는지가 해당 설계의 성능을 보여주는 대표적인 근거로 쓰입니다. 또한 처짐 해석은 좌굴, 진동, 피로 해석 등 더 복잡한 구조 거동 연구의 기초가 되기 때문에, 관련 상위 연구주제로 자연스럽게 확장됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>처짐은 (하중 × 길이의 세제곱) ÷ 굽힘강성(EI)</strong>이 기본 꼴입니다. <em>E</em>는 <a href="youngs-modulus.html">영률</a>, <em>I</em>는 단면 <a href="moment-of-inertia-section.html">2차모멘트</a>입니다.</li><li>대표 공식(탄성 범위, 작은 처짐, <a href="euler-bernoulli-beam-theory.html">오일러-베르누이 보 이론</a>): 양단 단순지지 보 중앙 집중하중 <em>P</em>의 최대 처짐은 <code>PL³ / 48EI</code>, <a href="cantilever-beam.html">캔틸레버</a> 끝단 집중하중은 <code>PL³ / 3EI</code>, 단순지지 보 등분포하중 총량 <em>W</em> = <em>wL</em>의 최대 처짐은 <code>5wL⁴ / 384EI</code>입니다.</li><li>길이는 3제곱(등분포하중은 4제곱)으로, 단면 높이는 3제곱으로 효과를 냅니다. 그래서 길이를 줄이거나 단면 높이를 키우는 쪽이 재료를 바꾸는 쪽보다 처짐을 훨씬 크게 줄이는 경우가 많습니다.</li><li>지지 조건이 처짐을 크게 바꿉니다. 같은 하중·길이에서 캔틸레버가 단순지지 보보다 16배 처집니다(위 식의 계수 비 48/3).</li><li><strong>허용 처짐</strong>은 구조물의 용도와 설계기준이 정합니다. 스팬의 1/300, 1/360 같은 값이 예로 들리지만 기준마다 다르므로 논문에서는 어떤 기준을 썼는지 밝혀야 합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. 강재(<em>E</em> = 200 GPa) 직사각형 단면 폭 50 mm × 높이 100 mm, 스팬 <em>L</em> = 2 m, 중앙 집중하중 <em>P</em> = 5 kN. 단면 2차모멘트 <em>I</em> = bh³/12 = 4,166,667 mm⁴. 아래 값은 코드로 계산했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>조건</th><th>최대 처짐(mm)</th></tr></thead><tbody><tr><td>단순지지, 중앙 집중하중 5 kN</td><td>1.00</td></tr><tr><td>같은 하중을 캔틸레버 끝단에 적용</td><td>16.00</td></tr><tr><td>단면 높이를 2배(200 mm)로</td><td>0.125</td></tr><tr><td>스팬을 3 m로</td><td>3.375</td></tr><tr><td>단순지지, 등분포 총하중 5 kN(= 2.5 kN/m)</td><td>0.625</td></tr></tbody></table></div><p>높이를 2배로 하면 <em>I</em>가 8배가 되어 처짐이 1/8로 줄고, 스팬을 1.5배로 하면 1.5³ = 3.375배로 늘어납니다. 첫 경우의 처짐 1.00 mm는 스팬 2,000 mm의 1/2,000이라 1/300 기준(6.67 mm)을 충분히 만족하지만, 캔틸레버로 바꾸면 16.00 mm로 그 기준을 넘습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>강도가 높은 강을 쓰면 처짐도 줄어든다.</td><td>처짐은 강도가 아니라 영률과 단면 형상에 좌우됩니다. 강종이 달라도 영률은 거의 같아서 고강도강으로 바꿔도 처짐은 거의 변하지 않습니다.</td></tr><tr><td>단면적이 같으면 처짐도 같다.</td><td>같은 면적이라도 하중 방향으로 높이가 큰 단면이 <em>I</em>가 훨씬 큽니다. 널빤지를 눕히느냐 세우느냐의 차이입니다.</td></tr><tr><td>처짐이 작으면 안전하다.</td><td>처짐(사용성)과 강도(응력, 파손)는 별개의 검토 항목입니다. 둘 다 확인해야 합니다.</td></tr><tr><td>위 공식은 어떤 보에도 쓸 수 있다.</td><td>작은 변형, 선형 탄성, 가는 보라는 가정이 필요합니다. 두껍고 짧은 보는 전단 변형을 포함한 티모셴코 보 이론을 씁니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"유한요소해석 결과, 하중 조건 하에서 보의 최대 처짐(beam deflection)은 허용 기준치인 스팬 길이의 1/300 이내로 확인되었다."</div>
   <p>이 문장은 구조물을 실제로 만들기 전에 컴퓨터 시뮬레이션(유한요소해석)으로 보가 얼마나 휘는지 미리 계산했고, 그 값이 설계 기준을 만족했다는 뜻입니다. 토목·기계 공학 논문에서 구조 안전성을 검증할 때 흔히 등장합니다.</p>
 
@@ -166,6 +184,17 @@
 
   <h2>주의할 점</h2>
   <p>처짐이 크다고 해서 곧바로 구조물이 부서진다는 뜻은 아닙니다. 재료가 끊어지거나 영구 변형되는 파손과 달리, 처짐은 하중이 사라지면 원래대로 돌아오는 탄성 범위 안에서도 발생할 수 있습니다. 다만 처짐이 지나치면 균열이나 진동 문제로 이어질 수 있어, <a href="stress-concentration.html">응력집중</a> 여부와 함께 별도로 관리해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th></tr></thead><tbody><tr><th scope="row">보의 처짐</th><td>하중으로 보 축선이 수직으로 이동한 양(사용성 검토)</td></tr><tr><th scope="row"><a href="bending-moment.html">굽힘모멘트</a></th><td>보 단면에 생기는 내력. 응력 계산의 출발점</td></tr><tr><th scope="row"><a href="buckling.html">좌굴</a></th><td>압축을 받는 부재가 갑자기 옆으로 휘는 불안정 현상</td></tr><tr><th scope="row">항복강도</th><td>재료가 영구변형을 시작하는 응력. 처짐 크기와는 다른 한계</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Timoshenko, S. P., &amp; Gere, J. M. (1972). Mechanics of Materials. Van Nostrand Reinhold.</li>
+    <li>Timoshenko, S. P. (1921). On the correction for shear of the differential equation for transverse vibrations of prismatic bars. Philosophical Magazine, 41(245), 744–746.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="beam-bending-theory.html">보의 굽힘 이론</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="bending-moment.html">굽힘모멘트</a><a href="moment-of-inertia-section.html">단면 2차모멘트</a><a href="shear-bending-moment-diagram.html">전단력선도와 굽힘모멘트도</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/triangle-test.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <p>삼점검사에서 필요한 최소 패널 인원수는 검정력 분석을 통해 사전에 계산되며, 인원이 부족하면 실제로 차이가 존재해도 통계적으로 유의한 결과를 얻지 못하는 오류가 발생할 수 있습니다.</p>
   <p>삼점검사는 색이나 형태처럼 시각적 차이가 뚜렷한 시료에는 잘 맞지 않아, 이런 경우 시각적 단서를 차단하기 위해 색이 있는 조명이나 눈가리개를 사용하는 절차가 함께 적용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <ul><li><strong>질문:</strong> “두 시료(제품 A, B)가 감각적으로 구별되는가?” 같은 전반적 차이 유무를 묻는 차이식별검사입니다. 어느 쪽이 더 단지, 더 좋은지는 묻지 않습니다.</li><li><strong>절차:</strong> 평가자에게 3개의 시료(두 개는 같고 하나는 다름)를 무작위 3자리 코드로 주고 다른 하나를 고르게 합니다(강제 선택). 제시 순서는 AAB, ABA, BAA, BBA, BAB, ABB 여섯 가지를 균형 있게 돌립니다(ISO 4120).</li><li><strong>사용 예:</strong> 원료·공정 변경 후 제품이 달라졌는지, 두 제품 사이에 지각 가능한 차이가 있는지, 평가자의 변별력 확인.</li><li><strong>대안:</strong> 기준 시료와 같은 것을 2개 중에서 고르는 <a href="duo-trio-test.html">듀오트리오검사</a>나, 두 시료를 특정 속성으로 비교하는 <a href="paired-comparison-test.html">이점비교검사</a>가 있습니다. 삼점검사는 우연히 맞힐 확률이 1/3으로 낮아 같은 인원에서 듀오트리오검사(1/2)보다 검출력이 높은 경향이 있습니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li>귀무가설: 차이를 구별하지 못해 추측으로 고름(정답 확률 <em>p</em><sub>0</sub> = 1/3). 대립가설: 정답 확률 &gt; 1/3.</li><li>검정: 정답 수 <em>X</em>를 이항분포 (<em>n</em>, 1/3)에서 한쪽 검정으로 따집니다(<a href="binomial-test.html">이항검정</a>). <em>p</em> = P(<em>X</em> ≥ 관측 정답 수).</li><li>가상의 예 A: 패널 30명 중 15명이 정답. 코드로 계산하면 <em>p</em> = 0.0435 → 5% 수준에서 차이가 있다고 판정. 가상의 예 B: 24명 중 12명 정답이면 <em>p</em> = 0.0677(5% 기준 미달), 13명이면 <em>p</em> = 0.0284(5% 기준 충족).</li><li><strong>필요한 최소 정답 수</strong>(한쪽 이항검정, 코드로 계산):</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>패널 수 n</th><th>유의수준 5%</th><th>1%</th><th>0.1%</th></tr></thead><tbody><tr><td>12</td><td>8</td><td>9</td><td>10</td></tr><tr><td>18</td><td>10</td><td>12</td><td>13</td></tr><tr><td>24</td><td>13</td><td>15</td><td>16</td></tr><tr><td>30</td><td>15</td><td>17</td><td>19</td></tr><tr><td>36</td><td>18</td><td>20</td><td>22</td></tr><tr><td>48</td><td>22</td><td>25</td><td>27</td></tr></tbody></table></div><ul><li>판정 기준이 되는 정답 비율은 n이 커질수록 1/3에 가까워집니다(5% 수준: 12명이면 8명 = 67%, 48명이면 22명 = 46%).</li><li><strong>유의하지 않다 = 차이가 없다</strong>가 아닙니다. 패널 수가 작거나 평가자 변별력이 낮으면 차이를 놓칩니다. “차이 없음”을 주장하려면 동등성 접근이나 허용 가능한 차이 한계를 정해 두어야 합니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>패널 수, 평가자 구성(훈련 여부, 소비자 여부), 시료 준비와 제시 방식(온도, 용기, 코드, 순서 균형)을 적습니다.</li><li>정답 수 / 전체 수, 사용한 검정(한쪽 이항검정, <em>p</em><sub>0</sub> = 1/3), 유의수준과 <em>p</em>값을 보고합니다. 예: “30명 중 15명이 정답(<em>p</em> = 0.043, 한쪽 이항검정)”.</li><li>평가자가 느낀 차이의 성격을 묻는 추가 질문을 했다면(어떤 면이 다른가) 그 결과를 따로 보고합니다.</li><li>참조 표준(ISO 4120)이나 기존 문헌의 표를 이용했다면 이를 인용합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">저염 제품과 기존 제품 간 삼점검사를 실시한 결과 유의수준 5%에서 두 제품 간 유의한 차이가 확인되었다.</div>
   <p>이 문장은 삼점검사를 통해 통계적으로 유의한 관능적 차이를 검증한 절차를 보여줍니다.</p>
   <div class="example">"삼점검사 결과 정답률이 통계적 유의수준을 초과해 두 제형 간 관능적 차이가 있는 것으로 판정되었다."</div>
@@ -168,6 +186,18 @@
   <p>삼점검사는 '차이가 있는지 없는지'만 판정할 뿐 어떤 방향으로 다른지(더 단지, 더 짠지)는 알려주지 않으므로, 차이의 성격을 파악하려면 순위법이나 묘사분석 같은 추가 검사가 필요합니다.</p>
 
   <p>삼점검사는 세 시료를 동시에 맛봐야 하므로 미각 피로가 누적되기 쉬운 식품(매운맛이나 쓴맛이 강한 시료 등)에는 평가 순서와 입가심 절차를 신중히 설계해야 한다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심 차이</th></tr></thead><tbody><tr><th scope="row">삼점검사</th><td>3개 중 다른 1개 찾기. 우연 정답률 1/3</td></tr><tr><th scope="row"><a href="duo-trio-test.html">듀오트리오검사</a></th><td>기준 시료와 같은 것을 2개 중에서 찾기. 우연 정답률 1/2</td></tr><tr><th scope="row"><a href="sensory-evaluation.html">관능검사</a></th><td>감각으로 제품 특성을 평가하는 방법 전체</td></tr><tr><th scope="row"><a href="binomial-test.html">이항검정</a></th><td>정답 수 판정에 쓰는 통계 검정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>International Organization for Standardization (2004). ISO 4120: Sensory analysis — Methodology — Triangle test. ISO.</li>
+    <li>Lawless, H. T., &amp; Heymann, H. (2010). Sensory Evaluation of Food: Principles and Practices (2nd ed.). Springer.</li>
+    <li>Meilgaard, M. C., Civille, G. V., &amp; Carr, B. T. (2007). Sensory Evaluation Techniques (4th ed.). CRC Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="discrimination-test.html">차이식별검사</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="duo-trio-test.html">듀오트리오검사</a><a href="paired-comparison-test.html">이점비교검사</a></div></div><p class="concept-family-map"><a href="../concept-map/food.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

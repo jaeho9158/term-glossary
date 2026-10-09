@@ -1,0 +1,50 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>제트기 형태:</strong> <code>R = (V / c) · (L/D) · ln(W<sub>i</sub> / W<sub>f</sub>)</code>. <em>V</em>는 순항 속도, <em>c</em>는 무게 기준 연료소비율(단위 시간당 소모 연료 무게 ÷ 추력, 단위 1/s), <em>L/D</em>는 [[lift-to-drag-ratio|양항비]], <em>W</em><sub>i</sub>, <em>W</em><sub>f</sub>는 순항 시작과 끝의 무게입니다.</li><li>프로펠러기는 <em>V</em>/<em>c</em> 자리에 (프로펠러 효율 η) ÷ (동력 기준 연료소비율)을 넣는 꼴이 됩니다.</li><li>식의 구조는 <strong>효율의 곱</strong>입니다: 엔진 효율(<em>V</em>/<em>c</em>) × 공기역학 효율(<em>L/D</em>) × 구조·연료 비율(ln <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub>). 어느 항을 몇 % 개선하면 항속거리가 비례해 몇 % 늘어나는지 한눈에 보입니다.</li><li>연료가 줄어 가벼워지는 만큼 같은 조건을 유지하는 방법에 따라 식이 조금씩 달라집니다(고도·속도·받음각 중 무엇을 고정하느냐). 위 식은 <em>V</em>, <em>c</em>, <em>L/D</em>가 순항 내내 일정하다는 가정의 대표 형태입니다.</li><li><strong>순항 구간만</strong>의 거리입니다. 이륙·상승·하강과 예비 연료는 따로 계산해 더해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예입니다. 순항 속도 <em>V</em> = 250 m/s, 연료소비율 0.6 lb/(lbf·h) (= 0.6/3600 ≈ 1.667×10⁻⁴ 1/s), <em>L/D</em> = 18, <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub> = 1.25. 아래는 코드 계산입니다.</p><table><thead><tr><th>조건</th><th>항속거리</th></tr></thead><tbody><tr><td>기준값 (L/D 18, 무게비 1.25)</td><td>6,025 km (3,253 해리)</td></tr><tr><td>L/D만 20으로 (+11.1%)</td><td>6,694 km (+11.1%)</td></tr><tr><td>연료를 늘려 무게비 1.30으로</td><td>7,084 km (+17.6%)</td></tr></tbody></table><p>L/D를 11.1% 개선하면 항속거리도 11.1% 늘고, 연료를 20% 더 실으면(무게비 1.25 → 1.30, 출발 무게는 4% 증가) 약 17.6% 늘어납니다. 연료를 더 실을수록 이득이 로그처럼 줄어듭니다(자체 무게를 더 싣고 가야 하므로).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>항속거리는 연료량에 비례한다.</td><td>연료를 태우며 가벼워지는 효과 때문에 ln(<em>W</em><sub>i</sub>/<em>W</em><sub>f</sub>)에 비례합니다. 연료를 두 배로 늘려도 거리는 두 배가 되지 않습니다.</td></tr><tr><td>이 식으로 계산한 값이 곧 실제 운항 거리다.</td><td>순항 구간 추정식이며 상승·하강·예비 연료·바람은 별도입니다.</td></tr><tr><td><em>V</em>를 키우면 항상 더 멀리 간다.</td><td><em>V</em>를 바꾸면 <em>L/D</em>와 <em>c</em>도 함께 변하므로(고속에서 항력 증가, 엔진 특성 변화) 최적 속도가 따로 있습니다.</td></tr><tr><td>로켓에도 같은 식이 적용된다.</td><td>비슷한 로그 형태이지만 공기 중 양력이 아니라 추진제 배기속도에 기반한 [[tsiolkovsky-rocket-equation|로켓방정식]]이 따로 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "핵심"
+    ],
+    "rows": [
+      [
+        "브레게 항속거리방정식",
+        "순항 구간 항속거리의 기본 추정식(항공기)"
+      ],
+      [
+        "[[aircraft-range|항속거리]]",
+        "연료를 쓰고 비행할 수 있는 거리의 일반 개념"
+      ],
+      [
+        "[[lift-to-drag-ratio|양항비]]",
+        "양력 ÷ 항력. 식의 공기역학 효율 항"
+      ],
+      [
+        "[[specific-fuel-consumption|연료소비율]]",
+        "추력 또는 동력당 연료 소모율. 식의 엔진 효율 항"
+      ],
+      [
+        "[[tsiolkovsky-rocket-equation|로켓방정식]]",
+        "배기속도와 질량비로 속도 변화량을 정하는 식"
+      ]
+    ]
+  },
+  "references": [
+    "Anderson, J. D. (1999). Aircraft Performance and Design. McGraw-Hill.",
+    "Raymer, D. P. (2018). Aircraft Design: A Conceptual Approach (6th ed.). American Institute of Aeronautics and Astronautics."
+  ]
+}

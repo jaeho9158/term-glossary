@@ -1,0 +1,49 @@
+{
+  "type": "substance",
+  "sections": [
+    {
+      "heading": "무엇이고 어디서 작용하나",
+      "html": "<ul><li><strong>dCas9</strong>은 화농연쇄상구균(<em>Streptococcus pyogenes</em>) Cas9의 두 뉴클레아제 도메인을 불활성화하는 돌연변이(D10A와 H840A)를 함께 넣어 DNA를 자르지 못하게 만든 단백질입니다(Qi 등 2013).</li><li>자르는 능력은 없어도 sgRNA의 안내로 표적 서열(PAM 인접)에 결합하는 능력은 남습니다. 즉 “주소를 찾아가는 부분”만 남긴 운반체입니다.</li><li>여기에 기능 단백질(이펙터 도메인)을 이어 붙인 것이 <strong>dCas9 융합단백질</strong>입니다. 작용 위치는 세포 핵 안의 표적 DNA와 그 주변 염색질이고, 무엇이 일어나는지는 붙인 이펙터가 정합니다.</li><li>DNA 서열을 바꾸지 않으므로 효과는 대체로 가역적이고 발현량이나 후성유전 표지의 변화로 나타납니다. 이 점이 Cas9으로 DNA를 자르는 [[cas9|유전자 가위]]와 다릅니다.</li></ul>"
+    },
+    {
+      "heading": "주요 기능과 기전",
+      "html": "<table><thead><tr><th>붙이는 이펙터</th><th>기능</th><th>대표 보고</th></tr></thead><tbody><tr><td>(없음, dCas9만)</td><td>전사 개시·신장을 물리적으로 방해</td><td>Qi 등(2013): 박테리아와 인간 세포에서 유전자 발현 억제</td></tr><tr><td>KRAB 억제 도메인</td><td>염색질을 억제 상태로 바꿔 전사 억제([[crispr-interference|CRISPRi]])</td><td>Gilbert 등(2013)</td></tr><tr><td>VP64 등 활성화 도메인</td><td>전사 활성화(CRISPRa)</td><td>Gilbert 등(2013)</td></tr><tr><td>p300 핵심 도메인 등 후성유전 효소</td><td>표적 부위 히스톤 아세틸화로 후성유전체 편집([[epigenome-editing|후성유전체 편집]])</td><td>Hilton 등(2015)</td></tr><tr><td>DNMT3A 등 DNA 메틸화 효소</td><td>표적 부위 DNA 메틸화</td><td>(후성유전체 편집 분야)</td></tr><tr><td>형광 단백질(GFP 등)</td><td>살아 있는 세포에서 유전체 위치 영상화</td><td>Chen 등(2013)</td></tr></tbody></table><p>이 구성은 표적 DNA를 자르지 않고 쓸 수 있는 하나의 공통 틀이라 이펙터만 바꿔 여러 기술을 만들 수 있다는 점이 핵심입니다. 오늘날 널리 쓰이는 [[base-editing|염기편집기]]는 대개 한쪽 가닥만 자르는 nCas9(D10A 한 곳 돌연변이)에 탈아미노효소를 붙인 것이어서 dCas9 융합단백질과 구분합니다.</p>"
+    },
+    {
+      "heading": "연구에서 다루는 방식",
+      "html": "<ul><li><strong>기능 방향을 보이는 대조군:</strong> 표적과 무관한 sgRNA(비표적 대조), dCas9만 발현, 이펙터를 불활성화한 변이체를 함께 써서 관찰된 효과가 표적 부위에 붙은 이펙터에서 나왔음을 보입니다.</li><li><strong>sgRNA 위치를 적습니다.</strong> 억제·활성화는 전사 시작점(TSS)과의 상대 위치에 민감하다고 알려져 있어, 표적 위치와 사용한 sgRNA 수를 보고합니다.</li><li><strong>표적 외 결합과 발현 수준:</strong> ChIP-seq 같은 방법으로 표적 외 결합을, qPCR·RNA-seq 등으로 표적과 비표적 유전자의 발현을 확인하는 연구가 많습니다.</li><li><strong>보고할 것:</strong> dCas9 종류와 이펙터, 링커와 도메인 배치, 전달 방식(플라스미드, 바이러스, 안정 발현 세포주), sgRNA 서열, PAM, 측정 시점.</li><li><strong>해석의 주의:</strong> 결합 자체가 전사를 방해할 수 있고, 이펙터의 크기가 커지면 전달 효율이 떨어질 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "핵심 차이"
+    ],
+    "rows": [
+      [
+        "[[cas9|Cas9]]",
+        "표적 DNA 이중가닥을 자르는 효소"
+      ],
+      [
+        "dCas9",
+        "자르는 능력을 없앤 Cas9. 결합만 가능"
+      ],
+      [
+        "dCas9 융합단백질",
+        "dCas9에 이펙터를 붙인 구조. 억제·활성화·후성유전 편집·영상화 등"
+      ],
+      [
+        "[[base-editing|염기편집기]]",
+        "자르지 않고 염기 하나를 화학적으로 바꾸는 도구(nCas9 기반)"
+      ]
+    ]
+  },
+  "references": [
+    "Jinek, M., Chylinski, K., Fonfara, I., Hauer, M., Doudna, J. A., & Charpentier, E. (2012). A programmable dual-RNA-guided DNA endonuclease in adaptive bacterial immunity. Science, 337(6096), 816–821.",
+    "Qi, L. S., Larson, M. H., Gilbert, L. A., Doudna, J. A., Weissman, J. S., Arkin, A. P., & Lim, W. A. (2013). Repurposing CRISPR as an RNA-guided platform for sequence-specific control of gene expression. Cell, 152(5), 1173–1183.",
+    "Gilbert, L. A., Larson, M. H., Morsut, L., Liu, Z., Brar, G. A., Torres, S. E., et al. (2013). CRISPR-mediated modular RNA-guided regulation of transcription in eukaryotes. Cell, 154(2), 442–451.",
+    "Chen, B., Gilbert, L. A., Cimini, B. A., Schnitzbauer, J., Zhang, W., Li, G. W., et al. (2013). Dynamic imaging of genomic loci in living human cells by an optimized CRISPR/Cas system. Cell, 155(7), 1479–1491.",
+    "Hilton, I. B., D’Ippolito, A. M., Vockley, C. M., Thakore, P. I., Crawford, G. E., Reddy, T. E., & Gersbach, C. A. (2015). Epigenome editing by a CRISPR-Cas9-based acetyltransferase activates genes from promoters and enhancers. Nature Biotechnology, 33(5), 510–517."
+  ]
+}

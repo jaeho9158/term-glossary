@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/breguet-range-equation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>브레게 항속거리 방정식은 항속거리를 <a href="specific-fuel-consumption.html">연료소비율</a>·<a href="lift-to-drag-ratio.html">양항비</a>·연료 중량비의 곱으로 정리해 어느 변수가 항속거리를 얼마나 늘리는지 한눈에 보여주므로, 개념설계와 연료 효율 연구에서 가장 자주 인용되는 관계식입니다. 새 엔진이나 윙렛의 효과를 항속거리 증가로 환산할 때도 이 식을 기준으로 삼습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>제트기 형태:</strong> <code>R = (V / c) · (L/D) · ln(W<sub>i</sub> / W<sub>f</sub>)</code>. <em>V</em>는 순항 속도, <em>c</em>는 무게 기준 연료소비율(단위 시간당 소모 연료 무게 ÷ 추력, 단위 1/s), <em>L/D</em>는 <a href="lift-to-drag-ratio.html">양항비</a>, <em>W</em><sub>i</sub>, <em>W</em><sub>f</sub>는 순항 시작과 끝의 무게입니다.</li><li>프로펠러기는 <em>V</em>/<em>c</em> 자리에 (프로펠러 효율 η) ÷ (동력 기준 연료소비율)을 넣는 꼴이 됩니다.</li><li>식의 구조는 <strong>효율의 곱</strong>입니다: 엔진 효율(<em>V</em>/<em>c</em>) × 공기역학 효율(<em>L/D</em>) × 구조·연료 비율(ln <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub>). 어느 항을 몇 % 개선하면 항속거리가 비례해 몇 % 늘어나는지 한눈에 보입니다.</li><li>연료가 줄어 가벼워지는 만큼 같은 조건을 유지하는 방법에 따라 식이 조금씩 달라집니다(고도·속도·받음각 중 무엇을 고정하느냐). 위 식은 <em>V</em>, <em>c</em>, <em>L/D</em>가 순항 내내 일정하다는 가정의 대표 형태입니다.</li><li><strong>순항 구간만</strong>의 거리입니다. 이륙·상승·하강과 예비 연료는 따로 계산해 더해야 합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. 순항 속도 <em>V</em> = 250 m/s, 연료소비율 0.6 lb/(lbf·h) (= 0.6/3600 ≈ 1.667×10⁻⁴ 1/s), <em>L/D</em> = 18, <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub> = 1.25. 아래는 코드 계산입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>조건</th><th>항속거리</th></tr></thead><tbody><tr><td>기준값 (L/D 18, 무게비 1.25)</td><td>6,025 km (3,253 해리)</td></tr><tr><td>L/D만 20으로 (+11.1%)</td><td>6,694 km (+11.1%)</td></tr><tr><td>연료를 늘려 무게비 1.30으로</td><td>7,084 km (+17.6%)</td></tr></tbody></table></div><p>L/D를 11.1% 개선하면 항속거리도 11.1% 늘고, 연료를 20% 더 실으면(무게비 1.25 → 1.30, 출발 무게는 4% 증가) 약 17.6% 늘어납니다. 연료를 더 실을수록 이득이 로그처럼 줄어듭니다(자체 무게를 더 싣고 가야 하므로).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>항속거리는 연료량에 비례한다.</td><td>연료를 태우며 가벼워지는 효과 때문에 ln(<em>W</em><sub>i</sub>/<em>W</em><sub>f</sub>)에 비례합니다. 연료를 두 배로 늘려도 거리는 두 배가 되지 않습니다.</td></tr><tr><td>이 식으로 계산한 값이 곧 실제 운항 거리다.</td><td>순항 구간 추정식이며 상승·하강·예비 연료·바람은 별도입니다.</td></tr><tr><td><em>V</em>를 키우면 항상 더 멀리 간다.</td><td><em>V</em>를 바꾸면 <em>L/D</em>와 <em>c</em>도 함께 변하므로(고속에서 항력 증가, 엔진 특성 변화) 최적 속도가 따로 있습니다.</td></tr><tr><td>로켓에도 같은 식이 적용된다.</td><td>비슷한 로그 형태이지만 공기 중 양력이 아니라 추진제 배기속도에 기반한 <a href="tsiolkovsky-rocket-equation.html">로켓방정식</a>이 따로 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"브레게항속거리방정식에 순항 조건의 양항비 18과 연료소비율 값을 대입하여 목표 항속거리 5,500해리를 달성함을 확인하였다."</div>
   <p>비행기의 효율성 값들을 이 공식에 넣어 계산했더니, 원래 목표로 했던 비행 거리를 실제로 달성할 수 있다는 것이 확인되었다는 설계 검증 결과입니다.</p>
 
@@ -158,6 +176,17 @@
 
   <h2>주의할 점</h2>
   <p>브레게항속거리방정식은 순항 구간에서 양항비와 연료소비율이 일정하다고 가정한 근사식이므로, 이륙·상승·하강 구간의 연료 소모는 별도로 계산해 더해야 실제 항속거리에 가깝게 추정할 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row">브레게 항속거리방정식</th><td>순항 구간 항속거리의 기본 추정식(항공기)</td></tr><tr><th scope="row"><a href="aircraft-range.html">항속거리</a></th><td>연료를 쓰고 비행할 수 있는 거리의 일반 개념</td></tr><tr><th scope="row"><a href="lift-to-drag-ratio.html">양항비</a></th><td>양력 ÷ 항력. 식의 공기역학 효율 항</td></tr><tr><th scope="row"><a href="specific-fuel-consumption.html">연료소비율</a></th><td>추력 또는 동력당 연료 소모율. 식의 엔진 효율 항</td></tr><tr><th scope="row"><a href="tsiolkovsky-rocket-equation.html">로켓방정식</a></th><td>배기속도와 질량비로 속도 변화량을 정하는 식</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Anderson, J. D. (1999). Aircraft Performance and Design. McGraw-Hill.</li>
+    <li>Raymer, D. P. (2018). Aircraft Design: A Conceptual Approach (6th ed.). American Institute of Aeronautics and Astronautics.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

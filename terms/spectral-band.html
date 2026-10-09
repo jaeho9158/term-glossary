@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/spectral-band.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>분광밴드의 개수와 위치, 폭은 위성 탑재체가 어떤 대상을 얼마나 정밀하게 구분할 수 있는지를 결정하는 핵심 설계 요소입니다. 그래서 원격탐사 논문에서는 특정 응용 목적(식생 지수 산출, 수질 분석 등)에 맞는 분광밴드 선택과 그 특성이 자주 논의됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>분광밴드</strong>는 센서가 한 번에 측정하는 파장 구간 하나입니다. 하나의 밴드는 중심 파장과 폭(대역폭)으로 설명하고, 영상의 한 화소는 밴드마다 한 값을 가집니다.</li><li>물질마다 파장별 반사·흡수가 다릅니다. 건강한 식생은 가시광선 적색 영역에서 흡수가 크고(반사 낮음) 근적외선에서 반사가 큽니다. 이 대비를 이용해 두 밴드를 조합한 지수(<a href="ndvi.html">NDVI</a> = (근적외 − 적색) / (근적외 + 적색))를 만들며, Rouse 등(1974)이 쓴 형태입니다.</li><li>밴드 수가 수 개~십여 개면 <a href="multispectral-imaging.html">다분광</a>, 수십~수백 개의 좁은 연속 밴드면 초분광이라 부릅니다. 폭이 좁으면 분광 정보는 세밀해지지만 한 밴드로 들어오는 에너지가 줄어 신호 대 잡음비와의 균형이 필요합니다.</li><li>같은 이름의 밴드라도 위성마다 파장이 다릅니다. 예를 들어 Landsat 8 OLI의 적색 밴드(4번)는 약 0.64~0.67 µm, 근적외 밴드(5번)는 약 0.85~0.88 µm이고, Sentinel-2 MSI의 4번(적색)과 8번(근적외) 밴드의 중심 파장은 약 665 nm, 842 nm입니다.</li><li>밴드 값은 그대로 쓰기보다 센서 보정과 대기 보정을 거쳐 반사율로 바꾼 뒤 비교합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 반사율(0~1) 값으로 NDVI를 계산했습니다(코드). 실제 값은 센서, 대기 보정, 계절에 따라 다릅니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>지표면</th><th>적색 반사율</th><th>근적외 반사율</th><th>NDVI</th></tr></thead><tbody><tr><td>무성한 식생</td><td>0.05</td><td>0.50</td><td>0.82</td></tr><tr><td>맨땅</td><td>0.25</td><td>0.30</td><td>0.09</td></tr><tr><td>깊은 물</td><td>0.04</td><td>0.02</td><td>-0.33</td></tr></tbody></table></div><p>같은 두 밴드의 조합이 식생(높은 양의 값), 맨땅(0에 가까움), 물(음의 값)을 갈라 줍니다. 밴드 하나만 보면 이런 구분이 어렵습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>밴드 = 화면에 보이는 빨강·초록·파랑 색깔이다.</td><td>밴드는 측정 채널이고, 화면 표시를 위해 세 밴드를 R·G·B 채널에 배정하는 것이 “밴드 조합”입니다. 근적외 밴드를 빨강으로 표시하는 가색(false color)이 한 예입니다.</td></tr><tr><td>밴드가 많을수록 항상 좋다.</td><td>밴드가 많아질수록 자료량과 처리 부담, 잡음 문제가 커집니다. 목적(식생, 수질, 광물)에 맞는 밴드를 고르는 것이 중요합니다.</td></tr><tr><td>“적색 밴드”는 어느 위성이든 같은 값을 준다.</td><td>파장 범위와 폭, 반응 곡선이 다르므로 위성 간 비교에는 밴드 사양 확인과 보정이 필요합니다.</td></tr><tr><td>밴드 값(DN)이 곧 반사율이다.</td><td>DN은 센서 저장값이며, 반사율로 바꾸려면 보정 계수와 대기 보정이 필요합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 위성은 가시광선부터 근적외선까지 총 8개의 분광밴드를 갖는다."</div>
   <p>탑재체가 다루는 파장 범위와 밴드 개수를 설명한 예문입니다.</p>
   <div class="example">"적색 및 근적외 분광밴드의 반사율 차이를 이용해 식생지수를 산출하였다."</div>
@@ -158,6 +176,17 @@
 
   <h2>주의할 점</h2>
   <p>같은 이름의 밴드(예: 적색 밴드)라도 위성마다 실제 파장 범위와 폭이 다를 수 있어, 서로 다른 위성 자료를 비교할 때는 밴드 사양을 반드시 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th></tr></thead><tbody><tr><th scope="row">분광밴드</th><td>센서가 측정하는 파장 구간 하나(채널)</td></tr><tr><th scope="row"><a href="multispectral-imaging.html">다분광영상</a></th><td>수 개~십여 개 밴드로 얻은 영상</td></tr><tr><th scope="row">분광 해상도</th><td>밴드의 폭과 개수로 정해지는 파장 구분 능력</td></tr><tr><th scope="row"><a href="ndvi.html">NDVI</a></th><td>두 밴드(적색, 근적외)를 조합한 식생 지수</td></tr><tr><th scope="row"><a href="band-ratio-remote-sensing.html">밴드비</a></th><td>여러 밴드의 비를 취해 특성을 강조하는 방법</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rouse, J. W., Haas, R. H., Schell, J. A., &amp; Deering, D. W. (1974). Monitoring vegetation systems in the Great Plains with ERTS. Third Earth Resources Technology Satellite-1 Symposium, NASA SP-351, 309–317.</li>
+    <li>Lillesand, T. M., Kiefer, R. W., &amp; Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="multispectral-imaging.html">다분광영상</a></div></div><p class="concept-family-map"><a href="../concept-map/aviation.html">분야 전체 개념 지도 보기 →</a> 밴드의 파장 범위(대역폭)가 좁을수록 분광 분해능은 높아지지만 그만큼 센서에 도달하는 에너지가 줄어들어 신호대잡음비가 낮아질 수 있어, 관측 목적에 맞는 대역폭 설계가 필요합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
