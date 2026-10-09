@@ -1,0 +1,58 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>군집이 <strong>둥글지 않은 모양</strong>(초승달, 고리 등)이거나, 자료에 <strong>이상치(잡음)</strong>가 섞여 있고 군집 수를 미리 모를 때 씁니다. 공간 자료(위치 좌표), 이상 탐지에 많이 쓰입니다.</p><ul><li>두 개의 매개변수를 정해야 합니다: 반경 <strong>ε</strong>(eps)과 최소 이웃 수 <strong>minPts</strong>. 이웃 수에는 점 자신도 포함하는 것이 원 논문과 많은 구현의 방식입니다.</li><li>거리 계산이 필요하므로 변수 단위가 다르면 표준화합니다.</li><li>군집마다 밀도가 크게 다르면 하나의 ε으로는 맞추기 어렵습니다(HDBSCAN 등이 이 한계를 다룸).</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>모든 점이 세 종류 중 하나로 분류됩니다(Ester 외, 1996).</p><ul><li><strong>핵심점</strong>: 반경 ε 안에 minPts개 이상의 점(자신 포함)이 있는 점.</li><li><strong>경계점</strong>: 핵심점의 이웃이지만 자신은 핵심점이 아닌 점. 군집의 가장자리입니다.</li><li><strong>잡음점</strong>: 어느 쪽도 아닌 점. 군집에 넣지 않고 −1 같은 꼬리표를 줍니다.</li><li>핵심점끼리 ε 이내로 이어지면 같은 군집이 됩니다(밀도 연결).</li><li><strong>매개변수 고르기</strong>: minPts는 보통 차원 수 + 1 이상으로, 경험적으로 2 × 차원 수를 많이 씁니다(Schubert 외, 2017). ε은 각 점의 k번째 이웃까지의 거리(k는 minPts 근처)를 정렬해 그린 k-거리 그래프의 꺾이는 지점을 봅니다.</li></ul><p>(가상의 예, 직접 계산) 2차원 점 13개(밀집한 5개 점 두 묶음, 가장자리 가까운 점 2개, 외톨이 2개)에 DBSCAN을 적용했습니다.</p><table><thead><tr><th>설정</th><th>군집 수</th><th>핵심점</th><th>경계점</th><th>잡음점</th></tr></thead><tbody><tr><td>ε = 1.0, minPts = 4</td><td>2</td><td>9</td><td>2</td><td>2</td></tr><tr><td>ε = 0.6, minPts = 4</td><td>1</td><td>1</td><td>3</td><td>9</td></tr><tr><td>ε = 5.0, minPts = 4</td><td>1</td><td>12</td><td>0</td><td>1</td></tr></tbody></table><p>ε = 1.0에서는 두 군집이 잘 나뉘고 외톨이 2개가 잡음으로 남습니다. ε을 0.6으로 줄이면 13개 중 9개가 잡음이 되고, 5.0으로 키우면 가장 멀리 떨어진 외톨이 하나만 빼고 모든 점이 한 군집으로 합쳐집니다. 매개변수에 결과가 크게 좌우된다는 점을 보여 줍니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>ε과 minPts의 값과 선택 근거(k-거리 그래프 등), 거리 척도, 표준화 여부, 군집 수, 잡음점의 수를 적습니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>DBSCAN(ε = 0.35, minPts = 8, 유클리드 거리, 표준화 후)을 적용하여 4개 군집과 잡음 31건(3.1%)을 얻었다. ε은 k-거리 그래프의 꺾임 지점에서 정하였다.</code></p><ul><li>잡음점을 “이상치”로 단정하지 말고, 매개변수에 따라 달라질 수 있음을 논의합니다.</li><li>내부 평가지표(실루엣 계수 등)는 잡음점 처리 방법에 따라 달라지므로, 잡음을 제외했는지 밝힙니다.</li><li>정답 레이블이 있으면 ARI 같은 외부 지표를 함께 제시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "군집분석 방법들은 군집을 정의하는 방식이 다릅니다.",
+    "headers": [
+      "용어",
+      "군집의 정의",
+      "이상치·군집 수"
+    ],
+    "rows": [
+      [
+        "DBSCAN",
+        "밀도가 높은 연결된 영역",
+        "이상치를 잡음으로 분리. 군집 수는 자동"
+      ],
+      [
+        "[[k-means-clustering|k-평균 군집화]]",
+        "중심에 가까운 점들의 묶음",
+        "모든 점을 군집에 배정. k를 미리 정함. 둥근 군집"
+      ],
+      [
+        "[[hierarchical-clustering|계층적 군집분석]]",
+        "거리 기반 합병 나무",
+        "덴드로그램을 자르는 높이로 결정"
+      ],
+      [
+        "[[gaussian-mixture-model|가우시안 혼합모형]]",
+        "여러 정규분포의 혼합",
+        "확률적(소프트) 배정. 성분 수를 정해야 함"
+      ],
+      [
+        "[[silhouette-score|실루엣 계수]]",
+        "—",
+        "군집 결과를 평가하는 지표"
+      ]
+    ]
+  },
+  "references": [
+    "Ester, M., Kriegel, H.-P., Sander, J., & Xu, X. (1996). A density-based algorithm for discovering clusters in large spatial databases with noise. In Proceedings of the 2nd International Conference on Knowledge Discovery and Data Mining (KDD-96) (pp. 226–231). AAAI Press.",
+    "Schubert, E., Sander, J., Ester, M., Kriegel, H.-P., & Xu, X. (2017). DBSCAN revisited, revisited: Why and how you should (still) use DBSCAN. ACM Transactions on Database Systems, 42(3), Article 19.",
+    "Campello, R. J. G. B., Moulavi, D., & Sander, J. (2013). Density-based clustering based on hierarchical density estimates. In Advances in Knowledge Discovery and Data Mining (PAKDD 2013), Lecture Notes in Computer Science, 7819, 160–172. Springer."
+  ]
+}

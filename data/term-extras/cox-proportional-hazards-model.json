@@ -1,0 +1,66 @@
+{
+  "type": "test",
+  "fixes": [
+    {
+      "find": "그리고 그 영향이 시간에 따라 어떻게 달라지는지를 함께 분석하는",
+      "replace": "그 위험의 비율이 시간이 지나도 일정하다고 가정하고 분석하는"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>사건(사망, 재발, 이탈, 상장폐지 등)이 일어날 때까지의 시간 자료에서, 여러 변수가 <strong>위험(hazard)</strong>에 미치는 영향을 한꺼번에 추정할 때 씁니다. 추적이 끝나도 사건이 일어나지 않은 대상(중도절단)을 그대로 분석에 쓸 수 있는 것이 강점입니다.</p><ul><li>모형은 <code>h(t | x) = h₀(t) · exp(β₁x₁ + β₂x₂ + …)</code>입니다. h₀(t)는 기저위험으로, 모양을 특정하지 않습니다(준모수적).</li><li>핵심 가정은 <strong>비례위험</strong>입니다. 두 대상의 위험의 <em>비</em>는 시간이 지나도 일정합니다. 위험 자체는 시간에 따라 변해도 됩니다.</li><li>변수 효과는 위험비(HR)로 요약됩니다. 기저위험의 모양을 정하지 않으므로 생존 시간이 어떤 분포를 따르는지 가정할 필요가 없습니다.</li><li>사건 수가 충분해야 합니다. 변수 하나당 사건이 대략 10개 이상이라는 경험칙(EPV)이 흔히 인용됩니다(Peduzzi 외, 1995).</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>β</strong>: 변수가 1 단위 늘 때 로그 위험의 변화. <strong>HR = e<sup>β</sup></strong>가 위험이 몇 배가 되는지입니다.</li><li>HR = 1은 효과 없음, 1보다 크면 위험 증가, 작으면 감소입니다. 95% 신뢰구간이 1을 포함하는지로 유의성을 봅니다.</li><li>연속 변수의 HR은 <em>단위</em>에 따라 달라집니다(나이 1년당 HR과 10년당 HR은 다름).</li><li>HR은 “지금 사건이 일어나는 순간의 위험”의 비입니다. 생존 기간이 몇 배 길다는 뜻이 아니며, 누적 사건 확률의 비도 아닙니다.</li><li><strong>비례위험 점검</strong>: 로그–로그 생존곡선이 평행한지, 슈엔펠트 잔차와 시간의 관계(Grambsch–Therneau 검정)를 봅니다.</li><li>가정이 깨지면 시간 의존 계수, 층화 Cox, 가속실패시간 모형 등을 씁니다.</li></ul><p>(가상의 예, 직접 계산) 두 집단(각 100명)의 모의 자료입니다. 참 위험비는 2로 설정했고 추적 중 125명에서 사건이 일어났습니다. 부분우도를 최대화해 구한 추정값은 다음과 같습니다.</p><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>β̂ (SE)</td><td>0.503 (0.181)</td></tr><tr><td>HR = e<sup>β</sup></td><td>1.65</td></tr><tr><td>HR의 95% 신뢰구간</td><td>[1.16, 2.36]</td></tr><tr><td>Wald z, p</td><td>2.77, 0.0056</td></tr><tr><td>우도비 검정</td><td>χ²(1) = 7.69, p = 0.0056</td></tr></tbody></table><p>추정값 1.65는 설정한 2와 다르지만 신뢰구간 안에 있습니다. 표본이 한 번 뽑힌 결과의 흔들림입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>사건 수와 중도절단 비율, 추적 기간(중앙값), 변수와 단위, HR과 신뢰구간, 비례위험 점검 방법을 적습니다. (아래는 위 가상의 예입니다.)</p><p><code>200명 중 125명에서 사건이 발생하였다. Cox 비례위험모형에서 처치군의 위험은 대조군의 1.65배였다(HR = 1.65, 95% CI [1.16, 2.36], p = 0.006). 슈엔펠트 잔차 검정에서 비례위험 가정의 위반은 발견되지 않았다.</code></p><ul><li>Kaplan–Meier 곡선과 로그순위 검정(비조정 비교)을 먼저 제시하고, Cox 모형으로 조정 효과를 보고하는 순서가 흔합니다.</li><li>다변량 모형이면 어떤 변수를 왜 넣었는지(사전 지정 여부)와 사건 수 대비 변수 수를 적습니다.</li><li>HR이 1에 가깝고 신뢰구간이 넓으면 “효과 없음”이 아니라 “이 자료로는 불확실”입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "생존분석의 도구들은 “무엇을 추정하나”가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇을 하나",
+      "특징"
+    ],
+    "rows": [
+      [
+        "콕스 비례위험모형",
+        "여러 변수가 위험에 미치는 영향(HR)",
+        "공변량 조정 가능. 비례위험 가정 필요"
+      ],
+      [
+        "[[kaplan-meier-estimator|카플란–마이어 추정]]",
+        "시간에 따른 생존확률 곡선",
+        "공변량 조정 없음. 집단 비교는 로그순위 검정"
+      ],
+      [
+        "[[hazard-ratio|위험비(HR)]]",
+        "Cox 모형이 내놓는 효과 측도",
+        "순간 위험의 비"
+      ],
+      [
+        "[[logistic-regression|로지스틱 회귀]]",
+        "일정 기간 내 사건 발생 여부(오즈비)",
+        "사건까지의 시간과 중도절단을 무시"
+      ],
+      [
+        "[[survival-analysis|생존분석]]",
+        "시간–사건 자료 분석의 상위 틀",
+        "Cox 모형은 그 안의 한 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Cox, D. R. (1972). Regression models and life-tables. Journal of the Royal Statistical Society: Series B, 34(2), 187–220.",
+    "Cox, D. R. (1975). Partial likelihood. Biometrika, 62(2), 269–276.",
+    "Grambsch, P. M., & Therneau, T. M. (1994). Proportional hazards tests and diagnostics based on weighted residuals. Biometrika, 81(3), 515–526.",
+    "Peduzzi, P., Concato, J., Feinstein, A. R., & Holford, T. R. (1995). Importance of events per independent variable in proportional hazards regression analysis. II. Accuracy and precision of regression estimates. Journal of Clinical Epidemiology, 48(12), 1503–1510.",
+    "Collett, D. (2015). Modelling Survival Data in Medical Research (3rd ed.). CRC Press."
+  ]
+}

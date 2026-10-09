@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sample-size.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,29 @@
   <h2>왜 중요한가</h2>
   <p>표본크기는 연구 결과의 통계적 검정력과 일반화 가능성을 동시에 좌우하는 기본 정보이기 때문에, 거의 모든 실증연구 논문의 방법 섹션에서 가장 먼저 확인되는 항목입니다. 같은 효과라도 표본크기가 작으면 우연에 의한 결과일 가능성이 커지고, 메타분석에서는 각 연구의 표본크기가 가중치를 결정하는 핵심 변수로 쓰입니다. 이 때문에 표본크기는 단순한 참가자 수를 넘어 연구의 신뢰성을 가늠하는 지표로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>표본크기 n에는 두 가지 쓰임이 있습니다. ① 이미 끝난 연구에 <em>실제로 분석에 쓰인</em> 대상 수, ② 연구 <em>전에</em> 필요한 수를 계산한 값(표본크기 산출). 논문에서는 둘을 구분해 읽어야 합니다.</p><ul><li><strong>검정력 기반 산출</strong>: 유의수준 α(보통 .05), 검정력 1 − β(관례상 .80), 예상 효과크기, 변동(표준편차)이 정해지면 필요한 n이 정해집니다. 효과가 작을수록, 변동이 클수록, 검정력을 높일수록 n이 커집니다.</li><li><strong>정밀도 기반 산출</strong>: 신뢰구간의 폭(오차 한계)이 원하는 크기가 되도록 n을 정합니다. 평균은 n = (z·σ / E)², 비율은 n = z²·p(1 − p) / E²입니다.</li><li>표준오차는 1/√n에 비례하므로, 정밀도를 두 배로 올리려면 n을 네 배로 늘려야 합니다.</li><li>탈락과 결측을 감안해 산출한 n에 여유를 더하고, 분석에 쓰이는 n이 줄면 이를 밝힙니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(직접 계산) 몇 가지 대표 상황입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>가정</th><th>필요한 n</th></tr></thead><tbody><tr><td>평균의 95% 신뢰구간 오차 한계 ±2</td><td>표준편차 10</td><td>n = (1.96 × 10 / 2)² = 96.04 → 97</td></tr><tr><td>비율의 95% 신뢰구간 오차 한계 ±5%p</td><td>p = .5(가장 보수적)</td><td>n = 1.96² × .25 / .05² = 384.2 → 385</td></tr><tr><td>두 독립집단 평균 비교(양측 α = .05, 검정력 .80)</td><td>d = 0.2 (작은 효과)</td><td>집단당 394명 (총 788명)</td></tr><tr><td>〃</td><td>d = 0.5 (중간)</td><td>집단당 64명 (총 128명)</td></tr><tr><td>〃</td><td>d = 0.8 (큰 효과)</td><td>집단당 26명 (총 52명)</td></tr></tbody></table></div><p>두 집단 비교는 비중심 t 분포로 정확히 계산한 값이며, G*Power 같은 프로그램이 내놓는 값과 같은 방식입니다. 반대로 d = 0.5에서 집단당 20명이면 검정력이 약 0.34에 그쳐 진짜 중간 효과가 있어도 놓칠 확률이 66%입니다. d의 .2, .5, .8은 Cohen(1988)이 효과크기를 모를 때 쓰라고 제시한 관례적 값입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“n ≥ 30이면 충분하다”</strong>: 30은 중심극한정리에 관한 대략의 경험칙일 뿐이며, 검정력이나 정밀도와는 무관합니다. 위 표처럼 필요한 n은 효과의 크기에 따라 수십~수백으로 달라집니다.</li><li><strong>“표본이 크면 결과가 맞다”</strong>: n이 커져도 표본추출의 편향(비무작위 표본, 응답 편향)은 사라지지 않습니다. n이 매우 크면 사소한 차이도 유의해지므로 효과크기와 신뢰구간을 함께 봅니다.</li><li><strong>“연구가 끝난 뒤 관찰 검정력을 계산해 유의하지 않은 이유를 설명한다”</strong>: 관찰된 효과로 계산한 사후 검정력은 p값과 일대일로 대응하므로 새로운 정보를 주지 않습니다. 사전에 정당화한 효과크기를 쓰거나 신뢰구간으로 해석합니다.</li><li><strong>“예비조사의 효과크기를 그대로 쓰면 된다”</strong>: 작은 예비조사의 효과크기는 불안정하고 과대추정되기 쉽습니다. “의미 있다고 판단하는 가장 작은 효과”를 기준으로 삼는 것이 권장됩니다(Lakens, 2022).</li><li>작은 표본의 연구가 반복되면 검정력이 낮아 유의한 결과가 나와도 효과가 과대추정되기 쉽다는 점이 지적되어 왔습니다(Button 외, 2013).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“하지만 검정력과 유의성이 높은 회귀분석의 결과를 도출하기 위해서는 통계 표본 크기(sample size)가 충분하고 적절해야 하는데, 통계 예측의 정확도 향상을위하여 제트 여객기를 체급별로 분류하여 따로 회귀분석을 진행하면 표본 크기, 즉 표본의 수는 더욱 감소한다.”</blockquote><p class="te-cite">부트스트랩 재표본 방법을 이용한 여객기 초기 사이징 통계 분석, 한국산학기술학회논문지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003011228" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“예를 들어, 동물실험에서 표본크기가 작고 통계 방법이 명확하지 않은 경우가 많았다.”</blockquote><p class="te-cite">북한에서의 인삼에 관한 의학적 연구, 인삼문화, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003175482" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“모집단은 모든 기술사로서 표본크기는 420명으로 설정하였으며, 표집은 모집단의 특성, 개인정보 접근 문제와 종목 간 차이를 구명하는 연구목표를 고려하여 8개의 종목을 무작위 추출하였다.”</blockquote><p class="te-cite">기술사의 공학기초능력, 실무능력 및 직무수행의 관계, 직업과 자격 연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002827975" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에는 총 342명의 참가자(n = 342)가 포함되었다."</div>
   <p>이 연구는 342명을 대상으로 조사했다는 뜻이며, 이 숫자가 클수록 결과를 일반화하기에 유리합니다.</p>
 
@@ -162,6 +185,20 @@
 
   <h2>주의할 점</h2>
   <p>표본크기가 크다고 결과가 항상 맞는 것은 아니며, 표본을 어떻게 뽑았는지(무작위인지, 특정 집단에 치우쳐 있지는 않은지)가 크기 못지않게 중요합니다. 또한 표본크기가 매우 크면 실제로는 미미한 차이도 <a href="p-value.html">유의확률</a>이 작게 나올 수 있어, <a href="effect-size.html">효과크기</a>를 함께 봐야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>표본크기와 이웃한 개념들은 서로 얽혀 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">표본크기와의 관계</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row">표본크기(n)</th><td>—</td><td>분석에 쓰인 관측 수 또는 사전 산출한 필요 수</td></tr><tr><th scope="row"><a href="statistical-power.html">검정력</a></th><td>n이 커지면 증가</td><td>실제 효과가 있을 때 이를 찾아낼 확률</td></tr><tr><th scope="row"><a href="effect-size.html">효과크기</a></th><td>작을수록 큰 n 필요</td><td>산출의 핵심 입력값</td></tr><tr><th scope="row"><a href="standard-error.html">표준오차</a></th><td>n이 커지면 1/√n으로 감소</td><td>추정의 정밀도</td></tr><tr><th scope="row"><a href="confidence-interval.html">신뢰구간</a></th><td>n이 커지면 좁아짐</td><td>정밀도 기반 산출의 기준</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum Associates.</li>
+    <li>Faul, F., Erdfelder, E., Lang, A.-G., &amp; Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. Behavior Research Methods, 39(2), 175–191.</li>
+    <li>Button, K. S., Ioannidis, J. P. A., Mokrysz, C., Nosek, B. A., Flint, J., Robinson, E. S. J., &amp; Munafò, M. R. (2013). Power failure: Why small sample size undermines the reliability of neuroscience. Nature Reviews Neuroscience, 14(5), 365–376.</li>
+    <li>Lakens, D. (2022). Sample size justification. Collabra: Psychology, 8(1), 33267.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

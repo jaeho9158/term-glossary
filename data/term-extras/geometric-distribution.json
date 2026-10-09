@@ -1,0 +1,58 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>성공 확률이 p인 독립 시행을 반복할 때, <strong>첫 성공이 나오는 시행 횟수</strong> X(1, 2, 3, …)의 분포입니다.</p><p><code>P(X = k) = (1 − p)<sup>k−1</sup> · p,  P(X ≤ k) = 1 − (1 − p)<sup>k</sup></code></p><ul><li><strong>평균</strong> E(X) = 1/p, <strong>분산</strong> Var(X) = (1 − p)/p². p가 작을수록 평균과 분산이 모두 커집니다.</li><li><strong>무기억성</strong>: P(X &gt; m + n | X &gt; m) = P(X &gt; n). 이미 m번 실패했다는 사실이 앞으로의 대기 시간에 영향을 주지 않습니다. 이산분포 중 무기억성을 갖는 것은 기하분포뿐이고, 연속분포 중에서는 지수분포가 이에 대응합니다.</li><li>“첫 성공 전의 실패 횟수”(0, 1, 2, …)로 정의하는 책도 있습니다. 이때는 P(Y = k) = (1 − p)<sup>k</sup> · p이고 평균은 (1 − p)/p입니다. 정의를 확인해야 합니다.</li><li>기하분포를 여러 번 합치면 음이항분포가 됩니다(r번째 성공까지의 시행 수).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 직접 계산) 자유투 성공률 p = .3인 선수가 처음으로 성공할 때까지 던진 횟수 X입니다.</p><table><thead><tr><th>k (번째에 첫 성공)</th><th>P(X = k)</th><th>P(X ≤ k)</th></tr></thead><tbody><tr><td>1</td><td>0.3000</td><td>0.3000</td></tr><tr><td>2</td><td>0.2100</td><td>0.5100</td></tr><tr><td>3</td><td>0.1470</td><td>0.6570</td></tr><tr><td>4</td><td>0.1029</td><td>0.7599</td></tr><tr><td>5</td><td>0.0720</td><td>0.8319</td></tr></tbody></table><p>평균은 1/.3 ≈ 3.33번, 분산은 (1 − .3)/.3² ≈ 7.78(표준편차 약 2.79)입니다. 평균이 3.33이라고 해서 3~4번 안에 성공이 보장되는 것은 아니며, 5번 이내에 성공할 확률은 약 0.83입니다. 무기억성도 확인됩니다. 이미 5번 실패했어도 앞으로 3번을 더 실패할 확률은 처음부터 3번 실패할 확률과 같은 0.343입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“5번 연속 실패했으니 이제 성공할 때가 됐다”</strong>(도박사의 오류): 시행이 독립이므로 다음 시행의 성공 확률은 여전히 p입니다.</li><li><strong>“평균 대기 횟수 1/p가 곧 필요한 횟수다”</strong>: 분포의 오른쪽 꼬리가 길어 평균보다 훨씬 오래 걸리는 경우도 흔합니다. 중앙값은 평균보다 작습니다.</li><li><strong>“기하분포와 이항분포는 같은 사건을 다른 식으로 센 것이다”</strong>: 이항분포는 정해진 횟수 안의 성공 횟수이고, 기하분포는 첫 성공까지의 시행 횟수입니다. 확률변수가 다릅니다.</li><li><strong>“첫 사건까지의 횟수라면 무조건 기하분포다”</strong>: 시행마다 성공 확률이 변하거나 서로 영향을 준다면(예: 비복원 추출) 기하분포의 가정이 깨집니다. 불량이 나오는 확률이 달라지는 생산 라인에는 맞지 않습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "성공/실패 시행에서 파생되는 분포들입니다. 무엇을 세는지가 다릅니다.",
+    "headers": [
+      "용어",
+      "세는 것",
+      "시행 수"
+    ],
+    "rows": [
+      [
+        "기하분포",
+        "첫 성공까지의 시행 횟수",
+        "정해지지 않음(성공할 때까지)"
+      ],
+      [
+        "[[binomial-distribution|이항분포]]",
+        "성공 횟수",
+        "n번으로 고정"
+      ],
+      [
+        "[[negative-binomial-distribution|음이항분포]]",
+        "r번째 성공까지의 시행(또는 실패) 횟수",
+        "r이 정해짐. r = 1이면 기하분포"
+      ],
+      [
+        "[[hypergeometric-distribution|초기하분포]]",
+        "성공 횟수(비복원 추출)",
+        "n번 고정, 시행이 독립이 아님"
+      ],
+      [
+        "[[exponential-distribution|지수분포]]",
+        "첫 사건까지의 연속 시간",
+        "기하분포의 연속형 대응(무기억성)"
+      ]
+    ]
+  },
+  "references": [
+    "Casella, G., & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.",
+    "Ross, S. M. (2014). A First Course in Probability (9th ed.). Pearson.",
+    "Feller, W. (1968). An Introduction to Probability Theory and Its Applications (Vol. 1, 3rd ed.). Wiley."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>같은 대상을 두 번 측정했거나(전·후), 짝지은 대상(쌍둥이, 짝 맞춘 환자)에서 얻은 두 값의 <strong>평균 차이</strong>가 0인지 검정합니다.</p><ul><li>계산에는 쌍마다의 차이 d<sub>i</sub> = x<sub>i1</sub> − x<sub>i2</sub>만 쓰입니다. 개인차는 차이를 구할 때 상쇄됩니다.</li><li>가정: 쌍들이 서로 독립이고, <strong>차이값</strong>이 대략 정규분포를 따른다(표본이 작을수록 중요). 두 측정값 각각이 정규일 필요는 없습니다.</li><li>차이 분포가 심하게 치우치고 표본이 작으면 윌콕슨 부호순위검정, 결과가 이분형이면 맥니마 검정을 씁니다.</li><li>전후 사이에 다른 요인(시간 경과, 연습 효과)이 개입할 수 있으므로 통제집단이 없는 설계에서는 인과 해석에 주의합니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>t = d̄ / (s<sub>d</sub> / √n)</strong>, 자유도 n − 1. 분모는 차이값의 표준오차입니다.</li><li><strong>평균 차이 신뢰구간</strong> d̄ ± t<sub>(n−1)</sub> · s<sub>d</sub> / √n. 0을 포함하는지가 p값과 같은 결론을 줍니다.</li><li><strong>효과크기</strong>: d<sub>z</sub> = d̄ / s<sub>d</sub>(차이값 기준)와 d<sub>av</sub> = d̄ / 두 측정의 평균 표준편차(Lakens, 2013) 중 무엇을 썼는지 밝혀야 합니다. 두 값은 전후 상관이 높을수록 많이 다릅니다.</li></ul><p>(가상의 예, 직접 계산) 10명의 전·후 점수에서 차이의 평균 d̄ = 2.00, 표준편차 s<sub>d</sub> = 1.15입니다.</p><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>t (df = 9)</td><td>5.48</td></tr><tr><td>p (양측)</td><td>0.0004</td></tr><tr><td>평균 차이의 95% 신뢰구간</td><td>[1.17, 2.83]</td></tr><tr><td>d<sub>z</sub></td><td>1.73</td></tr><tr><td>d<sub>av</sub></td><td>0.47</td></tr><tr><td>전·후 점수의 상관</td><td>0.96</td></tr></tbody></table><p>같은 자료를 짝이 없는 것처럼 독립표본 t검정으로 분석하면 t = 1.05, p = 0.308로 유의하지 않습니다. 전·후 상관이 0.96로 높아 개인차를 상쇄한 효과가 큽니다. 이것이 짝지을 수 있는 자료를 대응표본으로 분석해야 하는 이유입니다. 다만 d<sub>z</sub>(1.73)와 d<sub>av</sub>(0.47)가 이렇게 다르므로 어느 효과크기를 쓰는지를 적어야 합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>전·후 평균과 표준편차, 평균 차이와 신뢰구간, t, 자유도, p, 효과크기를 함께 적습니다. (아래 수치는 위 가상의 예입니다.)</p><p><code>프로그램 후 점수는 전보다 평균 2.0점 낮았다(전 M = 72.2, SD = 4.3; 후 M = 70.2, SD = 4.2; 대응표본 t검정, t(9) = 5.48, p &lt; .001, 95% CI [1.17, 2.83], d<sub>z</sub> = 1.73).</code></p><ul><li>표본 수(쌍의 수), 차이값의 정규성 점검 방법(Shapiro–Wilk 등)을 방법 절에 적습니다.</li><li>한국어 논문에서는 “대응표본 t검정(paired t-test)”으로 쓰이고, 사전·사후 비교에 매우 흔합니다. 같은 사람의 전후라는 점이 분명하도록 설계를 서술합니다.</li><li>여러 변수를 따로 대응표본 t검정하면 다중검정이 되므로 보정 여부를 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "두 값을 비교하는 방법들은 “누구에게서 나온 값인가”로 고릅니다.",
+    "headers": [
+      "용어",
+      "자료의 구조",
+      "비교하는 것"
+    ],
+    "rows": [
+      [
+        "대응표본 t검정",
+        "같은 대상·짝지은 대상 2회",
+        "쌍별 차이의 평균"
+      ],
+      [
+        "[[t-test|독립표본 t검정]]",
+        "서로 다른 두 집단",
+        "두 집단 평균"
+      ],
+      [
+        "[[one-sample-t-test|단일표본 t검정]]",
+        "한 집단",
+        "평균과 기준값(대응표본 t검정은 차이값에 대한 단일표본 t검정과 같음)"
+      ],
+      [
+        "[[wilcoxon-signed-rank-test|윌콕슨 부호순위검정]]",
+        "짝지은 자료, 정규성 어려움",
+        "차이의 순위 기반 비모수 대안"
+      ],
+      [
+        "[[repeated-measures-anova|반복측정 분산분석]]",
+        "같은 대상 3회 이상",
+        "세 시점 이상 평균 비교"
+      ],
+      [
+        "[[mcnemars-test|맥니마 검정]]",
+        "짝지은 이분형",
+        "전후 비율 변화"
+      ]
+    ]
+  },
+  "references": [
+    "Student. (1908). The probable error of a mean. Biometrika, 6(1), 1–25.",
+    "Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum Associates.",
+    "Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863."
+  ]
+}

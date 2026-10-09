@@ -1,0 +1,50 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>최소기술길이(MDL) 원리는 “자료의 규칙성을 잘 잡은 모형은 자료를 짧게 압축한다”는 생각에서 출발합니다. 모형 선택에서는 <strong>모형을 적는 길이 + 그 모형으로 자료를 적는 길이</strong>의 합이 가장 짧은 모형을 고릅니다(Rissanen, 1978).</p><p><code>L(총) = L(모형) + L(자료 | 모형)</code></p><ul><li>복잡한 모형은 L(자료 | 모형)이 작아도(잘 맞아도) L(모형)이 커서 합이 줄지 않습니다. 이것이 과적합을 막는 장치입니다.</li><li>길이는 비트(또는 nat)로 잰 부호 길이입니다. 확률분포는 부호와 일대일로 대응하므로 L(자료 | 모형) = −log(우도)입니다.</li><li>가장 단순한 “두 부분 부호화”에서 파라미터가 k개인 모형의 L(모형)은 약 (k/2)·log n으로 근사되며, 이는 BIC의 벌점과 같은 꼴입니다(Schwarz, 1978). 다만 정교한 MDL(정규화 최대우도 부호 등)은 BIC와 다른 벌점을 줍니다.</li><li>베이즈 추론의 사전분포 없이도 정의될 수 있고, 모형이 “참”이라고 가정하지 않는 점이 특징입니다(Grünwald, 2007).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 직접 계산) 참 모형이 2차식 1 + 0.5x − 0.08x² (오차 SD 0.5)인 모의 자료 40개에 0~5차 다항식을 맞추고, 근사 MDL <code>(n/2)·ln(RSS/n) + (k/2)·ln n</code>과 AIC를 비교합니다(k는 계수 수, 같은 상수를 뺀 값).</p><table><thead><tr><th>차수</th><th>계수 수 k</th><th>RSS</th><th>근사 MDL</th><th>AIC</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>63.40</td><td>11.06</td><td>20.42</td></tr><tr><td>1</td><td>2</td><td>24.49</td><td>-6.12</td><td>-15.62</td></tr><tr><td>2</td><td>3</td><td>6.31</td><td>-31.40</td><td>-67.87</td></tr><tr><td>3</td><td>4</td><td>6.23</td><td>-29.82</td><td>-66.40</td></tr><tr><td>4</td><td>5</td><td>5.94</td><td>-28.91</td><td>-66.27</td></tr><tr><td>5</td><td>6</td><td>5.69</td><td>-27.92</td><td>-65.98</td></tr></tbody></table><p>차수를 높일수록 RSS는 계속 줄지만(맞춤은 좋아짐) 벌점이 더해져 근사 MDL은 2차에서 최소가 됩니다. RSS만 봤다면 5차를 골랐을 것입니다. 이 예에서는 AIC도 같은 선택을 하지만, 표본이 크면 BIC·MDL 쪽 벌점이 더 커서 더 단순한 모형을 고르는 경향이 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“MDL은 가장 단순한 모형을 고르는 규칙이다”</strong>: 단순함이 아니라 총 부호 길이(적합 + 복잡도)의 최소화입니다. 자료가 충분하면 복잡한 모형도 선택됩니다.</li><li><strong>“MDL = BIC”</strong>: 조잡한(두 부분) 부호화의 근사에서 닮았을 뿐, 정교한 MDL은 파라미터 공간의 기하까지 반영해 다른 값을 줍니다.</li><li><strong>“압축이 곧 인과·참 모형을 알려 준다”</strong>: MDL은 주어진 후보 중에서 자료를 잘 압축하는 모형을 고를 뿐 참을 보장하지 않습니다.</li><li><strong>“부호화 방식은 상관없다”</strong>: 파라미터 정밀도나 부호 설계에 따라 결과가 달라질 수 있어, 실제 사용에서 부호화를 정의해야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "모형 선택 기준은 “무엇을 최소화하는가”가 다릅니다.",
+    "headers": [
+      "용어",
+      "벌점의 근거",
+      "특징"
+    ],
+    "rows": [
+      [
+        "MDL",
+        "총 부호 길이(모형 + 자료)",
+        "정보이론. 모형이 참이라고 가정하지 않음"
+      ],
+      [
+        "[[bayesian-information-criterion|BIC]]",
+        "사후확률 근사(−2 ln 우도 + k ln n)",
+        "n이 크면 단순한 모형을 선호. 조잡한 MDL과 같은 꼴"
+      ],
+      [
+        "[[akaike-information-criterion|AIC]]",
+        "예측 오차(KL 정보량) 추정",
+        "예측이 목적. BIC보다 벌점이 약함"
+      ]
+    ]
+  },
+  "references": [
+    "Rissanen, J. (1978). Modeling by shortest data description. Automatica, 14(5), 465–471.",
+    "Schwarz, G. (1978). Estimating the dimension of a model. The Annals of Statistics, 6(2), 461–464.",
+    "Barron, A., Rissanen, J., & Yu, B. (1998). The minimum description length principle in coding and modeling. IEEE Transactions on Information Theory, 44(6), 2743–2760.",
+    "Hansen, M. H., & Yu, B. (2001). Model selection and the principle of minimum description length. Journal of the American Statistical Association, 96(454), 746–774.",
+    "Grünwald, P. D. (2007). The Minimum Description Length Principle. MIT Press."
+  ]
+}

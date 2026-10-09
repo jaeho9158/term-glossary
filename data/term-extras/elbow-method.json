@@ -1,0 +1,58 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>k-평균처럼 군집 수 k를 먼저 정해야 하는 방법에서, <strong>k를 몇으로 할지</strong> 탐색적으로 어림할 때 씁니다. 군집이 어느 정도 뚜렷하게 나뉜 자료에서 가장 잘 작동하는 시각적 도구입니다.</p><ul><li>세로축은 군집 내 제곱합(WCSS, inertia) Σ‖x − 군집 중심‖²입니다. k가 늘수록 항상 줄어들고(k = n이면 0), 그래서 값 자체가 아니라 <strong>감소 폭이 꺾이는 곳</strong>을 봅니다.</li><li>같은 개념으로 계층적 군집분석에서는 합병 높이가 크게 뛰는 곳을 찾습니다.</li><li>군집 구조가 없는 자료(균일 분포 등)에서도 곡선은 매끈하게 줄어듭니다. 꺾임이 없으면 군집이 없다는 신호일 수도 있습니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>꺾임이 보이는 k가 “자료가 말하는 군집 수의 후보”입니다. 뚜렷하지 않으면 다른 기준과 함께 판단해야 합니다. 아래는 정해진 규칙이 아닙니다.</p><ul><li>곡선이 가파르게 내려오다 완만해지는 지점을 찾습니다. 이 때 직전 k까지의 감소 비율이 크게 줄어드는 곳이 팔꿈치입니다.</li><li><strong>실루엣 계수</strong>(−1~1)의 평균이 가장 큰 k를 보조 근거로 씁니다.</li><li><strong>갭 통계량</strong>(Tibshirani 외, 2001): 실제 자료의 WCSS를 무작위 기준 자료와 비교해 객관적 기준을 줍니다.</li><li>군집 해석 가능성(연구 목적상 의미 있는 개수인가)도 최종 판단에 들어갑니다.</li></ul><p>(가상의 예, 직접 계산) 세 개의 군집(각 50개)을 가진 2차원 모의 자료에 k-평균을 k = 1~8로 적합했습니다(k마다 20회 무작위 시작).</p><table><thead><tr><th>k</th><th>WCSS</th><th>전 단계 대비 감소율</th></tr></thead><tbody><tr><td>1</td><td>1524.5</td><td>—</td></tr><tr><td>2</td><td>860.0</td><td>43.6%</td></tr><tr><td>3</td><td>254.5</td><td>70.4%</td></tr><tr><td>4</td><td>213.3</td><td>16.2%</td></tr><tr><td>5</td><td>182.8</td><td>14.3%</td></tr><tr><td>6</td><td>154.1</td><td>15.7%</td></tr><tr><td>7</td><td>133.2</td><td>13.5%</td></tr><tr><td>8</td><td>116.1</td><td>12.9%</td></tr></tbody></table><p>k = 2에서 3으로 갈 때 WCSS가 70% 줄고, 4부터는 매번 13~16% 정도씩만 줄어 k = 3에서 꺾임이 보입니다. 실루엣 평균도 k = 3일 때 0.65로 가장 큽니다(k = 2: 0.45, k = 4: 0.54). 이렇게 두 기준이 일치하면 설득력이 큽니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>엘보 그림(k–WCSS)을 그림으로 제시하고, 어느 k를 왜 골랐는지, 보조 기준(실루엣, 갭 통계량)을 함께 적습니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>군집 수는 엘보 기법으로 정하였다(그림 3). WCSS는 k = 3에서 뚜렷하게 꺾였고 평균 실루엣 계수도 k = 3에서 가장 높았다(0.65). 따라서 3개 군집을 채택하였다.</code></p><ul><li>“꺾이는 지점”은 사람이 눈으로 정하므로, 어떻게 판단했는지 근거를 쓰고 가능하면 다른 기준을 곁들입니다.</li><li>k-평균의 초기값에 따라 WCSS가 달라질 수 있으므로 반복 시작 횟수와 난수 시드를 적습니다.</li><li>변수 단위가 다르면 표준화 후 계산했는지 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "군집 수를 정하는 방법들입니다. 하는 일이 비슷하지만 판단 근거가 다릅니다.",
+    "headers": [
+      "용어",
+      "근거",
+      "특징"
+    ],
+    "rows": [
+      [
+        "엘보 기법",
+        "WCSS 곡선의 꺾임",
+        "가장 간단하지만 눈으로 판단해 주관적"
+      ],
+      [
+        "[[silhouette-score|실루엣 계수]]",
+        "군집 내 응집도 대비 군집 간 분리도",
+        "수치로 비교 가능. k마다 계산해 최댓값을 봄"
+      ],
+      [
+        "갭 통계량",
+        "무작위 기준 자료와의 WCSS 차이",
+        "통계적 기준이 있으나 계산량이 큼"
+      ],
+      [
+        "[[k-means-clustering|k-평균 군집화]]",
+        "—",
+        "엘보 기법이 k를 정해 주는 대상 알고리즘"
+      ],
+      [
+        "[[hierarchical-clustering|계층적 군집분석]]",
+        "덴드로그램 절단 높이",
+        "k를 미리 정하지 않고 나중에 자름"
+      ]
+    ]
+  },
+  "references": [
+    "Thorndike, R. L. (1953). Who belongs in the family? Psychometrika, 18(4), 267–276.",
+    "Rousseeuw, P. J. (1987). Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. Journal of Computational and Applied Mathematics, 20, 53–65.",
+    "Tibshirani, R., Walther, G., & Hastie, T. (2001). Estimating the number of clusters in a data set via the gap statistic. Journal of the Royal Statistical Society: Series B, 63(2), 411–423."
+  ]
+}

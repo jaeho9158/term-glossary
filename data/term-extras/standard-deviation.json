@@ -1,0 +1,59 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>표본표준편차 s = √[Σ(x<sub>i</sub> − x̄)² / (n − 1)], 모표준편차 σ = √[Σ(x<sub>i</sub> − μ)² / N]입니다. 분산의 제곱근이어서 <strong>원자료와 같은 단위</strong>입니다.</p><ul><li><strong>범위</strong>: 0 이상. 모든 값이 같으면 0입니다.</li><li>평균과 함께 “평균 ± 표준편차”로 보고되며, 평균에서 보통 얼마나 떨어져 있는지의 감각을 줍니다(정확히는 편차 제곱평균의 제곱근이어서 평균 절대편차와는 다릅니다).</li><li>상수를 더해도 변하지 않고, 상수 a를 곱하면 |a|배가 됩니다.</li><li>극단값에 민감합니다. 표본이 작으면 s의 불확실성도 큽니다.</li><li>n − 1로 나눈 s²은 모분산의 불편추정량이지만, 제곱근을 취한 s는 모표준편차를 약간 작게 추정하는 경향이 있습니다.</li></ul><p>(직접 계산) 값 4, 8, 6, 5, 12의 표본표준편차는 √10 ≈ 3.16, 평균 7.0 대비 변동계수는 0.45(약 45%)입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>정규분포에 가까운 자료에서는 평균 ± 1, 2, 3 표준편차 안에 각각 약 68.3%, 95.4%, 99.7%가 들어갑니다(68–95–99.7 규칙). <strong>어떤 분포든</strong> 체비쇼프 부등식에 따라 k 표준편차 안에는 최소 1 − 1/k²가 들어가므로 k = 2에서 75%, k = 3에서 약 88.9% 이상입니다.</p><ul><li>치우친 분포에서는 규칙이 맞지 않습니다. 평균 1, 표준편차 1인 지수분포에서 평균 ± 1 표준편차(0~2) 안의 비율은 0.865, 평균 ± 2 표준편차(0~3) 안은 0.950입니다(정규의 .683, .954와 다름).</li><li>표준편차 자체의 “크다/작다”는 평균의 크기와 분야에 따라 다르므로 변동계수 등과 함께 봅니다.</li><li><strong>표준편차 vs 표준오차</strong>: 표준편차(SD)는 <em>자료의</em> 흩어짐이고, 표준오차(SE = SD/√n)는 <em>평균 추정의</em> 불확실성입니다. 표본을 늘리면 SD는 거의 변하지 않고 SE는 줄어듭니다.</li><li>(예) SD 3.16, n = 5의 SE는 1.41이지만 같은 SD로 n = 100이면 SE는 0.32입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>기술통계에서는 “M = 7.0, SD = 3.16”처럼 평균과 함께 표준편차를 적습니다. 오차막대를 그릴 때 SD인지 SE인지 95% 신뢰구간인지 반드시 밝힙니다(Altman &amp; Bland, 2005). 자료의 변동을 보여 주려면 SD, 평균 추정의 정밀도를 보여 주려면 SE나 신뢰구간입니다.</p><p><code>참여자의 평균 연령은 34.2세(SD = 8.1)였다.</code></p><ul><li>(위 수치는 형식을 보여 주는 가상의 값입니다.)</li><li>“34.2 ± 8.1”처럼 ±만 쓰면 8.1이 SD인지 SE인지 알 수 없으므로 표나 방법 절에 정의합니다.</li><li>치우친 변수(소득, 입원 일수 등)는 중앙값과 사분위범위를 쓰는 것이 낫습니다. 이처럼 음수가 될 수 없는 변수에서 SD가 평균보다 크면 분포가 치우쳤을 가능성이 큽니다.</li><li>소수점 자릿수는 평균과 맞춰 적는 것이 일반적입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "흩어짐을 나타내는 값들은 무엇이 흩어지는지가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇의 흩어짐인가",
+      "쓰임"
+    ],
+    "rows": [
+      [
+        "표준편차(SD)",
+        "자료의 흩어짐",
+        "자료 요약. “평균 ± SD”"
+      ],
+      [
+        "[[variance|분산]]",
+        "자료의 흩어짐(제곱 단위)",
+        "이론·분산분석·모형의 성분"
+      ],
+      [
+        "[[standard-error|표준오차(SE)]]",
+        "추정값(평균 등)의 흩어짐",
+        "신뢰구간·검정의 재료. SD/√n"
+      ],
+      [
+        "[[coefficient-of-variation|변동계수]]",
+        "SD/평균. 상대적 흩어짐",
+        "단위가 다른 변수 비교"
+      ],
+      [
+        "[[interquartile-range|사분위범위(IQR)]]",
+        "중앙 50% 구간의 폭",
+        "치우친 자료·이상치에 강한 요약"
+      ]
+    ]
+  },
+  "references": [
+    "Altman, D. G., & Bland, J. M. (2005). Standard deviations and standard errors. BMJ, 331(7521), 903.",
+    "Lang, T. A., & Altman, D. G. (2015). Basic statistical reporting for articles published in biomedical journals: The “Statistical Analyses and Methods in the Published Literature” or the SAMPL guidelines. International Journal of Nursing Studies, 52(1), 5–9.",
+    "Casella, G., & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.",
+    "Rice, J. A. (2007). Mathematical Statistics and Data Analysis (3rd ed.). Cengage Learning."
+  ]
+}

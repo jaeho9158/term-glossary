@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cox-proportional-hazards-model.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -32,7 +33,7 @@
       "@type": "DefinedTerm",
       "@id": "https://termglossary.kr/terms/cox-proportional-hazards-model.html#term",
       "name": "콕스 비례위험모형",
-      "description": "여러 변수가 사건이 일어날 위험(위험률)에 얼마나 영향을 미치는지, 그리고 그 영향이 시간에 따라 어떻게 달라지는지를 함께 분석하는 생존분석 모형이다.",
+      "description": "여러 변수가 사건이 일어날 위험(위험률)에 얼마나 영향을 미치는지, 그 위험의 비율이 시간이 지나도 일정하다고 가정하고 분석하는 생존분석 모형이다.",
       "url": "https://termglossary.kr/terms/cox-proportional-hazards-model.html",
       "inDefinedTermSet": {
         "@type": "DefinedTermSet",
@@ -78,7 +79,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="논문용어사전">
 <meta property="og:title" content="콕스 비례위험모형 (Cox Proportional Hazards Model) - 논문용어사전">
-<meta property="og:description" content="여러 변수가 사건이 일어날 위험(위험률)에 얼마나 영향을 미치는지, 그리고 그 영향이 시간에 따라 어떻게 달라지는지를 함께 분석하는 생존분석 모형이다.">
+<meta property="og:description" content="여러 변수가 사건이 일어날 위험(위험률)에 얼마나 영향을 미치는지, 그 위험의 비율이 시간이 지나도 일정하다고 가정하고 분석하는 생존분석 모형이다.">
 <meta property="og:url" content="https://termglossary.kr/terms/cox-proportional-hazards-model.html">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://termglossary.kr/assets/og-default.png">
@@ -143,7 +144,7 @@
   </button>
 
   <div class="definition-box">
-    <strong>한 줄 정의:</strong> 여러 변수가 "사건이 일어날 위험(위험률)"에 얼마나 영향을 미치는지, 그리고 그 영향이 시간에 따라 어떻게 달라지는지를 함께 분석하는 생존분석 모형입니다.
+    <strong>한 줄 정의:</strong> 여러 변수가 "사건이 일어날 위험(위험률)"에 얼마나 영향을 미치는지, 그 위험의 비율이 시간이 지나도 일정하다고 가정하고 분석하는 생존분석 모형입니다.
   </div>
 
   <h2>쉽게 풀면</h2>
@@ -154,7 +155,29 @@
   <h2>왜 중요한가</h2>
   <p>콕스 비례위험모형은 중도절단자료를 자연스럽게 다루면서도 여러 변수의 영향을 동시에 통제할 수 있어, 의학·역학 분야에서 생존율이나 재발률 비교를 다루는 논문의 표준적인 분석 도구로 자리 잡았습니다. 신약이나 새로운 치료법의 효과를 기존 치료법과 비교할 때, 그리고 특정 위험요인이 사건 발생 시점에 미치는 영향을 정량화할 때 핵심적으로 사용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>사건(사망, 재발, 이탈, 상장폐지 등)이 일어날 때까지의 시간 자료에서, 여러 변수가 <strong>위험(hazard)</strong>에 미치는 영향을 한꺼번에 추정할 때 씁니다. 추적이 끝나도 사건이 일어나지 않은 대상(중도절단)을 그대로 분석에 쓸 수 있는 것이 강점입니다.</p><ul><li>모형은 <code>h(t | x) = h₀(t) · exp(β₁x₁ + β₂x₂ + …)</code>입니다. h₀(t)는 기저위험으로, 모양을 특정하지 않습니다(준모수적).</li><li>핵심 가정은 <strong>비례위험</strong>입니다. 두 대상의 위험의 <em>비</em>는 시간이 지나도 일정합니다. 위험 자체는 시간에 따라 변해도 됩니다.</li><li>변수 효과는 위험비(HR)로 요약됩니다. 기저위험의 모양을 정하지 않으므로 생존 시간이 어떤 분포를 따르는지 가정할 필요가 없습니다.</li><li>사건 수가 충분해야 합니다. 변수 하나당 사건이 대략 10개 이상이라는 경험칙(EPV)이 흔히 인용됩니다(Peduzzi 외, 1995).</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li><strong>β</strong>: 변수가 1 단위 늘 때 로그 위험의 변화. <strong>HR = e<sup>β</sup></strong>가 위험이 몇 배가 되는지입니다.</li><li>HR = 1은 효과 없음, 1보다 크면 위험 증가, 작으면 감소입니다. 95% 신뢰구간이 1을 포함하는지로 유의성을 봅니다.</li><li>연속 변수의 HR은 <em>단위</em>에 따라 달라집니다(나이 1년당 HR과 10년당 HR은 다름).</li><li>HR은 “지금 사건이 일어나는 순간의 위험”의 비입니다. 생존 기간이 몇 배 길다는 뜻이 아니며, 누적 사건 확률의 비도 아닙니다.</li><li><strong>비례위험 점검</strong>: 로그–로그 생존곡선이 평행한지, 슈엔펠트 잔차와 시간의 관계(Grambsch–Therneau 검정)를 봅니다.</li><li>가정이 깨지면 시간 의존 계수, 층화 Cox, 가속실패시간 모형 등을 씁니다.</li></ul><p>(가상의 예, 직접 계산) 두 집단(각 100명)의 모의 자료입니다. 참 위험비는 2로 설정했고 추적 중 125명에서 사건이 일어났습니다. 부분우도를 최대화해 구한 추정값은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>β̂ (SE)</td><td>0.503 (0.181)</td></tr><tr><td>HR = e<sup>β</sup></td><td>1.65</td></tr><tr><td>HR의 95% 신뢰구간</td><td>[1.16, 2.36]</td></tr><tr><td>Wald z, p</td><td>2.77, 0.0056</td></tr><tr><td>우도비 검정</td><td>χ²(1) = 7.69, p = 0.0056</td></tr></tbody></table></div><p>추정값 1.65는 설정한 2와 다르지만 신뢰구간 안에 있습니다. 표본이 한 번 뽑힌 결과의 흔들림입니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>사건 수와 중도절단 비율, 추적 기간(중앙값), 변수와 단위, HR과 신뢰구간, 비례위험 점검 방법을 적습니다. (아래는 위 가상의 예입니다.)</p><p><code>200명 중 125명에서 사건이 발생하였다. Cox 비례위험모형에서 처치군의 위험은 대조군의 1.65배였다(HR = 1.65, 95% CI [1.16, 2.36], p = 0.006). 슈엔펠트 잔차 검정에서 비례위험 가정의 위반은 발견되지 않았다.</code></p><ul><li>Kaplan–Meier 곡선과 로그순위 검정(비조정 비교)을 먼저 제시하고, Cox 모형으로 조정 효과를 보고하는 순서가 흔합니다.</li><li>다변량 모형이면 어떤 변수를 왜 넣었는지(사전 지정 여부)와 사건 수 대비 변수 수를 적습니다.</li><li>HR이 1에 가깝고 신뢰구간이 넓으면 “효과 없음”이 아니라 “이 자료로는 불확실”입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“Kaplan-Meier survival analysis and Cox proportional hazards models were used to evaluate treatment persistence.”</blockquote><p class="te-cite">항정신병약물의 장기지속형 주사제 종류에 따른 치료 지속성 차이에 대한 분석, Korean Journal of Schizophrenia Research, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095759" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“둘째, Cox의 비례위험 모형(1972)을 통한 생존분석에서는 설립일로부터 상장일 까지 소요기간이 길고, 기업규모가 크면 상장폐지 확률은 감소하였다.”</blockquote><p class="te-cite">재무정보의 비대칭이 IPO 기업의 생존에 미치는 영향에 관한 연구, Journal of The Korean Data Analysis Society, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002363616" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“산업분류, 기업 규모, 기업 형태, 종업원 수, 계열 여부 등의 비재무적인 요소에 따른 생존율의 차이를 알아보기 위해 카플란-마이어 분석을 수행하였으며, 비재무적 요소들이 생존에 미치는 영향은 콕스비례위험모형을 이용하여 파악하였다.”</blockquote><p class="te-cite">비재무정보를 이용한 스포츠서비스산업 기업의 생존에 관한 연구, 한국스포츠산업경영학회지, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002617628" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"콕스 비례위험모형 분석 결과, 흡연자군은 비흡연자군에 비해 사망 위험이 유의하게 높았다 (위험비 HR=1.85, 95% CI [1.21, 2.83], p&lt;.05)."</div>
   <p>이 문장은 "다른 변수들을 통제한 상태에서, 흡연자는 비흡연자보다 특정 시점에 사건이 발생할 위험이 약 1.85배 높다"는 뜻입니다. 여기서 나온 위험비(hazard ratio)가 콕스 모형의 핵심 결과값입니다.</p>
 
@@ -166,6 +189,21 @@
 
   <h2>주의할 점</h2>
   <p>콕스 비례위험모형은 "비례위험 가정"이 성립할 때만 결과가 신뢰할 수 있습니다. 시간이 지나면서 위험비가 크게 변한다면(예: 초기에는 위험이 컸지만 나중엔 역전되는 경우) 이 가정이 깨진 것이므로 별도의 검정과 대안 모형이 필요합니다. 이 모형은 <a href="survival-analysis.html">생존분석</a>의 한 방법이며, 단순 생존곡선 비교보다 여러 변수의 영향을 동시에 통제할 수 있다는 점이 다릅니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>생존분석의 도구들은 “무엇을 추정하나”가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">콕스 비례위험모형</th><td>여러 변수가 위험에 미치는 영향(HR)</td><td>공변량 조정 가능. 비례위험 가정 필요</td></tr><tr><th scope="row"><a href="kaplan-meier-estimator.html">카플란–마이어 추정</a></th><td>시간에 따른 생존확률 곡선</td><td>공변량 조정 없음. 집단 비교는 로그순위 검정</td></tr><tr><th scope="row"><a href="hazard-ratio.html">위험비(HR)</a></th><td>Cox 모형이 내놓는 효과 측도</td><td>순간 위험의 비</td></tr><tr><th scope="row"><a href="logistic-regression.html">로지스틱 회귀</a></th><td>일정 기간 내 사건 발생 여부(오즈비)</td><td>사건까지의 시간과 중도절단을 무시</td></tr><tr><th scope="row"><a href="survival-analysis.html">생존분석</a></th><td>시간–사건 자료 분석의 상위 틀</td><td>Cox 모형은 그 안의 한 방법</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cox, D. R. (1972). Regression models and life-tables. Journal of the Royal Statistical Society: Series B, 34(2), 187–220.</li>
+    <li>Cox, D. R. (1975). Partial likelihood. Biometrika, 62(2), 269–276.</li>
+    <li>Grambsch, P. M., &amp; Therneau, T. M. (1994). Proportional hazards tests and diagnostics based on weighted residuals. Biometrika, 81(3), 515–526.</li>
+    <li>Peduzzi, P., Concato, J., Feinstein, A. R., &amp; Holford, T. R. (1995). Importance of events per independent variable in proportional hazards regression analysis. II. Accuracy and precision of regression estimates. Journal of Clinical Epidemiology, 48(12), 1503–1510.</li>
+    <li>Collett, D. (2015). Modelling Survival Data in Medical Research (3rd ed.). CRC Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="regression.html">회귀분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="robust-regression.html">강건회귀</a><a href="loess-regression.html">국소회귀</a><a href="lasso-regression.html">라쏘 회귀</a><a href="ridge-regression.html">릿지 회귀</a><a href="partial-least-squares-regression.html">부분최소제곱회귀</a><a href="quantile-regression.html">분위수회귀</a><a href="elastic-net-regression.html">엘라스틱넷 회귀</a><a href="hierarchical-regression.html">위계적 회귀분석</a><a href="generalized-additive-model.html">일반화가법모형</a><a href="generalized-linear-model.html">일반화선형모형</a><a href="principal-component-regression.html">주성분회귀</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

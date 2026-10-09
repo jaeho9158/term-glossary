@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/minimum-description-length.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>최소기술길이 원리는 모형의 적합도와 복잡도 사이의 트레이드오프를 정보이론이라는 독립적인 틀로 정당화하기 때문에, AIC·BIC 같은 전통적 모형 선택 기준을 이론적으로 뒷받침하거나 비교하는 논의에서 자주 인용됩니다. 또한 데이터 압축과 통계적 학습을 같은 언어로 연결하는 관점을 제공해, 기계학습에서 모형 복잡도를 규제(regularization)하는 원리를 설명할 때도 개념적 근거로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>최소기술길이(MDL) 원리는 “자료의 규칙성을 잘 잡은 모형은 자료를 짧게 압축한다”는 생각에서 출발합니다. 모형 선택에서는 <strong>모형을 적는 길이 + 그 모형으로 자료를 적는 길이</strong>의 합이 가장 짧은 모형을 고릅니다(Rissanen, 1978).</p><p><code>L(총) = L(모형) + L(자료 | 모형)</code></p><ul><li>복잡한 모형은 L(자료 | 모형)이 작아도(잘 맞아도) L(모형)이 커서 합이 줄지 않습니다. 이것이 과적합을 막는 장치입니다.</li><li>길이는 비트(또는 nat)로 잰 부호 길이입니다. 확률분포는 부호와 일대일로 대응하므로 L(자료 | 모형) = −log(우도)입니다.</li><li>가장 단순한 “두 부분 부호화”에서 파라미터가 k개인 모형의 L(모형)은 약 (k/2)·log n으로 근사되며, 이는 BIC의 벌점과 같은 꼴입니다(Schwarz, 1978). 다만 정교한 MDL(정규화 최대우도 부호 등)은 BIC와 다른 벌점을 줍니다.</li><li>베이즈 추론의 사전분포 없이도 정의될 수 있고, 모형이 “참”이라고 가정하지 않는 점이 특징입니다(Grünwald, 2007).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 예, 직접 계산) 참 모형이 2차식 1 + 0.5x − 0.08x² (오차 SD 0.5)인 모의 자료 40개에 0~5차 다항식을 맞추고, 근사 MDL <code>(n/2)·ln(RSS/n) + (k/2)·ln n</code>과 AIC를 비교합니다(k는 계수 수, 같은 상수를 뺀 값).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>차수</th><th>계수 수 k</th><th>RSS</th><th>근사 MDL</th><th>AIC</th></tr></thead><tbody><tr><td>0</td><td>1</td><td>63.40</td><td>11.06</td><td>20.42</td></tr><tr><td>1</td><td>2</td><td>24.49</td><td>-6.12</td><td>-15.62</td></tr><tr><td>2</td><td>3</td><td>6.31</td><td>-31.40</td><td>-67.87</td></tr><tr><td>3</td><td>4</td><td>6.23</td><td>-29.82</td><td>-66.40</td></tr><tr><td>4</td><td>5</td><td>5.94</td><td>-28.91</td><td>-66.27</td></tr><tr><td>5</td><td>6</td><td>5.69</td><td>-27.92</td><td>-65.98</td></tr></tbody></table></div><p>차수를 높일수록 RSS는 계속 줄지만(맞춤은 좋아짐) 벌점이 더해져 근사 MDL은 2차에서 최소가 됩니다. RSS만 봤다면 5차를 골랐을 것입니다. 이 예에서는 AIC도 같은 선택을 하지만, 표본이 크면 BIC·MDL 쪽 벌점이 더 커서 더 단순한 모형을 고르는 경향이 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“MDL은 가장 단순한 모형을 고르는 규칙이다”</strong>: 단순함이 아니라 총 부호 길이(적합 + 복잡도)의 최소화입니다. 자료가 충분하면 복잡한 모형도 선택됩니다.</li><li><strong>“MDL = BIC”</strong>: 조잡한(두 부분) 부호화의 근사에서 닮았을 뿐, 정교한 MDL은 파라미터 공간의 기하까지 반영해 다른 값을 줍니다.</li><li><strong>“압축이 곧 인과·참 모형을 알려 준다”</strong>: MDL은 주어진 후보 중에서 자료를 잘 압축하는 모형을 고를 뿐 참을 보장하지 않습니다.</li><li><strong>“부호화 방식은 상관없다”</strong>: 파라미터 정밀도나 부호 설계에 따라 결과가 달라질 수 있어, 실제 사용에서 부호화를 정의해야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"최소기술길이 원리에 근거하여 여러 후보 모형 중 자료를 가장 효율적으로 압축하는 모형을 선택하였다."</div>
   <p>AIC, BIC와 같은 전통적인 모형 선택 기준의 정보이론적 대안 또는 이론적 근거로 언급된다.</p>
 
@@ -164,6 +182,21 @@
 
   <h2>주의할 점</h2>
   <p>최소기술길이 원리를 실제로 계산하려면 부호화 방식을 구체적으로 정의해야 하는데, 이 선택에 따라 결과가 달라질 수 있어 실무 적용에는 상당한 이론적 정교함이 요구된다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>모형 선택 기준은 “무엇을 최소화하는가”가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">벌점의 근거</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">MDL</th><td>총 부호 길이(모형 + 자료)</td><td>정보이론. 모형이 참이라고 가정하지 않음</td></tr><tr><th scope="row"><a href="bayesian-information-criterion.html">BIC</a></th><td>사후확률 근사(−2 ln 우도 + k ln n)</td><td>n이 크면 단순한 모형을 선호. 조잡한 MDL과 같은 꼴</td></tr><tr><th scope="row"><a href="akaike-information-criterion.html">AIC</a></th><td>예측 오차(KL 정보량) 추정</td><td>예측이 목적. BIC보다 벌점이 약함</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rissanen, J. (1978). Modeling by shortest data description. Automatica, 14(5), 465–471.</li>
+    <li>Schwarz, G. (1978). Estimating the dimension of a model. The Annals of Statistics, 6(2), 461–464.</li>
+    <li>Barron, A., Rissanen, J., &amp; Yu, B. (1998). The minimum description length principle in coding and modeling. IEEE Transactions on Information Theory, 44(6), 2743–2760.</li>
+    <li>Hansen, M. H., &amp; Yu, B. (2001). Model selection and the principle of minimum description length. Journal of the American Statistical Association, 96(454), 746–774.</li>
+    <li>Grünwald, P. D. (2007). The Minimum Description Length Principle. MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

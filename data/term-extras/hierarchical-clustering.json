@@ -1,0 +1,54 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>군집의 수를 미리 정하지 않고, 개체들이 <strong>어떤 순서로 가까워지는지</strong> 나무(덴드로그램)로 보고 싶을 때 씁니다. 표본이 수천 개 이하이고 거리 행렬을 계산할 수 있는 탐색적 분류에 적합합니다.</p><ul><li><strong>응집형</strong>: 개체 하나하나에서 시작해 가장 가까운 군집 둘을 계속 합칩니다(대부분의 소프트웨어 기본).</li><li><strong>입력</strong>: 거리 행렬(유클리드, 맨해튼, 상관 기반 거리 등)과 연결법. 변수 단위가 다르면 표준화를 먼저 합니다.</li><li>표본이 매우 크면 거리 행렬이 n²개라 메모리와 시간이 부담이 됩니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>두 군집 사이의 거리를 어떻게 정의하느냐(연결법)가 결과를 정합니다.</p><table><thead><tr><th>연결법</th><th>군집 사이 거리</th><th>경향</th></tr></thead><tbody><tr><td>단일(최단)연결</td><td>두 군집의 가장 가까운 두 점 사이</td><td>사슬처럼 길게 이어진 군집이 생기기 쉬움(chaining)</td></tr><tr><td>완전(최장)연결</td><td>가장 먼 두 점 사이</td><td>지름이 비슷한 조밀한 군집</td></tr><tr><td>평균연결</td><td>모든 점 쌍의 거리 평균</td><td>두 극단의 절충</td></tr><tr><td>Ward 연결</td><td>합쳤을 때 군집 내 제곱합(분산)이 늘어나는 양이 최소</td><td>크기가 비슷한 군집. 유클리드 거리 가정</td></tr></tbody></table><p>(가상의 예, 직접 계산) 1차원 점 1, 2, 5, 7, 15를 합치는 순서는 같고 <strong>합치는 높이</strong>가 다릅니다. 세 번째 합병(맨 왼쪽 두 점 묶음과 5·7 묶음)의 높이는 단일연결 3.0, 평균연결 4.5, 완전연결 6.0이고, 마지막(15를 합치는) 높이는 각각 8.0, 11.25, 14.0입니다. 앞의 두 합병(1·2, 5·7)은 높이 1과 2로 연결법과 상관없이 같습니다.</p><ul><li><strong>덴드로그램</strong>의 세로축은 합쳐진 높이(거리)입니다. 높이가 크게 뛰는 곳에서 자르는 방법이 흔히 쓰입니다.</li><li><strong>군집 수</strong>는 자르는 높이로 정하며, 실루엣 계수 같은 보조 지표와 연구 목적을 함께 고려합니다.</li><li><strong>코페네틱 상관계수</strong>(덴드로그램의 거리와 원래 거리의 상관)로 나무가 원래 거리를 얼마나 잘 보존하는지 점검하기도 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>논문에는 변수, 표준화 여부, 거리 측도, 연결법, 군집 수를 정한 근거와 소프트웨어를 적습니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>응답자의 이용 패턴을 유클리드 거리와 Ward 연결법으로 계층적 군집분석하였다. 변수는 Z점수로 표준화하였고, 덴드로그램에서 합병 거리가 크게 증가하는 지점을 기준으로 3개 군집을 선택하였다(실루엣 평균 = 0.41).</code></p><ul><li>군집별 특성(평균 등)을 표로 제시하고, 군집 간 차이를 분산분석으로 검정하는 경우가 많지만, 군집은 자료의 차이에서 만들어졌으므로 이 검정의 p값은 서술용으로만 봅니다.</li><li>연결법을 바꾸어도 결론이 유지되는지(안정성) 확인하면 설득력이 높아집니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "군집분석의 대표 방법들은 “군집 수를 미리 정하는가”와 “군집의 모양”으로 구분합니다.",
+    "headers": [
+      "용어",
+      "군집 수",
+      "특징"
+    ],
+    "rows": [
+      [
+        "계층적 군집분석",
+        "사후에 자르는 높이로 결정",
+        "나무 구조를 보여 줌. 한번 합친 것은 되돌리지 않음"
+      ],
+      [
+        "[[k-means-clustering|k-평균 군집화]]",
+        "미리 k를 지정",
+        "큰 자료에 빠름. 둥근 군집 가정, 초기값에 민감"
+      ],
+      [
+        "[[dbscan|DBSCAN]]",
+        "밀도로 자동 결정",
+        "이상치를 노이즈로 분리. 임의 모양 군집 가능"
+      ],
+      [
+        "[[cluster-analysis|군집분석]]",
+        "—",
+        "위 방법들을 포괄하는 상위 개념"
+      ]
+    ]
+  },
+  "references": [
+    "Ward, J. H. (1963). Hierarchical grouping to optimize an objective function. Journal of the American Statistical Association, 58(301), 236–244.",
+    "Johnson, S. C. (1967). Hierarchical clustering schemes. Psychometrika, 32(3), 241–254.",
+    "Kaufman, L., & Rousseeuw, P. J. (1990). Finding Groups in Data: An Introduction to Cluster Analysis. Wiley.",
+    "Murtagh, F., & Contreras, P. (2012). Algorithms for hierarchical clustering: An overview. WIREs Data Mining and Knowledge Discovery, 2(1), 86–97."
+  ]
+}

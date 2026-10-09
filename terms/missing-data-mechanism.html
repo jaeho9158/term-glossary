@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/missing-data-mechanisms.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,27 @@
   <h2>왜 중요한가</h2>
   <p>결측자료 메커니즘은 어떤 통계 분석 방법을 써도 그 타당성이 결측이 어떻게 발생했는지에 대한 가정에 의존하기 때문에, 임상시험·역학·설문조사 등 실측 자료를 다루는 거의 모든 실증 연구에서 반드시 검토되는 개념입니다. 결측 메커니즘을 잘못 가정하면 추정치가 체계적으로 편향될 수 있어, 연구 결과의 신뢰성을 판단할 때 결측 처리 방법과 함께 그 근거가 되는 메커니즘 가정을 확인하는 것이 표준적인 절차로 자리잡고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>분석 변수 Y에 대해 “결측인가(R = 1)”를 나타내는 변수를 두고, 결측 여부가 무엇에 의존하는지로 세 가지를 나눕니다(Rubin, 1976).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유형</th><th>결측 확률은 무엇에 의존하나</th><th>예</th></tr></thead><tbody><tr><td>MCAR (완전 무작위 결측)</td><td>아무것에도 의존하지 않음</td><td>검사 장비가 우연히 고장 나서 값이 사라짐</td></tr><tr><td>MAR (무작위 결측)</td><td><strong>관측된</strong> 다른 변수에만 의존</td><td>나이가 많은 사람이 소득 문항에 더 자주 응답 안 함(나이는 관측됨)</td></tr><tr><td>MNAR (비무작위 결측)</td><td>결측된 <strong>값 자체</strong>에도 의존</td><td>소득이 높은 사람일수록 소득을 안 밝힘</td></tr></tbody></table></div><ul><li>MCAR에서는 결측이 없는 사례만 분석(완전사례 분석)해도 편향이 없지만 정보가 줄어 효율은 떨어집니다.</li><li>MAR에서는 관측된 변수를 올바르게 모형화하는 최대우도·다중대체가 편향 없는 추정을 줍니다. 완전사례 분석은 편향될 수 있습니다.</li><li>MNAR에서는 결측 과정을 모형(선택모형, 패턴혼합모형)으로 따로 가정해야 하고, 그 가정은 자료로 검증할 수 없습니다.</li><li>같은 자료 안에서도 변수마다 메커니즘이 다를 수 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 예, 직접 계산) 5,000명의 나이와 소득(만 원)을 만들고 소득을 약 30% 지웠습니다. 참 평균은 299.3입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>결측 방식</th><th>결측률</th><th>완전사례 평균</th><th>나이로 보정한 평균</th></tr></thead><tbody><tr><td>MCAR</td><td>30%</td><td>299.4</td><td>299.3</td></tr><tr><td>MAR</td><td>30%</td><td>286.1</td><td>300.4</td></tr><tr><td>MNAR</td><td>32%</td><td>268.1</td><td>275.4</td></tr></tbody></table></div><p>MCAR에서는 둘 다 참값에 가깝습니다. MAR에서는 완전사례 평균이 낮게 치우치지만(나이든 사람의 소득 결측이 많고, 나이가 많으면 소득이 높기 때문) 관측된 나이로 보정하면 참값에 가까워집니다. MNAR에서는 소득 자체가 결측에 영향을 주므로 나이로 보정해도 크게 낮게 나옵니다. 이 비교는 모의 실험이라 참값을 알기 때문에 가능합니다. 실제 자료에서는 결측된 값을 볼 수 없으므로 자료만으로 MAR인지 MNAR인지 구별할 수 없습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“MAR은 결측이 무작위라는 뜻이라 문제없다”</strong>: MAR은 관측된 변수를 <em>조건으로 하면</em> 무작위라는 뜻이어서, 보정하지 않으면 편향이 생깁니다.</li><li><strong>“Little의 MCAR 검정이 유의하지 않으면 MCAR이다”</strong>: 유의하지 않다는 것은 MCAR을 기각하지 못했다는 뜻이며, 표본이 작으면 검정력이 낮습니다. MAR과 MNAR을 구별해 주지도 못합니다.</li><li><strong>“결측률이 낮으면 안전하다”</strong>: 결측률이 낮아도 MNAR이면 편향될 수 있습니다. 결측의 이유가 더 중요합니다.</li><li><strong>“평균 대체 등으로 채우면 결측 문제가 사라진다”</strong>: 단일 대체는 변동을 과소평가합니다. 다중대체나 최대우도로 불확실성을 반영해야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“먼저 KCYPS(Korean Chidren and Youth Panel Survey) 자료의 특징을 모방하여 340개 변수와 2,000명 자료를 생성하고 MAR 또는 MNAR 결측 메커니즘으로 결측을 발생시켰다.”</blockquote><p class="te-cite">사회과학 대용량 자료 분석을 위한 벌점회귀모형과 결측처리기법의 성능 비교: 몬테카를로 모의실험, 교육평가연구, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002537203" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"결측이 관측된 공변량에만 의존하는 무작위결측(MAR) 가정 하에 다중대체법을 적용하였다."</div>
   <p>결측치를 처리하기 전에 그 발생 메커니즘을 명확히 규정함으로써 적절한 대체 방법이나 분석 전략을 선택하는 근거로 사용된다.</p>
 
@@ -167,6 +188,21 @@
 
   <h2>주의할 점</h2>
   <p>자료만으로는 MAR인지 MNAR인지 구별하는 것이 원칙적으로 불가능한 경우가 많아, 결측 메커니즘에 대한 가정은 상당 부분 연구자의 전문적 판단에 의존할 수밖에 없다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>결측 관련 용어는 층위가 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">층위</th><th scope="col">내용</th></tr></thead><tbody><tr><th scope="row">결측 메커니즘</th><td>결측이 생기는 이유의 분류</td><td>MCAR, MAR, MNAR(이 문서). 대표 표제어는 <a href="missing-data-mechanisms.html">결측 메커니즘(MCAR/MAR/MNAR)</a></td></tr><tr><th scope="row"><a href="littles-mcar-test.html">Little의 MCAR 검정</a></th><td>검정</td><td>MCAR인지 점검하는 도구</td></tr><tr><th scope="row"><a href="multiple-imputation.html">다중대체</a></th><td>처리 방법</td><td>MAR 가정 하에서 많이 쓰이는 처리법</td></tr><tr><th scope="row"><a href="missing-data.html">결측치</a></th><td>자료의 상태</td><td>값이 비어 있는 것 자체</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rubin, D. B. (1976). Inference and missing data. Biometrika, 63(3), 581–592.</li>
+    <li>Little, R. J. A., &amp; Rubin, D. B. (2019). Statistical Analysis with Missing Data (3rd ed.). Wiley.</li>
+    <li>Schafer, J. L., &amp; Graham, J. W. (2002). Missing data: Our view of the state of the art. Psychological Methods, 7(2), 147–177.</li>
+    <li>Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. Journal of the American Statistical Association, 83(404), 1198–1202.</li>
+    <li>Enders, C. K. (2010). Applied Missing Data Analysis. Guilford Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

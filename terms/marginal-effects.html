@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/marginal-effects.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,27 @@
   <h2>왜 중요한가</h2>
   <p>비선형 모형의 회귀계수는 척도가 로그 오즈나 잠재변수 단위로 표현되어 일반 독자가 크기를 직관적으로 가늠하기 어렵기 때문에, 정책 효과나 개입 효과의 실질적 크기를 전달해야 하는 사회과학·보건학·경제학 논문에서 한계효과가 표준적인 보고 관행으로 자리잡았습니다. 특히 정책 제안이나 실무적 함의를 논의하는 절에서는 "확률이 몇 퍼센트포인트 변하는가"라는 형태로 결과를 제시해야 설득력이 생기기 때문에, 로지스틱·프로빗·포아송 회귀를 쓰는 거의 모든 응용 논문에서 함께 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>모형이 비선형이면(로짓, 프로빗, 포아송 등) 계수 β는 확률이나 기댓값에 대한 효과가 아닙니다. 한계효과는 <strong>결과의 기댓값(예: 확률)이 x 한 단위 변할 때 변하는 양</strong>을 직접 구합니다.</p><ul><li>로짓: <code>∂P/∂x = β · P(1 − P)</code>. 프로빗: <code>β · φ(xβ)</code>. 같은 β라도 P가 .5 근처일 때 가장 크고(로짓에서 β/4), P가 0이나 1에 가까울수록 작아집니다.</li><li>단위는 결과의 단위입니다. 확률이면 0~1 사이 값, 100을 곱하면 백분율포인트(%p)입니다.</li><li>연속 변수는 미분(순간 기울기), 이분형·범주형 변수는 0 → 1로 바꿀 때 예측값 차이(이산 변화)로 계산합니다.</li><li>표준오차는 델타 방법이나 부트스트랩으로 구합니다.</li></ul><p><strong>어디서 구하느냐</strong>에 따라 세 가지가 있습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>종류</th><th>계산</th><th>특징</th></tr></thead><tbody><tr><td>평균 한계효과(AME)</td><td>모든 관측치에서 구한 한계효과의 평균</td><td>표본 전체에 대한 “평균적 효과”. 현재 많이 권장</td></tr><tr><td>평균에서의 한계효과(MEM)</td><td>모든 변수가 평균일 때의 한계효과</td><td>실제로 존재하지 않는 “평균인 사람”에서의 값</td></tr><tr><td>대표값에서의 한계효과(MER)</td><td>연구자가 정한 값(예: 여성, 40세)에서</td><td>구체적 사례를 설명하기 좋음</td></tr></tbody></table></div>
+
+  <h2>해석 기준</h2>
+  <p>기준은 “크기가 얼마나 되는가”입니다. 확률 단위라서 p값과 달리 실질적 크기를 바로 읽을 수 있습니다. 다만 몇 %p부터 “큰” 효과인지는 분야와 결과 변수의 기본 발생률에 따라 다르며 통일된 기준은 없습니다.</p><ul><li>한계효과의 <strong>부호</strong>는 (상호작용항이 없는 단일지수 모형에서) 계수의 부호와 같습니다.</li><li>상호작용항이 있으면 계수나 한계효과의 부호와 유의성이 변수 값에 따라 달라질 수 있으므로 값마다 구해야 합니다(Ai &amp; Norton, 2003).</li><li>오즈비는 x와 무관하게 일정하지만 확률 단위 한계효과는 x에 따라 달라집니다. 두 지표는 질문이 다릅니다.</li></ul><p>(가상의 예, 직접 계산) 로지스틱 모형 P = 1/(1 + e<sup>−(−1 + 0.8x)</sup>)에서 x = −1, 0, 0.5, 1, 1.5, 2, 3인 7명입니다. 계수 0.8의 오즈비는 e<sup>0.8</sup> = 2.23로 일정합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x</th><th>예측확률 P</th><th>한계효과 0.8·P(1 − P)</th></tr></thead><tbody><tr><td>-1.0</td><td>0.142</td><td>0.097</td></tr><tr><td>0.0</td><td>0.269</td><td>0.157</td></tr><tr><td>0.5</td><td>0.354</td><td>0.183</td></tr><tr><td>1.0</td><td>0.450</td><td>0.198</td></tr><tr><td>1.5</td><td>0.550</td><td>0.198</td></tr><tr><td>2.0</td><td>0.646</td><td>0.183</td></tr><tr><td>3.0</td><td>0.802</td><td>0.127</td></tr></tbody></table></div><p>AME는 7개 값의 평균인 0.163이고, 평균 x(= 1)에서의 MEM은 0.198으로 서로 다릅니다. x가 0에서 1로 바뀔 때 예측확률 차이(이산 변화)는 0.181입니다. 같은 계수에서 나온 숫자라도 어느 것을 보고하는지에 따라 값이 달라진다는 점이 핵심입니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>어떤 종류(AME, MEM, MER)인지, 어떤 값에서 구했는지, 단위(%p), 표준오차나 신뢰구간, 사용한 패키지(Stata의 margins, R의 marginaleffects 등)를 밝힙니다. (아래 수치는 위 가상의 예를 형식에 맞춘 것입니다.)</p><p><code>평균 한계효과(AME)는 0.163(SE = 0.021)로, x가 1 단위 증가하면 사건 발생 확률이 평균적으로 약 16.3%p 증가하였다(p &lt; .001).</code></p><ul><li>로지스틱 회귀 결과표에는 계수(또는 오즈비)와 한계효과를 나란히 싣는 경우가 많습니다.</li><li>“한계효과”만 쓰고 종류를 쓰지 않으면 재현할 수 없습니다.</li><li>경제학에서는 “한계효과(marginal effect)”가 미분 의미이고, 이산 변화는 따로 구분하는 경우도 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“또한 최근 널리 사용되는 다항 회귀분석의 경우처럼, 회귀계수를 직접 해석하기 어려운 경우에 독립변수 값의 변화에 따라 사건발생 확률의 변화를 나타내는 한계효과 해석의 중요성을 지적하였다.”</blockquote><p class="te-cite">행정학 분야의 로지스틱 회귀분석 활용 절차와 쟁점, 현대사회와 행정, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002294633" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"평균 한계효과 분석 결과, 소득이 100만원 증가할 때 이직 확률은 평균 2.3%p 감소하는 것으로 나타났다 (p < 0.01)."</div>
   <p>이 문장은 "로지스틱 회귀에서 나온 계수를 그대로 보고하는 대신, 소득 증가가 실제 이직 확률을 몇 퍼센트포인트 낮추는지를 계산해서 보고했다"는 뜻입니다. 회귀계수 자체는 로그 오즈 단위라 직관적이지 않기 때문에, 이렇게 확률 단위로 바꿔 해석을 돕는 것입니다.</p>
 
@@ -163,6 +184,20 @@
 
   <h2>주의할 점</h2>
   <p>한계효과는 계산 기준에 따라 값이 달라집니다. "평균에서의 한계효과(MEM)"는 모든 변수가 평균값일 때의 효과이고, "평균 한계효과(AME)"는 모든 관측치 각각에서 구한 한계효과의 평균입니다. 어떤 방식을 썼는지 논문에 명시하지 않으면 결과 해석이 달라질 수 있으므로, <a href="logistic-regression.html">로지스틱 회귀</a>나 <a href="odds-ratio.html">교차비(오즈비)</a>와 함께 보고할 때는 계산 기준을 반드시 밝혀야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>로지스틱 회귀의 결과를 말하는 방식이 여럿입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">단위</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">한계효과</th><td>확률(%p)</td><td>x에 따라 값이 달라짐. 직관적</td></tr><tr><th scope="row"><a href="odds-ratio.html">오즈비</a></th><td>비(배수)</td><td>x와 무관하게 일정. 확률과 직관이 다름</td></tr><tr><th scope="row">회귀계수 β</th><td>로그 오즈</td><td>방향과 상대 크기만 알려 줌</td></tr><tr><th scope="row"><a href="logistic-regression.html">로지스틱 회귀</a></th><td>—</td><td>한계효과가 필요한 대표 모형</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Williams, R. (2012). Using the margins command to estimate and interpret adjusted predictions and marginal effects. The Stata Journal, 12(2), 308–331.</li>
+    <li>Ai, C., &amp; Norton, E. C. (2003). Interaction terms in logit and probit models. Economics Letters, 80(1), 123–129.</li>
+    <li>Mood, C. (2010). Logistic regression: Why we cannot do what we think we can do, and what we can do about it. European Sociological Review, 26(1), 67–82.</li>
+    <li>Wooldridge, J. M. (2010). Econometric Analysis of Cross Section and Panel Data (2nd ed.). MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

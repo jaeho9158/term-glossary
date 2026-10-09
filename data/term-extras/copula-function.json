@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p><strong>스클라 정리(Sklar, 1959)</strong>: 두 변수 X, Y의 결합분포함수 H는 각각의 주변분포함수 F, G와 하나의 함수 C로 나뉩니다.</p><p><code>H(x, y) = C( F(x), G(y) )</code></p><ul><li>C가 코퓰러입니다. 주변분포의 값(0~1 사이의 확률 u = F(x), v = G(y))을 넣으면 결합 확률을 돌려주는 함수이며, u와 v의 주변분포가 모두 균일분포(0~1)인 결합분포함수입니다.</li><li>주변분포가 연속이면 C는 하나로 정해집니다. 그래서 “주변분포를 따로 고르고, 의존구조(C)를 따로 고르는” 모형화가 가능합니다.</li><li>두 변수가 독립이면 C(u, v) = u × v(독립 코퓰러)입니다.</li><li>증가 함수로 변환(로그, 제곱근 등)해도 코퓰러는 변하지 않습니다. 그래서 순위에 기반한 켄달의 타우, 스피어만 ρ 같은 의존 측도는 코퓰러만으로 결정되고 주변분포와 무관합니다.</li><li><strong>꼬리 의존성</strong>: 한 변수가 극단적으로 작을(클) 때 다른 변수도 극단일 확률의 극한값(λ<sub>L</sub>, λ<sub>U</sub>)입니다. 코퓰러 종류마다 다릅니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 공식에서 직접 계산) 켄달의 타우를 모두 .5로 맞춘 세 코퓰러를 비교합니다. 전체적인 연관 강도는 같은데 극단에서의 모습은 크게 다릅니다.</p><table><thead><tr><th>코퓰러</th><th>모수</th><th>켄달의 τ</th><th>하단 꼬리 의존 λ<sub>L</sub></th><th>상단 꼬리 의존 λ<sub>U</sub></th></tr></thead><tbody><tr><td>가우시안(정규)</td><td>ρ = 0.707</td><td>0.50</td><td>0</td><td>0</td></tr><tr><td>클레이튼(Clayton)</td><td>θ = 2</td><td>0.50</td><td>0.707</td><td>0</td></tr><tr><td>검벨(Gumbel)</td><td>θ = 2</td><td>0.50</td><td>0</td><td>0.586</td></tr></tbody></table><p>공식은 가우시안 τ = (2/π)·arcsin ρ, 클레이튼 τ = θ/(θ+2), λ<sub>L</sub> = 2<sup>−1/θ</sup>, 검벨 τ = 1 − 1/θ, λ<sub>U</sub> = 2 − 2<sup>1/θ</sup>입니다. 가우시안 코퓰러는 상관이 1 미만이면 양쪽 꼬리 의존이 0이라, 동반 폭락 같은 극단 사건의 동시 발생 확률을 낮게 잡을 수 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“코퓰러는 하나의 분포 이름이다”</strong>: 코퓰러는 의존구조를 나타내는 함수의 <em>계열</em>(가우시안, t, 클레이튼, 검벨, 프랭크 등)입니다. 어느 것을 쓰는지가 결론에 영향을 줍니다.</li><li><strong>“피어슨 상관계수가 같으면 의존 관계도 같다”</strong>: 상관계수는 선형 관계 한 숫자일 뿐입니다. 상관이 같아도 꼬리 의존은 다를 수 있고, 상관계수는 주변분포에도 영향을 받습니다.</li><li><strong>“코퓰러를 쓰면 인과가 드러난다”</strong>: 코퓰러는 함께 움직이는 방식을 기술할 뿐 방향이나 원인을 말하지 않습니다.</li><li><strong>“코퓰러를 적합시키면 극단 위험이 자동으로 정확해진다”</strong>: 꼬리는 자료가 가장 적은 곳이라 추정이 불안정합니다. 후보 코퓰러를 AIC·BIC 등으로 비교하고 적합도를 점검하는 절차가 필요합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "모두 “두 변수의 관계”를 말하지만 담는 정보의 양이 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇을 나타내나",
+      "한계"
+    ],
+    "rows": [
+      [
+        "코퓰러",
+        "의존구조 전체(중심부와 꼬리)",
+        "계열 선택이 필요하고 꼬리 추정이 불안정"
+      ],
+      [
+        "[[correlation|상관계수(피어슨)]]",
+        "선형 관계의 강도 한 숫자",
+        "비선형·꼬리 의존을 놓치고 주변분포에 영향받음"
+      ],
+      [
+        "[[kendalls-tau|켄달의 타우]]",
+        "순위 일치 정도",
+        "코퓰러만의 함수. 꼬리 모양은 알려 주지 않음"
+      ],
+      [
+        "[[spearman-correlation|스피어만 상관]]",
+        "순위 간 선형 상관",
+        "역시 단조 변환에 불변. 꼬리 의존은 포착하지 못함"
+      ]
+    ]
+  },
+  "references": [
+    "Sklar, A. (1959). Fonctions de répartition à n dimensions et leurs marges. Publications de l’Institut de Statistique de l’Université de Paris, 8, 229–231.",
+    "Nelsen, R. B. (2006). An Introduction to Copulas (2nd ed.). Springer.",
+    "Joe, H. (2014). Dependence Modeling with Copulas. CRC Press.",
+    "Embrechts, P., McNeil, A., & Straumann, D. (2002). Correlation and dependence in risk management: Properties and pitfalls. In M. A. H. Dempster (Ed.), Risk Management: Value at Risk and Beyond (pp. 176–223). Cambridge University Press."
+  ]
+}

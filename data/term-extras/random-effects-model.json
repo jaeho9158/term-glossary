@@ -1,0 +1,60 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>같은 개체(사람, 기업, 학교)를 여러 번 관측한 패널·반복측정 자료에서, 개체마다의 관측되지 않는 차이를 <strong>무작위로 뽑힌 값</strong>으로 보고 추정할 때 씁니다.</p><ul><li>핵심 가정: 개체 고유 효과가 설명변수와 <strong>상관없다</strong>(외생성). 이 가정이 틀리면 계수가 편향됩니다.</li><li>성별·국가처럼 시간에 따라 변하지 않는 변수의 효과를 추정하려면 고정효과모형으로는 불가능하고 임의효과모형이 필요합니다.</li><li>개체는 많고 관측 시점은 적은 자료에서 고정효과보다 효율적입니다(표준오차가 작습니다).</li><li>같은 모형을 분야에 따라 확률효과·변량효과·랜덤효과모형이라고도 부릅니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>모형은 y<sub>it</sub> = x<sub>it</sub>′β + u<sub>i</sub> + ε<sub>it</sub>이고, u<sub>i</sub>(분산 σ<sub>u</sub>²)가 개체 효과, ε<sub>it</sub>(분산 σ<sub>ε</sub>²)가 오차입니다.</p><ul><li><strong>ICC(급내상관) ρ = σ<sub>u</sub>² / (σ<sub>u</sub>² + σ<sub>ε</sub>²)</strong>: 전체 변동 중 개체 간 차이가 차지하는 비율입니다. 같은 개체의 두 관측치 사이의 상관과 같습니다.</li><li><strong>θ (준차분 계수)</strong>: 임의효과 추정은 y<sub>it</sub> − θ·ȳ<sub>i</sub>로 변환한 뒤 회귀하는 것과 같으며 θ = 1 − √[σ<sub>ε</sub>² / (σ<sub>ε</sub>² + Tσ<sub>u</sub>²)]입니다. θ = 0이면 단순 통합(pooled) OLS, θ = 1이면 고정효과(개체 평균을 완전히 뺌)입니다.</li><li><strong>하우스만 검정</strong>: 귀무가설은 “임의효과 추정이 일치(편향 없음)”입니다. 기각되면 고정효과를 선택합니다. 군집 강건 표준오차를 쓸 때는 기본 하우스만 검정이 맞지 않아 Mundlak 접근 등을 씁니다.</li></ul><p>(공식에서 직접 계산) 관측 시점 수 T와 분산비(σ<sub>u</sub>²/σ<sub>ε</sub>²)에 따른 θ입니다.</p><table><thead><tr><th></th><th>분산비 0.5 (ICC .33)</th><th>분산비 1 (ICC .50)</th><th>분산비 4 (ICC .80)</th></tr></thead><tbody><tr><td>T = 2</td><td>0.293</td><td>0.423</td><td>0.667</td></tr><tr><td>T = 5</td><td>0.465</td><td>0.592</td><td>0.782</td></tr><tr><td>T = 10</td><td>0.592</td><td>0.698</td><td>0.844</td></tr></tbody></table><p>개체 간 차이가 클수록, 그리고 관측 시점이 많을수록 θ가 1에 가까워져 임의효과 추정이 고정효과 추정과 비슷해집니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>방법 절에 고정효과/임의효과 선택 근거(하우스만 검정 결과, 변수의 성격)를 쓰고, 결과에는 개체 수와 총 관측 수를 함께 적습니다. (수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>하우스만 검정 결과 고정효과와 임의효과 추정치 사이에 유의한 차이가 없어(χ²(4) = 5.31, p = .257) 임의효과모형을 선택하였다. 개체 수는 120개, 총 관측치는 600개이며 ρ = .46이었다.</code></p><ul><li>시간불변 변수의 효과를 보고하려는 것이 선택 이유라면 그 점을 분명히 적습니다.</li><li>하우스만 검정 통과 여부만으로 가정이 참이라고 단정하지 않습니다(검정력이 낮을 수 있음).</li><li>σ<sub>u</sub>, σ<sub>ε</sub>, ρ를 함께 제시하면 개체 간·개체 내 변동 크기를 알 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "패널 자료의 개체 효과를 다루는 방법을 구분합니다.",
+    "headers": [
+      "용어",
+      "개체 효과를 어떻게 보나",
+      "가정·특징"
+    ],
+    "rows": [
+      [
+        "임의효과모형",
+        "분포에서 뽑힌 확률변수",
+        "개체 효과가 설명변수와 무상관이어야 함. 시간불변 변수 추정 가능"
+      ],
+      [
+        "[[fixed-effects-model|고정효과모형]]",
+        "개체마다 고정된 상수",
+        "설명변수와 상관 허용. 시간불변 변수 효과는 추정 불가"
+      ],
+      [
+        "[[mixed-effects-model|혼합효과모형]]",
+        "고정효과 + 임의효과를 함께 포함",
+        "계층·반복측정 자료의 더 일반적인 틀. 임의절편·임의기울기 가능"
+      ],
+      [
+        "[[random-effects-meta-analysis|랜덤효과 메타분석]]",
+        "연구마다 다른 참 효과(분포에서 뽑힘)",
+        "같은 “임의효과” 개념을 메타분석에 적용"
+      ],
+      [
+        "[[hausman-test|하우스만 검정]]",
+        "—",
+        "두 모형 중 무엇을 쓸지 정하는 검정"
+      ]
+    ]
+  },
+  "references": [
+    "Wooldridge, J. M. (2010). Econometric Analysis of Cross Section and Panel Data (2nd ed.). MIT Press.",
+    "Hausman, J. A. (1978). Specification tests in econometrics. Econometrica, 46(6), 1251–1271.",
+    "Mundlak, Y. (1978). On the pooling of time series and cross section data. Econometrica, 46(1), 69–85.",
+    "Laird, N. M., & Ware, J. H. (1982). Random-effects models for longitudinal data. Biometrics, 38(4), 963–974.",
+    "Baltagi, B. H. (2021). Econometric Analysis of Panel Data (6th ed.). Springer."
+  ]
+}

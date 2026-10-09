@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/residual-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,29 @@
   <h2>왜 중요한가</h2>
   <p>회귀모형의 결과 해석과 통계적 검정(p-value, 신뢰구간 등)은 모형의 기본 가정이 성립한다는 전제 위에서만 타당하기 때문에, 잔차분석은 논문에서 모형을 제시한 뒤 결과를 신뢰할 수 있는지를 보이는 필수적인 검증 단계로 다뤄집니다. 가정 위반을 방치한 채 나온 결론은 회귀계수의 유의성 판단 자체를 왜곡할 수 있어, 실험과학과 사회과학을 막론하고 회귀분석을 쓰는 거의 모든 논문에서 다뤄지는 절차입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>회귀모형을 적합한 뒤 “이 모형을 믿어도 되는가”를 확인할 때 씁니다. 잔차 e<sub>i</sub> = y<sub>i</sub> − ŷ<sub>i</sub>에 모형이 설명하지 못한 구조가 남아 있는지를 봅니다. 계수의 p값을 해석하기 <em>전</em>에 하는 점검이며, 선형회귀뿐 아니라 일반화선형모형(편차잔차 등), 분산분석에도 적용됩니다.</p><ul><li><strong>선형성</strong>: 잔차–예측값 그림에 곡선 모양이 없는가</li><li><strong>등분산성</strong>: 예측값에 따라 잔차의 폭이 달라지지 않는가</li><li><strong>독립성</strong>: 시간·공간 순서에 따라 잔차가 비슷하게 움직이지 않는가(더빈–왓슨 등)</li><li><strong>정규성</strong>: 잔차의 정규 Q–Q 그림이 직선에 가까운가(소표본 추론에서 중요)</li><li><strong>이상치·영향점</strong>: 유독 큰 잔차나 계수를 좌우하는 관측치가 있는가</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>그림이 검정보다 먼저입니다. 아래는 자주 보는 패턴입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>잔차–예측값 그림의 모양</th><th>의심되는 문제</th><th>대응</th></tr></thead><tbody><tr><td>U자·곡선 모양</td><td>선형성 위반(모형 형태 오류)</td><td>제곱항, 변환, 비선형 모형</td></tr><tr><td>깔때기(오른쪽으로 퍼짐·좁아짐)</td><td>이분산성</td><td>변환, 가중최소제곱, 강건 표준오차</td></tr><tr><td>시간순 그림에서 물결·연속된 부호</td><td>자기상관</td><td>자기상관 모형, 시계열 모형</td></tr><tr><td>한두 점이 멀리 떨어짐</td><td>이상치</td><td>입력 오류 확인, 영향력 진단 후 판단</td></tr><tr><td>무작위로 0 주변에 고르게</td><td>큰 문제 없음</td><td>—</td></tr></tbody></table></div><p>원잔차보다 <strong>스튜던트화(표준화) 잔차</strong> r<sub>i</sub> = e<sub>i</sub> / (s·√(1 − h<sub>ii</sub>))를 보는 것이 공정합니다. h<sub>ii</sub>는 레버리지로, 레버리지가 큰 점은 원잔차가 작게 나오기 때문입니다. 관례상 |r<sub>i</sub>|가 2를 넘으면 눈여겨보고 3을 넘으면 이상치 후보로 봅니다(정규 오차에서도 약 5%는 2를 넘으므로 절대 기준이 아닙니다).</p><p>(가상의 예, 직접 계산) 8개 점에 직선을 맞추면 ŷ = 0.78 + 1.75x, 잔차 표준편차 s = 0.99입니다. 마지막 점(x = 8, y = 13.0)의 원잔차는 -1.82, 레버리지 h = 0.42, 표준화 잔차는 -2.40로 가장 눈에 띕니다. 점 하나만으로 모형을 버리지는 않고, 이 값이 입력 오류인지 아니면 y가 x = 8 부근에서 꺾이는 신호인지 확인합니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>논문에는 어떤 가정을 어떤 그림과 검정으로 확인했는지를 짧게 적습니다. 그림은 부록으로 돌려도 됩니다. (수치는 형식을 보여 주는 가상의 값입니다.)</p><p><code>잔차의 정규 Q–Q 그림과 잔차–예측값 그림을 확인한 결과 선형성과 등분산성에 뚜렷한 위반은 없었다. Durbin–Watson 통계량은 1.98이었고, 표준화 잔차의 절댓값이 3을 넘는 관측치는 없었다(최댓값 2.41). Cook의 거리는 모두 1 미만이었다.</code></p><ul><li>“정규성 검정을 통과했으니 문제없다”처럼 p값 하나로 갈음하지 않고, 그림과 함께 설명합니다.</li><li>가정 위반이 있었다면 어떤 조치(변환, 강건 표준오차 등)를 했고 결론이 달라지는지를 밝힙니다.</li><li>한국어 논문의 방법 절에서는 흔히 “잔차의 독립성은 Durbin–Watson, 다중공선성은 VIF로 확인하였다”처럼 쓰입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“실재적과 추정재적 간의 잔차도분석 결과 ‘0’을 중심으로모두 고른 잔차를 보여 본 추정 결과를 이용함은 문제가 없을 것으로 판단되었다.”</blockquote><p class="te-cite">현실임분 생장특성에 의한 편백 임분수확표 개발, 한국산림과학회지, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002659386" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“예측 표류속도 및 표류방향의 예측값과 잔차의 분석 결과, 선형성과 독립성을 만족하였다.”</blockquote><p class="te-cite">실선에 의한 표류 예측모델에 관한 연구, 수산해양기술연구, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003059144" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“중다회귀분석 전, 다중공선성의 여부는 VIF 지수로 확인하였고, 잔차의 독립성 여부는 Durbin-Watson 지수에 의해 적합성을 검증하였다.”</blockquote><p class="te-cite">유아 어머니가 지각한 양육효능감과 사회적지지가 부모 소진에 미치는 영향, 학습자중심교과교육연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003023897" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"잔차분석(residual analysis) 결과, 잔차 산점도에서 뚜렷한 패턴이 관찰되지 않아 등분산성 가정이 충족됨을 확인하였다."</div>
   <p>이 문장은 "예측값과 잔차를 그래프로 그려봤더니 오차의 퍼짐 정도가 고르게 흩어져 있어서, 회귀모형이 전제하는 조건 중 하나(분산이 일정하다는 가정)가 잘 지켜지고 있었다"는 뜻입니다.</p>
 
@@ -158,7 +181,21 @@
   <p>잔차분석에서는 원래 잔차를 그대로 쓰기보다 표준화잔차나 스튜던트화잔차처럼 분산을 보정한 형태로 변환해 이상치를 더 공정하게 비교하는 경우가 많습니다. 또한 특정 관측치 하나가 회귀계수 추정에 지나치게 큰 영향을 미치는지를 살펴보는 <a href="cooks-distance.html">쿡의 거리</a>와 같은 영향력 진단 지표도 잔차분석과 함께 자주 다뤄지는데, 이는 잔차가 크다고 해서 반드시 그 관측치가 결과를 왜곡시킨다는 뜻은 아니며, 반대로 잔차가 작아도 지렛대점(leverage point)처럼 모형 전체에 큰 영향을 주는 경우가 있기 때문입니다.</p>
 
   <h2>주의할 점</h2>
-  <p>잔차분석은 한 가지 그림이나 지표만으로 끝나지 않습니다. 잔차가 특정 값 범위에서 한쪽으로 치우치면 등분산성이 깨진 것이고(<a href="breusch-pagan-test.html">브로이시-파간 검정</a>으로 확인), 시간 순서에 따라 잔차끼리 비슷하게 움직이면 독립성이 깨진 것이며, 잔차의 분포가 대각선에서 크게 벗어나면 정규성이 깨진 것입니다. 이 중 하나만 확인하고 모형이 문제없다고 단정해서는 안 됩니다.</p>
+  <p>잔차분석은 한 가지 그림이나 지표만으로 끝나지 않습니다. 예측값이 커짐에 따라 잔차의 흩어진 폭이 달라지면(깔때기 모양) 등분산성이 깨진 것이고(<a href="breusch-pagan-test.html">브로이시-파간 검정</a>으로 확인), 시간 순서에 따라 잔차끼리 비슷하게 움직이면 독립성이 깨진 것이며, 잔차의 분포가 대각선에서 크게 벗어나면 정규성이 깨진 것입니다. 이 중 하나만 확인하고 모형이 문제없다고 단정해서는 안 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>잔차에 대한 용어가 여럿이라 자주 섞입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">용도</th></tr></thead><tbody><tr><th scope="row">잔차 분석</th><td>잔차로 모형 가정을 점검하는 절차</td><td>가정 위반 진단</td></tr><tr><th scope="row"><a href="standardized-residual.html">표준화 잔차</a></th><td>잔차를 표준편차(와 레버리지)로 나눈 값</td><td>이상치 비교</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 관측치를 빼면 추정값이 얼마나 변하는지</td><td>영향점 진단(잔차 + 레버리지)</td></tr><tr><th scope="row"><a href="breusch-pagan-test.html">브로이시–파간 검정</a></th><td>이분산성 검정</td><td>등분산성 확인</td></tr><tr><th scope="row"><a href="durbin-watson-test.html">더빈–왓슨 검정</a></th><td>1차 자기상관 검정</td><td>독립성 확인</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Anscombe, F. J., &amp; Tukey, J. W. (1963). The examination and analysis of residuals. Technometrics, 5(2), 141–160.</li>
+    <li>Anscombe, F. J. (1973). Graphs in statistical analysis. The American Statistician, 27(1), 17–21.</li>
+    <li>Cook, R. D., &amp; Weisberg, S. (1982). Residuals and Influence in Regression. Chapman &amp; Hall.</li>
+    <li>Belsley, D. A., Kuh, E., &amp; Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="standardized-residual.html">표준화잔차</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -1,0 +1,56 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "사전분포 자체가 데이터에 영향을 주지 않았는지",
+      "replace": "사전분포가 결과를 지나치게 좌우하지 않았는지"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>신용구간(credible interval)은 <strong>사후분포</strong>에서 확률의 95%(또는 지정한 수준)를 담는 구간입니다. 베이즈 추론에서는 모수를 확률변수로 다루므로 “모수가 이 구간 안에 있을 확률이 95%”라고 그대로 말할 수 있습니다.</p><ul><li><strong>등꼬리구간</strong>(equal-tailed interval): 사후분포의 양쪽 꼬리를 각각 2.5%씩 잘라 낸 구간입니다. 사후 분위수만 구하면 되므로 계산이 간단합니다.</li><li><strong>최고사후밀도구간</strong>(HPD, highest posterior density interval): 같은 확률(예: 95%)을 담는 구간 중 <em>가장 짧은</em> 구간입니다. 구간 안의 모든 점이 구간 밖의 어떤 점보다 사후밀도가 높습니다. 사후분포가 비대칭이면 등꼬리구간과 달라집니다.</li><li>사후분포는 사전분포와 자료가 함께 만든 것이므로, 신용구간은 <strong>사전분포의 선택</strong>에 영향을 받습니다. 자료가 많아지면 사전분포의 영향은 줄어듭니다.</li><li>95%라는 수준은 관례일 뿐입니다. 논문에 따라 89%, 90%, 94% 등을 쓰기도 하므로 수준을 반드시 확인합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예) 어떤 시술을 받은 20명 중 14명이 성공했다고 합시다. 성공률 θ에 균등 사전분포 Beta(1, 1)을 두면 사후분포는 Beta(15, 7)이 됩니다.</p><table><thead><tr><th>구간</th><th>하한</th><th>상한</th><th>읽는 법</th></tr></thead><tbody><tr><td>95% 등꼬리 신용구간</td><td>0.478</td><td>0.854</td><td>θ가 이 안에 있을 사후확률이 95%</td></tr><tr><td>95% HPD 신용구간</td><td>0.491</td><td>0.864</td><td>같은 95% 중 가장 짧은 구간(비대칭이라 등꼬리와 다름)</td></tr><tr><td>참고: 95% Wald 신뢰구간</td><td>0.499</td><td>0.901</td><td>표본비율 .70 ± 1.96×표준오차. 해석은 “절차의 95%”</td></tr></tbody></table><p>같은 사후분포에서 “성공률이 .5보다 클 확률”도 바로 구할 수 있어 P(θ &gt; .5) ≈ 0.961입니다. 신뢰구간에서는 이런 문장을 쓸 수 없습니다. (직접 계산한 값이며, 사전분포를 바꾸면 구간도 바뀝니다.)</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“신용구간은 신뢰구간의 다른 이름이다”</strong>: 두 구간은 수치가 비슷하게 나오는 경우가 있어도 확률의 대상이 다릅니다. 신용구간은 모수에 대한 확률(사후분포)이고, 신뢰구간은 구간을 만드는 절차를 반복했을 때의 적중 비율입니다.</li><li><strong>“사전분포 없이 구한다”</strong>: 신용구간은 반드시 사전분포가 있어야 계산됩니다. 사전분포와 민감도 분석을 논문에서 밝혀야 합니다.</li><li><strong>“구간에 0이 없으면 효과가 있다”</strong>: 0을 포함하지 않는다는 사실만으로 효과의 크기나 실질적 의미를 말할 수는 없습니다. Kruschke(2015)는 “실질적으로 같다고 볼 구간(ROPE)”을 따로 정해 신용구간과 견주는 방법을 제안했습니다.</li><li><strong>“MCMC로 얻은 구간이면 믿어도 된다”</strong>: 표본추출이 수렴하지 않았다면 구간도 틀립니다. 수렴 진단(R̂, 유효표본크기 등)을 함께 확인합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름과 모양은 비슷하지만 “확률이 무엇에 대한 것인가”가 다릅니다.",
+    "headers": [
+      "용어",
+      "확률의 대상",
+      "구간이 말하는 것"
+    ],
+    "rows": [
+      [
+        "신용구간",
+        "모수(사후분포)",
+        "“모수가 이 구간에 있을 확률이 95%”. 사전분포가 필요"
+      ],
+      [
+        "[[confidence-interval|신뢰구간]]",
+        "구간을 만드는 절차",
+        "“같은 방법을 반복하면 구간의 95%가 참값을 포함”. 이미 만든 한 구간에는 확률을 붙이지 않음"
+      ],
+      [
+        "등꼬리구간 / HPD",
+        "모수(사후분포)",
+        "신용구간을 만드는 두 가지 방식. HPD가 더 짧고 비대칭 분포에서 차이가 남"
+      ]
+    ],
+    "note": "베이즈 추론의 전체 틀은 [[bayesian-inference|베이즈 추론]] 문서에서 볼 수 있습니다."
+  },
+  "references": [
+    "Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., & Rubin, D. B. (2013). Bayesian Data Analysis (3rd ed.). CRC Press.",
+    "Kruschke, J. K. (2015). Doing Bayesian Data Analysis: A Tutorial with R, JAGS, and Stan (2nd ed.). Academic Press.",
+    "Hoekstra, R., Morey, R. D., Rouder, J. N., & Wagenmakers, E.-J. (2014). Robust misinterpretation of confidence intervals. Psychonomic Bulletin & Review, 21(5), 1157–1164.",
+    "Chen, M.-H., & Shao, Q.-M. (1999). Monte Carlo estimation of Bayesian credible and HPD intervals. Journal of Computational and Graphical Statistics, 8(1), 69–92."
+  ]
+}
