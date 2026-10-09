@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>반도체 입자가 작아져 전자와 정공(전자가 빠진 자리)의 짝인 엑시톤의 크기(엑시톤 보어 반경)와 비슷하거나 더 작아지면, 전자와 정공의 움직임이 입자 크기로 제한됩니다. 그러면 에너지가 연속적이지 않고 띄엄띄엄한 값만 가지게 되고 [[band-gap|띠틈(밴드갭)]]이 커집니다.</li><li>결과적으로 <strong>입자가 작을수록 더 짧은 파장(청색 쪽)의 빛을 흡수·방출합니다.</strong> 같은 물질로도 크기만 바꿔 색을 고를 수 있는 것이 [[quantum-dot|양자점]]의 핵심입니다.</li><li>구형 입자의 첫 여기 에너지를 근사한 Brus(1984)의 식은 다음과 같습니다.<br><code>E(R) ≈ E<sub>g</sub> + (ħ²π² / 2R²)(1/m<sub>e</sub> + 1/m<sub>h</sub>) − 1.8 e² / (4π ε<sub>0</sub> ε R)</code><br>E<sub>g</sub>는 벌크 띠틈, R은 반지름, m<sub>e</sub>·m<sub>h</sub>는 전자·정공의 유효 질량, ε은 유전율입니다. 두 번째 항(구속 에너지)은 1/R²에 비례해 커지고, 세 번째 항(쿨롱 인력 보정)은 1/R에 비례해 작아서 입자가 작아질수록 구속 항이 지배합니다.</li><li>이 현상은 Ekimov와 Onushchenko(1981)가 유리 속의 반도체 미결정에서 관찰했고, Murray 외(1993)가 크기가 고른 CdSe 등의 나노결정을 합성하면서 크기에 따른 색 조절이 체계화되었습니다. 이후 Alivisatos(1996)가 분야를 개관했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>CdSe로 식을 계산해 봅니다. 문헌에서 흔히 쓰는 근삿값을 가정했습니다(E<sub>g</sub> = 1.74 eV, m<sub>e</sub> = 0.13 m<sub>0</sub>, m<sub>h</sub> = 0.45 m<sub>0</sub>, ε = 10.6. 값은 문헌마다 조금씩 다릅니다. 코드로 계산).</p><table><thead><tr><th>반지름 R(nm)</th><th>E(R)(eV)</th><th>대응 파장(nm)</th></tr></thead><tbody><tr><td>2</td><td>2.55</td><td>486 (청록)</td></tr><tr><td>3</td><td>2.07</td><td>598 (주황)</td></tr><tr><td>4</td><td>1.91</td><td>648 (적색)</td></tr><tr><td>6</td><td>1.80</td><td>688 (진한 적색)</td></tr></tbody></table><p>반지름이 커질수록 에너지가 벌크 값 1.74 eV(약 713 nm)에 가까워집니다. R = 6 nm가 되면 거의 벌크와 같아지는데, 이는 CdSe 엑시톤의 보어 반경이 수 nm(대략 5~6 nm로 보고)이어서 이 크기부터는 구속 효과가 약해지기 때문입니다. 단 이 식은 입자를 무한 퍼텐셜 우물로 보는 단순 모형이어서 아주 작은 입자에서는 실측보다 구속 효과를 크게 계산하는 경향이 있으므로 개념 설명용 근사로 읽어야 합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“작으면 무조건 양자 효과”가 아닙니다.</strong> 기준은 절대 크기가 아니라 엑시톤 보어 반경과의 비교입니다. 물질마다 보어 반경이 달라 효과가 나타나는 크기도 다릅니다.</li><li><strong>나노입자의 색이 모두 이 효과 때문은 아닙니다.</strong> 금·은 같은 금속 나노입자의 색은 표면 플라스몬이라는 다른 원리에서 나옵니다.</li><li><strong>크기만 맞으면 완벽하게 한 색이 나오는 것도 아닙니다.</strong> 입자 크기가 고르지 않으면 스펙트럼 폭이 넓어지고, 표면 결함이 있으면 발광 효율이 떨어집니다. 크기가 고른 입자를 만드는 합성이 중요한 이유입니다(Murray 외, 1993).</li><li><strong>구속 효과는 띠틈만 바꾸는 것이 아닙니다.</strong> 상태 밀도가 바뀌어 흡수 스펙트럼의 모양이 달라지는 것도 포함합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "크기와 색을 연결하는 용어들은 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "관계"
+    ],
+    "rows": [
+      [
+        "양자구속 효과",
+        "크기가 작아질 때 에너지 준위가 불연속해지는 현상",
+        "원인(물리 원리)"
+      ],
+      [
+        "[[quantum-dot|양자점]]",
+        "세 방향 모두 나노미터 크기로 제한된 반도체 입자",
+        "이 효과를 이용하는 소재"
+      ],
+      [
+        "[[band-gap|띠틈(밴드갭)]]",
+        "전자가 존재할 수 없는 에너지 구간",
+        "효과로 커지는 대상"
+      ],
+      [
+        "[[nanoparticle|나노입자]]",
+        "나노미터 크기의 입자 전반",
+        "양자구속은 그중 반도체에서 두드러짐"
+      ]
+    ]
+  },
+  "references": [
+    "Brus, L. E. (1984). Electron–electron and electron–hole interactions in small semiconductor crystallites: The size dependence of the lowest excited electronic state. The Journal of Chemical Physics, 80(9), 4403–4409.",
+    "Ekimov, A. I., & Onushchenko, A. A. (1981). Quantum size effect in three-dimensional microscopic semiconductor crystals. JETP Letters, 34(6), 345–349.",
+    "Murray, C. B., Norris, D. J., & Bawendi, M. G. (1993). Synthesis and characterization of nearly monodisperse CdE (E = sulfur, selenium, tellurium) semiconductor nanocrystallites. Journal of the American Chemical Society, 115(19), 8706–8715.",
+    "Alivisatos, A. P. (1996). Semiconductor clusters, nanocrystals, and quantum dots. Science, 271(5251), 933–937."
+  ]
+}

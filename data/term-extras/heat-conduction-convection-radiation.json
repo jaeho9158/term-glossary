@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>열은 온도가 높은 쪽에서 낮은 쪽으로 이동합니다. 이동하는 방식은 세 가지이고 각각 식이 다릅니다(Incropera 외, 2007).</p><table><thead><tr><th>방식</th><th>매질</th><th>기본 식</th><th>열량을 키우는 요인</th></tr></thead><tbody><tr><td>전도</td><td>고체·정지한 유체. 물질이 필요</td><td>Q = k A ΔT / L (푸리에 법칙)</td><td>열전도율 k, 면적 A, 온도차 ΔT. 두께 L이 얇을수록</td></tr><tr><td>대류</td><td>움직이는 유체(액체·기체)</td><td>Q = h A (T<sub>s</sub> − T<sub>∞</sub>)</td><td>열전달계수 h(유속·유체 종류에 따라 달라짐), 면적, 온도차</td></tr><tr><td>복사</td><td>필요 없음. 진공에서도 전달</td><td>Q = ε σ A (T<sub>s</sub><sup>4</sup> − T<sub>sur</sub><sup>4</sup>)</td><td>방사율 ε, 면적, 절대온도의 4제곱 차</td></tr></tbody></table><p>σ는 스테판-볼츠만 상수(5.67×10<sup>−8</sup> W/m²·K⁴)이고, 복사 식의 온도는 켈빈(K)을 씁니다. 대류는 전도에 유체의 흐름(열을 실어 나름)이 더해진 것으로 볼 수도 있습니다. 대류 식은 [[newtons-law-of-cooling|뉴턴의 냉각법칙]]과 같은 형태입니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>한 방 안의 상황으로 세 방식의 크기를 계산해 봅니다(가상의 값, 코드로 계산).</p><ul><li><strong>전도.</strong> 벽돌 벽 두께 0.2 m, 열전도율 0.7 W/m·K, 면적 10 m², 안팎 온도차 20 K이면 Q = 0.7 × 10 × 20 / 0.2 = 700 W. 열전도율 k는 [[thermal-conductivity|열전도율]] 문서를 참고하세요.</li><li><strong>대류.</strong> 자연대류에서 h = 10 W/m²·K(공기에서 흔한 범위의 값), 면적 1 m², 온도차 20 K이면 Q = 10 × 1 × 20 = 200 W.</li><li><strong>복사.</strong> 피부 온도 34 °C(307.15 K), 방 20 °C(293.15 K), 방사율 0.95일 때 단위 면적당 q = 0.95 × 5.67×10<sup>−8</sup> × (307.15<sup>4</sup> − 293.15<sup>4</sup>) ≈ 82 W/m². 이를 대류와 비교하려고 h<sub>r</sub> = ε σ (T<sub>s</sub><sup>2</sup> + T<sub>sur</sub><sup>2</sup>)(T<sub>s</sub> + T<sub>sur</sub>)로 바꾸면 약 5.8 W/m²·K입니다.</li></ul><p>마지막 값이 보여 주는 점은, 실내 온도에서는 복사로 빠지는 열이 자연대류와 비슷한 크기라는 것입니다. 사람이 방에서 느끼는 추위에는 공기 온도뿐 아니라 벽의 온도(복사)도 영향을 줍니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“열은 위로 올라간다”가 아닙니다.</strong> 데워진 공기나 물은 밀도가 낮아져 위로 올라가고(부력), 그 흐름이 열을 나릅니다. 올라가는 것은 유체이고 열 자체가 올라가는 것이 아닙니다.</li><li><strong>복사는 뜨거운 물체만 내는 것이 아닙니다.</strong> 절대영도보다 온도가 높은 모든 물체가 온도에 따라 복사를 합니다. 실온의 물체도 복사를 내고 받습니다.</li><li><strong>진공에서는 전도와 대류가 없습니다.</strong> 햇빛이 지구까지 오는 것은 복사입니다. 보온병이 진공층과 반짝이는 표면을 쓰는 것도 전도·대류를 막고 복사를 줄이기 위해서입니다.</li><li><strong>금속이 차갑게 느껴지는 것은 온도가 낮아서가 아닙니다.</strong> 같은 실온에서도 금속은 열전도율이 커서 손의 열을 빠르게 빼앗기 때문입니다.</li><li><strong>한 상황에 한 방식만 있지 않습니다.</strong> 현실에서는 세 방식이 함께 작용하고, 어느 것이 지배적인지는 온도 범위와 환경에 따라 달라집니다. 일반적인 개념은 [[heat-transfer|열전달]] 문서에서도 볼 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘열이 움직인다’는 말은 같아도 법칙마다 다루는 대상이 다릅니다.",
+    "headers": [
+      "용어",
+      "대상",
+      "핵심"
+    ],
+    "rows": [
+      [
+        "[[heat-transfer|열전달]]",
+        "열이 이동하는 현상 전체",
+        "전도·대류·복사의 총칭"
+      ],
+      [
+        "[[thermal-conductivity|열전도율]]",
+        "물질이 열을 전달하는 정도",
+        "전도 식의 k"
+      ],
+      [
+        "[[newtons-law-of-cooling|뉴턴의 냉각법칙]]",
+        "표면과 주변의 온도차에 비례하는 냉각",
+        "대류 식의 시간 변화 버전"
+      ]
+    ]
+  },
+  "references": [
+    "Incropera, F. P., DeWitt, D. P., Bergman, T. L., & Lavine, A. S. (2007). Fundamentals of Heat and Mass Transfer (6th ed.). Wiley.",
+    "Çengel, Y. A., & Ghajar, A. J. (2015). Heat and Mass Transfer: Fundamentals and Applications (5th ed.). McGraw-Hill Education.",
+    "Fourier, J. (1822). Théorie analytique de la chaleur. Firmin Didot."
+  ]
+}

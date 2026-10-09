@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>SpCas9은 가이드 RNA(약 20개 염기)와 상보적인 DNA 서열을 찾고, 그 옆에 PAM(5′-NGG-3′)이 있을 때 절단합니다([[guide-rna|가이드 RNA]]와 [[crispr-cas9|CRISPR-Cas9]] 문서 참조).</li><li>그런데 가이드와 염기가 몇 개 다른 서열에도 결합해 절단할 수 있습니다. Fu 외(2013)는 사람 세포에서 최대 5개 위치가 다른 서열에서도 표적과 비슷한 빈도로 돌연변이가 생길 수 있음을 보고했고, Hsu 외(2013)는 불일치의 개수, 위치, 분포에 따라 허용 정도가 달라진다고 보고했습니다.</li><li>일반적으로 PAM에 가까운 쪽(씨앗 영역)의 불일치는 덜 허용되고, PAM에서 먼 쪽의 불일치는 더 잘 허용되는 경향이 있습니다.</li><li>그래서 표적 이탈(off-target) 효과는 절단 부위를 예측하는 도구, 세포에서 실제 절단 부위를 찾는 방법(GUIDE-seq, Tsai 외, 2015), 전장 유전체 서열 분석으로 확인하고, 정확도를 높인 변이 Cas9(Kleinstiver 외, 2016) 등으로 줄입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>후보 부위가 얼마나 많은지 계산으로 가늠해 봅니다. 20개 염기의 가이드와 <em>k개 이하</em>로 다른 서열의 가짓수는 Σ C(20, i)·3<sup>i</sup>(i = 0…k)입니다(코드로 계산).</p><table><thead><tr><th>허용 불일치</th><th>가능한 서열 수</th><th>무작위 서열 가정 시 사람 유전체에서 기대되는 후보 부위 수</th></tr></thead><tbody><tr><td>0개</td><td>1</td><td>—</td></tr><tr><td>3개 이하</td><td>32,551</td><td>약 11</td></tr><tr><td>4개 이하</td><td>424,996</td><td>약 150</td></tr><tr><td>5개 이하</td><td>4,192,468</td><td>약 1,500</td></tr></tbody></table><p>세 번째 열은 유전체(약 31억 염기쌍, 두 가닥)가 무작위 서열이라고 가정하고, NGG PAM이 붙을 확률 1/16을 곱해 계산한 값입니다. 실제 유전체는 반복 서열이 많고 무작위가 아니며, 불일치 부위가 모두 절단되는 것도 아니므로 이 값은 <strong>후보의 규모감</strong>일 뿐입니다. 그래도 불일치를 몇 개만 허용해도 후보가 수십~수백 곳으로 늘어난다는 점은 표적 이탈을 따로 검사해야 하는 이유를 보여 줍니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>가이드 설계만 잘하면 해결되는 문제가 아닙니다.</strong> Cas9 단백질이 세포 안에 머무는 시간과 양도 영향을 줍니다. 그래서 플라스미드 대신 단백질-RNA 복합체(RNP)를 짧게 전달하는 방법을 쓰기도 합니다.</li><li><strong>예측 도구에서 이탈 부위가 안 나왔다고 안전한 것은 아닙니다.</strong> 예측은 서열 유사성에 기반하므로 놓치는 경우가 있고, 실제 세포에서의 검출(GUIDE-seq 등)과 서열 분석으로 확인합니다.</li><li><strong>표적 이탈과 표적 안의 의도치 않은 변화는 다릅니다.</strong> 표적 부위 자체에서도 큰 결실이나 복잡한 재배열이 생길 수 있다는 보고가 있습니다(Kosicki 외, 2018). 안전성 평가에서는 둘 다 봐야 합니다.</li><li><strong>“표적 이탈은 없었다”는 문장은 검출 한계와 함께 읽어야 합니다.</strong> 검사 방법의 민감도 안에서 발견되지 않았다는 뜻이지 절대적으로 없다는 뜻이 아닙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "편집 결과가 ‘의도와 다른’ 경우는 위치와 원인에 따라 나뉩니다.",
+    "headers": [
+      "용어",
+      "어디서 생기나",
+      "설명"
+    ],
+    "rows": [
+      [
+        "표적 효과(on-target)",
+        "의도한 표적 서열",
+        "원하는 편집. 효율과 정확성을 평가"
+      ],
+      [
+        "표적 이탈(off-target)",
+        "표적과 비슷한 다른 서열",
+        "가이드와 불일치가 있는 곳에서 절단"
+      ],
+      [
+        "표적 내 의도치 않은 변화",
+        "의도한 표적 부위",
+        "큰 결실이나 재배열처럼 예상 밖의 수선 결과"
+      ],
+      [
+        "구경꾼 편집(bystander)",
+        "표적 근처의 같은 염기",
+        "염기편집기가 창(window) 안의 인접 염기까지 바꾸는 경우"
+      ]
+    ]
+  },
+  "references": [
+    "Fu, Y., Foden, J. A., Khayter, C., Maeder, M. L., Reyon, D., Joung, J. K., & Sander, J. D. (2013). High-frequency off-target mutagenesis induced by CRISPR-Cas nucleases in human cells. Nature Biotechnology, 31, 822–826.",
+    "Hsu, P. D., Scott, D. A., Weinstein, J. A., et al. (2013). DNA targeting specificity of RNA-guided Cas9 nucleases. Nature Biotechnology, 31, 827–832.",
+    "Tsai, S. Q., Zheng, Z., Nguyen, N. T., et al. (2015). GUIDE-seq enables genome-wide profiling of off-target cleavage by CRISPR-Cas nucleases. Nature Biotechnology, 33, 187–197.",
+    "Kleinstiver, B. P., Pattanayak, V., Prew, M. S., et al. (2016). High-fidelity CRISPR-Cas9 nucleases with no detectable genome-wide off-target effects. Nature, 529, 490–495.",
+    "Kosicki, M., Tomberg, K., & Bradley, A. (2018). Repair of double-strand breaks induced by CRISPR-Cas9 leads to large deletions and complex rearrangements. Nature Biotechnology, 36, 765–771."
+  ]
+}
