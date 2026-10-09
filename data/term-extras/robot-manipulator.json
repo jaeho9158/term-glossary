@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>매니퓰레이터는 링크(막대)가 관절로 이어진 사슬 구조로, 한쪽 끝은 고정된 기저에, 다른 쪽 끝에는 도구를 단 말단장치(end-effector)를 둡니다.</p><ul><li><strong>관절</strong>: 회전 관절(R)과 직동(직선) 관절(P)이 있고, 관절 하나가 자유도 1을 줍니다.</li><li><strong>자유도(DOF)</strong>: 공간에서 말단의 위치(3)와 자세(3)를 임의로 정하려면 최소 6자유도가 필요합니다.</li><li><strong>작업공간</strong>: 말단이 닿을 수 있는 영역. 관절 범위와 링크 길이가 정합니다.</li><li><strong>기구학</strong>: 관절각에서 말단 위치를 구하는 정기구학, 거꾸로 말단 위치에서 관절각을 구하는 역기구학. 표기법으로 Denavit와 Hartenberg(1955)의 방식이 널리 쓰입니다.</li><li><strong>구조 분류</strong>: 처음 세 관절 조합에 따라 직교좌표형, 원통좌표형, 관절형 등으로 나뉩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 계산은 프로그램으로 확인) 링크 길이 L<sub>1</sub> = 0.5 m, L<sub>2</sub> = 0.3 m인 평면 2링크 팔입니다.</p><ul><li><strong>정기구학</strong>: 관절각이 30°, 45°이면 말단은 (0.511, 0.540) m 입니다. 식은 x = L<sub>1</sub>cosθ<sub>1</sub> + L<sub>2</sub>cos(θ<sub>1</sub>+θ<sub>2</sub>), y = L<sub>1</sub>sinθ<sub>1</sub> + L<sub>2</sub>sin(θ<sub>1</sub>+θ<sub>2</sub>) 입니다.</li><li><strong>작업공간</strong>: 바깥 반지름 L<sub>1</sub>+L<sub>2</sub> = 0.8 m, 안쪽 반지름 |L<sub>1</sub>−L<sub>2</sub>| = 0.2 m 인 고리 모양입니다.</li><li><strong>역기구학</strong>: 목표점 (0.5, 0.4) m에는 해가 두 개입니다.</li></ul><table><thead><tr><th>해</th><th>θ₁</th><th>θ₂</th><th>정기구학으로 다시 구한 말단</th></tr></thead><tbody><tr><td>θ₂ &gt; 0 인 해</td><td>11.6°</td><td>76.5°</td><td>(0.500, 0.400)</td></tr><tr><td>θ₂ &lt; 0 인 해</td><td>65.8°</td><td>-76.5°</td><td>(0.500, 0.400)</td></tr></tbody></table><p>두 해가 같은 점에 닿는다는 것을 정기구학으로 확인했습니다. 역기구학은 해가 여러 개이거나 없을 수 있어 경로 계획이 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“자유도가 많을수록 정확하다.”</strong> 자유도는 도달 가능한 자세의 폭이지 정밀도가 아닙니다. 필요 이상으로 많으면(여유 자유도) 제어가 복잡해집니다.</li><li><strong>“6자유도면 작업공간 어디든 어떤 자세로든 간다.”</strong> 관절 범위, 특이점, 충돌 때문에 도달하지 못하는 자세가 있습니다.</li><li><strong>“정확도와 반복정밀도는 같다.”</strong> 목표점에 얼마나 맞느냐(정확도)와 같은 명령을 반복했을 때 얼마나 같은 곳에 가느냐(반복정밀도)는 다르며, 산업용 로봇의 성능 규격(ISO 9283)은 둘을 따로 정의합니다.</li><li><strong>“매니퓰레이터는 사람을 위협해서 울타리가 필요하다.”</strong> 협동로봇처럼 힘 감지와 속도 제한으로 같은 공간에서 일하도록 설계된 경우도 있어 안전 기준이 따로 쓰입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "구조",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[serial-manipulator|직렬 매니퓰레이터]]",
+        "링크가 한 줄로 이어짐",
+        "작업공간이 넓고 강성은 낮은 편"
+      ],
+      [
+        "[[parallel-manipulator|병렬 매니퓰레이터]]",
+        "여러 다리가 기저와 말단을 동시에 연결",
+        "강성·속도가 높고 작업공간은 작은 편"
+      ],
+      [
+        "[[redundant-manipulator|여유자유도 매니퓰레이터]]",
+        "작업에 필요한 자유도보다 관절이 많음",
+        "장애물 회피·특이점 회피에 유리"
+      ]
+    ]
+  },
+  "references": [
+    "Denavit, J., & Hartenberg, R. S. (1955). A kinematic notation for lower-pair mechanisms based on matrices. Journal of Applied Mechanics, 22.",
+    "Craig, J. J. (2005). Introduction to Robotics: Mechanics and Control (3rd ed.). Pearson.",
+    "Siciliano, B., Sciavicco, L., Villani, L., & Oriolo, G. (2009). Robotics: Modelling, Planning and Control. Springer.",
+    "Spong, M. W., Hutchinson, S., & Vidyasagar, M. (2006). Robot Modeling and Control. Wiley."
+  ]
+}

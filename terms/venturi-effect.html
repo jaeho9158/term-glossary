@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/venturi-effect.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>벤츄리 효과는 별도의 움직이는 부품 없이도 유체의 속도와 압력을 조절할 수 있게 해 주기 때문에 유체역학, 항공우주공학, 화학공정 등 다양한 분야의 연구와 실무에서 핵심 원리로 다뤄집니다. 유량 측정, 연료 분사, 진공 발생 장치처럼 압력 차를 이용해야 하는 공학적 문제 대부분이 이 효과를 응용하며, 그만큼 관련 논문에서도 설계 변수나 성능 지표를 설명할 때 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>벤투리 효과는 관이 좁아지는 곳에서 유체의 속도가 빨라지고 압력이 낮아지는 현상입니다. 두 법칙의 결합으로 설명합니다.</p><ul><li><strong>연속방정식</strong>(비압축성): 단면적 A와 속도 v의 곱이 일정합니다. <code>A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub></code></li><li><strong>베르누이 식</strong>(점성이 없고 정상 흐름인 이상 유체, 같은 높이): <code>p<sub>1</sub> + ½ρv<sub>1</sub>² = p<sub>2</sub> + ½ρv<sub>2</sub>²</code></li></ul><p>두 식을 합치면 압력 차 <code>Δp = p<sub>1</sub> − p<sub>2</sub> = ½ρ(v<sub>2</sub>² − v<sub>1</sub>²)</code>를 얻습니다. 이 현상의 이름은 이탈리아의 물리학자 벤투리(G. B. Venturi, 1797)에서 왔고, 이를 유량 측정에 응용한 벤투리 미터는 1880년대에 클레멘스 허셜(Clemens Herschel)이 만들어 보급했다고 알려져 있습니다. 압력 차로 유량을 구하는 식은 <code>Q = C<sub>d</sub> A<sub>2</sub> √(2Δp / (ρ(1 − β⁴)))</code>이며 β는 목 지름과 관 지름의 비, C<sub>d</sub>는 실제 흐름의 손실을 보정하는 배출계수입니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 예, 계산은 프로그램으로 확인) 지름 100 mm 관을 물(998 kg/m³)이 10 L/s로 흐르다 지름 50 mm 목으로 들어갑니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>양</th><th>계산</th><th>값</th></tr></thead><tbody><tr><td>관의 단면적 A₁</td><td>π/4 × 0.10²</td><td>78.54 cm²</td></tr><tr><td>목의 단면적 A₂</td><td>π/4 × 0.05²</td><td>19.63 cm²</td></tr><tr><td>관의 속도 v₁</td><td>Q / A₁</td><td>1.27 m/s</td></tr><tr><td>목의 속도 v₂</td><td>Q / A₂</td><td>5.09 m/s</td></tr><tr><td>압력 차 Δp</td><td>½ρ(v₂² − v₁²)</td><td>12.1 kPa</td></tr><tr><td>Δp로 되구한 유량(C<sub>d</sub> = 1 가정)</td><td>A₂√(2Δp/(ρ(1−β⁴)))</td><td>10.00 L/s</td></tr></tbody></table></div><p>단면적이 4분의 1로 줄어 속도가 4배(1.27 → 5.09 m/s)가 되고, 그만큼 압력이 약 12.1 kPa 낮아집니다. 압력 차에서 유량을 되구하면 출발값 10 L/s가 나와 식이 서로 일관됨을 확인할 수 있습니다. 실제 장치는 C<sub>d</sub>가 1보다 약간 작습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“속도가 빠르기 때문에 압력이 낮아지는 것이다(원인과 결과).”</strong> 베르누이 식은 에너지 보존 관계이지 인과 순서를 말하는 식이 아닙니다. 좁은 곳으로 향한 압력 구배가 유체를 가속한다고 설명하기도 합니다.</li><li><strong>“어떤 흐름에도 성립한다.”</strong> 식은 점성이 없고 정상이며 비압축인 흐름이라는 가정에서 나옵니다. 기체가 매우 빠르거나(압축성) 점성 손실이 크면 보정이 필요합니다.</li><li><strong>“압력이 목에서 낮아졌다가 완전히 회복된다.”</strong> 확대부에서 압력이 상당 부분 회복되지만 점성 손실로 일부는 영구 손실로 남습니다.</li><li><strong>“압력이 얼마든지 낮아질 수 있다.”</strong> 목의 압력이 액체의 증기압 아래로 떨어지면 기포가 생기는 캐비테이션이 일어납니다.</li><li><strong>응용</strong>: 벤투리 유량계, 기화기와 분무기, 아스피레이터(물 흡입 펌프).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"관 직경을 단계적으로 축소시켜 벤츄리 효과에 의한 국소 압력 강하를 유량 측정에 활용하였다."</div>
   <p>관이 좁아지는 구간에서 압력이 얼마나 떨어지는지를 측정해 그 관을 흐르는 유체의 유량을 역으로 계산했다는 뜻입니다.</p>
 
@@ -168,6 +186,18 @@
 
   <h2>주의할 점</h2>
   <p>벤츄리 효과는 압력이 무조건 사라지는 것이 아니라 <a href="bernoulli-theorem.html">베르누이 원리</a>에 따라 속도 에너지와 압력 에너지가 서로 형태를 바꾸는 현상입니다. 좁은 구간을 지나 다시 넓어지면 유속은 줄고 압력은 대부분 회복되며, 이 과정에서 국소적으로 압력이 지나치게 낮아지면 <a href="cavitation.html">캐비테이션(공동현상)</a>이 발생할 수 있어 설계 시 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">벤투리 효과와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="continuity-equation.html">연속방정식</a></th><td>질량 보존에서 나오는 A·v 일정 관계</td><td>속도 증가를 설명하는 한 축</td></tr><tr><th scope="row">베르누이 방정식</th><td>유선을 따른 에너지 보존 관계</td><td>압력 저하를 설명하는 한 축</td></tr><tr><th scope="row">벤투리 미터</th><td>벤투리 효과로 유량을 재는 장치</td><td>효과의 응용 기기</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>White, F. M. (2016). Fluid Mechanics (8th ed.). McGraw-Hill.</li>
+    <li>Çengel, Y. A., &amp; Cimbala, J. M. (2018). Fluid Mechanics: Fundamentals and Applications (4th ed.). McGraw-Hill.</li>
+    <li>Venturi, G. B. (1797). Recherches expérimentales sur le principe de la communication latérale du mouvement dans les fluides. Houel et Ducros.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

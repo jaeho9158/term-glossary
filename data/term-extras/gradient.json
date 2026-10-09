@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>스칼라 함수 f(x, y, …)의 그래디언트는 각 변수에 대한 편미분을 모은 벡터입니다.</p><p><code>∇f = (∂f/∂x, ∂f/∂y, …)</code></p><ul><li><strong>방향</strong>: 그 점에서 f가 가장 빨리 증가하는 방향입니다.</li><li><strong>크기</strong>: 그 방향으로 단위 거리를 갈 때 f가 늘어나는 비율입니다.</li><li><strong>등위선(등위면)과의 관계</strong>: 같은 값을 잇는 등위선에 수직입니다. 지도의 등고선에 수직인 오르막 방향이 그래디언트입니다.</li><li><strong>방향미분</strong>: 단위벡터 u 방향의 변화율은 <code>D<sub>u</sub>f = ∇f · u</code>입니다.</li><li><strong>최적화</strong>: 값을 줄이려면 반대 방향으로 갑니다. 경사하강법의 갱신식은 <code>w ← w − η∇L(w)</code>이고, η는 보폭(학습률)입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 계산은 프로그램으로 확인했습니다.) f(x, y) = x² + 3xy, 점 (1, 2)에서 편미분은 ∂f/∂x = 2x + 3y, ∂f/∂y = 3x 입니다.</p><table><thead><tr><th>양</th><th>값</th></tr></thead><tbody><tr><td>∇f(1, 2)</td><td>(8, 3)</td></tr><tr><td>‖∇f‖ (가장 가파른 증가율)</td><td>√73 ≈ 8.544</td></tr><tr><td>u = (0.6, 0.8) 방향의 방향미분</td><td>8·0.6 + 3·0.8 = 7.2</td></tr><tr><td>같은 값을 유한 차분으로 확인 (h = 10<sup>−6</sup>)</td><td>7.200</td></tr><tr><td>그래디언트에 수직인 방향 (−3, 8)/‖∇f‖ 의 방향미분</td><td>0.0</td></tr></tbody></table><p>u 방향의 변화율 7.2은 최대 증가율 8.544보다 작고, 그래디언트에 수직인 방향(등위선 방향)으로는 0입니다. 그래디언트 방향이 가장 가파르고 그에 수직인 방향은 평평하다는 뜻입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“그래디언트는 숫자 하나다.”</strong> 크기와 방향이 있는 벡터입니다. 변수가 하나일 때만 도함수 하나와 같아집니다.</li><li><strong>“그래디언트가 0이면 최솟값이다.”</strong> 0이 되는 점(임계점)은 극소·극대·안장점일 수 있어, 구분하려면 이계도함수(헤시안)를 봅니다.</li><li><strong>“그래디언트 방향으로 가면 값이 줄어든다.”</strong> 줄어드는 쪽은 반대 방향입니다. 그래서 경사 ‘하강’에는 마이너스가 붙습니다.</li><li><strong>“기울기와 같은 말이다.”</strong> 한국어 ‘기울기’는 직선의 기울기(slope)로도 쓰이므로, 다변수 함수라는 점을 밝히지 않으면 뜻이 달라집니다. 이미지·디자인의 ‘그라데이션’은 색이 서서히 변하는 효과라 또 다른 뜻입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "미분 계열 용어는 값의 종류가 서로 다릅니다.",
+    "headers": [
+      "용어",
+      "값의 형태",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[partial-derivative|편미분]]",
+        "스칼라",
+        "다른 변수를 고정하고 한 변수 방향으로만 본 변화율"
+      ],
+      [
+        "그래디언트(∇f)",
+        "벡터",
+        "편미분을 모아 만든, 가장 가파른 증가 방향"
+      ],
+      [
+        "[[hessian-matrix|헤시안 행렬]]",
+        "행렬",
+        "이계 편미분을 모은 것, 곡률 정보를 줌"
+      ],
+      [
+        "[[vector-field|벡터장]]",
+        "점마다 벡터를 붙인 것",
+        "스칼라 함수의 그래디언트를 모든 점에서 모으면 벡터장이 됨"
+      ]
+    ]
+  },
+  "references": [
+    "Stewart, J. (2015). Calculus: Early Transcendentals (8th ed.). Cengage Learning.",
+    "Boyd, S., & Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press.",
+    "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press."
+  ]
+}
