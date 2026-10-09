@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>식: <code>q<sub>e</sub> = K<sub>F</sub> · C<sub>e</sub><sup>1/n</sup></code> (q<sub>e</sub>: 평형 흡착량, C<sub>e</sub>: 평형 농도 또는 압력, K<sub>F</sub>: 흡착 능력과 관련된 상수, n: 불균일성·흡착 강도와 관련된 지수). 기체는 C<sub>e</sub> 대신 압력 P를 씁니다.</li><li>양변에 로그를 취하면 <code>ln q<sub>e</sub> = ln K<sub>F</sub> + (1/n) ln C<sub>e</sub></code>의 직선이 됩니다. 기울기가 1/n, 절편이 ln K<sub>F</sub>입니다.</li><li>관례적 해석: 1/n이 0과 1 사이이면 흡착이 ‘유리한’ 경향(농도가 커질수록 증가 폭이 완만해짐), 1/n = 1이면 흡착량이 농도에 비례, 1/n &gt; 1이면 농도가 높을수록 오히려 더 잘 붙는 경향으로 읽습니다.</li><li>프로인들리히(1906)가 경험적으로 제시한 식이고, 불균일한 표면에서 흡착 에너지가 분포한다는 해석으로 설명되기도 합니다. 단분자층 포화를 가정하는 [[langmuir-isotherm|랭뮤어 등온식]]과 달리 <strong>포화가 없습니다</strong>(농도가 커지면 흡착량이 무한히 증가).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 실험 자료(코드로 최소제곱 계산): 평형 농도 C<sub>e</sub> = 1, 5, 10, 25, 50 mg/L에서 흡착량 q<sub>e</sub> = 2.1, 4.3, 6.3, 9.8, 14.1 mg/g.</p><ul><li>ln–ln 직선 회귀 결과 기울기 ≈ 0.488, 따라서 n ≈ 2.05, 절편 → K<sub>F</sub> ≈ 2.05 (mg/g)(L/mg)<sup>1/n</sup>, 결정계수 R² ≈ 0.9986.</li><li>1/n ≈ 0.49로 1보다 작아 흡착이 ‘유리한’ 범위로 해석합니다.</li><li>K<sub>F</sub>의 단위는 1/n에 따라 달라지므로, 서로 다른 계의 K<sub>F</sub>를 비교할 때는 단위를 확인합니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“R²가 높으면 이 모형이 옳다.”</strong> 프로인들리히와 랭뮤어 모두 선형화하면 비슷하게 높은 R²가 나올 수 있고, 선형화 자체가 오차 분포를 바꿉니다. 비선형 회귀와 여러 모형 비교(오차 함수)가 더 권장됩니다(Foo &amp; Hameed, 2010).</li><li><strong>“n이 클수록 흡착이 강하다.”</strong> 관례적 해석일 뿐, 물리적으로 특정 에너지를 직접 재는 값이 아닙니다.</li><li><strong>“모든 농도 범위에서 쓸 수 있다.”</strong> 포화가 없는 경험식이라 자료 범위 밖으로 외삽하면 안 됩니다.</li><li><strong>“프로인들리히 = 다층 흡착.”</strong> 경험식이어서 단분자층으로 제한되지 않을 뿐, 다층 흡착 기구를 가정해 유도한 식은 아닙니다. 다층 흡착을 명시적으로 모형화한 것은 [[bet-isotherm|BET]]입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "흡착 등온식은 가정과 포화 여부가 다릅니다.",
+    "headers": [
+      "용어",
+      "가정",
+      "포화"
+    ],
+    "rows": [
+      [
+        "프로인들리히",
+        "경험식, 불균일 표면 해석",
+        "없음"
+      ],
+      [
+        "[[langmuir-isotherm|랭뮤어]]",
+        "균일한 표면, 단분자층, 상호작용 없음",
+        "있음(최대 흡착량)"
+      ],
+      [
+        "[[bet-isotherm|BET]]",
+        "다분자층 흡착, 비표면적 산정에 사용",
+        "다층까지 확장"
+      ]
+    ]
+  },
+  "references": [
+    "Freundlich, H. (1906). Über die Adsorption in Lösungen. Zeitschrift für Physikalische Chemie, 57.",
+    "Langmuir, I. (1918). The adsorption of gases on plane surfaces of glass, mica and platinum. Journal of the American Chemical Society, 40.",
+    "Foo, K. Y., & Hameed, B. H. (2010). Insights into the modeling of adsorption isotherm systems. Chemical Engineering Journal, 156.",
+    "Ruthven, D. M. (1984). Principles of Adsorption and Adsorption Processes. Wiley."
+  ]
+}
