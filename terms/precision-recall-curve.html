@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/precision-recall-curve.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>정밀도-재현율 곡선은 의료 진단, 이상 탐지, 스팸 필터링처럼 양성 사례가 드물고 놓치거나 잘못 잡아내는 비용이 큰 문제에서 모델 성능을 정확히 보여주기 때문에, 단순 정확도만으로는 판단하기 어려운 상황을 다루는 머신러닝 논문에서 핵심 평가 도구로 자주 등장합니다. 특히 클래스 불균형이 흔한 실제 데이터 환경에서 모델을 비교하고 선택하는 근거로 쓰이며, AUC-PR 값 자체가 논문의 주요 성능 지표로 보고되는 경우도 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>분류 모델이 각 사례에 점수를 매기면, 임계값을 높은 값에서 낮은 값으로 내려 가며 그때마다 정밀도와 재현율을 계산해 점으로 찍습니다.</p><p><code>정밀도 = TP ÷ (TP + FP)</code>, <code>재현율 = TP ÷ (TP + FN)</code></p><ul><li>두 값 모두 0~1입니다. 곡선의 가로축은 재현율, 세로축은 정밀도입니다.</li><li>임계값을 낮추면 재현율은 줄어들지 않지만(단조 증가), 정밀도는 오르내릴 수 있습니다.</li><li>요약 숫자로는 <strong>평균 정밀도(AP)</strong> 또는 곡선 아래 면적(AUPRC)을 씁니다. 계단 방식 AP = Σ (R<sub>n</sub> − R<sub>n−1</sub>) × P<sub>n</sub>.</li><li><strong>기준선</strong>: 아무 정보 없는 분류기의 정밀도는 양성 비율과 같습니다. ROC 곡선의 기준선(AUC 0.5)과 달리 데이터에 따라 달라집니다.</li></ul><p><strong>계산 예(가상의 10개 사례, 양성 4개).</strong></p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>임계값(점수 ≥)</th><th>이 점수의 실제값</th><th>정밀도</th><th>재현율</th></tr></thead><tbody><tr><td>0.95</td><td>양성</td><td>1</td><td>0.25</td></tr><tr><td>0.9</td><td>양성</td><td>1</td><td>0.5</td></tr><tr><td>0.8</td><td>음성</td><td>0.667</td><td>0.5</td></tr><tr><td>0.7</td><td>양성</td><td>0.75</td><td>0.75</td></tr><tr><td>0.6</td><td>음성</td><td>0.6</td><td>0.75</td></tr><tr><td>0.5</td><td>음성</td><td>0.5</td><td>0.75</td></tr><tr><td>0.4</td><td>양성</td><td>0.571</td><td>1</td></tr><tr><td>0.3</td><td>음성</td><td>0.5</td><td>1</td></tr><tr><td>0.2</td><td>음성</td><td>0.444</td><td>1</td></tr><tr><td>0.1</td><td>음성</td><td>0.4</td><td>1</td></tr></tbody></table></div><p>점수가 큰 순서로 하나씩 양성으로 판정해 가며 계산한 값입니다. 계단 방식 AP = 0.83이고, 양성 비율(기준선)은 4 ÷ 10 = 0.4입니다. 같은 자료의 ROC AUC는 0.833입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>절대적인 “좋은 값” 기준은 없습니다. <strong>양성 비율과 함께</strong> 읽어야 합니다. 양성 비율이 1%인 자료에서 AP 0.30은 기준선의 30배이지만, 50%인 자료에서 AP 0.60은 기준선의 1.2배입니다.</li><li>곡선이 오른쪽 위에 가까울수록 좋습니다. 특정 재현율(예: 90%)에서의 정밀도를 읽으면 실제 운영 조건에서의 성능을 알 수 있습니다.</li><li><strong>보간 주의</strong>: ROC 공간과 달리 PR 공간에서는 두 점을 직선으로 이으면 성능을 과대평가합니다(Davis &amp; Goadrich, 2006). 계단식으로 계산하는 것이 일반적입니다.</li><li><strong>클래스 불균형</strong>: 음성이 압도적으로 많으면 ROC 곡선은 낙관적으로 보일 수 있고 PR 곡선이 더 많은 정보를 준다는 주장이 있습니다(Saito &amp; Rehmsmeier, 2015). 반대로 ROC가 더 적절한 목적도 있어, 질문에 맞게 고릅니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>곡선 그림과 함께 AP(또는 AUPRC), <strong>양성 비율</strong>, 사용한 데이터 분할(테스트 세트인지 교차검증인지)을 적습니다.</li><li>한 번의 분할 결과보다 반복·부트스트랩으로 구한 <strong>신뢰구간</strong>을 함께 제시합니다.</li><li>실제로 쓸 임계값을 정했다면 그 지점의 정밀도·재현율을 따로 적습니다.</li><li>AP를 어떤 방식(계단/사다리꼴)으로 계산했는지 도구와 함께 밝힙니다. 방식에 따라 값이 달라질 수 있습니다.</li></ul><p>예문(가상): <code>테스트 세트(양성 비율 4.1%)에서 AP는 0.62(95% CI 0.55–0.68)였다.</code></p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"클래스 불균형이 심한 데이터셋 특성을 고려하여 정밀도-재현율 곡선을 이용해 모델을 평가하였다."</div>
   <p>양성 클래스가 드문 데이터의 특성상 ROC 곡선보다 정밀도-재현율 곡선이 더 적합하다고 판단해 이를 평가 기준으로 삼았다는 뜻이다.</p>
 
@@ -165,6 +183,20 @@
 
   <h2>주의할 점</h2>
   <p>양성 클래스 비율이 매우 낮은 데이터에서는 <a href="roc-auc-curve.html">ROC 곡선과 AUC</a>가 실제보다 낙관적으로 보일 수 있어, 이런 경우 정밀도-재현율 곡선이 더 신뢰할 만한 지표가 된다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>모두 분류 성능을 말하지만 보는 범위가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="precision-recall.html">정밀도·재현율</a></th><td>임계값 하나에서의 두 숫자</td><td>한 점</td></tr><tr><th scope="row">정밀도-재현율 곡선</th><td>임계값을 바꿔 가며 그린 정밀도 대 재현율</td><td>임계값 전체를 봄. 양성 비율에 민감</td></tr><tr><th scope="row"><a href="roc-auc-curve.html">ROC 곡선·AUC</a></th><td>민감도(재현율) 대 거짓양성률</td><td>양성 비율에 둔감한 편</td></tr><tr><th scope="row"><a href="f1-score.html">F1 점수</a></th><td>정밀도와 재현율의 조화평균</td><td>임계값 하나를 고른 뒤의 요약 숫자</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Davis, J., &amp; Goadrich, M. (2006). The relationship between precision-recall and ROC curves. Proceedings of the 23rd International Conference on Machine Learning.</li>
+    <li>Saito, T., &amp; Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLoS ONE, 10(3), e0118432.</li>
+    <li>Fawcett, T. (2006). An introduction to ROC analysis. Pattern Recognition Letters, 27(8), 861–874.</li>
+    <li>Boyd, K., Eng, K. H., &amp; Page, C. D. (2013). Area under the precision-recall curve: Point estimates and confidence intervals. Machine Learning and Knowledge Discovery in Databases (ECML PKDD).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
