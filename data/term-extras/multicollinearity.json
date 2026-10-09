@@ -1,0 +1,61 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>다중공선성은 회귀의 <strong>설명변수끼리</strong> 강하게 상관되어, 각 변수의 개별 효과를 분리해 추정하기 어려운 상태입니다.</li><li>영향: 계수의 <strong>표준오차가 커지고</strong> 추정치가 표본에 따라 크게 달라지며, 부호가 이론과 반대로 나오기도 합니다. 모형 전체의 설명력(R²)이나 예측은 크게 나빠지지 않을 수 있습니다.</li><li>한 변수가 다른 변수들의 정확한 선형결합이면(완전 다중공선성, 예: 더미 변수를 모든 범주만큼 넣음) 계수를 유일하게 추정할 수 없습니다.</li><li>진단: [[variance-inflation-factor|분산팽창계수(VIF)]], 공차, 상태지수, 상관행렬. 위치는 ‘변수 쌍’만이 아니라 ‘여러 변수의 조합’일 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>모의 자료(n = 100, 계산 결과)로 확인해 봅시다. x₁과 x₂의 상관이 .868이고, 실제 모형은 y = 1 + 1·x₁ + 1·x₂ + 오차입니다.</p><table><thead><tr><th>모형</th><th>x₁의 계수 (표준오차)</th><th>x₂의 계수 (표준오차)</th></tr></thead><tbody><tr><td>x₁, x₂ 모두 포함</td><td>1.02 (0.22)</td><td>0.97 (0.21)</td></tr><tr><td>x₁만 포함</td><td>1.87 (0.12)</td><td>—</td></tr></tbody></table><ul><li>둘을 모두 넣으면 계수는 참값(1)에 가깝지만 표준오차가 큽니다. VIF ≈ 4.05이므로 표준오차가 약 √4.05 ≈ 2.0배로 커진 셈입니다.</li><li>x₂를 빼 버리면 표준오차는 작아져 ‘정밀해’ 보이지만, x₁이 x₂의 효과까지 대신 떠안아 계수가 거의 2배(1.87)로 <strong>치우칩니다.</strong> 다중공선성이 있다고 변수를 무작정 빼면 안 되는 이유입니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“다중공선성이 있으면 모형을 못 쓴다”</strong>: 예측이 목적이라면 큰 문제가 아닐 수 있습니다. 문제는 개별 계수의 해석과 유의성 검정입니다.</li><li><strong>“VIF가 10 미만이면 문제없다”</strong>: 10은 관례적 기준일 뿐이며, 표본이 작으면 더 낮은 VIF에서도 불안정합니다(O’Brien, 2007).</li><li><strong>“상관이 높은 변수 중 하나를 빼면 해결”</strong>: 이론적으로 필요한 변수를 빼면 위 예처럼 편향이 생깁니다. 변수를 합성(지수·요인), 표본을 늘림, 능형회귀·주성분회귀 같은 방법을 대안으로 검토합니다.</li><li>상호작용항이나 제곱항은 원래 변수와 구조적으로 상관이 높아 보일 수 있는데, 변수를 평균중심화하면 크게 줄어듭니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘변수들의 상관’이 문제를 일으키는 방식이 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇이 무엇과 상관되나",
+      "문제"
+    ],
+    "rows": [
+      [
+        "다중공선성",
+        "설명변수끼리",
+        "계수 추정이 불안정(표준오차 증가)"
+      ],
+      [
+        "[[endogeneity|내생성]]",
+        "설명변수와 오차항",
+        "계수가 치우침(편향)"
+      ],
+      [
+        "[[variance-inflation-factor|VIF]]",
+        "—",
+        "다중공선성의 정도를 재는 지표"
+      ],
+      [
+        "[[correlation|상관관계]]",
+        "두 변수",
+        "다중공선성을 의심하게 하는 단서(쌍별만 볼 수 있음)"
+      ],
+      [
+        "[[ridge-regression|능형회귀]]",
+        "—",
+        "다중공선성이 있을 때 쓰는 대응 방법 중 하나"
+      ]
+    ],
+    "note": "다중공선성은 ‘추정이 불안정’한 문제이고, 내생성은 ‘추정이 틀리게 수렴’하는 문제입니다. 해결책도 다릅니다."
+  },
+  "references": [
+    "Belsley, D. A., Kuh, E., & Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.",
+    "Farrar, D. E., & Glauber, R. R. (1967). Multicollinearity in regression analysis: The problem revisited. The Review of Economics and Statistics, 49(1), 92–107.",
+    "O'Brien, R. M. (2007). A caution regarding rules of thumb for variance inflation factors. Quality & Quantity, 41(5), 673–690.",
+    "Graham, M. H. (2003). Confronting multicollinearity in ecological multiple regression. Ecology, 84(11), 2809–2815.",
+    "Dormann, C. F., Elith, J., Bacher, S., et al. (2013). Collinearity: A review of methods to deal with it and a simulation study evaluating their performance. Ecography, 36(1), 27–46."
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "(즉 <a href=\"complementary-mutually-exclusive-events.html\">여사건과 배반사건</a>인지 아닌지)",
+      "replace": "(즉 <a href=\"complementary-mutually-exclusive-events.html\">배반사건</a>인지 아닌지)"
+    },
+    {
+      "find": "두 사건이 <a href=\"independent-and-dependent-events.html\">독립사건과 종속사건</a>이 아니라면 조건부확률을 곱해야",
+      "replace": "두 사건이 <a href=\"independent-and-dependent-events.html\">독립</a>이 아니라면 조건부확률을 곱해야"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>덧셈정리</strong>: <code>P(A 또는 B) = P(A) + P(B) − P(A 그리고 B)</code>. 두 사건이 동시에 일어날 수 없으면(배반) 마지막 항이 0이어서 <code>P(A) + P(B)</code>가 됩니다. 겹치는 부분을 두 번 세지 않으려고 한 번 빼는 것입니다.</li><li><strong>곱셈정리</strong>: <code>P(A 그리고 B) = P(A) × P(B | A)</code>. 두 사건이 독립이면 <code>P(B | A) = P(B)</code>이므로 <code>P(A) × P(B)</code>가 됩니다.</li><li>‘적어도 하나’의 확률은 <strong>여사건</strong>으로 계산하는 편이 쉽습니다. <code>P(적어도 하나) = 1 − P(하나도 없음)</code>.</li></ul><table><thead><tr><th></th><th>배반</th><th>독립</th></tr></thead><tbody><tr><td>뜻</td><td>동시에 일어날 수 없다</td><td>한쪽이 일어나도 다른 쪽 확률이 변하지 않는다</td></tr><tr><td>쓰이는 공식</td><td>합의 공식에서 겹침이 0</td><td>곱의 공식에서 조건부확률이 단순해짐</td></tr></tbody></table>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>카드 52장에서 한 장을 뽑을 때(계산 결과):</p><ul><li>‘하트 또는 K’ — 하트 13장, K 4장, 하트 K 1장이 겹치므로 13/52 + 4/52 − 1/52 = 16/52 ≈ .308. 겹침을 빼지 않고 17/52로 계산하면 틀립니다.</li><li>‘에이스 두 장을 연속으로(되돌려 놓지 않고)’ — 첫 장이 에이스일 확률 4/52, 그다음 3/51이므로 4/52 × 3/51 = 1/221 ≈ .0045. 두 번째 확률이 첫 번째 결과에 영향을 받으므로 독립이 아닙니다. 독립이라고 착각해 (4/52)²으로 계산하면 약 .0059가 되어 틀립니다.</li></ul><p>주사위를 4번 던질 때 6이 적어도 한 번 나올 확률은 1 − (5/6)<sup>4</sup> ≈ .518입니다. 같은 논리로, 유의수준 .05인 독립적인 검정을 20번 하면 적어도 한 번 우연히 유의할 확률은 1 − .95<sup>20</sup> ≈ .64입니다([[multiple-comparisons-correction|다중비교보정]]이 필요한 이유).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“배반이면 독립이다”</strong>는 틀립니다. 두 사건이 모두 일어날 가능성이 있는데 동시에 일어날 수 없다면, 한쪽이 일어났을 때 다른 쪽은 확률이 0이 되므로 오히려 <strong>서로 의존</strong>합니다.</li><li>‘독립’은 확률을 곱할 수 있다는 성질이고 ‘배반’은 확률을 더할 수 있다는 성질입니다. 둘은 서로 다른 질문에 답하므로, 문제를 풀 때 어느 쪽 조건이 주어졌는지 먼저 확인합니다.</li><li>“앞에서 연속으로 앞면이 나왔으니 이번에는 뒷면 쪽이 유리하다”는 생각(도박사의 오류)은, 독립 사건에서는 곱셈정리가 보장하는 것과 정반대입니다. 이전 결과는 다음 확률을 바꾸지 않습니다.</li><li>논문에서 확률을 단순히 곱했다면, 사건이 정말 독립인지에 대한 근거(실험 설계나 자료)가 필요합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘배반’, ‘독립’, ‘여사건’은 서로 다른 개념입니다.",
+    "headers": [
+      "용어",
+      "뜻",
+      "예"
+    ],
+    "rows": [
+      [
+        "[[complementary-mutually-exclusive-events|배반사건]]",
+        "동시에 일어날 수 없는 사건",
+        "주사위에서 ‘1이 나옴’과 ‘2가 나옴’"
+      ],
+      [
+        "독립사건",
+        "한쪽이 일어나도 다른 쪽 확률이 변하지 않음",
+        "서로 다른 두 주사위의 눈"
+      ],
+      [
+        "[[complementary-mutually-exclusive-events|여사건]]",
+        "A가 일어나지 않는 사건(Aᶜ), P(Aᶜ) = 1 − P(A)",
+        "‘6이 나옴’의 여사건은 ‘6이 아님’"
+      ],
+      [
+        "[[conditional-probability|조건부확률]]",
+        "어떤 사건이 일어났다는 조건 아래의 확률",
+        "곱셈정리의 P(B | A)"
+      ]
+    ],
+    "note": "여사건이면 반드시 배반이지만, 배반이라고 해서 여사건인 것은 아닙니다(‘1’과 ‘2’는 배반이지만 서로의 여사건이 아닙니다)."
+  },
+  "references": [
+    "Ross, S. (2019). A First Course in Probability (10th ed.). Pearson.",
+    "Feller, W. (1968). An Introduction to Probability Theory and Its Applications, Vol. 1 (3rd ed.). Wiley.",
+    "Grinstead, C. M., & Snell, J. L. (1997). Introduction to Probability (2nd rev. ed.). American Mathematical Society."
+  ]
+}

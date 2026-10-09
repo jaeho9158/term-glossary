@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>문항반응이론(IRT)은 응답자의 잠재 특성 θ(능력, 태도 등)와 문항의 성질로 “이 문항에 정답을 하거나 높게 응답할 확률”을 모형화합니다. 그 곡선이 문항특성곡선입니다.</li><li>2모수 로지스틱 모형: <code>P(θ) = 1 ÷ (1 + e<sup>−a(θ − b)</sup>)</code>. b는 <strong>난이도</strong>(정답 확률이 .5가 되는 θ), a는 <strong>변별도</strong>(곡선의 가파름)입니다.</li><li>1모수(Rasch) 모형은 모든 문항의 a를 같다고 두고 b만 추정하고, 3모수 모형은 찍어서 맞힐 확률(c, 추측도)을 더합니다.</li><li>θ의 눈금은 보통 평균 0, 표준편차 1로 두는 것이 관례이며, 어떤 θ에서 얼마나 정밀하게 측정하는지는 <strong>정보함수</strong>로 나타냅니다. 2모수 모형에서 θ = b일 때의 문항 정보는 a² ÷ 4입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>세 문항의 정답 확률입니다(계산 결과).</p><table><thead><tr><th>θ</th><th>문항 A (a = 1, b = 0.5)</th><th>문항 B (a = 2, b = 0.5)</th><th>문항 C (a = 1, b = −1)</th></tr></thead><tbody><tr><td>−2</td><td>.076</td><td>.007</td><td>.269</td></tr><tr><td>−1</td><td>.182</td><td>.047</td><td>.500</td></tr><tr><td>0</td><td>.378</td><td>.269</td><td>.731</td></tr><tr><td>0.5</td><td>.500</td><td>.500</td><td>.818</td></tr><tr><td>1</td><td>.622</td><td>.731</td><td>.881</td></tr><tr><td>2</td><td>.818</td><td>.953</td><td>.953</td></tr></tbody></table><ul><li>문항 C는 문항 A보다 쉽습니다(b가 낮아 같은 θ에서 확률이 높음).</li><li>문항 B는 변별도가 큽니다. 같은 난이도(b = 0.5)에서도 θ가 0에서 1로 바뀔 때 확률이 .27에서 .73으로 크게 변해 θ가 높은 사람과 낮은 사람을 잘 가릅니다. θ = 0.5에서의 문항 정보는 A가 0.25, B가 1.0입니다.</li><li>3모수 모형에서 c = .2이면 θ가 아주 낮아도 정답 확률이 .2 밑으로 내려가지 않습니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“IRT 점수 θ는 정답 개수의 다른 이름”</strong>이 아닙니다. 같은 정답 개수라도 어떤 문항을 맞혔는지에 따라 θ 추정치가 달라질 수 있습니다(2모수 이상).</li><li><strong>“문항 모수는 어느 집단에서나 똑같다”</strong>는 모형이 자료에 잘 맞을 때 기대되는 성질입니다. 단일차원성·지역독립성 가정과 모형 적합도를 확인해야 합니다.</li><li>고전검사이론의 난이도(정답률)는 표본에 따라 달라지지만, IRT의 b는 이상적으로는 집단에 덜 의존하는 척도입니다.</li><li>신뢰도가 하나의 숫자(크론바흐 알파)가 아니라 θ에 따라 달라지는 <em>정보</em>로 표현된다는 점이 다릅니다. 극단적인 θ에서는 측정이 부정확할 수 있습니다.</li><li>모수가 많은 2·3모수 모형은 보통 더 큰 표본이 필요합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "검사 점수를 다루는 이론과 지표를 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "IRT와의 관계"
+    ],
+    "rows": [
+      [
+        "[[rasch-model|라쉬 모형]]",
+        "변별도를 같게 둔 1모수 IRT 모형",
+        "IRT의 특수한 경우"
+      ],
+      [
+        "고전검사이론(CTT)",
+        "총점·정답률로 문항과 검사를 평가",
+        "문항과 응답자 특성이 표본에 의존"
+      ],
+      [
+        "[[cronbachs-alpha|크론바흐 알파]]",
+        "문항 간 내적 일관성(신뢰도)",
+        "IRT는 θ별 정보로 정밀도를 나타내 접근이 다름"
+      ],
+      [
+        "[[factor-analysis|요인분석]]",
+        "관측 변수들의 공통 요인 구조",
+        "이분형 문항에는 IRT와 수학적으로 가까운 모형이 있음"
+      ]
+    ],
+    "note": "‘문항반응이론’과 ‘고전검사이론’은 경쟁 관계의 이론이 아니라 서로 다른 관점입니다. 논문에서는 어느 쪽 지표를 쓰는지 밝힙니다."
+  },
+  "references": [
+    "Rasch, G. (1960). Probabilistic Models for Some Intelligence and Attainment Tests. Danmarks Pædagogiske Institut.",
+    "Lord, F. M. (1980). Applications of Item Response Theory to Practical Testing Problems. Lawrence Erlbaum.",
+    "Hambleton, R. K., Swaminathan, H., & Rogers, H. J. (1991). Fundamentals of Item Response Theory. Sage.",
+    "Embretson, S. E., & Reise, S. P. (2000). Item Response Theory for Psychologists. Lawrence Erlbaum."
+  ]
+}

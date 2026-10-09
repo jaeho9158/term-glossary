@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/jarque-bera-test.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <p>회귀분석, 시계열 모형, 계량경제 분석 등 정규성을 전제로 하는 많은 통계 기법에서, 그 전제가 실제로 성립하는지 확인하는 절차는 결과 해석의 타당성을 뒷받침하는 데 필수적입니다.</p>
   <p>자크-베라 검정은 표본 수가 많을 때도 계산이 간단하고 안정적으로 작동해, 대규모 금융 시계열이나 거시경제 데이터를 다루는 계량경제학 논문에서 정규성 가정을 점검하는 표준 절차로 자주 채택됩니다. 검정 결과는 이후 어떤 추정 방법(예: 정규성을 가정하는 방법 대 강건한 방법)을 선택할지 결정하는 근거로도 이어집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>표본의 <strong>왜도</strong>(좌우 비대칭)와 <strong>첨도</strong>(꼬리의 두께)가 정규분포의 값(왜도 0, 첨도 3)에서 얼마나 벗어났는지로 정규성을 검정합니다. 계량경제·금융 논문에서 회귀 잔차나 수익률의 정규성을 확인할 때 특히 많이 쓰입니다.</p><ul><li>귀무가설 H₀: 자료는 정규분포를 따른다(왜도 = 0, 초과첨도 = 0).</li><li>통계량: <code>JB = n/6 × (S² + (K − 3)²/4)</code> (S: 표본 왜도, K: 표본 첨도). 표본이 충분히 크면 자유도 2의 카이제곱분포를 따릅니다.</li><li>표본이 작으면(대략 수십 이하) 이 카이제곱 근사가 부정확하므로, 시뮬레이션으로 구한 임계값을 쓰거나 샤피로-윌크 검정을 함께 봅니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>JB가 클수록, p가 작을수록 정규분포에서 멀다는 뜻입니다. 두 가지 모양 중 어느 쪽이 문제인지는 왜도와 첨도를 따로 봐야 압니다.</p><p><strong>작은 예</strong>(모의 자료, 각 n = 60, 계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>자료</th><th>왜도 S</th><th>첨도 K</th><th>JB</th><th>p</th></tr></thead><tbody><tr><td>정규분포에서 뽑음</td><td>0.37</td><td>2.83</td><td>1.46</td><td>.483</td></tr><tr><td>지수분포(오른쪽 꼬리가 긺)</td><td>1.56</td><td>6.03</td><td>47.38</td><td>&lt; .001</td></tr></tbody></table></div><ul><li>첫째 자료는 귀무가설을 기각하지 못하지만 ‘정규분포임을 증명했다’는 뜻은 아닙니다.</li><li>표본이 매우 크면 현실에서는 문제 없는 작은 이탈도 유의하게 나오므로, 히스토그램·Q-Q 도표를 함께 봅니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>검정 대상(변수인지 회귀 잔차인지), 통계량, p를 적고, 정규성이 기각되었을 때 취한 조치(변환, 비모수 방법, 강건한 추정 등)를 이어서 적습니다.</p><p><code>모형 잔차에 대한 Jarque-Bera 검정 결과 정규성이 기각되지 않았다(JB = 1.46, p = .483).</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>회귀 분석에서 정규성 가정은 주로 <em>오차(잔차)</em>에 대한 것입니다. 변수 자체가 아니라 어떤 것을 검정했는지 분명히 합니다.</li><li>표본이 큰 경우 중심극한정리 덕분에 계수 추정은 정규성에 크게 의존하지 않는다는 점을 함께 논의하기도 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"회귀모형의 잔차에 대해 자크-베라 검정(Jarque-Bera test)을 실시한 결과 정규성 가정을 기각할 수 없었다(JB = 2.14, p = .343)."</div>
   <p>이 문장은 회귀분석에서 나온 잔차(오차)가 통계적으로 정규분포와 크게 다르지 않다고 확인되었으므로, 정규성을 전제로 한 회귀분석 결과를 그대로 신뢰할 수 있다는 뜻입니다.</p>
   <div class="example">"일별 주식 수익률에 대해 자크-베라 검정을 수행한 결과 정규성 가정이 강하게 기각되어(JB = 158.4, p < .001), 두터운 꼬리를 반영한 분포 모형을 대안으로 채택하였다."</div>
@@ -165,6 +183,20 @@
 
   <h2>주의할 점</h2>
   <p>자크-베라 검정은 표본 수가 적을 때는 검정력이 낮아 실제로는 정규분포가 아니어도 "기각할 수 없다"는 결과가 나오기 쉽습니다. 표본이 작다면 <a href="shapiro-wilk-test.html">샤피로-윌크 검정</a>과 함께 확인하는 것이 안전합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>정규성 검정은 여럿이고 ‘무엇의 어떤 면을 보는가’가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">무엇을 보나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">Jarque-Bera 검정</th><td>왜도와 첨도</td><td>표본이 큰 자료와 회귀 잔차에 흔함. 소표본은 근사 부정확</td></tr><tr><th scope="row"><a href="shapiro-wilk-test.html">샤피로-윌크 검정</a></th><td>정렬된 값과 정규 기대값의 일치</td><td>소·중표본에서 검정력이 좋은 편</td></tr><tr><th scope="row"><a href="kolmogorov-smirnov-test.html">콜모고로프-스미르노프 검정</a></th><td>누적분포의 최대 거리</td><td>평균·표준편차를 추정하면 Lilliefors 보정 필요</td></tr><tr><th scope="row"><a href="skewness-kurtosis.html">왜도·첨도</a></th><td>분포 모양을 나타내는 요약값</td><td>검정이 아니라 기술통계. JB의 재료</td></tr><tr><th scope="row"><a href="q-q-plot.html">Q-Q 도표</a></th><td>정규분포와 점의 일치를 눈으로 확인</td><td>어디서 이탈하는지 보여 줌</td></tr></tbody></table></div>
+  <p class="te-note">어떤 검정이든 정규성 ‘검정 통과’와 ‘정규분포임’은 다른 말입니다. 그림과 함께 봅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Jarque, C. M., &amp; Bera, A. K. (1980). Efficient tests for normality, homoscedasticity and serial independence of regression residuals. Economics Letters, 6(3), 255–259.</li>
+    <li>Jarque, C. M., &amp; Bera, A. K. (1987). A test for normality of observations and regression residuals. International Statistical Review, 55(2), 163–172.</li>
+    <li>Thadewald, T., &amp; Büning, H. (2007). Jarque–Bera test and its competitors for testing normality: A power comparison. Journal of Applied Statistics, 34(1), 87–105.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

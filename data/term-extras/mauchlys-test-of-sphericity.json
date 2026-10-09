@@ -1,0 +1,55 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>같은 대상을 <strong>세 번 이상</strong> 측정한 자료를 [[repeated-measures-anova|반복측정분산분석]]으로 분석하기 전에, ‘모든 두 조건의 차이 점수의 분산이 같다’는 구형성 가정을 점검할 때 씁니다.</p><ul><li>반복측정 요인이 2수준(사전-사후)이면 차이 점수가 하나뿐이어서 구형성 가정이 성립하므로 이 검정은 필요 없습니다.</li><li>구형성이 깨지면 F검정이 지나치게 쉽게 유의해집니다(1종 오류 증가). 이를 막으려고 자유도를 줄이는 보정을 합니다.</li><li>혼합설계(집단 간 + 반복측정)에서는 집단들을 합친 공분산 구조에 대해 검정합니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>검정통계량 <strong>W</strong>는 0~1이며 1이면 완벽한 구형성입니다. 귀무가설 H₀: 구형성이 성립한다. p가 .05보다 작으면 구형성이 깨졌다고 보고 엡실론(ε)으로 자유도를 줄입니다. ε은 1이면 구형성, 작을수록 위배가 심하다는 뜻이며, 하한은 1 ÷ (조건 수 − 1)입니다.</p><p><strong>작은 예</strong>(가상의 자료: 8명, 3시점, 계산 결과). W = 0.504, χ²(2) = 4.11, p = .128로 구형성 위배가 유의하지 않았습니다. 그런데 엡실론은 Greenhouse-Geisser 0.668, Huynh-Feldt 0.767로 1보다 꽤 작습니다. 표본이 8명뿐이라 검정이 위배를 잡아내지 못한 것입니다. 이 자료의 반복측정 F는 보정 전 F(2, 14) = 44.04이고, Greenhouse-Geisser 보정 후에는 같은 F에 자유도 (1.34, 9.36)을 적용해 p &lt; .001입니다.</p><ul><li>보정 선택 규칙으로 ‘ε이 .75보다 작으면 Greenhouse-Geisser, 크면 Huynh-Feldt’가 자주 인용됩니다(Girden, 1992). 관례입니다.</li><li>이 검정은 정규성에서 벗어난 자료에 민감하고, 표본이 작으면 힘이 약하며 표본이 크면 사소한 위배에도 유의해집니다. 그래서 p만 보지 말고 ε도 함께 봅니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>W, 카이제곱 통계량, 자유도, p, 그리고 보정 시 ε과 보정 방식을 적습니다.</p><p><code>Mauchly의 구형성 검정 결과 구형성 가정이 위배되어(W = 0.31, χ²(2) = 12.4, p = .002) Greenhouse-Geisser 보정(ε = 0.59)을 적용하였다. 시점의 주효과는 유의하였다, F(1.18, 21.2) = 9.80, p = .004, η²<sub>p</sub> = .35.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>보정 전 자유도 대신 보정된 자유도를 보고합니다.</li><li>구형성에 의존하지 않는 다변량 분석(MANOVA)이나 혼합모형을 대안으로 쓴 경우 그 이유를 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘구형성’은 이름이 비슷한 다른 검정과도 자주 섞입니다.",
+    "headers": [
+      "용어",
+      "무엇을 확인하나",
+      "쓰는 곳"
+    ],
+    "rows": [
+      [
+        "Mauchly의 구형성 검정",
+        "차이 점수들의 분산이 같은지",
+        "반복측정분산분석 전"
+      ],
+      [
+        "Bartlett의 구형성 검정",
+        "변수들이 서로 상관 없는 단위행렬 형태인지",
+        "요인분석 전(KMO와 함께)"
+      ],
+      [
+        "[[greenhouse-geisser-correction|Greenhouse-Geisser 교정]]",
+        "구형성 위배 시 자유도를 줄이는 보정",
+        "Mauchly 검정 뒤의 후속 조치"
+      ],
+      [
+        "[[repeated-measures-anova|반복측정분산분석]]",
+        "시점·조건 간 평균 차이",
+        "구형성이 전제인 분석"
+      ]
+    ],
+    "note": "요인분석 논문의 ‘구형성 검정’은 대개 Bartlett 검정이고, 반복측정 논문의 ‘구형성 검정’은 대개 Mauchly 검정입니다. 서로 목적이 전혀 다릅니다."
+  },
+  "references": [
+    "Mauchly, J. W. (1940). Significance test for sphericity of a normal n-variate distribution. The Annals of Mathematical Statistics, 11(2), 204–209.",
+    "Greenhouse, S. W., & Geisser, S. (1959). On methods in the analysis of profile data. Psychometrika, 24(2), 95–112.",
+    "Huynh, H., & Feldt, L. S. (1976). Estimation of the Box correction for degrees of freedom from sample data in randomized block and split-plot designs. Journal of Educational Statistics, 1(1), 69–82.",
+    "Girden, E. R. (1992). ANOVA: Repeated Measures. Sage."
+  ]
+}

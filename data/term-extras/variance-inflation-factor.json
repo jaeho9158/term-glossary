@@ -1,0 +1,55 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>변수 j의 VIF는 그 변수를 나머지 설명변수들로 회귀했을 때의 결정계수 R<sub>j</sub>²로 계산합니다.</p><p><code>VIF<sub>j</sub> = 1 ÷ (1 − R<sub>j</sub>²)</code>, 공차(tolerance) = 1 ÷ VIF = 1 − R<sub>j</sub>²</p><table><thead><tr><th>R<sub>j</sub>²</th><th>VIF</th><th>공차</th><th>계수의 표준오차 배율(√VIF)</th></tr></thead><tbody><tr><td>0</td><td>1.0</td><td>1.00</td><td>1.00배</td></tr><tr><td>0.50</td><td>2.0</td><td>0.50</td><td>1.41배</td></tr><tr><td>0.80</td><td>5.0</td><td>0.20</td><td>2.24배</td></tr><tr><td>0.90</td><td>10.0</td><td>0.10</td><td>3.16배</td></tr><tr><td>0.95</td><td>20.0</td><td>0.05</td><td>4.47배</td></tr></tbody></table><ul><li><strong>범위</strong>: 1 이상이며 상한은 없습니다. 1이면 다른 변수와 전혀 겹치지 않는다는 뜻입니다.</li><li>설명변수가 둘뿐이면 두 변수의 VIF는 같고 <code>1 ÷ (1 − r²)</code>입니다. 가상의 모의자료에서 두 변수의 상관이 r = .868이면 VIF ≈ 4.05입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>‘VIF가 5(또는 10)를 넘으면 문제’라는 기준은 <strong>관례</strong>입니다. 교과서(예: Kutner 외, 2005)는 가장 큰 VIF가 10을 넘으면 심각한 다중공선성을 의심하라고 합니다. VIF 10은 R<sub>j</sub>² = .90, 표준오차가 3.16배 커진다는 뜻입니다.</p><ul><li>O’Brien(2007)은 이런 문턱값이 기계적으로 쓰이는 것을 경계했습니다. 표본이 크거나 효과가 크면 VIF가 커도 결론이 흔들리지 않을 수 있고, 반대로 VIF가 작아도 표본이 작으면 불안정할 수 있습니다.</li><li>상호작용항·제곱항은 원래 변수와 구조적으로 상관이 높아 VIF가 크게 나오기 쉽습니다. 변수를 평균중심화하면 크게 줄어듭니다.</li><li>VIF는 <strong>관심 변수</strong>의 계수가 얼마나 불안정한지를 봅니다. 통제변수들끼리 상관이 높아도 관심 변수의 VIF가 낮다면 문제가 크지 않습니다.</li><li>범주형 변수를 더미로 쓸 때는 더미 하나하나의 VIF 대신, 변수 전체를 묶어 보는 일반화 VIF(GVIF)를 쓰기도 합니다(Fox &amp; Monette, 1992).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>각 변수의 VIF를 표에 싣거나, 최댓값(또는 범위)과 사용한 기준을 문장으로 적습니다.</p><p><code>독립변수 간 다중공선성을 확인한 결과 분산팽창지수(VIF)는 1.02~1.14로 기준(10) 미만이었고 공차는 0.88~0.98로 0.1 이상이었다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>어떤 기준(5 또는 10)을 썼는지 밝힙니다.</li><li>VIF가 큰 변수를 어떻게 처리했는지(제거, 합성, 중심화, 능형회귀 등)를 적으면 독자가 결과를 신뢰하기 쉽습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "VIF와 이웃한 진단 도구는 서로 다른 것을 봅니다.",
+    "headers": [
+      "용어",
+      "무엇을 보나",
+      "차이"
+    ],
+    "rows": [
+      [
+        "[[multicollinearity|다중공선성]]",
+        "설명변수끼리 겹치는 현상 자체",
+        "VIF는 이 현상을 숫자로 재는 도구 중 하나"
+      ],
+      [
+        "공차(tolerance)",
+        "1 − R<sub>j</sub>², 즉 1 ÷ VIF",
+        "같은 정보를 거꾸로 표현. 작을수록 문제(보통 0.1 미만 주의)"
+      ],
+      [
+        "[[correlation|상관계수]]",
+        "변수 두 개씩의 직선 관계",
+        "세 변수 이상이 함께 만드는 겹침은 잡지 못할 수 있음"
+      ],
+      [
+        "상태지수(condition index)",
+        "설계행렬 전체의 불안정성",
+        "어느 변수 조합이 문제인지 분해해서 볼 수 있음"
+      ]
+    ],
+    "note": "VIF가 낮다는 것은 ‘변수끼리 겹치지 않는다’는 뜻일 뿐, 모형이 옳다거나 인과 해석이 가능하다는 뜻은 아닙니다."
+  },
+  "references": [
+    "Belsley, D. A., Kuh, E., & Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.",
+    "Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2005). Applied Linear Statistical Models (5th ed.). McGraw-Hill/Irwin.",
+    "O'Brien, R. M. (2007). A caution regarding rules of thumb for variance inflation factors. Quality & Quantity, 41(5), 673–690.",
+    "Fox, J., & Monette, G. (1992). Generalized collinearity diagnostics. Journal of the American Statistical Association, 87(417), 178–183."
+  ]
+}

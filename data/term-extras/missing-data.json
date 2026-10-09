@@ -1,0 +1,61 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>결측치를 어떻게 다룰지는 <strong>왜 비었는가(결측 기제)</strong>에 달려 있습니다(Rubin, 1976).</p><table><thead><tr><th>기제</th><th>뜻</th><th>예</th></tr></thead><tbody><tr><td>MCAR (완전 무작위 결측)</td><td>결측 여부가 어떤 변수와도 무관</td><td>설문지 일부가 우연히 오염되어 판독 불가</td></tr><tr><td>MAR (무작위 결측)</td><td>결측 여부가 <em>관측된</em> 변수로 설명됨</td><td>고연령자가 소득 문항에 더 많이 답하지 않음(연령은 관측됨)</td></tr><tr><td>MNAR (비무작위 결측)</td><td>결측 여부가 <em>결측된 값 자체</em>와 관련됨</td><td>소득이 높은 사람일수록 소득을 안 밝힘</td></tr></tbody></table><ul><li>MAR과 MNAR은 관측된 자료만으로는 구별할 수 없습니다. 리틀의 MCAR 검정은 MCAR을 기각할 수 있지만 MAR인지 MNAR인지는 알려 주지 않습니다.</li><li>결측치의 비율이 얼마 이하면 무시해도 된다는 보편적 기준은 없습니다. 5%, 10% 같은 숫자는 관례일 뿐입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>모의 자료(n = 2,000, 계산 결과)로 확인해 봅시다. 변수 y의 실제 평균은 0.00이고 x와 상관이 있습니다. y에 결측을 만들고, <strong>결측 없는 사례만</strong> 쓴 평균을 비교합니다.</p><table><thead><tr><th>결측 기제</th><th>결측 비율</th><th>완전사례 평균</th></tr></thead><tbody><tr><td>MCAR (무작위로 30%)</td><td>30%</td><td>0.00</td></tr><tr><td>MAR (x가 클수록 y를 잃음)</td><td>31%</td><td>−0.23</td></tr><tr><td>MNAR (y가 클수록 y를 잃음)</td><td>32%</td><td>−0.36</td></tr></tbody></table><p>MCAR에서는 완전사례분석이 편향되지 않지만 표본이 줄어듭니다. MAR에서는 y가 x와 관련된 만큼 평균이 한쪽으로 치우칩니다. 이때 관측된 x로 y의 결측을 설명하는 회귀대체를 하면 평균이 −0.02로 참값에 가까워집니다(MAR이므로 가능). MNAR에서는 x 같은 관측 변수로 보정되지 않으며, 결측 기제에 대한 별도의 가정과 민감도 분석이 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“결측치는 평균으로 채우면 안전하다”</strong>: 평균대체는 분산과 상관을 줄이고 표준오차를 과소추정합니다. 연구에서는 [[multiple-imputation|다중대체법]]이나 [[full-information-maximum-likelihood|완전정보 최대우도법]]이 널리 권장됩니다(Schafer &amp; Graham, 2002).</li><li><strong>“결측이 있는 사례를 지우는 게 가장 정직하다”</strong>: MCAR이 아니면 편향이 생기고, 설령 MCAR이어도 표본이 줄어 정밀도가 떨어집니다.</li><li><strong>“MAR임을 검정할 수 있다”</strong>: 자료로는 확인할 수 없고, 결측이 생긴 과정에 대한 지식으로 정당화해야 합니다.</li><li>결측이 있다는 사실, 변수별 비율, 처리 방법을 논문에 밝히지 않는 것도 흔한 문제입니다. 사용한 방법이 결과에 미치는 영향도 함께 논의하는 것이 좋습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘값이 없다’에도 여러 종류가 있어 처리도 다릅니다.",
+    "headers": [
+      "용어",
+      "뜻",
+      "처리"
+    ],
+    "rows": [
+      [
+        "결측치",
+        "측정·응답이 되지 않아 값을 모름",
+        "결측 기제를 따져 대체·최대우도 등으로 처리"
+      ],
+      [
+        "[[outlier|이상치]]",
+        "값은 있지만 다른 값들과 동떨어짐",
+        "오류인지 실제 값인지 확인 후 결정"
+      ],
+      [
+        "무응답",
+        "설문에 응답하지 않음(단위 또는 문항)",
+        "가중치 보정이나 대체 등"
+      ],
+      [
+        "중도절단(검열)",
+        "생존분석에서 관찰이 끝났을 때까지 사건이 없었음",
+        "결측이 아니라 ‘그 시점 이후’라는 정보. 생존분석 방법으로 처리"
+      ],
+      [
+        "[[littles-mcar-test|리틀의 MCAR 검정]]",
+        "결측이 완전 무작위인지 검정",
+        "기제 중 MCAR만 검토할 수 있음"
+      ]
+    ],
+    "note": "결측치 처리의 첫 단계는 ‘채우는 방법’이 아니라 ‘왜 비었는지’를 이해하는 일입니다."
+  },
+  "references": [
+    "Rubin, D. B. (1976). Inference and missing data. Biometrika, 63(3), 581–592.",
+    "Little, R. J. A., & Rubin, D. B. (2019). Statistical Analysis with Missing Data (3rd ed.). Wiley.",
+    "Schafer, J. L., & Graham, J. W. (2002). Missing data: Our view of the state of the art. Psychological Methods, 7(2), 147–177.",
+    "Enders, C. K. (2010). Applied Missing Data Analysis. Guilford Press.",
+    "Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. Journal of the American Statistical Association, 83(404), 1198–1202."
+  ]
+}

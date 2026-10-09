@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/silhouette-score.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>실루엣 계수는 정답 레이블이 없는 비지도학습인 군집분석에서 결과의 타당성을 정량적으로 평가할 수 있는 몇 안 되는 지표이기 때문에, 고객 세분화나 유전자 발현 패턴 분류처럼 군집 개수를 사전에 알 수 없는 다양한 응용 분야 논문에서 군집 수를 결정하는 근거로 자주 인용됩니다. 특히 다른 내부 평가지표(예: 엘보우 방법)와 함께 제시되어 군집화 결과의 신뢰도를 뒷받침하는 용도로도 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>데이터 점 i마다 a(i) = 같은 군집 안 다른 점들까지의 평균 거리(응집도), b(i) = 가장 가까운 다른 군집의 점들까지의 평균 거리(분리도)를 구하고 다음과 같이 계산합니다.</p><p><code>s(i) = (b(i) − a(i)) ÷ max(a(i), b(i))</code></p><ul><li><strong>범위</strong>: −1~1. 1에 가까우면 자기 군집에 잘 붙어 있고 다른 군집과 멀다, 0 근처면 두 군집의 경계에 있다, 음수면 다른 군집이 더 가깝다는 뜻입니다.</li><li>군집에 점이 하나뿐이면 s = 0으로 두는 것이 관례입니다. 전체 점의 s를 평균한 것이 ‘평균 실루엣 계수’입니다.</li></ul><p><strong>작은 예</strong>(가상의 1차원 자료, 계산 결과). 점 1, 2, 3, 8, 9, 12를 {1, 2, 3}과 {8, 9, 12}로 나누면 s는 각각 0.83, 0.87, 0.78, 0.58, 0.71, 0.65이고 평균 실루엣 계수는 약 0.74입니다. 가장 낮은 점은 8(0.58)로, 같은 군집의 9·12와 평균 2.5 떨어져 있지만 다른 군집의 1·2·3과도 평균 6.0밖에 떨어져 있지 않아 경계에 가깝습니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>Kaufman &amp; Rousseeuw(1990)는 평균 실루엣 계수에 대해 다음 구간을 제안했습니다. 관례적 가이드라인이며 절대적 기준은 아닙니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>평균 s</th><th>해석(제안)</th></tr></thead><tbody><tr><td>0.71 ~ 1.00</td><td>강한 군집 구조</td></tr><tr><td>0.51 ~ 0.70</td><td>합리적인 군집 구조</td></tr><tr><td>0.26 ~ 0.50</td><td>약한 구조, 인위적일 수 있음</td></tr><tr><td>0.25 이하</td><td>뚜렷한 구조 없음</td></tr></tbody></table></div><ul><li>군집 수 k를 정할 때는 k를 2, 3, 4, …로 바꿔 가며 평균 s를 계산해 가장 큰 k를 고르는 방법을 많이 씁니다. 엘보우 기법과 함께 보기도 합니다.</li><li>실루엣은 거리를 쓰므로 변수의 단위(표준화 여부)와 거리 척도에 따라 달라집니다.</li><li>구형(볼록)이 아닌 군집(초승달 모양 등)은 실제로 잘 나눠졌어도 점수가 낮게 나올 수 있습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>사용한 군집 알고리즘, 거리 척도, 변수 표준화 여부, k의 후보 범위와 각각의 평균 실루엣 계수를 적습니다.</p><p><code>표준화한 변수에 유클리드 거리를 사용해 k-평균 군집분석을 시행하였다. k = 2~8에 대한 평균 실루엣 계수는 k = 3에서 가장 높았다(0.52).</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>군집별 평균 s나 개별 점의 실루엣 도표를 함께 제시하면 어느 군집이 약한지 보입니다.</li><li>높은 점수는 ‘수학적으로 잘 나뉨’을 뜻할 뿐, 군집이 의미 있는 집단이라는 근거는 군집의 특성 해석에서 따로 제시해야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"군집 수를 2에서 6까지 변화시키며 실루엣 계수를 비교한 결과, 군집 수가 4일 때 평균 실루엣 계수가 0.62로 가장 높게 나타나 최적의 군집 수로 선정하였다."</div>
   <p>이 문장은 "여러 후보 중에서 군집이 가장 뚜렷하게 잘 나뉘는 경우를 실루엣 계수로 비교해 골랐다"는 뜻입니다. 군집 개수를 미리 알 수 없는 <a href="k-means-clustering.html">k-평균 군집화</a> 같은 분석에서 몇 개로 나눌지 결정할 때 흔히 사용됩니다.</p>
 
@@ -163,6 +181,19 @@
 
   <h2>주의할 점</h2>
   <p>실루엣 계수가 높다고 해서 그 군집 결과가 연구 목적상 의미 있는 분류라는 보장은 없습니다. 수학적으로 잘 나뉘어 보여도 실제 현상과 무관한 그룹일 수 있으므로, 각 군집의 특성을 해석하고 이론적 타당성을 함께 검토해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>군집의 수와 품질을 정하는 도구는 서로 다른 것을 봅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 보나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">실루엣 계수</th><td>각 점이 자기 군집에 얼마나 어울리는지</td><td>−1~1로 해석이 쉽고 점 단위로 볼 수 있음</td></tr><tr><th scope="row"><a href="elbow-method.html">엘보우 기법</a></th><td>k를 늘릴 때 군집 내 제곱합이 줄어드는 정도</td><td>꺾이는 지점이 뚜렷하지 않은 경우가 많음</td></tr><tr><th scope="row"><a href="k-means-clustering.html">k-평균 군집화</a></th><td>군집을 만드는 알고리즘</td><td>실루엣은 그 결과를 평가하는 지표</td></tr><tr><th scope="row"><a href="cluster-analysis.html">군집분석</a></th><td>비슷한 대상끼리 묶는 분석 전체</td><td>알고리즘마다 평가 방법이 다름</td></tr></tbody></table></div>
+  <p class="te-note">실루엣 계수는 알고리즘이 아니라 군집 결과의 ‘점수’입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rousseeuw, P. J. (1987). Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. Journal of Computational and Applied Mathematics, 20, 53–65.</li>
+    <li>Kaufman, L., &amp; Rousseeuw, P. J. (1990). Finding Groups in Data: An Introduction to Cluster Analysis. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

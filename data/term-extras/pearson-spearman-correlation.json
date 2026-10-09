@@ -1,0 +1,61 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>피어슨 r</strong> = 두 변수의 공분산 ÷ (표준편차의 곱). 직선 관계의 강도와 방향을 나타냅니다.</li><li><strong>스피어만 ρ</strong> = 각 변수를 순위로 바꾼 뒤 그 순위 사이의 피어슨 상관. 단조(증가만 또는 감소만 하는) 관계의 강도를 나타냅니다.</li><li>두 값 모두 범위는 −1~1이고, 제곱 r²은 한 변수의 변동 중 직선 관계로 설명되는 비율입니다.</li></ul><p><strong>작은 예</strong>(가상의 값, 계산 결과).</p><table><thead><tr><th>자료</th><th>피어슨 r</th><th>스피어만 ρ</th><th>설명</th></tr></thead><tbody><tr><td>x = 1~10, y = e<sup>x/2</sup></td><td>.865</td><td>1.000</td><td>완전한 단조 증가지만 직선이 아님</td></tr><tr><td>x = 1~10, y = 2, 1, 4, 3, 6, 5, 8, 7, 10, <strong>30</strong></td><td>.757</td><td>.952</td><td>마지막 값 하나가 r을 끌어내림</td></tr><tr><td>같은 자료에서 30을 9로 바꿈</td><td>.939</td><td>.939</td><td>이상치가 없으면 비슷</td></tr></tbody></table>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>Cohen(1988)은 r = .10, .30, .50을 작은·중간·큰 효과의 기준점으로 제안했는데, 이는 일반 지침이며 분야에 따라 의미가 다릅니다.</li><li>표본 크기가 작으면 큰 r도 우연히 나올 수 있습니다. 양측 5% 유의성에 필요한 |r|는 n = 10에서 약 .63, n = 30에서 약 .36, n = 100에서 약 .20입니다(계산 결과). n이 크면 아주 작은 상관도 유의해지므로 크기를 함께 봅니다.</li><li>r이 0이어도 변수가 무관하다는 뜻은 아닙니다. U자형 같은 곡선 관계는 r ≈ 0일 수 있습니다. 산점도를 먼저 그립니다(Anscombe, 1973).</li><li>스피어만은 이상치와 비선형 단조 관계에 강하지만, 값의 간격 정보를 버립니다. 서열척도 자료나 정규성이 의심되는 자료에 쓰는 것이 관례입니다.</li><li>동점(같은 순위)이 많으면 계산식이 달라집니다(소프트웨어는 보통 자동 처리).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>어떤 상관계수인지, 표본 크기(또는 자유도), 값, 신뢰구간, p를 적습니다.</p><p><code>학습 시간과 성적은 유의한 양의 상관을 보였다(r(58) = .42, 95% CI [.19, .61], p &lt; .001).</code> <code>순위상관은 ρ = .38(n = 60, p = .003)이었다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>Pearson인지 Spearman인지 반드시 쓰고, 왜 그 방법을 골랐는지 한 줄 적습니다(예: ‘정규성 가정 위배로 스피어만 상관을 사용’).</li><li>여러 쌍의 상관을 한꺼번에 검정했다면 다중비교 보정 여부를 밝힙니다.</li><li>상관은 인과를 뜻하지 않으며, 제3의 변수를 통제한 관계가 필요하면 편상관을 씁니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "상관계수는 ‘어떤 관계를 보느냐’에 따라 고릅니다.",
+    "headers": [
+      "지표",
+      "보는 관계",
+      "적합한 자료"
+    ],
+    "rows": [
+      [
+        "피어슨 r",
+        "직선(선형)",
+        "연속형, 이상치 적음, 직선에 가까움"
+      ],
+      [
+        "[[spearman-correlation|스피어만 ρ]]",
+        "단조(증가·감소)",
+        "서열 자료, 이상치·비선형 단조"
+      ],
+      [
+        "[[kendalls-tau|켄달의 τ]]",
+        "순위쌍의 일치·불일치",
+        "표본이 작거나 동점이 많은 서열 자료"
+      ],
+      [
+        "[[partial-correlation|편상관계수]]",
+        "제3 변수를 통제한 상관",
+        "교란 변수 영향을 제거하고 싶을 때"
+      ],
+      [
+        "[[correlation|상관관계]]",
+        "연관성이라는 개념",
+        "인과관계와는 별개"
+      ]
+    ],
+    "note": "r = .5와 ρ = .5는 같은 눈금이 아닙니다. 계산 방식이 달라 같은 자료에서도 값이 다를 수 있습니다."
+  },
+  "references": [
+    "Pearson, K. (1895). Note on regression and inheritance in the case of two parents. Proceedings of the Royal Society of London, 58, 240–242.",
+    "Spearman, C. (1904). The proof and measurement of association between two things. The American Journal of Psychology, 15(1), 72–101.",
+    "Anscombe, F. J. (1973). Graphs in statistical analysis. The American Statistician, 27(1), 17–21.",
+    "Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum.",
+    "de Winter, J. C. F., Gosling, S. D., & Potter, J. (2016). Comparing the Pearson and Spearman correlation coefficients across distributions and sample sizes: A tutorial using simulations and empirical data. Psychological Methods, 21(3), 273–290."
+  ]
+}

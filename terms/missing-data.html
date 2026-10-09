@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/missing-data.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,29 @@
   <h2>왜 중요한가</h2>
   <p>결측치 처리는 어떤 통계 분석이든 실제 자료에 적용하기 전에 반드시 거쳐야 하는 실무적 단계이기 때문에, 거의 모든 실증 연구 논문의 방법론 절에서 다뤄집니다. 처리 방식에 따라 표본 크기, 추정치의 정밀도, 심하면 결론 자체가 달라질 수 있어, 연구의 재현성과 신뢰성을 평가할 때 결측치를 어떻게 다뤘는지가 중요한 검토 항목이 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>결측치를 어떻게 다룰지는 <strong>왜 비었는가(결측 기제)</strong>에 달려 있습니다(Rubin, 1976).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>기제</th><th>뜻</th><th>예</th></tr></thead><tbody><tr><td>MCAR (완전 무작위 결측)</td><td>결측 여부가 어떤 변수와도 무관</td><td>설문지 일부가 우연히 오염되어 판독 불가</td></tr><tr><td>MAR (무작위 결측)</td><td>결측 여부가 <em>관측된</em> 변수로 설명됨</td><td>고연령자가 소득 문항에 더 많이 답하지 않음(연령은 관측됨)</td></tr><tr><td>MNAR (비무작위 결측)</td><td>결측 여부가 <em>결측된 값 자체</em>와 관련됨</td><td>소득이 높은 사람일수록 소득을 안 밝힘</td></tr></tbody></table></div><ul><li>MAR과 MNAR은 관측된 자료만으로는 구별할 수 없습니다. 리틀의 MCAR 검정은 MCAR을 기각할 수 있지만 MAR인지 MNAR인지는 알려 주지 않습니다.</li><li>결측치의 비율이 얼마 이하면 무시해도 된다는 보편적 기준은 없습니다. 5%, 10% 같은 숫자는 관례일 뿐입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>모의 자료(n = 2,000, 계산 결과)로 확인해 봅시다. 변수 y의 실제 평균은 0.00이고 x와 상관이 있습니다. y에 결측을 만들고, <strong>결측 없는 사례만</strong> 쓴 평균을 비교합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>결측 기제</th><th>결측 비율</th><th>완전사례 평균</th></tr></thead><tbody><tr><td>MCAR (무작위로 30%)</td><td>30%</td><td>0.00</td></tr><tr><td>MAR (x가 클수록 y를 잃음)</td><td>31%</td><td>−0.23</td></tr><tr><td>MNAR (y가 클수록 y를 잃음)</td><td>32%</td><td>−0.36</td></tr></tbody></table></div><p>MCAR에서는 완전사례분석이 편향되지 않지만 표본이 줄어듭니다. MAR에서는 y가 x와 관련된 만큼 평균이 한쪽으로 치우칩니다. 이때 관측된 x로 y의 결측을 설명하는 회귀대체를 하면 평균이 −0.02로 참값에 가까워집니다(MAR이므로 가능). MNAR에서는 x 같은 관측 변수로 보정되지 않으며, 결측 기제에 대한 별도의 가정과 민감도 분석이 필요합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“결측치는 평균으로 채우면 안전하다”</strong>: 평균대체는 분산과 상관을 줄이고 표준오차를 과소추정합니다. 연구에서는 <a href="multiple-imputation.html">다중대체법</a>이나 <a href="full-information-maximum-likelihood.html">완전정보 최대우도법</a>이 널리 권장됩니다(Schafer &amp; Graham, 2002).</li><li><strong>“결측이 있는 사례를 지우는 게 가장 정직하다”</strong>: MCAR이 아니면 편향이 생기고, 설령 MCAR이어도 표본이 줄어 정밀도가 떨어집니다.</li><li><strong>“MAR임을 검정할 수 있다”</strong>: 자료로는 확인할 수 없고, 결측이 생긴 과정에 대한 지식으로 정당화해야 합니다.</li><li>결측이 있다는 사실, 변수별 비율, 처리 방법을 논문에 밝히지 않는 것도 흔한 문제입니다. 사용한 방법이 결과에 미치는 영향도 함께 논의하는 것이 좋습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“결측 데이터에 대한 보정(imputation)은 시행하지 않았다.”</blockquote><p class="te-cite">무지 수근중수관절 관절염에서 PyroDisk 삽입 관절 성형술의 중기 임상 및 방사선학적 결과: 후향적 증례군 연구, Archives of Hand and Microsurgery, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096892" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“실증 연구를 위한 조사 자료에서 결측값이 존재하는 것은 연구자가 흔히 맞이할 수 있는상황이다.”</blockquote><p class="te-cite">범죄학 연구와 결측 : 실제 자료를 활용한 결측 대치법 비교 분석, 형사정책연구, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002334220" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“분석의 통계적 신뢰성을 확보하기 위해 측정 항목을 완전히 수행하지 못하여 결측치가 발생한 선수 12명은 해당 모형에서 제외하였다.”</blockquote><p class="te-cite">전문 핸드볼 선수의 경기력을 결정하는 생리적 요인의 통합적 분석: 후향적 단면 연구, The Korean Journal of Sports Medicine, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096818" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"결측치는 문항별 5% 미만으로 확인되었으며, 다중대체법(multiple imputation)을 적용하여 분석하였다."</div>
   <p>빠진 값이 많지 않았지만 단순히 지우는 대신, 통계적으로 그럴듯한 값을 추정해 채워 넣는 방법을 사용해 분석했다는 뜻입니다.</p>
 
@@ -165,6 +188,22 @@
 
   <h2>주의할 점</h2>
   <p>결측치가 있는 사례를 아무 설명 없이 통째로 빼버리는 방식(목록별 삭제)은 간단하지만, 결측이 무작위로 생긴 것이 아니라 특정 응답 경향과 관련되어 있다면 <a href="selection-bias.html">선택편향</a>과 비슷한 방식으로 결과를 왜곡시킬 수 있습니다. 따라서 결측치가 왜 생겼는지, 어떤 방식으로 처리했는지를 논문에 명시하는 것이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘값이 없다’에도 여러 종류가 있어 처리도 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">뜻</th><th scope="col">처리</th></tr></thead><tbody><tr><th scope="row">결측치</th><td>측정·응답이 되지 않아 값을 모름</td><td>결측 기제를 따져 대체·최대우도 등으로 처리</td></tr><tr><th scope="row"><a href="outlier.html">이상치</a></th><td>값은 있지만 다른 값들과 동떨어짐</td><td>오류인지 실제 값인지 확인 후 결정</td></tr><tr><th scope="row">무응답</th><td>설문에 응답하지 않음(단위 또는 문항)</td><td>가중치 보정이나 대체 등</td></tr><tr><th scope="row">중도절단(검열)</th><td>생존분석에서 관찰이 끝났을 때까지 사건이 없었음</td><td>결측이 아니라 ‘그 시점 이후’라는 정보. 생존분석 방법으로 처리</td></tr><tr><th scope="row"><a href="littles-mcar-test.html">리틀의 MCAR 검정</a></th><td>결측이 완전 무작위인지 검정</td><td>기제 중 MCAR만 검토할 수 있음</td></tr></tbody></table></div>
+  <p class="te-note">결측치 처리의 첫 단계는 ‘채우는 방법’이 아니라 ‘왜 비었는지’를 이해하는 일입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rubin, D. B. (1976). Inference and missing data. Biometrika, 63(3), 581–592.</li>
+    <li>Little, R. J. A., &amp; Rubin, D. B. (2019). Statistical Analysis with Missing Data (3rd ed.). Wiley.</li>
+    <li>Schafer, J. L., &amp; Graham, J. W. (2002). Missing data: Our view of the state of the art. Psychological Methods, 7(2), 147–177.</li>
+    <li>Enders, C. K. (2010). Applied Missing Data Analysis. Guilford Press.</li>
+    <li>Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. Journal of the American Statistical Association, 83(404), 1198–1202.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="multiple-imputation.html">다중대체법</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

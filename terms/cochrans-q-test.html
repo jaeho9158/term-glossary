@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cochrans-q-test.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <p>이런 반복측정 이분형 자료는 일반적인 카이제곱 검정이나 t검정의 독립성 가정을 만족하지 못하기 때문에, 조건 간 차이를 제대로 검증하려면 코크란 Q 검정처럼 반복측정 구조를 반영하는 방법이 필요합니다.</p>
   <p>그래서 이 검정은 반복측정 분산분석이나 일반화추정방정식 같은 더 복잡한 모형으로 나아가기 전 단계의 기초 검정으로 논문에 자주 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>같은 대상을 세 개 이상의 조건(또는 시점)에서 측정한 <strong>이분형 결과</strong>(성공/실패, 양성/음성, 예/아니오)의 비율이 조건마다 다른지 볼 때 씁니다. 예) 같은 환자 12명이 세 가지 검사법에서 병변을 ‘발견했는가’, 같은 학생들이 세 가지 문제 유형을 ‘맞혔는가’.</p><ul><li>귀무가설 H₀: 모든 조건에서 ‘성공’의 확률이 같다.</li><li>조건이 2개이면 맥니마 검정과 같은 결과입니다. 3개 이상일 때 맥니마 검정을 확장한 것으로 이해하면 됩니다.</li><li>대상(행)마다 모든 조건의 결과가 있어야 합니다. 한 칸이라도 비면 그 대상은 제외됩니다. 결과가 연속 점수라면 프리드만 검정이나 반복측정분산분석을 씁니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>검정통계량은 조건별 ‘성공’ 합계가 서로 얼마나 다른지를 재며, 대상 수가 충분히 많으면 자유도 (조건 수 − 1)인 카이제곱분포를 따릅니다. 이 통계량은 이분형 자료에 대한 프리드만 검정 구조의 특수한 경우로 볼 수 있습니다.</p><p><strong>작은 예</strong>(가상의 자료, 계산 결과). 12명이 과제 A, B, C를 시도해 성공한 사람이 A 9명, B 9명, C 1명이었고, 사람별로는 세 과제 모두 성공 1명, 두 과제 성공 6명, 한 과제 성공 4명, 모두 실패 1명이었다면 Q = 12.80, 자유도 2, p ≈ .002입니다.</p><ul><li>유의하다는 것은 ‘적어도 한 조건은 다르다’일 뿐 어느 조건이 다른지는 알려 주지 않습니다. 위 예에서 눈으로는 C가 다르지만, 이를 확인하려면 조건 쌍마다 맥니마 검정을 하고 보정합니다.</li><li>쌍별 비교는 <a href="bonferroni-correction.html">본페로니 보정</a>처럼 다중비교 보정을 거쳐 해석합니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>조건 수와 대상 수, 조건별 성공 비율, Q 통계량과 자유도, p를 적고, 유의하면 쌍별 비교와 보정 방식을 이어서 적습니다.</p><p><code>세 과제의 성공률은 유의하게 달랐다(Cochran의 Q(2) = 12.80, p = .002, N = 12). 쌍별 맥니마 검정(본페로니 보정) 결과 과제 C의 성공률(8%)이 A(75%)와 B(75%)보다 낮았다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>표본이 작으면 카이제곱 근사가 부정확하므로, 정확검정이나 순열검정 값을 쓴 경우 그 사실을 밝힙니다.</li><li>고정된 순서로 같은 대상에게 조건을 제시했다면 순서효과(연습효과)의 가능성을 논의합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"세 가지 학습 방식에 대한 참가자의 합격/불합격 응답 비율 차이를 코크란 Q 검정으로 분석한 결과, 조건 간 유의한 차이가 있었다(Q(2) = 8.42, p = .015)."</div>
   <p>이 문장은 "세 학습 방식 중 적어도 한 방식에서 합격 비율이 다른 방식들과 우연이라고 보기 힘들 만큼 차이가 났다"는 뜻입니다.</p>
 
@@ -161,12 +179,27 @@
   <p>같은 응답자 집단이 여러 광고 문구를 모두 보고 클릭했는지 여부를 답한 자료에서, 문구별 클릭 비율이 실제로 다른지를 판단한 결과라는 뜻입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>코크란 Q 검정은 조건 수가 2개일 때는 맥니마 검정과 수학적으로 동일한 결과를 내며, 검정통계량 Q는 조건 수가 충분히 많아지면 근사적으로 카이제곱 분포를 따른다고 알려져 있습니다.</p>
+  <p>코크란 Q 검정은 조건 수가 2개일 때는 맥니마 검정과 수학적으로 동일한 결과를 내며, 검정통계량 Q는 대상(행)의 수가 충분히 많으면 자유도가 (조건 수 − 1)인 카이제곱 분포를 근사적으로 따른다고 알려져 있습니다.</p>
   <p>검정 결과가 유의하다는 것은 "적어도 하나의 조건이 다른 조건들과 다르다"는 것만 알려줄 뿐 어떤 조건들 사이에 차이가 있는지는 알려주지 않으므로, 구체적인 조건 쌍을 비교하려면 별도의 사후검정(post-hoc test)이 뒤따르는 경우가 많습니다.</p>
   <p>또한 결측치가 있는 반복측정 자료나 공변량을 함께 고려해야 하는 경우에는 코크란 Q 검정 대신 일반화추정방정식이나 일반화선형혼합모형 같은 확장된 방법을 쓰는 경우도 흔합니다.</p>
 
   <h2>주의할 점</h2>
   <p>같은 대상을 반복측정한 자료라도 응답이 "예/아니오" 같은 이분형이 아니라 연속형 점수라면 코크란 Q 검정이 아니라 <a href="friedman-test.html">프리드만 검정</a>을 사용해야 합니다. 자료의 척도(이분형인지 연속형인지)에 따라 적합한 검정 방법이 달라진다는 점을 혼동하지 않아야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘같은 대상을 반복 측정’했는지, ‘결과가 이분형인지’로 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">조건 수</th><th scope="col">결과 척도</th><th scope="col">설계</th></tr></thead><tbody><tr><th scope="row"><a href="mcnemars-test.html">맥니마 검정</a></th><td>2</td><td>이분형</td><td>같은 대상(대응)</td></tr><tr><th scope="row">Cochran의 Q 검정</th><td>3 이상</td><td>이분형</td><td>같은 대상(반복측정)</td></tr><tr><th scope="row"><a href="friedman-test.html">프리드만 검정</a></th><td>3 이상</td><td>서열·연속</td><td>같은 대상(반복측정)</td></tr><tr><th scope="row"><a href="repeated-measures-anova.html">반복측정분산분석</a></th><td>3 이상</td><td>연속(정규성 가정)</td><td>같은 대상(반복측정)</td></tr><tr><th scope="row"><a href="chi-square-test.html">카이제곱검정</a></th><td>2 이상</td><td>범주형</td><td>서로 다른 대상(독립)</td></tr></tbody></table></div>
+  <p class="te-note">서로 다른 사람들의 비율을 비교하면 카이제곱검정, 같은 사람들을 여러 번 측정했으면 Q 검정입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cochran, W. G. (1950). The comparison of percentages in matched samples. Biometrika, 37(3–4), 256–266.</li>
+    <li>McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions or percentages. Psychometrika, 12(2), 153–157.</li>
+    <li>Siegel, S., &amp; Castellan, N. J. (1988). Nonparametric Statistics for the Behavioral Sciences (2nd ed.). McGraw-Hill.</li>
+    <li>Agresti, A. (2013). Categorical Data Analysis (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="nonparametric-test.html">비모수검정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="dunn-test.html">던 검정</a><a href="wald-wolfowitz-runs-test.html">런 검정</a><a href="mcnemars-test.html">맥니마 검정</a><a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a><a href="sign-test.html">부호검정</a><a href="permutation-test.html">순열검정</a><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a><a href="kolmogorov-smirnov-test.html">콜모고로프-스미르노프 검정</a><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a><a href="friedman-test.html">프리드만 검정</a><a href="fishers-exact-test.html">피셔의 정확검정</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/fleiss-kappa.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -142,12 +143,29 @@
 
   <h2>쉽게 풀면</h2>
   <p>영화 심사위원 5명이 각 작품을 "합격/불합격"으로 판정한다고 해봅시다. 심사위원들의 판정이 자주 일치한다면 심사 기준이 명확하다는 뜻이고, 제각각이라면 기준이 애매하다는 뜻입니다. 그런데 아무렇게나 찍어도 우연히 일치하는 경우가 생길 수 있죠.</p>
-  <p>플라이스 카파는 이 "우연히 맞아떨어진 부분"을 제외하고 진짜로 평가자들의 의견이 얼마나 일치하는지를 0~1 사이 숫자로 알려줍니다. 값이 1에 가까울수록 평가자들이 서로 비슷하게 판단했다는 뜻이고, 0에 가까우면 우연히 일치한 정도와 별 차이가 없다는 뜻입니다.</p>
+  <p>플라이스 카파는 이 "우연히 맞아떨어진 부분"을 제외하고 진짜로 평가자들의 의견이 얼마나 일치하는지를 숫자로 알려줍니다(보통 0~1 사이이며, 우연보다 못하게 일치하면 음수도 나옵니다). 값이 1에 가까울수록 평가자들이 서로 비슷하게 판단했다는 뜻이고, 0에 가까우면 우연히 일치한 정도와 별 차이가 없다는 뜻입니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>여러 평가자가 참여하는 코딩이나 분류 작업의 결과를 신뢰할 수 있으려면, 평가자들이 서로 독립적으로도 비슷한 판단에 도달하는지를 수치로 검증할 필요가 있습니다. 플라이스 카파는 세 명 이상의 평가자가 참여하는 상황에 맞춰 이 평가자 간 신뢰도를 계량화해주기 때문에, 콘텐츠 분석이나 질적 코딩을 사용하는 커뮤니케이션학, 의학 영상 판독, 교육 평가 등 다양한 분야의 논문에서 방법론적 타당성을 뒷받침하는 근거로 흔히 보고됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>세 명 이상의 평가자가 각 대상을 범주 중 하나로 분류했을 때, 우연히 맞을 만큼을 제외한 일치도입니다.</p><p><code>κ = (P̄ − P̄<sub>e</sub>) ÷ (1 − P̄<sub>e</sub>)</code></p><ul><li>P̄: 대상마다 평가자 쌍이 얼마나 일치했는지를 구해 평균한 값(관측 일치도)</li><li>P̄<sub>e</sub>: 범주별 전체 비율의 제곱합(우연 일치도)</li><li><strong>범위</strong>: 1에서 완전 일치, 0은 우연 수준, 음수는 우연보다 못한 일치입니다.</li><li>한 대상을 평가한 사람 수는 모든 대상에서 같아야 합니다. 평가자가 같은 사람들일 필요는 없습니다.</li></ul><p><strong>작은 예</strong>(가상의 자료, 계산 결과). 10건을 4명이 3개 범주 중 하나로 분류했습니다. 범주별 전체 비율은 0.35, 0.35, 0.30이므로 우연 일치도는 0.335, 관측 일치도는 0.583이고 κ = (0.583 − 0.335) ÷ (1 − 0.335) ≈ <strong>0.37</strong>입니다. 단순 일치율로 보면 높아 보이지만 우연을 걷어내면 보통 이하입니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>Landis &amp; Koch(1977)가 제시한 구간이 가장 자주 인용됩니다. 그러나 이는 저자들 스스로 임의적이라고 밝힌 관례입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>κ</th><th>표현(Landis &amp; Koch)</th></tr></thead><tbody><tr><td>&lt; 0</td><td>우연보다 낮음</td></tr><tr><td>0.01 ~ 0.20</td><td>약간(slight)</td></tr><tr><td>0.21 ~ 0.40</td><td>보통 이하(fair)</td></tr><tr><td>0.41 ~ 0.60</td><td>중간(moderate)</td></tr><tr><td>0.61 ~ 0.80</td><td>상당함(substantial)</td></tr><tr><td>0.81 ~ 1.00</td><td>거의 완벽(almost perfect)</td></tr></tbody></table></div><ul><li>위 예의 0.37은 이 표에서 ‘보통 이하’에 해당합니다.</li><li>일치율이 매우 높아도 한 범주에 응답이 쏠리면 κ가 낮게 나오는 ‘카파의 역설’이 알려져 있습니다(Feinstein &amp; Cicchetti, 1990). 범주별 분포를 함께 제시하세요.</li><li>범주의 수와 분포, 대상의 특성에 따라 같은 κ의 의미가 달라지므로 다른 연구와 단순 비교하기 어렵습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>평가자 수, 대상 수, 범주, κ와 95% 신뢰구간을 적습니다. 서열 범주(경증/중등도/중증)라면 가중 카파나 급내상관계수가 더 적합할 수 있음을 검토합니다.</p><p><code>세 명의 평가자(N = 60 영상)가 판독한 병변 분류의 일치도는 Fleiss의 κ = 0.62(95% CI 0.51–0.73)로 상당한 수준이었다(Landis &amp; Koch 기준).</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>어떤 해석 기준을 썼는지 인용합니다.</li><li>범주별 κ와 단순 일치율을 함께 싣는 것이 독자에게 친절합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"세 명의 코더가 인터뷰 내용을 5개 범주로 분류한 결과, 평가자 간 일치도는 Fleiss' κ = .78로 상당히 높은 수준이었다."</div>
   <p>이 문장은 "세 명 이상이 참여한 분류 작업에서, 우연이 아니라 실제로 평가자들의 판단이 상당히 일치했다"는 뜻입니다. 질적 연구에서 여러 명이 텍스트나 영상을 코딩할 때 신뢰도를 보고하는 데 자주 사용됩니다.</p>
 
@@ -159,11 +177,26 @@
 
   <h2>조금 더 깊게 보면</h2>
   <p>플라이스 카파 값은 흔히 랜디스와 코흐(Landis & Koch)가 제안한 기준 등을 참고해 낮음, 중등도, 높음과 같은 구간으로 해석되지만, 이런 기준은 절대적인 것이 아니라 관행적으로 참고되는 수준이라는 점을 유의해야 합니다.</p>
-  <p>코헨의 카파가 정확히 두 명의 평가자를 전제로 하는 것과 달리, 플라이스 카파는 평가자 수가 매 대상마다 달라도 계산할 수 있도록 확장된 지표입니다.</p>
+  <p>코헨의 카파가 정확히 두 명의 평가자를 전제로 하는 것과 달리, 플라이스 카파는 평가자가 세 명 이상이어도 계산할 수 있도록 확장된 지표입니다. 대상마다 평가한 사람이 달라도 되지만, 한 대상을 평가한 사람 수는 모든 대상에서 같아야 합니다.</p>
   <p>범주 수가 많거나 특정 범주에 응답이 심하게 쏠려 있으면 카파 값이 실제 일치 수준보다 낮게 나타날 수 있어, 논문에서는 원자료의 범주 분포도 함께 살펴보는 것이 해석에 도움이 됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>플라이스 카파는 평가자가 정확히 2명일 때 쓰는 <a href="cohen-kappa.html">코헨의 카파</a>와 이름은 비슷하지만 다른 지표입니다. 평가자가 3명 이상이거나 평가자마다 채점하는 대상이 달라질 수 있는 상황에서는 코헨의 카파가 아니라 플라이스 카파를 써야 합니다. 또한 범주 수가 적거나 한쪽 범주로 응답이 쏠려 있으면 실제 일치도보다 값이 낮게 나올 수 있어 해석에 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘일치도’ 지표는 평가자 수와 자료 유형에 따라 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">평가자 수</th><th scope="col">자료 유형</th></tr></thead><tbody><tr><th scope="row"><a href="cohen-kappa.html">코헨의 카파</a></th><td>정확히 2명</td><td>범주형</td></tr><tr><th scope="row">Fleiss의 카파</th><td>3명 이상(대상마다 같은 수)</td><td>범주형</td></tr><tr><th scope="row"><a href="intraclass-correlation-coefficient.html">급내상관계수(ICC)</a></th><td>2명 이상</td><td>연속형(또는 서열을 점수로 볼 때)</td></tr><tr><th scope="row"><a href="cronbachs-alpha.html">크론바흐 알파</a></th><td>—</td><td>문항 간 내적 일관성. 평가자 일치도와는 다른 개념</td></tr><tr><th scope="row">단순 일치율</th><td>제한 없음</td><td>우연으로 맞은 몫을 걷어내지 않음</td></tr></tbody></table></div>
+  <p class="te-note">카파는 ‘우연 보정 일치도’, ICC는 ‘점수의 일치·일관성’, 크론바흐 알파는 ‘문항 신뢰도’입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fleiss, J. L. (1971). Measuring nominal scale agreement among many raters. Psychological Bulletin, 76(5), 378–382.</li>
+    <li>Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37–46.</li>
+    <li>Landis, J. R., &amp; Koch, G. G. (1977). The measurement of observer agreement for categorical data. Biometrics, 33(1), 159–174.</li>
+    <li>Feinstein, A. R., &amp; Cicchetti, D. V. (1990). High agreement but low kappa: I. The problems of two paradoxes. Journal of Clinical Epidemiology, 43(6), 543–549.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

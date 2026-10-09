@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/bayesian-inference.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,28 @@
   <p>많은 실제 연구 데이터는 표본 수가 적거나 구조가 복잡해서 전통적인 빈도주의 방법으로는 안정적인 결론을 내리기 어려운 경우가 많습니다. 베이지안 추론은 기존 연구나 전문가 지식을 사전분포 형태로 명시적으로 반영할 수 있어, 이런 상황에서도 비교적 해석하기 쉬운 결과를 제공합니다.</p>
   <p>그래서 심리학, 의학, 생태학처럼 표본 확보가 어려운 분야뿐 아니라, 복잡한 위계적·시계열 모형을 다루는 통계학·기계학습 분야에서도 널리 쓰입니다. 최근에는 불확실성을 정량적으로 표현해야 하는 인공지능 모델의 신뢰도 추정에도 베이지안적 접근이 자주 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>베이지안 추론은 <code>사후분포 ∝ 우도 × 사전분포</code>로 모수에 대한 믿음을 자료로 갱신합니다(<a href="bayes-theorem.html">베이즈 정리</a>).</li><li>결과는 점 하나가 아니라 <strong>모수의 분포</strong>(사후분포)이며, 거기서 평균·중앙값, 신용구간, “모수가 어떤 값보다 클 확률” 같은 질문에 직접 답할 수 있습니다.</li><li>사전분포는 자료를 보기 전의 정보나 가정입니다. 자료가 충분히 많으면 사전분포의 영향은 줄어듭니다.</li><li>사후분포를 수식으로 풀 수 없으면 MCMC 같은 시뮬레이션으로 근사하고, 수렴 진단(R̂, 유효표본크기 등)을 반드시 확인합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>어떤 처치가 효과 있는 환자 비율 θ를 알고 싶습니다. 10명 중 7명이 호전되었고, 사전분포를 ‘아무것도 모른다’는 뜻의 Beta(1, 1)(균등분포)로 두면 사후분포는 Beta(1 + 7, 1 + 3) = Beta(8, 4)입니다(계산 결과).</p><ul><li>사후평균 = 8 ÷ 12 ≈ 0.667, 95% 신용구간 [0.39, 0.89]. 이 자료와 사전분포를 믿는다면 θ가 이 구간에 있을 확률이 95%입니다.</li><li>θ &gt; 0.5일 사후확률 = 0.887. 빈도주의 검정에서는 직접 얻기 어려운 형태의 답입니다.</li><li>비교로, 윌슨 방법의 95% 신뢰구간은 [0.40, 0.89]로 숫자는 비슷하지만 해석이 다릅니다.</li></ul><p><strong>사전분포의 영향.</strong> ‘0.5 근처일 것’이라는 강한 사전분포 Beta(20, 20)을 쓰면 같은 자료에서 사후평균이 0.54, 95% 신용구간이 [0.40, 0.67]로 크게 당겨집니다. 반면 100명 중 70명이면 균등 사전분포에서 사후평균 0.70, 신용구간 [0.60, 0.78]로, 자료가 사전분포를 압도합니다.</p><p><strong>베이즈 정리의 전형적 사례.</strong> 유병률 1%, 민감도 90%, 특이도 95%인 검사에서 양성이 나왔을 때 실제 환자일 확률은 약 15%입니다. 낮은 사전확률(유병률)이 결과를 좌우합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“베이지안은 주관적이라 임의적이다”</strong>: 사전분포를 정하는 것은 가정을 드러내는 일입니다. 근거(선행연구, 약한 정보 사전분포)를 밝히고 <strong>사전분포를 바꿔도 결론이 유지되는지</strong>(민감도 분석) 보이는 것이 표준 관행입니다.</li><li><strong>“신용구간은 신뢰구간의 다른 이름”</strong>이 아닙니다. 신뢰구간은 절차의 장기적 포함 비율에 대한 말이고, 신용구간은 자료와 사전분포를 조건으로 한 모수의 확률입니다.</li><li><strong>“MCMC 결과가 나왔으니 맞다”</strong>가 아닙니다. 사슬이 수렴했는지(R̂가 1에 가까운지; Vehtari 외, 2021은 1.01 미만을 권함), 유효표본크기가 충분한지 확인해야 합니다.</li><li>베이즈 인수는 사전분포에 민감하므로, 사후확률과 별개로 해석에 주의합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 연구에서는 이러한 선행 연구 결과를 바탕으로 연령과 CT사고력 하위 요소를 매개 변수로 사용하여 계층적 베이지안 추론 모델링을 실시하였다.”</blockquote><p class="te-cite">컴퓨팅 사고력 신장을 위한 퍼즐 기반 컴퓨터과학 교육 프로그램의 효과 예측, 정보교육학회논문지, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002518378" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이 과정에서 통계적 추론절차, 연구관행 그리고 출판편향 등이 재현성 위기의 원인들로서 조명되었으며, 그에 따라 심리학의 재현성을 증진하기 위한 해결책들(신뢰구간, 효과 크기의 사용, 메타분석, 베이지안 통계, 연구 자료와 방법론의 투명성 증가)도 제안되고 있다.”</blockquote><p class="te-cite">심리학 연구에서 재현성 위기의 현황과 원인 및 대안 모색에 대한 개관, 한국심리학회지:일반, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002265102" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"사전분포로 무정보적 사전분포(non-informative prior)를 설정하고 MCMC 표본추출을 통해 사후분포를 추정한 결과, 회귀계수의 95% 신용구간(credible interval)은 0.12~0.45로 나타나 두 변수 간 양의 관계를 지지하였다."</div>
   <p>이 문장은 심리학이나 의학 논문의 분석 방법 및 결과 부분에서, 표본이 작거나 모형이 복잡한 위계적 자료를 분석할 때 베이지안 방법을 사용했음을 보여줍니다. 전통적 방법으로는 추정이 불안정한 경우에도 베이지안 방법은 사전 정보를 활용해 비교적 안정적인 추정치를 얻을 수 있습니다.</p>
 
@@ -172,6 +194,22 @@
 
   <h2>주의할 점</h2>
   <p>베이지안 추론 결과로 제시되는 "신용구간(credible interval)"은 전통적 통계에서 쓰는 <a href="confidence-interval.html">신뢰구간</a>과 겉모습은 비슷하지만 해석 방식이 다릅니다. 신뢰구간은 "반복 표집했을 때 구간이 참값을 포함할 확률"을 의미하는 반면, 신용구간은 "참값이 그 구간 안에 있을 확률" 자체를 직접 의미합니다. 또한 사전분포를 어떻게 설정하느냐에 따라 결과가 달라질 수 있으므로, 논문에서는 사전분포 선택의 근거를 함께 밝혀야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>베이지안 분석 보고서에는 이름이 비슷한 용어가 여러 개 나옵니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><a href="bayes-theorem.html">베이즈 정리</a></th><td>조건부확률을 뒤집는 공식</td><td>추론의 수학적 기초</td></tr><tr><th scope="row"><a href="likelihood-function.html">우도</a></th><td>모수 값에 따라 자료가 얼마나 그럴듯한지</td><td>사전분포와 곱해 사후분포를 만듦</td></tr><tr><th scope="row"><a href="conjugate-prior.html">켤레사전분포</a></th><td>사후분포가 같은 계열이 되는 사전분포</td><td>계산이 간단해짐(예: Beta-이항)</td></tr><tr><th scope="row"><a href="credible-interval.html">신용구간</a></th><td>사후분포에서 구한 구간</td><td>모수가 구간에 있을 확률로 해석</td></tr><tr><th scope="row"><a href="bayes-factor.html">베이즈 인수</a></th><td>두 가설·모형에 대한 증거의 비</td><td>모형 비교. 사전분포에 민감</td></tr><tr><th scope="row"><a href="markov-chain-monte-carlo.html">MCMC</a></th><td>사후분포에서 표본을 뽑는 계산법</td><td>해석이 아니라 계산 도구</td></tr></tbody></table></div>
+  <p class="te-note">‘사전’은 자료를 보기 전, ‘사후’는 자료를 반영한 뒤를 뜻합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. Philosophical Transactions of the Royal Society of London, 53, 370–418.</li>
+    <li>Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., &amp; Rubin, D. B. (2013). Bayesian Data Analysis (3rd ed.). CRC Press.</li>
+    <li>McElreath, R. (2020). Statistical Rethinking (2nd ed.). CRC Press.</li>
+    <li>Bernardo, J. M., &amp; Smith, A. F. M. (1994). Bayesian Theory. Wiley.</li>
+    <li>van de Schoot, R., Depaoli, S., King, R., et al. (2021). Bayesian statistics and modelling. Nature Reviews Methods Primers, 1, 1.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="hierarchical-bayesian-model.html">계층적 베이즈 모형</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/multicollinearity.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,29 @@
   <p>회귀분석을 이용한 논문에서는 각 독립변수가 종속변수에 미치는 개별적인 영향을 해석하는 것이 핵심인데, 다중공선성이 존재하면 이 해석 자체가 신뢰할 수 없게 됩니다. 그래서 사회과학, 경영학, 의학 등 회귀모형을 사용하는 거의 모든 실증연구 논문에서 본격적인 분석에 앞서 다중공선성 점검을 거치는 것이 관행처럼 자리잡았습니다.</p>
   <p>이를 소홀히 하면 통계적으로 유의하지 않아야 할 변수가 유의하게 나오거나, 계수의 부호가 이론과 반대로 뒤집히는 등 결과 해석 자체가 왜곡될 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>다중공선성은 회귀의 <strong>설명변수끼리</strong> 강하게 상관되어, 각 변수의 개별 효과를 분리해 추정하기 어려운 상태입니다.</li><li>영향: 계수의 <strong>표준오차가 커지고</strong> 추정치가 표본에 따라 크게 달라지며, 부호가 이론과 반대로 나오기도 합니다. 모형 전체의 설명력(R²)이나 예측은 크게 나빠지지 않을 수 있습니다.</li><li>한 변수가 다른 변수들의 정확한 선형결합이면(완전 다중공선성, 예: 더미 변수를 모든 범주만큼 넣음) 계수를 유일하게 추정할 수 없습니다.</li><li>진단: <a href="variance-inflation-factor.html">분산팽창계수(VIF)</a>, 공차, 상태지수, 상관행렬. 위치는 ‘변수 쌍’만이 아니라 ‘여러 변수의 조합’일 수 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>모의 자료(n = 100, 계산 결과)로 확인해 봅시다. x₁과 x₂의 상관이 .868이고, 실제 모형은 y = 1 + 1·x₁ + 1·x₂ + 오차입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>모형</th><th>x₁의 계수 (표준오차)</th><th>x₂의 계수 (표준오차)</th></tr></thead><tbody><tr><td>x₁, x₂ 모두 포함</td><td>1.02 (0.22)</td><td>0.97 (0.21)</td></tr><tr><td>x₁만 포함</td><td>1.87 (0.12)</td><td>—</td></tr></tbody></table></div><ul><li>둘을 모두 넣으면 계수는 참값(1)에 가깝지만 표준오차가 큽니다. VIF ≈ 4.05이므로 표준오차가 약 √4.05 ≈ 2.0배로 커진 셈입니다.</li><li>x₂를 빼 버리면 표준오차는 작아져 ‘정밀해’ 보이지만, x₁이 x₂의 효과까지 대신 떠안아 계수가 거의 2배(1.87)로 <strong>치우칩니다.</strong> 다중공선성이 있다고 변수를 무작정 빼면 안 되는 이유입니다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“다중공선성이 있으면 모형을 못 쓴다”</strong>: 예측이 목적이라면 큰 문제가 아닐 수 있습니다. 문제는 개별 계수의 해석과 유의성 검정입니다.</li><li><strong>“VIF가 10 미만이면 문제없다”</strong>: 10은 관례적 기준일 뿐이며, 표본이 작으면 더 낮은 VIF에서도 불안정합니다(O’Brien, 2007).</li><li><strong>“상관이 높은 변수 중 하나를 빼면 해결”</strong>: 이론적으로 필요한 변수를 빼면 위 예처럼 편향이 생깁니다. 변수를 합성(지수·요인), 표본을 늘림, 능형회귀·주성분회귀 같은 방법을 대안으로 검토합니다.</li><li>상호작용항이나 제곱항은 원래 변수와 구조적으로 상관이 높아 보일 수 있는데, 변수를 평균중심화하면 크게 줄어듭니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“다중다항 로지스틱 회귀분석 수행 전 변수 간 다중공선성을 확인하기 위해 variance inflation factor (VIF)를 산출했으며, 모든 변수의 VIF가 2 미만이므로 변수 간 다중공선성이 없는 것으로 판단했다.”</blockquote><p class="te-cite">한국 장애인의 영양 위험 관련 요인: 장애인삶 패널조사 자료를 이용하여, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094127" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“특히, 본 연구에서 사용된 우식 유아치 수 자료는 영과잉 자료의 특성과 함께 독립변수 간 다중공선성이 존재한다는 특징이 존재하여 일반적인 가산회귀모형과 더불어 자료의 영과잉 및 다중공선성을 반영한 모형들을 고려하였다.”</blockquote><p class="te-cite">우식 유아치 발생에 대한 다양한 통계적 모형에 관한 연구, Journal of The Korean Data Analysis Society, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002363557" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“분산팽창지수(variance inflation factor, VIF)를 통해 다중공선성을 검토하였으며, 모든 통계 분석은 SPSS (version 18 for Windows; SPSS Inc., Chicago, USA)를 사용하여 수행하였다.”</blockquote><p class="te-cite">임플란트 주위염의 비외과적 처치에서 반복적 국소 미노사이클린 적용이 방사선학적 골수준 변화에 미치는 효과: 후향적 분석, Journal of Dental Rehabilitation and Applied Science, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096829" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"독립변수 간 다중공선성 여부를 확인하기 위해 분산팽창지수(VIF)를 산출한 결과, 모든 변수에서 VIF가 10 미만으로 나타나 다중공선성 문제는 없는 것으로 판단되었다."</div>
   <p>이 문장은 "회귀모형에 넣은 여러 독립변수들이 서로 심하게 얽혀 있지는 않은지 미리 점검했고, 그 결과 문제가 될 정도는 아니었다"는 뜻입니다. VIF(분산팽창지수)는 다중공선성의 정도를 가늠하는 대표적인 지표입니다.</p>
   <div class="example">"설문 문항 간 상관행렬을 검토한 결과 일부 변수 쌍에서 상관계수가 0.8을 초과하여 다중공선성 우려가 제기되었고, 이에 두 변수 중 하나를 분석에서 제외하였다."</div>
@@ -162,6 +185,22 @@
 
   <h2>주의할 점</h2>
   <p>VIF가 기준값(흔히 10) 미만이라고 해서 다중공선성이 "전혀 없다"는 뜻은 아니며, 연구 분야나 표본 크기에 따라 더 엄격한 기준(예: 5)을 적용하기도 합니다. 또한 다중공선성은 <a href="regression.html">회귀분석</a>의 예측력 자체를 크게 떨어뜨리기보다는, 개별 변수 계수의 해석과 <a href="standard-error.html">표준오차</a>를 불안정하게 만든다는 점을 기억해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘변수들의 상관’이 문제를 일으키는 방식이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇이 무엇과 상관되나</th><th scope="col">문제</th></tr></thead><tbody><tr><th scope="row">다중공선성</th><td>설명변수끼리</td><td>계수 추정이 불안정(표준오차 증가)</td></tr><tr><th scope="row"><a href="endogeneity.html">내생성</a></th><td>설명변수와 오차항</td><td>계수가 치우침(편향)</td></tr><tr><th scope="row"><a href="variance-inflation-factor.html">VIF</a></th><td>—</td><td>다중공선성의 정도를 재는 지표</td></tr><tr><th scope="row"><a href="correlation.html">상관관계</a></th><td>두 변수</td><td>다중공선성을 의심하게 하는 단서(쌍별만 볼 수 있음)</td></tr><tr><th scope="row"><a href="ridge-regression.html">능형회귀</a></th><td>—</td><td>다중공선성이 있을 때 쓰는 대응 방법 중 하나</td></tr></tbody></table></div>
+  <p class="te-note">다중공선성은 ‘추정이 불안정’한 문제이고, 내생성은 ‘추정이 틀리게 수렴’하는 문제입니다. 해결책도 다릅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Belsley, D. A., Kuh, E., &amp; Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.</li>
+    <li>Farrar, D. E., &amp; Glauber, R. R. (1967). Multicollinearity in regression analysis: The problem revisited. The Review of Economics and Statistics, 49(1), 92–107.</li>
+    <li>O'Brien, R. M. (2007). A caution regarding rules of thumb for variance inflation factors. Quality &amp; Quantity, 41(5), 673–690.</li>
+    <li>Graham, M. H. (2003). Confronting multicollinearity in ecological multiple regression. Ecology, 84(11), 2809–2815.</li>
+    <li>Dormann, C. F., Elith, J., Bacher, S., et al. (2013). Collinearity: A review of methods to deal with it and a simulation study evaluating their performance. Ecography, 36(1), 27–46.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

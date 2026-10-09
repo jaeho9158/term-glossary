@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/significance-level.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,28 @@
   <h2>왜 중요한가</h2>
   <p>유의수준은 통계적 가설검정의 판단 기준을 사전에 명시함으로써 연구자가 결과를 보고 기준을 유리하게 바꾸는 것을 막아주는 장치이기 때문에, 통계적 검정을 포함하는 거의 모든 실증 연구 논문의 방법론에서 반드시 명시됩니다. 유의수준 설정은 1종 오류(실제로 차이가 없는데 있다고 잘못 판단할 위험)를 얼마나 감수할지에 대한 연구자의 결정이므로, 임상시험처럼 잘못된 판단의 대가가 큰 분야에서는 이 기준을 특히 엄격하게 다룹니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>유의수준 α는 귀무가설이 참일 때 이를 잘못 기각하는 확률(1종 오류)의 <strong>허용 상한</strong>입니다. 연구자가 자료를 보기 전에 정합니다.</li><li>판단 규칙은 “p ≤ α이면 귀무가설을 기각한다”입니다. α는 기준선이고 p값은 자료에서 나온 숫자입니다.</li><li>양측검정에서는 α를 양쪽 꼬리에 나눠 가집니다. α = .05이면 한쪽 꼬리에 .025씩입니다.</li><li>1 − α가 <a href="confidence-level.html">신뢰수준</a>입니다. α = .05 ↔ 95% 신뢰구간.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>α (양측)</th><th>정규분포 임계값 |z|</th></tr></thead><tbody><tr><td>.10</td><td>1.645</td></tr><tr><td>.05</td><td>1.960</td></tr><tr><td>.01</td><td>2.576</td></tr></tbody></table></div>
+
+  <h2>예시로 보기</h2>
+  <p>같은 α = .05로 <strong>여러 번</strong> 검정하면 하나라도 우연히 유의해질 확률이 빠르게 늘어납니다(계산 결과, 검정이 서로 독립이라고 가정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>검정 횟수</th><th>하나라도 유의할 확률(1 − .95<sup>k</sup>)</th><th>본페로니 보정 후 개별 α(.05 ÷ k)</th></tr></thead><tbody><tr><td>1</td><td>5.0%</td><td>.05</td></tr><tr><td>3</td><td>14.3%</td><td>.0167</td></tr><tr><td>5</td><td>22.6%</td><td>.01</td></tr><tr><td>10</td><td>40.1%</td><td>.005</td></tr><tr><td>20</td><td>64.2%</td><td>.0025</td></tr></tbody></table></div><p>그래서 비교가 여러 개일 때는 개별 α를 낮추는 <a href="bonferroni-correction.html">본페로니 보정</a> 같은 <a href="multiple-comparisons-correction.html">다중비교보정</a>을 합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>.05는 자연의 법칙이 아닙니다.</strong> Fisher(1925)가 편리한 기준으로 제안한 이래 굳어진 관례입니다. 일부 연구자는 새로운 발견의 기준을 .005로 낮추자고 했고(Benjamin 외, 2018), 다른 연구자들은 기본값을 쓰기보다 분야·비용·표본 크기에 맞춰 α를 정당화하라고 제안했습니다(Lakens 외, 2018).</li><li>“α = .05이면 결과가 참일 확률이 95%”가 아닙니다. α는 귀무가설이 참일 때의 오류율이지, 발견이 옳을 확률이 아닙니다.</li><li>p값을 본 뒤에 α를 정하거나 .05에서 .10으로 늘리는 것은 사전 기준이라는 의미를 없앱니다. 변경하려면 이유를 밝히고 분석 전에 정해야 합니다.</li><li>α를 낮추면 1종 오류는 줄지만, 표본 크기가 같다면 2종 오류가 늘고 검정력이 떨어집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“Yang과 Hong [16]의 연구에 근거하여 효과크기(d) =.80, 검정력(1–β) =.80, 유의수준(α) =.05 으로 분석하였을 때 각 군에 26명씩 산출되었다.”</blockquote><p class="te-cite">문제중심학습 기반 가상현실 시뮬레이션 교육이 간호대학생의 비판적 사고능력, 문제해결능력 및 자기효능감에 미치는 효과: 유사실험 연구, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516084816" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“검정유형은 양측검정, 유의수준 α는 0.05, 검정력 1– β = 0.80으로 설정하였다.”</blockquote><p class="te-cite">한국 가임기 여성의 COVID-19 백신 접종이 월경 주기 변화에 미치는 요인: 탐색적 상관성 연구, Womens Health Nursing, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094115" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"유의수준은 0.05로 설정하였다 (α = .05)."</div>
   <p>이 연구는 p-value가 0.05보다 작을 때만 "우연이 아니다"라고 인정하기로 미리 정했다는 뜻입니다.</p>
 
@@ -165,6 +187,22 @@
 
   <h2>주의할 점</h2>
   <p>유의수준 0.05는 관행일 뿐 절대적인 법칙은 아닙니다. 분야나 연구 목적에 따라 0.01처럼 더 엄격한 기준을 쓰기도 합니다. p-value와 유의수준을 헷갈리기 쉬운데, 유의수준은 "미리 정한 기준", p-value는 "실제로 계산된 값"이라는 차이를 기억하면 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>α, p, 신뢰수준은 숫자가 비슷해 자주 섞입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">누가 정하나</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row">유의수준(α)</th><td>연구자가 분석 전에 정함</td><td>1종 오류 확률의 허용 한도</td></tr><tr><th scope="row"><a href="p-value.html">유의확률(p)</a></th><td>자료와 검정이 정함</td><td>관측값 이상으로 극단적인 결과가 나올 확률(H₀ 가정 시)</td></tr><tr><th scope="row"><a href="confidence-level.html">신뢰수준</a></th><td>연구자가 정함</td><td>1 − α. 구간을 만드는 절차의 성공률</td></tr><tr><th scope="row"><a href="statistical-power.html">검정력</a></th><td>표본·효과 크기·α로 결정</td><td>효과가 실제로 있을 때 이를 찾아낼 확률(1 − β)</td></tr><tr><th scope="row"><a href="type-1-error.html">1종 오류</a></th><td>—</td><td>α로 통제하려는 대상인 잘못된 기각</td></tr></tbody></table></div>
+  <p class="te-note">p ≤ α이면 기각한다는 규칙은 p와 α가 서로 다른 것이기에 가능합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fisher, R. A. (1925). Statistical Methods for Research Workers. Oliver and Boyd.</li>
+    <li>Neyman, J., &amp; Pearson, E. S. (1933). On the problem of the most efficient tests of statistical hypotheses. Philosophical Transactions of the Royal Society of London, Series A, 231, 289–337.</li>
+    <li>Benjamin, D. J., Berger, J. O., Johannesson, M., et al. (2018). Redefine statistical significance. Nature Human Behaviour, 2, 6–10.</li>
+    <li>Lakens, D., Adolfi, F. G., Albers, C. J., et al. (2018). Justify your alpha. Nature Human Behaviour, 2, 168–171.</li>
+    <li>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on p-values: Context, process, and purpose. The American Statistician, 70(2), 129–133.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

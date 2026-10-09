@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/confidence-interval.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,29 @@
   <p>논문에서 어떤 값을 추정할 때 점추정값(하나의 숫자) 하나만 제시하면, 그 값이 얼마나 믿을 만한지 알 수 없습니다. 신뢰구간은 추정의 불확실성을 함께 보여줌으로써, 독자가 결과의 신뢰도와 실질적인 의미를 스스로 판단할 수 있게 해줍니다.</p>
   <p>그래서 임상시험, 사회조사, 경제지표 추정 등 표본을 통해 모집단을 추론하는 거의 모든 실증 연구에서 <a href="p-value.html">유의확률</a>과 함께 결과 보고의 기본 요소로 쓰입니다. 최근에는 p값 단독 보고보다 신뢰구간을 함께 제시하는 것이 결과의 크기와 불확실성을 동시에 전달한다는 이유로 더 권장되는 추세입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>95% 신뢰구간은 ‘같은 방식으로 표본을 반복해서 뽑아 구간을 만들면, 그 구간들의 약 95%가 모수의 참값을 포함한다’는 <strong>절차의 성질</strong>입니다.</li><li>평균의 신뢰구간 기본형: <code>평균 ± t<sub>임계값</sub> × 표준오차</code>. 표준오차 = 표준편차 ÷ √n.</li><li>구간의 폭은 ① 표본 크기(클수록 좁음), ② 자료의 변동(클수록 넓음), ③ 신뢰수준(높을수록 넓음)이 정합니다.</li><li>구간은 효과의 크기(중심)와 불확실성(폭)을 함께 보여 주며, 0(또는 1)을 포함하는지로 유의성도 읽을 수 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>10명의 점수가 72, 65, 80, 70, 68, 75, 77, 63, 71, 69(가상의 값)이면 평균 71.0, 표본표준편차 5.25, 표준오차 1.66입니다(계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>신뢰수준</th><th>t 임계값(자유도 9)</th><th>신뢰구간</th></tr></thead><tbody><tr><td>90%</td><td>1.83</td><td>[67.96, 74.04]</td></tr><tr><td>95%</td><td>2.26</td><td>[67.24, 74.76]</td></tr><tr><td>99%</td><td>3.25</td><td>[65.61, 76.39]</td></tr></tbody></table></div><p>수준을 높일수록 구간이 넓어집니다. 같은 평균·표준편차로 표본만 40명으로 늘리면 95% 신뢰구간은 [69.32, 72.68]로 좁아집니다.</p><p>‘95%’의 뜻은 시뮬레이션으로 확인할 수 있습니다. 평균 50, 표준편차 10인 모집단에서 10명씩 10,000번 뽑아 95% 신뢰구간을 만들었더니 그중 94.85%가 참값 50을 포함했습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“이 구간에 참값이 있을 확률이 95%다”</strong>는 엄밀히는 틀린 해석입니다. 이미 계산된 구간은 참값을 포함하거나 포함하지 않거나 둘 중 하나이고, 95%는 구간을 만드는 절차에 대한 말입니다(Hoekstra 외, 2014; Morey 외, 2016). “참값이 구간 안에 있을 확률”을 직접 말하려면 베이지안 신용구간이 필요합니다.</li><li><strong>“자료의 95%가 구간 안에 있다”</strong>는 틀립니다. 신뢰구간은 개별 값이 아니라 평균(모수)에 대한 구간이므로 개별 값의 범위보다 훨씬 좁습니다.</li><li><strong>“두 집단의 신뢰구간이 겹치면 차이가 유의하지 않다”</strong>도 틀린 규칙입니다. 겹치지 않으면 대개 유의하지만, 약간 겹치면서도 차이가 유의할 수 있습니다. 차이 자체의 신뢰구간을 구해야 합니다.</li><li>구간이 좁다고 해서 모형이 맞다는 뜻은 아닙니다. 편향된 표집이라면 좁은 구간도 엉뚱한 곳을 가리킬 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“장애인의 영양 위험도 관련 요인을 파악하기 위해 다중다항 로지스틱 회귀분석을 수행하여 오즈비(odds ratio, OR)와 95% 신뢰구간(confidence interval, CI)을 산출했다.”</blockquote><p class="te-cite">한국 장애인의 영양 위험 관련 요인: 장애인삶 패널조사 자료를 이용하여, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094127" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“매개 효과의 유의도를 검증하기 위해서 부트스트랩 표본 5,000개를 추출하여 95% 신뢰구간(confidence interval, CI)을 분석하였다.”</blockquote><p class="te-cite">여성 노인의 디지털 정보활용능력이 우울에 미치는 영향: 사회적 지지의 매개 효과를 중심으로, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516084809" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“최근 감시 결과(2023년 7 월-2024년 6월)에 따르면, 전체 의료관련감염 발생률은 재원일수 1,000일당 3.15건(95% 신뢰구간 3.06-3.23)이었다[17].”</blockquote><p class="te-cite">KONIS 중환자실 감시체계 20년의 발자취와 학회의 역할, Korean Journal of Healthcare-Associated Infection Control and Prevention, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516093799" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"치료군의 평균 회복 기간은 대조군보다 3.2일 짧았다 (95% CI: 1.5~4.9일)."</div>
   <p>회복 기간 차이의 "진짜 값"이 대략 1.5일에서 4.9일 사이에 있을 가능성이 높다는 뜻이며, 이 범위가 0을 포함하지 않으므로 통계적으로 의미 있는 차이라고 판단할 수 있습니다.</p>
 
@@ -167,6 +190,22 @@
 
   <h2>주의할 점</h2>
   <p>신뢰구간이 좁을수록(범위가 작을수록) 추정이 더 정확하다는 뜻이며, 보통 <a href="sample-size.html">표본크기</a>가 클수록 구간이 좁아집니다. 구간이 0을 포함하고 있다면 "차이가 없다"는 가능성도 배제할 수 없다는 뜻입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘구간’이 들어가는 용어가 많아 혼동하기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇에 대한 구간인가</th><th scope="col">해석</th></tr></thead><tbody><tr><th scope="row">신뢰구간</th><td>모수(예: 모평균)</td><td>절차가 참값을 포함하는 장기적 비율</td></tr><tr><th scope="row"><a href="confidence-level.html">신뢰수준</a></th><td>구간을 만들 때 정한 95% 같은 값</td><td>구간의 확률이 아니라 절차의 성공률</td></tr><tr><th scope="row"><a href="credible-interval.html">신용구간(베이지안)</a></th><td>모수</td><td>자료와 사전분포가 주어졌을 때 모수가 구간에 있을 확률</td></tr><tr><th scope="row">예측구간</th><td>앞으로 얻을 새 관측값</td><td>신뢰구간보다 훨씬 넓음</td></tr><tr><th scope="row"><a href="standard-deviation.html">표준편차</a></th><td>개별 값의 퍼짐</td><td>신뢰구간은 표준편차가 아니라 표준오차(<a href="standard-error.html">표준오차</a>)에서 나옴</td></tr></tbody></table></div>
+  <p class="te-note">‘95% 신뢰구간 안에 95%의 자료가 있다’고 읽으면 안 됩니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Neyman, J. (1937). Outline of a theory of statistical estimation based on the classical theory of probability. Philosophical Transactions of the Royal Society of London, Series A, 236(767), 333–380.</li>
+    <li>Hoekstra, R., Morey, R. D., Rouder, J. N., &amp; Wagenmakers, E.-J. (2014). Robust misinterpretation of confidence intervals. Psychonomic Bulletin &amp; Review, 21(5), 1157–1164.</li>
+    <li>Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., &amp; Wagenmakers, E.-J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic Bulletin &amp; Review, 23(1), 103–123.</li>
+    <li>Cumming, G. (2014). The new statistics: Why and how. Psychological Science, 25(1), 7–29.</li>
+    <li>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, P values, confidence intervals, and power: A guide to misinterpretations. European Journal of Epidemiology, 31(4), 337–350.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="point-and-interval-estimation.html">점추정과 구간추정</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="bootstrap-confidence-interval.html">부트스트랩 신뢰구간</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

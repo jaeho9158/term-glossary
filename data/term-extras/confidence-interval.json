@@ -1,0 +1,61 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>95% 신뢰구간은 ‘같은 방식으로 표본을 반복해서 뽑아 구간을 만들면, 그 구간들의 약 95%가 모수의 참값을 포함한다’는 <strong>절차의 성질</strong>입니다.</li><li>평균의 신뢰구간 기본형: <code>평균 ± t<sub>임계값</sub> × 표준오차</code>. 표준오차 = 표준편차 ÷ √n.</li><li>구간의 폭은 ① 표본 크기(클수록 좁음), ② 자료의 변동(클수록 넓음), ③ 신뢰수준(높을수록 넓음)이 정합니다.</li><li>구간은 효과의 크기(중심)와 불확실성(폭)을 함께 보여 주며, 0(또는 1)을 포함하는지로 유의성도 읽을 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>10명의 점수가 72, 65, 80, 70, 68, 75, 77, 63, 71, 69(가상의 값)이면 평균 71.0, 표본표준편차 5.25, 표준오차 1.66입니다(계산 결과).</p><table><thead><tr><th>신뢰수준</th><th>t 임계값(자유도 9)</th><th>신뢰구간</th></tr></thead><tbody><tr><td>90%</td><td>1.83</td><td>[67.96, 74.04]</td></tr><tr><td>95%</td><td>2.26</td><td>[67.24, 74.76]</td></tr><tr><td>99%</td><td>3.25</td><td>[65.61, 76.39]</td></tr></tbody></table><p>수준을 높일수록 구간이 넓어집니다. 같은 평균·표준편차로 표본만 40명으로 늘리면 95% 신뢰구간은 [69.32, 72.68]로 좁아집니다.</p><p>‘95%’의 뜻은 시뮬레이션으로 확인할 수 있습니다. 평균 50, 표준편차 10인 모집단에서 10명씩 10,000번 뽑아 95% 신뢰구간을 만들었더니 그중 94.85%가 참값 50을 포함했습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“이 구간에 참값이 있을 확률이 95%다”</strong>는 엄밀히는 틀린 해석입니다. 이미 계산된 구간은 참값을 포함하거나 포함하지 않거나 둘 중 하나이고, 95%는 구간을 만드는 절차에 대한 말입니다(Hoekstra 외, 2014; Morey 외, 2016). “참값이 구간 안에 있을 확률”을 직접 말하려면 베이지안 신용구간이 필요합니다.</li><li><strong>“자료의 95%가 구간 안에 있다”</strong>는 틀립니다. 신뢰구간은 개별 값이 아니라 평균(모수)에 대한 구간이므로 개별 값의 범위보다 훨씬 좁습니다.</li><li><strong>“두 집단의 신뢰구간이 겹치면 차이가 유의하지 않다”</strong>도 틀린 규칙입니다. 겹치지 않으면 대개 유의하지만, 약간 겹치면서도 차이가 유의할 수 있습니다. 차이 자체의 신뢰구간을 구해야 합니다.</li><li>구간이 좁다고 해서 모형이 맞다는 뜻은 아닙니다. 편향된 표집이라면 좁은 구간도 엉뚱한 곳을 가리킬 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘구간’이 들어가는 용어가 많아 혼동하기 쉽습니다.",
+    "headers": [
+      "용어",
+      "무엇에 대한 구간인가",
+      "해석"
+    ],
+    "rows": [
+      [
+        "신뢰구간",
+        "모수(예: 모평균)",
+        "절차가 참값을 포함하는 장기적 비율"
+      ],
+      [
+        "[[confidence-level|신뢰수준]]",
+        "구간을 만들 때 정한 95% 같은 값",
+        "구간의 확률이 아니라 절차의 성공률"
+      ],
+      [
+        "[[credible-interval|신용구간(베이지안)]]",
+        "모수",
+        "자료와 사전분포가 주어졌을 때 모수가 구간에 있을 확률"
+      ],
+      [
+        "예측구간",
+        "앞으로 얻을 새 관측값",
+        "신뢰구간보다 훨씬 넓음"
+      ],
+      [
+        "[[standard-deviation|표준편차]]",
+        "개별 값의 퍼짐",
+        "신뢰구간은 표준편차가 아니라 표준오차([[standard-error|표준오차]])에서 나옴"
+      ]
+    ],
+    "note": "‘95% 신뢰구간 안에 95%의 자료가 있다’고 읽으면 안 됩니다."
+  },
+  "references": [
+    "Neyman, J. (1937). Outline of a theory of statistical estimation based on the classical theory of probability. Philosophical Transactions of the Royal Society of London, Series A, 236(767), 333–380.",
+    "Hoekstra, R., Morey, R. D., Rouder, J. N., & Wagenmakers, E.-J. (2014). Robust misinterpretation of confidence intervals. Psychonomic Bulletin & Review, 21(5), 1157–1164.",
+    "Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., & Wagenmakers, E.-J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic Bulletin & Review, 23(1), 103–123.",
+    "Cumming, G. (2014). The new statistics: Why and how. Psychological Science, 25(1), 7–29.",
+    "Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole, C., Goodman, S. N., & Altman, D. G. (2016). Statistical tests, P values, confidence intervals, and power: A guide to misinterpretations. European Journal of Epidemiology, 31(4), 337–350."
+  ]
+}

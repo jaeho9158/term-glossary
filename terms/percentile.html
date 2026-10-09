@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/percentile.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,29 @@
   <h2>왜 중요한가</h2>
   <p>백분위수는 데이터의 절대적인 크기보다 전체 분포 안에서의 상대적 위치가 중요한 상황에서 널리 쓰이며, 특히 정규분포를 따르지 않는 자료(치우친 분포, 이상치가 많은 자료 등)를 요약할 때 평균이나 표준편차보다 더 안정적인 지표가 됩니다. 사분위수(25, 50, 75번째 백분위수)나 상자그림 같은 기술통계의 기초가 되기 때문에 거의 모든 분야의 통계 분석 논문에서 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>p번째 백분위수는 자료를 작은 값부터 늘어놓았을 때 <strong>전체의 p%가 그 값 이하</strong>가 되는 값입니다. 50번째는 중앙값, 25·75번째는 제1·제3사분위수입니다. 범위는 자료의 최솟값(0번째)부터 최댓값(100번째)까지입니다.</p><p>자료 개수가 유한하면 위치가 정수로 딱 떨어지지 않으므로 <strong>계산 방법이 여러 가지</strong>입니다(Hyndman &amp; Fan, 1996). 다음은 10개 자료 3, 5, 7, 8, 9, 11, 13, 15, 17, 20에 대한 결과입니다(계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>25번째</th><th>50번째</th><th>75번째</th><th>90번째</th></tr></thead><tbody><tr><td>선형보간 (n − 1) 기준 — R 기본값, 엑셀 PERCENTILE.INC</td><td>7.25</td><td>10.0</td><td>14.5</td><td>17.3</td></tr><tr><td>(n + 1) 기준 — 엑셀 PERCENTILE.EXC</td><td>6.5</td><td>10.0</td><td>15.5</td><td>19.7</td></tr></tbody></table></div><p>같은 자료인데 90번째 백분위수가 17.3과 19.7로 달라졌습니다. 표본이 작을수록, 극단 쪽 백분위수일수록 차이가 큽니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>백분위수에는 정해진 ‘좋고 나쁨’ 기준이 없고, 쓰는 목적에 따라 관례적인 구분이 있습니다.</p><ul><li><strong>기준범위(참고구간)</strong>: 건강한 사람 집단에서 2.5~97.5 백분위수(중앙 95%)로 정하는 것이 임상검사의 관례입니다. 논문에 따라 한쪽 끝(예: 95 백분위수)만 기준으로 삼기도 합니다.</li><li><strong>성장도표</strong>: 같은 나이·성별의 기준집단에서 몇 번째에 해당하는지로 읽습니다. 구분점(예: 5, 85, 95 백분위수)은 도표를 정한 기관의 약속입니다.</li><li><strong>백분위(순위)와 백분위수(값)</strong>를 구분합니다. ‘수능 백분위 96’은 점수가 아니라 <em>내 아래에 약 96%가 있다</em>는 위치이고, ‘BMI 95 백분위수’는 특정 BMI 수치(기준점)라는 <em>값</em>입니다.</li><li>백분위는 순위일 뿐이라 간격이 균등하지 않습니다. 정규분포에서는 50→60번째의 점수 차이보다 90→99번째의 점수 차이가 훨씬 큽니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>비대칭 분포를 요약할 때는 평균·표준편차 대신 <code>중앙값 [25번째, 75번째 백분위수]</code> 형식으로 적습니다.</p><p><code>재원 기간의 중앙값은 7일(사분위 범위 4~12일)이었다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>사용한 소프트웨어와 계산 방식(특히 표본이 작을 때)을 밝히면 재현이 가능합니다.</li><li>백분위수 추정치에는 신뢰구간을 붙일 수 있으며, 표본이 작으면 범위가 매우 넓습니다.</li><li>백분위로 집단을 나눌 때(상위 25%, 하위 25% 등)는 경계에 걸리는 사례를 어느 쪽에 넣었는지 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“2017년 성장도표 해설집의 분류 기준에 따라[24] 학령기 아동의 연령별 BMI 백분위수를 기준으로 체중 상태를 다음과 같이 분류하였다: 저체중(&lt; 5 백분위수), 정상 체중(5–85 백분위수), 과체중(85–95 백분위수), 비만 (≥ 95 백분위수).”</blockquote><p class="te-cite">주양육자의 식품정보 이해력•사회적 지지•식품소비 접근성과 가구 소득이 학령기 아동의 영양상태에 미치는 영향 연구, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094126" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“건강대조군의 혈청 M-CSF의 95 백분위수에 따른 참고범위를 설정하였으며, 임상 및 병리학적 특징을 조사하였다.”</blockquote><p class="te-cite">B세포림프종 환자에서 혈청 대식세포집락자극인자 농도 증가와 임상병리학적 특징의 연관성, Laboratory Medicine Online, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002696834" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“또한, 리튬의 부화 기작을 평가하기 위해 리튬 농도가 90번째 백분위 수(0.94 mg/L)를 초과하는 시료(n = 56)에 대해 자세히 고찰하였다.”</blockquote><p class="te-cite">온천수 내 리튬 분포: 국내 심부 지하수환경의 리튬 지화학 연구, 자원환경지질, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003028577" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"응답자의 신체질량지수(BMI)는 95번째 백분위수 이상인 경우 비만으로 분류하였다."</div>
   <p>이 문장은 "전체 집단 중 상위 5%에 해당하는 BMI 값 이상인 사람을 비만군으로 정의했다"는 뜻입니다. 이렇게 백분위수는 절대적인 수치 기준 대신 상대적인 위치를 기준으로 집단을 나눌 때 자주 쓰입니다.</p>
 
@@ -161,6 +184,20 @@
 
   <h2>주의할 점</h2>
   <p>백분위수는 데이터 안에서의 상대적 순위일 뿐, 값들 사이의 실제 간격(거리)을 반영하지 않습니다. 예를 들어 50번째와 60번째 백분위수 사이의 실제 점수 차이가, 90번째와 95번째 백분위수 사이의 차이와 같다는 보장은 없습니다. 정규분포를 가정한 <a href="z-score.html">Z점수</a>와는 계산 방식과 해석이 다르므로 혼동하지 않아야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷해 보이지만 눈금이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">혼동 포인트</th></tr></thead><tbody><tr><th scope="row">백분율(%)</th><td>전체에서 차지하는 비율, 또는 만점 대비 점수</td><td>‘60%’는 위치가 아니라 비율. 점수 60%와 백분위 60은 다름</td></tr><tr><th scope="row"><a href="box-plot-quartiles.html">사분위수</a></th><td>25·50·75번째 백분위수</td><td>백분위수의 특별한 경우</td></tr><tr><th scope="row"><a href="interquartile-range.html">사분위범위(IQR)</a></th><td>75번째 − 25번째 백분위수</td><td>퍼짐을 재는 값</td></tr><tr><th scope="row"><a href="z-score.html">Z점수</a></th><td>평균에서 표준편차 몇 개 떨어졌는지</td><td>분포의 모양에 따라 같은 Z가 서로 다른 백분위가 됨</td></tr></tbody></table></div>
+  <p class="te-note">백분위 50은 중앙값을 뜻하지만, 점수 50점이 평균이라는 뜻은 아닙니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hyndman, R. J., &amp; Fan, Y. (1996). Sample quantiles in statistical packages. The American Statistician, 50(4), 361–365.</li>
+    <li>Agresti, A., &amp; Finlay, B. (2009). Statistical Methods for the Social Sciences (4th ed.). Pearson.</li>
+    <li>Moore, D. S., McCabe, G. P., &amp; Craig, B. A. (2017). Introduction to the Practice of Statistics (9th ed.). W. H. Freeman.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

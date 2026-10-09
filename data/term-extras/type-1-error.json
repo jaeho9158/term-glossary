@@ -1,0 +1,61 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>1종 오류는 <strong>귀무가설이 참인데 기각</strong>하는 오류, 즉 효과가 없는데 있다고 하는 위양성(false positive)입니다. 그 확률의 상한을 유의수준 α로 정합니다.</li><li>2종 오류는 귀무가설이 거짓인데 기각하지 못하는 오류(위음성)이고 확률은 β, 검정력은 1 − β입니다.</li><li>표본 크기가 같다면 α를 낮출수록 β가 커지는 상충 관계가 있습니다.</li><li>α는 검정 <em>하나</em>에 대한 확률입니다. 여러 가설을 검정하거나 분석 방법을 바꿔 가며 시도하면 실제 위양성 확률은 α보다 커집니다.</li></ul><table><thead><tr><th>현실 \\ 판정</th><th>기각</th><th>기각 실패</th></tr></thead><tbody><tr><td>H₀ 참</td><td><strong>1종 오류</strong> (확률 ≤ α)</td><td>옳은 판정</td></tr><tr><td>H₀ 거짓</td><td>옳은 판정 (검정력)</td><td>2종 오류 (β)</td></tr></tbody></table>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>모의 실험으로 확인해 봅시다(계산 결과). 효과가 전혀 없도록 두 집단을 같은 정규분포(평균 0, 표준편차 1)에서 20명씩 뽑아 t검정을 20,000번 반복했더니 p &lt; .05가 나온 비율은 <strong>4.9%</strong>였습니다. α = .05가 이론대로 지켜진 것입니다.</p><p>그런데 한 연구에서 이런 비교를 <strong>20개</strong> 하고 그중 하나라도 유의하면 ‘발견’이라 보고한다면, 같은 모의 실험에서 연구 4,000개 중 <strong>63.7%</strong>가 적어도 하나의 ‘유의한 결과’를 얻었습니다(이론값 1 − .95<sup>20</sup> = 64.2%). 효과가 하나도 없는데도 그렇습니다.</p><p>대응 방법은 크게 두 가지입니다. 하나라도 잘못 기각할 확률(FWER)을 묶는 본페로니·홀름 방법, 그리고 기각한 것 중 잘못된 비율(FDR)을 묶는 Benjamini-Hochberg 방법([[false-discovery-rate|위발견율]])입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“p &lt; .05이면 이 결과가 틀렸을 확률이 5%”</strong>가 아닙니다. 1종 오류율은 귀무가설이 참이라는 전제에서의 확률입니다. 발견이 거짓일 확률은 사전에 효과가 있을 가능성과 검정력에 따라 크게 달라집니다(Ioannidis, 2005).</li><li>분석 방법을 여러 가지 시도하다가 유의한 것만 보고하면 α가 지켜지지 않습니다. 모의 실험에서 이런 융통성이 위양성률을 크게 높일 수 있음이 보고되었습니다(Simmons 외, 2011).</li><li>1종 오류는 ‘확률적으로 늘 존재한다’는 점을 인정하는 개념이지, 연구자의 실수가 아닙니다. 올바른 절차를 따라도 α의 비율만큼 일어납니다.</li><li>“1종 오류가 항상 2종 오류보다 중대하다”는 일반 규칙은 없습니다. 놓쳤을 때의 비용이 큰 질병 선별에서는 2종 오류가 더 중대할 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "오류의 종류와 그 확률을 가리키는 이름이 많습니다.",
+    "headers": [
+      "용어",
+      "뜻",
+      "확률 기호"
+    ],
+    "rows": [
+      [
+        "1종 오류",
+        "참인 H₀를 기각 (위양성)",
+        "α"
+      ],
+      [
+        "[[type-2-error|2종 오류]]",
+        "거짓인 H₀를 기각하지 못함 (위음성)",
+        "β"
+      ],
+      [
+        "[[statistical-power|검정력]]",
+        "거짓인 H₀를 옳게 기각",
+        "1 − β"
+      ],
+      [
+        "[[significance-level|유의수준]]",
+        "1종 오류 확률의 허용 한도",
+        "α (연구자가 정함)"
+      ],
+      [
+        "[[p-value|유의확률]]",
+        "H₀ 가정 시 관측값 이상으로 극단적일 확률",
+        "p (자료에서 나옴)"
+      ]
+    ],
+    "note": "‘1종 오류율’은 절차의 성질이고, ‘p값’은 이 자료의 결과입니다."
+  },
+  "references": [
+    "Neyman, J., & Pearson, E. S. (1933). On the problem of the most efficient tests of statistical hypotheses. Philosophical Transactions of the Royal Society of London, Series A, 231, 289–337.",
+    "Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society, Series B, 57(1), 289–300.",
+    "Simmons, J. P., Nelson, L. D., & Simonsohn, U. (2011). False-positive psychology: Undisclosed flexibility in data collection and analysis allows presenting anything as significant. Psychological Science, 22(11), 1359–1366.",
+    "Ioannidis, J. P. A. (2005). Why most published research findings are false. PLoS Medicine, 2(8), e124.",
+    "Lehmann, E. L., & Romano, J. P. (2005). Testing Statistical Hypotheses (3rd ed.). Springer."
+  ]
+}
