@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/skewness-kurtosis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,12 +149,34 @@
   <h2>쉽게 풀면</h2>
   <p>반 학생들의 시험 점수를 그래프로 그린다고 생각해봅시다. 대부분 비슷한 점수를 받고 소수만 아주 높거나 아주 낮으면 좌우대칭에 가까운 종 모양이 됩니다. 그런데 시험이 너무 쉬워서 대부분 90점대에 몰리고 몇 명만 낮은 점수를 받으면, 그래프는 오른쪽으로 몰리고 왼쪽으로 긴 꼬리를 늘어뜨리게 됩니다.</p>
   <p>이렇게 분포가 한쪽으로 기울어진 정도를 숫자로 나타낸 것이 왜도(skewness)입니다. 왜도가 0에 가까우면 좌우대칭, 양수면 오른쪽 꼬리가 길게(값이 작은 쪽에 몰림), 음수면 왼쪽 꼬리가 길게 늘어진 것입니다.</p>
-  <p>첨도(kurtosis)는 조금 다른 이야기인데, 분포의 가운데 봉우리가 얼마나 뾰족하고 극단값(꼬리)이 얼마나 두꺼운지를 나타냅니다. 첨도가 크면 평균 근처에 몰려있으면서도 이상치가 튀어나올 가능성이 큰 분포이고, 첨도가 작으면 완만하고 넓게 퍼진 분포입니다.</p>
+  <p>첨도(kurtosis)는 조금 다른 이야기인데, 분포의 꼬리가 얼마나 두꺼운지, 곧 극단값이 얼마나 자주 나오는지를 나타냅니다(봉우리의 뾰족함으로 설명하기도 하지만 정확한 풀이는 아닙니다). 첨도가 크면 이상치가 튀어나올 가능성이 큰 분포이고, 첨도가 작으면 꼬리가 얇아 극단값이 드문 분포입니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>왜도와 첨도는 데이터가 정규분포를 따르는지 사전에 점검하는 가장 기본적인 도구이기 때문에, 통계적 검정을 사용하는 거의 모든 분야의 논문에서 방법론 검증 단계에 등장합니다. 특히 회귀분석이나 구조방정식모형처럼 정규성 가정에 민감한 분석을 앞두고 있다면, 이 두 지표를 통해 데이터 변환이나 대안적 분석 방법을 선택하는 근거를 마련합니다. 결과적으로 분석의 신뢰성을 뒷받침하는 사전 진단 절차로서 폭넓은 연구주제와 연결됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>표본의 평균을 중심으로 한 2차·3차·4차 적률(m₂, m₃, m₄)로 계산합니다. 소프트웨어마다 쓰는 식이 달라 같은 자료도 값이 조금씩 다릅니다.</p><ul><li><strong>왜도</strong>: g₁ = m₃ / m₂<sup>3/2</sup>. SPSS·SAS·Excel 등은 표본 수를 보정한 G₁ = g₁ × √(n(n−1)) / (n−2)를 보여 줍니다.</li><li><strong>첨도</strong>: g₂ = m₄ / m₂² − 3(‘초과첨도’). 정규분포가 0이 되도록 3을 뺀 값입니다. 3을 빼지 않은 ‘첨도 = 3’ 기준도 있어 어느 정의인지 확인해야 합니다. 보정식은 G₂ = (n−1)/((n−2)(n−3)) × [(n+1)g₂ + 6]입니다.</li><li><strong>범위</strong>: 왜도는 이론상 제한이 없고 정규분포는 0입니다. 초과첨도는 −2보다 작아질 수 없고 위로는 제한이 없으며, 정규분포는 0, 균등분포는 −1.2입니다.</li></ul><p><strong>작은 예(가상).</strong> 10명의 점수 2, 3, 3, 4, 4, 4, 5, 5, 6, 15는 평균 5.1, SD 3.67이며 G₁ = 2.59, G₂ = 7.44(보정 전 g₁ = 2.19, g₂ = 3.67)입니다. 극단값 15를 7로 바꾸면 G₁ = 0.36, G₂ = −0.15로 정규분포에 가까워집니다. 즉 이 두 지표는 <strong>극단값 하나에 크게 흔들립니다</strong>.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>왜도 &gt; 0</strong>: 오른쪽 꼬리가 깁니다(소득처럼 작은 값이 많고 큰 값이 드문 자료). <strong>왜도 &lt; 0</strong>: 왼쪽 꼬리가 깁니다(쉬운 시험 점수처럼 높은 값에 몰린 자료).</li><li><strong>초과첨도 &gt; 0</strong>: 정규분포보다 꼬리가 두꺼워 극단값이 더 자주 나옵니다. <strong>&lt; 0</strong>: 꼬리가 얇고 극단값이 드뭅니다. 첨도는 ‘뾰족함’이 아니라 꼬리의 극단성을 재는 값이라는 설명이 통계학계에서 널리 받아들여집니다(Westfall, 2014).</li><li><strong>관례적 기준</strong>: 구조방정식 분야에서는 |왜도| 2, |첨도| 7 이상을 눈에 띄는 비정규성으로 보자는 제안(West 외, 1995)과 |왜도| 3, |첨도| 10 이상을 문제로 보자는 제안(Kline, 2016)이 자주 인용됩니다. 둘 다 연구자들이 쓰는 관례일 뿐 통계적 정답은 아닙니다.</li><li>왜도·첨도를 표준오차로 나눈 z 값으로 ‘유의한 비정규성’을 판정하는 방법도 있는데, 표본이 크면 사소한 편차에도 유의해지고 작으면 반대로 놓치므로 히스토그램·Q-Q 플롯을 함께 봅니다. 위 예에서는 SE가 왜도 0.69, 첨도 1.33이라 z가 각각 3.77, 5.58입니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>평균·표준편차와 함께 왜도와 첨도를 적고, 어떤 정의(초과첨도 여부, 보정식 여부)를 썼는지 소프트웨어 이름으로 밝힙니다. (수치는 위의 가상 자료입니다.)</p><p><code>점수는 오른쪽으로 치우친 분포를 보였다(M = 5.1, SD = 3.67, 왜도 = 2.59, SE = 0.69; 첨도 = 7.44, SE = 1.33).</code></p><ul><li>왜도·첨도만으로 정규성을 ‘검정’했다고 쓰기보다 “왜도와 첨도가 기준(예: |2|, |7|) 이내여서 정규성 가정을 심각하게 위배하지 않는다고 판단하였다”처럼 기준을 인용해 적습니다.</li><li>정규성 가정이 중요한 분석(예: 소표본 t검정)에서는 <a href="shapiro-wilk-test.html">샤피로-윌크 검정</a>이나 Q-Q 플롯을 함께 보고하는 것이 안전합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“데이터의 정규성은 Shapiro-Wilk 검정, 왜도, 첨도를 종합적으로 검토하여 평가하였다.”</blockquote><p class="te-cite">만성 발목 불안정성 환자의 수술 전 발목 근력이 수술 후 기능 회복에 미치는 영향: 후향적 관찰 연구, The Korean Journal of Sports Medicine, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095885" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 연구 변수의 일변량 정규성을 검증한 결과, 절대값이 왜도 3, 첨도 8을 넘지 않아 단일 변량 정규분포 조건을 만족하였다(Table 2).”</blockquote><p class="te-cite">여성 류마티스 관절염 환자의 건강관련 삶의 질 구조모형, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516083721" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“변수의 특성을 빈도와 백분 율, 평균과 표준편차, 왜도와 첨도로 분석하였다.”</blockquote><p class="te-cite">여성 노인의 디지털 정보활용능력이 우울에 미치는 영향: 사회적 지지의 매개 효과를 중심으로, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516084809" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"소득 변수의 왜도는 2.14, 첨도는 8.37로 나타나 정규분포 가정을 크게 벗어났으며, 이에 따라 로그변환 후 분석을 진행하였다."</div>
   <p>이 문장은 소득 데이터가 한쪽으로 심하게 치우쳐 있고(왜도가 크고) 극단값도 많아서(첨도가 크고), 일반적인 <a href="normal-distribution.html">정규분포</a>를 가정하는 분석 방법을 그대로 쓸 수 없었다는 뜻입니다. 그래서 로그변환 같은 처리를 거쳐 분포를 정규분포에 가깝게 바꾼 뒤 분석했다는 의미입니다.</p>
   <div class="example">"금융시계열 수익률 자료는 왜도가 0에 가까웠으나 첨도가 정규분포 기준보다 뚜렷하게 높게 나타나, 극단적 손실이 빈번한 두꺼운 꼬리 분포의 특성을 보였다."</div>
@@ -168,6 +191,22 @@
 
   <h2>주의할 점</h2>
   <p>왜도와 첨도가 정규분포 기준(왜도 0, 첨도 3 또는 초과첨도 0)에서 크게 벗어나면, <a href="t-test.html">t검정</a>이나 <a href="regression.html">회귀분석</a>처럼 정규분포를 전제로 하는 방법의 결과를 그대로 신뢰하기 어려워집니다. 이럴 때는 데이터를 변환하거나 정규성을 가정하지 않는 비모수적 방법을 고려해야 하는데, 단순히 "왜도가 조금 있다"고 해서 결과가 무조건 틀렸다는 뜻은 아니므로 표본 크기와 함께 판단해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>정규성을 살펴볼 때 함께 등장하는 도구들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 보나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">왜도</th><td>좌우 대칭에서 벗어난 정도(3차 적률)</td><td>부호로 꼬리 방향을 알 수 있음</td></tr><tr><th scope="row">첨도</th><td>꼬리의 두꺼움(4차 적률)</td><td>‘뾰족함’으로만 읽으면 오해</td></tr><tr><th scope="row"><a href="jarque-bera-test.html">자크-베라 검정</a></th><td>왜도와 첨도를 합쳐 정규성을 검정</td><td>표본이 클 때 쓰는 근사 검정</td></tr><tr><th scope="row"><a href="shapiro-wilk-test.html">샤피로-윌크 검정</a></th><td>정규분포와의 전체적 일치</td><td>소표본에서 널리 쓰임</td></tr></tbody></table></div>
+  <p class="te-note">정규성 ‘검정’은 p값으로 예/아니오를 주지만 얼마나 벗어났는지는 알려 주지 않고, 왜도·첨도는 얼마나 벗어났는지를 숫자로 보여 줍니다. 용도가 다르니 함께 봅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Joanes, D. N., &amp; Gill, C. A. (1998). Comparing measures of sample skewness and kurtosis. Journal of the Royal Statistical Society: Series D (The Statistician), 47(1), 183–189.</li>
+    <li>DeCarlo, L. T. (1997). On the meaning and use of kurtosis. Psychological Methods, 2(3), 292–307.</li>
+    <li>Westfall, P. H. (2014). Kurtosis as peakedness, 1905–2014. R.I.P. The American Statistician, 68(3), 191–195.</li>
+    <li>West, S. G., Finch, J. F., &amp; Curran, P. J. (1995). Structural equation models with nonnormal variables: Problems and remedies. In R. H. Hoyle (Ed.), Structural equation modeling: Concepts, issues, and applications. Sage.</li>
+    <li>Kline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

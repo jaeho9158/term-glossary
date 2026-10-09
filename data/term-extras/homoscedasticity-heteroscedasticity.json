@@ -1,0 +1,61 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>등분산성</strong>은 오차의 분산이 설명변수 값(또는 예측값)에 관계없이 일정하다는 가정이고, <strong>이분산성</strong>은 그것이 달라지는 상태입니다. 흔한 모양은 예측값이 클수록 잔차가 퍼지는 ‘깔때기’입니다.</li><li>이분산성이 있어도 보통최소제곱(OLS)의 회귀계수 추정치는 여전히 불편입니다. 그러나 <strong>효율적이지 않고</strong>(분산이 최소가 아님), 무엇보다 <strong>일반 표준오차 공식이 틀려서</strong> t 값, p값, 신뢰구간이 부정확해집니다. 표준오차가 작게 나올 수도, 크게 나올 수도 있습니다.</li><li>자주 생기는 원인: 변수의 규모 차이(소득이 클수록 지출 편차도 큼), 집단마다 다른 변동, 비선형 관계를 직선으로 적합함, 이상치.</li><li>점검: 잔차 대 예측값 도표, [[breusch-pagan-test|브로이슈-페이건 검정]], 화이트 검정. 집단 비교(t검정, 분산분석)에서의 분산 동질성은 [[levenes-test|레빈 검정]]으로 봅니다.</li><li>대응: 종속변수 로그 변환, 가중최소제곱([[weighted-least-squares|WLS]]), <strong>이분산에 강건한 표준오차</strong>(White, 1980)로 계수는 그대로 두고 표준오차만 바로잡기. 표본이 작을 때는 HC3 같은 변형이 낫다는 보고가 있습니다(Long &amp; Ervin, 2000).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 모의 자료: x를 1~10에서 100개 뽑고, 오차의 표준편차를 0.5x로 두어 x가 클수록 퍼지게 만든 뒤 y = 2 + 1.5x + 오차를 생성했습니다.</p><ul><li>OLS 기울기 추정치는 1.38(참값 1.5). 잔차의 표준편차는 x &lt; 5.5인 구간에서 1.43, x ≥ 5.5인 구간에서 3.78로 두 배 이상 차이납니다.</li><li>일반 표준오차는 0.100, 강건 표준오차는 HC0 0.120, HC3 0.124입니다. 일반 공식이 기울기의 불확실성을 약 20% 작게 보여 줍니다.</li><li>브로이슈-페이건 검정(잔차 제곱을 x에 회귀, Koenker 방식): LM = 16.25, df = 1, p &lt; .001. 오차 분산이 일정한 대조 자료에서는 LM = 0.53, p = .46입니다.</li><li>이 어긋남이 실제로 얼마나 해로운지 보려고 오차의 표준편차가 0.5·x<sup>1.5</sup>에 비례하는 자료(n = 30)를 4,000번 만들어 기울기의 95% 신뢰구간이 참값 1.5를 포함하는 비율을 세 보았습니다. 일반 표준오차는 90.6%, HC3 강건 표준오차는 93.6%였습니다. 표본이 작으면 강건 표준오차도 완벽하지는 않다는 점도 보입니다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>이분산성이 있으면 회귀계수가 편향된다.</td><td>OLS 계수 추정치는 여전히 불편입니다. 문제는 표준오차와 이를 쓰는 검정·신뢰구간입니다.</td></tr><tr><td>이분산성은 정규성이 깨졌다는 뜻이다.</td><td>다른 가정입니다. 오차가 정규분포여도 분산이 변할 수 있고, 분산이 일정해도 정규가 아닐 수 있습니다.</td></tr><tr><td>레빈 검정으로 회귀모형의 이분산성을 확인한다.</td><td>레빈 검정은 집단 간 분산이 같은지 보는 검정입니다. 연속 설명변수가 있는 회귀모형에는 잔차 도표, 브로이슈-페이건, 화이트 검정을 씁니다.</td></tr><tr><td>검정이 유의하지 않으면 등분산이 증명되었다.</td><td>표본이 작으면 검정력이 낮아 못 잡아냅니다. 도표를 반드시 같이 봅니다.</td></tr><tr><td>이분산성이 보이면 변환이나 WLS를 꼭 써야 한다.</td><td>목적이 계수의 유의성 검정이라면 강건 표준오차만으로도 충분한 경우가 많습니다. 예측 구간이 필요하면 분산 구조 모형이 필요합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "분산의 동질성을 말하는 용어와 검정이 여러 가지입니다.",
+    "headers": [
+      "용어",
+      "대상",
+      "용도"
+    ],
+    "rows": [
+      [
+        "[[homoscedasticity-heteroscedasticity|등분산성·이분산성]]",
+        "회귀 오차의 분산이 일정한가",
+        "가정 자체"
+      ],
+      [
+        "[[levenes-test|레빈 검정]]",
+        "집단 간 분산 동질성",
+        "t검정·ANOVA 전 점검"
+      ],
+      [
+        "[[breusch-pagan-test|브로이슈-페이건 검정]]",
+        "회귀 잔차 분산이 설명변수와 관련 있는가",
+        "회귀의 이분산 검정"
+      ],
+      [
+        "[[robust-standard-errors|강건 표준오차]]",
+        "이분산에 대응해 표준오차만 수정",
+        "대응 방법"
+      ],
+      [
+        "[[weighted-least-squares|가중최소제곱]]",
+        "분산이 큰 관측치에 작은 가중치",
+        "대응 방법(분산 구조를 알 때)"
+      ]
+    ],
+    "note": "homo(같은)·hetero(다른) + scedastic(흩어짐)이라는 어원 때문에 ‘등분산’은 같은 흩어짐, ‘이분산’은 다른 흩어짐을 뜻합니다. 영어 표기가 homoskedasticity처럼 k를 쓰기도 합니다."
+  },
+  "references": [
+    "Breusch, T. S., & Pagan, A. R. (1979). A simple test for heteroscedasticity and random coefficient variation. Econometrica, 47(5), 1287–1294.",
+    "White, H. (1980). A heteroskedasticity-consistent covariance matrix estimator and a direct test for heteroskedasticity. Econometrica, 48(4), 817–838.",
+    "Long, J. S., & Ervin, L. H. (2000). Using heteroscedasticity consistent standard errors in the linear regression model. The American Statistician, 54(3), 217–224.",
+    "Hayes, A. F., & Cai, L. (2007). Using heteroskedasticity-consistent standard error estimators in OLS regression: An introduction and software implementation. Behavior Research Methods, 39(4), 709–722.",
+    "Fox, J. (2016). Applied regression analysis and generalized linear models (3rd ed.). Sage."
+  ]
+}

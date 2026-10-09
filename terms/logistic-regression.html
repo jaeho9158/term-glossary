@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/logistic-regression.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,29 @@
   <h2>왜 중요한가</h2>
   <p>로지스틱 회귀는 결과가 이분형(합격/불합격, 발병/비발병, 이탈/잔류)으로 나뉘는 상황이 의학, 사회과학, 마케팅, 머신러닝 등 거의 모든 분야에 걸쳐 흔하기 때문에 가장 널리 쓰이는 통계 기법 중 하나입니다. 예측 확률을 제공하면서도 각 요인의 영향력을 해석 가능한 형태(오즈비)로 보여준다는 점에서, 단순히 예측만 하는 것이 아니라 "왜 그런 결과가 나오는가"를 설명해야 하는 연구에서 특히 선호됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>결과가 두 범주(발병/비발병, 합격/불합격)일 때 어떤 요인이 그 결과의 가능성과 관련되는지 분석합니다. 선형회귀는 결과를 0~1 밖으로 예측할 수 있는 반면, 로지스틱 회귀는 확률을 <strong>로짓(오즈의 로그)</strong>으로 바꿔 선형식으로 모델링해 예측 확률이 항상 0~1 안에 들어옵니다.</p><p><code>ln( p / (1 − p) ) = b₀ + b₁x₁ + b₂x₂ + …</code></p><ul><li>설명변수는 연속형·범주형 모두 가능하고, 정규성 가정이 없습니다. 관측치의 독립은 필요합니다.</li><li>결과가 세 범주 이상이면 다항 또는 순서형 로지스틱으로 확장됩니다.</li><li>표본 수는 결과 사건 수(둘 중 적은 쪽)에 좌우됩니다. 설명변수 하나당 사건 10건 정도라는 경험칙이 인용되지만(Peduzzi 외, 1996), 이후 연구에서 상황에 따라 더 많거나 적게 필요하다는 지적이 있습니다.</li><li>완벽 분리(어떤 변수로 결과가 완전히 갈림)가 있으면 추정이 발산합니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가상의 예: 노출군 100명 중 30명, 비노출군 100명 중 15명에게 사건이 발생했습니다.</p><ul><li>위험은 .30과 .15라서 상대위험도(RR) = 2.0이고, 오즈는 30/70 = .429와 15/85 = .176이라서 <strong>오즈비(OR) = 2.43</strong>입니다.</li><li>이 자료를 노출(0/1)로 로지스틱 회귀하면 노출 계수 b = ln(2.43) = 0.887, 표준오차 0.355이고 절편은 비노출군의 로그 오즈 ln(.176) = −1.735입니다. Wald z = 2.50, p = .012, OR의 95% 신뢰구간 [1.21, 4.87]입니다. 계수에 지수를 취하면 오즈비가 됩니다.</li><li><strong>오즈비는 확률의 배수가 아닙니다.</strong> OR = 2에서 기준 위험이 1%이면 위험이 1.98%(약 2배), 10%이면 18.2%(1.8배), 40%이면 57.1%(1.4배)가 됩니다. 사건이 흔할수록 OR이 RR보다 훨씬 커 보입니다.</li><li><strong>연속형 설명변수(가상 20명)</strong>: 연령 10세당 b = 1.206이면 OR = 3.34이고, 예측식은 p = 1 / (1 + e<sup>−(−5.58 + 0.1206×연령)</sup>)입니다. 연령 30, 45, 60세에서 예측 확률은 .12, .46, .84로, 확률은 S자로 변하기 때문에 ‘1세 증가당 확률 변화’는 위치마다 다릅니다.</li><li>모형 평가: 우도비 검정으로 모형 전체의 유의성(위 연령 모형은 χ²(1) = 9.06), 맥파덴 의사 R²(= 1 − 모형 로그우도/절편만의 로그우도, 이 예에서 .33), 판별력 <a href="auc-roc.html">AUC</a>(이 예에서 .86), 보정 <a href="hosmer-lemeshow-test.html">호스머-렘쇼 검정</a>을 봅니다. 의사 R²는 선형회귀 R²처럼 ‘설명 비율’로 읽으면 안 됩니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>비표준화 계수(B)와 표준오차 또는 오즈비와 95% 신뢰구간, 유의확률, 모형 적합도, 사건 수를 보고합니다. (위 가상 자료 기준)</p><p><code>노출은 사건 발생 위험을 유의하게 높였다(OR = 2.43, 95% CI [1.21, 4.87], p = .012). 사건은 200명 중 45명(22.5%)에서 발생하였다.</code></p><ul><li>오즈비를 “위험이 2.43배”라고 쓰면 오류입니다. “오즈가 2.43배”로 쓰거나, 사건이 드물지 않다면 위험비(RR) 또는 예측 확률로 함께 보여 줍니다(Mood, 2010).</li><li>여러 변수를 넣은 모형이면 표에 변수별 OR, CI, p와 다중공선성 점검(VIF)을 싣고, 변수 선택 방법을 밝힙니다.</li><li>같은 설명변수로 두 모형의 계수를 직접 비교할 때는, 로지스틱 회귀의 계수가 관측되지 않은 이질성의 영향을 받는다는 점에 유의합니다(Mood, 2010).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“다변량 분석에 는 로지스틱 회귀 분석을 사용하였으며 통계 분석은 SAS 9.4를 사용하였다.”</blockquote><p class="te-cite">한국의 장기요양시설 입소자의 COVID-19 중증도 및 사망률과 관련된 위험 요인, Korean Journal of Healthcare-Associated Infection Control and Prevention, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516093797" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“장애인의 영양 위험도 관련 요인을 파악 하기 위해 다중다항 로지스틱 회귀분석을 수행하여 오즈비(odds ratio, OR)와 95% 신뢰구간(confidence interval, CI)을 산출했다.”</blockquote><p class="te-cite">한국 장애인의 영양 위험 관련 요인: 장애인삶 패널조사 자료를 이용하여, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094127" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이를 종속 변수로 하고 Table 2에 제시한 변수를 독립 변수로 포함하여 다변량 이분형 로지스틱 회귀 분석을 시행하였다.”</blockquote><p class="te-cite">65세 이상 환자에서 족관절 삼과 골절의 치료 결과, Journal of Korean Foot and Ankle Society, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095105" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"흡연 여부, 나이, BMI를 독립변수로 하여 당뇨병 발병 여부를 종속변수로 한 로지스틱 회귀분석을 실시한 결과, 흡연은 당뇨병 발병 위험을 유의하게 증가시켰다(p &lt; 0.05)."</div>
   <p>이 문장은 "당뇨병에 걸렸다/안 걸렸다"라는 두 갈래 결과를 놓고, 흡연·나이·BMI 같은 요인들이 그 결과가 나올 확률에 어떤 영향을 미치는지 분석했다는 뜻입니다. 이때 각 요인의 영향력은 흔히 <a href="odds-ratio.html">교차비(오즈비)</a>로 표현됩니다.</p>
 
@@ -172,6 +195,22 @@
 
   <h2>주의할 점</h2>
   <p>로지스틱 회귀의 계수는 일반 회귀처럼 "결과값이 몇 점 오른다"는 식으로 바로 해석할 수 없습니다. 계수를 지수변환하면 <a href="odds-ratio.html">교차비(오즈비)</a>가 되는데, 오즈비 1.5는 "확률이 1.5배"가 아니라 "성공 대 실패의 비율(오즈)이 1.5배"라는 뜻이라 혼동하기 쉽습니다. 또한 독립변수가 여러 개일 때 <a href="multicollinearity.html">다중공선성</a>이 있으면 각 변수의 영향력을 제대로 구분하기 어려워집니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>로지스틱 회귀 결과는 이름이 비슷한 세 가지 척도로 나옵니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정의</th><th scope="col">예(위 자료)</th></tr></thead><tbody><tr><th scope="row">위험(확률)</th><td>사건 수 / 전체</td><td>노출군 .30, 비노출군 .15</td></tr><tr><th scope="row">오즈</th><td>사건 / 비사건</td><td>노출군 .429, 비노출군 .176</td></tr><tr><th scope="row">상대위험도(RR)</th><td>두 집단 위험의 비</td><td>2.0</td></tr><tr><th scope="row"><a href="odds-ratio.html">오즈비(OR)</a></th><td>두 집단 오즈의 비 = exp(로지스틱 계수)</td><td>2.43</td></tr><tr><th scope="row"><a href="generalized-linear-model.html">일반화선형모형</a></th><td>로지스틱 회귀가 속한 모형군</td><td>로짓 연결함수, 이항분포</td></tr></tbody></table></div>
+  <p class="te-note">사건이 드물면(대략 10% 미만) OR이 RR과 비슷해지지만, 흔하면 OR이 RR보다 훨씬 커 보입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cox, D. R. (1958). The regression analysis of binary sequences. Journal of the Royal Statistical Society: Series B, 20(2), 215–242.</li>
+    <li>Hosmer, D. W., Lemeshow, S., &amp; Sturdivant, R. X. (2013). Applied logistic regression (3rd ed.). Wiley.</li>
+    <li>Peduzzi, P., Concato, J., Kemper, E., Holford, T. R., &amp; Feinstein, A. R. (1996). A simulation study of the number of events per variable in logistic regression analysis. Journal of Clinical Epidemiology, 49(12), 1373–1379.</li>
+    <li>Mood, C. (2010). Logistic regression: Why we cannot do what we think we can do, and what we can do about it. European Sociological Review, 26(1), 67–82.</li>
+    <li>Agresti, A. (2013). Categorical data analysis (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="generalized-linear-model.html">일반화선형모형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="negative-binomial-regression.html">음이항 회귀</a><a href="poisson-regression.html">포아송 회귀</a><a href="probit-regression.html">프로빗 회귀분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="multinomial-logistic-regression.html">다항 로지스틱 회귀</a><a href="ordinal-logistic-regression.html">순서형 로지스틱 회귀</a><a href="firth-logistic-regression.html">퍼스 로지스틱 회귀</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

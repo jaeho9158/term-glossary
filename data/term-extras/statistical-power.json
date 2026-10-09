@@ -1,0 +1,61 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>검정력 = 1 − β = P(귀무가설 기각 | 실제로 효과가 있음). 0~1의 확률이며, 효과가 없을 때(귀무가설이 참)의 기각 확률은 검정력이 아니라 유의수준 α입니다.</p><p>네 가지가 서로 맞물려 있어서 셋을 정하면 나머지 하나가 정해집니다.</p><ul><li><strong>효과크기</strong>(클수록 검정력↑)</li><li><strong>표본 수</strong>(클수록↑, 그러나 증가폭은 점점 줄어듦)</li><li><strong>유의수준 α</strong>(높일수록↑, 단측검정이 양측보다↑)</li><li><strong>자료의 변동</strong>(작을수록↑)</li></ul><p>두 독립집단 t검정(양측, α = .05)에서 <strong>집단당</strong> 필요한 표본 수(가상 계산, 비중심 t분포 사용):</p><table><thead><tr><th>효과크기 d</th><th>검정력 .80</th><th>검정력 .90</th></tr></thead><tbody><tr><td>0.2 (작음)</td><td>394명</td><td>527명</td></tr><tr><td>0.5 (중간)</td><td>64명</td><td>86명</td></tr><tr><td>0.8 (큼)</td><td>26명</td><td>34명</td></tr></tbody></table><p>간단한 근사식은 n ≈ 2 × ((z<sub>1−α/2</sub> + z<sub>1−β</sub>) / d)²이고 d = 0.5, α = .05, 검정력 .80이면 62.8로 계산되어, t분포를 쓴 정확한 값(64)보다 약간 작습니다. 반대로 표본이 집단당 30명으로 고정되어 있으면 d = 0.5의 검정력은 .48, d = 0.8은 .86, d = 0.3은 .21입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>.80</strong>이 관례적인 목표입니다. Cohen(1988)이 α = .05와 짝을 이루는 값으로 제안한 것이며 자연법칙이 아닙니다. 놓치면 큰 손해인 연구(안전성, 희귀 질환)나 확증 연구에서는 .90 이상을 쓰기도 합니다.</li><li>검정력은 <strong>어떤 효과크기를 가정하느냐</strong>에 달려 있어서 그 가정이 핵심입니다. 선행연구의 효과크기는 출판 편향으로 부풀려져 있기 쉬워 보수적으로 잡거나, ‘이보다 작으면 의미가 없다’고 할 최소한의 의미 있는 효과를 기준으로 삼습니다.</li><li>검정력이 낮으면 비유의 결과를 해석하기 어려울 뿐 아니라, 우연히 유의해진 결과도 효과를 과대추정하고 재현되기 어렵습니다(Button 외, 2013). 신경과학 분야 연구의 평균 검정력이 낮다는 지적이 이를 보여 줍니다.</li><li>연구가 끝난 뒤 관측한 효과크기로 계산하는 ‘사후 검정력’은 p값을 다시 표현한 것에 불과해 해석에 도움이 되지 않는다는 지적이 일반적입니다(Hoenig &amp; Heisey, 2001). 비유의 결과는 신뢰구간으로 해석합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>사전 검정력 분석은 <strong>가정한 효과크기와 그 근거, α, 목표 검정력, 검정 종류(양측/단측), 소프트웨어, 계산된 표본 수, 탈락 보정</strong>을 밝힙니다.</p><p><code>G*Power 3.1을 이용하여 독립표본 t검정(양측, α = .05, 검정력 .80, 효과크기 d = 0.50)에 필요한 표본을 계산한 결과 집단당 64명(총 128명)이었다. 탈락률 10%를 고려하여 집단당 72명을 모집하였다.</code></p><ul><li>효과크기 d = 0.5를 고른 이유(선행연구 인용 또는 ‘임상적으로 의미 있는 최소 차이’)를 한 줄 적습니다. 관례(작음/중간/큼)만 쓰는 경우가 많지만 그 근거가 약합니다.</li><li>표본 수 산출 표를 논문에 못 넣는 경우에도 방법 절에 이 한 문장은 꼭 있어야 합니다.</li><li>다중 비교를 할 때는 보정된 α로 계산해야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "검정력에 걸린 네 가지 값은 서로를 바꾸는 손잡이입니다.",
+    "headers": [
+      "용어",
+      "누가 정하나",
+      "검정력과의 관계"
+    ],
+    "rows": [
+      [
+        "[[statistical-power|검정력]]",
+        "목표를 연구자가 정함(.80 등)",
+        "1 − β"
+      ],
+      [
+        "[[significance-level|유의수준]]",
+        "연구자가 사전에 정함",
+        "높이면 검정력↑, 1종 오류↑"
+      ],
+      [
+        "[[effect-size|효과크기]]",
+        "선행연구·이론으로 가정",
+        "클수록 적은 표본으로 충분"
+      ],
+      [
+        "[[sample-size|표본 크기]]",
+        "계산으로 결정",
+        "클수록↑"
+      ],
+      [
+        "[[type-2-error|2종 오류]]",
+        "—",
+        "β = 1 − 검정력"
+      ]
+    ],
+    "note": "표본 수를 계산하는 절차를 [[power-analysis|검정력 분석]]이라 부르며, 연구 전에 하는 사전 분석이 의미를 가집니다."
+  },
+  "references": [
+    "Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum.",
+    "Cohen, J. (1992). A power primer. Psychological Bulletin, 112(1), 155–159.",
+    "Faul, F., Erdfelder, E., Lang, A.-G., & Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. Behavior Research Methods, 39(2), 175–191.",
+    "Hoenig, J. M., & Heisey, D. M. (2001). The abuse of power: The pervasive fallacy of power calculations for data analysis. The American Statistician, 55(1), 19–24.",
+    "Button, K. S., Ioannidis, J. P. A., Mokrysz, C., Nosek, B. A., Flint, J., Robinson, E. S. J., & Munafò, M. R. (2013). Power failure: Why small sample size undermines the reliability of neuroscience. Nature Reviews Neuroscience, 14(5), 365–376."
+  ]
+}

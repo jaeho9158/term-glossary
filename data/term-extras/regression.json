@@ -1,0 +1,55 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>결과변수(종속변수)를 하나 이상의 설명변수로 설명하거나 예측하고 싶을 때 씁니다. 목적은 크게 세 가지로 나뉩니다.</p><ul><li><strong>예측</strong>: 새로운 대상의 결과값을 어림합니다(예: 공부 시간으로 점수 예측).</li><li><strong>연관의 크기 추정</strong>: “설명변수가 1단위 늘 때 결과가 평균적으로 얼마나 달라지는가”를 구합니다.</li><li><strong>다른 변수의 통제</strong>: 여러 설명변수를 한꺼번에 넣어 “나머지가 같을 때” 한 변수의 몫을 가려 봅니다.</li></ul><p>결과변수의 종류에 따라 모형이 달라집니다.</p><table><thead><tr><th>결과변수</th><th>보통 쓰는 모형</th></tr></thead><tbody><tr><td>연속형(점수, 혈압)</td><td>선형회귀(최소제곱법)</td></tr><tr><td>예/아니오 두 범주</td><td>[[logistic-regression|로지스틱 회귀]]</td></tr><tr><td>사건까지 걸린 시간(중도절단 포함)</td><td>[[cox-proportional-hazards-model|콕스 비례위험모형]]</td></tr><tr><td>같은 집단·대상이 반복되는 자료</td><td>[[mixed-effects-model|혼합효과모형]]</td></tr></tbody></table><p>선형회귀가 믿을 만하려면 선형성·오차의 독립성·등분산성·정규성 같은 가정이 필요합니다([[regression-assumptions|회귀분석의 가정]]).</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 예: 공부 시간(시간) x = 1, 2, 2, 3, 4, 4, 5, 6, 7, 8과 시험 점수 y = 52, 55, 60, 58, 65, 68, 70, 72, 80, 79 (n = 10)를 단순회귀로 분석했습니다.</p><ul><li><strong>회귀식</strong> ŷ = 48.76 + 4.08x. 공부를 1시간 더 한 사람은 평균적으로 점수가 약 4.1점 높습니다(관찰된 범위에서의 평균적 차이).</li><li><strong>기울기의 검정</strong>: SE = 0.35, t(8) = 11.66, p &lt; .001, 95% CI [3.27, 4.89]. 자유도는 n − (추정한 계수 수) = 10 − 2 = 8입니다.</li><li><strong>절편</strong> 48.76(SE 1.66)은 x = 0일 때의 예측값인데, 자료에 0시간이 없으므로(1~8시간) 실제 의미를 두기 어렵습니다. 관찰 범위 밖으로 식을 늘려 쓰는 것을 외삽이라 하며 조심해야 합니다.</li><li><strong>R²</strong> = .944: 점수 변동의 약 94%가 직선 관계로 설명됩니다. 수정 R² = .938. 잔차의 표준오차 s = 2.41점은 예측이 평균적으로 그만큼 빗나간다는 뜻입니다.</li><li><strong>F(1, 8)</strong> = 136.03은 모형 전체의 검정이며, 설명변수가 하나뿐이면 t² (= 11.66²)와 같습니다.</li><li>단순회귀의 표준화 계수 β = .97은 상관계수 r과 같습니다. x = 5일 때 예측 평균은 69.2점입니다.</li></ul><p>다중회귀에서는 기울기가 “다른 변수를 고정했을 때”의 값이 되고, 설명변수끼리 상관이 높으면 계수가 불안정해집니다([[multicollinearity|다중공선성]]). 관찰 자료의 회귀계수는 연관이지 인과가 아닙니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>비표준화 계수(b), 표준오차 또는 신뢰구간, 표준화 계수(β), t 또는 p, 모형의 R²와 F를 보고합니다. (위 가상 자료 기준)</p><p><code>공부 시간은 시험 점수를 유의하게 예측하였다, b = 4.08, SE = 0.35, β = .97, t(8) = 11.66, p &lt; .001, 95% CI [3.27, 4.89]. 모형은 점수 분산의 94%를 설명하였다, R² = .94, F(1, 8) = 136.03, p &lt; .001.</code></p><ul><li>다중회귀에서는 표에 모든 설명변수의 b, SE, β, p, VIF(다중공선성 점검)를 싣고, 표본 수와 결측 처리 방법을 밝힙니다.</li><li>가정 점검(잔차 도표, 정규성, 등분산성, 영향력 진단)을 했다는 한 줄을 방법 절에 넣습니다.</li><li>‘영향을 미친다’는 표현은 인과를 암시하므로, 관찰 자료에서는 ‘예측한다’, ‘관련된다’가 더 안전합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "상관과 회귀는 자주 섞어 쓰지만 질문이 다릅니다.",
+    "headers": [
+      "용어",
+      "답하는 질문",
+      "결과"
+    ],
+    "rows": [
+      [
+        "[[correlation|상관분석]]",
+        "두 변수가 함께 움직이는가(대칭)",
+        "r (−1~1)"
+      ],
+      [
+        "단순회귀",
+        "x가 1 늘면 y가 평균 얼마나 변하는가(비대칭)",
+        "기울기 b와 절편"
+      ],
+      [
+        "다중회귀",
+        "다른 변수를 고정하면 이 변수의 몫은?",
+        "변수별 b, 모형 R²"
+      ],
+      [
+        "[[logistic-regression|로지스틱 회귀]]",
+        "결과가 두 범주일 때 확률·오즈",
+        "오즈비"
+      ]
+    ],
+    "note": "‘회귀(regression)’라는 이름은 갤턴이 부모와 자녀 키의 관계에서 자녀 키가 평균 쪽으로 되돌아가는 현상(평균으로의 회귀)을 관찰한 데서 왔습니다."
+  },
+  "references": [
+    "Galton, F. (1886). Regression towards mediocrity in hereditary stature. Journal of the Anthropological Institute of Great Britain and Ireland, 15, 246–263.",
+    "Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2005). Applied linear statistical models (5th ed.). McGraw-Hill/Irwin.",
+    "Gelman, A., & Hill, J. (2007). Data analysis using regression and multilevel/hierarchical models. Cambridge University Press.",
+    "Fox, J. (2016). Applied regression analysis and generalized linear models (3rd ed.). Sage."
+  ]
+}

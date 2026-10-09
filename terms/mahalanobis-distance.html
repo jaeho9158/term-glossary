@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/mahalanobis-distance.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,29 @@
   <h2>왜 중요한가</h2>
   <p>실제 데이터는 변수들이 서로 얽혀 있는 경우가 많아, 개별 변수만 따로 살펴보는 방식으로는 진짜 이상한 관측치를 놓치기 쉽습니다. 마할라노비스 거리는 이러한 다변량 구조를 반영해 이상치를 걸러내거나 관측치를 분류하는 데 쓰이기 때문에, 심리학·사회과학의 설문 데이터 정제부터 패턴 인식, 이상 탐지 분야의 알고리즘 설계까지 폭넓게 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>관측치 x가 평균 벡터 μ에서 얼마나 떨어져 있는지를 <strong>공분산행렬 S로 나누어</strong> 측정합니다.</p><p><code>D² = (x − μ)ᵀ S⁻¹ (x − μ),  D = √D²</code></p><ul><li>변수들이 서로 상관이 없고 분산이 1이면(S가 단위행렬이면) 유클리드 거리와 같습니다.</li><li>변수의 단위(cm, kg)에 영향을 받지 않고, 상관 방향으로 퍼진 만큼은 ‘가깝게’, 상관 방향과 어긋난 쪽은 ‘멀게’ 칩니다.</li><li>범위: 0 이상. 평균에서 0, 멀수록 커집니다.</li></ul><p><strong>작은 예(가상).</strong> 12명의 키·몸무게(평균 172.6 cm, 66.8 kg, 각각 SD 약 7.9, 상관 r = .79). 이 12명을 기준 집단으로 삼아 새로 온 사람을 견주어 봅니다. 키 185 cm, 몸무게 58 kg인 사람은 변수별 z가 +1.57, −1.11로 어느 쪽도 이상하지 않지만 D² = 17.3입니다. ‘키가 큰데 가벼운’ 조합이 이 자료의 패턴(키가 크면 몸무게도 큼)과 어긋나기 때문입니다. 반대로 185 cm, 85 kg인 사람은 평균에서 유클리드 거리가 22.1로 더 멀지만(앞의 사람은 15.2) D² = 5.5로 훨씬 가깝습니다. 패턴을 따르는 방향이기 때문입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>자료가 다변량 정규분포에 가깝다면 D²는 변수 개수 p를 자유도로 하는 카이제곱분포를 근사적으로 따릅니다. 그래서 ‘D²가 χ²(p)의 상위 0.1% 값을 넘으면 이상치’라는 기준이 자주 쓰입니다. 변수가 2개이면 임계값은 13.82이며, 위 예의 D² = 17.3은 p = .0002에 해당합니다.</li><li>p &lt; .001이라는 문턱은 Tabachnick과 Fidell 등 다변량 분석 교재가 권하는 관례입니다. 표본이 작을 때는 근사가 부정확하니 참고용으로 봅니다. 특히 표본 안의 관측치로 평균과 공분산을 구한 경우 D²는 (n−1)²/n을 넘을 수 없어서(n = 12이면 10.08), 표본이 아주 작으면 어떤 점도 이 기준을 넘지 못합니다.</li><li>평균과 공분산행렬 자체가 이상치에 끌려가므로, 이상치가 여러 개 모여 있으면 서로를 가려(마스킹) 거리가 작게 나올 수 있습니다. 이를 피하려고 이상치에 강건한 공분산 추정(최소부피타원체 MVE, 최소공분산행렬식 MCD 등)을 쓰는 방법이 제안되어 있습니다(Rousseeuw &amp; Van Zomeren, 1990).</li><li>변수가 서로 거의 같은 정보를 담는 다중공선성이 심하면 S의 역행렬이 불안정해 거리가 왜곡됩니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>어떤 변수 조합으로 계산했는지, 자유도, 기준값, 제외된 사례 수를 함께 적습니다.</p><p><code>키와 몸무게를 이용해 마할라노비스 거리를 계산하고 χ²(2) = 13.82(p &lt; .001)를 기준으로 다변량 이상치를 판정한 결과 1건(D² = 17.31)을 분석에서 제외하였다.</code></p><ul><li>제외 전후의 결과를 모두 보고하는 것이 좋습니다. 이상치 제거는 결과를 바꿀 수 있기 때문입니다.</li><li>이상치로 판정된 사례가 자료 입력 오류인지 실제 극단 사례인지 먼저 확인하고 근거를 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“개체간 유사성을 계산하기 위해 마할라노비스 거리를 이용한 방법을 적용해 보고, 여기에서 발생한 수 있는 문제점을 고려하였으며 그 대안으로써 비모수적 방법인 순위합을 이용한 방법을 제안하였다.”</blockquote><p class="te-cite">다변량 데이터의 통계적 결합에 관한 유사성 척도 연구, Journal of The Korean Data Analysis Society, 2007 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001091948" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“하-웨이블렛 선별과정에는 각 항목의 유사도를 나타내는 마할라노비스 거리를 사용하였다.”</blockquote><p class="te-cite">얼굴의 자세추정을 이용한 얼굴인식 속도 향상, 한국지능시스템학회 논문지, 2010 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001489533" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“앞서 두 기법을 사용하여 추정된 고장 유형 모델과 마할라노비스 거리(MD) 기법을 사용하여 유도전동기의 결합을 분류한다.”</blockquote><p class="te-cite">LPC 분석 기법 및 EM 알고리즘 기반 잡음 환경에 강인한 진동 특징을 이용한 고 신뢰성 유도 전동기 다중 결함 분류, 한국컴퓨터정보학회논문지, 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001851353" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"마할라노비스 거리를 산출하여 χ² 분포 기준 p &lt; .001에 해당하는 다변량 이상치 3건을 분석에서 제외하였다."</div>
   <p>이 문장은 여러 변수를 동시에 고려했을 때 나머지 데이터와 패턴이 크게 다른 응답 3건을 통계적 기준으로 걸러냈다는 뜻입니다.</p>
 
@@ -164,6 +187,21 @@
 
   <h2>주의할 점</h2>
   <p>마할라노비스 거리는 변수 하나하나의 값이 극단적이지 않아도 변수들의 "조합"이 이상하면 큰 값을 갖습니다. 그래서 단변량 이상치 탐지(예: Z점수)만으로는 걸러지지 않는 사례를 찾아낼 수 있지만, <a href="multicollinearity.html">다중공선성</a>이 심한 데이터에서는 계산이 불안정해질 수 있으므로 함께 점검해야 합니다. 또한 이 거리는 <a href="linear-discriminant-analysis.html">선형판별분석</a>에서 관측치를 어느 집단에 분류할지 판단하는 기준으로도 활용됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘이상한 관측치’를 찾는 도구는 이름이 비슷하지만 보는 것이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">보는 것</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="z-score.html">Z점수</a></th><td>한 변수의 값이 평균에서 표준편차 몇 개 떨어졌나</td><td>변수 조합의 이상함은 못 잡음</td></tr><tr><th scope="row">유클리드 거리</th><td>좌표상 직선거리</td><td>단위와 상관을 무시</td></tr><tr><th scope="row"><a href="mahalanobis-distance.html">마할라노비스 거리</a></th><td>상관을 반영한 다변량 거리</td><td>조합 이상치 탐지, 판별분석에 활용</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 관측치가 회귀계수를 얼마나 바꾸나</td><td>영향력 진단용(잔차와 레버리지의 결합)</td></tr></tbody></table></div>
+  <p class="te-note">회귀분석에서 절편이 있는 모형의 레버리지는 h = 1/n + D²/(n−1)로 마할라노비스 거리와 직접 연결됩니다. 다만 레버리지가 크다는 것이 곧 영향력이 크다는 뜻은 아니며, 영향력은 잔차와 함께 봅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Mahalanobis, P. C. (1936). On the generalised distance in statistics. Proceedings of the National Institute of Sciences of India, 2(1), 49–55.</li>
+    <li>De Maesschalck, R., Jouan-Rimbaud, D., &amp; Massart, D. L. (2000). The Mahalanobis distance. Chemometrics and Intelligent Laboratory Systems, 50(1), 1–18.</li>
+    <li>Rousseeuw, P. J., &amp; Van Zomeren, B. C. (1990). Unmasking multivariate outliers and leverage points. Journal of the American Statistical Association, 85(411), 633–639.</li>
+    <li>Tabachnick, B. G., &amp; Fidell, L. S. (2013). Using multivariate statistics (6th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sobel-test.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,29 @@
   <h2>왜 중요한가</h2>
   <p>많은 사회과학·심리학·보건학 연구는 "A가 B를 통해 C에 영향을 준다"는 작동 기전(mechanism)을 밝히는 데 관심이 있는데, 소벨 검정은 이런 매개모형(mediation model)의 통계적 타당성을 검증하는 초창기 표준 방법으로 널리 인용되어 왔습니다. 단순히 원인과 결과 사이의 직접적 관계만 보는 것을 넘어, 그 관계가 어떤 경로를 통해 전달되는지를 규명함으로써 개입(intervention) 지점을 찾는 데도 활용되기 때문에 이론 검증과 실무적 함의를 동시에 제공하는 분석법으로 자리잡았습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>독립변수 X가 매개변수 M을 거쳐 종속변수 Y에 영향을 주는 경로(X → M → Y)에서, <strong>간접효과 a×b가 0인지</strong> 검정할 때 씁니다.</p><ul><li><strong>a</strong>: X가 M에 미치는 효과(M을 X로 회귀한 계수). <strong>b</strong>: X를 통제한 상태에서 M이 Y에 미치는 효과(Y를 M과 X로 회귀한 계수).</li><li>소벨(1982)은 간접효과 ab의 표준오차를 델타법으로 근사해 z = ab / SE<sub>ab</sub>를 만들었습니다. 이 z를 표준정규분포와 비교합니다.</li><li>계수와 표준오차만 알아도 계산할 수 있어, 원자료 없이 논문에 실린 값으로 다시 계산해 볼 수 있습니다.</li><li>표본이 크고 ab의 분포가 정규에 가깝다는 가정이 필요합니다. 그러나 a와 b 두 정규 변수의 곱은 대체로 비대칭이라 표본이 작으면 이 가정이 잘 맞지 않습니다(MacKinnon 외, 2002).</li></ul><p>그래서 오늘날에는 부트스트랩 신뢰구간(Preacher &amp; Hayes, 2004)이나 몬테카를로 신뢰구간(Preacher &amp; Selig, 2012)이 더 권장되는 편이고, 소벨 검정은 간단한 점검이나 요약통계만 있을 때 쓰입니다. 매개 분석은 통계적 분해일 뿐 인과 순서는 연구 설계가 뒷받침해야 합니다.</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가상의 예: a = 0.50(SE 0.15), b = 0.40(SE 0.12).</p><ul><li><strong>간접효과</strong> ab = 0.50 × 0.40 = 0.20.</li><li><strong>표준오차</strong> SE<sub>ab</sub> = √(b²·SE<sub>a</sub>² + a²·SE<sub>b</sub>²) = √(0.16×0.0225 + 0.25×0.0144) = 0.0849.</li><li><strong>z</strong> = 0.20 / 0.0849 = 2.36, 양측 <strong>p</strong> = .018. 소벨 방식의 95% 신뢰구간은 0.20 ± 1.96×0.0849, 즉 [0.03, 0.37]이고 좌우가 대칭입니다.</li><li>같은 a, b를 각각 정규분포로 놓고 곱의 분포를 10만 번 시뮬레이션해 95% 구간을 구하면 [0.06, 0.39]로 오른쪽으로 치우칩니다. 곱의 분포가 비대칭이라는 뜻입니다.</li><li>Aroian 변형은 표준오차에 SE<sub>a</sub>²·SE<sub>b</sub>²를 더해(이 예에서는 SE 0.0867, z = 2.31) 약간 보수적으로 계산합니다.</li><li>효과가 더 작은 예(a = 0.20 SE 0.10, b = 0.15 SE 0.08)에서는 ab = 0.03, z = 1.37, p = .17이며 시뮬레이션 구간은 [−0.004, 0.085]로 0을 포함합니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>a·b 경로 계수와 표준오차, 간접효과, 검정 방법, 가능하면 신뢰구간을 함께 적습니다. (위 가상 자료 기준)</p><p><code>X는 M을 유의하게 예측했고(a = 0.50, SE = 0.15), M은 X를 통제한 상태에서 Y를 유의하게 예측했다(b = 0.40, SE = 0.12). 간접효과는 0.20이었으며 Sobel 검정 결과 유의하였다(z = 2.36, p = .018; 몬테카를로 95% CI [0.06, 0.39]).</code></p><ul><li>한국어 논문에서는 “Baron과 Kenny(1986)의 3단계 절차를 따르고 Sobel 검정으로 매개효과의 유의성을 확인하였다”처럼 쓰이는 일이 많습니다. 최근에는 “부트스트랩(5,000회)으로 95% 신뢰구간을 구했다”가 더 자주 요구됩니다.</li><li>총효과(X → Y)가 유의해야만 매개를 논할 수 있다는 규칙은 더 이상 필수 조건으로 받아들여지지 않으며, 간접효과 자체를 검정하는 것이 핵심입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“호남과 충청권에 소재한 5개 간호학과 신입생 237명을 대상으로 질문지를 이용하여 자기주도적 학습능력, 학습몰입, 대학 적응에 대해 자료 수집하였고, 수집된 자료는 기술통계, t-test, ANOVA, Pearson의 상관분석, 3단계 매개회귀분석, Sobel test로 분석하였다.”</blockquote><p class="te-cite">간호학과 신입생의 자기주도적 학습능력이 학습몰입에 미치는 영향에서 대학 적응의 매개효과, Journal of The Korean Data Analysis Society, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002182786" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“분석을 위해 상관분석, 회귀분석을 실시하였으며, Sobel test를 실시하여 매개효과 검증을 하였다.”</blockquote><p class="te-cite">전문대학 조리전공 대학생의 전공선택동기와 진로준비행동 관계에서진로결정 자기효능감의 매개효과, 인문사회 21, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002889244" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“자료분석은 기술통계, t-test, one-way ANOVA, 상관분석을 하였고, Baron &amp; Kenny 의 다중회귀분석과 Sobel test를 하였다.”</blockquote><p class="te-cite">표준화환자 활용 정신간호학 융합시뮬레이션 실습에 대한 간호학생의 학습만족도가 전이동기에 미치는 영향: 학습자기효능감의 매개효과, 한국융합학회논문지, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002627022" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"수면의 질을 매개변수로 한 간접효과는 소벨 검정 결과 통계적으로 유의하였다 (Z = 2.41, p = .016), 이는 운동이 수면의 질 향상을 거쳐 스트레스 감소에 영향을 미친다는 것을 시사한다."</div>
   <p>운동과 스트레스 감소 사이의 관계 중 일부가 수면의 질이라는 매개변수를 통해 전달되며, 그 간접효과가 우연이라고 보기 어려울 만큼 뚜렷했다는 뜻입니다.</p>
   <div class="example">"조직 신뢰를 매개변수로 설정한 모형에서, 리더십이 직무만족에 미치는 간접효과는 소벨 검정에서 유의하지 않았다 (Z = 1.34, p = .180)."</div>
@@ -165,6 +188,22 @@
 
   <h2>주의할 점</h2>
   <p>소벨 검정은 간접효과의 값이 정규분포를 따른다고 가정하는데, 실제로는 두 계수를 곱한 값의 분포가 비대칭적인 경우가 많아 표본 크기가 작을 때는 검정력이 낮고 부정확할 수 있습니다. 그래서 최근 논문에서는 소벨 검정 대신 <a href="bootstrap-confidence-interval.html">부트스트랩 신뢰구간</a>으로 간접효과의 유의성을 확인하는 방법이 더 권장되는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>매개효과를 검정하는 방법들과 매개·조절의 구분입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심</th><th scope="col">필요한 것</th></tr></thead><tbody><tr><th scope="row">소벨 검정</th><td>ab의 표준오차를 정규 근사</td><td>a, b와 각 표준오차</td></tr><tr><th scope="row"><a href="bootstrap-confidence-interval.html">부트스트랩 신뢰구간</a></th><td>원자료를 재표집해 ab의 분포를 직접 추정</td><td>원자료</td></tr><tr><th scope="row">몬테카를로 신뢰구간</th><td>a, b의 추정분포에서 난수로 곱의 분포 생성</td><td>a, b와 표준오차(원자료 불필요)</td></tr><tr><th scope="row"><a href="statistical-mediation-moderation.html">매개효과와 조절효과</a></th><td>매개는 ‘통해서’, 조절은 ‘조건에 따라 달라진다’</td><td>설계와 이론이 다름</td></tr></tbody></table></div>
+  <p class="te-note">소벨 검정의 결과가 유의하지 않아도 부트스트랩 구간은 0을 포함하지 않을 수 있습니다. 표본이 작을수록 이런 불일치가 흔합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sobel, M. E. (1982). Asymptotic confidence intervals for indirect effects in structural equation models. Sociological Methodology, 13, 290–312.</li>
+    <li>Baron, R. M., &amp; Kenny, D. A. (1986). The moderator–mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations. Journal of Personality and Social Psychology, 51(6), 1173–1182.</li>
+    <li>MacKinnon, D. P., Lockwood, C. M., Hoffman, J. M., West, S. G., &amp; Sheets, V. (2002). A comparison of methods to test mediation and other intervening variable effects. Psychological Methods, 7(1), 83–104.</li>
+    <li>Preacher, K. J., &amp; Hayes, A. F. (2004). SPSS and SAS procedures for estimating indirect effects in simple mediation models. Behavior Research Methods, Instruments, &amp; Computers, 36(4), 717–731.</li>
+    <li>Preacher, K. J., &amp; Selig, J. P. (2012). Advantages of Monte Carlo confidence intervals for indirect effects. Communication Methods and Measures, 6(2), 77–98.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

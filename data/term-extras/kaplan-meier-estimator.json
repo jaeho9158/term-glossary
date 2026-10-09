@@ -1,0 +1,55 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>어떤 사건(사망, 재발, 이탈, 고장)이 일어나기까지의 시간을 분석하되, 관찰이 끝날 때까지 사건이 일어나지 않았거나 도중에 추적이 끊긴 대상(<strong>중도절단</strong>)이 섞여 있을 때 생존확률을 추정하는 데 씁니다.</p><ul><li>설명변수를 쓰지 않는 기술적 추정입니다. 집단별로 곡선을 따로 그려 비교합니다.</li><li>핵심 가정은 <strong>비정보적 중도절단</strong>입니다. 추적이 끊긴 이유가 사건 위험과 관련이 없어야 합니다(예: 상태가 나빠져서 연구를 그만둔 사람이 많다면 왜곡됩니다). 또 연구에 늦게 들어온 사람과 일찍 들어온 사람의 생존 경험이 같다고 봅니다.</li><li>중도절단된 사람을 그냥 빼거나 사건이 없었던 사람으로 간주하면 생존율이 왜곡됩니다. 카플란-마이어 방법은 그 사람이 관찰된 기간만큼은 정보로 씁니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 예: 10명을 추적했습니다. 사건(사망)은 2, 3, 5, 8, 9, 12개월에, 중도절단은 3, 6, 12, 15개월에 일어났습니다. 각 사건 시점에서 “그 시점에 위험에 노출된 사람 중 살아남은 비율”을 곱해 나갑니다.</p><table><thead><tr><th>시점(개월)</th><th>위험집단 n</th><th>사건 d</th><th>중도절단</th><th>생존확률 S(t)</th></tr></thead><tbody><tr><td>2</td><td>10</td><td>1</td><td>0</td><td>0.900</td></tr><tr><td>3</td><td>9</td><td>1</td><td>1</td><td>0.800</td></tr><tr><td>5</td><td>7</td><td>1</td><td>0</td><td>0.686</td></tr><tr><td>6</td><td>6</td><td>0</td><td>1</td><td>0.686(그대로)</td></tr><tr><td>8</td><td>5</td><td>1</td><td>0</td><td>0.549</td></tr><tr><td>9</td><td>4</td><td>1</td><td>0</td><td>0.411</td></tr><tr><td>12</td><td>3</td><td>1</td><td>1</td><td>0.274</td></tr><tr><td>15</td><td>1</td><td>0</td><td>1</td><td>0.274(그대로)</td></tr></tbody></table><ul><li><strong>계산</strong>: 사건이 일어난 각 시점의 (1 − d/n)를 차례로 곱합니다. 예: S(5) = 0.9 × (8/9) × (6/7) = 0.686. 중도절단 시점에서는 곡선이 내려가지 않지만 위험집단이 줄어 다음 계단이 더 커집니다.</li><li><strong>중앙생존기간</strong>: 곡선이 처음 0.5 이하가 되는 시점으로 이 예에서는 9개월(S(8) = 0.549, S(9) = 0.411)입니다. 평균 대신 중앙값을 쓰는 이유는 중도절단 때문에 평균 생존시간을 구하기 어렵기 때문입니다.</li><li><strong>불확실성</strong>: 그린우드 공식으로 9개월 시점의 표준오차를 구하면 0.176입니다. 10명이라 구간은 매우 넓습니다(단순 정규 근사로는 약 0.07~0.76). 소프트웨어는 구간이 0~1을 벗어나지 않도록 로그 계열 변환을 쓰기도 합니다.</li><li>곡선 아래의 <strong>위험집단 수 표</strong>(number at risk)를 함께 보여 줘야 오른쪽 끝의 곡선을 얼마나 믿을지 알 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>추적 기간과 중도절단 수, 중앙생존기간과 신뢰구간, 집단 비교 검정을 함께 적습니다. (위 가상 자료 기준)</p><p><code>10명 중 6명에서 사건이 발생하였고 4명은 중도절단되었다. 카플란-마이어 추정에 따른 중앙생존기간은 9개월이었다. 두 군의 생존곡선 차이는 로그순위검정으로 검정하였다(χ²(1) = …, p = …).</code></p><ul><li>집단 비교의 p값은 [[log-rank-test|로그순위검정]]으로 구하는 경우가 많고, 공변량을 보정한 효과(위험비)는 [[cox-proportional-hazards-model|콕스 비례위험모형]]으로 제시합니다.</li><li>그림에는 중도절단 표시(+)와 위험집단 수 표, 집단별 곡선 구분을 넣으며, 곡선의 끝부분에서 대상자가 몇 명 남았는지 확인할 수 있게 합니다.</li><li>“5년 생존율 62%”처럼 특정 시점의 값을 보고할 때는 그 시점의 신뢰구간을 같이 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "생존분석 세 가지는 역할이 다릅니다.",
+    "headers": [
+      "용어",
+      "역할",
+      "설명변수"
+    ],
+    "rows": [
+      [
+        "[[kaplan-meier-estimator|카플란-마이어 추정]]",
+        "생존곡선 추정(기술)",
+        "없음(집단 구분만)"
+      ],
+      [
+        "[[log-rank-test|로그순위검정]]",
+        "생존곡선들이 같은지 검정",
+        "집단 구분"
+      ],
+      [
+        "[[cox-proportional-hazards-model|콕스 비례위험모형]]",
+        "공변량 보정 위험비 추정",
+        "연속·범주 변수 모두"
+      ],
+      [
+        "[[survival-analysis|생존분석]]",
+        "시간-사건 자료 분석 전체를 부르는 말",
+        "—"
+      ]
+    ],
+    "note": "카플란-마이어 곡선은 평균의 비교가 아니라 시간에 따른 ‘생존 경험’의 비교입니다. 두 곡선이 교차하면 로그순위검정의 해석이 어려워집니다."
+  },
+  "references": [
+    "Kaplan, E. L., & Meier, P. (1958). Nonparametric estimation from incomplete observations. Journal of the American Statistical Association, 53(282), 457–481.",
+    "Mantel, N. (1966). Evaluation of survival data and two new rank order statistics arising in its consideration. Cancer Chemotherapy Reports, 50(3), 163–170.",
+    "Bland, J. M., & Altman, D. G. (1998). Survival probabilities (the Kaplan–Meier method). BMJ, 317(7172), 1572.",
+    "Clark, T. G., Bradburn, M. J., Love, S. B., & Altman, D. G. (2003). Survival analysis part I: Basic concepts and first analyses. British Journal of Cancer, 89(2), 232–238."
+  ]
+}

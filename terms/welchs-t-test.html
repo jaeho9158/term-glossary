@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/welchs-t-test.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,28 @@
   <p>실험군과 대조군의 표본 크기나 변동성이 애초에 다른 경우가 많은 실제 연구 환경에서, 등분산을 가정하는 일반 t검정을 무비판적으로 적용하면 유의성 판단이 왜곡될 위험이 있다.</p>
   <p>웰치 t검정은 이런 위험 없이도 두 집단 평균 차이를 안전하게 검정할 수 있게 해주기 때문에 심리학, 의학, 생물학 등 다양한 분야의 논문에서 사실상 표준적인 선택지로 자리 잡았다. 실제로 여러 통계 방법론 연구에서는 분산이 같은지 여부와 무관하게 웰치 t검정을 기본값으로 사용할 것을 권고하기도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>서로 독립인 두 집단의 평균을 비교하되, 두 집단의 분산이나 표본 수가 같다고 보장할 수 없을 때 씁니다. 두 집단의 크기가 같고 분산도 비슷하면 일반 독립표본 t검정과 거의 같은 결과가 나오므로, 웰치 검정을 기본값으로 삼아도 잃는 것이 거의 없습니다(Delacre 외, 2017).</p><ul><li>두 집단의 관측치가 서로 독립이어야 합니다.</li><li>종속변수가 구간 이상 척도이고, 표본이 작다면 각 집단이 대략 정규분포에 가까워야 합니다.</li><li>‘레빈 검정으로 분산이 같은지 먼저 확인한 뒤 t검정과 웰치 검정 중 고른다’는 2단계 절차는 1종 오류율을 흐트러뜨릴 수 있어 권장되지 않는 편입니다(Zimmerman, 2004). 처음부터 웰치 검정을 쓰면 이 문제가 없습니다.</li></ul><p>일반 t검정이 특히 위험한 경우는 <strong>표본 수와 분산이 엇갈릴 때</strong>입니다. 표본이 작은 집단의 분산이 더 크면 일반 t검정은 실제보다 쉽게 ‘유의’가 나오고(1종 오류 증가), 표본이 큰 집단의 분산이 더 크면 반대로 보수적이 됩니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 검정</th></tr></thead><tbody><tr><td>독립 두 집단, 분산·표본 수가 다를 수 있음</td><td>웰치 t검정</td></tr><tr><td>독립 두 집단, 등분산이 확실하고 설계가 균형</td><td><a href="t-test.html">독립표본 t검정</a>(웰치와 거의 같은 결과)</td></tr><tr><td>같은 대상을 두 번 측정</td><td><a href="paired-t-test.html">대응표본 t검정</a></td></tr><tr><td>독립 세 집단 이상, 분산이 다를 수 있음</td><td><a href="welch-anova.html">웰치의 분산분석</a></td></tr><tr><td>정규성 가정이 어렵거나 서열 자료</td><td><a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a></td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가상의 예: A집단(n = 8, 평균 80.5, SD 7.27)과 B집단(n = 20, 평균 71.5, SD 1.85). 표본이 작은 A집단의 흩어짐이 훨씬 큽니다.</p><ul><li><strong>표준오차</strong>: 각 집단의 분산을 따로 써서 √(s₁²/n₁ + s₂²/n₂) = 2.60. (일반 t검정은 두 분산을 하나로 합친 값을 씁니다.)</li><li><strong>t</strong>: 평균 차이 9.0을 표준오차로 나눈 3.46.</li><li><strong>자유도</strong>: 웰치-새터스웨이트 근사식으로 7.37. 정수가 아니며, 대략 ‘작은 집단 n − 1’(= 7)과 n₁ + n₂ − 2(= 26) 사이에서 분산 차이가 클수록 작은 쪽으로 붙습니다.</li><li><strong>p</strong>: t(7.37) = 3.46, p = .010. 같은 자료를 일반 t검정으로 계산하면 t(26) = 5.26, p &lt; .001로 훨씬 강한 증거처럼 보입니다. 분산이 다른 자료에서 이런 낙관이 생기는 것이 일반 t검정의 약점입니다.</li><li><strong>신뢰구간</strong>: 평균 차이 9.0, 95% CI [2.9, 15.1](자유도 7.37의 t분포 사용).</li><li><strong>효과크기</strong>: 분산이 다르면 ‘합동표준편차로 나눈 d’가 무엇을 기준으로 한 값인지 모호해집니다. 이 예에서 합동 SD를 쓰면 d = 2.20이지만 두 분산의 단순 평균을 쓰면 d = 1.70입니다. 어떤 표준편차로 나눴는지 밝혀야 합니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>검정 이름, 자유도(소수 그대로), t, p, 평균 차이와 신뢰구간, 집단별 평균·표준편차·표본 수를 함께 적습니다. (아래 수치는 위의 가상 자료입니다.)</p><p><code>A집단(M = 80.5, SD = 7.27, n = 8)은 B집단(M = 71.5, SD = 1.85, n = 20)보다 점수가 유의하게 높았다, Welch t(7.37) = 3.46, p = .010, 평균 차이 = 9.0, 95% CI [2.9, 15.1].</code></p><ul><li>방법 절에 “두 집단의 분산이 같다고 가정할 수 없어 Welch의 t검정을 사용하였다”처럼 이유를 한 줄 적습니다.</li><li>자유도를 정수로 반올림해 적는 논문도 있지만, 소프트웨어가 낸 소수 자유도를 그대로 적는 편이 재현에 좋습니다.</li><li>SPSS의 독립표본 t검정 표에서는 ‘등분산을 가정하지 않음’ 행이 웰치 검정입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“체력 요인은 상대악력, 앉아앞으로굽히기, 제자리멀리뛰기, 최대산소섭취량(VO₂max), 윗몸말아올리기, 일리노이 민첩성으로 구성하였으며, 이상치 제거 후 독립표본 t-검정 또는 Welch t-검정과 효과크기(Cohen’s d) 분석을 실시하였다.”</blockquote><p class="te-cite">청소년의 허리둘레∙신장비(Waist-to-Height Ratio)와 주요 체력 요인 간 관계 - 성별 차이 분석 -, 기술경영, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003252550" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“연속형 인자는 Welch’s t-test와 BH-FDR 보정, Cohen’s d로, 범주형 인자는 Chi-squared test 과 Monte Carlo p-value, Cramér’s V로 침수·미침수 집단의 차이를 평가하였다.”</blockquote><p class="te-cite">격자 기반 통계검정을 통한 행정구역 단위 빈도별 도시 침수 지도의 영향 요인 정량화: 안동시 사례연구, 한국수자원학회 논문집, 2026 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003366284" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"두 집단의 분산이 유의하게 달랐으므로(Levene's test, p &lt; .05), 등분산을 가정하지 않는 웰치 t검정을 실시한 결과 집단 간 평균 차이가 유의하였다 (t(24.3) = 2.91, p = .008)."</div>
   <p>두 집단의 흩어진 정도가 서로 다르다는 것이 먼저 확인되었기 때문에, 이를 보정하는 웰치 t검정으로 평균 차이를 검정했고 그 결과가 통계적으로 유의했다는 뜻입니다. 자유도가 24.3처럼 소수로 나오는 것이 웰치 t검정의 특징입니다.</p>
 
@@ -166,6 +188,22 @@
 
   <h2>주의할 점</h2>
   <p>웰치 t검정은 등분산 가정이 필요 없다는 장점 때문에, 실제로는 분산이 같은지 여부와 상관없이 기본값으로 권장되는 경우가 많습니다. 다만 비교 대상이 세 집단 이상으로 늘어나면 웰치 t검정이 아니라 <a href="welch-anova.html">웰치의 분산분석 (Welch's ANOVA)</a>을 써야 하며, 두 집단의 분산이 같다고 확실히 가정할 수 있다면 일반 <a href="t-test.html">t검정</a>을 사용해도 무방합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>웰치 검정은 ‘분산이 같다는 가정을 빼고 평균을 비교하는 방법’입니다. 분산을 점검하는 검정이나 집단 수가 다른 방법과 구별해 두면 됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">분산이 같아야 하나</th></tr></thead><tbody><tr><th scope="row"><a href="t-test.html">독립표본 t검정(Student)</a></th><td>두 집단 평균 비교, 합동분산 사용</td><td>예</td></tr><tr><th scope="row"><a href="welchs-t-test.html">웰치 t검정</a></th><td>두 집단 평균 비교, 분산을 따로 사용</td><td>아니오</td></tr><tr><th scope="row"><a href="welch-anova.html">웰치의 분산분석</a></th><td>세 집단 이상 평균 비교</td><td>아니오</td></tr><tr><th scope="row"><a href="levenes-test.html">레빈 검정</a></th><td>분산이 같은지 확인(평균 비교가 아님)</td><td>—</td></tr></tbody></table></div>
+  <p class="te-note">레빈 검정에서 유의하지 않았다고 해서 분산이 같다는 것이 증명되지는 않습니다. 표본이 작으면 분산 차이를 잡아내지 못하는 경우가 흔합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Welch, B. L. (1947). The generalization of ‘Student’s’ problem when several different population variances are involved. Biometrika, 34(1–2), 28–35.</li>
+    <li>Satterthwaite, F. E. (1946). An approximate distribution of estimates of variance components. Biometrics Bulletin, 2(6), 110–114.</li>
+    <li>Ruxton, G. D. (2006). The unequal variance t-test is an underused alternative to Student’s t-test and the Mann–Whitney U test. Behavioral Ecology, 17(4), 688–690.</li>
+    <li>Zimmerman, D. W. (2004). A note on preliminary tests of equality of variances. British Journal of Mathematical and Statistical Psychology, 57(1), 173–181.</li>
+    <li>Delacre, M., Lakens, D., &amp; Leys, C. (2017). Why psychologists should by default use Welch’s t-test instead of Student’s t-test. International Review of Social Psychology, 30(1), 92–101.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="t-test.html">t검정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="one-sample-t-test.html">단일표본 t검정</a><a href="paired-t-test.html">대응표본 t검정</a><a href="hotellings-t-squared.html">호텔링의 T제곱 검정</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -1,0 +1,56 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>서로 독립인 두 집단의 평균을 비교하되, 두 집단의 분산이나 표본 수가 같다고 보장할 수 없을 때 씁니다. 두 집단의 크기가 같고 분산도 비슷하면 일반 독립표본 t검정과 거의 같은 결과가 나오므로, 웰치 검정을 기본값으로 삼아도 잃는 것이 거의 없습니다(Delacre 외, 2017).</p><ul><li>두 집단의 관측치가 서로 독립이어야 합니다.</li><li>종속변수가 구간 이상 척도이고, 표본이 작다면 각 집단이 대략 정규분포에 가까워야 합니다.</li><li>‘레빈 검정으로 분산이 같은지 먼저 확인한 뒤 t검정과 웰치 검정 중 고른다’는 2단계 절차는 1종 오류율을 흐트러뜨릴 수 있어 권장되지 않는 편입니다(Zimmerman, 2004). 처음부터 웰치 검정을 쓰면 이 문제가 없습니다.</li></ul><p>일반 t검정이 특히 위험한 경우는 <strong>표본 수와 분산이 엇갈릴 때</strong>입니다. 표본이 작은 집단의 분산이 더 크면 일반 t검정은 실제보다 쉽게 ‘유의’가 나오고(1종 오류 증가), 표본이 큰 집단의 분산이 더 크면 반대로 보수적이 됩니다.</p><table><thead><tr><th>상황</th><th>보통 고르는 검정</th></tr></thead><tbody><tr><td>독립 두 집단, 분산·표본 수가 다를 수 있음</td><td>웰치 t검정</td></tr><tr><td>독립 두 집단, 등분산이 확실하고 설계가 균형</td><td>[[t-test|독립표본 t검정]](웰치와 거의 같은 결과)</td></tr><tr><td>같은 대상을 두 번 측정</td><td>[[paired-t-test|대응표본 t검정]]</td></tr><tr><td>독립 세 집단 이상, 분산이 다를 수 있음</td><td>[[welch-anova|웰치의 분산분석]]</td></tr><tr><td>정규성 가정이 어렵거나 서열 자료</td><td>[[mann-whitney-u-test|맨-휘트니 U 검정]]</td></tr></tbody></table>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 예: A집단(n = 8, 평균 80.5, SD 7.27)과 B집단(n = 20, 평균 71.5, SD 1.85). 표본이 작은 A집단의 흩어짐이 훨씬 큽니다.</p><ul><li><strong>표준오차</strong>: 각 집단의 분산을 따로 써서 √(s₁²/n₁ + s₂²/n₂) = 2.60. (일반 t검정은 두 분산을 하나로 합친 값을 씁니다.)</li><li><strong>t</strong>: 평균 차이 9.0을 표준오차로 나눈 3.46.</li><li><strong>자유도</strong>: 웰치-새터스웨이트 근사식으로 7.37. 정수가 아니며, 대략 ‘작은 집단 n − 1’(= 7)과 n₁ + n₂ − 2(= 26) 사이에서 분산 차이가 클수록 작은 쪽으로 붙습니다.</li><li><strong>p</strong>: t(7.37) = 3.46, p = .010. 같은 자료를 일반 t검정으로 계산하면 t(26) = 5.26, p &lt; .001로 훨씬 강한 증거처럼 보입니다. 분산이 다른 자료에서 이런 낙관이 생기는 것이 일반 t검정의 약점입니다.</li><li><strong>신뢰구간</strong>: 평균 차이 9.0, 95% CI [2.9, 15.1](자유도 7.37의 t분포 사용).</li><li><strong>효과크기</strong>: 분산이 다르면 ‘합동표준편차로 나눈 d’가 무엇을 기준으로 한 값인지 모호해집니다. 이 예에서 합동 SD를 쓰면 d = 2.20이지만 두 분산의 단순 평균을 쓰면 d = 1.70입니다. 어떤 표준편차로 나눴는지 밝혀야 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>검정 이름, 자유도(소수 그대로), t, p, 평균 차이와 신뢰구간, 집단별 평균·표준편차·표본 수를 함께 적습니다. (아래 수치는 위의 가상 자료입니다.)</p><p><code>A집단(M = 80.5, SD = 7.27, n = 8)은 B집단(M = 71.5, SD = 1.85, n = 20)보다 점수가 유의하게 높았다, Welch t(7.37) = 3.46, p = .010, 평균 차이 = 9.0, 95% CI [2.9, 15.1].</code></p><ul><li>방법 절에 “두 집단의 분산이 같다고 가정할 수 없어 Welch의 t검정을 사용하였다”처럼 이유를 한 줄 적습니다.</li><li>자유도를 정수로 반올림해 적는 논문도 있지만, 소프트웨어가 낸 소수 자유도를 그대로 적는 편이 재현에 좋습니다.</li><li>SPSS의 독립표본 t검정 표에서는 ‘등분산을 가정하지 않음’ 행이 웰치 검정입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "웰치 검정은 ‘분산이 같다는 가정을 빼고 평균을 비교하는 방법’입니다. 분산을 점검하는 검정이나 집단 수가 다른 방법과 구별해 두면 됩니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "분산이 같아야 하나"
+    ],
+    "rows": [
+      [
+        "[[t-test|독립표본 t검정(Student)]]",
+        "두 집단 평균 비교, 합동분산 사용",
+        "예"
+      ],
+      [
+        "[[welchs-t-test|웰치 t검정]]",
+        "두 집단 평균 비교, 분산을 따로 사용",
+        "아니오"
+      ],
+      [
+        "[[welch-anova|웰치의 분산분석]]",
+        "세 집단 이상 평균 비교",
+        "아니오"
+      ],
+      [
+        "[[levenes-test|레빈 검정]]",
+        "분산이 같은지 확인(평균 비교가 아님)",
+        "—"
+      ]
+    ],
+    "note": "레빈 검정에서 유의하지 않았다고 해서 분산이 같다는 것이 증명되지는 않습니다. 표본이 작으면 분산 차이를 잡아내지 못하는 경우가 흔합니다."
+  },
+  "references": [
+    "Welch, B. L. (1947). The generalization of ‘Student’s’ problem when several different population variances are involved. Biometrika, 34(1–2), 28–35.",
+    "Satterthwaite, F. E. (1946). An approximate distribution of estimates of variance components. Biometrics Bulletin, 2(6), 110–114.",
+    "Ruxton, G. D. (2006). The unequal variance t-test is an underused alternative to Student’s t-test and the Mann–Whitney U test. Behavioral Ecology, 17(4), 688–690.",
+    "Zimmerman, D. W. (2004). A note on preliminary tests of equality of variances. British Journal of Mathematical and Statistical Psychology, 57(1), 173–181.",
+    "Delacre, M., Lakens, D., & Leys, C. (2017). Why psychologists should by default use Welch’s t-test instead of Student’s t-test. International Review of Social Psychology, 30(1), 92–101."
+  ]
+}

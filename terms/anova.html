@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/anova.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,28 @@
   <p>실험이나 조사에서 비교하고 싶은 집단이 셋 이상인 경우는 매우 흔합니다. 여러 처치 조건, 여러 학년, 여러 지역 등을 동시에 비교하려면 개별 t검정을 반복하는 대신 한 번의 검정으로 전체적인 차이 여부를 판단할 필요가 있고, ANOVA는 이 문제에 대한 표준적인 해법으로 자리잡았습니다.</p>
   <p>그래서 실험설계 기반 연구, 특히 심리학·교육학·생물학·품질관리 분야 논문에서 결과 검증의 기본 도구로 반복적으로 등장하며, 회귀분석이나 실험계획법 같은 더 복잡한 통계 기법으로 나아가는 출발점 역할도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>세 집단 이상의 평균이 모두 같은지 한 번에 검정할 때 씁니다. 집단이 둘이면 F = t²이므로 <a href="t-test.html">t검정</a>과 같은 결론이 나옵니다.</p><ul><li>독립변수(요인)가 하나면 일원배치, 둘이면 이원배치이고 이때는 두 요인의 <strong>상호작용</strong>도 검정합니다.</li><li>같은 대상을 여러 번 재면 <a href="repeated-measures-anova.html">반복측정 분산분석</a>, 연속 공변량을 통제하려면 <a href="ancova.html">공분산분석</a>, 종속변수가 둘 이상이면 <a href="manova.html">다변량 분산분석</a>입니다.</li><li>가정: 관측치의 독립, 집단별 오차의 정규성, 집단 간 등분산. 등분산이 의심되면 <a href="welch-anova.html">웰치의 분산분석</a>, 정규성·서열 자료이면 <a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a>을 고려합니다. 집단별 표본 수가 같으면 등분산 위반에 더 강합니다.</li></ul><p>유의하게 나온 뒤에는 어느 집단 사이에 차이가 있는지를 <a href="post-hoc-test.html">사후검정</a>(<a href="tukey-hsd-test.html">튜키 검정</a> 등)으로 따로 확인해야 합니다.</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가상의 예: 세 교수법 A, B, C를 6명씩 가르친 뒤 점수를 비교했습니다. A = 72, 75, 78, 70, 74, 77 (평균 74.33), B = 80, 83, 79, 85, 82, 81 (평균 81.67), C = 76, 78, 74, 79, 77, 75 (평균 76.50).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>변동 원천</th><th>제곱합</th><th>자유도</th><th>평균제곱</th><th>F</th><th>p</th></tr></thead><tbody><tr><td>집단 간</td><td>170.33</td><td>2</td><td>85.17</td><td>14.83</td><td>.0003</td></tr><tr><td>집단 내(오차)</td><td>86.17</td><td>15</td><td>5.74</td><td></td><td></td></tr><tr><td>전체</td><td>256.50</td><td>17</td><td></td><td></td><td></td></tr></tbody></table></div><ul><li><strong>F</strong> = 집단 간 평균제곱 ÷ 집단 내 평균제곱 = 85.17 / 5.74 = 14.83. 집단 평균 차이가 집단 내 흩어짐에 비해 크다는 뜻입니다.</li><li><strong>자유도</strong>: 집단 간 = 집단 수 − 1 = 2, 집단 내 = 전체 N − 집단 수 = 15. F(2, 15) = 14.83, p &lt; .001.</li><li><strong>효과크기</strong>: η² = 170.33 / 256.50 = .66(전체 변동 중 집단이 설명하는 비율), 덜 편향된 ω² = .61. 관례상 η²는 .01, .06, .14를 작음·중간·큼으로 부릅니다(Cohen, 1988).</li><li><strong>가정 점검</strong>: 레빈 검정 p = .49로 등분산 가정을 깨는 증거는 없습니다.</li><li><strong>사후검정(튜키)</strong>: A–B p &lt; .001, B–C p = .005, A–C p = .29. 즉 B가 다른 두 방법보다 높지만 A와 C는 구별되지 않습니다. ‘A와 B와 C가 모두 다르다’가 아닙니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>집단별 평균·표준편차, F와 두 자유도, p, 효과크기, 사후검정 방법과 결과를 적습니다. (위 가상 자료 기준)</p><p><code>교수법에 따른 점수 차이는 유의하였다, F(2, 15) = 14.83, p &lt; .001, η² = .66. 튜키 HSD 사후검정 결과 B(M = 81.67, SD = 2.16)가 A(M = 74.33, SD = 3.01)와 C(M = 76.50, SD = 1.87)보다 높았고, A와 C 사이에는 유의한 차이가 없었다.</code></p><ul><li>이원배치에서는 주효과 둘과 상호작용 각각에 대해 F, 자유도, p, 효과크기를 적습니다. 상호작용이 유의하면 주효과를 단독으로 해석하지 않고 단순주효과를 확인합니다.</li><li>η²에는 전체 변동을 분모로 하는 η²와 다른 요인의 변동을 제외한 부분 η²가 있어 소프트웨어가 보여 주는 값과 논문 표기가 다를 수 있습니다. 어느 것인지 밝히세요(Levine &amp; Hullett, 2002; Olejnik &amp; Algina, 2003). 일원배치에서는 둘이 같습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“보호자의 특성에 따른 식품정보 이해력, 사회적 지지, 식품 소 비 접근성과 NQ-C의 비교는 일원분산분석(one-way analysis of variance, ANOVA)을 사용하였다.”</blockquote><p class="te-cite">주양육자의 식품정보 이해력•사회적 지지•식품소비 접근성과 가구 소득이 학령기 아동의 영양상태에 미치는 영향 연구, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094126" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“· 대상자의 일반적 특성 및 질병관련 특성에 따른 삶의 질은 inde- pendent t-test와 분산분석(analysis of variance)으로 분석하였으며, 사후 검정으로는 Scheffé post hoc test로 검증하였다.”</blockquote><p class="te-cite">여성 류마티스 관절염 환자의 건강관련 삶의 질 구조모형, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516083721" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"세 집단 간 점수 차이는 일원배치 분산분석 결과 유의했다 (F(2, 87) = 4.32, p = .016)."</div>
   <p>세 집단의 평균 점수를 한꺼번에 비교했을 때, 적어도 한 집단은 다른 집단과 우연이라고 보기 어려운 수준의 차이가 있었다는 뜻입니다. 다만 이 결과만으로는 구체적으로 어느 집단끼리 다른지는 알 수 없습니다.</p>
 
@@ -169,6 +191,22 @@
 
   <h2>주의할 점</h2>
   <p>ANOVA에서 유의한 결과가 나왔다는 것은 "어딘가에 차이가 있다"는 것만 말해줄 뿐, 어느 집단과 어느 집단 사이에 차이가 있는지는 알려주지 않습니다. 구체적인 집단 간 차이를 확인하려면 사후검정(post-hoc test)을 추가로 실시해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>집단 평균을 비교하는 검정은 집단 수와 가정으로 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">언제</th><th scope="col">대표 가정 위반 시 대안</th></tr></thead><tbody><tr><th scope="row"><a href="t-test.html">t검정</a></th><td>두 집단(또는 한 집단 대 기준값)</td><td>웰치 t검정</td></tr><tr><th scope="row"><a href="anova.html">분산분석(ANOVA)</a></th><td>세 집단 이상, 등분산·정규성</td><td>웰치 ANOVA</td></tr><tr><th scope="row"><a href="welch-anova.html">웰치의 분산분석</a></th><td>세 집단 이상, 분산이 다를 수 있음</td><td>—</td></tr><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></th><td>세 집단 이상, 서열·비정규 자료</td><td>—</td></tr></tbody></table></div>
+  <p class="te-note">“집단 평균이 같은지”를 검정하는데 이름이 ‘분산’분석인 이유는 평균 차이를 두 종류의 분산(집단 간, 집단 내)의 비로 판정하기 때문입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fisher, R. A. (1925). Statistical methods for research workers. Oliver &amp; Boyd.</li>
+    <li>Maxwell, S. E., &amp; Delaney, H. D. (2004). Designing experiments and analyzing data: A model comparison perspective (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Levine, T. R., &amp; Hullett, C. R. (2002). Eta squared, partial eta squared, and misreporting of effect size in communication research. Human Communication Research, 28(4), 612–625.</li>
+    <li>Olejnik, S., &amp; Algina, J. (2003). Generalized eta and omega squared statistics: Measures of effect size for some common research designs. Psychological Methods, 8(4), 434–447.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="ancova.html">공분산분석</a><a href="manova.html">다변량 분산분석</a><a href="repeated-measures-anova.html">반복측정분산분석</a><a href="welch-anova.html">웰치의 분산분석 (Welch's ANOVA)</a><a href="two-way-anova.html">이원배치 분산분석</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -1,0 +1,61 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>ROC 곡선은 판정 기준값(임계값)을 바꿔 가며 <strong>민감도(참양성률)</strong>를 세로축, <strong>1 − 특이도(위양성률)</strong>를 가로축에 찍은 그래프이고, AUC는 그 곡선 아래의 넓이입니다.</p><ul><li>범위 0~1. 0.5는 동전 던지기 수준(대각선), 1은 완벽한 구분, 0.5 미만이면 예측 방향이 거꾸로입니다.</li><li>해석: 양성인 대상 하나와 음성인 대상 하나를 무작위로 뽑았을 때 모형이 양성에 더 높은 점수를 줄 확률(동점은 0.5)입니다. 이는 [[mann-whitney-u-test|맨-휘트니 U 통계량]]을 쌍의 수 n₁×n₂로 나눈 값과 같습니다(Hanley &amp; McNeil, 1982).</li></ul><p><strong>작은 예(가상).</strong> 양성 8명의 점수 0.9, 0.8, 0.7, 0.65, 0.6, 0.55, 0.4, 0.3과 음성 10명의 점수 0.7, 0.5, 0.45, 0.4, 0.35, 0.3, 0.2, 0.15, 0.1, 0.05. 8 × 10 = 80쌍 중 양성이 더 높은 쌍이 66쌍이고 동점이 3쌍이므로 U = 66 + 3 × 0.5 = 67.5, <strong>AUC = 67.5 / 80 = 0.84</strong>입니다. 임계값을 0.55로 두면 민감도 .75, 특이도 .90이고, 0.5로 두면 민감도 .75, 특이도 .80, 0.3으로 두면 민감도 1.0, 특이도 .40입니다. 민감도 + 특이도 − 1(Youden 지수)이 가장 큰 임계값은 0.55(.65)입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>Hosmer와 Lemeshow는 0.7~0.8을 ‘수용 가능’, 0.8~0.9를 ‘우수’, 0.9 이상을 ‘탁월’이라 부르는 가이드를 제시했고 많이 인용됩니다. 이는 편의상의 관례이며 분야와 목적에 따라 필요한 수준이 다릅니다.</li><li><strong>불확실성</strong>: 위 예처럼 표본이 작으면 AUC의 신뢰구간이 매우 넓습니다. DeLong 방법으로 표준오차를 구하면 0.096이고 95% 구간은 약 0.66~1.00(상한은 1로 자름)입니다. 두 모형의 AUC를 비교할 때는 같은 환자에게서 나온 상관된 AUC를 고려한 DeLong 검정을 씁니다(DeLong 외, 1988).</li><li><strong>AUC가 알려 주지 않는 것</strong>: 모든 임계값에 대한 평균적 구분력이므로 실제 사용할 임계값에서의 성능은 따로 봐야 합니다. 또 예측 확률이 실제 확률과 얼마나 맞는지(보정)도 알려 주지 않습니다.</li><li><strong>유병률과 양성예측도</strong>: 민감도 = 특이도 = .80인 검사의 양성예측도는 유병률 50%에서 .80, 10%에서 .31, 1%에서 .04입니다. AUC는 유병률의 영향을 받지 않지만 양성예측도는 크게 달라집니다. 사건이 드문 불균형 자료에서는 정밀도-재현율 곡선이 더 많은 정보를 준다는 지적이 있습니다(Saito &amp; Rehmsmeier, 2015).</li><li>모형을 만든 자료로 구한 AUC는 낙관적입니다. 교차검증이나 외부 자료로 확인한 값을 보고하는 것이 신뢰를 높입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>AUC와 95% 신뢰구간, 신뢰구간 계산법(DeLong 등), 최적 임계값을 정한 방법과 그 임계값에서의 민감도·특이도를 함께 적습니다. (위 가상 자료 기준)</p><p><code>모형의 판별력은 AUC = 0.84(95% CI 0.66–1.00, DeLong 방법)였다. Youden 지수로 정한 최적 임계값 0.55에서 민감도는 75%, 특이도는 90%였다.</code></p><ul><li>임계값을 같은 자료로 고르고 같은 자료로 성능을 보고하면 낙관적이므로, 교차검증 또는 별도의 검증 자료에서의 성능을 함께 제시합니다.</li><li>클래스 불균형이 심하면 양성예측도, 정밀도-재현율도 함께 보고합니다([[precision-recall|정밀도와 재현율]]).</li><li>그림에는 대각선(무작위)을 함께 그리고, 여러 모형을 비교할 때는 같은 자료에서 계산해 AUC 비교 검정을 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "ROC와 비슷한 이름의 분류 성능 지표들입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "임계값에 대한 의존"
+    ],
+    "rows": [
+      [
+        "[[roc-curve|ROC 곡선]]",
+        "임계값별 민감도와 1−특이도를 이은 곡선",
+        "모든 임계값을 보여 줌"
+      ],
+      [
+        "AUC",
+        "ROC 곡선 아래 넓이(요약 숫자 하나)",
+        "임계값 불필요"
+      ],
+      [
+        "[[sensitivity-specificity|민감도·특이도]]",
+        "양성·음성을 각각 맞힌 비율",
+        "임계값 하나에서 계산"
+      ],
+      [
+        "[[precision-recall|정밀도·재현율]]",
+        "예측 양성 중 진짜 양성 비율 등",
+        "임계값 하나에서 계산, 불균형 자료에 유용"
+      ],
+      [
+        "[[f1-score|F1 점수]]",
+        "정밀도와 재현율의 조화평균",
+        "임계값 하나에서 계산"
+      ]
+    ],
+    "note": "ROC는 ‘Receiver Operating Characteristic’의 약자로, 본래 2차 세계대전 때 레이더 신호 탐지 성능을 평가하려고 만들어진 개념에서 왔습니다."
+  },
+  "references": [
+    "Hanley, J. A., & McNeil, B. J. (1982). The meaning and use of the area under a receiver operating characteristic (ROC) curve. Radiology, 143(1), 29–36.",
+    "DeLong, E. R., DeLong, D. M., & Clarke-Pearson, D. L. (1988). Comparing the areas under two or more correlated receiver operating characteristic curves: A nonparametric approach. Biometrics, 44(3), 837–845.",
+    "Fawcett, T. (2006). An introduction to ROC analysis. Pattern Recognition Letters, 27(8), 861–874.",
+    "Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. (2013). Applied logistic regression (3rd ed.). Wiley.",
+    "Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLoS ONE, 10(3), e0118432."
+  ]
+}

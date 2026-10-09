@@ -1,0 +1,56 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>집단 간 평균을 비교하되, 결과에 영향을 주는 연속형 변수(공변량)를 통제하고 싶을 때 씁니다. 대표적인 상황은 <strong>사전점수를 공변량으로 둔 사전-사후 설계</strong>입니다.</p><ul><li>무작위 배정 실험에서는 사전점수 같은 공변량이 결과의 오차분산을 줄여 검정력을 높여 줍니다(Senn, 1994; Van Breukelen, 2006).</li><li>무작위 배정이 아닌 비교(집단 간 사전 차이가 있는 자료)에서는 공변량으로 차이를 ‘없앴다’고 말하기 어렵습니다. 공변량이 측정 오차를 포함하거나 빠진 교란변수가 있으면 보정이 불완전합니다(Miller &amp; Chapman, 2001).</li><li>공변량은 처치를 받기 <strong>전에</strong> 측정되어야 합니다. 처치의 영향을 받는 변수를 공변량으로 넣으면 처치 효과의 일부를 지워 버립니다.</li><li>가정: 공변량과 결과의 관계가 직선이고, 그 기울기가 모든 집단에서 같아야 합니다(회귀선 동질성). 집단과 공변량의 상호작용 항으로 점검합니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 예: 각 10명씩 두 집단의 사전·사후 점수. 사전 평균은 50.9와 60.9로 이미 10점 차이였고, 사후 평균은 50.9와 61.9입니다.</p><ul><li><strong>공변량을 넣지 않은 분산분석</strong>: 사후 평균 차이 11.0, F(1, 18) = 19.38, p &lt; .001. 하지만 이 차이의 대부분은 처음부터 있던 차이입니다.</li><li><strong>ANCOVA의 집단 효과</strong>: F(1, 17) = 8.37, p = .010, 부분 η² = .33. 오차 자유도는 N − 집단 수 − 공변량 수 = 20 − 2 − 1 = 17입니다.</li><li><strong>조정평균</strong>: 사전점수를 전체 평균(55.9)으로 맞췄을 때의 예측 사후 평균입니다. 각 집단의 조정평균 = 집단 사후 평균 − b × (집단 사전 평균 − 전체 사전 평균)이며 공통 기울기 b = 0.79로 계산하면 54.87과 57.93입니다. 차이는 11.0이 아니라 약 3.1입니다.</li><li><strong>회귀선 동질성 점검</strong>: 집단 × 사전점수 상호작용 p = .94로 기울기가 서로 다르다는 증거가 없습니다. 이 검정이 유의하면 ‘조정된 단일 차이’가 의미를 잃으므로 ANCOVA 대신 상호작용을 포함한 모형으로 해석합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>공변량이 무엇인지, 가정 점검 결과, 조정평균(표준오차 포함), F와 효과크기를 함께 적습니다. (위 가상 자료 기준)</p><p><code>사전점수를 공변량으로 통제한 결과 집단 간 사후점수 차이는 유의하였다, F(1, 17) = 8.37, p = .010, 부분 η² = .33. 조정평균은 실험집단 57.93, 통제집단 54.87이었다. 회귀선 동질성 가정은 충족되었다(집단 × 사전점수, p = .94).</code></p><ul><li>원래 평균(조정 전)과 조정평균을 모두 표에 싣습니다. 읽는 사람이 보정이 얼마나 컸는지 볼 수 있습니다.</li><li>사전-사후 자료는 ‘변화량(사후 − 사전)의 t검정’이나 ‘반복측정 분산분석’으로도 분석되는데, 무작위 배정 연구에서는 ANCOVA가 대체로 더 정밀하다고 알려져 있습니다(Van Breukelen, 2006).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "집단을 비교하는 분산분석 계열은 ‘무엇을 더 고려하느냐’로 갈립니다.",
+    "headers": [
+      "분석",
+      "추가로 고려하는 것",
+      "대표 상황"
+    ],
+    "rows": [
+      [
+        "[[anova|분산분석]]",
+        "없음(집단만)",
+        "세 집단 이상의 평균 비교"
+      ],
+      [
+        "[[ancova|공분산분석]]",
+        "연속형 공변량(예: 사전점수)",
+        "사전 수준이 다른 집단의 사후 비교"
+      ],
+      [
+        "[[repeated-measures-anova|반복측정 분산분석]]",
+        "같은 대상의 여러 시점",
+        "시간에 따른 변화"
+      ],
+      [
+        "[[manova|다변량 분산분석]]",
+        "종속변수가 둘 이상",
+        "여러 결과변수를 동시에 비교"
+      ]
+    ],
+    "note": "‘공변량(covariate)’은 통제하려는 연속형 변수이고, 집단을 나누는 범주형 변수(요인)와 구별됩니다."
+  },
+  "references": [
+    "Huitema, B. E. (2011). The analysis of covariance and alternatives: Statistical methods for experiments, quasi-experiments, and single-case studies (2nd ed.). Wiley.",
+    "Miller, G. A., & Chapman, J. P. (2001). Misunderstanding analysis of covariance. Journal of Abnormal Psychology, 110(1), 40–48.",
+    "Senn, S. (1994). Testing for baseline balance in clinical trials. Statistics in Medicine, 13(17), 1715–1726.",
+    "Van Breukelen, G. J. P. (2006). ANCOVA versus change from baseline had more power in randomized studies and more bias in nonrandomized studies. Journal of Clinical Epidemiology, 59(9), 920–925.",
+    "Maxwell, S. E., & Delaney, H. D. (2004). Designing experiments and analyzing data: A model comparison perspective (2nd ed.). Lawrence Erlbaum."
+  ]
+}

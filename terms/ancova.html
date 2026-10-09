@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/ancova.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,29 @@
   <p>실험 연구에서는 참가자를 완전히 동일한 조건으로 무작위 배정하기 어려운 경우가 많고, 관찰 연구에서는 애초에 무작위 배정 자체가 불가능합니다. ANCOVA는 이런 상황에서 집단 간 사전 차이나 개인차 변수의 영향을 통계적으로 걸러내어, 처치 효과를 더 정확하게 추정할 수 있게 해줍니다.</p>
   <p>이 때문에 교육학, 심리학, 의학 등 실험설계 논문에서 집단 비교의 신뢰도를 높이는 핵심 분석 기법으로 널리 쓰이며, 표본 크기가 제한적인 연구에서는 오차분산을 줄여 통계적 검정력을 높이는 효과도 기대할 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>집단 간 평균을 비교하되, 결과에 영향을 주는 연속형 변수(공변량)를 통제하고 싶을 때 씁니다. 대표적인 상황은 <strong>사전점수를 공변량으로 둔 사전-사후 설계</strong>입니다.</p><ul><li>무작위 배정 실험에서는 사전점수 같은 공변량이 결과의 오차분산을 줄여 검정력을 높여 줍니다(Senn, 1994; Van Breukelen, 2006).</li><li>무작위 배정이 아닌 비교(집단 간 사전 차이가 있는 자료)에서는 공변량으로 차이를 ‘없앴다’고 말하기 어렵습니다. 공변량이 측정 오차를 포함하거나 빠진 교란변수가 있으면 보정이 불완전합니다(Miller &amp; Chapman, 2001).</li><li>공변량은 처치를 받기 <strong>전에</strong> 측정되어야 합니다. 처치의 영향을 받는 변수를 공변량으로 넣으면 처치 효과의 일부를 지워 버립니다.</li><li>가정: 공변량과 결과의 관계가 직선이고, 그 기울기가 모든 집단에서 같아야 합니다(회귀선 동질성). 집단과 공변량의 상호작용 항으로 점검합니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가상의 예: 각 10명씩 두 집단의 사전·사후 점수. 사전 평균은 50.9와 60.9로 이미 10점 차이였고, 사후 평균은 50.9와 61.9입니다.</p><ul><li><strong>공변량을 넣지 않은 분산분석</strong>: 사후 평균 차이 11.0, F(1, 18) = 19.38, p &lt; .001. 하지만 이 차이의 대부분은 처음부터 있던 차이입니다.</li><li><strong>ANCOVA의 집단 효과</strong>: F(1, 17) = 8.37, p = .010, 부분 η² = .33. 오차 자유도는 N − 집단 수 − 공변량 수 = 20 − 2 − 1 = 17입니다.</li><li><strong>조정평균</strong>: 사전점수를 전체 평균(55.9)으로 맞췄을 때의 예측 사후 평균입니다. 각 집단의 조정평균 = 집단 사후 평균 − b × (집단 사전 평균 − 전체 사전 평균)이며 공통 기울기 b = 0.79로 계산하면 54.87과 57.93입니다. 차이는 11.0이 아니라 약 3.1입니다.</li><li><strong>회귀선 동질성 점검</strong>: 집단 × 사전점수 상호작용 p = .94로 기울기가 서로 다르다는 증거가 없습니다. 이 검정이 유의하면 ‘조정된 단일 차이’가 의미를 잃으므로 ANCOVA 대신 상호작용을 포함한 모형으로 해석합니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>공변량이 무엇인지, 가정 점검 결과, 조정평균(표준오차 포함), F와 효과크기를 함께 적습니다. (위 가상 자료 기준)</p><p><code>사전점수를 공변량으로 통제한 결과 집단 간 사후점수 차이는 유의하였다, F(1, 17) = 8.37, p = .010, 부분 η² = .33. 조정평균은 실험집단 57.93, 통제집단 54.87이었다. 회귀선 동질성 가정은 충족되었다(집단 × 사전점수, p = .94).</code></p><ul><li>원래 평균(조정 전)과 조정평균을 모두 표에 싣습니다. 읽는 사람이 보정이 얼마나 컸는지 볼 수 있습니다.</li><li>사전-사후 자료는 ‘변화량(사후 − 사전)의 t검정’이나 ‘반복측정 분산분석’으로도 분석되는데, 무작위 배정 연구에서는 ANCOVA가 대체로 더 정밀하다고 알려져 있습니다(Van Breukelen, 2006).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“군별로 기저 MMN 진폭 및 잠복기를 비교 하기 위해서 연령 및 성별을 공변량으로 포함한 공분산분석 (analysis of covariance, ANCOVA)을 시행하였다.”</blockquote><p class="te-cite">정신증 환자에서 전기경련치료가 불일치음전위와 양성 증상에 미치는 정상화 효과, Korean Journal of Schizophrenia Research, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095758" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“아울러, 주양육자 요인의 효과를 소득 수준과 독립 적으로 확인하기 위해 공분산분석을 실시하였으며, 소득 수준은 공변량으로 처리하였다.”</blockquote><p class="te-cite">주양육자의 식품정보 이해력•사회적 지지•식품소비 접근성과 가구 소득이 학령기 아동의 영양상태에 미치는 영향 연구, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094126" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“수집된 자료는 각 교수법 실시 전․후 수학교과교육학지식과 수학교수효능감의 t-검증을 실시하였고, 사전점수를 공변인으로 하여 집단 간 차이를 알아보기 위해 공변량분석(ANCOVA)을 실시하였다.”</blockquote><p class="te-cite">교수법(마이크로티칭, PBL)에 따른 예비유아교사의 수학교과교육지식과 수학교수효능감 연구, 학습자중심교과교육연구, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002291776" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"사전검사 점수를 공변량으로 투입한 공분산분석 결과, 사전점수를 통제한 후에도 집단 간 사후검사 점수 차이는 통계적으로 유의하였다(F=8.21, p&lt;0.01)."</div>
   <p>이 문장은 "실험 시작 전 두 집단의 실력 차이를 통계적으로 보정하고 나서도, 학습법에 따른 점수 차이가 우연이 아니라 실제로 존재했다"는 뜻입니다.</p>
 
@@ -164,6 +187,22 @@
 
   <h2>주의할 점</h2>
   <p>ANCOVA는 공변량과 집단 구분이 서로 독립적이어야 하고, 공변량이 결과에 미치는 영향의 기울기가 모든 집단에서 동일하다는 <b>회귀선 동질성(homogeneity of regression slopes)</b> 가정을 만족해야 합니다. 이 가정이 깨지면(예: 공변량의 영향이 집단마다 다르면) 결과를 그대로 신뢰할 수 없으므로, 분석 전 이 가정을 반드시 점검해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>집단을 비교하는 분산분석 계열은 ‘무엇을 더 고려하느냐’로 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">분석</th><th scope="col">추가로 고려하는 것</th><th scope="col">대표 상황</th></tr></thead><tbody><tr><th scope="row"><a href="anova.html">분산분석</a></th><td>없음(집단만)</td><td>세 집단 이상의 평균 비교</td></tr><tr><th scope="row"><a href="ancova.html">공분산분석</a></th><td>연속형 공변량(예: 사전점수)</td><td>사전 수준이 다른 집단의 사후 비교</td></tr><tr><th scope="row"><a href="repeated-measures-anova.html">반복측정 분산분석</a></th><td>같은 대상의 여러 시점</td><td>시간에 따른 변화</td></tr><tr><th scope="row"><a href="manova.html">다변량 분산분석</a></th><td>종속변수가 둘 이상</td><td>여러 결과변수를 동시에 비교</td></tr></tbody></table></div>
+  <p class="te-note">‘공변량(covariate)’은 통제하려는 연속형 변수이고, 집단을 나누는 범주형 변수(요인)와 구별됩니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Huitema, B. E. (2011). The analysis of covariance and alternatives: Statistical methods for experiments, quasi-experiments, and single-case studies (2nd ed.). Wiley.</li>
+    <li>Miller, G. A., &amp; Chapman, J. P. (2001). Misunderstanding analysis of covariance. Journal of Abnormal Psychology, 110(1), 40–48.</li>
+    <li>Senn, S. (1994). Testing for baseline balance in clinical trials. Statistics in Medicine, 13(17), 1715–1726.</li>
+    <li>Van Breukelen, G. J. P. (2006). ANCOVA versus change from baseline had more power in randomized studies and more bias in nonrandomized studies. Journal of Clinical Epidemiology, 59(9), 920–925.</li>
+    <li>Maxwell, S. E., &amp; Delaney, H. D. (2004). Designing experiments and analyzing data: A model comparison perspective (2nd ed.). Lawrence Erlbaum.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="anova.html">분산분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="manova.html">다변량 분산분석</a><a href="repeated-measures-anova.html">반복측정분산분석</a><a href="welch-anova.html">웰치의 분산분석 (Welch's ANOVA)</a><a href="two-way-anova.html">이원배치 분산분석</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -1,0 +1,56 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>세 집단 이상의 평균이 모두 같은지 한 번에 검정할 때 씁니다. 집단이 둘이면 F = t²이므로 [[t-test|t검정]]과 같은 결론이 나옵니다.</p><ul><li>독립변수(요인)가 하나면 일원배치, 둘이면 이원배치이고 이때는 두 요인의 <strong>상호작용</strong>도 검정합니다.</li><li>같은 대상을 여러 번 재면 [[repeated-measures-anova|반복측정 분산분석]], 연속 공변량을 통제하려면 [[ancova|공분산분석]], 종속변수가 둘 이상이면 [[manova|다변량 분산분석]]입니다.</li><li>가정: 관측치의 독립, 집단별 오차의 정규성, 집단 간 등분산. 등분산이 의심되면 [[welch-anova|웰치의 분산분석]], 정규성·서열 자료이면 [[kruskal-wallis-test|크루스칼-왈리스 검정]]을 고려합니다. 집단별 표본 수가 같으면 등분산 위반에 더 강합니다.</li></ul><p>유의하게 나온 뒤에는 어느 집단 사이에 차이가 있는지를 [[post-hoc-test|사후검정]]([[tukey-hsd-test|튜키 검정]] 등)으로 따로 확인해야 합니다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 예: 세 교수법 A, B, C를 6명씩 가르친 뒤 점수를 비교했습니다. A = 72, 75, 78, 70, 74, 77 (평균 74.33), B = 80, 83, 79, 85, 82, 81 (평균 81.67), C = 76, 78, 74, 79, 77, 75 (평균 76.50).</p><table><thead><tr><th>변동 원천</th><th>제곱합</th><th>자유도</th><th>평균제곱</th><th>F</th><th>p</th></tr></thead><tbody><tr><td>집단 간</td><td>170.33</td><td>2</td><td>85.17</td><td>14.83</td><td>.0003</td></tr><tr><td>집단 내(오차)</td><td>86.17</td><td>15</td><td>5.74</td><td></td><td></td></tr><tr><td>전체</td><td>256.50</td><td>17</td><td></td><td></td><td></td></tr></tbody></table><ul><li><strong>F</strong> = 집단 간 평균제곱 ÷ 집단 내 평균제곱 = 85.17 / 5.74 = 14.83. 집단 평균 차이가 집단 내 흩어짐에 비해 크다는 뜻입니다.</li><li><strong>자유도</strong>: 집단 간 = 집단 수 − 1 = 2, 집단 내 = 전체 N − 집단 수 = 15. F(2, 15) = 14.83, p &lt; .001.</li><li><strong>효과크기</strong>: η² = 170.33 / 256.50 = .66(전체 변동 중 집단이 설명하는 비율), 덜 편향된 ω² = .61. 관례상 η²는 .01, .06, .14를 작음·중간·큼으로 부릅니다(Cohen, 1988).</li><li><strong>가정 점검</strong>: 레빈 검정 p = .49로 등분산 가정을 깨는 증거는 없습니다.</li><li><strong>사후검정(튜키)</strong>: A–B p &lt; .001, B–C p = .005, A–C p = .29. 즉 B가 다른 두 방법보다 높지만 A와 C는 구별되지 않습니다. ‘A와 B와 C가 모두 다르다’가 아닙니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<p>집단별 평균·표준편차, F와 두 자유도, p, 효과크기, 사후검정 방법과 결과를 적습니다. (위 가상 자료 기준)</p><p><code>교수법에 따른 점수 차이는 유의하였다, F(2, 15) = 14.83, p &lt; .001, η² = .66. 튜키 HSD 사후검정 결과 B(M = 81.67, SD = 2.16)가 A(M = 74.33, SD = 3.01)와 C(M = 76.50, SD = 1.87)보다 높았고, A와 C 사이에는 유의한 차이가 없었다.</code></p><ul><li>이원배치에서는 주효과 둘과 상호작용 각각에 대해 F, 자유도, p, 효과크기를 적습니다. 상호작용이 유의하면 주효과를 단독으로 해석하지 않고 단순주효과를 확인합니다.</li><li>η²에는 전체 변동을 분모로 하는 η²와 다른 요인의 변동을 제외한 부분 η²가 있어 소프트웨어가 보여 주는 값과 논문 표기가 다를 수 있습니다. 어느 것인지 밝히세요(Levine &amp; Hullett, 2002; Olejnik &amp; Algina, 2003). 일원배치에서는 둘이 같습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "집단 평균을 비교하는 검정은 집단 수와 가정으로 갈립니다.",
+    "headers": [
+      "검정",
+      "언제",
+      "대표 가정 위반 시 대안"
+    ],
+    "rows": [
+      [
+        "[[t-test|t검정]]",
+        "두 집단(또는 한 집단 대 기준값)",
+        "웰치 t검정"
+      ],
+      [
+        "[[anova|분산분석(ANOVA)]]",
+        "세 집단 이상, 등분산·정규성",
+        "웰치 ANOVA"
+      ],
+      [
+        "[[welch-anova|웰치의 분산분석]]",
+        "세 집단 이상, 분산이 다를 수 있음",
+        "—"
+      ],
+      [
+        "[[kruskal-wallis-test|크루스칼-왈리스 검정]]",
+        "세 집단 이상, 서열·비정규 자료",
+        "—"
+      ]
+    ],
+    "note": "“집단 평균이 같은지”를 검정하는데 이름이 ‘분산’분석인 이유는 평균 차이를 두 종류의 분산(집단 간, 집단 내)의 비로 판정하기 때문입니다."
+  },
+  "references": [
+    "Fisher, R. A. (1925). Statistical methods for research workers. Oliver & Boyd.",
+    "Maxwell, S. E., & Delaney, H. D. (2004). Designing experiments and analyzing data: A model comparison perspective (2nd ed.). Lawrence Erlbaum.",
+    "Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.). Lawrence Erlbaum.",
+    "Levine, T. R., & Hullett, C. R. (2002). Eta squared, partial eta squared, and misreporting of effect size in communication research. Human Communication Research, 28(4), 612–625.",
+    "Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: Measures of effect size for some common research designs. Psychological Methods, 8(4), 434–447."
+  ]
+}
