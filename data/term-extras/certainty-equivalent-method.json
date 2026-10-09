@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>기본 아이디어는 “위험을 할인율에 넣지 않고 현금흐름에 넣는다”입니다. 절차는 세 단계입니다.</p><ol><li>시점 t마다 불확실한 현금흐름의 <strong>기대값</strong> E[X<sub>t</sub>]를 추정합니다.</li><li>그 현금흐름과 투자자가 무차별하게 여기는 <strong>확실한 금액</strong>(확실성등가, CE<sub>t</sub>)을 정하고, 비율 α<sub>t</sub> = CE<sub>t</sub> / E[X<sub>t</sub>] (확실성등가계수)를 구합니다. 위험을 싫어하는 투자자라면 0 &lt; α<sub>t</sub> ≤ 1입니다.</li><li>확실한 금액이 되었으므로 위험이 없는 이자율 r<sub>f</sub>로 할인해 더합니다. PV = Σ α<sub>t</sub> E[X<sub>t</sub>] / (1 + r<sub>f</sub>)<sup>t</sup>.</li></ol><p>개인의 효용함수 u가 있다면 CE는 u(CE) = E[u(X)]를 만족하는 값이고, 기대값과의 차이 E[X] − CE가 위험프리미엄입니다(Pratt, 1964; [[risk-premium|위험프리미엄]]). 자본자산가격결정모형(CAPM)을 쓰는 기업금융에서는 한 기간 뒤의 현금흐름 X의 확실성등가를 E[X] − λ·Cov(X, R<sub>m</sub>) (λ = (E[R<sub>m</sub>] − r<sub>f</sub>) / Var(R<sub>m</sub>))로 쓰는 형태가 알려져 있습니다. 시장 위험(시장수익률과의 공분산)에만 대가를 매기는 방식입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>위험조정할인율법과의 관계.</strong> [[risk-adjusted-discount-rate|위험조정할인율법]]은 위험을 할인율 k에 넣어 PV = Σ E[X<sub>t</sub>] / (1 + k)<sup>t</sup>로 계산합니다. 두 방법이 같은 값을 내려면 α<sub>t</sub> = ((1 + r<sub>f</sub>) / (1 + k))<sup>t</sup>여야 합니다. 즉 k가 일정하다는 것은 α<sub>t</sub>가 시간에 따라 일정한 비율로 줄어든다는 가정과 같습니다. Robichek와 Myers(1966)가 이 점을 지적했습니다.</p><p><strong>가상의 계산.</strong> 매년 기대 현금흐름이 100, 만기 3년, r<sub>f</sub> = 4%, 위험조정할인율 k = 10%라 합시다(숫자는 설명용). 위 식으로 α를 구하면 다음과 같고(코드로 계산), 두 방법의 현재가치가 같아집니다.</p><table><thead><tr><th>t</th><th>α<sub>t</sub></th><th>확실성등가 α<sub>t</sub>×100</th><th>4%로 할인한 값</th></tr></thead><tbody><tr><td>1</td><td>0.9455</td><td>94.55</td><td>90.91</td></tr><tr><td>2</td><td>0.8939</td><td>89.39</td><td>82.64</td></tr><tr><td>3</td><td>0.8451</td><td>84.51</td><td>75.13</td></tr></tbody></table><p>세 값을 더하면 248.69로, k = 10%로 100을 세 번 할인해 더한 값(248.69)과 일치합니다. 일치하는 것은 α를 그렇게 정했기 때문입니다. 확실성등가법의 쓸모는 시점마다 α를 다르게 줄 수 있다는 데 있고, 그래서 α를 어떻게 정당화하느냐가 핵심 쟁점입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>쓰는 상황</strong>: 위험이 시점마다 일정하지 않은 프로젝트, 위험이 특정 현금흐름에만 집중된 경우(예: 한 번의 큰 불확실한 회수), 보험·연금처럼 위험 조정을 현금흐름 쪽에서 분리해 보이고 싶은 경우.</li><li><strong>필요한 근거</strong>: α<sub>t</sub> 또는 CE<sub>t</sub>를 어디서 얻었는지(효용함수 가정, 시장가격에서 도출한 위험가격, 전문가 판단)를 밝혀야 합니다. 이 근거가 없으면 숫자를 임의로 고르는 것과 구별되지 않습니다.</li><li><strong>한계</strong>: α를 현금흐름별로 추정해야 해서 실무에서는 더 단순한 위험조정할인율법이 널리 쓰입니다. 효용 기반 개인 확실성등가와 시장가격 기반 확실성등가는 같은 말이 아닙니다.</li></ul><p>결과 해석은 [[discounted-cash-flow|현금흐름할인법]]의 틀 안에서 [[net-present-value|순현재가치]]로 하면 되고, 위험의 크기 해석은 위험프리미엄과 연결됩니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "위험을 어디에 반영하느냐로 갈리는 용어들입니다.",
+    "headers": [
+      "용어",
+      "위험을 반영하는 곳",
+      "비고"
+    ],
+    "rows": [
+      [
+        "[[certainty-equivalent-method|확실성등가법]]",
+        "분자(현금흐름을 확실한 금액으로 바꿈)",
+        "할인율은 무위험이자율"
+      ],
+      [
+        "[[risk-adjusted-discount-rate|위험조정할인율법]]",
+        "분모(할인율에 위험프리미엄을 더함)",
+        "실무에서 더 널리 쓰임"
+      ],
+      [
+        "[[discounted-cash-flow|현금흐름할인법]]",
+        "두 방법을 모두 포함하는 큰 틀",
+        "미래 현금흐름을 현재가치로 환산"
+      ],
+      [
+        "[[net-present-value|순현재가치]]",
+        "할인한 현금흐름의 합에서 투자액을 뺀 값",
+        "두 방법 모두 최종적으로 이 값을 냄"
+      ],
+      [
+        "[[risk-premium|위험프리미엄]]",
+        "위험 때문에 요구하는 추가 수익(또는 기대값과 CE의 차이)",
+        "두 방법을 잇는 개념"
+      ]
+    ]
+  },
+  "references": [
+    "Robichek, A. A., & Myers, S. C. (1966). Conceptual problems in the use of risk-adjusted discount rates. The Journal of Finance, 21(4).",
+    "Pratt, J. W. (1964). Risk aversion in the small and in the large. Econometrica, 32(1–2), 122–136.",
+    "Damodaran, A. (2012). Investment Valuation: Tools and Techniques for Determining the Value of Any Asset (3rd ed.). Wiley."
+  ]
+}

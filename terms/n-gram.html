@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/n-gram.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,28 @@
   <h2>왜 중요한가</h2>
   <p>n-그램은 다음에 올 단어를 확률적으로 예측하는 언어모델의 근간 단위로, 통계적 자연어처리에서 구문 빈도 분석, 저자 판별, 기계번역 평가 등 폭넓은 전산언어학 응용 연구에서 핵심적으로 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>n-그램은 텍스트에서 연속한 n개 항목(단어, 형태소, 문자 등)의 연쇄입니다. n = 1은 유니그램, 2는 바이그램, 3은 트라이그램이라 부릅니다. 항목이 N개인 텍스트에서 만들 수 있는 n-그램은 N − n + 1개입니다.</li><li>언어모델에서는 문장의 확률을 “직전 n−1개 항목만 보고 다음 항목을 예측한다”는 마르코프 가정으로 근사합니다. 최대우도 추정으로는 P(w | 앞의 항목들) = (그 연쇄의 빈도) / (앞의 항목들의 빈도)입니다(Jurafsky와 Martin, 2009; Manning과 Schütze, 1999).</li><li>n-그램으로 언어를 근사하는 발상은 Shannon(1948)이 영어 문자·단어의 연쇄 확률로 문장을 흉내 낸 데까지 거슬러 올라갑니다. 용도는 언어모델, 연어와 습관적 연쇄의 탐지, 저자 판별, 언어 식별, 기계번역 평가 지표(BLEU는 n-그램 일치를 이용), 텍스트마이닝의 빈도 분석 등입니다. 문자 n-그램은 띄어쓰기나 철자 오류에 강해 언어 식별 등에 쓰입니다.</li><li>한국어처럼 조사와 어미가 붙는 언어에서는 띄어쓰기 단위(어절) n-그램이 매우 희소해, 형태소 단위로 분석하는 경우가 많습니다. 어떤 단위를 항목으로 삼았는지는 연구의 결과에 직접 영향을 줍니다.</li><li>n이 커지면 문맥은 풍부해지지만 같은 연쇄가 거의 나타나지 않는 희소성 문제가 심해져, 스무딩이나 백오프 기법을 함께 씁니다. Brown 외(1992)는 이런 문제를 줄이는 클래스 기반 n-그램 모형을 제안했습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 계산.</strong> “the cat sat on the mat the cat ate”(9개 단어)에서 바이그램은 9 − 2 + 1 = 8개입니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>바이그램</th><th>빈도</th></tr></thead><tbody><tr><td>the cat</td><td>2</td></tr><tr><td>cat sat</td><td>1</td></tr><tr><td>sat on</td><td>1</td></tr><tr><td>on the</td><td>1</td></tr><tr><td>the mat</td><td>1</td></tr><tr><td>mat the</td><td>1</td></tr><tr><td>cat ate</td><td>1</td></tr></tbody></table></div><p>단어 the는 3번 나타나고 그중 2번 뒤에 cat이 왔으므로 P(cat | the) = 2/3, 1번 뒤에 mat이 왔으므로 P(mat | the) = 1/3입니다. 이렇게 모은 빈도가 최대우도 추정의 바탕입니다. 표본이 이처럼 작으면 한 번도 보지 못한 연쇄(예: “the sat”)의 확률이 0이 되어 문제가 되며, 이것이 스무딩이 필요한 이유입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>n이 클수록 좋은 모형이다.</td><td>자료가 충분하지 않으면 희소성 때문에 성능이 떨어집니다. n은 자료 크기와 목적에 맞춰 정합니다.</td></tr><tr><td>빈번한 n-그램은 의미 있는 단위다.</td><td>자주 나타난다는 것이 문법적·의미적으로 하나의 단위라는 뜻은 아닙니다. 별도의 검토가 필요합니다.</td></tr><tr><td>n-그램 모형은 문장 전체의 의미를 이해한다.</td><td>직전 몇 개 항목만 보므로 멀리 떨어진 의존 관계는 잡지 못합니다. 이 한계가 순환신경망·트랜스포머 계열 모형의 동기가 되었습니다.</td></tr><tr><td>논문 속 “N-gram 분석”은 늘 같은 방법이다.</td><td>연구에 따라 인접 연쇄의 빈도를 센 것일 수도, 도구가 제공하는 연관어(동시 출현) 분석을 그렇게 부른 것일 수도 있습니다. 방법 절의 정의를 확인해야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“국문초록을 기반으로 전처리(명사추출, 불용어 제거, 공통어변환)된 데이터를 토대로 상위 키워드 빈도분석, N-gram 분석, 토픽모델링(LDA), 토픽 점유율, 연도와 토픽 점유율 간 상관관계를 Python 3.5와 SPSS 27버전을 사용하여분석하였다.”</blockquote><p class="te-cite">자연어 처리(NLP) 기반 텍스트마이닝을 적용한 한국체육측정 평가학회지 연구동향 분석: 국문초록을 중심으로, 한국체육측정평가학회지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002980124" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“N-gram 분석과 CONCOR 분석을 통해 연구 주제의 군집화를 시도하였고, 이를 통해 마케팅 전략, 디지털 서비스, 항공사 브랜드, 마일리지 프로그램 등의 주요 연구 군집을 식별하였다.”</blockquote><p class="te-cite">2003-2023년 항공 경영 마케팅 연구의 변천: 한국항공경영학회지 기반 의미연결망 분석 - 20년간의 논문 데이터에 대한 체계적 접근을 통한 포괄적 이해 -, 한국항공경영학회지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003059620" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"엔그램 빈도 분석은 자연어처리에서 언어모델을 구축하거나 코퍼스언어학에서 습관적 연쇄를 탐지하는 데 널리 활용된다."</div>
   <p>엔그램 개념이 자연어처리와 코퍼스언어학 양쪽에서 활용되는 범용적 분석 단위임을 설명하고 있다.</p>
   <div class="example">"본 연구는 대규모 말뭉치에서 추출한 삼중어(trigram) 빈도를 바탕으로 학습자 작문의 어색한 연어 표현을 자동으로 탐지하는 방법을 제안한다."</div>
@@ -160,6 +182,20 @@
   <h2>주의할 점</h2>
   <p>n-그램을 단순한 단어 조각으로만 이해해서는 안 되며, 그 등장 빈도를 통계적으로 활용해 다음 요소를 예측하거나 텍스트의 특징을 계량화하는 확률적 분석 단위라는 점에 유의해야 한다.</p>
   <p>엔그램은 통계적으로 자주 나타나는 연쇄를 포착할 뿐, 그 연쇄가 문법적으로나 의미적으로 반드시 하나의 단위를 이루는지는 별도로 검토해야 한다. 희소한 고차 n-그램에는 확률을 그대로 부여할 수 없어 저차 n-그램의 확률로 대체하거나 보간하는 스무딩 기법이 함께 적용되어야 실용적인 언어모델을 만들 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>텍스트 분석 용어는 서로 다른 질문에 답합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 세나</th><th scope="col">n-그램과의 차이</th></tr></thead><tbody><tr><th scope="row"><strong>n-그램</strong></th><td>연속한 n개 항목의 연쇄</td><td>순서와 인접성을 보존</td></tr><tr><th scope="row">단어 빈도(유니그램)</th><td>개별 단어의 출현 횟수</td><td>n = 1인 경우</td></tr><tr><th scope="row"><a href="tf-idf.html">TF-IDF</a></th><td>문서 안 단어 빈도와 전체 문서에서의 희귀도</td><td>연쇄가 아닌 개별 단어의 중요도 가중치</td></tr><tr><th scope="row"><a href="topic-modeling.html">토픽 모델링</a></th><td>문서에 숨은 주제 분포</td><td>순서를 무시하는 단어 묶음(bag of words)을 쓰는 경우가 많음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Shannon, C. E. (1948). A mathematical theory of communication. Bell System Technical Journal, 27(3), 379–423.</li>
+    <li>Brown, P. F., Della Pietra, V. J., deSouza, P. V., Lai, J. C., &amp; Mercer, R. L. (1992). Class-based n-gram models of natural language. Computational Linguistics, 18(4), 467–479.</li>
+    <li>Manning, C. D., &amp; Schütze, H. (1999). Foundations of Statistical Natural Language Processing. MIT Press.</li>
+    <li>Jurafsky, D., &amp; Martin, J. H. (2009). Speech and Language Processing (2nd ed.). Prentice Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

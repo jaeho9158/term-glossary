@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>DICOM(Digital Imaging and Communications in Medicine)은 의료영상의 <strong>파일 형식</strong>과 <strong>통신 규약</strong>을 함께 정한 표준입니다. 미국방사선학회(ACR)와 전미전기제조업협회(NEMA)의 ACR-NEMA 표준에서 출발해 1993년 DICOM 3.0이 되었습니다(Bidgood 외, 1997). 이후 국제표준 ISO 12052로도 채택되었습니다.</li><li>데이터는 <strong>태그</strong>(그룹 번호, 요소 번호)로 이름 붙은 항목들의 모음입니다. 환자 정보, 촬영 조건, 장비 정보가 영상 픽셀 값과 한 파일에 들어갑니다. 영상 자체는 픽셀 데이터 태그에 있습니다.</li><li>정보는 계층으로 정리됩니다. 환자 → 검사(Study) → 시리즈(Series) → 영상(Instance)이고, 각 단계에 전 세계에서 유일한 식별자(UID)가 붙습니다.</li><li>통신은 서비스 규약으로 정의됩니다. 영상 저장(C-STORE), 조회(C-FIND), 가져오기(C-MOVE), 연결 확인(C-ECHO), 검사 목록 전달(Modality Worklist) 등이 있어 서로 다른 제조사의 장비와 영상 저장 전송 시스템(PACS)이 연결됩니다(Mildenberger 외, 2002).</li><li>실제 호환성은 장비마다 제공하는 <strong>적합성 선언서</strong>(Conformance Statement)에서 확인합니다. 지원하는 서비스, 영상 종류, 압축 방식이 장비마다 달라 같은 DICOM이라도 모든 기능이 맞물리는 것은 아닙니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>CT 영상의 대표적인 태그 몇 개입니다.</p><table><thead><tr><th>태그</th><th>이름</th><th>뜻</th></tr></thead><tbody><tr><td>(0010,0010)</td><td>Patient’s Name</td><td>환자 이름</td></tr><tr><td>(0010,0020)</td><td>Patient ID</td><td>환자 식별 번호</td></tr><tr><td>(0008,0060)</td><td>Modality</td><td>검사 종류(CT, MR 등)</td></tr><tr><td>(0020,000D)</td><td>Study Instance UID</td><td>검사 고유 식별자</td></tr><tr><td>(0028,0010)·(0028,0011)</td><td>Rows·Columns</td><td>영상의 행·열 수</td></tr><tr><td>(7FE0,0010)</td><td>Pixel Data</td><td>영상의 픽셀 값</td></tr></tbody></table><p><strong>가상의 계산.</strong> CT에서는 저장된 값이 곧 밀도(HU)가 아닙니다. 저장값에 Rescale Slope와 Rescale Intercept 태그를 적용해 변환합니다: <code>HU = 기울기 × 저장값 + 절편</code>. 기울기 1, 절편 −1,024인 영상에서 저장값이 1,024인 화소는 HU = 1 × 1,024 − 1,024 = 0(물)입니다. 연구에서 이 변환을 빠뜨리면 같은 장비의 영상끼리도 값을 비교할 수 없게 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>DICOM은 JPEG 같은 영상 파일 형식이다.</td><td>영상 형식이면서 메타데이터와 통신 규약을 포함하는 표준입니다. 파일 확장자가 .dcm이 아닐 수도 있습니다.</td></tr><tr><td>JPEG나 PNG로 바꾸면 같은 정보다.</td><td>비트 깊이, HU 값, 메타데이터가 사라지거나 줄어듭니다. 분석용으로는 DICOM 원본이 필요합니다.</td></tr><tr><td>이름 태그만 지우면 비식별화가 끝난다.</td><td>생일·검사일 같은 다른 태그, 제조사 사설 태그, 영상 화면에 박힌 글자(번인)에도 식별 정보가 있을 수 있습니다. 표준에도 비식별화 지침이 별도로 있습니다([[de-identification|비식별화]]).</td></tr><tr><td>DICOM을 지원하면 모든 장비가 호환된다.</td><td>적합성 선언서의 지원 범위가 일치해야 하고, 사설 태그의 정보는 다른 장비에서 해석되지 않을 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "의료영상 정보 체계에서 함께 나오는 약어들입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "역할"
+    ],
+    "rows": [
+      [
+        "[[dicom-image-standard|DICOM]]",
+        "의료영상 형식과 통신 규약의 표준",
+        "영상과 관련 정보를 담고 주고받음"
+      ],
+      [
+        "PACS",
+        "영상 저장·조회·전송 시스템",
+        "DICOM으로 영상을 주고받는 병원 시스템"
+      ],
+      [
+        "HL7",
+        "의료 정보 교환 표준(환자 기록, 오더 등)",
+        "영상보다 진료 정보 교환에 초점"
+      ],
+      [
+        "[[de-identification|비식별화]]",
+        "식별 정보를 제거·변환하는 절차",
+        "DICOM 영상을 연구에 쓸 때 필수"
+      ]
+    ]
+  },
+  "references": [
+    "Pianykh, O. S. (2012). Digital Imaging and Communications in Medicine (DICOM): A Practical Introduction and Survival Guide (2nd ed.). Springer.",
+    "Mildenberger, P., Eichelberg, M., & Martin, E. (2002). Introduction to the DICOM standard. European Radiology, 12(4), 920–927.",
+    "Bidgood, W. D., Jr., Horii, S. C., Prior, F. W., & Van Syckle, D. E. (1997). Understanding and using DICOM, the data interchange standard for biomedical imaging. Journal of the American Medical Informatics Association, 4(3), 199–212."
+  ]
+}

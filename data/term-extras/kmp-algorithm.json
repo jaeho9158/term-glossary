@@ -1,0 +1,64 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>KMP(Knuth-Morris-Pratt)는 길이 n의 텍스트 T에서 길이 m의 패턴 P가 나타나는 위치를 찾습니다(Knuth 외, 1977). 두 단계입니다.</p><ol><li><strong>전처리</strong>: 패턴의 각 위치 i에 대해 π[i] = “P[0..i]의 접두사이면서 접미사이기도 한 가장 긴 진부분 문자열의 길이”를 구합니다(실패 함수).</li><li><strong>탐색</strong>: 텍스트를 한 번만 왼쪽에서 오른쪽으로 읽으며, 일치하면 패턴 위치 k를 하나 늘리고, 불일치하면 텍스트 위치는 그대로 둔 채 k를 π[k−1]로 줄여 비교를 이어 갑니다.</li></ol><p>예를 들어 패턴 ABABCABAB의 실패 함수는 (코드로 계산) 다음과 같습니다.</p><table><thead><tr><th>위치</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead><tbody><tr><td>패턴 문자</td><td>A</td><td>B</td><td>A</td><td>B</td><td>C</td><td>A</td><td>B</td><td>A</td><td>B</td></tr><tr><td>π</td><td>0</td><td>0</td><td>1</td><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></tbody></table><p>위치 8의 값 4는 “ABAB”가 패턴의 앞과 끝에서 겹친다는 뜻입니다. 예를 들어 패턴 앞 8글자 ABABCABA가 일치한 뒤 다음 글자가 B가 아니면, 비교 위치는 8에서 π[7] = 3으로 줄어 “ABA”가 이미 맞은 상태로 이어 비교합니다. 이 방식으로 텍스트 위치는 뒤로 되돌아가지 않으며, 최악의 경우에도 시간은 O(n + m), 추가 공간은 O(m)입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>단순한 방법(텍스트의 모든 시작 위치에서 패턴을 처음부터 비교)은 최악의 경우 O(nm)입니다. A가 100개 이어진 뒤 B가 붙은 텍스트(길이 101)에서 A 20개와 B로 된 패턴을 찾는 가상의 실험(코드로 계산)에서는 문자 비교 횟수가 단순한 방법 1,701회, KMP 181회였습니다(위치 80에서 발견). 이 차이는 같은 문자를 여러 번 되풀이해 비교하는 최악 상황에서 두드러지고, 일반적인 텍스트에서는 단순한 방법도 빠릅니다.</p><ul><li><strong>언제 쓰나</strong>: 한 패턴을 긴 텍스트에서 찾을 때, 텍스트를 한 번만 읽을 수 있는 스트림에서 찾을 때(되돌아가지 않으므로).</li><li><strong>대안</strong>: 평균적으로 건너뛰며 더 빠른 Boyer-Moore, 해시를 쓰는 Rabin-Karp, 여러 패턴을 동시에 찾는 Aho-Corasick, 같은 텍스트에서 질의가 반복되면 [[suffix-array|접미사 배열]] 같은 인덱스 구조가 쓰입니다(Cormen 외, 2009; Gusfield, 1997). 알파벳 크기와 패턴 길이에 따라 실제 속도는 다릅니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>논문에서는 알고리즘의 시간·공간 복잡도(최악과 평균을 구분), 입력의 크기와 패턴 길이, 비교한 알고리즘, 구현 언어와 실험 환경, 측정 지표(문자 비교 횟수 또는 실행 시간), 데이터 종류(자연어, 알파벳이 작은 DNA 서열 등)를 적습니다. 이론상 O(n + m)인 알고리즘이 실제 실행 시간에서 항상 가장 빠른 것은 아니므로 실험 조건을 함께 보고해야 합니다.</p><p>예시 문장(예시): “패턴 매칭에는 최악 시간 복잡도가 O(n + m)인 KMP 알고리즘을 사용하였고, 문자 비교 횟수를 기준으로 단순 탐색과 비교하였다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "문자열 검색 알고리즘은 최악 시간과 용도로 구별합니다.",
+    "headers": [
+      "알고리즘",
+      "최악 시간(요지)",
+      "특징"
+    ],
+    "rows": [
+      [
+        "단순 탐색",
+        "O(nm)",
+        "구현이 간단, 일반 텍스트에서는 충분히 빠르기도 함"
+      ],
+      [
+        "[[kmp-algorithm|KMP]]",
+        "O(n + m)",
+        "텍스트를 되돌아가지 않음, 실패 함수 사용"
+      ],
+      [
+        "Boyer-Moore",
+        "변형에 따라 다름",
+        "평균적으로 건너뛰며 빠른 경우가 많음"
+      ],
+      [
+        "Rabin-Karp",
+        "평균 O(n + m), 최악 O(nm)",
+        "해시 비교, 여러 패턴에 확장 용이"
+      ],
+      [
+        "Aho-Corasick",
+        "텍스트 길이에 선형(패턴 집합 전처리 필요)",
+        "여러 패턴을 동시에 찾음"
+      ],
+      [
+        "[[suffix-array|접미사 배열]]",
+        "전처리 후 질의가 빠름",
+        "같은 텍스트에서 반복 검색 시 유리"
+      ]
+    ]
+  },
+  "references": [
+    "Knuth, D. E., Morris, J. H., Jr., & Pratt, V. R. (1977). Fast pattern matching in strings. SIAM Journal on Computing, 6(2), 323–350.",
+    "Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.",
+    "Gusfield, D. (1997). Algorithms on Strings, Trees, and Sequences: Computer Science and Computational Biology. Cambridge University Press.",
+    "Navarro, G., & Raffinot, M. (2002). Flexible Pattern Matching in Strings. Cambridge University Press."
+  ]
+}

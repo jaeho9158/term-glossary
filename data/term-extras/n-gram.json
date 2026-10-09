@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>n-그램은 텍스트에서 연속한 n개 항목(단어, 형태소, 문자 등)의 연쇄입니다. n = 1은 유니그램, 2는 바이그램, 3은 트라이그램이라 부릅니다. 항목이 N개인 텍스트에서 만들 수 있는 n-그램은 N − n + 1개입니다.</li><li>언어모델에서는 문장의 확률을 “직전 n−1개 항목만 보고 다음 항목을 예측한다”는 마르코프 가정으로 근사합니다. 최대우도 추정으로는 P(w | 앞의 항목들) = (그 연쇄의 빈도) / (앞의 항목들의 빈도)입니다(Jurafsky와 Martin, 2009; Manning과 Schütze, 1999).</li><li>n-그램으로 언어를 근사하는 발상은 Shannon(1948)이 영어 문자·단어의 연쇄 확률로 문장을 흉내 낸 데까지 거슬러 올라갑니다. 용도는 언어모델, 연어와 습관적 연쇄의 탐지, 저자 판별, 언어 식별, 기계번역 평가 지표(BLEU는 n-그램 일치를 이용), 텍스트마이닝의 빈도 분석 등입니다. 문자 n-그램은 띄어쓰기나 철자 오류에 강해 언어 식별 등에 쓰입니다.</li><li>한국어처럼 조사와 어미가 붙는 언어에서는 띄어쓰기 단위(어절) n-그램이 매우 희소해, 형태소 단위로 분석하는 경우가 많습니다. 어떤 단위를 항목으로 삼았는지는 연구의 결과에 직접 영향을 줍니다.</li><li>n이 커지면 문맥은 풍부해지지만 같은 연쇄가 거의 나타나지 않는 희소성 문제가 심해져, 스무딩이나 백오프 기법을 함께 씁니다. Brown 외(1992)는 이런 문제를 줄이는 클래스 기반 n-그램 모형을 제안했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 계산.</strong> “the cat sat on the mat the cat ate”(9개 단어)에서 바이그램은 9 − 2 + 1 = 8개입니다(코드로 계산).</p><table><thead><tr><th>바이그램</th><th>빈도</th></tr></thead><tbody><tr><td>the cat</td><td>2</td></tr><tr><td>cat sat</td><td>1</td></tr><tr><td>sat on</td><td>1</td></tr><tr><td>on the</td><td>1</td></tr><tr><td>the mat</td><td>1</td></tr><tr><td>mat the</td><td>1</td></tr><tr><td>cat ate</td><td>1</td></tr></tbody></table><p>단어 the는 3번 나타나고 그중 2번 뒤에 cat이 왔으므로 P(cat | the) = 2/3, 1번 뒤에 mat이 왔으므로 P(mat | the) = 1/3입니다. 이렇게 모은 빈도가 최대우도 추정의 바탕입니다. 표본이 이처럼 작으면 한 번도 보지 못한 연쇄(예: “the sat”)의 확률이 0이 되어 문제가 되며, 이것이 스무딩이 필요한 이유입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>n이 클수록 좋은 모형이다.</td><td>자료가 충분하지 않으면 희소성 때문에 성능이 떨어집니다. n은 자료 크기와 목적에 맞춰 정합니다.</td></tr><tr><td>빈번한 n-그램은 의미 있는 단위다.</td><td>자주 나타난다는 것이 문법적·의미적으로 하나의 단위라는 뜻은 아닙니다. 별도의 검토가 필요합니다.</td></tr><tr><td>n-그램 모형은 문장 전체의 의미를 이해한다.</td><td>직전 몇 개 항목만 보므로 멀리 떨어진 의존 관계는 잡지 못합니다. 이 한계가 순환신경망·트랜스포머 계열 모형의 동기가 되었습니다.</td></tr><tr><td>논문 속 “N-gram 분석”은 늘 같은 방법이다.</td><td>연구에 따라 인접 연쇄의 빈도를 센 것일 수도, 도구가 제공하는 연관어(동시 출현) 분석을 그렇게 부른 것일 수도 있습니다. 방법 절의 정의를 확인해야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "텍스트 분석 용어는 서로 다른 질문에 답합니다.",
+    "headers": [
+      "용어",
+      "무엇을 세나",
+      "n-그램과의 차이"
+    ],
+    "rows": [
+      [
+        "[[n-gram|n-그램]]",
+        "연속한 n개 항목의 연쇄",
+        "순서와 인접성을 보존"
+      ],
+      [
+        "단어 빈도(유니그램)",
+        "개별 단어의 출현 횟수",
+        "n = 1인 경우"
+      ],
+      [
+        "[[tf-idf|TF-IDF]]",
+        "문서 안 단어 빈도와 전체 문서에서의 희귀도",
+        "연쇄가 아닌 개별 단어의 중요도 가중치"
+      ],
+      [
+        "[[topic-modeling|토픽 모델링]]",
+        "문서에 숨은 주제 분포",
+        "순서를 무시하는 단어 묶음(bag of words)을 쓰는 경우가 많음"
+      ]
+    ]
+  },
+  "references": [
+    "Shannon, C. E. (1948). A mathematical theory of communication. Bell System Technical Journal, 27(3), 379–423.",
+    "Brown, P. F., Della Pietra, V. J., deSouza, P. V., Lai, J. C., & Mercer, R. L. (1992). Class-based n-gram models of natural language. Computational Linguistics, 18(4), 467–479.",
+    "Manning, C. D., & Schütze, H. (1999). Foundations of Statistical Natural Language Processing. MIT Press.",
+    "Jurafsky, D., & Martin, J. H. (2009). Speech and Language Processing (2nd ed.). Prentice Hall."
+  ]
+}
