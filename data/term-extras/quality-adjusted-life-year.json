@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><strong>QALY = 생존 기간(년) × 그 기간의 건강 효용값(utility)</strong>의 합입니다. 효용값은 완전한 건강을 1, 사망을 0으로 두는 척도이며, 죽음보다 나쁘다고 평가되는 상태는 음수가 될 수 있습니다. 상태가 시간에 따라 바뀌면 구간별 곱을 더합니다.</p><ul><li>효용값은 EQ-5D, SF-6D 같은 선호기반 설문(점수를 국가별 가치 체계로 환산)이나 시간교환법(TTO), 표준도박법(SG)으로 구합니다(Torrance &amp; Feeny, 1989). 건강한 사람 1년은 1 QALY입니다.</li><li>미래 값은 할인합니다. 비용과 QALY에 같은 비율을 적용하는 방식이 흔하며, 미국 패널의 권고(Sanders 외, 2016)는 연 3%를 제시합니다. 나라마다 지침의 할인율이 다릅니다.</li><li>비용효과 분석에서는 두 치료의 QALY 차이를 비용 차이로 나눈 [[incremental-cost-effectiveness-ratio|증분비용효과비(ICER)]]를 계산합니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 두 치료 비교입니다. A: 효용 0.7로 10년 생존, 비용 20백만 원. B: 효용 0.9로 8년 생존, 비용 35백만 원. 할인은 연 3%, 연말 기준으로 계산했습니다.</p><table><thead><tr><th>항목</th><th>A</th><th>B</th></tr></thead><tbody><tr><td>생존 연수</td><td>10</td><td>8</td></tr><tr><td>QALY(할인 없음)</td><td>0.7 × 10 = 7.00</td><td>0.9 × 8 = 7.20</td></tr><tr><td>QALY(연 3% 할인)</td><td>5.97</td><td>6.32</td></tr><tr><td>비용(백만 원)</td><td>20</td><td>35</td></tr></tbody></table><ul><li>생존 연수만 보면 A가 길지만 QALY는 B가 0.20 더 많습니다(할인 없음). 삶의 질 차이가 수명 차이를 상쇄합니다.</li><li>ICER(할인 없음) = (35 − 20) ÷ (7.20 − 7.00) = <strong>75백만 원/QALY</strong>. 할인하면 QALY 차이가 0.347이 되어 ICER는 43.3백만 원/QALY로 달라집니다.</li><li>QALY 차이가 작을 때 ICER는 분모가 작아 매우 불안정합니다. 결과의 불확실성은 확률적 민감도 분석과 비용효과 수용곡선으로 제시합니다.</li><li>“몇 원/QALY 이하면 비용효과적”이라는 임계값은 국가와 제도마다 다르며, 보편적 기준은 없습니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>효용값을 어떻게 구했는지(도구, 가치 체계 출처, 응답자 집단)와 분석 관점(보건의료체계·사회), 분석 기간, 할인율을 적습니다.</li><li>QALY 차이와 비용 차이를 각각 불확실성(신뢰구간 또는 시뮬레이션 분포)과 함께 제시합니다.</li><li>ICER는 지배(dominance) 여부를 먼저 확인하고(더 싸고 더 좋으면 ICER를 계산하지 않음), 필요하면 순화폐편익도 보고합니다.</li><li>보고 지침으로 CHEERS 체크리스트(Husereau 외, 2013)를 따릅니다.</li><li>QALY는 연령, 장애 유무에 따른 형평성 문제를 안고 있고 분배 정보를 보여 주지 않으므로 한계를 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "방향",
+      "의미"
+    ],
+    "rows": [
+      [
+        "[[quality-adjusted-life-year|QALY(질보정생존년수)]]",
+        "얻은 건강 (클수록 좋음)",
+        "수명과 삶의 질을 합친 값"
+      ],
+      [
+        "[[disability-adjusted-life-year|DALY(장애보정생존년수)]]",
+        "잃은 건강 (클수록 나쁨)",
+        "조기 사망과 장애로 잃은 연수"
+      ],
+      [
+        "[[incremental-cost-effectiveness-ratio|ICER]]",
+        "비용 ÷ 추가 건강",
+        "한 단위 건강을 더 얻는 데 드는 추가 비용"
+      ],
+      [
+        "[[cost-effectiveness-analysis|비용효과 분석]]",
+        "분석 방법의 이름",
+        "건강 결과 단위로 QALY를 쓰면 비용효용분석이라고도 부름"
+      ]
+    ]
+  },
+  "references": [
+    "Drummond, M. F., Sculpher, M. J., Claxton, K., Stoddart, G. L., & Torrance, G. W. (2015). Methods for the Economic Evaluation of Health Care Programmes (4th ed.). Oxford University Press.",
+    "Torrance, G. W., & Feeny, D. (1989). Utilities and quality-adjusted life years. International Journal of Technology Assessment in Health Care, 5(4), 559–575.",
+    "Sanders, G. D., Neumann, P. J., Basu, A., et al. (2016). Recommendations for conduct, methodological practices, and reporting of cost-effectiveness analyses: Second panel on cost-effectiveness in health and medicine. JAMA, 316(10), 1093–1103.",
+    "Husereau, D., Drummond, M., Petrou, S., et al. (2013). Consolidated Health Economic Evaluation Reporting Standards (CHEERS) statement. BMJ, 346, f1049."
+  ]
+}
