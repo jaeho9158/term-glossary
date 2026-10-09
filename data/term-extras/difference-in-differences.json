@@ -7,7 +7,7 @@
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<p>추정치는 DID = (처치집단의 후 − 전) − (비교집단의 후 − 전)입니다.</p><table><thead><tr><th></th><th>처치 전</th><th>처치 후</th><th>변화</th></tr></thead><tbody><tr><td>처치집단</td><td>60</td><td>72</td><td>+12</td></tr><tr><td>비교집단</td><td>58</td><td>64</td><td>+6</td></tr><tr><td>차이의 차이</td><td></td><td></td><td>12 − 6 = <strong>6</strong></td></tr></tbody></table><p>처치집단이 12 올랐지만 그중 6은 비교집단도 겪은 공통 변화이므로, 처치의 효과는 6으로 추정합니다. 회귀로 쓰면 Y = β₀ + β₁·처치집단 + β₂·후기간 + β₃·(처치집단 × 후기간) + 오차이고, <strong>상호작용항의 계수 β₃</strong>가 DID 추정치입니다.</p><ul><li>표준오차는 같은 집단·같은 지역의 관측치들이 서로 독립이 아닌 경우가 많아 군집표준오차(cluster-robust)를 쓰는 것이 일반적입니다(Bertrand, Duflo, Mullainathan, 2004).</li><li>처치 이전 시점들의 계수(사건연구 그래프)가 0 근처라는 것이 평행추세를 뒷받침하는 정황 증거입니다.</li><li>처치 시점이 집단마다 다른 경우, 이원 고정효과 회귀가 이미 처치받은 집단을 비교집단으로 쓰며 편향될 수 있어 Callaway와 Sant’Anna(2021), Goodman-Bacon(2021) 등이 제안한 방법을 씁니다.</li></ul>"
+      "html": "<p>추정치는 DID = (처치집단의 후 − 전) − (비교집단의 후 − 전)입니다.</p><table><thead><tr><th></th><th>처치 전</th><th>처치 후</th><th>변화</th></tr></thead><tbody><tr><td>처치집단</td><td>60</td><td>72</td><td>+12</td></tr><tr><td>비교집단</td><td>58</td><td>64</td><td>+6</td></tr><tr><td>차이의 차이</td><td></td><td></td><td>12 − 6 = <strong>6</strong></td></tr></tbody></table><p>처치집단이 12 올랐지만 그중 6은 비교집단도 겪은 공통 변화이므로, 처치의 효과는 6으로 추정합니다. 회귀로 쓰면 Y = β₀ + β₁·처치집단 + β₂·후기간 + β₃·(처치집단 × 후기간) + 오차이고, <strong>상호작용항의 계수 β₃</strong>가 DID 추정치입니다.</p><ul><li>표준오차는 같은 집단·같은 지역의 관측치들이 서로 독립이 아닌 경우가 많아 군집표준오차(cluster-robust)를 쓰는 것이 일반적입니다(Bertrand, Duflo, Mullainathan, 2004).</li><li>처치 이전 시점들의 계수(사건연구 그래프)가 0 근처라는 것이 평행추세를 뒷받침하는 정황 증거입니다.</li><li>처치 시점이 집단마다 다른 경우, 이원 고정효과 회귀가 이미 처치받은 집단을 비교집단으로 쓰며 편향될 수 있어 Goodman-Bacon(2021)은 이 편향이 어디서 생기는지 분해해 진단하는 방법을, Callaway와 Sant’Anna(2021) 등은 이를 피하는 추정량을 제안했고, 후자와 같은 추정량을 씁니다.</li></ul>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -17,12 +17,32 @@
   "compare": {
     "heading": "헷갈리기 쉬운 용어",
     "intro": "비무작위 자료에서 인과효과를 추정하는 준실험 방법들은 ‘무엇에 의존하느냐’로 구분됩니다.",
-    "headers": ["방법", "비교하는 것", "핵심 가정"],
+    "headers": [
+      "방법",
+      "비교하는 것",
+      "핵심 가정"
+    ],
     "rows": [
-      ["[[difference-in-differences|이중차분법]]", "처치·비교집단의 전후 변화량의 차이", "평행추세"],
-      ["[[synthetic-control-method|합성통제법]]", "처치집단과, 비교집단들을 가중 조합해 만든 ‘가상의 비교집단’", "처치 전 추이가 가상 집단과 잘 맞음"],
-      ["[[regression-discontinuity-design|회귀불연속설계]]", "기준점 바로 위·아래의 개체", "기준점 근처에서 다른 조건이 연속적"],
-      ["[[fixed-effects-model|고정효과 모형]]", "같은 개체의 시점 간 변화", "시간에 따라 변하는 숨은 교란이 없음"]
+      [
+        "[[difference-in-differences|이중차분법]]",
+        "처치·비교집단의 전후 변화량의 차이",
+        "평행추세"
+      ],
+      [
+        "[[synthetic-control-method|합성통제법]]",
+        "처치집단과, 비교집단들을 가중 조합해 만든 ‘가상의 비교집단’",
+        "처치 전 추이가 가상 집단과 잘 맞음"
+      ],
+      [
+        "[[regression-discontinuity-design|회귀불연속설계]]",
+        "기준점 바로 위·아래의 개체",
+        "기준점 근처에서 다른 조건이 연속적"
+      ],
+      [
+        "[[fixed-effects-model|고정효과 모형]]",
+        "같은 개체의 시점 간 변화",
+        "시간에 따라 변하는 숨은 교란이 없음"
+      ]
     ],
     "note": "이중차분법을 여러 시점·여러 집단으로 확장한 이원 고정효과 모형은 위 표의 이중차분법과 고정효과를 합친 형태입니다."
   },
@@ -30,6 +50,7 @@
     "Card, D., & Krueger, A. B. (1994). Minimum wages and employment: A case study of the fast-food industry in New Jersey and Pennsylvania. American Economic Review, 84(4), 772–793.",
     "Angrist, J. D., & Pischke, J.-S. (2009). Mostly Harmless Econometrics: An Empiricist's Companion. Princeton University Press.",
     "Bertrand, M., Duflo, E., & Mullainathan, S. (2004). How much should we trust differences-in-differences estimates? Quarterly Journal of Economics, 119(1), 249–275.",
-    "Callaway, B., & Sant'Anna, P. H. C. (2021). Difference-in-differences with multiple time periods. Journal of Econometrics, 225(2), 200–230."
+    "Callaway, B., & Sant'Anna, P. H. C. (2021). Difference-in-differences with multiple time periods. Journal of Econometrics, 225(2), 200–230.",
+    "Goodman-Bacon, A. (2021). Difference-in-differences with variation in treatment timing. Journal of Econometrics, 225(2), 254–277."
   ]
 }
