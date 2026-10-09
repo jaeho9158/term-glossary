@@ -4,7 +4,7 @@
   "groups": [
     {
       "label": "검정의 기초",
-      "items": ["귀무가설", "대립가설", "유의수준", "유의확률", "검정통계량", "기각역", "제1종 오류", "제2종 오류", "검정력", "양측검정과 단측검정", "신뢰구간", "자유도", "표본분포", "중심극한정리"]
+      "items": ["귀무가설", { "label": "대립가설", "slug": "alternative-hypothesis" }, "유의수준", "유의확률", "검정통계량", { "label": "기각역", "slug": "rejection-region" }, "제1종 오류", "제2종 오류", "검정력", "양측검정과 단측검정", "신뢰구간", "자유도", "표본분포", "중심극한정리"]
     },
     {
       "label": "모수 검정",
@@ -13,20 +13,20 @@
           "label": "평균 비교",
           "groups": [
             { "label": "한 집단", "items": ["단일표본 t검정", "z검정"] },
-            { "label": "두 집단 · 독립", "items": ["독립표본 t검정", "웰치 t검정", { "label": "등분산 가정", "slug": "homoscedasticity-heteroscedasticity" }] },
+            { "label": "두 집단 · 독립", "items": [{ "label": "독립표본 t검정", "slug": "independent-samples-t-test" }, "웰치 t검정", { "label": "등분산 가정", "slug": "homoscedasticity-heteroscedasticity" }] },
             { "label": "두 집단 · 대응", "items": ["대응표본 t검정"] },
             { "label": "세 집단 이상 · 독립", "items": ["일원분산분석", { "label": "이원분산분석", "slug": "two-way-anova" }, "다원분산분석", "공분산분석", "다변량분산분석", { "label": "웰치 분산분석", "slug": "welch-anova" }] },
             { "label": "세 집단 이상 · 반복", "items": ["반복측정 분산분석", "구형성 검정", "혼합설계 분산분석", { "label": "선형 혼합모형", "slug": "mixed-effects-model" }] }
           ]
         },
-        { "label": "분산 비교", "items": ["F검정", { "label": "분산의 동질성", "slug": "homoscedasticity-heteroscedasticity" }] },
-        { "label": "관계 검정", "items": ["피어슨 상관계수", "편상관", "단순회귀분석", "다중회귀분석", "로지스틱 회귀"] }
+        { "label": "분산 비교", "items": [{ "label": "F검정", "slug": "f-test" }, { "label": "분산의 동질성", "slug": "homoscedasticity-heteroscedasticity" }] },
+        { "label": "관계 검정", "items": ["피어슨 상관계수", "편상관", { "label": "단순회귀분석", "slug": "simple-linear-regression" }, { "label": "다중회귀분석", "slug": "multiple-linear-regression" }, "로지스틱 회귀"] }
       ]
     },
     {
       "label": "비모수 검정",
       "groups": [
-        { "label": "한 집단", "items": ["부호검정", { "label": "일표본 윌콕슨 검정", "slug": "wilcoxon-signed-rank-test" }, "이항검정"] },
+        { "label": "한 집단", "items": ["부호검정", { "label": "일표본 윌콕슨 검정", "slug": "wilcoxon-signed-rank-test" }, { "label": "이항검정", "slug": "binomial-test" }] },
         { "label": "두 집단 · 독립", "items": ["맨-휘트니 U 검정", "콜모고로프-스미르노프 검정", "중앙값 검정"] },
         { "label": "두 집단 · 대응", "items": ["윌콕슨 부호순위 검정", "부호검정", "맥니마 검정"] },
         { "label": "세 집단 이상 · 독립", "items": ["크러스컬-월리스 검정", "요나크히어-텁스트라 검정"] },
@@ -54,7 +54,7 @@
       "label": "효과크기",
       "groups": [
         { "label": "평균 차이", "items": [{ "label": "코언의 d", "slug": "cohens-d" }, "헤지스의 g", "글래스의 델타"] },
-        { "label": "설명 분산", "items": ["에타제곱", "부분 에타제곱", "오메가제곱", "결정계수", "코언의 f"] },
+        { "label": "설명 분산", "items": ["에타제곱", { "label": "부분 에타제곱", "slug": "partial-eta-squared" }, { "label": "오메가제곱", "slug": "omega-squared" }, "결정계수", "코언의 f"] },
         { "label": "범주형·연관", "items": [{ "label": "크래머의 V", "slug": "cramers-v" }, "파이 계수", "오즈비", "상대위험도", { "label": "코언의 카파", "slug": "cohen-kappa" }] },
         { "label": "상관·비모수", "items": ["상관계수", "공통언어 효과크기", "크러스컬-월리스 엡실론제곱"] },
         { "label": "해석", "items": ["실질적 유의성", { "label": "최소 임상적 중요 차이", "slug": "minimal-clinically-important-difference" }, "검정력 분석 기반 표본크기 산정", "검정력 분석"] }
@@ -63,7 +63,7 @@
     {
       "label": "다중비교 보정",
       "groups": [
-        { "label": "가족오류율", "items": ["다중비교 문제", "가족별 오류율", "본페로니 보정", { "label": "홀름 보정", "slug": "holm-bonferroni-method" }, "시닥 보정", "호흐베르크 보정"] },
+        { "label": "가족오류율", "items": ["다중비교 문제", { "label": "가족별 오류율", "slug": "familywise-error-rate" }, "본페로니 보정", { "label": "홀름 보정", "slug": "holm-bonferroni-method" }, "시닥 보정", "호흐베르크 보정"] },
         { "label": "거짓발견률", "items": [{ "label": "거짓발견률", "slug": "false-discovery-rate" }, "벤저미니-호흐베르크 절차", "q값"] },
         { "label": "관련 문제", "items": [{ "label": "p해킹", "slug": "p-hacking" }, "출판 편향", "사전 등록", "탐색적 분석과 확증적 분석"] }
       ]
