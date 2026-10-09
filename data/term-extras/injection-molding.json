@@ -1,0 +1,57 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>한 번의 성형 주기(cycle)는 대개 다음 순서로 진행됩니다.</p><ol><li><strong>형체</strong>: 금형의 두 쪽을 닫고 형체력으로 꽉 잠급니다.</li><li><strong>사출(충전)</strong>: 가열 실린더 안에서 녹은 수지를 스크루가 앞으로 밀어 금형 캐비티를 채웁니다.</li><li><strong>보압</strong>: 캐비티가 거의 찬 뒤 압력을 유지하며 수지를 더 채워 식으면서 줄어드는 부피를 보충합니다.</li><li><strong>냉각</strong>: 금형 안에서 수지가 굳습니다. 이 동안 스크루는 회전하며 다음 주기에 쓸 수지를 녹여 앞쪽에 모읍니다(가소화·계량).</li><li><strong>형개와 취출</strong>: 금형을 열고 이젝터로 성형품을 밀어내면 한 주기가 끝납니다.</li></ol><p>조절하는 대표 변수는 용융 수지 온도, 금형 온도, 사출 속도·압력, 보압 크기와 시간, 냉각 시간입니다. 열가소성 수지가 가장 흔하고, 금속 분말과 결합제를 섞어 같은 방식으로 성형하는 [[metal-injection-molding|금속사출성형]]처럼 재료를 바꾼 응용도 있습니다. 장비와 금형은 [[injection-molding-machine|사출성형기]], [[injection-mold-design|사출금형 설계]]를 참고하세요.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>복잡한 형상의 부품을 같은 품질로 대량 생산할 때 단가가 낮아집니다. 금형 비용은 크므로 소량·시제품에는 [[additive-manufacturing|적층 제조(3D프린팅)]]가 경제적일 수 있습니다.</li><li>자주 논의되는 결함은 다음과 같습니다. <strong>숏샷</strong>(캐비티가 덜 채워짐), <strong>플래시</strong>(분할면으로 수지가 새어 나온 얇은 막), <strong>싱크마크</strong>(두꺼운 부위가 수축하며 생기는 표면 함몰), <strong>웰드라인</strong>(갈라진 수지 흐름이 다시 만난 자국), <strong>휨</strong>([[warpage-in-injection-molding|사출성형 휨변형]]).</li><li>논문에서는 변수를 하나씩만 바꾸는 방식보다 직교배열표 같은 실험계획법으로 조합을 줄여 최적 조건을 찾는 경우가 많습니다. 예를 들어 네 변수(용융온도, 금형온도, 보압, 냉각시간)를 각각 3수준으로 둘 때 모든 조합은 3⁴ = 81회이지만, L9 직교배열표를 쓰면 9회로 줄어듭니다.</li></ul><p>아래는 코드로 생성하고 열 쌍마다 모든 수준 조합이 한 번씩 나오는지 확인한 L9 직교배열표입니다(수준 1·2·3은 가상의 조건 번호).</p><table><thead><tr><th>실험</th><th>용융온도</th><th>금형온도</th><th>보압</th><th>냉각시간</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr><tr><td>2</td><td>1</td><td>2</td><td>2</td><td>3</td></tr><tr><td>3</td><td>1</td><td>3</td><td>3</td><td>2</td></tr><tr><td>4</td><td>2</td><td>1</td><td>2</td><td>2</td></tr><tr><td>5</td><td>2</td><td>2</td><td>3</td><td>1</td></tr><tr><td>6</td><td>2</td><td>3</td><td>1</td><td>3</td></tr><tr><td>7</td><td>3</td><td>1</td><td>3</td><td>3</td></tr><tr><td>8</td><td>3</td><td>2</td><td>1</td><td>2</td></tr><tr><td>9</td><td>3</td><td>3</td><td>2</td><td>1</td></tr></tbody></table><p>9회 실험으로 각 변수의 주효과를 따로 추정할 수 있지만, 변수 사이의 교호작용은 분리되지 않습니다. 교호작용이 중요하다고 의심되면 직교배열표를 늘리거나 다른 설계를 써야 합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>재료</strong>: 수지의 이름·등급·제조사, 건조 조건(수분은 성형품 외관과 물성에 영향을 줍니다).</li><li><strong>장비와 금형</strong>: 사출기의 형체력과 스크루 지름, 금형의 캐비티 수·게이트 형식·금형 온도 조절 방식.</li><li><strong>공정 조건</strong>: 용융온도, 금형온도, 사출 속도·압력, 보압과 보압 시간, 냉각 시간, 전체 주기를 표로 제시합니다. 모든 시편을 같은 조건에서 만들었는지, 정상 상태에 도달한 뒤의 시편만 썼는지도 적습니다.</li><li><strong>측정</strong>: 성형 후 시편을 일정 시간 보관한 뒤 측정했는지, 측정 규격(수축은 ISO 294-4, ASTM D955 같은 규격이 있습니다)을 밝힙니다. 수축률은 (금형 치수 − 성형품 치수) ÷ 금형 치수 × 100으로 계산합니다. 예를 들어 캐비티 100.00 mm, 성형품 98.40 mm이면 1.60%입니다(가상의 예).</li><li><strong>해석 시뮬레이션</strong>을 병행했다면 소프트웨어 이름과 버전, 요소망, 재료 물성 데이터 출처를 적어야 재현할 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "공정",
+      "원리",
+      "주로 만드는 것"
+    ],
+    "rows": [
+      [
+        "[[injection-molding|사출성형]]",
+        "녹은 수지를 금형 캐비티에 밀어 넣어 굳힘",
+        "형상이 복잡한 소형·중형 3차원 부품"
+      ],
+      [
+        "[[extrusion-process|압출가공]]",
+        "녹은 소재를 다이로 연속해서 밀어냄",
+        "파이프·필름·프로파일 같은 일정 단면 제품"
+      ],
+      [
+        "[[blow-molding|블로우 성형]]",
+        "가열한 플라스틱을 공기로 부풀려 금형 벽에 밀착",
+        "병 같은 중공 제품"
+      ],
+      [
+        "[[thermoforming|열성형]]",
+        "가열해 연화시킨 시트를 금형에 밀착",
+        "포장 용기, 트레이 등"
+      ],
+      [
+        "[[additive-manufacturing|적층 제조(3D프린팅)]]",
+        "금형 없이 층층이 쌓아 형상을 만듦",
+        "시제품·소량 맞춤 제품"
+      ]
+    ]
+  },
+  "references": [
+    "Rosato, D. V., Rosato, D. V., & Rosato, M. G. (2000). Injection Molding Handbook (3rd ed.). Kluwer Academic Publishers.",
+    "Menges, G., Michaeli, W., & Mohren, P. (2001). How to Make Injection Molds (3rd ed.). Hanser.",
+    "Beaumont, J. P., Nagel, R., & Sherman, R. (2002). Successful Injection Molding: Process, Design, and Simulation. Hanser."
+  ]
+}

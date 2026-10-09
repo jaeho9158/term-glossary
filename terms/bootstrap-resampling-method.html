@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/bootstrap-resampling-method.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>시뮬레이션 결과나 실측 데이터가 특정 이론적 분포를 따른다고 가정하기 어려운 경우가 많은데, 붓스트랩재표본법은 이런 분포 가정 없이도 통계량의 불확실성을 추정할 수 있어 산업공학의 실증 데이터 분석과 시뮬레이션 출력 분석에서 널리 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>관측된 표본(크기 n)에서 <strong>복원추출</strong>로 크기 n짜리 재표본을 뽑습니다. 같은 관측치가 여러 번 뽑히고 어떤 것은 한 번도 뽑히지 않습니다.</li><li>각 재표본에서 관심 통계량(평균, 중앙값, 상관계수 등)을 계산합니다.</li><li>이를 B번 반복해 통계량의 <strong>붓스트랩 분포</strong>를 만듭니다.</li><li>이 분포의 표준편차를 표준오차로, 분포의 분위수 등을 신뢰구간으로 씁니다.</li></ol><p>핵심 발상은 “모집단 대신 관측된 표본을 모집단처럼 취급한다”는 것입니다. Efron이 1979년에 제안했습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>이론적인 표집분포 공식이 없거나 복잡한 통계량(중앙값, 분위수, 비율의 비 등)의 불확실성을 추정할 때 씁니다.</li><li>얻는 것은 표준오차, 편향 추정, 신뢰구간입니다. <a href="bootstrap-confidence-interval.html">부트스트랩 신뢰구간</a>은 이 분포에서 구간을 만드는 방법을 따로 다룹니다.</li><li>관측치를 하나씩 빼는 <a href="jackknife-resampling.html">잭나이프 재표본법</a>과 달리 무작위 재표본을 쓰므로 재표본 횟수 B를 정해야 하고, 결과에 약간의 모의 오차가 섞입니다.</li><li>표본이 매우 작거나 최댓값처럼 극단값에 크게 좌우되는 통계량에서는 잘 작동하지 않을 수 있습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>통계량, 재표본 횟수(B), 구간 방식(백분위수법, 편향보정 등)을 모두 적습니다. 예: “붓스트랩 5,000회 반복으로 95% 백분위수 신뢰구간을 구하였다.”</li><li>난수 시드나 사용한 소프트웨어를 밝히면 재현이 쉽습니다.</li><li>자료에 군집이나 시간 상관이 있으면 관측치 단위가 아니라 군집 단위나 블록 단위로 재표본을 뽑았는지 적어야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"시뮬레이션 반복 실행 횟수가 제한적인 상황에서 붓스트랩재표본법을 적용하여 평균 처리시간의 신뢰구간을 추정하였다."</div>
   <p>제한된 시뮬레이션 반복 데이터로부터 신뢰구간을 확보하기 위해 활용한 예입니다.</p>
   <div class="example">"수집된 고장 간격 데이터의 분포 형태를 가정하지 않고, 붓스트랩재표본법을 통해 평균 수명 추정치의 표준오차를 계산하였다."</div>
@@ -156,6 +174,18 @@
 
   <h2>주의할 점</h2>
   <p>원표본 자체가 모집단을 잘 대표하지 못하면 붓스트랩 결과도 그 편향을 그대로 이어받으며, 데이터 간 상관구조가 있는 경우 단순 복원추출이 이를 왜곡할 수 있어 신중한 적용이 필요합니다. 재표본 횟수를 지나치게 적게 설정하면 추정된 분포 자체가 불안정해지므로, 일반적으로 충분히 큰 반복 횟수를 확보하는 것이 결과의 안정성을 위해 권장됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>재표본을 쓰는 방법들은 이름이 비슷합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">재표본 방식</th><th scope="col">주 용도</th></tr></thead><tbody><tr><th scope="row">붓스트랩재표본법</th><td>같은 크기로 복원추출, 무작위 반복</td><td>표준오차·신뢰구간</td></tr><tr><th scope="row"><a href="jackknife-resampling.html">잭나이프</a></th><td>관측치를 하나씩 제외, 정해진 n개</td><td>편향·표준오차</td></tr><tr><th scope="row"><a href="permutation-test.html">순열검정</a></th><td>집단 라벨을 섞음</td><td>귀무가설 아래 p값</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Efron, B. (1979). Bootstrap methods: Another look at the jackknife. The Annals of Statistics, 7(1), 1–26.</li>
+    <li>Efron, B., &amp; Tibshirani, R. J. (1993). An Introduction to the Bootstrap. Chapman &amp; Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
