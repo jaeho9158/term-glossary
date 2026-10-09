@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/capacity-requirements-planning.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p><a href="material-requirements-planning.html">MRP</a>가 산출한 발주 계획을 작업장별 시간 부하로 환산해 능력 초과를 점검하는 단계로, 생산계획 체계에서 계획의 실행 가능성을 확인하는 고리 역할을 합니다. 실무에서는 ERP의 생산 모듈에서 부하 프로파일을 그려 잔업·외주·일정 조정을 결정합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>입력</strong>: <a href="material-requirements-planning.html">자재소요계획(MRP)</a>이 산출한 기간별 계획 발주(어떤 부품을 언제 얼마나 만들지).</li><li><strong>공정 정보</strong>: 각 부품의 작업공정표(routing)와 작업장별 표준시간(준비시간 + 단위당 가공시간).</li><li><strong>부하 계산</strong>: 작업장별·기간별로 필요한 시간 = 준비시간 + 수량 × 단위당 가공시간을 합산합니다. 발주 시점은 리드타임만큼 앞당겨 각 기간에 배정합니다.</li><li><strong>가용능력과 비교</strong>: 작업장의 가용능력(근무시간 등에 효율·가동률을 반영)과 비교해 부하율을 구합니다.</li><li><strong>조정</strong>: 부하가 능력을 넘으면 잔업, 외주, 일정 이동 같은 방법으로 맞춥니다. 전통적인 CRP는 부하를 보여 줄 뿐 스스로 조정하지는 않습니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예: ‘절삭’ 작업장에 한 주 동안 두 건의 발주가 걸립니다. 준비 4시간, 단위당 0.10시간이고 수량은 각각 100개와 50개입니다. 이 작업장의 가용능력은 주 20시간이라고 가정합니다.</p><ul><li>발주 1: 4 + 100 × 0.10 = 14시간</li><li>발주 2: 4 + 50 × 0.10 = 9시간</li><li>부하 합계 = 23시간, 부하율 = 23 / 20 = 115%</li></ul><p>3시간이 모자라므로 잔업 3시간을 편성하거나 한 건을 다음 주로 옮깁니다. 같은 주에 ‘조립’ 작업장(준비 2시간, 단위당 0.08시간, 수량 100개)은 2 + 8 = 10시간으로 부하가 가볍다는 것도 한눈에 확인됩니다.</p><p>얻는 것은 MRP 계획이 현장에서 실행 가능한지에 대한 사전 점검입니다. 더 앞 단계에서 기준생산계획(MPS)을 놓고 핵심 자원의 능력을 대략 점검하는 <a href="rough-cut-capacity-planning.html">개략능력계획</a>과 함께 쓰이며, 부하를 계산하되 능력 제약을 반영해 스스로 일정을 재편하는 <a href="advanced-planning-and-scheduling.html">고급계획및일정수립(APS)</a>이 이 한계를 넘으려는 시도입니다. 병목을 중심으로 보는 <a href="theory-of-constraints.html">제약이론</a>의 관점에서 CRP는 병목 작업장을 찾는 도구로도 읽힙니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>입력 자료를 밝힙니다: 계획 주기(주/일), 작업공정표와 표준시간의 출처, 리드타임 가정, 가용능력의 계산 방식(효율·가동률).</li><li>무한 적재(능력 제한 없이 부하만 계산)인지, 능력 제약을 넣은 유한 적재인지 구분해 적습니다.</li><li>결과는 작업장별 부하율(부하 ÷ 가용능력) 또는 기간별 부하 프로파일로 제시하고, 과부하 기준(예: 100% 초과)과 조정 방법(잔업·외주·이동)을 적습니다.</li><li>표준시간 데이터가 부정확하면 부하 계산 전체가 흔들리므로, 이 자료의 신뢰성을 한계로 언급합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">CRP는 작업공정표(routing)와 표준작업시간을 이용해 작업장별 부하(load)를 기간별로 산출하는 유한 또는 무한능력계획으로 수행된다.</div>
   <p>산출된 부하가 가용능력을 초과하면 초과근무, 외주, 일정 재조정 등으로 능력과 부하를 맞추는 조정 작업이 뒤따른다.</p>
   <div class="example">생산계획 수립 과정에서 능력소요계획 결과를 반영해 병목 작업장의 초과근무 일정을 조정한 사례를 분석하였다.</div>
@@ -161,6 +179,19 @@
 
   <h2>주의할 점</h2>
   <p>CRP는 MRP 이후 사후적으로 능력을 점검하므로, 사전에 대략적 능력을 점검하는 개략능력계획(RCCP)과 함께 사용하는 것이 바람직하다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>생산계획 체계에는 이름이 비슷한 계획이 층층이 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 계획하나</th><th scope="col">능력 점검 수준</th></tr></thead><tbody><tr><th scope="row"><a href="master-production-schedule.html">기준생산계획(MPS)</a></th><td>완제품을 언제 얼마나 만들지</td><td>—</td></tr><tr><th scope="row"><a href="rough-cut-capacity-planning.html">개략능력계획(RCCP)</a></th><td>MPS가 주요 자원에 주는 부하</td><td>대략(MPS 기준·핵심 자원)</td></tr><tr><th scope="row"><a href="material-requirements-planning.html">자재소요계획(MRP)</a></th><td>부품·자재를 언제 얼마나 발주할지</td><td>자재 기준(능력은 반영 안 함)</td></tr><tr><th scope="row"><strong>능력소요계획(CRP)</strong></th><td>MRP 발주가 작업장별로 주는 부하</td><td>상세(작업장·기간별)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Orlicky, J. (1975). Material Requirements Planning. McGraw-Hill.</li>
+    <li>Vollmann, T. E., Berry, W. L., Whybark, D. C., &amp; Jacobs, F. R. (2005). Manufacturing Planning and Control for Supply Chain Management (5th ed.). McGraw-Hill.</li>
+    <li>Hopp, W. J., &amp; Spearman, M. L. (2008). Factory Physics (3rd ed.). McGraw-Hill/Irwin.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="capacity-planning.html">생산능력계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="rough-cut-capacity-planning.html">개략능력계획</a></div></div><p class="concept-family-map"><a href="../concept-map/biz.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

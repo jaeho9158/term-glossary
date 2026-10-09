@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/data-de-identification.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>의료, 금융, 통신 등 민감한 개인 데이터를 연구나 서비스 개선에 활용하려면 개인정보 보호 규제를 지키면서도 데이터의 유용성을 유지해야 합니다. 정보보안학에서는 비식별화 기법의 안전성을 재식별 공격에 대한 저항력으로 평가하고, 프라이버시 보호와 데이터 활용도 사이의 균형을 정량적으로 다루는 연구가 활발합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>식별자 분류</strong>: 이름, 주민등록번호, 전화번호처럼 그 자체로 개인을 가리키는 직접식별자와, 나이·성별·지역·직업처럼 다른 정보와 결합하면 개인을 가려낼 수 있는 준식별자를 구분합니다.</li><li><strong>직접식별자 처리</strong>: 삭제하거나 가명(대체 코드)으로 바꿉니다(<a href="pseudonymization.html">가명처리</a>).</li><li><strong>준식별자 처리</strong>: 구체적인 값을 범위로 뭉뚱그리는 일반화(나이 → 연령대), 희귀한 값 삭제, 값 섞기 등을 적용합니다.</li><li><strong>위험 평가</strong>: k-익명성 같은 모델이나 전문가 판단으로 다시 식별될 위험을 확인하고, 필요하면 앞 단계로 돌아가 반복합니다(<a href="re-identification-risk.html">재식별 위험</a>).</li><li><strong>이용 통제</strong>: 데이터를 쓰는 사람, 장소, 결합 가능한 다른 자료를 제한합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 데이터: 환자 6명의 준식별자(연령대, 지역)가 다음과 같다고 합시다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>처리</th><th>그룹 구성</th><th>k(가장 작은 그룹 크기)</th></tr></thead><tbody><tr><td>처리 전</td><td>(30대, 서울) 3명 / (40대, 부산) 2명 / (50대, 대구) 1명</td><td>1</td></tr><tr><td>일반화 후(40대 이상, 영남)</td><td>(30대, 서울) 3명 / (40대 이상, 영남) 3명</td><td>3</td></tr></tbody></table></div><p>처리 전에는 (50대, 대구)인 사람이 한 명뿐이라 외부 정보와 결합하면 바로 특정됩니다(k = 1). 두 그룹을 일반화로 합치자 모든 조합이 최소 3명이 되어 k = 3이 됩니다(<a href="k-anonymity.html">k-익명성</a>). 대가로 연령·지역 정보의 정밀도가 떨어지는 정보 손실이 생깁니다.</p><p>k-익명성만으로는 한 그룹의 민감 정보가 모두 같으면 값이 노출되는 문제(동질성 공격)가 있어 l-다양성 같은 보완 모델이 제안되었고(Machanavajjhala et al., 2007), 수학적 보장을 주는 <a href="differential-privacy.html">차분 프라이버시</a>(Dwork, 2006)도 쓰입니다. 미국 의료정보 규정 HIPAA에는 18가지 식별자를 제거하는 ‘Safe Harbor’ 방식과 전문가가 위험이 작다고 판정하는 방식이 있습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>어떤 식별자를 어떻게 처리했는지(삭제, 가명, 일반화 범위)를 표나 목록으로 구체적으로 적습니다.</li><li>위험을 어떻게 평가했는지(k 값, 사용한 모델, 결합 가능한 외부 자료에 대한 가정)와 결과를 적습니다.</li><li>정보 손실이 분석에 미친 영향(변수 정밀도 저하, 표본 제외)을 밝힙니다.</li><li>연구윤리위원회(IRB) 승인과 동의 여부, 데이터 보관·접근 통제 방식을 함께 적습니다.</li><li>한국에서는 비식별 조치에 관한 지침과 이후 법 개정으로 ‘가명처리’·‘익명처리’ 같은 법적 용어가 쓰이므로, 논문 작성 시점의 법령 용어와 일치시키고 ‘비식별화’가 무엇을 가리키는지 정의합니다.</li><li>‘비식별화했으므로 재식별은 불가능하다’고 쓰지 말고, 위험을 낮추었다고 쓰는 것이 정확합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 k-익명성 모델을 적용한 데이터 비식별화 기법을 통해 환자 기록의 재식별 위험을 최소화하였다."</div>
   <p>의료 데이터셋을 공개하기 전에 특정 인물이 구별되지 않도록 데이터를 일반화한 사례를 설명하는 문장입니다.</p>
   <div class="example">"제안한 프레임워크는 데이터 비식별화 과정에서 발생하는 정보 손실을 최소화하면서도 프라이버시 보장 수준을 유지한다."</div>
@@ -159,6 +177,18 @@
 
   <h2>주의할 점</h2>
   <p>이름과 주민번호를 삭제했다고 해서 데이터가 완전히 익명이 되는 것은 아니며, 다른 공개 정보와 결합하면 재식별될 가능성이 남아 있습니다. 비식별화 수준을 높일수록 데이터의 분석 유용성은 낮아지는 경향이 있어 목적에 맞는 균형점을 찾는 것이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row"><a href="de-identification.html">비식별화</a></th><td>개인을 식별할 단서를 제거·변형해 연결 가능성을 낮추는 처리 전반</td></tr><tr><th scope="row"><a href="pseudonymization.html">가명처리</a></th><td>직접식별자를 가명으로 바꾸는 한 방법(추가 정보로 복원 가능)</td></tr><tr><th scope="row"><a href="k-anonymity.html">k-익명성</a></th><td>같은 준식별자 조합을 가진 사람이 최소 k명이 되게 하는 모델</td></tr><tr><th scope="row"><a href="differential-privacy.html">차분 프라이버시</a></th><td>한 사람의 포함 여부가 결과를 거의 바꾸지 않도록 보장하는 수학적 개념</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sweeney, L. (2002). k-anonymity: A model for protecting privacy. International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, 10(5), 557–570.</li>
+    <li>Machanavajjhala, A., Kifer, D., Gehrke, J., &amp; Venkitasubramaniam, M. (2007). l-diversity: Privacy beyond k-anonymity. ACM Transactions on Knowledge Discovery from Data, 1(1), Article 3.</li>
+    <li>Dwork, C. (2006). Differential privacy. In Automata, Languages and Programming (ICALP 2006), Lecture Notes in Computer Science, Vol. 4052, 1–12. Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="k-anonymity.html">k-익명성</a><a href="l-diversity.html">l-다양성</a><a href="t-closeness.html">t-근접성</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
