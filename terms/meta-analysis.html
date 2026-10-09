@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/meta-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,27 @@
   <h2>왜 중요한가</h2>
   <p>메타분석은 개별 연구 하나만으로는 표본 크기나 연구 설계의 한계로 결론을 확신하기 어려운 상황에서, 여러 연구의 증거를 통계적으로 종합해 더 신뢰할 수 있는 결론에 도달하게 해주기 때문에 근거기반 의학, 심리학, 교육학, 정책 연구 등 실증적 결론이 중요한 거의 모든 분야에서 핵심적인 연구 방법으로 다뤄집니다. 특히 개별 연구들의 결과가 서로 엇갈릴 때, 무엇이 전체적인 경향인지를 정량적으로 판단할 수 있는 거의 유일한 방법이라는 점에서 체계적 문헌고찰과 함께 근거의 위계에서 가장 높은 수준으로 취급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>질문과 포함 기준 정하기</strong>: 대상, 개입(노출), 비교, 결과, 연구 설계를 정하고 계획서를 사전 등록합니다.</li><li><strong>체계적 검색과 선별</strong>: 여러 데이터베이스를 검색하고 두 사람이 독립적으로 고릅니다.</li><li><strong>자료 추출과 질 평가</strong>: 연구별 효과크기와 표준오차, 표본 크기, 비뚤림 위험을 추출합니다.</li><li><strong>통합</strong>: 연구마다 정밀도가 다르므로 정밀도에 비례한 가중치(대개 분산의 역수)로 평균을 냅니다. 모든 연구가 같은 참효과를 추정한다고 보는 <a href="fixed-effects-meta-analysis.html">고정효과 모형</a>과 참효과가 연구마다 다르다고 보는 <a href="random-effects-meta-analysis.html">랜덤효과 모형</a> 중 하나를 고릅니다.</li><li><strong>이질성과 편향 점검</strong>: 연구 간 차이를 Q 통계량, I², τ²로 보고(<a href="meta-analysis-heterogeneity-i-squared.html">I² 설명</a>), 깔때기 그림과 <a href="trim-and-fill-method.html">트림앤필</a> 같은 방법으로 출판편향을 살핍니다.</li></ol><p>가상의 네 연구(표준화 평균차)를 역분산 가중으로 통합해 봅니다(DerSimonian-Laird 방법으로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>연구</th><th>효과 추정치</th><th>표준오차</th><th>고정효과 가중치</th><th>랜덤효과 가중치</th></tr></thead><tbody><tr><td>A</td><td>0.10</td><td>0.10</td><td>41.9%</td><td>28.9%</td></tr><tr><td>B</td><td>0.50</td><td>0.15</td><td>18.6%</td><td>24.2%</td></tr><tr><td>C</td><td>0.30</td><td>0.12</td><td>29.1%</td><td>27.1%</td></tr><tr><td>D</td><td>0.80</td><td>0.20</td><td>10.5%</td><td>19.7%</td></tr><tr><td><strong>통합</strong></td><td colspan="4">고정효과 0.31(95% 신뢰구간 0.18~0.43), 랜덤효과 0.39(95% 신뢰구간 0.12~0.66)</td></tr></tbody></table></div><p>이질성은 Q = 12.02(자유도 3, p = .007), I² = 75%, τ² = 0.054였습니다. 연구 간 차이가 커서 랜덤효과에서는 작은 연구(D)의 비중이 커지고 신뢰구간이 넓어집니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>이럴 때 씁니다.</strong> 같은 질문을 다룬 연구가 여러 개 있는데 결과가 엇갈리거나 개별 연구의 표본이 작아 결론이 불안정할 때, 평균 효과와 연구 간 차이의 크기를 정량화하고 싶을 때 씁니다.</p><p><strong>얻는 것.</strong></p><ul><li>통합 효과와 신뢰구간(더 큰 유효 표본에서 나온 정밀한 추정)</li><li>연구 간 이질성의 크기와 원인 탐색(하위집단 분석, <a href="meta-regression.html">메타회귀</a>)</li><li>출판편향이 있을 가능성의 점검</li></ul><p><strong>한계.</strong></p><ul><li>포함된 연구의 질이 낮으면 통합 결과도 낮은 질을 그대로 이어받습니다(“쓰레기가 들어가면 쓰레기가 나온다”).</li><li>연구 설계가 서로 너무 다른 연구를 합치면 평균이 무엇을 뜻하는지 불분명해집니다.</li><li>연구 수가 적을 때 이질성 지표와 출판편향 검정은 정확도가 낮습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>계획서 등록 여부, 검색 데이터베이스와 검색일, 검색식</li><li>포함·제외 기준, 선별 과정(PRISMA 흐름도)</li><li>사용한 효과크기와 통합 모형(고정/랜덤효과), 가중치 방법, 이질성 추정 방법</li><li>이질성 지표(Q, I², τ²)와 하위집단·민감도 분석 결과</li><li>출판편향 평가 방법과 결과, 연구의 비뚤림 위험 평가</li></ul><p>보고 지침으로 PRISMA 2020(Page 등, 2021)이 널리 쓰입니다(<a href="prisma-statement.html">PRISMA 설명</a>). 예시 문장은 다음과 같습니다(가상의 예).</p><p>“랜덤효과 모형(DerSimonian-Laird)으로 통합한 결과 평균 효과크기는 0.39(95% 신뢰구간 0.12~0.66)였고, 연구 간 이질성이 컸다(I² = 75%).”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“그러나 본 연구에서는 선행연구가 부족하여 사례수가 2개 미만인 관련요인들은 메타분석에서 제외하여 의미 있는 요인들이 선정에서 제외되었으므로, 이후 메타분석 연구가 추가적으로 이루어진다면 하위요인의 분석 통계치 중 의미 있는 요인들을 통합하는 시도가 진행되어야 할 것이다.”</blockquote><p class="te-cite">간호학과 학생의 진로준비행동 영향요인: 체계적 문헌고찰 및 메타분석, 한국간호교육학회지, 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002620103" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"총 24편의 연구를 대상으로 메타분석을 실시한 결과, 해당 치료법은 대조군 대비 유의한 개선 효과를 보였다 (전체 효과크기 = 0.45)."</div>
   <p>여러 개별 연구 결과를 하나로 합쳐서 계산했더니, 치료법의 효과가 통계적으로 확인됐다는 뜻입니다.</p>
 
@@ -164,6 +185,21 @@
 
   <h2>주의할 점</h2>
   <p>메타분석의 신뢰도는 포함된 개별 연구들의 품질에 크게 좌우됩니다. 품질이 낮은 연구를 많이 포함하면 결론도 왜곡될 수 있어, 어떤 기준으로 연구를 골랐는지(선정 기준)를 함께 확인하는 것이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>여러 연구를 모으는 방법들이 서로 비슷해 보이지만 단위와 목적이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">합치는 대상</th></tr></thead><tbody><tr><th scope="row">메타분석</th><td>개별 연구의 효과 추정치를 통계적으로 통합</td><td>개별 연구의 요약 통계</td></tr><tr><th scope="row"><a href="literature-review.html">문헌고찰</a></th><td>선행 연구를 모아 정리하는 글. 통계적 통합은 하지 않을 수도 있음</td><td>연구 문헌 전반</td></tr><tr><th scope="row"><a href="individual-participant-data-meta-analysis.html">개별 참가자 자료 메타분석</a></th><td>연구들의 원자료를 모아 다시 분석</td><td>참가자 수준의 원자료</td></tr><tr><th scope="row"><a href="meta-regression.html">메타회귀</a></th><td>연구 특성으로 효과크기의 차이를 설명</td><td>연구 단위의 효과와 특성</td></tr><tr><th scope="row"><a href="umbrella-review.html">엄브렐라 리뷰</a></th><td>메타분석·체계적 문헌고찰을 다시 종합</td><td>리뷰</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Glass, G. V. (1976). Primary, secondary, and meta-analysis of research. Educational Researcher, 5(10), 3–8.</li>
+    <li>DerSimonian, R., &amp; Laird, N. (1986). Meta-analysis in clinical trials. Controlled Clinical Trials, 7(3), 177–188.</li>
+    <li>Higgins, J. P. T., &amp; Thompson, S. G. (2002). Quantifying heterogeneity in a meta-analysis. Statistics in Medicine, 21(11), 1539–1558.</li>
+    <li>Borenstein, M., Hedges, L. V., Higgins, J. P. T., &amp; Rothstein, H. R. (2009). Introduction to Meta-Analysis. Wiley.</li>
+    <li>Page, M. J., McKenzie, J. E., Bossuyt, P. M., et al. (2021). The PRISMA 2020 statement: An updated guideline for reporting systematic reviews. BMJ, 372, n71.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms">
 <a href="literature-review.html">문헌고찰</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="meta-ethnography.html">메타에스노그라피</a><a href="living-systematic-review.html">생애형(리빙) 체계적문헌고찰</a><a href="narrative-review.html">서술적 문헌고찰</a><a href="scoping-review.html">스코핑 리뷰</a><a href="rapid-review.html">신속문헌고찰</a><a href="umbrella-review.html">엄브렐라 리뷰</a><a href="qualitative-meta-synthesis.html">질적 메타합성</a><a href="systematic-review-protocol.html">체계적 문헌고찰 프로토콜</a><a href="integrative-review.html">통합적 문헌고찰</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="individual-participant-data-meta-analysis.html">개별참여자자료 메타분석</a><a href="fixed-effects-meta-analysis.html">고정효과 메타분석</a><a href="random-effects-meta-analysis.html">랜덤효과 메타분석</a><a href="meta-regression.html">메타회귀분석</a></div></div><p class="concept-family-map"><a href="../concept-map/method.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->

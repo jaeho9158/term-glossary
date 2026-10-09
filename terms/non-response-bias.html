@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/non-response-bias.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>특히 온라인조사나 이메일조사처럼 접근성은 좋지만 응답률이 낮아지기 쉬운 조사방식이 늘어나면서, 무응답이 무작위가 아니라 특정 성향과 체계적으로 연관될 가능성을 어떻게 진단하고 보정할 것인지가 조사방법론 연구의 중요한 과제로 남아 있습니다.</p>
   <p>이 편향을 제대로 다루지 않으면 표본 자체는 커도 모집단을 대표하지 못하는 결과를 낳을 수 있어, 논문 심사에서도 응답률과 무응답 처리 방식이 자주 확인되는 항목입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>무응답편향은 조사 요청을 받고도 응답하지 않은(또는 일부 문항에 응답하지 않은) 사람이 응답한 사람과 다를 때, <strong>응답자만으로 계산한 결과가 모집단의 값에서 벗어나는 것</strong>입니다. 대상 전체의 응답 여부(단위 무응답)와 일부 문항 무응답(문항 무응답)을 구분합니다.</li><li>가장 단순한 결정론적 관계식은 다음과 같습니다. 응답자 평균을 Ȳ<sub>r</sub>, 무응답자 평균을 Ȳ<sub>m</sub>, 무응답 비율을 m이라 하면, 응답자 평균의 편향 ≈ m × (Ȳ<sub>r</sub> − Ȳ<sub>m</sub>) 입니다. 즉 편향은 <strong>무응답 비율</strong>과 <strong>응답자와 무응답자의 차이</strong> 둘 모두에 달려 있습니다.</li><li>Groves(2006)는 응답률과 무응답편향의 크기가 약하게만 관련된다고 정리했습니다. 응답률이 낮아도 응답 여부가 관심 변수와 무관하면 편향이 작을 수 있고, 응답률이 높아도 남은 무응답자가 크게 다르면 편향이 있을 수 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 조사입니다. 모집단 10,000명 중 60%(6,000명)는 A유형, 40%(4,000명)는 B유형입니다. “찬성” 비율은 A가 70%, B가 30%입니다. 응답률은 A가 20%, B가 60%입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유형</th><th>모집단</th><th>응답자</th><th>응답자 중 찬성</th></tr></thead><tbody><tr><td>A</td><td>6,000</td><td>1,200</td><td>840</td></tr><tr><td>B</td><td>4,000</td><td>2,400</td><td>720</td></tr><tr><td>합계</td><td>10,000</td><td>3,600(응답률 36%)</td><td>1,560</td></tr></tbody></table></div><p>실제 찬성은 (6,000×0.7 + 4,000×0.3) ÷ 10,000 = 54.0%인데, 응답자만 보면 1,560 ÷ 3,600 ≈ 43.3%입니다. 응답하지 않은 6,400명의 찬성은 60%이므로, 편향은 0.64 × (0.433 − 0.600) ≈ −0.107, 즉 약 −10.7%p입니다. 응답률이 36%여서가 아니라 응답 여부가 찬반과 관련된 유형에 달려 있기 때문에 생긴 왜곡입니다. 유형별 응답률을 알면 유형 비율로 가중해 보정할 수 있지만, 모르는 변수로 인한 무응답은 보정되지 않습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>응답률이 높으면 편향이 없다.</td><td>응답률은 편향의 크기와 약하게 관련됩니다. 남은 무응답자가 응답자와 크게 다르면 높은 응답률에서도 편향이 생깁니다(Groves, 2006).</td></tr><tr><td>표본이 크면 무응답편향이 줄어든다.</td><td>표본 크기를 키우면 무작위 오차는 줄지만 체계적 편향은 줄지 않습니다.</td></tr><tr><td>가중치를 주면 해결된다.</td><td>사후층화 가중치는 가중에 쓴 변수(연령, 성별 등)와 관련된 편향만 줄입니다. 가중치에 쓰지 않은 요인으로 응답이 갈린다면 남습니다.</td></tr><tr><td>응답자와 무응답자의 인구통계가 비슷하면 안전하다.</td><td>인구통계가 같아도 관심 변수의 응답 경향이 다를 수 있습니다.</td></tr><tr><td>늦게 응답한 사람은 무응답자와 비슷하다는 가정(웨이브 분석)이 늘 성립한다.</td><td>Armstrong과 Overton(1977)의 외삽 방법은 편의적 가정이며, 늦게 응답한 사람이 실제 무응답자와 다를 수 있습니다.</td></tr></tbody></table></div><p>줄이는 방법으로는 반복 연락과 다양한 응답 방식, 접촉 시점 조정, 무응답자 일부의 추적조사, 외부 통계(인구총조사 등)와 비교, 응답 확률 모형 기반 가중치 등이 있습니다(Groves 등, 2009).</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"전체 발송된 설문지 중 회수율이 32%에 그쳐, 무응답편향(non-response bias)의 가능성을 배제하기 어려우며 이는 결과의 일반화 가능성을 제한한다."</div>
   <p>이 문장은 응답률이 낮았기 때문에, 응답하지 않은 68%가 응답자와 체계적으로 다를 수 있고 그로 인해 조사 결과가 실제 모집단을 제대로 대표하지 못할 수 있다는 우려를 밝힌 것입니다.</p>
   <div class="example">"초기 응답자와 후기 응답자의 주요 변수를 비교하는 방식으로 무응답편향의 존재 가능성을 간접적으로 검토하였다."</div>
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>무응답편향은 연구가 시작된 후 참여자가 중도에 이탈해서 생기는 <a href="attrition-bias.html">탈락편향</a>과는 다릅니다. 무응답편향은 애초에 참여 요청 단계에서부터 응답 자체를 거부하거나 무시한 경우를 가리킵니다. <a href="response-rate.html">응답률</a>이 낮을수록 무응답편향의 위험이 커지므로, 후속 연락이나 무응답자 표본 비교 등의 보완 전략이 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>표본이 모집단과 어긋나는 이유는 단계마다 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">생기는 단계</th></tr></thead><tbody><tr><th scope="row">무응답편향</th><td>조사 요청에 응하지 않은 사람이 달라서 생기는 편향</td><td>조사 요청 후 응답 단계</td></tr><tr><th scope="row"><a href="response-rate.html">응답률</a></th><td>요청 대비 응답 비율</td><td>편향이 아니라 참여 정도를 나타내는 지표</td></tr><tr><th scope="row"><a href="attrition-bias.html">탈락편향</a></th><td>참여를 시작한 뒤 중도 이탈한 사람이 달라서 생기는 편향</td><td>추적 관찰 중</td></tr><tr><th scope="row"><a href="self-selection-bias.html">자기선택편향</a></th><td>참여 여부를 본인이 정해 생기는 선택편향</td><td>참여를 자원할 때</td></tr><tr><th scope="row"><a href="selection-bias.html">선택편향</a></th><td>연구 대상이 모집단을 대표하지 못하는 일반적 문제</td><td>표본 선정 전반</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Armstrong, J. S., &amp; Overton, T. S. (1977). Estimating nonresponse bias in mail surveys. Journal of Marketing Research, 14(3), 396–402.</li>
+    <li>Groves, R. M. (2006). Nonresponse rates and nonresponse bias in household surveys. Public Opinion Quarterly, 70(5), 646–675.</li>
+    <li>Groves, R. M., Fowler, F. J., Couper, M. P., Lepkowski, J. M., Singer, E., &amp; Tourangeau, R. (2009). Survey Methodology (2nd ed.). Wiley.</li>
+    <li>Lessler, J. T., &amp; Kalsbeek, W. D. (1992). Nonsampling Error in Surveys. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
