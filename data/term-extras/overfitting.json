@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>과적합은 모델이 학습 자료의 잡음까지 따라가서, 학습 자료에서는 잘 맞지만 새 자료에서는 오차가 커지는 현상입니다(Hastie 외, 2009). 모델이 복잡할수록(예: 다항식의 차수, 신경망의 크기) 학습 오차는 계속 줄어들지만 일반화 오차는 어느 지점부터 다시 커집니다.</p><ul><li>학습 곡선에서 학습 손실은 줄고 검증 손실은 늘어나기 시작하면 과적합이 의심됩니다.</li><li>대응: 더 많은 자료, 단순한 모델, 정규화(L1·L2), 조기 종료, 드롭아웃(Srivastava 외, 2014), 교차검증으로 복잡도 선택.</li><li>회귀 분석에서도 변수가 표본 수에 비해 많으면 같은 문제가 생깁니다(Babyak, 2004).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>코드로 만든 예(가상의 자료).</strong> y = sin(2πx) + 잡음(표준편차 0.2)에서 10개 점으로 다항식을 맞추고, 같은 분포에서 새로 뽑은 200개 점으로 평균제곱오차(MSE)를 비교했습니다(난수 시드 고정).</p><table><thead><tr><th>다항식 차수</th><th>학습 MSE</th><th>새 자료 MSE</th></tr></thead><tbody><tr><td>1</td><td>0.261</td><td>0.265</td></tr><tr><td>3</td><td>0.017</td><td>0.049</td></tr><tr><td>9</td><td>거의 0</td><td>0.110</td></tr></tbody></table><p>1차는 너무 단순해 학습·새 자료 오차가 둘 다 큽니다(과소적합). 9차는 10개 점을 거의 정확히 지나 학습 오차가 거의 0이지만 새 자료 오차는 3차의 두 배 이상입니다. 잡음의 분산이 0.04이므로 새 자료 오차 0.049는 이론상 한계에 가깝습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“학습 정확도가 높으면 좋은 모델”이 아닙니다.</strong> 반드시 학습에 쓰이지 않은 검증·시험 자료에서 성능을 확인합니다.</li><li><strong>시험 자료로 모델을 계속 고르면 시험 자료에도 과적합됩니다.</strong> 모델 선택용 검증 자료와 최종 평가용 시험 자료를 분리해야 합니다.</li><li><strong>복잡한 모델이 항상 과적합하는 것은 아닙니다.</strong> 자료가 충분하고 정규화가 적절하면 큰 모델도 일반화합니다. 문제는 복잡도 자체가 아니라 자료량 대비 복잡도입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "모델 복잡도와 오차의 관계에서 자주 함께 나오는 용어입니다.",
+    "headers": [
+      "용어",
+      "상태",
+      "학습 오차 / 새 자료 오차"
+    ],
+    "rows": [
+      [
+        "과소적합",
+        "모델이 너무 단순해 패턴을 못 잡음",
+        "둘 다 큼"
+      ],
+      [
+        "과적합(이 용어)",
+        "모델이 잡음까지 외움",
+        "작음 / 큼"
+      ],
+      [
+        "[[cross-validation|교차검증]]",
+        "자료를 나눠 일반화 성능을 추정하는 방법",
+        "과적합을 점검하는 도구"
+      ]
+    ]
+  },
+  "references": [
+    "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.",
+    "Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine Learning Research, 15, 1929–1958.",
+    "Babyak, M. A. (2004). What you see may not be what you get: a brief, nontechnical introduction to overfitting in regression-type models. Psychosomatic Medicine, 66(3), 411–421."
+  ]
+}

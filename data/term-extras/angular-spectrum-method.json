@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>각스펙트럼법은 평면 z = 0의 복소 광장 U(x, y, 0)를 푸리에 변환해 평면파 성분으로 나누고, 각 성분에 전파 위상을 곱한 뒤 역변환해 z 위치의 광장을 얻는 계산입니다(Goodman, 2005).</p><ol><li>푸리에 변환: <code>A(f<sub>x</sub>, f<sub>y</sub>) = FFT{U(x, y, 0)}</code></li><li>전달 함수 곱하기: <code>H = exp[ i·2π·z·√(1/λ² − f<sub>x</sub>² − f<sub>y</sub>²) ]</code> (f<sub>x</sub>² + f<sub>y</sub>² &lt; 1/λ²인 성분)</li><li>역변환: <code>U(x, y, z) = IFFT{A · H}</code></li></ol><p>f<sub>x</sub>² + f<sub>y</sub>² &gt; 1/λ²인 성분은 진행하지 못하고 거리에 따라 지수적으로 줄어드는 소멸파(evanescent wave)가 됩니다. 프레넬 근사를 쓰지 않으므로 근거리에서도 쓸 수 있다는 점이 장점입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>샘플링으로 본 한계(가상의 값).</strong> 픽셀 간격 Δx = 5 µm, 파장 λ = 633 nm로 샘플링하면 표현 가능한 최대 공간 주파수는 1/(2Δx) = 100 mm⁻¹입니다. 이 성분의 진행 방향은 sin θ = λf = 0.0633, 즉 약 3.63°이므로, 샘플링된 장은 광축에서 약 3.6° 이내로 퍼지는 성분만 담을 수 있습니다(코드 계산). 이 범위를 넘는 회절은 표현되지 않으며, 전파 거리가 길어지면 전달 함수의 위상이 샘플링 한계를 넘어 빠르게 진동해 에일리어싱이 생길 수 있습니다. 이를 줄이려고 전달 함수의 대역을 제한하는 방법이 제안되었습니다(Matsushima &amp; Shimobaba, 2009).</p><ul><li><strong>쓰이는 곳</strong>: 디지털 홀로그램의 재생(임의 거리 초점), 근거리 회절 계산, 광학 소자 설계.</li><li><strong>얻는 것</strong>: FFT 두 번으로 한 평면에서 다른 평면의 장을 구합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>파장, 샘플 간격, 격자 크기 N, 전파 거리 z, 제로 패딩 여부를 적습니다.</li><li>일반 각스펙트럼법을 썼는지 대역 제한 방식을 썼는지 구분해 적고, 에일리어싱 점검(샘플링 조건) 결과를 함께 제시합니다.</li><li>결과를 실험이나 다른 회절 계산(프레넬·레일리-좀머펠트 적분 등)과 비교했다면 그 오차를 보고합니다.</li></ul><p><code>파장 633 nm, 샘플 간격 5 µm, 격자 4096×4096에서 각스펙트럼법으로 20 mm 전파시킨 장을 계산하였다.</code> (형식을 보여 주려는 가상의 문장입니다.)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "회절 계산법은 가정하는 조건이 다릅니다.",
+    "headers": [
+      "방법",
+      "핵심 가정",
+      "적합한 거리"
+    ],
+    "rows": [
+      [
+        "각스펙트럼법",
+        "평면파로 분해해 각각 전파(근축 근사 불필요)",
+        "근거리부터 원거리까지"
+      ],
+      [
+        "프레넬 근사",
+        "근축 근사",
+        "근거리 회절의 근사 영역"
+      ],
+      [
+        "[[fraunhofer-diffraction|프라운호퍼 회절]]",
+        "관측 거리가 충분히 먼 원거리 극한",
+        "원거리"
+      ]
+    ]
+  },
+  "references": [
+    "Goodman, J. W. (2005). Introduction to Fourier Optics (3rd ed.). Roberts & Company.",
+    "Matsushima, K., & Shimobaba, T. (2009). Band-limited angular spectrum method for numerical simulation of free-space propagation in far and near fields. Optics Express, 17(22), 19662–19673."
+  ]
+}

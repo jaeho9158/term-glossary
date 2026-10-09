@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/overfitting.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,28 @@
   <p>과적합은 모델이 실제 배포 환경에서 얼마나 신뢰할 수 있는지를 좌우하는 문제이기 때문에, 새로운 모델 구조나 학습 기법을 제안하는 거의 모든 머신러닝 논문에서 반드시 짚고 넘어가는 핵심 검증 항목입니다.</p>
   <p>특히 딥러닝처럼 파라미터 수가 매우 많은 모델일수록 과적합 위험이 커지므로, 정규화·드롭아웃·조기종료 같은 기법의 효과를 입증할 때 과적합 여부가 핵심 비교 기준이 됩니다. 또한 의료·금융처럼 오판의 비용이 큰 응용 분야에서는 과적합된 모델이 실제 서비스에서 심각한 오류를 낼 수 있어 더욱 엄격하게 검증됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>과적합은 모델이 학습 자료의 잡음까지 따라가서, 학습 자료에서는 잘 맞지만 새 자료에서는 오차가 커지는 현상입니다(Hastie 외, 2009). 모델이 복잡할수록(예: 다항식의 차수, 신경망의 크기) 학습 오차는 계속 줄어들지만 일반화 오차는 어느 지점부터 다시 커집니다.</p><ul><li>학습 곡선에서 학습 손실은 줄고 검증 손실은 늘어나기 시작하면 과적합이 의심됩니다.</li><li>대응: 더 많은 자료, 단순한 모델, 정규화(L1·L2), 조기 종료, 드롭아웃(Srivastava 외, 2014), 교차검증으로 복잡도 선택.</li><li>회귀 분석에서도 변수가 표본 수에 비해 많으면 같은 문제가 생깁니다(Babyak, 2004).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>코드로 만든 예(가상의 자료).</strong> y = sin(2πx) + 잡음(표준편차 0.2)에서 10개 점으로 다항식을 맞추고, 같은 분포에서 새로 뽑은 200개 점으로 평균제곱오차(MSE)를 비교했습니다(난수 시드 고정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>다항식 차수</th><th>학습 MSE</th><th>새 자료 MSE</th></tr></thead><tbody><tr><td>1</td><td>0.261</td><td>0.265</td></tr><tr><td>3</td><td>0.017</td><td>0.049</td></tr><tr><td>9</td><td>거의 0</td><td>0.110</td></tr></tbody></table></div><p>1차는 너무 단순해 학습·새 자료 오차가 둘 다 큽니다(과소적합). 9차는 10개 점을 거의 정확히 지나 학습 오차가 거의 0이지만 새 자료 오차는 3차의 두 배 이상입니다. 잡음의 분산이 0.04이므로 새 자료 오차 0.049는 이론상 한계에 가깝습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“학습 정확도가 높으면 좋은 모델”이 아닙니다.</strong> 반드시 학습에 쓰이지 않은 검증·시험 자료에서 성능을 확인합니다.</li><li><strong>시험 자료로 모델을 계속 고르면 시험 자료에도 과적합됩니다.</strong> 모델 선택용 검증 자료와 최종 평가용 시험 자료를 분리해야 합니다.</li><li><strong>복잡한 모델이 항상 과적합하는 것은 아닙니다.</strong> 자료가 충분하고 정규화가 적절하면 큰 모델도 일반화합니다. 문제는 복잡도 자체가 아니라 자료량 대비 복잡도입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“모델의 과적합 문제를 해결하기 위해 K-fold cross validation 방법을 사용하여 모델을 평가하였다.”</blockquote><p class="te-cite">항공기 날개의 통계적 중량 예측식 도출 연구, 한국항공우주학회지, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002305056" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 논문의 두 번째 목적은, 이러한 모형 선정의 원칙에 대한 이해를 바탕으로, 현재 심리학 분야에서 주어진 데이터에 대한 “철저한” 분석 관행이 초래하는 과적합(overfitting) 문제와 그 해결 방안을 논의하는 데 있다.”</blockquote><p class="te-cite">빅 데이터와 기계 학습의 시대 심리학 연구 모형의 평가 원칙과 방법, 한국심리학회지:일반, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002788965" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"학습 정확도는 99%에 달했으나 검증 데이터에서는 72%로 크게 떨어져 모델이 과적합된 것으로 판단하였다."</div>
   <p>학습에 쓴 데이터에서는 거의 완벽하게 맞혔지만, 처음 보는 데이터에서는 성능이 크게 나빠졌다는 뜻입니다.</p>
 
@@ -166,6 +188,19 @@
 
   <h2>주의할 점</h2>
   <p>학습 데이터에서의 높은 정확도만 보고 모델 성능이 좋다고 판단해서는 안 되며, 반드시 학습에 쓰이지 않은 별도의 검증·테스트 데이터에서의 성능을 함께 확인해야 합니다. 과적합 여부를 확인하는 대표적인 방법 중 하나가 교차검증입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>모델 복잡도와 오차의 관계에서 자주 함께 나오는 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">상태</th><th scope="col">학습 오차 / 새 자료 오차</th></tr></thead><tbody><tr><th scope="row">과소적합</th><td>모델이 너무 단순해 패턴을 못 잡음</td><td>둘 다 큼</td></tr><tr><th scope="row">과적합(이 용어)</th><td>모델이 잡음까지 외움</td><td>작음 / 큼</td></tr><tr><th scope="row"><a href="cross-validation.html">교차검증</a></th><td>자료를 나눠 일반화 성능을 추정하는 방법</td><td>과적합을 점검하는 도구</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
+    <li>Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., &amp; Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine Learning Research, 15, 1929–1958.</li>
+    <li>Babyak, M. A. (2004). What you see may not be what you get: a brief, nontechnical introduction to overfitting in regression-type models. Psychosomatic Medicine, 66(3), 411–421.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
