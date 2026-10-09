@@ -158,7 +158,28 @@
   <p>F1 하나만 적지 말고 혼동행렬 또는 정밀도·재현율을 함께 싣고, 어느 클래스를 양성으로 봤는지, 다중분류라면 평균 방식(macro/micro/weighted)을 밝힙니다. 교차검증을 썼다면 평균과 변동(표준편차)도 적습니다. (수치는 위의 작은 예입니다.)</p><p><code>시험 집합(n = 1,000)에서 양성 클래스의 정밀도는 .80, 재현율은 .67, F1은 .73이었다(TP = 40, FP = 10, FN = 20, TN = 930).</code></p><p>한국어 논문에서는 “정밀도, 재현율, F1-score로 성능을 비교하였다”처럼 표로 모델별 값을 나란히 싣는 형식이 흔합니다. 이때 분류 문턱값(보통 0.5)을 바꾸면 정밀도·재현율·F1이 모두 달라지므로, 문턱값을 어떻게 정했는지와 검증 집합을 따로 썼는지도 한 줄 적어 두는 것이 좋습니다. 데이터가 매우 불균형하면 F1과 함께 AUC나 마튜스 상관계수(MCC)를 보고하는 연구도 많습니다.</p>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>혼동행렬의 TP(진양성), FP(위양성), FN(위음성)에서 계산합니다.</p><p><code>정밀도 P = TP / (TP + FP), 재현율 R = TP / (TP + FN)<br>F1 = 2PR / (P + R) = 2TP / (2TP + FP + FN)</code></p><ul><li><strong>범위</strong>: 0~1(또는 0~100%). 정밀도와 재현율이 모두 1일 때만 1이고, 진양성이 하나도 없으면 0입니다.</li><li>조화평균이라 한쪽이 낮으면 크게 끌려 내려갑니다. 정밀도 1.0, 재현율 0.1이면 산술평균은 0.55지만 F1은 약 0.18입니다.</li><li>식에 TN(진음성)이 없습니다. 음성이 아무리 많아도, 아무리 잘 맞혀도 F1은 변하지 않습니다.</li><li><strong>일반형</strong> F<sub>β</sub> = (1 + β²)PR / (β²P + R): β &gt; 1이면 재현율을, β &lt; 1이면 정밀도를 더 중시합니다(F2, F0.5 등).</li></ul><p><strong>작은 예.</strong> 1,000건 중 실제 양성 60건에서 모델이 50건을 양성으로 예측해 TP = 40, FP = 10, FN = 20, TN = 930이라면 P = 40/50 = .80, R = 40/60 ≈ .67, F1 = 2 × 40 / (80 + 10 + 20) ≈ <strong>.73</strong>입니다. 정확도는 (40 + 930)/1,000 = .97로 훨씬 높게 나오는데, 음성이 대부분이라 정확도가 후하게 나오기 때문입니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>F1에는 Cohen의 d나 카파처럼 널리 합의된 등급표가 <strong>없습니다</strong>. 논문에서 보이는 “0.8 이상이면 양호” 같은 말은 분야와 과제에 따라 달라지는 관행일 뿐이며, 같은 F1이라도 양성 비율(유병률)과 과제 난이도에 따라 의미가 전혀 다릅니다. 따라서 문턱값 대신 <em>비교 기준</em>을 세워서 읽습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>비교 기준</th><th>설명</th></tr></thead><tbody><tr><td>모두 양성으로 예측하는 모델</td><td>양성 비율이 π일 때 F1 = 2π/(1 + π). 예: 양성 4%이면 약 0.08. 이보다 확실히 높아야 합니다.</td></tr><tr><td>모두 음성으로 예측하는 모델</td><td>진양성이 없으므로 F1 = 0 (정확도는 높게 나올 수 있음)</td></tr><tr><td>선행 연구·기존 방법</td><td>같은 자료·같은 분할에서 비교한 값이어야 의미가 있음</td></tr><tr><td>사람 평가자 간 일치</td><td>사람끼리의 일치도가 모델 성능의 현실적 상한인 경우가 많음</td></tr></tbody></table></div><p>클래스가 둘 이상이면 평균 방식에 따라 값이 달라집니다. 매크로 F1(클래스별 F1의 단순 평균)은 작은 클래스를 똑같이 중시하고, 마이크로 F1(전체 TP·FP·FN을 합쳐 계산, 단일 레이블 다중분류에서는 정확도와 같음)은 큰 클래스가 지배하며, 가중 F1은 클래스 크기로 가중 평균합니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>F1 하나만 적지 말고 혼동행렬 또는 정밀도·재현율을 함께 싣고, 어느 클래스를 양성으로 봤는지, 다중분류라면 평균 방식(macro/micro/weighted)을 밝힙니다. 교차검증을 썼다면 평균과 변동(표준편차)도 적습니다. (수치는 위의 작은 예입니다.)</p><p><code>시험 집합(n = 1,000)에서 양성 클래스의 정밀도는 .80, 재현율은 .67, F1은 .73이었다(TP = 40, FP = 10, FN = 20, TN = 930).</code></p><p>한국어 논문에서는 “정밀도, 재현율, F1-score로 성능을 비교하였다”처럼 표로 모델별 값을 나란히 싣는 형식이 흔합니다. 이때 분류 문턱값(보통 0.5)을 바꾸면 정밀도·재현율·F1이 모두 달라지므로, 문턱값을 어떻게 정했는지와 검증 집합을 따로 썼는지도 한 줄 적어 두는 것이 좋습니다. 데이터가 매우 불균형하면 F1과 함께 AUC나 마튜스 상관계수(MCC)를 보고하는 연구도 많습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“분석 결과, 성숙기에 해당하는 7월 영상에서 분광각 기반의 SAM 알고리즘이 정밀도 약 81%, 재현율 약 94%, F1-Score 약 87%로 가장 우수한 성능을 보였다.”</blockquote><p class="te-cite">다중시기 원격탐사자료를 활용한 생물계절학 기반 외래식물 탐지 - 공주 공산성의 아까시나무를 대상으로 -, 헤리티지:역사와 과학, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003244882" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“F1-score로 선정된 언어 모델의 개체명 인식성능과 태그별 인식률을 비교하고 오류 분석을 하였다.”</blockquote><p class="te-cite">한국어 생의학 개체명 인식 성능 비교와 오류 분석, 한국전자통신학회 논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003115216" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -186,6 +207,20 @@
   <h2>헷갈리기 쉬운 용어</h2>
   <p>분류 성능 지표는 이름이 비슷하고, 같은 대상을 다른 이름으로 부르기도 합니다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">계산</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="accuracy.html">정확도</a></th><td>(TP + TN) / 전체</td><td>음성이 많으면 후하게 나옴, 불균형 자료에 취약</td></tr><tr><th scope="row"><a href="precision.html">정밀도</a></th><td>TP / (TP + FP)</td><td>양성이라고 한 것 중 진짜 양성 비율</td></tr><tr><th scope="row"><a href="recall.html">재현율</a> = 민감도</th><td>TP / (TP + FN)</td><td>진짜 양성 중 찾아낸 비율. 의학에서는 ‘민감도’(<a href="sensitivity-specificity.html">민감도와 특이도</a>)</td></tr><tr><th scope="row"><a href="f1-score.html">F1 점수</a></th><td>2PR / (P + R)</td><td>정밀도와 재현율의 조화평균, TN을 보지 않음</td></tr><tr><th scope="row"><a href="f-measure.html">F-measure</a></th><td>Fβ 계열의 총칭</td><td>F1은 β = 1인 특수한 경우</td></tr><tr><th scope="row"><a href="auc-roc.html">AUC</a></th><td>ROC 곡선 아래 면적</td><td>문턱값과 무관하게 순위 능력을 평가</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>van Rijsbergen, C. J. (1979). Information Retrieval (2nd ed.). Butterworths.</li>
+    <li>Sokolova, M., &amp; Lapalme, G. (2009). A systematic analysis of performance measures for classification tasks. Information Processing &amp; Management, 45(4), 427–437.</li>
+    <li>Powers, D. M. W. (2011). Evaluation: From precision, recall and F-measure to ROC, informedness, markedness and correlation. Journal of Machine Learning Technologies, 2(1), 37–63.</li>
+    <li>Chicco, D., &amp; Jurman, G. (2020). The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation. BMC Genomics, 21, 6.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>분류 성능 지표는 이름이 비슷하고, 같은 대상을 다른 이름으로 부르기도 합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">계산</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="accuracy.html">정확도</a></th><td>(TP + TN) / 전체</td><td>음성이 많으면 후하게 나옴, 불균형 자료에 취약</td></tr><tr><th scope="row"><a href="precision.html">정밀도</a></th><td>TP / (TP + FP)</td><td>양성이라고 한 것 중 진짜 양성 비율</td></tr><tr><th scope="row"><a href="recall.html">재현율</a> = 민감도</th><td>TP / (TP + FN)</td><td>진짜 양성 중 찾아낸 비율. 의학에서는 ‘민감도’(<a href="sensitivity-specificity.html">민감도와 특이도</a>)</td></tr><tr><th scope="row"><strong>F1 점수</strong></th><td>2PR / (P + R)</td><td>정밀도와 재현율의 조화평균, TN을 보지 않음</td></tr><tr><th scope="row"><a href="f-measure.html">F-measure</a></th><td>Fβ 계열의 총칭</td><td>F1은 β = 1인 특수한 경우</td></tr><tr><th scope="row"><a href="auc-roc.html">AUC</a></th><td>ROC 곡선 아래 면적</td><td>문턱값과 무관하게 순위 능력을 평가</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>van Rijsbergen, C. J. (1979). Information Retrieval (2nd ed.). Butterworths.</li>

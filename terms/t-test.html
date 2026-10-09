@@ -164,7 +164,29 @@
   <p>검정 종류, t 값과 자유도, p, 평균·표준편차, 효과크기와 신뢰구간을 적습니다. (위 가상 자료 기준)</p><p><code>A군(M = 5.53, SD = 0.51)은 B군(M = 4.65, SD = 0.33)보다 점수가 유의하게 높았다, 독립표본 t(14) = 4.05, p = .001, 평균 차이 = 0.88, 95% CI [0.41, 1.34], d = 2.02.</code></p><ul><li>양측/단측 여부를 밝힙니다. 단측검정은 방향을 미리 정당화해야 합니다.</li><li>자유도가 소수이면 웰치 검정입니다. 소프트웨어 표에서 ‘등분산을 가정함/가정하지 않음’ 중 어느 행을 읽었는지 적습니다.</li><li>대응표본에서는 차이 점수의 평균·SD와 효과크기 종류(d<sub>z</sub> 등)를 밝히고, 효과크기와 신뢰구간을 p와 함께 제시합니다(Lakens, 2013).</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>평균이 기준값이나 다른 평균과 다른지, 그 차이가 우연으로 설명될 수 있는지를 t분포로 판단합니다. 세 가지 형태가 있습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>형태</th><th>비교 대상</th><th>예</th><th>비모수 대안</th></tr></thead><tbody><tr><td><a href="one-sample-t-test.html">단일표본</a></td><td>표본 평균 대 기준값</td><td>평균이 100점과 다른가</td><td>부호 검정, 윌콕슨</td></tr><tr><td>독립표본(Student, <a href="welchs-t-test.html">Welch</a>)</td><td>서로 다른 두 집단</td><td>약 투여군 대 위약군</td><td><a href="mann-whitney-u-test.html">맨-휘트니 U</a></td></tr><tr><td><a href="paired-t-test.html">대응표본</a></td><td>같은 대상의 두 측정</td><td>수술 전후 혈압</td><td><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위</a></td></tr></tbody></table></div><ul><li>가정: 관측치의 독립(대응표본은 짝 사이만 연결), 단일·독립표본은 값이 대략 정규분포, 독립표본(Student)은 두 집단의 분산이 같음. 대응표본은 <em>차이 점수</em>가 대략 정규일 때입니다.</li><li>표본이 크면 정규성에서 다소 벗어나도 결과가 크게 흔들리지 않는 편입니다. 사전에 정규성 검정으로 분기하는 방식은 오히려 문제를 일으킬 수 있다는 지적이 있어(Rochon 외, 2012), 분산이 다를 수 있으면 처음부터 웰치 검정을 쓰는 것이 권장됩니다(Delacre 외, 2017).</li><li>세 집단 이상을 t검정 여러 번으로 비교하면 1종 오류가 쌓이므로 <a href="anova.html">분산분석</a>을 씁니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p><strong>독립표본(가상).</strong> A군 5.1, 4.8, 6.0, 5.5, 5.9, 6.2, 5.0, 5.7 (평균 5.53, SD 0.51), B군 4.2, 4.6, 5.1, 4.4, 4.9, 5.0, 4.3, 4.7 (평균 4.65, SD 0.33). 평균 차이 0.875를 표준오차 0.216으로 나누면 t = 4.05이고 자유도 8 + 8 − 2 = 14, p = .001입니다. 95% 신뢰구간은 0.875 ± 2.145 × 0.216 = [0.41, 1.34], 합동 SD 기준 d = 2.02입니다. 자유도 14의 양측 5% 임계값은 2.145이므로 |t| = 4.05는 그보다 훨씬 큽니다.</p><p><strong>대응표본(가상).</strong> 8명의 처치 전 142, 150, 138, 160, 155, 147, 152, 149와 후 136, 147, 135, 153, 150, 143, 146, 145. 개인별 차이 점수의 평균 4.75, SD 1.49이므로 t(7) = 4.75 / (1.49/√8) = 9.03, p &lt; .001입니다. 전후 값의 상관이 .98로 매우 높아 개인차가 차이 점수에서 상쇄됩니다. <strong>같은 자료를 독립표본 t검정으로 잘못 분석하면</strong> t(14) = 1.43, p = .17로 유의하지 않게 나옵니다. 설계에 맞는 검정을 골라야 하는 이유입니다.</p><p><strong>단일표본(가상).</strong> 10명의 점수 평균 103.7, SD 3.89를 기준값 100과 비교하면 t(9) = 3.01, p = .015입니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>검정 종류, t 값과 자유도, p, 평균·표준편차, 효과크기와 신뢰구간을 적습니다. (위 가상 자료 기준)</p><p><code>A군(M = 5.53, SD = 0.51)은 B군(M = 4.65, SD = 0.33)보다 점수가 유의하게 높았다, 독립표본 t(14) = 4.05, p = .001, 평균 차이 = 0.88, 95% CI [0.41, 1.34], d = 2.02.</code></p><ul><li>양측/단측 여부를 밝힙니다. 단측검정은 방향을 미리 정당화해야 합니다.</li><li>자유도가 소수이면 웰치 검정입니다. 소프트웨어 표에서 ‘등분산을 가정함/가정하지 않음’ 중 어느 행을 읽었는지 적습니다.</li><li>대응표본에서는 차이 점수의 평균·SD와 효과크기 종류(d<sub>z</sub> 등)를 밝히고, 효과크기와 신뢰구간을 p와 함께 제시합니다(Lakens, 2013).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“집단 간 비교는 범주형 변수의 분포 차이를 확인하기 위 해 카이제곱 검정(χ 2 test)을 실시하였으며, 연속형 변수는 독립 표본 t-검정을 사용하여 두 집단(예: 자녀 연령 3–4세와 5–6세 이상)의 평균 차이를 분석하였다.”</blockquote><p class="te-cite">유아교육기관의 식생활•영양교육에 대한 학부모의 요구도와 인식도: 혼합연구, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094132" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“액상형과 정제형 착색제 간 착색 능력의 차이는 각 치면 에서 산출된 PHP index를 대응표본 t-검정으로 비교 분석하였으며, 대립가설은 ‘액상형과 정제형 치면 착색제의 PHP index에는 차이가 있다’로 설정하였다.”</blockquote><p class="te-cite">액상형과 정제형 치면세균막 착색제의 착색 능력 비교, Journal of Korean Academy of Oral Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095125" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“인구통계학적 변인의 동질성을 확인하기 위 해 카이제곱 검정 및 독립표본 t-검정을 실시한 결과, 두 집단 간에 통계적으로 유의한 차이가 발견되지 않아(p＞0.05) 표 본의 동질성이 확보되었다.”</blockquote><p class="te-cite">장기 입원 정신장애 환자를 위한 구조화된 사이코드라마의 효과: 예비 연구, Korean Journal of Schizophrenia Research, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095760" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -192,6 +214,21 @@
 
   <h2>주의할 점</h2>
   <p>t검정은 원칙적으로 비교 대상이 두 집단일 때 사용합니다. 세 집단 이상을 비교하면서 t검정을 여러 번 반복하면 1종 오류가 누적되므로, 이런 경우에는 <a href="anova.html">분산분석</a>을 사용하는 것이 적절합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>t검정이라는 이름 아래에 설계가 다른 검정들이 모여 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">자료의 구조</th><th scope="col">자유도</th></tr></thead><tbody><tr><th scope="row">단일표본 t검정</th><td>한 집단, 기준값과 비교</td><td>n − 1</td></tr><tr><th scope="row">독립표본 t검정(Student)</th><td>두 독립 집단, 등분산 가정</td><td>n₁ + n₂ − 2</td></tr><tr><th scope="row"><a href="welchs-t-test.html">웰치 t검정</a></th><td>두 독립 집단, 분산이 달라도 됨</td><td>웰치-새터스웨이트 근사(소수)</td></tr><tr><th scope="row">대응표본 t검정</th><td>같은 대상의 두 측정(짝)</td><td>짝의 수 − 1</td></tr></tbody></table></div>
+  <p class="te-note">‘t검정’이라는 이름은 검정통계량이 따르는 t분포에서 온 것이며, 이 분포는 윌리엄 고셋이 ‘Student’라는 필명으로 1908년에 발표했습니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Student. (1908). The probable error of a mean. Biometrika, 6(1), 1–25.</li>
+    <li>Rochon, J., Gondan, M., &amp; Kieser, M. (2012). To test or not to test: Preliminary assessment of normality when comparing two independent samples. BMC Medical Research Methodology, 12, 81.</li>
+    <li>Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863.</li>
+    <li>Delacre, M., Lakens, D., &amp; Leys, C. (2017). Why psychologists should by default use Welch’s t-test instead of Student’s t-test. International Review of Social Psychology, 30(1), 92–101.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

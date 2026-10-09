@@ -164,7 +164,29 @@
   <p>APA 양식에서는 집단별 중앙값과 표본 수, 검정통계량, p, 효과크기를 함께 적습니다. (아래 수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>실험집단(Mdn = 12.0, n = 25)의 점수가 통제집단(Mdn = 9.5, n = 24)보다 유의하게 높았다, U = 180.0, z = −2.40, p = .016, r = .34.</code></p><p>한국어 논문에서는 보통 “정규성 검정(Shapiro-Wilk) 결과 정규분포 가정이 충족되지 않아 맨-휘트니 U 검정을 실시하였다”처럼 <strong>왜 비모수 검정을 골랐는지</strong>를 방법 절에 한 줄 적고, 결과 표에는 집단별 평균 순위(mean rank)나 중앙값을 함께 싣습니다. 표본이 작다면 정확 유의확률을 썼는지 밝히는 것이 좋습니다.</p>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>서로 다른 두 집단(독립표본)의 결과값을 비교하고 싶은데, 정규분포 가정을 믿기 어렵거나 값이 서열(예: 5점 척도 하나의 문항)일 때 씁니다. 표본이 작거나 이상치가 있을 때 독립표본 t검정의 대안으로 자주 선택됩니다.</p><ul><li>두 집단의 관측치가 서로 독립이어야 합니다(같은 사람을 두 번 잰 자료는 해당되지 않습니다).</li><li>종속변수가 적어도 서열 수준이어야 합니다.</li><li>두 집단의 분포 <strong>모양</strong>이 비슷하다고 볼 수 있을 때에 한해 “중앙값 차이”로 읽을 수 있습니다. 모양이 다르면 “한 집단 값이 더 클 확률”로 읽는 것이 정확합니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 검정</th></tr></thead><tbody><tr><td>독립 두 집단, 정규성 가정 가능</td><td><a href="t-test.html">독립표본 t검정</a></td></tr><tr><td>독립 두 집단, 정규성 가정 어렵거나 서열 자료</td><td>맨-휘트니 U 검정</td></tr><tr><td>같은 대상을 두 번 측정(대응)</td><td><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a></td></tr><tr><td>독립 세 집단 이상</td><td><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li><strong>U</strong>: 한 집단 값이 다른 집단 값보다 큰 짝의 수(동점은 0.5로 셉니다). 두 집단의 U₁과 U₂를 더하면 n₁×n₂가 되며, 보통 둘 중 작은 값을 보고합니다.</li><li><strong>z</strong>: 표본이 어느 정도 크면 U를 정규분포로 근사해 구한 값입니다. 평균은 n₁n₂/2, 분산은 n₁n₂(n₁+n₂+1)/12이며, 동점이 많으면 보정이 필요합니다.</li><li><strong>p</strong>: 두 분포에 차이가 없다는 귀무가설 아래에서 이만큼 극단적인 U가 나올 확률입니다. 표본이 아주 작으면 근사 대신 <em>정확 유의확률</em>을 씁니다.</li><li><strong>효과크기</strong>: r = |z|/√N이 흔히 쓰이며(대략 .1 작음, .3 중간, .5 큼은 Cohen의 관례), 순위 이연상관 r = 2U₁/(n₁n₂) − 1이나 “한 집단이 더 클 확률” U₁/(n₁n₂)도 보고합니다.</li></ul><p>통계 프로그램 출력의 ‘윌콕슨 W’는 두 집단 중 한쪽의 순위합일 뿐이며, 윌콕슨 부호순위검정과는 다른 검정입니다. SPSS는 이 표에서 U, W, Z, 근사 유의확률(양측)을 함께 보여 줍니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>APA 양식에서는 집단별 중앙값과 표본 수, 검정통계량, p, 효과크기를 함께 적습니다. (아래 수치는 형식을 보여 주려는 가상의 값입니다.)</p><p><code>실험집단(Mdn = 12.0, n = 25)의 점수가 통제집단(Mdn = 9.5, n = 24)보다 유의하게 높았다, U = 180.0, z = −2.40, p = .016, r = .34.</code></p><p>한국어 논문에서는 보통 “정규성 검정(Shapiro-Wilk) 결과 정규분포 가정이 충족되지 않아 맨-휘트니 U 검정을 실시하였다”처럼 <strong>왜 비모수 검정을 골랐는지</strong>를 방법 절에 한 줄 적고, 결과 표에는 집단별 평균 순위(mean rank)나 중앙값을 함께 싣습니다. 표본이 작다면 정확 유의확률을 썼는지 밝히는 것이 좋습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“연속형 변수는 Shapiro-Wilk test에서 정규성을 따르지 않아 Mann-Whitney U test를 이용하여 비교하였고 범주형 변수는 카이제곱검정을 이용하였다.”</blockquote><p class="te-cite">갑상선결절의 초음파 영상에서 인공지능을 이용한 병변 국소화, International Journal of Thyroidology, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516093548" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“먼저, 맨 휘트니 U검정으로 프로그램 시행 전 실험집단과 통제집단의 사전 동질성 검정 결과, 사회적 관심, 생활양식, 심리적 안녕감 척도 모두 실험집단과 통제집단의 유의한 차이를 보이지 않았다.”</blockquote><p class="te-cite">대학생을 위한 초강인해(초기기억 속에 숨은 강점 찾아 인생과제 해결하기) 집단프로그램 개발 및 효과: 개인심리학과 긍정심리학 통합 접근, 인문사회 21, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002867812" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“각 변수가 아동학대 가해행위와 관련성이 있는지는 검증하기 위해 Mann–Whitney U Test 분석방법을통해 아동학대 가해집단과 비가해 집단을 비교하였다.”</blockquote><p class="te-cite">근거기반실천을 위한 사회과학 및 의학의 학제간 융합적 검증방안 연구 : 북한이탈가정의 아동학대를 중심으로, 공공정책연구(구 법정리뷰), 2020 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002672048" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -193,6 +215,21 @@
   <h2>헷갈리기 쉬운 용어</h2>
   <p>이름이 비슷한 세 순위 검정은 ‘몇 집단을 어떤 설계로 비교하느냐’로 갈립니다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">비교 대상</th><th scope="col">설계</th><th scope="col">대응하는 모수 검정</th></tr></thead><tbody><tr><th scope="row"><a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a></th><td>두 집단</td><td>서로 독립</td><td>독립표본 t검정</td></tr><tr><th scope="row"><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a></th><td>두 시점·두 조건</td><td>같은 대상(대응)</td><td><a href="paired-t-test.html">대응표본 t검정</a></td></tr><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></th><td>세 집단 이상</td><td>서로 독립</td><td><a href="anova.html">일원분산분석</a></td></tr></tbody></table></div>
+  <p class="te-note">‘윌콕슨 순위합 검정’은 맨-휘트니 U 검정과 수학적으로 같은 검정의 다른 이름입니다. ‘윌콕슨 부호순위검정’과 이름만 비슷할 뿐 다른 검정입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Mann, H. B., &amp; Whitney, D. R. (1947). On a test of whether one of two random variables is stochastically larger than the other. Annals of Mathematical Statistics, 18(1), 50–60.</li>
+    <li>Wilcoxon, F. (1945). Individual comparisons by ranking methods. Biometrics Bulletin, 1(6), 80–83.</li>
+    <li>Hart, A. (2001). Mann-Whitney test is not just a test of medians: differences in spread can be important. BMJ, 323(7309), 391–393.</li>
+    <li>Fagerland, M. W., &amp; Sandvik, L. (2009). The Wilcoxon–Mann–Whitney test under scrutiny. Statistics in Medicine, 28(10), 1487–1497.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷한 세 순위 검정은 ‘몇 집단을 어떤 설계로 비교하느냐’로 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">비교 대상</th><th scope="col">설계</th><th scope="col">대응하는 모수 검정</th></tr></thead><tbody><tr><th scope="row"><strong>맨-휘트니 U 검정</strong></th><td>두 집단</td><td>서로 독립</td><td>독립표본 t검정</td></tr><tr><th scope="row"><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a></th><td>두 시점·두 조건</td><td>같은 대상(대응)</td><td><a href="paired-t-test.html">대응표본 t검정</a></td></tr><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></th><td>세 집단 이상</td><td>서로 독립</td><td><a href="anova.html">일원분산분석</a></td></tr></tbody></table></div>
   <p class="te-note">‘윌콕슨 순위합 검정’은 맨-휘트니 U 검정과 수학적으로 같은 검정의 다른 이름입니다. ‘윌콕슨 부호순위검정’과 이름만 비슷할 뿐 다른 검정입니다.</p>
   <h2>참고 문헌</h2>
   <ol class="te-refs">

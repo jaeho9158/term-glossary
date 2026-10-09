@@ -164,7 +164,24 @@
   <ul><li><strong>“밀도 함수 값이 확률이다”</strong>: 연속형 PDF의 값은 확률이 아니라 밀도이므로 1보다 클 수 있습니다. 확률은 PDF를 구간에서 적분한 값, 즉 CDF의 차이입니다.</li><li><strong>“CDF는 정규분포에만 있다”</strong>: 모든 확률변수에 정의됩니다. 이산형이면 계단 모양입니다.</li><li><strong>“연속형에서 P(X = x)는 아주 작은 양수다”</strong>: 정확히 0입니다. 그래서 연속형에서는 “x 이하”와 “x 미만”이 같지만, 이산형에서는 다릅니다.</li><li><strong>“CDF는 ‘이상’을 센다”</strong>: CDF는 항상 “이하” 확률입니다. “초과”는 1 − F(x)이고, 생존분석에서는 이를 생존함수 S(x)라 부릅니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>확률변수 X의 누적분포함수(CDF) <code>F(x) = P(X ≤ x)</code>는 이산형이든 연속형이든 모든 확률변수에 정의됩니다.</p><ul><li><strong>성질</strong>: 감소하지 않고(단조 증가), 오른쪽에서 연속이며, x → −∞에서 0, x → +∞에서 1입니다.</li><li><strong>구간 확률</strong>: P(a &lt; X ≤ b) = F(b) − F(a).</li><li><strong>연속형</strong>: F′(x) = f(x)(확률밀도함수). P(X = x) = 0이므로 P(X ≤ x) = P(X &lt; x).</li><li><strong>이산형</strong>: 확률질량이 있는 점마다 점프하는 계단 함수입니다. 점프의 크기가 그 값의 확률입니다.</li><li><strong>역함수</strong> F⁻¹(q)는 분위수함수입니다. 백분위수, 신뢰구간의 임계값, 난수 생성(역변환법)에 쓰입니다.</li><li><strong>경험적 누적분포함수</strong>(ECDF)는 표본에서 “x 이하인 비율”로, 콜모고로프–스미르노프 검정은 ECDF와 이론 CDF의 최대 차이를 통계량으로 씁니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(공식에서 직접 계산) 몇 가지 분포의 값입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>분포</th><th>질문</th><th>계산</th><th>값</th></tr></thead><tbody><tr><td>공정한 주사위</td><td>P(X ≤ 3)</td><td>F(3) = 3/6</td><td>0.500</td></tr><tr><td>표준정규분포</td><td>P(Z ≤ 1.96)</td><td>Φ(1.96)</td><td>0.9750</td></tr><tr><td>표준정규분포</td><td>P(−1 &lt; Z ≤ 1)</td><td>Φ(1) − Φ(−1)</td><td>0.6827</td></tr><tr><td>지수분포(λ = 0.5)</td><td>P(X ≤ 2)</td><td>F(x) = 1 − e<sup>−λx</sup></td><td>0.6321</td></tr><tr><td>지수분포(λ = 0.5)</td><td>P(1 &lt; X ≤ 3)</td><td>F(3) − F(1)</td><td>0.3834</td></tr></tbody></table></div><p>역으로 Φ⁻¹(.975) = 1.96이므로 “정규분포에서 누적확률 97.5%가 되는 값이 1.96”입니다. 양측 95% 신뢰구간에 1.96이 쓰이는 이유가 이것입니다. p값도 검정통계량의 CDF에서 읽습니다. 양측검정이면 p = 2 × (1 − F(|t|))입니다(대칭 분포).</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“밀도 함수 값이 확률이다”</strong>: 연속형 PDF의 값은 확률이 아니라 밀도이므로 1보다 클 수 있습니다. 확률은 PDF를 구간에서 적분한 값, 즉 CDF의 차이입니다.</li><li><strong>“CDF는 정규분포에만 있다”</strong>: 모든 확률변수에 정의됩니다. 이산형이면 계단 모양입니다.</li><li><strong>“연속형에서 P(X = x)는 아주 작은 양수다”</strong>: 정확히 0입니다. 그래서 연속형에서는 “x 이하”와 “x 미만”이 같지만, 이산형에서는 다릅니다.</li><li><strong>“CDF는 ‘이상’을 센다”</strong>: CDF는 항상 “이하” 확률입니다. “초과”는 1 − F(x)이고, 생존분석에서는 이를 생존함수 S(x)라 부릅니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -185,6 +202,19 @@
 
   <h2>주의할 점</h2>
   <p>CDF는 확률밀도함수(PDF)나 확률질량함수(PMF)와 헷갈리기 쉽지만 서로 다른 개념입니다. PDF/PMF 값 자체는 "그 지점에서의 확률(밀도)"이고, CDF 값은 "그 지점까지 누적된 확률"입니다. 예를 들어 연속형 변수에서는 PDF의 특정 지점 값이 1보다 클 수도 있지만, CDF 값은 언제나 0과 1 사이에 머무릅니다. 이 둘을 <a href="probability-mass-density-function.html">확률질량함수와 확률밀도함수</a>와 함께 비교해서 이해하면 혼동을 줄일 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>분포를 나타내는 함수들은 “무엇을 쌓는가”로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">값이 뜻하는 것</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row">누적분포함수(CDF)</th><td>X가 x 이하일 확률</td><td>0 ~ 1, 단조 증가</td></tr><tr><th scope="row"><a href="probability-mass-density-function.html">확률질량·밀도함수</a></th><td>한 점의 확률(이산) 또는 밀도(연속)</td><td>질량은 0~1, 밀도는 1보다 클 수 있음</td></tr><tr><th scope="row"><a href="empirical-distribution-function.html">경험적 누적분포함수</a></th><td>표본에서 x 이하인 비율</td><td>0 ~ 1, 계단 모양</td></tr><tr><th scope="row"><a href="percentile.html">백분위수</a></th><td>CDF의 역함수가 주는 값</td><td>자료의 단위</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Casella, G., &amp; Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.</li>
+    <li>Wasserman, L. (2004). All of Statistics: A Concise Course in Statistical Inference. Springer.</li>
+    <li>Ross, S. M. (2014). A First Course in Probability (9th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

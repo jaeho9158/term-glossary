@@ -166,7 +166,27 @@
   <ul><li>K의 값, 층화 여부, 반복 횟수, 난수 시드, 평가 지표를 적습니다.</li><li>전처리와 변수·조율값 선택이 폴드 안에서 이루어졌는지 명시합니다. 모형 선택까지 했다면 중첩 교차검증 사용 여부를 적습니다.</li><li>폴드별 결과를 모두 제시하거나 평균과 표준편차(폴드 간 변동)를 제시합니다. 예: <code>5-폴드 교차검증에서 RMSE는 평균 1.08(폴드 간 SD = 0.19)이었다.</code> (위 가상의 예 기준입니다.)</li><li>교차검증은 같은 자료 안의 평가이므로 완전히 새로운 자료(외적 타당도)의 성능을 보장하지 않습니다. 가능하면 독립적인 검증 자료의 결과를 함께 제시합니다.</li><li>같은 자료에서 모형 여러 개를 비교해 가장 좋은 값을 보고할 때는 비교한 모형 수를 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>예측모형이 <strong>새로운 자료에서 얼마나 잘 맞을지</strong>를 추정하거나, 여러 모형·조율값 중 하나를 고를 때 씁니다. 모형을 만든 바로 그 자료로 성능을 재면 과적합 때문에 성능이 과대평가되므로(<a href="overfitting.html">과적합</a>), 모형을 만들 때 쓰지 않은 자료로 평가하려는 방법입니다(Stone, 1974; Geisser, 1975).</p><ul><li>절차: ① 자료를 비슷한 크기의 K개 부분(폴드)으로 무작위로 나눕니다. ② 한 폴드를 검증용으로 빼 두고 나머지 K − 1개로 모형을 적합합니다. ③ 빼 둔 폴드에서 예측 오차를 계산합니다. ④ 이를 K번 돌려 오차를 평균합니다.</li><li>K = 5나 10이 관행적으로 많이 쓰입니다. K가 클수록 훈련 자료가 커져 편향이 작지만 계산이 늘고 분산이 커질 수 있습니다(Hastie 외, 2009). K를 표본 수로 하면 한 개 빼기 교차검증(LOOCV)입니다.</li><li>분류에서 집단 비율이 치우쳤으면 폴드마다 비율을 맞추는 층화 교차검증을, 같은 사람의 여러 관측이나 시간 순서가 있는 자료는 그 구조를 깨지 않는 분할(집단별/시간순)을 씁니다.</li><li>교차검증은 우연히 더 좋은 모형을 고르는 과정에서도 같은 자료를 쓰므로, 모형 선택과 최종 성능 평가를 모두 해야 하면 <strong>중첩 교차검증</strong>을 씁니다(Varma &amp; Simon, 2006).</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li>폴드마다 얻은 오차(RMSE, 정확도 등)와 그 평균이 나옵니다. 평균을 모형의 일반화 성능 추정치로 읽습니다.</li><li>폴드 간 표준편차는 성능 추정의 불안정함을 보여 주지만, 폴드들이 훈련 자료를 공유하므로 이 값으로 계산한 표준오차나 신뢰구간은 <strong>참 불확실성보다 작을 수 있습니다</strong>. K-겹 교차검증 추정치의 분산에 대해서는 어떤 경우에나 통하는 불편추정량이 존재하지 않는다는 결과도 있습니다(Bengio &amp; Grandvalet, 2004).</li><li>분할을 무작위로 하므로 같은 자료도 분할이 달라지면 결과가 조금 바뀝니다. 분할을 여러 번 반복하는 반복 교차검증이 흔합니다.</li><li><strong>자료 누수(data leakage)</strong>가 가장 흔한 실수입니다. 변수 선택, 표준화, 결측 대체, 조율값 선택을 전체 자료로 먼저 하고 그 뒤에 교차검증하면 검증 폴드의 정보가 훈련에 새어 들어갑니다(<a href="data-leakage.html">자료 누수</a>). 이런 전처리는 매 폴드의 훈련 부분 안에서 해야 합니다.</li></ul><p><strong>작은 예 1</strong>(컴퓨터로 만든 가상의 자료, n = 100, 설명변수 3개): 5-폴드로 나눈 선형회귀의 폴드별 RMSE는 0.84, 1.27, 0.92, 1.22, 1.14로 평균 1.08, 폴드 간 표준편차 0.19입니다. 다른 무작위 분할로 20번 반복하면 평균이 1.08~1.13 사이에서 움직였습니다.</p><p><strong>작은 예 2</strong>(누수): 무작위 잡음 변수 200개와 무관한 결과변수가 있는 n = 40 자료에서 결과변수와 상관이 가장 큰 변수 5개를 전체 자료로 먼저 고른 뒤 5-폴드 평가를 하면 평균제곱오차가 0.62로, 아무 정보도 쓰지 않을 때의 기준(결과변수 분산 0.65)보다 좋아 보입니다. 변수 선택을 폴드 안에서 하면 1.15로 기준보다 나쁩니다. 한 번의 모의실험이지만 잡음에서 성능이 만들어진 것처럼 보이는 위험을 잘 보여 줍니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>K의 값, 층화 여부, 반복 횟수, 난수 시드, 평가 지표를 적습니다.</li><li>전처리와 변수·조율값 선택이 폴드 안에서 이루어졌는지 명시합니다. 모형 선택까지 했다면 중첩 교차검증 사용 여부를 적습니다.</li><li>폴드별 결과를 모두 제시하거나 평균과 표준편차(폴드 간 변동)를 제시합니다. 예: <code>5-폴드 교차검증에서 RMSE는 평균 1.08(폴드 간 SD = 0.19)이었다.</code> (위 가상의 예 기준입니다.)</li><li>교차검증은 같은 자료 안의 평가이므로 완전히 새로운 자료(외적 타당도)의 성능을 보장하지 않습니다. 가능하면 독립적인 검증 자료의 결과를 함께 제시합니다.</li><li>같은 자료에서 모형 여러 개를 비교해 가장 좋은 값을 보고할 때는 비교한 모형 수를 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“모델의 과적합 문제를 해결하기 위해 K-fold cross validation 방법을 사용하여 모델을 평가하였다.”</blockquote><p class="te-cite">항공기 날개의 통계적 중량 예측식 도출 연구, 한국항공우주학회지, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002305056" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -196,6 +216,20 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">어떻게 나누나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="k-fold-cross-validation.html">K-겹 교차검증</a></th><td>K등분, 돌아가며 검증</td><td>모든 관측이 한 번씩 검증에 쓰임. 안정적</td></tr><tr><th scope="row">단순 분할(홀드아웃)</th><td>훈련/검증 한 번</td><td>간단하지만 어떻게 나누느냐에 결과가 크게 좌우</td></tr><tr><th scope="row">한 개 빼기(LOOCV)</th><td>K = n</td><td>편향 작지만 계산 많고 분산이 클 수 있음</td></tr><tr><th scope="row"><a href="cross-validation.html">교차검증</a></th><td>K-겹 등을 포함한 총칭</td><td>검증용 자료를 바꿔 가며 예측 성능을 추정</td></tr><tr><th scope="row"><a href="bias-variance-tradeoff.html">편향-분산 상충</a></th><td>—</td><td>K를 고를 때 편향과 분산이 맞바뀌는 이유</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Stone, M. (1974). Cross-validatory choice and assessment of statistical predictions. Journal of the Royal Statistical Society: Series B, 36(2), 111–147.</li>
+    <li>Geisser, S. (1975). The predictive sample reuse method with applications. Journal of the American Statistical Association, 70(350), 320–328.</li>
+    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
+    <li>Varma, S., &amp; Simon, R. (2006). Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics, 7, 91.</li>
+    <li>Bengio, Y., &amp; Grandvalet, Y. (2004). No unbiased estimator of the variance of K-fold cross-validation. Journal of Machine Learning Research, 5, 1089–1105.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">어떻게 나누나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><strong>K-겹 교차검증</strong></th><td>K등분, 돌아가며 검증</td><td>모든 관측이 한 번씩 검증에 쓰임. 안정적</td></tr><tr><th scope="row">단순 분할(홀드아웃)</th><td>훈련/검증 한 번</td><td>간단하지만 어떻게 나누느냐에 결과가 크게 좌우</td></tr><tr><th scope="row">한 개 빼기(LOOCV)</th><td>K = n</td><td>편향 작지만 계산 많고 분산이 클 수 있음</td></tr><tr><th scope="row"><a href="cross-validation.html">교차검증</a></th><td>K-겹 등을 포함한 총칭</td><td>검증용 자료를 바꿔 가며 예측 성능을 추정</td></tr><tr><th scope="row"><a href="bias-variance-tradeoff.html">편향-분산 상충</a></th><td>—</td><td>K를 고를 때 편향과 분산이 맞바뀌는 이유</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Stone, M. (1974). Cross-validatory choice and assessment of statistical predictions. Journal of the Royal Statistical Society: Series B, 36(2), 111–147.</li>

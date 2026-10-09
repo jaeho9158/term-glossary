@@ -56,9 +56,12 @@ function termExists(slug) {
 }
 
 // [[slug|라벨]] → 용어 페이지 링크. 없는 슬러그는 오류(깨진 링크 방지).
+// 자기 자신을 가리키는 링크는 링크 없이 굵게만 표시한다(applyToHtml 이 currentSlug 를 정한다).
+let currentSlug = null;
 function linkify(html) {
   return html.replace(/\[\[([a-z0-9-]+)\|([^\]]+)\]\]/g, (m, slug, label) => {
     if (!termExists(slug)) throw new Error(`존재하지 않는 용어 링크: ${slug}`);
+    if (slug === currentSlug) return `<strong>${label}</strong>`;
     return `<a href="${slug}.html">${label}</a>`;
   });
 }
@@ -185,6 +188,7 @@ function insertBeforeLine(html, needle, text) {
 
 // 순수 함수: 페이지 HTML 에 extras/usage 를 반영한 새 HTML (앵커가 없으면 null).
 function applyToHtml(html, slug, extras, usage) {
+  currentSlug = slug;
   validateExtras(extras, slug);
   let out = stripAll(html);
   for (const f of extras.fixes || []) {

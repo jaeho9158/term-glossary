@@ -160,7 +160,27 @@
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>H₀를 기각했으니 H₁(연구가설)이 증명되었다.</td><td>H₀를 기각하면 H₁을 지지하는 증거가 생길 뿐이며, 연구가설이 맞다는 증명은 아닙니다. 표본 선정, 측정, 교란 등 다른 설명이 남아 있을 수 있습니다.</td></tr><tr><td>H₀를 기각하지 못했으니 H₀가 참이다.</td><td>검정력이 낮거나 표본이 작으면 실제 효과도 놓칩니다. 동등성을 보이려면 동등성 검정이나 신뢰구간을 이용합니다.</td></tr><tr><td>p값이 .03이면 H₀가 참일 확률이 3%다.</td><td>p는 H₀가 참이라는 전제 아래 자료의 드문 정도를 나타낼 뿐, H₀ 자체가 참일 확률이 아닙니다.</td></tr><tr><td>귀무가설은 항상 ‘차이가 0’이다.</td><td>가장 흔한 형태일 뿐입니다. “평균이 100이다”, “효과가 임상적으로 의미 있는 최소 크기 이하이다” 같은 귀무가설도 있습니다.</td></tr><tr><td>귀무가설 검정만 하면 연구가 끝난다.</td><td>유의 여부 외에 효과의 크기와 불확실성(효과크기, 신뢰구간)을 보고하는 것이 현재의 권고입니다.</td></tr></tbody></table></div>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>귀무가설(H₀)은 검정이 <strong>일단 참이라고 가정하고 출발하는 가설</strong>입니다. 보통 “차이가 없다, 효과가 없다, 관계가 없다(모수가 0이다)”의 형태입니다.</li><li>대립가설(H₁)은 H₀가 틀렸을 때 받아들이는 쪽, 대개 연구자가 보이고 싶은 주장입니다. “두 집단의 평균이 다르다(양측)”, “A가 B보다 크다(단측)” 등으로 씁니다.</li><li>검정은 “H₀가 참이라면 이 정도 자료는 얼마나 드문가”를 계산(<a href="p-value.html">p값</a>)해서, 충분히 드물면(p가 유의수준 α보다 작으면) H₀를 기각합니다.</li><li>결론은 두 가지뿐입니다: <strong>H₀ 기각</strong> 또는 <strong>H₀ 기각 실패</strong>. “H₀를 채택한다/증명했다”는 표현은 피합니다.</li><li>가설은 자료를 보기 전에 세웁니다. 결과를 본 뒤에 가설을 바꾸면 p값의 의미가 깨집니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>현실 \ 판정</th><th>H₀ 기각</th><th>H₀ 기각 실패</th></tr></thead><tbody><tr><td>H₀가 참</td><td><a href="type-1-error.html">1종 오류</a> (확률 ≤ α)</td><td>옳은 판정</td></tr><tr><td>H₀가 거짓</td><td>옳은 판정 (<a href="statistical-power.html">검정력</a> = 1 − β)</td><td><a href="type-2-error.html">2종 오류</a> (확률 β)</td></tr></tbody></table></div>
+
+  <h2>예시로 보기</h2>
+  <p>동전 하나를 10번 던져 앞면이 9번 나왔다고 해 봅시다.</p><ol><li>H₀: 이 동전은 공정하다(앞면 확률 = .5). H₁: 공정하지 않다(앞면 확률 ≠ .5, 양측).</li><li>H₀가 참이라면 앞면이 9번 이상 또는 1번 이하 나올 확률은 2 × 11/1,024 ≈ .021입니다.</li><li>사전에 α = .05로 정했다면 .021 &lt; .05이므로 H₀를 기각합니다. “이 자료는 공정한 동전이라고 보기에는 드문 결과다”라는 뜻입니다.</li><li>α를 .01로 정했다면 기각하지 못합니다. 같은 자료도 기준에 따라 결론이 달라지므로 α는 분석 전에 정해야 합니다.</li></ol><p>만약 10번 중 6번 앞면이 나왔다면 p는 .75 정도로 커서 기각하지 못합니다. 이때 “동전이 공정함이 증명되었다”가 아니라 “공정하지 않다고 할 근거가 부족하다”로 읽어야 합니다. 겨우 10번의 시행으로는 약간 치우친 동전도 걸러 내지 못하기 때문입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>H₀를 기각했으니 H₁(연구가설)이 증명되었다.</td><td>H₀를 기각하면 H₁을 지지하는 증거가 생길 뿐이며, 연구가설이 맞다는 증명은 아닙니다. 표본 선정, 측정, 교란 등 다른 설명이 남아 있을 수 있습니다.</td></tr><tr><td>H₀를 기각하지 못했으니 H₀가 참이다.</td><td>검정력이 낮거나 표본이 작으면 실제 효과도 놓칩니다. 동등성을 보이려면 동등성 검정이나 신뢰구간을 이용합니다.</td></tr><tr><td>p값이 .03이면 H₀가 참일 확률이 3%다.</td><td>p는 H₀가 참이라는 전제 아래 자료의 드문 정도를 나타낼 뿐, H₀ 자체가 참일 확률이 아닙니다.</td></tr><tr><td>귀무가설은 항상 ‘차이가 0’이다.</td><td>가장 흔한 형태일 뿐입니다. “평균이 100이다”, “효과가 임상적으로 의미 있는 최소 크기 이하이다” 같은 귀무가설도 있습니다.</td></tr><tr><td>귀무가설 검정만 하면 연구가 끝난다.</td><td>유의 여부 외에 효과의 크기와 불확실성(효과크기, 신뢰구간)을 보고하는 것이 현재의 권고입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“크루스칼 왈리스 일원배치 분산분석 결과. 6가지의 경쟁력 요소 중 품질 경쟁력과 마케팅 경쟁력이 유의수준 .05 하에서 귀무가설을 기각시킴에 두 경쟁력의 효율성 분포가 다름을 알 수 있었다.”</blockquote><p class="te-cite">제4차 산업혁명시대의 벤처기업 성과 측정 연구: 소프트웨어 벤처 기업의 효율성 측정을 중심으로, 기업가정신과 벤처연구, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002494928" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -187,6 +207,20 @@
   <h2>헷갈리기 쉬운 용어</h2>
   <p>가설검정에는 비슷하게 생긴 용어가 모여 있습니다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">정하는 시점</th></tr></thead><tbody><tr><th scope="row"><a href="null-hypothesis.html">귀무가설(H₀)</a></th><td>일단 참이라고 가정하고 기각 여부를 따지는 가설(보통 효과 없음)</td><td>분석 전</td></tr><tr><th scope="row">대립가설(H₁)</th><td>H₀가 기각될 때 받아들이는 가설, 연구가설과 같은 경우가 많음</td><td>분석 전</td></tr><tr><th scope="row"><a href="significance-level.html">유의수준(α)</a></th><td>H₀가 참일 때 잘못 기각해도 좋다고 허용하는 확률</td><td>분석 전</td></tr><tr><th scope="row"><a href="p-value.html">유의확률(p)</a></th><td>H₀가 참일 때 관측값 이상으로 극단적인 결과가 나올 확률</td><td>분석 후(자료에서 계산)</td></tr><tr><th scope="row"><a href="hypothesis-testing.html">가설검정</a></th><td>위 요소를 모아 기각 여부를 결정하는 절차 전체</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fisher, R. A. (1935). The Design of Experiments. Oliver and Boyd.</li>
+    <li>Neyman, J., &amp; Pearson, E. S. (1933). On the problem of the most efficient tests of statistical hypotheses. Philosophical Transactions of the Royal Society of London, Series A, 231, 289–337.</li>
+    <li>Gigerenzer, G. (2004). Mindless statistics. The Journal of Socio-Economics, 33(5), 587–606.</li>
+    <li>Lehmann, E. L., &amp; Romano, J. P. (2005). Testing Statistical Hypotheses (3rd ed.). Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>가설검정에는 비슷하게 생긴 용어가 모여 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">정하는 시점</th></tr></thead><tbody><tr><th scope="row"><strong>귀무가설(H₀)</strong></th><td>일단 참이라고 가정하고 기각 여부를 따지는 가설(보통 효과 없음)</td><td>분석 전</td></tr><tr><th scope="row">대립가설(H₁)</th><td>H₀가 기각될 때 받아들이는 가설, 연구가설과 같은 경우가 많음</td><td>분석 전</td></tr><tr><th scope="row"><a href="significance-level.html">유의수준(α)</a></th><td>H₀가 참일 때 잘못 기각해도 좋다고 허용하는 확률</td><td>분석 전</td></tr><tr><th scope="row"><a href="p-value.html">유의확률(p)</a></th><td>H₀가 참일 때 관측값 이상으로 극단적인 결과가 나올 확률</td><td>분석 후(자료에서 계산)</td></tr><tr><th scope="row"><a href="hypothesis-testing.html">가설검정</a></th><td>위 요소를 모아 기각 여부를 결정하는 절차 전체</td><td>—</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Fisher, R. A. (1935). The Design of Experiments. Oliver and Boyd.</li>

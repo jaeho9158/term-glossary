@@ -159,7 +159,24 @@
   <ul><li>어떤 강건 추정법(Huber, bisquare, MM 등)과 조율상수, 사용한 프로그램을 적습니다.</li><li>최소제곱 결과와 강건회귀 결과를 나란히 제시하고, 주요 계수의 부호·크기·유의성이 일관한지 서술합니다. 예: <code>최소제곱과 MM-추정에서 주요 계수의 방향과 유의성이 같았다(표 3).</code> (형식을 보여 주는 가상의 문장입니다.)</li><li>이상치를 확인한 방법과, 제외하지 않고 강건회귀로 다루었다면 그 이유를 밝힙니다.</li><li>“강건”은 이상치에 대한 성질이며, 모형이 틀렸거나 인과 해석이 잘못된 문제까지 해결하지 않습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>회귀분석에서 소수의 이상한 값이 회귀선을 끌고 가는 것이 걱정될 때, 또는 최소제곱 결과가 이상치에 좌우되지 않는지 확인하고 싶을 때 씁니다.</p><ul><li>최소제곱법은 잔차를 제곱해 더하므로 멀리 떨어진 점의 영향이 큽니다. 강건회귀는 큰 잔차의 영향을 줄입니다.</li><li>이상치가 입력 오류인지 실제 현상인지 먼저 확인하는 것이 순서입니다(<a href="outlier.html">이상치</a>, <a href="cooks-distance.html">쿡의 거리</a>). 오류면 고치는 것이 맞고, 실제 값이면 지우는 대신 강건회귀를 쓰거나 두 결과를 함께 보고할 수 있습니다.</li><li>사용 목적은 보통 “이상치를 자동 제거”가 아니라 <strong>민감도 분석</strong>(결론이 이상치에 의존하는지 확인)입니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>핵심</th></tr></thead><tbody><tr><td>M-추정(Huber, 1964 등)</td><td>잔차가 큰 관측치에 낮은 가중치를 주어 반복 계산. 이상치에 강하지만 x 방향의 극단값에는 약함</td></tr><tr><td>LMS/LTS(Rousseeuw, 1984)</td><td>잔차의 중앙값(또는 작은 잔차 일부)을 최소화. 높은 붕괴점을 가지지만 효율이 낮음</td></tr><tr><td>MM-추정(Yohai, 1987)</td><td>높은 붕괴점과 높은 효율을 함께 겨냥한 방법</td></tr></tbody></table></div><p><strong>붕괴점</strong>은 추정치를 임의로 망가뜨리는 데 필요한 오염 자료의 최소 비율입니다. 최소제곱은 하나의 이상한 값으로 망가질 수 있어 붕괴점이 사실상 0이고, LMS·LTS는 최대 약 50%입니다(Rousseeuw &amp; Leroy, 1987).</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li>계수 표는 일반 회귀와 같은 모양(추정치, 표준오차, 검정통계량)이지만, 각 관측치에 최종 <strong>가중치</strong>가 붙습니다. 가중치가 1보다 많이 작은 관측치가 이상치 후보입니다.</li><li>Huber 방법의 조율상수는 1.345를 쓰는 경우가 많습니다. 오차가 정규분포일 때 최소제곱 대비 약 95%의 효율을 내도록 정한 값입니다(Huber, 1981). 값이 작을수록 이상치에 더 강하지만 정상 자료에서의 효율이 떨어집니다.</li><li>최소제곱과 강건회귀의 계수가 비슷하면 이상치가 결과를 좌우하지 않는다는 뜻이고, 크게 다르면 어떤 관측치가 영향을 미치는지 따로 살펴야 합니다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료, n = 12): 참 관계는 y = 2 + 1.5x에 오차를 더한 것입니다. 정상 자료의 최소제곱 기울기는 1.557입니다. 마지막 점(x = 12)의 y값을 25만큼 낮추어 이상치를 만들면 최소제곱 기울기는 <strong>0.596</strong>으로 무너지지만, Huber M-추정은 <strong>1.373</strong>으로 참값에 가깝게 남습니다(그 점의 최종 가중치는 .07). 반면 x가 극단적으로 큰 곳(x = 40)에 회귀선에서 벗어난 점을 하나 놓으면 최소제곱 0.382, Huber 0.367로 둘 다 크게 틀립니다. M-추정은 y 방향 이상치에는 강하지만 x 방향 극단점(나쁜 레버리지점)에는 약하다는 한계를 보여 줍니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>어떤 강건 추정법(Huber, bisquare, MM 등)과 조율상수, 사용한 프로그램을 적습니다.</li><li>최소제곱 결과와 강건회귀 결과를 나란히 제시하고, 주요 계수의 부호·크기·유의성이 일관한지 서술합니다. 예: <code>최소제곱과 MM-추정에서 주요 계수의 방향과 유의성이 같았다(표 3).</code> (형식을 보여 주는 가상의 문장입니다.)</li><li>이상치를 확인한 방법과, 제외하지 않고 강건회귀로 다루었다면 그 이유를 밝힙니다.</li><li>“강건”은 이상치에 대한 성질이며, 모형이 틀렸거나 인과 해석이 잘못된 문제까지 해결하지 않습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -184,6 +201,20 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 바꾸나</th></tr></thead><tbody><tr><th scope="row"><a href="robust-regression.html">강건회귀</a></th><td>계수를 추정하는 방식 자체를 바꿔 이상치 영향을 줄임</td></tr><tr><th scope="row"><a href="robust-standard-errors.html">강건표준오차</a></th><td>계수 추정치는 그대로 두고 표준오차 계산만 이분산 등에 대비해 보정</td></tr><tr><th scope="row"><a href="quantile-regression.html">분위수 회귀</a></th><td>평균 대신 조건부 분위수(중앙값 등)를 모형화. 중앙값 회귀는 이상치에 덜 민감</td></tr><tr><th scope="row"><a href="weighted-least-squares.html">가중최소제곱</a></th><td>미리 정한 가중치로 추정. 강건회귀는 가중치를 자료에서 반복해 정함</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Huber, P. J. (1981). Robust Statistics. Wiley.</li>
+    <li>Rousseeuw, P. J. (1984). Least median of squares regression. Journal of the American Statistical Association, 79(388), 871–880.</li>
+    <li>Rousseeuw, P. J., &amp; Leroy, A. M. (1987). Robust Regression and Outlier Detection. Wiley.</li>
+    <li>Yohai, V. J. (1987). High breakdown-point and high efficiency robust estimates for regression. The Annals of Statistics, 15(2), 642–656.</li>
+    <li>Maronna, R. A., Martin, R. D., &amp; Yohai, V. J. (2006). Robust Statistics: Theory and Methods. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 바꾸나</th></tr></thead><tbody><tr><th scope="row"><strong>강건회귀</strong></th><td>계수를 추정하는 방식 자체를 바꿔 이상치 영향을 줄임</td></tr><tr><th scope="row"><a href="robust-standard-errors.html">강건표준오차</a></th><td>계수 추정치는 그대로 두고 표준오차 계산만 이분산 등에 대비해 보정</td></tr><tr><th scope="row"><a href="quantile-regression.html">분위수 회귀</a></th><td>평균 대신 조건부 분위수(중앙값 등)를 모형화. 중앙값 회귀는 이상치에 덜 민감</td></tr><tr><th scope="row"><a href="weighted-least-squares.html">가중최소제곱</a></th><td>미리 정한 가중치로 추정. 강건회귀는 가중치를 자료에서 반복해 정함</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Huber, P. J. (1981). Robust Statistics. Wiley.</li>

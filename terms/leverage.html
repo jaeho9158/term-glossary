@@ -160,7 +160,24 @@
   <p>레버리지 값 자체를 표로 싣기보다 “레버리지가 높은 관측치가 있는지 확인하고, 있다면 제외 전후의 결과를 비교하였다”는 식으로 진단 결과를 서술합니다. (아래는 형식을 보여 주는 가상의 문장입니다.)</p><p><code>레버리지가 3p/n를 넘는 관측치 1건(ID 17)이 있어 쿡의 거리를 확인하였다(D = 0.04). 이 관측치를 제외해도 회귀계수의 방향과 유의성은 달라지지 않았다.</code></p><ul><li>높은 레버리지 관측치를 이유 없이 삭제하면 안 됩니다. 입력 오류가 아니라면 포함한 결과와 제외한 결과를 모두 제시하는 것이 안전합니다.</li><li>재무에서 쓰는 “레버리지(부채비율, 영업레버리지)”와는 전혀 다른 개념입니다. 통계의 레버리지는 지렛대처럼 회귀선을 끌어당기는 힘을 뜻합니다.</li><li>소프트웨어에 따라 “중심화된 레버리지”(평균에서의 거리만, 1/n을 뺀 값)를 보여 주는 경우도 있으니 정의를 확인합니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>다중회귀 y = Xβ + ε에서 예측값은 ŷ = Hy이고, <strong>H = X(X′X)⁻¹X′</strong>를 햇 행렬(hat matrix)이라 합니다. 레버리지는 그 대각원소 h<sub>ii</sub>로, “관측값 y<sub>i</sub>가 자신의 예측값 ŷ<sub>i</sub>를 얼마나 끌어당기는가”를 뜻합니다(ŷ<sub>i</sub> = h<sub>ii</sub>y<sub>i</sub> + 다른 항).</p><ul><li><strong>범위</strong>: 1/n ≤ h<sub>ii</sub> ≤ 1(절편 포함 모형). 값이 클수록 그 점의 설명변수 값이 다른 점들의 중심에서 멀리 떨어져 있습니다.</li><li><strong>합</strong>: Σh<sub>ii</sub> = p(절편 포함 계수의 수). 그래서 평균 레버리지는 p/n입니다.</li><li>단순회귀에서는 h<sub>ii</sub> = 1/n + (x<sub>i</sub> − x̄)² / Σ(x<sub>j</sub> − x̄)²입니다.</li><li>레버리지는 <strong>설명변수 X만</strong>으로 정해집니다. y값은 관여하지 않습니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>흔한 경험칙은 h<sub>ii</sub> &gt; 2p/n(Hoaglin &amp; Welsch, 1978) 또는 3p/n를 “높다”고 보는 것입니다. 절대 기준이 아니고 점검할 후보를 추리는 선입니다. 레버리지가 높다고 곧 문제인 것은 아닙니다. 영향력은 <strong>레버리지 × 잔차</strong>의 결과이며, 쿡의 거리 D<sub>i</sub> = r<sub>i</sub>² · h<sub>ii</sub> / [p(1 − h<sub>ii</sub>)] (r<sub>i</sub>는 표준화 잔차)로 합칩니다.</p><p>(가상의 예, 직접 계산) x = 1~9와 x = 20인 점 하나, 모두 10개 점입니다. 단순회귀(p = 2)에서 x = 20인 점의 레버리지는 0.794로, 기준 2p/n = 0.40과 3p/n = 0.60을 모두 넘습니다(나머지 점은 0.101~0.215). y만 달리하여 두 경우를 비교합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x = 20인 점의 y</th><th>회귀 기울기</th><th>그 점의 잔차</th><th>그 점의 쿡의 거리</th></tr></thead><tbody><tr><td>18.5 (나머지 점의 추세선 위)</td><td>0.904</td><td>-0.004</td><td>0.000</td></tr><tr><td>8.0 (추세에서 크게 벗어남)</td><td>0.364</td><td>-2.164</td><td>13.71</td></tr></tbody></table></div><p>나머지 9개 점만으로 구한 기울기는 0.905입니다. 레버리지가 같은 점이 추세선 위에 있으면 기울기를 거의 바꾸지 않지만, 벗어나 있으면 기울기를 0.36으로 끌어내립니다. 레버리지는 “끌어당길 힘”이고, 실제 영향은 잔차와 합쳐서 봅니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>레버리지 값 자체를 표로 싣기보다 “레버리지가 높은 관측치가 있는지 확인하고, 있다면 제외 전후의 결과를 비교하였다”는 식으로 진단 결과를 서술합니다. (아래는 형식을 보여 주는 가상의 문장입니다.)</p><p><code>레버리지가 3p/n를 넘는 관측치 1건(ID 17)이 있어 쿡의 거리를 확인하였다(D = 0.04). 이 관측치를 제외해도 회귀계수의 방향과 유의성은 달라지지 않았다.</code></p><ul><li>높은 레버리지 관측치를 이유 없이 삭제하면 안 됩니다. 입력 오류가 아니라면 포함한 결과와 제외한 결과를 모두 제시하는 것이 안전합니다.</li><li>재무에서 쓰는 “레버리지(부채비율, 영업레버리지)”와는 전혀 다른 개념입니다. 통계의 레버리지는 지렛대처럼 회귀선을 끌어당기는 힘을 뜻합니다.</li><li>소프트웨어에 따라 “중심화된 레버리지”(평균에서의 거리만, 1/n을 뺀 값)를 보여 주는 경우도 있으니 정의를 확인합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -181,6 +198,20 @@
 
   <h2>주의할 점</h2>
   <p>레버리지는 독립변수 값이 얼마나 동떨어져 있는지만 볼 뿐, 그 관측치가 실제로 결과를 얼마나 바꾸는지는 알려주지 않습니다. 레버리지와 잔차 크기를 함께 반영해 실제 영향력까지 종합적으로 보여주는 지표는 <a href="cooks-distance.html">쿡의 거리</a>입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>회귀 진단의 세 가지 개념은 서로 다른 것을 봅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 보나</th><th scope="col">큰 값이 뜻하는 것</th></tr></thead><tbody><tr><th scope="row">레버리지</th><td>설명변수 값이 얼마나 외진가(X만)</td><td>끌어당길 잠재력이 있음</td></tr><tr><th scope="row"><a href="standardized-residual.html">표준화 잔차</a></th><td>y가 예측에서 얼마나 벗어났나</td><td>이상치(y 방향)</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 점을 빼면 추정이 얼마나 변하나</td><td>실제로 결과를 좌우하는 영향점. 레버리지 × 잔차</td></tr><tr><th scope="row"><a href="outlier.html">이상치</a></th><td>다른 값들과 동떨어진 값</td><td>레버리지가 높거나 잔차가 큰 경우를 모두 포함할 수 있음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hoaglin, D. C., &amp; Welsch, R. E. (1978). The hat matrix in regression and ANOVA. The American Statistician, 32(1), 17–22.</li>
+    <li>Cook, R. D. (1977). Detection of influential observation in linear regression. Technometrics, 19(1), 15–18.</li>
+    <li>Belsley, D. A., Kuh, E., &amp; Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.</li>
+    <li>Cook, R. D., &amp; Weisberg, S. (1982). Residuals and Influence in Regression. Chapman &amp; Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

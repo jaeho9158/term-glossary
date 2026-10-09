@@ -157,7 +157,24 @@
   <ul><li><strong>“비복원추출이면 무조건 초기하분포다.”</strong> 성공/실패 두 종류로 나뉜 유한 모집단에서 성공 개수를 셀 때의 모형입니다. 세 종류 이상이면 다변량 초기하분포를 씁니다.</li><li><strong>“이항분포를 쓰면 틀린다.”</strong> 모집단이 표본보다 훨씬 크면 이항분포가 좋은 근사입니다. 표본 비율이 크면 이항분포는 분산을 과대평가합니다.</li><li><strong>“성공확률 p를 알아야 한다.”</strong> 초기하분포는 확률 p가 아니라 모집단 구성(N, K)이 모수입니다. 반대로 표본 결과에서 모르는 모집단 크기 N을 추정하는 것이 포획-재포획의 아이디어입니다.</li><li><strong>“크기가 큰 모집단에도 정확검정이 필요하다.”</strong> 피셔의 정확검정은 표본이 작을 때 카이제곱 근사의 대안으로 주로 쓰이며, 표본이 크면 두 방법의 결과는 비슷합니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>크기 N인 유한 모집단에 “성공” 항목이 K개 있고, 그중에서 n개를 <strong>되돌려 넣지 않고(비복원)</strong> 뽑을 때 뽑힌 성공 개수 X의 분포입니다.</li><li><code>P(X = k) = C(K, k) · C(N − K, n − k) / C(N, n)</code> (C는 조합의 수)</li><li>평균은 <strong>n · K/N</strong>으로 이항분포(성공확률 K/N)와 같습니다. 분산은 <code>n · (K/N) · (1 − K/N) · (N − n)/(N − 1)</code>로, 이항분포의 분산에 <strong>유한모집단 수정계수</strong> (N − n)/(N − 1)을 곱한 값이라 항상 그보다 작습니다.</li><li>뽑을 때마다 남은 모집단의 구성이 바뀌므로 각 뽑기가 서로 독립이 아닙니다. 모집단이 표본에 비해 매우 크면 이 영향이 작아져 이항분포로 근사됩니다. 흔한 어림 기준은 표본이 모집단의 5~10% 이하일 때이며 엄밀한 규칙은 아닙니다.</li><li><a href="fishers-exact-test.html">피셔의 정확검정</a>은 2×2 표의 한 칸이 초기하분포를 따른다는 사실에 기초합니다(Fisher, 1935). 품질검사(불량품 수), 포획-재포획 추정, 유전자 집합 과대표현 검정에도 쓰입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>상자에 빨간 공 10개, 파란 공 20개(N = 30, K = 10)가 있고 5개를 한 번에 뽑을 때(n = 5) 빨간 공의 개수입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>빨간 공 수 k</th><th>초기하분포</th><th>(비교) 이항분포 n = 5, p = 1/3</th></tr></thead><tbody><tr><td>0</td><td>.109</td><td>.132</td></tr><tr><td>1</td><td>.340</td><td>.329</td></tr><tr><td>2</td><td>.360</td><td>.329</td></tr><tr><td>3</td><td>.160</td><td>.165</td></tr><tr><td>4</td><td>.030</td><td>.041</td></tr><tr><td>5</td><td>.002</td><td>.004</td></tr></tbody></table></div><p>평균은 두 분포 모두 5 × 10/30 = 1.67이지만 분산은 초기하분포가 .958, 이항분포가 1.111(비율 25/29 ≈ .862)로 작습니다. 표본이 모집단의 1/6이나 되기 때문에 두 분포가 눈에 띄게 다릅니다. 빨간 공이 2개 이상 나올 확률은 .551입니다.</p><p><strong>맛 구별 실험.</strong> 우유를 먼저 넣은 컵 4개와 차를 먼저 넣은 컵 4개(총 8개)를 섞어 놓고, 아무 단서 없이 “우유 먼저” 4개를 고르게 한다면 모두 맞출 확률은 1/70 ≈ .014, 3개를 맞출 확률은 16/70 ≈ .229입니다. 그래서 4개 모두 맞춘 결과는 우연으로 보기 어렵다는 논리가 피셔의 정확검정의 출발점입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“비복원추출이면 무조건 초기하분포다.”</strong> 성공/실패 두 종류로 나뉜 유한 모집단에서 성공 개수를 셀 때의 모형입니다. 세 종류 이상이면 다변량 초기하분포를 씁니다.</li><li><strong>“이항분포를 쓰면 틀린다.”</strong> 모집단이 표본보다 훨씬 크면 이항분포가 좋은 근사입니다. 표본 비율이 크면 이항분포는 분산을 과대평가합니다.</li><li><strong>“성공확률 p를 알아야 한다.”</strong> 초기하분포는 확률 p가 아니라 모집단 구성(N, K)이 모수입니다. 반대로 표본 결과에서 모르는 모집단 크기 N을 추정하는 것이 포획-재포획의 아이디어입니다.</li><li><strong>“크기가 큰 모집단에도 정확검정이 필요하다.”</strong> 피셔의 정확검정은 표본이 작을 때 카이제곱 근사의 대안으로 주로 쓰이며, 표본이 크면 두 방법의 결과는 비슷합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -181,6 +198,19 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">뽑는 방식</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row"><a href="hypergeometric-distribution.html">초기하분포</a></th><td>비복원</td><td>유한 모집단에서 성공 개수. 뽑기끼리 독립이 아님</td></tr><tr><th scope="row"><a href="binomial-distribution.html">이항분포</a></th><td>복원 또는 모집단이 매우 큼</td><td>매 시행 성공확률이 같고 독립</td></tr><tr><th scope="row"><a href="geometric-distribution.html">기하분포</a></th><td>반복 시행</td><td>첫 성공이 나올 때까지의 시행 횟수</td></tr><tr><th scope="row"><a href="fishers-exact-test.html">피셔의 정확검정</a></th><td>—</td><td>초기하분포로 p값을 정확히 계산하는 2×2 검정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Johnson, N. L., Kemp, A. W., &amp; Kotz, S. (2005). Univariate Discrete Distributions (3rd ed.). Wiley.</li>
+    <li>Casella, G., &amp; Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.</li>
+    <li>Fisher, R. A. (1935). The Design of Experiments. Oliver and Boyd.</li>
+    <li>Agresti, A. (2013). Categorical Data Analysis (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">뽑는 방식</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row"><strong>초기하분포</strong></th><td>비복원</td><td>유한 모집단에서 성공 개수. 뽑기끼리 독립이 아님</td></tr><tr><th scope="row"><a href="binomial-distribution.html">이항분포</a></th><td>복원 또는 모집단이 매우 큼</td><td>매 시행 성공확률이 같고 독립</td></tr><tr><th scope="row"><a href="geometric-distribution.html">기하분포</a></th><td>반복 시행</td><td>첫 성공이 나올 때까지의 시행 횟수</td></tr><tr><th scope="row"><a href="fishers-exact-test.html">피셔의 정확검정</a></th><td>—</td><td>초기하분포로 p값을 정확히 계산하는 2×2 검정</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Johnson, N. L., Kemp, A. W., &amp; Kotz, S. (2005). Univariate Discrete Distributions (3rd ed.). Wiley.</li>

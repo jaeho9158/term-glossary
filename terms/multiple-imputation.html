@@ -169,7 +169,27 @@
   <p>방법 절에 결측 비율, 결측 기제에 대한 가정, 대체 방법과 소프트웨어, 대체 모형에 넣은 변수, 데이터셋 개수 m을 적습니다.</p><p><code>분석 변수의 결측 비율은 2.1%~18.4%였다. 결측이 무작위(MAR)라는 가정 아래 연쇄방정식에 의한 다중대체(MICE, m = 20)를 시행하였고, 대체 모형에는 분석 변수와 연령·성별·소득을 포함하였다. 20개 데이터셋의 결과는 Rubin의 규칙으로 통합하였다.</code> (가상의 문장)</p><ul><li>결과 표에는 완전사례분석 결과를 보조적으로 함께 제시하면 결론이 얼마나 견고한지 보여 줄 수 있습니다.</li><li>대체 데이터셋 하나를 골라 ‘원자료’처럼 쓰지 않습니다. 반드시 통합 결과를 보고합니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>설문·임상 자료에 결측이 있고, 결측 여부가 <strong>관측된 다른 변수들로 설명된다(MAR)</strong>고 볼 수 있을 때 쓰는 표준적인 방법입니다. 결측이 있는 사례를 통째로 버리면 표본이 줄고 편향이 생길 수 있으며, 평균 같은 하나의 값으로 채우면 분산과 상관을 과소추정하고 표준오차를 지나치게 작게 만듭니다.</p><ul><li>대체 모형(imputation model)에는 분석에 쓸 모든 변수와, 결측과 관련이 있는 보조변수를 넣습니다.</li><li>분석 모형에 들어갈 상호작용·비선형항도 대체 단계에서 반영해야 합니다. 빠뜨리면 그 효과가 약하게 추정됩니다.</li><li>결측이 관측되지 않은 값 자체에 달린 경우(MNAR)에는 이 방법만으로 편향이 해결되지 않으므로 민감도 분석을 곁들입니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>대체 데이터셋을 m개 만들어 각각 분석한 뒤 Rubin의 규칙으로 합칩니다. 합친 추정치는 m개 추정치의 평균, 합친 분산은 <code>총분산 = 평균 분산(W) + (1 + 1/m) × 추정치 간 분산(B)</code>입니다. 다음은 m = 5인 가상의 예입니다(계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>대체 데이터셋</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td>계수 추정치</td><td>0.52</td><td>0.47</td><td>0.58</td><td>0.49</td><td>0.55</td></tr><tr><td>표준오차</td><td>0.200</td><td>0.210</td><td>0.195</td><td>0.205</td><td>0.200</td></tr></tbody></table></div><p>합친 계수는 0.522입니다. 평균 분산 W ≈ 0.0408, 추정치 간 분산 B ≈ 0.0020, 총분산 ≈ 0.0432이므로 합친 표준오차는 약 0.208, 95% 신뢰구간은 약 [0.11, 0.93]입니다. 다섯 번의 결과가 서로 다른 정도(B)가 결측 때문에 생긴 추가 불확실성이며, 이것이 총분산에 반영되는 것이 단일대체와의 차이입니다.</p><ul><li>결측으로 인한 정보 손실 비율(위 예에서 약 5%)은 B가 W에 비해 클수록 커집니다.</li><li>m은 한때 3~5개면 충분하다고 했으나, 결측 사례의 비율(%)과 비슷한 수 이상으로 잡자는 제안이 있습니다(White 외, 2011).</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>방법 절에 결측 비율, 결측 기제에 대한 가정, 대체 방법과 소프트웨어, 대체 모형에 넣은 변수, 데이터셋 개수 m을 적습니다.</p><p><code>분석 변수의 결측 비율은 2.1%~18.4%였다. 결측이 무작위(MAR)라는 가정 아래 연쇄방정식에 의한 다중대체(MICE, m = 20)를 시행하였고, 대체 모형에는 분석 변수와 연령·성별·소득을 포함하였다. 20개 데이터셋의 결과는 Rubin의 규칙으로 통합하였다.</code> (가상의 문장)</p><ul><li>결과 표에는 완전사례분석 결과를 보조적으로 함께 제시하면 결론이 얼마나 견고한지 보여 줄 수 있습니다.</li><li>대체 데이터셋 하나를 골라 ‘원자료’처럼 쓰지 않습니다. 반드시 통합 결과를 보고합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“분석 결과, 연쇄방정식을 활용한 다중대치 및 확률적 회귀대치 자료들은 결측값이 존재하는원조사 자료에 비하여 완전한 자료에 가까운 결과를 나타냈으며, 원조사 자료의 경우, 회귀분석결과에서 1종 및 2종 오류의 징후가 모두 나타났다.”</blockquote><p class="te-cite">범죄학 연구와 결측 : 실제 자료를 활용한 결측 대치법 비교 분석, 형사정책연구, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002334220" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -193,6 +213,22 @@
 
   <h2>주의할 점</h2>
   <p>다중대체법은 결측치가 <a href="missing-data.html">결측치 처리</a> 문헌에서 말하는 "무작위 결측(MAR)"에 가까울 때 특히 효과적이며, 결측 여부가 관측되지 않은 값 자체와 관련된 "비무작위 결측(MNAR)" 상황에서는 추가 가정 없이는 편향을 완전히 없애지 못합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>결측을 다루는 방법은 ‘버리기 · 한 값으로 채우기 · 여러 번 채우기 · 채우지 않고 추정하기’로 나뉩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">무엇을 하나</th><th scope="col">주의점</th></tr></thead><tbody><tr><th scope="row">목록별 삭제(완전사례분석)</th><td>결측이 하나라도 있는 사례를 제외</td><td>표본이 줄고, MCAR이 아니면 편향 가능</td></tr><tr><th scope="row">단일대체(평균·회귀대체)</th><td>결측을 한 값으로 채움</td><td>불확실성을 반영하지 못해 표준오차가 과소추정됨</td></tr><tr><th scope="row">다중대체법</th><td>m개의 대체 데이터를 분석해 통합</td><td>MAR 가정 필요. 대체 모형 설정이 중요</td></tr><tr><th scope="row"><a href="full-information-maximum-likelihood.html">완전정보 최대우도법(FIML)</a></th><td>결측이 있는 그대로 우도를 최대화</td><td>대체 데이터 없이 추정. 모형 안에서만 가능</td></tr><tr><th scope="row"><a href="littles-mcar-test.html">리틀의 MCAR 검정</a></th><td>결측이 완전 무작위인지 검정</td><td>방법이 아니라 가정을 점검하는 검정</td></tr></tbody></table></div>
+  <p class="te-note">MAR 가정은 자료만으로 검정할 수 없습니다. 어떤 방법도 이 가정의 타당성은 대신 보증해 주지 않습니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rubin, D. B. (1987). Multiple Imputation for Nonresponse in Surveys. Wiley.</li>
+    <li>Little, R. J. A., &amp; Rubin, D. B. (2019). Statistical Analysis with Missing Data (3rd ed.). Wiley.</li>
+    <li>Schafer, J. L., &amp; Graham, J. W. (2002). Missing data: Our view of the state of the art. Psychological Methods, 7(2), 147–177.</li>
+    <li>van Buuren, S., &amp; Groothuis-Oudshoorn, K. (2011). mice: Multivariate imputation by chained equations in R. Journal of Statistical Software, 45(3), 1–67.</li>
+    <li>White, I. R., Royston, P., &amp; Wood, A. M. (2011). Multiple imputation using chained equations: Issues and guidance for practice. Statistics in Medicine, 30(4), 377–399.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

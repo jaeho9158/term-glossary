@@ -161,7 +161,28 @@
   <p>카이제곱 검정의 결과와 함께 적고, 가능하면 신뢰구간도 제시합니다. (수치는 위 가상의 예 기준입니다.)</p><p><code>성별과 선호 유형은 유의한 연관이 있었으며(χ²(2, N = 140) = 21.13, p &lt; .001), 연관의 크기는 중간 이상이었다(Cramér의 V = .39).</code></p><ul><li>자유도와 표본 수 N을 함께 적습니다.</li><li>V의 해석 기준을 쓸 때는 표 크기에 맞는 기준(Cohen, 1988)을 인용합니다. 3×3 이상인 표에 .1/.3/.5를 그대로 적용하지 않습니다.</li><li>기대빈도가 5 미만인 칸이 많으면 카이제곱 근사가 부정확하므로 정확검정을 쓰고 그 사실을 적습니다.</li><li>2×2 표는 V 대신 오즈비와 신뢰구간을 보고하면 방향까지 알려 줍니다(<a href="odds-ratio.html">오즈비</a>).</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>크래머 V는 카이제곱 통계량을 표본 크기와 표 크기로 표준화해 연관성의 세기를 0~1로 나타낸 값입니다(Cramér, 1946).</p><p><code>V = √( χ² / ( n · min(r − 1, c − 1) ) )</code> (n은 전체 표본 수, r·c는 표의 행·열 수)</p><ul><li><strong>범위</strong>: 0(연관 없음)~1(완전한 연관). 방향(양/음)은 없습니다. 이름 붙인 범주(예: 전공)에는 크고 작음의 순서가 없기 때문입니다.</li><li>2×2 표에서는 min(r − 1, c − 1) = 1이므로 V = |φ|(파이계수)입니다.</li><li>카이제곱 검정은 표본이 커지면 사소한 연관도 유의하게 만들지만, V는 n으로 나누므로 표본 크기와 무관하게 연관의 <strong>크기</strong>를 보여 줍니다.</li></ul><p><strong>작은 예</strong>(가상의 2×3 표, 성별 × 선호 3가지, n = 140): 행 1은 30, 20, 10, 행 2는 15, 25, 40입니다. χ²(2) = 21.13, p &lt; .001이고 V = √(21.13 / (140 × 1)) = <strong>.388</strong>입니다. 반대로 행 1이 5,200·4,800, 행 2가 5,000·5,000인 2×2 표(n = 20,000)는 χ²(1) = 8.00, p = .005로 유의하지만 V = .020으로 연관이 거의 없습니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>Cohen(1988)은 효과크기 w에 대해 작은 .10, 중간 .30, 큰 .50을 제안했고, 크래머 V에서는 이를 √(min(r − 1, c − 1))로 나눈 값을 기준으로 삼습니다. <strong>표 크기에 따라 기준이 달라집니다.</strong></p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>min(r − 1, c − 1)</th><th>작음</th><th>중간</th><th>큼</th></tr></thead><tbody><tr><td>1 (2×2, 2×k)</td><td>.10</td><td>.30</td><td>.50</td></tr><tr><td>2 (3×3 등)</td><td>.07</td><td>.21</td><td>.35</td></tr><tr><td>3</td><td>.06</td><td>.17</td><td>.29</td></tr></tbody></table></div><p>위 예의 .388은 min이 1인 표이므로 “중간과 큼 사이”로 읽습니다. 이 기준은 Cohen이 편의상 제시한 <strong>관례</strong>이며 분야에 따라 적절한 크기는 다릅니다.</p><ul><li>V는 표본이 작을 때 연관이 없어도 0보다 크게 나오는 경향이 있습니다. 예를 들어 서로 독립인 2×3 표를 n = 30으로 반복해서 만들면 V의 평균이 약 .24입니다(컴퓨터 모의실험, 2,000회). 편향을 줄인 보정식이 제안되어 있습니다(Bergsma, 2013).</li><li>V는 연관의 세기이지 방향이나 인과가 아닙니다. 어느 칸이 기대보다 많은지는 표준화 잔차로 따로 살펴봅니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>카이제곱 검정의 결과와 함께 적고, 가능하면 신뢰구간도 제시합니다. (수치는 위 가상의 예 기준입니다.)</p><p><code>성별과 선호 유형은 유의한 연관이 있었으며(χ²(2, N = 140) = 21.13, p &lt; .001), 연관의 크기는 중간 이상이었다(Cramér의 V = .39).</code></p><ul><li>자유도와 표본 수 N을 함께 적습니다.</li><li>V의 해석 기준을 쓸 때는 표 크기에 맞는 기준(Cohen, 1988)을 인용합니다. 3×3 이상인 표에 .1/.3/.5를 그대로 적용하지 않습니다.</li><li>기대빈도가 5 미만인 칸이 많으면 카이제곱 근사가 부정확하므로 정확검정을 쓰고 그 사실을 적습니다.</li><li>2×2 표는 V 대신 오즈비와 신뢰구간을 보고하면 방향까지 알려 줍니다(<a href="odds-ratio.html">오즈비</a>).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 연구대상은 유치원과 어린이집을 다니는 만 4, 5, 6세의 어머니 387명이었으며, 수집된 자료는 평균, 표준편차, χ², Cramer’s V계수, 탐색적 요인분석, 확인적 요인분석, 상관관계, Cronbach’s α를 사용하여 개발된 척도의 타당도와 신뢰도를 검증하였다.”</blockquote><p class="te-cite">부모의 수학적 태도 척도 타당화 연구, 인간발달연구, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002149771" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“평균, 표준편차, 카이검증, Cramer’s V, 탐색적 및 확인적 요인분석, 적률상관관계, 그리고 Cronbach’s 가 산출되었다.”</blockquote><p class="te-cite">유아교사의 수학적 상호작용 척도 타당화 연구, 유아교육·보육복지연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002828503" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -187,6 +208,19 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">어떤 변수?</th><th scope="col">범위·특징</th></tr></thead><tbody><tr><th scope="row"><a href="cramers-v.html">크래머 V</a></th><td>범주형 × 범주형(표 크기 제한 없음)</td><td>0~1, 방향 없음</td></tr><tr><th scope="row">파이계수(φ)</th><td>2×2 표</td><td>−1~1(부호 해석 가능). 2×2에서 |φ| = V</td></tr><tr><th scope="row"><a href="chi-square-test.html">카이제곱 검정</a></th><td>범주형 × 범주형</td><td>연관의 유무(p값). 크기는 알려 주지 않음</td></tr><tr><th scope="row"><a href="odds-ratio.html">오즈비</a></th><td>2×2 표</td><td>한 범주가 다른 범주와 비교해 몇 배인지. 방향 있음</td></tr><tr><th scope="row"><a href="effect-size.html">효과크기</a></th><td>—</td><td>크래머 V는 범주형 변수의 효과크기 중 하나</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cramér, H. (1946). Mathematical Methods of Statistics. Princeton University Press.</li>
+    <li>Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Agresti, A. (2013). Categorical Data Analysis (3rd ed.). Wiley.</li>
+    <li>Bergsma, W. (2013). A bias-correction for Cramér’s V and Tschuprow’s T. Journal of the Korean Statistical Society, 42(3), 323–328.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">어떤 변수?</th><th scope="col">범위·특징</th></tr></thead><tbody><tr><th scope="row"><strong>크래머 V</strong></th><td>범주형 × 범주형(표 크기 제한 없음)</td><td>0~1, 방향 없음</td></tr><tr><th scope="row">파이계수(φ)</th><td>2×2 표</td><td>−1~1(부호 해석 가능). 2×2에서 |φ| = V</td></tr><tr><th scope="row"><a href="chi-square-test.html">카이제곱 검정</a></th><td>범주형 × 범주형</td><td>연관의 유무(p값). 크기는 알려 주지 않음</td></tr><tr><th scope="row"><a href="odds-ratio.html">오즈비</a></th><td>2×2 표</td><td>한 범주가 다른 범주와 비교해 몇 배인지. 방향 있음</td></tr><tr><th scope="row"><a href="effect-size.html">효과크기</a></th><td>—</td><td>크래머 V는 범주형 변수의 효과크기 중 하나</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Cramér, H. (1946). Mathematical Methods of Statistics. Princeton University Press.</li>

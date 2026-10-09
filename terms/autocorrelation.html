@@ -162,7 +162,28 @@
   <ul><li>ACF·PACF 그림을 제시하고 신뢰 띠의 의미(95%)를 적습니다.</li><li>회귀분석이라면 더빈-왓슨 통계량 또는 융-박스 검정 결과를 잔차에 대해 보고하고, 자기상관이 있을 때 어떻게 대응했는지 밝힙니다. 대응에는 자기상관을 반영한 모형(<a href="arima-model.html">ARIMA</a> 오차, 자기회귀항 추가)이나 <a href="robust-standard-errors.html">강건 표준오차</a>(HAC)가 있습니다.</li><li>검정 결과는 시차 수와 함께 씁니다. 예: <code>잔차에 대한 융-박스 검정에서 12시차까지 자기상관이 유의하지 않았다(Q(12) = 10.4, p = .58).</code> (형식을 보여 주는 가상의 값입니다.)</li><li>패널자료는 개체 안에서의 자기상관이 문제가 되므로, 군집 강건 표준오차 등을 쓴 경우 그렇게 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>시차(lag) k의 자기상관은 같은 변수를 k기간 어긋나게 놓고 계산한 상관계수입니다.</p><p><code>r<sub>k</sub> = Σ(y<sub>t</sub> − ȳ)(y<sub>t+k</sub> − ȳ) / Σ(y<sub>t</sub> − ȳ)²</code></p><ul><li><strong>범위</strong>: −1~1. 양수면 큰 값 뒤에 큰 값이, 음수면 큰 값 뒤에 작은 값이 따라오는 경향입니다. 시차 0의 자기상관은 항상 1입니다.</li><li>여러 시차의 r<sub>k</sub>를 늘어놓은 것이 자기상관함수(ACF)이고, 중간 시차의 영향을 제거한 것이 편자기상관함수(PACF)입니다.</li><li>회귀분석에서는 원자료가 아니라 <strong>잔차</strong>의 자기상관이 문제가 됩니다. 이 경우 <a href="durbin-watson-test.html">더빈-왓슨 통계량</a> d는 대략 2(1 − r₁)에 가까워서, r₁이 0이면 d ≈ 2입니다.</li></ul><p><strong>작은 예</strong>(가상의 월별 값, n = 12): 3, 4, 6, 7, 9, 8, 10, 12, 11, 13, 14, 13. 평균 9.17을 기준으로 계산하면 r₁ = .73, r₂ = .46, r₃ = .26입니다. 자료가 위로 올라가는 추세라서 이웃한 값끼리 비슷해 자기상관이 큽니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>자기상관이 우연으로 나올 수준인지 보려고 ACF 그림에 <strong>±1.96/√n</strong> 띠를 그립니다. 자료가 서로 독립인 백색잡음일 때 r<sub>k</sub>가 대략 이 범위 안에 들어온다는 근사에 기초한 관례입니다. 위 예는 n = 12이므로 띠가 ±.57이고, r₁ = .73은 띠를 넘지만 r₂, r₃는 넘지 않습니다.</p><ul><li>여러 시차를 동시에 보면 5%만 해도 20개 중 1개는 띠를 벗어나는 것이 정상입니다. 시차 전체를 한 번에 검정하는 융-박스(Ljung–Box) 검정(Ljung &amp; Box, 1978)을 함께 씁니다. 모형의 잔차에 쓸 때는 추정한 모수 수만큼 자유도를 줄입니다.</li><li>추세나 계절성이 있는 자료는 ACF가 천천히 줄어듭니다. 추세를 제거하거나 차분한 뒤 다시 봐야 자기상관 구조를 읽을 수 있습니다(<a href="stationarity.html">정상성</a>).</li><li>회귀 잔차에 <strong>양의 자기상관</strong>이 있으면 계수 추정치는 그대로 불편이지만 표준오차가 작게 나와 유의성이 과대평가되는 것이 보통입니다.</li><li>시간이 아니라 공간에서의 이웃 값 상관은 공간자기상관이라 하며 <a href="morans-i.html">Moran의 I</a> 같은 별도의 지표를 씁니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>ACF·PACF 그림을 제시하고 신뢰 띠의 의미(95%)를 적습니다.</li><li>회귀분석이라면 더빈-왓슨 통계량 또는 융-박스 검정 결과를 잔차에 대해 보고하고, 자기상관이 있을 때 어떻게 대응했는지 밝힙니다. 대응에는 자기상관을 반영한 모형(<a href="arima-model.html">ARIMA</a> 오차, 자기회귀항 추가)이나 <a href="robust-standard-errors.html">강건 표준오차</a>(HAC)가 있습니다.</li><li>검정 결과는 시차 수와 함께 씁니다. 예: <code>잔차에 대한 융-박스 검정에서 12시차까지 자기상관이 유의하지 않았다(Q(12) = 10.4, p = .58).</code> (형식을 보여 주는 가상의 값입니다.)</li><li>패널자료는 개체 안에서의 자기상관이 문제가 되므로, 군집 강건 표준오차 등을 쓴 경우 그렇게 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“또한, 구축된 재무자료가 패널자료의 특성이 있는 점을 감안하여 오차항에 대한 이분산성과 자기상관에 대한검정을 우선적으로 수행하였으며, 이전기의 투자활동과 당기의 투자활동과의 관련성은 패널GMM을 통해 분석을 시도하였다.”</blockquote><p class="te-cite">우리나라 물류기업의 재무제약 수준과 투자활동과의 관련성에 관한 연구, 한국항만경제학회지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003101772" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 연구에서는 재량적 발생액이 발생액 모형의 회귀식에서 추정된 잔차라는 점에 근거하여, 통계적 기본 가정인 잔차의 기댓값이 0이며, 자기상관관계가 없어야 한다는 가정을 충족하는지 여부를 통해 재량적 발생액의 적정성을 검토하였다.”</blockquote><p class="te-cite">연결재무제표와 산업분류, 그리고 재량적 발생액, 경영과 사례연구, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003178320" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -193,6 +214,19 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="autocorrelation.html">자기상관</a></th><td>같은 변수를 시차를 두고 비교한 상관</td></tr><tr><th scope="row"><a href="correlation.html">상관</a></th><td>서로 다른 두 변수 사이의 상관</td></tr><tr><th scope="row">편자기상관</th><td>중간 시차의 영향을 제거한 뒤 남는 시차 k의 순수한 상관</td></tr><tr><th scope="row"><a href="durbin-watson-test.html">더빈-왓슨 검정</a></th><td>회귀 잔차의 1차 자기상관 여부를 보는 검정</td></tr><tr><th scope="row"><a href="morans-i.html">Moran의 I</a></th><td>공간적으로 이웃한 값들의 상관(공간자기상관) 지표</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Box, G. E. P., Jenkins, G. M., Reinsel, G. C., &amp; Ljung, G. M. (2015). Time Series Analysis: Forecasting and Control (5th ed.). Wiley.</li>
+    <li>Ljung, G. M., &amp; Box, G. E. P. (1978). On a measure of lack of fit in time series models. Biometrika, 65(2), 297–303.</li>
+    <li>Durbin, J., &amp; Watson, G. S. (1950). Testing for serial correlation in least squares regression. I. Biometrika, 37(3–4), 409–428.</li>
+    <li>Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><strong>자기상관</strong></th><td>같은 변수를 시차를 두고 비교한 상관</td></tr><tr><th scope="row"><a href="correlation.html">상관</a></th><td>서로 다른 두 변수 사이의 상관</td></tr><tr><th scope="row">편자기상관</th><td>중간 시차의 영향을 제거한 뒤 남는 시차 k의 순수한 상관</td></tr><tr><th scope="row"><a href="durbin-watson-test.html">더빈-왓슨 검정</a></th><td>회귀 잔차의 1차 자기상관 여부를 보는 검정</td></tr><tr><th scope="row"><a href="morans-i.html">Moran의 I</a></th><td>공간적으로 이웃한 값들의 상관(공간자기상관) 지표</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Box, G. E. P., Jenkins, G. M., Reinsel, G. C., &amp; Ljung, G. M. (2015). Time Series Analysis: Forecasting and Control (5th ed.). Wiley.</li>

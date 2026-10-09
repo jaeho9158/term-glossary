@@ -160,7 +160,24 @@
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>독립변수와 종속변수가 모두 정규분포여야 한다.</td><td>정규성은 변수가 아니라 <em>오차(잔차)</em>에 대한 가정이며, 설명변수는 정규일 필요가 없습니다(예: 0/1 더미 변수도 쓰임).</td></tr><tr><td>정규성 검정이 유의하면 회귀분석을 쓸 수 없다.</td><td>표본이 크면 사소한 벗어남에도 검정이 유의해집니다. 표본이 클수록 정규성 위반의 영향은 오히려 작아지는 편입니다(Lumley 외, 2002). Q-Q 도표로 벗어난 정도를 봅니다.</td></tr><tr><td>이분산성이면 회귀계수가 틀린다.</td><td>계수 추정치 자체는 여전히 불편이지만, 표준오차와 p값이 부정확해집니다.</td></tr><tr><td>가정을 한 번 검정해서 통과하면 끝이다.</td><td>검정은 표본 크기에 의존합니다. 통과했다고 해서 가정이 맞다는 증명이 아니고, 어긋나도 영향이 작을 수 있습니다. 도표와 영향력 진단을 병행합니다.</td></tr><tr><td>가정이 일부 깨졌으니 분석을 버려야 한다.</td><td>어떤 가정이 얼마나 깨졌는지에 따라 강건 표준오차, 변환, 다른 모형 등으로 대응할 수 있습니다.</td></tr></tbody></table></div>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>회귀분석의 가정은 <strong>변수 자체가 아니라 오차(잔차)에 대한 것</strong>이 대부분입니다. 선형 회귀에서 흔히 말하는 네 가지는 다음과 같습니다.</li><li><strong>선형성</strong>: 결과의 평균이 계수의 선형식으로 표현된다(곡선 관계라면 제곱항 등을 넣어 해결).</li><li><strong>독립성</strong>: 관측치의 오차가 서로 관련이 없다(반복 측정, 같은 집단, 시계열에서 깨지기 쉬움).</li><li><strong>등분산성</strong>: 예측값이 어떻든 오차의 흩어짐이 같다.</li><li><strong>정규성</strong>: 오차가 정규분포를 따른다(주로 표본이 작을 때 p값·신뢰구간에 영향).</li><li>여기에 설명변수 사이의 완전한 공선성이 없을 것, 소수의 관측치가 결과를 좌우하지 않을 것도 실무에서 함께 점검합니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>가정</th><th>깨지면</th><th>점검</th><th>흔한 대응</th></tr></thead><tbody><tr><td>선형성</td><td>계수가 편향되고 예측이 빗나감</td><td>잔차-예측값 도표</td><td>변수 변환, 다항항, 비선형 모형</td></tr><tr><td>독립성</td><td>표준오차가 과소 → p값이 너무 좋게 나옴</td><td>설계 확인, <a href="durbin-watson-test.html">더빈-왓슨 검정</a></td><td><a href="mixed-effects-model.html">혼합효과모형</a>, <a href="clustered-standard-errors.html">군집 표준오차</a></td></tr><tr><td>등분산성</td><td>계수는 그대로지만 표준오차가 부정확</td><td>잔차 도표, <a href="breusch-pagan-test.html">브로이슈-페이건 검정</a></td><td><a href="robust-standard-errors.html">강건 표준오차</a>, 가중최소제곱</td></tr><tr><td>정규성</td><td>소표본에서 p값·구간 부정확</td><td><a href="q-q-plot.html">Q-Q 플롯</a></td><td>표본이 크면 영향이 작음, 변환·부트스트랩</td></tr></tbody></table></div><p>가정의 중요도는 같지 않습니다. 선형성과 올바른 모형 설정이 가장 중요하고 정규성은 가장 덜 중요하다는 정리가 자주 인용됩니다(Gelman &amp; Hill, 2007).</p>
+
+  <h2>예시로 보기</h2>
+  <p>Anscombe(1973)의 유명한 네 자료 세트는 각각 11개 점으로 이루어져 있는데, 네 세트 모두 회귀식이 ŷ = 3.00 + 0.500x, 상관계수 r = .816, R² = .67로 <strong>소수 둘째 자리까지 거의 같습니다</strong>. 그런데 산점도를 그리면 전혀 다릅니다.</p><ol><li>세트 1: 직선 주위에 고르게 흩어진 점 — 가정이 대체로 맞는 경우.</li><li>세트 2: 뚜렷한 곡선(포물선) 관계 — 선형성 위반.</li><li>세트 3: 점 하나가 직선에서 크게 벗어난 이상치 — 그 점 하나가 기울기를 바꿈.</li><li>세트 4: x 값이 하나만 19이고 나머지가 모두 8 — 점 하나가 회귀선을 좌우하는 영향점.</li></ol><p>같은 요약 수치(계수, R², p)가 서로 다른 구조를 가리고 있을 수 있으므로 <strong>수치만 보고 가정을 믿지 말고 도표를 그려 확인</strong>해야 한다는 것이 이 예의 교훈입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>독립변수와 종속변수가 모두 정규분포여야 한다.</td><td>정규성은 변수가 아니라 <em>오차(잔차)</em>에 대한 가정이며, 설명변수는 정규일 필요가 없습니다(예: 0/1 더미 변수도 쓰임).</td></tr><tr><td>정규성 검정이 유의하면 회귀분석을 쓸 수 없다.</td><td>표본이 크면 사소한 벗어남에도 검정이 유의해집니다. 표본이 클수록 정규성 위반의 영향은 오히려 작아지는 편입니다(Lumley 외, 2002). Q-Q 도표로 벗어난 정도를 봅니다.</td></tr><tr><td>이분산성이면 회귀계수가 틀린다.</td><td>계수 추정치 자체는 여전히 불편이지만, 표준오차와 p값이 부정확해집니다.</td></tr><tr><td>가정을 한 번 검정해서 통과하면 끝이다.</td><td>검정은 표본 크기에 의존합니다. 통과했다고 해서 가정이 맞다는 증명이 아니고, 어긋나도 영향이 작을 수 있습니다. 도표와 영향력 진단을 병행합니다.</td></tr><tr><td>가정이 일부 깨졌으니 분석을 버려야 한다.</td><td>어떤 가정이 얼마나 깨졌는지에 따라 강건 표준오차, 변환, 다른 모형 등으로 대응할 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
@@ -184,6 +201,22 @@
   <h2>헷갈리기 쉬운 용어</h2>
   <p>가정과 점검 도구를 구별해 두면 논문 방법 절을 읽기 쉽습니다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정체</th><th scope="col">가정과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="regression-assumptions.html">회귀분석의 가정</a></th><td>오차에 대한 전제(선형·독립·등분산·정규)</td><td>점검 대상</td></tr><tr><th scope="row"><a href="residual-analysis.html">잔차분석</a></th><td>잔차 도표와 통계량으로 가정을 점검하는 절차</td><td>점검 방법</td></tr><tr><th scope="row"><a href="multicollinearity.html">다중공선성</a></th><td>설명변수끼리 상관이 높은 문제</td><td>추정 불안정(가정이라기보다 진단 항목)</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 관측치가 결과를 얼마나 바꾸는지</td><td>영향점 진단</td></tr></tbody></table></div>
+  <p class="te-note">“가정을 검정한다”는 말은 가정이 맞는지 최종 판정을 내린다는 뜻이 아니라 어긋남의 증거를 확인한다는 뜻에 가깝습니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Anscombe, F. J. (1973). Graphs in statistical analysis. The American Statistician, 27(1), 17–21.</li>
+    <li>Gelman, A., &amp; Hill, J. (2007). Data analysis using regression and multilevel/hierarchical models. Cambridge University Press.</li>
+    <li>Fox, J. (2016). Applied regression analysis and generalized linear models (3rd ed.). Sage.</li>
+    <li>Lumley, T., Diehr, P., Emerson, S., &amp; Chen, L. (2002). The importance of the normality assumption in large public health data sets. Annual Review of Public Health, 23, 151–169.</li>
+    <li>Williams, M. N., Grajales, C. A. G., &amp; Kurkiewicz, D. (2013). Assumptions of multiple regression: Correcting two misconceptions. Practical Assessment, Research &amp; Evaluation, 18(11).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>가정과 점검 도구를 구별해 두면 논문 방법 절을 읽기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정체</th><th scope="col">가정과의 관계</th></tr></thead><tbody><tr><th scope="row"><strong>회귀분석의 가정</strong></th><td>오차에 대한 전제(선형·독립·등분산·정규)</td><td>점검 대상</td></tr><tr><th scope="row"><a href="residual-analysis.html">잔차분석</a></th><td>잔차 도표와 통계량으로 가정을 점검하는 절차</td><td>점검 방법</td></tr><tr><th scope="row"><a href="multicollinearity.html">다중공선성</a></th><td>설명변수끼리 상관이 높은 문제</td><td>추정 불안정(가정이라기보다 진단 항목)</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 관측치가 결과를 얼마나 바꾸는지</td><td>영향점 진단</td></tr></tbody></table></div>
   <p class="te-note">“가정을 검정한다”는 말은 가정이 맞는지 최종 판정을 내린다는 뜻이 아니라 어긋남의 증거를 확인한다는 뜻에 가깝습니다.</p>
   <h2>참고 문헌</h2>
   <ol class="te-refs">

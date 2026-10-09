@@ -167,7 +167,27 @@
   <ul><li>동등성 마진과 그 근거를 먼저 적습니다. 효과크기 단위(표준화된 d)로 정했다면 그 이유를 설명합니다(Lakens, Scheel, &amp; Isager, 2018).</li><li>두 단측검정의 결과(큰 p값)와 90% 신뢰구간, 사용한 유의수준을 보고합니다.</li><li>일반 차이 검정과 동등성 검정을 함께 보고하면 네 가지 결과(차이 있음/동등/둘 다 아님 등)를 구별할 수 있습니다.</li><li>예: <code>두 집단 평균의 차이는 동등성 마진 ±5점 안에 있었다(TOST: t(118) = 2.79, p = .003; 90% CI [−3.05, 2.63]).</code> (위 가상의 예 기준입니다.)</li><li>표본 크기는 동등성 검정의 검정력을 기준으로 계획해야 합니다. 일반 검정 기준의 표본 수로는 동등성을 보이기에 부족할 수 있습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>“두 조건에 차이가 <strong>없다</strong>”는 주장 자체를 증명하고 싶을 때 씁니다. 일반 검정에서 p &gt; .05는 차이를 못 찾았다는 뜻일 뿐 차이가 없다는 증거가 아닙니다.</p><ul><li>제네릭 의약품과 오리지널 약의 생물학적 동등성, 새 측정 장비와 기존 장비의 일치, 재현연구에서 원 연구의 효과가 사라졌다는 주장 등이 대표적인 사용처입니다.</li><li>가설이 거꾸로입니다. 귀무가설이 “차이가 마진 이상이다(|Δ| ≥ δ)”이고 대립가설이 “차이가 마진 안이다(|Δ| &lt; δ)”입니다. 귀무가설을 기각해야 동등하다고 결론 내립니다.</li><li><strong>동등성 마진 δ를 분석 전에, 임상적·실무적 근거로 정해야 합니다.</strong> 자료를 본 뒤에 마진을 정하면 결론을 만들어 낼 수 있습니다(Lakens, 2017).</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>주장하고 싶은 것</th><th>보통 고르는 방법</th></tr></thead><tbody><tr><td>차이가 있다</td><td><a href="t-test.html">t검정</a> 등 일반 검정</td></tr><tr><td>차이가 없다(실질적으로 같다)</td><td>동등성 검정(TOST)</td></tr><tr><td>새 처치가 기존보다 나쁘지 않다(한쪽만)</td><td><a href="non-inferiority-trial.html">비열등성 시험</a></td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가장 흔한 방법은 Schuirmann(1987)의 <strong>TOST</strong>(두 개의 단측검정)입니다. “차이가 −δ보다 작다”와 “차이가 +δ보다 크다”는 두 귀무가설을 각각 단측 t검정으로 검정하고, <strong>둘 다 기각</strong>되어야 동등하다고 결론 내립니다. 두 p값 중 큰 값이 TOST의 p값입니다.</p><ul><li>같은 결론을 신뢰구간으로도 볼 수 있습니다. 유의수준 α = .05의 TOST는 <strong>90% 신뢰구간이 (−δ, +δ) 안에 완전히 들어오는지</strong> 확인하는 것과 같습니다(95%가 아닌 90%에 주의).</li><li>생물학적 동등성 시험에서는 로그 변환한 값에서 계산한 기하평균 비의 90% 신뢰구간이 80~125%에 들어와야 한다는 기준이 널리 쓰입니다(FDA, 2001). 이 기준은 약물 분야의 규제 관례이며 다른 분야에 그대로 쓸 수 없습니다.</li><li>동등성이 기각 못 됐다고 “차이가 있다”는 뜻은 아닙니다. 동등하다고도, 차이가 있다고도 결론 내리지 못하는 불확정한 결과일 수 있습니다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료, 두 집단 각 60명): 평균 차이는 −0.21, 표준오차 1.71입니다. 마진을 ±5점으로 정하면 단측 검정 두 개가 t = 2.79(p = .0031), t = −3.04(p = .0015)이고 큰 p값 .0031 &lt; .05이므로 동등합니다. 90% 신뢰구간 [−3.05, 2.63]이 ±5 안에 있다는 것과 같은 결론입니다. 일반 t검정은 p = .90으로 “차이가 없다”고 증명하지 못합니다. 마진을 ±3점으로 좁히면 p값이 .053과 .032이므로 TOST의 p = .053으로 동등성을 주장하지 못합니다(신뢰구간의 아래쪽 끝 −3.05가 −3을 벗어남).</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>동등성 마진과 그 근거를 먼저 적습니다. 효과크기 단위(표준화된 d)로 정했다면 그 이유를 설명합니다(Lakens, Scheel, &amp; Isager, 2018).</li><li>두 단측검정의 결과(큰 p값)와 90% 신뢰구간, 사용한 유의수준을 보고합니다.</li><li>일반 차이 검정과 동등성 검정을 함께 보고하면 네 가지 결과(차이 있음/동등/둘 다 아님 등)를 구별할 수 있습니다.</li><li>예: <code>두 집단 평균의 차이는 동등성 마진 ±5점 안에 있었다(TOST: t(118) = 2.79, p = .003; 90% CI [−3.05, 2.63]).</code> (위 가상의 예 기준입니다.)</li><li>표본 크기는 동등성 검정의 검정력을 기준으로 계획해야 합니다. 일반 검정 기준의 표본 수로는 동등성을 보이기에 부족할 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“제제 간의 생물학적 동등성을 증명하는데 실패했을 때 추가시험으로 얻은 자료를 추가하여 동등성을 증명할 수 있도록 하는 시험기준이 식품의약품안전처에서 시행되고 있다.”</blockquote><p class="te-cite">생물학적 동등성을 증명하기 위한 추가시험의 통계적 분석, Journal of The Korean Data Analysis Society, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002238793" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -191,6 +211,20 @@
 
   <h2>주의할 점</h2>
   <p>많은 논문에서 <a href="p-value.html">유의확률</a>가 0.05보다 크게 나오면 곧바로 "두 집단에 차이가 없다"고 서술하는데, 이는 통계적으로 잘못된 해석입니다. 유의하지 않다는 결과는 단지 차이를 발견하지 못했다는 것이지, 동등함을 증명한 것이 아닙니다. 진짜로 "차이가 없다" 또는 "동등하다"를 주장하려면 동등성 검정처럼 그 목적에 맞게 설계된 방법을 별도로 사용해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">귀무가설</th><th scope="col">결론이 나오면</th></tr></thead><tbody><tr><th scope="row">일반 차이 검정</th><td>차이가 없다 (Δ = 0)</td><td>기각: “차이가 있다”. 기각 실패는 “모르겠다”</td></tr><tr><th scope="row">동등성 검정(TOST)</th><td>차이가 크다 (|Δ| ≥ δ)</td><td>기각: “차이가 마진 안이다(동등)”</td></tr><tr><th scope="row"><a href="non-inferiority-trial.html">비열등성 시험</a></th><td>새 처치가 δ 이상 나쁘다</td><td>기각: “크게 나쁘지 않다”(한쪽만)</td></tr><tr><th scope="row"><a href="statistical-power.html">검정력</a></th><td>—</td><td>차이가 있을 때 검출할 확률. 동등성은 “차이가 없을 때 동등을 입증할 확률”로 따로 계산</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Westlake, W. J. (1976). Symmetrical confidence intervals for bioequivalence trials. Biometrics, 32(4), 741–744.</li>
+    <li>Schuirmann, D. J. (1987). A comparison of the two one-sided tests procedure and the power approach for assessing the equivalence of average bioavailability. Journal of Pharmacokinetics and Biopharmaceutics, 15(6), 657–680.</li>
+    <li>Lakens, D. (2017). Equivalence tests: A practical primer for t tests, correlations, and meta-analyses. Social Psychological and Personality Science, 8(4), 355–362.</li>
+    <li>Lakens, D., Scheel, A. M., &amp; Isager, P. M. (2018). Equivalence testing for psychological research: A tutorial. Advances in Methods and Practices in Psychological Science, 1(2), 259–269.</li>
+    <li>U.S. Food and Drug Administration. (2001). Guidance for Industry: Statistical Approaches to Establishing Bioequivalence.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

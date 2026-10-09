@@ -158,7 +158,27 @@
   <p>방법 절에 span(또는 대역폭), 국소 차수, 가중 함수, 이상치 강건 반복 여부, 소프트웨어를 적습니다. 결과는 곡선 그림과 함께 서술합니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>연령과 반응시간의 관계는 LOESS(span = 0.75, 국소 2차식, 가우시안 오차)로 평활하였다. 곡선은 40대까지 완만히 증가하다가 이후 가팔라지는 비선형 모양을 보였다(그림 2).</code></p><ul><li>곡선의 신뢰대(점별 신뢰구간)를 함께 그리면 불확실성을 보여 줍니다.</li><li>탐색에서 본 모양을 가설검정으로 확인하려면 일반화가법모형이나 스플라인 회귀처럼 검정 가능한 모형을 따로 적합합니다.</li><li>같은 자료에서 span을 여러 개 시험하고 가장 마음에 드는 모양만 고르면 안 됩니다. 선택 기준을 밝힙니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>산점도에서 관계가 직선인지 곡선인지 모를 때, 먼저 <strong>모양을 눈으로 확인</strong>하려는 탐색 단계에서 씁니다. 모형의 형태(예: 이차식)를 정하지 않아도 되고, 시계열의 추세 분리(STL 분해 등)에도 쓰입니다.</p><ul><li>n이 수십~수천 개 정도이고 x가 1~2개일 때 잘 맞습니다. 설명변수가 많아지면 이웃 점이 희박해져(차원의 저주) 성능이 떨어집니다.</li><li>결과는 계수가 아니라 <strong>곡선</strong>입니다. 가설검정이나 외삽(자료 범위 밖 예측)에는 적합하지 않습니다.</li><li>LOWESS는 Cleveland(1979)의 원래 방법(국소 1차식 + 이상치에 강한 반복 가중), LOESS는 Cleveland와 Devlin(1988)의 일반화(기본값이 국소 2차식인 구현이 많음)로 구분하기도 하지만, 실제 소프트웨어에서는 두 이름이 섞여 쓰입니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>각 점 x₀에서 다음 과정을 반복해 곡선 위의 한 점을 만듭니다.</p><ul><li>① x₀에서 가까운 점 <strong>αn개</strong>(α = span, 대역폭 비율)를 이웃으로 고릅니다. 반올림 방식은 구현마다 다릅니다.</li><li>② 거리 d에 따라 <strong>트라이큐브(tricube)</strong> 가중치 w = (1 − (d/h)³)³을 줍니다(h는 이웃 범위의 끝까지의 거리). 가까울수록 크고 h 이상이면 0입니다.</li><li>③ 가중최소제곱으로 국소 직선(또는 2차식)을 맞추고, x₀에서의 값을 곡선의 점으로 삼습니다.</li><li>span이 작으면 울퉁불퉁(과적합), 크면 매끈(과소적합)합니다. 교차검증이나 AICc로 고르기도 합니다.</li></ul><p>(가상의 예, 정의대로 직접 계산) x = 0, 1, …, 10의 11개 점에서 span = 0.5(이웃 6개)로 x₀ = 5의 값을 구합니다. 여섯 번째로 가까운 점까지의 거리는 h = 3이고, x = 2, 3, 4, 5, 6, 7, 8의 가중치는 각각 0.00, 0.35, 0.89, 1.00, 0.89, 0.35, 0.00입니다(x = 2, 8은 거리가 h라 0).</p><p>이 가중치로 국소 직선을 맞추면 x₀ = 5에서 곡선 값은 4.83입니다. 전체 직선(OLS)의 같은 지점 값은 4.91으로, 국소적인 굽이를 반영해 약간 다릅니다. (R의 loess는 보간 등 계산 방식이 달라 값이 조금 다를 수 있습니다.)</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>방법 절에 span(또는 대역폭), 국소 차수, 가중 함수, 이상치 강건 반복 여부, 소프트웨어를 적습니다. 결과는 곡선 그림과 함께 서술합니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>연령과 반응시간의 관계는 LOESS(span = 0.75, 국소 2차식, 가우시안 오차)로 평활하였다. 곡선은 40대까지 완만히 증가하다가 이후 가팔라지는 비선형 모양을 보였다(그림 2).</code></p><ul><li>곡선의 신뢰대(점별 신뢰구간)를 함께 그리면 불확실성을 보여 줍니다.</li><li>탐색에서 본 모양을 가설검정으로 확인하려면 일반화가법모형이나 스플라인 회귀처럼 검정 가능한 모형을 따로 적합합니다.</li><li>같은 자료에서 span을 여러 개 시험하고 가장 마음에 드는 모양만 고르면 안 됩니다. 선택 기준을 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 연구에서는 인근 수질측정지점 간의 수질의 기여도를 간접적으로 파악하고 본류와 지류하천 간의 영향력을 해석하기 위해 시계열 분석이 가능한 STL (Seasonal and Trend decomposition using Loess) 기법을 수질자료에 적용한 결과를 보고하고 있다.”</blockquote><p class="te-cite">다변량 통계분석을 이용한 미호강 유역 수질 특성 분석, 한국수자원학회 논문집, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003132690" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -182,6 +202,20 @@
 
   <h2>주의할 점</h2>
   <p>국소회귀는 탐색적으로 관계의 형태를 파악하는 데는 유용하지만, 회귀계수처럼 해석하기 쉬운 하나의 숫자를 제공하지는 않습니다. 결과를 논문에 정식으로 보고할 때는 관계의 형태를 참고해 <a href="generalized-additive-model.html">일반화가법모형</a>처럼 통계적으로 검증 가능한 모형을 함께 사용하는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>곡선을 그리는 방법들을 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">모양을 정하는 방식</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">LOESS / LOWESS</th><td>이웃 점에 국소 회귀를 반복</td><td>모양을 가정하지 않음. 수식(계수)이 없음</td></tr><tr><th scope="row"><a href="regression.html">선형 회귀</a></th><td>하나의 직선(또는 다항식)을 전체에 적합</td><td>해석이 쉽지만 곡선 관계를 놓칠 수 있음</td></tr><tr><th scope="row"><a href="generalized-additive-model.html">일반화가법모형</a></th><td>변수마다 평활 함수(스플라인 등)를 더함</td><td>통계적 검정과 신뢰대 제공. 여러 변수 가능</td></tr><tr><th scope="row"><a href="robust-regression.html">강건회귀</a></th><td>이상치 영향을 줄여 직선을 적합</td><td>곡선이 아니라 이상치 대응 방법. LOWESS의 강건 반복과는 목적이 다름</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cleveland, W. S. (1979). Robust locally weighted regression and smoothing scatterplots. Journal of the American Statistical Association, 74(368), 829–836.</li>
+    <li>Cleveland, W. S., &amp; Devlin, S. J. (1988). Locally weighted regression: An approach to regression analysis by local fitting. Journal of the American Statistical Association, 83(403), 596–610.</li>
+    <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
+    <li>Cleveland, W. S., Grosse, E., &amp; Shyu, W. M. (1992). Local regression models. In J. M. Chambers &amp; T. J. Hastie (Eds.), Statistical Models in S (pp. 309–376). Wadsworth &amp; Brooks/Cole.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

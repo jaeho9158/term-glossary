@@ -160,7 +160,28 @@
   <p>계수, 표준오차, Wald 통계량과 자유도, p, 오즈비와 신뢰구간을 함께 적습니다. (위 가상 자료 기준)</p><p><code>연령(10세 단위)은 결과 발생과 유의하게 관련되었다(B = 1.21, SE = 0.51, Wald χ²(1) = 5.51, p = .019, OR = 3.34, 95% CI [1.22, 9.14]).</code></p><ul><li>범주형 변수 전체의 효과는 더미 변수별 Wald가 아니라 ‘전체 Wald χ²(자유도 = 범주 수 − 1)’로 보고합니다.</li><li>표본이 작거나 계수가 매우 크면 우도비 검정이나 프로파일 우도 신뢰구간을 함께 확인했다고 적으면 신뢰도가 높아집니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>최대우도추정으로 적합한 모형(로지스틱 회귀, 콕스 비례위험모형, 일반화선형모형 등)에서 <strong>계수 하나가 0인지</strong> 또는 <strong>여러 계수가 동시에 0인지</strong> 검정할 때 씁니다. 모형을 한 번만 적합하면 계산할 수 있어 소프트웨어 출력표에 기본으로 들어갑니다.</p><ul><li>계수 하나: z = 계수 ÷ 표준오차. 이 z를 제곱한 값이 자유도 1인 카이제곱 통계량(Wald χ²)입니다. SPSS는 이 제곱값을, R의 <code>summary()</code>는 z를 보여 줍니다.</li><li>여러 계수 동시 검정(예: 범주형 변수 한 개가 만드는 더미 변수 3개): 자유도가 검정하는 계수 수와 같은 Wald χ²를 씁니다.</li><li>표본이 충분히 크다는 대표본 근사에 의존합니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>검정</th><th>필요한 적합</th><th>특징</th></tr></thead><tbody><tr><td>왈드</td><td>전체 모형 하나</td><td>계산이 간단, 계수 값이 크거나 표본이 작으면 불안정</td></tr><tr><td><a href="likelihood-ratio-test.html">우도비 검정</a></td><td>전체·제한 모형 둘</td><td>일반적으로 더 안정적</td></tr><tr><td><a href="score-test.html">스코어 검정</a></td><td>제한 모형 하나</td><td>새 변수를 넣기 전에 추가 가치를 볼 때 유용</td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>가상의 예: 20명의 연령(10세 단위)으로 어떤 결과의 발생 여부를 로지스틱 회귀로 분석한 결과, 연령 계수 B = 1.206, 표준오차 0.514였습니다.</p><ul><li><strong>z</strong> = 1.206 / 0.514 = 2.35, <strong>Wald χ²(1)</strong> = 2.35² = 5.51, <strong>p</strong> = .019.</li><li><strong>오즈비</strong> = exp(1.206) = 3.34: 연령이 10세 많으면 결과가 생길 오즈가 약 3.3배입니다. 95% 신뢰구간은 로짓 척도에서 B ± 1.96 × SE를 구한 뒤 지수변환한 [1.22, 9.14]이며, 오즈비 척도에서는 좌우 대칭이 아닙니다.</li><li><strong>같은 계수를 우도비 검정으로 검정하면</strong> χ²(1) = 9.06, p = .003입니다. 표본이 20명뿐이라 두 검정이 꽤 다르게 나옵니다. 이런 차이가 크면 우도비 검정을 우선하라는 것이 통상적인 조언입니다.</li><li>계수의 절댓값이 아주 클 때는 표준오차도 함께 부풀어 Wald 통계량이 오히려 작아지는 현상이 알려져 있으며 하우크-도너 효과라고 부릅니다(Hauck &amp; Donner, 1977).</li><li>복합표본조사(국민건강영양조사 등) 분석에서 보이는 ‘Wald F’는 같은 발상으로 만든 F 형태의 검정입니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>계수, 표준오차, Wald 통계량과 자유도, p, 오즈비와 신뢰구간을 함께 적습니다. (위 가상 자료 기준)</p><p><code>연령(10세 단위)은 결과 발생과 유의하게 관련되었다(B = 1.21, SE = 0.51, Wald χ²(1) = 5.51, p = .019, OR = 3.34, 95% CI [1.22, 9.14]).</code></p><ul><li>범주형 변수 전체의 효과는 더미 변수별 Wald가 아니라 ‘전체 Wald χ²(자유도 = 범주 수 − 1)’로 보고합니다.</li><li>표본이 작거나 계수가 매우 크면 우도비 검정이나 프로파일 우도 신뢰구간을 함께 확인했다고 적으면 신뢰도가 높아집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“Wald test 결과, χ 2 =1,044.5 ( P&lt;.001)로 모형의 전반적 유의성이 확 인되었다.”</blockquote><p class="te-cite">장애인 미충족 치과의료 경험에 영향을 미치는 요인 분석: 패널데이터를 활용하여, Journal of Korean Academy of Oral Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096010" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“최근 12개월 동안 치과진 료경험(Wald F=14.960, P&lt;0.001), 실란트 경험(Wald F=306.857, P&lt;0.001), 스케일링 경험(Wald F=86.448, P&lt;0.001)은 주관적 구 강건강과 유의한 관련성을 보였다.”</blockquote><p class="te-cite">청소년의 예방적 치과의료 이용과 주관적 구강건강의 관련성: 외동자 여부에 따른 차이를 중심으로, Journal of Korean Academy of Oral Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096005" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -189,6 +210,21 @@
   <h2>헷갈리기 쉬운 용어</h2>
   <p>이름이 비슷한 검정과 통계량을 구별합니다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정체</th><th scope="col">읽는 법</th></tr></thead><tbody><tr><th scope="row"><a href="wald-test.html">왈드 검정</a></th><td>추정값 ÷ 표준오차로 만든 검정</td><td>계수가 0인지 검정</td></tr><tr><th scope="row"><a href="likelihood-ratio-test.html">우도비 검정</a></th><td>두 모형의 우도를 비교</td><td>모형 전체 또는 변수 묶음의 기여</td></tr><tr><th scope="row"><a href="score-test.html">스코어 검정</a></th><td>제한 모형에서 계산한 기울기 기반</td><td>변수를 추가할 가치가 있는지</td></tr><tr><th scope="row"><a href="t-test.html">t검정</a></th><td>정규오차 선형모형에서 계수를 검정</td><td>Wald와 같은 형태(추정/SE), 기준분포가 t</td></tr></tbody></table></div>
+  <p class="te-note">세 검정(왈드·우도비·스코어)은 표본이 아주 클 때 서로 같은 결론에 수렴합니다. 표본이 작을 때 달라지는 것이 문제입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wald, A. (1943). Tests of statistical hypotheses concerning several parameters when the number of observations is large. Transactions of the American Mathematical Society, 54(3), 426–482.</li>
+    <li>Hauck, W. W., &amp; Donner, A. (1977). Wald’s test as applied to hypotheses in logit analysis. Journal of the American Statistical Association, 72(360), 851–853.</li>
+    <li>Agresti, A. (2013). Categorical data analysis (3rd ed.). Wiley.</li>
+    <li>Hosmer, D. W., Lemeshow, S., &amp; Sturdivant, R. X. (2013). Applied logistic regression (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷한 검정과 통계량을 구별합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정체</th><th scope="col">읽는 법</th></tr></thead><tbody><tr><th scope="row"><strong>왈드 검정</strong></th><td>추정값 ÷ 표준오차로 만든 검정</td><td>계수가 0인지 검정</td></tr><tr><th scope="row"><a href="likelihood-ratio-test.html">우도비 검정</a></th><td>두 모형의 우도를 비교</td><td>모형 전체 또는 변수 묶음의 기여</td></tr><tr><th scope="row"><a href="score-test.html">스코어 검정</a></th><td>제한 모형에서 계산한 기울기 기반</td><td>변수를 추가할 가치가 있는지</td></tr><tr><th scope="row"><a href="t-test.html">t검정</a></th><td>정규오차 선형모형에서 계수를 검정</td><td>Wald와 같은 형태(추정/SE), 기준분포가 t</td></tr></tbody></table></div>
   <p class="te-note">세 검정(왈드·우도비·스코어)은 표본이 아주 클 때 서로 같은 결론에 수렴합니다. 표본이 작을 때 달라지는 것이 문제입니다.</p>
   <h2>참고 문헌</h2>
   <ol class="te-refs">

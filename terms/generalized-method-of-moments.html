@@ -159,7 +159,29 @@
   <p>어떤 GMM(차분/시스템, 1단계/2단계)인지, 어떤 변수를 내생으로 보고 어떤 시차를 도구로 썼는지, 표준오차 보정(예: Windmeijer 보정)을 적었는지를 밝힙니다.</p><p><code>동태 패널모형은 2단계 시스템 GMM으로 추정하였다. 종속변수의 시차 2~4기를 도구변수로 사용하였으며, 표준오차는 Windmeijer(2005) 보정을 적용하였다. 도구변수의 타당성은 Hansen 검정(p = .31)으로, 오차항의 2차 자기상관은 AR(2) 검정(p = .46)으로 확인하였다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>도구변수 수, 관측 개체 수, 관측치 수를 표 아래에 적습니다.</li><li>OLS·고정효과 결과와 나란히 보이면 내생성 때문에 추정치가 어떻게 달라졌는지 독자가 판단할 수 있습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>설명변수가 오차항과 상관되어 있거나(<a href="endogeneity.html">내생성</a>), 모형에 맞는 우도함수를 세우기 어려울 때 <strong>‘모형이 만족해야 할 조건(적률조건)’만으로</strong> 모수를 추정하는 방법입니다. 경제·금융·경영 논문에서 특히 흔합니다.</p><ul><li>도구변수가 모수보다 많을 때(과대식별) 2단계최소제곱법보다 이분산·자기상관에 강건하게 효율을 높일 수 있습니다.</li><li>패널자료에서 종속변수의 과거값이 설명변수로 들어가는 <strong>동태 패널모형</strong>은 고정효과로 풀면 편향이 생기므로, Arellano-Bond(차분 GMM)나 Blundell-Bond(시스템 GMM)를 씁니다. 특히 개체 수(N)가 크고 기간(T)이 짧은 자료에 맞습니다.</li><li>효율 이득을 보려면 도구변수가 ‘외생적이고 설명변수와 충분히 상관되어 있어야’ 합니다. 약한 도구변수는 소표본에서 편향을 만듭니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>GMM 결과표에서는 계수 못지않게 <strong>진단 검정</strong>을 읽어야 합니다.</p><ul><li><strong>Hansen(또는 Sargan) J 검정</strong>: 귀무가설은 ‘모든 도구변수(적률조건)가 타당하다’입니다. p가 작으면 도구변수 일부가 부적절하다는 신호이고, p가 충분히 크면 부적절하다는 증거가 없다는 뜻입니다. p가 1에 너무 가까우면(예: 1.00) 도구변수가 지나치게 많아 검정력이 약해진 것일 수 있습니다(Roodman, 2009).</li><li><strong>AR(1), AR(2) 검정</strong>(동태 패널): 차분한 오차는 구조상 1차 자기상관이 있는 것이 정상이라 AR(1)은 유의해도 괜찮고, <strong>AR(2)가 유의하면</strong> 사용한 시차 도구변수가 타당하지 않다는 신호입니다.</li><li>도구변수의 개수: 개체 수를 넘지 않도록 하라는 것이 Roodman(2009)의 경험칙입니다.</li></ul><p><strong>작은 예</strong>(모의 자료, n = 500, 계산 결과). 진짜 기울기가 2.0인 모형에서 x가 오차와 상관되어 있으면 OLS 기울기는 2.51로 위쪽으로 치우치고, 외생적 도구변수 z를 쓴 추정(도구변수가 1개일 때의 GMM)은 1.98로 참값에 가깝습니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>어떤 GMM(차분/시스템, 1단계/2단계)인지, 어떤 변수를 내생으로 보고 어떤 시차를 도구로 썼는지, 표준오차 보정(예: Windmeijer 보정)을 적었는지를 밝힙니다.</p><p><code>동태 패널모형은 2단계 시스템 GMM으로 추정하였다. 종속변수의 시차 2~4기를 도구변수로 사용하였으며, 표준오차는 Windmeijer(2005) 보정을 적용하였다. 도구변수의 타당성은 Hansen 검정(p = .31)으로, 오차항의 2차 자기상관은 AR(2) 검정(p = .46)으로 확인하였다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>도구변수 수, 관측 개체 수, 관측치 수를 표 아래에 적습니다.</li><li>OLS·고정효과 결과와 나란히 보이면 내생성 때문에 추정치가 어떻게 달라졌는지 독자가 판단할 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“Baron &amp; Kenny의 위계적 분석방법을 전제로 고정효과(FE) 및 시스템 적률화(GMM)를 활용하여 분석한 결과, 쇠퇴도시(중심부)와 주변지역(주변부) 간 중심부･주변부 고착화가 두 도시 간경제성장의 양적･질적 격차에 정(+)의 영향을 미치고 있음을 확인하였다.”</blockquote><p class="te-cite">신경제지리학적 관점을 적용한 쇠퇴도시의 잠금현상(locking-in)과 경제성장 격차 간 관계 : 산업 특화 및 다양성의 조절효과를 중심으로, 국정관리연구, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002766078" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이러한 결과는 OLS, 고정효과분석, 동적 패널 GMM 등 여러 분석방법과 변수 측정방법의 다양화에도 강건하게 성립한다.”</blockquote><p class="te-cite">재무적 불투명성이 주가지체에 미치는 영향에 관한 연구, 지급결제학회지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002979028" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“또한, 구축된 재무자료가 패널자료의 특성이 있는 점을 감안하여 오차항에 대한 이분산성과 자기상관에 대한검정을 우선적으로 수행하였으며, 이전기의 투자활동과 당기의 투자활동과의 관련성은 패널GMM을 통해 분석을 시도하였다.”</blockquote><p class="te-cite">우리나라 물류기업의 재무제약 수준과 투자활동과의 관련성에 관한 연구, 한국항만경제학회지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003101772" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -185,6 +207,22 @@
 
   <h2>주의할 점</h2>
   <p>GMM은 <a href="instrumental-variable.html">도구변수</a>를 얼마나 잘 고르느냐에 결과가 크게 좌우됩니다. 도구변수가 이론적 조건(외생성)을 만족하지 못하면 GMM 추정치 역시 편향될 수 있으므로, 도구변수의 타당성을 검정하는 절차(과대식별 검정 등)를 함께 보고하는 것이 일반적입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>GMM은 여러 추정법을 한꺼번에 포함하는 틀이라 이름이 혼동되기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">GMM과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="instrumental-variable.html">도구변수</a></th><td>내생성을 풀기 위한 변수</td><td>GMM이 쓰는 재료. 도구변수가 곧 적률조건의 원천</td></tr><tr><th scope="row"><a href="two-stage-least-squares.html">2단계최소제곱법</a></th><td>도구변수를 쓰는 대표 추정법</td><td>오차가 동분산일 때의 GMM과 같음</td></tr><tr><th scope="row"><a href="maximum-likelihood-estimation.html">최대우도추정</a></th><td>분포를 가정하고 우도를 최대화</td><td>GMM은 분포 전체가 아니라 일부 조건만 가정</td></tr><tr><th scope="row"><a href="panel-data.html">패널자료</a></th><td>개체와 시간 정보를 함께 가진 자료</td><td>동태 패널모형에서 GMM이 자주 쓰임</td></tr><tr><th scope="row"><a href="hausman-test.html">하우스만 검정</a></th><td>고정효과와 확률효과 중 선택</td><td>‘Hansen J’와 이름이 비슷하지만 다른 검정</td></tr></tbody></table></div>
+  <p class="te-note">‘J 검정(Hansen·Sargan)’은 도구변수가 타당한지, ‘하우스만 검정’은 추정량 간 차이가 체계적인지를 봅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hansen, L. P. (1982). Large sample properties of generalized method of moments estimators. Econometrica, 50(4), 1029–1054.</li>
+    <li>Arellano, M., &amp; Bond, S. (1991). Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations. The Review of Economic Studies, 58(2), 277–297.</li>
+    <li>Blundell, R., &amp; Bond, S. (1998). Initial conditions and moment restrictions in dynamic panel data models. Journal of Econometrics, 87(1), 115–143.</li>
+    <li>Roodman, D. (2009). How to do xtabond2: An introduction to difference and system GMM in Stata. The Stata Journal, 9(1), 86–136.</li>
+    <li>Hall, A. R. (2005). Generalized Method of Moments. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

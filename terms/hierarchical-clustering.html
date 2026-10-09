@@ -161,7 +161,29 @@
   <p>논문에는 변수, 표준화 여부, 거리 측도, 연결법, 군집 수를 정한 근거와 소프트웨어를 적습니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>응답자의 이용 패턴을 유클리드 거리와 Ward 연결법으로 계층적 군집분석하였다. 변수는 Z점수로 표준화하였고, 덴드로그램에서 합병 거리가 크게 증가하는 지점을 기준으로 3개 군집을 선택하였다(실루엣 평균 = 0.41).</code></p><ul><li>군집별 특성(평균 등)을 표로 제시하고, 군집 간 차이를 분산분석으로 검정하는 경우가 많지만, 군집은 자료의 차이에서 만들어졌으므로 이 검정의 p값은 서술용으로만 봅니다.</li><li>연결법을 바꾸어도 결론이 유지되는지(안정성) 확인하면 설득력이 높아집니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>군집의 수를 미리 정하지 않고, 개체들이 <strong>어떤 순서로 가까워지는지</strong> 나무(덴드로그램)로 보고 싶을 때 씁니다. 표본이 수천 개 이하이고 거리 행렬을 계산할 수 있는 탐색적 분류에 적합합니다.</p><ul><li><strong>응집형</strong>: 개체 하나하나에서 시작해 가장 가까운 군집 둘을 계속 합칩니다(대부분의 소프트웨어 기본).</li><li><strong>입력</strong>: 거리 행렬(유클리드, 맨해튼, 상관 기반 거리 등)과 연결법. 변수 단위가 다르면 표준화를 먼저 합니다.</li><li>표본이 매우 크면 거리 행렬이 n²개라 메모리와 시간이 부담이 됩니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>두 군집 사이의 거리를 어떻게 정의하느냐(연결법)가 결과를 정합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>연결법</th><th>군집 사이 거리</th><th>경향</th></tr></thead><tbody><tr><td>단일(최단)연결</td><td>두 군집의 가장 가까운 두 점 사이</td><td>사슬처럼 길게 이어진 군집이 생기기 쉬움(chaining)</td></tr><tr><td>완전(최장)연결</td><td>가장 먼 두 점 사이</td><td>지름이 비슷한 조밀한 군집</td></tr><tr><td>평균연결</td><td>모든 점 쌍의 거리 평균</td><td>두 극단의 절충</td></tr><tr><td>Ward 연결</td><td>합쳤을 때 군집 내 제곱합(분산)이 늘어나는 양이 최소</td><td>크기가 비슷한 군집. 유클리드 거리 가정</td></tr></tbody></table></div><p>(가상의 예, 직접 계산) 1차원 점 1, 2, 5, 7, 15를 합치는 순서는 같고 <strong>합치는 높이</strong>가 다릅니다. 세 번째 합병(맨 왼쪽 두 점 묶음과 5·7 묶음)의 높이는 단일연결 3.0, 평균연결 4.5, 완전연결 6.0이고, 마지막(15를 합치는) 높이는 각각 8.0, 11.25, 14.0입니다. 앞의 두 합병(1·2, 5·7)은 높이 1과 2로 연결법과 상관없이 같습니다.</p><ul><li><strong>덴드로그램</strong>의 세로축은 합쳐진 높이(거리)입니다. 높이가 크게 뛰는 곳에서 자르는 방법이 흔히 쓰입니다.</li><li><strong>군집 수</strong>는 자르는 높이로 정하며, 실루엣 계수 같은 보조 지표와 연구 목적을 함께 고려합니다.</li><li><strong>코페네틱 상관계수</strong>(덴드로그램의 거리와 원래 거리의 상관)로 나무가 원래 거리를 얼마나 잘 보존하는지 점검하기도 합니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>논문에는 변수, 표준화 여부, 거리 측도, 연결법, 군집 수를 정한 근거와 소프트웨어를 적습니다. (아래 문장은 형식을 보여 주는 가상의 예입니다.)</p><p><code>응답자의 이용 패턴을 유클리드 거리와 Ward 연결법으로 계층적 군집분석하였다. 변수는 Z점수로 표준화하였고, 덴드로그램에서 합병 거리가 크게 증가하는 지점을 기준으로 3개 군집을 선택하였다(실루엣 평균 = 0.41).</code></p><ul><li>군집별 특성(평균 등)을 표로 제시하고, 군집 간 차이를 분산분석으로 검정하는 경우가 많지만, 군집은 자료의 차이에서 만들어졌으므로 이 검정의 p값은 서술용으로만 봅니다.</li><li>연결법을 바꾸어도 결론이 유지되는지(안정성) 확인하면 설득력이 높아집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“또한, 분류도(dendrogram)를 제작하여 계층적 군집 분석을 시도하고자 한다.”</blockquote><p class="te-cite">방언 분포의 통계적 분석 방법 개발과 적용, 방언학, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003035051" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“분석을위해 SPSS 프로그램을 사용하였고, 기술통계 분석, 상관관계 분석, 위계적 군집분석, K-평균 군집분석을 분석에 사용하였다.”</blockquote><p class="te-cite">군집분석을 활용한 도농 복합형 도시의 복지 유형화 논의: 인구학적 모형을 중심으로, 한국산학기술학회논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003054922" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“창의적 공학문제해결력 검사는 대응표본t-검증과 계층적 군집분석을 통해 분석하였다.”</blockquote><p class="te-cite">창의공학적 문제해결성향에 기여한 과학-공학 융합수업의 특성, 대한지구과학교육학회지, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002874825" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -187,6 +209,20 @@
 
   <h2>주의할 점</h2>
   <p>계층적 군집분석의 결과는 개체 간 거리를 어떻게 계산하는지, 그리고 무더기와 무더기를 합칠 때 어떤 기준(연결법)을 쓰는지에 따라 크게 달라질 수 있습니다. 같은 데이터라도 방법을 바꾸면 다른 나무 구조가 나올 수 있으므로, 결과를 해석할 때는 사용한 거리 척도와 연결법을 함께 명시해야 합니다. 또한 표본이 매우 클 경우 계산량이 급격히 늘어나 <a href="k-means-clustering.html">k-평균 군집화</a> 같은 다른 방법이 더 적합할 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>군집분석의 대표 방법들은 “군집 수를 미리 정하는가”와 “군집의 모양”으로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">군집 수</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">계층적 군집분석</th><td>사후에 자르는 높이로 결정</td><td>나무 구조를 보여 줌. 한번 합친 것은 되돌리지 않음</td></tr><tr><th scope="row"><a href="k-means-clustering.html">k-평균 군집화</a></th><td>미리 k를 지정</td><td>큰 자료에 빠름. 둥근 군집 가정, 초기값에 민감</td></tr><tr><th scope="row"><a href="dbscan.html">DBSCAN</a></th><td>밀도로 자동 결정</td><td>이상치를 노이즈로 분리. 임의 모양 군집 가능</td></tr><tr><th scope="row"><a href="cluster-analysis.html">군집분석</a></th><td>—</td><td>위 방법들을 포괄하는 상위 개념</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ward, J. H. (1963). Hierarchical grouping to optimize an objective function. Journal of the American Statistical Association, 58(301), 236–244.</li>
+    <li>Johnson, S. C. (1967). Hierarchical clustering schemes. Psychometrika, 32(3), 241–254.</li>
+    <li>Kaufman, L., &amp; Rousseeuw, P. J. (1990). Finding Groups in Data: An Introduction to Cluster Analysis. Wiley.</li>
+    <li>Murtagh, F., &amp; Contreras, P. (2012). Algorithms for hierarchical clustering: An overview. WIREs Data Mining and Knowledge Discovery, 2(1), 86–97.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>

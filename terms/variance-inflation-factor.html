@@ -159,7 +159,29 @@
   <p>각 변수의 VIF를 표에 싣거나, 최댓값(또는 범위)과 사용한 기준을 문장으로 적습니다.</p><p><code>독립변수 간 다중공선성을 확인한 결과 분산팽창지수(VIF)는 1.02~1.14로 기준(10) 미만이었고 공차는 0.88~0.98로 0.1 이상이었다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>어떤 기준(5 또는 10)을 썼는지 밝힙니다.</li><li>VIF가 큰 변수를 어떻게 처리했는지(제거, 합성, 중심화, 능형회귀 등)를 적으면 독자가 결과를 신뢰하기 쉽습니다.</li></ul>
   <!-- term-extras:sections:end -->
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>변수 j의 VIF는 그 변수를 나머지 설명변수들로 회귀했을 때의 결정계수 R<sub>j</sub>²로 계산합니다.</p><p><code>VIF<sub>j</sub> = 1 ÷ (1 − R<sub>j</sub>²)</code>, 공차(tolerance) = 1 ÷ VIF = 1 − R<sub>j</sub>²</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>R<sub>j</sub>²</th><th>VIF</th><th>공차</th><th>계수의 표준오차 배율(√VIF)</th></tr></thead><tbody><tr><td>0</td><td>1.0</td><td>1.00</td><td>1.00배</td></tr><tr><td>0.50</td><td>2.0</td><td>0.50</td><td>1.41배</td></tr><tr><td>0.80</td><td>5.0</td><td>0.20</td><td>2.24배</td></tr><tr><td>0.90</td><td>10.0</td><td>0.10</td><td>3.16배</td></tr><tr><td>0.95</td><td>20.0</td><td>0.05</td><td>4.47배</td></tr></tbody></table></div><ul><li><strong>범위</strong>: 1 이상이며 상한은 없습니다. 1이면 다른 변수와 전혀 겹치지 않는다는 뜻입니다.</li><li>설명변수가 둘뿐이면 두 변수의 VIF는 같고 <code>1 ÷ (1 − r²)</code>입니다. 가상의 모의자료에서 두 변수의 상관이 r = .868이면 VIF ≈ 4.05입니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>‘VIF가 5(또는 10)를 넘으면 문제’라는 기준은 <strong>관례</strong>입니다. 교과서(예: Kutner 외, 2005)는 가장 큰 VIF가 10을 넘으면 심각한 다중공선성을 의심하라고 합니다. VIF 10은 R<sub>j</sub>² = .90, 표준오차가 3.16배 커진다는 뜻입니다.</p><ul><li>O’Brien(2007)은 이런 문턱값이 기계적으로 쓰이는 것을 경계했습니다. 표본이 크거나 효과가 크면 VIF가 커도 결론이 흔들리지 않을 수 있고, 반대로 VIF가 작아도 표본이 작으면 불안정할 수 있습니다.</li><li>상호작용항·제곱항은 원래 변수와 구조적으로 상관이 높아 VIF가 크게 나오기 쉽습니다. 변수를 평균중심화하면 크게 줄어듭니다.</li><li>VIF는 <strong>관심 변수</strong>의 계수가 얼마나 불안정한지를 봅니다. 통제변수들끼리 상관이 높아도 관심 변수의 VIF가 낮다면 문제가 크지 않습니다.</li><li>범주형 변수를 더미로 쓸 때는 더미 하나하나의 VIF 대신, 변수 전체를 묶어 보는 일반화 VIF(GVIF)를 쓰기도 합니다(Fox &amp; Monette, 1992).</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>각 변수의 VIF를 표에 싣거나, 최댓값(또는 범위)과 사용한 기준을 문장으로 적습니다.</p><p><code>독립변수 간 다중공선성을 확인한 결과 분산팽창지수(VIF)는 1.02~1.14로 기준(10) 미만이었고 공차는 0.88~0.98로 0.1 이상이었다.</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>어떤 기준(5 또는 10)을 썼는지 밝힙니다.</li><li>VIF가 큰 변수를 어떻게 처리했는지(제거, 합성, 중심화, 능형회귀 등)를 적으면 독자가 결과를 신뢰하기 쉽습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“변수에 대한 분산팽창인자(variance inflation factor)는 1.02–1.14로 10 미만이며, 공차한계값은 0.88–0.98로 모두 0.1 이상이므로 독립변수 간의 다중공선성이 없음을 확인하였다.”</blockquote><p class="te-cite">여대생의 e헬스 문해력, 생식건강 증진 행위가 삶의 질에 미치는 영향, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096486" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 연구에서의 공차한계 값은 모두 0.1 이상이며, 분산팽창지수 모두 10 이하의 값을 나타내어 측정변수 간의 다중공선성은 존재하지 않는 것으로 나타났다(Table 2).”</blockquote><p class="te-cite">여성 류마티스 관절염 환자의 건강관련 삶의 질 구조모형, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516083721" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“다중다항 로지스틱 회귀분석 수행 전 변수 간 다중공선성을 확인하기 위해 variance inflation factor (VIF)를 산출했으며, 모든 변수의 VIF가 2 미만이므로 변수 간 다중공선성이 없는 것으로 판단했다.”</blockquote><p class="te-cite">한국 장애인의 영양 위험 관련 요인: 장애인삶 패널조사 자료를 이용하여, Korean Journal of Community Nutrition, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516094127" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <!-- term-extras:usage:start -->
   <h3 class="te-sub">실제 논문에서</h3>
   <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
@@ -184,6 +206,21 @@
 
   <h2>주의할 점</h2>
   <p>VIF가 낮다고 해서 모형에 다른 문제가 없다는 뜻은 아니며, <a href="multicollinearity.html">다중공선성</a>은 VIF 외에도 상관행렬이나 상태지수 등 다른 방법으로도 함께 점검하는 것이 좋습니다. 또한 VIF는 어느 정도부터 "심각하다"고 볼지에 대한 절대적 기준이 없어, 연구 분야나 표본 크기에 따라 판단 기준이 달라질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>VIF와 이웃한 진단 도구는 서로 다른 것을 봅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 보나</th><th scope="col">차이</th></tr></thead><tbody><tr><th scope="row"><a href="multicollinearity.html">다중공선성</a></th><td>설명변수끼리 겹치는 현상 자체</td><td>VIF는 이 현상을 숫자로 재는 도구 중 하나</td></tr><tr><th scope="row">공차(tolerance)</th><td>1 − R&lt;sub&gt;j&lt;/sub&gt;², 즉 1 ÷ VIF</td><td>같은 정보를 거꾸로 표현. 작을수록 문제(보통 0.1 미만 주의)</td></tr><tr><th scope="row"><a href="correlation.html">상관계수</a></th><td>변수 두 개씩의 직선 관계</td><td>세 변수 이상이 함께 만드는 겹침은 잡지 못할 수 있음</td></tr><tr><th scope="row">상태지수(condition index)</th><td>설계행렬 전체의 불안정성</td><td>어느 변수 조합이 문제인지 분해해서 볼 수 있음</td></tr></tbody></table></div>
+  <p class="te-note">VIF가 낮다는 것은 ‘변수끼리 겹치지 않는다’는 뜻일 뿐, 모형이 옳다거나 인과 해석이 가능하다는 뜻은 아닙니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Belsley, D. A., Kuh, E., &amp; Welsch, R. E. (1980). Regression Diagnostics: Identifying Influential Data and Sources of Collinearity. Wiley.</li>
+    <li>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). Applied Linear Statistical Models (5th ed.). McGraw-Hill/Irwin.</li>
+    <li>O'Brien, R. M. (2007). A caution regarding rules of thumb for variance inflation factors. Quality &amp; Quantity, 41(5), 673–690.</li>
+    <li>Fox, J., &amp; Monette, G. (1992). Generalized collinearity diagnostics. Journal of the American Statistical Association, 87(417), 178–183.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
