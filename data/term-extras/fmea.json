@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>FMEA(고장모드영향분석)는 설계·공정을 부품이나 단계로 쪼갠 뒤 <strong>아래에서 위로(bottom-up)</strong> 훑으며 고장을 찾는 방법입니다. 한 행(row)을 채우는 질문은 같습니다.</p><ul><li><strong>고장모드</strong>: 이 부분이 어떻게 고장 날 수 있는가(예: 균열, 막힘, 오입력)</li><li><strong>영향</strong>: 그러면 시스템이나 사용자에게 무슨 일이 생기는가</li><li><strong>원인</strong>: 왜 그 고장이 생기는가</li><li><strong>현재 관리</strong>: 지금 어떤 예방·검출 수단이 있는가</li><li><strong>점수</strong>: 심각도(S)·발생도(O)·검출도(D)를 보통 1~10으로 매김</li><li><strong>권고 조치</strong>와 조치 후 재평가</li></ul><p>고장 데이터가 쌓이기 전인 설계 초기에 쓰기 좋고, 표준으로는 IEC 60812, 자동차 업계의 AIAG·VDA 핸드북 등이 있습니다. 치명도까지 따로 평가하면 FMECA라고 부릅니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>가상의 예</strong>로 네 개 고장모드의 RPN(= S × O × D)을 코드로 계산했습니다. D는 클수록 “발견하기 어렵다”는 뜻입니다.</p><table><thead><tr><th>고장모드</th><th>S</th><th>O</th><th>D</th><th>RPN</th></tr></thead><tbody><tr><td>베어링 마모</td><td>8</td><td>5</td><td>4</td><td>160</td></tr><tr><td>센서 오작동</td><td>6</td><td>4</td><td>3</td><td>72</td></tr><tr><td>씰 누설(안전 관련)</td><td>9</td><td>2</td><td>2</td><td>36</td></tr><tr><td>표시등 불량</td><td>3</td><td>4</td><td>3</td><td>36</td></tr></tbody></table><p>RPN 순으로 정렬하면 베어링 마모(160) &gt; 센서 오작동(72) &gt; 씰 누설(안전 관련)(36) = 표시등 불량(36)입니다. 그런데 <strong>씰 누설(36)과 표시등 불량(36)은 RPN이 같습니다</strong>. 심각도 9인 안전 문제와 심각도 3인 사소한 문제가 같은 점수가 되는 것이 RPN의 대표적 약점입니다.</p><ul><li><strong>작성 시점</strong>: 설계 확정 전(설계 FMEA)과 양산 공정 설계 단계(공정 FMEA)에서 쓰입니다. 의료 서비스에서는 투약·수술 절차 등에 적용한 보고가 있습니다.</li><li><strong>얻는 것</strong>: 위험의 우선순위 목록, 조치 항목과 책임자, 검출 수단의 빈틈.</li><li><strong>해석 시 주의</strong>: 점수는 평가자의 판단이므로 팀이 기준표(점수 정의)를 먼저 합의해야 합니다. 같은 RPN이라도 심각도가 높은 항목(예: S ≥ 9)은 RPN과 별개로 먼저 다루는 규칙을 두기도 합니다.</li><li><strong>최근 흐름</strong>: AIAG·VDA 핸드북(2019)은 RPN 대신 S·O·D 조합으로 우선순위를 정하는 Action Priority(AP)를 채택했습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>방법 절에는 다음을 적습니다.</p><ul><li>분석 대상의 경계(어느 시스템·어느 공정)와 사용한 표준·양식</li><li>점수 기준표(1~10이 각각 무엇을 뜻하는지)와 평가 팀 구성(분야·인원)</li><li>우선순위 기준(RPN 임계값 또는 AP, 심각도 우선 규칙)</li><li>조치 후 재평가 결과</li></ul><p>결과 절에는 상위 항목과 점수 변화(조치 전후 RPN)를 표로 제시합니다. 예) “세 개 항목이 RPN 100 이상으로 분류되어 조치하였고, 조치 후 모두 60 미만으로 낮아졌다.”(가상 문장)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "FMEA는 고장 방지를 위한 분석이고 비슷한 이름의 기법과 방향이 다릅니다.",
+    "headers": [
+      "기법",
+      "분석 방향",
+      "질문"
+    ],
+    "rows": [
+      [
+        "FMEA",
+        "부품에서 시스템으로(귀납적, 사전)",
+        "이 부품이 고장 나면 무슨 일이 생기나"
+      ],
+      [
+        "[[fault-tree-analysis|결함수분석(FTA)]]",
+        "최종 사고에서 원인으로(연역적)",
+        "이 사고는 어떤 조합의 고장으로 일어나나"
+      ],
+      [
+        "[[root-cause-analysis|근본원인분석(RCA)]]",
+        "이미 일어난 사건에서 거꾸로",
+        "왜 이 사고가 일어났나"
+      ],
+      [
+        "위험분석(hazard analysis)",
+        "시스템 전반의 위험 식별",
+        "어떤 위험요인이 있나"
+      ]
+    ]
+  },
+  "references": [
+    "International Electrotechnical Commission. (2018). IEC 60812: Failure modes and effects analysis (FMEA and FMECA).",
+    "AIAG & VDA. (2019). FMEA Handbook (1st ed.). Automotive Industry Action Group.",
+    "Stamatis, D. H. (2003). Failure Mode and Effect Analysis: FMEA from Theory to Execution (2nd ed.). ASQ Quality Press."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>ICP(Iterative Closest Point)는 두 점군을 맞추는 알고리즘으로, Besl과 McKay(1992)와 Chen과 Medioni(1992)가 제안했습니다. 한 번에 정답을 구하는 것이 아니라 아래 두 단계를 <strong>수렴할 때까지 반복</strong>합니다.</p><ul><li><strong>대응 찾기</strong>: 움직일 점군(원본)의 각 점에 대해 기준 점군에서 가장 가까운 점을 짝으로 정합니다.</li><li><strong>변환 구하기</strong>: 짝지은 점들 사이 거리 제곱합을 최소로 하는 회전 R과 이동 t를 구합니다(보통 SVD 기반 폐쇄해, Arun 외, 1987). 원본에 이 변환을 적용합니다.</li></ul><p>종료 조건은 오차(RMSE) 변화가 작아지거나 반복 횟수 상한입니다. 점-대-점 오차 대신 점-대-평면 오차를 쓰면 보통 수렴이 빠르다고 알려져 있습니다(Rusinkiewicz &amp; Levoy, 2001).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>ICP는 “처음 위치가 어느 정도 가까워야만” 올바른 해로 갑니다. 이를 보이기 위해 코드로 <strong>가상의 2차원 점군</strong>(비대칭 ‘F’자 모양, 88개 점)을 만들고, 같은 점군을 θ만큼 돌린 뒤 (0.4, −0.3)만큼 옮겨 시작 위치로 삼아 ICP를 200번 돌렸습니다. 정답 짝과의 RMSE를 재며, 남는 0.08 안팎은 점 간격 때문에 생기는 값이라 수렴으로 봅니다.</p><table><thead><tr><th>처음 어긋난 각도</th><th>시작 RMSE</th><th>200회 후 RMSE</th></tr></thead><tbody><tr><td>10°</td><td>0.37</td><td>0.08 (수렴)</td></tr><tr><td>30°</td><td>1.24</td><td>0.08 (수렴)</td></tr><tr><td>60°</td><td>2.69</td><td>0.08 (수렴)</td></tr><tr><td>90°</td><td>3.99</td><td>0.08 (수렴)</td></tr><tr><td>120°</td><td>5.01</td><td>0.08 (수렴)</td></tr><tr><td>150°</td><td>5.69</td><td>3.25 (잘못된 해에 정지)</td></tr><tr><td>180°</td><td>5.99</td><td>3.26 (잘못된 해에 정지)</td></tr></tbody></table><p>이 예에서는 처음 각도가 120° 이하일 때 수렴했고, 그보다 크면 잘못된 해(지역 최솟값)에 멈췄습니다. 형태와 노이즈에 따라 한계는 달라지므로 이 값 자체는 일반 기준이 아닙니다. 그래서 실제 파이프라인에서는 특징 매칭([[point-cloud-registration|점군 정합]]의 전역 정합)으로 초기값을 주고 ICP로 다듬는 순서를 많이 씁니다.</p><ul><li>얻는 것: 정밀한 강체 정합(센서 자세 추정, 3D 스캔 병합, 의료영상 정합). SLAM의 스캔 매칭에도 쓰입니다([[slam|SLAM]]).</li><li>한계: 초기값 의존, 부분 겹침에서 잘못된 대응, 아웃라이어(이상점)에 민감, 대응 탐색 비용</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>논문의 방법 절에는 다음을 적습니다.</p><ul><li>사용한 변형(점-대-점/점-대-평면, 가중·거부 규칙), 대응 탐색 방법(k-d 트리 등)</li><li>초기값을 어떻게 얻었는가</li><li>종료 조건(반복 횟수, 오차 임계값)과 평가 지표(RMSE 등)</li><li>아웃라이어 처리와 겹침 비율</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "정합 방법은 목적과 필요한 초기값이 다릅니다.",
+    "headers": [
+      "방법",
+      "핵심",
+      "초기값 의존성"
+    ],
+    "rows": [
+      [
+        "ICP",
+        "최근접점 대응을 반복해 변환 갱신",
+        "큼(근처에서 시작해야 함)"
+      ],
+      [
+        "특징 기반 정합",
+        "특징 기술자로 대응을 찾고 강건 추정",
+        "작음(전역 정합)"
+      ],
+      [
+        "[[point-cloud-registration|점군 정합]] 일반",
+        "점군을 하나의 좌표계로 맞추는 문제 전체",
+        "방법에 따라 다름"
+      ]
+    ]
+  },
+  "references": [
+    "Besl, P. J., & McKay, N. D. (1992). A method for registration of 3-D shapes. IEEE Transactions on Pattern Analysis and Machine Intelligence, 14(2), 239–256.",
+    "Chen, Y., & Medioni, G. (1992). Object modelling by registration of multiple range images. Image and Vision Computing, 10(3), 145–155.",
+    "Arun, K. S., Huang, T. S., & Blostein, S. D. (1987). Least-squares fitting of two 3-D point sets. IEEE Transactions on Pattern Analysis and Machine Intelligence, 9(5), 698–700.",
+    "Rusinkiewicz, S., & Levoy, M. (2001). Efficient variants of the ICP algorithm. Proceedings of the Third International Conference on 3-D Digital Imaging and Modeling."
+  ]
+}

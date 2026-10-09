@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/fmea.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,27 @@
   <h2>왜 중요한가</h2>
   <p>FMEA는 사고가 실제로 일어나기 전에 위험을 미리 찾아내 우선순위를 매길 수 있다는 점에서, 안전이 특히 중요한 자동차·항공·의료기기 산업의 설계 단계뿐 아니라 의료 서비스 프로세스 개선, 소프트웨어 시스템의 장애 예측 연구 등 다양한 분야로 확장되어 쓰입니다. 정량적 점수 체계를 갖추고 있어 여러 위험 요소를 객관적으로 비교하고 자원을 어디에 우선 투입할지 결정하는 근거로 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>FMEA(고장모드영향분석)는 설계·공정을 부품이나 단계로 쪼갠 뒤 <strong>아래에서 위로(bottom-up)</strong> 훑으며 고장을 찾는 방법입니다. 한 행(row)을 채우는 질문은 같습니다.</p><ul><li><strong>고장모드</strong>: 이 부분이 어떻게 고장 날 수 있는가(예: 균열, 막힘, 오입력)</li><li><strong>영향</strong>: 그러면 시스템이나 사용자에게 무슨 일이 생기는가</li><li><strong>원인</strong>: 왜 그 고장이 생기는가</li><li><strong>현재 관리</strong>: 지금 어떤 예방·검출 수단이 있는가</li><li><strong>점수</strong>: 심각도(S)·발생도(O)·검출도(D)를 보통 1~10으로 매김</li><li><strong>권고 조치</strong>와 조치 후 재평가</li></ul><p>고장 데이터가 쌓이기 전인 설계 초기에 쓰기 좋고, 표준으로는 IEC 60812, 자동차 업계의 AIAG·VDA 핸드북 등이 있습니다. 치명도까지 따로 평가하면 FMECA라고 부릅니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>가상의 예</strong>로 네 개 고장모드의 RPN(= S × O × D)을 코드로 계산했습니다. D는 클수록 “발견하기 어렵다”는 뜻입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>고장모드</th><th>S</th><th>O</th><th>D</th><th>RPN</th></tr></thead><tbody><tr><td>베어링 마모</td><td>8</td><td>5</td><td>4</td><td>160</td></tr><tr><td>센서 오작동</td><td>6</td><td>4</td><td>3</td><td>72</td></tr><tr><td>씰 누설(안전 관련)</td><td>9</td><td>2</td><td>2</td><td>36</td></tr><tr><td>표시등 불량</td><td>3</td><td>4</td><td>3</td><td>36</td></tr></tbody></table></div><p>RPN 순으로 정렬하면 베어링 마모(160) &gt; 센서 오작동(72) &gt; 씰 누설(안전 관련)(36) = 표시등 불량(36)입니다. 그런데 <strong>씰 누설(36)과 표시등 불량(36)은 RPN이 같습니다</strong>. 심각도 9인 안전 문제와 심각도 3인 사소한 문제가 같은 점수가 되는 것이 RPN의 대표적 약점입니다.</p><ul><li><strong>작성 시점</strong>: 설계 확정 전(설계 FMEA)과 양산 공정 설계 단계(공정 FMEA)에서 쓰입니다. 의료 서비스에서는 투약·수술 절차 등에 적용한 보고가 있습니다.</li><li><strong>얻는 것</strong>: 위험의 우선순위 목록, 조치 항목과 책임자, 검출 수단의 빈틈.</li><li><strong>해석 시 주의</strong>: 점수는 평가자의 판단이므로 팀이 기준표(점수 정의)를 먼저 합의해야 합니다. 같은 RPN이라도 심각도가 높은 항목(예: S ≥ 9)은 RPN과 별개로 먼저 다루는 규칙을 두기도 합니다.</li><li><strong>최근 흐름</strong>: AIAG·VDA 핸드북(2019)은 RPN 대신 S·O·D 조합으로 우선순위를 정하는 Action Priority(AP)를 채택했습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>방법 절에는 다음을 적습니다.</p><ul><li>분석 대상의 경계(어느 시스템·어느 공정)와 사용한 표준·양식</li><li>점수 기준표(1~10이 각각 무엇을 뜻하는지)와 평가 팀 구성(분야·인원)</li><li>우선순위 기준(RPN 임계값 또는 AP, 심각도 우선 규칙)</li><li>조치 후 재평가 결과</li></ul><p>결과 절에는 상위 항목과 점수 변화(조치 전후 RPN)를 표로 제시합니다. 예) “세 개 항목이 RPN 100 이상으로 분류되어 조치하였고, 조치 후 모두 60 미만으로 낮아졌다.”(가상 문장)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 논문에서는 함정탑재회로카드조립체를 대상으로 일반적인 D-FMEA 분석방법에 수량 및 비용 분석을 고려한 CEI 지표를 추가하여개선대상 우선순위를 선정하였다.”</blockquote><p class="te-cite">신뢰성물리학분석 기법을 활용한 함정탑재 전자 구성품의 신뢰성 설계 개선 방안, 한국해군과학기술학회지, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002984148" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 FMEA 결과, 베어링 마모로 인한 고장모드가 가장 높은 위험우선순위(RPN)를 기록하여 우선 개선 대상으로 선정되었다."</div>
   <p>이 문장은 기계 시스템이나 제조 공정의 신뢰성을 다루는 공학 논문에서, 여러 잠재적 고장 원인 중 무엇을 먼저 개선해야 하는지 근거를 제시하는 대목입니다. FMEA는 신뢰성 설계, 품질관리, 안전공학 논문에서 위험 요소를 정량적으로 비교하는 표준 도구로 자주 인용됩니다.</p>
 
@@ -169,6 +190,19 @@
 
   <h2>주의할 점</h2>
   <p>FMEA는 고장을 "예방"하기 위한 사전 분석 기법이라는 점에서, 이미 발생한 사고의 원인을 거슬러 올라가 찾아내는 <a href="root-cause-analysis.html">근본원인분석</a>과는 방향이 반대입니다. 또한 FMEA에서 도출된 심각도 점수는 설계 시 <a href="factor-of-safety.html">안전율</a>을 얼마나 여유 있게 잡을지 결정하는 데에도 함께 활용되는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>FMEA는 고장 방지를 위한 분석이고 비슷한 이름의 기법과 방향이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">기법</th><th scope="col">분석 방향</th><th scope="col">질문</th></tr></thead><tbody><tr><th scope="row">FMEA</th><td>부품에서 시스템으로(귀납적, 사전)</td><td>이 부품이 고장 나면 무슨 일이 생기나</td></tr><tr><th scope="row"><a href="fault-tree-analysis.html">결함수분석(FTA)</a></th><td>최종 사고에서 원인으로(연역적)</td><td>이 사고는 어떤 조합의 고장으로 일어나나</td></tr><tr><th scope="row"><a href="root-cause-analysis.html">근본원인분석(RCA)</a></th><td>이미 일어난 사건에서 거꾸로</td><td>왜 이 사고가 일어났나</td></tr><tr><th scope="row">위험분석(hazard analysis)</th><td>시스템 전반의 위험 식별</td><td>어떤 위험요인이 있나</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>International Electrotechnical Commission. (2018). IEC 60812: Failure modes and effects analysis (FMEA and FMECA).</li>
+    <li>AIAG &amp; VDA. (2019). FMEA Handbook (1st ed.). Automotive Industry Action Group.</li>
+    <li>Stamatis, D. H. (2003). Failure Mode and Effect Analysis: FMEA from Theory to Execution (2nd ed.). ASQ Quality Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

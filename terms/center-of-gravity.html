@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/center-of-gravity.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <p>무게중심은 물체가 넘어지지 않고 균형을 유지할 수 있는지를 결정하는 핵심 변수이기 때문에, 로봇공학·항공우주·스포츠과학·건축구조 등 안정성이 중요한 여러 분야의 논문에서 반복적으로 다루어집니다.</p>
   <p>이족보행 로봇의 걸음걸이 제어, 항공기나 자동차의 자세 제어, 인체 동작 분석 등은 결국 무게중심을 원하는 위치나 궤적으로 유지·이동시키는 문제로 귀결되는 경우가 많습니다. 그래서 무게중심 추정과 제어 기법 자체가 하나의 독립된 연구 주제로 다루어지기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>무게중심은 물체의 모든 부분에 작용하는 중력을 <strong>한 점에 작용하는 힘 하나로 바꿔 놓을 수 있는 점</strong>입니다. 좌표로는 각 부분의 위치를 무게로 가중 평균한 값입니다. <code>x<sub>c</sub> = Σ(w<sub>i</sub> x<sub>i</sub>) / Σw<sub>i</sub></code> 중력이 균일하면 무게는 질량에 비례하므로 무게중심과 <a href="center-of-mass.html">질량중심</a>이 일치합니다.</p><ul><li>밀도가 균일하고 모양이 단순한 물체에서는 기하학적 중심(도심)과 같지만, 질량이 고르지 않으면 무거운 쪽으로 치우칩니다.</li><li>무게중심은 물체 <em>바깥</em>에 있을 수도 있습니다(고리, 몸을 구부린 사람).</li><li>서 있는 사람의 무게중심은 체형과 자세에 따라 다르지만 대체로 키의 55% 안팎 높이로 설명됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예 1.</strong> 일직선 위에 2 kg(x=0 m), 3 kg(x=4 m), 5 kg(x=10 m)이 놓여 있다면 x<sub>c</sub> = (2×0 + 3×4 + 5×10) ÷ 10 = 6.2 m입니다(코드로 계산). 가장 무거운 쪽에 가깝습니다.</p><p><strong>가상의 예 2: 넘어지는 각도.</strong> 폭 0.4 m, 무게중심 높이 0.5 m인 직육면체 상자를 한쪽 모서리로 기울일 때, 무게중심이 그 모서리 위를 지나는 순간을 넘어가는 한계라고 보면 한계 각도는 atan(0.2 ÷ 0.5) ≈ 21.8°입니다. 무게중심이 낮고 바닥이 넓을수록 한계 각도가 커져 안정합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“무게중심 = 한가운데”라는 오해</strong>: 질량 분포에 따라 달라집니다. 한쪽에 추가 달린 막대는 추 쪽으로 쏠립니다.</li><li><strong>“무게중심은 항상 물체 안에 있다”는 오해</strong>: 도넛이나 구부러진 몸에서는 바깥에 있을 수 있습니다.</li><li><strong>“안정성은 무게중심 높이만 결정한다”는 오해</strong>: 무게중심에서 내린 수직선이 지지기저면 안에 있는지가 핵심이므로 바닥 넓이와 함께 봐야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"로봇의 무게중심 위치를 재산정하여 보행 시 안정성을 높이는 제어 알고리즘을 설계하였다."</div>
   <p>이 문장은 로봇의 각 부품이 가진 무게를 종합해 무게중심 위치를 계산하고, 이를 바탕으로 넘어지지 않고 걷도록 제어 방식을 설계했다는 뜻입니다.</p>
 
@@ -168,6 +186,18 @@
 
   <h2>주의할 점</h2>
   <p>무게중심은 물체의 기하학적 중심(도형의 한가운데)과 항상 같은 것은 아닙니다. 물체의 질량이 고르지 않게 분포되어 있다면 무게중심은 물체가 더 무거운 쪽으로 치우칩니다. 예를 들어 한쪽에 무거운 추를 붙인 막대는 그 추가 있는 쪽에 무게중심이 쏠리며, 이는 물체가 안정적으로 균형을 이루는 조건인 <a href="force-equilibrium.html">힘의 평형</a>을 판단할 때도 중요하게 고려해야 하는 부분입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷한 “중심” 용어는 무엇을 기준으로 하느냐가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">기준</th><th scope="col">같아지는 조건</th></tr></thead><tbody><tr><th scope="row">무게중심</th><td>중력(무게)의 작용점</td><td>—</td></tr><tr><th scope="row"><a href="center-of-mass.html">질량중심</a></th><td>질량 분포의 평균 위치</td><td>중력이 균일하면 무게중심과 일치</td></tr><tr><th scope="row">도심(도형의 중심)</th><td>모양(밀도 무관)의 기하학적 중심</td><td>밀도가 균일하면 질량중심과 일치</td></tr><tr><th scope="row"><a href="center-of-buoyancy.html">부력중심</a></th><td>물체가 밀어낸 유체 부피의 중심</td><td>물체가 균일하고 전부 잠긴 경우</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Halliday, D., Resnick, R., &amp; Walker, J. (2014). Fundamentals of Physics (10th ed.). Wiley.</li>
+    <li>Winter, D. A. (2009). Biomechanics and Motor Control of Human Movement (4th ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
