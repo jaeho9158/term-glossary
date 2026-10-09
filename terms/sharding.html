@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sharding.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>단일 서버가 처리할 수 있는 데이터 양과 요청 수에는 물리적 한계가 있기 때문에, 사용자 수가 급격히 늘어나는 대규모 서비스에서는 수직적 확장(더 좋은 서버로 교체)만으로는 한계에 부딪히게 됩니다. 샤딩은 데이터를 여러 서버에 나누어 수평적으로 확장할 수 있게 해주는 핵심 기법이기 때문에, 분산 시스템·데이터베이스 논문에서 확장성(scalability) 문제를 다룰 때 빠지지 않고 등장하며, 최근에는 블록체인의 처리량 개선을 위한 방법으로도 활발히 연구됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>샤딩은 하나의 논리적 데이터 집합을 <strong>샤드 키</strong>를 기준으로 나누어 여러 서버(샤드)에 분산 저장하는 수평 분할 기법입니다. 일반적인 절차는 다음과 같습니다.</p><ol><li>데이터와 질의 패턴을 보고 샤드 키(예: 사용자 ID)를 정합니다.</li><li>키를 샤드에 대응시키는 규칙을 정합니다. 해시 기반(키의 해시값을 샤드 수로 나눈 나머지 등), 범위 기반(키의 구간별), 목록(디렉터리) 기반이 대표적입니다.</li><li>요청이 오면 샤드 키로 담당 샤드를 찾아 해당 서버로 보냅니다.</li><li>데이터가 늘면 샤드를 추가하고 일부 데이터를 옮기는 재분배(리샤딩)를 합니다.</li></ol><p><strong>가상의 예(코드로 계산)</strong>: 키 10,000개(user:0 ~ user:9999)를 FNV-1a 해시로 샤드 4개에 배치하면 샤드당 2,500개로 고르게 나뉩니다. 한편 쓰기가 최신 ID에 몰리는 서비스에서 최근 1,000건을 ID 구간(0~2499, 2500~4999, …)으로 나누면 1,000건이 모두 마지막 샤드에 쌓이지만, 해시 기반에서는 4개 샤드에 250건씩 퍼집니다. 이 차이가 범위 기반의 핫스팟 위험입니다. 해시의 나머지 방식으로 샤드를 4개에서 5개로 늘리면 키의 약 80.1%(10,000개 중 8,006개)가 다른 샤드로 이동합니다. 일관성 해싱(링)에서는 새 샤드가 맡게 되는 키만 옮기면 되므로 이동 비율이 이상적으로 1/5 = 20% 수준으로 줄어듭니다(실제 값은 가상 노드 수와 해시 함수에 따라 달라집니다).</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>언제 쓰나</strong>: 한 서버로 데이터량이나 요청량을 감당하기 어려울 때 읽기·쓰기 용량을 서버 수에 따라 늘리기 위해 씁니다(수평 확장). 복제와 달리 서버마다 서로 다른 데이터를 갖습니다.</li><li><strong>얻는 것</strong>: 저장 용량과 처리량의 확장, 부하 분산, 지역별 배치를 통한 응답 지연 감소.</li><li><strong>치르는 비용</strong>: 여러 샤드에 걸친 조회·조인·트랜잭션이 복잡해지고, 샤드 키를 잘못 고르면 핫스팟이 생기며, 리샤딩 시 데이터 이동이 큽니다. 일반적으로 샤딩만으로 가용성이 높아지지는 않고 복제와 함께 설계합니다.</li><li><strong>블록체인 분야의 샤딩</strong>: 네트워크를 여러 샤드로 나누어 각 샤드가 거래의 일부만 검증하도록 해 처리량을 높이려는 설계입니다(예: Luu 등, 2016). 이때는 데이터 저장뿐 아니라 합의와 보안 가정이 함께 쟁점입니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>샤드 키 선택 근거와 분할 방식(해시/범위/디렉터리), 샤드 수, 리샤딩 전략(일관성 해싱 등)을 적습니다.</li><li>데이터 분포(샤드별 건수와 크기), 부하 분포(샤드별 요청 수)와 편향 지표를 보입니다.</li><li>처리량, 지연시간(평균과 꼬리 지연), 샤드 수에 따른 확장성 곡선을 실험으로 제시하고, 교차 샤드 질의 비율을 함께 보고합니다.</li><li>복제 수준, 일관성 모델, 장애 시나리오를 명시합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"대규모 사용자 데이터를 사용자 ID의 해시값을 기준으로 샤딩(sharding)하여 16개 노드에 분산 저장함으로써 단일 노드의 처리 부하를 낮췄다."</div>
   <p>이 문장은 데이터를 특정 규칙에 따라 여러 서버로 쪼개 저장함으로써, 하나의 서버가 모든 요청을 처리하느라 과부하되는 문제를 줄였다는 뜻입니다.</p>
 
@@ -169,6 +187,19 @@
 
   <h2>주의할 점</h2>
   <p>샤딩 기준(샤드 키)을 잘못 정하면 특정 샤드에만 데이터와 요청이 몰리는 "핫스팟(hot partition)" 문제가 생길 수 있어, <a href="load-balancing.html">로드밸런싱</a>과 함께 설계해야 효과가 있습니다. 또한 여러 샤드에 걸친 데이터를 한 번에 조회하거나 수정하는 작업은 단일 서버일 때보다 복잡해진다는 점도 고려해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>분산 시스템에서 비슷한 말로 섞이는 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">데이터 구성</th></tr></thead><tbody><tr><th scope="row"><strong>샤딩</strong></th><td>데이터를 나눠 여러 서버에 분산 저장</td><td>서버마다 서로 다른 일부 데이터</td></tr><tr><th scope="row">복제(replication)</th><td>같은 데이터를 여러 서버에 복사</td><td>서버마다 같은 데이터(가용성·읽기 확장)</td></tr><tr><th scope="row"><a href="load-balancing.html">로드밸런싱</a></th><td>요청을 여러 서버에 분배</td><td>데이터 분할과는 별개의 개념</td></tr><tr><th scope="row"><a href="consistent-hashing.html">일관성 해싱</a></th><td>샤드 수가 바뀔 때 이동하는 데이터를 최소화하는 배치 규칙</td><td>샤딩 방식의 한 구현</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media.</li>
+    <li>Karger, D., Lehman, E., Leighton, T., Panigrahy, R., Levine, M., &amp; Lewin, D. (1997). Consistent hashing and random trees: Distributed caching protocols for relieving hot spots on the World Wide Web. Proceedings of the 29th Annual ACM Symposium on Theory of Computing, 654–663.</li>
+    <li>Luu, L., Narayanan, V., Zheng, C., Baweja, K., Gilbert, S., &amp; Saxena, P. (2016). A secure sharding protocol for open blockchains. Proceedings of the ACM SIGSAC Conference on Computer and Communications Security, 17–30.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

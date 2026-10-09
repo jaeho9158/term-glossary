@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>샤딩은 하나의 논리적 데이터 집합을 <strong>샤드 키</strong>를 기준으로 나누어 여러 서버(샤드)에 분산 저장하는 수평 분할 기법입니다. 일반적인 절차는 다음과 같습니다.</p><ol><li>데이터와 질의 패턴을 보고 샤드 키(예: 사용자 ID)를 정합니다.</li><li>키를 샤드에 대응시키는 규칙을 정합니다. 해시 기반(키의 해시값을 샤드 수로 나눈 나머지 등), 범위 기반(키의 구간별), 목록(디렉터리) 기반이 대표적입니다.</li><li>요청이 오면 샤드 키로 담당 샤드를 찾아 해당 서버로 보냅니다.</li><li>데이터가 늘면 샤드를 추가하고 일부 데이터를 옮기는 재분배(리샤딩)를 합니다.</li></ol><p><strong>가상의 예(코드로 계산)</strong>: 키 10,000개(user:0 ~ user:9999)를 FNV-1a 해시로 샤드 4개에 배치하면 샤드당 2,500개로 고르게 나뉩니다. 한편 쓰기가 최신 ID에 몰리는 서비스에서 최근 1,000건을 ID 구간(0~2499, 2500~4999, …)으로 나누면 1,000건이 모두 마지막 샤드에 쌓이지만, 해시 기반에서는 4개 샤드에 250건씩 퍼집니다. 이 차이가 범위 기반의 핫스팟 위험입니다. 해시의 나머지 방식으로 샤드를 4개에서 5개로 늘리면 키의 약 80.1%(10,000개 중 8,006개)가 다른 샤드로 이동합니다. 일관성 해싱(링)에서는 새 샤드가 맡게 되는 키만 옮기면 되므로 이동 비율이 이상적으로 1/5 = 20% 수준으로 줄어듭니다(실제 값은 가상 노드 수와 해시 함수에 따라 달라집니다).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 한 서버로 데이터량이나 요청량을 감당하기 어려울 때 읽기·쓰기 용량을 서버 수에 따라 늘리기 위해 씁니다(수평 확장). 복제와 달리 서버마다 서로 다른 데이터를 갖습니다.</li><li><strong>얻는 것</strong>: 저장 용량과 처리량의 확장, 부하 분산, 지역별 배치를 통한 응답 지연 감소.</li><li><strong>치르는 비용</strong>: 여러 샤드에 걸친 조회·조인·트랜잭션이 복잡해지고, 샤드 키를 잘못 고르면 핫스팟이 생기며, 리샤딩 시 데이터 이동이 큽니다. 일반적으로 샤딩만으로 가용성이 높아지지는 않고 복제와 함께 설계합니다.</li><li><strong>블록체인 분야의 샤딩</strong>: 네트워크를 여러 샤드로 나누어 각 샤드가 거래의 일부만 검증하도록 해 처리량을 높이려는 설계입니다(예: Luu 등, 2016). 이때는 데이터 저장뿐 아니라 합의와 보안 가정이 함께 쟁점입니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>샤드 키 선택 근거와 분할 방식(해시/범위/디렉터리), 샤드 수, 리샤딩 전략(일관성 해싱 등)을 적습니다.</li><li>데이터 분포(샤드별 건수와 크기), 부하 분포(샤드별 요청 수)와 편향 지표를 보입니다.</li><li>처리량, 지연시간(평균과 꼬리 지연), 샤드 수에 따른 확장성 곡선을 실험으로 제시하고, 교차 샤드 질의 비율을 함께 보고합니다.</li><li>복제 수준, 일관성 모델, 장애 시나리오를 명시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "분산 시스템에서 비슷한 말로 섞이는 용어입니다.",
+    "headers": [
+      "용어",
+      "무엇을 하나",
+      "데이터 구성"
+    ],
+    "rows": [
+      [
+        "[[sharding|샤딩]]",
+        "데이터를 나눠 여러 서버에 분산 저장",
+        "서버마다 서로 다른 일부 데이터"
+      ],
+      [
+        "복제(replication)",
+        "같은 데이터를 여러 서버에 복사",
+        "서버마다 같은 데이터(가용성·읽기 확장)"
+      ],
+      [
+        "[[load-balancing|로드밸런싱]]",
+        "요청을 여러 서버에 분배",
+        "데이터 분할과는 별개의 개념"
+      ],
+      [
+        "[[consistent-hashing|일관성 해싱]]",
+        "샤드 수가 바뀔 때 이동하는 데이터를 최소화하는 배치 규칙",
+        "샤딩 방식의 한 구현"
+      ]
+    ]
+  },
+  "references": [
+    "Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media.",
+    "Karger, D., Lehman, E., Leighton, T., Panigrahy, R., Levine, M., & Lewin, D. (1997). Consistent hashing and random trees: Distributed caching protocols for relieving hot spots on the World Wide Web. Proceedings of the 29th Annual ACM Symposium on Theory of Computing, 654–663.",
+    "Luu, L., Narayanan, V., Zheng, C., Baweja, K., Gilbert, S., & Saxena, P. (2016). A secure sharding protocol for open blockchains. Proceedings of the ACM SIGSAC Conference on Computer and Communications Security, 17–30."
+  ]
+}

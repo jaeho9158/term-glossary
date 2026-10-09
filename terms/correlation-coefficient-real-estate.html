@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>부동산 포트폴리오에서 지역이나 유형을 섞어 위험을 줄일 수 있는지는 전적으로 자산 간 상관계수에 달려 있으므로, 기관투자자의 자산배분과 학술 연구는 오피스·주택·물류 간, 서울·지방 간, 국내·해외 간 수익률 상관계수를 추정하는 데서 출발합니다. 주식·채권과 부동산의 상관계수가 낮다는 실증이 대체투자 확대의 논거였고, 위기 때 그 상관이 급등하는 현상은 위험 관리의 핵심 경고로 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>피어슨 상관계수 <code>ρ = Cov(R<sub>A</sub>, R<sub>B</sub>) / (σ<sub>A</sub> σ<sub>B</sub>)</code> 는 두 수익률의 공분산을 각각의 표준편차로 나눈 값으로 −1에서 +1 사이에 놓입니다. +1은 완전히 같은 방향, −1은 완전히 반대 방향, 0은 선형 관계가 없음을 뜻합니다.</p><p><strong>가상의 예</strong>: 서울 오피스(A)와 지방 물류(B)의 연 수익률(%) 8개년을 아래처럼 가정했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>연도</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead><tbody><tr><td>A 수익률(%)</td><td>8.2</td><td>5.1</td><td>−3.4</td><td>12.0</td><td>6.3</td><td>9.5</td><td>−1.8</td><td>4.4</td></tr><tr><td>B 수익률(%)</td><td>6.0</td><td>7.2</td><td>2.1</td><td>5.5</td><td>3.8</td><td>8.9</td><td>4.0</td><td>6.6</td></tr></tbody></table></div><p>코드로 계산하면 평균은 A 5.04%, B 5.51%, 표본 표준편차는 A 5.32%p, B 2.16%p, 공분산은 7.57, 상관계수는 <strong>ρ ≈ 0.66</strong>입니다. 두 자산을 50:50으로 섞은 포트폴리오의 표준편차는 <code>√(w²σ<sub>A</sub>² + (1−w)²σ<sub>B</sub>² + 2w(1−w)ρσ<sub>A</sub>σ<sub>B</sub>)</code> 로 약 3.47%p이고, ρ가 1이었다면 3.74%p(두 표준편차의 단순 평균과 같음), ρ가 0이었다면 2.87%p입니다. 상관이 낮을수록 위험이 더 줄어드는 것을 이 식으로 확인할 수 있습니다. 표본이 8개뿐이어서 ρ 추정치 자체도 불확실하다는 점은 해석 단계에서 다룹니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>기준은 관례입니다</strong>: “0.3 미만이면 약함, 0.7 이상이면 강함” 같은 구분은 연구자마다 다르고 통계 이론의 임계값이 아닙니다. 분산 효과 관점에서는 값 자체와 포트폴리오 위험이 어떻게 줄어드는지를 함께 제시하는 편이 안전합니다.</li><li><strong>감정평가 기반 수익률의 평탄화</strong>: 감정가격지수는 평가 시점의 시차와 평탄화 때문에 변동성과 주식과의 상관이 실제보다 낮게 나오는 경향이 있다고 알려져 있고, Geltner(1993)는 이를 보정(비평탄화)하는 방법을 제시했습니다. <a href="appraisal-based-index.html">감정가격지수</a>로 구한 상관과 <a href="transaction-price-index.html">실거래가격지수</a>로 구한 상관은 직접 비교하기 어렵습니다.</li><li><strong>시장 국면에 따라 달라집니다</strong>: 위기 때 자산 간 상관이 올라간다는 보고가 있습니다(Longin &amp; Solnik, 2001은 국제 주식시장에서 하락장의 상관이 더 높다고 보고). 전체 기간 상관 하나로 하락기의 분산 효과를 단정하기 어렵습니다.</li><li><strong>표본 크기</strong>: 관측이 적으면 상관계수의 신뢰구간이 매우 넓습니다. 위 8개 관측치의 0.66은 피셔 z 변환으로 계산한 95% 신뢰구간이 대략 −0.09에서 0.93에 이르므로 점추정치만 쓰지 않습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>자료의 종류(감정가 지수 / 실거래가 지수 / 상장 리츠 수익률), 기간, 관측 주기(월·분기·연)를 명시합니다.</li><li>수익률이 명목인지 실질인지, 로그수익률인지 단순수익률인지 밝힙니다.</li><li>상관계수와 함께 표본 수(n), 신뢰구간 또는 p값을 보고하고, 가능하면 하락기만의 상관(조건부 상관)이나 구간별 안정성도 제시합니다.</li><li>피어슨 상관은 선형 관계만 재므로 비선형·꼬리 의존성이 의심되면 순위상관이나 코퓰라 등 다른 방법을 병행합니다.</li><li>분산 효과를 주장할 때는 상관계수 표만으로 끝내지 말고 <a href="efficient-frontier-real-estate.html">효율적투자선</a>이나 포트폴리오 위험 계산으로 이어서 보여 줍니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">상관계수가 1에 가까울수록 두 자산의 수익률이 동조화되어 분산효과가 작고, -1에 가까울수록 반대로 움직여 분산효과가 크다.</div>
   <p>숫자가 낮을수록(특히 음수일수록) 두 자산을 함께 가지고 있을 때 위험이 더 잘 줄어든다는 뜻이에요.</p>
   <div class="example">"지역별 부동산 수익률 간 상관계수를 산출하여 포트폴리오 분산 효과를 검토하였다."</div>
@@ -157,6 +175,19 @@
 
   <h2>주의할 점</h2>
   <p>과거 데이터로 산출된 상관계수는 시장 국면 변화에 따라 미래에도 그대로 유지된다고 단정할 수 없습니다. 측정 주기를 월·분기·연 중 무엇으로 하느냐에 따라서도 상관계수 값이 달라지므로 비교 시 산정 주기를 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>포트폴리오 이론에서 서로 붙어 다니는 지표입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 재나</th><th scope="col">단위·범위</th></tr></thead><tbody><tr><th scope="row">상관계수(ρ)</th><td>두 수익률이 함께 움직이는 정도(선형)</td><td>−1 ~ +1, 단위 없음</td></tr><tr><th scope="row">공분산</th><td>두 수익률이 함께 변하는 크기</td><td>수익률 단위의 곱(스케일에 의존)</td></tr><tr><th scope="row">베타</th><td>시장 수익률이 1% 변할 때 자산 수익률의 평균적 반응</td><td>단위 없음, 범위 제한 없음</td></tr><tr><th scope="row"><a href="diversification.html">분산투자</a></th><td>상관이 낮은 자산을 섞어 비체계적위험을 줄이는 전략</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Markowitz, H. (1952). Portfolio selection. The Journal of Finance, 7(1), 77–91.</li>
+    <li>Geltner, D. (1993). Estimating market values from appraised values without assuming an efficient market. Journal of Real Estate Research, 8(3), 325–345.</li>
+    <li>Longin, F., &amp; Solnik, B. (2001). Extreme correlation of international equity markets. The Journal of Finance, 56(2), 649–676.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

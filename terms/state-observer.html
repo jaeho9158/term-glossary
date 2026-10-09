@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 시스템에서는 원하는 모든 상태 변수를 센서로 직접 측정하기 어렵거나, 센서 자체가 비싸고 고장에 취약한 경우가 많습니다. 상태 관측기는 이런 제약 속에서도 <a href="pid-controller.html">PID 제어기</a>와 달리 상태 되먹임 제어기가 필요로 하는 내부 상태 정보를 확보할 수 있게 해주기 때문에, 로봇·전력전자·항공우주 등 제어공학 논문 전반에서 핵심 구성요소로 다뤄집니다. 또한 센서 고장을 감지하거나 대체하는 결함 허용 제어 연구에서도 관측기가 중요한 축을 이룹니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>선형 시스템 <code>ẋ = Ax + Bu, y = Cx</code> 에서 상태 x를 직접 잴 수 없고 입력 u와 출력 y만 알 때, 루엔버거 관측기는 모델을 한 벌 더 돌리면서 출력 오차로 보정합니다.</p><p><code>x̂̇ = A x̂ + B u + L ( y − C x̂ )</code></p><ol><li>모델(A, B)로 상태를 예측합니다.</li><li>예측 출력 C x̂ 와 실제 측정 y 의 차이를 구합니다.</li><li>그 차이에 이득 L을 곱해 상태 추정치에 되먹입니다.</li><li>추정 오차 e = x − x̂ 는 <code>ė = (A − LC) e</code> 를 따르므로, A − LC 의 고유값이 모두 안정하도록(실수부 음수) L을 고르면 오차가 0으로 수렴합니다.</li></ol><p>이 방법은 Luenberger(1964)가 정리했고, 잡음이 있을 때 통계적으로 최적인 이득을 구하는 것이 칼만 필터(Kalman, 1960)입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>전제</strong>: 쌍 (A, C)가 관측 가능해야 L로 A − LC 의 고유값을 원하는 곳에 놓을 수 있습니다. 가관측성은 <a href="controllability-observability.html">가제어성과 가관측성</a>에서 다룹니다.</li><li><strong>얻는 것</strong>: 센서 수와 비용을 줄이고, <a href="state-feedback-control.html">상태 피드백 제어</a>에 필요한 상태를 확보하며, 센서 고장 감지나 외란(확장 상태로 포함) 추정에도 쓰입니다.</li><li><strong>분리 원리</strong>: 선형 시스템에서는 상태 피드백 이득 K와 관측기 이득 L을 따로 설계해도 전체 고유값이 두 집합의 합집합이 됩니다.</li><li><strong>설계의 균형</strong>: L을 크게 하면 추정이 빨라지지만 측정 잡음을 더 크게 증폭합니다. 잡음 수준이 높으면 칼만 필터처럼 잡음 통계를 반영한 이득을 씁니다.</li></ul><p><strong>가상의 예(이중 적분기)</strong>: <code>ẋ₁ = x₂, ẋ₂ = u, y = x₁</code> 에서 위치 y만 잴 수 있고 속도 x₂를 추정하려 합니다. L = [l₁, l₂]ᵀ 이면 A − LC = [[−l₁, 1], [−l₂, 0]] 이고 특성방정식은 s² + l₁s + l₂ = 0 입니다. 오차 극을 −4, −4 에 두고 싶다면 (s+4)² = s² + 8s + 16 과 비교해 l₁ = 8, l₂ = 16 입니다. 극이 −4이면 오차의 시정수가 약 0.25초 수준이 되는데, 보통 제어 루프보다 몇 배 빠르게 두는 것을 관례로 삼는다고 설명됩니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>관측기 종류(루엔버거, 슬라이딩 모드, 확장 칼만 필터 등)와 적용한 모델(선형화 여부, 모델 오차 가정)을 밝힙니다.</li><li>이득 L(또는 극 위치)과 그 선택 근거를 적고, 잡음·외란 가정을 적습니다.</li><li>추정 성능은 추정 오차 곡선, 수렴 시간, 정상상태 오차, 잡음 민감도 등으로 보이고, 가능하면 직접 측정한 참값과 비교합니다.</li><li>관측 가능성 조건을 확인했다는 점과, 모델 불확실성에 대한 강인성 시험 결과를 함께 제시합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모터의 회전자 위치 센서를 제거하기 위해 루엔버거 관측기 기반의 상태 추정 기법을 도입하였다."</div>
   <p>이 문장은 "값비싼 위치 센서를 직접 달지 않고도, 전압·전류처럼 이미 측정하고 있는 값들만으로 계산을 통해 모터의 회전자 위치를 추정하는 방법을 썼다"는 뜻입니다. 센서를 줄이면서도 제어에 필요한 정보를 확보할 수 있다는 것이 핵심 장점입니다.</p>
 
@@ -170,6 +188,19 @@
 
   <h2>주의할 점</h2>
   <p>루엔버거 관측기 같은 결정론적 상태 관측기는 잡음을 따로 고려하지 않고 내부 상태를 "추정"하므로, 같은 상태 관측기라도 잡음이 섞인 측정값에서 최적의 추정치를 통계적으로 계산하는 <a href="kalman-filter.html">칼만 필터</a>와는 설계 출발점이 다릅니다. 또한 관측기가 제대로 작동하려면 애초에 그 상태가 측정 가능한 값들로부터 이론적으로 추정 가능해야 하며, 이는 <a href="controllability-observability.html">가제어성과 가관측성</a> 가운데 가관측성이 확보되어 있는지와 직결된 문제입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>상태 추정과 관련해 자주 섞이는 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">잡음 가정</th></tr></thead><tbody><tr><th scope="row"><strong>상태 관측기</strong></th><td>측정 가능한 값과 모델로 내부 상태를 추정하는 알고리즘의 총칭</td><td>방식에 따라 다름</td></tr><tr><th scope="row"><a href="luenberger-observer.html">루엔버거 관측기</a></th><td>결정론적 모델 기반 선형 관측기</td><td>고려하지 않음</td></tr><tr><th scope="row"><a href="kalman-filter.html">칼만 필터</a></th><td>잡음 통계를 반영해 오차 분산을 최소화하는 추정기</td><td>가우시안 잡음 가정</td></tr><tr><th scope="row"><a href="state-feedback-control.html">상태 피드백 제어</a></th><td>추정(또는 측정)한 상태로 제어 입력을 계산하는 제어기</td><td>관측기와 따로 설계</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Luenberger, D. G. (1964). Observing the state of a linear system. IEEE Transactions on Military Electronics, 8(2), 74–80.</li>
+    <li>Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. Journal of Basic Engineering, 82(1), 35–45.</li>
+    <li>Kailath, T. (1980). Linear Systems. Prentice-Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="kalman-filter.html">칼만 필터</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

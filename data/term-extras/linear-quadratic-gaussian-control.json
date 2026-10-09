@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>플랜트 <code>ẋ = Ax + Bu + w, y = Cx + v</code> (w, v: 가우시안 백색잡음)와 비용 <code>J = E[ ∫(xᵀQx + uᵀRu) dt ]</code> 에 대해 LQG는 다음 두 문제로 풀립니다(분리 원리).</p><ol><li><strong>LQR 이득 K</strong>: 잡음이 없다고 보고 대수 리카티 방정식을 풀어 u = −K x̂ 를 구합니다([[linear-quadratic-regulator|선형이차조절기]]).</li><li><strong>칼만 필터 이득 L</strong>: 잡음 공분산으로 쌍대(dual) 리카티 방정식을 풀어 x̂̇ = A x̂ + B u + L(y − C x̂) 를 구합니다([[kalman-filter|칼만 필터]]).</li><li><strong>결합</strong>: 추정 상태 x̂ 를 LQR 제어 법칙에 그대로 넣습니다(확실성 등가).</li></ol><p><strong>가상의 스칼라 예</strong>: <code>ẋ = x + u + w, y = x + v</code>, Q = R = 1, 잡음 공분산 W = V = 1. LQR 쪽은 2p − p² + 1 = 0 의 해로 K = 1 + √2 ≈ 2.414 이고, 칼만 필터 쪽도 같은 형태의 식이어서 L = 1 + √2 ≈ 2.414 입니다. 결합 시스템의 상태를 (x, 추정오차)로 쓰면 상태 행렬이 위삼각 블록 형태(대각 성분 a−bK 와 a−Lc)가 되어 고유값은 둘 다 −√2 ≈ −1.414 입니다. 곧 폐루프 극이 제어기 설계와 추정기 설계에서 따로 정해집니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 상태를 모두 잴 수 없고 측정 잡음과 공정 잡음이 있으며, 에너지(입력)와 오차를 한 비용으로 조절하고 싶은 선형 제어 문제입니다. Athans(1971)가 설계에서의 역할을 정리했습니다.</li><li><strong>얻는 것</strong>: 가정이 맞으면 비용을 최소화하는 최적 해와 체계적인 설계 절차(두 리카티 방정식)를 얻습니다.</li><li><strong>한계</strong>: Doyle(1978)은 LQG 제어기가 LQR이 가진 안정 여유를 보장하지 않을 수 있음을 반례로 보였습니다. 모델 불확실성이 클 때는 루프 전달 회복(LTR)이나 [[h-infinity-control|H무한 제어]] 같은 강인 설계를 씁니다.</li><li><strong>가정 의존</strong>: 선형 모델, 가우시안 잡음, 정확한 잡음 통계를 전제하므로 실제 잡음이 다르면 성능이 떨어집니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>플랜트 모델과 잡음 가정(공분산 Q<sub>w</sub>, R<sub>v</sub>)을 적고, 가중 행렬 Q, R의 선택 근거를 밝힙니다.</li><li>LQR 이득 K와 칼만 필터 이득 L, 폐루프 극(또는 고유값)을 보고합니다.</li><li>성능은 시뮬레이션·실험에서 오차, 제어 입력 크기, 비용 값, 잡음 하의 응답으로 보이고, 모델 오차에 대한 민감도·강인성(안정 여유)을 함께 검증합니다.</li><li>비교 대상(PID, 극배치, H무한 등)이 있다면 같은 조건에서 비교했음을 명시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "LQ 계열 용어는 서로 이어져 있습니다.",
+    "headers": [
+      "용어",
+      "입력 정보",
+      "역할"
+    ],
+    "rows": [
+      [
+        "[[linear-quadratic-regulator|LQR(선형이차조절기)]]",
+        "상태를 안다고 가정",
+        "이차 비용을 최소화하는 상태 피드백 이득 K"
+      ],
+      [
+        "[[kalman-filter|칼만 필터]]",
+        "잡음 섞인 측정",
+        "잡음 하의 최적 상태 추정"
+      ],
+      [
+        "[[linear-quadratic-gaussian-control|LQG 제어]]",
+        "잡음 섞인 측정",
+        "칼만 필터 + LQR을 결합한 출력 피드백 제어"
+      ],
+      [
+        "[[h-infinity-control|H무한 제어]]",
+        "모델 불확실성",
+        "최악의 경우 성능을 보장하는 강인 제어"
+      ],
+      [
+        "[[pole-placement-design|극배치 설계]]",
+        "원하는 극 위치",
+        "비용 최소화 없이 극을 직접 지정"
+      ]
+    ]
+  },
+  "references": [
+    "Athans, M. (1971). The role and use of the stochastic linear-quadratic-Gaussian problem in control system design. IEEE Transactions on Automatic Control, 16(6), 529–552.",
+    "Doyle, J. C. (1978). Guaranteed margins for LQG regulators. IEEE Transactions on Automatic Control, 23(4), 756–757.",
+    "Kwakernaak, H., & Sivan, R. (1972). Linear Optimal Control Systems. Wiley-Interscience."
+  ]
+}

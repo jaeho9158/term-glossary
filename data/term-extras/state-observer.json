@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>선형 시스템 <code>ẋ = Ax + Bu, y = Cx</code> 에서 상태 x를 직접 잴 수 없고 입력 u와 출력 y만 알 때, 루엔버거 관측기는 모델을 한 벌 더 돌리면서 출력 오차로 보정합니다.</p><p><code>x̂̇ = A x̂ + B u + L ( y − C x̂ )</code></p><ol><li>모델(A, B)로 상태를 예측합니다.</li><li>예측 출력 C x̂ 와 실제 측정 y 의 차이를 구합니다.</li><li>그 차이에 이득 L을 곱해 상태 추정치에 되먹입니다.</li><li>추정 오차 e = x − x̂ 는 <code>ė = (A − LC) e</code> 를 따르므로, A − LC 의 고유값이 모두 안정하도록(실수부 음수) L을 고르면 오차가 0으로 수렴합니다.</li></ol><p>이 방법은 Luenberger(1964)가 정리했고, 잡음이 있을 때 통계적으로 최적인 이득을 구하는 것이 칼만 필터(Kalman, 1960)입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>전제</strong>: 쌍 (A, C)가 관측 가능해야 L로 A − LC 의 고유값을 원하는 곳에 놓을 수 있습니다. 가관측성은 [[controllability-observability|가제어성과 가관측성]]에서 다룹니다.</li><li><strong>얻는 것</strong>: 센서 수와 비용을 줄이고, [[state-feedback-control|상태 피드백 제어]]에 필요한 상태를 확보하며, 센서 고장 감지나 외란(확장 상태로 포함) 추정에도 쓰입니다.</li><li><strong>분리 원리</strong>: 선형 시스템에서는 상태 피드백 이득 K와 관측기 이득 L을 따로 설계해도 전체 고유값이 두 집합의 합집합이 됩니다.</li><li><strong>설계의 균형</strong>: L을 크게 하면 추정이 빨라지지만 측정 잡음을 더 크게 증폭합니다. 잡음 수준이 높으면 칼만 필터처럼 잡음 통계를 반영한 이득을 씁니다.</li></ul><p><strong>가상의 예(이중 적분기)</strong>: <code>ẋ₁ = x₂, ẋ₂ = u, y = x₁</code> 에서 위치 y만 잴 수 있고 속도 x₂를 추정하려 합니다. L = [l₁, l₂]ᵀ 이면 A − LC = [[−l₁, 1], [−l₂, 0]] 이고 특성방정식은 s² + l₁s + l₂ = 0 입니다. 오차 극을 −4, −4 에 두고 싶다면 (s+4)² = s² + 8s + 16 과 비교해 l₁ = 8, l₂ = 16 입니다. 극이 −4이면 오차의 시정수가 약 0.25초 수준이 되는데, 보통 제어 루프보다 몇 배 빠르게 두는 것을 관례로 삼는다고 설명됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>관측기 종류(루엔버거, 슬라이딩 모드, 확장 칼만 필터 등)와 적용한 모델(선형화 여부, 모델 오차 가정)을 밝힙니다.</li><li>이득 L(또는 극 위치)과 그 선택 근거를 적고, 잡음·외란 가정을 적습니다.</li><li>추정 성능은 추정 오차 곡선, 수렴 시간, 정상상태 오차, 잡음 민감도 등으로 보이고, 가능하면 직접 측정한 참값과 비교합니다.</li><li>관측 가능성 조건을 확인했다는 점과, 모델 불확실성에 대한 강인성 시험 결과를 함께 제시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "상태 추정과 관련해 자주 섞이는 용어입니다.",
+    "headers": [
+      "용어",
+      "무엇을 하나",
+      "잡음 가정"
+    ],
+    "rows": [
+      [
+        "[[state-observer|상태 관측기]]",
+        "측정 가능한 값과 모델로 내부 상태를 추정하는 알고리즘의 총칭",
+        "방식에 따라 다름"
+      ],
+      [
+        "[[luenberger-observer|루엔버거 관측기]]",
+        "결정론적 모델 기반 선형 관측기",
+        "고려하지 않음"
+      ],
+      [
+        "[[kalman-filter|칼만 필터]]",
+        "잡음 통계를 반영해 오차 분산을 최소화하는 추정기",
+        "가우시안 잡음 가정"
+      ],
+      [
+        "[[state-feedback-control|상태 피드백 제어]]",
+        "추정(또는 측정)한 상태로 제어 입력을 계산하는 제어기",
+        "관측기와 따로 설계"
+      ]
+    ]
+  },
+  "references": [
+    "Luenberger, D. G. (1964). Observing the state of a linear system. IEEE Transactions on Military Electronics, 8(2), 74–80.",
+    "Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. Journal of Basic Engineering, 82(1), 35–45.",
+    "Kailath, T. (1980). Linear Systems. Prentice-Hall."
+  ]
+}
