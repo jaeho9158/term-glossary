@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>여러 개의 다리가 베이스와 이동 판을 동시에 연결하는 폐쇄 체인 구조로, 높은 강성과 정밀도, 빠른 가감속이 가능해 <a href="delta-robot.html">델타 로봇</a>의 고속 픽앤플레이스와 <a href="stewart-platform.html">스튜어트 플랫폼</a>의 비행 시뮬레이터에 쓰입니다. 직렬 로봇과 상반된 특성을 가져 비교 연구의 대상이 됩니다. 여러 다리가 동시에 하중을 분담해 지지하므로 같은 무게의 부품으로도 더 큰 하중을 다룰 수 있어, 고속·고정밀 작업이 필요한 항공 시뮬레이터나 정밀 조립 공정에 자주 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>병렬 기구는 이동 플랫폼이 여러 개의 독립된 팔(다리)로 기저에 동시에 연결된 닫힌 사슬 구조입니다. 직렬 로봇이 관절을 한 줄로 잇는 것과 반대입니다(<a href="serial-manipulator.html">직렬로봇기구</a>).</li><li>자유도는 그뤼블러-쿠츠바흐 식으로 셉니다: <code>M = d(n − 1 − j) + Σf<sub>i</sub></code> (d는 공간 6·평면 3, n은 링크 수(기저 포함), j는 관절 수, f<sub>i</sub>는 각 관절의 자유도). 닫힌 사슬이라 관절 수가 링크 수보다 많아 항이 음수가 됩니다.</li><li>대표: 6자유도 <a href="stewart-platform.html">스튜어트플랫폼</a>(6개의 길이 가변 다리, Stewart, 1965), 병진 3자유도 <a href="delta-robot.html">델타로봇</a>(평행사변형 링크, 고속 픽앤플레이스).</li><li>특성: 여러 다리가 하중을 나눠 강성과 하중 대 자중비가 높고 가감속이 빠르지만, 작업공간이 좁고 내부에 특이점이 많습니다(Merlet, 2006).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>자유도 계산 예(계산 확인):</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구조</th><th>n (링크)</th><th>j (관절)</th><th>Σf</th><th>M</th></tr></thead><tbody><tr><td>평면 3-RRR (다리마다 회전관절 3개)</td><td>8</td><td>9</td><td>9</td><td>3(8 − 1 − 9) + 9 = 3</td></tr><tr><td>6-UPS 스튜어트 (다리마다 U·P·S)</td><td>14</td><td>18</td><td>36</td><td>6(14 − 1 − 18) + 36 = 6</td></tr><tr><td>6-SPS (U 대신 S)</td><td>14</td><td>18</td><td>42</td><td>6(14 − 1 − 18) + 42 = 12</td></tr></tbody></table></div><p>6-SPS의 12는 플랫폼의 6자유도에 각 다리가 자기 축으로 도는 6개의 불필요한 자유도가 더해진 값입니다. 공식은 기구의 전체 운동 가능성을 세지만 어느 것이 출력 운동인지는 알려 주지 않으므로 해석이 필요합니다. 순기구학은 해가 여러 개이며, 일반적인 기하의 스튜어트 플랫폼은 복소수 해까지 최대 40개라고 보고되었습니다(Raghavan, 1993).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>병렬 로봇은 직렬보다 늘 정밀하다.</td><td>강성과 오차 평균화에 유리하지만, 관절 간극, 다리 탄성, 조립 오차가 서로 구속되어 실제 정밀도와 보정은 더 복잡할 수 있습니다.</td></tr><tr><td>역기구학이 어렵다.</td><td>병렬 기구는 반대로 역기구학이 쉽고 <a href="forward-kinematics.html">순기구학</a>이 여러 해를 갖는 어려운 문제입니다.</td></tr><tr><td>작업공간이 넓다.</td><td>대체로 좁고 특이점이 내부에 있습니다. Gosselin과 Angeles(1990)는 닫힌 사슬의 특이점을 역기구학형, 직접(순)기구학형, 복합형으로 분류했습니다.</td></tr><tr><td>다리 수 = 자유도이다.</td><td>다리 구성에 따라 달라지며 위 표처럼 관절 구성이 자유도를 정합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 논문은 6자유도 병렬로봇기구인 스튜어트 플랫폼의 역기구학 해를 폐형해로 유도하였다.</div>
   <p>논문에서 병렬로봇기구는 높은 강성과 정밀도가 필요한 시뮬레이터, 정밀 가공 장비 등에 사용되는 구조로 설명됩니다.</p>
   <div class="example">델타 로봇은 세 개의 평행사변형 링크 구조를 이용해 상대적으로 좁은 작업공간에서도 매우 빠른 반복 속도로 물체를 집어 옮기는 픽앤플레이스 작업에 적합하다.</div>
@@ -168,6 +186,21 @@
   <p>병렬로봇기구는 순기구학이 일반적으로 해석적으로 풀기 어렵고 여러 해가 존재할 수 있다는 점에서 직렬 로봇과 특성이 반대이다.</p>
 
   <p>작업공간이 좁고 각 다리의 기구학적 제약으로 특이점이 여러 곳에 존재할 수 있어, 직렬 로봇에 비해 도달 가능한 자세 범위가 상대적으로 제한적입니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>병렬과 직렬 기구는 장단점이 대체로 반대입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">특성</th><th scope="col">병렬 기구</th><th scope="col">직렬 기구</th></tr></thead><tbody><tr><th scope="row">구조</th><td>여러 다리가 플랫폼을 동시에 지지(닫힌 사슬)</td><td>링크가 한 줄로 연결(열린 사슬)</td></tr><tr><th scope="row">강성·하중비</th><td>높음</td><td>상대적으로 낮음</td></tr><tr><th scope="row">작업공간</th><td>좁음</td><td>넓음</td></tr><tr><th scope="row"><a href="forward-kinematics.html">순기구학</a></th><td>어렵고 해가 여러 개</td><td>쉬움</td></tr><tr><th scope="row"><a href="inverse-kinematics.html">역기구학</a></th><td>쉬움</td><td>해가 여러 개일 수 있고 상대적으로 복잡</td></tr><tr><th scope="row">대표 예</th><td>스튜어트플랫폼, 델타로봇</td><td>산업용 다관절 로봇 팔</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Merlet, J.-P. (2006). Parallel Robots (2nd ed.). Springer.</li>
+    <li>Tsai, L.-W. (1999). Robot Analysis: The Mechanics of Serial and Parallel Manipulators. Wiley.</li>
+    <li>Stewart, D. (1965). A platform with six degrees of freedom. Proceedings of the Institution of Mechanical Engineers, 180(1), 371–386.</li>
+    <li>Gosselin, C., &amp; Angeles, J. (1990). Singularity analysis of closed-loop kinematic chains. IEEE Transactions on Robotics and Automation, 6(3), 281–290.</li>
+    <li>Raghavan, M. (1993). The Stewart platform of general geometry has 40 configurations. Journal of Mechanical Design, 115(2), 277–282.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="robot-manipulator.html">로봇 매니퓰레이터</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="redundant-manipulator.html">중복자유도매니퓰레이터</a><a href="serial-manipulator.html">직렬로봇기구</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="delta-robot.html">델타로봇</a><a href="stewart-platform.html">스튜어트플랫폼</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

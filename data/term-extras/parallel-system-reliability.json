@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>구성요소 i의 신뢰도를 R<sub>i</sub>, 서로 독립이라고 하면 병렬 시스템의 신뢰도는 <code>R<sub>s</sub> = 1 − Π(1 − R<sub>i</sub>)</code>입니다. 모두 동시에 고장 나야 시스템이 멈추기 때문입니다.</li><li>범위: 가장 신뢰도가 높은 요소의 신뢰도 이상, 1 이하입니다(max R<sub>i</sub> ≤ R<sub>s</sub> ≤ 1).</li><li>시간 함수: 요소의 고장률이 일정한 지수 분포(R(t) = e<sup>−λt</sup>)이고 n개가 같으면 <code>R<sub>s</sub>(t) = 1 − (1 − e<sup>−λt</sup>)<sup>n</sup></code>이며 평균 수명은 (1/λ)(1 + 1/2 + … + 1/n)입니다(수리 없음 가정).</li><li>일부만 살아 있으면 되는 k-out-of-n 구조는 이항 확률의 합으로 구합니다([[reliability-block-diagram|신뢰성 블록다이어그램]]에서 다루는 직렬·병렬의 일반화).</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 예(계산 확인).</p><table><thead><tr><th>구성</th><th>시스템 신뢰도</th></tr></thead><tbody><tr><td>R = 0.9 요소 1개</td><td>0.9</td></tr><tr><td>같은 요소 2개 병렬</td><td>0.99</td></tr><tr><td>3개 병렬</td><td>0.999</td></tr><tr><td>4개 병렬</td><td>0.9999</td></tr><tr><td>서로 다른 0.9, 0.8, 0.7 병렬</td><td>1 − 0.1 × 0.2 × 0.3 = 0.994</td></tr><tr><td>3개 중 2개 이상 필요(2-out-of-3, R = 0.9)</td><td>0.972</td></tr></tbody></table><ul><li>요소를 하나 더할 때마다 이득이 줄어듭니다(0.9 → 0.99 → 0.999). 비용 대비 효과를 따지는 이유입니다.</li><li>평균 수명은 요소 1개가 1/λ, 2개 병렬이 1.5/λ, 3개 병렬이 약 1.83/λ입니다.</li><li>공통원인으로 두 요소가 동시에 고장 날 확률이 0.02라면 0.9 요소 2개 병렬의 신뢰도는 (1 − 0.02) × 0.99 = 0.9702로, 독립 가정의 0.99보다 낮아집니다([[common-cause-failure|공통원인고장]]).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>구조</td><td>신뢰성 블록다이어그램, 병렬/k-out-of-n 구분, 능동 병렬인지</td></tr><tr><td>가정</td><td>요소 간 독립성, 공통원인 고장 모형(예: β-계수) 포함 여부, 수리 여부</td></tr><tr><td>입력</td><td>요소 신뢰도 또는 고장률과 자료 출처, 임무 시간</td></tr><tr><td>결과</td><td>시스템 신뢰도·가용도, 불확실도, 단일 구성과의 비교</td></tr><tr><td>비용</td><td>병렬화 비용과 신뢰도 이득의 관계</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "구조에 따라 시스템이 정상인 조건이 달라집니다.",
+    "headers": [
+      "구조",
+      "시스템이 정상인 조건",
+      "신뢰도 식 (독립)"
+    ],
+    "rows": [
+      [
+        "[[series-system-reliability|직렬 시스템]]",
+        "모든 요소가 정상",
+        "ΠRi"
+      ],
+      [
+        "병렬 시스템",
+        "하나 이상 정상",
+        "1 − Π(1 − Ri)"
+      ],
+      [
+        "k-out-of-n",
+        "n개 중 k개 이상 정상",
+        "이항 확률의 합"
+      ],
+      [
+        "[[redundancy|이중화]]",
+        "설계 원칙(병렬 구조를 만드는 방법)",
+        "병렬 구조로 모델링"
+      ]
+    ]
+  },
+  "references": [
+    "Rausand, M., & Høyland, A. (2004). System Reliability Theory: Models, Statistical Methods, and Applications (2nd ed.). Wiley.",
+    "Kuo, W., & Zuo, M. J. (2003). Optimal Reliability Modeling: Principles and Applications. Wiley.",
+    "Ebeling, C. E. (1997). An Introduction to Reliability and Maintainability Engineering. McGraw-Hill."
+  ]
+}

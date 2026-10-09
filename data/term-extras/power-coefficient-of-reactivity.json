@@ -1,0 +1,63 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>정의: 원자로 출력 <em>P</em>가 단위량 변할 때 반응도 ρ가 얼마나 변하는지, 곧 <code>α<sub>P</sub> = dρ/dP</code>입니다. 반응도는 ρ = (k<sub>eff</sub> − 1)/k<sub>eff</sub>로 정의되며([[reactivity|반응도]]), 단위는 보통 pcm(1 pcm = 10<sup>−5</sup> Δk/k)을 써서 pcm/% 출력, pcm/MW처럼 적습니다.</li><li>출력이 바뀌면 연료 온도, 감속재(냉각재) 온도와 밀도, 기포율이 함께 바뀌고 각각이 반응도에 영향을 줍니다. 그래서 계수는 개별 효과의 합으로 분해해 볼 수 있습니다: <code>α<sub>P</sub> = Σ (∂ρ/∂x<sub>i</sub>)(dx<sub>i</sub>/dP)</code> (x<sub>i</sub>는 연료 온도, 감속재 온도, 기포율 등).</li><li>일정한 범위가 정해진 값은 아닙니다. 부호와 크기는 노형, 노심 연소도(수명 초기·말기), 붕소 농도, 출력 수준에 따라 달라집니다.</li><li>어떤 효과를 포함하느냐는 논문마다 다를 수 있습니다. 제논 같은 핵분열생성물 효과를 따로 다루는 경우가 있으므로 정의를 먼저 확인합니다.</li></ul><table><thead><tr><th>구성 효과</th><th>무엇이 변하나</th><th>관련 계수</th></tr></thead><tbody><tr><td>도플러 되먹임</td><td>연료 온도 상승에 따른 공명 흡수 증가([[doppler-broadening|도플러넓힘]])</td><td>[[fuel-temperature-coefficient|연료온도계수]]</td></tr><tr><td>감속재 되먹임</td><td>감속재 온도 상승에 따른 밀도 감소와 감속 능력 변화</td><td>[[moderator-temperature-coefficient|감속재온도계수]]</td></tr><tr><td>기포 되먹임</td><td>끓음으로 생기는 증기 기포 증가</td><td>[[void-coefficient|기포계수]]</td></tr></tbody></table>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>미국 연방규정 10 CFR 50 부록 A의 일반설계기준 11(GDC 11)은 출력 운전 범위에서 즉발 고유 핵적 되먹임의 순효과가 반응도의 급격한 증가를 상쇄하는 방향이 되도록 설계할 것을 요구합니다. 논문에서 “출력계수가 음”이라는 확인은 이 요건과 맞닿아 있습니다. 부호가 음이면 출력 상승이 스스로 억제되는 방향이고, 양이면 출력 상승이 반응도를 더 키우는 방향입니다.</p><p>크기도 함께 봅니다. 음의 값이 클수록 되먹임이 강하지만, 출력을 올릴 때 보상해야 할 반응도(출력결손)도 커지므로 설계에서 균형을 잡습니다.</p><p>아래 숫자는 합산 구조를 보이기 위한 <strong>가상의 예</strong>이며 실제 원자로의 값이 아닙니다.</p><table><thead><tr><th>효과</th><th>가상 기여 (pcm/% 출력)</th></tr></thead><tbody><tr><td>연료 온도(도플러)</td><td>−1.8</td></tr><tr><td>감속재 온도·밀도</td><td>−3.2</td></tr><tr><td>기포</td><td>−0.5</td></tr><tr><td>합계 α<sub>P</sub></td><td>−5.5</td></tr></tbody></table><p>계수가 출력 범위에서 일정하다고 가정하면 0%에서 100%로 올릴 때 반응도는 −5.5 × 100 = −550 pcm 변합니다. 이 누적량이 [[power-defect|출력결손]]에 해당합니다(실제로는 계수가 출력에 따라 변하므로 적분해야 합니다).</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>보고할 때는 값만 적지 말고 조건을 함께 적어야 비교할 수 있습니다.</p><table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>정의</td><td>어떤 효과(연료, 감속재, 기포, 그 밖)를 합쳤는지, 단위(pcm/%, pcm/MW 등)</td></tr><tr><td>노심 상태</td><td>수명 초기·말기 등 연소도, 붕소 농도, 제어봉 위치, 출력 수준</td></tr><tr><td>방법</td><td>계산 코드와 핵단면적 라이브러리, 또는 측정 방법</td></tr><tr><td>결과</td><td>값과 부호, 불확실도, 허용 기준과의 비교</td></tr></tbody></table><p>페이지의 “주의할 점”처럼 이 값은 정상 출력 범위의 평균적 경향을 보여 주므로, 급격한 반응도 삽입처럼 비선형성이 큰 상황에는 별도 해석이 필요하다는 단서를 함께 적습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "되먹임 계수는 모두 “무엇이 변할 때 반응도가 얼마나 변하는가”를 말하지만 기준 변수가 다릅니다.",
+    "headers": [
+      "용어",
+      "기준이 되는 변수",
+      "성격"
+    ],
+    "rows": [
+      [
+        "반응도출력계수",
+        "출력",
+        "여러 되먹임 효과를 합친 종합 계수"
+      ],
+      [
+        "[[temperature-coefficient-of-reactivity|반응도온도계수]]",
+        "원자로(노심) 온도",
+        "온도 변화당 반응도 변화"
+      ],
+      [
+        "[[fuel-temperature-coefficient|연료온도계수]]",
+        "연료 온도",
+        "주로 도플러 효과로 결정"
+      ],
+      [
+        "[[moderator-temperature-coefficient|감속재온도계수]]",
+        "감속재(냉각재) 온도",
+        "밀도와 감속 능력 변화가 반영됨"
+      ],
+      [
+        "[[void-coefficient|기포계수]]",
+        "기포율",
+        "끓는 냉각재를 쓰는 노형에서 중요"
+      ],
+      [
+        "[[power-defect|출력결손]]",
+        "영출력에서 정격 출력까지",
+        "계수가 아니라 누적된 총 반응도 변화량"
+      ]
+    ]
+  },
+  "references": [
+    "Lamarsh, J. R., & Baratta, A. J. (2001). Introduction to Nuclear Engineering (3rd ed.). Prentice Hall.",
+    "Duderstadt, J. J., & Hamilton, L. J. (1976). Nuclear Reactor Analysis. Wiley.",
+    "Stacey, W. M. (2007). Nuclear Reactor Physics (2nd ed.). Wiley-VCH."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>Ioffe와 Szegedy(2015)가 제안한 방식은 미니배치(크기 m)의 각 특징마다 다음을 합니다.</p><ol><li>평균과 분산 계산: <code>μ = (1/m)Σx<sub>i</sub></code>, <code>σ² = (1/m)Σ(x<sub>i</sub> − μ)²</code></li><li>정규화: <code>x̂<sub>i</sub> = (x<sub>i</sub> − μ)/√(σ² + ε)</code> (ε은 0으로 나누는 것을 막는 작은 수)</li><li>스케일과 이동: <code>y<sub>i</sub> = γ·x̂<sub>i</sub> + β</code> (γ, β는 학습되는 파라미터)</li></ol><p>합성곱 층에서는 채널마다 배치와 공간 위치 전체에 걸쳐 평균과 분산을 구합니다. 원 논문은 활성화 함수 앞에 넣었습니다. 추론할 때는 배치 통계를 낼 수 없으므로 학습 중 이동평균으로 모아 둔 평균과 분산을 대신 씁니다. 이 때문에 학습 모드와 평가 모드를 구분해 두지 않으면 결과가 달라집니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>얻는 것</strong>: 더 큰 학습률에서도 안정적으로 학습되고, 초기화에 덜 민감하며, 배치 통계의 잡음 덕에 약한 정규화(regularization) 효과도 보고됩니다(Ioffe &amp; Szegedy, 2015).</li><li><strong>왜 효과가 있나</strong>: 원 논문은 층 입력 분포가 학습 중 계속 바뀌는 “내부 공변량 변화”를 줄이기 때문이라고 설명했지만, Santurkar 등(2018)은 그보다 손실 함수의 지형을 더 매끄럽게 하기 때문이라고 보고했습니다. 효과의 원인은 아직 논쟁 중이며 페이지의 쉬운 설명은 원 논문의 설명을 따른 것입니다.</li><li><strong>한계</strong>: 배치 크기가 작으면 평균·분산 추정이 불안정하고, 순차 데이터 모형에는 쓰기 불편합니다. 이를 보완해 배치가 아닌 축으로 정규화하는 [[layer-normalization|레이어 정규화]](Ba et al., 2016)와 그룹 정규화(Wu &amp; He, 2018) 등이 나왔습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>구현 보고에 적어야 할 항목과, 작은 예입니다.</p><table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>위치</td><td>합성곱·선형 층과 활성화 사이인지 등</td></tr><tr><td>설정</td><td>배치 크기, ε, 이동평균 모멘텀, γ·β 초기값</td></tr><tr><td>모드</td><td>평가 시 이동평균 통계를 사용했는지</td></tr><tr><td>비교</td><td>제거 실험(ablation) 또는 다른 정규화와의 비교</td></tr></tbody></table><p>한 특징의 미니배치 값이 (2, 4, 6, 8)이면 평균 5, 분산 5(모분산)입니다. ε = 10<sup>−5</sup>일 때 정규화 값은 약 (−1.342, −0.447, 0.447, 1.342)이고, γ = 2, β = 1을 적용하면 약 (−1.683, 0.106, 1.894, 3.683)이 됩니다(계산). 이동평균을 모멘텀 0.1로 갱신하면 평균 0 → 0.5, 분산 1 → 1.4가 됩니다. 구현마다 이동평균 분산에 표본분산(m − 1로 나눔)을 쓰는 경우가 있으므로 쓴 프레임워크의 정의를 확인합니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "“정규화”라는 한국어가 여러 영어 용어에 쓰여 혼동이 잦습니다. 통계를 어느 범위에서 구하는지로 구별합니다.",
+    "headers": [
+      "용어",
+      "무엇을 하나",
+      "통계를 구하는 범위"
+    ],
+    "rows": [
+      [
+        "배치 정규화(batch normalization)",
+        "층 입력을 평균 0·분산 1로 맞춤",
+        "미니배치 전체(특징·채널별)"
+      ],
+      [
+        "[[layer-normalization|레이어 정규화]]",
+        "층 입력을 평균 0·분산 1로 맞춤",
+        "한 샘플 안의 특징 전체"
+      ],
+      [
+        "그룹·인스턴스 정규화",
+        "배치 정규화와 같은 계산",
+        "한 샘플 안의 채널 묶음 또는 채널별 공간"
+      ],
+      [
+        "[[regularization|정규화(regularization)]]",
+        "손실에 벌점을 더해 과적합을 줄임",
+        "통계가 아니라 가중치 크기 등"
+      ],
+      [
+        "입력 표준화",
+        "학습 데이터 전체의 평균·표준편차로 전처리",
+        "전체 학습 데이터(학습되는 파라미터 없음)"
+      ]
+    ]
+  },
+  "references": [
+    "Ioffe, S., & Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. Proceedings of the 32nd International Conference on Machine Learning, 37, 448–456.",
+    "Santurkar, S., Tsipras, D., Ilyas, A., & Madry, A. (2018). How does batch normalization help optimization? Advances in Neural Information Processing Systems, 31.",
+    "Ba, J. L., Kiros, J. R., & Hinton, G. E. (2016). Layer normalization. arXiv preprint.",
+    "Wu, Y., & He, K. (2018). Group normalization. Proceedings of the European Conference on Computer Vision."
+  ]
+}

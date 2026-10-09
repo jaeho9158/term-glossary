@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>병렬시스템신뢰도는 중요한 설비나 안전이 요구되는 시스템에서 이중화·다중화 설계의 효과를 정량적으로 평가하는 데 쓰입니다. 산업공학 논문에서는 한정된 예산 안에서 어느 구성요소를 병렬로 이중화해야 시스템 전체의 신뢰도를 가장 효율적으로 높일 수 있는지를 분석할 때 이 개념을 활용합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>구성요소 i의 신뢰도를 R<sub>i</sub>, 서로 독립이라고 하면 병렬 시스템의 신뢰도는 <code>R<sub>s</sub> = 1 − Π(1 − R<sub>i</sub>)</code>입니다. 모두 동시에 고장 나야 시스템이 멈추기 때문입니다.</li><li>범위: 가장 신뢰도가 높은 요소의 신뢰도 이상, 1 이하입니다(max R<sub>i</sub> ≤ R<sub>s</sub> ≤ 1).</li><li>시간 함수: 요소의 고장률이 일정한 지수 분포(R(t) = e<sup>−λt</sup>)이고 n개가 같으면 <code>R<sub>s</sub>(t) = 1 − (1 − e<sup>−λt</sup>)<sup>n</sup></code>이며 평균 수명은 (1/λ)(1 + 1/2 + … + 1/n)입니다(수리 없음 가정).</li><li>일부만 살아 있으면 되는 k-out-of-n 구조는 이항 확률의 합으로 구합니다(<a href="reliability-block-diagram.html">신뢰성 블록다이어그램</a>에서 다루는 직렬·병렬의 일반화).</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>가상의 예(계산 확인).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구성</th><th>시스템 신뢰도</th></tr></thead><tbody><tr><td>R = 0.9 요소 1개</td><td>0.9</td></tr><tr><td>같은 요소 2개 병렬</td><td>0.99</td></tr><tr><td>3개 병렬</td><td>0.999</td></tr><tr><td>4개 병렬</td><td>0.9999</td></tr><tr><td>서로 다른 0.9, 0.8, 0.7 병렬</td><td>1 − 0.1 × 0.2 × 0.3 = 0.994</td></tr><tr><td>3개 중 2개 이상 필요(2-out-of-3, R = 0.9)</td><td>0.972</td></tr></tbody></table></div><ul><li>요소를 하나 더할 때마다 이득이 줄어듭니다(0.9 → 0.99 → 0.999). 비용 대비 효과를 따지는 이유입니다.</li><li>평균 수명은 요소 1개가 1/λ, 2개 병렬이 1.5/λ, 3개 병렬이 약 1.83/λ입니다.</li><li>공통원인으로 두 요소가 동시에 고장 날 확률이 0.02라면 0.9 요소 2개 병렬의 신뢰도는 (1 − 0.02) × 0.99 = 0.9702로, 독립 가정의 0.99보다 낮아집니다(<a href="common-cause-failure.html">공통원인고장</a>).</li></ul>
+
+  <h2>보고 방법</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>구조</td><td>신뢰성 블록다이어그램, 병렬/k-out-of-n 구분, 능동 병렬인지</td></tr><tr><td>가정</td><td>요소 간 독립성, 공통원인 고장 모형(예: β-계수) 포함 여부, 수리 여부</td></tr><tr><td>입력</td><td>요소 신뢰도 또는 고장률과 자료 출처, 임무 시간</td></tr><tr><td>결과</td><td>시스템 신뢰도·가용도, 불확실도, 단일 구성과의 비교</td></tr><tr><td>비용</td><td>병렬화 비용과 신뢰도 이득의 관계</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"핵심 제어 모듈을 병렬 이중화 구조로 설계하고 병렬시스템신뢰도를 계산한 결과, 단일 구성 대비 시스템 가용성이 크게 향상되었다."</div>
   <p>중요한 부품을 두 개 이상 병렬로 배치하면 하나가 고장 나도 시스템이 계속 작동해 전체 신뢰도가 높아진다는 뜻입니다.</p>
   <div class="example">"본 논문은 예산 제약 하에서 병렬시스템신뢰도를 최대화하는 구성요소 배치 문제를 다룬다."</div>
@@ -155,6 +173,19 @@
 
   <h2>주의할 점</h2>
   <p>구성요소를 병렬로 늘리면 초기 구축 비용과 유지보수 비용이 함께 증가하므로, 신뢰도 향상 효과와 비용을 함께 고려해야 합니다. 또한 공통 원인 고장처럼 여러 구성요소가 동시에 영향을 받는 상황에서는 독립성 가정이 깨져 실제 신뢰도가 계산값보다 낮아질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>구조에 따라 시스템이 정상인 조건이 달라집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">구조</th><th scope="col">시스템이 정상인 조건</th><th scope="col">신뢰도 식 (독립)</th></tr></thead><tbody><tr><th scope="row"><a href="series-system-reliability.html">직렬 시스템</a></th><td>모든 요소가 정상</td><td>ΠRi</td></tr><tr><th scope="row">병렬 시스템</th><td>하나 이상 정상</td><td>1 − Π(1 − Ri)</td></tr><tr><th scope="row">k-out-of-n</th><td>n개 중 k개 이상 정상</td><td>이항 확률의 합</td></tr><tr><th scope="row"><a href="redundancy.html">이중화</a></th><td>설계 원칙(병렬 구조를 만드는 방법)</td><td>병렬 구조로 모델링</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rausand, M., &amp; Høyland, A. (2004). System Reliability Theory: Models, Statistical Methods, and Applications (2nd ed.). Wiley.</li>
+    <li>Kuo, W., &amp; Zuo, M. J. (2003). Optimal Reliability Modeling: Principles and Applications. Wiley.</li>
+    <li>Ebeling, C. E. (1997). An Introduction to Reliability and Maintainability Engineering. McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

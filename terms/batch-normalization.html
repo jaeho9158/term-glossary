@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/batch-normalization.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <p>층을 아주 깊게 쌓을수록 학습이 불안정해지거나 느려지는 문제가 커지는데, 배치 정규화를 넣으면 더 깊은 네트워크를 더 큰 학습률로 비교적 안정적으로 학습시킬 수 있어 이미지 인식, 음성 처리 등 다양한 분야의 모델 설계에서 기본 구성 요소처럼 다뤄집니다.</p>
   <p>또한 학습 안정화 기법 자체가 하나의 연구 주제여서, 배치 정규화의 한계(작은 배치 크기, 순차 데이터 처리 등)를 보완하려는 후속 정규화 기법 연구들도 이 개념을 기준점으로 삼아 비교됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>Ioffe와 Szegedy(2015)가 제안한 방식은 미니배치(크기 m)의 각 특징마다 다음을 합니다.</p><ol><li>평균과 분산 계산: <code>μ = (1/m)Σx<sub>i</sub></code>, <code>σ² = (1/m)Σ(x<sub>i</sub> − μ)²</code></li><li>정규화: <code>x̂<sub>i</sub> = (x<sub>i</sub> − μ)/√(σ² + ε)</code> (ε은 0으로 나누는 것을 막는 작은 수)</li><li>스케일과 이동: <code>y<sub>i</sub> = γ·x̂<sub>i</sub> + β</code> (γ, β는 학습되는 파라미터)</li></ol><p>합성곱 층에서는 채널마다 배치와 공간 위치 전체에 걸쳐 평균과 분산을 구합니다. 원 논문은 활성화 함수 앞에 넣었습니다. 추론할 때는 배치 통계를 낼 수 없으므로 학습 중 이동평균으로 모아 둔 평균과 분산을 대신 씁니다. 이 때문에 학습 모드와 평가 모드를 구분해 두지 않으면 결과가 달라집니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>얻는 것</strong>: 더 큰 학습률에서도 안정적으로 학습되고, 초기화에 덜 민감하며, 배치 통계의 잡음 덕에 약한 정규화(regularization) 효과도 보고됩니다(Ioffe &amp; Szegedy, 2015).</li><li><strong>왜 효과가 있나</strong>: 원 논문은 층 입력 분포가 학습 중 계속 바뀌는 “내부 공변량 변화”를 줄이기 때문이라고 설명했지만, Santurkar 등(2018)은 그보다 손실 함수의 지형을 더 매끄럽게 하기 때문이라고 보고했습니다. 효과의 원인은 아직 논쟁 중이며 페이지의 쉬운 설명은 원 논문의 설명을 따른 것입니다.</li><li><strong>한계</strong>: 배치 크기가 작으면 평균·분산 추정이 불안정하고, 순차 데이터 모형에는 쓰기 불편합니다. 이를 보완해 배치가 아닌 축으로 정규화하는 <a href="layer-normalization.html">레이어 정규화</a>(Ba et al., 2016)와 그룹 정규화(Wu &amp; He, 2018) 등이 나왔습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>구현 보고에 적어야 할 항목과, 작은 예입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>위치</td><td>합성곱·선형 층과 활성화 사이인지 등</td></tr><tr><td>설정</td><td>배치 크기, ε, 이동평균 모멘텀, γ·β 초기값</td></tr><tr><td>모드</td><td>평가 시 이동평균 통계를 사용했는지</td></tr><tr><td>비교</td><td>제거 실험(ablation) 또는 다른 정규화와의 비교</td></tr></tbody></table></div><p>한 특징의 미니배치 값이 (2, 4, 6, 8)이면 평균 5, 분산 5(모분산)입니다. ε = 10<sup>−5</sup>일 때 정규화 값은 약 (−1.342, −0.447, 0.447, 1.342)이고, γ = 2, β = 1을 적용하면 약 (−1.683, 0.106, 1.894, 3.683)이 됩니다(계산). 이동평균을 모멘텀 0.1로 갱신하면 평균 0 → 0.5, 분산 1 → 1.4가 됩니다. 구현마다 이동평균 분산에 표본분산(m − 1로 나눔)을 쓰는 경우가 있으므로 쓴 프레임워크의 정의를 확인합니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"각 합성곱 층 뒤에 배치 정규화(batch normalization)를 적용하여 학습 속도를 높이고 초기화에 대한 민감도를 낮췄다."</div>
   <p>이 문장은 "층마다 입력값의 분포를 일정하게 맞춰주는 장치를 추가해서, 초기 가중치 설정이 조금 잘못되어도 학습이 잘 진행되고 더 빠르게 수렴하도록 했다"는 뜻입니다.</p>
 
@@ -173,6 +191,20 @@
 
   <h2>주의할 점</h2>
   <p>배치 정규화는 가중치 크기에 벌점을 매기는 <a href="regularization.html">정규화</a>와 이름이 비슷해 혼동되기 쉽지만 전혀 다른 개념입니다. 정규화(regularization)는 손실함수에 벌점 항을 더해 과적합을 줄이는 기법이고, 배치 정규화(batch normalization)는 층 사이를 흐르는 값의 통계량(평균·분산)을 조정해 학습을 안정시키는 기법입니다. 또한 배치 크기가 매우 작으면 평균·분산 추정이 불안정해져 오히려 성능이 떨어질 수 있다는 점도 유의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>“정규화”라는 한국어가 여러 영어 용어에 쓰여 혼동이 잦습니다. 통계를 어느 범위에서 구하는지로 구별합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">통계를 구하는 범위</th></tr></thead><tbody><tr><th scope="row">배치 정규화(batch normalization)</th><td>층 입력을 평균 0·분산 1로 맞춤</td><td>미니배치 전체(특징·채널별)</td></tr><tr><th scope="row"><a href="layer-normalization.html">레이어 정규화</a></th><td>층 입력을 평균 0·분산 1로 맞춤</td><td>한 샘플 안의 특징 전체</td></tr><tr><th scope="row">그룹·인스턴스 정규화</th><td>배치 정규화와 같은 계산</td><td>한 샘플 안의 채널 묶음 또는 채널별 공간</td></tr><tr><th scope="row"><a href="regularization.html">정규화(regularization)</a></th><td>손실에 벌점을 더해 과적합을 줄임</td><td>통계가 아니라 가중치 크기 등</td></tr><tr><th scope="row">입력 표준화</th><td>학습 데이터 전체의 평균·표준편차로 전처리</td><td>전체 학습 데이터(학습되는 파라미터 없음)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ioffe, S., &amp; Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. Proceedings of the 32nd International Conference on Machine Learning, 37, 448–456.</li>
+    <li>Santurkar, S., Tsipras, D., Ilyas, A., &amp; Madry, A. (2018). How does batch normalization help optimization? Advances in Neural Information Processing Systems, 31.</li>
+    <li>Ba, J. L., Kiros, J. R., &amp; Hinton, G. E. (2016). Layer normalization. arXiv preprint.</li>
+    <li>Wu, Y., &amp; He, K. (2018). Group normalization. Proceedings of the European Conference on Computer Vision.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -1,0 +1,57 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>정의: 두 고도 사이 층에서 <code>Ri<sub>b</sub> = (g/θ<sub>v</sub>)·Δθ<sub>v</sub>·Δz / (Δu² + Δv²)</code> (Stull, 1988). g는 중력가속도, θ<sub>v</sub>는 층의 평균 가온위, Δθ<sub>v</sub>는 두 고도의 가온위 차, Δz는 두 고도의 간격, Δu·Δv는 풍속 성분의 차입니다.</li><li>분자는 부력(층 안정도), 분모는 바람 시어의 제곱으로, 무차원입니다.</li><li>범위: 이론상 제한이 없습니다. Δθ<sub>v</sub> &gt; 0(안정)이면 양수, &lt; 0(불안정)이면 음수이고, 시어가 0에 가까우면 절댓값이 매우 커집니다.</li><li>이웃 정의와 구별: 연속 프로파일의 국소 기울기로 정의하는 경도 리처드슨수가 원형이고, 벌크 값은 유한한 두 고도의 차로 근사한 것입니다. 뇌우 예보에서 쓰는 “벌크 리처드슨수”(Weisman &amp; Klemp, 1982)는 대류가용잠재에너지와 시어의 비로, 같은 이름의 다른 양입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>임계값</strong>: 평행 전단 흐름에서 모든 곳에서 경도 리처드슨수가 1/4보다 크면 켈빈-헬름홀츠 불안정이 일어나지 않는다는 것이 마일스-하워드 정리입니다(Miles, 1961; Howard, 1961). 1/4 이하는 불안정의 필요조건일 뿐 충분조건은 아닙니다.</li><li>경계층 높이 진단에는 벌크 값이 처음 임계값을 넘는 고도를 씁니다. 임계값은 0.25 안팎에서 연구·모형마다 다르게 정하며(Vogelezang &amp; Holtslag, 1996 등), 정의에 따라 달라지므로 논문마다 확인해야 합니다. 페이지의 “임계값 정의가 다르다”는 주의와 같은 내용입니다.</li><li>일반적으로 작을수록 난류 발생에 유리하고 클수록 안정해 난류가 억제됩니다.</li></ul><p>가상의 예(g = 9.81 m/s², θ<sub>v</sub> = 300 K, Δz = 100 m): ① Δθ<sub>v</sub> = 1 K, Δu = 2 m/s이면 Ri<sub>b</sub> = 0.82로 1/4보다 훨씬 커서 안정합니다. ② Δθ<sub>v</sub> = 0.2 K, Δu = 5 m/s이면 Ri<sub>b</sub> = 0.026으로 시어가 부력을 압도해 난류가 가능한 조건입니다. ③ Δθ<sub>v</sub> = −0.5 K, Δu = 2 m/s이면 Ri<sub>b</sub> = −0.41로 불안정입니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>층</td><td>어느 두 고도(예: 지표와 특정 높이)를 썼는지, 층 두께</td></tr><tr><td>자료</td><td>라디오존데, 탑 관측, 모형 격자 중 무엇인지, 연직 해상도</td></tr><tr><td>변수</td><td>θ인지 θ<sub>v</sub>인지, 풍속 성분 사용 방식</td></tr><tr><td>임계값</td><td>사용한 값과 근거, 경계층 높이는 어떻게 보간해 구했는지</td></tr><tr><td>민감도</td><td>해상도나 임계값을 바꿨을 때 결과 변화</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "리처드슨수는 이름이 같거나 비슷한 정의가 여럿입니다.",
+    "headers": [
+      "종류",
+      "정의",
+      "주 쓰임"
+    ],
+    "rows": [
+      [
+        "경도(gradient) 리처드슨수",
+        "국소 기울기로 정의한 부력/시어 비",
+        "난류 발생 이론, 마일스-하워드 기준"
+      ],
+      [
+        "벌크 리처드슨수",
+        "두 고도의 차로 근사한 비",
+        "경계층 높이 진단, 관측 자료 분석"
+      ],
+      [
+        "플럭스 리처드슨수",
+        "부력에 의한 난류 에너지 생성/시어에 의한 생성",
+        "난류 에너지 수지 분석"
+      ],
+      [
+        "뇌우 예보의 벌크 리처드슨수",
+        "대류가용잠재에너지와 시어의 비",
+        "뇌우 형태 구분"
+      ]
+    ],
+    "note": "대기 안정도 일반은 [[atmospheric-stability|대기의 안정도]]에서 다룹니다."
+  },
+  "references": [
+    "Stull, R. B. (1988). An Introduction to Boundary Layer Meteorology. Kluwer Academic Publishers.",
+    "Holton, J. R., & Hakim, G. J. (2013). An Introduction to Dynamic Meteorology (5th ed.). Academic Press.",
+    "Miles, J. W. (1961). On the stability of heterogeneous shear flows. Journal of Fluid Mechanics, 10(4), 496–508.",
+    "Howard, L. N. (1961). Note on a paper of John W. Miles. Journal of Fluid Mechanics, 10(4), 509–512.",
+    "Vogelezang, D. H. P., & Holtslag, A. A. M. (1996). Evaluation and model impacts of alternative boundary-layer height formulations. Boundary-Layer Meteorology, 81, 245–269.",
+    "Weisman, M. L., & Klemp, J. B. (1982). The dependence of numerically simulated convective storms on vertical wind shear and buoyancy. Monthly Weather Review, 110, 504–520."
+  ]
+}

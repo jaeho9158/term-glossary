@@ -1,0 +1,59 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>벡터장 <strong>F</strong> = (F<sub>x</sub>, F<sub>y</sub>, F<sub>z</sub>)에 대해 발산은 <code>∇·F = ∂F<sub>x</sub>/∂x + ∂F<sub>y</sub>/∂y + ∂F<sub>z</sub>/∂z</code>로, 결과가 <strong>스칼라</strong>입니다.</li><li>회전은 <code>∇×F = (∂F<sub>z</sub>/∂y − ∂F<sub>y</sub>/∂z, ∂F<sub>x</sub>/∂z − ∂F<sub>z</sub>/∂x, ∂F<sub>y</sub>/∂x − ∂F<sub>x</sub>/∂y)</code>로, 3차원에서는 <strong>벡터</strong>입니다. 평면(2차원) 장에서는 마지막 성분 하나만 남겨 스칼라처럼 다룹니다.</li><li>뜻: 발산은 한 점 주변의 작은 닫힌 면에서 빠져나가는 양(흐름 통과량)을 그 부피로 나눈 값의 극한이고([[divergence-theorem|발산정리]]의 바탕), 회전은 작은 닫힌 곡선을 따라 도는 양(순환)을 그 넓이로 나눈 값에 방향(오른손 법칙)을 붙인 것입니다.</li><li>매끄러운 장에서는 늘 <code>∇·(∇×F) = 0</code>, <code>∇×(∇φ) = 0</code>이 성립합니다. 그래서 회전이 0인 장은 (단순연결 영역에서) 스칼라 퍼텐셜 φ의 기울기로 쓸 수 있습니다.</li><li>쓰임: 비압축성 유체는 속도장의 발산이 0, 와도는 속도장의 회전이며, 전자기학에서는 맥스웰 방정식이 발산과 회전으로 쓰입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>점 (1, 2, 3)에서 몇 가지 장의 발산과 회전입니다(해석적으로 구한 값을 중심차분 수치미분으로 다시 확인했습니다).</p><table><thead><tr><th>벡터장</th><th>발산</th><th>회전</th><th>읽는 법</th></tr></thead><tbody><tr><td>F = (x, y, z)</td><td>3</td><td>(0, 0, 0)</td><td>원점에서 퍼져 나가는 흐름: 샘, 소용돌이 없음</td></tr><tr><td>G = (−y, x, 0)</td><td>0</td><td>(0, 0, 2)</td><td>강체처럼 도는 흐름: 퍼짐 없음, 회전 있음</td></tr><tr><td>S = (y, 0, 0)</td><td>0</td><td>(0, 0, −1)</td><td>직선 전단 흐름: 곡선 경로가 없어도 회전이 0이 아님</td></tr><tr><td>H = (yz, xz, xy)</td><td>0</td><td>(0, 0, 0)</td><td>H = ∇(xyz): 장은 0이 아닌데 발산·회전이 모두 0</td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>흐름이 빙글빙글 돌면 회전이 0이 아니다.</td><td>장 V = (−y, x, 0)/(x² + y²)는 원점 둘레를 도는 소용돌이지만 원점을 뺀 모든 곳에서 회전이 0입니다(각 점 근처의 작은 바퀴는 돌지 않습니다). 원점 둘레를 한 바퀴 도는 순환은 0이 아니므로, 회전이 0이어도 영역에 구멍이 있으면 퍼텐셜이 없을 수 있습니다.</td></tr><tr><td>직선으로 흐르면 회전이 없다.</td><td>속도가 위치에 따라 달라지는 직선 전단 흐름(S = (y, 0, 0))은 회전이 0이 아닙니다.</td></tr><tr><td>발산이 0이면 흐름이 없다.</td><td>발산이 0이라는 것은 한 점에서 유체가 생기거나 사라지지 않는다는 뜻일 뿐, 흐름은 있을 수 있습니다(비압축성 유동).</td></tr><tr><td>발산과 회전이 모두 0이면 장이 0이다.</td><td>위 H처럼 0이 아닌 장도 발산·회전이 모두 0일 수 있습니다.</td></tr><tr><td>발산과 회전은 같이 움직인다.</td><td>서로 독립입니다. F에서는 발산만, G에서는 회전만 0이 아닙니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "∇가 들어간 연산은 입력과 출력의 종류로 구별합니다.",
+    "headers": [
+      "연산",
+      "입력",
+      "출력",
+      "의미"
+    ],
+    "rows": [
+      [
+        "기울기 ∇φ",
+        "스칼라장",
+        "벡터장",
+        "값이 가장 빠르게 늘어나는 방향과 비율"
+      ],
+      [
+        "발산 ∇·F",
+        "벡터장",
+        "스칼라장",
+        "한 점에서 퍼지거나 모이는 정도"
+      ],
+      [
+        "회전 ∇×F",
+        "벡터장",
+        "벡터장(3차원)",
+        "한 점 둘레의 소용돌이 정도와 축"
+      ],
+      [
+        "라플라시안 ∇²φ",
+        "스칼라장",
+        "스칼라장",
+        "기울기의 발산, ∇·(∇φ)"
+      ]
+    ],
+    "note": "발산을 면적분과 연결한 정리는 [[divergence-theorem|발산정리]]에서, 대상이 되는 [[vector-field|벡터장]]은 별도 페이지에서 다룹니다."
+  },
+  "references": [
+    "Marsden, J. E., & Tromba, A. J. (2011). Vector Calculus (6th ed.). W. H. Freeman.",
+    "Schey, H. M. (2005). Div, Grad, Curl, and All That: An Informal Text on Vector Calculus (4th ed.). W. W. Norton.",
+    "Griffiths, D. J. (2013). Introduction to Electrodynamics (4th ed.). Pearson."
+  ]
+}

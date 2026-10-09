@@ -1,0 +1,60 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>발효 동역학은 세 가지 속도를 시간의 함수로 다룹니다: 균체 증식, 기질 소모, 생성물 축적.</li><li>균체: <code>dX/dt = μX</code>. 비성장속도 μ가 기질 농도 S에 따라 포화 곡선을 그린다고 보는 대표 식이 모노드(Monod) 식 <code>μ = μ<sub>max</sub>·S/(K<sub>s</sub> + S)</code>입니다([[monod-growth-kinetics|모노드 성장 동역학]]; Monod, 1949). 이 식은 기전에서 유도한 법칙이라기보다 실험 곡선에 잘 맞는 경험식입니다.</li><li>기질: 증식에 쓰는 몫과 유지에 쓰는 몫으로 나눕니다. 수율계수 Y<sub>X/S</sub>([[yield-coefficient|수율계수]])와 유지계수 m을 쓰면 <code>−dS/dt = (1/Y<sub>X/S</sub>)·dX/dt + m·X</code> 꼴이 되며, 이 유지 항을 Pirt(1965)가 제안했습니다.</li><li>생성물: 성장에 연동되는 부분과 균체량에만 비례하는 부분으로 나눈 식 <code>dP/dt = α·dX/dt + β·X</code>가 루데킹-피렛(Luedeking-Piret, 1959)의 식입니다. α가 크면 성장 연동형, β가 크면 성장 비연동형입니다.</li><li>이름이 비슷한 “특정성장률(SGR)”은 수산 양식에서 체중 증가를 나타내는 지표라 여기서 말하는 비성장속도 μ와 다릅니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>회분식 배양을 모노드 식으로 계산한 <strong>가상의 예</strong>입니다(μ<sub>max</sub> = 0.4 /h, K<sub>s</sub> = 0.5 g/L, Y<sub>X/S</sub> = 0.5, 초기 균체 0.1 g/L, 초기 기질 20 g/L, 유지와 저해 없음; 수치적분으로 계산).</p><table><thead><tr><th>시간 (h)</th><th>균체 X (g/L)</th><th>기질 S (g/L)</th></tr></thead><tbody><tr><td>0</td><td>0.10</td><td>20.00</td></tr><tr><td>5</td><td>0.70</td><td>18.79</td></tr><tr><td>10</td><td>4.88</td><td>10.44</td></tr><tr><td>12</td><td>9.87</td><td>0.45</td></tr><tr><td>14</td><td>10.10</td><td>0.00</td></tr></tbody></table><p>기질이 충분한 초반에는 μ ≈ μ<sub>max</sub>이므로 균체가 지수적으로 늘어 배가 시간이 ln 2/0.4 ≈ 1.7시간입니다. 기질이 K<sub>s</sub> 근처로 줄면 μ가 μ<sub>max</sub>의 절반(0.2 /h)까지 떨어지고, 약 12시간에 기질이 바닥나며 균체는 X<sub>0</sub> + Y·S<sub>0</sub> = 10.1 g/L에서 멈춥니다. 이 곡선에서 생산성(g/L/h)이나 수확 시점을 정합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>모노드 식은 모든 발효에 맞는다.</td><td>기질·생성물 저해, 여러 기질, 산소·pH 제한이 있으면 저해 항을 더한 수정 모형이 필요합니다.</td></tr><tr><td>수율과 생산성은 같은 말이다.</td><td>수율은 소비한 기질당 얻은 양의 비율이고, 생산성은 단위 시간·부피당 얻은 양입니다. 수율이 높아도 느리면 생산성은 낮습니다.</td></tr><tr><td>균체가 자라지 않으면 기질 소모도 멈춘다.</td><td>유지대사 때문에 성장이 멎어도 기질이 소모될 수 있습니다.</td></tr><tr><td>생성물은 늘 성장과 함께 만들어진다.</td><td>성장 연동형, 부분 연동형, 비연동형이 있어 운전 전략이 다릅니다.</td></tr><tr><td>μ는 균체 증가 속도(g/L/h)이다.</td><td>μ는 균체량으로 나눈 비속도(1/h)입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "속도, 비속도, 수율, 생산성은 모두 “얼마나 빨리/얼마나 많이”를 말하지만 단위가 다릅니다.",
+    "headers": [
+      "용어",
+      "단위 예",
+      "의미"
+    ],
+    "rows": [
+      [
+        "비성장속도 μ",
+        "1/h",
+        "균체 한 단위당 증식 속도"
+      ],
+      [
+        "비생산속도 qp",
+        "g/g/h",
+        "균체 한 단위당 생성물 생성 속도"
+      ],
+      [
+        "[[yield-coefficient|수율계수]]",
+        "g/g",
+        "소비한 기질당 균체 또는 생성물 양"
+      ],
+      [
+        "생산성",
+        "g/L/h",
+        "단위 시간·부피당 얻는 생성물 양"
+      ],
+      [
+        "[[batch-fermentation|회분식 발효]]",
+        "—",
+        "이 속도들이 시간에 따라 변하는 대표적인 운전 방식"
+      ]
+    ]
+  },
+  "references": [
+    "Monod, J. (1949). The growth of bacterial cultures. Annual Review of Microbiology, 3, 371–394.",
+    "Luedeking, R., & Piret, E. L. (1959). A kinetic study of the lactic acid fermentation: Batch process at controlled pH. Journal of Biochemical and Microbiological Technology and Engineering, 1(4), 393–412.",
+    "Pirt, S. J. (1965). The maintenance energy of bacteria in growing cultures. Proceedings of the Royal Society B, 163, 224–231.",
+    "Shuler, M. L., & Kargi, F. (2002). Bioprocess Engineering: Basic Concepts (2nd ed.). Prentice Hall.",
+    "Doran, P. M. (2013). Bioprocess Engineering Principles (2nd ed.). Academic Press."
+  ]
+}

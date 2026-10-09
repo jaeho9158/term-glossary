@@ -1,0 +1,64 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "\"두 힘 벡터의 내적을 이용하여 한 힘이",
+      "replace": "\"힘 벡터와 변위 벡터의 내적을 이용하여 힘이"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>정의: <code>a·b = Σ a<sub>i</sub>b<sub>i</sub> = |a||b|cos θ</code>. 성분으로 계산하는 식과 각도로 쓰는 식은 같은 값을 줍니다.</li><li>결과는 스칼라입니다. 대칭(a·b = b·a)이고 각 인자에 대해 선형이며, a·a = |a|²입니다.</li><li>범위: 코시-슈바르츠 부등식에 의해 −|a||b| ≤ a·b ≤ |a||b|. 같은 방향이면 최댓값, 반대 방향이면 최솟값, 서로 수직이면 0입니다(영벡터가 아닐 때).</li><li>단위: 두 벡터 단위의 곱입니다. 힘(N)과 변위(m)의 내적은 일(N·m = J)입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>부호: 양수이면 두 벡터가 이루는 각이 90도보다 작고, 0이면 직교, 음수이면 90도보다 큽니다.</li><li>크기: 벡터 길이에 따라 커지므로 방향 유사도만 보려면 두 길이의 곱으로 나눕니다. 그 값이 [[cosine-similarity|코사인 유사도]]이고 범위는 −1~1입니다. 임베딩이 이미 길이 1로 정규화되어 있으면 내적과 코사인 유사도는 같습니다.</li><li>투영: <code>a·b/|b|</code>는 a를 b 방향에 투영한 길이(부호 포함)입니다.</li><li>가상의 예: a = (3, 4), b = (4, 3)이면 a·b = 24, |a| = |b| = 5이므로 cos θ = 24/25 = 0.96, θ ≈ 16.3도입니다. 힘 (10, 5) N이 (3, 0) m 이동에 한 일은 30 J입니다. (1, 2)와 (−2, 1)의 내적은 0이어서 직교합니다(계산 확인).</li><li>고차원에서는 내적이 차원의 제곱근에 비례해 커집니다. 성분이 서로 독립이고 평균 0·분산 1인 두 벡터의 내적의 표준편차는 약 √d입니다(d = 64이면 약 8, 시뮬레이션에서 7.99). 트랜스포머의 스케일드 내적 어텐션이 √d<sub>k</sub>로 나누는 이유입니다(Vaswani et al., 2017).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<table><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>정의</td><td>유클리드 내적인지 가중 내적인지, 차원</td></tr><tr><td>정규화</td><td>벡터를 길이 1로 정규화했는지(내적 = 코사인 유사도)</td></tr><tr><td>스케일</td><td>어텐션에서 √d<sub>k</sub> 등으로 나누었는지</td></tr><tr><td>비교</td><td>내적, 코사인 유사도, 유클리드 거리 중 무엇을 유사도로 썼는지(결과 해석에 영향)</td></tr><tr><td>단위</td><td>물리량이면 단위(예: J)</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "벡터끼리의 곱이 여러 가지라 결과의 종류로 구별합니다.",
+    "headers": [
+      "연산",
+      "결과",
+      "의미"
+    ],
+    "rows": [
+      [
+        "내적",
+        "스칼라",
+        "같은 방향 정도, 투영, 일"
+      ],
+      [
+        "[[cross-product|벡터의 외적]]",
+        "벡터(3차원)",
+        "두 벡터에 수직인 벡터, 크기는 평행사변형 넓이"
+      ],
+      [
+        "원소별(아다마르) 곱",
+        "벡터",
+        "성분끼리 곱함"
+      ],
+      [
+        "[[cosine-similarity|코사인 유사도]]",
+        "스칼라(−1~1)",
+        "내적을 두 길이의 곱으로 나눈 값"
+      ],
+      [
+        "[[matrix|행렬]] 곱",
+        "행렬",
+        "행과 열의 내적을 모은 것"
+      ]
+    ]
+  },
+  "references": [
+    "Strang, G. (2016). Introduction to Linear Algebra (5th ed.). Wellesley-Cambridge Press.",
+    "Marsden, J. E., & Tromba, A. J. (2011). Vector Calculus (6th ed.). W. H. Freeman.",
+    "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30, 5998–6008."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>병렬 기구는 이동 플랫폼이 여러 개의 독립된 팔(다리)로 기저에 동시에 연결된 닫힌 사슬 구조입니다. 직렬 로봇이 관절을 한 줄로 잇는 것과 반대입니다([[serial-manipulator|직렬로봇기구]]).</li><li>자유도는 그뤼블러-쿠츠바흐 식으로 셉니다: <code>M = d(n − 1 − j) + Σf<sub>i</sub></code> (d는 공간 6·평면 3, n은 링크 수(기저 포함), j는 관절 수, f<sub>i</sub>는 각 관절의 자유도). 닫힌 사슬이라 관절 수가 링크 수보다 많아 항이 음수가 됩니다.</li><li>대표: 6자유도 [[stewart-platform|스튜어트플랫폼]](6개의 길이 가변 다리, Stewart, 1965), 병진 3자유도 [[delta-robot|델타로봇]](평행사변형 링크, 고속 픽앤플레이스).</li><li>특성: 여러 다리가 하중을 나눠 강성과 하중 대 자중비가 높고 가감속이 빠르지만, 작업공간이 좁고 내부에 특이점이 많습니다(Merlet, 2006).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>자유도 계산 예(계산 확인):</p><table><thead><tr><th>구조</th><th>n (링크)</th><th>j (관절)</th><th>Σf</th><th>M</th></tr></thead><tbody><tr><td>평면 3-RRR (다리마다 회전관절 3개)</td><td>8</td><td>9</td><td>9</td><td>3(8 − 1 − 9) + 9 = 3</td></tr><tr><td>6-UPS 스튜어트 (다리마다 U·P·S)</td><td>14</td><td>18</td><td>36</td><td>6(14 − 1 − 18) + 36 = 6</td></tr><tr><td>6-SPS (U 대신 S)</td><td>14</td><td>18</td><td>42</td><td>6(14 − 1 − 18) + 42 = 12</td></tr></tbody></table><p>6-SPS의 12는 플랫폼의 6자유도에 각 다리가 자기 축으로 도는 6개의 불필요한 자유도가 더해진 값입니다. 공식은 기구의 전체 운동 가능성을 세지만 어느 것이 출력 운동인지는 알려 주지 않으므로 해석이 필요합니다. 순기구학은 해가 여러 개이며, 일반적인 기하의 스튜어트 플랫폼은 복소수 해까지 최대 40개라고 보고되었습니다(Raghavan, 1993).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>병렬 로봇은 직렬보다 늘 정밀하다.</td><td>강성과 오차 평균화에 유리하지만, 관절 간극, 다리 탄성, 조립 오차가 서로 구속되어 실제 정밀도와 보정은 더 복잡할 수 있습니다.</td></tr><tr><td>역기구학이 어렵다.</td><td>병렬 기구는 반대로 역기구학이 쉽고 [[forward-kinematics|순기구학]]이 여러 해를 갖는 어려운 문제입니다.</td></tr><tr><td>작업공간이 넓다.</td><td>대체로 좁고 특이점이 내부에 있습니다. Gosselin과 Angeles(1990)는 닫힌 사슬의 특이점을 역기구학형, 직접(순)기구학형, 복합형으로 분류했습니다.</td></tr><tr><td>다리 수 = 자유도이다.</td><td>다리 구성에 따라 달라지며 위 표처럼 관절 구성이 자유도를 정합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "병렬과 직렬 기구는 장단점이 대체로 반대입니다.",
+    "headers": [
+      "특성",
+      "병렬 기구",
+      "직렬 기구"
+    ],
+    "rows": [
+      [
+        "구조",
+        "여러 다리가 플랫폼을 동시에 지지(닫힌 사슬)",
+        "링크가 한 줄로 연결(열린 사슬)"
+      ],
+      [
+        "강성·하중비",
+        "높음",
+        "상대적으로 낮음"
+      ],
+      [
+        "작업공간",
+        "좁음",
+        "넓음"
+      ],
+      [
+        "[[forward-kinematics|순기구학]]",
+        "어렵고 해가 여러 개",
+        "쉬움"
+      ],
+      [
+        "[[inverse-kinematics|역기구학]]",
+        "쉬움",
+        "해가 여러 개일 수 있고 상대적으로 복잡"
+      ],
+      [
+        "대표 예",
+        "스튜어트플랫폼, 델타로봇",
+        "산업용 다관절 로봇 팔"
+      ]
+    ]
+  },
+  "references": [
+    "Merlet, J.-P. (2006). Parallel Robots (2nd ed.). Springer.",
+    "Tsai, L.-W. (1999). Robot Analysis: The Mechanics of Serial and Parallel Manipulators. Wiley.",
+    "Stewart, D. (1965). A platform with six degrees of freedom. Proceedings of the Institution of Mechanical Engineers, 180(1), 371–386.",
+    "Gosselin, C., & Angeles, J. (1990). Singularity analysis of closed-loop kinematic chains. IEEE Transactions on Robotics and Automation, 6(3), 281–290.",
+    "Raghavan, M. (1993). The Stewart platform of general geometry has 40 configurations. Journal of Mechanical Design, 115(2), 277–282."
+  ]
+}
