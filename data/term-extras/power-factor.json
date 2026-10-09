@@ -1,0 +1,51 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>역률(PF)은 유효전력 P와 피상전력 S의 비입니다: <code>PF = P / S</code>. 전압·전류가 정현파일 때는 둘의 위상차 φ의 코사인과 같습니다(PF = cos φ). 피상전력은 S² = P² + Q²이므로 무효전력 Q = √(S² − P²)입니다.</p><ul><li><strong>범위</strong>: 0~1. 부하가 전류를 앞서게 하는(용량성) 경우와 뒤서게 하는(유도성) 경우를 구분해 ‘앞선 역률/뒤진 역률’이라고 합니다.</li><li>전류가 왜곡된 비정현파에서는 PF = (변위 역률) × 1/√(1 + THD<sub>I</sub>²) 로 쓰는 것이 흔합니다(전압이 정현파일 때). 변위 역률은 기본파의 cos φ, THD<sub>I</sub>는 전류 총고조파왜곡률입니다(비정현 조건의 정의는 IEEE Std 1459-2010 참조).</li></ul><p><strong>작은 예(코드로 계산).</strong> 부하가 P = 80 kW, 뒤진 역률 0.8이면 S = 100 kVA, Q = 60 kvar입니다. 역률을 0.95로 올리려면 진상 콘덴서 용량 Q<sub>c</sub> = P(tan φ₁ − tan φ₂) = 80 × (0.750 − 0.329) ≈ <strong>33.7 kvar</strong>가 필요합니다. 그러면 S ≈ 84.2 kVA, Q ≈ 26.3 kvar로 줄어 같은 유효전력을 더 작은 전류로 공급합니다. 변위 역률이 0.98이어도 전류 THD가 30%이면 PF ≈ 0.98/√1.09 ≈ 0.94로 낮아집니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>역률이 낮으면 같은 전력을 보내는 데 전류가 많이 흘러 선로 손실과 전압강하가 커지고 설비 용량이 더 필요합니다. 그래서 많은 전력 요금 체계가 일정 역률 이하에 불이익을 줍니다(구체적 기준은 약관·시기마다 다르므로 해당 규정을 확인해야 합니다).</li><li>‘좋은 역률’의 값은 법칙이 아니라 기관별 요금·규정의 기준입니다.</li><li>역률이 1이라고 효율이 좋다는 뜻은 아닙니다. 역률은 전류의 위상·파형 문제이고, 에너지 변환 효율은 별개입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>측정 조건(부하율, 측정 시간 평균, 선로 전압)과 단위를 밝힙니다. 전압·전류가 비정현이면 변위 역률과 전체 역률(PF)을 구분해 적습니다.</li><li>보상 설계는 목표 역률, 필요한 콘덴서 용량(kvar), 고조파와의 공진 위험 검토를 함께 제시합니다.</li><li>표기: ‘역률 0.80(지상)’처럼 값과 위상 방향(지상=뒤진, 진상=앞선)을 함께 적습니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "IEEE Std 1459-2010 (2010). IEEE Standard Definitions for the Measurement of Electric Power Quantities Under Sinusoidal, Nonsinusoidal, Balanced, or Unbalanced Conditions. IEEE.",
+    "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "단위",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "유효전력 P",
+        "W",
+        "실제 일을 하는 전력"
+      ],
+      [
+        "무효전력 Q",
+        "var",
+        "전원과 부하 사이를 오가기만 하는 전력"
+      ],
+      [
+        "피상전력 S",
+        "VA",
+        "P와 Q를 합한 전력의 크기. 설비 용량 기준"
+      ],
+      [
+        "[[power-factor-correction|역률 개선]]",
+        "—",
+        "콘덴서 등으로 역률을 높이는 조치"
+      ]
+    ]
+  }
+}

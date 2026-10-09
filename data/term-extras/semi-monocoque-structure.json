@@ -1,0 +1,48 @@
+{
+  "type": "structure",
+  "sections": [
+    {
+      "heading": "어디에 있고 어떻게 생겼나",
+      "html": "<p>세미모노코크 동체는 얇은 <strong>외피(skin)</strong>를 길이 방향의 <strong>스트링거(stringer)</strong>와 원주 방향의 <strong>프레임(frame)</strong>이 받치는 구조입니다. 날개에서는 길이 방향의 <strong>스파(spar)</strong>와 스트링거, 폭 방향의 <strong>리브(rib)</strong>가 외피와 상자(박스) 모양을 이룹니다. 외피만으로 하중을 받는 순수 모노코크와 달리, 외피가 얇아도 내부 부재가 하중을 나누어 받습니다.</p><p>부재는 크게 두 계열로 나뉩니다. 스트링거·스파 플랜지처럼 <strong>길이 방향의 축하중(굽힘으로 생기는 인장·압축)</strong>을 지는 부재, 그리고 외피 패널처럼 <strong>전단</strong>을 지는 부재입니다.</p>"
+    },
+    {
+      "heading": "맡은 기능",
+      "html": "<ul><li><strong>외피</strong>: 공기력을 받아 전달하고, 비틀림과 전단을 감당하며, 객실 여압을 견딥니다.</li><li><strong>스트링거</strong>: 굽힘에 의한 축하중을 지고 외피 패널이 휘어 꺼지는 좌굴을 줄입니다.</li><li><strong>프레임·리브</strong>: 단면 모양을 유지하고 하중을 외피로 분산하며 스트링거 간격을 잡아 줍니다.</li><li><strong>다경로 하중</strong>: 한 부재에 균열이 생겨도 하중이 다른 부재로 돌아가므로 손상허용 설계에 유리합니다.</li></ul><p><strong>작은 예(가상, 코드로 계산).</strong> 해석에서는 흔히 ‘붐 이상화’를 씁니다. 스트링거 4개를 각 300 mm²의 붐으로 보고 단면의 위아래 150 mm, 좌우 100 mm 지점에 두며, 외피는 전단만 진다고 가정합니다. 굽힘모멘트 M = 20 kN·m가 가해지면 관성모멘트 I = 4×300×150² = 27,000,000 mm⁴이므로 σ = M·y/I = 20×10⁶×150/27×10⁶ ≈ <strong>111 MPa</strong>(위 붐은 인장, 아래 붐은 압축)입니다. 실제 설계에서는 좌굴한 외피의 ‘유효폭’ 등을 함께 고려합니다.</p>"
+    },
+    {
+      "heading": "연구에서 다루는 방식",
+      "html": "<ul><li>이상화(붐-패널) 모델로 단면의 굽힘응력과 전단흐름을 손계산하고, 유한요소 모델로 검증합니다.</li><li>외피 패널이 좌굴한 뒤에도 하중을 계속 지지하는 <strong>인장장(tension field)</strong> 거동은 Wagner(1931)의 얇은 웹 보에 대한 이론이 고전입니다.</li><li>피로균열 성장, 보강재 이탈, 복합재 외피와의 비교(동체를 복합재 일체형으로 만들 때 세미모노코크 개념이 어떻게 바뀌는지)가 흔한 주제입니다. 논문에는 보강재 종류·간격, 외피 두께, 하중 경우, 이상화 가정을 명시합니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Niu, M. C. Y. (1988). Airframe Structural Design. Conmilit Press.",
+    "Bruhn, E. F. (1973). Analysis and Design of Flight Vehicle Structures. Jacobs Publishing.",
+    "Wagner, H. (1931). Flat sheet metal girders with very thin metal web (NACA Technical Memorandums Nos. 604–606). National Advisory Committee for Aeronautics."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "구조 형식",
+      "하중을 지는 방식",
+      "예"
+    ],
+    "rows": [
+      [
+        "트러스",
+        "뼈대의 막대가 인장·압축으로 하중을 지고 외피는 덮개 역할",
+        "초기 항공기의 철골 동체"
+      ],
+      [
+        "모노코크",
+        "외피만으로 하중 지지",
+        "계란 껍질형 구조, 일부 레이싱카 차체"
+      ],
+      [
+        "세미모노코크",
+        "외피 + 스트링거·프레임이 하중 분담",
+        "현대 여객기 동체, 날개 박스"
+      ]
+    ],
+    "note": "모노코크는 개구부와 국부 손상에 약해 대형 항공기에는 세미모노코크가 쓰입니다."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>A*는 시작 노드에서 목표까지 가는 최소 비용 경로를 찾는 탐색 알고리즘입니다(Hart 외, 1968). 각 노드 n마다 <code>f(n) = g(n) + h(n)</code>을 계산합니다. g(n)은 시작에서 n까지 실제로 든 비용, h(n)은 n에서 목표까지의 <strong>추정 비용(휴리스틱)</strong>입니다.</p><ol><li>시작 노드를 열린 목록에 넣는다.</li><li>f가 가장 작은 노드를 꺼내 닫힌 목록으로 옮긴다.</li><li>그 노드가 목표면 끝난다. 아니면 이웃 노드의 g를 갱신하고(더 싼 경로를 찾으면), 열린 목록에 넣는다.</li><li>2~3을 반복한다.</li></ol><p>h가 항상 0이면 [[dijkstra-algorithm|다익스트라 알고리즘]]과 같습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>h가 <strong>허용적(admissible)</strong>, 곧 실제 남은 비용을 절대 과대평가하지 않으면 A*는 최단 경로를 보장합니다. 또 h가 <strong>일관적(consistent)</strong>이면 한 번 닫힌 노드를 다시 열 필요가 없습니다(Dechter &amp; Pearl, 1985의 최적성 논의 참조). 격자에서 상하좌우 이동 비용이 1일 때 맨해튼 거리가 이런 휴리스틱의 대표입니다.</p><p><strong>작은 예(코드로 실행).</strong> 9행×10열 격자(#은 벽)에서 S에서 G까지 간다고 합시다.</p><p><code>..........<br>..####....<br>..#..#....<br>..#..#.##.<br>..#..#..#.<br>S.#..####.<br>..#.......<br>..####.##.<br>........#G</code></p><table><thead><tr><th>방법</th><th>경로 길이</th><th>확장한 노드 수</th></tr></thead><tbody><tr><td>다익스트라(h = 0)</td><td>16</td><td>60</td></tr><tr><td>A*(맨해튼 거리)</td><td>16</td><td>25</td></tr><tr><td>A*(맨해튼×2, 비허용)</td><td>16</td><td>18</td></tr></tbody></table><p>같은 최단 길이를 더 적은 노드로 찾는 것이 휴리스틱의 이점입니다. 맨해튼×2는 과대평가하는 비허용 휴리스틱이어서 최적성이 보장되지 않는데, 이 격자에서는 우연히 최적을 찾았습니다. 노드 수는 동률일 때의 처리 순서(여기서는 g, 좌표 순)에 따라 조금 달라질 수 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>그래프(격자 크기, 이동 방향 4방향/8방향, 비용 정의)와 사용한 <strong>휴리스틱</strong>을 명시하고, 허용성·일관성을 증명하거나 근거를 제시합니다.</li><li>성능은 확장한 노드 수, 실행 시간, 메모리, 경로 길이(최적 대비 비율)로 비교합니다. 비교 대상은 다익스트라, 가중 A*, JPS, D* Lite 같은 변형으로 합니다.</li><li>휴리스틱을 부풀려 속도를 얻으면(가중 A*) 최적성이 깨지므로 그 점을 밝혀야 합니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107.",
+    "Dechter, R., & Pearl, J. (1985). Generalized best-first search strategies and the optimality of A*. Journal of the ACM, 32(3), 505–536.",
+    "Russell, S., & Norvig, P. (2020). Artificial Intelligence: A Modern Approach (4th ed.). Pearson."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "알고리즘",
+      "기준",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[dijkstra-algorithm|다익스트라 알고리즘]]",
+        "g(n)만 사용",
+        "목표 방향 정보가 없어 사방으로 퍼짐"
+      ],
+      [
+        "A*",
+        "g(n) + h(n)",
+        "목표를 향해 탐색을 모음. h가 허용적이면 최적"
+      ],
+      [
+        "탐욕적 최선 우선 탐색",
+        "h(n)만 사용",
+        "빠르지만 최적 경로를 보장하지 않음"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>WMS(Web Map Service)는 OGC(Open Geospatial Consortium)가 정한 웹 표준으로, 클라이언트가 HTTP 요청으로 지도 <strong>이미지</strong>를 받아 오게 합니다(de la Beaujardière, 2006; ISO 19128:2005). 기본 연산은 세 가지입니다.</p><ul><li><strong>GetCapabilities</strong>: 서버가 제공하는 레이어, 좌표계, 영상 형식 등을 설명하는 문서를 받습니다.</li><li><strong>GetMap</strong>: 레이어(LAYERS), 스타일(STYLES), 좌표계(CRS), 영역(BBOX), 영상 크기(WIDTH·HEIGHT), 형식(FORMAT)을 지정해 지도 영상을 받습니다.</li><li><strong>GetFeatureInfo</strong>(선택): 영상의 한 지점에 있는 지물의 속성 정보를 받습니다.</li></ul><p>WMS는 영상(래스터)을 돌려주므로 그 안의 지물을 직접 편집하거나 분석하는 데는 쓰기 어렵고, 지물 자체가 필요하면 WFS 같은 다른 서비스를 씁니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>여러 기관이 각자 서버에 둔 지도를 한 화면에 겹쳐 보여 주려는 웹지도에서 쓰입니다. 클라이언트는 데이터를 내려받지 않고 보이는 영역의 영상만 요청합니다.</p><p><strong>작은 예(가상, 코드로 계산).</strong> 영역을 경도 126~130°E, 위도 34~38°N(EPSG:4326)으로 잡고 영상 폭을 1,024픽셀로 하면 가로·세로 범위가 같으므로 높이도 1,024픽셀(정사각형)이어야 모양이 왜곡되지 않습니다. 픽셀 하나는 4/1,024 = 약 0.0039°입니다. 요청 형태는 대략 <code>.../wms?SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetMap&amp;LAYERS=레이어명&amp;STYLES=&amp;CRS=EPSG:4326&amp;BBOX=34,126,38,130&amp;WIDTH=1024&amp;HEIGHT=1024&amp;FORMAT=image/png</code>입니다. 주의: WMS 1.3.0에서 EPSG:4326을 쓰면 BBOX의 축 순서가 (위도, 경도)이므로 1.1.1(경도, 위도)과 다릅니다. 서버 주소와 레이어명은 설명용입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>서비스 제공자, WMS 버전, 사용한 레이어와 좌표계, 접속 시점을 적습니다. 서비스 내용은 바뀔 수 있으므로 접속일을 남깁니다.</li><li>“WMS를 통해 배경지도를 불러왔다”로 끝내지 말고, 영상(래스터) 서비스라는 한계와 필요한 경우 WFS 등 보완 서비스 여부를 적습니다.</li><li>상호운용성이 주제라면 GetCapabilities 응답으로 지원 좌표계·형식이 일치하는지 확인한 결과를 제시합니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "de la Beaujardière, J. (Ed.). (2006). OpenGIS Web Map Server Implementation Specification, Version 1.3.0 (OGC 06-042). Open Geospatial Consortium.",
+    "ISO 19128:2005 (2005). Geographic information — Web map server interface. International Organization for Standardization."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "서비스",
+      "돌려주는 것",
+      "용도"
+    ],
+    "rows": [
+      [
+        "WMS",
+        "지도 영상",
+        "정해진 영역의 그림을 겹쳐 보기"
+      ],
+      [
+        "WMTS",
+        "미리 만든 타일 영상",
+        "빠른 웹지도 배경(캐시 활용)"
+      ],
+      [
+        "WFS",
+        "지물(벡터) 자료",
+        "지물을 직접 조회·분석·편집"
+      ]
+    ],
+    "note": "수문학의 WMS(Watershed Modeling System)나 물류의 WMS(창고관리시스템)는 약어만 같은 다른 용어입니다."
+  }
+}

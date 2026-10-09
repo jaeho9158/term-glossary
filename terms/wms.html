@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/wms.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <p>국토지리정보원의 국토정보플랫폼처럼 여러 기관이 웹을 통해 공간정보를 공유·서비스할 때 활용되는 국제표준 규격으로, 서로 다른 GIS 소프트웨어 간의 상호운용성을 보장하는 공간정보인프라의 실무적 기반입니다.</p>
   <p>WMS 표준 덕분에 서로 다른 기관이 제작한 지도서비스를 하나의 웹지도 위에 함께 겹쳐 표시할 수 있어 공간정보의 상호운용성이 크게 높아진다. WMS 표준의 보급은 여러 기관이 각자 만든 지도서비스를 이용자가 따로따로 접속할 필요 없이 한 화면에서 통합해 볼 수 있게 함으로써 공간정보 활용의 편의성을 크게 높였다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>WMS(Web Map Service)는 OGC(Open Geospatial Consortium)가 정한 웹 표준으로, 클라이언트가 HTTP 요청으로 지도 <strong>이미지</strong>를 받아 오게 합니다(de la Beaujardière, 2006; ISO 19128:2005). 기본 연산은 세 가지입니다.</p><ul><li><strong>GetCapabilities</strong>: 서버가 제공하는 레이어, 좌표계, 영상 형식 등을 설명하는 문서를 받습니다.</li><li><strong>GetMap</strong>: 레이어(LAYERS), 스타일(STYLES), 좌표계(CRS), 영역(BBOX), 영상 크기(WIDTH·HEIGHT), 형식(FORMAT)을 지정해 지도 영상을 받습니다.</li><li><strong>GetFeatureInfo</strong>(선택): 영상의 한 지점에 있는 지물의 속성 정보를 받습니다.</li></ul><p>WMS는 영상(래스터)을 돌려주므로 그 안의 지물을 직접 편집하거나 분석하는 데는 쓰기 어렵고, 지물 자체가 필요하면 WFS 같은 다른 서비스를 씁니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>여러 기관이 각자 서버에 둔 지도를 한 화면에 겹쳐 보여 주려는 웹지도에서 쓰입니다. 클라이언트는 데이터를 내려받지 않고 보이는 영역의 영상만 요청합니다.</p><p><strong>작은 예(가상, 코드로 계산).</strong> 영역을 경도 126~130°E, 위도 34~38°N(EPSG:4326)으로 잡고 영상 폭을 1,024픽셀로 하면 가로·세로 범위가 같으므로 높이도 1,024픽셀(정사각형)이어야 모양이 왜곡되지 않습니다. 픽셀 하나는 4/1,024 = 약 0.0039°입니다. 요청 형태는 대략 <code>.../wms?SERVICE=WMS&amp;VERSION=1.3.0&amp;REQUEST=GetMap&amp;LAYERS=레이어명&amp;STYLES=&amp;CRS=EPSG:4326&amp;BBOX=34,126,38,130&amp;WIDTH=1024&amp;HEIGHT=1024&amp;FORMAT=image/png</code>입니다. 주의: WMS 1.3.0에서 EPSG:4326을 쓰면 BBOX의 축 순서가 (위도, 경도)이므로 1.1.1(경도, 위도)과 다릅니다. 서버 주소와 레이어명은 설명용입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>서비스 제공자, WMS 버전, 사용한 레이어와 좌표계, 접속 시점을 적습니다. 서비스 내용은 바뀔 수 있으므로 접속일을 남깁니다.</li><li>“WMS를 통해 배경지도를 불러왔다”로 끝내지 말고, 영상(래스터) 서비스라는 한계와 필요한 경우 WFS 등 보완 서비스 여부를 적습니다.</li><li>상호운용성이 주제라면 GetCapabilities 응답으로 지원 좌표계·형식이 일치하는지 확인한 결과를 제시합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 연구의 웹지도 애플리케이션은 WMS를 통해 국토지리정보원의 배경지도를 실시간으로 불러왔다.</div>
   <p>WMS는 지도 이미지를 표준 규격으로 전송하므로 서로 다른 GIS 소프트웨어 간에도 지도 레이어를 공유할 수 있다.</p>
   <div class="example">공공 공간정보 기관의 WMS 서비스를 연동하여 웹지도 애플리케이션에 실시간 배경지도를 표시하였다.</div>
@@ -158,6 +176,18 @@
 
   <h2>주의할 점</h2>
   <p>WMS는 이미지 형태로 지도를 전달하므로 벡터 편집이나 속성질의가 필요한 경우에는 WFS 등 다른 서비스가 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">서비스</th><th scope="col">돌려주는 것</th><th scope="col">용도</th></tr></thead><tbody><tr><th scope="row">WMS</th><td>지도 영상</td><td>정해진 영역의 그림을 겹쳐 보기</td></tr><tr><th scope="row">WMTS</th><td>미리 만든 타일 영상</td><td>빠른 웹지도 배경(캐시 활용)</td></tr><tr><th scope="row">WFS</th><td>지물(벡터) 자료</td><td>지물을 직접 조회·분석·편집</td></tr></tbody></table></div>
+  <p class="te-note">수문학의 WMS(Watershed Modeling System)나 물류의 WMS(창고관리시스템)는 약어만 같은 다른 용어입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>de la Beaujardière, J. (Ed.). (2006). OpenGIS Web Map Server Implementation Specification, Version 1.3.0 (OGC 06-042). Open Geospatial Consortium.</li>
+    <li>ISO 19128:2005 (2005). Geographic information — Web map server interface. International Organization for Standardization.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

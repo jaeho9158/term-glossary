@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/avalanche-breakdown.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>애벌런치 항복은 전력반도체 소자의 내전압 한계를 결정짓는 중요한 요인이기 때문에, 전력용 다이오드나 트랜지스터의 설계 및 신뢰성 평가에서 핵심적으로 다뤄집니다. 소자가 애벌런치 조건을 견딜 수 있는 능력(애벌런치 내량)은 전력전자 논문에서 자주 평가 항목으로 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>역방향 전압을 걸면 공핍층의 전기장이 세집니다. 이 전기장에서 가속된 전자·정공이 결정 격자와 충돌해 새 전자-정공 쌍을 만드는 <strong>충돌 이온화</strong>가 일어나고, 새 캐리어도 다시 충돌해 쌍을 만드는 연쇄가 이어지는 것이 애벌런치(눈사태) 항복입니다(McKay, 1954 등 고전 연구).</p><ul><li>전류 증가의 정도는 <strong>배가 계수</strong> M으로 나타내며, 경험식 M = 1/[1 − (V/V<sub>BR</sub>)<sup>n</sup>] (n은 재료·도핑에 따라 대략 3~6)이 널리 쓰입니다(Miller 형식).</li><li>V가 V<sub>BR</sub>에 가까워지면 M이 발산하므로 항복전압 근처에서 전류가 급증합니다.</li><li>도핑이 낮아 공핍층이 넓은 접합에서 주로 나타나며, 실리콘에서는 항복전압이 대략 7 V 이상인 경우가 일반적입니다.</li><li><strong>온도계수가 양(+)</strong>입니다. 온도가 오르면 격자 진동이 커져 캐리어가 에너지를 얻기 전에 산란되므로 항복전압이 약간 올라갑니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>작은 예(경험식에 n = 4를 넣어 코드로 계산).</strong></p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>V / V<sub>BR</sub></th><th>0.50</th><th>0.80</th><th>0.90</th><th>0.95</th><th>0.99</th></tr></thead><tbody><tr><td>M</td><td>1.07</td><td>1.69</td><td>2.91</td><td>5.39</td><td>25.4</td></tr></tbody></table></div><p>항복전압의 절반에서는 거의 증폭이 없지만 99%에 이르면 25배로 커집니다. 이것이 ‘항복 직전까지는 조용하다가 갑자기 급증한다’는 인상의 수식적 이유이며, 애벌런치 포토다이오드(APD)는 이 배가 작용을 신호 증폭에 이용합니다. 값은 n에 민감하므로 설명용입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“항복 = 소자 파손”</strong>이 아닙니다. 전류를 제한하면 가역적으로 동작하며, 전류가 열을 못 이겨 국부적으로 몰릴 때(2차 항복) 파손됩니다.</li><li><strong>“제너다이오드 = 제너 항복”</strong>만은 아닙니다. 항복전압이 낮은(대략 5 V 이하) 소자는 전자가 에너지 장벽을 통과하는 <strong>제너 항복(터널링)</strong>이, 높은 소자는 애벌런치가 주를 이루며 그 사이에서는 둘이 섞입니다. 흔히 ‘제너다이오드’로 부르는 소자의 동작 기구가 항상 제너 항복인 것은 아닙니다.</li><li>온도계수의 부호는 두 기구를 구분하는 단서입니다(애벌런치는 +, 제너는 −).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The avalanche breakdown voltage increases with decreasing doping concentration in the lightly doped region."</div>
   <p>저농도 도핑 영역의 도핑 농도가 낮아질수록 애벌런치 항복전압이 높아진다는 설명입니다.</p>
   <div class="example">"The power diode was tested for repetitive avalanche breakdown to evaluate its ruggedness under surge conditions."</div>
@@ -157,6 +175,19 @@
 
   <h2>주의할 점</h2>
   <p>애벌런치 항복과 제너 항복은 물리적 메커니즘이 다르며, 접합의 도핑 농도와 인가 전압 범위에 따라 어느 쪽이 지배적인지가 달라질 수 있습니다. 소자가 항상 애벌런치 조건을 안전하게 견딜 수 있는 것은 아니며, 과도한 에너지가 유입되면 소자가 파괴될 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">항복 기구</th><th scope="col">주로 나타나는 조건</th><th scope="col">온도계수</th></tr></thead><tbody><tr><th scope="row">애벌런치 항복</th><td>저농도 도핑, 넓은 공핍층, 높은 항복전압(실리콘 대략 7 V 이상)</td><td>양(+)</td></tr><tr><th scope="row"><a href="zener-breakdown.html">제너 항복</a></th><td>고농도 도핑, 얇은 공핍층, 낮은 항복전압(대략 5 V 이하)</td><td>음(−)</td></tr></tbody></table></div>
+  <p class="te-note">숫자는 실리콘 접합의 대략적인 경험칙이며 구조에 따라 달라집니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>McKay, K. G. (1954). Avalanche breakdown in silicon. Physical Review, 94(4), 877–884.</li>
+    <li>Miller, S. L. (1955). Avalanche breakdown in germanium. Physical Review, 99(4), 1234–1241.</li>
+    <li>Sze, S. M., &amp; Ng, K. K. (2007). Physics of Semiconductor Devices (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
