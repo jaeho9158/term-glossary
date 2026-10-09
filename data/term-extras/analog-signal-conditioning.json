@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>센서의 원시 신호는 작거나, 잡음이 섞이거나, 후단 회로(보통 ADC)가 받는 범위를 벗어나 있습니다. 신호조절은 이를 <strong>후단이 정확히 처리할 수 있는 형태</strong>로 바꾸는 일련의 아날로그 처리입니다.</p><ul><li><strong>증폭</strong>: 계측 증폭기나 연산증폭기로 신호를 키웁니다. 센서가 차동 신호를 내는 경우 [[instrumentation-amplifier|계측 증폭기]]가 높은 입력 임피던스와 동상신호 제거비를 제공합니다.</li><li><strong>필터링</strong>: 불필요한 잡음과 주파수 성분을 제거합니다. 디지털화 전에는 안티앨리어싱 용도의 저역통과 필터를 둡니다([[low-pass-filter-design|저역통과필터 설계]]).</li><li><strong>레벨 이동·오프셋 조정</strong>: 신호의 기준점을 ADC의 입력 범위에 맞춥니다.</li><li><strong>임피던스 정합</strong>: 버퍼 회로로 센서가 후단 부하에 의해 왜곡되지 않게 합니다.</li></ul><p>블록의 순서와 조합은 센서 특성과 ADC 사양에 따라 달라집니다. 안티앨리어싱 필터의 차단 주파수는 표본화 정리([[nyquist-shannon-sampling-theorem|나이퀴스트-섀넌 표본화 정리]])를 고려해 정합니다([[aliasing-distortion|앨리어싱 왜곡]]).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>무엇을 얻나.</strong> 후단 [[analog-to-digital-converter|ADC]]의 입력 범위를 충분히 쓰게 해 분해능과 신호 대 잡음비를 확보하고, 잡음 간섭을 줄입니다. 신호조절 단계가 위상 지연, 추가 잡음, 비선형 왜곡을 일으킬 수도 있으므로 소자 특성을 함께 검토합니다.</p><p><strong>계산 예(가상의 설계).</strong> K형 열전대로 0–100 °C를 측정한다고 합시다. 100 °C에서의 열기전력은 약 4.096 mV로 알려져 있어 평균 감도는 약 41.0 µV/°C입니다. 12비트 ADC(0–5 V)의 한 단계는 1.221 mV입니다.</p><table><thead><tr><th>구성</th><th>ADC 입력 전체 폭</th><th>한 단계가 나타내는 온도</th></tr></thead><tbody><tr><td>증폭 없이</td><td>4.096 mV (약 3.4단계)</td><td>약 29.8 °C</td></tr><tr><td>이득 1000배</td><td>4.096 V (전체 범위의 82%)</td><td>약 0.030 °C</td></tr></tbody></table><p>증폭 없이는 0–100 °C 전체가 ADC 눈금 몇 개에 불과해 쓸 수 없고, 이득을 주면 분해능이 이론적으로 이득만큼 좋아집니다. 다만 증폭기의 오프셋과 잡음도 함께 커지므로 실제로는 이들이 허용 오차 안에 있어야 하고, 냉접점 보상 같은 보정이 필요합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>논문에는 다음 정보를 적어야 회로를 평가하고 재현할 수 있습니다.</p><ul><li>회로 블록도와 각 단의 이득, 대역폭, 필터 종류와 차수, 차단 주파수</li><li>입력 환산 잡음, 오프셋과 온도 드리프트, 동상신호 제거비(CMRR), 선형성</li><li>ADC 사양(분해능, 표본화 주파수, 입력 범위)과의 정합</li><li>센서 종류와 연결 방식, 전원 조건, 사용 소자</li><li>시험 결과: 신호 대 잡음비, 측정 오차, 기준 장비와의 비교</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "센서 신호 처리의 단계가 서로 이어져 있어 용어가 섞이기 쉽습니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "위치"
+    ],
+    "rows": [
+      [
+        "아날로그 신호조절",
+        "증폭·필터링·레벨 조정 등 전체 전처리",
+        "센서와 ADC 사이"
+      ],
+      [
+        "[[instrumentation-amplifier|계측 증폭기]]",
+        "미세한 차동 신호를 잡음 속에서 증폭",
+        "신호조절의 증폭 블록"
+      ],
+      [
+        "[[low-pass-filter-design|저역통과필터 설계]]",
+        "높은 주파수 성분을 감쇠",
+        "신호조절의 필터 블록"
+      ],
+      [
+        "[[analog-to-digital-converter|ADC]]",
+        "아날로그 전압을 디지털 숫자로 변환",
+        "신호조절의 다음 단계"
+      ]
+    ]
+  },
+  "references": [
+    "Horowitz, P., & Hill, W. (2015). The Art of Electronics (3rd ed.). Cambridge University Press.",
+    "Pallás-Areny, R., & Webster, J. G. (2001). Sensors and Signal Conditioning (2nd ed.). Wiley.",
+    "Kester, W. (Ed.). (2005). Data Conversion Handbook. Newnes.",
+    "Shannon, C. E. (1949). Communication in the presence of noise. Proceedings of the IRE, 37(1), 10–21."
+  ]
+}

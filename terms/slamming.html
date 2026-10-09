@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>슬래밍은 선수 저부와 플레어에 순간적으로 큰 압력을 가해 <a href="bottom-plating.html">선저외판</a> 국부 손상과 선체 전체의 휘핑 진동을 일으키므로, 국부 구조 설계 하중과 <a href="longitudinal-strength.html">종강도</a> 여유를 정할 때 반드시 고려됩니다. 실무에서는 슬래밍 발생 확률을 기준으로 황천 시 감속 지침을 만들고, 고속선과 대형 컨테이너선에서는 선수 형상을 조정해 충격을 줄입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>슬래밍은 선박이 파도 속에서 <strong>선수 바닥(선저)이나 선수 플레어가 수면에 강하게 부딪혀 짧고 큰 충격압력이 생기는 현상</strong>입니다. 충격 압력은 수 밀리초에 불과하고 국소적으로 작용합니다.</li><li><strong>발생 조건</strong>: 선수 바닥이 수면 밖으로 드러났다가 다시 입수하면서, 선체와 수면의 상대속도가 임계값을 넘을 때입니다. 이런 조건을 확률로 표현한 대표적인 기준이 Ochi(1964)의 슬래밍 발생 확률입니다.</li><li><strong>선저 슬래밍과 플레어 슬래밍</strong>은 발생 조건과 하중 특성이 달라 따로 다룹니다. 갑판 위로 물이 올라오는 갑판침수와도 구분합니다.</li><li><strong>영향</strong>: 선수 외판의 국부 손상과, 충격 뒤 선체 전체가 떠는 휘핑 진동(피로 손상 평가에 반영)입니다. 휘핑은 <a href="whipping.html">휘핑</a> 항목에 따로 있습니다.</li><li>충격은 상대속도와 입사각에 민감해 <strong>확률적으로</strong> 다루며, 최대 압력은 그대로 정적 설계 하중으로 쓰지 않습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>Ochi(1964)는 상대 운동이 레일리 분포를 따른다는 가정에서 슬래밍 발생 확률을 다음처럼 제시했습니다. 선수 바닥이 드러날 확률(흘수 T에 대한 상대 변위)과 임계 속도를 넘을 확률(상대 속도)을 곱한 형태입니다.</p><p><code>P = exp[ −( T² / (2·m<sub>0z</sub>) + V<sub>cr</sub>² / (2·m<sub>0v</sub>) ) ]</code></p><p>여기서 m<sub>0z</sub>, m<sub>0v</sub>는 선수 부근의 상대 변위와 상대 속도의 분산이고, 임계 속도는 V<sub>cr</sub> = 0.093·√(gL)로 알려져 있습니다(L은 선박 길이). 길이 200 m인 선박이면 V<sub>cr</sub> ≈ 4.12 m/s입니다. <strong>가상의 값</strong>으로 m<sub>0z</sub> = 4 m², m<sub>0v</sub> = 4 (m/s)²라 하고 선수 흘수만 바꿔 계산했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>선수 흘수 T</th><th>슬래밍 발생 확률 (파랑 한 주기당)</th></tr></thead><tbody><tr><td>6 m</td><td>1.33e-3</td></tr><tr><td>9 m</td><td>4.80e-6</td></tr><tr><td>12 m</td><td>1.83e-9</td></tr></tbody></table></div><p>흘수가 얕은 밸러스트 상태일수록 슬래밍 확률이 크게 높아지는 경향이 분명하게 나타납니다. 위 숫자는 구조를 보이기 위한 가상의 계산이며, 실제 선박의 확률은 선형과 해상 상태에 따라 계산합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>슬래밍은 파도가 높으면 무조건 일어난다.</td><td>선저가 수면 밖으로 드러났다 재입수하고 상대속도가 임계값을 넘어야 합니다. 파도의 높이만으로 결정되지 않으며 흘수와 속도가 영향을 줍니다.</td></tr><tr><td>만재 상태가 더 위험하다.</td><td>흘수가 얕은 밸러스트 항해 상태에서 선저가 드러나기 쉬워 발생 빈도가 오히려 높습니다.</td></tr><tr><td>충격 압력의 최대값을 정적 하중으로 쓰면 안전하다.</td><td>지속 시간이 매우 짧아 지나치게 보수적이 되고, 반대로 평균 압력을 쓰면 위험하다는 점이 문제입니다. 동적 응답과 확률을 함께 고려합니다.</td></tr><tr><td>슬래밍과 슬로싱은 같다.</td><td>슬로싱은 탱크 안의 액체가 흔들려 벽을 치는 현상이고, 슬래밍은 선체 바깥의 수면과의 충돌입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">슬래밍은 선수부 선저의 부상 여부와 상대속도에 따라 발생하며, 충격압력은 국부강도 설계의 주요 하중조건으로 반영된다.</div>
   <p>내항성능 해석을 통해 슬래밍 발생 빈도와 충격압력을 예측하여 선수부 선저외판의 국부강도를 강화한다.</p>
   <div class="example">"선수 형상 변경 전후의 모형시험을 통해 슬래밍 충격압력의 감소 효과를 비교하였다."</div>
@@ -157,6 +175,20 @@
 
   <h2>주의할 점</h2>
   <p>슬래밍은 속도를 줄이면 발생빈도가 감소하므로 황천 항해시 감속 운항이 실질적인 완화 대책이 될 수 있다. 선저 슬래밍은 상대속도가 임계값을 넘고 동시에 선저가 수면 위로 완전히 노출된 뒤 재입수하는 조건에서만 발생하므로, 흘수가 얕은 밸러스트 항해 상태에서 발생 빈도가 만재 상태보다 훨씬 높다. 슬래밍은 속도를 줄이면 발생빈도가 감소하므로 황천 항해시 감속 운항이 실질적인 완화 대책이 될 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>충격 하중을 일으키는 파랑 관련 현상이 여러 개입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">현상</th><th scope="col">어디서 일어나나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">슬래밍</th><td>선수 바닥·플레어가 수면에 충돌</td><td>짧고 큰 국부 충격압력</td></tr><tr><th scope="row"><a href="whipping.html">휘핑</a></th><td>선체 전체</td><td>슬래밍 같은 충격 뒤에 이어지는 과도 진동</td></tr><tr><th scope="row"><a href="sloshing.html">슬로싱</a></th><td>부분적으로 찬 탱크 안</td><td>내부 액체가 벽면에 주는 충격</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ochi, M. K. (1964). Prediction of occurrence and severity of ship slamming at sea. Proceedings of the 5th Symposium on Naval Hydrodynamics.</li>
+    <li>Ochi, M. K., &amp; Motter, L. E. (1973). Prediction of slamming characteristics and hull responses for ship design. Transactions of the Society of Naval Architects and Marine Engineers, 81, 144–176.</li>
+    <li>von Kármán, T. (1929). The impact on seaplane floats during landing. NACA Technical Note 321.</li>
+    <li>Faltinsen, O. M. (1990). Sea Loads on Ships and Offshore Structures. Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sliding-window-technique.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>슬라이딩 윈도우 기법은 전체 데이터를 매번 다시 훑지 않고도 최근 구간의 값을 효율적으로 갱신할 수 있게 해주기 때문에, 실시간 스트리밍 처리와 대용량 데이터를 다루는 알고리즘 연구에서 계산량을 줄이는 기본 도구로 자주 채택됩니다. 네트워크 트래픽 분석, 시계열 이상 탐지, 문자열 패턴 매칭처럼 연속된 데이터 구간을 반복적으로 살펴봐야 하는 여러 상위 연구주제와 직접 연결되어 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>배열(또는 문자열) 위의 연속 구간을 <strong>창</strong>으로 보고 한 칸씩 옮기면서, 새로 들어오는 원소만 더하고 빠지는 원소만 빼서 구간 값을 갱신합니다. 매번 구간 전체를 다시 계산하지 않는 것이 핵심입니다.</p><ul><li><strong>고정 크기</strong>: 창 길이 k가 일정합니다. 처음 k개를 더해 초기 값을 만든 뒤, 한 칸 이동할 때마다 (새 원소 − 빠지는 원소)만 반영합니다.</li><li><strong>가변 크기</strong>: 오른쪽 끝을 늘리다가 조건을 만족하면 왼쪽 끝을 줄여 가며 최적의 구간을 찾습니다. 두 끝이 각각 한 방향으로만 움직이므로 전체 이동 횟수가 O(n)입니다.</li></ul><p>가변 크기 방식이 성립하려면 보통 구간을 늘리면 값이 커지고 줄이면 작아진다는 <strong>단조성</strong>이 필요합니다. 원소가 음수일 수 있는 합의 문제에는 그대로 적용되지 않습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>무엇을 얻나.</strong> 고정 크기에서 매번 k개를 새로 더하면 O(nk), 창 방식은 O(n)이고 추가 메모리는 상수입니다. 이 때문에 이동평균, 최근 N개 이벤트의 통계, 연속 부분 문자열 문제에 널리 쓰입니다. 데이터 스트림에서 최근 구간의 통계를 유지하는 문제는 별도의 연구 주제로 발전했습니다(Datar, Gionis, Indyk, &amp; Motwani, 2002).</p><p><strong>고정 크기 예.</strong> 배열 [2, 1, 5, 1, 3, 2, 9, 4]에서 길이 3인 구간의 합이 가장 큰 곳을 찾습니다(가상의 배열). 코드로 계산한 결과입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구간(인덱스)</th><th>원소</th><th>합</th></tr></thead><tbody><tr><td>[0..2]</td><td>2, 1, 5</td><td>8</td></tr><tr><td>[1..3]</td><td>1, 5, 1</td><td>7</td></tr><tr><td>[2..4]</td><td>5, 1, 3</td><td>9</td></tr><tr><td>[3..5]</td><td>1, 3, 2</td><td>6</td></tr><tr><td>[4..6]</td><td>3, 2, 9</td><td>14</td></tr><tr><td>[5..7]</td><td>2, 9, 4</td><td>15</td></tr></tbody></table></div><p>최댓값은 15입니다. 이동 때마다 (+새 원소 −빠지는 원소)로 갱신한 합이 처음부터 다시 더한 합과 일치함을 확인했습니다.</p><p><strong>가변 크기 예.</strong> 같은 배열(모든 원소가 양수)에서 합이 12 이상인 가장 짧은 연속 구간은 길이 2이고 인덱스 [6..7]의 [9, 4]입니다. 진행 과정은 다음과 같습니다.</p><ul><li>r=4: 합 12 ≥ 12 → 길이 5 후보로 기록하고 왼쪽 원소 2 제거</li><li>r=5: 합 12 ≥ 12 → 길이 5 후보로 기록하고 왼쪽 원소 1 제거</li><li>r=6: 합 20 ≥ 12 → 길이 5 후보로 기록하고 왼쪽 원소 5 제거</li><li>r=6: 합 15 ≥ 12 → 길이 4 후보로 기록하고 왼쪽 원소 1 제거</li><li>r=6: 합 14 ≥ 12 → 길이 3 후보로 기록하고 왼쪽 원소 3 제거</li><li>r=7: 합 15 ≥ 12 → 길이 3 후보로 기록하고 왼쪽 원소 2 제거</li><li>r=7: 합 13 ≥ 12 → 길이 2 후보로 기록하고 왼쪽 원소 9 제거</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>컴퓨터과학·데이터 분야 논문에서는 다음을 밝히면 재현과 비교가 쉬워집니다.</p><ul><li>창 길이(원소 개수 또는 시간 단위), 이동 간격(stride), 겹침 비율</li><li>창마다 계산하는 통계량(평균, 합, 분산, 특징 벡터 등)</li><li>처음과 끝에서 창이 모자랄 때의 처리(건너뜀, 패딩)</li><li>시간 복잡도와 메모리 사용. 갱신이 O(1)에 가능한 통계량인지 여부(최솟값·중앙값은 별도 자료구조가 필요)</li><li>머신러닝에서는 학습·검증 분할이 같은 창에서 겹치지 않도록 한 방법</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"실시간 이상 탐지를 위해 슬라이딩 윈도우 기법(sliding window technique)을 적용하여, 매 시점마다 전체 로그를 재분석하지 않고 최근 N개 이벤트만으로 통계량을 갱신하도록 설계하였다."</div>
   <p>이 문장은 데이터 스트림 전체를 매번 다시 훑는 대신, 정해진 크기의 최근 구간(윈도우)만 유지하며 값이 들어오고 나갈 때마다 통계량을 조금씩만 갱신함으로써 계산량을 크게 줄였다는 뜻입니다. 스트리밍 데이터 처리, 네트워크 트래픽 분석, 문자열 알고리즘 논문에서 자주 사용됩니다.</p>
   <div class="example">"합성곱 신경망의 특징 추출 과정에서 슬라이딩 윈도우 방식으로 입력 이미지를 일정 크기의 패치 단위로 스캔하며 지역적 패턴을 탐지하도록 구성하였다."</div>
@@ -160,6 +178,19 @@
 
   <h2>주의할 점</h2>
   <p>슬라이딩 윈도우 기법은 흔히 <a href="two-pointers-technique.html">투 포인터 기법</a>과 함께 묶여 설명되지만 완전히 같은 개념은 아닙니다. 투 포인터는 두 개의 인덱스(포인터)를 조건에 따라 움직이는 더 일반적인 방식이고, 슬라이딩 윈도우는 그중에서도 연속된 구간(윈도우)을 유지하며 이동시키는 특수한 형태로 볼 수 있습니다. 또한 이 기법이 효과를 내려면 창이 이동할 때 값을 O(1)에 가깝게 갱신할 수 있어야 하며, 그렇지 않으면 기대한 만큼의 속도 향상을 얻기 어렵습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>'창을 옮긴다'는 표현이 분야마다 다른 뜻으로 쓰입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">비고</th></tr></thead><tbody><tr><th scope="row">슬라이딩 윈도우 기법</th><td>연속 구간을 유지하며 한 칸씩 갱신</td><td>알고리즘의 계산 최적화 기법</td></tr><tr><th scope="row"><a href="two-pointers-technique.html">투 포인터 기법</a></th><td>두 위치 표시를 조건에 맞게 이동</td><td>두 포인터가 연속 구간이 아닌 양끝 등에도 쓰임</td></tr><tr><th scope="row"><a href="tcp-ip.html">TCP/IP</a>의 슬라이딩 윈도우</th><td>수신 가능한 데이터 양만큼 연속 전송</td><td>흐름제어 프로토콜 메커니즘이며 알고리즘 기법과 다른 맥락</td></tr><tr><th scope="row"><a href="convolution.html">합성곱</a></th><td>필터를 입력 위로 이동하며 곱의 합을 계산</td><td>신호·영상 처리 연산이며 창 이동은 같은 모양의 연산</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.</li>
+    <li>Datar, M., Gionis, A., Indyk, P., &amp; Motwani, R. (2002). Maintaining stream statistics over sliding windows. SIAM Journal on Computing, 31(6), 1794–1813.</li>
+    <li>Kurose, J. F., &amp; Ross, K. W. (2016). Computer Networking: A Top-Down Approach (7th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
