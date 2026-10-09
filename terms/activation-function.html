@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/activation-function.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,28 @@
   <p>또한 활성화 함수의 선택은 학습 속도, 기울기 소실 여부, 최종 성능에 직접 영향을 미치기 때문에 컴퓨터 비전, 자연어처리, 강화학습 등 딥러닝을 다루는 거의 모든 하위 분야의 연구와 맞닿아 있습니다.</p>
   <p>최근에는 GELU, Swish처럼 기존 함수를 개선한 변형들이 대형 언어모델이나 트랜스포머 구조의 성능 향상에 기여했다고 보고되면서, 활성화 함수 자체를 설계·비교하는 연구도 꾸준히 이어지고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>은닉층의 각 뉴런은 입력의 가중합 z = w·x + b를 계산한 뒤 <strong>활성화 함수 f(z)</strong>를 통과시킵니다. 이 f가 비선형이어야 층을 쌓는 의미가 생깁니다.</li><li>선형 함수만 쓰면 여러 층이 하나의 선형 변환으로 합쳐져 표현력이 늘지 않습니다. 은닉층이 하나뿐인 신경망도 충분한 뉴런과 비선형 활성화 함수가 있으면 연속 함수를 원하는 만큼 가깝게 근사할 수 있다는 보편 근사 정리(Cybenko 1989 등)가 이 설계를 뒷받침합니다.</li><li>대표 함수: <a href="sigmoid-function.html">시그모이드</a> σ(z)=1/(1+e<sup>−z</sup>) (출력 0~1), tanh (출력 −1~1), <a href="relu.html">ReLU</a> max(0,z), 그리고 GELU 같은 변형.</li><li>출력층의 함수는 목적에 맞춰 따로 고릅니다(이진 분류는 시그모이드, 다중 분류는 소프트맥스, 회귀는 보통 항등 함수).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예 두 가지를 Python으로 계산했습니다.</p><p><strong>(1) 함수 값</strong></p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>입력 z</th><th>시그모이드</th><th>tanh</th><th>ReLU</th></tr></thead><tbody><tr><td>−2</td><td>0.119</td><td>−0.964</td><td>0</td></tr><tr><td>0</td><td>0.500</td><td>0.000</td><td>0</td></tr><tr><td>2</td><td>0.881</td><td>0.964</td><td>2</td></tr></tbody></table></div><p>시그모이드와 tanh는 양 끝에서 거의 평평해져 기울기가 작아지고(기울기 소실의 원인), ReLU는 양수 구간에서 기울기가 1로 일정합니다.</p><p><strong>(2) 비선형이 없으면 층이 합쳐진다</strong>: W₁=[[1,2],[0,1]], W₂=[[2,0],[1,1]]인 두 선형 층을 이으면 W₂W₁=[[2,4],[1,3]]인 하나의 선형 층과 같습니다. 중간에 ReLU 같은 비선형 함수가 끼면 이렇게 하나로 합쳐지지 않습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ReLU 하나면 충분하다.</td><td>ReLU는 입력이 계속 음수면 기울기가 0이 되어 뉴런이 학습되지 않을 수 있습니다(dying ReLU). Leaky ReLU, GELU 같은 변형이 쓰이는 이유입니다.</td></tr><tr><td>시그모이드는 낡아서 쓰이지 않는다.</td><td>은닉층에서는 줄었지만, 이진 확률을 내는 출력층이나 LSTM의 게이트에서는 여전히 쓰입니다.</td></tr><tr><td>활성화 함수는 뉴런이 켜지는 시점만 정하는 스위치다.</td><td>연속적인 값을 만드는 매끄러운 곡선인 경우가 많고, 그 모양이 기울기 흐름, 즉 학습의 안정성에 영향을 줍니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“머신러닝 기반 인공신경망 분석은 비선형 활성화 함수 이용하여 추정하고자 하는 변인의 직선 특성 뿐만 아니라 비선형 특성도 표현할 수 있는 장점을 가지며, 이에 효과적인 추정을 위한 강 력한 도구로 사용될 수 있으며, 선행연구를 통해 더 높은 추정 정확도를 나타내고 있다.”</blockquote><p class="te-cite">스포츠 의과학에서 인공 신경망 분석 알고리즘의 가능성, Asian Journal of Physical Education and Sport Science, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002825542" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“결과적으로, AdmaW의 최적화 함수, Hardwish의 활성화 함수, nano 크기에서 우수한 객체 검출성능을 보였다.”</blockquote><p class="te-cite">핵의학 팬텀 영상에서 초매개변수 변화에 따른 YOLOv5 모델의 성능평가, 한국방사선학회논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003058805" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"은닉층의 활성화 함수로 ReLU를 사용하여 학습 속도와 수렴 안정성을 개선하였다."</div>
   <p>이 문장은 딥러닝 모델 구조를 설명하는 방법론 부분에서 자주 등장합니다. 활성화 함수의 종류(ReLU, 시그모이드, 하이퍼볼릭 탄젠트 등)는 모델의 학습 속도, 안정성, 표현력에 직접적인 영향을 주기 때문에 대부분의 딥러닝 논문에서 명시적으로 밝히는 설계 요소입니다.</p>
 
@@ -167,6 +189,20 @@
 
   <h2>주의할 점</h2>
   <p>모든 활성화 함수가 동등하게 잘 작동하는 것은 아닙니다. 시그모이드처럼 입력값이 커지거나 작아질수록 기울기가 거의 0에 가까워지는 함수는 층이 깊어질 때 <a href="vanishing-gradient-problem.html">기울기 소실 문제</a>를 일으키기 쉬워, 최근 딥러닝 모델에서는 ReLU 계열 함수를 더 널리 사용합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>활성화 함수 목록에서 자주 섞이는 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">값의 범위</th></tr></thead><tbody><tr><th scope="row"><a href="sigmoid-function.html">시그모이드 함수</a></th><td>S자 곡선, 확률 출력에 쓰임</td><td>0 ~ 1</td></tr><tr><th scope="row">tanh</th><td>시그모이드를 0 중심으로 옮긴 형태</td><td>−1 ~ 1</td></tr><tr><th scope="row"><a href="relu.html">ReLU</a></th><td>음수는 0, 양수는 그대로</td><td>0 이상</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cybenko, G. (1989). Approximation by superpositions of a sigmoidal function. Mathematics of Control, Signals and Systems, 2(4), 303–314.</li>
+    <li>Nair, V., &amp; Hinton, G. E. (2010). Rectified linear units improve restricted Boltzmann machines. Proceedings of the 27th International Conference on Machine Learning.</li>
+    <li>Glorot, X., Bordes, A., &amp; Bengio, Y. (2011). Deep sparse rectifier neural networks. Proceedings of the 14th International Conference on Artificial Intelligence and Statistics.</li>
+    <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="relu.html">렐루 함수</a><a href="softmax-function.html">소프트맥스 함수</a><a href="sigmoid-function.html">시그모이드 함수 (Sigmoid Function)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

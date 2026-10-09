@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cross-linking-density.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <p>가교밀도는 고무, 접착제, 열경화성 수지 등 가교된 고분자 재료의 강성, 탄성, 팽윤 거동, 내열성을 결정하는 핵심 변수로, 재료 설계 시 원하는 물성을 얻기 위해 정밀하게 조절해야 하는 대상입니다. 가황 공정이나 경화 공정의 최적화는 결국 적절한 가교밀도를 얻기 위한 과정이라 할 수 있습니다.</p>
   <p>동일한 가교제 함량이라도 경화 온도, 시간, 촉매 종류에 따라 실제 형성되는 가교밀도가 달라질 수 있어, 배합 조성만으로 최종 물성을 예측하기보다 실제 가교밀도를 측정해 확인하는 것이 신뢰성 있는 재료 설계의 기본으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>가교밀도는 단위 부피당 가교점(또는 가교점 사이의 유효 사슬) 수입니다. 보통 ν<sub>e</sub>(mol/cm³ 또는 mol/m³)로 쓰고, 가교점 사이 평균 분자량 M<sub>c</sub>와 <code>ν<sub>e</sub> = ρ/M<sub>c</sub></code> 관계가 있습니다(ρ는 밀도). 값은 0 이상이고, 클수록 촘촘한 망상입니다.</p><p>대표 측정은 두 가지입니다. (1) <strong>팽윤법</strong>: 용매에 담갔을 때 부풀어 오른 정도(고분자의 부피분율 v₂)를 Flory–Rehner 식에 넣습니다. (2) <strong>탄성률법</strong>: 이상적인 고무 탄성 이론에서 전단 탄성률 G ≈ ν<sub>e</sub>RT입니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>가상의 예(Python 계산).</p><ul><li>팽윤법: 팽윤된 시료의 고분자 부피분율 v₂ = 0.25, Flory–Huggins 상호작용 파라미터 χ = 0.39, 용매 몰부피 V₁ = 106.3 cm³/mol로 가정하고 Flory–Rehner 식 <code>ν<sub>e</sub> = −[ln(1−v₂) + v₂ + χv₂²] / [V₁(v₂<sup>1/3</sup> − v₂/2)]</code>을 계산하면 ν<sub>e</sub> ≈ 2.5×10<sup>−4</sup> mol/cm³(약 248 mol/m³)입니다.</li><li>탄성률법: G = 0.5 MPa, T = 298 K이면 ν<sub>e</sub> = G/(RT) ≈ 202 mol/m³입니다.</li></ul><p>두 방법의 값이 같지 않은 것은 자연스럽습니다. 가정(이상 망상, 사슬 말단·엉킴의 처리, χ 값)이 다르기 때문입니다. 가교밀도가 높을수록 일반적으로 팽윤은 줄고 탄성률은 커집니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>논문에는 <strong>어떤 방법으로</strong> 구했는지, 사용한 용매·온도·팽윤 평형 조건, χ 값의 출처, 사용한 식과 가정을 적습니다. 서로 다른 방법으로 얻은 값은 직접 비교하지 않고, 같은 방법으로 얻은 시료군끼리 비교합니다. 단위(mol/cm³, mol/m³)와 M<sub>c</sub>로 환산했는지도 명시합니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"팽윤 실험을 통해 가교밀도를 산출한 결과, 가교제 함량 증가에 따라 값이 증가하였다."</div>
   <p>용매에 얼마나 부풀어 오르는지를 측정해 가교밀도를 계산하는 방법이 쓰였다는 뜻입니다.</p>
   <div class="example">"고무상 저장 탄성률로부터 계산된 가교밀도는 시료 간 유의미한 차이를 보였다."</div>
@@ -157,6 +175,19 @@
 
   <h2>주의할 점</h2>
   <p>가교밀도 측정 방법(팽윤법, 탄성률법 등)에 따라 산출되는 값에 차이가 날 수 있으므로, 서로 다른 방법으로 얻은 값을 직접 비교할 때는 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>고무·고분자 용어와 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">가교밀도</th><td>가교점의 단위 부피당 개수</td><td>망상의 촘촘함</td></tr><tr><th scope="row"><a href="vulcanization.html">가황</a></th><td>황 등으로 가교를 만드는 공정</td><td>가교밀도를 만드는 과정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Flory, P. J., &amp; Rehner, J., Jr. (1943). Statistical mechanics of cross-linked polymer networks II. Swelling. The Journal of Chemical Physics, 11(11), 521–526.</li>
+    <li>Flory, P. J. (1953). Principles of Polymer Chemistry. Cornell University Press.</li>
+    <li>Treloar, L. R. G. (2005). The Physics of Rubber Elasticity (3rd ed.). Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

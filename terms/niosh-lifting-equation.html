@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/niosh-lifting-equation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -142,12 +143,29 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>같은 무게의 상자라도 몸에 가까이 붙여서 들 때와 팔을 뻗어서 멀리 들 때, 허리 부담이 크게 다릅니다. NIOSH들기작업지수는 이렇게 물건의 무게뿐 아니라 드는 위치, 드는 높이, 이동 거리, 몸을 비트는 각도, 반복 빈도 등 여러 조건을 종합해 "이 작업이 얼마나 안전한가"를 하나의 지수로 계산해주는 공식입니다. 지수가 1을 넘으면 대부분의 작업자에게 부담이 클 수 있다는 신호로 해석됩니다.</p>
+  <p>같은 무게의 상자라도 몸에 가까이 붙여서 들 때와 팔을 뻗어서 멀리 들 때, 허리 부담이 크게 다릅니다. NIOSH들기작업지수는 이렇게 물건의 무게뿐 아니라 드는 위치, 드는 높이, 이동 거리, 몸을 비트는 각도, 반복 빈도 등 여러 조건을 종합해 "이 작업이 얼마나 안전한가"를 하나의 지수로 계산해주는 공식입니다. 지수가 1을 넘으면 일부 작업자에게 요통 위험이 커질 수 있다는 신호로 해석됩니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>들기 작업은 산업 현장에서 요통을 비롯한 근골격계 질환의 대표적인 원인 중 하나입니다. NIOSH들기작업지수는 작업 조건을 정량적으로 평가할 수 있는 표준화된 기준을 제공하여, 작업장 설계나 작업 방법 개선이 필요한지 객관적으로 판단하는 데 널리 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>개정 NIOSH 들기 공식(Waters 등, 1993)은 <strong>권장중량한계(RWL)</strong>를 곱셈으로 구합니다.</p><p><code>RWL = LC × HM × VM × DM × AM × FM × CM</code></p><ul><li>LC(부하 상수) = 23 kg</li><li>HM(수평) = 25/H (H는 손과 발목 중점 사이 수평거리, cm)</li><li>VM(수직) = 1 − 0.003·|V − 75| (V는 손 높이, cm)</li><li>DM(이동거리) = 0.82 + 4.5/D (D는 수직 이동거리, cm)</li><li>AM(비대칭) = 1 − 0.0032·A (A는 비틀림 각도, 도)</li><li>FM(빈도), CM(손잡이)은 표에서 읽습니다.</li></ul><p>들기지수 <code>LI = 실제 취급 중량 / RWL</code>이며 범위는 0 이상입니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>가상의 예(Python 계산): 15 kg 상자를 H=40 cm, V=60 cm, D=50 cm, A=30°에서 들고, FM과 CM은 표에서 읽은 값이 1.00이라고 가정합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항</th><th>값</th></tr></thead><tbody><tr><td>HM</td><td>25/40 = 0.625</td></tr><tr><td>VM</td><td>1 − 0.003×15 = 0.955</td></tr><tr><td>DM</td><td>0.82 + 4.5/50 = 0.910</td></tr><tr><td>AM</td><td>1 − 0.0032×30 = 0.904</td></tr><tr><td>RWL</td><td>23×0.625×0.955×0.910×0.904×1×1 ≈ 11.3 kg</td></tr><tr><td>LI</td><td>15 / 11.3 ≈ 1.33</td></tr></tbody></table></div><p>LI &gt; 1이므로 이 조건의 들기는 일부 작업자에게 요통 위험이 높아질 수 있는 수준입니다. 해석은 LI ≤ 1이면 대부분의 건강한 근로자에게 허용 가능, LI &gt; 1이면 위험 증가, 3 이상이면 상당한 위험으로 보는 것이 일반적인 관례입니다. 이 구간 기준은 지침 매뉴얼의 해석 틀이며 엄격한 임계값이 아닙니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>논문에는 <strong>어떤 작업을 어떤 조건(H, V, D, A, 빈도, 손잡이)으로 측정했는지</strong>, 측정 방법(줄자, 영상 분석 등), FM·CM을 읽은 기준, 작업별 RWL과 LI를 표로 제시합니다. 한 작업에 조건이 여러 개면 복합 작업 지수(CLI)를 쓰는지도 밝힙니다. 이 공식은 두 손으로 서서 매끄럽게 들어 올리는 작업을 전제로 하며, 한 손, 앉은 자세, 밀기·끌기, 불안정한 하물에는 적용하기 어렵다는 점을 한계로 적습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"물류창고 피킹 작업의 NIOSH들기작업지수를 산출한 결과 다수의 작업이 권장 한계를 초과함을 확인하였다."</div>
   <p>이 예문은 실제 현장 작업을 NIOSH 공식으로 평가하여 위험 수준을 진단한 사례입니다.</p>
   <div class="example">"작업대 높이 조정 전후의 NIOSH들기작업지수를 비교하여 개선 효과를 정량적으로 검증하였다."</div>
@@ -159,7 +177,16 @@
   <p>이 공식이 산출하는 들기지수는 1 이하이면 대다수 작업자에게 안전한 수준, 1에서 3 사이는 일부 작업자에게 위험 요인이 될 수 있는 수준, 3을 초과하면 상당수 작업자에게 위험한 수준으로 해석하는 것이 일반적이며, RULA나 OWAS 같은 다른 자세 평가 도구와 함께 사용되어 들기 동작 외의 자세 부담까지 종합적으로 진단하는 데 쓰이기도 합니다.</p>
 
   <h2>주의할 점</h2>
-  <p>이 공식은 두 손으로 대칭적으로 들어올리는 표준 작업을 전제로 만들어졌기 때문에, 한 손 들기나 밀기·당기기 같은 다른 형태의 작업에는 그대로 적용하기 어렵습니다.</p>
+  <p>이 공식은 두 손으로 서서 들어올리는 표준 작업을 전제로 만들어졌기 때문에, 한 손 들기나 밀기·당기기 같은 다른 형태의 작업에는 그대로 적용하기 어렵습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Waters, T. R., Putz-Anderson, V., Garg, A., &amp; Fine, L. J. (1993). Revised NIOSH equation for the design and evaluation of manual lifting tasks. Ergonomics, 36(7), 749–776.</li>
+    <li>Waters, T. R., Putz-Anderson, V., &amp; Garg, A. (1994). Applications Manual for the Revised NIOSH Lifting Equation. U.S. Department of Health and Human Services, NIOSH.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="musculoskeletal-disorder-risk-assessment.html">근골격계질환위험성평가</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="strain-index.html">스트레인 지수</a><a href="posture-assessment-method.html">작업자세평가법</a></div></div><p class="concept-family-map"><a href="../concept-map/indeng.html">분야 전체 개념 지도 보기 →</a> 또한 온도, 마찰이 큰 바닥, 예상치 못한 하중 변화처럼 공식이 반영하지 못하는 환경 요인이 있을 경우 실제 위험도는 계산된 지수보다 더 높게 나타날 수 있습니다.</p></section><!-- concept-family:end -->
 <aside class="stage-link">

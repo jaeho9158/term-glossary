@@ -1,0 +1,43 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>CNC 선반은 공작물을 주축에 물려 <strong>회전</strong>시키고, 공구대의 절삭 공구가 X(지름 방향)·Z(축 방향)로 움직이며 깎는 공작기계입니다. 원통·원뿔·나사·홈 같은 회전체 형상에 알맞습니다.</li><li>공구 경로는 G코드로 프로그램하고, 주축 회전수, 이송 속도, 절삭 깊이를 조건으로 입력합니다.</li><li>공작물이 도는 선반과 공구가 도는 밀링은 구분합니다. 공구가 회전하는 축을 더한 복합 가공기도 있습니다.</li><li>가공 품질은 치수 정밀도, 진원도, 표면거칠기로 평가하며 절삭 조건과 공구 상태에 크게 좌우됩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: 지름 40 mm 봉재를 절삭속도 150 m/min으로 깎을 때(Python 계산).</p><ul><li>회전수 n = 1000·V<sub>c</sub>/(π·D) = 1000×150/(π×40) ≈ 1,194 rpm</li><li>1회전당 이송 f = 0.2 mm/rev이면 이송 속도 ≈ 1,194×0.2 ≈ 239 mm/min</li><li>공구 코너 반지름 r = 0.8 mm일 때 기하학적 이론 거칠기 R<sub>a</sub> ≈ f²/(32r) = 0.04/25.6 ≈ 0.0016 mm = 1.6 μm</li></ul><p>이론값은 공구 형상만 반영하므로 실제 거칠기는 진동, 공구 마모, 구성인선 등으로 더 클 수 있습니다. 이송을 줄이거나 코너 반지름을 키우면 이론 거칠기는 작아집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>CNC 선반이면 항상 마이크로미터 정밀도가 나온다.</td><td>정밀도는 기계 강성, 열변형, 공구 마모, 공작물 고정 방식에 좌우됩니다. 논문에서는 달성한 공차와 측정 방법을 함께 적어야 합니다.</td></tr><tr><td>절삭속도는 주축 회전수와 같은 말이다.</td><td>절삭속도는 공작물 표면이 공구에 대해 움직이는 속도(m/min)이고, 회전수(rpm)는 지름이 달라지면 같은 절삭속도에도 달라집니다.</td></tr><tr><td>표면이 거칠면 기계가 낡은 탓이다.</td><td>이송, 공구 코너 반지름, 절삭속도, 공구 상태, 진동 등 여러 조건의 결과입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "가공 용어가 가까이 있습니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[cutting-speed|절삭속도]]",
+        "공구와 공작물 사이 상대 속도(m/min)",
+        "회전수 계산의 입력"
+      ],
+      [
+        "[[surface-roughness|표면거칠기]]",
+        "가공면의 미세한 요철 정도",
+        "가공 결과를 재는 지표"
+      ]
+    ]
+  },
+  "references": [
+    "Groover, M. P. (2019). Fundamentals of Modern Manufacturing: Materials, Processes, and Systems (7th ed.). Wiley.",
+    "Kalpakjian, S., & Schmid, S. R. (2014). Manufacturing Engineering and Technology (7th ed.). Pearson.",
+    "Boothroyd, G., & Knight, W. A. (2006). Fundamentals of Machining and Machine Tools (3rd ed.). CRC Press."
+  ]
+}

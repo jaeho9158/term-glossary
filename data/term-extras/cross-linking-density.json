@@ -1,0 +1,43 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>가교밀도는 단위 부피당 가교점(또는 가교점 사이의 유효 사슬) 수입니다. 보통 ν<sub>e</sub>(mol/cm³ 또는 mol/m³)로 쓰고, 가교점 사이 평균 분자량 M<sub>c</sub>와 <code>ν<sub>e</sub> = ρ/M<sub>c</sub></code> 관계가 있습니다(ρ는 밀도). 값은 0 이상이고, 클수록 촘촘한 망상입니다.</p><p>대표 측정은 두 가지입니다. (1) <strong>팽윤법</strong>: 용매에 담갔을 때 부풀어 오른 정도(고분자의 부피분율 v₂)를 Flory–Rehner 식에 넣습니다. (2) <strong>탄성률법</strong>: 이상적인 고무 탄성 이론에서 전단 탄성률 G ≈ ν<sub>e</sub>RT입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 예(Python 계산).</p><ul><li>팽윤법: 팽윤된 시료의 고분자 부피분율 v₂ = 0.25, Flory–Huggins 상호작용 파라미터 χ = 0.39, 용매 몰부피 V₁ = 106.3 cm³/mol로 가정하고 Flory–Rehner 식 <code>ν<sub>e</sub> = −[ln(1−v₂) + v₂ + χv₂²] / [V₁(v₂<sup>1/3</sup> − v₂/2)]</code>을 계산하면 ν<sub>e</sub> ≈ 2.5×10<sup>−4</sup> mol/cm³(약 248 mol/m³)입니다.</li><li>탄성률법: G = 0.5 MPa, T = 298 K이면 ν<sub>e</sub> = G/(RT) ≈ 202 mol/m³입니다.</li></ul><p>두 방법의 값이 같지 않은 것은 자연스럽습니다. 가정(이상 망상, 사슬 말단·엉킴의 처리, χ 값)이 다르기 때문입니다. 가교밀도가 높을수록 일반적으로 팽윤은 줄고 탄성률은 커집니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>논문에는 <strong>어떤 방법으로</strong> 구했는지, 사용한 용매·온도·팽윤 평형 조건, χ 값의 출처, 사용한 식과 가정을 적습니다. 서로 다른 방법으로 얻은 값은 직접 비교하지 않고, 같은 방법으로 얻은 시료군끼리 비교합니다. 단위(mol/cm³, mol/m³)와 M<sub>c</sub>로 환산했는지도 명시합니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "고무·고분자 용어와 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "관계"
+    ],
+    "rows": [
+      [
+        "가교밀도",
+        "가교점의 단위 부피당 개수",
+        "망상의 촘촘함"
+      ],
+      [
+        "[[vulcanization|가황]]",
+        "황 등으로 가교를 만드는 공정",
+        "가교밀도를 만드는 과정"
+      ]
+    ]
+  },
+  "references": [
+    "Flory, P. J., & Rehner, J., Jr. (1943). Statistical mechanics of cross-linked polymer networks II. Swelling. The Journal of Chemical Physics, 11(11), 521–526.",
+    "Flory, P. J. (1953). Principles of Polymer Chemistry. Cornell University Press.",
+    "Treloar, L. R. G. (2005). The Physics of Rubber Elasticity (3rd ed.). Oxford University Press."
+  ]
+}

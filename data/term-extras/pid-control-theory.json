@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>PID 제어는 목표값과 측정값의 차이인 오차 e(t)로 조작량을 정합니다. <code>u = K<sub>p</sub>·e + K<sub>i</sub>·∫e dt + K<sub>d</sub>·de/dt</code>.</li><li><strong>P</strong>는 현재 오차에 비례해 반응이 빠르고, <strong>I</strong>는 오차를 누적해 정상상태 오차를 없애며, <strong>D</strong>는 오차의 변화율로 급한 변화에 제동을 겁니다.</li><li>I를 키우면 오버슈트와 진동이 늘 수 있고, D는 측정 잡음을 증폭하므로 필터가 흔히 필요합니다.</li><li>이 이론은 [[feedback-control|피드백제어]]의 대표 구조이며, 구현된 장치는 [[pid-controller|PID 제어기]]라고 부릅니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예(Python 시뮬레이션): 1차 시스템 τ·dy/dt = −y + K·u, K=2, τ=5 s, 목표값 1, 시간 간격 0.01 s로 60 s 시뮬레이션했습니다.</p><table><thead><tr><th>제어기</th><th>60 s 후 출력</th><th>설명</th></tr></thead><tbody><tr><td>P (K<sub>p</sub>=3)</td><td>0.857</td><td>정상상태 오차 약 0.143. 이론값 K·K<sub>p</sub>/(1+K·K<sub>p</sub>) = 6/7과 일치</td></tr><tr><td>PI (K<sub>p</sub>=3, K<sub>i</sub>=0.5)</td><td>1.000</td><td>적분 항이 오차를 거의 없앰</td></tr></tbody></table><p>P 제어만으로는 오차가 남고, I 항이 이를 제거함을 보여 줍니다. 단, 이 시뮬레이션은 지연과 포화가 없는 이상적인 선형 모델입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>PID 이득은 클수록 좋다.</td><td>이득이 크면 응답은 빨라지지만 진동, 불안정, 포화가 생길 수 있습니다. 트레이드오프를 조절해야 합니다.</td></tr><tr><td>PID는 모델 없이 항상 잘 동작한다.</td><td>지연이 큰 공정이나 강한 비선형에서는 성능이 떨어지고 다른 제어 방식이 필요할 수 있습니다.</td></tr><tr><td>Ziegler–Nichols 값이 최적이다.</td><td>Ziegler–Nichols 방법은 출발점이 되는 경험적 튜닝 규칙이며 오버슈트가 큰 편입니다. 최적 값은 요구 성능에 맞게 다시 조정합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "제어 용어와 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "차이"
+    ],
+    "rows": [
+      [
+        "PID 제어 이론",
+        "P·I·D 항으로 조작량을 정하는 제어 원리",
+        "이론·알고리즘"
+      ],
+      [
+        "[[pid-controller|PID 제어기]]",
+        "그 원리를 구현한 장치나 소프트웨어",
+        "구현물"
+      ],
+      [
+        "[[feedback-control|피드백제어]]",
+        "출력을 측정해 입력에 되먹이는 제어 일반",
+        "PID를 포함하는 상위 개념"
+      ]
+    ]
+  },
+  "references": [
+    "Ziegler, J. G., & Nichols, N. B. (1942). Optimum settings for automatic controllers. Transactions of the ASME, 64(11), 759–768.",
+    "Åström, K. J., & Hägglund, T. (1995). PID Controllers: Theory, Design, and Tuning (2nd ed.). Instrument Society of America.",
+    "Åström, K. J., & Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press."
+  ]
+}

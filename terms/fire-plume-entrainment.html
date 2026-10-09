@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/fire-plume-entrainment.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>공기연행은 연기의 온도, 유량, 부피가 위로 갈수록 어떻게 변하는지를 결정하는 핵심 요인이어서, 배연 설계와 스프링클러, 화재감지기 설치 위치를 정하는 데 필수적으로 고려됩니다. 소방방재학에서는 화재플룸 이론을 통해 특정 높이에서의 연기 온도와 유량을 예측하고, 이를 화재 안전 설계의 기초 자료로 삼습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>화재플룸은 부력으로 솟는 뜨거운 가스 기둥이고, <strong>연행(entrainment)</strong>은 그 가장자리의 난류 소용돌이가 주변의 찬 공기를 기둥 안으로 끌어들이는 일입니다.</li><li>연행 때문에 플룸을 따라 올라갈수록 <strong>질량유량(연기+공기)은 늘고</strong>, 중심의 온도와 상승 속도는 줄어듭니다. 연기가 묽어지는 것이지 열이 사라지는 것은 아닙니다.</li><li>불꽃 위쪽의 축대칭 플룸에서 널리 쓰는 Heskestad의 상관식은 플룸 질량유량 <code>ṁ = 0.071·Q<sub>c</sub><sup>1/3</sup>·z<sup>5/3</sup> + 0.0018·Q<sub>c</sub></code> (kg/s)입니다. Q<sub>c</sub>는 대류 열방출률(kW), z는 화원 위 높이(m)입니다.</li><li>즉 연행량은 열방출률의 약 1/3제곱, 높이의 약 5/3제곱에 비례해 커집니다. 불꽃 내부와 불꽃 바로 위는 다른 상관식을 씁니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: 총 열방출률 1,000 kW인 화재에서 대류 열방출률을 70%인 700 kW로 가정하고, 가상 원점 보정은 생략해 위 식을 계산했습니다(Python으로 계산, 화원 지름을 약 1 m로 보면 Heskestad 식의 평균 불꽃 높이가 1,000 kW에서 약 2.7 m, 2,000 kW에서 약 3.9 m여서 아래 높이는 모두 불꽃 위).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>조건</th><th>화원 위 높이 z</th><th>플룸 질량유량 ṁ</th></tr></thead><tbody><tr><td>Q = 1,000 kW</td><td>6 m</td><td>약 13.8 kg/s</td></tr><tr><td>Q = 1,000 kW</td><td>12 m</td><td>약 40.9 kg/s</td></tr><tr><td>Q = 2,000 kW</td><td>6 m</td><td>약 18.3 kg/s</td></tr></tbody></table></div><p>높이를 2배로 하면 연행량은 약 3배(40.9/13.8), 열방출률을 2배로 하면 약 1.3배(18.3/13.8)가 됩니다. 연기 제어 설계에서 천장이 높을수록, 연기층 경계가 낮을수록 처리해야 할 연기량이 크게 달라지는 이유입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>열방출률이 2배면 연행되는 공기도 2배다.</td><td>위 식에서 열방출률의 영향은 1/3제곱에 가깝습니다(두 번째 항은 선형). 같은 높이에서 열방출률 2배는 연행량을 약 1.3배로 늘립니다.</td></tr><tr><td>연행된 공기가 섞이면 플룸이 식으니 화재가 약해진다.</td><td>연행은 연기를 희석하고 온도를 낮추지만 화원의 열방출률 자체를 줄이지 않습니다.</td></tr><tr><td>한 식으로 어디서든 연행량을 구할 수 있다.</td><td>식은 자유 공간의 축대칭 플룸에서 얻은 경험식입니다. 벽·구석에 붙은 화재, 막힌 실내, 강한 환기 흐름이 있으면 그대로 쓰기 어렵습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"화재플룸 공기연행 계수는 플룸의 상승 높이와 열방출률의 함수로 표현되었다."</div>
   <p>주변 공기가 얼마나 섞여 들어오는지를 나타내는 값이 불의 높이와 세기에 따라 달라진다는 설명입니다.</p>
   <div class="example">"본 연구는 화재플룸 공기연행에 따른 연기층 두께 변화를 실험적으로 검증하였다."</div>
@@ -164,6 +182,16 @@
 
   <h2>주의할 점</h2>
   <p>공기연행 특성은 개방된 공간과 벽이나 구석에 인접한 화재, 실내처럼 막힌 공간에서 서로 다르게 나타날 수 있어, 실제 공간 조건을 고려하지 않고 단순화한 식을 그대로 적용하면 오차가 커질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Heskestad, G. (1984). Engineering relations for fire plumes. Fire Safety Journal, 7(1), 25–32.</li>
+    <li>Zukoski, E. E., Kubota, T., &amp; Cetegen, B. (1981). Entrainment in fire plumes. Fire Safety Journal, 3(3), 107–121.</li>
+    <li>Hurley, M. J. (Ed.). (2016). SFPE Handbook of Fire Protection Engineering (5th ed.). Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="fire-plume.html">화재플룸</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="flame-height-correlation.html">화염높이 상관식</a><a href="heskestad-plume-correlation.html">Heskestad 플룸 상관식</a><a href="mccaffrey-plume-correlation.html">McCaffrey 플룸 상관식</a></div></div><p class="concept-family-map"><a href="../concept-map/fire.html">분야 전체 개념 지도 보기 →</a> 경험식은 대체로 축대칭 플룸을 가정해 유도된 것이어서, 벽에 붙거나 좁은 통로에 형성된 비대칭 플룸에 그대로 적용하면 오차가 커질 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

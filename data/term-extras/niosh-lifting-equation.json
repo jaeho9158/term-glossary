@@ -1,0 +1,31 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "지수가 1을 넘으면 대부분의 작업자에게 부담이 클 수 있다는 신호로 해석됩니다",
+      "replace": "지수가 1을 넘으면 일부 작업자에게 요통 위험이 커질 수 있다는 신호로 해석됩니다"
+    },
+    {
+      "find": "두 손으로 대칭적으로 들어올리는 표준 작업을 전제로",
+      "replace": "두 손으로 서서 들어올리는 표준 작업을 전제로"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>개정 NIOSH 들기 공식(Waters 등, 1993)은 <strong>권장중량한계(RWL)</strong>를 곱셈으로 구합니다.</p><p><code>RWL = LC × HM × VM × DM × AM × FM × CM</code></p><ul><li>LC(부하 상수) = 23 kg</li><li>HM(수평) = 25/H (H는 손과 발목 중점 사이 수평거리, cm)</li><li>VM(수직) = 1 − 0.003·|V − 75| (V는 손 높이, cm)</li><li>DM(이동거리) = 0.82 + 4.5/D (D는 수직 이동거리, cm)</li><li>AM(비대칭) = 1 − 0.0032·A (A는 비틀림 각도, 도)</li><li>FM(빈도), CM(손잡이)은 표에서 읽습니다.</li></ul><p>들기지수 <code>LI = 실제 취급 중량 / RWL</code>이며 범위는 0 이상입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 예(Python 계산): 15 kg 상자를 H=40 cm, V=60 cm, D=50 cm, A=30°에서 들고, FM과 CM은 표에서 읽은 값이 1.00이라고 가정합니다.</p><table><thead><tr><th>항</th><th>값</th></tr></thead><tbody><tr><td>HM</td><td>25/40 = 0.625</td></tr><tr><td>VM</td><td>1 − 0.003×15 = 0.955</td></tr><tr><td>DM</td><td>0.82 + 4.5/50 = 0.910</td></tr><tr><td>AM</td><td>1 − 0.0032×30 = 0.904</td></tr><tr><td>RWL</td><td>23×0.625×0.955×0.910×0.904×1×1 ≈ 11.3 kg</td></tr><tr><td>LI</td><td>15 / 11.3 ≈ 1.33</td></tr></tbody></table><p>LI &gt; 1이므로 이 조건의 들기는 일부 작업자에게 요통 위험이 높아질 수 있는 수준입니다. 해석은 LI ≤ 1이면 대부분의 건강한 근로자에게 허용 가능, LI &gt; 1이면 위험 증가, 3 이상이면 상당한 위험으로 보는 것이 일반적인 관례입니다. 이 구간 기준은 지침 매뉴얼의 해석 틀이며 엄격한 임계값이 아닙니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>논문에는 <strong>어떤 작업을 어떤 조건(H, V, D, A, 빈도, 손잡이)으로 측정했는지</strong>, 측정 방법(줄자, 영상 분석 등), FM·CM을 읽은 기준, 작업별 RWL과 LI를 표로 제시합니다. 한 작업에 조건이 여러 개면 복합 작업 지수(CLI)를 쓰는지도 밝힙니다. 이 공식은 두 손으로 서서 매끄럽게 들어 올리는 작업을 전제로 하며, 한 손, 앉은 자세, 밀기·끌기, 불안정한 하물에는 적용하기 어렵다는 점을 한계로 적습니다.</p>"
+    }
+  ],
+  "references": [
+    "Waters, T. R., Putz-Anderson, V., Garg, A., & Fine, L. J. (1993). Revised NIOSH equation for the design and evaluation of manual lifting tasks. Ergonomics, 36(7), 749–776.",
+    "Waters, T. R., Putz-Anderson, V., & Garg, A. (1994). Applications Manual for the Revised NIOSH Lifting Equation. U.S. Department of Health and Human Services, NIOSH."
+  ]
+}
