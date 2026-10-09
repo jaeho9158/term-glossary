@@ -1,0 +1,63 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>식</strong>: <code>E = E° − (RT / nF) · ln Q</code>. E는 지금 조건의 전위, E°는 표준 전위, n은 이동한 전자 수, F는 패러데이 상수(96,485 C/mol), Q는 반응지수입니다.</li><li><strong>25 °C의 편리한 형태</strong>: <code>E = E° − (0.05916 / n) · log<sub>10</sub> Q</code> (V). 전자 하나가 관여하면 Q가 10배 변할 때마다 약 59.2 mV, 전자 둘이면 약 29.6 mV 변합니다.</li><li>평형에 이르면 E = 0이고 Q = K이므로 <code>E° = (RT/nF) ln K</code>로 평형상수와 이어집니다([[gibbs-free-energy|깁스 자유에너지]]와 ΔG = −nFE의 관계).</li><li>엄밀하게는 Q를 농도가 아니라 활동도로 써야 하며, 이온 세기가 큰 용액에서는 차이가 커집니다.</li><li>전극 한 쌍이 아닌 <strong>한 이온에 대한 막 평형 전위</strong>를 구할 때도 같은 꼴을 씁니다: <code>E<sub>ion</sub> = (RT/zF) ln([ion]<sub>바깥</sub> / [ion]<sub>안</sub>)</code>.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>다니엘 전지(가상의 농도).</strong> Zn | Zn<sup>2+</sup>(0.010 M) ‖ Cu<sup>2+</sup>(1.0 M) | Cu, E° = 1.10 V, n = 2. Q = [Zn<sup>2+</sup>]/[Cu<sup>2+</sup>] = 0.01이므로 <code>E = 1.10 − (0.05916/2) × log<sub>10</sub>(0.01) = 1.159 V</code>. 생성물 쪽 농도가 낮아졌으므로 표준 전압(1.10 V)보다 높습니다.</p><p><strong>막 평형 전위(가상의 농도).</strong> 37 °C(310.15 K)에서 RT/F = 26.73 mV입니다. K<sup>+</sup>이 바깥 5 mM, 안 140 mM이면 <code>E<sub>K</sub> = 26.73 mV × ln(5/140) ≈ -89 mV</code>입니다. Na<sup>+</sup>이 바깥 145 mM, 안 12 mM이면 <code>E<sub>Na</sub> ≈ 67 mV</code>입니다. 실제 세포의 막전위는 여러 이온의 투과도가 함께 작용하므로 단일 이온의 값 하나와 같지 않고, 이를 다루는 식이 Goldman–Hodgkin–Katz 식입니다([[resting-membrane-potential|안정막전위]]).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>네른스트 식을 쓰면 E°가 바뀐다.</td><td>E°는 표준 상태(활동도 1, 보통 25 °C)에서의 값으로 일정합니다. 달라지는 것은 로그 항이 더해지는 전체 전위 E입니다.</td></tr><tr><td>순수 고체나 액체도 Q에 넣는다.</td><td>활동도가 1인 순수 고체·순수 액체는 Q에 나타나지 않습니다.</td></tr><tr><td>E는 농도에 비례한다.</td><td>로그에 비례합니다. 농도를 10배 바꿔도 전위는 수십 mV만 변합니다.</td></tr><tr><td>세포의 막전위는 네른스트 식으로 정확히 나온다.</td><td>이온마다 투과도가 달라 한 이온의 평형 전위만으로 나오지 않으며, 능동 수송의 기여도 있습니다.</td></tr><tr><td>온도를 고려하지 않아도 된다.</td><td>RT/nF에 T가 들어 있습니다. 0.0592를 쓰는 간략한 형태는 25 °C에서만 맞습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "fixes": [
+    {
+      "find": "지, 반응이 저절로 일어나는지 여부 자체를 바꾸는 것은 아닙니다.",
+      "replace": "지, 표준 전극 전위 값 자체를 바꾸는 것은 아닙니다."
+    },
+    {
+      "find": "네른스트 식은 그 값에 농도 항을 추가로 곱해 보정할 뿐이라는",
+      "replace": "네른스트 식은 그 값에 농도(반응지수) 항을 더해 보정할 뿐이라는"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "전위를 다루는 용어가 여럿이라 같은 것으로 묶어 부르기 쉽습니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "네른스트 식과의 관계"
+    ],
+    "rows": [
+      [
+        "[[standard-electrode-potential|표준 전극 전위]]",
+        "표준 상태에서의 전위(E°)",
+        "네른스트 식의 출발값"
+      ],
+      [
+        "네른스트 식",
+        "표준 상태가 아닌 조건의 전위 계산",
+        "E = E° − (RT/nF) ln Q"
+      ],
+      [
+        "[[resting-membrane-potential|안정막전위]]",
+        "쉬고 있는 세포 안팎의 전위차",
+        "여러 이온의 평형 전위와 투과도를 합쳐 결정"
+      ],
+      [
+        "[[gibbs-free-energy|깁스 자유에너지]]",
+        "자발성의 열역학적 척도",
+        "ΔG = −nFE로 전위와 이어짐"
+      ]
+    ]
+  },
+  "references": [
+    "Nernst, W. (1889). Die elektromotorische Wirksamkeit der Ionen. Zeitschrift für physikalische Chemie, 4, 129–181.",
+    "Bard, A. J., & Faulkner, L. R. (2001). Electrochemical Methods: Fundamentals and Applications (2nd ed.). Wiley.",
+    "Hille, B. (2001). Ion Channels of Excitable Membranes (3rd ed.). Sinauer Associates."
+  ]
+}

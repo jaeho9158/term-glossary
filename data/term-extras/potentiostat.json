@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>3전극 연결</strong>: 작업전극(WE, 반응을 보는 전극), 기준전극(RE, 전위의 기준), 상대전극(CE, 전류를 받아 회로를 닫는 전극)을 용액에 담급니다.</li><li><strong>제어 원리</strong>: 포텐시오스탯은 WE와 RE 사이의 전위차를 계속 읽어 목표 전위와 비교하고, 차이가 나면 CE를 통해 흐르는 전류를 조절해 WE의 전위를 목표에 맞춥니다. 기준전극으로는 전류가 거의 흐르지 않아 기준이 안정합니다.</li><li><strong>전류 측정</strong>: 흐르는 전류를 전압으로 바꿔 읽습니다(전류 범위를 적절히 골라야 분해능이 확보됨).</li><li><strong>실험 수행</strong>: 전위를 훑는 순환전압전류법, 전위를 고정해 전류를 보는 크로노암페로메트리, 교류를 더하는 임피던스([[electrochemical-impedance-spectroscopy|EIS]]) 등.</li><li><strong>갈바노스탯 모드</strong>: 반대로 전류를 고정하고 전위를 읽는 방식으로, 전지 충방전 시험에 쓰입니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>전기화학 반응 연구</strong>: 산화환원 전위, 반응 속도, 확산 계수, 촉매 활성(과전위)을 얻습니다([[cyclic-voltammetry|순환전압전류법]]).</li><li><strong>전지·연료전지·전기분해·부식</strong> 시험.</li><li><strong>센서와 전기화학 분석</strong>: 전위를 고정하고 전류를 측정해 분석물을 정량합니다.</li></ul><p><strong>얻는 것과 한계: 용액 저항의 전압 강하(iR 강하).</strong> 기준전극 팁과 작업전극 사이 용액에는 보상되지 않은 저항 R<sub>u</sub>가 있어, 전류가 흐르면 실제 전극 전위는 설정 전위와 <code>i × R<sub>u</sub></code>만큼 달라집니다. 가상의 예: 전류 2 mA, R<sub>u</sub> = 50 Ω이면 <code>2 mA × 50 Ω = 0.10 V</code>(100 mV)나 어긋납니다. 큰 전류를 쓰는 촉매 실험에서는 장비의 iR 보상 기능이나 사후 보정을 적용하고 그 사실을 적어야 합니다.</p><p><strong>전위 척도 환산.</strong> 논문마다 기준전극이 달라 비교하려면 가역 수소전극(RHE) 기준으로 바꿉니다. 포화 KCl의 Ag/AgCl 전극(25 °C, 약 +0.197 V vs SHE)을 쓰면 <code>E(RHE) = E(Ag/AgCl) + 0.197 + 0.0591 × pH</code>입니다. 가상의 예: pH 13에서 −0.300 V(vs Ag/AgCl)는 <code>-0.300 + 0.197 + 0.0591 × 13 = 0.665 V</code>(vs RHE)입니다. 기준전극의 종류와 내부 용액 농도에 따라 상수가 달라지므로 반드시 명시합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>장비 제조사·모델(필요하면 소프트웨어), 사용한 모드(전위 제어/전류 제어)</li><li>전극 구성: 작업전극 재질·면적, 기준전극 종류와 내부 용액, 상대전극 재질(상대전극이 기준 반응에 영향을 줄 수 있음)</li><li>전해질 조성·농도·pH, 온도, 용존 산소 제거 여부(질소 퍼징 등)</li><li>전위 훑기 속도·범위, iR 보상 여부와 정도, 전위 척도의 환산 방법</li></ul><p><code>모든 전기화학 측정은 3전극 셀(작업전극: 유리질 탄소, 기준전극: Ag/AgCl(포화 KCl), 상대전극: 백금선)에서 포텐시오스탯으로 수행하였고, 전위는 RHE 기준으로 환산하였다.</code> (형식을 보여 주려는 가상의 문장입니다.)</p><p>순환전압전류법은 포텐시오스탯으로 수행하는 ‘실험’이고, 포텐시오스탯은 ‘장비’입니다. 장비의 전류·전위 한계(순응 전압, 전류 범위)를 넘는 조건에서는 데이터가 잘리므로 시험 조건이 한계 안에 있는지 확인합니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "장비 이름과 측정법 이름이 한 문장에 함께 나와 혼동됩니다.",
+    "headers": [
+      "용어",
+      "구분",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "포텐시오스탯",
+        "장비",
+        "작업전극 전위를 제어하며 전류를 측정"
+      ],
+      [
+        "갈바노스탯",
+        "장비(또는 포텐시오스탯의 모드)",
+        "전류를 제어하며 전위를 측정"
+      ],
+      [
+        "[[cyclic-voltammetry|순환전압전류법]]",
+        "실험 기법",
+        "전위를 왕복 훑으며 전류를 기록"
+      ],
+      [
+        "[[electrochemical-impedance-spectroscopy|EIS]]",
+        "실험 기법",
+        "교류 신호로 임피던스를 주파수별로 측정"
+      ],
+      [
+        "[[reference-electrode|기준전극]]",
+        "전극",
+        "전위의 기준을 제공"
+      ]
+    ]
+  },
+  "references": [
+    "Bard, A. J., & Faulkner, L. R. (2001). Electrochemical Methods: Fundamentals and Applications (2nd ed.). Wiley.",
+    "Elgrishi, N., Rountree, K. J., McCarthy, B. D., Rountree, E. S., Eisenhart, T. T., & Dempsey, J. L. (2018). A practical beginner's guide to cyclic voltammetry. Journal of Chemical Education, 95(2), 197–206.",
+    "Kissinger, P. T., & Heineman, W. R. (Eds.). (1996). Laboratory Techniques in Electroanalytical Chemistry (2nd ed.). Marcel Dekker."
+  ]
+}

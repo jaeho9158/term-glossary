@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/potentiostat.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>포텐시오스탯은 전기화학 연구 전반의 기본 계측 장비로, 배터리 소재 평가, 부식 거동 분석, 센서 개발, 전기분해 및 연료전지 연구 등 거의 모든 전기화학 실험의 신뢰성이 이 장비의 정밀한 전위 제어 성능에 달려 있습니다. 새로운 전극 소재나 촉매의 성능을 정량적으로 비교하려면 동일한 조건에서 재현 가능한 전위·전류 데이터가 필요하기 때문에, 논문의 실험 방법 섹션에서 포텐시오스탯의 모델과 설정을 명시하는 것이 표준적인 관행입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>3전극 연결</strong>: 작업전극(WE, 반응을 보는 전극), 기준전극(RE, 전위의 기준), 상대전극(CE, 전류를 받아 회로를 닫는 전극)을 용액에 담급니다.</li><li><strong>제어 원리</strong>: 포텐시오스탯은 WE와 RE 사이의 전위차를 계속 읽어 목표 전위와 비교하고, 차이가 나면 CE를 통해 흐르는 전류를 조절해 WE의 전위를 목표에 맞춥니다. 기준전극으로는 전류가 거의 흐르지 않아 기준이 안정합니다.</li><li><strong>전류 측정</strong>: 흐르는 전류를 전압으로 바꿔 읽습니다(전류 범위를 적절히 골라야 분해능이 확보됨).</li><li><strong>실험 수행</strong>: 전위를 훑는 순환전압전류법, 전위를 고정해 전류를 보는 크로노암페로메트리, 교류를 더하는 임피던스(<a href="electrochemical-impedance-spectroscopy.html">EIS</a>) 등.</li><li><strong>갈바노스탯 모드</strong>: 반대로 전류를 고정하고 전위를 읽는 방식으로, 전지 충방전 시험에 쓰입니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>전기화학 반응 연구</strong>: 산화환원 전위, 반응 속도, 확산 계수, 촉매 활성(과전위)을 얻습니다(<a href="cyclic-voltammetry.html">순환전압전류법</a>).</li><li><strong>전지·연료전지·전기분해·부식</strong> 시험.</li><li><strong>센서와 전기화학 분석</strong>: 전위를 고정하고 전류를 측정해 분석물을 정량합니다.</li></ul><p><strong>얻는 것과 한계: 용액 저항의 전압 강하(iR 강하).</strong> 기준전극 팁과 작업전극 사이 용액에는 보상되지 않은 저항 R<sub>u</sub>가 있어, 전류가 흐르면 실제 전극 전위는 설정 전위와 <code>i × R<sub>u</sub></code>만큼 달라집니다. 가상의 예: 전류 2 mA, R<sub>u</sub> = 50 Ω이면 <code>2 mA × 50 Ω = 0.10 V</code>(100 mV)나 어긋납니다. 큰 전류를 쓰는 촉매 실험에서는 장비의 iR 보상 기능이나 사후 보정을 적용하고 그 사실을 적어야 합니다.</p><p><strong>전위 척도 환산.</strong> 논문마다 기준전극이 달라 비교하려면 가역 수소전극(RHE) 기준으로 바꿉니다. 포화 KCl의 Ag/AgCl 전극(25 °C, 약 +0.197 V vs SHE)을 쓰면 <code>E(RHE) = E(Ag/AgCl) + 0.197 + 0.0591 × pH</code>입니다. 가상의 예: pH 13에서 −0.300 V(vs Ag/AgCl)는 <code>-0.300 + 0.197 + 0.0591 × 13 = 0.665 V</code>(vs RHE)입니다. 기준전극의 종류와 내부 용액 농도에 따라 상수가 달라지므로 반드시 명시합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>장비 제조사·모델(필요하면 소프트웨어), 사용한 모드(전위 제어/전류 제어)</li><li>전극 구성: 작업전극 재질·면적, 기준전극 종류와 내부 용액, 상대전극 재질(상대전극이 기준 반응에 영향을 줄 수 있음)</li><li>전해질 조성·농도·pH, 온도, 용존 산소 제거 여부(질소 퍼징 등)</li><li>전위 훑기 속도·범위, iR 보상 여부와 정도, 전위 척도의 환산 방법</li></ul><p><code>모든 전기화학 측정은 3전극 셀(작업전극: 유리질 탄소, 기준전극: Ag/AgCl(포화 KCl), 상대전극: 백금선)에서 포텐시오스탯으로 수행하였고, 전위는 RHE 기준으로 환산하였다.</code> (형식을 보여 주려는 가상의 문장입니다.)</p><p>순환전압전류법은 포텐시오스탯으로 수행하는 ‘실험’이고, 포텐시오스탯은 ‘장비’입니다. 장비의 전류·전위 한계(순응 전압, 전류 범위)를 넘는 조건에서는 데이터가 잘리므로 시험 조건이 한계 안에 있는지 확인합니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모든 전기화학 실험은 포텐시오스탯을 이용하여 3전극 시스템에서 수행하였다."</div>
   <p>전극에 걸리는 전압과 전류를 정밀하게 제어·측정하는 포텐시오스탯 장비로 전기화학 실험을 진행했다는 뜻이다.</p>
 
@@ -165,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>포텐시오스탯은 전압을 걸고 전류를 재는 장비 자체이고, <a href="cyclic-voltammetry.html">순환전압전류법</a>은 그 장비로 수행하는 구체적인 실험 기법이라는 차이를 구분해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>장비 이름과 측정법 이름이 한 문장에 함께 나와 혼동됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">구분</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row">포텐시오스탯</th><td>장비</td><td>작업전극 전위를 제어하며 전류를 측정</td></tr><tr><th scope="row">갈바노스탯</th><td>장비(또는 포텐시오스탯의 모드)</td><td>전류를 제어하며 전위를 측정</td></tr><tr><th scope="row"><a href="cyclic-voltammetry.html">순환전압전류법</a></th><td>실험 기법</td><td>전위를 왕복 훑으며 전류를 기록</td></tr><tr><th scope="row"><a href="electrochemical-impedance-spectroscopy.html">EIS</a></th><td>실험 기법</td><td>교류 신호로 임피던스를 주파수별로 측정</td></tr><tr><th scope="row"><a href="reference-electrode.html">기준전극</a></th><td>전극</td><td>전위의 기준을 제공</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Bard, A. J., &amp; Faulkner, L. R. (2001). Electrochemical Methods: Fundamentals and Applications (2nd ed.). Wiley.</li>
+    <li>Elgrishi, N., Rountree, K. J., McCarthy, B. D., Rountree, E. S., Eisenhart, T. T., &amp; Dempsey, J. L. (2018). A practical beginner's guide to cyclic voltammetry. Journal of Chemical Education, 95(2), 197–206.</li>
+    <li>Kissinger, P. T., &amp; Heineman, W. R. (Eds.). (1996). Laboratory Techniques in Electroanalytical Chemistry (2nd ed.). Marcel Dekker.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -1,0 +1,49 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>정의</strong>: 기체 상태의 중성 원자(또는 분자) X가 전자 하나를 받아 X<sup>−</sup>이 될 때 방출되는 에너지입니다. 현대 문헌에서는 <code>EA = E(X) − E(X<sup>−</sup>)</code>로 정의하며, 값이 <strong>클수록 음이온이 더 안정</strong>합니다(안정하면 양수). 단위는 eV 또는 kJ/mol입니다. 1 eV = 96.485 kJ/mol입니다.</li><li><strong>부호 주의</strong>: 일반화학 교재에서는 전자 얻는 과정의 에너지 변화(ΔE)를 쓰기도 해서, 같은 염소 원자가 −349 kJ/mol로 적히기도 합니다. 논문에서 쓰는 정의를 먼저 확인합니다.</li><li><strong>경향</strong>: 같은 주기에서 오른쪽으로 갈수록 대체로 커지지만 질소, 베릴륨, 비활성 기체처럼 전자를 받으면 안정해지지 않는 원자(EA ≤ 0 또는 음이온이 불안정)가 있습니다.</li><li><strong>고체에서의 전자친화도</strong>: 반도체에서는 ‘진공 준위에서 전도띠 바닥까지의 에너지’를 전자친화도라고 부르며, 규소는 약 4.05 eV로 알려져 있습니다. 원자의 EA와 이름은 같지만 정의가 다릅니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<table><thead><tr><th>원소</th><th>전자친화도(eV)</th><th>kJ/mol(환산)</th></tr></thead><tbody><tr><td>F</td><td>3.40119</td><td>328.2</td></tr><tr><td>Cl</td><td>3.612725</td><td>348.6</td></tr></tbody></table><p>염소가 불소보다 전자친화도가 큰 것은 불소가 작아 전자가 들어올 때 이미 있는 전자와의 반발이 크기 때문이라고 설명됩니다. 원소별 값은 Hotop과 Lineberger(1985) 같은 정리 문헌에 있습니다.</p><p><strong>보른–하버 순환(가상 정리)에서 쓰임.</strong> NaCl(s)의 생성엔탈피를 이루는 항을 모으면 <code>ΔH<sub>f</sub> = ΔH<sub>승화</sub>(Na) + IE<sub>1</sub>(Na) + ½BDE(Cl<sub>2</sub>) − EA(Cl) − U<sub>격자</sub></code>입니다. 값 107.3, 495.8, 121.7, 349, ΔH<sub>f</sub> = -411.1 (kJ/mol)을 넣으면 <code>U<sub>격자</sub> = 107.3 + 495.8 + 121.7 − 349 − (-411.1) ≈ 787 kJ/mol</code>이 되어, 문헌의 NaCl 격자 에너지(약 790 kJ/mol 안팎)와 맞습니다([[born-haber-cycle|보른-하버 순환]], [[lattice-energy|격자 에너지]]).</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>정의와 부호 규약(방출 에너지를 양수로 쓰는지)을 밝힙니다.</li><li>실험값인지 계산값인지 구분합니다. 계산값(DFT 등)은 <strong>수직(vertical)</strong> 전자친화도(음이온을 중성 구조에서 계산)와 <strong>단열(adiabatic)</strong> 전자친화도(각각 최적 구조에서 계산)를 구분해 적어야 하며, 후자가 보통 더 큽니다.</li><li>사용한 이론 수준(범함수·기저함수), 용매 모형 여부.</li><li>고체·박막의 값이라면 진공 준위 기준인지, 측정법(광전자 분광 등)을 적습니다.</li></ul><p><code>단열 전자친화도는 B3LYP/6-311+G(d,p) 수준에서 계산하였으며, 영점 에너지 보정을 포함하였다.</code> (형식을 보여 주려는 가상의 문장입니다.)</p><p>전자친화도는 이온화 에너지, 전기음성도와 나란히 쓰이지만 서로 같은 값이 아닙니다. Mulliken(1934)은 전기음성도를 이온화 에너지와 전자친화도의 평균으로 제안했습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "전자를 둘러싼 세 가지 양은 방향과 정의가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "과정"
+    ],
+    "rows": [
+      [
+        "전자친화도",
+        "전자를 받을 때의 에너지",
+        "X + e⁻ → X⁻"
+      ],
+      [
+        "[[ionization-energy|이온화 에너지]]",
+        "전자를 떼어낼 때 드는 에너지",
+        "X → X⁺ + e⁻"
+      ],
+      [
+        "[[electronegativity|전기음성도]]",
+        "결합 속 전자를 끌어당기는 능력",
+        "측정값이 아니라 척도(Pauling, Mulliken 등)"
+      ]
+    ],
+    "note": "전기음성도는 ‘결합 속’ 개념이고 전자친화도는 ‘고립된 기체 원자’의 개념입니다."
+  },
+  "references": [
+    "Hotop, H., & Lineberger, W. C. (1985). Binding energies in atomic negative ions: II. Journal of Physical and Chemical Reference Data, 14(3), 731–750.",
+    "Rienstra-Kiracofe, J. C., Tschumper, G. S., Schaefer, H. F., Nandi, S., & Ellison, G. B. (2002). Atomic and molecular electron affinities: Photoelectron experiments and theoretical computations. Chemical Reviews, 102(1), 231–282.",
+    "Mulliken, R. S. (1934). A new electroaffinity scale; together with data on valence states and on valence ionization potentials and electron affinities. The Journal of Chemical Physics, 2(11), 782–793."
+  ]
+}

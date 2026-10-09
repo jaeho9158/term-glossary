@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>식</strong>: <code>A = log<sub>10</sub>(I<sub>0</sub>/I) = ε · l · c</code>. A는 흡광도(단위 없음), I<sub>0</sub>는 들어간 빛, I는 나온 빛, ε은 몰흡광계수(L·mol<sup>−1</sup>·cm<sup>−1</sup>), l은 빛이 지나간 길이(cm), c는 몰농도(mol/L)입니다.</li><li>흡광도는 <strong>로그</strong> 척도입니다. 흡광도가 1 늘 때마다 통과하는 빛이 10분의 1로 줄어듭니다. 투과율 T와는 <code>A = −log<sub>10</sub>T</code>로 이어집니다.</li><li>ε은 물질·파장·용매·온도에 따라 정해지는 값이므로, 같은 물질도 파장이 다르면 ε이 다릅니다. 보통 흡수가 가장 센 파장(λ<sub>max</sub>)에서 재야 감도가 높고 파장이 조금 어긋나도 값이 덜 흔들립니다.</li><li>성립 조건: 거의 단색인 빛, 산란 없는 맑은 용액, 충분히 묽은 농도, 농도에 따라 분자 상태(회합·해리)가 바뀌지 않을 것.</li></ul><table><thead><tr><th>흡광도 A</th><th>투과율 T</th></tr></thead><tbody><tr><td>0.1</td><td>79.4 %</td></tr><tr><td>0.3</td><td>50.1 %</td></tr><tr><td>0.5</td><td>31.6 %</td></tr><tr><td>1</td><td>10.0 %</td></tr><tr><td>2</td><td>1.0 %</td></tr><tr><td>3</td><td>0.1 %</td></tr></tbody></table><p>(위 표는 <code>T = 10<sup>−A</sup></code>를 계산한 값입니다.)</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예입니다. NADH는 340 nm에서 ε ≈ 6,220 L·mol<sup>−1</sup>·cm<sup>−1</sup>로 널리 쓰이는 값을 가집니다. 광로 1 cm 셀에서 효소 반응 용액의 A<sub>340</sub>이 0.466이면</p><p><code>c = A / (ε · l) = 0.466 / (6220 × 1) = 74.9 μM</code></p><p>입니다. 같은 용액을 광로 0.5 cm 셀에 넣으면 A는 절반으로 줄어듭니다. 이처럼 l을 알아야 농도를 환산할 수 있으므로 셀 규격은 방법란에 적어 둡니다.</p><p>시료가 너무 진해 A = 1.8가 나왔다면 5배 희석해 A = 0.36를 얻은 뒤 <code>c = 0.36/6220 × 5 = 289.4 μM</code>처럼 희석 배수를 곱해 원래 농도로 돌립니다. 표준 시료로 만든 검량선([[calibration-curve|검량선]])을 쓰면 ε을 문헌값에 의존하지 않아도 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>흡광도가 투과율에 비례한다.</td><td>흡광도는 투과율의 로그에 음의 부호를 붙인 값입니다. 농도에 비례하는 쪽은 흡광도이지 투과율이 아닙니다.</td></tr><tr><td>흡광도가 클수록 더 정확하다.</td><td>흡광도가 매우 크면 기기에 닿는 빛이 너무 적고 미광(stray light)의 영향이 커져 직선성이 무너집니다. 관례적으로 대략 0.1~1 범위에서 재도록 시료를 희석하며, 적정 범위는 기기마다 다르므로 설명서를 확인합니다.</td></tr><tr><td>법칙은 어떤 농도에서도 성립한다.</td><td>농도가 높으면 분자끼리의 상호작용과 굴절률 변화로 직선에서 벗어납니다. 용액이 뿌옇거나 형광을 내거나, 농도에 따라 이합체가 생기는 경우에도 벗어납니다.</td></tr><tr><td>ε은 물질 하나에 값 하나다.</td><td>파장·용매·pH 같은 조건에 따라 달라집니다. 문헌 ε을 쓸 때는 측정 조건을 같이 확인합니다.</td></tr><tr><td>이 법칙은 Beer 한 사람이 만들었다.</td><td>Bouguer(1729)와 Lambert(1760)가 광로 길이와 흡수의 관계를, Beer(1852)가 농도와의 관계를 밝혔다고 정리됩니다. 그래서 문헌에서는 Bouguer–Beer–Lambert 법칙이라고도 부릅니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "법칙과 이를 쓰는 기법·장비·방법이 한꺼번에 섞여 쓰이는 경우가 많습니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "베르-람베르트 법칙과의 관계"
+    ],
+    "rows": [
+      [
+        "[[uv-vis-spectroscopy|자외선-가시광선 분광법]]",
+        "빛의 흡수를 파장별로 재는 분석 기법",
+        "정량 결과를 농도로 바꿀 때 이 법칙을 씁니다."
+      ],
+      [
+        "[[spectrophotometer|분광광도계]]",
+        "흡광도를 재는 장비",
+        "장비는 A를 내놓고, 농도 환산은 법칙으로 합니다."
+      ],
+      [
+        "[[calibration-curve|검량선]]",
+        "농도를 아는 표준 시료로 만든 A–농도 직선",
+        "법칙이 성립하는 구간에서 직선이 되며, 그 직선의 기울기가 ε·l에 해당합니다."
+      ],
+      [
+        "[[spectroscopy|분광법]]",
+        "빛과 물질의 상호작용을 이용하는 분석법 전반",
+        "법칙은 그 가운데 ‘흡수’를 다루는 한 관계식입니다."
+      ]
+    ],
+    "note": "투과율과 흡광도를 섞어 쓰면 읽기 어려우니, 논문에서는 어느 쪽 값인지 단위(%T 또는 A)를 분명히 적습니다."
+  },
+  "references": [
+    "Swinehart, D. F. (1962). The Beer-Lambert law. Journal of Chemical Education, 39(7), 333–335.",
+    "Mayerhöfer, T. G., Pahlow, S., & Popp, J. (2020). The Bouguer-Beer-Lambert law: Shining light on the obscure. ChemPhysChem, 21(18), 2029–2046.",
+    "Skoog, D. A., Holler, F. J., & Crouch, S. R. (2018). Principles of Instrumental Analysis (7th ed.). Cengage Learning.",
+    "Harris, D. C. (2016). Quantitative Chemical Analysis (9th ed.). W. H. Freeman."
+  ]
+}

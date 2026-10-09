@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>준비</strong>: 3전극(작업·기준·상대) 셀을 안정화하고 개회로 전위 또는 정한 직류 전위에서 시작합니다([[potentiostat|포텐시오스탯]]).</li><li><strong>작은 교류 신호</strong>: 직류 전위 위에 작은 사인파(대개 5~10 mV 정도)를 겹쳐 주파수를 높은 쪽에서 낮은 쪽으로(예: 100 kHz → 0.1 Hz) 훑습니다. 신호가 작아야 계가 선형으로 반응합니다.</li><li><strong>측정</strong>: 각 주파수에서 전류의 크기와 위상 차이를 재어 복소 임피던스 <code>Z = Z′ − jZ″</code>를 얻습니다.</li><li><strong>그림</strong>: 나이퀴스트 선도(Z′ 대 −Z″)와 보드 선도(|Z|와 위상각 대 주파수).</li><li><strong>해석</strong>: 등가회로를 가정해 맞춥니다(fitting). 대표적인 랜들스(Randles) 회로는 용액 저항 R<sub>s</sub>에 이중층 용량 C<sub>dl</sub>과 전하이동 저항 R<sub>ct</sub>이 병렬이고(필요하면 와버그 확산 요소 추가) 반원 하나와 낮은 주파수의 직선 꼬리로 나타납니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>전지·슈퍼커패시터·연료전지</strong>: 전해질 저항, 계면 저항, 확산 지연을 가려 노화나 성능 저하의 원인을 분석합니다.</li><li><strong>부식과 코팅</strong>: 코팅 저항, 금속-용액 계면의 반응 저항을 비파괴로 추적합니다.</li><li><strong>센서</strong>: 표면에 결합한 분자가 전하이동 저항을 바꾸는 것을 신호로 씁니다.</li><li>순환전압전류법([[cyclic-voltammetry|순환전압전류법]])이 전위를 크게 훑어 ‘어떤 반응이 있는가’를 본다면, EIS는 한 전위 근처에서 ‘반응이 얼마나 쉬운가·어떤 과정이 느린가’를 주파수로 가려냅니다.</li></ul><p><strong>랜들스 회로의 계산(가상의 값).</strong> R<sub>s</sub> = 10 Ω, R<sub>ct</sub> = 100 Ω, C<sub>dl</sub> = 20 μF이면 시간 상수는 <code>τ = R<sub>ct</sub> C<sub>dl</sub> = 2.0 ms</code>, 반원 꼭짓점의 주파수는 <code>f = 1/(2πτ) ≈ 79.6 Hz</code>입니다.</p><table><thead><tr><th>주파수(Hz)</th><th>Z′(Ω)</th><th>−Z″(Ω)</th></tr></thead><tbody><tr><td>1e+5</td><td>10.0</td><td>0.1</td></tr><tr><td>79.6</td><td>60.0</td><td>50.0</td></tr><tr><td>0.1</td><td>110.0</td><td>0.1</td></tr></tbody></table><p>고주파에서는 Z′ ≈ R<sub>s</sub>, 꼭짓점에서는 Z′ = R<sub>s</sub> + R<sub>ct</sub>/2, 저주파에서는 R<sub>s</sub> + R<sub>ct</sub>에 접근합니다. 곧 나이퀴스트 반원의 지름이 R<sub>ct</sub>입니다. 전자 하나가 관여하는 반응(n = 1)에서 평형 근처 교환 전류는 <code>i<sub>0</sub> = RT/(nF R<sub>ct</sub>) = 0.257 mA</code>, 면적 0.0707 cm<sup>2</sup>(지름 3 mm 원판)라면 약 3.63 mA/cm<sup>2</sup>입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>전극 재료·면적, 전해질, 직류 전위(또는 개회로 전위)와 교류 진폭, 주파수 범위와 점 수</li><li>등가회로 모형 그림과 각 요소의 값·오차, 맞춤 품질(χ² 등)</li><li>위상 요소: 이상적인 축전기 대신 상수위상소자(CPE)를 쓰면 지수 n과 함께 보고</li><li>자료의 타당성 검사(Kramers–Kronig 검사 등)와 측정 중 계가 안정했는지</li></ul><p><code>EIS는 개회로 전위에서 진폭 10 mV, 100 kHz~0.1 Hz 범위에서 측정하였고, 데이터는 Randles 등가회로로 맞추었다(χ² = 2×10⁻⁴).</code> (형식을 보여 주려는 가상의 문장입니다.)</p><p>등가회로는 서로 다른 모형이 같은 곡선에 맞을 수 있어서, 물리적 근거(각 요소가 무엇을 뜻하는지)와 독립된 실험 증거를 같이 제시해야 합니다. 임피던스 값은 면적으로 정규화했는지(Ω·cm²) 분명히 적습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "전기화학 측정법이 여러 개라 한꺼번에 묶어 부르기 쉽습니다.",
+    "headers": [
+      "방법",
+      "무엇을 가하나",
+      "주로 알려 주는 것"
+    ],
+    "rows": [
+      [
+        "EIS",
+        "작은 교류 신호(여러 주파수)",
+        "저항·용량·확산을 주파수별로 분리"
+      ],
+      [
+        "[[cyclic-voltammetry|순환전압전류법]]",
+        "삼각파로 변하는 전위",
+        "산화환원 전위, 반응의 가역성"
+      ],
+      [
+        "[[potentiostat|포텐시오스탯]]",
+        "(방법이 아닌 장비)",
+        "위 방법들을 수행하는 장비"
+      ],
+      [
+        "[[impedance|임피던스]]",
+        "(측정량) 교류 저항 개념",
+        "EIS가 재는 양"
+      ]
+    ]
+  },
+  "references": [
+    "Lasia, A. (2014). Electrochemical Impedance Spectroscopy and Its Applications. Springer.",
+    "Orazem, M. E., & Tribollet, B. (2008). Electrochemical Impedance Spectroscopy. Wiley.",
+    "Barsoukov, E., & Macdonald, J. R. (Eds.). (2005). Impedance Spectroscopy: Theory, Experiment, and Applications (2nd ed.). Wiley."
+  ]
+}
