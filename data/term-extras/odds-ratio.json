@@ -1,0 +1,49 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>오즈(odds) = 사건이 일어날 확률 ÷ 일어나지 않을 확률 = p/(1−p)입니다. 확률 .5이면 오즈는 1, 확률 .75이면 오즈는 3입니다.</li><li>교차비 = 노출군의 오즈 ÷ 비노출군의 오즈입니다. 2×2표에서 노출·발생 a, 노출·미발생 b, 비노출·발생 c, 비노출·미발생 d이면 OR = (a/b)/(c/d) = <strong>ad/bc</strong>입니다.</li><li>범위는 0 이상이며 상한이 없습니다. 1이면 연관이 없고, 1보다 크면 노출군의 오즈가 더 크며, 1보다 작으면 더 작습니다. 이 때문에 계산은 로그 척도(ln OR)에서 이루어집니다.</li><li>신뢰구간은 로그 척도의 표준오차 SE = √(1/a + 1/b + 1/c + 1/d)를 써서 exp(ln OR ± 1.96·SE)로 구하는 방법이 널리 쓰입니다(Woolf 방법).</li><li>[[logistic-regression|로지스틱 회귀]]에서는 회귀계수 β를 지수변환한 exp(β)가 (다른 변수를 보정한) 교차비입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 2×2표로 계산해 보았습니다: a = 30, b = 70, c = 15, d = 85.</p><ul><li>OR = (30×85) ÷ (70×15) = <strong>2.43</strong>, SE(ln OR) = 0.355, 95% 신뢰구간 1.21–4.87.</li><li>구간이 1을 포함하지 않으므로 0.05 수준에서 연관이 있다고 읽습니다.</li><li>같은 표의 [[relative-risk|상대위험도]]는 (30/100) ÷ (15/100) = 2.00입니다. 사건이 흔하면(여기서는 15~30%) OR이 RR보다 더 크게 나옵니다.</li></ul><p>사건이 드물 때는 둘이 거의 같아집니다. 노출군 6/1,000, 비노출군 3/1,000이면 OR = 2.006, RR = 2.000입니다. 그래서 질병이 드문 환자-대조군 연구에서 OR을 RR의 근사값으로 쓰는 일이 많습니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>“노출군은 비노출군보다 사건의 <strong>오즈가</strong> 2.4배”라고 읽습니다. “사건이 2.4배 많이 일어난다(위험이 2.4배)”는 사건이 드물 때만 근사적으로 맞습니다.</li><li>[[case-control-study|환자-대조군 연구]]는 위험을 직접 구할 수 없고 OR만 추정할 수 있습니다(Cornfield, 1951).</li><li>사건이 흔한 코호트 연구에서 OR을 위험비처럼 해석하면 효과가 부풀려 보입니다. 이를 보정하는 방법이 Zhang과 Yu(1998)에 소개되어 있습니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Cornfield, J. (1951). A method of estimating comparative rates from clinical data: applications to cancer of the lung, breast, and cervix. Journal of the National Cancer Institute, 11(6), 1269–1275.",
+    "Zhang, J., & Yu, K. F. (1998). What's the relative risk? A method of correcting the odds ratio in cohort studies of common outcomes. JAMA, 280(19), 1690–1691.",
+    "Bland, J. M., & Altman, D. G. (2000). The odds ratio. BMJ, 320, 1468.",
+    "Szumilas, M. (2010). Explaining odds ratios. Journal of the Canadian Academy of Child and Adolescent Psychiatry, 19(3), 227–229."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "연관성 지표는 모양이 비슷해서 혼동됩니다.",
+    "headers": [
+      "용어",
+      "무엇의 비인가",
+      "어느 연구에서"
+    ],
+    "rows": [
+      [
+        "[[odds-ratio|교차비(OR)]]",
+        "오즈의 비",
+        "환자-대조군, 단면, 코호트, 로지스틱 회귀"
+      ],
+      [
+        "[[relative-risk|상대위험도(RR)]]",
+        "발생 확률(위험)의 비",
+        "코호트, 무작위배정 시험"
+      ],
+      [
+        "[[relative-risk-reduction|상대위험감소]]",
+        "1 − RR (위험이 줄어든 비율)",
+        "치료 효과 보고"
+      ]
+    ]
+  }
+}

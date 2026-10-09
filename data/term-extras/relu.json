@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>f(x) = max(0, x). 입력이 양수면 그대로, 0 이하면 0입니다.</li><li>도함수는 x &gt; 0에서 1, x &lt; 0에서 0입니다. x = 0에서는 미분 불가능하며, 구현에서는 관례로 0(또는 1)을 씁니다.</li><li>양의 구간에서 기울기가 1이어서 층을 깊게 쌓아도 [[sigmoid-function|시그모이드]]처럼 기울기가 계속 작아지는 문제(기울기 소실)가 덜합니다.</li><li>계산이 비교 한 번이라 빠르고, 출력의 상당수가 0이 되는 희소(sparse)한 표현이 만들어집니다(Glorot 등, 2011).</li><li>이 함수를 딥러닝 은닉층에 널리 퍼뜨린 연구로 Nair와 Hinton(2010), Krizhevsky 등(2012)이 자주 인용됩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>입력 -2, -0.5, 0, 0.5, 3에 적용한 결과입니다(코드로 계산).</p><table><thead><tr><th>x</th><th>-2</th><th>-0.5</th><th>0</th><th>0.5</th><th>3</th></tr></thead><tbody><tr><td>ReLU(x)</td><td>0</td><td>0</td><td>0</td><td>0.5</td><td>3</td></tr><tr><td>Leaky ReLU(x), α=0.01</td><td>-0.02</td><td>-0.005</td><td>0</td><td>0.5</td><td>3</td></tr></tbody></table><p>음수 입력은 ReLU에서 모두 0이 되므로, 어떤 뉴런이 모든 입력에 대해 음수 값만 받게 되면 기울기도 0이어서 더는 학습되지 않습니다(‘죽은 ReLU’). Leaky ReLU(Maas 등, 2013)는 음수 구간에 작은 기울기 α를 주어 이 문제를 줄이려는 변형입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ReLU면 기울기 소실이 완전히 사라진다.</td><td>양의 구간에서 완화될 뿐이며, 가중치 초기화·정규화·구조 설계도 함께 영향을 줍니다.</td></tr><tr><td>ReLU는 모든 층에 최선이다.</td><td>출력층은 과제에 맞는 함수(시그모이드, 소프트맥스 등)를 쓰고, 모델에 따라 GELU 같은 다른 함수가 쓰이기도 합니다.</td></tr><tr><td>음수 정보는 버려도 된다.</td><td>음수 입력 구간의 정보를 잃는 것이 ReLU의 특성이므로, 필요하면 변형을 선택합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Nair, V., & Hinton, G. E. (2010). Rectified linear units improve restricted Boltzmann machines. Proceedings of the 27th International Conference on Machine Learning, 807–814.",
+    "Glorot, X., Bordes, A., & Bengio, Y. (2011). Deep sparse rectifier neural networks. Proceedings of the 14th International Conference on Artificial Intelligence and Statistics, 315–323.",
+    "Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25.",
+    "Maas, A. L., Hannun, A. Y., & Ng, A. Y. (2013). Rectifier nonlinearities improve neural network acoustic models. ICML Workshop on Deep Learning for Audio, Speech and Language Processing."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "활성화 함수의 모양을 비교합니다.",
+    "headers": [
+      "함수",
+      "식",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[relu|ReLU]]",
+        "max(0, x)",
+        "음수는 0, 양수는 그대로"
+      ],
+      [
+        "[[sigmoid-function|시그모이드]]",
+        "1/(1+e<sup>−x</sup>)",
+        "0~1 사이로 눌러 담고 양끝에서 기울기가 작아짐"
+      ],
+      [
+        "[[activation-function|활성화 함수 일반]]",
+        "—",
+        "신경망에 비선형성을 주는 함수의 총칭"
+      ]
+    ]
+  }
+}
