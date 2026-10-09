@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>목표 위상 정하기</strong>: 파장 λ에서 초점거리 f로 빛을 모으려면 중심을 지나는 빛이 거리 r 지점을 지나는 빛보다 (2π/λ)(√(r² + f²) − f)만큼 위상이 더 늦어지도록 만들어야 합니다. 가장자리 광선은 초점까지의 경로가 더 길기 때문에, 그만큼 중심 광선을 늦춰 모두 같은 시각에 초점에 닿게 하는 것입니다.</li><li><strong>단위 셀 라이브러리</strong>: 나노기둥의 지름, 높이, 간격을 바꿔 가며 위상 지연과 투과율을 전자기 시뮬레이션(FDTD, RCWA 등)으로 구해 0에서 2π를 덮는 셀 집합을 만듭니다. 방식은 크게 형상 공진에 의한 위상 지연과 기하학적 회전에 의한 위상(판차라트남-베리 위상, 회전각 θ에 대해 2θ)으로 나뉩니다(Arbabi 외, 2015; Lin 외, 2014).</li><li><strong>배치</strong>: 렌즈의 각 위치에서 목표 위상에 가장 가까운 셀을 골라 격자에 배치합니다.</li><li><strong>전체 성능 확인</strong>: 셀 사이 결합의 영향을 포함해 초점 크기와 효율을 계산하거나 측정합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>얇고 가벼운 평면 렌즈가 필요한 소형 카메라, 광센서, 증강현실 기기에서 쓰입니다. 일반화된 굴절 법칙을 제시한 Yu 외(2011)와 가시광선에서 회절 한계에 가까운 초점을 보인 Khorasaninejad 외(2016)가 대표적 연구로 인용됩니다.</p><p><strong>가상의 예(계산함)</strong>: λ = 0.55 μm, f = 100 μm인 렌즈에서 이 위상 차를 주기 단위(2π = 1 주기)로 계산하면 다음과 같습니다.</p><table><thead><tr><th>중심으로부터 거리 r (μm)</th><th>중심 대비 필요한 위상 차 (주기)</th></tr></thead><tbody><tr><td>10</td><td>0.91</td></tr><tr><td>20</td><td>3.60</td></tr><tr><td>30</td><td>8.01</td></tr><tr><td>40</td><td>14.01</td></tr></tbody></table><p>가장자리(r = 40 μm)에서의 개구수는 r/√(r² + f²) ≈ 0.37입니다. 위상이 이만큼 빨리 변하는 곳을 셀로 표본화하려면 셀 간격이 대략 λ/(2×0.37) ≈ 0.74 μm 이하여야 하며(셀 당 위상 변화가 π를 넘지 않을 조건), 이것이 ‘파장보다 작은 구조’를 쓰는 이유 중 하나입니다.</p><p>한계로 파장이 달라지면 위상이 달라지는 색수차와 입사각 변화에 따른 성능 저하가 거론됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>설계 파장과 초점거리, 개구수, 렌즈 지름</li><li>단위 셀의 형상, 재료, 높이, 간격(주기)과 위상 및 투과율 곡선</li><li>사용한 시뮬레이션 방법(FDTD, RCWA 등)과 국소 주기 근사를 쓴 경우 그 타당성 확인</li><li>측정한 초점 크기(반치폭), 초점 효율 정의(어떤 면적의 빛을 기준으로 했는지), 입사광의 편광</li><li>동작 파장 대역과 색수차에 대한 논의</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "메타표면, 메타물질, 렌즈 설계 용어를 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구조"
+    ],
+    "rows": [
+      [
+        "[[metasurface-lens-design|메타표면 렌즈 설계]]",
+        "파장보다 작은 구조를 평면 위에 배열해 렌즈 기능을 구현하는 소자를 설계",
+        "2차원 평면 소자의 설계"
+      ],
+      [
+        "[[metasurface-optics|메타표면 광학]]",
+        "평면의 인공 구조로 빛의 위상, 편광, 세기를 국소적으로 제어하는 기술",
+        "기술 분야(상위)"
+      ],
+      [
+        "[[optical-metamaterial|광학 메타물질]]",
+        "파장보다 작은 구조를 3차원으로 배열해 자연에 없는 유전율·투자율을 얻는 물질",
+        "3차원 구조"
+      ]
+    ]
+  },
+  "references": [
+    "Yu, N., Genevet, P., Kats, M. A., Aieta, F., Tetienne, J.-P., Capasso, F., & Gaburro, Z. (2011). Light propagation with phase discontinuities: Generalized laws of reflection and refraction. Science, 334.",
+    "Lin, D., Fan, P., Hasman, E., & Brongersma, M. L. (2014). Dielectric gradient metasurface optical elements. Science, 345.",
+    "Arbabi, A., Horie, Y., Bagheri, M., & Faraon, A. (2015). Dielectric metasurfaces for complete control of phase and polarization with subwavelength spatial resolution and high transmission. Nature Nanotechnology, 10.",
+    "Khorasaninejad, M., Chen, W. T., Devlin, R. C., Oh, J., Zhu, A. Y., & Capasso, F. (2016). Metalenses at visible wavelengths: Diffraction-limited focusing and subwavelength resolution imaging. Science, 352."
+  ]
+}

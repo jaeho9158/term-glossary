@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>메모이제이션은 알고리즘의 시간 복잡도를 지수적 수준에서 다항 시간 수준으로 낮출 수 있는 핵심 최적화 기법이기 때문에 알고리즘, 컴파일러, 시스템 성능 연구 전반에서 자주 언급됩니다. 특히 같은 계산이 반복되는 재귀 구조를 가진 문제(동적 계획법으로 풀리는 문제들)에서는 메모이제이션 적용 여부가 실행 가능성 자체를 좌우하기도 하며, 웹 서버의 캐싱 전략이나 대규모 언어 모델의 추론 가속화처럼 실무 시스템 설계에서도 같은 원리가 폭넓게 응용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>함수 f를 부를 때마다 다음 순서를 따릅니다. 이 이름은 Michie(1968)가 ‘메모 함수’로 소개한 데서 왔습니다.</p><ol><li>입력 x가 캐시(표)에 있는지 찾는다.</li><li>있으면 저장된 값을 바로 돌려준다.</li><li>없으면 계산하고, 결과를 캐시에 저장한 뒤 돌려준다.</li></ol><p>캐시는 보통 해시테이블입니다. 이 방식은 재귀 구조를 그대로 둔 채 캐시만 더하므로 위에서 아래로 내려가는(top-down) 접근입니다. 아래에서 위로 표를 채우는 상향식 <a href="dynamic-programming.html">동적계획법</a>과 대비됩니다(Bellman, 1957; Cormen 외, 2022). 파이썬의 <code>functools.lru_cache</code>처럼 언어 차원에서 지원하는 경우도 있습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>같은 부분 문제가 반복해서 나오는 재귀 함수에서 효과가 큽니다. <strong>가상의 예(계산함)</strong>: n번째 피보나치 수를 f(n) = f(n−1) + f(n−2)로 재귀 계산할 때입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방식</th><th>f(30) 계산을 위한 호출 수</th></tr></thead><tbody><tr><td>캐시 없음</td><td>2,692,537</td></tr><tr><td>메모이제이션</td><td>59</td></tr></tbody></table></div><p>캐시가 없으면 호출 수가 n에 대해 지수적으로 늘지만, 캐시를 쓰면 서로 다른 입력마다 한 번씩만 계산하므로 n에 비례합니다. 효과를 보려면 다음 조건이 필요합니다.</p><ul><li>같은 입력에는 항상 같은 출력을 내는 <strong>순수 함수</strong>여야 합니다.</li><li>입력 조합이 많아 캐시가 커지면 메모리가 병목이 되므로, 오래 쓰지 않은 항목부터 지우는 정책(<a href="lru-cache.html">LRU 캐시</a>)을 함께 씁니다.</li><li>재귀가 깊으면 호출 스택이 한계가 될 수 있어 이때는 상향식이 대안입니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>무엇을 캐시의 키로 삼았는지(함수의 어떤 인수 조합)</li><li>캐시 크기 제한과 교체 정책, 메모리 사용량</li><li><strong>효과의 측정</strong>: 호출 수, 실행 시간, 캐시 적중률. 입력 분포에 따라 적중률이 달라지므로 어떤 입력으로 쟀는지</li><li>순수 함수가 아닌 경우(외부 상태에 의존) 캐시 무효화를 어떻게 했는지</li></ul><p>시간 복잡도를 말할 때는 ‘지수에서 다항으로’처럼 계산한 근거(서로 다른 부분 문제의 수)를 함께 적는 편이 좋습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안 알고리즘은 재귀 호출 시 중복되는 부분 문제의 결과를 메모이제이션(memoization)하여 실행 시간을 O(2^n)에서 O(n)으로 단축하였다."</div>
   <p>이 문장은 원래 지수 시간이 걸리던 재귀 알고리즘이, 이미 계산한 부분 문제의 답을 저장해두는 방식을 도입함으로써 선형 시간까지 빨라졌다는 성능 개선 결과를 설명하고 있습니다.</p>
 
@@ -165,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>메모이제이션은 재귀 함수 위에 캐시를 얹는 '하향식(top-down)' 접근이라는 점에서, 작은 문제부터 차례로 표를 채워나가는 '상향식(bottom-up)' 방식인 <a href="dynamic-programming.html">동적계획법</a>과 구분됩니다. 둘 다 같은 부분 문제를 반복 계산하지 않는다는 원리는 같지만, 구현 방향이 반대라는 점을 혼동하지 않아야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘저장해서 재사용한다’는 점이 같아 헷갈리는 용어들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">무엇을 저장·재사용하나</th></tr></thead><tbody><tr><th scope="row"><strong>메모이제이션</strong></th><td>이미 계산한 함수 결과를 저장해 같은 입력에서 재계산하지 않는 최적화</td><td>함수 호출의 결과</td></tr><tr><th scope="row"><a href="dynamic-programming.html">동적계획법</a></th><td>큰 문제를 작은 문제로 쪼개고 한 번 계산한 결과를 재사용하는 설계 기법</td><td>부분 문제의 해(보통 상향식 표)</td></tr><tr><th scope="row"><a href="lru-cache.html">LRU 캐시</a></th><td>가득 차면 가장 최근에 쓰지 않은 데이터부터 지우는 캐시 관리 정책</td><td>캐시 교체 정책</td></tr><tr><th scope="row"><a href="cache-memory.html">캐시 메모리</a></th><td>프로세서와 주 메모리 사이에서 자주 쓰는 데이터를 임시 저장하는 고속 메모리</td><td>하드웨어 계층의 데이터</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Michie, D. (1968). 'Memo' functions and machine learning. Nature, 218.</li>
+    <li>Bellman, R. (1957). Dynamic Programming. Princeton University Press.</li>
+    <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2022). Introduction to Algorithms (4th ed.). MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="dynamic-programming.html">동적계획법</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

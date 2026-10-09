@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>Marshall과 Palmer(1948)가 관측으로 제안한 빗방울 크기분포는 지름 D의 빗방울이 단위 부피(1 m<sup>3</sup>), 단위 지름 구간(1 mm)당 몇 개인지를 지수함수로 나타냅니다.</p><ul><li>N(D) = N<sub>0</sub>·exp(−ΛD)</li><li>N<sub>0</sub> = 8000 m<sup>−3</sup> mm<sup>−1</sup>(강수 강도와 무관하게 일정)</li><li>Λ = 4.1·R<sup>−0.21</sup> mm<sup>−1</sup> (R은 강수 강도, mm/h)</li></ul><p>강수가 세질수록 Λ가 작아져 큰 빗방울의 비율이 늘어납니다. 레이더 반사도 인자 Z는 이 분포의 6차 모멘트(Z = ∫N(D)D<sup>6</sup>dD)이므로, 분포가 정해지면 Z와 R 사이의 관계가 따라 나옵니다. 흔히 마셜-파머 관계라 불리며 널리 쓰이는 경험식은 Z = 200R<sup>1.6</sup>입니다(Doviak &amp; Zrnić, 1993).</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>위 식으로 직접 계산해 봅니다(계산한 값). 6차 모멘트 적분은 N<sub>0</sub>·720/Λ<sup>7</sup>으로 닫힌 형태가 나옵니다.</p><table><thead><tr><th>R (mm/h)</th><th>Λ (mm<sup>−1</sup>)</th><th>D = 1 mm 개수 (m<sup>−3</sup> mm<sup>−1</sup>)</th><th>D = 3 mm 개수</th><th>분포에서 계산한 Z (mm<sup>6</sup> m<sup>−3</sup>)</th><th>200R<sup>1.6</sup></th></tr></thead><tbody><tr><td>1</td><td>4.10</td><td>약 133</td><td>약 0.036</td><td>약 296</td><td>200</td></tr><tr><td>10</td><td>2.53</td><td>약 639</td><td>약 4.1</td><td>약 8,730</td><td>약 7,960</td></tr><tr><td>50</td><td>1.80</td><td>약 1,318</td><td>약 36</td><td>약 93,000</td><td>약 104,600</td></tr></tbody></table><p>세 가지를 읽을 수 있습니다. 첫째, 1 mm 방울은 3 mm 방울보다 훨씬 많습니다(R = 1에서 약 3,600배, R = 10에서도 150배 이상). 둘째, 같은 분포에서 6차 모멘트를 계산하면 Z는 약 296·R<sup>1.47</sup>이 되어 경험식 200R<sup>1.6</sup>과 같지 않습니다(둘 다 근사입니다). 셋째, 약한 비에서는 두 값의 차이가 커서 어떤 관계식을 썼는지에 따라 강수량 추정이 달라집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>마셜-파머 분포는 Z = 200R<sup>1.6</sup> 식과 같다.</td><td>앞은 빗방울 크기분포이고 뒤는 반사도와 강수 강도의 관계식입니다. 둘은 연결되지만 같은 것이 아닙니다.</td></tr><tr><td>모든 비에 맞는 보편적인 분포다.</td><td>이상화된 모델입니다. 대류성 강수 등 사례에 따라 관측 분포와 차이가 크다는 보고가 많습니다.</td></tr><tr><td>작은 빗방울까지 정확하게 표현한다.</td><td>지수함수는 작은 방울 구간에서 개수를 과대하게 줄 수 있어, 이 구간을 보완한 감마분포 형태가 쓰이기도 합니다(Ulbrich, 1983).</td></tr><tr><td>N<sub>0</sub>는 늘 8000이다.</td><td>마셜-파머 분포에서 N<sub>0</sub>를 상수로 둔 것이며, 실제 관측에서는 사례별로 달라질 수 있습니다(Waldvogel, 1974).</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "마셜-파머 분포는 일반적인 확률분포 이름과 헷갈리기 쉽습니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[marshall-palmer-distribution|마셜-파머 분포]]",
+        "빗방울의 크기별 개수 농도가 지름에 따라 지수적으로 감소한다고 보는 모델",
+        "강수 입자 크기분포"
+      ],
+      [
+        "[[exponential-distribution|지수분포]]",
+        "사건이 일정 비율로 일어날 때 대기 시간을 나타내는 확률분포",
+        "수학적으로 같은 지수함수 형태"
+      ],
+      [
+        "[[gamma-distribution|감마분포]]",
+        "0보다 큰 연속 값의 분포를 나타내는 확률분포",
+        "모수를 하나 더해 마셜-파머를 일반화한 형태로 쓰임"
+      ],
+      [
+        "[[doppler-weather-radar|도플러 기상레이더]]",
+        "강수 입자에서 반사되는 신호로 강수의 위치와 강도를 관측",
+        "분포를 가정해 반사도를 강수량으로 환산"
+      ]
+    ]
+  },
+  "references": [
+    "Marshall, J. S., & Palmer, W. McK. (1948). The distribution of raindrops with size. Journal of Meteorology, 5(4).",
+    "Waldvogel, A. (1974). The N0 jump of raindrop spectra. Journal of the Atmospheric Sciences, 31(4).",
+    "Ulbrich, C. W. (1983). Natural variations in the analytical form of the raindrop size distribution. Journal of Climate and Applied Meteorology, 22(10).",
+    "Doviak, R. J., & Zrnić, D. S. (1993). Doppler Radar and Weather Observations (2nd ed.). Academic Press."
+  ]
+}

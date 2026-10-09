@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>메타표면 렌즈는 기존 굴절 렌즈보다 두께와 무게를 크게 줄일 수 있어 소형 카메라, 증강현실 기기, 광학 센서 등 소형화가 중요한 응용에서 주목받고 있습니다. 반도체 나노가공 공정으로 대량 제작이 가능하다는 점도 관련 연구가 활발히 이루어지는 배경입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>목표 위상 정하기</strong>: 파장 λ에서 초점거리 f로 빛을 모으려면 중심을 지나는 빛이 거리 r 지점을 지나는 빛보다 (2π/λ)(√(r² + f²) − f)만큼 위상이 더 늦어지도록 만들어야 합니다. 가장자리 광선은 초점까지의 경로가 더 길기 때문에, 그만큼 중심 광선을 늦춰 모두 같은 시각에 초점에 닿게 하는 것입니다.</li><li><strong>단위 셀 라이브러리</strong>: 나노기둥의 지름, 높이, 간격을 바꿔 가며 위상 지연과 투과율을 전자기 시뮬레이션(FDTD, RCWA 등)으로 구해 0에서 2π를 덮는 셀 집합을 만듭니다. 방식은 크게 형상 공진에 의한 위상 지연과 기하학적 회전에 의한 위상(판차라트남-베리 위상, 회전각 θ에 대해 2θ)으로 나뉩니다(Arbabi 외, 2015; Lin 외, 2014).</li><li><strong>배치</strong>: 렌즈의 각 위치에서 목표 위상에 가장 가까운 셀을 골라 격자에 배치합니다.</li><li><strong>전체 성능 확인</strong>: 셀 사이 결합의 영향을 포함해 초점 크기와 효율을 계산하거나 측정합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>얇고 가벼운 평면 렌즈가 필요한 소형 카메라, 광센서, 증강현실 기기에서 쓰입니다. 일반화된 굴절 법칙을 제시한 Yu 외(2011)와 가시광선에서 회절 한계에 가까운 초점을 보인 Khorasaninejad 외(2016)가 대표적 연구로 인용됩니다.</p><p><strong>가상의 예(계산함)</strong>: λ = 0.55 μm, f = 100 μm인 렌즈에서 이 위상 차를 주기 단위(2π = 1 주기)로 계산하면 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>중심으로부터 거리 r (μm)</th><th>중심 대비 필요한 위상 차 (주기)</th></tr></thead><tbody><tr><td>10</td><td>0.91</td></tr><tr><td>20</td><td>3.60</td></tr><tr><td>30</td><td>8.01</td></tr><tr><td>40</td><td>14.01</td></tr></tbody></table></div><p>가장자리(r = 40 μm)에서의 개구수는 r/√(r² + f²) ≈ 0.37입니다. 위상이 이만큼 빨리 변하는 곳을 셀로 표본화하려면 셀 간격이 대략 λ/(2×0.37) ≈ 0.74 μm 이하여야 하며(셀 당 위상 변화가 π를 넘지 않을 조건), 이것이 ‘파장보다 작은 구조’를 쓰는 이유 중 하나입니다.</p><p>한계로 파장이 달라지면 위상이 달라지는 색수차와 입사각 변화에 따른 성능 저하가 거론됩니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>설계 파장과 초점거리, 개구수, 렌즈 지름</li><li>단위 셀의 형상, 재료, 높이, 간격(주기)과 위상 및 투과율 곡선</li><li>사용한 시뮬레이션 방법(FDTD, RCWA 등)과 국소 주기 근사를 쓴 경우 그 타당성 확인</li><li>측정한 초점 크기(반치폭), 초점 효율 정의(어떤 면적의 빛을 기준으로 했는지), 입사광의 편광</li><li>동작 파장 대역과 색수차에 대한 논의</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 메타표면 렌즈는 가시광 대역에서 회절한계에 근접한 초점 성능을 보였다."</div>
   <p>메타표면 렌즈의 초점 성능을 기존 광학 이론의 한계와 비교하는 문장입니다.</p>
   <div class="example">"나노기둥의 폭과 높이를 위치별로 변화시켜 필요한 위상 프로파일을 구현하였다."</div>
@@ -160,6 +178,20 @@
 
   <h2>주의할 점</h2>
   <p>메타표면 렌즈는 특정 파장이나 좁은 대역에서는 우수한 성능을 보이지만, 넓은 파장 대역에서 색수차 없이 동작하도록 설계하는 것은 여전히 활발히 연구되는 과제입니다. 단위 셀 간 상호 결합(간섭)을 무시하고 개별 셀 단위로 위상을 설계하면 실제 조립 시 초점 성능이 저하될 수 있어, 국소 주기 근사의 타당성을 시뮬레이션으로 검증할 필요가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>메타표면, 메타물질, 렌즈 설계 용어를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구조</th></tr></thead><tbody><tr><th scope="row"><strong>메타표면 렌즈 설계</strong></th><td>파장보다 작은 구조를 평면 위에 배열해 렌즈 기능을 구현하는 소자를 설계</td><td>2차원 평면 소자의 설계</td></tr><tr><th scope="row"><a href="metasurface-optics.html">메타표면 광학</a></th><td>평면의 인공 구조로 빛의 위상, 편광, 세기를 국소적으로 제어하는 기술</td><td>기술 분야(상위)</td></tr><tr><th scope="row"><a href="optical-metamaterial.html">광학 메타물질</a></th><td>파장보다 작은 구조를 3차원으로 배열해 자연에 없는 유전율·투자율을 얻는 물질</td><td>3차원 구조</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Yu, N., Genevet, P., Kats, M. A., Aieta, F., Tetienne, J.-P., Capasso, F., &amp; Gaburro, Z. (2011). Light propagation with phase discontinuities: Generalized laws of reflection and refraction. Science, 334.</li>
+    <li>Lin, D., Fan, P., Hasman, E., &amp; Brongersma, M. L. (2014). Dielectric gradient metasurface optical elements. Science, 345.</li>
+    <li>Arbabi, A., Horie, Y., Bagheri, M., &amp; Faraon, A. (2015). Dielectric metasurfaces for complete control of phase and polarization with subwavelength spatial resolution and high transmission. Nature Nanotechnology, 10.</li>
+    <li>Khorasaninejad, M., Chen, W. T., Devlin, R. C., Oh, J., Zhu, A. Y., &amp; Capasso, F. (2016). Metalenses at visible wavelengths: Diffraction-limited focusing and subwavelength resolution imaging. Science, 352.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

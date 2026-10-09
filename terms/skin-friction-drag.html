@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <p>마찰항력은 여객기 순항 항력의 큰 몫을 차지하므로 리블렛 표면, 자연층류 날개, 표면 오염 관리 같은 연구가 모두 이 항력을 줄이는 데 초점을 둡니다. 정비 실무에서도 표면 거칠기와 도장 상태가 연료 소모에 미치는 영향을 마찰항력 증가로 설명합니다.</p>
   <p>표면마찰항력은 날개 표면 상태와 경계층의 성질에 따라 크게 달라져, 표면 처리와 경계층 제어 기술 개발의 주요 대상이 된다. 층류 경계층을 유지하는 구간이 넓을수록 표면마찰항력이 줄어드는 것으로 알려져 있다. 표면을 매끄럽게 도장하거나 리벳 이음매를 최소화하는 것도 표면마찰항력을 줄이는 실무적 방법으로 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>마찰항력은 표면 바로 위 유체가 점성 때문에 표면에 끌려 생기는 <strong>벽면 전단응력을 표면 전체에 대해 적분</strong>한 힘의 항력 방향 성분입니다.</li><li>무차원 형태로는 마찰계수 C<sub>f</sub> = τ<sub>w</sub> / (½ρU²)를 쓰고, 마찰항력은 D<sub>f</sub> = C<sub>f</sub> · ½ρU² · S<sub>wet</sub>(S<sub>wet</sub>은 젖은 면적)로 나타냅니다.</li><li>경계층이 층류인지 난류인지에 따라 C<sub>f</sub>가 크게 다릅니다. 평판 표면 전체 평균에서 층류는 C<sub>f</sub> = 1.328/√Re<sub>L</sub>(블라시우스 해), 난류는 대략 0.074/Re<sub>L</sub><sup>1/5</sup>로 근사합니다(Schlichting &amp; Gersten, 2017). 난류 근사식은 레이놀즈 수가 대략 5×10<sup>5</sup>에서 10<sup>7</sup> 사이일 때 쓰는 경험식입니다.</li><li>마찰항력은 압력 분포에서 오는 압력항력과 합쳐 <a href="profile-drag.html">형상항력</a>을 이룹니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>같은 평판이 같은 레이놀즈 수에서 경계층 상태만 다를 때의 마찰계수입니다(위 식으로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>Re<sub>L</sub></th><th>층류 C<sub>f</sub></th><th>난류 C<sub>f</sub></th><th>난류/층류</th></tr></thead><tbody><tr><td>10<sup>6</sup></td><td>0.00133</td><td>0.00467</td><td>약 3.5배</td></tr><tr><td>10<sup>7</sup></td><td>0.00042</td><td>0.00295</td><td>약 7.0배</td></tr></tbody></table></div><p>같은 조건에서 난류가 층류보다 마찰계수가 몇 배 큽니다. 층류 경계층을 유지하는 구간을 늘리는 자연층류 날개나 천이를 늦추는 표면 설계가 연구되는 이유입니다. 다만 층류 경계층은 압력이 오르는 방향의 흐름에서 쉽게 박리하는 경향이 있어 압력항력이 커질 수 있으므로, 총항력의 관점에서는 천이 위치를 어디에 둘지가 설계 판단의 핵심입니다. 이 값은 평판에 대한 이상화된 수치이고, 실제 날개와 동체는 곡면, 압력구배, 압축성의 영향을 따로 고려합니다(White, 2006; Anderson, 2017).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>표면이 거칠기만 하면 마찰항력이 커진다.</td><td>표면 거칠기뿐 아니라 경계층이 층류인지 난류인지, 레이놀즈 수, 젖은 면적이 함께 작용합니다. 거칠기는 천이를 앞당겨 영향을 주기도 합니다.</td></tr><tr><td>층류를 유지하면 총항력도 항상 줄어든다.</td><td>마찰항력은 줄지만 박리가 일어나 압력항력이 늘면 이득이 사라질 수 있습니다.</td></tr><tr><td>마찰항력과 압력항력은 서로 무관한 별개 현상이다.</td><td>둘은 모두 점성에서 비롯되고 <a href="boundary-layer-separation.html">경계층 박리</a>를 통해 연결됩니다.</td></tr><tr><td>소형기에서는 무시해도 된다.</td><td>대형기에서 비중이 크다고 해서 소형기에서 무의미한 것은 아닙니다. 젖은 면적과 비행 조건에 따라 비중이 달라질 뿐입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"층류 유지 도장 기법을 적용한 실험 항공기에서 마찰항력이 약 8퍼센트 감소하는 것으로 측정되었다."</div>
   <p>표면을 더 매끄럽게 처리해 공기가 부드럽게 흐르도록 만들자 마찰로 인한 저항이 줄었다는 실측 결과를 설명한 문장입니다.</p>
 
@@ -159,6 +177,19 @@
 
   <h2>주의할 점</h2>
   <p>마찰항력은 표면적이 넓은 대형 여객기에서 전체 항력 중 상당한 비중을 차지하므로, 소형기에서 무시할 만하다고 일반화해서는 안 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>항력은 발생 원인에 따라 성분으로 나눕니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">원인</th></tr></thead><tbody><tr><th scope="row"><strong>마찰항력</strong></th><td>표면과 공기 사이의 점성 마찰로 생기는 항력</td><td>벽면 전단응력</td></tr><tr><th scope="row"><a href="profile-drag.html">형상항력</a></th><td>표면 마찰항력과 압력 분포 불균형으로 인한 압력항력의 합</td><td>마찰과 압력 분포</td></tr><tr><th scope="row"><a href="induced-drag.html">유도항력</a></th><td>양력을 만드는 과정에서 날개 끝 와류로 생기는 항력</td><td>양력 발생에 따른 와류</td></tr><tr><th scope="row"><a href="drag.html">항공기 항력</a></th><td>유도항력, 형상항력, 마찰항력, 조파항력 등으로 이루어진 전체 저항</td><td>총칭</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Schlichting, H., &amp; Gersten, K. (2017). Boundary-Layer Theory (9th ed.). Springer.</li>
+    <li>White, F. M. (2006). Viscous Fluid Flow (3rd ed.). McGraw-Hill.</li>
+    <li>Anderson, J. D. (2017). Fundamentals of Aerodynamics (6th ed.). McGraw-Hill Education.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="profile-drag.html">형상항력</a></div></div><p class="concept-family-map"><a href="../concept-map/aviation.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

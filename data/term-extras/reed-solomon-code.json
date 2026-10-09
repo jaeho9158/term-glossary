@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>리드솔로몬 부호는 비트가 아니라 m비트로 묶은 <strong>심볼</strong>을 단위로 하는 블록 부호입니다. 심볼은 유한체의 원소이며, 부호 길이는 보통 n = 2<sup>m</sup> − 1 심볼입니다(Reed &amp; Solomon, 1960).</li><li>k개의 정보 심볼에 n − k개의 패리티 심볼을 더해 (n, k) 부호를 만들며, 최소거리는 d = n − k + 1입니다. 이는 주어진 n, k에서 얻을 수 있는 최댓값이어서 이런 부호를 최대거리분리(MDS) 부호라 부릅니다.</li><li>정정 능력은 <strong>심볼 오류 ⌊(n − k)/2⌋개</strong>입니다. 오류 위치를 미리 알고 있는 소실(erasure)이라면 n − k개까지 복원할 수 있습니다.</li><li>한 심볼 안에서 몇 비트가 틀리든 심볼 하나의 오류로 세므로, 오류가 몰려서 생기는 버스트 오류에 유리합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>대표적인 부호의 계산입니다(모두 계산한 값).</p><table><thead><tr><th>부호 (n, k)</th><th>심볼 크기 m</th><th>패리티 심볼 수</th><th>정정 가능 심볼 오류 수 t</th><th>최소거리 d</th></tr></thead><tbody><tr><td>(255, 223)</td><td>8비트</td><td>32</td><td>16</td><td>33</td></tr><tr><td>(255, 239)</td><td>8비트</td><td>16</td><td>8</td><td>17</td></tr><tr><td>(15, 9)</td><td>4비트</td><td>6</td><td>3</td><td>7</td></tr></tbody></table><p>(255, 223) 부호가 8비트 심볼로 최대 16개의 심볼 오류를 정정하므로, 연속된 b비트가 깨지는 버스트가 최대 몇 심볼에 걸치는지 따져 보면 정정 보장 길이를 알 수 있습니다. 가장 불리하게 버스트가 심볼 경계를 걸쳐 시작해도 길이 (t − 1)·m + 1 = 15 × 8 + 1 = 121비트까지는 16개 이하의 심볼에만 걸립니다. 122비트부터는 17개 심볼에 걸칠 수 있어 정정이 보장되지 않습니다. 이 부호가 여러 비트가 한꺼번에 깨지는 상황에 강하다는 말의 구체적인 의미입니다.</p><p>활용 예로 우주통신 표준의 (255, 223) 부호, 디지털 방송의 단축 부호(204, 188), 광디스크의 교차 인터리브 리드솔로몬 부호(CIRC), QR코드가 있습니다. 주로 인터리빙이나 다른 부호와의 연접으로 쓰입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>패리티가 32개면 오류 32개를 고친다.</td><td>위치를 모르는 오류는 절반인 16개, 위치를 아는 소실은 32개까지입니다. 오류 e개와 소실 s개가 섞이면 2e + s ≤ n − k 가 조건입니다.</td></tr><tr><td>비트 오류를 고치는 부호다.</td><td>단위는 심볼입니다. 비트 오류가 서로 다른 심볼에 흩어지면 비트 수만큼 심볼 오류로 세므로 효율이 떨어집니다.</td></tr><tr><td>리드솔로몬 부호는 길쌈부호나 LDPC와 같은 종류다.</td><td>리드솔로몬은 대수적 블록 부호이고, 길쌈부호는 연속 흐름 부호, LDPC는 성긴 패리티 검사 행렬 기반 부호입니다.</td></tr><tr><td>복호기가 오류 개수를 항상 알려 준다.</td><td>정정 능력을 넘으면 복호 실패를 알리거나 잘못된 부호어로 복호할 수 있어, 실제 시스템은 별도의 검출 장치를 함께 둡니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "순방향 오류정정 부호의 대표 종류와 비교합니다.",
+    "headers": [
+      "부호",
+      "처리 단위·구조",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[reed-solomon-code|리드솔로몬 부호]]",
+        "심볼 단위의 블록 부호",
+        "버스트 오류에 강하고 MDS 성질"
+      ],
+      [
+        "[[convolutional-coding|길쌈부호화]]",
+        "연속된 비트 흐름에서 현재와 이전 비트를 조합",
+        "블록 경계가 없음"
+      ],
+      [
+        "[[turbo-coding|터보 부호화]]",
+        "두 부호화기를 인터리버로 병렬 결합, 반복 복호",
+        "반복 복호로 성능 향상"
+      ],
+      [
+        "[[low-density-parity-check-code|저밀도 패리티검사 부호]]",
+        "성긴 패리티검사 행렬의 선형 블록 부호",
+        "효율적인 반복 복호"
+      ]
+    ]
+  },
+  "references": [
+    "Reed, I. S., & Solomon, G. (1960). Polynomial codes over certain finite fields. Journal of the Society for Industrial and Applied Mathematics, 8(2).",
+    "Berlekamp, E. R. (1968). Algebraic Coding Theory. McGraw-Hill.",
+    "MacWilliams, F. J., & Sloane, N. J. A. (1977). The Theory of Error-Correcting Codes. North-Holland.",
+    "Wicker, S. B., & Bhargava, V. K. (Eds.). (1994). Reed-Solomon Codes and Their Applications. IEEE Press."
+  ]
+}

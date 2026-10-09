@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>로트 분할은 설비 추가 없이 리드타임을 줄이는 가장 직접적인 수단 중 하나이며, 린 생산의 단일흐름(1개 흘리기)은 로트 스트리밍의 극단적 형태입니다. 서브로트 수와 크기를 어떻게 정하느냐에 따라 완료시간, 재공재고, 운반 횟수가 달라지므로 최적 분할 문제가 독립된 연구 주제가 되었습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>로트 스트리밍은 한 작업(로트)을 서브로트로 나눠 앞 공정에서 일부가 끝나는 대로 다음 공정으로 보내는 결정 문제입니다. 결정할 것은 크게 세 가지입니다.</p><ol><li><strong>서브로트 수</strong>: 몇 개로 나눌 것인가</li><li><strong>서브로트 크기</strong>: 크기를 같게 할지(동일), 공정마다 같은 분할을 쓰되 크기를 달리할지(일관), 공정마다 다르게 나눌지(가변)</li><li><strong>순서와 대기</strong>: 서브로트의 처리 순서, 기계가 서브로트 사이에 쉬는 것(유휴)을 허용할지</li></ol><p>준비시간이 서브로트마다 필요한지, 서브로트 사이 이송시간이 있는지에 따라 모형이 달라지며, 목적함수는 대개 완료시간(메이크스팬)이나 평균 흐름시간입니다(Trietsch &amp; Baker, 1993).</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>설비를 늘리지 않고 완료시간을 줄이고 싶을 때 쓰입니다. 가장 단순한 경우로 효과를 보겠습니다. <strong>가상의 예(계산함)</strong>: 100개 로트가 기계 1, 기계 2를 차례로 거치고, 두 기계 모두 개당 1시간이 걸리며 준비·이송시간은 없다고 합니다. 로트를 k개의 같은 크기 서브로트로 나누면 완료시간은 100 + 100/k시간입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>서브로트 수 k</th><th>완료시간(시간)</th></tr></thead><tbody><tr><td>1(분할 없음)</td><td>200</td></tr><tr><td>2</td><td>150</td></tr><tr><td>4</td><td>125</td></tr><tr><td>10</td><td>110</td></tr><tr><td>100(개당 이송)</td><td>101</td></tr></tbody></table></div><p>처음 몇 번의 분할이 효과가 크고, 그 뒤로는 이득이 빠르게 줄어듭니다. 실제 공정에서는 서브로트가 늘수록 준비시간, 이송 횟수, 관리 부담이 늘어 이득을 상쇄하므로 최적 분할 수는 이 상충 관계로 정해집니다. 여러 작업·여러 기계로 넓히면 최적화 난이도가 올라 혼합정수계획이나 메타휴리스틱이 쓰입니다(Chang &amp; Chiu, 2005).</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>공정 구조(기계 수, 흐름작업인지 등)와 작업 수</li><li>서브로트 유형(동일·일관·가변), 유휴 허용 여부, 준비시간·이송시간 가정</li><li>목적함수(메이크스팬, 흐름시간, 비용)와 해법(해석적 결과, 정수계획, 휴리스틱)</li><li>비교 기준: <strong>분할하지 않은 경우</strong> 대비 개선율. 개선율은 가정에 크게 좌우되므로 가정과 함께 적어야 합니다.</li><li>계산 시간과 문제 규모</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"2단계 흐름공정에서 로트 스트리밍(lot streaming)을 적용하여 서브로트 크기를 최적화한 결과 메이크스팬이 27% 단축되었다."</div>
   <p>두 공정 라인에서 로트를 나눠 흘린 결과 전체 완료시간이 줄었다는 뜻입니다.</p>
   <div class="example">"동일 크기 서브로트와 가변 크기 서브로트를 허용하는 두 모형의 해 품질과 계산 시간을 비교하였다."</div>
@@ -157,6 +175,19 @@
 
   <h2>주의할 점</h2>
   <p>서브로트를 많이 나눌수록 완료시간은 줄지만 운반·취급 횟수와 추적 관리 부담이 늘어납니다. 공정 간 준비시간이 로트 단위가 아니라 서브로트 단위로 발생한다면 분할 이득이 상쇄될 수 있으므로 준비시간 구조를 먼저 확인해야 합니다. 공정 간 이동에 별도 운반 장비가 필요하면 분할 자체가 추가 물류비용을 낳아, 이론적 완료시간 단축이 실제 비용 절감으로 이어지지 않을 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘로트’와 ‘배치’가 들어간 생산 용어는 대상이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">결정하는 것</th></tr></thead><tbody><tr><th scope="row"><strong>로트 스트리밍</strong></th><td>하나의 로트를 서브로트로 나눠 공정 간 작업을 겹치게 함</td><td>한 작업을 어떻게 쪼개 흘릴지</td></tr><tr><th scope="row"><a href="lot-sizing-problem.html">로트사이징 문제</a></th><td>기간별 수요를 맞추며 준비비용과 재고비용의 합을 최소화</td><td>언제 얼마나 생산할지</td></tr><tr><th scope="row"><a href="batch-scheduling.html">배치스케줄링</a></th><td>여러 작업을 묶어 함께 처리하도록 순서와 그룹을 정함</td><td>어떤 작업을 함께 묶을지</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Trietsch, D., &amp; Baker, K. R. (1993). Basic techniques for lot streaming. Operations Research, 41(6).</li>
+    <li>Potts, C. N., &amp; Baker, K. R. (1989). Flow shop scheduling with lot streaming. Operations Research Letters, 8(6).</li>
+    <li>Chang, J. H., &amp; Chiu, H. N. (2005). A comprehensive review of lot streaming. International Journal of Production Research, 43(8).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

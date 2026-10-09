@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>멀티레벨 인버터는 직류 전압을 여러 단계로 나눈 전압 레벨 사이에서 스위칭하여 계단 모양의 출력을 만듭니다. 레벨 수가 늘수록 출력이 정현파에 가까워집니다.</li><li>대표 구조는 세 가지입니다. 직류단 커패시터의 중성점을 다이오드로 고정하는 <strong>중성점 클램프형</strong>(Nabae 외, 1981), 커패시터를 떠 있는 전압원으로 쓰는 <strong>플라잉 커패시터형</strong>(Meynard &amp; Foch, 1992), 독립된 직류원을 갖는 셀을 직렬로 잇는 <strong>직렬 H브리지형</strong>입니다(Rodríguez 외, 2002; Malinowski 외, 2010).</li><li>각 스위치가 감당하는 전압이 전체 전압의 일부이므로 같은 내압 소자로 더 높은 전압을 다룰 수 있고, 고조파가 줄어 필터가 작아집니다.</li><li>대가는 소자와 제어의 복잡도 증가이며, 구조에 따라 커패시터 전압 균형을 따로 유지해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>레벨 수에 따른 파형의 질을 직접 계산해 보았습니다. <strong>가상의 예(계산함)</strong>: 정현파의 매 순간 값을 가장 가까운 레벨로 반올림해 계단파를 만들고(레벨 간격 동일), 기본파에 대한 49차까지의 고조파로 전고조파 왜율(THD)을 구한 값입니다.</p><table><thead><tr><th>레벨 수</th><th>THD (%)</th></tr></thead><tbody><tr><td>3</td><td>30.0</td></tr><tr><td>5</td><td>16.4</td></tr><tr><td>7</td><td>11.0</td></tr><tr><td>9</td><td>8.4</td></tr><tr><td>11</td><td>6.4</td></tr><tr><td>21</td><td>2.4</td></tr></tbody></table><p>레벨이 늘수록 왜율이 줄어들지만, 3레벨에서 5레벨로 늘릴 때의 개선폭이 11레벨에서 21레벨로 늘릴 때보다 훨씬 큽니다. 실제 장치는 스위칭 각을 고르거나 PWM을 섞는 등 다른 변조 방식으로 더 낮은 왜율을 얻으며, 이 표는 개념을 보여 주는 단순 모사입니다. 레벨을 늘리는 대가로 필요한 스위치와 구동 회로가 늘어나므로 설계에서는 출력 품질과 복잡도를 절충합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>레벨 수가 많을수록 항상 유리하다.</td><td>부품 수, 제어 복잡도, 신뢰성, 비용이 함께 늘어납니다.</td></tr><tr><td>멀티레벨은 PWM과 다른 방식이다.</td><td>기본 주파수 근처로 스위칭하는 방식도 있고, [[carrier-based-pwm-technique|반송파 기반 PWM]]이나 [[space-vector-pwm|공간벡터 PWM]]을 멀티레벨용으로 확장하는 방식도 있습니다.</td></tr><tr><td>스위치 하나가 전체 직류 전압을 견뎌야 한다.</td><td>구조적으로 전압이 여러 소자에 나뉘므로 각 소자의 부담이 줄어드는 것이 장점의 하나입니다.</td></tr><tr><td>커패시터 전압은 저절로 균형을 이룬다.</td><td>구조에 따라 균형 제어가 별도 과제입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "멀티레벨 계열의 구조를 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구조 특징"
+    ],
+    "rows": [
+      [
+        "[[multilevel-inverter|멀티레벨 인버터]]",
+        "직류 전압을 여러 단계로 합성해 정현파에 가까운 교류를 만드는 전력변환 회로",
+        "총칭"
+      ],
+      [
+        "[[neutral-point-clamped-inverter|중성점 클램프 인버터]]",
+        "직류단 커패시터의 중성점을 클램핑 다이오드로 고정해 3레벨 이상의 출력을 만드는 토폴로지",
+        "하나의 직류원 분할"
+      ],
+      [
+        "[[cascaded-h-bridge-inverter|직렬 H브리지 인버터]]",
+        "H브리지 셀을 직렬 연결해 각 셀의 전압을 더함",
+        "셀마다 독립 직류원"
+      ],
+      [
+        "[[modular-multilevel-converter|모듈형 멀티레벨 컨버터]]",
+        "동일한 서브모듈을 다수 직렬 연결해 촘촘한 계단 파형을 만듦",
+        "서브모듈 반복 구조"
+      ]
+    ],
+    "note": "파형의 질을 비교하는 지표는 [[total-harmonic-distortion|전고조파 왜율]]입니다."
+  },
+  "references": [
+    "Nabae, A., Takahashi, I., & Akagi, H. (1981). A new neutral-point-clamped PWM inverter. IEEE Transactions on Industry Applications, IA-17(5).",
+    "Meynard, T. A., & Foch, H. (1992). Multi-level conversion: High voltage choppers and voltage-source inverters. IEEE Power Electronics Specialists Conference (PESC).",
+    "Rodríguez, J., Lai, J.-S., & Peng, F. Z. (2002). Multilevel inverters: A survey of topologies, controls, and applications. IEEE Transactions on Industrial Electronics, 49(4).",
+    "Malinowski, M., Gopakumar, K., Rodriguez, J., & Pérez, M. A. (2010). A survey on cascaded multilevel inverters. IEEE Transactions on Industrial Electronics, 57(7)."
+  ]
+}

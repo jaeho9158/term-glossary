@@ -1,0 +1,50 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>디커플링 제어는 제어기 앞(또는 뒤)에 보상기를 하나 더 두어, 여러 입력이 여러 출력에 퍼져 나가는 효과를 서로 상쇄하게 하는 설계입니다. 전달함수 행렬을 G(s), 보상기를 D(s)라 하면 G(s)D(s)가 대각 행렬이 되도록 D(s)를 정합니다. 흐름은 다음과 같습니다.</p><ol><li><strong>모델 확보</strong>: 실험이나 이론으로 G(s)를 얻습니다.</li><li><strong>상호작용 진단</strong>: 상대이득배열(RGA) 같은 지표로 어느 입력과 어느 출력을 짝지을지, 간섭이 얼마나 센지 봅니다(Bristol, 1966).</li><li><strong>디커플러 설계</strong>: 모든 주파수에서 맞추는 <em>동적</em> 디커플링, 정상상태만 맞추는 <em>정적</em> 디커플링(D = G(0)<sup>−1</sup>), 일부 간섭만 줄이는 <em>부분</em> 디커플링 중에서 고릅니다.</li><li><strong>루프별 설계</strong>: 보상 후 거의 독립된 단일 입출력 루프로 보고 각각 PI·PID 등을 설계합니다.</li><li><strong>강인성 점검</strong>: 모델 오차가 있을 때 간섭이 얼마나 되살아나는지 확인합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>다변수 공정이나 다축 구동기처럼 한 입력이 여러 출력에 영향을 주는 대상에 쓰입니다. 얻는 것은 ‘루프 단위로 설계하고 조정할 수 있다’는 단순함입니다.</p><p><strong>가상의 예(계산함)</strong>: 정상상태 이득이 G = [[2, 1], [1.5, 3]]인 2입력 2출력 시스템에서 정적 디커플러를 D = G<sup>−1</sup> = [[0.667, −0.222], [−0.333, 0.444]]로 잡으면 G·D가 단위행렬이 되어 정상상태에서 입력 1은 출력 1만, 입력 2는 출력 2만 움직입니다. 이 G의 RGA 대각 원소는 1/(1 − (1·1.5)/(2·3)) = 1.33으로, 1에 가까워 간섭이 크지 않은 편입니다. 반면 G = [[2, 1.9], [1.9, 2]]처럼 입력 사이 영향이 거의 같은 경우 RGA 원소가 약 10.3까지 커지며, 이때는 D = G<sup>−1</sup>의 값이 입력 오차에 매우 민감해집니다. RGA 값이 1에서 멀수록 상호작용이 강하다는 읽기는 관례이며, 기준선은 문헌마다 다릅니다.</p><p>완전한 디커플링은 모델이 정확하다는 전제가 필요하고, 우반평면 영점이 있으면 구현할 수 없는 경우가 있습니다. 그래서 디커플링 대신 간섭을 남긴 채 다변수 제어기를 통째로 설계하는 방법과 비교되곤 합니다(Skogestad &amp; Postlethwaite, 2005).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>대상 시스템과 입출력 짝짓기, 사용한 모델(식별 방법, 정확도)</li><li>디커플링 방식(정적·동적·부분)과 디커플러 식 또는 구조</li><li>간섭 정도를 보이는 지표(RGA, 비대각 성분 응답)와 <strong>적용 전후 비교</strong></li><li>모델 오차나 외란을 가한 강인성 시험 결과</li><li>비교 대상: 디커플링이 없는 분산 제어, 통합 다변수 제어기</li></ul><p>‘완전히 분리되었다’는 표현은 시뮬레이션 모델 기준인지 실제 설비 기준인지를 구분해 적어야 오해가 없습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘디커플링’은 분야마다 전혀 다른 뜻으로 쓰입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "분야"
+    ],
+    "rows": [
+      [
+        "[[decoupling-control|디커플링 제어]]",
+        "다변수 시스템에서 각 입력이 하나의 출력만 움직이도록 상호간섭을 상쇄하는 제어 기법",
+        "제어공학"
+      ],
+      [
+        "[[decoupling-capacitor-placement|디커플링 커패시터 배치]]",
+        "집적회로 전원 핀 근처에 커패시터를 두어 순간 전류를 공급하는 설계 기법",
+        "회로 설계"
+      ],
+      [
+        "[[decoupling-economic-growth|성장-환경 디커플링]]",
+        "경제 성장과 자원 소비·환경 훼손의 연결고리를 끊는다는 개념",
+        "경제·환경"
+      ]
+    ],
+    "note": "이름만 같고 서로 다른 개념입니다. 제어 이론의 관련 주제는 [[multivariable-control-system|다변수 제어시스템]]에서 이어서 볼 수 있습니다."
+  },
+  "references": [
+    "Skogestad, S., & Postlethwaite, I. (2005). Multivariable Feedback Control: Analysis and Design (2nd ed.). Wiley.",
+    "Bristol, E. H. (1966). On a new measure of interaction for multivariable process control. IEEE Transactions on Automatic Control, 11(1).",
+    "Falb, P. L., & Wolovich, W. A. (1967). Decoupling in the design and synthesis of multivariable control systems. IEEE Transactions on Automatic Control, 12(6).",
+    "Wang, Q.-G. (2003). Decoupling Control. Springer."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>로(ρ)는 무위험이자율 r이 변할 때 옵션 가격 V가 얼마나 변하는지를 나타내는 편미분 ∂V/∂r입니다. 배당이 없는 유럽식 옵션에 대한 블랙-숄즈 모형(Black &amp; Scholes, 1973; Merton, 1973)에서는 다음과 같이 계산됩니다.</p><ul><li>콜옵션: ρ = K·T·e<sup>−rT</sup>·N(d<sub>2</sub>) (0 이상)</li><li>풋옵션: ρ = −K·T·e<sup>−rT</sup>·N(−d<sub>2</sub>) (0 이하)</li></ul><p>K는 행사가격, T는 잔존만기(년), N은 표준정규분포의 누적분포함수입니다. 값의 크기 범위는 콜은 0에서 K·T·e<sup>−rT</sup>, 풋은 그 음수까지입니다. 단위는 ‘이자율이 1(=100%p) 변할 때’의 가격 변화이므로, 실무와 논문에서는 100으로 나누어 ‘이자율 1%p당 가격 변화’로 표시하는 경우가 많습니다. 어느 쪽인지는 반드시 확인해야 합니다. 통화옵션에서는 자국 금리와 외국 금리에 대한 로를 따로 계산합니다(Garman &amp; Kohlhagen, 1983).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>가상의 예(계산함)</strong>: 기초자산 100, 행사가격 100(등가격), 변동성 20%, 이자율 3%, 배당 없음인 유럽식 옵션입니다.</p><table><thead><tr><th>만기</th><th>콜 가격</th><th>콜 로(1%p당)</th><th>풋 로(1%p당)</th></tr></thead><tbody><tr><td>0.25년</td><td>4.36</td><td>+0.127</td><td>−0.122</td></tr><tr><td>2년</td><td>14.07</td><td>+0.995</td><td>−0.889</td></tr></tbody></table><p>이자율을 3%에서 4%로 다시 계산해 보면 3개월 콜은 0.128, 2년 콜은 1.011 올라 로로 예측한 값과 거의 일치합니다. 같은 이자율 변화라도 <strong>만기가 길수록 영향이 큽니다</strong>. 이자율 1%p 변화에 대한 가격 변화가 만기 3개월 옵션은 기초자산 가격의 0.1% 남짓이지만, 2년 옵션은 1% 가까이 됩니다.</p><p>해석할 때 유의할 점은 다음과 같습니다.</p><ul><li>로는 다른 변수를 고정하고 이자율만 움직일 때의 값입니다. 실제로는 금리가 변하면 기초자산 가격도 함께 변할 수 있습니다.</li><li>주식옵션보다 채권·금리 관련 옵션에서는 이자율 자체가 불확실한 대상이므로 위 공식이 아니라 그에 맞는 별도의 모형을 씁니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>사용한 모형(블랙-숄즈, 이항모형 등)과 입력값(이자율, 변동성, 배당)</li><li><strong>단위</strong>: 이자율 1.00당인지 1%p당인지</li><li>계산 방식: 해석식인지, 이자율을 조금 바꿔 가격을 다시 구하는 수치 미분인지</li><li>다른 그릭스(델타, 감마, 베가, 세타)와 함께 제시할 때는 같은 기준 시점·같은 입력을 썼는지</li><li>헤지 논문에서는 로를 따로 헤지했는지, 무시할 만큼 작다고 보았는지와 그 근거</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "옵션 그릭스는 어떤 변수에 대한 민감도인지로 구분합니다.",
+    "headers": [
+      "그릭스",
+      "무엇에 대한 민감도인가",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[rho-option|로(ρ)]]",
+        "무위험이자율",
+        "금리 변화에 대한 옵션가격의 민감도"
+      ],
+      [
+        "[[vega-option|베가]]",
+        "기초자산 변동성",
+        "변동성 변화에 대한 옵션가격의 민감도"
+      ],
+      [
+        "[[theta-option|세타]]",
+        "시간 경과",
+        "시간이 지나며 옵션 가치가 줄어드는 정도"
+      ],
+      [
+        "[[gamma-option|감마]]",
+        "기초자산 가격(델타의 변화)",
+        "가격 변화에 대한 델타의 변화율"
+      ]
+    ],
+    "note": "전체 개요는 [[option-greeks|옵션그릭스]]에서 볼 수 있습니다."
+  },
+  "references": [
+    "Black, F., & Scholes, M. (1973). The pricing of options and corporate liabilities. Journal of Political Economy, 81(3).",
+    "Merton, R. C. (1973). Theory of rational option pricing. Bell Journal of Economics and Management Science, 4(1).",
+    "Garman, M. B., & Kohlhagen, S. W. (1983). Foreign currency option values. Journal of International Money and Finance, 2(3).",
+    "Hull, J. C. (2018). Options, Futures, and Other Derivatives (10th ed.). Pearson."
+  ]
+}

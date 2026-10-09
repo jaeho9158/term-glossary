@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/runge-kutta-method.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,24 @@
   <p>공학과 자연과학, 나아가 경제학까지 수많은 현상이 미분방정식으로 표현되지만, 실제 시스템은 대부분 손으로 풀 수 있는 형태가 아닙니다. 룽게-쿠타법은 이런 방정식을 컴퓨터로 안정적이고 정확하게 근사할 수 있게 해 주므로, 시뮬레이션 기반 연구 전반의 기초 도구로 자리잡고 있습니다.</p>
   <p>새로운 모델을 제안하는 논문은 그 모델의 동작을 수치적으로 확인해야 하는데, 이때 어떤 적분법을 썼는지가 결과의 신뢰성과 재현성에 직결되기 때문에 방법론 절에서 자주 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>초깃값 문제 y′ = f(t, y), y(t<sub>0</sub>) = y<sub>0</sub>를 간격 h씩 전진하며 풉니다. 가장 널리 쓰이는 4차 방법(RK4)의 한 걸음은 다음과 같습니다.</p><ul><li>k<sub>1</sub> = f(t<sub>n</sub>, y<sub>n</sub>)</li><li>k<sub>2</sub> = f(t<sub>n</sub> + h/2, y<sub>n</sub> + (h/2)k<sub>1</sub>)</li><li>k<sub>3</sub> = f(t<sub>n</sub> + h/2, y<sub>n</sub> + (h/2)k<sub>2</sub>)</li><li>k<sub>4</sub> = f(t<sub>n</sub> + h, y<sub>n</sub> + h·k<sub>3</sub>)</li><li>y<sub>n+1</sub> = y<sub>n</sub> + (h/6)(k<sub>1</sub> + 2k<sub>2</sub> + 2k<sub>3</sub> + k<sub>4</sub>)</li></ul><p>이 방법은 Runge(1895)와 Kutta(1901)의 연구에서 비롯되었고, 한 걸음의 오차는 h<sup>5</sup>, 구간 전체의 오차는 h<sup>4</sup>에 비례해 줄어듭니다(Butcher, 2016). 벡터로 확장하면 연립 미분방정식도 같은 식으로 풉니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>해를 식으로 쓸 수 없는 상미분방정식을 정확하게 근사해야 할 때 쓰입니다. 효과는 간단한 문제로 확인할 수 있습니다. <strong>가상의 예(계산함)</strong>: y′ = y, y(0) = 1의 해는 y = e<sup>t</sup>이므로 t = 1에서 참값은 e ≈ 2.718282입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>간격 h</th><th>오일러법 오차</th><th>RK4 오차</th></tr></thead><tbody><tr><td>0.2</td><td>0.2300</td><td>3.07×10<sup>−5</sup></td></tr><tr><td>0.1</td><td>0.1245</td><td>2.08×10<sup>−6</sup></td></tr><tr><td>0.05</td><td>0.0650</td><td>1.36×10<sup>−7</sup></td></tr></tbody></table></div><p>간격을 반으로 줄이면 오일러법 오차는 대략 절반으로, RK4 오차는 대략 1/16로 줄어듭니다. 걸음마다 기울기를 4번 계산하는 비용을 감안해도 RK4가 훨씬 효율적인 경우가 많습니다. 다만 변화가 매우 빠른 성분이 섞인 강성 문제에서는 안정성 때문에 간격을 극단적으로 줄여야 하므로 암시적 방법이 쓰입니다. 매 걸음 오차를 추정해 간격을 자동으로 조절하는 적응형 방법으로는 Dormand와 Prince(1980)의 짝이 널리 알려져 있습니다(Hairer 외, 1993).</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>방법의 이름과 차수(“4차 룽게-쿠타법”), 적응형이면 허용 오차(상대·절대)</li><li>간격(고정 간격이면 그 값), 시뮬레이션 구간</li><li>사용한 소프트웨어나 함수(예: 수치해석 패키지의 상미분방정식 풀이 함수)</li><li><strong>수렴 확인</strong>: 간격을 줄여 결과가 바뀌지 않음을 보였는지, 에너지·보존량이 유지되는지</li><li>강성 여부와 그에 따른 방법 선택의 이유</li></ul><p>‘룽게-쿠타법으로 풀었다’만 적고 차수와 간격을 생략하면 재현이 어렵습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 동역학 모델의 상미분방정식을 4차 룽게-쿠타법(4th-order Runge-Kutta method)으로 수치적분하여 시간에 따른 상태 변화를 시뮬레이션하였다."</div>
   <p>이 문장은 물리적, 생물학적 또는 경제적 현상을 미분방정식으로 모델링한 뒤, 그 방정식을 해석적으로(수식으로) 풀 수 없기 때문에 컴퓨터로 시간을 잘게 쪼개어 룽게-쿠타법으로 근사적으로 풀었다는 뜻입니다. 시뮬레이션 논문에서 미분방정식을 어떻게 수치적으로 풀었는지 밝힐 때 흔히 등장합니다.</p>
   <div class="example">"신경세포막의 전위 변화를 기술하는 호지킨-헉슬리 모델의 연립 미분방정식을 적응적 시간 간격을 갖는 룽게-쿠타법으로 적분하여 활동전위 파형을 재현하였다."</div>
@@ -171,6 +189,22 @@
 
   <h2>주의할 점</h2>
   <p>룽게-쿠타법은 시간 간격(step size)을 얼마나 작게 잡느냐에 따라 정확도와 계산 비용이 크게 달라집니다. 간격을 너무 넓게 잡으면 오차가 누적되어 결과가 부정확해지고, 너무 좁게 잡으면 계산 시간이 지나치게 늘어나므로 문제의 특성에 맞는 적절한 간격 선택이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>상미분방정식의 수치 풀이법은 걸음당 비용과 정확도, 안정성으로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">한 줄 설명</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">오일러법</th><td>현재 기울기 하나로 한 걸음 전진</td><td>구현이 가장 쉽지만 오차가 큼(1차)</td></tr><tr><th scope="row"><strong>룽게-쿠타법(RK4)</strong></th><td>구간 안의 기울기 네 개를 가중평균</td><td>정확도와 비용의 균형이 좋음(4차)</td></tr><tr><th scope="row">적응형 룽게-쿠타</th><td>오차를 추정해 간격을 자동 조절</td><td>간격 선택 부담을 줄임</td></tr><tr><th scope="row">암시적 방법</th><td>다음 값에 대한 방정식을 풀며 전진</td><td>강성 문제에서 안정적</td></tr></tbody></table></div>
+  <p class="te-note">대상이 되는 방정식은 <a href="ordinary-differential-equation.html">상미분방정식</a>입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Runge, C. (1895). Über die numerische Auflösung von Differentialgleichungen. Mathematische Annalen, 46.</li>
+    <li>Kutta, W. (1901). Beitrag zur näherungsweisen Integration totaler Differentialgleichungen. Zeitschrift für Mathematik und Physik, 46.</li>
+    <li>Dormand, J. R., &amp; Prince, P. J. (1980). A family of embedded Runge-Kutta formulae. Journal of Computational and Applied Mathematics, 6(1).</li>
+    <li>Hairer, E., Nørsett, S. P., &amp; Wanner, G. (1993). Solving Ordinary Differential Equations I: Nonstiff Problems (2nd rev. ed.). Springer.</li>
+    <li>Butcher, J. C. (2016). Numerical Methods for Ordinary Differential Equations (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

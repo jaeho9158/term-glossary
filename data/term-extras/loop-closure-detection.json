@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>페이지의 흐름도에 나온 네 단계(후보 검출, 기하 검증, 그래프 제약 추가, 전역 최적화) 가운데 앞의 두 단계를 좀 더 풀어 보겠습니다.</p><ol><li><strong>후보 제외 규칙</strong>: 방금 지나온 최근 프레임은 당연히 비슷하므로 비교 대상에서 뺍니다.</li><li><strong>유사도 계산</strong>: 카메라는 단어 가방 같은 이미지 기술자(Gálvez-López &amp; Tardós, 2012)나 확률적 외관 모형(Cummins &amp; Newman, 2008)을, 라이다는 스캔 컨텍스트 같은 전역 기술자(Kim &amp; Kim, 2018)를 씁니다. 장소 인식 문제의 개관은 Lowry 외(2016)에 있습니다.</li><li><strong>시간적 일관성</strong>: 한 번 비슷하다고 확정하지 않고 연속된 여러 프레임에서 일관되게 나타나는지 봅니다.</li><li><strong>기하 검증</strong>: 특징점 대응이나 스캔 정합으로 두 시점의 상대 자세를 계산하고 오차가 작은지 확인합니다.</li></ol><p>검증을 통과한 쌍만 포즈 그래프의 추가 간선이 되어 전역 최적화로 누적 오차를 한꺼번에 보정합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>장거리·장시간 주행에서 오도메트리 오차가 쌓이는 SLAM 시스템에서 쓰입니다(Cadena 외, 2016). 얻는 것은 지도의 전역 일관성입니다.</p><p>평가에서 중요한 점은 <strong>정밀도를 먼저 본다</strong>는 것입니다. 잘못된 루프 하나가 지도를 크게 왜곡하므로, 정밀도 100%를 유지하는 조건에서 어느 정도의 재현율을 얻는지를 비교하거나 정밀도-재현율 곡선을 제시하는 것이 일반적입니다. 외관이 비슷한 다른 장소(지각적 앨리어싱)가 많은 환경, 조명·계절이 변하는 환경, 시점이 반대인 환경이 어려운 경우로 자주 거론됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 센서(카메라, 라이다)와 기술자·검출 방식</li><li>평가 데이터셋(예: 자율주행 주행 데이터셋의 루프가 있는 시퀀스)과 정답 루프 정의 방법</li><li>정밀도-재현율 곡선 또는 정밀도 100% 조건의 최대 재현율</li><li>기하 검증과 시간적 일관성 조건 같은 오탐 억제 장치</li><li>루프 간선을 넣기 전후의 궤적 오차 비교</li><li>연산 시간과 메모리(후보 검색 방식)</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "SLAM에서 위치 오차를 다루는 용어들을 역할로 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "역할"
+    ],
+    "rows": [
+      [
+        "[[odometry|오도메트리]]",
+        "바퀴나 관성 센서로 이동량을 누적해 현재 위치를 추정",
+        "오차가 누적되는 쪽"
+      ],
+      [
+        "[[loop-closure-detection|루프클로저검출]]",
+        "이전에 방문한 장소를 다시 알아보아 누적 오차를 보정할 기회를 제공",
+        "누적 오차를 끊는 쪽"
+      ],
+      [
+        "장소 인식(place recognition)",
+        "현재 관측이 이미 아는 장소인지 판단하는 문제",
+        "루프클로저의 후보를 찾는 핵심 단계"
+      ],
+      [
+        "[[graph-slam|그래프기반슬램]]",
+        "자세와 관측 제약을 그래프로 놓고 전체 오차를 최소화",
+        "루프 제약을 받아 최적화하는 쪽"
+      ]
+    ]
+  },
+  "references": [
+    "Cadena, C., Carlone, L., Carrillo, H., Latif, Y., Scaramuzza, D., Neira, J., Reid, I., & Leonard, J. J. (2016). Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. IEEE Transactions on Robotics, 32(6).",
+    "Gálvez-López, D., & Tardós, J. D. (2012). Bags of binary words for fast place recognition in image sequences. IEEE Transactions on Robotics, 28(5).",
+    "Cummins, M., & Newman, P. (2008). FAB-MAP: Probabilistic localization and mapping in the space of appearance. International Journal of Robotics Research, 27(6).",
+    "Kim, G., & Kim, A. (2018). Scan Context: Egocentric spatial descriptor for place recognition within 3D point cloud map. IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS).",
+    "Lowry, S., Sünderhauf, N., Newman, P., Leonard, J. J., Cox, D., Corke, P., & Milford, M. J. (2016). Visual place recognition: A survey. IEEE Transactions on Robotics, 32(1)."
+  ]
+}

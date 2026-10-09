@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,29 @@
   <h2>왜 중요한가</h2>
   <p>맵리듀스는 데이터 병렬 처리를 단순한 프로그래밍 모델로 표준화하여 대규모 분산 컴퓨팅을 대중화시킨 개념이기 때문에 빅데이터·분산시스템 연구에서 자주 인용되는 기초적인 아이디어입니다. 이후 등장한 Spark, Hadoop 생태계 전반의 설계 철학에 영향을 주었으며, 대규모 로그 분석, 검색엔진 색인 구축, 유전체 데이터 처리처럼 데이터 양이 방대한 여러 응용 분야의 연구에서 비교 기준으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>프로그래머는 두 함수를 정의합니다. Map은 입력 조각 하나를 읽어 (키, 값) 쌍들을 내고, Reduce는 같은 키로 모인 값들을 합쳐 결과를 냅니다(Dean &amp; Ghemawat, 2004). 사이의 <strong>셔플</strong> 단계에서 같은 키의 쌍이 같은 Reduce 작업으로 모입니다. 입력 분할, 작업 배정, 장애 시 작업 재실행은 실행 시스템이 맡습니다.</p><p><strong>가상의 예(계산함)</strong>: 세 개의 짧은 문서 “a b a”, “b c”, “a c c”의 단어 수를 세는 경우입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>단계</th><th>결과</th></tr></thead><tbody><tr><td>Map(문서마다 단어별 (단어, 1) 출력)</td><td>(a,1) (b,1) (a,1) / (b,1) (c,1) / (a,1) (c,1) (c,1)</td></tr><tr><td>셔플(키별 묶음)</td><td>a: [1,1,1], b: [1,1], c: [1,1,1]</td></tr><tr><td>Reduce(합산)</td><td>a=3, b=2, c=3</td></tr></tbody></table></div><p>같은 키를 같은 Reduce가 받는다는 점만 보장되면 문서를 어느 컴퓨터가 처리하든 결과가 같아서, 컴퓨터를 늘려 병렬화하기 쉽습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>한 대의 컴퓨터에 담기 어려운 로그, 문서, 센서 자료에 단순한 집계나 변환을 적용할 때 쓰입니다. 대표적 오픈소스 구현은 하둡(Hadoop)이며(White, 2015), 국내 논문에서도 하둡 분산파일시스템과 함께 대용량 자료 분석 시스템을 제안하는 형태로 많이 등장합니다.</p><ul><li><strong>이점</strong>: 병렬화 세부를 숨겨 주고, 범용 서버 장애가 있어도 해당 작업만 재실행해 완주합니다.</li><li><strong>한계</strong>: 단계마다 중간 결과를 디스크에 기록하므로 반복 계산(기계학습, 그래프 계산)에는 느립니다. 이를 보완하려고 중간 결과를 메모리에 유지하는 후속 시스템이 나왔습니다(Zaharia 외, 2012).</li><li><strong>주의</strong>: 특정 키에 자료가 쏠리면 한 Reduce 작업이 전체 시간을 늦추므로 키 설계가 성능을 좌우합니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>클러스터 구성(노드 수, 코어, 메모리)과 소프트웨어 버전</li><li>자료의 크기와 형식, Map·Reduce가 하는 일(키와 값을 무엇으로 정했는지)</li><li>Map·Reduce 작업의 수, 중간 결과를 줄이는 장치(컴바이너 사용 여부)</li><li>비교 대상(단일 서버, 다른 분산 프레임워크)과 지표(처리 시간, 노드 수에 따른 확장성)</li><li>자료 쏠림과 장애 처리에 대한 논의</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“본 논문은 시계열 특성을 가지는 디지털운행기록계 빅데이터의처리 분석을 대한 연구를 진행하고, 하둡분산파일시스템과 맵리듀스를 이용하여 패턴 기반의 분석을위한 분산 처리의 성능 향상을 이루는 방법론을 제안한다.”</blockquote><p class="te-cite">시계열 빅데이터 처리 분석을 위한 맵리듀스 메커니즘 연구, 정보화연구, 2015 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001979994" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 논문에서는 기존에 수집된 대량의 개인정보를 단시간에 암호화하기 위한 방법으로 맵리듀스 기반의 분산 암호화 처리 방법을 제안하고, 시스템을 설계하고 구현하였다.”</blockquote><p class="te-cite">맵리듀스 기반 대용량 개인정보 분산 암호화 처리 시스템, 한국정보통신학회논문지, 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001861033" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“특히 다양한 인터넷 서비스를 제공하는 기업들은 고객 성향 및 패턴, 보안성 강화를 위해 맵리듀스 기반 빅데이터 분석 기법들을 활용하여 빅데이터 분석하고 있다.”</blockquote><p class="te-cite">로그 분석 처리율 향상을 위한 맵리듀스 기반 분할 빅데이터 분석 기법, 한국정보전자통신기술학회 논문지, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002397601" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"수십 테라바이트 규모의 로그 데이터를 처리하기 위해 맵리듀스 프레임워크를 사용해 단어 빈도 집계를 분산 수행했다."</div>
   <p>이 문장은 데이터 양이 너무 커서 컴퓨터 한 대로는 감당이 안 되므로, 맵리듀스 방식으로 여러 대의 컴퓨터에 작업을 나눠 동시에 처리했다는 뜻입니다.</p>
   <div class="example">"대규모 유전체 서열 정렬 작업을 맵리듀스 기반 파이프라인으로 재구성하여 단일 서버 대비 처리 시간을 크게 단축하였다."</div>
@@ -163,6 +186,20 @@
 
   <h2>주의할 점</h2>
   <p>맵리듀스는 각 단계가 끝날 때마다 중간 결과를 디스크에 저장하기 때문에 안정적이지만, 그만큼 반복 계산이 많은 <a href="machine-learning.html">머신러닝</a> 작업 등에서는 속도가 느려질 수 있습니다. 이 때문에 이후 등장한 Spark 같은 프레임워크는 중간 결과를 메모리에 유지하는 방식으로 이 단점을 보완했습니다. 여러 서버로 요청을 나누는 <a href="load-balancing.html">로드밸런싱</a>과는 달리, 맵리듀스는 "계산 작업 자체"를 나누고 합치는 데 초점을 둡니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>맵리듀스는 분산 처리의 한 방식이며 비슷한 말이 많습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">차이점</th></tr></thead><tbody><tr><th scope="row"><strong>맵리듀스</strong></th><td>데이터를 나눠 동시에 처리(Map)하고 결과를 모아 합치는(Reduce) 방식</td><td>계산을 나누고 합치는 모델</td></tr><tr><th scope="row"><a href="apache-spark.html">아파치 스파크</a></th><td>대용량 데이터를 메모리 기반으로 빠르게 분산 처리하는 프레임워크</td><td>중간 결과를 메모리에 유지</td></tr><tr><th scope="row"><a href="sharding.html">샤딩</a></th><td>큰 데이터베이스를 여러 조각으로 나눠 여러 서버에 분산 저장</td><td>데이터의 저장 분할</td></tr><tr><th scope="row"><a href="load-balancing.html">로드밸런싱</a></th><td>요청이 특정 서버에 몰리지 않게 골고루 나눠 처리</td><td>요청의 분배</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Dean, J., &amp; Ghemawat, S. (2004). MapReduce: Simplified data processing on large clusters. Proceedings of the 6th Symposium on Operating Systems Design and Implementation (OSDI).</li>
+    <li>Ghemawat, S., Gobioff, H., &amp; Leung, S.-T. (2003). The Google file system. Proceedings of the 19th ACM Symposium on Operating Systems Principles (SOSP).</li>
+    <li>Zaharia, M., Chowdhury, M., Das, T., Dave, A., Ma, J., McCauley, M., Franklin, M. J., Shenker, S., &amp; Stoica, I. (2012). Resilient distributed datasets: A fault-tolerant abstraction for in-memory cluster computing. Proceedings of the 9th USENIX Symposium on Networked Systems Design and Implementation (NSDI).</li>
+    <li>White, T. (2015). Hadoop: The Definitive Guide (4th ed.). O'Reilly Media.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

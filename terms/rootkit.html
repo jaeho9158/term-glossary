@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rootkit.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,7 +144,24 @@
   <h2>왜 중요한가</h2>
   <p>루트킷은 탐지 회피 능력이 뛰어나 공격의 지속성을 크게 높이기 때문에, 정보보안학에서는 이를 탐지하고 제거하는 기법이 중요한 연구 주제로 다루어집니다. 특히 운영체제 커널 수준에서 은폐가 이루어지는 경우 일반적인 백신 탐지 방식으로는 발견이 어려워, 이에 대응하는 새로운 탐지 방법이 계속 연구되고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>루트킷의 핵심 기능은 <strong>은폐</strong>입니다. 파일, 프로세스, 네트워크 연결, 시스템 상태 같은 흔적이 관리 도구나 보안 소프트웨어에 보이지 않도록 합니다. 침투 수단이나 피해를 주는 동작 자체와는 구분되는 구성 요소입니다.</li><li>동작하는 계층에 따라 사용자 모드, 커널 모드, 부팅·펌웨어 계층, 가상화 계층으로 나눕니다. 계층이 낮을수록 탐지하는 쪽이 같은 계층의 도구를 믿기 어려워집니다.</li><li>이름은 유닉스의 관리자 계정 root와 도구 모음(kit)에서 왔지만, 관리자 권한을 얻는 수단과 은폐 수단은 별개의 문제입니다. 권한 획득은 <a href="kernel-privilege-escalation.html">커널 권한상승</a> 같은 주제로 다룹니다.</li><li>방어 쪽 연구는 시스템 상태의 무결성 검증, 서로 다른 관점에서 본 결과의 비교, 메모리 포렌식, 외부에서의 점검 등으로 나뉩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>역사적으로 널리 알려진 사례로, 2005년에 음반 복제방지 소프트웨어가 자신의 파일을 숨기는 기능을 사용자 몰래 설치해 논란이 된 일이 있습니다. 악의적 공격이 아닌 상용 소프트웨어에서도 은폐 기능이 문제가 될 수 있음을 보여 준 사례로 자주 인용됩니다.</p><p>학술 연구에서는 가상화 계층에 은폐 도구를 두는 개념이 King 외(2006)에 의해 제시되었고, 반대로 가상화를 이용해 시스템 밖에서 점검하는 방어 구조가 Garfinkel과 Rosenblum(2003)에 의해 제안되었습니다. 두 연구는 ‘더 낮은 계층에서 보는 쪽이 유리하다’는 관점에서 공격과 방어의 구도를 보여 줍니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>루트킷은 관리자 권한을 빼앗는 도구다.</td><td>핵심은 은폐입니다. 권한 상승은 별도의 단계로 다룹니다.</td></tr><tr><td>루트킷은 바이러스의 한 종류다.</td><td>스스로 복제하는지와는 무관한 개념입니다. 다른 악성 행위를 숨기는 보조 수단으로 쓰이는 경우가 많습니다.</td></tr><tr><td>루트킷만 지우면 시스템이 안전해진다.</td><td>은폐 대상이던 다른 악성 구성 요소가 남아 있을 수 있어 침해 범위를 따로 점검해야 합니다.</td></tr><tr><td>백신이 못 찾으면 없는 것이다.</td><td>은폐가 목적이므로 같은 계층의 도구로는 발견되지 않는 것이 이상한 일이 아닙니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 커널 수준 루트킷(kernel-level rootkit)이 시스템 콜을 후킹하여 자신의 흔적을 은폐하는 방식을 분석하고, 이를 탐지하기 위한 무결성 검증 기법을 제안한다."</div>
   <p>루트킷이 시스템 내부 함수 호출을 가로채 자신을 숨기는 원리를 분석하고 이를 찾아내는 방어 기법을 다룬 연구입니다.</p>
   <div class="example">"가상화 기반 루트킷(hypervisor-based rootkit)은 운영체제 자체보다 낮은 계층에서 동작하기 때문에 기존 탐지 기법이 무력화될 수 있음을 실험적으로 보였다."</div>
@@ -154,6 +172,19 @@
 
   <h2>주의할 점</h2>
   <p>루트킷은 그 자체로 시스템에 직접적인 피해를 주기보다는 다른 악성 행위(정보 탈취, 원격 제어 등)를 은폐하기 위한 보조 수단으로 쓰이는 경우가 많습니다. 따라서 루트킷 하나만 제거한다고 해서 시스템이 완전히 안전해졌다고 단정하기는 어렵습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>루트킷과 함께 등장하는 보안 용어를 역할로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><strong>루트킷</strong></th><td>자신과 다른 악성 활동의 흔적을 운영체제 수준에서 숨기는 도구 모음</td><td>은폐</td></tr><tr><th scope="row"><a href="rootkit-detection.html">루트킷 탐지</a></th><td>루트킷을 찾아내는 기술</td><td>방어(탐지)</td></tr><tr><th scope="row"><a href="kernel-privilege-escalation.html">커널 권한상승</a></th><td>커널 취약점을 이용해 시스템 최고 권한을 얻는 공격 기법</td><td>권한 획득</td></tr><tr><th scope="row"><a href="malware-analysis.html">악성코드 분석</a></th><td>악성 소프트웨어의 구조와 동작을 조사하는 활동</td><td>분석</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hoglund, G., &amp; Butler, J. (2005). Rootkits: Subverting the Windows Kernel. Addison-Wesley.</li>
+    <li>King, S. T., Chen, P. M., Wang, Y.-M., Verbowski, C., Wang, H. J., &amp; Lorch, J. R. (2006). SubVirt: Implementing malware with virtual machines. IEEE Symposium on Security and Privacy.</li>
+    <li>Garfinkel, T., &amp; Rosenblum, M. (2003). A virtual machine introspection based architecture for intrusion detection. Network and Distributed System Security Symposium (NDSS).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/manifold-hypothesis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>차원 축소, 표현 학습, 오토인코더, 생성 모델 같은 방법이 왜 쓸모가 있는지를 설명하는 기본 직관이 바로 이 가설입니다. 데이터가 정말 낮은 차원의 구조 위에 있다면, 겉으로 보이는 차원이 아무리 커도 실제로 배워야 할 것은 그 낮은 차원의 구조뿐이므로 <a href="curse-of-dimensionality.html">차원의 저주</a>가 일반적으로 우려하는 것만큼 심각하지 않을 수 있습니다. 또 <a href="umap.html">UMAP</a>이나 <a href="t-sne.html">t-SNE</a>처럼 이웃 관계를 보존하며 저차원으로 옮기는 기법, <a href="latent-space.html">잠재공간</a>을 학습하는 모델의 논문에서 동기와 가정으로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <p>매니폴드 가설은 사실상 두 가지 주장이 묶여 있습니다. 구분해 두면 논문을 읽기 쉽습니다.</p><ul><li><strong>저차원성</strong>: D차원 공간에 놓인 실제 데이터가 d차원(d ≪ D) 다양체 근처에 모여 있다. 이때 d가 데이터의 고유 차원입니다.</li><li><strong>매끄러움</strong>: 그 다양체는 대체로 매끄러워서 가까운 점들 사이를 연속적으로 보간할 수 있고, 한 점 근방은 낮은 차원의 좌표로 나타낼 수 있다.</li></ul><p>Bengio, Courville, Vincent(2013)는 표현 학습에 도움이 되는 일반적인 사전 가정들(매끄러움, 다양체 구조, 자연스러운 군집 등) 가운데 하나로 이 가설을 논의합니다. 이 가설은 증명된 정리가 아니라 모형화 가정이며, 성립하는지는 데이터마다 경험적으로 확인해야 합니다.</p>
+
+  <h2>근거와 대표 연구</h2>
+  <ul><li><strong>비선형 차원 축소</strong>: Tenenbaum 외(2000)의 Isomap과 Roweis와 Saul(2000)의 지역 선형 임베딩(LLE)은 모두 Science 2000년 호에 실렸으며, 데이터가 곡면 위에 놓여 있다는 가정으로 고차원 자료를 펼쳐 보였습니다.</li><li><strong>수학적 정식화</strong>: Fefferman, Mitter, Narayanan(2016)은 표본이 일정한 기하학적 제약을 만족하는 다양체에 오차 범위 안에서 가까운지를 검정하는 문제를 정식화했습니다. 이는 가설이 일정 조건 아래 검정 가능한 명제가 될 수 있음을 보이지만, 모든 데이터에서 성립한다는 뜻은 아닙니다.</li><li><strong>고유 차원 추정</strong>: Pope 외(2021)는 여러 이미지 데이터의 고유 차원을 추정해 픽셀 수보다 훨씬 작게 보고했고, 고유 차원이 작을수록 학습이 쉬운 경향도 보였습니다. 추정값은 방법에 따라 달라집니다.</li></ul>
+
+  <h2>비판과 한계</h2>
+  <ul><li><strong>검증의 어려움</strong>: 데이터가 정말 하나의 매끄러운 다양체 위에 있는지 직접 확인하기 어렵고, 고유 차원 추정치는 방법에 따라 다릅니다.</li><li><strong>단일 다양체가 아닐 수 있음</strong>: 클래스마다 고유 차원이 다른 여러 다양체의 합집합일 수 있습니다.</li><li><strong>잡음과 이산성</strong>: 잡음이 크거나 텍스트 토큰처럼 값이 띄엄띄엄한 데이터에서는 매끄러운 곡면의 그림이 잘 맞지 않을 수 있습니다.</li><li><strong>시각화 결과의 해석</strong>: 가설이 맞더라도 UMAP이나 t-SNE가 그린 2차원 그림이 원래 다양체를 충실히 복원했다는 보장은 없습니다.</li><li><strong>용어 차용</strong>: 수학의 다양체는 엄밀한 정의가 있는 대상이고, 이 가설은 그 개념을 분석 가정으로 빌려 쓰는 것입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"고차원 임베딩이 저차원 매니폴드 근처에 놓인다는 매니폴드 가설에 따라, 잠재공간의 차원을 32로 설정하였다."</div>
   <p>원래 데이터의 차원이 수천이어도 실제 변동은 훨씬 적은 요인으로 설명된다고 가정하고, 모델이 학습할 <a href="latent-space.html">잠재공간</a>의 크기를 작게 잡았다는 뜻입니다.</p>
   <div class="example">"본 연구는 매니폴드 가설을 전제로, 국소적 이웃 구조를 보존하는 UMAP으로 임베딩을 2차원에 투영하였다."</div>
@@ -162,6 +180,21 @@
 
   <h2>주의할 점</h2>
   <p>매니폴드 가설은 모든 데이터에 보장되는 사실이 아니라 가설입니다. 데이터가 하나의 매끄러운 다양체가 아니라 고유 차원이 서로 다른 여러 다양체의 합집합일 수도 있고(예를 들어 클래스마다 구조가 다른 경우), 잡음이 크거나 텍스트 토큰처럼 값이 띄엄띄엄한 데이터에서는 매끄러운 곡면이라는 그림이 잘 맞지 않을 수 있습니다. 고유 차원 추정값도 추정 방법에 따라 달라집니다. 또 가설이 맞더라도 UMAP이나 t-SNE가 그린 2차원 그림이 원래 다양체를 충실히 복원했다는 보장은 없습니다. 수학에서 말하는 <a href="manifold.html">다양체</a>는 엄밀한 정의를 가진 대상이고, 이 가설에서는 그 개념을 데이터 분석의 가정으로 빌려 쓰는 것이라는 점도 구분해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘다양체’가 들어간 용어와 방법을 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><a href="manifold.html">다양체</a></th><td>전체로는 휘어 있어도 아주 가까이서 보면 평평한 공간처럼 보이는 공간</td><td>수학의 엄밀한 개념</td></tr><tr><th scope="row"><strong>매니폴드 가설</strong></th><td>고차원 실제 데이터가 낮은 차원의 매끄러운 곡면 근처에 모여 있다는 가정</td><td>데이터 분석의 가설</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>여러 변수를 적은 수의 새로운 축으로 압축</td><td>선형 부분공간을 가정하는 방법</td></tr><tr><th scope="row"><a href="umap.html">UMAP</a></th><td>국소 이웃 구조를 근사해 고차원 데이터를 저차원으로 투영</td><td>이 가설을 동기로 쓰는 알고리즘</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Tenenbaum, J. B., de Silva, V., &amp; Langford, J. C. (2000). A global geometric framework for nonlinear dimensionality reduction. Science, 290.</li>
+    <li>Roweis, S. T., &amp; Saul, L. K. (2000). Nonlinear dimensionality reduction by locally linear embedding. Science, 290.</li>
+    <li>Bengio, Y., Courville, A., &amp; Vincent, P. (2013). Representation learning: A review and new perspectives. IEEE Transactions on Pattern Analysis and Machine Intelligence, 35(8).</li>
+    <li>Fefferman, C., Mitter, S., &amp; Narayanan, H. (2016). Testing the manifold hypothesis. Journal of the American Mathematical Society, 29(4).</li>
+    <li>Pope, P., Zhu, C., Abdelkader, A., Goldblum, M., &amp; Goldstein, T. (2021). The intrinsic dimension of images and its impact on learning. International Conference on Learning Representations (ICLR).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

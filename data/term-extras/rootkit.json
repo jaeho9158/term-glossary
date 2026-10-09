@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>루트킷의 핵심 기능은 <strong>은폐</strong>입니다. 파일, 프로세스, 네트워크 연결, 시스템 상태 같은 흔적이 관리 도구나 보안 소프트웨어에 보이지 않도록 합니다. 침투 수단이나 피해를 주는 동작 자체와는 구분되는 구성 요소입니다.</li><li>동작하는 계층에 따라 사용자 모드, 커널 모드, 부팅·펌웨어 계층, 가상화 계층으로 나눕니다. 계층이 낮을수록 탐지하는 쪽이 같은 계층의 도구를 믿기 어려워집니다.</li><li>이름은 유닉스의 관리자 계정 root와 도구 모음(kit)에서 왔지만, 관리자 권한을 얻는 수단과 은폐 수단은 별개의 문제입니다. 권한 획득은 [[kernel-privilege-escalation|커널 권한상승]] 같은 주제로 다룹니다.</li><li>방어 쪽 연구는 시스템 상태의 무결성 검증, 서로 다른 관점에서 본 결과의 비교, 메모리 포렌식, 외부에서의 점검 등으로 나뉩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>역사적으로 널리 알려진 사례로, 2005년에 음반 복제방지 소프트웨어가 자신의 파일을 숨기는 기능을 사용자 몰래 설치해 논란이 된 일이 있습니다. 악의적 공격이 아닌 상용 소프트웨어에서도 은폐 기능이 문제가 될 수 있음을 보여 준 사례로 자주 인용됩니다.</p><p>학술 연구에서는 가상화 계층에 은폐 도구를 두는 개념이 King 외(2006)에 의해 제시되었고, 반대로 가상화를 이용해 시스템 밖에서 점검하는 방어 구조가 Garfinkel과 Rosenblum(2003)에 의해 제안되었습니다. 두 연구는 ‘더 낮은 계층에서 보는 쪽이 유리하다’는 관점에서 공격과 방어의 구도를 보여 줍니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>루트킷은 관리자 권한을 빼앗는 도구다.</td><td>핵심은 은폐입니다. 권한 상승은 별도의 단계로 다룹니다.</td></tr><tr><td>루트킷은 바이러스의 한 종류다.</td><td>스스로 복제하는지와는 무관한 개념입니다. 다른 악성 행위를 숨기는 보조 수단으로 쓰이는 경우가 많습니다.</td></tr><tr><td>루트킷만 지우면 시스템이 안전해진다.</td><td>은폐 대상이던 다른 악성 구성 요소가 남아 있을 수 있어 침해 범위를 따로 점검해야 합니다.</td></tr><tr><td>백신이 못 찾으면 없는 것이다.</td><td>은폐가 목적이므로 같은 계층의 도구로는 발견되지 않는 것이 이상한 일이 아닙니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "루트킷과 함께 등장하는 보안 용어를 역할로 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "역할"
+    ],
+    "rows": [
+      [
+        "[[rootkit|루트킷]]",
+        "자신과 다른 악성 활동의 흔적을 운영체제 수준에서 숨기는 도구 모음",
+        "은폐"
+      ],
+      [
+        "[[rootkit-detection|루트킷 탐지]]",
+        "루트킷을 찾아내는 기술",
+        "방어(탐지)"
+      ],
+      [
+        "[[kernel-privilege-escalation|커널 권한상승]]",
+        "커널 취약점을 이용해 시스템 최고 권한을 얻는 공격 기법",
+        "권한 획득"
+      ],
+      [
+        "[[malware-analysis|악성코드 분석]]",
+        "악성 소프트웨어의 구조와 동작을 조사하는 활동",
+        "분석"
+      ]
+    ]
+  },
+  "references": [
+    "Hoglund, G., & Butler, J. (2005). Rootkits: Subverting the Windows Kernel. Addison-Wesley.",
+    "King, S. T., Chen, P. M., Wang, Y.-M., Verbowski, C., Wang, H. J., & Lorch, J. R. (2006). SubVirt: Implementing malware with virtual machines. IEEE Symposium on Security and Privacy.",
+    "Garfinkel, T., & Rosenblum, M. (2003). A virtual machine introspection based architecture for intrusion detection. Network and Distributed System Security Symposium (NDSS)."
+  ]
+}
