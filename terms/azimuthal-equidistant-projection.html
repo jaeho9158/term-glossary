@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>중심점 기준 거리와 방위를 동시에 정확히 표현할 수 있다는 특성 때문에, 항공 항법, 통신, 지진학 등 중심점에서 방사형으로 퍼지는 현상을 다루는 분야의 연구에서 자주 채택됩니다. 정거 도법의 대표 사례로 지도학 교육에서도 중요하게 다루어집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>지구본에 한 점에서 접하는 평면에 투영하되, <strong>중심점에서 어느 점까지의 거리와 방위가 지도에서 그대로 유지</strong>되도록 만든 <a href="map-projection-azimuthal.html">방위도법</a>입니다. 중심에서 방사선으로 뻗은 직선이 곧 대권(최단 경로)입니다.</li><li>구면에서는 중심에서 각거리 c인 점을 지도에서 중심으로부터 R·c(R은 지구 반지름, c는 라디안) 떨어진 곳에 놓습니다. 방위는 그대로 둡니다.</li><li>중심에서의 방사 방향 축척은 1로 일정하지만, <strong>원둘레 방향 축척은 c/sin c</strong>입니다. 그래서 중심에서 멀어질수록 동심원 방향으로 늘어납니다.</li><li>중심의 대척점은 점이 아니라 반지름 πR의 원이 되고, 지구 전체가 하나의 원판 안에 그려집니다.</li><li>면적도 형태도 보존하지 않는 임의(任意) 도법이며(Snyder, 1987), 거리가 정확한 것은 <em>중심에서 잰 거리</em>뿐입니다. 계통 분류로는 <a href="equidistant-projection.html">정거도법</a>의 한 가지입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예(계산, 구 R = 6,371 km)</strong> 중심에서 각거리가 멀어질 때 원둘레 방향의 늘어남(축척 c/sin c)과 중심으로부터의 거리 R·c는 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>중심에서 각거리 c</th><th>중심까지 실제 거리 R·c</th><th>원둘레 방향 축척</th></tr></thead><tbody><tr><td>10°</td><td>약 1,112 km</td><td>1.005</td></tr><tr><td>30°</td><td>약 3,336 km</td><td>1.047</td></tr><tr><td>60°</td><td>약 6,672 km</td><td>1.209</td></tr><tr><td>90°</td><td>약 10,008 km</td><td>1.571</td></tr><tr><td>120°</td><td>약 13,343 km</td><td>2.418</td></tr><tr><td>150°</td><td>약 16,679 km</td><td>5.236</td></tr><tr><td>170°</td><td>약 18,903 km</td><td>17.1</td></tr></tbody></table></div><p>중심에서 가까운 곳(약 30° 이내, 3천 km 안팎)에서는 왜곡이 5% 이내로 작고, 반대편 반구로 갈수록 급격히 커집니다. 서울을 중심으로 그린 지도에서 서울–시드니 거리는 자로 쟀을 때 정확하지만, 시드니–샌프란시스코 사이는 믿을 수 없다는 뜻입니다. 이 표는 구 모형의 값이며 타원체에서는 약간 달라집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>지도 위 모든 두 점 사이 거리가 정확하다.</td><td>중심점에서 잰 거리만 정확합니다. 중심을 지나지 않는 두 점 사이는 왜곡됩니다.</td></tr><tr><td>면적도 올바르게 보인다.</td><td>면적은 보존되지 않습니다. 면적 비교가 필요하면 <a href="lambert-azimuthal-equal-area-projection.html">람베르트 정적방위도법</a> 같은 정적도법을 씁니다.</td></tr><tr><td>모든 방위도법이 중심에서 거리를 보존한다.</td><td>정거방위도법만 그렇습니다. <a href="stereographic-projection.html">평사도법</a>은 각도(정형), <a href="gnomonic-projection.html">심사도법</a>은 대권이 직선이 되는 성질을 가집니다.</td></tr><tr><td>중심은 아무 곳이나 같다.</td><td>이 도법의 성질은 오로지 선택한 중심에 대해서만 성립하므로 연구 질문에 맞는 중심을 정해야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"진앙을 중심으로 한 지진파 도달 시간 분석을 위해 Azimuthal Equidistant Projection(정거방위도법)을 사용하여 거리 왜곡을 최소화하였다."</div>
   <p>중심점에서의 거리 정확성이 요구되는 분석에 활용된 예입니다.</p>
   <div class="example">"허브 공항을 기준으로 한 항공 노선의 실제 거리를 비교하기 위해 Azimuthal Equidistant Projection(정거방위도법) 지도를 제작하였다."</div>
@@ -158,6 +176,19 @@
 
   <h2>주의할 점</h2>
   <p>정거방위도법이 정확하게 보존하는 것은 중심점 기준 거리와 방위뿐이며, 지도 전체의 면적이나 형태, 중심이 아닌 지점 간 거리는 보존되지 않습니다. 이를 오해하고 임의의 두 지점 사이 거리를 지도에서 직접 재는 것은 잘못된 해석으로 이어질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>방위도법은 이름이 비슷하고 보존하는 성질이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">도법</th><th scope="col">보존하는 성질</th><th scope="col">대표 용도</th></tr></thead><tbody><tr><th scope="row"><strong>정거방위도법</strong></th><td>중심에서의 거리와 방위</td><td>중심 기준 거리 분석, 항공 노선도, 지진파 전파도</td></tr><tr><th scope="row"><a href="lambert-azimuthal-equal-area-projection.html">람베르트 정적방위도법</a></th><td>면적</td><td>분포 면적 비교</td></tr><tr><th scope="row"><a href="stereographic-projection.html">평사도법</a></th><td>각도(정형)</td><td>극지방 지도, 결정 방위 표시</td></tr><tr><th scope="row"><a href="gnomonic-projection.html">심사도법</a></th><td>대권이 직선</td><td>최단 경로를 직선으로 보는 지도</td></tr><tr><th scope="row"><a href="orthographic-projection-map.html">정사도법</a></th><td>지구를 멀리서 본 모습(시각 효과)</td><td>지구본 같은 삽화</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Snyder, J. P. (1987). Map Projections: A Working Manual (U.S. Geological Survey Professional Paper 1395). U.S. Government Printing Office.</li>
+    <li>Snyder, J. P. (1993). Flattening the Earth: Two Thousand Years of Map Projections. University of Chicago Press.</li>
+    <li>Bugayevskiy, L. M., &amp; Snyder, J. P. (1995). Map Projections: A Reference Manual. Taylor &amp; Francis.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="map-projection-azimuthal.html">방위도법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="lambert-azimuthal-equal-area-projection.html">람베르트 정적방위도법</a><a href="gnomonic-projection.html">심사도법</a><a href="orthographic-projection-map.html">정사도법</a><a href="stereographic-projection.html">평사도법</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

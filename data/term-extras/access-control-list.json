@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>접근제어목록(ACL)은 <strong>자원(파일·장치·네트워크 인터페이스)마다</strong> ‘누가 무엇을 할 수 있는가’를 항목(주체, 권한, 허용/거부)의 목록으로 붙여 두는 방식입니다. 자원 쪽에서 보면 열이 하나의 ACL이 됩니다(Lampson, 1971).</li><li>접근제어 행렬(주체 × 객체 × 권한)을 <strong>열 단위로 저장</strong>하면 ACL, <strong>행 단위로 저장</strong>하면 능력목록(capability list)입니다. ACL은 ‘이 자원에 접근 가능한 주체’를 보기 쉽고, 능력목록은 ‘이 주체가 할 수 있는 일’을 보기 쉽습니다.</li><li>파일시스템에서는 소유자·그룹·기타 같은 기본 권한 비트를 넘어서 주체별 항목을 붙이는 확장 ACL로 쓰입니다.</li><li>라우터·방화벽의 ACL은 규칙을 <strong>위에서부터 차례로</strong> 검사해 처음 일치하는 규칙을 적용하고, 어느 규칙에도 일치하지 않으면 거부하는 것이 일반적인 설계입니다. 그래서 규칙의 <strong>순서</strong>가 결과를 바꿉니다.</li><li>관련 설계 원칙은 최소 권한과 기본 거부(fail-safe default)입니다(Saltzer &amp; Schroeder, 1975).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 예</strong> 어느 네트워크 ACL의 규칙이 아래 순서로 쓰여 있다고 합시다(위에서부터 처음 일치하는 규칙 적용).</p><table><thead><tr><th>번호</th><th>규칙</th></tr></thead><tbody><tr><td>1</td><td>10.0.1.0/24 → 웹서버, 포트 443: 허용</td></tr><tr><td>2</td><td>10.0.0.0/16 → 웹서버, 모든 포트: 거부</td></tr><tr><td>3</td><td>그 외: 거부(암묵적)</td></tr></tbody></table><p>10.0.1.7이 웹서버 443으로 접속하면 1번에 먼저 일치해 <strong>허용</strong>됩니다. 10.0.2.9가 같은 접속을 하면 1번에 해당하지 않고 2번에 일치해 <strong>거부</strong>됩니다. 만약 1번과 2번의 순서를 바꾸면 10.0.1.7도 거부되어 의도와 정반대가 됩니다. 이처럼 ACL은 개별 규칙만이 아니라 <em>배열 전체</em>를 읽어야 합니다. 규칙이 늘면 충돌·가려진 규칙(shadowing)이 생기기 쉬워 주기적 점검이 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ACL은 네트워크 장비에만 있다.</td><td>운영체제 파일 권한, 클라우드 객체 저장소, 데이터베이스 등 넓게 쓰이는 모델입니다.</td></tr><tr><td>ACL과 역할기반 접근통제(RBAC)는 같은 것이다.</td><td>ACL은 자원에 붙는 허가 목록이고, [[role-based-access-control|RBAC]]은 권한을 ‘역할’에 주고 사용자를 역할에 묶는 방식입니다. 서로 배타적이지 않아 함께 쓰이기도 합니다(Sandhu et al., 1996).</td></tr><tr><td>허용 규칙만 있으면 안전하다.</td><td>기본 거부가 보장되지 않거나 규칙 순서가 잘못되면 의도치 않은 허용이 생깁니다.</td></tr><tr><td>ACL이 있으면 방화벽이 필요 없다.</td><td>단순 패킷 필터링인 ACL과 상태 추적·검사를 하는 [[firewall|방화벽]]은 기능 범위가 다릅니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "접근 통제의 대표적인 저장·관리 방식입니다.",
+    "headers": [
+      "용어",
+      "권한을 붙이는 대상",
+      "잘 보이는 질문"
+    ],
+    "rows": [
+      [
+        "[[access-control-list|접근제어목록(ACL)]]",
+        "자원",
+        "이 자원에 누가 접근할 수 있나"
+      ],
+      [
+        "능력목록(capability)",
+        "주체(사용자·프로세스)",
+        "이 주체가 무엇을 할 수 있나"
+      ],
+      [
+        "[[role-based-access-control|역할기반 접근통제]]",
+        "역할(사용자는 역할에 소속)",
+        "이 역할은 어떤 권한을 갖나"
+      ],
+      [
+        "[[firewall|방화벽]]",
+        "네트워크 경계의 트래픽",
+        "어떤 흐름을 통과시킬까(ACL은 그 규칙의 한 형태)"
+      ]
+    ]
+  },
+  "references": [
+    "Lampson, B. W. (1971). Protection. Proceedings of the 5th Princeton Conference on Information Sciences and Systems.",
+    "Saltzer, J. H., & Schroeder, M. D. (1975). The protection of information in computer systems. Proceedings of the IEEE, 63(9), 1278–1308.",
+    "Sandhu, R. S., Coyne, E. J., Feinstein, H. L., & Youman, C. E. (1996). Role-based access control models. Computer, 29(2), 38–47.",
+    "Ferraiolo, D. F., & Kuhn, D. R. (1992). Role-based access controls. Proceedings of the 15th National Computer Security Conference."
+  ]
+}

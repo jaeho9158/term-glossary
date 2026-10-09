@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>정보검색시스템의 성능을 평가하는 두 핵심 지표 중 하나로, 재현율과 함께 짝을 이루어 검색결과의 정확성과 완전성이라는 서로 다른 측면을 측정하는 데 쓰이며, 검색엔진과 도서관 검색시스템 평가 연구에서 표준적으로 활용됩니다.</p>
   <p>이용자가 상위 몇 개의 결과만 살펴보는 웹 검색 환경에서는 정밀률이 특히 체감 만족도와 직결되어, 검색엔진 순위 알고리즘 평가 연구에서 중요하게 다뤄집니다. 웹 검색처럼 결과가 방대한 환경에서는 이용자가 상위 몇 건만 확인하므로 정확률이 체감 만족도에 더 큰 영향을 미친다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>정보검색에서 정밀률은 검색해 낸 문서 중 관련 있는 문서의 비율입니다.</p><p><strong>정밀률 = (검색된 관련 문서 수) ÷ (검색된 문서 수)</strong>, 범위는 0~1(또는 0~100%)입니다.</p><ul><li>짝이 되는 지표는 재현율로, <strong>재현율 = (검색된 관련 문서 수) ÷ (컬렉션 전체의 관련 문서 수)</strong>입니다. 분모가 검색된 문서인지, 전체 관련 문서인지가 다릅니다(Manning et al., 2008).</li><li>상위 k건만 보고 계산하면 Precision@k입니다. 검색 결과가 순서대로 나오는 환경에서 ‘이용자가 훑어보는 앞부분의 질’을 보는 방식입니다.</li><li>순위 정보까지 반영한 확장으로 평균정밀도(AP)와 <a href="mean-average-precision.html">MAP</a>, <a href="ndcg.html">NDCG</a> 등이 있습니다.</li><li>분류 문제의 precision(양성으로 예측한 것 중 진짜 양성의 비율)도 같은 식입니다. 다만 정보검색 용어 ‘정밀률’은 한국어 문헌에서 ‘정확률’, ‘정밀도’와 섞여 쓰이기도 하며, 측정 장비의 정밀도(반복 측정의 일치 정도)와는 다른 말입니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>같은 가설 질문에 검색 시스템이 10건을 순서대로 보여 주었고, 컬렉션 전체에는 관련 문서가 6건 있다고 합시다. 결과에서 관련 문서가 나온 순위는 1, 3, 4, 7위입니다(가상의 예, 계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>지표</th><th>계산</th><th>값</th></tr></thead><tbody><tr><td>P@5</td><td>상위 5건 중 관련 3건 → 3/5</td><td>0.60</td></tr><tr><td>P@10 (= 전체 정밀률)</td><td>10건 중 관련 4건 → 4/10</td><td>0.40</td></tr><tr><td>재현율@10</td><td>전체 관련 6건 중 4건 → 4/6</td><td>0.67</td></tr><tr><td>평균정밀도(AP)</td><td>관련 문서가 나온 순위의 정밀률 1/1, 2/3, 3/4, 4/7을 합해 전체 관련 문서 수 6으로 나눔</td><td>0.50</td></tr><tr><td>F1@10</td><td>2 × 0.40 × 0.67 ÷ (0.40 + 0.67)</td><td>0.50</td></tr></tbody></table></div><p>같은 4건의 관련 문서가 결과의 앞쪽에 몰려 있었다면 P@10은 여전히 0.40이지만 AP는 훨씬 높아집니다. 정밀률 자체는 순서를 보지 않기 때문입니다. 검색 결과를 극단적으로 줄여 1건만 보여 주고 그것이 관련이면 정밀률 1.0이 되지만 재현율은 거의 0이므로, 두 지표를 함께 봐야 합니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>정의를 식으로 적고(분자·분모), 관련성 판단 기준(누가, 어떤 기준으로)을 밝힙니다. 판정이 없는 문서는 비관련으로 볼지 여부도 적습니다.</li><li>‘정밀률’, ‘정확률’, ‘정밀도’ 중 한 용어로 통일하고, 영문 표기(precision)를 병기합니다. accuracy(전체 중 맞힌 비율)와 혼동하지 않도록 구분합니다.</li><li>보통 <strong>정밀률과 재현율을 함께</strong>, 필요하면 정밀도-재현율 곡선, F값, Precision@k를 보고합니다. k 값을 정한 이유(이용자가 보는 건수 등)를 적습니다.</li><li>시스템 간 차이를 주장할 때는 여러 질의에 대한 평균과 유의성 검정을 함께 제시합니다. 질의 수가 적으면 평균이 불안정하다는 한계를 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">상위 10건 검색결과를 기준으로 정밀률(Precision@10)을 산출하여 시스템 간 성능을 비교하였다.</div>
   <p>검색결과 상위 일부만을 대상으로 정밀률을 계산하는 Precision@k 방식의 활용 사례를 보여주는 문장이다.</p>
   <div class="example">본 연구는 통제어휘 기반 색인이 자유텍스트 색인보다 정밀률 측면에서 더 우수한 성능을 보였다고 보고하였다.</div>
@@ -161,6 +179,20 @@
 
   <h2>주의할 점</h2>
   <p>정밀률은 검색된 결과의 순서를 고려하지 않으므로, 순위를 반영하려면 평균정밀도나 NDCG 같은 지표를 함께 사용해야 한다. 정밀률만 놓고 보면 검색 결과 수를 극단적으로 줄여 정밀률을 인위적으로 높일 수도 있어, 재현율과 함께 균형 있게 해석해야 한다는 점도 유의해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷하거나 함께 쓰이는 지표들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">분모</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>정밀률(precision)</strong></th><td>검색된(예측한) 문서 수</td><td>내놓은 결과 중 맞는 것의 비율</td></tr><tr><th scope="row"><a href="recall.html">재현율(recall)</a></th><td>전체 관련 문서 수</td><td>있어야 할 것 중 찾아낸 것의 비율</td></tr><tr><th scope="row">정확도(accuracy)</th><td>전체 판정 수</td><td>맞게 판정한 비율. 대부분이 비관련인 검색에서는 쉽게 높아져 잘 쓰지 않음</td></tr><tr><th scope="row"><a href="f1-score.html">F1 점수</a></th><td>—</td><td>정밀률과 재현율의 조화평균</td></tr><tr><th scope="row"><a href="precision-recall-curve.html">정밀도-재현율 곡선</a></th><td>—</td><td>기준을 바꾸며 두 지표의 관계를 그린 곡선</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Manning, C. D., Raghavan, P., &amp; Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press.</li>
+    <li>van Rijsbergen, C. J. (1979). Information Retrieval (2nd ed.). Butterworths.</li>
+    <li>Cleverdon, C. W. (1962). Report on the Testing and Analysis of an Investigation into the Comparative Efficiency of Indexing Systems. ASLIB Cranfield Research Project.</li>
+    <li>Powers, D. M. W. (2011). Evaluation: From precision, recall and F-measure to ROC, informedness, markedness and correlation. Journal of Machine Learning Technologies, 2(1), 37–63.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

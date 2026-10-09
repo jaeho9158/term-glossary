@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/longitudinal-mode.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,7 +144,24 @@
   <h2>왜 중요한가</h2>
   <p>레이저가 몇 개의 종모드에서 발진하느냐에 따라 출력 스펙트럼의 폭과 결맞음 특성이 달라지므로, 단일 주파수 레이저나 극초단 펄스 레이저를 설계할 때 종모드 제어는 핵심적인 과제입니다. 광통신에서는 단일 종모드 레이저가 신호 왜곡을 줄이는 데 중요하게 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>양쪽 거울 사이의 공진기에서 빛이 한 번 왕복했을 때 위상이 2π의 정수배만큼 돌아와야 정상파로 살아남습니다. 즉 2nL = mλ (m은 정수, n은 굴절률, L은 공진기 길이)이며, 이를 만족하는 진동수들이 <strong>종모드</strong>입니다.</li><li>인접한 종모드의 진동수 간격(자유 스펙트럼 범위, FSR)은 <strong>Δν = c/(2nL)</strong>입니다. 즉 빛의 속도를 왕복 광경로 길이로 나눈 값이며, 공진기가 길수록 간격이 좁아져 모드가 촘촘해집니다. 고리형 공진기에서는 c/(nL)입니다(Siegman, 1986; Saleh &amp; Teich, 2019). 정밀하게는 n 대신 군굴절률을 씁니다.</li><li>실제로 레이저가 발진하는 종모드는 <strong>이득매질의 이득 대역폭 안에서 손실보다 이득이 큰 모드</strong>입니다. 대략 발진 모드 수 ≈ (이득 대역폭 ÷ FSR)로 어림합니다.</li><li>횡모드(빔 단면의 세기 분포)와 서로 다른 축의 성질입니다. 종모드가 ‘진동수(색)’의 가짓수를 정한다면 <a href="transverse-mode.html">횡모드</a>는 빔의 ‘모양’을 정합니다(Kogelnik &amp; Li, 1966).</li><li>하나의 종모드만 남기는 단일 종모드(단일 주파수) 발진은 공진기를 매우 짧게 하거나, 에탈론, 분포궤환(DFB)·분포브래그반사(DBR) 격자 같은 선택 소자로 얻습니다. 반대로 많은 종모드의 위상을 고정하면 극초단 펄스를 얻습니다(<a href="mode-locking.html">모드잠금</a>).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예(계산)</strong> 굴절률 1(기체)인 길이 30 cm 헬륨-네온형 공진기의 FSR은 c/(2L) = 3×10⁸ ÷ 0.6 ≈ 500 MHz입니다. 이득 대역폭이 약 1.5 GHz라고 가정하면 대략 3개의 종모드가 이득 안에 들어옵니다. 공진기를 15 cm로 줄이면 FSR이 약 1 GHz가 되어 이득 안에 들어가는 모드가 1~2개로 줄어 단일 모드 발진에 가까워집니다. 반면 길이 300 μm, 굴절률 3.5라고 가정한 반도체 레이저 칩은 FSR이 약 143 GHz로 매우 넓어, 모드 간격이 크기 때문에 단일 종모드 구현이 상대적으로 쉽습니다(다만 이득 대역폭도 훨씬 넓습니다).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>공진기(가정)</th><th>길이 L</th><th>FSR = c/(2nL)</th></tr></thead><tbody><tr><td>기체 레이저 관</td><td>30 cm</td><td>약 500 MHz</td></tr><tr><td>기체 레이저 관</td><td>15 cm</td><td>약 1.0 GHz</td></tr><tr><td>반도체 칩(n = 3.5)</td><td>300 μm</td><td>약 143 GHz</td></tr></tbody></table></div>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>종모드는 레이저 빔의 단면 무늬다.</td><td>단면 무늬는 횡모드입니다. 종모드는 공진기 축 방향 정상파의 진동수 가짓수입니다.</td></tr><tr><td>공진기가 길수록 모드가 줄어든다.</td><td>길수록 FSR이 좁아져 이득 안에 들어가는 모드 수가 늘어납니다.</td></tr><tr><td>종모드 간격은 이득매질이 정한다.</td><td>간격은 공진기 광경로 길이로 정해지고, 이득매질은 어떤 모드가 발진 가능한지(대역폭)를 정합니다.</td></tr><tr><td>단일 종모드면 선폭이 0이다.</td><td>단일 모드라도 잡음과 온도·진동 등으로 유한한 선폭이 있으며, 모드 도약(mode hop)이 일어나기도 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The frequency spacing between adjacent longitudinal modes is inversely proportional to the optical resonator length."</div>
   <p>인접한 종모드 사이의 진동수 간격이 광공진기 길이에 반비례한다는 설명으로, 공진기 설계와 모드 구조를 분석할 때 자주 쓰입니다.</p>
   <div class="example">"A distributed feedback structure was used to suppress unwanted longitudinal modes and achieve single-frequency operation."</div>
@@ -154,6 +172,20 @@
 
   <h2>주의할 점</h2>
   <p>종모드는 공진기 축을 따라 정의되는 개념으로, 빔의 단면 분포를 나타내는 횡모드와는 다른 개념이므로 혼동하지 않아야 합니다. 또한 실제 레이저 출력 스펙트럼은 종모드 구조뿐 아니라 이득 대역폭, 모드 경쟁 등 여러 요인의 영향을 함께 받습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>레이저 공진기의 모드는 두 방향으로 나눠 부릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th><th scope="col">결정하는 것</th></tr></thead><tbody><tr><th scope="row"><strong>종모드</strong></th><td>공진기 축 방향 정상파의 진동수</td><td>스펙트럼(색, 선폭)</td></tr><tr><th scope="row"><a href="transverse-mode.html">횡모드</a></th><td>빔 단면의 세기 분포 패턴</td><td>빔의 모양과 품질</td></tr><tr><th scope="row"><a href="mode-locking.html">모드잠금</a></th><td>여러 종모드의 위상을 고정하는 기법</td><td>극초단 펄스 생성</td></tr><tr><th scope="row"><a href="laser-threshold.html">레이저 문턱</a></th><td>이득이 손실을 넘는 최소 조건</td><td>어떤 모드가 발진하는지의 조건</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Siegman, A. E. (1986). Lasers. University Science Books.</li>
+    <li>Saleh, B. E. A., &amp; Teich, M. C. (2019). Fundamentals of Photonics (3rd ed.). Wiley.</li>
+    <li>Svelto, O. (2010). Principles of Lasers (5th ed.). Springer.</li>
+    <li>Kogelnik, H., &amp; Li, T. (1966). Laser beams and resonators. Proceedings of the IEEE, 54(10), 1312–1329.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

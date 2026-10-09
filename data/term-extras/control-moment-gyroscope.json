@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>제어모멘트자이로(CMG)는 <strong>일정한 속도로 도는 로터</strong>(각운동량 h = 관성모멘트 × 각속도, 크기는 거의 일정)를 짐벌에 얹고, 짐벌을 돌려 <strong>h의 방향</strong>을 바꾸는 장치입니다. 각운동량이 바뀌는 비율(τ = dh/dt)이 곧 위성에 가해지는 반작용 토크입니다(Wie, 2008).</li><li>단일짐벌 CMG에서 짐벌 각속도가 δ̇이고 h에 수직으로 돌 때 출력 토크의 크기는 <strong>h × δ̇</strong>입니다. 로터를 가속·감속해 토크를 얻는 [[reaction-wheel|반작용휠]]은 모터 토크가 그대로 출력인 반면, CMG는 짐벌 모터가 작은 토크로 큰 토크를 만들어 내는 ‘토크 증폭’ 장치로 설명됩니다.</li><li>종류는 짐벌 한 축인 단일짐벌(SGCMG), 두 축인 이중짐벌(DGCMG), 로터 속도도 바꾸는 가변속 방식 등입니다. 여러 대를 배열(예: 피라미드형)해 3축 토크와 저장 각운동량을 확보합니다.</li><li>한 배열이 낼 수 있는 토크 방향이 짐벌 각의 조합에 따라 줄어드는 <strong>특이점</strong>이 있습니다. 특이 구성에서는 야코비안 행렬의 랭크가 줄어 원하는 방향의 토크를 낼 수 없습니다. 로봇 팔의 [[singularity-robot|특이점]]과 수학적으로 같은 현상이며, 이를 피하는 조향 법칙(의사역행렬, 특이점 강건 역행렬 등) 연구가 활발합니다(Margulies &amp; Aubrun, 1978).</li><li>CMG가 저장할 수 있는 각운동량에는 한계(포화)가 있어, 외부 토크(자기토커, 추력기, 중력경사 토크 등)로 각운동량을 덜어 내는 관리가 필요합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 예(계산)</strong> 로터의 각운동량이 h = 50 N·m·s인 CMG의 짐벌을 0.5 rad/s로 돌리면 출력 토크는 50 × 0.5 = 25 N·m입니다. 같은 25 N·m를 반작용휠에서 얻으려면 휠 모터가 25 N·m의 토크를 직접 내야 합니다. CMG에서는 이 토크를 짐벌의 운동으로 ‘방향 전환’해서 얻고, 짐벌 모터는 짐벌 관성을 가속하고 로터에 걸리는 반작용을 이기는 만큼만 일합니다. 수치는 설명용입니다.</p><table><thead><tr><th>구분</th><th>반작용휠</th><th>제어모멘트자이로</th></tr></thead><tbody><tr><td>토크를 만드는 원리</td><td>로터 속도 변화</td><td>로터 각운동량 방향 변화</td></tr><tr><td>같은 전력에서 토크</td><td>상대적으로 작음</td><td>상대적으로 큼</td></tr><tr><td>구조 복잡도</td><td>단순</td><td>짐벌·슬립링 등으로 복잡</td></tr><tr><td>특이점</td><td>없음</td><td>있음(조향 법칙 필요)</td></tr><tr><td>대표 용도</td><td>소형·중형 위성</td><td>대형 구조물(국제우주정거장), 고기동 임무</td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>CMG는 로터를 가속해서 토크를 낸다.</td><td>로터는 일정 속도로 돌고, 각운동량의 방향을 바꿔서 토크를 냅니다. 로터 가감속은 반작용휠·모멘텀휠의 방식입니다.</td></tr><tr><td>CMG는 추진제 없이 영원히 자세를 바꿀 수 있다.</td><td>저장 각운동량이 포화되면 외부 토크로 덜어 내야 합니다.</td></tr><tr><td>토크가 큰 CMG는 항상 더 좋다.</td><td>특이점, 복잡성, 진동·질량 등을 고려해 임무에 맞게 선택합니다. 소형 위성에는 반작용휠이 흔합니다.</td></tr><tr><td>특이점은 고장이다.</td><td>고장이 아니라 배열 기하학에서 생기는 수학적 성질이며 조향 법칙으로 피하거나 통과합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "자세 제어용 각운동량 교환 장치는 이름이 비슷합니다.",
+    "headers": [
+      "장치",
+      "무엇을 바꾸나",
+      "토크 크기"
+    ],
+    "rows": [
+      [
+        "[[control-moment-gyroscope|제어모멘트자이로]]",
+        "일정 속도 로터의 각운동량 방향(짐벌)",
+        "큼(토크 증폭)"
+      ],
+      [
+        "[[reaction-wheel|반작용휠]]",
+        "휠 회전 속도(0 근처 중심)",
+        "모터 토크 수준"
+      ],
+      [
+        "[[momentum-wheel|모멘텀휠]]",
+        "바이어스 각운동량을 가진 휠의 속도",
+        "작음~중간, 자세 안정화에 사용"
+      ]
+    ]
+  },
+  "references": [
+    "Wie, B. (2008). Space Vehicle Dynamics and Control (2nd ed.). American Institute of Aeronautics and Astronautics.",
+    "Margulies, G., & Aubrun, J. N. (1978). Geometric theory of single-gimbal control moment gyro systems. Journal of the Astronautical Sciences, 26(2), 159–191.",
+    "Schaub, H., & Junkins, J. L. (2003). Analytical Mechanics of Space Systems. American Institute of Aeronautics and Astronautics.",
+    "Wertz, J. R. (Ed.). (1978). Spacecraft Attitude Determination and Control. D. Reidel."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>좌표계는 지표의 위치를 숫자로 나타내기 위한 약속된 기준틀입니다. 엄밀히는 <strong>측지기준계(datum: 지구 타원체와 기준점)</strong>와 <strong>좌표의 표현 방식(경위도 또는 투영 평면의 x·y)</strong>이 짝을 이룹니다(ISO, 2019).</li><li><strong>지리좌표계</strong>는 위도·경도(각도)로 위치를 나타내며 WGS 84가 대표적입니다. <strong>투영좌표계</strong>는 곡면을 [[map-projection|투영법]]으로 평면에 펼친 뒤 미터 단위의 x·y로 나타냅니다(UTM, TM 등). 투영좌표계는 투영법·원점·축척계수·단위를 함께 정의합니다.</li><li>같은 숫자라도 좌표계가 다르면 다른 장소입니다. 그래서 좌표계를 식별번호로 관리하는 체계가 [[epsg-code|EPSG 코드]]입니다. 예: EPSG:4326(WGS 84 경위도), EPSG:3857(웹 메르카토르), EPSG:5179(Korea 2000 / UTM-K), EPSG:5186(Korea 2000 / 중부원점 2010).</li><li>한국의 평면직각좌표는 서부·중부·동부·동해 네 원점을 두고, 지역에 따라 원점을 골라 씁니다. 과거 동경(Tokyo) 측지계 자료와 세계측지계 자료를 섞으면 수백 m의 어긋남이 생깁니다([[geodetic-datum|측지기준계]]).</li><li>다른 좌표계로 옮기는 일이 [[coordinate-transformation|좌표변환]]이며, 기준계가 같은 경우의 재투영과 기준계가 다른 경우의 변환(예: 7-매개변수)은 구분합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 예(계산)</strong> 경위도 좌표를 그대로 평면에 놓고 거리를 재면 위도에 따라 오차가 큽니다. 북위 37.5°(서울 부근) 지구 타원체(WGS 84)에서 위도 1°의 길이는 약 111.0 km, 경도 1°의 길이는 약 88.4 km입니다. 경도 1°가 위도 1°보다 20%가량 짧으므로, 도(°) 단위 좌표로 면적·거리를 계산하려면 먼저 해당 지역에 적합한 투영좌표계로 변환해야 합니다.</p><table><thead><tr><th>목적</th><th>적합한 선택(예)</th></tr></thead><tbody><tr><td>전 지구 자료 저장·교환</td><td>지리좌표계 (EPSG:4326)</td></tr><tr><td>국내 넓은 지역의 거리·면적 계산</td><td>투영좌표계 (EPSG:5179 등)</td></tr><tr><td>지적도·대축척 도면</td><td>지역 평면직각좌표계 (EPSG:5186 등)</td></tr><tr><td>웹 지도 표시</td><td>EPSG:3857 (표시용, 면적·거리 정확도는 낮음)</td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>위도·경도만 있으면 좌표계를 알 수 있다.</td><td>어떤 측지기준계의 경위도인지에 따라 같은 값이 수십 m~수백 m 다른 곳을 가리킬 수 있습니다.</td></tr><tr><td>좌표계는 설정 옵션일 뿐이다.</td><td>면적·거리·방위 정확도에 직접 영향을 줍니다. 분석 전 확인 대상입니다.</td></tr><tr><td>투영만 바꾸면 모든 문제가 해결된다.</td><td>기준계가 다르면 투영을 같게 해도 위치가 어긋납니다. 기준계 변환이 따로 필요합니다.</td></tr><tr><td>웹 메르카토르가 정확한 지도 좌표계다.</td><td>화면 표시용으로 널리 쓰이지만 고위도에서 면적이 크게 왜곡됩니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "위치 기준과 관련된 용어를 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "좌표계와의 관계"
+    ],
+    "rows": [
+      [
+        "[[coordinate-system|좌표계]]",
+        "위치를 숫자로 나타내는 기준틀 전체",
+        "—"
+      ],
+      [
+        "[[geodetic-datum|측지기준계]]",
+        "지구 타원체와 기준점의 정의",
+        "좌표계의 기준이 되는 부분"
+      ],
+      [
+        "[[map-projection|지도투영법]]",
+        "곡면을 평면에 옮기는 수학적 방법",
+        "투영좌표계를 정의하는 요소"
+      ],
+      [
+        "[[epsg-code|EPSG 코드]]",
+        "좌표계를 식별하는 번호",
+        "좌표계의 이름표"
+      ],
+      [
+        "[[coordinate-transformation|좌표변환]]",
+        "좌표계 사이에서 값을 옮기는 계산",
+        "좌표계가 다를 때 필요한 작업"
+      ]
+    ]
+  },
+  "references": [
+    "Snyder, J. P. (1987). Map Projections: A Working Manual (U.S. Geological Survey Professional Paper 1395). U.S. Government Printing Office.",
+    "Iliffe, J., & Lott, R. (2008). Datums and Map Projections for Remote Sensing, GIS and Surveying (2nd ed.). Whittles Publishing.",
+    "Longley, P. A., Goodchild, M. F., Maguire, D. J., & Rhind, D. W. (2015). Geographic Information Science and Systems (4th ed.). Wiley.",
+    "International Organization for Standardization. (2019). ISO 19111: Geographic information — Referencing by coordinates. ISO."
+  ]
+}

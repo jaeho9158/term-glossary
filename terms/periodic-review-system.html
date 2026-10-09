@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>재고를 매일 점검하는 것이 비효율적인 품목의 경우, 정해진 주기마다 한 번씩 점검해 부족분을 목표 수준까지 채우는 방식을 사용하면 관리 부담을 줄이면서도 재고 수준을 통제할 수 있다. 여러 품목을 한꺼번에 정기적으로 점검·주문할 수 있어 관리의 편의성이 크므로, 지속발주시스템과의 성과 비교 연구가 재고관리 분야에서 자주 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>R(검토주기)마다 재고를 점검합니다. 점검 시점의 재고위치(보유재고 + 발주잔량 − 이월주문)를 IP라 합니다.</li><li>가장 흔한 형태는 (R, S) 정책입니다. 점검 때마다 목표 수준 S까지 <strong>Q = S − IP</strong>만큼 발주합니다. IP가 이미 S 이상이면 발주하지 않습니다. 변형으로 IP가 s 이하일 때만 S까지 채우는 (R, s, S) 정책이 있습니다.</li><li>목표 수준은 <strong>검토주기 + 조달기간</strong> 동안의 수요를 커버하도록 정합니다. 수요가 평균 μ, 표준편차 σ(단위 기간당)인 정규분포이고 기간 간 독립이라 가정하면 S = μ(R + L) + z·σ·√(R + L)입니다. z는 목표 서비스 수준에 해당하는 표준정규분포 분위수입니다(Silver et al., 2017).</li><li>발주한 물량은 L 뒤에 도착하며, 다음 점검 때 같은 절차를 반복합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>시간 기준으로 발주 시점을 정해 여러 품목을 같은 날 묶어 주문하기 쉽고, 재고를 매일 지켜볼 필요가 없습니다. 대신 점검과 점검 사이의 수요를 알 수 없으므로 안전재고를 더 갖게 됩니다. 재고가 재주문점 아래로 내려가는 순간 발주하는 <a href="continuous-review-system.html">연속점검시스템</a>과 이 점이 대비됩니다.</p><p><strong>가상의 예(계산)</strong> 주당 수요 평균 100, 표준편차 20, 조달기간 L = 2주, 서비스 수준 95%(z = 1.645)라고 합시다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>정책</th><th>보호 기간</th><th>안전재고</th><th>기준값</th></tr></thead><tbody><tr><td>연속점검 (재주문점)</td><td>L = 2주</td><td>1.645 × 20 × √2 ≈ 46.5</td><td>재주문점 ≈ 200 + 46.5 = 246.5</td></tr><tr><td>정기발주 (R = 1주)</td><td>R + L = 3주</td><td>1.645 × 20 × √3 ≈ 57.0</td><td>목표수준 S ≈ 300 + 57.0 = 357.0</td></tr></tbody></table></div><p>점검 시점의 재고위치가 180이라면 발주량은 S − IP ≈ 177입니다. 같은 서비스 수준에서 정기발주의 안전재고가 약 22% 많은 것(57.0 대 46.5)은 보호해야 할 기간이 R만큼 더 길기 때문입니다. R을 늘리면 점검·발주 횟수는 줄지만 안전재고와 평균 재고가 늘어난다는 상충관계를 이 식이 보여 줍니다. 수치는 설명용 가정입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>정책 기호와 의미를 먼저 정의합니다: “(R, S) 정기발주정책: 매 R주 점검, 재고위치를 S까지 보충”.</li><li>모수를 표로 제시합니다: 평균·표준편차 수요, 조달기간, 목표 서비스 수준(사이클 서비스 수준인지 충족률인지 구분), 발주비·재고유지비.</li><li>비교 연구에서는 연속점검 정책과 같은 서비스 수준에서 총비용, 평균 재고, 발주 횟수를 나란히 보고합니다. 수요 분포 가정(정규 등)과 조달기간이 일정한지를 한계로 적습니다.</li><li>서비스 수준 정의가 다르면 결과를 비교할 수 없으므로 ‘결품 확률’과 ‘충족률(fill rate)’을 혼용하지 않습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">정기발주시스템을 적용한 결과 검토 주기가 짧아질수록 재고비용은 증가하나 결품률은 감소하는 상충관계가 나타났다.</div>
   <p>재고를 자주 확인할수록 관리 비용은 늘지만 물건이 떨어지는 일은 줄어드는 트레이드오프가 있다는 결과를 설명한다.</p>
   <div class="example">정기발주시스템을 적용한 품목군은 지속발주시스템 적용 품목군보다 발주 처리 건수는 줄었으나 평균 재고수준은 다소 높게 유지되었다.</div>
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>정기발주시스템은 검토 주기 사이의 수요 변동에 대응하기 위해 정량발주시스템보다 더 많은 안전재고가 필요할 수 있다. 정기발주시스템은 다음 점검 주기까지의 수요 변동 위험을 감안해 더 많은 안전재고를 확보해야 하므로, 재고비용 측면에서는 지속발주시스템보다 불리할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>발주 시점을 무엇으로 정하느냐에 따라 구분됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">발주 시점</th><th scope="col">발주량</th></tr></thead><tbody><tr><th scope="row"><strong>정기발주시스템</strong></th><td>정해진 주기마다</td><td>목표 수준까지의 부족분(가변)</td></tr><tr><th scope="row"><a href="continuous-review-system.html">연속점검시스템(정량발주)</a></th><td>재고가 재주문점에 닿는 즉시</td><td>대개 고정량 Q</td></tr><tr><th scope="row"><a href="reorder-point.html">재주문점</a></th><td>연속점검에서 발주를 시작하는 재고 수준</td><td>—</td></tr><tr><th scope="row"><a href="safety-stock.html">안전재고</a></th><td>수요·조달기간 변동을 흡수하는 여유분</td><td>정기발주는 R + L 기간을 보호해야 하므로 더 큼</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Silver, E. A., Pyke, D. F., &amp; Thomas, D. J. (2017). Inventory and Production Management in Supply Chains (4th ed.). CRC Press.</li>
+    <li>Nahmias, S., &amp; Olsen, T. L. (2015). Production and Operations Analysis (7th ed.). Waveland Press.</li>
+    <li>Axsäter, S. (2006). Inventory Control (2nd ed.). Springer.</li>
+    <li>Hadley, G., &amp; Whitin, T. M. (1963). Analysis of Inventory Systems. Prentice-Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="inventory-management.html">재고관리</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="multi-echelon-inventory-management.html">다단계재고관리</a><a href="inventory-replenishment.html">재고보충</a><a href="inventory-positioning.html">재고포지셔닝</a><a href="continuous-review-system.html">정량발주시스템</a></div></div><p class="concept-family-map"><a href="../concept-map/logis.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

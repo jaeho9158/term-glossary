@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>환경을 같은 크기의 셀로 나누고, 각 셀이 <strong>점유(장애물)되어 있을 확률</strong> p(occ)를 저장합니다(Elfes, 1989).</li><li>보통 셀을 서로 독립으로 가정하고, 센서 관측이 들어올 때마다 베이즈 규칙으로 갱신합니다. 독립 가정은 계산을 단순하게 하기 위한 근사입니다(Thrun et al., 2005).</li><li>구현에서는 확률 대신 <strong>로그 오즈</strong> l = log(p/(1−p))를 저장합니다. 그러면 갱신이 덧셈 l ← l + l_sensor − l_prior가 되고 0과 1 근처의 수치 문제도 줄어듭니다.</li><li>센서 모델에 따라 거리 측정이 닿은 셀은 ‘점유’ 쪽으로, 빔이 지나간 셀은 ‘비어 있음’ 쪽으로 갱신합니다. 아직 보지 못한 셀은 p = 0.5(모름)로 둡니다.</li><li>[[metric-map|계량지도]]의 한 종류이며, 장소와 연결 관계로 표현하는 [[topological-map|위상지도]]와 대비됩니다. 3차원은 메모리 때문에 옥트리 같은 구조를 씁니다(OctoMap; Hornung et al., 2013).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 예(계산)</strong> 한 셀의 초기값은 p = 0.5이므로 로그 오즈는 0입니다. 센서가 이 셀을 ‘점유’라고 보고할 때의 역센서 모델을 p = 0.7(로그 오즈 ≈ +0.847)이라고 가정하면, 같은 셀에 관측이 누적될 때 점유 확률은 다음처럼 변합니다.</p><table><thead><tr><th>점유 관측 횟수</th><th>누적 로그 오즈</th><th>점유 확률</th></tr></thead><tbody><tr><td>1</td><td>0.847</td><td>0.700</td></tr><tr><td>2</td><td>1.695</td><td>0.845</td></tr><tr><td>3</td><td>2.542</td><td>0.927</td></tr><tr><td>4</td><td>3.389</td><td>0.967</td></tr></tbody></table><p>여기에 ‘비어 있음’ 관측(p = 0.4, 로그 오즈 ≈ −0.405) 한 번이 들어오면 4회 누적 후 확률이 0.967에서 약 0.952로 내려갑니다. 즉 한 번의 반대 관측으로 뒤집히지 않고, 관측이 쌓일수록 확신이 커집니다. 동적 장애물이 지나가면 이 누적 때문에 잔상이 남을 수 있어 실제 시스템은 값의 상·하한을 두어 ‘잊을’ 수 있게 합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>격자 값은 ‘장애물의 크기’나 ‘높이’를 나타낸다.</td><td>각 셀의 점유 <em>확률</em>(또는 그 로그 오즈)이며 높이가 아닙니다. 높이 지도는 별개의 표현입니다.</td></tr><tr><td>셀 값이 0.5면 반쯤 막혀 있다는 뜻이다.</td><td>0.5는 ‘아직 모른다’를 뜻합니다. 부분 점유와는 다른 개념입니다.</td></tr><tr><td>해상도는 높을수록 좋다.</td><td>메모리와 계산량이 해상도의 제곱(3차원은 세제곱)으로 늘고 센서 잡음 수준을 넘는 해상도는 이득이 없습니다.</td></tr><tr><td>점유격자지도 = SLAM이다.</td><td>지도 표현일 뿐입니다. 로봇 위치를 함께 추정하는 문제는 [[slam|SLAM]]이고, 점유격자는 그 지도 표현으로 쓰입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "로봇 지도 표현의 종류를 비교합니다.",
+    "headers": [
+      "용어",
+      "저장하는 것",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[occupancy-grid-map|점유격자지도]]",
+        "셀별 점유 확률",
+        "경로 계획에 바로 쓰기 쉬움, 해상도에 따라 메모리 증가"
+      ],
+      [
+        "[[topological-map|위상지도]]",
+        "장소(노드)와 연결(엣지)",
+        "정확한 거리는 생략, 크기가 작음"
+      ],
+      [
+        "[[point-cloud-map|점군지도]]",
+        "측정된 3차원 점들",
+        "원본 형상 유지, 점유·빈 공간 정보는 따로 필요"
+      ],
+      [
+        "[[slam|SLAM]]",
+        "위치추정과 지도 작성 문제",
+        "점유격자는 그 결과물의 한 형태"
+      ]
+    ]
+  },
+  "references": [
+    "Elfes, A. (1989). Using occupancy grids for mobile robot perception and navigation. Computer, 22(6), 46–57.",
+    "Moravec, H., & Elfes, A. (1985). High resolution maps from wide angle sonar. Proceedings of the IEEE International Conference on Robotics and Automation.",
+    "Thrun, S., Burgard, W., & Fox, D. (2005). Probabilistic Robotics. MIT Press.",
+    "Hornung, A., Wurm, K. M., Bennewitz, M., Stachniss, C., & Burgard, W. (2013). OctoMap: An efficient probabilistic 3D mapping framework based on octrees. Autonomous Robots, 34(3), 189–206."
+  ]
+}
