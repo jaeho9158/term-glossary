@@ -24,11 +24,12 @@ function validate(spec) {
   return errs;
 }
 
-function layout(cv, spec) {
+function layout(cv, spec, orientation = "h") {
+  const phone = orientation === "v"; // 휴대폰판: 칸을 좁혀 343px 컬럼에 1:1로 들어가게 한다
   const { x: ax, y: ay } = spec.axes;
-  const ms = new Map(spec.nodes.map((n) => [n.id, measureNode(n, 150)]));
+  const ms = new Map(spec.nodes.map((n) => [n.id, measureNode(n, phone ? 96 : 150)]));
   // 칸 폭은 x축 low·high 글자(칸 가운데 아래에 쓴다)도 담아야 이웃 칸 글자와 안 겹친다.
-  const CW = Math.max(140, ...[...ms.values()].map((m) => m.w), ...[ax.low, ax.high].map((t) => textWidth(t, FS_SUB) + 12));
+  const CW = Math.max(phone ? 100 : 140, ...[...ms.values()].map((m) => m.w), ...[ax.low, ax.high].map((t) => textWidth(t, FS_SUB) + 12));
   const CH = Math.max(56, ...[...ms.values()].map((m) => m.h));
   const G = 8;
   const yLabW = Math.max(textWidth(ay.high, FS_SUB), textWidth(ay.low, FS_SUB));
@@ -62,4 +63,4 @@ function describe(spec, title) {
     `왼쪽 위 ${at.tl}, 오른쪽 위 ${at.tr}, 왼쪽 아래 ${at.bl}, 오른쪽 아래 ${at.br}.`;
 }
 
-module.exports = { validate, layout, describe, dual: () => false };
+module.exports = { validate, layout, describe, dual: (spec, hw) => hw > 395 };

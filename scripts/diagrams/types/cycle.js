@@ -1,6 +1,6 @@
 // cycle: 끝이 처음으로 돌아오는 순환(탄소 순환, PDCA). 노드 3~6개를 원 위에 시계방향으로.
 "use strict";
-const { FS, LINE, MARGIN, textWidth, wrap, segHitsRect, validateNodes, measureNode, drawNode } = require("../core.js");
+const { FS, LINE, MARGIN, r1, textWidth, wrap, segHitsRect, validateNodes, measureNode, drawNode } = require("../core.js");
 
 const CENTER_MAX = 110; // 가운데 글자 줄바꿈 폭
 const CLEAR = 8; // 가운데 글자와 화살표·상자 사이 최소 여백
@@ -48,7 +48,38 @@ function centerRects(lines) {
   });
 }
 
-function layout(cv, spec) {
+// 휴대폰판("v"): 노드를 한 열로 쌓고 아래 화살표로 잇는다. 마지막 → 처음의 되돌림은 오른쪽 옆 길로
+// 올라가는 화살표, 가운데 글자는 맨 위로. 폭은 본문 컬럼(343px)에 1:1로 맞춰 글자가 줄지 않는다.
+const PHONE_W = 343, STACK_GAP = 28, LANE = 22, PHONE_TEXT_MAX = 190;
+
+function layoutPhone(cv, spec) {
+  const nodes = spec.nodes, n = nodes.length;
+  const ms = nodes.map((nd) => measureNode(nd, PHONE_TEXT_MAX));
+  const W = Math.max(...ms.map((m) => m.w));
+  const x0 = Math.round((PHONE_W - (W + LANE)) / 2), xr = x0 + W;
+  let y = MARGIN;
+  if (spec.center) {
+    const lines = wrap(spec.center, PHONE_W - MARGIN * 2, FS, true);
+    for (const l of lines) { y += FS; cv.text(PHONE_W / 2, y, l, { fs: FS, bold: true, fill: "var(--dg-general)", owner: "center" }); y += LINE - FS; }
+    y += 10;
+  }
+  const pos = nodes.map((nd, i) => {
+    const p = { x: x0, y, w: W, h: ms[i].h };
+    y += ms[i].h + STACK_GAP;
+    return p;
+  });
+  nodes.forEach((nd, i) => drawNode(cv, nd, pos[i].x, pos[i].y, pos[i].w, pos[i].h, ms[i]));
+  for (let i = 0; i < n - 1; i++) {
+    const cx = x0 + W / 2;
+    cv.line(cx, pos[i].y + pos[i].h, cx, pos[i + 1].y - 2, "arrow");
+  }
+  const a = pos[n - 1], b = pos[0], lx = xr + LANE * 0.55;
+  cv.path(`M${r1(xr)},${r1(a.y + a.h / 2)} H${r1(lx)} V${r1(b.y + b.h / 2)} H${r1(xr + 3)}`, "arrow");
+  return { w: PHONE_W, h: y - STACK_GAP + MARGIN };
+}
+
+function layout(cv, spec, orientation = "h") {
+  if (orientation === "v") return layoutPhone(cv, spec);
   const nodes = spec.nodes, n = nodes.length;
   const ms = nodes.map((nd) => measureNode(nd));
   const W = Math.max(...ms.map((m) => m.w)), H = Math.max(...ms.map((m) => m.h));
@@ -80,4 +111,6 @@ function describe(spec, title) {
   return `${title} 순환: ${labels.join(" → ")} → 다시 ${labels[0]}.`;
 }
 
-module.exports = { validate, layout, describe, dual: () => false };
+module.exports = { validate, layout, describe,
+  // 가로판이 본문 컬럼(343px)보다 넓으면 휴대폰에서 줄어 글자가 작아지므로 세로판을 함께 싣는다.
+  dual: (spec, hw) => hw > PHONE_W };

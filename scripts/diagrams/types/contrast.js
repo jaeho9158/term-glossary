@@ -16,14 +16,15 @@ function validate(spec) {
   return errs;
 }
 
-function layout(cv, spec) {
+function layout(cv, spec, orientation = "h") {
+  const phone = orientation === "v"; // 휴대폰판: 열을 좁혀 343px 컬럼에 1:1로 들어가게 한다
   const side = { left: new Map(), right: new Map() };
   for (const n of spec.nodes) side[n.side].set(n.row, n);
   const rows = [...side.left.keys()].sort((a, b) => a - b);
-  const all = spec.nodes.map((n) => [n, measureNode(n, 150)]);
+  const all = spec.nodes.map((n) => [n, measureNode(n, phone ? 112 : 150)]);
   const mOf = new Map(all.map(([n, m]) => [n.id, m]));
-  const colW = Math.max(120, ...all.map(([, m]) => m.w));
-  const gap = 44;
+  const colW = Math.max(phone ? 96 : 120, ...all.map(([, m]) => m.w));
+  const gap = phone ? 34 : 44;
   const axisH = spec.axis ? 24 : 0;
   let y = MARGIN + axisH;
   const xL = MARGIN, xR = MARGIN + colW + gap;
@@ -52,4 +53,5 @@ function describe(spec, title) {
   return `${title}: 왼쪽 ${L.label}와 오른쪽 ${R.label}를 비교한다. ${pairs.join(", ")}.`;
 }
 
-module.exports = { validate, layout, describe, dual: () => false };
+module.exports = { validate, layout, describe, // 가로판이 343px 컬럼보다 넓으면 휴대폰에서 줄어 글자가 10px 아래가 된다.
+  dual: (spec, hw) => hw > 395 };

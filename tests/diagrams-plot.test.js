@@ -32,7 +32,20 @@ for (const s of [power, roc]) {
 }
 const fig = renderFigure(power, "검정력");
 assert.ok(fig.html.includes("<figcaption>개념 설명용 모식도"), "모식도 캡션");
-assert.strictEqual((fig.html.match(/<svg/g) || []).length, 1);
+// 가로판(440px 그림)과 휴대폰판(343px 컬럼에 1:1) 두 벌
+assert.strictEqual((fig.html.match(/<svg/g) || []).length, 2);
+for (const s of [power, roc]) {
+  const v = renderSpec(s, { title: s.slug, orientation: "v" });
+  assert.strictEqual(v.width, 343, `${s.slug}: 휴대폰판 폭`);
+  assert.deepStrictEqual(v.warnings, [], `${s.slug} v: ${v.warnings.join("; ")}`);
+}
+// 자리를 못 찾은 라벨은 번호 배지 + 그림 아래 범례로 옮긴다(겹침 없이)
+{
+  const tight = { ...power, plot: { ...power.plot, shade: [{ series: 0, from: -0.2, to: 0.2, label: "아주 좁은 구간의 긴 음영 라벨" }], vlines: [] } };
+  const v = renderSpec(tight, { title: "t", orientation: "v" });
+  assert.deepStrictEqual(v.warnings, [], v.warnings.join("; "));
+  assert.ok(v.texts.some((t) => t.owner === "key" && t.label.includes("긴 음영")), "범례(key)에 라벨");
+}
 assert.ok(renderSpec(power, { title: "t" }).desc.includes("음영: 검정력"));
 assert.ok(renderSpec(roc, { title: "t" }).svg.includes("stroke-dasharray"), "ROC 우연선");
 

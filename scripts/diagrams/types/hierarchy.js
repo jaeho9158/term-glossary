@@ -3,8 +3,8 @@
 const { MARGIN, r1, validateNodes, measureNode, drawNode } = require("../core.js");
 
 // 가로판이 이 폭을 넘으면 세로판(아웃라인)을 함께 넣는다. 모바일 본문 폭(~360px)에
-// 들어갈 때 글자가 원래 크기의 80% 아래로 줄어드는 지점.
-const HIERARCHY_DUAL_MIN_W = 450;
+// 들어갈 때 가장 작은 글자(11.5px)가 10px 아래로 줄어드는 지점.
+const HIERARCHY_DUAL_MIN_W = 395; // 395px 폭이면 343px 컬럼에서 11.5px 글자가 10px로 줄어든다
 
 function validate(spec) {
   const errs = validateNodes(spec);

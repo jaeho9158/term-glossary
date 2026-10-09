@@ -113,7 +113,9 @@ for (const s of [chain, contrast, hierarchy, procedure]) {
 
 // 선형 도식 figure에는 두 벌, 좁은 hierarchy·contrast는 한 벌
 assert.strictEqual((renderFigure(chain, "t").html.match(/<svg/g) || []).length, 2);
-assert.strictEqual((renderFigure(hierarchy, "t").html.match(/<svg/g) || []).length, 1);
+// 잎 3개(폭 약 400px)부터는 343px 컬럼에서 글자가 10px 아래로 줄어 세로판을 함께 싣는다. 잎 2개는 한 벌.
+const narrowTree = { ...hierarchy, nodes: hierarchy.nodes.slice(0, 3), edges: hierarchy.edges.slice(0, 2) };
+assert.strictEqual((renderFigure(narrowTree, "t").html.match(/<svg/g) || []).length, 1);
 assert.strictEqual((renderFigure(contrast, "t").html.match(/<svg/g) || []).length, 1);
 
 // 잎이 많아 넓은 hierarchy는 모바일용 아웃라인 세로판을 함께 넣고, 세로판은 좁다

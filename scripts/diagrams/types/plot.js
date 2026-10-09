@@ -1,10 +1,13 @@
 // plot: 함수 곡선(분포, ROC, 용량-반응…). 스펙은 함수 이름·매개변수만, 점은 plot-fns.js가 계산.
 // 눈금 숫자는 기본으로 숨기고 figure에 "개념 설명용 모식도" 캡션을 단다.
 "use strict";
-const { FS_SUB, FS_NOTE, MARGIN, COLORS, SERIES_COLORS, AXIS_COLOR: AXIS, r1, textWidth, segHitsRect } = require("../core.js");
+const { FS_SUB, FS_NOTE, MARGIN, COLORS, SERIES_COLORS, AXIS_COLOR: AXIS, r1, textWidth, wrap, segHitsRect } = require("../core.js");
 const { FNS, checkParams, sample } = require("../plot-fns.js");
 
-const PW = 440, PH = 200;
+const PW_H = 440, PH = 200;
+// 휴대폰판("v"): 본문 컬럼(343px)에 1:1로 들어가도록 viewBox 폭을 343에 맞춘다. 그림 영역만 좁히고
+// 글자 크기는 그대로라 실효 크기가 줄지 않는다(가로판은 482px 폭이 축소돼 8px대가 된다).
+const PHONE_W = 343;
 
 // 눈금: 구간 [lo, hi]를 4~8칸쯤으로 나누는 1·2·5×10^k 간격. 값은 정수 배수로 만들어
 // 부동소수 찌꺼기가 없고, 소수 자리는 간격이 요구하는 만큼(0.005 → 3자리).
@@ -69,7 +72,7 @@ function validate(spec) {
   return errs;
 }
 
-function layout(cv, spec) {
+function layout(cv, spec, orientation = "h") {
   const p = spec.plot, S = p.series;
   const isRoc = S[0].fn === "roc";
   const [xlo, xhi] = isRoc ? [0, 1] : p.x.range;
@@ -92,6 +95,7 @@ function layout(cv, spec) {
   const yTicks = p.y.ticks ? niceTicks(ylo, ytop) : [];
   const yTickW = yTicks.length ? Math.max(...yTicks.map((t) => textWidth(t.t, FS_SUB))) + 10 : 0;
   const left = MARGIN + yTickW + 6, top = MARGIN + FS_NOTE + 12;
+  const PW = orientation === "v" ? PHONE_W - left - 8 - MARGIN : PW_H;
   const X = (x) => left + ((x - xlo) / (xhi - xlo)) * PW;
   const Y = (y) => top + PH - ((y - ylo) / (yhi - ylo)) * PH;
   const baseY = Y(ylo <= 0 && 0 <= yhi ? 0 : ylo);
@@ -123,13 +127,42 @@ function layout(cv, spec) {
     const d = "M" + pts.map(([x, y]) => `${r1(X(x))},${r1(Y(y))}`).join(" L");
     cv.parts.push(`<path d="${d}" fill="none" stroke="var(--dg-${colorOf(S[i], i)}-s)" stroke-width="2.2"${clip}/>`);
   });
+  const phone = orientation === "v";
+  // 가로판의 곡선 표본점(그림 영역 안에 보이는 것만): 휴대폰판 수직선 라벨 자리 찾기용
+  const seen = phone ? data.flatMap((d) => d.map(([x, yv]) => [X(x), Y(yv)])).filter(([, py]) => py >= top) : [];
+  // 휴대폰판에서 자리를 못 찾은 라벨은 번호 배지로 바꾸고 그림 아래 범례(key)에 풀어 쓴다.
+  const keyed = [], blockers = [];
+  const badgeAt = (cx, cy, label, color) => {
+    keyed.push({ n: keyed.length + 1, label, color });
+    cv.badge(cx, cy, keyed.length);
+    blockers.push({ x: cx - 10, y: cy - 10, w: 20, h: 20 });
+  };
+  const hitsAny0 = (a, b, pad) => a.x < b.x + b.w + pad && b.x < a.x + a.w + pad && a.y < b.y + b.h + pad && b.y < a.y + a.h + pad;
   for (const v of p.vlines || []) {
     const vx = X(v.x);
     cv.parts.push(`<line x1="${r1(vx)}" y1="${r1(top)}" x2="${r1(vx)}" y2="${r1(top + PH)}" stroke="var(--dg-navy)" stroke-width="1.2" stroke-dasharray="4,3"/>`);
     if (!v.label) continue;
     // 오른쪽에 붙이면 도식 밖으로 나가는 라벨은 선 왼쪽에 끝을 맞춘다.
-    const right = vx + 4 + textWidth(v.label, FS_SUB, true) > left + PW + 8;
-    cv.text(right ? vx - 4 : vx + 4, top + FS_SUB, v.label, { fs: FS_SUB, bold: true, fill: "var(--dg-navy)", anchor: right ? "end" : "start", owner: "vline" });
+    let right = vx + 4 + textWidth(v.label, FS_SUB, true) > left + PW + 8;
+    let ly = top + FS_SUB;
+    if (phone) {
+      // 좁은 휴대폰판: 이웃 수직선 라벨과 겹치지 않는 가장 위쪽 자리(오른쪽→왼쪽, 위→아래 줄)를 고른다.
+      const w = textWidth(v.label, FS_SUB, true), h = FS_SUB * 1.08;
+      const spot = [];
+      for (let k = 0; k < 6; k++) for (const rt of right ? [true, false] : [false, true]) spot.push([rt, top + FS_SUB + k * (FS_SUB + 3)]);
+      const ok = ([rt, yy]) => {
+        const x0 = rt ? vx - 4 - w : vx + 4;
+        const rc = { x: x0, y: yy - FS_SUB * 0.82, w, h };
+        if (rc.x < left - MARGIN + 2 || rc.x + rc.w > left + PW + 8 + MARGIN - 2) return false;
+        if ((p.vlines || []).some((o) => o !== v && X(o.x) > rc.x - 2 && X(o.x) < rc.x + rc.w + 2)) return false; // 다른 수직선을 가로지르면 안 됨
+        if (cv.texts.some((t) => hitsAny0(t, rc, 1.5)) || blockers.some((t) => hitsAny0(t, rc, 1.5))) return false;
+        return !seen.some(([px, py]) => px > rc.x - 1 && px < rc.x + rc.w + 1 && py > rc.y - 1 && py < rc.y + rc.h + 1);
+      };
+      const pick = spot.find(ok);
+      if (!pick) { badgeAt(vx, top + 11, v.label, "var(--dg-navy)"); continue; }
+      right = pick[0]; ly = pick[1];
+    }
+    cv.text(right ? vx - 4 : vx + 4, ly, v.label, { fs: FS_SUB, bold: true, fill: "var(--dg-navy)", anchor: right ? "end" : "start", owner: "vline" });
   }
   // 음영 라벨: 음영 넓이의 무게중심(x̄ = ∫x·g/∫g, ȳ = ∫g²/2 / ∫g, g는 기준선에서 잰 높이)에 둔다.
   // 끝이 열린 음영도 넓이가 몰린 곳에 라벨이 앉는다. 그 자리에서 라벨이 곡선·기준선·다른 글자에
@@ -155,24 +188,37 @@ function layout(cv, spec) {
     const ym = A > 0 ? base + My / A : base;
     const w = textWidth(sh.label, FS_SUB, true), h = FS_SUB * 1.08;
     const f = (px) => FNS[s.fn].f(xlo + ((px - left) / PW) * (xhi - xlo), s.params);
-    const fits = (cx, cy) => {
+    const fitsWH = (cx, cy, w, h) => {
       const rc = { x: cx - w / 2, y: cy - h / 2, w, h };
       if (rc.x < X(a) + 2 || rc.x + rc.w > X(b) - 2 || rc.y < top || rc.y + rc.h > top + PH - 2) return false;
       const yc = Y(f(cx)), yb = Y(base); // 음영은 기준선과 곡선 사이
       if (rc.y < Math.min(yc, yb) + 2 || rc.y + rc.h > Math.max(yc, yb) - 2) return false;
-      if (cv.texts.some((t) => hitsAny(t, rc, 2))) return false;
+      if (cv.texts.some((t) => hitsAny(t, rc, 2)) || blockers.some((t) => hitsAny(t, rc, 2))) return false;
       return !polys.some((pl) => pl.some((q, k) => k > 0 && segHitsRect(pl[k - 1][0], pl[k - 1][1], q[0], q[1], rc, 1)));
     };
+    const fits = (cx, cy) => fitsWH(cx, cy, w, h);
     const gx = X(xm), gy = Math.min(Y(ym), top + PH - 2 - h / 2); // 글자 사각형 중심을 무게중심에
-    let at = [gx, gy];
-    if (!fits(gx, gy)) {
+    let at = [gx, gy], found = fits(gx, gy);
+    if (!found) {
       let bestD = Infinity;
       for (let cx = X(a); cx <= X(b); cx += 2) {
         for (let cy = top; cy <= top + PH; cy += 2) {
           const dd = Math.hypot(cx - gx, cy - gy);
-          if (dd < bestD && fits(cx, cy)) { bestD = dd; at = [cx, cy]; }
+          if (dd < bestD && fits(cx, cy)) { bestD = dd; at = [cx, cy]; found = true; }
         }
       }
+    }
+    if (phone && !found) {
+      // 배지(20×20)가 들어갈 가장 가까운 자리, 없으면 무게중심
+      let bestD = Infinity, bat = [gx, gy];
+      for (let cx = X(a); cx <= X(b); cx += 2) {
+        for (let cy = top; cy <= top + PH; cy += 2) {
+          const dd = Math.hypot(cx - gx, cy - gy);
+          if (dd < bestD && fitsWH(cx, cy, 20, 20)) { bestD = dd; bat = [cx, cy]; }
+        }
+      }
+      badgeAt(bat[0], bat[1], sh.label, `var(--dg-${(sh.color || colorOf(s, sh.series))}-t)`);
+      continue;
     }
     cv.text(at[0], at[1] + h / 2 - FS_SUB * 0.26, sh.label, { fs: FS_SUB, bold: true, fill: `var(--dg-${(sh.color || colorOf(s, sh.series))}-t)`, owner: "shade" });
   }
@@ -186,15 +232,29 @@ function layout(cv, spec) {
   }
   y += FS_NOTE + 10;
   cv.text(left + PW / 2, y, p.x.label, { fs: FS_NOTE, bold: true, fill: AXIS, owner: "axis-x" });
+  for (const k of keyed) {
+    const lines = wrap(k.label, PHONE_W - MARGIN * 2 - 24, FS_SUB, true);
+    y += FS_NOTE + 6;
+    cv.badge(MARGIN + 9, y - 4, k.n);
+    lines.forEach((l, i) => {
+      if (i) y += FS_SUB + 4;
+      cv.text(MARGIN + 24, y, l, { fs: FS_SUB, bold: true, fill: k.color, anchor: "start", owner: "key" });
+    });
+  }
   const labeled = S.map((s, i) => ({ s, i })).filter((o) => o.s.label);
   if (labeled.length) {
     y += FS_NOTE + 10;
     let lx = left;
     for (const { s, i } of labeled) {
-      const w = 22 + textWidth(s.label, FS_SUB) + 16;
+      // 휴대폰판: 범례 한 줄이 그림 폭보다 길면 줄바꿈한다.
+      const lines = phone && 22 + textWidth(s.label, FS_SUB) > PW ? wrap(s.label, PW - 22, FS_SUB) : [s.label];
+      const w = 22 + Math.max(...lines.map((l) => textWidth(l, FS_SUB))) + 16;
       if (lx > left && lx + w > left + PW) { lx = left; y += FS_SUB + 8; }
       cv.parts.push(`<line x1="${r1(lx)}" y1="${r1(y - 4)}" x2="${r1(lx + 16)}" y2="${r1(y - 4)}" stroke="var(--dg-${colorOf(s, i)}-s)" stroke-width="2.2"/>`);
-      cv.text(lx + 22, y, s.label, { fs: FS_SUB, fill: "var(--dg-navy)", anchor: "start", owner: "legend" });
+      lines.forEach((l, k) => {
+        if (k) y += FS_SUB + 4;
+        cv.text(lx + 22, y, l, { fs: FS_SUB, fill: "var(--dg-navy)", anchor: "start", owner: "legend" });
+      });
       lx += w;
     }
   }
@@ -218,4 +278,4 @@ function describe(spec, title) {
   return t;
 }
 
-module.exports = { validate, layout, describe, dual: () => false, caption: "개념 설명용 모식도 — 실제 데이터가 아닙니다" };
+module.exports = { validate, layout, describe, dual: () => true, caption: "개념 설명용 모식도 — 실제 데이터가 아닙니다" };
