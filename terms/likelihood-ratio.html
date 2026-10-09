@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/likelihood-ratio.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,9 +149,26 @@
   <h2>왜 중요한가</h2>
   <p>진단검사 연구에서는 민감도·특이도만으로는 실제 진료 현장에서 검사 결과가 환자의 병일 가능성을 얼마나 바꾸는지 직관적으로 보여주지 못합니다. 우도비는 사전확률(유병률)과 결합해 사후확률을 계산하는 데 바로 쓸 수 있어, 새로운 진단검사나 스크리닝 도구의 임상적 유용성을 평가하는 논문에서 핵심 지표로 다뤄집니다. 또한 여러 검사를 순차적으로 적용하는 진단 전략을 설계할 때도 우도비를 곱해가며 확률을 갱신하는 방식이 널리 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>우도비는 “어떤 검사 결과가 나올 확률을 병이 있는 사람과 없는 사람에서 비교한 비”입니다.</p><ul><li><code>양성우도비 LR+ = 민감도 / (1 − 특이도)</code></li><li><code>음성우도비 LR− = (1 − 민감도) / 특이도</code></li><li>검사 결과가 여러 등급이면 등급마다 <code>LR = P(그 결과 | 병 있음) / P(그 결과 | 병 없음)</code> 으로 계산합니다.</li><li><strong>범위</strong>: 0 이상. 1이면 그 결과가 있어도 판단이 바뀌지 않는다는 뜻이고, LR+는 1보다 클수록, LR−는 0에 가까울수록 정보량이 큽니다.</li></ul><p><strong>작은 예(가상).</strong> 민감도 90%, 특이도 80%인 검사라면 LR+ = 0.9/0.2 = 4.5, LR− = 0.1/0.8 = 0.125입니다. 검사 전 확률이 20%(승산 0.25)인 사람은 양성이면 승산이 0.25 × 4.5 = 1.125, 즉 확률 약 53%가 되고, 음성이면 0.25 × 0.125 = 0.031, 확률 약 3%가 됩니다. 1,000명(병 200명)에 적용한 표로 세어 봐도 양성 340명 중 180명이 환자여서 같은 53%가 나옵니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>우도비는 확률이 아니라 <strong>승산(odds)에 곱해지는 값</strong>입니다: <code>검사 후 승산 = 검사 전 승산 × LR</code>. “LR+ 12면 병일 확률이 12배가 된다”는 해석은 틀립니다. 검사 전 확률이 5%인 사람에게 LR+ 10을 곱하면 확률은 약 34%이지 50%가 아닙니다. 승산과 확률 사이를 오가기 어려우면 Fagan 노모그램(Fagan, 1975)으로 읽을 수 있습니다.</p><p>크기를 읽는 흔한 기준은 Jaeschke 등(1994)이 정리한 것입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>LR+</th><th>LR−</th><th>검사 후 확률 변화의 크기</th></tr></thead><tbody><tr><td>10 초과</td><td>0.1 미만</td><td>크고 때로는 결정적</td></tr><tr><td>5~10</td><td>0.1~0.2</td><td>중간</td></tr><tr><td>2~5</td><td>0.2~0.5</td><td>작지만 때로 의미 있음</td></tr><tr><td>1~2</td><td>0.5~1</td><td>거의 의미 없음</td></tr></tbody></table></div><p>이 구간은 관례적 가이드이지 법칙이 아닙니다. 또 우도비는 민감도·특이도처럼 유병률에는 직접 의존하지 않지만, 연구 대상 집단의 증상 스펙트럼이 달라지면 값이 달라질 수 있습니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>LR+와 LR−를 <strong>신뢰구간과 함께</strong> 적습니다. 민감도·특이도의 표본오차가 우도비에 그대로 옮겨 가기 때문입니다.</li><li>어떤 기준값(cut-off)에서 계산했는지, 참값(표준검사)이 무엇인지 밝힙니다. 기준값을 바꾸면 LR이 달라집니다.</li><li>환자에게 적용할 때는 검사 전 확률의 근거를 따로 적어야 합니다. 우도비만으로는 검사 후 확률이 정해지지 않습니다.</li><li>같은 약자 LR이 <a href="likelihood-ratio-test.html">우도비검정</a>(모형 비교 통계 검정)을 가리키는 논문도 있으므로 진단검사 맥락인지 확인하세요. 아래 표 참고.</li></ul><p><code>예) 양성우도비는 4.5(95% CI …), 음성우도비는 0.13(95% CI …)이었다.</code> (형식 예시이며 수치는 가상)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"해당 검사의 양성우도비(LR+)는 12.4로 산출되어, 임상적으로 진단을 확진하는 데 유용한 것으로 평가되었다."</div>
-  <p>이 문장은 "이 검사에서 양성이 나오면, 병이 있을 가능성이 검사 전보다 12배 이상 높아진다고 볼 수 있다"는 뜻입니다.</p>
+  <p>이 문장은 "이 검사에서 양성이 나오면, 병이 있을 승산(odds)이 검사 전보다 약 12배로 커진다고 볼 수 있다"는 뜻입니다.</p>
 
   <div class="example">"음성우도비(LR-)가 0.1 미만으로 낮게 나타나, 해당 선별검사가 음성일 경우 질환을 배제하는 데 유용함을 시사하였다."</div>
   <p>선별검사 논문에서는 음성 결과가 나왔을 때 병을 얼마나 확실히 배제할 수 있는지를 LR-로 평가한다는 예시입니다.</p>
@@ -166,6 +184,19 @@
   <h2>주의할 점</h2>
   <p>민감도와 특이도가 각각 높다고 해서 그 검사가 실제 진료에서 곧바로 유용하다는 뜻은 아닙니다. 우도비는 이 둘을 하나로 합쳐서, 검사 전 확률(유병률)을 검사 후 확률로 얼마나 바꿔주는지 직접 보여주기 때문에 임상적 유용성을 판단하는 데 더 직관적입니다.</p>
   <p>우도비를 실제 확률로 환산할 때는 <a href="predictive-value.html">양성예측도/음성예측도</a>와 혼동하지 않도록 주의해야 합니다. 예측도는 검사 대상 집단의 유병률에 따라 크게 달라지지만, 우도비는 그 검사 자체의 성능을 유병률과 무관하게 나타내는 값이라는 차이가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>진단검사 지표들은 서로 계산 재료를 공유해서 자주 섞입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">유병률에 의존?</th></tr></thead><tbody><tr><th scope="row"><a href="sensitivity-specificity.html">민감도·특이도</a></th><td>병 있는/없는 사람에서 검사가 맞히는 비율</td><td>의존하지 않음</td></tr><tr><th scope="row"><a href="predictive-value.html">양성·음성예측도</a></th><td>검사 결과가 맞을 확률</td><td>크게 의존함</td></tr><tr><th scope="row">우도비</th><td>결과가 환자/비환자에서 나올 확률의 비</td><td>직접 의존하지 않음(사전 승산에 곱해 사용)</td></tr><tr><th scope="row"><a href="likelihood-ratio-test.html">우도비검정</a></th><td>두 통계 모형의 적합도를 비교하는 가설검정</td><td>진단검사와 무관한 다른 개념</td></tr><tr><th scope="row"><a href="pretest-probability.html">검사 전 확률</a></th><td>검사 전에 추정한 병의 확률</td><td>우도비를 곱하기 전 출발점</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Jaeschke, R., Guyatt, G. H., &amp; Sackett, D. L. (1994). Users' guides to the medical literature: III. How to use an article about a diagnostic test. B. What are the results and will they help me in caring for my patients? JAMA, 271(9), 703–707.</li>
+    <li>Deeks, J. J., &amp; Altman, D. G. (2004). Diagnostic tests 4: Likelihood ratios. BMJ, 329, 168–169.</li>
+    <li>Fagan, T. J. (1975). Nomogram for Bayes's theorem. New England Journal of Medicine, 293, 257.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
