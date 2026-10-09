@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>표적 선정</strong>: 편집하려는 위치 근처에서 PAM(원조 SpCas9의 경우 <code>NGG</code>) 바로 앞의 20 nt를 가이드RNA의 표적 서열(protospacer)로 고릅니다.</li><li><strong>구성 요소 전달</strong>: Cas9 단백질(또는 그 유전자)과 가이드RNA(sgRNA 또는 crRNA + tracrRNA)를 플라스미드, RNP(단백질-RNA 복합체), 바이러스 벡터 등으로 세포에 넣습니다.</li><li><strong>절단</strong>: 가이드RNA가 표적 DNA와 염기쌍을 이루고 PAM이 인식되면 Cas9이 PAM에서 약 3 bp 앞에서 이중가닥을 자릅니다(Jinek 등 2012).</li><li><strong>세포 복구</strong>: 비상동말단연결(NHEJ)은 작은 삽입·결실(indel)을 남겨 유전자를 못 쓰게 만들기 쉽고, 상동성 기반 복구(HDR)는 함께 넣어 준 주형 DNA의 서열을 반영합니다.</li><li><strong>확인</strong>: 편집된 세포 집단을 PCR 후 시퀀싱, T7E1 같은 불일치 절단 분석, 웨스턴 블롯(단백질 소실) 등으로 확인하고, 단일 세포에서 클론을 뽑아 서열을 확정하기도 합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>얻는 것</strong>: 유전자 녹아웃(NHEJ), 특정 변이 도입·교정(HDR), 유전자 삽입. 촉매 활성을 없앤 dCas9에 억제·활성 도메인을 붙이면 DNA를 자르지 않고 발현만 조절할 수 있습니다(CRISPRi/CRISPRa). 염기교정·프라임 편집은 이중가닥 절단 없이 서열을 바꿉니다.</li><li><strong>한계</strong>: 표적이 아닌 곳이 잘리는 오프타깃(가이드와 일부 염기가 맞지 않아도 절단될 수 있음), PAM 제약, 편집 효율의 세포·유전자별 차이, 모자이크(일부 세포만 편집). 단일 세포 클론이나 여러 개의 독립 가이드로 결과를 재확인하는 것이 권장됩니다.</li><li>[[cas9|Cas9]]는 CRISPR 시스템의 ‘가위’ 단백질이고, CRISPR는 세균의 적응 면역 체계 전체를 가리킨다는 점을 구분합니다.</li></ul><p><strong>작은 예(가상의 서열).</strong> 표적 20 nt가 <code>GACGTTACCGGATCAGTCAA</code>이고 바로 뒤가 <code>TGG</code>이면 PAM(<code>NGG</code> 형태)이 있습니다. Cas9은 PAM 앞 3 bp 지점, 즉 표적 서열의 17번째와 18번째 염기 사이(<code>GACGTTACCGGATCAGT | CAA</code>)를 자르게 됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>쓴 Cas 단백질(SpCas9 등)과 전달 방식(RNP인지 플라스미드인지), 세포주 또는 개체의 종류를 적습니다.</li><li>가이드RNA의 서열, 표적 유전자와 위치, 오프타깃을 어떻게 예측하고 검증했는지(예측 도구, 시퀀싱)를 밝힙니다.</li><li>편집 효율(예: 전체 읽기 중 indel 비율)과 확인 방법, 클론 선별 과정을 적고, 가능하면 독립된 가이드 2개 이상의 결과 또는 복원(rescue) 실험을 함께 제시합니다.</li><li>사람 대상 연구는 별도의 윤리·법적 규제를 받으므로 연구 승인 번호와 규정 준수 여부를 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "CRISPR를 둘러싼 이름이 겹쳐 쓰입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구분"
+    ],
+    "rows": [
+      [
+        "CRISPR",
+        "세균의 적응 면역 체계(반복 서열 + 저장된 바이러스 조각 + Cas 단백질)",
+        "시스템 전체의 이름"
+      ],
+      [
+        "[[cas9|Cas9]]",
+        "가이드RNA의 안내로 DNA를 자르는 효소",
+        "도구 중 ‘가위’ 단백질"
+      ],
+      [
+        "가이드RNA(gRNA)",
+        "표적 서열을 알려주는 RNA",
+        "‘내비게이션’에 해당하는 서열 정보"
+      ],
+      [
+        "유전자 편집",
+        "DNA를 의도한 방식으로 바꾸는 일 전체",
+        "CRISPR는 그 방법 중 하나"
+      ]
+    ]
+  },
+  "references": [
+    "Jinek, M., Chylinski, K., Fonfara, I., Hauer, M., Doudna, J. A., & Charpentier, E. (2012). A programmable dual-RNA-guided DNA endonuclease in adaptive bacterial immunity. Science, 337, 816–821.",
+    "Cong, L., Ran, F. A., Cox, D., et al. (2013). Multiplex genome engineering using CRISPR/Cas systems. Science, 339, 819–823.",
+    "Mali, P., Yang, L., Esvelt, K. M., et al. (2013). RNA-guided human genome engineering via Cas9. Science, 339, 823–826.",
+    "Doudna, J. A., & Charpentier, E. (2014). The new frontier of genome engineering with CRISPR-Cas9. Science, 346, 1258096."
+  ]
+}

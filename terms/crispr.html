@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/crispr.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <p>크리스퍼는 기존 유전자 편집 기술보다 훨씬 간단하고 저렴하게 원하는 DNA 서열을 정밀하게 바꿀 수 있어, 등장 이후 생명과학 전반의 연구 속도를 크게 끌어올렸습니다.</p>
   <p>특정 유전자의 기능을 확인하는 기초연구부터 유전질환 치료제 개발, 농작물 품종 개량, 질병 모델 동물 제작에 이르기까지 다양한 응용 분야에서 핵심 도구로 쓰이고 있습니다. 이런 광범위한 활용성 때문에 크리스퍼 자체의 원리뿐 아니라, 이를 응용한 다양한 파생 기술(염기교정, 프라임 편집 등)도 활발히 연구되고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>표적 선정</strong>: 편집하려는 위치 근처에서 PAM(원조 SpCas9의 경우 <code>NGG</code>) 바로 앞의 20 nt를 가이드RNA의 표적 서열(protospacer)로 고릅니다.</li><li><strong>구성 요소 전달</strong>: Cas9 단백질(또는 그 유전자)과 가이드RNA(sgRNA 또는 crRNA + tracrRNA)를 플라스미드, RNP(단백질-RNA 복합체), 바이러스 벡터 등으로 세포에 넣습니다.</li><li><strong>절단</strong>: 가이드RNA가 표적 DNA와 염기쌍을 이루고 PAM이 인식되면 Cas9이 PAM에서 약 3 bp 앞에서 이중가닥을 자릅니다(Jinek 등 2012).</li><li><strong>세포 복구</strong>: 비상동말단연결(NHEJ)은 작은 삽입·결실(indel)을 남겨 유전자를 못 쓰게 만들기 쉽고, 상동성 기반 복구(HDR)는 함께 넣어 준 주형 DNA의 서열을 반영합니다.</li><li><strong>확인</strong>: 편집된 세포 집단을 PCR 후 시퀀싱, T7E1 같은 불일치 절단 분석, 웨스턴 블롯(단백질 소실) 등으로 확인하고, 단일 세포에서 클론을 뽑아 서열을 확정하기도 합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>얻는 것</strong>: 유전자 녹아웃(NHEJ), 특정 변이 도입·교정(HDR), 유전자 삽입. 촉매 활성을 없앤 dCas9에 억제·활성 도메인을 붙이면 DNA를 자르지 않고 발현만 조절할 수 있습니다(CRISPRi/CRISPRa). 염기교정·프라임 편집은 이중가닥 절단 없이 서열을 바꿉니다.</li><li><strong>한계</strong>: 표적이 아닌 곳이 잘리는 오프타깃(가이드와 일부 염기가 맞지 않아도 절단될 수 있음), PAM 제약, 편집 효율의 세포·유전자별 차이, 모자이크(일부 세포만 편집). 단일 세포 클론이나 여러 개의 독립 가이드로 결과를 재확인하는 것이 권장됩니다.</li><li><a href="cas9.html">Cas9</a>는 CRISPR 시스템의 ‘가위’ 단백질이고, CRISPR는 세균의 적응 면역 체계 전체를 가리킨다는 점을 구분합니다.</li></ul><p><strong>작은 예(가상의 서열).</strong> 표적 20 nt가 <code>GACGTTACCGGATCAGTCAA</code>이고 바로 뒤가 <code>TGG</code>이면 PAM(<code>NGG</code> 형태)이 있습니다. Cas9은 PAM 앞 3 bp 지점, 즉 표적 서열의 17번째와 18번째 염기 사이(<code>GACGTTACCGGATCAGT | CAA</code>)를 자르게 됩니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>쓴 Cas 단백질(SpCas9 등)과 전달 방식(RNP인지 플라스미드인지), 세포주 또는 개체의 종류를 적습니다.</li><li>가이드RNA의 서열, 표적 유전자와 위치, 오프타깃을 어떻게 예측하고 검증했는지(예측 도구, 시퀀싱)를 밝힙니다.</li><li>편집 효율(예: 전체 읽기 중 indel 비율)과 확인 방법, 클론 선별 과정을 적고, 가능하면 독립된 가이드 2개 이상의 결과 또는 복원(rescue) 실험을 함께 제시합니다.</li><li>사람 대상 연구는 별도의 윤리·법적 규제를 받으므로 연구 승인 번호와 규정 준수 여부를 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"CRISPR-Cas9을 이용해 해당 유전자를 녹아웃한 세포주를 제작했다."</div>
   <p>크리스퍼 기술로 특정 유전자의 기능을 인위적으로 없앤 세포를 만들어 실험에 사용했다는 뜻입니다.</p>
   <div class="example">"환자 유래 유도만능줄기세포에 CRISPR-Cas9을 적용하여 질환 원인 변이를 정상 서열로 교정한 후, 세포의 기능이 회복되는지 확인하였다."</div>
@@ -168,6 +186,20 @@
 
   <h2>주의할 점</h2>
   <p>크리스퍼는 유전자를 편집하는 도구일 뿐, 그 자체가 질병을 치료하는 "유전자 치료제"와 동의어는 아닙니다(크리스퍼를 이용한 첫 치료제인 겸상적혈구병·베타지중해빈혈 치료제 카스게비는 2023년에 승인되었습니다). 또한 목표하지 않은 위치가 잘리는 오프타깃(off-target) 효과가 발생할 수 있어, 정밀도와 안전성 검증이 중요한 연구 주제로 다뤄집니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>CRISPR를 둘러싼 이름이 겹쳐 쓰입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구분</th></tr></thead><tbody><tr><th scope="row">CRISPR</th><td>세균의 적응 면역 체계(반복 서열 + 저장된 바이러스 조각 + Cas 단백질)</td><td>시스템 전체의 이름</td></tr><tr><th scope="row"><a href="cas9.html">Cas9</a></th><td>가이드RNA의 안내로 DNA를 자르는 효소</td><td>도구 중 ‘가위’ 단백질</td></tr><tr><th scope="row">가이드RNA(gRNA)</th><td>표적 서열을 알려주는 RNA</td><td>‘내비게이션’에 해당하는 서열 정보</td></tr><tr><th scope="row">유전자 편집</th><td>DNA를 의도한 방식으로 바꾸는 일 전체</td><td>CRISPR는 그 방법 중 하나</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Jinek, M., Chylinski, K., Fonfara, I., Hauer, M., Doudna, J. A., &amp; Charpentier, E. (2012). A programmable dual-RNA-guided DNA endonuclease in adaptive bacterial immunity. Science, 337, 816–821.</li>
+    <li>Cong, L., Ran, F. A., Cox, D., et al. (2013). Multiplex genome engineering using CRISPR/Cas systems. Science, 339, 819–823.</li>
+    <li>Mali, P., Yang, L., Esvelt, K. M., et al. (2013). RNA-guided human genome engineering via Cas9. Science, 339, 823–826.</li>
+    <li>Doudna, J. A., &amp; Charpentier, E. (2014). The new frontier of genome engineering with CRISPR-Cas9. Science, 346, 1258096.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="crispr-knockout-screen.html">크리스퍼 녹아웃 스크리닝</a><a href="crispr-base-editing.html">크리스퍼 염기교정</a><a href="prime-editing.html">프라임 편집</a><a href="cas9.html">Cas9 (카스나인)</a></div></div><p class="concept-family-map"><a href="../concept-map/bio.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
