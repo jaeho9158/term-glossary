@@ -1,0 +1,54 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "두 제품의 AUC가 비슷하면 두 약이",
+      "replace": "두 제품의 AUC와 최고혈중농도가 정해진 범위 안에서 비슷하면 두 약이"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>AUC는 혈중 농도–시간 곡선 아래의 면적, 즉 농도를 시간에 대해 적분한 값입니다. 단위는 농도×시간(예: mg·h/L)이며, 같은 시간 동안 몸이 약물에 얼마나 노출되었는지의 총량을 나타냅니다.</p><ul><li><strong>AUC<sub>0–t</sub></strong>: 투여 시점부터 마지막 측정 시점까지. 보통 사다리꼴 법으로 이웃한 두 측정점 사이의 면적을 더합니다.</li><li><strong>AUC<sub>0–∞</sub></strong>: AUC<sub>0–t</sub>에 마지막 농도를 말기 제거속도상수(k<sub>z</sub>)로 나눈 값(C<sub>last</sub>/k<sub>z</sub>)을 더해 외삽한 값입니다.</li><li><strong>관계식</strong>: 정맥 투여에서 청소율 CL = 용량 ÷ AUC<sub>0–∞</sub>, 경구에서는 CL/F = 용량 ÷ AUC<sub>0–∞</sub>입니다(Gibaldi &amp; Perrier, 1982; Rowland &amp; Tozer, 2011).</li></ul><p><strong>작은 예(가상의 자료).</strong> 농도(mg/L)를 0, 1, 2, 4, 8, 12시간에 각각 0, 8, 10, 6, 2, 0.8로 측정했다고 합시다. 사다리꼴 면적은 4 + 9 + 16 + 16 + 5.6 = 50.6, 즉 AUC<sub>0–12</sub> = 50.6 mg·h/L입니다. 마지막 두 점으로 k<sub>z</sub> = ln(2/0.8)/4 ≈ 0.229 /h를 구하면 외삽 면적은 0.8/0.229 ≈ 3.49이므로 AUC<sub>0–∞</sub> ≈ 54.1 mg·h/L이고, 외삽 비율은 약 6.5%입니다. 정맥으로 100 mg을 주었다면 CL ≈ 100/54.1 ≈ 1.85 L/h입니다. (실제 분석에서는 말기 상 3개 이상의 점으로 k<sub>z</sub>를 구하는 것이 보통이며, 위는 계산 흐름을 보여 주려는 단순화입니다.)</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>노출의 총량</strong>: 같은 용량이라도 청소율이 낮으면 AUC가 커집니다. AUC는 속도(최고 농도에 이르는 빠르기)나 지속 시간이 아니라 ‘양’을 말해 주므로 C<sub>max</sub>, T<sub>max</sub>와 함께 봅니다([[peak-plasma-concentration|최고혈중농도]]).</li><li><strong>생물학적 동등성</strong>: 시험약과 대조약의 AUC와 C<sub>max</sub>를 로그 변환해 비교하고, 기하평균비의 90% 신뢰구간이 80.00~125.00% 안에 들어오면 동등하다고 판단하는 것이 규제 지침의 관례입니다(FDA, 2003). 이 구간은 규제상 합의된 기준이며 자연법칙이 아닙니다.</li><li><strong>선형성 가정</strong>: 용량에 비례해 AUC가 늘어나는 선형 약동학에서 해석이 단순합니다. 포화 대사 등 비선형이면 용량이 달라진 비교가 어렵습니다.</li><li><strong>외삽 비율</strong>: AUC<sub>0–∞</sub>에서 외삽 부분이 큰 비중(흔히 20%를 넘는 경우)이면 신뢰하기 어렵다고 보는 관례가 있습니다.</li><li><strong>효과와의 연결</strong>: 일부 약물군에서는 AUC나 AUC/MIC가 효과와 연관된 지표로 연구되지만, 모든 약에서 AUC가 효과의 최선의 예측자는 아닙니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>AUC<sub>0–t</sub>와 AUC<sub>0–∞</sub>를 구분해 적고, 단위와 측정 시점(몇 시간까지)을 밝힙니다.</li><li>계산법(선형 사다리꼴, 선형-로그 사다리꼴), 소프트웨어, 말기 상을 정한 규칙을 적습니다.</li><li>자료는 대수정규 분포에 가까운 경우가 많아 기하평균과 변동계수(CV%)로 요약하고, 군 비교는 로그 변환 값으로 합니다.</li><li>동등성 연구는 기하평균비와 90% 신뢰구간, 참가자 수와 교차 설계(순서, 휴약 기간)를 함께 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 같은 AUC가 분야에 따라 전혀 다른 양을 가리킵니다.",
+    "headers": [
+      "용어",
+      "분야",
+      "무엇의 면적인가"
+    ],
+    "rows": [
+      [
+        "AUC(약동학)",
+        "약동학",
+        "혈중 약물 농도–시간 곡선 아래 면적. 약물 노출의 총량"
+      ],
+      [
+        "[[auc-roc|AUC(ROC 곡선)]]",
+        "진단·분류 평가",
+        "ROC 곡선 아래 면적. 0.5~1 사이의 판별 성능 지표"
+      ],
+      [
+        "[[peak-plasma-concentration|최고혈중농도(Cmax)]]",
+        "약동학",
+        "가장 높은 농도 한 점. 총량이 아니라 최대치"
+      ]
+    ]
+  },
+  "references": [
+    "Gibaldi, M., & Perrier, D. (1982). Pharmacokinetics (2nd ed.). New York: Marcel Dekker.",
+    "Rowland, M., & Tozer, T. N. (2011). Clinical Pharmacokinetics and Pharmacodynamics: Concepts and Applications (4th ed.). Philadelphia: Lippincott Williams & Wilkins.",
+    "U.S. Food and Drug Administration. (2003). Guidance for Industry: Bioavailability and Bioequivalence Studies for Orally Administered Drug Products — General Considerations. Rockville (MD): FDA."
+  ]
+}
