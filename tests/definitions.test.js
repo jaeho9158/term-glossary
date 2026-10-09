@@ -27,7 +27,7 @@ const terms = require("../terms.json");
   const pValue = terms.find((t) => t.slug === "p-value");
   assert.strictEqual(
     pValue.definition,
-    '지금 관찰된 결과가 "우연히" 나왔을 가능성이 얼마나 되는지를 나타내는 숫자입니다.'
+    "귀무가설이 참이라고 가정할 때, 지금 관찰된 것 이상으로 극단적인 결과가 나올 확률을 나타내는 숫자입니다."
   );
 }
 
