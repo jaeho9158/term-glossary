@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><code>NPV = Σ CF<sub>t</sub> / (1 + r)<sup>t</sup></code> (t = 0, 1, …, n)</p><ul><li>CF<sub>t</sub>는 t기의 순현금흐름(유입−유출), r은 [[discount-rate|할인율]](자본비용 또는 요구수익률)입니다. 최초 투자는 t = 0의 음(−) 현금흐름으로 넣습니다.</li><li><strong>단위</strong>는 현재 시점의 돈(원, 달러)이고, 범위에 상한·하한은 없습니다. 양수이면 요구수익률을 넘는 가치를 만든다는 뜻입니다.</li><li>미래 현금흐름의 크기, 시기, 할인율이 모두 결과를 좌우합니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 예(단위: 백만 원). 초기 투자 1,000을 쓰면 1~4년차에 300, 400, 500, 300이 들어옵니다.</p><table><thead><tr><th>할인율</th><th>6%</th><th>8%</th><th>10%</th><th>12%</th><th>15%</th></tr></thead><tbody><tr><td>NPV</td><td>296.5</td><td>238.1</td><td>183.9</td><td>133.3</td><td>63.6</td></tr></tbody></table><ul><li>NPV가 0이 되는 할인율, 즉 [[internal-rate-of-return|내부수익률]]은 약 18.0%입니다. 이 값보다 요구수익률이 높아지면 NPV는 음수가 됩니다.</li><li>10%로 할인하면 유입의 현재가치 합은 약 1,183.9이므로 [[profitability-index|수익성지수]]는 1.18입니다.</li><li>누적 현금흐름은 −1,000 → −700 → −300 → +200이므로 할인하지 않은 [[payback-period|회수기간]]은 약 2.6년입니다. NPV는 회수 이후의 현금흐름도 반영한다는 점이 다릅니다.</li></ul><p>할인율이 올라가면 NPV가 줄어드는 곡선 모양을 그려 보면, 같은 투자안이라도 ‘얼마를 요구수익률로 보느냐’에 결과가 크게 달라진다는 것을 알 수 있습니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li><strong>독립적인 투자안</strong>: NPV &gt; 0이면 채택, &lt; 0이면 기각합니다.</li><li><strong>서로 배타적인 투자안</strong>: 원칙적으로 NPV가 더 큰 쪽을 택합니다. 가상의 예로, 투자안 A(−100, 60, 60)와 B(−1,000, 500, 700)를 10%로 평가하면 NPV는 A 4.1, B 33.1이지만 내부수익률은 A 13.1%, B 12.3%입니다. 규모가 다른 투자안에서는 NPV와 IRR의 순위가 엇갈릴 수 있고, 이때 NPV 기준이 기업가치 증가분을 직접 재므로 이론적으로 우선합니다(Brealey et al., 2020).</li><li><strong>재투자 가정</strong>: NPV는 중간 현금유입을 할인율로 재투자한다고 보고, IRR은 IRR로 재투자한다고 봅니다.</li><li><strong>민감도</strong>: 할인율·현금흐름 추정의 작은 변화가 부호를 바꿀 수 있어 민감도 분석이 함께 필요합니다.</li><li><strong>한계</strong>: 이후의 연기·확장·포기 같은 경영 유연성은 반영하지 못해 실물옵션 접근이 보완으로 제시됩니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "자본예산 지표는 모두 ‘돈을 어떻게 비교하느냐’가 다릅니다.",
+    "headers": [
+      "지표",
+      "단위",
+      "기준"
+    ],
+    "rows": [
+      [
+        "순현재가치(NPV)",
+        "금액",
+        "0보다 크면 채택"
+      ],
+      [
+        "[[internal-rate-of-return|내부수익률(IRR)]]",
+        "%",
+        "요구수익률보다 높으면 채택"
+      ],
+      [
+        "[[profitability-index|수익성지수(PI)]]",
+        "배수",
+        "1보다 크면 채택"
+      ],
+      [
+        "[[payback-period|회수기간]]",
+        "기간",
+        "정해 둔 기간보다 짧으면 채택"
+      ]
+    ]
+  },
+  "references": [
+    "Brealey, R. A., Myers, S. C., & Allen, F. (2020). Principles of Corporate Finance (13th ed.). McGraw-Hill Education.",
+    "Ross, S. A., Westerfield, R. W., & Jaffe, J. (2013). Corporate Finance (10th ed.). McGraw-Hill/Irwin.",
+    "Graham, J. R., & Harvey, C. R. (2001). The theory and practice of corporate finance: Evidence from the field. Journal of Financial Economics, 60(2–3), 187–243."
+  ]
+}

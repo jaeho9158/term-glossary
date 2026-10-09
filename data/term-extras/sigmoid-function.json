@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>머신러닝에서 ‘시그모이드’는 보통 <strong>로지스틱 함수</strong> <code>σ(x) = 1 / (1 + e<sup>−x</sup>)</code>를 가리킵니다. 출력 범위는 (0, 1)이고 σ(0) = 0.5입니다.</li><li>대칭성: <code>σ(−x) = 1 − σ(x)</code>. 미분: <code>σ′(x) = σ(x)(1 − σ(x))</code>이며 최댓값은 x = 0에서 0.25입니다.</li><li>역함수는 로짓(log-odds)입니다. 확률 p = 0.8이면 x = ln(0.8/0.2) ≈ 1.386입니다. 그래서 [[logistic-regression|로지스틱 회귀]]에서 선형결합의 값을 확률로 바꾸는 데 쓰입니다.</li><li>쌍곡탄젠트와는 <code>tanh(x) = 2σ(2x) − 1</code>의 관계입니다. tanh는 출력이 (−1, 1)로 0을 중심에 둡니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<table><thead><tr><th>x</th><th>−6</th><th>−4</th><th>−2</th><th>0</th><th>2</th><th>4</th><th>6</th></tr></thead><tbody><tr><td>σ(x)</td><td>0.0025</td><td>0.0180</td><td>0.1192</td><td>0.5000</td><td>0.8808</td><td>0.9820</td><td>0.9975</td></tr><tr><td>σ′(x)</td><td>0.0025</td><td>0.0177</td><td>0.1050</td><td>0.2500</td><td>0.1050</td><td>0.0177</td><td>0.0025</td></tr></tbody></table><ul><li>|x|가 4를 넘으면 곡선이 거의 평평해져 기울기가 0.02 아래로 떨어집니다(포화).</li><li>역전파에서는 층마다 σ′가 곱해집니다. 가중치를 무시하고 최댓값 0.25만 곱해도 5개 층을 지나면 0.25⁵ ≈ 9.8×10⁻⁴, 10개 층이면 ≈ 9.5×10⁻⁷입니다. 깊은 신경망에서 기울기 소실이 생기는 이유를 보여 주는 단순화된 계산입니다(Glorot &amp; Bengio, 2010; Goodfellow et al., 2016).</li><li>그래서 은닉층에서는 [[relu|렐루]] 같은 다른 [[activation-function|활성화 함수]]가 더 흔하지만, 출력이 0~1로 제한되어야 하는 이진분류 출력층이나 게이트에서는 지금도 쓰입니다. [[lstm|LSTM]]의 게이트는 시그모이드로 ‘얼마나 통과시킬지’를 0~1 사이 값으로 정합니다(Hochreiter &amp; Schmidhuber, 1997).</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>시그모이드 출력은 곧 믿을 수 있는 확률이다.</td><td>값이 0~1이라는 것과 보정된 확률이라는 것은 다릅니다. 확률로 해석하려면 로그 손실 등으로 학습하고 보정 상태를 확인해야 합니다.</td></tr><tr><td>시그모이드는 하나의 특정 함수 이름이다.</td><td>S자 모양 함수의 총칭이고, 로지스틱 함수·tanh·arctan·오차함수 등이 포함됩니다. 논문에서는 어느 함수인지 식으로 밝히는 편이 안전합니다.</td></tr><tr><td>다중 분류에도 시그모이드를 그대로 쓰면 된다.</td><td>여러 클래스의 확률 합이 1이 되어야 하면 소프트맥스를 씁니다. 시그모이드는 클래스별 독립 판단(다중 레이블)에 쓰입니다.</td></tr><tr><td>시그모이드는 은닉층에서 쓰면 안 된다.</td><td>금지된 것은 아닙니다. 깊은 층에서 학습이 느려지는 경향이 있어 다른 함수가 선호될 뿐이며, 얕은 신경망에서는 쓰기도 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "활성화 함수는 출력 범위와 용도가 다릅니다.",
+    "headers": [
+      "함수",
+      "출력 범위",
+      "주로 쓰는 곳"
+    ],
+    "rows": [
+      [
+        "시그모이드(로지스틱)",
+        "(0, 1)",
+        "이진분류 출력층, 게이트"
+      ],
+      [
+        "tanh",
+        "(−1, 1)",
+        "순환 신경망 상태, 은닉층"
+      ],
+      [
+        "[[relu|렐루]]",
+        "[0, ∞)",
+        "은닉층"
+      ],
+      [
+        "소프트맥스",
+        "(0, 1), 합이 1",
+        "다중 분류 출력층"
+      ]
+    ]
+  },
+  "references": [
+    "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.",
+    "Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. Neural Computation, 9(8), 1735–1780.",
+    "Glorot, X., & Bengio, Y. (2010). Understanding the difficulty of training deep feedforward neural networks. Proceedings of the 13th International Conference on Artificial Intelligence and Statistics (PMLR 9), 249–256."
+  ]
+}

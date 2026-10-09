@@ -1,0 +1,22 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>압축 코일스프링을 예로 한 설계계산의 흐름입니다(Budynas &amp; Nisbett, 2015).</p><ol><li><strong>요구 조건</strong>: 하중 F와 변위 δ(또는 스프링상수 k), 설치 공간, 사용 환경, 요구 수명.</li><li><strong>재료 선정</strong>: 소선 재질과 전단탄성계수 G, 허용 응력.</li><li><strong>스프링지수</strong> <code>C = D/d</code> (D: 코일 평균 지름, d: 소선 지름). 보통 4~12 정도에서 선택하도록 권고됩니다.</li><li><strong>스프링상수</strong> <code>k = Gd⁴ / (8D³N<sub>a</sub>)</code> (N<sub>a</sub>: 유효 권수).</li><li><strong>전단응력</strong> <code>τ = K · 8FD / (πd³)</code>. K는 곡률과 전단을 보정하는 계수로, <code>K<sub>W</sub> = (4C−1)/(4C−4) + 0.615/C</code>(Wahl 계수; Wahl, 1963)와 <code>K<sub>B</sub> = (4C+2)/(4C−3)</code>(Bergsträsser 계수)가 흔히 쓰입니다.</li><li><strong>안전율·피로·좌굴·서징 검토</strong> 후 자유 길이, 밀착 높이 등 형상을 확정합니다.</li></ol><p>판스프링, 토션스프링 등은 식이 다르고, 반복 하중이면 S-N 선도나 피로 한계선도로 수명을 검토합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>가상의 예: 소선 지름 d = 2 mm, 평균 지름 D = 16 mm, 유효 권수 N<sub>a</sub> = 8, G = 79.3 GPa(강재 정도의 값), 하중 F = 100 N.</p><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>스프링지수 C</td><td>8</td></tr><tr><td>스프링상수 k</td><td>약 4.84 N/mm</td></tr><tr><td>변위 δ = F/k</td><td>약 20.7 mm</td></tr><tr><td>기본 전단응력 8FD/(πd³)</td><td>약 509 MPa</td></tr><tr><td>Wahl 계수 K<sub>W</sub></td><td>1.184</td></tr><tr><td>보정 전단응력</td><td>약 603 MPa</td></tr></tbody></table><ul><li>k는 <strong>d⁴에 비례</strong>, D³과 N<sub>a</sub>에 반비례합니다. 소선 지름을 2배로 하면 k는 16배, 권수를 2배로 하면 절반, 코일 지름을 2배로 하면 1/8이 됩니다.</li><li>보정 전의 응력만 쓰면 약 16% 낮게 평가되어 위험 쪽 판단이 됩니다.</li><li>603 MPa가 안전한지는 재료의 허용 응력·피로 한계와 비교해야 판단할 수 있습니다. 위 숫자만으로 안전/위험을 말할 수 없습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>재료와 물성</strong>(G, 인장강도, 표면 처리), 스프링의 치수(d, D, N<sub>a</sub>, 총 권수, 자유 길이, 단부 형상)를 표로 제시합니다.</li><li><strong>응력식과 보정 계수</strong>(Wahl 또는 Bergsträsser)를 밝힙니다.</li><li><strong>하중 조건</strong>과 안전율, 피로 기준(예: 수정 굿맨 선도)을 적습니다.</li><li>이론 계산을 유한요소해석이나 시험과 비교할 때는 <strong>경계조건</strong>과 오차 정의(예: 최대 전단응력 상대오차)를 명시합니다. 이론식은 이상적 경계조건을 가정하므로 제작 공차, 좌굴, 공진은 별도로 검토합니다(Spotts &amp; Shoup, 1998).</li></ul>"
+    }
+  ],
+  "references": [
+    "Budynas, R. G., & Nisbett, J. K. (2015). Shigley's Mechanical Engineering Design (10th ed.). McGraw-Hill Education.",
+    "Wahl, A. M. (1963). Mechanical Springs (2nd ed.). McGraw-Hill.",
+    "Spotts, M. F., & Shoup, T. E. (1998). Design of Machine Elements (7th ed.). Prentice Hall."
+  ]
+}

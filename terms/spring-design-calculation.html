@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/spring-design-calculation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>스프링은 완충, 복원, 힘 저장 등 다양한 기능을 수행하는 핵심 기계요소이며, 설계가 잘못되면 시스템 전체의 성능 저하나 파손으로 이어질 수 있습니다. 기계설계 논문에서는 새로운 스프링 형상이나 소재를 적용했을 때의 응력 분포, 피로 수명, 강성 특성을 검증하기 위해 설계계산 절차와 결과가 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>압축 코일스프링을 예로 한 설계계산의 흐름입니다(Budynas &amp; Nisbett, 2015).</p><ol><li><strong>요구 조건</strong>: 하중 F와 변위 δ(또는 스프링상수 k), 설치 공간, 사용 환경, 요구 수명.</li><li><strong>재료 선정</strong>: 소선 재질과 전단탄성계수 G, 허용 응력.</li><li><strong>스프링지수</strong> <code>C = D/d</code> (D: 코일 평균 지름, d: 소선 지름). 보통 4~12 정도에서 선택하도록 권고됩니다.</li><li><strong>스프링상수</strong> <code>k = Gd⁴ / (8D³N<sub>a</sub>)</code> (N<sub>a</sub>: 유효 권수).</li><li><strong>전단응력</strong> <code>τ = K · 8FD / (πd³)</code>. K는 곡률과 전단을 보정하는 계수로, <code>K<sub>W</sub> = (4C−1)/(4C−4) + 0.615/C</code>(Wahl 계수; Wahl, 1963)와 <code>K<sub>B</sub> = (4C+2)/(4C−3)</code>(Bergsträsser 계수)가 흔히 쓰입니다.</li><li><strong>안전율·피로·좌굴·서징 검토</strong> 후 자유 길이, 밀착 높이 등 형상을 확정합니다.</li></ol><p>판스프링, 토션스프링 등은 식이 다르고, 반복 하중이면 S-N 선도나 피로 한계선도로 수명을 검토합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예: 소선 지름 d = 2 mm, 평균 지름 D = 16 mm, 유효 권수 N<sub>a</sub> = 8, G = 79.3 GPa(강재 정도의 값), 하중 F = 100 N.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>스프링지수 C</td><td>8</td></tr><tr><td>스프링상수 k</td><td>약 4.84 N/mm</td></tr><tr><td>변위 δ = F/k</td><td>약 20.7 mm</td></tr><tr><td>기본 전단응력 8FD/(πd³)</td><td>약 509 MPa</td></tr><tr><td>Wahl 계수 K<sub>W</sub></td><td>1.184</td></tr><tr><td>보정 전단응력</td><td>약 603 MPa</td></tr></tbody></table></div><ul><li>k는 <strong>d⁴에 비례</strong>, D³과 N<sub>a</sub>에 반비례합니다. 소선 지름을 2배로 하면 k는 16배, 권수를 2배로 하면 절반, 코일 지름을 2배로 하면 1/8이 됩니다.</li><li>보정 전의 응력만 쓰면 약 16% 낮게 평가되어 위험 쪽 판단이 됩니다.</li><li>603 MPa가 안전한지는 재료의 허용 응력·피로 한계와 비교해야 판단할 수 있습니다. 위 숫자만으로 안전/위험을 말할 수 없습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>재료와 물성</strong>(G, 인장강도, 표면 처리), 스프링의 치수(d, D, N<sub>a</sub>, 총 권수, 자유 길이, 단부 형상)를 표로 제시합니다.</li><li><strong>응력식과 보정 계수</strong>(Wahl 또는 Bergsträsser)를 밝힙니다.</li><li><strong>하중 조건</strong>과 안전율, 피로 기준(예: 수정 굿맨 선도)을 적습니다.</li><li>이론 계산을 유한요소해석이나 시험과 비교할 때는 <strong>경계조건</strong>과 오차 정의(예: 최대 전단응력 상대오차)를 명시합니다. 이론식은 이상적 경계조건을 가정하므로 제작 공차, 좌굴, 공진은 별도로 검토합니다(Spotts &amp; Shoup, 1998).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 압축 코일스프링의 설계계산을 통해 요구 강성 조건을 만족하는 소선 지름과 유효 권수를 결정하였다."</div>
   <p>목표로 하는 스프링 강성(N/mm)을 만족시키기 위해 필요한 치수를 역산하는 과정을 설명하는 문장입니다.</p>
   <div class="example">"스프링 설계계산 결과를 유한요소해석과 비교하여 최대 전단응력의 오차가 허용 범위 이내임을 확인하였다."</div>
@@ -158,6 +176,16 @@
 
   <h2>주의할 점</h2>
   <p>이론적 설계계산은 이상적인 경계조건을 가정하므로, 실제 제작 공차나 좌굴, 공진과 같은 현상은 별도로 검토해야 합니다. 계산만으로 모든 실사용 조건을 완전히 대변하지는 못한다는 점에 유의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Budynas, R. G., &amp; Nisbett, J. K. (2015). Shigley's Mechanical Engineering Design (10th ed.). McGraw-Hill Education.</li>
+    <li>Wahl, A. M. (1963). Mechanical Springs (2nd ed.). McGraw-Hill.</li>
+    <li>Spotts, M. F., &amp; Shoup, T. E. (1998). Design of Machine Elements (7th ed.). Prentice Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

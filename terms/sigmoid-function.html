@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sigmoid-function.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <p>시그모이드 함수는 신경망의 출력을 확률처럼 해석 가능하게 만들어주는 가장 기본적인 장치이기 때문에, 이진분류·로지스틱 회귀·게이트 메커니즘 등 다양한 논문에서 반복적으로 등장합니다.</p>
   <p>특히 딥러닝 초창기 활성화함수의 표준이었던 역사적 배경 때문에, 그래디언트 소실 문제나 대안 활성화함수를 논의하는 연구에서도 비교 기준으로 자주 언급됩니다. LSTM의 게이트처럼 "얼마나 통과시킬지"를 0~1 사이 값으로 조절해야 하는 구조에서는 지금도 핵심적인 역할을 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>머신러닝에서 ‘시그모이드’는 보통 <strong>로지스틱 함수</strong> <code>σ(x) = 1 / (1 + e<sup>−x</sup>)</code>를 가리킵니다. 출력 범위는 (0, 1)이고 σ(0) = 0.5입니다.</li><li>대칭성: <code>σ(−x) = 1 − σ(x)</code>. 미분: <code>σ′(x) = σ(x)(1 − σ(x))</code>이며 최댓값은 x = 0에서 0.25입니다.</li><li>역함수는 로짓(log-odds)입니다. 확률 p = 0.8이면 x = ln(0.8/0.2) ≈ 1.386입니다. 그래서 <a href="logistic-regression.html">로지스틱 회귀</a>에서 선형결합의 값을 확률로 바꾸는 데 쓰입니다.</li><li>쌍곡탄젠트와는 <code>tanh(x) = 2σ(2x) − 1</code>의 관계입니다. tanh는 출력이 (−1, 1)로 0을 중심에 둡니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x</th><th>−6</th><th>−4</th><th>−2</th><th>0</th><th>2</th><th>4</th><th>6</th></tr></thead><tbody><tr><td>σ(x)</td><td>0.0025</td><td>0.0180</td><td>0.1192</td><td>0.5000</td><td>0.8808</td><td>0.9820</td><td>0.9975</td></tr><tr><td>σ′(x)</td><td>0.0025</td><td>0.0177</td><td>0.1050</td><td>0.2500</td><td>0.1050</td><td>0.0177</td><td>0.0025</td></tr></tbody></table></div><ul><li>|x|가 4를 넘으면 곡선이 거의 평평해져 기울기가 0.02 아래로 떨어집니다(포화).</li><li>역전파에서는 층마다 σ′가 곱해집니다. 가중치를 무시하고 최댓값 0.25만 곱해도 5개 층을 지나면 0.25⁵ ≈ 9.8×10⁻⁴, 10개 층이면 ≈ 9.5×10⁻⁷입니다. 깊은 신경망에서 기울기 소실이 생기는 이유를 보여 주는 단순화된 계산입니다(Glorot &amp; Bengio, 2010; Goodfellow et al., 2016).</li><li>그래서 은닉층에서는 <a href="relu.html">렐루</a> 같은 다른 <a href="activation-function.html">활성화 함수</a>가 더 흔하지만, 출력이 0~1로 제한되어야 하는 이진분류 출력층이나 게이트에서는 지금도 쓰입니다. <a href="lstm.html">LSTM</a>의 게이트는 시그모이드로 ‘얼마나 통과시킬지’를 0~1 사이 값으로 정합니다(Hochreiter &amp; Schmidhuber, 1997).</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>시그모이드 출력은 곧 믿을 수 있는 확률이다.</td><td>값이 0~1이라는 것과 보정된 확률이라는 것은 다릅니다. 확률로 해석하려면 로그 손실 등으로 학습하고 보정 상태를 확인해야 합니다.</td></tr><tr><td>시그모이드는 하나의 특정 함수 이름이다.</td><td>S자 모양 함수의 총칭이고, 로지스틱 함수·tanh·arctan·오차함수 등이 포함됩니다. 논문에서는 어느 함수인지 식으로 밝히는 편이 안전합니다.</td></tr><tr><td>다중 분류에도 시그모이드를 그대로 쓰면 된다.</td><td>여러 클래스의 확률 합이 1이 되어야 하면 소프트맥스를 씁니다. 시그모이드는 클래스별 독립 판단(다중 레이블)에 쓰입니다.</td></tr><tr><td>시그모이드는 은닉층에서 쓰면 안 된다.</td><td>금지된 것은 아닙니다. 깊은 층에서 학습이 느려지는 경향이 있어 다른 함수가 선호될 뿐이며, 얕은 신경망에서는 쓰기도 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"출력층에는 시그모이드 함수를 적용하여 각 샘플이 양성 클래스에 속할 확률을 산출하였다."</div>
   <p>이 문장은 "모델이 마지막에 계산한 숫자를 시그모이드 함수에 통과시켜, 그 값이 0~1 사이의 확률처럼 해석되도록 변환했다"는 뜻입니다. 이진분류 문제의 출력층에서 특히 자주 쓰입니다.</p>
 
@@ -171,6 +189,19 @@
 
   <h2>주의할 점</h2>
   <p>시그모이드 함수는 입력값이 아주 크거나 아주 작을 때 그래프가 거의 평평해져서 기울기가 0에 가까워집니다. 이 때문에 층이 깊은 신경망에서는 <a href="vanishing-gradient-problem.html">기울기 소실 문제</a>를 일으키기 쉬워, 은닉층에서는 <a href="relu.html">렐루 함수</a> 같은 다른 <a href="activation-function.html">활성화 함수</a>가 더 자주 선택됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>활성화 함수는 출력 범위와 용도가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">함수</th><th scope="col">출력 범위</th><th scope="col">주로 쓰는 곳</th></tr></thead><tbody><tr><th scope="row">시그모이드(로지스틱)</th><td>(0, 1)</td><td>이진분류 출력층, 게이트</td></tr><tr><th scope="row">tanh</th><td>(−1, 1)</td><td>순환 신경망 상태, 은닉층</td></tr><tr><th scope="row"><a href="relu.html">렐루</a></th><td>[0, ∞)</td><td>은닉층</td></tr><tr><th scope="row">소프트맥스</th><td>(0, 1), 합이 1</td><td>다중 분류 출력층</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
+    <li>Hochreiter, S., &amp; Schmidhuber, J. (1997). Long short-term memory. Neural Computation, 9(8), 1735–1780.</li>
+    <li>Glorot, X., &amp; Bengio, Y. (2010). Understanding the difficulty of training deep feedforward neural networks. Proceedings of the 13th International Conference on Artificial Intelligence and Statistics (PMLR 9), 249–256.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="activation-function.html">활성화 함수</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="relu.html">렐루 함수</a><a href="softmax-function.html">소프트맥스 함수</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
