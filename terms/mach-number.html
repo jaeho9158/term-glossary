@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/mach-number.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -138,13 +139,30 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>비행기가 "마하 2로 비행한다"는 말은 그 비행기가 소리보다 2배 빠른 속도로 난다는 뜻입니다. 마하수는 이렇게 물체의 속도를 소리의 속도(음속)로 나눈 값으로, 마하수가 1보다 작으면 아음속, 1이면 음속과 같은 속도(천음속), 1보다 크면 초음속이라고 부릅니다.</p>
-  <p>같은 속도라도 공기가 차갑고 밀도가 높은 고도에서는 음속 자체가 달라지기 때문에, 단순히 시속 몇 km인지보다 마하수로 나타내는 것이 유체 흐름의 압축성 효과(공기가 얼마나 압축되고 충격파가 생기는지)를 이해하는 데 훨씬 유용합니다.</p>
+  <p>비행기가 "마하 2로 비행한다"는 말은 그 비행기가 소리보다 2배 빠른 속도로 난다는 뜻입니다. 마하수는 이렇게 물체의 속도를 소리의 속도(음속)로 나눈 값으로, 마하수가 1보다 작으면 아음속, 1이면 음속과 같은 속도, 1보다 크면 초음속이라고 부르며, 1 부근의 구간을 천음속이라고 합니다.</p>
+  <p>같은 속도라도 기온이 낮은 높은 고도에서는 음속 자체가 달라지기 때문에, 단순히 시속 몇 km인지보다 마하수로 나타내는 것이 유체 흐름의 압축성 효과(공기가 얼마나 압축되고 충격파가 생기는지)를 이해하는 데 훨씬 유용합니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>마하수가 어느 구간에 속하는지(아음속, 천음속, 초음속, 극초음속)에 따라 유체의 압축성 효과, 충격파 발생 여부, 항력의 성격이 근본적으로 달라지기 때문에, 항공기·로켓·터빈 설계에서는 마하수를 기준으로 유동 해석 방법과 설계 전략 자체를 다르게 선택합니다. 또한 풍동 실험이나 전산유체역학(CFD) 해석 결과를 다른 크기의 실제 비행체에 적용할 때도, 마하수를 동일하게 맞추는 것이 실험 조건의 유사성을 보장하는 핵심 기준이 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>M = v / a. v는 유체에 대한 물체(또는 흐름)의 속도, a는 <strong>그 위치의 음속</strong>입니다. 무차원 수이므로 단위가 없습니다.</li><li>이상기체에서 음속은 a = √(γRT)입니다(γ 비열비, R 기체상수, T 절대온도). 공기는 γ ≈ 1.4, R ≈ 287 J/(kg·K)를 쓰므로 음속은 온도만의 함수가 됩니다.</li><li>값의 범위는 0 이상의 모든 실수입니다. M = 1은 속도가 음속과 같다는 뜻입니다.</li><li>마하각: 초음속 흐름에서 약한 교란이 만드는 원뿔의 반각은 sin μ = 1/M 입니다.</li></ul><p>같은 속도라도 온도가 다르면 M이 다릅니다. 국제표준대기(ISA) 기준으로 해면에서 음속은 약 340.3 m/s(T = 288.15 K), 고도 11 km에서는 약 295.1 m/s(T = 216.65 K)입니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>아래 구간은 관례적인 대략의 구분이며 책마다 경계가 조금씩 다릅니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구간</th><th>대략의 M</th><th>특징</th></tr></thead><tbody><tr><td>비압축성 근사</td><td>M &lt; 0.3</td><td>밀도 변화가 작아 비압축성으로 다루는 경우가 많음(관례적 기준)</td></tr><tr><td>아음속</td><td>M &lt; 약 0.8</td><td>흐름 전체가 음속 이하</td></tr><tr><td>천음속</td><td>약 0.8 ~ 1.2</td><td>흐름 일부가 국소적으로 음속을 넘어 충격파와 항력 급증이 나타남</td></tr><tr><td>초음속</td><td>약 1.2 ~ 5</td><td>전체가 음속 이상, 충격파가 지배적</td></tr><tr><td>극초음속</td><td>약 5 이상</td><td>공력가열과 기체의 화학 반응 같은 효과가 중요해짐</td></tr></tbody></table></div><p>예시(코드로 계산): 같은 250 m/s라도 해면 대기에서는 M ≈ 0.73, 고도 11 km에서는 M ≈ 0.85입니다. 고도가 올라 기온이 내려가면 음속이 줄어 마하수가 커집니다. 반대로 고도 11 km에서 M = 0.85로 순항하는 항공기의 실제 속도는 약 251 m/s(약 903 km/h)입니다. M = 2의 마하각은 30°입니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>M과 함께 <strong>어떤 온도(고도)에서의 음속으로 나눴는지</strong>를 적습니다. 풍동 실험이라면 시험부의 정체온도·정압 조건을 함께 밝힙니다.</li><li>수치해석 논문은 해석 조건을 “자유류 마하수 M∞ = 0.8”처럼 쓰고, 국소 마하수와 구분합니다.</li><li>아음속·초음속 같은 구분을 쓸 때는 어떤 경계(예: 0.8, 1.2)를 썼는지 적습니다.</li><li>축소 모형 실험에서 압축성 효과를 닮게 하려면 마하수를 맞추지만, 점성 효과는 <a href="reynolds-number.html">레이놀즈 수</a>도 함께 고려해야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 익형은 마하수(Mach number) 0.8 부근에서 충격파에 의한 항력 급증(drag divergence) 현상이 관찰되었다."</div>
   <p>비행 속도가 음속의 80%에 이르자 날개 주변 공기 흐름 일부가 국소적으로 음속을 넘어서면서 충격파가 생기고, 이로 인해 저항이 갑자기 커졌다는 뜻입니다. 이는 천음속 항공기 설계에서 반드시 고려해야 하는 현상입니다.</p>
   <div class="example">"초음속 흡입구 형상에 따른 유동 특성을 비교하기 위해 마하수 2.0 조건에서 수치해석을 수행하고 흡입구 입구의 충격파 구조를 분석하였다."</div>
@@ -159,6 +177,18 @@
 
   <h2>주의할 점</h2>
   <p>마하수는 절대적인 속도(예: km/h)가 아니라 음속 대비 상대적인 속도라는 점에 유의해야 합니다. 같은 마하수라도 고도나 온도가 다르면 실제 속도(m/s)는 달라지며, 유체의 압축성을 무시해도 되는지를 판단할 때는 <a href="reynolds-number.html">레이놀즈 수</a>와 함께 마하수를 반드시 함께 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정의</th><th scope="col">무엇을 나타내나</th></tr></thead><tbody><tr><th scope="row">마하수</th><td>속도 ÷ 음속</td><td>압축성의 정도</td></tr><tr><th scope="row"><a href="reynolds-number.html">레이놀즈 수</a></th><td>관성력 ÷ 점성력</td><td>흐름이 층류인지 난류인지 같은 점성 효과</td></tr><tr><th scope="row">속도(km/h)</th><td>단위 시간당 이동 거리</td><td>음속과 무관한 절대 속도</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Anderson, J. D. (2003). Modern Compressible Flow: With Historical Perspective (3rd ed.). McGraw-Hill.</li>
+    <li>Anderson, J. D. (2016). Fundamentals of Aerodynamics (6th ed.). McGraw-Hill.</li>
+    <li>International Organization for Standardization (1975). ISO 2533: Standard Atmosphere.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

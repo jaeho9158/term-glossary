@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/modal-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>구조물이 외부 힘의 진동수와 자신의 고유진동수가 일치하는 공진 상태에 놓이면 작은 힘에도 진폭이 급격히 커져 심각한 손상이나 파괴로 이어질 수 있습니다. 모달해석은 설계 단계에서 이런 위험한 고유진동수와 진동 형태를 미리 파악해 구조 설계를 최적화하거나 위험을 회피할 수 있게 해주기 때문에, 항공우주, 자동차, 토목, 기계공학 등 구조물의 동적 거동을 다루는 거의 모든 공학 분야에서 기본적인 해석 절차로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>모달해석은 외력이 없는 상태의 선형 구조물이 가진 고유 진동 특성(고유진동수, 모드 형상, 감쇠)을 구합니다.</p><ol><li><strong>해석적 모달해석</strong>: 질량 행렬 M과 강성 행렬 K로 고유값 문제 (K − ω²M)φ = 0 을 풉니다. 고유값 ω²에서 고유진동수가, 고유벡터 φ에서 모드 형상이 나옵니다. 유한요소법으로 하는 경우가 흔합니다.</li><li><strong>실험적 모달해석</strong>: 충격 해머나 가진기로 구조물을 때리고 가속도계로 응답을 재서 주파수응답함수(FRF)를 얻은 뒤, 공진 피크에서 진동수·감쇠·모드 형상을 추출합니다.</li><li><strong>상관·검증</strong>: 두 결과를 비교해 모델을 보정합니다. 모드 형상의 일치는 MAC(Modal Assurance Criterion)로 재는 일이 많습니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>예시(가상의 2자유도 계, 코드로 계산): 질량 m₁ = m₂ = 1 kg, 스프링 강성 k = 1,000 N/m인 지면–m₁–m₂ 일렬 연결 계입니다.</p><ul><li>K = [[2000, −1000], [−1000, 1000]], M = I 로 고유값 문제를 풀면 ω₁ = 19.54 rad/s(3.11 Hz), ω₂ = 51.17 rad/s(8.14 Hz)가 나옵니다.</li><li>1차 모드 형상은 두 질량이 같은 방향으로 (0.526, 0.851)의 비율로 움직이는 모양이고, 2차 모드는 서로 반대 방향입니다.</li><li>가상의 실험이 1차 모드 형상을 (0.40, 0.92)로 측정했다면 MAC = (φₐ·φₑ)² / ((φₐ·φₐ)(φₑ·φₑ)) ≈ 0.98입니다.</li></ul><p>MAC는 0~1의 값이며 1에 가까울수록 두 모드 형상이 같은 모양입니다. 0.9 이상이면 상관이 좋다고 보는 것이 관례이지만 보편적 규칙은 아닙니다. 얻는 것은 공진을 피하는 설계 근거, 모델 보정, 손상 탐지의 기준선입니다.</p><p>모달해석은 구조 고유의 특성이므로 실제 하중에 대한 응답 크기는 별도의 응답 해석(강제진동 해석)이 필요합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>모델</strong>: 요소 종류와 수, 재료 물성(탄성계수, 밀도), 경계조건, 연결부 처리. 경계조건은 고유진동수에 크게 영향을 줍니다.</li><li><strong>범위</strong>: 몇 차 모드까지 구했는지와 그 이유(관심 주파수 대역).</li><li><strong>실험 조건</strong>: 가진 방법(해머·가진기), 센서 위치와 개수, 지지 방식, 주파수 분해능.</li><li><strong>결과</strong>: 해석과 실험의 고유진동수 표(오차 %)와 모드 형상 비교(MAC). 감쇠는 어떤 방법으로 추정했는지 밝힙니다.</li><li>관례적 기준(예: MAC 0.9)을 쓴다면 출처 또는 관례임을 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"유한요소모델을 이용한 모달해석 결과, 1차 굽힘 모드의 고유진동수는 12.4Hz로 계산되었다."</div>
   <p>이 문장은 컴퓨터 시뮬레이션으로 구조물이 가장 낮은 주파수에서 어떤 모양(굽힘)으로, 몇 Hz로 진동하는지를 계산했다는 뜻입니다. 이 결과는 실제 가진 실험 결과와 비교해 모델의 정확도를 검증하는 데 쓰입니다.</p>
 
@@ -163,6 +181,18 @@
 
   <h2>주의할 점</h2>
   <p>모달해석은 구조물이 "어떻게 진동할 수 있는가"라는 고유 특성을 다루는 것이지, 실제 사용 중 진동이 얼마나 큰 응답을 일으킬지는 별도의 응답 해석(강제 진동 해석)이 필요합니다. <a href="natural-frequency.html">고유진동수</a> 하나만으로는 특정 모드의 진동 형태(모드 형상)까지 알 수 없다는 점도 유의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 구하나</th><th scope="col">외력 필요</th></tr></thead><tbody><tr><th scope="row">모달해석</th><td>고유진동수, 모드 형상, 감쇠</td><td>해석에서는 불필요, 실험에서는 가진 필요</td></tr><tr><th scope="row"><a href="natural-frequency.html">고유진동수</a></th><td>모달해석 결과 중 진동수 값</td><td>—</td></tr><tr><th scope="row"><a href="forced-vibration.html">강제진동</a> 해석</th><td>주어진 하중에 대한 응답 크기</td><td>필요</td></tr><tr><th scope="row"><a href="damping-ratio.html">감쇠비</a></th><td>진동이 줄어드는 정도</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ewins, D. J. (2000). Modal Testing: Theory, Practice and Application (2nd ed.). Research Studies Press.</li>
+    <li>Allemang, R. J., &amp; Brown, D. L. (1982). A correlation coefficient for modal vector analysis. Proceedings of the 1st International Modal Analysis Conference.</li>
+    <li>Craig, R. R., &amp; Kurdila, A. J. (2006). Fundamentals of Structural Dynamics (2nd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
