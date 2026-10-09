@@ -1,0 +1,65 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>정의</strong>: 이득 M은 증배된 광전류와 증배가 없을 때의 1차 광전류의 비입니다(M ≥ 1). 응답도는 <code>R = M · R₀</code>로 증가합니다(R₀: M = 1일 때의 응답도).</li><li><strong>전압 의존성</strong>: 이득은 역방향 바이어스가 항복전압 V<sub>BR</sub>에 가까워질수록 급격히 커집니다. 경험식으로 <code>M = 1 / [1 − (V/V<sub>BR</sub>)ⁿ]</code>(Miller, 1955)이 쓰이며, n은 소자에 따라 정해지는 상수입니다. 지수함수적이라기보다 항복 근처에서 발산하는 형태입니다.</li><li><strong>일반적 범위</strong>: 실리콘 APD는 수십~수백, 통신 파장용 InGaAs APD는 대체로 한 자릿수에서 수십 배 정도로 쓰입니다. 소자와 사용 목적마다 다릅니다.</li><li><strong>초과잡음계수</strong>: 증배는 확률 과정이라 잡음도 늘어납니다. McIntyre(1966)의 식 <code>F(M) = kM + (1 − k)(2 − 1/M)</code>에서 k는 두 캐리어(전자·정공)의 이온화율 비입니다. k가 작을수록 같은 M에서 잡음이 적습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>가상의 값으로 계산한 표입니다(코드로 계산).</p><table><thead><tr><th>V/V<sub>BR</sub></th><th>M (n = 3)</th></tr></thead><tbody><tr><td>0.80</td><td>2.05</td></tr><tr><td>0.90</td><td>3.69</td></tr><tr><td>0.95</td><td>7.01</td></tr><tr><td>0.98</td><td>17.0</td></tr><tr><td>0.99</td><td>33.7</td></tr></tbody></table><table><thead><tr><th>M</th><th>F (k = 0.02)</th><th>F (k = 0.5)</th></tr></thead><tbody><tr><td>10</td><td>2.06</td><td>5.95</td></tr><tr><td>50</td><td>2.94</td><td>25.99</td></tr><tr><td>100</td><td>3.95</td><td>50.99</td></tr></tbody></table><ul><li>V/V<sub>BR</sub>가 1에 가까워질수록 이득이 가파르게 늘어나므로 <strong>바이어스와 온도 안정화</strong>가 중요합니다. 항복전압이 온도에 따라 변하면 같은 전압에서도 M이 달라집니다.</li><li>k가 클수록 M을 높일 때 잡음이 크게 늘어납니다. 그래서 이득을 무한정 올리는 것이 아니라 수신기 잡음과 증배 잡음이 균형을 이루는 최적 M을 찾습니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>이득 값을 쓸 때는 <strong>측정 조건</strong>을 함께 적습니다: 바이어스 전압(가능하면 V<sub>BR</sub> 대비 비율), 온도, 파장, 입사광 세기, M = 1 기준점을 어떻게 잡았는지.</li><li>증배된 신호와 함께 <strong>잡음 지표</strong>(초과잡음계수 또는 유효 k), <strong>암전류</strong>(증배되는 부분과 안 되는 부분), <strong>대역폭</strong>(이득-대역폭 곱의 제한)을 보고합니다.</li><li>선형 모드 APD의 이득과 가이거 모드(단일광자 검출)에서의 이득은 의미가 달라 같은 척도로 비교하지 않습니다.</li><li>수신 감도 개선을 주장할 때는 이득뿐 아니라 PIN 광다이오드와 비교한 신호 대 잡음비로 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "광검출 소자에서 ‘이득’과 비슷한 양이 여러 가지입니다.",
+    "headers": [
+      "용어",
+      "의미",
+      "단위·범위"
+    ],
+    "rows": [
+      [
+        "[[avalanche-photodiode-gain|APD 이득(M)]]",
+        "증배된 광전류 / 1차 광전류",
+        "무차원, M ≥ 1"
+      ],
+      [
+        "응답도",
+        "입사 광출력당 광전류",
+        "A/W (APD에서는 M·R₀)"
+      ],
+      [
+        "양자효율",
+        "입사 광자당 생성되는 1차 전하 수",
+        "0~1"
+      ],
+      [
+        "초과잡음계수 F",
+        "증배 과정 때문에 더해지는 잡음",
+        "F ≥ 1"
+      ],
+      [
+        "[[avalanche-breakdown|애벌런치 항복]]",
+        "충돌 이온화가 걷잡을 수 없이 커지는 현상",
+        "이득 발산의 한계"
+      ],
+      [
+        "[[photodiode|광다이오드]]",
+        "광신호를 전류로 바꾸는 소자",
+        "APD는 증배 기능이 있는 광다이오드"
+      ]
+    ]
+  },
+  "references": [
+    "Miller, S. L. (1955). Avalanche breakdown in germanium. Physical Review, 99(4), 1234–1241.",
+    "McIntyre, R. J. (1966). Multiplication noise in uniform avalanche diodes. IEEE Transactions on Electron Devices, ED-13(1), 164–168.",
+    "Webb, P. P., McIntyre, R. J., & Conradi, J. (1974). Properties of avalanche photodiodes. RCA Review, 35, 234–278.",
+    "Saleh, B. E. A., & Teich, M. C. (2007). Fundamentals of Photonics (2nd ed.). Wiley.",
+    "Agrawal, G. P. (2010). Fiber-Optic Communication Systems (4th ed.). Wiley."
+  ]
+}
