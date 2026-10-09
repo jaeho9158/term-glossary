@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/api-gateway.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <p>API 게이트웨이는 이 문제에 대한 표준적인 해법 중 하나로, 분산 시스템 아키텍처, 클라우드 컴퓨팅, 서비스 메시(service mesh) 같은 연구 주제와 밀접하게 연결됩니다.</p>
   <p>그래서 마이크로서비스 기반 시스템의 성능, 보안, 확장성을 다루는 논문에서는 게이트웨이의 구조나 정책을 실험 설계의 일부로 언급하는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>API 게이트웨이는 클라이언트(웹, 모바일 앱 등)와 여러 백엔드 서비스 사이에서 <strong>단일 진입점</strong> 역할을 하는 서버입니다. 마이크로서비스 구조에서 흔한 설계 패턴으로 정리되어 있습니다(Richardson, 2018).</li><li>흔히 맡는 기능은 요청 <strong>라우팅</strong>, 인증·권한 확인, 호출 횟수 제한(<a href="api-rate-limiting.html">속도 제한</a>), TLS 종료, 로깅·모니터링, 응답 캐싱, 프로토콜 변환(예: 외부는 REST, 내부는 gRPC), 여러 서비스 응답을 하나로 모으는 <strong>집계(aggregation)</strong>입니다.</li><li>트래픽 방향으로 보면 게이트웨이는 외부 클라이언트에서 시스템 안으로 들어오는 ‘남북(north-south)’ 트래픽을 다루고, 서비스끼리 주고받는 ‘동서(east-west)’ 트래픽은 주로 <a href="service-mesh.html">서비스 메시</a>가 다룹니다.</li><li>클라이언트 종류(웹, 모바일 등)마다 별도의 게이트웨이를 두는 변형을 ‘Backends for Frontends’ 패턴이라 하며, 뉴먼(Newman, 2015)이 소개한 것으로 알려져 있습니다.</li><li>단점: 모든 요청이 지나가므로 <strong>단일 장애점이나 병목</strong>이 될 수 있어 이중화가 필요하고, 한 단계가 더 생기는 만큼 지연이 늘며, 비즈니스 로직까지 넣으면 게이트웨이가 또 하나의 거대한 덩어리가 됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. 모바일 앱의 한 화면이 서비스 4개의 데이터를 필요로 한다고 합니다. 클라이언트와 서버 사이 왕복 시간 80 ms, 서비스당 처리 시간 20 ms, 게이트웨이 처리 5 ms, 게이트웨이와 서비스 사이 내부 왕복 5 ms로 가정했습니다.</p><ul><li>직접 호출(순차 4회): 4 × (80 + 20) = <strong>400 ms</strong></li><li>게이트웨이가 4개를 병렬로 집계: 80 + 5 + 5 + 20 = <strong>110 ms</strong></li></ul><p>이 차이는 가정에서 나온 값이라 실제와 다를 수 있으나, 외부 왕복 횟수를 줄이는 것이 집계의 핵심 이점임을 보여 줍니다. 반대로 게이트웨이 자체가 느리거나 서비스 하나가 느리면 전체 응답이 그 영향을 받습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>API 게이트웨이는 로드 밸런서의 다른 이름이다.</td><td><a href="load-balancer.html">로드 밸런서</a>는 요청을 같은 종류의 서버들에 분산합니다. 게이트웨이는 요청 내용을 보고 서로 다른 서비스로 보내고 인증·집계 같은 기능을 얹습니다. 함께 쓰는 경우가 많습니다.</td></tr><tr><td>게이트웨이에서 인증하면 보안이 끝난다.</td><td>내부 서비스끼리의 인가, 데이터 보호, 게이트웨이를 우회한 접근 차단은 별도로 설계해야 합니다.</td></tr><tr><td>게이트웨이에 업무 로직을 넣어도 된다.</td><td>횡단 관심사(인증, 제한, 로깅)에 두고 업무 규칙은 서비스에 두는 것이 권장됩니다. 그렇지 않으면 게이트웨이가 변경의 병목이 됩니다.</td></tr><tr><td>마이크로서비스에는 반드시 있어야 한다.</td><td>필수 요소가 아니라 선택 가능한 패턴입니다. 서비스 수가 적으면 오히려 복잡도만 늘 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 아키텍처는 API 게이트웨이를 통해 인증, 요청 속도 제한, 로깅을 중앙에서 처리함으로써 각 마이크로서비스의 개발 복잡도를 낮췄다."</div>
   <p>이 문장은 인증이나 트래픽 제한처럼 여러 서버가 공통으로 필요로 하는 기능을 게이트웨이 한곳에 모아 처리해서, 개별 서버는 핵심 기능 개발에만 집중할 수 있게 했다는 뜻입니다.</p>
 
@@ -170,6 +188,18 @@
 
   <h2>주의할 점</h2>
   <p>API 게이트웨이는 모든 요청이 반드시 거쳐가는 지점이기 때문에, 게이트웨이 자체에 장애가 생기면 그 뒤에 있는 모든 서버로 가는 길이 한꺼번에 막히는 단일 장애점(single point of failure)이 될 수 있습니다. 이는 여러 서버로 트래픽을 단순히 나눠주는 <a href="load-balancing.html">로드밸런싱</a>과 혼동되기도 하지만, 게이트웨이는 인증·라우팅·속도 제한 같은 더 다양한 역할까지 함께 수행한다는 점에서 차이가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">주된 역할</th><th scope="col">트래픽</th></tr></thead><tbody><tr><th scope="row"><strong>API 게이트웨이</strong></th><td>외부 요청의 진입점: 라우팅, 인증, 집계</td><td>외부 → 시스템(남북)</td></tr><tr><th scope="row"><a href="load-balancer.html">로드 밸런서</a></th><td>같은 서비스의 여러 인스턴스에 부하 분산</td><td>주로 외부 → 시스템, 내부에서도 사용</td></tr><tr><th scope="row"><a href="service-mesh.html">서비스 메시</a></th><td>서비스 간 통신의 재시도, 보안, 관측</td><td>서비스 ↔ 서비스(동서)</td></tr><tr><th scope="row"><a href="api-rate-limiting.html">속도 제한</a></th><td>호출 횟수 제한 정책</td><td>게이트웨이가 수행하는 기능 중 하나</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Newman, S. (2015). Building Microservices: Designing Fine-Grained Systems. O'Reilly Media.</li>
+    <li>Richardson, C. (2018). Microservices Patterns: With Examples in Java. Manning Publications.</li>
+    <li>Dragoni, N., Giallorenzo, S., Lluch Lafuente, A., Mazzara, M., Montesi, F., Mustafin, R., &amp; Safina, L. (2017). Microservices: Yesterday, today, and tomorrow. In M. Mazzara &amp; B. Meyer (Eds.), Present and Ulterior Software Engineering. Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

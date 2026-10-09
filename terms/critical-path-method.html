@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/critical-path-method.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>주공정법은 프로젝트 지연의 원인을 명확히 짚어내고 자원을 어디에 집중해야 하는지를 정량적으로 보여주기 때문에 건설공학, 산업공학, 소프트웨어 프로젝트 관리 등 일정이 핵심인 분야에서 널리 다뤄집니다. 특히 대규모 사업일수록 지연 비용이 커지므로 CPM 기반 분석은 공기 단축 전략이나 위험 관리 계획을 세우는 실무 연구와 직결됩니다. 또한 PERT 같은 확률적 일정 관리 기법과 함께 프로젝트 관리 이론의 기초로 다뤄지는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>작업 목록화</strong>: 프로젝트를 작업으로 나눕니다(<a href="work-breakdown-structure.html">작업분류체계(WBS)</a>).</li><li><strong>기간 추정</strong>: 각 작업의 기간을 추정합니다(CPM은 보통 단일 값을 씁니다).</li><li><strong>선후관계</strong>: 어떤 작업이 끝나야 다음 작업이 시작되는지를 정해 네트워크로 연결합니다.</li><li><strong>전진 계산</strong>: 앞에서부터 각 작업의 가장 이른 시작(ES)과 종료(EF)를 구합니다. EF = ES + 기간, 선행 작업이 여럿이면 그중 가장 큰 EF가 ES가 됩니다.</li><li><strong>후진 계산</strong>: 프로젝트 종료 시점에서 거꾸로 가장 늦은 종료(LF)와 시작(LS)을 구합니다.</li><li><strong>여유 시간(float)</strong> = LS − ES. 여유가 0인 작업의 연결이 <strong>주공정(critical path)</strong>이며 가장 긴 경로와 같습니다.</li></ol><p>CPM은 켈리(Kelley)와 워커(Walker)가 1950년대 후반 듀폰사의 화학 공장 건설·정비 일정을 위해 개발했습니다(Kelley &amp; Walker, 1959). 비슷한 시기 미국 해군 폴라리스 계획에서는 확률적 기간을 쓰는 PERT가 별도로 개발됐습니다(Malcolm 등, 1959).</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>언제 쓰나</strong>: 작업 순서가 정해져 있고 기간을 어느 정도 예측할 수 있는 프로젝트(건설, 제조, 정비, 소프트웨어 출시 준비 등)에서 전체 기간을 정하는 작업이 무엇인지 알고 싶을 때입니다.</p><p>가상의 예입니다. 작업 6개의 계산 결과입니다(단위: 일).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>작업</th><th>기간</th><th>선행</th><th>ES</th><th>EF</th><th>LS</th><th>LF</th><th>여유</th><th>주공정</th></tr></thead><tbody><tr><td>A</td><td>3</td><td>—</td><td>0</td><td>3</td><td>0</td><td>3</td><td>0</td><td>예</td></tr><tr><td>B</td><td>4</td><td>A</td><td>3</td><td>7</td><td>3</td><td>7</td><td>0</td><td>예</td></tr><tr><td>C</td><td>2</td><td>A</td><td>3</td><td>5</td><td>8</td><td>10</td><td>5</td><td>아니오</td></tr><tr><td>D</td><td>6</td><td>B</td><td>7</td><td>13</td><td>7</td><td>13</td><td>0</td><td>예</td></tr><tr><td>E</td><td>3</td><td>C</td><td>5</td><td>8</td><td>10</td><td>13</td><td>5</td><td>아니오</td></tr><tr><td>F</td><td>2</td><td>D, E</td><td>13</td><td>15</td><td>13</td><td>15</td><td>0</td><td>예</td></tr></tbody></table></div><p>전체 기간은 <strong>15일</strong>이고 주공정은 <strong>A → B → D → F</strong>입니다. C와 E에는 5일의 여유가 있어 이 범위에서는 늦어져도 전체 일정이 변하지 않습니다.</p><p>주공정의 작업 D를 단축했을 때의 효과입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>단축</th><th>D의 기간</th><th>전체 기간</th></tr></thead><tbody><tr><td>D를 0일 단축</td><td>6일</td><td>15일</td></tr><tr><td>D를 2일 단축</td><td>4일</td><td>13일</td></tr><tr><td>D를 4일 단축</td><td>2일</td><td>11일</td></tr><tr><td>D를 5일 단축</td><td>1일</td><td>10일</td></tr><tr><td>D를 6일 단축</td><td>0일</td><td>10일</td></tr></tbody></table></div><p>D를 5일 단축하면 주공정 경로의 길이가 다른 경로(A→C→E→F, 10일)와 같아집니다. 그 이상 줄여도 전체 기간은 더 줄지 않습니다. 주공정이 바뀌므로 단축 효과는 병행 경로가 정하는 한계까지만 나타납니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>CPM을 쓴 논문은 다음을 밝혀 둡니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>작업과 관계</td><td>작업 수, 선후관계의 유형(종료-시작 외에 시작-시작 등을 쓰면 명시), 지연(lag)</td></tr><tr><td>기간의 출처</td><td>역사 자료, 전문가 추정, 표준 품셈 등. 추정이 결과를 좌우합니다.</td></tr><tr><td>도구</td><td>사용한 일정 소프트웨어와 달력(휴일, 근무일) 설정</td></tr><tr><td>결과</td><td>전체 기간, 주공정 작업 목록, 여유 분포, 여유가 작은 ‘준주공정’</td></tr><tr><td>한계</td><td>자원 제약을 반영하지 않았는지, 기간 불확실성을 어떻게 다뤘는지</td></tr></tbody></table></div><p>기간의 불확실성은 PERT 같은 3점 추정이나 모의실험으로, 자원 제약은 임계연쇄 같은 방법으로 보완합니다(Goldratt, 1997). 계획 대비 실제 일정을 비교하는 지연 분석에서도 CPM 일정이 기준으로 쓰입니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 CPM 기반 일정 분석을 통해 전체 공기(工期)의 68%를 차지하는 주공정 작업을 식별하고, 이를 단축하기 위한 자원 재배분 전략을 제시하였다."</div>
   <p>이 문장은 프로젝트 전체 일정에서 병목이 되는 핵심 작업들을 CPM으로 찾아내고, 그 부분에 인력과 장비를 집중시켜 공사 기간을 줄이는 전략을 다룬 연구임을 보여줍니다. CPM은 건설공학, 산업공학, 프로젝트 관리 분야 논문에서 일정 최적화와 자원 배분 문제에 자주 등장합니다.</p>
 
@@ -164,6 +182,20 @@
 
   <h2>주의할 점</h2>
   <p>주공정에 속하지 않은 작업이라도 무한정 늦춰도 된다는 뜻은 아닙니다. 각 작업에는 "여유 시간(float)"이 정해져 있으며, 그 한도를 넘기면 그 작업도 새로운 주공정의 일부가 될 수 있습니다. 또한 CPM은 자원 제약(인력·장비의 한계)을 기본적으로 고려하지 않으므로, 실제 현장에서는 <a href="value-engineering.html">가치공학</a>이나 자원 평준화 기법과 함께 사용하는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심</th><th scope="col">CPM과의 차이</th></tr></thead><tbody><tr><th scope="row"><strong>주공정법(CPM)</strong></th><td>단일 기간으로 주공정과 여유 계산</td><td>결정적 일정 계산</td></tr><tr><th scope="row">PERT</th><td>낙관·최빈·비관 3점 추정으로 확률적 기간 계산</td><td>불확실성을 모형에 포함</td></tr><tr><th scope="row"><a href="gantt-chart.html">간트차트</a></th><td>작업을 시간 막대로 표시</td><td>표현 방식. CPM 결과를 그림으로 보여 줄 수 있음</td></tr><tr><th scope="row"><a href="work-breakdown-structure.html">작업분류체계(WBS)</a></th><td>프로젝트를 작업으로 분해</td><td>CPM의 입력이 되는 구조</td></tr><tr><th scope="row">임계연쇄</th><td>자원 제약과 여유 완충을 반영한 일정 관리</td><td>자원 제약을 중심에 둠</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kelley, J. E., Jr., &amp; Walker, M. R. (1959). Critical-path planning and scheduling. Proceedings of the Eastern Joint Computer Conference.</li>
+    <li>Malcolm, D. G., Roseboom, J. H., Clark, C. E., &amp; Fazar, W. (1959). Application of a technique for research and development program evaluation. Operations Research, 7(5), 646–669.</li>
+    <li>Kelley, J. E., Jr. (1961). Critical-path planning and scheduling: Mathematical basis. Operations Research, 9(3), 296–320.</li>
+    <li>Goldratt, E. M. (1997). Critical Chain. North River Press.</li>
+    <li>Project Management Institute. (2017). A Guide to the Project Management Body of Knowledge (PMBOK Guide) (6th ed.). PMI.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

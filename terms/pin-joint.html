@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/pin-joint.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <p>부재 접합부가 회전에는 저항하지 않고 힘만 전달하도록 설계된 접합방식으로, 트러스구조에서 각 부재가 순수한 인장·압축력만 받도록 하는 구조해석의 기본 가정이며 강접합과 대비되는 접합유형으로 다뤄진다.</p>
   <p>핀접합은 트러스의 각 부재가 오직 인장이나 압축의 축력만 받도록 만들어, 부재 설계를 단순화하고 접합부에 큰 휨모멘트가 걸리지 않도록 하는 것이 목적이다. 핀접합으로 구성된 트러스 지붕은 부재 하나하나의 축력만 계산하면 되므로 해석이 비교적 단순해, 전통적인 손계산 시대부터 널리 쓰여온 구조 형식이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>이상적인 핀접합은 <strong>회전을 막지 않아 휨모멘트를 전달하지 않으면서</strong> 두 방향의 힘(평면에서 수평·수직 성분)은 전달합니다. “힘은 그대로 전달하고 모멘트만 전달하지 않는다”가 정확한 표현입니다.</li><li>트러스 해석에서는 세 가정을 둡니다. ① 하중은 절점에만 작용, ② 절점은 마찰 없는 핀, ③ 부재는 곧고 자중은 무시. 그러면 각 부재는 양 끝 두 점에만 힘을 받는 <strong>2력 부재</strong>가 되어 <strong>축력(인장·압축)만</strong> 받습니다. 축력만 받는다는 결론은 접합의 성질뿐 아니라 이 가정들 전체에서 나옵니다.</li><li>평면 트러스가 정정이고 안정인지 가늠하는 기본 식은 <strong>m + r = 2j</strong>입니다(m: 부재 수, r: 반력 성분 수, j: 절점 수). 핀 지점은 반력 2개, 롤러 지점은 1개를 줍니다.</li><li>강접합(<a href="rigid-joint.html">강접합</a>)은 반대로 부재 사이 각도를 유지해 휨모멘트까지 전달합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. 지간 6 m, 높이 4 m인 이등변 삼각형 트러스의 꼭대기 절점에 10 kN이 아래로 작용합니다(왼쪽 핀 지점, 오른쪽 롤러 지점).</p><ul><li>부재 3개, 반력 3개, 절점 3개이므로 m + r = 6 = 2j = 6으로 정정 구조입니다.</li><li>대칭이므로 각 지점의 수직 반력은 5 kN입니다.</li><li>경사 부재의 길이는 5.0 m(수평 3, 수직 4)이고, 수직 성분 비율은 0.80입니다.</li><li>경사 부재의 축력(압축) = 5 ÷ 0.80 = <strong>6.25 kN</strong></li><li>아래쪽 수평 부재의 축력(인장) = 6.25 × 0.60 = <strong>3.75 kN</strong></li><li>검산: 꼭대기 절점의 수직 합 = 2 × 6.25 × 0.80 = 10.0 kN = 하중과 같습니다.</li></ul><p>세 부재 모두 축력만 받는 값이 나옵니다. 실제 접합이 용접·볼트 접합이어도 부재가 가늘고 하중이 절점에 모인다면, 핀접합 가정이 좋은 근사를 줍니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>핀접합은 힘을 전달하지 않는다.</td><td>회전만 자유롭고 힘은 전달합니다. 전달하지 않는 것은 모멘트입니다.</td></tr><tr><td>핀접합이면 부재에는 늘 축력만 걸린다.</td><td>부재 중간에 하중이 있거나, 보처럼 양 끝이 핀이어도 중간에 횡하중이 걸리면 휨모멘트와 전단이 생깁니다(단순보). 축력만 걸리는 조건은 ‘양 끝만 힘을 받는 부재’입니다.</td></tr><tr><td>실제 구조에 핀을 꽂아야 핀접합이다.</td><td>핀접합은 해석상의 이상화입니다. 볼트나 용접 접합도 회전 구속이 작다고 보면 핀으로 모델링합니다.</td></tr><tr><td>실제 접합은 완전한 핀이다.</td><td>실제 접합은 부분적인 회전 구속이 있어 부재에 부차 휨(2차 응력)이 생길 수 있으며, 설계에서 안전율과 세장비 제한으로 다룹니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"트러스 부재의 절점은 핀접합으로 가정하여 각 부재에 축방향력만 작용하는 것으로 해석하였다."</div>
   <p>핀접합 가정을 통해 트러스 부재를 축력만 받는 것으로 단순화하여 해석하는 방식을 설명한다.</p>
   <div class="example">"핀접합으로 계획된 기초-기둥 접합부는 강접합 접합부보다 시공 중 각도 오차 흡수에 유리한 것으로 평가되었다."</div>
@@ -155,6 +173,18 @@
 
   <h2>주의할 점</h2>
   <p>실제 시공된 접합부는 완전한 핀접합보다 약간의 회전 구속이 존재하는 경우가 많아, 해석상의 핀접합 가정과 실제 거동 사이에 차이가 발생할 수 있음을 유의해야 한다. 핀접합부에 예상치 못한 휨모멘트가 작용하면 접합부가 손상될 수 있어, 실제 사용 하중이 설계에서 가정한 조건과 다르지 않은지 확인해야 한다. 핀접합부의 볼트나 핀이 마모되면 미세한 유격이 발생해 하중 재하 시 진동이나 소음을 유발할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">전달하는 것</th><th scope="col">회전</th></tr></thead><tbody><tr><th scope="row"><strong>핀접합</strong></th><td>힘(축·전단), 모멘트는 전달하지 않음</td><td>자유</td></tr><tr><th scope="row"><a href="rigid-joint.html">강접합</a></th><td>힘과 모멘트 모두</td><td>구속(부재 간 각도 유지)</td></tr><tr><th scope="row"><a href="truss.html">트러스</a></th><td>—(핀접합 가정으로 해석하는 삼각형 골조 구조)</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Timoshenko, S., &amp; Young, D. H. (1965). Theory of Structures (2nd ed.). McGraw-Hill.</li>
+    <li>Hibbeler, R. C. (2012). Structural Analysis (8th ed.). Pearson.</li>
+    <li>Kassimali, A. (2015). Structural Analysis (5th ed.). Cengage Learning.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
