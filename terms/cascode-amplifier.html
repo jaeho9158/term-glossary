@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cascode-amplifier.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>집적회로용 증폭기에서 이득과 대역폭은 보통 맞바꿔야 하는 관계인데, 캐스코드는 이 상충을 상당히 완화해 줍니다. 그래서 연산증폭기의 이득단, 저잡음 증폭기의 입력단, 전류 거울의 출력단 등 성능이 중요한 자리에 거의 기본으로 채택됩니다. 회로 논문에서 텔레스코픽이나 폴디드라는 수식어가 붙은 구조도 모두 이 개념의 변형입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>캐스코드는 입력을 받는 <strong>공통소스(또는 공통에미터) 트랜지스터 M1</strong> 위에 <strong>공통게이트(공통베이스) 트랜지스터 M2</strong>를 쌓은 구조입니다. M2의 게이트는 직류 바이어스에 두고 출력은 M2 드레인에서 얻습니다.</li><li>M2는 M1의 전류를 그대로 출력으로 전달하면서 M1 드레인 전압을 거의 고정합니다. 그 결과 M1이 보는 부하 임피던스가 작아져 M1의 이득이 낮아지고, 대신 출력 저항이 g<sub>m2</sub>r<sub>o2</sub>r<sub>o1</sub> 정도로 커집니다.</li><li>(1) 출력 저항이 커서 전압 이득이 크고, (2) M1의 게이트-드레인 용량에 대한 <strong>밀러 효과</strong>가 줄어 대역폭이 넓어집니다(Razavi, 2017; Sedra &amp; Smith, 2015).</li><li>비용으로 전압 여유(헤드룸)가 줄어듭니다. 출력 전압 범위가 줄어드는 단점은 폴디드 캐스코드 같은 변형으로 완화합니다.</li><li>이름은 Hunt와 Hickman(1939)의 진공관 회로에서 비롯된 것으로 알려져 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: g<sub>m</sub> = 2 mS, r<sub>o</sub> = 50 kΩ인 트랜지스터를 쓰면 단일 공통소스단의 최대 이득은 g<sub>m</sub>r<sub>o</sub> = 100입니다. 전류원 부하의 출력 저항이 캐스코드와 같은 수준으로 높다고 가정하면 캐스코드의 이득은 약 (g<sub>m</sub>r<sub>o</sub>)² = 10,000으로 커집니다. 실제로는 부하의 출력 저항이 이득을 제한합니다.</p><p>밀러 효과도 비교할 수 있습니다. 단일 공통소스단의 이득이 −20이면 게이트-드레인 용량이 입력에서 (1 + 20) = 21배로 보이지만, 캐스코드에서는 M1의 이득 크기가 약 1이어서 약 2배로 보입니다. 입력 쪽 시정수가 줄어 고주파 응답이 좋아집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>캐스코드는 이득과 대역폭을 모두 공짜로 올린다.</td><td>전압 여유가 줄고 소자와 바이어스가 더 필요합니다.</td></tr><tr><td>캐스코드의 이득은 항상 (g<sub>m</sub>r<sub>o</sub>)²이다.</td><td>이는 부하 출력 저항이 매우 높을 때의 상한이며, 실제 이득은 부하에 의해 제한됩니다.</td></tr><tr><td>M2가 신호 전류를 더 증폭한다.</td><td>M2는 M1의 전류를 거의 그대로(전류 이득 약 1) 전달합니다. 전달컨덕턴스는 M1이 정하고, M2는 출력 저항을 키우고 M1의 드레인 전압 변화를 줄여 전압 이득과 대역폭에 기여합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"폴디드 캐스코드 구조를 채택해 낮은 공급 전압에서도 충분한 출력 전압 범위와 높은 직류 이득을 확보하였다."</div>
   <p>전압 여유가 부족한 저전압 공정에서 캐스코드의 장점을 살리기 위해 변형 구조를 쓴 사례입니다.</p>
   <div class="example">캐스코드 증폭기는 밀러효과로 인한 입력용량 증가를 억제해 고주파 대역에서도 안정적인 이득을 유지할 수 있다는 점이 회로 설계 연구에서 설명된다.</div>
@@ -159,6 +177,20 @@
 
   <h2>주의할 점</h2>
   <p>캐스코드는 이득을 높이지만 출력 전압이 움직일 수 있는 범위를 좁히므로, 공급 전압이 낮은 최신 공정에서는 그 대가가 큽니다. <a href="common-source-amplifier.html">공통소스 증폭기</a>가 기본 증폭단 자체를 가리키는 데 비해, 이 항목은 그 위에 한 단을 더 쌓은 조합 구조를 가리킵니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>증폭기 구조 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">구성</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="common-source-amplifier.html">공통소스 증폭기</a></th><td>트랜지스터 한 개</td><td>이득은 g&lt;sub&gt;m&lt;/sub&gt;r&lt;sub&gt;o&lt;/sub&gt; 이하, 밀러 효과 큼</td></tr><tr><th scope="row"><strong>캐스코드 증폭기</strong></th><td>공통소스 + 공통게이트</td><td>출력 저항·이득 큼, 밀러 효과 작음, 헤드룸 감소</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Razavi, B. (2017). Design of Analog CMOS Integrated Circuits (2nd ed.). McGraw-Hill Education.</li>
+    <li>Sedra, A. S., &amp; Smith, K. C. (2015). Microelectronic Circuits (7th ed.). Oxford University Press.</li>
+    <li>Gray, P. R., Hurst, P. J., Lewis, S. H., &amp; Meyer, R. G. (2009). Analysis and Design of Analog Integrated Circuits (5th ed.). Wiley.</li>
+    <li>Hunt, F. V., &amp; Hickman, R. W. (1939). On electronic voltage stabilizers. Review of Scientific Instruments, 10(1), 6–21.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

@@ -1,0 +1,47 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>단위는 뉴턴(N), 큰 엔진은 kN 또는 MN입니다.</li><li>로켓의 기본식은 <strong>F = ṁ·v<sub>e</sub> + (p<sub>e</sub> − p<sub>a</sub>)·A<sub>e</sub></strong>입니다. ṁ은 추진제 질량유량, v<sub>e</sub>는 노즐 출구 배기속도, p<sub>e</sub>는 출구 압력, p<sub>a</sub>는 주변 압력, A<sub>e</sub>는 출구 면적입니다(Sutton &amp; Biblarz, 2017).</li><li>흡기식 제트엔진의 순추력은 대략 (공기 유량 + 연료 유량)·v<sub>e</sub> − 공기 유량·v<sub>0</sub> + (p<sub>e</sub> − p<sub>a</sub>)·A<sub>e</sub>로 쓰며, v<sub>0</sub>는 비행 속도입니다(Hill &amp; Peterson, 1992).</li><li>가상의 예: ṁ = 100 kg/s, v<sub>e</sub> = 2,500 m/s, 출구 압력이 주변 압력과 같으면 추력은 250 kN입니다. 출구 압력이 주변보다 20 kPa 높고 A<sub>e</sub> = 0.5 m²라면 압력항이 10 kN 더해져 260 kN입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>추력이 같다고 엔진 성능이 같은 것은 아닙니다. 같은 추진제 유량으로 얼마나 큰 추력을 내는지는 [[specific-impulse|비추력]]으로 비교합니다.</li><li>기체가 가속할지는 추력이 아니라 <strong>추력과 항력·중력의 차</strong>로 정해지므로, 설계에서는 [[thrust-to-weight-ratio|추력대중량비]]를 함께 봅니다.</li><li>지상(해면)과 진공에서 추력이 다릅니다. 같은 엔진이라도 주변 압력이 낮을수록 압력항이 달라지므로, 논문은 해면 추력인지 진공 추력인지 구별해 씁니다.</li><li>추력은 시간에 따라 변합니다(점화 과도, 정상 연소, 소화 과도). 최대값, 평균값, 시간 곡선 중 무엇을 말하는지 확인해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>해면·진공 중 어느 조건인지, 정상상태 값인지 최대값인지를 적습니다.</li><li>측정 연구는 측정 방식(로드셀 등), 센서 정확도, 보정 방법, 반복 측정 수를 밝힙니다. 정지 추력(static thrust)은 비행 속도 0에서의 값이므로 비행 중 추력과 구별합니다.</li><li>수치 해석 연구는 격자·난류 모형 같은 계산 조건과 실험값과의 오차를 함께 적습니다.</li><li>프로펠러 추력처럼 회전수·전압 조건에 따라 변하는 경우 그 조건을 표시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "추력과 가까운 용어들입니다.",
+    "headers": [
+      "용어",
+      "무엇을 나타내나",
+      "단위"
+    ],
+    "rows": [
+      [
+        "[[thrust|추력]]",
+        "추진기관이 만드는 힘",
+        "N"
+      ],
+      [
+        "[[specific-impulse|비추력]]",
+        "추진제 소비량 대비 얻는 추력(효율 지표)",
+        "s 또는 m/s"
+      ],
+      [
+        "[[thrust-to-weight-ratio|추력대중량비]]",
+        "추력을 기체(또는 엔진) 무게로 나눈 값",
+        "무차원"
+      ]
+    ]
+  },
+  "references": [
+    "Sutton, G. P., & Biblarz, O. (2017). Rocket Propulsion Elements (9th ed.). Wiley.",
+    "Hill, P. G., & Peterson, C. R. (1992). Mechanics and Thermodynamics of Propulsion (2nd ed.). Addison-Wesley."
+  ]
+}

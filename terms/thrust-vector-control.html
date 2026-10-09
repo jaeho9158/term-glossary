@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/thrust-vector-control.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <p>발사 초기처럼 공기력이 약하거나 대기가 없는 구간에서는 날개형 조종면이 거의 효과가 없기 때문에, 추력벡터제어가 로켓의 자세를 안정적으로 유지하는 사실상 유일한 수단이 되는 경우가 많습니다. 이 기술의 정밀도와 응답 속도는 발사 성공률과 직결되어 유도·제어 관련 논문에서 핵심 주제로 다뤄집니다.</p>
   <p>별도의 공력 제어면이 필요 없다는 점 때문에 대기가 희박한 상승 후반부나 진공에서도 자세제어가 가능해, 대형 발사체 상단부와 우주발사체 전반의 표준적인 자세제어 방식으로 자리잡았습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>추력벡터제어(TVC)는 추력 방향을 기체 축에서 일정 각도 <strong>편향</strong>시켜, 추력의 옆 성분이 무게중심 둘레의 회전력(토크)을 만들게 하는 방식입니다. 편향각을 δ, 추력을 T, 무게중심에서 추력 작용점까지의 거리를 l이라 하면 옆힘은 T·sin δ, 토크는 T·l·sin δ입니다.</li><li>대표 구현은 노즐(또는 엔진 전체)을 짐벌로 기울이는 방식, 유연 이음 노즐, 배기 흐름 안에 제트 베인을 넣는 방식, 배기 흐름에 유체를 분사하는 방식 등입니다(Sutton &amp; Biblarz, 2017).</li><li>공력 조종면은 대기 속도가 있어야 효과가 있지만 TVC는 엔진이 작동하는 한 대기 밀도와 무관하게 작동합니다. 대신 엔진이 꺼지면 쓸 수 없습니다.</li><li>제어 관점에서 TVC는 자세 제어기와 함께 쓰이며 응답 속도, 최대 편향각, 편향 속도 한계가 성능을 좌우합니다(Wie, 2008).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: 추력 500 kN, 편향각 2°, 무게중심으로부터 작용점까지 20 m라고 하면 옆힘은 500 × sin 2° ≈ 17.4 kN, 토크는 ≈ 349 kN·m입니다. 작은 각도로도 큰 토크가 나오지만, 각도가 커질수록 축 방향 추력 손실(1 − cos δ)이 생기므로 편향각은 작게 설계됩니다.</p><p>제어 논문에서 ‘TVC 응답 지연’을 다루는 이유도 여기에 있습니다. 편향 명령과 실제 편향 사이에 지연이 있으면 제어 루프의 위상 여유가 줄어 자세 오차나 진동이 커질 수 있어, 시뮬레이션으로 영향을 분석합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>TVC는 로켓에만 쓰인다.</td><td>일부 항공기 엔진에도 쓰이며, 이때는 <a href="thrust-vectoring.html">추력벡터링</a>이라는 이름으로 더 자주 부릅니다.</td></tr><tr><td>TVC가 있으면 다른 자세 제어 수단이 필요 없다.</td><td>엔진 정지 구간과 롤 제어 등에는 다른 수단(자세제어 추력기 등)이 함께 쓰이는 경우가 많습니다.</td></tr><tr><td>편향각이 크면 클수록 좋다.</td><td>편향각이 커지면 축 방향 추력 손실과 구조·구동 부담이 커져 제한됩니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 논문에서는 짐벌 방식 추력벡터제어를 이용한 발사체 자세 안정화 제어기를 설계하였다."</div>
   <p>이 문장은 엔진을 기울이는 짐벌 구조가 추력벡터제어의 대표적 구현 방식임을 보여줍니다.</p>
   <div class="example">"상단 엔진의 추력벡터제어 응답 지연이 자세 오차에 미치는 영향을 시뮬레이션으로 분석하였다."</div>
@@ -160,6 +178,18 @@
 
   <h2>주의할 점</h2>
   <p>추력벡터제어는 엔진이 작동 중일 때만 사용할 수 있으므로, 엔진 정지 구간이나 무동력 비행 구간에서는 다른 자세 제어 수단이 별도로 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>방향을 바꾸는 추진 관련 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">언제 쓰나</th></tr></thead><tbody><tr><th scope="row"><strong>추력벡터제어</strong></th><td>추력 방향을 바꿔 자세·경로를 제어</td><td>엔진 작동 중</td></tr><tr><th scope="row"><a href="gimbaled-engine.html">짐벌엔진</a></th><td>노즐(엔진)을 회전 관절로 기울이는 구현 방식의 하나</td><td>TVC의 한 구현</td></tr><tr><th scope="row"><a href="thrust-reverser.html">역추력장치</a></th><td>배기를 앞쪽으로 돌려 감속(착륙 후 제동)</td><td>항공기 착륙 시</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sutton, G. P., &amp; Biblarz, O. (2017). Rocket Propulsion Elements (9th ed.). Wiley.</li>
+    <li>Wie, B. (2008). Space Vehicle Dynamics and Control (2nd ed.). American Institute of Aeronautics and Astronautics.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="gimbaled-engine.html">짐벌엔진</a></div></div><p class="concept-family-map"><a href="../concept-map/aviation.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

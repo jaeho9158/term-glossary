@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>모형 선택</strong>: 보통 핀홀 카메라 모형 x ~ K[R | t]X를 쓰며, K는 초점거리(f<sub>x</sub>, f<sub>y</sub>), 주점(c<sub>x</sub>, c<sub>y</sub>), 비틀림을 담는 내부 파라미터 행렬입니다. 렌즈 왜곡은 방사 왜곡(k₁, k₂ 등)과 접선 왜곡(p₁, p₂)으로 모형화합니다(Brown, 1971).</li><li><strong>기준 물체 촬영</strong>: 크기를 아는 체커보드 같은 평면 패턴을 여러 자세에서 촬영합니다(Zhang, 2000).</li><li><strong>대응점 검출</strong>: 영상에서 패턴의 모서리 점을 검출해 3차원 좌표와 짝짓습니다.</li><li><strong>추정</strong>: 내부·외부 파라미터를 초기 추정한 뒤 <strong>재투영 오차</strong>를 최소화하는 비선형 최적화로 정밀화합니다.</li></ol><p>가상의 예: f<sub>x</sub> = f<sub>y</sub> = 800 픽셀, 주점 (320, 240)인 카메라 앞 점 (0.1, 0.05, 2.0) m은 u = 800×0.1/2.0 + 320 = 360, v = 800×0.05/2.0 + 240 = 260 픽셀에 찍힙니다(왜곡 없음 가정).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>얻는 것</strong>: 영상 좌표를 3차원 방향·거리와 연결하는 파라미터이며, 스테레오 비전, 로봇 시각 서보, 3차원 복원, 측정 등의 선행 단계입니다(Hartley &amp; Zisserman, 2004). 왜곡 계수로 영상을 보정할 수도 있습니다.</li><li>평가 지표는 <strong>재투영 오차</strong>(추정한 파라미터로 점을 다시 투영했을 때 검출점과의 거리, 픽셀 단위)입니다. 허용 수준은 응용마다 다르며, 값이 작아도 사용한 자세가 다양하지 않으면 파라미터가 과적합될 수 있습니다.</li><li>패턴이 영상 가장자리와 다양한 기울기를 충분히 덮지 않으면 왜곡 계수 추정이 불안정해집니다.</li><li>초점, 줌, 온도가 바뀌면 파라미터도 바뀌므로 설정이 바뀔 때마다 다시 수행해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 모형(핀홀+방사/접선 왜곡 차수), 패턴의 종류와 크기, 사용한 영상 수와 자세 분포를 적습니다.</li><li>추정 결과(f, 주점, 왜곡 계수)와 불확실성(표준편차), 재투영 오차의 평균과 분포를 보고합니다.</li><li>해상도, 렌즈 설정(초점·줌 고정 여부)을 밝힙니다.</li><li>사용한 소프트웨어와 알고리즘(예: Zhang 방식, Tsai 방식)을 적습니다(Tsai, 1987).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "정렬·보정 관련 용어입니다.",
+    "headers": [
+      "용어",
+      "무엇을 구하나",
+      "대상"
+    ],
+    "rows": [
+      [
+        "[[camera-calibration|카메라 캘리브레이션]]",
+        "카메라 내부·외부 파라미터와 렌즈 왜곡",
+        "카메라 하나(또는 각각)"
+      ],
+      [
+        "[[hand-eye-calibration|핸드아이 캘리브레이션]]",
+        "로봇 손과 카메라 사이의 상대 위치·자세",
+        "로봇–카메라 관계"
+      ],
+      [
+        "[[stereo-vision|스테레오 비전]]",
+        "두 카메라로 깊이(3차원 정보)를 구하는 방법",
+        "캘리브레이션을 전제로 함"
+      ]
+    ]
+  },
+  "references": [
+    "Zhang, Z. (2000). A flexible new technique for camera calibration. IEEE Transactions on Pattern Analysis and Machine Intelligence, 22(11), 1330–1334.",
+    "Tsai, R. Y. (1987). A versatile camera calibration technique for high-accuracy 3D machine vision metrology using off-the-shelf TV cameras and lenses. IEEE Journal of Robotics and Automation, 3(4), 323–344.",
+    "Brown, D. C. (1971). Close-range camera calibration. Photogrammetric Engineering, 37(8), 855–866.",
+    "Hartley, R., & Zisserman, A. (2004). Multiple View Geometry in Computer Vision (2nd ed.). Cambridge University Press."
+  ]
+}

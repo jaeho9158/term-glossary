@@ -1,0 +1,44 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>캐스코드는 입력을 받는 <strong>공통소스(또는 공통에미터) 트랜지스터 M1</strong> 위에 <strong>공통게이트(공통베이스) 트랜지스터 M2</strong>를 쌓은 구조입니다. M2의 게이트는 직류 바이어스에 두고 출력은 M2 드레인에서 얻습니다.</li><li>M2는 M1의 전류를 그대로 출력으로 전달하면서 M1 드레인 전압을 거의 고정합니다. 그 결과 M1이 보는 부하 임피던스가 작아져 M1의 이득이 낮아지고, 대신 출력 저항이 g<sub>m2</sub>r<sub>o2</sub>r<sub>o1</sub> 정도로 커집니다.</li><li>(1) 출력 저항이 커서 전압 이득이 크고, (2) M1의 게이트-드레인 용량에 대한 <strong>밀러 효과</strong>가 줄어 대역폭이 넓어집니다(Razavi, 2017; Sedra &amp; Smith, 2015).</li><li>비용으로 전압 여유(헤드룸)가 줄어듭니다. 출력 전압 범위가 줄어드는 단점은 폴디드 캐스코드 같은 변형으로 완화합니다.</li><li>이름은 Hunt와 Hickman(1939)의 진공관 회로에서 비롯된 것으로 알려져 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: g<sub>m</sub> = 2 mS, r<sub>o</sub> = 50 kΩ인 트랜지스터를 쓰면 단일 공통소스단의 최대 이득은 g<sub>m</sub>r<sub>o</sub> = 100입니다. 전류원 부하의 출력 저항이 캐스코드와 같은 수준으로 높다고 가정하면 캐스코드의 이득은 약 (g<sub>m</sub>r<sub>o</sub>)² = 10,000으로 커집니다. 실제로는 부하의 출력 저항이 이득을 제한합니다.</p><p>밀러 효과도 비교할 수 있습니다. 단일 공통소스단의 이득이 −20이면 게이트-드레인 용량이 입력에서 (1 + 20) = 21배로 보이지만, 캐스코드에서는 M1의 이득 크기가 약 1이어서 약 2배로 보입니다. 입력 쪽 시정수가 줄어 고주파 응답이 좋아집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>캐스코드는 이득과 대역폭을 모두 공짜로 올린다.</td><td>전압 여유가 줄고 소자와 바이어스가 더 필요합니다.</td></tr><tr><td>캐스코드의 이득은 항상 (g<sub>m</sub>r<sub>o</sub>)²이다.</td><td>이는 부하 출력 저항이 매우 높을 때의 상한이며, 실제 이득은 부하에 의해 제한됩니다.</td></tr><tr><td>M2가 신호 전류를 더 증폭한다.</td><td>M2는 M1의 전류를 거의 그대로(전류 이득 약 1) 전달합니다. 전달컨덕턴스는 M1이 정하고, M2는 출력 저항을 키우고 M1의 드레인 전압 변화를 줄여 전압 이득과 대역폭에 기여합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "증폭기 구조 용어입니다.",
+    "headers": [
+      "용어",
+      "구성",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[common-source-amplifier|공통소스 증폭기]]",
+        "트랜지스터 한 개",
+        "이득은 g<sub>m</sub>r<sub>o</sub> 이하, 밀러 효과 큼"
+      ],
+      [
+        "[[cascode-amplifier|캐스코드 증폭기]]",
+        "공통소스 + 공통게이트",
+        "출력 저항·이득 큼, 밀러 효과 작음, 헤드룸 감소"
+      ]
+    ]
+  },
+  "references": [
+    "Razavi, B. (2017). Design of Analog CMOS Integrated Circuits (2nd ed.). McGraw-Hill Education.",
+    "Sedra, A. S., & Smith, K. C. (2015). Microelectronic Circuits (7th ed.). Oxford University Press.",
+    "Gray, P. R., Hurst, P. J., Lewis, S. H., & Meyer, R. G. (2009). Analysis and Design of Analog Integrated Circuits (5th ed.). Wiley.",
+    "Hunt, F. V., & Hickman, R. W. (1939). On electronic voltage stabilizers. Review of Scientific Instruments, 10(1), 6–21."
+  ]
+}
