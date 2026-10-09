@@ -1,0 +1,60 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>인공신경망은 <strong>입력층 → 은닉층(하나 이상) → 출력층</strong>으로 이어지는 계산 그래프입니다. 각 노드는 입력에 가중치를 곱해 더하고(선형 결합) [[activation-function|활성화 함수]]를 통과시켜 다음 층에 넘깁니다.</li><li>학습은 가중치를 조정해 예측 오차(손실)를 줄이는 과정입니다. 오차를 출력층에서 거꾸로 전달해 기울기를 계산하는 [[backpropagation|역전파]]와 [[gradient-descent|경사하강법]]이 표준 절차입니다(Rumelhart 등, 1986).</li><li>은닉층이 하나인 충분히 넓은 신경망이 연속 함수를 임의의 정밀도로 근사할 수 있다는 <strong>보편 근사 정리</strong>가 있습니다(Cybenko, 1989; Hornik 등, 1989). 다만 이는 “표현할 수 있다”는 존재 결과이고, 학습이 그 해를 찾는다는 보장이나 필요한 크기를 알려 주지는 않습니다.</li><li>층 수, 층당 노드 수, 활성화 함수, 학습률 같은 설정을 하이퍼파라미터라 하며, 구조에 따라 [[convolutional-neural-network|합성곱 신경망]], 순환 신경망, 트랜스포머 등으로 갈라집니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예(코드로 계산): 입력 x = (1, 2), 은닉 2개(ReLU), 출력 1개(시그모이드), 정답 y = 1인 가장 작은 신경망의 순전파입니다.</p><ul><li>은닉 가중치 W1 = [[0.5, −1.0], [1.0, 0.5]], 편향 b1 = (0, −1)</li><li>은닉 입력 z1 = (0.5×1 − 1.0×2 + 0, 1.0×1 + 0.5×2 − 1) = (-1.50, 1.00); ReLU 후 h = (0.00, 1.00)</li><li>출력 가중치 w2 = (1.0, −0.5), 편향 0.2 → z2 = -0.30, 시그모이드 출력 ŷ = 0.426</li><li>이진 교차엔트로피 손실 = −ln(ŷ) = 0.854</li></ul><p>첫 번째 은닉 노드는 ReLU로 0이 되어 출력에 기여하지 못합니다. 학습은 이 손실을 줄이는 방향으로 W1, w2, 편향을 조금씩 바꿉니다. 실제 모형은 수천~수십억 개의 가중치를 가지지만 계산의 구조는 같습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>뇌와 같은 방식으로 작동한다.</td><td>뇌의 뉴런 연결에서 착안했지만 실제 신경계를 극도로 단순화한 수학적 함수입니다. 이름이 비슷하다고 사람처럼 이해하는 것은 아닙니다.</td></tr><tr><td>층이 많을수록, 노드가 많을수록 항상 좋다.</td><td>데이터가 부족하면 [[overfitting|과적합]]이 커집니다. 구조와 규모는 데이터, 과제, 계산 자원과 함께 정합니다.</td></tr><tr><td>보편 근사 정리 때문에 어떤 문제든 잘 풀린다.</td><td>정리는 표현 가능성에 관한 것일 뿐, 학습의 성공이나 일반화 성능을 보장하지 않습니다.</td></tr><tr><td>성능이 높으면 그 이유를 설명할 수 있다.</td><td>정확도와 설명 가능성은 별개이며, 판단 근거를 사람이 읽기 어려운 경우가 많습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "신경망 주변에는 포함 관계가 있는 용어가 많아 같은 층위로 착각하기 쉽습니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "신경망과의 관계"
+    ],
+    "rows": [
+      [
+        "[[neural-network|인공신경망]]",
+        "노드를 층으로 쌓아 입력→출력 함수를 만드는 모델 구조",
+        "기준 개념"
+      ],
+      [
+        "[[perceptron|퍼셉트론]]",
+        "입력에 가중치를 곱해 더하고 기준을 넘으면 신호를 내보내는 가장 작은 단위",
+        "초기의 단층 신경망, 현재 신경망의 구성 요소"
+      ],
+      [
+        "[[convolutional-neural-network|합성곱 신경망]]",
+        "필터를 이동시키며 지역 특징을 뽑는 구조",
+        "신경망의 한 종류"
+      ],
+      [
+        "[[backpropagation|역전파]]",
+        "오차를 거꾸로 전달해 가중치별 기울기를 구하는 알고리즘",
+        "신경망을 학습시키는 계산 방법"
+      ],
+      [
+        "[[machine-learning|머신러닝]]",
+        "데이터에서 패턴을 학습해 예측하는 기법 전반",
+        "신경망의 상위 범주"
+      ]
+    ]
+  },
+  "references": [
+    "McCulloch, W. S., & Pitts, W. (1943). A logical calculus of the ideas immanent in nervous activity. Bulletin of Mathematical Biophysics, 5(4), 115–133.",
+    "Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. Nature, 323, 533–536.",
+    "Cybenko, G. (1989). Approximation by superpositions of a sigmoidal function. Mathematics of Control, Signals and Systems, 2(4), 303–314.",
+    "Hornik, K., Stinchcombe, M., & White, H. (1989). Multilayer feedforward networks are universal approximators. Neural Networks, 2(5), 359–366.",
+    "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press."
+  ]
+}

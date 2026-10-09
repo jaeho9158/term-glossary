@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>이산확률변수</strong>: 가능한 값이 셀 수 있게 떨어져 있습니다(주사위 눈, 불량품 개수). 값마다 확률을 주는 <strong>확률질량함수(PMF)</strong>로 나타내고, 사건의 확률은 해당 값들의 확률을 <em>더해서</em> 구합니다.</li><li><strong>연속확률변수</strong>: 구간 안의 모든 실수를 취할 수 있습니다(키, 반응시간). [[probability-density-function|확률밀도함수(PDF)]]로 나타내고, 구간의 확률은 곡선 아래 <em>넓이</em>(적분)로 구합니다. 한 점의 확률은 0입니다.</li><li>두 경우 모두 <strong>누적분포함수</strong>([[cumulative-distribution-function|CDF]]) F(x) = P(X ≤ x)로 통일해서 쓸 수 있습니다.</li><li>어느 쪽도 아닌 <strong>혼합형</strong>도 있습니다. 예를 들어 보험금 청구액은 0(청구 없음)에 확률이 몰려 있고 나머지는 연속적으로 분포하는 경우가 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예(코드로 계산):</p><ul><li><strong>이산</strong>: 공정한 주사위의 눈 X는 PMF가 P(X = k) = 1/6입니다. P(X ≥ 5) = 1/6 + 1/6 = 0.333입니다. 확률을 더했습니다.</li><li><strong>연속(균일분포)</strong>: Y ~ Uniform(0, 1)이면 P(0.2 ≤ Y ≤ 0.5) = 0.5 − 0.2 = 0.3이고, P(Y = 0.3) = 0입니다.</li><li><strong>연속(정규분포)</strong>: 키가 평균 170 cm, 표준편차 6 cm인 정규분포를 따른다고 하면 P(169 ≤ X ≤ 171) = Φ(1/6) − Φ(−1/6) ≈ 0.1324입니다. “정확히 170.000…cm”일 확률은 0입니다.</li></ul><p>밀도 값은 확률이 아니라는 점도 확인할 수 있습니다. Uniform(0, 0.5)의 밀도는 구간 안에서 2이고, 1을 넘어도 문제없습니다. 구간 전체의 넓이는 2 × 0.5 = 1입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>연속변수에서 확률이 0이면 불가능한 사건이다.</td><td>한 점의 확률이 0일 뿐이고 그 값이 나올 수 없다는 뜻이 아닙니다. 어떤 값이 나오든 그 값의 확률은 0이기 때문입니다.</td></tr><tr><td>확률밀도함수의 값은 확률이므로 1을 넘을 수 없다.</td><td>PDF의 값은 밀도이며 1보다 클 수 있습니다. 확률은 구간에 대한 넓이입니다.</td></tr><tr><td>반올림해서 기록한 값은 이산변수다.</td><td>변수의 본성(연속)과 기록 방식(반올림)은 구분합니다. 분석에서 어느 쪽 모형을 쓸지는 목적에 따라 정합니다.</td></tr><tr><td>모든 확률변수는 이산 아니면 연속이다.</td><td>혼합형이 있고, 이론적으로는 둘 다 아닌 경우도 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "확률변수의 “분포를 나타내는 함수”는 세 가지가 자주 섞입니다.",
+    "headers": [
+      "함수",
+      "대상",
+      "값의 의미"
+    ],
+    "rows": [
+      [
+        "확률질량함수(PMF)",
+        "이산확률변수",
+        "P(X = x), 확률 그 자체"
+      ],
+      [
+        "[[probability-density-function|확률밀도함수(PDF)]]",
+        "연속확률변수",
+        "확률의 밀도, 구간의 넓이가 확률"
+      ],
+      [
+        "[[cumulative-distribution-function|누적분포함수(CDF)]]",
+        "이산·연속 모두",
+        "P(X ≤ x), 항상 0과 1 사이이고 증가"
+      ]
+    ]
+  },
+  "references": [
+    "Ross, S. M. (2014). A First Course in Probability (9th ed.). Pearson.",
+    "Casella, G., & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.",
+    "Blitzstein, J. K., & Hwang, J. (2014). Introduction to Probability. CRC Press."
+  ]
+}

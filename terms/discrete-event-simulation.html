@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/discrete-event-simulation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <p>실제 공장이나 물류센터를 새로 짓거나 바꾸기 전에 미리 컴퓨터로 성능을 확인할 수 있어 비용과 위험을 줄여줍니다. 산업공학에서는 생산라인 설계, 대기행렬 분석, 자원 배치 최적화 등 다양한 문제를 다룰 때 이산사건시뮬레이션을 활용해 실험 없이도 여러 시나리오를 비교할 수 있습니다.</p>
   <p>공장이나 물류센터처럼 수많은 대기행렬과 자원 경합이 얽혀 있어 수식으로 정확히 풀기 어려운 시스템을, 실제로 구축하지 않고도 성능을 사전에 평가할 수 있게 해주는 대표적 분석도구입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>시스템 정의</strong>: 개체(손님, 작업물), 자원(서버, 기계), 상태변수(대기열 길이, 서버 상태)를 정합니다.</li><li><strong>사건 정의</strong>: 상태를 바꾸는 사건(도착, 서비스 시작, 서비스 종료 등)을 정하고, 각 사건이 일어났을 때 상태가 어떻게 바뀌는지 규칙을 적습니다.</li><li><strong>사건 리스트와 시계</strong>: 앞으로 일어날 사건을 시간순으로 모은 사건 리스트(future event list)를 두고, 시계는 가장 빠른 사건의 시각으로 바로 건너뜁니다(사건 중심, next-event time advance). 일정 간격으로 시계를 올리는 시간 중심 방식보다 사건이 드문 시스템에서 계산이 효율적인 경우가 많습니다.</li><li><strong>불확실성 입력</strong>: 도착 간격, 처리 시간 같은 값은 <a href="input-modeling.html">입력모형화</a>로 고른 확률분포에서 <a href="random-number-generation.html">난수생성</a>으로 뽑습니다.</li><li><strong>실행과 분석</strong>: 독립 반복(replication)을 여러 번 돌리고, 초기 상태의 영향을 줄이려고 워밍업 구간을 버린 뒤 성과 지표(평균 대기시간 등)를 신뢰구간과 함께 보고합니다. 종료 사건이 있는 시스템은 <a href="terminating-simulation.html">종단시뮬레이션</a>으로 구분합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예 1(손으로 따라가기, 코드로 계산): 서버 1대, 선착순. 다섯 명의 도착 시각과 서비스 시간이 아래와 같을 때 사건을 시간순으로 처리한 결과입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>손님</th><th>도착</th><th>서비스 시간</th><th>서비스 시작</th><th>대기</th><th>종료</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>3</td><td>0</td><td>0</td><td>3</td></tr><tr><td>2</td><td>1</td><td>2</td><td>3</td><td>2</td><td>5</td></tr><tr><td>3</td><td>2</td><td>2</td><td>5</td><td>3</td><td>7</td></tr><tr><td>4</td><td>6</td><td>1</td><td>7</td><td>1</td><td>8</td></tr><tr><td>5</td><td>7</td><td>2</td><td>8</td><td>1</td><td>10</td></tr></tbody></table></div><p>평균 대기시간은 (0+2+3+1+1)/5 = 1.4입니다. 3번 손님은 시각 2에 도착했지만 서버가 시각 5에야 비어 3을 기다립니다.</p><p>가상의 예 2(M/M/1 대기행렬): 도착률 0.8, 서비스율 1.0(이용률 0.8)인 서버 1대 시스템을, 사건 리스트 방식으로 손님 22,000명씩 10회 반복해 처음 2,000명을 워밍업으로 버리고 평균 대기시간(큐에서 기다린 시간)을 구했습니다. 반복별 값의 평균은 <strong>4.15</strong>, 반복 간 표준편차는 0.37, 95% 신뢰구간은 약 3.88~4.42입니다. M/M/1의 이론값은 ρ/(μ−λ) = 0.8/0.2 = 4.0이어서 시뮬레이션이 이론값 부근에 모입니다. 이처럼 이론해가 있는 단순한 모형으로 코드를 검증한 뒤 복잡한 모형으로 확장하는 것이 일반적입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>모형의 범위(개체·자원·사건)와 가정, 입력 분포와 추정 근거(<a href="input-modeling.html">입력모형화</a>)를 적습니다.</li><li>난수 흐름과 초기 조건: 반복 횟수, 워밍업 길이, 시뮬레이션 길이, 난수 시드 관리 방식을 밝힙니다.</li><li>지표는 평균만이 아니라 반복 간 변동 또는 신뢰구간과 함께 보고합니다. 한 번의 실행 결과만 제시하는 것은 피합니다.</li><li>검증(코드가 모형 의도대로 작동하는가)과 타당성 확인(모형이 실제 시스템을 잘 나타내는가)을 어떻게 했는지 적습니다. 결과는 입력 데이터와 가정의 품질에 크게 의존한다는 점을 한계에 명시합니다.</li><li>사용한 소프트웨어(자체 코드 또는 상용 패키지)와 버전을 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 이산사건시뮬레이션을 이용하여 물류센터 내 피킹 작업의 처리량 변화를 분석하였다."</div>
   <p>실제 창고를 바꾸지 않고도 컴퓨터 모델로 작업 방식 변화가 처리량에 미치는 영향을 확인했다는 뜻입니다.</p>
   <div class="example">"제안된 스케줄링 규칙의 성능을 평가하기 위해 이산사건시뮬레이션 모델을 구축하고 다양한 부하 조건에서 실험을 수행하였다."</div>
@@ -159,6 +177,16 @@
 
   <h2>주의할 점</h2>
   <p>시뮬레이션 결과는 입력 데이터와 가정의 품질에 크게 의존하므로, 모델이 실제 시스템을 충분히 잘 반영하는지 검증하지 않으면 잘못된 결론으로 이어질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Law, A. M. (2015). Simulation Modeling and Analysis (5th ed.). McGraw-Hill Education.</li>
+    <li>Banks, J., Carson, J. S., Nelson, B. L., &amp; Nicol, D. M. (2010). Discrete-Event System Simulation (5th ed.). Pearson.</li>
+    <li>Kleinrock, L. (1975). Queueing Systems, Volume 1: Theory. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="queueing-network-simulation.html">대기네트워크시뮬레이션</a><a href="input-modeling.html">입력모형화</a><a href="terminating-simulation.html">종단시뮬레이션</a></div></div><p class="concept-family-map"><a href="../concept-map/indeng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
