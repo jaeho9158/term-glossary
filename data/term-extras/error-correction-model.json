@@ -1,0 +1,53 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>추세를 가진 둘 이상의 시계열이 장기적으로 균형관계를 이루고 있고, 단기 변동이 그 균형에서 벗어난 정도에 반응해 다시 균형으로 되돌아가는 과정을 보고 싶을 때 씁니다.</p><ul><li>전제: 각 변수가 단위근을 가진(차분해야 정상이 되는, I(1)) 시계열이고, 변수들이 <strong>공적분</strong> 관계에 있다는 것입니다. Granger 표현정리에 따르면 공적분이 있으면 오차수정 형태로 쓸 수 있고 그 역도 성립합니다(Engle &amp; Granger, 1987).</li><li>공적분이 없는데 오차수정모형을 적합하면 오차수정항의 해석이 성립하지 않습니다. 공적분이 없고 변수가 I(1)이면 차분한 변수로 모형을 세웁니다.</li><li>장기 관계 자체와 단기 동학(변수의 변화 사이의 관계)을 한 모형에서 해석할 수 있다는 점이 장점입니다. 소득과 소비, 환율과 물가, 에너지 수요 분석 등에 흔히 쓰입니다.</li></ul><table><thead><tr><th>상황</th><th>보통 고르는 모형</th></tr></thead><tbody><tr><td>정상 시계열 여럿의 상호 영향</td><td>[[vector-autoregression|벡터자기회귀(VAR)]]</td></tr><tr><td>I(1) 변수들이 공적분 관계, 식 하나</td><td>오차수정모형(ECM)</td></tr><tr><td>I(1) 변수들이 공적분 관계, 변수 여럿 상호작용</td><td>벡터오차수정모형(VECM, Johansen, 1988)</td></tr><tr><td>변수들의 정상성 차수가 섞여 있음</td><td>ARDL 경계검정(Pesaran 외, 2001)</td></tr></tbody></table>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>단일식 오차수정모형은 차분된 종속변수를 다음 세 가지로 설명합니다.</p><p><code>Δy<sub>t</sub> = c + γ·Δx<sub>t</sub> + α·(y<sub>t−1</sub> − βx<sub>t−1</sub>) + ε<sub>t</sub></code></p><ul><li><strong>γ</strong>: x가 한 단위 변할 때 y가 같은 기간에 단기적으로 변하는 정도.</li><li><strong>(y<sub>t−1</sub> − βx<sub>t−1</sub>)</strong>: 직전 기간의 <em>균형이탈</em> 크기. β는 장기관계(공적분 계수)입니다.</li><li><strong>α</strong>(조정계수): 균형이탈의 몇 %가 다음 기간에 수정되는가. <strong>−1과 0 사이의 음수</strong>여야 균형으로 돌아간다는 뜻입니다. 0에 가까우면 조정이 느리고, 0이거나 양수이면 균형 회복을 뒷받침하지 못합니다. 반감기(이탈의 절반이 사라지는 기간)는 ln(0.5) / ln(1 + α)로 어림합니다.</li></ul><p>추정은 2단계가 흔합니다(Engle &amp; Granger, 1987). ① 수준 변수로 장기관계 y = a + βx를 회귀하고 잔차(균형이탈)를 구해 정상인지 검정, ② 잔차의 시차값을 오차수정항으로 넣어 차분 변수 회귀. ①의 잔차 단위근 검정에는 일반 ADF 임계값이 아니라 <strong>공적분 검정 전용 임계값</strong>을 써야 합니다(MacKinnon, 1996).</p><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료, 300기): x는 확률보행이고 y는 y의 균형이 2x가 되도록(참 α = −0.3, 참 γ = 0.5) 만들었습니다. 두 변수의 수준 ADF 통계량은 −1.97, −1.45로 5% 임계값(약 −2.86)보다 커서 단위근을 기각하지 못합니다(I(1)). 장기 회귀의 기울기는 1.61로 참값 2와 차이가 있으며(이런 유한표본 편향은 흔합니다), 그 잔차의 ADF 통계량은 −6.78로 공적분 전용 임계값(2변수·상수항 5% 수준 약 −3.34)을 크게 넘어서 공적분을 지지합니다. 2단계 오차수정모형의 추정치는 γ̂ = 0.485(표준오차 0.063), α̂ = −0.336(표준오차 0.028, t = −12.2)입니다. 균형이탈의 약 34%가 다음 기에 수정되며 반감기는 약 1.7기입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>변수별 단위근 검정 결과(수준과 1차 차분), 사용한 검정과 시차 선택 기준을 표로 제시합니다.</li><li>공적분 검정 방법(Engle-Granger, Johansen 등)과 결과, 포함한 상수항·추세를 밝힙니다.</li><li>장기관계 추정치(β)와 오차수정항 계수(α)를 표준오차와 함께 제시하고, α의 부호와 크기를 해석합니다. 예: <code>오차수정항의 계수는 −0.34로 유의하여(t = −12.2), 직전 기 균형이탈의 약 34%가 다음 기에 수정되었다.</code> (위 가상의 예 기준입니다.)</li><li>잔차의 자기상관([[durbin-watson-test|더빈-왓슨]] 등), 모형의 안정성 진단 결과를 보고합니다.</li><li>그레인저 인과성을 함께 분석했다면 그 방법을 구분해 적습니다([[granger-causality|그레인저 인과성]]).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "[[error-correction-model|오차수정모형(ECM)]]",
+        "공적분 관계의 변수들에서 단기 변화가 균형이탈에 반응하는 모형"
+      ],
+      [
+        "[[cointegration-analysis|공적분]]",
+        "비정상 변수들의 선형결합이 정상이 되는 장기관계. ECM의 전제"
+      ],
+      [
+        "[[vector-autoregression|VAR]]",
+        "정상 변수들의 상호 시차 영향 모형. 공적분이 있으면 VECM으로 확장"
+      ],
+      [
+        "[[unit-root-test|단위근 검정]]",
+        "변수가 I(1)인지 확인하는 선행 단계"
+      ],
+      [
+        "[[time-series-analysis|시계열 분석]]",
+        "시간 순서가 있는 자료를 다루는 방법의 총칭"
+      ]
+    ]
+  },
+  "references": [
+    "Engle, R. F., & Granger, C. W. J. (1987). Co-integration and error correction: Representation, estimation, and testing. Econometrica, 55(2), 251–276.",
+    "Davidson, J. E. H., Hendry, D. F., Srba, F., & Yeo, S. (1978). Econometric modelling of the aggregate time-series relationship between consumers’ expenditure and income in the United Kingdom. The Economic Journal, 88(352), 661–692.",
+    "Johansen, S. (1988). Statistical analysis of cointegration vectors. Journal of Economic Dynamics and Control, 12(2–3), 231–254.",
+    "Pesaran, M. H., Shin, Y., & Smith, R. J. (2001). Bounds testing approaches to the analysis of level relationships. Journal of Applied Econometrics, 16(3), 289–326.",
+    "Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press."
+  ]
+}

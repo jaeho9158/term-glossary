@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/stationarity.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,28 @@
   <h2>왜 중요한가</h2>
   <p>정상성은 시계열분석, 계량경제학, 금융공학 등 시간에 따라 변하는 데이터를 다루는 거의 모든 분야의 통계적 추론에서 전제 조건으로 작용합니다. ARIMA 모형이나 회귀분석 기반 시계열 모형은 정상성을 가정하고 만들어진 경우가 많아, 정상성 여부를 확인하고 필요하면 데이터를 변환하는 과정은 논문의 실증분석 절차에서 빠지지 않는 단계로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>약정상성</strong>(공분산정상성): 시계열 Y<sub>t</sub>의 ① 평균이 시간과 무관하게 일정하고, ② 분산이 일정하며, ③ 두 시점의 공분산이 시점 자체가 아니라 <strong>시차 k</strong>에만 의존할 때를 말합니다. 실제 분석에서 “정상성”은 보통 이것을 뜻합니다.</li><li><strong>강정상성</strong>: 모든 결합분포가 시간 이동에 대해 변하지 않는 더 강한 조건입니다.</li><li>대표적인 정상 시계열은 백색잡음(평균 0, 분산 일정, 서로 상관 없음)이고, 대표적인 비정상 시계열은 <strong>확률보행</strong> Y<sub>t</sub> = Y<sub>t−1</sub> + ε<sub>t</sub>입니다. 확률보행은 분산이 t에 비례해 커집니다(Var = tσ²).</li><li>비정상의 원인에 따라 처리가 다릅니다. 결정적 추세 주변에서 흔들리는 <em>추세정상</em> 시계열은 추세를 빼고, 확률적 추세를 가진 <em>단위근</em> 시계열은 차분합니다.</li><li>검정: ADF(Dickey–Fuller) 검정은 “단위근이 있다(비정상)”가 귀무가설이고, KPSS 검정은 “정상이다”가 귀무가설입니다. 귀무가설 방향이 반대이므로 두 검정을 함께 쓰면 서로 보완합니다(<a href="unit-root-test.html">단위근 검정</a>).</li><li>중요한 이유: 서로 무관한 비정상 시계열끼리 회귀하면 R²가 높고 유의해 보이는 <strong>허구적 회귀</strong>가 나옵니다(Granger &amp; Newbold, 1974).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>컴퓨터로 만든 200개 값으로 비교해 봅시다(난수 시드 고정, 가상의 자료).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>백색잡음</th><th>확률보행</th></tr></thead><tbody><tr><td>앞 100개의 분산</td><td>0.84</td><td>7.74</td></tr><tr><td>뒤 100개의 분산</td><td>0.86</td><td>6.26</td></tr><tr><td>디키-풀러 t통계량 (상수항, 차분항 없음)</td><td>−14.09</td><td>−1.71</td></tr><tr><td>1차 차분 후 같은 통계량</td><td>—</td><td>−14.13</td></tr></tbody></table></div><p>디키-풀러 통계량은 일반 t분포가 아니라 전용 임계값을 씁니다(MacKinnon, 1996). 상수항만 있는 경우 5% 수준 임계값은 약 −2.86입니다. 백색잡음의 −14.09는 임계값보다 훨씬 작아 단위근을 기각하고, 확률보행의 −1.71은 기각하지 못합니다. 확률보행의 1차 차분은 다시 백색잡음이 되어 −14.13이 나옵니다. 한 번 차분해서 정상이 되는 시계열을 “1차 누적(I(1))”이라고 부릅니다. 분산이 앞뒤로 달라 보이는 것도 단서이지만, 이 정도 차이는 눈으로 보고 판정하기 어려워 검정이 필요합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“그래프에서 평균이 일정해 보이면 정상이다.”</strong> 분산과 자기상관 구조도 일정해야 하고, 확률보행처럼 한동안 평평해 보이는 비정상 시계열도 많습니다.</li><li><strong>“비정상이면 무조건 차분한다.”</strong> 추세정상 시계열을 차분하면 과차분이 되어 불필요한 자기상관이 생깁니다. 추세 유형을 먼저 판단합니다.</li><li><strong>“ADF 검정에서 기각 못 했으니 단위근이 있다.”</strong> 검정력이 낮아 단위근에 가까운 정상 시계열을 구분하지 못합니다. 구조변화가 있으면 단위근을 잘못 가려내기도 합니다. 그래서 KPSS를 함께 씁니다.</li><li><strong>“정상성은 평균만의 문제다.”</strong> 시간이 지나면서 분산이 커지거나 줄어드는 것도 비정상입니다.</li><li><strong>“비정상 시계열끼리는 회귀할 수 없다.”</strong> 변수들이 장기 균형관계로 묶인 <em>공적분</em> 관계라면 수준 변수를 그대로 쓰는 것이 타당할 수 있습니다(<a href="cointegration-analysis.html">공적분</a>).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“연구방법론으로 시계열의 안정적인가의 알아보기 위하여 단위근 검정과 두 변수간 장기적인 안정적인 관계가 있는가 알아보기 위하여 공적분(cointegration)검정을 하였고 두 변수간 미치는 상호영향력 울 분석하기 위해 VAR모형의 예측오차 분산분해기법 및 Granger인과관계(Granger causality) 검정을 사용하였다.”</blockquote><p class="te-cite">무역보험과 퇴직연금보험이 주식시장에 미치는 영향에 관한 실증적 연구, 무역금융보험연구, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002512785" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이를 위해 ESG 지수와 무역 지수 시계열 자료의 안정성 여부 판정을 위한 ESG 지수와 무역 지수의 단위근 검정, 변수 간 공적분 관계의 존재 여부 판정을 위한 ESG 지수와 무역 지수의 공적분(cointegration) 검정을 실행하였다.”</blockquote><p class="te-cite">무역과 ESG가 상호 미친 영향에 관한 연구, 통상정보연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003006165" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"단위근 검정 결과 원계열은 정상성을 만족하지 못하여, 1차 차분한 시계열을 이용해 분석을 진행하였다."</div>
   <p>이 문장은 "원래 데이터는 시간이 지날수록 평균이나 분산이 계속 변해 정상성 조건을 만족하지 않으므로, 앞뒤 값의 차이를 취하는 차분을 통해 정상성을 확보한 뒤 분석했다"는 뜻입니다.</p>
 
@@ -156,10 +178,24 @@
   <p>기후 데이터 분석에서 계절적 패턴을 제거한 뒤 남은 데이터가 정상성 조건을 만족하는지 검토하여, 이후의 이상치 탐지 모형이 안정적으로 작동하도록 했다는 의미입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>정상성에는 평균, 분산, 공분산이 모두 시간에 무관하게 일정한 강정상성(strict stationarity)과, 평균과 분산 및 시차별 자기공분산만 일정하면 되는 약정상성(weak stationarity, 또는 2차 정상성)의 구분이 있으며, 실증분석에서는 대체로 약정상성을 기준으로 삼습니다. 논문에서는 정상성 여부를 확인하기 위해 ADF(Augmented Dickey-Fuller) 검정이나 KPSS 검정 같은 단위근 검정을 활용하고, 비정상 시계열은 차분(differencing)이나 로그변환을 통해 정상 시계열로 바꾼 뒤 분석하는 경우가 많습니다.</p>
+  <p>정상성에는 값들의 결합분포 전체가 시간 이동에 대해 변하지 않는 강정상성(strict stationarity)과, 평균과 분산 및 시차별 자기공분산만 일정하면 되는 약정상성(weak stationarity, 또는 2차 정상성)의 구분이 있으며, 실증분석에서는 대체로 약정상성을 기준으로 삼습니다. 논문에서는 정상성 여부를 확인하기 위해 ADF(Augmented Dickey-Fuller) 검정이나 KPSS 검정 같은 단위근 검정을 활용하고, 비정상 시계열은 차분(differencing)이나 로그변환을 통해 정상 시계열로 바꾼 뒤 분석하는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
   <p>정상성 여부는 눈으로만 판단하기 어려워 <a href="unit-root-test.html">단위근 검정</a>과 같은 통계적 검정으로 확인하는 것이 일반적입니다. 비정상 시계열을 정상 시계열처럼 취급하고 분석하면 실제로는 관련 없는 두 변수 사이에 유의한 관계가 있는 것처럼 나타나는 허구적 회귀(spurious regression) 문제가 발생할 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="stationarity.html">정상성</a></th><td>평균·분산·자기공분산이 시간에 따라 변하지 않는 성질</td></tr><tr><th scope="row">추세</th><td>시간에 따라 평균이 오르거나 내리는 장기 방향. 결정적일 수도 확률적일 수도 있음</td></tr><tr><th scope="row"><a href="unit-root-test.html">단위근</a></th><td>확률적 추세의 원인. 차분해야 정상이 되는 상태</td></tr><tr><th scope="row"><a href="random-walk.html">확률보행</a></th><td>단위근을 가진 대표적 비정상 시계열</td></tr><tr><th scope="row"><a href="cointegration-analysis.html">공적분</a></th><td>비정상 시계열들의 선형결합이 정상이 되는 관계</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>MacKinnon, J. G. (1996). Numerical distribution functions for unit root and cointegration tests. Journal of Applied Econometrics, 11(6), 601–618.</li>
+    <li>Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press.</li>
+    <li>Dickey, D. A., &amp; Fuller, W. A. (1979). Distribution of the estimators for autoregressive time series with a unit root. Journal of the American Statistical Association, 74(366), 427–431.</li>
+    <li>Kwiatkowski, D., Phillips, P. C. B., Schmidt, P., &amp; Shin, Y. (1992). Testing the null hypothesis of stationarity against the alternative of a unit root. Journal of Econometrics, 54(1–3), 159–178.</li>
+    <li>Granger, C. W. J., &amp; Newbold, P. (1974). Spurious regressions in econometrics. Journal of Econometrics, 2(2), 111–120.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

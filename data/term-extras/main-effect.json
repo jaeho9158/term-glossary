@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>요인 A의 <strong>주효과</strong>는 다른 요인 B의 수준을 가리지 않고(평균 내어) A의 수준에 따라 평균이 달라지는 정도입니다. 계산에는 A의 각 수준에서 B의 모든 수준을 평균 낸 <strong>주변평균</strong>을 비교합니다.</li><li>요인이 둘 이상인 분산분석([[two-way-anova|이원분산분석]], [[factorial-design|요인설계]])의 결과표에는 요인마다 주효과가, 요인 조합마다 [[interaction-effect|교호작용효과]]가 따로 나옵니다.</li><li>검정은 요인별 F검정입니다. 예를 들어 2×2 설계에서 A 주효과는 “A1의 주변평균 = A2의 주변평균”이라는 귀무가설을 검정합니다.</li><li>교호작용이 없으면 주효과를 그대로 요약해도 되지만, 교호작용이 있으면 주효과는 <strong>조건에 따라 달라지는 효과의 평균</strong>이어서 해석을 조심해야 합니다. 이때는 한 요인의 수준별 효과를 따로 보는 [[simple-effect|단순효과]]를 확인합니다.</li><li>회귀분석에서 교호작용항(X×M)을 모형에 넣으면 X의 계수는 <strong>M = 0일 때</strong>의 X 효과이며 평균적인 주효과가 아닙니다. 변수를 평균 중심화하거나 효과 코딩을 하면 주효과에 가깝게 해석됩니다(Aiken &amp; West, 1991).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>2×2 설계(A: 1, 2 / B: 1, 2)에서 각 칸의 평균(가상의 값)을 봅시다.</p><table><thead><tr><th>칸 평균</th><th>B1</th><th>B2</th><th>A 주변평균</th></tr></thead><tbody><tr><td>A1</td><td>10</td><td>14</td><td>12</td></tr><tr><td>A2</td><td>20</td><td>24</td><td>22</td></tr><tr><td>B 주변평균</td><td>15</td><td>19</td><td>전체 17</td></tr></tbody></table><p>A 주효과는 22 − 12 = 10, B 주효과는 19 − 15 = 4입니다. A의 효과가 B1에서도 B2에서도 10이므로 교호작용이 없고 주효과가 곧 “어느 쪽에서든의 효과”입니다.</p><table><thead><tr><th>칸 평균</th><th>B1</th><th>B2</th><th>A 주변평균</th></tr></thead><tbody><tr><td>A1</td><td>10</td><td>20</td><td>15</td></tr><tr><td>A2</td><td>20</td><td>10</td><td>15</td></tr><tr><td>B 주변평균</td><td>15</td><td>15</td><td></td></tr></tbody></table><p>두 번째 표는 주효과가 A도 B도 0입니다. 그러나 A의 효과는 B1에서 +10, B2에서 −10으로 정반대입니다. 주효과만 보고 “A는 효과가 없다”고 결론 내리면 틀립니다. 이것이 교호작용이 있을 때 주효과를 조심해야 하는 이유입니다.</p><p><strong>집단 크기가 다를 때.</strong> 칸 크기가 같지 않으면 “평균”을 어떻게 내느냐에 따라 주효과가 달라집니다. 예를 들어 칸 평균이 A1: 10, 20 / A2: 15, 25이고 칸 크기가 A1: 30, 10 / A2: 10, 30이라면 A의 효과는 칸 크기로 가중하면 22.5 − 12.5 = 10, 가중하지 않으면 20 − 15 = 5로 계산됩니다. 프로그램의 제곱합 유형(Type I·II·III)에 따라 어느 쪽을 검정하는지 달라지므로 보고할 때 밝힙니다(Maxwell &amp; Delaney, 2004).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“주효과가 유의하면 항상 그 요인의 효과가 있다.”</strong> 교호작용이 있으면 주효과는 수준별 효과의 평균이어서, 어떤 수준에서는 효과가 없거나 반대일 수 있습니다.</li><li><strong>“주효과가 없으면 그 요인은 무관하다.”</strong> 위 두 번째 표처럼 교호작용 때문에 효과가 상쇄될 수 있습니다.</li><li><strong>“회귀분석의 계수 = 주효과.”</strong> 교호작용항이 있는 모형에서는 아닙니다(위 설명).</li><li><strong>“교호작용이 유의하면 주효과는 보고하지 않는다.”</strong> 보고는 하되 해석은 단순효과 중심으로 합니다. 교호작용이 순서형(방향이 같고 크기만 다름)이면 주효과도 의미가 있을 수 있습니다.</li><li><strong>“주효과 = 처치의 인과 효과 전체.”</strong> 주효과는 설계에 포함된 요인 수준과 자료의 구성 비율에 의존하는 평균입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇을 보나"
+    ],
+    "rows": [
+      [
+        "[[main-effect|주효과]]",
+        "한 요인의 수준에 따른 평균 차이를 다른 요인을 평균 내어 본 것"
+      ],
+      [
+        "[[interaction-effect|교호작용효과]]",
+        "한 요인의 효과가 다른 요인의 수준에 따라 달라지는 정도"
+      ],
+      [
+        "[[simple-effect|단순효과]]",
+        "다른 요인을 특정 수준에 고정했을 때 한 요인의 효과"
+      ],
+      [
+        "[[factorial-design|요인설계]]",
+        "여러 요인의 모든 수준 조합을 실험하는 설계 (주효과·교호작용을 모두 추정)"
+      ]
+    ]
+  },
+  "references": [
+    "Maxwell, S. E., & Delaney, H. D. (2004). Designing Experiments and Analyzing Data: A Model Comparison Perspective (2nd ed.). Lawrence Erlbaum.",
+    "Keppel, G., & Wickens, T. D. (2004). Design and Analysis: A Researcher’s Handbook (4th ed.). Pearson.",
+    "Kirk, R. E. (2013). Experimental Design: Procedures for the Behavioral Sciences (4th ed.). Sage.",
+    "Aiken, L. S., & West, S. G. (1991). Multiple Regression: Testing and Interpreting Interactions. Sage."
+  ]
+}

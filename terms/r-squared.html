@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/r-squared.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,28 @@
   <h2>왜 중요한가</h2>
   <p>R²는 회귀모형의 적합도를 한눈에 요약해 주기 때문에, 논문에서 모형이 데이터를 얼마나 잘 설명하는지 독자에게 빠르게 전달하는 핵심 수치로 자주 인용됩니다. 여러 모형을 비교하거나 변수를 추가·제거했을 때 설명력이 얼마나 향상되는지를 논의할 때도 R²의 변화량이 근거로 제시됩니다. 다만 분야에 따라 "충분히 높은" R² 수준에 대한 기대치가 크게 다르기 때문에, 어떤 학문 분야의 논문인지에 따라 같은 R² 값도 다르게 해석해야 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>결정계수는 종속변수의 전체 변동(SST) 중에서 회귀모형이 설명한 몫입니다.</p><p><code>R² = 1 − SSR/SST = 1 − Σ(y − ŷ)² / Σ(y − ȳ)²</code></p><ul><li>SSR은 잔차제곱합(설명하지 못한 변동), SST는 총제곱합입니다.</li><li><strong>범위</strong>: 절편이 있는 최소제곱 회귀에서 표본 안의 R²는 0~1입니다. 절편이 없는 모형이나 새로운 자료에 대한 예측에 쓴 R²는 음수가 될 수 있습니다.</li><li>독립변수가 하나인 단순회귀에서는 R²가 상관계수 r의 제곱과 같습니다.</li><li>독립변수를 추가하면 R²는 줄어들지 않습니다. 쓸모없는 변수를 넣어도 마찬가지이므로, 변수 수를 반영한 <a href="adjusted-r-squared.html">수정된 결정계수</a>(1 − (1 − R²)(n − 1)/(n − k − 1), k는 독립변수 수)를 함께 봅니다.</li></ul><p><strong>작은 예</strong>(가상의 자료, n = 8): x = 1~8, y = 2.1, 2.9, 3.2, 4.8, 5.1, 5.2, 7.4, 7.1. 회귀식은 ŷ = 1.307 + 0.760x이고 SST = 25.715, SSR = 1.486이므로 R² = 1 − 1.486/25.715 = <strong>.942</strong>, 수정된 R² = .933입니다. x와 y의 상관계수 r = .971의 제곱과 같습니다.</p>
+
+  <h2>해석 기준</h2>
+  <p>“R²가 몇 이상이면 좋다”는 보편적 기준은 없습니다. 분야에 따라 기대 수준이 크게 다릅니다. 물리·공학의 보정 곡선은 .99를 넘기도 하지만, 사람의 태도·행동을 설명하는 연구에서는 .10~.30도 흔합니다.</p><p>효과크기로 읽을 때는 Cohen(1988)이 f² = R²/(1 − R²)에 대해 제안한 관례를 씁니다. f² = .02, .15, .35를 각각 작은·중간·큰 효과로 보며, R²로 옮기면 약 .02, .13, .26에 해당합니다. 이것도 어디까지나 편의상의 관례입니다.</p><ul><li>R²가 높다고 모형이 옳은 것은 아닙니다. 곡선 관계를 직선으로 맞추거나 이상치 하나가 R²를 키울 수도 있습니다. 같은 R²를 갖지만 전혀 다른 모양인 자료 네 묶음이 유명합니다(Anscombe, 1973). 산점도와 잔차 그림을 반드시 봅니다.</li><li>R²가 낮다고 변수가 쓸모없는 것도 아닙니다. 개별 계수가 유의하고 의미 있는 크기일 수 있습니다.</li><li>종속변수를 로그 변환한 모형과 원래 척도의 모형의 R²는 서로 다른 양을 설명하므로 직접 비교할 수 없습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>모형 전체의 유의성 검정과 함께 적습니다. 위 작은 예라면 F = R² ÷ ((1 − R²)/6) ≈ 97.8입니다. (형식을 보여 주려는 가상의 값입니다.)</p><p><code>x는 y의 변동을 유의하게 설명하였다(F(1, 6) = 97.82, p &lt; .001, R² = .94, 수정된 R² = .93).</code></p><ul><li>독립변수가 둘 이상이면 수정된 R²를 함께 보고합니다.</li><li><a href="hierarchical-regression.html">위계적 회귀</a>에서는 단계별 R²와 그 변화량(ΔR²)과 검정 결과를 표로 제시합니다.</li><li>로지스틱 회귀 등에서는 “R²”가 아니라 Nagelkerke 등의 <em>유사 R²</em>임을 명시하고, 선형회귀의 R²와 같은 뜻으로 해석하지 않습니다.</li><li>R²는 인과 효과의 크기가 아닙니다. 상관 자료의 R²를 “원인으로 설명한다”고 쓰지 않습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“사회적 지지를 설명하는 모델의 설명력은 15%였다(adjusted R 2 = .15).”</blockquote><p class="te-cite">여성 노인의 디지털 정보활용능력이 우울에 미치는 영향: 사회적 지지의 매개 효과를 중심으로, Korean Journal of Women Health Nursing, 2023 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516084809" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“수정된 설명력은 0.31 로 이는 여대생의 삶의 질을 31% 설명하였다.”</blockquote><p class="te-cite">여대생의 e헬스 문해력, 생식건강 증진 행위가 삶의 질에 미치는 영향, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096486" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"회귀모형의 설명력은 R²=.42로 나타나, 독립변수들이 종속변수 변동의 42%를 설명하는 것으로 확인되었다."</div>
   <p>이 문장은 "이 연구에서 사용한 독립변수들을 모두 합쳐도 결과 변수의 변동 가운데 42%밖에 설명하지 못하며, 나머지 58%는 모형에 포함되지 않은 다른 요인들 때문일 수 있다"는 뜻입니다.</p>
   <div class="example">"모형 2에 상호작용항을 추가하자 R²는 소폭 증가하였으며, 이는 상호작용 효과가 종속변수 설명에 유의미하게 기여함을 시사한다."</div>
@@ -164,6 +186,19 @@
 
   <h2>주의할 점</h2>
   <p>R²가 높다고 해서 변수들 사이에 반드시 인과관계가 있다는 뜻은 아니며, 단지 통계적으로 잘 들어맞는다는 의미일 뿐입니다. 또한 독립변수를 더 추가하면 그 변수가 실제로 의미가 있든 없든 R²는 기계적으로 커지는 경향이 있어서, 변수 개수를 감안해 보정한 수정된 결정계수(adjusted R²)를 함께 보고하는 경우가 많습니다. <a href="regression.html">회귀분석</a> 결과를 읽을 때는 R² 하나만이 아니라 개별 계수와 <a href="p-value.html">유의확률</a>도 함께 살펴봐야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">주의</th></tr></thead><tbody><tr><th scope="row"><a href="r-squared.html">결정계수 R²</a></th><td>모형이 설명한 변동의 비율</td><td>독립변수를 추가하면 줄어들지 않음</td></tr><tr><th scope="row"><a href="adjusted-r-squared.html">수정된 결정계수</a></th><td>변수 수를 감안해 낮춘 R²</td><td>변수를 더해도 도움이 안 되면 오히려 내려감</td></tr><tr><th scope="row">상관계수 r</th><td>두 변수의 선형 관계 방향과 강도(−1~1)</td><td>단순회귀에서 R² = r²이지만 다중회귀에서는 해당 없음</td></tr><tr><th scope="row"><a href="standardized-regression-coefficient.html">표준화 회귀계수</a></th><td>한 변수의 효과를 표준편차 단위로 나타낸 것</td><td>모형 전체의 설명력이 아님</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Cohen, J., Cohen, P., West, S. G., &amp; Aiken, L. S. (2003). Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences (3rd ed.). Lawrence Erlbaum.</li>
+    <li>Anscombe, F. J. (1973). Graphs in statistical analysis. The American Statistician, 27(1), 17–21.</li>
+    <li>Nagelkerke, N. J. D. (1991). A note on a general definition of the coefficient of determination. Biometrika, 78(3), 691–692.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="adjusted-r-squared.html">수정된 결정계수 (Adjusted R-squared)</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/randomized-block-design.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,27 @@
   <h2>왜 중요한가</h2>
   <p>실험 대상 사이에 이미 알려진 차이(성별, 지역, 재배 환경 등)가 있을 때 이를 통제하지 않으면 처리 효과와 뒤섞여 결과 해석이 왜곡될 수 있습니다. 무작위블록설계는 이러한 교란 요인을 실험설계 단계에서부터 체계적으로 분리해내므로, 농학·의학·심리학 등 대상 간 이질성이 큰 분야의 실험연구에서 표준적으로 다뤄집니다. 또한 분산분석(ANOVA)의 기본 모형 중 하나로 통계 교육과 방법론 논문에서도 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>처리(약, 비료, 교육 방법 등)의 효과를 비교하는데, <strong>결과에 큰 영향을 주는 것으로 이미 알려진 변수</strong>(밭의 위치, 실험일, 연령대, 병원)가 있을 때 씁니다. 실험 대상을 그 변수가 비슷한 묶음(블록)으로 먼저 나누고, <strong>각 블록 안에서</strong> 처리를 무작위로 배정합니다(Fisher, 1935).</p><ul><li>블록 안은 서로 비슷하므로 처리 간 비교가 더 정밀해지고, 블록 간 차이는 분석에서 따로 떼어낼 수 있습니다.</li><li>블록은 실험을 <strong>시작하기 전에</strong>, 결과와 관련 있다고 예상되는 기준으로 만듭니다. 결과를 본 뒤에 나누는 것은 블록설계가 아닙니다.</li><li>가장 단순한 형태(완전 블록)는 모든 블록에 모든 처리가 한 번씩 들어갑니다. 한 블록에 모든 처리를 넣을 수 없으면 불완전 블록설계를 씁니다.</li><li>같은 사람에게 여러 조건을 모두 주는 반복측정 설계는 사람을 블록으로 본 것과 구조가 같습니다(<a href="within-subjects-design.html">개체내 설계</a>).</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 설계</th></tr></thead><tbody><tr><td>대상이 균질하거나 알려진 교란변수 없음</td><td>완전무작위설계(일원분산분석)</td></tr><tr><td>교란변수 하나를 통제</td><td>무작위블록설계</td></tr><tr><td>교란변수 둘을 동시에 통제</td><td><a href="latin-square-design-doe.html">라틴방격설계</a></td></tr><tr><td>대상 특성별로 집단 크기를 맞추며 배정</td><td><a href="stratified-randomization.html">층화 무작위배정</a></td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>모형은 <code>y<sub>ij</sub> = μ + τ<sub>i</sub> + β<sub>j</sub> + ε<sub>ij</sub></code>(처리 효과 τ, 블록 효과 β)이며, 처리와 블록의 효과가 더해지기만 하고 서로 영향을 주지 않는다는 <strong>가법성</strong>을 가정합니다. 총변동을 나눕니다: SS<sub>총</sub> = SS<sub>처리</sub> + SS<sub>블록</sub> + SS<sub>오차</sub>.</p><ul><li>처리 수 a, 블록 수 b일 때 자유도는 처리 a − 1, 블록 b − 1, 오차 (a − 1)(b − 1)입니다. 한 칸에 관측치가 하나뿐이면 처리×블록 교호작용은 오차와 분리되지 않아 검정할 수 없습니다.</li><li>처리 F = MS<sub>처리</sub> / MS<sub>오차</sub>로 <a href="f-distribution.html">F분포</a>와 비교합니다. 블록의 F도 나오지만 연구 질문은 대개 처리에 있고, 블록은 오차를 줄이려고 둔 장치입니다.</li><li>블록이 효과적일수록 오차 변동이 줄어 처리 효과를 검출하는 검정력이 높아집니다. 블록이 결과와 관련 없으면 자유도만 잃어 오히려 손해일 수 있습니다.</li></ul><p><strong>작은 예</strong>(가상의 자료): 3가지 처리를 4개 블록에서 비교했고, 처리 평균은 11.25, 16.00, 13.00입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>변동원</th><th>제곱합</th><th>자유도</th><th>F</th><th>p</th></tr></thead><tbody><tr><td>처리</td><td>46.17</td><td>2</td><td>26.81</td><td>.001</td></tr><tr><td>블록</td><td>41.58</td><td>3</td><td>16.10</td><td>.003</td></tr><tr><td>오차</td><td>5.17</td><td>6</td><td></td><td></td></tr></tbody></table></div><p>블록을 무시하고 일원분산분석을 하면 블록 변동이 오차로 섞여 오차 제곱합이 46.75가 되고 F(2, 9) = 4.44, p = .045로 효과가 훨씬 약하게 보입니다. 블록을 고려하는 것만으로 처리 효과가 선명해졌습니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>블록을 무엇으로 정했는지, 왜 그것이 결과와 관련 있다고 보았는지 설명하고, 처리가 블록 안에서 무작위로 배정되었음을 밝힙니다.</li><li>분산분석표(변동원, 제곱합, 자유도, F, p)를 제시하거나 본문에 <code>처리 효과는 유의하였고(F(2, 6) = 26.81, p = .001), 블록 효과도 유의하여 블록화가 효율적이었다.</code>처럼 씁니다(위 가상의 예 기준).</li><li>처리 간 쌍별 비교를 했다면 사후검정 방법과 다중비교 보정 방식을 밝힙니다(<a href="post-hoc-test.html">사후검정</a>).</li><li>가법성 가정을 점검한 방법(잔차 그림, 교호작용 도표)을 적습니다.</li><li>블록이 임의 표본에서 뽑힌 것이라면(예: 무작위로 고른 병원) 블록을 변량효과로 다루는 <a href="mixed-effects-model.html">혼합효과모형</a>을 쓰기도 하며, 그 경우 그렇게 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“사양 시험은 35주령의 산란계(Hy-Line Brown) 1,000수를 선별하여 A형 2단 4열 케이지에 대조구 포함 총 5처리구로 구성하여 처리당 4반복, 반복당 50수씩(2수 수용 케이지 25개) 난괴법으로 임의 배치하였다.”</blockquote><p class="te-cite">Copper-Sulfate와 Copper-Soy Proteinate 첨가가 산란계의 생산성과 장내 미생물 균총에 미치는 영향, 한국가금학회지, 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001941514" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"A randomized block design was used, with study site serving as the blocking factor, to control for between-site variability before random assignment to treatment conditions."</div>
   <p>이 문장은 "연구 장소마다 생길 수 있는 차이를 미리 통제하기 위해, 장소를 블록으로 삼아 그 안에서 처리군을 무작위로 배정했다"는 뜻입니다.</p>
   <div class="example">"경작지의 토양 비옥도 차이를 통제하기 위해 밭 구획을 블록으로 설정한 무작위블록설계를 적용하여 비료 처리 효과를 비교하였다."</div>
@@ -158,6 +179,19 @@
 
   <h2>주의할 점</h2>
   <p>블록을 나누는 기준(블록 요인)은 결과에 실제로 영향을 줄 만한 변수를 골라야 효과가 있습니다. 상관없는 변수로 블록을 나누면 자유도만 소모하고 통계적 효율은 오히려 떨어질 수 있습니다. 또한 블록 안의 처리군 수가 서로 다르면(불균형 블록) 분석이 복잡해지므로, 가능한 한 각 블록 안에 모든 처리 조건이 동일한 수만큼 배정되도록 설계하는 것이 일반적입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="randomized-block-design.html">무작위블록설계</a></th><td>알려진 교란변수로 블록을 먼저 만들고 블록 안에서 처리를 무작위 배정</td></tr><tr><th scope="row"><a href="stratified-randomization.html">층화 무작위배정</a></th><td>특성별(층별)로 따로 무작위 배정해 집단이 균형을 이루게 함. 임상시험에서 흔한 이름</td></tr><tr><th scope="row"><a href="latin-square-design-doe.html">라틴방격설계</a></th><td>교란변수 둘(행과 열)을 동시에 통제하는 블록설계</td></tr><tr><th scope="row"><a href="two-way-anova.html">이원분산분석</a></th><td>두 요인의 효과와 교호작용을 모두 보는 분석. 블록은 보통 교호작용이 없다고 가정</td></tr><tr><th scope="row"><a href="within-subjects-design.html">개체내 설계</a></th><td>같은 대상이 모든 처리를 받는 설계. 대상이 블록 역할</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fisher, R. A. (1935). The Design of Experiments. Oliver and Boyd.</li>
+    <li>Cochran, W. G., &amp; Cox, G. M. (1957). Experimental Designs (2nd ed.). Wiley.</li>
+    <li>Box, G. E. P., Hunter, J. S., &amp; Hunter, W. G. (2005). Statistics for Experimenters: Design, Innovation, and Discovery (2nd ed.). Wiley.</li>
+    <li>Montgomery, D. C. (2017). Design and Analysis of Experiments (9th ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

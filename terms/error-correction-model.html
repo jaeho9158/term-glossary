@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/error-correction-model.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,29 @@
   <h2>왜 중요한가</h2>
   <p>소득과 소비, 금리와 환율처럼 추세를 가진 변수들의 관계를 단순 회귀로 다루면 가짜회귀가 생깁니다. 오차수정모형은 단기 동학과 장기 균형을 한 식에서 함께 해석할 수 있어 거시경제·금융·에너지 수요 분석 논문에서 표준적으로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>추세를 가진 둘 이상의 시계열이 장기적으로 균형관계를 이루고 있고, 단기 변동이 그 균형에서 벗어난 정도에 반응해 다시 균형으로 되돌아가는 과정을 보고 싶을 때 씁니다.</p><ul><li>전제: 각 변수가 단위근을 가진(차분해야 정상이 되는, I(1)) 시계열이고, 변수들이 <strong>공적분</strong> 관계에 있다는 것입니다. Granger 표현정리에 따르면 공적분이 있으면 오차수정 형태로 쓸 수 있고 그 역도 성립합니다(Engle &amp; Granger, 1987).</li><li>공적분이 없는데 오차수정모형을 적합하면 오차수정항의 해석이 성립하지 않습니다. 공적분이 없고 변수가 I(1)이면 차분한 변수로 모형을 세웁니다.</li><li>장기 관계 자체와 단기 동학(변수의 변화 사이의 관계)을 한 모형에서 해석할 수 있다는 점이 장점입니다. 소득과 소비, 환율과 물가, 에너지 수요 분석 등에 흔히 쓰입니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>보통 고르는 모형</th></tr></thead><tbody><tr><td>정상 시계열 여럿의 상호 영향</td><td><a href="vector-autoregression.html">벡터자기회귀(VAR)</a></td></tr><tr><td>I(1) 변수들이 공적분 관계, 식 하나</td><td>오차수정모형(ECM)</td></tr><tr><td>I(1) 변수들이 공적분 관계, 변수 여럿 상호작용</td><td>벡터오차수정모형(VECM, Johansen, 1988)</td></tr><tr><td>변수들의 정상성 차수가 섞여 있음</td><td>ARDL 경계검정(Pesaran 외, 2001)</td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>단일식 오차수정모형은 차분된 종속변수를 다음 세 가지로 설명합니다.</p><p><code>Δy<sub>t</sub> = c + γ·Δx<sub>t</sub> + α·(y<sub>t−1</sub> − βx<sub>t−1</sub>) + ε<sub>t</sub></code></p><ul><li><strong>γ</strong>: x가 한 단위 변할 때 y가 같은 기간에 단기적으로 변하는 정도.</li><li><strong>(y<sub>t−1</sub> − βx<sub>t−1</sub>)</strong>: 직전 기간의 <em>균형이탈</em> 크기. β는 장기관계(공적분 계수)입니다.</li><li><strong>α</strong>(조정계수): 균형이탈의 몇 %가 다음 기간에 수정되는가. <strong>−1과 0 사이의 음수</strong>여야 균형으로 돌아간다는 뜻입니다. 0에 가까우면 조정이 느리고, 0이거나 양수이면 균형 회복을 뒷받침하지 못합니다. 반감기(이탈의 절반이 사라지는 기간)는 ln(0.5) / ln(1 + α)로 어림합니다.</li></ul><p>추정은 2단계가 흔합니다(Engle &amp; Granger, 1987). ① 수준 변수로 장기관계 y = a + βx를 회귀하고 잔차(균형이탈)를 구해 정상인지 검정, ② 잔차의 시차값을 오차수정항으로 넣어 차분 변수 회귀. ①의 잔차 단위근 검정에는 일반 ADF 임계값이 아니라 <strong>공적분 검정 전용 임계값</strong>을 써야 합니다(MacKinnon, 1996).</p><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료, 300기): x는 확률보행이고 y는 y의 균형이 2x가 되도록(참 α = −0.3, 참 γ = 0.5) 만들었습니다. 두 변수의 수준 ADF 통계량은 −1.97, −1.45로 5% 임계값(약 −2.86)보다 커서 단위근을 기각하지 못합니다(I(1)). 장기 회귀의 기울기는 1.61로 참값 2와 차이가 있으며(이런 유한표본 편향은 흔합니다), 그 잔차의 ADF 통계량은 −6.78로 공적분 전용 임계값(2변수·상수항 5% 수준 약 −3.34)을 크게 넘어서 공적분을 지지합니다. 2단계 오차수정모형의 추정치는 γ̂ = 0.485(표준오차 0.063), α̂ = −0.336(표준오차 0.028, t = −12.2)입니다. 균형이탈의 약 34%가 다음 기에 수정되며 반감기는 약 1.7기입니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>변수별 단위근 검정 결과(수준과 1차 차분), 사용한 검정과 시차 선택 기준을 표로 제시합니다.</li><li>공적분 검정 방법(Engle-Granger, Johansen 등)과 결과, 포함한 상수항·추세를 밝힙니다.</li><li>장기관계 추정치(β)와 오차수정항 계수(α)를 표준오차와 함께 제시하고, α의 부호와 크기를 해석합니다. 예: <code>오차수정항의 계수는 −0.34로 유의하여(t = −12.2), 직전 기 균형이탈의 약 34%가 다음 기에 수정되었다.</code> (위 가상의 예 기준입니다.)</li><li>잔차의 자기상관(<a href="durbin-watson-test.html">더빈-왓슨</a> 등), 모형의 안정성 진단 결과를 보고합니다.</li><li>그레인저 인과성을 함께 분석했다면 그 방법을 구분해 적습니다(<a href="granger-causality.html">그레인저 인과성</a>).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“또한 향후 환경생태 자료 분석에서 중요하게 사용될 수 있는 오차수정 모형 (error correction model)을 소개하였다.”</blockquote><p class="te-cite">환경생태 자료 분석을 위한 시계열 분석 방법 연구, 환경생물, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002188737" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“첫째, 벡터 오차수정모형을 이용한 분석에서 미․중 무역수지를 결정하는 장․단기적인 거시변수를 함께 고려했을 때, 실질환율이 양국의 무역관계에 유의한 영향을 미치는지 추정하였다.”</blockquote><p class="te-cite">미국과 중국의 무역 불균형과 환율의 관계, 국제경제연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002828130" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이에 정부 R&amp;D 투자, 민간 R&amp;D 투자, 기술도입, 그리고 기술수출로 구성된 다변량 모형을 설정하고, 오차수정모형을 토대로 Granger-인과성검정을 실시하였다.”</blockquote><p class="te-cite">R&amp;D 투자와 기술무역 간의 인과관계 분석, 기술혁신연구, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002114019" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"오차수정항의 계수가 -0.38로 유의하여 단기 이탈의 약 38%가 한 분기 만에 장기균형으로 조정됨을 확인하였다."</div>
   <p>균형에서 벗어난 부분이 매 기간 일정 비율로 되돌아오는 속도를 계수로 읽은 문장입니다.</p>
   <div class="example">"국내 주택 가격과 소득의 관계를 분석한 연구에서는 오차수정항의 계수가 유의하지 않게 나타나, 두 변수 사이에 장기적인 균형관계가 성립하지 않는다는 결론에 도달하였다."</div>
@@ -162,6 +185,20 @@
 
   <h2>주의할 점</h2>
   <p>오차수정항이 유의하지 않거나 부호가 양수이면 장기균형으로의 회복을 뒷받침하지 못합니다. 공적분 관계가 없는데 오차수정모형을 적합하면 해석이 성립하지 않으므로, 먼저 <a href="cointegration-analysis.html">공적분분석</a>으로 장기관계를 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="error-correction-model.html">오차수정모형(ECM)</a></th><td>공적분 관계의 변수들에서 단기 변화가 균형이탈에 반응하는 모형</td></tr><tr><th scope="row"><a href="cointegration-analysis.html">공적분</a></th><td>비정상 변수들의 선형결합이 정상이 되는 장기관계. ECM의 전제</td></tr><tr><th scope="row"><a href="vector-autoregression.html">VAR</a></th><td>정상 변수들의 상호 시차 영향 모형. 공적분이 있으면 VECM으로 확장</td></tr><tr><th scope="row"><a href="unit-root-test.html">단위근 검정</a></th><td>변수가 I(1)인지 확인하는 선행 단계</td></tr><tr><th scope="row"><a href="time-series-analysis.html">시계열 분석</a></th><td>시간 순서가 있는 자료를 다루는 방법의 총칭</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Engle, R. F., &amp; Granger, C. W. J. (1987). Co-integration and error correction: Representation, estimation, and testing. Econometrica, 55(2), 251–276.</li>
+    <li>Davidson, J. E. H., Hendry, D. F., Srba, F., &amp; Yeo, S. (1978). Econometric modelling of the aggregate time-series relationship between consumers’ expenditure and income in the United Kingdom. The Economic Journal, 88(352), 661–692.</li>
+    <li>Johansen, S. (1988). Statistical analysis of cointegration vectors. Journal of Economic Dynamics and Control, 12(2–3), 231–254.</li>
+    <li>Pesaran, M. H., Shin, Y., &amp; Smith, R. J. (2001). Bounds testing approaches to the analysis of level relationships. Journal of Applied Econometrics, 16(3), 289–326.</li>
+    <li>Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="time-series-analysis.html">시계열 분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="moving-average-method.html">이동평균법</a><a href="autoregressive-model.html">자기회귀모형</a><a href="exponential-smoothing.html">지수평활법</a><a href="arima-model.html">ARIMA 모형</a><a href="garch-model.html">GARCH 모형</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a> 공적분 관계가 성립하지 않는 두 비정상 시계열에 이 모형을 적용하면 오차수정 항 자체가 의미를 잃으며, 먼저 공적분 검정을 통해 장기균형 관계의 존재를 확인하는 절차가 선행되어야 합니다. 오차수정계수가 통계적으로 유의하지 않으면 장기 균형으로의 복귀력이 없다는 뜻이므로 공적분 관계 자체를 재검토해야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

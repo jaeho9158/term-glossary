@@ -1,0 +1,59 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>미리 정해진 집단 구분 없이, 여러 특성이 비슷한 대상끼리 묶어 유형을 찾고 싶을 때 씁니다. 탐색적 방법이며 정답 집단이 따로 있지 않습니다.</p><ul><li>방법은 크게 ① 계층적 군집분석(가까운 것부터 차례로 합침, [[hierarchical-clustering|계층적 군집분석]]), ② 분할 방법([[k-means-clustering|k-평균]]처럼 군집 수 k를 정하고 반복해서 나눔), ③ 모형 기반 방법(혼합모형)으로 나뉩니다.</li><li>결과는 <strong>거리(유사도)를 무엇으로 정의하느냐</strong>와 변수의 단위에 크게 좌우됩니다. 변수의 단위가 다르면 보통 표준화합니다.</li><li>군집분석은 자료에 집단 구조가 없어도 항상 군집을 만들어 냅니다. 나온 군집이 실제 구조인지는 별도로 검증해야 합니다.</li><li>범주형 문항으로 사람을 유형화하려면 [[latent-class-analysis|잠재계층분석]]이 자연스럽고, 이미 집단 구분이 있고 새 대상을 분류하려면 [[discriminant-analysis|판별분석]]입니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>군집 수 정하기</strong>: 자료가 정해 주지 않으므로 여러 기준을 함께 씁니다. 군집 내 제곱합이 꺾이는 지점을 찾는 팔꿈치 방법(Thorndike, 1953), 군집 내 응집도와 군집 간 분리도를 합친 <strong>실루엣</strong> 지수(Rousseeuw, 1987), 무작위 자료와 비교하는 갭 통계량(Tibshirani 외, 2001) 등이 있습니다. Milligan과 Cooper(1985)는 군집 수를 정하는 여러 지수를 비교했고, 지수에 따라 성능 차이가 컸습니다.</li><li><strong>실루엣 폭</strong>은 −1~1이며 클수록 군집에 잘 속한다는 뜻입니다. Kaufman과 Rousseeuw(1990)는 평균 .71 이상이면 강한 구조, .51~.70이면 타당한 구조, .26~.50이면 약한 구조, .25 이하이면 뚜렷한 구조가 없다고 읽는 어림 기준을 제시했습니다(관례).</li><li><strong>군집 해석</strong>: 군집별 변수 평균(프로파일)을 비교해 이름을 붙이되, 군집을 나눈 변수로 군집 간 차이를 검정하는 것은 순환논리여서 p값이 의미가 없습니다. 군집을 나누는 데 쓰지 않은 변수로 확인합니다.</li><li><strong>안정성</strong>: 시작점이나 표본을 바꿔도 비슷한 군집이 나오는지 확인합니다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료): 평면 위 세 곳을 중심으로 15점씩 총 45점을 만들고 k-평균을 k = 2~5로 돌렸습니다.</p><table><thead><tr><th>군집 수 k</th><th>군집 내 제곱합</th><th>평균 실루엣</th></tr></thead><tbody><tr><td>2</td><td>144.5</td><td>.461</td></tr><tr><td>3</td><td>48.8</td><td><strong>.621</strong></td></tr><tr><td>4</td><td>40.8</td><td>.494</td></tr><tr><td>5</td><td>34.1</td><td>.465</td></tr></tbody></table><p>군집 내 제곱합은 k를 늘릴수록 항상 줄어들어 3에서 크게 꺾이고, 실루엣도 k = 3에서 가장 큽니다(.62는 위 기준의 “타당한 구조”). 두 기준이 같은 방향을 가리킬 때 더 안심할 수 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>사용한 변수, 표준화 여부, 거리 측도, 군집 방법(연결법·알고리즘, 시작점 수)을 적습니다.</li><li>군집 수를 정한 근거를 하나가 아닌 여러 기준과 이론적 해석 가능성으로 제시합니다.</li><li>군집별 크기와 프로파일(평균 표나 그림)을 보여 주고 이름을 붙인 근거를 씁니다.</li><li>예: <code>유클리드 거리 기준의 k-평균 군집분석을 사용하였고, 평균 실루엣이 가장 큰 3개 군집을 선택하였다(평균 실루엣 = .62).</code> (위 가상의 예 기준입니다.)</li><li>이상치가 군집을 왜곡했는지, 표본 분할이나 다른 방법으로 재현되는지 확인한 결과를 쓰면 신뢰도가 높아집니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "집단 정보",
+      "무엇을 하나"
+    ],
+    "rows": [
+      [
+        "[[cluster-analysis|군집분석]]",
+        "미리 없음(비지도)",
+        "비슷한 대상끼리 묶어 집단을 만든다"
+      ],
+      [
+        "[[discriminant-analysis|판별분석]]",
+        "미리 있음(지도)",
+        "알려진 집단을 가장 잘 가르는 규칙을 찾아 새 대상을 분류"
+      ],
+      [
+        "[[latent-class-analysis|잠재계층분석]]",
+        "미리 없음",
+        "범주형 응답 패턴으로 유형을 찾고 소속 확률을 계산"
+      ],
+      [
+        "[[principal-component-analysis|주성분분석]]",
+        "—",
+        "변수를 요약. 대상을 집단으로 나누지 않음"
+      ],
+      [
+        "[[k-means-clustering|k-평균]] / [[hierarchical-clustering|계층적 군집]]",
+        "미리 없음",
+        "군집분석의 구체적인 두 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Kaufman, L., & Rousseeuw, P. J. (1990). Finding Groups in Data: An Introduction to Cluster Analysis. Wiley.",
+    "Everitt, B. S., Landau, S., Leese, M., & Stahl, D. (2011). Cluster Analysis (5th ed.). Wiley.",
+    "Rousseeuw, P. J. (1987). Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. Journal of Computational and Applied Mathematics, 20, 53–65.",
+    "Milligan, G. W., & Cooper, M. C. (1985). An examination of procedures for determining the number of clusters in a data set. Psychometrika, 50(2), 159–179.",
+    "Tibshirani, R., Walther, G., & Hastie, T. (2001). Estimating the number of clusters in a data set via the gap statistic. Journal of the Royal Statistical Society: Series B, 63(2), 411–423."
+  ]
+}

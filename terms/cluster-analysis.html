@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cluster-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,28 @@
   <h2>왜 중요한가</h2>
   <p>연구 대상을 미리 정해진 기준 없이 자료 자체의 패턴에 따라 유형화할 수 있다는 점에서, 군집분석은 마케팅의 소비자 세분화부터 생물학의 종 분류, 유전자 발현 패턴 분석, 사회과학의 집단 유형화까지 폭넓게 쓰인다. 새로운 이론적 분류체계를 세우기 전 탐색적으로 자료의 구조를 파악하는 단계에서 특히 자주 활용되며, 이후 회귀분석이나 판별분석 등 후속 분석의 기초 자료로도 이어지는 경우가 많다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>미리 정해진 집단 구분 없이, 여러 특성이 비슷한 대상끼리 묶어 유형을 찾고 싶을 때 씁니다. 탐색적 방법이며 정답 집단이 따로 있지 않습니다.</p><ul><li>방법은 크게 ① 계층적 군집분석(가까운 것부터 차례로 합침, <a href="hierarchical-clustering.html">계층적 군집분석</a>), ② 분할 방법(<a href="k-means-clustering.html">k-평균</a>처럼 군집 수 k를 정하고 반복해서 나눔), ③ 모형 기반 방법(혼합모형)으로 나뉩니다.</li><li>결과는 <strong>거리(유사도)를 무엇으로 정의하느냐</strong>와 변수의 단위에 크게 좌우됩니다. 변수의 단위가 다르면 보통 표준화합니다.</li><li>군집분석은 자료에 집단 구조가 없어도 항상 군집을 만들어 냅니다. 나온 군집이 실제 구조인지는 별도로 검증해야 합니다.</li><li>범주형 문항으로 사람을 유형화하려면 <a href="latent-class-analysis.html">잠재계층분석</a>이 자연스럽고, 이미 집단 구분이 있고 새 대상을 분류하려면 <a href="discriminant-analysis.html">판별분석</a>입니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li><strong>군집 수 정하기</strong>: 자료가 정해 주지 않으므로 여러 기준을 함께 씁니다. 군집 내 제곱합이 꺾이는 지점을 찾는 팔꿈치 방법(Thorndike, 1953), 군집 내 응집도와 군집 간 분리도를 합친 <strong>실루엣</strong> 지수(Rousseeuw, 1987), 무작위 자료와 비교하는 갭 통계량(Tibshirani 외, 2001) 등이 있습니다. Milligan과 Cooper(1985)는 군집 수를 정하는 여러 지수를 비교했고, 지수에 따라 성능 차이가 컸습니다.</li><li><strong>실루엣 폭</strong>은 −1~1이며 클수록 군집에 잘 속한다는 뜻입니다. Kaufman과 Rousseeuw(1990)는 평균 .71 이상이면 강한 구조, .51~.70이면 타당한 구조, .26~.50이면 약한 구조, .25 이하이면 뚜렷한 구조가 없다고 읽는 어림 기준을 제시했습니다(관례).</li><li><strong>군집 해석</strong>: 군집별 변수 평균(프로파일)을 비교해 이름을 붙이되, 군집을 나눈 변수로 군집 간 차이를 검정하는 것은 순환논리여서 p값이 의미가 없습니다. 군집을 나누는 데 쓰지 않은 변수로 확인합니다.</li><li><strong>안정성</strong>: 시작점이나 표본을 바꿔도 비슷한 군집이 나오는지 확인합니다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료): 평면 위 세 곳을 중심으로 15점씩 총 45점을 만들고 k-평균을 k = 2~5로 돌렸습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>군집 수 k</th><th>군집 내 제곱합</th><th>평균 실루엣</th></tr></thead><tbody><tr><td>2</td><td>144.5</td><td>.461</td></tr><tr><td>3</td><td>48.8</td><td><strong>.621</strong></td></tr><tr><td>4</td><td>40.8</td><td>.494</td></tr><tr><td>5</td><td>34.1</td><td>.465</td></tr></tbody></table></div><p>군집 내 제곱합은 k를 늘릴수록 항상 줄어들어 3에서 크게 꺾이고, 실루엣도 k = 3에서 가장 큽니다(.62는 위 기준의 “타당한 구조”). 두 기준이 같은 방향을 가리킬 때 더 안심할 수 있습니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>사용한 변수, 표준화 여부, 거리 측도, 군집 방법(연결법·알고리즘, 시작점 수)을 적습니다.</li><li>군집 수를 정한 근거를 하나가 아닌 여러 기준과 이론적 해석 가능성으로 제시합니다.</li><li>군집별 크기와 프로파일(평균 표나 그림)을 보여 주고 이름을 붙인 근거를 씁니다.</li><li>예: <code>유클리드 거리 기준의 k-평균 군집분석을 사용하였고, 평균 실루엣이 가장 큰 3개 군집을 선택하였다(평균 실루엣 = .62).</code> (위 가상의 예 기준입니다.)</li><li>이상치가 군집을 왜곡했는지, 표본 분할이나 다른 방법으로 재현되는지 확인한 결과를 쓰면 신뢰도가 높아집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“특히 이 연구에서는 시장조사·분석에 적용되는 군집분석을 활용하여 범죄예방과 관련한 학부모들의 인구통계학적 세분화를 실행하였다.”</blockquote><p class="te-cite">CPTED(범죄예방 환경설계) 요소가 범죄 두려움의 시·공간적 요인에 미치는 영향 분석: 경주시 초등학교 학부모를 중심으로, 환경디자인과 안전, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002173180" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“RAPD 결과를 바탕으로 장미 속의 군집분석을 수행한 결과, 아속 Platyrhodon과 Eurosa를 구분할 수 있었다.”</blockquote><p class="te-cite">장미속 유전자원의 유전적 관계와 국내 해당화의 유전적 다양성, 원예과학기술지, 2010 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001514051" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"군집분석을 통해 응답자를 소비 성향에 따라 세 개의 유형으로 분류하였다."</div>
   <p>설문 응답자들을 비슷한 소비 성향끼리 묶어서 세 가지 유형의 집단으로 자동 분류했다는 뜻이다.</p>
 
@@ -162,6 +184,20 @@
 
   <h2>주의할 점</h2>
   <p>군집의 개수를 몇 개로 정할지는 자료가 스스로 알려주지 않으므로, 여러 통계적 기준과 이론적 판단을 함께 고려해 결정해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">집단 정보</th><th scope="col">무엇을 하나</th></tr></thead><tbody><tr><th scope="row"><a href="cluster-analysis.html">군집분석</a></th><td>미리 없음(비지도)</td><td>비슷한 대상끼리 묶어 집단을 만든다</td></tr><tr><th scope="row"><a href="discriminant-analysis.html">판별분석</a></th><td>미리 있음(지도)</td><td>알려진 집단을 가장 잘 가르는 규칙을 찾아 새 대상을 분류</td></tr><tr><th scope="row"><a href="latent-class-analysis.html">잠재계층분석</a></th><td>미리 없음</td><td>범주형 응답 패턴으로 유형을 찾고 소속 확률을 계산</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>—</td><td>변수를 요약. 대상을 집단으로 나누지 않음</td></tr><tr><th scope="row"><a href="k-means-clustering.html">k-평균</a> / <a href="hierarchical-clustering.html">계층적 군집</a></th><td>미리 없음</td><td>군집분석의 구체적인 두 방법</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kaufman, L., &amp; Rousseeuw, P. J. (1990). Finding Groups in Data: An Introduction to Cluster Analysis. Wiley.</li>
+    <li>Everitt, B. S., Landau, S., Leese, M., &amp; Stahl, D. (2011). Cluster Analysis (5th ed.). Wiley.</li>
+    <li>Rousseeuw, P. J. (1987). Silhouettes: A graphical aid to the interpretation and validation of cluster analysis. Journal of Computational and Applied Mathematics, 20, 53–65.</li>
+    <li>Milligan, G. W., &amp; Cooper, M. C. (1985). An examination of procedures for determining the number of clusters in a data set. Psychometrika, 50(2), 159–179.</li>
+    <li>Tibshirani, R., Walther, G., &amp; Hastie, T. (2001). Estimating the number of clusters in a data set via the gap statistic. Journal of the Royal Statistical Society: Series B, 63(2), 411–423.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="gaussian-mixture-model.html">가우시안 혼합모델</a><a href="hierarchical-clustering.html">계층적 군집분석</a><a href="dbscan.html">밀도기반 군집분석(DBSCAN)</a><a href="k-means-clustering.html">k-평균 군집화</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

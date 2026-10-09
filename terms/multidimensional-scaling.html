@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/multidimensional-scaling.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,28 @@
   <h2>왜 중요한가</h2>
   <p>다차원척도법은 사람들의 인식이나 평가처럼 직접 좌표로 측정하기 어려운 개념들을 눈으로 확인 가능한 공간 구조로 바꿔주기 때문에, 마케팅의 포지셔닝 분석부터 심리학의 개념 간 유사성 연구, 생태학의 군집 간 거리 분석까지 폭넓게 쓰입니다. 특히 변수 자체보다 "대상 간 관계"에 관심이 있는 연구에서, 복잡한 거리 행렬을 해석 가능한 그림 하나로 요약해준다는 점이 논문에서 자주 언급되는 이유입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>대상들 사이의 <strong>거리(또는 비유사도)</strong>만 주어졌을 때, 그 거리 관계를 2~3차원 평면에 점으로 옮겨 구조를 눈으로 보고 싶을 때 씁니다.</p><ul><li>입력이 원자료(변수들)가 아니라 거리 행렬입니다. 응답자가 브랜드 쌍마다 매긴 “얼마나 비슷한가” 평점, 단어가 함께 등장한 빈도에서 만든 비유사도, 유전적 거리 등이 그 예입니다.</li><li>거리가 정확한 수치면 <strong>계량적(metric) 다차원척도법</strong>(고전적 방법은 Torgerson, 1952), 순서 정보만 믿을 수 있으면 <strong>비계량적(non-metric)</strong> 방법(Kruskal, 1964)을 씁니다.</li><li>목적은 지도로 시각화하는 것입니다. 군집이 있다면 지도에서 가까운 대상끼리 모여 보이지만, 군집을 확정하려면 <a href="cluster-analysis.html">군집분석</a>을 따로 해야 합니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li><strong>좌표와 지도</strong>: 지도에서 가까운 점은 원래 자료에서 비슷한 대상입니다. 축 자체에는 의미가 없고 회전·반전해도 같은 해입니다. 축에 이름을 붙이는 것은 연구자의 해석이며, 그 근거는 대상의 속성 값과의 상관 등으로 보강합니다.</li><li><strong>스트레스(stress)</strong>: 지도상의 거리가 원래 거리를 얼마나 어긋나게 재현하는지를 요약한 값으로, 작을수록 좋습니다. Kruskal(1964)은 스트레스-1을 기준으로 .20 나쁨, .10 보통, .05 좋음, .025 매우 좋음, 0 완전이라는 어림 기준을 소개했습니다. 이 값은 대상 수와 차원에 따라 달라지는 <strong>관례</strong>이므로, 기준에 맞는지만 보지 말고 지도가 자료를 잘 대변하는지 함께 판단합니다(Borg &amp; Groenen, 2005).</li><li><strong>차원 수 정하기</strong>: 차원을 1, 2, 3, … 으로 늘려 가며 스트레스를 그린 스크리 도표에서 꺾이는 지점을 찾습니다. 해석 가능성이 높은 2~3차원이 선호됩니다. 고전적 방법에서는 고유값의 크기도 참고합니다.</li><li><strong>셰퍼드 도표</strong>: 원래 거리 대 지도상 거리의 산점도로, 점이 한 줄로 모일수록 잘 맞습니다.</li></ul><p><strong>작은 예</strong>(가상의 거리, 대상 4개): 거리 행렬이 A–B 3, A–C 4, A–D 5, B–C 5, B–D 4.2, C–D 3.1이라고 합시다. 고전적 방법의 고유값은 16.27, 8.75, 0.55, 0이고 처음 두 개가 전체의 약 97.9%를 차지하므로 2차원 지도로 충분합니다. 2차원 지도에서 계산한 스트레스-1(원래 거리와의 차이 기준)은 .016입니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>거리를 어떻게 구했는지(설문 평점, 유클리드 거리 등), 계량/비계량 중 무엇인지, 알고리즘(예: SMACOF; de Leeuw &amp; Mair, 2009)과 사용한 프로그램을 적습니다.</li><li>차원 수 결정 근거(스트레스 스크리 도표)와 최종 스트레스 값을 보고합니다. 예: <code>2차원 해의 스트레스-1은 .06이었다.</code> (형식을 보여 주는 가상의 값입니다.)</li><li>지도 그림에는 축의 방향이 임의라는 점을 밝히고, 축 해석은 해석임을 구분해 씁니다.</li><li>비계량 방법은 지역 최적해에 빠질 수 있어 시작점을 여러 번 바꿔 같은 해가 나오는지 확인했다고 밝히면 좋습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“둘째, 다차원척도 지도에 군집 5개를 표시하고 지적구조를 제시하였다.”</blockquote><p class="te-cite">동시출현단어 분석을 이용한 보조공학 저널의 지적구조 분석, 재활복지공학회논문지, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002205201" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“집괴분석과 다차원척도법을 이용한 상위 10종의 저서동물 군집구조는 하부의 바지락 어장과 쏙 서식공 밀도가 높은 중부 정점 중심의 두 그룹으로 나뉘며, 특정 생물 종의 영향을 반영하였다.”</blockquote><p class="te-cite">보령 갯벌의 인위적 영향 및 생물학적 요인에 따른 대형저서동물 군집 변화, 바다, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003018573" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"브랜드 간 유사성 평가 자료에 다차원척도법을 적용하여 소비자가 인식하는 브랜드 포지셔닝 지도를 도출하였다."</div>
   <p>이 문장은 응답자들이 여러 브랜드 쌍에 대해 매긴 "얼마나 비슷한가" 점수를 이용해, 브랜드들이 소비자 마음속에서 서로 얼마나 가깝거나 멀게 자리 잡고 있는지를 2차원 지도로 표현했다는 뜻입니다.</p>
   <div class="example">"참여자 간 사회연결망 거리 자료에 비계량적 다차원척도법을 적용하여 집단 내 하위 파벌 구조를 시각화하였다."</div>
@@ -159,6 +181,21 @@
 
   <h2>주의할 점</h2>
   <p>다차원척도법은 <a href="principal-component-analysis.html">주성분분석</a>과 마찬가지로 여러 정보를 적은 차원으로 압축해 시각화하는 기법이지만, 주성분분석이 변수들의 분산-공분산 구조에서 출발하는 반면 다차원척도법은 대상들 간의 거리(비유사도) 자체에서 출발한다는 점이 다릅니다. 또한 원래의 거리 관계를 2차원 지도가 얼마나 잘 재현하는지를 나타내는 적합도 지표(스트레스 값)를 함께 보고해야 하며, 이 값이 크다면 지도 해석에 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">입력</th><th scope="col">목적</th></tr></thead><tbody><tr><th scope="row"><a href="multidimensional-scaling.html">다차원척도법</a></th><td>대상 간 거리·비유사도 행렬</td><td>거리 관계를 보존하는 저차원 지도</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>대상×변수 자료</td><td>분산을 최대한 보존하는 축 요약</td></tr><tr><th scope="row"><a href="factor-analysis.html">요인분석</a></th><td>변수 간 상관</td><td>공통 요인 구조 추정</td></tr><tr><th scope="row"><a href="cluster-analysis.html">군집분석</a></th><td>거리 또는 변수</td><td>대상을 집단으로 묶기</td></tr><tr><th scope="row"><a href="t-sne.html">t-SNE</a></th><td>고차원 자료</td><td>이웃 구조를 보여 주는 시각화</td></tr></tbody></table></div>
+  <p class="te-note">유클리드 거리로 한 고전적 다차원척도법은 주성분분석과 같은 좌표를 줍니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Torgerson, W. S. (1952). Multidimensional scaling: I. Theory and method. Psychometrika, 17(4), 401–419.</li>
+    <li>Kruskal, J. B. (1964). Multidimensional scaling by optimizing goodness of fit to a nonmetric hypothesis. Psychometrika, 29(1), 1–27.</li>
+    <li>Borg, I., &amp; Groenen, P. J. F. (2005). Modern Multidimensional Scaling: Theory and Applications (2nd ed.). Springer.</li>
+    <li>Cox, T. F., &amp; Cox, M. A. A. (2001). Multidimensional Scaling (2nd ed.). Chapman and Hall/CRC.</li>
+    <li>de Leeuw, J., &amp; Mair, P. (2009). Multidimensional scaling using majorization: SMACOF in R. Journal of Statistical Software, 31(3), 1–30.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

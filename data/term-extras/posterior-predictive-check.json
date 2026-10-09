@@ -1,0 +1,49 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>베이지안 모형을 적합한 뒤 “이 모형이 만들어 낼 법한 자료가 실제 자료와 닮았는가”를 확인할 때 씁니다. 사후분포를 구하는 것은 모형이 맞다는 전제 아래의 계산이므로, 그 전제를 따로 점검해야 합니다.</p><ul><li>방법: ① 사후분포에서 모수를 뽑고, ② 그 모수로 새 자료(복제 자료 y<sup>rep</sup>)를 만들고, ③ 이를 실제 자료 y와 비교합니다(Rubin, 1984; Gelman, Meng, &amp; Stern, 1996).</li><li>비교하는 대상은 평균·분산·최댓값·0의 비율·연속된 같은 값의 길이처럼 <strong>모형이 틀리면 달라질 만한 요약값</strong> T(y)입니다.</li><li>사전분포만으로 자료를 만들어 보는 “사전예측점검”과는 시점이 다릅니다. 모수를 적합한 뒤에 하는 것이 사후예측점검입니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li><strong>그림으로 읽기</strong>: 복제 자료 여러 개의 분포를 실제 자료 분포 위에 겹쳐 그립니다. 실제 자료의 특징(두 봉우리, 긴 꼬리, 많은 0 등)이 복제 자료에도 나타나면 이 측면에서는 문제가 없습니다. 그렇지 않으면 모형에 빠진 구조가 있다는 신호입니다.</li><li><strong>사후예측 p값(ppp)</strong>: <code>ppp = P(T(y<sup>rep</sup>) ≥ T(y) | y)</code>. 0이나 1에 매우 가까우면 그 요약값을 모형이 재현하지 못한다는 뜻입니다. 0.5 근처여야 “좋다”는 뜻이 아니며, 일반 검정의 p값과는 분포가 달라 ppp는 극단값이 잘 나오지 않는 보수적인 성질이 있습니다(Bayarri &amp; Berger, 2000). 그래서 기계적인 기각 규칙이 아니라 <strong>진단 도구</strong>로 씁니다.</li><li>같은 자료로 모형을 적합하고 점검하므로 자료를 두 번 쓰는 셈입니다. 이 한계를 알고 교차검증 등 다른 평가와 병행합니다.</li></ul><p><strong>작은 예</strong>(가상의 자료): 동전을 20번 던져 앞면(1)이 10번, 그런데 <code>1111111111 0000000000</code>처럼 앞면 10번이 연달아 나오고 이어서 뒷면 10번이 나왔다고 합시다. “매번 독립이고 앞면 확률은 같다”는 모형(균등 사전분포)으로 사후분포를 구하고 복제 자료 4,000개(난수 시드 고정)를 만들어 <em>연속된 같은 값 묶음(run)의 수</em>를 세었습니다. 실제 자료의 run은 2개인데 복제 자료의 평균 run은 약 10.1개였고, run이 2개 이하인 복제 자료는 4,000개 중 4개(0.1%)에 불과했습니다. 앞면 비율은 잘 맞지만 “독립”이라는 가정은 이 자료를 설명하지 못합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>어떤 요약값 T를 왜 골랐는지, 복제 자료를 몇 개 만들었는지 적습니다. 요약값은 연구 목적과 관련된 것을 여러 개 고릅니다.</li><li>그림(복제 자료 분포 겹쳐 그리기 등)과 필요하면 ppp를 함께 제시합니다. 예: <code>사후예측점검에서 복제 자료의 분산은 관측 분산을 대체로 재현하였으나(ppp = .42), 0의 비율은 과소추정되었다(ppp &lt; .01). 이에 영과잉 성분을 추가한 모형을 적합하였다.</code> (형식을 보여 주는 가상의 값입니다.)</li><li>점검 결과 때문에 모형을 고쳤다면 그 과정과 고친 뒤의 점검 결과를 보고합니다.</li><li>점검을 통과했다고 모형이 옳다고 쓰지 않습니다. 같은 점검을 통과하는 다른 모형이 여럿일 수 있어, 모형 비교는 [[bayes-factor|베이즈 인수]]나 교차검증 기반 지표로 따로 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "[[posterior-predictive-check|사후예측점검]]",
+        "복제 자료를 실제 자료와 비교해 모형 적합을 진단"
+      ],
+      [
+        "[[posterior-predictive-distribution|사후예측분포]]",
+        "사후분포를 반영해 새 관측값이 따를 분포. 점검과 예측의 재료"
+      ],
+      [
+        "[[bayes-factor|베이즈 인수]]",
+        "두 모형 중 자료를 더 잘 설명하는 쪽을 비교"
+      ],
+      [
+        "[[bayesian-inference|베이지안 추론]]",
+        "사전분포와 자료로 사후분포를 구하는 추론 전반"
+      ]
+    ]
+  },
+  "references": [
+    "Rubin, D. B. (1984). Bayesianly justifiable and relevant frequency calculations for the applied statistician. The Annals of Statistics, 12(4), 1151–1172.",
+    "Gelman, A., Meng, X.-L., & Stern, H. (1996). Posterior predictive assessment of model fitness via realized discrepancies. Statistica Sinica, 6(4), 733–760.",
+    "Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., & Rubin, D. B. (2013). Bayesian Data Analysis (3rd ed.). Chapman and Hall/CRC.",
+    "Bayarri, M. J., & Berger, J. O. (2000). P values for composite null models. Journal of the American Statistical Association, 95(452), 1127–1142.",
+    "Gabry, J., Simpson, D., Vehtari, A., Betancourt, M., & Gelman, A. (2019). Visualization in Bayesian workflow. Journal of the Royal Statistical Society: Series A, 182(2), 389–402."
+  ]
+}
