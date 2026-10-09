@@ -18,9 +18,19 @@ const BOX_DIR = path.join(ROOT, "data", "navboxes");
 
 // 공백·하이픈·가운뎃점·밑줄·슬래시를 지우고 소문자로 맞춘다. (한글은 NFC)
 function norm(s) {
-  return String(s == null ? "" : s).normalize("NFC").toLowerCase()
+  let r = String(s == null ? "" : s).normalize("NFC").toLowerCase()
     .replace(/[\s\-‐‑‒–—―−·・‧•∙・_\/\\]+/g, "");
+  for (const [from, to] of FOLD) r = r.split(from).join(to);
+  return r;
 }
+// 외래어 표기 변이(코언/코헨, 프리드먼/프리드만 …)를 한쪽으로 접는다. 색인과 질의에 같은 규칙이 적용된다.
+// 서로 다른 개념을 합칠 수 있는 접기는 넣지 않는다(예: 검사/검정은 접지 않는다).
+const FOLD = [
+  ["코헨", "코언"], ["코엔", "코언"], ["프리드먼", "프리드만"], ["크라메르", "크래머"], ["크레머", "크래머"],
+  ["하우웰", "하웰"], ["더넷", "던넷"], ["가이서", "가이저"], ["브로이시", "브로이슈"],
+  ["이원배치", "이원"], ["삼원배치", "삼원"], ["일원배치", "일원"], ["교정", "보정"], ["테스트", "검정"],
+  ["위양성발견율", "거짓발견률"], ["피해킹", "p해킹"], ["베이지안", "베이즈"], ["베이즈인수", "베이즈요인"],
+];
 const stripParen = (s) => String(s).replace(/\s*[(（][^)）]*[)）]\s*/g, " ").trim();
 const parenInside = (s) => { const m = /[(（]([^)）]+)[)）]/.exec(String(s)); return m ? m[1] : ""; };
 
