@@ -1,0 +1,61 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>API(응용 프로그래밍 인터페이스)는 한 소프트웨어가 다른 소프트웨어에 내놓는 기능과 데이터의 <strong>호출 규칙</strong>입니다. 무엇을, 어떤 형식으로 요청하고, 어떤 형식의 응답을 받는지가 약속의 내용이며, 내부 구현은 감춰 둡니다. 모듈 내부를 숨기고 약속된 접점만 드러내는 생각은 Parnas(1972)의 정보 은닉에서 이어집니다.</li><li>웹 API의 약속은 보통 다섯 가지로 정리됩니다: 요청을 보내는 <strong>주소(엔드포인트)</strong>, 요청 <strong>방식(HTTP 메서드)</strong>, 조건을 담는 <strong>매개변수</strong>, 사용 권한을 확인하는 <strong>인증</strong>(API 키·토큰), 돌려받는 <strong>응답 형식</strong>(주로 JSON)과 상태 코드입니다. 상태 코드는 HTTP 표준(Fielding 등, 2022)에 정의되어 있고, 예를 들어 404는 요청한 자원이 없음을 뜻합니다. 429는 표준을 보완하는 별도 규격(Nottingham &amp; Fielding, 2012)에 정의된 코드로, 짧은 시간에 요청이 너무 많다는 뜻으로 쓰입니다.</li><li>API는 두 층위에서 말합니다. 라이브러리·운영체제 API는 같은 컴퓨터 안의 함수 호출 규칙이고, 웹 API는 네트워크 너머의 서버와 주고받는 규칙입니다. 웹 API 설계 방식 중에는 [[rest-api|REST API]]와 [[graphql|GraphQL]]이 자주 거론됩니다.</li><li>좋은 API의 조건으로는 배우기 쉽고, 잘못 쓰기 어렵고, 한번 공개하면 바꾸기 어려우므로 신중히 설계해야 한다는 점이 꼽힙니다(Bloch, 2006).</li><li>연구에서는 공공 데이터 수집, 외부 분석 서비스 호출, 서로 다른 시스템 연동에 쓰이며, 재현성을 위해 <strong>API 버전, 호출 날짜, 요청 매개변수</strong>를 기록합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 기상 관측 서비스(주소는 예시용)를 호출하는 장면입니다.</p><table><thead><tr><th>구분</th><th>내용(가상의 예)</th><th>설명</th></tr></thead><tbody><tr><td>요청</td><td><code>GET https://api.example.org/v1/stations?date=2024-05-01</code></td><td>“관측소 목록을 2024-05-01 기준으로 달라”는 요청입니다. GET은 조회, 뒤의 <code>date</code>는 매개변수입니다.</td></tr><tr><td>인증</td><td>요청 머리말에 발급받은 키를 첨부</td><td>키가 없거나 틀리면 접근이 거부됩니다. 키는 공개 저장소에 올리지 않는 것이 일반적인 관례입니다.</td></tr><tr><td>응답</td><td><code>200</code> 상태 코드와 JSON 본문(관측소 이름, 좌표, 기온 등)</td><td>연구자는 JSON을 표로 바꿔 전처리합니다.</td></tr><tr><td>오류</td><td><code>429</code>(요청 한도 초과)</td><td>한도가 있는 API는 호출 간격을 두거나 재시도 규칙을 정해야 하며, 이를 방법론에 적습니다.</td></tr></tbody></table><p>이 예에서 연구자는 서버 내부의 데이터베이스 구조를 몰라도 되고, 약속된 요청과 응답만 알면 됩니다. 반대로 서버가 응답 형식을 바꾸면 수집 코드가 깨질 수 있어서 버전 번호(<code>v1</code>)가 중요해집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>API는 REST를 뜻한다.</td><td>REST는 웹 API를 설계하는 한 방식입니다. GraphQL 같은 다른 방식도 있고, 웹과 무관한 라이브러리 API도 API입니다.</td></tr><tr><td>API는 프로그래밍 언어나 제품 이름이다.</td><td>API는 “규칙의 묶음”이며, 같은 규칙을 여러 언어로 구현하거나 호출할 수 있습니다.</td></tr><tr><td>API에 접속하면 상대 시스템의 내부 구조를 알 수 있다.</td><td>API는 오히려 내부를 감추기 위한 접점입니다. 공개된 기능과 데이터만 얻을 수 있습니다.</td></tr><tr><td>같은 요청에는 늘 같은 응답이 온다.</td><td>데이터가 갱신되거나 모델·버전이 바뀌면 응답이 달라집니다. 그래서 호출 시점과 버전을 기록합니다.</td></tr><tr><td>API로 얻은 데이터는 자유롭게 써도 된다.</td><td>API마다 이용 약관, 호출 한도, 재배포 조건이 다릅니다. 연구에 쓰기 전에 약관을 확인해야 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "API 주변에는 이름이 비슷하거나 함께 쓰이는 용어가 많습니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "API와의 관계"
+    ],
+    "rows": [
+      [
+        "[[rest-api|REST API]]",
+        "자원을 주소로 나타내고 HTTP 메서드로 다루는 웹 API 설계 방식",
+        "API의 한 종류(설계 방식)"
+      ],
+      [
+        "[[graphql|GraphQL]]",
+        "클라이언트가 필요한 데이터 구조를 질의로 명시하는 API용 질의 언어",
+        "API의 한 종류"
+      ],
+      [
+        "[[api-gateway|API 게이트웨이]]",
+        "여러 서비스로 가는 요청을 한곳에서 받아 인증·분배하는 중간 서버",
+        "API 앞에 놓이는 관문"
+      ],
+      [
+        "[[webhook|웹훅]]",
+        "사건이 일어나면 서버가 미리 등록된 주소로 알림을 보내는 방식",
+        "요청–응답과 반대로 서버가 먼저 호출하는 형태"
+      ],
+      [
+        "SDK",
+        "특정 서비스의 API를 쉽게 쓰도록 만든 도구 모음(라이브러리와 문서)",
+        "API를 감싸는 편의 도구"
+      ]
+    ]
+  },
+  "references": [
+    "Parnas, D. L. (1972). On the criteria to be used in decomposing systems into modules. Communications of the ACM, 15(12), 1053–1058.",
+    "Fielding, R. T. (2000). Architectural Styles and the Design of Network-based Software Architectures (doctoral dissertation). University of California, Irvine.",
+    "Bloch, J. (2006). How to design a good API and why it matters. In Companion to the 21st ACM SIGPLAN Symposium on Object-Oriented Programming Systems, Languages, and Applications (OOPSLA). ACM.",
+    "Richardson, L., & Ruby, S. (2007). RESTful Web Services. O'Reilly Media.",
+    "Nottingham, M., & Fielding, R. (2012). Additional HTTP Status Codes (RFC 6585). Internet Engineering Task Force.",
+    "Fielding, R., Nottingham, M., & Reschke, J. (2022). HTTP Semantics (RFC 9110). Internet Engineering Task Force."
+  ]
+}

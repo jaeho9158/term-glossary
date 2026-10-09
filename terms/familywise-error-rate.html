@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/familywise-error-rate.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>사후검정, 여러 결과변수의 검정, 유전체나 뇌영상처럼 수많은 검정을 하는 연구에서 우연히 유의한 결과가 나오기 쉬워집니다. 어떤 보정법이 FWER을 통제하고 어떤 것이 다른 기준을 통제하는지 구분해야 방법을 올바르게 고를 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>FWER = P(V ≥ 1)입니다. V는 참인 귀무가설 중에서 잘못 기각한 개수이고, 값의 범위는 0에서 1입니다(Hochberg &amp; Tamhane, 1987).</li><li>검정 m개가 모두 참이고 서로 독립이면 FWER = 1 − (1 − α)<sup>m</sup>입니다. 아래 표는 α = .05에서 이 값을 계산한 결과입니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>검정 수 m</th><th>보정 없이 쓸 때의 FWER</th><th>본페로니 기준(α ÷ m)</th><th>시닥 기준(1 − (1 − α)<sup>1/m</sup>)</th></tr></thead><tbody><tr><td>1</td><td>.050</td><td>.0500</td><td>.0500</td></tr><tr><td>3</td><td>.143</td><td>.0167</td><td>.0170</td></tr><tr><td>5</td><td>.226</td><td>.0100</td><td>.0102</td></tr><tr><td>10</td><td>.401</td><td>.0050</td><td>.0051</td></tr><tr><td>20</td><td>.642</td><td>.0025</td><td>.0026</td></tr><tr><td>100</td><td>.994</td><td>.0005</td><td>.0005</td></tr></tbody></table></div><ul><li>FWER을 통제하는 방법에는 <a href="bonferroni-correction.html">본페로니 보정</a>(Dunn, 1961), 시닥 보정(Šidák, 1967), 이를 단계적으로 개선해 검정력이 더 큰 <a href="holm-bonferroni-method.html">홀름 절차</a>(Holm, 1979), 닫힌 검정 절차(Marcus, Peritz, &amp; Gabriel, 1976)가 있고, 분산분석 뒤의 쌍대비교에는 <a href="tukey-hsd-test.html">튜키 HSD</a>, 대조군과의 비교에는 <a href="dunnetts-test.html">던넛 검정</a>이 쓰입니다.</li><li>통제의 강도에는 두 가지가 구분됩니다. 모든 귀무가설이 참일 때만 FWER ≤ α이면 약한 통제, 참과 거짓이 섞인 어떤 경우에도 FWER ≤ α이면 강한 통제입니다(Hochberg &amp; Tamhane, 1987). 일반적으로 요구되는 것은 강한 통제입니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>기준값</strong>: FWER ≤ .05로 두는 것이 관례입니다. .05는 Fisher 이래의 유의수준 관례를 따른 것이며, 법칙이 아닙니다.</li><li><strong>가족을 정하는 일</strong>: 어떤 검정들을 한 가족으로 묶는지가 보정의 크기를 정합니다. 흔히 한 연구 질문에 속한 검정(한 분산분석의 모든 쌍대비교, 하나의 가설을 검증하는 여러 결과변수)을 한 가족으로 보지만, 정해진 규칙은 없고 분야마다 관행이 다릅니다. 결과를 본 뒤 가족을 바꾸면 보정의 의미가 사라집니다.</li><li><strong>대가</strong>: FWER을 엄격히 통제할수록 2종 오류가 늘어 실제 효과를 놓칠 수 있습니다. 확증적 연구에는 FWER, 검정이 매우 많은 탐색적 연구에는 거짓발견률(<a href="false-discovery-rate.html">FDR</a>, Benjamini &amp; Hochberg, 1995)을 쓰는 것이 일반적인 구분입니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>보정 방법과 가족의 정의, 가족에 포함된 검정 수 m을 적습니다. 예: “Holm 절차로 가족별 오류율을 .05로 통제하였다(가족: 세 집단의 모든 쌍대비교 3건).”</li><li>보정 전 p와 보정 후 p(또는 보정된 기준 α)를 구분해서 적습니다. 어느 쪽 값을 보고하는지 표나 각주에 밝혀야 합니다.</li><li>가족의 정의와 보정 방법은 분석 계획에 미리 적어 두고(사전등록 포함), 사후에 바꾸지 않습니다.</li><li>분석 전체에서 보정하지 않은 검정이 있다면 그 이유(예: 사전에 지정된 단일 주요 가설)를 설명합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"&quot;사후 비교에서 가족별 오류율을 .05로 통제하기 위해 홀름 보정을 적용하였다.&quot;"</div>
   <p>여러 쌍을 비교하면서 전체 오류율을 5%로 묶었음을 밝히는 기본 형식입니다.</p>
   <div class="example">"&quot;20개의 검정을 독립적으로 실시하면 가족별 오류율은 약 .64로 증가한다.&quot;"</div>
@@ -164,6 +182,22 @@
 
   <h2>주의할 점</h2>
   <p>&#39;가족&#39;을 무엇으로 정의할지는 연구자의 판단에 따르는 부분이 있고, 같은 자료도 가족을 넓게 잡느냐 좁게 잡느냐에 따라 보정이 크게 달라집니다. 사전에 정해 두지 않고 결과를 본 뒤 가족을 바꾸면 보정의 의미가 사라집니다. 또 FWER 통제는 제1종 오류를 줄이는 대신 제2종 오류를 늘려 실제 효과를 놓칠 수 있으므로, 탐색적 연구에서는 덜 엄격한 기준이 적절한 경우도 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>오류율의 세는 단위가 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 세나</th><th scope="col">값의 크기</th></tr></thead><tbody><tr><th scope="row">비교당 오류율(PCER)</th><td>검정 하나하나의 1종 오류 확률</td><td>가장 작음(보정하지 않을 때 α)</td></tr><tr><th scope="row">가족별 오류율(FWER)</th><td>가족 안에서 하나라도 잘못 기각할 확률</td><td>m이 늘수록 커짐, 보정으로 α 이하로 묶음</td></tr><tr><th scope="row"><a href="false-discovery-rate.html">거짓발견률(FDR)</a></th><td>유의하다고 판정한 것 가운데 틀린 것의 기대 비율</td><td>FWER 통제보다 느슨함</td></tr><tr><th scope="row"><a href="type-1-error.html">1종 오류</a></th><td>참인 귀무가설을 기각하는 오류 일반</td><td>FWER과 PCER의 바탕이 되는 개념</td></tr><tr><th scope="row"><a href="multiple-comparisons-correction.html">다중비교 보정</a></th><td>위 오류율을 통제하려고 기준을 조정하는 절차 전체</td><td>FWER은 그 목표 중 하나</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Dunn, O. J. (1961). Multiple comparisons among means. Journal of the American Statistical Association, 56(293), 52–64.</li>
+    <li>Šidák, Z. (1967). Rectangular confidence regions for the means of multivariate normal distributions. Journal of the American Statistical Association, 62(318), 626–633.</li>
+    <li>Marcus, R., Peritz, E., &amp; Gabriel, K. R. (1976). On closed testing procedures with special reference to ordered analysis of variance. Biometrika, 63(3), 655–660.</li>
+    <li>Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65–70.</li>
+    <li>Hochberg, Y., &amp; Tamhane, A. C. (1987). Multiple Comparison Procedures. Wiley.</li>
+    <li>Benjamini, Y., &amp; Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 57(1), 289–300.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

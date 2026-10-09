@@ -1,0 +1,65 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>AES는 NIST가 1997년 공모를 시작해 2000년 10월 Rijndael(Daemen과 Rijmen 설계)을 선정하고, 2001년 FIPS 197로 표준화한 블록 암호입니다. 후보 15개 가운데 MARS, RC6, Rijndael, Serpent, Twofish의 다섯 개가 결선에 올랐습니다(NIST, 2001; Daemen &amp; Rijmen, 2002).</li><li>블록 크기는 128비트로 고정이며 키 길이는 128, 192, 256비트 중에서 고릅니다. 키 길이에 따라 라운드 수가 10, 12, 14로 달라집니다.</li><li>평문 블록을 바이트 4×4 배열(state)에 넣고, 처음에 라운드 키를 더한 뒤(AddRoundKey) 라운드를 반복합니다. 각 라운드는 <strong>SubBytes</strong>(바이트별 비선형 치환, S-박스), <strong>ShiftRows</strong>(행 이동), <strong>MixColumns</strong>(열 안에서 섞기), <strong>AddRoundKey</strong>(라운드 키 더하기)로 이루어지며 마지막 라운드에서는 MixColumns를 생략합니다. 라운드 키는 키 확장으로 만들어집니다. 이는 치환과 뒤섞기를 반복하는 SPN 구조입니다.</li><li>복호는 같은 연산의 역변환을 쓰고, 키가 같은 대칭키 암호입니다([[block-cipher|블록 암호]]).</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰이는 곳</strong>: 파일·디스크 암호화, 통신 보안(TLS 등), 무선 통신, 저장 매체 보호에 널리 쓰입니다. 많은 프로세서가 AES 전용 명령어를 지원해 속도가 빠릅니다.</li><li><strong>운용 모드가 필요</strong>: 블록 암호 하나만으로는 128비트 블록만 처리하므로, 긴 데이터에는 운용 모드가 필요합니다(Dworkin, 2001). ECB는 같은 평문 블록이 같은 암호문 블록이 되어 패턴이 드러나기 쉽고, CBC와 CTR는 초기화 벡터나 카운터를 씁니다. 인증을 겸하는 GCM은 Dworkin(2007)이 규정합니다([[block-cipher-mode-of-operation|운용 모드]], [[aes-gcm|AES-GCM]]).</li><li><strong>안전성의 수준</strong>: 128비트 키를 전수 탐색하려면 2<sup>128</sup> ≈ 3.4×10<sup>38</sup>번의 시도가 필요합니다. 초당 10<sup>12</sup>개 키를 시험할 수 있다고 가상으로 가정하면 약 1.1×10<sup>19</sup>년으로, 우주 나이(약 1.4×10<sup>10</sup>년)의 약 8억 배입니다. 전수 탐색은 현실적이지 않습니다.</li><li><strong>알려진 분석</strong>: 완전한 라운드를 가진 AES에 대해 공개된 최선의 키 복구 분석은 전수 탐색보다 약간 나은 수준(AES-128에 대해 약 2<sup>126.1</sup>, Bogdanov, Khovratovich, &amp; Rechberger, 2011)으로, 실용적 위협은 아닙니다. 실제 사고는 알고리즘보다 구현(부채널)이나 모드·키 관리의 오용에서 생긴다고 논의됩니다(이 페이지의 “주의할 점”).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>알고리즘 설정</strong>: 키 길이, 운용 모드, 초기화 벡터·논스의 생성과 재사용 방지 방법, 패딩 방식을 적습니다.</li><li><strong>구현 환경</strong>: 사용한 라이브러리와 버전, 하드웨어 가속 여부, 구현이 표준(FIPS 197, SP 800-38 시리즈)을 따르는지 적습니다.</li><li><strong>키 관리</strong>: 키를 어떻게 생성·저장·교체하는지 밝힙니다. 암호의 안전성은 키 관리에 크게 좌우됩니다.</li><li><strong>성능 측정</strong>: 처리량(MB/s)이나 바이트당 사이클 수와 함께 측정 환경(프로세서, 데이터 크기)을 적습니다.</li><li>이 항목은 연구 보고의 일반 요소이며 공격 방법을 설명하는 것이 아닙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "암호 관련 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "AES와의 관계"
+    ],
+    "rows": [
+      [
+        "AES",
+        "128비트 블록의 대칭키 블록 암호",
+        "이 페이지의 용어입니다."
+      ],
+      [
+        "[[block-cipher|블록 암호]]",
+        "고정 크기 블록 단위로 암호화하는 대칭키 방식",
+        "AES가 속한 상위 개념"
+      ],
+      [
+        "[[block-cipher-mode-of-operation|운용 모드]]",
+        "블록 암호를 임의 길이 데이터에 쓰는 규칙",
+        "AES를 실제로 쓰려면 필요"
+      ],
+      [
+        "[[aes-gcm|AES-GCM]]",
+        "AES를 카운터 방식으로 돌리면서 인증 태그를 생성",
+        "AES와 모드를 결합한 방식"
+      ],
+      [
+        "RSA",
+        "큰 수의 소인수분해 어려움에 기대는 공개키(비대칭) 암호",
+        "키 관리·교환에 쓰이며 AES와 역할이 다름"
+      ],
+      [
+        "SHA-256",
+        "임의 길이 입력을 고정 길이로 줄이는 해시 함수",
+        "암호화(복호 가능)가 아닌 요약값"
+      ]
+    ]
+  },
+  "references": [
+    "National Institute of Standards and Technology (2001). Advanced Encryption Standard (AES) (FIPS PUB 197).",
+    "Dworkin, M. (2001). Recommendation for Block Cipher Modes of Operation: Methods and Techniques (NIST Special Publication 800-38A).",
+    "Daemen, J., & Rijmen, V. (2002). The Design of Rijndael: AES, the Advanced Encryption Standard. Springer.",
+    "Dworkin, M. (2007). Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC (NIST Special Publication 800-38D).",
+    "Bogdanov, A., Khovratovich, D., & Rechberger, C. (2011). Biclique cryptanalysis of the full AES. In Advances in Cryptology: ASIACRYPT 2011 (LNCS 7073, pp. 344–371). Springer."
+  ]
+}

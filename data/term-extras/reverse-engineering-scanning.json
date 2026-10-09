@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>역설계 문헌은 흐름을 대체로 “데이터 획득 → 전처리 → 분할과 곡면 피팅 → CAD 모델 생성”으로 나눕니다(Várady, Martin, &amp; Cox, 1997). 단계별로 하는 일은 다음과 같습니다.</p><table><thead><tr><th>단계</th><th>하는 일</th><th>핵심 쟁점</th></tr></thead><tbody><tr><td>1. 스캔 계획과 데이터 획득</td><td>접촉식 프로브(좌표측정기)나 비접촉 방식(레이저 삼각측량, 구조광, CT 등)으로 표면 점을 얻습니다.</td><td>방식마다 정확도, 속도, 반사·투명 표면에 대한 반응이 다릅니다.</td></tr><tr><td>2. 정합(registration)</td><td>여러 시점에서 얻은 점군을 하나의 좌표계로 맞춥니다. 반복 최근접점(ICP) 알고리즘이 대표적입니다(Besl &amp; McKay, 1992).</td><td>정합 오차가 누적되면 형상 전체가 어긋납니다. [[point-cloud-registration|포인트클라우드 정합]]</td></tr><tr><td>3. 전처리</td><td>잡음 제거, 중복 점 정리, 결측 영역 보간, 점의 간격 조정을 합니다.</td><td>처리를 과하게 하면 작은 특징이 지워집니다.</td></tr><tr><td>4. 메시 생성</td><td>점군을 삼각형 망으로 이어 표면을 만듭니다. 여러 거리 영상을 하나의 표면으로 합치는 방법이 연구되어 왔습니다(Curless &amp; Levoy, 1996).</td><td>구멍 메우기와 노이즈 처리 방식에 따라 결과가 달라집니다.</td></tr><tr><td>5. 분할과 피팅</td><td>표면을 영역으로 나누고 영역마다 평면·원통·구 같은 기본 요소 또는 자유곡면(NURBS, Piegl &amp; Tiller, 1997)으로 근사합니다.</td><td>자유곡면만 쓰면 수정하기 어렵고, 기하 요소로 인식하면 편집 가능한 모델이 됩니다.</td></tr><tr><td>6. 모델 생성과 검증</td><td>CAD 모델을 만들고 원 스캔 데이터와의 편차를 계산해 확인합니다.</td><td>편차의 평균·최대·표준편차로 정확도를 보고합니다.</td></tr></tbody></table><p>이 표는 일반적인 흐름이며 도구와 대상에 따라 단계를 합치거나 건너뜁니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰이는 곳</strong>: 도면이 없는 부품의 복원, 금형·치공구의 수리, 손으로 만든 시제품의 디지털화, 맞춤형 제품 설계, 문화재 기록이 대표적입니다.</li><li><strong>얻는 것</strong>: 점군, 메시, 그리고 CAD 모델입니다. 목적에 따라 어느 단계에서 멈출지가 정해집니다. 3D 프린팅 입력용이면 메시로 충분할 수 있지만, 설계 변경이 필요하면 매개변수를 가진 CAD 모델까지 가야 합니다.</li><li><strong>얻지 못하는 것</strong>: 스캔은 겉면 정보만 주므로 설계 의도, 공차, 재질은 복원되지 않습니다(이 페이지의 “주의할 점”).</li><li><strong>흔한 오차 요인</strong>: 스캐너 자체의 정확도, 반사율이 높거나 어두운 표면, 접근하기 어려운 오목부(결측 영역), 정합 오차의 누적, 피팅 단계의 근사 오차입니다.</li><li><strong>비슷하지만 다른 일</strong>: 스캔한 형상을 기존 CAD와 겹쳐 편차만 보는 것은 검사(inspection)이고, 새 CAD를 만들지 않습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>스캔 조건</strong>: 스캐너 모델과 방식, 제조사가 밝힌 정확도, 스캔 횟수와 시점 수, 점 간격, 대상의 표면 처리(스캔용 코팅 여부)를 적습니다.</li><li><strong>정합과 후처리</strong>: 정합 방법과 정합 오차(예: RMS), 사용한 소프트웨어, 잡음 제거·보간 방법을 적습니다.</li><li><strong>피팅 방법</strong>: 자유곡면 근사인지 기하 요소 인식인지, 허용한 근사 오차를 적습니다.</li><li><strong>검증</strong>: 최종 모델과 스캔 데이터의 편차를 평균·최대·표준편차와 편차 분포 그림으로 보여 줍니다. 가능하면 접촉식 측정 같은 독립된 방법과 비교합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 비슷하거나 한 흐름에 속하는 용어입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "3D 스캐닝 역설계와의 관계"
+    ],
+    "rows": [
+      [
+        "[[point-cloud-data|포인트클라우드]]",
+        "표면을 점의 집합으로 나타낸 자료",
+        "역설계가 출발하는 원자료입니다."
+      ],
+      [
+        "[[point-cloud-registration|포인트클라우드 정합]]",
+        "여러 점군을 하나의 좌표계로 정렬하는 과정",
+        "역설계 단계 중 하나입니다."
+      ],
+      [
+        "3D 검사(inspection)",
+        "스캔 결과를 기존 CAD와 비교해 편차를 보는 일",
+        "새 모델을 만들지 않는다는 점이 다릅니다."
+      ],
+      [
+        "정설계(forward engineering)",
+        "요구사항에서 설계를 거쳐 제품을 만드는 순서",
+        "역설계는 제품에서 설계 정보를 거꾸로 얻습니다."
+      ],
+      [
+        "소프트웨어 역공학",
+        "프로그램을 분해·분석해 구조와 동작을 파악하는 일",
+        "이름은 같지만 대상이 소프트웨어이며, 이 페이지의 3D 형상 복원과는 다릅니다."
+      ]
+    ]
+  },
+  "references": [
+    "Besl, P. J., & McKay, N. D. (1992). A method for registration of 3-D shapes. IEEE Transactions on Pattern Analysis and Machine Intelligence, 14(2), 239–256.",
+    "Curless, B., & Levoy, M. (1996). A volumetric method for building complex models from range images. In Proceedings of SIGGRAPH 96. ACM.",
+    "Várady, T., Martin, R. R., & Cox, J. (1997). Reverse engineering of geometric models: An introduction. Computer-Aided Design, 29(4), 255–268.",
+    "Piegl, L., & Tiller, W. (1997). The NURBS Book (2nd ed.). Springer."
+  ]
+}

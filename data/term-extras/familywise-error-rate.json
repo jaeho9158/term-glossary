@@ -1,0 +1,61 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>FWER = P(V ≥ 1)입니다. V는 참인 귀무가설 중에서 잘못 기각한 개수이고, 값의 범위는 0에서 1입니다(Hochberg &amp; Tamhane, 1987).</li><li>검정 m개가 모두 참이고 서로 독립이면 FWER = 1 − (1 − α)<sup>m</sup>입니다. 아래 표는 α = .05에서 이 값을 계산한 결과입니다.</li></ul><table><thead><tr><th>검정 수 m</th><th>보정 없이 쓸 때의 FWER</th><th>본페로니 기준(α ÷ m)</th><th>시닥 기준(1 − (1 − α)<sup>1/m</sup>)</th></tr></thead><tbody><tr><td>1</td><td>.050</td><td>.0500</td><td>.0500</td></tr><tr><td>3</td><td>.143</td><td>.0167</td><td>.0170</td></tr><tr><td>5</td><td>.226</td><td>.0100</td><td>.0102</td></tr><tr><td>10</td><td>.401</td><td>.0050</td><td>.0051</td></tr><tr><td>20</td><td>.642</td><td>.0025</td><td>.0026</td></tr><tr><td>100</td><td>.994</td><td>.0005</td><td>.0005</td></tr></tbody></table><ul><li>FWER을 통제하는 방법에는 [[bonferroni-correction|본페로니 보정]](Dunn, 1961), 시닥 보정(Šidák, 1967), 이를 단계적으로 개선해 검정력이 더 큰 [[holm-bonferroni-method|홀름 절차]](Holm, 1979), 닫힌 검정 절차(Marcus, Peritz, &amp; Gabriel, 1976)가 있고, 분산분석 뒤의 쌍대비교에는 [[tukey-hsd-test|튜키 HSD]], 대조군과의 비교에는 [[dunnetts-test|던넛 검정]]이 쓰입니다.</li><li>통제의 강도에는 두 가지가 구분됩니다. 모든 귀무가설이 참일 때만 FWER ≤ α이면 약한 통제, 참과 거짓이 섞인 어떤 경우에도 FWER ≤ α이면 강한 통제입니다(Hochberg &amp; Tamhane, 1987). 일반적으로 요구되는 것은 강한 통제입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>기준값</strong>: FWER ≤ .05로 두는 것이 관례입니다. .05는 Fisher 이래의 유의수준 관례를 따른 것이며, 법칙이 아닙니다.</li><li><strong>가족을 정하는 일</strong>: 어떤 검정들을 한 가족으로 묶는지가 보정의 크기를 정합니다. 흔히 한 연구 질문에 속한 검정(한 분산분석의 모든 쌍대비교, 하나의 가설을 검증하는 여러 결과변수)을 한 가족으로 보지만, 정해진 규칙은 없고 분야마다 관행이 다릅니다. 결과를 본 뒤 가족을 바꾸면 보정의 의미가 사라집니다.</li><li><strong>대가</strong>: FWER을 엄격히 통제할수록 2종 오류가 늘어 실제 효과를 놓칠 수 있습니다. 확증적 연구에는 FWER, 검정이 매우 많은 탐색적 연구에는 거짓발견률([[false-discovery-rate|FDR]], Benjamini &amp; Hochberg, 1995)을 쓰는 것이 일반적인 구분입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>보정 방법과 가족의 정의, 가족에 포함된 검정 수 m을 적습니다. 예: “Holm 절차로 가족별 오류율을 .05로 통제하였다(가족: 세 집단의 모든 쌍대비교 3건).”</li><li>보정 전 p와 보정 후 p(또는 보정된 기준 α)를 구분해서 적습니다. 어느 쪽 값을 보고하는지 표나 각주에 밝혀야 합니다.</li><li>가족의 정의와 보정 방법은 분석 계획에 미리 적어 두고(사전등록 포함), 사후에 바꾸지 않습니다.</li><li>분석 전체에서 보정하지 않은 검정이 있다면 그 이유(예: 사전에 지정된 단일 주요 가설)를 설명합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "오류율의 세는 단위가 서로 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇을 세나",
+      "값의 크기"
+    ],
+    "rows": [
+      [
+        "비교당 오류율(PCER)",
+        "검정 하나하나의 1종 오류 확률",
+        "가장 작음(보정하지 않을 때 α)"
+      ],
+      [
+        "가족별 오류율(FWER)",
+        "가족 안에서 하나라도 잘못 기각할 확률",
+        "m이 늘수록 커짐, 보정으로 α 이하로 묶음"
+      ],
+      [
+        "[[false-discovery-rate|거짓발견률(FDR)]]",
+        "유의하다고 판정한 것 가운데 틀린 것의 기대 비율",
+        "FWER 통제보다 느슨함"
+      ],
+      [
+        "[[type-1-error|1종 오류]]",
+        "참인 귀무가설을 기각하는 오류 일반",
+        "FWER과 PCER의 바탕이 되는 개념"
+      ],
+      [
+        "[[multiple-comparisons-correction|다중비교 보정]]",
+        "위 오류율을 통제하려고 기준을 조정하는 절차 전체",
+        "FWER은 그 목표 중 하나"
+      ]
+    ]
+  },
+  "references": [
+    "Dunn, O. J. (1961). Multiple comparisons among means. Journal of the American Statistical Association, 56(293), 52–64.",
+    "Šidák, Z. (1967). Rectangular confidence regions for the means of multivariate normal distributions. Journal of the American Statistical Association, 62(318), 626–633.",
+    "Marcus, R., Peritz, E., & Gabriel, K. R. (1976). On closed testing procedures with special reference to ordered analysis of variance. Biometrika, 63(3), 655–660.",
+    "Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65–70.",
+    "Hochberg, Y., & Tamhane, A. C. (1987). Multiple Comparison Procedures. Wiley.",
+    "Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 57(1), 289–300."
+  ]
+}
