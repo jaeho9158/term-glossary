@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/queueing-theory.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,36 @@
   <h2>왜 중요한가</h2>
   <p>대기행렬이론은 병원, 콜센터, 통신망, 생산 공정처럼 자원은 한정되어 있는데 수요가 확률적으로 몰리는 상황을 수학적으로 설계·최적화할 수 있게 해주기 때문에, 운영관리와 산업공학은 물론 통신네트워크, 컴퓨터시스템 성능 연구에서도 폭넓게 활용됩니다. 서버나 인력을 몇 개 두어야 대기시간을 감당할 만한 수준으로 유지할 수 있는지를 사전에 정량적으로 예측할 수 있다는 점에서, 실제 시스템 설계와 정책 결정에 직접적인 근거를 제공합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>대기행렬 모형은 보통 <strong>도착 과정 / 서비스 시간 분포 / 서버 수</strong>로 분류하고 켄들(Kendall) 표기로 씁니다. M/M/1은 도착이 <a href="poisson-process.html">포아송 과정</a>, 서비스 시간이 지수분포, 창구가 1개라는 뜻입니다.</li>
+  <li>기본 변수: 도착률 λ, 서비스율 μ, 이용률 ρ = λ/μ. 안정 상태(대기열이 무한정 커지지 않음)는 ρ &lt; 1일 때 존재합니다.</li>
+  <li>M/M/1의 시스템 내 평균 고객 수(서비스 중인 고객 포함) L = ρ/(1−ρ), 평균 체류시간 W = 1/(μ−λ)입니다.</li>
+  <li>리틀의 법칙 L = λW는 분포에 상관없이 안정 상태의 어떤 시스템에도 성립합니다. 수식 하나로 평균 고객 수, 도착률, 평균 체류시간을 이어 줍니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: 창구 1개, 시간당 평균 8명 도착(λ = 8), 한 명 처리 평균 6분(μ = 10명/시간)인 M/M/1 모형입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>지표</th><th>λ = 8</th><th>λ = 9</th></tr></thead><tbody>
+  <tr><td>이용률 ρ</td><td>0.80</td><td>0.90</td></tr>
+  <tr><td>시스템 내 평균 고객 수 L</td><td>4.0명</td><td>9.0명</td></tr>
+  <tr><td>평균 체류시간 W</td><td>30분</td><td>60분</td></tr>
+  <tr><td>평균 대기시간 Wq</td><td>24분</td><td>54분</td></tr></tbody></table></div>
+  <p>도착률이 8에서 9로 12.5% 늘었을 뿐인데 체류시간은 두 배가 됩니다. 이용률이 1에 가까워질수록 대기가 급격히 커진다는 것이 대기행렬이론의 대표적 통찰입니다. 리틀의 법칙으로 검산하면 8 × 0.5시간 = 4명으로 L과 일치합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody>
+  <tr><td>평균 처리능력이 평균 도착보다 크면 줄이 생기지 않는다.</td><td>도착과 서비스가 무작위이므로 이용률이 낮아도 일시적 대기는 생깁니다. 이용률이 높을수록 급격히 늘어납니다.</td></tr>
+  <tr><td>M/M/1 공식은 어떤 대기열에도 맞는다.</td><td>도착이 포아송, 서비스가 지수분포라는 가정에서 나온 결과입니다. 실제 자료로 가정을 확인하거나 시뮬레이션을 병행해야 합니다.</td></tr>
+  <tr><td>서버를 2배로 늘리면 대기시간이 절반이 된다.</td><td>대기시간은 서버 수에 비선형으로 반응하며, 같은 도착률이면 절반보다 훨씬 많이 줄어드는 경우가 많습니다. 정확한 값은 모형으로 계산해야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 대기행렬이론(M/M/1)을 적용하여 응급실 도착률과 진료율에 따른 평균 대기시간을 산출하였다."</div>
   <p>이 문장은 "환자가 도착하는 빈도와 의료진이 진료를 마치는 속도를 확률 모델로 세워, 환자가 평균적으로 얼마나 기다리는지를 수식으로 계산했다"는 뜻입니다.</p>
 
@@ -166,6 +196,19 @@
 
   <h2>주의할 점</h2>
   <p>대기행렬이론의 결과는 도착과 서비스 시간이 특정 확률분포(주로 지수분포·포아송분포)를 따른다는 가정 위에서 성립합니다. 실제 현장의 도착 패턴이 이 가정과 크게 어긋나면(예: 특정 시간대에 몰리는 경우) 모델의 예측값과 실제 대기시간 사이에 차이가 발생할 수 있으므로, 시뮬레이션이나 실측 데이터로 가정의 타당성을 함께 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>대기행렬 분석에서 서로 다른 층위의 용어입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><a href="poisson-process.html">포아송과정</a></th><td>무작위 도착을 모형화하는 확률과정</td><td>도착 가정</td></tr><tr><th scope="row">M/M/1</th><td>도착·서비스가 모두 무기억이고 서버 1개인 모형</td><td>특정 모형</td></tr><tr><th scope="row">리틀의 법칙</th><td>L = λW 관계</td><td>모형과 무관하게 성립하는 항등식</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Little, J. D. C. (1961). A proof for the queuing formula: L = λW. Operations Research, 9(3), 383–387.</li>
+    <li>Gross, D., Shortle, J. F., Thompson, J. M., &amp; Harris, C. M. (2008). Fundamentals of Queueing Theory (4th ed.). Wiley.</li>
+    <li>Kleinrock, L. (1975). Queueing Systems, Volume I: Theory. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
