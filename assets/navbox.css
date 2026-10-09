@@ -1,0 +1,80 @@
+/* 주제 틀(navbox): scripts/navbox/render.js 가 만드는 접이식 표.
+   색은 style.css 의 변수(--card-bg, --border, --text, --muted, --accent, --accent-soft, --hover-tint)만 쓰므로
+   :root[data-theme="dark"] 에서 자동으로 어두운 값이 된다. */
+.navbox {
+  margin: 1.75rem 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  overflow: hidden;
+}
+.navbox > details > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  background: var(--accent-soft);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+.navbox > details > summary::-webkit-details-marker { display: none; }
+.navbox > details > summary::before {
+  content: "▸";
+  margin-right: 0.5rem;
+  color: var(--accent);
+  transition: transform 0.15s ease;
+}
+.navbox > details[open] > summary::before { transform: rotate(90deg); display: inline-block; }
+.navbox > details > summary .navbox-title { flex: 1 1 auto; }
+.navbox-count { flex: none; font-weight: 400; font-size: 0.8rem; color: var(--muted); }
+.navbox > details > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.navbox-table { width: 100%; border-collapse: collapse; table-layout: auto; }
+.navbox-table th, .navbox-table td {
+  padding: 0.45rem 0.8rem;
+  vertical-align: top;
+  text-align: left;
+  border-top: 1px solid var(--border);
+}
+.navbox-table th[scope="row"] {
+  width: 7.5em;
+  font-weight: 700;
+  white-space: nowrap;
+  background: var(--hover-tint);
+  color: var(--text);
+}
+/* 한 단계 들어갈수록 표제 칸이 좁아지고 옅어진다 */
+.navbox-d2 th[scope="row"] { width: 6em; font-weight: 600; background: transparent; color: var(--muted); }
+.navbox-d3 th[scope="row"], .navbox-d4 th[scope="row"] { width: 5em; font-weight: 600; background: transparent; color: var(--muted); font-size: 0.88rem; }
+.navbox-table .navbox-table { margin: -0.45rem -0.8rem; width: calc(100% + 1.6rem); }
+.navbox-table .navbox-table tr:first-child > th, .navbox-table .navbox-table tr:first-child > td { border-top: 0; }
+.navbox-table td > .navbox-list + .navbox-table { margin-top: 0.2rem; }
+
+.navbox-list { list-style: none; margin: 0; padding: 0; }
+.navbox-list li { display: inline; }
+.navbox-list li { word-break: keep-all; }
+.navbox-list li:not(:last-child)::after { content: " · "; color: var(--muted); white-space: pre; }
+.navbox-list .navbox-list { display: inline; }
+.navbox-list li .navbox-paren { color: var(--muted); }
+.navbox a { color: var(--accent); text-decoration: none; }
+.navbox a:hover, .navbox a:focus-visible { color: var(--accent-hover); text-decoration: underline; }
+.navbox-current { color: var(--text); font-weight: 800; }
+.navbox-plain { color: var(--muted); }
+
+/* 폰: 행을 위아래로 쌓아 가로 스크롤이 생기지 않게 한다 */
+@media (max-width: 640px) {
+  .navbox { font-size: 0.9rem; }
+  .navbox-table, .navbox-table tbody, .navbox-table tr, .navbox-table th, .navbox-table td { display: block; width: auto; }
+  .navbox-table th[scope="row"], .navbox-d2 th[scope="row"], .navbox-d3 th[scope="row"], .navbox-d4 th[scope="row"] {
+    width: auto; white-space: normal; padding-bottom: 0.1rem; border-top: 1px solid var(--border);
+  }
+  .navbox-table td { border-top: 0; padding-top: 0.1rem; overflow-wrap: break-word; }
+  .navbox-table .navbox-table { margin: 0.2rem 0 0.2rem 0.4rem; width: auto; border-left: 2px solid var(--border); }
+  .navbox-table .navbox-table tr:first-child > th { border-top: 0; }
+}
+@media print { .navbox > details:not([open]) > :not(summary) { display: none; } }
