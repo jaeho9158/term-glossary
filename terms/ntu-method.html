@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>이미 설치된 열교환기의 성능을 평가하거나, 운전 조건이 바뀌었을 때 출구 온도를 예측해야 하는 상황에서 NTU법은 반복 계산 없이 직접적으로 답을 구할 수 있어 매우 유용합니다. 이 때문에 열교환기 해석 및 시스템 시뮬레이션 연구에서 LMTD법과 함께 널리 사용되는 표준적인 접근법입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>NTU법(유효도-NTU법)은 열교환기의 입구 온도와 유량, 열교환기 자체의 성능(UA)을 알 때 출구 온도와 열전달량을 계산합니다. 출구 온도를 모르는 상태에서도 반복 계산 없이 풀 수 있다는 점이 핵심입니다.</p><ol><li>두 유체의 열용량률 C = ṁ·c<sub>p</sub>를 구하고 작은 쪽을 C<sub>min</sub>, 큰 쪽을 C<sub>max</sub>로 둡니다. 열용량비는 <code>C<sub>r</sub> = C<sub>min</sub>/C<sub>max</sub></code> (0~1)입니다.</li><li>전달단위수를 구합니다. <code>NTU = UA / C<sub>min</sub></code> (U: 총괄 열전달계수, A: 전열면적)</li><li>유동 형태에 맞는 관계식으로 유효도 ε를 구합니다(아래 표).</li><li>가능한 최대 열전달량 <code>Q<sub>max</sub> = C<sub>min</sub>(T<sub>h,in</sub> − T<sub>c,in</sub>)</code>에 곱해 <code>Q = ε·Q<sub>max</sub></code>를 얻고, 이로부터 출구 온도를 계산합니다.</li></ol><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유동 형태</th><th>유효도 ε</th></tr></thead><tbody><tr><td>향류 (C<sub>r</sub> &lt; 1)</td><td>(1 − e<sup>−NTU(1−C<sub>r</sub>)</sup>) / (1 − C<sub>r</sub>·e<sup>−NTU(1−C<sub>r</sub>)</sup>)</td></tr><tr><td>향류 (C<sub>r</sub> = 1)</td><td>NTU / (1 + NTU)</td></tr><tr><td>병류</td><td>(1 − e<sup>−NTU(1+C<sub>r</sub>)</sup>) / (1 + C<sub>r</sub>)</td></tr><tr><td>C<sub>r</sub> = 0 (응축·증발)</td><td>1 − e<sup>−NTU</sup> (유동 형태와 무관)</td></tr></tbody></table></div>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>NTU법은 이미 만들어진 열교환기가 주어진 조건에서 얼마나 열을 전달하는지 보는 <strong>성능 평가(rating)</strong> 문제에 알맞습니다. 이와 달리 입출구 온도를 모두 알고 필요한 전열면적을 구하는 <strong>설계(sizing)</strong> 문제에서는 <a href="lmtd-method.html">대수평균온도차법</a>이 자연스럽습니다. 두 방법은 같은 에너지 균형에서 나오므로 결과가 일치합니다.</p><p><strong>작은 예(가상의 조건, 코드로 계산).</strong> 뜨거운 물 0.5 kg/s(입구 90 ℃)와 찬물 0.4 kg/s(입구 20 ℃)가 흐르고, c<sub>p</sub> = 4,180 J/(kg·K), UA = 2,000 W/K라고 합시다. C<sub>h</sub> = 2,090 W/K, C<sub>c</sub> = 1,672 W/K이므로 C<sub>min</sub> = 1,672, C<sub>r</sub> = 0.80, NTU = 1.196입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유동 형태</th><th>ε</th><th>Q (kW)</th><th>뜨거운 쪽 출구 (℃)</th><th>찬 쪽 출구 (℃)</th></tr></thead><tbody><tr><td>향류</td><td>0.575</td><td>67.3</td><td>57.8</td><td>60.2</td></tr><tr><td>병류</td><td>0.491</td><td>57.5</td><td>62.5</td><td>54.4</td></tr></tbody></table></div><p>향류 결과의 출구 온도로 대수평균온도차(약 33.6 K)를 구해 UA를 곱하면 같은 67.3 kW가 나와 두 방법의 일치를 확인할 수 있습니다. 같은 열교환기라도 향류가 병류보다 더 많은 열을 전달합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>가정을 밝힙니다</strong>: 정상 상태, 일정한 U와 c<sub>p</sub>, 주위로의 열손실 무시 같은 가정을 적습니다. 상변화가 있는 쪽은 C<sub>r</sub> = 0으로 다루며, 사용한 관계식의 적용 조건도 함께 적습니다.</li><li><strong>사용한 ε–NTU 관계식과 출처</strong>(향류·병류·교차류·셸-튜브 중 어느 것인지)를 적습니다.</li><li><strong>입력값의 출처</strong>: U는 보통 추정값이므로 그 불확실성이 출구 온도 예측에 미치는 영향을 함께 논의합니다.</li><li><strong>검증</strong>: 실험값과 비교할 때는 오차의 정의(절대 온도차, 상대 오차)를 적습니다.</li></ul><p><code>ε–NTU법으로 열교환기의 유효도를 계산하였다(향류, C<sub>r</sub> = 0.80, NTU = 1.20, ε = 0.575).</code> (수치는 형식을 보여 주는 가상의 값입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 ε-NTU법을 적용하여 다양한 유량 조건에서 열교환기의 유효도를 산출하였다."</div>
   <p>유효도-NTU 관계식을 사용해 열교환기의 실제 성능 지표를 계산했다는 의미입니다.</p>
   <div class="example">"NTU법을 통해 얻은 출구 온도 예측값은 실험 결과와 5% 이내의 오차로 일치하였다."</div>
@@ -164,6 +182,19 @@
 
   <h2>주의할 점</h2>
   <p>NTU법은 열교환기의 형태에 따른 유효도 관계식을 정확히 선택해야 신뢰할 수 있는 결과를 얻을 수 있으며, 실제 조건과 이론적 가정(정상상태, 물성치 일정 등)의 차이로 인한 오차가 존재할 수 있습니다. 열용량비가 1에 가까운 향류형 열교환기는 NTU가 커져도 유효도 상승이 완만해지는 한계를 가지므로, 성능 개선을 위해 무한정 전열면적을 늘리는 것이 항상 비용 대비 효과적이지 않다는 점을 함께 고려해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>열교환기 해석에는 비슷한 방법과 지표가 여럿 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">NTU법과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="lmtd-method.html">대수평균온도차법</a></th><td>입출구 온도를 알 때 Q = UA·ΔTlm으로 면적을 구하는 방법</td><td>설계 문제에 적합하며 NTU법과 같은 열전달량을 줍니다. 출구 온도를 모르면 반복 계산이 필요합니다.</td></tr><tr><th scope="row"><a href="heat-exchanger-effectiveness.html">열교환기 효율(유효도)</a></th><td>실제 열전달량을 최대 가능 열전달량으로 나눈 값</td><td>NTU법에서 NTU와 열용량비 Cr로부터 구해지는 중간 결과입니다.</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kays, W. M., &amp; London, A. L. (1984). Compact Heat Exchangers (3rd ed.). McGraw-Hill.</li>
+    <li>Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2007). Fundamentals of Heat and Mass Transfer (6th ed.). John Wiley &amp; Sons.</li>
+    <li>Shah, R. K., &amp; Sekulić, D. P. (2003). Fundamentals of Heat Exchanger Design. John Wiley &amp; Sons.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

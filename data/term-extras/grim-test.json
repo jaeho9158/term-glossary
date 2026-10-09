@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>GRIM(Granularity-Related Inconsistency of Means) 검사는 “정수로 기록되는 자료의 평균은 가능한 값이 정해져 있다”는 산술 사실을 이용합니다. 절차는 짧습니다.</p><ol><li>보고된 표본 크기 n과 평균 m(소수 몇째 자리까지 적었는지)을 확인합니다.</li><li>자료가 정수라면 합 S는 정수이므로, 가능한 평균은 S/n입니다. 척도 범위 안의 모든 정수 합 S에 대해 S/n을 보고된 자릿수로 반올림해 봅니다.</li><li>그중 보고된 m과 일치하는 값이 하나도 없으면 그 평균은 보고된 n과 <strong>양립할 수 없습니다</strong>.</li></ol><p><strong>작은 예(가상의 값, 코드로 계산).</strong> 1~7점 척도 문항에 n = 5명이 답하고 평균이 3.72로 보고되었다면, 가능한 평균은 0.2 간격(3.6, 3.8 …)이므로 3.72는 나올 수 없습니다. n = 28이고 평균이 5.19라면, 합이 145일 때 145/28 = 5.18, 146일 때 146/28 = 5.21이어서 5.19도 나올 수 없습니다. 반올림 규칙(0.5를 올리는지)에 따라 경계값은 달라질 수 있어 두 규칙을 모두 확인하는 것이 일반적입니다.</p><p>표본이 작을수록 걸러내는 힘이 큽니다. 1~7점 척도에서 소수 둘째 자리까지 적힌 평균은 601개의 값이 가능하지만, n = 10이면 그중 61개(약 10%), n = 28이면 169개, n = 50이면 301개, n = 99이면 595개만 도달할 수 있습니다. n ≥ 100이면 모든 값이 가능해져 이 검사로 걸러지는 것이 없습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>GRIM은 <strong>요약 통계만으로 보고 내용의 내적 일관성을 점검</strong>하는 도구입니다. 원자료가 없어도 쓸 수 있어서 출판 후 검토, 메타연구, 연구진실성 점검에서 쓰입니다(Brown &amp; Heathers, 2017).</p><ul><li><strong>적용 조건</strong>: 자료가 정수이거나 일정한 간격의 값(예: 리커트 문항)이어야 하고, 그 평균에 쓰인 사례 수 n을 알아야 합니다. 여러 문항을 합산한 척도라면 사람당 문항 수 k를 곱한 n·k를 사용합니다.</li><li><strong>얻는 것</strong>: 불일치가 있는 평균의 목록. 불일치는 “이 숫자는 이 n으로는 나올 수 없다”는 사실을 알려 줄 뿐, 왜 그런지는 알려 주지 않습니다.</li><li><strong>이어지는 방법</strong>: 표준편차까지 점검하는 GRIMMER(Anaya, 2016), 보고된 평균과 표준편차를 만족하는 자료를 재구성하는 SPRITE(Heathers 외, 2018)가 있습니다.</li></ul><p>불일치의 흔한 원인은 결측으로 인한 n의 불일치, 반올림 방식의 차이, 오기입, 사후 가중치 사용이며 조작은 그중 한 가지 가능성일 뿐입니다. 불일치를 발견하면 저자에게 확인을 요청하는 절차가 먼저입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>GRIM을 사용한 연구(또는 GRIM 점검 결과를 보고하는 글)에서는 다음을 밝힙니다.</p><ul><li>점검 대상 평균의 개수와 선별 기준(어떤 표·어떤 문항, n을 알 수 있는 것만 등)</li><li>사용한 반올림 규칙과 도구(직접 계산, 공개된 계산기 등)</li><li>불일치로 판정된 값의 수와 그 평균의 n·척도 정보</li><li>불일치의 원인을 확인했는지(저자 문의, 원자료 확인) 여부</li></ul><p><code>보고된 평균 12개 중 2개가 보고된 표본 크기와 양립할 수 없었으며(GRIM 검사), 저자에게 확인을 요청하였다.</code>처럼 “양립할 수 없다”는 표현을 쓰고 “조작”이라는 단정은 피합니다. (수치는 가상의 값입니다.)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "요약 통계로 보고 내용을 점검하는 방법들은 점검하는 대상이 서로 다릅니다.",
+    "headers": [
+      "방법",
+      "점검 대상",
+      "핵심"
+    ],
+    "rows": [
+      [
+        "GRIM",
+        "평균",
+        "정수 자료의 평균이 보고된 n으로 가능한 값인가"
+      ],
+      [
+        "GRIMMER",
+        "표준편차",
+        "보고된 평균·n에서 그 표준편차가 가능한가"
+      ],
+      [
+        "[[sprite-technique|SPRITE]]",
+        "평균과 표준편차 함께",
+        "두 값을 만족하는 자료 집합이 존재하는지 재구성해 봄"
+      ]
+    ]
+  },
+  "references": [
+    "Brown, N. J. L., & Heathers, J. A. J. (2017). The GRIM test: A simple technique detects numerous anomalies in the reporting of results in psychology. Social Psychological and Personality Science, 8(4), 363–369.",
+    "Anaya, J. (2016). The GRIMMER test: A method for testing the validity of reported measures of variability. PeerJ Preprints.",
+    "Heathers, J. A. J., Anaya, J., van der Zee, T., & Brown, N. J. L. (2018). Recovering data from summary statistics: Sample Parameter Reconstruction via Iterative TEchniques (SPRITE). PeerJ Preprints.",
+    "Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp, S., & Wicherts, J. M. (2016). The prevalence of statistical reporting errors in psychology (1985–2013). Behavior Research Methods, 48, 1205–1226."
+  ]
+}

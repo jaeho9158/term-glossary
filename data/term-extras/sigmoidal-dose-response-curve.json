@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>용량(농도)을 로그 눈금에 놓고 반응을 그리면 아래쪽 평탄부에서 서서히 오르다 중간에서 급격히 오르고 위쪽 평탄부에서 다시 완만해지는 S자 곡선이 됩니다. 가장 흔한 식은 네 개의 모수를 갖는 로지스틱 식(4PL)입니다.</p><p><code>반응 = Bottom + (Top − Bottom) / (1 + 10<sup>(logEC<sub>50</sub> − log x)·h</sup>)</code></p><ul><li><strong>Bottom, Top</strong>: 아래·위 평탄부의 반응 수준.</li><li><strong>EC<sub>50</sub></strong>: 반응이 Bottom과 Top의 중간이 되는 용량. 로그 눈금에서 곡선의 변곡점입니다.</li><li><strong>기울기 h(힐 기울기)</strong>: 곡선이 얼마나 가파른지. h = 1이면 질량 작용 법칙에 따른 단일 결합 부위의 곡선이며, 1보다 크면 더 가파릅니다(Hill, 1910).</li></ul><p>로그 눈금을 쓰는 이유는 넓은 용량 범위를 한 그림에 담고 곡선을 EC<sub>50</sub> 주위에서 대칭으로 만들기 위해서입니다. 반응률 자료에서는 프로빗(Bliss, 1934)이나 로짓으로 직선화해 적합하는 방식도 오래 쓰였습니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 코드로 계산) Bottom = 0, Top = 100, EC<sub>50</sub> = 1, h = 1일 때 용량별 반응은 0.01에서 1.0, 0.1에서 9.1, 0.5에서 33.3, 1에서 50.0, 2에서 66.7, 10에서 90.9, 100에서 99.0입니다. 10%에서 90% 반응까지 가는 데 필요한 용량 배수는 81<sup>1/h</sup>이므로 h = 1이면 81배, h = 2이면 9배, h = 0.5이면 6,561배입니다. 기울기가 클수록 좁은 용량 범위에서 반응이 켜지고 꺼집니다. 이 때문에 약물의 안전역이나 독성의 문턱을 논할 때 EC<sub>50</sub>만이 아니라 기울기가 함께 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“EC<sub>50</sub>은 효능의 전부다”</strong>: EC<sub>50</sub>은 효력(potency)을 나타내고, 최대 반응(Top)은 효능(efficacy)과 관련되며 둘은 독립적입니다(Neubig 외, 2003).</li><li><strong>“모든 용량-반응은 S자다”</strong>: 저용량 자극-고용량 억제 같은 이상성(비단조) 곡선이 있어 S자 모형을 미리 가정하면 틀립니다.</li><li><strong>“평탄부가 없어도 EC<sub>50</sub>을 구할 수 있다”</strong>: Top이나 Bottom이 자료로 정해지지 않으면 EC<sub>50</sub>의 신뢰구간이 매우 넓어집니다. 모수를 고정했다면 이유를 밝힙니다.</li><li><strong>“오차는 대칭이다”</strong>: EC<sub>50</sub>의 불확실성은 로그 눈금에서 대칭이므로 신뢰구간도 로그 눈금에서 계산해 보고합니다.</li><li>적합에 쓴 모형(4PL, 프로빗 등)에 따라 값이 달라지므로 모형과 소프트웨어를 함께 적습니다(Ritz 외, 2015).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "용량-반응 용어는 곡선의 모양, 곡선 위의 한 점, 곡선의 기울기로 나뉩니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "S자 용량-반응 곡선과의 관계"
+    ],
+    "rows": [
+      [
+        "[[dose-response-curve|용량-반응 곡선]]",
+        "용량과 반응의 관계를 그린 곡선 전반",
+        "S자형은 그 한 형태입니다."
+      ],
+      [
+        "[[ec50|EC50]]",
+        "최대 반응의 50%에 이르는 농도",
+        "곡선 위의 한 점(변곡점)입니다."
+      ],
+      [
+        "[[hill-coefficient|힐 계수]]",
+        "결합의 협동성·곡선의 가파른 정도",
+        "곡선의 기울기를 나타내는 모수입니다."
+      ],
+      [
+        "[[dose-response-relationship|용량-반응 관계]]",
+        "용량이 바뀔 때 반응이 달라지는 관계 일반",
+        "곡선은 이 관계를 그림으로 나타낸 것입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Hill, A. V. (1910). The possible effects of the aggregation of the molecules of haemoglobin on its dissociation curves. Journal of Physiology, 40, iv–vii.",
+    "Bliss, C. I. (1934). The method of probits. Science, 79, 38–39.",
+    "Neubig, R. R., Spedding, M., Kenakin, T., & Christopoulos, A. (2003). International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification. XXXVIII. Update on terms and symbols in quantitative pharmacology. Pharmacological Reviews, 55, 597–606.",
+    "Ritz, C., Baty, F., Streibig, J. C., & Gerhard, D. (2015). Dose-response analysis using R. PLoS ONE, 10(12), e0146021."
+  ]
+}

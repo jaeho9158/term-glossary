@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>Raft는 여러 서버가 장애 상황에서도 하나의 일관된 상태를 유지하도록 만드는 문제를 실용적으로 해결했기 때문에, 분산 데이터베이스와 클러스터 관리 시스템을 다루는 시스템 논문에서 핵심 구성요소로 자주 인용됩니다. Paxos가 이론적으로 정확하지만 이해와 구현이 어렵다는 평가를 받아온 반면, Raft는 리더 선출과 로그 복제를 명확한 단계로 분리해 설계함으로써 실제 시스템 구현과 검증을 훨씬 쉽게 만들었다는 점에서 분산시스템 교육과 실무 양쪽에서 널리 채택되고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>Raft는 서버(노드)를 <strong>리더, 팔로워, 후보</strong> 세 역할 중 하나로 두고, 시간을 번호가 붙은 <strong>임기(term)</strong>로 나눕니다(Ongaro &amp; Ousterhout, 2014).</p><ol><li><strong>리더 선출</strong>: 팔로워가 일정 시간(선거 타임아웃) 동안 리더의 신호를 받지 못하면 임기 번호를 올리고 후보가 되어 투표를 요청합니다. 과반의 표를 얻으면 리더가 됩니다. 타임아웃을 노드마다 무작위로 정해 여러 후보가 동시에 나서는 표 분산을 줄입니다.</li><li><strong>로그 복제</strong>: 클라이언트 요청은 리더가 자기 로그에 추가하고 팔로워들에게 보냅니다.</li><li><strong>확정(commit)</strong>: 항목이 과반수 노드의 로그에 저장되면 확정되어 상태 기계에 적용됩니다. 이전 임기의 항목은 현재 임기의 항목이 확정될 때 함께 확정되는 방식으로 다룹니다.</li><li><strong>구성 변경</strong>: 노드를 추가·제거할 때는 옛 구성과 새 구성이 겹치는 조인트 합의 단계를 거칩니다.</li></ol><p>과반수 규칙 때문에 노드 n개 중 몇 개까지 고장 나도 동작하는지가 정해집니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>노드 수</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr></thead><tbody><tr><td>과반수</td><td>2</td><td>3</td><td>3</td><td>4</td><td>4</td></tr><tr><td>견딜 수 있는 고장 수</td><td>1</td><td>1</td><td>2</td><td>2</td><td>3</td></tr></tbody></table></div><p>짝수 개(4, 6)는 홀수 개(3, 5)보다 견디는 고장 수가 늘지 않으므로 보통 홀수로 구성합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>Raft는 여러 서버가 같은 순서로 같은 명령을 적용하도록 하는 <strong>복제 상태 기계</strong>에 쓰입니다. 분산 키-값 저장소, 설정·서비스 탐색 저장소(예: etcd, Consul) 같은 시스템이 Raft를 채택하고 있습니다. 얻는 성질은 임기마다 리더가 최대 한 명이고, 확정된 항목은 사라지지 않으며, 모든 노드가 같은 순서로 로그를 적용한다는 안전성입니다. 이 안전성은 메시지가 지연·유실·중복되고 노드가 멈췄다 다시 살아나는 환경을 가정합니다. 노드가 거짓 정보를 보내는 비잔틴 장애는 다루지 않습니다.</p><p>가용성은 과반수 노드가 서로 통신할 수 있을 때만 보장됩니다. 네트워크가 갈라져 과반이 없는 쪽은 새 항목을 확정하지 못합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>장애 모델</strong>: 비잔틴 장애를 가정하는지, 노드의 재시작과 저장소 보존을 가정하는지 밝힙니다.</li><li><strong>매개변수</strong>: 노드 수, 선거 타임아웃 범위, 하트비트 간격. 원 논문은 선거 타임아웃의 예로 150~300 ms 범위를 제시했지만 네트워크 지연에 맞춰 조정해야 하는 값입니다.</li><li><strong>구현과 검증</strong>: 직접 구현했는지 기존 라이브러리를 썼는지, 정확성을 어떻게 검증했는지(모델 검증, 장애 주입 시험 등)를 적습니다.</li><li><strong>변형 여부</strong>: 원형에서 바꾼 부분(타임아웃 적응, 구성 변경 방식)을 구분해 적습니다.</li></ul><p><code>제안 시스템은 Raft 합의 알고리즘으로 리더를 선출하고 로그를 복제한다(노드 5개, 선거 타임아웃 150–300 ms).</code> (수치는 형식을 보여 주는 가상의 값입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안 시스템은 노드 장애 시에도 데이터 일관성을 보장하기 위해 Raft 합의 알고리즘을 이용해 리더를 선출하고 로그를 복제한다."</div>
   <p>이 문장은 서버 여러 대 중 하나가 갑자기 죽더라도, 나머지 서버들이 Raft 방식으로 새 리더를 뽑아 데이터가 어긋나지 않도록 계속 관리한다는 뜻입니다.</p>
   <div class="example">"분산 키-값 저장소는 클러스터 멤버십 변경을 안전하게 처리하기 위해 Raft의 조인트 합의(joint consensus) 방식을 확장하여 적용하였다."</div>
@@ -168,6 +186,20 @@
 
   <h2>주의할 점</h2>
   <p>Raft는 같은 문제를 푸는 <a href="consensus-algorithm.html">합의 알고리즘</a>인 Paxos보다 이해하고 구현하기 쉽도록 설계되었다는 점이 특징이지만, 그렇다고 성능이 항상 더 뛰어난 것은 아닙니다. 또한 Raft는 노드가 고장 나서 응답을 멈추는 상황(fail-stop)을 가정하며, 노드가 의도적으로 거짓 정보를 보내는 <a href="byzantine-fault-tolerance.html">비잔틴 장애 허용</a> 상황까지는 다루지 않습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>Raft와 이웃한 합의 용어는 알고리즘, 문제 이름, 분야 이름으로 나뉩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">Raft와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="paxos-algorithm.html">팍소스 알고리즘</a></th><td>같은 합의 문제를 푸는 대표적 알고리즘</td><td>Raft는 이해와 구현의 용이함을 목표로 설계되었습니다. 어느 쪽이 항상 빠르다고 말할 수는 없습니다.</td></tr><tr><th scope="row"><a href="consensus-algorithm.html">합의 알고리즘</a></th><td>여러 노드가 하나의 값에 동의하게 하는 알고리즘의 총칭</td><td>Raft는 그 한 종류입니다. 블록체인의 합의 방식과는 가정이 다릅니다.</td></tr><tr><th scope="row"><a href="distributed-consensus.html">분산 합의</a></th><td>분산 시스템에서의 합의 문제</td><td>Raft가 푸는 문제 자체를 가리킵니다.</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ongaro, D., &amp; Ousterhout, J. (2014). In search of an understandable consensus algorithm. In Proceedings of the 2014 USENIX Annual Technical Conference (pp. 305–319). USENIX Association.</li>
+    <li>Lamport, L. (1998). The part-time parliament. ACM Transactions on Computer Systems, 16(2), 133–169.</li>
+    <li>Lamport, L. (2001). Paxos made simple. ACM SIGACT News, 32(4).</li>
+    <li>Howard, H., &amp; Mortier, R. (2020). Paxos vs Raft: Have we reached consensus on distributed consensus? In Proceedings of the 7th Workshop on Principles and Practice of Consistency for Distributed Data. ACM.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="consensus-algorithm.html">합의 알고리즘</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="paxos-algorithm.html">팍소스 알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

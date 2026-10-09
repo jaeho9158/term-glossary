@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>기존의 수정 진동자에 비해 MEMS 공진기는 반도체 공정으로 대량 생산할 수 있어 크기가 작고 비용이 저렴합니다. 이 때문에 소형 전자기기의 타이밍 소자, 필터, 센서 등에 활용되며 미세기계공학 분야의 핵심 연구 주제 중 하나입니다. 높은 품질계수와 작은 크기 덕분에 정밀한 주파수 기준 소자나 자이로스코프, 가속도계 등 스마트폰과 웨어러블 기기의 관성센서 핵심 부품으로 대량 활용되고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>MEMS 공진기는 미세가공으로 만든 보, 판, 원반 같은 기계 구조물이 자신의 고유 진동수 근처에서 크게 진동하는 성질을 이용합니다. 가장 단순한 모델은 질량-스프링 계로, 고유 진동수는 <code>f<sub>0</sub> = (1/2π)·√(k / m)</code>입니다(k: 유효 강성, m: 유효 질량). 구조물이 작아질수록 질량이 줄어 진동수가 높아집니다.</p><ul><li><strong>품질계수 Q</strong>: 공진 곡선이 얼마나 뾰족한지를 나타내며 <code>Q = f<sub>0</sub> / Δf</code>(Δf: 반전력 대역폭)로 정의합니다. Q가 클수록 한 주기에 잃는 에너지가 적습니다.</li><li><strong>에너지 손실 경로</strong>: 공기 감쇠, 지지부(앵커)로 새는 진동, 열탄성 감쇠(Lifshitz &amp; Roukes, 2000), 표면 손실 등. 그래서 진공 패키징으로 공기 감쇠를 없애면 Q가 크게 오릅니다.</li><li><strong>구동·검출 방식</strong>: 정전, 압전, 열, 전자기 방식이 있고 구조(휨 보, 빗살형, 벌크 음향 모드 등)에 따라 맞는 방식이 다릅니다.</li></ul><p>시계 기준(발진기)에 쓸 때는 Q와 함께 온도에 따른 진동수 변화가 핵심 문제입니다. 실리콘의 영률은 온도에 따라 달라지므로 보정 없이는 진동수가 온도에 민감하며, 이를 줄이는 설계와 회로 보상이 연구 주제입니다(Nguyen, 2007; van Beek &amp; Puers, 2012).</p>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 예, 코드로 계산) 한쪽 끝이 고정된 단결정 실리콘 외팔보 공진기를 생각합니다. 길이 L = 100 µm, 진동 방향 두께 t = 2 µm, 영률 E = 169 GPa(결정 방향에 따라 약 130~188 GPa), 밀도 ρ = 2329 kg/m³이면 오일러-베르누이 보 이론의 기본 모드 진동수는 다음과 같습니다.</p><p><code>f<sub>0</sub> = (1.875²/2π) · (t/L²) · √(E/(12ρ)) ≈ 275 kHz</code></p><p>이 진동수에서 Q = 100이면 대역폭은 약 2.75 kHz, Q = 10,000이면 약 27.5 Hz, Q = 100,000이면 약 2.75 Hz입니다. 같은 진동수라도 Q가 높을수록 훨씬 좁은 범위에서만 반응하므로 기준 소자나 필터로 쓸 때 선택성이 좋아집니다. 실제 값은 가공 오차, 잔류 응력, 지지부 구조에 따라 이 계산과 달라지며, 위 식은 그 오차를 논하기 위한 출발점입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“Q가 높으면 진동수도 안정적이다”</strong>: Q는 손실의 크기이고, 진동수의 장기 안정성이나 온도 안정성은 별개의 성능입니다. 둘 다 따로 보고해야 합니다.</li><li><strong>“Q는 소재의 고유 상수다”</strong>: Q는 지지부 구조, 패키징 압력, 모드 형상에 크게 좌우되므로 같은 소재라도 소자마다 다릅니다.</li><li><strong>“작을수록 항상 좋다”</strong>: 작아지면 진동수가 오르고 크기가 줄지만, 표면 손실 비중이 커지고 공정 오차에 더 민감해집니다.</li><li><strong>“진동수가 곧 성능이다”</strong>: 용도(기준 발진기, 필터, 센서)에 따라 필요한 진동수, Q, 온도 특성이 모두 다릅니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 실리콘 기반 MEMS Resonator의 공진 주파수 안정성을 온도 변화에 따라 분석하였다."</div>
   <p>온도가 바뀔 때 초소형 진동 소자의 진동 특성이 얼마나 안정적으로 유지되는지를 연구했다는 뜻입니다.</p>
   <div class="example">"제안된 공진기 구조는 기존 대비 향상된 품질계수를 나타내었다."</div>
@@ -166,6 +184,17 @@
   <p>구조물 크기가 매우 작아 공정 오차나 외부 환경 변화(온도, 습도, 진공도)에 민감하게 반응할 수 있으며, 이를 보정하기 위한 설계가 함께 요구됩니다.</p>
 
   <p>패키징 방식이나 주변 온도 변화가 공진주파수와 품질계수에 영향을 줄 수 있어, 안정적인 동작을 위해서는 온도 보상 설계가 함께 요구됩니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Nguyen, C. T.-C. (2007). MEMS technology for timing and frequency control. IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control, 54(2), 251–270.</li>
+    <li>van Beek, J. T. M., &amp; Puers, R. (2012). A review of MEMS oscillators for frequency reference and timing applications. Journal of Micromechanics and Microengineering, 22, 013001.</li>
+    <li>Lifshitz, R., &amp; Roukes, M. L. (2000). Thermoelastic damping in micro- and nanomechanical systems. Physical Review B, 61, 5600–5609.</li>
+    <li>Senturia, S. D. (2001). Microsystem Design. Kluwer Academic Publishers.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="micro-electromechanical-systems.html">미세전자기계시스템</a></div></div><p class="concept-family-map"><a href="../concept-map/mechanical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

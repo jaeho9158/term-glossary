@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "미분방정식 대신 대수 방정식으로",
+      "replace": "차분방정식 대신 대수 방정식으로"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>Z변환은 이산 시간 신호 x[n]을 복소수 변수 z의 함수로 바꿉니다.</p><p><code>X(z) = Σ x[n]·z<sup>−n</sup></code> (n = −∞~∞; 인과 신호를 다룰 때는 n = 0~∞인 단측 변환을 씁니다)</p><ul><li><strong>수렴 영역(ROC)</strong>: 급수가 수렴하는 z의 범위입니다. 같은 수식이라도 ROC가 다르면 다른 신호를 나타냅니다.</li><li><strong>성질</strong>: 선형성, 시간 지연 x[n−k] ↔ z<sup>−k</sup>X(z), 합성곱 ↔ 곱셈. 그래서 차분방정식이 대수 방정식이 되고, 시스템은 전달함수 H(z)로 표현됩니다.</li><li><strong>안정성</strong>: 인과 선형 시불변 시스템은 모든 극점이 단위원 안에 있을 때 안정합니다(ROC가 단위원을 포함합니다).</li><li><strong>다른 변환과의 관계</strong>: 단위원 z = e<sup>jω</sup> 위에서 평가하면 이산시간 푸리에 변환이 됩니다. 연속 시스템의 [[laplace-transform|라플라스 변환]]에 해당하는 이산 시간 도구입니다(Oppenheim &amp; Schafer, 2010).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(코드로 확인) x[n] = (0.5)<sup>n</sup>u[n]의 Z변환은 X(z) = 1/(1 − 0.5z<sup>−1</sup>) = z/(z − 0.5), ROC는 |z| &gt; 0.5입니다. 이를 전달함수로 갖는 시스템은 차분방정식 y[n] = 0.5·y[n−1] + x[n]이며, 단위 임펄스를 넣으면 출력은 1, 0.5, 0.25, 0.125, … 로 줄어듭니다. 극점 0.5는 단위원 안이라 안정합니다.</p><p>단위 계단 입력에는 1, 1.5, 1.75, 1.875, … 로 접근해 최종값 2(= 1/(1 − 0.5))에 수렴합니다. 반면 y[n] = 1.2·y[n−1] + x[n]은 극점 1.2가 단위원 밖이므로 단위 계단 입력에 1, 2.2, 3.64, 5.37, 7.44, … 로 계속 커져 불안정합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“수식만 같으면 같은 신호다”</strong>: 0.5<sup>n</sup>u[n]과 −0.5<sup>n</sup>u[−n−1]은 같은 X(z)를 갖지만 ROC가 달라 서로 다른 신호입니다.</li><li><strong>“Z변환은 이산 푸리에 변환(DFT)이다”</strong>: DFT는 유한 길이 신호를 단위원 위의 등간격 점에서 본 것이고, Z변환은 복소 평면 전체에서 정의된 함수입니다.</li><li><strong>“라플라스 변환의 s를 z로 바꾸면 된다”</strong>: 표본화된 신호에서 z = e<sup>sT</sup>의 관계가 있으나 아날로그 시스템을 디지털로 옮기는 쌍선형 변환 등은 근사이며 어떤 방법을 쓰느냐에 따라 특성이 달라집니다.</li><li><strong>“극점이 단위원 안이면 어떤 시스템이든 안정하다”</strong>: 인과 시스템의 조건입니다. 비인과 시스템은 ROC에 따라 판단이 달라집니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "변환 용어는 다루는 신호의 종류와 변수 영역으로 구분합니다.",
+    "headers": [
+      "용어",
+      "대상",
+      "변수"
+    ],
+    "rows": [
+      [
+        "Z변환",
+        "이산 시간 신호·시스템",
+        "복소수 z"
+      ],
+      [
+        "[[laplace-transform|라플라스 변환]]",
+        "연속 시간 신호·시스템",
+        "복소수 s"
+      ],
+      [
+        "[[fourier-transform|푸리에 변환]]",
+        "주파수 성분 분석(연속 또는 이산)",
+        "실수 주파수; Z변환을 단위원 위에서 평가한 것에 해당(이산시간)"
+      ]
+    ]
+  },
+  "references": [
+    "Oppenheim, A. V., & Schafer, R. W. (2010). Discrete-Time Signal Processing (3rd ed.). Prentice Hall.",
+    "Jury, E. I. (1964). Theory and Application of the z-Transform Method. John Wiley & Sons.",
+    "Franklin, G. F., Powell, J. D., & Workman, M. L. (1998). Digital Control of Dynamic Systems (3rd ed.). Addison-Wesley.",
+    "Ragazzini, J. R., & Zadeh, L. A. (1952). The analysis of sampled-data systems. Transactions of the American Institute of Electrical Engineers, Part II: Applications and Industry."
+  ]
+}

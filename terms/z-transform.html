@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/z-transform.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -138,13 +139,30 @@
   </div>
 
   <h2>쉽게 풀면</h2>
-  <p>연속적인 아날로그 신호를 다룰 때는 <a href="fourier-transform.html">푸리에 변환</a>이나 라플라스 변환을 쓰지만, 컴퓨터나 디지털 제어기가 다루는 신호는 일정한 시간 간격마다 찍힌 숫자들의 나열(샘플)입니다. Z변환은 이렇게 "띄엄띄엄 찍힌 숫자들의 수열"을 하나의 함수식으로 압축해서, 미분방정식 대신 대수 방정식으로 시스템을 분석할 수 있게 해줍니다.</p>
+  <p>연속적인 아날로그 신호를 다룰 때는 <a href="fourier-transform.html">푸리에 변환</a>이나 라플라스 변환을 쓰지만, 컴퓨터나 디지털 제어기가 다루는 신호는 일정한 시간 간격마다 찍힌 숫자들의 나열(샘플)입니다. Z변환은 이렇게 "띄엄띄엄 찍힌 숫자들의 수열"을 하나의 함수식으로 압축해서, 차분방정식 대신 대수 방정식으로 시스템을 분석할 수 있게 해줍니다.</p>
   <p>비유하자면 연속 영화 필름(아날로그)을 낱장 사진(디지털 샘플)으로 찍은 뒤, 그 사진들의 관계를 하나의 수식으로 정리하는 것과 비슷합니다. 이렇게 얻은 z 평면에서의 위치(극점의 위치)를 보면 디지털 필터나 디지털 제어 시스템이 안정적으로 동작하는지 한눈에 판단할 수 있습니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>오늘날 대부분의 제어 시스템과 신호처리 시스템은 마이크로컨트롤러나 컴퓨터로 구현되는 디지털 시스템이기 때문에, 이런 시스템을 설계하고 안정성을 분석하려면 이산 시간 신호를 대수적으로 다룰 수 있는 도구가 필요합니다. Z변환은 디지털 필터 설계, 제어기 설계, 시스템 안정성 해석의 이론적 기반을 이루기 때문에 디지털 신호처리 및 제어공학 논문에서 필수적으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>Z변환은 이산 시간 신호 x[n]을 복소수 변수 z의 함수로 바꿉니다.</p><p><code>X(z) = Σ x[n]·z<sup>−n</sup></code> (n = −∞~∞; 인과 신호를 다룰 때는 n = 0~∞인 단측 변환을 씁니다)</p><ul><li><strong>수렴 영역(ROC)</strong>: 급수가 수렴하는 z의 범위입니다. 같은 수식이라도 ROC가 다르면 다른 신호를 나타냅니다.</li><li><strong>성질</strong>: 선형성, 시간 지연 x[n−k] ↔ z<sup>−k</sup>X(z), 합성곱 ↔ 곱셈. 그래서 차분방정식이 대수 방정식이 되고, 시스템은 전달함수 H(z)로 표현됩니다.</li><li><strong>안정성</strong>: 인과 선형 시불변 시스템은 모든 극점이 단위원 안에 있을 때 안정합니다(ROC가 단위원을 포함합니다).</li><li><strong>다른 변환과의 관계</strong>: 단위원 z = e<sup>jω</sup> 위에서 평가하면 이산시간 푸리에 변환이 됩니다. 연속 시스템의 <a href="laplace-transform.html">라플라스 변환</a>에 해당하는 이산 시간 도구입니다(Oppenheim &amp; Schafer, 2010).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(코드로 확인) x[n] = (0.5)<sup>n</sup>u[n]의 Z변환은 X(z) = 1/(1 − 0.5z<sup>−1</sup>) = z/(z − 0.5), ROC는 |z| &gt; 0.5입니다. 이를 전달함수로 갖는 시스템은 차분방정식 y[n] = 0.5·y[n−1] + x[n]이며, 단위 임펄스를 넣으면 출력은 1, 0.5, 0.25, 0.125, … 로 줄어듭니다. 극점 0.5는 단위원 안이라 안정합니다.</p><p>단위 계단 입력에는 1, 1.5, 1.75, 1.875, … 로 접근해 최종값 2(= 1/(1 − 0.5))에 수렴합니다. 반면 y[n] = 1.2·y[n−1] + x[n]은 극점 1.2가 단위원 밖이므로 단위 계단 입력에 1, 2.2, 3.64, 5.37, 7.44, … 로 계속 커져 불안정합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“수식만 같으면 같은 신호다”</strong>: 0.5<sup>n</sup>u[n]과 −0.5<sup>n</sup>u[−n−1]은 같은 X(z)를 갖지만 ROC가 달라 서로 다른 신호입니다.</li><li><strong>“Z변환은 이산 푸리에 변환(DFT)이다”</strong>: DFT는 유한 길이 신호를 단위원 위의 등간격 점에서 본 것이고, Z변환은 복소 평면 전체에서 정의된 함수입니다.</li><li><strong>“라플라스 변환의 s를 z로 바꾸면 된다”</strong>: 표본화된 신호에서 z = e<sup>sT</sup>의 관계가 있으나 아날로그 시스템을 디지털로 옮기는 쌍선형 변환 등은 근사이며 어떤 방법을 쓰느냐에 따라 특성이 달라집니다.</li><li><strong>“극점이 단위원 안이면 어떤 시스템이든 안정하다”</strong>: 인과 시스템의 조건입니다. 비인과 시스템은 ROC에 따라 판단이 달라집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설계된 디지털 필터의 전달함수를 z-transform으로 나타낸 결과, 모든 극점이 단위원 내부에 위치하여 시스템이 안정함을 확인하였다."</div>
   <p>이 문장은 디지털 필터를 Z변환으로 표현한 뒤, 극점의 위치를 통해 시스템의 안정성을 검증했다는 분석 결과를 설명하는 내용입니다.</p>
   <div class="example">"연속 시간 제어기를 Z변환을 이용해 이산화한 후, 디지털 신호처리 장치에 구현하여 실시간 제어 성능을 검증하였다."</div>
@@ -157,6 +175,20 @@
 
   <h2>주의할 점</h2>
   <p>Z변환은 연속 시간 시스템의 <a href="transfer-function.html">전달함수</a>를 라플라스 변환으로 표현하는 것과 대응되는 개념으로, 디지털(이산 시간) 시스템 전용입니다. 아날로그 시스템을 디지털로 옮길 때는 표본화 주기 선택이 중요하며, 이는 <a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a>와 밀접하게 연결됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>변환 용어는 다루는 신호의 종류와 변수 영역으로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">대상</th><th scope="col">변수</th></tr></thead><tbody><tr><th scope="row">Z변환</th><td>이산 시간 신호·시스템</td><td>복소수 z</td></tr><tr><th scope="row"><a href="laplace-transform.html">라플라스 변환</a></th><td>연속 시간 신호·시스템</td><td>복소수 s</td></tr><tr><th scope="row"><a href="fourier-transform.html">푸리에 변환</a></th><td>주파수 성분 분석(연속 또는 이산)</td><td>실수 주파수; Z변환을 단위원 위에서 평가한 것에 해당(이산시간)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Oppenheim, A. V., &amp; Schafer, R. W. (2010). Discrete-Time Signal Processing (3rd ed.). Prentice Hall.</li>
+    <li>Jury, E. I. (1964). Theory and Application of the z-Transform Method. John Wiley &amp; Sons.</li>
+    <li>Franklin, G. F., Powell, J. D., &amp; Workman, M. L. (1998). Digital Control of Dynamic Systems (3rd ed.). Addison-Wesley.</li>
+    <li>Ragazzini, J. R., &amp; Zadeh, L. A. (1952). The analysis of sampled-data systems. Transactions of the American Institute of Electrical Engineers, Part II: Applications and Industry.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

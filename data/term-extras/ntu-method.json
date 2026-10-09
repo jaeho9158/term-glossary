@@ -1,0 +1,43 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>NTU법(유효도-NTU법)은 열교환기의 입구 온도와 유량, 열교환기 자체의 성능(UA)을 알 때 출구 온도와 열전달량을 계산합니다. 출구 온도를 모르는 상태에서도 반복 계산 없이 풀 수 있다는 점이 핵심입니다.</p><ol><li>두 유체의 열용량률 C = ṁ·c<sub>p</sub>를 구하고 작은 쪽을 C<sub>min</sub>, 큰 쪽을 C<sub>max</sub>로 둡니다. 열용량비는 <code>C<sub>r</sub> = C<sub>min</sub>/C<sub>max</sub></code> (0~1)입니다.</li><li>전달단위수를 구합니다. <code>NTU = UA / C<sub>min</sub></code> (U: 총괄 열전달계수, A: 전열면적)</li><li>유동 형태에 맞는 관계식으로 유효도 ε를 구합니다(아래 표).</li><li>가능한 최대 열전달량 <code>Q<sub>max</sub> = C<sub>min</sub>(T<sub>h,in</sub> − T<sub>c,in</sub>)</code>에 곱해 <code>Q = ε·Q<sub>max</sub></code>를 얻고, 이로부터 출구 온도를 계산합니다.</li></ol><table><thead><tr><th>유동 형태</th><th>유효도 ε</th></tr></thead><tbody><tr><td>향류 (C<sub>r</sub> &lt; 1)</td><td>(1 − e<sup>−NTU(1−C<sub>r</sub>)</sup>) / (1 − C<sub>r</sub>·e<sup>−NTU(1−C<sub>r</sub>)</sup>)</td></tr><tr><td>향류 (C<sub>r</sub> = 1)</td><td>NTU / (1 + NTU)</td></tr><tr><td>병류</td><td>(1 − e<sup>−NTU(1+C<sub>r</sub>)</sup>) / (1 + C<sub>r</sub>)</td></tr><tr><td>C<sub>r</sub> = 0 (응축·증발)</td><td>1 − e<sup>−NTU</sup> (유동 형태와 무관)</td></tr></tbody></table>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>NTU법은 이미 만들어진 열교환기가 주어진 조건에서 얼마나 열을 전달하는지 보는 <strong>성능 평가(rating)</strong> 문제에 알맞습니다. 이와 달리 입출구 온도를 모두 알고 필요한 전열면적을 구하는 <strong>설계(sizing)</strong> 문제에서는 [[lmtd-method|대수평균온도차법]]이 자연스럽습니다. 두 방법은 같은 에너지 균형에서 나오므로 결과가 일치합니다.</p><p><strong>작은 예(가상의 조건, 코드로 계산).</strong> 뜨거운 물 0.5 kg/s(입구 90 ℃)와 찬물 0.4 kg/s(입구 20 ℃)가 흐르고, c<sub>p</sub> = 4,180 J/(kg·K), UA = 2,000 W/K라고 합시다. C<sub>h</sub> = 2,090 W/K, C<sub>c</sub> = 1,672 W/K이므로 C<sub>min</sub> = 1,672, C<sub>r</sub> = 0.80, NTU = 1.196입니다.</p><table><thead><tr><th>유동 형태</th><th>ε</th><th>Q (kW)</th><th>뜨거운 쪽 출구 (℃)</th><th>찬 쪽 출구 (℃)</th></tr></thead><tbody><tr><td>향류</td><td>0.575</td><td>67.3</td><td>57.8</td><td>60.2</td></tr><tr><td>병류</td><td>0.491</td><td>57.5</td><td>62.5</td><td>54.4</td></tr></tbody></table><p>향류 결과의 출구 온도로 대수평균온도차(약 33.6 K)를 구해 UA를 곱하면 같은 67.3 kW가 나와 두 방법의 일치를 확인할 수 있습니다. 같은 열교환기라도 향류가 병류보다 더 많은 열을 전달합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>가정을 밝힙니다</strong>: 정상 상태, 일정한 U와 c<sub>p</sub>, 주위로의 열손실 무시 같은 가정을 적습니다. 상변화가 있는 쪽은 C<sub>r</sub> = 0으로 다루며, 사용한 관계식의 적용 조건도 함께 적습니다.</li><li><strong>사용한 ε–NTU 관계식과 출처</strong>(향류·병류·교차류·셸-튜브 중 어느 것인지)를 적습니다.</li><li><strong>입력값의 출처</strong>: U는 보통 추정값이므로 그 불확실성이 출구 온도 예측에 미치는 영향을 함께 논의합니다.</li><li><strong>검증</strong>: 실험값과 비교할 때는 오차의 정의(절대 온도차, 상대 오차)를 적습니다.</li></ul><p><code>ε–NTU법으로 열교환기의 유효도를 계산하였다(향류, C<sub>r</sub> = 0.80, NTU = 1.20, ε = 0.575).</code> (수치는 형식을 보여 주는 가상의 값입니다.)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "열교환기 해석에는 비슷한 방법과 지표가 여럿 있습니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "NTU법과의 관계"
+    ],
+    "rows": [
+      [
+        "[[lmtd-method|대수평균온도차법]]",
+        "입출구 온도를 알 때 Q = UA·ΔTlm으로 면적을 구하는 방법",
+        "설계 문제에 적합하며 NTU법과 같은 열전달량을 줍니다. 출구 온도를 모르면 반복 계산이 필요합니다."
+      ],
+      [
+        "[[heat-exchanger-effectiveness|열교환기 효율(유효도)]]",
+        "실제 열전달량을 최대 가능 열전달량으로 나눈 값",
+        "NTU법에서 NTU와 열용량비 Cr로부터 구해지는 중간 결과입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Kays, W. M., & London, A. L. (1984). Compact Heat Exchangers (3rd ed.). McGraw-Hill.",
+    "Incropera, F. P., DeWitt, D. P., Bergman, T. L., & Lavine, A. S. (2007). Fundamentals of Heat and Mass Transfer (6th ed.). John Wiley & Sons.",
+    "Shah, R. K., & Sekulić, D. P. (2003). Fundamentals of Heat Exchanger Design. John Wiley & Sons."
+  ]
+}

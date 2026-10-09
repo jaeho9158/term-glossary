@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>R-곡선은 균열이 자라는 길이(Δa)에 대해 재료의 균열 성장 저항을 그린 곡선입니다. 저항은 응력확대계수로 나타낸 K<sub>R</sub> 또는 에너지 해방률로 나타낸 R로 표시합니다. 균열은 외부에서 걸리는 구동력(K 또는 G)이 저항과 같아질 때 자라기 시작하고, 구동력 곡선의 기울기가 R-곡선의 기울기를 넘는 지점에서 불안정하게 자랍니다.</p><ul><li><strong>평평한 R-곡선</strong>: 균열이 자라도 저항이 변하지 않습니다. 파괴인성 K<sub>c</sub> 하나로 설명됩니다.</li><li><strong>상승하는 R-곡선</strong>: 균열이 자라면서 저항이 커집니다. 균열 뒤쪽(후류, wake)에서 [[crack-bridging|균열 가교]], [[transformation-toughening|변태 강화]], 미세균열화 같은 차폐 효과가 점점 쌓이기 때문입니다(Evans, 1990).</li><li>세라믹과 복합재료에서 상승형이 흔히 보고되고, 금속에서는 소성 영역 확대에 따른 J–R 곡선이 비슷한 역할을 합니다.</li></ul><p>측정은 ASTM E561(K–R 곡선), E1820(J–R 곡선) 같은 표준 시험법이 있으며, 시험편의 형상과 두께가 곡선에 영향을 줍니다(Anderson, 2005).</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 코드로 계산) 균열 저항이 K<sub>R</sub>(Δa) = 3 + 3·[1 − exp(−Δa/50 µm)] MPa√m로 올라가는 재료(시작값 3, 포화값 6)와, 항상 3으로 평평한 재료를 비교합니다. 균열 형상 계수를 Y = 1.12로 두고 초기 균열 길이 a<sub>0</sub>별로 파괴 강도(불안정이 시작되는 최대 응력)를 계산하면 다음과 같습니다.</p><table><thead><tr><th>초기 균열 길이</th><th>평평한 곡선 (MPa)</th><th>상승형 곡선 (MPa)</th><th>비</th></tr></thead><tbody><tr><td>10 µm</td><td>478</td><td>478</td><td>1.00</td></tr><tr><td>25 µm</td><td>302</td><td>302</td><td>1.00</td></tr><tr><td>50 µm</td><td>214</td><td>247</td><td>1.16</td></tr><tr><td>100 µm</td><td>151</td><td>203</td><td>1.35</td></tr><tr><td>200 µm</td><td>107</td><td>163</td><td>1.52</td></tr></tbody></table><p>이 계산이 보여 주는 점은 두 가지입니다. 첫째, 상승형 곡선은 초기 균열이 작을 때는 이득이 없고(R-곡선의 기울기가 구동력 곡선의 기울기보다 완만해 균열이 시작하자마자 불안정해지기 때문), 균열이 클수록 강도 저하를 완화합니다. 즉 결함 크기에 덜 민감한 재료가 됩니다. 둘째, 강도가 초기 균열 길이에 따라 평평한 곡선만큼 급하게 줄지 않아 강도의 산포가 작아질 수 있습니다. 숫자는 가정한 곡선에 의존하는 설명용 값입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“R-곡선은 재료 상수다”</strong>: 시험편 형상, 두께, 균열 길이 범위, 가교 영역의 길이에 따라 달라질 수 있어 시험 조건과 함께 해석해야 합니다.</li><li><strong>“상승형이면 항상 더 강하다”</strong>: 시작 인성(K<sub>0</sub>)이 낮으면 작은 결함에서의 강도는 평평한 곡선과 같습니다. 이득은 큰 균열에서 두드러집니다.</li><li><strong>“R-곡선은 피로 균열 성장 곡선이다”</strong>: R-곡선은 한 번의 하중 증가에서 균열이 자랄 때의 저항이고, 반복 하중에서의 성장 속도(da/dN)와는 다른 개념입니다.</li><li><strong>“하나의 인성값이면 충분하다”</strong>: 상승형 재료에서는 시작값만 적으면 균열이 자라는 동안의 저항 증가를 놓칩니다. 곡선 전체 또는 평탄 영역의 값을 함께 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "파괴 저항을 나타내는 용어는 한 번의 값인지, 균열 길이에 따라 변하는 곡선인지로 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "R-곡선과의 차이"
+    ],
+    "rows": [
+      [
+        "[[fracture-toughness|파괴인성]]",
+        "균열 성장에 대한 저항을 나타내는 값",
+        "하나의 값입니다. R-곡선은 균열이 자라는 동안 이 값이 어떻게 변하는지를 보여 줍니다."
+      ],
+      [
+        "[[stress-intensity-factor|응력확대계수]]",
+        "균열 끝의 응력 집중 정도",
+        "구동력 쪽의 양입니다. KR은 같은 단위의 저항 쪽 양입니다."
+      ],
+      [
+        "[[crack-bridging|균열 가교]]",
+        "균열 면 사이를 잇는 강화재가 하중을 전달하는 현상",
+        "R-곡선을 상승시키는 원인 중 하나입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Evans, A. G. (1990). Perspective on the development of high-toughness ceramics. Journal of the American Ceramic Society, 73(2), 187–206.",
+    "Anderson, T. L. (2005). Fracture Mechanics: Fundamentals and Applications (3rd ed.). CRC Press.",
+    "Lawn, B. (1993). Fracture of Brittle Solids (2nd ed.). Cambridge University Press.",
+    "Mai, Y.-W., & Lawn, B. R. (1987). Crack-interface grain bridging as a fracture resistance mechanism in ceramics: II. Theoretical fracture mechanics model. Journal of the American Ceramic Society, 70(4)."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sas-software.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,29 @@
   <h2>왜 중요한가</h2>
   <p>SAS는 대용량 임상자료를 안정적으로 처리하고 규제기관 제출용 통계분석 절차가 표준화되어 있어, 신약 개발과 임상시험 논문에서 통계분석 도구로 자주 채택됩니다. 어떤 소프트웨어와 절차(procedure)를 사용했는지가 분석의 재현 가능성과 신뢰성을 판단하는 근거가 되기 때문에, 방법 섹션에서 소프트웨어명과 버전을 명시하는 것이 관행으로 자리잡았습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>SAS(Statistical Analysis System)는 SAS Institute가 개발한 상용 통계 소프트웨어입니다. 원형은 미국 노스캐롤라이나 주립대학에서 농업 연구 자료를 분석하려고 시작한 프로젝트이며, 1976년 회사로 독립했습니다(Barr, Goodnight, Sall, &amp; Helwig, 1976). 프로그램은 두 종류의 단계로 구성됩니다.</p><ul><li><strong>DATA 단계</strong>: 자료를 읽고 변수를 만들고 합치는 가공 단계입니다.</li><li><strong>PROC 단계</strong>: 정해진 분석 절차(procedure)를 호출하는 단계입니다. 예를 들어 <code>proc ttest data=d; class group; var score; run;</code>은 집단별 점수의 t검정을 수행합니다.</li></ul><p>실행하면 분석 결과와 함께 처리 과정을 기록한 로그가 남아, 어떤 자료에 어떤 절차를 적용했는지 나중에 추적할 수 있습니다. 매크로 기능으로 반복 코드를 재사용합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>SAS는 대용량 자료 처리, 혼합모형(MIXED), 일반화선형모형(GENMOD), 생존분석(LIFETEST, PHREG), 복합표본조사 자료의 가중치 분석(SURVEY 계열) 같은 절차를 갖추고 있어 보건·의학 연구와 조사 자료 분석에서 널리 쓰입니다. 의약품 임상시험 분야에서는 미국 FDA 등 규제기관에 내는 자료에 SAS 전송 형식(XPORT) 파일이 요구되는 등 SAS 중심의 관행이 형성되어 있습니다. 다만 규제기관이 SAS 사용 자체를 의무로 정한 것은 아니며, 최근에는 R이나 파이썬을 병행하는 흐름도 있습니다. 국내 논문에서도 SAS는 가장 많이 쓰이는 통계 소프트웨어 중 하나로 조사되었고 R 사용이 늘고 있다고 보고되었습니다(아래 인용).</p><p>얻는 것은 분석 결과표와 로그이며, 같은 코드를 다시 돌려 결과를 재현할 수 있다는 점이 장점입니다. 단점으로는 상용 라이선스 비용과 별도의 문법 학습이 꼽힙니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>소프트웨어는 이름과 버전, 제조사를 적는 것이 관례입니다.</p><p><code>통계분석은 SAS version 9.4 (SAS Institute Inc., Cary, NC, USA)를 이용하였다.</code></p><ul><li>버전을 적어야 절차의 기본 설정 차이로 인한 결과 차이를 추적할 수 있습니다.</li><li>가능하면 사용한 절차(예: PROC MIXED)와 주요 옵션(자유도 계산 방법, 가중치 등)을 함께 적습니다.</li><li>복합표본설계나 가중치를 썼다면 이를 처리한 절차를 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“사용하는 통계소프트웨어로는 SAS가 여전히 가장 인기 있었고, 최근에 R을 이용한 분석 논문의 수도 증가 추세임을 알 수 있었다.”</blockquote><p class="te-cite">의학과 치의학 연구에서 통계 활용의 최근 추세, 한국데이터정보과학회지, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002529240" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 연구에서는 본시험과 추가시험 자료를 통합분석하여 생동성여부를 알아보고 결과보고서에 사용될 통계분석 결과를 얻는데 수월하게 사용될 수 있는 SAS 프로그램을 제시하고, 이 때 사용되는 통계적 모형과 분석절차를 단계별로 간략히 설명하였다.”</blockquote><p class="te-cite">생물학적 동등성을 증명하기 위한 추가시험의 통계적 분석, Journal of The Korean Data Analysis Society, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002238793" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“분석 프로그램은 SAS 9.4 (SAS Institute Inc., USA)를 사용하였다.”</blockquote><p class="te-cite">산전 · 조기 아동기 가정방문 간호사와 사회복지사의 배우자 폭력 사례 지원 역량과 실무에서의 어려움, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096490" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모든 자료 분석은 SAS 9.4(SAS Institute Inc., Cary, NC)를 이용하여 실시하였다."</div>
   <p>논문의 통계분석이 SAS라는 소프트웨어의 특정 버전으로 이루어졌음을 밝힌 문장이다.</p>
 
@@ -160,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>SAS는 명령문 기반이라 R과 유사한 학습 곡선을 가지며, 상용 라이선스 비용이 상당히 높은 편이라는 점도 특징이다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>통계 소프트웨어는 사용 방식과 라이선스가 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">소프트웨어</th><th scope="col">사용 방식</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">SAS</th><td>명령문(코드) 기반, 상용</td><td>DATA·PROC 구조, 보건·임상 분야에서 널리 쓰임</td></tr><tr><th scope="row"><a href="spss.html">SPSS</a></th><td>메뉴 클릭 중심, 상용</td><td>코드를 몰라도 분석할 수 있어 사회과학에서 많이 쓰임</td></tr><tr><th scope="row"><a href="stata-software.html">Stata</a></th><td>명령어 기반, 상용</td><td>패널자료·계량경제 분석에 강점</td></tr><tr><th scope="row"><a href="r-software.html">R</a></th><td>코드 기반, 무료 오픈소스</td><td>패키지로 기능을 확장</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Barr, A. J., Goodnight, J. H., Sall, J. P., &amp; Helwig, J. T. (1976). A User's Guide to SAS 76. SAS Institute.</li>
+    <li>Goodnight, J. H. (1979). A tutorial on the SWEEP operator. The American Statistician, 33(3), 149–158.</li>
+    <li>Delwiche, L. D., &amp; Slaughter, S. J. (2019). The Little SAS Book: A Primer (6th ed.). SAS Institute.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

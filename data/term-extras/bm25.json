@@ -1,0 +1,49 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>BM25는 질의 Q에 들어 있는 각 단어 q가 문서 D에서 얼마나 중요한지를 계산해 모두 더한 점수입니다. 널리 쓰이는 형태는 다음과 같습니다.</p><p><code>score(D, Q) = Σ IDF(q) · f(q, D)·(k<sub>1</sub> + 1) / ( f(q, D) + k<sub>1</sub>·(1 − b + b·|D| / avgdl) )</code></p><ul><li><strong>f(q, D)</strong>: 문서 D 안에서 단어 q가 나온 횟수, <strong>|D|</strong>: 문서 길이(단어 수), <strong>avgdl</strong>: 컬렉션의 평균 문서 길이입니다.</li><li><strong>IDF(q)</strong>: 드문 단어일수록 큰 값입니다. 문서 수를 N, q가 들어 있는 문서 수를 n이라 할 때 Lucene 계열 구현은 ln(1 + (N − n + 0.5) / (n + 0.5))를 씁니다. 구현마다 IDF 식이 조금씩 달라서 같은 BM25라도 점수의 절대값은 일치하지 않을 수 있습니다.</li><li><strong>k<sub>1</sub></strong>은 단어 빈도가 점수에 미치는 영향이 얼마나 빨리 한계에 닿는지(포화), <strong>b</strong>(0~1)는 긴 문서에 불이익을 주는 정도입니다. Lucene과 Elasticsearch의 기본값은 k<sub>1</sub> = 1.2, b = 0.75입니다.</li></ul><p><strong>작은 예(가상의 컬렉션, 코드로 계산).</strong> 문서가 N = 1,000개이고 평균 길이 avgdl = 120단어, k<sub>1</sub> = 1.2, b = 0.75라고 합시다. 단어가 10개 문서에만 나오면 IDF ≈ 4.56, 500개 문서에 나오면 IDF ≈ 0.69입니다. 길이가 평균과 같은 문서에서 단어 빈도에 따른 빈도 항 f·(k<sub>1</sub>+1)/(f + k<sub>1</sub>)은 아래처럼 한계(k<sub>1</sub> + 1 = 2.2)에 가까워집니다.</p><table><thead><tr><th>단어 빈도 f</th><th>1</th><th>2</th><th>3</th><th>5</th><th>10</th><th>50</th></tr></thead><tbody><tr><td>빈도 항</td><td>1.00</td><td>1.38</td><td>1.57</td><td>1.77</td><td>1.96</td><td>2.15</td></tr></tbody></table><p>같은 빈도 f = 3이라도 문서 길이가 60단어면 1.76, 120단어면 1.57, 240단어면 1.29로 줄어듭니다(b = 0.75). 위의 희귀 단어(IDF ≈ 4.56)가 f = 3, 길이 100단어인 문서에 나오면 그 단어가 더하는 점수는 약 7.43입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>BM25 점수는 <strong>한 질의 안에서 문서의 순서를 매기는 값</strong>입니다. 점수가 7.4라는 사실 자체에는 의미가 없고, 같은 질의에서 다른 문서보다 높다는 점이 중요합니다. 따라서 서로 다른 질의의 점수를 비교하거나 “점수 10 이상이면 관련 문서” 같은 절대 기준을 두는 것은 적절하지 않습니다. 점수는 N, n, avgdl 같은 컬렉션 통계에 의존하므로 컬렉션이 바뀌면 같은 문서의 점수도 달라집니다.</p><ul><li>k<sub>1</sub>이 클수록 단어를 여러 번 반복한 문서가 더 유리해지고, 작을수록 “한 번이라도 나오면 충분하다”에 가까워집니다.</li><li>b = 0이면 길이 보정이 사라지고(위 예에서 b = 0으로 계산하면 길이와 무관하게 1.57), b = 1이면 길이 보정이 가장 강합니다.</li><li>k<sub>1</sub>, b의 기본값은 관례적 출발점이며, 최적값은 컬렉션과 평가 지표에 따라 다릅니다. 그래서 검증용 질의 집합으로 조정하는 연구가 많습니다.</li><li>어휘가 일치해야 점수가 생기므로 동의어나 의미 유사 관계는 반영하지 못합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>실험 재현을 위해 최소한 다음을 밝힙니다.</p><ul><li>구현체와 버전(예: Lucene 기반 검색엔진, 파이썬 라이브러리), IDF 식의 종류</li><li>k<sub>1</sub>과 b의 값, 그 값을 기본값으로 두었는지 조정했는지(조정했다면 조정에 쓴 자료와 범위)</li><li>토큰화·형태소 분석·불용어 처리·어간 추출 방식(한국어는 형태소 분석기 종류가 결과에 크게 영향)</li><li>평가 자료와 지표(MAP, nDCG@10 등)</li></ul><p><code>기준선으로 BM25(Lucene 구현, k<sub>1</sub> = 1.2, b = 0.75)를 사용하였다.</code>처럼 값을 함께 적으면 다른 연구자가 같은 기준선을 다시 만들 수 있습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "BM25는 이름이 따로 있는 모형이 아니라 순위화 함수여서, 상위 이론이나 비슷한 가중치 방식과 자주 섞어 부릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "BM25와의 차이"
+    ],
+    "rows": [
+      [
+        "[[tf-idf|TF-IDF]]",
+        "단어 빈도와 역문서 빈도를 곱한 가중치",
+        "원형은 빈도가 늘수록 점수가 계속 오릅니다. BM25는 빈도 항이 포화하고 문서 길이 보정이 식에 들어 있습니다."
+      ],
+      [
+        "[[probabilistic-retrieval-model|확률적 검색모형]]",
+        "관련 문서일 확률로 순위를 매기는 이론 틀",
+        "BM25는 이 틀에서 나온 실용적 근사식이며, 모형 이름이 아니라 함수 이름입니다."
+      ],
+      [
+        "[[vector-space-model|벡터공간모형]]",
+        "문서와 질의를 벡터로 보고 코사인 유사도 등으로 비교",
+        "BM25는 벡터 사이의 각도가 아니라 단어별 기여를 합산하는 점수입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Robertson, S., & Zaragoza, H. (2009). The probabilistic relevance framework: BM25 and beyond. Foundations and Trends in Information Retrieval, 3(4), 333–389.",
+    "Robertson, S. E., Walker, S., Jones, S., Hancock-Beaulieu, M. M., & Gatford, M. (1994). Okapi at TREC-3. In Proceedings of the Third Text REtrieval Conference (TREC-3). National Institute of Standards and Technology.",
+    "Spärck Jones, K., Walker, S., & Robertson, S. E. (2000). A probabilistic model of information retrieval: Development and comparative experiments. Part 1. Information Processing & Management, 36(6), 779–808.",
+    "Manning, C. D., Raghavan, P., & Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press."
+  ]
+}
