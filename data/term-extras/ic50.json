@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>IC50은 어떤 반응(효소 활성, 세포 증식, 바이러스 복제 등)을 <strong>절반으로 줄이는 억제제의 농도</strong>입니다. 억제제 농도를 로그로 놓고 S자 곡선을 맞추어 추정합니다.</p><p><code>남은 반응(%) = 100 / (1 + (C / IC50)<sup>n</sup>)</code></p><ul><li>단위는 농도(nM, µM)이고 0보다 큽니다. 로그 척도로 pIC50(= −log<sub>10</sub> IC50, 농도는 mol/L)을 쓰기도 합니다. 예(가상): IC50 12 nM은 pIC50 7.92, 1 µM은 pIC50 6.00입니다. pIC50이 클수록 억제가 강합니다.</li><li><strong>경쟁적 억제</strong>에서는 Cheng–Prusoff 식 <code>K<sub>i</sub> = IC50 / (1 + [S]/K<sub>m</sub>)</code>으로 기질 농도의 영향을 걷어 낸 억제상수 K<sub>i</sub>를 구할 수 있습니다(Cheng &amp; Prusoff, 1973). 예(가상): IC50 = 120 nM일 때 [S] = K<sub>m</sub>이면 K<sub>i</sub> = 60 nM, [S] = 4K<sub>m</sub>이면 K<sub>i</sub> = 24 nM입니다. 측정된 IC50이 같아도 기질 농도가 높았던 실험이라면 실제 K<sub>i</sub>는 더 작습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>같은 실험에서는 IC50이 <strong>작을수록 억제가 강합니다</strong>. 그러나 IC50은 고정된 약물 성질이 아니라 <strong>측정 조건의 함수</strong>입니다. 경쟁적 억제제는 기질 농도가 높을수록, 세포 실험은 노출 시간·세포 수·측정법(MTT 등)에 따라 값이 달라집니다.</li><li>배지에 혈청이 들어 있으면 단백질에 붙는 약물이 늘어 겉보기 IC50이 올라갈 수 있습니다([[plasma-protein-binding|혈장단백질 결합]]).</li><li>효소 농도가 억제상수와 비슷할 만큼 억제제가 아주 강하면, IC50이 효소 농도의 절반 아래로 내려가지 못하는 한계가 생깁니다(Copeland, 2013). 이때는 IC50 대신 별도의 강결합 모델이 쓰입니다.</li><li>‘나노몰이면 강력’이라는 서술은 관례일 뿐 보편 기준이 아닙니다. 서로 다른 논문·실험의 IC50은 조건이 같을 때만 나란히 비교합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>IC50과 함께 <strong>95% 신뢰구간(또는 표준오차)</strong>, 독립 반복 실험 수, 기질·세포 조건, 노출 시간, 곡선 모델을 적습니다. 예(가상): <code>IC50 = 48 nM (95% CI 39–59, n = 3, 기질 농도 = K<sub>m</sub>)</code>.</li><li>비교하려는 화합물들은 같은 날·같은 플레이트에서 시험하고, 기준 억제제(양성 대조)를 함께 보고하는 것이 안전합니다.</li><li>최고 농도에서도 50% 억제에 못 미치면 ‘IC50 &gt; 최고 농도’로 적고 값을 지어내지 않습니다.</li><li>결합 친화도를 말하고 싶다면 IC50이 아니라 K<sub>i</sub> 같은 값을 쓰거나, IC50을 K<sub>i</sub>로 변환한 방법을 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "IC50은 ‘억제’, EC50은 ‘작용’을 기준으로 한 값이고, MIC는 세균 증식을 기준으로 정의가 따로 있습니다.",
+    "headers": [
+      "용어",
+      "정의",
+      "읽는 법"
+    ],
+    "rows": [
+      [
+        "[[ic50|IC50]]",
+        "억제 반응이 50%가 되는 억제제 농도",
+        "곡선을 맞추어 추정. 실험 조건에 민감"
+      ],
+      [
+        "[[ec50|EC50]]",
+        "최대 반응의 50%를 내는 농도",
+        "작용 반응의 효력 지표"
+      ],
+      [
+        "K<sub>i</sub> (억제상수)",
+        "억제제와 효소 복합체의 해리상수",
+        "조건 의존성이 IC50보다 작은 값으로 다룸"
+      ],
+      [
+        "[[minimum-inhibitory-concentration|최소억제농도(MIC)]]",
+        "세균의 눈에 보이는 증식을 막는 최저 농도",
+        "단계 희석에서 읽는 값이며 곡선의 50% 지점이 아님"
+      ]
+    ]
+  },
+  "references": [
+    "Cheng, Y., & Prusoff, W. H. (1973). Relationship between the inhibition constant (K1) and the concentration of inhibitor which causes 50 per cent inhibition (I50) of an enzymatic reaction. Biochemical Pharmacology, 22(23), 3099–3108.",
+    "Sebaugh, J. L. (2011). Guidelines for accurate EC50/IC50 estimation. Pharmaceutical Statistics, 10(2), 128–134.",
+    "Copeland, R. A. (2013). Evaluation of Enzyme Inhibitors in Drug Discovery: A Guide for Medicinal Chemists and Pharmacologists (2nd ed.). Wiley."
+  ]
+}
