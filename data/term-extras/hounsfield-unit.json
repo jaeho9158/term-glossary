@@ -1,0 +1,48 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>하운스필드단위(HU)는 CT 영상의 각 화소가 얼마나 X선을 약하게 만드는지를 물을 기준으로 정리한 값입니다. 정의식은 HU = 1000 × (μ − μ<sub>물</sub>) ÷ (μ<sub>물</sub> − μ<sub>공기</sub>)이고, μ는 선형감쇠계수입니다([[attenuation-coefficient|감쇠계수]]).</li><li>이 정의에서 물은 0 HU, 공기는 −1000 HU가 됩니다. 물보다 X선을 많이 흡수하는 조직은 양의 값, 적게 흡수하는 조직은 음의 값을 가집니다.</li><li>대략적으로 지방은 −100 HU 안팎, 물은 0, 연부조직은 수십 HU, 치밀한 뼈는 수백에서 1,000 HU 이상으로 나타납니다. 정확한 값은 장비, 관전압, 조영제 여부에 따라 달라집니다.</li><li>Hounsfield(1973)가 CT를 소개한 논문에서 출발한 척도이며, 값은 정수로 보고하는 것이 관행입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>직접 계산해 보면</strong>(가상의 선형감쇠계수, 단위 cm⁻¹, μ<sub>물</sub> = 0.19, μ<sub>공기</sub> ≈ 0으로 가정, 코드로 계산):</p><table><thead><tr><th>조직</th><th>μ (cm⁻¹)</th><th>HU</th></tr></thead><tbody><tr><td>지방 같은 저감쇠 조직</td><td>0.1710</td><td>-100</td></tr><tr><td>물</td><td>0.1900</td><td>0</td></tr><tr><td>연부조직(가상)</td><td>0.2052</td><td>80</td></tr><tr><td>뼈 같은 고감쇠 조직</td><td>0.3800</td><td>1000</td></tr></tbody></table><p>HU 값이 μ의 작은 상대적 차이를 크게 확대한 값이라는 점을 알 수 있습니다. μ가 물의 1.08배(0.2052/0.19)이면 +80 HU입니다. HU 척도는 상대 척도라서 같은 조직이라도 에너지가 바뀌면 μ와 HU가 함께 달라집니다.</p><p><strong>창 설정과 연결해서 보면</strong>: 모니터에 보이는 밝기는 HU를 그대로 보여 주지 않고, 관심 범위를 골라 0~255 단계의 회색으로 바꿉니다. 창 수준 40, 창 너비 400이면 -160 HU 이하는 검정, 240 HU 이상은 흰색으로 표시되고, 그 사이에서 직선으로 변환됩니다. 아래는 계산한 밝기입니다([[ct-window-setting|CT창설정]]).</p><table><thead><tr><th>HU</th><th>회색 값(0~255)</th></tr></thead><tbody><tr><td>-100</td><td>38</td></tr><tr><td>0</td><td>102</td></tr><tr><td>45</td><td>131</td></tr><tr><td>300</td><td>255</td></tr></tbody></table>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li><strong>음의 값</strong>: 지방(대략 −100 근처), 폐·공기가 찬 구조(−500 이하부터 −1000 가까이).</li><li><strong>0 근처</strong>: 맑은 액체(물과 비슷한 낭종 내용물 등).</li><li><strong>수십 HU</strong>: 대부분의 연부조직. 병변을 낭종인지 고형인지 구분할 때 측정값이 근거가 되지만, 이 하나만으로 확정하지 않습니다.</li><li><strong>높은 값</strong>: 석회화, 뼈, 조영제가 찬 혈관. 조영제를 쓰면 같은 조직도 수십~수백 HU가 오릅니다.</li><li>수치는 관심 영역(ROI)의 평균이며, 영역이 작거나 경계에 걸리면 부분용적효과로 실제와 다른 값이 나옵니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Hounsfield, G. N. (1973). Computerized transverse axial scanning (tomography): Part 1. Description of system. British Journal of Radiology, 46(552), 1016–1022.",
+    "Bushberg, J. T., Seibert, J. A., Leidholdt, E. M., & Boone, J. M. (2012). The Essential Physics of Medical Imaging (3rd ed.). Lippincott Williams & Wilkins.",
+    "Buzug, T. M. (2008). Computed Tomography: From Photon Statistics to Modern Cone-Beam CT. Springer."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "CT 영상의 값과 표시 방식은 서로 다른 개념입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "단위"
+    ],
+    "rows": [
+      [
+        "하운스필드단위",
+        "물 기준으로 정리한 조직의 X선 감쇠 척도",
+        "HU"
+      ],
+      [
+        "[[attenuation-coefficient|감쇠계수]]",
+        "X선 세기가 물질 속에서 줄어드는 비율(물리량)",
+        "cm⁻¹"
+      ],
+      [
+        "[[ct-window-setting|CT창설정]]",
+        "HU 범위를 골라 화면의 밝기로 바꾸는 표시 방식",
+        "창 수준·창 너비(HU)"
+      ]
+    ]
+  }
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/koppen-climate-classification.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>기온과 강수의 월별 값만으로 세계 기후를 분류하는 체계로, 자료가 단순해 전 세계에 적용할 수 있어 100년 넘게 표준으로 쓰이고 있습니다. 기후 지도 제작, 생태 연구의 지역 비교, 기후변화에 따른 <a href="climate-zone.html">기후대</a> 이동 분석의 공통 기준을 제공합니다. 쾨펜은 식물학자 알퐁스 드 캉돌의 식생대 구분에서 영감을 받아 자신의 기후분류 체계를 구상한 것으로 알려져 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>쾨펜 분류는 월평균 기온과 월 강수량만으로 기후를 <strong>기호 몇 글자</strong>로 요약합니다. 첫 글자가 대분류(A 열대, B 건조, C 온대, D 냉대, E 한대)입니다.</li><li>둘째 글자는 강수의 특성을 나타냅니다. 건조기후(B)에서는 W(사막)·S(스텝), 그 밖에는 f(연중 습윤)·s(여름 건조)·w(겨울 건조)·m(몬순) 등을 씁니다.</li><li>셋째 글자는 기온 특성입니다. 온대(C)와 냉대(D)에서는 a(더운 여름)·b(따뜻한 여름)·c(서늘한 여름), 건조(B)에서는 h(고온)·k(저온) 등을 씁니다. 어느 임계값을 쓰는지는 판본(쾨펜 원안, 가이거 수정, Peel 등의 갱신)마다 조금 다릅니다.</li><li>현대에 쓰는 기후 지도는 대부분 쾨펜–가이거 체계라 불리며, 쾨펜(1900)의 원안을 이후 연구자들이 고쳐 쓴 것입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>아래는 Peel 등(2007)의 기준을 구현한 코드로, 가상의 월별 자료 네 세트(북반구 가정)를 분류한 결과입니다. 건조 판정의 임계값은 P<sub>th</sub>: 연 강수의 70% 이상이 겨울 반년(10~3월)에 내리면 2×연평균기온, 70% 이상이 여름 반년(4~9월)이면 2×연평균기온 + 28, 그 밖에는 2×연평균기온 + 14(강수 mm, 기온 ℃)이며, 연 강수량이 10 × P<sub>th</sub> 미만이면 건조기후(B)입니다. 이 가상 자료의 숫자는 실제 지점의 값이 아닙니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>가상 자료</th><th>최한월 / 최난월 기온(℃)</th><th>연 강수량(mm)</th><th>P<sub>th</sub></th><th>분류</th></tr></thead><tbody><tr><td>가상 관측소 가 (열대 우림형 자료)</td><td>26.0 / 27.5</td><td>2800</td><td>67.3</td><td>Af</td></tr><tr><td>가상 관측소 나 (지중해형 자료)</td><td>9.0 / 25.0</td><td>580</td><td>32.8</td><td>Csa</td></tr><tr><td>가상 관측소 다 (대륙성 냉대형 자료)</td><td>-15.0 / 20.0</td><td>630</td><td>21.8</td><td>Dfb</td></tr><tr><td>가상 관측소 라 (반건조형 자료)</td><td>2.0 / 28.0</td><td>391</td><td>58.0</td><td>BSk</td></tr></tbody></table></div><p>같은 방식으로 최한월 기온이 18℃ 이상이면 A, 0℃ 초과 18℃ 미만이면 C, 0℃ 이하이면 D, 최난월 기온이 10℃ 미만이면 E로 나눕니다(Peel 등의 기준).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>쾨펜 분류는 하나의 고정된 기준표이다.</td><td>판본마다 기준이 다릅니다. 예컨대 온대(C)와 냉대(D)를 가르는 최한월 기온 경계로 −3℃를 쓰는 판본도 있고 0℃를 쓰는 판본도 있습니다. 논문에서는 어느 판본을 썼는지 밝혀야 합니다.</td></tr><tr><td>한 지점의 기후형은 영원하다.</td><td>기후형은 평년 자료 기간에 따라 바뀔 수 있습니다. 가령 Kottek 등(2006)은 1951~2000년 자료로, Beck 등(2018)은 1980~2016년을 현재로 하는 지도를 만들어 미래 전망 지도와 함께 제시했습니다.</td></tr><tr><td>쾨펜 분류가 식생을 설명한다.</td><td>쾨펜은 식생 분포와 맞도록 기준값을 정했으므로, 식생을 설명하는 이론이라기보다 식생과의 대응을 요약한 경험적 분류입니다.</td></tr><tr><td>기후형이 같으면 날씨도 같다.</td><td>분류는 월평균 기온·강수의 연주기만 반영합니다. 습도, 바람, 극값, 일사 같은 요소는 들어 있지 않습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Köppen, W. (1900), "Versuch einer Klassifikation der Klimate, vorzugsweise nach ihren Beziehungen zur Pflanzenwelt", Geographische Zeitschrift 6.</div>
   <p>쾨펜은 식물 분포와 기후요소(기온·강수) 사이의 경험적 대응관계를 근거로 세계기후를 몇 개의 대분류와 기호체계로 나누었으며, 이후 개정을 거쳐 오늘날까지 가장 널리 쓰이는 기후분류 체계가 되었다.</p>
   <div class="example">"쾨펜의 기후구분 기준에 따라 대상 지역의 기후형을 분류하고 그 변화 추이를 분석하였다."</div>
@@ -163,6 +181,20 @@
 
   <h2>주의할 점</h2>
   <p>쾨펜 분류는 실제 식생 경계와 완전히 일치하지 않으며, 인간의 기후 체감(습도, 바람 등)이나 미기후를 반영하지 못한다는 한계가 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>기후 분류 체계와 개별 기후형을 구분해 둡니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">기준 자료</th></tr></thead><tbody><tr><th scope="row">쾨펜 기후구분</th><td>기온·강수로 기후를 기호로 분류하는 체계</td><td>월평균 기온과 월 강수량</td></tr><tr><th scope="row"><a href="thornthwaite-climate-classification.html">손스웨이트 기후구분</a></th><td>증발산을 고려한 수분수지로 습윤·건조 정도를 나누는 체계</td><td>강수량과 증발산량(수분수지)</td></tr><tr><th scope="row"><a href="desert-climate.html">사막기후</a></th><td>쾨펜 체계 안의 한 기후형(BW)</td><td>건조 판정 임계값 기준의 B 중 사막(W)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Köppen, W. (1900). Versuch einer Klassifikation der Klimate, vorzugsweise nach ihren Beziehungen zur Pflanzenwelt. Geographische Zeitschrift, 6.</li>
+    <li>Kottek, M., Grieser, J., Beck, C., Rudolf, B., &amp; Rubel, F. (2006). World map of the Köppen-Geiger climate classification updated. Meteorologische Zeitschrift, 15(3), 259–263.</li>
+    <li>Peel, M. C., Finlayson, B. L., &amp; McMahon, T. A. (2007). Updated world map of the Köppen-Geiger climate classification. Hydrology and Earth System Sciences, 11(5), 1633–1644.</li>
+    <li>Beck, H. E., Zimmermann, N. E., McVicar, T. R., Vergopolan, N., Berg, A., &amp; Wood, E. F. (2018). Present and future Köppen-Geiger climate classification maps at 1-km resolution. Scientific Data, 5, 180214.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="highland-climate.html">고산기후</a><a href="humid-continental-climate.html">냉대습윤기후(대륙성기후)</a><a href="ice-cap-climate.html">빙설기후</a><a href="desert-climate.html">사막기후</a><a href="tropical-savanna-climate.html">사바나기후</a><a href="west-coast-marine-climate.html">서안해양성기후</a><a href="steppe-climate.html">스텝기후</a><a href="subarctic-climate.html">아한대기후(냉대기후)</a><a href="tropical-monsoon-climate.html">열대몬순기후</a><a href="tropical-rainforest-climate.html">열대우림기후</a><a href="humid-subtropical-climate.html">온난습윤기후</a><a href="mediterranean-climate.html">지중해성기후</a><a href="tundra-climate.html">툰드라기후</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

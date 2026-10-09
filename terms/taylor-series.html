@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/taylor-series.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,12 +146,29 @@
 
   <h2>쉽게 풀면</h2>
   <p>구불구불한 산길을 지도에 그릴 때, 아주 가까운 구간만 보면 직선처럼 보이고, 조금 더 신경 써서 보면 완만한 곡선(포물선) 정도로도 꽤 정확하게 흉내 낼 수 있습니다.</p>
-  <p>테일러 급수는 이런 아이디어를 극한까지 밀어붙인 것으로, 어떤 지점 근처에서 함수의 값과 기울기, 기울기의 변화율(<a href="derivative.html">미분</a> 값들)을 차례로 반영해서, 원래는 계산하기 어려운 함수를 직선 → 포물선 → 3차 곡선 → ... 순서로 점점 더 정밀하게 다항식으로 흉내 내는 방법입니다. 항을 많이 더할수록 원래 함수와 거의 똑같아집니다.</p>
+  <p>테일러 급수는 이런 아이디어를 극한까지 밀어붙인 것으로, 어떤 지점 근처에서 함수의 값과 기울기, 기울기의 변화율(<a href="derivative.html">미분</a> 값들)을 차례로 반영해서, 원래는 계산하기 어려운 함수를 직선 → 포물선 → 3차 곡선 → ... 순서로 점점 더 정밀하게 다항식으로 흉내 내는 방법입니다. 급수가 수렴하는 범위 안에서는 항을 많이 더할수록 원래 함수에 가까워집니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>실제 자연현상이나 시스템 모델은 대부분 비선형이라 다루기가 까다롭지만, 테일러 급수를 이용해 특정 지점 근처를 선형(또는 저차 다항식)으로 근사하면 훨씬 단순한 수식으로 분석할 수 있습니다. 이 때문에 물리학, 공학의 제어이론, 경제학의 균형점 분석, 최적화 알고리즘 등 다양한 분야의 논문에서 복잡한 모델을 다루기 쉬운 형태로 바꾸는 표준 도구로 자주 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>함수 f를 점 a에서 무한히 미분할 수 있을 때, 테일러 급수는 f(a) + f′(a)(x−a) + f″(a)(x−a)²/2! + f‴(a)(x−a)³/3! + … 입니다. 각 항의 계수가 a에서의 미분값을 n!로 나눈 값이라는 것이 핵심입니다.</li><li>a = 0이면 매클로린 급수(<a href="maclaurin-series.html">매클로린 급수</a>)라 부르며, 테일러 급수의 특별한 경우입니다. 테일러 급수는 거듭제곱급수(<a href="power-series.html">거듭제곱급수</a>)의 한 종류로, 계수를 함수의 미분값에서 가져온 것입니다.</li><li>급수를 n차 항에서 잘라낸 것이 <strong>테일러 다항식</strong>이고, 잘라낸 부분의 오차를 나머지항(예: 라그랑주 꼴 R<sub>n</sub> = f<sup>(n+1)</sup>(ξ)(x−a)<sup>n+1</sup>/(n+1)!)으로 표현합니다.</li><li>급수가 원래 함수에 수렴하는 x의 범위가 수렴반경으로 정해지며, 이 범위 밖에서는 항을 더할수록 오히려 멀어질 수 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 계산 1: 많이 더할수록 가까워지는 경우</strong> e<sup>x</sup>를 a = 0에서 전개한 n차 다항식으로 e<sup>1</sup>(= 2.718282)을 근사한 결과입니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>n</th><th>n차 다항식의 값</th><th>실제 e와의 오차</th></tr></thead><tbody><tr><td>1</td><td>2.000000</td><td>7.18e-1</td></tr><tr><td>2</td><td>2.500000</td><td>2.18e-1</td></tr><tr><td>3</td><td>2.666667</td><td>5.16e-2</td></tr><tr><td>4</td><td>2.708333</td><td>9.95e-3</td></tr><tr><td>6</td><td>2.718056</td><td>2.26e-4</td></tr></tbody></table></div><p><strong>가상의 계산 2: 범위 밖에서는 다가서지 않는 경우</strong> ln(1+x) = x − x²/2 + x³/3 − … 는 수렴반경이 1입니다. 아래 표는 n개 항까지 더한 값으로, x = 0.5에서는 실제값 ln 1.5 = 0.405465에 가까워지지만 x = 1.5에서는 실제값 ln 2.5 = 0.9163에 다가서지 못하고 커지는 값으로 흔들립니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>n</th><th>x = 0.5에서의 합</th><th>x = 1.5에서의 합</th></tr></thead><tbody><tr><td>5</td><td>0.407292</td><td>1.75</td></tr><tr><td>10</td><td>0.405435</td><td>-2.40</td></tr><tr><td>20</td><td>0.405465</td><td>-96.83</td></tr><tr><td>40</td><td>0.405465</td><td>-164192.64</td></tr></tbody></table></div>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>무한히 미분 가능한 함수는 테일러 급수가 그 함수와 같다.</td><td>그렇지 않습니다. 예컨대 f(x) = e<sup>−1/x²</sup> (x ≠ 0), f(0) = 0은 무한히 미분 가능하지만 x = 0에서의 모든 미분값이 0이어서 테일러 급수가 0으로 나오고, x ≠ 0에서 함수와 다릅니다.</td></tr><tr><td>항을 많이 쓸수록 항상 더 정확하다.</td><td>수렴반경 안에서만 그렇습니다. 계산 2처럼 x = 1.5에서는 항을 늘려도 정확해지지 않습니다.</td></tr><tr><td>테일러 급수와 테일러 다항식은 같은 말이다.</td><td>급수는 무한합, 다항식은 유한 항에서 자른 근사입니다. 실무와 논문에서 근사에 쓰는 것은 대개 다항식입니다.</td></tr><tr><td>1차 근사만 하면 항상 충분하다.</td><td>1차 항은 a 근처에서만 정확합니다. 곡률이 중요한 문제(최적화의 뉴턴법, 안정성의 2차 판별)에서는 2차 항이 필요합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"비선형 시스템의 동작을 평형점 근처에서 1차 테일러 급수로 근사하여 선형화한 뒤 안정성을 분석하였다."</div>
   <p>이 문장은 복잡하고 비선형적인 수식을 그대로 다루기 어려우니, 관심 있는 지점 근처에서 테일러 급수의 앞부분(주로 1차 또는 2차 항)만 남겨 단순한 직선(또는 포물선) 형태로 바꾼 뒤 분석했다는 뜻입니다. 이런 "선형화" 기법은 물리학, 공학, 제어이론, 경제학 등 비선형 현상을 근사적으로 다뤄야 하는 논문에서 매우 흔하게 사용됩니다.</p>
 
@@ -163,6 +181,19 @@
 
   <h2>주의할 점</h2>
   <p>테일러 급수는 원래 함수와 가까운 지점에서만 근사가 정확하며, 근사하려는 지점에서 멀어질수록 오차가 커질 수 있습니다. 또한 모든 함수가 무한히 미분 가능한 것은 아니어서, 테일러 급수 자체가 존재하지 않거나 원래 함수로 수렴하지 않는 경우도 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>급수 이름이 비슷해 혼동되기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">전개 중심</th><th scope="col">포함 관계</th></tr></thead><tbody><tr><th scope="row"><a href="power-series.html">거듭제곱급수</a></th><td>임의의 계수 a&lt;sub&gt;n&lt;/sub&gt;</td><td>가장 넓은 형태</td></tr><tr><th scope="row">테일러 급수</th><td>x = a</td><td>계수가 f&lt;sup&gt;(n)&lt;/sup&gt;(a)/n!인 거듭제곱급수</td></tr><tr><th scope="row"><a href="maclaurin-series.html">매클로린 급수</a></th><td>x = 0</td><td>a = 0인 테일러 급수</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rudin, W. (1976). Principles of Mathematical Analysis (3rd ed.). McGraw-Hill.</li>
+    <li>Apostol, T. M. (1967). Calculus, Volume 1 (2nd ed.). Wiley.</li>
+    <li>Spivak, M. (2008). Calculus (4th ed.). Publish or Perish.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="power-series.html">거듭제곱급수</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="maclaurin-series.html">매클로린 급수</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

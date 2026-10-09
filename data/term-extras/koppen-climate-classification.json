@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>쾨펜 분류는 월평균 기온과 월 강수량만으로 기후를 <strong>기호 몇 글자</strong>로 요약합니다. 첫 글자가 대분류(A 열대, B 건조, C 온대, D 냉대, E 한대)입니다.</li><li>둘째 글자는 강수의 특성을 나타냅니다. 건조기후(B)에서는 W(사막)·S(스텝), 그 밖에는 f(연중 습윤)·s(여름 건조)·w(겨울 건조)·m(몬순) 등을 씁니다.</li><li>셋째 글자는 기온 특성입니다. 온대(C)와 냉대(D)에서는 a(더운 여름)·b(따뜻한 여름)·c(서늘한 여름), 건조(B)에서는 h(고온)·k(저온) 등을 씁니다. 어느 임계값을 쓰는지는 판본(쾨펜 원안, 가이거 수정, Peel 등의 갱신)마다 조금 다릅니다.</li><li>현대에 쓰는 기후 지도는 대부분 쾨펜–가이거 체계라 불리며, 쾨펜(1900)의 원안을 이후 연구자들이 고쳐 쓴 것입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>아래는 Peel 등(2007)의 기준을 구현한 코드로, 가상의 월별 자료 네 세트(북반구 가정)를 분류한 결과입니다. 건조 판정의 임계값은 P<sub>th</sub>: 연 강수의 70% 이상이 겨울 반년(10~3월)에 내리면 2×연평균기온, 70% 이상이 여름 반년(4~9월)이면 2×연평균기온 + 28, 그 밖에는 2×연평균기온 + 14(강수 mm, 기온 ℃)이며, 연 강수량이 10 × P<sub>th</sub> 미만이면 건조기후(B)입니다. 이 가상 자료의 숫자는 실제 지점의 값이 아닙니다.</p><table><thead><tr><th>가상 자료</th><th>최한월 / 최난월 기온(℃)</th><th>연 강수량(mm)</th><th>P<sub>th</sub></th><th>분류</th></tr></thead><tbody><tr><td>가상 관측소 가 (열대 우림형 자료)</td><td>26.0 / 27.5</td><td>2800</td><td>67.3</td><td>Af</td></tr><tr><td>가상 관측소 나 (지중해형 자료)</td><td>9.0 / 25.0</td><td>580</td><td>32.8</td><td>Csa</td></tr><tr><td>가상 관측소 다 (대륙성 냉대형 자료)</td><td>-15.0 / 20.0</td><td>630</td><td>21.8</td><td>Dfb</td></tr><tr><td>가상 관측소 라 (반건조형 자료)</td><td>2.0 / 28.0</td><td>391</td><td>58.0</td><td>BSk</td></tr></tbody></table><p>같은 방식으로 최한월 기온이 18℃ 이상이면 A, 0℃ 초과 18℃ 미만이면 C, 0℃ 이하이면 D, 최난월 기온이 10℃ 미만이면 E로 나눕니다(Peel 등의 기준).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>쾨펜 분류는 하나의 고정된 기준표이다.</td><td>판본마다 기준이 다릅니다. 예컨대 온대(C)와 냉대(D)를 가르는 최한월 기온 경계로 −3℃를 쓰는 판본도 있고 0℃를 쓰는 판본도 있습니다. 논문에서는 어느 판본을 썼는지 밝혀야 합니다.</td></tr><tr><td>한 지점의 기후형은 영원하다.</td><td>기후형은 평년 자료 기간에 따라 바뀔 수 있습니다. 가령 Kottek 등(2006)은 1951~2000년 자료로, Beck 등(2018)은 1980~2016년을 현재로 하는 지도를 만들어 미래 전망 지도와 함께 제시했습니다.</td></tr><tr><td>쾨펜 분류가 식생을 설명한다.</td><td>쾨펜은 식생 분포와 맞도록 기준값을 정했으므로, 식생을 설명하는 이론이라기보다 식생과의 대응을 요약한 경험적 분류입니다.</td></tr><tr><td>기후형이 같으면 날씨도 같다.</td><td>분류는 월평균 기온·강수의 연주기만 반영합니다. 습도, 바람, 극값, 일사 같은 요소는 들어 있지 않습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Köppen, W. (1900). Versuch einer Klassifikation der Klimate, vorzugsweise nach ihren Beziehungen zur Pflanzenwelt. Geographische Zeitschrift, 6.",
+    "Kottek, M., Grieser, J., Beck, C., Rudolf, B., & Rubel, F. (2006). World map of the Köppen-Geiger climate classification updated. Meteorologische Zeitschrift, 15(3), 259–263.",
+    "Peel, M. C., Finlayson, B. L., & McMahon, T. A. (2007). Updated world map of the Köppen-Geiger climate classification. Hydrology and Earth System Sciences, 11(5), 1633–1644.",
+    "Beck, H. E., Zimmermann, N. E., McVicar, T. R., Vergopolan, N., Berg, A., & Wood, E. F. (2018). Present and future Köppen-Geiger climate classification maps at 1-km resolution. Scientific Data, 5, 180214."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "기후 분류 체계와 개별 기후형을 구분해 둡니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "기준 자료"
+    ],
+    "rows": [
+      [
+        "쾨펜 기후구분",
+        "기온·강수로 기후를 기호로 분류하는 체계",
+        "월평균 기온과 월 강수량"
+      ],
+      [
+        "[[thornthwaite-climate-classification|손스웨이트 기후구분]]",
+        "증발산을 고려한 수분수지로 습윤·건조 정도를 나누는 체계",
+        "강수량과 증발산량(수분수지)"
+      ],
+      [
+        "[[desert-climate|사막기후]]",
+        "쾨펜 체계 안의 한 기후형(BW)",
+        "건조 판정 임계값 기준의 B 중 사막(W)"
+      ]
+    ]
+  }
+}

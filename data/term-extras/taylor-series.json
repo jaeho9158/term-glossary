@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "항을 많이 더할수록 원래 함수와 거의 똑같아집니다.",
+      "replace": "급수가 수렴하는 범위 안에서는 항을 많이 더할수록 원래 함수에 가까워집니다."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>함수 f를 점 a에서 무한히 미분할 수 있을 때, 테일러 급수는 f(a) + f′(a)(x−a) + f″(a)(x−a)²/2! + f‴(a)(x−a)³/3! + … 입니다. 각 항의 계수가 a에서의 미분값을 n!로 나눈 값이라는 것이 핵심입니다.</li><li>a = 0이면 매클로린 급수([[maclaurin-series|매클로린 급수]])라 부르며, 테일러 급수의 특별한 경우입니다. 테일러 급수는 거듭제곱급수([[power-series|거듭제곱급수]])의 한 종류로, 계수를 함수의 미분값에서 가져온 것입니다.</li><li>급수를 n차 항에서 잘라낸 것이 <strong>테일러 다항식</strong>이고, 잘라낸 부분의 오차를 나머지항(예: 라그랑주 꼴 R<sub>n</sub> = f<sup>(n+1)</sup>(ξ)(x−a)<sup>n+1</sup>/(n+1)!)으로 표현합니다.</li><li>급수가 원래 함수에 수렴하는 x의 범위가 수렴반경으로 정해지며, 이 범위 밖에서는 항을 더할수록 오히려 멀어질 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 계산 1: 많이 더할수록 가까워지는 경우</strong> e<sup>x</sup>를 a = 0에서 전개한 n차 다항식으로 e<sup>1</sup>(= 2.718282)을 근사한 결과입니다(코드로 계산).</p><table><thead><tr><th>n</th><th>n차 다항식의 값</th><th>실제 e와의 오차</th></tr></thead><tbody><tr><td>1</td><td>2.000000</td><td>7.18e-1</td></tr><tr><td>2</td><td>2.500000</td><td>2.18e-1</td></tr><tr><td>3</td><td>2.666667</td><td>5.16e-2</td></tr><tr><td>4</td><td>2.708333</td><td>9.95e-3</td></tr><tr><td>6</td><td>2.718056</td><td>2.26e-4</td></tr></tbody></table><p><strong>가상의 계산 2: 범위 밖에서는 다가서지 않는 경우</strong> ln(1+x) = x − x²/2 + x³/3 − … 는 수렴반경이 1입니다. 아래 표는 n개 항까지 더한 값으로, x = 0.5에서는 실제값 ln 1.5 = 0.405465에 가까워지지만 x = 1.5에서는 실제값 ln 2.5 = 0.9163에 다가서지 못하고 커지는 값으로 흔들립니다.</p><table><thead><tr><th>n</th><th>x = 0.5에서의 합</th><th>x = 1.5에서의 합</th></tr></thead><tbody><tr><td>5</td><td>0.407292</td><td>1.75</td></tr><tr><td>10</td><td>0.405435</td><td>-2.40</td></tr><tr><td>20</td><td>0.405465</td><td>-96.83</td></tr><tr><td>40</td><td>0.405465</td><td>-164192.64</td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>무한히 미분 가능한 함수는 테일러 급수가 그 함수와 같다.</td><td>그렇지 않습니다. 예컨대 f(x) = e<sup>−1/x²</sup> (x ≠ 0), f(0) = 0은 무한히 미분 가능하지만 x = 0에서의 모든 미분값이 0이어서 테일러 급수가 0으로 나오고, x ≠ 0에서 함수와 다릅니다.</td></tr><tr><td>항을 많이 쓸수록 항상 더 정확하다.</td><td>수렴반경 안에서만 그렇습니다. 계산 2처럼 x = 1.5에서는 항을 늘려도 정확해지지 않습니다.</td></tr><tr><td>테일러 급수와 테일러 다항식은 같은 말이다.</td><td>급수는 무한합, 다항식은 유한 항에서 자른 근사입니다. 실무와 논문에서 근사에 쓰는 것은 대개 다항식입니다.</td></tr><tr><td>1차 근사만 하면 항상 충분하다.</td><td>1차 항은 a 근처에서만 정확합니다. 곡률이 중요한 문제(최적화의 뉴턴법, 안정성의 2차 판별)에서는 2차 항이 필요합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Rudin, W. (1976). Principles of Mathematical Analysis (3rd ed.). McGraw-Hill.",
+    "Apostol, T. M. (1967). Calculus, Volume 1 (2nd ed.). Wiley.",
+    "Spivak, M. (2008). Calculus (4th ed.). Publish or Perish."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "급수 이름이 비슷해 혼동되기 쉽습니다.",
+    "headers": [
+      "용어",
+      "전개 중심",
+      "포함 관계"
+    ],
+    "rows": [
+      [
+        "[[power-series|거듭제곱급수]]",
+        "임의의 계수 a<sub>n</sub>",
+        "가장 넓은 형태"
+      ],
+      [
+        "테일러 급수",
+        "x = a",
+        "계수가 f<sup>(n)</sup>(a)/n!인 거듭제곱급수"
+      ],
+      [
+        "[[maclaurin-series|매클로린 급수]]",
+        "x = 0",
+        "a = 0인 테일러 급수"
+      ]
+    ]
+  }
+}

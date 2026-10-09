@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>플릿관리시스템(FMS)은 여러 대의 이동 로봇(AGV·AMR)을 하나의 관제 소프트웨어가 <strong>작업 할당, 경로·교통 조정, 충전 관리, 상태 감시</strong> 면에서 함께 다루는 시스템입니다.</li><li>구성요소는 흔히 (1) 상위 시스템(창고관리시스템 WMS, 제조실행시스템 MES)에서 받은 주문을 로봇 작업으로 바꾸는 작업 관리, (2) 어느 로봇이 어느 작업을 맡을지 정하는 할당, (3) 충돌과 교착을 피하며 이동 경로를 정하는 교통 관리, (4) 배터리·고장 상태를 보고 충전·정비 시점을 정하는 관리로 나뉩니다.</li><li>제조사가 다른 로봇을 하나의 FMS에서 다루려면 통신 규격이 필요합니다. 독일 자동차산업협회(VDA)가 만든 VDA 5050은 AGV와 상위 관제 사이의 통신 인터페이스를 정한 규격입니다.</li><li>FMS는 개별 로봇의 주행 제어(로봇 안의 제어기)와 구별됩니다. 한 대 로봇이 장애물을 피하는 것은 로봇의 몫이고, 여러 대가 서로 길을 양보하게 하는 것이 FMS의 몫입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>왜 “할당”이 중요한가</strong>를 작은 예로 보면(가상의 이동 거리 행렬, 코드로 계산): 로봇 3대와 작업 3개가 있고 각 로봇이 각 작업까지 가는 거리(m)가 아래와 같습니다.</p><table><thead><tr><th></th><th>작업 1</th><th>작업 2</th><th>작업 3</th></tr></thead><tbody><tr><td>로봇 1</td><td>2</td><td>3</td><td>9</td></tr><tr><td>로봇 2</td><td>1</td><td>8</td><td>8</td></tr><tr><td>로봇 3</td><td>6</td><td>7</td><td>2</td></tr></tbody></table><p>로봇 1, 2, 3 순서로 “지금 가장 가까운 작업”을 고르는 단순 방식은 로봇 1이 작업 1(2 m), 로봇 2가 작업 2(8 m), 로봇 3이 작업 3(2 m)을 맡아 총 <strong>12 m</strong>입니다. 가능한 6가지 배정을 모두 따져 보면 최소는 로봇 1→작업 2(3 m), 로봇 2→작업 1(1 m), 로봇 3→작업 3(2 m)으로 총 <strong>6 m</strong>입니다. 로봇이 한 대씩 따로 판단하면 놓치는 전체 최적을 중앙의 시스템이 찾을 수 있다는 것이 FMS의 장점입니다. 로봇과 작업이 많아지면 모든 경우를 따지는 대신 헝가리안 알고리즘 같은 할당 알고리즘을 씁니다.</p><p>Wurman 등(2008)은 창고에서 수백 대의 자율 이동 로봇을 중앙에서 조정하는 시스템을 소개했고, Le-Anh와 De Koster(2006)는 AGV 시스템의 설계·제어 문제를 종합 정리했습니다. 다중 로봇의 충돌 없는 경로 계획은 다중 에이전트 경로 탐색(MAPF) 문제로 연구됩니다(Stern 등, 2019).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>FMS는 로봇 한 대의 주행 알고리즘이다.</td><td>FMS는 여러 대를 함께 다루는 상위 관제입니다. 한 대의 주행·장애물 회피와는 다른 층위입니다.</td></tr><tr><td>로봇 성능이 좋으면 FMS는 덜 중요하다.</td><td>로봇 수가 늘수록 교통 정체와 교착이 전체 처리량을 좌우하므로, 개별 로봇 성능과 별개로 FMS의 할당·교통 관리가 중요합니다.</td></tr><tr><td>중앙 관제가 항상 분산 방식보다 낫다.</td><td>중앙 방식은 전체 최적에 가깝지만 규모가 커지면 계산 부담과 서버 장애 위험이 커집니다. 분산 방식은 확장성이 좋은 대신 교착 회피가 어렵습니다.</td></tr><tr><td>FMS는 로봇 제조사가 정한 전용 소프트웨어다.</td><td>제조사 전용인 경우가 많지만, 규격(VDA 5050 등)을 통해 다른 제조사 로봇을 함께 다루려는 시도가 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Le-Anh, T., & De Koster, M. B. M. (2006). A review of design and control of automated guided vehicle systems. European Journal of Operational Research, 171(1), 1–23.",
+    "Wurman, P. R., D'Andrea, R., & Mountz, M. (2008). Coordinating hundreds of cooperative, autonomous vehicles in warehouses. AI Magazine, 29(1), 9–19.",
+    "Stern, R., Sturtevant, N. R., Felner, A., Koenig, S., Ma, H., Walker, T. T., Li, J., Atzmon, D., Cohen, L., Kumar, T. K. S., Barták, R., & Boyarski, E. (2019). Multi-agent pathfinding: Definitions, variants, and benchmarks. Proceedings of the International Symposium on Combinatorial Search."
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "“플릿”이 들어간 용어가 영역마다 다른 대상을 가리킵니다.",
+    "headers": [
+      "용어",
+      "대상",
+      "다루는 일"
+    ],
+    "rows": [
+      [
+        "플릿관리시스템(이 페이지)",
+        "창고·공장의 이동 로봇 무리",
+        "작업 할당, 교통 조정, 충전 관리"
+      ],
+      [
+        "[[fleet-management|차량군관리]]",
+        "운송용 차량 무리(트럭·택시 등)",
+        "배차, 경로, 유지보수 계획"
+      ],
+      [
+        "[[multi-robot-system|다중로봇시스템]]",
+        "여러 로봇이 협력하는 시스템 일반",
+        "협업과 조율의 개념 전반"
+      ]
+    ]
+  }
+}

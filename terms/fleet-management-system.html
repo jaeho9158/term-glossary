@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/fleet-management-system.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>수십에서 수백 대의 이동로봇에 작업을 배정하고 경로 충돌과 교착을 막으며 충전을 관리하는 소프트웨어로, 개별 로봇 성능보다 이 시스템이 창고 전체 처리량을 좌우합니다. 다중로봇 경로 계획과 <a href="task-allocation.html">작업할당</a> 연구가 실제로 적용되는 자리입니다. 로봇이 수십, 수백 대로 늘어날수록 사람이 일일이 작업을 배정하기 어려워지므로, 이를 자동으로 조율하는 소프트웨어가 없으면 대규모 로봇 운영 자체가 불가능합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>플릿관리시스템(FMS)은 여러 대의 이동 로봇(AGV·AMR)을 하나의 관제 소프트웨어가 <strong>작업 할당, 경로·교통 조정, 충전 관리, 상태 감시</strong> 면에서 함께 다루는 시스템입니다.</li><li>구성요소는 흔히 (1) 상위 시스템(창고관리시스템 WMS, 제조실행시스템 MES)에서 받은 주문을 로봇 작업으로 바꾸는 작업 관리, (2) 어느 로봇이 어느 작업을 맡을지 정하는 할당, (3) 충돌과 교착을 피하며 이동 경로를 정하는 교통 관리, (4) 배터리·고장 상태를 보고 충전·정비 시점을 정하는 관리로 나뉩니다.</li><li>제조사가 다른 로봇을 하나의 FMS에서 다루려면 통신 규격이 필요합니다. 독일 자동차산업협회(VDA)가 만든 VDA 5050은 AGV와 상위 관제 사이의 통신 인터페이스를 정한 규격입니다.</li><li>FMS는 개별 로봇의 주행 제어(로봇 안의 제어기)와 구별됩니다. 한 대 로봇이 장애물을 피하는 것은 로봇의 몫이고, 여러 대가 서로 길을 양보하게 하는 것이 FMS의 몫입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>왜 “할당”이 중요한가</strong>를 작은 예로 보면(가상의 이동 거리 행렬, 코드로 계산): 로봇 3대와 작업 3개가 있고 각 로봇이 각 작업까지 가는 거리(m)가 아래와 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>작업 1</th><th>작업 2</th><th>작업 3</th></tr></thead><tbody><tr><td>로봇 1</td><td>2</td><td>3</td><td>9</td></tr><tr><td>로봇 2</td><td>1</td><td>8</td><td>8</td></tr><tr><td>로봇 3</td><td>6</td><td>7</td><td>2</td></tr></tbody></table></div><p>로봇 1, 2, 3 순서로 “지금 가장 가까운 작업”을 고르는 단순 방식은 로봇 1이 작업 1(2 m), 로봇 2가 작업 2(8 m), 로봇 3이 작업 3(2 m)을 맡아 총 <strong>12 m</strong>입니다. 가능한 6가지 배정을 모두 따져 보면 최소는 로봇 1→작업 2(3 m), 로봇 2→작업 1(1 m), 로봇 3→작업 3(2 m)으로 총 <strong>6 m</strong>입니다. 로봇이 한 대씩 따로 판단하면 놓치는 전체 최적을 중앙의 시스템이 찾을 수 있다는 것이 FMS의 장점입니다. 로봇과 작업이 많아지면 모든 경우를 따지는 대신 헝가리안 알고리즘 같은 할당 알고리즘을 씁니다.</p><p>Wurman 등(2008)은 창고에서 수백 대의 자율 이동 로봇을 중앙에서 조정하는 시스템을 소개했고, Le-Anh와 De Koster(2006)는 AGV 시스템의 설계·제어 문제를 종합 정리했습니다. 다중 로봇의 충돌 없는 경로 계획은 다중 에이전트 경로 탐색(MAPF) 문제로 연구됩니다(Stern 등, 2019).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>FMS는 로봇 한 대의 주행 알고리즘이다.</td><td>FMS는 여러 대를 함께 다루는 상위 관제입니다. 한 대의 주행·장애물 회피와는 다른 층위입니다.</td></tr><tr><td>로봇 성능이 좋으면 FMS는 덜 중요하다.</td><td>로봇 수가 늘수록 교통 정체와 교착이 전체 처리량을 좌우하므로, 개별 로봇 성능과 별개로 FMS의 할당·교통 관리가 중요합니다.</td></tr><tr><td>중앙 관제가 항상 분산 방식보다 낫다.</td><td>중앙 방식은 전체 최적에 가깝지만 규모가 커지면 계산 부담과 서버 장애 위험이 커집니다. 분산 방식은 확장성이 좋은 대신 교착 회피가 어렵습니다.</td></tr><tr><td>FMS는 로봇 제조사가 정한 전용 소프트웨어다.</td><td>제조사 전용인 경우가 많지만, 규격(VDA 5050 등)을 통해 다른 제조사 로봇을 함께 다루려는 시도가 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">플릿 관리 시스템은 다수 로봇의 위치, 배터리 상태, 작업 큐를 실시간으로 통합 관리하며 작업 할당과 경로 충돌 회피를 중앙 집중적으로 조율한다.</div>
   <p>여러 로봇의 상태를 한눈에 파악하고, 서로 길이 겹치지 않도록 조정하면서 각 로봇에게 어떤 일을 할지 효율적으로 나눠준다는 뜻입니다.</p>
 
@@ -159,6 +177,19 @@
 
   <h2>주의할 점</h2>
   <p>로봇 수가 매우 많아지면 중앙집중식 관리의 계산 부담과 통신 병목이 시스템 확장성의 제약이 될 수 있습니다. 중앙 서버에 의존하는 구조여서 서버 장애가 발생하면 개별 로봇의 국소적인 판단 능력만으로는 전체 운영이 크게 제약될 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>“플릿”이 들어간 용어가 영역마다 다른 대상을 가리킵니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">대상</th><th scope="col">다루는 일</th></tr></thead><tbody><tr><th scope="row">플릿관리시스템(이 페이지)</th><td>창고·공장의 이동 로봇 무리</td><td>작업 할당, 교통 조정, 충전 관리</td></tr><tr><th scope="row"><a href="fleet-management.html">차량군관리</a></th><td>운송용 차량 무리(트럭·택시 등)</td><td>배차, 경로, 유지보수 계획</td></tr><tr><th scope="row"><a href="multi-robot-system.html">다중로봇시스템</a></th><td>여러 로봇이 협력하는 시스템 일반</td><td>협업과 조율의 개념 전반</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Le-Anh, T., &amp; De Koster, M. B. M. (2006). A review of design and control of automated guided vehicle systems. European Journal of Operational Research, 171(1), 1–23.</li>
+    <li>Wurman, P. R., D'Andrea, R., &amp; Mountz, M. (2008). Coordinating hundreds of cooperative, autonomous vehicles in warehouses. AI Magazine, 29(1), 9–19.</li>
+    <li>Stern, R., Sturtevant, N. R., Felner, A., Koenig, S., Ma, H., Walker, T. T., Li, J., Atzmon, D., Cohen, L., Kumar, T. K. S., Barták, R., &amp; Boyarski, E. (2019). Multi-agent pathfinding: Definitions, variants, and benchmarks. Proceedings of the International Symposium on Combinatorial Search.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
