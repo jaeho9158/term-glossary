@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "fixes": [
+    {
+      "find": "<a href=\"differential-item-functioning.html\">차별적 문항기능</a> 분석 결과나 선별 대상자 수가",
+      "replace": "합격률이나 선별 대상자 수가"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>크게 <strong>판단 중심</strong>과 <strong>자료 중심</strong> 두 갈래입니다.</p>\n<p><strong>Angoff 방법</strong>(Angoff, 1971): 전문가 패널이 문항마다 “겨우 합격할 수준의 사람이 맞힐 확률”을 추정하고, 문항별 평균을 모두 더한 값이 절단점이 됩니다. (가상) 판정자 5명이 문항 4개를 추정했습니다.</p>\n<table><thead><tr><th>판정자</th><th>문항 1</th><th>문항 2</th><th>문항 3</th><th>문항 4</th></tr></thead><tbody>\n<tr><td>1</td><td>.6</td><td>.7</td><td>.5</td><td>.8</td></tr>\n<tr><td>2</td><td>.5</td><td>.6</td><td>.5</td><td>.7</td></tr>\n<tr><td>3</td><td>.7</td><td>.8</td><td>.6</td><td>.8</td></tr>\n<tr><td>4</td><td>.6</td><td>.6</td><td>.4</td><td>.7</td></tr>\n<tr><td>5</td><td>.5</td><td>.7</td><td>.5</td><td>.9</td></tr>\n<tr><td>평균</td><td>.58</td><td>.68</td><td>.50</td><td>.78</td></tr>\n</tbody></table>\n<p>절단점은 .58 + .68 + .50 + .78 = <strong>2.54점</strong>(4점 만점의 63.5%)입니다(코드로 계산). 북마크 방법 등 다른 판단 중심 방법도 있습니다(Cizek &amp; Bunch, 2007).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>자료 중심 방법</strong>의 예로 ROC 곡선과 Youden 지수(J = 민감도 + 특이도 − 1)가 있습니다(Youden, 1950; Fluss 등, 2005). (가상) 환자 30명과 비환자 70명에게 검사 점수가 절단점 이상이면 양성으로 판정했습니다.</p>\n<table><thead><tr><th>절단점</th><th>민감도</th><th>특이도</th><th>J</th></tr></thead><tbody>\n<tr><td>8</td><td>.900</td><td>.571</td><td>.471</td></tr>\n<tr><td>9</td><td>.833</td><td>.743</td><td>.576</td></tr>\n<tr><td>10</td><td>.733</td><td>.857</td><td>.590</td></tr>\n<tr><td>11</td><td>.567</td><td>.929</td><td>.495</td></tr>\n<tr><td>12</td><td>.400</td><td>.971</td><td>.371</td></tr>\n</tbody></table>\n<p>J가 가장 큰 절단점은 10입니다(코드로 계산). 그러나 선별검사는 놓침을 줄이려고 민감도를 더 중시해 8~9를, 확진 용도라면 특이도를 중시해 11~12를 고를 수 있어 <strong>목적에 따라 같은 자료에서도 선택이 달라집니다</strong>. 판단 중심 방법은 합격·자격처럼 기준이 가치 판단일 때, 자료 중심 방법은 진단 정확도가 핵심일 때 어울립니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul>\n<li>판단 중심: 패널 구성(인원, 전문성), 훈련과 ‘경계 수준’의 정의, 라운드 수, 문항 통계 제공 여부, 최종값과 불확실성(패널 평균의 표준오차 등)을 적습니다.</li>\n<li>자료 중심: 표본, 기준 표준(무엇을 진단의 정답으로 삼았는지), 민감도·특이도·AUC, 절단점 선택 기준(Youden, 비용 가중)을 적습니다.</li>\n<li>다른 표본에서의 교차 검증이나 재현 여부를 제시하면 신뢰가 높아집니다.</li>\n<li>절단점은 하나의 추정이며 표본과 방법에 의존한다는 점을 한계로 서술합니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "절단점을 정하는 대표적인 방법입니다.",
+    "headers": [
+      "방법",
+      "근거",
+      "잘 맞는 상황"
+    ],
+    "rows": [
+      [
+        "[[angoff-method|앵고프 방법]]",
+        "전문가의 문항별 확률 판단",
+        "자격시험의 합격선"
+      ],
+      [
+        "북마크 방법",
+        "난이도 순으로 나열한 문항 책에 전문가가 표시",
+        "여러 수준(등급)을 한 번에 정할 때"
+      ],
+      [
+        "[[roc-curve|ROC 곡선]]·Youden 지수",
+        "민감도·특이도 자료",
+        "진단·선별 검사"
+      ]
+    ]
+  },
+  "references": [
+    "Angoff, W. H. (1971). Scales, norms, and equivalent scores. In R. L. Thorndike (Ed.), Educational Measurement (2nd ed., pp. 508–600). American Council on Education.",
+    "Cizek, G. J., & Bunch, M. B. (2007). Standard Setting: A Guide to Establishing and Evaluating Performance Standards on Tests. SAGE.",
+    "Youden, W. J. (1950). Index for rating diagnostic tests. Cancer, 3, 32–35.",
+    "Fluss, R., Faraggi, D., & Reiser, B. (2005). Estimation of the Youden index and its associated cutoff point. Biometrical Journal, 47, 458–472."
+  ]
+}

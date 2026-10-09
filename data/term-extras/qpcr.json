@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol>\n<li><strong>준비</strong>: DNA 또는 RNA에서 만든 cDNA, 표적에 맞춘 프라이머(와 프로브), 형광 시약(SYBR Green 같은 이중가닥 결합 염료나 가수분해 프로브)을 섞습니다.</li>\n<li><strong>증폭과 측정</strong>: 열 순환마다 형광을 읽어 증폭곡선을 얻습니다(Higuchi 등, 1993).</li>\n<li><strong>Ct(Cq) 읽기</strong>: 형광이 정한 문턱값을 넘는 사이클 수입니다. 처음 양이 많을수록 Ct가 작습니다.</li>\n<li><strong>정량</strong>: 절대정량은 알려진 농도의 표준곡선에 대입하고, 상대정량은 참조유전자와 비교합니다.</li>\n</ol>\n<p><strong>증폭 효율</strong>은 표준곡선의 기울기에서 구합니다: E = 10<sup>(−1/기울기)</sup> − 1. 기울기 −3.32이면 효율 약 100%, −3.45이면 94.9%, −3.10이면 110%입니다(코드로 계산). 100%일 때 Ct가 1 낮을수록 처음 양이 2배입니다.</p>\n<p><strong>ΔΔCt 예</strong>(가상, Livak &amp; Schmittgen, 2001): 처리군은 표적 Ct 22.0, 참조유전자 Ct 18.0이고 대조군은 표적 24.0, 참조 18.0입니다. ΔCt(표적 − 참조)는 4.0과 6.0, ΔΔCt = 4.0 − 6.0 = −2.0이므로 발현은 2<sup>2</sup> = <strong>4배</strong>입니다(효율이 두 유전자 모두 약 100%라는 가정이 필요).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>유전자 발현 변화, 병원체의 양, 유전자 복제수를 빠르고 민감하게 정량할 때 쓰입니다. 얻는 것은 시료 간 상대적 양이며, 절대정량에는 신뢰할 수 있는 표준물이 필요합니다.</p>\n<ul>\n<li><strong>한계</strong>: 효율 차이를 무시하면 배수가 틀어집니다(효율 보정식은 Pfaffl, 2001). 참조유전자가 조건에 따라 변하면 정규화가 틀립니다. RNA 품질과 억제 물질이 결과에 영향을 줍니다.</li>\n<li><strong>반복의 구분</strong>: 같은 cDNA를 여러 번 재는 ‘기술 반복’과 독립된 생물 시료 ‘생물 반복’을 구분합니다. 통계 검정의 표본은 생물 반복입니다.</li>\n<li>Ct는 로그 척도 값이므로 통계는 ΔCt 단위에서 하는 것이 일반적입니다.</li>\n</ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul>\n<li>MIQE 지침(Bustin 등, 2009)에 맞춰 프라이머 서열, 증폭 효율, 참조유전자와 선정 근거, 반복 수, RNA 품질, 표준곡선(기울기·R²), 대조 반응(주형 없음, 역전사 없음)을 적습니다.</li>\n<li>정량 방법(ΔΔCt, 표준곡선, 효율 보정)과 장비·소프트웨어를 적습니다.</li>\n<li>(가상의 문장) “발현은 GAPDH로 정규화하여 2<sup>−ΔΔCt</sup> 방법으로 계산하였고, 세 번의 독립 실험 평균을 비교하였다.”</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "PCR 계열 용어는 무엇을 하느냐에 따라 구분합니다.",
+    "headers": [
+      "용어",
+      "목적",
+      "결과"
+    ],
+    "rows": [
+      [
+        "[[pcr|PCR]]",
+        "특정 DNA 조각 증폭",
+        "있다/없다, 밴드"
+      ],
+      [
+        "정량 PCR(qPCR)",
+        "증폭을 실시간으로 감시해 정량",
+        "Ct 값, 상대·절대량"
+      ],
+      [
+        "[[rt-pcr|RT-PCR]]",
+        "RNA를 cDNA로 역전사한 뒤 증폭",
+        "RNA 존재 여부"
+      ],
+      [
+        "RT-qPCR",
+        "역전사와 정량 PCR의 결합",
+        "RNA 발현량"
+      ]
+    ],
+    "note": "RT-PCR의 ‘RT’는 실시간(real-time)이 아니라 역전사(reverse transcription)입니다."
+  },
+  "references": [
+    "Higuchi, R., Fockler, C., Dollinger, G., & Watson, R. (1993). Kinetic PCR analysis: real-time monitoring of DNA amplification reactions. Bio/Technology, 11, 1026–1030.",
+    "Livak, K. J., & Schmittgen, T. D. (2001). Analysis of relative gene expression data using real-time quantitative PCR and the 2^−ΔΔCT method. Methods, 25, 402–408.",
+    "Pfaffl, M. W. (2001). A new mathematical model for relative quantification in real-time RT-PCR. Nucleic Acids Research, 29, e45.",
+    "Bustin, S. A., Benes, V., Garson, J. A., et al. (2009). The MIQE guidelines: minimum information for publication of quantitative real-time PCR experiments. Clinical Chemistry, 55, 611–622."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "type": "instrument",
+  "fixes": [
+    {
+      "find": "센서마다 특정 이온이나 화학종에 선택적으로 반응하도록 설계됩니다",
+      "replace": "센서마다 여러 이온이나 화학종에 서로 다른 정도로 반응하도록(부분 선택성) 설계됩니다"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "무엇을 재는가",
+      "html": "<p>액체 시료의 <strong>맛 관련 화학 성분의 전체 패턴</strong>을 센서 배열로 잽니다. 각 센서는 특정 물질에만 반응하지 않고 여러 물질에 서로 다르게 반응하는 ‘교차선택성’을 가지며, 센서 신호들을 한꺼번에 패턴 인식으로 분석합니다(Vlasov &amp; Legin, 1998). 방식은 전위차법, 전압전류법(Winquist 등, 1997), 지질·고분자막을 이용한 미각 센서(Toko, 2000) 등이 있습니다.</p>"
+    },
+    {
+      "heading": "구성과 채점",
+      "html": "<ul>\n<li><strong>구성</strong>: 센서 배열, 기준 전극, 시료 용기와 센서 세척 장치, 신호 처리용 컴퓨터.</li>\n<li><strong>데이터 처리</strong>: 센서별 전위(mV) 같은 값을 [[principal-component-analysis|주성분분석]], 판별분석, PLS 회귀로 요약해 시료를 구분하거나 관능 점수를 예측합니다(Ciosek &amp; Wróblewski, 2007).</li>\n</ul>\n<p><strong>가상의 예</strong>: 음료 A와 B를 각각 3번씩 센서 4개로 측정했습니다(mV).</p>\n<table><thead><tr><th>시료</th><th>센서 1</th><th>센서 2</th><th>센서 3</th><th>센서 4</th></tr></thead><tbody>\n<tr><td>A-1</td><td>102</td><td>215</td><td>330</td><td>98</td></tr>\n<tr><td>A-2</td><td>105</td><td>212</td><td>334</td><td>97</td></tr>\n<tr><td>A-3</td><td>100</td><td>218</td><td>328</td><td>99</td></tr>\n<tr><td>B-1</td><td>88</td><td>230</td><td>310</td><td>120</td></tr>\n<tr><td>B-2</td><td>91</td><td>226</td><td>312</td><td>118</td></tr>\n<tr><td>B-3</td><td>89</td><td>229</td><td>309</td><td>121</td></tr>\n</tbody></table>\n<p>두 시료군의 중심 사이 거리는 35.07, 군 안에서 중심까지의 평균 거리는 A가 3.60, B가 2.64입니다(코드로 계산). 군 사이 거리가 군 안의 퍼짐보다 훨씬 커서 두 음료를 구별할 수 있다고 볼 수 있습니다.</p>"
+    },
+    {
+      "heading": "결과 읽는 법",
+      "html": "<ul>\n<li>출력은 ‘단맛이 몇 점’이 아니라 <strong>센서 응답의 패턴</strong>입니다. 사람의 맛 지각과 연결하려면 관능평가 점수와의 상관·예측 정확도를 따로 확인해야 합니다.</li>\n<li>센서는 시간이 지나면서 값이 흘러가고(드리프트), 온도·pH·이온 강도에 민감하므로 교정과 세척 순서를 지켜 반복 측정합니다.</li>\n<li>교차 반응이 있으므로 특정 성분의 농도를 곧바로 말하기는 어렵고, 필요하면 HPLC 같은 성분 분석을 병행합니다.</li>\n<li>논문에는 센서 종류와 수, 시료 전처리(희석 등), 측정 순서와 반복 횟수, 통계·기계학습 방법, 검증 방식(교차검증 등)을 적습니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "감각 기반의 기기 분석은 대상이 다릅니다.",
+    "headers": [
+      "용어",
+      "분석 대상",
+      "센서"
+    ],
+    "rows": [
+      [
+        "전자혀",
+        "액체의 맛 성분 패턴",
+        "전기화학 센서 배열"
+      ],
+      [
+        "[[electronic-nose|전자코]]",
+        "기체(냄새)의 휘발성 성분 패턴",
+        "가스 센서 배열"
+      ]
+    ]
+  },
+  "references": [
+    "Vlasov, Y., & Legin, A. (1998). Non-selective chemical sensors in analytical chemistry: from “electronic nose” to “electronic tongue”. Fresenius' Journal of Analytical Chemistry, 361, 255–260.",
+    "Winquist, F., Wide, P., & Lundström, I. (1997). An electronic tongue based on voltammetry. Analytica Chimica Acta, 357, 21–31.",
+    "Toko, K. (2000). Taste sensor. Sensors and Actuators B: Chemical, 64, 205–215.",
+    "Ciosek, P., & Wróblewski, W. (2007). Sensor arrays for liquid sensing — electronic tongue systems. Analyst, 132, 963–978."
+  ]
+}

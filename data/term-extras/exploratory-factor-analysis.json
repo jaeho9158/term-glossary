@@ -1,0 +1,56 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>문항(또는 변수)이 몇 개의 공통 요인으로 묶이는지 <strong>미리 가설을 정하지 않고</strong> 자료에서 찾아볼 때 씁니다. 척도 개발 초기의 문항 정리, 새 개념의 차원 탐색이 전형적입니다. 이미 구조가 이론으로 정해져 있다면 [[confirmatory-factor-analysis|확인적 요인분석]]이 맞습니다.</p>\n<ul>\n<li><strong>자료</strong>: 변수들이 연속형에 가까워야 하며, 5점 이하의 서열 문항은 다분상관(polychoric) 행렬을 쓰는 방법도 권장됩니다.</li>\n<li><strong>표본 크기</strong>: Comrey와 Lee(1992)는 100명 poor, 200 fair, 300 good, 500 very good, 1000 excellent로 구분합니다. 문항당 몇 명 같은 단순 비율보다 공통성이 높고 요인당 문항이 충분할 때 작은 표본도 견딘다는 점이 MacCallum 등(1999)에 의해 보여졌습니다.</li>\n<li><strong>사전 점검</strong>: [[kmo-measure|KMO]]와 바틀렛 구형성 검정. 표본이 크면 바틀렛 검정은 거의 항상 유의하므로 정보가 적습니다.</li>\n</ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>(가상의 예) 4개 문항의 상관행렬이 아래와 같다고 해 봅시다.</p>\n<table><thead><tr><th></th><th>문항 1</th><th>문항 2</th><th>문항 3</th><th>문항 4</th></tr></thead><tbody>\n<tr><th scope=\"row\">문항 1</th><td>1</td><td>.60</td><td>.15</td><td>.10</td></tr>\n<tr><th scope=\"row\">문항 2</th><td>.60</td><td>1</td><td>.12</td><td>.18</td></tr>\n<tr><th scope=\"row\">문항 3</th><td>.15</td><td>.12</td><td>1</td><td>.55</td></tr>\n<tr><th scope=\"row\">문항 4</th><td>.10</td><td>.18</td><td>.55</td><td>1</td></tr>\n</tbody></table>\n<p>이 행렬의 고유값은 1.851, 1.299, 0.485, 0.364이고 합은 변수 수 4와 같습니다(코드로 계산). 읽는 순서는 다음과 같습니다.</p>\n<ol>\n<li><strong>요인 수 정하기</strong>: Kaiser(1960)의 ‘고유값 1 이상’ 기준이면 2개입니다. 스크리 도표의 꺾임(Cattell, 1966)과 [[parallel-analysis|평행분석]](Horn, 1965)을 함께 봅니다. 고유값 1 기준은 요인을 과대 추출하는 경향이 알려져 있어 단독 사용은 권장되지 않습니다(Fabrigar 등, 1999).</li>\n<li><strong>설명 분산</strong>: 두 요인이 전체 분산의 (1.851 + 1.299) ÷ 4 = 78.8%를 설명합니다(주성분 기준).</li>\n<li><strong>회전과 해석</strong>: 요인이 서로 상관될 수 있으면 사각회전을, 아니면 직교회전을 쓰고, 적재 패턴으로 요인에 이름을 붙입니다. 위 행렬에서는 문항 1·2와 문항 3·4가 각각 한 요인으로 묶일 것으로 예상됩니다.</li>\n<li><strong>적합성 점검</strong>: Kaiser(1974)는 KMO를 .90대 매우 좋음, .80대 좋음, .70대 보통, .60대 평범, .50대 나쁨, .50 미만은 부적합이라고 표현했습니다.</li>\n</ol>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul>\n<li>표본 크기, 응답 척도, 사용한 상관(피어슨/다분)과 결측 처리를 적습니다.</li>\n<li>KMO와 바틀렛 결과, 요인 수 결정에 쓴 기준을 <strong>둘 이상</strong> 적고(고유값, 스크리, 평행분석), 선택 이유를 설명합니다.</li>\n<li>추출 방법(주축요인, 최대우도 등), 회전 방식, 적재량 표(공통성과 설명분산 포함)를 싣습니다. 문항 제거 규칙과 그 근거도 적습니다.</li>\n<li>탐색적으로 얻은 구조는 <strong>다른 표본</strong>에서 확인적 요인분석으로 검증하는 것이 권장됩니다. 같은 자료로 EFA와 CFA를 이어서 하면 구조가 자료에 과적합될 수 있습니다.</li>\n</ul>\n<p>(가상의 문장) “KMO는 .84, 바틀렛 검정은 유의하였다. 평행분석과 스크리 도표를 근거로 2요인을 선택하고 사각회전(oblimin)한 결과, 모든 문항이 한 요인에만 .40 이상 적재되었다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "요인분석 계열 용어는 목적이 다릅니다.",
+    "headers": [
+      "방법",
+      "목적",
+      "구조를 미리 정하는가"
+    ],
+    "rows": [
+      [
+        "탐색적 요인분석",
+        "자료에서 요인 구조를 찾음",
+        "아니오"
+      ],
+      [
+        "[[confirmatory-factor-analysis|확인적 요인분석]]",
+        "정해 둔 구조가 자료에 맞는지 검증",
+        "예"
+      ],
+      [
+        "[[principal-component-analysis|주성분분석]]",
+        "변수를 적은 수의 성분으로 요약",
+        "아니오(요인 모형은 아님)"
+      ],
+      [
+        "[[factor-analysis|요인분석]]",
+        "위 방법들을 아우르는 통계 기법",
+        "—"
+      ]
+    ],
+    "note": "주성분분석은 전체 분산을 요약하고, 요인분석은 공통분산에 초점을 맞춥니다."
+  },
+  "references": [
+    "Fabrigar, L. R., Wegener, D. T., MacCallum, R. C., & Strahan, E. J. (1999). Evaluating the use of exploratory factor analysis in psychological research. Psychological Methods, 4, 272–299.",
+    "Costello, A. B., & Osborne, J. W. (2005). Best practices in exploratory factor analysis: four recommendations for getting the most from your analysis. Practical Assessment, Research & Evaluation, 10(7).",
+    "Horn, J. L. (1965). A rationale and test for the number of factors in factor analysis. Psychometrika, 30, 179–185.",
+    "Kaiser, H. F. (1974). An index of factorial simplicity. Psychometrika, 39, 31–36.",
+    "MacCallum, R. C., Widaman, K. F., Zhang, S., & Hong, S. (1999). Sample size in factor analysis. Psychological Methods, 4, 84–99."
+  ]
+}

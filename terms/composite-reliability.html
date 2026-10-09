@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/composite-reliability.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,39 @@
   <p>그래서 합성신뢰도는 구조방정식모형(SEM)이나 PLS 기반 연구에서 측정모형을 보고할 때 거의 필수적으로 함께 제시되는 지표입니다.</p>
   <p>특히 요인적재량이 문항마다 다르게 나타나는 경우가 많은 실제 데이터에서는, 이를 반영하지 않는 크론바흐 알파보다 합성신뢰도가 측정의 질을 더 정확히 보여준다는 점에서 방법론적으로 중요하게 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>한 요인에 속한 문항의 <strong>표준화 적재량 λ</strong>와 오차분산으로 구합니다(단일 요인, 오차끼리 독립이라고 가정).</p>
+  <p><strong>ρ<sub>c</sub> = (Σλ)² ÷ [(Σλ)² + Σ(1 − λ²)]</strong></p>
+  <p>같은 적재량으로 <strong>평균분산추출(AVE) = Σλ² ÷ 문항 수</strong>도 구합니다(Fornell &amp; Larcker, 1981). 범위는 0~1입니다.</p>
+  <p><strong>가상의 예</strong>: 문항 5개의 표준화 적재량이 .82, .78, .74, .69, .55라면 Σλ = 3.58이고 (Σλ)² = 12.816입니다. 오차분산(1 − λ²)의 합은 5 − 2.607 = 2.393이므로 ρ<sub>c</sub> = 12.816 ÷ (12.816 + 2.393) = <strong>.843</strong>, AVE = 2.607 ÷ 5 = <strong>.521</strong>입니다(코드로 계산).</p>
+  <p>알파와의 관계: 적재량이 모든 문항에서 같을 때(타우등가)에만 알파가 합성신뢰도와 같고, 적재량이 다르면 알파가 보통 더 낮게 나옵니다(Raykov, 1997; Dunn 등, 2014). 이 식은 <a href="mcdonalds-omega.html">맥도널드 오메가</a>와 같은 계열입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul>
+  <li><strong>ρ<sub>c</sub></strong>: .70 이상을 요구하는 것이 관례이며, Nunnally의 .70 기준을 따른 것입니다.</li>
+  <li><strong>AVE</strong>: .50 이상이면 요인이 문항 분산의 절반 이상을 설명한다는 뜻으로, Fornell과 Larcker(1981)의 기준입니다. 위 예는 .521로 겨우 넘습니다.</li>
+  <li>Fornell과 Larcker는 AVE가 .50에 못 미쳐도 ρ<sub>c</sub>가 충분하면 수렴타당도를 인정할 여지가 있다고 논의했으나, 보수적으로 둘 다 확인하는 연구자도 많습니다.</li>
+  <li>판별타당도를 볼 때 AVE의 제곱근이 다른 요인과의 상관보다 큰지 보는 방식(Fornell–Larcker)에는 한계가 지적되어, HTMT 같은 대안이 제안되었습니다(Henseler 등, 2015).</li>
+  </ul>
+  <p>적재량 하나가 크게 낮은(.55) 문항이 있어도 ρ<sub>c</sub>는 .84로 높게 나올 수 있으므로, 개별 적재량을 함께 봅니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul>
+  <li>확인적 요인분석 모형, 추정법, <strong>표준화</strong> 적재량과 오차 처리(오차 상관 허용 여부)를 적습니다.</li>
+  <li>요인별 ρ<sub>c</sub>(또는 ω)와 AVE를 표로 싣고, 계산 식의 출처를 적습니다. 알파도 병행하면 비교할 수 있습니다.</li>
+  <li>ρ<sub>c</sub>의 신뢰구간을 제시하면 불확실성을 알 수 있습니다.</li>
+  <li>(가상의 문장) “지식 요인의 합성신뢰도는 .84, 평균분산추출은 .52였다.”</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"확인적 요인분석 결과, 모든 잠재변인의 합성신뢰도(CR)는 .70 이상으로 나타나 측정모형의 신뢰도가 확보되었다."</div>
   <p>이 문장은 설문에서 사용한 각 개념(잠재변인)이 관련 문항들로 안정적이고 일관되게 측정되었음을 확인적 요인분석을 통해 검증했다는 뜻입니다.</p>
 
@@ -169,6 +202,21 @@
 
   <h2>주의할 점</h2>
   <p>합성신뢰도는 확인적 요인분석을 이미 실행해서 <a href="factor-loading.html">요인적재량</a>을 구한 뒤에야 계산할 수 있습니다. 요인분석 없이 문항 점수만 있다면 <a href="cronbachs-alpha.html">크론바흐 알파</a>를 대신 보고하는 경우가 많으므로, 논문에서 어떤 지표를 썼는지 구분해서 읽어야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>신뢰도 지표는 요인 구조를 어떻게 다루느냐가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">가정</th><th scope="col">필요한 것</th></tr></thead><tbody><tr><th scope="row">합성신뢰도</th><td>단일 요인, 문항별 적재량이 달라도 됨</td><td>확인적 요인분석의 적재량</td></tr><tr><th scope="row"><a href="cronbachs-alpha.html">크론바흐 알파</a></th><td>적재량이 같다는 타우등가</td><td>문항 분산과 공분산</td></tr><tr><th scope="row"><a href="mcdonalds-omega.html">맥도널드 오메가</a></th><td>요인 모형(합성신뢰도와 같은 계열)</td><td>요인분석 결과</td></tr><tr><th scope="row"><a href="kuder-richardson-reliability.html">KR-20</a></th><td>이분 문항 전용</td><td>정답률과 총점 분산</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fornell, C., &amp; Larcker, D. F. (1981). Evaluating structural equation models with unobservable variables and measurement error. Journal of Marketing Research, 18, 39–50.</li>
+    <li>Raykov, T. (1997). Estimation of composite reliability for congeneric measures. Applied Psychological Measurement, 21, 173–184.</li>
+    <li>McDonald, R. P. (1999). Test Theory: A Unified Treatment. Lawrence Erlbaum.</li>
+    <li>Dunn, T. J., Baguley, T., &amp; Brunsden, V. (2014). From alpha to omega: a practical solution to the pervasive problem of internal consistency estimation. British Journal of Psychology, 105, 399–412.</li>
+    <li>Henseler, J., Ringle, C. M., &amp; Sarstedt, M. (2015). A new criterion for assessing discriminant validity in variance-based structural equation modeling. Journal of the Academy of Marketing Science, 43, 115–135.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="reliability.html">신뢰도</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="test-retest-reliability.html">검사-재검사 신뢰도</a><a href="parallel-forms-reliability.html">동형검사 신뢰도</a><a href="split-half-reliability.html">반분신뢰도</a><a href="kuder-richardson-reliability.html">쿠더-리처드슨 신뢰도</a><a href="inter-rater-reliability.html">평가자간 신뢰도</a></div></div><p class="concept-family-map"><a href="../concept-map/tool.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

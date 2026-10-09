@@ -1,0 +1,56 @@
+{
+  "type": "theory",
+  "sections": [
+    {
+      "heading": "핵심 주장",
+      "html": "<ul>\n<li>고전검사이론은 관찰점수의 변동을 ‘참점수 대 오차’ 둘로만 나눕니다. 일반화가능도이론(G이론)은 이를 <strong>분산분석으로 여러 원천으로 쪼갭니다</strong>. 원천은 측정 대상(보통 사람), 그리고 평가자·문항·시점 같은 <strong>측면(facet)</strong>과 그 상호작용입니다.</li>\n<li>관찰은 ‘허용되는 관찰의 전체(universe)’에서 뽑은 표본이며, 질문은 “이 점수가 같은 전체의 다른 관찰로 얼마나 일반화되는가”입니다.</li>\n<li><strong>G연구</strong>는 분산 성분을 추정하고, <strong>D연구</strong>는 평가자 수·문항 수를 바꾸면 신뢰도가 어떻게 달라질지 예측합니다.</li>\n<li>사람의 상대 순위가 중요한 결정이면 <strong>일반화가능도 계수(Eρ²)</strong>, 절대 점수 수준이 중요한 결정(합격선 등)이면 <strong>의존성 지수(Φ)</strong>를 씁니다. 평가자의 엄격함 차이는 Φ에는 오차로 들어가고 Eρ²에는 들어가지 않습니다.</li>\n</ul>"
+    },
+    {
+      "heading": "근거와 대표 연구",
+      "html": "<p>(가상의 예) 사람 20명을 평가자 3명이 모두 채점한 ‘사람 × 평가자’ 설계에서 분산분석 평균제곱이 사람 12.0, 평가자 9.0, 잔차(사람×평가자·오차) 2.0이었다고 합시다. 기댓값 관계 E(MS<sub>사람</sub>) = σ²<sub>pr,e</sub> + n<sub>r</sub>σ²<sub>p</sub>, E(MS<sub>평가자</sub>) = σ²<sub>pr,e</sub> + n<sub>p</sub>σ²<sub>r</sub>에서</p>\n<ul>\n<li>σ²<sub>p</sub> = (12.0 − 2.0) ÷ 3 = 3.333</li>\n<li>σ²<sub>r</sub> = (9.0 − 2.0) ÷ 20 = 0.350</li>\n<li>σ²<sub>pr,e</sub> = 2.0</li>\n</ul>\n<p>D연구로 평가자 수 n′에 따른 계수를 계산하면 다음과 같습니다(코드로 계산).</p>\n<table><thead><tr><th>평가자 수</th><th>Eρ² = σ²p ÷ (σ²p + σ²pr,e ÷ n′)</th><th>Φ = σ²p ÷ (σ²p + (σ²r + σ²pr,e) ÷ n′)</th></tr></thead><tbody>\n<tr><td>1명</td><td>.625</td><td>.587</td></tr>\n<tr><td>3명</td><td>.833</td><td>.810</td></tr>\n<tr><td>5명</td><td>.893</td><td>.876</td></tr>\n</tbody></table>\n<p>평가자를 늘릴수록 계수가 오르되 증가폭은 줄어듭니다. 이렇게 ‘몇 명으로 충분한가’를 계산하는 것이 이 이론이 쓰이는 대표적인 방식입니다. 이론의 출발은 Cronbach, Rajaratnam, Gleser(1963)와 Cronbach 등(1972)의 저서이고, 입문서로 Shavelson과 Webb(1991), 포괄적인 설명으로 Brennan(2001)이 알려져 있습니다. 수행평가에서는 과제 표집에 따른 변동이 크게 나타난 사례가 보고되었습니다(Shavelson, Baxter, &amp; Gao, 1993).</p>"
+    },
+    {
+      "heading": "비판과 한계",
+      "html": "<ul>\n<li><strong>설계 선택에 따른 결과</strong>: 평가자·문항을 무선(표본)으로 볼지 고정으로 볼지, 교차인지 내포인지에 따라 같은 자료에서도 계수가 달라집니다. 일반화하려는 범위는 연구자가 정합니다.</li>\n<li><strong>추정의 불안정성</strong>: 분산 성분은 대상·측면 수가 작으면 불안정하고 음수로 추정되기도 하며, 보통 0으로 처리합니다.</li>\n<li><strong>복잡성</strong>: 측면이 늘면 설계와 해석이 어려워집니다. 전용 프로그램이나 분산 성분 추정 도구가 필요합니다.</li>\n<li><strong>지표의 한계</strong>: 계수가 높아도 타당도를 보장하지 않습니다. 평가자 간 일치만 궁금하다면 [[intraclass-correlation-coefficient|급내상관계수]]가 더 간단합니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "신뢰도를 다루는 도구는 오차를 몇 갈래로 나누느냐가 다릅니다.",
+    "headers": [
+      "방법",
+      "오차를 다루는 방식",
+      "잘 맞는 상황"
+    ],
+    "rows": [
+      [
+        "일반화가능도이론",
+        "평가자·문항·시점 등 여러 원천으로 분해",
+        "측정 설계(평가자 수 등)를 정하려 할 때"
+      ],
+      [
+        "[[cronbachs-alpha|크론바흐 알파]]",
+        "문항 한 측면의 일관성",
+        "문항들의 내적 일관성"
+      ],
+      [
+        "[[intraclass-correlation-coefficient|급내상관계수]]",
+        "평가자·반복 측정의 일치",
+        "평가자 간 신뢰도"
+      ],
+      [
+        "[[inter-rater-reliability|평가자간 신뢰도]]",
+        "평가자 간 일치 전반",
+        "관찰·평정 연구"
+      ]
+    ],
+    "note": "G이론의 특수한 경우로 알파나 급내상관계수를 볼 수 있습니다."
+  },
+  "references": [
+    "Cronbach, L. J., Rajaratnam, N., & Gleser, G. C. (1963). Theory of generalizability: a liberalization of reliability theory. British Journal of Statistical Psychology, 16, 137–163.",
+    "Cronbach, L. J., Gleser, G. C., Nanda, H., & Rajaratnam, N. (1972). The Dependability of Behavioral Measurements: Theory of Generalizability for Scores and Profiles. Wiley.",
+    "Shavelson, R. J., & Webb, N. M. (1991). Generalizability Theory: A Primer. SAGE.",
+    "Brennan, R. L. (2001). Generalizability Theory. Springer.",
+    "Shavelson, R. J., Baxter, G. P., & Gao, X. (1993). Sampling variability of performance assessments. Journal of Educational Measurement, 30, 215–232."
+  ]
+}

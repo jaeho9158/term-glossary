@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul>\n<li>측정 결과는 값 하나가 아니라 <strong>값과 불확도</strong>의 쌍입니다. 측정불확도는 측정량에 합리적으로 귀속될 수 있는 값들의 퍼짐을 나타내는 모수입니다(JCGM 100:2008, GUM).</li>\n<li><strong>표준불확도 u</strong>는 표준편차의 크기로 나타냅니다. 구하는 방법에 따라 <strong>A형</strong>(반복 측정의 통계 분석)과 <strong>B형</strong>(교정서, 사양서, 경험 등 통계 외 정보)으로 나눕니다.</li>\n<li>독립인 성분들은 제곱합의 제곱근으로 합성합니다: <strong>u<sub>c</sub> = √(Σ(c<sub>i</sub>u<sub>i</sub>)²)</strong> (c<sub>i</sub>는 감도계수).</li>\n<li><strong>확장불확도 U = k × u<sub>c</sub></strong>. 분포가 정규에 가까우면 포함인자 k = 2가 약 95% 신뢰수준에 해당합니다.</li>\n<li>눈금 분해능처럼 한계만 아는 성분은 직사각형 분포로 보고 반폭 a에 대해 u = a/√3로 계산합니다.</li>\n</ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예) 저울로 어떤 시료의 질량을 5번 쟀더니 100.12, 100.31, 100.05, 100.22, 100.18 mg였습니다.</p>\n<ol>\n<li>평균 100.176 mg, 표준편차 s = 0.0986 mg. 평균의 A형 불확도는 s/√5 = <strong>0.0441 mg</strong>.</li>\n<li>교정서에 적힌 저울 교정의 표준불확도(B형)는 0.100 mg.</li>\n<li>눈금 분해능이 0.01 mg이면 반폭 0.005 mg의 직사각형 분포로 보아 0.005/√3 = <strong>0.0029 mg</strong>.</li>\n<li>합성: u<sub>c</sub> = √(0.0441² + 0.100² + 0.0029²) = <strong>0.1093 mg</strong>.</li>\n<li>확장(k = 2): U = 0.2187 mg. 결과는 <strong>100.18 ± 0.22 mg (k = 2)</strong>(코드로 계산, 보고용 반올림).</li>\n</ol>\n<p>이 예에서는 반복 측정의 퍼짐(0.044)보다 저울 교정의 불확도(0.100)가 훨씬 큽니다. 반복을 더 늘려도 전체 불확도는 거의 줄지 않으니, 불확도 성분을 나누어 보면 어디를 개선해야 하는지 알 수 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody>\n<tr><td>불확도는 측정 오류(실수)의 크기다.</td><td>오류는 고쳐야 하는 문제이고, 불확도는 올바르게 측정해도 남는 의심의 폭입니다. 불확도는 보정할 수 있는 체계 오차를 보정한 뒤에 평가합니다.</td></tr>\n<tr><td>반복 측정의 표준편차를 보고하면 충분하다.</td><td>표준편차는 A형 성분의 일부일 뿐이고, 교정·분해능·환경 같은 B형 성분이 더 클 수 있습니다.</td></tr>\n<tr><td>“±”뒤의 수치는 늘 표준편차다.</td><td>표준불확도인지 확장불확도(k값, 신뢰수준)인지 밝혀야 합니다.</td></tr>\n<tr><td>불확도가 작으면 정확하다.</td><td>불확도는 값이 얼마나 퍼질 수 있는지이지, 참값에 가까운지는 교정과 편향 보정으로 따로 확보합니다.</td></tr>\n<tr><td>적합·부적합 판정은 측정값만 비교하면 된다.</td><td>측정값이 규제 한계 가까이 있으면 불확도 범위를 반영한 판정 규칙이 필요합니다.</td></tr>\n</tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "정밀함을 가리키는 용어가 여러 개입니다.",
+    "headers": [
+      "용어",
+      "의미",
+      "단위"
+    ],
+    "rows": [
+      [
+        "측정불확도",
+        "측정 결과에 딸린 값의 퍼짐 범위",
+        "측정량과 같음"
+      ],
+      [
+        "[[standard-deviation|표준편차]]",
+        "반복 측정값들의 퍼짐 (A형 평가의 재료)",
+        "측정량과 같음"
+      ],
+      [
+        "[[measurement-precision-accuracy|정밀도·정확도]]",
+        "서로 가까운 정도 / 참값에 가까운 정도",
+        "정성적 또는 수치"
+      ]
+    ]
+  },
+  "references": [
+    "Joint Committee for Guides in Metrology. (2008). JCGM 100:2008 Evaluation of Measurement Data — Guide to the Expression of Uncertainty in Measurement (GUM). BIPM.",
+    "Taylor, B. N., & Kuyatt, C. E. (1994). Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results (NIST Technical Note 1297). National Institute of Standards and Technology.",
+    "Ellison, S. L. R., & Williams, A. (Eds.). (2012). Eurachem/CITAC Guide: Quantifying Uncertainty in Analytical Measurement (3rd ed.). Eurachem.",
+    "Joint Committee for Guides in Metrology. (2012). JCGM 200:2012 International Vocabulary of Metrology — Basic and General Concepts and Associated Terms (VIM) (3rd ed.). BIPM."
+  ]
+}

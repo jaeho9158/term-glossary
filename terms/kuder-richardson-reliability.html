@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/kuder-richardson-reliability.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,54 @@
   <h2>왜 중요한가</h2>
   <p>객관식·OX형 시험처럼 정답 여부만으로 채점되는 검사는 교육평가, 심리검사 개발, 인사 선발 등 여러 분야에서 흔히 쓰이는데, 이런 검사의 품질을 검증하려면 신뢰도 계산이 필수적입니다. 쿠더-리처드슨 신뢰도는 이런 이분 채점 검사에 특화된 계산법을 제공해, 검사 도구의 타당성을 논하는 논문에서 신뢰도 지표로 자주 보고됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>문항이 0/1로만 채점될 때, 문항 수 k, 문항별 정답률 p<sub>i</sub>(오답률 q<sub>i</sub> = 1 − p<sub>i</sub>), 총점 분산 σ²<sub>X</sub>로</p>
+  <ul>
+  <li><strong>KR-20 = k/(k − 1) × [1 − Σp<sub>i</sub>q<sub>i</sub> ÷ σ²<sub>X</sub>]</strong></li>
+  <li><strong>KR-21 = k/(k − 1) × [1 − M(k − M) ÷ (kσ²<sub>X</sub>)]</strong> (M은 총점 평균. 모든 문항의 난이도가 같다고 가정)</li>
+  </ul>
+  <p>두 식은 Kuder와 Richardson(1937)이 제안했고, 이분 문항에서 크론바흐 알파와 같은 값을 줍니다(Cronbach, 1951). 문항 분산과 총점 분산은 같은 분모(n)로 계산해야 합니다.</p>
+  <p><strong>가상의 예</strong>: 10명이 6문항을 풀어 아래 결과가 나왔습니다(1 = 정답).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>사람</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>총점</th></tr></thead><tbody>
+  <tr><td>A</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>5</td></tr>
+  <tr><td>B</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>3</td></tr>
+  <tr><td>C</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>5</td></tr>
+  <tr><td>D</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+  <tr><td>E</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+  <tr><td>F</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+  <tr><td>G</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>5</td></tr>
+  <tr><td>H</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+  <tr><td>I</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>5</td></tr>
+  <tr><td>J</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td></tr>
+  </tbody></table></div>
+  <p>문항별 정답률은 .7, .6, .6, .6, .3, .6이므로 Σpq = 1.380입니다. 총점의 평균은 3.4, 분산은 3.640입니다. 따라서 KR-20 = 6/5 × (1 − 1.380 ÷ 3.640) = <strong>.745</strong>, KR-21 = 6/5 × [1 − 3.4 × 2.6 ÷ (6 × 3.640)] = <strong>.714</strong>입니다(코드로 계산). 문항 난이도가 제각각이므로 KR-21이 KR-20보다 낮게 나왔습니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul>
+  <li>값이 클수록 내적 일관성이 높습니다. 흔히 인용되는 기준은 Nunnally와 Bernstein(1994)의 .70(탐색)·.80(기초)·.90(중요한 결정) 정도이며 관례입니다.</li>
+  <li>KR-21은 계산이 쉬운 근사식이라 KR-20 이하로만 나옵니다. 컴퓨터가 흔한 지금은 KR-20을 보고하는 것이 일반적입니다.</li>
+  <li>문항 수가 늘면 값이 커지고, 문항이 너무 쉽거나 어려워 정답률이 한쪽으로 쏠리면 낮아집니다.</li>
+  <li>속도검사(시간 제한이 빡빡해 뒷문항을 못 푸는 검사)에서는 일관성이 부풀 수 있습니다. 한 차원만 잰다는 보증도 아닙니다(Cortina, 1993).</li>
+  <li>0/1이 아닌 다분 문항에는 <a href="cronbachs-alpha.html">크론바흐 알파</a>를 씁니다.</li>
+  </ul>
+
+  <h2>보고 방법</h2>
+  <ul>
+  <li>문항 수, 표본 수, 채점 방식(0/1), 계산한 공식(KR-20/KR-21)을 적습니다.</li>
+  <li>평균 정답률(난이도)과 총점 평균·표준편차를 함께 싣습니다.</li>
+  <li>하위 영역이 있으면 영역별 값도 제시합니다.</li>
+  <li>(가상의 문장) “6문항 객관식 검사의 내적 일관성은 KR-20 = .75 (n = 10)였다.”</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"이 검사는 모든 문항이 정답/오답으로 이분 채점되는 객관식 검사이므로, 쿠더-리처드슨 신뢰도(KR-20 = .84)를 산출하여 내적 일관성을 확인했다."</div>
   <p>이 문장은 "문항들이 서로 얼마나 일관되게 같은 능력을 재고 있는지를, 이분 채점 문항에 맞는 공식으로 계산했더니 .84라는 비교적 높은 값이 나왔다"는 뜻입니다.</p>
 
@@ -166,6 +214,21 @@
 
   <h2>주의할 점</h2>
   <p>쿠더-리처드슨 신뢰도는 문항이 정답/오답처럼 완전히 이분적으로 채점될 때만 사용할 수 있습니다. 리커트 척도처럼 문항 하나에 여러 단계(예: 1~5점)로 응답하는 검사에는 이 공식을 적용할 수 없으며, 이런 경우에는 <a href="cronbachs-alpha.html">크론바흐 알파</a>를 사용해 신뢰도를 계산해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이분 문항 신뢰도에는 비슷한 이름이 많습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">문항 형태</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">KR-20</th><td>0/1 문항</td><td>문항 난이도를 모두 반영</td></tr><tr><th scope="row">KR-21</th><td>0/1 문항</td><td>난이도가 같다고 가정한 근사. KR-20 이하</td></tr><tr><th scope="row"><a href="cronbachs-alpha.html">크론바흐 알파</a></th><td>다분 문항 포함</td><td>이분이면 KR-20과 같음</td></tr><tr><th scope="row"><a href="split-half-reliability.html">반분신뢰도</a></th><td>모든 형태</td><td>반으로 나누는 방식에 따라 달라짐</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kuder, G. F., &amp; Richardson, M. W. (1937). The theory of the estimation of test reliability. Psychometrika, 2, 151–160.</li>
+    <li>Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests. Psychometrika, 16, 297–334.</li>
+    <li>Cortina, J. M. (1993). What is coefficient alpha? An examination of theory and applications. Journal of Applied Psychology, 78, 98–104.</li>
+    <li>Nunnally, J. C., &amp; Bernstein, I. H. (1994). Psychometric Theory (3rd ed.). McGraw-Hill.</li>
+    <li>Crocker, L., &amp; Algina, J. (1986). Introduction to Classical and Modern Test Theory. Holt, Rinehart and Winston.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="reliability.html">신뢰도</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="test-retest-reliability.html">검사-재검사 신뢰도</a><a href="parallel-forms-reliability.html">동형검사 신뢰도</a><a href="split-half-reliability.html">반분신뢰도</a><a href="inter-rater-reliability.html">평가자간 신뢰도</a><a href="composite-reliability.html">합성신뢰도</a></div></div><p class="concept-family-map"><a href="../concept-map/tool.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

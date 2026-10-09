@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/electronic-tongue.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,45 @@
   <h2>왜 중요한가</h2>
   <p>전자혀는 사람의 관능평가가 갖는 개인차와 피로도 문제를 보완하면서, 대량의 식음료 시료를 일관된 기준으로 신속하게 평가할 수 있게 해줍니다. 식품 및 음료 산업에서 배합비 최적화, 품질관리, 위조·변질 식품 판별 등 실무적 필요와 직결되어 관련 연구가 꾸준히 이루어집니다. 또한 전자코와 결합하여 맛과 향을 함께 분석하는 다중 센서 융합 연구로 확장되는 경우도 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <p>액체 시료의 <strong>맛 관련 화학 성분의 전체 패턴</strong>을 센서 배열로 잽니다. 각 센서는 특정 물질에만 반응하지 않고 여러 물질에 서로 다르게 반응하는 ‘교차선택성’을 가지며, 센서 신호들을 한꺼번에 패턴 인식으로 분석합니다(Vlasov &amp; Legin, 1998). 방식은 전위차법, 전압전류법(Winquist 등, 1997), 지질·고분자막을 이용한 미각 센서(Toko, 2000) 등이 있습니다.</p>
+
+  <h2>구성과 채점</h2>
+  <ul>
+  <li><strong>구성</strong>: 센서 배열, 기준 전극, 시료 용기와 센서 세척 장치, 신호 처리용 컴퓨터.</li>
+  <li><strong>데이터 처리</strong>: 센서별 전위(mV) 같은 값을 <a href="principal-component-analysis.html">주성분분석</a>, 판별분석, PLS 회귀로 요약해 시료를 구분하거나 관능 점수를 예측합니다(Ciosek &amp; Wróblewski, 2007).</li>
+  </ul>
+  <p><strong>가상의 예</strong>: 음료 A와 B를 각각 3번씩 센서 4개로 측정했습니다(mV).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시료</th><th>센서 1</th><th>센서 2</th><th>센서 3</th><th>센서 4</th></tr></thead><tbody>
+  <tr><td>A-1</td><td>102</td><td>215</td><td>330</td><td>98</td></tr>
+  <tr><td>A-2</td><td>105</td><td>212</td><td>334</td><td>97</td></tr>
+  <tr><td>A-3</td><td>100</td><td>218</td><td>328</td><td>99</td></tr>
+  <tr><td>B-1</td><td>88</td><td>230</td><td>310</td><td>120</td></tr>
+  <tr><td>B-2</td><td>91</td><td>226</td><td>312</td><td>118</td></tr>
+  <tr><td>B-3</td><td>89</td><td>229</td><td>309</td><td>121</td></tr>
+  </tbody></table></div>
+  <p>두 시료군의 중심 사이 거리는 35.07, 군 안에서 중심까지의 평균 거리는 A가 3.60, B가 2.64입니다(코드로 계산). 군 사이 거리가 군 안의 퍼짐보다 훨씬 커서 두 음료를 구별할 수 있다고 볼 수 있습니다.</p>
+
+  <h2>결과 읽는 법</h2>
+  <ul>
+  <li>출력은 ‘단맛이 몇 점’이 아니라 <strong>센서 응답의 패턴</strong>입니다. 사람의 맛 지각과 연결하려면 관능평가 점수와의 상관·예측 정확도를 따로 확인해야 합니다.</li>
+  <li>센서는 시간이 지나면서 값이 흘러가고(드리프트), 온도·pH·이온 강도에 민감하므로 교정과 세척 순서를 지켜 반복 측정합니다.</li>
+  <li>교차 반응이 있으므로 특정 성분의 농도를 곧바로 말하기는 어렵고, 필요하면 HPLC 같은 성분 분석을 병행합니다.</li>
+  <li>논문에는 센서 종류와 수, 시료 전처리(희석 등), 측정 순서와 반복 횟수, 통계·기계학습 방법, 검증 방식(교차검증 등)을 적습니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“전자혀 분석은 브라질 원두로 추출한 에스프레소 메뉴의 경우, 신맛, 짠맛, 감칠맛, 단맛은 리스뜨레또가 가장 높았고, 쓴맛에서는 룽고가 가장 높았다.”</blockquote><p class="te-cite">에스프레소 메뉴의 이화학적 평가 및 전자혀 분석, 한국커피문화연구, 2016 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002917261" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제품 배합비에 따른 맛 프로필 변화는 전자혀를 이용한 센서 응답 패턴 분석으로 비교하였다."</div>
   <p>음료나 조미료의 맛 특성을 사람 관능평가와 함께 또는 대신 객관적으로 비교할 때 쓰는 문장이다.</p>
 
@@ -157,11 +196,25 @@
   <p>변질·부패를 조기에 감지하는 품질관리 연구에서 사용되는 표현이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>전자혀의 센서 배열은 대체로 전위차법(potentiometric), 전압전류법(voltammetric) 등 전기화학적 원리를 이용하며, 센서마다 특정 이온이나 화학종에 선택적으로 반응하도록 설계됩니다.</p>
+  <p>전자혀의 센서 배열은 대체로 전위차법(potentiometric), 전압전류법(voltammetric) 등 전기화학적 원리를 이용하며, 센서마다 여러 이온이나 화학종에 서로 다른 정도로 반응하도록(부분 선택성) 설계됩니다.</p>
   <p>얻어진 다차원 신호는 주성분분석이나 판별분석 같은 화학계량학(chemometrics) 기법으로 처리해 시료 간 차이를 시각화하고 분류합니다. 논문을 읽을 때는 센서 종류와 개수, 사용된 통계·머신러닝 기법, 그리고 관능평가와의 상관관계 검증 여부를 함께 살펴보는 것이 도움이 됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>센서 간 교차 반응이 있어 결과 해석에는 다변량 통계 기법이 필요하며 관능평가 결과와의 상관성 검증이 권장된다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>감각 기반의 기기 분석은 대상이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">분석 대상</th><th scope="col">센서</th></tr></thead><tbody><tr><th scope="row">전자혀</th><td>액체의 맛 성분 패턴</td><td>전기화학 센서 배열</td></tr><tr><th scope="row"><a href="electronic-nose.html">전자코</a></th><td>기체(냄새)의 휘발성 성분 패턴</td><td>가스 센서 배열</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Vlasov, Y., &amp; Legin, A. (1998). Non-selective chemical sensors in analytical chemistry: from “electronic nose” to “electronic tongue”. Fresenius' Journal of Analytical Chemistry, 361, 255–260.</li>
+    <li>Winquist, F., Wide, P., &amp; Lundström, I. (1997). An electronic tongue based on voltammetry. Analytica Chimica Acta, 357, 21–31.</li>
+    <li>Toko, K. (2000). Taste sensor. Sensors and Actuators B: Chemical, 64, 205–215.</li>
+    <li>Ciosek, P., &amp; Wróblewski, W. (2007). Sensor arrays for liquid sensing — electronic tongue systems. Analyst, 132, 963–978.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

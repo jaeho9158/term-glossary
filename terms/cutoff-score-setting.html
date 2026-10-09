@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cutoff-score-setting.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,47 @@
   <p>절단점설정법은 자격시험 합격 여부, 임상 척도의 정상/위험군 판정, 선별검사의 재진 여부 등 실제 의사결정으로 직결되는 기준을 만드는 절차이기 때문에, 검사 개발과 타당화를 다루는 논문에서 신뢰도·타당도 검증만큼 비중 있게 다뤄집니다.</p>
   <p>절단점을 어떤 방법과 근거로 정했는지가 명확하지 않으면 그 검사의 실무 활용 자체가 논쟁의 대상이 될 수 있어, 방법론의 투명한 보고가 특히 강조됩니다. 또한 절단점 설정 방식에 따라 민감도와 특이도 같은 진단적 성능 지표도 함께 달라지므로, 검사 성능을 평가하는 연구와도 밀접하게 연결됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>크게 <strong>판단 중심</strong>과 <strong>자료 중심</strong> 두 갈래입니다.</p>
+  <p><strong>Angoff 방법</strong>(Angoff, 1971): 전문가 패널이 문항마다 “겨우 합격할 수준의 사람이 맞힐 확률”을 추정하고, 문항별 평균을 모두 더한 값이 절단점이 됩니다. (가상) 판정자 5명이 문항 4개를 추정했습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>판정자</th><th>문항 1</th><th>문항 2</th><th>문항 3</th><th>문항 4</th></tr></thead><tbody>
+  <tr><td>1</td><td>.6</td><td>.7</td><td>.5</td><td>.8</td></tr>
+  <tr><td>2</td><td>.5</td><td>.6</td><td>.5</td><td>.7</td></tr>
+  <tr><td>3</td><td>.7</td><td>.8</td><td>.6</td><td>.8</td></tr>
+  <tr><td>4</td><td>.6</td><td>.6</td><td>.4</td><td>.7</td></tr>
+  <tr><td>5</td><td>.5</td><td>.7</td><td>.5</td><td>.9</td></tr>
+  <tr><td>평균</td><td>.58</td><td>.68</td><td>.50</td><td>.78</td></tr>
+  </tbody></table></div>
+  <p>절단점은 .58 + .68 + .50 + .78 = <strong>2.54점</strong>(4점 만점의 63.5%)입니다(코드로 계산). 북마크 방법 등 다른 판단 중심 방법도 있습니다(Cizek &amp; Bunch, 2007).</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>자료 중심 방법</strong>의 예로 ROC 곡선과 Youden 지수(J = 민감도 + 특이도 − 1)가 있습니다(Youden, 1950; Fluss 등, 2005). (가상) 환자 30명과 비환자 70명에게 검사 점수가 절단점 이상이면 양성으로 판정했습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>절단점</th><th>민감도</th><th>특이도</th><th>J</th></tr></thead><tbody>
+  <tr><td>8</td><td>.900</td><td>.571</td><td>.471</td></tr>
+  <tr><td>9</td><td>.833</td><td>.743</td><td>.576</td></tr>
+  <tr><td>10</td><td>.733</td><td>.857</td><td>.590</td></tr>
+  <tr><td>11</td><td>.567</td><td>.929</td><td>.495</td></tr>
+  <tr><td>12</td><td>.400</td><td>.971</td><td>.371</td></tr>
+  </tbody></table></div>
+  <p>J가 가장 큰 절단점은 10입니다(코드로 계산). 그러나 선별검사는 놓침을 줄이려고 민감도를 더 중시해 8~9를, 확진 용도라면 특이도를 중시해 11~12를 고를 수 있어 <strong>목적에 따라 같은 자료에서도 선택이 달라집니다</strong>. 판단 중심 방법은 합격·자격처럼 기준이 가치 판단일 때, 자료 중심 방법은 진단 정확도가 핵심일 때 어울립니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul>
+  <li>판단 중심: 패널 구성(인원, 전문성), 훈련과 ‘경계 수준’의 정의, 라운드 수, 문항 통계 제공 여부, 최종값과 불확실성(패널 평균의 표준오차 등)을 적습니다.</li>
+  <li>자료 중심: 표본, 기준 표준(무엇을 진단의 정답으로 삼았는지), 민감도·특이도·AUC, 절단점 선택 기준(Youden, 비용 가중)을 적습니다.</li>
+  <li>다른 표본에서의 교차 검증이나 재현 여부를 제시하면 신뢰가 높아집니다.</li>
+  <li>절단점은 하나의 추정이며 표본과 방법에 의존한다는 점을 한계로 서술합니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 척도의 절단점설정법으로 앤고프(Angoff) 방법을 적용하여 전문가 8인의 평정을 종합해 절단점을 16점으로 산출하였다."</div>
   <p>이 문장은 "전문가 8명이 각 문항의 통과 확률을 판단한 값을 평균 내어, 16점을 합격과 불합격을 가르는 기준으로 정했다"는 뜻입니다.</p>
 
@@ -162,7 +203,21 @@
   <p>절단점은 표본과 시점에 따라 변할 수 있어, 다른 집단이나 새로운 자료에서 재검증하는 절차도 함께 보고되는 경우가 많습니다.</p>
 
   <h2>주의할 점</h2>
-  <p>절단점은 절대적인 진리가 아니라 특정 방법과 표본에 근거해 산출된 하나의 추정치입니다. 같은 검사라도 절단점을 어떻게 설정하느냐에 따라 <a href="differential-item-functioning.html">차별적 문항기능</a> 분석 결과나 선별 대상자 수가 크게 달라질 수 있으므로, 논문에서는 절단점 산출 방법과 그 근거를 반드시 함께 밝혀야 합니다.</p>
+  <p>절단점은 절대적인 진리가 아니라 특정 방법과 표본에 근거해 산출된 하나의 추정치입니다. 같은 검사라도 절단점을 어떻게 설정하느냐에 따라 합격률이나 선별 대상자 수가 크게 달라질 수 있으므로, 논문에서는 절단점 산출 방법과 그 근거를 반드시 함께 밝혀야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>절단점을 정하는 대표적인 방법입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">근거</th><th scope="col">잘 맞는 상황</th></tr></thead><tbody><tr><th scope="row"><a href="angoff-method.html">앵고프 방법</a></th><td>전문가의 문항별 확률 판단</td><td>자격시험의 합격선</td></tr><tr><th scope="row">북마크 방법</th><td>난이도 순으로 나열한 문항 책에 전문가가 표시</td><td>여러 수준(등급)을 한 번에 정할 때</td></tr><tr><th scope="row"><a href="roc-curve.html">ROC 곡선</a>·Youden 지수</th><td>민감도·특이도 자료</td><td>진단·선별 검사</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Angoff, W. H. (1971). Scales, norms, and equivalent scores. In R. L. Thorndike (Ed.), Educational Measurement (2nd ed., pp. 508–600). American Council on Education.</li>
+    <li>Cizek, G. J., &amp; Bunch, M. B. (2007). Standard Setting: A Guide to Establishing and Evaluating Performance Standards on Tests. SAGE.</li>
+    <li>Youden, W. J. (1950). Index for rating diagnostic tests. Cancer, 3, 32–35.</li>
+    <li>Fluss, R., Faraggi, D., &amp; Reiser, B. (2005). Estimation of the Youden index and its associated cutoff point. Biometrical Journal, 47, 458–472.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

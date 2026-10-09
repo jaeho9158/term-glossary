@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/factor-loading.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,55 @@
   <p>요인적재량은 척도 개발 논문에서 개별 문항을 최종안에 남길지 제외할지를 판단하는 실질적인 기준값으로 쓰이기 때문에, 요인분석 결과표에 거의 빠짐없이 함께 보고됩니다. 또한 이 값들은 구성타당도, 특히 하나의 요인에 속한 문항들이 실제로 같은 개념을 재고 있는지를 보여주는 수렴타당도를 판단하는 근거로도 활용됩니다.</p>
   <p>여러 요인에 걸쳐 비슷하게 높은 적재량을 보이는 교차적재 문항이 있는지를 확인하는 것도 척도의 판별타당도를 검토하는 데 중요한 절차입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>표준화된 요인모형에서 문항 j는 x<sub>j</sub> = λ<sub>j</sub>F + ε<sub>j</sub>로 쓰며, λ<sub>j</sub>가 요인적재량입니다.</p>
+  <ul>
+  <li>요인끼리 상관이 없는 직교 해에서는 적재량이 곧 문항과 요인의 상관이고, <strong>제곱(λ²)이 그 요인이 설명하는 문항 분산의 비율</strong>입니다.</li>
+  <li>요인이 둘 이상이면 문항의 <strong>공통성</strong> h² = 요인별 λ²의 합, 고유분산은 1 − h²입니다. 요인 하나의 적재량 제곱합이 그 요인이 설명하는 분산(직교 해의 고유값)입니다.</li>
+  <li>사각회전에서는 ‘패턴행렬’(다른 요인을 통제한 계수)과 ‘구조행렬’(단순 상관)이 다르고, 패턴 계수가 1에 가깝거나 넘을 수도 있습니다. 어느 행렬인지 밝혀야 합니다.</li>
+  </ul>
+  <p><strong>가상의 예</strong>(직교 2요인, 5문항):</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>문항</th><th>요인 1</th><th>요인 2</th><th>공통성 h²</th><th>고유분산</th></tr></thead><tbody>
+  <tr><td>1</td><td>.78</td><td>.10</td><td>.618</td><td>.382</td></tr>
+  <tr><td>2</td><td>.72</td><td>.15</td><td>.541</td><td>.459</td></tr>
+  <tr><td>3</td><td>.69</td><td>.05</td><td>.479</td><td>.521</td></tr>
+  <tr><td>4</td><td>.08</td><td>.81</td><td>.663</td><td>.337</td></tr>
+  <tr><td>5</td><td>.12</td><td>.74</td><td>.562</td><td>.438</td></tr>
+  </tbody></table></div>
+  <p>요인 1의 적재량 제곱합은 1.624, 요인 2는 1.239이므로 5문항 전체 분산(5) 가운데 각각 약 32.5%, 24.8%를 설명합니다(코드로 계산).</p>
+
+  <h2>해석 기준</h2>
+  <p>절대 기준은 없고 다음과 같은 관례가 인용됩니다.</p>
+  <ul>
+  <li>Comrey와 Lee(1992)는 적재량 .32를 poor, .45 fair, .55 good, .63 very good, .71 excellent로 부르며, 이는 공유 분산 약 10%, 20%, 30%, 40%, 50%에 해당합니다.</li>
+  <li>국내 논문에서 흔한 .40 기준은 연구자들의 관행입니다.</li>
+  <li>Hair 등(2017)은 PLS-SEM에서 .708 이상을 권장합니다. .708²가 약 .50으로, 지표 분산의 절반 이상을 요인이 설명하기 때문입니다.</li>
+  <li>한 문항이 둘 이상의 요인에 모두 .30~.40 이상 적재되는 <strong>교차적재</strong>는 문항 내용이 모호하거나 요인 구조가 맞지 않는다는 신호로 읽습니다.</li>
+  </ul>
+  <p>표본이 작을수록 같은 적재량도 불안정하므로 기준을 엄격히 하는 편이 안전합니다. 문항을 지울 때는 수치만이 아니라 내용도 함께 봅니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul>
+  <li>요인 추출법(주축요인, 최대우도 등), 회전 방식(직교/사각), 보고하는 행렬(패턴/구조)을 적습니다.</li>
+  <li>표에는 모든 문항의 요인별 적재량을 싣거나, 일정 값 미만을 생략했다면 그 기준을 밝힙니다. 공통성과 요인별 설명분산도 함께 적습니다.</li>
+  <li>문항 제거 기준(예: 적재량 .40 미만, 교차적재 차이)과 그 근거 문헌을 적습니다.</li>
+  <li>확인적 요인분석의 적재량은 표준화 값임을 밝히고 표준오차나 유의성을 함께 보고합니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“요인 수는 고유치(eigenvalue) 1 이상 기준과 스크리 도표(scree plot)를 함께 고려하여 결정하였으며, 요인부하량 기준은 0.40으로 설정하였다.”</blockquote><p class="te-cite">산후조리원 평가지표의 구조적 타당성 검증:탐색적 · 확인적 요인 분석을 중심으로, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096489" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“요인부하량은 표준화 계수 (STDYX)를 기준으로 해석하였으며, 0.50 이상을 수용 가능한 수준으로 판단하였다.”</blockquote><p class="te-cite">산후조리원 평가지표의 구조적 타당성 검증:탐색적 · 확인적 요인 분석을 중심으로, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096489" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“셋째, 성인 148명을 대상으로 한 예비조사를 진행하여 탐색적 요인분석을 실시한 결과에 따라 요인부하량과 공통성 기준에 미달한 6개 문항을 제거하였다.”</blockquote><p class="te-cite">성인 진로개발역량 검사도구 개발, 농업교육과 인적자원개발, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003219012" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"5번 문항의 요인적재량이 .28로 기준치인 .40에 미치지 못해 최종 척도에서 제외하였다."</div>
   <p>이 문장은 "이 문항이 원래 재려던 공통 요인과 통계적으로 충분히 강하게 연결되지 않아, 척도 구성에서 빼기로 했다"는 뜻입니다.</p>
 
@@ -165,6 +214,21 @@
 
   <h2>주의할 점</h2>
   <p>요인적재량이 낮다고 해서 문항 내용 자체가 무의미한 것은 아닙니다. 다른 요인에 더 강하게 걸리거나(교차적재), 표본 특성에 따라 값이 달라질 수 있으므로, <a href="construct-validity.html">구성타당도</a> 전반과 함께 해석해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>요인분석 결과표에는 비슷해 보이는 숫자가 여러 개 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row">요인적재량</th><td>문항과 요인의 관련 정도(직교 해에서는 상관)</td><td>대체로 −1~1</td></tr><tr><th scope="row">공통성(h²)</th><td>모든 요인이 한 문항의 분산을 설명하는 비율</td><td>0~1</td></tr><tr><th scope="row"><a href="factor-score.html">요인점수</a></th><td>각 사람이 요인에서 갖는 추정 값</td><td>표준화하면 평균 0 근처</td></tr><tr><th scope="row"><a href="item-discrimination-index.html">문항변별도</a></th><td>문항이 총점이 높은 사람과 낮은 사람을 구분하는 정도</td><td>방식에 따라 다름</td></tr></tbody></table></div>
+  <p class="te-note">적재량은 문항의 속성이고, 요인점수는 사람의 속성입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Comrey, A. L., &amp; Lee, H. B. (1992). A First Course in Factor Analysis (2nd ed.). Lawrence Erlbaum.</li>
+    <li>Fabrigar, L. R., Wegener, D. T., MacCallum, R. C., &amp; Strahan, E. J. (1999). Evaluating the use of exploratory factor analysis in psychological research. Psychological Methods, 4, 272–299.</li>
+    <li>Costello, A. B., &amp; Osborne, J. W. (2005). Best practices in exploratory factor analysis: four recommendations for getting the most from your analysis. Practical Assessment, Research &amp; Evaluation, 10(7).</li>
+    <li>Hair, J. F., Hult, G. T. M., Ringle, C. M., &amp; Sarstedt, M. (2017). A Primer on Partial Least Squares Structural Equation Modeling (PLS-SEM) (2nd ed.). SAGE.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="factor-analysis.html">요인분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="exploratory-factor-analysis.html">탐색적요인분석</a><a href="confirmatory-factor-analysis.html">확인적 요인분석</a></div></div><p class="concept-family-map"><a href="../concept-map/tool.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

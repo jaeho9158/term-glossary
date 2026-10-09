@@ -1,0 +1,55 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>표준화된 요인모형에서 문항 j는 x<sub>j</sub> = λ<sub>j</sub>F + ε<sub>j</sub>로 쓰며, λ<sub>j</sub>가 요인적재량입니다.</p>\n<ul>\n<li>요인끼리 상관이 없는 직교 해에서는 적재량이 곧 문항과 요인의 상관이고, <strong>제곱(λ²)이 그 요인이 설명하는 문항 분산의 비율</strong>입니다.</li>\n<li>요인이 둘 이상이면 문항의 <strong>공통성</strong> h² = 요인별 λ²의 합, 고유분산은 1 − h²입니다. 요인 하나의 적재량 제곱합이 그 요인이 설명하는 분산(직교 해의 고유값)입니다.</li>\n<li>사각회전에서는 ‘패턴행렬’(다른 요인을 통제한 계수)과 ‘구조행렬’(단순 상관)이 다르고, 패턴 계수가 1에 가깝거나 넘을 수도 있습니다. 어느 행렬인지 밝혀야 합니다.</li>\n</ul>\n<p><strong>가상의 예</strong>(직교 2요인, 5문항):</p>\n<table><thead><tr><th>문항</th><th>요인 1</th><th>요인 2</th><th>공통성 h²</th><th>고유분산</th></tr></thead><tbody>\n<tr><td>1</td><td>.78</td><td>.10</td><td>.618</td><td>.382</td></tr>\n<tr><td>2</td><td>.72</td><td>.15</td><td>.541</td><td>.459</td></tr>\n<tr><td>3</td><td>.69</td><td>.05</td><td>.479</td><td>.521</td></tr>\n<tr><td>4</td><td>.08</td><td>.81</td><td>.663</td><td>.337</td></tr>\n<tr><td>5</td><td>.12</td><td>.74</td><td>.562</td><td>.438</td></tr>\n</tbody></table>\n<p>요인 1의 적재량 제곱합은 1.624, 요인 2는 1.239이므로 5문항 전체 분산(5) 가운데 각각 약 32.5%, 24.8%를 설명합니다(코드로 계산).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>절대 기준은 없고 다음과 같은 관례가 인용됩니다.</p>\n<ul>\n<li>Comrey와 Lee(1992)는 적재량 .32를 poor, .45 fair, .55 good, .63 very good, .71 excellent로 부르며, 이는 공유 분산 약 10%, 20%, 30%, 40%, 50%에 해당합니다.</li>\n<li>국내 논문에서 흔한 .40 기준은 연구자들의 관행입니다.</li>\n<li>Hair 등(2017)은 PLS-SEM에서 .708 이상을 권장합니다. .708²가 약 .50으로, 지표 분산의 절반 이상을 요인이 설명하기 때문입니다.</li>\n<li>한 문항이 둘 이상의 요인에 모두 .30~.40 이상 적재되는 <strong>교차적재</strong>는 문항 내용이 모호하거나 요인 구조가 맞지 않는다는 신호로 읽습니다.</li>\n</ul>\n<p>표본이 작을수록 같은 적재량도 불안정하므로 기준을 엄격히 하는 편이 안전합니다. 문항을 지울 때는 수치만이 아니라 내용도 함께 봅니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul>\n<li>요인 추출법(주축요인, 최대우도 등), 회전 방식(직교/사각), 보고하는 행렬(패턴/구조)을 적습니다.</li>\n<li>표에는 모든 문항의 요인별 적재량을 싣거나, 일정 값 미만을 생략했다면 그 기준을 밝힙니다. 공통성과 요인별 설명분산도 함께 적습니다.</li>\n<li>문항 제거 기준(예: 적재량 .40 미만, 교차적재 차이)과 그 근거 문헌을 적습니다.</li>\n<li>확인적 요인분석의 적재량은 표준화 값임을 밝히고 표준오차나 유의성을 함께 보고합니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "요인분석 결과표에는 비슷해 보이는 숫자가 여러 개 있습니다.",
+    "headers": [
+      "용어",
+      "의미",
+      "범위"
+    ],
+    "rows": [
+      [
+        "요인적재량",
+        "문항과 요인의 관련 정도(직교 해에서는 상관)",
+        "대체로 −1~1"
+      ],
+      [
+        "공통성(h²)",
+        "모든 요인이 한 문항의 분산을 설명하는 비율",
+        "0~1"
+      ],
+      [
+        "[[factor-score|요인점수]]",
+        "각 사람이 요인에서 갖는 추정 값",
+        "표준화하면 평균 0 근처"
+      ],
+      [
+        "[[item-discrimination-index|문항변별도]]",
+        "문항이 총점이 높은 사람과 낮은 사람을 구분하는 정도",
+        "방식에 따라 다름"
+      ]
+    ],
+    "note": "적재량은 문항의 속성이고, 요인점수는 사람의 속성입니다."
+  },
+  "references": [
+    "Comrey, A. L., & Lee, H. B. (1992). A First Course in Factor Analysis (2nd ed.). Lawrence Erlbaum.",
+    "Fabrigar, L. R., Wegener, D. T., MacCallum, R. C., & Strahan, E. J. (1999). Evaluating the use of exploratory factor analysis in psychological research. Psychological Methods, 4, 272–299.",
+    "Costello, A. B., & Osborne, J. W. (2005). Best practices in exploratory factor analysis: four recommendations for getting the most from your analysis. Practical Assessment, Research & Evaluation, 10(7).",
+    "Hair, J. F., Hult, G. T. M., Ringle, C. M., & Sarstedt, M. (2017). A Primer on Partial Least Squares Structural Equation Modeling (PLS-SEM) (2nd ed.). SAGE."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/measurement-uncertainty.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,44 @@
   <h2>왜 중요한가</h2>
   <p>측정값만 덩그러니 제시하면 그 값이 얼마나 신뢰할 만한지 판단할 수 없기 때문에, 분석화학·계측공학·물리학 등 정량 측정을 다루는 논문에서는 측정불확도를 함께 보고하는 것이 국제 표준(GUM 지침 등)에서도 권장되는 관행입니다. 서로 다른 연구실이나 기관에서 얻은 측정값을 비교하거나, 규제 기준치와 비교해 적합·부적합을 판정할 때도 불확도 범위를 고려하지 않으면 잘못된 결론에 이를 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul>
+  <li>측정 결과는 값 하나가 아니라 <strong>값과 불확도</strong>의 쌍입니다. 측정불확도는 측정량에 합리적으로 귀속될 수 있는 값들의 퍼짐을 나타내는 모수입니다(JCGM 100:2008, GUM).</li>
+  <li><strong>표준불확도 u</strong>는 표준편차의 크기로 나타냅니다. 구하는 방법에 따라 <strong>A형</strong>(반복 측정의 통계 분석)과 <strong>B형</strong>(교정서, 사양서, 경험 등 통계 외 정보)으로 나눕니다.</li>
+  <li>독립인 성분들은 제곱합의 제곱근으로 합성합니다: <strong>u<sub>c</sub> = √(Σ(c<sub>i</sub>u<sub>i</sub>)²)</strong> (c<sub>i</sub>는 감도계수).</li>
+  <li><strong>확장불확도 U = k × u<sub>c</sub></strong>. 분포가 정규에 가까우면 포함인자 k = 2가 약 95% 신뢰수준에 해당합니다.</li>
+  <li>눈금 분해능처럼 한계만 아는 성분은 직사각형 분포로 보고 반폭 a에 대해 u = a/√3로 계산합니다.</li>
+  </ul>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 예) 저울로 어떤 시료의 질량을 5번 쟀더니 100.12, 100.31, 100.05, 100.22, 100.18 mg였습니다.</p>
+  <ol>
+  <li>평균 100.176 mg, 표준편차 s = 0.0986 mg. 평균의 A형 불확도는 s/√5 = <strong>0.0441 mg</strong>.</li>
+  <li>교정서에 적힌 저울 교정의 표준불확도(B형)는 0.100 mg.</li>
+  <li>눈금 분해능이 0.01 mg이면 반폭 0.005 mg의 직사각형 분포로 보아 0.005/√3 = <strong>0.0029 mg</strong>.</li>
+  <li>합성: u<sub>c</sub> = √(0.0441² + 0.100² + 0.0029²) = <strong>0.1093 mg</strong>.</li>
+  <li>확장(k = 2): U = 0.2187 mg. 결과는 <strong>100.18 ± 0.22 mg (k = 2)</strong>(코드로 계산, 보고용 반올림).</li>
+  </ol>
+  <p>이 예에서는 반복 측정의 퍼짐(0.044)보다 저울 교정의 불확도(0.100)가 훨씬 큽니다. 반복을 더 늘려도 전체 불확도는 거의 줄지 않으니, 불확도 성분을 나누어 보면 어디를 개선해야 하는지 알 수 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody>
+  <tr><td>불확도는 측정 오류(실수)의 크기다.</td><td>오류는 고쳐야 하는 문제이고, 불확도는 올바르게 측정해도 남는 의심의 폭입니다. 불확도는 보정할 수 있는 체계 오차를 보정한 뒤에 평가합니다.</td></tr>
+  <tr><td>반복 측정의 표준편차를 보고하면 충분하다.</td><td>표준편차는 A형 성분의 일부일 뿐이고, 교정·분해능·환경 같은 B형 성분이 더 클 수 있습니다.</td></tr>
+  <tr><td>“±”뒤의 수치는 늘 표준편차다.</td><td>표준불확도인지 확장불확도(k값, 신뢰수준)인지 밝혀야 합니다.</td></tr>
+  <tr><td>불확도가 작으면 정확하다.</td><td>불확도는 값이 얼마나 퍼질 수 있는지이지, 참값에 가까운지는 교정과 편향 보정으로 따로 확보합니다.</td></tr>
+  <tr><td>적합·부적합 판정은 측정값만 비교하면 된다.</td><td>측정값이 규제 한계 가까이 있으면 불확도 범위를 반영한 판정 규칙이 필요합니다.</td></tr>
+  </tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"시료의 납 농도는 12.4 mg/kg이었으며, 확장불확도는 95% 신뢰수준에서 ±0.8 mg/kg으로 산출되었다."</div>
   <p>이 문장은 "측정된 12.4라는 값 하나만 믿지 말고, 실제 참값은 대략 11.6~13.2 사이에 있을 가능성이 95% 신뢰수준에서 성립한다"는 뜻입니다.</p>
   <div class="example">"길이 측정에 사용된 레이저 간섭계의 표준불확도는 기기 자체의 오차, 온도 변화에 따른 열팽창, 정렬 오차를 합성하여 산출하였다."</div>
@@ -161,6 +199,20 @@
 
   <h2>주의할 점</h2>
   <p>측정불확도는 실험자의 실수로 생기는 오류(예: 잘못된 시약 투입)와는 다릅니다. 기기의 한계, 환경 변화, 반복 측정 시의 자연스러운 변동 등 근본적으로 없앨 수 없는 흔들림을 정량화한 것입니다. 여러 표준시료로 만든 <a href="calibration-curve.html">검량선</a>을 이용해 미지 시료의 농도를 추정할 때도, 그 추정값에는 검량선 자체의 불확도가 함께 전파됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>정밀함을 가리키는 용어가 여러 개입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">단위</th></tr></thead><tbody><tr><th scope="row">측정불확도</th><td>측정 결과에 딸린 값의 퍼짐 범위</td><td>측정량과 같음</td></tr><tr><th scope="row"><a href="standard-deviation.html">표준편차</a></th><td>반복 측정값들의 퍼짐 (A형 평가의 재료)</td><td>측정량과 같음</td></tr><tr><th scope="row"><a href="measurement-precision-accuracy.html">정밀도·정확도</a></th><td>서로 가까운 정도 / 참값에 가까운 정도</td><td>정성적 또는 수치</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Joint Committee for Guides in Metrology. (2008). JCGM 100:2008 Evaluation of Measurement Data — Guide to the Expression of Uncertainty in Measurement (GUM). BIPM.</li>
+    <li>Taylor, B. N., &amp; Kuyatt, C. E. (1994). Guidelines for Evaluating and Expressing the Uncertainty of NIST Measurement Results (NIST Technical Note 1297). National Institute of Standards and Technology.</li>
+    <li>Ellison, S. L. R., &amp; Williams, A. (Eds.). (2012). Eurachem/CITAC Guide: Quantifying Uncertainty in Analytical Measurement (3rd ed.). Eurachem.</li>
+    <li>Joint Committee for Guides in Metrology. (2012). JCGM 200:2012 International Vocabulary of Metrology — Basic and General Concepts and Associated Terms (VIM) (3rd ed.). BIPM.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

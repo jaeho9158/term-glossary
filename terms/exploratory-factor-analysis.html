@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/exploratory-factor-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,53 @@
   <p>탐색적요인분석은 새로운 심리 척도나 설문 도구를 개발할 때 문항들이 실제로 몇 개의 개념을 측정하는지를 데이터에 근거해 확인할 수 있게 해줍니다.</p>
   <p>이론적으로 아직 구조가 확립되지 않은 구성개념을 다룰 때 특히 유용하기 때문에, 심리학·경영학·교육학 등에서 새로운 척도를 처음 개발하고 타당화하는 논문의 초기 단계에서 거의 필수적으로 등장합니다. 이렇게 발견된 요인 구조는 이후 확인적 요인분석으로 재검증되어 척도의 타당성을 뒷받침하는 근거로 이어집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>문항(또는 변수)이 몇 개의 공통 요인으로 묶이는지 <strong>미리 가설을 정하지 않고</strong> 자료에서 찾아볼 때 씁니다. 척도 개발 초기의 문항 정리, 새 개념의 차원 탐색이 전형적입니다. 이미 구조가 이론으로 정해져 있다면 <a href="confirmatory-factor-analysis.html">확인적 요인분석</a>이 맞습니다.</p>
+  <ul>
+  <li><strong>자료</strong>: 변수들이 연속형에 가까워야 하며, 5점 이하의 서열 문항은 다분상관(polychoric) 행렬을 쓰는 방법도 권장됩니다.</li>
+  <li><strong>표본 크기</strong>: Comrey와 Lee(1992)는 100명 poor, 200 fair, 300 good, 500 very good, 1000 excellent로 구분합니다. 문항당 몇 명 같은 단순 비율보다 공통성이 높고 요인당 문항이 충분할 때 작은 표본도 견딘다는 점이 MacCallum 등(1999)에 의해 보여졌습니다.</li>
+  <li><strong>사전 점검</strong>: <a href="kmo-measure.html">KMO</a>와 바틀렛 구형성 검정. 표본이 크면 바틀렛 검정은 거의 항상 유의하므로 정보가 적습니다.</li>
+  </ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>(가상의 예) 4개 문항의 상관행렬이 아래와 같다고 해 봅시다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>문항 1</th><th>문항 2</th><th>문항 3</th><th>문항 4</th></tr></thead><tbody>
+  <tr><th scope="row">문항 1</th><td>1</td><td>.60</td><td>.15</td><td>.10</td></tr>
+  <tr><th scope="row">문항 2</th><td>.60</td><td>1</td><td>.12</td><td>.18</td></tr>
+  <tr><th scope="row">문항 3</th><td>.15</td><td>.12</td><td>1</td><td>.55</td></tr>
+  <tr><th scope="row">문항 4</th><td>.10</td><td>.18</td><td>.55</td><td>1</td></tr>
+  </tbody></table></div>
+  <p>이 행렬의 고유값은 1.851, 1.299, 0.485, 0.364이고 합은 변수 수 4와 같습니다(코드로 계산). 읽는 순서는 다음과 같습니다.</p>
+  <ol>
+  <li><strong>요인 수 정하기</strong>: Kaiser(1960)의 ‘고유값 1 이상’ 기준이면 2개입니다. 스크리 도표의 꺾임(Cattell, 1966)과 <a href="parallel-analysis.html">평행분석</a>(Horn, 1965)을 함께 봅니다. 고유값 1 기준은 요인을 과대 추출하는 경향이 알려져 있어 단독 사용은 권장되지 않습니다(Fabrigar 등, 1999).</li>
+  <li><strong>설명 분산</strong>: 두 요인이 전체 분산의 (1.851 + 1.299) ÷ 4 = 78.8%를 설명합니다(주성분 기준).</li>
+  <li><strong>회전과 해석</strong>: 요인이 서로 상관될 수 있으면 사각회전을, 아니면 직교회전을 쓰고, 적재 패턴으로 요인에 이름을 붙입니다. 위 행렬에서는 문항 1·2와 문항 3·4가 각각 한 요인으로 묶일 것으로 예상됩니다.</li>
+  <li><strong>적합성 점검</strong>: Kaiser(1974)는 KMO를 .90대 매우 좋음, .80대 좋음, .70대 보통, .60대 평범, .50대 나쁨, .50 미만은 부적합이라고 표현했습니다.</li>
+  </ol>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul>
+  <li>표본 크기, 응답 척도, 사용한 상관(피어슨/다분)과 결측 처리를 적습니다.</li>
+  <li>KMO와 바틀렛 결과, 요인 수 결정에 쓴 기준을 <strong>둘 이상</strong> 적고(고유값, 스크리, 평행분석), 선택 이유를 설명합니다.</li>
+  <li>추출 방법(주축요인, 최대우도 등), 회전 방식, 적재량 표(공통성과 설명분산 포함)를 싣습니다. 문항 제거 규칙과 그 근거도 적습니다.</li>
+  <li>탐색적으로 얻은 구조는 <strong>다른 표본</strong>에서 확인적 요인분석으로 검증하는 것이 권장됩니다. 같은 자료로 EFA와 CFA를 이어서 하면 구조가 자료에 과적합될 수 있습니다.</li>
+  </ul>
+  <p>(가상의 문장) “KMO는 .84, 바틀렛 검정은 유의하였다. 평행분석과 스크리 도표를 근거로 2요인을 선택하고 사각회전(oblimin)한 결과, 모든 문항이 한 요인에만 .40 이상 적재되었다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“먼저 직무역량 20개 항목에 대하여 탐색적 요인분석(EFA)을 통하여 5개의 요인이 도출되었으며, 요인명은 ‘의사소통, 비판적 사고, 리더십, 고객배려, 감정조절’로 명명하였다.”</blockquote><p class="te-cite">관광학 전공 대학생의 직무역량 구성 타당성 연구, 동북아관광연구, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002287045" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“EFA를 통해 평가지표의 잠재 요인 구조를 탐색하고, 전문가 워크숍을 거쳐 지표를 정제한 후, CFA를 통해 6개 대영역으로 구성된 요인구조의 적합성을 검증하였다.”</blockquote><p class="te-cite">산후조리원 평가지표의 구조적 타당성 검증:탐색적 · 확인적 요인 분석을 중심으로, Journal of Korean Maternal and Child Health, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516096489" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 조사 38문항에 대하여 탐색적요인분석을 실시하여 최종문항을 선정하였다.”</blockquote><p class="te-cite">역량기반 작업치료 전공교육 진단도구 개발, 대한지역사회작업치료학회지, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002917072" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"25개 문항에 대해 탐색적요인분석을 실시한 결과, 고유값 1 이상인 4개의 요인이 추출되었다."</div>
   <p>이 문장은 연구자가 사전에 요인 개수나 구조를 정해두지 않은 채 데이터를 분석했더니, 통계적으로 의미 있는 4개의 문항 묶음(요인)이 나타났다는 뜻입니다. 이후 이 요인 구조가 다른 표본에서도 똑같이 나타나는지 확인하려면 <a href="confirmatory-factor-analysis.html">확인적 요인분석</a>을 이어서 실시하는 경우가 많습니다.</p>
   <div class="example">"직무만족 관련 신규 문항 30개에 대해 주축요인추출법과 사각회전을 적용한 탐색적요인분석을 실시하여 3개 요인으로 구성된 구조를 확인하였다."</div>
@@ -162,6 +209,22 @@
 
   <h2>주의할 점</h2>
   <p>탐색적요인분석은 이름 그대로 "탐색"이 목적이기 때문에, 이미 확립된 이론이나 척도의 구조를 검증하려 할 때 쓰는 방법이 아닙니다. 이미 예상되는 요인 구조가 있다면 <a href="confirmatory-factor-analysis.html">확인적 요인분석</a>을 사용해야 하며, 두 방법을 같은 데이터에 순서 없이 섞어 쓰면 결과 해석이 왜곡될 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>요인분석 계열 용어는 목적이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">목적</th><th scope="col">구조를 미리 정하는가</th></tr></thead><tbody><tr><th scope="row">탐색적 요인분석</th><td>자료에서 요인 구조를 찾음</td><td>아니오</td></tr><tr><th scope="row"><a href="confirmatory-factor-analysis.html">확인적 요인분석</a></th><td>정해 둔 구조가 자료에 맞는지 검증</td><td>예</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>변수를 적은 수의 성분으로 요약</td><td>아니오(요인 모형은 아님)</td></tr><tr><th scope="row"><a href="factor-analysis.html">요인분석</a></th><td>위 방법들을 아우르는 통계 기법</td><td>—</td></tr></tbody></table></div>
+  <p class="te-note">주성분분석은 전체 분산을 요약하고, 요인분석은 공통분산에 초점을 맞춥니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fabrigar, L. R., Wegener, D. T., MacCallum, R. C., &amp; Strahan, E. J. (1999). Evaluating the use of exploratory factor analysis in psychological research. Psychological Methods, 4, 272–299.</li>
+    <li>Costello, A. B., &amp; Osborne, J. W. (2005). Best practices in exploratory factor analysis: four recommendations for getting the most from your analysis. Practical Assessment, Research &amp; Evaluation, 10(7).</li>
+    <li>Horn, J. L. (1965). A rationale and test for the number of factors in factor analysis. Psychometrika, 30, 179–185.</li>
+    <li>Kaiser, H. F. (1974). An index of factorial simplicity. Psychometrika, 39, 31–36.</li>
+    <li>MacCallum, R. C., Widaman, K. F., Zhang, S., &amp; Hong, S. (1999). Sample size in factor analysis. Psychological Methods, 4, 84–99.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="factor-analysis.html">요인분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="factor-loading.html">요인적재량</a><a href="confirmatory-factor-analysis.html">확인적 요인분석</a></div></div><p class="concept-family-map"><a href="../concept-map/tool.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -1,0 +1,50 @@
+{
+  "type": "instrument",
+  "sections": [
+    {
+      "heading": "무엇을 재는가",
+      "html": "<p>지표의 중력 가속도 g를 잽니다. 지구물리에서는 갈(Gal = 1 cm/s²)을 쓰며 <strong>1 mGal = 10⁻⁵ m/s²</strong>입니다. 지표의 g는 약 9.8 m/s²(약 980,000 mGal)이고, 지하 밀도 차이가 만드는 변화는 그 백만분의 1(1 mGal)에서 1억분의 1(0.01 mGal) 정도라서 정밀한 센서가 필요합니다.</p>\n<table><thead><tr><th>종류</th><th>원리</th><th>얻는 것</th></tr></thead><tbody>\n<tr><td>상대 중력계</td><td>스프링에 매단 질량의 변위</td><td>두 지점 사이의 g 차이</td></tr>\n<tr><td>절대 중력계</td><td>진공 속 물체의 자유낙하 거리와 시간(레이저 간섭계)</td><td>g의 절댓값(Niebauer 등, 1995)</td></tr>\n<tr><td>초전도 중력계</td><td>자기 부상한 구의 위치</td><td>한 지점의 연속적인 g 변화</td></tr>\n</tbody></table>"
+    },
+    {
+      "heading": "구성과 채점",
+      "html": "<p>원시 측정값에서 지하 구조의 신호만 남기려면 다음을 보정합니다.</p>\n<ul>\n<li><strong>기기 표류(drift)와 조석</strong>: 기준점을 일정 간격으로 다시 측정해 시간에 따른 변화를 빼고, 지구 조석에 의한 변화를 이론식으로 뺍니다.</li>\n<li><strong>위도 보정</strong>: 같은 고도에서도 위도에 따라 정상 중력이 달라집니다.</li>\n<li><strong>자유공기 보정</strong>: 고도가 높을수록 g가 줄어드는 효과를 약 0.3086 mGal/m로 더합니다.</li>\n<li><strong>부게 보정</strong>: 관측점과 기준면 사이의 암석판의 인력을 약 0.04193 × 밀도(g/cm³) × 높이(m) mGal로 뺍니다. 흔히 지각 평균 밀도로 2.67 g/cm³를 가정합니다.</li>\n<li>필요하면 주변 지형 보정을 더합니다(Telford 등, 1990; Torge &amp; Müller, 2012).</li>\n</ul>\n<p><strong>가상의 예</strong>: 고도 250 m 지점에서 관측값에서 정상 중력을 뺀 값이 +40.0 mGal입니다. 자유공기 보정은 0.3086 × 250 = +77.15 mGal, 부게 보정은 0.04193 × 2.67 × 250 = 27.99 mGal이므로 부게 이상은 40.0 + 77.15 − 27.99 = <strong>89.16 mGal</strong>입니다(코드로 계산). 가정한 밀도를 바꾸면 이 값이 달라집니다.</p>"
+    },
+    {
+      "heading": "결과 읽는 법",
+      "html": "<ul>\n<li>부게 이상이 주변보다 높으면 지하에 밀도가 큰 물질이, 낮으면 밀도가 작은 물질(퇴적층, 공동)이 있다고 해석하지만, 같은 이상을 만드는 밀도 분포는 여러 가지라서 <strong>해석은 유일하지 않습니다</strong>. 시추 자료나 다른 탐사(탄성파, 전자기)로 제한을 둡니다.</li>\n<li>넓은 구조에서 오는 ‘광역 이상’과 얕은 구조의 ‘잔류 이상’을 분리하는 과정이 해석을 좌우합니다.</li>\n<li>시간에 따라 g를 반복 측정(마이크로갈 단위)해 지하수나 화산 아래 마그마의 변화를 추적하기도 합니다(Hinze 등, 2013).</li>\n<li>논문에는 장비 모델, 측정 간격, 표류·조석 보정법, 가정한 밀도, 사용한 정상 중력식과 지형 보정 여부를 적습니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "중력 관측은 장비 종류에 따라 얻는 값이 다릅니다.",
+    "headers": [
+      "장비",
+      "측정값",
+      "대표 용도"
+    ],
+    "rows": [
+      [
+        "상대 중력계",
+        "지점 간 g 차이",
+        "지질 구조·자원 탐사"
+      ],
+      [
+        "절대 중력계",
+        "g의 절댓값",
+        "기준점 설정, 장기 변화"
+      ],
+      [
+        "초전도 중력계",
+        "연속 시계열",
+        "조석, 지하수·지각 변동 감시"
+      ]
+    ]
+  },
+  "references": [
+    "Telford, W. M., Geldart, L. P., & Sheriff, R. E. (1990). Applied Geophysics (2nd ed.). Cambridge University Press.",
+    "Torge, W., & Müller, J. (2012). Geodesy (4th ed.). De Gruyter.",
+    "Hinze, W. J., von Frese, R. R. B., & Saad, A. H. (2013). Gravity and Magnetic Exploration: Principles, Practices, and Applications. Cambridge University Press.",
+    "Niebauer, T. M., Sasagawa, G. S., Faller, J. E., Hilt, R., & Klopping, F. (1995). A new generation of absolute gravimeters. Metrologia, 32, 159–180.",
+    "Nabighian, M. N., Ander, M. E., Grauch, V. J. S., et al. (2005). Historical development of the gravity method in exploration. Geophysics, 70, 63ND–89ND."
+  ]
+}
