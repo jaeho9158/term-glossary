@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/root-locus-method.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>제어기를 설계할 때는 목표 성능(빠른 응답, 오버슈트 최소화 등)과 안정성이라는 두 가지 요구를 동시에 만족시켜야 합니다. 근궤적법은 이득이라는 하나의 설계 변수를 바꿀 때 시스템의 안정성이 어떻게 변하는지를 시각적으로 보여주기 때문에, 제어기 파라미터를 정하는 실무·연구 과정에서 반복적으로 등장합니다. 로봇공학, 항공우주, 전력전자 등 피드백 제어가 필요한 거의 모든 공학 분야의 논문에서 설계 근거를 제시할 때 표준적으로 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>개루프 전달함수 G(s)H(s)에 이득 K를 곱한 폐루프의 특성방정식 <code>1 + K·G(s)H(s) = 0</code>의 근이 K를 0에서 무한대로 키울 때 그리는 궤적을 그립니다(Evans, 1948). 손으로 그릴 때 쓰는 기본 규칙은 다음과 같습니다(Ogata, 2010).</p><ol><li>궤적의 가지 수는 개루프 극점 수(n)와 영점 수(m) 중 큰 쪽과 같습니다.</li><li>K = 0일 때 극점에서 시작하고, K → ∞에서는 영점으로 가거나 무한대로 갑니다.</li><li>실수축에서는 그 점의 오른쪽에 있는 실수 극점·영점의 개수가 <strong>홀수</strong>인 구간에 궤적이 놓입니다.</li><li>무한대로 가는 가지는 점근선을 따르며, 각도는 (2k+1)·180°/(n−m), 중심은 (극점의 합 − 영점의 합)/(n−m)입니다.</li><li>실수축에서 벗어나는 이탈점은 <code>dK/ds = 0</code>에서, 허수축 교차 이득은 루스(Routh) 판별이나 근을 직접 구해 찾습니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예: G(s) = K / [s(s+2)(s+4)]인 단위 되먹임 계. 코드로 계산했습니다.</p><ul><li>n = 3, m = 0이므로 가지 3개가 모두 무한대로 갑니다. 점근선 중심은 (0 − 2 − 4) ÷ 3 = −2, 각도는 ±60°와 180°입니다.</li><li>실수축에서 (−2, 0)과 (−∞, −4) 구간에 궤적이 놓입니다.</li><li>이탈점은 <code>dK/ds = 0</code>에서 s = -0.845(이때 K = 3.08)입니다.</li><li>특성방정식 s³ + 6s² + 8s + K = 0의 루스 판별에서 K &lt; 48이면 안정이고, K = 48일 때 허수축을 ω = √8 ≈ 2.83 rad/s에서 지납니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>K</th><th>폐루프 극점</th><th>감쇠비 ζ(복소근이 있을 때)</th></tr></thead><tbody><tr><td>1</td><td>-4.11, -0.14, -1.75</td><td>—</td></tr><tr><td>5</td><td>-4.46, -0.77 ± 0.73j</td><td>0.73</td></tr><tr><td>10</td><td>-4.76, -0.62 ± 1.31j</td><td>0.43</td></tr><tr><td>30</td><td>-5.53, -0.23 ± 2.32j</td><td>0.10</td></tr><tr><td>48</td><td>-6.00, 0.00 ± 2.83j</td><td>0.00</td></tr><tr><td>60</td><td>-6.25, 0.13 ± 3.09j</td><td>-0.04</td></tr></tbody></table></div><p>얻는 것은 이득 하나를 바꿀 때 극점이 어디로 움직이는지입니다. K가 이탈점의 이득(약 3.08)을 넘으면 복소 극점이 생기고 K가 커질수록 감쇠비가 낮아지며, K = 48에서 허수축에 닿아 안정 한계가 되며, 60에서는 오른쪽 반평면으로 넘어가 불안정해집니다. 감쇠비는 원점에서 극점까지의 각도로 읽습니다(ζ = −Re / |극점|).</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>모델:</strong> 사용한 개루프 전달함수와 이득 K가 어떤 물리량(제어기 이득 등)인지를 적습니다.</li><li><strong>결과 제시:</strong> 근궤적 그림에 개루프 극점·영점, 선택한 이득의 폐루프 극점, 필요한 감쇠비·고유진동수 영역을 표시합니다.</li><li><strong>설계 사양 연결:</strong> 선택한 극점에서의 오버슈트, 정착시간, 감쇠비를 함께 보고하고, 시뮬레이션 단계 응답으로 확인합니다.</li><li><strong>한계 서술:</strong> 선형 시불변 모델의 단일 입력·단일 출력 계에 적합하고, 비선형성과 모델 오차는 별도로 평가했다고 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설계된 제어기의 근궤적법(root locus method) 분석 결과, 이득 K가 12.5를 초과하면 극점이 허수축을 넘어가 시스템이 불안정해지는 것으로 확인되었다."</div>
   <p>이 문장은 제어기의 반응 강도를 나타내는 값(K)을 12.5보다 크게 설정하면 시스템이 진동을 멈추지 못하고 불안정해진다는 것을, 그래프 분석을 통해 미리 예측했다는 의미입니다. 제어공학·로봇공학·항공우주 논문에서 제어기 설계의 안정성을 검증할 때 널리 쓰입니다.</p>
   <div class="example">"쿼드로터의 자세 제어 루프에 대해 근궤적법을 적용하여 비례 이득의 허용 범위를 도출하고, 이를 바탕으로 진동 없는 응답을 보이는 이득 값을 선정하였다."</div>
@@ -159,6 +177,20 @@
 
   <h2>주의할 점</h2>
   <p>근궤적법은 시간 영역이 아니라 이득 값의 변화에 따른 극점의 이동 경로를 다루는 기법입니다. 주파수 영역에서 시스템 안정성을 판별하는 <a href="nyquist-stability-criterion.html">나이퀴스트 안정성 판별법</a>과는 접근 방식이 다르므로, 두 방법을 같은 것으로 혼동하지 않도록 주의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>제어계 해석 도구의 이름이 서로 비슷합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">보는 것</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">근궤적법</th><td>이득 변화에 따른 폐루프 극점의 이동</td><td>시간 영역 사양(감쇠비 등)과 연결</td></tr><tr><th scope="row"><a href="transfer-function.html">전달함수</a></th><td>입력과 출력의 관계 모형</td><td>근궤적의 입력 자료</td></tr><tr><th scope="row"><a href="damping-ratio.html">감쇠비</a></th><td>진동이 줄어드는 정도</td><td>근궤적 위 점의 각도로 읽음</td></tr><tr><th scope="row"><a href="pid-controller.html">PID 제어기</a></th><td>제어기의 한 종류</td><td>이득 선택에 근궤적을 쓸 수 있음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Evans, W. R. (1948). Graphical analysis of control systems. Transactions of the AIEE, 67, 547–551.</li>
+    <li>Evans, W. R. (1950). Control system synthesis by root locus method. Transactions of the AIEE, 69, 66–69.</li>
+    <li>Ogata, K. (2010). Modern Control Engineering (5th ed.). Prentice Hall.</li>
+    <li>Franklin, G. F., Powell, J. D., &amp; Emami-Naeini, A. (2015). Feedback Control of Dynamic Systems (7th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

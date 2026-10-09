@@ -1,0 +1,59 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "푸리에 법칙은 물질이 연속체이며 열전도율이 일정하다는 가정을 전제로 하므로",
+      "replace": "푸리에 법칙은 물질을 연속체로 보고 열유속이 그 지점의 온도구배에 비례한다고 가정하므로"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>1차원 정상 상태에서 푸리에 법칙은 <code>q″ = −k · dT/dx</code>로 씁니다. q″는 열유속(W/m²), k는 열전도율(W/(m·K)), dT/dx는 온도구배입니다.</li><li>음의 부호는 열이 <strong>온도가 높은 쪽에서 낮은 쪽으로</strong> 흐른다는 뜻입니다.</li><li>평판(두께 L, 양면 온도차 ΔT)에서는 <code>q″ = k · ΔT / L</code>이 되고, 면적 A를 곱하면 열전달률 <code>Q = q″ · A</code>가 됩니다.</li><li>벽을 여러 층 겹치면 층마다 열저항 <code>R = L/k</code>(m²·K/W)를 더해 <code>q″ = ΔT / ΣR</code>로 계산합니다.</li><li>이 법칙은 Fourier(1822)가 열의 이론으로 정리했고, 열전도 방정식의 바탕이 됩니다. 실험으로 관찰된 관계(현상론적 법칙)이며 열전도율은 재료마다 측정으로 얻습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: 두께 0.2 m, 열전도율 0.8 W/(m·K)인 벽(면적 10 m²)의 양면 온도차가 20 K입니다(코드로 계산, 열전도율은 설명용 값).</p><table><thead><tr><th>경우</th><th>열유속 q″</th><th>열전달률 Q</th></tr></thead><tbody><tr><td>벽만 있는 경우</td><td>0.8 × 20 ÷ 0.2 = 80.0 W/m²</td><td>80.0 × 10 = 800 W</td></tr><tr><td>벽 + 단열재(두께 0.1 m, k = 0.04)</td><td>20 ÷ (0.25 + 2.50) = 7.27 W/m²</td><td>7.27 × 10 = 72.7 W</td></tr></tbody></table><p>단열재를 덧붙이면 열저항이 2.75 m²·K/W로 커져 열손실이 91% 줄어듭니다. 전체 20 K의 온도차 중 벽이 1.8 K, 단열재가 18.2 K를 맡으므로, 대부분의 온도차가 단열재에서 생깁니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>푸리에 법칙은 모든 열전달에 쓴다.</td><td>고체나 정지 유체 속의 전도를 다룹니다. 유체의 흐름에 의한 대류는 별도의 식(대류 열전달계수)을 씁니다.</td></tr><tr><td>열전도율은 상수다.</td><td>온도에 따라 달라지고, 결정이나 섬유 재료에서는 방향에 따라서도 다릅니다(이방성).</td></tr><tr><td>열은 온도차가 생기는 즉시 전달된다.</td><td>푸리에 법칙은 순간 전달을 가정합니다. 매우 짧은 시간이나 극저온·미세 구조에서는 지연을 고려한 Cattaneo식 같은 확장이 논의됩니다(Joseph &amp; Preziosi, 1989).</td></tr><tr><td>ΔT가 같으면 열유속도 같다.</td><td>두께와 열전도율에 따라 달라집니다. 같은 ΔT라도 얇거나 k가 큰 재료일수록 열유속이 큽니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "열전달 식에 나오는 양은 단위로 구분하면 쉽습니다.",
+    "headers": [
+      "양",
+      "기호·단위",
+      "뜻"
+    ],
+    "rows": [
+      [
+        "[[thermal-conductivity|열전도율]]",
+        "k, W/(m·K)",
+        "재료가 열을 전도하는 정도"
+      ],
+      [
+        "열유속",
+        "q″, W/m²",
+        "단위 면적을 지나는 열의 흐름"
+      ],
+      [
+        "열전달률",
+        "Q, W",
+        "면적 전체를 지나는 열의 흐름"
+      ],
+      [
+        "열저항",
+        "R = L/k, m²·K/W",
+        "층이 열 흐름을 막는 정도(클수록 단열)"
+      ]
+    ]
+  },
+  "references": [
+    "Fourier, J. (1822). Théorie analytique de la chaleur. Firmin Didot.",
+    "Incropera, F. P., DeWitt, D. P., Bergman, T. L., & Lavine, A. S. (2007). Fundamentals of Heat and Mass Transfer (6th ed.). Wiley.",
+    "Joseph, D. D., & Preziosi, L. (1989). Heat waves. Reviews of Modern Physics, 61(1), 41–73."
+  ]
+}

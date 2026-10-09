@@ -1,0 +1,29 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "온도가 올라가는 중이면 냉방이 켜져 있고 내려가는 중이면 꺼져 있을 수 있습니다",
+      "replace": "온도가 올라가는 중이면 냉방이 아직 꺼져 있고 내려가는 중이면 켜져 있을 수 있습니다"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>히스테리시스는 같은 입력에서도 <strong>이전 이력에 따라 출력이 달라지는</strong> 현상입니다. 입력을 올릴 때와 내릴 때의 경로가 다르므로 입력–출력 그래프가 고리 모양을 이룹니다.</li><li>자성체의 B–H 곡선이 대표 예입니다. 외부 자기장을 걸었다가 빼도 자화가 남고(잔류 자화), 한 주기를 돌 때 고리의 면적이 단위 부피당 손실 에너지에 해당합니다(Bertotti, 1998).</li><li>제어와 전자 회로에서는 스위칭 기준을 일부러 두 개로 두는 <strong>이력(히스테리시스) 구간</strong>을 써서 잡음에 의한 떨림을 막습니다(온도조절기, 슈미트 트리거).</li><li>수학적으로는 Preisach 모델, Prandtl–Ishlinskii 모델 등이 쓰입니다(Mayergoyz, 1991).</li><li>생태계나 기후 연구에서는 한 번 임계점을 넘어 바뀐 상태가 같은 조건으로 되돌려도 원래대로 돌아오지 않는 현상을 히스테리시스로 설명합니다(Scheffer et al., 2001).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>온도조절기 예를 코드로 시뮬레이션했습니다(가상의 예). 냉방은 실내 온도가 25도 이상이면 켜지고, 23도 이하가 되어야 꺼집니다. 22도에서 26도까지 올렸다가 다시 22도까지 내립니다.</p><table><thead><tr><th>구간</th><th>실내 온도</th><th>냉방 상태</th></tr></thead><tbody><tr><td>올라가는 중</td><td>24도</td><td>꺼짐</td></tr><tr><td>내려가는 중</td><td>24도</td><td>켜짐</td></tr></tbody></table><p>온도는 24도로 같은데 냉방 상태는 어느 방향에서 왔는지에 따라 다릅니다. 올라가는 중에는 25도에 닿기 전이라 아직 꺼져 있고, 내려가는 중에는 한번 켜진 뒤 23도에 닿기 전이라 계속 켜져 있습니다. 켜는 기준(25도)과 끄는 기준(23도) 사이 2도가 이력 구간입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>히스테리시스는 측정 오차다.</td><td>시스템이 가진 고유한 거동이며, 반복 측정해도 같은 고리가 나타납니다. 오차와 달리 모델링해 보정할 수 있습니다.</td></tr><tr><td>시간 지연과 같다.</td><td>지연은 입력이 늦게 반영되는 것이고, 히스테리시스는 입력이 변해 온 이력(올리는 중인지 내리는 중인지)에 따라 경로가 달라지는 것입니다. 입력을 아주 느리게 바꿔도 고리가 남는 경우를 속도 무관(rate-independent) 히스테리시스라고 부릅니다.</td></tr><tr><td>고리의 면적은 항상 에너지 손실이다.</td><td>자성체의 B–H 곡선처럼 손실과 연결되는 경우가 대표적이며, 다른 시스템에서는 입력과 출력의 정의에 따라 해석이 달라집니다.</td></tr><tr><td>선형 모델로 충분하다.</td><td>센서와 액추에이터가 히스테리시스를 보일 때 선형으로만 보정하면 오차가 남아 보상 모델이 필요해집니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Mayergoyz, I. D. (1991). Mathematical Models of Hysteresis. Springer.",
+    "Bertotti, G. (1998). Hysteresis in Magnetism: For Physicists, Materials Scientists, and Engineers. Academic Press.",
+    "Visintin, A. (1994). Differential Models of Hysteresis. Springer.",
+    "Scheffer, M., Carpenter, S., Foley, J. A., Folke, C., & Walker, B. (2001). Catastrophic shifts in ecosystems. Nature, 413, 591–596."
+  ]
+}

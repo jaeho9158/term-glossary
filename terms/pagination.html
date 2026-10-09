@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/pagination.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,24 @@
   <p>검색엔진 최적화 관점에서는 페이지마다 고유한 URL이 부여되는 페이지네이션이 하나의 URL만 갖는 무한 스크롤보다 각 페이지의 콘텐츠가 개별적으로 색인되기 유리하다는 차이도 있다.</p>
   <p>페이지 번호를 누르면 스크롤 위치가 항상 목록 상단으로 되돌아가는 것이 표준 동작이며, 이 위치 이동이 빠지면 사용자가 페이지가 바뀐 것을 인지하지 못하는 경우가 생긴다. 첫 페이지와 마지막 페이지로 바로 이동하는 버튼을 함께 제공하는 것이 페이지 수가 많은 목록에서 사용자의 탐색 부담을 크게 줄여 준다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>페이지네이션은 긴 목록을 일정 개수씩 <strong>나눠서</strong> 번호와 이전·다음 버튼으로 이동하게 하는 방식입니다.</li><li>한 페이지에 몇 개를 보여 줄지(페이지 크기), 전체가 몇 페이지인지, 현재 페이지가 어디인지를 화면에 알려 주는 것이 기본 구성입니다.</li><li>데이터를 가져오는 방식은 크게 두 가지입니다. <strong>오프셋 방식</strong>은 “앞의 몇 개를 건너뛰고 몇 개를 가져온다”로 페이지 번호에 바로 대응합니다. <strong>커서(키셋) 방식</strong>은 “마지막으로 본 항목 다음부터 가져온다”로, 건너뛸 개수가 커져도 느려지지 않고 중간에 항목이 추가·삭제돼도 중복·누락이 덜한 장점이 있다고 Winand(2012)가 설명합니다. 대신 임의의 페이지 번호로 바로 가기는 어렵습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: 게시글 1,234개를 한 페이지에 20개씩 보여 준다고 합니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>값</th><th>계산</th></tr></thead><tbody><tr><td>전체 페이지 수</td><td>62</td><td>⌈1234 ÷ 20⌉</td></tr><tr><td>마지막 페이지의 항목 수</td><td>14</td><td>1234 − 61 × 20</td></tr><tr><td>5페이지의 오프셋</td><td>80</td><td>(5 − 1) × 20</td></tr></tbody></table></div><p>페이지가 62개이므로 번호를 모두 늘어놓지 않고 현재 페이지 주변만 보여 주는 줄임 표시를 씁니다. 현재 7페이지, 양옆 1개씩이면 <code>1 … 6 7 8 … 62</code>, 현재 62페이지면 <code>1 … 61 62</code>처럼 나타납니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>페이지네이션은 무한스크롤보다 낡은 방식이다.</td><td>목적에 따라 다릅니다. 특정 위치로 돌아오거나 끝이 있는 목록을 찾을 때는 페이지네이션이, 연속해서 훑어보는 탐색에는 무한스크롤이 맞는 경우가 많습니다.</td></tr><tr><td>오프셋 방식이면 항상 충분하다.</td><td>건너뛸 개수가 매우 커지면 데이터베이스가 느려질 수 있고, 목록이 바뀌는 중에는 항목이 중복되거나 빠질 수 있습니다.</td></tr><tr><td>전체 페이지 수는 항상 정확히 알 수 있다.</td><td>전체 개수를 세는 비용이 크거나 자료가 계속 늘어나면 “다음”만 제공하는 설계를 택하기도 합니다.</td></tr><tr><td>번호 버튼만 있으면 된다.</td><td>현재 위치 표시, 이전·다음, 첫·마지막 이동을 함께 제공해야 많은 페이지에서도 탐색이 쉽습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 연구는 무한스크롤과 페이지네이션 방식이 사용자의 정보 검색 완료 시간에 미치는 차이를 비교하였다.</div>
   <p>두 가지 콘텐츠 탐색 방식의 효율성을 비교한 사용성 실험이다.</p>
   <div class="example">"동일한 게시판을 페이지네이션 방식과 무한스크롤 방식으로 각각 구현하여 사용자의 특정 게시물 재방문 소요시간을 비교하였다."</div>
@@ -157,6 +175,18 @@
 
   <h2>주의할 점</h2>
   <p>페이지네이션은 특정 정보를 다시 찾기 쉽지만 콘텐츠 소비의 몰입감은 무한스크롤보다 낮을 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>긴 목록을 나누어 보여 주는 방식입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">동작</th><th scope="col">잘 맞는 상황</th></tr></thead><tbody><tr><th scope="row">페이지네이션</th><td>번호로 구획을 나누어 이동</td><td>특정 위치로 돌아오기, 끝이 있는 목록</td></tr><tr><th scope="row"><a href="infinite-scroll.html">무한스크롤</a></th><td>아래로 내릴수록 다음 항목을 이어 붙임</td><td>연속 탐색, 피드형 콘텐츠</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Winand, M. (2012). SQL Performance Explained. Markus Winand.</li>
+    <li>Krug, S. (2014). Don’t Make Me Think, Revisited: A Common Sense Approach to Web Usability (3rd ed.). New Riders.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

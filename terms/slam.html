@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/slam.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>SLAM은 자율주행차, 실내 배송 로봇, 증강현실 기기 등 사전 지도 없이 스스로 위치를 파악해야 하는 거의 모든 자율 시스템의 기초 기술이기 때문에 로봇공학과 컴퓨터비전 논문에서 핵심적으로 다뤄집니다. 센서 데이터로부터 환경을 인식하고 동시에 자기 위치를 추정하는 문제는 확률적 상태 추정, 컴퓨터비전, 최적화 이론이 결합된 상위 연구주제와 맞닿아 있어, 다양한 분야의 연구가 교차하는 지점이기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>SLAM은 지도와 자기 위치를 함께 추정하는 문제이며, 대부분의 시스템은 다음 구성 요소를 갖습니다(Cadena 등, 2016).</p><ol><li><strong>센서 입력:</strong> 카메라, 라이다, 관성센서(IMU), 바퀴 주행거리(오도메트리) 등.</li><li><strong>전단부(front-end):</strong> 센서 자료에서 특징점이나 정합 결과를 뽑아 연속한 관측 사이의 움직임을 추정하고, 어떤 관측이 같은 장소를 가리키는지 연결합니다.</li><li><strong>후단부(back-end):</strong> 모아 둔 관측을 하나의 최적화(그래프 최적화 등)로 풀어 궤적과 지도를 함께 보정합니다. 초기 연구는 확장 칼만 필터를 주로 썼습니다(Smith 등, 1990).</li><li><strong>폐루프 검출(loop closure):</strong> 이전에 지나간 장소를 다시 알아보고 누적 오차를 한 번에 바로잡습니다.</li><li><strong>지도 표현:</strong> 점군, 격자 지도, 특징점 지도 등으로 결과를 저장합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>쓰는 때:</strong> 사전 지도가 없거나 GPS를 쓸 수 없는 실내·지하·도심 협곡에서 로봇, 자율주행차, 증강현실 기기가 위치를 알아야 할 때.</li><li><strong>얻는 것:</strong> 자기 궤적과 환경 지도. 지도는 이후 경로 계획이나 재위치 추정에 쓰입니다.</li><li><strong>왜 필요한가(가상의 예, 코드로 계산):</strong> 오도메트리만으로 위치를 이어 가면 작은 방향 오차도 누적됩니다. 방향이 계속 1° 틀어진 채 직진한다고 하면 옆으로 벗어나는 거리는 이동 거리 × sin(1°)입니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>이동 거리</th><th>옆으로 벗어난 거리</th></tr></thead><tbody><tr><td>10 m</td><td>0.17 m</td></tr><tr><td>100 m</td><td>1.75 m</td></tr><tr><td>1000 m</td><td>17.45 m</td></tr></tbody></table></div><p>이동 거리에 비례해 오차가 커지므로, 같은 장소를 다시 인식해 오차를 줄이는 폐루프 검출이 중요합니다. 실제 오차는 센서마다 다르며 위 값은 단순화한 설명용입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>시스템 구성:</strong> 센서 종류(단안·스테레오·RGB-D 카메라, 라이다, IMU), 사용한 SLAM 알고리즘과 버전, 매개변수 설정을 적습니다.</li><li><strong>평가:</strong> 궤적 오차는 흔히 절대 궤적 오차(ATE)와 상대 자세 오차(RPE)로 보고하고, 정답 궤적을 어떻게 얻었는지(모션캡처, GPS/RTK 등)를 밝힙니다.</li><li><strong>환경 조건:</strong> 실내·실외, 조명, 동적 물체, 거리를 적고, 폐루프가 있었는지 구분해 보고합니다.</li><li>공개 데이터셋 결과를 인용할 때는 데이터셋 이름과 구간 이름을 밝혀 다른 연구와 비교할 수 있게 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 실내 자율주행 로봇의 위치 추정 정확도를 높이기 위해 라이다 기반 SLAM 알고리즘을 적용하였다."</div>
   <p>이 문장은 "사전에 만들어진 지도 없이도, 로봇이 이동하면서 스스로 실내 지도를 만들고 동시에 자신의 위치를 계산하는 방식을 사용했다"는 뜻입니다. 사전 지도가 없는 새 환경에서도 로봇이 스스로 길을 찾을 수 있게 해주는 핵심 기술입니다.</p>
   <div class="example">"단안 카메라만을 이용한 시각 SLAM(Visual SLAM) 시스템을 증강현실 애플리케이션에 적용하여, 실시간으로 가상 객체를 실제 공간에 정합하는 성능을 평가하였다."</div>
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>SLAM은 완벽한 지도를 한 번에 만드는 기술이 아니라, 센서 오차가 누적되면서 지도와 위치 추정이 조금씩 어긋나는 "표류(drift)" 문제를 안고 있습니다. 그래서 실제 구현에서는 오차를 주기적으로 바로잡는 보정 과정이 함께 필요하며, 위치 추정 자체는 흔히 <a href="kalman-filter.html">칼만 필터</a> 같은 추정 기법을 기반으로 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>위치 추정 관련 용어는 층위가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">SLAM과의 관계</th></tr></thead><tbody><tr><th scope="row">SLAM</th><td>지도 작성과 위치 추정을 동시에 수행</td><td>—</td></tr><tr><th scope="row"><a href="odometry.html">오도메트리</a></th><td>움직임을 누적해 위치 추정</td><td>SLAM의 입력 중 하나이며 오차가 누적됨</td></tr><tr><th scope="row"><a href="kalman-filter.html">칼만 필터</a></th><td>잡음 있는 측정으로 상태를 추정</td><td>초기 SLAM의 추정 도구</td></tr><tr><th scope="row"><a href="lidar.html">라이다</a></th><td>레이저로 거리 측정</td><td>SLAM에 쓰이는 센서</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Smith, R., Self, M., &amp; Cheeseman, P. (1990). Estimating uncertain spatial relationships in robotics. In I. J. Cox &amp; G. T. Wilfong (Eds.), Autonomous Robot Vehicles. Springer.</li>
+    <li>Durrant-Whyte, H., &amp; Bailey, T. (2006). Simultaneous localization and mapping: Part I. IEEE Robotics &amp; Automation Magazine, 13(2), 99–110.</li>
+    <li>Cadena, C., Carlone, L., Carrillo, H., Latif, Y., Scaramuzza, D., Neira, J., Reid, I., &amp; Leonard, J. J. (2016). Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. IEEE Transactions on Robotics, 32(6), 1309–1332.</li>
+    <li>Thrun, S., Burgard, W., &amp; Fox, D. (2005). Probabilistic Robotics. MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="visual-slam.html">비주얼슬램</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/live-load.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <p>적재하중 기준값은 도서관 서고나 창고처럼 실제로 매우 무거운 물건을 쌓아두는 용도의 공간에서는 사무실이나 주거보다 훨씬 크게 설정되므로, 용도 변경 시 기존 구조가 새 적재하중을 견딜 수 있는지 재검토가 필요하다.</p>
   <p>옥상에 헬리패드나 태양광 설비처럼 특수한 용도가 계획되면, 일반 옥상 적재하중 기준과는 별도로 그 용도에 맞는 하중을 추가로 반영해야 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>활하중은 사람, 가구, 물품, 설비처럼 건물을 <strong>쓰는 동안 위치와 크기가 변할 수 있는 하중</strong>입니다. 구조체와 마감처럼 항상 있는 <a href="dead-load.html">고정하중</a>과 구분됩니다.</li><li>설계에서는 실제 무게를 재서 쓰지 않고 용도별 <strong>최소 기준값</strong>을 씁니다. 예를 들어 미국 기준 ASCE 7은 최소 등분포 활하중으로 주거 약 1.92 kN/m²(40 psf), 사무실 약 2.40 kN/m²(50 psf), 도서관 서고 약 7.18 kN/m²(150 psf)를 제시합니다. 우리나라는 건축구조기준(KDS 41)에서 용도별 값을 정하므로 설계에는 적용 기준의 최신 표를 확인해야 합니다.</li><li>설계 하중은 고정하중과 활하중을 조합 계수로 합칩니다. ASCE 7의 기본 조합 중 하나는 <code>1.2D + 1.6L</code>입니다.</li><li>넓은 면적을 지지하는 보나 기둥은 모든 곳이 동시에 최대로 차기 어려워, 면적에 따라 활하중을 줄이는 <strong>활하중 저감</strong>을 허용하는 기준이 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: 사무실 바닥의 한 내부 기둥을 검토합니다. 활하중 L<sub>0</sub> = 2.4 kN/m², 고정하중 D = 5 kN/m², 기둥이 받는 부하 면적 A<sub>T</sub> = 30 m², 내부 기둥의 계수 K<sub>LL</sub> = 4라고 합니다(ASCE 7의 SI식을 따라 코드로 계산, 실제 설계는 적용 기준으로 확인).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>계산</th><th>값</th></tr></thead><tbody><tr><td>K<sub>LL</sub> · A<sub>T</sub></td><td>4 × 30</td><td>120 m²</td></tr><tr><td>저감 계수</td><td>0.25 + 4.57 ÷ √120</td><td>0.667</td></tr><tr><td>저감된 활하중</td><td>2.4 × 0.667</td><td>1.60 kN/m²</td></tr><tr><td>하중 조합 1.2D + 1.6L (저감 전)</td><td>1.2 × 5 + 1.6 × 2.4</td><td>9.84 kN/m²</td></tr><tr><td>하중 조합 (저감 후)</td><td>1.2 × 5 + 1.6 × 1.60</td><td>8.56 kN/m²</td></tr></tbody></table></div><p>저감 계수는 한 층만 지지하는 부재에서 0.5 아래로 내려가지 않는 하한이 있고, 저감이 허용되지 않는 용도도 있습니다. 이 예에서는 기둥에 걸리는 설계 하중이 약 13% 줄어듭니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>활하중은 실제로 측정한 평균 무게다.</td><td>설계용 활하중은 규정된 최소 기준값이며, 확률적으로 안전 측에 놓인 값으로 설명됩니다(Ellingwood et al., 1980). 평상시 실제 하중보다 큰 경우가 많습니다.</td></tr><tr><td>실제 하중이 더 작으면 설계에서 낮춰도 된다.</td><td>기준이 정한 최소값 아래로는 낮출 수 없습니다.</td></tr><tr><td>용도를 바꿔도 구조는 그대로 안전하다.</td><td>서고나 창고처럼 활하중이 큰 용도로 바꾸면 기존 구조가 기준을 만족하는지 다시 확인해야 합니다.</td></tr><tr><td><a href="dead-load.html">고정하중</a>과 합산하면 끝이다.</td><td>활하중은 부분 재하(일부 경간만 채움)처럼 부재력이 가장 불리한 배치도 따로 검토합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"도서관 서고 바닥은 일반 사무 공간보다 큰 활하중 기준(5kN/㎡)을 적용하여 구조 설계에 반영하였다."</div>
   <p>용도별로 다른 활하중 기준이 구조 설계에 반영되는 방식을 서고 바닥 사례로 설명한다.</p>
   <div class="example">"활하중 산정 시 실제 사용 목적에 따라 예상되는 최대 인원과 적재 물품의 무게를 반영해야 한다는 점이 강조되었다."</div>
@@ -160,6 +178,18 @@
   <p>활하중은 건물 용도가 변경되면 설계 시 적용된 기준치를 초과할 수 있어, 용도 변경 시 기존 구조가 새로운 활하중을 견딜 수 있는지 재검토해야 한다.</p>
 
   <p>적재하중은 실제 사용 중 가구 재배치나 서가 증설로 예상보다 커질 수 있어, 설계 시 여유를 둔 기준값을 그대로 준수하는 것이 안전하다. 발코니처럼 사람이 몰릴 수 있는 부위는 실내보다 더 큰 적재하중 기준이 적용되는 경우가 있어 별도 확인이 필요하다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>건물에 걸리는 하중은 변하는 정도와 원인으로 나눕니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">하중</th><th scope="col">성격</th><th scope="col">예</th></tr></thead><tbody><tr><th scope="row"><a href="dead-load.html">고정하중</a></th><td>항상 있고 크기가 거의 변하지 않음</td><td>구조체, 마감, 고정 설비</td></tr><tr><th scope="row">활하중(적재하중)</th><td>사용 중 변할 수 있음</td><td>사람, 가구, 물품</td></tr><tr><th scope="row">지진하중·풍하중</th><td>자연 현상에 의한 동적·일시적 하중</td><td>지진, 바람</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>American Society of Civil Engineers. (2017). Minimum Design Loads and Associated Criteria for Buildings and Other Structures (ASCE/SEI 7-16). ASCE.</li>
+    <li>Ellingwood, B., Galambos, T. V., MacGregor, J. G., &amp; Cornell, C. A. (1980). Development of a Probability Based Load Criterion for American National Standard A58 (NBS Special Publication 577). National Bureau of Standards.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="structural-load-types.html">구조물의 하중 종류</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="dead-load.html">고정하중</a><a href="seismic-load.html">지진하중</a><a href="wind-load.html">풍하중</a></div></div><p class="concept-family-map"><a href="../concept-map/arch.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

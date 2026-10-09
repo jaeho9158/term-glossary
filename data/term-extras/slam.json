@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>SLAM은 지도와 자기 위치를 함께 추정하는 문제이며, 대부분의 시스템은 다음 구성 요소를 갖습니다(Cadena 등, 2016).</p><ol><li><strong>센서 입력:</strong> 카메라, 라이다, 관성센서(IMU), 바퀴 주행거리(오도메트리) 등.</li><li><strong>전단부(front-end):</strong> 센서 자료에서 특징점이나 정합 결과를 뽑아 연속한 관측 사이의 움직임을 추정하고, 어떤 관측이 같은 장소를 가리키는지 연결합니다.</li><li><strong>후단부(back-end):</strong> 모아 둔 관측을 하나의 최적화(그래프 최적화 등)로 풀어 궤적과 지도를 함께 보정합니다. 초기 연구는 확장 칼만 필터를 주로 썼습니다(Smith 등, 1990).</li><li><strong>폐루프 검출(loop closure):</strong> 이전에 지나간 장소를 다시 알아보고 누적 오차를 한 번에 바로잡습니다.</li><li><strong>지도 표현:</strong> 점군, 격자 지도, 특징점 지도 등으로 결과를 저장합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰는 때:</strong> 사전 지도가 없거나 GPS를 쓸 수 없는 실내·지하·도심 협곡에서 로봇, 자율주행차, 증강현실 기기가 위치를 알아야 할 때.</li><li><strong>얻는 것:</strong> 자기 궤적과 환경 지도. 지도는 이후 경로 계획이나 재위치 추정에 쓰입니다.</li><li><strong>왜 필요한가(가상의 예, 코드로 계산):</strong> 오도메트리만으로 위치를 이어 가면 작은 방향 오차도 누적됩니다. 방향이 계속 1° 틀어진 채 직진한다고 하면 옆으로 벗어나는 거리는 이동 거리 × sin(1°)입니다.</li></ul><table><thead><tr><th>이동 거리</th><th>옆으로 벗어난 거리</th></tr></thead><tbody><tr><td>10 m</td><td>0.17 m</td></tr><tr><td>100 m</td><td>1.75 m</td></tr><tr><td>1000 m</td><td>17.45 m</td></tr></tbody></table><p>이동 거리에 비례해 오차가 커지므로, 같은 장소를 다시 인식해 오차를 줄이는 폐루프 검출이 중요합니다. 실제 오차는 센서마다 다르며 위 값은 단순화한 설명용입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>시스템 구성:</strong> 센서 종류(단안·스테레오·RGB-D 카메라, 라이다, IMU), 사용한 SLAM 알고리즘과 버전, 매개변수 설정을 적습니다.</li><li><strong>평가:</strong> 궤적 오차는 흔히 절대 궤적 오차(ATE)와 상대 자세 오차(RPE)로 보고하고, 정답 궤적을 어떻게 얻었는지(모션캡처, GPS/RTK 등)를 밝힙니다.</li><li><strong>환경 조건:</strong> 실내·실외, 조명, 동적 물체, 거리를 적고, 폐루프가 있었는지 구분해 보고합니다.</li><li>공개 데이터셋 결과를 인용할 때는 데이터셋 이름과 구간 이름을 밝혀 다른 연구와 비교할 수 있게 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "위치 추정 관련 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "SLAM과의 관계"
+    ],
+    "rows": [
+      [
+        "SLAM",
+        "지도 작성과 위치 추정을 동시에 수행",
+        "—"
+      ],
+      [
+        "[[odometry|오도메트리]]",
+        "움직임을 누적해 위치 추정",
+        "SLAM의 입력 중 하나이며 오차가 누적됨"
+      ],
+      [
+        "[[kalman-filter|칼만 필터]]",
+        "잡음 있는 측정으로 상태를 추정",
+        "초기 SLAM의 추정 도구"
+      ],
+      [
+        "[[lidar|라이다]]",
+        "레이저로 거리 측정",
+        "SLAM에 쓰이는 센서"
+      ]
+    ]
+  },
+  "references": [
+    "Smith, R., Self, M., & Cheeseman, P. (1990). Estimating uncertain spatial relationships in robotics. In I. J. Cox & G. T. Wilfong (Eds.), Autonomous Robot Vehicles. Springer.",
+    "Durrant-Whyte, H., & Bailey, T. (2006). Simultaneous localization and mapping: Part I. IEEE Robotics & Automation Magazine, 13(2), 99–110.",
+    "Cadena, C., Carlone, L., Carrillo, H., Latif, Y., Scaramuzza, D., Neira, J., Reid, I., & Leonard, J. J. (2016). Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. IEEE Transactions on Robotics, 32(6), 1309–1332.",
+    "Thrun, S., Burgard, W., & Fox, D. (2005). Probabilistic Robotics. MIT Press."
+  ]
+}

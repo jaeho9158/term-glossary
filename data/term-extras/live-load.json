@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>활하중은 사람, 가구, 물품, 설비처럼 건물을 <strong>쓰는 동안 위치와 크기가 변할 수 있는 하중</strong>입니다. 구조체와 마감처럼 항상 있는 [[dead-load|고정하중]]과 구분됩니다.</li><li>설계에서는 실제 무게를 재서 쓰지 않고 용도별 <strong>최소 기준값</strong>을 씁니다. 예를 들어 미국 기준 ASCE 7은 최소 등분포 활하중으로 주거 약 1.92 kN/m²(40 psf), 사무실 약 2.40 kN/m²(50 psf), 도서관 서고 약 7.18 kN/m²(150 psf)를 제시합니다. 우리나라는 건축구조기준(KDS 41)에서 용도별 값을 정하므로 설계에는 적용 기준의 최신 표를 확인해야 합니다.</li><li>설계 하중은 고정하중과 활하중을 조합 계수로 합칩니다. ASCE 7의 기본 조합 중 하나는 <code>1.2D + 1.6L</code>입니다.</li><li>넓은 면적을 지지하는 보나 기둥은 모든 곳이 동시에 최대로 차기 어려워, 면적에 따라 활하중을 줄이는 <strong>활하중 저감</strong>을 허용하는 기준이 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: 사무실 바닥의 한 내부 기둥을 검토합니다. 활하중 L<sub>0</sub> = 2.4 kN/m², 고정하중 D = 5 kN/m², 기둥이 받는 부하 면적 A<sub>T</sub> = 30 m², 내부 기둥의 계수 K<sub>LL</sub> = 4라고 합니다(ASCE 7의 SI식을 따라 코드로 계산, 실제 설계는 적용 기준으로 확인).</p><table><thead><tr><th>항목</th><th>계산</th><th>값</th></tr></thead><tbody><tr><td>K<sub>LL</sub> · A<sub>T</sub></td><td>4 × 30</td><td>120 m²</td></tr><tr><td>저감 계수</td><td>0.25 + 4.57 ÷ √120</td><td>0.667</td></tr><tr><td>저감된 활하중</td><td>2.4 × 0.667</td><td>1.60 kN/m²</td></tr><tr><td>하중 조합 1.2D + 1.6L (저감 전)</td><td>1.2 × 5 + 1.6 × 2.4</td><td>9.84 kN/m²</td></tr><tr><td>하중 조합 (저감 후)</td><td>1.2 × 5 + 1.6 × 1.60</td><td>8.56 kN/m²</td></tr></tbody></table><p>저감 계수는 한 층만 지지하는 부재에서 0.5 아래로 내려가지 않는 하한이 있고, 저감이 허용되지 않는 용도도 있습니다. 이 예에서는 기둥에 걸리는 설계 하중이 약 13% 줄어듭니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>활하중은 실제로 측정한 평균 무게다.</td><td>설계용 활하중은 규정된 최소 기준값이며, 확률적으로 안전 측에 놓인 값으로 설명됩니다(Ellingwood et al., 1980). 평상시 실제 하중보다 큰 경우가 많습니다.</td></tr><tr><td>실제 하중이 더 작으면 설계에서 낮춰도 된다.</td><td>기준이 정한 최소값 아래로는 낮출 수 없습니다.</td></tr><tr><td>용도를 바꿔도 구조는 그대로 안전하다.</td><td>서고나 창고처럼 활하중이 큰 용도로 바꾸면 기존 구조가 기준을 만족하는지 다시 확인해야 합니다.</td></tr><tr><td>[[dead-load|고정하중]]과 합산하면 끝이다.</td><td>활하중은 부분 재하(일부 경간만 채움)처럼 부재력이 가장 불리한 배치도 따로 검토합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "건물에 걸리는 하중은 변하는 정도와 원인으로 나눕니다.",
+    "headers": [
+      "하중",
+      "성격",
+      "예"
+    ],
+    "rows": [
+      [
+        "[[dead-load|고정하중]]",
+        "항상 있고 크기가 거의 변하지 않음",
+        "구조체, 마감, 고정 설비"
+      ],
+      [
+        "활하중(적재하중)",
+        "사용 중 변할 수 있음",
+        "사람, 가구, 물품"
+      ],
+      [
+        "지진하중·풍하중",
+        "자연 현상에 의한 동적·일시적 하중",
+        "지진, 바람"
+      ]
+    ]
+  },
+  "references": [
+    "American Society of Civil Engineers. (2017). Minimum Design Loads and Associated Criteria for Buildings and Other Structures (ASCE/SEI 7-16). ASCE.",
+    "Ellingwood, B., Galambos, T. V., MacGregor, J. G., & Cornell, C. A. (1980). Development of a Probability Based Load Criterion for American National Standard A58 (NBS Special Publication 577). National Bureau of Standards."
+  ]
+}
