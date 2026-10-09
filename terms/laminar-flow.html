@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <p>층류 경계층은 난류보다 <a href="skin-friction-drag.html">마찰항력</a>이 훨씬 작으므로, 자연층류 날개와 흡입식 <a href="boundary-layer-control.html">경계층 제어</a> 연구는 층류 영역을 얼마나 뒤쪽까지 유지하느냐를 목표로 삼습니다. 소형 무인기와 글라이더처럼 낮은 레이놀즈수에서 나는 기체는 층류의 비중이 커서 에어포일 선택이 성능을 좌우합니다.</p>
   <p>층류는 표면마찰항력이 낮다는 장점이 있지만 유지 구간이 짧아, 층류 유지 구간을 늘리는 것이 항력 저감 설계의 주요 목표가 된다. 날개 표면을 매끄럽게 다듬거나 형상을 다듬는 층류익 설계가 이러한 목적으로 개발되었다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>층류는 유체가 서로 섞이지 않는 층을 이루며 흐르는 상태이고, 층 사이의 운동량 교환은 분자 수준의 점성 확산으로만 일어납니다.</li><li>층류인지 난류인지는 주로 <strong><a href="reynolds-number.html">레이놀즈 수</a></strong> Re = ρVL/μ(관성력 대 점성력의 비)로 가늠합니다. 원관 내부 유동에서는 Re가 약 2,300보다 작으면 층류로 유지되고 약 4,000을 넘으면 대개 난류이며, 그 사이는 천이 영역입니다. 이 값들은 입구 교란, 벽의 거칠기 등에 따라 달라지는 관례적 기준입니다. 레이놀즈(1883)는 이 전이를 실험으로 보였습니다.</li><li>평판 위 경계층에서는 국소 레이놀즈 수 Re<sub>x</sub>가 대략 5×10<sup>5</sup> 안팎에서 층류가 난류로 바뀌는 것으로 흔히 인용되지만, 자유흐름의 교란 정도와 표면 거칠기에 크게 좌우됩니다.</li><li>원관의 완전 발달 층류에서는 속도 분포가 포물선이고 최대 속도가 평균 속도의 2배이며, 마찰계수(다르시 마찰계수)는 f = 64/Re로 주어집니다(하겐–푸아죄유 유동).</li><li>층류 <a href="boundary-layer.html">경계층</a>은 난류 경계층보다 벽면 마찰이 작지만, 역압력구배를 만나면 쉽게 박리됩니다. <a href="laminar-flow-airfoil.html">층류익형</a>은 층류 구간을 길게 유지하려는 설계입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. 지름 D = 0.02 m의 관에 물(동점성계수 ν ≈ 1.0×10<sup>-6</sup> m²/s)이 평균 속도 V = 0.05 m/s로 흐릅니다.</p><ul><li>Re = VD/ν = 1000 → 2,300보다 작으므로 층류</li><li>다르시 마찰계수 f = 64/Re = 0.064</li></ul><p>평판 경계층의 평균 마찰계수를 같은 Re<sub>L</sub> = 10<sup>6</sup>에서 비교하면 다음과 같습니다(층류는 블라지우스 해 C<sub>f</sub> = 1.328/√Re<sub>L</sub>, 난류는 경험식 C<sub>f</sub> = 0.074/Re<sub>L</sub><sup>1/5</sup>이며 후자는 대략 5×10<sup>5</sup>–10<sup>7</sup>에서 쓰는 근사식).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유동</th><th>평균 마찰계수 C<sub>f</sub></th><th>층류 대비</th></tr></thead><tbody><tr><td>층류(블라지우스)</td><td>0.00133</td><td>1배</td></tr><tr><td>난류(경험식)</td><td>0.00467</td><td>3.5배</td></tr></tbody></table></div><p>이처럼 같은 레이놀즈 수에서도 난류의 마찰이 몇 배 크기 때문에 항력을 줄이려는 설계에서는 층류 구간을 길게 확보하려 합니다. 다만 위 비교는 한 가지 Re에 대한 이상화된 값이며 실제 기체에서는 천이 위치가 먼저 결정됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>층류는 느린 흐름, 난류는 빠른 흐름이다.</td><td>속도만이 아니라 길이 척도와 점성이 함께 들어간 Re로 정해집니다. 점성이 매우 큰 꿀은 빠르게 흘러도 층류이고, 물은 작은 관에서도 속도가 커지면 난류가 됩니다.</td></tr><tr><td>Re = 2,300이면 반드시 난류로 바뀐다.</td><td>2,300은 관례적 기준입니다. 교란을 극도로 줄이면 훨씬 높은 Re까지 층류가 유지될 수 있고, 반대로 교란이 크면 일찍 천이합니다.</td></tr><tr><td>층류가 항상 유리하다.</td><td>마찰은 작지만 역압력구배에서 쉽게 박리되어 오히려 항력이 크게 늘 수 있습니다. 낮은 Re의 날개에서는 층류 박리 기포가 생기기도 합니다.</td></tr><tr><td>매끈하게 만들면 층류가 계속 유지된다.</td><td>벌레 자국, 표면 단차, 후퇴익의 횡방향 흐름 등이 천이를 앞당깁니다. 풍동에서 확인한 층류 범위가 운용 중에 그대로 유지된다고 가정할 수 없습니다.</td></tr><tr><td>층류 후드(laminar flow hood)는 항공 용어 층류와 같은 뜻이다.</td><td>층류 후드는 청정 작업대에서 공기를 일정한 방향으로 균일하게 흘려 오염을 막는 장치입니다. 흐름 상태를 가리킨다는 점은 같지만 맥락이 다릅니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"천이 위치를 감지하는 열선풍속계를 이용해 레이놀즈수 200만에서 층류 구간이 익현의 40퍼센트까지 유지됨을 확인하였다."</div>
   <p>특수 센서로 측정한 결과 날개 앞쪽 40퍼센트 구간까지는 질서 있게 흐르는 층류 상태가 유지된다는 것을 확인했다는 실험 결과입니다.</p>
 
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>층류는 마찰항력 면에서 유리하지만 표면이 조금만 오염되거나 거칠어져도 쉽게 난류로 전이되므로, 실제 운항 환경에서는 이상적인 층류 유지가 매우 까다롭습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>유동 상태와 그 판정·전이에 관련된 용어를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row"><strong>층류</strong></th><td>매끄러운 층을 이루는 유동 상태</td><td>마찰은 작지만 박리에 취약</td></tr><tr><th scope="row"><a href="turbulent-flow.html">난류</a></th><td>불규칙하게 뒤섞이는 유동 상태</td><td>마찰은 크지만 박리에는 강함</td></tr><tr><th scope="row"><a href="laminar-turbulent-transition.html">층류-난류 천이</a></th><td>층류가 난류로 바뀌는 과정</td><td>Re, 교란, 거칠기에 좌우</td></tr><tr><th scope="row"><a href="reynolds-number.html">레이놀즈 수</a></th><td>관성력과 점성력의 비를 나타내는 무차원 수</td><td>유동 상태를 가늠하는 기준값</td></tr><tr><th scope="row"><a href="boundary-layer.html">경계층</a></th><td>벽 가까이에서 속도가 변하는 얇은 층</td><td>층류 경계층과 난류 경계층으로 나뉨</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Reynolds, O. (1883). An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels. Philosophical Transactions of the Royal Society of London, 174, 935–982.</li>
+    <li>Schlichting, H., &amp; Gersten, K. (2017). Boundary-Layer Theory (9th ed.). Springer.</li>
+    <li>White, F. M. (2011). Fluid Mechanics (7th ed.). McGraw-Hill.</li>
+    <li>Anderson, J. D. (2017). Fundamentals of Aerodynamics (6th ed.). McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

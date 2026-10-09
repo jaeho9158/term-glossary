@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>기어, 롤러 베어링, 캠과 같이 접촉 압력이 매우 높은 기계 요소에서는 일반적인 유체윤활 이론만으로는 실제 거동을 설명할 수 없기 때문에 탄성유체윤활 이론이 필요합니다. 이 이론을 통해 윤활막 두께를 예측하면 부품의 마모와 피팅 손상을 줄이는 설계가 가능해집니다. 접촉면의 탄성 변형과 윤활유의 압력에 따른 점도 변화를 함께 고려해야만 실제 유막 두께를 정확히 예측할 수 있어, 기어와 베어링의 표면손상 및 피팅 수명 예측에 필수적인 이론입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>탄성유체윤활(EHL)은 접촉 압력이 매우 높아(대략 0.5–3 GPa) 접촉면의 <strong>탄성 변형</strong>이 윤활막 두께와 비슷한 크기가 되고, 동시에 윤활유의 <strong>점도가 압력에 따라 급격히 증가</strong>하는 윤활 상태입니다.</li><li>기어 치면, 구름베어링, 캠과 종동자처럼 곡면이 점·선으로 맞닿는 <em>비정합 접촉</em>에서 나타납니다. 면이 넓게 맞닿는 미끄럼 베어링(정합 접촉)은 압력이 낮아 유체윤활(hydrodynamic lubrication) 이론으로 충분합니다.</li><li>해석에는 유막 압력을 정하는 레이놀즈 방정식, 표면의 탄성 변형 방정식, 점도–압력 관계, 힘 평형을 함께 풉니다. 이 연성 문제는 그루빈의 근사 해석으로 시작해 다우슨과 히긴슨의 수치해(Dowson &amp; Higginson, 1966)로 정착되었습니다.</li><li>유막 두께는 매우 얇아 보통 0.1–1 μm 수준이고, 속도에 크게 의존하며(속도 매개변수에 대해 약 0.7제곱) 하중에는 거의 둔감합니다(하중 매개변수의 지수가 −0.1 안팎). 이 지수들은 햄록과 다우슨의 수치 해석 결과식에서 널리 인용됩니다(Hamrock &amp; Dowson, 1977).</li><li>표면 거칠기에 비해 유막이 얼마나 두꺼운지를 막두께비 Λ = h<sub>min</sub>/√(R<sub>q1</sub><sup>2</sup> + R<sub>q2</sub><sup>2</sup>)로 보고, 관례적으로 Λ가 약 1 미만이면 경계윤활, 1–3 사이이면 혼합윤활, 3을 넘으면 완전 유막으로 구분합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 값으로 두 가지를 계산해 봅니다.</p><p><strong>압력–점도 효과</strong>(바루스 식 η = η<sub>0</sub>·exp(αp), η<sub>0</sub> = 0.04 Pa·s, α = 2.0×10<sup>-8</sup> Pa<sup>-1</sup>):</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>접촉 압력</th><th>점도 증가 배수 exp(αp)</th></tr></thead><tbody><tr><td>0.1 GPa</td><td>7.4배</td></tr><tr><td>0.5 GPa</td><td>2.20×10<sup>4</sup>배</td></tr><tr><td>1.0 GPa</td><td>4.85×10<sup>8</sup>배</td></tr></tbody></table></div><p>이처럼 점도가 몇 자릿수 올라가므로 윤활유가 접촉부에서 쉽게 빠져나가지 못하고 유막이 유지됩니다. 다만 바루스 식은 고압에서 점도를 과대평가하는 경향이 알려져 있어 실제 해석에서는 다른 점도–압력 식을 쓰기도 합니다.</p><p><strong>막두께비</strong>: h<sub>min</sub> = 0.4 μm, R<sub>q1</sub> = 0.1 μm, R<sub>q2</sub> = 0.15 μm이면 합성 거칠기는 0.180 μm, Λ = 2.22로 혼합윤활 영역입니다. 거칠기를 조금만 줄여도 Λ가 3에 가까워지므로 표면 다듬질이 피팅 수명에 큰 영향을 줍니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>EHL은 유체윤활과 같은 이론이다.</td><td>유체윤활은 표면을 강체로 보고 압력이 낮은 정합 접촉에 쓰고, EHL은 탄성 변형과 압력–점도 효과를 함께 고려합니다.</td></tr><tr><td>하중이 커지면 유막이 그만큼 얇아진다.</td><td>하중에는 둔감하고 속도와 점도·재료 특성의 영향이 더 큽니다. 다만 하중이 커지면 접촉 압력과 응력은 분명히 커집니다.</td></tr><tr><td>EHL이면 마모가 일어나지 않는다.</td><td>유막이 매우 얇아 거칠기 돌기가 닿으면 경계윤활로 바뀌고 마모·피팅이 생깁니다. 압력–점도 계수를 낮게 가정하면 유막 두께를 과소평가해 위험을 과대 평가할 수도 있습니다.</td></tr><tr><td>점도가 높으면 항상 유리하다.</td><td>유막은 두꺼워지지만 전단에 의한 마찰과 발열이 커질 수 있습니다.</td></tr><tr><td>탄성 변형은 윤활막에 불리하기만 하다.</td><td>탄성 변형이 접촉 면적을 넓혀 압력을 분산시키고 유막 형성의 조건이 됩니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 탄성유체윤활 이론을 적용하여 기어 치면 사이의 최소 윤활막 두께를 계산하였다."</div>
   <p>기어가 맞물릴 때 생기는 기름막이 얼마나 얇아지는지를 이론적으로 계산했다는 뜻입니다.</p>
   <div class="example">"윤활유 점도가 탄성유체윤활 막 두께에 미치는 영향을 실험적으로 분석하였다."</div>
@@ -158,8 +176,22 @@
   <p>탄성유체윤활 상태에서는 압력에 따라 윤활유의 점도가 크게 증가하는 압력-점도 효과와, 표면이 압력에 의해 국소적으로 변형되는 탄성 효과가 동시에 작용합니다. 이러한 상호작용을 계산하기 위해 레이놀즈 방정식과 탄성 변형 방정식을 함께 푸는 수치해석이 흔히 사용됩니다.</p>
 
   <h2>주의할 점</h2>
-  <p>탄성유체윤활막은 매우 얇기 때문에 표면 거칠기나 이물질에 의해 쉽게 국부적으로 파괴될 수 있어, 실제 설계에서는 이러한 한계를 함께 고려해야 합니다. 윤활유의 압력-점도 계수를 실제 값보다 낮게 가정하면 예측되는 유막 두께가 실제보다 얇게 나와, 표면 손상 위험을 과소평가할 수 있습니다.</p>
+  <p>탄성유체윤활막은 매우 얇기 때문에 표면 거칠기나 이물질에 의해 쉽게 국부적으로 파괴될 수 있어, 실제 설계에서는 이러한 한계를 함께 고려해야 합니다. 윤활유의 압력-점도 계수를 실제 값보다 낮게 가정하면 예측되는 유막 두께가 실제보다 얇게 나와, 표면 손상 위험을 과대평가할 수 있습니다(반대로 실제보다 높게 가정하면 유막 두께를 과대 예측해 위험을 과소평가합니다).</p>
   <p>표면 거칠기가 예측된 유막 두께보다 크면 고체 돌기끼리 직접 접촉이 일어나는 경계윤활 상태로 전환될 수 있어, 유막 두께와 거칠기의 상대적 크기를 함께 검토해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>윤활 상태는 유막이 표면을 얼마나 분리하느냐와 압력 수준으로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">윤활 상태</th><th scope="col">접촉 조건</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">유체윤활(HL)</th><td>정합 접촉, 낮은 압력</td><td>유막이 두껍고 표면을 완전히 분리</td></tr><tr><th scope="row"><strong>탄성유체윤활(EHL)</strong></th><td>비정합 접촉, 높은 압력</td><td>탄성 변형과 압력–점도 효과가 함께 작용</td></tr><tr><th scope="row">혼합윤활</th><td>유막과 돌기 접촉이 공존</td><td>Λ가 대략 1–3</td></tr><tr><th scope="row">경계윤활</th><td>유막이 거의 없고 표면 피막이 마찰 결정</td><td>거칠기 돌기가 직접 접촉</td></tr><tr><th scope="row"><a href="hertzian-contact-stress.html">헤르츠 접촉응력</a></th><td>탄성체의 접촉 압력 분포</td><td>EHL 해석의 접촉 압력 기준</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Dowson, D., &amp; Higginson, G. R. (1966). Elasto-Hydrodynamic Lubrication: The Fundamentals of Roller and Gear Lubrication. Pergamon Press.</li>
+    <li>Hamrock, B. J., &amp; Dowson, D. (1977). Isothermal elastohydrodynamic lubrication of point contacts: Part III—Fully flooded results. Journal of Lubrication Technology, 99(2), 264–276.</li>
+    <li>Johnson, K. L. (1985). Contact Mechanics. Cambridge University Press.</li>
+    <li>Hamrock, B. J., Schmid, S. R., &amp; Jacobson, B. O. (2004). Fundamentals of Fluid Film Lubrication (2nd ed.). Marcel Dekker.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

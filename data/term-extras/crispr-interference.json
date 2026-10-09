@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>CRISPR 간섭(CRISPRi)은 DNA를 자르지 않고 <strong>전사를 막아</strong> 유전자 발현을 낮추는 기법입니다.</p><ol><li>촉매 활성이 없는 Cas9(dCas9, 보통 화농성 연쇄상구균 Cas9의 D10A·H840A 변이)를 준비합니다.</li><li>표적 유전자 근처에 맞는 가이드 RNA(sgRNA)를 설계합니다.</li><li>sgRNA와 dCas9 복합체가 표적 DNA에 결합합니다.</li><li>세균에서는 결합한 dCas9가 RNA 중합효소의 시작이나 진행을 가로막아 전사를 억제합니다(Qi et al., 2013).</li><li>진핵세포에서는 dCas9에 KRAB 같은 전사 억제 도메인을 융합해 염색질을 억제 상태로 바꿉니다(Gilbert et al., 2013). 표적 위치는 전사 시작점 주변이 효과적이어서 전사 시작점의 위쪽 약 50 bp부터 아래쪽 약 300 bp 범위가 흔히 쓰입니다(Gilbert et al., 2014).</li></ol><p>DNA 서열은 그대로이므로 효과는 대개 부분적이고 되돌릴 수 있습니다(가역적).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>완전히 없애면 세포가 죽는 필수 유전자의 기능을 부분적으로 조사하거나, 다수 유전자를 동시에 조절하는 대규모 스크리닝에 적합합니다. sgRNA 라이브러리를 이용한 유전체 규모 CRISPRi 스크리닝이 대표적입니다. 얻는 결과는 보통 <strong>억제 정도</strong>이며 실시간 정량 PCR(qPCR)에서 상대 발현량을 비교합니다.</p><p>가상의 qPCR 예입니다. 기준 유전자의 Ct를 18로 두고, 대조군에서 표적의 Ct가 24, CRISPRi 처리군에서 27.5라면 ΔCt는 각각 6.0, 9.5이고 ΔΔCt = 3.5입니다. 증폭 효율이 100 %라고 가정하면 상대 발현량은 2<sup>−ΔΔCt</sup> = 0.088으로, 발현이 약 91 % 줄었다는 뜻입니다. 효율이 100 %가 아니면 값이 달라지므로 증폭 효율을 점검해야 합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>논문에는 다음을 적습니다.</p><ul><li>dCas9의 종류(억제 도메인 융합 여부), 도입 방식, 사용한 sgRNA 서열과 표적 위치(전사 시작점 기준 위치)</li><li>억제 효율을 측정한 방법(qPCR, 단백질 정량)과 사용한 대조군(표적하지 않는 sgRNA 등)</li><li>여러 sgRNA를 쓴 경우 일관성, 오프타깃 평가 방법</li><li>억제의 지속성과 가역성, 세포 독성 여부</li></ul><p>해석상 주의: CRISPRi는 녹아웃이 아니라 <em>녹다운</em>입니다. 효과가 sgRNA와 표적 위치, 세포 종류에 따라 다르므로 실험 목적에 충분한 억제인지 별도로 확인해야 합니다. 결과에서 ‘표현형 없음’이 곧 ‘기능 없음’을 뜻하지 않을 수 있습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "유전자 발현을 바꾸는 기술은 DNA를 건드리는지와 방향으로 구분합니다.",
+    "headers": [
+      "기술",
+      "DNA 절단",
+      "효과"
+    ],
+    "rows": [
+      [
+        "[[crispr-interference|CRISPR 간섭(CRISPRi)]]",
+        "없음(dCas9)",
+        "전사를 막아 발현을 낮춤, 가역적"
+      ],
+      [
+        "[[crispr-activation|CRISPR 활성화(CRISPRa)]]",
+        "없음(dCas9)",
+        "활성화 도메인으로 발현을 높임"
+      ],
+      [
+        "[[crispr-knockout-screen|CRISPR 녹아웃 스크리닝]]",
+        "있음(Cas9 절단)",
+        "유전자를 영구적으로 파괴"
+      ],
+      [
+        "[[rnai-knockdown|RNA 간섭(RNAi) 넉다운]]",
+        "없음(RNA 수준)",
+        "mRNA를 분해하거나 번역을 억제"
+      ],
+      [
+        "[[dcas9-fusion-protein|dCas9 융합단백질]]",
+        "없음",
+        "CRISPRi·CRISPRa 모두의 기반 도구"
+      ]
+    ]
+  },
+  "references": [
+    "Qi, L. S., Larson, M. H., Gilbert, L. A., Doudna, J. A., Weissman, J. S., Arkin, A. P., & Lim, W. A. (2013). Repurposing CRISPR as an RNA-guided platform for sequence-specific control of gene expression. Cell, 152(5), 1173–1183.",
+    "Gilbert, L. A., Larson, M. H., Morsut, L., Liu, Z., Brar, G. A., Torres, S. E., Stern-Ginossar, N., Brandman, O., Whitehead, E. H., Doudna, J. A., Lim, W. A., Weissman, J. S., & Qi, L. S. (2013). CRISPR-mediated modular RNA-guided regulation of transcription in eukaryotes. Cell, 154(2), 442–451.",
+    "Gilbert, L. A., Horlbeck, M. A., Adamson, B., Villalta, J. E., Chen, Y., Whitehead, E. H., Guimaraes, C., Panning, B., Ploegh, H. L., Bassik, M. C., Qi, L. S., Kampmann, M., & Weissman, J. S. (2014). Genome-scale CRISPR-mediated control of gene repression and activation. Cell, 159(3), 647–661.",
+    "Larson, M. H., Gilbert, L. A., Wang, X., Lim, W. A., Weissman, J. S., & Qi, L. S. (2013). CRISPR interference (CRISPRi) for sequence-specific control of gene expression. Nature Protocols, 8(11), 2180–2196."
+  ]
+}

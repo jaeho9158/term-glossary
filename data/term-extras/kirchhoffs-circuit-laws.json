@@ -1,0 +1,59 @@
+{
+  "type": "theory",
+  "sections": [
+    {
+      "heading": "핵심 주장",
+      "html": "<ul><li><strong>전류법칙(KCL)</strong>: 회로의 한 접점(마디)에 들어오는 전류의 대수합은 0입니다. 들어온 전류의 합과 나간 전류의 합이 같다는 말과 같습니다.</li><li><strong>전압법칙(KVL)</strong>: 닫힌 회로(폐로)를 한 바퀴 돌며 더한 전압 상승과 강하의 대수합은 0입니다.</li><li>두 법칙은 소자의 종류와 무관하게 <em>연결 구조</em>만으로 세워지는 방정식이고, 소자의 성질은 옴의 법칙 같은 구성 방정식([[ohms-law|옴의 법칙]])이 따로 제공합니다. 두 가지를 합쳐 회로의 모든 전류와 전압이 결정됩니다.</li><li>방정식 수: 마디 n개, 가지 b개인 회로에서 독립 KCL 방정식은 n−1개, 독립 KVL 방정식은 b−n+1개입니다.</li><li>실제 해석에서는 이 방정식을 마디 전압법이나 망 전류법으로 체계화합니다.</li></ul>"
+    },
+    {
+      "heading": "근거와 대표 연구",
+      "html": "<p>키르히호프(1847)는 전기 회로에서 전류가 갈라지고 합쳐지는 분포를 연립 선형방정식으로 푸는 방법을 정리했습니다. 이후 두 법칙은 다음 물리 원리의 회로 버전으로 이해됩니다.</p><ul><li>KCL ← 전하 보존: 집중정수 소자 모형에서 접점에 전하가 쌓이지 않는다고 봅니다(커패시터 안의 변위전류는 소자 내부에 포함).</li><li>KVL ← 정적 전기장이 보존적이라는 성질(전위가 정의됨). 시간에 따라 변하는 자기선속이 회로를 지나면 ∮E·dl = −dΦ/dt가 되어 단순 KVL이 어긋나지만, 인덕터를 하나의 소자로 두고 그 전압 강하를 L·di/dt로 포함하면 집중정수 모형에서는 KVL이 유지됩니다.</li></ul><p>가상의 예입니다. 12 V 전원이 2 Ω 저항을 거쳐 한 마디에 이르고, 거기서 6 Ω와 3 Ω 저항이 병렬로 접지에 연결됩니다. 마디 전압을 V라 하면 KCL은 (12 − V)/2 = V/6 + V/3이고, 풀면 V = 6.0 V입니다. 그러면 I<sub>1</sub> = 3.0 A, I<sub>2</sub> = 1.0 A, I<sub>3</sub> = 2.0 A이며 KCL(3.0 = 1.0 + 2.0)과 KVL(12 − 6.0 − 6.0 = 0.0)이 모두 만족합니다. 회로 시뮬레이터(SPICE 계열)의 내부 계산도 이런 방정식을 수정 마디법(Ho et al., 1975)으로 체계화해 푸는 과정입니다.</p>"
+    },
+    {
+      "heading": "비판과 한계",
+      "html": "<p>키르히호프의 법칙은 정확한 물리 법칙이 아니라 <strong>집중정수 모형 안에서 성립하는 법칙</strong>입니다.</p><ul><li>회로 크기가 신호 파장에 견줄 만큼 커지면(고주파, 긴 전송선, 마이크로파) 전류와 전압이 위치마다 달라져 마디·폐로 개념이 무너지고, 맥스웰 방정식이나 분포정수(전송선) 모형이 필요합니다.</li><li>시간에 따라 변하는 자기장이 폐로를 관통하는 경우(변압기, 전자기 간섭) 외부 결합 전압을 소자로 모형화해 포함하지 않으면 KVL이 어긋납니다.</li><li>법칙이 성립해도 소자 모형이 틀리면 결과가 틀립니다. 예를 들어 다이오드나 트랜지스터의 비선형 특성은 구성 방정식에서 다룹니다.</li><li>같은 이름이 붙은 [[kirchhoffs-law-of-radiation|키르히호프의 복사법칙]]은 열복사의 흡수율과 방출율에 관한 전혀 다른 법칙입니다.</li></ul><p>전류 방향과 전압 극성의 부호 약속을 일관되게 쓰지 않는 것이 학습자와 논문에서 흔한 실수입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "회로 해석에는 이름이 비슷하거나 함께 쓰이는 법칙·정리가 모여 있습니다.",
+    "headers": [
+      "이름",
+      "다루는 것",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[kirchhoffs-circuit-laws|키르히호프의 법칙(KCL·KVL)]]",
+        "접점의 전류, 폐로의 전압",
+        "연결 구조에서 방정식을 세움"
+      ],
+      [
+        "[[ohms-law|옴의 법칙]]",
+        "한 저항의 전압–전류 관계",
+        "소자 특성(구성 방정식)"
+      ],
+      [
+        "[[thevenins-theorem|테브난 정리]]",
+        "선형 회로를 전압원+저항으로 단순화",
+        "KCL·KVL로 도출한 해석 결과"
+      ],
+      [
+        "[[thevenin-norton-theorem|테브난-노턴 정리]]",
+        "전압원형과 전류원형 등가",
+        "서로 변환 가능한 두 등가"
+      ],
+      [
+        "키르히호프의 복사법칙",
+        "열복사의 흡수율=방출율",
+        "같은 이름의 다른 법칙"
+      ]
+    ]
+  },
+  "references": [
+    "Kirchhoff, G. (1847). Ueber die Auflösung der Gleichungen, auf welche man bei der Untersuchung der linearen Vertheilung galvanischer Ströme geführt wird. Annalen der Physik und Chemie, 72, 497–508.",
+    "Desoer, C. A., & Kuh, E. S. (1969). Basic Circuit Theory. McGraw-Hill.",
+    "Ho, C.-W., Ruehli, A. E., & Brennan, P. A. (1975). The modified nodal approach to network analysis. IEEE Transactions on Circuits and Systems, 22(6), 504–509.",
+    "Alexander, C. K., & Sadiku, M. N. O. (2017). Fundamentals of Electric Circuits (6th ed.). McGraw-Hill."
+  ]
+}

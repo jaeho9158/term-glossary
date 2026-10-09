@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,24 @@
   <h2>왜 중요한가</h2>
   <p>치사용량은 화학물질의 급성 독성을 분류하고 등급을 매기는 가장 기본적인 지표로, 물질안전보건자료(MSDS)나 화학물질 규제 등급 표시에 폭넓게 활용됩니다. 물질 간 위험성을 신속하게 비교하고, 취급 및 보관 시 필요한 안전 조치 수준을 결정하는 데도 중요한 근거가 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li><strong>치사용량(lethal dose, LD<sub>x</sub>)</strong>은 시험 집단의 x %가 사망하는 것으로 추정되는 투여량입니다. 가장 흔한 값이 x = 50인 <strong>반수치사량</strong>(<a href="median-lethal-dose.html">LD50</a>)이며, LD<sub>10</sub>, LD<sub>90</sub> 등도 쓰입니다.</li><li>단위는 체중당 투여량, 보통 mg/kg 체중입니다. 흡입이나 수생 노출처럼 용량 대신 농도를 쓰는 경우는 <a href="lethal-concentration.html">치사농도</a>(LC50)로 따로 표시합니다.</li><li>어떤 투여경로(경구·경피·복강 등), 어느 종·계통·성별·연령, 관찰기간(급성 경구 시험에서는 보통 14일)에서 얻은 값인지가 값의 일부입니다.</li><li>왜 50 %인가: 트레번(Trevan, 1927)은 개체마다 반응하는 용량(내성)이 달라 반응률이 0 %나 100 %에 가까운 영역보다 50 % 부근의 용량이 통계적으로 가장 안정적으로 추정된다고 보았습니다.</li><li>추정은 로그 용량에 대한 <a href="dose-response-relationship.html">용량-반응 곡선</a>(대개 S자형)에 프로빗·로짓 모형을 맞추는 방식(Bliss, 1934; Finney, 1971)이 대표적입니다. 이 외에 구간을 이용한 간이 방법과, 사용 동물 수를 줄이도록 설계된 OECD 시험지침(고정용량법 TG 420, 급성독성등급법 TG 423, 상승하강법 TG 425)이 있으며 과거의 TG 401은 2002년 삭제되었습니다.</li><li>범위는 0보다 크고 상한이 없으며, 값이 작을수록 급성독성이 큽니다. 로그 척도로 비교합니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>가상의 예입니다. 각 용량군에 10마리씩 투여하고 14일간 관찰한 결과가 다음과 같다고 합시다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>용량(mg/kg)</th><th>사망/시험 개체</th><th>사망 비율</th></tr></thead><tbody><tr><td>50</td><td>1/10</td><td>10 %</td></tr><tr><td>100</td><td>3/10</td><td>30 %</td></tr><tr><td>200</td><td>7/10</td><td>70 %</td></tr><tr><td>400</td><td>9/10</td><td>90 %</td></tr></tbody></table></div><ul><li>사망 비율이 50 %를 사이에 두는 100과 200 mg/kg 사이를 로그 용량으로 내삽하면 LD50 ≈ 141.4 mg/kg</li><li>로짓 모형(로그 용량에 대한 최대우도 추정)을 맞추면 LD50 ≈ 141.4 mg/kg</li></ul><p>두 방법의 값이 가까운 것은 자료가 매끈하게 늘기 때문이며, 실제 연구에서는 신뢰구간도 함께 제시합니다. 또한 아래처럼 급성 경구 독성의 유엔 GHS 분류 구간(관례적 기준)에 대입하면 값에 따른 등급이 정해집니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>LD50(mg/kg, 경구)</th><th>GHS 급성독성 구분</th></tr></thead><tbody><tr><td>4</td><td>구분 1</td></tr><tr><td>45</td><td>구분 2</td></tr><tr><td>141</td><td>구분 3</td></tr><tr><td>1800</td><td>구분 4</td></tr><tr><td>4500</td><td>구분 5</td></tr><tr><td>6000</td><td>구분 없음(5000 초과)</td></tr></tbody></table></div><p>구분 1–4는 각각 LD50이 5 이하, 5 초과 50 이하, 50 초과 300 이하, 300 초과 2000 이하이고, 구분 5(2000 초과 5000 이하)는 국가에 따라 채택하지 않을 수 있습니다.</p>
+
+  <h2>보고 방법</h2>
+  <p>논문에서 LD50을 보고할 때는 값 하나만 적지 않고 다음을 함께 적습니다.</p><ul><li>물질명(순도), 투여 매개체(용매), 투여경로와 투여 방법</li><li>시험동물의 종·계통·성별·연령·체중, 용량군 수와 군당 개체 수</li><li>관찰기간과 사망·인도적 종료 시점의 판정 기준</li><li>추정 방법(프로빗, 로짓, 상승하강법 등)과 95 % 신뢰구간</li><li>시험 지침(OECD 시험지침 번호 등)과 윤리위원회 승인</li></ul><p>해석상 주의: LD50은 급성독성의 한 측면만 요약하고, 만성독성·발암성·생식독성 등은 반영하지 않습니다. 동물 값을 사람에게 그대로 옮길 수 없으며, 현대의 시험지침은 정확한 LD50보다 독성 등급 판정과 동물 사용 최소화(3R: 대체·감소·개선, Russell &amp; Burch, 1959)를 목표로 합니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서 산출된 lethal dose(LD50)는 경구 투여 기준으로 대조 물질에 비해 낮게 나타나 상대적으로 높은 급성독성을 시사하였다."</div>
   <p>치사용량 값이 물질의 급성독성 강도를 비교하는 근거로 쓰였다는 의미입니다.</p>
   <div class="example">"경구 및 경피 노출 경로에 따른 치사용량 차이를 비교한 결과, 경피 노출 시 더 높은 용량이 필요한 것으로 나타났다."</div>
@@ -157,6 +175,21 @@
 
   <h2>주의할 점</h2>
   <p>치사용량은 급성독성만을 반영하며, 장기간 저농도 노출에 따른 만성독성이나 발암성 등은 별도의 지표로 평가해야 합니다. 동물실험 값을 인체에 그대로 적용하는 데는 한계가 있으므로 해석 시 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>독성 수치는 무엇을 기준으로 얼마를 세느냐에 따라 이름이 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">기준</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">치사용량(LDx)</th><td>투여량, x % 사망</td><td>x를 지정한 일반 표현</td></tr><tr><th scope="row"><a href="median-lethal-dose.html">반수치사량(LD50)</a></th><td>투여량, 50 % 사망</td><td>가장 흔히 쓰는 급성독성 지표</td></tr><tr><th scope="row"><a href="lethal-concentration.html">치사농도(LC50)</a></th><td>공기·물 속 농도와 노출시간</td><td>흡입·수생독성 시험에서 사용</td></tr><tr><th scope="row">LDLo(최저 치사량)</th><td>보고된 가장 낮은 치사 용량</td><td>통계적 추정이 아니라 보고된 최저치</td></tr><tr><th scope="row">NOAEL</th><td>독성 영향이 관찰되지 않는 최고 용량</td><td>치사가 아니라 무영향 용량</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Trevan, J. W. (1927). The error of determination of toxicity. Proceedings of the Royal Society of London, Series B, 101, 483–514.</li>
+    <li>Bliss, C. I. (1934). The method of probits. Science, 79(2037), 38–39.</li>
+    <li>Finney, D. J. (1971). Probit Analysis (3rd ed.). Cambridge University Press.</li>
+    <li>Russell, W. M. S., &amp; Burch, R. L. (1959). The Principles of Humane Experimental Technique. Methuen.</li>
+    <li>Klaassen, C. D. (Ed.). (2019). Casarett and Doull’s Toxicology: The Basic Science of Poisons (9th ed.). McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="median-lethal-dose.html">반수치사량(LD50)</a></div></div><p class="concept-family-map"><a href="../concept-map/toxicol.html">분야 전체 개념 지도 보기 →</a> 치사용량 수치는 동일 물질이라도 실험에 사용된 동물의 종, 계통, 나이, 성별에 따라 달라질 수 있어, 서로 다른 조건에서 산출된 값을 직접 비교하려면 실험 조건이 유사한지부터 확인해야 합니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

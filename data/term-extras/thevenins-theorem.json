@@ -1,0 +1,59 @@
+{
+  "type": "theory",
+  "sections": [
+    {
+      "heading": "핵심 주장",
+      "html": "<ul><li>두 단자를 가진 <strong>선형 회로</strong>는 그 단자에서 보면 하나의 <strong>전압원 V<sub>th</sub>와 직렬 저항 R<sub>th</sub></strong>로 이루어진 회로와 똑같이 동작합니다.</li><li>V<sub>th</sub>는 두 단자를 개방했을 때의 개방회로전압입니다.</li><li>R<sub>th</sub>는 회로 안의 모든 독립 전원을 0으로 만든 뒤(전압원은 단락, 전류원은 개방) 두 단자에서 들여다본 저항입니다. 같은 값은 R<sub>th</sub> = V<sub>oc</sub>/I<sub>sc</sub>(개방회로전압을 단락회로전류로 나눈 값)로도 구합니다. 종속 전원이 있는 회로는 시험 전원을 넣어 구합니다.</li><li>[[thevenin-norton-theorem|노턴 등가]](전류원+병렬 저항)와 서로 바꿀 수 있습니다.</li><li>목적은 바꾸어 가며 연결하는 부하에 대한 반응을 반복해서 계산할 때, 나머지 회로를 매번 다시 풀지 않고 한 번만 단순화하는 것입니다.</li></ul>"
+    },
+    {
+      "heading": "근거와 대표 연구",
+      "html": "<p>헬름홀츠(Helmholtz)가 1853년에 같은 결과를 먼저 발표했고, 프랑스의 테브넹(Thévenin)이 1883년에 다시 정리했다는 것이 역사 연구의 설명입니다(Johnson, 2003). 이 정리는 [[kirchhoffs-circuit-laws|키르히호프의 법칙]]과 <em>중첩의 원리</em>(선형 회로에서 각 전원의 효과를 더해도 됨)로 증명됩니다.</p><p>가상의 예입니다. 12 V 전원에 4 Ω 저항이 직렬로 연결되고, 부하 단자와 병렬로 6 Ω 저항이 있습니다. 부하를 떼고 보면 V<sub>th</sub> = 12 × 6/(4+6) = 7.2 V, R<sub>th</sub> = 4 ∥ 6 = 2.4 Ω입니다. 부하 R<sub>L</sub>에 따라 다음과 같이 계산됩니다.</p><table><thead><tr><th>R<sub>L</sub> (Ω)</th><th>전류 (A)</th><th>부하 전압 (V)</th><th>부하 전력 (W)</th></tr></thead><tbody><tr><td>1.2</td><td>2.00</td><td>2.40</td><td>4.80</td></tr><tr><td>2.4</td><td>1.50</td><td>3.60</td><td>5.40</td></tr><tr><td>3.6</td><td>1.20</td><td>4.32</td><td>5.18</td></tr><tr><td>6</td><td>0.86</td><td>5.14</td><td>4.41</td></tr></tbody></table><p>부하 전력은 R<sub>L</sub> = R<sub>th</sub> = 2.4 Ω일 때 가장 크며(최대 전력 전달 정리), 이때 최대값은 V<sub>th</sub><sup>2</sup>/(4R<sub>th</sub>) = 5.40 W입니다.</p>"
+    },
+    {
+      "heading": "비판과 한계",
+      "html": "<ul><li><strong>선형성</strong>: 등가로 바꾸는 쪽 회로가 선형(저항, 독립 전원, 선형 종속 전원)이어야 합니다. 다이오드·트랜지스터 같은 비선형 소자가 들어 있으면 동작점 근처에서 선형화한 소신호 등가로만 쓸 수 있습니다. 단 <em>부하</em>는 비선형이어도 됩니다. 단자에서 전압–전류 관계만 대체하기 때문입니다.</li><li><strong>단자에서만 같다</strong>: 등가회로는 두 단자에서 보이는 전압·전류만 재현합니다. 원래 회로 안의 소자별 전류, 내부 전력 소비는 등가회로에서 같지 않습니다. 부하에서 효율이 50 %라는 결론도 등가회로의 전원 안에서만 성립하며, 실제 전원의 효율과는 다릅니다.</li><li><strong>교류로 확장</strong>: 정현파 정상상태에서는 저항 대신 임피던스를 쓰며 임피던스 정합 조건을 논할 때 쓰입니다. 시간에 따라 변하는 비정상 상태에서는 라플라스 변환 등을 사용해야 합니다.</li><li><strong>모형 선택</strong>: 배터리를 테브난 등가로 모델링하는 논문처럼 실제 장치를 근사할 때, 등가 저항이 동작 조건(충전 상태, 온도)에 따라 변하므로 어느 조건에서 얻은 값인지 밝혀야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "회로 단순화와 해석에 쓰이는 정리들은 무엇을 바꾸는지로 구분합니다.",
+    "headers": [
+      "정리",
+      "바꾸는 것",
+      "핵심"
+    ],
+    "rows": [
+      [
+        "[[thevenins-theorem|테브난 정리]]",
+        "선형 회로를 전압원+직렬 저항으로",
+        "Voc와 Rth로 구성"
+      ],
+      [
+        "노턴 정리",
+        "선형 회로를 전류원+병렬 저항으로",
+        "Isc와 같은 Rth로 구성"
+      ],
+      [
+        "[[thevenin-norton-theorem|테브난-노턴 정리]]",
+        "두 등가를 함께 다룸",
+        "전원 변환으로 서로 변환"
+      ],
+      [
+        "중첩의 원리",
+        "전원을 하나씩 따로 계산해 합침",
+        "선형성에 의존"
+      ],
+      [
+        "[[kirchhoffs-circuit-laws|키르히호프의 법칙]]",
+        "회로 방정식을 세움",
+        "등가 정리를 증명하는 기초"
+      ]
+    ]
+  },
+  "references": [
+    "Thévenin, L. (1883). Extension de la loi d’Ohm aux circuits électromoteurs complexes. Comptes Rendus de l’Académie des Sciences, 97, 159–161.",
+    "Johnson, D. H. (2003). Origins of the equivalent circuit concept: The voltage-source equivalent. Proceedings of the IEEE, 91(4), 636–640.",
+    "Desoer, C. A., & Kuh, E. S. (1969). Basic Circuit Theory. McGraw-Hill.",
+    "Alexander, C. K., & Sadiku, M. N. O. (2017). Fundamentals of Electric Circuits (6th ed.). McGraw-Hill."
+  ]
+}
