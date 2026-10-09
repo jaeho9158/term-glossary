@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>합성곱 신경망(CNN)은 이미지처럼 <strong>격자 구조</strong>를 가진 데이터를 다루기 위해 설계된 신경망입니다. 핵심 아이디어는 세 가지입니다(Goodfellow 외, 2016).</p><ul><li><strong>지역 연결</strong>: 각 뉴런이 입력 전체가 아니라 작은 창(필터) 안만 봅니다.</li><li><strong>가중치 공유</strong>: 같은 필터를 이미지 전체 위치에 되풀이해 적용하므로 매개변수 수가 크게 줄고, 같은 모양이 어디에 있든 감지할 수 있습니다.</li><li><strong>계층적 특징</strong>: 층을 쌓으면서 선·모서리 같은 단순한 특징에서 점점 복잡한 모양으로 올라갑니다.</li></ul><p>역사적으로는 Fukushima(1980)의 네오코그니트론이 시각 피질에서 영감을 받은 구조를 제안했고, LeCun 외(1998)는 이를 역전파로 학습하는 LeNet 계열로 손글씨 숫자 인식에 적용했습니다. 이후 Krizhevsky 외(2012)가 대규모 이미지 분류 대회에서 깊은 CNN으로 큰 성능 향상을 보이며 딥러닝이 널리 퍼지는 계기가 되었습니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>층의 크기와 매개변수를 직접 세어 봅시다(<strong>가상의 소형 모델</strong>, 코드로 계산). 입력은 28×28×1 흑백 이미지입니다.</p><ol><li>합성곱 층: 3×3 필터 8개, 보폭 1, 패딩 없음 → 출력 26×26×8. 매개변수 = 3·3·1·8 + 8(편향) = <strong>80</strong></li><li>2×2 풀링 → 13×13×8. 펼치면 1352개 값.</li><li>완전연결 층으로 10개 클래스 → 매개변수 = 1352·10 + 10 = <strong>13,530</strong></li></ol><p>합성곱 층의 매개변수는 80개뿐입니다. 만약 같은 크기의 출력(26×26×8)을 완전연결 층으로 만든다면 784×5408 + 5408 = <strong>4,245,280</strong>개가 필요합니다. 가중치 공유 덕분에 약 53,066분의 1로 줄어드는 셈입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“CNN은 이미지 전용이다”</strong>라는 오해: 1차원 합성곱은 시계열, 음성, 문자열에도 쓰입니다. 다만 인접한 값이 서로 관련 깊은 데이터에서 강점을 보입니다.</li><li><strong>“CNN의 합성곱은 수학적 합성곱이다”</strong>라는 오해: 구현에서는 필터를 뒤집지 않는 교차상관을 쓰는 경우가 많습니다(Goodfellow 외, 2016). 이름은 관례입니다.</li><li><strong>“풀링이 반드시 필요하다”</strong>라는 오해: 풀링 대신 보폭이 큰 합성곱으로 크기를 줄이는 구조도 흔합니다.</li><li><strong>“층을 깊게 쌓을수록 항상 좋다”</strong>라는 오해: 깊어질수록 학습이 어려워져 잔차 연결이나 정규화 같은 장치가 필요하고, 데이터가 적으면 과적합하기 쉽습니다.</li><li><strong>“CNN이 사람처럼 이해한다”</strong>라는 오해: CNN은 훈련 데이터의 통계적 패턴을 학습하며, 학습 분포를 벗어난 입력에서는 성능이 급격히 떨어질 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이미지나 시퀀스를 다루는 대표 신경망 구조들은 데이터를 보는 방식이 다릅니다.",
+    "headers": [
+      "모델·요소",
+      "데이터를 보는 방식",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[convolutional-neural-network|합성곱 신경망]]",
+        "작은 필터로 지역 패턴을 훑음",
+        "격자 구조 데이터(이미지)에 강함"
+      ],
+      [
+        "[[recurrent-neural-network|순환 신경망]]",
+        "입력을 순서대로 읽으며 상태를 이어 감",
+        "순서가 중요한 시퀀스 데이터"
+      ],
+      [
+        "[[transformer|트랜스포머]]",
+        "모든 위치 간의 관계를 어텐션으로 직접 계산",
+        "전역 관계 학습에 강함"
+      ],
+      [
+        "[[pooling-layer|풀링 층]]",
+        "특징 맵을 요약해 크기를 줄임",
+        "CNN의 구성 요소"
+      ]
+    ]
+  },
+  "references": [
+    "LeCun, Y., Bottou, L., Bengio, Y., & Haffner, P. (1998). Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11), 2278–2324.",
+    "Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25.",
+    "Fukushima, K. (1980). Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position. Biological Cybernetics, 36(4), 193–202.",
+    "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/power-spectral-density-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>PSD 분석은 자동차, 항공우주, 토목구조물처럼 무작위 진동이나 소음에 노출되는 시스템의 신뢰성 평가와 시험 규격 수립에 필수적인 도구이기 때문에 공학 전반의 신호처리 및 구조진동 연구에서 널리 쓰입니다. 실제 사용 환경에서 측정한 불규칙한 신호를 표준화된 시험 조건으로 변환할 수 있게 해주므로, 제품 개발 단계의 내구성 시험 설계 근거로도 폭넓게 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>PSD 분석은 <strong>불규칙하게 변하는 신호</strong>에서 에너지(분산)가 어느 주파수 대역에 몰려 있는지를 보고 싶을 때 씁니다. 진동, 소음, 뇌파, 파랑 같은 확률적 신호가 대표적입니다. 신호 하나에 사인파가 몇 개 있는지를 묻는 단순 푸리에 변환과 달리, 길이가 달라도 비교할 수 있도록 <strong>주파수 1 Hz당 파워</strong>로 나타냅니다(단위 예: V²/Hz).</p><p>길이가 한정된 신호에서 PSD를 구하는 가장 단순한 방법인 주기도(periodogram)는 추정값의 변동이 큽니다. 그래서 신호를 여러 구간으로 나눠 구간별 스펙트럼을 평균하는 Welch(1967) 방법이 널리 쓰입니다. 겹치지 않는 K개 구간을 평균하면 분산이 대략 1/K로 줄어들지만, 구간이 짧아지는 만큼 주파수 해상도(Δf = 표본화 주파수 ÷ 구간 길이)는 거칩니다. 창함수(window)의 선택도 누설 정도에 영향을 줍니다(Harris, 1978).</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p><strong>작은 예(가상의 신호, 코드로 계산).</strong> 표본화 주파수 1,000 Hz, 4초 길이(4,000점)의 신호를 만듭니다. 신호는 50 Hz 사인파(진폭 2)에 분산 1인 백색잡음을 더한 것입니다. Welch 방법(Hann 창, 구간 길이 500점, 50% 겹침, 난수 시드 0)으로 단측 PSD를 구했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>확인 항목</th><th>이론값</th><th>계산 결과</th></tr></thead><tbody><tr><td>가장 큰 봉우리 위치</td><td>50 Hz</td><td>50.0 Hz</td></tr><tr><td>잡음 바닥(100~450 Hz 평균)</td><td>2σ²/fs = 0.0020 V²/Hz</td><td>0.0020 V²/Hz</td></tr><tr><td>45~55 Hz 대역 파워</td><td>A²/2 = 2.0 V²</td><td>1.999 V²</td></tr><tr><td>PSD 전체 적분</td><td>신호 분산 ≈ 3.0 V²</td><td>2.97 V² (이 표본의 분산은 2.97 V²)</td></tr></tbody></table></div><p>읽는 법: 봉우리의 높이는 해상도(Δf = 2 Hz)에 따라 달라지므로 <strong>봉우리 높이보다 대역 면적</strong>이 의미 있는 파워입니다. PSD를 주파수로 적분하면 신호의 분산(평균 제거 후)이 된다는 성질로 계산이 맞는지 점검할 수 있습니다. 이 성질 때문에 PSD는 ‘에너지가 어느 주파수에 몰려 있나’를 해석하는 도구가 됩니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>논문에는 같은 결과라도 다른 추정 설정이면 그래프가 달라지므로 다음을 적습니다.</p><ul><li>표본화 주파수, 신호 길이, 전처리(평균 제거, 추세 제거, 필터)</li><li>추정 방법(Welch 등), 창함수, 구간 길이와 겹침 비율, 주파수 해상도</li><li>PSD 단위와 단측·양측 구분, 로그 축 사용 여부</li><li>대역 파워를 계산했다면 대역의 경계와 적분 방법</li></ul><p>예: <code>PSD는 Welch 방법(Hann 창, 구간 길이 500점, 50% 겹침)으로 추정하였고 주파수 해상도는 2 Hz이다.</code> (형식을 보이려는 가상의 문장입니다.)</p><p>한계도 함께 적습니다. PSD는 위상 정보를 버리므로 시간에 따라 스펙트럼이 변하는 비정상 신호에는 시간-주파수 분석을 따로 써야 합니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"측정된 진동 데이터에 대한 파워스펙트럼밀도 분석을 통해 시험 스펙트럼을 산정하였다."</div>
   <p>실제 측정한 무작위 진동 데이터를 분석해 주파수별 에너지 분포를 구하고, 이를 시험 조건 설정의 근거로 삼았다는 뜻이다.</p>
 
@@ -164,6 +182,20 @@
 
   <h2>주의할 점</h2>
   <p>PSD는 신호의 위상 정보를 잃어버리기 때문에, 시간에 따른 신호 변화의 정확한 순서를 복원할 수는 없다는 한계가 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>모두 주파수 영역을 보는 도구이지만 답하는 질문이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 보나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><strong>PSD 분석</strong></th><td>주파수별 평균 파워(단위 주파수당)</td><td>무작위 신호의 통계적 특성을 요약하고 길이가 달라도 비교 가능</td></tr><tr><th scope="row"><a href="fast-fourier-transform.html">고속 푸리에 변환(FFT)</a></th><td>한 신호의 주파수 성분(복소수 진폭)</td><td>계산 알고리즘. PSD 추정의 재료로 쓰이지만 단독으로는 변동이 큼</td></tr><tr><th scope="row"><a href="autocorrelation.html">자기상관</a></th><td>시차에 따른 신호의 자기 유사성</td><td>PSD는 자기상관함수의 푸리에 변환(위너-힌친 정리)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Welch, P. D. (1967). The use of fast Fourier transform for the estimation of power spectra: A method based on time averaging over short, modified periodograms. IEEE Transactions on Audio and Electroacoustics, 15(2), 70–73.</li>
+    <li>Harris, F. J. (1978). On the use of windows for harmonic analysis with the discrete Fourier transform. Proceedings of the IEEE, 66(1), 51–83.</li>
+    <li>Oppenheim, A. V., &amp; Schafer, R. W. (2010). Discrete-Time Signal Processing (3rd ed.). Pearson.</li>
+    <li>Bendat, J. S., &amp; Piersol, A. G. (2010). Random Data: Analysis and Measurement Procedures (4th ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

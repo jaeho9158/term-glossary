@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/convolution.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,28 @@
   <h2>왜 중요한가</h2>
   <p>합성곱은 신호처리, 이미지 처리, 딥러닝, 확률론 등 매우 넓은 분야에서 반복적으로 등장하는 기본 연산입니다. 두 함수(또는 신호)가 서로 영향을 주고받는 과정을 일관된 수학적 틀로 표현할 수 있어, 필터링·특징 추출·시스템 응답 분석 같은 서로 다른 문제를 같은 언어로 다룰 수 있게 해줍니다. 특히 합성곱 신경망의 핵심 연산이라는 점에서, 컴퓨터 비전과 음성 인식을 비롯한 최근 머신러닝 연구 전반의 기초가 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>합성곱은 두 신호(또는 함수) f, g에서 <strong>하나를 뒤집어 밀면서 겹치는 부분을 곱해 더한</strong> 새 신호를 만드는 연산입니다. 이산 신호에서는 (x∗h)[n] = Σ<sub>k</sub> x[k]·h[n−k]로 쓰고, 연속 신호에서는 합 대신 적분을 씁니다(Oppenheim &amp; Willsky, 1997).</p><p>성질 몇 가지가 반복해서 쓰입니다.</p><ul><li><strong>선형 시불변 시스템의 출력</strong>은 입력과 시스템의 임펄스 응답의 합성곱입니다. 방의 잔향처럼 ‘입력 소리가 시스템 반응과 섞이는’ 과정이 이 연산입니다.</li><li><strong>교환·결합·분배 법칙</strong>이 성립합니다. 즉 f∗g = g∗f 입니다.</li><li><strong>합성곱 정리</strong>: 합성곱의 푸리에 변환은 각 푸리에 변환의 곱입니다. 그래서 큰 신호의 합성곱은 푸리에 변환을 거쳐 곱셈으로 빠르게 계산하기도 합니다(Bracewell, 2000).</li><li><strong>확률론</strong>에서 독립인 두 확률변수의 합의 분포는 각 분포의 합성곱입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>계산 예 1.</strong> x = [1, 2, 3], h = [0, 1, 0.5]이면 x∗h = <strong>[0, 1, 2.5, 4, 1.5]</strong>입니다(길이 3 + 3 − 1 = 5, 코드로 계산). 손으로 확인하면 첫 항은 1×0 = 0, 둘째 항은 1×1 + 2×0 = 1, 셋째 항은 1×0.5 + 2×1 + 3×0 = 2.5입니다.</p><p><strong>계산 예 2(주사위).</strong> 공정한 주사위 두 개를 던질 때 눈의 합 분포는 각 주사위의 분포 [1/6, …, 1/6]의 합성곱입니다. 36을 곱해 세어 보면 합이 2에서 12까지 나오는 경우의 수는 <strong>[1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]</strong>이고, 합이 7일 확률은 6/36입니다(코드로 계산).</p><p><strong>계산 예 3(뒤집기의 차이).</strong> 신호 [1, 2, 3, 4, 5]에 필터 [1, 0, −1]을 적용해 겹치는 구간만 구하면, 필터를 뒤집는 진짜 합성곱은 [2, 2, 2], 뒤집지 않고 그대로 미끄러뜨리는 교차상관은 [-2, -2, -2]입니다. 이 필터는 비대칭이므로 부호가 반대로 나옵니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“합성곱은 두 함수의 곱이다”</strong>라는 오해: 한 위치에서 곱하는 것이 아니라, 모든 이동 위치에서 곱한 값을 합친 새 함수입니다.</li><li><strong>“합성곱과 교차상관은 같다”</strong>라는 오해: 합성곱은 한 쪽을 뒤집습니다. 필터가 좌우 대칭이면 결과가 같습니다. 딥러닝 라이브러리의 ‘합성곱’ 층은 흔히 뒤집지 않는 교차상관을 계산합니다(Goodfellow 외, 2016). 필터를 데이터로 학습하므로 뒤집힌 필터도 학습할 수 있어 실질적인 차이는 거의 없습니다.</li><li><strong>“출력 길이는 입력과 같다”</strong>라는 오해: 전체 합성곱은 길이가 N + M − 1이고, 같은 길이로 맞추려면 패딩이나 잘라내기를 씁니다.</li><li><strong>“합성곱 신경망과 같은 말이다”</strong>라는 오해: 합성곱은 수학 연산이고 합성곱 신경망은 이 연산을 층으로 쓰는 모델입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“그러나 현재의 공학수학 교과과정의 합성곱내용은 독립적인 주제가 아니라 단편적으로 다루어지고 있어서 그 의미를 충분히 전달하지 못하고 있다.”</blockquote><p class="te-cite">인공지능에 활용되는 공학수학 합성곱(convolution) 교수․학습자료 연구, 수학교육 논문집, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002975737" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“또한 합성곱 지식이 인공지능에서 어떻게 활용되는지 보여주는 구체적인 예시로, 이미지 분류에 사용되는 합성곱신경망(Convolutional Neural Network, CNN)을 개발된코드와 함께 제공한다.”</blockquote><p class="te-cite">인공지능에 활용되는 공학수학 합성곱(convolution) 교수․학습자료 연구, 수학교육 논문집, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002975737" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"입력 신호와 필터 커널의 합성곱(convolution)을 통해 노이즈를 제거하고 신호의 주요 특징을 강조하였다."</div>
   <p>이 문장은 신호처리나 이미지 처리 논문에서 흔히 등장합니다. 원본 신호에 특정 패턴(필터)을 합성곱 연산으로 적용하면 노이즈가 줄어들거나 경계선 같은 특정 특징이 도드라지게 되는데, 이 원리를 설명할 때 쓰입니다.</p>
   <div class="example">"두 확률변수의 합의 분포는 각 확률변수 분포의 합성곱으로 표현됨을 이용하여, 오차 누적 모델의 해석적 형태를 유도하였다."</div>
@@ -162,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>합성곱은 <a href="fourier-transform.html">푸리에 변환</a>과 깊이 연결되어 있습니다. 시간(또는 공간) 영역에서의 합성곱은 푸리에 변환을 거치면 단순한 곱셈으로 바뀌는데, 이 성질(합성곱 정리) 때문에 실제 계산에서는 직접 합성곱을 계산하기보다 푸리에 변환을 이용해 더 빠르게 처리하는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 이어져 쓰이지만 수학 연산과 그것을 쓰는 모델은 다른 대상입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">성격</th><th scope="col">핵심</th></tr></thead><tbody><tr><th scope="row"><strong>합성곱</strong></th><td>수학 연산</td><td>한 신호를 뒤집어 밀며 곱해 더함</td></tr><tr><th scope="row"><a href="convolutional-neural-network.html">합성곱 신경망</a></th><td>이 연산을 층으로 쓰는 모델</td><td>필터를 데이터로 학습해 이미지의 지역 특징을 뽑음</td></tr><tr><th scope="row"><a href="stride-convolution.html">스트라이드(보폭)</a></th><td>합성곱 층의 설정값</td><td>필터가 한 번에 이동하는 칸 수</td></tr><tr><th scope="row"><a href="fourier-transform.html">푸리에 변환</a></th><td>주파수 영역으로 옮기는 변환</td><td>시간 영역의 합성곱이 주파수 영역의 곱이 됨</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Oppenheim, A. V., &amp; Willsky, A. S. (1997). Signals and Systems (2nd ed.). Prentice Hall.</li>
+    <li>Bracewell, R. N. (2000). The Fourier Transform and Its Applications (3rd ed.). McGraw-Hill.</li>
+    <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

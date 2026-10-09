@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/convolutional-neural-network.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,29 @@
   <h2>왜 중요한가</h2>
   <p>CNN은 이미지 분류, 객체 검출, 의료 영상 분석 등 시각 정보를 다루는 연구 대부분의 기본 구성 요소로 자리 잡았습니다. 사람이 일일이 특징을 설계하지 않아도 데이터로부터 자동으로 유용한 시각 패턴을 학습할 수 있다는 점에서, 딥러닝이 컴퓨터 비전 분야를 주도하게 된 핵심 전환점으로 논문에서 자주 언급됩니다. 최근에는 트랜스포머 기반 구조와의 성능 비교나 결합 방식도 활발한 연구 주제입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>합성곱 신경망(CNN)은 이미지처럼 <strong>격자 구조</strong>를 가진 데이터를 다루기 위해 설계된 신경망입니다. 핵심 아이디어는 세 가지입니다(Goodfellow 외, 2016).</p><ul><li><strong>지역 연결</strong>: 각 뉴런이 입력 전체가 아니라 작은 창(필터) 안만 봅니다.</li><li><strong>가중치 공유</strong>: 같은 필터를 이미지 전체 위치에 되풀이해 적용하므로 매개변수 수가 크게 줄고, 같은 모양이 어디에 있든 감지할 수 있습니다.</li><li><strong>계층적 특징</strong>: 층을 쌓으면서 선·모서리 같은 단순한 특징에서 점점 복잡한 모양으로 올라갑니다.</li></ul><p>역사적으로는 Fukushima(1980)의 네오코그니트론이 시각 피질에서 영감을 받은 구조를 제안했고, LeCun 외(1998)는 이를 역전파로 학습하는 LeNet 계열로 손글씨 숫자 인식에 적용했습니다. 이후 Krizhevsky 외(2012)가 대규모 이미지 분류 대회에서 깊은 CNN으로 큰 성능 향상을 보이며 딥러닝이 널리 퍼지는 계기가 되었습니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>층의 크기와 매개변수를 직접 세어 봅시다(<strong>가상의 소형 모델</strong>, 코드로 계산). 입력은 28×28×1 흑백 이미지입니다.</p><ol><li>합성곱 층: 3×3 필터 8개, 보폭 1, 패딩 없음 → 출력 26×26×8. 매개변수 = 3·3·1·8 + 8(편향) = <strong>80</strong></li><li>2×2 풀링 → 13×13×8. 펼치면 1352개 값.</li><li>완전연결 층으로 10개 클래스 → 매개변수 = 1352·10 + 10 = <strong>13,530</strong></li></ol><p>합성곱 층의 매개변수는 80개뿐입니다. 만약 같은 크기의 출력(26×26×8)을 완전연결 층으로 만든다면 784×5408 + 5408 = <strong>4,245,280</strong>개가 필요합니다. 가중치 공유 덕분에 약 53,066분의 1로 줄어드는 셈입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“CNN은 이미지 전용이다”</strong>라는 오해: 1차원 합성곱은 시계열, 음성, 문자열에도 쓰입니다. 다만 인접한 값이 서로 관련 깊은 데이터에서 강점을 보입니다.</li><li><strong>“CNN의 합성곱은 수학적 합성곱이다”</strong>라는 오해: 구현에서는 필터를 뒤집지 않는 교차상관을 쓰는 경우가 많습니다(Goodfellow 외, 2016). 이름은 관례입니다.</li><li><strong>“풀링이 반드시 필요하다”</strong>라는 오해: 풀링 대신 보폭이 큰 합성곱으로 크기를 줄이는 구조도 흔합니다.</li><li><strong>“층을 깊게 쌓을수록 항상 좋다”</strong>라는 오해: 깊어질수록 학습이 어려워져 잔차 연결이나 정규화 같은 장치가 필요하고, 데이터가 적으면 과적합하기 쉽습니다.</li><li><strong>“CNN이 사람처럼 이해한다”</strong>라는 오해: CNN은 훈련 데이터의 통계적 패턴을 학습하며, 학습 분포를 벗어난 입력에서는 성능이 급격히 떨어질 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“특히 이미지를 인식하고 분류하는데 효과적인 알고리즘으로 알려져 있는 합성곱 신경망(Convolutional Neural Network, CNN)은 여러 분야의 분류 및 예측 문제에 널리 응용되고 있다.”</blockquote><p class="te-cite">효과적인 입력변수 패턴 학습을 위한 시계열 그래프 기반합성곱 신경망 모형: 주식시장 예측에의 응용, 지능정보연구, 2018 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002331458" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“통계 데이터의 경우에는 기계학습 및 다층 퍼셉트론 기반으로 학습을 진행하였고, 이미지 데이터의 경우에는 합성곱 신경망(Convolutional Neural Network, CNN) 기반으로 학습을 진행하였다.”</blockquote><p class="te-cite">통계 및 이미지 데이터를 활용한 가짜 SNS 계정 식별 기술, 스마트미디어저널, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002819404" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이를 위하여 이미지 분석에 널리 사용되는 합성곱 신경망(convolutional neural networks) 기반 이미지 딥러닝 모형을 활용하여 영화 포스터에 담긴 장르적 특색의 정도를 측정한 장르 점수(genre score)를 추출하였다.”</blockquote><p class="te-cite">영화 포스터 특성이 영화 흥행에 미치는 영향: 이미지 딥러닝 기법의 적용, 상품학연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002981541" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"입력 영상은 5개의 합성곱 층(convolutional layer)과 2개의 완전연결 층으로 구성된 CNN을 통과하여 최종적으로 10개의 클래스 중 하나로 분류되었다."</div>
   <p>이 문장은 "이미지가 여러 단계의 특징 추출 과정을 거친 뒤, 마지막에 10가지 범주 중 어디에 속하는지 판단하는 데 사용되었다"는 뜻입니다.</p>
   <div class="example">"경량화를 위해 표준 합성곱을 깊이별 분리 합성곱(depthwise separable convolution)으로 대체하여 연산량을 크게 줄이면서도 정확도 저하를 최소화하였다."</div>
@@ -168,6 +191,20 @@
 
   <h2>주의할 점</h2>
   <p>CNN은 이미지처럼 격자 구조를 가진 데이터(가까이 있는 픽셀끼리 관련이 깊은 데이터)에 특히 강점을 보이는 구조로, 순서가 중요한 문장 데이터에는 <a href="transformer.html">트랜스포머</a>나 순환 구조가 더 널리 쓰이는 경우가 많습니다. 또한 필터 개수나 층의 깊이 같은 설정은 <a href="hyperparameter-tuning.html">하이퍼파라미터 튜닝</a>을 통해 정해야 하며, 데이터가 적으면 <a href="overfitting.html">과적합</a>되기 쉬워 <a href="data-augmentation.html">데이터증강</a>을 함께 활용하는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이미지나 시퀀스를 다루는 대표 신경망 구조들은 데이터를 보는 방식이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">모델·요소</th><th scope="col">데이터를 보는 방식</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><strong>합성곱 신경망</strong></th><td>작은 필터로 지역 패턴을 훑음</td><td>격자 구조 데이터(이미지)에 강함</td></tr><tr><th scope="row"><a href="recurrent-neural-network.html">순환 신경망</a></th><td>입력을 순서대로 읽으며 상태를 이어 감</td><td>순서가 중요한 시퀀스 데이터</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>모든 위치 간의 관계를 어텐션으로 직접 계산</td><td>전역 관계 학습에 강함</td></tr><tr><th scope="row"><a href="pooling-layer.html">풀링 층</a></th><td>특징 맵을 요약해 크기를 줄임</td><td>CNN의 구성 요소</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>LeCun, Y., Bottou, L., Bengio, Y., &amp; Haffner, P. (1998). Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11), 2278–2324.</li>
+    <li>Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25.</li>
+    <li>Fukushima, K. (1980). Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position. Biological Cybernetics, 36(4), 193–202.</li>
+    <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="graph-neural-network.html">그래프 신경망</a><a href="large-language-model.html">대규모 언어 모델</a><a href="generative-adversarial-network.html">생성적 적대 신경망</a><a href="recurrent-neural-network.html">순환 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="transformer.html">트랜스포머</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="pooling-layer.html">풀링 층</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
