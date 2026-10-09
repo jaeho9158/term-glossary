@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>순보험료(일시납)는 수지상등의 원칙(보험료 현가와 보험금 현가가 같아야 한다는 원칙)을 적용해 계산되는 가장 기초적인 보험료 개념으로, 이후 평준보험료나 책임준비금 등 모든 계산의 기준점이 됩니다. 논문에서는 다양한 보험상품의 가격결정 모형을 설명할 때 출발점으로 자주 인용됩니다.</p>
   <p>일시납이라는 이상적인 납입 구조를 먼저 정의해 둠으로써, 이후 나누어 내는 평준보험료나 다양한 특약이 결합된 상품의 보험료도 이 기준값을 바탕으로 논리적으로 확장해 나갈 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>일시납 순보험료는 <strong>미래 보험금 지급의 현재가치에 대한 기댓값</strong>입니다. 수지상등의 원칙에 따라, 일시납이면 낸 보험료 = 보험금 현가의 기댓값이 되도록 정합니다.</p><p>보험금 1을 기준으로 한 표기는 다음과 같습니다(사망연도 말에 지급한다고 가정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>보험</th><th>기호</th><th>식</th></tr></thead><tbody><tr><td>종신보험</td><td>A<sub>x</sub></td><td>Σ<sub>k=0</sub><sup>∞</sup> v<sup>k+1</sup> · <sub>k</sub>p<sub>x</sub> · q<sub>x+k</sub></td></tr><tr><td>n년 정기보험</td><td>A¹<sub>x:n</sub></td><td>Σ<sub>k=0</sub><sup>n−1</sup> v<sup>k+1</sup> · <sub>k</sub>p<sub>x</sub> · q<sub>x+k</sub></td></tr><tr><td>n년 생존보험</td><td><sub>n</sub>E<sub>x</sub></td><td>v<sup>n</sup> · <sub>n</sub>p<sub>x</sub> = D<sub>x+n</sub> / D<sub>x</sub></td></tr><tr><td>n년 양로보험</td><td>A<sub>x:n</sub></td><td>정기보험 + 생존보험</td></tr></tbody></table></div><p>v = 1/(1+i)는 현가율(할인계수), <sub>k</sub>p<sub>x</sub>는 x세가 k년 뒤까지 생존할 확률, q<sub>x+k</sub>는 그 해 사망 확률입니다. 보험금이 1이고 이자율이 양수이면 값은 0과 1 사이이며, 보험금이 S이면 S배입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>이자율</strong>: 예정이율이 오르면 현가가 줄어 순보험료가 내려갑니다.</li><li><strong>사망률</strong>: 사망보험에서는 예정위험률이 오르면 올라가고, 생존보험에서는 내려갑니다.</li><li><strong>보험 기간</strong>: 같은 조건이면 종신보험이 정기보험보다 큽니다.</li><li><strong>다른 보험료와의 관계</strong>: 이 값을 연금 현가로 나누면 평준보험료가 됩니다(<a href="level-premium.html">평준보험료</a>). 실제 상품가격인 영업보험료는 여기에 사업비 등을 반영해 산출합니다(<a href="gross-premium.html">영업보험료</a>).</li></ul><h3>가상의 계산 예(코드로 계산)</h3><p>3년 정기보험(보험금 1, 사망연도 말 지급)을 가정하고 연령별 사망 확률 q를 0.01, 0.012, 0.015, 예정이율 i = 3%로 둡니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>연도 t</th><th>t−1년 말까지 생존 확률</th><th>t년째 사망 확률</th><th>v<sup>t</sup></th><th>현가</th></tr></thead><tbody><tr><td>1</td><td>1.00000</td><td>0.01000</td><td>0.97087</td><td>0.009709</td></tr><tr><td>2</td><td>0.99000</td><td>0.01188</td><td>0.94260</td><td>0.011198</td></tr><tr><td>3</td><td>0.97812</td><td>0.01467</td><td>0.91514</td><td>0.013427</td></tr></tbody></table></div><p>현가의 합 A¹ = 0.034334입니다. 3년 생존보험은 3년 뒤 생존 확률 0.96345 × v³ = 0.881692이므로 양로보험 일시납 순보험료는 0.034334 + 0.881692 = 0.916025입니다. 보험금이 1억 원이면 약 91,602,514원입니다(설명용 가상의 수치이며 실제 사망률과 무관).</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>기수(생명표 종류), 예정이율, 예정위험률의 출처를 밝힙니다. 결과는 이 가정에 전부 의존합니다.</li><li>보험금 지급 시점(사망연도 말 대 사망 즉시)을 적습니다. 즉시 지급이면 값이 달라집니다.</li><li>기호를 정의합니다: A<sub>x</sub>, A¹<sub>x:n</sub>, <sub>n</sub>E<sub>x</sub>와 보험금 단위(1 또는 S).</li><li>순보험료와 영업보험료를 혼동하지 않고, 사업비를 포함한 값이면 명시합니다.</li><li>민감도 분석(이자율 변화)을 할 때는 어느 가정을 바꾸는지 구분합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"종신보험의 순보험료(일시납)는 A_x로 표기되며, 사망보험금 현가의 기댓값과 같다."</div>
   <p>일시납 순보험료가 미래 사망보험금 지급액을 현재가치로 환산한 기댓값과 동일하다는 설명입니다.</p>
   <div class="example">"본 연구에서는 이자율 변동이 순보험료(일시납)에 미치는 영향을 민감도 분석을 통해 확인하였다."</div>
@@ -162,6 +180,19 @@
   <p>순보험료(일시납)는 실제로 계약자가 내는 최종 보험료가 아니라, 보험수리 계산상의 기준값이라는 점에 유의해야 합니다. 실제 상품가격은 이 값에 사업비 등을 더해 산출됩니다.</p>
 
   <p>순보험료(일시납)는 예정이율과 예정사망률이라는 두 가지 기초율 가정에 그대로 의존하므로, 실제 운용 이자율이나 사망률이 가정과 달라지면 계약자에게 유리하거나 불리한 손익 차이(이차, 사차)가 발생할 수 있습니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>보험료 용어는 단계별로 이어져 있어 혼동됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th><th scope="col">일시납 순보험료와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="net-premium.html">순보험료</a></th><td>사업비를 제외하고 위험 보장에 쓰이는 보험료 부분</td><td>납입 방식과 무관한 개념. 일시납은 한 번에 내는 경우</td></tr><tr><th scope="row"><a href="level-premium.html">평준보험료</a></th><td>보험 기간 동안 매년 같은 금액으로 나누어 내는 보험료</td><td>일시납 순보험료를 연금 현가로 나눈 형태</td></tr><tr><th scope="row"><a href="gross-premium.html">영업보험료</a></th><td>순보험료에 사업비 등을 더해 실제로 납입하는 보험료</td><td>사업비를 포함</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Bowers, N. L., Gerber, H. U., Hickman, J. C., Jones, D. A., &amp; Nesbitt, C. J. (1997). Actuarial Mathematics (2nd ed.). Society of Actuaries.</li>
+    <li>Dickson, D. C. M., Hardy, M. R., &amp; Waters, H. R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd ed.). Cambridge University Press.</li>
+    <li>Jordan, C. W. (1967). Life Contingencies (2nd ed.). Society of Actuaries.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="net-premium.html">순보험료</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="natural-premium.html">자연보험료</a><a href="savings-premium.html">저축보험료</a><a href="level-net-premium.html">평준순보험료</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

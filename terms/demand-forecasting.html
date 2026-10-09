@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>생산·재고·인력 계획의 출발점이 되는 수요 추정으로, 생산운영과 마케팅 연구에서는 시계열·인과·판단 기법의 정확도 비교와 예측 오차가 공급사슬 비용에 미치는 영향을 다룹니다. 실무에서는 S&amp;OP 프로세스의 첫 단계로 예측 정확도 지표를 관리하고 신제품은 유사 제품 판단 예측으로 보완합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>수요예측은 크게 세 부류의 방법으로 나뉩니다. 이 페이지가 분류한 대로 시계열 분석, 인과 모형, 정성적 판단입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>부류</th><th>대표 기법</th><th>쓰는 자료</th></tr></thead><tbody><tr><td>시계열</td><td>이동평균, <a href="exponential-smoothing.html">지수평활법</a>, 분해, ARIMA</td><td>과거 수요의 패턴(추세, 계절성)</td></tr><tr><td>인과 모형</td><td>회귀분석 등</td><td>가격, 판촉, 경기 지표 등 수요에 영향을 주는 변수</td></tr><tr><td>정성적 판단</td><td><a href="delphi-method.html">델파이기법</a>, 전문가 의견, 유사 제품 비교</td><td>자료가 없거나 구조가 바뀐 상황(신제품 등)</td></tr></tbody></table></div><p>절차는 ① 목적과 예측 기간 정하기, ② 자료 정리(결측, 판촉 같은 인위적 변동 조정), ③ 방법 선택과 적합, ④ 훈련 구간 밖의 자료로 정확도 검증, ⑤ 예측과 오차 추적입니다. 예측 정확도는 집계 수준이 높고 예측 기간이 짧을수록 좋아지는 경향이 있어 계획 체계를 이에 맞춰 설계합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>예측의 결과물은 하나의 숫자가 아니라 <strong>점 예측과 그 불확실성</strong>입니다. 불확실성은 <a href="safety-stock.html">안전재고</a> 수준을 정하는 데 쓰입니다. 방법 사이의 성능은 오차 지표로 견줍니다.</p><p>가상의 12개월 수요 자료로 단순 지수평활(α = 0.3)과 “지난달 값을 그대로 쓰는” 단순 예측을 견준 결과입니다(코드로 계산, 2~12월 11개월 평가).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>월</th><th>실제</th><th>지수평활 예측</th><th>단순 예측</th></tr></thead><tbody><tr><td>2</td><td>132</td><td>120.0</td><td>120</td></tr><tr><td>3</td><td>125</td><td>123.6</td><td>132</td></tr><tr><td>4</td><td>140</td><td>124.0</td><td>125</td></tr><tr><td>5</td><td>138</td><td>128.8</td><td>140</td></tr><tr><td>6</td><td>150</td><td>131.6</td><td>138</td></tr><tr><td>7</td><td>148</td><td>137.1</td><td>150</td></tr><tr><td>8</td><td>160</td><td>140.4</td><td>148</td></tr><tr><td>9</td><td>155</td><td>146.3</td><td>160</td></tr><tr><td>10</td><td>170</td><td>148.9</td><td>155</td></tr><tr><td>11</td><td>165</td><td>155.2</td><td>170</td></tr><tr><td>12</td><td>178</td><td>158.2</td><td>165</td></tr></tbody></table></div><p>평균절대편차(MAD)는 지수평활 13.37, 단순 예측 9.09이고, 평균절대백분율오차(MAPE)는 각각 8.67%, 6.01%입니다. 이 자료처럼 뚜렷한 상승 추세가 있으면 평활 값이 뒤처져 오히려 단순 예측이 더 정확할 수 있습니다. 어떤 기법이 항상 낫다는 결론은 없으므로, 자료 성격에 맞춰 검증해야 합니다. (지수평활에 추세 항을 더한 방법을 쓰면 이 문제가 줄어듭니다.)</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>자료와 구간</strong>: 자료의 기간, 단위(월, 주), 집계 수준(품목, 제품군), 결측과 이상치 처리, 판촉·가격 변동의 조정 방식을 적습니다.</li><li><strong>검증 방식</strong>: 훈련 구간과 검증(시험) 구간을 나누어 <strong>표본 밖</strong> 정확도를 보고합니다. 적합 구간 오차만 보고하면 과적합을 가리지 못합니다.</li><li><strong>오차 지표</strong>: MAD, 평균제곱근오차(RMSE), MAPE 중 무엇을 썼는지 밝힙니다. MAPE는 실제값이 0이거나 매우 작을 때 불안정해지는 한계가 알려져 있으므로 간헐적 수요에는 부적합하다고 적습니다(Hyndman &amp; Koehler, 2006).</li><li><strong>비교 대상</strong>: 단순 예측(naive)이나 계절 단순 예측 같은 기준 모형보다 나은지 보입니다.</li><li><strong>조합</strong>: 여러 기법의 예측을 평균한 조합이 단일 기법보다 안정적으로 좋다는 대규모 예측 대회의 결과가 있습니다(Makridakis 등, 2020).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">시계열분석(이동평균, 지수평활), 인과모형(회귀분석), 정성적기법(델파이법)이 예측 방법론의 3대 범주로 분류된다.</div>
   <p>지수평활법은 최근 데이터에 더 큰 가중치를 부여해 α값 조정만으로 추세 변화에 빠르게 반응하도록 예측치를 갱신한다.</p>
   <div class="example">"과거 판매 데이터만을 기반으로 한 예측 모형은 시장 구조의 급격한 변화가 발생했을 때 정확도가 크게 떨어질 수 있다."</div>
@@ -160,6 +178,19 @@
 
   <h2>주의할 점</h2>
   <p>예측은 본질적으로 오차를 수반하므로 단일 수치보다 예측오차(MAD, MAPE)를 함께 관리하고 안전재고로 불확실성을 흡수해야 한다. 예측은 본질적으로 오차를 수반하므로 단일 수치보다 예측오차를 함께 관리하고 안전재고로 불확실성을 흡수해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>예측 관련 용어와 구분하세요.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th><th scope="col">수요예측과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="exponential-smoothing.html">지수평활법</a></th><td>최근 관측값에 큰 가중치를 두는 시계열 기법</td><td>수요예측에 쓰이는 방법의 하나</td></tr><tr><th scope="row"><a href="delphi-method.html">델파이기법</a></th><td>익명 전문가 설문을 반복해 합의를 도출</td><td>정성적 수요예측 방법의 하나</td></tr><tr><th scope="row"><a href="time-series-analysis.html">시계열 분석</a></th><td>시간순 자료에서 추세, 계절성을 찾아 설명·예측</td><td>수요예측의 정량적 도구</td></tr><tr><th scope="row"><a href="safety-stock.html">안전재고</a></th><td>수요·조달 불확실성으로 인한 품절을 막기 위한 추가 재고</td><td>예측 오차를 흡수하는 재고 정책</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hyndman, R. J., &amp; Athanasopoulos, G. (2021). Forecasting: Principles and Practice (3rd ed.). OTexts.</li>
+    <li>Hyndman, R. J., &amp; Koehler, A. B. (2006). Another look at measures of forecast accuracy. International Journal of Forecasting, 22(4), 679–688.</li>
+    <li>Makridakis, S., Spiliotis, E., &amp; Assimakopoulos, V. (2020). The M4 Competition: 100,000 time series and 61 forecasting methods. International Journal of Forecasting, 36(1), 54–74.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

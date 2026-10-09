@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>수중청음기는 수중 음압을 전기 신호로 바꾸는 수신 전용 센서로, <a href="passive-sonar.html">수동소나</a> 배열의 기본 요소이자 해양환경소음 측정, 해양포유류 관측, 수중 폭발·지진 감시 등 거의 모든 수중음향 계측의 출발점입니다. 감도와 자체 잡음, 주파수 응답을 어떻게 교정하느냐가 측정 자료의 신뢰도를 결정합니다. 군사용 소나뿐 아니라 해양포유류 관측, 지진과 화산 활동 감시, 해저 통신망 상태 확인 등 민간 분야에서도 광범위하게 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <p>수중청음기는 <strong>수중 음압</strong>(압력의 변동)을 전기 신호로 바꾸는 수신 전용 센서입니다. 소리를 내지 않고 듣기만 하므로 수동형입니다. 재는 양은 보통 점 위치의 음압이며, 속도나 방향은 한 개의 압력형 청음기로는 얻지 못합니다.</p><ul><li>수중 음압의 기준값은 1 µPa를 쓰고, 이는 공기 중의 기준 20 µPa와 다릅니다. 그래서 같은 dB 값이라도 공기 중과 수중에서 의미가 다릅니다.</li><li>감도는 “dB re 1 V/µPa”로 적습니다. 값이 음수이며 클수록(0에 가까울수록) 같은 압력에서 더 큰 전압을 줍니다.</li><li>일부 수중청음기는 압력이 아니라 입자 속도까지 재는 <strong>벡터 센서</strong>이며, 이 페이지가 말하듯 단일 센서로 방위 정보를 얻을 수 있습니다.</li></ul>
+
+  <h2>구성과 채점</h2>
+  <p>주요 구성은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구성</th><th>역할</th></tr></thead><tbody><tr><td>감지 소자</td><td>압전 세라믹(예: PZT)이나 광섬유 간섭계가 음압을 전기 또는 광 신호로 변환</td></tr><tr><td>전치증폭기</td><td>신호가 약하므로 센서 가까이에서 증폭해 케이블 잡음에 묻히지 않게 함</td></tr><tr><td>하우징·외피</td><td>수압과 부식에서 보호. 심해용은 내압 구조 필요</td></tr><tr><td>케이블·계류 장치</td><td>신호 전송. 케이블의 유동 소음이 저주파 측정의 문제가 됨</td></tr></tbody></table></div><p>채점 대신 쓰이는 것이 <strong>교정</strong>입니다. 교정은 알려진 음압을 가하거나(비교법), 가역성 원리(상호 교정)를 쓰는 방식이 있으며 자유음장 조건이 필요해 수조 크기가 저주파 교정의 한계가 됩니다. 감도, 주파수 응답, 자체 잡음, 지향성이 교정 결과의 핵심 항목입니다(Bobber, 1970).</p>
+
+  <h2>결과 읽는 법</h2>
+  <p>측정된 전압을 음압으로 되돌려 해석합니다. 가상의 예로 감도가 -200 dB re 1 V/µPa인 청음기에서 증폭 없이 2 mV(실효값)가 측정되었다고 해 봅시다(코드로 계산).</p><ol><li>감도를 선형으로: 10<sup>(-200/20)</sup> = 1.0e-10 V/µPa</li><li>음압 = 0.002 V / 1.0e-10 V/µPa = 2.00e+7 µPa = 20 Pa</li><li>음압 레벨 = 20 log<sub>10</sub>(2.00e+7) = 146 dB re 1 µPa</li></ol><p>실제 측정에서는 증폭기 이득과 필터를 보정해야 합니다. 보고할 때는 청음기 모델과 교정 감도, 측정 대역, 설치 깊이와 환경, 자체 잡음 수준을 적습니다. 저주파에서 유동 소음이나 자체 잡음이 신호를 가릴 수 있으므로, 측정값이 해양 환경 소음인지 자체 잡음인지 구분했는지가 신뢰도의 첫 질문입니다. 방향 정보가 필요하면 여러 청음기를 배열해 빔형성을 하거나 벡터 센서를 씁니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">수중청음기는 압전소재나 광섬유 방식으로 음압을 감지하며 감도와 주파수응답 특성이 표적탐지 및 해양소음 계측의 정확도를 좌우한다.</div>
   <p>해저에 계류형 수중청음기 배열을 설치해 통과하는 선박의 방사소음을 장기간 모니터링한다.</p>
 
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>수중청음기는 자체 유동소음과 케이블 진동 등 계측 잡음에 민감하므로 방진 설계가 정확한 계측의 전제조건이다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>수중음향 장비는 송신과 수신, 센서와 장치 전체로 구분됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th><th scope="col">수중청음기와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="passive-sonar.html">수동소나</a></th><td>자체 음파를 내지 않고 표적 소음을 수신해 탐지하는 방식</td><td>수중청음기를 배열로 써서 구성하는 시스템</td></tr><tr><th scope="row"><a href="piezoelectric-transducer.html">압전 변환기</a></th><td>압전 효과로 힘과 전기 신호를 서로 변환하는 소자</td><td>수중청음기의 감지 소자로 쓰이는 대표 부품</td></tr><tr><th scope="row">수중청음기</th><td>음압을 전기 신호로 바꾸는 수신 센서</td><td>센서 자체</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Urick, R. J. (1983). Principles of Underwater Sound (3rd ed.). McGraw-Hill.</li>
+    <li>Bobber, R. J. (1970). Underwater Electroacoustic Measurements. Naval Research Laboratory.</li>
+    <li>Au, W. W. L., &amp; Hastings, M. C. (2008). Principles of Marine Bioacoustics. Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
