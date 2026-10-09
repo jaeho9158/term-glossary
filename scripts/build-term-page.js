@@ -16,6 +16,7 @@ const seo = require("./lib/term-seo.js");
 const termMeta = require("./lib/term-meta.js");
 const indexTier = require("./lib/index-tier.js");
 const { splitPageHtml } = require("./lib/split-paragraphs.js");
+const { slimPage } = require("./lib/slim-term-page.js");
 
 let categoryData = null;
 function labels() {
@@ -172,7 +173,10 @@ function renderTermPage(term, ctx) {
     date: lastmodDate(term.slug),
   }) || page;
   // 색인 등급: archive 용어는 Googlebot 전용 noindex 마커를 유지한다(재생성해도 사라지지 않게).
-  return archiveSet().has(term.slug) ? indexTier.applyIndexTier(withMeta, "archive") || withMeta : withMeta;
+  const tiered = archiveSet().has(term.slug) ? indexTier.applyIndexTier(withMeta, "archive") || withMeta : withMeta;
+  // 반복 크롬(theme-init/GA4 인라인 스크립트, 헤더·푸터 들여쓰기)을 assets/site-head.js 로 — 일괄 적용 스크립트
+  // scripts/slim-term-pages.js 와 같은 변환(멱등). 도너 페이지가 아직 옛 형식이어도 새 페이지는 슬림으로 나온다.
+  return slimPage(tiered).html;
 }
 
 let archiveCache = null;

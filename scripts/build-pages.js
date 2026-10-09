@@ -101,7 +101,8 @@ function buildPage({ file, basePath, navCta, authNav }) {
     .replace(HEADER_BLOCK, renderHeader(basePath, { navCta, authNav }))
     .replace(FOOTER_BLOCK, renderFooter(basePath).replace("site-footer", footerClass));
 
-  const themeInit = renderThemeInit() + "\n";
+  // 용어 페이지(basePath "../")는 슬림 형식(assets/site-head.js)을 유지한다 — scripts/slim-term-pages.js 참고.
+  const themeInit = renderThemeInit(basePath === "../" ? { external: "../assets/site-head.js" } : {}) + "\n";
   if (THEME_INIT_BLOCK.test(nextHtml)) {
     nextHtml = nextHtml.replace(THEME_INIT_BLOCK, themeInit);
   } else {
