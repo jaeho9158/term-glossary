@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>모든 개별 요소를 그대로 유지하면 소축척 지도가 지나치게 복잡해지고 정보 전달력이 떨어집니다. 지도학에서는 도형 집단화를 통해 지역의 전체적인 분포 패턴을 유지하면서도 지도를 간결하게 표현하는 방법을 연구합니다.</p>
   <p>개별 지물을 하나하나 표현하기에는 축척이 너무 작은 상황에서, 결합화는 지도가 여전히 전체적인 분포 패턴과 밀도 정보를 전달할 수 있도록 해주는 실용적인 해법입니다. 결합화를 통해 지도의 시각적 밀도를 적절히 낮추면 사용자가 핵심적인 공간 패턴을 더 쉽게 파악할 수 있게 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>대상 선정</strong>: 목표 축척에서 따로 그릴 수 없을 만큼 작고 서로 가까운 같은 종류의 지물(예: 건물군)을 고릅니다.</li><li><strong>근접성 판단</strong>: 거리 임계값, 격자, 군집 분석, 모폴로지 연산(팽창 후 침식) 등으로 한 덩어리로 볼 묶음을 정합니다.</li><li><strong>병합 도형 생성</strong>: 묶음을 감싸는 하나의 면(또는 점·기호)으로 바꿉니다. 속성(건물 수, 총면적)은 집계해 둡니다.</li><li><strong>사후 점검</strong>: 최소 면적, 위상 오류, 인접 지물과의 충돌, 밀도 보존 여부를 점검합니다.</li></ol><p>도형 집단화는 지도 일반화 연산자의 하나이며, 선택, 단순화, 전위 같은 다른 연산과 함께 적용됩니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>언제 쓰나</strong>: 축척이 작아져 개별 지물을 그대로 두면 읽기 어려운 곳에서, 전체 분포와 밀도 인상은 남기고 싶을 때 씁니다.</li><li><strong>무엇을 얻나</strong>: 단순하고 읽기 쉬운 지도, 밀집 지역임을 알려 주는 대표 도형입니다.</li><li><strong>잃는 것</strong>: 개별 지물의 정확한 위치와 개수 정보입니다. 세부 위치가 중요한 용도의 지도에는 신중히 적용해야 합니다.</li><li><strong>용어 주의</strong>: 이름 사이의 경계는 저자마다 조금씩 다릅니다. McMaster와 Shea(1992)는 여러 점 지물을 하나로 묶는 것을 집단화(aggregation)로, 이웃한 면 지물을 하나로 합치는 것을 합병(amalgamation)으로 구분했습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>사용한 용어의 <strong>정의 출처</strong>를 밝히고 유사 연산(합병, 유형화)과의 관계를 적습니다.</li><li>묶는 기준(거리 임계값, 최소 면적)과 원 축척·목표 축척을 적습니다.</li><li>결과 평가는 면적·개수·밀도 보존, 위상 일관성, 사용자 판독 시험 등으로 제시합니다.</li><li>소프트웨어의 도구 이름(예: 집단화 도구)과 개념적 연산을 구분해서 서술합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"밀집한 건물군을 하나의 폴리곤으로 묶는 도형 집단화 알고리즘을 제안하였다."</div>
   <p>개별 건물 데이터를 대표 형태로 묶는 처리 방법을 설명한 문장입니다.</p>
   <div class="example">"집단화 이후에도 원 지역의 밀도 패턴이 유지되는지를 평가 지표로 확인하였다."</div>
@@ -163,6 +181,21 @@
   <p>집단화 기준을 어떻게 정하느냐에 따라 결과물이 크게 달라질 수 있어, 지역 특성과 지도 목적에 맞는 기준 설정이 중요합니다.</p>
 
   <p>결합화 과정에서 개별 지물의 정확한 위치 정보는 희생되므로, 세부 위치가 중요한 용도의 지도에는 적용을 신중히 검토해야 합니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>지도 일반화 연산 가운데 서로 겹쳐 보이는 것들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">연산</th><th scope="col">하는 일</th><th scope="col">결과</th></tr></thead><tbody><tr><th scope="row"><strong>도형 집단화</strong></th><td>가까운 여러 지물을 하나의 대표 형태로 묶음</td><td>하나의 면·기호</td></tr><tr><th scope="row"><a href="amalgamation-cartographic.html">합병</a></th><td>인접·근접한 면 지물을 하나로 통합</td><td>하나의 큰 면</td></tr><tr><th scope="row"><a href="typification-cartographic.html">유형화</a></th><td>개체 집합을 더 적은 수의 대표 개체로 치환</td><td>개수는 줄지만 배열 패턴은 유지</td></tr><tr><th scope="row"><a href="cartographic-simplification.html">단순화</a></th><td>선·면의 굴곡과 좌표점을 줄임</td><td>형태가 간략해진 같은 지물</td></tr></tbody></table></div>
+  <p class="te-note">집단화와 합병의 경계는 문헌마다 다릅니다. 논문에서는 어느 정의를 따랐는지 밝히는 것이 안전합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>McMaster, R. B., &amp; Shea, K. S. (1992). Generalization in Digital Cartography. Association of American Geographers.</li>
+    <li>Shea, K. S., &amp; McMaster, R. B. (1989). Cartographic generalization in a digital environment: When and how to generalize. Proceedings of AutoCarto 9, 56–67.</li>
+    <li>Regnauld, N., &amp; McMaster, R. B. (2007). A synoptic view of generalisation operators. In W. A. Mackaness, A. Ruas, &amp; L. T. Sarjakoski (Eds.), Generalisation of Geographic Information: Cartographic Modelling and Applications. Elsevier.</li>
+    <li>Müller, J.-C., Lagrange, J.-P., &amp; Weibel, R. (Eds.). (1995). GIS and Generalization: Methodology and Practice. Taylor &amp; Francis.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="generalization-operator.html">일반화 연산자</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="enhancement-cartographic.html">강조(지도 일반화)</a><a href="exaggeration-cartographic.html">과장(지도 일반화)</a><a href="cartographic-simplification.html">도형 단순화</a><a href="displacement-cartographic.html">도형 전위</a><a href="classification-cartographic.html">분류(지도화)</a><a href="line-smoothing-algorithm.html">선 평활화 알고리즘</a><a href="selection-generalization.html">선택(일반화)</a><a href="typification-cartographic.html">유형화(지도 일반화)</a><a href="refinement-cartographic.html">정제(지도 일반화)</a><a href="collapse-cartographic.html">축약(지도 일반화)</a><a href="amalgamation-cartographic.html">합병(지도 일반화)</a></div></div><p class="concept-family-map"><a href="../concept-map/cartography.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

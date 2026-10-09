@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>연소, 소음, 혼합처럼 시간에 따라 변하는 비정상 난류 구조가 결과에 큰 영향을 주는 문제에서는 RANS의 시간 평균만으로는 부족한 경우가 많습니다. LES는 이런 비정상 유동 구조를 어느 정도 현실적으로 재현할 수 있어, 정밀한 유동 해석이 필요한 연구에서 중요하게 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>필터링</strong>: 유동장에 공간 필터(폭 Δ, 보통 격자 크기와 연동)를 적용해 큰 규모(풀어내는 규모)와 작은 규모(아격자 규모)로 나눕니다.</li><li><strong>필터링된 방정식</strong>: 나비에-스토크스 방정식을 필터링하면 아격자 응력이라는 미지의 항이 남습니다.</li><li><strong>아격자 모델로 닫기</strong>: 이 항을 모델로 근사합니다. 가장 오래된 모델은 Smagorinsky(1963)의 와점성 모델이며, 상수 C_s를 흐름에 따라 자동 결정하는 동적 모델(Germano 외, 1991)이 널리 쓰입니다. 격자 자체의 수치 소산을 모델로 삼는 암묵적 LES도 있습니다.</li><li><strong>시간 전진</strong>: 큰 에디는 시간에 따라 직접 계산하고, 평균·분산 같은 통계는 충분히 긴 시간 동안 표본을 모아 얻습니다.</li></ol><p>벽 근처의 작은 구조까지 풀면(벽 해상 LES) 레이놀즈수가 커질수록 비용이 급격히 늘기 때문에, 벽 근처를 벽 모델로 처리하는 방식(벽 모델 LES)도 쓰입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>언제 쓰나</strong>: 박리, 후류, 연소·혼합, 공력 소음처럼 큰 규모의 비정상 구조가 결과를 좌우하는 문제입니다. 시간 평균만 얻는 <a href="reynolds-averaged-navier-stokes.html">RANS</a>로는 부족한 경우에 선택합니다.</li><li><strong>무엇을 얻나</strong>: 큰 에디의 시간 이력, 압력 변동 스펙트럼, 평균에 더해 변동량(분산) 통계입니다.</li><li><strong>비용</strong>: <a href="direct-numerical-simulation.html">DNS</a>보다 훨씬 싸지만 RANS보다는 훨씬 비쌉니다.</li><li><strong>품질 판단</strong>: Pope(2004)는 난류 운동에너지의 약 80% 이상을 직접 풀어내는지를 해상도 점검 기준의 하나로 제안했습니다. 이는 관례적 기준이며 절대적인 문턱은 아닙니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>필터 종류와 폭, 아격자 모델(상수 값 또는 동적 절차), 벽 처리 방식을 적습니다.</li><li>격자 수, 벽 쪽 첫 격자 간격(y⁺), 시간 간격(CFL 수), 수치 기법의 정확도(차분 차수)를 적습니다.</li><li>통계를 얻은 시간 길이와 초기 과도 구간 제외 여부를 적습니다.</li><li>격자 민감도 시험이나 풀어낸 난류 에너지 비율, 실험·DNS와의 비교를 함께 제시해야 "격자가 성기면 결과가 달라진다"는 의심에 답할 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 LES를 이용하여 후류 영역의 비정상 와류 구조와 압력 변동 특성을 분석하였다."</div>
   <p>LES로 물체 뒤편에서 발생하는 시간에 따라 변하는 소용돌이와 압력 변화를 살펴보았다는 뜻입니다.</p>
   <div class="example">"Smagorinsky 아격자 모델을 적용한 LES 해석 결과, RANS 대비 박리점 예측 정확도가 향상되었다."</div>
@@ -161,6 +179,22 @@
 
   <h2>주의할 점</h2>
   <p>LES는 벽면 근처의 매우 미세한 난류 구조까지 정확히 잡으려면 상당히 조밀한 격자가 필요해 계산 비용이 크게 늘 수 있습니다. 격자 해상도가 부족하면 결과가 격자 크기에 민감하게 달라질 수 있다는 점에 유의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>난류 해석의 세 단계를 비교합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">무엇을 직접 풀고 무엇을 모델하나</th><th scope="col">계산 비용</th></tr></thead><tbody><tr><th scope="row"><a href="reynolds-averaged-navier-stokes.html">RANS</a></th><td>시간 평균만 풀고 모든 난류 규모를 모델로 처리</td><td>가장 낮음</td></tr><tr><th scope="row"><strong>LES</strong></th><td>큰 에디는 직접, 격자보다 작은 규모만 모델로 처리</td><td>중간~높음</td></tr><tr><th scope="row"><a href="direct-numerical-simulation.html">DNS</a></th><td>모든 규모를 직접 풀며 모델 없음</td><td>레이놀즈수와 함께 가장 급증</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Smagorinsky, J. (1963). General circulation experiments with the primitive equations: I. The basic experiment. Monthly Weather Review, 91(3), 99–164.</li>
+    <li>Germano, M., Piomelli, U., Moin, P., &amp; Cabot, W. H. (1991). A dynamic subgrid-scale eddy viscosity model. Physics of Fluids A, 3(7), 1760–1765.</li>
+    <li>Pope, S. B. (2000). Turbulent Flows. Cambridge University Press.</li>
+    <li>Pope, S. B. (2004). Ten questions concerning the large-eddy simulation of turbulent flows. New Journal of Physics, 6, 35.</li>
+    <li>Sagaut, P. (2006). Large Eddy Simulation for Incompressible Flows (3rd ed.). Springer.</li>
+    <li>Choi, H., &amp; Moin, P. (2012). Grid-point requirements for large eddy simulation: Chapman's estimates revisited. Physics of Fluids, 24, 011702.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="computational-fluid-dynamics-turbulence-model.html">CFD 난류모델링</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="reynolds-averaged-navier-stokes.html">레이놀즈 평균 나비에-스토크스</a></div></div><p class="concept-family-map"><a href="../concept-map/mechanical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

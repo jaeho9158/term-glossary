@@ -1,0 +1,55 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>초기 계획</strong>: 목표 노드에서 거꾸로 각 노드까지의 최단 비용을 계산합니다. 모르는 구역은 통행 가능하다고 가정하는 것(자유공간 가정)이 보통입니다.</li><li><strong>이동과 감지</strong>: 로봇이 경로를 따라 이동하며 센서로 간선 비용의 변화(새 장애물 등)를 감지합니다.</li><li><strong>국소 갱신</strong>: 비용이 바뀐 간선 주변에서 값이 불일치하게 된 노드만 우선순위 큐에 올려 비용을 전파합니다. 전체 지도를 처음부터 다시 탐색하지 않습니다.</li><li><strong>경로 추종</strong>: 현재 위치에서 목표 쪽으로 비용이 가장 작게 이어지는 이웃으로 이동합니다.</li></ol><p>원조 D*는 Stentz(1994)가 제안했고, D* Lite(Koenig &amp; Likhachev, 2002)는 Lifelong Planning A*(LPA*)에 기반해 더 단순하게 같은 동작을 구현한 알고리즘입니다. 연구와 실무에서는 D* Lite가 기준으로 자주 쓰입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 지도가 부분적으로만 알려졌거나 환경이 바뀌는 곳에서 로봇이 반복적으로 경로를 다시 계획해야 할 때 씁니다.</li><li><strong>무엇을 얻나</strong>: 현재 알려진 지도에서 최적 경로이면서, 변경이 국소적일 때 [[a-star-algorithm|A*]]를 매번 새로 실행하는 것보다 재계획 시간이 짧습니다.</li><li><strong>한계</strong>: 격자(또는 그래프) 표현을 전제하므로 연속 공간이나 고차원 형상공간에는 그대로 쓰지 못합니다. 변경이 지도 전체에 걸치면 이점이 줄어듭니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>격자 해상도, 이웃 연결(4방향/8방향), 비용 함수와 휴리스틱을 적습니다.</li><li>비교 대상(매번 A* 재실행, 다른 증분 알고리즘)과 환경 변화의 규모·빈도를 적습니다.</li><li>재계획 횟수, 노드 확장 수, 계산 시간을 보고합니다. 변화 규모가 커질 때의 성능 저하도 보입니다.</li><li>D*(원조), Focused D*, D* Lite 중 무엇을 썼는지 구분해서 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "경로 계획 계열의 용어를 구분합니다.",
+    "headers": [
+      "알고리즘",
+      "하는 일",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[a-star-algorithm|A*]]",
+        "알려진 정적 지도에서 최단 경로 탐색",
+        "환경이 바뀌면 다시 탐색"
+      ],
+      [
+        "[[d-star-algorithm|D* / D* Lite]]",
+        "환경 변화 시 이전 탐색을 재사용해 경로 갱신",
+        "증분 재계획, 전역 경로"
+      ],
+      [
+        "[[dynamic-window-approach|동적윈도우접근법]]",
+        "속도·가속도 제약 안에서 순간 속도 명령을 선택",
+        "지역 장애물 회피"
+      ],
+      [
+        "[[occupancy-grid-map|점유격자지도]]",
+        "격자 셀의 장애물 점유 확률을 담는 지도 표현",
+        "알고리즘이 아니라 지도 형식"
+      ]
+    ]
+  },
+  "references": [
+    "Stentz, A. (1994). Optimal and efficient path planning for partially-known environments. Proceedings of the IEEE International Conference on Robotics and Automation, 3310–3317.",
+    "Koenig, S., & Likhachev, M. (2002). D* Lite. Proceedings of the AAAI Conference on Artificial Intelligence, 476–483.",
+    "Koenig, S., Likhachev, M., & Furcy, D. (2004). Lifelong planning A*. Artificial Intelligence, 155(1–2), 93–146.",
+    "Koenig, S., & Likhachev, M. (2005). Fast replanning for navigation in unknown terrain. IEEE Transactions on Robotics, 21(3), 354–363.",
+    "Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107."
+  ]
+}

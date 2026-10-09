@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,28 @@
   <h2>왜 중요한가</h2>
   <p>도수분포표와 히스토그램은 본격적인 통계 분석에 들어가기 전, 자료의 전반적인 형태를 눈으로 확인하는 가장 기본적인 도구입니다. 자료가 대칭적으로 분포하는지, 한쪽으로 치우쳐 있는지, 이상치가 있는지를 미리 파악해두면 이후 어떤 통계 기법(평균 비교, 회귀분석 등)을 적용할지 판단하는 데 도움이 됩니다. 그래서 논문의 결과 부분에서 본격적인 분석에 앞서 자료의 특성을 소개할 때 자주 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>범위 구하기</strong>: 최솟값과 최댓값, 범위(최대 − 최소)를 구합니다.</li><li><strong>계급 수와 폭 정하기</strong>: 정해진 정답은 없고 규칙이 있습니다. Sturges(1926)의 규칙은 계급 수 ≈ 1 + log₂ n이고, Freedman-Diaconis 규칙은 사분위범위(IQR)로 폭을 정합니다(폭 ≈ 2 × IQR × n^(−1/3)). 둘 다 출발점이며 소프트웨어마다 기본값이 다릅니다.</li><li><strong>경계 정하기</strong>: 계급이 겹치지 않도록 "이상 ~ 미만"처럼 한쪽만 닫습니다. 소프트웨어에 따라 기본값이 달라, 예컨대 R의 <code>hist()</code>는 오른쪽이 닫힌 구간이 기본이고 NumPy의 <code>histogram</code>은 왼쪽이 닫힌 구간이 기본입니다.</li><li><strong>세기</strong>: 계급별 도수를 세고, 필요하면 <a href="relative-frequency.html">상대도수</a>와 누적도수를 만듭니다.</li><li><strong>그리기</strong>: 연속 변수는 막대를 붙여서 그린 히스토그램으로 나타냅니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예입니다. 학생 24명의 키(cm)가 최소 152, 최대 185로 범위는 33입니다. Sturges 규칙은 1 + log₂ 24 ≈ 5.58이므로 계급 수 6개, 폭은 33 ÷ 6 ≈ 5.5입니다. 보기 좋게 폭을 6로 반올림하고 150부터 시작하면 다음 표가 됩니다(코드로 세었습니다).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계급(cm)</th><th>도수</th><th>상대도수</th><th>누적도수</th></tr></thead><tbody><tr><td>150 이상 ~ 156 미만</td><td>2</td><td>8.3%</td><td>2</td></tr><tr><td>156 이상 ~ 162 미만</td><td>3</td><td>12.5%</td><td>5</td></tr><tr><td>162 이상 ~ 168 미만</td><td>5</td><td>20.8%</td><td>10</td></tr><tr><td>168 이상 ~ 174 미만</td><td>6</td><td>25.0%</td><td>16</td></tr><tr><td>174 이상 ~ 180 미만</td><td>4</td><td>16.7%</td><td>20</td></tr><tr><td>180 이상 ~ 186 미만</td><td>4</td><td>16.7%</td><td>24</td></tr></tbody></table></div><p>같은 자료도 시작점이나 폭을 바꾸면 막대 모양이 달라집니다. 그래서 히스토그램을 읽을 때는 계급 설정이 결과에 미치는 영향을 함께 생각해야 합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>언제 쓰나</strong>: 분석 전에 분포의 모양(대칭인지, 치우쳤는지, 봉우리가 몇 개인지), 이상치와 빈 구간을 눈으로 확인할 때 씁니다.</li><li><strong>무엇을 얻나</strong>: 범주형이든 연속형이든 자료를 요약한 표와 그림이며, 누적도수로 백분위수를 대략 읽을 수도 있습니다.</li><li><strong>한계</strong>: 표로 묶으면 계급 안의 값은 잃습니다. 분포 모양을 계급 경계에 덜 의존하게 보려면 커널밀도추정 등을 병행합니다.</li></ul><p>범주형 변수(예: 학과)의 빈도표와 막대그래프는 계급이 없고 막대 사이를 띄운다는 점에서 연속 변수의 히스토그램과 구분됩니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“수신신호 데이터를 통해 얻은 Adjusted TOA(ATOA)를 히스토그램으로 나타내어 다중경로의 경향을 알아보고 그 결과ATOA값들은 감마 분포의 특성을 갖는다는 점을 실험적으로 확인하였다.”</blockquote><p class="te-cite">IR-UWB의 다중경로 환경에서감마분포를 이용한 거리 추정 알고리즘, 한국통신학회논문지B, 2013 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001749481" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“FA영상에서 육안적 정성 평가 후 주요 뇌 구조물에 관심영역을 설정하여 해당 영역의 히스토그램을 구하였다.”</blockquote><p class="te-cite">확산 경사자장의 방향수에 따른 분할 비등방성 뇌자기공명영상의 잡음에 대한 히스토그램 분석, 대한영상의학회지, 2005 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART000966543" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"응답자의 학습 시간을 30분 단위 계급으로 나눈 도수분포표를 작성하였으며, 히스토그램에서 120~150분 구간의 도수가 가장 높게 나타났다."</div>
   <p>이 문장은 연구자가 수집한 원자료를 구간별로 정리해서, 자료가 어느 범위에 집중되어 있는지를 독자에게 시각적으로 보여주고 있음을 뜻합니다. 원자료를 그대로 나열하는 대신 도수분포표로 요약하면 전체적인 분포의 모양을 훨씬 쉽게 파악할 수 있습니다.</p>
   <div class="example">"참가자의 연령 분포를 10세 단위 계급으로 정리한 도수분포표를 <표 2>에 제시하였으며, 30대 구간의 도수가 전체의 상당 부분을 차지하였다."</div>
@@ -166,6 +188,20 @@
 
   <h2>주의할 점</h2>
   <p>계급의 폭(구간 크기)을 어떻게 정하느냐에 따라 히스토그램의 모양이 크게 달라질 수 있습니다. 구간을 너무 넓게 잡으면 자료의 세부적인 특징이 뭉개지고, 너무 좁게 잡으면 자료가 들쭉날쭉해 보여 전체 경향을 파악하기 어렵습니다. 도수분포표는 자료가 어디에 몰려 있는지를 보여줄 뿐, <a href="measures-of-central-tendency.html">대푯값</a>처럼 하나의 숫자로 자료를 요약해주지는 않는다는 점도 함께 기억해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>표와 그림의 이름을 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">비고</th></tr></thead><tbody><tr><th scope="row">도수</th><td>계급(구간)에 속한 자료의 개수</td><td>표의 기본 칸</td></tr><tr><th scope="row"><a href="relative-frequency.html">상대도수</a></th><td>도수 ÷ 전체 도수</td><td>합이 1(100%)</td></tr><tr><th scope="row">누적도수</th><td>그 계급까지의 도수 합</td><td>백분위수 읽기에 사용</td></tr><tr><th scope="row">히스토그램</th><td>연속 변수의 도수분포를 막대로 그린 그림</td><td>막대가 붙어 있음</td></tr><tr><th scope="row">막대그래프</th><td>범주형 변수의 빈도를 막대로 그린 그림</td><td>막대가 떨어져 있음</td></tr></tbody></table></div>
+  <p class="te-note"><a href="measures-of-central-tendency.html">대푯값</a>은 분포를 숫자 하나로 요약하는 방법이어서, 분포 전체를 보여 주는 도수분포표와 함께 보고합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sturges, H. A. (1926). The choice of a class interval. Journal of the American Statistical Association, 21(153), 65–66.</li>
+    <li>Scott, D. W. (1979). On optimal and data-based histograms. Biometrika, 66(3), 605–610.</li>
+    <li>Freedman, D., &amp; Diaconis, P. (1981). On the histogram as a density estimator: L2 theory. Zeitschrift für Wahrscheinlichkeitstheorie und Verwandte Gebiete, 57(4), 453–476.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="relative-frequency.html">상대도수</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

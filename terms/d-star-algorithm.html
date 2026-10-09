@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>미지 환경을 주행하다가 새 장애물을 발견했을 때 경로 전체를 다시 계산하지 않고 영향받은 부분만 갱신하므로, 화성 로버와 무인 지상 차량의 실시간 재계획에 채택되었습니다. 동적 환경 경로계획 논문에서 D* Lite가 사실상의 기준 알고리즘입니다. 화성 로버처럼 통신 지연 때문에 지구의 실시간 개입이 불가능한 원격 로봇에서는, 로봇 스스로 새 장애물을 빠르게 재계획할 수 있는 이 알고리즘의 가치가 특히 크다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>초기 계획</strong>: 목표 노드에서 거꾸로 각 노드까지의 최단 비용을 계산합니다. 모르는 구역은 통행 가능하다고 가정하는 것(자유공간 가정)이 보통입니다.</li><li><strong>이동과 감지</strong>: 로봇이 경로를 따라 이동하며 센서로 간선 비용의 변화(새 장애물 등)를 감지합니다.</li><li><strong>국소 갱신</strong>: 비용이 바뀐 간선 주변에서 값이 불일치하게 된 노드만 우선순위 큐에 올려 비용을 전파합니다. 전체 지도를 처음부터 다시 탐색하지 않습니다.</li><li><strong>경로 추종</strong>: 현재 위치에서 목표 쪽으로 비용이 가장 작게 이어지는 이웃으로 이동합니다.</li></ol><p>원조 D*는 Stentz(1994)가 제안했고, D* Lite(Koenig &amp; Likhachev, 2002)는 Lifelong Planning A*(LPA*)에 기반해 더 단순하게 같은 동작을 구현한 알고리즘입니다. 연구와 실무에서는 D* Lite가 기준으로 자주 쓰입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>언제 쓰나</strong>: 지도가 부분적으로만 알려졌거나 환경이 바뀌는 곳에서 로봇이 반복적으로 경로를 다시 계획해야 할 때 씁니다.</li><li><strong>무엇을 얻나</strong>: 현재 알려진 지도에서 최적 경로이면서, 변경이 국소적일 때 <a href="a-star-algorithm.html">A*</a>를 매번 새로 실행하는 것보다 재계획 시간이 짧습니다.</li><li><strong>한계</strong>: 격자(또는 그래프) 표현을 전제하므로 연속 공간이나 고차원 형상공간에는 그대로 쓰지 못합니다. 변경이 지도 전체에 걸치면 이점이 줄어듭니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>격자 해상도, 이웃 연결(4방향/8방향), 비용 함수와 휴리스틱을 적습니다.</li><li>비교 대상(매번 A* 재실행, 다른 증분 알고리즘)과 환경 변화의 규모·빈도를 적습니다.</li><li>재계획 횟수, 노드 확장 수, 계산 시간을 보고합니다. 변화 규모가 커질 때의 성능 저하도 보입니다.</li><li>D*(원조), Focused D*, D* Lite 중 무엇을 썼는지 구분해서 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">D* 계열 알고리즘은 변경된 에지 비용 주변의 노드만 선택적으로 재계산하는 증분 탐색 기법으로, 정적 A* 대비 재계획 시간을 크게 단축한다.</div>
   <p>지도의 일부만 바뀌었을 때 지도 전체를 다시 훑지 않고 바뀐 부분과 관련된 곳만 다시 계산해 계산량을 크게 줄인다는 의미입니다.</p>
   <div class="example">"한 연구는 실내 배송 로봇이 예기치 못한 사람의 이동을 장애물로 감지했을 때, D* Lite 알고리즘이 전체 경로를 다시 계산하는 A*보다 재계획 시간을 얼마나 단축하는지 실측하였다."</div>
@@ -161,6 +179,21 @@
 
   <h2>주의할 점</h2>
   <p>구현이 A*보다 복잡하며, 변경이 매우 광범위하게 발생하면 증분 갱신의 이점이 줄어듭니다. 환경 변화가 국소적으로 작을 때는 A*보다 훨씬 빠르지만, 변화 범위가 지도 전체에 걸쳐 크게 발생하면 갱신해야 할 노드 수가 늘어나 그 이점이 크게 줄어든다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>경로 계획 계열의 용어를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">알고리즘</th><th scope="col">하는 일</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="a-star-algorithm.html">A*</a></th><td>알려진 정적 지도에서 최단 경로 탐색</td><td>환경이 바뀌면 다시 탐색</td></tr><tr><th scope="row"><strong>D* / D* Lite</strong></th><td>환경 변화 시 이전 탐색을 재사용해 경로 갱신</td><td>증분 재계획, 전역 경로</td></tr><tr><th scope="row"><a href="dynamic-window-approach.html">동적윈도우접근법</a></th><td>속도·가속도 제약 안에서 순간 속도 명령을 선택</td><td>지역 장애물 회피</td></tr><tr><th scope="row"><a href="occupancy-grid-map.html">점유격자지도</a></th><td>격자 셀의 장애물 점유 확률을 담는 지도 표현</td><td>알고리즘이 아니라 지도 형식</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Stentz, A. (1994). Optimal and efficient path planning for partially-known environments. Proceedings of the IEEE International Conference on Robotics and Automation, 3310–3317.</li>
+    <li>Koenig, S., &amp; Likhachev, M. (2002). D* Lite. Proceedings of the AAAI Conference on Artificial Intelligence, 476–483.</li>
+    <li>Koenig, S., Likhachev, M., &amp; Furcy, D. (2004). Lifelong planning A*. Artificial Intelligence, 155(1–2), 93–146.</li>
+    <li>Koenig, S., &amp; Likhachev, M. (2005). Fast replanning for navigation in unknown terrain. IEEE Transactions on Robotics, 21(3), 354–363.</li>
+    <li>Hart, P. E., Nilsson, N. J., &amp; Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

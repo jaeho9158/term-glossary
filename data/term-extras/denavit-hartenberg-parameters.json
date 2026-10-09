@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>좌표계 부여</strong>: 관절 i의 축에 z축을 맞춥니다(표준 DH에서는 관절 i+1의 축이 zᵢ). x축은 이웃한 두 z축의 공통 수선 방향으로 잡습니다.</li><li><strong>네 파라미터 읽기(표준 DH)</strong>: aᵢ = 공통 수선의 길이(링크 길이), αᵢ = xᵢ축 둘레로 z축이 틀어진 각(링크 비틀림), dᵢ = z축을 따른 거리(링크 오프셋), θᵢ = z축 둘레의 관절각입니다. 회전 관절에서는 θ가, 직동 관절에서는 d가 변수입니다.</li><li><strong>링크 변환 행렬</strong>: 표준 DH에서 Aᵢ = Rot(z, θᵢ) · Trans(z, dᵢ) · Trans(x, aᵢ) · Rot(x, αᵢ)입니다.</li><li><strong>순기구학</strong>: 모든 링크의 행렬을 곱해 T = A₁A₂…Aₙ을 구하면 기저에서 말단까지의 위치·자세가 나옵니다.</li></ol><p>표준 DH와 수정 DH(Craig)는 좌표계를 링크의 어느 끝에 붙이느냐가 다르고 변환 순서도 달라서(수정 DH는 Rot(x, αᵢ₋₁) · Trans(x, aᵢ₋₁) · Rot(z, θᵢ) · Trans(z, dᵢ)), 같은 로봇의 파라미터 표가 문헌마다 다르게 보입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>평면 2링크 로봇(회전 관절 둘, 두 축이 평행)으로 확인해 봅니다(가상의 수치, 단위 임의). 링크 길이 l₁ = 1, l₂ = 0.5, 관절각 θ₁ = 30°, θ₂ = 45°입니다.</p><table><thead><tr><th>링크</th><th>aᵢ</th><th>αᵢ</th><th>dᵢ</th><th>θᵢ</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>0</td><td>0</td><td>θ₁ (변수)</td></tr><tr><td>2</td><td>0.5</td><td>0</td><td>0</td><td>θ₂ (변수)</td></tr></tbody></table><p>코드로 A₁A₂를 곱한 결과, 말단 위치는 (x, y) = (0.9954, 0.9830)입니다. 평면 기하식 x = l₁cosθ₁ + l₂cos(θ₁+θ₂), y = l₁sinθ₁ + l₂sin(θ₁+θ₂)와 같은 값입니다(소수점 넷째 자리까지 일치).</p><ul><li><strong>언제 쓰나</strong>: 직렬 연쇄 로봇의 모델링, 순기구학과 자코비안 유도, 교재와 시뮬레이터 입력 형식입니다.</li><li><strong>한계</strong>: 인접한 두 관절축이 평행에 가까우면 파라미터가 불연속적으로 변해 기구학 보정(캘리브레이션)에 부적합합니다. 이 문제를 고친 변형 모델(Hayati 등)이나 곱지수(POE) 표현을 쓰기도 합니다. 폐루프·병렬 구조에는 그대로 쓰기 어렵습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>DH 표를 첨부하고 <strong>표준 DH인지 수정 DH인지</strong> 명시합니다.</li><li>좌표계를 그림으로 보입니다(각 z축, x축, 기준 자세의 관절각 0 방향).</li><li>길이와 각도의 단위(m 또는 mm, rad 또는 deg), 관절 한계를 적습니다.</li><li>다른 문헌의 파라미터 값을 가져올 때는 그 문헌의 규약을 확인하고 변환 여부를 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "DH는 순기구학을 계산하는 표기법이지 계산 자체를 가리키는 말이 아닙니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "입력 → 출력"
+    ],
+    "rows": [
+      [
+        "[[denavit-hartenberg-parameters|DH 파라미터]]",
+        "링크 사이 관계를 4개 수로 표준화해 기술하는 표기법",
+        "로봇 구조 → 파라미터 표"
+      ],
+      [
+        "[[forward-kinematics|순기구학]]",
+        "관절 변수로 말단 위치·자세를 계산",
+        "관절각 → 말단 위치·자세"
+      ],
+      [
+        "[[inverse-kinematics|역기구학]]",
+        "원하는 말단 위치·자세에 맞는 관절 변수를 찾음",
+        "말단 위치·자세 → 관절각"
+      ]
+    ]
+  },
+  "references": [
+    "Denavit, J., & Hartenberg, R. S. (1955). A kinematic notation for lower-pair mechanisms based on matrices. Journal of Applied Mechanics, 22(2), 215–221.",
+    "Craig, J. J. (2005). Introduction to Robotics: Mechanics and Control (3rd ed.). Pearson Prentice Hall.",
+    "Spong, M. W., Hutchinson, S., & Vidyasagar, M. (2006). Robot Modeling and Control. Wiley.",
+    "Hayati, S., & Mirmirani, M. (1985). Improving the absolute positioning accuracy of robot manipulators. Journal of Robotic Systems, 2(4), 397–413."
+  ]
+}

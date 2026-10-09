@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>범위 구하기</strong>: 최솟값과 최댓값, 범위(최대 − 최소)를 구합니다.</li><li><strong>계급 수와 폭 정하기</strong>: 정해진 정답은 없고 규칙이 있습니다. Sturges(1926)의 규칙은 계급 수 ≈ 1 + log₂ n이고, Freedman-Diaconis 규칙은 사분위범위(IQR)로 폭을 정합니다(폭 ≈ 2 × IQR × n^(−1/3)). 둘 다 출발점이며 소프트웨어마다 기본값이 다릅니다.</li><li><strong>경계 정하기</strong>: 계급이 겹치지 않도록 \"이상 ~ 미만\"처럼 한쪽만 닫습니다. 소프트웨어에 따라 기본값이 달라, 예컨대 R의 <code>hist()</code>는 오른쪽이 닫힌 구간이 기본이고 NumPy의 <code>histogram</code>은 왼쪽이 닫힌 구간이 기본입니다.</li><li><strong>세기</strong>: 계급별 도수를 세고, 필요하면 [[relative-frequency|상대도수]]와 누적도수를 만듭니다.</li><li><strong>그리기</strong>: 연속 변수는 막대를 붙여서 그린 히스토그램으로 나타냅니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>가상의 예입니다. 학생 24명의 키(cm)가 최소 152, 최대 185로 범위는 33입니다. Sturges 규칙은 1 + log₂ 24 ≈ 5.58이므로 계급 수 6개, 폭은 33 ÷ 6 ≈ 5.5입니다. 보기 좋게 폭을 6로 반올림하고 150부터 시작하면 다음 표가 됩니다(코드로 세었습니다).</p><table><thead><tr><th>계급(cm)</th><th>도수</th><th>상대도수</th><th>누적도수</th></tr></thead><tbody><tr><td>150 이상 ~ 156 미만</td><td>2</td><td>8.3%</td><td>2</td></tr><tr><td>156 이상 ~ 162 미만</td><td>3</td><td>12.5%</td><td>5</td></tr><tr><td>162 이상 ~ 168 미만</td><td>5</td><td>20.8%</td><td>10</td></tr><tr><td>168 이상 ~ 174 미만</td><td>6</td><td>25.0%</td><td>16</td></tr><tr><td>174 이상 ~ 180 미만</td><td>4</td><td>16.7%</td><td>20</td></tr><tr><td>180 이상 ~ 186 미만</td><td>4</td><td>16.7%</td><td>24</td></tr></tbody></table><p>같은 자료도 시작점이나 폭을 바꾸면 막대 모양이 달라집니다. 그래서 히스토그램을 읽을 때는 계급 설정이 결과에 미치는 영향을 함께 생각해야 합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 분석 전에 분포의 모양(대칭인지, 치우쳤는지, 봉우리가 몇 개인지), 이상치와 빈 구간을 눈으로 확인할 때 씁니다.</li><li><strong>무엇을 얻나</strong>: 범주형이든 연속형이든 자료를 요약한 표와 그림이며, 누적도수로 백분위수를 대략 읽을 수도 있습니다.</li><li><strong>한계</strong>: 표로 묶으면 계급 안의 값은 잃습니다. 분포 모양을 계급 경계에 덜 의존하게 보려면 커널밀도추정 등을 병행합니다.</li></ul><p>범주형 변수(예: 학과)의 빈도표와 막대그래프는 계급이 없고 막대 사이를 띄운다는 점에서 연속 변수의 히스토그램과 구분됩니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "표와 그림의 이름을 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "비고"
+    ],
+    "rows": [
+      [
+        "도수",
+        "계급(구간)에 속한 자료의 개수",
+        "표의 기본 칸"
+      ],
+      [
+        "[[relative-frequency|상대도수]]",
+        "도수 ÷ 전체 도수",
+        "합이 1(100%)"
+      ],
+      [
+        "누적도수",
+        "그 계급까지의 도수 합",
+        "백분위수 읽기에 사용"
+      ],
+      [
+        "히스토그램",
+        "연속 변수의 도수분포를 막대로 그린 그림",
+        "막대가 붙어 있음"
+      ],
+      [
+        "막대그래프",
+        "범주형 변수의 빈도를 막대로 그린 그림",
+        "막대가 떨어져 있음"
+      ]
+    ],
+    "note": "[[measures-of-central-tendency|대푯값]]은 분포를 숫자 하나로 요약하는 방법이어서, 분포 전체를 보여 주는 도수분포표와 함께 보고합니다."
+  },
+  "references": [
+    "Sturges, H. A. (1926). The choice of a class interval. Journal of the American Statistical Association, 21(153), 65–66.",
+    "Scott, D. W. (1979). On optimal and data-based histograms. Biometrika, 66(3), 605–610.",
+    "Freedman, D., & Diaconis, P. (1981). On the histogram as a density estimator: L2 theory. Zeitschrift für Wahrscheinlichkeitstheorie und Verwandte Gebiete, 57(4), 453–476."
+  ]
+}
