@@ -1,0 +1,60 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>내재변동성은 옵션 가격 모형(대개 Black–Scholes)에 시장에서 관측한 옵션 가격을 넣고, 모형의 변동성 모수를 거꾸로 풀어서 얻은 값입니다. 모형의 나머지 입력(기초자산 가격, 행사가격, 만기, 금리, 배당)은 알려진 값으로 둡니다(Black &amp; Scholes, 1973).</li><li>콜옵션 가격은 변동성이 커질수록 단조롭게 증가하므로 무차익 범위 안의 가격이라면 해가 하나 있습니다. 가격이 내재가치 하한 이하이거나 기초자산 가격 이상이면 해가 없습니다. 해는 이분법이나 뉴턴법 같은 수치 방법으로 구합니다.</li><li>값은 연율화된 표준편차(보통 %)로 표시되며, 만기와 행사가격마다 다르게 나옵니다.</li></ul><p>기초자산 100, 행사가격 100, 연속복리 무위험이자율 3%, 만기 0.25년인 유럽형 콜옵션의 가상 시장가격이 4.50이라고 하겠습니다. Black–Scholes 가격은 변동성 10%에서 2.383, 20%에서 4.358, 30%에서 6.337이고, 이분법으로 4.50에 맞추는 변동성을 구하면 약 20.7%입니다(프로그램 계산). 이것이 이 옵션의 내재변동성입니다.</p><p>연율 20.7%는 거래일 252일 관행으로 일 단위로 환산하면 약 20.7% ÷ √252 ≈ 1.30%입니다. 이는 시장이 하루 로그수익률의 표준편차를 약 1.3%로 본다는 뜻이지, 내일 1.3% 움직인다는 예측은 아닙니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>미래 변동성의 기대치로 읽기:</strong> 내재변동성은 시장참여자들이 만기까지 예상하는 변동성을 반영한다고 해석됩니다. Latané와 Rendleman(1976)은 옵션에서 역산한 변동성이 과거 변동성보다 미래 변동성을 잘 반영한다고 보고했고, Canina와 Figlewski(1993)는 S&amp;P 100 옵션 자료에서는 거의 정보가 없다고 보고했으며, 더 긴 표본을 쓴 Christensen과 Prabhala(1998)는 정보력이 있다고 보고했습니다. 결과는 표본과 방법에 따라 다릅니다.</li><li><strong>실현변동성보다 높은 경향:</strong> 내재변동성이 평균적으로 이후의 실현변동성보다 높은 경향은 변동성 위험 프리미엄으로 해석됩니다(Carr &amp; Wu, 2009). 따라서 불편 추정량으로 읽으면 안 됩니다.</li><li><strong>모형 의존성:</strong> Black–Scholes의 상수 변동성 가정이 맞지 않으면 행사가격에 따라 값이 달라지는 변동성 스마일이 나타납니다. 이때 내재변동성은 순수한 기대 변동성만이 아니라 모형의 오차도 담습니다.</li><li><strong>변동성 지수:</strong> VIX는 S&amp;P 500 지수옵션의 여러 행사가격 가격으로 30일 기대변동성을 산출한 지수로, 하나의 Black–Scholes 내재변동성이 아니라 옵션 가격 전체로 만든 값입니다. 시장의 위험회피 정도를 보는 지표로 쓰입니다(Whaley, 2000).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>어느 옵션인지(기초자산, 만기, 행사가격, 콜·풋, 등가격 여부)를 반드시 적습니다.</li><li>사용 모형과 입력(금리 곡선, 배당 처리, 유럽형·미국형 구분), 연율화 기준을 적습니다.</li><li>가격 자료(종가인지 매수·매도 호가 중간값인지)와 출처, 유동성 필터(최소 거래량, 만기 일수 범위, 등가격에서 얼마나 떨어진 옵션까지 쓰는지)를 적습니다.</li><li>예측력 연구라면 내재변동성이 다룬 기간과 비교하는 실현변동성의 계산 기간을 일치시키고, 표본이 겹치는지 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "정보의 방향"
+    ],
+    "rows": [
+      [
+        "[[implied-volatility|내재변동성]]",
+        "옵션 시장가격에서 모형으로 역산한 변동성",
+        "앞을 보는 값(시장의 기대 반영)"
+      ],
+      [
+        "과거(역사적) 변동성",
+        "과거 수익률 자료에서 계산한 표준편차",
+        "뒤를 보는 값"
+      ],
+      [
+        "실현변동성",
+        "실제로 발생한 기간의 수익률 변동성",
+        "사후에 확정되는 값"
+      ],
+      [
+        "[[volatility-smile|변동성 스마일]]",
+        "행사가격에 따라 내재변동성이 달라지는 현상",
+        "내재변동성이 단일 값이 아님을 보여 줌"
+      ],
+      [
+        "[[black-scholes-model|블랙숄즈모형]]",
+        "내재변동성을 역산하는 데 쓰는 옵션가격결정모형",
+        "역산의 기준 모형"
+      ]
+    ]
+  },
+  "references": [
+    "Black, F., & Scholes, M. (1973). The pricing of options and corporate liabilities. Journal of Political Economy, 81(3), 637–654.",
+    "Latané, H. A., & Rendleman, R. J. (1976). Standard deviations of stock price ratios implied in option prices. Journal of Finance, 31(2), 369–381.",
+    "Canina, L., & Figlewski, S. (1993). The informational content of implied volatility. Review of Financial Studies, 6(3), 659–681.",
+    "Christensen, B. J., & Prabhala, N. R. (1998). The relation between implied and realized volatility. Journal of Financial Economics, 50(2), 125–150.",
+    "Whaley, R. E. (2000). The investor fear gauge. Journal of Portfolio Management, 26(3), 12–17.",
+    "Carr, P., & Wu, L. (2009). Variance risk premiums. Review of Financial Studies, 22(3), 1311–1341."
+  ]
+}

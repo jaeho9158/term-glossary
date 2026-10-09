@@ -1,0 +1,52 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>기준 자료 정하기:</strong> 보정할 영상의 점과 짝이 될 좌표 자료(지도, 이미 보정된 기준 영상, GPS 측량점)를 정합니다.</li><li><strong>지상기준점(GCP) 선정:</strong> 도로 교차점처럼 영상과 기준 자료 양쪽에서 뚜렷이 식별되는 점을 골라 영상 좌표와 기준 좌표의 짝을 만듭니다.</li><li><strong>변환식 추정:</strong> 다항식 변환이 흔합니다. 1차(아핀)는 계수 6개이고 GCP가 최소 3개 필요하며, m차 다항식은 최소 (m+1)(m+2)/2개의 GCP가 필요합니다(2차 6개, 3차 10개). 센서의 궤도·자세 정보로 보정하는 물리적 모델 방식도 있습니다(Toutin, 2004).</li><li><strong>정확도 평가:</strong> 잔차의 평균제곱근오차(RMSE = √(평균(Δx² + Δy²)))를 화소 또는 m 단위로 구합니다. 변환식을 맞추는 데 쓰지 않은 독립 검증점으로도 확인하는 것이 바람직합니다.</li><li><strong>재배열(resampling):</strong> 새 좌표 격자에 화소값을 옮깁니다. 최근접 이웃은 원래 값을 보존하고, 양선형·3차회선은 결과가 부드럽지만 값이 평균화됩니다(Richards, 2013).</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰는 때:</strong> 여러 시기 영상의 변화탐지, GIS 자료와의 중첩, 영상 모자이크처럼 위치가 서로 맞아야 하는 모든 작업의 전처리입니다.</li><li><strong>얻는 것:</strong> 지도 좌표계에 맞춘 영상과 위치 정확도를 나타내는 수치(RMSE)입니다.</li><li><strong>다항식의 한계:</strong> 다항식 변환은 지형 기복에 따른 왜곡을 제거하지 못합니다. 산지처럼 기복이 큰 곳은 수치표고모형(DEM)을 쓰는 정사보정이 필요합니다.</li><li><strong>GCP 배치:</strong> GCP가 너무 적거나 한쪽에 몰리면 기준점에서 먼 곳의 왜곡이 커집니다.</li><li><strong>분류·지수 계산과의 순서:</strong> 재배열은 화소값을 바꾸므로 분광 분석 전에 적용할지는 연구 목적에 따라 정하며, 논문에는 그 순서를 밝힙니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>기준 자료의 종류와 좌표계(투영), 보정 대상 영상의 센서와 촬영일을 적습니다.</li><li>GCP의 개수와 분포, 변환식의 종류와 차수, RMSE(화소 또는 m), 독립 검증점 오차를 함께 적습니다.</li><li>재배열 방법과 출력 화소 크기, DEM 사용 여부를 적습니다.</li><li>허용 오차의 기준은 연구 목적에 따라 다르며, 문헌에서는 “RMSE 1화소 이내”가 자주 쓰이고 변화탐지에서는 그보다 엄격한 기준을 요구하기도 합니다. 표준 규정이 아니라 관행이므로 기준을 정한 근거를 적는 것이 안전합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "핵심 차이"
+    ],
+    "rows": [
+      [
+        "[[image-rectification|기하보정]]",
+        "영상의 기하 왜곡을 보정해 지도 좌표에 맞춤",
+        "센서·지구 곡률·기복의 왜곡 보정 전반"
+      ],
+      [
+        "[[georeferencing|지오레퍼런싱]]",
+        "좌표가 없는 영상·지도에 지리 좌표를 부여",
+        "좌표 부여 작업"
+      ],
+      [
+        "[[orthorectification|정사보정]]",
+        "DEM으로 지형 기복 왜곡까지 제거",
+        "기하보정 중 더 엄밀한 단계"
+      ],
+      [
+        "[[image-registration|영상정합]]",
+        "서로 다른 영상끼리 위치를 맞춤",
+        "영상 대 영상, 좌표계 부여가 목적이 아님"
+      ]
+    ]
+  },
+  "references": [
+    "Lillesand, T. M., Kiefer, R. W., & Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.",
+    "Richards, J. A. (2013). Remote Sensing Digital Image Analysis: An Introduction (5th ed.). Springer.",
+    "Toutin, T. (2004). Geometric processing of remote sensing images: Models, algorithms and methods. International Journal of Remote Sensing, 25(10), 1893–1924."
+  ]
+}

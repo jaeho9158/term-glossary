@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/approximate-computing-circuit.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>이미지·음성 처리, 머신러닝 추론처럼 오차에 어느 정도 관대한 응용이 늘어나면서, 정확도와 자원 소비 사이의 균형을 최적화하는 근사컴퓨팅 연구가 저전력 하드웨어 설계 분야에서 활발히 진행되고 있습니다. 배터리 구동 기기나 대규모 병렬 연산 하드웨어의 에너지 효율을 높이는 실용적 접근으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>근사 컴퓨팅은 응용이 오차를 어느 정도 견딜 수 있을 때, 정확도를 일부 내주는 대신 에너지·면적·지연을 줄이는 설계 접근입니다(Han &amp; Orshansky, 2013). 근사컴퓨팅 회로는 이 접근을 덧셈기·곱셈기 같은 연산 회로 수준에서 구현한 것입니다.</li><li>대표 기법으로 하위 비트를 아예 버리는 절단(truncation), 하위 비트의 덧셈을 OR 같은 단순 논리로 바꾸는 방식(Mahdiani 외, 2010의 lower-part OR adder), 근사 논리 게이트나 간략화한 전가산기 셀이 있습니다.</li><li>회로의 오차는 숫자 하나로 말하지 않고 여러 지표로 나타냅니다. 오차율(ER, 정확한 결과와 다른 출력의 비율), 평균 오차 거리(MED, 오차 크기의 평균), 최대 오차, 이를 정확한 연산의 최대 출력값 등으로 나눈 정규화 지표(NMED 등)가 쓰입니다(Liang 외, 2013 등). 정규화 방식의 정의는 논문마다 조금씩 다를 수 있습니다.</li><li>이득은 면적·전력·지연 같은 하드웨어 지표와 오차 지표를 나란히 놓고 절충(trade-off)으로 판단합니다. 최종 기준은 이 회로를 넣은 응용의 품질(영상이면 PSNR 같은 화질 지표)입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>8비트 두 수의 덧셈에서 하위 4비트만 근사하는 두 가지 방식을 입력 65,536쌍 전부(0~255 × 0~255)에 대해 프로그램으로 세어 본 값입니다. 교육용으로 직접 구현한 가상의 회로이며, 특정 논문의 설계가 아닙니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방식</th><th>구성</th><th>오차율(ER)</th><th>평균 오차 거리(MED)</th><th>최대 오차</th><th>NMED(MED ÷ 510)</th></tr></thead><tbody><tr><td>하위 4비트 절단</td><td>하위 4비트를 버리고 상위 4비트만 정확히 더함</td><td>99.6%</td><td>15.0</td><td>30</td><td>0.0294</td></tr><tr><td>하위 OR 가산(LOA형)</td><td>하위 4비트는 OR, 상위 4비트는 정확한 덧셈, 하위 최상위 비트끼리의 AND를 상위 올림수로 사용</td><td>68.4%</td><td>2.875</td><td>8</td><td>0.0056</td></tr></tbody></table></div><p>두 지표가 말하는 바가 다릅니다. LOA형은 틀리는 입력이 68%나 되지만 틀려도 오차가 작아(최대 8) MED가 절단 방식의 약 1/5입니다. 오차율만 보고 “자주 틀리니 나쁘다”고 판단하면 오차의 크기를 놓칩니다. 입력이 균등분포라는 가정에서 나온 값이라, 실제 응용 데이터의 분포가 다르면 오차 특성도 달라집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>근사 회로는 고장이나 불량 때문에 틀리는 회로이다.</td><td>오차를 설계 단계에서 의도하고, 그 크기와 분포를 미리 특성화한 회로입니다. 고장·소프트 에러를 견디는 설계와는 목적이 다릅니다.</td></tr><tr><td>오차율이 낮은 근사 회로가 더 좋다.</td><td>오차율은 틀리는 빈도일 뿐입니다. 상위 비트에서 틀리면 오차가 커지므로 MED·최대 오차와 함께 봐야 합니다.</td></tr><tr><td>면적·전력 절감률은 회로의 고유한 성질이다.</td><td>공정, 셀 라이브러리, 합성 조건, 동작 주파수에 따라 달라집니다. 서로 다른 논문의 절감률은 같은 조건에서 비교한 것이 아니면 직접 견주기 어렵습니다.</td></tr><tr><td>오차를 허용하는 응용이면 어디에나 쓸 수 있다.</td><td>오차가 누적되거나 한 번의 큰 오차가 치명적인 응용(금융 계산, 안전 필수 시스템)에는 맞지 않을 수 있습니다. 응용 수준의 품질 평가가 필요합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The approximate adder truncates lower-order bits to reduce critical path delay at the cost of a bounded error."</div>
   <p>근사 덧셈기가 정해진 범위 내 오차를 감수하는 대신 하위 비트를 절단하여 임계 경로 지연을 줄였다는 내용입니다.</p>
   <div class="example">"Error-resilient applications such as image filtering tolerate the accuracy loss introduced by the approximate multiplier."</div>
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>근사컴퓨팅은 오차가 누적되거나 응용의 정확도 요구가 엄격한 경우(금융 계산, 안전 필수 시스템 등)에는 적합하지 않을 수 있으므로 적용 대상 선정이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷하지만 다른 층위의 개념입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">다루는 대상</th></tr></thead><tbody><tr><th scope="row"><strong>근사컴퓨팅 회로</strong></th><td>정확도를 의도적으로 낮춰 면적·전력·지연을 줄인 연산 회로</td><td>하드웨어(회로)</td></tr><tr><th scope="row"><a href="approximation-algorithm.html">근사 알고리즘</a></th><td>최적해에 가까운 해를 빠르게 구하며 최적해 대비 보장 비율을 증명하는 알고리즘</td><td>소프트웨어(알고리즘 이론)</td></tr><tr><th scope="row"><a href="low-power-design-technique.html">저전력 설계 기법</a></th><td>전압 조절, 클록 게이팅 등 계산 결과는 그대로 두고 전력을 줄이는 기법 전반</td><td>설계 기법 전반(정확도 유지)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Han, J., &amp; Orshansky, M. (2013). Approximate computing: An emerging paradigm for energy-efficient design. Proceedings of the 18th IEEE European Test Symposium (ETS).</li>
+    <li>Mittal, S. (2016). A survey of techniques for approximate computing. ACM Computing Surveys, 48(4), Article 62.</li>
+    <li>Mahdiani, H. R., Ahmadi, A., Fakhraie, S. M., &amp; Lucas, C. (2010). Bio-inspired imprecise computational blocks for efficient VLSI implementation of soft-computing applications. IEEE Transactions on Circuits and Systems I: Regular Papers, 57(4), 850–862.</li>
+    <li>Liang, J., Han, J., &amp; Lombardi, F. (2013). New metrics for the reliability of approximate and probabilistic adders. IEEE Transactions on Computers, 62(9), 1760–1771.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

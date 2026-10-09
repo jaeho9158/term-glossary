@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/basis-and-dimension.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>기저와 차원은 벡터공간을 다루는 거의 모든 이론과 응용의 출발점입니다. 어떤 데이터나 신호를 벡터로 표현하면, 그 표현이 얼마나 효율적이고 해석 가능한지는 결국 어떤 기저를 선택했는지, 그리고 실질적으로 몇 차원이 필요한지에 달려 있습니다.</p>
   <p>그래서 머신러닝의 차원 축소, 신호처리의 변환 기법, 물리학의 상태공간 기술 등 다양한 분야의 논문에서 기저와 차원 개념이 이론적 토대로 반복해서 등장합니다. 또한 계산 효율과 일반화 성능이 차원 수에 크게 좌우되기 때문에, 적절한 기저와 차원을 찾는 문제 자체가 하나의 연구 주제로 다뤄지기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>벡터공간 V의 기저는 (1) 서로 선형독립이면서 (2) V 전체를 생성하는 벡터들의 집합입니다. 그러면 V의 모든 벡터가 기저 벡터들의 일차결합으로 유일하게 표현됩니다.</li><li>기저를 이루는 벡터의 개수가 차원입니다. 유한차원 공간에서는 기저가 여러 개여도 모두 같은 개수의 벡터를 가지므로 차원이 잘 정의됩니다.</li><li>R<sup>n</sup>의 표준기저 e<sub>1</sub>, …, e<sub>n</sub>은 n개이므로 차원은 n입니다. n개의 벡터가 선형독립이면 그것도 R<sup>n</sup>의 기저입니다.</li><li>행렬의 계수(rank)는 열공간의 차원입니다. 열의 개수가 n이면 (영공간의 차원) + (계수) = n이라는 계수-영공간 정리가 성립합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>R³의 벡터 v<sub>1</sub> = (1, 2, 3), v<sub>2</sub> = (2, 4, 6), v<sub>3</sub> = (0, 1, 1), v<sub>4</sub> = (1, 3, 4)가 생성하는 공간의 차원을 구해 봅니다.</p><ul><li>v<sub>2</sub> = 2v<sub>1</sub>, v<sub>4</sub> = v<sub>1</sub> + v<sub>3</sub>이므로 v<sub>2</sub>, v<sub>4</sub>는 앞의 두 벡터로 만들어집니다(프로그램으로도 이 두 관계를 확인했습니다).</li><li>v<sub>1</sub>과 v<sub>3</sub>은 서로의 상수배가 아니므로 선형독립입니다. 따라서 {v<sub>1</sub>, v<sub>3</sub>}는 기저이고, 생성된 공간은 R³ 속의 평면이며 차원은 2입니다. 네 벡터를 행으로 쌓은 4×3 행렬의 계수도 2로 계산됩니다.</li><li>{v<sub>1</sub>, v<sub>4</sub>}도 기저가 됩니다. 기저는 하나로 정해지지 않고, 개수(차원)만 같습니다.</li></ul><p>다항식 공간 {a + bx + cx²}는 기저 {1, x, x²}를 가지므로 차원이 3입니다. 벡터가 숫자 목록이 아니어도 차원을 같은 방식으로 셉니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>기저는 하나뿐이다.</td><td>기저는 많습니다(축을 회전하거나 크기를 바꿔도 기저). 유일한 것은 기저의 개수, 곧 차원입니다.</td></tr><tr><td>벡터가 n개 있으면 n차원 공간의 기저이다.</td><td>n개가 선형독립일 때만 기저입니다. 위 예의 네 벡터는 개수가 4개이지만 생성하는 공간의 차원은 2입니다.</td></tr><tr><td>공간의 차원은 벡터의 성분 수와 같다.</td><td>R³ 속의 평면은 성분이 3개씩이지만 차원은 2입니다. 차원은 독립한 방향의 개수입니다.</td></tr><tr><td>자료의 “유효 차원”이나 PCA로 줄인 차원도 수학적 차원과 같은 개념이다.</td><td>수학적 차원은 정확히 정의되지만, 유효 차원은 잡음이 있는 자료에서 설명 분산 기준으로 정하는 근사적 개념입니다. 논문에서는 어떤 기준으로 정했는지 밝혀야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"주성분 분석을 통해 임베딩 공간의 차원을 128에서 32로 축소했음에도, 소수의 주성분이 이루는 기저만으로 데이터 분산의 90% 이상을 설명할 수 있었다."</div>
   <p>이 문장은 원래 128개의 축(차원)으로 표현되던 데이터를 32개의 핵심적인 축만으로도 거의 같은 정보를 담아낼 수 있었다는 뜻입니다. 고차원 데이터를 다루는 논문에서는 이렇게 "실제로 데이터를 설명하는 데 필요한 최소한의 기저와 차원이 몇 개인가"를 찾는 작업이 자주 등장하며, 이는 계산량을 줄이고 데이터의 핵심 구조를 파악하는 데 활용됩니다.</p>
 
@@ -166,6 +184,18 @@
 
   <h2>주의할 점</h2>
   <p>같은 <a href="vector-space.html">벡터 공간</a>에 대해 기저는 여러 가지 방식으로 고를 수 있지만(예: 축을 회전시켜도 여전히 기저가 됨), 그 기저를 이루는 벡터의 개수인 차원은 어떤 기저를 선택하든 항상 동일하다는 점이 핵심입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">핵심 차이</th></tr></thead><tbody><tr><th scope="row"><a href="vector-space.html">벡터공간</a></th><td>덧셈과 스칼라곱을 갖춘 집합</td><td>기저와 차원을 정의하는 대상</td></tr><tr><th scope="row"><a href="linear-independence.html">선형독립</a></th><td>어느 벡터도 나머지의 일차결합이 아님</td><td>기저의 조건 중 하나</td></tr><tr><th scope="row"><a href="matrix-rank.html">행렬의 계수</a></th><td>열공간(또는 행공간)의 차원</td><td>행렬에서 차원을 읽는 방법</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>분산이 큰 방향의 새 축을 찾는 방법</td><td>자료의 유효 차원을 추정하는 도구</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Axler, S. (2015). Linear Algebra Done Right (3rd ed.). Springer.</li>
+    <li>Strang, G. (2016). Introduction to Linear Algebra (5th ed.). Wellesley-Cambridge Press.</li>
+    <li>Hoffman, K., &amp; Kunze, R. (1971). Linear Algebra (2nd ed.). Prentice-Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

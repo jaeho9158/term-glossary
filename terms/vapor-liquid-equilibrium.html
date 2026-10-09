@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>기액평형 데이터는 증류탑, 흡수탑, 추출 공정 등 화학공학에서 가장 널리 쓰이는 분리 공정 설계의 기초 자료이며, 이 데이터가 부정확하면 아무리 정교한 공정 모델을 세워도 실제 운전과 큰 차이가 발생합니다. 그래서 신규 화합물이나 혼합물을 다루는 공정을 설계할 때는 반드시 기액평형 데이터를 실험적으로 측정하거나 열역학 모델로 예측하는 과정을 거칩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>기액평형은 일정한 온도와 압력에서 기체상과 액체상이 평형을 이루어 각 성분의 화학퍼텐셜(또는 퓨가시티)이 두 상에서 같아진 상태입니다. 겉보기에 변화가 없어도 증발과 응축은 같은 속도로 계속되는 동적 평형입니다.</li><li>자료는 압력-조성 선도(P–x–y), 온도-조성 선도(T–x–y), 액체 조성 대 증기 조성 선도(x–y)로 나타냅니다.</li><li>이상 용액이면 라울의 법칙 y<sub>i</sub>P = x<sub>i</sub>P<sub>i</sub><sup>sat</sup>이 성립합니다. 실제 혼합물은 활동도계수(γ<sub>i</sub>)와 기상의 퓨가시티 계수(φ<sub>i</sub>)로 보정하며, 식은 y<sub>i</sub>φ<sub>i</sub>P = x<sub>i</sub>γ<sub>i</sub>P<sub>i</sub><sup>sat</sup> 꼴입니다(Prausnitz 외, 1999).</li><li>활동도계수 모델로 NRTL(Renon &amp; Prausnitz, 1968), Wilson, UNIQUAC, UNIFAC 등이 쓰이고, 고압에서는 상태방정식을 씁니다.</li><li>상대휘발도 α<sub>12</sub> = (y<sub>1</sub>/x<sub>1</sub>)/(y<sub>2</sub>/x<sub>2</sub>)가 1에서 멀수록 증류로 분리하기 쉽고, 평형 조성이 같아지는 점(공비점)에서는 단순 증류로 더 분리되지 않습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>같은 온도에서 순수 성분의 증기압이 P<sub>1</sub><sup>sat</sup> = 100 kPa, P<sub>2</sub><sup>sat</sup> = 40 kPa인 가상의 이상 이성분계를 생각합니다(실제 물질이 아닙니다). 라울의 법칙으로 계산한 값은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>액체 조성 x<sub>1</sub></th><th>평형 압력 P (kPa)</th><th>증기 조성 y<sub>1</sub></th></tr></thead><tbody><tr><td>0.1</td><td>46.0</td><td>0.217</td></tr><tr><td>0.3</td><td>58.0</td><td>0.517</td></tr><tr><td>0.5</td><td>70.0</td><td>0.714</td></tr><tr><td>0.7</td><td>82.0</td><td>0.854</td></tr><tr><td>0.9</td><td>94.0</td><td>0.957</td></tr></tbody></table></div><p>예를 들어 x<sub>1</sub> = 0.4이면 P = 0.4×100 + 0.6×40 = 64 kPa이고, y<sub>1</sub> = 0.4×100/64 = 0.625입니다. 어느 경우에도 y<sub>1</sub> &gt; x<sub>1</sub>이므로 휘발성이 큰 성분이 증기상에 농축되며, 이 때문에 증류로 분리가 됩니다. 이 가상 계의 상대휘발도는 100/40 = 2.5입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>평형에 도달하면 증발과 응축이 멈춘다.</td><td>두 과정이 같은 속도로 계속되어 알짜 변화가 없는 동적 평형입니다.</td></tr><tr><td>평형에서는 기체와 액체의 조성이 같다.</td><td>공비점을 제외하면 두 상의 조성은 다릅니다. 조성이 다르다는 점이 증류의 원리입니다.</td></tr><tr><td>라울의 법칙은 모든 혼합물에 쓸 수 있다.</td><td>성분 사이 상호작용이 비슷한 이상 용액의 근사입니다. 극성이나 수소결합이 있는 혼합물은 활동도계수 모델이 필요합니다.</td></tr><tr><td>모델이 실험 자료에 잘 맞으면 어떤 조건으로도 외삽할 수 있다.</td><td>맞춘 온도·압력·조성 범위 밖의 예측은 오차가 커질 수 있고, 저압에 맞춘 모델을 고압에 그대로 쓰면 특히 그렇습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 상압에서 아세톤-물 이성분계의 기액평형 데이터를 측정하고 NRTL 모델로 상관관계를 도출하였다."</div>
   <p>두 물질이 섞인 혼합물의 기액평형을 실험으로 측정하고 열역학 모델식에 맞춰 표현했다는 뜻입니다.</p>
   <div class="example">"공비점(azeotrope) 부근에서의 기액평형 거동을 분석하여 통상적인 증류로는 두 성분을 완전히 분리할 수 없음을 확인하였다."</div>
@@ -161,6 +179,18 @@
 
   <h2>주의할 점</h2>
   <p>공비 혼합물처럼 기액 조성이 특정 지점에서 같아지는 경우 일반적인 단순 증류로는 순수한 성분으로 분리할 수 없으므로, 공비증류나 추출증류 같은 별도의 분리 전략이 필요합니다. 고압에서는 기상의 비이상성(퓨가시티 계수)도 함께 고려해야 하며, 저압에서 적합했던 모델을 고압 조건에 그대로 적용하면 예측 오차가 커질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">핵심 차이</th></tr></thead><tbody><tr><th scope="row"><strong>기액평형</strong></th><td>액체상과 기체상의 조성이 평형인 상태</td><td>평형 조건·상태 자체</td></tr><tr><th scope="row"><a href="raoults-law.html">라울의 법칙</a></th><td>이상 용액에서 증기압과 조성의 관계식</td><td>평형을 계산하는 이상적 모델</td></tr><tr><th scope="row"><a href="azeotrope.html">공비혼합물</a></th><td>평형에서 두 상의 조성이 같아지는 혼합물</td><td>단순 증류로 더 분리되지 않음</td></tr><tr><th scope="row"><a href="activity-coefficient.html">활동도계수</a></th><td>비이상성을 보정하는 계수</td><td>모델에 들어가는 보정 인자</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Smith, J. M., Van Ness, H. C., &amp; Abbott, M. M. (2005). Introduction to Chemical Engineering Thermodynamics (7th ed.). McGraw-Hill.</li>
+    <li>Prausnitz, J. M., Lichtenthaler, R. N., &amp; Gomes de Azevedo, E. (1999). Molecular Thermodynamics of Fluid-Phase Equilibria (3rd ed.). Prentice Hall.</li>
+    <li>Renon, H., &amp; Prausnitz, J. M. (1968). Local compositions in thermodynamic excess functions for liquid mixtures. AIChE Journal, 14(1), 135–144.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

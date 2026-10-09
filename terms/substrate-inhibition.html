@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/substrate-inhibition.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,7 +144,24 @@
   <h2>왜 중요한가</h2>
   <p>산업 발효 공정에서는 생산성을 높이기 위해 기질 농도를 높게 유지하고 싶어하는 경우가 많은데, 기질저해가 나타나는 물질이라면 무작정 농도를 높이는 것이 오히려 역효과를 낼 수 있습니다. 이 때문에 공정 설계 시 유가식(fed-batch) 배양처럼 기질을 서서히 공급하는 전략이 흔히 쓰이며, 기질저해 특성을 파악하는 것은 최적 배양 전략을 세우는 데 중요합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>기질저해는 효소 반응이나 미생물 성장 속도가 기질 농도가 낮을 때는 올라가다가, 어느 농도를 넘으면 오히려 내려가는 현상입니다.</li><li>속도식은 기질저해를 하나의 항으로 더한 형태가 일반적입니다. 효소 반응에서는 v = V<sub>max</sub>S/(K<sub>m</sub> + S + S²/K<sub>i</sub>)(Haldane, 1930; Cornish-Bowden 2012), 미생물 성장에서는 같은 꼴의 식 μ = μ<sub>max</sub>S/(K<sub>s</sub> + S + S²/K<sub>i</sub>)가 쓰이며, 후자는 Andrews(1968)의 연속배양 모형으로 알려져 있습니다.</li><li>이 식에서 속도가 최대인 기질 농도는 √(K<sub>s</sub>K<sub>i</sub>)입니다. 식의 μ<sub>max</sub>는 실제로 도달하는 최대 속도가 아니라 저해가 없을 때의 극한값입니다.</li><li>효소 수준에서는 효소-기질 복합체에 기질이 한 분자 더 붙어 활성이 없는 복합체가 되는 것으로 해석하고, 미생물에서는 기질 자체의 독성이나 삼투 스트레스처럼 세포 수준의 원인이 있을 수 있어 같은 식을 쓰더라도 기전은 서로 다릅니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 값 μ<sub>max</sub> = 0.5 h⁻¹, K<sub>s</sub> = 10 mg/L, K<sub>i</sub> = 250 mg/L로 두고 저해가 없는 Monod 식과 저해 항이 있는 식을 비교했습니다(Monod, 1949 식은 μ<sub>max</sub>S/(K<sub>s</sub> + S)). 최적 농도는 √(10×250) = 50 mg/L입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>기질 S (mg/L)</th><th>Monod 식 μ (h⁻¹)</th><th>저해 항이 있는 식 μ (h⁻¹)</th></tr></thead><tbody><tr><td>5</td><td>0.167</td><td>0.166</td></tr><tr><td>10</td><td>0.250</td><td>0.245</td></tr><tr><td>25</td><td>0.357</td><td>0.333</td></tr><tr><td>50</td><td>0.417</td><td>0.357</td></tr><tr><td>100</td><td>0.455</td><td>0.333</td></tr><tr><td>250</td><td>0.481</td><td>0.245</td></tr><tr><td>500</td><td>0.490</td><td>0.166</td></tr><tr><td>1000</td><td>0.495</td><td>0.100</td></tr></tbody></table></div><p>S가 낮을 때는 두 식이 비슷하지만 50 mg/L 부근에서 갈라지고, 1000 mg/L에서는 저해가 있는 식의 속도가 최댓값의 약 28%(0.100/0.357)까지 떨어집니다. 이 때문에 높은 농도의 기질을 한꺼번에 넣지 않고 서서히 공급하는 유가식 배양을 쓰며, 그 목적은 기질 농도를 최적 구간 근처에 두는 것입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>기질이 많을수록 항상 성장이 빨라진다.</td><td>기질저해가 있는 계에서는 최적 농도를 넘으면 느려집니다. 어떤 기질이 어느 농도에서 저해를 일으키는지는 생물종과 배양 조건에 따라 다릅니다.</td></tr><tr><td>성장이 둔해졌으면 기질저해이다.</td><td>산물 저해, pH 변화, 산소 부족 등 다른 원인도 있습니다. 기질저해라고 말하려면 기질 농도만 바꾼 실험에서 저해 구간이 나타나야 합니다.</td></tr><tr><td>식의 μ<sub>max</sub>가 관찰되는 최대 성장 속도이다.</td><td>저해 항이 있는 식에서는 최대 속도가 μ<sub>max</sub>보다 작습니다(위 예에서 0.357 대 0.5).</td></tr><tr><td>K<sub>s</sub>와 K<sub>i</sub>는 자료가 적어도 믿을 만하게 추정된다.</td><td>높은 농도 구간의 자료가 부족하면 K<sub>i</sub>가 불확실해집니다. 추정값과 신뢰구간, 사용한 기질 농도 범위를 함께 보고해야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"Growth kinetics data showed substrate inhibition at phenol concentrations above 500 mg/L, consistent with the Haldane model."</div>
   <p>페놀 농도가 특정 수준을 넘어서면서 성장 동역학 데이터에서 기질저해가 나타났으며, 이는 홀데인(Haldane) 모델과 일치했다는 뜻입니다.</p>
   <div class="example">"To avoid substrate inhibition, a fed-batch strategy with controlled glucose feeding was employed instead of a single high-concentration batch."</div>
@@ -154,6 +172,19 @@
 
   <h2>주의할 점</h2>
   <p>모든 기질이 기질저해를 일으키는 것은 아니며, 어떤 물질이 어느 농도에서 저해를 일으키는지는 미생물 종과 배양 조건에 따라 다르므로 실험적으로 확인이 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">핵심 차이</th></tr></thead><tbody><tr><th scope="row"><strong>기질저해</strong></th><td>기질이 너무 많아서 속도가 떨어지는 현상</td><td>기질 농도 자체가 원인</td></tr><tr><th scope="row"><a href="monod-growth-kinetics.html">모노 성장 동역학</a></th><td>기질 농도에 따라 포화되는 성장식</td><td>저해 항이 없음</td></tr><tr><th scope="row"><a href="michaelis-menten-kinetics.html">미카엘리스-멘텐 동역학</a></th><td>효소 반응의 포화 곡선</td><td>기질저해는 이 식의 확장으로 설명</td></tr><tr><th scope="row"><a href="competitive-inhibition.html">경쟁적 저해</a></th><td>다른 분자가 기질 자리를 두고 경쟁</td><td>저해제가 외부 분자</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Haldane, J. B. S. (1930). Enzymes. Longmans, Green and Co.</li>
+    <li>Monod, J. (1949). The growth of bacterial cultures. Annual Review of Microbiology, 3, 371–394.</li>
+    <li>Andrews, J. F. (1968). A mathematical model for the continuous culture of microorganisms utilizing inhibitory substrates. Biotechnology and Bioengineering, 10(6), 707–723.</li>
+    <li>Cornish-Bowden, A. (2012). Fundamentals of Enzyme Kinetics (4th ed.). Wiley-Blackwell.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

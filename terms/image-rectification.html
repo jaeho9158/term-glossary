@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,24 @@
   <h2>왜 중요한가</h2>
   <p>센서 기울기, 지구 곡률, 지형 기복으로 생기는 영상의 기하 왜곡을 제거해 지도 좌표와 일치시키는 전처리로, 여러 시기 영상의 비교와 GIS 자료와의 중첩에 반드시 필요합니다. 재해 피해 지역을 지적도와 겹쳐 확인하는 실무에서 보정 정확도가 곧 판독 신뢰도입니다. 기하보정이 없으면 같은 지점을 촬영한 두 시기의 영상이라도 화소 위치가 어긋나 변화탐지 결과가 부정확해진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>기준 자료 정하기:</strong> 보정할 영상의 점과 짝이 될 좌표 자료(지도, 이미 보정된 기준 영상, GPS 측량점)를 정합니다.</li><li><strong>지상기준점(GCP) 선정:</strong> 도로 교차점처럼 영상과 기준 자료 양쪽에서 뚜렷이 식별되는 점을 골라 영상 좌표와 기준 좌표의 짝을 만듭니다.</li><li><strong>변환식 추정:</strong> 다항식 변환이 흔합니다. 1차(아핀)는 계수 6개이고 GCP가 최소 3개 필요하며, m차 다항식은 최소 (m+1)(m+2)/2개의 GCP가 필요합니다(2차 6개, 3차 10개). 센서의 궤도·자세 정보로 보정하는 물리적 모델 방식도 있습니다(Toutin, 2004).</li><li><strong>정확도 평가:</strong> 잔차의 평균제곱근오차(RMSE = √(평균(Δx² + Δy²)))를 화소 또는 m 단위로 구합니다. 변환식을 맞추는 데 쓰지 않은 독립 검증점으로도 확인하는 것이 바람직합니다.</li><li><strong>재배열(resampling):</strong> 새 좌표 격자에 화소값을 옮깁니다. 최근접 이웃은 원래 값을 보존하고, 양선형·3차회선은 결과가 부드럽지만 값이 평균화됩니다(Richards, 2013).</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>쓰는 때:</strong> 여러 시기 영상의 변화탐지, GIS 자료와의 중첩, 영상 모자이크처럼 위치가 서로 맞아야 하는 모든 작업의 전처리입니다.</li><li><strong>얻는 것:</strong> 지도 좌표계에 맞춘 영상과 위치 정확도를 나타내는 수치(RMSE)입니다.</li><li><strong>다항식의 한계:</strong> 다항식 변환은 지형 기복에 따른 왜곡을 제거하지 못합니다. 산지처럼 기복이 큰 곳은 수치표고모형(DEM)을 쓰는 정사보정이 필요합니다.</li><li><strong>GCP 배치:</strong> GCP가 너무 적거나 한쪽에 몰리면 기준점에서 먼 곳의 왜곡이 커집니다.</li><li><strong>분류·지수 계산과의 순서:</strong> 재배열은 화소값을 바꾸므로 분광 분석 전에 적용할지는 연구 목적에 따라 정하며, 논문에는 그 순서를 밝힙니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>기준 자료의 종류와 좌표계(투영), 보정 대상 영상의 센서와 촬영일을 적습니다.</li><li>GCP의 개수와 분포, 변환식의 종류와 차수, RMSE(화소 또는 m), 독립 검증점 오차를 함께 적습니다.</li><li>재배열 방법과 출력 화소 크기, DEM 사용 여부를 적습니다.</li><li>허용 오차의 기준은 연구 목적에 따라 다르며, 문헌에서는 “RMSE 1화소 이내”가 자주 쓰이고 변화탐지에서는 그보다 엄격한 기준을 요구하기도 합니다. 표준 규정이 아니라 관행이므로 기준을 정한 근거를 적는 것이 안전합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">원격탐사 영상 전처리 단계에서 기하보정을 수행하여 지상좌표와의 정합성을 확보하였다.</div>
   <p>기하보정은 영상분석의 첫 단계로, 이후 진행되는 변화탐지나 분류의 위치 정확도를 좌우한다.</p>
   <div class="example">지상기준점 개수를 늘려 기하보정을 다시 수행한 결과 위치 오차가 눈에 띄게 줄어들었다.</div>
@@ -159,6 +177,18 @@
   <p>기하보정과 정사보정은 유사하지만 정사보정이 지형기복까지 고려한 더 엄밀한 보정이라는 점에서 구분된다.</p>
 
   <p>저차 다항식으로 보정한 영상을 정사영상으로 오인해 정밀 거리측정에 사용하면 오차가 누적될 수 있다. 재배열 방식(최근접 이웃 등) 선택도 이후 분류 정확도에 미세하게 영향을 줄 수 있다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">핵심 차이</th></tr></thead><tbody><tr><th scope="row"><strong>기하보정</strong></th><td>영상의 기하 왜곡을 보정해 지도 좌표에 맞춤</td><td>센서·지구 곡률·기복의 왜곡 보정 전반</td></tr><tr><th scope="row"><a href="georeferencing.html">지오레퍼런싱</a></th><td>좌표가 없는 영상·지도에 지리 좌표를 부여</td><td>좌표 부여 작업</td></tr><tr><th scope="row"><a href="orthorectification.html">정사보정</a></th><td>DEM으로 지형 기복 왜곡까지 제거</td><td>기하보정 중 더 엄밀한 단계</td></tr><tr><th scope="row"><a href="image-registration.html">영상정합</a></th><td>서로 다른 영상끼리 위치를 맞춤</td><td>영상 대 영상, 좌표계 부여가 목적이 아님</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lillesand, T. M., Kiefer, R. W., &amp; Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.</li>
+    <li>Richards, J. A. (2013). Remote Sensing Digital Image Analysis: An Introduction (5th ed.). Springer.</li>
+    <li>Toutin, T. (2004). Geometric processing of remote sensing images: Models, algorithms and methods. International Journal of Remote Sensing, 25(10), 1893–1924.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="orthorectification.html">정사보정</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
