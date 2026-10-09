@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/flame-height-correlation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,8 +145,45 @@
   <h2>왜 중요한가</h2>
   <p>화염높이는 천장이나 상층부 가연물에 화염이 직접 닿는지, 스프링클러 헤드와 감지기가 화염에 얼마나 가까운지, 인접 물체가 받는 복사열이 얼마인지를 결정하는 기본 치수입니다. 화재플룸 온도 상관식도 화염높이를 경계로 연속 화염 영역과 플룸 영역을 나누어 적용하므로, 화염높이 상관식은 존모델과 수계산 화재해석의 출발점이 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>가장 널리 쓰이는 Heskestad(1983)의 상관식은 다음과 같습니다.</p>
+  <p><strong>L = 0.235·Q̇<sup>2/5</sup> − 1.02·D</strong> (L: 평균 화염높이 m, Q̇: 총 열방출률 kW, D: 화원 직경 m)</p>
+  <p>코드로 계산한 예(가상의 조건):</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>Q̇ (kW)</th><th>D (m)</th><th>L (m)</th></tr></thead><tbody>
+  <tr><td>500</td><td>1.0</td><td>1.80</td></tr>
+  <tr><td>1,000</td><td>1.0</td><td>2.70</td></tr>
+  <tr><td>1,000</td><td>2.0</td><td>1.68</td></tr>
+  <tr><td>2,000</td><td>1.5</td><td>3.38</td></tr>
+  <tr><td>2,000</td><td>3.0</td><td>1.85</td></tr>
+  </tbody></table></div>
+  <p>같은 열방출률에서 화원이 넓어지면(D가 커지면) 화염이 낮아지고, 열방출률이 2배가 되어도 화염높이는 2배가 아니라 <sup>2/5</sup> 제곱에 비례해 약 1.32배만 증가합니다(2<sup>0.4</sup> ≈ 1.32, 식의 두 번째 항을 무시한 근사). 원형이 아닌 화원은 면적 A로부터 등가 직경 D = √(4A/π)를 써서 계산하는 것이 일반적입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul>
+  <li><strong>평균 화염높이</strong>는 화염이 관측되는 시간 비율(간헐률)이 50%인 높이로 정의됩니다. 화염은 난류로 흔들리므로 순간 최고 높이가 아닙니다.</li>
+  <li>계산한 L을 천장 높이와 비교해 화염이 천장에 닿는지, 감지기·스프링클러와 얼마나 가까운지, 인접 가연물에 닿는지 판단합니다. 위 표의 2,000 kW·D 1.5 m 예는 L ≈ 3.4 m이므로 천장고 3 m 구획에서는 화염이 천장에 닿는 것으로 판정됩니다.</li>
+  <li>L은 평균이므로 짧은 순간 더 높은 화염이 나타나 천장에 닿을 수 있습니다. 여유를 둘 때 안전율을 어떻게 잡았는지 밝혀야 합니다.</li>
+  <li>상관식은 풀화재·가스버너 실험에서 얻은 것이라, 가로세로 비가 큰 선형 화원, 바람이 센 옥외, 벽·모서리 근처 화원에는 그대로 쓰기 어렵습니다.</li>
+  </ul>
+
+  <h2>보고 방법</h2>
+  <ul>
+  <li>어떤 식을 썼는지(Heskestad, Zukoski, McCaffrey 등)와 출처를 적습니다. 식마다 Q̇에 총 열방출률을 넣는지 대류 열방출률을 넣는지가 다릅니다.</li>
+  <li>Q̇와 D의 값과 근거(연소 실험, 연료 단위면적당 열방출률 × 면적 등)를 적습니다.</li>
+  <li>실측과 비교할 때는 화염높이의 측정 정의(간헐률 50% 등)와 영상 분석 방법을 밝히고, 예측값과 실측값의 편차를 함께 제시합니다.</li>
+  <li>무차원 형태(L/D = 3.7·Q̇*<sup>2/5</sup> − 1.02)로 정리하면 규모가 다른 실험과 비교하기 쉽습니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"Heskestad 상관식으로 산정한 평균 화염높이는 열방출률 2 MW, 화원 직경 1.5 m 조건에서 약 3.6 m로, 천장고 3 m인 실험 구획에서 화염이 천장에 충돌함을 의미한다."</div>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
+  <div class="example">"Heskestad 상관식으로 산정한 평균 화염높이는 열방출률 2 MW, 화원 직경 1.5 m 조건에서 약 3.4 m로, 천장고 3 m인 실험 구획에서 화염이 천장에 충돌함을 의미한다."</div>
   <p>상관식으로 화염 충돌 여부를 판단한 예문입니다.</p>
   <div class="example">"실측 화염높이는 50% 간헐률 기준으로 정의하였으며, 상관식 예측값과의 편차는 ±15% 이내였다."</div>
   <p>화염높이의 측정 정의와 상관식 검증을 서술한 예문입니다.</p>
@@ -158,6 +196,20 @@
 
   <h2>주의할 점</h2>
   <p>상관식은 대부분 원형 또는 정사각형에 가까운 풀화재·가스버너 실험에서 얻은 것이므로, 종횡비가 큰 선형 화원이나 바람의 영향을 받는 옥외 화재에는 그대로 적용할 수 없습니다. 열방출률 Q̇에 총 열방출률을 넣는지 대류 열방출률을 넣는지 식마다 다르므로 출처를 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>같은 이름이 붙은 상관식이라도 예측하는 양이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">예측하는 양</th><th scope="col">입력</th></tr></thead><tbody><tr><th scope="row">화염높이 상관식</th><td>화염의 평균 높이</td><td>열방출률, 화원 직경</td></tr><tr><th scope="row"><a href="heskestad-plume-correlation.html">Heskestad 플룸 상관식</a></th><td>플룸 중심축의 온도·속도</td><td>열방출률, 높이, 가상점원 위치</td></tr><tr><th scope="row"><a href="mccaffrey-plume-correlation.html">McCaffrey 플룸 상관식</a></th><td>화염·간헐·플룸 영역별 중심축 값</td><td>열방출률, 높이</td></tr></tbody></table></div>
+  <p class="te-note">플룸 자체의 개념은 <a href="fire-plume.html">화재플룸</a> 문서를 참고하세요.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Heskestad, G. (1983). Luminous heights of turbulent diffusion flames. Fire Safety Journal, 5(2), 103–108.</li>
+    <li>Zukoski, E. E., Cetegen, B. M., &amp; Kubota, T. (1985). Visible structure of buoyant diffusion flames. Symposium (International) on Combustion, 20.</li>
+    <li>Drysdale, D. (2011). An Introduction to Fire Dynamics (3rd ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="fire-plume.html">화재플룸</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="fire-plume-entrainment.html">화재플룸 공기연행</a><a href="heskestad-plume-correlation.html">Heskestad 플룸 상관식</a><a href="mccaffrey-plume-correlation.html">McCaffrey 플룸 상관식</a></div></div><p class="concept-family-map"><a href="../concept-map/fire.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

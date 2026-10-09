@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/force-torque-sensor.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,42 @@
   <h2>왜 중요한가</h2>
   <p>로봇 손목에 장착해 접촉력과 모멘트 6성분을 측정하는 센서로, <a href="force-control.html">힘제어</a>·정밀 조립·직접교시·충돌 감지의 정보원입니다. 관절토크 센서가 없는 산업용 로봇에 힘 감지 능력을 부여하는 가장 일반적인 수단입니다. 협동로봇의 안전 규격에서는 힘토크센서로 측정한 접촉력이 규정된 임계값을 넘으면 즉시 정지하도록 요구하는 경우가 많아, 센서 신뢰도 자체가 인증 절차의 대상이 된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <p>로봇 손목(엔드이펙터와 팔 사이)에 달려 세 방향의 힘(F<sub>x</sub>, F<sub>y</sub>, F<sub>z</sub>)과 세 축의 토크(T<sub>x</sub>, T<sub>y</sub>, T<sub>z</sub>)를 동시에 재는 센서입니다. 접촉 작업에서 로봇이 무엇을 밀고 비트는지를 알려 주는 정보원입니다.</p>
+  <p>내부에서는 탄성체의 변형을 스트레인게이지나 정전용량 소자로 읽고, 이 신호들에 <strong>보정 행렬</strong>(캘리브레이션 매트릭스)을 곱해 6성분 힘·모멘트로 변환합니다. 한 축에 가한 힘이 다른 축 출력에 섞이는 축 간 간섭(크로스토크)은 이 행렬로 줄입니다.</p>
+
+  <h2>구성과 채점</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방식</th><th>장점</th><th>단점</th></tr></thead><tbody>
+  <tr><td>스트레인게이지식</td><td>정밀도와 분해능이 높음</td><td>온도 드리프트가 크고 과부하에 약함</td></tr>
+  <tr><td>정전용량식</td><td>상대적으로 강건함</td><td>분해능이 낮은 편</td></tr>
+  </tbody></table></div>
+  <ul>
+  <li>점수가 아니라 규격으로 비교합니다: 정격 용량(축별 최대 힘·토크), 분해능, 과부하 허용치, 대역폭, 비선형성, 크로스토크, 온도 드리프트.</li>
+  <li>정격 용량이 크면 큰 하중에는 안전하지만 작은 힘의 분해능은 떨어지므로, 작업의 힘 범위에 맞춰 고릅니다.</li>
+  <li>사용 전 영점(바이어스) 보정과 정기적인 재보정이 필요합니다. 영점이 시간이 지나며 틀어지면 정밀 조립에서 오차가 누적됩니다.</li>
+  </ul>
+
+  <h2>결과 읽는 법</h2>
+  <p>손목 센서는 센서 아래에 달린 그리퍼와 물체의 <strong>무게도 함께</strong> 잽니다. 접촉력만 알고 싶다면 중력 성분을 모델로 빼야 합니다.</p>
+  <p>F<sub>접촉</sub> = F<sub>측정</sub> − (중력 성분 + 영점 오프셋)</p>
+  <p>가상의 예(코드로 계산): 그리퍼와 공구의 질량이 1.5 kg이면 무게는 1.5 × 9.81 ≈ 14.7 N입니다. 이 하중이 센서의 축에 어떻게 나뉘는지는 자세에 따라 달라집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>센서 z축과 연직선의 각도</th><th>z축 방향 성분 (N)</th><th>z축에 수직인 성분 (N)</th></tr></thead><tbody>
+  <tr><td>0°</td><td>14.7</td><td>0.0</td></tr>
+  <tr><td>30°</td><td>12.7</td><td>7.4</td></tr>
+  <tr><td>60°</td><td>7.4</td><td>12.7</td></tr>
+  <tr><td>90°</td><td>0.0</td><td>14.7</td></tr>
+  </tbody></table></div>
+  <p>질량 중심이 센서 축에서 0.08 m 벗어나 있다면 중력만으로 약 1.18 N·m의 토크가 생기는 셈입니다. 그래서 공구를 바꿀 때마다 질량과 무게중심을 다시 구해 보상하지 않으면, 자세가 바뀔 때 접촉력 추정값이 흔들립니다. 로봇이 빠르게 움직일 때는 관성력의 보상 오차가 실제 접촉력보다 커질 수 있습니다. 협동로봇의 안전 요구(예: ISO/TS 15066)에서는 측정한 접촉력이 정한 한계를 넘으면 정지하게 하므로, 센서의 신뢰성과 보정 상태가 인증 대상이 됩니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 실험에서는 손목에 장착된 힘토크센서로 접촉힘을 실시간 측정하여 하이브리드 힘제어에 활용하였다.</div>
   <p>논문에서 힘토크센서는 접촉 작업의 힘 피드백을 제공하는 필수 센서로, 힘제어와 임피던스제어 구현에 사용됩니다.</p>
   <div class="example">힘토크센서의 영점 드리프트를 주기적으로 보정하지 않으면 정밀 조립 작업에서 누적 오차가 커질 수 있다는 점이 지적되었다.</div>
@@ -162,6 +198,19 @@
 
   <h2>주의할 점</h2>
   <p>힘토크센서 값에는 엔드이펙터 자체의 무게로 인한 힘이 섞여 있어, 중력 보상(도구 무게 보정)을 하지 않으면 측정 오차가 생긴다. 손목형 센서는 그리퍼나 툴을 바꿀 때마다 무게중심과 질량이 달라져 중력보상 파라미터를 다시 구해야 하며, 이를 갱신하지 않으면 자세가 바뀔 때마다 추정 접촉력이 흔들린다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>로봇이 힘을 감지하는 방법은 여러 가지입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">어디서 재나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">손목 힘토크센서</th><td>손목의 한 지점에서 6성분</td><td>접촉력과 모멘트를 직접 측정, 가격이 높음</td></tr><tr><th scope="row"><a href="torque-sensor.html">관절 토크센서</a></th><td>각 관절 축</td><td>관절별 토크를 재서 팔 전체의 충돌·접촉을 감지</td></tr><tr><th scope="row"><a href="tactile-sensor.html">촉각센서</a></th><td>손가락·표면의 접촉면</td><td>접촉 위치와 분포를 읽음</td></tr><tr><th scope="row"><a href="force-control.html">힘 제어</a></th><td>센서가 아니라 제어 방법</td><td>측정한 힘을 이용해 로봇을 움직이는 제어</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Siciliano, B., &amp; Khatib, O. (Eds.). (2008). Springer Handbook of Robotics. Springer.</li>
+    <li>Siciliano, B., Sciavicco, L., Villani, L., &amp; Oriolo, G. (2009). Robotics: Modelling, Planning and Control. Springer.</li>
+    <li>International Organization for Standardization. (2016). ISO/TS 15066: Robots and Robotic Devices – Collaborative Robots. ISO.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

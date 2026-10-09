@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol>\n<li><strong>사례(환자) 정의와 모집</strong>: 질병·결과가 이미 발생한 사람을 진단 기준에 맞춰 모읍니다.</li>\n<li><strong>대조군 선정</strong>: 같은 모집단에서 결과가 없는 사람을 뽑습니다. 연령·성별 등으로 짝지을 수 있습니다([[matched-case-control-study|짝짓기 환자-대조군 연구]]).</li>\n<li><strong>과거 노출 조사</strong>: 두 군에서 노출(흡연, 약물, 식습관 등)을 같은 방법으로 파악합니다(설문, 의무기록, 검체 등).</li>\n<li><strong>비교</strong>: 노출 비율의 차이를 [[odds-ratio|교차비(오즈비)]]로 표현합니다.</li>\n</ol>\n<p>환자수와 대조군수는 연구자가 정하므로 연구 안의 비율로는 질병 발생률을 계산할 수 없습니다. 그래서 상대위험도 대신 교차비를 씁니다(드문 질병에서는 교차비가 상대위험도에 가깝습니다).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul>\n<li>드물게 생기는 질병, 잠복기가 긴 질병의 위험요인을 적은 비용과 짧은 기간에 탐색할 때 씁니다.</li>\n<li>여러 노출을 한 번에 살펴볼 수 있어 가설 탐색에 적합합니다. 대표적으로 Doll과 Hill(1950)이 폐암 환자와 대조군의 흡연력을 비교한 연구가 있습니다.</li>\n<li>얻는 것은 노출과 결과의 연관성(교차비와 신뢰구간)이며, 위험도 자체나 인과관계가 아닙니다.</li>\n</ul>\n<p>가상의 예: 환자 100명 중 40명이 노출되었고 60명이 비노출, 대조군 100명 중 20명이 노출되었고 80명이 비노출이라면</p>\n<table><thead><tr><th></th><th>환자</th><th>대조군</th></tr></thead><tbody>\n<tr><th scope=\"row\">노출</th><td>40</td><td>20</td></tr>\n<tr><th scope=\"row\">비노출</th><td>60</td><td>80</td></tr>\n</tbody></table>\n<p>교차비 = (40 × 80) ÷ (20 × 60) = 2.67이고, 로그 척도의 표준오차 √(1/40 + 1/60 + 1/20 + 1/80) ≈ 0.323으로 95% 신뢰구간은 약 1.42~5.02입니다(코드로 계산). 구간이 1을 포함하지 않으므로 노출과 질병이 연관되어 있다고 말할 수 있지만, 이 숫자만으로 노출이 질병을 일으켰다고 할 수는 없습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul>\n<li>사례의 정의와 진단 기준, 모집 장소와 기간.</li>\n<li>대조군을 어디서 어떤 기준으로 뽑았는지(선택편향을 판단할 수 있게), 짝짓기를 했다면 그 변수.</li>\n<li>노출을 어떻게 측정했는지와 환자·대조군에서 같은 방식이었는지(회상편향 방지: 면접자 눈가림, 기록 활용 등).</li>\n<li>교차비와 95% 신뢰구간, 보정한 교란변수(조정 교차비). 짝짓기를 했다면 조건부 로지스틱 회귀 등 짝을 고려한 분석 방법.</li>\n<li>한계: 회상편향, 선택편향, 시간적 선후관계 불명확 가능성.</li>\n</ul>\n<p>보고 지침으로는 STROBE 성명의 환자-대조군 연구 체크리스트가 널리 쓰입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "관찰연구 설계는 대상을 어떻게 모으는지가 서로 다릅니다.",
+    "headers": [
+      "설계",
+      "출발점",
+      "얻는 지표"
+    ],
+    "rows": [
+      [
+        "환자-대조군 연구",
+        "결과(환자/대조군)에서 시작해 과거 노출을 조사",
+        "교차비"
+      ],
+      [
+        "[[cohort-study|코호트연구]]",
+        "노출 여부로 집단을 나눠 결과 발생을 추적",
+        "발생률, 상대위험도"
+      ],
+      [
+        "[[nested-case-control-study|둥지형 환자-대조군 연구]]",
+        "이미 추적 중인 코호트 안에서 환자와 대조군을 추출",
+        "교차비(발생률 비에 가깝게 해석 가능)"
+      ],
+      [
+        "[[matched-case-control-study|대응표본 사례대조연구]]",
+        "환자마다 조건이 비슷한 대조군을 짝지음",
+        "조건부 교차비"
+      ]
+    ]
+  },
+  "references": [
+    "Schlesselman, J. J. (1982). Case-Control Studies: Design, Conduct, Analysis. Oxford University Press.",
+    "Rothman, K. J., Greenland, S., & Lash, T. L. (2008). Modern Epidemiology (3rd ed.). Lippincott Williams & Wilkins.",
+    "Cornfield, J. (1951). A method of estimating comparative rates from clinical data: Applications to cancer of the lung, breast, and cervix. Journal of the National Cancer Institute, 11(6), 1269–1275.",
+    "Doll, R., & Hill, A. B. (1950). Smoking and carcinoma of the lung: Preliminary report. British Medical Journal, 2(4682), 739–748."
+  ]
+}

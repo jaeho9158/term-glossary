@@ -1,0 +1,55 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "화원 직경 1.5 m 조건에서 약 3.6 m로",
+      "replace": "화원 직경 1.5 m 조건에서 약 3.4 m로"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>가장 널리 쓰이는 Heskestad(1983)의 상관식은 다음과 같습니다.</p>\n<p><strong>L = 0.235·Q̇<sup>2/5</sup> − 1.02·D</strong> (L: 평균 화염높이 m, Q̇: 총 열방출률 kW, D: 화원 직경 m)</p>\n<p>코드로 계산한 예(가상의 조건):</p>\n<table><thead><tr><th>Q̇ (kW)</th><th>D (m)</th><th>L (m)</th></tr></thead><tbody>\n<tr><td>500</td><td>1.0</td><td>1.80</td></tr>\n<tr><td>1,000</td><td>1.0</td><td>2.70</td></tr>\n<tr><td>1,000</td><td>2.0</td><td>1.68</td></tr>\n<tr><td>2,000</td><td>1.5</td><td>3.38</td></tr>\n<tr><td>2,000</td><td>3.0</td><td>1.85</td></tr>\n</tbody></table>\n<p>같은 열방출률에서 화원이 넓어지면(D가 커지면) 화염이 낮아지고, 열방출률이 2배가 되어도 화염높이는 2배가 아니라 <sup>2/5</sup> 제곱에 비례해 약 1.32배만 증가합니다(2<sup>0.4</sup> ≈ 1.32, 식의 두 번째 항을 무시한 근사). 원형이 아닌 화원은 면적 A로부터 등가 직경 D = √(4A/π)를 써서 계산하는 것이 일반적입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul>\n<li><strong>평균 화염높이</strong>는 화염이 관측되는 시간 비율(간헐률)이 50%인 높이로 정의됩니다. 화염은 난류로 흔들리므로 순간 최고 높이가 아닙니다.</li>\n<li>계산한 L을 천장 높이와 비교해 화염이 천장에 닿는지, 감지기·스프링클러와 얼마나 가까운지, 인접 가연물에 닿는지 판단합니다. 위 표의 2,000 kW·D 1.5 m 예는 L ≈ 3.4 m이므로 천장고 3 m 구획에서는 화염이 천장에 닿는 것으로 판정됩니다.</li>\n<li>L은 평균이므로 짧은 순간 더 높은 화염이 나타나 천장에 닿을 수 있습니다. 여유를 둘 때 안전율을 어떻게 잡았는지 밝혀야 합니다.</li>\n<li>상관식은 풀화재·가스버너 실험에서 얻은 것이라, 가로세로 비가 큰 선형 화원, 바람이 센 옥외, 벽·모서리 근처 화원에는 그대로 쓰기 어렵습니다.</li>\n</ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul>\n<li>어떤 식을 썼는지(Heskestad, Zukoski, McCaffrey 등)와 출처를 적습니다. 식마다 Q̇에 총 열방출률을 넣는지 대류 열방출률을 넣는지가 다릅니다.</li>\n<li>Q̇와 D의 값과 근거(연소 실험, 연료 단위면적당 열방출률 × 면적 등)를 적습니다.</li>\n<li>실측과 비교할 때는 화염높이의 측정 정의(간헐률 50% 등)와 영상 분석 방법을 밝히고, 예측값과 실측값의 편차를 함께 제시합니다.</li>\n<li>무차원 형태(L/D = 3.7·Q̇*<sup>2/5</sup> − 1.02)로 정리하면 규모가 다른 실험과 비교하기 쉽습니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "같은 이름이 붙은 상관식이라도 예측하는 양이 다릅니다.",
+    "headers": [
+      "용어",
+      "예측하는 양",
+      "입력"
+    ],
+    "rows": [
+      [
+        "화염높이 상관식",
+        "화염의 평균 높이",
+        "열방출률, 화원 직경"
+      ],
+      [
+        "[[heskestad-plume-correlation|Heskestad 플룸 상관식]]",
+        "플룸 중심축의 온도·속도",
+        "열방출률, 높이, 가상점원 위치"
+      ],
+      [
+        "[[mccaffrey-plume-correlation|McCaffrey 플룸 상관식]]",
+        "화염·간헐·플룸 영역별 중심축 값",
+        "열방출률, 높이"
+      ]
+    ],
+    "note": "플룸 자체의 개념은 [[fire-plume|화재플룸]] 문서를 참고하세요."
+  },
+  "references": [
+    "Heskestad, G. (1983). Luminous heights of turbulent diffusion flames. Fire Safety Journal, 5(2), 103–108.",
+    "Zukoski, E. E., Cetegen, B. M., & Kubota, T. (1985). Visible structure of buoyant diffusion flames. Symposium (International) on Combustion, 20.",
+    "Drysdale, D. (2011). An Introduction to Fire Dynamics (3rd ed.). Wiley."
+  ]
+}

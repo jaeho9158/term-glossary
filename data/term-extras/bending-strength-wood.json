@@ -1,0 +1,54 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>휨강도(최대휨강도, MOR)는 굽힘 하중에서 시편이 파괴될 때의 최대 휨응력입니다. 사각 단면(폭 b, 높이 h), 지지 간격 L, 파괴 하중 P에서 다음 식으로 계산합니다.</p>\n<ul>\n<li>3점굽힘(중앙 한 점 하중): <strong>MOR = 3PL / (2bh²)</strong></li>\n<li>4점굽힘(L/3 간격의 두 하중점, P는 합계 하중): <strong>MOR = PL / (bh²)</strong></li>\n</ul>\n<p>가상의 예(코드로 계산): b = h = 20 mm, L = 280 mm, 파괴 하중 P = 1,500 N이면 3점굽힘 MOR = 3 × 1,500 × 280 ÷ (2 × 20 × 20²) = <strong>78.75 MPa</strong>, 같은 하중이 4점굽힘에서 나왔다면 MOR = 1,500 × 280 ÷ (20 × 20²) = 52.5 MPa입니다. 단위는 N/mm² = MPa입니다. 같은 하중이어도 시험 방식이 다르면 값이 달라지므로 방식을 항상 함께 적어야 합니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul>\n<li>무결점 소형 시편의 값은 옹이·목리경사가 있는 실대재 값보다 높습니다. 설계에는 소시편 평균이 아니라 실대재 시험 또는 별도의 저감계수가 필요합니다.</li>\n<li>강도는 함수율에 민감합니다. 섬유포화점 아래에서는 함수율이 높을수록 휨강도가 낮아지므로 사용 환경의 평형함수율에 맞춰 해석합니다.</li>\n<li>시편이 클수록 결함을 포함할 확률이 높아 강도가 낮아지는 크기효과가 있습니다.</li>\n<li>MOR은 파괴 시점의 값이라 허용응력 설계에는 안전율을 적용한 값을 씁니다. 등급 부여에는 평균이 아니라 하위 5% 값(5% 하한값)을 쓰는 방식이 일반적입니다.</li>\n<li>[[modulus-of-elasticity-wood|목재탄성계수]](MOE, 강성)와 상관이 있지만 별개의 물성입니다. 강도가 높아도 처짐 기준에서 막힐 수 있습니다.</li>\n</ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul>\n<li>시험 규격(예: 소시편은 ASTM D143, 구조용재는 EN 408 등)과 시험 방식(3점/4점), 지지 간격과 높이의 비를 적습니다.</li>\n<li>시편 치수, 시편 수(n), 함수율, 하중 속도, 파괴 형태(취성/섬유 파단 등)를 적습니다.</li>\n<li>평균과 표준편차(또는 변동계수), 필요하면 5% 하한값을 제시합니다. 수종·산지·건조 조건을 비교할 때는 함수율을 보정했는지 밝힙니다.</li>\n<li>비파괴 등급구분 장비로 예측한 값을 제시하는 연구에서는 실측 휨강도와의 상관(결정계수, 오차)을 함께 보고합니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "목재 역학 물성은 하중 방식에 따라 이름이 나뉩니다.",
+    "headers": [
+      "물성",
+      "하중 방식",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "휨강도(MOR)",
+        "굽힘",
+        "파괴에 이르는 최대 휨응력"
+      ],
+      [
+        "[[modulus-of-elasticity-wood|목재탄성계수(MOE)]]",
+        "굽힘(탄성 구간)",
+        "하중에 대한 변형의 정도(강성)"
+      ],
+      [
+        "[[compressive-strength-wood|압축강도]]",
+        "압축",
+        "압축 하중에 견디는 최대 응력"
+      ],
+      [
+        "[[shear-strength-wood|전단강도]]",
+        "전단",
+        "층을 미끄러뜨리는 힘에 견디는 응력"
+      ]
+    ],
+    "note": "전체 개요는 [[wood-strength|목재강도]] 문서를 참고하세요."
+  },
+  "references": [
+    "Green, D. W., Winandy, J. E., & Kretschmann, D. E. (1999). Mechanical properties of wood. In Wood Handbook: Wood as an Engineering Material (General Technical Report FPL-GTR-113). USDA Forest Products Laboratory.",
+    "Bodig, J., & Jayne, B. A. (1982). Mechanics of Wood and Wood Composites. Van Nostrand Reinhold.",
+    "Madsen, B. (1992). Structural Behaviour of Timber. Timber Engineering Ltd."
+  ]
+}

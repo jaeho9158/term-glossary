@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol>\n<li><strong>활동 분해와 선후관계</strong>: 작업을 활동으로 나누고(보통 [[work-breakdown-structure|작업분해구조]]를 먼저 만듭니다) 각 활동의 선행 활동을 정합니다.</li>\n<li><strong>소요시간 추정</strong>: CPM은 활동마다 하나의 시간을 씁니다. PERT는 낙관치 a, 최빈치 m, 비관치 b로 기대시간 t<sub>e</sub> = (a + 4m + b) / 6, 표준편차 σ = (b − a) / 6을 씁니다.</li>\n<li><strong>전진계산</strong>: 가장 이른 시작(ES)과 완료(EF)를 앞에서부터 계산합니다.</li>\n<li><strong>후진계산</strong>: 프로젝트 완료일에서 가장 늦은 시작(LS)과 완료(LF)를 뒤에서부터 계산합니다.</li>\n<li><strong>여유시간과 주경로</strong>: 여유시간(slack) = LS − ES. 여유가 0인 활동을 이은 경로가 주경로(critical path)이며 그 길이가 프로젝트의 최단 기간입니다.</li>\n</ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>PERT는 1950년대 후반 미 해군 폴라리스 미사일 계획에서(Malcolm 외, 1959), CPM은 듀폰사의 공장 건설·정비 계획에서(Kelley &amp; Walker, 1959) 나왔고, 지금은 하나로 합쳐 쓰는 경우가 많습니다.</p>\n<p>가상의 예: 활동 A~F(단위: 주).</p>\n<table><thead><tr><th>활동</th><th>선행</th><th>a / m / b</th><th>t<sub>e</sub></th><th>σ</th><th>ES</th><th>EF</th><th>LS</th><th>LF</th><th>여유</th></tr></thead><tbody>\n<tr><td>A</td><td>—</td><td>2 / 4 / 6</td><td>4.0</td><td>0.67</td><td>0</td><td>4</td><td>0</td><td>4</td><td>0</td></tr>\n<tr><td>B</td><td>A</td><td>3 / 5 / 13</td><td>6.0</td><td>1.67</td><td>4</td><td>10</td><td>6</td><td>12</td><td>2</td></tr>\n<tr><td>C</td><td>A</td><td>4 / 6 / 8</td><td>6.0</td><td>0.67</td><td>4</td><td>10</td><td>4</td><td>10</td><td>0</td></tr>\n<tr><td>D</td><td>B</td><td>2 / 3 / 4</td><td>3.0</td><td>0.33</td><td>10</td><td>13</td><td>12</td><td>15</td><td>2</td></tr>\n<tr><td>E</td><td>C</td><td>3 / 5 / 7</td><td>5.0</td><td>0.67</td><td>10</td><td>15</td><td>10</td><td>15</td><td>0</td></tr>\n<tr><td>F</td><td>D, E</td><td>1 / 2 / 3</td><td>2.0</td><td>0.33</td><td>15</td><td>17</td><td>15</td><td>17</td><td>0</td></tr>\n</tbody></table>\n<p>주경로는 A → C → E → F, 기대 완료기간은 17주입니다. 주경로 활동의 분산을 더하면 1.44이므로 표준편차는 약 1.20주이고, 정규분포 근사로는 19주 안에 끝날 확률이 약 95%입니다. 그러나 활동 시간을 서로 독립인 PERT 베타분포(구간 [a, b], 형상모수 α = 1 + 4(m − a)/(b − a), β = 1 + 4(b − m)/(b − a))로 두고 20만 번 모의실험하면(난수에 따라 소수점 아래가 조금 달라지는 근사값) 17주 이내 완료 확률은 약 44%, 19주 이내는 약 90%입니다. 주경로 아닌 B → D 경로(여유 2주, B의 비관치가 큼)가 늦어질 가능성이 있어 PERT의 ‘주경로 합산’ 방식이 완료기간을 낙관적으로 추정한다는 알려진 한계(합류 지점 편향)를 보여 줍니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul>\n<li>PERT와 CPM 중 무엇을 썼는지, 활동의 정의와 선후관계 근거(WBS, 전문가 면담, 과거 사업 자료)를 밝힙니다.</li>\n<li>소요시간의 출처와 추정 방법(3점 추정이면 a, m, b의 근거)을 적습니다.</li>\n<li>주경로와 여유시간표, 프로젝트 기간을 제시하고, 확률적 결과를 주장하면 가정(활동 독립, 정규 근사)과 모의실험 여부를 밝힙니다.</li>\n<li>주경로는 지연이 생기면 바뀔 수 있으므로 재계산 시점을 적습니다. 일정 시각화에는 [[gantt-chart|간트차트]]를 함께 쓰기도 합니다.</li>\n</ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "PERT와 CPM은 하나로 묶여 불리지만 출발점이 다릅니다.",
+    "headers": [
+      "구분",
+      "PERT",
+      "CPM"
+    ],
+    "rows": [
+      [
+        "활동 시간",
+        "세 추정치(낙관·최빈·비관)의 가중평균",
+        "확정된 단일 값"
+      ],
+      [
+        "강조점",
+        "불확실성, 완료시간의 확률분포",
+        "시간-비용 상충 분석"
+      ],
+      [
+        "기원",
+        "미 해군 폴라리스 계획",
+        "듀폰사 화학 공장 건설"
+      ],
+      [
+        "관련 문서",
+        "—",
+        "[[critical-path-method|주공정법]]"
+      ]
+    ],
+    "note": "[[critical-path-scheduling|주경로 일정관리]] 문서도 함께 참고하세요."
+  },
+  "references": [
+    "Malcolm, D. G., Roseboom, J. H., Clark, C. E., & Fazar, W. (1959). Application of a technique for research and development program evaluation. Operations Research, 7(5), 646–669.",
+    "Kelley, J. E., Jr., & Walker, M. R. (1959). Critical-path planning and scheduling. Proceedings of the Eastern Joint Computer Conference.",
+    "Kelley, J. E., Jr. (1961). Critical-path planning and scheduling: Mathematical basis. Operations Research, 9(3), 296–320."
+  ]
+}

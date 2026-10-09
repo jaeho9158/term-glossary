@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/gamma-option.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -144,7 +145,43 @@
   <h2>왜 중요한가</h2>
   <p>감마는 기초자산 가격 변화에 대한 옵션 델타의 변화율로, <a href="delta-hedging.html">델타 헤지</a>를 얼마나 자주 조정해야 하는지와 헤지 오차의 크기를 결정합니다. 옵션 시장조성자의 손익은 감마와 실현 변동성의 관계로 설명되며, 대규모 감마 포지션이 만기 근처에서 기초자산 가격을 특정 행사가격 부근으로 끌어당기거나 밀어내는 효과가 시장미시구조 연구에서 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>감마는 옵션 가치 V를 기초자산 가격 S로 두 번 미분한 값, 즉 <strong>Γ = ∂²V/∂S² = ∂Δ/∂S</strong>입니다. 기초자산 가격이 1 오를 때 델타가 얼마나 변하는지를 나타냅니다.</p>
+  <p>Black–Scholes 모형(배당 없음)에서는 콜과 풋이 같은 값을 갖습니다.</p>
+  <p><strong>Γ = φ(d<sub>1</sub>) / (S σ √T)</strong>, d<sub>1</sub> = [ln(S/K) + (r + σ²/2)T] / (σ√T), φ는 표준정규분포의 확률밀도함수.</p>
+  <p>코드로 계산한 예(S = 100, K = 100, σ = 20%, r = 3%).</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>잔존만기</th><th>콜 델타</th><th>감마</th></tr></thead><tbody>
+  <tr><td>1년</td><td>0.599</td><td>0.0193</td></tr>
+  <tr><td>30일</td><td>0.529</td><td>0.0694</td></tr>
+  <tr><td>7일</td><td>0.514</td><td>0.1440</td></tr>
+  </tbody></table></div>
+  <p>만기가 가까워질수록 등가격(ATM) 옵션의 감마가 급격히 커집니다. 같은 30일 만기에서 S = 110(깊은 내가격)이면 감마 0.0141(델타 0.958), S = 90(깊은 외가격)이면 감마 0.0163(델타 0.039)으로 작습니다. 감마는 ATM 근처에서 최대이고 매수 포지션이면 0 이상, 매도 포지션이면 0 이하입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul>
+  <li><strong>델타의 변화 속도</strong>: S = 100, 30일 ATM 콜의 감마가 0.0694이면 기초자산이 1 오를 때 델타가 약 0.07 커집니다(0.529 → 약 0.60). 가격이 오를수록 델타가 더 빠르게 커지는 곡률이 감마입니다.</li>
+  <li><strong>매수 포지션(양의 감마)</strong>: 가격이 어느 방향으로든 크게 움직이면 유리하지만, 그 대가로 시간가치가 줄어드는 비용(<a href="theta-option.html">세타</a>)을 부담합니다. 감마와 세타는 대체로 반대 부호입니다.</li>
+  <li><strong>매도 포지션(음의 감마)</strong>: 가격이 크게 움직이면 손실이 커집니다. 델타 헤지를 하더라도 가격이 움직일 때마다 재헤지가 필요하고 그 비용이 쌓입니다(<a href="delta-hedging.html">델타 헤지</a>).</li>
+  <li>만기 직전의 ATM 옵션은 델타가 0과 1 사이를 순간적으로 오가므로 헤지가 어렵습니다(감마 위험).</li>
+  </ul>
+
+  <h2>보고 방법</h2>
+  <ul>
+  <li>감마는 보통 기초자산 1단위(또는 1%)의 가격 변화에 대한 델타의 변화로 보고합니다. 어느 단위인지를 적습니다(달러 감마, 퍼센트 감마 등).</li>
+  <li>사용한 모형(Black–Scholes, 변동성 모형, 배당·이자율 가정)과 변동성 입력 방식을 밝힙니다. 모형이 바뀌면 감마도 달라집니다.</li>
+  <li>포트폴리오 감마는 개별 옵션의 계약 수 × 승수 × 감마의 합으로 보고하며, 기초자산별로 구분합니다.</li>
+  <li>수치 미분으로 구한 값이면 가격 변화 폭(h)을 적습니다. 예: 위 30일 ATM 콜은 h = 0.01의 중앙차분으로 계산해도 0.0694가 나와 해석식과 일치했습니다.</li>
+  </ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">파생상품 헤지에 관한 연구들은 감마가 클수록 델타헤지 포지션을 더 자주 재조정해야 한다는 점을 강조하며 이를 '감마 리스크'로 개념화했다.</div>
   <p>옵션 만기가 가까워지고 행사가격 근처에 있을수록 감마가 커지는 경향이 있어, 이 구간에서는 헤지 재조정 빈도와 비용이 급증한다는 실무적 함의가 도출된다.</p>
 
@@ -159,6 +196,20 @@
   <p>감마는 매수 포지션(롱 옵션)에서는 항상 양(+)이고 매도 포지션(숏 옵션)에서는 음(-)이라는 점에서 델타와는 다른 방향성의 위험관리가 필요하다.</p>
 
   <p>옵션 매도포지션은 감마가 음수여서 가격이 움직일 때마다 델타헤지 재조정으로 계속 손실이 누적되는 경향이 있어, 매도자는 이를 상쇄할 별도의 프리미엄 수익이 필요하다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>옵션 그릭스는 각각 다른 변수에 대한 민감도입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">그릭스</th><th scope="col">무엇에 대한 민감도인가</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">델타(Δ)</th><td>기초자산 가격</td><td>가격이 1 변할 때 옵션 가치의 변화</td></tr><tr><th scope="row">감마(Γ)</th><td>기초자산 가격(2차)</td><td>가격이 1 변할 때 델타의 변화</td></tr><tr><th scope="row"><a href="theta-option.html">세타(Θ)</a></th><td>시간 경과</td><td>시간이 지날 때 옵션 가치의 감소</td></tr><tr><th scope="row"><a href="vega-option.html">베가</a></th><td>변동성</td><td>변동성이 변할 때 옵션 가치의 변화</td></tr></tbody></table></div>
+  <p class="te-note">감마는 통계의 감마분포·감마함수나 방사선의 감마선과는 이름만 같습니다. 전체 개요는 <a href="option-greeks.html">옵션 그릭스</a>를 참고하세요.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Black, F., &amp; Scholes, M. (1973). The pricing of options and corporate liabilities. Journal of Political Economy, 81(3), 637–654.</li>
+    <li>Hull, J. C. (2014). Options, Futures, and Other Derivatives (9th ed.). Pearson.</li>
+    <li>Taleb, N. N. (1997). Dynamic Hedging: Managing Vanilla and Exotic Options. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="option-greeks.html">옵션그릭스</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="rho-option.html">로(옵션 그릭스)</a><a href="vega-option.html">베가</a><a href="theta-option.html">세타</a></div></div><p class="concept-family-map"><a href="../concept-map/finance.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
