@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>결정에서 규칙적으로 늘어선 원자 면이 X선을 산란시키면, 특정 각도에서만 산란파가 서로 보강되어 강한 회절 피크가 나타납니다. 조건은 <strong>브래그 법칙</strong> <code>nλ = 2d sinθ</code> (λ X선 파장, d 원자 면 간격, θ 입사각)로 표현됩니다([[bragg-law|브래그 법칙]]; Bragg &amp; Bragg, 1913). 흐름은 다음과 같습니다.</p><ol><li><strong>시료 준비</strong>: 분말 시료는 곱게 갈아 평평하게 채워 무작위 방향의 결정들이 놓이게 합니다([[powder-xrd|분말 XRD]]). 단결정은 한 알을 고정해 여러 방향에서 측정합니다([[single-crystal-xrd|단결정 XRD]]).</li><li><strong>측정</strong>: 구리 Kα선(λ = 0.15406 nm)을 흔히 쓰며, 검출기를 2θ 각도로 훑어 가며 세기를 기록합니다. 스캔 범위, 단계 크기, 시간이 조건입니다.</li><li><strong>분석</strong>: 피크 위치(d 값)로 어떤 결정상인지 표준 데이터베이스(ICDD PDF 등)와 비교해 동정하고, 피크 모양으로 결정립 크기·응력을, 전 패턴 피팅([[rietveld-refinement|리트벨트 정련]])으로 격자 상수와 상 분율을 구합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>시료가 어떤 결정 구조인지, 어떤 상들이 섞여 있는지, 합성이 끝났는지를 확인하는 가장 기본적인 분석입니다. 고체 합성의 최종 확인([[solid-state-synthesis|고체상 합성법]]), 광물·세라믹·금속·의약품의 다형 구분, 박막과 나노재료의 결정성 평가에 쓰입니다. 비결정질(유리, 많은 고분자)은 날카로운 피크 대신 넓은 혹을 보입니다.</p><p><strong>가상의 계산.</strong> Cu Kα선(λ = 0.15406 nm)으로 금 분말을 측정해 2θ = 38.2°에 피크가 나왔다면 θ = 19.1°이므로</p><p><code>d = λ / (2 sinθ) = 0.15406 / (2 × sin 19.1°) = 0.2354 nm</code></p><p>이 피크를 (111) 면으로 지수화하면 면심 입방 격자 상수는 <code>a = d√3 = 0.4077 nm</code>입니다(금의 알려진 값 약 0.408 nm와 일치).</p><p>피크의 반치폭(FWHM)이 β = 0.50° = 0.008727 rad로 측정되었다면 셰러(Scherrer) 식으로 결정립 크기 τ를 어림할 수 있습니다.</p><p><code>τ = Kλ / (β cosθ) = (0.9 × 0.15406) / (0.008727 × cos 19.1°) ≈ 16.8 nm</code></p><p>(K는 모양 인자로 약 0.9. 장비에 의한 피크 퍼짐과 응력으로 인한 퍼짐을 보정하지 않은 값이라 실제 결정립 크기보다 작은 하한에 가까우며, 대략 100~200 nm보다 큰 결정립에서는 쓸 수 없습니다. Patterson, 1939 참조.)</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>장비, X선원(Cu Kα 등)과 파장, 전압·전류, 스캔 범위(2θ), 단계 크기와 시간</li><li>시료 형태(분말·박막·단결정)와 시료대</li><li>상 동정 근거: 사용한 데이터베이스와 카드 번호, 지수화한 면(hkl)</li><li>정량 분석을 했다면 소프트웨어와 모델, 적합도 지표(Rietveld의 R 값)</li><li>결정립 크기를 구했다면 사용 식과 장비 보정 방법</li><li>검출한계에 가까운 소량의 불순물에 대해서는 “XRD로는 검출되지 않았다”는 표현이 “없다”가 아님을 감안해 서술합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "XRD와의 관계"
+    ],
+    "rows": [
+      [
+        "[[bragg-law|브래그 법칙]]",
+        "회절 조건식",
+        "XRD 해석의 기본 식입니다."
+      ],
+      [
+        "[[powder-xrd|분말 XRD]]·[[single-crystal-xrd|단결정 XRD]]",
+        "시료 형태에 따른 방식",
+        "분말은 상 동정과 결정성, 단결정은 원자 위치까지 구합니다."
+      ],
+      [
+        "[[rietveld-refinement|리트벨트 정련]]",
+        "전체 패턴을 모델에 맞추는 분석",
+        "XRD 자료를 정량적으로 해석하는 방법입니다."
+      ],
+      [
+        "[[unit-cell|단위 격자]]·[[miller-indices|밀러 지수]]",
+        "결정의 반복 단위와 면의 표기",
+        "피크를 어느 면에서 나온 것인지 지수로 표시합니다."
+      ],
+      [
+        "[[spectroscopy|분광법]]",
+        "빛과 물질의 에너지 교환을 분석",
+        "결합의 종류나 성분을 알려 주지만, 원자 배열은 XRD가 알려 줍니다."
+      ]
+    ]
+  },
+  "references": [
+    "Bragg, W. H., & Bragg, W. L. (1913). The reflection of X-rays by crystals. Proceedings of the Royal Society of London. Series A, 88(605), 428–438.",
+    "Patterson, A. L. (1939). The Scherrer formula for X-ray particle size determination. Physical Review, 56(10), 978–982.",
+    "Cullity, B. D., & Stock, S. R. (2001). Elements of X-ray Diffraction (3rd ed.). Prentice Hall.",
+    "Pecharsky, V. K., & Zavalij, P. Y. (2009). Fundamentals of Powder Diffraction and Structural Characterization of Materials (2nd ed.). Springer."
+  ]
+}

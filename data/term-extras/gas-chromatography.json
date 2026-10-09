@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>주입·기화</strong>: 액체나 기체 시료를 뜨거운 주입구에 넣으면 순식간에 기화되어 운반기체(헬륨, 수소, 질소 등)에 실립니다. 분할(split)·비분할(splitless) 주입이 있습니다.</li><li><strong>분리</strong>: 운반기체가 가는 모세관 칼럼(안쪽 벽에 고정상을 얇게 코팅)을 지나는 동안 성분마다 고정상과의 상호작용이 달라 이동 속도가 달라집니다. 칼럼 온도를 일정하게 두거나(등온) 올려 가며(온도 프로그램) 분리합니다.</li><li><strong>검출</strong>: 칼럼 끝의 검출기가 신호를 내면 시간에 따른 그래프(크로마토그램)가 그려집니다.</li><li><strong>해석</strong>: 머무름 시간은 어떤 성분인지를, 봉우리 면적은 얼마나 있는지를 알려 줍니다.</li></ol><table><thead><tr><th>검출기</th><th>주로 반응하는 대상</th><th>특징</th></tr></thead><tbody><tr><td>불꽃이온화(FID)</td><td>탄소를 포함한 유기 화합물</td><td>감도가 높고 범위가 넓어 가장 흔함. 시료는 파괴됨</td></tr><tr><td>열전도도(TCD)</td><td>거의 모든 화합물</td><td>범용이지만 감도는 낮음. 무기 기체 분석에 쓰임</td></tr><tr><td>전자포획(ECD)</td><td>할로겐·니트로기를 가진 화합물</td><td>농약·염소 화합물의 미량 분석</td></tr><tr><td>질량분석(MS)</td><td>분리된 성분의 질량 스펙트럼</td><td>성분의 정체를 확인 ([[gc-ms|GC-MS]])</td></tr></tbody></table>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>끓는점이 비교적 낮아 가열해도 분해되지 않는 <strong>휘발성 물질</strong>의 분리·정량에 쓰입니다. 용매 잔류, 향기 성분, 대기 중 휘발성 유기화합물, 혈중 알코올, 지방산 메틸 에스터 분석이 대표적이며, 극성기가 있어 휘발성이 낮은 화합물은 실릴화 같은 유도체화로 휘발성을 높인 뒤 분석하기도 합니다. 열에 약하거나 휘발하지 않는 큰 분자는 액체크로마토그래피([[high-performance-liquid-chromatography|HPLC]])가 적합합니다. 얻는 것은 성분별 머무름 시간과 봉우리 면적(또는 높이)이고, 이를 표준물질과 비교해 정성·정량합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>장비·검출기(예: GC-FID), 칼럼의 종류(고정상), 길이×안지름×막 두께, 운반기체와 유량</li><li>주입구 온도, 주입량과 분할비, 칼럼 온도 프로그램, 검출기 온도</li><li>정량 방식(외부표준·내부표준), 검량선 범위와 상관계수, 검출한계·정량한계, 반복 측정의 정밀도</li></ul><p><strong>가상의 계산 1: 내부표준법.</strong> 표준용액에서 분석물 50.0 mg/L, 내부표준 40.0 mg/L를 넣었더니 봉우리 면적이 각각 12,400와 10,000이었다면 반응인자는 <code>RF = (12,400/10,000) / (50.0/40.0) = 0.992</code>입니다. 시료에 내부표준 40.0 mg/L를 넣고 잰 면적이 분석물 8,300, 내부표준 9,800이면 면적비는 0.847이고,</p><p><code>C = 0.847 / 0.992 × 40.0 = 34.2 mg/L</code></p><p>입니다. 내부표준을 쓰면 주입량이 조금 달라져도 비율이 유지되어 오차가 줄어듭니다.</p><p><strong>가상의 계산 2: 분리도.</strong> 이웃한 두 봉우리의 머무름 시간이 5.20분과 5.45분, 바닥 폭이 0.15분과 0.17분이면 <code>R<sub>s</sub> = 2(5.45 − 5.20) / (0.15 + 0.17) = 1.56</code>입니다. 정규분포에 가까운 두 봉우리는 R<sub>s</sub>가 약 1.5 이상이면 바닥까지 갈라졌다고 보는 것이 관례입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "GC와 이름이 비슷한 기법은 “무엇을 분리하는가”와 “정체를 아는가”로 구분합니다.",
+    "headers": [
+      "용어",
+      "분리 방식",
+      "GC와의 관계"
+    ],
+    "rows": [
+      [
+        "[[chromatography|크로마토그래피]]",
+        "이동상·고정상의 상호작용 차이로 분리",
+        "GC는 이동상이 기체인 크로마토그래피입니다."
+      ],
+      [
+        "[[high-performance-liquid-chromatography|HPLC]]",
+        "이동상이 액체",
+        "휘발성이 낮거나 열에 약한 시료에 적합합니다."
+      ],
+      [
+        "[[gc-ms|GC-MS]]",
+        "GC로 분리하고 질량분석기로 검출",
+        "성분의 정체까지 확인합니다."
+      ],
+      [
+        "[[ion-chromatography|이온 크로마토그래피]]",
+        "이온 교환을 이용",
+        "무기 이온 분석에 쓰입니다."
+      ],
+      [
+        "[[thin-layer-chromatography|박층 크로마토그래피]]",
+        "판 위에서 전개",
+        "간단한 정성 확인용으로 GC보다 정밀도가 낮습니다."
+      ]
+    ]
+  },
+  "references": [
+    "James, A. T., & Martin, A. J. P. (1952). Gas-liquid partition chromatography: The separation and micro-estimation of volatile fatty acids from formic acid to dodecanoic acid. Biochemical Journal, 50(5), 679–690.",
+    "McNair, H. M., Miller, J. M., & Snow, N. H. (2019). Basic Gas Chromatography (3rd ed.). Wiley.",
+    "Grob, R. L., & Barry, E. F. (Eds.). (2004). Modern Practice of Gas Chromatography (4th ed.). Wiley-Interscience."
+  ]
+}
