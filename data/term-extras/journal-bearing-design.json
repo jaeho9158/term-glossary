@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>조건 정리</strong>: 하중 W, 회전 속도 N, 축 지름 D, 폭 L, 윤활유 점도 μ(온도에 따라 변함)를 정합니다.</li><li><strong>형상 선택</strong>: 폭지름비 L/D와 반경 간극비 c/R(통상 0.001 안팎)을 잡습니다. 간극이 작으면 막이 얇아지고 마찰·열이 커지며, 크면 하중 용량이 줄고 윤활유 유량이 늘어납니다.</li><li><strong>유막 해석</strong>: 레이놀즈 방정식으로 압력 분포를 구하고, 하중과 균형을 이루는 편심률 ε = e/c와 최소 유막 두께 h<sub>min</sub> = c(1 − ε)를 얻습니다. 압력이 음이 되는 영역(캐비테이션)을 어떻게 처리하는지가 경계조건의 선택입니다.</li><li><strong>부가 검토</strong>: 마찰 손실과 온도 상승, 윤활유 유량, 시동·정지 시 경계윤활, 오일 휩 같은 불안정 진동 여부를 확인합니다.</li></ol><p>설계 변수를 한 수에 묶는 것이 소머펠트 수 S = μN/P × (R/c)²입니다(N은 초당 회전수, P = W/(LD)는 투영 면적당 압력). 문헌에 따라 2π 배를 곱하거나 역수를 쓰는 등 정의가 조금씩 달라서, 쓸 때 정의를 밝혀야 합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰는 곳</strong>: 터빈, 발전기, 대형 엔진처럼 큰 하중과 충격이 반복되는 회전기계. 유막이 충격을 흡수하고 진동을 감쇠합니다.</li><li><strong>얻는 것</strong>: 하중 용량, 최소 유막 두께, 마찰 손실, 온도 상승, 안정성 한계 속도.</li><li><strong>구름베어링과의 대비</strong>: 일정 속도 이상에서는 금속이 직접 닿지 않아 마모가 거의 없는 대신, 저속·시동 구간에서는 유막이 충분히 형성되지 않아 경계윤활로 넘어갑니다.</li><li><strong>한계</strong>: 유막이 충분히 형성되지 않으면 오히려 마모가 급격히 진행됩니다. 점도와 온도의 연동을 무시하면 예측이 틀어집니다.</li></ul><p><em>가상의 예(계산 결과).</em> μ = 0.03 Pa·s, N = 50 rev/s(3,000 rpm), R = 50 mm, c = 50 µm(c/R = 0.001), W = 10 kN, L = D = 100 mm이면 P = 1.0 MPa, S = 0.03 × 50 / 10⁶ × 1000² = 1.5입니다. 이 값과 L/D로 설계 도표(예: Raimondi와 Boyd, 1958)에서 편심률을 읽거나 수치해석을 돌려 유막 두께를 얻습니다. 하중이 같아도 점도를 두 배로 하면 S가 두 배가 됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>형상(지름, 폭, 반경 간극, 부시 재료)과 윤활유 규격·점도–온도 관계.</li><li>운전 조건(하중, 회전 속도, 공급 온도·압력)과 하중의 방향·변동 여부.</li><li>지배방정식과 경계조건(예: 레이놀즈 경계조건), 수치기법(유한차분·유한요소), 열 효과 포함 여부.</li><li>결과 지표(최소 유막 두께, 압력 분포, 마찰 계수, 임계 속도)와 실험 또는 문헌과의 비교.</li><li>소머펠트 수 등 무차원수의 정의.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "저널베어링과 윤활 관련 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[journal-bearing-design|저널베어링 설계]]",
+        "축과 부시 사이 유막으로 하중을 지지하도록 형상·간극·윤활을 정하는 일",
+        "미끄럼 접촉, 유체윤활"
+      ],
+      [
+        "[[rolling-element-bearing|구름베어링]]",
+        "볼·롤러가 구르며 하중을 지지",
+        "구름 접촉, 저속 시동 마찰이 낮음"
+      ],
+      [
+        "[[elastohydrodynamic-lubrication|탄성유체윤활]]",
+        "접촉 압력이 매우 높아 표면 탄성 변형이 유막에 함께 작용",
+        "점·선 접촉(기어, 구름베어링)"
+      ],
+      [
+        "[[tribology|트라이볼로지]]",
+        "마찰·마모·윤활을 함께 연구하는 분야",
+        "상위 학문 분야"
+      ]
+    ]
+  },
+  "references": [
+    "Reynolds, O. (1886). On the theory of lubrication and its application to Mr. Beauchamp Tower's experiments, including an experimental determination of the viscosity of olive oil. Philosophical Transactions of the Royal Society of London, 177, 157–234.",
+    "Raimondi, A. A., & Boyd, J. (1958). A solution for the finite journal bearing and its application to analysis and design: I, II, and III. ASLE Transactions, 1(1), 159–209.",
+    "Hamrock, B. J., Schmid, S. R., & Jacobson, B. O. (2004). Fundamentals of Fluid Film Lubrication (2nd ed.). Marcel Dekker.",
+    "Szeri, A. Z. (1998). Fluid Film Lubrication: Theory and Design. Cambridge University Press."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>모델 구성</strong>: 차단기·개폐기 상태로 계통 연결(토폴로지)을 정하고, 선로·변압기 정수로 네트워크 모델을 만듭니다.</li><li><strong>측정 모델</strong>: 측정값 z = h(x) + e. x는 상태변수(모선 전압 크기와 위상각, 기준 모선 위상각은 고정), e는 평균 0의 측정 오차입니다.</li><li><strong>가중 최소자승(WLS)</strong>: J(x) = [z − h(x)]ᵀ R⁻¹ [z − h(x)]를 최소로 하는 x를 구합니다. R은 오차 분산 행렬이며 정확한 측정값일수록 큰 가중치를 받습니다. 반복 계산에서는 이득 행렬 G = HᵀR⁻¹H를 이용합니다(H는 h의 야코비안).</li><li><strong>관측가능성 확인</strong>: 주어진 측정 배치로 모든 상태를 유일하게 정할 수 있는지 먼저 확인하고(가관측성 분석), 부족하면 유사측정을 더하거나 PMU를 보강합니다.</li><li><strong>불량 데이터 처리</strong>: J(x̂)가 자유도(측정 수 − 상태 수)의 카이제곱 분포 기준을 넘는지 검정하고, 최대 정규화 잔차 검정으로 의심 측정값을 찾아 제거한 뒤 다시 추정합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제</strong>: 에너지관리시스템(EMS)에서 SCADA·PMU 측정값을 받아 주기적으로 계통 상태를 구할 때 쓰고, 결과는 안전도 해석과 최적조류계산의 입력이 됩니다.</li><li><strong>얻는 것</strong>: 측정되지 않은 모선을 포함한 전체 모선의 전압·위상각, 측정 오차가 걸러진 조류, 의심 측정값 목록입니다.</li><li><strong>한계</strong>: WLS는 오차가 정규분포를 따른다는 가정에 기대어 극단적 이상치에 취약하므로 불량 데이터 검출이나 강건 추정과 함께 쓰입니다. 측정점이 부족하거나 통신 오류가 크면 정확도가 크게 떨어집니다.</li></ul><p><em>가상의 예(계산 결과).</em> 모선 3개, 선로 리액턴스 x₁₂ = 0.1, x₁₃ = 0.2, x₂₃ = 0.1 pu의 직류 근사 모형에서 모선 1을 기준(위상각 0)으로 합니다. 측정값은 P₁₂ = 0.520, P₁₃ = 0.390, P₂₃ = 0.315, 모선 2의 주입 P₂ = −0.230 pu이고 표준편차는 모두 0.01 pu로 둡니다(측정 4개, 상태 2개). WLS로 풀면 θ₂ = −0.0519 rad, θ₃ = −0.0817 rad이며 잔차는 (0.0008, −0.0183, 0.0175, −0.0083), 목적함수 J = 7.13입니다. 자유도 2의 카이제곱 95% 기준값 5.99를 넘으므로 이 측정 집합에는 불량 데이터가 있을 수 있다고 판단하고 정규화 잔차 검정으로 의심 측정을 찾게 됩니다. 이 예의 측정값은 참값(θ₂ = −0.05, θ₃ = −0.08)에 오차를 손으로 더해 만들었습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>측정 종류(SCADA, PMU)와 개수, 측정 오차의 표준편차 가정, 중복도(측정 수/상태 수).</li><li>추정 알고리즘(WLS, 강건 추정 등), 수렴 기준, 사용한 모형(교류 또는 직류 근사).</li><li>불량 데이터 처리 방법과 검정 수준.</li><li>평가 지표(추정 오차의 크기, 계산 시간)와 시험 계통의 규모.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "조류계산과 상태추정은 입력과 목적이 다릅니다.",
+    "headers": [
+      "용어",
+      "입력",
+      "목적"
+    ],
+    "rows": [
+      [
+        "[[power-system-state-estimation|전력계통 상태추정]]",
+        "중복되고 오차가 섞인 측정값",
+        "실제 운전 상태의 최선의 추정"
+      ],
+      [
+        "[[power-flow-analysis|조류계산]]",
+        "발전·부하 등 주어진 조건",
+        "조건이 정해졌을 때 전압·조류 계산"
+      ],
+      [
+        "[[weighted-least-squares|가중최소제곱법]]",
+        "신뢰도가 다른 관측값",
+        "상태추정의 기본 계산 방법"
+      ],
+      [
+        "가관측성 분석(계통)",
+        "측정 배치",
+        "상태를 유일하게 정할 수 있는지 판별"
+      ],
+      [
+        "[[scada|SCADA]]",
+        "현장 설비 측정",
+        "감시·제어 데이터 수집"
+      ]
+    ]
+  },
+  "references": [
+    "Schweppe, F. C., & Wildes, J. (1970). Power system static-state estimation, Part I: Exact model. IEEE Transactions on Power Apparatus and Systems, PAS-89(1), 120–125.",
+    "Abur, A., & Gómez Expósito, A. (2004). Power System State Estimation: Theory and Implementation. Marcel Dekker.",
+    "Monticelli, A. (1999). State Estimation in Electric Power Systems: A Generalized Approach. Kluwer Academic.",
+    "Handschin, E., Schweppe, F. C., Kohlas, J., & Fiechter, A. (1975). Bad data analysis for power system state estimation. IEEE Transactions on Power Apparatus and Systems, 94(2), 329–337."
+  ]
+}

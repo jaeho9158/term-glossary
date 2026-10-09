@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>전력계통 운영자는 계통 전체의 실시간 상태를 알아야 사고를 예방하고 최적으로 전력을 배분할 수 있는데, 측정 오차나 통신 장애로 데이터가 불완전한 경우가 많습니다. 상태추정은 이러한 불완전한 데이터를 보정하고 신뢰할 수 있는 계통 상태를 제공함으로써 에너지관리시스템(EMS)의 핵심 기반 기술로 자리잡고 있습니다.</p>
   <p>상태추정 결과는 이후 이어지는 안전도해석이나 최적조류계산의 입력값으로 그대로 쓰이므로, 추정 단계의 오차가 뒤따르는 계통 운영 판단 전체에 연쇄적으로 영향을 미친다는 점에서 중요성이 강조됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>모델 구성</strong>: 차단기·개폐기 상태로 계통 연결(토폴로지)을 정하고, 선로·변압기 정수로 네트워크 모델을 만듭니다.</li><li><strong>측정 모델</strong>: 측정값 z = h(x) + e. x는 상태변수(모선 전압 크기와 위상각, 기준 모선 위상각은 고정), e는 평균 0의 측정 오차입니다.</li><li><strong>가중 최소자승(WLS)</strong>: J(x) = [z − h(x)]ᵀ R⁻¹ [z − h(x)]를 최소로 하는 x를 구합니다. R은 오차 분산 행렬이며 정확한 측정값일수록 큰 가중치를 받습니다. 반복 계산에서는 이득 행렬 G = HᵀR⁻¹H를 이용합니다(H는 h의 야코비안).</li><li><strong>관측가능성 확인</strong>: 주어진 측정 배치로 모든 상태를 유일하게 정할 수 있는지 먼저 확인하고(가관측성 분석), 부족하면 유사측정을 더하거나 PMU를 보강합니다.</li><li><strong>불량 데이터 처리</strong>: J(x̂)가 자유도(측정 수 − 상태 수)의 카이제곱 분포 기준을 넘는지 검정하고, 최대 정규화 잔차 검정으로 의심 측정값을 찾아 제거한 뒤 다시 추정합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>언제</strong>: 에너지관리시스템(EMS)에서 SCADA·PMU 측정값을 받아 주기적으로 계통 상태를 구할 때 쓰고, 결과는 안전도 해석과 최적조류계산의 입력이 됩니다.</li><li><strong>얻는 것</strong>: 측정되지 않은 모선을 포함한 전체 모선의 전압·위상각, 측정 오차가 걸러진 조류, 의심 측정값 목록입니다.</li><li><strong>한계</strong>: WLS는 오차가 정규분포를 따른다는 가정에 기대어 극단적 이상치에 취약하므로 불량 데이터 검출이나 강건 추정과 함께 쓰입니다. 측정점이 부족하거나 통신 오류가 크면 정확도가 크게 떨어집니다.</li></ul><p><em>가상의 예(계산 결과).</em> 모선 3개, 선로 리액턴스 x₁₂ = 0.1, x₁₃ = 0.2, x₂₃ = 0.1 pu의 직류 근사 모형에서 모선 1을 기준(위상각 0)으로 합니다. 측정값은 P₁₂ = 0.520, P₁₃ = 0.390, P₂₃ = 0.315, 모선 2의 주입 P₂ = −0.230 pu이고 표준편차는 모두 0.01 pu로 둡니다(측정 4개, 상태 2개). WLS로 풀면 θ₂ = −0.0519 rad, θ₃ = −0.0817 rad이며 잔차는 (0.0008, −0.0183, 0.0175, −0.0083), 목적함수 J = 7.13입니다. 자유도 2의 카이제곱 95% 기준값 5.99를 넘으므로 이 측정 집합에는 불량 데이터가 있을 수 있다고 판단하고 정규화 잔차 검정으로 의심 측정을 찾게 됩니다. 이 예의 측정값은 참값(θ₂ = −0.05, θ₃ = −0.08)에 오차를 손으로 더해 만들었습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>측정 종류(SCADA, PMU)와 개수, 측정 오차의 표준편차 가정, 중복도(측정 수/상태 수).</li><li>추정 알고리즘(WLS, 강건 추정 등), 수렴 기준, 사용한 모형(교류 또는 직류 근사).</li><li>불량 데이터 처리 방법과 검정 수준.</li><li>평가 지표(추정 오차의 크기, 계산 시간)와 시험 계통의 규모.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 논문에서는 가중 최소자승법 기반의 상태추정 알고리즘에 PMU 데이터를 결합하여 추정 정확도를 향상시켰다."</div>
   <p>기존 SCADA 측정값에 더해 PMU 데이터를 함께 사용해 상태추정 성능을 높이는 연구를 설명하는 문장입니다.</p>
   <div class="example">"불량 측정 데이터(bad data)를 식별하고 제거하는 절차를 상태추정 과정에 포함시켰다."</div>
@@ -161,6 +179,20 @@
 
   <h2>주의할 점</h2>
   <p>상태추정 결과는 실제 측정값이 아니라 통계적 추정치이므로, 측정점이 부족하거나 통신 오류가 심한 경우 추정 정확도가 크게 떨어질 수 있습니다. WLS 기반 추정은 측정 오차가 정규분포를 따른다는 가정에 의존하므로, 극단적인 이상치가 섞이면 추정치가 크게 왜곡될 수 있어 불량 데이터 검출과 강건 추정 기법이 함께 다뤄집니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>조류계산과 상태추정은 입력과 목적이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">입력</th><th scope="col">목적</th></tr></thead><tbody><tr><th scope="row"><strong>전력계통 상태추정</strong></th><td>중복되고 오차가 섞인 측정값</td><td>실제 운전 상태의 최선의 추정</td></tr><tr><th scope="row"><a href="power-flow-analysis.html">조류계산</a></th><td>발전·부하 등 주어진 조건</td><td>조건이 정해졌을 때 전압·조류 계산</td></tr><tr><th scope="row"><a href="weighted-least-squares.html">가중최소제곱법</a></th><td>신뢰도가 다른 관측값</td><td>상태추정의 기본 계산 방법</td></tr><tr><th scope="row">가관측성 분석(계통)</th><td>측정 배치</td><td>상태를 유일하게 정할 수 있는지 판별</td></tr><tr><th scope="row"><a href="scada.html">SCADA</a></th><td>현장 설비 측정</td><td>감시·제어 데이터 수집</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Schweppe, F. C., &amp; Wildes, J. (1970). Power system static-state estimation, Part I: Exact model. IEEE Transactions on Power Apparatus and Systems, PAS-89(1), 120–125.</li>
+    <li>Abur, A., &amp; Gómez Expósito, A. (2004). Power System State Estimation: Theory and Implementation. Marcel Dekker.</li>
+    <li>Monticelli, A. (1999). State Estimation in Electric Power Systems: A Generalized Approach. Kluwer Academic.</li>
+    <li>Handschin, E., Schweppe, F. C., Kohlas, J., &amp; Fiechter, A. (1975). Bad data analysis for power system state estimation. IEEE Transactions on Power Apparatus and Systems, 94(2), 329–337.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

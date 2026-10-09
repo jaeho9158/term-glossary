@@ -1,0 +1,59 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>차폐 성능은 <strong>차폐효과(SE)</strong>로 나타냅니다. SE(dB) = 10 log₁₀(P입사/P투과) = 20 log₁₀(E입사/E투과)입니다. 20 dB는 전력의 99%, 40 dB는 99.99%가 줄어든다는 뜻이며([[shielding-effectiveness|차폐효과]]), 그래서 dB 차이가 작아 보여도 실제 감쇠 차이는 큽니다.</li><li>총 차폐효과는 SE = SE<sub>R</sub>(반사) + SE<sub>A</sub>(흡수) + SE<sub>M</sub>(다중 반사 보정)으로 나눕니다. 금속은 표면 반사가 크고, 최근 복합재료 연구는 반사 대신 흡수가 우세한 차폐를 늘리려는 방향이 많습니다. 흡수 손실이 충분히 크면(대략 10 dB 이상) 다중 반사 항은 무시하는 것이 보통입니다.</li><li>흡수는 전자파가 도체 안으로 들어가며 줄어드는 정도로, <strong>표피 깊이</strong> δ = 1/√(πfμσ)가 기준입니다([[skin-effect|표피 효과]]). 두께 t의 흡수 손실은 대략 8.686 × t/δ dB입니다.</li><li>실제 제품에서는 소재의 SE보다 <strong>틈새와 개구부</strong>가 전체 성능을 좌우하는 경우가 많습니다. 개구부의 가장 긴 변이 l, 파장이 λ일 때 슬롯 하나의 차폐효과는 대략 20 log₁₀(λ/2l) dB입니다(l이 λ/2보다 작을 때).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><em>가상의 예(계산 결과).</em> 구리와 알루미늄의 표피 깊이를 계산하면 다음과 같습니다(전도도는 구리 5.8×10⁷ S/m, 알루미늄 3.5×10⁷ S/m, 비투자율 1로 가정).</p><table><thead><tr><th>주파수</th><th>구리 δ (µm)</th><th>알루미늄 δ (µm)</th></tr></thead><tbody><tr><td>1 MHz</td><td>66.1</td><td>85.1</td></tr><tr><td>100 MHz</td><td>6.61</td><td>8.51</td></tr><tr><td>1 GHz</td><td>2.09</td><td>2.69</td></tr><tr><td>10 GHz</td><td>0.66</td><td>0.85</td></tr></tbody></table><p>1 GHz에서 두께 18 µm의 구리박은 흡수 손실만으로 약 75 dB가 됩니다(8.686 × 18/2.09). 그러나 개구부가 있으면 사정이 달라집니다. 10 GHz(λ ≈ 30 mm)에서 길이 3 mm 슬롯의 SE는 20 log₁₀(30/6) ≈ 14 dB에 그치고, 슬롯 길이가 λ/2(15 mm)에 이르면 0 dB로 차폐가 사라집니다. 벽 소재가 40 dB 이상이어도 틈새가 전체를 제한하는 이유입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>차폐 소재를 두껍게 하거나 완전히 감싸면 항상 해결된다.</td><td>두께는 흡수 손실을 키우지만, 통풍구·케이블 인입구·접합부의 틈새와 접지가 성능을 크게 좌우합니다.</td></tr><tr><td>SE는 소재의 고유한 상수다.</td><td>주파수, 두께, 측정 방법(근접장·원거리장), 시료 형상에 따라 달라지므로 조건을 함께 적어야 합니다.</td></tr><tr><td>SE가 40 dB이면 40%가 차단된다.</td><td>dB는 로그 단위이며 40 dB는 전력의 99.99% 감쇠입니다.</td></tr><tr><td>전자파 차폐는 접지하면 된다.</td><td>접지는 도움이 되지만 차폐는 반사·흡수와 틈새 처리의 문제이기도 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "전자파 관련 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "층위"
+    ],
+    "rows": [
+      [
+        "[[electromagnetic-interference-shielding|전자파간섭 차폐]]",
+        "전자파를 반사·흡수해 간섭을 줄이는 기술",
+        "대책 기술"
+      ],
+      [
+        "[[electromagnetic-interference|전자기간섭]]",
+        "한 장치의 전자기 신호가 다른 장치의 작동을 방해하는 현상",
+        "해결할 문제"
+      ],
+      [
+        "[[electromagnetic-compatibility|전자파적합성]]",
+        "방출을 억제하면서 외부 전자파에도 정상 작동하는 능력과 규격",
+        "목표·규격 체계"
+      ],
+      [
+        "[[shielding-effectiveness|차폐효과]]",
+        "차폐물이 신호 강도를 얼마나 줄이는지 나타내는 지표",
+        "성능 지표"
+      ],
+      [
+        "[[skin-effect|표피 효과]]",
+        "높은 주파수일수록 전류가 도체 표면으로 몰리는 현상",
+        "흡수 손실의 물리적 근거"
+      ]
+    ]
+  },
+  "references": [
+    "Ott, H. W. (2009). Electromagnetic Compatibility Engineering. Wiley.",
+    "Paul, C. R. (2006). Introduction to Electromagnetic Compatibility (2nd ed.). Wiley.",
+    "Schelkunoff, S. A. (1943). Electromagnetic Waves. Van Nostrand.",
+    "Chung, D. D. L. (2001). Electromagnetic interference shielding effectiveness of carbon materials. Carbon, 39(2), 279–285."
+  ]
+}

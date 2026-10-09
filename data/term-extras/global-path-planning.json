@@ -1,0 +1,60 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>지도 표현</strong>: 점유격자지도, 로드맵(그래프), 형상공간 중 하나로 환경을 나타내고, 로봇의 크기만큼 장애물을 부풀립니다.</li><li><strong>비용 정의</strong>: 경로 길이, 이동 시간, 위험도 등을 비용으로 정합니다.</li><li><strong>탐색</strong>: 격자·그래프에서는 Dijkstra, A*처럼 비용이 작은 경로를 찾는 탐색을, 고차원이나 연속 공간에서는 RRT, PRM 같은 표본추출 기반 방법을 씁니다.</li><li><strong>후처리</strong>: 기하학적 경로를 부드럽게 다듬고, 차량형 로봇의 회전 반경·가속 한계 같은 동역학 제약을 반영합니다.</li><li><strong>인계</strong>: 전역 경로를 따라가며 실시간으로 장애물을 피하는 [[local-path-planning|지역경로계획]]에 넘깁니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>알고리즘 성질</strong>: Dijkstra는 간선 비용이 음수가 아니면, A*는 휴리스틱이 허용적(실제 비용을 과대평가하지 않음)이면 최적 경로를 보장합니다([[a-star-algorithm|A* 알고리즘]]). RRT는 확률적 완전성을 갖지만 일반적으로 최적은 아니고, 표본이 늘면 최적에 수렴하도록 개선한 [[rrt-star|RRT*]]가 있습니다(Karaman &amp; Frazzoli, 2011).</li><li><strong>언제</strong>: 지도가 미리 주어지고 환경이 크게 변하지 않을 때(건물 도면이 있는 실내 배송 로봇 등) 전역 계획만으로도 효율적인 이동이 가능합니다.</li><li><strong>한계</strong>: 지도에 없는 장애물에는 대응할 수 없고, 지도가 바뀌면 경로를 다시 계산해야 합니다. 샘플링 기반 방법은 실행마다 다른 경로가 나올 수 있습니다.</li></ul><p><em>가상의 예(계산 결과).</em> 아래 10×10 격자에서 4방향 이동, 칸당 비용 1, 맨해튼 거리 휴리스틱으로 S에서 G까지 찾았습니다(#은 장애물, 빈 칸은 60개).</p><p><code>S.........</code><br><code>.####.###.</code><br><code>.#......#.</code><br><code>.#.####.#.</code><br><code>.#.#..#.#.</code><br><code>.#.#.##.#.</code><br><code>.#.#....#.</code><br><code>.#.######.</code><br><code>.#........</code><br><code>...#####.G</code></p><p>Dijkstra와 A*는 모두 비용 18의 같은 최적 경로를 찾았고, 확장한 노드 수는 Dijkstra가 58개, A*가 38개였습니다. 휴리스틱이 목표 쪽으로 탐색을 유도해 계산량을 줄인 것입니다(동점 처리 순서에 따라 확장 수는 조금 달라질 수 있습니다).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>지도 표현과 해상도(격자 크기), 이웃 연결(4방향 또는 8방향), 장애물 팽창 반경.</li><li>비용 함수와 사용한 알고리즘·휴리스틱, 후처리(평활화) 방법.</li><li>평가 지표: 경로 길이, 계산 시간, 확장 노드 수, 성공률. 표본추출 방법은 여러 번 실행한 평균과 표준편차, 난수 시드.</li><li>실험 환경(지도 규모, 장애물 밀도, 하드웨어).</li><li>지도가 바뀌는 경우 재계획 방식과 그 비용.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "경로·동작 계획 용어는 층위가 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "특징"
+    ],
+    "rows": [
+      [
+        "[[global-path-planning|전역경로계획]]",
+        "지도 전체를 알고 있다고 보고 출발점에서 목표까지 경로를 미리 계산",
+        "상위 수준, 정적 지도 가정"
+      ],
+      [
+        "[[local-path-planning|지역경로계획]]",
+        "센서 정보로 전역 경로를 따라가며 실시간 장애물 회피",
+        "하위 수준, 동적 환경 대응"
+      ],
+      [
+        "[[motion-planning|모션계획]]",
+        "충돌을 피하고 제약을 만족하는 동작(경로·궤적)을 계산하는 문제 전반",
+        "상위 범주"
+      ],
+      [
+        "[[coverage-path-planning|영역완전탐사경로계획]]",
+        "작업 영역 전체를 빠짐없이 지나가는 경로",
+        "목표가 한 점이 아닌 면적 전체"
+      ],
+      [
+        "[[a-star-algorithm|A* 알고리즘]]",
+        "비용과 휴리스틱으로 최단 경로를 찾는 탐색",
+        "전역 계획에서 쓰는 대표 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. Numerische Mathematik, 1, 269–271.",
+    "Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107.",
+    "LaValle, S. M. (2006). Planning Algorithms. Cambridge University Press.",
+    "Kavraki, L. E., Švestka, P., Latombe, J.-C., & Overmars, M. H. (1996). Probabilistic roadmaps for path planning in high-dimensional configuration spaces. IEEE Transactions on Robotics and Automation, 12(4), 566–580.",
+    "Karaman, S., & Frazzoli, E. (2011). Sampling-based algorithms for optimal motion planning. The International Journal of Robotics Research, 30(7), 846–894."
+  ]
+}

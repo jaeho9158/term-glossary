@@ -1,0 +1,62 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>코퍼스 구성</strong>: 분석할 작품을 고르고 디지털화(스캔·OCR·교정)하며 저자, 연대, 장르, 판본 같은 메타데이터를 붙입니다. 무엇을 포함하고 무엇을 뺐는지가 결과를 좌우합니다.</li><li><strong>전처리</strong>: 토큰화, 정규화, 불용어 처리를 합니다. 한국어는 조사·어미가 붙어 있어 형태소 분석이 필요하며, 어떤 분석기를 썼는지에 따라 결과가 달라질 수 있습니다.</li><li><strong>특징 추출</strong>: 가장 자주 쓰이는 단어(MFW)의 상대 빈도, 기능어, n-gram, 품사 분포, 토픽 분포 등을 수치로 바꿉니다.</li><li><strong>모형·통계</strong>: 거리 기반 방법(Burrows의 Delta는 MFW의 z점수 차이의 절댓값 평균), 군집·분류 모형, [[topic-modeling|토픽모델링]](Blei 등, 2003의 LDA), 감성 점수를 이용한 플롯 곡선 등을 적용합니다.</li><li><strong>해석과 검증</strong>: 수치 패턴을 작품 읽기로 되돌리고, 저자가 알려진 자료로 방법을 시험하거나 교차검증을 합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제</strong>: 저자 판별, 장르 분류, 시기별 문체와 주제의 변화, 대규모 코퍼스의 경향을 보고 싶을 때 씁니다. 개별 작품을 깊이 읽는 정독과 달리 [[distant-reading|원거리읽기]]에 가깝습니다.</li><li><strong>얻는 것</strong>: 유사도, 분류 확률, 어휘·주제의 시계열 같은 계량적 근거입니다. 이는 확률적 근사이며 확정적 증명이 아닙니다.</li><li><strong>강점</strong>: 저자 판별에서는 내용과 무관한 기능어 빈도가 작가가 의식적으로 통제하기 어려운 습관을 반영해 자주 쓰입니다([[stylometry|문체계량학]]).</li><li><strong>한계</strong>: 디지털화된 텍스트가 정전과 영어에 쏠려 있으면 일반화가 어렵고, 같은 코퍼스에도 전처리를 달리하면 결과가 바뀔 수 있습니다. 토픽은 사람이 이름을 붙이는 해석 단계에서 선입견이 들어갈 수 있습니다. Da(2019)는 이 분야의 통계적 검증이 충분하지 않다고 비판했고, 이에 대한 반론도 활발합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>코퍼스 구성표: 작품·저자 수, 연대, 판본, 선정 기준과 제외 기준.</li><li>전처리 규칙: 토큰화 방식, 형태소 분석기의 이름과 버전, 불용어 목록.</li><li>특징과 파라미터: MFW 개수, n-gram 길이, 토픽 수(k), 난수 시드.</li><li>소프트웨어와 도구(예: R의 stylo 패키지; Eder 등, 2016).</li><li>검증 방법과 결과: 저자가 알려진 자료에 대한 정확도, 교차검증.</li><li>가능하면 코드와 데이터 공개 여부.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 비슷한 방법론이 겹쳐 쓰입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[computational-literary-analysis|전산문학분석]]",
+        "통계·자연어처리로 문학적 특징을 계량적으로 분석하는 분야",
+        "상위 분야"
+      ],
+      [
+        "[[distant-reading|원거리읽기]]",
+        "대규모 텍스트를 통계적으로 처리해 문학사의 경향을 보는 접근(모레티)",
+        "접근 방식"
+      ],
+      [
+        "[[stylometry|문체계량학]]",
+        "어휘·문장·기능어 빈도로 저자나 문체를 판별",
+        "주요 하위 기법"
+      ],
+      [
+        "[[topic-modeling|토픽모델링]]",
+        "문헌에서 잠재 주제를 확률적으로 추출",
+        "주요 하위 기법"
+      ],
+      [
+        "[[digital-humanities|디지털휴머니티]]",
+        "디지털 방법을 인문학 연구에 접목하는 더 넓은 영역",
+        "상위 영역"
+      ]
+    ]
+  },
+  "references": [
+    "Burrows, J. (2002). ‘Delta’: A measure of stylistic difference and a guide to likely authorship. Literary and Linguistic Computing, 17(3), 267–287.",
+    "Moretti, F. (2013). Distant Reading. Verso.",
+    "Jockers, M. L. (2013). Macroanalysis: Digital Methods and Literary History. University of Illinois Press.",
+    "Underwood, T. (2019). Distant Horizons: Digital Evidence and Literary Change. University of Chicago Press.",
+    "Eder, M., Rybicki, J., & Kestemont, M. (2016). Stylometry with R: A package for computational text analysis. The R Journal, 8(1), 107–121.",
+    "Da, N. Z. (2019). The computational case against computational literary studies. Critical Inquiry, 45(3), 601–639.",
+    "Blei, D. M., Ng, A. Y., & Jordan, M. I. (2003). Latent Dirichlet allocation. Journal of Machine Learning Research, 3, 993–1022."
+  ]
+}
