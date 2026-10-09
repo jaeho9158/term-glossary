@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>진술</strong>: 유한차원 벡터공간 V에서 정의된 선형변환 T: V → W에 대해 dim V = rank T + nullity T입니다. rank는 상(像)의 차원, nullity는 영공간(핵)의 차원입니다. m×n 행렬 A에서는 rank(A) + nullity(A) = n(열의 개수)입니다.</li><li><strong>아이디어</strong>: 영공간의 기저를 V 전체 기저로 확장하면, 확장에 쓴 벡터들의 상이 T의 상 공간의 기저가 됩니다. 그래서 “사라지는 차원 + 살아남는 차원 = 전체 차원”입니다(Axler, 2015).</li><li><strong>따름</strong>: T가 단사일 필요충분조건은 nullity가 0입니다. 정방행렬이면 단사와 전사가 서로 필요충분입니다. 동차 연립방정식 Ax = 0에서 자유변수의 개수는 n − rank(A)입니다(Strang, 2016).</li><li>[[matrix-rank|랭크]]와 [[null-space|영공간]]을 따로 구하지 않고 하나만 알아도 나머지를 얻을 수 있다는 점이 쓸모입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>예(가상의 행렬, 계산 코드로 확인)</strong>: 3×4 행렬 A의 행들은 (1, 2, 0, 1), (2, 4, 1, 3), (3, 6, 1, 4)입니다. 가우스 소거로 기약 행 사다리꼴을 만들면 (1, 2, 0, 1), (0, 0, 1, 1), 영행이 되어 피벗이 1열과 3열에 있습니다. 그래서 rank(A) = 2이고 n = 4이므로 nullity(A) = 4 − 2 = 2입니다. 실제로 영공간의 기저 (−2, 1, 0, 0)과 (−1, 0, −1, 1)이 Ax = 0을 만족합니다. 세 번째 행이 첫째·둘째 행의 합이어서 독립인 행이 둘뿐이라는 점도 확인됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>rank + nullity는 행의 개수 m과 같다.</td><td>정의역의 차원, 곧 열의 개수 n과 같습니다. m은 공역의 차원입니다.</td></tr><tr><td>무한차원에서도 같은 식이 성립한다.</td><td>이 식은 정의역이 유한차원일 때의 결과입니다.</td></tr><tr><td>랭크가 같으면 영공간도 같다.</td><td>n이 같으면 nullity는 같지만 영공간이라는 집합 자체는 다릅니다.</td></tr><tr><td>nullity는 영공간에 있는 벡터의 개수다.</td><td>영공간은 보통 무한히 많은 벡터를 가지며 nullity는 그 차원(기저의 개수)입니다.</td></tr><tr><td>컴퓨터가 낸 랭크는 항상 이론값과 같다.</td><td>부동소수점 계산에서는 아주 작은 특이값을 0으로 보는 수치적 랭크를 쓰므로 이론값과 다를 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 비슷한 세 양을 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "어디에 속하나"
+    ],
+    "rows": [
+      [
+        "[[matrix-rank|랭크(rank)]]",
+        "상 공간(열공간)의 차원",
+        "공역 쪽"
+      ],
+      [
+        "[[null-space|영공간]] / nullity",
+        "Ax = 0의 해 집합 / 그 차원",
+        "정의역 쪽"
+      ],
+      [
+        "차원 정리",
+        "rank + nullity = n(열의 수)",
+        "둘을 잇는 관계식"
+      ]
+    ]
+  },
+  "references": [
+    "Axler, S. (2015). Linear Algebra Done Right (3rd ed.). Springer.",
+    "Strang, G. (2016). Introduction to Linear Algebra (5th ed.). Wellesley-Cambridge Press.",
+    "Friedberg, S. H., Insel, A. J., & Spence, L. E. (2003). Linear Algebra (4th ed.). Prentice Hall."
+  ]
+}

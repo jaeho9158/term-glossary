@@ -1,0 +1,45 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>데이터(비트 속도 R<sub>b</sub>)에 훨씬 빠른 확산 코드(칩 속도 R<sub>c</sub>)를 곱하면 신호가 차지하는 대역폭이 칩 속도에 비례해 넓어집니다. 신호의 총 전력은 그대로이고 넓은 대역에 퍼지므로 주파수당 전력밀도는 낮아집니다.</li><li><strong>처리이득</strong>(processing gain)은 대역폭 확장비, 곧 G<sub>p</sub> = R<sub>c</sub>/R<sub>b</sub>이고 보통 10·log<sub>10</sub>(G<sub>p</sub>) dB로 적습니다.</li><li>수신기는 같은 코드를 정확한 위상으로 곱해 한 비트 구간에서 적분(상관)하여 데이터를 복원합니다(역확산). 코드와 상관이 없는 협대역 간섭은 이 과정에서 오히려 넓게 퍼져 영향이 줄어듭니다.</li><li>여러 사용자가 서로 다른 코드로 같은 대역을 쓰는 방식이 CDMA이며, 코드 간 상호상관이 낮을수록 간섭이 작습니다. 이런 목적의 대표적인 코드 계열이 Gold 코드입니다(Gold, 1967).</li><li>코드 위상을 모르는 처음에는 가능한 위상을 훑으며 상관값이 큰 곳을 찾는 획득(acquisition) 단계가 필요하고, 이후 추적(tracking)으로 동기를 유지합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>예(공개된 규격 값으로 계산)</strong>: GPS의 민간용 C/A 코드는 칩 속도 1.023 Mcps이고 항법 데이터는 50 bps입니다. 비트당 칩 수는 1,023,000 ÷ 50 = 20,460이므로 처리이득은 20,460, 곧 약 43.1 dB입니다. 반면 IEEE 802.11의 1 Mbps DSSS 방식은 11칩 바커(Barker) 코드를 11 Mcps로 쓰므로 처리이득이 11, 곧 약 10.4 dB입니다. 같은 “직접시퀀스”여도 확산의 정도가 크게 다를 수 있다는 점을 보여 줍니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>확산하면 신호가 더 세진다.</td><td>총 전력은 같고 넓은 대역에 퍼져 전력밀도가 낮아집니다. 이득은 간섭과 다중접속에 대한 것입니다.</td></tr><tr><td>처리이득이 크면 열잡음도 그만큼 줄어든다.</td><td>백색 잡음 환경에서 비트당 에너지 대 잡음 비(E<sub>b</sub>/N<sub>0</sub>)에 따른 성능은 확산하지 않은 경우와 같습니다. 처리이득은 코드와 상관이 없는 간섭을 억제하는 이득입니다.</td></tr><tr><td>확산 코드를 쓰면 통신이 암호화된다.</td><td>확산 코드는 보안용 암호가 아닙니다. GPS C/A 코드처럼 공개된 코드는 누구나 역확산할 수 있습니다.</td></tr><tr><td>주파수도약 방식과 같은 것이다.</td><td>주파수도약은 반송파 주파수를 바꿔 가며 보내는 방식이고, 직접시퀀스는 코드를 곱해 순간적으로 넓은 대역을 쓰는 방식입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "확산스펙트럼에는 두 가지 대표 방식이 있어 자주 혼동됩니다.",
+    "headers": [
+      "방식",
+      "확산하는 방법",
+      "동기에서 필요한 것"
+    ],
+    "rows": [
+      [
+        "[[direct-sequence-spread-spectrum|직접시퀀스(DSSS)]]",
+        "데이터에 빠른 코드(칩)를 곱해 순간적으로 넓은 대역을 점유",
+        "코드 위상(칩 단위 타이밍)"
+      ],
+      [
+        "[[frequency-hopping-spread-spectrum|주파수도약(FHSS)]]",
+        "정해진 패턴에 따라 반송파 주파수를 계속 바꿈",
+        "도약 패턴과 도약 시점"
+      ]
+    ],
+    "note": "둘 다 [[spread-spectrum-communication|확산스펙트럼 통신]]의 구현 방식입니다."
+  },
+  "references": [
+    "Gold, R. (1967). Optimal binary sequences for spread spectrum multiplexing. IEEE Transactions on Information Theory, 13(4), 619–621.",
+    "Pickholtz, R. L., Schilling, D. L., & Milstein, L. B. (1982). Theory of spread-spectrum communications—a tutorial. IEEE Transactions on Communications, 30(5), 855–884.",
+    "Proakis, J. G., & Salehi, M. (2008). Digital Communications (5th ed.). McGraw-Hill.",
+    "Kaplan, E. D., & Hegarty, C. J. (Eds.). (2006). Understanding GPS: Principles and Applications (2nd ed.). Artech House."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "fixes": [
+    {
+      "find": "앞면이 나오면 사실대로, 뒷면이 나오면 무조건 \"예\"라고 답하게 하는 설문 기법을",
+      "replace": "앞면이 나오면 사실대로 답하고, 뒷면이 나오면 동전을 한 번 더 던져 앞면이면 \"예\", 뒷면이면 \"아니오\"라고 답하게 하는 설문 기법을"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>정의(ε-차분 프라이버시)</strong>: 한 사람의 기록만 다른 두 데이터셋 D와 D′에 대해, 무작위 알고리즘 M의 출력이 어떤 집합 S에 속할 확률이 Pr[M(D)∈S] ≤ e<sup>ε</sup>·Pr[M(D′)∈S]를 만족하면 ε-차분 프라이버시입니다(Dwork, McSherry, Nissim, &amp; Smith, 2006). ε이 작을수록 한 사람의 유무가 결과에 주는 영향이 작아 보호가 강합니다.</li><li>확률이 벗어날 여지를 δ로 허용한 (ε, δ) 형태도 널리 쓰입니다.</li><li><strong>민감도와 라플라스 메커니즘</strong>: 질의 f의 민감도 Δf는 한 사람이 바뀔 때 결과가 최대 얼마나 변하는가입니다. 결과에 척도 Δf/ε의 라플라스 잡음을 더하면 ε-차분 프라이버시를 얻습니다.</li><li><strong>합성</strong>: 같은 데이터에 여러 번 질의하면 ε이 누적됩니다. 총 허용량을 “프라이버시 예산”으로 관리합니다. 또 DP로 만든 결과를 가공해도 보장이 유지됩니다(후처리 불변성).</li><li><strong>모델</strong>: 서버가 잡음을 더하는 중앙형, 개인이 먼저 잡음을 더해 보내는 지역형이 있고 후자는 서버를 믿지 않아도 되는 대신 정확도 손실이 큽니다. 딥러닝에서는 기울기를 자르고 잡음을 더하는 방법이 쓰입니다(Abadi 등, 2016). 이 개념의 이론적 정리는 Dwork와 Roth(2014)에 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>예 1: 개수 질의의 오차(계산 코드로 확인)</strong>: “조건에 맞는 사람 수”는 한 사람이 바뀌면 최대 1 변하므로 Δf = 1입니다. 라플라스 척도 b = 1/ε이고, 95% 확률로 잡음의 크기는 b·ln 20 이하입니다.</p><table><thead><tr><th>ε</th><th>척도 b</th><th>95% 오차 폭</th></tr></thead><tbody><tr><td>0.1</td><td>10</td><td>±30.0</td></tr><tr><td>0.5</td><td>2</td><td>±6.0</td></tr><tr><td>1</td><td>1</td><td>±3.0</td></tr><tr><td>2</td><td>0.5</td><td>±1.5</td></tr></tbody></table><p>ε이 작을수록 보호가 강해지는 만큼 오차가 커집니다.</p><p><strong>예 2: 무작위응답과 ε</strong>: 동전을 던져 앞면이면 사실대로 답하고, 뒷면이면 동전을 한 번 더 던져 앞면이면 “예”, 뒷면이면 “아니오”로 답하는 설문(Warner, 1965의 무작위응답 계열)에서는 실제로 “예”인 사람이 “예”라고 답할 확률이 3/4, 실제 “아니오”인 사람이 “예”라고 답할 확률이 1/4입니다. 비율이 3이므로 ε = ln 3 ≈ 1.10입니다. 반면 뒷면이면 무조건 “예”라고 답하게 하면 “아니오” 응답은 사실이 확정되어 비율이 무한대가 되므로 유한한 ε을 갖는 차분 프라이버시가 아닙니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>차분 프라이버시는 데이터를 암호화하거나 익명화하는 기법이다.</td><td>데이터를 숨기는 것이 아니라 출력(통계·모델)에 계산된 잡음을 더해 한 사람의 영향을 제한하는 성질입니다.</td></tr><tr><td>ε이 얼마 이하면 안전하다는 표준이 있다.</td><td>범용 기준은 없습니다. ε뿐 아니라 δ, 질의 횟수(합성), 보호 단위(기록 또는 사용자)에 따라 의미가 달라서 모두 보고해야 합니다.</td></tr><tr><td>아무 잡음이나 더하면 차분 프라이버시다.</td><td>민감도에 맞춘 잡음 크기와 증명이 있어야 합니다. 임의의 잡음 추가는 보장이 없습니다.</td></tr><tr><td>적용하면 정확도 손실이 없다.</td><td>프라이버시와 정확도는 맞바꾸는 관계입니다. ε이 작을수록 잡음이 커집니다.</td></tr><tr><td>ε을 크게 잡아도 보호가 유지된다.</td><td>ε이 지나치게 크면 e<sup>ε</sup>이 커져 실질적인 보호가 사라질 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "개인정보를 보호하는 기법은 보호하는 대상과 방식이 다릅니다.",
+    "headers": [
+      "기법",
+      "어떻게 보호하나",
+      "보장의 성격"
+    ],
+    "rows": [
+      [
+        "[[differential-privacy|차분 프라이버시]]",
+        "출력에 잡음을 더해 한 사람의 영향을 제한",
+        "수학적으로 정의된 보장(ε으로 정량화)"
+      ],
+      [
+        "[[k-anonymity|k-익명성]]",
+        "공개 데이터에서 각 사람이 최소 k명과 같게 보이도록 변형",
+        "공개된 데이터 형태에 대한 기준(공격자 지식에 취약할 수 있음)"
+      ],
+      [
+        "[[public-key-cryptography|공개키 암호]]",
+        "데이터를 키로 암호화해 전송·저장 중 보호",
+        "기밀성 보호(통계 결과의 프라이버시와는 별개)"
+      ]
+    ]
+  },
+  "references": [
+    "Dwork, C., McSherry, F., Nissim, K., & Smith, A. (2006). Calibrating noise to sensitivity in private data analysis. In Theory of Cryptography Conference (Lecture Notes in Computer Science, Vol. 3876, pp. 265–284). Springer.",
+    "Dwork, C., & Roth, A. (2014). The algorithmic foundations of differential privacy. Foundations and Trends in Theoretical Computer Science, 9(3–4), 211–407.",
+    "Abadi, M., Chu, A., Goodfellow, I., McMahan, H. B., Mironov, I., Talwar, K., & Zhang, L. (2016). Deep learning with differential privacy. In Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security (pp. 308–318). ACM.",
+    "Warner, S. L. (1965). Randomized response: A survey technique for eliminating evasive answer bias. Journal of the American Statistical Association, 60(309), 63–69."
+  ]
+}

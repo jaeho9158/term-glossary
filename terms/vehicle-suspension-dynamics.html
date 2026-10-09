@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>승차감, 주행 안정성, 조향 응답성은 모두 현가장치의 동역학적 특성에 크게 좌우됩니다. 따라서 스프링 강성과 댐퍼 감쇠력을 어떻게 설계하느냐가 자동차의 성능과 안전성을 결정짓는 핵심 요소가 되며, 자동차공학 논문에서 자주 다뤄지는 주제입니다. 현가장치 설계는 승차감과 조종안정성뿐 아니라 타이어 접지력 유지에도 직접 영향을 미쳐, 차량의 제동거리와 선회 성능을 좌우하는 핵심 요소로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>가장 단순한 모형은 <strong>1/4차량 모델</strong>입니다. 차체의 4분의 1 질량(스프링 위 질량 m<sub>s</sub>), 바퀴·차축 질량(스프링 아래 질량 m<sub>u</sub>), 현가 스프링 k<sub>s</sub>, 댐퍼 c<sub>s</sub>, 타이어 강성 k<sub>t</sub>로 이루어진 2자유도계입니다(Gillespie, 1992).</li><li>이 모형에는 고유진동이 둘 있습니다. 차체 쪽 약 1~1.5 Hz(승차감과 관련), 바퀴 쪽 약 10~15 Hz(휠 홉, 접지와 관련)가 승용차의 전형적 범위로 알려져 있습니다.</li><li>감쇠 정도는 감쇠비 ζ = c<sub>s</sub>/(2·√(k<sub>s</sub>·m<sub>s</sub>))로 나타냅니다.</li><li>평가 지표는 보통 세 가지입니다. 승차감(차체 가속도, 사람이 진동에 민감한 주파수대를 반영하는 가중치로 평가: ISO 2631-1), 현가 행정(작동 공간), 접지(타이어 하중 변동).</li><li>이 세 목표는 서로 상충합니다. 감쇠를 낮추면 충격 전달이 줄지만 롤·피치 응답이 커지고, 높이면 접지와 거동 제어는 좋아지지만 고주파 충격이 전달됩니다. 이를 완화하려고 감쇠력을 제어하는 반능동·능동 현가장치가 연구됩니다(Karnopp, Crosby, &amp; Harwood, 1974; Hrovat, 1997).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>예(가상의 값, 계산 코드로 확인)</strong>: m<sub>s</sub> = 300 kg, m<sub>u</sub> = 40 kg, k<sub>s</sub> = 20 kN/m, k<sub>t</sub> = 200 kN/m, c<sub>s</sub> = 1.5 kN·s/m로 두면 감쇠가 없는 2자유도계의 고유진동수는 약 1.24 Hz(차체)와 11.8 Hz(바퀴)입니다. 타이어 강성을 무시한 단순식 √(k<sub>s</sub>/m<sub>s</sub>)/2π은 1.30 Hz로, 타이어와 스프링이 직렬로 작용하는 효과를 넣으면 1.24 Hz로 내려갑니다. 감쇠비는 1500/(2·√(20000×300)) ≈ 0.31입니다.</p><p>스프링을 더 부드럽게 하면 차체 고유진동수는 낮아지지만 하중 변화에 따른 정적 처짐은 커집니다. 이 절충이 설계 과제입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>스프링이 부드러울수록 승차감도 조종 안정성도 좋아진다.</td><td>승차감은 좋아질 수 있으나 롤·피치 응답과 정적 처짐이 커지는 대가가 있습니다.</td></tr><tr><td>댐퍼는 스프링처럼 에너지를 저장한다.</td><td>댐퍼는 진동 에너지를 열로 소산시키는 요소입니다.</td></tr><tr><td>감쇠가 클수록 항상 좋다.</td><td>지나치면 고주파 노면 충격이 차체에 그대로 전달되어 승차감이 나빠집니다. 목표에 맞는 감쇠비가 있습니다.</td></tr><tr><td>1/4차량 모델로 차의 모든 거동을 볼 수 있다.</td><td>수직 운동만 다루며 롤, 피치, 좌우 연성은 반차량·전차량 모델이 필요합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"1/4차량 모델을 이용하여 노면 입력에 대한 차체 가속도와 타이어 접지력 변화를 분석하였다."</div>
   <p>이 문장은 단순화된 차량 모델로 노면 충격이 차체와 타이어에 미치는 영향을 분석했다는 뜻입니다.</p>
   <div class="example">"반능동 댐퍼의 감쇠력을 실시간으로 조절함으로써 승차감과 조종 안정성을 동시에 개선하였다."</div>
@@ -164,6 +182,18 @@
 
   <h2>주의할 점</h2>
   <p>단순화된 모델(예: 1/4차량 모델)로 얻은 결과는 실제 차량의 복잡한 거동을 완전히 반영하지 못할 수 있으므로, 해석 목적에 맞는 모델 수준을 선택하는 것이 중요합니다. 반능동·능동 현가장치는 두 목표를 동시에 개선할 수 있지만 센서와 액추에이터, 제어기 비용이 추가되는 트레이드오프가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Gillespie, T. D. (1992). Fundamentals of Vehicle Dynamics. Society of Automotive Engineers.</li>
+    <li>Rajamani, R. (2012). Vehicle Dynamics and Control (2nd ed.). Springer.</li>
+    <li>Karnopp, D. C., Crosby, M. J., &amp; Harwood, R. A. (1974). Vibration control using semi-active force generators. Journal of Engineering for Industry, 96(2), 619–626.</li>
+    <li>Hrovat, D. (1997). Survey of advanced suspension developments and related optimal control applications. Automatica, 33(10), 1781–1817.</li>
+    <li>International Organization for Standardization. (1997). ISO 2631-1: Mechanical vibration and shock — Evaluation of human exposure to whole-body vibration — Part 1: General requirements.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

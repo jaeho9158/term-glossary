@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rank-nullity-theorem.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>선형회귀의 계수 추정, 신경망 레이어의 정보 손실, 선형시스템의 해의 유무와 개수 등 다양한 문제가 결국 "어떤 선형변환이 정보를 얼마나 보존하고 얼마나 잃는가"로 환원됩니다. 차원 정리는 이 손실과 보존을 랭크와 nullity라는 두 정수로 정확히 나누어 설명해 주기 때문에, 통계학의 식별가능성 논의부터 공학의 시스템 이론, 컴퓨터과학의 차원 축소 기법에 이르기까지 다양한 분야의 이론 전개에서 기초 도구로 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>진술</strong>: 유한차원 벡터공간 V에서 정의된 선형변환 T: V → W에 대해 dim V = rank T + nullity T입니다. rank는 상(像)의 차원, nullity는 영공간(핵)의 차원입니다. m×n 행렬 A에서는 rank(A) + nullity(A) = n(열의 개수)입니다.</li><li><strong>아이디어</strong>: 영공간의 기저를 V 전체 기저로 확장하면, 확장에 쓴 벡터들의 상이 T의 상 공간의 기저가 됩니다. 그래서 “사라지는 차원 + 살아남는 차원 = 전체 차원”입니다(Axler, 2015).</li><li><strong>따름</strong>: T가 단사일 필요충분조건은 nullity가 0입니다. 정방행렬이면 단사와 전사가 서로 필요충분입니다. 동차 연립방정식 Ax = 0에서 자유변수의 개수는 n − rank(A)입니다(Strang, 2016).</li><li><a href="matrix-rank.html">랭크</a>와 <a href="null-space.html">영공간</a>을 따로 구하지 않고 하나만 알아도 나머지를 얻을 수 있다는 점이 쓸모입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>예(가상의 행렬, 계산 코드로 확인)</strong>: 3×4 행렬 A의 행들은 (1, 2, 0, 1), (2, 4, 1, 3), (3, 6, 1, 4)입니다. 가우스 소거로 기약 행 사다리꼴을 만들면 (1, 2, 0, 1), (0, 0, 1, 1), 영행이 되어 피벗이 1열과 3열에 있습니다. 그래서 rank(A) = 2이고 n = 4이므로 nullity(A) = 4 − 2 = 2입니다. 실제로 영공간의 기저 (−2, 1, 0, 0)과 (−1, 0, −1, 1)이 Ax = 0을 만족합니다. 세 번째 행이 첫째·둘째 행의 합이어서 독립인 행이 둘뿐이라는 점도 확인됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>rank + nullity는 행의 개수 m과 같다.</td><td>정의역의 차원, 곧 열의 개수 n과 같습니다. m은 공역의 차원입니다.</td></tr><tr><td>무한차원에서도 같은 식이 성립한다.</td><td>이 식은 정의역이 유한차원일 때의 결과입니다.</td></tr><tr><td>랭크가 같으면 영공간도 같다.</td><td>n이 같으면 nullity는 같지만 영공간이라는 집합 자체는 다릅니다.</td></tr><tr><td>nullity는 영공간에 있는 벡터의 개수다.</td><td>영공간은 보통 무한히 많은 벡터를 가지며 nullity는 그 차원(기저의 개수)입니다.</td></tr><tr><td>컴퓨터가 낸 랭크는 항상 이론값과 같다.</td><td>부동소수점 계산에서는 아주 작은 특이값을 0으로 보는 수치적 랭크를 쓰므로 이론값과 다를 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"차원 정리에 따라 설계 행렬의 랭크가 열의 개수와 같음을 확인하여 회귀계수 추정치가 유일함을 증명했다."</div>
   <p>이 문장은 "행렬의 살아남는 차원 수(랭크)가 변수의 개수와 정확히 일치하므로, 사라지는 차원(영공간)이 원점밖에 없어서 계수를 구하는 해가 하나로 정해진다"는 뜻입니다.</p>
   <div class="example">"차원 정리를 이용하여 관측 행렬의 nullity가 0보다 크면 시스템의 해가 유일하지 않음을 보이고, 추가 제약이 필요함을 논증하였다."</div>
@@ -166,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>차원 정리는 "행렬이 뭘 하는지" 몰라도 성립하는 항등식이라는 점이 중요합니다. 즉 계산으로 랭크만 알면 굳이 영공간을 직접 구하지 않아도 nullity = n - rank(A)로 바로 구할 수 있습니다. 이 관계는 <a href="matrix-rank.html">행렬의 랭크</a>가 왜 방정식의 해의 개수, 자유도, 모델의 식별가능성과 직결되는지를 설명하는 핵심 근거로 쓰입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷한 세 양을 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">어디에 속하나</th></tr></thead><tbody><tr><th scope="row"><a href="matrix-rank.html">랭크(rank)</a></th><td>상 공간(열공간)의 차원</td><td>공역 쪽</td></tr><tr><th scope="row"><a href="null-space.html">영공간</a> / nullity</th><td>Ax = 0의 해 집합 / 그 차원</td><td>정의역 쪽</td></tr><tr><th scope="row">차원 정리</th><td>rank + nullity = n(열의 수)</td><td>둘을 잇는 관계식</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Axler, S. (2015). Linear Algebra Done Right (3rd ed.). Springer.</li>
+    <li>Strang, G. (2016). Introduction to Linear Algebra (5th ed.). Wellesley-Cambridge Press.</li>
+    <li>Friedberg, S. H., Insel, A. J., &amp; Spence, L. E. (2003). Linear Algebra (4th ed.). Prentice Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>

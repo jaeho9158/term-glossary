@@ -1,0 +1,55 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>최소착화에너지(MIE)는 정해진 조건에서 가연성 가스·증기·분진 혼합기를 점화시킬 수 있는 <strong>최소의 방전(스파크) 에너지</strong>입니다. 단위는 보통 mJ입니다.</li><li>실험에서는 축전기에 저장한 에너지 E = ½·C·V²를 방전해서 그 에너지를 알고, 에너지를 바꿔 가며 점화 여부를 확인해 경계를 찾습니다. 분진은 표준 시험 장치와 방법(ASTM E2019, EN 13821 등)을 따릅니다.</li><li>가스의 대표값(문헌에 따라 조금씩 다름)은 수소 약 0.02 mJ, 메탄 약 0.3 mJ, 프로판 약 0.25 mJ 안팎으로 알려져 있으며(Lewis &amp; von Elbe, 1987), 분진은 대체로 이보다 훨씬 큰 mJ에서 수백 mJ 범위입니다(Eckhoff, 2003).</li><li>값은 조건에 크게 좌우됩니다. 농도(연소범위 안에서도 특정 농도 부근에서 최소), 분진의 입자 크기와 수분, 온도, 압력, 전극 간격, 방전의 지속 시간 등이 영향을 줍니다.</li></ul><p><strong>예(축전기 에너지, 계산 코드로 확인)</strong>: 정전용량이 200 pF인 물체가 전압 1 kV, 3 kV, 10 kV로 대전되었을 때 저장된 에너지는 ½CV²로 각각 0.1 mJ, 0.9 mJ, 10 mJ입니다. 사람 몸의 정전용량은 대략 수십~수백 pF으로 알려져 있어(Glor, 1988), 정전기 방전 에너지를 MIE와 비교하는 데 이런 계산을 씁니다. 방전 에너지가 MIE보다 작으면 점화 가능성이 낮고 크면 높아지지만, 방전이 실제로 혼합기에 에너지를 전달하는 효율은 따로 따져야 합니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>값이 작을수록</strong> 약한 방전에도 점화되기 쉬운 물질입니다. 위험 평가에서는 대전될 수 있는 에너지와 MIE를 비교합니다.</li><li><strong>고정값이 아닙니다</strong>. 같은 물질이라도 입자가 미세할수록, 수분이 적을수록 대체로 낮아지는 경향이 있어 시험 조건을 함께 읽어야 합니다.</li><li><strong>분진은 구간으로 보고</strong>합니다. 반복 시험에서 점화되지 않은 가장 높은 에너지와 점화된 가장 낮은 에너지 사이의 구간으로 나타내는 방식이 쓰입니다(예: “10 mJ &lt; MIE &lt; 30 mJ”).</li><li>다른 지표와 구분합니다. 점화원이 <em>얼마나 센 불꽃이어야 하는가</em>가 MIE, 접촉한 뜨거운 표면 온도에서 스스로 점화되는 한계가 [[ignition-point|발화점]], 어느 농도에서 연소가 퍼지는가가 [[explosion-limit-lel-uel|폭발한계]]입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>시험 규격(ASTM E2019, EN 13821 등)과 장치 종류를 적습니다.</li><li>시료 조건을 적습니다: 분진은 입도 분포(예: 중앙값)와 수분 함량, 가스는 성분과 농도 범위, 온도와 압력.</li><li>방전 회로 조건(정전용량, 인덕턴스 유무, 전극 간격)을 밝힙니다. 인덕턴스를 넣으면 방전 특성이 달라져 값이 달라집니다.</li><li>분진은 농도 범위를 훑어 가장 낮은 값을 찾았는지, 결과를 구간으로 보고하는지 밝힙니다.</li><li>안전 설계에 인용할 때는 시험 조건이 실제 취급 조건과 어떻게 다른지 한계로 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "연소·폭발 위험을 말하는 지표들은 묻는 질문이 다릅니다.",
+    "headers": [
+      "지표",
+      "묻는 질문",
+      "단위"
+    ],
+    "rows": [
+      [
+        "[[minimum-ignition-energy|최소착화에너지]]",
+        "불꽃·방전이 얼마나 센 에너지여야 점화되는가",
+        "mJ"
+      ],
+      [
+        "[[ignition-point|발화점]]",
+        "뜨거운 표면·온도에서 스스로 점화되는 한계는 어디인가",
+        "℃"
+      ],
+      [
+        "[[explosion-limit-lel-uel|폭발한계(연소범위)]]",
+        "어느 농도 범위에서 연소가 전파되는가",
+        "vol%(가스)"
+      ],
+      [
+        "[[laminar-burning-velocity|층류연소속도]]",
+        "불꽃이 미연소 혼합기 속으로 얼마나 빨리 전파되는가",
+        "cm/s 또는 m/s"
+      ]
+    ]
+  },
+  "references": [
+    "Lewis, B., & von Elbe, G. (1987). Combustion, Flames and Explosions of Gases (3rd ed.). Academic Press.",
+    "Eckhoff, R. K. (2003). Dust Explosions in the Process Industries (3rd ed.). Gulf Professional Publishing.",
+    "Glor, M. (1988). Electrostatic Hazards in Powder Handling. Research Studies Press.",
+    "Calcote, H. F., Gregory, C. A., Barnett, C. M., & Gilmer, R. B. (1952). Spark ignition: Effect of molecular structure. Industrial & Engineering Chemistry, 44(11), 2656–2662.",
+    "ASTM International. (2003). ASTM E2019-03: Standard Test Method for Minimum Ignition Energy of a Dust Cloud in Air."
+  ]
+}

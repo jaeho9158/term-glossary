@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>전력전자 분야에서는 소자의 스위칭 속도와 전도 손실이 시스템 전체의 효율과 크기를 좌우하기 때문에 GaN HEMT는 고효율 전원공급장치, 전기차 인버터, 무선전력전송 등의 연구에서 핵심 소자로 다뤄집니다. 실리콘 대비 우수한 임계 전계와 전자 이동도로 소형화·경량화를 가능하게 한다는 점이 여러 논문에서 강조됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>2차원 전자가스(2DEG)</strong>: AlGaN/GaN 이종접합 계면에서 자발 분극과 압전 분극의 차이 때문에 도핑 없이 전자가 모인 얇은 층이 생깁니다(Ambacher 등, 1999). 이 층이 채널이며, 전자 이동도가 높고 면 전자농도는 대략 10<sup>13</sup> cm<sup>−2</sup> 수준으로 알려져 있습니다.</li><li>이런 이종접합 트랜지스터는 1990년대 초에 처음 보고되었고(Khan 등, 1993), 고주파·고출력 소자로 발전한 개요는 Mishra 등(2002)에 정리되어 있습니다.</li><li><strong>재료 이점</strong>: GaN은 밴드갭이 약 3.4 eV(실리콘 약 1.12 eV)로 커서 임계 전계가 실리콘의 약 10배(대략 3 MV/cm 대 0.3 MV/cm)입니다. 같은 내압을 더 얇고 짧은 드리프트 영역으로 확보할 수 있습니다.</li><li><strong>구조</strong>: 전류가 표면과 나란히 흐르는 수평형이 일반적이고, 실리콘 기판 위에 성장하는 GaN-on-Si 소자가 널리 쓰입니다. 게이트에 전압이 없어도 켜진 채인 노멀리온이 기본이므로, 노멀리오프로 만들려고 p형 GaN 게이트나 실리콘 MOSFET과의 캐스코드 결합이 쓰입니다.</li><li><strong>신뢰성 쟁점</strong>: 스위칭 뒤 온저항이 일시적으로 커지는 동적 온저항(전류 붕괴)이 주요 연구 주제입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>예(교재 수준의 근삿값, 계산 코드로 확인)</strong>: 내압 V<sub>B</sub>를 견디는 드리프트 영역의 이상적인 비저항 한계는 R<sub>on,sp</sub> = 4V<sub>B</sub>²/(ε·μ·E<sub>c</sub><sup>3</sup>)입니다(Baliga, 1989의 성능지수와 같은 형태). 650 V일 때 아래 입력값으로 계산하면 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>소재</th><th>비유전율</th><th>이동도(cm²/V·s)</th><th>임계 전계(MV/cm)</th><th>이상 한계 R<sub>on,sp</sub></th></tr></thead><tbody><tr><td>실리콘</td><td>11.7</td><td>1,350</td><td>0.3</td><td>약 45 mΩ·cm²</td></tr><tr><td>4H-SiC</td><td>9.7</td><td>950</td><td>2.5</td><td>약 0.13 mΩ·cm²</td></tr><tr><td>GaN</td><td>9.0</td><td>2,000</td><td>3.3</td><td>약 0.03 mΩ·cm²</td></tr></tbody></table></div><p>실리콘 대비 SiC는 약 340분의 1, GaN은 약 1,500분의 1입니다. 다만 입력값(특히 이동도와 임계 전계)은 문헌에 따라 다르고 실제 소자는 접촉·채널·패키지 저항까지 더해지므로, 이 숫자는 자릿수 비교용입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>GaN HEMT가 모든 응용에서 실리콘 소자를 대체한다.</td><td>고주파·고전압 등 강점이 있는 영역에서 쓰이며, 열 방출과 구동 회로 설계도 실리콘과 달라 별도의 고려가 필요합니다.</td></tr><tr><td>2DEG는 불순물을 넣어 만든 층이다.</td><td>AlGaN/GaN 계면의 분극 효과로 도핑 없이 생깁니다.</td></tr><tr><td>노멀리온 소자라서 전력용으로 쓸 수 없다.</td><td>p형 게이트나 캐스코드 같은 방식으로 노멀리오프 동작을 얻는 구조가 연구·상용화되어 있습니다.</td></tr><tr><td>전자 이동도가 높으면 내압도 높다.</td><td>내압은 주로 임계 전계(밴드갭)와 드리프트 영역 설계에 좌우되고, 이동도는 저항을 낮추는 쪽에 기여합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제작된 GaN HEMT는 650V 내압에서 낮은 온저항 특성을 보였으며 하드 스위칭 조건에서도 안정적으로 동작하였다."</div>
   <p>고내압 조건에서 소자의 전기적 특성과 스위칭 안정성을 평가한 결과를 서술하는 문장입니다.</p>
   <div class="example">"본 논문에서는 GaN HEMT 기반 인버터의 동적 온저항 열화 현상을 분석하였다."</div>
@@ -166,6 +184,21 @@
 
   <h2>주의할 점</h2>
   <p>GaN HEMT는 실리콘 소자를 모든 응용에서 대체하는 것이 아니라 고주파·고전압 응용에서 강점을 보이는 소자이며, 열 방출 설계와 구동 회로 설계가 실리콘 소자와 달라 시스템 설계 시 별도의 고려가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>전력 반도체 소재별 특성을 근삿값으로 비교한 표입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">소재</th><th scope="col">밴드갭(eV)</th><th scope="col">임계 전계(MV/cm)</th><th scope="col">대표 소자 구조</th></tr></thead><tbody><tr><th scope="row">실리콘(Si)</th><td>약 1.12</td><td>약 0.3</td><td>수직형 MOSFET·IGBT</td></tr><tr><th scope="row">4H 탄화규소(SiC)</th><td>약 3.26</td><td>약 2.5</td><td>수직형 MOSFET</td></tr><tr><th scope="row"><strong>질화갈륨(GaN) HEMT</strong></th><td>약 3.4</td><td>약 3.3</td><td>수평형 HEMT(2DEG 채널)</td></tr></tbody></table></div>
+  <p class="te-note">상위 개념은 <a href="high-electron-mobility-transistor.html">고전자이동도 트랜지스터</a>입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Khan, M. A., Bhattarai, A., Kuznia, J. N., &amp; Olson, D. T. (1993). High electron mobility transistor based on a GaN-AlxGa1-xN heterojunction. Applied Physics Letters, 63(9), 1214–1215.</li>
+    <li>Ambacher, O., Smart, J., Shealy, J. R., Weimann, N. G., Chu, K., Murphy, M., Schaff, W. J., Eastman, L. F., Dimitrov, R., Wittmer, L., Stutzmann, M., Rieger, W., &amp; Hilsenbeck, J. (1999). Two-dimensional electron gases induced by spontaneous and piezoelectric polarization charges in N- and Ga-face AlGaN/GaN heterostructures. Journal of Applied Physics, 85(6), 3222–3233.</li>
+    <li>Mishra, U. K., Parikh, P., &amp; Wu, Y.-F. (2002). AlGaN/GaN HEMTs—an overview of device operation and applications. Proceedings of the IEEE, 90(6), 1022–1031.</li>
+    <li>Baliga, B. J. (1989). Power semiconductor device figure of merit for high-frequency applications. IEEE Electron Device Letters, 10(10), 455–457.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="high-electron-mobility-transistor.html">고전자이동도 트랜지스터</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
