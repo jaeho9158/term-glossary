@@ -1,0 +1,51 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li>기준생산계획(MPS) 초안에서 기간별 제품별 생산량을 가져옵니다.</li><li>병목이거나 핵심인 자원만 골라, 제품 한 단위가 그 자원을 몇 시간 쓰는지 정리한 <strong>자원소요 프로파일</strong>을 만듭니다.</li><li>기간별 소요능력 = Σ(제품별 생산량 × 단위당 자원 사용시간)을 구하고 가용능력과 견줍니다.</li><li>초과하면 MPS를 조정(생산 이월·초과근무·외주 등)하고, 맞으면 MPS를 확정해 [[material-requirements-planning|자재소요계획]]과 [[capacity-requirements-planning|능력소요계획]] 단계로 넘깁니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>자재 전개 없이 계산하므로 빠르고, MPS가 현실적으로 가능한지 초기에 걸러냅니다. 다음은 (가상의 예) 두 제품 A, B와 두 자원(프레스, 용접)입니다.</p><p>단위당 사용시간: A는 프레스 0.5h·용접 0.2h, B는 프레스 0.3h·용접 0.6h. 주당 가용능력: 프레스 80h, 용접 85h. MPS 초안(A, B 생산량): 1주 100·80, 2주 120·60, 3주 90·130.</p><table><thead><tr><th scope=\"col\">주</th><th scope=\"col\">프레스 소요</th><th scope=\"col\">용접 소요</th></tr></thead><tbody><tr><td>1주</td><td>74 h (여유)</td><td>68 h (여유)</td></tr><tr><td>2주</td><td>78 h (여유)</td><td>60 h (여유)</td></tr><tr><td>3주</td><td>84 h (초과)</td><td>96 h (초과)</td></tr></tbody></table><p>1·2주는 두 자원 모두 가용능력 이내이고, 3주는 가용능력을 넘어 MPS 조정이 필요합니다. 이 판정은 핵심 자원만 본 결과이므로, 세부 작업장 부하는 이후 능력소요계획에서 따로 확인합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>대상 자원을 어떤 기준(병목, 가동률)으로 골랐는지 밝힙니다. 선정 기준이 개략능력계획의 정확도를 좌우합니다.</li><li>프로파일의 단위당 사용시간을 어디서 얻었는지(표준시간, 실측) 적습니다.</li><li>가용능력 산정 시 가동률·효율을 어떻게 반영했는지 적습니다.</li><li>RCCP가 통과한 뒤 CRP에서 새로 과부하가 드러났는지 함께 보고하면 방법의 한계를 보여 줄 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "시점",
+      "무엇을 보나"
+    ],
+    "rows": [
+      [
+        "개략능력계획(RCCP)",
+        "MPS 확정 전",
+        "핵심·병목 자원의 대략적 소요/가용 비교"
+      ],
+      [
+        "[[capacity-requirements-planning|능력소요계획(CRP)]]",
+        "MRP 이후",
+        "작업장별·기간별 세부 부하와 계획 주문의 시간 반영"
+      ],
+      [
+        "[[master-production-schedule|기준생산계획(MPS)]]",
+        "—",
+        "RCCP가 검증하는 대상. 제품별·기간별 생산 계획"
+      ],
+      [
+        "[[material-requirements-planning|자재소요계획(MRP)]]",
+        "MPS 확정 후",
+        "자재 소요량과 발주 시점 계산"
+      ]
+    ]
+  },
+  "references": [
+    "Orlicky, J. (1975). Material Requirements Planning. McGraw-Hill.",
+    "Vollmann, T. E., Berry, W. L., Whybark, D. C., & Jacobs, F. R. (2005). Manufacturing Planning and Control for Supply Chain Management. McGraw-Hill."
+  ]
+}

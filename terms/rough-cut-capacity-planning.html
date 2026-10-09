@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rough-cut-capacity-planning.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>개략능력계획(RCCP)은 주생산일정계획이 실제 생산 설비와 인력의 능력 범위 안에서 실행 가능한지를 개략적으로 검증하는 절차로, 상세한 자재소요계획(MRP)을 수립하기 전 단계에서 핵심 병목 자원의 과부하 여부를 사전에 점검하는 데 활용된다. 정교한 세부 계산보다 신속한 타당성 검토에 초점을 둔다는 것이 특징으로 언급된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>기준생산계획(MPS) 초안에서 기간별 제품별 생산량을 가져옵니다.</li><li>병목이거나 핵심인 자원만 골라, 제품 한 단위가 그 자원을 몇 시간 쓰는지 정리한 <strong>자원소요 프로파일</strong>을 만듭니다.</li><li>기간별 소요능력 = Σ(제품별 생산량 × 단위당 자원 사용시간)을 구하고 가용능력과 견줍니다.</li><li>초과하면 MPS를 조정(생산 이월·초과근무·외주 등)하고, 맞으면 MPS를 확정해 <a href="material-requirements-planning.html">자재소요계획</a>과 <a href="capacity-requirements-planning.html">능력소요계획</a> 단계로 넘깁니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>자재 전개 없이 계산하므로 빠르고, MPS가 현실적으로 가능한지 초기에 걸러냅니다. 다음은 (가상의 예) 두 제품 A, B와 두 자원(프레스, 용접)입니다.</p><p>단위당 사용시간: A는 프레스 0.5h·용접 0.2h, B는 프레스 0.3h·용접 0.6h. 주당 가용능력: 프레스 80h, 용접 85h. MPS 초안(A, B 생산량): 1주 100·80, 2주 120·60, 3주 90·130.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">주</th><th scope="col">프레스 소요</th><th scope="col">용접 소요</th></tr></thead><tbody><tr><td>1주</td><td>74 h (여유)</td><td>68 h (여유)</td></tr><tr><td>2주</td><td>78 h (여유)</td><td>60 h (여유)</td></tr><tr><td>3주</td><td>84 h (초과)</td><td>96 h (초과)</td></tr></tbody></table></div><p>1·2주는 두 자원 모두 가용능력 이내이고, 3주는 가용능력을 넘어 MPS 조정이 필요합니다. 이 판정은 핵심 자원만 본 결과이므로, 세부 작업장 부하는 이후 능력소요계획에서 따로 확인합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>대상 자원을 어떤 기준(병목, 가동률)으로 골랐는지 밝힙니다. 선정 기준이 개략능력계획의 정확도를 좌우합니다.</li><li>프로파일의 단위당 사용시간을 어디서 얻었는지(표준시간, 실측) 적습니다.</li><li>가용능력 산정 시 가동률·효율을 어떻게 반영했는지 적습니다.</li><li>RCCP가 통과한 뒤 CRP에서 새로 과부하가 드러났는지 함께 보고하면 방법의 한계를 보여 줄 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">RCCP는 자원소요프로파일(resource profile)을 이용해 전체 자재전개 없이 핵심 자원만으로 능력 타당성을 신속히 검증한다.</div>
   <p>MPS 초안이 병목설비의 가용시간을 초과하면 MPS를 조정한 뒤 정식 CRP와 MRP 전개로 넘어가는 순서를 따른다.</p>
   <div class="example">"본 연구는 개략능력계획 단계에서 병목 설비로 식별되지 않았던 자원이 실제 CRP 단계에서 과부하로 드러난 사례를 분석해 RCCP의 자원 선정 기준을 재검토하였다."</div>
@@ -162,6 +180,17 @@
 
   <h2>주의할 점</h2>
   <p>RCCP는 핵심 자원만 검토하는 개략적 점검이므로 세부 작업장 부하까지는 파악하지 못해 별도의 CRP 검증이 필요하다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">시점</th><th scope="col">무엇을 보나</th></tr></thead><tbody><tr><th scope="row">개략능력계획(RCCP)</th><td>MPS 확정 전</td><td>핵심·병목 자원의 대략적 소요/가용 비교</td></tr><tr><th scope="row"><a href="capacity-requirements-planning.html">능력소요계획(CRP)</a></th><td>MRP 이후</td><td>작업장별·기간별 세부 부하와 계획 주문의 시간 반영</td></tr><tr><th scope="row"><a href="master-production-schedule.html">기준생산계획(MPS)</a></th><td>—</td><td>RCCP가 검증하는 대상. 제품별·기간별 생산 계획</td></tr><tr><th scope="row"><a href="material-requirements-planning.html">자재소요계획(MRP)</a></th><td>MPS 확정 후</td><td>자재 소요량과 발주 시점 계산</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Orlicky, J. (1975). Material Requirements Planning. McGraw-Hill.</li>
+    <li>Vollmann, T. E., Berry, W. L., Whybark, D. C., &amp; Jacobs, F. R. (2005). Manufacturing Planning and Control for Supply Chain Management. McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="capacity-planning.html">생산능력계획</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="capacity-requirements-planning.html">능력소요계획</a></div></div><p class="concept-family-map"><a href="../concept-map/biz.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
