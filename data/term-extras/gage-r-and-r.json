@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>대상 고르기</strong>: 공정에서 실제로 나오는 범위를 덮도록 부품(대상) 10개 안팎을 고릅니다. 모두 비슷한 부품만 고르면 부품 간 변동이 작아 측정 시스템이 나빠 보입니다.</li><li><strong>측정 계획</strong>: 측정자 2~3명이 각 부품을 2~3회씩 측정합니다. 순서는 무작위로 섞고, 측정자가 이전 값을 볼 수 없게 합니다.</li><li><strong>분산분석(ANOVA)</strong>: 부품, 측정자, 부품×측정자 상호작용, 오차(반복)로 변동을 나눕니다. 상호작용이 유의하지 않으면 상호작용을 오차에 합쳐 다시 계산하는 방법이 많이 쓰입니다.</li><li><strong>분산 성분 계산</strong>: 반복성(같은 측정자·같은 부품의 반복 차이), 재현성(측정자 간 차이), 둘을 합친 R&amp;R, 그리고 부품 간 변동을 구하고 전체 변동에 대한 비율을 냅니다.</li></ol><p>가상의 자료(부품 10개 × 측정자 3명 × 반복 2회 = 60번 측정)를 분산분석한 결과입니다. 부품×측정자 상호작용은 유의하지 않아(p = .77) 오차에 합쳤습니다.</p><table><thead><tr><th>변동 원천</th><th>표준편차</th><th>총변동 대비(%)</th></tr></thead><tbody><tr><td>반복성(장비)</td><td>0.27</td><td>21.4</td></tr><tr><td>재현성(측정자)</td><td>0.16</td><td>12.6</td></tr><tr><td>총 게이지 R&amp;R</td><td>0.31</td><td>24.8</td></tr><tr><td>부품 간</td><td>1.22</td><td>96.9</td></tr><tr><td>총변동</td><td>1.26</td><td>100</td></tr></tbody></table><p>표준편차 기준 비율은 더해서 100이 되지 않습니다(분산 기준으로는 더해집니다). 분산 기준 기여율은 R&amp;R 6.1%, 부품 93.9%입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>쓰는 경우</strong>: 제조 공정에서 공정 능력 분석이나 관리도를 만들기 전에, 측정값의 흔들림이 부품의 진짜 차이에서 온 것인지 측정 시스템에서 온 것인지 가릴 때. 임상 검사나 계측 도구의 신뢰도 점검에도 같은 논리가 쓰입니다.</li><li><strong>해석 기준(관례)</strong>: 자동차 산업 표준인 AIAG의 MSA 매뉴얼은 총변동 대비 %R&amp;R이 10% 미만이면 양호, 10~30%이면 용도와 비용에 따라 조건부 허용, 30%를 넘으면 개선이 필요하다고 안내합니다. 이 값은 법칙이 아니라 산업계의 관행입니다.</li><li><strong>구별 가능 범주 수(ndc)</strong>: 1.41 × (부품 간 SD ÷ R&amp;R SD)를 정수로 내립니다. 위 예는 1.41 × (1.22 ÷ 0.31) = 5.5로 5입니다. AIAG는 5 이상을 권고합니다.</li><li>위 예는 %R&amp;R 24.8%라 “조건부 허용” 구간이고, ndc는 5라 기준선에 걸립니다. 허용할지는 공정의 위험과 개선 비용으로 판단합니다.</li><li>Gage R&amp;R이 보여 주는 것은 <strong>정밀도(반복성·재현성)</strong>입니다. 참값에서 벗어난 정도(편향)는 [[instrument-calibration|기기 교정]]으로 따로 점검합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>부품 수, 측정자 수, 반복 수, 측정 순서(무작위화), 측정 장비와 해상도</li><li>사용한 방법(분산분석, 평균범위법)과 상호작용의 처리 방식</li><li>반복성, 재현성, 총 R&amp;R, 부품 간 변동의 표준편차와 총변동(또는 공차) 대비 %, ndc</li><li>판단 기준의 출처(예: AIAG MSA 4판)와 그에 따른 판정</li></ul><p>보고 문장의 예(가상): “부품 10개를 측정자 3명이 각 2회 측정하여 분산분석법으로 평가한 결과, 총 게이지 R&amp;R은 총변동의 24.8%였고 구별 가능 범주 수는 5였다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "측정의 질을 따지는 말은 여러 개이며 서로 다른 것을 봅니다.",
+    "headers": [
+      "용어",
+      "보는 것",
+      "대상 자료"
+    ],
+    "rows": [
+      [
+        "[[gage-r-and-r|게이지 R&R]]",
+        "반복성과 재현성(측정 변동 크기)",
+        "연속형 측정값"
+      ],
+      [
+        "[[cohen-kappa|코헨의 카파]]",
+        "범주형 판정에서 평가자 간 일치도",
+        "범주형 판정"
+      ],
+      [
+        "[[instrument-calibration|기기 교정]]",
+        "표준에 대한 편향(참값과의 차이)",
+        "기준 물질·표준"
+      ],
+      [
+        "[[measurement-uncertainty|측정 불확도]]",
+        "측정 결과에 붙는 신뢰할 수 있는 범위",
+        "측정 결과 전체"
+      ]
+    ]
+  },
+  "references": [
+    "Automotive Industry Action Group. (2010). Measurement Systems Analysis Reference Manual (4th ed.). AIAG.",
+    "Burdick, R. K., Borror, C. M., & Montgomery, D. C. (2003). A review of methods for measurement systems capability analysis. Journal of Quality Technology, 35(4), 342–354.",
+    "Montgomery, D. C. (2019). Introduction to Statistical Quality Control (8th ed.). Wiley."
+  ]
+}
