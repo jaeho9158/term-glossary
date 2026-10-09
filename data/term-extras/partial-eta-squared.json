@@ -1,0 +1,58 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><code>ηp² = SS<sub>효과</sub> / (SS<sub>효과</sub> + SS<sub>오차</sub>)</code></p><ul><li><strong>범위</strong>: 0~1. 클수록 해당 효과가 (그 효과와 오차만 놓고 볼 때) 더 큰 비율을 설명합니다.</li><li>F와 자유도만 있으면 <code>ηp² = F·df<sub>1</sub> / (F·df<sub>1</sub> + df<sub>2</sub>)</code>로 되돌려 계산할 수 있어, 논문에 F, df만 적혀 있을 때도 구할 수 있습니다.</li><li>일원 분산분석에서는 다른 효과가 없어서 [[eta-squared|에타제곱]]과 같은 값이 됩니다.</li></ul><p><strong>작은 예 1(F에서 되돌리기).</strong> F(1, 58) = 7.32이면 ηp² = 7.32×1 / (7.32×1 + 58) = 0.112, 즉 약 0.11입니다.</p><p><strong>작은 예 2(가상의 2요인 설계, 코드로 계산).</strong> 요인 A, B와 상호작용 A×B의 제곱합이 각각 40, 20, 10이고 오차 제곱합이 130이라고 하면(전체 200) 다음과 같습니다.</p><table><thead><tr><th>효과</th><th>SS</th><th>에타제곱 SS/SS<sub>전체</sub></th><th>부분 에타제곱 SS/(SS+SS<sub>오차</sub>)</th></tr></thead><tbody><tr><td>A</td><td>40</td><td>0.200</td><td>0.235</td></tr><tr><td>B</td><td>20</td><td>0.100</td><td>0.133</td></tr><tr><td>AxB</td><td>10</td><td>0.050</td><td>0.071</td></tr></tbody></table><p>같은 SS<sub>A</sub> = 40이지만 부분 에타제곱(0.235)이 에타제곱(0.200)보다 큽니다. 분모에서 다른 효과의 제곱합이 빠지기 때문입니다. 또 이 설계에서 B를 빼 버리면 B와 A×B의 변동이 오차로 들어가(오차 제곱합 160) A의 부분 에타제곱이 40/200 = 0.200으로 달라집니다. 같은 효과도 설계에 어떤 요인이 들어 있느냐에 따라 값이 바뀐다는 뜻입니다.</p><p>한 가지 극단 예로, 두 효과의 SS가 각각 6이고 오차가 4라면 각각의 ηp²는 6/(6+4) = .60이고 합은 1.2입니다. 부분 에타제곱은 효과들의 합이 1을 넘을 수 있습니다(에타제곱은 합이 1을 넘지 않음).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>흔히 인용되는 기준은 .01(작음), .06(중간), .14(큼) 정도입니다. 이는 Cohen(1988)이 효과크기 f에 대해 제시한 소·중·대 기준(f = .10, .25, .40)을 η²로 옮긴 값으로, 부분 에타제곱에 그대로 쓰는 것은 근사적 관행입니다. Cohen 자신도 이 기준이 마땅한 비교 대상이 없을 때의 임시 방편임을 밝혔고, 분야의 선행 연구에 비추어 해석하는 편이 낫습니다.</li><li>표본에서 계산한 ηp²는 모집단 값보다 크게 나오는 경향(양의 편향)이 있어, 특히 표본이 작을 때는 [[omega-squared|오메가제곱]] 같은 덜 편향된 추정량이 대안으로 제안되었습니다.</li><li>설계가 다른 연구의 ηp²를 직접 비교하면 위험합니다. 오차 항이 설계마다 다르기 때문입니다. 반복측정 설계에서는 일반화 에타제곱(Olejnik &amp; Algina, 2003; Bakeman, 2005)을 따로 권하는 문헌이 있습니다.</li><li>효과의 크기는 p값이나 표본 크기와 별개입니다. 표본이 크면 작은 ηp²도 유의할 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>“효과크기는 ηp²로 산출하였다”처럼 <strong>부분 에타제곱임을 밝힙니다.</strong> 에타제곱과 구분하지 않으면 독자가 잘못 해석합니다.</li><li>검정 결과와 함께 적습니다. 예: <code>F(1, 58) = 7.32, p = .009, ηp² = .11</code>. 0과 1 사이의 값이라 APA 형식에서는 선행 0을 생략하는 것이 보통입니다.</li><li>효과마다 따로 적고, 가능하면 신뢰구간을 함께 제시합니다(비중심 F 분포를 이용해 계산).</li><li>다른 연구와 비교할 때는 같은 지표(에타제곱, 부분, 일반화)인지 먼저 확인합니다. 소프트웨어마다 옵션 이름과 계산 방식이 다를 수 있으므로 매뉴얼을 확인하고 어느 값인지 적어 둡니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "headers": [
+      "용어",
+      "무엇인가",
+      "부분 에타제곱과의 차이"
+    ],
+    "rows": [
+      [
+        "[[eta-squared|에타제곱]]",
+        "한 효과의 SS를 전체 SS로 나눈 값",
+        "분모가 전체 SS여서 효과들의 합이 1을 넘지 않음"
+      ],
+      [
+        "부분 에타제곱",
+        "한 효과의 SS를 (그 효과 SS + 오차 SS)로 나눈 값",
+        "다른 효과를 분모에서 제외, 설계에 따라 값이 바뀜"
+      ],
+      [
+        "[[omega-squared|오메가제곱]]",
+        "모집단 설명 비율의 덜 편향된 추정량",
+        "표본 값의 과대 추정을 줄이려 만든 대안"
+      ],
+      [
+        "[[cohens-d|코헨의 d]]",
+        "두 집단 평균 차이를 표준편차 단위로 표현",
+        "분산 설명 비율이 아니라 평균 차이의 크기"
+      ],
+      [
+        "[[effect-size|효과크기]]",
+        "효과의 크기를 나타내는 지표들의 총칭",
+        "부분 에타제곱은 그 한 종류"
+      ]
+    ]
+  },
+  "references": [
+    "Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum Associates.",
+    "Richardson, J. T. E. (2011). Eta squared and partial eta squared as measures of effect size in educational research. Educational Research Review, 6(2), 135–147.",
+    "Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863.",
+    "Olejnik, S., & Algina, J. (2003). Generalized eta and omega squared statistics: Measures of effect size for some common research designs. Psychological Methods, 8(4), 434–447.",
+    "Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384."
+  ]
+}

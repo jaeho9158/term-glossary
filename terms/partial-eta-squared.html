@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/partial-eta-squared.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,27 @@
   <h2>왜 중요한가</h2>
   <p>p값만으로는 효과가 얼마나 큰지 알 수 없어서 분산분석에서도 효과크기를 함께 보고하는 것이 권장됩니다. 부분 에타제곱은 가장 많이 접하는 효과크기 중 하나이므로, 값의 의미와 한계를 알아야 논문 간 비교에서 잘못된 결론을 피할 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p><code>ηp² = SS<sub>효과</sub> / (SS<sub>효과</sub> + SS<sub>오차</sub>)</code></p><ul><li><strong>범위</strong>: 0~1. 클수록 해당 효과가 (그 효과와 오차만 놓고 볼 때) 더 큰 비율을 설명합니다.</li><li>F와 자유도만 있으면 <code>ηp² = F·df<sub>1</sub> / (F·df<sub>1</sub> + df<sub>2</sub>)</code>로 되돌려 계산할 수 있어, 논문에 F, df만 적혀 있을 때도 구할 수 있습니다.</li><li>일원 분산분석에서는 다른 효과가 없어서 <a href="eta-squared.html">에타제곱</a>과 같은 값이 됩니다.</li></ul><p><strong>작은 예 1(F에서 되돌리기).</strong> F(1, 58) = 7.32이면 ηp² = 7.32×1 / (7.32×1 + 58) = 0.112, 즉 약 0.11입니다.</p><p><strong>작은 예 2(가상의 2요인 설계, 코드로 계산).</strong> 요인 A, B와 상호작용 A×B의 제곱합이 각각 40, 20, 10이고 오차 제곱합이 130이라고 하면(전체 200) 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>효과</th><th>SS</th><th>에타제곱 SS/SS<sub>전체</sub></th><th>부분 에타제곱 SS/(SS+SS<sub>오차</sub>)</th></tr></thead><tbody><tr><td>A</td><td>40</td><td>0.200</td><td>0.235</td></tr><tr><td>B</td><td>20</td><td>0.100</td><td>0.133</td></tr><tr><td>AxB</td><td>10</td><td>0.050</td><td>0.071</td></tr></tbody></table></div><p>같은 SS<sub>A</sub> = 40이지만 부분 에타제곱(0.235)이 에타제곱(0.200)보다 큽니다. 분모에서 다른 효과의 제곱합이 빠지기 때문입니다. 또 이 설계에서 B를 빼 버리면 B와 A×B의 변동이 오차로 들어가(오차 제곱합 160) A의 부분 에타제곱이 40/200 = 0.200으로 달라집니다. 같은 효과도 설계에 어떤 요인이 들어 있느냐에 따라 값이 바뀐다는 뜻입니다.</p><p>한 가지 극단 예로, 두 효과의 SS가 각각 6이고 오차가 4라면 각각의 ηp²는 6/(6+4) = .60이고 합은 1.2입니다. 부분 에타제곱은 효과들의 합이 1을 넘을 수 있습니다(에타제곱은 합이 1을 넘지 않음).</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>흔히 인용되는 기준은 .01(작음), .06(중간), .14(큼) 정도입니다. 이는 Cohen(1988)이 효과크기 f에 대해 제시한 소·중·대 기준(f = .10, .25, .40)을 η²로 옮긴 값으로, 부분 에타제곱에 그대로 쓰는 것은 근사적 관행입니다. Cohen 자신도 이 기준이 마땅한 비교 대상이 없을 때의 임시 방편임을 밝혔고, 분야의 선행 연구에 비추어 해석하는 편이 낫습니다.</li><li>표본에서 계산한 ηp²는 모집단 값보다 크게 나오는 경향(양의 편향)이 있어, 특히 표본이 작을 때는 <a href="omega-squared.html">오메가제곱</a> 같은 덜 편향된 추정량이 대안으로 제안되었습니다.</li><li>설계가 다른 연구의 ηp²를 직접 비교하면 위험합니다. 오차 항이 설계마다 다르기 때문입니다. 반복측정 설계에서는 일반화 에타제곱(Olejnik &amp; Algina, 2003; Bakeman, 2005)을 따로 권하는 문헌이 있습니다.</li><li>효과의 크기는 p값이나 표본 크기와 별개입니다. 표본이 크면 작은 ηp²도 유의할 수 있습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>“효과크기는 ηp²로 산출하였다”처럼 <strong>부분 에타제곱임을 밝힙니다.</strong> 에타제곱과 구분하지 않으면 독자가 잘못 해석합니다.</li><li>검정 결과와 함께 적습니다. 예: <code>F(1, 58) = 7.32, p = .009, ηp² = .11</code>. 0과 1 사이의 값이라 APA 형식에서는 선행 0을 생략하는 것이 보통입니다.</li><li>효과마다 따로 적고, 가능하면 신뢰구간을 함께 제시합니다(비중심 F 분포를 이용해 계산).</li><li>다른 연구와 비교할 때는 같은 지표(에타제곱, 부분, 일반화)인지 먼저 확인합니다. 소프트웨어마다 옵션 이름과 계산 방식이 다를 수 있으므로 매뉴얼을 확인하고 어느 값인지 적어 둡니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“직군, 공정 및 재해요인의 삼원 상호작용은 유의하였으며, 효과크기는 ηp²= .02였다.”</blockquote><p class="te-cite">정수장 종사자의 직군, 공정 및 재해요인에 따른 위험 인식 차이, 콘텐츠와산업, 2026 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003375977" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"&quot;처치의 주효과는 유의하였고 효과크기는 중간 정도였다(F(1, 58) = 7.32, p = .009, ηp² = .11).&quot;"</div>
   <p>검정 결과와 부분 에타제곱을 함께 보고하는 가장 흔한 형식입니다.</p>
   <div class="example">"&quot;상호작용 효과의 부분 에타제곱은 .04로 작았다.&quot;"</div>
@@ -164,6 +185,20 @@
 
   <h2>주의할 점</h2>
   <p>서로 다른 설계에서 나온 부분 에타제곱을 직접 비교하는 것은 위험합니다. 오차 항이 설계에 따라 다르기 때문입니다. 일부 문헌과 소프트웨어는 반복측정 설계에서 &#39;일반화 에타제곱&#39;을 따로 권하기도 합니다. 또 에타제곱과 부분 에타제곱을 구분하지 않고 보고하면 독자가 값을 잘못 해석할 수 있으므로 어느 것인지 밝혀야 합니다. 일부 분석 프로그램은 옵션 이름과 달리 계산 방식이 다를 수 있으니 매뉴얼을 확인하는 것이 좋습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">부분 에타제곱과의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="eta-squared.html">에타제곱</a></th><td>한 효과의 SS를 전체 SS로 나눈 값</td><td>분모가 전체 SS여서 효과들의 합이 1을 넘지 않음</td></tr><tr><th scope="row">부분 에타제곱</th><td>한 효과의 SS를 (그 효과 SS + 오차 SS)로 나눈 값</td><td>다른 효과를 분모에서 제외, 설계에 따라 값이 바뀜</td></tr><tr><th scope="row"><a href="omega-squared.html">오메가제곱</a></th><td>모집단 설명 비율의 덜 편향된 추정량</td><td>표본 값의 과대 추정을 줄이려 만든 대안</td></tr><tr><th scope="row"><a href="cohens-d.html">코헨의 d</a></th><td>두 집단 평균 차이를 표준편차 단위로 표현</td><td>분산 설명 비율이 아니라 평균 차이의 크기</td></tr><tr><th scope="row"><a href="effect-size.html">효과크기</a></th><td>효과의 크기를 나타내는 지표들의 총칭</td><td>부분 에타제곱은 그 한 종류</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum Associates.</li>
+    <li>Richardson, J. T. E. (2011). Eta squared and partial eta squared as measures of effect size in educational research. Educational Research Review, 6(2), 135–147.</li>
+    <li>Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863.</li>
+    <li>Olejnik, S., &amp; Algina, J. (2003). Generalized eta and omega squared statistics: Measures of effect size for some common research designs. Psychological Methods, 8(4), 434–447.</li>
+    <li>Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -1,0 +1,52 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>DDoS는 [[denial-of-service-attack|서비스거부공격]]의 한 형태로, <strong>여러 곳에 분산된 다수의 기기가 동시에</strong> 대상의 자원을 소진시켜 정상 이용자가 서비스를 이용하지 못하게 만드는 공격입니다. 목표는 정보 탈취가 아니라 <strong>가용성 저하</strong>입니다.</li><li>공격 기기들은 흔히 악성코드에 감염된 PC·서버·IoT 기기의 집합인 [[botnet|봇넷]]입니다. 공격자는 명령을 내리는 쪽과 직접 트래픽을 보내는 쪽을 분리해 근원 추적을 어렵게 만듭니다.</li><li>Mirkovic과 Reiher(2004)는 공격과 방어 메커니즘을 각각 분류 체계로 정리했습니다. 흔히 공격이 소진시키는 자원에 따라 <strong>대역폭을 채우는 유형</strong>, <strong>프로토콜 처리 자원을 소진시키는 유형</strong>, <strong>응용 계층 요청으로 서버를 소진시키는 유형</strong>으로 나눕니다.</li><li>DNS나 NTP처럼 작은 요청에 큰 응답을 돌려주는 서버를 거쳐 트래픽을 증폭시키는 <strong>반사·증폭</strong> 기법이 연구에서 널리 다뤄집니다.</li><li>방어 연구는 탐지(트래픽 이상 징후), 출발지 주소 위조를 막는 입구 필터링(Ferguson &amp; Senie, 2000), 트래픽을 여러 지점으로 분산해 흡수하는 CDN·클라우드 정제 등을 다룹니다(Zargar 등, 2013).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>공격 유형을 구분하는 기준은 “무엇이 먼저 바닥나는가”와 그에 맞는 측정 단위입니다(개념 정리이며 실제 사건은 여러 유형이 섞입니다).</p><table><thead><tr><th>유형</th><th>소진되는 자원</th><th>대표적으로 보는 측정 단위</th></tr></thead><tbody><tr><td>볼륨형</td><td>회선 대역폭</td><td>초당 비트 수(bps)</td></tr><tr><td>프로토콜형</td><td>방화벽·부하분산기·서버의 연결 상태 처리 용량</td><td>초당 패킷 수(pps)</td></tr><tr><td>응용 계층형</td><td>웹 서버·데이터베이스의 요청 처리 용량</td><td>초당 요청 수(rps)</td></tr></tbody></table><p>역사적 사례 연구는 2000년 초 대형 웹사이트들을 겨냥한 공격, 2007년 에스토니아에 대한 공격, 2009년 7월 한국과 미국의 사이트를 대상으로 한 이른바 7·7 DDoS, 그리고 IoT 기기로 구성된 Mirai 봇넷의 2016년 공격을 자주 다룹니다(Antonakakis 등, 2017은 Mirai를 분석). 이 사례들은 어떤 자원이 표적이 되었는지, 봇넷의 구성이 어땠는지를 비교하는 자료로 쓰입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>DDoS는 해킹으로 정보를 빼 가는 공격이다.</td><td>DDoS의 목적은 서비스 마비입니다. 정보 유출과는 다른 범주의 보안 사고입니다. 다만 다른 공격의 눈속임으로 쓰이기도 한다고 지적됩니다.</td></tr><tr><td>트래픽이 많이 몰리면 모두 DDoS이다.</td><td>이벤트로 인한 정상 접속 폭주(flash crowd)와 공격 트래픽을 구별하는 것이 탐지 연구의 핵심 과제입니다.</td></tr><tr><td>공격 IP를 차단하면 막을 수 있다.</td><td>출발지가 수천~수십만 곳으로 분산되고 주소가 위조될 수 있어 개별 IP 차단만으로는 한계가 있습니다.</td></tr><tr><td>대역폭을 늘리면 해결된다.</td><td>대역폭 소진형에는 도움이 되지만, 프로토콜·응용 계층형은 회선이 남아 있어도 서버 처리 자원이 먼저 바닥날 수 있습니다.</td></tr><tr><td>DDoS와 [[hacktivism|핵티비즘]]은 같은 말이다.</td><td>DDoS는 기법이고 핵티비즘은 정치적 동기로 해킹을 쓰는 활동입니다. 핵티비스트가 DDoS를 쓰기도 하지만 DDoS가 모두 핵티비즘은 아닙니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "headers": [
+      "용어",
+      "무엇인가",
+      "구분 포인트"
+    ],
+    "rows": [
+      [
+        "분산서비스거부공격(DDoS)",
+        "다수의 기기가 동시에 대상을 공격",
+        "발신지가 분산되어 차단과 추적이 어려움"
+      ],
+      [
+        "[[denial-of-service-attack|서비스거부공격(DoS)]]",
+        "자원을 소진시켜 서비스를 방해하는 공격 전반",
+        "DDoS는 그중 분산형"
+      ],
+      [
+        "[[botnet|봇넷]]",
+        "감염된 기기들의 원격 제어 네트워크",
+        "DDoS를 수행하는 수단이지 공격 자체는 아님"
+      ],
+      [
+        "[[hacktivism|핵티비즘]]",
+        "정치적 동기의 해킹 활동",
+        "DDoS는 이들이 쓰는 기법의 하나"
+      ]
+    ]
+  },
+  "references": [
+    "Mirkovic, J., & Reiher, P. (2004). A taxonomy of DDoS attack and DDoS defense mechanisms. ACM SIGCOMM Computer Communication Review, 34(2), 39–53.",
+    "Zargar, S. T., Joshi, J., & Tipper, D. (2013). A survey of defense mechanisms against distributed denial of service (DDoS) flooding attacks. IEEE Communications Surveys & Tutorials, 15(4), 2046–2069.",
+    "Ferguson, P., & Senie, D. (2000). Network ingress filtering: Defeating denial of service attacks which employ IP source address spoofing (RFC 2827). Internet Engineering Task Force.",
+    "Antonakakis, M., April, T., Bailey, M., Bernhard, M., Bursztein, E., Cochran, J., Durumeric, Z., Halderman, J. A., Invernizzi, L., Kallitsis, M., Kumar, D., Lever, C., Ma, Z., Mason, J., Menscher, D., Seaman, C., Sullivan, N., Thomas, K., & Zhou, Y. (2017). Understanding the Mirai botnet. In Proceedings of the 26th USENIX Security Symposium (pp. 1093–1110). USENIX Association."
+  ]
+}
