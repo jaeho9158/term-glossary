@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -145,7 +146,24 @@
   <h2>왜 중요한가</h2>
   <p>표면뿐 아니라 내부 구조의 밀도 정보까지 색상과 투명도로 함께 표현할 수 있어, 복잡한 골절이나 혈관 기형을 입체적으로 이해하는 데 도움을 줍니다. 선천성 심장기형처럼 복잡한 구조를 수술 전 부모나 환자에게 설명할 때도 용적렌더링 영상이 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>볼륨 데이터 준비</strong>: CT·MRI의 연속 단면을 쌓아 복셀 격자를 만듭니다. 슬라이스 두께와 재구성 간격이 영상 품질을 좌우합니다.</li><li><strong>분류(전달함수)</strong>: 복셀 값(CT는 Hounsfield 단위)마다 색상과 불투명도를 지정하는 <strong>전달함수</strong>를 정합니다. 뼈는 불투명하게, 연조직은 반투명하게 하는 식입니다.</li><li><strong>광선 투사와 합성</strong>: 화면의 각 화소에서 시선 방향으로 광선을 쏘아 지나는 복셀의 색과 불투명도를 순서대로 합성합니다(Levoy, 1988; Drebin 등, 1988). 누적 불투명도가 거의 1이 되면 뒤쪽 복셀은 보이지 않으므로 계산을 일찍 멈출 수도 있습니다.</li><li><strong>조명·시점 조정</strong>: 음영, 회전, 절단면(clip) 등을 조합해 보고자 하는 구조를 드러냅니다.</li></ol><p>앞쪽부터 합성하는 식은 C ← C + (1 − A)·α·c, A ← A + (1 − A)·α입니다(C는 누적 색, A는 누적 불투명도, α와 c는 해당 복셀의 불투명도와 색; 색 값은 단순화를 위해 0~1의 회색조로 둡니다). 광선이 만나는 세 복셀이 (α, c) = (0.2, 0.3), (0.5, 0.6), (0.9, 1.0)이라면(가상의 예) 누적은 다음과 같이 변합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>복셀 α</th><th>복셀 c</th><th>누적 색 C</th><th>누적 불투명도 A</th></tr></thead><tbody><tr><td>0.2</td><td>0.3</td><td>0.06</td><td>0.2</td></tr><tr><td>0.5</td><td>0.6</td><td>0.3</td><td>0.6</td></tr><tr><td>0.9</td><td>1</td><td>0.66</td><td>0.96</td></tr></tbody></table></div><p>세 번째 복셀의 불투명도가 높아 이미 대부분 가려지므로 뒤에 복셀이 더 있어도 결과에 거의 영향을 주지 않습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>언제 쓰나</strong>: 복잡한 골절의 골편 배열, 혈관·장기의 3차원 위치 관계, 선천성 심기형처럼 구조가 복잡해 단면 영상만으로 파악하기 어려운 경우입니다. 수술 전 계획과 환자 설명에도 쓰입니다.</li><li><strong>얻는 것</strong>: 표면 윤곽뿐 아니라 내부 구조까지 한 영상에 담을 수 있습니다. 표면만 뽑아 보여 주는 <a href="surface-rendering.html">표면렌더링</a>과 달리 반투명 표현이 가능하고, <a href="maximum-intensity-projection.html">최대강도투영(MIP)</a>과 달리 앞뒤 겹침 순서가 보입니다. 혈관 CT에서 각 방법의 장단점은 Fishman 등(2006)이 정리했습니다.</li><li><strong>한계</strong>: 전달함수·임계값에 따라 같은 자료도 다른 인상을 줍니다. 구조물이 실제보다 크거나 작게 보일 수 있어, 길이·부피 같은 정량 측정은 원본 단면 영상으로 합니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>사용한 소프트웨어(이름과 버전), 영상 획득 조건(슬라이스 두께, 재구성 커널, 조영제 사용 여부)을 적습니다.</li><li>전달함수 또는 임계값 설정을 밝힙니다. 이것이 영상의 모양을 정하므로 재현에 필요합니다.</li><li>렌더링 영상은 설명 도구로 쓰고 진단·측정의 근거는 단면 영상(MPR 등)으로 제시하는 것이 일반적입니다.</li><li>여러 렌더링 방법을 비교한 연구에서는 판독자 수와 눈가림(blinding), 기준 영상을 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"용적렌더링 영상을 통해 복잡 골반골절의 골편 배열을 입체적으로 평가하였다."</div>
   <p>골반뼈가 여러 조각으로 부러진 복잡한 골절을 입체 영상으로 만들어 뼛조각들의 배치를 자세히 살펴봤다는 뜻입니다.</p>
   <div class="example">"CT 단층영상의 복셀 데이터에 투명도와 색상을 매핑하여 장기의 내부 구조까지 입체적으로 시각화하였다."</div>
@@ -160,6 +178,20 @@
   <p>용적렌더링은 설정한 임계값에 따라 실제보다 구조물이 더 크거나 작게 표현될 수 있어 정량적 측정에는 원본 단면 영상을 함께 참고해야 합니다.</p>
 
   <p>용적렌더링은 설정한 임계값에 따라 실제보다 구조물이 더 크거나 작게 표현될 수 있어 정량적 측정에는 원본 단면 영상을 함께 참고해야 한다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>3차원 후처리 기법은 ‘무엇을 보여 주는가’가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">기법</th><th scope="col">보여 주는 것</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">용적렌더링</th><td>표면과 내부(반투명)</td><td>모든 복셀의 색·불투명도를 합성해 입체 영상을 만듭니다</td></tr><tr><th scope="row"><a href="surface-rendering.html">표면렌더링</a></th><td>특정 경계면의 표면</td><td>밀도 경계면만 추출해 표면 형태를 표현합니다</td></tr><tr><th scope="row"><a href="maximum-intensity-projection.html">최대강도투영(MIP)</a></th><td>시선 방향의 최댓값</td><td>광선 위 최대 신호만 골라 2차원 영상으로 투영합니다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Levoy, M. (1988). Display of surfaces from volume data. IEEE Computer Graphics and Applications, 8(3), 29–37.</li>
+    <li>Drebin, R. A., Carpenter, L., &amp; Hanrahan, P. (1988). Volume rendering. Computer Graphics (SIGGRAPH '88 Proceedings), 22(4), 65–74.</li>
+    <li>Max, N. (1995). Optical models for direct volume rendering. IEEE Transactions on Visualization and Computer Graphics, 1(2), 99–108.</li>
+    <li>Fishman, E. K., Ney, D. R., Heath, D. G., Corl, F. M., Horton, K. M., &amp; Johnson, P. T. (2006). Volume rendering versus maximum intensity projection in CT angiography: What works best, when, and why. RadioGraphics, 26(3), 905–922.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="three-dimensional-reconstruction.html">3차원재구성</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="maximum-intensity-projection.html">최대강도투영</a><a href="surface-rendering.html">표면렌더링</a></div></div><p class="concept-family-map"><a href="../concept-map/radio.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

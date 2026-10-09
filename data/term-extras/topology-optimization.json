@@ -1,0 +1,60 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>문제 정의</strong>: 설계 영역(재료를 둘 수 있는 최대 공간), 지지 조건, 하중 사례, 사용할 재료의 총량(부피 분율)을 정합니다.</li><li><strong>이산화와 설계변수</strong>: 설계 영역을 유한요소로 나누고 요소마다 밀도 ρ<sub>e</sub>(0이면 빈 곳, 1이면 재료)를 설계변수로 둡니다.</li><li><strong>재료 보간(SIMP)</strong>: 요소의 강성을 E(ρ) = E<sub>min</sub> + ρ<sup>p</sup>(E<sub>0</sub> − E<sub>min</sub>)로 두고 보통 p = 3 정도의 벌칙을 줍니다(Bendsøe, 1989). 중간 밀도가 비효율적이 되어 0 또는 1로 몰립니다.</li><li><strong>목적과 제약</strong>: 가장 흔한 문제는 부피 제약 아래 변형에너지(컴플라이언스) 최소화, 곧 정해진 재료량으로 강성을 최대화하는 것입니다. 열전달·유체·진동 문제로 목적을 바꾸기도 합니다.</li><li><strong>민감도와 필터</strong>: 설계변수를 바꿨을 때 목적이 어떻게 변하는지(민감도)를 유한요소해석으로 구하고, 체커보드 무늬와 요소 크기에 따른 결과 변화를 막기 위해 필터를 적용합니다.</li><li><strong>갱신과 수렴</strong>: 최적성 기준법이나 이동점근선법(MMA) 같은 알고리즘으로 밀도를 갱신하며 수렴할 때까지 반복합니다(Sigmund, 2001이 99줄 코드로 절차를 공개했습니다).</li><li><strong>후처리와 검증</strong>: 결과를 기준값으로 이진화하고 매끄럽게 한 뒤 형상 모델로 재구성해 응력·변위를 다시 검증합니다.</li></ol><p>3번의 벌칙 효과를 계산하면 다음과 같습니다(상대 강성은 ρ<sup>p</sup>, 강성/질량비는 ρ<sup>p</sup>/ρ).</p><table><thead><tr><th>밀도 ρ</th><th>p = 1 상대 강성</th><th>p = 3 상대 강성</th><th>p = 3 강성/질량비</th></tr></thead><tbody><tr><td>0.25</td><td>0.25</td><td>0.016</td><td>0.063</td></tr><tr><td>0.5</td><td>0.5</td><td>0.125</td><td>0.25</td></tr><tr><td>0.75</td><td>0.75</td><td>0.422</td><td>0.563</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td></tr></tbody></table><p>p = 1에서는 어떤 밀도든 강성과 질량이 비례해 중간 밀도가 손해를 보지 않지만, p = 3에서는 ρ = 0.5의 강성이 0.125에 불과해 같은 질량으로 더 강한 완전 재료(ρ = 1) 쪽이 유리합니다. 그래서 결과가 흑백에 가깝게 정리됩니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 개념 설계 단계에서 재료를 어디에 둘지 형상 후보를 얻을 때, 경량화가 중요한 항공·자동차·로봇 부품, 열·유체 유로 설계에 쓰입니다.</li><li><strong>얻는 것</strong>: 사람이 직관으로 떠올리기 어려운 하중 전달 경로(트러스 같은 형상)와 질량 대비 강성이 높은 초기 형상입니다. 적층 제조로 복잡한 형상을 만들 수 있게 되면서 활용이 늘었습니다([[additive-manufacturing|적층 제조]]).</li><li><strong>알아둘 점</strong>: 결과는 하중 사례, 격자 크기, 필터 반경, 벌칙 값에 따라 달라지고, 응력 제약이나 제작 제약(최소 부재 두께, 주조 방향, 적층 제조의 돌출 각도 등)은 다루기 까다롭습니다(Sigmund &amp; Maute, 2013). 얻은 형상은 상세 설계와 해석 검증을 다시 거쳐야 합니다.</li><li>딥러닝을 결합해 계산 비용을 줄이려는 연구도 있습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>문제 설정을 모두</strong>: 설계 영역과 지지·하중 조건, 부피 분율, 재료 물성(E<sub>0</sub>, 포아송비).</li><li><strong>알고리즘 설정</strong>: 보간식과 벌칙 p, 필터 종류와 반경, 최적화 알고리즘, 수렴 기준, 격자 크기.</li><li><strong>결과 지표</strong>: 컴플라이언스와 질량(또는 부피)을 초기 설계와 비교하고, 재구성한 모델의 응력·변위를 유한요소로 재검증한 값을 함께 제시합니다.</li><li><strong>제작 가능성</strong>: 후처리와 제작 제약을 어떻게 반영했는지 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "구조 최적화는 무엇을 바꾸느냐에 따라 구분됩니다.",
+    "headers": [
+      "용어",
+      "바꾸는 대상",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "위상최적화",
+        "재료의 분포(어디에 두고 어디를 비울지)",
+        "구멍의 수와 연결 같은 위상까지 결정"
+      ],
+      [
+        "형상최적화",
+        "경계의 모양",
+        "위상은 고정하고 외곽·구멍 모양을 조정"
+      ],
+      [
+        "치수최적화",
+        "부재 두께·단면 크기",
+        "형상이 정해진 구조의 치수를 조정"
+      ],
+      [
+        "[[generative-design|제너레이티브디자인]]",
+        "설계 대안 생성",
+        "목표와 제약으로 다수의 설계 대안을 자동 생성(위상최적화를 쓰기도 함)"
+      ],
+      [
+        "[[finite-element-method|유한요소법]]",
+        "해석 도구",
+        "각 반복에서 변위와 응력을 구하는 데 쓰임"
+      ]
+    ]
+  },
+  "references": [
+    "Bendsøe, M. P., & Kikuchi, N. (1988). Generating optimal topologies in structural design using a homogenization method. Computer Methods in Applied Mechanics and Engineering, 71(2), 197–224.",
+    "Bendsøe, M. P. (1989). Optimal shape design as a material distribution problem. Structural Optimization, 1(4), 193–202.",
+    "Sigmund, O. (2001). A 99 line topology optimization code written in Matlab. Structural and Multidisciplinary Optimization, 21(2), 120–127.",
+    "Bendsøe, M. P., & Sigmund, O. (2003). Topology Optimization: Theory, Methods and Applications. Springer.",
+    "Sigmund, O., & Maute, K. (2013). Topology optimization approaches. Structural and Multidisciplinary Optimization, 48(6), 1031–1055."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/webhook.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>웹훅은 서버가 지속적으로 상태를 확인(폴링)하지 않고도 실시간에 가깝게 이벤트를 전달할 수 있게 해주기 때문에, 마이크로서비스 간 통신, 서드파티 서비스 연동, IoT 기기의 상태 알림 등 다양한 분야의 시스템 설계 논문에서 이벤트 기반 아키텍처의 핵심 구성 요소로 다루어집니다. 서버 자원을 절약하면서도 반응 속도를 높일 수 있다는 장점 때문에, 확장성과 효율성을 다루는 분산시스템 연구에서도 자주 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>웹훅은 사건이 일어난 시스템이 <strong>미리 등록된 URL로 HTTP 요청(보통 POST)</strong>을 보내 알려 주는 방식입니다. 받는 쪽은 서버를 열어 두고, 요청 본문(페이로드)에 담긴 사건 정보를 처리합니다. 푸시(push)형 통지의 웹 버전입니다.</li><li>일반적인 호출은 클라이언트가 먼저 묻는 <strong>요청-응답(풀, pull)</strong>입니다. 웹훅은 방향이 반대여서 ‘역방향 API’라고도 불리며, 변화를 계속 묻는 <strong>폴링(polling)</strong>을 대체합니다.</li><li>구성 요소는 ① 사건 종류(결제 완료, 코드 푸시 등) 구독, ② 수신 URL 등록, ③ 페이로드 형식(대개 JSON), ④ 서명이나 비밀 토큰 같은 진위 확인 수단입니다.</li><li>전달 보장은 일반적으로 <strong>적어도 한 번(at-least-once)</strong>입니다. 실패하면 송신 측이 재시도하므로 같은 사건이 중복해서 도착할 수 있고, 도착 순서도 보장되지 않는 경우가 많습니다. 그래서 수신 측은 같은 사건을 여러 번 받아도 결과가 같도록(멱등성) 사건 식별자로 중복을 걸러냅니다(Kleppmann, 2017이 분산 시스템의 전달 의미를 정리했습니다).</li><li>웹훅은 <a href="rest-api.html">REST API</a>처럼 자원을 다루는 설계 규칙이 아니라 <strong>통지 방식</strong>입니다. 서비스는 두 가지를 함께 제공하는 경우가 많고, API 앞단에서는 <a href="api-gateway.html">API 게이트웨이</a>가 요청을 받아 인증·분배합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 비교입니다. 하루 평균 20건의 사건이 생기는 서비스의 상태를 60초마다 폴링하면 하루 1,440번 요청하고, 그중 약 98.6%는 빈 응답입니다. 사건을 알아차리는 데 걸리는 지연은 평균 30초, 최대 60초입니다. 웹훅은 요청이 사건 수와 같은 20건이고, 지연은 네트워크 전달 시간 정도입니다. 대신 수신 서버가 항상 요청을 받을 수 있게 열려 있어야 하고, 위조된 요청과 중복 전송에 대비하는 설계 부담을 집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>웹훅은 REST API의 한 종류이다.</td><td>웹훅은 사건을 알리는 방식이고, REST는 자원 중심 설계 규칙입니다. 서로 층위가 다릅니다.</td></tr><tr><td>웹훅은 한 번만, 순서대로 온다.</td><td>재시도로 중복이 생기고 순서가 바뀔 수 있으므로 멱등 처리가 필요합니다.</td></tr><tr><td>URL을 비밀로 하면 안전하다.</td><td>URL이 노출되면 누구나 위조 요청을 보낼 수 있습니다. 서명 검증 같은 진위 확인이 일반적입니다.</td></tr><tr><td>웹훅이면 항상 실시간이다.</td><td>송신 측의 큐, 재시도 정책, 수신 서버 처리 지연에 따라 늦어질 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"결제 완료 이벤트가 발생하면 외부 알림 서비스로 웹훅을 전송해 실시간으로 주문 상태를 갱신하도록 시스템을 구성했다."</div>
   <p>이 문장은 결제가 끝나는 순간 그 사실을 다른 시스템에 즉시 전달하도록 설계했다는 뜻으로, 이벤트 기반 아키텍처나 시스템 통합 방식을 설명하는 논문에서 자주 쓰입니다.</p>
 
@@ -166,6 +184,20 @@
 
   <h2>주의할 점</h2>
   <p>웹훅은 클라이언트가 서버에 요청을 보내야만 응답을 받는 일반적인 <a href="rest-api.html">REST API (자원 중심 API 설계)</a> 호출과 방향이 반대입니다. 즉 요청을 보내는 주체가 우리 쪽이 아니라 사건이 발생한 시스템이라는 점에서, 수신 측은 예상치 못한 시점에 오는 요청을 안전하게 검증하고 처리할 준비가 되어 있어야 합니다. 알림이 순서대로 오거나 반드시 한 번만 온다는 보장이 없는 경우도 많아, 중복 처리나 순서 뒤바뀜에 대비한 설계가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>시스템 사이에서 정보를 주고받는 방식은 누가 시작하느냐로 나뉩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">누가 시작하나</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">웹훅</th><td>사건이 생긴 쪽</td><td>사건 시 등록된 URL로 HTTP 요청을 보내 알림</td></tr><tr><th scope="row">폴링</th><td>받는 쪽</td><td>주기적으로 ‘바뀐 게 있나’ 묻는 방식</td></tr><tr><th scope="row"><a href="rest-api.html">REST API</a></th><td>요청하는 쪽</td><td>자원을 URL로 표현하고 정해진 HTTP 메서드로 주고받는 설계 규칙</td></tr><tr><th scope="row"><a href="api-gateway.html">API 게이트웨이</a></th><td>—(중간 관문)</td><td>여러 서비스로 가는 요청을 한곳에서 받아 인증·분배</td></tr><tr><th scope="row">메시지 큐·발행-구독</th><td>브로커가 중계</td><td>송신자와 수신자를 분리해 안정성과 순서 보장을 강화하는 대안</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fielding, R. T. (2000). Architectural Styles and the Design of Network-based Software Architectures (Doctoral dissertation). University of California, Irvine.</li>
+    <li>Hohpe, G., &amp; Woolf, B. (2003). Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions. Addison-Wesley.</li>
+    <li>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media.</li>
+    <li>Richardson, C. (2018). Microservices Patterns. Manning Publications.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

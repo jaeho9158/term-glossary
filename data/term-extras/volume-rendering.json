@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>볼륨 데이터 준비</strong>: CT·MRI의 연속 단면을 쌓아 복셀 격자를 만듭니다. 슬라이스 두께와 재구성 간격이 영상 품질을 좌우합니다.</li><li><strong>분류(전달함수)</strong>: 복셀 값(CT는 Hounsfield 단위)마다 색상과 불투명도를 지정하는 <strong>전달함수</strong>를 정합니다. 뼈는 불투명하게, 연조직은 반투명하게 하는 식입니다.</li><li><strong>광선 투사와 합성</strong>: 화면의 각 화소에서 시선 방향으로 광선을 쏘아 지나는 복셀의 색과 불투명도를 순서대로 합성합니다(Levoy, 1988; Drebin 등, 1988). 누적 불투명도가 거의 1이 되면 뒤쪽 복셀은 보이지 않으므로 계산을 일찍 멈출 수도 있습니다.</li><li><strong>조명·시점 조정</strong>: 음영, 회전, 절단면(clip) 등을 조합해 보고자 하는 구조를 드러냅니다.</li></ol><p>앞쪽부터 합성하는 식은 C ← C + (1 − A)·α·c, A ← A + (1 − A)·α입니다(C는 누적 색, A는 누적 불투명도, α와 c는 해당 복셀의 불투명도와 색; 색 값은 단순화를 위해 0~1의 회색조로 둡니다). 광선이 만나는 세 복셀이 (α, c) = (0.2, 0.3), (0.5, 0.6), (0.9, 1.0)이라면(가상의 예) 누적은 다음과 같이 변합니다.</p><table><thead><tr><th>복셀 α</th><th>복셀 c</th><th>누적 색 C</th><th>누적 불투명도 A</th></tr></thead><tbody><tr><td>0.2</td><td>0.3</td><td>0.06</td><td>0.2</td></tr><tr><td>0.5</td><td>0.6</td><td>0.3</td><td>0.6</td></tr><tr><td>0.9</td><td>1</td><td>0.66</td><td>0.96</td></tr></tbody></table><p>세 번째 복셀의 불투명도가 높아 이미 대부분 가려지므로 뒤에 복셀이 더 있어도 결과에 거의 영향을 주지 않습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 복잡한 골절의 골편 배열, 혈관·장기의 3차원 위치 관계, 선천성 심기형처럼 구조가 복잡해 단면 영상만으로 파악하기 어려운 경우입니다. 수술 전 계획과 환자 설명에도 쓰입니다.</li><li><strong>얻는 것</strong>: 표면 윤곽뿐 아니라 내부 구조까지 한 영상에 담을 수 있습니다. 표면만 뽑아 보여 주는 [[surface-rendering|표면렌더링]]과 달리 반투명 표현이 가능하고, [[maximum-intensity-projection|최대강도투영(MIP)]]과 달리 앞뒤 겹침 순서가 보입니다. 혈관 CT에서 각 방법의 장단점은 Fishman 등(2006)이 정리했습니다.</li><li><strong>한계</strong>: 전달함수·임계값에 따라 같은 자료도 다른 인상을 줍니다. 구조물이 실제보다 크거나 작게 보일 수 있어, 길이·부피 같은 정량 측정은 원본 단면 영상으로 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 소프트웨어(이름과 버전), 영상 획득 조건(슬라이스 두께, 재구성 커널, 조영제 사용 여부)을 적습니다.</li><li>전달함수 또는 임계값 설정을 밝힙니다. 이것이 영상의 모양을 정하므로 재현에 필요합니다.</li><li>렌더링 영상은 설명 도구로 쓰고 진단·측정의 근거는 단면 영상(MPR 등)으로 제시하는 것이 일반적입니다.</li><li>여러 렌더링 방법을 비교한 연구에서는 판독자 수와 눈가림(blinding), 기준 영상을 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "3차원 후처리 기법은 ‘무엇을 보여 주는가’가 다릅니다.",
+    "headers": [
+      "기법",
+      "보여 주는 것",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "용적렌더링",
+        "표면과 내부(반투명)",
+        "모든 복셀의 색·불투명도를 합성해 입체 영상을 만듭니다"
+      ],
+      [
+        "[[surface-rendering|표면렌더링]]",
+        "특정 경계면의 표면",
+        "밀도 경계면만 추출해 표면 형태를 표현합니다"
+      ],
+      [
+        "[[maximum-intensity-projection|최대강도투영(MIP)]]",
+        "시선 방향의 최댓값",
+        "광선 위 최대 신호만 골라 2차원 영상으로 투영합니다"
+      ]
+    ]
+  },
+  "references": [
+    "Levoy, M. (1988). Display of surfaces from volume data. IEEE Computer Graphics and Applications, 8(3), 29–37.",
+    "Drebin, R. A., Carpenter, L., & Hanrahan, P. (1988). Volume rendering. Computer Graphics (SIGGRAPH '88 Proceedings), 22(4), 65–74.",
+    "Max, N. (1995). Optical models for direct volume rendering. IEEE Transactions on Visualization and Computer Graphics, 1(2), 99–108.",
+    "Fishman, E. K., Ney, D. R., Heath, D. G., Corl, F. M., Horton, K. M., & Johnson, P. T. (2006). Volume rendering versus maximum intensity projection in CT angiography: What works best, when, and why. RadioGraphics, 26(3), 905–922."
+  ]
+}
