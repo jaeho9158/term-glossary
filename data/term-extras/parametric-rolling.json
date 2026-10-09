@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>파라메트릭 횡동요는 파도가 배를 옆에서 밀어서 생기는 것이 아니라, 파도 속에서 <strong>복원성 자체가 주기적으로 변해</strong> 횡동요가 스스로 커지는 불안정 현상입니다. 파도의 마루가 배의 중앙에 올 때와 골이 올 때 수선면 형상이 달라지고, 그에 따라 메타센터높이(GM)가 변합니다([[metacentric-height|메타센터높이]]).</li><li>가장 위험한 조건은 복원성 변동의 주기, 곧 파랑 조우주기가 횡동요 고유주기의 <strong>절반</strong>일 때입니다. 이 2대 1 관계가 매개변수 공진의 전형적인 조건입니다.</li><li>수학적으로는 복원항의 계수가 시간에 따라 변하는 마티유(Mathieu)형 방정식 ẍ + 2ζω<sub>0</sub>ẋ + ω<sub>0</sub>²[1 + h cos(ω<sub>e</sub>t)]x = 0으로 표현됩니다. 여기서 h는 복원성 변동의 상대 크기이고 ζ는 감쇠비입니다.</li><li>파장이 선체 길이와 비슷하고 선수파 또는 추파로 항해할 때 일어나기 쉽습니다. 이 현상은 Kerwin(1955)이 이론적으로 정리했고, 컨테이너선 사고(1998년 APL China)를 조사한 France 외(2003)가 실무의 주목을 끌었습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 값으로 문턱을 확인해 봅시다. ω<sub>e</sub> = 2ω<sub>0</sub>일 때 h가 작은 범위에서 선형 이론은 <strong>h가 4ζ를 넘으면 진폭이 발산</strong>한다고 말합니다.</p>\n<ul><li>감쇠비를 ζ = 0.03으로 두면 문턱은 h = 0.12입니다. 곧 GM이 평균값 기준 ±12% 넘게 흔들려야 불안정해집니다.</li><li>이 식을 코드로 직접 적분해 확인하면, 같은 조건에서 h = 0.10이면 진폭이 줄어들고(무차원 시간 400 동안 초기값의 약 0.09배), h = 0.14이면 늘어나며(약 5배), h = 0.20이면 크게 증가합니다(약 2000배).</li><li>그러므로 감쇠를 키우면 문턱 h가 올라가 발생이 어려워집니다. 빌지킬이나 안티롤링탱크 같은 감쇠 확보가 대책으로 거론되는 이유입니다.</li></ul>\n<p>다만 이는 선형 모형의 결과입니다. 실제 배에서는 큰 각도에서의 비선형 복원력이 진폭을 제한하는 대신, 그 크기가 위험한 수준에 이를 수 있어 시간영역 시뮬레이션이 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>옆에서 오는 큰 파도 때문에 생긴다.</td><td>오히려 정면(선수파)이나 뒤(추파)에서 파도를 맞을 때 생깁니다. 복원성 변동이 원인입니다.</td></tr><tr><td>일반적인 공진 횡동요와 같다.</td><td>공진은 조우주기가 고유주기와 같을 때이고, 파라메트릭은 고유주기의 절반일 때입니다. 계수가 시간에 따라 변하는 점이 다릅니다.</td></tr><tr><td>대형 컨테이너선만의 문제다.</td><td>선수 플레어가 크고 선미가 넓은 선형이면 자동차운반선이나 어선에서도 일어날 수 있습니다.</td></tr><tr><td>선형 복원성 계산으로 예측할 수 있다.</td><td>정수 중 GM 기준만으로는 알 수 없고, 파도 속의 복원성 변동을 반영한 해석이 필요합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "핵심 조건"
+    ],
+    "rows": [
+      [
+        "[[rolling|횡동요]]",
+        "배가 선수미축을 중심으로 좌우로 흔들리는 운동 전반",
+        "-"
+      ],
+      [
+        "동조(공진) 횡동요",
+        "파도가 직접 가하는 힘이 고유주기와 맞아 커지는 횡동요",
+        "조우주기 = 고유주기, 주로 옆에서 파도를 맞을 때"
+      ],
+      [
+        "파라메트릭 횡동요",
+        "복원성 변동이 고유주기와 맞물려 스스로 커지는 횡동요",
+        "조우주기 = 고유주기의 절반, 선수파·추파"
+      ],
+      [
+        "[[ship-stability|선박복원성]]",
+        "배가 기울었다가 바로 서는 능력",
+        "GM 등으로 평가"
+      ]
+    ]
+  },
+  "references": [
+    "Kerwin, J. E. (1955). Notes on rolling in longitudinal waves. International Shipbuilding Progress, 2(16), 597–614.",
+    "France, W. N., Levadou, M., Treakle, T. W., Paulling, J. R., Michel, R. K., & Moore, C. (2003). An investigation of head-sea parametric rolling and its influence on container lashing systems. Marine Technology, 40(1), 1–19.",
+    "Paulling, J. R., & Rosenberg, R. M. (1959). On unstable ship motions resulting from nonlinear coupling. Journal of Ship Research, 3(1), 36–46.",
+    "International Maritime Organization (2007). Revised Guidance to the Master for Avoiding Dangerous Situations in Adverse Weather and Sea Conditions (MSC.1/Circ.1228)."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/integration-testing.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,29 @@
   <h2>왜 중요한가</h2>
   <p>소프트웨어시스템이 마이크로서비스나 다양한 외부 API로 구성되는 경우가 많아지면서, 개별 모듈의 정확성만으로는 전체 시스템의 신뢰성을 보장할 수 없게 되었습니다. 통합 테스트는 모듈 간 인터페이스 불일치, 데이터 형식 오류, 네트워크 지연 등 단위 테스트로는 잡아내기 어려운 문제를 발견하는 단계로서, 소프트웨어공학 논문에서 시스템 검증 방법론을 설명할 때 핵심적으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>통합 테스트는 단위 테스트를 통과한 모듈을 <strong>실제로 이어 붙인 상태</strong>에서 모듈 사이의 약속(인터페이스)이 지켜지는지 확인하는 단계입니다. 전형적인 절차는 다음과 같습니다.</p>
+  <ol><li>결합할 모듈과 그 사이의 인터페이스(함수 호출, API, 메시지, 데이터베이스 접근)를 정합니다.</li><li>정상 흐름과 예외 흐름(오류 응답, 시간 초과, 재시도)을 시나리오로 설계합니다.</li><li>아직 없는 모듈은 임시 대역으로 채웁니다. 상위 모듈을 대신하는 것이 <strong>드라이버</strong>, 하위 모듈을 대신하는 것이 <strong>스텁</strong>입니다.</li><li>시나리오를 실행하고, 실패하면 어느 인터페이스에서 어긋났는지 좁혀 갑니다.</li></ol>
+  <p>결합 순서에 따라 네 가지 전략이 흔히 구분됩니다.</p>
+  <ul><li><strong>빅뱅</strong>: 모든 모듈을 한 번에 결합합니다. 빠르지만 실패 원인을 찾기 어렵습니다.</li><li><strong>상향식</strong>: 하위 모듈부터 쌓아 올립니다. 상위 모듈이 없는 동안 드라이버가 필요합니다.</li><li><strong>하향식</strong>: 상위 모듈부터 시작하고 하위는 스텁으로 둡니다.</li><li><strong>샌드위치(혼합)</strong>: 위와 아래에서 동시에 결합해 가운데에서 만납니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>통합 테스트가 잡아내려는 것은 모듈 하나만 볼 때는 보이지 않는 결함입니다. 예를 들어 자료형이나 단위가 서로 다르게 가정된 경우, 호출 순서나 상태 공유가 어긋난 경우, 외부 서비스 응답이 늦거나 실패하는 경우가 여기에 속합니다.</p>
+  <ul><li>얻는 것: 인터페이스 결함의 조기 발견, 결합 후 동작에 대한 증거, 장애 상황에서 시스템이 어떻게 행동하는지에 대한 확인.</li><li>비용: 단위 테스트보다 느리고, 테스트 환경(데이터베이스, 외부 서비스 대역)을 준비해야 하며, 실패했을 때 원인 모듈을 가리기 어렵습니다.</li><li>그래서 실무에서는 빠른 단위 테스트를 많이, 통합 테스트를 그보다 적게 두는 구성이 권장되어 왔습니다(콘이 널리 알린 ‘테스트 피라미드’).</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>통합 테스트를 보고할 때는 재현할 수 있게 다음을 적습니다.</p>
+  <ul><li><strong>대상</strong>: 결합한 구성 요소와 인터페이스의 목록, 결합 전략.</li><li><strong>환경</strong>: 소프트웨어 버전, 테스트 데이터, 실제 외부 서비스를 썼는지 대역(mock)을 썼는지.</li><li><strong>시나리오</strong>: 정상 흐름과 예외 흐름의 수와 선정 기준.</li><li><strong>결과</strong>: 통과·실패 건수, 발견한 결함의 종류(인터페이스, 자료 형식, 시간 초과 등), 실행 시간.</li><li><strong>한계</strong>: <a href="test-coverage.html">테스트 커버리지</a> 수치가 높아도 통합 시 생기는 문제가 모두 걸러졌다는 뜻은 아니라는 점, 테스트 환경과 실제 운영 환경의 차이.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"개발된 시스템은 단위 테스트로 개별 함수의 정확성을 검증한 후, 통합 테스트를 통해 API 서버와 데이터베이스 간 연동 오류를 점검하였다."</div>
   <p>이 문장은 먼저 함수 하나하나가 올바르게 동작하는지 확인한 다음, 여러 구성 요소를 실제로 연결한 상태에서 데이터가 잘 오가는지까지 검증했다는 뜻입니다.</p>
   <div class="example">"마이크로서비스 간 메시지 큐 연동을 검증하기 위한 통합 테스트 시나리오를 설계하고, 장애 상황에서의 재시도 동작을 함께 확인하였다."</div>
@@ -160,6 +183,19 @@
 
   <h2>주의할 점</h2>
   <p>통합 테스트는 단위 테스트보다 범위가 넓어서 오류가 발생했을 때 정확히 어느 모듈이 원인인지 찾기가 더 어렵습니다. 그래서 보통 단위 테스트로 개별 부품의 정확성을 먼저 확인한 뒤, 그 위에 통합 테스트를 쌓는 방식으로 진행하며, <a href="test-coverage.html">테스트 커버리지</a>만 높다고 해서 통합 시 발생하는 문제까지 전부 걸러진다고 착각해서는 안 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 확인하나</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row"><a href="unit-testing.html">단위 테스트</a></th><td>함수나 클래스 하나가 설계대로 동작하는지</td><td>가장 좁음</td></tr><tr><th scope="row">통합 테스트</th><td>모듈들을 결합했을 때 인터페이스와 상호작용이 맞는지</td><td>모듈 사이</td></tr><tr><th scope="row">시스템 테스트</th><td>완성된 시스템 전체가 요구 사항을 만족하는지</td><td>시스템 전체</td></tr><tr><th scope="row"><a href="continuous-integration.html">지속적 통합</a></th><td>코드 변경을 자주 합치고 자동으로 테스트를 돌리는 개발 관행(통합 테스트와는 다른 층위)</td><td>개발 프로세스</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Myers, G. J. (1979). The Art of Software Testing. Wiley.</li>
+    <li>Beizer, B. (1990). Software Testing Techniques (2nd ed.). Van Nostrand Reinhold.</li>
+    <li>Cohn, M. (2009). Succeeding with Agile: Software Development Using Scrum. Addison-Wesley.</li>
+    <li>Sommerville, I. (2016). Software Engineering (10th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

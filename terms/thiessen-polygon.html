@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/thiessen-polygon.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,29 @@
   <h2>왜 중요한가</h2>
   <p>기상관측소별 강수량을 지역 전체에 대표시키는 방법이나, 특정 시설(소방서, 학교)의 서비스 관할구역을 설정하는 데 활용되며, GIS의 근접성 기반 구역화 기법 중 가장 기초적인 방법입니다. 강수량 관측소의 면적평균 강우량 산정(티센법)이나 기지국 서비스 영역 추정처럼 '가장 가까운 곳에 배정한다'는 원칙을 지도로 구현할 때 기본 도구로 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>티센다각형은 관측점들 사이의 ‘가장 가까운 점’을 기준으로 평면을 나눕니다. 티센(Thiessen, 1911)이 넓은 지역의 강수 평균을 구하려고 제안했고, 수학에서는 보로노이 다이어그램이라고 부릅니다.</p>
+  <ol><li>관측점의 좌표를 정합니다.</li><li>이웃한 두 관측점을 선으로 잇고, 그 선분의 수직이등분선을 긋습니다.</li><li>수직이등분선들이 만나서 만드는 다각형이 각 관측점의 영역입니다. 영역 안의 어느 점도 다른 관측점보다 이 관측점에 더 가깝습니다.</li><li>유역(분석 영역)의 경계로 다각형을 잘라, 각 관측점 영역의 면적을 구합니다.</li><li>면적비를 가중치로 삼아 관측값의 가중평균 P = Σ(A<sub>i</sub>P<sub>i</sub>) / ΣA<sub>i</sub>를 계산합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>관측점이 유역에 고르지 않게 흩어져 있을 때 산술평균은 관측점이 몰린 곳의 값에 끌려갑니다. 티센법은 면적으로 가중해 이를 보정합니다.</p>
+  <p>가상의 예: 한 변 10 km인 정사각형 유역에 관측소 세 곳이 A(2, 2), B(7, 3), C(5, 8)에 있고, 강수량은 각각 20, 35, 50 mm입니다. 코드로 격자를 촘촘히 나누어 면적을 구하면 다음과 같습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>관측소</th><th>면적(km²)</th><th>가중치</th><th>강수량(mm)</th></tr></thead><tbody><tr><td>A</td><td>25.5</td><td>.255</td><td>20</td></tr><tr><td>B</td><td>32.9</td><td>.329</td><td>35</td></tr><tr><td>C</td><td>41.6</td><td>.416</td><td>50</td></tr></tbody></table></div>
+  <p>티센법 평균은 0.255×20 + 0.329×35 + 0.416×50 ≈ 37.4 mm이고, 산술평균은 (20+35+50)/3 = 35.0 mm입니다. 가장 넓은 영역을 대표하는 C의 값이 더 크게 반영되어 차이가 납니다.</p>
+  <p>그 밖에 서비스 구역(가장 가까운 소방서·학교·기지국) 설정처럼 ‘가장 가까운 곳에 배정’하는 분석에도 쓰입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>자료</strong>: 관측소의 수와 위치, 기간, 유역 경계의 출처.</li><li><strong>도구</strong>: 사용한 GIS 소프트웨어와 다각형 생성 방법, 좌표계.</li><li><strong>결과</strong>: 관측소별 면적(또는 가중치) 표와 티센법 평균. 산술평균이나 등우선법 같은 다른 방법과 비교하면 선택의 영향을 보여 줄 수 있습니다.</li><li><strong>한계</strong>: 지형(산지의 강우 증가)과 관측소 분포의 불균일을 반영하지 못한다는 점, 직선거리만 쓰므로 실제 이동거리가 중요한 분석에는 맞지 않을 수 있다는 점.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">강우관측소별 티센다각형을 생성하여 유역 평균강우량 산정에 필요한 가중치를 계산하였다.</div>
   <p>티센다각형법(보로노이 다이어그램)은 관측지점의 대표 영향권을 설정하는 간단하면서도 널리 쓰이는 방법이다.</p>
   <div class="example">강수관측소별 티센다각형을 생성하여 유역 평균강수량을 산정하는 데 활용하였다.</div>
@@ -163,6 +186,20 @@
   <p>티센다각형은 관측지점의 분포가 불균일할 경우 각 영역의 대표성이 떨어질 수 있다.</p>
 
   <p>티센다각형은 직선거리만으로 경계를 나누므로, 하천·산지·도로망 때문에 실제 이동거리로는 다른 시설이 더 가까운 경우를 반영하지 못한다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>표본점 값으로 영역의 값을 추정하는 방법들은 결과의 모양이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">결과의 모양</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">티센다각형</th><td>구역마다 하나의 값(계단식)</td><td>가장 가까운 관측점의 값을 영역 전체에 부여</td></tr><tr><th scope="row"><a href="voronoi-diagram-planning.html">보로노이다이어그램</a></th><td>티센다각형과 같은 분할</td><td>수학·계획 분야에서 부르는 이름</td></tr><tr><th scope="row"><a href="idw.html">역거리가중법</a></th><td>연속된 면</td><td>거리에 반비례한 가중평균</td></tr><tr><th scope="row"><a href="kriging.html">크리깅</a></th><td>연속된 면과 추정 오차</td><td>공간 상관 구조를 모델링해 추정</td></tr></tbody></table></div>
+  <p class="te-note">상위 개념은 <a href="spatial-interpolation.html">공간보간법</a>입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Thiessen, A. H. (1911). Precipitation averages for large areas. Monthly Weather Review, 39(7), 1082–1084.</li>
+    <li>Okabe, A., Boots, B., Sugihara, K., &amp; Chiu, S. N. (2000). Spatial Tessellations: Concepts and Applications of Voronoi Diagrams (2nd ed.). Wiley.</li>
+    <li>Chow, V. T., Maidment, D. R., &amp; Mays, L. W. (1988). Applied Hydrology. McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="spatial-interpolation.html">공간보간법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="areal-interpolation.html">면적보간법</a><a href="spline-interpolation-spatial.html">스플라인 보간(공간)</a><a href="idw.html">역거리가중법</a><a href="natural-neighbor-interpolation.html">자연이웃보간법</a><a href="trend-surface-analysis.html">추세면분석</a><a href="kriging-interpolation.html">크리깅 보간</a><a href="tin-interpolation.html">TIN 보간</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
