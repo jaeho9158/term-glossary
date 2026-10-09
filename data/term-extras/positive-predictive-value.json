@@ -1,0 +1,59 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>양성 판정을 받은 사람 중 실제로 질환이 있는 비율입니다. 2×2표의 양성 행에서 <code>PPV = 진양성 ÷ (진양성 + 위양성)</code>이고, 민감도·특이도·유병률로도 쓸 수 있습니다.</p><p><code>PPV = 민감도 × 유병률 ÷ [민감도 × 유병률 + (1 − 특이도) × (1 − 유병률)]</code></p><p><strong>작은 예(가상).</strong> 민감도 90%, 특이도 95%인 검사의 양성예측도는 유병률 1%에서 15.4%, 10%에서 66.7%, 30%에서 88.5%입니다. 유병률 1%인 1,000명이라면 진양성 9명, 위양성 약 49.5명이라 양성 중 진짜 환자는 약 15%입니다.</p><p>범위는 0~100%이며, 유병률이 오르면 커집니다. 검사 자체의 성능이 아니라 <strong>그 집단에서의</strong> 값입니다(Altman &amp; Bland, 1994).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>‘몇 % 이상이면 좋다’는 보편 기준은 없습니다. 양성 뒤에 이어지는 추가 검사나 치료의 위험·비용에 따라 허용 수준이 달라집니다.</li><li>환자군과 대조군을 따로 모은 연구에서는 표본의 유병률이 실제 임상 집단과 달라서, 연구에서 얻은 PPV를 그대로 쓸 수 없습니다. 민감도·특이도에 목표 집단의 유병률을 넣어 다시 계산해야 합니다(Trevethan, 2017).</li><li>환자에게 설명할 때는 퍼센트보다 ‘100명이 양성이면 그중 몇 명이 진짜 환자인지’처럼 자연빈도로 말하는 편이 이해가 쉽다는 연구가 있습니다(Gigerenzer 외, 2007).</li><li>음성 쪽 대응 지표는 [[negative-predictive-value|음성예측도]]이고, 유병률에 덜 흔들리는 지표로 [[likelihood-ratio|우도비]]가 있습니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>2×2표의 원자료, 표본의 유병률과 대상 선정 방식, 기준 표준, 신뢰구간(Wilson 또는 Clopper–Pearson 등)을 적습니다. 보고 지침으로 STARD가 있습니다(Bossuyt 외, 2015).</p><p><code>양성 90명 중 60명이 확진되어 양성예측도는 66.7%(95% CI 56.4–75.5, Wilson 방법)였다.</code> (형식을 보여 주는 가상의 문장)</p><ul><li>같은 검사의 PPV를 다른 집단과 비교하려면 유병률도 함께 제시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "검사 성능 지표는 ‘무엇을 분모로 하느냐’가 다릅니다.",
+    "headers": [
+      "용어",
+      "분모",
+      "유병률의 영향"
+    ],
+    "rows": [
+      [
+        "[[positive-predictive-value|양성예측도]]",
+        "양성 판정을 받은 사람",
+        "크게 영향받음"
+      ],
+      [
+        "[[negative-predictive-value|음성예측도]]",
+        "음성 판정을 받은 사람",
+        "크게 영향받음(반대 방향)"
+      ],
+      [
+        "[[sensitivity|민감도]]",
+        "실제 환자",
+        "거의 받지 않음(표본 구성에 따라 달라질 수는 있음)"
+      ],
+      [
+        "[[specificity|특이도]]",
+        "실제 비환자",
+        "거의 받지 않음"
+      ],
+      [
+        "[[likelihood-ratio|우도비]]",
+        "민감도와 특이도로 만드는 비",
+        "유병률과 독립(사후확률 변환에 사용)"
+      ]
+    ]
+  },
+  "references": [
+    "Altman, D. G., & Bland, J. M. (1994). Diagnostic tests 2: predictive values. BMJ, 309, 102.",
+    "Trevethan, R. (2017). Sensitivity, specificity, and predictive values: foundations, pliabilities, and pitfalls in research and practice. Frontiers in Public Health, 5, 307.",
+    "Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L. M., & Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. Psychological Science in the Public Interest, 8(2), 53–96.",
+    "Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., et al. (2015). STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527."
+  ]
+}
