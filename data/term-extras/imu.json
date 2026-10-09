@@ -1,0 +1,58 @@
+{
+  "type": "instrument",
+  "sections": [
+    {
+      "heading": "무엇을 재는가",
+      "html": "<p>IMU(관성측정장치)는 <strong>3축 가속도계</strong>와 <strong>3축 자이로스코프</strong>를 한 모듈에 묶어, 물체의 비력(가속도 + 중력 효과)과 각속도를 직접 측정합니다. 두 센서를 합쳐 6자유도(6축) 관성 데이터를 내며, 지자기 센서(3축)를 더한 ‘9축’ 모듈도 IMU라는 이름으로 팔리지만 엄밀히는 자세·방위 추정용 MARG 센서에 가깝습니다.</p><ul><li>가속도계는 ‘얼마나 가속되는가’를 재지만 중력과 운동 가속을 구별하지 못합니다. 정지해 있어도 중력 방향이 읽힙니다.</li><li>자이로스코프는 회전 속도를 직접 재므로 짧은 시간의 자세 변화에 정확합니다.</li><li>위치와 자세는 측정값이 아니라 이 값들을 <strong>적분해서 얻는 추정값</strong>입니다.</li></ul>"
+    },
+    {
+      "heading": "구성과 채점",
+      "html": "<p>모듈을 고를 때와 논문에 쓸 때 보는 사양입니다.</p><table><thead><tr><th>사양</th><th>뜻</th><th>읽는 법</th></tr></thead><tbody><tr><td>측정 범위</td><td>가속도는 ±g 단위, 각속도는 도/초 단위</td><td>동작이 범위를 넘으면 포화되어 값이 잘립니다</td></tr><tr><td>표본화율</td><td>초당 읽는 횟수(Hz)</td><td>빠른 동작은 높은 표본화율이 필요합니다</td></tr><tr><td>잡음 밀도</td><td>주파수당 잡음의 크기</td><td>적분하면 무작위 걸음(random walk) 오차가 됩니다</td></tr><tr><td>바이어스 불안정성</td><td>시간이 지나며 변하는 영점 오차</td><td>드리프트의 주된 원인입니다</td></tr><tr><td>스케일 계수 오차</td><td>출력이 실제 크기에 비례하는 정도의 오차</td><td>큰 움직임에서 오차가 커집니다</td></tr></tbody></table>"
+    },
+    {
+      "heading": "결과 읽는 법",
+      "html": "<p><strong>왜 단독으로 오래 쓰지 못하나(단순 계산, 가상의 예).</strong> 영점 오차(바이어스)가 일정하면 적분할수록 오차가 불어납니다. 자이로 바이어스가 0.1도/초이면 60초 뒤 자세 오차는 약 6도(0.1×60)입니다. 가속도 바이어스가 0.01 m/s²이면 위치는 두 번 적분되므로 60초 뒤 약 18 m(0.5×0.01×60²)가 틀어집니다. 그래서 칼만 필터 등으로 GPS, 지자기, 카메라, 라이다와 [[sensor-fusion|융합]]해 오차를 가둡니다([[kalman-filter|칼만 필터]]).</p><ul><li>논문에서는 IMU 모델명과 사양, 표본화율, 부착 위치·방향, 보정(캘리브레이션) 방법, 융합 알고리즘(상보 필터, 칼만 필터 등)을 적습니다.</li><li>성능은 기준 시스템(광학 모션캡처 등)과 비교한 각도 오차(RMSE)나 거리 오차로 보고합니다.</li><li>시간에 따른 오차 증가 곡선(드리프트)을 함께 보여 주면 신뢰도를 판단하기 쉽습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "IMU와 함께 나오는 센서·기법을 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇을 하나",
+      "IMU와의 관계"
+    ],
+    "rows": [
+      [
+        "[[accelerometer|가속도계]]",
+        "가속도(비력)를 측정",
+        "IMU의 구성 센서"
+      ],
+      [
+        "자이로스코프",
+        "각속도를 측정",
+        "IMU의 구성 센서"
+      ],
+      [
+        "[[sensor-fusion|센서 융합]]",
+        "여러 센서의 정보를 합쳐 추정",
+        "IMU의 드리프트를 보정하는 방법"
+      ],
+      [
+        "[[kalman-filter|칼만 필터]]",
+        "잡음 섞인 측정에서 상태를 추정",
+        "센서 융합에 흔히 쓰는 알고리즘"
+      ],
+      [
+        "[[slam|SLAM]]",
+        "위치 추정과 지도 작성을 동시에",
+        "IMU를 보조 입력으로 쓰기도 함"
+      ]
+    ]
+  },
+  "references": [
+    "Titterton, D. H., & Weston, J. L. (2004). Strapdown Inertial Navigation Technology (2nd ed.). Institution of Electrical Engineers.",
+    "Groves, P. D. (2013). Principles of GNSS, Inertial, and Multisensor Integrated Navigation Systems (2nd ed.). Artech House.",
+    "Madgwick, S. O. H., Harrison, A. J. L., & Vaidyanathan, R. (2011). Estimation of IMU and MARG orientation using a gradient descent algorithm. Proceedings of the IEEE International Conference on Rehabilitation Robotics."
+  ]
+}

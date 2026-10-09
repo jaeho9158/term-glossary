@@ -1,0 +1,54 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>체중(kg), 신장(cm), 나이(세), 성별로 하루 에너지 소비를 추정하는 회귀식이며 단위는 kcal/일입니다. 두 가지 계수 세트가 흔히 쓰입니다.</p><table><thead><tr><th>판</th><th>남성</th><th>여성</th></tr></thead><tbody><tr><td>원 공식 (Harris &amp; Benedict, 1919)</td><td>66.473 + 13.7516×체중 + 5.0033×신장 − 6.755×나이</td><td>655.0955 + 9.5634×체중 + 1.8496×신장 − 4.6756×나이</td></tr><tr><td>개정 (Roza &amp; Shizgal, 1984)</td><td>88.362 + 13.397×체중 + 4.799×신장 − 5.677×나이</td><td>447.593 + 9.247×체중 + 3.098×신장 − 4.330×나이</td></tr></tbody></table><p><strong>작은 예(가상의 예, 코드로 계산).</strong> 30세 남성 70 kg·175 cm는 원 공식 1,702 kcal, 개정식 1,696 kcal, 비교용 미플린-세인트지어 식(10×체중 + 6.25×신장 − 5×나이 + 5) 1,649 kcal가 나옵니다. 30세 여성 55 kg·160 cm는 같은 순서로 1,337, 1,322, 1,239 kcal입니다(여성 미플린 식은 끝에 −161). 공식에 따라 같은 사람의 값이 수십~100 kcal 차이 납니다. 개정식 결과에 활동계수 1.2를 곱하면 남성 약 2,035 kcal, 여성 약 1,586 kcal입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>이 값은 <strong>추정치이지 측정값이 아닙니다</strong>. 해석할 때 알아 둘 점입니다.</p><ul><li>원래 ‘기초대사량’을 겨냥했지만 현장에서는 안정시 에너지소비량([[resting-energy-expenditure|REE]])의 추정에 가깝게 쓰입니다. 두 용어의 측정 조건은 다릅니다([[basal-metabolic-rate|기초대사량]] 참고).</li><li>활동계수(좌식 1.2 안팎에서 매우 활동적 1.9 안팎까지 소개되는 표)와 상해·스트레스 계수는 관례적으로 쓰는 값이며 하나의 공식 표준이 있는 것은 아닙니다. 어떤 표를 썼는지 밝혀야 합니다.</li><li>정상 체격 성인으로 만든 식이라 고도비만, 근감소, 노인, 위중한 환자에서는 오차가 커질 수 있습니다. 건강한 성인 대상 체계적 고찰(Frankenfield 외, 2005)에서는 미플린-세인트지어 식이 실측 대사량의 ±10% 안에 드는 비율이 상대적으로 높다고 정리했습니다.</li><li>가능하면 [[indirect-calorimetry|간접열량측정]] 값과 비교해 검증합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>연구와 임상 보고에서는 다음을 적습니다.</p><ul><li><strong>어느 판인지</strong>(1919 원식인지 1984 개정식인지)와 계수 출처. 판이 다르면 결과가 달라집니다.</li><li>입력 변수(실측 체중인지 이상체중·보정체중인지), 활동계수·상해계수의 값과 출처.</li><li>비교 대상이 있다면 실측값 대비 오차를 평균 차이와 ±10% 이내 비율로 함께 제시하고, 대상 집단의 특성(비만·고령·환자)을 밝힙니다.</li><li>결과를 ‘처방 에너지’로 쓴 경우 임상 판단으로 조정한 폭도 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "에너지 대사를 말하는 용어는 측정 조건과 ‘추정/측정’ 여부로 구분합니다.",
+    "headers": [
+      "용어",
+      "측정 조건",
+      "추정인가 측정인가"
+    ],
+    "rows": [
+      [
+        "[[harris-benedict-equation|해리스-베네딕트 공식]]",
+        "체중·신장·나이·성별을 넣는 회귀식",
+        "추정"
+      ],
+      [
+        "[[basal-metabolic-rate|기초대사량(BMR)]]",
+        "12~14시간 공복, 완전 안정, 쾌적한 온도",
+        "측정이 원칙(추정식으로도 구함)"
+      ],
+      [
+        "[[resting-energy-expenditure|안정시에너지소비량(REE)]]",
+        "안정 상태이나 BMR보다 조건이 느슨함",
+        "측정 또는 추정"
+      ],
+      [
+        "[[indirect-calorimetry|간접열량측정]]",
+        "호흡가스(산소·이산화탄소)로 계산",
+        "측정"
+      ]
+    ]
+  },
+  "references": [
+    "Harris, J. A., & Benedict, F. G. (1919). A Biometric Study of Basal Metabolism in Man. Carnegie Institution of Washington.",
+    "Roza, A. M., & Shizgal, H. M. (1984). The Harris Benedict equation reevaluated: Resting energy requirements and the body cell mass. American Journal of Clinical Nutrition, 40(1), 168–182.",
+    "Mifflin, M. D., St Jeor, S. T., Hill, L. A., Scott, B. J., Daugherty, S. A., & Koh, Y. O. (1990). A new predictive equation for resting energy expenditure in healthy individuals. American Journal of Clinical Nutrition, 51(2), 241–247.",
+    "Frankenfield, D., Roth-Yousey, L., & Compher, C. (2005). Comparison of predictive equations for resting metabolic rate in healthy nonobese and obese adults: A systematic review. Journal of the American Dietetic Association, 105(5), 775–789."
+  ]
+}

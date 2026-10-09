@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/brayton-cycle.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <p>압축비, 터빈 입구 온도 같은 설계 변수를 바꿔가며 열효율과 출력을 어떻게 높일지 분석하는 연구가 많고, 최근에는 재생에너지와 연계한 복합발전이나 초임계 이산화탄소 사이클처럼 브레이턴 사이클을 응용·변형한 연구도 활발합니다.</p>
   <p>이런 이유로 브레이턴 사이클을 이해하면 관련 논문의 성능 비교나 효율 수치가 어떤 기준에서 나온 것인지 파악하기 쉬워집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>이상 브레이턴 사이클은 네 과정입니다: 1→2 <strong>등엔트로피 압축</strong>, 2→3 <strong>정압 가열</strong>(연소), 3→4 <strong>등엔트로피 팽창</strong>(터빈), 4→1 <strong>정압 방열</strong>.</li><li>일정한 비열을 갖는 이상기체(공기표준 사이클)로 보면 열효율은 압력비 r<sub>p</sub>와 비열비 γ만으로 정해집니다: <code>η = 1 − r<sub>p</sub><sup>−(γ−1)/γ</sup></code>. 이상 사이클에서는 터빈 입구 온도와 무관합니다.</li><li>단위 질량당 순일(터빈 일 − 압축기 일)은 터빈 입구 온도 T<sub>3</sub>와 압력비에 모두 의존하며, T<sub>3</sub>/T<sub>1</sub>이 정해지면 순일이 최대가 되는 압력비가 있습니다.</li><li>열 입력과 방열이 정압 과정이라는 점이 정적 과정의 <a href="otto-cycle.html">오토 사이클</a>, 상변화를 쓰는 <a href="rankine-cycle.html">랭킨 사이클</a>과 다릅니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>계산 예(가상의 예, 코드로 계산).</strong> 공기표준 사이클, γ = 1.4, c<sub>p</sub> = 1.005 kJ/(kg·K), 압축기 입구 T<sub>1</sub> = 300 K, 터빈 입구 T<sub>3</sub> = 1,400 K로 두고 압력비만 바꿉니다. 순일은 <code>c<sub>p</sub>T<sub>1</sub>[(T<sub>3</sub>/T<sub>1</sub>)(1 − r<sub>p</sub><sup>−x</sup>) − (r<sub>p</sub><sup>x</sup> − 1)]</code>, x = (γ−1)/γ입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>압력비 r<sub>p</sub></th><th>열효율 η</th><th>순일 (kJ/kg)</th></tr></thead><tbody><tr><td>5</td><td>0.369</td><td>342.6</td></tr><tr><td>10</td><td>0.482</td><td>397.6</td></tr><tr><td>15</td><td>0.539</td><td>405.9</td></tr><tr><td>20</td><td>0.575</td><td>401.1</td></tr><tr><td>30</td><td>0.622</td><td>379.3</td></tr></tbody></table></div><p>효율은 압력비가 커질수록 계속 올라가지만 순일은 약 15 근처에서 최대(식으로는 r<sub>p</sub> = (T<sub>3</sub>/T<sub>1</sub>)<sup>γ/(2(γ−1))</sup> ≈ 14.8)가 되고 다시 줄어듭니다. 그래서 같은 크기의 엔진에서 더 많은 일을 얻으려는 설계와 효율을 높이려는 설계는 압력비를 다르게 잡게 됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>압력비를 높이면 항상 좋다.</td><td>이상 효율은 오르지만 순일은 최대점을 지나 줄고, 실제로는 압축기 일과 터빈 입구 온도의 재료 한계가 제약합니다.</td></tr><tr><td>이상 사이클의 효율이 곧 실제 가스터빈의 효율이다.</td><td>실제는 압축기·터빈의 등엔트로피 효율, 압력 손실, 냉각 공기 등으로 더 낮습니다. 논문의 효율이 이상 사이클 값인지 실제 값인지 확인해야 합니다.</td></tr><tr><td>터빈 입구 온도는 효율과 무관하다.</td><td>공기표준 이상 사이클에서만 그렇습니다. 실제 기관에서는 입구 온도를 올리면 순일과 효율이 함께 개선되는 경향이 있습니다.</td></tr><tr><td>브레이턴 사이클은 제트엔진 전용이다.</td><td>발전용 가스터빈, 복합발전, 재생·중간냉각 변형, 초임계 이산화탄소 사이클 등 폭넓게 쓰입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 브레이턴 사이클 기반 가스터빈 발전 시스템의 압축비 변화에 따른 열효율 개선 효과를 해석적으로 분석하였다."</div>
   <p>이 문장은 가스터빈이 공기를 얼마나 세게 압축하는지(압축비)를 바꿔가며, 연료를 태워 얻은 열을 동력으로 바꾸는 효율이 어떻게 달라지는지 계산으로 분석했다는 뜻입니다.</p>
 
@@ -171,6 +189,19 @@
 
   <h2>주의할 점</h2>
   <p>실제 가스터빈은 이상적인 브레이턴 사이클과 달리 압축기와 터빈에서 마찰 등으로 인한 손실이 발생해 이론적인 효율보다 낮은 성능을 보입니다. 또한 브레이턴 사이클은 압력이 일정하게 유지되는 상태에서 열을 가하고 빼앗는 것으로 가정하는데, 이는 자동차 엔진에 쓰이는 <a href="otto-cycle.html">오토 사이클</a>이 부피가 일정한 상태에서 연소가 일어난다고 가정하는 것과 다른 점이므로 두 사이클을 혼동하지 않아야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>열기관 사이클은 ‘열을 넣고 빼는 과정’이 정압인가 정적인가, 작동 유체가 상변화하는가로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">가열·방열 과정</th><th scope="col">대표 장치</th></tr></thead><tbody><tr><th scope="row"><strong>브레이턴 사이클</strong></th><td>정압 가열, 정압 방열</td><td>가스터빈, 제트엔진</td></tr><tr><th scope="row"><a href="otto-cycle.html">오토 사이클</a></th><td>정적 가열, 정적 방열</td><td>불꽃점화 왕복 엔진</td></tr><tr><th scope="row"><a href="rankine-cycle.html">랭킨 사이클</a></th><td>정압(보일러·응축기), 작동 유체가 상변화</td><td>증기터빈 화력·원자력 발전</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Moran, M. J., Shapiro, H. N., Boettner, D. D., &amp; Bailey, M. B. (2014). Fundamentals of Engineering Thermodynamics (8th ed.). Wiley.</li>
+    <li>Çengel, Y. A., &amp; Boles, M. A. (2015). Thermodynamics: An Engineering Approach (8th ed.). McGraw-Hill.</li>
+    <li>Saravanamuttoo, H. I. H., Rogers, G. F. C., Cohen, H., Straznicky, P. V., &amp; Nix, A. C. (2017). Gas Turbine Theory (7th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
