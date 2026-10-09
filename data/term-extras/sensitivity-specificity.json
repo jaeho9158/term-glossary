@@ -1,0 +1,61 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>검사 결과를 기준표준과 비교한 2×2표에서 계산합니다.</p><table><thead><tr><th></th><th>질환 있음</th><th>질환 없음</th></tr></thead><tbody><tr><td>검사 양성</td><td>TP</td><td>FP</td></tr><tr><td>검사 음성</td><td>FN</td><td>TN</td></tr></tbody></table><ul><li><strong>민감도</strong> = TP / (TP + FN): 질환 있는 사람 중 양성인 비율.</li><li><strong>특이도</strong> = TN / (TN + FP): 질환 없는 사람 중 음성인 비율.</li><li>둘 다 0~1(0~100%)입니다. Youden 지수 J = 민감도 + 특이도 − 1은 절단점을 고를 때 쓰는 요약값입니다(Youden, 1950).</li></ul><p><strong>가상의 계산.</strong> 1,000명 중 유병률 10%(질환 100명), 민감도·특이도 각 90%이면 TP 90, FN 10, FP 90, TN 810입니다. 양성예측도는 90/(90+90) = 50%, 음성예측도는 810/820 ≈ 98.8%입니다. 유병률이 1%이면 TP 9, FN 1, FP 99, TN 891로 양성예측도는 9/108 ≈ 8.3%로 떨어집니다. 같은 검사라도 유병률에 따라 양성 결과의 의미가 달라집니다. 이 검사의 양성우도비는 0.9/(1−0.9) = 9, 음성우도비는 (1−0.9)/0.9 ≈ 0.11입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>민감도와 특이도는 검사 방법이 갖는 성질이지만, 대상 집단의 중증도 스펙트럼에 따라 달라질 수 있습니다(Ransohoff &amp; Feinstein, 1978). 유병률 자체가 직접 바꾸지는 않아도 집단 구성이 달라지면 값이 달라지는 경우가 보고됩니다.</li><li>절단점을 옮기면 한쪽이 오르고 다른 쪽이 내려갑니다. 모든 절단점의 쌍을 그린 것이 ROC 곡선이고, 그 아래 면적이 AUC입니다([[roc-curve|ROC 곡선]]).</li><li>‘좋은’ 값의 보편적 기준은 없습니다. 목적에 따라 다르며, 흔히 선별에는 민감도, 확진에는 특이도가 우선 고려된다고 설명됩니다.</li><li>표본이 작으면 추정이 흔들립니다. 가상의 예로 100명 중 90명 양성이면 민감도 90%의 95% 신뢰구간(Wilson)은 약 82.6~94.5%이고, 1,000명 중 900명이면 약 88.0~91.7%입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>민감도·특이도를 각각 95% 신뢰구간과 함께 적고, 2×2표(TP, FP, FN, TN) 원자료를 제시합니다.</li><li>기준표준이 무엇이고 누가 어떻게 판정했는지, 검사 판독자가 기준표준 결과를 모르고 판정했는지.</li><li>절단점을 사전에 정했는지, 같은 자료에서 최적값을 골랐는지(후자면 낙관적 편향).</li><li>대상자 모집 방식과 질환 스펙트럼, 유병률. 진단정확도 연구 보고 지침 STARD 2015가 점검 항목을 제공합니다(Bossuyt 외, 2015).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "분모가 무엇이냐에 따라 의미가 완전히 달라집니다.",
+    "headers": [
+      "지표",
+      "분모",
+      "답하는 질문"
+    ],
+    "rows": [
+      [
+        "[[sensitivity-specificity|민감도]]",
+        "질환 있는 사람",
+        "병이 있으면 양성이 나오는가"
+      ],
+      [
+        "[[sensitivity-specificity|특이도]]",
+        "질환 없는 사람",
+        "병이 없으면 음성이 나오는가"
+      ],
+      [
+        "[[positive-predictive-value|양성예측도]]",
+        "검사 양성인 사람",
+        "양성이 나왔을 때 실제 병이 있을 확률"
+      ],
+      [
+        "[[negative-predictive-value|음성예측도]]",
+        "검사 음성인 사람",
+        "음성이 나왔을 때 실제 병이 없을 확률"
+      ],
+      [
+        "[[likelihood-ratio|우도비]]",
+        "—",
+        "검사 결과가 질환 가능성을 몇 배로 바꾸는가"
+      ]
+    ],
+    "note": "민감도와 특이도는 검사 방법의 성질이고, 예측도는 집단의 유병률에 크게 의존합니다."
+  },
+  "references": [
+    "Altman, D. G., & Bland, J. M. (1994). Diagnostic tests 1: Sensitivity and specificity. BMJ, 308(6943), 1552.",
+    "Altman, D. G., & Bland, J. M. (1994). Diagnostic tests 2: Predictive values. BMJ, 309(6947), 102.",
+    "Youden, W. J. (1950). Index for rating diagnostic tests. Cancer, 3(1), 32–35.",
+    "Ransohoff, D. F., & Feinstein, A. R. (1978). Problems of spectrum and bias in evaluating the efficacy of diagnostic tests. New England Journal of Medicine, 299(17), 926–930.",
+    "Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., et al. (2015). STARD 2015: An updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527."
+  ]
+}

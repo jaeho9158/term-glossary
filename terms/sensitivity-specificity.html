@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sensitivity-specificity.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,29 @@
   <h2>왜 중요한가</h2>
   <p>새로운 진단검사나 예측모형을 제안하는 논문은 결국 "이 검사가 쓸모 있는가"를 입증해야 하는데, 민감도와 특이도는 그 성능을 정량적으로 보여주는 가장 기본적인 지표입니다. 기계학습 기반 분류모형, 영상판독 알고리즘, 설문 기반 선별도구 등 사람이나 사건을 이분법적으로 판별하는 거의 모든 연구에서 이 두 지표가 성능평가의 출발점이 되기 때문에 매우 폭넓게 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>검사 결과를 기준표준과 비교한 2×2표에서 계산합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>질환 있음</th><th>질환 없음</th></tr></thead><tbody><tr><td>검사 양성</td><td>TP</td><td>FP</td></tr><tr><td>검사 음성</td><td>FN</td><td>TN</td></tr></tbody></table></div><ul><li><strong>민감도</strong> = TP / (TP + FN): 질환 있는 사람 중 양성인 비율.</li><li><strong>특이도</strong> = TN / (TN + FP): 질환 없는 사람 중 음성인 비율.</li><li>둘 다 0~1(0~100%)입니다. Youden 지수 J = 민감도 + 특이도 − 1은 절단점을 고를 때 쓰는 요약값입니다(Youden, 1950).</li></ul><p><strong>가상의 계산.</strong> 1,000명 중 유병률 10%(질환 100명), 민감도·특이도 각 90%이면 TP 90, FN 10, FP 90, TN 810입니다. 양성예측도는 90/(90+90) = 50%, 음성예측도는 810/820 ≈ 98.8%입니다. 유병률이 1%이면 TP 9, FN 1, FP 99, TN 891로 양성예측도는 9/108 ≈ 8.3%로 떨어집니다. 같은 검사라도 유병률에 따라 양성 결과의 의미가 달라집니다. 이 검사의 양성우도비는 0.9/(1−0.9) = 9, 음성우도비는 (1−0.9)/0.9 ≈ 0.11입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>민감도와 특이도는 검사 방법이 갖는 성질이지만, 대상 집단의 중증도 스펙트럼에 따라 달라질 수 있습니다(Ransohoff &amp; Feinstein, 1978). 유병률 자체가 직접 바꾸지는 않아도 집단 구성이 달라지면 값이 달라지는 경우가 보고됩니다.</li><li>절단점을 옮기면 한쪽이 오르고 다른 쪽이 내려갑니다. 모든 절단점의 쌍을 그린 것이 ROC 곡선이고, 그 아래 면적이 AUC입니다(<a href="roc-curve.html">ROC 곡선</a>).</li><li>‘좋은’ 값의 보편적 기준은 없습니다. 목적에 따라 다르며, 흔히 선별에는 민감도, 확진에는 특이도가 우선 고려된다고 설명됩니다.</li><li>표본이 작으면 추정이 흔들립니다. 가상의 예로 100명 중 90명 양성이면 민감도 90%의 95% 신뢰구간(Wilson)은 약 82.6~94.5%이고, 1,000명 중 900명이면 약 88.0~91.7%입니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>민감도·특이도를 각각 95% 신뢰구간과 함께 적고, 2×2표(TP, FP, FN, TN) 원자료를 제시합니다.</li><li>기준표준이 무엇이고 누가 어떻게 판정했는지, 검사 판독자가 기준표준 결과를 모르고 판정했는지.</li><li>절단점을 사전에 정했는지, 같은 자료에서 최적값을 골랐는지(후자면 낙관적 편향).</li><li>대상자 모집 방식과 질환 스펙트럼, 유병률. 진단정확도 연구 보고 지침 STARD 2015가 점검 항목을 제공합니다(Bossuyt 외, 2015).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“여러 연구에서 AI-CAD는 유방암을 높은 민감도와 특이도로 검출하였고, 영상의학과 의사보다 높은 성능을 보이기도 했다.”</blockquote><p class="te-cite">유방영상의학과 인공지능: 현재와 미래, Korean Journal of Family Practice, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003024775" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“심장표지물질 간이 검사의 민감도와 특이도는 각각 76.7%, 80.0%의 유의한 결과를 보여 변사사건 현장에서 변시체의 과거병력, 현장상황 및 사후시간 등을 종합적으로 고려하여 사후 급성심장사의 의심, 추정 진단에 보조적 방법의 하나로 유용하게 이용될 수 있을 것으로 사료된다.”</blockquote><p class="te-cite">심장표지물질 간이검사의 급성심장사 법의학적 사후진단 유용성에 관한 연구, 대한임상검사과학회지, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002232013" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“위 식을 사용하여 계산해 본다면, 민감도와 특이도가 각각 90%인 정신증 고위험군 평가도구를 사용하여 실제 정신증 발 병 확률, 즉, 유병률이 10%인 도움을 요청하는 사람들의 집단 에서 연구를 수행했다면, 양성예측도는 다음과 같다.”</blockquote><p class="te-cite">정신증 고위험군의 임상적 경과: 발병 또는 관해, Korean Journal of Schizophrenia Research, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516093848" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 신속항원검사법의 민감도는 92.3%, 특이도는 88.1%로 나타났다 (95% CI)."</div>
   <p>실제 감염자 100명 중 약 92명을 양성으로 정확히 찾아냈고, 비감염자 100명 중 약 88명을 음성으로 정확히 판정했다는 뜻입니다.</p>
 
@@ -167,6 +190,22 @@
 
   <h2>주의할 점</h2>
   <p>민감도와 특이도는 검사 자체의 성능을 나타낼 뿐, "검사에서 양성이 나온 사람이 실제로 병에 걸렸을 확률"과는 다릅니다. 이 확률(양성예측도)은 <a href="prevalence.html">유병률</a>에 따라 크게 달라져서, 희귀 질환처럼 유병률이 낮은 경우에는 특이도가 아무리 높아도 양성 판정 중 상당수가 위양성일 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>분모가 무엇이냐에 따라 의미가 완전히 달라집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">분모</th><th scope="col">답하는 질문</th></tr></thead><tbody><tr><th scope="row"><strong>민감도</strong></th><td>질환 있는 사람</td><td>병이 있으면 양성이 나오는가</td></tr><tr><th scope="row"><strong>특이도</strong></th><td>질환 없는 사람</td><td>병이 없으면 음성이 나오는가</td></tr><tr><th scope="row"><a href="positive-predictive-value.html">양성예측도</a></th><td>검사 양성인 사람</td><td>양성이 나왔을 때 실제 병이 있을 확률</td></tr><tr><th scope="row"><a href="negative-predictive-value.html">음성예측도</a></th><td>검사 음성인 사람</td><td>음성이 나왔을 때 실제 병이 없을 확률</td></tr><tr><th scope="row"><a href="likelihood-ratio.html">우도비</a></th><td>—</td><td>검사 결과가 질환 가능성을 몇 배로 바꾸는가</td></tr></tbody></table></div>
+  <p class="te-note">민감도와 특이도는 검사 방법의 성질이고, 예측도는 집단의 유병률에 크게 의존합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Altman, D. G., &amp; Bland, J. M. (1994). Diagnostic tests 1: Sensitivity and specificity. BMJ, 308(6943), 1552.</li>
+    <li>Altman, D. G., &amp; Bland, J. M. (1994). Diagnostic tests 2: Predictive values. BMJ, 309(6947), 102.</li>
+    <li>Youden, W. J. (1950). Index for rating diagnostic tests. Cancer, 3(1), 32–35.</li>
+    <li>Ransohoff, D. F., &amp; Feinstein, A. R. (1978). Problems of spectrum and bias in evaluating the efficacy of diagnostic tests. New England Journal of Medicine, 299(17), 926–930.</li>
+    <li>Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., et al. (2015). STARD 2015: An updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
