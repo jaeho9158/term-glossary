@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/bayesian-frequentist-inference-debate.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -75,8 +76,8 @@
 }</script>
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="논문용어사전">
-<meta property="og:title" content="베이지안-빈도주의 추론 논쟁 (Bayesian vs frequentist inference debate) - 논문용어사전">
-<meta property="og:description" content="확률을 사건의 장기적 빈도로 해석하고 가설검정과 신뢰구간을 사용하는 빈도주의 통계와, 확률을 믿음의 정도로 해석하고 사전정보를 결합해 사후확률을 갱신하는 베이지안 통계 사이의 근본적인 철학적·방법론적 대립을 말한다.">
+<meta property="og:title" content="베이지안-빈도주의 추론 논쟁 뜻 - 확률을 사건의 장기적 빈도로 해석하고… | 논문용어사전">
+<meta property="og:description" content="확률을 사건의 장기적 빈도로 해석하고 가설검정과 신뢰구간을 사용하는 빈도주의 통계와, 확률을 믿음의 정도로 해석하고 사전정보를 결합해 사후확률을 갱신하는 베이지안 통계 사이의 근본적인 철학적·방법론적 대립을… 쉬운 풀이, 논문 예문과 관련 용어까지 - 논문용어사전">
 <meta property="og:url" content="https://termglossary.kr/terms/bayesian-frequentist-inference-debate.html">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://termglossary.kr/assets/og-default.png">
@@ -150,7 +151,24 @@
   <p>어떤 통계 철학을 택하느냐에 따라 유의성 판단 기준, 결과 보고 방식, 표본 크기 설계까지 달라지기 때문에 이 논쟁은 단순한 이론 문제가 아니라 실제 연구 설계와 재현성 논의 전반에 영향을 미칩니다.</p>
   <p>최근에는 임상시험, 심리학 재현성 위기, 기계학습의 불확실성 정량화 등에서 두 접근을 절충하거나 병행 보고하는 사례가 늘면서 방법론 선택 자체가 중요한 검토 대상이 되고 있습니다. 그래서 논문 심사 과정에서도 저자가 어떤 추론 틀을 택했는지, 그 근거가 무엇인지를 명시하도록 요구하는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>빈도주의</th><th>베이지안</th></tr></thead><tbody><tr><th scope="row">확률의 뜻</th><td>같은 절차를 무한히 반복했을 때 사건이 일어나는 비율</td><td>명제에 대한 믿음의 정도(불확실성)</td></tr><tr><th scope="row">모수</th><td>고정된 미지의 값(확률변수가 아님)</td><td>분포를 가진 확률변수</td></tr><tr><th scope="row">핵심 도구</th><td><a href="p-value.html">p값</a>, 검정, 신뢰구간</td><td>사전분포 × 가능도 → 사후분포, <a href="credible-interval.html">신용구간</a>, <a href="bayes-factor.html">베이즈 요인</a></td></tr><tr><th scope="row">대표 질문</th><td>가설이 참이라면 이런 자료가 얼마나 드문가</td><td>자료를 본 뒤 가설(모수)이 어느 정도 그럴듯한가</td></tr><tr><th scope="row">사전 정보</th><td>공식적으로 쓰지 않음(설계·표본크기에 반영)</td><td>사전분포로 명시적으로 반영</td></tr></tbody></table></div><ul><li>두 입장은 계산 방법의 차이이기 전에 “확률이 무엇인가”에 대한 해석의 차이입니다.</li><li>자료가 많고 사전분포가 약하면 두 방법의 수치 결과가 비슷해지는 경우가 많지만, 해석하는 문장은 여전히 다릅니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>같은 질문을 두 방식으로 읽어 봅시다. 동전을 10번 던져 앞면이 7번 나왔다고 합니다.</p><ul><li><strong>빈도주의</strong>: “동전이 공정하다(앞면 확률 = .5)”를 가정하면 앞면이 7번 이상 나올 확률은 176/1,024 ≈ .17이고, 양측이면 약 .34입니다. 이 값은 “공정한 동전이라는 가정 아래 이만큼 치우친 결과가 나올 빈도”이지, 동전이 공정할 확률이 아닙니다.</li><li><strong>베이지안</strong>: 앞면 확률 θ에 사전분포(예: 구간 0~1에서 고르게 퍼진 Beta(1, 1))를 두면, 앞면 7번·뒷면 3번을 본 뒤의 사후분포는 Beta(8, 4)입니다. 사후 평균은 8/12 ≈ .67이고, “θ가 .5보다 클 확률”을 사후분포에서 직접 계산해 말할 수 있습니다.</li></ul><p>(가상의 예, 수치는 이항분포·베타분포의 정의에서 계산한 값입니다.) 같은 자료에서 한쪽은 “자료의 드문 정도”를, 다른 쪽은 “모수에 대한 믿음의 갱신”을 말합니다. 신뢰구간(“같은 절차를 반복하면 구간의 95%가 참값을 포함”)과 신용구간(“자료가 주어졌을 때 모수가 구간에 있을 확률 95%”)의 해석 차이도 같은 맥락입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>베이지안은 주관적이고 빈도주의는 객관적이다.</td><td>빈도주의도 모형, 유의수준, 검정 선택 등 연구자의 판단을 쓰고, 베이지안의 사전분포는 명시되고 민감도 분석으로 검토할 수 있습니다. 두 쪽 모두 가정이 숨어 있느냐 드러나 있느냐의 차이가 큽니다(Gelman &amp; Shalizi, 2013).</td></tr><tr><td>p값은 가설이 참일 확률이다.</td><td>p값은 귀무가설을 가정했을 때 자료의 드문 정도입니다. “가설이 참일 확률”은 사전확률이 있어야 계산되는 베이지안의 양입니다.</td></tr><tr><td>95% 신뢰구간 안에 참값이 있을 확률이 95%다.</td><td>구간을 만드는 절차의 장기적 성질을 말합니다. 이미 계산된 한 구간에 대해 그렇게 말하는 것은 빈도주의 해석으로는 맞지 않습니다(Morey 등, 2016).</td></tr><tr><td>둘 중 하나만 옳으며 섞어 쓰면 안 된다.</td><td>실무에서는 목적에 따라 병행하거나 절충합니다(경험적 베이즈, 베이즈 요인과 p값의 병기 등). 어떤 틀을 택했는지와 그 이유를 밝히는 것이 중요합니다.</td></tr><tr><td>베이지안이면 표본이 작아도 된다.</td><td>사전분포가 정보를 더해 줄 뿐, 자료가 적으면 사후분포도 넓습니다. 정보가 있는 사전분포는 그 근거를 설명해야 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 사전 지식을 명시적으로 반영하기 위해 베이지안 추론 접근을 채택하고 이를 전통적 빈도주의 결과와 함께 비교하였다."</div>
   <p>통계적 추론의 철학적 입장을 밝히고 그에 따른 분석 방법 선택을 설명하는 문장이다.</p>
 
@@ -167,15 +185,33 @@
   <h2>주의할 점</h2>
   <p>베이지안 분석 결과는 사전확률 설정에 따라 달라질 수 있으므로, 사전확률 선택의 근거와 민감도를 함께 보고하는 것이 바람직하다.</p>
 
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>추론 방법의 이름과 그 해석을 헷갈리기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇에 대한 말인가</th><th scope="col">해석</th></tr></thead><tbody><tr><th scope="row"><a href="p-value.html">p값</a></th><td>귀무가설 아래에서 자료의 드문 정도</td><td>가설이 참일 확률이 아님</td></tr><tr><th scope="row"><a href="confidence-interval.html">신뢰구간</a></th><td>구간을 만드는 절차의 장기적 포함 비율</td><td>한 구간에 대한 확률 진술이 아님</td></tr><tr><th scope="row"><a href="credible-interval.html">신용구간</a></th><td>사후분포에서 모수가 놓일 구간</td><td>자료가 주어졌을 때의 확률</td></tr><tr><th scope="row"><a href="bayes-factor.html">베이즈 요인</a></th><td>두 가설이 자료를 설명하는 정도의 비</td><td>사전확률은 별도로 곱해야 사후확률이 됨</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Efron, B. (1986). Why isn't everyone a Bayesian? The American Statistician, 40(1), 1–5.</li>
+    <li>Gelman, A., &amp; Shalizi, C. R. (2013). Philosophy and the practice of Bayesian statistics. British Journal of Mathematical and Statistical Psychology, 66(1), 8–38.</li>
+    <li>Morey, R. D., Hoekstra, R., Rouder, J. N., Lee, M. D., &amp; Wagenmakers, E.-J. (2016). The fallacy of placing confidence in confidence intervals. Psychonomic Bulletin &amp; Review, 23(1), 103–123.</li>
+    <li>Wagenmakers, E.-J. (2007). A practical solution to the pervasive problems of p values. Psychonomic Bulletin &amp; Review, 14(5), 779–804.</li>
+    <li>Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., &amp; Rubin, D. B. (2013). Bayesian Data Analysis (3rd ed.). Chapman and Hall/CRC.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="equivalence-testing.html">동등성 검정</a>
     <a href="randomized-controlled-trial.html" class="related-same-field">무작위대조시험</a>
     <a href="cohort-study.html" class="related-same-field">코호트연구</a>
     <a href="quasi-experimental-design.html" class="related-same-field">준실험설계</a>
-    <a href="longitudinal-study.html" class="related-same-field">종단연구</a>
     <a href="mixed-methods.html" class="related-same-field">혼합연구방법</a>
+    <a href="longitudinal-study.html" class="related-same-field">종단연구</a>
     <a href="control-group.html" class="related-same-field">통제집단</a>
+    <a href="blinded-assessment.html" class="related-same-field">맹검 평가</a>
+    <a href="cross-sectional-study.html" class="related-same-field">횡단연구</a>
+    <a href="hawthorne-effect.html" class="related-same-field">호손 효과</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/methodology?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 연구 설계 가이드 →</a>

@@ -1,0 +1,61 @@
+{
+  "type": "test",
+  "fixes": [
+    {
+      "find": "사후검정은 ANOVA처럼 \"전체적으로 차이가 있다\"는 결과(유의한 F값)가 나온 뒤에만 실시하는 것이 원칙입니다.",
+      "replace": "사후검정은 보통 ANOVA처럼 \"전체적으로 차이가 있다\"는 결과(유의한 F값)가 나온 뒤에 실시하는 것이 관례입니다(Tukey HSD처럼 자체로 전체 오류율을 통제하는 방법은 F검정 결과와 별개로 쓸 수 있다는 입장도 있습니다)."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<ul><li>세 집단 이상을 비교하는 분산분석(ANOVA)에서 “적어도 한 쌍은 다르다”는 결과가 나온 뒤, <strong>어느 쌍이 다른지</strong> 확인하려고 씁니다.</li><li>왜 t검정을 여러 번 하면 안 되는가: 비교 횟수가 늘수록 “적어도 하나는 우연히 유의”해질 확률(전체 제1종 오류율)이 커집니다. 비교들이 독립이라고 가정한 근사 계산은 다음과 같습니다(코드로 계산, α = .05).</li></ul><table><thead><tr><th>집단 수 k</th><th>쌍 비교 수 k(k−1)/2</th><th>전체 오류율 ≈ 1 − .95<sup>m</sup></th><th>본페로니 기준 α/m</th></tr></thead><tbody><tr><td>3</td><td>3</td><td>.143</td><td>.0167</td></tr><tr><td>4</td><td>6</td><td>.265</td><td>.0083</td></tr><tr><td>5</td><td>10</td><td>.401</td><td>.0050</td></tr><tr><td>6</td><td>15</td><td>.537</td><td>.0033</td></tr></tbody></table><p>(쌍 비교는 서로 독립이 아니므로 실제 값은 이 근사치와 약간 다릅니다.) 사후검정은 이 전체 오류율을 α 수준으로 유지하도록 기준을 조정합니다([[bonferroni-correction|다중비교 보정]]).</p><p>사전에 계획된 소수의 비교(계획비교, 대비)가 있으면 사후검정 대신 그 대비만 검정하는 편이 검정력이 높습니다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<table><thead><tr><th>방법</th><th>쓰는 경우</th><th>특징</th></tr></thead><tbody><tr><td>[[tukey-hsd-test|Tukey HSD]]</td><td>모든 쌍 비교, 등분산, 집단 크기가 비슷</td><td>쌍 비교에서 전체 오류율을 통제, 집단 크기가 다르면 Tukey–Kramer 변형</td></tr><tr><td>[[scheffes-test|Scheffé]]</td><td>쌍뿐 아니라 복잡한 대비(예: A와 B의 평균 대 C)도 모두 보려 할 때</td><td>가장 보수적(쌍 비교에서는 검정력이 낮음)</td></tr><tr><td>[[bonferroni-correction|Bonferroni]] / [[holm-bonferroni-method|Holm]]</td><td>비교 횟수가 적을 때, 방법이 단순해야 할 때</td><td>α를 비교 수로 나눔, Holm이 같은 오류 통제에서 더 강력</td></tr><tr><td>[[games-howell-test|Games–Howell]]</td><td>집단 분산이나 크기가 다를 때</td><td>등분산을 가정하지 않음</td></tr></tbody></table><ul><li>읽는 법: 각 쌍에 대해 <strong>평균 차이, 보정된 p값(또는 보정된 신뢰구간)</strong>이 나옵니다. 신뢰구간이 0을 포함하면 그 쌍은 유의하지 않습니다.</li><li>해석상 주의: “A–B는 유의하고 A–C는 유의하지 않다”고 해서 B–C가 다르다고 할 수 없습니다. 쌍마다 따로 판단합니다. 같은 문자(a, ab, b)로 표시하는 표기에서는 같은 문자를 공유하는 집단끼리 유의한 차이가 없습니다.</li><li>사후검정 결과는 효과크기(평균 차이와 신뢰구간)와 함께 읽어야 합니다. p값만 보고 크기를 판단하지 않습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>전체 검정(예: 일원분산분석 F값, 자유도, p값)을 먼저 보고한 뒤 <strong>사용한 사후검정 방법</strong>을 명시합니다. “사후검정을 하였다”라고만 쓰지 않습니다.</li><li>방법을 고른 이유(등분산 검토, 집단 크기)를 적습니다.</li><li>유의한 쌍의 평균 차이와 보정된 p값(또는 신뢰구간)을 표로 보입니다.</li><li>계획비교였는지 탐색적 사후검정이었는지 구분해서 씁니다.</li></ul><p>문장의 예(가상): “집단 간 점수 차이는 유의하였다(F(2, 87) = 5.62, p = .005). Tukey HSD 사후검정 결과 A집단이 C집단보다 높았고(평균 차이 = 4.1, 95% CI [1.2, 7.0], p = .004), 나머지 쌍은 유의하지 않았다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "다중비교와 관련된 용어가 자주 섞입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "시점"
+    ],
+    "rows": [
+      [
+        "[[anova|분산분석]]",
+        "집단 평균이 모두 같은지 전체 검정",
+        "먼저"
+      ],
+      [
+        "사후검정",
+        "어느 쌍이 다른지 확인",
+        "분산분석 뒤(탐색적)"
+      ],
+      [
+        "계획비교(대비)",
+        "사전에 정한 비교를 검정",
+        "분석 전에 결정"
+      ],
+      [
+        "[[bonferroni-correction|다중비교 보정]]",
+        "비교 횟수에 맞춰 유의수준·p값을 조정하는 원리",
+        "사후검정의 일부로 쓰임"
+      ]
+    ]
+  },
+  "references": [
+    "Tukey, J. W. (1953). The problem of multiple comparisons. Unpublished manuscript, Princeton University.",
+    "Scheffé, H. (1953). A method for judging all contrasts in the analysis of variance. Biometrika, 40(1–2), 87–104.",
+    "Dunn, O. J. (1961). Multiple comparisons among means. Journal of the American Statistical Association, 56(293), 52–64.",
+    "Games, P. A., & Howell, J. F. (1976). Pairwise multiple comparison procedures with unequal n's and/or variances: A Monte Carlo study. Journal of Educational Statistics, 1(2), 113–125.",
+    "Hsu, J. C. (1996). Multiple Comparisons: Theory and Methods. Chapman & Hall."
+  ]
+}

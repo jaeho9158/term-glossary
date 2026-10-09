@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/post-hoc-test.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -72,8 +73,8 @@
 }</script>
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="논문용어사전">
-<meta property="og:title" content="사후검정 (Post-hoc Test) - 논문용어사전">
-<meta property="og:description" content="세 집단 이상을 비교하는 검정에서 &quot;어딘가에 차이가 있다&quot;는 결과가 나온 뒤, 구체적으로 어느 집단과 어느 집단 사이에 차이가 있는지 짝지어 확인하는 추가 검정입니다.">
+<meta property="og:title" content="사후검정(Post-hoc Test) 뜻 - 세 집단 이상을 비교하는 검정에서… | 논문용어사전">
+<meta property="og:description" content="세 집단 이상을 비교하는 검정에서 &quot;어딘가에 차이가 있다&quot;는 결과가 나온 뒤, 구체적으로 어느 집단과 어느 집단 사이에 차이가 있는지 짝지어 확인하는 추가 검정입니다. 쉬운 풀이, 논문 예문과 관련 용어까지 - 논문용어사전">
 <meta property="og:url" content="https://termglossary.kr/terms/post-hoc-test.html">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://termglossary.kr/assets/og-default.png">
@@ -152,7 +153,29 @@
   <h2>왜 중요한가</h2>
   <p>세 집단 이상을 비교하는 실험연구는 심리학, 교육학, 의학, 생명과학 등 거의 모든 실증 연구 분야에서 흔히 쓰이는 설계이기 때문에, 사후검정은 ANOVA와 짝을 이루는 필수 절차로 논문에 매우 빈번하게 등장합니다. 다중비교 시 발생하는 1종 오류 팽창 문제를 통제하는 방법이라는 점에서, 통계적 엄밀성을 평가하는 심사위원이나 독자가 특히 주의 깊게 살펴보는 부분이기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <ul><li>세 집단 이상을 비교하는 분산분석(ANOVA)에서 “적어도 한 쌍은 다르다”는 결과가 나온 뒤, <strong>어느 쌍이 다른지</strong> 확인하려고 씁니다.</li><li>왜 t검정을 여러 번 하면 안 되는가: 비교 횟수가 늘수록 “적어도 하나는 우연히 유의”해질 확률(전체 제1종 오류율)이 커집니다. 비교들이 독립이라고 가정한 근사 계산은 다음과 같습니다(코드로 계산, α = .05).</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>집단 수 k</th><th>쌍 비교 수 k(k−1)/2</th><th>전체 오류율 ≈ 1 − .95<sup>m</sup></th><th>본페로니 기준 α/m</th></tr></thead><tbody><tr><td>3</td><td>3</td><td>.143</td><td>.0167</td></tr><tr><td>4</td><td>6</td><td>.265</td><td>.0083</td></tr><tr><td>5</td><td>10</td><td>.401</td><td>.0050</td></tr><tr><td>6</td><td>15</td><td>.537</td><td>.0033</td></tr></tbody></table></div><p>(쌍 비교는 서로 독립이 아니므로 실제 값은 이 근사치와 약간 다릅니다.) 사후검정은 이 전체 오류율을 α 수준으로 유지하도록 기준을 조정합니다(<a href="bonferroni-correction.html">다중비교 보정</a>).</p><p>사전에 계획된 소수의 비교(계획비교, 대비)가 있으면 사후검정 대신 그 대비만 검정하는 편이 검정력이 높습니다.</p>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>쓰는 경우</th><th>특징</th></tr></thead><tbody><tr><td><a href="tukey-hsd-test.html">Tukey HSD</a></td><td>모든 쌍 비교, 등분산, 집단 크기가 비슷</td><td>쌍 비교에서 전체 오류율을 통제, 집단 크기가 다르면 Tukey–Kramer 변형</td></tr><tr><td><a href="scheffes-test.html">Scheffé</a></td><td>쌍뿐 아니라 복잡한 대비(예: A와 B의 평균 대 C)도 모두 보려 할 때</td><td>가장 보수적(쌍 비교에서는 검정력이 낮음)</td></tr><tr><td><a href="bonferroni-correction.html">Bonferroni</a> / <a href="holm-bonferroni-method.html">Holm</a></td><td>비교 횟수가 적을 때, 방법이 단순해야 할 때</td><td>α를 비교 수로 나눔, Holm이 같은 오류 통제에서 더 강력</td></tr><tr><td><a href="games-howell-test.html">Games–Howell</a></td><td>집단 분산이나 크기가 다를 때</td><td>등분산을 가정하지 않음</td></tr></tbody></table></div><ul><li>읽는 법: 각 쌍에 대해 <strong>평균 차이, 보정된 p값(또는 보정된 신뢰구간)</strong>이 나옵니다. 신뢰구간이 0을 포함하면 그 쌍은 유의하지 않습니다.</li><li>해석상 주의: “A–B는 유의하고 A–C는 유의하지 않다”고 해서 B–C가 다르다고 할 수 없습니다. 쌍마다 따로 판단합니다. 같은 문자(a, ab, b)로 표시하는 표기에서는 같은 문자를 공유하는 집단끼리 유의한 차이가 없습니다.</li><li>사후검정 결과는 효과크기(평균 차이와 신뢰구간)와 함께 읽어야 합니다. p값만 보고 크기를 판단하지 않습니다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>전체 검정(예: 일원분산분석 F값, 자유도, p값)을 먼저 보고한 뒤 <strong>사용한 사후검정 방법</strong>을 명시합니다. “사후검정을 하였다”라고만 쓰지 않습니다.</li><li>방법을 고른 이유(등분산 검토, 집단 크기)를 적습니다.</li><li>유의한 쌍의 평균 차이와 보정된 p값(또는 신뢰구간)을 표로 보입니다.</li><li>계획비교였는지 탐색적 사후검정이었는지 구분해서 씁니다.</li></ul><p>문장의 예(가상): “집단 간 점수 차이는 유의하였다(F(2, 87) = 5.62, p = .005). Tukey HSD 사후검정 결과 A집단이 C집단보다 높았고(평균 차이 = 4.1, 95% CI [1.2, 7.0], p = .004), 나머지 쌍은 유의하지 않았다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“집단따돌림 동조유형에 따라 공감과 자기존중감의 차이가 있는지를 알아보기 위해 단변량분석(ANOVA)을 실시하고 사후검정(Tukey)을 실시하였으며, 공감과 자기존중감은 집단따돌림 동조유형을 어느 정도 판별할 수 있는지를 밝히기 위해 판별분석을 사용하였다.”</blockquote><p class="te-cite">초등학생의 공감 및 자기존중감에 따른 집단따돌림 동조유형 판별분석, 상담학연구, 2008 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001280110" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“자료 분석은 기술통계, 독립표본 t검정, One-way ANOVA, Scheffé 사후검정, Person’s correlation analysis, 도구의 신뢰도를 SPSS 25.0 프로그램을 사용하였다.”</blockquote><p class="te-cite">임상간호사의 윤리적리더십과 윤리적민감성, 윤리풍토, 간호업무수행에 관한 연구, 학습자중심교과교육연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002985934" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“연구방법: 1개 광역시와 3개 중소도시 지역에 소재하는 유치원과 어린이집에 자녀를 보내고 있는 어머니 총 387명으로부터 회수된 설문 조사 자료는 SPSS 23.0 프로그램을 이용하여 평균, 표준편차, t-검증, 일변량분산분석과 Scheffé 사후검정을 실시하였다.”</blockquote><p class="te-cite">유아의 사회인구학적 변인과 모 공동체생활 역량 요소에 따른 유아의 친사회적 행동 연구, 교육혁신연구, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002235108" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"일원배치 분산분석 결과 집단 간 유의한 차이가 나타나(F = 6.42, p &lt; .01), Tukey HSD를 이용한 사후검정을 실시한 결과 실험집단이 통제집단보다 유의하게 높은 점수를 보였다(p &lt; .05)."</div>
   <p>이 문장은 먼저 ANOVA로 "집단 간에 차이가 있다"는 것을 확인한 뒤, 사후검정을 통해 그 차이가 구체적으로 어느 집단 쌍에서 나타나는지까지 짚어냈다는 뜻입니다.</p>
   <div class="example">"집단 간 분산의 동질성 가정이 위배됨에 따라, Games-Howell 사후검정을 적용하여 각 용량군 간 반응 차이를 비교하였다."</div>
@@ -164,7 +187,22 @@
   <p>사후검정 방법의 선택은 표본 크기가 같은지, 집단 간 분산이 동질적인지에 따라 달라지는데, 등분산이 가정되면 Tukey HSD나 Scheffé 검정이, 등분산이 위배되면 Games-Howell 검정이 흔히 쓰입니다. 또한 사전에 계획된 비교인지(계획비교, planned comparison) 사후에 탐색적으로 이루어지는 비교인지도 방법 선택에 영향을 주며, 어느 방법이든 공통적으로 목표는 여러 번 비교를 반복함에 따라 누적되는 1종 오류율을 전체 검정 수준에서 통제하는 것입니다.</p>
 
   <h2>주의할 점</h2>
-  <p>사후검정은 ANOVA처럼 "전체적으로 차이가 있다"는 결과(유의한 F값)가 나온 뒤에만 실시하는 것이 원칙입니다. 또한 어떤 사후검정 방법을 쓰느냐(Tukey, Scheffé, Bonferroni, Games-Howell 등)에 따라 결과가 조금씩 달라질 수 있으므로, 표본 크기나 집단별 분산의 동질성 여부를 고려해 적절한 방법을 선택했는지 논문에 명시해야 합니다.</p>
+  <p>사후검정은 보통 ANOVA처럼 "전체적으로 차이가 있다"는 결과(유의한 F값)가 나온 뒤에 실시하는 것이 관례입니다(Tukey HSD처럼 자체로 전체 오류율을 통제하는 방법은 F검정 결과와 별개로 쓸 수 있다는 입장도 있습니다). 또한 어떤 사후검정 방법을 쓰느냐(Tukey, Scheffé, Bonferroni, Games-Howell 등)에 따라 결과가 조금씩 달라질 수 있으므로, 표본 크기나 집단별 분산의 동질성 여부를 고려해 적절한 방법을 선택했는지 논문에 명시해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>다중비교와 관련된 용어가 자주 섞입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">시점</th></tr></thead><tbody><tr><th scope="row"><a href="anova.html">분산분석</a></th><td>집단 평균이 모두 같은지 전체 검정</td><td>먼저</td></tr><tr><th scope="row">사후검정</th><td>어느 쌍이 다른지 확인</td><td>분산분석 뒤(탐색적)</td></tr><tr><th scope="row">계획비교(대비)</th><td>사전에 정한 비교를 검정</td><td>분석 전에 결정</td></tr><tr><th scope="row"><a href="bonferroni-correction.html">다중비교 보정</a></th><td>비교 횟수에 맞춰 유의수준·p값을 조정하는 원리</td><td>사후검정의 일부로 쓰임</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Tukey, J. W. (1953). The problem of multiple comparisons. Unpublished manuscript, Princeton University.</li>
+    <li>Scheffé, H. (1953). A method for judging all contrasts in the analysis of variance. Biometrika, 40(1–2), 87–104.</li>
+    <li>Dunn, O. J. (1961). Multiple comparisons among means. Journal of the American Statistical Association, 56(293), 52–64.</li>
+    <li>Games, P. A., &amp; Howell, J. F. (1976). Pairwise multiple comparison procedures with unequal n's and/or variances: A Monte Carlo study. Journal of Educational Statistics, 1(2), 113–125.</li>
+    <li>Hsu, J. C. (1996). Multiple Comparisons: Theory and Methods. Chapman &amp; Hall.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
@@ -173,9 +211,11 @@
     <a href="randomized-controlled-trial.html" class="related-same-field">무작위대조시험</a>
     <a href="cohort-study.html" class="related-same-field">코호트연구</a>
     <a href="quasi-experimental-design.html" class="related-same-field">준실험설계</a>
-    <a href="longitudinal-study.html" class="related-same-field">종단연구</a>
     <a href="mixed-methods.html" class="related-same-field">혼합연구방법</a>
+    <a href="longitudinal-study.html" class="related-same-field">종단연구</a>
     <a href="control-group.html" class="related-same-field">통제집단</a>
+    <a href="blinded-assessment.html" class="related-same-field">맹검 평가</a>
+    <a href="cross-sectional-study.html" class="related-same-field">횡단연구</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/methodology?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 연구 설계 가이드 →</a>
