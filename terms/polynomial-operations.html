@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>다항식 연산은 방정식 풀이, 함수 그래프 분석, 회귀모형 설계 등 수학을 도구로 쓰는 거의 모든 연구 분야의 계산 기반이 되기 때문에, 논문에서는 이를 별도로 설명하기보다 당연한 배경지식으로 전제하고 넘어가는 경우가 많습니다. 특히 여러 변수를 다항식 형태로 조합해 상호작용 효과를 표현하는 통계·공학 모델에서는, 다항식을 정확히 전개하고 정리하는 능력이 모형 설정의 정확성과 직결됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>다항식의 연산은 정리, 덧셈·뺄셈, 곱셈, 나눗셈으로 이루어집니다.</p><ol><li><strong>정리</strong>: 차수가 높은 항부터 내림차순으로 쓰고, 문자와 차수가 같은 동류항은 묶습니다.</li><li><strong>덧셈·뺄셈</strong>: 동류항끼리 계수를 더하거나 뺍니다. 뺄셈에서는 빼는 식의 모든 항의 부호를 바꾸는 것을 잊지 않습니다.</li><li><strong>곱셈</strong>: 분배법칙으로 한쪽의 모든 항을 다른 쪽의 모든 항과 곱하고, 지수법칙(x<sup>a</sup>·x<sup>b</sup> = x<sup>a+b</sup>)으로 정리한 뒤 동류항을 묶습니다. 곱의 차수는 각 식 차수의 합입니다.</li><li><strong>나눗셈</strong>: 긴 나눗셈이나 조립제법으로 몫과 나머지를 구합니다. 나머지의 차수는 나누는 식의 차수보다 낮아야 합니다. 즉 <code>A = B × 몫 + 나머지</code>입니다.</li></ol><p>다음 계산은 코드로 확인한 예입니다.</p><ul><li>(2x + 3)(x − 4) = 2x² − 8x + 3x − 12 = 2x² − 5x − 12</li><li>(x³ − 2x² − 5x + 6) ÷ (x − 3) = 몫 x² + x − 2, 나머지 0</li><li>(2x³ − 3x² + 5) ÷ (x − 2) = 몫 2x² + x + 2, 나머지 9</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>세 번째 나눗셈의 나머지 9는 나머지정리로 바로 확인됩니다. P(x) = 2x³ − 3x² + 5에 x = 2를 넣으면 2·8 − 3·4 + 5 = 9이므로 나머지와 같습니다(<a href="factor-remainder-theorem.html">인수정리와 나머지정리</a>). 나머지가 0이면 x − 2가 인수라는 뜻이며, 이를 이용해 곱의 꼴로 되돌리는 일은 <a href="factorization.html">인수분해</a>에서 다룹니다.</p><p>연구에서 다항식 연산은 주로 도구로 쓰입니다. 회귀모형의 다항항과 상호작용항을 전개할 때, 제어공학에서 전달함수의 분자·분모 다항식을 정리해 영점과 극점을 구할 때, 수치 계산에서 함수 값을 효율적으로 구할 때 등입니다. 컴퓨터로 다항식을 계산할 때는 곱셈 횟수를 줄이는 호너의 방법이 대표적입니다. 차수가 n인 다항식을 n번의 곱셈과 n번의 덧셈으로 평가할 수 있습니다(Knuth, 1997). 아주 큰 차수의 다항식끼리 곱할 때는 고속 푸리에 변환을 이용한 알고리즘이 더 빠르다고 알려져 있으며(Cooley &amp; Tukey, 1965; Cormen 외, 2009), 이는 교과서 수준의 전개 연산과는 다른 계산 문제입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에서 다항식 연산은 대개 풀이 과정을 적지 않고 <em>결과 식</em>만 제시합니다. 다만 다음 사항은 밝혀야 재현할 수 있습니다.</p><ul><li>어떤 식을 어떤 변수에 대해 전개·정리했는지, 다항식의 차수와 계수 체(실수, 정수 등)</li><li>수식 처리를 소프트웨어로 했다면 그 종류와 버전</li><li>수치 계산에서 반올림 오차가 문제 될 수 있는 경우(차수가 높거나 계수의 크기가 크게 다른 경우)에는 평가 방식</li></ul><p>자주 나오는 실수는 완전제곱식 전개에서 가운데 항을 빠뜨리는 것(<code>(a + b)² = a² + 2ab + b²</code>), 뺄셈에서 부호를 한 항만 바꾸는 것, 곱한 뒤 동류항을 묶지 않는 것입니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"회귀모형의 비선형 항은 3차 다항식으로 설정하였으며, 다항식의 곱셈과 전개를 통해 각 설명변수 간 상호작용항을 도출하였다."</div>
   <p>이 문장은 "여러 변수를 포함한 다항식을 곱하고 정리해서, 변수들이 서로 곱해지는 형태의 새로운 항을 만들어냈다"는 뜻입니다.</p>
   <div class="example">"제어 시스템의 전달함수를 다항식의 나눗셈 형태로 정리하여 극점과 영점의 위치를 분석하였다."</div>
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>다항식을 곱할 때는 분배법칙을 빠짐없이 적용해야 하며, 특히 (a+b)²=a²+2ab+b²처럼 완전제곱식을 전개할 때 가운데 항(2ab)을 빠뜨리고 단순히 a²+b²으로 잘못 계산하지 않도록 주의해야 합니다. 전개한 다항식을 다시 곱의 형태로 되돌리는 과정은 <a href="factorization.html">인수분해</a> 문서에서 다룹니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>다항식을 다루는 개념들이 서로 이어져 있지만 하는 일이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">연산과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="factorization.html">인수분해</a></th><td>다항식을 곱의 꼴로 되돌림</td><td>전개(곱셈)의 역방향</td></tr><tr><th scope="row"><a href="factor-remainder-theorem.html">인수정리와 나머지정리</a></th><td>나눗셈의 나머지와 인수 여부를 값 대입으로 판단</td><td>나눗셈의 결과를 빠르게 확인하는 도구</td></tr><tr><th scope="row"><a href="polynomial-function-graph-shape.html">다항함수의 그래프 개형</a></th><td>차수와 계수에 따른 그래프 모양</td><td>연산이 아니라 함수의 시각적 성질</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Knuth, D. E. (1997). The Art of Computer Programming, Volume 2: Seminumerical Algorithms (3rd ed.). Addison-Wesley.</li>
+    <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.</li>
+    <li>Cooley, J. W., &amp; Tukey, J. W. (1965). An algorithm for the machine calculation of complex Fourier series. Mathematics of Computation, 19(90), 297–301.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="factor-remainder-theorem.html">인수정리와 나머지정리</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">

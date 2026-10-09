@@ -1,0 +1,43 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>단위 환산은 같은 양을 다른 단위로 나타내는 계산입니다. 원리는 값을 바꾸지 않는 1을 곱하는 것입니다. 1 m = 100 cm이므로 (1 m / 100 cm) = 1이고,</p><p><code>120 cm × (1 m / 100 cm) = 1.2 m</code></p><ol><li>같은 종류(차원)의 양인지 확인합니다. 길이는 길이로, 질량은 질량으로만 바뀝니다.</li><li>환산 계수를 분모에 원래 단위가 오도록 써서 곱합니다. 원래 단위가 약분되어야 맞게 쓴 것입니다.</li><li>합성 단위(속도, 압력 등)는 구성 단위를 각각 환산합니다.</li><li>면적은 제곱, 부피는 세제곱으로 환산합니다.</li></ol><p>다음 예를 코드로 확인했습니다.</p><ul><li>36 km/h = 36 × 1000 m / 3600 s = 10 m/s</li><li>3.5 cm² = 3.5 × (0.01 m)² = 3.5×10<sup>−4</sup> m² (1 m² = 10<sup>4</sup> cm²이며 100이 아닙니다)</li><li>50 psi = 50 × 6,894.757 Pa ≈ 344.74 kPa (1 psi는 1 lbf/in²에서 유도된 값으로, 1 lb = 0.45359237 kg와 1 in = 0.0254 m는 정의된 정확한 값입니다)</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>서로 다른 단위로 측정된 값을 비교하고 합산하려면 하나의 체계로 통일해야 합니다. 학술 논문에서는 국제단위계(SI)를 기준으로 삼는 것이 관례입니다(BIPM, 2019). 환산이 틀리면 결론이 틀립니다. 유명한 사례로 화성 기후 궤도선(Mars Climate Orbiter) 사고 조사 보고서는, 추력기 충격량 자료가 한 쪽에서는 파운드힘·초로 산출되었는데 다른 쪽이 뉴턴·초로 가정한 단위 불일치가 항로 오차의 원인이었다고 보고했습니다(NASA, 1999).</p><p>차원해석, 곧 식의 양변이 같은 단위인지 확인하는 방법은 계산 실수를 잡는 간단한 점검 수단입니다. 환산 도중에는 유효숫자를 유지하다가 마지막에 반올림하는 것이 정확도를 지키는 방법입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>측정한 원래 단위와 환산한 단위를 함께 적고, 환산에 쓴 계수가 정의된 정확한 값인지 근사값인지 밝힙니다.</li><li>SI 사용 지침(예: Thompson &amp; Taylor, 2008)에 맞춰 단위 기호와 접두어를 씁니다.</li><li>표와 그래프의 단위를 통일합니다. 여러 문헌의 수치를 모을 때는 문헌마다 원래 단위가 무엇이었는지를 기록해 두어야 재검증할 수 있습니다.</li><li>온도는 비례 환산이 아니라 덧셈이 포함됩니다(예: K = ℃ + 273.15). 길이·질량처럼 곱하기만으로 바뀌지 않는 양이 있다는 점도 설명에 포함합니다.</li></ul><p>예: <code>압력은 psi로 측정한 뒤 문헌과의 비교를 위해 SI 단위(kPa)로 환산하여 제시하였다(1 psi = 6.894757 kPa).</code></p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름에 ‘단위’가 들어가는 다른 개념과 구별해야 합니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "단위 환산과의 관계"
+    ],
+    "rows": [
+      [
+        "[[si-units|국제단위계(SI)]]",
+        "국제적으로 합의된 기본 단위 체계",
+        "환산의 목표가 되는 기준 체계"
+      ],
+      [
+        "[[unit-vector|단위벡터]]",
+        "크기가 1인 벡터",
+        "수학에서 방향을 나타내는 개념으로, 측정 단위의 환산과는 다른 ‘단위’"
+      ]
+    ]
+  },
+  "references": [
+    "Bureau International des Poids et Mesures. (2019). The International System of Units (SI) (9th ed.). BIPM.",
+    "Thompson, A., & Taylor, B. N. (2008). Guide for the Use of the International System of Units (SI) (NIST Special Publication 811). National Institute of Standards and Technology.",
+    "NASA Mars Climate Orbiter Mishap Investigation Board. (1999). Phase I Report. National Aeronautics and Space Administration."
+  ]
+}

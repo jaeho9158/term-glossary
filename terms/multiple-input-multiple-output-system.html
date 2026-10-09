@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>주파수 자원이 제한된 무선통신 환경에서 데이터 전송량을 늘리는 것은 매우 중요한 과제입니다. MIMO는 추가 주파수 대역 없이도 안테나 수를 늘려 전송 용량과 신뢰성을 동시에 개선할 수 있어, 이동통신 표준을 포함한 다양한 무선 시스템에서 핵심 기술로 자리잡았습니다.</p>
   <p>동일한 안테나 배열을 어떻게 쓰느냐에 따라 전송 속도를 높이는 데 집중할 수도, 신뢰성을 높이는 데 집중할 수도 있어 응용 목적에 맞춘 설계 자유도가 크다는 점도 중요한 특징입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>MIMO는 송신기와 수신기가 각각 여러 안테나를 쓰는 무선 링크입니다. 송신 안테나 N<sub>t</sub>개, 수신 안테나 N<sub>r</sub>개이면 채널은 N<sub>r</sub>×N<sub>t</sub> 행렬 <strong>H</strong>로 표현되고, 수신 신호는 <strong>y</strong> = <strong>Hx</strong> + <strong>n</strong>입니다. 송신 쪽이 채널을 모르고 전력을 안테나에 고르게 나누는 경우, 평균 신호대잡음비 ρ에서 용량은 다음과 같습니다(Foschini &amp; Gans, 1998; Telatar, 1999).</p><p><code>C = log<sub>2</sub> det( I + (ρ / N<sub>t</sub>) · H H<sup>H</sup> )  [bit/s/Hz]</code></p><p>이 식에서 핵심 성질은 두 가지입니다.</p><ul><li><strong>공간 다중화 이득</strong>: 채널의 서로 독립적인 통로 수는 min(N<sub>t</sub>, N<sub>r</sub>) 이하이며, 신호대잡음비가 클 때 용량은 이 값에 거의 비례해 늘어납니다. 같은 대역폭과 전력으로 여러 스트림을 보내는 셈입니다.</li><li><strong>다이버시티 이득</strong>: 같은 정보를 여러 경로로 보내 페이딩에 의한 신호 손실에 강해집니다. Alamouti(1998)의 송신 다이버시티 기법이 대표적입니다.</li></ul><p>두 이득을 동시에 극대화할 수는 없으며, 하나를 키우면 다른 하나가 줄어드는 근본적 절충이 있습니다(Zheng &amp; Tse, 2003).</p>
+
+  <h2>예시로 보기</h2>
+  <p>독립 레일리 페이딩 채널에서 신호대잡음비 10 dB일 때, 안테나 수에 따른 평균(에르고딕) 용량을 모의 실험으로 구했습니다(난수 시드 1, 20,000회 추출 평균. 수신 쪽만 채널을 안다고 가정한 가상의 환경이며 계산은 코드로 확인했습니다).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구성</th><th>평균 용량 (bit/s/Hz)</th></tr></thead><tbody><tr><td>1×1</td><td>2.89</td></tr><tr><td>2×2</td><td>5.54</td></tr><tr><td>4×4</td><td>10.93</td></tr></tbody></table></div><p>안테나를 2배로 늘릴 때마다 용량이 거의 2배가 됩니다. 추가 대역폭도 추가 전력도 쓰지 않았다는 점이 MIMO의 핵심 매력입니다. 실제 환경에서는 안테나 간 상관, 직접파가 지배적인 환경, 송신 전력의 한계 때문에 이만큼 늘지 않을 수 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>안테나를 늘리면 무조건 용량이 비례해 늘어난다?</strong> 채널이 풍부한 산란 환경과 안테나 간 낮은 상관이 필요합니다. 상관이 높으면 독립 통로가 줄어듭니다.</li><li><strong>MIMO와 대규모 MIMO는 같은 말?</strong> 아닙니다. <a href="massive-mimo.html">대규모 MIMO</a>는 기지국이 사용자 수보다 훨씬 많은 안테나를 두는 확장 형태입니다.</li><li><strong>MIMO가 곧 <a href="channel-capacity-shannon-limit.html">섀넌 한계</a>를 넘는다?</strong> 그렇지 않습니다. MIMO 용량도 섀넌의 정보이론 틀 안에서 계산되며, 안테나를 늘리면 단일 안테나 채널보다 더 큰 이론적 한계를 갖게 되는 것입니다.</li><li><strong>복잡도</strong>: 수신기는 섞여 들어온 스트림을 분리해야 하므로 계산량이 늘어납니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"4x4 MIMO 구성을 통해 단일 안테나 대비 채널 용량이 크게 증가함을 확인하였다."</div>
   <p>안테나 개수 증가에 따른 용량 향상을 설명하는 예입니다.</p>
   <div class="example">"제안한 프리코딩 기법은 MIMO 채널에서 공간 다중화 이득을 극대화하도록 설계되었다."</div>
@@ -163,6 +181,21 @@
   <p>MIMO의 이득은 안테나 사이의 채널이 서로 충분히 구분되는 조건에서 잘 발휘되며, 안테나 간 상관도가 높은 환경에서는 기대한 만큼의 성능 향상을 얻기 어려울 수 있습니다.</p>
 
   <p>MIMO 수신기는 여러 안테나로부터 섞여 들어온 신호를 분리해야 하므로 단일 안테나 수신기보다 신호 처리 복잡도가 높아지며, 안테나 수가 늘어날수록 이 복잡도도 함께 증가합니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>MIMO는 안테나 구성 방식이고, 아래 용어는 그 확장이나 이론적 바탕입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">MIMO와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="massive-mimo.html">대규모 MIMO</a></th><td>기지국에 매우 많은 안테나를 두고 다수 사용자를 동시에 서비스</td><td>MIMO의 확장 형태</td></tr><tr><th scope="row"><a href="channel-capacity-shannon-limit.html">채널용량과 섀넌한계</a></th><td>채널에서 오류 없이 보낼 수 있는 최대 정보율</td><td>MIMO 용량을 계산하는 이론적 틀</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Foschini, G. J., &amp; Gans, M. J. (1998). On limits of wireless communications in a fading environment when using multiple antennas. Wireless Personal Communications, 6(3), 311–335.</li>
+    <li>Telatar, I. E. (1999). Capacity of multi-antenna Gaussian channels. European Transactions on Telecommunications, 10(6), 585–595.</li>
+    <li>Alamouti, S. M. (1998). A simple transmit diversity technique for wireless communications. IEEE Journal on Selected Areas in Communications, 16(8), 1451–1458.</li>
+    <li>Zheng, L., &amp; Tse, D. N. C. (2003). Diversity and multiplexing: A fundamental tradeoff in multiple-antenna channels. IEEE Transactions on Information Theory, 49(5), 1073–1096.</li>
+    <li>Tse, D., &amp; Viswanath, P. (2005). Fundamentals of Wireless Communication. Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="massive-mimo.html">매시브 마이모</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

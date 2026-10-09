@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>단일세포 클로닝은 세포 한 개에서 출발한 집단(클론)을 얻는 과정입니다. 혼합 집단에서 한 세포를 따로 분리해 증식시키면 자손이 모두 같은 조상에서 유래하므로 유전적으로 거의 균일한 집단이 됩니다. 이 개념은 오래되었으며, Puck과 Marcus(1955)는 HeLa 세포에서 단일 세포로부터 클론을 만드는 방법을 보고했습니다(이때 방사선을 쬔 도움 세포가 배양 조건을 지원하는 방식이 쓰였습니다).</p><p>단일세포를 얻는 대표적인 방법은 다음과 같습니다.</p><ul><li><strong>한계희석법</strong>: 세포 현탁액을 매우 묽게 하여 웰당 평균 세포 수가 1 이하가 되도록 분주합니다([[limiting-dilution-assay|한계희석 분석]]).</li><li><strong>유세포 분주</strong>: 형광 활성화 세포 분리기로 세포를 한 개씩 웰에 떨어뜨립니다([[fluorescence-activated-cell-sorting|형광 활성화 세포 분리]]).</li><li><strong>이미징 확인 병행</strong>: 분주 직후 웰마다 세포가 한 개인지 영상으로 확인합니다.</li></ul><p>그 뒤 웰에서 자란 콜로니를 증식하고, 목적한 유전자 변화가 있는지 서열 분석 등으로 확인합니다. CRISPR 편집 후 개별 클론을 분리하는 과정이 한 예입니다(Ran 외, 2013).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>한계희석법은 통계에 의존합니다. 웰당 평균 세포 수 λ인 포아송 분포로 근사하면, 웰에 정확히 한 개가 들어갈 확률은 λe<sup>−λ</sup>입니다. 아래는 코드로 계산한 값입니다(포아송 가정을 둔 가상의 계산).</p><table><thead><tr><th>평균 세포 수/웰 λ</th><th>빈 웰</th><th>정확히 1개</th><th>2개 이상</th><th>세포가 든 웰 중 1개짜리</th></tr></thead><tbody><tr><td>0.3</td><td>74.1%</td><td>22.2%</td><td>3.7%</td><td>85.7%</td></tr><tr><td>0.5</td><td>60.7%</td><td>30.3%</td><td>9.0%</td><td>77.1%</td></tr><tr><td>1.0</td><td>36.8%</td><td>36.8%</td><td>26.4%</td><td>58.2%</td></tr></tbody></table><p>λ를 낮추면 빈 웰이 늘지만 한 세포 유래일 확률이 높아집니다. 다시 말해 웰에서 콜로니가 자라도 그것이 단일 세포 유래라는 보장은 확률적이므로, 규제나 엄밀한 증명이 필요한 경우에는 영상 확인이나 한 번 더 클로닝을 합니다. 세포가 서로 엉겨 붙는 성질이 있으면 이 가정이 깨집니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>분리 방법(한계희석인지 유세포 분주인지)과 웰당 목표 세포 수, 분주 후 단일세포 확인 방법(영상 등)</li><li>사용한 배지와 생존율을 높이는 보충물</li><li>얻은 클론 수, 선별 기준, 계대 수</li><li>유전형 확인 방법과 결과(예: 서열 분석), 클론 간 변이 점검</li><li>한 클론만 쓰면 그 클론 고유의 특성이 일반화를 해칠 수 있으므로, 여러 클론에서 같은 결과가 나왔는지 서술합니다.</li></ul><p>생존율이 낮은 세포는 단일세포 상태에서 잘 자라지 않아 조건 최적화가 필요합니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘단일세포’라는 말이 들어가지만 목적이 다른 기법들이 있습니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "단일세포 클로닝과의 차이"
+    ],
+    "rows": [
+      [
+        "[[limiting-dilution-assay|한계희석 분석]]",
+        "희석 단계별 양성 웰 비율로 특정 세포의 빈도를 추정하는 분석",
+        "같은 희석 원리를 쓰지만 목적이 빈도 추정. 클로닝에서는 이 원리로 단일세포 유래 클론을 얻음"
+      ],
+      [
+        "[[fluorescence-activated-cell-sorting|형광 활성화 세포 분리]]",
+        "형광 표지에 따라 세포를 분리",
+        "단일세포를 웰에 분주하는 방법으로도 쓰임"
+      ],
+      [
+        "[[single-cell-multi-omics|단일세포 멀티오믹스]]",
+        "개별 세포의 여러 분자 정보를 측정·분석",
+        "세포를 클론으로 키우지 않고 각 세포를 측정"
+      ]
+    ]
+  },
+  "references": [
+    "Puck, T. T., & Marcus, P. I. (1955). A rapid method for viable cell titration and clone production with HeLa cells in tissue culture: The use of X-irradiated cells to supply conditioning factors. Proceedings of the National Academy of Sciences, 41(7), 432–437.",
+    "Ran, F. A., Hsu, P. D., Wright, J., Agarwala, V., Scott, D. A., & Zhang, F. (2013). Genome engineering using the CRISPR-Cas9 system. Nature Protocols, 8, 2281–2308."
+  ]
+}

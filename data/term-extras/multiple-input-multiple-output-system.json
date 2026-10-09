@@ -1,0 +1,45 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>MIMO는 송신기와 수신기가 각각 여러 안테나를 쓰는 무선 링크입니다. 송신 안테나 N<sub>t</sub>개, 수신 안테나 N<sub>r</sub>개이면 채널은 N<sub>r</sub>×N<sub>t</sub> 행렬 <strong>H</strong>로 표현되고, 수신 신호는 <strong>y</strong> = <strong>Hx</strong> + <strong>n</strong>입니다. 송신 쪽이 채널을 모르고 전력을 안테나에 고르게 나누는 경우, 평균 신호대잡음비 ρ에서 용량은 다음과 같습니다(Foschini &amp; Gans, 1998; Telatar, 1999).</p><p><code>C = log<sub>2</sub> det( I + (ρ / N<sub>t</sub>) · H H<sup>H</sup> )  [bit/s/Hz]</code></p><p>이 식에서 핵심 성질은 두 가지입니다.</p><ul><li><strong>공간 다중화 이득</strong>: 채널의 서로 독립적인 통로 수는 min(N<sub>t</sub>, N<sub>r</sub>) 이하이며, 신호대잡음비가 클 때 용량은 이 값에 거의 비례해 늘어납니다. 같은 대역폭과 전력으로 여러 스트림을 보내는 셈입니다.</li><li><strong>다이버시티 이득</strong>: 같은 정보를 여러 경로로 보내 페이딩에 의한 신호 손실에 강해집니다. Alamouti(1998)의 송신 다이버시티 기법이 대표적입니다.</li></ul><p>두 이득을 동시에 극대화할 수는 없으며, 하나를 키우면 다른 하나가 줄어드는 근본적 절충이 있습니다(Zheng &amp; Tse, 2003).</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>독립 레일리 페이딩 채널에서 신호대잡음비 10 dB일 때, 안테나 수에 따른 평균(에르고딕) 용량을 모의 실험으로 구했습니다(난수 시드 1, 20,000회 추출 평균. 수신 쪽만 채널을 안다고 가정한 가상의 환경이며 계산은 코드로 확인했습니다).</p><table><thead><tr><th>구성</th><th>평균 용량 (bit/s/Hz)</th></tr></thead><tbody><tr><td>1×1</td><td>2.89</td></tr><tr><td>2×2</td><td>5.54</td></tr><tr><td>4×4</td><td>10.93</td></tr></tbody></table><p>안테나를 2배로 늘릴 때마다 용량이 거의 2배가 됩니다. 추가 대역폭도 추가 전력도 쓰지 않았다는 점이 MIMO의 핵심 매력입니다. 실제 환경에서는 안테나 간 상관, 직접파가 지배적인 환경, 송신 전력의 한계 때문에 이만큼 늘지 않을 수 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>안테나를 늘리면 무조건 용량이 비례해 늘어난다?</strong> 채널이 풍부한 산란 환경과 안테나 간 낮은 상관이 필요합니다. 상관이 높으면 독립 통로가 줄어듭니다.</li><li><strong>MIMO와 대규모 MIMO는 같은 말?</strong> 아닙니다. [[massive-mimo|대규모 MIMO]]는 기지국이 사용자 수보다 훨씬 많은 안테나를 두는 확장 형태입니다.</li><li><strong>MIMO가 곧 [[channel-capacity-shannon-limit|섀넌 한계]]를 넘는다?</strong> 그렇지 않습니다. MIMO 용량도 섀넌의 정보이론 틀 안에서 계산되며, 안테나를 늘리면 단일 안테나 채널보다 더 큰 이론적 한계를 갖게 되는 것입니다.</li><li><strong>복잡도</strong>: 수신기는 섞여 들어온 스트림을 분리해야 하므로 계산량이 늘어납니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "MIMO는 안테나 구성 방식이고, 아래 용어는 그 확장이나 이론적 바탕입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "MIMO와의 관계"
+    ],
+    "rows": [
+      [
+        "[[massive-mimo|대규모 MIMO]]",
+        "기지국에 매우 많은 안테나를 두고 다수 사용자를 동시에 서비스",
+        "MIMO의 확장 형태"
+      ],
+      [
+        "[[channel-capacity-shannon-limit|채널용량과 섀넌한계]]",
+        "채널에서 오류 없이 보낼 수 있는 최대 정보율",
+        "MIMO 용량을 계산하는 이론적 틀"
+      ]
+    ]
+  },
+  "references": [
+    "Foschini, G. J., & Gans, M. J. (1998). On limits of wireless communications in a fading environment when using multiple antennas. Wireless Personal Communications, 6(3), 311–335.",
+    "Telatar, I. E. (1999). Capacity of multi-antenna Gaussian channels. European Transactions on Telecommunications, 10(6), 585–595.",
+    "Alamouti, S. M. (1998). A simple transmit diversity technique for wireless communications. IEEE Journal on Selected Areas in Communications, 16(8), 1451–1458.",
+    "Zheng, L., & Tse, D. N. C. (2003). Diversity and multiplexing: A fundamental tradeoff in multiple-antenna channels. IEEE Transactions on Information Theory, 49(5), 1073–1096.",
+    "Tse, D., & Viswanath, P. (2005). Fundamentals of Wireless Communication. Cambridge University Press."
+  ]
+}

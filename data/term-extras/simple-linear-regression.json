@@ -1,0 +1,53 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>종속변수가 연속형이고 설명변수가 하나일 때, 둘의 관계를 직선 <code>y = b<sub>0</sub> + b<sub>1</sub>x</code>로 설명하거나 예측하려고 씁니다. 기울기와 절편은 잔차 제곱합을 최소로 하는 [[least-squares-method|최소제곱법]]으로 추정하며, 기울기는 <code>b<sub>1</sub> = S<sub>xy</sub> / S<sub>xx</sub></code>, 절편은 <code>b<sub>0</sub> = ȳ − b<sub>1</sub>x̄</code>입니다.</p><p>쓸 수 있으려면 선형성, 오차의 독립성, 등분산성, 오차의 정규성이 어느 정도 성립해야 하고, 이는 산점도와 [[residual-analysis|잔차분석]]으로 점검합니다(Draper &amp; Smith, 1998). 이름의 ‘회귀’는 Galton(1886)이 부모와 자녀 키의 관계에서 관찰한 평균으로의 회귀에서 유래했으며([[regression-to-the-mean|평균으로의 회귀]]), 방법의 의미와 직접 관련은 없습니다. 최소제곱 방법 자체의 역사는 Stigler(1981)가 정리했습니다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>가상의 자료로 읽는 법을 보겠습니다. 주당 학습 시간(x)과 시험 점수(y) 8쌍입니다. 계산은 코드로 확인했습니다.</p><table><tbody><tr><th scope=\"row\">학습 시간 x (시간)</th><td>2</td><td>4</td><td>5</td><td>6</td><td>8</td><td>9</td><td>11</td><td>12</td></tr><tr><th scope=\"row\">점수 y</th><td>52</td><td>58</td><td>63</td><td>64</td><td>72</td><td>70</td><td>80</td><td>83</td></tr></tbody></table><ul><li>추정식: <code>ŷ = 46.32 + 3.01x</code>. 기울기 3.01은 학습 시간이 1시간 늘 때 평균 점수가 약 3.0점 오른다는 뜻이고, 절편 46.32는 x = 0일 때의 예측값입니다.</li><li>기울기의 표준오차 0.19, t(6) = 16.05, p &lt; .001, 95% 신뢰구간 [2.55, 3.47].</li><li>R² = .977, 상관계수 r = .989. 단순회귀에서는 R²가 r의 제곱과 같습니다([[r-squared|결정계수]]).</li><li>잔차는 −3.4에서 +1.6 사이로 뚜렷한 곡선 패턴이 없었습니다.</li></ul><p>x = 7을 넣으면 예측 점수는 약 67.4입니다. 하지만 자료의 범위(2~12시간) 밖인 x = 30을 넣으면 약 136.5점이 나오는데 이는 점수 상한을 넘으므로, <strong>범위 밖으로의 외삽</strong>은 직선이 계속 맞는다는 가정이 필요해 위험합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>표본 수, 추정식 또는 b<sub>0</sub>, b<sub>1</sub>과 표준오차, 95% 신뢰구간, t와 자유도, p, R²</li><li>산점도와 잔차 그림으로 가정을 점검했다는 서술, 이상치나 영향점 처리</li><li>해석은 “1단위 증가할 때 평균적으로 b<sub>1</sub>만큼 변한다” 정도로 하고, 관측 연구에서는 인과로 읽지 않습니다.</li></ul><p>예: <code>주당 학습 시간은 시험 점수를 유의하게 예측하였다(b = 3.01, SE = 0.19, 95% CI [2.55, 3.47], t(6) = 16.05, p &lt; .001, R² = .98; 가상의 값).</code></p><p>이상치 한두 개가 직선을 크게 바꿀 수 있으므로 먼저 산점도를 그립니다. 설명변수가 둘 이상이면 [[multiple-linear-regression|다중회귀분석]]을 씁니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "상관, 회귀, 결정계수는 같은 자료에서 함께 나오지만 묻는 질문이 다릅니다.",
+    "headers": [
+      "용어",
+      "묻는 질문",
+      "단순회귀분석과의 관계"
+    ],
+    "rows": [
+      [
+        "[[correlation|상관관계]]",
+        "두 변수가 함께 변하는 정도(방향 대칭)",
+        "회귀는 한 변수로 다른 변수를 설명하는 방향이 있음. 단순회귀에서 R² = r²"
+      ],
+      [
+        "[[r-squared|결정계수]]",
+        "모형이 종속변수 분산의 얼마를 설명하는가",
+        "단순회귀의 적합도를 요약하는 값"
+      ],
+      [
+        "[[regression-to-the-mean|평균으로의 회귀]]",
+        "극단값 다음 측정이 평균 쪽으로 돌아오는 통계 현상",
+        "‘회귀’라는 이름의 유래이며 방법과 동일하지 않음"
+      ],
+      [
+        "[[multiple-linear-regression|다중회귀분석]]",
+        "설명변수가 둘 이상일 때의 확장",
+        "변수를 추가하면 계수의 의미가 ‘다른 변수가 같을 때’로 바뀜"
+      ]
+    ]
+  },
+  "references": [
+    "Galton, F. (1886). Regression towards mediocrity in hereditary stature. The Journal of the Anthropological Institute of Great Britain and Ireland, 15, 246–263.",
+    "Stigler, S. M. (1981). Gauss and the invention of least squares. The Annals of Statistics, 9(3), 465–474.",
+    "Draper, N. R., & Smith, H. (1998). Applied Regression Analysis (3rd ed.). John Wiley & Sons."
+  ]
+}

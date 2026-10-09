@@ -1,0 +1,58 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>탈퇴표에서는 계약이 끝나는 이유를 원인(사망, 해약, 장해 등)별로 나눕니다. 비슷한 이름의 표가 셋 있어 구분이 필요합니다.</p><table><thead><tr><th>표</th><th>원인 수</th><th>담는 확률</th></tr></thead><tbody><tr><td>단일탈퇴표</td><td>한 가지 원인만 있음(예: 사망만 다루는 일반 생명표)</td><td>그 원인의 탈퇴율</td></tr><tr><td>다중탈퇴표</td><td>여러 원인이 동시에 작용</td><td>원인별 <strong>종속</strong>탈퇴확률 q<sup>(j)</sup>. 합하면 전체 탈퇴확률 q<sup>(τ)</sup></td></tr><tr><td>연관단일탈퇴표</td><td>다중탈퇴표의 원인 j에 대해, 다른 원인이 없다고 가정</td><td>원인별 <strong>독립</strong>(절대)탈퇴확률 q′<sup>(j)</sup></td></tr></tbody></table><p>두 확률 사이의 관계를 정하려면 가정이 필요합니다. 연관단일탈퇴표에서 탈퇴가 연도 안에 고르게 일어난다고 가정하고(UDD), 원인이 둘이면 다음이 성립합니다(Bowers 외, 1997; Dickson 외, 2013).</p><p><code>q<sup>(1)</sup> = q′<sup>(1)</sup> (1 − q′<sup>(2)</sup> / 2),  q<sup>(2)</sup> = q′<sup>(2)</sup> (1 − q′<sup>(1)</sup> / 2)</code></p><p>다른 원인이 먼저 계약을 끝낼 수 있으므로 종속확률은 독립확률보다 작거나 같습니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 값으로 확인해 보겠습니다. 사망만 있다면 연간 2%, 해약만 있다면 연간 10%라고 하면(q′<sup>(1)</sup> = 0.02, q′<sup>(2)</sup> = 0.10) 두 원인이 함께 있는 현실에서는 다음처럼 됩니다. 계산은 코드로 확인했습니다.</p><table><thead><tr><th>구분</th><th>계산</th><th>값</th></tr></thead><tbody><tr><td>사망 종속확률 q<sup>(1)</sup></td><td>0.02 × (1 − 0.10/2)</td><td>0.0190</td></tr><tr><td>해약 종속확률 q<sup>(2)</sup></td><td>0.10 × (1 − 0.02/2)</td><td>0.0990</td></tr><tr><td>전체 탈퇴확률 q<sup>(τ)</sup></td><td>1 − (1 − 0.02)(1 − 0.10)</td><td>0.1180</td></tr></tbody></table><p>세 값이 q<sup>(1)</sup> + q<sup>(2)</sup> = 0.0190 + 0.0990 = 0.1180 = q<sup>(τ)</sup>로 맞아떨어집니다. 해약이 함께 있으면 사망으로 빠져나가는 비율이 0.020에서 0.019로 줄어드는 것이 핵심 직관입니다. 반대로 관찰된 종속확률에서 독립확률을 구하려면 다중탈퇴표에서의 UDD 가정을 따로 두고 <code>q′<sup>(j)</sup> = 1 − (1 − q<sup>(τ)</sup>)<sup>q<sup>(j)</sup>/q<sup>(τ)</sup></sup></code>를 쓰며, 위 값에서는 각각 약 0.0200과 0.1000이 되돌려집니다. 이 연산에 쓰는 표가 [[associated-single-decrement-table|연관단일탈퇴표]]이고, 관찰되는 확률은 [[dependent-rate-of-decrement|종속탈퇴율]], 가상의 순수 확률은 [[absolute-rate-of-decrement|절대탈퇴율]]입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>단일탈퇴표 = 현실의 표?</strong> 아닙니다. 다중탈퇴 환경의 관측값이 아니라, 한 원인만 있다고 가정한 기준 또는 처음부터 한 원인만 다룬 표입니다.</li><li><strong>연관단일탈퇴표와 다중탈퇴표의 혼동</strong>: 여러 원인이 섞인 실제 상황을 담는 쪽은 다중탈퇴표이고, 연관단일탈퇴표는 그로부터 만든 가상의 원인별 표입니다.</li><li><strong>독립 가정의 한계</strong>: 원인들이 서로 독립이라는 가정은 자료만으로 확인할 수 없습니다. 같은 관측 자료가 서로 다른 독립 구조와 양립할 수 있다는 점이 경쟁 위험 이론에서 알려져 있습니다(Tsiatis, 1975).</li><li>UDD 같은 가정이 달라지면 두 확률의 변환식도 달라지므로, 논문에는 사용한 가정을 반드시 적습니다.</li></ul>"
+    }
+  ],
+  "fixes": [
+    {
+      "find": "여러 탈퇴 원인이 섞여 있는 실제 상황(연관단일탈퇴표)을 분석하기 위한 출발점",
+      "replace": "여러 탈퇴 원인이 섞여 있는 실제 상황(다중탈퇴표)을 분석하기 위한 출발점"
+    },
+    {
+      "find": "이렇게 만들어진 단일탈퇴표는 연관단일탈퇴표(associated single decrement table)와 짝을 이루어 다중탈퇴이론의 두 축을 구성합니다.",
+      "replace": "이렇게 만들어진 단일탈퇴표를 연관단일탈퇴표(associated single decrement table)라고 하며, 다중탈퇴표와 짝을 이루어 다중탈퇴이론의 두 축을 구성합니다."
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "탈퇴표와 탈퇴율의 이름이 비슷해 가장 헷갈리는 부분입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "단일탈퇴표와의 차이"
+    ],
+    "rows": [
+      [
+        "[[multiple-decrement-table|다중탈퇴표]]",
+        "여러 원인을 동시에 고려한 표",
+        "원인이 여럿이며 종속확률을 담음"
+      ],
+      [
+        "[[associated-single-decrement-table|연관단일탈퇴표]]",
+        "다중탈퇴표에서 원인별로 만든 단일탈퇴표",
+        "다중탈퇴표에서 유도되는 독립확률 표"
+      ],
+      [
+        "[[life-table|생명표]]",
+        "연령별 생존·사망을 정리한 표",
+        "사망 한 원인만 다루면 단일탈퇴표의 대표 예"
+      ]
+    ]
+  },
+  "references": [
+    "Bowers, N. L., Jr., Gerber, H. U., Hickman, J. C., Jones, D. A., & Nesbitt, C. J. (1997). Actuarial Mathematics (2nd ed.). Society of Actuaries.",
+    "Dickson, D. C. M., Hardy, M. R., & Waters, H. R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd ed.). Cambridge University Press.",
+    "Tsiatis, A. (1975). A nonidentifiability aspect of the problem of competing risks. Proceedings of the National Academy of Sciences, 72(1), 20–22."
+  ]
+}

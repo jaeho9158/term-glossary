@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/network-protocol-basics.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,12 +144,29 @@
   <h2>쉽게 풀면</h2>
   <p>외국에 편지를 보낸다고 생각해 봅시다. 봉투 앞면에는 받는 사람의 주소를, 뒷면에는 보내는 사람의 주소를 정해진 형식으로 적어야 우체국이 편지를 제대로 배달할 수 있습니다. 이런 "정해진 형식과 절차"가 바로 프로토콜입니다.</p>
   <p>컴퓨터 네트워크에서도 마찬가지로, 한 컴퓨터가 다른 컴퓨터에 데이터를 보낼 때는 상대방의 주소(IP 주소)를 어떻게 적을지, 데이터를 어떤 순서로 쪼개서 보낼지, 오류가 나면 어떻게 다시 요청할지 등을 미리 약속해 둡니다.</p>
-  <p>예를 들어 웹페이지를 볼 때 쓰는 HTTP, 파일을 안전하게 전송하는 HTTPS, 인터넷의 기본 배달 규칙인 TCP/IP가 모두 프로토콜입니다. 이렇게 약속된 규칙(프로토콜) 덕분에 제조사가 다른 컴퓨터, 스마트폰, 서버끼리도 서로 데이터를 주고받을 수 있는 것이 네트워크입니다.</p>
+  <p>예를 들어 웹페이지를 볼 때 쓰는 HTTP, 웹 통신을 암호화해 안전하게 주고받는 HTTPS, 인터넷의 기본 배달 규칙인 TCP/IP가 모두 프로토콜입니다. 이렇게 약속된 규칙(프로토콜) 덕분에 제조사가 다른 컴퓨터, 스마트폰, 서버끼리도 서로 데이터를 주고받을 수 있는 것이 네트워크입니다.</p>
 
   <h2>왜 중요한가</h2>
   <p>어떤 프로토콜을 선택하느냐에 따라 시스템의 속도, 안정성, 보안성, 전력 소모가 크게 달라지기 때문에, 네트워크·분산시스템·사물인터넷 연구에서 프로토콜 설계나 선택은 성능을 좌우하는 근본적인 설계 결정으로 다뤄집니다. 특히 새로운 통신 환경(저전력 IoT, 초저지연 무선망 등)이 등장할 때마다 기존 프로토콜의 한계를 극복하기 위한 새로운 프로토콜 제안이 활발한 연구 주제가 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>네트워크는 컴퓨터 같은 장치(노드)가 선로나 무선 링크로 연결되어 데이터를 주고받는 구조이고, 프로토콜은 그 교환에서 지켜야 할 규칙의 묶음입니다. 프로토콜 명세는 보통 세 가지를 정합니다.</p><ul><li><strong>형식(문법)</strong>: 메시지가 어떤 필드로 어떤 순서로 구성되는가</li><li><strong>의미</strong>: 각 필드와 메시지가 무엇을 뜻하고 받은 쪽이 어떻게 반응해야 하는가</li><li><strong>절차(순서·시간)</strong>: 연결을 어떻게 시작하고, 오류가 나면 언제 재전송하며, 언제 끝내는가</li></ul><p>실제 통신은 한 프로토콜이 아니라 <strong>계층화된</strong> 여러 프로토콜이 맡습니다. 각 계층은 아래 계층이 제공하는 서비스를 이용해 위 계층에 서비스를 제공하고, 보내는 쪽에서는 계층마다 자기 헤더를 덧붙이며(캡슐화) 받는 쪽에서는 이를 거꾸로 벗겨 냅니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>TCP/IP 계층</th><th>맡은 일</th><th>대표 프로토콜</th></tr></thead><tbody><tr><td>응용</td><td>프로그램끼리의 요청·응답 규칙</td><td>HTTP, DNS, MQTT</td></tr><tr><td>전송</td><td>프로그램(포트) 단위 전달, 신뢰성·흐름 제어</td><td>TCP, UDP</td></tr><tr><td>인터넷</td><td>주소 지정과 경로 선택</td><td>IP</td></tr><tr><td>링크</td><td>같은 망 안에서의 프레임 전달</td><td>이더넷, Wi-Fi</td></tr></tbody></table></div><p>OSI 7계층은 이를 물리·데이터링크·네트워크·전송·세션·표현·응용으로 더 잘게 나눈 참조 모형이며, 실제 인터넷은 TCP/IP 구조를 따릅니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>브라우저로 웹 페이지 한 장을 받아 오는 과정을 계층별로 풀면 다음과 같습니다(구현에 따라 세부는 다릅니다).</p><ol><li>이름 풀이: DNS(응용 계층)로 도메인 이름에 해당하는 IP 주소를 찾습니다.</li><li>연결 수립: TCP(전송 계층)가 상대와 연결을 맺고, 이후 데이터를 순서대로 빠짐없이 전달하도록 번호 확인과 재전송을 합니다.</li><li>암호화: HTTPS라면 그 위에서 TLS가 암호화 통신을 준비합니다.</li><li>요청·응답: HTTP(응용 계층)가 “이 주소의 문서를 달라”는 요청과 문서를 담은 응답을 주고받습니다.</li><li>전달: 각 조각은 IP가 주소를 보고 라우터를 거쳐 목적지까지 보내고, 마지막 구간은 이더넷이나 Wi-Fi가 나릅니다.</li></ol><p>논문에서 프로토콜을 ‘고른다’는 것은 이런 트레이드오프를 고른다는 뜻입니다. 예컨대 TCP는 신뢰성을 주는 대신 연결 설정과 재전송으로 지연이 늘 수 있고, UDP는 보증이 없는 대신 가볍습니다. MQTT는 발행·구독 방식의 경량 메시징 프로토콜로, 제한된 장치와 불안정한 망을 염두에 둔 설계로 소개됩니다(Banks &amp; Gupta, 2014).</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>프로토콜은 규칙이지 프로그램이 아닙니다.</strong> 같은 프로토콜도 구현마다 성능이 다를 수 있어서, 논문은 프로토콜 이름과 함께 버전·구현체·설정을 적어야 재현할 수 있습니다.</li><li><strong>TCP/IP는 하나의 프로토콜이 아니라 프로토콜 묶음입니다.</strong> 이름은 그 중 TCP와 IP에서 따왔습니다.</li><li><strong>HTTPS는 별개의 낯선 규칙이 아니라</strong> HTTP를 TLS 암호화 위에서 쓰는 것입니다.</li><li><strong>OSI 7계층은 실제 구현 구조가 아니라 설명용 참조 모형입니다.</strong> 프로토콜이 어느 계층에 속하는지는 문헌마다 경계가 조금씩 다르게 서술될 수 있습니다.</li><li><strong>‘TCP가 더 좋다/UDP가 더 좋다’는 일반 결론은 없습니다.</strong> 손실률·지연·전송 크기 같은 환경 조건에 따라 달라지므로, 비교 실험이라면 그 조건을 함께 밝혀야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 IoT 센서 시스템은 저전력 환경에서 안정적인 데이터 전송을 위해 MQTT 프로토콜을 기반으로 네트워크 통신을 구현하였다."</div>
   <p>이 문장은 연구에서 만든 시스템이 기기 간 데이터를 주고받을 때 어떤 통신 규칙(프로토콜)을 사용했는지 밝히고 있다는 뜻입니다. 정보통신·컴퓨터공학 논문에서는 시스템이 어떤 프로토콜을 채택했는지가 성능과 신뢰성을 좌우하는 중요한 설계 요소로 자주 언급됩니다.</p>
 
@@ -163,6 +181,21 @@
 
   <h2>주의할 점</h2>
   <p>네트워크와 프로토콜은 하나가 아니라 여러 층으로 나뉘어 각자 다른 역할을 담당합니다. 예를 들어 데이터를 어떻게 목적지까지 찾아갈지 정하는 규칙과, 애플리케이션이 어떤 형식으로 요청을 주고받을지 정하는 규칙은 서로 다른 계층에 속합니다. 웹 브라우저와 서버가 요청·응답을 주고받는 대표적인 방식은 <a href="api-basics.html">API (응용 프로그래밍 인터페이스)</a>를 통해서도 확인할 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>프로토콜은 규칙이고, 아래 용어는 그 규칙을 설명하는 틀이거나 규칙을 이용하는 접점입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">프로토콜과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="osi-model.html">OSI 7계층 모델</a></th><td>통신 기능을 7개 계층으로 나눈 참조 모형</td><td>프로토콜을 계층별로 분류해 설명하는 틀</td></tr><tr><th scope="row"><a href="tcp-ip.html">TCP/IP</a></th><td>인터넷이 쓰는 프로토콜 묶음</td><td>프로토콜의 구체적 예이자 실제 인터넷의 계층 구조</td></tr><tr><th scope="row"><a href="api-basics.html">API</a></th><td>프로그램이 다른 프로그램의 기능을 부르는 접점의 규약</td><td>웹 API는 HTTP 같은 프로토콜 위에서 요청·응답 형식을 정하는 경우가 많음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cerf, V. G., &amp; Kahn, R. E. (1974). A protocol for packet network intercommunication. IEEE Transactions on Communications, 22(5), 637–648.</li>
+    <li>Zimmermann, H. (1980). OSI reference model: The ISO model of architecture for open systems interconnection. IEEE Transactions on Communications, 28(4), 425–432.</li>
+    <li>Postel, J. (1981). Transmission Control Protocol (RFC 793). Information Sciences Institute.</li>
+    <li>Banks, A., &amp; Gupta, R. (Eds.). (2014). MQTT Version 3.1.1. OASIS Standard.</li>
+    <li>Tanenbaum, A. S., &amp; Wetherall, D. J. (2011). Computer Networks (5th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

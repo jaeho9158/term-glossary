@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>다중오믹스 데이터 통합은 같은 시료(또는 같은 환자)에서 얻은 서로 다른 분자 층위의 측정값, 곧 유전체, 후성유전체, 전사체, 단백질체, 대사체 등을 하나의 분석 틀 안에서 함께 해석하는 일입니다(Hasin 외, 2017). 흐름은 대체로 이렇습니다.</p><ol><li><strong>짝지은 자료 준비</strong>: 층마다 같은 시료가 있는지 확인하고, 층별로 정규화·배치 효과 보정·결측 처리를 합니다. 층마다 측정 단위와 잡음이 다르므로 이 단계가 결과를 좌우합니다.</li><li><strong>통합 전략 선택</strong>: Ritchie 외(2015)는 자료를 합치는 시점에 따라 방법을 나누어 설명합니다. 실무에서는 흔히 다음과 같이 부릅니다.</li><li><strong>모형 적합과 해석</strong>: 얻은 구조를 경로, 네트워크, 임상 변수와 연결해 해석합니다.</li><li><strong>검증</strong>: 독립 코호트나 교차검증으로 재현성을 확인합니다.</li></ol><table><thead><tr><th>전략</th><th>방식</th><th>특징</th></tr></thead><tbody><tr><td>초기 통합</td><td>모든 층의 특징을 이어 붙여 하나의 모형에 입력</td><td>단순하지만 고차원이 되고 층 간 규모 차이를 조정해야 함</td></tr><tr><td>중간 통합</td><td>층 사이에 공유되는 잠재 요인·유사도를 학습(요인 분석, 네트워크 융합, 딥러닝 오토인코더 등)</td><td>층 간 공통 구조를 드러내 줌. 예: 다중 오믹스 요인 분석(Argelaguet 외, 2018)</td></tr><tr><td>후기 통합</td><td>층별로 따로 분석한 뒤 결과를 결합</td><td>층별 특성을 살리지만 층 사이 상호작용을 놓칠 수 있음</td></tr></tbody></table>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>여러 층을 함께 보면 한 층만으로는 설명되지 않는 현상, 곧 유전적 변이가 발현을 바꾸고 단백질과 대사물에 영향을 주는 연결을 추적할 수 있어 분자 아형 분류, 바이오마커 탐색, 경로 수준의 해석에 쓰입니다(Hasin 외, 2017). 개별 층의 분석 결과는 [[proteomic-profiling|단백질체 프로파일링]], [[metabolomic-profiling|대사체 프로파일링]] 같은 전용 기법이 제공하고, 통합은 그 위에서 일어납니다.</p><p>한계도 같이 이해해야 합니다. 변수 수가 시료 수보다 훨씬 많아 과적합 위험이 크고, 층마다 반응 시간이 달라 전사체와 단백질체가 항상 일치하지 않으며, 층에 따라 결측 패턴이 다릅니다. 같은 시료가 모든 층에서 측정되지 않은 경우도 흔합니다. 개별 세포 수준에서 여러 층을 동시에 재는 기술은 [[single-cell-multi-omics|단일세포 멀티오믹스]]에서 다룹니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>통합한 층과 층별 시료 수, 짝지은 시료 수</li><li>층별 전처리: 정규화, 배치 효과 보정, 결측 처리, 특징 선택</li><li>통합 전략(초기·중간·후기), 사용한 도구와 버전, 주요 매개변수</li><li>다중검정 보정과 과적합 방지(교차검증, 독립 검증 코호트). 발견 코호트와 검증 코호트의 결과를 구분해 적습니다.</li><li>한계: 층 간 시차, 플랫폼 차이, 결과의 생물학적 해석이 상관 수준에 머무는 경우의 신중한 표현</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "각 층의 분석 기법과 층을 합치는 통합은 서로 다른 단계입니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "다중오믹스 통합과의 관계"
+    ],
+    "rows": [
+      [
+        "[[proteomic-profiling|단백질체 프로파일링]]",
+        "시료 속 단백질의 종류와 양 패턴을 분석",
+        "통합 대상이 되는 한 층의 분석"
+      ],
+      [
+        "[[metabolomic-profiling|대사체 프로파일링]]",
+        "대사산물을 포괄적으로 측정하고 분석",
+        "통합 대상이 되는 한 층의 분석"
+      ],
+      [
+        "[[single-cell-multi-omics|단일세포 멀티오믹스]]",
+        "한 세포에서 여러 층의 분자 정보를 동시에 측정",
+        "측정 단위가 세포. 통합은 측정된 여러 층을 합치는 분석 단계"
+      ]
+    ]
+  },
+  "references": [
+    "Ritchie, M. D., Holzinger, E. R., Li, R., Pendergrass, S. A., & Kim, D. (2015). Methods of integrating data to uncover genotype-phenotype interactions. Nature Reviews Genetics, 16, 85–97.",
+    "Hasin, Y., Seldin, M., & Lusis, A. (2017). Multi-omics approaches to disease. Genome Biology, 18, 83.",
+    "Argelaguet, R., Velten, B., Arnol, D., Dietrich, S., Zenz, T., Marioni, J. C., Buettner, F., Huber, W., & Stegle, O. (2018). Multi-Omics Factor Analysis: A framework for unsupervised integration of multi-omics data sets. Molecular Systems Biology, 14, e8124."
+  ]
+}
