@@ -1,0 +1,23 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>광컴퓨팅은 전류 대신 빛으로 정보를 나르고 일부 연산을 합니다. 현재 연구의 중심은 범용 컴퓨터가 아니라 <strong>행렬·벡터 곱을 빛으로 빠르고 낮은 에너지로 하는 가속기</strong>입니다.</li><li>집적 광학에서 마흐-젠더 간섭계(MZI)는 두 도파로의 빛을 섞고 위상을 조절하는 2×2 소자입니다. MZI를 그물처럼 배치하면 임의의 유니터리 행렬을 구현할 수 있다는 것이 Reck 등(1994)과 Clements 등(2016)의 설계입니다.</li><li>임의의 실수 행렬은 특이값 분해 W = UΣV†로 쓰므로, 두 유니터리(U, V†)를 MZI 그물로, 대각행렬 Σ를 감쇠·증폭 소자로 구현합니다. Shen 등(2017)은 이 구조로 신경망의 선형층을 광학 칩에서 구현했습니다.</li><li>빛은 입력을 병렬로 통과시키고 행렬 곱이 전파 시간 안에 이루어지지만, 전기 신호를 광신호로 바꾸고 다시 읽는 과정, 비선형 활성화 함수, 메모리 접근이 병목이 될 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>N×N 유니터리 행렬을 구현하는 데 필요한 MZI 수는 N(N−1)/2개입니다(Reck, Clements 설계). 일반 실수 행렬은 유니터리 두 개가 필요하므로 N(N−1)개에 대각 소자 N개가 더해집니다. 코드로 계산한 값은 다음과 같습니다.</p><table><thead><tr><th>N</th><th>유니터리 하나의 MZI 수</th><th>일반 행렬의 MZI 수</th></tr></thead><tbody><tr><td>4</td><td>6</td><td>12</td></tr><tr><td>16</td><td>120</td><td>240</td></tr><tr><td>64</td><td>2016</td><td>4032</td></tr></tbody></table><p>N이 64로 커지면 MZI가 수천 개 필요하고, 소자마다 위상 오차와 손실이 쌓입니다. 광컴퓨팅 연구가 정밀도와 손실, 제조 편차를 줄이는 일에 많은 노력을 쓰는 이유입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>빛이 빠르니 컴퓨터도 훨씬 빠르다.</td><td>행렬 곱은 빠를 수 있지만 입출력 변환, 비선형 처리, 메모리가 전체 성능을 좌우합니다.</td></tr><tr><td>광컴퓨터는 GPU를 곧 대체한다.</td><td>대부분 연구·시제품 단계이며, 정밀도와 규모 면에서 전자 칩과 함께 쓰는 하이브리드 구조가 현실적인 방향으로 논의됩니다.</td></tr><tr><td>광컴퓨팅은 양자컴퓨팅이다.</td><td>광컴퓨팅은 고전적인 빛의 세기·위상으로 연산합니다. 광자를 쓰는 양자컴퓨팅은 별개의 분야입니다.</td></tr><tr><td>광 연결과 광 연산은 같은 것이다.</td><td>광 인터커넥트는 데이터 이동을 빛으로 하는 기술이고, 광 연산은 연산 자체를 빛으로 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Shen, Y., Harris, N. C., Skirlo, S., Prabhu, M., Baehr-Jones, T., Hochberg, M., Sun, X., Zhao, S., Larochelle, H., Englund, D., & Soljačić, M. (2017). Deep learning with coherent nanophotonic circuits. Nature Photonics, 11(7), 441–446.",
+    "Reck, M., Zeilinger, A., Bernstein, H. J., & Bertani, P. (1994). Experimental realization of any discrete unitary operator. Physical Review Letters, 73(1), 58–61.",
+    "Clements, W. R., Humphreys, P. C., Metcalf, B. J., Kolthammer, W. S., & Walmsley, I. A. (2016). Optimal design for universal multiport interferometers. Optica, 3(12), 1460–1465.",
+    "Shastri, B. J., Tait, A. N., Ferreira de Lima, T., Pernice, W. H. P., Bhaskaran, H., Wright, C. D., & Prucnal, P. R. (2021). Photonics for artificial intelligence and neuromorphic computing. Nature Photonics, 15(2), 102–114."
+  ]
+}

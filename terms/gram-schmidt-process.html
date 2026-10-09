@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/gram-schmidt-process.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>서로 수직인 좌표축으로 이루어진 직교기저는 계산을 단순화하고 수치적으로 안정적인 결과를 주기 때문에, 선형대수를 다루는 거의 모든 응용 분야의 논문에서 그람-슈미트 직교화가 전처리 단계로 활용됩니다. 회귀분석에서 변수 간 상관관계를 정리하거나, 신호처리에서 독립적인 성분을 추출하거나, 수치해석에서 안정적인 행렬 분해를 수행할 때 이 절차가 기반 기법으로 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>선형독립인 벡터 v₁, …, vₙ에서 서로 직교하는 u₁, …, uₙ을 순서대로 만듭니다.</p><ol><li>u₁ = v₁</li><li>k번째 벡터에서 앞서 만든 모든 u와 겹치는 성분(사영)을 뺍니다: <code>u<sub>k</sub> = v<sub>k</sub> − Σ<sub>j&lt;k</sub> (⟨v<sub>k</sub>, u<sub>j</sub>⟩ ÷ ⟨u<sub>j</sub>, u<sub>j</sub>⟩) u<sub>j</sub></code></li><li>길이를 1로 맞추면 정규직교기저 e<sub>k</sub> = u<sub>k</sub> ÷ ‖u<sub>k</sub>‖입니다.</li></ol><ul><li>처음 k개 벡터가 펼치는 공간은 단계마다 그대로 유지됩니다. 즉 v₁…v<sub>k</sub>의 생성 공간과 u₁…u<sub>k</sub>의 생성 공간이 같습니다.</li><li>벡터가 선형종속이면 어느 단계에서 u<sub>k</sub>가 영벡터가 되어 진행할 수 없습니다.</li><li>이 과정을 행렬로 쓰면 A = QR이 되며, 그래서 <a href="qr-decomposition.html">QR 분해</a>를 구하는 방법 중 하나입니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>예: v₁ = (1, 1, 0), v₂ = (1, 0, 1), v₃ = (0, 1, 1)을 분수 연산 코드로 계산했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>단계</th><th>결과</th></tr></thead><tbody><tr><td>u₁</td><td>(1, 1, 0)</td></tr><tr><td>u₂</td><td>(1/2, -1/2, 1)</td></tr><tr><td>u₃</td><td>(-2/3, 2/3, 2/3)</td></tr><tr><td>내적 ⟨u₁,u₂⟩, ⟨u₁,u₃⟩, ⟨u₂,u₃⟩</td><td>0, 0, 0</td></tr></tbody></table></div><p>세 내적이 모두 0이므로 서로 수직입니다. 얻은 직교기저는 투영과 최소제곱 계산을 단순하게 만들고, 정규화하면 <a href="orthogonal-matrix.html">직교행렬</a>의 열이 됩니다. 회귀에서 설명변수를 직교화하거나, 다항식 기저를 만들 때(르장드르 다항식 등)도 쓰입니다.</p><p>고전적 방식은 수치 계산에서 직교성을 잃을 수 있습니다. 열이 거의 평행한 행렬 A(첫 행이 (1, 1, 1)이고 그 아래 세 행이 대각에 ε를 둔 4×3 행렬, ε = 10<sup>−8</sup>)에 배정밀도로 두 방식을 적용하면, 서로 다른 열 사이의 내적 최댓값(직교성 오차)이 <strong>고전적 방식 5.0e-1</strong>, <strong>변형 방식 7.1e-9</strong>로 나왔습니다(코드로 계산). 변형 방식은 갱신된 벡터에서 사영을 계산해 오차 누적을 줄입니다. 가장 안정적인 QR 계산에는 하우스홀더 변환이 널리 쓰입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>어떤 방식(고전적/변형)을 썼는지, 벡터를 처리한 순서와 정규화 여부를 밝힙니다. 순서를 바꾸면 직교기저가 달라지기 때문입니다(생성 공간은 같습니다).</li><li>계산에 쓴 소프트웨어와 함수(예: QR 분해 함수가 어떤 알고리즘을 쓰는지)를 적습니다. 많은 라이브러리의 QR은 하우스홀더 기반이라 그람-슈미트와 결과의 부호가 다를 수 있습니다.</li><li>직교성 검증 방법(QᵀQ − I의 크기)과 허용 오차를 보고하면 신뢰도가 높아집니다.</li><li><a href="linear-independence.html">선형독립</a> 조건 확인 결과도 함께 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설계 행렬의 열벡터에 그람-슈미트 직교화를 적용하여 정규직교기저를 구성하고, 이를 바탕으로 QR분해를 수행하였다."</div>
   <p>이 문장은 서로 얽혀 있던 벡터들을 그람-슈미트 과정을 통해 수직인 벡터들로 정리한 뒤, 그 결과를 행렬 계산(QR분해)에 활용했다는 뜻입니다. 신호처리, 통계, 수치해석 논문에서 기저를 단순화하거나 다중공선성 문제를 다룰 때 자주 언급됩니다.</p>
 
@@ -166,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>벡터를 처리하는 순서를 바꾸면 최종적으로 얻는 직교기저 자체가 달라질 수 있습니다(단, 벡터들이 펼치는 공간은 동일합니다). 또한 손으로 계산하는 고전적 방식은 컴퓨터로 실제 구현할 때 반올림 오차가 누적되어 불안정해질 수 있어, 실무에서는 이를 보완한 변형된 알고리즘이 흔히 사용됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">그람-슈미트 직교화</th><td>벡터를 순서대로 직교화하는 절차</td><td>QR 분해를 얻는 방법의 하나</td></tr><tr><th scope="row"><a href="qr-decomposition.html">QR 분해</a></th><td>A = QR로 쪼개는 행렬 분해</td><td>그람-슈미트나 하우스홀더로 계산</td></tr><tr><th scope="row"><a href="orthogonal-matrix.html">직교행렬</a></th><td>열이 정규직교인 정방행렬</td><td>정규화한 결과로 만들어짐</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Schmidt, E. (1907). Zur Theorie der linearen und nichtlinearen Integralgleichungen. I. Teil: Entwicklung willkürlicher Funktionen nach Systemen vorgeschriebener. Mathematische Annalen, 63, 433–476.</li>
+    <li>Björck, Å. (1967). Solving linear least squares problems by Gram-Schmidt orthogonalization. BIT Numerical Mathematics, 7(1), 1–21.</li>
+    <li>Golub, G. H., &amp; Van Loan, C. F. (2013). Matrix Computations (4th ed.). Johns Hopkins University Press.</li>
+    <li>Trefethen, L. N., &amp; Bau, D., III. (1997). Numerical Linear Algebra. SIAM.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>

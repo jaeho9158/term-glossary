@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/deadlock.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>교착 상태는 운영체제, 데이터베이스, 분산 시스템, 병렬 프로그래밍 등 여러 자원을 여러 주체가 동시에 다투는 거의 모든 시스템에서 발생할 수 있는 근본적인 문제라, 시스템의 신뢰성과 가용성을 다루는 논문에서 반드시 고려해야 하는 실패 모드로 등장합니다. 특히 다중 코어 환경이나 분산 데이터베이스처럼 동시성이 커질수록 발생 가능성과 파급 효과가 커지기 때문에, 이를 예방·탐지·회복하는 기법 자체가 하나의 독립된 연구 주제로 다뤄지기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>교착 상태는 둘 이상의 주체가 서로가 쥔 자원을 기다리며 영원히 멈춘 상태입니다. Coffman 등(1971)은 다음 네 조건이 <strong>동시에</strong> 성립할 때 생긴다고 정리했습니다.</li><li><strong>상호 배제</strong>(자원을 한 번에 하나만 쓴다), <strong>점유 대기</strong>(자원을 쥔 채 다른 자원을 기다린다), <strong>비선점</strong>(쥔 자원을 강제로 빼앗을 수 없다), <strong>순환 대기</strong>(기다리는 관계가 원형으로 닫힌다)입니다.</li><li>넷 중 하나만 깨도 교착 상태는 일어나지 않습니다. 락을 항상 같은 순서로 잡거나(순환 대기 방지), 필요한 자원을 한꺼번에 요청하거나(점유 대기 방지), 시간 제한 후 락을 놓는(비선점 보완) 방법이 대표적입니다.</li><li>방지 말고도 은행가 알고리즘 같은 <strong>회피</strong>, 자원 할당 그래프에서 순환을 찾아 사후 복구하는 <strong>탐지·복구</strong>, 문제를 무시하는 방식이 쓰입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>스레드 1이 락 A 다음 B를, 스레드 2가 락 B 다음 A를 잡는 경우와, 둘 다 A 다음 B 순서로 잡는 경우를 코드로 가능한 모든 실행 순서에 대해 검사했습니다(각 스레드는 두 락을 모두 얻으면 둘 다 놓는다고 가정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>락 획득 순서</th><th>가능한 실행 경로</th><th>교착 상태로 끝난 경로</th><th>정상 종료한 경로</th></tr></thead><tbody><tr><td>스레드 1: A→B, 스레드 2: B→A</td><td>4</td><td>2</td><td>2</td></tr><tr><td>스레드 1: A→B, 스레드 2: A→B (순서 통일)</td><td>2</td><td>0</td><td>2</td></tr></tbody></table></div><p>순서가 엇갈리면 ‘스레드 1이 A를, 스레드 2가 B를 먼저 잡는’ 경로에서 서로 상대 락을 기다리며 멈춥니다. 모든 경로가 교착 상태로 끝나는 것은 아니므로 <strong>테스트에서 한 번 통과했다고 안전한 것은 아닙니다</strong>. 락 순서를 통일하면 순환 대기가 생기지 않아 교착 상태 경로가 사라집니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>교착 상태는 프로그램이 느려지는 것이다.</td><td>느려지는 것이 아니라 관련 주체가 더 진행하지 못하고 멈추는 것입니다.</td></tr><tr><td>락을 쓰면 안전하다.</td><td>락을 잘못된 순서로 쓰면 오히려 교착 상태의 원인이 됩니다.</td></tr><tr><td>한 번도 안 걸렸으니 교착 상태가 없다.</td><td>실행 순서(타이밍)에 달려 있어 드물게만 재현될 수 있습니다.</td></tr><tr><td>교착 상태와 경쟁 상태는 같다.</td><td>경쟁 상태는 실행 순서 때문에 결과가 틀리는 문제이고, 교착 상태는 진행이 멈추는 문제입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"두 트랜잭션이 서로 다른 순서로 락(lock)을 획득할 경우 교착 상태(deadlock)에 빠질 수 있어, 락 획득 순서를 고정하는 방식으로 이를 방지했다."</div>
   <p>이 문장은 데이터베이스 트랜잭션들이 자원을 잠그는 순서가 뒤엉키면 서로 기다리다 멈추는 문제가 생길 수 있어, 항상 같은 순서로 자원을 잠그도록 규칙을 정해 해결했다는 뜻입니다.</p>
 
@@ -163,6 +181,18 @@
 
   <h2>주의할 점</h2>
   <p>교착 상태는 <a href="race-condition.html">경쟁 상태</a>와 헷갈리기 쉽지만 다른 개념입니다. 경쟁 상태는 결과가 실행 순서에 따라 잘못 나오는 문제이고, 교착 상태는 아예 진행 자체가 멈춰버리는 문제입니다. <a href="mutex-and-semaphore.html">뮤텍스와 세마포어</a> 같은 동기화 도구도 사용 방식이 잘못되면 오히려 교착 상태를 유발할 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">증상</th></tr></thead><tbody><tr><th scope="row">교착 상태(deadlock)</th><td>서로 기다리며 모두 멈춤</td><td>CPU도 거의 쓰지 않고 멈춤</td></tr><tr><th scope="row">라이브락(livelock)</th><td>서로 양보하며 계속 상태를 바꾸지만 진전이 없음</td><td>바쁘게 움직이는데 진행 없음</td></tr><tr><th scope="row">기아(starvation)</th><td>특정 주체만 계속 자원을 받지 못함</td><td>다른 주체는 진행</td></tr><tr><th scope="row"><a href="race-condition.html">경쟁 상태</a></th><td>실행 순서에 따라 결과가 달라지는 오류</td><td>결과가 틀림</td></tr><tr><th scope="row"><a href="mutex.html">뮤텍스</a></th><td>한 번에 하나만 임계구역에 들이는 락</td><td>교착 상태의 재료가 되기도 하는 도구</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Coffman, E. G., Elphick, M., &amp; Shoshani, A. (1971). System deadlocks. ACM Computing Surveys, 3(2), 67–78.</li>
+    <li>Silberschatz, A., Galvin, P. B., &amp; Gagne, G. (2018). Operating System Concepts (10th ed.). Wiley.</li>
+    <li>Tanenbaum, A. S., &amp; Bos, H. (2015). Modern Operating Systems (4th ed.). Pearson.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

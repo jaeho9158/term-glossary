@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>선형독립인 벡터 v₁, …, vₙ에서 서로 직교하는 u₁, …, uₙ을 순서대로 만듭니다.</p><ol><li>u₁ = v₁</li><li>k번째 벡터에서 앞서 만든 모든 u와 겹치는 성분(사영)을 뺍니다: <code>u<sub>k</sub> = v<sub>k</sub> − Σ<sub>j&lt;k</sub> (⟨v<sub>k</sub>, u<sub>j</sub>⟩ ÷ ⟨u<sub>j</sub>, u<sub>j</sub>⟩) u<sub>j</sub></code></li><li>길이를 1로 맞추면 정규직교기저 e<sub>k</sub> = u<sub>k</sub> ÷ ‖u<sub>k</sub>‖입니다.</li></ol><ul><li>처음 k개 벡터가 펼치는 공간은 단계마다 그대로 유지됩니다. 즉 v₁…v<sub>k</sub>의 생성 공간과 u₁…u<sub>k</sub>의 생성 공간이 같습니다.</li><li>벡터가 선형종속이면 어느 단계에서 u<sub>k</sub>가 영벡터가 되어 진행할 수 없습니다.</li><li>이 과정을 행렬로 쓰면 A = QR이 되며, 그래서 [[qr-decomposition|QR 분해]]를 구하는 방법 중 하나입니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>예: v₁ = (1, 1, 0), v₂ = (1, 0, 1), v₃ = (0, 1, 1)을 분수 연산 코드로 계산했습니다.</p><table><thead><tr><th>단계</th><th>결과</th></tr></thead><tbody><tr><td>u₁</td><td>(1, 1, 0)</td></tr><tr><td>u₂</td><td>(1/2, -1/2, 1)</td></tr><tr><td>u₃</td><td>(-2/3, 2/3, 2/3)</td></tr><tr><td>내적 ⟨u₁,u₂⟩, ⟨u₁,u₃⟩, ⟨u₂,u₃⟩</td><td>0, 0, 0</td></tr></tbody></table><p>세 내적이 모두 0이므로 서로 수직입니다. 얻은 직교기저는 투영과 최소제곱 계산을 단순하게 만들고, 정규화하면 [[orthogonal-matrix|직교행렬]]의 열이 됩니다. 회귀에서 설명변수를 직교화하거나, 다항식 기저를 만들 때(르장드르 다항식 등)도 쓰입니다.</p><p>고전적 방식은 수치 계산에서 직교성을 잃을 수 있습니다. 열이 거의 평행한 행렬 A(첫 행이 (1, 1, 1)이고 그 아래 세 행이 대각에 ε를 둔 4×3 행렬, ε = 10<sup>−8</sup>)에 배정밀도로 두 방식을 적용하면, 서로 다른 열 사이의 내적 최댓값(직교성 오차)이 <strong>고전적 방식 5.0e-1</strong>, <strong>변형 방식 7.1e-9</strong>로 나왔습니다(코드로 계산). 변형 방식은 갱신된 벡터에서 사영을 계산해 오차 누적을 줄입니다. 가장 안정적인 QR 계산에는 하우스홀더 변환이 널리 쓰입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 방식(고전적/변형)을 썼는지, 벡터를 처리한 순서와 정규화 여부를 밝힙니다. 순서를 바꾸면 직교기저가 달라지기 때문입니다(생성 공간은 같습니다).</li><li>계산에 쓴 소프트웨어와 함수(예: QR 분해 함수가 어떤 알고리즘을 쓰는지)를 적습니다. 많은 라이브러리의 QR은 하우스홀더 기반이라 그람-슈미트와 결과의 부호가 다를 수 있습니다.</li><li>직교성 검증 방법(QᵀQ − I의 크기)과 허용 오차를 보고하면 신뢰도가 높아집니다.</li><li>[[linear-independence|선형독립]] 조건 확인 결과도 함께 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "관계"
+    ],
+    "rows": [
+      [
+        "그람-슈미트 직교화",
+        "벡터를 순서대로 직교화하는 절차",
+        "QR 분해를 얻는 방법의 하나"
+      ],
+      [
+        "[[qr-decomposition|QR 분해]]",
+        "A = QR로 쪼개는 행렬 분해",
+        "그람-슈미트나 하우스홀더로 계산"
+      ],
+      [
+        "[[orthogonal-matrix|직교행렬]]",
+        "열이 정규직교인 정방행렬",
+        "정규화한 결과로 만들어짐"
+      ]
+    ]
+  },
+  "references": [
+    "Schmidt, E. (1907). Zur Theorie der linearen und nichtlinearen Integralgleichungen. I. Teil: Entwicklung willkürlicher Funktionen nach Systemen vorgeschriebener. Mathematische Annalen, 63, 433–476.",
+    "Björck, Å. (1967). Solving linear least squares problems by Gram-Schmidt orthogonalization. BIT Numerical Mathematics, 7(1), 1–21.",
+    "Golub, G. H., & Van Loan, C. F. (2013). Matrix Computations (4th ed.). Johns Hopkins University Press.",
+    "Trefethen, L. N., & Bau, D., III. (1997). Numerical Linear Algebra. SIAM."
+  ]
+}

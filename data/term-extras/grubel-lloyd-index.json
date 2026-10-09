@@ -1,0 +1,52 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><code>GL<sub>i</sub> = 1 − |X<sub>i</sub> − M<sub>i</sub>| ÷ (X<sub>i</sub> + M<sub>i</sub>)</code> (X<sub>i</sub>: 산업 i의 수출액, M<sub>i</sub>: 수입액)</p><ul><li>범위는 0~1입니다. 수출과 수입이 같으면 1(산업내무역 최대), 한쪽만 있으면 0(산업간 무역)입니다. 식의 둘째 항 |X − M| ÷ (X + M)은 수출입 불균형의 몫이므로, 지수는 ‘1 − 불균형의 몫’입니다.</li><li>여러 산업의 국가 전체 지수는 산업별 지수를 무역액으로 가중평균합니다: <code>GL = 1 − Σ|X<sub>i</sub> − M<sub>i</sub>| ÷ Σ(X<sub>i</sub> + M<sub>i</sub>)</code>.</li><li>전체 무역수지가 흑자나 적자이면 지수가 낮아지므로, Grubel과 Lloyd(1975)는 불균형을 보정한 지수 <code>[Σ(X + M) − Σ|X − M|] ÷ [Σ(X + M) − |ΣX − ΣM|]</code>도 제시했습니다.</li></ul><p>가상의 4개 산업(단위: 억 달러)을 코드로 계산했습니다.</p><table><thead><tr><th>산업</th><th>수출 X</th><th>수입 M</th><th>GL</th></tr></thead><tbody><tr><td>반도체</td><td>120</td><td>100</td><td>0.909</td></tr><tr><td>자동차</td><td>80</td><td>80</td><td>1.000</td></tr><tr><td>원유</td><td>5</td><td>95</td><td>0.100</td></tr><tr><td>의류</td><td>30</td><td>60</td><td>0.667</td></tr></tbody></table><p>가중평균 지수는 1 − 140 ÷ 570 = 0.754입니다. 전체 수출 235, 수입 335으로 무역수지가 적자이므로 보정 지수는 0.915으로 더 높습니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>값이 1에 가까울수록 같은 산업에서 수출과 수입이 함께 많은 ‘산업내무역’이 크다는 뜻입니다. 0.5 같은 명확한 임계값은 이론적으로 정해져 있지 않고, 연구마다 비교의 기준으로 씁니다.</li><li>산업 분류가 넓을수록 이질적인 제품이 한 산업으로 묶여 지수가 인위적으로 높아집니다(범주화 문제). 분류 단위(예: HS 몇 단위)가 달라지면 지수를 직접 비교할 수 없습니다.</li><li>지수만으로는 수직적(품질 차이) 산업내무역인지 수평적(비슷한 품질의 차별화) 산업내무역인지 알 수 없습니다. 이를 가르는 데 단위가치(수출 단가 ÷ 수입 단가)가 1±0.15 안인지를 보는 방법이 널리 쓰입니다(Greenaway, Hine, &amp; Milner, 1995). 이 15%는 관행적 기준입니다.</li><li>기간 변화를 볼 때는 지수 변화가 기존 무역의 변화인지 신규 무역의 변화인지 구분하는 한계적 산업내무역 지수(Brülhart, 1994)를 함께 씁니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>사용한 식(산업별, 가중평균, 보정 지수), 산업 분류 체계와 단위, 자료 출처와 기간을 적습니다.</li><li>국가 간·기간 간 비교는 같은 분류 단위로 맞추고, 분류 변경이 있었다면 대응표를 밝힙니다.</li><li>무역수지 불균형이 큰 나라는 보정 여부를 밝히고, 가능하면 두 값을 함께 보고합니다.</li><li>산업내무역이 높다는 결론은 수직·수평 구분과 무역 상대국의 특성을 함께 제시해야 설득력이 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "비고"
+    ],
+    "rows": [
+      [
+        "그루벨-로이드 지수",
+        "산업내무역의 비중을 0~1로 나타내는 지수",
+        "1 − 불균형의 몫"
+      ],
+      [
+        "[[intra-industry-trade|산업내무역]]",
+        "같은 산업의 재화를 동시에 수출입하는 현상",
+        "지수가 재는 대상"
+      ],
+      [
+        "[[comparative-advantage|비교우위]]",
+        "기회비용이 낮은 재화에 특화한다는 이론",
+        "산업간 무역을 주로 설명"
+      ],
+      [
+        "[[heckscher-ohlin-model|헥셔-올린 모형]]",
+        "요소 부존 차이로 무역을 설명하는 모형",
+        "산업간 무역 예측, 산업내무역 설명에는 한계"
+      ]
+    ]
+  },
+  "references": [
+    "Grubel, H. G., & Lloyd, P. J. (1975). Intra-Industry Trade: The Theory and Measurement of International Trade in Differentiated Products. Macmillan.",
+    "Greenaway, D., Hine, R., & Milner, C. (1995). Vertical and horizontal intra-industry trade: A cross industry analysis for the United Kingdom. Economic Journal, 105(433), 1505–1518.",
+    "Brülhart, M. (1994). Marginal intra-industry trade: Measurement and relevance for the pattern of industrial adjustment. Weltwirtschaftliches Archiv, 130(3), 600–613."
+  ]
+}

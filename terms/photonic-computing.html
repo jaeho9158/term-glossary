@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/photonic-computing.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>딥러닝 모델이 커질수록 행렬 곱셈에 드는 연산량과 전력 소모가 급격히 늘어나는데, 기존 전자 기반 반도체는 미세공정 한계와 발열 문제로 성능 향상이 점점 둔화되고 있다. 광컴퓨팅은 빛의 속도와 낮은 저항 특성을 이용해 이런 병목을 우회할 수 있는 대안으로 주목받으며, 차세대 AI 가속기·데이터센터 인터커넥트 연구와 밀접하게 연결된다. 그래서 컴퓨터구조, 반도체 공학, 광학 등 여러 분야의 논문에서 함께 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>광컴퓨팅은 전류 대신 빛으로 정보를 나르고 일부 연산을 합니다. 현재 연구의 중심은 범용 컴퓨터가 아니라 <strong>행렬·벡터 곱을 빛으로 빠르고 낮은 에너지로 하는 가속기</strong>입니다.</li><li>집적 광학에서 마흐-젠더 간섭계(MZI)는 두 도파로의 빛을 섞고 위상을 조절하는 2×2 소자입니다. MZI를 그물처럼 배치하면 임의의 유니터리 행렬을 구현할 수 있다는 것이 Reck 등(1994)과 Clements 등(2016)의 설계입니다.</li><li>임의의 실수 행렬은 특이값 분해 W = UΣV†로 쓰므로, 두 유니터리(U, V†)를 MZI 그물로, 대각행렬 Σ를 감쇠·증폭 소자로 구현합니다. Shen 등(2017)은 이 구조로 신경망의 선형층을 광학 칩에서 구현했습니다.</li><li>빛은 입력을 병렬로 통과시키고 행렬 곱이 전파 시간 안에 이루어지지만, 전기 신호를 광신호로 바꾸고 다시 읽는 과정, 비선형 활성화 함수, 메모리 접근이 병목이 될 수 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>N×N 유니터리 행렬을 구현하는 데 필요한 MZI 수는 N(N−1)/2개입니다(Reck, Clements 설계). 일반 실수 행렬은 유니터리 두 개가 필요하므로 N(N−1)개에 대각 소자 N개가 더해집니다. 코드로 계산한 값은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>N</th><th>유니터리 하나의 MZI 수</th><th>일반 행렬의 MZI 수</th></tr></thead><tbody><tr><td>4</td><td>6</td><td>12</td></tr><tr><td>16</td><td>120</td><td>240</td></tr><tr><td>64</td><td>2016</td><td>4032</td></tr></tbody></table></div><p>N이 64로 커지면 MZI가 수천 개 필요하고, 소자마다 위상 오차와 손실이 쌓입니다. 광컴퓨팅 연구가 정밀도와 손실, 제조 편차를 줄이는 일에 많은 노력을 쓰는 이유입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>빛이 빠르니 컴퓨터도 훨씬 빠르다.</td><td>행렬 곱은 빠를 수 있지만 입출력 변환, 비선형 처리, 메모리가 전체 성능을 좌우합니다.</td></tr><tr><td>광컴퓨터는 GPU를 곧 대체한다.</td><td>대부분 연구·시제품 단계이며, 정밀도와 규모 면에서 전자 칩과 함께 쓰는 하이브리드 구조가 현실적인 방향으로 논의됩니다.</td></tr><tr><td>광컴퓨팅은 양자컴퓨팅이다.</td><td>광컴퓨팅은 고전적인 빛의 세기·위상으로 연산합니다. 광자를 쓰는 양자컴퓨팅은 별개의 분야입니다.</td></tr><tr><td>광 연결과 광 연산은 같은 것이다.</td><td>광 인터커넥트는 데이터 이동을 빛으로 하는 기술이고, 광 연산은 연산 자체를 빛으로 합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 광학 행렬 곱셈기는 실리콘 포토닉스 칩 위에 구현되었다."</div>
   <p>전자 회로가 아니라 빛을 이용하는 광학 소자로 행렬 곱셈이라는 신경망 핵심 연산을 수행하는 하드웨어를 만들었다는 뜻이다.</p>
   <div class="example">"본 연구는 광 간섭계 배열을 활용한 광학 뉴럴 네트워크의 추론 지연시간을 전자 기반 가속기와 비교 평가한다."</div>
@@ -161,6 +179,17 @@
 
   <h2>주의할 점</h2>
   <p>광컴퓨팅은 아직 대부분 연구 단계이며, 실제 상용 딥러닝 인프라에서 GPU를 대체할 만큼 널리 쓰이는 기술은 아니라는 점을 유념해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Shen, Y., Harris, N. C., Skirlo, S., Prabhu, M., Baehr-Jones, T., Hochberg, M., Sun, X., Zhao, S., Larochelle, H., Englund, D., &amp; Soljačić, M. (2017). Deep learning with coherent nanophotonic circuits. Nature Photonics, 11(7), 441–446.</li>
+    <li>Reck, M., Zeilinger, A., Bernstein, H. J., &amp; Bertani, P. (1994). Experimental realization of any discrete unitary operator. Physical Review Letters, 73(1), 58–61.</li>
+    <li>Clements, W. R., Humphreys, P. C., Metcalf, B. J., Kolthammer, W. S., &amp; Walmsley, I. A. (2016). Optimal design for universal multiport interferometers. Optica, 3(12), 1460–1465.</li>
+    <li>Shastri, B. J., Tait, A. N., Ferreira de Lima, T., Pernice, W. H. P., Bhaskaran, H., Wright, C. D., &amp; Prucnal, P. R. (2021). Photonics for artificial intelligence and neuromorphic computing. Nature Photonics, 15(2), 102–114.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
