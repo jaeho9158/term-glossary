@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/reward-prediction-error.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <p>보상예측오차는 신경과학의 실험 데이터와 강화학습의 계산 이론을 하나로 잇는 대표적인 개념이어서, 계산신경과학이라는 학제간 연구 분야 전체를 상징하는 사례로 자주 인용됩니다.</p>
   <p>도파민 신경세포의 신호가 시간차 학습 알고리즘의 오차 신호와 유사하다는 발견은 뇌가 어떻게 학습하는지를 알고리즘 수준에서 설명하려는 시도의 출발점이 되었습니다. 이 때문에 중독, 조현병 등 도파민 관련 정신질환 연구와 인공지능의 강화학습 알고리즘 설계 양쪽에서 모두 핵심 참조 개념으로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <ul><li>학습은 <strong>예측과 결과의 차이</strong>로 일어납니다. 받은 보상이 예측보다 크면 양의 오차, 같으면 0, 작으면(또는 예상한 보상이 안 오면) 음의 오차이며, 이 오차만큼 예측을 고칩니다.</li><li>가장 단순한 형태는 δ = r − V (r: 받은 보상, V: 예측값)이고, 예측은 V ← V + α·δ 로 갱신됩니다(Rescorla &amp; Wagner, 1972). 시간차 학습에서는 다음 시점의 예측을 포함한 δ = r + γV(s′) − V(s) 로 확장됩니다.</li><li>Schultz, Dayan, Montague(1997)는 원숭이 중뇌 도파민 뉴런의 단일 뉴런 기록을 시간차 학습의 오차 신호와 연결해, 도파민 뉴런의 일시적 발화가 이 오차를 나타낸다고 해석했습니다.</li></ul>
+
+  <h2>근거와 대표 연구</h2>
+  <ul><li><strong>세 가지 반응 패턴</strong>: 예상치 못한 보상에는 발화가 증가하고, 완전히 예측된 보상에는 거의 반응하지 않으며, 예측된 보상이 오지 않으면 기준 발화 아래로 억제됩니다. 보상의 시점이 예상과 어긋날 때도 오차 신호가 보입니다(Hollerman &amp; Schultz, 1998).</li><li><strong>계산 예(가상의 값)</strong>: 학습률 α = 0.3, 보상 r = 1일 때 시행마다 오차는 1.000 → 0.700 → 0.490 → 0.343 → 0.240 → 0.168 → 0.118 → 0.082로 줄고, 8회 뒤 예측값은 약 0.94입니다. 이때 보상이 갑자기 안 오면 오차는 0 − 0.94 ≈ −0.94가 되어 큰 음의 오차가 생깁니다.</li><li><strong>인과 증거</strong>: Steinberg 등(2013)은 쥐에서 보상 단서가 이미 예측되는 조건에 도파민 뉴런을 광유전학으로 인위 활성화하면, 평소 학습되지 않던 새 단서가 학습된다고 보고했습니다.</li></ul>
+
+  <h2>비판과 한계</h2>
+  <ul><li><strong>도파민 = 오차 신호만은 아닙니다.</strong> 도파민이 보상 자체의 쾌락이 아니라 동기와 유인 현저성을 매개한다는 대안 해석이 있습니다(Berridge, 2007). 두 해석이 완전히 배타적이지는 않으며 논쟁이 이어집니다.</li><li><strong>사람 연구</strong>: fMRI의 BOLD 신호로 오차 신호를 찾는 연구가 많지만 이는 도파민 발화를 직접 잰 것이 아닌 간접 지표입니다.</li><li><strong>모형 의존성</strong>: 어떤 학습 모형을 쓰느냐에 따라 같은 데이터에서 오차 값이 다르게 계산됩니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"도파민 신경세포의 발화율은 예상치 못한 보상이 제시된 시점에 급격히 증가했으며, 이는 보상예측오차(reward prediction error) 가설과 일치하는 결과였다."</div>
   <p>이 문장은 원숭이나 쥐를 대상으로 한 전기생리학 실험에서, 보상이 예측 가능했는지 여부에 따라 도파민 신경세포의 발화 패턴이 달라진다는 것을 관찰한 결과를 설명한 것입니다. 이 개념은 인간 대상 fMRI 연구에서도 도파민 관련 뇌 영역의 활성화 패턴을 해석하는 틀로 널리 쓰입니다.</p>
 
@@ -171,6 +189,20 @@
 
   <h2>주의할 점</h2>
   <p>보상예측오차는 도파민 신경세포의 발화를 "설명하는 하나의 강력한 모델"이지, 도파민의 모든 기능을 대변하는 것은 아닙니다. 도파민은 동기 부여, 운동 조절 등 다른 기능에도 관여하므로, 보상예측오차 이론만으로 도파민의 역할 전체를 단정하지 않도록 주의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">구별하는 점</th></tr></thead><tbody><tr><th scope="row">보상예측오차</th><td>받은 보상과 예측한 보상의 차이</td><td>신호의 내용입니다</td></tr><tr><th scope="row"><a href="temporal-difference-learning.html">시간차 학습</a></th><td>다음 예측을 임시 정답으로 삼아 현재 예측을 고치는 알고리즘</td><td>오차를 계산하고 쓰는 방법입니다</td></tr><tr><th scope="row"><a href="dopamine.html">도파민</a></th><td>중뇌에서 나오는 신경조절물질</td><td>RPE를 전달한다는 해석이 있지만 도파민의 기능은 이것만이 아닙니다</td></tr><tr><th scope="row"><a href="reinforcement-learning.html">강화학습</a></th><td>보상을 최대화하도록 행동을 개선하는 학습</td><td>RPE는 강화학습을 구성하는 한 부분입니다</td></tr><tr><th scope="row">보상</th><td>행동의 결과로 얻는 좋은 결과</td><td>RPE는 보상 자체가 아니라 예측과의 차이입니다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rescorla, R. A., &amp; Wagner, A. R. (1972). A theory of Pavlovian conditioning: variations in the effectiveness of reinforcement and nonreinforcement. In A. H. Black &amp; W. F. Prokasy (Eds.), Classical Conditioning II: Current Research and Theory (pp. 64–99). Appleton-Century-Crofts.</li>
+    <li>Schultz, W., Dayan, P., &amp; Montague, P. R. (1997). A neural substrate of prediction and reward. Science, 275, 1593–1599.</li>
+    <li>Hollerman, J. R., &amp; Schultz, W. (1998). Dopamine neurons report an error in the temporal prediction of reward during learning. Nature Neuroscience, 1, 304–309.</li>
+    <li>Berridge, K. C. (2007). The debate over dopamine's role in reward: the case for incentive salience. Psychopharmacology, 191, 391–431.</li>
+    <li>Steinberg, E. E., Keiflin, R., Boivin, J. R., Witten, I. B., Deisseroth, K., &amp; Janak, P. H. (2013). A causal link between prediction errors, dopamine neurons and learning. Nature Neuroscience, 16, 966–973.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
