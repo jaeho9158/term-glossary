@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>IBNR(미보고발생손해액) 준비금은 결산일 이전에 사고가 났지만 그때까지 보험회사에 <strong>보고되지 않은 사고</strong>의 장래 지급을 위한 준비금입니다. 개별 사건을 하나씩 아는 것이 아니라 통계적으로 추정하는 준비금이라는 점이 핵심입니다.</li><li>실무와 문헌에서는 IBNR을 두 가지 뜻으로 씁니다. 좁은 뜻은 아직 보고되지 않은 사고(pure IBNR)이고, 넓은 뜻은 여기에 이미 접수된 사고의 지급액이 늘어날 부분(IBNER, 개별추산액의 부족분)을 합친 것입니다. 논문마다 어느 쪽인지 확인해야 합니다.</li><li>추정에는 손해발생삼각형과 [[chain-ladder-method|체인래더법]]이 가장 널리 쓰이고, 초기 연도처럼 자료가 적을 때는 사전 기대 손해율을 섞는 Bornhuetter–Ferguson 방법(Bornhuetter &amp; Ferguson, 1972) 등이 쓰입니다.</li><li>삼각형이 <em>보고(발생) 손해액</em>이면 “궁극손해액 − 현재 보고액”이 IBNR(넓은 뜻)이고, <em>지급액</em>이면 같은 계산의 결과는 미지급 총 준비금이 되어 개별추산액을 포함합니다.</li><li>결과는 점추정값만이 아니라 불확실성이 있습니다. 표준오차를 구하는 분포 비의존 방법이 Mack(1993)에서 제시되었고, 확률적 준비금 모형은 England와 Verrall(2002)이 정리했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 4개 사고연도 누적 보고 손해액 삼각형(단위 임의)으로 체인래더법을 계산한 예입니다(코드로 계산).</p><table><thead><tr><th>사고연도</th><th>진전 1</th><th>진전 2</th><th>진전 3</th><th>진전 4</th></tr></thead><tbody><tr><td>1</td><td>100</td><td>160</td><td>180</td><td>190</td></tr><tr><td>2</td><td>110</td><td>170</td><td>195</td><td></td></tr><tr><td>3</td><td>120</td><td>185</td><td></td><td></td></tr><tr><td>4</td><td>130</td><td></td><td></td><td></td></tr></tbody></table><p>진전계수(가중평균 방식)는 1→2는 515/330≈1.561, 2→3은 375/330≈1.136, 3→4는 190/180≈1.056입니다. 마지막 진전 이후의 추가 진전(꼬리 계수)은 1로 가정합니다.</p><table><thead><tr><th>사고연도</th><th>현재 보고액</th><th>궁극손해액 추정</th><th>IBNR(넓은 뜻)</th></tr></thead><tbody><tr><td>1</td><td>190</td><td>190.0</td><td>0.0</td></tr><tr><td>2</td><td>195</td><td>205.8</td><td>10.8</td></tr><tr><td>3</td><td>185</td><td>221.9</td><td>36.9</td></tr><tr><td>4</td><td>130</td><td>243.4</td><td>113.4</td></tr><tr><td>합계</td><td>700</td><td>861.1</td><td>161.1</td></tr></tbody></table><p>가장 최근 연도의 준비금이 가장 큽니다. 아직 진전이 많이 남아 있고 추정이 불안정한 구간이어서 계수 선택에 민감합니다. 이 예는 과거 패턴이 앞으로도 유지된다는 가정에 전적으로 의존합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>IBNR은 이미 알려진 사고의 준비금이다.</td><td>알려진 사고는 개별추산액으로 따로 쌓습니다. IBNR은 미보고 사고(넓은 뜻에서는 기보고 사고의 추가 증가분 포함)를 추정으로 쌓은 것입니다.</td></tr><tr><td>IBNR은 확정된 금액이다.</td><td>통계적 추정치이며 표준오차와 시나리오에 따라 달라집니다.</td></tr><tr><td>많이 쌓을수록 안전하다.</td><td>과소적립은 부채 과소평가, 과다적립은 자본 비효율을 낳으므로 정확한 추정이 중요합니다.</td></tr><tr><td>과거 패턴만 맞으면 된다.</td><td>제도·시장 환경이 급변하면 진전 패턴이 달라져 추정 오차가 커집니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "가리키는 것"
+    ],
+    "rows": [
+      [
+        "IBNR 준비금",
+        "미보고 사고(넓은 뜻에서 기보고 사고의 추가 증가 포함)의 추정 준비금"
+      ],
+      [
+        "[[case-reserve|개별추산액]]",
+        "이미 보고된 개별 사건에 대해 담당자가 산정한 준비금"
+      ],
+      [
+        "[[loss-development-triangle|손해발생삼각형]]",
+        "사고연도와 경과기간으로 정리한 손해액 표"
+      ],
+      [
+        "[[loss-development-factor|손해진전계수]]",
+        "한 진전연도에서 다음으로 넘어갈 때 곱하는 비율"
+      ],
+      [
+        "[[chain-ladder-method|체인래더법]]",
+        "진전계수로 궁극손해액을 추정하는 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Bornhuetter, R. L., & Ferguson, R. E. (1972). The actuary and IBNR. Proceedings of the Casualty Actuarial Society, 59.",
+    "Mack, T. (1993). Distribution-free calculation of the standard error of chain ladder reserve estimates. ASTIN Bulletin, 23(2).",
+    "England, P. D., & Verrall, R. J. (2002). Stochastic claims reserving in general insurance. British Actuarial Journal, 8(3).",
+    "Wüthrich, M. V., & Merz, M. (2008). Stochastic Claims Reserving Methods in Insurance. John Wiley & Sons.",
+    "Friedland, J. F. (2010). Estimating Unpaid Claims Using Basic Techniques. Casualty Actuarial Society."
+  ]
+}

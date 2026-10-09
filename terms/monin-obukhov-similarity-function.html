@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>모닌-오부코프 상사함수는 접지층의 바람, 온도, 습도 프로파일을 이론적으로 설명하는 표준적인 틀로 자리 잡아, 수치예보 모델과 기후 모델에서 지표 플럭스를 계산하는 지표층 모수화의 근간이 됩니다. 이 덕분에 복잡한 난류 방정식을 직접 풀지 않고도 지표-대기 사이의 열, 운동량, 수증기 교환을 효율적으로 표현할 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>접지층에서 무차원 풍속 경도 φ<sub>m</sub>=(κz/u<sub>*</sub>)(∂U/∂z)와 무차원 온도 경도 φ<sub>h</sub>는 무차원 고도 ζ=z/L 하나의 함수로 쓸 수 있다는 것이 <a href="monin-obukhov-similarity-theory.html">모닌-오부코프 상사이론</a>의 주장이며, 그 함수 φ<sub>m</sub>(ζ), φ<sub>h</sub>(ζ)가 상사함수입니다. 여기서 κ는 폰카르만 상수, u<sub>*</sub>는 <a href="friction-velocity.html">마찰속도</a>, L은 <a href="obukhov-length.html">오부코프길이</a>입니다.</li><li>ζ&lt;0이면 불안정(부력이 난류를 키움), ζ=0이면 중립(φ=1), ζ&gt;0이면 안정(부력이 난류를 억제)입니다. 중립에서 φ=1이면 로그 풍속 분포가 됩니다.</li><li>함수의 꼴은 이론만으로 정해지지 않고 관측으로 맞춥니다. 대표적인 경험식은 불안정에서 φ<sub>m</sub>=(1−γζ)<sup>−1/4</sup>, 안정에서 φ<sub>m</sub>=1+βζ 꼴이며, Businger 등(1971)과 Dyer(1974) 계열이 널리 쓰입니다. 계수(γ는 15~16, β는 4.7~5 부근)는 연구마다 조금씩 다릅니다.</li><li>φ를 고도에 대해 적분하면 안정도 보정 항이 붙은 로그-선형 풍속·온도 분포가 얻어지고, 이것이 수치모델 지표층 모수화에서 지표 플럭스를 계산하는 기본 틀이 됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>위 대표식(불안정 γ=16, 안정 β=5)을 그대로 계산한 값입니다. 계수 선택을 보여 주는 예(가상의 계산)이지 특정 관측 결과는 아닙니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>ζ=z/L</th><th>안정도</th><th>φ<sub>m</sub></th></tr></thead><tbody><tr><td>-1</td><td>불안정</td><td>0.49</td></tr><tr><td>-0.1</td><td>불안정</td><td>0.79</td></tr><tr><td>0</td><td>중립</td><td>1.00</td></tr><tr><td>0.1</td><td>안정</td><td>1.50</td></tr><tr><td>0.5</td><td>안정</td><td>3.50</td></tr><tr><td>1</td><td>안정</td><td>6.00</td></tr></tbody></table></div><p>불안정할수록 φ<sub>m</sub>이 1보다 작아져 같은 마찰속도에서 풍속 경도가 완만하고, 안정할수록 1보다 커져 경도가 가파릅니다. 안정 쪽 선형식은 ζ가 1을 넘는 매우 안정한 조건으로 갈수록 관측과 어긋나는 것으로 알려져 있어 적용 범위를 확인해야 합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>상사함수는 정확히 정해진 보편 함수다.</td><td>형태는 경험식이고 계수와 형태가 연구마다 다르며 관측 산포도 큽니다. 어떤 식을 썼는지 밝혀야 합니다.</td></tr><tr><td>이 함수는 지균풍과 지표 플럭스를 직접 연결한다.</td><td>이 함수는 접지층 안의 경도(프로파일)를 지표 플럭스(u<sub>*</sub>, 열플럭스)와 L로 연결합니다. 지균풍과 지표 마찰의 관계는 경계층 전체를 다루는 별도의 상사(지균 저항 법칙)입니다.</td></tr><tr><td>경계층 전체에 쓸 수 있다.</td><td>수평 균질하고 정상인 접지층(경계층의 아래쪽 일부)을 전제로 합니다.</td></tr><tr><td>ζ가 클수록 더 정확하다.</td><td>매우 안정한 야간, 복잡 지형, 식생 캐노피에서는 가정이 깨져 오차가 커집니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"관측된 무차원 풍속 경도는 기존에 제시된 모닌-오부코프 상사함수와 비교적 잘 일치하였다."</div>
   <p>관측 자료를 기존 상사함수와 비교 검증하는 전형적인 문장입니다.</p>
   <div class="example">"본 연구는 매우 안정한 조건에서 기존 모닌-오부코프 상사함수의 적용 한계를 지적하고 수정된 형태를 제안하였다."</div>
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>모닌-오부코프 상사이론은 수평으로 균질하고 정상 상태인 접지층을 가정하므로, 복잡한 지형이나 식생 캐노피가 있는 지표, 매우 안정한 야간 조건 등에서는 이론의 적용에 한계가 있다는 점이 여러 연구에서 지적되어 왔습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><a href="monin-obukhov-similarity-theory.html">모닌-오부코프 상사이론</a></th><td>접지층 프로파일을 소수 변수로 기술하는 이론 전체</td></tr><tr><th scope="row">상사함수 φ(ζ)</th><td>이론의 핵심 결과물인 무차원 경도 함수</td></tr><tr><th scope="row"><a href="obukhov-length.html">오부코프길이</a></th><td>ζ를 만드는 길이 척도 L</td></tr><tr><th scope="row"><a href="bulk-richardson-number.html">벌크리처드슨수</a></th><td>두 고도 자료로 안정도를 가늠하는 지표(L과의 환산은 별도 관계식 사용)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Monin, A. S., &amp; Obukhov, A. M. (1954). Basic laws of turbulent mixing in the surface layer of the atmosphere. Trudy Geofizicheskogo Instituta Akademii Nauk SSSR, 24(151).</li>
+    <li>Businger, J. A., Wyngaard, J. C., Izumi, Y., &amp; Bradley, E. F. (1971). Flux-profile relationships in the atmospheric surface layer. Journal of the Atmospheric Sciences, 28(2).</li>
+    <li>Dyer, A. J. (1974). A review of flux-profile relationships. Boundary-Layer Meteorology, 7(3).</li>
+    <li>Foken, T. (2006). 50 years of the Monin–Obukhov similarity theory. Boundary-Layer Meteorology, 119(3).</li>
+    <li>Stull, R. B. (1988). An Introduction to Boundary Layer Meteorology. Kluwer Academic Publishers.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="monin-obukhov-similarity-theory.html">모닌-오부코프 상사이론</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="obukhov-length.html">오부코프길이</a></div></div><p class="concept-family-map"><a href="../concept-map/meteor.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

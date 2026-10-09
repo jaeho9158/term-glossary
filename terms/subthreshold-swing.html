@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>스마트폰이나 서버 칩처럼 저전력이 요구되는 시스템에서는 트랜지스터를 얼마나 빠르고 확실하게 끌 수 있는지가 전력 소모에 직결됩니다. 문턱이하 스윙은 소자의 스위칭 특성과 대기 전력을 평가하는 핵심 지표이기 때문에 새로운 트랜지스터 구조를 제안하는 논문에서 거의 빠짐없이 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>문턱이하 스윙 S는 게이트 전압이 문턱전압보다 낮은 영역에서 드레인 전류를 10배 바꾸는 데 필요한 게이트 전압 변화입니다. 단위는 mV/decade이며, 로그 드레인 전류-게이트 전압 곡선 기울기의 역수입니다.</p><p>S = dV<sub>G</sub> / d(log<sub>10</sub> I<sub>D</sub>) = (kT/q) ln10 × (1 + C<sub>d</sub>/C<sub>ox</sub>)</p><p>여기서 k는 볼츠만 상수, q는 전하량, C<sub>d</sub>는 공핍층 용량, C<sub>ox</sub>는 게이트 산화막 용량입니다(Sze &amp; Ng, 2007; Taur &amp; Ning, 2009). 용량비 항은 항상 0 이상이므로 열적 주입으로 동작하는 일반 MOSFET의 S는 (kT/q) ln10보다 작아질 수 없습니다. 아래 값은 코드로 계산한 이 하한입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>온도</th><th>(kT/q) ln10</th></tr></thead><tbody><tr><td>77 K</td><td>약 15.3 mV/decade</td></tr><tr><td>300 K</td><td>약 59.5 mV/decade</td></tr><tr><td>400 K</td><td>약 79.4 mV/decade</td></tr></tbody></table></div><p>용량비 C<sub>d</sub>/C<sub>ox</sub>가 0.3이라면 300 K에서 약 77.4 mV/decade(가상의 값)가 됩니다. 이 항을 줄이는 것이 FinFET, 완전공핍형 구조 등 게이트 제어력을 높이는 소자 구조의 목적입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>작을수록 좋다</strong>: 같은 전압 변화로 전류가 더 크게 바뀌므로 낮은 전압에서 켜고 끌 수 있고, 같은 누설 기준에서 문턱전압을 낮출 수 있습니다.</li><li><strong>켜짐/꺼짐 전류비와의 관계</strong>: 전류비 10<sup>6</sup>(6 decade)을 얻으려면 전압을 최소 6×S만큼 움직여야 합니다. S=60 mV/decade이면 360 mV, S=90 mV/decade이면 540 mV입니다(계산값).</li><li><strong>S와 구동 전류는 별개</strong>: S는 꺼지는 방향의 급격함을 나타내며, 켜졌을 때의 전류나 속도를 말해 주지 않습니다.</li><li><strong>단채널 효과로 악화</strong>: 채널이 짧아져 게이트 제어력이 약해지면 S가 커집니다(<a href="short-channel-effect.html">단채널 효과</a>, <a href="drain-induced-barrier-lowering.html">드레인 유기 장벽 저하</a> 참조).</li><li><strong>60 mV/decade 미만</strong>: 열적 주입 방식의 한계를 넘으려면 <a href="tunneling-field-effect-transistor.html">터널링 전계효과 트랜지스터</a>나 <a href="negative-capacitance-transistor.html">음의정전용량 트랜지스터</a> 같은 다른 전하 주입 방식이 제안됩니다(Ionescu &amp; Riel, 2011; Salahuddin &amp; Datta, 2008).</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li><strong>측정 조건</strong>: 온도, 드레인 전압, 소자 크기(채널 길이·폭)를 함께 적습니다. 온도가 바뀌면 이론적 하한이 바뀝니다.</li><li><strong>S의 정의 방식</strong>: 곡선의 최소 기울기(점 S)인지, 특정 전류 범위에서 평균한 값인지 밝힙니다. 60 mV/decade 미만을 주장하는 논문에서는 몇 decade의 전류 구간에서 그 값이 유지되는지를 같이 제시해야 판단이 가능합니다.</li><li><strong>이력 현상</strong>: 일부 신소자는 게이트 전압 스윕 방향에 따라 곡선이 달라지므로 정방향·역방향을 모두 보여 줍니다.</li><li><strong>비교 기준</strong>: 비교 소자와 같은 조건에서 측정했는지 확인합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 터널링 트랜지스터는 상온에서 60mV/decade 이하의 문턱이하 스윙을 달성하였다."</div>
   <p>일반 MOSFET의 이론적 한계보다 더 우수한 스위칭 특성을 보였다는 성과를 설명하는 문장입니다.</p>
   <div class="example">"채널 길이 축소에 따라 문턱이하 스윙이 열화되는 단채널 효과가 관찰되었다."</div>
@@ -160,6 +178,19 @@
 
   <h2>주의할 점</h2>
   <p>문턱이하 스윙은 소자를 끄는 특성에 관한 지표이며, 소자가 켜졌을 때의 구동 전류나 속도와는 별개의 개념이므로 두 특성을 혼동하지 않아야 합니다. 상온에서 이론적으로 도달 가능한 최솟값은 약 60mV/decade로 알려져 있으며, 이는 캐리어가 볼츠만 분포를 따른다는 물리적 한계에서 비롯되어 통상적인 MOSFET 구조로는 이보다 작게 만들 수 없습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 나타내나</th></tr></thead><tbody><tr><th scope="row">문턱이하 스윙(S)</th><td>꺼짐 구간에서 전류를 10배 바꾸는 데 필요한 게이트 전압</td></tr><tr><th scope="row"><a href="short-channel-effect.html">단채널 효과</a></th><td>채널이 짧아질 때 나타나는 비정상 특성의 총칭(S 악화 포함)</td></tr><tr><th scope="row"><a href="drain-induced-barrier-lowering.html">드레인 유기 장벽 저하</a></th><td>드레인 전압이 높을수록 장벽이 낮아져 문턱전압이 내려가는 현상</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sze, S. M., &amp; Ng, K. K. (2007). Physics of Semiconductor Devices (3rd ed.). John Wiley &amp; Sons.</li>
+    <li>Taur, Y., &amp; Ning, T. H. (2009). Fundamentals of Modern VLSI Devices (2nd ed.). Cambridge University Press.</li>
+    <li>Salahuddin, S., &amp; Datta, S. (2008). Use of negative capacitance to provide voltage amplification for low power nanoscale devices. Nano Letters, 8(2).</li>
+    <li>Ionescu, A. M., &amp; Riel, H. (2011). Tunnel field-effect transistors as energy-efficient electronic switches. Nature, 479.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

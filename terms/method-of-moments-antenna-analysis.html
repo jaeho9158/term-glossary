@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>안테나나 도체 구조처럼 표면 전류만으로 특성이 결정되는 문제에서는 모멘트법이 부피 전체를 나누는 유한요소법보다 미지수를 훨씬 적게 만들 수 있어 효율적입니다. 이 때문에 안테나 설계, 산란체 해석, 전자파 적합성 평가 등 다양한 전자기 응용 논문에서 표준적인 해석 도구로 사용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>적분방정식 세우기</strong>: 안테나 표면의 미지 전류가 만드는 전자기장이 도체 표면의 경계조건을 만족한다는 조건에서 적분방정식을 얻습니다. 전기장적분방정식(EFIE)이 대표적이고, 가는 선형 안테나에서는 Pocklington 방정식이 쓰입니다.</li><li><strong>기저함수로 전개</strong>: 미지 전류를 N개의 기저함수의 합으로 근사합니다. 도선에는 펄스·삼각 함수, 임의 형상의 표면에는 삼각형 메쉬 위의 RWG(Rao-Wilton-Glisson) 기저함수가 널리 쓰입니다(Rao et al., 1982).</li><li><strong>가중(시험)함수로 검사</strong>: 방정식에 가중함수를 곱해 적분하면 N개의 식이 됩니다. 가중함수를 기저함수와 같게 두는 방식이 Galerkin 방법입니다.</li><li><strong>행렬 방정식 풀이</strong>: 임피던스 행렬 Z와 전압 벡터 V로 이루어진 ZI=V를 풉니다. 이 행렬은 모든 요소가 서로 결합한 조밀 행렬입니다.</li><li><strong>후처리</strong>: 구한 전류에서 입력 임피던스, 방사패턴, 이득 등을 계산합니다.</li></ol><p>“모멘트”라는 이름은 방정식에 가중함수를 곱해 적분하는 가중잔차의 “적률”에서 온 것으로, Harrington(1968)이 전자기 문제에 체계화했습니다. 통계학의 적률법(모집단 적률을 표본 적률에 맞춰 모수를 추정하는 방법)과는 이름만 같고 다른 방법입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>잘 맞는 문제</strong>: 도체나 얇은 유전체처럼 표면 전류로 정식화되는 안테나·산란체입니다. 미지수가 표면에만 있어 부피 전체를 나누는 <a href="finite-element-method.html">유한요소법</a>보다 미지수가 적고, 그린함수가 방사 조건을 이미 포함하므로 경계에 흡수 조건을 따로 두지 않아도 됩니다.</p><p><strong>덜 맞는 문제</strong>: 재질이 부피 안에서 복잡하게 변하는 구조, 매우 넓은 대역을 한 번에 보는 과도 응답은 <a href="finite-difference-time-domain-method.html">시간영역 유한차분법</a> 같은 시간영역 방법이 더 편할 수 있습니다.</p><p><strong>계산 비용</strong>: 행렬이 조밀하여 미지수 N에 대해 기억 용량은 N<sup>2</sup>, 직접 풀이 연산량은 N<sup>3</sup>에 비례합니다. 복소수를 16바이트로 저장한다고 가정해 코드로 계산한 값입니다(가상의 문제 크기).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>미지수 N</th><th>행렬 저장 용량</th><th>LU 분해 연산(약 2N³/3)</th></tr></thead><tbody><tr><td>1,000</td><td>약 0.016 GB</td><td>약 6.7×10<sup>8</sup></td></tr><tr><td>10,000</td><td>약 1.6 GB</td><td>약 6.7×10<sup>11</sup></td></tr><tr><td>100,000</td><td>약 160 GB</td><td>약 6.7×10<sup>14</sup></td></tr></tbody></table></div><p>미지수가 10배가 되면 저장 용량은 100배, 연산량은 1,000배가 됩니다. 그래서 대형 문제에서는 고속 다중극자법(FMM)이나 행렬 압축 같은 가속 기법을 함께 씁니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>기본 설정</strong>: 정식화(EFIE, MFIE 등), 기저함수, 가중함수, 메쉬 크기(파장 대비 세분화 정도), 풀이 방법(직접/반복)을 밝힙니다. 메쉬 간격을 파장의 1/10 안팎으로 잡는 것이 흔한 경험칙이지만 문제마다 수렴을 확인해야 합니다.</li><li><strong>수렴 검증</strong>: 기저함수 수(메쉬)를 늘려 가며 입력 임피던스나 이득이 수렴하는지 보여 줍니다.</li><li><strong>타당성 검증</strong>: 측정값이나 다른 해석 도구(상용 전자기 해석 소프트웨어, 해석해)와 비교합니다.</li><li><strong>한계 명시</strong>: 급전부 모델(델타 간극 등), 특이적분 처리, 유전체·접지면 모델링 가정을 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 다이폴 안테나 어레이의 표면 전류 분포를 모멘트법으로 계산하고 이를 통해 방사패턴을 도출하였다."</div>
   <p>모멘트법을 이용해 안테나의 방사 특성을 얻는 전형적인 절차를 설명하는 문장입니다.</p>
   <div class="example">"RWG 기저함수를 이용한 모멘트법을 통해 임의 형상 도체 표면의 전류 분포를 정확히 근사하였다."</div>
@@ -160,6 +178,19 @@
 
   <h2>주의할 점</h2>
   <p>모멘트법은 표면 전류로 문제를 정식화할 수 있는 도체나 얇은 유전체 구조에 적합하며, 부피 전체에서 재질 특성이 복잡하게 변하는 문제에는 유한요소법이나 시간영역 유한차분법이 더 적합할 수 있습니다. 모멘트법은 전류를 표현하는 기저함수 선택과 특이적분 처리 방식에 따라 수렴 속도와 정확도가 크게 달라지므로, 결과 검증 시 기저함수 개수를 늘려가며 값이 수렴하는지 확인하는 절차가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">미지수 위치</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">모멘트법(MoM)</th><td>도체·경계 표면</td><td>조밀 행렬, 방사 조건 내장</td></tr><tr><th scope="row"><a href="finite-element-method.html">유한요소법</a></th><td>부피 전체</td><td>희소 행렬, 불균질 재질에 유리</td></tr><tr><th scope="row"><a href="finite-difference-time-domain-method.html">시간영역 유한차분법</a></th><td>격자 전체(시간 전진)</td><td>광대역 과도 응답, 구조화 격자</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Harrington, R. F. (1968). Field Computation by Moment Methods. Macmillan.</li>
+    <li>Rao, S. M., Wilton, D. R., &amp; Glisson, A. W. (1982). Electromagnetic scattering by surfaces of arbitrary shape. IEEE Transactions on Antennas and Propagation, 30(3).</li>
+    <li>Gibson, W. C. (2008). The Method of Moments in Electromagnetics. Chapman and Hall/CRC.</li>
+    <li>Balanis, C. A. (2016). Antenna Theory: Analysis and Design (4th ed.). John Wiley &amp; Sons.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

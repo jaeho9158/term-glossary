@@ -1,0 +1,44 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>문턱이하 스윙 S는 게이트 전압이 문턱전압보다 낮은 영역에서 드레인 전류를 10배 바꾸는 데 필요한 게이트 전압 변화입니다. 단위는 mV/decade이며, 로그 드레인 전류-게이트 전압 곡선 기울기의 역수입니다.</p><p>S = dV<sub>G</sub> / d(log<sub>10</sub> I<sub>D</sub>) = (kT/q) ln10 × (1 + C<sub>d</sub>/C<sub>ox</sub>)</p><p>여기서 k는 볼츠만 상수, q는 전하량, C<sub>d</sub>는 공핍층 용량, C<sub>ox</sub>는 게이트 산화막 용량입니다(Sze &amp; Ng, 2007; Taur &amp; Ning, 2009). 용량비 항은 항상 0 이상이므로 열적 주입으로 동작하는 일반 MOSFET의 S는 (kT/q) ln10보다 작아질 수 없습니다. 아래 값은 코드로 계산한 이 하한입니다.</p><table><thead><tr><th>온도</th><th>(kT/q) ln10</th></tr></thead><tbody><tr><td>77 K</td><td>약 15.3 mV/decade</td></tr><tr><td>300 K</td><td>약 59.5 mV/decade</td></tr><tr><td>400 K</td><td>약 79.4 mV/decade</td></tr></tbody></table><p>용량비 C<sub>d</sub>/C<sub>ox</sub>가 0.3이라면 300 K에서 약 77.4 mV/decade(가상의 값)가 됩니다. 이 항을 줄이는 것이 FinFET, 완전공핍형 구조 등 게이트 제어력을 높이는 소자 구조의 목적입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>작을수록 좋다</strong>: 같은 전압 변화로 전류가 더 크게 바뀌므로 낮은 전압에서 켜고 끌 수 있고, 같은 누설 기준에서 문턱전압을 낮출 수 있습니다.</li><li><strong>켜짐/꺼짐 전류비와의 관계</strong>: 전류비 10<sup>6</sup>(6 decade)을 얻으려면 전압을 최소 6×S만큼 움직여야 합니다. S=60 mV/decade이면 360 mV, S=90 mV/decade이면 540 mV입니다(계산값).</li><li><strong>S와 구동 전류는 별개</strong>: S는 꺼지는 방향의 급격함을 나타내며, 켜졌을 때의 전류나 속도를 말해 주지 않습니다.</li><li><strong>단채널 효과로 악화</strong>: 채널이 짧아져 게이트 제어력이 약해지면 S가 커집니다([[short-channel-effect|단채널 효과]], [[drain-induced-barrier-lowering|드레인 유기 장벽 저하]] 참조).</li><li><strong>60 mV/decade 미만</strong>: 열적 주입 방식의 한계를 넘으려면 [[tunneling-field-effect-transistor|터널링 전계효과 트랜지스터]]나 [[negative-capacitance-transistor|음의정전용량 트랜지스터]] 같은 다른 전하 주입 방식이 제안됩니다(Ionescu &amp; Riel, 2011; Salahuddin &amp; Datta, 2008).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li><strong>측정 조건</strong>: 온도, 드레인 전압, 소자 크기(채널 길이·폭)를 함께 적습니다. 온도가 바뀌면 이론적 하한이 바뀝니다.</li><li><strong>S의 정의 방식</strong>: 곡선의 최소 기울기(점 S)인지, 특정 전류 범위에서 평균한 값인지 밝힙니다. 60 mV/decade 미만을 주장하는 논문에서는 몇 decade의 전류 구간에서 그 값이 유지되는지를 같이 제시해야 판단이 가능합니다.</li><li><strong>이력 현상</strong>: 일부 신소자는 게이트 전압 스윕 방향에 따라 곡선이 달라지므로 정방향·역방향을 모두 보여 줍니다.</li><li><strong>비교 기준</strong>: 비교 소자와 같은 조건에서 측정했는지 확인합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇을 나타내나"
+    ],
+    "rows": [
+      [
+        "문턱이하 스윙(S)",
+        "꺼짐 구간에서 전류를 10배 바꾸는 데 필요한 게이트 전압"
+      ],
+      [
+        "[[short-channel-effect|단채널 효과]]",
+        "채널이 짧아질 때 나타나는 비정상 특성의 총칭(S 악화 포함)"
+      ],
+      [
+        "[[drain-induced-barrier-lowering|드레인 유기 장벽 저하]]",
+        "드레인 전압이 높을수록 장벽이 낮아져 문턱전압이 내려가는 현상"
+      ]
+    ]
+  },
+  "references": [
+    "Sze, S. M., & Ng, K. K. (2007). Physics of Semiconductor Devices (3rd ed.). John Wiley & Sons.",
+    "Taur, Y., & Ning, T. H. (2009). Fundamentals of Modern VLSI Devices (2nd ed.). Cambridge University Press.",
+    "Salahuddin, S., & Datta, S. (2008). Use of negative capacitance to provide voltage amplification for low power nanoscale devices. Nano Letters, 8(2).",
+    "Ionescu, A. M., & Riel, H. (2011). Tunnel field-effect transistors as energy-efficient electronic switches. Nature, 479."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>효소 E가 기질 S와 가역적으로 결합해 복합체 ES를 만들고 생성물 P를 내놓는 단순 반응에서, 초기 반응속도 v는 기질 농도 [S]에 대해 v = V<sub>max</sub>[S] / (K<sub>m</sub> + [S])로 표현됩니다.</li><li>V<sub>max</sub>는 효소가 기질로 포화되었을 때의 최대 속도이며 V<sub>max</sub> = k<sub>cat</sub>[E]<sub>T</sub>입니다(총 효소 농도에 비례). K<sub>m</sub>은 속도가 V<sub>max</sub>의 절반이 되는 기질 농도입니다.</li><li>Michaelis와 Menten(1913)은 ES가 빠른 평형을 이룬다고 가정했고, Briggs와 Haldane(1925)은 ES 농도가 거의 일정한 준정상상태를 가정해 식을 유도했습니다. 준정상상태 가정에서 K<sub>m</sub> = (k<sub>−1</sub> + k<sub>cat</sub>) / k<sub>1</sub>입니다.</li><li>식은 기질 하나, 초기 속도(생성물 저해가 아직 작을 때), [S]가 [E]보다 훨씬 클 때 성립하는 근사입니다(Cornish-Bowden, 2012).</li><li>기질 억제, 알로스테릭 조절, 다기질 반응, 강한 생성물 저해가 있으면 이 식에서 벗어난 거동이 나타납니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>식의 모양은 기질 농도를 K<sub>m</sub> 단위로 잡으면 한눈에 보입니다. 아래는 v/V<sub>max</sub> = ([S]/K<sub>m</sub>) / (1 + [S]/K<sub>m</sub>)을 코드로 계산한 값입니다.</p><table><thead><tr><th>[S] / K<sub>m</sub></th><th>v / V<sub>max</sub></th></tr></thead><tbody><tr><td>0.1</td><td>9.1%</td></tr><tr><td>0.5</td><td>33.3%</td></tr><tr><td>1</td><td>50.0%</td></tr><tr><td>2</td><td>66.7%</td></tr><tr><td>5</td><td>83.3%</td></tr><tr><td>9</td><td>90.0%</td></tr><tr><td>20</td><td>95.2%</td></tr></tbody></table><p>저농도에서는 v가 [S]에 거의 비례(1차)하고, 고농도에서는 V<sub>max</sub>에 가까워져 [S]에 둔감(0차)해집니다. V<sub>max</sub>의 90%에 이르려면 [S]가 K<sub>m</sub>의 9배가 되어야 한다는 점이 실험 설계에서 자주 쓰입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>K<sub>m</sub>은 곧 기질 친화도(해리상수)다.</td><td>K<sub>m</sub> = (k<sub>−1</sub> + k<sub>cat</sub>) / k<sub>1</sub>이므로 k<sub>cat</sub>이 작을 때에 한해 해리상수에 가깝습니다. 일반적으로는 같지 않습니다.</td></tr><tr><td>V<sub>max</sub>는 효소의 고유 상수다.</td><td>효소 농도에 비례합니다. 효소 고유 값은 k<sub>cat</sub>입니다.</td></tr><tr><td>라인위버-버크 도표가 파라미터 추정에 가장 좋다.</td><td>역수를 취하면 저농도 자료의 오차가 부풀려지므로 비선형 회귀가 일반적으로 권장됩니다.</td></tr><tr><td>모든 효소가 이 식을 따른다.</td><td>알로스테릭 효소는 시그모이드 곡선을 보이는 등 이 식으로 설명되지 않습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "미카엘리스-멘텐 반응속도론",
+        "식을 낳은 모형과 그 가정을 포함한 이론 전체"
+      ],
+      [
+        "[[michaelis-menten-equation|미카엘리스-멘텐 방정식]]",
+        "그 결과 식 v = Vmax[S]/(Km+[S])"
+      ],
+      [
+        "[[michaelis-menten-constant|미카엘리스-멘텐 상수]]",
+        "속도가 최대의 절반이 되는 기질 농도 Km"
+      ],
+      [
+        "[[lineweaver-burk-plot|라인위버-버크 도표]]",
+        "식을 역수로 선형화한 그래프"
+      ]
+    ]
+  },
+  "references": [
+    "Michaelis, L., & Menten, M. L. (1913). Die Kinetik der Invertinwirkung. Biochemische Zeitschrift, 49.",
+    "Briggs, G. E., & Haldane, J. B. S. (1925). A note on the kinetics of enzyme action. Biochemical Journal, 19(2).",
+    "Johnson, K. A., & Goody, R. S. (2011). The original Michaelis constant: Translation of the 1913 Michaelis–Menten paper. Biochemistry, 50(39).",
+    "Cornish-Bowden, A. (2012). Fundamentals of Enzyme Kinetics (4th ed.). Wiley-Blackwell."
+  ]
+}

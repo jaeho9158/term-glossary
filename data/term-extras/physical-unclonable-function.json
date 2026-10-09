@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>PUF는 하드웨어의 제조 편차에서 얻은 <strong>기기 고유 응답</strong>을 보안 기능(인증, 키 생성, 위조 방지)에 쓰는 기법입니다. 비밀키를 비휘발성 메모리에 저장하는 대신, 필요할 때마다 물리적 특성에서 키를 재생성하는 접근입니다.</li><li>아이디어의 뿌리는 광학 매질에서 레이저 산란 무늬를 읽는 “물리적 일방향 함수”입니다(Pappu 등, 2002). 실리콘 회로에서의 구현은 Gassend 등(2002)이 제안했고, 인증과 키 생성에의 응용이 정리되었습니다(Suh &amp; Devadas, 2007).</li><li><strong>인증</strong>(강한 PUF 위주): 등록 단계에서 서버가 많은 CRP를 기록하고, 인증 단계에서 새 챌린지를 보내 온 응답이 기록과 충분히 가까운지(해밍 거리가 임계값 이하) 확인합니다. 응답이 잡음을 포함하므로 정확한 일치가 아니라 근사 일치로 판정합니다.</li><li><strong>키 생성</strong>(약한 PUF 위주): 잡음이 있는 응답에서 안정된 키를 뽑기 위해 퍼지 추출기와 보조 데이터를 씁니다(Maes, 2013).</li><li><strong>공격과 한계</strong>: 일부 구조는 충분한 CRP를 수집한 뒤 기계학습으로 응답을 예측하는 모델링 공격에 취약함이 보고되었습니다(Rührmair 등, 2010). 그 밖에 부채널·침투 공격, 환경 변화에 따른 신뢰성 저하, 노화가 연구 쟁점입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>인증 과정을 보안 모델의 관점에서 요약하면 다음과 같습니다(개념 수준의 도식입니다).</p><ol><li>등록: 안전한 환경에서 칩의 CRP 일부를 측정해 서버 데이터베이스에 보관합니다.</li><li>인증: 서버가 아직 쓰지 않은 챌린지를 칩에 보내고, 칩이 응답을 돌려줍니다.</li><li>판정: 응답과 보관된 응답의 차이가 잡음 허용 범위 안이면 같은 칩으로 판단합니다.</li><li>재사용 방지: 사용한 CRP는 폐기하거나 재전송 공격을 막는 프로토콜 장치를 둡니다.</li></ol><p>한 번 쓴 CRP를 다시 쓰지 않는 방식은 보관된 CRP 수가 곧 인증 횟수의 한계가 된다는 점이 설계상 제약이 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>PUF가 있으면 해킹이 불가능하다.</td><td>모델링 공격, 부채널 공격, 프로토콜 취약점이 보고되어 있어 구조와 프로토콜 모두의 안전성 분석이 필요합니다.</td></tr><tr><td>PUF 응답은 곧 암호키다.</td><td>응답은 잡음이 있고 편향될 수 있어 오류정정과 후처리를 거쳐야 키로 쓸 수 있습니다.</td></tr><tr><td>PUF는 모든 칩에서 같은 방식으로 안전하다.</td><td>구조(SRAM, 아비터 등)마다 안전성 특성이 다릅니다.</td></tr><tr><td>복제 불가능은 설계도로도 복제가 안 된다는 뜻과 같다.</td><td>설계도를 알아도 제조 편차까지 같게 재현하기 어렵다는 의미이며, 모델링을 통한 소프트웨어적 흉내는 별개의 문제입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "초점"
+    ],
+    "rows": [
+      [
+        "PUF(정보보안 관점)",
+        "인증·키 생성 프로토콜과 공격에 대한 안전성"
+      ],
+      [
+        "[[physically-unclonable-function|물리적 복제불가 함수]]",
+        "같은 개념을 전기전자 관점에서 다룬 항목(회로 구조, 품질 지표)"
+      ],
+      [
+        "[[authentication-protocol|인증 프로토콜]]",
+        "PUF를 부품으로 삼을 수 있는 인증 절차 일반"
+      ],
+      [
+        "[[side-channel-attack|부채널 공격]]",
+        "전력·시간 등 부수 정보를 분석하는 공격 일반"
+      ]
+    ]
+  },
+  "references": [
+    "Pappu, R., Recht, B., Taylor, J., & Gershenfeld, N. (2002). Physical one-way functions. Science, 297.",
+    "Gassend, B., Clarke, D., van Dijk, M., & Devadas, S. (2002). Silicon physical random functions. In Proceedings of the 9th ACM Conference on Computer and Communications Security.",
+    "Suh, G. E., & Devadas, S. (2007). Physical unclonable functions for device authentication and secret key generation. In Proceedings of the 44th ACM/IEEE Design Automation Conference.",
+    "Rührmair, U., Sehnke, F., Sölter, J., Dror, G., Devadas, S., & Schmidhuber, J. (2010). Modeling attacks on physical unclonable functions. In Proceedings of the 17th ACM Conference on Computer and Communications Security.",
+    "Maes, R. (2013). Physically Unclonable Functions: Constructions, Properties and Applications. Springer."
+  ]
+}
