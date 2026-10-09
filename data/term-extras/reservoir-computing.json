@@ -1,0 +1,44 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>저수지 구성</strong>: N개의 유닛을 무작위로 연결한 순환 신경망을 만들고 연결 가중치(입력 W<sub>in</sub>, 내부 W)를 <strong>고정</strong>합니다. 이후 학습하지 않습니다.</li><li><strong>입력 구동</strong>: 입력 u(t)를 넣고 상태 x(t+1) = tanh(W<sub>in</sub>u(t+1) + W x(t))로 갱신합니다. 처음 일정 구간은 초기 상태의 영향을 없애려고 버립니다.</li><li><strong>읽기층 학습</strong>: 모은 상태 X로부터 목표 Y를 예측하는 출력 가중치 W<sub>out</sub>만 학습합니다. 보통 릿지 회귀 W<sub>out</sub> = Y Xᵀ(X Xᵀ + λI)⁻¹처럼 선형 문제로 풀기 때문에 역전파 없이 빠릅니다.</li><li><strong>하이퍼파라미터 조정</strong>: 저수지 크기, 내부 가중치의 스펙트럼 반경, 입력 스케일, 누수율, 규제 λ를 검증 자료로 고릅니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>얻는 것: 시간 의존적 입력을 비선형 고차원 상태로 펼쳐 놓으면 선형 읽기층만으로도 시계열 예측, 분류, 제어를 할 수 있습니다. 학습 비용이 낮고, 저수지를 물리적 시스템(광학, 스핀트로닉스 등)으로 대신하는 연구로 이어집니다. 이 틀은 Jaeger의 에코 상태 네트워크와 Maass 외(2002)의 액체 상태 기계가 독립적으로 제안되었고, Lukoševičius와 Jaeger(2009)가 통합적으로 개관했습니다.</li><li>에코 상태 성질(입력의 영향이 시간이 지나면 사라지는 성질)을 위해 내부 가중치 행렬의 스펙트럼 반경을 1보다 작게 맞추는 것이 흔한 관행입니다. 다만 이는 필수 조건도 충분 조건도 아니며 입력이 있을 때는 달라질 수 있다고 알려져 있어, 경험적으로 조정합니다.</li><li>한계: 무작위 저수지의 성능이 초기화에 따라 달라 여러 번 반복해야 하고, 과제에 맞는 저수지 설계 지침이 약해 하이퍼파라미터에 민감합니다. 아주 큰 모델이 필요한 과제에서는 학습형 순환 신경망이 더 낫기도 합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>저수지 크기, 연결 밀도, 스펙트럼 반경, 입력 스케일, 활성화 함수, 누수율, 규제 계수 값과 선택 방법을 모두 적습니다.</li><li>무작위 시드를 여러 개 돌려 평균과 표준편차(또는 분포)를 보고합니다. 한 번의 실행 결과만으로 비교하지 않습니다.</li><li>버린 초기 구간(워시아웃) 길이와 학습·검증·시험 자료의 분할 방식을 밝힙니다.</li><li>시계열 예측의 평가는 NRMSE 등 정규화한 오차와 예측 길이를 함께 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "저수지 계산은 이름이 비슷한 모델들의 상위 개념입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "저수지 계산",
+        "고정된 순환 저수지와 학습되는 선형 읽기층으로 이루어진 틀"
+      ],
+      [
+        "[[echo-state-network|에코 상태 네트워크]]",
+        "연속값 유닛(tanh 등)을 쓰는 저수지 계산 모델"
+      ],
+      [
+        "[[recurrent-neural-network|순환 신경망(RNN)]]",
+        "보통 모든 가중치를 시간 역전파로 학습하는 모델"
+      ]
+    ]
+  },
+  "references": [
+    "Lukoševičius, M., & Jaeger, H. (2009). Reservoir computing approaches to recurrent neural network training. Computer Science Review, 3, 127–149.",
+    "Maass, W., Natschläger, T., & Markram, H. (2002). Real-time computing without stable states: A new framework for neural computation based on perturbations. Neural Computation, 14, 2531–2560.",
+    "Jaeger, H. (2001). The echo state approach to analysing and training recurrent neural networks. GMD Report 148, German National Research Center for Information Technology."
+  ]
+}

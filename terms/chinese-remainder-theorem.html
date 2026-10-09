@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/chinese-remainder-theorem.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <p>이 정리는 큰 수 하나를 다루는 대신 여러 개의 작은 수로 쪼개 독립적으로 계산할 수 있게 해주므로, 계산 복잡도를 줄이거나 연산을 병렬화해야 하는 분야에서 핵심 도구로 쓰입니다.</p>
   <p>특히 암호학에서는 RSA 개인키 연산을 가속하는 표준적인 방법으로 자리 잡았고, 신호 처리나 분산 시스템에서도 큰 값을 작은 조각으로 나눠 다루는 여러 기법의 이론적 토대가 됩니다. 이런 이유로 정수론을 다루는 논문뿐 아니라 암호학, 코딩이론, 분산 컴퓨팅 논문에서도 폭넓게 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>서로 소인 법 m₁, m₂, …, m<sub>k</sub>가 있을 때, 연립 합동식 x ≡ a₁ (mod m₁), …, x ≡ a<sub>k</sub> (mod m<sub>k</sub>)는 <strong>0 ≤ x &lt; M = m₁·m₂·…·m<sub>k</sub> 범위에서 해가 정확히 하나</strong>이고, 모든 해는 M을 법으로 합동입니다.</li><li>구성 방법: M<sub>i</sub> = M/m<sub>i</sub>로 두고 y<sub>i</sub>를 M<sub>i</sub>·y<sub>i</sub> ≡ 1 (mod m<sub>i</sub>)인 수(역원)로 잡으면, x = Σ a<sub>i</sub>·M<sub>i</sub>·y<sub>i</sub> (mod M)이 해입니다.</li><li>“서로 소”가 조건입니다. 법이 서로 소가 아니면 해가 없을 수 있습니다. 일반화하면 두 합동식은 a₁ ≡ a₂ (mod gcd(m₁, m₂))일 때에만 해가 존재하고, 해는 lcm(m₁, m₂)를 법으로 유일합니다.</li><li>큰 수의 계산을 작은 법의 계산 여러 개로 쪼갰다가 합치는 도구로 암호학(RSA의 복호화 가속), 컴퓨터 대수, 오류 정정 부호에서 쓰입니다.</li><li>이름은 고대 중국 수학서 『손자산경』의 “물건 수 세기” 문제에서 왔습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다(코드로 계산). “3으로 나누면 2, 5로 나누면 3, 7로 나누면 2가 남는 수”를 찾습니다. M = 3×5×7 = 105입니다.</p><ul><li>법 3: a = 2, M<sub>i</sub> = 35, M<sub>i</sub>의 역원 y = 2 (35×2 mod 3 = 1)</li><li>법 5: a = 3, M<sub>i</sub> = 21, M<sub>i</sub>의 역원 y = 1 (21×1 mod 5 = 1)</li><li>법 7: a = 2, M<sub>i</sub> = 15, M<sub>i</sub>의 역원 y = 1 (15×1 mod 7 = 1)</li></ul><p>x = 2×35×2 + 3×21×1 + 2×15×1 = 233 ≡ <strong>23</strong> (mod 105). 0 이상 105 미만에서 조건을 모두 만족하는 수를 전수 조사해 보면 23 하나뿐이어서 같은 결과입니다. 이 수에 105의 배수를 더한 수(128, 233, …)도 모두 해입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>해가 반드시 있고 유일하다.</td><td>법이 서로 소일 때 M 범위에서 유일합니다. 서로 소가 아니면 해가 없거나(양립 불가), 있어도 법이 lcm으로 바뀝니다.</td></tr><tr><td>해는 하나뿐이다.</td><td>M 범위 안에서 하나일 뿐, M의 배수만큼 더한 무한히 많은 정수가 해입니다.</td></tr><tr><td>a<sub>i</sub>를 그냥 더하면 된다.</td><td>M<sub>i</sub>와 역원 y<sub>i</sub>를 곱해야 합니다. 그래야 다른 법에서는 0이 되고 자기 법에서만 a<sub>i</sub>가 남습니다.</td></tr><tr><td>컴퓨터 암호학에서만 쓰인다.</td><td>정수론의 구조 정리로서 환론(Z/MZ ≅ Z/m₁Z × … × Z/m<sub>k</sub>Z)에서도 기본입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"큰 정수 하나를 서로소인 여러 개의 작은 모듈러스로 분할하여 병렬 연산을 수행한 뒤, 중국인의 나머지 정리(Chinese Remainder Theorem)로 원래 값을 복원하였다."</div>
   <p>이 문장은 계산량이 큰 정수 연산을 작은 단위 여러 개로 쪼개 동시에 처리한 다음, 이 정리를 이용해 원래의 큰 수로 다시 합쳤다는 뜻입니다. 암호학(RSA 복호화 가속), 오류 정정 부호, 병렬 계산 최적화 논문에서 자주 활용됩니다.</p>
   <div class="example">"제안하는 비밀 분산(secret sharing) 기법은 중국인의 나머지 정리(Chinese Remainder Theorem)에 기반하여, 각 참여자에게 서로 다른 모듈러스에 대한 나머지 값을 분배함으로써 임계값 이상의 참여자가 모여야만 원래 비밀을 복원할 수 있도록 설계되었다."</div>
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>이 정리가 유일한 해를 보장하려면 나누는 수들이 서로소여야 합니다. 나누는 수들이 공약수를 가지면 조건에 따라 해가 아예 없거나, 하나로 정해지지 않을 수 있어 <a href="modular-arithmetic.html">모듈러 연산</a>의 기본 전제부터 다시 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>나머지 계산에 관한 용어와 혼동되기 쉽습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="modular-arithmetic.html">모듈러 산술</a></th><td>나머지만으로 하는 계산, 합동식의 바탕</td></tr><tr><th scope="row">중국인의 나머지 정리</th><td>여러 합동식을 동시에 만족하는 수가 있고 유일함을 보장하는 정리</td></tr><tr><th scope="row">오일러 정리/페르마 소정리</th><td>a&lt;sup&gt;φ(n)&lt;/sup&gt; ≡ 1 (mod n) 꼴로 거듭제곱의 나머지를 다루는 정리(별개)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rosen, K. H. (2011). Elementary Number Theory and Its Applications (6th ed.). Pearson.</li>
+    <li>Ireland, K., &amp; Rosen, M. (1990). A Classical Introduction to Modern Number Theory (2nd ed.). Springer.</li>
+    <li>Hardy, G. H., &amp; Wright, E. M. (1938). An Introduction to the Theory of Numbers. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>

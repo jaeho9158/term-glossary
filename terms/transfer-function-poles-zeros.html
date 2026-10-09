@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/transfer-function-poles-zeros.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>극점과 영점의 위치는 시스템의 안정성뿐 아니라 응답 속도, 감쇠 정도, 오버슈트 같은 실질적인 성능 지표를 결정하기 때문에 제어공학 논문에서 시스템 설계의 타당성을 보여주는 핵심 근거로 쓰인다. 제어기를 설계했다는 주장은 대개 극점 배치가 원하는 조건을 만족한다는 분석으로 뒷받침된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>전달함수 G(s) = N(s)/D(s)에서 <strong>영점</strong>은 N(s) = 0의 근, <strong>극점</strong>은 D(s) = 0의 근입니다. s는 복소수이므로 근도 복소수일 수 있고, 복소평면(s-평면)에 점으로 찍어 봅니다.</li><li>안정성은 극점이 결정합니다. 선형 시불변 시스템은 <strong>모든 극점의 실수부가 0보다 작을 때(왼쪽 반평면)</strong> 점근 안정입니다. 극점이 오른쪽 반평면에 하나라도 있으면 출력이 발산합니다.</li><li>극점의 위치는 응답 모양을 정합니다. 음의 실수 극점은 지수적으로 줄어드는 응답, 켤레 복소 극점은 진동하며 줄어드는 응답을 줍니다. 허수축에 가까울수록 천천히 줄어듭니다.</li><li>영점은 어떤 모드가 출력에 얼마나 섞이는지를 바꿉니다. 오른쪽 반평면의 영점(비최소위상)은 폐루프 제어에서 성능 한계를 만들 수 있습니다.</li><li>극점과 영점이 정확히 겹치면 상쇄되어 그 모드는 입출력에서 보이지 않을 수 있습니다. 불안정 극점의 상쇄는 내부 불안정을 숨기므로 조심해야 합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예입니다. G(s) = (s + 2) / (s² + 2s + 5)를 계산했습니다.</p><ul><li>영점: s + 2 = 0 → s = <strong>−2</strong></li><li>극점: s² + 2s + 5 = 0 → 판별식 4 − 20 = -16 &lt; 0이므로 s = <strong>-1 ± 2j</strong></li></ul><p>두 극점의 실수부가 −1로 음수이므로 이 시스템은 안정합니다. 표준 2차 형태 s² + 2ζωₙs + ωₙ²과 비교하면 ωₙ = √5 ≈ 2.236 rad/s, ζ = 2/(2√5) ≈ <strong>0.447</strong>로 ζ &lt; 1이어서 진동하며 수렴하는 부족감쇠 응답입니다. 극점의 허수부 2는 감쇠 진동 각주파수(약 2 rad/s)에 해당하고, 실수부 −1은 포락선이 e<sup>−t</sup>로 줄어드는 속도를 알려 줍니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>영점이 안정성을 결정한다.</td><td>개루프 시스템의 안정성은 극점이 결정합니다. 영점은 응답의 형태를 바꾸지만 안정성 판정에는 쓰이지 않습니다. 다만 폐루프에서는 영점이 극점의 이동 경로(근궤적)에 영향을 줍니다.</td></tr><tr><td>극점이 허수축 위에 있으면 안정하다.</td><td>허수축 위의 중복되지 않은 극점은 임계 안정이며, 감쇠 없이 진동하므로 보통 “점근 안정”으로 치지 않습니다.</td></tr><tr><td>극점과 영점이 같으면 항상 약분해도 된다.</td><td>수학적으로 약분되지만 불안정 극점을 지우면 실제 시스템의 불안정성을 놓칩니다.</td></tr><tr><td>복소 극점은 실제로 존재하지 않는 수학적 장치다.</td><td>복소 극점은 켤레 쌍으로 나타나며 실제 진동 응답을 나타냅니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"폐루프 시스템의 극점 위치를 분석하여 설계된 제어기가 안정성 조건을 만족함을 확인하였다."</div>
   <p>제어기 설계 후 성능을 검증하는 단계에서 극점과 영점의 위치 분석이 필수적으로 수행된다.</p>
 
@@ -164,6 +182,18 @@
 
   <h2>주의할 점</h2>
   <p>극점이 안정 영역에 있더라도 원점에서 너무 가까우면 시스템의 응답 속도가 느려질 수 있어, 안정성뿐 아니라 극점의 구체적인 위치도 함께 검토해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>제어공학 입문에서 같이 배우는 용어들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="transfer-function.html">전달함수</a></th><td>영 초기 조건에서 출력과 입력의 라플라스 변환 비</td></tr><tr><th scope="row"><a href="laplace-transform.html">라플라스 변환</a></th><td>시간 함수를 s의 함수로 바꾸는 변환, 전달함수를 정의하는 도구</td></tr><tr><th scope="row"><a href="bode-plot.html">보데 선도</a></th><td>주파수에 따른 크기와 위상 응답 그래프, 극점과 영점이 꺾임점을 만듦</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ogata, K. (2010). Modern Control Engineering (5th ed.). Prentice Hall.</li>
+    <li>Åström, K. J., &amp; Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="transfer-function.html">전달함수</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

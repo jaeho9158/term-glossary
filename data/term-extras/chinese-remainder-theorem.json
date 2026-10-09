@@ -1,0 +1,44 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>서로 소인 법 m₁, m₂, …, m<sub>k</sub>가 있을 때, 연립 합동식 x ≡ a₁ (mod m₁), …, x ≡ a<sub>k</sub> (mod m<sub>k</sub>)는 <strong>0 ≤ x &lt; M = m₁·m₂·…·m<sub>k</sub> 범위에서 해가 정확히 하나</strong>이고, 모든 해는 M을 법으로 합동입니다.</li><li>구성 방법: M<sub>i</sub> = M/m<sub>i</sub>로 두고 y<sub>i</sub>를 M<sub>i</sub>·y<sub>i</sub> ≡ 1 (mod m<sub>i</sub>)인 수(역원)로 잡으면, x = Σ a<sub>i</sub>·M<sub>i</sub>·y<sub>i</sub> (mod M)이 해입니다.</li><li>“서로 소”가 조건입니다. 법이 서로 소가 아니면 해가 없을 수 있습니다. 일반화하면 두 합동식은 a₁ ≡ a₂ (mod gcd(m₁, m₂))일 때에만 해가 존재하고, 해는 lcm(m₁, m₂)를 법으로 유일합니다.</li><li>큰 수의 계산을 작은 법의 계산 여러 개로 쪼갰다가 합치는 도구로 암호학(RSA의 복호화 가속), 컴퓨터 대수, 오류 정정 부호에서 쓰입니다.</li><li>이름은 고대 중국 수학서 『손자산경』의 “물건 수 세기” 문제에서 왔습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예입니다(코드로 계산). “3으로 나누면 2, 5로 나누면 3, 7로 나누면 2가 남는 수”를 찾습니다. M = 3×5×7 = 105입니다.</p><ul><li>법 3: a = 2, M<sub>i</sub> = 35, M<sub>i</sub>의 역원 y = 2 (35×2 mod 3 = 1)</li><li>법 5: a = 3, M<sub>i</sub> = 21, M<sub>i</sub>의 역원 y = 1 (21×1 mod 5 = 1)</li><li>법 7: a = 2, M<sub>i</sub> = 15, M<sub>i</sub>의 역원 y = 1 (15×1 mod 7 = 1)</li></ul><p>x = 2×35×2 + 3×21×1 + 2×15×1 = 233 ≡ <strong>23</strong> (mod 105). 0 이상 105 미만에서 조건을 모두 만족하는 수를 전수 조사해 보면 23 하나뿐이어서 같은 결과입니다. 이 수에 105의 배수를 더한 수(128, 233, …)도 모두 해입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>해가 반드시 있고 유일하다.</td><td>법이 서로 소일 때 M 범위에서 유일합니다. 서로 소가 아니면 해가 없거나(양립 불가), 있어도 법이 lcm으로 바뀝니다.</td></tr><tr><td>해는 하나뿐이다.</td><td>M 범위 안에서 하나일 뿐, M의 배수만큼 더한 무한히 많은 정수가 해입니다.</td></tr><tr><td>a<sub>i</sub>를 그냥 더하면 된다.</td><td>M<sub>i</sub>와 역원 y<sub>i</sub>를 곱해야 합니다. 그래야 다른 법에서는 0이 되고 자기 법에서만 a<sub>i</sub>가 남습니다.</td></tr><tr><td>컴퓨터 암호학에서만 쓰인다.</td><td>정수론의 구조 정리로서 환론(Z/MZ ≅ Z/m₁Z × … × Z/m<sub>k</sub>Z)에서도 기본입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "나머지 계산에 관한 용어와 혼동되기 쉽습니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[modular-arithmetic|모듈러 산술]]",
+        "나머지만으로 하는 계산, 합동식의 바탕"
+      ],
+      [
+        "중국인의 나머지 정리",
+        "여러 합동식을 동시에 만족하는 수가 있고 유일함을 보장하는 정리"
+      ],
+      [
+        "오일러 정리/페르마 소정리",
+        "a<sup>φ(n)</sup> ≡ 1 (mod n) 꼴로 거듭제곱의 나머지를 다루는 정리(별개)"
+      ]
+    ]
+  },
+  "references": [
+    "Rosen, K. H. (2011). Elementary Number Theory and Its Applications (6th ed.). Pearson.",
+    "Ireland, K., & Rosen, M. (1990). A Classical Introduction to Modern Number Theory (2nd ed.). Springer.",
+    "Hardy, G. H., & Wright, E. M. (1938). An Introduction to the Theory of Numbers. Oxford University Press."
+  ]
+}
