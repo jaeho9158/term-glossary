@@ -1,0 +1,50 @@
+{
+  "type": "concept",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "스케줄링 문제는 작업의 기계 경로로 구분합니다.",
+    "headers": [
+      "용어",
+      "작업의 기계 경로",
+      "대표 환경"
+    ],
+    "rows": [
+      [
+        "작업장(잡샵) 스케줄링",
+        "작업마다 다른 순서",
+        "다품종 소량, 주문형 생산"
+      ],
+      [
+        "[[flow-shop-scheduling|흐름작업(플로숍) 스케줄링]]",
+        "모든 작업이 같은 순서",
+        "소품종 대량 생산"
+      ],
+      [
+        "[[makespan|메이크스팬]]",
+        "목적함수(모든 작업의 완료 시각)",
+        "경로와 별개의 평가 기준"
+      ]
+    ]
+  },
+  "references": [
+    "Fisher, H., & Thompson, G. L. (1963). Probabilistic learning combinations of local job-shop scheduling rules. In J. F. Muth & G. L. Thompson (Eds.), Industrial Scheduling. Prentice-Hall.",
+    "Garey, M. R., Johnson, D. S., & Sethi, R. (1976). The complexity of flowshop and jobshop scheduling. Mathematics of Operations Research, 1(2), 117–129.",
+    "Graham, R. L., Lawler, E. L., Lenstra, J. K., & Rinnooy Kan, A. H. G. (1979). Optimization and approximation in deterministic sequencing and scheduling: A survey. Annals of Discrete Mathematics, 5, 287–326.",
+    "Carlier, J., & Pinson, E. (1989). An algorithm for solving the job-shop problem. Management Science, 35(2), 164–176.",
+    "Pinedo, M. L. (2016). Scheduling: Theory, Algorithms, and Systems (5th ed.). Springer."
+  ],
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>고전적 작업장스케줄링에서는 n개의 작업이 각각 정해진 <strong>기계 순서(경로)</strong>대로 m대의 기계를 거치고, 한 기계는 한 번에 한 작업만 처리하며, 한 작업은 한 번에 한 기계에서만 처리됩니다. 정할 것은 각 기계에서의 작업 순서(그리고 그에 따른 시작 시각)입니다.</li><li>표준 표기로는 J||C<sub>max</sub>(작업장, 목적함수 [[makespan|메이크스팬]] 최소화)처럼 쓰며(Graham 외 1979), 목적함수로 납기 지연, 평균 완료시간 등도 쓰입니다.</li><li>모든 작업의 기계 순서가 같은 [[flow-shop-scheduling|흐름작업스케줄링]]과 달리 경로가 제각각이어서 구조가 더 복잡합니다. 일반 문제는 [[np-hard-problem|NP-난해]]로 알려져 있습니다(Garey, Johnson &amp; Sethi 1976).</li><li>크기가 커지면 가능한 순서의 수가 폭발합니다. 기계마다 작업 순서를 정하는 경우의 수는 (n!)<sup>m</sup>이고(실행 불가능한 조합 포함), 6×6이면 약 1.4×10<sup>17</sup>, 10×10이면 약 4.0×10<sup>65</sup>입니다. 그래서 정확한 해법은 분기한정 같은 방법으로 작은 문제에 쓰고, 큰 문제는 [[dispatching-rule|디스패칭규칙]]이나 [[metaheuristic|메타휴리스틱]]으로 근사합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>작은 예 (가상의 예, 코드로 전수 탐색).</strong> 3개 작업, 3대 기계(M1~M3), 괄호는 처리시간입니다.</p><table><thead><tr><th>작업</th><th>기계 순서(처리시간)</th></tr></thead><tbody><tr><td>J1</td><td>M1(3) → M2(2) → M3(2)</td></tr><tr><td>J2</td><td>M1(2) → M3(1) → M2(4)</td></tr><tr><td>J3</td><td>M2(4) → M3(3)</td></tr></tbody></table><p>기계별 작업 순서의 조합은 2×6×6 = 72가지이고, 이 중 순환이 생기지 않아 실행 가능한 44가지의 메이크스팬은 <strong>11에서 21 사이</strong>입니다. 기계 M2의 총 처리시간이 10이므로 메이크스팬은 10 아래로 내려갈 수 없는데(하한), 최적해는 하한보다 1 큰 <strong>11</strong>입니다. 간단한 규칙(시작 가능 시각이 가장 이른 작업부터, 같으면 처리시간이 짧은 쪽 먼저)은 12, 같은 규칙에서 동률일 때 작업 번호가 빠른 쪽을 먼저 배정하면 14를 얻어, 같은 자료에서도 규칙에 따라 결과가 달라지는 것을 볼 수 있습니다. 이 규모는 전수 탐색이 가능하지만, Fisher와 Thompson(1963)이 제시한 10×10 사례(ft10)는 최적해가 1989년에야 증명되었습니다(Carlier &amp; Pinson 1989).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>작업장스케줄링과 흐름작업스케줄링은 크기만 다르다.</td><td>경로가 작업마다 다르면 문제의 구조와 난이도가 달라집니다.</td></tr><tr><td>NP-난해이므로 항상 풀 수 없다.</td><td>작은 사례는 정확히 풀 수 있고, 큰 사례는 근사해의 질로 평가합니다. 난해하다는 것은 최악의 경우 계산량이 급증한다는 뜻입니다.</td></tr><tr><td>메이크스팬이 곧 문제의 목적이다.</td><td>메이크스팬은 대표 목적함수일 뿐이며 납기·지연·재공품 재고 등도 쓰입니다.</td></tr><tr><td>고전 모형이 현실 공정과 그대로 같다.</td><td>기계 고장, 준비 시간, 신규 주문 도착 같은 요소를 더한 변형(동적·유연 작업장 등)이 연구됩니다.</td></tr></tbody></table>"
+    }
+  ]
+}

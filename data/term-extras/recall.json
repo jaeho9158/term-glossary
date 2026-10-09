@@ -1,0 +1,54 @@
+{
+  "type": "metric",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "검색·분류 평가 지표는 같은 혼동행렬에서 서로 다른 칸을 나눈 값입니다.",
+    "headers": [
+      "용어",
+      "계산",
+      "묻는 질문"
+    ],
+    "rows": [
+      [
+        "재현율",
+        "TP ÷ (TP + FN)",
+        "찾아야 할 것 중 몇 개를 찾았나"
+      ],
+      [
+        "[[precision|정밀률]]",
+        "TP ÷ (TP + FP)",
+        "찾았다고 한 것 중 몇 개가 맞나"
+      ],
+      [
+        "[[f1-score|F1 점수]]",
+        "정밀도와 재현율의 조화평균",
+        "두 값을 한 숫자로 요약하면"
+      ],
+      [
+        "[[confusion-matrix|혼동행렬]]",
+        "TP·FP·FN·TN의 표",
+        "위 지표들의 원자료"
+      ]
+    ]
+  },
+  "references": [
+    "Kent, A., Berry, M. M., Luehrs, F. U., Jr., & Perry, J. W. (1955). Machine literature searching VIII. Operational criteria for designing information retrieval systems. American Documentation, 6(2), 93–101.",
+    "van Rijsbergen, C. J. (1979). Information Retrieval (2nd ed.). Butterworths.",
+    "Manning, C. D., Raghavan, P., & Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press.",
+    "Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLoS ONE, 10(3), e0118432."
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><code>재현율 = 검색된 관련 문헌 수 ÷ 컬렉션 전체의 관련 문헌 수</code> (분류 문제에서는 TP ÷ (TP + FN))</p><ul><li>범위는 0~1(또는 0~100%)입니다. 1이면 관련 문헌을 하나도 놓치지 않았다는 뜻입니다.</li><li>분모는 ‘모든 관련 문헌의 수’여서, 큰 컬렉션에서는 알 수 없습니다. 그래서 여러 시스템의 결과를 합쳐 관련 여부를 판정하는 풀링 같은 근사를 씁니다. 재현율 개념의 초기 문헌으로 Kent 외(1955)가 있습니다.</li><li>[[precision|정밀률]]은 검색된 것 중 관련 있는 비율로 분자는 같고 분모가 다릅니다. 분류와 진단 분야에서 같은 계산식이 민감도, 참양성률(TPR)이라는 이름으로 쓰이니 문헌의 분야를 확인해야 합니다. 같은 이름의 ‘회상 편향(recall bias)’은 설문 응답자의 기억 오류를 가리키는 전혀 다른 개념입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>재현율은 정밀률과 함께 읽어야 합니다. 둘은 보통 상충합니다(van Rijsbergen 1979; Manning 외 2008).</p><p><strong>예 (가상의 예, 코드로 계산).</strong> 컬렉션에 관련 문헌이 120건 있습니다. 시스템 A는 50건을 내놓았고 40건이 관련 문헌입니다. 시스템 B는 400건을 내놓았고 100건이 관련 문헌입니다.</p><table><thead><tr><th>시스템</th><th>정밀률</th><th>재현율</th><th>F1</th></tr></thead><tbody><tr><td>A</td><td>40/50 = 0.800</td><td>40/120 ≈ 0.333</td><td>≈ 0.471</td></tr><tr><td>B</td><td>100/400 = 0.250</td><td>100/120 ≈ 0.833</td><td>≈ 0.385</td></tr></tbody></table><p>B는 재현율이 높지만 정밀률이 낮고, A는 그 반대입니다. 극단적으로 컬렉션 전체를 결과로 내면 재현율은 1이 되지만 정밀률은 관련 문헌 비율까지 떨어져 의미가 없습니다. 특허 선행기술 조사나 체계적 문헌고찰처럼 누락이 치명적인 과업에서는 재현율에 무게를 두고, 사용자가 상위 몇 건만 보는 검색에서는 정밀률이 더 중요합니다. 양성이 드문 불균형 자료에서는 정밀도-재현율 곡선이 ROC 곡선보다 성능 차이를 더 잘 드러낸다는 보고가 있습니다(Saito &amp; Rehmsmeier 2015).</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>‘관련’의 판정 기준(누가, 어떤 기준으로)과 전체 관련 문헌 집합을 어떻게 만들었는지(전수, 풀링, 추정)를 적습니다.</li><li>재현율만 보고하지 않고 정밀률, F1 점수, 컷오프(재현율@k) 등을 함께 제시합니다.</li><li>다중 분류에서는 평균 방식(마크로, 마이크로, 가중)을 밝히고, 표본 크기와 신뢰구간 또는 반복 실험의 변동을 보고합니다.</li><li>비교 대상 시스템과 같은 자료·같은 임계값에서 비교했는지 확인합니다.</li></ul>"
+    }
+  ]
+}

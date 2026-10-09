@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/recall.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,7 +144,24 @@
   <h2>왜 중요한가</h2>
   <p>정밀률과 짝을 이루는 정보검색 성능 평가지표로, 특히 특허검색이나 법률검색처럼 관련 문헌을 빠짐없이 찾는 것이 중요한 분야에서 핵심 평가 기준으로 다뤄집니다. 특허 침해 여부를 판단하거나 판례를 조사할 때 단 하나의 관련 문헌이라도 놓치면 큰 손해로 이어질 수 있어, 이런 분야의 검색시스템 설계와 평가에서 특히 중요하게 다뤄집니다. 특허 선행기술조사나 체계적 문헌고찰처럼 누락이 치명적인 검색 과업에서는 재현율이 정확률보다 우선시된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p><code>재현율 = 검색된 관련 문헌 수 ÷ 컬렉션 전체의 관련 문헌 수</code> (분류 문제에서는 TP ÷ (TP + FN))</p><ul><li>범위는 0~1(또는 0~100%)입니다. 1이면 관련 문헌을 하나도 놓치지 않았다는 뜻입니다.</li><li>분모는 ‘모든 관련 문헌의 수’여서, 큰 컬렉션에서는 알 수 없습니다. 그래서 여러 시스템의 결과를 합쳐 관련 여부를 판정하는 풀링 같은 근사를 씁니다. 재현율 개념의 초기 문헌으로 Kent 외(1955)가 있습니다.</li><li><a href="precision.html">정밀률</a>은 검색된 것 중 관련 있는 비율로 분자는 같고 분모가 다릅니다. 분류와 진단 분야에서 같은 계산식이 민감도, 참양성률(TPR)이라는 이름으로 쓰이니 문헌의 분야를 확인해야 합니다. 같은 이름의 ‘회상 편향(recall bias)’은 설문 응답자의 기억 오류를 가리키는 전혀 다른 개념입니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>재현율은 정밀률과 함께 읽어야 합니다. 둘은 보통 상충합니다(van Rijsbergen 1979; Manning 외 2008).</p><p><strong>예 (가상의 예, 코드로 계산).</strong> 컬렉션에 관련 문헌이 120건 있습니다. 시스템 A는 50건을 내놓았고 40건이 관련 문헌입니다. 시스템 B는 400건을 내놓았고 100건이 관련 문헌입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시스템</th><th>정밀률</th><th>재현율</th><th>F1</th></tr></thead><tbody><tr><td>A</td><td>40/50 = 0.800</td><td>40/120 ≈ 0.333</td><td>≈ 0.471</td></tr><tr><td>B</td><td>100/400 = 0.250</td><td>100/120 ≈ 0.833</td><td>≈ 0.385</td></tr></tbody></table></div><p>B는 재현율이 높지만 정밀률이 낮고, A는 그 반대입니다. 극단적으로 컬렉션 전체를 결과로 내면 재현율은 1이 되지만 정밀률은 관련 문헌 비율까지 떨어져 의미가 없습니다. 특허 선행기술 조사나 체계적 문헌고찰처럼 누락이 치명적인 과업에서는 재현율에 무게를 두고, 사용자가 상위 몇 건만 보는 검색에서는 정밀률이 더 중요합니다. 양성이 드문 불균형 자료에서는 정밀도-재현율 곡선이 ROC 곡선보다 성능 차이를 더 잘 드러낸다는 보고가 있습니다(Saito &amp; Rehmsmeier 2015).</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>‘관련’의 판정 기준(누가, 어떤 기준으로)과 전체 관련 문헌 집합을 어떻게 만들었는지(전수, 풀링, 추정)를 적습니다.</li><li>재현율만 보고하지 않고 정밀률, F1 점수, 컷오프(재현율@k) 등을 함께 제시합니다.</li><li>다중 분류에서는 평균 방식(마크로, 마이크로, 가중)을 밝히고, 표본 크기와 신뢰구간 또는 반복 실험의 변동을 보고합니다.</li><li>비교 대상 시스템과 같은 자료·같은 임계값에서 비교했는지 확인합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">실험 결과 제안된 질의확장 기법이 기존 시스템 대비 재현율을 12%p 향상시킨 것으로 나타났다.</div>
   <p>질의확장 같은 기법 적용 전후의 재현율 수치를 비교하여 성능 개선을 입증하는 전형적인 실험 결과 서술이다.</p>
   <div class="example">본 연구는 동의어링을 검색시스템에 추가한 결과 재현율은 상승했으나 정밀률은 소폭 하락했다고 보고하였다.</div>
@@ -155,6 +173,20 @@
 
   <h2>주의할 점</h2>
   <p>재현율만을 높이려 하면 관련 없는 문헌까지 대량으로 검색되어 정밀률이 낮아질 수 있으므로 두 지표를 함께 고려해야 한다. 재현율 100%를 달성하는 가장 손쉬운 방법은 컬렉션의 모든 문헌을 결과로 내놓는 것이지만, 이는 실질적으로 아무 의미가 없는 결과라는 점도 함께 이해해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>검색·분류 평가 지표는 같은 혼동행렬에서 서로 다른 칸을 나눈 값입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">계산</th><th scope="col">묻는 질문</th></tr></thead><tbody><tr><th scope="row">재현율</th><td>TP ÷ (TP + FN)</td><td>찾아야 할 것 중 몇 개를 찾았나</td></tr><tr><th scope="row"><a href="precision.html">정밀률</a></th><td>TP ÷ (TP + FP)</td><td>찾았다고 한 것 중 몇 개가 맞나</td></tr><tr><th scope="row"><a href="f1-score.html">F1 점수</a></th><td>정밀도와 재현율의 조화평균</td><td>두 값을 한 숫자로 요약하면</td></tr><tr><th scope="row"><a href="confusion-matrix.html">혼동행렬</a></th><td>TP·FP·FN·TN의 표</td><td>위 지표들의 원자료</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kent, A., Berry, M. M., Luehrs, F. U., Jr., &amp; Perry, J. W. (1955). Machine literature searching VIII. Operational criteria for designing information retrieval systems. American Documentation, 6(2), 93–101.</li>
+    <li>van Rijsbergen, C. J. (1979). Information Retrieval (2nd ed.). Butterworths.</li>
+    <li>Manning, C. D., Raghavan, P., &amp; Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press.</li>
+    <li>Saito, T., &amp; Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. PLoS ONE, 10(3), e0118432.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

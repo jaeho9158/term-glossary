@@ -1,0 +1,55 @@
+{
+  "type": "metric",
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "건강 수준을 한 숫자로 요약하는 지표는 방향과 용도가 다릅니다.",
+    "headers": [
+      "용어",
+      "방향",
+      "주된 용도"
+    ],
+    "rows": [
+      [
+        "DALY",
+        "잃은 건강 수명(부담)",
+        "질병 부담 비교, 우선순위 설정"
+      ],
+      [
+        "[[quality-adjusted-life-year|질보정생존년(QALY)]]",
+        "얻은 건강 수명(효과)",
+        "치료·개입의 비용효과 평가"
+      ],
+      [
+        "[[healthy-life-expectancy|건강수명]]",
+        "건강하게 살 것으로 기대되는 연수",
+        "집단의 건강 수준 비교"
+      ],
+      [
+        "[[disability-weight|장애가중치]]",
+        "0~1의 가중치",
+        "YLD 계산의 입력값"
+      ]
+    ]
+  },
+  "references": [
+    "Murray, C. J. L. (1994). Quantifying the burden of disease: The technical basis for disability-adjusted life years. Bulletin of the World Health Organization, 72(3), 429–445.",
+    "Murray, C. J. L., & Lopez, A. D. (Eds.). (1996). The Global Burden of Disease. Harvard School of Public Health.",
+    "Sassi, F. (2006). Calculating QALYs, comparing QALY and DALY calculations. Health Policy and Planning, 21(5), 402–408.",
+    "Murray, C. J. L., Vos, T., Lozano, R., et al. (2012). Disability-adjusted life years (DALYs) for 291 diseases and injuries in 21 regions, 1990–2010. The Lancet, 380(9859), 2197–2223.",
+    "Salomon, J. A., Vos, T., Hogan, D. R., et al. (2012). Common values in assessing health outcomes from disease and injury: Disability weights measurement study for the Global Burden of Disease Study 2010. The Lancet, 380(9859), 2129–2143."
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><code>DALY = YLL + YLD</code></p><ul><li><strong>YLL</strong>(조기사망으로 인한 손실 수명) = 사망자 수 × 사망 연령에서의 표준 기대수명. 표준 기대수명표로 무엇을 쓰느냐에 따라 값이 달라집니다.</li><li><strong>YLD</strong>(장애로 인한 손실 건강 수명) = 유병자 수(또는 발생 건수 × 평균 지속 기간) × 장애가중치. 장애가중치는 0(완전한 건강)에서 1(사망과 같은 상태) 사이의 값입니다(Salomon 외 2012).</li><li>단위는 ‘년’이고 0 이상입니다. 보통 인구 10만 명당 값이나 연령표준화 값으로 비교합니다. 세계질병부담(GBD) 연구는 2010년 추정부터 연령 가중과 할인을 쓰지 않습니다(Murray 외 2012). 지표의 기초는 Murray(1994)와 Murray와 Lopez(1996)가 정리했습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>DALY는 클수록 질병 부담이 큽니다. 같은 사망 수라도 젊은 나이에 숨지면 YLL이 더 크고, 사망이 거의 없는 질환도 유병자와 장애가중치가 크면 YLD가 커서 부담이 큽니다.</p><p><strong>순위가 바뀌는 예 (가상의 예, 코드로 계산).</strong> 질환 C는 사망이 없고 유병자 50,000명, 장애가중치 0.1입니다. 한 해 YLD = 50,000 × 0.1 = <strong>5,000</strong>이므로 DALY 5,000입니다. 질환 D는 사망 100명이 각각 20년의 기대수명을 잃고(YLL = 100 × 20 = 2,000), 유병자 500명의 장애가중치가 0.3(YLD = 150)이라 DALY는 <strong>2,150</strong>입니다. 사망자 수로는 D가 크지만 DALY로는 C가 2배 넘게 큽니다. 이것이 사망률만으로 보지 않고 DALY를 쓰는 이유입니다.</p><ul><li><strong>가정 의존</strong>: 표준 기대수명표, 장애가중치의 출처, 유병 기간 추정이 결과를 바꿉니다. 논문에서 DALY를 읽을 때는 어떤 판의 추정치를 썼는지 확인합니다.</li><li><strong>불확실성</strong>: GBD 결과는 불확실성 구간과 함께 발표됩니다. 구간이 겹치면 순위 차이를 단정하기 어렵습니다.</li><li><strong>QALY와의 차이</strong>: 둘 다 수명과 건강을 한 숫자로 합치지만 DALY는 ‘잃은’ 건강을, QALY는 ‘얻은’ 건강을 센다는 차이가 있고, 둘의 계산 방식에도 차이가 있어 같은 상황에서 값이 일치하지 않습니다(Sassi 2006).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>추정치의 출처(예: GBD 몇 년 판)와 YLL·YLD를 나눠 제시합니다.</li><li>인구 규모가 다른 집단을 비교할 때는 10만 명당 값 또는 연령표준화 값을 쓰고, 어떤 표준 인구를 썼는지 적습니다.</li><li>표준 기대수명표, 장애가중치, 할인·연령 가중 사용 여부를 밝힙니다.</li><li>불확실성 구간을 함께 보고하고, 개입 효과는 ‘회피한 DALY’와 비용(DALY당 비용)으로 제시합니다.</li></ul>"
+    }
+  ]
+}
