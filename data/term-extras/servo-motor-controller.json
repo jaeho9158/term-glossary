@@ -1,0 +1,52 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>서보모터 컨트롤러는 목표값(위치·속도)과 센서가 알려 주는 실제값의 <strong>오차를 계속 계산해</strong> 그 오차를 줄이도록 모터에 가하는 전압·전류를 조절하는 장치입니다. 이렇게 출력을 입력으로 되먹이는 구조를 <strong>폐루프(피드백) 제어</strong>라 합니다.</li><li>순환은 ‘오차 계산 → 제어 출력 → 모터 구동 → 센서 피드백 → 다시 오차 계산’입니다.</li><li>제어 방식으로는 [[pid-control|PID 제어]]가 가장 널리 쓰입니다. P(비례)는 현재 오차에, I(적분)는 오차의 누적에, D(미분)는 오차의 변화율에 반응합니다(Åström &amp; Hägglund, 2006).</li><li>산업용 서보는 보통 위치 제어 안에 속도 제어, 그 안에 전류(토크) 제어가 들어 있는 다중 루프 구조입니다. 위치 센서로는 엔코더가 흔히 쓰입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 예, 코드로 계산) 시간 상수 0.5초인 1차 지연 특성의 모터 속도를 목표 1로 올린다고 합시다. 비례 제어(Kp = 2)만 쓰면 속도가 목표에 도달하지 못하고 정상상태 오차가 남습니다. 여기에 적분 동작(Ki = 4)을 더하면 오차가 사라집니다.</p><table><thead><tr><th>시간(초)</th><th>P 제어 (Kp=2) 속도</th><th>PI 제어 (Kp=2, Ki=4) 속도</th></tr></thead><tbody><tr><td>1</td><td>0.665</td><td>0.982</td></tr><tr><td>2</td><td>0.667</td><td>1.000</td></tr><tr><td>4</td><td>0.667</td><td>1.000</td></tr></tbody></table><p>P 제어의 최종값 0.667은 Kp/(1 + Kp)이고 남는 오차는 1/(1 + Kp)입니다. 이 단순한 모델에서는 Kp를 키울수록 오차가 줄지만, 실제 시스템에서는 Kp를 키우면 진동과 불안정이 생길 수 있어 한계가 있습니다. 적분 동작이 정상상태 오차를 없애는 이유가 여기에 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>서보모터는 특별한 종류의 모터다.</td><td>서보는 모터의 종류가 아니라 <strong>피드백으로 위치·속도를 제어하는 시스템</strong>을 가리키는 말입니다. 모터, 센서, 컨트롤러가 함께 서보 시스템을 이룹니다.</td></tr><tr><td>이득을 키울수록 항상 좋아진다.</td><td>이득이 너무 크면 진동하거나 불안정해집니다. 응답 속도와 안정성의 절충이 필요합니다(Ogata, 2010).</td></tr><tr><td>스텝모터도 컨트롤러가 오차를 보정한다.</td><td>일반적인 [[stepper-motor|스텝모터]]는 개루프로 구동되어 위치 피드백이 없습니다. 이 점이 서보와의 큰 차이입니다.</td></tr><tr><td>컨트롤러는 모터 드라이버와 같은 말이다.</td><td>드라이버는 전력을 증폭해 모터에 공급하는 부분이고, 컨트롤러는 오차를 계산해 지령을 만드는 부분입니다. 제품에서는 하나로 합쳐 팔기도 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "핵심",
+      "서보모터 컨트롤러와의 관계"
+    ],
+    "rows": [
+      [
+        "[[servo-motor|서보모터]]",
+        "피드백으로 정밀 제어되는 모터 시스템",
+        "컨트롤러는 그 두뇌 부분"
+      ],
+      [
+        "[[pid-control|PID 제어]]",
+        "비례·적분·미분을 조합한 제어 알고리즘",
+        "컨트롤러 안에서 흔히 쓰는 제어 방식"
+      ],
+      [
+        "[[feedback-control|피드백 제어]]",
+        "출력을 입력 쪽으로 되먹여 오차를 줄이는 구조",
+        "서보가 따르는 기본 원리"
+      ],
+      [
+        "[[stepper-motor|스텝모터]]",
+        "펄스마다 일정 각도씩 움직이는 모터",
+        "보통 피드백 없이 구동"
+      ]
+    ]
+  },
+  "references": [
+    "Ogata, K. (2010). Modern Control Engineering (5th ed.). Prentice Hall.",
+    "Åström, K. J., & Hägglund, T. (2006). Advanced PID Control. ISA – The Instrumentation, Systems, and Automation Society.",
+    "Åström, K. J., & Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press."
+  ]
+}

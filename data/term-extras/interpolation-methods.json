@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li>이미 알고 있는 점 (x₀, y₀), …, (xₙ, yₙ)을 준비합니다. 이 점들을 <strong>정확히 지나는</strong> 함수 f를 정하는 것이 보간입니다.</li><li>방법을 고릅니다. 대표적으로 (a) <strong>선형 보간</strong>(이웃 두 점을 직선으로 연결), (b) <strong>다항식 보간</strong>(예: 라그랑주 보간으로 n+1개의 점을 지나는 n차 다항식), (c) <strong>스플라인 보간</strong>(구간마다 낮은 차수의 다항식을 잇되 연결점에서 매끄럽게, 흔히 3차), (d) 최근접 이웃 보간(가장 가까운 점의 값을 그대로 씀)이 있습니다.</li><li>f를 새 위치 x에 대입해 추정값을 얻습니다. 점 안쪽에서 값을 구하면 보간, 점 범위 밖에서 구하면 외삽이라고 부르며 외삽은 훨씬 불안정합니다.</li><li>공간 자료(위도·경도에 흩어진 관측값)에는 [[idw|역거리가중법]]이나 [[kriging|크리깅]] 같은 공간 보간을 씁니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>(가상의 예, 코드로 계산) 점 (0,1), (1,3), (2,2), (3,5)에서 x = 1.5의 값을 구합니다.</p><table><thead><tr><th>방법</th><th>x = 1.5에서의 값</th></tr></thead><tbody><tr><td>선형 보간 (이웃 점 (1,3), (2,2))</td><td>2.5</td></tr><tr><td>3차 라그랑주 보간 (네 점 전체)</td><td>2.4375</td></tr><tr><td>자연 3차 스플라인</td><td>2.425</td></tr></tbody></table><p>점 사이를 어떻게 연결하느냐에 따라 값이 달라집니다. 모든 방법이 주어진 네 점에서는 같은 값을 냅니다.</p><p>점을 늘리면 다항식의 차수를 무작정 높이는 것이 좋은 선택이 아닐 수 있습니다. Runge(1901)가 보인 예인 f(x) = 1/(1 + 25x²)를 [−1, 1]에서 같은 간격의 11개 점으로 10차 다항식 보간하면, x = 0.9에서 보간값은 약 1.579인데 실제 값은 약 0.047이고, 구간 안에서 오차가 최대 약 1.92까지 커집니다(코드로 계산). 그래서 같은 간격의 점이 많을 때는 고차 다항식보다 스플라인을 흔히 씁니다(de Boor, 1978).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 보간법인지, 모수가 무엇인지 적습니다. 예를 들어 역거리가중법이면 거듭제곱 지수(흔히 2를 기본으로 씀)와 탐색 반경, 크리깅이면 베리오그램 모형을 적습니다. Shepard(1968)가 이 역거리가중 방식을 처음 제안했습니다.</li><li>정확도는 한 점씩 빼고 나머지로 그 점을 추정해 비교하는 교차검증(leave-one-out)의 RMSE 등으로 평가해 보고합니다.</li><li>자료 점 밖으로 나가는 외삽 구간은 신뢰하기 어려우므로 결과 지도에서 구분하거나 제외했다고 밝힙니다.</li><li>보간은 점을 정확히 지나는 반면, [[regression|회귀]]는 점들 사이의 경향을 따라갈 뿐 점을 지나지 않아도 된다는 차이를 구분해 서술합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "핵심",
+      "보간법과의 차이"
+    ],
+    "rows": [
+      [
+        "[[lagrange-interpolation|라그랑주 보간]]",
+        "주어진 점을 모두 지나는 다항식",
+        "보간법의 한 종류"
+      ],
+      [
+        "[[idw|역거리가중법]]",
+        "거리에 반비례하는 가중치로 주변 값을 평균",
+        "공간 자료용 보간법의 한 종류"
+      ],
+      [
+        "[[kriging|크리깅]]",
+        "공간 자기상관 구조를 쓰는 통계적 보간",
+        "추정 오차(분산)도 함께 제공"
+      ],
+      [
+        "[[areal-interpolation|면적보간]]",
+        "한 구역 체계의 값을 다른 구역 체계로 옮김",
+        "점 사이를 메우는 것이 아니라 경계 체계를 변환"
+      ],
+      [
+        "[[regression|회귀]]",
+        "자료 경향을 가장 잘 따르는 함수를 찾음",
+        "점을 지나지 않아도 되고 잡음이 있는 자료에 적합"
+      ]
+    ]
+  },
+  "references": [
+    "Burden, R. L., & Faires, J. D. (2011). Numerical Analysis (9th ed.). Brooks/Cole.",
+    "de Boor, C. (1978). A Practical Guide to Splines. Springer.",
+    "Runge, C. (1901). Über empirische Funktionen und die Interpolation zwischen äquidistanten Ordinaten. Zeitschrift für Mathematik und Physik, 46, 224–243.",
+    "Shepard, D. (1968). A two-dimensional interpolation function for irregularly-spaced data. Proceedings of the 1968 ACM National Conference, 517–524."
+  ]
+}

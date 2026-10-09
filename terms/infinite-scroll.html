@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/infinite-scroll.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <p>새 콘텐츠가 로드되는 동안 스크롤바의 위치가 갑자기 뛰는 현상을 막기 위해, 로딩 중임을 알리는 표시 영역의 높이를 미리 확보해 두는 기법이 흔히 함께 쓰인다.</p>
   <p>검색엔진 크롤러는 스크롤 동작을 수행하지 않기 때문에, 무한 스크롤로만 노출되는 콘텐츠는 검색 결과에 노출되지 않는 문제가 있어 별도의 색인용 페이지가 함께 제공되기도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>무한 스크롤은 사용자가 목록 끝 가까이 내려가면 다음 묶음을 서버에서 <strong>자동으로 가져와 이어 붙이는</strong> 방식입니다. 보통 스크롤 위치를 감시하거나 브라우저의 IntersectionObserver로 ‘끝 근처 도달’을 감지하고, 다음 쪽의 데이터를 요청해 목록에 덧붙입니다.</li><li>장점은 클릭 없이 흐름이 끊기지 않는다는 점이어서, 소셜 피드나 이미지 탐색처럼 ‘훑어보기’ 위주의 화면에 쓰입니다.</li><li>대표적 단점은 (1) 바닥 영역(푸터)에 닿기 어렵고, (2) 뒤로 가기 후 위치를 잃기 쉬우며, (3) 항목이 계속 쌓여 메모리·성능 부담이 커지고, (4) 특정 항목을 다시 찾기 어렵다는 것입니다. 키보드·스크린리더 사용자의 접근성 문제와 검색엔진 색인 문제도 설계 시 확인해야 합니다.</li><li>대안으로 번호가 붙은 쪽 나누기(<a href="pagination.html">페이지네이션</a>)와 ‘더 보기’ 버튼이 있고, 상황에 따라 절충안도 씁니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>사용성 연구에서 무한 스크롤을 다룰 때는 목적에 따라 평가가 달라집니다. 탐색(무엇이 있나 훑어보기)이 목적이면 흐름이 끊기지 않는 점이 이로울 수 있고, 특정 항목을 찾거나 비교하는 과업이 목적이면 위치 표시와 쪽 구분이 있는 방식이 낫다는 것이 일반적인 논의입니다. 이는 Nielsen(1993)의 사용성 휴리스틱(예: 사용자 통제와 자유, 시스템 상태의 가시성) 관점에서 점검할 수 있습니다.</p><p>행동 측면에서는 ‘멈춤 신호’의 부재가 논점입니다. Alter(2017)는 화면의 끝이나 쪽 구분 같은 멈춤 신호가 사라지면 사용 시간이 늘어나기 쉽다고 논의하며, 이와 비슷한 맥락으로 Wansink 등(2005)은 줄지 않는 그릇에서 사람들이 더 많이 먹는 실험을 보고했습니다. 다만 이는 비유적 연결이지 무한 스크롤 자체에 대한 직접 실험이 아니므로 논문에서 근거로 쓸 때는 구분해서 인용해야 합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>무한 스크롤은 항상 사용자 경험을 좋게 한다.</td><td>탐색형 화면에서는 유리할 수 있지만, 찾기·비교·되돌아가기가 중요한 과업에서는 불편이 커집니다. 목적에 따라 선택해야 합니다.</td></tr><tr><td>한꺼번에 불러오지 않으니 항상 빠르다.</td><td>첫 로딩은 가벼워도 항목이 쌓이면 화면에 올라간 요소가 늘어 느려질 수 있습니다. 오래된 항목을 걷어 내는 가상화(virtualization) 같은 기법이 필요할 때가 있습니다.</td></tr><tr><td>무한 스크롤은 곧 다크 패턴이다.</td><td>기능 자체는 중립적인 UI 패턴입니다. 다만 사용자가 멈추기 어렵게 설계하면 <a href="dark-pattern.html">다크 패턴</a> 논의의 대상이 될 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">이 연구는 무한스크롤 적용이 소셜미디어 앱의 평균 체류 시간에 미친 영향을 분석하였다.</div>
   <p>끊김 없는 콘텐츠 노출 방식이 사용자 체류 시간에 미치는 영향을 검증한 연구이다.</p>
   <div class="example">본 연구는 무한 스크롤 방식이 페이지네이션 방식에 비해 이용자 체류시간에 미치는 차이를 실험하였다.</div>
@@ -160,6 +178,20 @@
 
   <h2>주의할 점</h2>
   <p>무한스크롤은 콘텐츠 소비를 늘릴 수 있지만 원하는 항목을 다시 찾기 어렵게 만들고 푸터 접근을 방해할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>같은 목록 UI를 두고 쓰는 용어를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방식</th><th scope="col">다음 항목을 가져오는 조건</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">무한 스크롤</th><td>끝 근처에 도달하면 자동</td><td>흐름이 끊기지 않으나 위치·푸터 문제</td></tr><tr><th scope="row"><a href="pagination.html">페이지네이션</a></th><td>사용자가 쪽 번호를 선택</td><td>위치 파악·재방문 쉬움, 클릭 필요</td></tr><tr><th scope="row">‘더 보기’ 버튼</th><td>사용자가 버튼을 누름</td><td>통제권은 사용자에게, 무한 스크롤과 쪽 나누기의 절충</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Nielsen, J. (1993). Usability Engineering. Academic Press.</li>
+    <li>Alter, A. (2017). Irresistible: The Rise of Addictive Technology and the Business of Keeping Us Hooked. Penguin Press.</li>
+    <li>Wansink, B., Painter, J. E., &amp; North, J. (2005). Bottomless bowls: Why visual cues of portion size may influence intake. Obesity Research, 13(1), 93–100.</li>
+    <li>Krug, S. (2014). Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability (3rd ed.). New Riders.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
