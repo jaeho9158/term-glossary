@@ -1,0 +1,65 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>검정력분석은 분석 전에 표본 크기를 정할 때 가장 흔히 씁니다. 네 가지 양 중 세 가지를 정하면 나머지 하나가 정해집니다.</p><ol><li><strong>유의수준(α)</strong>: 보통 .05(양측)로 둡니다.</li><li><strong>목표 검정력(1−β)</strong>: 흔히 .80 또는 .90을 씁니다.</li><li><strong>예상 효과크기</strong>: 선행연구, 최소한 의미 있는 크기, 파일럿에서 가져옵니다. Cohen(1988)의 작음·중간·큼 기준(평균 차이에서 d = 0.2, 0.5, 0.8)은 근거가 없을 때의 참고 규약일 뿐 보편적 기준이 아닙니다.</li><li><strong>표본 크기 계산</strong>: 소프트웨어(예: G*Power, Faul 등, 2007)로 해당 검정에 맞는 값을 구합니다.</li><li><strong>탈락 보정</strong>: 예상 탈락률로 나눠 모집 인원을 늘립니다.</li></ol><p>독립표본 t검정(양측, 집단당 인원)을 정확한 비중심 t분포로 계산한 값은 다음과 같습니다.</p><table><thead><tr><th>효과크기 d</th><th>α</th><th>목표 검정력</th><th>집단당 필요 인원</th></tr></thead><tbody><tr><td>0.3</td><td>.05</td><td>.80</td><td>176</td></tr><tr><td>0.5</td><td>.05</td><td>.80</td><td>64</td></tr><tr><td>0.8</td><td>.05</td><td>.80</td><td>26</td></tr><tr><td>0.5</td><td>.01</td><td>.90</td><td>121</td></tr></tbody></table><p>탈락을 15%로 예상하면 d = 0.5인 경우 집단당 64 ÷ 0.85 ≈ 75.3, 즉 76명을 모집합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>이럴 때 씁니다.</strong> 연구 계획서와 연구비 신청, 윤리 심의, 사전등록에서 표본 크기를 정당화할 때, 이미 표본이 정해져 있을 때는 검출 가능한 최소 효과크기를 알아보는 민감도 분석에 씁니다.</p><p><strong>읽는 법.</strong> d = 0.5, 집단당 30명이면 검정력은 약 .48입니다. 즉 실제로 중간 정도의 차이가 있어도 두 번 중 한 번 넘게 유의하지 않게 나옵니다. 그래서 작은 표본에서 유의하지 않은 결과를 “효과 없음”으로 읽으면 안 됩니다.</p><p><strong>한계.</strong></p><ul><li>결과는 입력한 효과크기에 크게 좌우됩니다. 선행연구의 효과크기는 출판편향 때문에 부풀려진 경우가 많아 실제보다 낙관적인 표본 크기가 나올 수 있습니다.</li><li>분석 방법(회귀, 반복측정, 다층모형 등)마다 계산식이 다르므로 맞는 방법을 골라야 합니다.</li><li>연구 후에 관측된 효과크기로 계산하는 사후 검정력은 p값과 일대일로 대응해 새로운 정보가 없습니다(Hoenig &amp; Heisey, 2001).</li><li>표본 크기는 검정력 하나로만 정하지 않으며 정밀도와 자원 같은 근거를 함께 제시할 수 있습니다(Lakens, 2022).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 분석 방법과 α(양측/단측), 목표 검정력</li><li>가정한 효과크기와 그 근거(선행연구, 최소 의미 있는 차이, 파일럿)</li><li>계산 도구(소프트웨어와 버전)와 산출된 인원, 탈락 보정 후 최종 모집 인원</li><li>사전에 계산하지 못했다면 민감도 분석으로 검출 가능한 효과크기를 보고</li></ul><p>예시 문장은 다음과 같습니다(가상의 예).</p><p>“G*Power 3.1로 독립표본 t검정(양측, α = .05, 검정력 .80, d = 0.5)을 가정하여 집단당 64명이 필요함을 확인하였다. 탈락률 15%를 고려하여 집단당 76명을 모집하였다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "검정력분석은 여러 개념이 모인 절차입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "검정력분석에서의 역할"
+    ],
+    "rows": [
+      [
+        "검정력분석",
+        "원하는 검정력을 얻는 데 필요한 조건을 계산하는 절차",
+        "전체 절차"
+      ],
+      [
+        "[[statistical-power|검정력]]",
+        "실제 효과가 있을 때 그것을 찾아낼 확률(1−β)",
+        "목표값으로 입력"
+      ],
+      [
+        "[[effect-size|효과크기]]",
+        "효과의 크기를 표준화한 지표",
+        "가장 불확실한 입력값"
+      ],
+      [
+        "[[significance-level|유의수준]]",
+        "H₀가 참일 때 기각을 허용하는 확률",
+        "입력값(보통 .05)"
+      ],
+      [
+        "[[sample-size|표본크기]]",
+        "연구에 필요한 대상의 수",
+        "계산 결과"
+      ],
+      [
+        "[[power-analysis-software|검정력분석 소프트웨어]]",
+        "계산을 도와주는 프로그램",
+        "계산 도구"
+      ]
+    ]
+  },
+  "references": [
+    "Cohen, J. (1988). Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum.",
+    "Cohen, J. (1992). A power primer. Psychological Bulletin, 112(1), 155–159.",
+    "Hoenig, J. M., & Heisey, D. M. (2001). The abuse of power: The pervasive fallacy of power calculations for data analysis. The American Statistician, 55(1), 19–24.",
+    "Faul, F., Erdfelder, E., Lang, A.-G., & Buchner, A. (2007). G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences. Behavior Research Methods, 39(2), 175–191.",
+    "Lakens, D. (2022). Sample size justification. Collabra: Psychology, 8(1), 33267."
+  ]
+}
