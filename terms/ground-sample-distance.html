@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/ground-sample-distance.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,27 @@
   <p>따라서 탑재체 설계와 임무 목적을 연결하는 중요한 기준으로 다루어집니다. 임무 목적에 필요한 지상표본거리가 결정되면 이를 만족하는 초점거리와 궤도 고도의 조합이 역으로 도출되므로, 이 값은 탑재체 광학계 설계의 시작점으로 다뤄지는 경우가 많습니다.</p>
   <p>상업용 지구관측 시장에서는 지상표본거리 등급에 따라 위성 영상의 가격과 활용처가 크게 구분되기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>연직(수직) 하방 촬영에서 지상표본거리(GSD)는 다음과 같이 근사합니다.</p><p><strong>GSD = 화소 간격(p) × 촬영 고도(H) ÷ 초점거리(f)</strong></p><ul><li>단위는 m(또는 cm)/화소이며 값이 작을수록 세밀합니다.</li><li>고도가 높거나 초점거리가 짧으면 커지고, 화소 간격이 작은 센서일수록 작아집니다.</li><li>경사 촬영에서는 지표에 투영되는 화소의 크기가 위치마다 달라서 하나의 값으로 나타내기 어렵습니다.</li></ul><p>가상의 계산(코드로 확인): 위성 고도 500 km, 초점거리 10 m, 화소 간격 10 μm이면 GSD = 10×10<sup>−6</sup> × 500,000 ÷ 10 = 0.5 m. 드론 고도 100 m, 초점거리 8.8 mm, 화소 간격 2.4 μm이면 GSD ≈ 2.7 cm.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>GSD는 <strong>샘플링 간격</strong>이지 광학계가 실제로 구분하는 최소 거리(분해능)가 아닙니다. 대기, 렌즈 번짐(점확산함수), 움직임 번짐, 영상 처리 때문에 같은 GSD라도 실제로 판독 가능한 크기는 다릅니다.</li><li>어떤 대상을 알아보려면 대상이 몇 화소를 차지해야 하는지가 관건입니다. 같은 대상이라도 탐지(있다), 인식(종류), 식별(세부)에 필요한 화소 수는 다릅니다.</li><li>영상 해석 품질을 GSD와 별개로 나타내는 척도로 NIIRS(국가영상해석도등급) 같은 체계가 있으며, 같은 GSD라도 영상 품질에 따라 등급이 달라질 수 있습니다.</li><li>재표본화(리샘플링)해서 화소를 잘게 만들면 격자 간격만 작아질 뿐 정보가 늘지 않으므로 ‘GSD가 개선됐다’고 쓰면 안 됩니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>GSD 값과 함께 촬영 고도, 센서·화소 간격, 초점거리, 촬영 각도(연직/경사)를 적습니다. 재처리(정사영상 생성 등) 후 출력 격자 간격이 다르면 둘을 모두 밝힙니다.</li><li>결과 정확도(위치 오차 등)는 GSD의 배수로 표현하거나, 검사점으로 잰 값을 따로 제시합니다. 지상 검사점이 수평면에 치우쳐 있으면 3차원 품질을 대변하기 어렵다는 점이 연구에서 지적됩니다.</li><li>“해상도 0.5 m급”처럼 쓸 때 GSD를 뜻하는지 분해능을 뜻하는지 구분하는 편이 안전합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“그러나 검사점은 바닥면에 설치되어 비교분석에 활용되어 3차원 공간정보 품질의 정확도를 평가하는데 어려움이 있으며, 사진의 품질을 평가하는 GSD (Ground Sample Distance)또한 실제 3차원 공간정보의 품질을 대변하는데 어려움이 있다.”</blockquote><p class="te-cite">3차원 공간정보의 정량적 분석 방법 연구, 한국측량학회지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003138132" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"해당 위성은 궤도 고도 500km에서 약 0.5m급 지상표본거리를 갖도록 설계되었다."</div>
   <p>궤도 고도와 지상표본거리 간의 관계를 설명하는 문장입니다.</p>
   <div class="example">"지상표본거리가 작을수록 도로나 차량 같은 소형 객체의 탐지 정확도가 향상되었다."</div>
@@ -163,6 +184,18 @@
 
   <h2>주의할 점</h2>
   <p>지상표본거리는 흔히 해상도와 같은 의미로 쓰이지만, 엄밀히는 화소 하나의 크기를 나타낼 뿐 광학계의 실제 분해능과는 구분되는 개념이라는 점에 유의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">차이</th></tr></thead><tbody><tr><th scope="row">지상표본거리(GSD)</th><td>화소 하나가 지표에서 차지하는 길이</td><td>샘플링 간격</td></tr><tr><th scope="row"><a href="spatial-resolution.html">공간해상도</a></th><td>영상이 구분할 수 있는 공간적 세밀함</td><td>GSD, 광학 성능, 대기 등이 모두 영향</td></tr><tr><th scope="row">화소 간격</th><td>센서에서 화소 중심 간 거리</td><td>GSD를 계산하는 입력값</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Jensen, J. R. (2007). Remote Sensing of the Environment: An Earth Resource Perspective (2nd ed.). Pearson Prentice Hall.</li>
+    <li>Lillesand, T. M., Kiefer, R. W., &amp; Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.</li>
+    <li>Wolf, P. R., Dewitt, B. A., &amp; Wilkinson, B. E. (2014). Elements of Photogrammetry with Applications in GIS (4th ed.). McGraw-Hill.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

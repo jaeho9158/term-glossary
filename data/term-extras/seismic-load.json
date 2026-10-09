@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>지진하중은 지반이 흔들릴 때 건물 질량이 제자리에 머물려는 <strong>관성</strong> 때문에 생기는 힘입니다. 질량이 클수록, 건물이 받는 가속도가 클수록 커집니다.</li><li>같은 지반 운동이라도 건물의 고유주기·감쇠에 따라 응답이 달라지는 <strong>동적 하중</strong>입니다. 설계에서는 응답스펙트럼으로 이 관계를 나타냅니다(관련: [[natural-period|고유주기]], [[response-spectrum|응답스펙트럼]]).</li><li>가장 단순한 설계 방법인 등가정적해석에서는 동적 응답을 수평 정적 하중으로 바꿉니다. 대표적 형태는 밑면전단력 V = C<sub>s</sub> × W (W는 건물의 유효 중량)이고, C<sub>s</sub>는 지반 조건·건물 용도·구조 시스템의 연성(반응수정계수 R)과 주기에 따라 정해집니다(ASCE/SEI 7 계열, 우리나라 내진설계기준도 같은 틀).</li><li>밑면전단력은 높이에 따라 각 층에 나누어 줍니다. 주기가 짧은 건물에서는 층 질량 × 높이에 비례하게 나누는 것이 기본입니다.</li><li>[[seismic-design|내진설계]]는 설계지진(특정 재현주기의 지진)에 대해 인명 안전을 확보하는 것을 목표로 합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 3층 건물입니다(코드로 계산). 층 중량 W = 4,000, 3,500, 3,000 kN(합계 10,500 kN), 층 높이 3, 6, 9 m, 단주기 설계스펙트럼가속도 S<sub>DS</sub> = 0.5 g, R = 5, 중요도계수 I<sub>e</sub> = 1이라고 가정합니다. 주기가 짧은 구간에서 C<sub>s</sub> = S<sub>DS</sub> ÷ (R/I<sub>e</sub>) = 0.1이므로 V = 0.1 × 10,500 = 1,050 kN입니다.</p><table><thead><tr><th>층</th><th>중량(kN)</th><th>높이(m)</th><th>층별 지진력(kN)</th></tr></thead><tbody><tr><td>1</td><td>4,000</td><td>3</td><td>210.0</td></tr><tr><td>2</td><td>3,500</td><td>6</td><td>367.5</td></tr><tr><td>3</td><td>3,000</td><td>9</td><td>472.5</td></tr></tbody></table><p>위층일수록 지진력이 커지는 분포입니다. 실제 설계에서는 최소 C<sub>s</sub>, 주기 계산, 비틀림 등 더 많은 규정이 적용되며 이 예는 개념을 보이기 위해 단순화한 것입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>지진하중은 건물 무게에 단순 비례하는 정적 힘이다.</td><td>고유주기·감쇠에 따라 응답이 달라지는 동적 하중이며, 등가정적하중은 이를 단순화한 설계용 값입니다.</td></tr><tr><td>무거운 건물이 항상 더 위험하다.</td><td>질량이 크면 힘도 커지지만 주기와 강성, 지반이 함께 작용합니다.</td></tr><tr><td>풍하중처럼 한 방향으로 계속 작용한다.</td><td>지진하중은 짧고 반복적으로 방향을 바꾸는 진동입니다.</td></tr><tr><td>설계지진보다 큰 지진은 없다.</td><td>설계지진은 기준이며, 이보다 큰 지진도 있을 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "관계"
+    ],
+    "rows": [
+      [
+        "지진하중",
+        "지진 때 건물에 작용하는 관성력",
+        "설계에서 계산하는 힘"
+      ],
+      [
+        "[[seismic-design|내진설계]]",
+        "지진하중에 견디도록 하는 설계 전체",
+        "하중 산정 + 부재 설계"
+      ],
+      [
+        "[[base-isolation|면진구조]]",
+        "지반과 건물 사이를 분리해 전달 하중을 줄이는 방식",
+        "지진하중 자체를 낮추는 접근"
+      ]
+    ]
+  },
+  "references": [
+    "Chopra, A. K. (2017). Dynamics of Structures: Theory and Applications to Earthquake Engineering (5th ed.). Pearson.",
+    "ASCE/SEI 7-16 (2017). Minimum Design Loads and Associated Criteria for Buildings and Other Structures. American Society of Civil Engineers.",
+    "Paulay, T., & Priestley, M. J. N. (1992). Seismic Design of Reinforced Concrete and Masonry Buildings. Wiley."
+  ]
+}

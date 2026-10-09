@@ -1,0 +1,28 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>직류 전원공급장치는 설정한 전압(또는 전류)을 부하 변화에도 유지하는 장비입니다. 대부분 <strong>정전압(CV)</strong>과 <strong>정전류(CC)</strong> 두 동작 모드를 가지며 부하에 따라 자동 전환됩니다.</li><li>전압을 V<sub>set</sub>, 전류 제한을 I<sub>lim</sub>으로 두면 전환점의 부하 저항은 R = V<sub>set</sub> ÷ I<sub>lim</sub>입니다. 이보다 부하가 크면 CV, 작으면 CC로 동작하며 CC에서는 전압이 V<sub>set</sub>보다 낮아집니다.</li><li>방식은 크게 선형 전원(저잡음, 효율은 낮음)과 스위칭 전원(효율 높음, 스위칭 잡음 존재)으로 나뉩니다.</li><li>논문에 적는 사양은 출력 범위, 설정 분해능, 라인 레귤레이션(입력 변동에 대한 출력 변화), 로드 레귤레이션(부하 변동에 대한 출력 변화), 리플·잡음, 과도 응답 속도 등입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 실험입니다(코드로 계산). 전압 5 V, 전류 제한 0.5 A로 설정하면 전환점 저항은 5 ÷ 0.5 = 10 Ω입니다.</p><table><thead><tr><th>부하 저항</th><th>모드</th><th>출력</th></tr></thead><tbody><tr><td>20 Ω</td><td>CV</td><td>5 V, 0.25 A</td></tr><tr><td>10 Ω</td><td>경계</td><td>5 V, 0.5 A</td></tr><tr><td>5 Ω</td><td>CC</td><td>2.5 V, 0.5 A</td></tr></tbody></table><p>부하가 5 Ω이면 전압이 5 V가 아니라 2.5 V로 내려가는데, 이는 고장이 아니라 전류 제한이 작동한 결과입니다. 측정 결과가 이상할 때 이를 먼저 확인해야 합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>설정한 전압이 항상 출력된다.</td><td>전류 제한에 걸리면 전압이 설정값보다 낮아집니다.</td></tr><tr><td>디스플레이 값이 곧 부하 단자의 전압이다.</td><td>긴 도선·접촉 저항으로 부하 단자에서는 전압이 낮을 수 있고, 원격 감지 기능으로 보정하기도 합니다.</td></tr><tr><td>전원 사양은 보고하지 않아도 된다.</td><td>재현성을 위해 모드, 설정값, 리플·잡음 등이 필요할 수 있습니다.</td></tr><tr><td>스위칭 전원은 모든 실험에 적합하다.</td><td>저잡음 측정에서는 선형 전원이 선호되기도 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Horowitz, P., & Hill, W. (2015). The Art of Electronics (3rd ed.). Cambridge University Press.",
+    "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley.",
+    "Erickson, R. W., & Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic."
+  ],
+  "fixes": [
+    {
+      "find": "부하 변동에 대한 응답 속도(load regulation)",
+      "replace": "부하 변동에 따른 출력 전압 변화(load regulation)"
+    }
+  ]
+}

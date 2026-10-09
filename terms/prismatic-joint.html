@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/prismatic-joint.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>링크 사이가 한 축을 따라 미끄러지는 관절로, <a href="cartesian-robot.html">직교좌표로봇</a>과 <a href="scara-robot.html">스카라</a>의 수직축, 갠트리와 리니어 스테이지의 기본 요소입니다. <a href="revolute-joint.html">회전관절</a>과 함께 직렬 로봇 기구학을 구성하는 두 가지 1자유도 관절 중 하나여서 <a href="denavit-hartenberg-parameters.html">DH 파라미터</a>에서 어느 변수가 관절 변수인지가 여기서 갈립니다.</p>
   <p>3D 프린터나 CNC 가공기처럼 축을 따라 정밀한 직선 이동이 필요한 장비에서도 이 관절 원리가 기본 구동 방식으로 널리 쓰이고 있습니다. 회전관절과 결합해 원통좌표형이나 구형좌표형 로봇을 구성할 수 있어, 순수한 직선 이동 로봇 외에도 다양한 구조의 기본 요소로 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>직선관절은 두 링크가 한 축을 따라 미끄러지는 1자유도 관절입니다. 관절 변수는 각도가 아니라 <strong>변위 d</strong>(길이)입니다.</li><li>Denavit–Hartenberg(DH) 표기에서 회전관절은 θ가, 직선관절은 d가 변수이고 나머지 세 매개변수는 상수입니다(<a href="denavit-hartenberg-parameters.html">DH 파라미터</a>).</li><li>야코비안(속도 사상)의 해당 열은 직선관절이면 선속도 부분이 관절축 단위벡터 z<sub>i−1</sub>이고 각속도 부분은 0입니다. 회전관절은 선속도 부분이 z<sub>i−1</sub> × (끝점 위치 − 관절 위치), 각속도 부분이 z<sub>i−1</sub>입니다(Spong 등, 2006).</li><li>직선관절 세 개를 서로 직교하게 배치하면 <a href="cartesian-robot.html">직교좌표로봇</a>이 되어 순기구학이 변위의 덧셈만으로 표현됩니다.</li><li>구동은 볼스크류, 벨트, 리니어 모터, 공압·유압 실린더 등으로 하며, 성능(백래시, 최대 속도)은 관절 종류가 아니라 구동 요소가 좌우합니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>회전관절 1개와 직선관절 1개가 이어진 평면 RP 팔을 생각합니다(가상의 값, 코드로 계산). 회전각 θ = 30°, 직선관절 변위 d = 0.5 m일 때 끝점 위치는 (d cos θ, d sin θ) = (0.433, 0.250) m입니다.</p><ul><li>d만 0.5에서 0.6으로 늘리면 끝점은 같은 방향으로 직선으로 이동합니다(속도는 d의 변화율).</li><li>θ만 바꾸면 끝점은 반지름 d의 원호를 따라 움직이며, 같은 각속도라도 d가 크면 끝점 속도가 커집니다. 직선관절과 회전관절의 이런 차이가 야코비안의 열 모양에 나타납니다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>직선관절은 구동기의 종류를 뜻한다.</td><td>운동 형태(상대 병진)를 뜻하며, 구동기는 모터·실린더 등 다양합니다.</td></tr><tr><td>직선관절만 쓰면 정밀도가 자동으로 높다.</td><td>정밀도는 가이드의 직진도, 백래시, 열팽창 등에도 좌우됩니다.</td></tr><tr><td>DH에서 직선관절의 변수도 θ다.</td><td>직선관절의 변수는 d입니다.</td></tr><tr><td>직선관절 로봇은 작업공간이 회전관절 로봇보다 넓다.</td><td>같은 크기에서는 일반적으로 반대인 경우가 많고, 스트로크가 곧 작업공간을 정합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 원통좌표로봇은 하나의 회전관절과 두 개의 직선관절로 구성되어 원통형 작업공간을 가진다.</div>
   <p>논문에서 직선관절은 회전관절과 대비되는 또 다른 기본 관절 형태로, DH 파라미터에서 관절변위가 변수로 취급됩니다.</p>
 
@@ -163,6 +181,19 @@
 
   <h2>주의할 점</h2>
   <p>직선관절은 회전관절과 달리 관절 변수가 길이 단위이므로 야코비안 계산 시 회전관절과 다른 형태의 열벡터가 사용된다. 직선 이동 범위가 물리적인 레일이나 실린더 길이로 제한되어, 회전관절에 비해 도달할 수 있는 작업공간의 형태가 제한적이고 확장하려면 기구 자체의 길이를 늘려야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">운동</th><th scope="col">관절 변수</th></tr></thead><tbody><tr><th scope="row">직선관절</th><td>한 축을 따라 미끄러짐</td><td>변위 d (길이)</td></tr><tr><th scope="row"><a href="revolute-joint.html">회전관절</a></th><td>한 축 둘레로 회전</td><td>각도 θ</td></tr><tr><th scope="row"><a href="cartesian-robot.html">직교좌표로봇</a></th><td>직선관절 3개를 직교 배치한 로봇</td><td>d₁, d₂, d₃</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Spong, M. W., Hutchinson, S., &amp; Vidyasagar, M. (2006). Robot Modeling and Control. Wiley.</li>
+    <li>Craig, J. J. (2005). Introduction to Robotics: Mechanics and Control (3rd ed.). Pearson Prentice Hall.</li>
+    <li>Siciliano, B., Sciavicco, L., Villani, L., &amp; Oriolo, G. (2009). Robotics: Modelling, Planning and Control. Springer.</li>
+    <li>Denavit, J., &amp; Hartenberg, R. S. (1955). A kinematic notation for lower-pair mechanisms based on matrices. Journal of Applied Mechanics, 22(2), 215–221.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

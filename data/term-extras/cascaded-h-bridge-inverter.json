@@ -1,0 +1,42 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>H브리지 셀은 스위치 4개로 직류전압 +V<sub>dc</sub>, 0, −V<sub>dc</sub> 세 값을 만들 수 있는 단상 인버터 단위입니다. 이런 셀 N개를 출력단에서 직렬로 이어 각 셀 전압을 더합니다.</li><li>각 셀의 직류전원이 같으면 출력 상전압의 레벨 수는 <strong>2N + 1</strong>, 최대 전압은 N × V<sub>dc</sub>입니다. 셀마다 전원 크기를 다르게(예: 1 : 2 : 4…) 하면 같은 셀 수로 더 많은 레벨(이진 비율이면 2<sup>N+1</sup> − 1)을 얻을 수 있습니다.</li><li>각 셀이 <strong>서로 절연된 독립 직류전원</strong>을 필요로 합니다. 태양광 패널, 배터리 모듈, 다권선 변압기의 정류기 출력 등이 그 전원이 됩니다.</li><li>변조는 위상천이 반송파 PWM, 레벨천이 PWM, 선택 고조파 제거 등이 쓰이며, 레벨 수가 늘수록 출력 전압의 [[total-harmonic-distortion|전고조파 왜율]]과 필터 부담이 줄어듭니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 값으로 N = 3, 각 셀 V<sub>dc</sub> = 100 V를 보면(코드로 계산) 레벨 수는 2 × 3 + 1 = 7개, 출력 전압 범위는 −300 V ~ +300 V이며 100 V 간격의 계단 파형이 됩니다. 같은 3개 셀이라도 전원비를 1 : 2 : 4로 두면 2<sup>4</sup> − 1 = 15레벨을 만들 수 있습니다(대신 전원 종류와 스위치 손실 분담이 불균등해집니다).</p><p>셀 수를 늘리면 파형이 정현파에 가까워지는 반면 스위치·전원·게이트 구동회로가 비례해 늘어납니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>셀 N개면 레벨도 N개다.</td><td>동일 전원이면 2N + 1개입니다.</td></tr><tr><td>하나의 직류 버스에서 모든 셀을 공급할 수 있다.</td><td>각 셀은 독립(절연) 전원이어야 합니다. 직렬로 연결되므로 공통 버스에 묶으면 단락됩니다.</td></tr><tr><td>셀의 전압이 달라도 균형 제어가 필요 없다.</td><td>직류 전압 불균형은 출력 왜곡을 부르므로 균형 제어가 요구됩니다.</td></tr><tr><td>레벨이 많으면 항상 효율이 좋다.</td><td>스위치 수가 늘어 도통 손실·구동 복잡도가 증가합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "차이"
+    ],
+    "rows": [
+      [
+        "직렬 H브리지 인버터",
+        "H브리지 셀을 직렬로 쌓는 구조",
+        "셀마다 독립 직류전원 필요"
+      ],
+      [
+        "[[multilevel-inverter|멀티레벨 인버터]]",
+        "여러 전압 레벨로 파형을 합성하는 인버터의 총칭",
+        "직렬 H브리지는 그 한 종류"
+      ]
+    ]
+  },
+  "references": [
+    "Rodriguez, J., Lai, J.-S., & Peng, F. Z. (2002). Multilevel inverters: A survey of topologies, controls, and applications. IEEE Transactions on Industrial Electronics, 49(4), 724–738.",
+    "Malinowski, M., Gopakumar, K., Rodriguez, J., & Pérez, M. A. (2010). A survey on cascaded multilevel inverters. IEEE Transactions on Industrial Electronics, 57(7), 2197–2206.",
+    "Holmes, D. G., & Lipo, T. A. (2003). Pulse Width Modulation for Power Converters: Principles and Practice. IEEE Press / Wiley."
+  ]
+}

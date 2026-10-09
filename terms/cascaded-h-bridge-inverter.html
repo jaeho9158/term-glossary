@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/cascaded-h-bridge-inverter.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>모듈 단위로 셀을 추가하기만 하면 전압 레벨을 쉽게 확장할 수 있어, 태양광이나 배터리처럼 독립적인 직류원이 여러 개 존재하는 시스템에 잘 맞습니다. 구조가 대칭적이고 확장성이 좋아 고전압 대용량 응용 논문에서 자주 채택되는 토폴로지입니다. 각 셀이 모듈 단위로 독립적이어서 확장성이 뛰어나고, 태양광 스트링별 독립 전원 연결이 가능해 신재생에너지 인버터 구조로도 널리 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>H브리지 셀은 스위치 4개로 직류전압 +V<sub>dc</sub>, 0, −V<sub>dc</sub> 세 값을 만들 수 있는 단상 인버터 단위입니다. 이런 셀 N개를 출력단에서 직렬로 이어 각 셀 전압을 더합니다.</li><li>각 셀의 직류전원이 같으면 출력 상전압의 레벨 수는 <strong>2N + 1</strong>, 최대 전압은 N × V<sub>dc</sub>입니다. 셀마다 전원 크기를 다르게(예: 1 : 2 : 4…) 하면 같은 셀 수로 더 많은 레벨(이진 비율이면 2<sup>N+1</sup> − 1)을 얻을 수 있습니다.</li><li>각 셀이 <strong>서로 절연된 독립 직류전원</strong>을 필요로 합니다. 태양광 패널, 배터리 모듈, 다권선 변압기의 정류기 출력 등이 그 전원이 됩니다.</li><li>변조는 위상천이 반송파 PWM, 레벨천이 PWM, 선택 고조파 제거 등이 쓰이며, 레벨 수가 늘수록 출력 전압의 <a href="total-harmonic-distortion.html">전고조파 왜율</a>과 필터 부담이 줄어듭니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 값으로 N = 3, 각 셀 V<sub>dc</sub> = 100 V를 보면(코드로 계산) 레벨 수는 2 × 3 + 1 = 7개, 출력 전압 범위는 −300 V ~ +300 V이며 100 V 간격의 계단 파형이 됩니다. 같은 3개 셀이라도 전원비를 1 : 2 : 4로 두면 2<sup>4</sup> − 1 = 15레벨을 만들 수 있습니다(대신 전원 종류와 스위치 손실 분담이 불균등해집니다).</p><p>셀 수를 늘리면 파형이 정현파에 가까워지는 반면 스위치·전원·게이트 구동회로가 비례해 늘어납니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>셀 N개면 레벨도 N개다.</td><td>동일 전원이면 2N + 1개입니다.</td></tr><tr><td>하나의 직류 버스에서 모든 셀을 공급할 수 있다.</td><td>각 셀은 독립(절연) 전원이어야 합니다. 직렬로 연결되므로 공통 버스에 묶으면 단락됩니다.</td></tr><tr><td>셀의 전압이 달라도 균형 제어가 필요 없다.</td><td>직류 전압 불균형은 출력 왜곡을 부르므로 균형 제어가 요구됩니다.</td></tr><tr><td>레벨이 많으면 항상 효율이 좋다.</td><td>스위치 수가 늘어 도통 손실·구동 복잡도가 증가합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 직렬 H브리지 인버터는 각 셀에 독립된 태양광 모듈을 연결하여 셀 단위 최대전력점 추적이 가능하도록 설계되었다."</div>
   <p>각 셀이 독립 직류원을 가진다는 구조적 특징을 태양광 응용에 활용한 예입니다.</p>
   <div class="example">"셀 수를 7단으로 구성한 직렬 H브리지 인버터에서 출력 전압의 THD가 목표 기준 이하로 감소함을 확인하였다."</div>
@@ -162,6 +180,18 @@
   <p>각 셀마다 독립된 직류 전원이 필요하다는 점은 장점이자 제약이 될 수 있으며, 공통 직류 버스를 쓰는 응용에서는 다른 토폴로지가 더 적합할 수 있습니다.</p>
 
   <p>각 셀마다 독립된 절연 직류전원이 필요하다는 점이 구조를 복잡하게 만들며, 셀 간 직류전압이 불균형해지면 출력 파형 왜곡으로 이어질 수 있어 균형 제어가 요구됩니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">차이</th></tr></thead><tbody><tr><th scope="row">직렬 H브리지 인버터</th><td>H브리지 셀을 직렬로 쌓는 구조</td><td>셀마다 독립 직류전원 필요</td></tr><tr><th scope="row"><a href="multilevel-inverter.html">멀티레벨 인버터</a></th><td>여러 전압 레벨로 파형을 합성하는 인버터의 총칭</td><td>직렬 H브리지는 그 한 종류</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rodriguez, J., Lai, J.-S., &amp; Peng, F. Z. (2002). Multilevel inverters: A survey of topologies, controls, and applications. IEEE Transactions on Industrial Electronics, 49(4), 724–738.</li>
+    <li>Malinowski, M., Gopakumar, K., Rodriguez, J., &amp; Pérez, M. A. (2010). A survey on cascaded multilevel inverters. IEEE Transactions on Industrial Electronics, 57(7), 2197–2206.</li>
+    <li>Holmes, D. G., &amp; Lipo, T. A. (2003). Pulse Width Modulation for Power Converters: Principles and Practice. IEEE Press / Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="multilevel-inverter.html">멀티레벨 인버터</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="modular-multilevel-converter.html">모듈형 멀티레벨 컨버터</a><a href="neutral-point-clamped-inverter.html">중성점 클램프 인버터</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
