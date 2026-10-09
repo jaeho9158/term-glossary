@@ -1,0 +1,50 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>여유(중복) 자유도</strong>는 작업에 필요한 자유도 m보다 로봇의 관절 자유도 n이 많은 상태(n &gt; m)입니다. 여유의 정도는 r = n − m입니다. 평면에서 손끝의 위치(2차원)만 정하는 작업에는 관절 3개짜리 팔이 이미 여유 자유도 1을 갖습니다.</li><li>중요한 점은 여유가 <strong>로봇 단독의 성질이 아니라 로봇과 작업의 관계</strong>라는 것입니다. 관절 7개의 팔은 공간에서 위치와 자세(6차원)를 정하는 작업에는 r = 1이지만, 위치만(3차원) 정하는 작업에는 r = 4입니다.</li><li>자코비안 J(m × n 행렬, 손끝 속도와 관절 속도를 잇는 행렬)가 최대 계수이면 J의 영공간(null space)의 차원이 n − m입니다. 영공간 방향으로 관절을 움직이면 손끝은 (1차 근사로) 그대로이고 팔의 자세만 바뀝니다. 이를 자기 운동(self-motion)이라고 합니다.</li><li>역기구학의 해가 무한히 많으므로, 그중 하나를 고르는 <strong>중복성 해결</strong>(redundancy resolution)이 필요합니다. 대표적으로 관절 속도를 q̇ = J<sup>+</sup>ẋ + (I − J<sup>+</sup>J)z로 쓰는 방법이 있는데, 앞 항은 손끝 속도를 만들고(최소 노름 해), 뒤 항은 영공간 안에서 보조 목표 z(장애물 회피, 관절 한계 회피 등)를 따릅니다. 이 형태는 Liégeois(1977)가 정리한 것으로 알려져 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 예 — 평면 3링크 팔.</strong> 링크 길이가 모두 1이고 관절각이 (0.3, 0.6, 0.4) rad인 평면 팔이 있다고 합시다. 손끝의 x, y 위치만 정하는 작업이면 m = 2, n = 3이어서 r = 1입니다. 이 자세에서 자코비안을 계산하면 다음과 같습니다.</p><table><thead><tr><th>행</th><th>관절 1</th><th>관절 2</th><th>관절 3</th></tr></thead><tbody><tr><td>x 속도</td><td>-2.042</td><td>-1.747</td><td>-0.964</td></tr><tr><td>y 속도</td><td>1.844</td><td>0.889</td><td>0.267</td></tr></tbody></table><p>영공간은 1차원이며 단위 방향은 (0.204, -0.645, 0.737)입니다. J에 이 방향을 곱하면 (0.000, 0.000)로 사실상 0이므로, 세 관절을 이 비율로 움직이면 손끝은 제자리에 머물고 팔꿈치만 움직입니다. 이것이 \"손끝은 같아도 팔꿈치 모양은 여러 가지\"라는 말의 수학적 내용입니다. 계산은 이 자세에서의 순간 운동에 대한 것이고, 큰 움직임에서는 자세가 바뀌면서 영공간 방향도 달라집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>관절이 7개인 팔은 항상 여유 자유도를 갖는다.</td><td>작업에 따라 다릅니다. 위치와 자세(6차원)를 모두 정하는 작업이면 r = 1, 위치만 정하는 작업이면 r = 4입니다.</td></tr><tr><td>자유도가 많을수록 항상 좋다.</td><td>해가 무한히 많아져 중복성 해결 알고리즘이 필요하고 계산·제어가 복잡해집니다. 기구도 무겁고 비싸집니다.</td></tr><tr><td>여유 자유도가 있으면 특이점이 사라진다.</td><td>여유 자유도를 이용해 특이 자세를 피할 수는 있지만, 특이점 자체가 없어지는 것은 아닙니다.</td></tr><tr><td>영공간 운동은 손끝에 아무 영향이 없다.</td><td>1차 근사에서 그렇다는 뜻입니다. 큰 움직임이나 누적된 이동에서는 손끝에 오차가 생기므로 피드백으로 보정합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 비슷한 용어가 많아 \"무엇이 무엇보다 많은가\"로 구분합니다.",
+    "headers": [
+      "용어",
+      "뜻",
+      "관계"
+    ],
+    "rows": [
+      [
+        "여유(중복) 자유도 매니퓰레이터",
+        "관절 자유도가 작업 자유도보다 많은 로봇 팔",
+        "n > m인 상태 그 자체"
+      ],
+      [
+        "[[redundancy-resolution|중복성 해결]]",
+        "무한히 많은 해 중에서 하나를 고르는 방법",
+        "여유 자유도 때문에 생기는 문제를 푸는 방법"
+      ],
+      [
+        "[[degrees-of-freedom-mechanism|기구의 자유도]]",
+        "기구가 독립적으로 움직일 수 있는 방향 수",
+        "여유 여부를 따질 때 비교하는 기준 수치 n"
+      ]
+    ],
+    "note": "여유 자유도는 상태(성질), 중복성 해결은 그 상태를 다루는 방법입니다."
+  },
+  "references": [
+    "Whitney, D. E. (1969). Resolved motion rate control of manipulators and human prostheses. IEEE Transactions on Man-Machine Systems, 10(2), 47–53.",
+    "Liégeois, A. (1977). Automatic supervisory control of the configuration and behavior of multibody mechanisms. IEEE Transactions on Systems, Man, and Cybernetics, 7(12), 868–871.",
+    "Nakamura, Y. (1991). Advanced Robotics: Redundancy and Optimization. Addison-Wesley.",
+    "Siciliano, B., Sciavicco, L., Villani, L., & Oriolo, G. (2009). Robotics: Modelling, Planning and Control. Springer."
+  ]
+}
