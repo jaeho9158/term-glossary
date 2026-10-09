@@ -1,0 +1,58 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "생식선이나 골수처럼 민감도가 높은 장기는 더 큰 가중치를 부여받아 유효선량 계산에 더 크게 반영된다.",
+      "replace": "적색골수·결장·폐·위·유방처럼 민감도가 높다고 평가된 조직은 더 큰 가중치(ICRP 103에서 각 0.12)를 받아 유효선량에 더 크게 반영된다. 생식선 가중치는 ICRP 60의 0.20에서 ICRP 103의 0.08로 낮아졌다."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>정의식: E = Σ<sub>T</sub> w<sub>T</sub> · H<sub>T</sub>, H<sub>T</sub> = Σ<sub>R</sub> w<sub>R</sub> · D<sub>T,R</sub>. 조직·장기 T가 받은 흡수선량 D에 방사선 가중치 w<sub>R</sub>를 곱해 [[equivalent-dose|등가선량]]을 얻고, 여기에 조직 가중치 w<sub>T</sub>를 곱해 합산합니다([[absorbed-dose|흡수선량]], [[tissue-weighting-factor|조직가중치]] 참조).</li><li>단위는 시버트(Sv)이고 의료 영상에서는 mSv를 흔히 씁니다.</li><li>ICRP 103(2007)의 조직가중치는 적색골수·결장·폐·위·유방과 나머지 조직 각 0.12, 생식선 0.08, 방광·식도·간·갑상선 각 0.04, 뼈표면·뇌·침샘·피부 각 0.01이며 합이 1입니다. 이전 권고(ICRP 60, 1990)는 값이 달랐으므로(예: 생식선 0.20) 어느 판을 썼는지 확인해야 합니다.</li><li>방사선방호를 위해 만든 양이며 기준 인체 모델(남녀·연령 평균)에 대한 값입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>아래는 계산 방식을 보여 주는 가상의 예입니다. 장기별 등가선량(mSv)이 폐 6, 위 4, 결장 3, 유방 5, 적색골수 2, 간 3, 갑상선 1, 나머지 조직 평균 1이고 다른 조직은 0이라고 가정하면(ICRP 103 가중치 사용, 코드로 계산):</p><p>E = 0.12 × (6 + 4 + 3 + 5 + 2) + 0.04 × (3 + 1) + 0.12 × 1 = 2.40 + 0.16 + 0.12 = <strong>2.68 mSv</strong>.</p><p>해석 시 자주 쓰는 참고 수준: 일반인의 연간 선량한도 권고는 1 mSv(의료 피폭 제외), 자연방사선에 의한 세계 평균 연간 피폭은 약 2.4 mSv로 보고됩니다(UNSCEAR). 검사 간 비교는 대략의 크기 차이를 보는 용도입니다. 선량 한도·기준은 국가 법령과 판에 따라 다를 수 있으니 원문 규정을 확인하세요.</p><p>개별 환자의 암 위험을 계산하는 값은 아닙니다. ICRP는 유효선량이 집단 수준의 방호 관리를 위한 양이라고 설명합니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>선량을 <strong>직접 측정한 값이 아니라 모형으로 계산한 값</strong>임을 밝히고, 사용한 가중치 판(ICRP 60/103), 팬텀·전산 모형, 환산 계수(예: 선량길이곱 → 유효선량 계수)를 적습니다.</li><li>단위(mSv)와 대상(환자·종사자·집단), 검사 조건(관전압, 스캔 범위 등)을 함께 제시합니다.</li><li>핵의학에서는 투여 방사능당 유효선량 계수(mSv/MBq)에 투여량을 곱하는 방식이 널리 쓰입니다. 소아는 체중·연령별 계수를 따로 씁니다.</li><li>개별 환자의 위험으로 해석하지 말고, 같은 검사 방식 사이의 상대 비교나 집단 평균으로 설명합니다. 유효선량을 [[alara-principle|ALARA 원칙]]에 따른 최적화의 지표로 쓴다고 쓰는 것이 일반적입니다.</li></ul><p>독성학·약리학의 효과용량(ED<sub>50</sub> 등)과는 이름만 비슷한 별개 개념입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "양",
+      "무엇을 반영하나",
+      "단위"
+    ],
+    "rows": [
+      [
+        "[[absorbed-dose|흡수선량]]",
+        "단위 질량이 흡수한 에너지",
+        "Gy"
+      ],
+      [
+        "[[equivalent-dose|등가선량]]",
+        "흡수선량 × 방사선 종류 가중치",
+        "Sv"
+      ],
+      [
+        "[[effective-dose|유효선량]]",
+        "등가선량 × 조직 가중치의 합(전신 환산)",
+        "Sv"
+      ],
+      [
+        "유효용량(ED₅₀, 독성학)",
+        "약물이 절반에서 효과를 내는 용량",
+        "mg/kg 등 — 방사선 선량과 별개"
+      ]
+    ]
+  },
+  "references": [
+    "International Commission on Radiological Protection. (2007). The 2007 Recommendations of the International Commission on Radiological Protection. ICRP Publication 103. Annals of the ICRP, 37(2–4).",
+    "International Commission on Radiological Protection. (1991). 1990 Recommendations of the International Commission on Radiological Protection. ICRP Publication 60. Annals of the ICRP, 21(1–3).",
+    "United Nations Scientific Committee on the Effects of Atomic Radiation. (2010). Sources and Effects of Ionizing Radiation: UNSCEAR 2008 Report to the General Assembly, Volume I. United Nations."
+  ]
+}

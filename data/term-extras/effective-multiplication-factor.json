@@ -1,0 +1,47 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>k<sub>eff</sub> = (한 세대에서 생기는 핵분열 중성자 수) / (앞 세대에서 사라지는 중성자 수, 흡수와 누설의 합). 중성자의 생산과 소멸 비율이므로 단위가 없는 양수입니다.</li><li>육인수(6인수) 공식으로 쓰면 k<sub>eff</sub> = η f p ε · P<sub>FNL</sub> · P<sub>TNL</sub>입니다. 앞 네 항의 곱이 [[infinite-multiplication-factor|무한증배계수]] k<sub>∞</sub>이고, 뒤의 두 항은 고속·열중성자가 노심 밖으로 새지 않을 확률(비누설확률)입니다. 그래서 k<sub>eff</sub> ≤ k<sub>∞</sub>입니다.</li><li>[[reactivity|반응도]]는 ρ = (k<sub>eff</sub> − 1) / k<sub>eff</sub>로 정의되며, 흔히 pcm(10<sup>−5</sup>)이나 %Δk/k로 나타냅니다.</li><li>k<sub>eff</sub>는 연료 조성, 감속재 온도·밀도, 붕소 농도, 제어봉 위치, 연소도에 따라 변합니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>k<sub>eff</sub> &lt; 1 (미임계)</strong>: 세대마다 중성자가 줄어 연쇄반응이 잦아듭니다.</li><li><strong>k<sub>eff</sub> = 1 (임계)</strong>: 중성자 수가 일정하게 유지됩니다. 정상 출력 운전의 기준입니다([[criticality|임계]] 참조).</li><li><strong>k<sub>eff</sub> &gt; 1 (초임계)</strong>: 중성자가 늘어납니다. 실제 원자로는 지연중성자 덕분에 시간 변화가 세대 계산보다 훨씬 느려 제어가 가능합니다.</li></ul><p>아래는 가상의 값으로 계산한 예입니다(실제 노심 값이 아닙니다). η = 1.65, f = 0.71, p = 0.87, ε = 1.02이면 k<sub>∞</sub> = 1.0396이고, 비누설확률 0.96을 곱하면 k<sub>eff</sub> ≈ 0.998, 반응도는 약 −200 pcm입니다. k<sub>eff</sub>가 0.98이면 ρ ≈ −2,041 pcm입니다.</p><table><thead><tr><th>k<sub>eff</sub></th><th>10세대 후</th><th>100세대 후</th><th>1,000세대 후</th></tr></thead><tbody><tr><td>0.98</td><td>0.817배</td><td>0.133배</td><td>약 0배</td></tr><tr><td>1.001</td><td>1.010배</td><td>1.105배</td><td>2.717배</td></tr><tr><td>1.01</td><td>1.105배</td><td>2.705배</td><td>약 20,959배</td></tr></tbody></table><p>작은 차이도 세대가 쌓이면 크게 벌어지기 때문에 k<sub>eff</sub>는 소수점 아래 다섯 자리 수준의 정밀도로 논의됩니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>k<sub>eff</sub>는 <strong>전산 코드로 계산한 값</strong>으로 보고하는 경우가 많습니다. 코드와 버전(예: 몬테카를로 코드, 노심 해석 코드), 핵자료 라이브러리, 단면적 처리 방식을 적습니다.</li><li>몬테카를로 계산이라면 세대(사이클) 수, 세대당 입자 수, 건너뛴 초기 세대 수, 그리고 <strong>통계 불확실성(1σ, pcm)</strong>을 함께 씁니다.</li><li>계산 조건(온도, 붕소 농도, 제어봉 위치, 연소도, 형상)을 명시합니다.</li><li>값은 소수점 아래 4~5자리로 쓰고, 임계실험이나 벤치마크와 비교했다면 차이를 pcm으로 제시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "양",
+      "의미",
+      "값의 기준"
+    ],
+    "rows": [
+      [
+        "[[effective-multiplication-factor|유효증배계수]] keff",
+        "누설을 반영한 실제 노심의 중성자 증가율",
+        "1이면 임계"
+      ],
+      [
+        "[[infinite-multiplication-factor|무한증배계수]] k∞",
+        "누설이 없다고 본 이상적인 값",
+        "keff보다 크거나 같음"
+      ],
+      [
+        "[[reactivity|반응도]] ρ",
+        "임계에서 벗어난 정도 (k − 1) / k",
+        "0이면 임계"
+      ]
+    ]
+  },
+  "references": [
+    "Duderstadt, J. J., & Hamilton, L. J. (1976). Nuclear Reactor Analysis. Wiley.",
+    "Lamarsh, J. R., & Baratta, A. J. (2001). Introduction to Nuclear Engineering (3rd ed.). Prentice Hall.",
+    "Stacey, W. M. (2007). Nuclear Reactor Physics (2nd ed.). Wiley-VCH."
+  ]
+}

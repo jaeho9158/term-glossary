@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/euclidean-distance-gis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>두 점 사이의 직선거리는 계산이 단순하고 자료 요구가 적어, 근접성 분석과 <a href="buffer-analysis.html">버퍼 분석</a>, 최근접 시설 탐색의 기본값으로 쓰입니다. 자료가 부족한 지역이나 대규모 탐색 단계에서 빠른 근사치를 얻는 데 유용합니다. 정밀한 접근성 분석이 필요 없는 초기 탐색 단계나, 도로 자료가 아예 없는 지역의 근사 분석에 실무적으로 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>평면 좌표 (x₁, y₁), (x₂, y₂) 사이 직선거리: d = √((x₂ − x₁)² + (y₂ − y₁)²). 단위는 좌표계의 단위(보통 m)이며 0 이상입니다. 두 점이 같으면 0입니다.</li><li>GIS의 “유클리드 거리” 도구는 래스터의 각 셀에서 가장 가까운 원천 객체까지의 직선거리를 셀마다 계산한 격자를 만듭니다. 계산은 셀 중심 사이의 거리로 근사합니다.</li><li><strong>좌표계가 중요합니다.</strong> 경위도(도 단위) 값에 그대로 적용하면 단위가 도(°)라 거리로 해석할 수 없습니다. 투영 좌표계(<a href="projected-coordinate-system.html">투영좌표계</a>)로 바꾼 뒤 계산하거나, 넓은 범위에서는 <a href="great-circle-route.html">대원</a> 거리(구면 거리)를 씁니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>서울시청(약 37.5663°N, 126.9779°E)과 부산시청(약 35.1796°N, 129.0756°E) 사이를 비교한 예입니다(좌표는 어림값, 코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계산 방식</th><th>결과</th><th>의미</th></tr></thead><tbody><tr><td>경위도를 그대로 대입한 유클리드 거리</td><td>3.18 (도)</td><td>거리로 해석 불가</td></tr><tr><td>구면(하버사인) 거리, 지구 반지름 6,371.0 km</td><td>약 325 km</td><td>지구 곡률 반영한 직선(대권) 거리</td></tr></tbody></table></div><p>좁은 지역(도시 규모)에서는 투영 좌표계의 평면 거리와 구면 거리의 차이가 작지만, 투영 왜곡 때문에 범위가 넓어질수록 차이가 커집니다. 실제 이동거리는 도로·지형을 따르므로 직선거리보다 대개 깁니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>쓴 <strong>좌표계(투영법·EPSG 코드)</strong>와 거리 계산 방식(평면/구면), 래스터 셀 크기를 적습니다.</li><li>접근성·시설 분석에서는 직선거리를 <strong>근사치</strong>로 밝히고, 가능하면 <a href="network-distance.html">네트워크거리</a>와 비교해 오차(예: 도로망 거리와의 비율)를 함께 보고합니다.</li><li>보건 접근성 연구는 직선거리와 주행거리가 상관은 높지만 도시·농촌에서 차이가 달라진다고 보고합니다(Phibbs &amp; Luft, 1995; Boscoe 외, 2012). 대상 지역 특성을 설명하세요.</li><li>버퍼 분석의 반경도 같은 거리 개념을 쓰므로 단위(m, km)를 명시합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">가장 가까운 응급실까지의 유클리드거리를 계산하고, 실제 도로망 기반 네트워크거리와 비교하였다.</div>
   <p>유클리드거리는 계산이 간단하지만 실제 이동경로(도로, 지형)를 반영하지 못한다는 한계가 있다.</p>
 
@@ -161,6 +179,18 @@
 
   <h2>주의할 점</h2>
   <p>유클리드거리는 실제 이동거리보다 과소평가되는 경향이 있어 접근성분석에는 네트워크거리가 더 적합할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">거리</th><th scope="col">경로</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>유클리드거리</strong></th><td>직선(평면 좌표 위)</td><td>좌표만으로 계산, 지형·도로 무시</td></tr><tr><th scope="row"><a href="network-distance.html">네트워크거리</a></th><td>도로·하천 등 연결망을 따라</td><td>실제 이동에 가까우나 망 자료 필요</td></tr><tr><th scope="row"><a href="great-circle-route.html">대원 거리</a></th><td>구면 위 최단</td><td>지구 곡률 반영, 넓은 범위에 사용</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Longley, P. A., Goodchild, M. F., Maguire, D. J., &amp; Rhind, D. W. (2015). Geographic Information Science and Systems (4th ed.). Wiley.</li>
+    <li>Phibbs, C. S., &amp; Luft, H. S. (1995). Correlation of travel time on roads versus straight line distance. Medical Care Research and Review, 52(4), 532–542.</li>
+    <li>Boscoe, F. P., Henry, K. A., &amp; Zdeb, M. S. (2012). A nationwide comparison of driving distance versus straight-line distance to hospitals. The Professional Geographer, 64(2), 188–196.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

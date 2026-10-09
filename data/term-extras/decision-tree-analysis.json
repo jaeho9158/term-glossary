@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>구조 그리기</strong>: 의사결정 마디(사각형, 내가 고르는 곳), 우연 마디(원, 불확실한 사건), 끝마디(결과)로 나무를 그립니다.</li><li><strong>숫자 채우기</strong>: 우연 마디의 가지마다 확률을, 가지·끝마디마다 현금흐름(비용·수익)을 적습니다.</li><li><strong>후진귀납</strong>: 끝에서부터 거슬러 올라가며 우연 마디는 기대값(확률 가중 평균)으로, 의사결정 마디는 기대값이 큰 가지로 대체합니다. 선택되지 않은 가지는 가지치기됩니다.</li><li><strong>해석</strong>: 뿌리의 기대값이 첫 결정의 가치이고, 선택된 경로가 최적 전략입니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>단계별로 투자를 멈출 수 있는 신약개발을 가상의 숫자로 단순화한 예입니다(할인은 생략, 단위 억원, 코드로 계산).</p><table><thead><tr><th>단계</th><th>비용</th><th>성공 확률</th><th>성공 시 가치</th></tr></thead><tbody><tr><td>임상 1상</td><td>10</td><td>0.6</td><td>2상 진행</td></tr><tr><td>임상 2상</td><td>20</td><td>0.4</td><td>상업화 가치 300</td></tr></tbody></table><p>2상 마디의 기대값은 −20 + 0.4 × 300 = <strong>100</strong>으로 0보다 크므로 2상을 진행합니다. 1상 마디의 기대값은 −10 + 0.6 × 100 = <strong>50</strong>입니다. 이 값이 양수이므로 이 가정 아래서는 1상부터 시작하는 것이 유리합니다.</p><p>성공 확률이 0.2로 낮아지면 2상 기대값이 −20 + 0.2 × 300 = 40으로 줄어 1상 기대값도 −10 + 0.6 × 40 = 14가 됩니다. 확률 하나가 결론을 좌우하므로 민감도 분석을 함께 보여 주는 것이 좋습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>나무 그림과 함께 <strong>확률의 출처</strong>(문헌, 전문가 판단, 과거 자료)와 현금흐름의 가정을 적습니다.</li><li>시간가치를 반영했다면 <strong>할인율</strong>을 밝힙니다. 마디마다 위험이 다른데 하나의 할인율을 쓰는 한계는 실물옵션 분석([[real-options-analysis|실물옵션분석]])과 비교해 논의되곤 합니다.</li><li>기대값만이 아니라 결과의 분포(최악·최선 경로)와 민감도 분석 결과를 제시합니다.</li><li>[[expected-value-of-perfect-information|완전정보의 기대가치]]를 함께 계산하면 정보를 더 얻는 데 쓸 수 있는 비용의 상한을 알 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "목적",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[decision-tree-analysis|의사결정나무분석(재무·의사결정)]]",
+        "최적 대안 선택",
+        "확률·현금흐름을 나무로 펼쳐 기대값을 비교"
+      ],
+      [
+        "의사결정나무(기계학습)",
+        "분류·예측",
+        "자료를 변수 기준으로 나눠 규칙을 학습하는 알고리즘, 이름만 같음"
+      ],
+      [
+        "[[real-options-analysis|실물옵션분석]]",
+        "경영 유연성의 가치 평가",
+        "위험중립 확률 등 옵션 이론으로 가치를 매김"
+      ]
+    ]
+  },
+  "references": [
+    "Magee, J. F. (1964). Decision trees for decision making. Harvard Business Review, 42(4), 126–138.",
+    "Raiffa, H. (1968). Decision Analysis: Introductory Lectures on Choices under Uncertainty. Addison-Wesley.",
+    "Brandão, L. E., Dyer, J. S., & Hahn, W. J. (2005). Using binomial decision trees to solve real-option valuation problems. Decision Analysis, 2(2), 69–88."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>특성 음향임피던스 Z = ρ · c (ρ: 매질 밀도, c: 매질 내 음속). 단위는 Rayl(kg·m<sup>−2</sup>·s<sup>−1</sup>)이며 의료 초음파에서는 MRayl(10<sup>6</sup> Rayl)를 씁니다.</li><li>두 매질 경계에 수직으로 닿는 초음파의 <strong>강도 반사계수</strong>는 R = ((Z<sub>2</sub> − Z<sub>1</sub>) / (Z<sub>2</sub> + Z<sub>1</sub>))², 투과 비율은 1 − R입니다.</li><li>값의 범위는 0~1입니다. 임피던스가 같으면 R = 0(반사 없음), 차이가 클수록 1에 가까워집니다.</li><li>비스듬히 닿는 경우에는 입사각에 따라 굴절과 반사가 달라지며, 위 식은 수직 입사에 대한 것입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>교재에서 흔히 쓰는 어림값(밀도·음속)으로 계산한 예입니다(코드로 계산).</p><table><thead><tr><th>경계</th><th>Z₁, Z₂ (MRayl)</th><th>반사되는 강도</th></tr></thead><tbody><tr><td>지방 → 근육</td><td>1.38, 1.66</td><td>약 0.85%</td></tr><tr><td>물 → 근육</td><td>1.48, 1.66</td><td>약 0.33%</td></tr><tr><td>근육 → 뼈</td><td>1.66, 7.75</td><td>약 41.9%</td></tr><tr><td>근육 → 공기</td><td>1.66, 0.0004</td><td>약 99.9%</td></tr></tbody></table><p>연조직끼리는 반사가 작아 여러 층을 지나 영상이 만들어지고, 뼈와 공기에서는 대부분이 반사되어 그 뒤쪽이 가려집니다. 탐촉자와 피부 사이에 젤을 쓰는 것은 공기층을 없애 이 큰 반사를 피하기 위해서입니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>값을 쓸 때는 <strong>출처(문헌, 조직 모형)와 온도, 주파수</strong>를 밝힙니다. 조직의 음속·밀도는 개체와 병리 상태에 따라 달라집니다.</li><li>단위(MRayl)를 적고, 반사율은 강도 기준인지 진폭 기준인지 구분합니다.</li><li>영상 연구에서는 음향임피던스 차이만으로 밝기를 설명하지 않습니다. 산란, 감쇠, 탐촉자 주파수도 영향을 줍니다. 조직이 보이는 밝기는 [[echogenicity|에코발생성]]이라는 영상 소견으로 따로 서술합니다.</li><li>팬텀 제작이나 시뮬레이션에서는 각 재질의 음향임피던스를 표로 제시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "차원"
+    ],
+    "rows": [
+      [
+        "[[acoustic-impedance|음향임피던스]]",
+        "매질의 물성(밀도 × 음속)",
+        "물리량(MRayl)"
+      ],
+      [
+        "[[echogenicity|에코발생성]]",
+        "영상에서 조직이 얼마나 밝게 보이는지",
+        "영상 소견(고에코·저에코)"
+      ]
+    ]
+  },
+  "references": [
+    "Hedrick, W. R., Hykes, D. L., & Starchman, D. E. (2005). Ultrasound Physics and Instrumentation (4th ed.). Elsevier Mosby.",
+    "Kinsler, L. E., Frey, A. R., Coppens, A. B., & Sanders, J. V. (2000). Fundamentals of Acoustics (4th ed.). Wiley.",
+    "Szabo, T. L. (2014). Diagnostic Ultrasound Imaging: Inside Out (2nd ed.). Academic Press."
+  ]
+}

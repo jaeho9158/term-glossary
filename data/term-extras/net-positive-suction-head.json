@@ -1,0 +1,47 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>NPSH는 펌프 흡입구에서 액체의 전수두(압력수두 + 속도수두)가 증기압수두를 얼마나 웃도는지를 나타내는 길이 단위(m) 양입니다: NPSH = p<sub>s</sub>/(ρg) + v<sub>s</sub>²/(2g) − p<sub>v</sub>/(ρg).</li><li><strong>NPSHa(이용 가능)</strong>는 설치 조건(탱크 압력, 높이차, 배관 손실, 액체 온도)으로 정해지는 계 쪽 값입니다. 탱크가 대기에 열려 있는 단순한 경우 NPSHa = (p<sub>atm</sub> − p<sub>v</sub>)/(ρg) − z<sub>s</sub> − h<sub>f</sub>입니다(z<sub>s</sub>는 흡상 높이, 액면보다 펌프가 낮으면 음수, h<sub>f</sub>는 흡입 배관의 손실수두).</li><li><strong>NPSHr(요구)</strong>는 펌프 쪽 값으로, 제조사가 시험으로 얻습니다. 흔히 NPSH3 — 캐비테이션으로 양정이 3% 떨어지는 지점의 NPSH — 로 정의합니다. 유량이 늘수록 커집니다.</li><li>안전한 운전은 NPSHa가 NPSHr을 충분한 여유를 두고 웃도는 경우입니다([[cavitation|캐비테이션]] 참조).</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>표준 대기압 101.325 kPa의 열린 탱크에서 흡상 높이 3 m, 배관 손실 0.5 m라고 가정한 가상의 계산입니다(코드로 계산).</p><table><thead><tr><th>물 온도</th><th>증기압</th><th>밀도</th><th>NPSHa</th></tr></thead><tbody><tr><td>20 °C</td><td>2.339 kPa</td><td>998.2 kg/m³</td><td>약 6.61 m</td></tr><tr><td>80 °C</td><td>47.39 kPa</td><td>971.8 kg/m³</td><td>약 2.16 m</td></tr></tbody></table><p>온도가 오르면 증기압이 급격히 커져 NPSHa가 약 4.5 m 줄었습니다. 같은 펌프의 NPSHr이 3 m라면 20 °C에서는 여유가 있지만 80 °C에서는 부족해 캐비테이션 위험이 생깁니다. 여유(마진)를 얼마나 둘지는 용도와 기준서에 따라 다릅니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>NPSHa, NPSHr 모두 단위(m)와 <strong>기준 유량, 액체, 온도, 기준면(임펠러 중심 등)</strong>을 적습니다.</li><li>NPSHr은 “3% 양정 저하 기준”처럼 정의를 밝힙니다. 캐비테이션이 시작되는 지점(초생 캐비테이션)은 이보다 높은 NPSH에서 일어날 수 있습니다.</li><li>시험 결과는 유량별 NPSHr 곡선으로, 설치 조건은 NPSHa 계산 가정과 함께 제시합니다. [[pump-performance-curve|펌프 성능곡선]]과 같은 그림에 겹쳐 보여 주는 경우가 많습니다.</li><li>“NPSHa &gt; NPSHr”만 쓰지 말고 확보한 여유(m 또는 비율)와 그 근거를 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "양",
+      "정해지는 곳",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "NPSHa",
+        "설치 계(탱크, 배관, 액체 온도)",
+        "흡입구에서 실제로 확보된 압력 여유"
+      ],
+      [
+        "NPSHr",
+        "펌프 설계·시험",
+        "펌프가 캐비테이션 없이 요구하는 최소 압력 여유"
+      ],
+      [
+        "[[cavitation-number|캐비테이션수]]",
+        "국부 압력·증기압·동압",
+        "압력 여유를 동압으로 나눠 무차원화한 지표"
+      ]
+    ]
+  },
+  "references": [
+    "Karassik, I. J., Messina, J. P., Cooper, P., & Heald, C. C. (Eds.). (2008). Pump Handbook (4th ed.). McGraw-Hill.",
+    "Brennen, C. E. (1994). Hydrodynamics of Pumps. Concepts ETI and Oxford University Press.",
+    "Gülich, J. F. (2020). Centrifugal Pumps (4th ed.). Springer."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>유전자 드라이브는 멘델의 분리 법칙에서 기대되는 50%보다 높은 확률로 특정 유전 요소가 자손에게 전달되게 하는 <strong>편향된 유전(전달 왜곡)</strong>입니다. 자연에도 비슷한 이기적 유전 요소가 있으며, 번트(Burt, 2003)가 이런 요소를 개체군 조절에 쓰자고 제안했습니다.</li><li>CRISPR-Cas 기반 “호밍(homing)” 드라이브는 이형접합체의 생식세포에서 드라이브 대립유전자가 짝 염색체의 해당 서열을 절단하고, 세포의 상동재조합 복구가 이를 복제해 넣어 <strong>이형접합을 동형접합으로 바꾸는</strong> 원리라고 설명됩니다([[crispr-cas9|CRISPR-Cas9]] 참조).</li><li>목적에 따라 <strong>개체군 억제</strong>(번식에 필요한 유전자를 무너뜨려 개체 수 감소)와 <strong>개체군 변형</strong>(질병 전파 능력을 낮추는 형질 확산)으로 나눕니다.</li><li>드라이브 효율이 e라면 이형접합 개체가 드라이브 대립유전자를 물려줄 확률은 (1 + e) / 2입니다. e = 0이면 멘델 전달(50%), e = 1이면 100%입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>개념을 이해하기 위한 가상의 단순 모형입니다. 무작위 교배, 적합도 비용 없음, 저항성 대립유전자 없음을 가정하면 드라이브 대립유전자 빈도 p는 다음 세대에 p′ = p² + p(1 − p)(1 + e)로 바뀝니다. 빈도 1%에서 출발해 코드로 계산한 결과는 아래와 같습니다.</p><table><thead><tr><th>드라이브 효율 e</th><th>빈도가 90%를 넘는 세대</th></tr></thead><tbody><tr><td>0 (멘델 전달)</td><td>변화 없음(1% 유지)</td></tr><tr><td>0.5</td><td>15세대</td></tr><tr><td>0.9</td><td>9세대</td></tr><tr><td>0.95</td><td>9세대</td></tr></tbody></table><p>효율이 높으면 빈도가 몇 세대 만에 급격히 오르지만, 이 모형은 현실을 크게 단순화한 것입니다. 실제 연구는 적합도 비용, 저항성 대립유전자의 출현, 개체군 구조, 이동을 함께 고려합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>드라이브를 넣으면 반드시 전체로 퍼진다.</td><td>적합도 비용, 저항성 대립유전자(복구 과정의 변이 등), 개체군 구조 때문에 확산이 멈추거나 실패할 수 있다고 보고됩니다.</td></tr><tr><td>모든 유전자 편집이 드라이브다.</td><td>일반 CRISPR 편집은 편집된 개체에만 영향을 줍니다. 드라이브는 후손 세대로 퍼지도록 설계된 경우를 가리킵니다.</td></tr><tr><td>효과와 위험이 이미 검증되었다.</td><td>대부분 실험실·모형 수준의 연구이며, 논문들은 단계적 시험과 규제, 사회적 합의를 함께 강조합니다.</td></tr></tbody></table><p>생태 영향과 이중용도 문제는 [[dual-use-research-of-concern|이중용도우려연구]]와 [[biosecurity-research|생물안보 연구]] 맥락에서도 논의됩니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇이 퍼지나",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[gene-drive|유전자 드라이브]]",
+        "특정 유전 요소",
+        "편향된 유전으로 집단에 확산시키는 현상·기술 전반"
+      ],
+      [
+        "[[crispr-cas9|CRISPR-Cas9]]",
+        "(확산 없음)",
+        "DNA를 자르는 편집 도구, 드라이브의 구성 요소로 쓰일 수 있음"
+      ],
+      [
+        "[[off-target-effect-crispr|표적 이탈 효과]]",
+        "의도하지 않은 편집",
+        "드라이브 안전성 평가에서 확인하는 항목"
+      ]
+    ]
+  },
+  "references": [
+    "Burt, A. (2003). Site-specific selfish genes as tools for the control and genetic engineering of natural populations. Proceedings of the Royal Society B: Biological Sciences, 270(1518), 921–928.",
+    "Esvelt, K. M., Smidler, A. L., Catteruccia, F., & Church, G. M. (2014). Concerning RNA-guided gene drives for the alteration of wild populations. eLife, 3, e03401.",
+    "Gantz, V. M., & Bier, E. (2015). The mutagenic chain reaction: A method for converting heterozygous to homozygous mutations. Science, 348(6233), 442–444.",
+    "Hammond, A., Galizi, R., Kyrou, K., Simoni, A., Siniscalchi, C., Katsanos, D., Gribble, M., Baker, D., Marois, E., Russell, S., Burt, A., Windbichler, N., Crisanti, A., & Nolan, T. (2016). A CRISPR-Cas9 gene drive system targeting female reproduction in the malaria mosquito vector Anopheles gambiae. Nature Biotechnology, 34(1), 78–83.",
+    "National Academies of Sciences, Engineering, and Medicine. (2016). Gene Drives on the Horizon: Advancing Science, Navigating Uncertainty, and Aligning Research with Public Values. National Academies Press."
+  ]
+}
