@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>신경과학 연구의 상당수는 개별 뉴런이 언제, 얼마나 자주 발화하는지를 근거로 결론을 도출하는데, 세포외 전극은 여러 뉴런의 신호를 한꺼번에 기록하기 때문에 스파이크 정렬 없이는 "이 발화가 어느 뉴런에서 왔는지" 알 수 없습니다. 따라서 단일세포 수준의 부호화, 신경회로 연결성, 행동과의 상관관계를 다루는 논문에서는 스파이크 정렬의 정확도가 이후 모든 분석 결과의 신뢰성을 좌우하는 전제 조건이 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>필터링</strong>: 세포 밖 기록 신호에서 스파이크가 있는 높은 주파수 대역(흔히 수백 Hz~수 kHz)만 남깁니다. 낮은 주파수는 <a href="local-field-potential.html">국소장전위</a>로 따로 분석합니다.</li><li><strong>검출</strong>: 잡음 수준보다 큰 사건을 찾습니다. Quiroga 등(2004)은 임계값을 잡음 표준편차의 4배로 두고, 잡음 표준편차를 신호의 절댓값 중앙값 ÷ 0.6745로 추정하는 방식을 제안했습니다. 중앙값을 쓰면 스파이크가 많아도 잡음 추정치가 부풀지 않습니다.</li><li><strong>파형 정렬과 특징 추출</strong>: 스파이크 파형을 같은 기준점에 맞추고 진폭, 폭, 주성분, 웨이블릿 계수 같은 특징으로 요약합니다. 테트로드나 다채널 프로브는 여러 채널에서의 진폭 비율도 단서가 됩니다.</li><li><strong>군집화</strong>: 비슷한 특징을 가진 스파이크를 한 뉴런으로 묶습니다. k-평균, 혼합 모형, 초상자성 군집화, 파형 템플릿을 맞춰 보는 방식 등이 쓰입니다.</li><li><strong>품질 점검과 큐레이션</strong>: 자동 결과를 사람이 검토해 병합·분할·제거를 하고, 지표로 분리 정도를 점검합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>얻는 것</strong>: 개별 뉴런(단일 단위) 또는 구분이 불확실한 뉴런 무리(다중 단위)의 스파이크 시각. 이것으로 발화율, 수용장, 장소세포 지도, 뉴런 간 상관 등을 분석합니다.</li><li><strong>오류 유형</strong>: 다른 뉴런을 한 군집으로 합치는 오류, 한 뉴런을 둘로 나누는 오류, 동시에 발생한 스파이크의 누락. Harris 등(2000)은 세포 내 기록과 테트로드 기록을 동시에 얻어 분리 정확도를 직접 평가했습니다.</li><li><strong>품질 지표</strong>: 같은 뉴런은 활동전위 직후 불응기(대략 1~2 ms) 동안 다시 발화하지 못하므로, 한 군집 안에서 그 시간 안에 겹치는 스파이크가 많으면 여러 뉴런이 섞였다는 신호입니다(Hill 등, 2011). 군집 간 거리 지표(격리 거리, L-ratio)도 쓰입니다.</li><li><strong>드리프트</strong>: 전극이 조금씩 움직이면 파형이 변해 장시간 기록에서 군집이 흔들립니다. 고밀도 프로브에서는 이를 보정하는 알고리즘이 필요합니다.</li><li>스파이크 정렬 방법의 역사와 비교는 Lewicki(1998)와 Rey 등(2015)의 종설에 정리되어 있습니다.</li></ul><p><strong>가상의 예</strong>: 한 군집에 스파이크가 2,000개 있고 연속한 스파이크 간 간격이 2 ms 미만인 쌍이 6개라면, 위반 비율은 6 ÷ 1,999 ≈ 0.30%입니다(계산 코드로 확인). 어느 정도까지 허용할지는 연구마다 다른 관례이며, 비율이 낮아도 서로 비슷한 두 뉴런이 섞였을 가능성은 이 지표만으로 배제되지 않습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>기록 장치: 전극 종류(테트로드, 실리콘 프로브, Neuropixels 등), 채널 수, 샘플링 속도.</li><li>전처리: 필터 대역, 기준 신호(공통 평균 기준 등) 처리 방식.</li><li>검출 규칙: 임계값을 어떤 방식으로 정했는지(예: 잡음 표준편차의 몇 배).</li><li>정렬 도구: 소프트웨어 이름과 버전, 자동 정렬 후 수동 큐레이션을 했는지, 큐레이션 기준.</li><li>품질 기준과 결과: 불응기 위반 허용치, 격리 지표 기준, 기준 때문에 제외한 단위 수, 단일 단위와 다중 단위를 어떻게 구분해 분석했는지, 동물·세션별 단위 수.</li><li>예시 문장(가상): “신호는 300–6000 Hz로 필터링한 뒤 잡음 표준편차(중앙값 ÷ 0.6745로 추정)의 4배 임계값으로 스파이크를 검출했고, 자동 군집화 후 수동으로 검토했다. 불응기(2 ms) 위반이 1%를 넘는 군집은 다중 단위로 분류했다.”</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"세포외 전극으로 얻은 원시 신호는 스파이크 정렬(spike sorting)을 통해 개별 뉴런의 활동전위로 분리한 후 분석하였다."</div>
   <p>이 문장은 "여러 뉴런의 신호가 섞인 원시 기록을 알고리즘으로 나누어서, 각 뉴런이 언제 발화했는지를 개별적으로 파악했다"는 뜻입니다. 이렇게 분리된 결과는 이후 <a href="single-unit-recording.html">단일세포 기록법</a> 분석의 기초 자료로 쓰입니다.</p>
   <div class="example">"고밀도 실리콘 전극 어레이로 기록한 데이터는 반자동 스파이크 정렬 소프트웨어로 클러스터링한 뒤, 파형 일관성과 발화율 안정성을 기준으로 수동 검수를 병행하였다."</div>
@@ -165,6 +183,20 @@
 
   <h2>주의할 점</h2>
   <p>스파이크 정렬은 완벽하지 않습니다. 두 뉴런의 파형이 비슷하거나 신호가 겹치면 다른 뉴런의 스파이크를 같은 뉴런의 것으로 잘못 묶거나, 반대로 하나의 뉴런을 여러 개로 잘못 나눌 수 있습니다. 그래서 논문에서는 정렬 결과의 신뢰도(클러스터 분리도 등)를 함께 보고하는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">스파이크 정렬과 구별하는 점</th></tr></thead><tbody><tr><th scope="row">스파이크 정렬</th><td>세포 밖 기록에서 스파이크를 뉴런별로 분류</td><td>분석 방법(소프트웨어 처리)</td></tr><tr><th scope="row"><a href="tetrode-recording.html">테트로드 기록법</a></th><td>네 개의 전극선을 묶어 신호를 얻는 기록 기술</td><td>신호를 얻는 장치이며, 정렬은 그 신호를 분류하는 후속 단계</td></tr><tr><th scope="row"><a href="patch-clamp.html">패치클램프</a></th><td>한 뉴런의 막 전위·전류를 세포 내외에서 직접 기록</td><td>뉴런이 이미 하나로 확정되므로 정렬이 필요 없음</td></tr><tr><th scope="row"><a href="local-field-potential.html">국소장전위</a></th><td>많은 뉴런의 저주파 합산 신호</td><td>개별 뉴런으로 나누지 않는 신호</td></tr><tr><th scope="row"><a href="action-potential.html">활동전위</a></th><td>뉴런이 만드는 전기 신호 자체</td><td>정렬 대상이 되는 사건</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lewicki, M. S. (1998). A review of methods for spike sorting: the detection and classification of neural action potentials. Network: Computation in Neural Systems, 9(4), R53–R78.</li>
+    <li>Harris, K. D., Henze, D. A., Csicsvari, J., Hirase, H., &amp; Buzsáki, G. (2000). Accuracy of tetrode spike separation as determined by simultaneous intracellular and extracellular measurements. Journal of Neurophysiology, 84(1), 401–414.</li>
+    <li>Quiroga, R. Q., Nadasdy, Z., &amp; Ben-Shaul, Y. (2004). Unsupervised spike detection and sorting with wavelets and superparamagnetic clustering. Neural Computation, 16(8), 1661–1687.</li>
+    <li>Hill, D. N., Mehta, S. B., &amp; Kleinfeld, D. (2011). Quality metrics to accompany spike sorting of extracellular signals. Journal of Neuroscience, 31(24), 8699–8705.</li>
+    <li>Rey, H. G., Pedreira, C., &amp; Quiroga, R. Q. (2015). Past, present and future of spike sorting techniques. Brain Research Bulletin, 119, 106–117.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="extracellular-recording.html">세포외 기록법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="local-field-potential.html">국소장전위</a><a href="juxtacellular-recording.html">근세포 기록법</a><a href="single-unit-recording.html">단일세포 기록법</a><a href="tetrode-recording.html">테트로드 기록법</a></div></div><p class="concept-family-map"><a href="../concept-map/neuro.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
