@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "fixes": [
+    {
+      "find": "실시간 PCR(RT-PCR)을 수행하였으며",
+      "replace": "실시간 PCR(qPCR)을 수행하였으며"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>재료 섞기</strong>: 주형 DNA, 정방향·역방향 프라이머 한 쌍, 내열성 DNA 중합효소, dNTP, 완충액을 한 튜브에 섞습니다.</li><li><strong>열 순환</strong>: ① 변성(대개 94~98 °C, 이중가닥이 풀림) ② 결합(대개 50~65 °C, 프라이머가 달라붙음. 프라이머의 Tm보다 몇 도 낮게 정하는 것이 관행) ③ 신장(대개 68~72 °C, 중합효소가 새 가닥을 만듦). 이를 25~35회 반복합니다.</li><li><strong>증폭 원리</strong>: 이상적이면 한 번 돌 때마다 목표 조각이 2배가 됩니다. 가상의 예로 30회면 2³⁰ ≈ 1.07 × 10⁹배입니다. 효율이 90%라면 1.9³⁰ ≈ 2.3 × 10⁸배로 이상값의 약 1/5이며, 효율의 작은 차이가 사이클이 쌓일수록 크게 벌어집니다.</li><li><strong>끝 단계</strong>: 후반에는 기질 소모와 효소 활성 저하로 증폭이 포화(plateau)됩니다.</li></ol><p><strong>효소 선택</strong>: Taq 중합효소는 교정 기능(3′→5′ 엑소뉴클레아제)이 없어 속도는 빠르지만 오류율이 비교적 높습니다. 클로닝이나 서열 정확도가 중요하면 교정 기능이 있는 효소를 씁니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>정성 확인</strong>: 특정 유전자나 서열이 있는지를 [[agarose-gel-electrophoresis|아가로스 젤 전기영동]] 밴드로 확인합니다(유전자형 분석, 병원체 검출, 클론 확인).</li><li><strong>클로닝용 증폭</strong>: 목적 유전자를 플라스미드에 넣기 위해 제한효소 자리를 붙여 증폭합니다.</li><li><strong>정량</strong>: [[qpcr|실시간 정량 PCR]]은 증폭 중 형광을 측정합니다. 신호가 문턱을 넘는 사이클(Ct)이 작을수록 처음 주형이 많았다는 뜻입니다. 10배 희석 계열의 Ct를 그려 기울기에서 효율을 구합니다. 효율 E = 10^(−1/기울기) − 1이므로 기울기 −3.32이면 효율 100%, −3.58이면 약 90%입니다. 90~110%를 허용 범위로 삼는 지침이 흔하나 고정된 규칙은 아닙니다.</li><li><strong>RNA 분석</strong>: [[rt-pcr|RT-PCR]]은 RNA를 역전사로 cDNA로 만든 뒤 증폭합니다. 이름이 비슷한 실시간 PCR(real-time PCR)과 약어(RT)가 겹쳐 혼동하기 쉬우므로 논문에서 풀어 쓰는 것이 좋습니다.</li><li><strong>한계</strong>: 매우 민감해 극미량의 오염도 증폭됩니다. 음성 대조(주형 없는 반응)와 양성 대조가 필수입니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>적을 내용</strong>: 프라이머 서열과 표적, 주형의 종류와 양, 중합효소와 제조사, 반응 부피, 열 순환 조건(온도·시간·횟수), 기기 이름을 적습니다.</li><li><strong>대조군</strong>: 양성 대조, 음성 대조(주형 없음), 필요하면 추출 대조를 명시합니다.</li><li><strong>정량 PCR 보고</strong>: MIQE 지침(Bustin 등, 2009)은 시료 처리, RNA 품질, 역전사 조건, 프라이머 검증, 효율, 기준 유전자 안정성 등을 밝히도록 권고합니다. Ct 값만 적고 조건을 생략하면 재현이 어렵습니다.</li><li><strong>기준 유전자</strong>: 상대 정량에서는 처리에 영향을 받지 않는 내부 기준 유전자를 검증해야 합니다. 하나의 ‘하우스키핑 유전자’를 무비판적으로 쓰지 않는 것이 요구됩니다.</li><li><strong>해석</strong>: 밴드가 보인다는 것은 해당 서열이 시료에 있었다는 뜻일 뿐, 살아 있는 병원체나 발현 단백질이 있다는 뜻은 아닙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[pcr|PCR]]",
+        "DNA 특정 부위를 열 순환으로 증폭하는 기본 기법(말단 결과를 젤로 확인)"
+      ],
+      [
+        "[[qpcr|실시간 정량 PCR(qPCR)]]",
+        "증폭 중 형광을 측정해 시작 주형의 양을 추정"
+      ],
+      [
+        "[[rt-pcr|RT-PCR]]",
+        "역전사 단계를 앞에 붙여 RNA를 대상으로 하는 PCR(실시간 PCR과 혼동 주의)"
+      ],
+      [
+        "[[nucleic-acid-amplification-test|핵산 증폭 검사]]",
+        "병원체 진단 등에 쓰이는 PCR 계열을 포함한 검사 전체"
+      ]
+    ]
+  },
+  "references": [
+    "Saiki, R. K., et al. (1988). Primer-directed enzymatic amplification of DNA with a thermostable DNA polymerase. Science, 239, 487–491.",
+    "Mullis, K. B., & Faloona, F. A. (1987). Specific synthesis of DNA in vitro via a polymerase-catalyzed chain reaction. Methods in Enzymology, 155, 335–350.",
+    "Chien, A., Edgar, D. B., & Trela, J. M. (1976). Deoxyribonucleic acid polymerase from the extreme thermophile Thermus aquaticus. Journal of Bacteriology, 127, 1550–1557.",
+    "Bustin, S. A., et al. (2009). The MIQE guidelines: minimum information for publication of quantitative real-time PCR experiments. Clinical Chemistry, 55, 611–622."
+  ]
+}
