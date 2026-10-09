@@ -55,7 +55,14 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 </header>`;
 }
 
-function renderThemeInit() {
+// external: 용어 페이지 슬림 형식 — 인라인 대신 <script src> 한 줄(assets/site-head.js, theme-init + GA4 초기화).
+// 인라인 본문은 scripts/lib/slim-term-page.js 가 "슬림 전" 형태를 알아보는 기준이기도 하다.
+function renderThemeInit({ external } = {}) {
+  if (external) {
+    return `<!-- theme-init:start -->
+<script src="${external}"></script>
+<!-- theme-init:end -->`;
+  }
   return `<!-- theme-init:start -->
 <script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
 <!-- theme-init:end -->`;
