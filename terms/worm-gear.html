@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/worm-gear.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <p>웜기어는 큰 감속비와 자기잠금 특성을 동시에 제공하는 몇 안 되는 기계요소이기 때문에, 로봇 관절 구동부, 산업용 리프트, 자동화 설비 설계 논문에서 안전성과 동력 전달 방식을 함께 다룰 때 자주 등장합니다.</p>
   <p>별도의 브레이크 장치 없이도 역구동을 막을 수 있다는 점이 안전이 중요한 하중 지지 시스템 연구에서 특히 주목받으며, 낮은 전달 효율이라는 단점 때문에 효율 개선이나 대체 기어 방식과의 비교 연구 주제로도 다뤄집니다. 이런 이유로 웜기어는 기계공학과 로봇공학 양쪽에서 반복적으로 인용되는 대표적인 감속 장치입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어디에 있고 어떻게 생겼나</h2>
+  <ul><li><strong>구성</strong>: 나사산이 새겨진 원통형 막대인 웜(worm)과, 이에 맞물려 돌아가는 웜휠(worm wheel)로 이루어집니다. 두 축은 보통 서로 직각으로 엇갈립니다.</li><li><strong>줄 수</strong>: 웜을 한 바퀴 돌리면 웜휠은 웜의 나사산 줄 수(1줄, 2줄 …)만큼의 이가 넘어갑니다. 그래서 감속비 = 웜휠 잇수 ÷ 웜 줄 수입니다.</li><li><strong>접촉 방식</strong>: 평기어처럼 구르며 맞물리는 것이 아니라 미끄러지며 접촉하는 성분이 큽니다.</li></ul><p><strong>예 (가상의 설계값).</strong> 웜 줄 수 2, 웜휠 잇수 40이면 감속비는 40/2 = 20입니다. 입력이 1,500 rpm이면 출력은 75 rpm입니다. 한 단으로 이런 큰 감속비를 내는 것이 웜기어의 장점입니다.</p>
+
+  <h2>맡은 기능</h2>
+  <p><strong>자기잠금 가능성 계산.</strong> 모듈 2 mm, 웜 피치원 지름 28 mm라고 하고, 줄 수에 따른 리드각 λ = arctan(리드 ÷ π·지름)를 계산합니다. 마찰계수 μ = 0.1이면 마찰각 φ = arctan μ입니다. λ가 φ보다 작으면 웜휠이 웜을 돌리지 못하는 자기잠금이 성립할 수 있습니다. 효율은 나사 이론의 근사식 tan λ / tan(λ + φ)로 어림했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>웜 줄 수</th><th>리드</th><th>리드각 λ</th><th>마찰각 φ</th><th>판정</th><th>효율(근사)</th></tr></thead><tbody><tr><td>1</td><td>6.28 mm</td><td>4.09°</td><td>5.71°</td><td>자기잠금 조건 충족</td><td>41%</td></tr><tr><td>2</td><td>12.57 mm</td><td>8.13°</td><td>5.71°</td><td>역구동 가능성 있음</td><td>58%</td></tr></tbody></table></div><p>줄 수를 늘리면 감속비는 작아지고 리드각과 효율은 커지지만 자기잠금은 사라집니다. 베어링 손실, 속도에 따른 마찰 변화는 반영하지 않은 단순 계산이며, 실제 설계는 표준 계산법(예: Budynas &amp; Nisbett, 2015)을 따라야 합니다. 마찰계수는 윤활·속도·재질에 따라 달라지고, 정지 마찰과 운동 마찰도 다릅니다. 진동이 있으면 자기잠금이 풀릴 수 있어, 하중을 붙들어야 하는 안전 장치에서는 별도 제동 장치를 두는 경우가 많습니다.</p>
+
+  <h2>연구에서 다루는 방식</h2>
+  <ul><li><strong>어디에 쓰이나</strong>: 승강 장치, 로봇 관절, 컨베이어, 조율 장치(기타 헤드) 등 큰 감속비나 역구동 방지가 필요한 곳입니다.</li><li><strong>연구 주제</strong>: 치형 설계와 접촉 해석(Litvin &amp; Fuentes, 2004), 마찰·마모와 효율 개선(저마찰 코팅·윤활), 열 해석, 웜휠 재료(청동 등)입니다.</li><li><strong>논문에 적을 것</strong>: 모듈, 줄 수, 잇수, 리드각, 압력각, 재질, 윤활, 측정한 효율의 정의(입력·출력 토크 기준).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"승강 리프트의 구동부는 웜기어 방식을 채택하여, 전원이 차단되더라도 자기잠금 특성에 의해 하중이 역구동으로 낙하하지 않도록 설계하였다."</div>
   <p>이 문장은 승강 장치에 웜기어를 사용해서, 모터 전원이 갑자기 꺼지더라도 웜기어의 자기잠금 특성 덕분에 짐이 실린 채로 저절로 미끄러져 떨어지지 않도록 안전하게 설계했다는 뜻입니다.</p>
 
@@ -164,6 +182,18 @@
 
   <h2>주의할 점</h2>
   <p>웜기어는 셀프락킹과 큰 감속비라는 장점이 있지만, 웜과 웜휠 사이의 미끄럼 마찰이 커서 <a href="gear-ratio.html">기어비</a>가 같은 <a href="planetary-gear.html">유성기어</a>나 평기어 장치보다 동력 전달 효율이 낮고 마모와 발열이 심한 편입니다. 그래서 고속·고효율이 중요한 곳보다는 큰 감속비와 역회전 방지가 동시에 필요한 저속·고하중 구동부에 주로 쓰입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>감속 장치는 축 배치와 역구동 여부로 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">축 배치</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">웜기어</th><td>직각으로 엇갈림</td><td>큰 감속비, 자기잠금 가능, 효율 낮음</td></tr><tr><th scope="row"><a href="planetary-gear.html">유성기어</a></th><td>동축</td><td>작은 공간에 큰 감속비, 효율 높고 역구동 가능</td></tr><tr><th scope="row"><a href="bevel-gear-design.html">베벨기어</a></th><td>교차하는 두 축</td><td>방향 전환, 감속비는 크지 않음</td></tr><tr><th scope="row"><a href="gear-ratio.html">기어비</a></th><td>—</td><td>감속비를 나타내는 값. 웜기어에서는 웜휠 잇수 ÷ 웜 줄 수</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Budynas, R. G., &amp; Nisbett, J. K. (2015). Shigley’s Mechanical Engineering Design (10th ed.). McGraw-Hill Education.</li>
+    <li>Litvin, F. L., &amp; Fuentes, A. (2004). Gear Geometry and Applied Theory (2nd ed.). Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="gear-train.html">기어열</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="planetary-gear.html">유성기어</a><a href="differential-gear.html">차동장치 (Differential Gear)</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

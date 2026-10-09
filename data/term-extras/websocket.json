@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>정의</strong>: 하나의 TCP 연결을 열어 둔 채 클라이언트와 서버가 서로 먼저 메시지를 보낼 수 있게 하는 통신 규약입니다. 표준은 IETF의 RFC 6455입니다(Fette &amp; Melnikov, 2011).</li><li><strong>시작은 HTTP</strong>: 연결은 일반 HTTP 요청으로 시작해, 클라이언트가 Upgrade 헤더로 웹소켓 전환을 요청하고 서버가 상태 코드 101(프로토콜 전환)로 동의하면 이후부터 웹소켓 프레임을 주고받습니다. 주소 형식은 ws://와 wss://(TLS)입니다.</li><li><strong>메시지 단위</strong>: 데이터는 텍스트·바이너리 프레임으로 오가고, 연결 상태를 확인하는 ping/pong과 종료를 알리는 close 프레임이 있습니다. 클라이언트가 서버로 보내는 프레임은 마스킹해야 합니다.</li><li><strong>왜 쓰나</strong>: 폴링은 매번 요청 헤더를 보내고 서버가 먼저 말할 수 없는 반면, 웹소켓은 연결 하나로 지연과 반복 오버헤드를 줄일 수 있습니다. 구현 사례와 성능 논의는 Pimentel과 Nickerson(2012) 등에서 볼 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>핸드셰이크 계산(RFC 6455의 예시 키).</strong> 클라이언트는 임의의 값을 Sec-WebSocket-Key에 담아 보냅니다. 서버는 이 값 뒤에 규격이 정한 고정 문자열 258EAFA5-E914-47DA-95CA-C5AB0DC85B11을 이어 붙여 SHA-1 해시를 구하고 base64로 인코딩해 Sec-WebSocket-Accept로 돌려줍니다. 키 <code>dGhlIHNhbXBsZSBub25jZQ==</code>로 계산하면 <code>s3pPLMBiTxaQ9kYGzzhZRbK+xOo=</code>가 나오며, RFC에 실린 값과 같습니다. 이 절차는 인증이 아니라, 서버가 웹소켓 요청을 이해했는지 확인하려는 것입니다.</p><table><thead><tr><th>방식</th><th>누가 먼저 보내나</th><th>특징</th></tr></thead><tbody><tr><td>HTTP 폴링</td><td>클라이언트만</td><td>주기적으로 요청, 변경이 없어도 요청 비용 발생</td></tr><tr><td>롱 폴링</td><td>클라이언트만</td><td>응답을 붙잡아 두었다가 이벤트 때 응답</td></tr><tr><td>서버 전송 이벤트(SSE)</td><td>서버 → 클라이언트 단방향</td><td>HTTP 위에서 단순, 양방향은 아님</td></tr><tr><td>웹소켓</td><td>양쪽 모두</td><td>연결 유지, 양방향</td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>웹소켓은 HTTP를 대체한다.</td><td>HTTP로 시작해 전환하는 별개의 프로토콜이며, 일반 조회에는 HTTP가 적합합니다.</td></tr><tr><td>연결만 열면 메시지가 자동으로 안전하다.</td><td>암호화는 wss(TLS)로, 인증·권한은 별도로 구현해야 합니다.</td></tr><tr><td>연결 수가 늘어도 서버 부담은 같다.</td><td>열려 있는 연결마다 메모리와 소켓 자원을 쓰므로 동시 접속이 많으면 분산 설계가 필요합니다.</td></tr><tr><td>실시간이면 무조건 웹소켓이다.</td><td>서버에서 클라이언트로만 보내면 충분하다면 SSE가 더 단순할 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "실시간 통신 방식은 방향과 연결 유지 방식으로 갈립니다.",
+    "headers": [
+      "용어",
+      "통신 모델",
+      "웹소켓과의 차이"
+    ],
+    "rows": [
+      [
+        "[[rest-api|REST API]]",
+        "요청-응답, 자원 중심 설계",
+        "연결을 유지하지 않고 필요할 때 요청"
+      ],
+      [
+        "HTTP 폴링",
+        "반복 요청",
+        "서버가 먼저 보낼 수 없음"
+      ],
+      [
+        "서버 전송 이벤트(SSE)",
+        "서버 → 클라이언트 단방향 스트림",
+        "양방향이 아님"
+      ]
+    ]
+  },
+  "references": [
+    "Fette, I., & Melnikov, A. (2011). The WebSocket Protocol (RFC 6455). Internet Engineering Task Force.",
+    "Pimentel, V., & Nickerson, B. G. (2012). Communicating and displaying real-time data with WebSocket. IEEE Internet Computing, 16(4), 45–53.",
+    "McManus, P. (2018). Bootstrapping WebSockets with HTTP/2 (RFC 8441). Internet Engineering Task Force."
+  ]
+}
