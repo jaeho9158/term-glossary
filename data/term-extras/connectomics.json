@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>시료 준비</strong>: 뇌 조직(또는 작은 개체 전체)을 고정하고 중금속으로 염색해 전자현미경에서 세포막이 보이게 합니다.</li><li><strong>영상 획득</strong>: 얇게 자른 연속 절편을 투과전자현미경으로 찍거나(연속절편 전자현미경), 표면을 깎아 가며 주사전자현미경으로 찍습니다(FIB-SEM 등). 수 nm~수십 nm 해상도로 큰 부피를 찍어 자료가 페타바이트 규모가 될 수 있습니다.</li><li><strong>정렬</strong>: 절편 사진을 3차원으로 맞춥니다.</li><li><strong>분할(segmentation)과 재구성</strong>: 세포막을 따라 개별 뉴런을 구분하는 일을 딥러닝 기반 알고리즘(예: flood-filling networks, Januszewski 등, 2018)으로 자동화하고, 조각을 이어 한 세포로 복원합니다.</li><li><strong>시냅스 검출과 사람 검수</strong>: 시냅스 위치와 방향을 표시하고 오류를 사람이 교정(proofreading)합니다. 이 단계에 많은 인력과 시간이 듭니다.</li><li><strong>연결 그래프 작성</strong>: 어느 세포가 어느 세포에 시냅스를 몇 개 만드는지 정리해 분석합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>목표는 <strong>시냅스 해상도의 배선도(커넥톰)</strong>입니다. 최초의 완전한 커넥톰은 선충 C. elegans(뉴런 302개)로, White 등(1986)이 전자현미경 연속절편으로 완성했습니다.</li><li>이후 초파리 유충 뇌, 성체 초파리 뇌의 큰 부분(hemibrain, 약 2만 5천 개 뉴런, Scheffer 등, 2020)과 성체 초파리 뇌 전체(약 14만 개 뉴런, Dorkenwald 등, 2024)가 보고되었습니다. 사람 대뇌피질 1 mm³ 조각의 재구성(Shapson-Coe 등, 2024)도 나왔습니다.</li><li><strong>얻는 것</strong>: 회로의 구체적 연결 규칙(어느 유형이 어느 유형을 얼마나 지배하는지), 가설 생성, 계산 모형의 제약 조건.</li><li><strong>한계</strong>: (1) 한 개체의 정지 영상이며 개체 간 변이를 보려면 여러 개체가 필요합니다. (2) 시냅스의 세기, 전달물질 종류, 전기적 시냅스, 신경조절물질 신호는 구조만으로 알기 어렵습니다. (3) 자동 분할 오류를 사람이 검수해야 합니다. (4) 구조적 연결이 곧 기능이라는 보장은 없으며, 선충에서도 커넥톰이 알려졌지만 행동 전체를 예측하지는 못했습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>시료: 종, 나이, 성별, 부위, 고정과 염색 방법.</li><li>영상: 전자현미경 종류, 해상도(x·y·z nm), 영상 부피.</li><li>자동화: 분할·시냅스 검출 알고리즘과 버전, 검수 범위와 방법, 오류율(검수 전후).</li><li>연결 정의: 시냅스로 인정하는 기준, 연결 강도를 시냅스 개수로 쓰는지 다른 지표인지.</li><li>데이터 공개: 영상과 재구성 자료의 접근 방법.</li><li>용어: 거시 규모의 확산 MRI·fMRI 기반 연결도 ‘커넥톰’이라 부르는 경우가 있어(Sporns 등, 2005), 시냅스 규모의 연결도인지 거시 규모의 연결도인지 분명히 적어야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "구분하는 점"
+    ],
+    "rows": [
+      [
+        "커넥토믹스",
+        "커넥톰을 만들고 분석하는 연구 분야/방법",
+        "분야와 방법을 가리킴"
+      ],
+      [
+        "[[connectome|커넥톰]]",
+        "신경계의 연결 지도 그 자체",
+        "결과물"
+      ],
+      [
+        "[[functional-connectivity|기능적 연결성]]",
+        "영역 간 활동의 통계적 동기화(fMRI 등)",
+        "배선이 아니라 활동의 상관"
+      ],
+      [
+        "[[tractography|신경섬유 추적]]",
+        "확산 MRI로 백질 다발을 추정",
+        "mm 규모, 개별 시냅스를 보지 못함"
+      ],
+      [
+        "[[electron-microscopy|전자현미경]]",
+        "나노미터 해상도의 영상 도구",
+        "커넥토믹스의 핵심 영상 기법"
+      ]
+    ]
+  },
+  "references": [
+    "White, J. G., Southgate, E., Thomson, J. N., & Brenner, S. (1986). The structure of the nervous system of the nematode Caenorhabditis elegans. Philosophical Transactions of the Royal Society of London. B, 314(1165), 1–340.",
+    "Sporns, O., Tononi, G., & Kötter, R. (2005). The human connectome: a structural description of the human brain. PLoS Computational Biology, 1(4), e42.",
+    "Scheffer, L. K., Xu, C. S., Januszewski, M., et al. (2020). A connectome and analysis of the adult Drosophila central brain. eLife, 9, e57443.",
+    "Dorkenwald, S., Matsliah, A., Sterling, A. R., et al. (2024). Neuronal wiring diagram of an adult brain. Nature, 634, 124–138.",
+    "Shapson-Coe, A., Januszewski, M., Berger, D. R., et al. (2024). A petavoxel fragment of human cerebral cortex reconstructed at nanoscale resolution. Science, 384(6696), eadk4858."
+  ]
+}
