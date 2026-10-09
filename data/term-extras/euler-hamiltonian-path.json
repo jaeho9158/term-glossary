@@ -1,0 +1,60 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>두 문제는 모두 ‘그래프를 따라 한 번에 걷기’이지만 한 번씩 지나야 하는 대상이 다릅니다.</p><ul><li><strong>오일러 경로</strong>: 모든 <em>간선</em>을 정확히 한 번씩 지나는 경로. 연결 그래프에서 홀수 차수 정점이 0개 또는 2개이면 존재합니다(Euler, 1736). 0개이면 출발점으로 돌아오는 오일러 회로가 되고, 2개이면 그 두 정점에서 시작하고 끝나는 경로가 됩니다.</li><li><strong>해밀턴 경로</strong>: 모든 <em>정점</em>을 정확히 한 번씩 지나는 경로. 일반 그래프에서 존재 여부를 판별하는 문제는 NP-완전으로 알려져 있습니다(Karp, 1972; Garey &amp; Johnson, 1979).</li></ul><p>오일러 경로는 Hierholzer(1873)의 방법 등으로 간선 수에 비례하는 시간에 구할 수 있는 반면, 해밀턴 경로는 일반적으로 그런 빠른 알고리즘이 알려져 있지 않습니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(쾨니히스베르크 다리 문제를 코드로 계산한 예) 네 개의 땅 A, B, C, D를 일곱 개의 다리가 잇습니다(A–B 2개, A–C 2개, A–D, B–D, C–D 각 1개). 각 땅에 닿는 다리 수, 즉 차수를 세면 A = 5, B = 3, C = 3, D = 3입니다. 홀수 차수 정점이 <strong>4개</strong>이므로 0개 또는 2개라는 조건을 만족하지 못해 모든 다리를 한 번씩만 건너는 경로는 존재하지 않습니다. 이것이 Euler(1736)가 푼 문제입니다.</p><p>응용으로는 짧은 DNA 조각을 이어 전체 서열을 복원하는 문제를 de Bruijn 그래프의 오일러 경로 문제로 바꾼 접근(Pevzner 외, 2001)이 있고, 해밀턴 경로·회로의 변형은 [[traveling-salesman-problem|외판원 문제]]와 이어집니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“이름이 비슷하니 난이도도 비슷하다”</strong>: 오일러 경로는 차수만 세면 판별되지만 해밀턴 경로는 일반적으로 어렵습니다.</li><li><strong>“오일러 경로는 모든 정점을 한 번씩 지난다”</strong>: 그렇지 않습니다. 오일러 경로에서는 정점을 여러 번 지날 수 있고, 간선만 한 번씩 지납니다.</li><li><strong>차수 조건만 보면 된다는 착각</strong>: 홀수 차수 조건은 그래프가 연결되어 있다는 전제에서 성립합니다. 간선이 있는 부분이 떨어져 있으면 조건을 만족해도 경로가 없습니다.</li><li><strong>방향 그래프는 조건이 다릅니다</strong>: 방향 그래프의 오일러 경로는 홀수 차수 대신 각 정점의 들어오는 간선 수와 나가는 간선 수를 비교해 판별합니다.</li><li>그래프 순회(너비·깊이 우선 탐색)는 모든 정점을 방문하는 탐색이며 ‘한 번씩만’이라는 제약이 없습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘경로’와 ‘회로’, ‘간선’과 ‘정점’을 나누어 읽으면 정리됩니다.",
+    "headers": [
+      "용어",
+      "한 번씩 지나는 것",
+      "시작과 끝"
+    ],
+    "rows": [
+      [
+        "오일러 경로",
+        "모든 간선",
+        "달라도 됩니다"
+      ],
+      [
+        "오일러 회로",
+        "모든 간선",
+        "출발점으로 되돌아옵니다"
+      ],
+      [
+        "해밀턴 경로",
+        "모든 정점",
+        "달라도 됩니다"
+      ],
+      [
+        "해밀턴 회로",
+        "모든 정점",
+        "출발점으로 되돌아옵니다"
+      ],
+      [
+        "[[traveling-salesman-problem|외판원 문제]]",
+        "모든 도시를 한 번씩, 총거리 최소",
+        "해밀턴 회로 중 가장 짧은 것을 찾는 최적화 문제입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Euler, L. (1736). Solutio problematis ad geometriam situs pertinentis. Commentarii Academiae Scientiarum Imperialis Petropolitanae, 8, 128–140.",
+    "Hierholzer, C. (1873). Über die Möglichkeit, einen Linienzug ohne Wiederholung und ohne Unterbrechung zu umfahren. Mathematische Annalen, 6(1), 30–32.",
+    "Karp, R. M. (1972). Reducibility among combinatorial problems. In R. E. Miller & J. W. Thatcher (Eds.), Complexity of Computer Computations (pp. 85–103). Plenum Press.",
+    "Garey, M. R., & Johnson, D. S. (1979). Computers and Intractability: A Guide to the Theory of NP-Completeness. W. H. Freeman.",
+    "Pevzner, P. A., Tang, H., & Waterman, M. S. (2001). An Eulerian path approach to DNA fragment assembly. Proceedings of the National Academy of Sciences, 98(17), 9748–9753."
+  ]
+}

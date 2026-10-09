@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>전단력 V는 보의 단면에서 위아래 두 부분이 서로 어긋나려는 힘을 단면에 평행한 방향으로 잰 값입니다. 보 이론의 기본 관계 두 가지가 있습니다.</p><ul><li><code>dV/dx = −w(x)</code>: 전단력의 기울기는 분포하중의 크기입니다(부호는 하중 방향 정의에 따름).</li><li><code>dM/dx = V</code>: 휨모멘트 M의 기울기가 전단력입니다. 따라서 전단력이 0인 곳에서 휨모멘트가 극값을 가집니다.</li></ul><p>단순 지지보에 등분포하중 <code>w</code>가 작용하면 지점 반력은 <code>wL/2</code>이고, 전단력은 지점에서 최대이며 중앙에서 0, 휨모멘트는 중앙에서 최대 <code>wL²/8</code>입니다. 단면에 생기는 평균 전단응력은 <code>τ = V/A</code>이고, 직사각형 단면의 최대 전단응력은 단면 중앙에서 평균의 1.5배(<code>1.5V/A</code>)입니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 값을 코드로 계산) 스팬 L = 6 m인 단순 지지보에 w = 20 kN/m가 작용합니다.</p><table><thead><tr><th>위치 x (지점에서 m)</th><th>전단력 V (kN)</th></tr></thead><tbody><tr><td>0</td><td>60</td></tr><tr><td>1</td><td>40</td></tr><tr><td>2</td><td>20</td></tr><tr><td>3</td><td>0</td></tr></tbody></table><p>최대 전단력은 지점에서 <code>wL/2 = 60 kN</code>, 중앙(x = 3 m)에서 0이고 그곳의 휨모멘트가 최대값 <code>wL²/8 = 90 kN·m</code>입니다. 단면이 300 mm × 500 mm(면적 0.15 m²)인 직사각형이면 최대 전단응력은 <code>1.5 × 60 kN ÷ 0.15 m² = 0.6 MPa</code>입니다(재료 균질·탄성 가정).</p><p>철근콘크리트 보에서는 이렇게 전단력이 큰 지점 부근에 전단보강근(스터럽)을 촘촘히 배치합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“전단력과 전단응력은 같다”</strong>: 전단력은 단면에 작용하는 합력(단위 kN)이고 [[shear-stress|전단응력]]은 단위 면적당 힘(단위 MPa)입니다. 둘은 단면적을 거쳐 관련됩니다.</li><li><strong>“전단력은 어디서나 같다”</strong>: 하중과 지지 조건에 따라 위치마다 다릅니다. 위 예시는 지점에서 최대이고 중앙에서 0입니다.</li><li><strong>“전단력이 크면 휨모멘트도 크다”</strong>: 아닙니다. 위 예시에서 중앙은 전단력 0에서 휨모멘트가 최대입니다. 두 값의 최대 위치가 다를 수 있습니다.</li><li><strong>분야마다 뜻이 다릅니다</strong>: 식품 연구에서 ‘전단력’은 고기를 자를 때 드는 힘(연도 측정값)을 가리킬 수 있어 문맥을 확인해야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "전단·휨은 서로 다른 내력이며 단위도 다릅니다.",
+    "headers": [
+      "용어",
+      "정의",
+      "단위(예)"
+    ],
+    "rows": [
+      [
+        "전단력 V",
+        "단면에 평행하게 작용하는 합력",
+        "kN"
+      ],
+      [
+        "[[shear-stress|전단응력 τ]]",
+        "단면의 단위 면적당 전단 방향 힘",
+        "MPa"
+      ],
+      [
+        "[[bending-moment|휨모멘트 M]]",
+        "단면을 휘게 하는 모멘트",
+        "kN·m"
+      ],
+      [
+        "[[punching-shear|펀칭전단]]",
+        "기둥 주변 슬래브가 뚫리듯 파괴되는 2방향 전단",
+        "—"
+      ]
+    ]
+  },
+  "references": [
+    "Hibbeler, R. C. (2017). Mechanics of Materials (10th ed.). Pearson.",
+    "Gere, J. M., & Goodno, B. J. (2012). Mechanics of Materials (8th ed.). Cengage Learning.",
+    "Beer, F. P., Johnston, E. R., Jr., DeWolf, J. T., & Mazurek, D. F. (2015). Mechanics of Materials (7th ed.). McGraw-Hill Education."
+  ]
+}

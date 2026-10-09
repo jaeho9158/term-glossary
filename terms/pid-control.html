@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/pid-control.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <p>구조가 단순하고 물리적 의미가 직관적이어서 로봇공학뿐 아니라 온도, 압력 등 다양한 산업 공정 제어에서도 가장 널리 쓰이는 기본 제어기로 자리잡고 있습니다.</p>
   <p>모델이 복잡하거나 알기 어려운 시스템에서도 시행착오적인 튜닝만으로 어느 정도 만족스러운 성능을 낼 수 있어, 정교한 모델링 없이도 빠르게 적용할 수 있다는 실용적 장점이 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>PID 제어는 목표값 r과 실제값 y의 오차 <code>e = r − y</code>로 제어 입력 u를 만듭니다.</p><p><code>u(t) = K<sub>p</sub> e(t) + K<sub>i</sub> ∫ e(τ)dτ + K<sub>d</sub> de(t)/dt</code></p><ul><li><strong>비례(P)</strong>: 지금의 오차에 비례해 반응합니다. 크게 하면 빨라지지만 진동하기 쉽습니다.</li><li><strong>적분(I)</strong>: 쌓인 오차에 반응해 정상 상태 오차를 없앱니다. 지나치면 오버슈트·진동이 커지고, 출력이 한계에 걸리면 적분이 쌓이는 와인드업이 생깁니다.</li><li><strong>미분(D)</strong>: 오차의 변화 속도에 반응해 감쇠를 줄 수 있으나 센서 잡음을 증폭하므로 보통 필터를 함께 둡니다.</li></ul><p>게인을 정하는 것이 튜닝입니다. Ziegler와 Nichols(1942)의 방법은 비례 이득만 올려 지속 진동이 생기는 한계 이득 K<sub>u</sub>와 진동 주기 T<sub>u</sub>를 구해, P 이득 0.6K<sub>u</sub>, 적분 시간 T<sub>u</sub>/2, 미분 시간 T<sub>u</sub>/8을 시작값으로 삼습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>(가상의 1차 시스템 <code>dy/dt = −y + u</code>, 목표값 1, 시간 간격 0.001로 코드 시뮬레이션) 비례 이득만 쓰면 정상 상태 오차가 남습니다. 이 시스템에서 <code>K<sub>p</sub> = 4</code>이면 최종값은 <code>K<sub>p</sub>/(1+K<sub>p</sub>) = 0.800</code>이어야 하며, 시뮬레이션 결과도 <strong>0.800</strong>로 일치했습니다. 적분 이득 <code>K<sub>i</sub> = 2</code>를 더하면 최종값이 <strong>1.000</strong>(오차 0)이 됩니다.</p><ul><li><strong>얻는 것</strong>: 모델 없이도 응답 속도, 오버슈트, 정상 상태 오차를 이득 세 개로 조절합니다.</li><li><strong>언제 쓰나</strong>: 온도·유량·속도·위치 제어처럼 한 입력·한 출력 피드백 제어. 로봇 관절 제어에서는 보통 관절마다 하나씩 두고 중력 보상과 피드포워드를 더합니다.</li><li><strong>한계</strong>: 강한 비선형, 긴 시간 지연, 관절 사이 결합이 있는 시스템에서는 성능이 제한됩니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>이득과 구조를 적습니다</strong>: K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub>(또는 T<sub>i</sub>, T<sub>d</sub>)의 값과 형식(병렬형/이상형), 샘플링 주기, 미분 필터 상수, 출력 포화와 와인드업 방지 방법.</li><li><strong>튜닝 방법을 밝힙니다</strong>: 지글러-니콜스, 시행착오, 자동 튜닝 등 이득을 어떻게 정했는지.</li><li><strong>성능 지표를 표로 보입니다</strong>: 상승 시간, 오버슈트(%), 정착 시간, 정상 상태 오차를 계단 응답에서 보고합니다.</li><li>외란이나 모델 변화에 대한 강인성(다른 조건에서 같은 이득으로 시험한 결과)을 함께 보이면 설득력이 높아집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">각 관절의 위치 제어에는 PID제어기가 적용되었으며 게인 튜닝을 통해 정착시간을 단축하였다.</div>
   <p>논문에서 PID제어는 가장 기본적인 관절 위치/속도 제어기로, 성능 비교의 기준선(baseline)으로 자주 사용됩니다.</p>
 
@@ -161,6 +179,19 @@
 
   <h2>주의할 점</h2>
   <p>PID 게인은 시스템마다 다시 튜닝해야 하며, 비선형성이 큰 시스템에서는 성능이 제한될 수 있다. 적분항 이득이 지나치게 크면 오차가 누적되어 목표값을 지나친 뒤 되돌아오는 오버슈트나 진동이 발생할 수 있어, 세 이득값의 균형을 맞추는 튜닝 과정이 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>제어 성능은 응답의 서로 다른 모습을 나타내는 용어로 평가합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">PID와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="steady-state-error.html">정상 상태 오차</a></th><td>충분한 시간이 지난 뒤에도 남는 오차</td><td>적분 항이 없애 줍니다.</td></tr><tr><th scope="row"><a href="overshoot.html">오버슈트</a></th><td>응답이 목표값을 넘는 정도</td><td>이득이 커지거나 적분이 지나치면 커집니다.</td></tr><tr><th scope="row"><a href="transfer-function.html">전달함수</a></th><td>입력과 출력의 관계를 주파수 영역에서 표현</td><td>PID 제어기와 대상을 전달함수로 놓고 설계·분석합니다.</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ziegler, J. G., &amp; Nichols, N. B. (1942). Optimum settings for automatic controllers. Transactions of the ASME, 64, 759–768.</li>
+    <li>Åström, K. J., &amp; Hägglund, T. (2006). Advanced PID Control. ISA—The Instrumentation, Systems, and Automation Society.</li>
+    <li>Åström, K. J., &amp; Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/transformer.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,29 @@
   <h2>왜 중요한가</h2>
   <p>트랜스포머는 병렬 처리가 가능해 대규모 데이터와 대형 모델 학습을 현실적으로 가능하게 만들었고, 이는 오늘날 대형 언어모델과 여러 응용 AI 기술이 빠르게 발전하는 토대가 되었습니다. 그래서 자연어처리, 컴퓨터비전, 음성처리를 아우르는 최신 연구 대부분이 트랜스포머를 기본 구조로 채택하거나 이를 개선하는 방향으로 진행됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>트랜스포머는 입력 안의 모든 위치가 서로를 직접 참조하는 <strong>셀프 어텐션</strong>을 핵심 연산으로 쓰는 신경망 구조입니다. Vaswani 외(2017)가 순환 구조 없이 어텐션만으로 기계 번역을 하는 모델로 제안했습니다. 셀프 어텐션은 다음과 같이 계산합니다.</p><p><code>Attention(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V</code></p><ul><li>각 입력은 쿼리(Q), 키(K), 값(V) 벡터로 변환됩니다.</li><li>쿼리와 키의 내적이 ‘얼마나 관련 있는가’의 점수가 되고, softmax로 합이 1인 가중치가 됩니다. 이 가중치로 값을 가중평균합니다.</li><li><code>√d<sub>k</sub></code>로 나누는 것은 차원이 클 때 내적 값이 커지는 것을 막기 위한 크기 조정입니다.</li><li>순서 정보는 구조에 없으므로 <a href="positional-encoding.html">위치 인코딩</a>을 더해 줍니다. 서로 다른 관계를 동시에 보도록 어텐션을 여러 개 두는 것이 <a href="multi-head-attention.html">멀티헤드 어텐션</a>입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(작은 가상의 입력으로 코드 계산) 토큰 3개, <code>d<sub>k</sub> = 2</code>로 쿼리와 키를 같게 두고 <code>Q = K = [[1,0],[0,1],[1,1]]</code>, 값을 <code>V = [[1,2],[3,4],[5,6]]</code>이라 합시다. 점수 <code>QKᵀ/√2</code>는 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>토큰1</th><th>토큰2</th><th>토큰3</th></tr></thead><tbody><tr><th scope="row">토큰1</th><td>0.707</td><td>0.000</td><td>0.707</td></tr><tr><th scope="row">토큰2</th><td>0.000</td><td>0.707</td><td>0.707</td></tr><tr><th scope="row">토큰3</th><td>0.707</td><td>0.707</td><td>1.414</td></tr></tbody></table></div><p>각 행에 softmax를 적용한 어텐션 가중치(행의 합 1)는 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>토큰1</th><th>토큰2</th><th>토큰3</th></tr></thead><tbody><tr><th scope="row">토큰1</th><td>0.401</td><td>0.198</td><td>0.401</td></tr><tr><th scope="row">토큰2</th><td>0.198</td><td>0.401</td><td>0.401</td></tr><tr><th scope="row">토큰3</th><td>0.248</td><td>0.248</td><td>0.503</td></tr></tbody></table></div><p>토큰1의 출력은 가중치로 값을 섞은 <code>0.401×[1,2] + 0.198×[3,4] + 0.401×[5,6] = [3.000, 4.000]</code>입니다. 이렇게 각 토큰의 출력이 다른 모든 토큰의 정보를 한 번에 반영합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“트랜스포머는 언어 모델이다”</strong>: 구조의 이름입니다. 언어 모델(예: <a href="large-language-model.html">대규모 언어 모델</a>)은 이 구조를 쓰는 응용이며, 이미지에 적용한 <a href="vision-transformer.html">비전 트랜스포머</a>처럼 텍스트가 아닌 데이터에도 쓰입니다.</li><li><strong>“어텐션 가중치가 곧 모델의 설명이다”</strong>: 가중치는 계산의 중간 값이며, 그것이 예측의 이유를 그대로 설명한다고 보는 것은 논쟁이 있는 해석입니다.</li><li><strong>“길이에 관계없이 효율적이다”</strong>: 모든 토큰 쌍을 계산하므로 입력 길이가 늘면 계산량과 메모리가 빠르게 증가합니다(길이의 제곱에 비례).</li><li><strong>전기 변압기와 다릅니다</strong>: 영어 transformer는 전기 변압기를 뜻하기도 하므로, 논문에서는 문맥과 분야를 확인해야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“딥러닝 분야에서 트랜스포머 아키텍춰의 출현은 자연어 처리 연구가 획기적인 발전을 가져왔다.”</blockquote><p class="te-cite">한국어 생의학 개체명 인식 성능 비교와 오류 분석, 한국전자통신학회 논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003115216" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“이에 본 연구에서는 LSTM, Transformer 기반 시계열 예측 모델을 이용하여 네트워크 대역폭을 예측하고, MPC에적용하여 개선점을 제안한다.”</blockquote><p class="te-cite">통계 추정 기반 ABR 알고리즘의 딥러닝 기반 성능 향상, 한국통신학회논문지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003194214" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“스탠포드 대학교에서는 병리 데이터에 특화된 비전– 언어 파운데이션 모델인 MUSK (Multimodal transformer with Unified maSKed modeling)를 개발하였다.”</blockquote><p class="te-cite">디지털병리의 인프라와 인공지능 및 임상적 영향에 대한 진화, International Journal of Thyroidology, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516091951" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서 사용한 언어모델은 트랜스포머 구조를 기반으로 하며, 셀프 어텐션을 통해 입력 시퀀스 내 단어 간 관계를 학습한다."</div>
   <p>모델이 문장을 순서대로 하나씩 처리하는 대신, 문장 속 모든 단어 쌍의 연관성을 동시에 계산하는 방식으로 설계되었다는 뜻입니다.</p>
 
@@ -164,6 +187,20 @@
 
   <h2>주의할 점</h2>
   <p>트랜스포머는 <a href="natural-language-processing.html">자연어처리</a> 분야에서 널리 쓰이지만 텍스트에만 국한되지 않으며, 이미지나 음성 등 다른 데이터에도 응용되고 있습니다. 다만 문장이 길어질수록 단어 쌍의 수가 급격히 늘어나 계산량과 메모리 사용량이 크게 증가하기 때문에, 실제로는 이를 줄이기 위한 다양한 경량화 기법이 함께 연구되고 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>트랜스포머와 함께 나오는 용어는 구조·응용·이전 방식으로 나눠집니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">트랜스포머와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="recurrent-neural-network.html">순환 신경망</a></th><td>순서대로 한 단계씩 읽으며 은닉 상태를 갱신하는 구조</td><td>트랜스포머는 순환 없이 모든 위치를 한 번에 참조합니다.</td></tr><tr><th scope="row"><a href="vision-transformer.html">비전 트랜스포머</a></th><td>이미지 조각을 토큰처럼 다루는 트랜스포머</td><td>같은 구조를 이미지에 적용한 변형입니다.</td></tr><tr><th scope="row"><a href="large-language-model.html">대규모 언어 모델</a></th><td>방대한 텍스트로 학습한 언어 모델</td><td>트랜스포머 구조를 기반으로 하는 경우가 많습니다.</td></tr><tr><th scope="row"><a href="multi-head-attention.html">멀티헤드 어텐션</a></th><td>어텐션을 여러 개 병렬로 두는 방식</td><td>트랜스포머를 이루는 부품입니다.</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>
+    <li>Devlin, J., Chang, M.-W., Lee, K., &amp; Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. Proceedings of NAACL-HLT 2019, 4171–4186.</li>
+    <li>Dosovitskiy, A., Beyer, L., Kolesnikov, A., et al. (2021). An image is worth 16x16 words: Transformers for image recognition at scale. International Conference on Learning Representations.</li>
+    <li>Bahdanau, D., Cho, K., &amp; Bengio, Y. (2015). Neural machine translation by jointly learning to align and translate. International Conference on Learning Representations.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="graph-neural-network.html">그래프 신경망</a><a href="large-language-model.html">대규모 언어 모델</a><a href="generative-adversarial-network.html">생성적 적대 신경망</a><a href="recurrent-neural-network.html">순환 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="multi-head-attention.html">멀티헤드 어텐션</a><a href="vision-transformer.html">비전 트랜스포머</a><a href="positional-encoding.html">위치 인코딩</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

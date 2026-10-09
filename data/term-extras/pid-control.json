@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>PID 제어는 목표값 r과 실제값 y의 오차 <code>e = r − y</code>로 제어 입력 u를 만듭니다.</p><p><code>u(t) = K<sub>p</sub> e(t) + K<sub>i</sub> ∫ e(τ)dτ + K<sub>d</sub> de(t)/dt</code></p><ul><li><strong>비례(P)</strong>: 지금의 오차에 비례해 반응합니다. 크게 하면 빨라지지만 진동하기 쉽습니다.</li><li><strong>적분(I)</strong>: 쌓인 오차에 반응해 정상 상태 오차를 없앱니다. 지나치면 오버슈트·진동이 커지고, 출력이 한계에 걸리면 적분이 쌓이는 와인드업이 생깁니다.</li><li><strong>미분(D)</strong>: 오차의 변화 속도에 반응해 감쇠를 줄 수 있으나 센서 잡음을 증폭하므로 보통 필터를 함께 둡니다.</li></ul><p>게인을 정하는 것이 튜닝입니다. Ziegler와 Nichols(1942)의 방법은 비례 이득만 올려 지속 진동이 생기는 한계 이득 K<sub>u</sub>와 진동 주기 T<sub>u</sub>를 구해, P 이득 0.6K<sub>u</sub>, 적분 시간 T<sub>u</sub>/2, 미분 시간 T<sub>u</sub>/8을 시작값으로 삼습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>(가상의 1차 시스템 <code>dy/dt = −y + u</code>, 목표값 1, 시간 간격 0.001로 코드 시뮬레이션) 비례 이득만 쓰면 정상 상태 오차가 남습니다. 이 시스템에서 <code>K<sub>p</sub> = 4</code>이면 최종값은 <code>K<sub>p</sub>/(1+K<sub>p</sub>) = 0.800</code>이어야 하며, 시뮬레이션 결과도 <strong>0.800</strong>로 일치했습니다. 적분 이득 <code>K<sub>i</sub> = 2</code>를 더하면 최종값이 <strong>1.000</strong>(오차 0)이 됩니다.</p><ul><li><strong>얻는 것</strong>: 모델 없이도 응답 속도, 오버슈트, 정상 상태 오차를 이득 세 개로 조절합니다.</li><li><strong>언제 쓰나</strong>: 온도·유량·속도·위치 제어처럼 한 입력·한 출력 피드백 제어. 로봇 관절 제어에서는 보통 관절마다 하나씩 두고 중력 보상과 피드포워드를 더합니다.</li><li><strong>한계</strong>: 강한 비선형, 긴 시간 지연, 관절 사이 결합이 있는 시스템에서는 성능이 제한됩니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>이득과 구조를 적습니다</strong>: K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub>(또는 T<sub>i</sub>, T<sub>d</sub>)의 값과 형식(병렬형/이상형), 샘플링 주기, 미분 필터 상수, 출력 포화와 와인드업 방지 방법.</li><li><strong>튜닝 방법을 밝힙니다</strong>: 지글러-니콜스, 시행착오, 자동 튜닝 등 이득을 어떻게 정했는지.</li><li><strong>성능 지표를 표로 보입니다</strong>: 상승 시간, 오버슈트(%), 정착 시간, 정상 상태 오차를 계단 응답에서 보고합니다.</li><li>외란이나 모델 변화에 대한 강인성(다른 조건에서 같은 이득으로 시험한 결과)을 함께 보이면 설득력이 높아집니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "제어 성능은 응답의 서로 다른 모습을 나타내는 용어로 평가합니다.",
+    "headers": [
+      "용어",
+      "의미",
+      "PID와의 관계"
+    ],
+    "rows": [
+      [
+        "[[steady-state-error|정상 상태 오차]]",
+        "충분한 시간이 지난 뒤에도 남는 오차",
+        "적분 항이 없애 줍니다."
+      ],
+      [
+        "[[overshoot|오버슈트]]",
+        "응답이 목표값을 넘는 정도",
+        "이득이 커지거나 적분이 지나치면 커집니다."
+      ],
+      [
+        "[[transfer-function|전달함수]]",
+        "입력과 출력의 관계를 주파수 영역에서 표현",
+        "PID 제어기와 대상을 전달함수로 놓고 설계·분석합니다."
+      ]
+    ]
+  },
+  "references": [
+    "Ziegler, J. G., & Nichols, N. B. (1942). Optimum settings for automatic controllers. Transactions of the ASME, 64, 759–768.",
+    "Åström, K. J., & Hägglund, T. (2006). Advanced PID Control. ISA—The Instrumentation, Systems, and Automation Society.",
+    "Åström, K. J., & Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press."
+  ]
+}

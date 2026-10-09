@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/gradient-descent.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <p>모델 구조나 손실 함수를 아무리 정교하게 설계해도 결국 파라미터를 실제로 조정하는 것은 경사하강법 계열의 최적화 알고리즘이므로, 학습 속도·수렴 안정성·일반화 성능 같은 연구 주제들이 모두 이 알고리즘의 동작 방식과 맞닿아 있습니다.</p>
   <p>또한 최적화 기법 자체의 개선(모멘텀, 적응적 학습률 등)은 독립된 연구 분야로 다뤄질 만큼 중요하게 취급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>경사하강법은 손실 함수 <code>L(θ)</code>의 기울기를 구해 반대 방향으로 파라미터를 조금씩 옮기는 반복 알고리즘입니다.</p><p><code>θ ← θ − η ∇L(θ)</code> (η는 학습률)</p><ol><li>파라미터를 초기화합니다.</li><li>현재 파라미터에서 손실의 기울기를 계산합니다.</li><li>기울기의 반대 방향으로 학습률만큼 갱신합니다.</li><li>손실 변화가 충분히 작아지거나 정한 횟수가 되면 멈춥니다.</li></ol><p>기울기를 어느 데이터로 구하느냐에 따라 전체 데이터를 쓰는 배치, 한 개씩 쓰는 확률적(<a href="stochastic-gradient-descent.html">SGD</a>), 일부를 쓰는 미니배치로 나눕니다. 신경망에서 기울기를 효율적으로 구하는 방법이 <a href="backpropagation.html">역전파</a>입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>(가상의 예를 코드로 계산) <code>f(x) = x²</code>, 기울기 <code>2x</code>, 시작점 <code>x₀ = 1</code>로 학습률에 따른 변화를 봅니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>학습률 η</th><th>x 값의 변화 (0, 1, 2, 3, 4번 갱신 후)</th><th>양상</th></tr></thead><tbody><tr><td>0.1</td><td>1.0000 → 0.8000 → 0.6400 → 0.5120 → 0.4096</td><td>천천히 0에 수렴</td></tr><tr><td>0.5</td><td>1.00 → 0.00 → 0.00</td><td>한 번에 최소점에 도달(이 함수에서만)</td></tr><tr><td>1.0</td><td>1.00 → -1.00 → 1.00 → -1.00 → 1.00</td><td>±1을 오가며 수렴하지 않음</td></tr><tr><td>1.1</td><td>1.000 → -1.200 → 1.440 → -1.728 → 2.074</td><td>발산</td></tr></tbody></table></div><p>이 함수에서는 <code>x ← (1 − 2η)x</code>이므로 |1 − 2η| &lt; 1, 곧 0 &lt; η &lt; 1일 때 수렴합니다. 학습률이 너무 작으면 느리고 너무 크면 발산하는 현상을 볼 수 있습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>최적화기와 설정을 모두 적습니다</strong>: 단순 SGD인지 모멘텀(<a href="momentum-optimization.html">모멘텀</a>)이나 <a href="adam-optimizer.html">Adam</a> 같은 적응형 방법인지, 학습률과 감소 일정(스케줄), 배치 크기, 에폭 수.</li><li><strong>초기화와 난수 시드</strong>: 비볼록 문제에서는 시작점에 따라 결과가 달라지므로 시드와 반복 횟수를 보고합니다.</li><li><strong>수렴 기준</strong>: 멈춤 조건(손실 변화 임계값, 검증 손실 개선 정체 등)을 명시합니다.</li><li>‘전역 최솟값에 도달했다’고 쓰지 않습니다. 신경망처럼 비볼록한 문제에서는 지역 최솟값이나 안장점에 머무를 수 있고 경사하강법은 그 보장을 하지 않습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델의 손실 함수를 최소화하기 위해 확률적 경사하강법(SGD)을 사용하여 파라미터를 반복적으로 업데이트하였다."</div>
   <p>모델이 정답과 얼마나 차이 나는지를 계산한 뒤, 그 차이를 줄이는 방향으로 모델 내부 값들을 조금씩 계속 고쳐나갔다는 의미입니다.</p>
 
@@ -169,6 +187,20 @@
 
   <h2>주의할 점</h2>
   <p>한 번에 얼마나 크게 이동할지를 정하는 학습률(learning rate)이 너무 크면 최적의 지점을 지나쳐 버려 오히려 학습이 불안정해지고, 너무 작으면 학습 속도가 지나치게 느려지거나 진짜 최적점이 아닌 지역적인 저점(local minimum)에 갇혀버릴 수 있습니다. 경사하강법으로 학습되는 대표적인 모델이 바로 <a href="neural-network.html">인공신경망</a>입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>경사하강법은 ‘기울기를 어떻게 쓰나’에 관한 규칙이고, 기울기를 구하는 방법은 따로 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">경사하강법과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="backpropagation.html">역전파</a></th><td>신경망의 기울기를 효율적으로 계산</td><td>경사하강법이 쓸 기울기를 구해 줍니다.</td></tr><tr><th scope="row"><a href="stochastic-gradient-descent.html">확률적 경사하강법</a></th><td>데이터 일부로 기울기를 추정해 갱신</td><td>경사하강법의 변형입니다.</td></tr><tr><th scope="row"><a href="loss-function.html">손실 함수</a></th><td>예측이 틀린 정도를 수치화</td><td>경사하강법이 줄이려는 대상입니다.</td></tr><tr><th scope="row"><a href="adam-optimizer.html">Adam</a></th><td>파라미터마다 학습률을 조절</td><td>기울기를 쓰는 갱신 규칙을 바꾼 방법입니다.</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cauchy, A.-L. (1847). Méthode générale pour la résolution des systèmes d'équations simultanées. Comptes Rendus de l'Académie des Sciences, 25, 536–538.</li>
+    <li>Robbins, H., &amp; Monro, S. (1951). A stochastic approximation method. The Annals of Mathematical Statistics, 22(3), 400–407.</li>
+    <li>Kingma, D. P., &amp; Ba, J. (2015). Adam: A method for stochastic optimization. International Conference on Learning Representations.</li>
+    <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="momentum-optimization.html">모멘텀 최적화</a><a href="adam-optimizer.html">아담 옵티마이저</a><a href="stochastic-gradient-descent.html">확률적 경사 하강법(SGD)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

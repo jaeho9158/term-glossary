@@ -1,0 +1,54 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>트랜스포머는 입력 안의 모든 위치가 서로를 직접 참조하는 <strong>셀프 어텐션</strong>을 핵심 연산으로 쓰는 신경망 구조입니다. Vaswani 외(2017)가 순환 구조 없이 어텐션만으로 기계 번역을 하는 모델로 제안했습니다. 셀프 어텐션은 다음과 같이 계산합니다.</p><p><code>Attention(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V</code></p><ul><li>각 입력은 쿼리(Q), 키(K), 값(V) 벡터로 변환됩니다.</li><li>쿼리와 키의 내적이 ‘얼마나 관련 있는가’의 점수가 되고, softmax로 합이 1인 가중치가 됩니다. 이 가중치로 값을 가중평균합니다.</li><li><code>√d<sub>k</sub></code>로 나누는 것은 차원이 클 때 내적 값이 커지는 것을 막기 위한 크기 조정입니다.</li><li>순서 정보는 구조에 없으므로 [[positional-encoding|위치 인코딩]]을 더해 줍니다. 서로 다른 관계를 동시에 보도록 어텐션을 여러 개 두는 것이 [[multi-head-attention|멀티헤드 어텐션]]입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(작은 가상의 입력으로 코드 계산) 토큰 3개, <code>d<sub>k</sub> = 2</code>로 쿼리와 키를 같게 두고 <code>Q = K = [[1,0],[0,1],[1,1]]</code>, 값을 <code>V = [[1,2],[3,4],[5,6]]</code>이라 합시다. 점수 <code>QKᵀ/√2</code>는 다음과 같습니다.</p><table><thead><tr><th></th><th>토큰1</th><th>토큰2</th><th>토큰3</th></tr></thead><tbody><tr><th scope=\"row\">토큰1</th><td>0.707</td><td>0.000</td><td>0.707</td></tr><tr><th scope=\"row\">토큰2</th><td>0.000</td><td>0.707</td><td>0.707</td></tr><tr><th scope=\"row\">토큰3</th><td>0.707</td><td>0.707</td><td>1.414</td></tr></tbody></table><p>각 행에 softmax를 적용한 어텐션 가중치(행의 합 1)는 다음과 같습니다.</p><table><thead><tr><th></th><th>토큰1</th><th>토큰2</th><th>토큰3</th></tr></thead><tbody><tr><th scope=\"row\">토큰1</th><td>0.401</td><td>0.198</td><td>0.401</td></tr><tr><th scope=\"row\">토큰2</th><td>0.198</td><td>0.401</td><td>0.401</td></tr><tr><th scope=\"row\">토큰3</th><td>0.248</td><td>0.248</td><td>0.503</td></tr></tbody></table><p>토큰1의 출력은 가중치로 값을 섞은 <code>0.401×[1,2] + 0.198×[3,4] + 0.401×[5,6] = [3.000, 4.000]</code>입니다. 이렇게 각 토큰의 출력이 다른 모든 토큰의 정보를 한 번에 반영합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“트랜스포머는 언어 모델이다”</strong>: 구조의 이름입니다. 언어 모델(예: [[large-language-model|대규모 언어 모델]])은 이 구조를 쓰는 응용이며, 이미지에 적용한 [[vision-transformer|비전 트랜스포머]]처럼 텍스트가 아닌 데이터에도 쓰입니다.</li><li><strong>“어텐션 가중치가 곧 모델의 설명이다”</strong>: 가중치는 계산의 중간 값이며, 그것이 예측의 이유를 그대로 설명한다고 보는 것은 논쟁이 있는 해석입니다.</li><li><strong>“길이에 관계없이 효율적이다”</strong>: 모든 토큰 쌍을 계산하므로 입력 길이가 늘면 계산량과 메모리가 빠르게 증가합니다(길이의 제곱에 비례).</li><li><strong>전기 변압기와 다릅니다</strong>: 영어 transformer는 전기 변압기를 뜻하기도 하므로, 논문에서는 문맥과 분야를 확인해야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "트랜스포머와 함께 나오는 용어는 구조·응용·이전 방식으로 나눠집니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "트랜스포머와의 관계"
+    ],
+    "rows": [
+      [
+        "[[recurrent-neural-network|순환 신경망]]",
+        "순서대로 한 단계씩 읽으며 은닉 상태를 갱신하는 구조",
+        "트랜스포머는 순환 없이 모든 위치를 한 번에 참조합니다."
+      ],
+      [
+        "[[vision-transformer|비전 트랜스포머]]",
+        "이미지 조각을 토큰처럼 다루는 트랜스포머",
+        "같은 구조를 이미지에 적용한 변형입니다."
+      ],
+      [
+        "[[large-language-model|대규모 언어 모델]]",
+        "방대한 텍스트로 학습한 언어 모델",
+        "트랜스포머 구조를 기반으로 하는 경우가 많습니다."
+      ],
+      [
+        "[[multi-head-attention|멀티헤드 어텐션]]",
+        "어텐션을 여러 개 병렬로 두는 방식",
+        "트랜스포머를 이루는 부품입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.",
+    "Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. Proceedings of NAACL-HLT 2019, 4171–4186.",
+    "Dosovitskiy, A., Beyer, L., Kolesnikov, A., et al. (2021). An image is worth 16x16 words: Transformers for image recognition at scale. International Conference on Learning Representations.",
+    "Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine translation by jointly learning to align and translate. International Conference on Learning Representations."
+  ]
+}

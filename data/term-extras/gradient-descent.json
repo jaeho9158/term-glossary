@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>경사하강법은 손실 함수 <code>L(θ)</code>의 기울기를 구해 반대 방향으로 파라미터를 조금씩 옮기는 반복 알고리즘입니다.</p><p><code>θ ← θ − η ∇L(θ)</code> (η는 학습률)</p><ol><li>파라미터를 초기화합니다.</li><li>현재 파라미터에서 손실의 기울기를 계산합니다.</li><li>기울기의 반대 방향으로 학습률만큼 갱신합니다.</li><li>손실 변화가 충분히 작아지거나 정한 횟수가 되면 멈춥니다.</li></ol><p>기울기를 어느 데이터로 구하느냐에 따라 전체 데이터를 쓰는 배치, 한 개씩 쓰는 확률적([[stochastic-gradient-descent|SGD]]), 일부를 쓰는 미니배치로 나눕니다. 신경망에서 기울기를 효율적으로 구하는 방법이 [[backpropagation|역전파]]입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>(가상의 예를 코드로 계산) <code>f(x) = x²</code>, 기울기 <code>2x</code>, 시작점 <code>x₀ = 1</code>로 학습률에 따른 변화를 봅니다.</p><table><thead><tr><th>학습률 η</th><th>x 값의 변화 (0, 1, 2, 3, 4번 갱신 후)</th><th>양상</th></tr></thead><tbody><tr><td>0.1</td><td>1.0000 → 0.8000 → 0.6400 → 0.5120 → 0.4096</td><td>천천히 0에 수렴</td></tr><tr><td>0.5</td><td>1.00 → 0.00 → 0.00</td><td>한 번에 최소점에 도달(이 함수에서만)</td></tr><tr><td>1.0</td><td>1.00 → -1.00 → 1.00 → -1.00 → 1.00</td><td>±1을 오가며 수렴하지 않음</td></tr><tr><td>1.1</td><td>1.000 → -1.200 → 1.440 → -1.728 → 2.074</td><td>발산</td></tr></tbody></table><p>이 함수에서는 <code>x ← (1 − 2η)x</code>이므로 |1 − 2η| &lt; 1, 곧 0 &lt; η &lt; 1일 때 수렴합니다. 학습률이 너무 작으면 느리고 너무 크면 발산하는 현상을 볼 수 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>최적화기와 설정을 모두 적습니다</strong>: 단순 SGD인지 모멘텀([[momentum-optimization|모멘텀]])이나 [[adam-optimizer|Adam]] 같은 적응형 방법인지, 학습률과 감소 일정(스케줄), 배치 크기, 에폭 수.</li><li><strong>초기화와 난수 시드</strong>: 비볼록 문제에서는 시작점에 따라 결과가 달라지므로 시드와 반복 횟수를 보고합니다.</li><li><strong>수렴 기준</strong>: 멈춤 조건(손실 변화 임계값, 검증 손실 개선 정체 등)을 명시합니다.</li><li>‘전역 최솟값에 도달했다’고 쓰지 않습니다. 신경망처럼 비볼록한 문제에서는 지역 최솟값이나 안장점에 머무를 수 있고 경사하강법은 그 보장을 하지 않습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "경사하강법은 ‘기울기를 어떻게 쓰나’에 관한 규칙이고, 기울기를 구하는 방법은 따로 있습니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "경사하강법과의 관계"
+    ],
+    "rows": [
+      [
+        "[[backpropagation|역전파]]",
+        "신경망의 기울기를 효율적으로 계산",
+        "경사하강법이 쓸 기울기를 구해 줍니다."
+      ],
+      [
+        "[[stochastic-gradient-descent|확률적 경사하강법]]",
+        "데이터 일부로 기울기를 추정해 갱신",
+        "경사하강법의 변형입니다."
+      ],
+      [
+        "[[loss-function|손실 함수]]",
+        "예측이 틀린 정도를 수치화",
+        "경사하강법이 줄이려는 대상입니다."
+      ],
+      [
+        "[[adam-optimizer|Adam]]",
+        "파라미터마다 학습률을 조절",
+        "기울기를 쓰는 갱신 규칙을 바꾼 방법입니다."
+      ]
+    ]
+  },
+  "references": [
+    "Cauchy, A.-L. (1847). Méthode générale pour la résolution des systèmes d'équations simultanées. Comptes Rendus de l'Académie des Sciences, 25, 536–538.",
+    "Robbins, H., & Monro, S. (1951). A stochastic approximation method. The Annals of Mathematical Statistics, 22(3), 400–407.",
+    "Kingma, D. P., & Ba, J. (2015). Adam: A method for stochastic optimization. International Conference on Learning Representations.",
+    "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press."
+  ]
+}
