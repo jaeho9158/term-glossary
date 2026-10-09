@@ -1,0 +1,59 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p><code>민감도 = TP ÷ (TP + FN)</code> — 실제 환자 중 검사가 양성인 비율입니다. 범위는 0~1(0~100%)이며, 분모가 ‘실제 환자’인 점이 핵심입니다. 환자인지 아닌지는 <strong>기준 표준(reference standard)</strong>이 정하므로, 기준 표준이 불완전하면 민감도 추정도 흔들립니다.</p><p><strong>작은 예(가상).</strong> 환자 100명(TP 90, FN 10), 비환자 100명(TN 85, FP 15)이면 민감도 = 90 ÷ 100 = 90%, 특이도 = 85 ÷ 100 = 85%입니다. 민감도의 95% 신뢰구간(Wilson)은 약 82.6~94.5%이고, 우도비로 쓰면 양성 우도비 = 0.90 ÷ 0.15 = 6.0, 음성 우도비 = 0.10 ÷ 0.85 ≈ 0.12입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li><strong>높은 민감도의 쓰임</strong>: 음성이면 질환을 ‘배제’하는 데 도움이 된다는 뜻으로 ‘SnNout’이라는 기억법이 쓰입니다. 양성의 해석(‘확진’)은 특이도·유병률이 좌우합니다.</li><li><strong>절단값과의 교환</strong>: 절단값을 낮추면 민감도는 오르고 특이도는 내려가는 경향이 있으며, 이 관계를 곡선으로 그린 것이 [[roc-curve|ROC 곡선]]입니다.</li><li><strong>유병률과의 관계</strong>: 정의상 유병률과 무관하지만, 환자 구성(증상이 심한 환자 vs 초기 환자)이 달라지면 실제 추정값은 달라질 수 있습니다(Leeflang 외, 2013). 예측도([[positive-predictive-value|양성예측도]]·[[negative-predictive-value|음성예측도]])는 유병률에 직접 의존합니다.</li><li>같은 가상 검사(민감도 90%, 특이도 85%)를 유병률 10%인 집단에서 쓰면 양성예측도는 약 40%, 음성예측도는 약 98.7%입니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>점추정값만이 아니라 <strong>95% 신뢰구간</strong>을 함께 제시하고, 2×2표(TP, FP, FN, TN)를 공개합니다.</li><li>기준 표준, 대상자 모집 방식, 절단값 결정 방식(사전 지정인지 자료에서 고른 최적값인지)을 밝힙니다. STARD 2015 보고 지침(Bossuyt 외, 2015)이 점검 목록을 제공합니다.</li><li>자료에서 고른 절단값은 낙관적 편향이 생길 수 있어 별도 검증 집단이 필요합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "민감도·특이도는 ‘환자 기준/비환자 기준’, 예측도는 ‘양성·음성 결과 기준’입니다.",
+    "headers": [
+      "용어",
+      "분모",
+      "비고"
+    ],
+    "rows": [
+      [
+        "[[sensitivity|민감도]]",
+        "실제 환자",
+        "위음성이 적을수록 높음"
+      ],
+      [
+        "[[specificity|특이도]]",
+        "실제 비환자",
+        "위양성이 적을수록 높음"
+      ],
+      [
+        "[[positive-predictive-value|양성예측도]]",
+        "검사 양성자",
+        "유병률에 따라 크게 변함"
+      ],
+      [
+        "[[accuracy|정확도]]",
+        "전체",
+        "유병률이 낮으면 정확도만으로는 오해하기 쉬움"
+      ],
+      [
+        "[[likelihood-ratio|우도비]]",
+        "—",
+        "민감도와 특이도로 계산하며 유병률에 독립적"
+      ]
+    ]
+  },
+  "references": [
+    "Altman, D. G., & Bland, J. M. (1994). Diagnostic tests 1: sensitivity and specificity. BMJ, 308(6943), 1552.",
+    "Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., et al. (2015). STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527.",
+    "Leeflang, M. M. G., Rutjes, A. W. S., Reitsma, J. B., Hooft, L., & Bossuyt, P. M. M. (2013). Variation of a test’s sensitivity and specificity with disease prevalence. CMAJ, 185(11), E537–E544.",
+    "Trevethan, R. (2017). Sensitivity, specificity, and predictive values: foundations, pliabilities, and pitfalls in research and practice. Frontiers in Public Health, 5, 307."
+  ]
+}

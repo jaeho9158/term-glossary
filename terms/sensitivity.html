@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/sensitivity.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,29 @@
   <h2>왜 중요한가</h2>
   <p>응급실에서 심근경색이나 폐색전증처럼 놓치면 위험한 질환을 배제할 때는 민감도가 높은 검사를 우선 선택해 병을 놓치는 일을 최소화하는 전략을 씁니다. 대규모 인구집단을 대상으로 하는 국가 암검진 사업에서도 병이 있는 사람을 최대한 걸러내는 것이 목표이므로 선별검사 단계에서는 민감도가 특히 중시됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p><code>민감도 = TP ÷ (TP + FN)</code> — 실제 환자 중 검사가 양성인 비율입니다. 범위는 0~1(0~100%)이며, 분모가 ‘실제 환자’인 점이 핵심입니다. 환자인지 아닌지는 <strong>기준 표준(reference standard)</strong>이 정하므로, 기준 표준이 불완전하면 민감도 추정도 흔들립니다.</p><p><strong>작은 예(가상).</strong> 환자 100명(TP 90, FN 10), 비환자 100명(TN 85, FP 15)이면 민감도 = 90 ÷ 100 = 90%, 특이도 = 85 ÷ 100 = 85%입니다. 민감도의 95% 신뢰구간(Wilson)은 약 82.6~94.5%이고, 우도비로 쓰면 양성 우도비 = 0.90 ÷ 0.15 = 6.0, 음성 우도비 = 0.10 ÷ 0.85 ≈ 0.12입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>높은 민감도의 쓰임</strong>: 음성이면 질환을 ‘배제’하는 데 도움이 된다는 뜻으로 ‘SnNout’이라는 기억법이 쓰입니다. 양성의 해석(‘확진’)은 특이도·유병률이 좌우합니다.</li><li><strong>절단값과의 교환</strong>: 절단값을 낮추면 민감도는 오르고 특이도는 내려가는 경향이 있으며, 이 관계를 곡선으로 그린 것이 <a href="roc-curve.html">ROC 곡선</a>입니다.</li><li><strong>유병률과의 관계</strong>: 정의상 유병률과 무관하지만, 환자 구성(증상이 심한 환자 vs 초기 환자)이 달라지면 실제 추정값은 달라질 수 있습니다(Leeflang 외, 2013). 예측도(<a href="positive-predictive-value.html">양성예측도</a>·<a href="negative-predictive-value.html">음성예측도</a>)는 유병률에 직접 의존합니다.</li><li>같은 가상 검사(민감도 90%, 특이도 85%)를 유병률 10%인 집단에서 쓰면 양성예측도는 약 40%, 음성예측도는 약 98.7%입니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>점추정값만이 아니라 <strong>95% 신뢰구간</strong>을 함께 제시하고, 2×2표(TP, FP, FN, TN)를 공개합니다.</li><li>기준 표준, 대상자 모집 방식, 절단값 결정 방식(사전 지정인지 자료에서 고른 최적값인지)을 밝힙니다. STARD 2015 보고 지침(Bossuyt 외, 2015)이 점검 목록을 제공합니다.</li><li>자료에서 고른 절단값은 낙관적 편향이 생길 수 있어 별도 검증 집단이 필요합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“문장따라말하기 검사 수행에 근거한 단순언어장애 진단의 민감도, 특이도 및 예측도는 5세, 6세 집단 각각에서 모두 85% 이상이었다.”</blockquote><p class="te-cite">문장따라말하기 검사의 학령 전 단순언어장애 진단 정확도, Communication Sciences and Disorders, 2012 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001644777" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“배양 결과를 기준으로 할 때 요침사 현미경하의 세균의 유무를 관찰하는 것이 가장 높은 민감도, 특이도, 양성 및 음성 예측도를 보여 세균뇨의 빠른 진단에 유용한 검사항목이라고 사료되었다.”</blockquote><p class="te-cite">세균뇨 진단을 위한 요침사 현미경 검사 및 아질산염, 백혈구 효소 검사의 비교, Infection and Chemotherapy, 2004 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001143259" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“예측타당도 검증 결과 민감도는 91.1%, 특이도 82.4%, 양성예측도 52.6% 및 음성예측도는 97.8%로 나타났다.”</blockquote><p class="te-cite">한국형 성인 환자 섬망 선별 도구 개발, 임상간호연구, 2023 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002995544" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">새로 개발된 신속항원검사는 유전자증폭검사 대비 민감도 85%로 보고되어 일부 위음성 가능성이 확인되었다.</div>
   <p>새 검사법이 실제 감염자 중 일부를 놓칠 수 있다는 것을 민감도 수치로 보여준 것이다.</p>
   <div class="example">"기준검사(reference standard)를 유전자증폭검사로 하여 산출한 민감도는 92%(95% CI, 87-96%)였다."</div>
@@ -163,6 +186,20 @@
 
   <h2>주의할 점</h2>
   <p>민감도가 높은 검사는 선별(screening) 목적에 적합하지만, 특이도가 낮으면 위양성이 많아질 수 있어 함께 고려해야 합니다. 또한 민감도는 원칙적으로 유병률의 영향을 직접 받지 않지만, 대상 환자군의 중증도 분포(스펙트럼)에 따라 같은 검사라도 초기 병변에서는 민감도가 낮게 측정될 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>민감도·특이도는 ‘환자 기준/비환자 기준’, 예측도는 ‘양성·음성 결과 기준’입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">분모</th><th scope="col">비고</th></tr></thead><tbody><tr><th scope="row"><strong>민감도</strong></th><td>실제 환자</td><td>위음성이 적을수록 높음</td></tr><tr><th scope="row"><a href="specificity.html">특이도</a></th><td>실제 비환자</td><td>위양성이 적을수록 높음</td></tr><tr><th scope="row"><a href="positive-predictive-value.html">양성예측도</a></th><td>검사 양성자</td><td>유병률에 따라 크게 변함</td></tr><tr><th scope="row"><a href="accuracy.html">정확도</a></th><td>전체</td><td>유병률이 낮으면 정확도만으로는 오해하기 쉬움</td></tr><tr><th scope="row"><a href="likelihood-ratio.html">우도비</a></th><td>—</td><td>민감도와 특이도로 계산하며 유병률에 독립적</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Altman, D. G., &amp; Bland, J. M. (1994). Diagnostic tests 1: sensitivity and specificity. BMJ, 308(6943), 1552.</li>
+    <li>Bossuyt, P. M., Reitsma, J. B., Bruns, D. E., et al. (2015). STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. BMJ, 351, h5527.</li>
+    <li>Leeflang, M. M. G., Rutjes, A. W. S., Reitsma, J. B., Hooft, L., &amp; Bossuyt, P. M. M. (2013). Variation of a test’s sensitivity and specificity with disease prevalence. CMAJ, 185(11), E537–E544.</li>
+    <li>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: foundations, pliabilities, and pitfalls in research and practice. Frontiers in Public Health, 5, 307.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
