@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/edge-computing.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -143,7 +144,24 @@
   <h2>왜 중요한가</h2>
   <p>사물인터넷(IoT) 기기와 자율주행, 스마트팩토리 등에서 실시간성과 개인정보 보호가 동시에 요구되면서, 모든 데이터를 클라우드로 보내는 방식의 한계를 극복하는 엣지 컴퓨팅이 딥러닝 경량화·시스템 연구의 중요한 축이 되었습니다. 네트워크 지연과 대역폭 비용을 줄이면서도 인공지능 서비스를 현장에서 바로 제공할 수 있다는 점에서, 모델 압축·연합학습(federated learning) 같은 인접 연구주제와도 밀접하게 연결됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>엣지 컴퓨팅은 데이터가 생기는 곳과 가까운 장소(기기, 게이트웨이, 기지국 근처의 서버)에서 계산을 처리하는 방식입니다. Shi 등(2016)은 이를 네트워크의 가장자리(엣지)에서 이루어지는 새로운 계산 방식으로 소개하며, 사물인터넷의 확산과 풍부한 클라우드 서비스를 등장 배경으로 설명합니다.</li><li>이유는 네 가지로 정리됩니다: 지연 시간 단축, 네트워크 대역폭 절감, 개인정보 보호, 네트워크가 끊겨도 동작.</li><li>대신 엣지 기기는 연산·메모리·전력이 제한적이라 모델을 가볍게 만들어야 합니다.</li><li>실제 시스템은 단말–엣지 서버–클라우드로 계산을 나눕니다. 어디서 무엇을 계산할지 정하는 것이 연구 주제입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예: 감시카메라 100대가 각각 프레임당 200 kB 영상을 초당 30장 클라우드로 보낸다고 합시다. 카메라 한 대가 약 48 Mbps, 전체로는 약 4.8 Gbps를 올려야 합니다. 카메라 옆 엣지 장치에서 추론을 마치고 프레임당 1 kB의 결과(감지된 물체 목록)만 보내면 전체 약 24 Mbps로 줄어듭니다. 이 수치는 이해를 돕기 위한 가정이며, 실제는 압축률과 전송 방식에 따라 달라집니다.</p><p>Satyanarayanan(2017)도 지연 시간과 대역폭처럼 클라우드만으로 충족하기 어려운 요구를 엣지 컴퓨팅이 등장한 이유로 듭니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>엣지 컴퓨팅이 클라우드를 대체한다.</td><td>대부분 역할을 나눠 함께 씁니다. 학습은 클라우드에서, 추론은 엣지에서 하는 구성이 흔합니다.</td></tr><tr><td>엣지는 언제나 더 빠르다.</td><td>엣지 기기의 연산 능력이 낮으면 계산 시간이 오히려 길어질 수 있습니다. 통신 지연과 계산 시간을 함께 비교해야 합니다.</td></tr><tr><td>데이터가 밖으로 안 나가니 보안 문제가 없다.</td><td>개인정보 노출 면은 줄지만, 분산된 많은 기기를 관리하고 보호해야 하는 부담이 생깁니다.</td></tr><tr><td>사물인터넷과 같은 말이다.</td><td>사물인터넷은 연결된 기기들이고, 엣지 컴퓨팅은 그 데이터를 어디서 처리하느냐에 관한 방식입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 경량 모델은 엣지 디바이스에서의 실시간 추론을 목표로 설계되었다."</div>
   <p>클라우드 서버가 아니라 카메라나 스마트폰 같은 현장의 기기에서 직접 모델을 실행할 수 있도록 가볍게 설계했다는 뜻이다.</p>
 
@@ -158,6 +176,17 @@
 
   <h2>주의할 점</h2>
   <p>엣지 컴퓨팅은 기기의 연산 능력과 전력이 제한적이라는 전제가 깔려 있으므로, 클라우드에서 쓰던 대형 모델을 그대로 옮길 수 없는 경우가 대부분이다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">엣지 컴퓨팅</th><td>데이터가 생기는 곳 가까이에서 처리</td></tr><tr><th scope="row"><a href="cloud-computing.html">클라우드컴퓨팅</a></th><td>멀리 있는 대형 데이터센터의 자원을 빌려 처리</td></tr><tr><th scope="row"><a href="federated-learning.html">연합 학습</a></th><td>데이터를 모으지 않고 기기에서 학습한 결과만 합치는 학습 방식(엣지에서 자주 쓰임)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Shi, W., Cao, J., Zhang, Q., Li, Y., &amp; Xu, L. (2016). Edge computing: Vision and challenges. IEEE Internet of Things Journal, 3(5), 637–646.</li>
+    <li>Satyanarayanan, M. (2017). The emergence of edge computing. Computer, 50(1), 30–39.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

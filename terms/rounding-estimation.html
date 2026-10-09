@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/rounding-estimation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,24 @@
   <p>연구에서 다루는 데이터는 대부분 소수점 아래로 끝없이 이어질 수 있는데, 모든 자릿수를 그대로 보고하면 오히려 독자가 핵심 정보를 파악하기 어려워집니다. 어림하기는 논문에서 수치를 일관된 자릿수로 정리해 가독성을 높이고, 표와 그래프 간 표기를 통일하는 데 사용되는 기본적인 관례입니다.</p>
   <p>다만 통계량이나 측정값을 어느 자리에서 어떤 방식으로 어림했는지는 결과의 신뢰도 표현과도 연결되므로, 수치 보고의 정확성을 다루는 여러 분야의 방법론 논의에서 함께 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>자릿수를 정해 놓고 그 아래 숫자를 어떻게 처리하느냐에 따라 세 가지로 나뉩니다. 소수 첫째 자리까지 나타낸다고 할 때의 예입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>규칙</th><th>12.346</th><th>12.351</th></tr></thead><tbody><tr><td>반올림</td><td>바로 아래 자리가 0~4면 버리고 5~9면 올림</td><td>12.3</td><td>12.4</td></tr><tr><td>올림</td><td>아래 자리가 0이 아니면 무조건 올림</td><td>12.4</td><td>12.4</td></tr><tr><td>버림</td><td>아래 자리를 무조건 없앰</td><td>12.3</td><td>12.3</td></tr></tbody></table></div><p>‘정확히 5’일 때(예: 2.5를 정수로)는 다른 규칙도 있습니다. 위 표의 규칙은 “5는 올린다”는 학교 수학의 방식이고, 컴퓨터 부동소수점 표준(IEEE 754)의 기본값은 가장 가까운 짝수로 보내는 방식입니다. 소프트웨어마다 결과가 다를 수 있으니 분석 도구가 어느 규칙을 쓰는지 확인해야 합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>반올림</strong>: 보고용 수치를 정리할 때(평균, 비율, 통계량).</li><li><strong>올림</strong>: 부족하면 안 되는 양을 계산할 때(필요한 버스 대수, 예산 여유분, 최소 표본 크기).</li><li><strong>버림</strong>: 장비가 구분하지 못하는 아래 자리를 잘라 낼 때, 또는 “최대 몇 개까지 가능한가”를 셀 때.</li></ul><p>어림하기로 얻는 것은 읽기 쉬운 수치이고, 잃는 것은 아래 자릿수의 정보입니다. 따라서 어느 단계에서 어림할지가 중요합니다.</p><p>가상의 예: 1.46을 정수로 나타낼 때, 한 번에 반올림하면 1입니다. 먼저 소수 첫째 자리로 반올림(1.5)한 뒤 다시 정수로 반올림하면 2가 됩니다. 단계마다 어림하면 최종 값이 달라질 수 있다는 뜻이며, 계산은 원래 값으로 하고 마지막 보고 단계에서만 어림해야 하는 이유입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>소수 몇째 자리까지, 어떤 규칙(반올림 등)으로 나타냈는지 방법 절이나 표 주석에 적습니다.</li><li>같은 지표는 표와 본문에서 같은 자릿수로 통일합니다.</li><li>어림한 값을 더하면 합계가 맞지 않을 수 있습니다. 가상의 예로 세 집단이 각각 1/3(33.33…%)이면 소수 첫째 자리로 어림한 값은 33.3%씩이고 합은 99.9%입니다. 이럴 때는 “반올림으로 합이 100%가 아닐 수 있음”이라고 주석을 답니다.</li><li>측정 정밀도보다 많은 자릿수를 적지 않습니다(<a href="significant-figures.html">유효숫자</a> 참고).</li><li>통계 검정의 p값처럼 관례가 정해진 값은 학술지 지침을 따릅니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설문 응답률은 반올림하여 소수 첫째 자리까지 제시하였다 (68.4%)."</div>
   <p>논문에서는 통계 수치나 측정값을 보고할 때 소수점 자릿수를 통일하기 위해 반올림을 사용하며, 이는 데이터를 더 읽기 쉽게 정리하기 위한 관례입니다.</p>
   <div class="example">"예산 추정 시 개별 항목의 비용은 천 원 단위로 올림하여 여유분을 확보하였다."</div>
@@ -170,6 +188,19 @@
 
   <h2>주의할 점</h2>
   <p>어림한 값은 실제 값과 차이(오차)가 있을 수 있으므로, 정밀한 계산이 필요한 경우에는 어림값을 그대로 사용하면 안 됩니다. 특히 여러 번 어림한 값을 다시 계산에 사용하면 오차가 누적될 수 있다는 점에 유의해야 합니다. 소수와 관련된 자세한 개념은 <a href="number-system.html">소수</a> 항목을 참고하세요.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">무엇을 지키나</th></tr></thead><tbody><tr><th scope="row">어림하기(반올림·올림·버림)</th><td>값을 정한 자릿수로 줄임</td><td>읽기 쉬움, 상황에 맞는 방향</td></tr><tr><th scope="row"><a href="significant-figures.html">유효숫자</a></th><td>측정에서 믿을 수 있는 자릿수를 정함</td><td>측정 정밀도</td></tr></tbody></table></div>
+  <p class="te-note">유효숫자로 자릿수를 정한 뒤, 그 자릿수에 맞추려고 어림하기를 쓰는 관계입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Goldberg, D. (1991). What every computer scientist should know about floating-point arithmetic. ACM Computing Surveys, 23(1), 5–48.</li>
+    <li>Higham, N. J. (2002). Accuracy and Stability of Numerical Algorithms (2nd ed.). SIAM.</li>
+    <li>IEEE. (2008). IEEE Standard for Floating-Point Arithmetic (IEEE Std 754-2008). Institute of Electrical and Electronics Engineers.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

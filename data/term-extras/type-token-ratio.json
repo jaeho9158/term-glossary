@@ -1,0 +1,29 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>TTR = 유형(서로 다른 단어) 수 ÷ 토큰(전체 단어) 수 입니다. 값은 0보다 크고 1 이하이며, 같은 단어가 한 번도 반복되지 않을 때만 1이 됩니다.</p><p>예: “나는 밥을 먹고 나는 물을 마셨다”를 띄어쓰기(어절)로 세면 토큰은 6개이고 유형은 5개(‘나는’이 중복)이므로 TTR = 5/6 ≈ 0.83입니다.</p><p>글이 길어질수록 이미 쓴 단어가 다시 나올 확률이 커져서 TTR은 자연스럽게 낮아집니다. 이 때문에 길이가 다른 글끼리 TTR을 그대로 비교할 수 없습니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>같은 길이의 글에서 TTR이 높을수록 어휘가 다양하다고 해석합니다. 어휘의 난이도나 정확성은 알려 주지 않습니다.</li><li>단어를 무엇으로 셀지에 따라 값이 크게 달라집니다. 한국어에서 어절로 세면 조사·어미가 붙은 형태가 모두 다른 유형이 되어 TTR이 높게 나오기 쉽습니다. 형태소나 기본형(lemma)으로 세면 값이 달라지므로 같은 기준끼리만 비교합니다.</li><li>길이 영향을 줄이는 대안이 있습니다. 이동평균 TTR(MATTR)은 일정 길이의 창을 한 칸씩 밀면서 TTR을 구해 평균을 냅니다(Covington &amp; McFall, 2010). MTLD, vocd-D, HD-D는 McCarthy와 Jarvis(2010)가 비교·검증한 길이 영향이 적은 지표들입니다.</li></ul><p>가상의 예: 위 문장을 창 길이 3으로 나누어 보면 창이 4개이고 각 창의 TTR 평균은 1.00입니다. 전체 TTR(0.83)과 값이 달라지는 것에서 계산 방식이 결과를 바꾼다는 점을 볼 수 있습니다. 이렇게 짧은 문장에서는 두 값이 의미 있게 비교되지 않으며, 실제 분석은 수백 단어 이상의 텍스트에서 합니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>세는 단위(어절·형태소·기본형), 대소문자·구두점 처리, 사용한 분석기를 밝힙니다.</li><li>비교하는 텍스트의 길이(토큰 수)를 함께 보고하고, 길이를 맞췄다면(자르기·창 방식) 방법을 적습니다.</li><li>길이가 다른 자료에서는 원래 TTR 대신 MATTR·MTLD 등을 쓰고, 어떤 계산 도구와 설정(창 길이, 임계값)을 썼는지 적습니다.</li><li>약어 TTR은 다른 분야에서도 쓰이므로 처음 나올 때 풀어 적습니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Templin, M. C. (1957). Certain Language Skills in Children: Their Development and Interrelationships. University of Minnesota Press.",
+    "Malvern, D., Richards, B., Chipere, N., & Durán, P. (2004). Lexical Diversity and Language Development: Quantification and Assessment. Palgrave Macmillan.",
+    "McCarthy, P. M., & Jarvis, S. (2010). MTLD, vocd-D, and HD-D: A validation study of sophisticated approaches to lexical diversity assessment. Behavior Research Methods, 42(2), 381–392.",
+    "Covington, M. A., & McFall, J. D. (2010). Cutting the Gordian knot: The moving-average type–token ratio (MATTR). Journal of Quantitative Linguistics, 17(2), 94–100."
+  ],
+  "fixes": [
+    {
+      "find": "전체 단어(토큰)는 7개지만 서로 다른 단어(유형)는 &quot;나는&quot;이 겹쳐 6개입니다. 이때 유형-토큰 비율은 6/7입니다.",
+      "replace": "전체 단어(토큰)는 6개지만 서로 다른 단어(유형)는 &quot;나는&quot;이 겹쳐 5개입니다. 이때 유형-토큰 비율은 5/6입니다."
+    }
+  ]
+}

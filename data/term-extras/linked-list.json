@@ -1,0 +1,38 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>연결 리스트는 각 칸(노드)이 값과 다음 칸의 위치(포인터)를 함께 가지고 줄줄이 이어진 자료구조입니다. 시작점을 가리키는 head를 알면 전체를 따라갈 수 있습니다.</li><li>변형: 다음 칸만 가리키는 단일 연결 리스트, 앞뒤를 모두 가리키는 이중 연결 리스트, 마지막이 처음으로 이어지는 원형 연결 리스트.</li><li>배열은 칸이 메모리에 나란히 놓여 번호로 바로 찾아가지만, 연결 리스트는 칸이 흩어져 있어 앞에서부터 따라가야 합니다.</li></ul><table><thead><tr><th>연산</th><th>연결 리스트</th><th>배열</th></tr></thead><tbody><tr><td>i번째 접근</td><td>O(n)</td><td>O(1)</td></tr><tr><td>맨 앞 삽입</td><td>O(1)</td><td>O(n)</td></tr><tr><td>노드를 이미 가리키고 있을 때 뒤에 삽입</td><td>O(1)</td><td>O(n)</td></tr><tr><td>값으로 탐색</td><td>O(n)</td><td>O(n)</td></tr></tbody></table><p>삽입이 O(1)이려면 삽입할 자리의 노드를 이미 알고 있어야 합니다. 그 자리를 찾는 비용은 따로 듭니다(Cormen et al., 2009).</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>세 노드 3 → 7 → 9 에서 7 뒤에 8을 끼워 넣으면 다음 두 줄이면 됩니다.</p><p><code>새노드.next = 7노드.next</code><br><code>7노드.next = 새노드</code></p><p>결과는 3 → 7 → 8 → 9 입니다. 뒤의 노드를 하나도 옮기지 않았다는 점이 배열과 다릅니다. 반대로 3번째 값을 읽으려면 head에서 두 번 따라가야 합니다.</p><p>이 구조는 스택·큐 구현, 해시 테이블의 체이닝(같은 칸에 걸린 값을 줄로 잇기), 그래프의 인접 리스트, 메모리 할당기의 빈 블록 목록 등에 쓰입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>연결 리스트는 배열보다 항상 삽입·삭제가 빠르다.</td><td>삽입 자리를 찾는 시간까지 합치면 O(n)일 수 있습니다. 또한 노드가 메모리에 흩어져 있으면 CPU 캐시 효율이 떨어져 실제로는 배열이 더 빠른 경우가 많습니다.</td></tr><tr><td>메모리를 덜 쓴다.</td><td>노드마다 포인터를 더 저장하므로 같은 데이터에서 보통 메모리를 더 씁니다.</td></tr><tr><td>크기를 미리 몰라도 된다는 건 크기에 한계가 없다는 뜻이다.</td><td>필요할 때 노드를 할당하지만 전체 메모리 한도는 그대로입니다.</td></tr><tr><td>스택·큐와 같은 말이다.</td><td>스택·큐는 넣고 빼는 규칙(추상 자료형)이고, 연결 리스트나 배열은 이를 구현하는 방법입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "성격"
+    ],
+    "rows": [
+      [
+        "연결 리스트",
+        "노드를 포인터로 잇는 구현 방식(자료구조)"
+      ],
+      [
+        "[[stack-and-queue|스택과 큐]]",
+        "넣고 빼는 순서 규칙(추상 자료형). 연결 리스트로도, 배열로도 구현"
+      ]
+    ]
+  },
+  "references": [
+    "Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.",
+    "Knuth, D. E. (1997). The Art of Computer Programming, Volume 1: Fundamental Algorithms (3rd ed.). Addison-Wesley."
+  ]
+}

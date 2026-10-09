@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>데이터 수집</strong>: 진동, 온도, 전류, 음향, 압력 등을 센서로 모읍니다.</li><li><strong>처리와 특징 추출</strong>: 잡음을 제거하고 통계량(RMS, 첨도)이나 주파수 성분 같은 상태 지표를 만듭니다.</li><li><strong>진단과 예측</strong>: 지금 이상이 있는지(이상탐지·진단)와 앞으로 얼마나 더 쓸 수 있는지(잔존유효수명, RUL 예측)를 모델로 추정합니다.</li><li><strong>정비 의사결정</strong>: 예측 결과로 정비 시점과 방식을 정합니다.</li></ol><p>상태를 보고 정비하는 상태기반정비(CBM)는 대개 ‘데이터 수집–데이터 처리–정비 의사결정’ 세 단계로 설명됩니다(Jardine et al., 2006). 예지보전은 여기에 고장까지 남은 시간의 예측을 더한 개념으로 쓰이는 경우가 많으나, 두 용어를 거의 같은 뜻으로 쓰는 문헌도 있습니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>잘 맞는 경우: 고장 비용이 크고, 부품이 급격히 망가지기보다 서서히 열화하며 그 징후가 센서에 나타나는 설비(베어링, 터빈, 모터).</li><li>어려운 경우: 예고 없이 갑자기 생기는 무작위 고장, 고장 이력(라벨)이 부족한 설비.</li><li>얻는 것: 불필요한 교체를 줄이고 돌발 고장에 따른 가동 중단을 줄이는 것.</li></ul><p>RUL 예측을 평가할 때 NASA의 C-MAPSS 터보팬 엔진 모의 자료(Saxena et al., 2008)와 함께 쓰이는 점수 함수는 늦은 예측을 더 무겁게 벌줍니다. 예측 RUL − 실제 RUL을 d라 할 때 d &lt; 0(일찍 예측)이면 e<sup>−d/13</sup> − 1, d ≥ 0(늦게 예측)이면 e<sup>d/10</sup> − 1입니다. 가상의 예로 d = −10이면 1.16, d = +10이면 1.72로 같은 크기의 오차라도 늦게 맞히는 쪽이 더 큰 벌점입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>데이터 출처(실제 설비 또는 모의 자료), 센서와 표본 주기, 고장 정의, 라벨 방식을 밝힙니다.</li><li>학습·검증·시험 분할은 <strong>설비(엔진) 단위</strong>로 나눕니다. 같은 설비의 시점들이 학습과 시험에 섞이면 성능이 부풀려집니다.</li><li>지표는 RUL의 RMSE와 점수 함수, 이상탐지는 정밀도·재현율과 경보까지의 선행 시간을 보고하고, 비교 기준(단순 규칙, 기존 모델)을 둡니다.</li><li>정비 비용 절감 효과를 주장하려면 경보 오류의 비용(오경보, 미탐지)까지 따져야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "방식",
+      "정비 시점",
+      "특징"
+    ],
+    "rows": [
+      [
+        "사후정비",
+        "고장 난 뒤",
+        "단순하지만 돌발 정지 비용"
+      ],
+      [
+        "[[preventive-maintenance|예방보전]]",
+        "정해진 주기마다",
+        "상태와 무관하게 교체해 낭비 가능"
+      ],
+      [
+        "예지보전",
+        "상태 데이터로 예측한 시점",
+        "센서·모델이 필요함"
+      ],
+      [
+        "[[fmea|고장모드영향분석(FMEA)]]",
+        "가동 전 설계 단계",
+        "어떤 부품이 어떻게 고장 날지 미리 분석하는 정성적 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Jardine, A. K. S., Lin, D., & Banjevic, D. (2006). A review on machinery diagnostics and prognostics implementing condition-based maintenance. Mechanical Systems and Signal Processing, 20(7), 1483–1510.",
+    "Saxena, A., Goebel, K., Simon, D., & Eklund, N. (2008). Damage propagation modeling for aircraft engine run-to-failure simulation. In Proceedings of the 2008 International Conference on Prognostics and Health Management.",
+    "Lei, Y., Li, N., Guo, L., Li, N., Yan, T., & Lin, J. (2018). Machinery health prognostics: A systematic review from data acquisition to RUL prediction. Mechanical Systems and Signal Processing, 104, 799–834.",
+    "Mobley, R. K. (2002). An Introduction to Predictive Maintenance (2nd ed.). Butterworth-Heinemann."
+  ]
+}
