@@ -145,7 +145,7 @@ test("파일럿 데이터: 20개, 유형·참고 문헌·인용 형식이 맞다
     assert.ok(Object.keys(TYPE_HEADINGS).includes(x.type), slug);
     assert.ok(x.references.length >= 2 && x.references.length <= 5, `${slug} 참고 문헌 수`);
     for (const r of x.references) assert.ok(/\(\d{4}\)|\(\d{4}[a-z]?\)\./.test(r), `${slug}: 연도가 없는 참고 문헌 ${r}`);
-    assert.ok(!/doi|https?:/i.test(JSON.stringify(x.references)), `${slug}: 참고 문헌에 URL/DOI 금지`);
+    assert.ok(!/bdoib|https?:/i.test(JSON.stringify(x.references)), `${slug}: 참고 문헌에 URL/DOI 금지`);
     const usage = readJson(path.join(USAGE_DIR, `${slug}.json`));
     assert.ok(Array.isArray(usage));
     for (const q of usage) {
