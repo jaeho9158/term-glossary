@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/hazard-ratio.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,27 @@
   <h2>왜 중요한가</h2>
   <p>위험비는 임상시험이나 코호트 연구처럼 사건 발생까지의 "시간"이 핵심 정보인 연구에서 치료 효과나 위험 요인의 영향을 요약하는 표준적인 지표이기 때문에 중요합니다. 단순한 발생률 비교와 달리 추적 기간이 서로 다른 대상자들을 함께 다룰 수 있어 생존분석 전반에서 널리 쓰이며, 종양학·심혈관질환·역학 연구 등에서 치료법이나 위험 요인의 효과를 보고하는 핵심 결과값으로 자리 잡고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>위험비(HR)는 두 집단의 <strong>위험률(hazard)</strong>의 비입니다. 위험률 h(t)는 시점 t까지 사건이 없었던 사람이 바로 그 순간 사건을 겪을 순간 위험입니다. 범위는 0보다 크고, 1이면 두 집단이 같고, 1보다 작으면 비교군(분자 쪽)의 위험이 낮습니다.</p><p>콕스 비례위험모형(<a href="cox-proportional-hazards-model.html">Cox 모형</a>, Cox 1972)에서는 HR = exp(β)입니다. β는 공변량 한 단위 증가에 따른 로그 위험률의 변화입니다. 예: β = −0.693이면 HR = e⁻⁰·⁶⁹³ ≈ 0.50입니다.</p><p>사건이 일정한 비율로 일어난다고 볼 수 있는 단순한 경우에는 HR이 발생률의 비와 같습니다. 가상의 예: 처치군에서 사건 30건/1,000 인년, 대조군에서 60건/1,000 인년이면 HR = 0.5입니다. 로그 HR의 표준오차는 근사적으로 √(1/30 + 1/60) ≈ 0.224이고, 95% 신뢰구간은 exp(ln 0.5 ± 1.96 × 0.224) = 0.32~0.78입니다. Cox 모형에서 SE(β) = 0.25였다면 95% CI는 exp(−0.693 ± 1.96 × 0.25) = 0.31~0.82입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>HR &lt; 1: 비교군(분자)의 사건 위험률이 기준군보다 낮습니다. HR = 0.75이면 위험률이 25% 낮습니다.</li><li>HR &gt; 1: 위험률이 높습니다. HR = 2.27이면 위험률이 127% 높다는 뜻입니다(2.27배).</li><li>95% 신뢰구간이 1을 포함하면 통계적으로 차이가 있다고 하기 어렵습니다.</li><li>비례위험 가정 아래 HR 0.5는 <strong>관찰 기간 어느 시점에서나 순간 위험이 절반</strong>이라는 뜻입니다. “생존 기간이 두 배”나 “최종 누적 위험이 절반”을 뜻하지 않습니다.</li><li>임상적으로 의미 있는 HR의 보편적 기준값은 없습니다. 분야와 사건의 중대성에 따라 판단이 달라지며, 효과 크기는 신뢰구간 전체와 함께 읽습니다.</li><li>Hernán(2010)은 HR이 시간에 따라 달라질 수 있고, 시간이 지나면서 남은 사람들이 서로 비교 가능하지 않게 된다는 점 때문에 인과적으로 해석하기 까다롭다고 지적했습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>기준군(분모)과 비교군(분자)을 명시하고, HR과 95% 신뢰구간, p값을 함께 적습니다.</li><li>사건 수와 추적 기간(중앙 추적 기간)을 적습니다. 사건 수가 적으면 HR이 불안정합니다.</li><li>보정한 변수를 밝히고, 비례위험 가정 점검 결과(예: Schoenfeld 잔차 검정, Grambsch &amp; Therneau 1994)를 적습니다. 가정이 깨지면 시간 변동 효과, 층화, 제한 평균 생존시간 같은 대안을 씁니다.</li><li>HR만으로는 절대 위험의 차이를 알 수 없으므로 생존 곡선이나 절대 위험 등을 함께 제시하는 것이 좋습니다. HR의 의미와 한계에 대한 개관은 Spruance 외(2004)를 참고할 수 있습니다.</li></ul><p>보고 예: “치료군의 사망 위험률은 대조군의 0.50배였다(HR 0.50, 95% CI 0.32–0.78).”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“6개 코호트 연구에 따르면 고연령층 환자에서 갑상선암 진행 위험비가 0.35 (p＜0.001)로 유의하게 낮았다.”</blockquote><p class="te-cite">2025 대한갑상선학회 저위험 갑상선유두암 적극적 관찰 진료권고안, International Journal of Thyroidology, 2025 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516091950" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"치료군은 대조군에 비해 질병 재발의 위험비가 0.62(95% 신뢰구간 0.48–0.79)로 유의하게 낮았다(p&lt;0.01)."</div>
   <p>이 문장은 치료군이 대조군보다 관찰 기간 동안 매 순간 재발 위험이 약 38% 낮았다는 것을 의미합니다.</p>
   <div class="example">"흡연 여부는 심혈관질환 발생의 독립적 위험 요인으로, 다변량 Cox 모형에서 조정 위험비는 1.8로 나타났다."</div>
@@ -166,6 +187,19 @@
 
   <h2>주의할 점</h2>
   <p>위험비는 두 집단 간 위험의 "비율"이 관찰 기간 내내 일정하다는 비례위험가정(proportional hazards assumption)을 전제로 계산됩니다. 만약 초반에는 치료 효과가 크다가 시간이 갈수록 줄어드는 식으로 이 가정이 깨지면, 하나의 위험비 값만으로는 실제 상황을 제대로 설명하기 어렵습니다. 또한 <a href="odds-ratio.html">교차비(오즈비)</a>나 상대위험도와 혼동하기 쉬운데, 이 두 값은 시간 경과를 반영하지 않는다는 차이가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">지표</th><th scope="col">비교 대상</th><th scope="col">시간 정보</th></tr></thead><tbody><tr><th scope="row">위험비(HR)</th><td>순간 위험률의 비</td><td>시간을 반영(생존분석)</td></tr><tr><th scope="row"><a href="relative-risk.html">상대위험도(RR)</a></th><td>누적 발생 위험의 비</td><td>고정 기간의 누적</td></tr><tr><th scope="row"><a href="odds-ratio.html">오즈비(OR)</a></th><td>오즈(사건/비사건)의 비</td><td>고정 시점의 단면</td></tr><tr><th scope="row"><a href="cox-proportional-hazards-model.html">Cox 모형</a></th><td>HR을 추정하는 대표 모형</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cox, D. R. (1972). Regression models and life-tables. Journal of the Royal Statistical Society: Series B, 34(2), 187–220.</li>
+    <li>Grambsch, P. M., &amp; Therneau, T. M. (1994). Proportional hazards tests and diagnostics based on weighted residuals. Biometrika, 81(3), 515–526.</li>
+    <li>Spruance, S. L., Reid, J. E., Grace, M., &amp; Samore, M. (2004). Hazard ratio in clinical trials. Antimicrobial Agents and Chemotherapy, 48(8), 2787–2792.</li>
+    <li>Hernán, M. A. (2010). The hazards of hazard ratios. Epidemiology, 21(1), 13–15.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

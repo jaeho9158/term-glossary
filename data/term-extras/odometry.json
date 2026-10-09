@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>휠 오도메트리(차동구동 로봇 기준)는 바퀴 엔코더의 회전 눈금을 이동량으로 바꿔 쌓는 방식입니다.</p><ol><li>엔코더 눈금 증가량을 거리로 바꿉니다: Δs = 2πr · (눈금 수) ÷ (회전당 눈금 수).</li><li>좌우 바퀴 이동 거리 Δs<sub>L</sub>, Δs<sub>R</sub>로부터 중심 이동 Δs = (Δs<sub>R</sub> + Δs<sub>L</sub>)/2, 방향 변화 Δθ = (Δs<sub>R</sub> − Δs<sub>L</sub>)/b를 구합니다(b는 두 바퀴 사이 거리).</li><li>위치를 갱신합니다: x ← x + Δs·cos(θ + Δθ/2), y ← y + Δs·sin(θ + Δθ/2), θ ← θ + Δθ.</li></ol><p>가상의 예: r = 0.05 m, 회전당 2,000 눈금, b = 0.30 m. 한 갱신 주기에 왼쪽 4,000 눈금(0.628 m), 오른쪽 4,400 눈금(0.691 m)이 증가했다면 Δs ≈ 0.660 m, Δθ ≈ 0.209 rad(12°)이고, 출발 방향이 θ = 0일 때 Δx ≈ 0.656 m, Δy ≈ 0.069 m입니다.</p><p>시각 오도메트리와 라이다 오도메트리는 바퀴 대신 연속된 영상·스캔의 정합으로 같은 일을 합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<table><thead><tr><th>얻는 것</th><th>한계</th></tr></thead><tbody><tr><td>외부 기준 없이 빠르게 갱신되는 상대 위치·자세 추정</td><td>오차가 누적되어 시간이 갈수록 커집니다.</td></tr><tr><td>다른 센서가 끊겨도 잠시 이어 가는 보조 정보</td><td>바퀴 미끄러짐·지면 상태에 민감합니다.</td></tr><tr><td>필터·SLAM의 예측 단계 입력</td><td>방향 오차가 거리에 곱해져 위치 오차로 커집니다.</td></tr></tbody></table><p>방향 오차의 영향을 계산해 보면, 1°의 방향 오차를 가진 채 100 m를 직진하면 옆으로 100 × sin(1°) ≈ 1.75 m 벗어납니다. 오차는 크게 두 가지입니다. ① 체계적 오차: 바퀴 지름 불일치, 휠베이스 불확실성 등(Borenstein &amp; Feng 1996은 이를 보정하는 UMBmark 절차를 제안). ② 비체계적 오차: 미끄러짐, 바닥 요철 등.</p><p>그래서 오도메트리는 단독으로 쓰기보다 [[kalman-filter|칼만 필터]], [[slam|SLAM]], GPS·IMU 등과 결합합니다. 원리는 [[dead-reckoning|추측항법]]과 같습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 오도메트리인지 밝힙니다: 휠, 관성(IMU), 시각([[visual-odometry|시각 오도메트리]]), 라이다.</li><li>바퀴 반지름, 휠베이스, 엔코더 해상도 등 매개변수와 보정 방법을 적습니다.</li><li>성능은 절대 오차 하나가 아니라 <strong>이동 거리당 상대 오차</strong>로 제시하는 것이 관례입니다. KITTI 오도메트리 벤치마크(Geiger 등 2012)는 이동 거리에 대한 위치 오차의 비율(%)과 단위 거리당 회전 오차(도/m)를 사용합니다.</li><li>실험 환경(바닥 재질, 속도, 주행 거리)과 오차 누적을 비교한 그래프(예: 시간에 따른 궤적 이탈)를 함께 싣습니다.</li><li>여러 센서를 융합하면 각 센서의 공분산(불확실성) 설정 방법을 밝힙니다. 신뢰도를 잘못 두면 오히려 정확도가 나빠질 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "설명"
+    ],
+    "rows": [
+      [
+        "오도메트리",
+        "센서 정보로 이동량을 누적해 상대적 위치를 추정"
+      ],
+      [
+        "[[dead-reckoning|추측항법]]",
+        "이전 위치와 속도·방향·시간으로 현재 위치를 추정하는 더 넓은 원리"
+      ],
+      [
+        "[[visual-odometry|시각 오도메트리]]",
+        "영상 프레임 간 대응으로 카메라 이동을 추정"
+      ],
+      [
+        "[[slam|SLAM]]",
+        "위치 추정과 지도 작성을 동시에 수행"
+      ]
+    ]
+  },
+  "references": [
+    "Borenstein, J., & Feng, L. (1996). Measurement and correction of systematic odometry errors in mobile robots. IEEE Transactions on Robotics and Automation, 12(6), 869–880.",
+    "Siegwart, R., Nourbakhsh, I. R., & Scaramuzza, D. (2011). Introduction to Autonomous Mobile Robots (2nd ed.). MIT Press.",
+    "Scaramuzza, D., & Fraundorfer, F. (2011). Visual odometry: Part I – The first 30 years and fundamentals. IEEE Robotics & Automation Magazine, 18(4), 80–92.",
+    "Geiger, A., Lenz, P., & Urtasun, R. (2012). Are we ready for autonomous driving? The KITTI vision benchmark suite. IEEE Conference on Computer Vision and Pattern Recognition, 3354–3361."
+  ]
+}

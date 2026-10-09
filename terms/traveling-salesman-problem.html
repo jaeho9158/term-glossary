@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/traveling-salesman-problem.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>외판원문제는 물류·수송 분야의 배송 경로 계획, 차량 라우팅 문제의 기초가 되는 대표적인 조합최적화 문제이며, 방문할 지점의 수가 늘어나면 가능한 경로의 수가 기하급수적으로 늘어나는 대표적인 계산 난제(NP-hard)이기도 해서 알고리즘 연구에서도 자주 다뤄집니다. 외판원문제는 배송 경로 설계나 회로 기판의 배선 순서 결정 등 실무의 다양한 순서결정 문제로 변형되어 응용되며, 계산 이론에서 NP-난해 문제의 대표 사례로 다뤄져 왔습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>외판원 문제(TSP): n개 도시와 도시 사이의 거리가 주어졌을 때, 모든 도시를 한 번씩 거쳐 출발지로 돌아오는 <strong>가장 짧은 순환 경로</strong>를 찾는 문제입니다.</li><li>가능한 경로의 수는 대칭(왕복 거리가 같은) 문제에서 (n − 1)!/2개입니다. 완전탐색은 도시 수가 늘면 현실적으로 불가능해집니다.</li><li>TSP의 결정 버전은 NP-완전이고, 최적값을 구하는 문제는 NP-난해로 분류됩니다(Karp 1972의 환원 결과에서 나온 결론). 자세한 개념은 <a href="np-completeness.html">NP-완전성</a>, <a href="p-vs-np-problem.html">P 대 NP 문제</a>를 보세요.</li><li>정확한 알고리즘으로는 동적계획법(Held–Karp, 1962; 시간 O(n²2ⁿ))이 있고, 대규모는 분기한정법·절단평면법으로 풉니다(Dantzig 외 1954가 선구).</li><li>근사 알고리즘: 거리가 삼각부등식을 만족하는 경우 Christofides(1976) 알고리즘은 최적값의 1.5배 이내를 보장합니다. 유클리드 평면에서는 임의의 정밀도로 근사하는 다항시간 근사 체계가 알려져 있습니다(Arora 1998).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>경로 수가 얼마나 빨리 불어나는지 계산하면 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>도시 수 n</th><th>(n − 1)!/2</th><th>Held–Karp 연산 수 n²2ⁿ</th></tr></thead><tbody><tr><td>5</td><td>12</td><td>800</td></tr><tr><td>10</td><td>181,440</td><td>102,400</td></tr><tr><td>15</td><td>약 4.4 × 10¹⁰</td><td>약 7.4 × 10⁶</td></tr><tr><td>20</td><td>약 6.1 × 10¹⁶</td><td>약 4.2 × 10⁸</td></tr><tr><td>25</td><td>약 3.1 × 10²³</td><td>약 2.1 × 10¹⁰</td></tr></tbody></table></div><p>동적계획법이 완전탐색보다 훨씬 낫지만 여전히 n에 대해 지수적입니다.</p><p>5개 도시 예(가상의 좌표, 직선거리): A(0,0), B(4,0), C(4,3), D(0,3), E(2,5). 서로 다른 순환 경로는 12개이고, 모두 계산하면 최단은 A→B→C→E→D→A로 길이 ≈ 15.66, 최장은 A→E→B→D→C→A로 ≈ 24.77입니다. 가장 가까운 도시로 가는 탐욕 규칙(최근접 이웃)으로 A에서 출발하면 이 사례에서는 우연히 최단 경로를 찾지만, 일반적으로 최적을 보장하지 못합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>NP-난해라서 큰 문제는 풀 수 없다.</td><td>이론상 최악의 경우가 어렵다는 뜻입니다. 전문 소프트웨어(Concorde 등)는 수만 개 도시 사례의 최적해를 증명까지 한 사례가 보고되어 있습니다(Applegate 외 2006).</td></tr><tr><td>가까운 도시부터 방문하면 최적이다.</td><td>최근접 이웃 규칙은 빠르지만 최적이 아닌 경우가 많습니다.</td></tr><tr><td>모든 TSP에 근사 보장이 있다.</td><td>Christofides의 1.5 보장은 삼각부등식을 만족하는 경우에 한정됩니다. 일반 TSP는 상수 배 근사도 어렵다는 것이 알려져 있습니다.</td></tr><tr><td><a href="vehicle-routing-problem.html">차량경로문제</a>와 같다.</td><td>TSP는 한 명이 모든 곳을 도는 문제이고, 차량경로문제는 여러 차량·용량·시간 제약을 함께 다루는 확장입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"택배 배송 경로 최적화를 위해 외판원문제를 기반으로 한 유전 알고리즘 기법을 적용하여 총 배송거리를 단축하였다."</div>
   <p>배송 경로 최적화 문제를 외판원문제로 모형화한 사례입니다.</p>
   <div class="example">"차량 용량 제약을 포함한 차량라우팅문제는 외판원문제를 여러 차량으로 확장한 형태로 볼 수 있다."</div>
@@ -160,6 +178,21 @@
 
   <h2>주의할 점</h2>
   <p>외판원문제는 이론적으로 최적해를 구하기 어려운 문제이므로, 실무에서 사용하는 해법 대부분은 최적해에 가까운 근사해를 빠르게 찾는 데 초점을 두며 완전한 최적성을 보장하지는 않는 경우가 많습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">문제</th><th scope="col">핵심</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">외판원 문제</th><td>모든 도시를 한 번씩 거쳐 돌아오는 최단 순환</td><td>경로 수가 (n − 1)!/2</td></tr><tr><th scope="row"><a href="vehicle-routing-problem.html">차량경로문제</a></th><td>여러 차량이 여러 배송지를 나누어 방문</td><td>TSP의 확장, 용량·시간 제약</td></tr><tr><th scope="row">최단경로 문제</th><td>두 지점 사이의 최단 경로</td><td>다항시간에 풀림(다익스트라 등)</td></tr><tr><th scope="row"><a href="np-completeness.html">NP-완전성</a></th><td>확인은 쉽지만 풀이는 어려운 문제군의 성질</td><td>TSP 결정 버전이 해당</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Dantzig, G., Fulkerson, R., &amp; Johnson, S. (1954). Solution of a large-scale traveling-salesman problem. Journal of the Operations Research Society of America, 2(4), 393–410.</li>
+    <li>Held, M., &amp; Karp, R. M. (1962). A dynamic programming approach to sequencing problems. Journal of the Society for Industrial and Applied Mathematics, 10(1), 196–210.</li>
+    <li>Karp, R. M. (1972). Reducibility among combinatorial problems. In R. E. Miller &amp; J. W. Thatcher (Eds.), Complexity of Computer Computations. Plenum Press.</li>
+    <li>Applegate, D. L., Bixby, R. E., Chvátal, V., &amp; Cook, W. J. (2006). The Traveling Salesman Problem: A Computational Study. Princeton University Press.</li>
+    <li>Christofides, N. (1976). Worst-case analysis of a new heuristic for the travelling salesman problem (Report 388). Graduate School of Industrial Administration, Carnegie Mellon University.</li>
+    <li>Arora, S. (1998). Polynomial time approximation schemes for Euclidean traveling salesman and other geometric problems. Journal of the ACM, 45(5), 753–782.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
