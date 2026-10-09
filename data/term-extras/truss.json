@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>트러스는 직선 부재를 <strong>삼각형 단위</strong>로 이어 만든 골조입니다. 삼각형은 세 변의 길이가 정해지면 모양이 고정되어, 핀으로 이은 다각형 중 스스로 형태를 유지하는 기본 단위입니다.</li><li>해석에서는 ① 부재는 곧은 막대, ② 접합부는 핀(회전 자유), ③ 하중은 절점에만 작용한다고 이상화합니다. 그러면 각 부재는 굽힘 없이 <strong>축방향 인장 또는 압축</strong>만 받습니다.</li><li>평면 트러스가 정정(힘의 평형만으로 부재력을 구할 수 있음)인지는 부재 수 m, 반력 수 r, 절점 수 j가 m + r = 2j를 만족하는지로 먼저 확인합니다(Leet 외, 2011). m + r이 더 크면 부정정, 작으면 불안정한 구조입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가장 작은 트러스인 삼각형으로 절점법을 계산해 봅시다(가상의 예, 코드로 계산). 밑변 6 m, 높이 4 m인 이등변삼각형 지붕틀의 꼭짓점 C에 아래 방향 10 kN이 걸리고, 왼쪽 A는 핀, 오른쪽 B는 롤러로 받친 경우입니다.</p><ul><li>구조 확인: m = 3, r = 3, j = 3이어서 3 + 3 = 2·3으로 정정입니다.</li><li>대칭이므로 반력은 A와 B 각각 5 kN(위 방향).</li><li>경사 부재 AC, BC의 길이는 5 m(3-4-5 삼각형). 점 A에서 수직 평형으로 F<sub>AC</sub>·(4/5) = −5, 곧 <strong>F<sub>AC</sub> = F<sub>BC</sub> = −6.25 kN</strong>(압축).</li><li>점 A에서 수평 평형으로 F<sub>AB</sub> = −F<sub>AC</sub>·(3/5) = <strong>3.75 kN</strong>(인장, 밑변이 벌어지려는 힘을 당겨 잡음).</li></ul><table><thead><tr><th>부재</th><th>부재력(kN)</th><th>성격</th></tr></thead><tbody><tr><td>AC</td><td>−6.25</td><td>압축</td></tr><tr><td>BC</td><td>−6.25</td><td>압축</td></tr><tr><td>AB</td><td>+3.75</td><td>인장</td></tr></tbody></table><p>꼭짓점 C에서 평형을 다시 확인하면 수직 합이 0, 수평 합이 0이 됩니다(Hibbeler, 2016). 압축 부재는 인장 부재와 달리 [[buckling|좌굴]]로 갑자기 무너질 수 있어 세장비를 따로 검토합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>트러스의 모든 부재는 당겨지는 힘을 받는다.</td><td>위 예처럼 인장 부재와 압축 부재가 함께 있습니다.</td></tr><tr><td>삼각형이므로 어떤 하중에도 안전하다.</td><td>삼각형은 형태가 유지될 뿐입니다. 압축 부재의 좌굴, 접합부 강도, 과대 하중은 따로 검토합니다.</td></tr><tr><td>트러스 부재는 굽힘을 전혀 받지 않는다.</td><td>이상화한 해석의 가정입니다. 실제로는 접합부의 강성과 부재 자중 때문에 약간의 굽힘(2차 응력)이 생길 수 있습니다.</td></tr><tr><td>하중은 어디에 가해도 같은 해석이 된다.</td><td>이 이론은 하중이 절점에만 작용한다고 가정합니다. 부재 중간에 하중이 있으면 굽힘이 생겨 트러스 해석이 맞지 않습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Hibbeler, R. C. (2016). Engineering Mechanics: Statics (14th ed.). Pearson.",
+    "Leet, K. M., Uang, C.-M., & Gilbert, A. M. (2011). Fundamentals of Structural Analysis (4th ed.). McGraw-Hill."
+  ]
+}

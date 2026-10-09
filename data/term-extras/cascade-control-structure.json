@@ -1,0 +1,22 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>캐스케이드 제어는 제어기를 두 층으로 쌓습니다. 바깥(주) 제어기가 목표 변수(예: 온도, 위치)의 오차로 계산한 출력이 안쪽(부) 제어기의 <strong>설정값</strong>이 되고, 안쪽 제어기는 그보다 빠른 중간 변수(예: 열매체 유량, 전류, 속도)를 그 설정값에 맞춥니다.</p><ol><li><strong>중간 변수를 고릅니다.</strong> 조작량에 빠르게 반응하고 외란이 먼저 영향을 주며 측정할 수 있는 변수여야 합니다.</li><li><strong>안쪽 루프를 먼저 튜닝합니다.</strong> 바깥 제어기는 수동으로 둔 채 안쪽 루프를 안정시킵니다.</li><li><strong>안쪽 루프를 닫은 상태에서 바깥 루프를 튜닝합니다.</strong> 바깥 제어기에게 안쪽 루프는 ‘빠르게 따라오는 하나의 플랜트’처럼 보입니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>외란이 안쪽 변수에 먼저 들어오는 경우에 이득이 큽니다. 모의실험으로 확인해 봅시다(가상의 예, 코드로 계산).</p><ul><li>플랜트: 빠른 부분 G₂ = 1/(s+1)(안쪽 변수 y₂), 느린 부분 G₁ = 1/(10s+1)(목표 변수 y₁). 외란은 G₂의 입력에 크기 1의 계단으로 들어옵니다.</li><li>단일 루프: y₁만 측정하는 PI 제어(Kp = 1.5, Ti = 8 s).</li><li>캐스케이드: 같은 PI를 바깥에 두고 y₂를 측정하는 비례 제어(이득 4)를 안쪽에 둠.</li></ul><table><thead><tr><th>구성</th><th>y₁ 최대 편차</th><th>편차가 ±0.05 안으로 들어가는 시각(s)</th></tr></thead><tbody><tr><td>제어 없음</td><td>1.0으로 수렴</td><td>—</td></tr><tr><td>단일 루프 PI</td><td>0.307</td><td>28.0</td></tr><tr><td>캐스케이드</td><td>0.065</td><td>15.7</td></tr></tbody></table><p>이 결과는 한 가지 튜닝 조합에서의 값이며 각 구성의 최적 튜닝이 아닙니다. 그래도 안쪽 변수에서 먼저 외란을 잡으면 최대 편차가 크게 줄어드는 경향을 보여 줍니다(Åström &amp; Hägglund, 2006; Seborg 외, 2011의 설명과 일치하는 방향).</p><p>대가도 있습니다. 중간 변수 센서가 필요하고 튜닝할 제어기가 두 개이며, 안쪽 루프 이상이 전체에 영향을 줍니다. 안쪽 루프의 응답이 바깥보다 충분히 빨라야 한다는 조건은 교재에 따라 몇 배 이상(관례적으로 수 배~10배)이라는 식으로 제시됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>구조를 도식으로 보이고 변수 두 개를 명시합니다.</strong> 주 변수와 부 변수, 각각의 센서·제어기 종류.</li><li><strong>튜닝 순서와 대역폭 관계를 적습니다.</strong> 안쪽 루프를 먼저, 바깥 루프는 그다음, 대역폭 비율 또는 응답시간 비율.</li><li><strong>외란 시험 조건을 밝힙니다.</strong> 외란의 크기·위치(안쪽 입력인지 바깥인지)와 비교 대상(단일 루프, 선행 보상 등).</li><li><strong>성능 지표.</strong> 최대 편차, 정착 시간, 오차 적분(IAE 등), 센서 잡음에 대한 민감도.</li><li>안쪽 센서 잡음이 바깥 루프로 전달될 수 있으므로 필터링 방법도 함께 적습니다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Åström, K. J., & Hägglund, T. (2006). Advanced PID Control. ISA – The Instrumentation, Systems, and Automation Society.",
+    "Seborg, D. E., Edgar, T. F., Mellichamp, D. A., & Doyle, F. J. (2011). Process Dynamics and Control (3rd ed.). Wiley.",
+    "Marlin, T. E. (2000). Process Control: Designing Processes and Control Systems for Dynamic Performance (2nd ed.). McGraw-Hill."
+  ]
+}

@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/chroma-key.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>배경을 단색으로 통제하면 색상 값을 기준으로 해당 영역만 정확히 분리해낼 수 있어, 배우를 실제로 존재하지 않는 장소나 CG 환경에 합성하는 데 널리 쓰이며 현대 시각효과 제작의 핵심 기법으로 자리잡았습니다. 실제로 존재하지 않는 배경이나 위험한 촬영 환경을 후반작업으로 대체할 수 있게 해줘, 현대 영화와 방송의 시각효과 제작에서 가장 널리 쓰이는 기본 기법으로 자리잡았다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>촬영.</strong> 균일하게 조명한 단색(초록/파랑) 배경 앞에서 촬영합니다. 인물을 배경에서 떨어뜨려 배경색 반사(스필)를 줄입니다.</li><li><strong>키잉(keying).</strong> 소프트웨어가 배경색 범위를 골라 영상의 각 화소에 투명도 <em>α</em>(0~1)를 매깁니다. 이렇게 만든 알파 영상을 매트(matte)라고 합니다.</li><li><strong>보정.</strong> 머리카락·반투명 소품의 가장자리와 스필을 정리합니다.</li><li><strong>합성.</strong> 매트로 전경 <em>F</em>와 새 배경 <em>B</em>를 섞습니다: C = α·F + (1 − α)·B.</li></ol><p>블루스크린 매팅이 단일 배경색만으로는 완전히 정해지지 않는 문제라는 점은 Smith와 Blinn(1996)이 체계적으로 논의했고, 실무 합성의 단계는 Brinkmann(2008) 같은 교재에 정리되어 있습니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>배경이 단색이면 색 범위로 전경을 가려내기 쉬워, 실제로 존재하지 않는 장소나 CG 환경에 배우를 합성할 수 있습니다. 대신 다음 문제를 감수해야 합니다.</p><ul><li>의상·소품이 배경색과 같은 계열이면 함께 투명해집니다.</li><li>머리카락, 반투명 물체의 가장자리는 α가 중간값이 되어 경계선이 지저분해지기 쉽습니다.</li><li>배우가 실제 배경 없이 상상으로 연기해야 합니다.</li></ul><p><strong>작은 예(코드로 계산).</strong> 가장자리 화소의 α = 0.7, 전경색 F = (180, 140, 110), 새 배경색 B = (200, 120, 80)이면 합성색은 α·F + (1 − α)·B = (186, 134, 101)입니다. α가 1이면 전경 그대로, 0이면 배경 그대로이고, 0과 1 사이의 α가 부드러운 가장자리를 만듭니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>배경 색(초록/파랑)과 그렇게 정한 이유, 조명 배치, 카메라와 해상도, 사용한 키잉 소프트웨어와 주요 매개변수(임계값, 스필 제거 등)를 적습니다.</li><li>한계(경계선, 스필, 의상 제약)와 그것을 어떻게 처리했는지(후반 보정)를 함께 적습니다.</li><li>효과를 평가할 때는 합성 결과를 관객이 어떻게 받아들이는지(몰입, 현실감) 같은 별도의 지표를 두고, 기술적 성공과 서사적 효과를 구분해 서술합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">디지털 합성 기술 연구는 크로마키가 컴퓨터 비전 알고리즘을 통해 특정 색상 범위를 자동으로 투명하게 처리함으로써 정교한 수작업 없이도 빠르고 정확한 배경 합성을 가능하게 했다고 설명한다.</div>
   <p>이 연구는 초록색이 인간의 피부색과 가장 대비가 크고 디지털 센서가 가장 민감하게 반응하는 색상이어서 크로마키의 표준 배경색으로 채택되었다고 기술적 배경을 설명한다.</p>
   <div class="example">크로마키 합성은 배경색과 피사체의 색상이 뚜렷이 구분될수록 정교한 합성이 가능하며, 이 때문에 인물의 의상이나 소품 색상 선택에도 제약이 따른다는 점이 영상제작 연구에서 설명된다.</div>
@@ -161,6 +179,15 @@
   <p>크로마키 촬영은 배우가 실제 배경 없이 상상만으로 연기해야 하는 어려움이 있으며, 의상이나 소품에 배경색과 같은 계열의 색이 포함되면 원치 않게 투명 처리되는 문제가 발생할 수 있다.</p>
 
   <p>크로마키는 배우의 의상이나 소품이 배경색과 같은 계열일 경우 함께 지워지는 오류가 발생하므로, 촬영 전 색상 선택에 세심한 주의가 필요하다. 배우의 머리카락이나 반투명한 소품의 가장자리는 배경색과 구분이 어려워 합성 시 경계선이 부자연스럽게 남는 문제가 자주 발생해 세밀한 후반 보정이 필요하다. 크로마키 촬영에서는 배경색이 배우의 피부나 의상에 반사되는 색빛 번짐 현상이 발생할 수 있어, 배우와 배경 사이의 충분한 거리 확보와 조명 조절이 중요하다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Smith, A. R., &amp; Blinn, J. F. (1996). Blue screen matting. In Proceedings of SIGGRAPH '96 (pp. 259–268). ACM.</li>
+    <li>Brinkmann, R. (2008). The Art and Science of Digital Compositing (2nd ed.). Morgan Kaufmann.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="visual-effects.html">시각효과</a></div></div><p class="concept-family-map"><a href="../concept-map/film.html">분야 전체 개념 지도 보기 →</a> 초록색이 파란색보다 많이 쓰이는 이유는 디지털 센서가 초록 정보를 더 많이 받아 노이즈가 적고 피부색과도 멀기 때문입니다. 반대로 초록 의상이나 식물이 등장하는 장면에서는 파란 배경을 씁니다.</p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
