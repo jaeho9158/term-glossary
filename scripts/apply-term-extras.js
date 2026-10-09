@@ -197,7 +197,8 @@ function applyToHtml(html, slug, extras, usage) {
   }
   if (!out.includes(ANCHOR_H2) || !out.includes(NAV_CSS_LINK)) return null;
   // 뒤에서부터 넣어 앞쪽 위치가 밀리지 않게 한다.
-  const tailAnchor = out.includes("<!-- concept-family:start -->") ? "<!-- concept-family:start -->" : "<h2>관련 용어</h2>";
+  // "관련 용어" 제목이 없는 쪽은 연구 단계 안내나 이전/다음 줄 앞에 넣는다.
+  const tailAnchor = ["<!-- concept-family:start -->", "<h2>관련 용어</h2>", '<aside class="stage-link"', '<nav class="term-pager"'].find((a) => out.includes(a)) || "<h2>관련 용어</h2>";
   let r = insertBeforeLine(out, tailAnchor, wrap("tail", renderTail(extras), true));
   if (r === null) return null;
   out = r;
