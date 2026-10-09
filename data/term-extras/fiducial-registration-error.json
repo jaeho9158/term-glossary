@@ -1,0 +1,53 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>정합은 영상 좌표의 기준표지 위치 pᵢ를 환자 좌표 위치 qᵢ에 맞추는 강체 변환(회전 R, 이동 t)을 구하는 일입니다. 최소제곱 해는 닫힌 형태로 구할 수 있습니다(Arun et al., 1987).</li><li>최적 변환을 적용한 뒤 남는 잔차로 <strong>FRE = √( (1/N) Σ ‖R·pᵢ + t − qᵢ‖² )</strong>를 계산합니다. 단위는 mm이고, 이 식은 제곱평균제곱근(RMS) 형태입니다. 장비에 따라 평균 거리로 표시하기도 합니다.</li><li>범위는 0 이상입니다. 표지 위치를 찍을 때 생기는 오차(표지 국소화 오차, FLE)가 전혀 없으면 0이고, FLE가 클수록 FRE도 커집니다.</li><li>표지 위치 오차가 서로 독립이고 등방적이면 기대 FRE²는 (1 − 2/N)·FLE²로 알려져 있어, 표지가 많아질수록 FRE는 오히려 커지는 방향으로 움직입니다(Fitzpatrick et al., 1998).</li></ul><p><em>가상의 예</em>: 한 변이 100 mm인 직각 사면체 꼴로 놓인 표지 4개 (0,0,0), (100,0,0), (0,100,0), (0,0,100)에 대해 환자 쪽 측정값이 각각 (0.5, −0.3, 0.2), (−0.4, 0.6, 0.1), (0.3, 0.2, −0.5), (−0.2, −0.4, 0.3) mm만큼 어긋나 있다고 합시다. 이 점들을 최소제곱으로 맞추고 잔차를 계산하면 FRE = 0.589 mm가 나옵니다(코드로 계산).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>FRE가 작다는 것은 표지끼리 잘 맞는다는 뜻일 뿐, 병변이나 수술 표적의 위치 오차(TRE, 표적 정합오차)가 작다는 뜻이 아닙니다.</li><li>FRE와 TRE는 통계적으로 거의 상관이 없다는 점이 이론과 시뮬레이션으로 보고되어 있습니다(Fitzpatrick, 2009). 따라서 화면에 표시된 FRE만으로 정확도를 보증해서는 안 됩니다.</li><li>TRE는 표지가 표적을 둘러싸고 넓게 퍼져 있을수록, 표적이 표지의 무게중심에 가까울수록 작아집니다.</li><li>‘몇 mm 이하면 허용’이라는 보편 기준은 없습니다. 장비 제조사 권고나 수술 부위별 임상 요구 정확도를 따르며, 이는 관례에 해당합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>정합 방법(표지의 종류와 개수, 영상 종류, 정합 알고리즘, 추적 장치)을 적습니다.</li><li>FRE가 RMS인지 평균 거리인지, 어느 소프트웨어가 계산한 값인지 밝힙니다.</li><li>FRE와 함께 TRE를 실제 표적(예: 해부학적 지표점)에서 측정해 따로 보고합니다.</li><li>표본 수, 평균과 표준편차(또는 중앙값과 범위)를 mm 단위로 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "정합 오차의 세 이름은 자주 섞입니다.",
+    "headers": [
+      "용어",
+      "무엇의 오차인가",
+      "특징"
+    ],
+    "rows": [
+      [
+        "기준표지 정합오차(FRE)",
+        "정합에 쓴 표지들의 잔차",
+        "수술 중 바로 확인 가능, 표적 정확도의 지표는 아님"
+      ],
+      [
+        "표지 국소화 오차(FLE)",
+        "표지의 위치를 찍을 때의 오차",
+        "FRE·TRE에 영향을 주는 원인 오차"
+      ],
+      [
+        "표적 정합오차(TRE)",
+        "수술 표적에서의 실제 오차",
+        "임상적으로 중요하지만 직접 재기 어려움"
+      ],
+      [
+        "[[image-guided-surgery|영상유도수술]]",
+        "정합을 쓰는 수술 방식",
+        "—"
+      ]
+    ]
+  },
+  "references": [
+    "Fitzpatrick, J. M., West, J. B., & Maurer, C. R., Jr. (1998). Predicting error in rigid-body point-based registration. IEEE Transactions on Medical Imaging, 17(5), 694–702.",
+    "Fitzpatrick, J. M. (2009). Fiducial registration error and target registration error are uncorrelated. Proceedings of SPIE Medical Imaging, 7261.",
+    "Arun, K. S., Huang, T. S., & Blostein, S. D. (1987). Least-squares fitting of two 3-D point sets. IEEE Transactions on Pattern Analysis and Machine Intelligence, 9(5), 698–700."
+  ]
+}

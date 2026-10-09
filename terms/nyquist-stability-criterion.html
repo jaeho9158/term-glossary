@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/nyquist-stability-criterion.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>피드백 제어 시스템은 잘못 설계하면 오히려 진동이 커지며 불안정해질 수 있는데, 나이퀴스트 안정성 판별법은 시스템을 실제로 만들어 시험하지 않고도 주파수 응답 그래프만으로 안정성을 미리 검증할 수 있게 해줍니다. 이 때문에 전자공학, 로봇공학, 항공우주공학처럼 안정성 확보가 필수적인 제어 시스템 설계 논문에서 이론적 근거로 널리 쓰이며, 특히 시간 지연이 있는 시스템처럼 다른 판별법으로는 다루기 까다로운 경우에도 적용할 수 있다는 점에서 중요하게 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>개루프 전달함수 L(s) = G(s)H(s)를 정하고, P를 오른쪽 반평면(불안정)에 있는 L(s)의 극점 수로 셉니다.</li><li>s가 허수축 전체와 오른쪽 반평면을 크게 감싸는 경로(나이퀴스트 경로)를 따라 움직일 때 L(s)가 복소평면에 그리는 곡선(나이퀴스트 선도)을 그립니다. 허수축 위에 극점이 있으면 작은 반원으로 피해 갑니다.</li><li>곡선이 점 −1을 시계 방향으로 감싼 횟수 N을 셉니다.</li><li>폐루프의 오른쪽 반평면 극점 수는 Z = N + P입니다. <strong>Z = 0이면 폐루프가 안정</strong>입니다. 곧 P개의 불안정 극점이 있는 시스템은 곡선이 −1을 반시계 방향으로 P번 감아야 안정해집니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>쓰는 때</strong>: 전달함수를 모르는 상태에서 측정한 주파수 응답으로도 안정성을 판단하고 싶을 때, 시간 지연이 있는 시스템, 불안정한 개루프 시스템의 피드백 설계.</li><li><strong>얻는 것</strong>: 안정 여부와 함께 이득 여유와 위상 여유 같은 안정 여유(robustness) 지표.</li><li><strong>한계</strong>: 선형 시불변 시스템을 전제로 하며, 폐루프의 극점 위치를 정확히 알려 주는 것은 아니고 오른쪽 반평면 극점 수만 알려 줍니다.</li></ul><p><em>가상의 예</em>: L(s) = K / (s+1)³는 P = 0입니다. 위상이 −180°가 되는 주파수는 ω = √3이고 그때 크기는 K/8입니다(코드로 확인: |(1+j√3)³| = 8). 따라서 곡선이 −1을 지나는 임계 이득은 K = 8이며, K &lt; 8이면 N = 0으로 안정, K &gt; 8이면 불안정합니다. 이 결과는 루스–후르비츠 판별법(특성방정식 s³ + 3s² + 3s + 1 + K = 0)과 일치합니다. K = 2이면 이득 여유는 8 ÷ 2 = 4배(약 12 dB)입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>개루프 모델(또는 측정한 주파수 응답)과 P를 먼저 밝힙니다.</li><li>나이퀴스트 선도를 그림으로 싣고 −1을 감싼 횟수 N을 표시합니다.</li><li>결론을 ‘Z = N + P = 0이므로 안정’처럼 식으로 적습니다.</li><li>안정 여유로 이득 여유와 위상 여유(단위 dB, 도)를 함께 보고합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 보상기를 적용한 개루프 전달함수에 나이퀴스트 안정성 판별법(Nyquist stability criterion)을 적용한 결과, 나이퀴스트 선도가 (-1, 0)점을 감싸지 않아 폐루프 시스템이 안정함을 확인하였다."</div>
   <p>이 문장은 새로 설계한 보상 회로를 넣었을 때, 그래프 분석을 통해 시스템이 진동하지 않고 안정적으로 목표값에 수렴한다는 것을 수학적으로 증명했다는 뜻입니다. 전자공학·제어공학·항공우주공학 논문에서 폐루프 안정성을 검증하는 핵심 근거로 흔히 등장합니다.</p>
 
@@ -163,6 +181,19 @@
 
   <h2>주의할 점</h2>
   <p>이름이 비슷해서 신호처리 분야의 <a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a>와 자주 혼동되지만, 둘은 완전히 다른 개념입니다. 표본화 정리는 "아날로그 신호를 디지털로 바꿀 때 얼마나 자주 샘플을 찍어야 원래 신호를 복원할 수 있는가"를 다루는 반면, 나이퀴스트 안정성 판별법은 제어 시스템이 진동 없이 안정적으로 동작하는지를 판별하는 방법으로, 같은 인물(해리 나이퀴스트)의 이름을 딴 서로 다른 이론입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷하거나 같은 목적의 방법들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 다루나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">나이퀴스트 안정성 판별법</th><td>피드백 시스템의 안정성</td><td>주파수 응답 곡선이 −1을 감싼 횟수로 판정</td></tr><tr><th scope="row"><a href="nyquist-shannon-sampling-theorem.html">나이퀴스트-섀넌 표본화 정리</a></th><td>샘플링 주파수와 신호 복원</td><td>같은 인물의 이름만 공유, 전혀 다른 개념</td></tr><tr><th scope="row"><a href="root-locus-method.html">근궤적법</a></th><td>이득 변화에 따른 폐루프 극점의 이동</td><td>극점을 직접 추적</td></tr><tr><th scope="row"><a href="gain-margin.html">이득 여유</a> · <a href="phase-margin.html">위상 여유</a></th><td>안정 여유</td><td>나이퀴스트 선도에서 읽을 수 있음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Nyquist, H. (1932). Regeneration theory. Bell System Technical Journal, 11(1), 126–147.</li>
+    <li>Franklin, G. F., Powell, J. D., &amp; Emami-Naeini, A. (2015). Feedback Control of Dynamic Systems (7th ed.). Pearson.</li>
+    <li>Åström, K. J., &amp; Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
