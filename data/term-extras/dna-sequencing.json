@@ -1,0 +1,65 @@
+{
+  "type": "method",
+  "fixes": [
+    {
+      "find": "새전 방식(Sanger sequencing)",
+      "replace": "생어 방식(Sanger sequencing)"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>DNA 준비</strong>: 추출한 DNA 또는 PCR로 증폭한 조각을 정제합니다.</li><li><strong>라이브러리 제작</strong>(차세대 방식): DNA를 적당한 길이로 자르고 양 끝에 어댑터를 붙입니다.</li><li><strong>염기 읽기</strong>: 합성되는 가닥에서 염기가 붙을 때마다 나오는 신호(형광, 전류 변화 등)를 기록합니다.</li><li><strong>염기 호출과 품질 평가</strong>: 신호를 A, C, G, T로 바꾸고 염기마다 품질 점수를 붙입니다.</li><li><strong>정렬·조립</strong>: 읽은 조각(리드)을 기준 유전체에 맞추거나 서로 이어 붙입니다.</li></ol><table><thead><tr><th>방식</th><th>원리 요약</th><th>한 번에 읽는 길이(대략)</th></tr></thead><tbody><tr><td>생어(Sanger)</td><td>사슬 종결 뉴클레오타이드로 가닥을 끊고 크기순으로 읽음(Sanger 외, 1977)</td><td>수백~1,000 염기 안팎, 한 반응에 한 조각</td></tr><tr><td>차세대 단거리(short-read)</td><td>수억 개 조각을 동시에 읽음</td><td>수십~수백 염기</td></tr><tr><td>장거리(long-read)</td><td>한 가닥을 길게 이어 읽음</td><td>수 kb에서 수십 kb 이상</td></tr></tbody></table>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>특정 유전자 조각의 서열 확인, 돌연변이·변이 확인, 세균·진균 종 동정(예: 리보솜 RNA 유전자 서열), 유전체·전사체 분석, 변이 패널 검사에 쓰입니다.</li><li><strong>생어 방식</strong>은 한 조각을 높은 정확도로 읽을 때, <strong>차세대 방식</strong>은 많은 조각이나 유전체 전체를 읽을 때 알맞습니다(Shendure &amp; Ji, 2008; Goodwin 외, 2016).</li><li><strong>품질 점수</strong>(Phred): Q = −10·log<sub>10</sub>(P)에서 P는 그 염기가 틀렸을 확률입니다. Q20이면 오류 확률 1%, Q30이면 0.1%(1000개 중 1개)입니다.</li><li><strong>깊이(coverage)</strong> = 읽은 총 염기 수 ÷ 대상 크기. 사람 유전체(약 3.1 Gb)를 150 염기 리드로 관례적인 30× 깊이로 읽으려면 총 93 Gb, 즉 약 6억 2천만 개의 리드가 필요합니다(계산값).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>장비·시약</strong>: 시퀀싱 플랫폼, 라이브러리 제작 키트, 리드 길이와 방향(단일/쌍), 목표 깊이.</li><li><strong>품질 관리</strong>: 품질 점수 기준(예: Q30 이상의 비율), 어댑터·저품질 염기 제거 방법.</li><li><strong>분석 환경</strong>: 기준 유전체 이름과 버전, 정렬·변이 호출 프로그램과 버전, 기준값.</li><li>읽는 길이와 깊이가 부족하면 반복 서열이나 낮은 빈도의 변이를 놓칠 수 있고, 앞선 PCR 증폭 과정의 편향이 결과에 영향을 줄 수 있습니다.</li><li>원자료(raw reads)는 공개 저장소에 올리고 접수번호를 적는 것이 일반적입니다.</li></ul><p><em>보고 예.</em> “분리 균주의 16S rRNA 유전자 서열을 생어 방식으로 분석하고, 얻은 서열을 데이터베이스와 비교하여 종을 동정하였다.” (사용한 기관과 프로그램을 함께 적습니다.)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "증폭, 읽기, 정량은 서로 다른 단계입니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "결과"
+    ],
+    "rows": [
+      [
+        "[[pcr|PCR]]",
+        "특정 DNA 부위를 복제해 늘림",
+        "같은 서열의 많은 복사본"
+      ],
+      [
+        "DNA 염기서열분석",
+        "염기의 순서를 읽음",
+        "서열(ACGT 문자열)"
+      ],
+      [
+        "[[qpcr|정량 PCR(qPCR)]]",
+        "증폭되는 양을 실시간으로 측정",
+        "시료 속 DNA(또는 cDNA)의 상대·절대량"
+      ],
+      [
+        "[[sanger-sequencing|생어 시퀀싱]]",
+        "사슬 종결 방식의 서열분석",
+        "한 번에 한 조각, 높은 정확도"
+      ],
+      [
+        "[[next-generation-sequencing|차세대 염기서열분석(NGS)]]",
+        "대규모 병렬 서열분석",
+        "수많은 조각이나 유전체 전체"
+      ]
+    ]
+  },
+  "references": [
+    "Sanger, F., Nicklen, S., & Coulson, A. R. (1977). DNA sequencing with chain-terminating inhibitors. Proceedings of the National Academy of Sciences, 74(12), 5463–5467.",
+    "Maxam, A. M., & Gilbert, W. (1977). A new method for sequencing DNA. Proceedings of the National Academy of Sciences, 74(2), 560–564.",
+    "Shendure, J., & Ji, H. (2008). Next-generation DNA sequencing. Nature Biotechnology, 26(10), 1135–1145.",
+    "Goodwin, S., McPherson, J. D., & McCombie, W. R. (2016). Coming of age: Ten years of next-generation sequencing technologies. Nature Reviews Genetics, 17(6), 333–351."
+  ]
+}
