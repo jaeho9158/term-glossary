@@ -1,0 +1,58 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>컴파일러의 앞부분(프런트엔드)은 두 단계로 소스 코드를 구조화합니다.</p><ol><li><strong>어휘 분석</strong>: 글자 흐름을 토큰으로 자릅니다. 토큰의 패턴은 정규표현식(유한 오토마타)으로 정의하는 것이 일반적입니다. 공백과 주석은 이때 버려집니다.</li><li><strong>구문 분석</strong>: 토큰열이 문맥자유문법(CFG)에 맞는지 확인하고 구조를 만듭니다. 하향식(LL 계열, 재귀 하향 파서 등)과 상향식(LR 계열) 방식이 있습니다(Knuth, 1965; Aho et al., 2006).</li></ol><p>구문 분석의 결과물은 파스 트리 또는 [[abstract-syntax-tree|추상 구문 트리]]이며, 이후 의미 분석과 코드 생성이 이 트리를 입력으로 삼습니다. 문법 오류는 이 단계에서 걸러집니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>간단한 예를 코드로 처리해 봅니다. 소스 <code>if (x &gt; 0) y = 1;</code>을 어휘 분석하면 다음 열 개의 토큰이 나옵니다(코드로 처리한 결과).</p><p>KEYWORD(if) · PUNCT(() · IDENT(x) · OP(&gt;) · NUMBER(0) · PUNCT()) · IDENT(y) · OP(=) · NUMBER(1) · PUNCT(;)</p><p>구문 분석의 예로 문법 expr → term { + term }, term → factor { * factor }를 재귀 하향으로 구현해 <code>1 + 2 * 3</code>을 처리하면 괄호식 트리 <code>(+ 1 (* 2 3))</code>, 곧 곱셈이 덧셈보다 먼저 묶이는 구조가 나옵니다. 연산자 우선순위가 문법 규칙의 계층으로 표현된다는 점이 핵심입니다.</p><p>이 두 단계는 컴파일러뿐 아니라 정적 분석 도구, 코드 변환·리팩터링, 코드 표절·유사도 비교, 프로그램 이해를 위한 기계학습 연구에서 코드를 구조화된 데이터로 만드는 전처리로 쓰입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 언어의 어떤 문법(버전)을 대상으로 했는지, 어휘·구문 분석기를 직접 구현했는지 생성기(lex/yacc 계열, ANTLR 등)를 썼는지 적습니다.</li><li>파서 방식(LL, LR, 재귀 하향 등)과 문법의 모호성 처리 방법을 밝힙니다.</li><li>불완전하거나 틀린 코드에 대한 오류 복구 방식을 적습니다. 도구형 연구에서는 이 점이 실용성에 큰 영향을 줍니다.</li><li>평가에는 분석 성공률, 처리 속도, 오류 메시지의 품질을 씁니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "컴파일 과정의 용어는 ‘과정’과 ‘결과물’을 나눠야 합니다.",
+    "headers": [
+      "용어",
+      "성격",
+      "역할"
+    ],
+    "rows": [
+      [
+        "어휘 분석",
+        "과정",
+        "소스 코드를 토큰으로 분리"
+      ],
+      [
+        "구문 분석",
+        "과정",
+        "토큰열의 문법 검사와 구조 생성"
+      ],
+      [
+        "[[abstract-syntax-tree|추상 구문 트리]]",
+        "결과물(자료구조)",
+        "구문 분석이 만든 코드 구조"
+      ],
+      [
+        "[[recursive-descent-parser|재귀 하향 파서]]",
+        "구문 분석 구현 방식의 하나",
+        "문법 규칙마다 함수를 두는 방식"
+      ],
+      [
+        "[[compiler-and-interpreter|컴파일러와 인터프리터]]",
+        "번역·실행 프로그램",
+        "어휘·구문 분석은 이들의 앞단"
+      ]
+    ]
+  },
+  "references": [
+    "Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2006). Compilers: Principles, Techniques, and Tools (2nd ed.). Addison-Wesley.",
+    "Knuth, D. E. (1965). On the translation of languages from left to right. Information and Control, 8(6), 607–639.",
+    "Chomsky, N. (1956). Three models for the description of language. IRE Transactions on Information Theory, 2(3), 113–124."
+  ]
+}

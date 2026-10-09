@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>EDFA는 광섬유 코어에 어븀 이온(Er<sup>3+</sup>)을 넣은 증폭용 광섬유에 펌프광(대개 980 nm 또는 1480 nm)을 넣어 어븀 이온을 들뜨게 하고, 지나가는 신호광이 유도방출로 증폭되게 하는 장치입니다.</li><li>어븀의 이득 대역은 광섬유 손실이 가장 작은 1550 nm 부근과 겹쳐서, 광신호를 전기로 바꾸지 않고 증폭할 수 있습니다. 1987년에 두 연구진이 독립적으로 이를 보고했습니다(Mears et al., 1987; Desurvire et al., 1987).</li><li>증폭된 신호에는 자발방출 잡음(ASE)이 함께 얹혀, 증폭기를 거칠수록 광신호대잡음비(OSNR)가 나빠집니다. 증폭기의 잡음지수는 높은 이득에서 양자 한계인 약 3 dB가 이론적 하한으로 알려져 있습니다(Desurvire, 1994).</li><li>여러 파장을 한 광섬유에 싣는 파장분할다중(DWDM)에서는 한 증폭기가 여러 채널을 한꺼번에 증폭합니다. 채널별 이득이 같아지도록 이득 평탄화 필터를 씁니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>구간 손실이 같은 N개 구간을 EDFA로 이어 붙인 시스템에서, 구간 손실 L과 증폭기 잡음지수 NF를 알면 채널당 OSNR(기준 대역폭 0.1 nm)을 다음처럼 어림할 수 있습니다.</p><p>OSNR(dB) ≈ 58 + P<sub>ch</sub> − L − NF − 10 log<sub>10</sub> N</p><p>상수 58은 1550 nm에서 0.1 nm 대역폭(12.48 GHz)에 해당하는 hνΔν가 -57.96 dBm임에서 나옵니다(코드로 계산). 가상의 값으로 채널당 입력 P<sub>ch</sub> = 0 dBm, 구간 길이 80 km에 손실 0.2 dB/km(L = 16 dB), NF = 5 dB라면:</p><table><thead><tr><th>구간 수 N</th><th>OSNR(dB)</th></tr></thead><tbody><tr><td>1</td><td>37</td></tr><tr><td>10</td><td>27</td></tr><tr><td>50</td><td>20</td></tr></tbody></table><p>구간 수가 10배가 되면 OSNR이 10 dB 낮아집니다. 이 누적 때문에 긴 시스템에서는 증폭기의 잡음지수와 구간 손실이 설계의 핵심 변수가 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>EDFA는 신호를 깨끗하게 만들어 준다.</td><td>세기를 키울 뿐 신호를 재생하지는 않습니다. 증폭할수록 ASE 잡음이 쌓입니다.</td></tr><tr><td>어떤 파장이든 증폭한다.</td><td>어븀의 이득 대역(C밴드가 대표)에 있는 파장만 증폭됩니다. 다른 대역에는 다른 증폭기가 쓰입니다.</td></tr><tr><td>펌프 파장은 아무래도 상관없다.</td><td>980 nm와 1480 nm가 주로 쓰이며 잡음지수와 효율에서 차이가 납니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "광증폭기는 이득 매질이 달라 특성이 다릅니다.",
+    "headers": [
+      "용어",
+      "이득 매질과 원리",
+      "특징"
+    ],
+    "rows": [
+      [
+        "어븀첨가 광섬유증폭기",
+        "어븀 이온이 첨가된 광섬유, 유도방출",
+        "1550 nm 부근, 장거리 통신망의 핵심"
+      ],
+      [
+        "[[raman-fiber-amplifier|라만 광섬유증폭기]]",
+        "일반 전송 광섬유 안의 유도 라만 산란",
+        "펌프 파장에 따라 이득 대역을 설계"
+      ],
+      [
+        "[[semiconductor-optical-amplifier|반도체광증폭기(SOA)]]",
+        "반도체 pn접합에 전류를 주입",
+        "소형·집적에 유리, 빠른 이득 동특성"
+      ]
+    ]
+  },
+  "references": [
+    "Mears, R. J., Reekie, L., Jauncey, I. M., & Payne, D. N. (1987). Low-noise erbium-doped fibre amplifier operating at 1.54 μm. Electronics Letters, 23(19), 1026–1028.",
+    "Desurvire, E., Simpson, J. R., & Becker, P. C. (1987). High-gain erbium-doped traveling-wave fiber amplifier. Optics Letters, 12(11), 888–890.",
+    "Desurvire, E. (1994). Erbium-Doped Fiber Amplifiers: Principles and Applications. John Wiley & Sons.",
+    "Becker, P. C., Olsson, N. A., & Simpson, J. R. (1999). Erbium-Doped Fiber Amplifiers: Fundamentals and Technology. Academic Press."
+  ]
+}

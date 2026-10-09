@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>연관단일탈퇴표는 특정 위험 요인 하나만의 순수한 영향을 분석하고 싶을 때 실무적으로 매우 중요합니다. 예를 들어 해약이 없다고 가정했을 때의 순수 사망률만 따로 분석하고 싶은 경우에 사용되며, 다중탈퇴이론 논문의 핵심적인 분석 도구로 다루어집니다.</p>
   <p>여러 탈퇴 원인이 뒤섞인 실제 자료만으로는 특정 원인 하나가 제도나 상품 설계에 미치는 영향을 정확히 파악하기 어렵기 때문에, 연관단일탈퇴표는 다중탈퇴 분석에서 원인별 기여도를 분리하는 핵심 도구로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>다중탈퇴표에는 원인별 탈퇴확률 q<sup>(j)</sup>(다른 원인과 함께 작용할 때 원인 j로 탈퇴할 확률)와 총 탈퇴확률 q<sup>(τ)</sup>가 있습니다. 연관단일탈퇴표는 여기서 각 원인이 홀로 작용할 때의 탈퇴확률 q′<sup>(j)</sup>를 구해 만든 표입니다. 원인별 탈퇴력(force of decrement) μ<sup>(j)</sup>를 기준으로 하면 q′<sup>(j)</sup> = 1 − exp(−∫μ<sup>(j)</sup>dt)로 정의됩니다.</p><p>탈퇴가 연도 안에서 어떻게 분포하는지에 대한 가정이 있어야 q에서 q′로 옮겨 갈 수 있습니다. 다중탈퇴표에서 탈퇴가 균등분포(UDD)이거나 탈퇴력이 일정하다고 가정하면 다음 변환식이 나옵니다(Bowers et al., 1997; Dickson et al., 2013).</p><p>q′<sup>(j)</sup> = 1 − (1 − q<sup>(τ)</sup>)<sup>q<sup>(j)</sup>/q<sup>(τ)</sup></sup></p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 값으로 계산해 봅니다. 어느 연령에서 사망 q<sup>(1)</sup> = 0.02, 해약 q<sup>(2)</sup> = 0.10이면 q<sup>(τ)</sup> = 0.12입니다. 위 식으로 구하면(코드 계산):</p><ul><li>사망의 연관단일탈퇴확률 q′<sup>(1)</sup> = 1 − 0.88<sup>0.02/0.12</sup> ≈ <strong>0.02108</strong></li><li>해약의 연관단일탈퇴확률 q′<sup>(2)</sup> = 1 − 0.88<sup>0.10/0.12</sup> ≈ <strong>0.10105</strong></li></ul><p>해약이 없다고 가정한 순수 사망확률(0.0211)은 해약과 함께 있을 때의 사망확률(0.02)보다 큽니다. 해약으로 먼저 계약을 떠난 사람은 그 해 사망으로 집계될 수 없기 때문입니다. 반대 방향으로 q′에서 q를 구하는 근사 q<sup>(1)</sup> ≈ q′<sup>(1)</sup>(1 − q′<sup>(2)</sup>/2)에 넣으면 0.02002로 원래 값 0.02와 맞아 들어갑니다. 이 표는 해약률이 달라지는 상품 설계나 사망률 비교처럼 한 원인을 따로 보고 싶을 때 쓰입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>다중탈퇴표의 자료(원인별 탈퇴 건수, 위험 노출 기간)와 어떤 탈퇴 분포 가정(UDD, 일정한 탈퇴력)을 썼는지 밝힙니다. 가정이 달라지면 q′ 값이 달라집니다.</li><li>q′는 ‘다른 원인이 없는 경우’를 가정한 수치이므로, 실제 관측되는 탈퇴 비율과 구분해 표기합니다.</li><li>원인들이 독립적이라는 가정을 하는지, 단지 수학적 변환인지 구분해 적습니다. 독립 가정은 현실에서 성립하지 않을 수 있습니다(예: 건강이 나쁜 가입자가 해약을 덜 하는 경우).</li><li>결과를 쓰는 목적(원인 제거 분석, 다중탈퇴표 재구성)을 함께 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"연관단일탈퇴표는 다중탈퇴표의 각 탈퇴율로부터 다른 원인이 부재할 때의 독립적 탈퇴율을 역산하여 구성한다."</div>
   <p>여러 원인이 섞인 자료에서 원인별로 순수한 영향만 분리해 계산한다는 설명입니다.</p>
   <div class="example">"본 연구는 연관단일탈퇴표를 이용하여 해약 원인을 제거한 순수 사망률을 추정하였다."</div>
@@ -163,6 +181,18 @@
   <p>연관단일탈퇴표는 계산 과정에서 여러 원인 간의 독립성이나 균등분포 같은 가정에 의존하므로, 이러한 가정이 성립하지 않는 경우 해석에 주의가 필요합니다.</p>
 
   <p>역산 과정에서 채택하는 분포 가정에 따라 산출되는 독립탈퇴율 값이 달라질 수 있어 결과 해석에 유의해야 합니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>탈퇴율 표의 세 가지는 가정하는 상황이 서로 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">가정하는 상황</th><th scope="col">대표 기호</th></tr></thead><tbody><tr><th scope="row"><a href="multiple-decrement-table.html">다중탈퇴표</a></th><td>여러 탈퇴 원인이 동시에 작용하는 실제 환경</td><td>q(j), q(τ)</td></tr><tr><th scope="row">연관단일탈퇴표</th><td>다중탈퇴표에서 계산한, 한 원인만 있다고 가정한 탈퇴율</td><td>q′(j)</td></tr><tr><th scope="row"><a href="single-decrement-table.html">단일탈퇴표</a></th><td>처음부터 한 원인만 존재하는 환경에서 만든 표</td><td>q</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Bowers, N. L., Jr., Gerber, H. U., Hickman, J. C., Jones, D. A., &amp; Nesbitt, C. J. (1997). Actuarial Mathematics (2nd ed.). Society of Actuaries.</li>
+    <li>Dickson, D. C. M., Hardy, M. R., &amp; Waters, H. R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd ed.). Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="single-decrement-table.html">단일탈퇴표</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

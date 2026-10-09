@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/lexical-and-syntax-analysis.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>어휘 분석과 구문 분석은 컴파일러·인터프리터 설계뿐 아니라 정적 분석, 코드 자동 리팩토링, 프로그램 이해를 위한 머신러닝 연구 등 소스 코드를 구조화된 형태로 다뤄야 하는 대부분의 소프트웨어공학 연구에서 전처리 단계로 쓰입니다. 코드를 텍스트가 아니라 구조를 가진 데이터로 취급할 수 있게 해주기 때문에, 새로운 프로그래밍 도구나 언어를 제안하는 논문의 방법론에서 빠지지 않고 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>컴파일러의 앞부분(프런트엔드)은 두 단계로 소스 코드를 구조화합니다.</p><ol><li><strong>어휘 분석</strong>: 글자 흐름을 토큰으로 자릅니다. 토큰의 패턴은 정규표현식(유한 오토마타)으로 정의하는 것이 일반적입니다. 공백과 주석은 이때 버려집니다.</li><li><strong>구문 분석</strong>: 토큰열이 문맥자유문법(CFG)에 맞는지 확인하고 구조를 만듭니다. 하향식(LL 계열, 재귀 하향 파서 등)과 상향식(LR 계열) 방식이 있습니다(Knuth, 1965; Aho et al., 2006).</li></ol><p>구문 분석의 결과물은 파스 트리 또는 <a href="abstract-syntax-tree.html">추상 구문 트리</a>이며, 이후 의미 분석과 코드 생성이 이 트리를 입력으로 삼습니다. 문법 오류는 이 단계에서 걸러집니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>간단한 예를 코드로 처리해 봅니다. 소스 <code>if (x &gt; 0) y = 1;</code>을 어휘 분석하면 다음 열 개의 토큰이 나옵니다(코드로 처리한 결과).</p><p>KEYWORD(if) · PUNCT(() · IDENT(x) · OP(&gt;) · NUMBER(0) · PUNCT()) · IDENT(y) · OP(=) · NUMBER(1) · PUNCT(;)</p><p>구문 분석의 예로 문법 expr → term { + term }, term → factor { * factor }를 재귀 하향으로 구현해 <code>1 + 2 * 3</code>을 처리하면 괄호식 트리 <code>(+ 1 (* 2 3))</code>, 곧 곱셈이 덧셈보다 먼저 묶이는 구조가 나옵니다. 연산자 우선순위가 문법 규칙의 계층으로 표현된다는 점이 핵심입니다.</p><p>이 두 단계는 컴파일러뿐 아니라 정적 분석 도구, 코드 변환·리팩터링, 코드 표절·유사도 비교, 프로그램 이해를 위한 기계학습 연구에서 코드를 구조화된 데이터로 만드는 전처리로 쓰입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>어떤 언어의 어떤 문법(버전)을 대상으로 했는지, 어휘·구문 분석기를 직접 구현했는지 생성기(lex/yacc 계열, ANTLR 등)를 썼는지 적습니다.</li><li>파서 방식(LL, LR, 재귀 하향 등)과 문법의 모호성 처리 방법을 밝힙니다.</li><li>불완전하거나 틀린 코드에 대한 오류 복구 방식을 적습니다. 도구형 연구에서는 이 점이 실용성에 큰 영향을 줍니다.</li><li>평가에는 분석 성공률, 처리 속도, 오류 메시지의 품질을 씁니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 도구는 소스 코드에 대해 어휘 분석과 구문 분석(lexical and syntax analysis)을 수행한 뒤, 생성된 구문 트리를 기반으로 코드 스멜을 탐지한다."</div>
   <p>이 문장은 "코드를 먼저 토큰 단위로 쪼개고 문법 구조를 분석한 결과물을 이용해, 코드에 잠재된 문제를 자동으로 찾아낸다"는 뜻입니다.</p>
 
@@ -170,6 +188,19 @@
 
   <h2>주의할 점</h2>
   <p>구문 분석의 결과물로 만들어지는 나무 모양의 자료구조는 <a href="abstract-syntax-tree.html">추상 구문 트리</a>이며, 어휘 분석과 구문 분석 자체는 그 결과물을 만들어내는 "과정"을 가리키는 말입니다. 이 둘을 같은 것으로 혼동하지 않도록 주의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>컴파일 과정의 용어는 ‘과정’과 ‘결과물’을 나눠야 합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">성격</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row">어휘 분석</th><td>과정</td><td>소스 코드를 토큰으로 분리</td></tr><tr><th scope="row">구문 분석</th><td>과정</td><td>토큰열의 문법 검사와 구조 생성</td></tr><tr><th scope="row"><a href="abstract-syntax-tree.html">추상 구문 트리</a></th><td>결과물(자료구조)</td><td>구문 분석이 만든 코드 구조</td></tr><tr><th scope="row"><a href="recursive-descent-parser.html">재귀 하향 파서</a></th><td>구문 분석 구현 방식의 하나</td><td>문법 규칙마다 함수를 두는 방식</td></tr><tr><th scope="row"><a href="compiler-and-interpreter.html">컴파일러와 인터프리터</a></th><td>번역·실행 프로그램</td><td>어휘·구문 분석은 이들의 앞단</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Aho, A. V., Lam, M. S., Sethi, R., &amp; Ullman, J. D. (2006). Compilers: Principles, Techniques, and Tools (2nd ed.). Addison-Wesley.</li>
+    <li>Knuth, D. E. (1965). On the translation of languages from left to right. Information and Control, 8(6), 607–639.</li>
+    <li>Chomsky, N. (1956). Three models for the description of language. IRE Transactions on Information Theory, 2(3), 113–124.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

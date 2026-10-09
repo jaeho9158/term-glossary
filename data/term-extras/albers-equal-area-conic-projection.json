@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>알베르스 정적원추도법은 독일의 하인리히 알베르스(1805)가 제안한 <strong>면적 보존(정적) 원추 도법</strong>입니다.</li><li>경선은 한 점으로 모이는 직선, 위선은 그 점을 중심으로 한 동심 원호입니다. 위선 사이의 간격은 면적이 보존되도록 계산해 정합니다.</li><li>보통 <strong>두 개의 표준 위선</strong>을 두며, 표준 위선에서는 위선 방향 축척이 정확합니다. 표준 위선에서 멀어질수록 축척 오차와 형태 왜곡이 늘어납니다.</li><li>면적은 지도 전체에서 보존되지만 각도는 보존되지 않습니다. 그래서 같은 원뿔 계열인 [[lambert-conformal-conic-projection|람베르트 정각원추도법]]과 목적이 반대입니다.</li><li>미국 지질조사국(USGS) 등에서 미국 본토 지도에 표준 위선 29.5°N, 45.5°N를 쓰는 구성이 잘 알려져 있습니다(Snyder, 1987).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>표준 위선을 29.5°N, 45.5°N로 두고 구(반지름 6,371 km)를 가정해 계산하면, 위도별 위선 방향 축척 <em>k</em>와 경선 방향 축척 <em>h</em>는 다음과 같습니다(코드로 계산한 가상의 구 모형 값).</p><table><thead><tr><th>위도</th><th>위선 방향 축척 k</th><th>경선 방향 축척 h = 1/k</th></tr></thead><tbody><tr><td>25°N</td><td>1.0123</td><td>0.9879</td></tr><tr><td>29.5°N</td><td>1.0000</td><td>1.0000</td></tr><tr><td>35°N</td><td>0.9915</td><td>1.0086</td></tr><tr><td>40°N</td><td>0.9909</td><td>1.0092</td></tr><tr><td>45.5°N</td><td>1.0000</td><td>1.0000</td></tr><tr><td>50°N</td><td>1.0173</td><td>0.9830</td></tr></tbody></table><p>두 표준 위선에서는 k = h = 1이고, 그 사이에서는 k가 1보다 약간 작고(경선 방향은 늘어남), 바깥쪽에서는 k가 1보다 커지면서 경선 방향은 줄어듭니다. 두 축척의 곱이 항상 1이므로 면적 비율은 유지됩니다. 반면 k와 h가 같지 않은 곳에서는 모양이 일그러진다는 뜻입니다. 이 값은 원뿔 상수 n = 0.6028로 계산되며, 지도 제작 소프트웨어는 이 계산을 자동으로 처리합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>정적 도법이라 방향과 모양도 정확하다.</td><td>보존되는 것은 면적뿐입니다. 표준 위선에서 멀어질수록 각도와 모양이 변합니다.</td></tr><tr><td>표준 위선에서만 면적이 정확하다.</td><td>면적은 지도 전체에서 보존됩니다. 표준 위선에서 정확해지는 것은 위선 방향의 축척입니다.</td></tr><tr><td>면적이 보존되니 거리도 믿을 수 있다.</td><td>두 점 사이의 거리는 방향과 위치에 따라 오차가 생깁니다. 거리 측정에는 별도 보정이 필요합니다.</td></tr><tr><td>세계 전체 지도에도 쓸 수 있다.</td><td>동서로 길고 남북 폭은 좁은 중위도 지역에 적합합니다. 극지방이나 전 세계에는 맞지 않습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "면적 보존 도법이나 원추 도법이 여럿이어서 헷갈리기 쉽습니다.",
+    "headers": [
+      "용어",
+      "보존하는 것",
+      "투영면과 특징"
+    ],
+    "rows": [
+      [
+        "알베르스 정적원추도법",
+        "면적",
+        "원뿔, 표준 위선 2개, 중위도 동서로 넓은 지역"
+      ],
+      [
+        "[[lambert-conformal-conic-projection|람베르트 정각원추도법]]",
+        "각도(모양)",
+        "원뿔, 항공도·기상도 등에 쓰이는 정각 도법"
+      ],
+      [
+        "[[lambert-azimuthal-equal-area-projection|람베르트 정적방위도법]]",
+        "면적",
+        "평면(방위), 한 점을 중심으로 한 지역"
+      ],
+      [
+        "[[mercator-projection|메르카토르 투영법]]",
+        "각도(모양)",
+        "원통, 고위도로 갈수록 면적이 크게 확대됨"
+      ]
+    ]
+  },
+  "references": [
+    "Snyder, J. P. (1987). Map Projections: A Working Manual (U.S. Geological Survey Professional Paper 1395). U.S. Government Printing Office.",
+    "Snyder, J. P. (1993). Flattening the Earth: Two Thousand Years of Map Projections. University of Chicago Press.",
+    "Robinson, A. H., Morrison, J. L., Muehrcke, P. C., Kimerling, A. J., & Guptill, S. C. (1995). Elements of Cartography (6th ed.). John Wiley & Sons."
+  ]
+}

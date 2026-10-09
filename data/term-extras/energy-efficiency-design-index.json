@@ -1,0 +1,47 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>EEDI는 신조선이 화물 1톤을 1해리(nautical mile) 옮기는 데 내는 이산화탄소의 양(g CO<sub>2</sub> / 톤·해리)입니다. 매우 단순화하면 다음과 같습니다.</p><p>EEDI ≈ (엔진 출력 P × 연료소비율 SFC × 탄소 환산계수 C<sub>F</sub>) ÷ (재화중량 × 기준속력 V<sub>ref</sub>)</p><p>실제 규정식에는 주기관·보조기관, 축발전기, 에너지절감장치에 대한 보정계수, 빙해·파랑 보정이 더 들어갑니다. 탄소 환산계수는 연료 종류별로 정해져 있으며 중유는 3.114, 경유는 3.206, LNG는 2.750(t-CO<sub>2</sub>/t-연료)이 쓰입니다. EEDI는 2011년 IMO 해양환경보호위원회가 MARPOL 부속서 VI 개정으로 채택했고 2013년부터 시행되었습니다(IMO, 2011).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>선종과 크기마다 기준선(reference line)이 있고, 신조선의 요구 EEDI는 기준선 대비 일정 비율 낮아야 합니다. 이 감축률은 단계적으로 커져, 1단계 10%, 2단계 20%, 3단계 30%가 대표적으로 소개되며 선종과 크기에 따라 적용 시기와 비율이 다릅니다. 따라서 EEDI 숫자 하나는 선종별 기준선과 견줄 때에만 의미가 있고, 다른 선종끼리 직접 비교하는 것은 적절하지 않습니다.</p><p>설계 효과를 가상의 선박으로 계산해 봅니다. 주기관 출력 8,000 kW, 연료소비율 175 g/kWh, 중유(C<sub>F</sub> = 3.114), 재화중량 60,000톤, 기준속력 14.5노트이면 단순화한 EEDI는 약 <strong>5.01</strong>입니다. 기준속력을 5% 낮추고 프로펠러 법칙(출력이 속력의 세제곱에 비례)을 근사로 쓰면 출력은 약 6859 kW가 되어 EEDI는 약 4.52로 9.8% 줄어듭니다(코드 계산). 속력을 줄이는 것이 EEDI를 낮추는 가장 직접적인 방법임을 보여 줍니다. 다만 실제로는 속력 저감이 항해 시간을 늘리므로 운항 측면의 영향은 EEDI에 반영되지 않습니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>EEDI는 ‘달성 EEDI(attained)’와 ‘요구 EEDI(required)’를 구분해 적습니다. 설계 안끼리 비교할 때는 같은 선종·크기 기준선에 대한 비율로 보고하는 것이 안전합니다.</li><li>기준속력, 연료 종류, 엔진 출력 기준(예: 정격의 75%), 에너지절감장치 보정 여부를 밝힙니다.</li><li>EEDI는 설계 지표입니다. 실제 운항 효율은 [[carbon-intensity-indicator|탄소집약도지수(CII)]]와 별도로 평가합니다. 기존 선박의 설계 효율은 2023년부터 도입된 EEXI로 따로 규제합니다.</li><li>연구에서 ‘EEDI가 개선되었다’고 쓸 때 속력 저감 효과인지 기술(선형·프로펠러·엔진) 개선인지 구분해 적는 것이 좋습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "IMO의 선박 효율 규제 지표는 대상과 시점이 서로 다릅니다.",
+    "headers": [
+      "용어",
+      "대상과 시점",
+      "기준"
+    ],
+    "rows": [
+      [
+        "에너지효율설계지수(EEDI)",
+        "신조선, 설계 단계",
+        "선종별 기준선 대비 요구 감축률"
+      ],
+      [
+        "[[carbon-intensity-indicator|탄소집약도지수(CII)]]",
+        "운항 중인 선박, 연간 실제 운항 실적",
+        "A~E 등급"
+      ],
+      [
+        "[[marpol-annex-vi|MARPOL 부속서 VI]]",
+        "EEDI·CII를 규정하는 협약 부속서",
+        "—"
+      ]
+    ]
+  },
+  "references": [
+    "International Maritime Organization. (2011). Resolution MEPC.203(62): Amendments to the Annex of the Protocol of 1997 to Amend the International Convention for the Prevention of Pollution from Ships, 1973, as Modified by the Protocol of 1978 Relating Thereto (Inclusion of regulations on energy efficiency for ships in MARPOL Annex VI). IMO.",
+    "International Maritime Organization. (2018). Resolution MEPC.308(73): 2018 Guidelines on the method of calculation of the attained Energy Efficiency Design Index (EEDI) for new ships. IMO."
+  ]
+}

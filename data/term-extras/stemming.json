@@ -1,0 +1,49 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>어간추출은 단어 끝의 접미사를 규칙으로 잘라 내 같은 어간으로 묶는 알고리즘입니다. 대표인 포터(Porter) 알고리즘은 5단계로 접미사를 차례로 처리하며, 어간에 모음과 자음이 번갈아 나오는 횟수(‘measure’)가 일정 이상일 때만 접미사를 자르도록 조건을 둡니다(Porter, 1980). 첫 단계 규칙의 예는 다음과 같습니다.</p><ul><li>caresses → caress (SSES → SS)</li><li>ponies → poni (IES → I)</li><li>caress → caress (SS → SS)</li><li>cats → cat (S → 제거)</li></ul><p>결과가 사전에 있는 단어일 필요는 없습니다. ‘poni’처럼 색인에서 같은 표지로 쓰일 문자열이면 됩니다. 이 점이 사전을 이용해 기본형으로 되돌리는 [[lemmatization|표제어화]]와 다릅니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>정보검색에서 어간추출은 색인어를 줄이고, 활용형이 다른 단어를 한 번의 검색으로 찾아 주어 <strong>재현율</strong>을 높이는 데 쓰입니다(Manning et al., 2008). 대신 서로 다른 뜻의 단어를 같은 어간으로 묶어 <strong>정확률</strong>을 떨어뜨릴 수 있습니다. 예컨대 포터 알고리즘은 universe, university, universal 계열을 같은 어간 univers 부근으로 묶는 것으로 자주 거론되는데, 이런 현상을 과잉절단(overstemming)이라 합니다. 그 반대로 같은 뜻의 단어를 서로 다른 어간으로 남기는 것이 과소절단(understemming)입니다.</p><p>알고리즘 선택도 비교 대상입니다. 러빈스(Lovins, 1968)는 한 번에 가장 긴 접미사를 제거하는 초기 알고리즘이고, 페이스(Paice, 1990)의 스테머는 반복 규칙 방식입니다.</p><p>한국어는 어미가 풍부한 교착어라서 영어 규칙을 그대로 쓸 수 없고, 형태소 분석으로 용언의 어간과 어미를 가르는 방식이 쓰입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 스테머를 썼는지(알고리즘과 구현 버전)와 언어를 적습니다. 구현마다 결과가 다를 수 있습니다.</li><li>어간추출을 적용한 경우와 하지 않은 경우를 같은 질의·문서집합으로 비교하고, 재현율과 정확률(또는 평균정밀도)을 함께 보고합니다.</li><li>불용어 제거, 대소문자 처리 같은 다른 전처리와 함께 적용했다면 순서를 밝힙니다.</li><li>과잉절단·과소절단 오류 사례를 몇 개 제시하면 해석에 도움이 됩니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "텍스트 정규화 용어는 서로 다른 작업을 가리킵니다.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "결과 예"
+    ],
+    "rows": [
+      [
+        "어간추출",
+        "규칙으로 접미사를 잘라 같은 어간으로 묶음",
+        "caresses → caress"
+      ],
+      [
+        "[[lemmatization|표제어화]]",
+        "품사와 사전을 이용해 기본형(lemma)으로 환원",
+        "running → run, better → good"
+      ],
+      [
+        "[[tokenization|토큰화]]",
+        "텍스트를 단어·부분단어 단위로 쪼갬",
+        "문장 → 토큰 목록"
+      ]
+    ]
+  },
+  "references": [
+    "Porter, M. F. (1980). An algorithm for suffix stripping. Program, 14(3), 130–137.",
+    "Lovins, J. B. (1968). Development of a stemming algorithm. Mechanical Translation and Computational Linguistics, 11(1–2), 22–31.",
+    "Paice, C. D. (1990). Another stemmer. ACM SIGIR Forum, 24(3), 56–61.",
+    "Manning, C. D., Raghavan, P., & Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press."
+  ]
+}
