@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/backpropagation.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <p>역전파는 신경망을 아무리 층이 깊어도 효율적으로 학습시킬 수 있게 해주는 핵심 알고리즘이라, 딥러닝을 다루는 논문 대부분이 이 개념을 전제로 방법론을 설명합니다.</p>
   <p>새로운 네트워크 구조나 학습 기법을 제안하는 논문은 결국 "이 구조에서 기울기가 잘 전달되는가, 안정적으로 계산되는가"를 다루는 경우가 많아서, 최적화·학습 안정성·수렴 속도 같은 상위 연구주제와도 자연스럽게 연결됩니다. 또한 실무에서 모델이 잘 학습되지 않을 때 원인을 진단하는 출발점도 대체로 역전파 과정에 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>역전파는 신경망의 손실을 모든 가중치에 대해 미분한 값(기울기)을 <strong><a href="chain-rule.html">연쇄법칙</a>으로 효율적으로 계산</strong>하는 알고리즘입니다. 한 번의 학습 단계는 다음 순서입니다.</p><ol><li><strong>순전파</strong>: 입력에서 출력까지 계산하고, 각 층의 중간값(활성값)을 저장해 둡니다.</li><li><strong>손실 계산</strong>: 출력과 정답을 <a href="loss-function.html">손실함수</a>로 비교합니다.</li><li><strong>역방향 전달</strong>: 출력층부터 입력층 쪽으로, 각 층에서 “손실이 이 층의 입력에 얼마나 민감한가”를 연쇄법칙으로 곱해 가며 구합니다. 각 층에서 가중치의 기울기도 함께 얻습니다.</li><li><strong>가중치 갱신</strong>: 구한 기울기를 <a href="gradient-descent.html">경사하강법</a> 같은 최적화 방법에 넘겨 가중치를 조금씩 고칩니다. <em>역전파는 기울기를 계산할 뿐, 갱신은 최적화 방법의 몫입니다.</em></li></ol><p>역방향 계산의 비용은 순전파 계산 비용의 작은 상수배에 머물고, 모든 가중치의 기울기를 한 번에 얻습니다. 가중치마다 따로 수치미분하면 가중치 수만큼 순전파를 반복해야 하는 것과 대비됩니다. 대신 순전파의 중간값을 저장해야 하므로 메모리를 씁니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>계산 예(가상의 값, 코드로 계산).</strong> 입력 1개, 은닉 뉴런 1개, 출력 1개인 가장 작은 신경망입니다. 활성화는 시그모이드 σ, 손실은 <code>L = ½(ŷ − y)²</code>, 입력 <em>x</em> = 1, 정답 <em>y</em> = 0, 초기 가중치 <em>w</em><sub>1</sub> = 0.5, <em>w</em><sub>2</sub> = −0.8, 편향은 0입니다.</p><ul><li>순전파: <code>z<sub>1</sub> = 0.5 → a<sub>1</sub> = σ(0.5) ≈ 0.6225 → z<sub>2</sub> = −0.8×0.6225 ≈ −0.4980 → ŷ = σ(z<sub>2</sub>) ≈ 0.3780</code>, 손실 <em>L</em> ≈ 0.07145</li><li>역방향: <code>∂L/∂ŷ = ŷ − y ≈ 0.3780</code>, <code>∂ŷ/∂z<sub>2</sub> = ŷ(1−ŷ) ≈ 0.2351</code>이므로 <code>∂L/∂z<sub>2</sub> ≈ 0.08888</code></li><li>출력 가중치: <code>∂L/∂w<sub>2</sub> = ∂L/∂z<sub>2</sub> × a<sub>1</sub> ≈ 0.05532</code></li><li>은닉 쪽으로 전달: <code>∂L/∂a<sub>1</sub> = ∂L/∂z<sub>2</sub> × w<sub>2</sub> ≈ −0.07110</code>, <code>∂L/∂z<sub>1</sub> = ∂L/∂a<sub>1</sub> × a<sub>1</sub>(1−a<sub>1</sub>) ≈ −0.01671</code>, 따라서 <code>∂L/∂w<sub>1</sub> ≈ −0.01671</code></li></ul><p>수치미분(<em>h</em> = 10<sup>−6</sup>의 중심차분)으로 확인하면 <code>∂L/∂w<sub>1</sub> ≈ −0.016710</code>, <code>∂L/∂w<sub>2</sub> ≈ 0.055324</code>로 위 값과 일치합니다. 학습률 0.5로 한 걸음 갱신하면 <em>w</em><sub>1</sub> ≈ 0.5084, <em>w</em><sub>2</sub> ≈ −0.8277이 되고 손실이 0.07145에서 0.06979로 줄어듭니다.</p><p><strong>무엇을 얻나</strong>: 매개변수가 수백만~수십억 개인 모델에서도 기울기를 현실적인 비용으로 구할 수 있어, 깊은 신경망의 end-to-end 학습이 가능합니다. 기울기 소실·폭주 같은 학습 안정성 문제를 진단하는 출발점이기도 합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>대부분의 논문은 역전파를 새로 설명하지 않고 “표준 역전파로 학습했다”고 적습니다. 다만 재현에 필요한 것은 역전파 자체가 아니라 그 위에 얹은 선택들입니다.</p><p><code>모든 파라미터는 역전파로 종단 간 학습하였다. 최적화에는 Adam(학습률 10<sup>−3</sup>, 배치 크기 64)을 사용하였고, 기울기 폭주를 막기 위해 기울기 노름을 5로 잘랐다.</code> (가상의 예)</p><ul><li><strong>최적화 방법·학습률·배치 크기·기울기 클리핑 여부</strong>를 적습니다. 이것들이 학습 결과를 좌우합니다.</li><li>역전파가 통과하지 않는 부분(예: 미분 불가능한 연산, 고정(frozen)한 층, 정책 기울기처럼 보상을 통한 추정)이 있으면 밝힙니다.</li><li>기울기 소실을 줄이기 위해 잔차 연결이나 정규화를 쓴 경우 그 사실을 구조 설명에 포함합니다.</li><li>구현은 프레임워크의 자동미분이 대신하는 경우가 대부분이므로, 직접 구현했다면 수치미분으로 검증했다고 적는 것이 신뢰도를 높입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델의 모든 파라미터는 표준 역전파(backpropagation) 알고리즘을 통해 종단 간(end-to-end) 학습되었다."</div>
   <p>이 문장은 "모델의 각 층 가중치를 손으로 하나하나 설정한 것이 아니라, 오차를 거꾸로 전달해 계산한 기울기를 이용해 자동으로 학습시켰다"는 뜻입니다.</p>
 
@@ -172,6 +190,19 @@
 
   <h2>주의할 점</h2>
   <p>역전파 자체는 기울기를 "계산"하는 방법일 뿐, 가중치를 실제로 "업데이트"하는 것은 <a href="gradient-descent.html">경사하강법</a>의 몫입니다. 두 개념을 혼동해서 역전파가 곧 학습 알고리즘 전체라고 오해하기 쉬운데, 정확히는 역전파(기울기 계산) + 경사하강법(가중치 갱신)이 합쳐져야 학습이 완성됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘학습 알고리즘’이라는 말 아래 층위가 다른 것들이 섞여 쓰입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">역전파</th><td>손실의 기울기를 계산</td><td>연쇄법칙을 층 순서대로 적용하는 알고리즘</td></tr><tr><th scope="row"><a href="chain-rule.html">연쇄법칙</a></th><td>합성함수의 미분을 구성 요소의 곱으로 계산</td><td>역전파가 쓰는 수학 규칙</td></tr><tr><th scope="row"><a href="gradient-descent.html">경사하강법</a></th><td>기울기를 써서 가중치를 갱신</td><td>역전파가 구한 기울기를 입력으로 받는 최적화 방법</td></tr><tr><th scope="row"><a href="loss-function.html">손실함수</a></th><td>예측과 정답의 차이를 숫자 하나로 표현</td><td>미분의 대상이 되는 값</td></tr><tr><th scope="row">자동미분</th><td>프로그램으로 미분을 자동 계산</td><td>역전파는 자동미분의 역방향 모드로 이해됨</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. Nature, 323, 533–536.</li>
+    <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
+    <li>Baydin, A. G., Pearlmutter, B. A., Radul, A. A., &amp; Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey. Journal of Machine Learning Research, 18(153), 1–43.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

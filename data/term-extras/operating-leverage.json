@@ -1,0 +1,35 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>영업레버리지도(DOL)</strong>: 매출액이 1% 변할 때 영업이익이 몇 % 변하는지를 나타내는 배율입니다. 정의는 <code>DOL = 영업이익 변화율 / 매출액 변화율</code>이고, 원가-조업도-이익 분석의 가정(고정원가·단위당 변동원가 일정) 아래에서는 <code>DOL = 공헌이익 / 영업이익</code>으로 계산합니다([[degree-of-operating-leverage|영업레버리지도]], [[contribution-margin|공헌이익]]).</li><li><strong>범위</strong>: 흑자 구간에서는 1 이상입니다. 고정원가가 없으면 1이고, 고정원가가 클수록 커집니다. 영업이익이 0에 가까워지면(손익분기점 근처) 값이 한없이 커지고, 적자 구간에서는 부호가 달라져 해석이 달라집니다.</li><li><strong>시점 의존성</strong>: 한 매출 수준에서 계산한 값이며, 매출이 바뀌면 값도 바뀝니다. 가정이 성립하는 조업도 범위 안에서만 쓸 수 있습니다.</li><li><strong>외부 연구에서의 추정</strong>: 기업 밖에서는 고정원가와 변동원가를 알기 어려워, 매출 변화에 대한 영업이익 변화의 회귀계수 등으로 추정합니다. 이 추정치는 원가 비대칭성이나 구조 변화의 영향을 받습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>계산 예(가상의 두 기업, 코드로 계산).</strong> 매출이 같고 영업이익도 같지만 원가 구조가 다른 A, B입니다.</p><table><thead><tr><th>항목 (매출 1,000)</th><th>A (고정비 작음)</th><th>B (고정비 큼)</th></tr></thead><tbody><tr><td>변동원가율</td><td>60%</td><td>30%</td></tr><tr><td>고정원가</td><td>300</td><td>600</td></tr><tr><td>공헌이익</td><td>400</td><td>700</td></tr><tr><td>영업이익</td><td>100</td><td>100</td></tr><tr><td>DOL = 공헌이익/영업이익</td><td>4.0</td><td>7.0</td></tr><tr><td>손익분기점 매출</td><td>750</td><td>약 857</td></tr><tr><td>매출 +10% 시 영업이익</td><td>140 (+40%)</td><td>170 (+70%)</td></tr><tr><td>매출 −10% 시 영업이익</td><td>60 (−40%)</td><td>30 (−70%)</td></tr></tbody></table><p>같은 10%의 매출 변동이 A에서는 영업이익을 ±40%, B에서는 ±70% 움직입니다. 매출이 늘 때는 B가 유리하지만 줄 때는 B가 훨씬 크게 흔들립니다. 즉 높은 DOL은 ‘유리함’이 아니라 <strong>위험(변동성)의 크기</strong>입니다. B는 손익분기점도 높아(약 857), 매출이 760까지 떨어지면 영업이익이 −68의 적자가 되지만 A는 4의 흑자로 남습니다. 매출이 900일 때 DOL은 A가 6.0, B가 21.0으로 올라가 손익분기점에 가까울수록 급증합니다.</p><p><strong>연구에서의 해석</strong>: 영업레버리지가 높은 기업은 이익 변동성과 주식 위험(베타)이 큰 경향이 있다고 논의됩니다. Lev(1974)와 Mandelker와 Rhee(1984)는 영업레버리지와 위험의 관계를 실증했고, Novy-Marx(2011)는 영업레버리지를 기업 특성으로 삼아 기대수익률과의 관계를 분석했습니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>영업레버리지는 한 기업의 특성값이므로, 계산 방식을 먼저 정해 밝힙니다.</p><ul><li><strong>정의식</strong>: <code>DOL = 공헌이익 / 영업이익</code>인지, <code>(Δ영업이익/영업이익) / (Δ매출/매출)</code>인지, 회귀로 추정한 값인지를 적습니다. 방식이 다르면 값을 직접 비교할 수 없습니다.</li><li><strong>기준 시점과 매출 수준</strong>을 적고, 같은 기업의 여러 해를 비교한다면 해마다 값이 달라짐을 전제로 합니다.</li><li><strong>고정원가/변동원가 분류 기준</strong>(비용 항목별 분류 방법)을 밝힙니다. 외부 자료로 추정했다면 오차 가능성을 한계로 적습니다.</li><li>결과 문장 예: <code>영업레버리지도가 높은 기업군은 낮은 기업군보다 영업이익 변동성이 컸다(표준편차 비교).</code> (가상의 예) 인과를 말할 때는 업종 통제 등 대안 설명을 따로 처리합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "영업레버리지와 이름이 비슷하거나 함께 계산되는 개념입니다.",
+    "headers": ["용어", "무엇을 재는가", "구분 포인트"],
+    "rows": [
+      ["영업레버리지", "고정원가 비중 때문에 생기는 이익 증폭 효과", "개념(현상)"],
+      ["[[degree-of-operating-leverage|영업레버리지도(DOL)]]", "그 증폭의 크기를 수치로 나타낸 배율", "공헌이익/영업이익"],
+      ["[[break-even-analysis|손익분기점분석]]", "이익이 0이 되는 매출액", "고정비가 클수록 손익분기점이 높아짐"],
+      ["[[margin-of-safety|안전한계]]", "실제(예상) 매출이 손익분기점을 넘는 정도", "영업레버리지와 반비례하는 관계(안전한계율의 역수가 DOL)"],
+      ["재무레버리지", "부채(이자) 때문에 생기는 이익 증폭", "고정금융비용에서 생기며 영업레버리지와 다른 원천"]
+    ]
+  },
+  "references": [
+    "Lev, B. (1974). On the association between operating leverage and risk. Journal of Financial and Quantitative Analysis, 9(4), 627–641.",
+    "Mandelker, G. N., & Rhee, S. G. (1984). The impact of the degrees of operating and financial leverage on systematic risk of common stock. Journal of Financial and Quantitative Analysis, 19(1), 45–57.",
+    "Novy-Marx, R. (2011). Operating leverage. Review of Finance, 15(1), 103–134.",
+    "Horngren, C. T., Datar, S. M., & Rajan, M. V. (2015). Cost Accounting: A Managerial Emphasis (15th ed.). Pearson."
+  ]
+}

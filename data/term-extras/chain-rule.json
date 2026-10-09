@@ -1,0 +1,33 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>한 변수 합성함수</strong>: <em>y</em> = <em>f</em>(<em>g</em>(<em>x</em>))이고 <em>f</em>, <em>g</em>가 미분 가능하면 <code>dy/dx = f′(g(x)) · g′(x)</code>입니다. 바깥 함수의 변화율을 <strong>안쪽 함수의 값에서</strong> 구한 뒤 안쪽 함수의 변화율을 곱합니다. 라이프니츠 표기로는 <code>dy/dx = (dy/du)(du/dx)</code>, 여기서 <em>u</em> = <em>g</em>(<em>x</em>).</li><li><strong>여러 단계</strong>: 사슬이 길어도 같습니다. <em>y</em> = <em>f</em>(<em>g</em>(<em>h</em>(<em>x</em>)))이면 세 변화율을 모두 곱합니다.</li><li><strong>다변수</strong>: <em>z</em> = <em>f</em>(<em>u</em>, <em>v</em>)이고 <em>u</em>, <em>v</em>가 모두 <em>t</em>의 함수이면 <code>dz/dt = (∂f/∂u)(du/dt) + (∂f/∂v)(dv/dt)</code>입니다. 영향을 주는 경로마다 곱하고 경로를 모두 더합니다. 자세한 내용은 [[partial-derivative|편미분]]을 보세요.</li><li><strong>기계학습에서</strong>: 신경망의 손실은 층마다의 함수가 겹친 합성함수이므로, 각 가중치의 기울기를 이 규칙으로 구합니다. 이를 층 순서대로 효율적으로 계산하는 것이 [[backpropagation|역전파]]이고, 프로그램이 이 계산을 자동으로 해 주는 기법 전반을 자동미분이라 부릅니다(Baydin 외, 2018).</li><li>엄밀한 증명과 가정은 해석학 교재(예: Rudin, 1976)에 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>계산 예.</strong> <em>y</em> = sin(<em>x</em>²)을 <em>x</em> = 1.5에서 미분합니다. 안쪽 함수 <em>g</em>(<em>x</em>) = <em>x</em>², 바깥 함수 <em>f</em>(<em>u</em>) = sin <em>u</em>로 놓으면</p><ul><li><em>g</em>′(<em>x</em>) = 2<em>x</em> = 3</li><li><em>f</em>′(<em>g</em>(<em>x</em>)) = cos(<em>x</em>²) = cos(2.25) ≈ −0.6282</li><li>곱: <code>dy/dx = 2x · cos(x²) ≈ 3 × (−0.6282) ≈ −1.8845</code></li></ul><p>코드로 중심차분(<em>h</em> = 10<sup>−6</sup>)을 구하면 −1.884521로 해석적 값과 같습니다. 검산 방법으로 쓸 만합니다.</p><p><strong>실생활 비유.</strong> 월급이 1 늘면 저축이 0.3 늘고(<em>dg/dx</em> = 0.3), 저축이 1 늘면 여행이 0.5회 늘어난다(<em>df/dg</em> = 0.5)면, 월급이 1 늘 때 여행은 0.3 × 0.5 = 0.15회 늘어납니다. 각 고리의 변화율을 곱하는 것입니다(가상의 값).</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“바깥 함수의 도함수를 <em>x</em>에서 구하면 된다”</strong>: <em>f</em>′(<em>x</em>)가 아니라 <em>f</em>′(<em>g</em>(<em>x</em>))입니다. 위 예에서 cos <em>x</em>가 아니라 cos(<em>x</em>²)를 곱해야 합니다. 가장 흔한 실수입니다.</li><li><strong>“두 변화율을 더한다”</strong>: 사슬(합성)에서는 곱하고, 여러 경로가 있을 때 경로별 곱을 더합니다.</li><li><strong>“곱의 미분과 연쇄법칙은 같은 규칙이다”</strong>: 곱의 미분은 두 함수를 곱한 꼴(<em>f</em>·<em>g</em>), 연쇄법칙은 함수를 겹친 꼴(<em>f</em>(<em>g</em>))에 쓰는 규칙입니다. 식이 복잡하면 두 규칙을 함께 쓰는 경우가 많습니다.</li><li><strong>“깊은 신경망에서 연쇄법칙이 기울기 소실을 일으킨다”</strong>: 연쇄법칙은 곱을 계산하는 규칙일 뿐이고, 층이 깊을수록 곱해지는 값이 1보다 작으면 점점 작아지고 1보다 크면 점점 커지는 것이 기울기 소실·폭주입니다. 연쇄법칙이 잘못된 것이 아니라 곱의 성질 때문입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "미분 규칙들은 대상이 되는 함수의 구조가 다릅니다.",
+    "headers": ["규칙", "대상", "결과"],
+    "rows": [
+      ["연쇄법칙", "합성함수 f(g(x))", "f′(g(x)) · g′(x)"],
+      ["곱의 미분", "곱 f(x)g(x)", "f′g + fg′"],
+      ["[[partial-derivative|편미분]]", "여러 변수 함수에서 한 변수만 변화", "다른 변수는 상수로 고정"],
+      ["[[backpropagation|역전파]]", "신경망 손실의 가중치 기울기", "연쇄법칙을 층 순서대로 적용한 알고리즘"]
+    ]
+  },
+  "references": [
+    "Rudin, W. (1976). Principles of Mathematical Analysis (3rd ed.). McGraw-Hill.",
+    "Stewart, J. (2016). Calculus: Early Transcendentals (8th ed.). Cengage Learning.",
+    "Baydin, A. G., Pearlmutter, B. A., Radul, A. A., & Siskind, J. M. (2018). Automatic differentiation in machine learning: A survey. Journal of Machine Learning Research, 18(153), 1–43."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>식</strong>: <code>P<sub>cr</sub> = π² E I / (K L)²</code>. <em>E</em>는 탄성계수(Pa), <em>I</em>는 약축에 대한 [[moment-of-inertia-section|단면 2차모멘트]](m⁴), <em>L</em>은 기둥 길이, <em>K</em>는 유효길이 계수입니다. <em>KL</em>을 유효길이라 부릅니다.</li><li><strong>경계조건에 따른 <em>K</em>(이론값)</strong>: 양단 핀 1.0, 일단 고정·일단 자유 2.0, 일단 고정·일단 핀 약 0.7, 양단 고정 0.5. 양단 핀을 기준으로 양단 고정은 임계하중이 4배, 일단 고정·일단 자유는 4분의 1배가 됩니다. 실제 설계에서는 완전한 고정이 어려워 이론값보다 안전한 쪽의 <em>K</em>를 쓰기도 합니다.</li><li><strong>적용 범위</strong>: 이상적인 기둥(곧고, 재질이 균일하고, 하중이 도심에 가해지고, 선형 탄성 범위)에서 세장비가 충분히 큰 경우에 유효합니다. 세장비 <code>λ = KL / r</code>(<em>r</em> = √(<em>I</em>/<em>A</em>)은 회전반경)이 한계 세장비 <code>λ<sub>c</sub> = π√(E/σ<sub>y</sub>)</code>보다 커야 합니다(Timoshenko &amp; Gere, 1961).</li><li><strong>유래</strong>: Euler(1744)가 탄성곡선 연구에서 처음 유도했고, 이후 2세기 이상 기둥 설계의 기본이 되었습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>계산 예(가상의 값, 코드로 계산).</strong> 지름 20 mm인 강봉 기둥, <em>E</em> = 200 GPa, 항복강도 σ<sub>y</sub> = 250 MPa, 양단 핀(<em>K</em> = 1)입니다. 단면 2차모멘트 <em>I</em> = π<em>d</em>⁴/64 ≈ 7.85×10<sup>−9</sup> m⁴, 단면적 <em>A</em> ≈ 3.14×10<sup>−4</sup> m², 회전반경 <em>r</em> = <em>d</em>/4 = 5 mm입니다. 한계 세장비 λ<sub>c</sub> = π√(200000/250) ≈ 88.9입니다.</p><table><thead><tr><th>길이 L</th><th>세장비 λ</th><th>P<sub>cr</sub></th><th>좌굴 응력 P<sub>cr</sub>/A</th><th>오일러 식 적용</th></tr></thead><tbody><tr><td>1.0 m</td><td>200</td><td>약 15.5 kN</td><td>약 49 MPa</td><td>가능 (λ &gt; 88.9, 응력이 항복강도보다 훨씬 작음)</td></tr><tr><td>0.2 m</td><td>40</td><td>식으로는 약 388 kN</td><td>식으로는 약 1,234 MPa</td><td>불가 (λ &lt; 88.9, 응력이 항복강도 250 MPa를 넘어 재료가 먼저 항복)</td></tr></tbody></table><p>길이를 5분의 1로 줄이면 식은 임계하중이 25배가 된다고 하지만, 짧은 기둥은 좌굴 전에 재료가 먼저 항복합니다. 이때는 오일러 식이 아니라 존슨 공식 같은 비탄성 좌굴 이론이 필요합니다. 또한 경계조건 효과는 아래와 같습니다(길이 1 m 기준): <em>K</em> = 0.5이면 62.0 kN, 0.7이면 31.6 kN, 1.0이면 15.5 kN, 2.0이면 3.88 kN.</p><p><strong>해석</strong>: 임계하중은 <em>L</em>²에 반비례하고 <em>EI</em>에 비례하므로, 단면 2차모멘트가 큰 단면(속이 빈 관 등)이 같은 재료량에서 유리합니다. 실제 부재는 초기 휨과 하중 편심 같은 결함 때문에 이론 임계하중보다 낮은 하중에서 좌굴할 수 있어 안전율을 둡니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>적용 조건을 함께 밝혀야 값의 의미가 분명해집니다.</p><p><code>지름 20 mm, 길이 1,000 mm의 강봉(E = 200 GPa)을 양단 핀(K = 1.0)으로 가정하여 오일러 식으로 임계좌굴하중을 15.5 kN으로 계산하였고, 유한요소 선형좌굴 해석의 결과 15.4 kN과 비교하였다.</code> (가상의 예)</p><ul><li><strong>경계조건과 유효길이 계수</strong>, 사용한 <em>E</em>와 <em>I</em>(어느 축인지), 길이를 적습니다.</li><li><strong>세장비와 적용 가능 여부</strong>(λ와 λ<sub>c</sub> 비교)를 적고, 범위 밖이면 다른 이론을 썼다고 밝힙니다.</li><li>유한요소 해석이나 실험과 비교할 때는 오일러 값을 ‘이상적인 상한’으로 두고, 차이의 원인(초기 결함, 비선형, 소성)을 논의합니다. 선형 고유치 좌굴 해석은 이론 값에 가깝게 나오는 경우가 많고 실제 부재는 더 낮습니다.</li><li>한계는 적습니다: “탄성 좌굴만 가정”, “초기 결함 미반영”.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "좌굴과 관련된 용어는 이론, 식, 파괴 양식으로 층위가 다릅니다.",
+    "headers": ["용어", "무엇인가", "관계"],
+    "rows": [
+      ["오일러 좌굴공식", "이상적인 기둥의 탄성 임계좌굴하중을 주는 식", "특수한 경우(양끝 조건 포함)에 대한 식"],
+      ["[[buckling-load-theory|좌굴하중 이론]]", "가늘고 긴 부재와 판의 좌굴을 다루는 이론 전체", "오일러 식은 그 하위 요소"],
+      ["[[yield-strength|항복강도]]", "재료가 영구 변형을 시작하는 응력", "짧은 기둥은 좌굴 전에 항복해 오일러 식이 적용되지 않음"],
+      ["[[moment-of-inertia-section|단면 2차모멘트]]", "단면 형상이 굽힘에 저항하는 정도", "식의 입력값 I"]
+    ]
+  },
+  "references": [
+    "Euler, L. (1744). Methodus inveniendi lineas curvas maximi minimive proprietate gaudentes: Additamentum I, De curvis elasticis. Bousquet.",
+    "Timoshenko, S. P., & Gere, J. M. (1961). Theory of Elastic Stability (2nd ed.). McGraw-Hill.",
+    "Gere, J. M., & Goodno, B. J. (2012). Mechanics of Materials (8th ed.). Cengage Learning."
+  ]
+}

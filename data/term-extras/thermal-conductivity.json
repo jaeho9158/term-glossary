@@ -1,0 +1,34 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>정의</strong>: 푸리에 법칙 <code>q = −k · dT/dx</code>에서 비례상수 <em>k</em>입니다. 열유속 <em>q</em>(W/m²)는 온도가 높은 쪽에서 낮은 쪽으로 흐르며, 단위는 W/(m·K)입니다. 벽 한 장을 정상상태로 통과하는 열유속은 <code>q = k · ΔT / L</code>(<em>L</em>은 두께)입니다.</li><li><strong>대략적인 크기(상온, 대표값)</strong>: 구리 약 400, 알루미늄 약 235, 스테인리스강 약 15, 유리 약 1, 물 약 0.6, 공기 약 0.026 W/(m·K). 합금 조성, 온도, 수분 함량에 따라 달라지므로 대략의 순서를 보는 용도입니다.</li><li><strong>방향성</strong>: 등방성 물질은 방향과 무관하게 같은 값이고, 복합소재나 결정은 방향마다 다른 이방성 값을 가질 수 있어 방향별로 측정합니다.</li><li><strong>온도 의존성</strong>: 많은 물질에서 온도에 따라 변하므로 값에는 측정 온도가 따릅니다.</li><li><strong>관련 양</strong>: 열확산율 <em>α</em> = <em>k</em> / (<em>ρ c</em><sub>p</sub>). <em>k</em>가 ‘열이 얼마나 잘 통과하는가’라면 <em>α</em>는 ‘온도 변화가 얼마나 빨리 퍼지는가’입니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>계산 예(가상의 값, 코드로 계산).</strong> 두께 100 mm 벽의 양쪽 온도 차가 20 K이고, 정상상태라고 가정합니다.</p><table><thead><tr><th>재료</th><th>k (W/(m·K))</th><th>열유속 q = kΔT/L</th><th>열저항 L/k (m²·K/W)</th></tr></thead><tbody><tr><td>단열재(가상, 0.035)</td><td>0.035</td><td>7 W/m²</td><td>2.86</td></tr><tr><td>콘크리트(가상, 1.4)</td><td>1.4</td><td>280 W/m²</td><td>0.071</td></tr></tbody></table><p>같은 두께에서 <em>k</em>가 40배 차이면 새는 열도 40배 차이입니다. 단열 성능은 <em>k</em>가 낮을수록, 두께가 두꺼울수록 좋아집니다. 이때 비교의 기준은 <em>k</em>만이 아니라 <em>L</em>/<em>k</em>(열저항)입니다.</p><p><strong>해석 시 주의.</strong> “열전도율이 30% 향상되었다”는 서술은 소재 비교에는 유용하지만, 전자기기의 실제 방열은 접촉 열저항, 대류, 두께에 좌우됩니다. 소재의 <em>k</em>가 곧 부품의 방열 성능은 아닙니다. 이 점이 소재의 고유한 값인 열전도율과, 실제 상황 전체를 포괄하는 [[heat-transfer|열전달]]을 구분해야 하는 이유입니다. 소재의 열팽창과 강도 같은 다른 물성도 설계에는 함께 쓰입니다([[thermal-expansion|열팽창]] 참고).</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>값, 단위, 온도, 방향, 측정법, 시료 상태를 모두 적어야 다른 연구와 비교할 수 있습니다.</p><p><code>복합소재의 면내 방향 열전도율은 레이저 플래시법으로 측정한 열확산율(α), 비열(c<sub>p</sub>), 밀도(ρ)로부터 k = α·ρ·c<sub>p</sub>로 계산하였다. 25 ℃에서 12.4 W/(m·K)(3회 평균)였다.</code> (가상의 예)</p><ul><li><strong>측정법</strong>: 정상상태법(보호열판법 등: 시료에 일정한 열유속을 흘리고 온도구배를 측정) 또는 과도상태법(레이저 플래시법(Parker 외, 1961): 열확산율을 구한 뒤 <em>k</em> = <em>α</em>·<em>ρ</em>·<em>c</em><sub>p</sub>로 환산)을 밝힙니다. 방법에 따라 가정과 오차 요인이 다릅니다.</li><li><strong>방향</strong>(면내/두께 방향), <strong>온도</strong>, <strong>시료 두께와 표면 처리</strong>, <strong>반복 측정 횟수와 불확도</strong>를 적습니다.</li><li>“열전도율 N% 향상”처럼 상대값만 쓸 때는 기준이 된 소재와 측정 조건이 같아야 하고, 절댓값도 함께 보고합니다.</li><li>같은 개념을 ‘열전도도’라고 쓰는 문헌도 있습니다. 한 논문 안에서는 하나로 통일합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "열이 이동하는 정도를 나타내는 양과 현상이 여러 가지입니다.",
+    "headers": ["용어", "무엇인가", "단위"],
+    "rows": [
+      ["열전도율 k", "물질이 열을 전도하는 고유한 능력", "W/(m·K)"],
+      ["[[heat-transfer|열전달]]", "전도·대류·복사로 열이 이동하는 현상 전체", "(현상 이름)"],
+      ["열확산율 α", "온도 변화가 퍼지는 빠르기 (k/(ρc))", "m²/s"],
+      ["열저항 L/k", "두께와 열전도율로 정해지는 열이 통과하는 어려움", "m²·K/W"],
+      ["[[specific-heat|비열]]", "단위 질량의 온도를 올리는 데 필요한 열", "J/(g·K)"]
+    ]
+  },
+  "references": [
+    "Incropera, F. P., DeWitt, D. P., Bergman, T. L., & Lavine, A. S. (2007). Fundamentals of Heat and Mass Transfer (6th ed.). Wiley.",
+    "Çengel, Y. A., & Ghajar, A. J. (2015). Heat and Mass Transfer: Fundamentals and Applications (5th ed.). McGraw-Hill.",
+    "Parker, W. J., Jenkins, R. J., Butler, C. P., & Abbott, G. L. (1961). Flash method of determining thermal diffusivity, heat capacity, and thermal conductivity. Journal of Applied Physics, 32(9), 1679–1684."
+  ]
+}

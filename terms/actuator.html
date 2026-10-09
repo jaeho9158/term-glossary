@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/actuator.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <p>새로운 제어 알고리즘이나 로봇 구조를 제안하는 논문도 결국 이를 실제로 구현하는 액추에이터의 특성(응답속도, 출력, 정밀도)에 성능이 제약되기 때문에, 액추에이터는 이론과 실제 시스템을 잇는 핵심 연결고리로 자주 언급됩니다.</p>
   <p>최근에는 웨어러블 로봇이나 소프트 로봇 연구에서 인체 친화적인 새로운 액추에이터(공압 인공근육, 형상기억합금 등)를 개발하는 것 자체가 중요한 연구주제가 되고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>역할</strong>: 제어기가 내린 명령 신호와 에너지원(전기, 유압, 공기압 등)을 받아 <strong>힘이나 움직임</strong>으로 바꾸는 출력 장치입니다. 센서가 환경을 신호로 바꾸는 입력 장치라면 액추에이터는 그 반대 방향입니다.</li><li><strong>구동 방식에 따른 분류</strong>: 전기식(DC·서보·스테퍼 모터, 솔레노이드), 유압식, 공압식, 그리고 압전소자·형상기억합금·인공근육 같은 스마트 소재 기반이 있습니다. 서보모터와 스테퍼모터는 이 사전에서 <a href="servo-motor.html">서보모터</a>, <a href="stepper-motor.html">스테퍼모터</a>로 따로 다룹니다.</li><li><strong>성능을 나타내는 값</strong>: 출력 힘(토크), 속도, 위치 정밀도, 응답 속도, 무게 대비 출력, 효율. 구동 방식마다 장단점이 갈립니다. 유압식은 작은 부피로 큰 힘을 내지만 유체 누설과 설비 부담이 있고, 공압식은 가볍고 깨끗하지만 공기가 압축되어 정밀한 위치 제어가 어렵습니다.</li><li><strong>제어 구조</strong>: 실제 시스템은 센서로 움직임을 다시 재서 명령과의 차이를 줄이는 <a href="feedback-control.html">피드백제어</a>를 씁니다. 액추에이터 자체는 마찰이나 기계적 지연 때문에 명령을 그대로 따르지 못하기 때문입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>같은 실린더 크기에서 유압과 공압의 힘 비교(가상의 값).</strong> 피스톤 지름 50 mm의 실린더에서 압력 <em>p</em>가 피스톤 면적 <em>A</em>에 작용할 때 힘은 <code>F = p · A</code>입니다.</p><ul><li>면적: <code>A = π × (0.025 m)² ≈ 1.96×10<sup>−3</sup> m²</code></li><li>유압 10 MPa: <code>F ≈ 10×10<sup>6</sup> Pa × 1.96×10<sup>−3</sup> m² ≈ 19.6 kN</code></li><li>공압 0.6 MPa: <code>F ≈ 0.6×10<sup>6</sup> Pa × 1.96×10<sup>−3</sup> m² ≈ 1.18 kN</code></li></ul><p>압력 차이 때문에 같은 크기에서 힘이 약 17배 차이 납니다. 힘이 큰 곳에는 유압, 가볍고 깨끗한 환경에는 공압을 고르는 이유를 보여주는 간단한 수치입니다(마찰과 효율은 무시한 이상적인 값입니다).</p><p><strong>논문에서의 쓰임.</strong> 로봇 관절 논문에서 “관절당 서보 액추에이터 1개”처럼 개수와 종류를 적고, 소프트 로봇 논문에서는 공압 챔버 같은 새로운 액추에이터 자체가 연구 대상이 됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“액추에이터는 모터와 같은 말이다”</strong>: 모터는 액추에이터의 한 종류입니다. 실린더, 솔레노이드, 압전소자, 인공근육도 모두 액추에이터입니다.</li><li><strong>“액추에이터가 곧 시스템의 정밀도다”</strong>: 정밀도는 액추에이터, 감속기·기구, 센서, 제어기가 함께 결정합니다. 액추에이터가 아무리 정밀해도 센서나 기구의 오차가 더해집니다.</li><li><strong>“스테퍼모터는 항상 명령한 만큼 정확히 움직인다”</strong>: 센서 없이 구동하는 경우가 많아, 부하가 너무 크면 스텝을 건너뛰고도 알아채지 못할 수 있습니다. 정확한 위치가 필요하면 엔코더를 달거나 서보 방식을 씁니다.</li><li><strong>“액추에이터와 센서는 한 몸이다”</strong>: 둘은 서로 반대 역할입니다. 다만 압전소자처럼 한 소재가 센서와 액추에이터 양쪽으로 쓰이기도 합니다(<a href="piezoelectric-effect.html">압전효과</a> 참고).</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 로봇 팔은 6개의 서보 액추에이터로 구동되며, 각 관절의 각도를 독립적으로 제어할 수 있다."</div>
   <p>이 문장은 "이 로봇 팔에는 관절마다 하나씩, 총 6개의 구동 장치가 달려 있고, 각 관절을 따로따로 원하는 각도로 움직일 수 있다"는 뜻입니다.</p>
 
@@ -165,7 +183,20 @@
   <p>또한 액추에이터 자체는 명령대로 움직이려 해도 마찰이나 기계적 지연 때문에 오차가 생길 수 있어, 실제 시스템에서는 액추에이터의 움직임을 다시 측정해 보정하는 폐루프 제어 구조가 함께 언급되는 경우가 대체로 많습니다.</p>
 
   <h2>주의할 점</h2>
-  <p>액추에이터는 센서와 정반대의 역할을 합니다. 액추에이터가 명령을 받아 실제로 움직이는 "출력" 장치라면, <a href="sensor-fusion.html">센서 융합</a>는 반대로 주변 환경 정보를 신호로 바꾸는 "입력" 장치입니다. 실제 제어 시스템에서는 센서가 측정한 값을 바탕으로 <a href="feedback-control.html">피드백제어</a>가 액추에이터의 동작을 계속 보정해주는 구조가 일반적입니다.</p>
+  <p>액추에이터는 센서와 정반대의 역할을 합니다. 액추에이터가 명령을 받아 실제로 움직이는 "출력" 장치라면, 센서는 반대로 주변 환경 정보를 신호로 바꾸는 "입력" 장치입니다. 실제 제어 시스템에서는 센서가 측정한 값을 바탕으로 <a href="feedback-control.html">피드백제어</a>가 액추에이터의 동작을 계속 보정해주는 구조가 일반적입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>제어 시스템에서 입력, 출력, 계산을 맡은 요소를 구분합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">역할</th><th scope="col">방향</th></tr></thead><tbody><tr><th scope="row"><strong>액추에이터</strong></th><td>명령을 힘·움직임으로 바꿈</td><td>출력</td></tr><tr><th scope="row">센서</th><td>물리량(위치, 온도 등)을 신호로 바꿈</td><td>입력</td></tr><tr><th scope="row"><a href="sensor-fusion.html">센서 융합</a></th><td>여러 센서 정보를 합쳐 더 정확한 추정을 만듦</td><td>입력 측 처리</td></tr><tr><th scope="row"><a href="feedback-control.html">피드백제어</a></th><td>측정값과 목표의 차이로 액추에이터 명령을 보정</td><td>센서와 액추에이터를 잇는 계산</td></tr><tr><th scope="row"><a href="servo-motor.html">서보모터</a> / <a href="stepper-motor.html">스테퍼모터</a></th><td>액추에이터의 구체적 종류</td><td>출력</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Janocha, H. (Ed.). (2004). Actuators: Basics and Applications. Springer.</li>
+    <li>Isermann, R. (2005). Mechatronic Systems: Fundamentals. Springer.</li>
+    <li>Spong, M. W., Hutchinson, S., &amp; Vidyasagar, M. (2006). Robot Modeling and Control. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="servo-motor.html">서보모터</a><a href="stepper-motor.html">스테퍼모터</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

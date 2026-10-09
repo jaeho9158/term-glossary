@@ -1,0 +1,35 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li><strong>정의</strong>: 물체의 온도를 아주 조금 올릴 때 필요한 열량의 비, <code>C = δQ / dT</code>. 온도 변화가 작고 일정하면 <code>C ≈ Q / ΔT</code>입니다. 단위는 J/K입니다.</li><li><strong>비열과의 관계</strong>: 물체의 열용량은 비열 <em>c</em>(J/(g·K))에 질량 <em>m</em>을 곱한 값, <code>C = m · c</code>입니다. 몰열용량은 J/(mol·K)로 씁니다. 열용량은 물체의 양에 비례하는 값이고, 비열이나 몰열용량은 물질 고유의 값입니다. 자세한 내용은 [[specific-heat|비열]]을 보세요.</li><li><strong>조건에 따라 다른 값</strong>: 부피를 일정하게 둘 때의 <em>C</em><sub>V</sub>와 압력을 일정하게 둘 때의 <em>C</em><sub>P</sub>가 있습니다. 이상기체는 <code>C<sub>P</sub> − C<sub>V</sub> = nR</code>로 차이가 뚜렷하고, 고체와 액체는 차이가 작습니다. 정압 열용량은 [[enthalpy|엔탈피]]의 온도 변화율에 해당합니다.</li><li><strong>범위와 온도 의존성</strong>: 보통의 물질에서는 양수이고, 온도에 따라 변합니다. 많은 원소 고체의 몰열용량은 상온 근처에서 약 3<em>R</em> ≈ 24.9 J/(mol·K)에 가깝다는 뒬롱–프티 법칙이 있으나, 낮은 온도에서는 이보다 작아지고 0에 가까워집니다(Kittel, 2005).</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>계산 예(가상의 상황, 코드로 계산).</strong> 물의 비열을 4.184 J/(g·K), 알루미늄의 비열을 0.897 J/(g·K)로 둡니다.</p><table><thead><tr><th>대상</th><th>열용량 C</th><th>20 ℃ → 80 ℃(60 K)에 필요한 열</th></tr></thead><tbody><tr><td>물 1 kg</td><td>4,184 J/K</td><td>251 kJ</td></tr><tr><td>알루미늄 1 kg</td><td>897 J/K</td><td>53.8 kJ</td></tr><tr><td>컵 속 물 250 g</td><td>1,046 J/K</td><td>62.8 kJ</td></tr><tr><td>욕조 물 200 kg</td><td>836.8 kJ/K</td><td>약 50.2 MJ</td></tr></tbody></table><p>같은 질량이라면 열용량이 큰 물이 알루미늄보다 훨씬 많은 열을 저장합니다. 같은 물이라도 양이 800배이면 열용량도 800배입니다. “열용량이 크다”는 말은 <em>그 물체가</em> 온도를 올리기 어렵다는 뜻이므로, 비교하려면 질량 기준(비열)인지 물체 전체(열용량)인지 구분해야 합니다.</p><p><strong>해석 시 주의.</strong> 열용량은 열을 저장하는 능력의 척도이고, 열이 얼마나 빨리 이동하는지는 [[heat-transfer|열전달]]과 열전도율이 결정합니다. 축열재, 열관리 설계에서는 두 가지를 함께 봅니다. 상전이가 일어나는 온도에서는 온도 변화 없이 열이 흡수되므로(잠열) 단순한 <em>Q</em>/Δ<em>T</em>로 열용량을 정의하기 어렵습니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>측정값을 보고할 때는 값과 함께 <strong>조건</strong>을 적어야 재현할 수 있습니다.</p><p><code>시료의 정압 비열용량은 시차주사열량계(DSC)로 측정하였으며, 25 ℃에서 1.85 J/(g·K)였다(질소 분위기, 가열 속도 10 K/min).</code> (가상의 예)</p><ul><li><strong>정압/정적 구분, 온도(구간), 단위</strong>(J/K, J/(g·K), J/(mol·K))를 반드시 적습니다. 질량이 다른 시료를 비교하는 논문은 열용량이 아니라 비열이나 몰열용량을 써야 합니다.</li><li><strong>측정법</strong>(DSC, 단열 열량계, 완화법 등), 가열 속도, 분위기, 기준 물질을 밝힙니다.</li><li>온도 의존성이 크면 한 값 대신 <em>C</em>(<em>T</em>) 곡선이나 다항식 맞춤을 제시합니다. 시뮬레이션 논문에서 열용량을 온도 함수로 처리했다면 그 식을 적습니다.</li><li>상변화 물질(PCM)은 현열 열용량과 잠열을 구분해서 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "열을 다루는 양들은 이름과 단위가 비슷합니다.",
+    "headers": ["용어", "기준", "단위"],
+    "rows": [
+      ["열용량", "물체 전체", "J/K"],
+      ["[[specific-heat|비열]]", "단위 질량(물질 고유)", "J/(g·K) 또는 J/(kg·K)"],
+      ["몰열용량", "1 mol", "J/(mol·K)"],
+      ["[[enthalpy|엔탈피]]", "일정 압력에서 계의 열에너지 상태함수", "J (정압 열용량은 그 온도 변화율)"],
+      ["[[entropy|엔트로피]]", "계의 무질서도(상태함수)", "J/K (열용량과 단위는 같지만 다른 양)"]
+    ],
+    "note": "열용량과 엔트로피는 단위가 같은 J/K이지만 서로 다른 물리량입니다."
+  },
+  "references": [
+    "Callen, H. B. (1985). Thermodynamics and an Introduction to Thermostatistics (2nd ed.). Wiley.",
+    "Atkins, P., de Paula, J., & Keeler, J. (2018). Atkins' Physical Chemistry (11th ed.). Oxford University Press.",
+    "Kittel, C. (2005). Introduction to Solid State Physics (8th ed.). Wiley."
+  ]
+}
