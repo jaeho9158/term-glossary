@@ -1,0 +1,59 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>변수 구분</strong>: 직접 조절하는 결정변수(온도, 압력, 유량, 장치 크기)와 모델이 계산하는 상태변수를 나눕니다.</li><li><strong>문제 정식화</strong>: 목적함수(비용 최소화, 수율 최대화 등)와 제약을 씁니다. 물질·에너지 수지는 등식 제약, 설계 한계·안전 기준은 부등식 제약입니다. 목적함수나 제약식이 비선형이면 비선형계획법(NLP)입니다.</li><li><strong>모델 구성</strong>: 공정 흐름도 시뮬레이터를 반복 호출하는 순차모듈 방식, 또는 모든 식을 한꺼번에 솔버에 넘기는 방정식 지향(equation-oriented) 방식 중 선택합니다.</li><li><strong>알고리즘 선택</strong>: 순차이차계획법(SQP), 내점법(예: IPOPT, Wächter &amp; Biegler, 2006), 일반화 환원기울기법 등을 씁니다. 장치 수·운전 모드처럼 정수 결정이 있으면 혼합정수 비선형계획(MINLP)이 됩니다.</li><li><strong>초기값과 스케일링</strong>: 비선형 문제는 초기값에 민감하므로 변수 크기를 맞추고 여러 초기값에서 시작합니다.</li><li><strong>해의 확인</strong>: 수렴 기준(KKT 조건 만족 정도)을 확인하고, 라그랑주 승수로 제약이 목적함수에 주는 영향(민감도)을 읽습니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>언제 쓰나</strong>: 변수와 제약이 많아 직관으로 최적점을 찾기 어려운 설계·운전 문제(반응기 조건, 증류탑 운전, 열교환망 설계, 실시간 최적화).</li><li><strong>무엇을 얻나</strong>: 제약을 지키는 최적 운전점, 제약 활성 여부, 제약 완화 시 목적함수 변화(라그랑주 승수).</li><li><strong>한계</strong>: 비볼록 문제에서는 전역 최적해를 보장하지 않고 국소 최적해에 수렴할 수 있습니다(Biegler, 2010). 물성 모델에 불연속·잡음이 있으면 기울기 기반 알고리즘이 흔들려 도함수가 필요 없는 방법이나 대리모델을 검토합니다. 불확실성은 별도의 확률적·강건 최적화가 필요합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>공정 최적화 논문에서 재현에 필요한 항목은 다음과 같습니다.</p><ul><li>목적함수 식, 결정변수와 상·하한, 등식·부등식 제약, 모델 가정(물성 방정식 포함)</li><li>사용한 소프트웨어와 솔버(이름·버전), 알고리즘, 수렴 허용오차</li><li>초기값 전략(예: 무작위 다중 시작 횟수)과 결과의 일관성 — 전역 최적을 보장할 수 없으면 그렇게 밝히기</li><li>최적해에서 활성인 제약과 민감도 분석, 계산 시간</li></ul><p>예: “IPOPT로 풀었으며 서로 다른 50개의 초기값에서 같은 최적값으로 수렴하였다.” 한 번의 실행 결과만 제시하고 전역 최적이라고 쓰는 것은 근거가 부족한 표현입니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "변수와 식"
+    ],
+    "rows": [
+      [
+        "선형계획법(LP)",
+        "목적함수와 제약이 모두 선형",
+        "연속변수"
+      ],
+      [
+        "비선형계획법(NLP)",
+        "목적함수나 제약에 비선형 식이 포함",
+        "연속변수"
+      ],
+      [
+        "MILP/MINLP",
+        "정수변수가 함께 있는 선형·비선형 계획",
+        "연속 + 정수변수"
+      ],
+      [
+        "[[genetic-algorithm|유전 알고리즘]]",
+        "도함수를 쓰지 않는 발견적 탐색(최적을 보장하지 않음)",
+        "제약 처리를 별도로 설계"
+      ],
+      [
+        "[[interior-point-method|내점법]]",
+        "실행가능영역 내부에서 장벽함수로 푸는 NLP 알고리즘",
+        "NLP/LP 풀이 방식"
+      ]
+    ]
+  },
+  "references": [
+    "Biegler, L. T., Grossmann, I. E., & Westerberg, A. W. (1997). Systematic Methods of Chemical Process Design. Prentice Hall.",
+    "Edgar, T. F., Himmelblau, D. M., & Lasdon, L. S. (2001). Optimization of Chemical Processes (2nd ed.). McGraw-Hill.",
+    "Nocedal, J., & Wright, S. J. (2006). Numerical Optimization (2nd ed.). Springer.",
+    "Wächter, A., & Biegler, L. T. (2006). On the implementation of an interior-point filter line-search algorithm for large-scale nonlinear programming. Mathematical Programming, 106(1), 25–57.",
+    "Biegler, L. T. (2010). Nonlinear Programming: Concepts, Algorithms, and Applications to Chemical Processes. SIAM."
+  ]
+}

@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>응력이완 거동은 고분자 씰(seal), 개스킷, 접착제 등 오랜 시간 일정한 변형 상태로 사용되는 부품의 수명과 성능을 예측하는 데 중요한 자료로 쓰입니다. 응력이완 데이터는 시간-온도 중첩원리를 통해 짧은 실험 시간으로도 수십 년에 걸친 장기 거동을 예측하는 데 활용되어, 실제 사용 환경에서 오래 걸리는 시험을 대체하는 효율적인 수단으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>시료를 일정한 변형 ε<sub>0</sub>으로 고정하고 응력 σ(t)를 시간에 따라 기록한 것이 응력이완 시험입니다. 결과는 이완탄성률 <code>E(t) = σ(t)/ε<sub>0</sub></code>(전단이면 G(t))로 정리합니다.</li><li>가장 단순한 맥스웰(Maxwell) 모형은 스프링과 대시포트를 직렬로 이은 것으로, <code>σ(t) = σ<sub>0</sub> exp(−t/τ)</code>, <code>τ = η/E</code>(이완시간)입니다.</li><li>실제 고분자는 사슬 길이·얽힘 때문에 이완시간이 하나가 아니라 넓게 분포합니다. 그래서 여러 맥스웰 요소를 더한 일반화 맥스웰(프로니 급수) 모형 <code>E(t) = E<sub>e</sub> + Σ E<sub>i</sub> exp(−t/τ<sub>i</sub>)</code>를 씁니다.</li><li>평형 탄성률 E<sub>e</sub>는 가교망이 있으면 0보다 크고(응력이 일정 값에 머묾), 가교가 없는 선형 고분자는 충분히 긴 시간 뒤 0으로 갑니다.</li><li>온도를 올리면 이완이 빨라지고, 온도 변화를 시간축 이동으로 바꿔 긴 시간 거동을 예측하는 방법이 <a href="time-temperature-superposition.html">시간-온도 중첩</a>입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예 1.</strong> 이완시간 τ = 100 s인 맥스웰 요소 하나로 근사하면 남은 응력 비율은 t = 100 s에서 e<sup>−1</sup> ≈ 36.8%, 300 s에서 e<sup>−3</sup> ≈ 5.0%입니다(코드로 계산). 한 개의 지수 곡선이 실제 곡선과 어긋난다면 이완시간 분포를 의심합니다.</p><p><strong>가상의 예 2.</strong> 시간-온도 중첩의 이동인자를 WLF 식 <code>log a<sub>T</sub> = −C<sub>1</sub>(T − T<sub>r</sub>)/(C<sub>2</sub> + T − T<sub>r</sub>)</code>로 쓸 때, 기준온도를 Tg로 잡은 이른바 “보편 상수” C<sub>1</sub> = 17.44, C<sub>2</sub> = 51.6 K를 대입하면 Tg + 20 K에서 log a<sub>T</sub> = −4.87, 즉 a<sub>T</sub> ≈ 1.3×10<sup>−5</sup>입니다(코드로 계산). Tg에서보다 이완이 약 7만 배 빠르다는 뜻입니다. 이 상수는 평균적인 근사이고 고분자마다 고유한 C<sub>1</sub>, C<sub>2</sub>를 맞추는 것이 보통입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>응력이완과 크리프는 같은 시험이다.</td><td>응력이완은 변형을 고정하고 응력의 감소를, 크리프는 응력을 고정하고 변형의 증가를 봅니다. 선형 점탄성이라면 서로 변환할 수 있지만 측정량이 다릅니다.</td></tr><tr><td>모든 고분자는 응력이 0까지 떨어진다.</td><td>가교된 열경화성 고분자나 고무는 평형 응력에 머뭅니다. 이 차이가 응력이완 시험이 가교 여부를 보는 단서가 되는 이유입니다.</td></tr><tr><td>이완 곡선은 하나의 지수함수로 설명된다.</td><td>단일 지수는 가장 단순한 근사입니다. 실제로는 넓은 이완시간 분포 또는 늘어진 지수(stretched exponential) 형태가 필요한 경우가 많습니다.</td></tr><tr><td>E(t)는 재료 고유의 상수다.</td><td>선형 점탄성 영역(작은 변형)에서만 변형 크기와 무관합니다. 변형이 크거나 이력·온도가 다르면 곡선이 달라집니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"Stress relaxation tests showed that the relaxation modulus decreased exponentially with time."</div>
   <p>응력이완 시험에서 이완탄성률이 시간에 따라 지수함수적으로 감소했다는 뜻으로, 응력이완 거동을 정량적으로 보고하는 문장입니다.</p>
   <div class="example">"The crosslinked network exhibited slower stress relaxation compared to the linear polymer, indicating restricted chain mobility."</div>
@@ -160,6 +178,20 @@
 
   <h2>주의할 점</h2>
   <p>응력이완 실험 결과는 시험 온도와 변형 이력에 민감하므로, 서로 다른 조건에서 측정한 데이터를 직접 비교하는 것은 주의가 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">고정하는 것 → 보는 것</th></tr></thead><tbody><tr><th scope="row">응력이완</th><td>변형을 고정했을 때 응력이 줄어드는 현상</td><td>변형 → 응력(시간)</td></tr><tr><th scope="row">크리프</th><td>응력을 고정했을 때 변형이 늘어나는 현상</td><td>응력 → 변형(시간)</td></tr><tr><th scope="row"><a href="dynamic-mechanical-analysis.html">동적기계분석(DMA)</a></th><td>사인파 변형을 주고 저장·손실탄성률을 읽는 시험</td><td>진동수 → G′, G″</td></tr><tr><th scope="row"><a href="viscoelasticity-of-polymers.html">점탄성</a></th><td>위 세 시험이 공통으로 드러내는 성질</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ferry, J. D. (1980). Viscoelastic Properties of Polymers (3rd ed.). Wiley.</li>
+    <li>Tschoegl, N. W. (1989). The Phenomenological Theory of Linear Viscoelastic Behavior: An Introduction. Springer.</li>
+    <li>Findley, W. N., Lai, J. S., &amp; Onaran, K. (1976). Creep and Relaxation of Nonlinear Viscoelastic Materials. North-Holland.</li>
+    <li>Williams, M. L., Landel, R. F., &amp; Ferry, J. D. (1955). The temperature dependence of relaxation mechanisms in amorphous polymers and other glass-forming liquids. Journal of the American Chemical Society, 77(14), 3701–3707.</li>
+    <li>Doi, M., &amp; Edwards, S. F. (1986). The Theory of Polymer Dynamics. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

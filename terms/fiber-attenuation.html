@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>감쇠 수준에 따라 신호를 증폭하거나 중계해야 하는 구간의 간격이 정해지기 때문에, 통신망의 설치 비용과 설계 방식에 직접적인 영향을 미쳐 광섬유 재료 및 제조 공정 연구에서 핵심적으로 다뤄지는 특성입니다. 감쇠 특성을 알아야 중계기 없이 신호를 보낼 수 있는 최대 거리를 설계할 수 있어, 통신망 구축 시 중계기 배치 간격을 결정하는 핵심 변수가 됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>광섬유 감쇠는 단위 길이당 손실을 데시벨로 나타냅니다. 길이 L(km)인 광섬유에 입력 P<sub>in</sub>, 출력 P<sub>out</sub>이면 <code>α(dB/km) = (10/L)·log<sub>10</sub>(P<sub>in</sub>/P<sub>out</sub>)</code>입니다. 지수 감쇠 P(z) = P<sub>0</sub>e<sup>−αz</sup>의 α(1/km)와는 <code>α<sub>dB</sub> ≈ 4.343·α</code>의 관계가 있습니다(Agrawal, 2010).</p><ul><li><strong>원인(내재)</strong>: 유리 안의 밀도 요동 때문에 생기는 레일리 산란(파장의 4제곱에 반비례), 자외선 쪽 흡수의 꼬리, 적외선 쪽 유리 격자 진동 흡수. 불순물 쪽으로는 OH기에 의한 1,380 nm 부근의 흡수 피크가 대표적입니다.</li><li><strong>원인(외인)</strong>: 구부림 손실, 접속·연결 손실, 케이블 제조·설치 중 생기는 손실.</li><li><strong>범위</strong>: 통신용 단일모드 광섬유는 1,550 nm 부근에서 약 0.2 dB/km로 가장 낮고, 1,310 nm 부근에서는 약 0.3~0.4 dB/km입니다. 1970년에 20 dB/km 수준의 광섬유가 제작(Kapron 등)되었고, 1979년 1.55 μm에서 0.2 dB/km 수준이 보고(Miya 등)되었습니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p><strong>가상의 계산.</strong> 감쇠 0.2 dB/km인 광섬유 80 km의 총 손실은 0.2 × 80 = 16 dB입니다. 출력/입력 비는 10<sup>−1.6</sup> ≈ 0.025이므로 입력 1 mW(0 dBm)는 약 25 μW(−16 dBm)로 줄어듭니다(코드로 계산). dB는 로그 척도라서 여러 구간의 손실은 그냥 더하면 됩니다.</p><ul><li><strong>값이 작을수록</strong> 증폭기 없이 갈 수 있는 거리가 길어지고 중계기 간격이 넓어집니다.</li><li><strong>파장을 반드시 함께 읽습니다</strong>. 같은 광섬유도 파장에 따라 감쇠가 달라서, 통신 대역(C 밴드 1,530~1,565 nm 등)은 감쇠가 낮은 창을 골라 씁니다.</li><li>특수 광섬유(플라스틱 광섬유, 적외선용 광섬유 등)는 dB/km 단위로 수십~수백 이상이거나 dB/m로 적는 경우가 있어, 통신용 값과 직접 비교하면 안 됩니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li><strong>측정 방법</strong>: 컷백(cutback)법(긴 길이와 자른 짧은 길이의 출력을 비교) 또는 OTDR(후방산란 신호의 기울기)을 쓰고, 어느 방법인지 적습니다.</li><li><strong>조건</strong>: 측정 파장, 광섬유 길이, 광원, 단일모드/다중모드 여부, 구부림을 피한 감김 조건.</li><li><strong>값 표기</strong>: “0.20 dB/km @ 1,550 nm”처럼 파장과 함께 쓰고, 여러 시료이면 평균과 범위를 적습니다.</li><li>새 제조 공정이나 재료를 제안한 논문은 감쇠 스펙트럼 전체(파장별 곡선)와 주요 흡수 피크의 원인 분석을 함께 제시하는 편입니다.</li></ul><p>예: “제작한 광섬유의 감쇠는 컷백법으로 측정하여 1,550 nm에서 0.25 dB/km였다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제작된 광섬유는 통신 파장 대역에서 상용 광섬유 수준에 근접한 낮은 감쇠 특성을 보였다."</div>
   <p>새로 만든 광섬유의 손실 수준을 기존 상용 제품과 비교하는 문장입니다.</p>
   <div class="example">"장거리 구간에서는 누적 감쇠를 보상하기 위해 일정 간격마다 광증폭기가 설치된다."</div>
@@ -161,6 +179,18 @@
 
   <h2>주의할 점</h2>
   <p>감쇠는 광섬유 자체의 재료 특성뿐 아니라 접속점의 정렬 오차나 과도한 구부림에서도 추가로 발생할 수 있으므로, 케이블 설치와 시공 품질도 함께 관리해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇이 변하나</th><th scope="col">대표 단위</th></tr></thead><tbody><tr><th scope="row">감쇠</th><td>신호 세기가 줄어듦</td><td>dB/km</td></tr><tr><th scope="row"><a href="fiber-dispersion.html">색분산</a></th><td>펄스가 시간적으로 퍼짐</td><td>ps/(nm·km)</td></tr><tr><th scope="row"><a href="fiber-nonlinearity-coefficient.html">비선형 계수</a></th><td>세기에 따라 위상·스펙트럼이 왜곡됨</td><td>W⁻¹km⁻¹</td></tr><tr><th scope="row">접속·삽입 손실</th><td>연결부에서 생기는 손실</td><td>dB (연결부 하나당)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kapron, F. P., Keck, D. B., &amp; Maurer, R. D. (1970). Radiation losses in glass optical waveguides. Applied Physics Letters, 17(10), 423–425.</li>
+    <li>Miya, T., Terunuma, Y., Hosaka, T., &amp; Miyashita, T. (1979). Ultimate low-loss single-mode fibre at 1.55 μm. Electronics Letters, 15(4), 106–108.</li>
+    <li>Agrawal, G. P. (2010). Fiber-Optic Communication Systems (4th ed.). Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="fiber-bend-loss.html">광섬유 굽힘손실</a></div></div><p class="concept-family-map"><a href="../concept-map/optics.html">분야 전체 개념 지도 보기 →</a> 통신용 광섬유는 감쇠가 가장 적은 특정 파장대를 골라 사용하도록 설계되어 있어, 임의의 파장을 사용하면 동일한 광섬유라도 전송거리가 크게 줄어들 수 있습니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

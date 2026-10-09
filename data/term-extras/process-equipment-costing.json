@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>사양 정리</strong>: 장비의 종류와 용량(부피, 열교환 면적, 동력 등), 재질, 설계 압력·온도를 정합니다.</li><li><strong>기준 비용 확보</strong>: 업체 견적, 과거 구매 자료, 또는 크기 변수에 대한 상관식에서 기준 비용을 얻습니다. 상관식은 흔히 <code>log<sub>10</sub> C<sub>p</sub> = K<sub>1</sub> + K<sub>2</sub> log<sub>10</sub> A + K<sub>3</sub> (log<sub>10</sub> A)<sup>2</sup></code> 꼴로 장비별 계수를 제시합니다(Turton 등의 교재).</li><li><strong>용량 보정</strong>: 기준 장비와 크기가 다르면 용량지수법(흔히 6/10 법칙) <code>C<sub>2</sub> = C<sub>1</sub>·(S<sub>2</sub>/S<sub>1</sub>)<sup>n</sup></code>을 씁니다. n은 장비 종류마다 다르고 평균적으로 0.6 안팎, 대체로 1보다 작습니다.</li><li><strong>재질·압력 보정</strong>: 탄소강 기준 비용에 재질계수, 압력계수를 곱해 스테인리스강이나 고압 설계로 환산합니다.</li><li><strong>시점 보정</strong>: 비용지수로 과거 비용을 현재로 환산합니다. <code>C<sub>now</sub> = C<sub>ref</sub>·(I<sub>now</sub>/I<sub>ref</sub>)</code>이며, 화학공정에서는 [[chemical-engineering-plant-cost-index|CEPCI]] 같은 지수를 씁니다.</li><li><strong>설치·부대비 합산</strong>: 배관, 계장, 토목, 설치비 등을 인자법으로 더해 총 설비투자비를 추정합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>가상의 계산.</strong> 부피 10 m³ 탱크의 기준 비용이 50,000(임의 통화 단위), 지수 n = 0.6이라고 가정하고 40 m³로 키웁니다. 비용은 50,000 × (40/10)<sup>0.6</sup> ≈ 114,900입니다(코드로 계산). 용량은 4배이지만 비용은 약 2.3배만 늘어납니다. 기준 비용이 지수 500이던 해의 값이고 현재 지수가 600이라면 114,870 × 600/500 ≈ 137,800으로 환산됩니다.</p><ul><li><strong>언제 쓰나</strong>: 개념·예비 설계 단계에서 여러 공정 대안의 경제성을 빠르게 비교할 때. 견적 없이 신속한 추정이 필요한 단계입니다.</li><li><strong>무엇을 얻나</strong>: 장비별 구입비, 총 설비투자비의 대략적 추정치, 크기에 따른 비용 민감도.</li><li><strong>한계</strong>: 개념 설계 단계의 추정은 실제 견적과 수십 퍼센트 단위로 차이날 수 있습니다. 상관식은 특정 시기·지역의 자료에서 나왔고 적용 용량 범위가 정해져 있습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>비용 산정을 쓴 설계 논문은 추정이 재현되도록 다음을 밝힙니다.</p><ul><li>비용 상관식 또는 용량지수의 출처와 적용 용량 범위, 지수 n의 값</li><li>기준 연도와 사용한 비용지수(종류와 값), 환율</li><li>재질·압력 보정계수와 부대비 인자</li><li>추정 정확도의 수준(개념/예비/견적)과 민감도 분석</li></ul><p>예: “장비 구입비는 Turton 등의 상관식으로 산정하고 CEPCI 600으로 환산하였다.” 지수나 출처를 적지 않으면 같은 값을 다시 구할 수 없습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "포함하는 것"
+    ],
+    "rows": [
+      [
+        "장비 구입비",
+        "장비 본체를 사는 데 드는 비용",
+        "제작·구입 가격"
+      ],
+      [
+        "설치 후 비용",
+        "구입비에 설치·배관·계장 등을 더한 비용",
+        "부대 공사 포함"
+      ],
+      [
+        "총 설비투자비(TCI)",
+        "공장을 짓는 데 드는 전체 자본",
+        "장비, 건설, 간접비, 운전자금 등"
+      ],
+      [
+        "[[chemical-engineering-plant-cost-index|CEPCI]]",
+        "연도별 건설비 수준을 나타내는 환산 지수",
+        "시점 보정에 사용"
+      ]
+    ]
+  },
+  "references": [
+    "Peters, M. S., Timmerhaus, K. D., & West, R. E. (2003). Plant Design and Economics for Chemical Engineers (5th ed.). McGraw-Hill.",
+    "Turton, R., Bailie, R. C., Whiting, W. B., Shaeiwitz, J. A., & Bhattacharyya, D. (2012). Analysis, Synthesis, and Design of Chemical Processes (4th ed.). Prentice Hall.",
+    "Sinnott, R., & Towler, G. (2009). Chemical Engineering Design (5th ed.). Butterworth-Heinemann.",
+    "Williams, R., Jr. (1947). Six-tenths factor aids in approximating costs. Chemical Engineering, 54(12), 124–125."
+  ]
+}

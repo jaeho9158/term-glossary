@@ -1,0 +1,52 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>광섬유 감쇠는 단위 길이당 손실을 데시벨로 나타냅니다. 길이 L(km)인 광섬유에 입력 P<sub>in</sub>, 출력 P<sub>out</sub>이면 <code>α(dB/km) = (10/L)·log<sub>10</sub>(P<sub>in</sub>/P<sub>out</sub>)</code>입니다. 지수 감쇠 P(z) = P<sub>0</sub>e<sup>−αz</sup>의 α(1/km)와는 <code>α<sub>dB</sub> ≈ 4.343·α</code>의 관계가 있습니다(Agrawal, 2010).</p><ul><li><strong>원인(내재)</strong>: 유리 안의 밀도 요동 때문에 생기는 레일리 산란(파장의 4제곱에 반비례), 자외선 쪽 흡수의 꼬리, 적외선 쪽 유리 격자 진동 흡수. 불순물 쪽으로는 OH기에 의한 1,380 nm 부근의 흡수 피크가 대표적입니다.</li><li><strong>원인(외인)</strong>: 구부림 손실, 접속·연결 손실, 케이블 제조·설치 중 생기는 손실.</li><li><strong>범위</strong>: 통신용 단일모드 광섬유는 1,550 nm 부근에서 약 0.2 dB/km로 가장 낮고, 1,310 nm 부근에서는 약 0.3~0.4 dB/km입니다. 1970년에 20 dB/km 수준의 광섬유가 제작(Kapron 등)되었고, 1979년 1.55 μm에서 0.2 dB/km 수준이 보고(Miya 등)되었습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>가상의 계산.</strong> 감쇠 0.2 dB/km인 광섬유 80 km의 총 손실은 0.2 × 80 = 16 dB입니다. 출력/입력 비는 10<sup>−1.6</sup> ≈ 0.025이므로 입력 1 mW(0 dBm)는 약 25 μW(−16 dBm)로 줄어듭니다(코드로 계산). dB는 로그 척도라서 여러 구간의 손실은 그냥 더하면 됩니다.</p><ul><li><strong>값이 작을수록</strong> 증폭기 없이 갈 수 있는 거리가 길어지고 중계기 간격이 넓어집니다.</li><li><strong>파장을 반드시 함께 읽습니다</strong>. 같은 광섬유도 파장에 따라 감쇠가 달라서, 통신 대역(C 밴드 1,530~1,565 nm 등)은 감쇠가 낮은 창을 골라 씁니다.</li><li>특수 광섬유(플라스틱 광섬유, 적외선용 광섬유 등)는 dB/km 단위로 수십~수백 이상이거나 dB/m로 적는 경우가 있어, 통신용 값과 직접 비교하면 안 됩니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li><strong>측정 방법</strong>: 컷백(cutback)법(긴 길이와 자른 짧은 길이의 출력을 비교) 또는 OTDR(후방산란 신호의 기울기)을 쓰고, 어느 방법인지 적습니다.</li><li><strong>조건</strong>: 측정 파장, 광섬유 길이, 광원, 단일모드/다중모드 여부, 구부림을 피한 감김 조건.</li><li><strong>값 표기</strong>: “0.20 dB/km @ 1,550 nm”처럼 파장과 함께 쓰고, 여러 시료이면 평균과 범위를 적습니다.</li><li>새 제조 공정이나 재료를 제안한 논문은 감쇠 스펙트럼 전체(파장별 곡선)와 주요 흡수 피크의 원인 분석을 함께 제시하는 편입니다.</li></ul><p>예: “제작한 광섬유의 감쇠는 컷백법으로 측정하여 1,550 nm에서 0.25 dB/km였다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇이 변하나",
+      "대표 단위"
+    ],
+    "rows": [
+      [
+        "감쇠",
+        "신호 세기가 줄어듦",
+        "dB/km"
+      ],
+      [
+        "[[fiber-dispersion|색분산]]",
+        "펄스가 시간적으로 퍼짐",
+        "ps/(nm·km)"
+      ],
+      [
+        "[[fiber-nonlinearity-coefficient|비선형 계수]]",
+        "세기에 따라 위상·스펙트럼이 왜곡됨",
+        "W⁻¹km⁻¹"
+      ],
+      [
+        "접속·삽입 손실",
+        "연결부에서 생기는 손실",
+        "dB (연결부 하나당)"
+      ]
+    ]
+  },
+  "references": [
+    "Kapron, F. P., Keck, D. B., & Maurer, R. D. (1970). Radiation losses in glass optical waveguides. Applied Physics Letters, 17(10), 423–425.",
+    "Miya, T., Terunuma, Y., Hosaka, T., & Miyashita, T. (1979). Ultimate low-loss single-mode fibre at 1.55 μm. Electronics Letters, 15(4), 106–108.",
+    "Agrawal, G. P. (2010). Fiber-Optic Communication Systems (4th ed.). Wiley."
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>분석법 설계</strong>: 표적 단백질을 직접 보는 생화학 분석(효소 활성, 결합)이나 세포 반응을 보는 세포 기반 분석 중에서 고르고, 96·384·1536웰 플레이트에 맞게 소형화합니다.</li><li><strong>분석 검증</strong>: 양성·음성 대조군을 여러 번 측정해 분석이 신호를 구별할 만큼 안정한지 확인합니다. 널리 쓰이는 지표가 Z′ 계수(Zhang 등, 1999)입니다.</li><li><strong>1차 스크리닝</strong>: 화합물 라이브러리(수만~수십만 개)를 보통 한 농도에서 로봇 장비로 분주해 신호를 측정합니다.</li><li><strong>히트 선별</strong>: 대조군 분포를 기준으로 활성 문턱을 정합니다(예: 음성 대조군 평균에서 표준편차의 3배 이상 벗어난 것). 문턱은 연구마다 정하는 관행입니다.</li><li><strong>확인과 정제</strong>: 같은 화합물을 다시 측정해 재현성을 보고, 여러 농도로 용량-반응(IC<sub>50</sub> 등)을 구하며, 다른 원리의 분석(직교 분석)과 간섭 확인 분석(카운터 스크린)으로 가짜 양성을 거릅니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>Z′ 계수의 계산 예(가상).</strong> <code>Z′ = 1 − 3(σ<sub>p</sub> + σ<sub>n</sub>)/|μ<sub>p</sub> − μ<sub>n</sub>|</code>입니다. 양성 대조군이 평균 100·표준편차 5, 음성 대조군이 평균 10·표준편차 4라면 Z′ = 1 − 3(5 + 4)/90 = 0.70입니다(코드로 계산). Zhang 등은 Z′가 0.5 이상 1 미만이면 스크리닝에 쓰기에 좋은 분석, 0~0.5이면 경계 수준으로 해석할 것을 제안했습니다.</p><ul><li><strong>언제 쓰나</strong>: 신약 개발 초기에 표적에 작용하는 시작 물질(히트)을 넓은 화학 공간에서 찾을 때, 또는 세포 표현형을 바꾸는 물질을 찾는 표현형 스크리닝에서.</li><li><strong>무엇을 얻나</strong>: 활성 화합물 목록, 구조가 비슷한 활성 군집, 분석의 재현성 지표. 히트율은 분석과 라이브러리에 따라 크게 달라집니다.</li><li><strong>한계</strong>: 형광 간섭·응집체·반응성 화합물(PAINS로 불리는 구조군, Baell &amp; Holloway, 2010)이 가짜 양성을 만들 수 있고, 플레이트 가장자리 웰의 증발 같은 위치 효과도 결과를 흔듭니다. 히트는 약이 아니라 출발점이며 생체 내 효능은 이후 단계에서 확인합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>스크리닝 논문의 방법 절에 보통 다음이 들어갑니다.</p><ul><li>라이브러리의 출처와 크기, 화합물 농도, 용매(예: DMSO) 최종 농도</li><li>분석 원리(형광·발광·흡광 등)와 플레이트 형식, 반응 부피, 측정 시간</li><li>양성·음성 대조군과 플레이트별 Z′(또는 S/B 비) — 기준 미달 플레이트를 어떻게 처리했는지</li><li>히트 기준(예: 평균 ± 3 표준편차)과 히트율, 재확인 결과, 용량-반응 곡선</li><li>직교 분석·카운터 스크린으로 걸러낸 가짜 양성의 수</li></ul><p>예: “1차 스크리닝은 384웰 플레이트에서 10 μM 단일 농도로 수행하였고, 모든 플레이트의 Z′는 0.5 이상이었다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "주로 보는 것"
+    ],
+    "rows": [
+      [
+        "고속대량 스크리닝(HTS)",
+        "많은 화합물을 자동화로 빠르게 단일 지표로 검사",
+        "단일 신호(활성/비활성)"
+      ],
+      [
+        "[[high-content-screening|고내용 스크리닝]]",
+        "세포 이미지를 찍어 여러 형태·표지 지표를 동시에 분석",
+        "다수의 세포 지표"
+      ],
+      [
+        "표현형 스크리닝",
+        "표적을 정하지 않고 세포·생물의 표현형 변화를 기준으로 선별",
+        "세포·개체 수준 반응"
+      ],
+      [
+        "가상 스크리닝",
+        "컴퓨터로 화합물과 표적의 결합을 예측해 후보를 추림",
+        "예측 점수"
+      ]
+    ]
+  },
+  "references": [
+    "Macarron, R., Banks, M. N., Bojanic, D., Burns, D. J., Cirovic, D. A., Garyantes, T., Green, D. V. S., Hertzberg, R. P., Janzen, W. P., Paslay, J. W., Schopfer, U., & Sittampalam, G. S. (2011). Impact of high-throughput screening in biomedical research. Nature Reviews Drug Discovery, 10(3), 188–195.",
+    "Zhang, J.-H., Chung, T. D. Y., & Oldenburg, K. R. (1999). A simple statistical parameter for use in evaluation and validation of high throughput screening assays. Journal of Biomolecular Screening, 4(2), 67–73.",
+    "Inglese, J., Johnson, R. L., Simeonov, A., Xia, M., Zheng, W., Austin, C. P., & Auld, D. S. (2007). High-throughput screening assays for the identification of chemical probes. Nature Chemical Biology, 3(8), 466–479.",
+    "Baell, J. B., & Holloway, G. A. (2010). New substructure filters for removal of pan assay interference compounds (PAINS) from screening libraries and for their exclusion in bioassays. Journal of Medicinal Chemistry, 53(7), 2719–2740."
+  ]
+}

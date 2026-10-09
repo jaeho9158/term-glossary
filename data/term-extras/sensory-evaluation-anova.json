@@ -1,0 +1,58 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<ul><li>여러 시료(3개 이상)의 관능 점수 평균에 차이가 있는지 한 번에 검정할 때 씁니다. 시료가 2개이면 대응 t-검정으로 충분합니다.</li><li>보통 같은 패널이 모든 시료를 평가하므로, 시료 효과와 패널(사람) 효과를 함께 넣는 <strong>이원배치(시료 × 패널) 분산분석</strong>을 씁니다. 패널 간 개인차를 오차에서 분리해 시료 효과를 더 예민하게 검정합니다.</li><li>가정: 잔차가 대체로 정규분포를 따르고, 시료별 분산이 비슷하며, 점수가 등간 척도처럼 다뤄진다는 것입니다. 9점 기호도 같은 순서 척도를 등간으로 보고 분석하는 것은 이 분야의 관행입니다.</li><li>가정이 심하게 어긋나거나 순위 자료일 때는 프리드먼 검정 같은 비모수 방법을 고려합니다. 평가자가 시료마다 서로 다른 사람들로 구성된 독립 집단이면 일원배치([[anova|분산분석]]) 또는 [[kruskal-wallis-test|크루스칼-왈리스 검정]]이 됩니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p><strong>가상의 자료.</strong> 패널 6명이 시료 A, B, C를 9점 기호도 척도로 평가했습니다.</p><table><thead><tr><th>패널</th><th>A</th><th>B</th><th>C</th></tr></thead><tbody><tr><td>1</td><td>6</td><td>7</td><td>8</td></tr><tr><td>2</td><td>5</td><td>7</td><td>7</td></tr><tr><td>3</td><td>6</td><td>6</td><td>8</td></tr><tr><td>4</td><td>4</td><td>6</td><td>7</td></tr><tr><td>5</td><td>7</td><td>8</td><td>8</td></tr><tr><td>6</td><td>5</td><td>6</td><td>8</td></tr><tr><td>평균</td><td>5.50</td><td>6.67</td><td>7.67</td></tr></tbody></table><p>코드로 계산한 이원배치(패널을 블록으로 둔) 분산분석 결과입니다.</p><table><thead><tr><th>요인</th><th>제곱합</th><th>자유도</th><th>F</th><th>p</th></tr></thead><tbody><tr><td>시료</td><td>14.11</td><td>2</td><td>21.90</td><td>.0002</td></tr><tr><td>패널</td><td>6.94</td><td>5</td><td>4.31</td><td>.024</td></tr><tr><td>오차</td><td>3.22</td><td>10</td><td></td><td></td></tr></tbody></table><ul><li>시료 효과가 유의합니다(F(2, 10) = 21.90, p &lt; .001, 부분 η² ≈ .81).</li><li>튜키 HSD 사후검정의 임계 차이는 약 0.90점이므로 A–B(1.17), B–C(1.00), A–C(2.17) 모든 쌍이 유의합니다.</li><li>패널을 무시하고 일원분산분석을 하면 F(2, 15) = 10.41, p = .0015로 F가 작아집니다. 개인차가 오차에 섞여 들어갔기 때문입니다.</li></ul><p>전체 검정이 유의해도 어느 쌍이 다른지는 사후검정([[post-hoc-test|사후검정]])이 알려 줍니다. 유의하지 않다는 결과는 시료가 같다는 증거가 아닙니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>분산분석표에서 F값, 자유도(분자·분모), p값, 효과크기(부분 η² 등)를 적습니다. 예: “시료 간 기호도 점수에 유의한 차이가 있었다(F(2, 10) = 21.90, p &lt; .001, 부분 η² = .81).”</li><li>패널을 고정효과로 보았는지 임의효과(혼합모형)로 보았는지 밝힙니다. 패널은 더 큰 모집단의 표본이므로 임의효과로 다루는 것이 적절하다고 보는 교재가 많습니다.</li><li>사후검정의 종류(튜키 HSD, 던컨, 피셔 LSD 등)와 유의수준을 적습니다. 던컨·LSD는 쌍별 비교 전체의 1종 오류를 덜 엄격하게 통제하므로 선택 이유가 필요합니다.</li><li>척도(예: 9점 기호도), 패널 수와 훈련 여부, 시료 제시 순서와 반복 수, 가정 확인 방법, 사용한 소프트웨어를 함께 씁니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "방법",
+      "언제 쓰나",
+      "관능평가에서의 위치"
+    ],
+    "rows": [
+      [
+        "[[anova|일원 분산분석]]",
+        "독립된 집단 3개 이상 비교",
+        "시료마다 평가자가 다를 때"
+      ],
+      [
+        "[[two-way-anova|이원 분산분석]]",
+        "두 요인을 함께 고려",
+        "시료 × 패널(블록) 설계"
+      ],
+      [
+        "[[repeated-measures-anova|반복측정 분산분석]]",
+        "같은 사람이 여러 조건에서 측정",
+        "한 패널이 모든 시료를 평가"
+      ],
+      [
+        "[[kruskal-wallis-test|크루스칼-왈리스 검정]]",
+        "정규성 가정이 어려운 독립 집단",
+        "순위 자료, 독립 집단"
+      ],
+      [
+        "[[post-hoc-test|사후검정]]",
+        "전체 검정이 유의한 뒤 쌍별 비교",
+        "어느 시료 사이가 다른지"
+      ]
+    ]
+  },
+  "references": [
+    "Lawless, H. T., & Heymann, H. (2010). Sensory Evaluation of Food: Principles and Practices (2nd ed.). Springer.",
+    "Meilgaard, M. C., Civille, G. V., & Carr, B. T. (2007). Sensory Evaluation Techniques (4th ed.). CRC Press.",
+    "Næs, T., Brockhoff, P. B., & Tomic, O. (2010). Statistics for Sensory and Consumer Science. Wiley.",
+    "Stone, H., & Sidel, J. L. (2004). Sensory Evaluation Practices (3rd ed.). Academic Press."
+  ]
+}

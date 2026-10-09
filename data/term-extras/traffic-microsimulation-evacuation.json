@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>도로망 구축</strong>: 링크·노드, 차로 수, 제한속도, 신호, 교차로 구조를 실제 도로 자료로 입력합니다.</li><li><strong>수요 설정</strong>: 대피 인구와 차량 수, 출발 시각 분포(대피 명령에 반응하는 속도), 목적지를 정합니다. 동시 대피와 단계적 대피 같은 시나리오를 나눕니다.</li><li><strong>경로 선택</strong>: 정해진 경로를 쓰는 정적 배정, 혼잡에 따라 경로를 바꾸는 동적 배정 중에서 정합니다.</li><li><strong>차량 행동 모형</strong>: 차량 추종(가속·감속)과 차선 변경 모형의 매개변수를 정합니다.</li><li><strong>교정과 검증</strong>: 관측된 교통량·속도와 모형 결과를 비교해 매개변수를 맞추고(교정), 별도 자료로 일치를 확인합니다(검증).</li><li><strong>시나리오 실행</strong>: 난수에 따라 결과가 달라지므로 시드를 바꿔 여러 번 반복하고 평균과 변동을 봅니다.</li><li><strong>지표 산출</strong>: 총 대피 소요시간(마지막 차량이 위험 구역을 벗어나는 시각), 평균 속도, 대기행렬 길이, 병목 위치를 정리합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>검증 지표 예: GEH 통계량(가상 자료).</strong> 모형과 관측의 시간당 교통량 차이를 <code>GEH = √(2(M − C)²/(M + C))</code>로 봅니다. 모형 1,850대/시, 관측 1,700대/시이면 GEH ≈ 3.6입니다(코드로 계산). 영국 도로 설계 지침 등에서 GEH가 5 미만인 링크가 대부분(흔히 85% 이상)이면 허용하는 관행이 쓰입니다. 대피 상황처럼 관측 자료가 드문 경우에는 평상시 교통 자료로 교정하는 한계가 있습니다.</p><ul><li><strong>언제 쓰나</strong>: 재난 대피 계획에서 병목 구간, 대피 명령 시점, 단계적 대피, 일방통행 전환(역방향 차로 운영, contraflow)의 효과를 사전에 비교할 때. 예를 들어 에이전트 기반 모형으로 동시 대피와 단계적 대피 전략의 효과를 비교한 연구가 있습니다(Chen &amp; Zhan, 2008).</li><li><strong>무엇을 얻나</strong>: 구간별 혼잡, 대피 완료 시간의 분포, 대안의 상대 비교. 절대 시간의 예측보다 대안 사이의 비교에 더 적합하다는 입장이 흔합니다.</li><li><strong>한계</strong>: 운전자의 대피 여부·출발 시각·경로 선택 같은 행동 가정에 민감하고, 실제 대피 자료가 드물어 검증이 어렵습니다. 대규모 네트워크에서는 계산 시간이 큽니다(Murray-Tuite &amp; Wolshon, 2013).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 시뮬레이터(이름·버전)와 네트워크의 범위·자료 출처</li><li>수요 가정: 대피 대상 인구·차량 수, 출발 시각 분포(반응곡선), 대피 시나리오</li><li>경로 선택 방식과 차량 행동 모형, 교정한 매개변수</li><li>교정·검증 지표(예: GEH, 속도 오차)와 결과</li><li>난수 시드 수와 반복 횟수, 결과 지표의 정의(대피 소요시간을 무엇으로 정의했는지)</li><li>민감도 분석(수요 변화, 도로 폐쇄)</li></ul><p>예: “미시 교통 시뮬레이션으로 해안 도로망의 대피를 30회 반복 실행하였고, 동시 대피 대비 단계적 대피에서 평균 대피 완료 시간이 짧았다.” 반복 횟수와 변동 범위를 쓰지 않으면 우연한 차이와 구별되지 않습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "모형 수준",
+      "단위",
+      "특징"
+    ],
+    "rows": [
+      [
+        "미시(microscopic)",
+        "차량 한 대",
+        "차량 추종·차선 변경까지 재현, 계산량 큼"
+      ],
+      [
+        "중시(mesoscopic)",
+        "차량 묶음/개별 차량(단순 규칙)",
+        "미시와 거시의 중간"
+      ],
+      [
+        "거시(macroscopic)",
+        "교통류(밀도·속도·유량)",
+        "넓은 지역을 빠르게 계산"
+      ],
+      [
+        "[[evacuation-simulation|대피 시뮬레이션]]",
+        "사람·차량의 대피 과정을 컴퓨터로 재현하는 기법 전반",
+        "해당 항목은 건물 내 사람의 대피가 중심"
+      ]
+    ]
+  },
+  "references": [
+    "Chen, X., & Zhan, F. B. (2008). Agent-based modelling and simulation of urban evacuation: relative effectiveness of simultaneous and staged evacuation strategies. Journal of the Operational Research Society, 59(1), 25–33.",
+    "Murray-Tuite, P., & Wolshon, B. (2013). Evacuation transportation modeling: An overview of research, development, and practice. Transportation Research Part C, 27, 25–45.",
+    "Wolshon, B. (2001). \"One-way-out\": Contraflow freeway operation for hurricane evacuation. Natural Hazards Review, 2(3), 105–112.",
+    "Treiber, M., & Kesting, A. (2013). Traffic Flow Dynamics: Data, Models and Simulation. Springer."
+  ]
+}

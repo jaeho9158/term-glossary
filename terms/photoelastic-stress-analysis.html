@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>복잡한 형상을 가진 부품에서는 응력이 어디에 집중되는지 계산만으로 파악하기 어려운 경우가 많습니다. 광탄성 응력해석은 실물 모형을 만들어 응력 분포를 눈으로 직접 확인할 수 있어, 이론이나 수치해석 결과를 검증하고 응력 집중부를 찾아내는 데 오랫동안 활용되어 온 방법입니다. 실제 부재를 파괴하지 않고도 응력집중부의 전체적인 분포를 시각적으로 한눈에 파악할 수 있어, 노치나 구멍 주변처럼 이론해가 복잡한 형상의 응력 확인에 유용하게 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>모형 제작</strong>: 에폭시, 폴리카보네이트 같은 투명한 광탄성 재료로 대상의 단면 형상을 만들고 하중을 가합니다.</li><li><strong>편광기에 설치</strong>: 두 장의 편광판 사이에 모형을 놓습니다. 평면 편광기는 등경선(주응력 방향)과 등색선을 함께 보여주고, 원편광기는 등경선을 없애 등색선만 보이게 합니다.</li><li><strong>무늬 기록</strong>: 단색광에서는 밝고 어두운 띠, 백색광에서는 색 띠가 나타납니다. 이 등색선의 차수 N을 세어 기록합니다.</li><li><strong>응력 환산</strong>: 응력-광학 법칙 <code>σ<sub>1</sub> − σ<sub>2</sub> = N·f<sub>σ</sub>/h</code>로 주응력의 차를 구합니다. h는 모형 두께, f<sub>σ</sub>는 재료와 파장으로 정해지는 무늬값(fringe value)이며 보정 시험으로 정합니다.</li><li><strong>경계 응력 읽기</strong>: 자유 경계에서는 한 주응력이 0이므로 σ<sub>1</sub> − σ<sub>2</sub>가 곧 경계 응력이 되어, 노치나 구멍 가장자리의 최대 응력과 응력집중계수를 얻을 수 있습니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>가상의 계산.</strong> 무늬값 f<sub>σ</sub> = 10 kN/m, 두께 h = 6 mm인 모형에서 어떤 점의 등색선 차수가 N = 3이면 σ<sub>1</sub> − σ<sub>2</sub> = 3 × 10,000 / 0.006 = 5.0 MPa입니다(코드로 계산). 노치 가장자리에서 최대 차수가 6이고 노치 단면의 평균(공칭) 응력이 2.5 MPa였다면, 경계 응력은 6 × 10,000 / 0.006 = 10 MPa이고 응력집중계수는 10/2.5 = 4.0입니다(코드로 계산). 숫자는 설명을 위한 값입니다.</p><ul><li><strong>언제 쓰나</strong>: 구멍·노치·접촉부처럼 해석해가 어려운 형상에서 응력이 어디에 몰리는지 전체 모습을 시각적으로 확인하고 싶을 때, 수치해석 결과를 실험으로 검증할 때, 교육용 시연.</li><li><strong>무엇을 얻나</strong>: 전 영역의 주응력 차 분포(등색선), 주응력 방향(등경선), 경계 응력과 응력집중계수. 3차원 모형은 가열 후 응력을 “동결”시켜 잘라서 보는 방법이 쓰이고, 실제 부품 표면에 광탄성 코팅을 붙이는 반사식 방법도 있습니다.</li><li><strong>한계</strong>: 투명 모형이 필요하고 재료 상수 보정이 선행되어야 하며, 선형 탄성 범위의 해석입니다. 실제 부품 재료의 응력으로 옮기려면 하중·크기 환산이 필요합니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>모형 재료와 두께, 무늬값 f<sub>σ</sub>(보정 방법: 순수 인장 시편이나 원판 압축 등)와 사용 파장</li><li>편광기 구성(평면/원)과 광원, 하중 조건과 하중 단계</li><li>무늬 차수를 읽은 방법(수동 판독 또는 위상이동 같은 디지털 광탄성)과 불확도</li><li>결과를 비교한 해석(유한요소해석 등)과 일치 정도</li></ul><p>예: “폴리카보네이트 모형(두께 6 mm, f<sub>σ</sub> = 7 kN/m)을 원편광기에서 관찰하여 등색선 차수로부터 노치 근방의 응력집중계수를 구하였다.” f<sub>σ</sub>를 밝히지 않으면 무늬 수만으로는 응력을 알 수 없습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"노치가 있는 시편의 응력 집중 계수를 확인하기 위해 Photoelastic Stress Analysis를 수행하였다."</div>
   <p>노치 주변에서 응력이 얼마나 집중되는지를 광탄성 무늬 관찰을 통해 확인했다는 뜻입니다.</p>
   <div class="example">"광탄성 실험에서 관찰된 등색선의 간격을 통해 응력 구배를 정성적으로 평가할 수 있었다."</div>
@@ -158,6 +176,19 @@
 
   <h2>주의할 점</h2>
   <p>광탄성 재료로 제작한 모형의 결과이므로 실제 재료의 응력 값과는 별도의 환산 과정이 필요하며, 정성적인 분포 파악에는 유용하지만 정밀한 정량 분석에는 한계가 있을 수 있습니다. 재료의 광탄성 계수를 정확히 알고 있어야 무늬 차수를 실제 응력값으로 환산할 수 있어, 사전 보정시험이 선행되어야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">무엇을 얻나</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">광탄성 응력해석</th><td>전 영역의 주응력 차 분포</td><td>투명 모형이 필요</td></tr><tr><th scope="row"><a href="strain-gauge.html">스트레인 게이지</a></th><td>붙인 한 점의 변형률</td><td>한 점의 정밀 측정</td></tr><tr><th scope="row"><a href="digital-image-correlation.html">디지털 이미지 상관법</a></th><td>표면 전체의 변위·변형률</td><td>실제 재료·부품 표면에 적용</td></tr><tr><th scope="row"><a href="finite-element-method.html">유한요소법</a></th><td>수치 계산으로 얻는 응력 분포</td><td>실험을 대신하거나 검증</td></tr><tr><th scope="row"><a href="birefringence.html">복굴절</a></th><td>광탄성의 물리적 바탕이 되는 성질</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Frocht, M. M. (1941). Photoelasticity. Wiley.</li>
+    <li>Dally, J. W., &amp; Riley, W. F. (1991). Experimental Stress Analysis (3rd ed.). McGraw-Hill.</li>
+    <li>Ramesh, K. (2000). Digital Photoelasticity: Advanced Techniques and Applications. Springer.</li>
+    <li>Coker, E. G., &amp; Filon, L. N. G. (1931). A Treatise on Photo-Elasticity. Cambridge University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

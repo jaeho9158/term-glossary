@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>좌표 변환</strong>: 3상 기준 전압을 클라크(Clarke) 변환으로 정지 좌표계 α–β의 기준 전압벡터 <code>V<sub>ref</sub> = V<sub>α</sub> + jV<sub>β</sub></code>로 바꾸어 크기 |V<sub>ref</sub>|와 각도를 구합니다.</li><li><strong>섹터 판별</strong>: 3상 2레벨 인버터의 8개 스위칭 상태 중 6개는 크기가 같은 유효벡터(60° 간격), 2개는 영벡터입니다. 기준벡터가 어느 60° 구간(섹터)에 있는지 판별합니다.</li><li><strong>인가시간 계산</strong>: 섹터 시작 벡터에서 잰 각도를 θ, 스위칭 주기를 T<sub>s</sub>, 직류단 전압을 V<sub>dc</sub>라 하면 인접한 두 유효벡터의 인가시간은 <code>T<sub>1</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin(60° − θ)</code>, <code>T<sub>2</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin θ</code>이고, 나머지 <code>T<sub>0</sub> = T<sub>s</sub> − T<sub>1</sub> − T<sub>2</sub></code>를 영벡터에 배분합니다. 여기서 |V<sub>ref</sub>|는 상전압 진폭입니다.</li><li><strong>스위칭 순서 배치</strong>: 영벡터를 앞뒤에 나누어 넣는 대칭 배치(7구간 등)를 많이 씁니다. 배치에 따라 스위칭 횟수와 전류 리플이 달라집니다.</li><li><strong>게이트 신호 생성</strong>: 계산한 시간을 디지털 컨트롤러의 비교값으로 바꾸어 각 상 스위치에 출력합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>선형 변조 범위.</strong> 여섯 유효벡터의 끝점이 이루는 육각형에 내접하는 원 안에서는 왜곡 없이 정현파 전압을 만들 수 있고, 그 반지름은 V<sub>dc</sub>/√3 입니다. 정현파 비교 방식(SPWM)의 한계 V<sub>dc</sub>/2보다 2/√3 ≈ 1.155배(약 15.5%) 큽니다. 같은 직류단 전압에서 더 높은 출력 전압을 얻을 수 있다는 뜻입니다.</p><p><strong>가상의 계산.</strong> V<sub>dc</sub> = 600 V, |V<sub>ref</sub>| = 300 V, 섹터 내 각도 θ = 20°, T<sub>s</sub> = 100 μs이면 T<sub>1</sub> ≈ 55.7 μs, T<sub>2</sub> ≈ 29.6 μs, T<sub>0</sub> ≈ 14.7 μs이고 합이 100 μs입니다(코드로 계산). |V<sub>ref</sub>|가 한계 346 V 이하이므로 선형 범위 안입니다.</p><ul><li><strong>언제 쓰나</strong>: 전동기 구동(벡터제어와 결합), 계통연계 인버터 등 3상 전력변환기에서 직류단 전압을 효율적으로 쓰고 싶을 때.</li><li><strong>무엇을 얻나</strong>: 높은 전압 이용률, 비교적 낮은 전류 고조파, 디지털 구현에 맞는 구조. 정현파 PWM에 영상분(3차 고조파 성분)을 더한 변조와 수학적으로 같은 출력이 된다는 분석도 있습니다(Zhou &amp; Wang, 2002).</li><li><strong>한계</strong>: 섹터 판별과 삼각함수 계산 때문에 SPWM보다 연산이 복잡하고, 멀티레벨 인버터로 확장하면 벡터와 섹터 수가 크게 늘어납니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>SVPWM을 쓴 논문은 보통 다음 항목을 밝힙니다.</p><ul><li>인버터 구성(2레벨/멀티레벨), 직류단 전압, 스위칭 주파수, 변조 지수</li><li>스위칭 순서(예: 대칭 7구간)와 데드타임 보상 여부</li><li>제어기(벡터제어 등)와 구현 환경(DSP·FPGA, 샘플링 주기)</li><li>평가 지표(전류 THD, 효율, 스위칭 손실)와 비교 대상(SPWM 등)</li></ul><p>예: “스위칭 주파수 10 kHz의 대칭 SVPWM을 적용하고 SPWM과 전류 THD를 비교하였다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "선형 변조 한계(상전압 진폭)"
+    ],
+    "rows": [
+      [
+        "SPWM(정현파 PWM)",
+        "정현파 기준과 삼각파 반송파를 비교해 스위칭",
+        "V<sub>dc</sub>/2"
+      ],
+      [
+        "SVPWM(공간벡터 PWM)",
+        "기준 전압벡터를 인접 유효벡터와 영벡터의 시간 비율로 합성",
+        "V<sub>dc</sub>/√3"
+      ],
+      [
+        "불연속 PWM(DPWM)",
+        "한 주기의 일부 구간 동안 한 상의 스위칭을 멈추는 변조",
+        "SVPWM과 같은 범위"
+      ],
+      [
+        "[[pwm|PWM 일반]]",
+        "듀티비로 평균 전압을 조절하는 방식 전체",
+        "—"
+      ]
+    ]
+  },
+  "references": [
+    "van der Broeck, H. W., Skudelny, H.-C., & Stanke, G. V. (1988). Analysis and realization of a pulsewidth modulator based on voltage space vectors. IEEE Transactions on Industry Applications, 24(1), 142–150.",
+    "Holmes, D. G., & Lipo, T. A. (2003). Pulse Width Modulation for Power Converters: Principles and Practice. IEEE Press/Wiley.",
+    "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley.",
+    "Zhou, K., & Wang, D. (2002). Relationship between space-vector modulation and three-phase carrier-based PWM: A comprehensive analysis. IEEE Transactions on Industrial Electronics, 49(1), 186–196."
+  ]
+}

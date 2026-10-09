@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>구면수차 보정은 카메라, 현미경 대물렌즈, 레이저 집속 광학계 등 선명한 초점이 필수적인 모든 결상 시스템의 성능을 좌우하기 때문에 광학 설계 논문에서 렌즈 성능을 평가하고 개선하는 핵심 주제로 다루어집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>수차 평가</strong>: 광선추적으로 렌즈의 가장자리와 중심을 지나는 광선이 광축에서 얼마나 어긋나게 모이는지(종수차, 횡수차)와 파면 오차(자이델 수차 계수 W<sub>040</sub>)를 계산합니다.</li><li><strong>형상 조정(벤딩)</strong>: 같은 초점거리라도 두 면의 곡률 분배를 바꾸면 수차가 달라집니다. 무한 거리의 물체에 대해서는 평볼록 렌즈의 볼록한 면을 물체 쪽으로 두는 편이 양볼록 렌즈보다 구면수차가 작습니다.</li><li><strong>렌즈 조합</strong>: 양렌즈와 음렌즈를 짝지은 이중렌즈(더블릿), 삼중렌즈로 한 면의 수차를 다른 면이 상쇄하게 합니다. 굴절률이 높은 유리는 같은 파워에서 곡률이 완만해져 수차를 줄이는 데 유리합니다.</li><li><strong>비구면 도입</strong>: 표면을 구면이 아닌 곡면으로 가공해 가장자리 광선의 오차를 직접 줄입니다. 구면 거울이 평행광을 한 점에 모으지 못하는 문제는 포물면 거울로 풀립니다.</li><li><strong>조리개 조절</strong>: 가장자리 광선을 막으면 수차가 줄지만 빛의 양이 줄고 회절 한계로 해상도가 제한되는 절충이 있습니다.</li><li><strong>최적화·평가</strong>: 설계 소프트웨어의 성능 함수로 변수를 최적화하고, 스폿 다이어그램, 파면 RMS, 스트렐 비(Strehl ratio), MTF로 확인합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>가상의 계산: 파면 오차와 스트렐 비.</strong> 작은 수차에서는 스트렐 비를 <code>S ≈ exp(−(2π·σ/λ)²)</code>로 근사합니다(σ는 파면 RMS). σ = λ/14이면 S ≈ 0.82, σ = λ/10이면 S ≈ 0.67, σ = λ/20이면 S ≈ 0.91입니다(코드로 계산). 스트렐 비 0.8 이상을 “회절 한계”로 보는 마레샬(Maréchal) 기준이 σ ≈ λ/14에 해당합니다.</p><ul><li><strong>언제 쓰나</strong>: 개구수가 큰 광학계일수록 구면수차가 급격히 커지므로 현미경 대물렌즈, 레이저 집속 광학계, 카메라 렌즈, 망원경에서 핵심 설계 과제입니다. 현미경에서는 덮개유리 두께 차이로 생기는 구면수차를 보정환으로 맞추는 방법도 씁니다.</li><li><strong>무엇을 얻나</strong>: 더 선명한 초점과 높은 해상도, 대비.</li><li><strong>한계</strong>: 한 수차를 줄이면 다른 수차(코마, 색수차)가 늘 수 있고, 비구면이나 정밀한 조합은 제작 공차와 비용이 따릅니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>설계 파장과 개구수(또는 F수), 시야각, 렌즈 소자 수, 재질(굴절률), 비구면 계수</li><li>수차 평가 지표(파면 RMS, 스폿 반지름, 스트렐 비, MTF)와 비교 대상(구면 설계 대비 개선)</li><li>사용한 설계 소프트웨어, 공차 분석 결과</li><li>실험으로 확인했다면 측정 방법(간섭계, 점상 분포 측정)</li></ul><p>예: “비구면 도입으로 파면 RMS를 λ/4에서 λ/20 미만으로 줄여 회절 한계 성능을 얻었다.”처럼 개선 정도를 수치로 비교하는 문장이 흔합니다. 설계 파장과 개구수 없이 “수차를 보정했다”고만 적으면 비교할 수 없습니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"Spherical aberration correction was achieved by combining a positive and negative lens with matched curvatures in an achromatic doublet."</div>
   <p>곡률이 서로 맞춰진 양렌즈와 음렌즈를 조합한 색지움 이중렌즈를 통해 구면수차 보정을 달성했다는 설계 방법을 설명한 문장입니다.</p>
   <div class="example">"An aspheric surface was introduced into the objective lens to correct spherical aberration without adding extra lens elements."</div>
@@ -159,6 +177,19 @@
 
   <h2>주의할 점</h2>
   <p>구면수차는 렌즈 개구수의 세제곱 이상으로 급격히 커지는 경향이 있으므로, 조리개를 살짝 줄이는 것만으로도 큰 개선 효과를 볼 수 있지만 그만큼 회절한계에 의한 해상도 저하와 빛의 양 감소를 함께 감수해야 하는 트레이드오프가 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">주 원인</th></tr></thead><tbody><tr><th scope="row"><a href="spherical-aberration.html">구면수차</a></th><td>가장자리와 중심 광선의 초점이 어긋나는 수차(현상)</td><td>구면의 굴절</td></tr><tr><th scope="row">구면수차 보정</th><td>위 수차를 줄이는 설계 기법(이 항목)</td><td>—</td></tr><tr><th scope="row"><a href="chromatic-aberration.html">색수차</a></th><td>파장에 따라 초점이 달라지는 수차</td><td>재료의 파장 분산</td></tr><tr><th scope="row">코마</th><td>축에서 벗어난 점이 혜성 꼬리 모양으로 번지는 수차</td><td>축외 광선의 비대칭</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Born, M., &amp; Wolf, E. (1999). Principles of Optics (7th ed.). Cambridge University Press.</li>
+    <li>Smith, W. J. (2008). Modern Optical Engineering (4th ed.). McGraw-Hill.</li>
+    <li>Kingslake, R., &amp; Johnson, R. B. (2010). Lens Design Fundamentals (2nd ed.). Academic Press.</li>
+    <li>Hecht, E. (2002). Optics (4th ed.). Addison-Wesley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

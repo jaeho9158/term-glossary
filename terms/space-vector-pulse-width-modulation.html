@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>SVPWM은 기존의 정현파 비교 방식(SPWM)보다 직류단 전압을 더 효율적으로 활용할 수 있고 고조파 특성도 우수해 전동기 구동, 계통연계 인버터 등 다양한 3상 전력변환 시스템에서 표준적으로 사용되는 변조 기법입니다. 그만큼 관련 논문에서 기본 변조 방식으로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>좌표 변환</strong>: 3상 기준 전압을 클라크(Clarke) 변환으로 정지 좌표계 α–β의 기준 전압벡터 <code>V<sub>ref</sub> = V<sub>α</sub> + jV<sub>β</sub></code>로 바꾸어 크기 |V<sub>ref</sub>|와 각도를 구합니다.</li><li><strong>섹터 판별</strong>: 3상 2레벨 인버터의 8개 스위칭 상태 중 6개는 크기가 같은 유효벡터(60° 간격), 2개는 영벡터입니다. 기준벡터가 어느 60° 구간(섹터)에 있는지 판별합니다.</li><li><strong>인가시간 계산</strong>: 섹터 시작 벡터에서 잰 각도를 θ, 스위칭 주기를 T<sub>s</sub>, 직류단 전압을 V<sub>dc</sub>라 하면 인접한 두 유효벡터의 인가시간은 <code>T<sub>1</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin(60° − θ)</code>, <code>T<sub>2</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin θ</code>이고, 나머지 <code>T<sub>0</sub> = T<sub>s</sub> − T<sub>1</sub> − T<sub>2</sub></code>를 영벡터에 배분합니다. 여기서 |V<sub>ref</sub>|는 상전압 진폭입니다.</li><li><strong>스위칭 순서 배치</strong>: 영벡터를 앞뒤에 나누어 넣는 대칭 배치(7구간 등)를 많이 씁니다. 배치에 따라 스위칭 횟수와 전류 리플이 달라집니다.</li><li><strong>게이트 신호 생성</strong>: 계산한 시간을 디지털 컨트롤러의 비교값으로 바꾸어 각 상 스위치에 출력합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p><strong>선형 변조 범위.</strong> 여섯 유효벡터의 끝점이 이루는 육각형에 내접하는 원 안에서는 왜곡 없이 정현파 전압을 만들 수 있고, 그 반지름은 V<sub>dc</sub>/√3 입니다. 정현파 비교 방식(SPWM)의 한계 V<sub>dc</sub>/2보다 2/√3 ≈ 1.155배(약 15.5%) 큽니다. 같은 직류단 전압에서 더 높은 출력 전압을 얻을 수 있다는 뜻입니다.</p><p><strong>가상의 계산.</strong> V<sub>dc</sub> = 600 V, |V<sub>ref</sub>| = 300 V, 섹터 내 각도 θ = 20°, T<sub>s</sub> = 100 μs이면 T<sub>1</sub> ≈ 55.7 μs, T<sub>2</sub> ≈ 29.6 μs, T<sub>0</sub> ≈ 14.7 μs이고 합이 100 μs입니다(코드로 계산). |V<sub>ref</sub>|가 한계 346 V 이하이므로 선형 범위 안입니다.</p><ul><li><strong>언제 쓰나</strong>: 전동기 구동(벡터제어와 결합), 계통연계 인버터 등 3상 전력변환기에서 직류단 전압을 효율적으로 쓰고 싶을 때.</li><li><strong>무엇을 얻나</strong>: 높은 전압 이용률, 비교적 낮은 전류 고조파, 디지털 구현에 맞는 구조. 정현파 PWM에 영상분(3차 고조파 성분)을 더한 변조와 수학적으로 같은 출력이 된다는 분석도 있습니다(Zhou &amp; Wang, 2002).</li><li><strong>한계</strong>: 섹터 판별과 삼각함수 계산 때문에 SPWM보다 연산이 복잡하고, 멀티레벨 인버터로 확장하면 벡터와 섹터 수가 크게 늘어납니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>SVPWM을 쓴 논문은 보통 다음 항목을 밝힙니다.</p><ul><li>인버터 구성(2레벨/멀티레벨), 직류단 전압, 스위칭 주파수, 변조 지수</li><li>스위칭 순서(예: 대칭 7구간)와 데드타임 보상 여부</li><li>제어기(벡터제어 등)와 구현 환경(DSP·FPGA, 샘플링 주기)</li><li>평가 지표(전류 THD, 효율, 스위칭 손실)와 비교 대상(SPWM 등)</li></ul><p>예: “스위칭 주파수 10 kHz의 대칭 SVPWM을 적용하고 SPWM과 전류 THD를 비교하였다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 시스템은 SVPWM을 이용해 직류단 전압 이용률을 SPWM 대비 향상시켰다."</div>
   <p>SVPWM이 직류단 전압을 더 효율적으로 활용할 수 있다는 특성을 언급하는 문장입니다.</p>
   <div class="example">"기준 전압벡터가 위치한 섹터를 판별한 후 인접한 두 유효벡터와 영벡터의 인가시간을 계산하였다."</div>
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>SVPWM은 SPWM에 비해 계산이 복잡해 마이크로컨트롤러나 디지털 신호처리기에서의 실시간 연산 부담을 고려해야 하며, 멀티레벨 인버터로 확장할 경우 벡터와 섹터의 수가 크게 늘어나 구현 복잡도가 높아집니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">선형 변조 한계(상전압 진폭)</th></tr></thead><tbody><tr><th scope="row">SPWM(정현파 PWM)</th><td>정현파 기준과 삼각파 반송파를 비교해 스위칭</td><td>V&lt;sub&gt;dc&lt;/sub&gt;/2</td></tr><tr><th scope="row">SVPWM(공간벡터 PWM)</th><td>기준 전압벡터를 인접 유효벡터와 영벡터의 시간 비율로 합성</td><td>V&lt;sub&gt;dc&lt;/sub&gt;/√3</td></tr><tr><th scope="row">불연속 PWM(DPWM)</th><td>한 주기의 일부 구간 동안 한 상의 스위칭을 멈추는 변조</td><td>SVPWM과 같은 범위</td></tr><tr><th scope="row"><a href="pwm.html">PWM 일반</a></th><td>듀티비로 평균 전압을 조절하는 방식 전체</td><td>—</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>van der Broeck, H. W., Skudelny, H.-C., &amp; Stanke, G. V. (1988). Analysis and realization of a pulsewidth modulator based on voltage space vectors. IEEE Transactions on Industry Applications, 24(1), 142–150.</li>
+    <li>Holmes, D. G., &amp; Lipo, T. A. (2003). Pulse Width Modulation for Power Converters: Principles and Practice. IEEE Press/Wiley.</li>
+    <li>Mohan, N., Undeland, T. M., &amp; Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley.</li>
+    <li>Zhou, K., &amp; Wang, D. (2002). Relationship between space-vector modulation and three-phase carrier-based PWM: A comprehensive analysis. IEEE Transactions on Industrial Electronics, 49(1), 186–196.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
