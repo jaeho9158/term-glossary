@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/loss-development-factor.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <p>손해보험수리에서 손해진전계수는 체인래더법을 비롯한 대부분의 준비금평가 기법의 기초가 되는 핵심 계수입니다. 과거 여러 사고연도의 손해진전 패턴을 분석해 이 계수를 산출하고, 이를 이용해 아직 완전히 진전되지 않은 최근 사고연도의 최종손해액을 추정합니다.</p>
   <p>선정된 연도간 진전계수들이 곱해져 누적 진전계수가 되므로, 한 진전구간의 계수 선정 오류는 그 구간을 아직 거치지 않은 모든 사고연도의 궁극손해액에 함께 전파되어 준비금 전체를 왜곡시킬 수 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>진전연도 j에서 j+1로 가는 <strong>개별 진전계수</strong> = (j+1년차 누적손해액) ÷ (j년차 누적손해액)입니다. 여러 사고연도의 개별 계수를 평균해 하나의 <strong>선택 계수</strong>로 삼고, 이를 차례로 곱하면 최종까지의 누적진전계수(CDF)가 됩니다. 값은 보통 1 이상이지만, 환수·재산정이 있으면 1 미만이 될 수도 있습니다.</p><p>가상의 누적 지급손해액 삼각형(단위: 백만 원, 코드로 계산)입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>사고연도</th><th>1년차</th><th>2년차</th><th>3년차</th><th>4년차</th></tr></thead><tbody><tr><td>2021</td><td>1,000</td><td>1,450</td><td>1,595</td><td>1,640</td></tr><tr><td>2022</td><td>1,100</td><td>1,700</td><td>1,900</td><td>-</td></tr><tr><td>2023</td><td>1,200</td><td>1,900</td><td>-</td><td>-</td></tr><tr><td>2024</td><td>1,300</td><td>-</td><td>-</td><td>-</td></tr></tbody></table></div><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구간</th><th>개별 계수</th><th>단순평균</th><th>가중평균(합계비)</th></tr></thead><tbody><tr><td>1→2</td><td>1.450, 1.545, 1.583</td><td>1.526</td><td>1.530</td></tr><tr><td>2→3</td><td>1.100, 1.118</td><td>1.109</td><td>1.110</td></tr><tr><td>3→4</td><td>1.028</td><td>1.028</td><td>1.028</td></tr></tbody></table></div>
+
+  <h2>해석 기준</h2>
+  <ul><li>1에 가까울수록 해당 구간에서 추가로 늘어나는 손해가 작다는 뜻입니다. 위 표에서 3→4년차는 약 1.028배로, 성숙한 구간일수록 계수가 1에 가까워집니다.</li><li>단순평균은 사고연도별 계수를 똑같이 취급하고, 가중평균(합계 비율)은 손해액이 큰 연도에 더 큰 비중을 줍니다. 위 표에서도 두 값이 다르며, 어느 쪽을 쓰느냐에 따라 추정치가 달라집니다.</li><li>누적진전계수를 최신 누적손해액에 곱하면 궁극손해액(최종 손해액) 추정치가 나옵니다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>사고연도</th><th>현재 누적손해액</th><th>누적진전계수(가중평균 기준)</th><th>궁극손해액 추정</th></tr></thead><tbody><tr><td>2021</td><td>1,640</td><td>1.000</td><td>1,640</td></tr><tr><td>2022</td><td>1,900</td><td>1.028</td><td>1,954</td></tr><tr><td>2023</td><td>1,900</td><td>1.141</td><td>2,168</td></tr><tr><td>2024</td><td>1,300</td><td>1.746</td><td>2,270</td></tr></tbody></table></div><p>위 표에서 2021년은 이미 4년차이므로 계수를 1로 두었습니다. 관측 구간을 넘어서는 진전이 남아 있다면 <a href="tail-factor.html">테일팩터</a>로 보완합니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>삼각형의 종류(지급액인지 발생액인지)와 단위, 개별 계수를 평균한 방법(단순·가중·최근 n년)을 적습니다.</li><li>이상치(대형 사고, 제도 변화)를 어떻게 처리했는지, 테일팩터를 얼마로 두었는지를 함께 밝힙니다.</li><li>결과는 점추정이므로 불확실성 범위를 함께 제시하는 것이 바람직합니다. Mack(1993)은 체인래더 추정의 표준오차를 구하는 방법을 제시했습니다. 방법의 전제는 <a href="chain-ladder-method.html">체인래더법</a> 항목에서 다룹니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"각 진전연도별 손해진전계수는 과거 사고연도의 누적손해액 비율의 가중평균으로 산출되었다."</div>
   <p>손해진전계수를 산출하는 대표적인 방식을 설명하는 예입니다.</p>
   <div class="example">"손해진전계수를 순차적으로 곱하여 최종손해액에 대한 진전계수를 도출하였다."</div>
@@ -167,6 +185,19 @@
 
   <h2>주의할 점</h2>
   <p>과거 데이터에 이례적인 대형사고나 제도 변화가 섞여 있으면 계수가 왜곡될 수 있어, 이상치를 적절히 조정하거나 여러 산출방식을 비교하는 것이 일반적입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>체인래더 계산에서 이름이 비슷한 값들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">값의 위치</th></tr></thead><tbody><tr><th scope="row">개별 진전계수</th><td>한 사고연도의 j→j+1 증가 배율</td><td>삼각형의 각 칸</td></tr><tr><th scope="row">선택(대표) 진전계수</th><td>여러 개별 계수를 평균해 고른 값</td><td>구간별 1개</td></tr><tr><th scope="row">누적진전계수(CDF)</th><td>선택 계수를 끝까지 곱한 값</td><td>현재 시점 → 최종</td></tr><tr><th scope="row"><a href="tail-factor.html">테일팩터</a></th><td>관측 구간 이후의 추가 진전</td><td>마지막 관측 이후</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Friedland, J. (2010). Estimating Unpaid Claims Using Basic Techniques. Casualty Actuarial Society.</li>
+    <li>Mack, T. (1993). Distribution-free calculation of the standard error of chain ladder reserve estimates. ASTIN Bulletin, 23(2), 213–225.</li>
+    <li>Taylor, G. (2000). Loss Reserving: An Actuarial Perspective. Kluwer Academic Publishers.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="loss-development-triangle.html">손해발생삼각형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="large-loss-development.html">대형손해진전</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="tail-factor.html">테일팩터</a></div></div><p class="concept-family-map"><a href="../concept-map/insur.html">분야 전체 개념 지도 보기 →</a> 특정 연도에 발생한 대형 손해나 제도 변화로 계수가 튄 경우, 이를 그대로 평균에 포함시키면 향후 모든 사고연도의 추정치가 왜곡될 수 있습니다. 또한 청구 처리 관행이나 준비금 설정 정책이 바뀐 시점을 인지하지 못하면, 그 이전과 이후의 발전계수를 같은 기준으로 평균 내는 오류를 범하기 쉽습니다.</p></section><!-- concept-family:end -->
 <aside class="stage-link">

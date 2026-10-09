@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>저수지 컴퓨팅에서 저수지(재귀 신경망)의 가중치는 무작위로 정해 고정하고, <strong>저수지 상태를 출력으로 바꾸는 선형 사상(판독층)만</strong> 학습합니다.</li><li>저수지 상태를 벡터 x(t), 출력을 y(t)라 하면 판독층은 y(t) = W<sub>out</sub> x(t)입니다. 학습은 정답과의 제곱 오차에 정규화 항을 더한 능선회귀(ridge regression)로 푸는 방식이 흔하며, 닫힌 형태의 해가 있습니다.</li><li>학습할 모수가 판독 가중치뿐이므로 학습이 빠르고, 저수지를 시간 방향으로 역전파하지 않아도 됩니다(Lukoševičius와 Jaeger, 2009).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: 입력 두 개(0 또는 1)에 대해 XOR(서로 다르면 1)을 맞추는 문제입니다. 입력을 그대로 쓰는 선형 모형은 이 문제를 풀 수 없습니다. 반면 입력을 무작위 tanh 유닛 20개로 펼친 뒤 선형 판독만 학습하면 풀립니다. 아래 값은 코드로 계산했습니다(무작위 가중치는 고정 시드, 능선 정규화 λ = 0.001).</p><table><thead><tr><th>입력</th><th>정답</th><th>입력에 대한 선형 적합(절편 포함)</th><th>무작위 특징 + 선형 판독</th></tr></thead><tbody><tr><td>(0, 0)</td><td>0</td><td>0.50</td><td>0.00</td></tr><tr><td>(0, 1)</td><td>1</td><td>0.50</td><td>1.00</td></tr><tr><td>(1, 0)</td><td>1</td><td>0.50</td><td>1.00</td></tr><tr><td>(1, 1)</td><td>0</td><td>0.50</td><td>0.00</td></tr></tbody></table><p>데이터가 4개뿐이고 유닛이 20개라 훈련 자료를 그대로 맞춘 결과입니다. 이 표는 “고차원으로 펼치면 선형 판독으로도 풀릴 수 있다”는 점만 보여 주며, 일반화 성능에 대한 증거는 아닙니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“저수지가 학습된다”는 오해</strong>: 표준적인 저수지 컴퓨팅에서 학습되는 것은 판독층뿐입니다. 저수지 내부 가중치는 고정이며, 대신 스펙트럼 반경, 입력 스케일 같은 하이퍼파라미터를 조정합니다.</li><li><strong>“판독층이 선형이라 표현력이 낮다”는 오해</strong>: 선형이라는 것은 저수지 상태에 대해서만 선형이라는 뜻입니다. 저수지가 만든 비선형 특징 위에서 선형 조합을 하므로 시간 의존 과제를 풀 수 있습니다.</li><li>비선형 판독층(예: 다층 퍼셉트론)을 쓴 결과를 선형 판독 결과와 직접 비교하면 “저수지 설계의 효과”와 “판독층의 힘”이 섞입니다. 방법 절에서 판독층 구조를 확인해야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "같은 저수지 컴퓨팅 안에서 짝으로 나오는 말입니다.",
+    "headers": [
+      "용어",
+      "역할",
+      "학습 여부"
+    ],
+    "rows": [
+      [
+        "판독층(선형 판독)",
+        "저수지 상태를 출력으로 바꾸는 층",
+        "학습함"
+      ],
+      [
+        "[[reservoir-computing|저수지 컴퓨팅]]의 저수지",
+        "입력을 고차원 동적 상태로 바꾸는 무작위 재귀망",
+        "학습하지 않음(고정)"
+      ],
+      [
+        "[[ridge-regression|릿지 회귀]]",
+        "판독 가중치를 구할 때 흔히 쓰는 정규화된 최소제곱",
+        "판독층을 푸는 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Jaeger, H. (2001). The “echo state” approach to analysing and training recurrent neural networks (GMD Report 148). German National Research Center for Information Technology.",
+    "Maass, W., Natschläger, T., & Markram, H. (2002). Real-time computing without stable states: A new framework for neural computation based on perturbations. Neural Computation, 14(11), 2531–2560.",
+    "Lukoševičius, M., & Jaeger, H. (2009). Reservoir computing approaches to recurrent neural network training. Computer Science Review, 3(3), 127–149."
+  ]
+}

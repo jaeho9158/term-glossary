@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/recurrent-neural-network.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>RNN은 순서가 의미를 가지는 데이터, 즉 시계열이나 문장, 음성 신호 등을 다루는 연구에서 오랫동안 표준적인 도구로 쓰여 왔습니다. 이전 시점의 정보를 요약해 다음 시점 처리에 반영한다는 아이디어 자체가 이후 등장한 어텐션 메커니즘, 트랜스포머 같은 시퀀스 모델링 기법들의 개념적 출발점이 되었기 때문에, 최신 논문에서도 비교 대상이나 배경 설명으로 자주 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>RNN은 시점 t마다 은닉 상태를 갱신합니다. 가장 단순한 형태는 h<sub>t</sub> = tanh(W<sub>x</sub> x<sub>t</sub> + W<sub>h</sub> h<sub>t−1</sub> + b) 이고, 출력은 h<sub>t</sub>에서 만듭니다. 같은 가중치를 모든 시점에서 공유하는 것이 핵심입니다(Elman, 1990).</li><li>학습은 시간 방향으로 펼친 그래프에서 역전파하는 BPTT로 합니다(Rumelhart 등, 1986의 역전파를 시간으로 확장한 방식).</li><li>순서가 있는 입력의 길이가 달라도 같은 모수로 처리할 수 있다는 점이 장점입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예(코드로 계산) 1: 입력 10차원, 은닉 32차원인 가장 단순한 RNN의 모수는 W<sub>x</sub> 32×10 = 320, W<sub>h</sub> 32×32 = 1,024, 편향 32로 합계 1,376개입니다. 시퀀스가 길어져도 모수 수는 그대로입니다.</p><p>예 2: 기울기가 시간을 거슬러 갈 때 같은 계수가 반복해서 곱해지는 상황을 스칼라로 단순화해 봅시다. 계수 0.5를 20번 곱하면 약 9.5 × 10<sup>−7</sup>로 거의 사라지고, 1.5를 20번 곱하면 약 3,325로 커집니다. 이것이 기울기 소실·폭주의 직관이며, 긴 의존성을 학습하기 어려운 이유로 설명됩니다(Bengio 등, 1994). 실제 RNN은 행렬과 활성함수의 도함수가 곱해지므로 이 스칼라 모형은 단지 직관입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“RNN은 과거 전체를 기억한다”는 오해</strong>: 은닉 상태는 고정 크기 요약일 뿐이어서, 길어질수록 오래된 정보는 흐려지기 쉽습니다.</li><li><strong>“LSTM은 RNN과 다른 계열”이라는 오해</strong>: <a href="lstm.html">LSTM</a>은 게이트를 넣어 기울기 소실을 줄이도록 고친 RNN의 한 종류입니다(Hochreiter와 Schmidhuber, 1997).</li><li><strong>“<a href="transformer.html">트랜스포머</a>가 나왔으니 RNN은 쓸모없다”는 단순화</strong>: 많은 언어 과제에서 트랜스포머가 주류가 되었지만, RNN 계열은 구조가 단순하고 순차 처리 비용이 낮아 일부 시계열·임베디드 과제에서 쓰입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 순차적으로 수집된 센서 데이터를 처리하기 위해 RNN 기반 모델을 사용하였다."</div>
   <p>이 문장은 "데이터가 시간 순서를 가지고 있어서, 이전 시점의 정보를 기억하며 처리하는 RNN 구조를 모델로 채택했다"는 뜻입니다.</p>
   <div class="example">"환자의 시계열 생체 신호를 입력으로 받는 RNN 모델을 학습하여, 다음 시점의 이상 징후 발생 가능성을 예측하였다."</div>
@@ -166,6 +184,20 @@
 
   <h2>주의할 점</h2>
   <p>RNN은 문장이 길어질수록 앞부분의 정보가 점점 흐려져서 잊혀지는 "장기 의존성" 문제를 겪습니다. 이 한계를 극복하기 위해 등장한 것이 <a href="attention-mechanism.html">어텐션 메커니즘</a>이며, 이를 전면적으로 활용한 <a href="transformer.html">트랜스포머</a> 구조는 오늘날 대부분의 언어 모델에서 RNN을 대체하고 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>순서가 있는 데이터를 다루는 신경망 구조들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">구조</th><th scope="col">시점 간 정보 전달</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">RNN</th><td>은닉 상태를 한 시점씩 넘김</td><td>구조가 단순하고 긴 의존성 학습이 어려움</td></tr><tr><th scope="row"><a href="lstm.html">LSTM</a></th><td>게이트가 있는 셀 상태</td><td>긴 의존성에 상대적으로 강함</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>어텐션으로 모든 위치를 직접 참조</td><td>병렬 학습이 쉬움</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Elman, J. L. (1990). Finding structure in time. Cognitive Science, 14(2), 179–211.</li>
+    <li>Bengio, Y., Simard, P., &amp; Frasconi, P. (1994). Learning long-term dependencies with gradient descent is difficult. IEEE Transactions on Neural Networks, 5(2), 157–166.</li>
+    <li>Hochreiter, S., &amp; Schmidhuber, J. (1997). Long short-term memory. Neural Computation, 9(8), 1735–1780.</li>
+    <li>Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. Nature, 323, 533–536.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="graph-neural-network.html">그래프 신경망</a><a href="large-language-model.html">대규모 언어 모델</a><a href="generative-adversarial-network.html">생성적 적대 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="transformer.html">트랜스포머</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="gated-recurrent-unit.html">게이트 순환 유닛(GRU)</a><a href="reservoir-computing.html">저수지 컴퓨팅</a><a href="lstm.html">LSTM (장단기 메모리)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

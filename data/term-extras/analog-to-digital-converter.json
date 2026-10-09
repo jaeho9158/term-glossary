@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>ADC는 <strong>샘플링</strong>(일정 시간 간격으로 값을 읽음)과 <strong>양자화</strong>(그 값을 유한한 단계의 정수로 바꿈)로 아날로그 신호를 디지털 숫자로 바꿉니다.</li><li>N비트 ADC는 기준 전압 V<sub>ref</sub> 범위를 2<sup>N</sup>단계로 나눕니다. 한 단계의 크기(LSB)는 V<sub>ref</sub> ÷ 2<sup>N</sup> 입니다. 이상적인 양자화 오차는 최대 ±½ LSB 입니다.</li><li>샘플링 주파수 f<sub>s</sub>는 신호의 최고 주파수의 2배보다 커야 원신호를 복원할 수 있습니다(Shannon, 1949; Nyquist, 1928). 그렇지 못하면 낮은 주파수로 잘못 나타나는 앨리어싱이 생깁니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예(코드로 계산) V<sub>ref</sub> = 3.3 V일 때입니다.</p><table><thead><tr><th>비트 수 N</th><th>단계 수 2<sup>N</sup></th><th>LSB (mV)</th><th>이상적 SQNR (dB)</th></tr></thead><tbody><tr><td>8</td><td>256</td><td>12.891</td><td>49.9</td></tr><tr><td>10</td><td>1,024</td><td>3.223</td><td>62.0</td></tr><tr><td>12</td><td>4,096</td><td>0.806</td><td>74.0</td></tr><tr><td>16</td><td>65,536</td><td>0.050</td><td>98.1</td></tr></tbody></table><p>여기서 SQNR은 가득 찬 크기의 정현파를 이상적으로 양자화할 때의 신호대양자화잡음비로, 6.02 N + 1.76 dB 로 근사합니다(Oppenheim과 Schafer, 2010). 10비트 ADC가 2.5 V를 읽으면 2.5 ÷ 3.3 × 1024 ≈ 775.76 이므로 가장 가까운 정수 코드는 776이고, 이를 전압으로 되돌리면 2.5008 V로 오차는 약 0.0008 V입니다. ½ LSB ≈ 0.0016 V 이내입니다.</p><p>앨리어싱 예: f<sub>s</sub> = 8 kHz로 5 kHz 정현파를 샘플링하면 |5 − 8| = 3 kHz 신호로 보입니다. 나이퀴스트 한계 4 kHz를 넘었기 때문입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“비트가 많으면 항상 정확하다”는 오해</strong>: 표의 SQNR은 이상적인 값입니다. 실제 정밀도는 잡음과 비선형성 때문에 낮아지며, 이를 유효비트수(ENOB)로 나타냅니다.</li><li><strong>“샘플링 주파수가 높으면 해상도가 높다”는 오해</strong>: 샘플링 주파수는 시간 방향의 촘촘함이고, 비트 수는 크기 방향의 세밀함입니다. 둘은 별개입니다.</li><li><strong>“앨리어싱은 나중에 필터로 제거할 수 있다”는 오해</strong>: 샘플링 뒤에는 구분할 수 없으므로 샘플링 전에 저역통과(안티앨리어싱) 필터를 거쳐야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "변환 방향과 구성 요소를 구분하세요.",
+    "headers": [
+      "용어",
+      "하는 일",
+      "방향"
+    ],
+    "rows": [
+      [
+        "ADC",
+        "아날로그 전압을 디지털 코드로",
+        "아날로그 → 디지털"
+      ],
+      [
+        "DAC",
+        "디지털 코드를 아날로그 전압으로",
+        "디지털 → 아날로그"
+      ],
+      [
+        "샘플링",
+        "시간 방향으로 일정 간격마다 값을 읽음",
+        "ADC의 앞 단계"
+      ],
+      [
+        "양자화",
+        "값을 유한한 단계로 반올림",
+        "ADC의 뒤 단계"
+      ]
+    ]
+  },
+  "references": [
+    "Nyquist, H. (1928). Certain topics in telegraph transmission theory. Transactions of the American Institute of Electrical Engineers, 47(2), 617–644.",
+    "Shannon, C. E. (1949). Communication in the presence of noise. Proceedings of the IRE, 37(1), 10–21.",
+    "Oppenheim, A. V., & Schafer, R. W. (2010). Discrete-Time Signal Processing (3rd ed.). Pearson."
+  ]
+}

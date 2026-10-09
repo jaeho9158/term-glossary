@@ -1,0 +1,50 @@
+{
+  "type": "metric",
+  "fixes": [
+    {"find": "자본이 제한된 상황에서는 수익성지수가 높은 순서대로 투자안을 선택하는 것이 총NPV를 극대화하는 방법이 된다.", "replace": "자본이 제한된 상황에서 투자안을 부분적으로 실행할 수 있다면 수익성지수가 높은 순서대로 선택하는 것이 총NPV를 극대화하는 방법이 된다."}
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>수익성지수(PI) = 미래 현금유입의 현재가치 ÷ 최초 투자액 입니다. 순현재가치(NPV)와는 PI = 1 + NPV ÷ 투자액 의 관계에 있으므로, PI &gt; 1 이면 NPV &gt; 0, PI = 1 이면 NPV = 0 입니다. 투자액이 0보다 클 때 PI는 0 이상의 값이며 상한이 없습니다. 최초 투자액 외에 이후 추가 지출이 있으면 분모에 그 현재가치를 넣는 방식이 쓰이기도 하므로, 어떤 방식인지 확인해야 합니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>개별 투자안을 채택할지만 보면 PI &gt; 1 과 NPV &gt; 0 은 같은 결론입니다. 차이가 나는 것은 자금이 제한되어 여러 안 중 일부만 고르는 자본할당 상황입니다. 가상의 예(코드로 계산, 단위: 억 원, 예산 300): </p><table><thead><tr><th>투자안</th><th>투자액</th><th>현금유입 현재가치</th><th>PI</th><th>NPV</th></tr></thead><tbody><tr><td>A</td><td>100</td><td>135</td><td>1.35</td><td>35</td></tr><tr><td>B</td><td>250</td><td>320</td><td>1.28</td><td>70</td></tr><tr><td>D</td><td>150</td><td>165</td><td>1.10</td><td>15</td></tr></tbody></table><p>PI가 높은 순서대로 담으면 A+D(투자액 250, NPV 합 50)입니다. 그러나 가능한 조합을 모두 따져 보면 NPV 합이 가장 큰 것은 B(NPV 70)입니다. 투자안을 쪼갤 수 없는 경우에는 PI 순서가 NPV 합을 최대로 만든다는 보장이 없다는 뜻입니다.</p><p>상호배타적인 안을 비교할 때도 PI가 큰 쪽이 NPV가 작을 수 있으며, 이때는 NPV 기준이 가치 극대화에 더 부합한다고 설명됩니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>분자(현금유입의 현재가치)에 쓴 할인율과 현금흐름 추정 기간을 적습니다.</li><li>분모에 초기 투자액만 넣었는지, 추가 투자의 현재가치도 포함했는지 밝힙니다.</li><li>자본제약 상황이라면 PI 순서만으로 결론 내리지 말고, 선택 가능한 조합의 NPV 합을 비교했는지(또는 수리계획법을 썼는지)를 적습니다(Lorie와 Savage, 1955; Weingartner, 1963).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "자본예산 지표는 서로 다른 질문에 답합니다.",
+    "headers": [
+      "지표",
+      "무엇을 나타내나",
+      "단위"
+    ],
+    "rows": [
+      [
+        "수익성지수(PI)",
+        "투자 1원당 현재가치",
+        "비율"
+      ],
+      [
+        "[[net-present-value|순현재가치(NPV)]]",
+        "창출되는 가치의 절대액",
+        "금액"
+      ],
+      [
+        "[[internal-rate-of-return|내부수익률(IRR)]]",
+        "NPV를 0으로 만드는 할인율",
+        "%"
+      ]
+    ]
+  },
+  "references": [
+    "Lorie, J. H., & Savage, L. J. (1955). Three problems in rationing capital. The Journal of Business, 28(4), 229–239.",
+    "Weingartner, H. M. (1963). Mathematical Programming and the Analysis of Capital Budgeting Problems. Prentice-Hall."
+  ]
+}
