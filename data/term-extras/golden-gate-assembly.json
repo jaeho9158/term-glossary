@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>설계</strong>: 각 DNA 조각(부품)의 양 끝에 타입 IIS 제한효소의 인식 서열을 인식 서열 바깥쪽을 향하게 붙이고, 조각들이 이어질 순서에 맞게 서로 짝이 맞는 4염기 돌출 말단(오버행)을 정합니다. 예를 들어 BsaI는 GGTCTC를 인식하고 한쪽 가닥은 인식 서열에서 1염기, 다른 쪽은 5염기 떨어진 자리를 잘라 4염기 돌출 말단을 만듭니다. BsmBI(Esp3I)는 CGTCTC, BbsI는 GAAGAC를 인식합니다.</li><li><strong>한 튜브 반응</strong>: 부품, 목적 벡터, 타입 IIS 제한효소, T4 DNA 연결효소를 한 튜브에 넣습니다. 제한효소가 잘라 낸 말단은 서로 짝이 맞는 오버행끼리 붙어 연결효소가 이어 줍니다. 효소에 적합한 두 온도(대략 37 °C의 절단과 16 °C의 연결)를 수십 번 오가는 열순환을 쓰는 방법이 흔합니다(Engler 등, 2008).</li><li><strong>산물 보호</strong>: 올바르게 이어진 산물에서는 인식 서열이 떨어져 나가므로 같은 효소에 다시 잘리지 않습니다. 반대로 잘못 이어지거나 원래 모양으로 돌아간 것은 다시 잘리므로 올바른 산물이 쌓입니다.</li><li><strong>형질전환과 선별</strong>: 대장균에 넣고 목적 벡터의 선별 표지(예: 청백 선별을 위한 lacZ 조각이나 형광 단백질 유전자가 조각으로 대체되는 방식)로 콜로니를 고른 뒤 서열을 확인합니다.</li></ol>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>장점</strong>: 여러 조각(수 개~수십 개)을 정해진 순서와 방향으로 한 번에 조립할 수 있고, 오버행을 코딩 서열 안에 설계하면 인식 서열 흔적이 남지 않는 조립이 가능합니다(Engler 등, 2008, 2009). 표준화된 부품 라이브러리를 쓰는 합성생물학(MoClo 등, Weber 등, 2011)에서 많이 씁니다.</li><li><strong>다른 방법과 비교</strong>: 서열의 상동 부위로 이어 붙이는 방법(<a href=\"gibson-assembly.html\">깁슨 어셈블리</a>)은 제한효소 자리가 필요 없는 대신, 같은 부품을 규격화해서 돌려 쓰는 데는 골든게이트의 오버행 규칙이 편리합니다.</li><li><strong>가상의 계산 예 1(오버행 수)</strong>: 4염기 오버행은 4<sup>4</sup> = 256가지이고, 자기 자신과 상보적인 회문형 16가지를 빼면 240가지, 서로 상보적인 한 쌍을 같은 것으로 보면 120쌍입니다. 한 반응에 쓸 오버행끼리는 서로 헷갈리지 않아야 하므로 조립할 수 있는 조각 수에는 상한이 있습니다.</li><li><strong>가상의 계산 예 2(내부 인식 서열)</strong>: 무작위 서열에서 6염기 인식 서열(양쪽 가닥 합쳐 2가지 방향)이 나올 기대 횟수는 약 2L/4096입니다. 1,000염기에서는 약 0.49개라서 인식 서열이 하나도 없을 확률은 약 e<sup>−0.49</sup> ≈ 0.61이고, 5,000염기에서는 기대 2.44개로 하나도 없을 확률이 약 0.087입니다(무작위 서열 시뮬레이션에서도 각각 약 0.61, 0.085). 실제 서열은 무작위가 아니지만 긴 유전자일수록 내부에 인식 서열이 있을 가능성이 커서, 조각의 해당 자리를 동의 돌연변이로 바꾸어 없애는 작업이 흔합니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>설계 정보</strong>: 사용한 효소(예: BsaI-HFv2), 연결효소, 목적 벡터와 부품, 부품 사이 오버행 서열을 표나 그림으로 제시합니다. 오버행 세트를 어떤 근거(연결 정확도 자료, Potapov 등 2018; Pryor 등 2020)로 골랐는지 적습니다.</li><li><strong>반응 조건</strong>: 몰 비율, 총 DNA량, 열순환 조건, 마지막 효소 불활성화 단계를 적습니다.</li><li><strong>검증</strong>: 콜로니 PCR, 제한효소 지도, 서열 분석 중 무엇으로 확인했고 몇 개 콜로니 중 몇 개가 맞았는지 적습니다. 필요하면 정확도를 높인 변형 서열을 어떻게 처리했는지도 적습니다.</li><li><strong>한계</strong>: 인식 서열이 삽입 조각 내부에 있으면 조각이 잘려 실패하므로 서열을 미리 확인해야 합니다. 반응 효율은 DNA 순도에도 영향을 받아, 정제 방법을 함께 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[golden-gate-assembly|골든게이트 어셈블리]]",
+        "타입 IIS 효소로 여러 조각을 정해진 순서로 한 번에 조립. 오버행 설계가 핵심"
+      ],
+      [
+        "[[gibson-assembly|깁슨 어셈블리]]",
+        "조각 끝의 상동 서열을 효소로 이어 붙임. 제한효소를 쓰지 않음"
+      ],
+      [
+        "[[restriction-enzyme|제한효소]]",
+        "DNA를 특정 서열에서 자르는 효소. 일반 타입 II는 인식 서열 안쪽을, 타입 IIS는 바깥쪽을 자름"
+      ],
+      [
+        "[[blue-white-screening|청백 선별]]",
+        "lacZ 기능으로 재조합 콜로니를 색으로 가려내는 선별. 골든게이트 목적 벡터에 쓰이기도 함"
+      ],
+      [
+        "[[plasmid-miniprep|플라스미드 미니프렙]]",
+        "조립 후 콜로니에서 플라스미드를 뽑아 확인하는 단계"
+      ]
+    ]
+  },
+  "references": [
+    "Engler, C., Kandzia, R., & Marillonnet, S. (2008). A one pot, one step, precision cloning method with high throughput capability. PLoS ONE, 3, e3647.",
+    "Engler, C., Gruetzner, R., Kandzia, R., & Marillonnet, S. (2009). Golden Gate shuffling: a one-pot DNA shuffling method based on type IIs restriction enzymes. PLoS ONE, 4, e5553.",
+    "Weber, E., Engler, C., Gruetzner, R., Werner, S., & Marillonnet, S. (2011). A modular cloning system for standardized assembly of multigene constructs. PLoS ONE, 6, e16765.",
+    "Potapov, V., Ong, J. L., Kucera, R. B., et al. (2018). Comprehensive profiling of four base overhang ligation fidelity by T4 DNA ligase and application to DNA assembly. ACS Synthetic Biology, 7, 2665–2674.",
+    "Pryor, J. M., Potapov, V., Kucera, R. B., et al. (2020). Enabling one-pot Golden Gate assemblies of unprecedented complexity using data-optimized assembly design. PLoS ONE, 15, e0238592."
+  ]
+}

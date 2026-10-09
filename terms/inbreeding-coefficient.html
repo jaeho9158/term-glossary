@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/inbreeding-coefficient.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>근친계수는 개인의 질병 위험을 평가하는 임상유전학뿐 아니라, 집단유전학에서 개체군의 유전적 다양성이나 근친교배 정도를 정량화하는 데도 널리 쓰입니다. 특히 멸종위기종 보전이나 소규모 개체군 관리에서는 근친계수를 통해 유전적 다양성 감소와 그에 따른 생존력 저하 위험을 미리 파악할 수 있어 보전유전학의 핵심 지표로 다뤄집니다. 또한 육종학에서는 품종 개량 시 근친계수를 관리해 근친약세를 방지하는 데 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li><strong>범위</strong>: 0(공통 조상이 없음)에서 1(두 대립유전자가 모두 같은 조상 사본) 사이의 확률입니다. 혈통상 값과 유전체 자료로 구한 값이 같은 개념을 가리키지만 추정 방식이 다릅니다.</li><li><strong>혈통에서 계산(Wright, 1922)</strong>: 부모의 공통 조상 A마다, 한쪽 부모에서 A까지의 세대 수 n<sub>1</sub>과 다른 쪽 부모에서 A까지의 세대 수 n<sub>2</sub>를 세어 F = Σ (1/2)<sup>n<sub>1</sub>+n<sub>2</sub>+1</sup> (1 + F<sub>A</sub>)로 더합니다. F<sub>A</sub>는 그 조상 자신의 근친계수입니다.</li><li><strong>값 정리(가상의 혈통, 코드로 계산)</strong>:<div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>부모의 관계</th><th>F</th></tr></thead><tbody><tr><td>이부(이모) 형제자매</td><td>0.1250 (1/8)</td></tr><tr><td>친형제자매</td><td>0.2500 (1/4)</td></tr><tr><td>삼촌과 조카</td><td>0.1250 (1/8)</td></tr><tr><td>사촌</td><td>0.0625 (1/16)</td></tr><tr><td>육촌</td><td>0.015625 (1/64)</td></tr></tbody></table></div></li><li><strong>조상이 이미 근친일 때</strong>: 위 사촌의 공통 조상 F<sub>A</sub>가 0.125이면 F = 0.0703로 커집니다.</li><li><strong>집단과 유전체에서</strong>: 집단 수준에서는 F = 1 − H<sub>obs</sub>/H<sub>exp</sub>(관측 이형접합도 대 기대치)로 추정합니다. 유전체 자료에서는 동형접합이 길게 이어진 구간(runs of homozygosity, ROH)의 총 길이를 상염색체 길이로 나눈 F<sub>ROH</sub>를 쓰며(McQuillan 등, 2008), 혈통 기록이 먼 조상의 근친까지 놓치는 것을 보완합니다(Keller 등, 2011).</li></ul>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>정해진 기준선이 없습니다</strong>: 어디부터 '위험하다'는 표준 절단점은 없습니다. 값이 클수록 같은 조상 사본이 겹칠 확률이 높다는 뜻이며, 실제 영향은 그 집단에 해로운 열성 대립유전자가 얼마나 있느냐에 달려 있습니다(Falconer와 Mackay, 1996).</li><li><strong>가상의 계산 예 1</strong>: 개체군의 관측 이형접합도가 0.28이고 기대 이형접합도가 0.32이면 F = 1 − 0.28/0.32 = 0.125입니다.</li><li><strong>가상의 계산 예 2</strong>: 상염색체 약 2,800 Mb 중 ROH의 합이 150 Mb이면 F<sub>ROH</sub> = 150/2,800 = 0.054입니다. 어떤 길이 이상을 ROH로 칠지(예: 1 Mb 이상) 기준에 따라 값이 달라지므로 논문마다 기준을 확인해야 합니다.</li><li><strong>가상의 계산 예 3</strong>: 유효 개체수 N<sub>e</sub> = 50인 소집단에서 세대당 근친계수 증가는 ΔF = 1/(2N<sub>e</sub>) = 0.010이고, 10세대 뒤 근친계수는 1 − (1 − ΔF)<sup>10</sup> ≈ 0.096입니다. 작은 집단일수록 근친이 빨리 쌓입니다.</li><li><strong>근친교배 약세와 구분</strong>: F는 원인 쪽의 수치이고, 번식력·생존율이 떨어지는 현상(근친교배 약세)은 결과 쪽입니다. 두 개념을 섞어 쓰지 않습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li><strong>어떻게 구했는지 밝히기</strong>: 혈통 기반인지(몇 세대까지 거슬러 올라갔는지), 유전체 기반인지(SNP 수, ROH 길이 기준, 사용한 소프트웨어)를 적습니다. 혈통 깊이가 얕으면 F가 실제보다 작게 나옵니다.</li><li><strong>한 개체의 값인지 집단 평균인지</strong>: 개체별 F의 평균과 범위를 함께 제시하고, 집단 수준 값(F<sub>IS</sub> 등)은 이름을 정확히 씁니다.</li><li><strong>기준 집단의 차이</strong>: 이형접합도로 구한 값은 기준으로 삼는 집단이 달라지면 값도 달라지며, 음수가 나오면 기대보다 이형접합이 많다는 뜻입니다.</li><li><strong>해석 서술</strong>: F를 근거로 '질환 위험'을 말할 때는 해로운 대립유전자의 존재를 확인하지 않은 한 확률적 경향이라고 한정해 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"환자의 부모는 사촌지간으로, 계산된 근친계수는 0.0625였으며 이는 상염색체 열성 질환 발생 위험을 높이는 요인으로 작용했다."</div>
   <p>부모의 혈연관계를 수치화하여 열성 질환 발생 가능성을 설명하는 임상유전학적 예문이다.</p>
 
@@ -163,6 +181,20 @@
 
   <h2>주의할 점</h2>
   <p>근친계수가 높다고 반드시 질환이 발생하는 것은 아니며, 실제로 해로운 열성 대립유전자를 공유하고 있어야 발현으로 이어진다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="inbreeding-coefficient.html">근친계수</a></th><td>한 개체의 두 대립유전자가 공통 조상에서 온 같은 사본일 확률</td></tr><tr><th scope="row"><a href="heterozygosity.html">이형접합도</a></th><td>이형접합인 개체의 비율. 근친이 높아지면 낮아짐</td></tr><tr><th scope="row"><a href="genetic-drift.html">유전적 부동</a></th><td>작은 집단에서 대립유전자 빈도가 우연히 변하는 현상. 근친을 쌓는 한 원인</td></tr><tr><th scope="row"><a href="effective-population-size.html">유효 집단 크기</a></th><td>유전적 부동의 크기를 정하는 이상화된 집단 크기. ΔF = 1/(2Ne)</td></tr><tr><th scope="row"><a href="inclusive-fitness.html">포괄적합도</a></th><td>친족 간 유전적 관계도(r)를 활용한 이론. 근친계수와 다른 개념</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wright, S. (1922). Coefficients of inbreeding and relationship. The American Naturalist, 56, 330–338.</li>
+    <li>Malécot, G. (1948). Les mathématiques de l’hérédité. Masson.</li>
+    <li>McQuillan, R., Leutenegger, A.-L., Abdel-Rahman, R., et al. (2008). Runs of homozygosity in European populations. American Journal of Human Genetics, 83, 359–372.</li>
+    <li>Keller, M. C., Visscher, P. M., &amp; Goddard, M. E. (2011). Quantification of inbreeding due to distant ancestors and its detection using dense single nucleotide polymorphism data. Genetics, 189, 237–249.</li>
+    <li>Falconer, D. S., &amp; Mackay, T. F. C. (1996). Introduction to Quantitative Genetics (4th ed.). Longman.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

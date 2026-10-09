@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://termglossary.kr/terms/genome-wide-association-study.html">
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>GWAS는 당뇨병, 심혈관질환, 정신질환처럼 여러 유전 변이가 조금씩 영향을 미치는 복합 형질의 유전적 기반을 탐색하는 표준적인 방법으로 자리잡았습니다. 발견된 연관 신호는 질병의 생물학적 기전을 이해하는 단서가 될 뿐 아니라, 개인의 질병 위험을 예측하는 다유전자 위험점수(polygenic risk score) 개발의 토대가 되기 때문에 유전역학, 정밀의학 분야에서 핵심적으로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>표본과 유전형 분석</strong>: 질환자와 대조군(또는 키·혈압 같은 양적 형질을 잰 집단)에서 SNP 칩으로 수십만~수백만 개 변이를 분석합니다. 칩에 없는 변이는 참조 패널을 이용한 대치(imputation)로 추정해 수백만 개 이상으로 늘립니다.</li><li><strong>품질 관리</strong>: 검출률이 낮은 변이와 개체, 성별이 맞지 않는 개체, 친족 관계가 겹치는 개체, 하디-바인베르크 평형에서 크게 벗어난 변이, 희귀한 변이를 걸러 냅니다. 기준값은 연구마다 다르게 정합니다.</li><li><strong>집단 구조 보정</strong>: 조상 집단이 다르면 질환 빈도와 변이 빈도가 함께 달라져 거짓 연관이 생길 수 있어, 주성분 분석(Price 등, 2006)이나 혼합 모형으로 보정합니다.</li><li><strong>변이별 검정</strong>: 변이마다 하나씩 로지스틱 회귀(질환 여부) 또는 선형 회귀(양적 형질)를 돌리고, 나이·성별·주성분을 공변량으로 넣어 효과 크기와 p값을 얻습니다.</li><li><strong>결과 표시</strong>: 염색체 위치에 따른 −log<sub>10</sub>(p)를 그린 맨해튼 도표와, p값 분포가 기대와 얼마나 어긋나는지 보는 QQ 도표를 만듭니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>얻는 것</strong>: 사전 가설 없이 유전체 전체에서 형질과 통계적으로 연관된 위치를 찾습니다. 초기에 노인성 황반변성에서 보체 인자 H 변이가 밝혀졌고(Klein 등, 2005), 이후 7개 질환 1만 4천 명을 모은 대규모 연구(WTCCC, 2007)로 방법이 자리 잡았습니다.</li><li><strong>유의수준의 관행</strong>: 한 번에 백만 개 안팎을 검정하므로 다중 검정을 보정해야 하고, 흔히 쓰는 유전체 전체 유의 기준은 5×10<sup>−8</sup>입니다. 독립 검정 약 백만 개에 본페로니 보정을 한 것(0.05 / 10<sup>6</sup> = 5×10<sup>−8</sup>)과 같은 값이며, 인구 집단의 SNP 구조를 분석한 연구들(Pe'er 등, 2008)이 근거로 인용됩니다. 규약일 뿐 절대 기준은 아닙니다.</li><li><strong>가상의 계산 예(대립유전자 검정)</strong>: 환자 1,000명(대립유전자 2,000개) 중 위험 대립유전자가 800개, 대조군 1,000명(2,000개) 중 700개라면 오즈비는 (800/1200) / (700/1300) = 1.24(95% 신뢰구간 1.09~1.41)이고 카이제곱 통계량은 10.7, p ≈ 1.1×10<sup>−3</sup>입니다. 이 값은 5×10<sup>−8</sup>에 훨씬 못 미치므로, 이 정도 효과를 유전체 전체 수준으로 확인하려면 표본이 훨씬 커야 합니다(5×10<sup>−8</sup>에 해당하는 카이제곱은 자유도 1에서 약 29.7).</li><li><strong>한계</strong>: 효과 크기는 대개 작고(오즈비 1.1~1.3 정도가 흔함, Visscher 등, 2017), 연관 신호가 곧 원인 변이를 뜻하지 않습니다. 가까운 변이들이 함께 유전되는 연관불평형 때문에 같은 신호가 여러 변이에 퍼집니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>시료</strong>: 환자와 대조군 수, 조상 집단, 모집 기준, 윤리 승인을 적습니다.</li><li><strong>유전형 분석과 대치</strong>: 사용한 칩, 참조 패널과 소프트웨어, 유전체 빌드 번호(예: GRCh37, GRCh38)를 적습니다.</li><li><strong>품질 관리와 보정</strong>: 걸러 낸 기준값(검출률, 하디-바인베르크 평형, 희귀 변이 기준)과 모형, 공변량, 주성분 개수를 적습니다.</li><li><strong>통계 결과</strong>: 유의 기준(예: 5×10<sup>−8</sup>)과 근거, 팽창 지수 λ<sub>GC</sub>(관측 카이제곱 중앙값 / 기대 중앙값 0.455), 효과 대립유전자와 오즈비 또는 β와 신뢰구간을 함께 적습니다. 가상의 예로 관측 중앙값이 0.52이면 λ<sub>GC</sub> = 1.14이고, 1에 가까워야 집단 구조 보정이 잘 된 것으로 봅니다.</li><li><strong>재현</strong>: 독립 집단에서 다시 확인했는지, 요약 통계량을 공개했는지 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 GWAS는 20만 명의 표본을 대상으로 시행되었으며 15개의 새로운 유전자좌가 형질과 유의하게 연관됨을 확인했다."</div>
   <p>대규모 표본을 이용해 새로운 관련 유전자좌를 발견했다는 연구 결과를 보고하는 전형적인 예문이다.</p>
 
@@ -160,6 +178,20 @@
 
   <h2>주의할 점</h2>
   <p>GWAS에서 발견된 연관 신호는 <a href="linkage-disequilibrium.html">연관불평형</a> 때문에 실제 원인 변이가 아닐 수 있어 후속 기능 검증이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="genome-wide-association-study.html">GWAS</a></th><td>유전체 전체의 변이와 형질의 통계적 연관을 가설 없이 탐색</td></tr><tr><th scope="row"><a href="linkage-disequilibrium.html">연관불평형</a></th><td>가까운 변이가 함께 유전되는 경향. GWAS 신호가 퍼지는 이유</td></tr><tr><th scope="row"><a href="manhattan-plot.html">맨해튼 도표</a></th><td>GWAS 결과를 위치별 −log10(p)로 그린 그림</td></tr><tr><th scope="row"><a href="gwas-fine-mapping.html">GWAS 세밀 지도화</a></th><td>연관 신호 안에서 원인 후보 변이를 좁히는 후속 분석</td></tr><tr><th scope="row"><a href="bonferroni-correction.html">본페로니 보정</a></th><td>다중 검정에서 유의수준을 검정 수로 나누는 보정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Risch, N., &amp; Merikangas, K. (1996). The future of genetic studies of complex human diseases. Science, 273, 1516–1517.</li>
+    <li>Klein, R. J., Zeiss, C., Chew, E. Y., et al. (2005). Complement factor H polymorphism in age-related macular degeneration. Science, 308, 385–389.</li>
+    <li>Wellcome Trust Case Control Consortium. (2007). Genome-wide association study of 14,000 cases of seven common diseases and 3,000 shared controls. Nature, 447, 661–678.</li>
+    <li>Price, A. L., Patterson, N. J., Plenge, R. M., Weinblatt, M. E., Shadick, N. A., &amp; Reich, D. (2006). Principal components analysis corrects for stratification in genome-wide association studies. Nature Genetics, 38, 904–909.</li>
+    <li>Visscher, P. M., Wray, N. R., Zhang, Q., et al. (2017). 10 years of GWAS discovery: biology, function, and translation. American Journal of Human Genetics, 101, 5–22.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="manhattan-plot.html">맨해튼 플롯</a><a href="gwas-fine-mapping.html">GWAS 미세지도화</a></div></div><p class="concept-family-map"><a href="../concept-map/bio.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
