@@ -1,0 +1,58 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>위치</strong>: 블라인드 SQL 인젝션은 SQL 인젝션의 한 갈래입니다. OWASP는 이를 데이터베이스에 참·거짓으로 답할 수 있는 질문을 던지고 응용프로그램의 응답을 보고 답을 판단하는 유형으로 설명합니다.</li><li><strong>분류</strong>: 무엇을 단서로 삼느냐에 따라 응답 내용의 차이를 보는 내용 기반(content-based)과 응답 지연을 보는 시간 기반(time-based)으로 나눕니다.</li><li><strong>원인은 일반 SQL 인젝션과 같습니다</strong>: MITRE의 약점 목록은 이 계열 전체를 CWE-89, 곧 외부 입력으로 SQL 명령을 구성하면서 명령의 뜻을 바꿀 수 있는 특수 요소를 제대로 무력화하지 않는 약점으로 정의합니다. 블라인드 방식은 공격 패턴 목록에 CAPEC-7로 따로 올라 있습니다.</li><li><strong>이론적 정의</strong>: Su와 Wassermann(2006)은 웹 응용프로그램의 명령 주입을 입력이 질의의 구문 구조를 바꾸는 현상으로 형식화했습니다. 이 정의에서는 결과가 화면에 보이는지와 관계없이 같은 결함입니다.</li><li><strong>대응</strong>: CWE-89가 제시하는 완화책은 매개변수화, 허용 목록에 따른 입력 검증, 최소 권한, 오류 메시지 관리, 응용 방화벽 등으로 블라인드 방식에도 그대로 적용됩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>블라인드 방식이 왜 성립하는지를 방어자의 눈으로 정리하면, 응용프로그램이 <strong>의도하지 않게 흘리는 신호</strong>의 문제입니다. 공격 구문이나 절차는 다루지 않습니다.</p><table><thead><tr><th>새는 신호</th><th>왜 정보가 되는가</th><th>방어·탐지에서 보는 것</th></tr></thead><tbody><tr><td>응답 내용의 차이</td><td>조건이 참일 때와 거짓일 때 화면이 조금이라도 다르면 그 차이가 ‘예/아니오’ 한 번의 답이 됩니다.</td><td>같은 매개변수에 조금씩 다른 요청이 대량으로 반복되는 양상</td></tr><tr><td>응답 시간의 차이</td><td>화면이 완전히 같아도 응답이 늦어지는지로 같은 답을 얻습니다.</td><td>특정 요청에서만 응답 시간이 규칙적으로 길어지는 양상</td></tr></tbody></table><p>이 표가 말해 주는 것은 두 가지입니다. 첫째, 오류 메시지를 감추는 조치는 첫 번째 신호의 일부만 줄일 뿐 결함 자체를 없애지 못합니다. 둘째, 입력이 질의의 구조를 바꿀 수 없게 만들면(매개변수화) 두 신호가 모두 의미를 잃습니다. 방어 연구에는 질의 구조를 보호하려는 접근이 여럿 있습니다. 정적 분석과 실행 중 감시를 결합해 주입을 탐지·차단하는 방법(Halfond &amp; Orso, 2006)이나 무작위화를 이용하는 방법(Boyd &amp; Keromytis, 2004)이 그 예입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>오류 메시지를 숨기면 SQL 인젝션은 막힌다.</td><td>오류를 숨겨도 응답 내용이나 응답 시간의 차이가 남습니다. 블라인드 방식은 바로 그 상황을 전제로 한 유형입니다.</td></tr><tr><td>블라인드 방식은 별개의 취약점이다.</td><td>취약점은 일반 SQL 인젝션과 같은 CWE-89입니다. 달라지는 것은 정보가 드러나는 경로뿐입니다.</td></tr><tr><td>정보가 한 번에 조금씩만 새므로 위험이 낮다.</td><td>요청을 자동으로 반복할 수 있어 느리다는 점이 실질적인 장벽이 되지 못합니다. 위험 평가에서 일반 SQL 인젝션보다 낮게 볼 근거가 되지 않습니다.</td></tr><tr><td>웹 방화벽을 두면 충분하다.</td><td>방화벽은 CWE-89의 완화책 목록에 있지만 운영 단계의 보완 수단입니다. 설계·구현 단계의 매개변수화와 입력 검증을 대신하지 못합니다.</td></tr><tr><td>탐지 도구가 찾지 못했으면 취약점이 없다.</td><td>자동 진단은 응답 차이를 판별하는 기준에 의존하므로 놓치는 경우가 있습니다. 논문에서 진단 도구를 평가할 때 탐지율과 함께 오탐·미탐을 보고하는 이유입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "같은 약점에서 나오는 유형과, 이름이 비슷한 다른 주입 계열을 구분합니다.",
+    "headers": [
+      "용어",
+      "무엇을 가리키나",
+      "블라인드 방식과의 관계"
+    ],
+    "rows": [
+      [
+        "[[sql-injection|SQL 인젝션]]",
+        "입력이 SQL 질의의 구조를 바꾸는 약점과 이를 이용한 공격 전체",
+        "상위 개념"
+      ],
+      [
+        "[[blind-sql-injection|블라인드 SQL 인젝션]]",
+        "결과가 직접 보이지 않을 때 응답의 차이로 정보를 추론하는 유형",
+        "—"
+      ],
+      [
+        "내용 기반(불리언 기반)",
+        "참·거짓에 따른 응답 내용의 차이를 단서로 삼음",
+        "블라인드 방식의 하위 유형"
+      ],
+      [
+        "시간 기반",
+        "응답 지연 여부를 단서로 삼음",
+        "블라인드 방식의 하위 유형"
+      ],
+      [
+        "[[cross-site-scripting|크로스사이트 스크립팅]]",
+        "입력이 다른 사용자의 브라우저에서 스크립트로 실행되는 약점",
+        "주입 계열이지만 대상이 데이터베이스가 아니라 브라우저"
+      ]
+    ]
+  },
+  "references": [
+    "Su, Z., & Wassermann, G. (2006). The essence of command injection attacks in web applications. In Conference Record of the 33rd ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages, 372–382. ACM.",
+    "Boyd, S. W., & Keromytis, A. D. (2004). SQLrand: Preventing SQL injection attacks. In Applied Cryptography and Network Security (Lecture Notes in Computer Science), 292–302. Springer.",
+    "Halfond, W. G. J., & Orso, A. (2006). Preventing SQL injection attacks using AMNESIA. In Proceedings of the 28th International Conference on Software Engineering, 795–798. ACM."
+  ]
+}
