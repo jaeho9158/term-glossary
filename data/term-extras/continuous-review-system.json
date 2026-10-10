@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>정량발주(연속검토)는 재고 위치가 재주문점 s 이하로 내려가면 고정량 Q를 주문하는 (s, Q) 형태로 설명되곤 합니다. 수요가 정규분포를 따르고 리드타임 L이 일정하다고 가정하면 다음과 같습니다.</p><p><code>재주문점 = L × (평균 수요) + z × σ<sub>D</sub> × √L</code></p><p>z는 목표 서비스수준에 대응하는 표준정규 분위수(95%는 약 1.65), σ<sub>D</sub>는 단위기간 수요의 표준편차입니다. 뒤의 항이 안전재고입니다.</p><p><strong>가상의 계산.</strong> 평균 수요 40개/일, σ<sub>D</sub> = 8개/일, L = 5일, z = 1.65라면 안전재고 = 1.65 × 8 × √5 ≈ 29.5, 재주문점 = 200 + 29.5 ≈ 229.5(약 230개)입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>이 방식은 재고를 계속 볼 수 있을 때 쓰기 좋고, 안전재고가 리드타임 동안의 변동만 대비하면 된다는 점이 장점으로 설명됩니다. 정기검토 방식은 검토주기 R까지 더해 대비해야 합니다. 같은 값에서 R = 10일이면 안전재고는 1.65 × 8 × √(10 + 5) ≈ 51.1로, 위 29.5보다 큽니다.</p><p>다만 이 공식은 수요가 독립적이고 정규분포에 가깝다는 가정에 의존하므로, 계절성·추세가 있으면 오차가 생길 수 있습니다. 교과서로는 Silver, Pyke, &amp; Thomas(2016), Zipkin(2000), Axsäter(2006) 등이 있습니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>리드타임, 서비스수준, 수요 분포 가정(평균·표준편차)과 그 추정 기간을 밝힙니다.</li><li>주문량 Q를 어떻게 정했는지(예: [[economic-order-quantity|경제적주문량]]) 적습니다.</li><li>정기검토 방식과 비교할 때는 같은 서비스수준에서 안전재고와 총비용을 함께 비교합니다.</li><li>예: <code>서비스수준 95%, L = 5일, σ<sub>D</sub> = 8개/일로 재주문점을 230개로 설정하였다(가상의 값).</code></li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가"
+    ],
+    "rows": [
+      [
+        "정량발주(연속검토)",
+        "재고가 재주문점에 닿으면 고정량 주문"
+      ],
+      [
+        "[[periodic-review-system|정기발주시스템]]",
+        "일정 주기마다 검토하고 부족분을 주문"
+      ],
+      [
+        "[[reorder-point|재주문점]]",
+        "주문을 내는 재고 수준"
+      ],
+      [
+        "[[safety-stock|안전재고]]",
+        "수요·리드타임 변동에 대비하는 완충 재고"
+      ]
+    ]
+  },
+  "references": [
+    "Silver, E. A., Pyke, D. F., & Thomas, D. J. (2016). Inventory and Production Management in Supply Chains (4th ed.). Taylor & Francis Group.",
+    "Zipkin, P. H. (2000). Foundations of Inventory Management. McGraw-Hill/Irwin.",
+    "Axsäter, S. (2006). Inventory Control (2nd ed.). Springer.",
+    "Nahmias, S. (2001). Production and Operations Analysis (4th ed.). McGraw-Hill."
+  ]
+}
