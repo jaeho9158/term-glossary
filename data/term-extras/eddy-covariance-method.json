@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>핵심 원리는 레이놀즈 분해입니다. 연직 풍속 w와 스칼라 c(온도, 수증기, CO₂ 농도 등)를 평균값과 변동값(w′, c′)으로 나누고, 두 변동의 곱의 평균 <code>w′c′</code>(공분산)이 난류에 의한 연직 플럭스에 해당합니다. 위로 올라가는 소용돌이(w′ &gt; 0)가 농도가 높은 공기(c′ &gt; 0)를 싣고 있으면 공분산이 양수가 되어 위로 향하는 플럭스가 됩니다.</p><p>가상의 8개 자료로 계산해 봅시다. 연직 풍속 w = (0.3, −0.2, 0.5, −0.4, 0.1, −0.5, 0.4, −0.2) m/s, 농도 c = (0.6, −0.1, 0.9, −0.7, 0.2, −0.8, 0.5, −0.3)(임의 단위)이면 w의 평균은 0, c의 평균은 0.0375이고, 각 값에서 평균을 뺀 변동의 곱을 평균한 공분산은 0.201(m/s × 농도 단위)로 양수입니다. 실제 관측에서는 훨씬 높은 빈도로 측정한 긴 시계열을 일정 시간 구간으로 나누어 평균합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>에디공분산은 열, 수증기·이산화탄소·메탄 같은 기체, 운동량의 플럭스를 구하는 데 쓰이고, 기후모형·생물지구화학 모형과 위성 추정값의 검증에도 쓰입니다. Baldocchi(2003)는 이 방법이 그 시점의 지난 10년 동안 육상 생태계와 대기 사이의 CO₂ 플럭스를 1년 이상 평가하는 도구로 자리 잡아, 전 세계 180곳 넘는 관측지에서 거의 연속으로 쓰이고 있다고 평가합니다. Goulden 등(1996)은 하버드 숲에서 1990~1994년의 장기 관측으로 탄소 흡수를 측정하고 그 정확도를 평가한 사례입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>관측 높이, 풍속계와 가스분석기의 종류, 측정 주파수, 평균 시간을 적습니다.</li><li>측정 장치의 주파수 응답 보정 같은 후처리, 마찰속도 기준의 품질 관리(Goulden 등, 1996), 결측 보완 방법(Baldocchi, 2003)을 밝히고, 관측이 대표하는 지표 범위(플럭스 풋프린트)를 함께 적습니다.</li><li>에너지수지 폐합률을 보고합니다. Mauder 등(2024)은 FLUXNET 자료에서 약 20%였던 불균형이 개선 후에도 약 15%로 남아 있고, 단일 탑으로 잡을 수 없는 중규모 2차 순환과 저장항 변화가 주요 원인이라고 설명합니다.</li><li>Baldocchi(2003)에 따르면 야간 약풍 조건에서는 측정 오차가 편향될 수 있어 생태계 호흡이 과소 추정되는 경향이 있으므로, 야간 자료 처리 방식을 적어야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "지표–대기 교환을 다루는 이웃 용어입니다.",
+    "headers": [
+      "용어",
+      "역할"
+    ],
+    "rows": [
+      [
+        "에디공분산법",
+        "변동의 공분산으로 플럭스를 직접 측정"
+      ],
+      [
+        "[[bowen-ratio|보웬비]]",
+        "현열플럭스와 잠열플럭스의 비율. 가용 에너지가 두 플럭스로 어떻게 나뉘는지 나타냄"
+      ],
+      [
+        "[[friction-velocity|마찰속도]]",
+        "난류 강도를 나타내며 자료 품질 관리 기준으로 쓰임"
+      ],
+      [
+        "[[surface-energy-balance|지표에너지수지]]",
+        "순복사, 열플럭스, 지중열의 균형, 폐합 검증의 기준"
+      ]
+    ]
+  },
+  "references": [
+    "Baldocchi, D. D. (2003). Assessing the eddy covariance technique for evaluating carbon dioxide exchange rates of ecosystems: Past, present and future. Global Change Biology, 9(4), 479–492.",
+    "Goulden, M. L., Munger, J. W., Fan, S.-M., Daube, B. C., & Wofsy, S. C. (1996). Measurements of carbon sequestration by long-term eddy covariance: Methods and a critical evaluation of accuracy. Global Change Biology, 2(3), 169–182.",
+    "Mauder, M., Jung, M., Stoy, P., Nelson, J., & Wanner, L. (2024). Energy balance closure at FLUXNET sites revisited. Agricultural and Forest Meteorology, 358, 110235."
+  ]
+}
