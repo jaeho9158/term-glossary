@@ -1,0 +1,57 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>불리언 검색모형은 문서를 <strong>색인어의 집합</strong>으로, 질의를 AND·OR·NOT으로 엮은 논리식으로 봅니다. 문서는 질의식을 만족하면 검색되고 아니면 검색되지 않는 <strong>정확 일치</strong>입니다.</li><li>문서의 순서(어느 것이 더 관련되는가)가 없습니다. 결과는 일치한 문서의 집합이며, 단어 빈도와 순서는 무시합니다(bag-of-words).</li><li>정보검색 모형 중 가장 먼저 널리 쓰인 고전 모형으로 설명됩니다.</li><li>부분 일치와 순위를 허용하도록 확장한 모형으로 확장 불리언 모형이 제안되었습니다(Salton 등, 1983).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 문서 4개(색인어 집합)로 확인해 봅시다.</p><table><thead><tr><th>문서</th><th>색인어</th></tr></thead><tbody><tr><td>D1</td><td>부트스트랩, 재표본, 신뢰, 구간</td></tr><tr><td>D2</td><td>신뢰, 구간, 베이지안</td></tr><tr><td>D3</td><td>부트스트랩, 베이지안</td></tr><tr><td>D4</td><td>잭나이프, 재표본</td></tr></tbody></table><table><thead><tr><th>질의식</th><th>검색 결과</th></tr></thead><tbody><tr><td>부트스트랩 AND 재표본</td><td>D1</td></tr><tr><td>부트스트랩 OR 베이지안</td><td>D1, D2, D3</td></tr><tr><td>(신뢰 AND 구간) AND NOT 부트스트랩</td><td>D2</td></tr></tbody></table><p>결과가 어떤 순서로 나열되는지는 모형이 정하지 않으므로 이용자가 결과 수가 많을 때 별도의 기준이 필요합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>불리언 모형은 낡아서 쓰이지 않는다.</td><td>데이터베이스 검색식, 사서·전문가의 체계적 문헌검색, 필터링 단계에서 지금도 쓰입니다. 일반 웹검색은 대개 순위화 모형과 결합합니다.</td></tr><tr><td>OR을 많이 쓰면 정확해진다.</td><td>OR는 결과를 넓히고 AND는 좁힙니다. 연산자 조합에 따라 결과가 갑자기 많아지거나 0건이 될 수 있습니다.</td></tr><tr><td>상위에 나온 문서가 가장 관련 있다.</td><td>순위가 없으므로 노출 순서는 관련성이 아닌 시스템의 기본 정렬일 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "검색모형은 일치 방식과 순위화 여부로 구별합니다.",
+    "headers": [
+      "용어",
+      "일치 방식",
+      "순위"
+    ],
+    "rows": [
+      [
+        "불리언 검색모형",
+        "논리식을 만족하면 검색(이진)",
+        "없음"
+      ],
+      [
+        "[[vector-space-model|벡터공간모형]]",
+        "문서·질의 벡터 사이의 유사도",
+        "있음"
+      ],
+      [
+        "[[probabilistic-retrieval-model|확률적 검색모형]]",
+        "관련될 확률 추정",
+        "있음"
+      ],
+      [
+        "[[bm25|BM25]]",
+        "확률적 모형에 기반한 관련성 점수",
+        "있음"
+      ],
+      [
+        "[[boolean-operator|불리언연산자]]",
+        "AND·OR·NOT 같은 검색식의 연결 기호",
+        "(모형이 아니라 구성 요소)"
+      ]
+    ]
+  },
+  "references": [
+    "Manning, C. D., Raghavan, P., & Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press.",
+    "Salton, G., Fox, E. A., & Wu, H. (1983). Extended Boolean information retrieval. Communications of the ACM, 26(11), 1022-1036."
+  ]
+}

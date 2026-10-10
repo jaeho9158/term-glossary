@@ -1,0 +1,53 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>부트스트랩은 가진 표본을 반복해서 다시 뽑아(재표본) 통계량이 표본마다 얼마나 달라질지를 컴퓨터로 알아보는 방법입니다(Efron, 1979). 핵심은 “표본이 모집단의 모습을 닮았다”는 가정입니다.</p><ul><li><strong>비모수 부트스트랩</strong>: 원표본의 관측값을 복원추출합니다(재표본 크기는 원표본과 같게).</li><li><strong>모수 부트스트랩</strong>: 모형을 먼저 적합한 뒤 그 모형에서 새 자료를 생성합니다. 표본이 작고 모형을 믿을 수 있을 때 선택됩니다.</li></ul><p>이후 각 재표본에서 통계량을 계산하고 그 분포를 요약합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>표준오차 공식이 마땅치 않은 통계량의 불확실성(표준오차, 편향, 신뢰구간 등)을 구하려고 씁니다. 정규성 가정에 기대지 않는다는 점이 장점이지만, 시간 순서나 군집이 있는 자료는 구조를 보존하는 재표본 방식이 필요합니다.</p><p><strong>가상의 예</strong>(계산 코드로 확인): 10명의 값 12, 15, 9, 22, 14, 11, 18, 35, 13, 16의 <strong>중앙값</strong>은 14.5입니다. 중앙값의 표준오차를 구하는 간단한 공식은 없지만, 10,000번의 재표본에서 중앙값을 계산하면 그 표준편차(부트스트랩 표준오차)는 약 1.8입니다. 이 숫자는 같은 크기의 표본을 반복해서 뽑을 때 중앙값이 대략 이만큼 흔들린다는 뜻의 추정치입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>비모수/모수 중 무엇을 썼는지, 재표본 단위(개인, 군집)를 적습니다.</li><li>재표본 횟수 B와 난수 시드, 소프트웨어를 밝힙니다.</li><li>신뢰구간을 낼 때는 방법(백분위, BCa 등)을 함께 적습니다. 자세한 내용은 [[bootstrap-confidence-interval|부트스트랩 신뢰구간]]을 보세요.</li><li>원표본이 모집단을 잘 대표하지 못하면 부트스트랩이 그 편향을 고쳐 주지는 못한다는 한계를 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "재표본·시뮬레이션 방법들은 비슷해 보입니다.",
+    "headers": [
+      "용어",
+      "핵심 아이디어",
+      "추출 방식"
+    ],
+    "rows": [
+      [
+        "부트스트랩",
+        "표본을 모집단 대용으로 삼아 재표본",
+        "복원추출"
+      ],
+      [
+        "[[jackknife-resampling|잭나이프 재표본법]]",
+        "관측값을 하나씩 제외하고 통계량을 다시 계산",
+        "하나씩 제외"
+      ],
+      [
+        "[[permutation-test|순열검정]]",
+        "집단 표지를 섞어 귀무분포를 만듦",
+        "비복원(섞기)"
+      ],
+      [
+        "[[monte-carlo-method|몬테카를로 방법]]",
+        "알려진 모형에서 난수로 자료를 생성",
+        "모형에서 생성"
+      ]
+    ]
+  },
+  "references": [
+    "Efron, B. (1979). Bootstrap methods: another look at the jackknife. The Annals of Statistics, 7(1), 1-26.",
+    "Efron, B., & Tibshirani, R. J. (1993). An Introduction to the Bootstrap. Chapman & Hall.",
+    "Carpenter, J., & Bithell, J. (2000). Bootstrap confidence intervals: when, which, what? A practical guide for medical statisticians. Statistics in Medicine, 19(9), 1141-1164."
+  ]
+}

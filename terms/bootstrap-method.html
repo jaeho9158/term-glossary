@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 데이터에서는 표본분포를 이론적으로 유도하기 어려운 통계량(예: 매개효과, 중앙값 비율, 복잡한 회귀계수 조합)을 다루는 경우가 많아, 정규성 등 이론적 가정에 기대지 않고도 표준오차와 신뢰구간을 구할 수 있는 부트스트랩기법이 널리 활용됩니다. 특히 사회과학·경제학처럼 표본 크기가 제한적이고 분포 가정이 불확실한 분야에서, 결과의 강건성을 보여주는 표준적인 절차로 자리 잡았습니다. 계산 자원이 저렴해지면서 대규모 반복 재표집이 논문 심사 과정에서 사실상 관행처럼 요구되는 경우도 늘고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>부트스트랩은 가진 표본을 반복해서 다시 뽑아(재표본) 통계량이 표본마다 얼마나 달라질지를 컴퓨터로 알아보는 방법입니다(Efron, 1979). 핵심은 “표본이 모집단의 모습을 닮았다”는 가정입니다.</p><ul><li><strong>비모수 부트스트랩</strong>: 원표본의 관측값을 복원추출합니다(재표본 크기는 원표본과 같게).</li><li><strong>모수 부트스트랩</strong>: 모형을 먼저 적합한 뒤 그 모형에서 새 자료를 생성합니다. 표본이 작고 모형을 믿을 수 있을 때 선택됩니다.</li></ul><p>이후 각 재표본에서 통계량을 계산하고 그 분포를 요약합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>표준오차 공식이 마땅치 않은 통계량의 불확실성(표준오차, 편향, 신뢰구간 등)을 구하려고 씁니다. 정규성 가정에 기대지 않는다는 점이 장점이지만, 시간 순서나 군집이 있는 자료는 구조를 보존하는 재표본 방식이 필요합니다.</p><p><strong>가상의 예</strong>(계산 코드로 확인): 10명의 값 12, 15, 9, 22, 14, 11, 18, 35, 13, 16의 <strong>중앙값</strong>은 14.5입니다. 중앙값의 표준오차를 구하는 간단한 공식은 없지만, 10,000번의 재표본에서 중앙값을 계산하면 그 표준편차(부트스트랩 표준오차)는 약 1.8입니다. 이 숫자는 같은 크기의 표본을 반복해서 뽑을 때 중앙값이 대략 이만큼 흔들린다는 뜻의 추정치입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>비모수/모수 중 무엇을 썼는지, 재표본 단위(개인, 군집)를 적습니다.</li><li>재표본 횟수 B와 난수 시드, 소프트웨어를 밝힙니다.</li><li>신뢰구간을 낼 때는 방법(백분위, BCa 등)을 함께 적습니다. 자세한 내용은 <a href="bootstrap-confidence-interval.html">부트스트랩 신뢰구간</a>을 보세요.</li><li>원표본이 모집단을 잘 대표하지 못하면 부트스트랩이 그 편향을 고쳐 주지는 못한다는 한계를 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"매개효과의 유의성을 검증하기 위해 5,000회 반복의 부트스트랩기법으로 95% 신뢰구간을 산출하였다."</div>
   <p>표본을 반복적으로 재추출하는 시뮬레이션을 통해 통계적 유의성을 검증했다는 뜻이다.</p>
 
@@ -166,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>원표본 자체가 모집단을 잘 대표하지 못하면 부트스트랩으로도 이 근본적인 편향은 해결되지 않는다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>재표본·시뮬레이션 방법들은 비슷해 보입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">핵심 아이디어</th><th scope="col">추출 방식</th></tr></thead><tbody><tr><th scope="row">부트스트랩</th><td>표본을 모집단 대용으로 삼아 재표본</td><td>복원추출</td></tr><tr><th scope="row"><a href="jackknife-resampling.html">잭나이프 재표본법</a></th><td>관측값을 하나씩 제외하고 통계량을 다시 계산</td><td>하나씩 제외</td></tr><tr><th scope="row"><a href="permutation-test.html">순열검정</a></th><td>집단 표지를 섞어 귀무분포를 만듦</td><td>비복원(섞기)</td></tr><tr><th scope="row"><a href="monte-carlo-method.html">몬테카를로 방법</a></th><td>알려진 모형에서 난수로 자료를 생성</td><td>모형에서 생성</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Efron, B. (1979). Bootstrap methods: another look at the jackknife. The Annals of Statistics, 7(1), 1-26.</li>
+    <li>Efron, B., &amp; Tibshirani, R. J. (1993). An Introduction to the Bootstrap. Chapman &amp; Hall.</li>
+    <li>Carpenter, J., &amp; Bithell, J. (2000). Bootstrap confidence intervals: when, which, what? A practical guide for medical statisticians. Statistics in Medicine, 19(9), 1141-1164.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

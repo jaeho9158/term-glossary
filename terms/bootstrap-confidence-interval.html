@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 연구 데이터는 정규분포를 깔끔하게 따르지 않는 경우가 많고, 중앙값이나 비율의 비, 회귀계수처럼 이론적인 표준오차 공식이 없거나 계산이 까다로운 통계량도 흔합니다. 부트스트랩 신뢰구간은 이런 상황에서도 분포 가정 없이 신뢰구간을 구할 수 있게 해주기 때문에, 소규모 표본이나 비대칭 분포를 다루는 심리학·생물통계·경제학 논문에서 널리 채택됩니다. 또한 결과의 재현성과 강건성을 보여주는 보조 지표로도 자주 함께 보고되어, 심사자들이 통계적 추론의 신뢰성을 판단하는 근거로 삼는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>부트스트랩 신뢰구간은 가진 표본을 모집단 대신으로 삼아, 표본에서 같은 크기(n)만큼 <strong>복원추출</strong>을 B번 반복하고 매번 통계량을 계산해 얻은 분포로 구간을 만듭니다.</p><ol><li>원표본에서 크기 n의 재표본을 복원추출한다.</li><li>재표본에서 관심 통계량(평균, 중앙값, 상관계수 등)을 계산한다.</li><li>1-2를 B번(보통 수천 번) 반복해 부트스트랩 분포를 얻는다.</li><li>그 분포에서 구간을 읽는다. 가장 단순한 <strong>백분위법</strong>은 95% 구간이면 2.5번째와 97.5번째 백분위수를 씁니다.</li></ol><p>백분위법 외에 기본(basic, 역백분위) 구간, 편향과 비대칭을 보정하는 BCa 구간 등이 있습니다(Carpenter와 Bithell, 2000이 여러 방법의 강약점을 검토했습니다).</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>표준오차 공식이 복잡하거나 분포를 정규로 가정하기 어려운 통계량(중앙값, 비율의 비, 상관계수 등)의 구간을 얻고 싶을 때 쓰입니다. 정규분포 가정이 필요한 t 구간과 달리 모양이 치우친 분포도 반영할 수 있습니다.</p><p><strong>가상의 예</strong>(계산 코드로 확인): 10명의 값 12, 15, 9, 22, 14, 11, 18, 35, 13, 16의 평균은 16.5입니다. 재표본 10,000번의 백분위 95% 구간은 12.8-21.5였고, 같은 자료의 t 구간은 11.2-21.8이었습니다. 큰 값 35 때문에 분포가 오른쪽으로 치우쳐 두 구간이 다릅니다. 재표본을 1,000번만 쓰고 난수 시드를 바꾸면 구간 끝이 12.6-12.8, 21.2-22.1 사이에서 흔들렸습니다. 같은 자료라도 B와 시드에 따라 끝점이 달라집니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>구간 방법(백분위, 기본, BCa 등)과 신뢰수준을 적습니다.</li><li>재표본 횟수 B, 난수 시드, 소프트웨어 이름과 버전을 밝힙니다.</li><li>원표본의 크기와 추출 방식을 적습니다. 원표본이 모집단을 잘 대표하지 못하거나 매우 작으면 부트스트랩도 그 한계를 벗어나지 못합니다.</li><li>군집 자료·시계열처럼 관측값이 독립이 아니면 단순 복원추출을 쓸 수 없으므로 어떤 재표본 방식을 썼는지 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"두 조건 간 평균 차이의 95% 신뢰구간은 부트스트랩(재표본 5,000회, BCa법)을 이용해 [1.2, 4.8]로 추정되었다."</div>
   <p>이 문장은 데이터의 분포 가정에 의존하지 않고, 실제 표본을 반복 재표본하여 얻은 분포로부터 신뢰구간을 계산했다는 뜻입니다. 표본 분포가 비대칭적이거나 이론적 공식이 없는 복잡한 통계량(중앙값 차이, 상관계수 등)에 특히 유용합니다.</p>
   <div class="example">"매개효과의 크기는 부트스트랩 백분위법으로 재표본 2,000회를 반복해 산출한 95% 신뢰구간이 0을 포함하지 않아 통계적으로 유의한 것으로 나타났다."</div>
@@ -165,10 +183,24 @@
   <p>생태학이나 환경과학 논문에서는 현장 조사 표본 수가 제한적인 경우가 많아, 지수형 통계량의 불확실성을 시각적으로 나타낼 때 부트스트랩 신뢰구간이 오차막대의 형태로 자주 활용됩니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>부트스트랩 신뢰구간을 구하는 방식에는 몇 가지 변형이 있습니다. 가장 단순한 백분위법 외에, 표본평균에서 부트스트랩 분포의 편차를 뺀 뒤 백분위를 적용하는 피벗법(basic method), 그리고 편향과 비대칭성(가속도)을 함께 보정하는 BCa법이 대표적입니다. 일반적으로 BCa법이 편향된 표본 분포에서 더 정확한 구간을 제공한다고 알려져 있어 통계 소프트웨어에서도 기본 옵션으로 채택되는 경우가 많습니다. 실제 논문을 읽을 때는 어떤 방식을 썼는지, 재표본 횟수가 몇 회였는지를 함께 확인하면 결과의 안정성을 가늠하는 데 도움이 됩니다.</p>
+  <p>부트스트랩 신뢰구간을 구하는 방식에는 몇 가지 변형이 있습니다. 가장 단순한 백분위법 외에, 추정값의 두 배에서 부트스트랩 분포의 위쪽·아래쪽 백분위수를 각각 빼 구간의 양 끝을 뒤집어 잡는 기본법(basic method, 역백분위법), 그리고 편향과 비대칭성(가속도)을 함께 보정하는 BCa법이 대표적입니다. 일반적으로 BCa법이 편향된 표본 분포에서 더 정확한 구간을 제공한다고 알려져 있어 통계 소프트웨어에서도 기본 옵션으로 채택되는 경우가 많습니다. 실제 논문을 읽을 때는 어떤 방식을 썼는지, 재표본 횟수가 몇 회였는지를 함께 확인하면 결과의 안정성을 가늠하는 데 도움이 됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>부트스트랩은 "원본 표본이 모집단을 잘 대표한다"는 전제 위에서 작동하므로, 원본 표본 자체가 편향되어 있거나 극히 작으면(예: n=5) 신뢰구간도 함께 왜곡됩니다. 또한 재표본 횟수가 너무 적으면(수백 회 미만) 신뢰구간이 불안정해질 수 있어 보통 1,000회 이상을 권장합니다. 백분위법은 계산이 단순하지만 표본 분포가 치우쳐 있을 때 편향될 수 있어, 이런 경우 BCa법이 더 정확하다고 알려져 있습니다. 재표본 자체의 원리는 <a href="bootstrap-resampling.html">부트스트랩</a> 항목을, 정규분포 가정에 기반한 전통적 방식은 <a href="p-value.html">유의확률</a> 계산과 비교해 보면 이해에 도움이 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>재표본 방법들은 목적과 추출 방식이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">추출 방식</th><th scope="col">주된 목적</th></tr></thead><tbody><tr><th scope="row">부트스트랩 신뢰구간</th><td>복원추출 B회</td><td>통계량의 구간 추정</td></tr><tr><th scope="row"><a href="bootstrap-resampling.html">부트스트랩</a></th><td>복원추출 B회</td><td>표준오차·편향·구간 등 분포 추정 전반</td></tr><tr><th scope="row"><a href="jackknife-resampling.html">잭나이프 재표본법</a></th><td>관측값을 하나씩 빼고 반복</td><td>편향·분산 추정</td></tr><tr><th scope="row"><a href="permutation-test.html">순열검정</a></th><td>집단 표지를 섞음(비복원)</td><td>가설검정의 p값</td></tr><tr><th scope="row"><a href="confidence-interval.html">신뢰구간</a></th><td>(해석적 또는 재표본)</td><td>모수를 포함한다고 기대하는 구간</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Efron, B., &amp; Tibshirani, R. J. (1993). An Introduction to the Bootstrap. Chapman &amp; Hall.</li>
+    <li>DiCiccio, T. J., &amp; Efron, B. (1996). Bootstrap confidence intervals. Statistical Science, 11(3), 189-228.</li>
+    <li>Carpenter, J., &amp; Bithell, J. (2000). Bootstrap confidence intervals: when, which, what? A practical guide for medical statisticians. Statistics in Medicine, 19(9), 1141-1164.</li>
+    <li>Efron, B. (1979). Bootstrap methods: another look at the jackknife. The Annals of Statistics, 7(1), 1-26.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="confidence-interval.html">신뢰구간</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
