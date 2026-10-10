@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>블록배치설계는 세부 배치 설계에 앞선 상위 단계로, 이후 자재운반 동선, 부서 간 근접성 등 세부 설계의 방향을 결정하는 중요한 기준이 됩니다. 초기에 잘못 정해진 블록배치는 이후 상세 설계 단계에서 되돌리기 어려운 비용을 발생시킵니다. 부서 간 자재 이동량과 정보 흐름의 빈도를 정량화한 활동상관관계도표는 블록배치설계 단계에서 어느 부서를 서로 가깝게 배치할지 결정하는 근거 자료로 핵심적으로 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>블록배치설계는 설비배치의 첫 단계로, 부서를 면적을 가진 사각형(블록)으로 놓고 서로의 위치를 정하는 일입니다. 보통 다음 순서로 진행합니다.</p><ol><li>부서별로 필요한 면적을 추정합니다.</li><li>부서 사이의 관계를 정리합니다. 정성적으로는 <a href="activity-relationship-chart.html">활동상관관계도표</a>, 정량적으로는 <a href="from-to-chart.html">출발-도착표</a> 같은 흐름 자료를 씁니다.</li><li>이 관계를 바탕으로 여러 블록 배치 대안을 만듭니다.</li><li>대안을 평가합니다. 가장 흔한 기준은 부서 쌍별 (흐름량 × 거리)의 합입니다.</li><li>선택한 안을 통로·출입구·설비 위치를 정하는 상세 배치로 넘깁니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>흐름 × 거리의 합을 최소화하도록 시설을 위치에 하나씩 배정하는 문제를 <strong>이차할당문제</strong>(<a href="quadratic-assignment-problem.html">QAP</a>)라고 합니다. 1957년 코프만스(Koopmans)와 벡먼(Beckmann)이 입지 문제로 제안했고, 계산 복잡도가 NP-난해로 알려져 있어 부서 수가 늘면 정확한 해를 구하기 어렵습니다. 그래서 연구에서는 상대 위치를 휴리스틱으로 찾는 접근(예: Armour &amp; Buffa, 1963)이나 유전 알고리즘 같은 방법을 씁니다. 배치 문제 전반의 동향은 Meller &amp; Gau(1996)의 개관이 다룹니다.</p><p>가상의 예입니다. 부서 A·B·C를 일렬로 놓인 세 자리(자리 간격 1)에 배정하고, 부서 사이 월 운반 횟수를 A–B 10, A–C 2, B–C 6이라고 합시다. 여섯 가지 배정의 흐름×거리 합을 코드로 계산했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>배치(왼쪽에서 오른쪽)</th><th>총 흐름×거리</th></tr></thead><tbody><tr><td>A–B–C (거울상 C–B–A도 같음)</td><td>20</td></tr><tr><td>B–A–C (C–A–B)</td><td>24</td></tr><tr><td>A–C–B (B–C–A)</td><td>28</td></tr></tbody></table></div><p>흐름이 가장 큰 A–B와 그다음인 B–C를 이웃하게 놓은 A–B–C가 최소(20)입니다. 흐름이 큰 쌍을 가깝게 두는 것이 블록배치의 기본 논리입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>입력</strong>: 부서별 면적, 부서 간 흐름(또는 근접도 등급), 거리 척도(예: 직각거리), 건물 외곽과 고정 제약을 밝힙니다.</li><li><strong>목적함수</strong>: 흐름×거리 합 최소화인지, 근접도 점수 최대화인지 식으로 적습니다.</li><li><strong>해법</strong>: 정확해법인지 휴리스틱(유전 알고리즘 등)인지, 반복 횟수와 초기해를 보고합니다.</li><li><strong>결과</strong>: 대안별 목적함수 값과 현재 배치 대비 개선 정도를 표로 제시합니다.</li><li><strong>한계</strong>: 블록 배치는 개략 설계이므로 기둥·배관·안전 규정 등 구체 제약은 이후 상세 설계에서 반영한다고 밝힙니다.</li></ul><p>예: “부서 간 월 운반 횟수를 입력으로 하여 흐름×거리 합을 최소화하는 블록배치안을 도출하였다.”</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"활동상관관계도표를 기반으로 부서 간 근접성을 반영한 블록배치설계(block layout design)를 수행하였다."</div>
   <p>활동상관관계도표의 결과를 반영해 블록배치를 설계하는 절차를 보여주는 예문입니다.</p>
   <div class="example">"이차할당문제로 정식화된 블록배치설계 문제에 유전 알고리즘을 적용하여 대안들을 도출하였다."</div>
@@ -159,6 +177,19 @@
 
   <h2>주의할 점</h2>
   <p>블록배치설계는 상위 단계의 개략적 설계이므로, 실제 시공이나 설비 배치 시에는 구체적 제약 조건(기둥 위치, 배관, 안전 규정 등)을 반영한 상세 설계가 추가로 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 가리키나</th></tr></thead><tbody><tr><th scope="row">블록배치설계</th><td>부서를 블록으로 놓고 상대 위치를 정하는 단계</td></tr><tr><th scope="row"><a href="facility-layout.html">설비배치</a></th><td>블록배치와 상세배치를 포함한 배치 설계 전체</td></tr><tr><th scope="row"><a href="systematic-layout-planning.html">체계적배치계획</a></th><td>배치 설계를 단계별로 진행하는 절차(방법론)</td></tr><tr><th scope="row"><a href="quadratic-assignment-problem.html">이차할당문제</a></th><td>흐름×거리 합을 최소화하는 배정 문제(수리 모형)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Koopmans, T. C., &amp; Beckmann, M. (1957). Assignment problems and the location of economic activities. Econometrica, 25(1), 53.</li>
+    <li>Armour, G. C., &amp; Buffa, E. S. (1963). A heuristic algorithm and simulation approach to relative location of facilities. Management Science, 9(2), 294–309.</li>
+    <li>Meller, R. D., &amp; Gau, K.-Y. (1996). The facility layout problem: Recent and emerging trends and perspectives. Journal of Manufacturing Systems, 15(5), 351–366.</li>
+    <li>Tompkins, J. A., et al. (2010). Facilities Planning (4th ed.). J. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="facility-layout.html">설비배치</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="fixed-position-layout.html">고정위치배치</a><a href="cellular-layout.html">셀형배치</a><a href="warehouse-layout.html">창고배치</a><a href="systematic-layout-planning.html">체계적배치계획</a></div></div><p class="concept-family-map"><a href="../concept-map/indeng.html">분야 전체 개념 지도 보기 →</a> 부서 면적을 산정할 때 현재 필요한 공간만 고려하면 이후 생산량 증가에 대응하기 어려워질 수 있어, 향후 확장 가능성을 미리 반영한 여유 공간 설계가 함께 권장됩니다.</p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
