@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>베이즈 정리는 P(A|B) = P(B|A) · P(A) / P(B)입니다(P(B) ≠ 0).</li><li>P(A)는 증거를 보기 전의 확신 정도인 <strong>사전확률(prior)</strong>, P(B|A)는 A가 참일 때 증거 B가 나올 확률인 <strong>우도(likelihood)</strong>, P(B)는 증거 자체의 전체 확률(<strong>증거 또는 주변확률</strong>), P(A|B)는 증거를 반영해 갱신한 <strong>사후확률(posterior)</strong>입니다.</li><li>Thomas Bayes의 연구는 그가 죽은 뒤인 1763년에 <em>An Essay Towards Solving a Problem in the Doctrine of Chances</em>로 발표되었습니다. Richard Price가 원고를 편집해 보냈고 이 글은 1763년 12월 왕립학회에서 낭독되었습니다. 라플라스(Laplace)도 베이즈와 독립적으로 같은 결과를 얻어 1774년에 발표했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 약물 검사 예입니다. 인구의 0.3%가 약물을 사용하고, 검사의 민감도와 특이도는 둘 다 99%라고 합시다. 검사에서 양성이 나온 사람이 실제 사용자일 확률은 다음과 같습니다.</p><p>P(사용자|양성) = (0.99 × 0.003) ÷ (0.99 × 0.003 + 0.01 × 0.997) ≈ 23.0%</p><p>사람 수로 바꾸면 이해가 쉽습니다. 10만 명 중 사용자는 300명이고 그중 297명이 양성입니다. 비사용자 99,700명 중 1%인 약 997명도 양성입니다. 양성 1,294명 가운데 실제 사용자는 297명이므로 약 23.0%입니다.</p><p>검사가 ‘99% 정확’해도 대상이 드물면 양성의 대부분이 거짓 양성이 될 수 있다는 점을 보여 줍니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>P(A|B)와 P(B|A)는 같거나 비슷하다.</td><td>서로 다른 확률입니다. 위 예에서 P(양성|사용자)는 99%이지만 P(사용자|양성)은 약 23%입니다.</td></tr><tr><td>검사가 정확하면 양성 결과를 거의 믿어도 된다.</td><td>사전확률(기저율)이 낮으면 정확한 검사도 양성의 상당수가 거짓일 수 있습니다. 기저율을 무시하는 것을 기저율 오류라 부릅니다.</td></tr><tr><td>베이즈 정리를 쓰면 베이지안 통계이다.</td><td>정리 자체는 확률의 항등식입니다. 이를 반복 적용해 모수를 추정하는 통계적 틀을 [[bayesian-inference|베이지안 추론]]이라 부르며, 사전분포를 어떻게 잡느냐가 결과에 영향을 줍니다.</td></tr><tr><td>증거를 얻으면 사전확률은 필요 없다.</td><td>사후확률을 구하려면 사전확률이 필요하며, 이를 정하는 방식이 결과에 영향을 줍니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "베이즈 정리와 같은 이름 계열의 용어입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구분 포인트"
+    ],
+    "rows": [
+      [
+        "[[bayes-theorem|베이즈 정리]]",
+        "조건부확률을 뒤집어 사후확률을 구하는 식",
+        "수학적 정리(항등식)"
+      ],
+      [
+        "[[bayesian-inference|베이지안 추론]]",
+        "사전분포와 자료로 사후분포를 구해 추론하는 통계 방법",
+        "정리를 이용하는 추론 틀"
+      ],
+      [
+        "[[conditional-probability|조건부확률]]",
+        "어떤 사건이 일어났다는 조건에서 다른 사건의 확률",
+        "베이즈 정리의 구성 요소"
+      ],
+      [
+        "[[naive-bayes-classifier|나이브 베이즈 분류기]]",
+        "베이즈 정리와 조건부 독립 가정으로 분류하는 알고리즘",
+        "정리를 응용한 분류 방법"
+      ]
+    ]
+  },
+  "references": [
+    "Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. Philosophical Transactions of the Royal Society of London, 53, 370–418.",
+    "Gelman, A., Carlin, J. B., Stern, H. S., & Rubin, D. B. (1995). Bayesian Data Analysis. Chapman & Hall.",
+    "McGrayne, S. B. (2011). The Theory That Would Not Die. Yale University Press."
+  ]
+}

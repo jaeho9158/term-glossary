@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>실증 연구에서는 어떤 변수를 모형에 포함해야 하는지가 처음부터 명확하지 않은 경우가 많습니다. 연구자가 임의로 하나의 모형을 골라 결론을 내리면, 그 선택 자체가 결과를 왜곡할 수 있다는 비판(모형 선택 불확실성)을 피하기 어렵습니다. 베이지안 모형평균은 이 문제를 정면으로 다루기 때문에 경제성장 결정요인, 유전자·질병 연관성 분석, 정책 효과 추정처럼 후보 설명변수가 많고 이론적으로 어떤 조합이 옳은지 합의가 부족한 분야의 논문에서 특히 자주 등장합니다. 또한 예측 성능을 높이기 위한 앙상블 기법과도 개념적으로 맞닿아 있어, 통계·계량경제학뿐 아니라 머신러닝 인접 연구에서도 관련 논의가 이어집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li><strong>후보 모형 정하기</strong>: 설명변수의 조합마다 하나의 모형으로 봅니다.</li><li><strong>모형별 사후확률 구하기</strong>: 각 모형이 자료를 얼마나 잘 설명하는지(우도)와 모형에 대한 사전확률을 결합해 사후모형확률을 구합니다.</li><li><strong>가중 평균</strong>: 예측이나 계수를 모형별 값의 평균으로 내되, 가중치를 사후모형확률로 줍니다.</li><li><strong>변수 중요도</strong>: 어떤 변수를 포함한 모형들의 사후확률을 모두 더하면 그 변수의 사후포함확률(PIP)이 됩니다.</li></ol><p>사전확률이 결과에 영향을 주므로 어떤 사전을 썼는지가 중요합니다. 일부 소프트웨어(R 패키지)는 BIC(베이즈 정보기준)에 근거한 근사를 사용합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>변수를 어떻게 고르느냐에 따라 결론이 달라지는 상황, 곧 <strong>모형 불확실성</strong>이 큰 경우에 씁니다. 하나의 모형을 골라 그 모형이 맞다고 가정하는 대신 여러 모형을 확률로 가중해 불확실성을 결과에 반영합니다. 국가 간 경제성장 회귀처럼 후보 설명변수가 많은 문제에서 널리 적용되었습니다(Fernández 외, 2001; Sala-i-Martin 외, 2004).</p><p>가상의 예입니다. 세 모형의 BIC가 200.0(M1: x1만 포함), 201.5(M2: x1, x2 포함), 204.0(M3: x2만 포함)이라 하고, 모형의 사전확률은 같으며 사후모형확률이 exp(−BIC/2)에 비례한다고 근사합니다(BIC 근사).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>모형</th><th>BIC</th><th>사후모형확률</th></tr></thead><tbody><tr><td>M1 (x1)</td><td>200.0</td><td>0.622</td></tr><tr><td>M2 (x1, x2)</td><td>201.5</td><td>0.294</td></tr><tr><td>M3 (x2)</td><td>204.0</td><td>0.084</td></tr></tbody></table></div><p>x1을 포함한 모형은 M1과 M2이므로 PIP(x1) = 0.622 + 0.294 = 0.916, x2를 포함한 모형은 M2와 M3이므로 PIP(x2) = 0.294 + 0.084 = 0.378입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>후보 모형 공간</strong>: 후보 변수의 수와 포함 방식, 모형 사전확률(균등 여부).</li><li><strong>계수 사전분포</strong>: 어떤 사전을 썼는지와 민감도 확인 여부.</li><li><strong>탐색 방법</strong>: 후보가 많으면 모든 모형을 계산하지 못하므로 MCMC 등 탐색 알고리즘과 수렴 점검 결과.</li><li><strong>보고 지표</strong>: 변수별 사후포함확률, 평균 계수와 불확실성.</li><li><strong>한계</strong>: 사전 선택에 결과가 의존하고, 후보 모형이 모형 공간을 충분히 담지 못하면 가중치가 자료 분포에 가장 가까운 한 모형에 쏠려 결국 모형선택과 비슷해질 수 있다는 점.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"변수 선택에 따른 모형 불확실성을 반영하기 위해 베이지안 모형평균(BMA)을 실시하여 각 설명변수의 사후포함확률을 산출하였다."</div>
   <p>이 문장은 연구자가 어떤 변수를 모형에 넣을지 확신할 수 없는 상황에서, 가능한 모든 변수 조합의 모형을 비교하고 각 변수가 "진짜 설명력이 있을 확률"(사후포함확률)을 계산해 결과의 신뢰도를 높였다는 뜻입니다. 경제성장 결정요인 연구나 유전체 분석처럼 후보 변수가 매우 많은 분야에서 자주 쓰입니다.</p>
   <div class="example">"국가별 성장률 회귀분석에서 후보 설명변수 조합이 지나치게 많아 하나의 특정모형화(specification)에 의존한 추정치가 강건하지 않을 수 있으므로, 본 연구는 BMA를 통해 여러 모형의 추정치를 가중 평균한 강건 계수를 보고한다."</div>
@@ -167,6 +185,20 @@
 
   <h2>주의할 점</h2>
   <p>BMA는 하나의 <a href="bayesian-inference.html">베이지안 추론</a> 틀 안에서 "어떤 모형이 맞는가"에 대한 불확실성까지 반영한다는 점에서, 하나의 모형을 고정해 놓고 그 모형 안의 모수만 추정하는 일반적인 통계 분석과 다릅니다. 계산량이 많아 후보 모형 수가 매우 클 경우 근사적인 탐색 알고리즘을 사용하는 경우가 많다는 점도 함께 알아두면 좋습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>여러 모형을 다루는 방법들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구분 포인트</th></tr></thead><tbody><tr><th scope="row"><strong>베이지안 모형평균</strong></th><td>여러 모형의 예측을 사후모형확률로 가중 평균</td><td>모형 불확실성을 결과에 반영</td></tr><tr><th scope="row"><a href="bayesian-information-criterion.html">BIC</a></th><td>모형 비교에 쓰는 정보기준</td><td>모형 가중치를 근사하는 데 쓰일 수 있음</td></tr><tr><th scope="row"><a href="akaike-information-criterion.html">AIC</a></th><td>예측 성능 관점의 정보기준</td><td>BIC와 목적이 다름</td></tr><tr><th scope="row"><a href="ensemble-learning.html">앙상블 학습</a></th><td>여러 모형을 결합해 예측하는 기계학습 기법</td><td>BMA와 개념적으로 닿아 있으나 가중 방식이 다양</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hoeting, J. A., Madigan, D., Raftery, A. E., &amp; Volinsky, C. T. (1999). Bayesian model averaging: a tutorial. Statistical Science, 14(4), 382–417.</li>
+    <li>Raftery, A. E., Madigan, D., &amp; Hoeting, J. A. (1997). Bayesian model averaging for linear regression models. Journal of the American Statistical Association, 92(437), 179–191.</li>
+    <li>Fernández, C., Ley, E., &amp; Steel, M. F. J. (2001). Model uncertainty in cross-country growth regressions. Journal of Applied Econometrics, 16(5), 563–576.</li>
+    <li>Sala-i-Martin, X., Doppelhofer, G., &amp; Miller, R. I. (2004). Determinants of long-term growth: a Bayesian averaging of classical estimates (BACE) approach. American Economic Review, 94(4), 813–835.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>보의 굽힘 이론은 구조공학, 기계설계, 항공우주 등 하중을 지지하는 부재를 다루는 거의 모든 분야에서 해석의 출발점이 되는 이론이다. 새로운 재료나 복합 단면, 특수 하중 조건을 다루는 논문이라도 결국 이 고전적 굽힘 이론을 기준선으로 삼아 결과를 검증하거나 확장하는 경우가 많다. 유한요소해석(FEA) 같은 수치해석 기법이 널리 쓰이는 지금도, 계산 결과의 타당성을 가늠하는 손쉬운 검산 도구로서 여전히 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <ul><li>가장 널리 쓰이는 오일러–베르누이 보 이론(고전 보 이론)은 선형 탄성 재료로 된 보가 가로 하중으로 작게 휠 때의 휨모멘트, 응력, 처짐을 간단한 식으로 계산합니다.</li><li><strong>가정</strong>: 단면은 휜 뒤에도 평면을 유지하고 중립축에 수직입니다(전단변형 무시). 처짐은 작아서 기울기와 곡률을 근사할 수 있습니다. 중립면의 길이는 변하지 않고, 재료는 훅의 법칙을 따릅니다.</li><li><strong>기본식</strong>: 휨모멘트 M = −EI · d²w/dx², 단면 위치 z에서의 응력 σ = −zE · d²w/dx². 여기서 w는 처짐, E는 탄성계수(<a href="youngs-modulus.html">영률</a>), I는 <a href="moment-of-inertia-section.html">단면 2차모멘트</a>입니다. 두 식을 합치면 σ = zM/I가 됩니다.</li><li>대표 결과: 중앙에 집중하중 P를 받는 단순보의 최대 모멘트는 PL/4(경간 중앙), 중앙 처짐은 PL³/(48EI)이고, 끝에 하중 F를 받는 외팔보의 끝 처짐은 FL³/(3EI)입니다.</li></ul><p>가상의 예를 계산해 보겠습니다. 강재(E = 200 GPa), 단면 폭 50 mm × 높이 100 mm인 외팔보(L = 2 m) 끝에 1 kN을 가합니다.</p><ul><li>I = bh³/12 = 0.05 × 0.1³ ÷ 12 ≈ 4.167 × 10<sup>−6</sup> m<sup>4</sup></li><li>끝 처짐 = FL³/(3EI) ≈ 3.2 mm</li><li>고정단 최대 모멘트 = FL = 2.0 kN·m, 최대 응력 σ = M(h/2)/I ≈ 24.0 MPa</li></ul>
+
+  <h2>근거와 대표 연구</h2>
+  <p>이 이론은 한 사람이 완성한 것이 아니라 여러 세대에 걸쳐 쌓였습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시기</th><th>기여</th><th>비고</th></tr></thead><tbody><tr><td>1705</td><td>야코프 베르누이: 곡률이 휨모멘트에 비례한다고 제안</td><td>그 이전 갈릴레오와 레오나르도 다 빈치의 관찰이 거론됨</td></tr><tr><td>1744</td><td>오일러: 탄성곡선에 미분법 적용</td><td><em>Methodus inveniendi lineas curvas</em></td></tr><tr><td>1921</td><td>티모셴코: 전단 보정을 포함한 보 방정식</td><td>Philosophical Magazine에 발표된 논문</td></tr></tbody></table></div><p>이 이론은 1750년경에 정식화되었지만 널리 쓰인 것은 19세기 후반 대형 구조물 건설 이후로 알려져 있습니다. 구조 설계 교재에서는 이 이론을 재료역학의 기본 틀로 다룹니다(Timoshenko &amp; Gere 등).</p><p>국내 연구에서도 보 이론을 다른 구조에 빌려 쓰는 사례가 있습니다. 예컨대 중족골을 한쪽이 고정된 외팔보로 보고 굽힘모멘트를 설명한 스포츠의학 연구가 있습니다.</p>
+
+  <h2>비판과 한계</h2>
+  <ul><li><strong>전단변형과 회전관성을 무시합니다.</strong> 짧고 두꺼운(뚱뚱한) 보나 높은 진동 모드에서는 오차가 커지며, 이를 고려한 것이 <a href="timoshenko-beam-theory.html">티모셴코 보 이론</a>입니다. 오일러–베르누이 이론은 티모셴코 이론의 특수한 경우로 간주됩니다.</li><li><strong>작은 처짐, 선형 탄성만 다룹니다.</strong> 큰 변형이나 재료 비선형에는 적용하기 어렵습니다.</li><li><strong>복합재나 이방성 단면</strong>처럼 가정을 벗어나는 경우에는 이론값을 수치해석 결과와 대조해 검증하는 방식이 쓰입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"보의 굽힘 이론에 기반하여 최대 처짐량을 계산하고 허용 기준과 비교하였다."</div>
   <p>교량이나 건축 구조물의 보 부재 설계에서 굽힘응력과 처짐을 계산할 때 기본적으로 사용되는 이론이다.</p>
 
@@ -165,6 +183,18 @@
 
   <h2>주의할 점</h2>
   <p>기본 굽힘 이론은 단면이 평면을 유지하며 중립축에 수직을 이룬다는 가정, 즉 전단변형을 무시하는 가정을 전제로 하므로, 짧고 두꺼운 보에는 전단변형을 고려한 별도 이론이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>보를 다루는 이론과 개념의 구분입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">구분 포인트</th></tr></thead><tbody><tr><th scope="row"><strong>보의 굽힘 이론</strong></th><td>보의 휨응력과 처짐을 계산하는 이론</td><td>전단변형을 무시하는 고전 이론이 기본</td></tr><tr><th scope="row"><a href="timoshenko-beam-theory.html">티모셴코 보 이론</a></th><td>전단변형과 회전관성을 포함한 보 이론</td><td>짧고 두꺼운 보에 적합</td></tr><tr><th scope="row"><a href="beam-deflection.html">보의 처짐</a></th><td>하중에 의한 보의 변위</td><td>이론의 계산 결과 중 하나</td></tr><tr><th scope="row"><a href="beam-structure.html">보(구조)</a></th><td>하중을 받는 수평 구조 부재 자체</td><td>이론이 아니라 부재</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Timoshenko, S. P. (1921). On the correction for shear of the differential equation for transverse vibrations of prismatic bars. Philosophical Magazine, 41(245), 744–746.</li>
+    <li>Timoshenko, S. P., &amp; Gere, J. M. (1972). Mechanics of Materials. Van Nostrand Reinhold.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="bending-moment.html">굽힘모멘트</a><a href="moment-of-inertia-section.html">단면 2차모멘트</a><a href="beam-deflection.html">보의 처짐</a><a href="shear-bending-moment-diagram.html">전단력선도와 굽힘모멘트도</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

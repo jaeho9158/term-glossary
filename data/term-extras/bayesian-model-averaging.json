@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li><strong>후보 모형 정하기</strong>: 설명변수의 조합마다 하나의 모형으로 봅니다.</li><li><strong>모형별 사후확률 구하기</strong>: 각 모형이 자료를 얼마나 잘 설명하는지(우도)와 모형에 대한 사전확률을 결합해 사후모형확률을 구합니다.</li><li><strong>가중 평균</strong>: 예측이나 계수를 모형별 값의 평균으로 내되, 가중치를 사후모형확률로 줍니다.</li><li><strong>변수 중요도</strong>: 어떤 변수를 포함한 모형들의 사후확률을 모두 더하면 그 변수의 사후포함확률(PIP)이 됩니다.</li></ol><p>사전확률이 결과에 영향을 주므로 어떤 사전을 썼는지가 중요합니다. 일부 소프트웨어(R 패키지)는 BIC(베이즈 정보기준)에 근거한 근사를 사용합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>변수를 어떻게 고르느냐에 따라 결론이 달라지는 상황, 곧 <strong>모형 불확실성</strong>이 큰 경우에 씁니다. 하나의 모형을 골라 그 모형이 맞다고 가정하는 대신 여러 모형을 확률로 가중해 불확실성을 결과에 반영합니다. 국가 간 경제성장 회귀처럼 후보 설명변수가 많은 문제에서 널리 적용되었습니다(Fernández 외, 2001; Sala-i-Martin 외, 2004).</p><p>가상의 예입니다. 세 모형의 BIC가 200.0(M1: x1만 포함), 201.5(M2: x1, x2 포함), 204.0(M3: x2만 포함)이라 하고, 모형의 사전확률은 같으며 사후모형확률이 exp(−BIC/2)에 비례한다고 근사합니다(BIC 근사).</p><table><thead><tr><th>모형</th><th>BIC</th><th>사후모형확률</th></tr></thead><tbody><tr><td>M1 (x1)</td><td>200.0</td><td>0.622</td></tr><tr><td>M2 (x1, x2)</td><td>201.5</td><td>0.294</td></tr><tr><td>M3 (x2)</td><td>204.0</td><td>0.084</td></tr></tbody></table><p>x1을 포함한 모형은 M1과 M2이므로 PIP(x1) = 0.622 + 0.294 = 0.916, x2를 포함한 모형은 M2와 M3이므로 PIP(x2) = 0.294 + 0.084 = 0.378입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li><strong>후보 모형 공간</strong>: 후보 변수의 수와 포함 방식, 모형 사전확률(균등 여부).</li><li><strong>계수 사전분포</strong>: 어떤 사전을 썼는지와 민감도 확인 여부.</li><li><strong>탐색 방법</strong>: 후보가 많으면 모든 모형을 계산하지 못하므로 MCMC 등 탐색 알고리즘과 수렴 점검 결과.</li><li><strong>보고 지표</strong>: 변수별 사후포함확률, 평균 계수와 불확실성.</li><li><strong>한계</strong>: 사전 선택에 결과가 의존하고, 후보 모형이 모형 공간을 충분히 담지 못하면 가중치가 자료 분포에 가장 가까운 한 모형에 쏠려 결국 모형선택과 비슷해질 수 있다는 점.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "여러 모형을 다루는 방법들입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "구분 포인트"
+    ],
+    "rows": [
+      [
+        "[[bayesian-model-averaging|베이지안 모형평균]]",
+        "여러 모형의 예측을 사후모형확률로 가중 평균",
+        "모형 불확실성을 결과에 반영"
+      ],
+      [
+        "[[bayesian-information-criterion|BIC]]",
+        "모형 비교에 쓰는 정보기준",
+        "모형 가중치를 근사하는 데 쓰일 수 있음"
+      ],
+      [
+        "[[akaike-information-criterion|AIC]]",
+        "예측 성능 관점의 정보기준",
+        "BIC와 목적이 다름"
+      ],
+      [
+        "[[ensemble-learning|앙상블 학습]]",
+        "여러 모형을 결합해 예측하는 기계학습 기법",
+        "BMA와 개념적으로 닿아 있으나 가중 방식이 다양"
+      ]
+    ]
+  },
+  "references": [
+    "Hoeting, J. A., Madigan, D., Raftery, A. E., & Volinsky, C. T. (1999). Bayesian model averaging: a tutorial. Statistical Science, 14(4), 382–417.",
+    "Raftery, A. E., Madigan, D., & Hoeting, J. A. (1997). Bayesian model averaging for linear regression models. Journal of the American Statistical Association, 92(437), 179–191.",
+    "Fernández, C., Ley, E., & Steel, M. F. J. (2001). Model uncertainty in cross-country growth regressions. Journal of Applied Econometrics, 16(5), 563–576.",
+    "Sala-i-Martin, X., Doppelhofer, G., & Miller, R. I. (2004). Determinants of long-term growth: a Bayesian averaging of classical estimates (BACE) approach. American Economic Review, 94(4), 813–835."
+  ]
+}
