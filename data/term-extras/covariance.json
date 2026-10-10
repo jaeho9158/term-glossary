@@ -1,0 +1,58 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "표준화한 것이 <a href=\"pearson-spearman-correlation.html\">피어슨 상관계수와 스피어만 상관계수</a>입니다.",
+      "replace": "표준화한 것이 <a href=\"pearson-spearman-correlation.html\">피어슨 상관계수</a>입니다. (스피어만 상관계수는 원래 값이 아니라 순위에 피어슨 상관계수를 적용한 것입니다.)"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>모집단: Cov(X, Y) = E[(X − μ<sub>X</sub>)(Y − μ<sub>Y</sub>)]. 표본: s<sub>xy</sub> = Σ(x<sub>i</sub> − x̄)(y<sub>i</sub> − ȳ) / (n − 1).</li><li>자기 자신과의 공분산은 분산입니다. Cov(X, X) = Var(X).</li><li>범위에 고정된 눈금은 없고 −∞부터 +∞까지 가능합니다. 다만 코시-슈바르츠 부등식에 의해 |Cov(X, Y)| ≤ σ<sub>X</sub>σ<sub>Y</sub>입니다.</li><li>단위는 두 변수 단위의 곱이며, 단위를 바꾸면 값이 비례해서 변합니다.</li></ul><p>가상의 예: 공부 시간 x = 2, 4, 6, 8, 10(시간), 점수 y = 55, 60, 70, 75, 90(점). x̄ = 6, ȳ = 70이고 편차곱의 합이 170이므로 s<sub>xy</sub> = 170 / 4 = 42.5(시간·점)입니다. n으로 나누면 34가 됩니다. 분산은 s²<sub>x</sub> = 10, s²<sub>y</sub> = 187.5이고 r = 42.5 / (√10 × √187.5) ≈ 0.981입니다. 시간 대신 분(60배)으로 재면 공분산은 2,550으로 60배가 되지만 r은 그대로입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>부호만 해석합니다. 양수는 함께 커지고 줄어드는 경향, 음수는 한쪽이 클 때 다른 쪽이 작은 경향입니다. 위 예에서 점수를 90, 80, 70, 60, 50으로 바꾸면 공분산은 −50입니다.</li><li>크기는 단위에 좌우되므로 서로 다른 변수 쌍끼리 비교하거나 ‘강하다/약하다’를 판단할 수 없습니다. 관계의 세기가 필요하면 표준화한 상관계수를 씁니다.</li><li>공분산이 0이라고 해서 독립은 아닙니다. 예컨대 x = −2, −1, 0, 1, 2에 y = x²이면 완벽한 종속인데도 공분산은 0입니다. 공분산과 상관은 선형 관계의 척도이기 때문입니다. 두 변수가 결합 정규분포를 따를 때는 무상관이 독립을 뜻합니다(각각 정규분포인 것만으로는 부족합니다).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>변수가 둘보다 많으면 공분산행렬로 보고합니다. 대각 원소가 각 변수의 분산입니다.</li><li>표본 공분산은 n − 1로 나눈 값인지 n으로 나눈 값인지 밝힙니다. 변수 수가 표본 크기에 비해 많으면 추정이 불안정해질 수 있고, 이때는 축소추정 같은 방법이 쓰입니다(Ledoit &amp; Wolf 2004; [[covariance-matrix-estimation|공분산행렬 추정]]).</li><li>값과 함께 단위를 쓰고, 해석에는 보통 상관계수를 함께 제시합니다([[correlation|상관관계]]).</li><li>‘공분산분석(ANCOVA)’은 공변량을 통제하고 집단 평균을 비교하는 분석으로, 이 용어의 공분산 자체와는 다른 기법입니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "단위·범위"
+    ],
+    "rows": [
+      [
+        "[[covariance|공분산]]",
+        "두 변수가 함께 움직이는 정도",
+        "두 변수 단위의 곱, 범위 제한 없음"
+      ],
+      [
+        "[[variance|분산]]",
+        "한 변수의 퍼진 정도(자기 자신과의 공분산)",
+        "변수 단위의 제곱, 0 이상"
+      ],
+      [
+        "[[pearson-spearman-correlation|피어슨 상관계수]]",
+        "공분산을 두 표준편차의 곱으로 나눈 값",
+        "단위 없음, −1~1"
+      ],
+      [
+        "공분산분석(ANCOVA)",
+        "공변량을 통제한 집단 비교 기법",
+        "이 용어의 공분산과 다른 개념"
+      ]
+    ]
+  },
+  "references": [
+    "Wasserman, L. (2004). All of statistics: A concise course in statistical inference. Springer.",
+    "Rodgers, J. L., & Nicewander, W. A. (1988). Thirteen ways to look at the correlation coefficient. The American Statistician, 42(1), 59–66.",
+    "Ledoit, O., & Wolf, M. (2004). A well-conditioned estimator for large-dimensional covariance matrices. Journal of Multivariate Analysis, 88(2), 365–411."
+  ]
+}
