@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,8 +147,25 @@
   <h2>왜 중요한가</h2>
   <p>방향도함수는 다변수함수의 변화 양상을 특정 방향에서 정량적으로 파악할 수 있게 해주므로, 최적화 이론과 편미분방정식, 물리학의 장(field) 이론 등에서 폭넓게 활용됩니다. 특히 기계학습의 경사하강법처럼 함수 값을 가장 빠르게 줄이거나 늘리는 방향을 찾는 문제는 본질적으로 방향도함수를 최대화·최소화하는 문제이기 때문에, 관련 논문에서 이 개념이 이론적 근거로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>점 <code>a</code>에서 <strong>단위벡터</strong> <code>u</code> 방향으로의 방향도함수는 <code>D<sub>u</sub>f(a) = lim<sub>h→0</sub> [f(a + hu) − f(a)] / h</code> 입니다. 극한이 존재할 때 정의됩니다.</li><li>f가 미분가능하면 <code>D<sub>u</sub>f(a) = ∇f(a) · u</code> 로 계산합니다. 편미분은 좌표축 방향의 방향도함수에 해당합니다.</li><li>f가 가장 빨리 늘어나는 방향은 <a href="gradient.html">그래디언트</a> ∇f의 방향이며 그때의 변화율은 ‖∇f‖입니다. 가장 빨리 줄어드는 방향은 −∇f이고 변화율은 −‖∇f‖입니다.</li><li>∇f에 수직인 방향(등위선의 접선 방향)으로는 변화율이 0입니다. ∇f가 영벡터이면 모든 방향에서 0입니다.</li><li>방향 벡터는 반드시 길이 1로 맞춥니다. 주어진 방향 벡터가 단위벡터가 아니면 먼저 자기 길이로 나눕니다(OpenStax의 예: 〈−5, 12〉를 〈−5/13, 12/13〉로).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 함수 f(x, y) = x²y 의 점 (1, 2)에서 방향 〈3, 4〉로의 변화율을 구합니다. 계산은 코드로 확인했습니다.</p><ol><li>그래디언트: ∇f = (2xy, x²) 이므로 (1, 2)에서 ∇f = (4, 1).</li><li>단위벡터: 〈3, 4〉의 길이가 5이므로 u = (3/5, 4/5).</li><li>방향도함수: D<sub>u</sub>f = 4 × 3/5 + 1 × 4/5 = 16/5 = 3.2. 극한 정의로 h = 10<sup>−6</sup>에서 수치로 계산해도 3.2000…이 나옵니다.</li><li>최대 증가율은 ‖∇f‖ = √17 ≈ 4.123 이며 방향은 (4, 1)/√17 입니다. 최소(가장 빠른 감소)는 −4.123 입니다.</li><li>수직 방향 (−1, 4)/√17 에서는 4×(−1) + 1×4 = 0 으로 변화율이 0입니다.</li></ol><p>단위벡터로 나누지 않고 〈3, 4〉를 그대로 넣으면 16이 나와, 올바른 값의 5배가 됩니다. 방향 벡터의 길이가 값에 섞이기 때문입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>방향 벡터를 길이 상관없이 넣어도 된다.</td><td>길이가 1이 아니면 변화율이 벡터 길이만큼 곱해져 방향 비교가 왜곡됩니다. 항상 단위벡터로 맞춥니다.</td></tr><tr><td>그래디언트 방향으로 가면 함수가 줄어든다.</td><td>그래디언트는 가장 빨리 늘어나는 방향입니다. 손실을 줄이는 경사하강법은 −∇f 방향으로 이동합니다.</td></tr><tr><td>편미분이 모두 있으면 방향도함수는 항상 ∇f · u 로 구해진다.</td><td>이 공식은 f가 미분가능할 때의 결과입니다. 편미분이 존재하는 것만으로는 충분하지 않으니, 확실하지 않으면 극한 정의로 돌아가 확인합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"손실함수의 감소가 가장 빠른 방향을 찾기 위해 방향도함수가 최대가 되는 방향, 즉 그래디언트의 방향으로 파라미터를 갱신하였다."</div>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
+  <div class="example">"손실함수의 감소가 가장 빠른 방향을 찾기 위해 방향도함수가 최소가 되는 방향, 즉 그래디언트의 반대 방향으로 파라미터를 갱신하였다."</div>
   <p>이 문장은 "함수 값이 가장 빠르게 줄어드는 방향을 방향도함수 계산을 통해 확인하고, 그 방향으로 모델의 값을 조금씩 조정했다"는 뜻으로, 최적화(optimization) 알고리즘의 원리를 설명할 때 자주 등장합니다.</p>
 
   <div class="example">"지형 표면의 경사 안정성을 평가하기 위해 임의의 사면 방향에 대한 고도 함수의 방향도함수를 계산하였다."</div>
@@ -161,6 +179,19 @@
 
   <h2>주의할 점</h2>
   <p>방향도함수를 계산할 때 사용하는 방향 벡터는 반드시 크기가 1인 단위벡터로 맞춰야 합니다. 방향 벡터의 길이를 통일하지 않으면 방향에 따라 값이 커지거나 작아지는 정도가 벡터 길이 때문에 왜곡되어, 순수하게 "방향"에 따른 변화율만 비교할 수 없게 됩니다. 방향도함수 중 값이 가장 커지는 방향이 바로 <a href="gradient.html">그래디언트 (기울기벡터)</a> 벡터가 가리키는 방향입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>변화율을 나타내는 다변수 미분 용어들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">결과의 형태</th></tr></thead><tbody><tr><th scope="row"><a href="partial-derivative.html">편미분</a></th><td>좌표축 방향으로의 변화율</td><td>스칼라(축마다 하나)</td></tr><tr><th scope="row">방향도함수</th><td>임의의 단위벡터 방향으로의 변화율</td><td>스칼라(방향마다 하나)</td></tr><tr><th scope="row"><a href="gradient.html">그래디언트</a></th><td>편미분을 모은 벡터, 가장 가파르게 증가하는 방향을 가리킴</td><td>벡터</td></tr><tr><th scope="row"><a href="jacobian-matrix.html">야코비 행렬</a></th><td>벡터값 함수의 1차 미분을 모은 행렬</td><td>행렬</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Strang, G., &amp; Herman, E. (2016). Calculus Volume 3. OpenStax.</li>
+    <li>Stewart, J. (2008). Calculus: Early Transcendentals (6th ed.). Thomson/Brooks-Cole.</li>
+    <li>Marsden, J. E., &amp; Tromba, A. J. (2012). Vector Calculus (6th ed.). W. H. Freeman.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

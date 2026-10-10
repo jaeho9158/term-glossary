@@ -1,0 +1,70 @@
+{
+  "type": "method",
+  "fixes": [
+    {
+      "find": "두 지역의 조사망률을 표준인구 연령구조로 가중하여",
+      "replace": "두 지역의 연령별 사망률을 표준인구 연령구조로 가중하여"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ol><li>비교할 집단 모두에 같은 연령 구간(예: 5세 단위)을 씁니다.</li><li>모든 집단에 공통으로 적용할 <strong>표준인구</strong>를 고르고, 연령 구간별 비중 w<sub>i</sub>(합이 1)를 구합니다.</li><li>집단별 연령별 율 r<sub>i</sub>에 표준인구의 비중을 곱해 모두 더합니다.</li></ol><p><code>표준화율 = Σ (w<sub>i</sub> × r<sub>i</sub>)</code></p><p>미국 국립보건통계센터의 해설서(Curtin &amp; Klein, 1995)는 표준인구와 연령별 사망률을 곱해 합산한 뒤 표준인구 총수로 나누는 절차로 설명하며, 두 가정을 짚습니다. 그 집단의 관찰된 연령별 율이 타당하다는 것, 그리고 그 집단의 연령 분포가 표준(기준) 인구의 것이라고 가정한다는 것입니다. 결과는 “그 연령별 율이 표준인구에 적용되었다면 나왔을 율”이라는 가상의 값이므로, 실제 사건 수가 아니라 비교용 지표입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>필요한 자료는 비교할 집단마다의 <strong>연령별 사건 수와 인구</strong>입니다. 결과가 실제 율과 같은 단위(예: 인구 10만 명당)로 나와 읽기 쉽습니다.</li><li>연령 구간마다 사건 수가 적으면 율이 불안정하고, 그 불안정이 표준화율로 그대로 옮겨 옵니다. 연령별 율을 얻기 어려운 경우의 대안이 간접표준화입니다. Naing(2000)은 직접법은 공통 연령구조의 표준인구를, 간접법은 공통의 연령별 율 묶음을 쓰며 가장 단순한 간접 지표가 표준화사망비(SMR)라고 정리합니다.</li><li>표준인구를 무엇으로 정하느냐에 따라 표준화율의 값이 달라지므로, 비교하는 모든 값은 같은 표준인구로 계산해야 합니다.</li></ul>\n<p><strong>가상의 예</strong>: 연령을 세 구간으로 나눈 두 지역(사망률은 인구 1,000명당)을 비교합니다. 표준인구의 비중은 40%, 35%, 25%로 가정합니다.</p>\n<table><thead><tr><th>연령</th><th>A 인구</th><th>A 사망률</th><th>B 인구</th><th>B 사망률</th><th>표준 비중</th></tr></thead><tbody><tr><td>0–39세</td><td>20,000</td><td>0.5</td><td>50,000</td><td>0.7</td><td>40%</td></tr><tr><td>40–64세</td><td>30,000</td><td>4</td><td>30,000</td><td>5</td><td>35%</td></tr><tr><td>65세 이상</td><td>50,000</td><td>40</td><td>20,000</td><td>50</td><td>25%</td></tr></tbody></table>\n<table><thead><tr><th>지표(1,000명당)</th><th>A</th><th>B</th></tr></thead><tbody><tr><td>조사망률</td><td>21.30</td><td>11.85</td></tr><tr><td>직접표준화율</td><td>11.60</td><td>14.53</td></tr></tbody></table>\n<p>A의 조사망률이 B보다 훨씬 높지만, 이는 A에 65세 이상이 많기 때문입니다. 모든 연령에서 B의 사망률이 더 높고, 표준화하면 순서가 뒤집혀 B가 더 높게 나옵니다. 조사망률만 비교하면 틀린 결론에 이를 수 있는 전형적인 경우입니다(수치는 코드로 계산했습니다).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>직접표준화법을 썼다는 것, <strong>표준인구의 종류와 기준 연도</strong>, 연령 구간, 율의 단위를 모두 밝힙니다.</li><li>표준화율은 비교용 값이라는 점을 짚고, 필요하면 조사망률과 연령별 율도 함께 제시합니다.</li><li>문장 형식 예(가상): “연령구조의 차이를 보정하기 위해 ○○ 표준인구를 이용한 직접표준화법으로 연령표준화사망률(인구 10만 명당)을 산출하였다.”</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "표준화에는 비슷해 보이는 지표가 여럿 있습니다.",
+    "headers": [
+      "용어",
+      "무엇을 구하나",
+      "필요한 자료"
+    ],
+    "rows": [
+      [
+        "[[direct-standardization|직접표준화]]",
+        "표준인구에 각 집단의 연령별 율을 적용한 표준화율",
+        "집단별 연령별 사건 수와 인구"
+      ],
+      [
+        "[[indirect-standardization|간접표준화]]",
+        "표준 연령별 율을 집단의 연령구조에 적용해 기대 사건 수를 구하고 관찰 수와 비교",
+        "집단의 연령별 인구, 총 관찰 사건 수, 표준 연령별 율"
+      ],
+      [
+        "[[crude-death-rate|조사망률]]",
+        "연령구조를 보정하지 않은 전체 사망률",
+        "총 사망 수와 총 인구"
+      ],
+      [
+        "[[age-standardized-rate|연령표준화율]]",
+        "직접표준화 등으로 연령구조를 맞춘 율을 가리키는 말",
+        "—"
+      ],
+      [
+        "[[standardized-mortality-ratio|표준화사망비(SMR)]]",
+        "관찰 사망 수 ÷ 기대 사망 수",
+        "간접표준화에 쓰이는 표준율"
+      ],
+      [
+        "[[kitagawa-decomposition|기타가와 분해]]",
+        "두 율의 차이를 구성 요소로 나누는 기법",
+        "두 집단의 연령별 율과 연령구조"
+      ]
+    ],
+    "note": "표준인구의 종류는 [[standard-population|표준인구]]에서 따로 다룹니다."
+  },
+  "references": [
+    "Curtin, L. R., & Klein, R. J. (1995). Direct standardization (age-adjusted death rates). Healthy People 2000 Statistical Notes, No. 6 (Revised). National Center for Health Statistics.",
+    "Naing, N. N. (2000). Easy way to learn standardization: Direct and indirect methods. The Malaysian Journal of Medical Sciences, 7(1), 10–15.",
+    "Kitagawa, E. M. (1955). Components of a difference between two rates. Journal of the American Statistical Association, 50(272), 1168–1194."
+  ]
+}
