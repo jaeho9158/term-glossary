@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>심전도(ECG), 뇌전도(EEG), 근전도(EMG) 등 대부분의 생체신호 측정 장비에는 생체전위 증폭기가 필수적으로 들어갑니다. 신호 대 잡음비를 얼마나 잘 확보하느냐가 진단의 정확도와 직결되기 때문에, 증폭기의 성능은 의료기기 전체의 신뢰성을 좌우하는 요소로 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>심전도·뇌전도·근전도 같은 생체전위는 수 μV~mV로 작아서 증폭이 필요합니다. 동시에 몸이 안테나처럼 작용해 50/60 Hz 전원선 간섭 같은 잡음이 함께 잡힙니다.</li><li>그래서 두 전극의 <strong>차이</strong>만 키우고 두 입력에 똑같이 실리는 성분(공통모드)은 줄이는 차동 구조를 씁니다. 계측증폭기는 입력 버퍼가 붙은 정밀 차동증폭기로 입력 임피던스가 매우 높고 공통모드 제거비(CMRR)가 큽니다.</li><li><a href="common-mode-rejection-ratio.html">CMRR</a>은 차동 이득 ÷ 공통모드 이득이고 dB로는 20·log<sub>10</sub>(A<sub>d</sub>/|A<sub>cm</sub>|)입니다. 이상적으로는 무한대지만 현실에서는 불가능하며, 집적회로형 계측증폭기는 저항 정합이 좋아 100 dB를 넘을 수 있습니다.</li><li>우측다리구동(DRL) 회로는 심전도·뇌전도·근전도 증폭기에 덧붙여 공통모드 간섭을 능동적으로 상쇄합니다(Winter와 Webster, 1983).</li><li>신경 신호 기록용으로는 저전력·저잡음 CMOS 증폭기가 설계되어 왔습니다(Harrison과 Charles, 2003).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>가상의 예로, 몸에 1 V의 50 Hz 공통모드 간섭이 실렸다고 합시다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>증폭기 CMRR</th><th>CMRR(배수)</th><th>입력으로 환산한 오차 신호</th></tr></thead><tbody><tr><td>80 dB</td><td>10,000배</td><td>100 μV</td></tr><tr><td>100 dB</td><td>100,000배</td><td>10 μV</td></tr></tbody></table></div><p>찾는 심전도 신호를 1 mV로 가정하면 오차는 각각 10%와 1%입니다. CMRR이 20 dB 차이 나면 간섭이 10배 다르게 남습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>이득을 크게 할수록 신호가 잘 보인다.</td><td>이득만 키우면 포화되거나 잡음까지 함께 커질 수 있습니다. 잡음 대비 신호가 중요합니다.</td></tr><tr><td>CMRR이 높으면 간섭이 없어진다.</td><td>CMRR은 무한대일 수 없고 저항 정합 같은 부품 정밀도에 좌우됩니다. 남은 간섭은 입력 환산 오차로 따져야 합니다.</td></tr><tr><td>생체전위 증폭기는 신호만 골라 키운다.</td><td>증폭기는 두 입력의 차이를 키울 뿐이며, 신호와 같은 모양의 간섭은 구분하지 못합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"The biopotential amplifier achieved a common-mode rejection ratio sufficient to suppress power-line interference in the recorded EEG signals."</div>
   <p>생체전위 증폭기가 충분한 동상제거비(CMRR)를 확보하여 뇌전도 신호에 섞인 전원선 잡음을 억제할 수 있었다는 뜻으로, 잡음 억제 성능이 신호 품질에 미치는 영향을 보여줍니다.</p>
   <div class="example">"A low-noise, high-input-impedance biopotential amplifier was designed for wearable ECG monitoring applications."</div>
@@ -161,6 +179,17 @@
 
   <h2>주의할 점</h2>
   <p>증폭 이득을 무조건 높인다고 신호 품질이 좋아지는 것은 아니며, 과도한 이득은 오히려 포화나 잡음 증폭을 일으킬 수 있어 적절한 균형이 필요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="common-mode-rejection-ratio.html">동상신호제거비(CMRR)</a></th><td>차동 이득과 공통모드 이득의 비. 증폭기의 잡음 제거 능력을 나타냄</td></tr><tr><th scope="row"><a href="signal-to-noise-ratio.html">신호대잡음비(SNR)</a></th><td>원하는 신호와 잡음의 크기 비. 증폭 결과의 품질을 나타냄</td></tr><tr><th scope="row"><a href="electrocardiography.html">심전도검사</a></th><td>심장 전기활동을 기록하는 검사. 생체전위 증폭기가 쓰이는 대표 사례</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Winter, B. B., &amp; Webster, J. G. (1983). Driven-right-leg circuit design. IEEE Transactions on Biomedical Engineering, BME-30(1), 62–66.</li>
+    <li>Harrison, R. R., &amp; Charles, C. (2003). A low-power low-noise CMOS amplifier for neural recording applications. IEEE Journal of Solid-State Circuits, 38(6), 958–965.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="driven-right-leg-circuit.html">우측다리구동회로</a></div></div><p class="concept-family-map"><a href="../concept-map/biomed.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>비트오류율은 통신 시스템의 성능을 정량적으로 나타내는 가장 기본적인 지표 중 하나로, 변조 방식이나 부호화 기법, 채널 환경에 따라 시스템 성능을 비교하고 평가하는 데 핵심적인 역할을 합니다. 새로운 통신 기법을 제안하는 논문에서는 거의 예외 없이 비트오류율 성능을 함께 제시합니다. 새로운 변조나 부호화 방식을 제안하는 논문 대부분은 이론적으로 유도한 비트오류율과 모의실험으로 얻은 결과를 함께 제시해 분석의 신뢰성을 뒷받침합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>비트오류율(BER)은 <strong>잘못 판정된 비트 수 ÷ 전송한 전체 비트 수</strong>입니다. 단위가 없는 비율이고 백분율로도 씁니다. 예를 들어 9비트를 보냈는데 3비트가 틀렸다면 BER은 3/9 ≈ 0.333입니다.</li><li>측정한 BER은 이론적인 <strong>비트오류확률</strong>의 추정값입니다. 관측 구간이 길고 오류가 충분히 많이 관측될수록 추정이 정확해집니다.</li><li>오류의 원인으로는 채널 잡음, 간섭, 왜곡, 비트 동기 문제, 감쇠, 무선 다중경로 페이딩이 꼽힙니다.</li><li>이론식의 대표 예로, 가우시안 잡음(AWGN) 채널에서 BPSK의 비트오류확률은 P<sub>b</sub> = Q(√(2E<sub>b</sub>/N<sub>0</sub>))입니다. QPSK도 비트당 오류확률이 같습니다. 그레이 부호화를 쓰면 심볼 오류 하나가 비트 오류 하나로 이어지는 경우가 많아 P<sub>b</sub> ≈ P<sub>s</sub>/k(k는 심볼당 비트 수)로 근사합니다.</li></ul><p>BPSK의 이론 BER을 E<sub>b</sub>/N<sub>0</sub>별로 계산한 값입니다(코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>E<sub>b</sub>/N<sub>0</sub></th><th>BER</th></tr></thead><tbody><tr><td>0 dB</td><td>7.9 × 10<sup>-2</sup></td></tr><tr><td>4 dB</td><td>1.3 × 10<sup>-2</sup></td></tr><tr><td>6 dB</td><td>2.4 × 10<sup>-3</sup></td></tr><tr><td>8 dB</td><td>1.9 × 10<sup>-4</sup></td></tr><tr><td>10 dB</td><td>3.9 × 10<sup>-6</sup></td></tr></tbody></table></div><p>E<sub>b</sub>/N<sub>0</sub>가 커질수록 BER이 급격히 줄어드는 것을 볼 수 있습니다. 모의실험으로 BER이 10<sup>-6</sup> 근처인 점을 확인하려면 평균적으로 오류 10개를 보는 데만 약 10<sup>7</sup>비트가 필요합니다(10 ÷ 10<sup>-6</sup>). 오류가 너무 적게 관측되면 추정값이 불안정합니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>BER은 <strong>E<sub>b</sub>/N<sub>0</sub>(또는 SNR)에 대한 곡선</strong>으로 비교합니다. 같은 BER에서 필요한 E<sub>b</sub>/N<sub>0</sub>가 작을수록 성능이 좋습니다.</li><li>변조 방식, 채널 모델(AWGN, 레일리 페이딩 등), 부호화 여부를 밝히지 않은 BER 비교는 오해를 낳습니다.</li><li>이론 곡선과 모의실험 결과가 일치하는지 확인하는 것이 모의실험이 맞게 짜였는지 점검하는 한 방법입니다.</li><li>BER은 지연시간·처리율 같은 다른 성능 지표를 대신하지 않습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>BER 곡선에 쓴 가로축이 E<sub>b</sub>/N<sub>0</sub>인지 E<sub>s</sub>/N<sub>0</sub>인지 SNR인지 분명히 적습니다. 심볼당 비트 수가 다르면 같은 값이 아닙니다.</li><li>채널 모델과 파라미터, 변조·부호화 방식, 수신기(동기, 등화, 검출 방식)를 적습니다.</li><li>모의실험은 점마다 관측한 비트 수나 오류 수를 함께 밝힙니다.</li><li>측정 BER과 이론 확률은 구분해 표기합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"신호 대 잡음비가 증가함에 따라 제안 기법의 비트오류율이 기존 방식보다 빠르게 감소함을 확인하였다."</div>
   <p>새로운 기법의 성능을 비트오류율 곡선으로 비교하는 전형적인 예입니다.</p>
   <div class="example">"레일리 페이딩 채널 환경에서의 비트오류율을 이론적으로 유도하고 모의실험 결과와 비교하였다."</div>
@@ -162,6 +180,18 @@
 
   <h2>주의할 점</h2>
   <p>비트오류율만으로는 시스템의 모든 성능 측면을 판단할 수 없으며, 전송 지연시간이나 처리율 등 다른 지표와 함께 종합적으로 고려해야 합니다. 또한 모의실험으로 얻은 비트오류율은 사용한 채널 모델과 조건에 따라 결과가 달라질 수 있습니다. 동일한 비트오류율이라도 시스템에 적용된 오류정정 부호나 채널 조건이 다르면 실제 요구되는 신호대잡음비가 크게 달라지므로, 조건을 명시하지 않은 채 비트오류율만 비교하는 것은 오해를 낳을 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="bit-error-rate.html">비트오류율</a></th><td>틀린 비트 수를 전체 비트 수로 나눈 비율</td></tr><tr><th scope="row"><a href="signal-to-noise-ratio.html">신호대잡음비</a></th><td>BER 곡선의 가로축에 쓰이는 입력 조건. 높을수록 BER은 낮아지는 경향</td></tr><tr><th scope="row"><a href="channel-capacity-shannon-limit.html">채널용량(섀넌 한계)</a></th><td>오류 없이 보낼 수 있는 속도의 이론적 한계. BER 곡선과는 다른 층위의 개념</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cho, K., &amp; Yoon, D. (2002). On the general BER expression of one- and two-dimensional amplitude modulations. IEEE Transactions on Communications, 50(7), 1074–1080.</li>
+    <li>Simon, M. K., &amp; Alouini, M.-S. (2003). Average bit-error probability performance for optimum diversity combining of noncoherent FSK over Rayleigh fading channels. IEEE Transactions on Communications, 51(4), 566–569.</li>
+    <li>Simon, M. K., &amp; Alouini, M.-S. (1999). Bit error probability of noncoherent M-ary orthogonal modulation over generalized fading channels. Journal of Communications and Networks, 1(2), 111–117.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
