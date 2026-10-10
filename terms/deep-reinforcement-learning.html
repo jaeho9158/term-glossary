@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>보행, 손안 조작, 드론 비행처럼 수식으로 제어기를 설계하기 어려운 문제에서 시뮬레이션 시행착오로 정책을 얻는 방법이 실제 로봇에서 성과를 내면서, 최근 로봇 제어 연구의 가장 큰 흐름이 되었습니다. 4족 로봇의 험지 보행은 학습 기반 제어가 모델 기반을 앞선 대표 사례입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>심층강화학습은 <a href="reinforcement-learning.html">강화학습</a>의 가치함수나 정책을 심층 신경망으로 근사하는 방법입니다. 에이전트가 환경과 상호작용하며 보상을 받고, 그 경험으로 신경망의 가중치를 고칩니다. Mnih 외(2015)는 '심층 Q-네트워크'가 고차원 감각 입력에서 직접 성공적인 정책을 end-to-end 강화학습으로 배울 수 있음을 고전 Atari 2600 게임에서 보였습니다. 이 논문의 문제의식은, 그전의 강화학습이 쓸 만한 특징을 사람이 손으로 만들 수 있는 영역이나 상태가 완전히 관측되는 저차원 영역에 적용이 한정되어 있었다는 점입니다.</p><p>방법은 크게 둘로 나뉩니다. 가치함수를 근사하는 계열(<a href="deep-q-network.html">DQN</a> 등)과 정책을 직접 탐색하는 계열입니다. 로봇 분야 강화학습 종설인 Kober 외(2013)는 모델 기반과 모델 자유, 가치함수 기반과 정책 탐색 사이의 선택을 중심 주제로 삼습니다. <a href="proximal-policy-optimization.html">PPO</a>는 정책 경사 계열로, 환경에서 데이터를 모으는 단계와 '대리(surrogate)' 목적함수를 확률적 경사 상승으로 최적화하는 단계를 번갈아 하며, 데이터 하나당 한 번만 갱신하는 표준 정책 경사와 달리 미니배치 갱신을 여러 에폭 반복합니다(Schulman 외, 2017).</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>로봇 제어에서의 대표 성과로 Hwangbo 외(2019)는 시뮬레이션에서 신경망 정책을 훈련해 사족보행 로봇 ANYmal에 옮겼고, 고수준 속도 명령을 정밀하고 에너지 효율적으로 따라가기, 이전보다 빠르게 달리기, 복잡한 자세에서 넘어짐 회복하기 같은 기존 방법을 넘는 보행 능력을 보고했습니다. Lee 외(2020)는 고유수용감각 신호를 입력으로 하는 신경망 정책을 시뮬레이션에서 강화학습으로 훈련해, 훈련에서 보지 못한 진흙·눈, 잔해, 두꺼운 식생, 급류에서도 시각 없이 걷는 제어기를 보였습니다. 시뮬레이션과 실제 사이의 간극을 줄이는 방법의 하나가 렌더링을 무작위로 바꾸는 <a href="domain-randomization.html">도메인 무작위화</a>이며, Tobin 외(2017)는 비현실적인 무작위 질감의 시뮬레이션 이미지만으로 훈련한 물체 검출기가 실제 환경에서 1.5 cm 이내 정확도를 보였다고 보고했습니다.</p><p><strong>작은 계산(가상의 예, 코드로 계산).</strong> DQN 계열의 갱신은 목표값 y = r + γ·max Q'(s', a')를 만들고 현재 예측과의 차이를 줄이는 방식입니다. 보상 r = 1, 할인율 γ = 0.99, 다음 상태의 행동가치 Q'가 (2.0, 3.5)라면 y = 1 + 0.99 × 3.5 = 4.465입니다. 현재 예측 Q(s, a) = 4.0이면 시간차 오차는 0.465, 제곱오차는 약 0.2162입니다. 신경망은 이 값을 줄이는 방향으로 가중치를 조정합니다. 실제 알고리즘에는 안정화 기법이 더해지므로 이 계산은 구조만 보여 줍니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>상태·행동·보상의 정의, 환경(시뮬레이터 이름과 버전), 관측 구성, 신경망 구조, 알고리즘(DQN, PPO 등)과 하이퍼파라미터를 적습니다.</li><li>시뮬레이션에서 훈련한 경우 <strong>무작위화한 변수와 그 범위</strong>, 실환경에서 추가 학습을 했는지 여부를 밝힙니다.</li><li>학습은 난수 시드에 따라 결과가 달라질 수 있으므로 시드 수와 학습 곡선의 변동을 함께 보고합니다.</li><li>보상 설계, 안전 제약, 실패 사례를 적어 결과를 다른 환경에 일반화할 수 있는 범위를 알려 줍니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">심층강화학습은 가치함수 Q(s,a) 또는 정책 π(a|s)를 심층 신경망으로 근사하여, 원시 감각 입력으로부터 직접 종단간(end-to-end) 정책 학습을 가능하게 한다.</div>
   <p>카메라 영상 같은 복잡한 입력을 그대로 신경망에 넣어, 별도의 손수 설계한 특징 없이도 좋은 행동을 스스로 학습할 수 있게 한다는 의미입니다.</p>
 
@@ -165,6 +183,21 @@
   <p>학습에 매우 많은 경험 데이터가 필요하고 학습 안정성이 낮아 하이퍼파라미터에 민감하다는 실용적 어려움이 있습니다.</p>
 
   <p>신경망의 표현력 덕분에 복잡한 정책을 학습할 수 있지만, 학습된 정책이 왜 그렇게 판단했는지 설명하기 어려워 안전이 중요한 로봇 응용에서는 검증 절차가 별도로 필요합니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 근사·제한하나</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">심층강화학습</th><td>가치함수 또는 정책을 심층 신경망으로 근사</td><td>고차원 입력에서도 강화학습을 적용할 수 있게 한 방법 전반</td></tr><tr><th scope="row"><a href="reinforcement-learning.html">강화학습</a></th><td>보상을 최대화하는 행동</td><td>에이전트가 시행착오로 스스로 학습하는 방법 전반</td></tr><tr><th scope="row"><a href="deep-q-network.html">심층 Q-네트워크</a></th><td>Q값 함수</td><td>심층 신경망으로 Q값을 근사해 고차원 상태에서 Q-러닝을 적용</td></tr><tr><th scope="row"><a href="proximal-policy-optimization.html">근위정책최적화</a></th><td>정책의 갱신 폭</td><td>클리핑된 목적함수로 갱신 폭을 제한하는 정책 경사 알고리즘</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare, M. G., Graves, A., Riedmiller, M., Fidjeland, A. K., Ostrovski, G., Petersen, S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra, D., Legg, S., &amp; Hassabis, D. (2015). Human-level control through deep reinforcement learning. Nature, 518(7540), 529–533.</li>
+    <li>Hwangbo, J., Lee, J., Dosovitskiy, A., Bellicoso, D., Tsounis, V., Koltun, V., &amp; Hutter, M. (2019). Learning agile and dynamic motor skills for legged robots. Science Robotics, 4(26), eaau5872.</li>
+    <li>Lee, J., Hwangbo, J., Wellhausen, L., Koltun, V., &amp; Hutter, M. (2020). Learning quadrupedal locomotion over challenging terrain. Science Robotics, 5(47), eabc5986.</li>
+    <li>Tobin, J., Fong, R., Ray, A., Schneider, J., Zaremba, W., &amp; Abbeel, P. (2017). Domain randomization for transferring deep neural networks from simulation to the real world. 2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 23–30.</li>
+    <li>Schulman, J., Wolski, F., Dhariwal, P., Radford, A., &amp; Klimov, O. (2017). Proximal policy optimization algorithms. arXiv preprint arXiv:1707.06347.</li>
+    <li>Kober, J., Bagnell, J. A., &amp; Peters, J. (2013). Reinforcement learning in robotics: A survey. The International Journal of Robotics Research, 32(11), 1238–1274.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="reinforcement-learning-robotics.html">강화학습기반로봇제어</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="model-based-reinforcement-learning.html">모델기반강화학습</a><a href="inverse-reinforcement-learning.html">역강화학습</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="proximal-policy-optimization.html">근위정책최적화</a><a href="deep-q-network.html">심층큐네트워크</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
