@@ -1,0 +1,55 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>수치표고모델(DEM)은 지표의 높이를 좌표별 숫자로 저장한 자료입니다. 다만 <strong>용어의 범위가 문헌마다 다릅니다</strong>. DEM을 DSM(건물·수목 윗면 포함)과 DTM(맨땅만)을 아우르는 일반 용어로 쓰는 문헌이 많지만, DEM을 DTM과 같게 보거나 DSM과 같게 보거나 DTM의 부분집합으로 정의하는 문헌도 있습니다. 그래서 논문의 방법 절에서 어떤 높이를 말하는지(지면인지, 수관·지붕 윗면인지)를 확인해야 합니다.</p><p>높이를 저장하는 방식으로는 일정 간격의 격자([[raster-data-model|래스터]])와 불규칙삼각망([[triangulated-irregular-network|TIN]])이 대표적이며, Moore 외(1991)는 수문·지형·생물 분야에서 쓰는 표고 자료의 출처와 DEM 구조, 분석 방법을 정리한 리뷰입니다. 전 지구 규모의 예로 Farr 외(2007)는 2000년 2월에 비행한 우주왕복선 레이더 지형 임무(SRTM)가 쌍 안테나 간섭 레이더 자료로 1초각(arc sec) 해상도의 수치지형자료를 만들었다고 설명합니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>경사와 향 계산해 보기.</strong> 격자 간격 10 m인 3×3 DEM(가상의 값, 위쪽이 북쪽)에서 가운데 칸의 경사와 향을 가장 단순한 중심 차분으로 구합니다.</p><table><thead><tr><th></th><th>서</th><th>중</th><th>동</th></tr></thead><tbody><tr><th scope=\"row\">북</th><td>102</td><td>104</td><td>107</td></tr><tr><th scope=\"row\">중</th><td>100</td><td>103</td><td>106</td></tr><tr><th scope=\"row\">남</th><td>98</td><td>101</td><td>105</td></tr></tbody></table><ul><li>동서 기울기 <code>∂z/∂x = (106 − 100) / (2 × 10) = 0.30</code></li><li>남북 기울기 <code>∂z/∂y = (104 − 101) / (2 × 10) = 0.15</code></li><li>경사 <code>arctan(√(0.30² + 0.15²)) ≈ 18.5°</code> (경사율 약 33.5%)</li><li>향(내리막 방향) 약 243°, 곧 서남서쪽을 향한 사면(북쪽 기준 시계 방향)</li></ul><p>실제 GIS 소프트웨어는 이웃 칸을 더 쓰는 다른 계산식을 쓸 수 있어 결과가 조금 다를 수 있습니다. 또 격자 간격보다 작은 지형 변화는 어떤 방식으로도 이 값에 반영되지 않습니다. 국내 연구에서도 모형 입력으로 쓸 DEM의 해상도를 정하는 일이 자주 등장하는데, 김성준과 박근애(2006)는 도시 홍수 유출 모의에서 도로망으로 보정한 DEM을 준비하고 입력 자료로 적합한 도로 해상도를 15 m로 정했다고 보고했습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“DEM, DSM, DTM은 서로 정의가 하나뿐이다.”</strong> 위에서 본 대로 문헌마다 범위가 다릅니다. 숲이 있는 지역의 홍수·산사태 모의에서 DSM을 지면으로 착각하면 경사와 흐름 방향이 달라질 수 있으므로, 자료의 종류를 확인합니다.</li><li><strong>“격자가 촘촘하면 항상 정확하다.”</strong> 격자 간격(해상도)과 정확도는 다른 개념입니다. 원자료의 밀도와 품질, 제작 방식이 정확도를 좌우하므로, 해상도만 보지 말고 제작 출처를 함께 확인합니다.</li><li><strong>“DEM에서 계산한 경사는 현장의 경사다.”</strong> 위의 계산처럼 격자와 계산식에 따라 정해지는 값이므로, 같은 지점도 자료마다 다르게 나올 수 있습니다. 여러 DEM을 비교한 논문은 해상도와 제작 방식이 같은지 밝혀야 합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "높이를 재는 ‘대상’과 저장하는 ‘구조’를 구별하면 정리됩니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "구별 포인트"
+    ],
+    "rows": [
+      [
+        "[[digital-surface-model|수치표면모델(DSM)]]",
+        "건물·나무 등을 포함한 가장 바깥쪽 표면의 높이",
+        "윗면 높이. 도시 모델링·시각화에 쓰임"
+      ],
+      [
+        "[[digital-terrain-model|수치지형모델(DTM)]]",
+        "건물·식생을 뺀 맨땅의 높이",
+        "수문·지형 분석에서 주로 요구되는 지면 높이"
+      ],
+      [
+        "[[triangulated-irregular-network|불규칙삼각망(TIN)]]",
+        "표고점을 삼각형으로 잇는 표면 표현 구조",
+        "DEM을 격자가 아니라 삼각망으로 저장하는 방식"
+      ],
+      [
+        "[[raster-data-model|래스터 데이터 모델]]",
+        "공간을 일정한 격자로 나누고 칸마다 값을 저장하는 방식",
+        "격자형 DEM이 따르는 저장 구조"
+      ]
+    ]
+  },
+  "references": [
+    "Moore, I. D., Grayson, R. B., & Ladson, A. R. (1991). Digital terrain modelling: A review of hydrological, geomorphological, and biological applications. Hydrological Processes, 5(1), 3–30.",
+    "Farr, T. G., Rosen, P. A., Caro, E., Crippen, R., Duren, R., Hensley, S., Kobrick, M., Paller, M., Rodriguez, E., Roth, L., Seal, D., Shaffer, S., Shimada, J., Umland, J., Werner, M., Oskin, M., Burbank, D., & Alsdorf, D. (2007). The Shuttle Radar Topography Mission. Reviews of Geophysics, 45(2).",
+    "Li, Z., Zhu, Q., & Gold, C. (2004). Digital terrain modeling: Principles and methodology. CRC Press.",
+    "Wilson, J. P., & Gallant, J. C. (Eds.). (2000). Terrain analysis: Principles and applications. Wiley.",
+    "김성준, 박근애 (2006). 도시홍수 수문모의를 위한 GIS 자료구축 및 분포형 모델링 기법 연구. 대한토목학회 논문집D, 26(1D), 177–184."
+  ]
+}
