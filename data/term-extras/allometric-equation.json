@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>상대생장식(allometric equation)은 두 측정량의 관계를 거듭제곱식 y = k·x<sup>a</sup>로 나타내며, 양변에 로그를 취하면 log y = a·log x + log k 라는 직선이 됩니다. 산림 분야에서는 직경(DBH)·수고처럼 재기 쉬운 값 x로 바이오매스나 재적 y를 추정하는 데 씁니다.</li><li>‘상대생장’의 용어와 개념은 Huxley와 Teissier(1936)의 ‘Terminology of relative growth’ 등 초기 연구로 거슬러 올라갑니다.</li><li>로그 변환 회귀로 식을 적합하면 역변환한 예측값이 평균보다 <strong>작게 편향</strong>됩니다. Baskerville(1972)은 이 문제를 다루며 종전의 로그식 바이오매스 추정에 10~20% 수준의 체계적 편향이 있다고 지적하고 보정을 제시했습니다. 로그 정규 오차를 가정하면 보정하지 않은 역변환 값의 상대 편향은 −(1 − e<sup>−σ²/2</sup>)×100%입니다. Baskerville의 보정은 예측값에 e<sup>s²/2</sup>(s²은 잔차분산)를 곱하는 것으로 알려져 있습니다.</li><li>열대림 지상부 바이오매스처럼 범용식이 필요한 영역에서는 Chave 등(2014)이 개선된 상대생장 모형을 제시했습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>상대생장식 적합과 편향 보정을 가상의 자료로 해 보겠습니다. 직경 10~60 cm 나무 40그루의 바이오매스가 실제로는 B = 0.12·D<sup>2.4</sup>에 로그 정규 오차(σ = 0.3)가 곱해진 형태라고 가정해 컴퓨터로 만든 자료입니다(가상의 예, 코드로 계산).</p><ol><li>ln B = ln a + b·ln D 를 최소제곱으로 적합하면 b ≈ <strong>2.29</strong>, a ≈ <strong>0.177</strong> 입니다(참값 2.4, 0.12와는 표본 오차만큼 다릅니다).</li><li>잔차분산 s² = 0.076이므로 보정계수 e<sup>s²/2</sup> = <strong>1.039</strong>입니다.</li><li>직경 30 cm의 예측값은 보정 전 433.1 단위, 보정 후 449.9 단위입니다. 보정 전 값은 평균적 바이오매스보다 약 3.7% 낮게 나옵니다.</li></ol><p>오차가 작으면 보정은 작지만, 오차가 큰 자료에서는 무시할 수 없습니다. 식의 적용 범위(수종, 지역, 직경 범위)를 벗어난 외삽은 이 보정으로도 해결되지 않습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>로그 변환 회귀의 예측값을 역변환하면 평균 바이오매스가 된다.</td><td>역변환한 값은 평균보다 작게 편향되므로 보정(예: Baskerville 보정)을 하거나 보정 여부를 밝혀야 합니다.</td></tr><tr><td>한 번 만든 식은 어디서나 쓸 수 있다.</td><td>식은 개발된 수종, 지역, 직경 범위 안에서만 신뢰할 수 있습니다.</td></tr><tr><td>상대생장식은 나무에만 쓰는 말이다.</td><td>크기와 모양, 기능의 관계를 거듭제곱식으로 나타내는 방법은 생물학 전반에서 쓰입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "크기에서 양을 추정하는 방법을 가리키는 말들입니다.",
+    "headers": [
+      "용어",
+      "핵심",
+      "메모"
+    ],
+    "rows": [
+      [
+        "[[allometry|상대생장(allometry)]]",
+        "몸 크기와 모양·기능의 관계를 연구하는 분야",
+        "학문·개념의 이름"
+      ],
+      [
+        "상대생장식",
+        "그 관계를 거듭제곱식으로 쓴 식",
+        "y = k·x^a"
+      ],
+      [
+        "[[carbon-stock|탄소 저장량]]",
+        "바이오매스 등에 저장된 탄소의 양",
+        "상대생장식으로 구한 바이오매스를 탄소량으로 환산해 계산"
+      ]
+    ]
+  },
+  "references": [
+    "Huxley, J. S., & Teissier, G. (1936). Terminology of relative growth. Nature, 137, 780–781.",
+    "Baskerville, G. L. (1972). Use of logarithmic regression in the estimation of plant biomass. Canadian Journal of Forest Research, 2(1), 49–53.",
+    "Chave, J., Réjou-Méchain, M., Búrquez, A., Chidumayo, E., Colgan, M. S., Delitti, W. B. C., Duque, A., Eid, T., Fearnside, P. M., Goodman, R. C., Henry, M., Martínez-Yrízar, A., Mugasha, W. A., Muller-Landau, H. C., Mencuccini, M., Nelson, B. W., Ngomanda, A., Nogueira, E. M., Ortiz-Malavassi, E., Pélissier, R., Ploton, P., Ryan, C. M., Saldarriaga, J. G., & Vieilledent, G. (2014). Improved allometric models to estimate the aboveground biomass of tropical trees. Global Change Biology, 20(10), 3177–3190."
+  ]
+}

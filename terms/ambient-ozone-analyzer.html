@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>지표 오존은 대표적인 2차 대기오염 물질로, 자동차 배기가스 등에서 나온 질소산화물과 휘발성유기화합물이 햇빛과 반응해 생성됩니다. 이 때문에 대기 오존측정기로 얻은 연속 관측 자료는 대기질 예보·경보 체계뿐 아니라 광화학 스모그 발생 메커니즘 연구, 기후변화와 대기오염의 상호작용 분석, 도시 대기질 정책 효과 평가 등 다양한 상위 연구주제의 기초 데이터로 쓰입니다. 정확하고 표준화된 측정값이 뒷받침되지 않으면 이런 후속 연구와 정책 판단 자체가 흔들리기 때문에 논문에서 측정 방법과 기기 사양을 비교적 상세히 언급하는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <ul><li>대기 중 오존(O<sub>3</sub>) 농도를 연속으로 측정하는 분석기입니다. 값은 보통 ppb(부피 기준 10억분율) 또는 ppm으로 보고합니다.</li><li>미국 연방규정(40 CFR Part 50 부록 D)은 오존의 <strong>기준 측정 원리</strong>로 화학발광법을 규정합니다. 시료 공기가 에틸렌(C<sub>2</sub>H<sub>4</sub>) 또는 일산화질소(NO)와 반응할 때 나오는 빛의 세기를 광검출기로 재는 방식입니다.</li><li>이 측정계는 인증된 오존 표준 농도로 교정하며, 그 표준 농도는 <strong>자외선(UV) 광도법</strong>으로 값을 매겨 NIST 표준 광도계에 추적됩니다. 즉 UV 광도법은 교정에서 값을 매기는 기준 방법이며, 분석기 중에는 이 UV 흡수 원리로 직접 농도를 재는 것도 있습니다.</li></ul>
+
+  <h2>구성과 채점</h2>
+  <ul><li><strong>UV 광도법의 원리:</strong> 오존은 파장 254 nm 빛을 흡수합니다. 시료가 든 흡수 셀을 통과한 빛의 세기 I와 오존이 없는 공기(zero air)를 통과한 빛의 세기 I<sub>0</sub>의 비(투과율)를 재고 Beer-Lambert 법칙(<a href="beer-lambert-law.html">비어-람베르트 법칙</a>)으로 농도를 계산합니다.</li><li>필요한 값은 오존의 254 nm 흡수계수 α, 광경로 길이 l, 투과율 I/I<sub>0</sub>, 시료의 온도와 압력입니다. 부록 D는 α를 0 °C, 1 atm에서 304.39 atm<sup>−1</sup>cm<sup>−1</sup>(불확도 0.94)로 명시하며, 이 값은 2025년 1월 1일부터 미국 표준 기준 광도계에 적용되기 시작해 현장 장비에는 2026년 말까지 반영될 것으로 예상된다고 적고 있습니다.</li><li>계산된 농도는 광도계 안의 오존 손실, 시료의 온도·압력에 대해 보정해야 합니다.</li></ul><p><strong>계산 예시</strong>(가상의 광도계, 광경로 40 cm, 투과율 0.9995, 25 °C·1 atm, 코드로 계산): c = −ln(I/I<sub>0</sub>) ÷ (α·l) = 5.001e-4 ÷ (304.39×40) = 4.108e-8 atm이며, 이는 0 °C 기준으로 약 41.1 ppb입니다. 25 °C(298.15 K)의 시료 부피 혼합비로 바꾸면 41.1 × (298.15/273.15) ≈ <strong>44.8 ppb</strong>입니다. 0.05%의 빛 세기 차이만 있어도 수십 ppb에 해당하므로 I와 I<sub>0</sub> 측정의 안정성이 중요합니다.</p>
+
+  <h2>결과 읽는 법</h2>
+  <ul><li>보고할 때는 측정 원리(UV 광도법인지 화학발광법인지), <strong>평균 시간</strong>(1시간 평균, 8시간 이동평균 등), 단위, 결측 처리 방법을 함께 적습니다.</li><li>환경기준과 비교할 때는 기준이 어떤 평균 시간과 통계량으로 정의되었는지를 맞춥니다.</li><li>교정 방법과 교정 주기, 사용한 흡수계수(α) 값을 밝혀야 연구 간 비교가 됩니다. 흡수계수의 채택 값이 바뀌면 같은 투과율에서도 농도가 달라지기 때문입니다.</li><li>다른 기체의 간섭 가능성은 분석기 사양서와 시험 결과로 확인합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"여름철 대기 중 오존 농도는 대기 오존측정기를 이용해 시간별로 연속 측정하였다."</div>
   <p>대기오염 조사에서 오존 농도의 시간적 변화를 보고할 때 쓰는 문장이다.</p>
 
@@ -164,6 +182,20 @@
 
   <h2>주의할 점</h2>
   <p>다른 대기오염 물질(질소산화물 등)이 측정값에 간섭을 일으킬 수 있어 정기적인 표준가스 교정이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>오존을 재는 두 방식은 원리가 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">측정 원리</th><th scope="col">미국 연방규정에서의 역할</th></tr></thead><tbody><tr><th scope="row">UV 광도법</th><td>254 nm 자외선 흡수를 Beer-Lambert 법칙으로 환산</td><td>교정용 표준 농도의 값 매김 (부록 D 4절)</td></tr><tr><th scope="row"><a href="chemiluminescence.html">화학발광법</a></th><td>오존이 에틸렌 또는 NO와 반응할 때 나오는 빛의 세기</td><td>기준 측정 원리 (부록 D 2절)</td></tr></tbody></table></div>
+  <p class="te-note">표는 40 CFR Part 50 부록 D의 서술을 요약한 것입니다. 분석기 종류별 승인 여부는 같은 규정 Part 53을 확인해야 합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>U.S. Environmental Protection Agency. (2026). Appendix D to Part 50: Reference measurement principle and calibration procedure for the measurement of ozone in the atmosphere (chemiluminescence method). Electronic Code of Federal Regulations, Title 40.</li>
+    <li>Hearn, A. G. (1961). The absorption of ozone in the ultra-violet and visible regions of the spectrum. Proceedings of the Physical Society, 78(5), 932–940.</li>
+    <li>Daumont, D., Brion, J., Charbonnier, J., &amp; Malicet, J. (1992). Ozone UV spectroscopy I: Absorption cross-sections at room temperature. Journal of Atmospheric Chemistry, 15(2), 145–155.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

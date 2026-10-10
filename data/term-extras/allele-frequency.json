@@ -1,0 +1,48 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>대립유전자 빈도는 한 유전자좌에서 <strong>특정 대립유전자가 전체 염색체 사본 중 차지하는 비율</strong>입니다. 배수성이 n인 개체 N명의 집단에서 그 대립유전자가 i개의 염색체에 있으면 i/(nN)으로 계산합니다(이배체는 n = 2).</li><li>범위는 0에서 1이며 퍼센트로도 씁니다. 한 유전자좌에서 모든 대립유전자의 빈도를 더하면 1입니다.</li><li>대립유전자 빈도는 <strong>유전자형 빈도와 다릅니다</strong>. 유전자형 빈도는 AA, Aa, aa 같은 조합이 개체에서 차지하는 비율이며, 대립유전자 빈도는 유전자형 빈도에서 계산할 수 있습니다. 이형접합자 한 개체는 각 대립유전자에 사본 하나씩을 기여합니다.</li></ul><p><strong>계산 예시</strong>(가상의 집단, 코드로 계산). AA 36명, Aa 48명, aa 16명(N = 100)이면 A 대립유전자는 2×36 + 48 = 120개, 전체 사본은 200개이므로 p = 120/200 = <strong>0.60</strong>, a의 빈도 q = <strong>0.40</strong>입니다. 표준오차는 √(pq/2N) = <strong>0.0346</strong>이므로 대략 0.53~0.67의 구간으로 추정됩니다(독립 표본의 단순 근사).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>[[hardy-weinberg-equilibrium|하디-바인베르크 평형]]이 성립하면 유전자형 빈도는 p², 2pq, q²이 됩니다. 위 예에서 기대 개체 수는 36, 48, 16명(AA, Aa, aa)이고 관찰값 36, 48, 16과 같아 평형 조건과 모순되지 않습니다. 하디(1908)가 이 비율을 제시한 고전적 논문입니다.</li><li>시간이 지나며 대립유전자 빈도가 바뀌는 것이 곧 진화의 한 측면이며, 그 원인으로 선택, [[genetic-drift|유전자 부동]], 이동, 돌연변이가 논의됩니다.</li><li>변이의 임상적 해석에서는 집단 자료에서의 빈도가 증거로 쓰입니다. ACMG/AMP 변이 해석 지침(Richards 등, 2015)이 대표적이며, 국내 해설 논문은 변이가 질환과 무관하다고 볼 만큼 흔할 때 적용하는 BA1 기준의 대표적 조건으로, 일부 예외를 제외하고 고립되지 않은 집단에서 최소 2,000개 이상의 대립유전자가 관찰되고 빈도(AF)가 5% 이상인 경우를 소개합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>대립유전자와 <strong>유전자좌(변이의 위치 표기)</strong>, 빈도 계산에 쓴 <strong>집단과 표본 크기(개체 수, 대립유전자 수)</strong>를 함께 적습니다. 같은 변이도 집단에 따라 빈도가 다릅니다.</li><li>빈도는 소수 둘째~넷째 자리 또는 퍼센트로 적되, 분모(관찰된 대립유전자 수)를 밝혀 오차를 가늠할 수 있게 합니다. 표본이 작으면 추정 오차가 커집니다.</li><li>Y염색체나 미토콘드리아처럼 한 사본만 있는 표지는 ‘대립유전자 빈도’ 대신 단상형(haplotype) 빈도로 보고하는 경우가 많습니다.</li><li>데이터베이스 값(대규모 유전체 데이터베이스)을 인용할 때는 버전과 하위 집단 이름을 명시합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "집단유전학의 ‘빈도’ 용어는 단위가 서로 다릅니다.",
+    "headers": [
+      "용어",
+      "세는 단위",
+      "예"
+    ],
+    "rows": [
+      [
+        "[[allele-frequency|대립유전자 빈도]]",
+        "염색체(유전자) 사본",
+        "A 사본 120개 / 전체 200개 = 0.60"
+      ],
+      [
+        "유전자형 빈도",
+        "개체의 유전자형",
+        "AA 36명 / 100명 = 0.36"
+      ],
+      [
+        "[[hardy-weinberg-equilibrium|하디-바인베르크 평형]]",
+        "대립유전자 빈도로부터 유전자형 빈도를 예측하는 관계",
+        "p², 2pq, q²"
+      ]
+    ]
+  },
+  "references": [
+    "Hardy, G. H. (1908). Mendelian proportions in a mixed population. Science, 28(706), 49–50.",
+    "Richards, S., Aziz, N., Bale, S., Bick, D., Das, S., Gastier-Foster, J., Grody, W. W., Hegde, M., Lyon, E., Spector, E., Voelkerding, K., & Rehm, H. L. (2015). Standards and guidelines for the interpretation of sequence variants: A joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology. Genetics in Medicine, 17(5), 405–424.",
+    "Hartl, D. L., & Clark, A. G. (2006). Principles of Population Genetics. Sinauer Associates."
+  ]
+}
