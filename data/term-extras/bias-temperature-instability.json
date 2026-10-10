@@ -1,0 +1,43 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>BTI는 트랜지스터의 게이트에 전압(바이어스)이 걸린 채 온도가 높을 때, 시간이 지나면서 <strong>문턱전압이 변하는</strong> 노화 현상입니다. 대표적인 것이 pMOS에서 게이트에 음의 전압이 걸릴 때 나타나는 <strong>NBTI</strong>(<a href=\"negative-bias-temperature-instability.html\">음의바이어스 온도불안정성</a>)이고, 문턱전압이 커져 구동전류와 트랜스컨덕턴스가 줄어듭니다. 시간에 따른 열화는 거듭제곱 법칙으로 근사되는 경우가 많습니다.</p><ul><li><strong>원인에 대한 설명</strong>: 반응-확산 모델은 전압과 열로 계면의 Si–H 결합이 끊기며 계면 결함이 생기고 수소가 산화막 쪽으로 퍼진다고 봅니다. 한편 산화막 속 기존 결함에 전하(정공)가 잡히는 과정도 함께 작용하는 것으로 보며, 두 요소의 비중은 지금도 논쟁거리입니다.</li><li>Grasser 외(2011)의 논문 제목은 BTI를 이해하는 틀이 ‘반응-확산’에서 ‘스위칭 산화막 트랩’으로 옮겨 갔다는 점을 보여 줍니다. pMOS NBTI 열화의 종합 모형은 Alam &amp; Mahapatra(2005)가, NBTI를 미세 공정 제조에서 넘어야 할 과제로 다룬 논문은 Schroder &amp; Babcock(2003)이 있습니다.</li><li><strong>회로 쪽 영향</strong>: 구동전류가 줄고, 동작 전압이 낮을수록 문턱전압 변화가 논리 전압에서 차지하는 비중이 커져 회로가 정상 동작하지 못할 위험이 커집니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예로, 같은 pMOS를 높은 온도에서 음의 게이트 전압으로 오래 가동한 뒤 문턱전압을 재면 처음보다 커져 있습니다. 전압을 걷어내면 일부는 되돌아오지만 전부 회복되지는 않는 것이 일반적입니다. 회복의 정도는 소자 종류, 온도, 스트레스를 가한 시간에 따라 달라집니다.</p><p>이 때문에 논문에서 열화량을 비교하려면 <strong>스트레스 전압, 온도, 스트레스 시간, 회복 조건</strong>이 모두 같아야 합니다. 전압이 켜졌다 꺼지는 실제 회로 동작에서는 회복이 끼어들므로, 한 번도 끄지 않은 직류 스트레스의 결과를 그대로 수명 예측에 쓰면 어긋날 수 있다는 점은 이 사전의 ‘주의할 점’에 이미 적혀 있습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>‘NBTI는 pMOS만의 문제’</strong>: pMOS에서 두드러지지만, 반대 극성인 <strong>PBTI</strong>(nMOS에 양의 전압)도 있으며 고유전율(high-κ) 금속 게이트가 쓰이면서 중요해졌습니다.</li><li><strong>‘한번 생기면 영구적이다’</strong>: 스트레스를 걷으면 부분적으로 회복됩니다. 다만 완전한 원상 복구를 기대할 수도 없습니다.</li><li><strong>‘핫캐리어 열화와 같은 현상이다’</strong>: 둘은 함께 나타날 수 있어도 별개의 메커니즘으로 다룹니다.</li><li><strong>‘원인이 하나로 정리되어 있다’</strong>: 계면 결함 생성과 전하 포획의 상대적 중요성은 연구자마다 해석이 다릅니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "이름이 비슷하거나 함께 언급되는 열화 현상입니다.",
+    "headers": [
+      "용어",
+      "조건",
+      "관계"
+    ],
+    "rows": [
+      [
+        "[[negative-bias-temperature-instability|음의바이어스 온도불안정성(NBTI)]]",
+        "pMOS의 게이트에 음의 전압, 고온",
+        "BTI의 대표 사례로 가장 많이 연구됨"
+      ],
+      [
+        "[[hot-carrier-injection|핫캐리어 주입]]",
+        "강한 전기장에서 에너지를 얻은 전하 운반자가 산화막으로 주입됨",
+        "BTI와 별개의 열화 메커니즘이며 함께 나타날 수 있음"
+      ]
+    ]
+  },
+  "references": [
+    "Schroder, D. K., & Babcock, J. A. (2003). Negative bias temperature instability: Road to cross in deep submicron silicon semiconductor manufacturing. Journal of Applied Physics, 94(1), 1–18.",
+    "Grasser, T., Kaczer, B., Goes, W., Reisinger, H., Aichinger, T., Hehenberger, P., Wagner, P.-J., Schanovsky, F., Franco, J., Toledano Luque, M., & Nelhiebel, M. (2011). The paradigm shift in understanding the bias temperature instability: From reaction–diffusion to switching oxide traps. IEEE Transactions on Electron Devices, 58(11), 3652–3666.",
+    "Alam, M. A., & Mahapatra, S. (2005). A comprehensive model of PMOS NBTI degradation. Microelectronics Reliability, 45(1), 71–81."
+  ]
+}
