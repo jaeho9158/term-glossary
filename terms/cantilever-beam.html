@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,27 @@
   <h2>왜 중요한가</h2>
   <p>외팔보는 실제 구조물뿐 아니라 이론 해석에서도 가장 기본이 되는 경계조건이기 때문에 공학 논문에서 반복적으로 등장합니다. 항공기 날개, 로봇 팔, 크레인, 고층 건물의 돌출 구조 등 한쪽만 지지되고 나머지는 힘을 받는 상황이 현실에 매우 흔하고, 이런 구조는 자유단에서 변형이 가장 크고 고정단에서 응력이 가장 크게 집중되는 특성이 있어 안전 설계와 직결됩니다. 또한 외팔보는 수학적으로 비교적 단순하게 풀리는 모델이라, 새로운 재료나 센서, 해석 기법을 검증할 때 기준이 되는 표준 실험 구조로도 자주 채택됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>외팔보(캔틸레버 보)는 <strong>한쪽 끝은 고정, 반대쪽 끝은 지지가 없는</strong> 부재입니다. 자유단에 하중이 걸리면 그 하중이 고정 지점으로 전달되면서 고정 지점에 전단 응력과 굽힘 모멘트가 생깁니다. 고정단에서는 처짐과 기울기가 0이어야 한다는 것이 경계조건입니다.</li><li>자유단에 힘 F가 걸린 외팔보(길이 L, 탄성계수 E, 단면 2차 모멘트 I)의 끝단 처짐은 <code>δ = FL³/(3EI)</code>, 끝단 기울기는 <code>φ = FL²/(2EI)</code>입니다. 단위 길이당 q의 하중이 고르게 걸리면 끝단 처짐은 <code>δ = qL⁴/(8EI)</code>입니다.</li><li>굽힘 응력은 <code>σ = My/I</code> 꼴입니다(M은 굽힘 모멘트, y는 중립축에서 떨어진 거리). 힘이 자유단에 걸리면 모멘트는 고정단에서 가장 커서 응력도 거기서 가장 큽니다.</li><li>위 공식은 오일러–베르누이 보 이론에 속하며, 작은 처짐과 횡방향 하중에 의한 탄성 굽힘에만 적용됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예</strong> 길이 L = 2 m인 강재 외팔보(E = 200 GPa로 가정), 단면은 폭 50 mm × 높이 100 mm, 자유단 하중 F = 1,000 N입니다. 아래 값은 계산 코드로 구했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>조건</th><th>끝단 처짐</th></tr></thead><tbody><tr><td>기준(I = bh³/12 ≈ 4.17×10⁻⁶ m⁴)</td><td>3.2 mm</td></tr><tr><td>길이를 2배(4 m)로</td><td>25.6 mm (8배)</td></tr><tr><td>단면 높이를 2배(200 mm)로</td><td>0.4 mm (1/8)</td></tr><tr><td>하중 대신 500 N/m의 균일 하중이 전 길이에 걸림</td><td>1.2 mm</td></tr></tbody></table></div><p>고정단의 모멘트는 F×L = 2,000 N·m이고, 윗면·아랫면 끝(중립축에서 50 mm)의 굽힘 응력은 σ = My/I ≈ 24 MPa입니다. 길이가 처짐에 3제곱, 높이가 I를 통해 3제곱으로 효과를 내므로, 외팔보를 튼튼하게 하려면 길이를 줄이거나 단면 높이를 키우는 것이 가장 효과적입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>길이가 2배면 처짐도 2배다.</td><td>끝단 하중 기준으로 처짐은 L³에 비례하므로 8배가 됩니다(위 예시).</td></tr><tr><td>처짐과 응력은 같은 곳에서 가장 크다.</td><td>끝단 하중이면 처짐은 자유단에서, 굽힘 응력은 고정단에서 가장 큽니다.</td></tr><tr><td>외팔보 공식은 큰 변형이나 모든 하중에서도 맞는다.</td><td>소변형·횡하중·탄성 범위라는 가정이 있는 이론입니다. 이 범위를 벗어나면 비선형 해석이 필요합니다.</td></tr><tr><td>외팔보는 막대(보) 모양만 가리킨다.</td><td>캔틸레버라는 구조는 보뿐 아니라 판, 트러스, 슬래브 형태로도 있습니다. 외팔보는 그중 보 형태입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“특히 제5중족 골에 빔 이론을 적용한 연구에서는 35 , 제5중족골을 근위부가 고정 된 외팔보(cantilever beam)로 가정하고, 지면 반발력의 작용점과 기저부까지의 거리(지레팔 길이)가 커질수록 근위부에 더 큰 굽힘 모멘트가 발생한다고 설명한다.”</blockquote><p class="te-cite">달리기 착지 유형에 따른 제5중족골 부위별 압력 변화, The Korean Journal of Sports Medicine, 2026 · KoreaMed Synapse · <a href="https://synapse.koreamed.org/articles/1516095098" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제작된 마이크로 센서는 외팔보(cantilever beam) 구조로 설계되었으며, 자유단에 미세한 질량이 부착될 때 발생하는 고유진동수 변화를 측정하여 질량을 검출한다."</div>
   <p>이 문장은 아주 작은 막대 모양의 부품을 한쪽만 고정해 놓고, 그 끝에 미세한 물질이 붙었을 때 흔들리는 진동수가 달라지는 성질을 이용해 물질의 양을 알아낸다는 뜻입니다. 외팔보 구조는 이런 성질 때문에 센서 설계뿐 아니라 항공기 날개, 크레인 팔, 건축 구조물 해석 등 다양한 공학 논문에서 기본 모델로 널리 사용됩니다.</p>
 
@@ -161,6 +182,20 @@
 
   <h2>주의할 점</h2>
   <p>외팔보는 구조물의 "형태"를 가리키는 용어이며, 그 형태에서 하중에 따라 얼마나 휘어지는지를 계산하는 것은 <a href="beam-deflection.html">보의 처짐</a> 이론의 영역입니다. 즉 외팔보는 분석 대상이 되는 구조 형태이고, 보의 처짐은 그 구조가 힘을 받았을 때 어떻게 변형되는지를 계산하는 방법이라는 점에서 서로 구분됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷하게 쓰이지만 가리키는 대상이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">외팔보와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="cantilever.html">캔틸레버</a></th><td>한쪽만 고정된 구조 요소의 총칭(보·판·트러스·슬래브)</td><td>외팔보는 이 중 보 형태</td></tr><tr><th scope="row"><a href="bending-moment.html">굽힘모멘트</a></th><td>하중 때문에 보 내부에 생기는 모멘트</td><td>외팔보에서는 끝단 하중일 때 고정단에서 최대</td></tr><tr><th scope="row"><a href="elastic-modulus.html">탄성계수</a></th><td>재료가 얼마나 뻣뻣한지를 나타내는 값(공식의 E)</td><td>처짐은 E와 단면 2차 모멘트 I의 곱 EI에 반비례</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Gere, J. M., &amp; Goodno, B. J. (2008). Mechanics of Materials, SI Edition. Cengage Learning.</li>
+    <li>Beer, F. P., Johnston, E. R., Jr., &amp; DeWolf, J. T. (2002). Mechanics of Materials. McGraw-Hill.</li>
+    <li>Lavrik, N. V., Sepaniak, M. J., &amp; Datskos, P. G. (2004). Cantilever transducers as a platform for chemical and biological sensors. Review of Scientific Instruments, 75(7), 2229–2253.</li>
+    <li>Raiteri, R., Grattarola, M., Butt, H.-J., &amp; Skládal, P. (2001). Micromechanical cantilever-based biosensors. Sensors and Actuators B: Chemical, 79(2–3), 115–126.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

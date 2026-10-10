@@ -1,0 +1,49 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>외팔보(캔틸레버 보)는 <strong>한쪽 끝은 고정, 반대쪽 끝은 지지가 없는</strong> 부재입니다. 자유단에 하중이 걸리면 그 하중이 고정 지점으로 전달되면서 고정 지점에 전단 응력과 굽힘 모멘트가 생깁니다. 고정단에서는 처짐과 기울기가 0이어야 한다는 것이 경계조건입니다.</li><li>자유단에 힘 F가 걸린 외팔보(길이 L, 탄성계수 E, 단면 2차 모멘트 I)의 끝단 처짐은 <code>δ = FL³/(3EI)</code>, 끝단 기울기는 <code>φ = FL²/(2EI)</code>입니다. 단위 길이당 q의 하중이 고르게 걸리면 끝단 처짐은 <code>δ = qL⁴/(8EI)</code>입니다.</li><li>굽힘 응력은 <code>σ = My/I</code> 꼴입니다(M은 굽힘 모멘트, y는 중립축에서 떨어진 거리). 힘이 자유단에 걸리면 모멘트는 고정단에서 가장 커서 응력도 거기서 가장 큽니다.</li><li>위 공식은 오일러–베르누이 보 이론에 속하며, 작은 처짐과 횡방향 하중에 의한 탄성 굽힘에만 적용됩니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>가상의 예</strong> 길이 L = 2 m인 강재 외팔보(E = 200 GPa로 가정), 단면은 폭 50 mm × 높이 100 mm, 자유단 하중 F = 1,000 N입니다. 아래 값은 계산 코드로 구했습니다.</p><table><thead><tr><th>조건</th><th>끝단 처짐</th></tr></thead><tbody><tr><td>기준(I = bh³/12 ≈ 4.17×10⁻⁶ m⁴)</td><td>3.2 mm</td></tr><tr><td>길이를 2배(4 m)로</td><td>25.6 mm (8배)</td></tr><tr><td>단면 높이를 2배(200 mm)로</td><td>0.4 mm (1/8)</td></tr><tr><td>하중 대신 500 N/m의 균일 하중이 전 길이에 걸림</td><td>1.2 mm</td></tr></tbody></table><p>고정단의 모멘트는 F×L = 2,000 N·m이고, 윗면·아랫면 끝(중립축에서 50 mm)의 굽힘 응력은 σ = My/I ≈ 24 MPa입니다. 길이가 처짐에 3제곱, 높이가 I를 통해 3제곱으로 효과를 내므로, 외팔보를 튼튼하게 하려면 길이를 줄이거나 단면 높이를 키우는 것이 가장 효과적입니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>길이가 2배면 처짐도 2배다.</td><td>끝단 하중 기준으로 처짐은 L³에 비례하므로 8배가 됩니다(위 예시).</td></tr><tr><td>처짐과 응력은 같은 곳에서 가장 크다.</td><td>끝단 하중이면 처짐은 자유단에서, 굽힘 응력은 고정단에서 가장 큽니다.</td></tr><tr><td>외팔보 공식은 큰 변형이나 모든 하중에서도 맞는다.</td><td>소변형·횡하중·탄성 범위라는 가정이 있는 이론입니다. 이 범위를 벗어나면 비선형 해석이 필요합니다.</td></tr><tr><td>외팔보는 막대(보) 모양만 가리킨다.</td><td>캔틸레버라는 구조는 보뿐 아니라 판, 트러스, 슬래브 형태로도 있습니다. 외팔보는 그중 보 형태입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "비슷하게 쓰이지만 가리키는 대상이 다릅니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "외팔보와의 관계"
+    ],
+    "rows": [
+      [
+        "[[cantilever|캔틸레버]]",
+        "한쪽만 고정된 구조 요소의 총칭(보·판·트러스·슬래브)",
+        "외팔보는 이 중 보 형태"
+      ],
+      [
+        "[[bending-moment|굽힘모멘트]]",
+        "하중 때문에 보 내부에 생기는 모멘트",
+        "외팔보에서는 끝단 하중일 때 고정단에서 최대"
+      ],
+      [
+        "[[elastic-modulus|탄성계수]]",
+        "재료가 얼마나 뻣뻣한지를 나타내는 값(공식의 E)",
+        "처짐은 E와 단면 2차 모멘트 I의 곱 EI에 반비례"
+      ]
+    ]
+  },
+  "references": [
+    "Gere, J. M., & Goodno, B. J. (2008). Mechanics of Materials, SI Edition. Cengage Learning.",
+    "Beer, F. P., Johnston, E. R., Jr., & DeWolf, J. T. (2002). Mechanics of Materials. McGraw-Hill.",
+    "Lavrik, N. V., Sepaniak, M. J., & Datskos, P. G. (2004). Cantilever transducers as a platform for chemical and biological sensors. Review of Scientific Instruments, 75(7), 2229–2253.",
+    "Raiteri, R., Grattarola, M., Butt, H.-J., & Skládal, P. (2001). Micromechanical cantilever-based biosensors. Sensors and Actuators B: Chemical, 79(2–3), 115–126."
+  ]
+}

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>자본시장선은 무위험자산과 시장포트폴리오를 결합해 얻을 수 있는 기대수익률과 총위험(표준편차)의 조합을 나타내는 직선으로, 모든 투자자가 위험 성향과 무관하게 같은 위험자산 조합을 보유한다는 <a href="tobin-separation-theorem.html">분리정리</a>의 시각적 표현입니다. 기울기가 시장의 <a href="sharpe-ratio.html">샤프비율</a>과 같아 효율적 포트폴리오 성과의 기준선으로 쓰입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>자본시장선(CML)은 가로축을 <strong>총위험(표준편차 σ)</strong>, 세로축을 기대수익률로 한 평면에서 <strong>무위험자산 점에서 위험자산 집합에 그은 접선</strong>입니다. 접점 M이 시장포트폴리오이고, 합리적 투자자는 위험자산을 시장포트폴리오의 비중 그대로 보유한다는 것이 이 선의 의미입니다.</li><li>식은 <code>E(Rp) = Rf + σp × [E(Rm) − Rf] / σm</code>입니다. 기울기 [E(Rm) − Rf] / σm은 시장포트폴리오의 샤프비율과 같고, CML 위의 모든 포트폴리오는 같은 샤프비율을 갖습니다.</li><li>선의 왼쪽·위는 실현 불가능, 오른쪽·아래는 가능하지만 비효율적인 영역입니다. M을 넘어서는 구간은 무위험 금리로 차입해 시장포트폴리오에 더 투자(레버리지)한 포트폴리오입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예</strong> 무위험수익률 Rf = 3%, 시장포트폴리오의 기대수익률 8%, 표준편차 15%라고 합시다. 아래 값은 계산 코드로 구했습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>목표 위험(σ)</th><th>시장포트폴리오 비중</th><th>CML 위 기대수익률</th></tr></thead><tbody><tr><td>0%</td><td>0% (전액 무위험자산)</td><td>3%</td></tr><tr><td>7.5%</td><td>50%</td><td>5.5%</td></tr><tr><td>15%</td><td>100%</td><td>8%</td></tr><tr><td>30%</td><td>200% (무위험 금리로 100% 차입)</td><td>13%</td></tr></tbody></table></div><p>기울기는 (8 − 3) / 15 ≈ 0.33으로, 위험 1%p를 더 지면 기대수익률이 약 0.33%p 늘어난다는 뜻입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>개별 주식도 CML 위에 놓인다.</td><td>CML은 효율적 포트폴리오의 선입니다. 개별 위험자산은 일반적으로 선의 아래(비효율 영역)에 놓입니다.</td></tr><tr><td>CML과 증권시장선(SML)은 같은 선이다.</td><td>CML은 총위험(σ)을 가로축으로 하며 효율적 포트폴리오에 적용되고, SML은 체계적 위험(베타)에 대한 개별 증권의 기대수익률을 나타냅니다.</td></tr><tr><td>CML의 수익률은 관측된 실제 수익률이다.</td><td>식에 들어가는 것은 기대수익률과 표준편차이며, 실제 관측값이 아니라 모형 위의 값입니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Sharpe, W. F. (1964). Capital Asset Prices: A Theory of Market Equilibrium under Conditions of Risk. Journal of Finance.</div>
   <p>샤프는 모든 투자자가 무위험자산과 접점포트폴리오(시장포트폴리오)를 결합하여 투자한다는 분리정리를 바탕으로, 효율적 포트폴리오들의 위험-수익 관계를 나타내는 자본시장선을 도출했다.</p>
 
@@ -163,6 +181,20 @@
 
   <h2>주의할 점</h2>
   <p>자본시장선은 오직 완전분산된 효율적 포트폴리오에만 적용되며, 비체계적위험을 지닌 개별 주식이나 비효율적 포트폴리오에는 이 관계가 성립하지 않는다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>비슷한 이름의 선과 개념이 모여 있습니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">가로축</th><th scope="col">무엇을 나타내나</th></tr></thead><tbody><tr><th scope="row"><strong>자본시장선(CML)</strong></th><td>총위험(표준편차)</td><td>무위험자산과 시장포트폴리오를 섞어 만든 효율적 포트폴리오의 위험-수익 관계</td></tr><tr><th scope="row"><a href="capital-allocation-line.html">자본배분선(CAL)</a></th><td>총위험(표준편차)</td><td>무위험자산과 임의의 위험 포트폴리오를 섞은 조합의 선(기울기는 보상 대 변동성 비율)</td></tr><tr><th scope="row"><a href="security-market-line.html">증권시장선(SML)</a></th><td>체계적 위험(베타)</td><td>CAPM을 그린 선으로, 개별 증권의 기대수익률</td></tr><tr><th scope="row"><a href="efficient-frontier.html">효율적프론티어</a></th><td>총위험(표준편차)</td><td>같은 위험에서 더 높은 기대수익률을 줄 포트폴리오가 없는 집합(마코위츠, 1952)</td></tr><tr><th scope="row"><a href="sharpe-ratio.html">샤프비율</a></th><td>—</td><td>CML의 기울기는 시장포트폴리오의 샤프비율</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sharpe, W. F. (1964). Capital asset prices: A theory of market equilibrium under conditions of risk. The Journal of Finance, 19(3), 425–442.</li>
+    <li>Tobin, J. (1958). Liquidity preference as behavior towards risk. The Review of Economic Studies, 25(2).</li>
+    <li>Markowitz, H. (1952). Portfolio selection. The Journal of Finance, 7(1), 77–91.</li>
+    <li>Lintner, J. (1965). The valuation of risk assets and the selection of risky investments in stock portfolios and capital budgets. The Review of Economics and Statistics, 47(1).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="capital-allocation-line.html">자본배분선</a></div></div><p class="concept-family-map"><a href="../concept-map/finance.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
