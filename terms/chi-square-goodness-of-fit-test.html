@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,24 @@
   <h2>왜 중요한가</h2>
   <p>많은 통계 연구는 표본이 모집단을 대표한다는 전제 위에서 결과를 해석하는데, 카이제곱 적합도검정은 이 전제를 직접 확인할 수 있는 몇 안 되는 도구입니다. 설문조사, 실험설계, 유전학의 멘델 유전비율 검증처럼 "관측된 비율이 이론적으로 기대한 비율과 같은가"라는 질문은 사회과학부터 생명과학까지 폭넓게 등장합니다. 표본 편향이나 모형 적합성을 점검하는 사전 절차로 쓰이는 경우가 많아, 본 분석에 앞서 논문의 방법론 절에서 자주 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>한 범주형 변수의 관측 도수가 미리 정해 둔 비율과 맞는지 볼 때 씁니다. 귀무가설은 “각 범주의 확률이 지정한 값과 같다”입니다. 이 검정은 피어슨(Karl Pearson)이 1900년에 그 성질을 처음 다룬 피어슨 카이제곱 검정의 한 용도입니다.</p><ul><li><strong>자유도</strong>: 범주 수에서 모형이 자료에 맞춰 추정한 모수의 수를 뺍니다. 범주가 k개이고 비율을 미리 정했다면 k − 1입니다. 자료에서 푸아송분포의 모수 하나를 추정했다면 k − 2입니다.</li><li><strong>기대도수</strong>: 기대도수가 아주 작으면 검정이 부정확해질 수 있어 5 이상이 흔히 권장됩니다. 그렇지 않으면 정확검정이나 모의 p값을 고려합니다. 범주가 둘뿐이면 이항검정이 정확검정입니다(<a href="binomial-test.html">이항검정</a>).</li><li>범주가 서로 겹치지 않고 모든 경우를 포괄해야 하며, 관측치는 서로 독립이어야 합니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>통계량은 <code>χ² = Σ (O − E)² / E</code>입니다(O는 관측도수, E는 기대도수).</p><p><strong>예 1. 주사위(가상의 값).</strong> 공정한 주사위를 60번 던져 1~6이 각각 5, 8, 11, 9, 9, 18번 나왔다고 합시다. 기대도수는 모두 10입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>눈</th><th>관측 O</th><th>기대 E</th><th>(O − E)²/E</th></tr></thead><tbody><tr><td>1</td><td>5</td><td>10</td><td>2.5</td></tr><tr><td>2</td><td>8</td><td>10</td><td>0.4</td></tr><tr><td>3</td><td>11</td><td>10</td><td>0.1</td></tr><tr><td>4</td><td>9</td><td>10</td><td>0.1</td></tr><tr><td>5</td><td>9</td><td>10</td><td>0.1</td></tr><tr><td>6</td><td>18</td><td>10</td><td>6.4</td></tr></tbody></table></div><p>합은 χ² = 9.6, 자유도 5에서 p ≈ .087입니다. 자유도 5에서 α = .05의 임계값은 약 11.07이므로 통계량이 이보다 작고, .05 수준에서 귀무가설을 기각하지 못합니다. 이는 “주사위가 공정하다”는 증명이 아니라 “공정하지 않다고 하기엔 증거가 부족하다”는 뜻입니다. 6의 눈 한 칸이 통계량의 대부분(6.4/9.6)을 만든다는 점도 눈여겨볼 만합니다.</p><p><strong>예 2. 멘델의 3:1(가상의 값).</strong> F₂ 100개체에서 우성 78, 열성 22이면 기대는 75, 25이고 χ² = 9/75 + 9/25 = 0.48, 자유도 1에서 p ≈ .488입니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <p>통계량, 자유도, 표본 크기, p값을 함께 적고, 기대 비율을 어떻게 정했는지(이론값인지, 자료에서 추정했는지)와 관측·기대도수를 표로 보입니다.</p><p><code>주사위 눈의 분포는 균등분포에서 유의하게 벗어나지 않았다(χ²(5, N = 60) = 9.60, p = .087).</code></p><ul><li>기대도수가 작은 칸이 있으면 정확검정이나 모의 p값을 쓴 사실을 적습니다.</li><li>표본이 크면 작은 차이도 유의해지므로, 어느 범주가 통계량에 크게 기여했는지(위 표의 마지막 열)나 효과크기를 함께 제시합니다.</li><li>정규성처럼 연속형 변수의 분포를 확인하는 목적에는 <a href="shapiro-wilk-test.html">샤피로–윌크 검정</a>이나 <a href="kolmogorov-smirnov-test.html">콜모고로프–스미르노프 검정</a>을 따로 씁니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"응답자의 혈액형 분포는 국내 인구의 혈액형 비율과 유의한 차이가 없었다 (χ²(3) = 3.11, p = .375, 카이제곱 적합도검정)."</div>
   <p>이 문장은 "설문 응답자의 혈액형 비율이 일반 인구 집단에서 알려진 비율과 통계적으로 다르지 않았다"는 뜻으로, 표본이 모집단의 알려진 분포를 잘 따르고 있음을 확인한 것입니다.</p>
 
@@ -171,6 +189,19 @@
 
   <h2>주의할 점</h2>
   <p>카이제곱 적합도검정은 변수 하나의 "관측 대 기대" 비교이며, 두 범주형 변수 사이의 연관성을 보는 독립성검정과 혼동하기 쉽습니다. 예를 들어 "성별에 따라 선호 브랜드가 다른가?"는 독립성검정이지만, "선호 브랜드 비율이 업계 평균과 같은가?"는 적합도검정입니다. 또한 다른 카이제곱검정과 마찬가지로 각 범주의 기대빈도가 5 미만이면 검정 결과가 부정확해질 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷하지만 묻는 질문이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">질문</th><th scope="col">자료</th></tr></thead><tbody><tr><th scope="row">카이제곱 적합도검정</th><td>한 범주형 변수의 분포가 지정한 비율과 같은가</td><td>범주형 변수 하나</td></tr><tr><th scope="row"><a href="chi-square-test.html">카이제곱검정(독립성)</a></th><td>두 범주형 변수가 연관되어 있는가</td><td>범주형 변수 둘(분할표)</td></tr><tr><th scope="row"><a href="binomial-test.html">이항검정</a></th><td>성공 확률이 가정한 값과 같은가</td><td>결과가 두 가지뿐인 경우(정확검정)</td></tr><tr><th scope="row"><a href="kolmogorov-smirnov-test.html">콜모고로프–스미르노프 검정</a></th><td>표본이 주어진 기준 분포에서 나왔는가</td><td>연속형 변수</td></tr><tr><th scope="row"><a href="chi-squared-distribution.html">카이제곱분포</a></th><td>검정통계량이 따르는 분포</td><td>검정이 아니라 확률분포</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Pearson, K. (1900). On the criterion that a given system of deviations from the probable in the case of a correlated system of variables is such that it can be reasonably supposed to have arisen from random sampling. Philosophical Magazine, Series 5, 50(302), 157–175.</li>
+    <li>Cochran, W. G. (1952). The χ² test of goodness of fit. Annals of Mathematical Statistics, 23(3), 315–345.</li>
+    <li>Agresti, A. (2013). Categorical Data Analysis. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="chi-square-test.html">카이제곱검정</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

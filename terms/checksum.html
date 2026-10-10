@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>체크섬은 파일이 저장·전송 중에 한 비트라도 바뀌었는지 저비용으로 확인하게 해 주어, 디지털 저장소의 <a href="fixity.html">고정성</a> 점검과 수집 시 검증 절차의 기술적 토대가 됩니다. 저장소 인증 기준에서도 정기적 체크섬 검증이 요구됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>목적</strong>: 체크섬은 전송이나 저장 중에 생긴 오류를 알아내려고 다른 데이터 블록에서 만든 작은 데이터입니다. 데이터의 <strong>무결성</strong>을 확인하는 데 쓰이지만, 데이터가 누구에게서 왔는지를 뜻하는 <strong>진본성</strong>을 보증하는 용도로는 의존하지 않습니다.</li><li><strong>종류</strong>: 가장 단순한 것은 비트들을 모두 XOR한 값을 덧붙이는 패리티 검사입니다. 패리티 비트와 검사숫자는 체크섬의 특수한 경우입니다. 인터넷의 IP·UDP·TCP는 ‘인터넷 체크섬’을 씁니다(RFC 1071). 암호학적 해시 함수는 입력이 조금만 달라져도 크게 다른 값을 내므로 많은 종류의 손상을 찾아내고 무결성을 확인하는 데 쓰입니다. SHA-2 계열 알고리즘은 미국 연방 표준(FIPS 180-4)에서 메시지가 다이제스트를 만든 뒤 바뀌었는지 알아내는 데 쓰는 해시 알고리즘으로 규정됩니다.</li><li><strong>일부 오류정정부호</strong>는 특별한 체크섬을 바탕으로 해서, 흔한 오류를 찾아낼 뿐 아니라 경우에 따라 원래 데이터를 복원할 수도 있습니다.</li><li><strong>디지털 보존에서의 쓰임</strong>: 데이터의 고정성(fixity)을 유지하는 가장 흔한 방법은 데이터를 바꿀 수 없게 두는 것과 파일 체크섬·암호학적 해시를 쓰는 것입니다(Tikhonov, 2019).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>계산해 보면(문자열은 가상의 예).</strong> 같은 두 문자열을 세 가지 방식으로 요약한 값입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>입력</th><th>바이트 합 mod 256</th><th>CRC-32</th><th>SHA-256(앞 16자리)</th></tr></thead><tbody><tr><td>hello</td><td>20</td><td>3610a686</td><td>2cf24dba5fb0a30e…</td></tr><tr><td>Hello</td><td>244</td><td>f7d18982</td><td>185f8db32271fe25…</td></tr><tr><td>ab</td><td>195</td><td>9e83486d</td><td>fb8e20fc2e4c3f24…</td></tr><tr><td>ba</td><td>195</td><td>2ca74a14</td><td>970f519c2cadbcef…</td></tr></tbody></table></div><ul><li>첫 글자의 대소문자만 바꾼 hello와 Hello는 SHA-256 출력 256비트 중 125비트가 다릅니다.</li><li>순서만 바꾼 ab와 ba는 단순한 바이트 합이 같아(195) 이 방식으로는 변경을 알아채지 못하지만, CRC-32와 SHA-256은 다른 값을 줍니다. 단순한 합이 약한 체크섬인 이유입니다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“체크섬이 맞으면 진짜 원본이다”</strong> → 체크섬은 우발적 변경을 찾는 데 쓰이며 진본성을 보증하지 않습니다. 체크섬 값이 파일과 함께 바뀔 수 있는 곳에 있으면 검증의 의미가 없어집니다.</li><li><strong>“체크섬이 달라졌으니 파일이 손상된 것이다”</strong> → 장기 보존을 위해 파일을 새 형식으로 이전(migration)하면 내용은 같아도 체크섬은 달라집니다(Tikhonov, 2019는 이 한계를 지적하고 지각 해시를 대안으로 탐색했습니다).</li><li><strong>“체크섬은 오류를 고쳐 준다”</strong> → 일반적인 체크섬은 변경이 있었음을 알릴 뿐 복원은 하지 못합니다. 복원이 필요하면 오류정정부호나 별도의 복제본이 필요합니다.</li><li><strong>“알고리즘만 같으면 비교된다”</strong> → 같은 알고리즘, 같은 입력 바이트여야 합니다. 위 예의 hello와 Hello처럼 한 글자만 달라도 값이 달라집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 저장소는 저장된 모든 디지털 객체에 대해 SHA-256 체크섬을 산출하고 주기적으로 재계산하여 고정성을 검증한다.</div>
   <p>디지털 저장소가 체크섬을 이용해 정기적으로 파일 무결성을 점검하는 운영 절차를 설명하는 문장이다.</p>
   <div class="example">체크섬은 원본 데이터가 변경되면 다시 계산한 값이 원래 값과 달라지는 특성을 이용해 파일 전송이나 저장 과정에서의 무결성 검증에 활용된다는 점이 정보보안 연구에서 설명된다.</div>
@@ -158,6 +176,19 @@
 
   <h2>주의할 점</h2>
   <p>체크섬 검증은 파일 손상 여부를 확인해줄 뿐 손상 자체를 예방하거나 복구해주지는 못하므로 별도의 백업 전략이 함께 필요하다. 체크섬 값 자체가 별도로 안전하게 보관되지 않으면 파일과 체크섬이 동시에 변조될 수 있어 검증의 신뢰성이 무너진다는 점에 유의해야 한다. 동일한 파일이라도 체크섬 알고리즘이 다르면 값 자체를 서로 비교할 수 없으므로, 검증 시 반드시 같은 알고리즘으로 계산한 값끼리 대조해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>모두 데이터를 짧은 값으로 요약하지만 목적이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">목적</th><th scope="col">체크섬과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="hash-function.html">해시 함수</a></th><td>임의 길이의 입력을 고정 길이의 값으로 바꿈</td><td>체크섬을 만드는 데 쓰이는 함수의 한 종류(해시표 등 다른 용도도 있음)</td></tr><tr><th scope="row"><a href="cryptographic-hash-function.html">암호학적 해시 함수</a></th><td>되돌리기 어렵고 입력의 작은 변화에도 크게 달라지는 값을 만듦</td><td>무결성 검증용 체크섬으로 흔히 쓰임</td></tr><tr><th scope="row"><a href="fixity.html">고정성</a></th><td>디지털 객체가 보존 기간 동안 바뀌지 않았다는 속성</td><td>체크섬·해시는 고정성을 확인하는 대표적 수단</td></tr><tr><th scope="row"><a href="hash-value-verification.html">해시값 검증</a></th><td>원본과 사본의 해시값을 비교해 변경 여부 확인</td><td>체크섬 검증의 한 방식</td></tr><tr><th scope="row"><a href="low-density-parity-check-code.html">LDPC 부호</a></th><td>오류를 찾을 뿐 아니라 정정함</td><td>검출만 하는 체크섬과 달리 복원까지 하는 오류정정부호</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Braden, R., Borman, D., &amp; Partridge, C. (1988). Computing the Internet checksum (RFC 1071). Network Working Group.</li>
+    <li>National Institute of Standards and Technology (2015). Secure Hash Standard (SHS) (FIPS PUB 180-4).</li>
+    <li>Tikhonov, A. (2019). Preservation of digital images: Question of fixity. Heritage, 2(2), 1160–1165.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

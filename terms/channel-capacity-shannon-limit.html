@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>통신 시스템을 설계할 때 현재 기술이 이론적으로 가능한 최대 성능에 얼마나 가까운지를 판단하는 기준이 되기 때문에 매우 중요합니다. 새로운 변조 방식이나 부호화 기법의 성능을 평가할 때 섀넌한계와의 격차를 비교하는 것이 표준적인 방법으로 사용됩니다. 이 결과는 전송 속도를 높이기 위해 신호 세기와 대역폭을 어떻게 배분하느냐가 핵심이며 어떤 부호로도 넘을 수 없는 이론적 상한이 존재함을 보여준다는 점에서 통신 시스템 설계 방향에 큰 영향을 미쳤습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>섀넌(Shannon, 1948)은 잡음이 있는 채널이라도 정보를 보내는 속도(전송률 R)가 채널용량 C보다 낮으면 오류 확률을 원하는 만큼 작게 만들 수 있는 부호가 존재하고, R이 C를 넘으면 그렇게 할 수 없다는 것을 보였습니다. 이 결과가 <a href="channel-coding-theorem.html">채널부호화 정리</a>이고, 이때의 경계 C가 채널용량, 곧 섀넌한계입니다.</p><ul><li><strong>가우시안 백색잡음 채널의 용량</strong>: <code>C = B · log₂(1 + S/N)</code> (섀넌–하틀리 정리). C는 bit/s, B는 대역폭(Hz), S는 평균 수신 신호 전력, N은 잡음 전력이며, S/N은 dB가 아니라 전력의 <strong>선형 비율</strong>입니다.</li><li>이 식은 하틀리(Hartley, 1928)와 나이퀴스트가 1920년대 말에 세운 전송 이론의 토대 위에서 섀넌이 1940년대에 정리한 것입니다.</li><li>정리는 “오류 확률을 얼마든지 낮추는 부호가 <strong>있다</strong>”는 존재 증명입니다. 섀넌은 증명의 개요만 제시했고 이산 채널의 엄밀한 증명은 Feinstein(1954)에서 처음 주어졌습니다. 한계에 가까워지는 실제 부호는 이후 터보 부호(Berrou 외, 1993)나 LDPC 부호(Chung 외, 2001)처럼 따로 개발되었습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>예 1. 전화 회선급 채널(가상의 값).</strong> 대역폭 B = 3,000 Hz에서 SNR이 10 dB, 20 dB, 30 dB(전력비 10, 100, 1,000)일 때 용량은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>SNR</th><th>S/N(선형)</th><th>C = 3,000 · log₂(1 + S/N)</th></tr></thead><tbody><tr><td>10 dB</td><td>10</td><td>약 10,378 bit/s</td></tr><tr><td>20 dB</td><td>100</td><td>약 19,975 bit/s</td></tr><tr><td>30 dB</td><td>1,000</td><td>약 29,902 bit/s</td></tr></tbody></table></div><p>SNR이 10 dB 올라갈 때마다 용량은 약 9,600~9,900 bit/s 늘 뿐, 신호 전력을 10배로 키운다고 용량이 10배가 되지 않습니다(로그 관계). SNR 0 dB(신호 전력 = 잡음 전력)에서는 C가 대역폭과 같은 숫자(여기서는 3,000 bit/s)가 됩니다.</p><p><strong>예 2. 대역폭을 늘리면 용량이 끝없이 커질까?</strong> 잡음의 전력 밀도 N₀가 일정하면 잡음 전력은 N = N₀·B로 대역폭과 함께 늘어납니다. 신호 전력과 N₀의 비 S/N₀를 30,000 Hz로 고정하고 B만 키우면 C = B · log₂(1 + 30,000/B)는 다음처럼 변합니다(가상의 값).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>대역폭 B</th><th>용량 C</th></tr></thead><tbody><tr><td>3 kHz</td><td>약 10,378 bit/s</td></tr><tr><td>30 kHz</td><td>30,000 bit/s</td></tr><tr><td>300 kHz</td><td>약 41,251 bit/s</td></tr><tr><td>3 MHz</td><td>약 43,066 bit/s</td></tr><tr><td>30 MHz</td><td>약 43,259 bit/s</td></tr></tbody></table></div><p>대역폭이 커질수록 용량은 약 1.44 × S/N₀ = 약 43,281 bit/s에 가까워지고 더 이상 늘지 않습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“섀넌한계는 지금 기술의 한계다”</strong> → 아닙니다. 어떤 부호로도 넘을 수 없는 이론적 상한이며, 전송률이 C보다 높으면 오류 확률을 임의로 작게 만들 수 없다는 뜻입니다. C 아래에서는 오류를 얼마든지 줄이는 부호가 존재하지만, 그런 부호는 복잡도와 지연이 커질 수 있습니다.</li><li><strong>dB 값을 그대로 식에 넣는 실수</strong> → S/N은 선형 비율이어야 합니다. 30 dB를 30으로 넣으면 3,000 · log₂(31) ≈ 14,863 bit/s로 실제 값(약 29,902 bit/s)의 절반 정도가 됩니다.</li><li><strong>“대역폭을 키우면 용량이 비례해서 커진다”</strong> → 잡음 전력도 대역폭에 따라 늘기 때문에 SNR이 높은 영역에서만 거의 비례하고, 위 예 2처럼 일정한 값에 수렴합니다.</li><li><strong>모든 채널에 같은 식을 쓴다</strong> → C = B log₂(1 + S/N)은 가산 백색 가우시안 잡음(AWGN) 채널의 식입니다. 다른 채널은 해당 채널의 용량 공식을 써야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 부호화 기법은 섀넌한계에 근접한 성능을 보이며, 기존 방식 대비 요구 신호 대 잡음비를 낮추었다."</div>
   <p>새로운 부호화 기법의 성능을 이론적 한계와 비교하는 예입니다.</p>
   <div class="example">"주어진 대역폭과 신호 대 잡음비 조건에서 채널 용량을 계산하여 시스템의 최대 전송률 상한을 도출하였다."</div>
@@ -162,6 +180,22 @@
 
   <h2>주의할 점</h2>
   <p>섀넌한계는 이론적인 상한이며, 실제 시스템은 부호화·복호화의 복잡도, 지연시간 등 여러 현실적 제약으로 인해 이 한계에 정확히 도달하지 못하고 근접하는 수준에 머무는 경우가 대부분입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>모두 섀넌의 이름이 붙지만 가리키는 대상이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">다루는 대상</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="channel-coding-theorem.html">채널부호화 정리</a></th><td>채널에서의 오류 없는 전송</td><td>전송률이 채널용량보다 낮으면 오류 확률을 얼마든지 낮추는 부호가 존재한다는 정리</td></tr><tr><th scope="row"><a href="shannon-entropy.html">섀넌 엔트로피</a></th><td>정보원(보내려는 내용)</td><td>정보원이 가진 평균 불확실성을 재는 양. 채널의 한계가 아닙니다</td></tr><tr><th scope="row"><a href="nyquist-shannon-sampling-theorem.html">나이퀴스트–섀넌 표본화 정리</a></th><td>연속 신호를 표본으로 바꾸는 일</td><td>표본화 과정에서 정보를 잃지 않을 조건에 관한 정리로, 채널의 전송 한계와는 다른 주제입니다</td></tr><tr><th scope="row"><a href="bit-error-rate.html">비트오류율</a></th><td>실제 시스템의 측정값</td><td>수신한 비트 중 틀린 비트의 비율. 섀넌한계와 비교해 시스템이 얼마나 가까운지 평가합니다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Shannon, C. E. (1948). A mathematical theory of communication. Bell System Technical Journal, 27(3), 379–423 및 27(4), 623–656.</li>
+    <li>Hartley, R. V. L. (1928). Transmission of information. Bell System Technical Journal, 7(3), 535–563.</li>
+    <li>Cover, T. M., &amp; Thomas, J. A. (2006). Elements of Information Theory (2nd ed.). John Wiley &amp; Sons.</li>
+    <li>MacKay, D. J. C. (2003). Information Theory, Inference, and Learning Algorithms. Cambridge University Press.</li>
+    <li>Berrou, C., Glavieux, A., &amp; Thitimajshima, P. (1993). Near Shannon limit error-correcting coding and decoding: Turbo-codes. Proceedings of ICC ’93 – IEEE International Conference on Communications, 2, 1064–1070.</li>
+    <li>Chung, S.-Y., Forney, G. D., Richardson, T. J., &amp; Urbanke, R. (2001). On the design of low-density parity-check codes within 0.0045 dB of the Shannon limit. IEEE Communications Letters, 5(2), 58–60.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
