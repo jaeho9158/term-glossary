@@ -137,10 +137,8 @@ test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크,
 
 test("파일럿 데이터: 20개, 유형·참고 문헌·인용 형식이 맞다", () => {
   assert.ok(slugs.length >= 20);
-  const archive = new Set(readJson(path.join(ROOT, "data", "index-tiers.json")).archive || []);
   for (const slug of slugs) {
     assert.ok(fs.existsSync(path.join(ROOT, "terms", `${slug}.html`)), `${slug} 페이지`);
-    assert.ok(!archive.has(slug), `${slug} 는 보관 등급이면 안 됨`);
     const x = readJson(path.join(EXTRAS_DIR, `${slug}.json`));
     assert.ok(Object.keys(TYPE_HEADINGS).includes(x.type), slug);
     assert.ok(x.references.length >= 2 && x.references.length <= 8,`${slug} 참고 문헌 수`);

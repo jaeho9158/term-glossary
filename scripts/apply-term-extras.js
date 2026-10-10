@@ -16,7 +16,7 @@
 //   CSS      : <link href="../assets/term-extras.css"> 를 term-nav.css 링크 다음에
 //
 // 건드리지 않는 것: 정의 상자, "쉽게 풀면", "주의할 점" 본문(검수 지문). 단 fixes 에 명시한 명백한 오류 교정만 예외.
-// 건드리지 않는 페이지: 데이터가 없는 용어, 보관(archive) 등급 용어, 앵커 제목이 없는 스텁 페이지.
+// 건드리지 않는 페이지: 데이터가 없는 용어, 앵커 제목이 없는 스텁 페이지. (보관 등급도 방문 기록이 있는 용어는 보강한다.)
 //
 // 사용: node scripts/apply-term-extras.js [--only a,b] [--dry]
 const fs = require("fs");
@@ -233,7 +233,6 @@ function main() {
   for (const slug of slugs) {
     const file = path.join(TERMS_DIR, `${slug}.html`);
     if (!fs.existsSync(file)) { console.warn(`건너뜀(페이지 없음): ${slug}`); skipped++; continue; }
-    if (archive.has(slug)) { console.warn(`건너뜀(보관 등급): ${slug}`); skipped++; continue; }
     const html = fs.readFileSync(file, "utf8");
     const next = applyToHtml(html, slug, readJson(path.join(EXTRAS_DIR, `${slug}.json`)), readJson(path.join(USAGE_DIR, `${slug}.json`), []));
     if (next === null) { console.warn(`건너뜀(앵커 없음, 스텁?): ${slug}`); skipped++; continue; }
