@@ -1,0 +1,57 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>용량-반응 곡선은 가로축에 용량(또는 농도)을, 세로축에 반응을 놓은 그래프입니다. 용량은 로그 눈금으로 두는 경우가 많고, 이때 곡선은 대개 S자(시그모이드) 모양이며 가운데가 가장 가파릅니다.</p><p>S자 곡선을 식으로 나타내는 고전적 모형이 힐(Hill) 식입니다.</p><p><code>E / E<sub>max</sub> = [A]<sup>n</sup> / (EC<sub>50</sub><sup>n</sup> + [A]<sup>n</sup>)</code></p><ul><li><em>E</em><sub>max</sub>: 최대 반응, EC<sub>50</sub>: 최대 반응의 절반을 내는 농도, <em>n</em>: 힐 계수(곡선의 가파른 정도)</li><li>반응이 연속적인 값(근육 수축력 등)이면 <strong>단계적(graded) 반응</strong>, 개체나 세포가 ‘반응했다/안 했다’로 나뉘면 <strong>이분(quantal) 반응</strong>입니다. 이분 반응 자료는 프로빗·로짓 같은 회귀로 분석하는 경우가 많고, LD<sub>50</sub> 같은 값이 여기서 나옵니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>힐 식 계산(가상의 값).</strong> <em>E</em><sub>max</sub> = 100, EC<sub>50</sub> = 10(농도 단위는 임의)일 때 반응은 다음과 같습니다.</p><table><thead><tr><th>농도</th><th>n = 1일 때 반응</th><th>n = 2일 때 반응</th></tr></thead><tbody><tr><td>1</td><td>9.09</td><td>0.99</td></tr><tr><td>10</td><td>50.00</td><td>50.00</td></tr><tr><td>100</td><td>90.91</td><td>99.01</td></tr></tbody></table><p>두 곡선 모두 EC<sub>50</sub>에서 50이지만, <em>n</em>이 클수록 그 주변에서 더 가파르게 오릅니다. 즉 EC<sub>50</sub>이 같아도 곡선의 모양은 다를 수 있으므로, 약물 사이를 비교할 때는 EC<sub>50</sub>과 함께 <em>E</em><sub>max</sub>와 기울기도 봐야 합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>S자 모양은 가로축 눈금에 따라 달라 보입니다.</strong> 힐 계수가 1인 곡선은 로그 축에서는 S자이지만, 같은 자료를 선형 축에 그리면 처음에 가파르게 오르다 완만해지는 쌍곡선 모양이 됩니다. 힐 계수가 1보다 크면 선형 축에서도 S자 모양이 남습니다.</li><li><strong>EC<sub>50</sub>은 측정값이 아니라 모형에서 추정한 값입니다.</strong> 곡선을 자료에 적합해서 얻으므로 신뢰구간과 함께 제시하는 것이 좋고, 사용한 모형(모수 수)에 따라 값이 달라질 수 있습니다. R의 drc 패키지가 이런 분석을 위한 도구로 소개되어 있습니다(Ritz 외, 2015).</li><li><strong>효능과 효력은 다른 말입니다.</strong> 최대 반응의 크기가 효능, 곡선이 놓인 위치(EC<sub>50</sub>)가 효력과 관련됩니다. 용어와 기호는 국제약리학회 위원회의 권고가 정리되어 있습니다(Neubig 외, 2003).</li><li><strong>곡선 밖은 말할 수 없습니다.</strong> 실험한 용량 범위를 벗어난 구간의 반응은 외삽이며, 특히 최대 반응 근처의 모양은 자료가 없으면 불확실합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "곡선과의 관계"
+    ],
+    "rows": [
+      [
+        "용량-반응 곡선",
+        "용량에 따른 반응의 크기를 그린 그래프",
+        "전체 그림"
+      ],
+      [
+        "[[dose-response-relationship|용량-반응 관계]]",
+        "용량과 반응 사이의 관계 자체",
+        "곡선은 이 관계를 그림으로 나타낸 것"
+      ],
+      [
+        "[[ec50|EC50]]",
+        "최대 반응의 50%를 내는 농도",
+        "곡선에서 읽는 위치 지표"
+      ],
+      [
+        "[[ic50|IC50]]",
+        "최대 억제의 50%를 내는 농도",
+        "억제 반응 곡선에서 읽는 위치 지표"
+      ],
+      [
+        "[[therapeutic-index|치료지수]]",
+        "독성과 효과를 내는 용량의 비를 이용한 안전 여유의 지표",
+        "효과 곡선과 독성 곡선을 함께 놓고 비교"
+      ]
+    ]
+  },
+  "references": [
+    "Neubig, R. R., Spedding, M., Kenakin, T., and Christopoulos, A. (2003). International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification. XXXVIII. Update on terms and symbols in quantitative pharmacology. Pharmacological Reviews, 55(4), 597-606.",
+    "Ritz, C., Baty, F., Streibig, J. C., and Gerhard, D. (2015). Dose-response analysis using R. PLoS ONE, 10(12), e0146021.",
+    "Jenkinson, D. H., Barnard, E. A., Hoyer, D., Humphrey, P. P., Leff, P., and Shankley, N. P. (1995). International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification. IX. Recommendations on terms and symbols in quantitative pharmacology. Pharmacological Reviews, 47(2), 255-266."
+  ]
+}

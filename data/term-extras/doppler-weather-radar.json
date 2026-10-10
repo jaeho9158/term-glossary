@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>도플러 기상레이더는 두 가지를 따로 읽습니다.</p><ul><li><strong>반사도</strong>: 되돌아온 신호의 세기입니다. 강수 입자가 어디에 얼마나 있는지, 비가 얼마나 강한지를 가늠하는 바탕이 됩니다.</li><li><strong>도플러 속도</strong>: 연속한 펄스 사이에서 되돌아온 신호의 위상이 얼마나 바뀌었는지로 구합니다. 레이더와 목표 사이 거리가 시간에 따라 변하는 비율, 곧 <strong>시선방향(방사) 속도</strong>만 알려 줍니다.</li></ul><p>펄스 간격을 Δ<em>t</em>, 파장을 λ라 하면 모호함 없이 잴 수 있는 속도 범위(나이퀴스트 속도)와 최대 탐지 거리는 다음과 같습니다.</p><p><code>V<sub>max</sub> = λ / (4Δt), R<sub>max</sub> = cΔt / 2</code></p><p>Δ<em>t</em>를 줄이면 속도 범위는 넓어지지만 거리 범위는 좁아지고, 반대도 마찬가지입니다. 이를 흔히 ‘도플러 딜레마’라고 부릅니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>계산 예(가상의 값).</strong> 파장 10 cm 레이더를 펄스 반복 주파수(PRF) 1,000 Hz로 운용하면 Δ<em>t</em> = 1 ms이므로 <em>V</em><sub>max</sub> = 0.1 / (4 × 0.001) = 25 m/s, <em>R</em><sub>max</sub> = (3×10<sup>8</sup> × 0.001) / 2 ≈ 150 km입니다. PRF를 2,000 Hz로 올리면 <em>V</em><sub>max</sub> = 50 m/s로 늘지만 <em>R</em><sub>max</sub>는 약 75 km로 줄어듭니다. 두 값의 곱은 어느 쪽이든 <em>c</em>λ/8 = 3.75×10<sup>6</sup> m<sup>2</sup>/s로 일정합니다.</p><p><strong>속도 장 읽기.</strong> 균일하게 동쪽으로 움직이는 비구름이라면, 서쪽을 향한 빔은 비가 다가오는 쪽(접근 속도), 동쪽을 향한 빔은 멀어지는 쪽(후퇴 속도)을 보고, 남북 방향에서는 시선방향 성분이 0에 가깝습니다. 폭풍 안에서 접근과 후퇴 속도가 좁은 거리 안에 이웃해 나타나면 회전 가능성을 의심하는 단서가 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>도플러 속도는 실제 풍속이 아닙니다.</strong> 레이더를 향한 성분만 보이므로, 실제 바람의 방향과 크기는 여러 방위의 자료를 함께 풀어서 얻습니다.</li><li><strong>떨어지는 강수 입자의 속도가 섞입니다.</strong> 고도각이 높을수록 낙하 속도 성분이 시선방향 속도에 끼어들기 때문에 보정이 필요합니다. 낮은 고도각에서는 그 영향이 작습니다.</li><li><strong>범위를 넘는 속도는 ‘접힙니다’.</strong> 나이퀴스트 속도를 넘는 바람은 반대 부호의 값으로 나타나므로, 서로 다른 PRF를 번갈아 쓰는 방법으로 범위를 넓히기도 합니다.</li><li><strong>모든 움직임이 기상은 아닙니다.</strong> 풍력 발전기의 회전 날개나 새·곤충의 움직임이 강수처럼 보이는 신호를 만들 수 있습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "자료·기법",
+      "측정하는 것",
+      "알려 주는 것"
+    ],
+    "rows": [
+      [
+        "반사도",
+        "되돌아온 신호의 세기",
+        "강수의 위치와 강한 정도"
+      ],
+      [
+        "도플러(시선방향) 속도",
+        "펄스 사이 위상 변화",
+        "레이더를 향한 접근·후퇴 속도"
+      ],
+      [
+        "[[dual-polarization-radar|이중편파 레이더]]",
+        "수평·수직 편파 신호의 차이",
+        "강수 입자의 크기와 모양(비·눈·우박 구분의 단서)"
+      ],
+      [
+        "[[pulse-doppler-radar-processing|펄스도플러 레이더 처리]]",
+        "펄스열에서 속도를 추출하는 신호처리",
+        "기상뿐 아니라 일반 레이더에도 쓰이는 기법"
+      ]
+    ]
+  },
+  "references": [
+    "Doviak, R. J., and Zrnic, D. S. (1993). Doppler Radar and Weather Observations (2nd ed.). Academic Press.",
+    "Bringi, V. N., and Chandrasekar, V. (2001). Polarimetric Doppler Weather Radar: Principles and Applications. Cambridge University Press.",
+    "Doviak, R. J., Zrnic, D. S., and Sirmans, D. S. (1979). Doppler weather radar. Proceedings of the IEEE, 67(11), 1522-1553.",
+    "Crum, T. D., and Alberty, R. L. (1993). The WSR-88D and the WSR-88D Operational Support Facility. Bulletin of the American Meteorological Society, 74(9), 1669-1687."
+  ]
+}

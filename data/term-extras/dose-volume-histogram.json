@@ -1,0 +1,52 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>치료계획 시스템은 CT 영상을 바탕으로 환자 몸의 3차원 선량 분포를 계산합니다. 선량체적히스토그램(DVH)은 이 3차원 분포를, 관심 구조(표적, 위험장기 등)별로 ‘어떤 선량을 받은 부피가 얼마인가’라는 2차원 그래프로 줄여 놓은 것입니다.</p><ol><li>구조의 부피를 작은 칸(복셀)으로 나누고, 칸마다 계산된 선량을 구합니다.</li><li>선량 구간(bin)을 정하고 구간마다 부피를 모읍니다.</li><li>그대로 그리면 <strong>미분 DVH</strong>(구간별 부피, 일반 히스토그램 모양)가 되고, 해당 선량 이상을 받은 부피를 누적해 그리면 <strong>누적 DVH</strong>가 됩니다. 누적 DVH는 왼쪽 위에서 오른쪽 아래로 내려가는 곡선입니다.</li></ol><p>임상에서는 부피를 전체에 대한 백분율로 나타내는 누적 DVH를 흔히 씁니다. 모든 구조의 곡선을 한 그래프에 겹쳐 그립니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p><strong>무엇을 얻나.</strong> Drzymala 외(1991)는 DVH가 치료계획을 서로 비교하고 표적 안 선량의 균일성과 인접 정상조직의 고선량 부위를 한눈에 보이게 하는 도구라고 소개하면서, 위치 정보가 사라지므로 계획 평가의 유일한 기준이 되어서는 안 된다고 짚었습니다. 또 DVH는 종양 제어확률(TCP)과 정상조직 합병증확률(NTCP) 계산의 입력으로도 쓰입니다.</p><p><strong>자주 쓰는 표기.</strong> V<sub>x</sub>는 <em>x</em> Gy 이상을 받은 부피(대개 %), D<sub>mean</sub>은 평균 선량입니다.</p><p><strong>계산 예(가상의 값).</strong> 부피 1,000 cc인 장기를 선량 구간으로 나눈 결과가 아래와 같다고 합니다.</p><table><thead><tr><th>선량 구간</th><th>부피(cc)</th><th>그 구간 이상 누적 부피</th></tr></thead><tbody><tr><td>0~10 Gy</td><td>400</td><td>100%</td></tr><tr><td>10~20 Gy</td><td>300</td><td>60%</td></tr><tr><td>20~30 Gy</td><td>200</td><td>30%</td></tr><tr><td>30~40 Gy</td><td>100</td><td>10%</td></tr></tbody></table><p>V<sub>20</sub> = (200 + 100) / 1,000 = 30%, 구간 중앙값으로 어림한 평균 선량은 (5×400 + 15×300 + 25×200 + 35×100) / 1,000 = 15 Gy입니다.</p><p><strong>한계.</strong> 폐 방사선 폐렴에 대한 정리 논문은 폐렴 발생률이 여러 선량 지표와 관련되며, 뚜렷한 ‘문턱’ 선량-부피 값은 없고 부피와 분할 방식의 영향이 크다고 서술합니다(Marks 외, 2010). 따라서 V<sub>20</sub> 같은 수치는 한 계획의 위험을 가늠하는 참고 기준이지 안전과 위험을 가르는 경계선이 아닙니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>어떤 구조를 어떻게 윤곽 그렸는지, 선량 계산 방식과 선량 구간의 크기를 적습니다.</li><li>누적 DVH인지 미분 DVH인지, 부피를 절대값(cc)으로 쓰는지 백분율로 쓰는지 밝힙니다.</li><li>V<sub>x</sub>, D<sub>mean</sub> 등 사용한 지표를 정의하고, 총선량과 분할 횟수를 함께 적습니다.</li><li>두 계획의 곡선이 교차하면 지표 한두 개로 우열을 정하지 말고 어느 구간이 임상적으로 중요한지 설명합니다.</li><li>DVH만으로는 고선량 영역이 장기의 어디에 있는지 알 수 없으므로, 필요하면 선량 분포 영상(등선량곡선)을 함께 제시합니다.</li></ul><p>예: <code>폐 V20은 계획 A에서 30.0%, 계획 B에서 24.5%였다(가상의 값).</code></p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "보여 주는 것",
+      "DVH와의 차이"
+    ],
+    "rows": [
+      [
+        "선량체적히스토그램(DVH)",
+        "선량과 부피의 관계 요약",
+        "위치 정보는 없음"
+      ],
+      [
+        "[[isodose-curve|등선량곡선]]",
+        "영상 위의 선량 분포",
+        "위치는 보이지만 구조별 부피 요약은 어려움"
+      ],
+      [
+        "[[dose-constraint|선량제약]]",
+        "장기별로 넘지 않도록 정한 기준값",
+        "DVH 위에서 만족 여부를 확인하는 기준"
+      ],
+      [
+        "[[organ-at-risk|위험장기]]",
+        "보호해야 할 정상 구조",
+        "DVH를 그리는 대상 구조의 하나"
+      ]
+    ]
+  },
+  "references": [
+    "Drzymala, R. E., Mohan, R., Brewster, L., Chu, J., Goitein, M., Harms, W., and Urie, M. (1991). Dose-volume histograms. International Journal of Radiation Oncology Biology Physics, 21(1), 71-78.",
+    "Marks, L. B., Bentzen, S. M., Deasy, J. O., Kong, F. M., Bradley, J. D., Vogelius, I. S., et al. (2010). Radiation dose-volume effects in the lung. International Journal of Radiation Oncology Biology Physics, 76(3 Suppl), S70-S76.",
+    "Bentzen, S. M., Constine, L. S., Deasy, J. O., Eisbruch, A., Jackson, A., Marks, L. B., et al. (2010). Quantitative Analyses of Normal Tissue Effects in the Clinic (QUANTEC): an introduction to the scientific issues. International Journal of Radiation Oncology Biology Physics, 76(3 Suppl), S3-S9."
+  ]
+}

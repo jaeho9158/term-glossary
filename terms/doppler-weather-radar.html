@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>도플러 기상레이더는 강수의 세기뿐 아니라 바람의 방향과 속도까지 실시간으로 관측할 수 있어 위험 기상 조기경보 연구의 핵심 관측 자료로 다뤄집니다. 토네이도나 국지성 돌풍처럼 짧은 시간에 급격히 발달하는 현상을 탐지하는 데 필수적이며, 수치예보 모델에 자료를 동화하여 예측 정확도를 높이는 연구에도 널리 활용됩니다. 이 때문에 기상학뿐 아니라 항공안전, 방재공학 등 응용 분야 논문에서도 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>도플러 기상레이더는 두 가지를 따로 읽습니다.</p><ul><li><strong>반사도</strong>: 되돌아온 신호의 세기입니다. 강수 입자가 어디에 얼마나 있는지, 비가 얼마나 강한지를 가늠하는 바탕이 됩니다.</li><li><strong>도플러 속도</strong>: 연속한 펄스 사이에서 되돌아온 신호의 위상이 얼마나 바뀌었는지로 구합니다. 레이더와 목표 사이 거리가 시간에 따라 변하는 비율, 곧 <strong>시선방향(방사) 속도</strong>만 알려 줍니다.</li></ul><p>펄스 간격을 Δ<em>t</em>, 파장을 λ라 하면 모호함 없이 잴 수 있는 속도 범위(나이퀴스트 속도)와 최대 탐지 거리는 다음과 같습니다.</p><p><code>V<sub>max</sub> = λ / (4Δt), R<sub>max</sub> = cΔt / 2</code></p><p>Δ<em>t</em>를 줄이면 속도 범위는 넓어지지만 거리 범위는 좁아지고, 반대도 마찬가지입니다. 이를 흔히 ‘도플러 딜레마’라고 부릅니다.</p>
+
+  <h2>예시로 보기</h2>
+  <p><strong>계산 예(가상의 값).</strong> 파장 10 cm 레이더를 펄스 반복 주파수(PRF) 1,000 Hz로 운용하면 Δ<em>t</em> = 1 ms이므로 <em>V</em><sub>max</sub> = 0.1 / (4 × 0.001) = 25 m/s, <em>R</em><sub>max</sub> = (3×10<sup>8</sup> × 0.001) / 2 ≈ 150 km입니다. PRF를 2,000 Hz로 올리면 <em>V</em><sub>max</sub> = 50 m/s로 늘지만 <em>R</em><sub>max</sub>는 약 75 km로 줄어듭니다. 두 값의 곱은 어느 쪽이든 <em>c</em>λ/8 = 3.75×10<sup>6</sup> m<sup>2</sup>/s로 일정합니다.</p><p><strong>속도 장 읽기.</strong> 균일하게 동쪽으로 움직이는 비구름이라면, 서쪽을 향한 빔은 비가 다가오는 쪽(접근 속도), 동쪽을 향한 빔은 멀어지는 쪽(후퇴 속도)을 보고, 남북 방향에서는 시선방향 성분이 0에 가깝습니다. 폭풍 안에서 접근과 후퇴 속도가 좁은 거리 안에 이웃해 나타나면 회전 가능성을 의심하는 단서가 됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>도플러 속도는 실제 풍속이 아닙니다.</strong> 레이더를 향한 성분만 보이므로, 실제 바람의 방향과 크기는 여러 방위의 자료를 함께 풀어서 얻습니다.</li><li><strong>떨어지는 강수 입자의 속도가 섞입니다.</strong> 고도각이 높을수록 낙하 속도 성분이 시선방향 속도에 끼어들기 때문에 보정이 필요합니다. 낮은 고도각에서는 그 영향이 작습니다.</li><li><strong>범위를 넘는 속도는 ‘접힙니다’.</strong> 나이퀴스트 속도를 넘는 바람은 반대 부호의 값으로 나타나므로, 서로 다른 PRF를 번갈아 쓰는 방법으로 범위를 넓히기도 합니다.</li><li><strong>모든 움직임이 기상은 아닙니다.</strong> 풍력 발전기의 회전 날개나 새·곤충의 움직임이 강수처럼 보이는 신호를 만들 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"도플러 기상레이더의 반사도 자료를 이용해 집중호우를 유발한 강한 강수 셀의 이동 경로를 추적하였다."</div>
   <p>레이더로 측정한 강수 세기 자료를 이용해 집중호우를 일으킨 비구름 덩어리가 어느 경로로 이동했는지 추적했다는 뜻이다.</p>
   <div class="example">"도플러 속도장에서 관측된 회전 시그니처를 바탕으로 발달 중인 토네이도의 전조 현상을 조기에 탐지하였다."</div>
@@ -168,6 +186,19 @@
 
   <h2>주의할 점</h2>
   <p>레이더 전파는 산이나 건물 같은 지형 장애물에 가로막히면 그 뒤편의 강수를 제대로 관측하지 못하는 사각지대가 생길 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">자료·기법</th><th scope="col">측정하는 것</th><th scope="col">알려 주는 것</th></tr></thead><tbody><tr><th scope="row">반사도</th><td>되돌아온 신호의 세기</td><td>강수의 위치와 강한 정도</td></tr><tr><th scope="row">도플러(시선방향) 속도</th><td>펄스 사이 위상 변화</td><td>레이더를 향한 접근·후퇴 속도</td></tr><tr><th scope="row"><a href="dual-polarization-radar.html">이중편파 레이더</a></th><td>수평·수직 편파 신호의 차이</td><td>강수 입자의 크기와 모양(비·눈·우박 구분의 단서)</td></tr><tr><th scope="row"><a href="pulse-doppler-radar-processing.html">펄스도플러 레이더 처리</a></th><td>펄스열에서 속도를 추출하는 신호처리</td><td>기상뿐 아니라 일반 레이더에도 쓰이는 기법</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Doviak, R. J., and Zrnic, D. S. (1993). Doppler Radar and Weather Observations (2nd ed.). Academic Press.</li>
+    <li>Bringi, V. N., and Chandrasekar, V. (2001). Polarimetric Doppler Weather Radar: Principles and Applications. Cambridge University Press.</li>
+    <li>Doviak, R. J., Zrnic, D. S., and Sirmans, D. S. (1979). Doppler weather radar. Proceedings of the IEEE, 67(11), 1522-1553.</li>
+    <li>Crum, T. D., and Alberty, R. L. (1993). The WSR-88D and the WSR-88D Operational Support Facility. Bulletin of the American Meteorological Society, 74(9), 1669-1687.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

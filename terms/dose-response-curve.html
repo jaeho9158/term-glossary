@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -157,7 +158,24 @@
   <h2>왜 중요한가</h2>
   <p>용량-반응 곡선은 신약의 효능과 효력을 정량적으로 비교하는 기본 도구여서 약리학과 신약개발 논문 전반에서 필수적으로 제시됩니다. 이 곡선에서 얻어지는 EC50, IC50 같은 지표는 후보물질을 선별하고 최적화하는 초기 스크리닝 단계뿐 아니라 최종적으로 임상 용량을 설계하는 데까지 이어지는 근거가 됩니다. 독성학에서는 같은 원리로 유해 반응을 다루므로, 효과와 부작용을 함께 그려 안전 범위를 가늠하는 데도 폭넓게 활용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>용량-반응 곡선은 가로축에 용량(또는 농도)을, 세로축에 반응을 놓은 그래프입니다. 용량은 로그 눈금으로 두는 경우가 많고, 이때 곡선은 대개 S자(시그모이드) 모양이며 가운데가 가장 가파릅니다.</p><p>S자 곡선을 식으로 나타내는 고전적 모형이 힐(Hill) 식입니다.</p><p><code>E / E<sub>max</sub> = [A]<sup>n</sup> / (EC<sub>50</sub><sup>n</sup> + [A]<sup>n</sup>)</code></p><ul><li><em>E</em><sub>max</sub>: 최대 반응, EC<sub>50</sub>: 최대 반응의 절반을 내는 농도, <em>n</em>: 힐 계수(곡선의 가파른 정도)</li><li>반응이 연속적인 값(근육 수축력 등)이면 <strong>단계적(graded) 반응</strong>, 개체나 세포가 ‘반응했다/안 했다’로 나뉘면 <strong>이분(quantal) 반응</strong>입니다. 이분 반응 자료는 프로빗·로짓 같은 회귀로 분석하는 경우가 많고, LD<sub>50</sub> 같은 값이 여기서 나옵니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>힐 식 계산(가상의 값).</strong> <em>E</em><sub>max</sub> = 100, EC<sub>50</sub> = 10(농도 단위는 임의)일 때 반응은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>농도</th><th>n = 1일 때 반응</th><th>n = 2일 때 반응</th></tr></thead><tbody><tr><td>1</td><td>9.09</td><td>0.99</td></tr><tr><td>10</td><td>50.00</td><td>50.00</td></tr><tr><td>100</td><td>90.91</td><td>99.01</td></tr></tbody></table></div><p>두 곡선 모두 EC<sub>50</sub>에서 50이지만, <em>n</em>이 클수록 그 주변에서 더 가파르게 오릅니다. 즉 EC<sub>50</sub>이 같아도 곡선의 모양은 다를 수 있으므로, 약물 사이를 비교할 때는 EC<sub>50</sub>과 함께 <em>E</em><sub>max</sub>와 기울기도 봐야 합니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>S자 모양은 가로축 눈금에 따라 달라 보입니다.</strong> 힐 계수가 1인 곡선은 로그 축에서는 S자이지만, 같은 자료를 선형 축에 그리면 처음에 가파르게 오르다 완만해지는 쌍곡선 모양이 됩니다. 힐 계수가 1보다 크면 선형 축에서도 S자 모양이 남습니다.</li><li><strong>EC<sub>50</sub>은 측정값이 아니라 모형에서 추정한 값입니다.</strong> 곡선을 자료에 적합해서 얻으므로 신뢰구간과 함께 제시하는 것이 좋고, 사용한 모형(모수 수)에 따라 값이 달라질 수 있습니다. R의 drc 패키지가 이런 분석을 위한 도구로 소개되어 있습니다(Ritz 외, 2015).</li><li><strong>효능과 효력은 다른 말입니다.</strong> 최대 반응의 크기가 효능, 곡선이 놓인 위치(EC<sub>50</sub>)가 효력과 관련됩니다. 용어와 기호는 국제약리학회 위원회의 권고가 정리되어 있습니다(Neubig 외, 2003).</li><li><strong>곡선 밖은 말할 수 없습니다.</strong> 실험한 용량 범위를 벗어난 구간의 반응은 외삽이며, 특히 최대 반응 근처의 모양은 자료가 없으면 불확실합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"두 약물의 용량-반응 곡선을 비교한 결과, 약물 A가 더 왼쪽으로 이동한 곡선을 보여 더 낮은 용량에서도 효과가 나타났다."</div>
   <p>곡선이 왼쪽에 있다는 것은 더 적은 용량으로도 같은 크기의 반응을 얻을 수 있다는, 즉 효력이 더 강하다는 뜻이다.</p>
   <div class="example">"세포독성 스크리닝에서 후보물질의 용량-반응 곡선으로부터 IC50 값을 산출하여 화합물 간 억제 효과를 정량적으로 비교하였다."</div>
@@ -170,6 +188,18 @@
 
   <h2>주의할 점</h2>
   <p>곡선의 최대 반응 크기(효능)와 곡선이 시작되는 용량(효력)은 서로 다른 개념이므로 혼동하지 않아야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">곡선과의 관계</th></tr></thead><tbody><tr><th scope="row">용량-반응 곡선</th><td>용량에 따른 반응의 크기를 그린 그래프</td><td>전체 그림</td></tr><tr><th scope="row"><a href="dose-response-relationship.html">용량-반응 관계</a></th><td>용량과 반응 사이의 관계 자체</td><td>곡선은 이 관계를 그림으로 나타낸 것</td></tr><tr><th scope="row"><a href="ec50.html">EC50</a></th><td>최대 반응의 50%를 내는 농도</td><td>곡선에서 읽는 위치 지표</td></tr><tr><th scope="row"><a href="ic50.html">IC50</a></th><td>최대 억제의 50%를 내는 농도</td><td>억제 반응 곡선에서 읽는 위치 지표</td></tr><tr><th scope="row"><a href="therapeutic-index.html">치료지수</a></th><td>독성과 효과를 내는 용량의 비를 이용한 안전 여유의 지표</td><td>효과 곡선과 독성 곡선을 함께 놓고 비교</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Neubig, R. R., Spedding, M., Kenakin, T., and Christopoulos, A. (2003). International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification. XXXVIII. Update on terms and symbols in quantitative pharmacology. Pharmacological Reviews, 55(4), 597-606.</li>
+    <li>Ritz, C., Baty, F., Streibig, J. C., and Gerhard, D. (2015). Dose-response analysis using R. PLoS ONE, 10(12), e0146021.</li>
+    <li>Jenkinson, D. H., Barnard, E. A., Hoyer, D., Humphrey, P. P., Leff, P., and Shankley, N. P. (1995). International Union of Pharmacology Committee on Receptor Nomenclature and Drug Classification. IX. Recommendations on terms and symbols in quantitative pharmacology. Pharmacological Reviews, 47(2), 255-266.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="pharmacodynamics.html">약력학</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="receptor-affinity-efficacy.html">수용체 친화도와 효능</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="ec50.html">최대반응 50% 도달농도(EC50)</a><a href="ic50.html">최대억제 50% 도달농도(IC50)</a></div></div><p class="concept-family-map"><a href="../concept-map/med.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

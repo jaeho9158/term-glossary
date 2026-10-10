@@ -1,0 +1,58 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>항력계수는 항력 <em>F</em><sub>D</sub>를 유체의 동압과 기준 면적으로 나누어 무차원으로 만든 값입니다.</p><p><code>C<sub>D</sub> = 2F<sub>D</sub> / (ρ u<sup>2</sup> A)</code></p><ul><li>ρ: 유체 밀도, <em>u</em>: 유체에 대한 물체의 속도, <em>A</em>: 기준 면적</li><li><strong>기준 면적은 대상마다 다릅니다.</strong> 자동차 등에서는 정면 투영 면적, 날개에서는 날개 면적, 비행선에서는 부피의 2/3제곱, 물속의 유선형 물체에서는 젖은 표면적을 씁니다. 그래서 서로 다른 기준을 쓴 값은 그대로 비교할 수 없습니다.</li><li><strong>상수가 아닙니다.</strong> C<sub>D</sub>는 유속, 방향, 물체의 크기, 유체의 점성 등에 따라 달라지며, 속도·점성·크기를 묶은 레이놀즈수에 크게 좌우됩니다.</li><li>범위: 유선형 물체는 매우 작고, 뭉툭한 물체는 1 이상인 경우도 있습니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p><strong>자동차 계산(가상의 값).</strong> C<sub>D</sub> = 0.30, 정면 면적 2.2 m<sup>2</sup>, 공기 밀도 1.2 kg/m<sup>3</sup>인 차가 100 km/h(27.78 m/s)로 달릴 때의 공기저항은 <em>F</em> = ½ × 1.2 × 27.78<sup>2</sup> × 0.30 × 2.2 ≈ 306 N, 이를 이기는 데 드는 동력은 <em>F</em> × <em>u</em> ≈ 8.5 kW입니다. 120 km/h(33.33 m/s)로 올리면 <em>F</em> = 440 N, 동력은 약 14.7 kW로, 속도가 1.2배일 때 힘은 1.44배, 동력은 1.728배가 됩니다.</p><p>C<sub>D</sub>와 <em>A</em>의 곱(C<sub>D</sub><em>A</em>, 여기서는 0.66 m<sup>2</sup>)을 보고하면 차량끼리 항력을 비교하기 쉽습니다.</p><p><strong>같은 값이라도 의미가 다른 경우.</strong> 날개처럼 기준 면적이 크면 C<sub>D</sub>가 작게 나오므로, 같은 기준 면적일 때에만 값의 대소가 항력의 대소를 뜻합니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>C<sub>D</sub>를 쓸 때 <strong>기준 면적</strong>을 반드시 함께 적습니다.</li><li><strong>레이놀즈수</strong>(필요하면 마하수)와 측정 방법(풍동·CFD·주행 시험)을 같이 밝힙니다. 구처럼 뭉툭한 물체는 층류에서 난류로 바뀌는 구간에서 C<sub>D</sub>가 크게 달라지므로, 운용 환경과 비슷한 레이놀즈수에서 얻은 값인지 확인해야 합니다. 원기둥 주위 흐름을 매우 높은 레이놀즈수에서 실험한 고전적 연구로 Roshko(1961)가 있습니다.</li><li>차량·구조물에서는 C<sub>D</sub>와 <em>A</em>를 따로 쓰거나 C<sub>D</sub><em>A</em>로 묶어 보고합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "항력계수와의 관계"
+    ],
+    "rows": [
+      [
+        "항력계수",
+        "항력을 동압과 기준 면적으로 무차원화한 값",
+        "이 용어"
+      ],
+      [
+        "[[drag-force|항력]]",
+        "유체 속 물체가 받는 운동 반대 방향의 저항력",
+        "항력계수로부터 힘이 계산됨"
+      ],
+      [
+        "[[reynolds-number|레이놀즈수]]",
+        "관성력과 점성력의 비를 나타내는 무차원 수",
+        "항력계수가 의존하는 변수"
+      ],
+      [
+        "[[drag-polar|항력극곡선]]",
+        "양력계수와 항력계수의 관계 곡선",
+        "항력계수를 양력과 연결해 보여 줌"
+      ],
+      [
+        "[[lift-and-drag|양력과 항력]]",
+        "물체에 작용하는 수직 힘과 반대 방향 힘",
+        "항력계수의 짝인 양력계수와 함께 쓰임"
+      ]
+    ]
+  },
+  "references": [
+    "Anderson, J. D. (2010). Fundamentals of Aerodynamics (5th ed.). McGraw-Hill.",
+    "White, F. M. (2008). Fluid Mechanics (6th ed.). McGraw-Hill Higher Education.",
+    "Hoerner, S. F. (1965). Fluid-Dynamic Drag: Theoretical, Experimental and Statistical Information (2nd ed.). Hoerner Fluid Dynamics.",
+    "Roshko, A. (1961). Experiments on the flow past a circular cylinder at very high Reynolds number. Journal of Fluid Mechanics, 10(3), 345-356."
+  ]
+}
