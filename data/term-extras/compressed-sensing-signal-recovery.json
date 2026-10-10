@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>신호 x(길이 N)가 어떤 기저에서 0이 아닌 성분이 k개뿐인 ‘희소’ 신호라고 가정합니다. 측정은 <code>y = Φx</code>(측정 행렬 Φ는 m × N, m &lt; N)로 하고, 이 연립방정식은 미지수가 더 많아 보통 해가 무수히 많지만 ‘가장 희소한 해’를 찾아 x를 복원합니다.</p><ul><li><strong>볼록 최적화.</strong> 0이 아닌 성분의 수 대신 ℓ<sub>1</sub> 노름을 최소화하는 문제로 바꿔 풉니다. Donoho(2006)는 이를 선형계획(신호처리의 basis pursuit)으로 풀 수 있다고 설명합니다.</li><li><strong>탐욕 알고리즘.</strong> 직교 정합 추구(OMP)처럼 상관이 가장 큰 성분을 하나씩 골라 가는 방식도 쓰입니다.</li><li><strong>이론적 보장.</strong> Candes, Romberg, Tao(2006)는 스파이크 |T|개로 이루어진 신호를 무작위로 고른 주파수 집합에서의 푸리에 계수로부터 높은 확률로 ℓ<sub>1</sub> 최소화로 정확히 복원할 수 있고, 이때 필요한 주파수 표본 수가 |T|·log N에 비례하는 수준이며 이는 거의 최적이라고 보였습니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>Candès와 Wakin(2008)은 표본화 주파수가 최대 주파수의 두 배(나이퀴스트 율) 이상이어야 한다는 통상의 상식과 달리, 압축센싱은 어떤 신호와 영상을 기존보다 훨씬 적은 표본으로 복원할 수 있다는 패러다임이라고 소개합니다. 쓸 수 있으려면 다음을 확인해야 합니다.</p><table><thead><tr><th>조건</th><th>점검 질문</th></tr></thead><tbody><tr><td>희소성</td><td>선택한 기저(웨이블릿, 푸리에 등)에서 신호가 실제로 소수 성분으로 표현되는가</td></tr><tr><td>측정 행렬</td><td>무작위 행렬처럼 신호의 기저와 비간섭적인가</td></tr><tr><td>측정 수</td><td>희소도 k와 길이 N에 비추어 m이 충분한가</td></tr><tr><td>잡음</td><td>잡음 환경에서도 복원 성능이 유지되는가</td></tr></tbody></table><p><strong>작은 모의실험</strong>(직접 실행한 가상의 실험). N = 128, 희소도 k = 5이고 측정 행렬을 표준정규 난수로 만든 뒤, OMP로 복원한 성공률(상대 오차 10<sup>−6</sup> 미만)을 각 측정 수 m마다 500회 반복해 구했습니다(난수 시드 고정).</p><table><thead><tr><th>측정 수 m</th><th>10</th><th>20</th><th>30</th><th>40</th><th>60</th></tr></thead><tbody><tr><td>복원 성공률</td><td>0%</td><td>31.8%</td><td>84.6%</td><td>97.6%</td><td>100%</td></tr></tbody></table><p>길이 128의 신호를 40개 정도의 측정만으로 거의 복원할 수 있다는 뜻이지만, 이 수치는 이 설정(무잡음·가우시안 행렬·OMP)에만 해당합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>희소성을 가정한 기저와 실제 희소도(또는 근사 희소도)를 밝힙니다.</li><li>측정 행렬의 종류(가우시안, 부분 푸리에 등)와 압축비 m/N을 적습니다.</li><li>복원 알고리즘(basis pursuit, OMP 등)과 주요 매개변수, 잡음 수준(SNR)을 적습니다.</li><li>복원 품질은 NMSE·PSNR 같은 지표와 함께, 무작위 측정이므로 반복 횟수와 평균·분포를 밝힙니다.</li><li>비교 대상으로 나이퀴스트율 표본화 결과나 다른 복원 알고리즘을 같은 조건에서 제시합니다.</li></ul><p>예: “희소도 5, 길이 128 신호에 대해 가우시안 측정 40개와 OMP를 사용하였을 때 500회 시행 중 97.6%에서 복원에 성공하였다.” (가상의 문장)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘압축’, ‘잡음 제거’, ‘희소’가 들어가지만 하는 일이 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇을 하나",
+      "희소성의 쓰임"
+    ],
+    "rows": [
+      [
+        "[[compressed-sensing-signal-recovery|압축센싱 신호복원]]",
+        "적은 측정에서 원 신호를 복원하는 절차",
+        "복원을 가능하게 하는 전제"
+      ],
+      [
+        "[[compressive-sensing|압축센싱]]",
+        "같은 기법의 일반 명칭",
+        "—"
+      ],
+      [
+        "[[wavelet-transform-denoising|웨이블릿 잡음제거]]",
+        "측정된 신호에서 잡음 성분을 줄임",
+        "작은 계수를 잡음으로 보고 축소"
+      ]
+    ]
+  },
+  "references": [
+    "Donoho, D. L. (2006). Compressed sensing. IEEE Transactions on Information Theory, 52(4), 1289–1306.",
+    "Candes, E. J., Romberg, J., & Tao, T. (2006). Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information. IEEE Transactions on Information Theory, 52(2), 489–509.",
+    "Candes, E. J., & Wakin, M. B. (2008). An introduction to compressive sampling. IEEE Signal Processing Magazine, 25(2), 21–30."
+  ]
+}

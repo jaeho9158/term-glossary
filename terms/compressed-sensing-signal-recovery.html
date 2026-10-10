@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>샘플링 속도나 측정 자원이 제한된 상황에서 데이터량을 크게 줄이면서도 신호 품질을 유지할 수 있어, 영상 획득, 무선 채널 추정, 스펙트럼 센싱 등 다양한 분야에서 중요하게 다뤄집니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>신호 x(길이 N)가 어떤 기저에서 0이 아닌 성분이 k개뿐인 ‘희소’ 신호라고 가정합니다. 측정은 <code>y = Φx</code>(측정 행렬 Φ는 m × N, m &lt; N)로 하고, 이 연립방정식은 미지수가 더 많아 보통 해가 무수히 많지만 ‘가장 희소한 해’를 찾아 x를 복원합니다.</p><ul><li><strong>볼록 최적화.</strong> 0이 아닌 성분의 수 대신 ℓ<sub>1</sub> 노름을 최소화하는 문제로 바꿔 풉니다. Donoho(2006)는 이를 선형계획(신호처리의 basis pursuit)으로 풀 수 있다고 설명합니다.</li><li><strong>탐욕 알고리즘.</strong> 직교 정합 추구(OMP)처럼 상관이 가장 큰 성분을 하나씩 골라 가는 방식도 쓰입니다.</li><li><strong>이론적 보장.</strong> Candes, Romberg, Tao(2006)는 스파이크 |T|개로 이루어진 신호를 무작위로 고른 주파수 집합에서의 푸리에 계수로부터 높은 확률로 ℓ<sub>1</sub> 최소화로 정확히 복원할 수 있고, 이때 필요한 주파수 표본 수가 |T|·log N에 비례하는 수준이며 이는 거의 최적이라고 보였습니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>Candès와 Wakin(2008)은 표본화 주파수가 최대 주파수의 두 배(나이퀴스트 율) 이상이어야 한다는 통상의 상식과 달리, 압축센싱은 어떤 신호와 영상을 기존보다 훨씬 적은 표본으로 복원할 수 있다는 패러다임이라고 소개합니다. 쓸 수 있으려면 다음을 확인해야 합니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>조건</th><th>점검 질문</th></tr></thead><tbody><tr><td>희소성</td><td>선택한 기저(웨이블릿, 푸리에 등)에서 신호가 실제로 소수 성분으로 표현되는가</td></tr><tr><td>측정 행렬</td><td>무작위 행렬처럼 신호의 기저와 비간섭적인가</td></tr><tr><td>측정 수</td><td>희소도 k와 길이 N에 비추어 m이 충분한가</td></tr><tr><td>잡음</td><td>잡음 환경에서도 복원 성능이 유지되는가</td></tr></tbody></table></div><p><strong>작은 모의실험</strong>(직접 실행한 가상의 실험). N = 128, 희소도 k = 5이고 측정 행렬을 표준정규 난수로 만든 뒤, OMP로 복원한 성공률(상대 오차 10<sup>−6</sup> 미만)을 각 측정 수 m마다 500회 반복해 구했습니다(난수 시드 고정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>측정 수 m</th><th>10</th><th>20</th><th>30</th><th>40</th><th>60</th></tr></thead><tbody><tr><td>복원 성공률</td><td>0%</td><td>31.8%</td><td>84.6%</td><td>97.6%</td><td>100%</td></tr></tbody></table></div><p>길이 128의 신호를 40개 정도의 측정만으로 거의 복원할 수 있다는 뜻이지만, 이 수치는 이 설정(무잡음·가우시안 행렬·OMP)에만 해당합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>희소성을 가정한 기저와 실제 희소도(또는 근사 희소도)를 밝힙니다.</li><li>측정 행렬의 종류(가우시안, 부분 푸리에 등)와 압축비 m/N을 적습니다.</li><li>복원 알고리즘(basis pursuit, OMP 등)과 주요 매개변수, 잡음 수준(SNR)을 적습니다.</li><li>복원 품질은 NMSE·PSNR 같은 지표와 함께, 무작위 측정이므로 반복 횟수와 평균·분포를 밝힙니다.</li><li>비교 대상으로 나이퀴스트율 표본화 결과나 다른 복원 알고리즘을 같은 조건에서 제시합니다.</li></ul><p>예: “희소도 5, 길이 128 신호에 대해 가우시안 측정 40개와 OMP를 사용하였을 때 500회 시행 중 97.6%에서 복원에 성공하였다.” (가상의 문장)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"압축센싱 기법을 적용하여 나이퀴스트 샘플링률의 절반 이하로도 원 신호를 성공적으로 복원하였다."</div>
   <p>압축센싱이 샘플링 자원을 절감하는 데 활용된 예입니다.</p>
   <div class="example">"희소 채널 특성을 이용한 압축센싱 기반 채널 추정 기법을 제안하여 파일럿 오버헤드를 줄였다."</div>
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>신호가 실제로 희소하지 않거나 잡음이 심한 경우 복원 성능이 크게 저하될 수 있으므로, 적용 대상 신호의 희소성 가정이 타당한지 먼저 확인해야 합니다. 희소성 기준이 되는 변환 기저를 잘못 선택하면 실제로는 희소하지 않은 신호를 억지로 복원하려다 인공적인 왜곡(아티팩트)이 생길 수 있어, 기저 선택과 복원 알고리즘의 파라미터 튜닝이 함께 검증되어야 합니다. 나이퀴스트 정리 자체를 무효화하는 것이 아니라, 신호의 희소성이라는 추가 정보를 전제로 샘플 수를 줄이는 것이라는 점도 자주 오해되는 부분입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘압축’, ‘잡음 제거’, ‘희소’가 들어가지만 하는 일이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">희소성의 쓰임</th></tr></thead><tbody><tr><th scope="row"><strong>압축센싱 신호복원</strong></th><td>적은 측정에서 원 신호를 복원하는 절차</td><td>복원을 가능하게 하는 전제</td></tr><tr><th scope="row"><a href="compressive-sensing.html">압축센싱</a></th><td>같은 기법의 일반 명칭</td><td>—</td></tr><tr><th scope="row"><a href="wavelet-transform-denoising.html">웨이블릿 잡음제거</a></th><td>측정된 신호에서 잡음 성분을 줄임</td><td>작은 계수를 잡음으로 보고 축소</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Donoho, D. L. (2006). Compressed sensing. IEEE Transactions on Information Theory, 52(4), 1289–1306.</li>
+    <li>Candes, E. J., Romberg, J., &amp; Tao, T. (2006). Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information. IEEE Transactions on Information Theory, 52(2), 489–509.</li>
+    <li>Candes, E. J., &amp; Wakin, M. B. (2008). An introduction to compressive sampling. IEEE Signal Processing Magazine, 25(2), 21–30.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

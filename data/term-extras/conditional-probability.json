@@ -1,0 +1,68 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>사건 B가 일어났음을 알 때 A가 일어날 확률은 <code>P(A | B) = P(A ∩ B) / P(B)</code> (단, P(B) &gt; 0)입니다. 표본공간이 B로 줄어들었다고 보고, 그 안에서 A가 차지하는 비율을 구하는 셈입니다.</p><ul><li><strong>곱셈 규칙.</strong> 정의를 바꿔 쓰면 <code>P(A ∩ B) = P(B) · P(A | B)</code>입니다. 순서를 바꾼 <code>P(A ∩ B) = P(A) · P(B | A)</code>도 같은 값입니다.</li><li><strong>독립.</strong> P(A | B) = P(A)이면 A와 B는 독립입니다([[independent-and-dependent-events|독립사건과 종속사건]]).</li><li><strong>베이즈 정리.</strong> 두 곱셈 규칙을 같게 놓으면 <code>P(A | B) = P(B | A) · P(A) / P(B)</code>가 되어, 조건의 방향을 뒤집는 도구가 됩니다([[bayes-theorem|베이즈 정리]]).</li><li><strong>전확률.</strong> B가 여러 경우로 나뉘면 <code>P(A) = Σ P(A | B<sub>i</sub>) P(B<sub>i</sub>)</code>로 전체 확률을 구합니다([[law-of-total-probability|전확률의 법칙]]).</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>모두 직접 계산한 <strong>가상의 예</strong>입니다.</p><ul><li><strong>비복원 추출.</strong> 52장 카드에서 에이스를 한 장 뽑은 뒤 돌려놓지 않고 두 번째로 뽑을 때, 두 번째도 에이스일 확률은 P(두 번째 에이스 | 첫 번째 에이스) = 3/51 ≈ 0.059입니다. 처음 뽑은 카드가 표본공간을 51장으로 줄이고 에이스를 3장으로 줄였기 때문입니다.</li><li><strong>검사 결과 뒤집기.</strong> 질병 유병률 1%, 민감도 90%(병이 있을 때 양성일 확률 P(+ | 병) = 0.9), 특이도 90%(건강할 때 음성일 확률)인 검사가 있다고 합시다. 1,000명이면 환자 10명 중 9명이 양성이고, 건강한 990명 중 10%인 99명도 양성이므로 양성자 108명 중 실제 환자는 9명입니다. 따라서 P(병 | +) = 9/108 ≈ 8.3%입니다. P(+ | 병) = 90%와 P(병 | +) ≈ 8.3%는 전혀 다른 값입니다.</li></ul><p>둘째 예처럼 사람 수(빈도)로 바꿔 세면 이해하기 쉽다는 점은 Gigerenzer와 Hoffrage(1995)가 연구했습니다. 그들은 정보를 빈도 형식으로 줄 때 통계에 익숙하지 않은 참가자의 추론 중 최대 50%가 베이즈 알고리즘을 따랐다고 보고했습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>P(A|B)와 P(B|A)의 혼동.</strong> 위 검사 예처럼 두 값은 크게 다를 수 있습니다. 법정의 증거 해석에서는 이 혼동이 [[prosecutors-fallacy|검사측 오류]](prosecutor's fallacy, ‘검사의 오류’라고도 옮김)라는 이름으로 논의됩니다. Thompson과 Schumann(1987)은 일치하는 특성의 발생률이라는 통계 증거를 조건부확률로 제시했을 때와 백분율로 제시했을 때 학부생의 추론 오류의 방향이 달랐다고 보고했습니다.</li><li><strong>“기저율은 중요하지 않다.”</strong> 베이즈 정리의 P(A)가 바로 기저율입니다. 유병률이 낮으면 양성이어도 실제 환자 비율이 낮을 수 있습니다.</li><li><strong>“조건이 정보를 늘리면 확률은 항상 커진다.”</strong> 조건에 따라 확률은 커질 수도, 작아질 수도, 그대로일 수도 있습니다. 같으면 독립입니다.</li><li><strong>P(B) = 0인 조건.</strong> 정의의 분모가 0이므로, 확률 0인 사건에 대한 조건부확률은 이 정의로는 다룰 수 없습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "‘조건’이라는 단어가 들어가지만 가리키는 대상이 다릅니다.",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "조건부확률과의 관계"
+    ],
+    "rows": [
+      [
+        "[[conditional-probability|조건부확률]]",
+        "B가 일어났을 때 A의 확률 P(A|B)",
+        "—"
+      ],
+      [
+        "[[conditional-expectation|조건부기댓값]]",
+        "조건 아래에서 확률변수의 평균",
+        "확률 대신 평균을 구함"
+      ],
+      [
+        "[[bayes-theorem|베이즈 정리]]",
+        "P(A|B)와 P(B|A)를 연결하는 공식",
+        "조건부확률의 정의에서 유도됨"
+      ],
+      [
+        "[[law-of-total-probability|전확률의 법칙]]",
+        "조건별 확률을 합쳐 전체 확률을 구함",
+        "조건부확률을 재료로 사용"
+      ],
+      [
+        "[[independent-and-dependent-events|독립사건]]",
+        "조건을 걸어도 확률이 변하지 않는 관계",
+        "P(A|B) = P(A)인 경우"
+      ]
+    ]
+  },
+  "references": [
+    "Blitzstein, J. K., & Hwang, J. (2019). Introduction to Probability (2nd ed.). Taylor & Francis Group.",
+    "Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: Frequency formats. Psychological Review, 102(4), 684–704.",
+    "Thompson, W. C., & Schumann, E. L. (1987). Interpretation of statistical evidence in criminal trials: The prosecutor's fallacy and the defense attorney's fallacy. Law and Human Behavior, 11(3), 167–187."
+  ],
+  "fixes": [
+    {
+      "find": "이를 혼동하는 것을 흔히 \"검사관의 오류\"라고 부릅니다.",
+      "replace": "이런 혼동을 역조건 혼동(confusion of the inverse)이라 하며, 법정의 증거 해석에서 나타나는 경우를 <a href=\"prosecutors-fallacy.html\">검사측 오류</a>(prosecutor's fallacy)라고 부릅니다."
+    },
+    {
+      "find": "논문에서는 두 사건이 서로 영향을 주지 않는 경우를 조건부 독립이라 부르며,",
+      "replace": "논문에서는 제3의 사건(조건)이 주어졌을 때 두 사건이 서로 독립인 경우를 조건부 독립이라 부르며,"
+    }
+  ]
+}

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>조건부확률은 새로운 정보가 주어졌을 때 판단을 어떻게 갱신할지를 수학적으로 표현하는 도구여서, 통계적 추론과 머신러닝, 의사결정 이론 전반의 기초가 됩니다. 베이즈 정리, 분류 모델의 확률 출력, 인과추론에서의 조건부 독립성 등 많은 상위 개념이 조건부확률 위에서 정의되기 때문에, 논문에서 이 개념을 정확히 정의하지 않으면 뒤이은 추론이나 모델 해석 전체가 흔들릴 수 있습니다. 그래서 실험 설계나 모델 평가 방법론을 서술하는 절에서 조건부확률 표기가 자주 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>사건 B가 일어났음을 알 때 A가 일어날 확률은 <code>P(A | B) = P(A ∩ B) / P(B)</code> (단, P(B) &gt; 0)입니다. 표본공간이 B로 줄어들었다고 보고, 그 안에서 A가 차지하는 비율을 구하는 셈입니다.</p><ul><li><strong>곱셈 규칙.</strong> 정의를 바꿔 쓰면 <code>P(A ∩ B) = P(B) · P(A | B)</code>입니다. 순서를 바꾼 <code>P(A ∩ B) = P(A) · P(B | A)</code>도 같은 값입니다.</li><li><strong>독립.</strong> P(A | B) = P(A)이면 A와 B는 독립입니다(<a href="independent-and-dependent-events.html">독립사건과 종속사건</a>).</li><li><strong>베이즈 정리.</strong> 두 곱셈 규칙을 같게 놓으면 <code>P(A | B) = P(B | A) · P(A) / P(B)</code>가 되어, 조건의 방향을 뒤집는 도구가 됩니다(<a href="bayes-theorem.html">베이즈 정리</a>).</li><li><strong>전확률.</strong> B가 여러 경우로 나뉘면 <code>P(A) = Σ P(A | B<sub>i</sub>) P(B<sub>i</sub>)</code>로 전체 확률을 구합니다(<a href="law-of-total-probability.html">전확률의 법칙</a>).</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>모두 직접 계산한 <strong>가상의 예</strong>입니다.</p><ul><li><strong>비복원 추출.</strong> 52장 카드에서 에이스를 한 장 뽑은 뒤 돌려놓지 않고 두 번째로 뽑을 때, 두 번째도 에이스일 확률은 P(두 번째 에이스 | 첫 번째 에이스) = 3/51 ≈ 0.059입니다. 처음 뽑은 카드가 표본공간을 51장으로 줄이고 에이스를 3장으로 줄였기 때문입니다.</li><li><strong>검사 결과 뒤집기.</strong> 질병 유병률 1%, 민감도 90%(병이 있을 때 양성일 확률 P(+ | 병) = 0.9), 특이도 90%(건강할 때 음성일 확률)인 검사가 있다고 합시다. 1,000명이면 환자 10명 중 9명이 양성이고, 건강한 990명 중 10%인 99명도 양성이므로 양성자 108명 중 실제 환자는 9명입니다. 따라서 P(병 | +) = 9/108 ≈ 8.3%입니다. P(+ | 병) = 90%와 P(병 | +) ≈ 8.3%는 전혀 다른 값입니다.</li></ul><p>둘째 예처럼 사람 수(빈도)로 바꿔 세면 이해하기 쉽다는 점은 Gigerenzer와 Hoffrage(1995)가 연구했습니다. 그들은 정보를 빈도 형식으로 줄 때 통계에 익숙하지 않은 참가자의 추론 중 최대 50%가 베이즈 알고리즘을 따랐다고 보고했습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>P(A|B)와 P(B|A)의 혼동.</strong> 위 검사 예처럼 두 값은 크게 다를 수 있습니다. 법정의 증거 해석에서는 이 혼동이 <a href="prosecutors-fallacy.html">검사측 오류</a>(prosecutor's fallacy, ‘검사의 오류’라고도 옮김)라는 이름으로 논의됩니다. Thompson과 Schumann(1987)은 일치하는 특성의 발생률이라는 통계 증거를 조건부확률로 제시했을 때와 백분율로 제시했을 때 학부생의 추론 오류의 방향이 달랐다고 보고했습니다.</li><li><strong>“기저율은 중요하지 않다.”</strong> 베이즈 정리의 P(A)가 바로 기저율입니다. 유병률이 낮으면 양성이어도 실제 환자 비율이 낮을 수 있습니다.</li><li><strong>“조건이 정보를 늘리면 확률은 항상 커진다.”</strong> 조건에 따라 확률은 커질 수도, 작아질 수도, 그대로일 수도 있습니다. 같으면 독립입니다.</li><li><strong>P(B) = 0인 조건.</strong> 정의의 분모가 0이므로, 확률 0인 사건에 대한 조건부확률은 이 정의로는 다룰 수 없습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 특정 증상이 관찰되었을 때 실제로 질병이 있을 조건부확률 P(질병|증상)을 계산하여 진단 도구의 정확도를 평가하였다."</div>
   <p>이 문장은 "증상이 나타났다는 조건 아래에서 질병일 확률이 얼마인지"를 계산했다는 뜻으로, 의학·통계 논문에서 진단 성능을 논할 때 자주 쓰이는 표현입니다.</p>
 
@@ -163,10 +181,23 @@
   <p>사회과학이나 역학 연구에서는 다른 변수를 고정한 상태의 조건부확률을 비교함으로써, 두 변수 사이에 실제로 의미 있는 관계가 있는지 아니면 제3의 요인 때문에 그렇게 보이는 것인지를 구분하는 데 사용합니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>조건부확률의 정의는 P(A|B) = P(A∩B) / P(B)로 주어지며, 이를 변형하면 베이즈 정리(사전확률과 관측 정보를 결합해 사후확률을 구하는 공식)로 이어집니다. 논문에서는 두 사건이 서로 영향을 주지 않는 경우를 조건부 독립이라 부르며, 이는 그래프 모델이나 인과추론에서 변수 간 구조를 단순화할 때 중요한 가정으로 쓰입니다. 또한 여러 조건을 순차적으로 반영해 확률을 갱신하는 과정을 확률의 연쇄법칙이라 부르는데, 언어모델이나 순차 데이터 분석에서 다음 값의 확률을 이전 값들에 대한 조건부확률의 곱으로 표현할 때 이 개념이 자주 등장합니다.</p>
+  <p>조건부확률의 정의는 P(A|B) = P(A∩B) / P(B)로 주어지며, 이를 변형하면 베이즈 정리(사전확률과 관측 정보를 결합해 사후확률을 구하는 공식)로 이어집니다. 논문에서는 제3의 사건(조건)이 주어졌을 때 두 사건이 서로 독립인 경우를 조건부 독립이라 부르며, 이는 그래프 모델이나 인과추론에서 변수 간 구조를 단순화할 때 중요한 가정으로 쓰입니다. 또한 여러 조건을 순차적으로 반영해 확률을 갱신하는 과정을 확률의 연쇄법칙이라 부르는데, 언어모델이나 순차 데이터 분석에서 다음 값의 확률을 이전 값들에 대한 조건부확률의 곱으로 표현할 때 이 개념이 자주 등장합니다.</p>
 
   <h2>주의할 점</h2>
-  <p>P(A|B)와 P(B|A)는 서로 다른 값인데도 종종 혼동됩니다. "질병이 있을 때 증상이 나타날 확률"과 "증상이 있을 때 질병일 확률"은 전혀 다른 질문이며, 이를 혼동하는 것을 흔히 "검사관의 오류"라고 부릅니다. 두 값을 연결하려면 베이즈 정리를 이용해 사건의 기저율(사전확률)을 함께 고려해야 합니다.</p>
+  <p>P(A|B)와 P(B|A)는 서로 다른 값인데도 종종 혼동됩니다. "질병이 있을 때 증상이 나타날 확률"과 "증상이 있을 때 질병일 확률"은 전혀 다른 질문이며, 이런 혼동을 역조건 혼동(confusion of the inverse)이라 하며, 법정의 증거 해석에서 나타나는 경우를 <a href="prosecutors-fallacy.html">검사측 오류</a>(prosecutor's fallacy)라고 부릅니다. 두 값을 연결하려면 베이즈 정리를 이용해 사건의 기저율(사전확률)을 함께 고려해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>‘조건’이라는 단어가 들어가지만 가리키는 대상이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">조건부확률과의 관계</th></tr></thead><tbody><tr><th scope="row"><strong>조건부확률</strong></th><td>B가 일어났을 때 A의 확률 P(A|B)</td><td>—</td></tr><tr><th scope="row"><a href="conditional-expectation.html">조건부기댓값</a></th><td>조건 아래에서 확률변수의 평균</td><td>확률 대신 평균을 구함</td></tr><tr><th scope="row"><a href="bayes-theorem.html">베이즈 정리</a></th><td>P(A|B)와 P(B|A)를 연결하는 공식</td><td>조건부확률의 정의에서 유도됨</td></tr><tr><th scope="row"><a href="law-of-total-probability.html">전확률의 법칙</a></th><td>조건별 확률을 합쳐 전체 확률을 구함</td><td>조건부확률을 재료로 사용</td></tr><tr><th scope="row"><a href="independent-and-dependent-events.html">독립사건</a></th><td>조건을 걸어도 확률이 변하지 않는 관계</td><td>P(A|B) = P(A)인 경우</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Blitzstein, J. K., &amp; Hwang, J. (2019). Introduction to Probability (2nd ed.). Taylor &amp; Francis Group.</li>
+    <li>Gigerenzer, G., &amp; Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: Frequency formats. Psychological Review, 102(4), 684–704.</li>
+    <li>Thompson, W. C., &amp; Schumann, E. L. (1987). Interpretation of statistical evidence in criminal trials: The prosecutor's fallacy and the defense attorney's fallacy. Law and Human Behavior, 11(3), 167–187.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="probability.html">확률</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="discrete-probability.html">이산 확률</a><a href="law-of-total-probability.html">전체확률의 법칙</a><a href="kolmogorov-axioms.html">확률의 공리</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
