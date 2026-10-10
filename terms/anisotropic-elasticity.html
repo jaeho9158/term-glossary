@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>복합재료, 목재, 결정 구조를 가진 금속 등 실제 많은 재료는 방향에 따라 강성이 다르기 때문에, 이를 무시하고 등방성으로만 계산하면 설계 오차가 커질 수 있습니다. 항공우주, 자동차 등에서 복합재료를 구조 부품으로 사용할 때 이방성 탄성 해석은 정확한 강도 예측을 위해 필수적입니다. 결정 방향이나 섬유 배열에 따라 강성이 크게 달라지는 재료의 실제 거동을 예측하려면 등방성 가정을 적용할 수 없으며, 방향별 물성을 모두 반영한 이방성 탄성 모델이 반드시 필요합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>일반화된 훅의 법칙에서 응력과 변형률은 강성 텐서(탄성 상수들)로 연결됩니다. 응력과 변형률 텐서가 대칭이라는 조건 때문에 많은 상수가 서로 같아져 서로 다른 독립 상수의 수는 많아야 <strong>21개</strong>로 줄어듭니다.</li><li>6×6 대칭 행렬의 독립 성분 수는 6 × 7 ÷ 2 = 21개이므로 같은 결론을 간단히 확인할 수 있습니다.</li><li>재료에 대칭성이 있으면 필요한 상수가 더 줄어듭니다. 등방성은 2개, 입방 대칭은 3개, 횡등방성(축 하나에 대한 대칭)은 5개, 직교이방성(벽돌 모양의 대칭)은 9개의 독립 상수로 기술됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>대칭성</th><th>독립 탄성 상수의 수</th><th>설명</th></tr></thead><tbody><tr><td>가장 일반적인 이방성</td><td>21</td><td>대칭이 가장 낮은 경우의 최대치</td></tr><tr><td>직교이방성</td><td>9</td><td>벽돌 모양의 대칭</td></tr><tr><td>횡등방성(극이방성)</td><td>5</td><td>한 축에 대해서만 대칭</td></tr><tr><td>입방 대칭</td><td>3</td><td>가장 단순한 이방성</td></tr><tr><td>등방성</td><td>2</td><td>모든 방향에서 성질이 같음</td></tr></tbody></table></div><p>표의 상수 개수는 선형 탄성 이론에서의 일반적인 값이며, 어떤 재료가 어느 대칭에 속하는지는 재료 구조에 따라 다릅니다. 등방성 가정이 쓰일 때는 두 개의 독립 상수로 충분하다는 점이 이방성과의 대비입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>흔한 오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>탄성계수 하나와 푸아송비 하나면 충분하다.</td><td>그것은 등방성 재료에서만 성립합니다. 이방성 재료는 방향별 상수가 더 필요합니다.</td></tr><tr><td>하중을 가한 방향으로 변형이 생긴다.</td><td>이방성 재료에서는 하중 방향과 변형 방향이 일치하지 않을 수 있어 등방성 직관만으로 예측하면 틀릴 수 있습니다.</td></tr><tr><td>결정 방향을 무시하고 평균 물성을 넣어도 된다.</td><td>결정 방향이나 섬유 배열을 고려하지 않으면 응력이나 변형을 실제보다 과소 또는 과대평가할 수 있습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"복합재료 적층판의 이방성 탄성 거동을 고려하여 응력 해석을 수행하였다."</div>
   <p>복합재료는 방향마다 강성이 다르다는 점을 반영해서 응력을 계산했다는 의미입니다.</p>
   <div class="example">"결정 방향에 따른 이방성 탄성 상수를 실험적으로 측정하여 재료 모델에 반영하였다."</div>
@@ -161,6 +179,18 @@
 
   <h2>주의할 점</h2>
   <p>이방성 탄성 해석은 등방성 해석보다 필요한 물성치가 많고 측정이 까다로워, 물성 데이터의 정확도가 해석 결과의 신뢰도에 큰 영향을 미칩니다. 이방성 재료에서는 하중 방향과 변형 방향이 일치하지 않을 수 있어, 등방성 재료에서 익숙한 직관만으로 변형 거동을 예측하면 오류가 생길 수 있습니다. 결정 방향을 고려하지 않고 등방성 물성값을 대입하면 실제보다 응력이나 변형을 과소 또는 과대평가하는 오류로 이어질 수 있습니다. 해석 시 결정 좌표계와 전역 좌표계 사이의 변환을 정확히 반영해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">이방성 탄성</th><td>방향에 따라 탄성 성질이 달라지는 재료를 다루는 탄성 이론</td></tr><tr><th scope="row"><a href="orthotropic-material.html">직교이방성 재료</a></th><td>서로 수직인 세 대칭면을 갖는 이방성 재료(독립 상수 9개)</td></tr><tr><th scope="row"><a href="composite-material.html">복합재료</a></th><td>섬유 등으로 구성되어 흔히 이방성을 띠는 재료</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hearmon, R. F. S. (1946). The elastic constants of anisotropic materials. Reviews of Modern Physics, 18(3), 409–440.</li>
+    <li>Hearmon, R. F. S. (1956). The elastic constants of anisotropic materials—II. Advances in Physics, 5(19), 323–382.</li>
+    <li>Ting, T. C. T. (1996). Anisotropic Elasticity: Theory and Applications. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

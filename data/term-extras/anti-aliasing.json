@@ -1,0 +1,43 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>계단현상(에일리어싱, jaggies)은 연속적인 장면을 픽셀 격자로 샘플링하기 때문에 생깁니다. Crow(1977)는 컴퓨터로 만든 음영 이미지의 에일리어싱 문제를 다룬 논문입니다.</li><li><strong>슈퍼샘플링 계열(SSAA, MSAA 등)</strong>: 렌더링 중 픽셀마다 여러 샘플을 계산해 평균합니다. SSAA(FSAA)는 가장 먼저 쓰인 방식으로, 이미지가 부드러워지지만 계산 비용이 큽니다.</li><li><strong>후처리 계열(FXAA, TAA 등)</strong>: 이미 그린 이미지에 필터를 적용합니다. 상대적으로 가볍고, TAA는 시간축 정보를 이용합니다.</li><li><strong>학습 기반</strong>: 신경망이 필터를 학습합니다.</li><li>관련 문헌으로 Yang 등(2009)의 “Amortized supersampling”과 재구성 필터를 다룬 Mitchell과 Netravali(1988)가 있습니다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>슈퍼샘플링이 하는 일을 가상의 픽셀로 계산해 봅니다. 한 변이 1인 픽셀 안에서 y &lt; 0.2 + 0.5x 인 영역(경계선 아래)이 물체라고 하면 정확한 덮인 면적은 0.45입니다. 샘플 1개(픽셀 중심)로는 덮임 0.00, 2×2 샘플로는 0.50, 4×4 샘플로는 0.50, 8×8 샘플로는 0.44입니다. 샘플 수가 늘수록 정확한 값에 가까워지며, 그 비율만큼 배경색과 물체색을 섞어 칠하면 경계가 부드러워집니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<table><thead><tr><th>계열</th><th>장점</th><th>한계</th></tr></thead><tbody><tr><td>슈퍼샘플링(SSAA, MSAA)</td><td>화질이 좋음</td><td>연산 비용이 큼</td></tr><tr><td>후처리(FXAA, TAA)</td><td>가볍고 구현이 쉬움</td><td>미세한 디테일이 흐려질 수 있음</td></tr><tr><td>학습 기반</td><td>복원·업스케일링과 결합 가능</td><td>학습 자료와 모델에 의존</td></tr></tbody></table><p>안티앨리어싱은 계단현상을 덜 거슬리게 해 줄 뿐 이미지의 실제 해상도나 정보량을 늘려 주지는 않으며, 픽셀마다 추가 계산이 필요해 렌더링 시간이 늘어납니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "안티앨리어싱",
+        "경계의 계단현상을 완화하는 처리"
+      ],
+      [
+        "[[rasterization|래스터화]]",
+        "도형을 픽셀로 변환하는 과정(안티앨리어싱은 이 과정의 품질을 높이는 처리)"
+      ],
+      [
+        "[[ray-tracing|레이 트레이싱]]",
+        "광선을 추적해 이미지를 만드는 렌더링 방식"
+      ]
+    ]
+  },
+  "references": [
+    "Crow, F. C. (1977). The aliasing problem in computer-generated shaded images. Communications of the ACM, 20(11), 799–805.",
+    "Mitchell, D. P., & Netravali, A. N. (1988). Reconstruction filters in computer-graphics. ACM SIGGRAPH Computer Graphics, 22(4), 221–228.",
+    "Yang, L., Nehab, D., Sander, P. V., Sitthi-amorn, P., Lawrence, J., & Hoppe, H. (2009). Amortized supersampling. ACM Transactions on Graphics, 28(5), 1–12."
+  ]
+}

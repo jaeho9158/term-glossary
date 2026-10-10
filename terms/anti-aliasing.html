@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>안티앨리어싱은 컴퓨터 그래픽스와 영상 처리 전반에서 결과물의 시각적 품질을 좌우하는 기초적인 렌더링 요소이기 때문에 논문에서 자주 다뤄집니다. 실시간 렌더링, 게임 엔진, 가상현실(VR) 디스플레이처럼 화질과 연산 속도를 동시에 요구하는 분야에서는 어떤 안티앨리어싱 기법을 쓰느냐가 결과물의 완성도와 하드웨어 부담을 동시에 결정합니다. 또한 최근에는 신경망을 이용해 실시간으로 계단현상을 제거하는 딥러닝 기반 업스케일링·렌더링 연구와도 밀접하게 연결되어 있어, 그래픽스뿐 아니라 컴퓨터 비전 분야에서도 관련 개념으로 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>계단현상(에일리어싱, jaggies)은 연속적인 장면을 픽셀 격자로 샘플링하기 때문에 생깁니다. Crow(1977)는 컴퓨터로 만든 음영 이미지의 에일리어싱 문제를 다룬 논문입니다.</li><li><strong>슈퍼샘플링 계열(SSAA, MSAA 등)</strong>: 렌더링 중 픽셀마다 여러 샘플을 계산해 평균합니다. SSAA(FSAA)는 가장 먼저 쓰인 방식으로, 이미지가 부드러워지지만 계산 비용이 큽니다.</li><li><strong>후처리 계열(FXAA, TAA 등)</strong>: 이미 그린 이미지에 필터를 적용합니다. 상대적으로 가볍고, TAA는 시간축 정보를 이용합니다.</li><li><strong>학습 기반</strong>: 신경망이 필터를 학습합니다.</li><li>관련 문헌으로 Yang 등(2009)의 “Amortized supersampling”과 재구성 필터를 다룬 Mitchell과 Netravali(1988)가 있습니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>슈퍼샘플링이 하는 일을 가상의 픽셀로 계산해 봅니다. 한 변이 1인 픽셀 안에서 y &lt; 0.2 + 0.5x 인 영역(경계선 아래)이 물체라고 하면 정확한 덮인 면적은 0.45입니다. 샘플 1개(픽셀 중심)로는 덮임 0.00, 2×2 샘플로는 0.50, 4×4 샘플로는 0.50, 8×8 샘플로는 0.44입니다. 샘플 수가 늘수록 정확한 값에 가까워지며, 그 비율만큼 배경색과 물체색을 섞어 칠하면 경계가 부드러워집니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계열</th><th>장점</th><th>한계</th></tr></thead><tbody><tr><td>슈퍼샘플링(SSAA, MSAA)</td><td>화질이 좋음</td><td>연산 비용이 큼</td></tr><tr><td>후처리(FXAA, TAA)</td><td>가볍고 구현이 쉬움</td><td>미세한 디테일이 흐려질 수 있음</td></tr><tr><td>학습 기반</td><td>복원·업스케일링과 결합 가능</td><td>학습 자료와 모델에 의존</td></tr></tbody></table></div><p>안티앨리어싱은 계단현상을 덜 거슬리게 해 줄 뿐 이미지의 실제 해상도나 정보량을 늘려 주지는 않으며, 픽셀마다 추가 계산이 필요해 렌더링 시간이 늘어납니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"렌더링된 3차원 장면에서 발생하는 계단현상(jagged edge)을 줄이기 위해 4x MSAA(멀티샘플 안티앨리어싱)를 적용하였으며, 이는 래스터화(rasterization) 단계에서 픽셀당 여러 개의 샘플을 평균 처리하는 방식으로 구현되었다."</div>
   <p>이 문장은 3차원 그래픽을 화면에 그리는 과정에서 각 픽셀마다 여러 지점을 추가로 계산해 평균을 내는 방식으로, 경계선의 계단현상을 부드럽게 만들었다는 뜻입니다.</p>
 
@@ -165,6 +183,18 @@
 
   <h2>주의할 점</h2>
   <p>안티앨리어싱은 계단현상을 시각적으로 덜 거슬리게 완화해 줄 뿐, 이미지의 실제 해상도나 정보량을 늘려주는 것은 아니다. 또한 픽셀마다 추가 계산이 필요하므로 <a href="rasterization.html">래스터화</a>나 <a href="ray-tracing.html">레이 트레이싱</a> 과정의 연산량과 렌더링 시간이 늘어난다는 점을 함께 고려해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">안티앨리어싱</th><td>경계의 계단현상을 완화하는 처리</td></tr><tr><th scope="row"><a href="rasterization.html">래스터화</a></th><td>도형을 픽셀로 변환하는 과정(안티앨리어싱은 이 과정의 품질을 높이는 처리)</td></tr><tr><th scope="row"><a href="ray-tracing.html">레이 트레이싱</a></th><td>광선을 추적해 이미지를 만드는 렌더링 방식</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Crow, F. C. (1977). The aliasing problem in computer-generated shaded images. Communications of the ACM, 20(11), 799–805.</li>
+    <li>Mitchell, D. P., &amp; Netravali, A. N. (1988). Reconstruction filters in computer-graphics. ACM SIGGRAPH Computer Graphics, 22(4), 221–228.</li>
+    <li>Yang, L., Nehab, D., Sander, P. V., Sitthi-amorn, P., Lawrence, J., &amp; Hoppe, H. (2009). Amortized supersampling. ACM Transactions on Graphics, 28(5), 1–12.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
