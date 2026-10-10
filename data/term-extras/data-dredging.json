@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>무엇이 문제인가</strong>: 데이터를 여러 각도로 많이 검정한 뒤 유의하게 나온 것만 보고하면, 거짓 양성(실제로는 없는 관계를 있다고 보는 것)의 위험이 크게 늘어납니다.</li><li><strong>왜 그런가</strong>: 유의수준 α = .05에서 H₀가 참인 검정을 하나 하면 우연히 유의할 확률이 5%입니다. 독립된 검정을 여러 번 하면 이 확률이 누적됩니다.</li><li><strong>다른 이름</strong>: 데이터 스누핑, p-해킹. 통계적으로 유의한 것으로 제시할 수 있는 패턴을 찾으려고 데이터 분석을 오용하는 것을 가리킵니다.</li><li><strong>연구 방식</strong>: Smith와 Ebrahim(2002)은 BMJ에서 이 문제를 편향·교란과 함께 다뤘습니다. Simmons 등(2011)은 자료 수집·분석·보고의 유연성이 실제 거짓 양성 비율을 크게 높인다는 점을 모의실험과 실험으로 보였습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>독립된 검정을 n번 하고 모두 H₀가 참일 때, 적어도 하나가 α = .05에서 유의할 확률은 1 − 0.95ⁿ입니다.</p><table><thead><tr><th>검정 횟수</th><th>적어도 하나가 우연히 유의할 확률</th></tr></thead><tbody><tr><td>1</td><td>5.0%</td></tr><tr><td>5</td><td>22.6%</td></tr><tr><td>20</td><td>64.2%</td></tr><tr><td>100</td><td>99.4%</td></tr></tbody></table><p>검정이 서로 독립이고 모두 H₀가 참이라는 가정을 둔 계산이며(가상의 예), 실제 변수는 서로 상관이 있어 값이 다를 수 있습니다. 대책으로는 검정 횟수를 고려한 유의수준 보정(예: 20번이면 본페로니 보정으로 .05 ÷ 20 = .0025), 별도 표본에서의 재현, 분석 전 계획 공개([[preregistration|사전등록]])가 논의됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>탐색적 분석은 모두 데이터 준설이다.</td><td>탐색 자체는 필요합니다. 문제는 탐색에서 나온 결과를 사전에 세운 가설의 확증처럼 보고하는 것입니다. 탐색적이라고 밝히고 재현을 거치면 됩니다.</td></tr><tr><td>p-해킹은 과학 전체를 무너뜨린다.</td><td>Head 등(2015)은 텍스트 마이닝으로 p-해킹이 과학 전반에 퍼져 있음을 보였지만, 메타분석에서 그 영향은 실제 효과 크기에 비해 약해 보이며 과학적 합의를 크게 바꾸지는 않을 것이라고 결론지었습니다.</td></tr><tr><td>유의한 결과가 나왔으니 인과관계이다.</td><td>많은 변수를 사후에 뒤져 찾은 관계는 우연일 수 있고, 인과로 해석하려면 별도 자료에서의 재현이 필요합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "데이터 준설",
+        "가설 없이 많은 분석을 돌려 유의한 관계를 찾는 행위"
+      ],
+      [
+        "[[p-hacking|p-해킹]]",
+        "유의해질 때까지 자료 선택·분석 방법을 바꾸는 행위(거의 같은 뜻으로 쓰임)"
+      ],
+      [
+        "[[harking|사후가설수립]]",
+        "결과를 본 뒤 가설을 세우고 사전에 세운 것처럼 제시하는 행위"
+      ],
+      [
+        "[[cherry-picking-data|데이터 체리피킹]]",
+        "유리한 자료만 골라 보여 주는 행위"
+      ]
+    ]
+  },
+  "references": [
+    "Smith, G. D., & Ebrahim, S. (2002). Data dredging, bias, or confounding. BMJ, 325(7378), 1437–1438.",
+    "Simmons, J. P., Nelson, L. D., & Simonsohn, U. (2011). False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant. Psychological Science, 22(11), 1359–1366.",
+    "Head, M. L., Holman, L., Lanfear, R., Kahn, A. T., & Jennions, M. D. (2015). The extent and consequences of p-hacking in science. PLoS Biology, 13(3), e1002106."
+  ]
+}
