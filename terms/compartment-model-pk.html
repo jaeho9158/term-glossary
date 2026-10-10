@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>구획모델은 임상시험에서 얻은 제한된 혈중농도 측정값만으로 약물이 몸속에서 어떻게 흡수·분포·소실되는지를 정량적으로 설명할 수 있게 해준다. 이를 통해 반감기, 분포용적, 청소율 같은 핵심 약동학 지표를 산출할 수 있어, 신약 개발에서 용량과 투여 간격을 정하는 근거가 된다. 또한 개인별 약물 반응 차이를 설명하는 집단약동학(population PK) 연구나 약물-약물 상호작용 평가에서도 구획모델이 기본 틀로 쓰인다. 이런 이유로 약리학·임상약학 논문 전반에서 구획모델은 방법론 섹션의 핵심 요소로 자주 등장한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>농도-시간 자료를 모읍니다.</li><li>몸을 몇 개의 구획으로 볼지(일구획, 이구획, 다구획) 가정하고, 구획 사이의 이동과 소실을 미분방정식 체계로 적습니다.</li><li>자료에 맞도록 모수(소실속도상수, 분포용적 등)를 추정합니다.</li><li>후보 모델을 비교해 구조를 고릅니다. 이 페이지는 잔차 패턴과 AIC, BIC 같은 정보량 기준을 쓴다고 설명합니다.</li></ol><p>구획모델은 농도-시간 곡선을 미분방정식 체계로 모델링합니다. 비구획 방법과 견주면 모수를 바꿔 새로운 상황으로 외삽할 수 있다는 것이 장점이고, 적절한 모델을 개발·검증하기 어렵다는 것이 단점입니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>일구획 모델</strong>: 몸을 하나의 균일한 구획으로 봅니다. 소실이 농도에 비례하는 1차 반응이면 농도 변화는 선형 미분방정식으로 쓰이며 ‘선형 약동학’이라 부릅니다.</li><li><strong>이구획 모델</strong>: 혈류 공급이 좋고 분포가 빠른 중심 구획과 느린 말초 구획으로 나눕니다. 소실이 중심 구획에서 일어나는 경우가 가장 흔합니다.</li><li><strong>비구획 분석(NCA)과의 차이</strong>: NCA는 특정 모델을 가정하지 않고 농도-시간 표에서 직접 모수를 추정하며, 총 노출은 사다리꼴 법칙 같은 곡선하면적 방법으로 구합니다.</li></ul><p>가상의 계산 예: 정맥 투여 직후 농도 C₀ = 10 mg/L, 소실속도상수 k = 0.1 h⁻¹인 일구획 모델이라면 반감기는 ln 2 / k = 6.93 h이고, 12시간 뒤 농도는 10 × e<sup>−0.1×12</sup> = 3.01 mg/L입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>모델 구조(구획 수, 소실이 일어나는 구획)와 선택 기준(후보 모델 비교 결과)을 밝힙니다.</li><li>추정한 모수는 추정치와 정밀도(표준오차나 신뢰구간)를 함께 적습니다.</li><li>공변량(체중 등)을 넣었다면 어떤 모수에 어떤 형태로 넣었는지 적습니다.</li><li>구획은 해부학적 구조가 아니라 수학적 단순화이므로, 구획을 특정 장기로 해석하지 않았는지 확인합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"해당 약물의 혈중농도 자료는 이구획 모델에 가장 잘 부합하는 것으로 분석되었다."</div>
   <p>약물 농도 변화 패턴을 두 개의 구획을 가정한 수학 모델로 설명할 수 있었다는 뜻이다.</p>
 
@@ -170,6 +188,18 @@
 
   <h2>주의할 점</h2>
   <p>구획모델은 실제 해부학적 구조가 아니라 데이터를 설명하기 위한 수학적 단순화라는 점을 기억해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">구획모델</th><td>몸을 구획으로 단순화한 수학 모델로 곡선을 설명하고 외삽함</td></tr><tr><th scope="row"><a href="noncompartmental-analysis.html">비구획분석(NCA)</a></th><td>구획 구조를 가정하지 않고 곡선하면적 등을 자료에서 직접 계산</td></tr><tr><th scope="row"><a href="volume-of-distribution.html">분포용적</a></th><td>구획모델에서 추정되는 모수 중 하나</td></tr><tr><th scope="row"><a href="half-life.html">반감기</a></th><td>농도가 절반이 되는 시간으로, 일구획 모델에서 ln 2 / k</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Riegelman, S., Loo, J. C. K., &amp; Rowland, M. (1968). Shortcomings in pharmacokinetic analysis by conceiving the body to exhibit properties of a single compartment. Journal of Pharmaceutical Sciences, 57(1), 117–123.</li>
+    <li>Gibaldi, M., &amp; Perrier, D. (1982). Pharmacokinetics. Marcel Dekker.</li>
+    <li>Mould, D. R., &amp; Upton, R. N. (2013). Basic concepts in population modeling, simulation, and model-based drug development—Part 2: Introduction to pharmacokinetic modeling methods. CPT: Pharmacometrics &amp; Systems Pharmacology, 2(4), e38.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="pharmacokinetics.html">약동학</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="phase-i-metabolism.html">1상 대사반응</a><a href="phase-ii-metabolism.html">2상 대사반응</a><a href="hepatic-extraction-ratio.html">간추출률</a><a href="volume-of-distribution.html">분포용적</a><a href="renal-clearance.html">신장청소율</a><a href="drug-half-life.html">약물 반감기</a><a href="drug-absorption-rate.html">약물 흡수속도</a><a href="auc-pharmacokinetics.html">약물동태학적 곡선하면적(AUC)</a><a href="steady-state-concentration.html">정상상태 혈중농도</a><a href="first-pass-metabolism.html">초회통과대사</a><a href="plasma-protein-binding.html">혈장단백질 결합</a></div></div><p class="concept-family-map"><a href="../concept-map/med.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
