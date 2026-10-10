@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,29 @@
   <h2>왜 중요한가</h2>
   <p>데이터 규모가 한 대의 컴퓨터로 감당할 수 없을 만큼 커지면, 연구든 실무든 여러 대의 컴퓨터에 작업을 나누어 처리하는 분산 처리 기술이 필요해진다. 아파치 스파크는 이러한 분산 처리를 비교적 쉬운 API로 다룰 수 있게 해주기 때문에, 대규모 데이터 전처리·특징 추출·로그 분석을 다루는 논문에서 실험 파이프라인의 기반 인프라로 자주 언급된다. 특히 대규모 말뭉치나 센서 데이터를 다루는 자연어처리, 추천시스템, 사물인터넷 관련 연구에서 데이터 준비 단계의 표준 도구처럼 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>스파크는 큰 데이터를 여러 컴퓨터(노드)에 나누어 놓고, 같은 연산을 동시에 실행하는 분산 처리 엔진입니다. 2009년 UC 버클리 AMPLab에서 Matei Zaharia가 시작했고 2010년에 공개되었으며, 2013년 아파치 소프트웨어 재단에 기증되었습니다.</p>
+  <ul><li><strong>핵심 자료 구조</strong>: RDD(resilient distributed dataset)는 여러 노드에 나뉜 읽기 전용 데이터 집합입니다. 그 위에 DataFrame, Dataset API가 만들어졌습니다.</li><li><strong>장애 복구</strong>: 각 RDD가 어떤 연산으로 만들어졌는지의 기록(계보, lineage)을 갖고 있어, 노드가 고장 나면 잃어버린 부분을 다시 계산해 복구합니다.</li><li><strong>지연 실행</strong>: 변환 연산을 곧바로 실행하지 않고 처리 계획(방향성 비순환 그래프)을 세운 뒤 결과가 필요할 때 실행합니다.</li><li><strong>구성 요소</strong>: Spark SQL, 구조적 스트리밍, MLlib(기계학습), GraphX(그래프 처리) 등이 같은 엔진 위에서 동작합니다. 종합 설명은 Zaharia 등(2016), SQL은 Armbrust 등(2015), MLlib은 Meng 등(2015)에 있습니다.</li><li><strong>사용 언어와 실행 환경</strong>: Scala, Java, Python, R, SQL을 쓸 수 있고, 독립 실행형·YARN·메소스·쿠버네티스 같은 클러스터 관리자 위에서 돌아갑니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>중간 결과를 매번 디스크에 쓰는 맵리듀스(Dean &amp; Ghemawat, 2008)와 달리 스파크는 데이터를 메모리에 올려 둔 채 재사용할 수 있어, 같은 데이터를 반복해서 계산하는 작업(반복 기계학습, 대화식 분석)에서 지연 시간을 크게 줄일 수 있다고 설명됩니다.</p>
+  <ul><li>한 대의 컴퓨터 메모리에 들어가지 않는 규모의 로그·말뭉치·센서 자료의 정제와 변환</li><li>같은 자료를 여러 번 읽는 반복 연산(특징 추출, 모형 학습)</li><li>배치 처리와 스트림 처리를 한 틀에서 다루려는 경우</li></ul>
+  <p>반대로 자료가 한 대의 컴퓨터로 충분히 처리되는 규모라면 클러스터를 구성하는 수고가 이득보다 클 수 있습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>분산 처리 결과는 설정에 따라 시간이 크게 달라지므로, 재현을 위해 다음을 적습니다.</p>
+  <ul><li>스파크 버전과 사용한 API(RDD, DataFrame, SQL, MLlib 등)</li><li>클러스터 관리자와 노드 수, 노드당 코어 수·메모리</li><li>입력 자료의 크기와 파티션 수, 저장 형식</li><li>실행 시간은 여러 번 반복한 평균 또는 중앙값과 변동 정도</li></ul>
+  <p><code>수집 로그 120 GB를 노드 8대(노드당 코어 16개, 메모리 64 GB)의 Spark 3.x 클러스터에서 DataFrame API로 정제하였다.</code> (형식을 보여 주려는 가상의 문장이며 수치는 임의입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"원시 웹 크롤링 데이터는 Apache Spark 클러스터를 이용해 정제 및 중복 제거를 수행하였다."</div>
   <p>대량으로 수집한 웹 데이터를 여러 대의 컴퓨터에서 병렬로 처리하는 스파크를 이용해 정리했다는 뜻이다.</p>
 
@@ -164,6 +187,20 @@
 
   <h2>주의할 점</h2>
   <p>스파크는 대규모 배치 데이터 처리에 강점이 있지만, 아주 작은 데이터셋이나 단순 작업에는 오히려 설정과 실행 오버헤드가 더 클 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>스파크와 맵리듀스는 모두 분산 처리 방식이지만, 중간 결과를 다루는 방식이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">중간 결과 처리</th><th scope="col">잘 맞는 작업</th></tr></thead><tbody><tr><th scope="row">아파치 스파크</th><td>메모리 안의 작업 집합으로 재사용할 수 있음</td><td>반복 계산, 대화식 분석</td></tr><tr><th scope="row"><a href="mapreduce.html">맵리듀스</a></th><td>단계 사이 중간 결과를 디스크에 기록</td><td>한 번 훑는 대규모 배치 처리</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Zaharia, M., Xin, R. S., Wendell, P., Das, T., Armbrust, M., Dave, A., Meng, X., Rosen, J., Venkataraman, S., Franklin, M. J., Ghodsi, A., Gonzalez, J., Shenker, S., &amp; Stoica, I. (2016). Apache Spark: A unified engine for big data processing. Communications of the ACM, 59(11), 56–65.</li>
+    <li>Armbrust, M., Xin, R. S., Lian, C., Huai, Y., Liu, D., Bradley, J. K., Meng, X., Kaftan, T., Franklin, M. J., Ghodsi, A., &amp; Zaharia, M. (2015). Spark SQL: Relational data processing in Spark. Proceedings of the 2015 ACM SIGMOD International Conference on Management of Data, 1383–1394.</li>
+    <li>Meng, X., Bradley, J., Yavuz, B., Sparks, E., Venkataraman, S., Liu, D., Freeman, J., Tsai, D. B., Amde, M., Owen, S., Xin, D., Xin, R., Franklin, M. J., Zadeh, R., Zaharia, M., &amp; Talwalkar, A. (2015). MLlib: Machine learning in Apache Spark. arXiv preprint arXiv:1505.06807.</li>
+    <li>Dean, J., &amp; Ghemawat, S. (2008). MapReduce: Simplified data processing on large clusters. Communications of the ACM, 51(1), 107–113.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

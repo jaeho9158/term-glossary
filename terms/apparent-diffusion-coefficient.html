@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,28 @@
   <h2>왜 중요한가</h2>
   <p>확산강조영상의 신호만으로는 구분하기 어려운 T2 투과 효과를 배제하고 실제 확산 제한 여부를 정량적으로 판단할 수 있어, 급성 뇌경색 진단의 신뢰도를 높이는 데 기여합니다. 치료 후 종양의 ADC 값이 상승하는 것은 세포 파괴로 인한 치료 반응의 조기 신호로 해석되기도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>확산강조영상의 신호는 확산이 빠를수록, 그리고 확산 가중 정도를 나타내는 b값이 클수록 더 많이 줄어듭니다. 이를 <code>S = S₀·exp(−b·ADC)</code>로 쓰며, S₀는 확산 가중이 없을 때의 신호입니다. b값이 서로 다른 영상을 두 장 이상 얻으면 화소마다 ADC를 계산해 지도로 만들 수 있고, 두 개의 b값(b₁ &lt; b₂)에서는 다음과 같습니다.</p>
+  <p><code>ADC = ln(S₁ / S₂) / (b₂ − b₁)</code></p>
+  <p><strong>계산 예.</strong> (가상의 값) b = 0에서 신호 1000, b = 1000 s/mm²에서 신호 300이면 ADC = ln(1000/300) / 1000 ≈ 1.20 × 10⁻³ mm²/s입니다. 병변 부위의 신호가 550으로 덜 줄었다면 ADC = ln(1000/550) / 1000 ≈ 0.60 × 10⁻³ mm²/s로, 같은 영상 안에서 값이 절반으로 낮습니다. 단위는 b값이 s/mm²일 때 mm²/s입니다.</p>
+  <p>‘겉보기’라는 이름은 조직 안의 물 분자 움직임이 자유 확산이 아니라 장애물과 막에 의해 제한되고 조절되며, 모세혈관의 혈류 같은 미세한 비확산성 움직임(IVIM)도 신호에 섞이기 때문입니다. Le Bihan 등(1986)은 이런 효과를 모두 포함한 값으로 ADC를 사용하고, 정상·병변 조직 사이에 차이가 있음을 보였습니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>ADC가 낮다</strong>: 확산이 제한된다는 뜻입니다. 급성 뇌경색에서는 경색 부위의 ADC가 낮아지며, 발병 후 몇 분 안에 감지될 수 있다고 알려져 있습니다. 급성 뇌허혈의 조기 발견에서 확산강조영상의 유용성은 동물 실험인 Moseley 등(1990)과 종설인 Schaefer 등(2000)에서 다룹니다.</li><li><strong>T2 투과 효과 배제</strong>: 확산강조영상은 T2 가중의 영향을 받아 확산 제한이 없는 부위도 밝게 보일 수 있습니다. ADC 지도는 이 T2 가중을 제거하므로, 영상에서 밝은 부위가 ADC 지도에서 어두우면 진짜 확산 제한, 밝으면 T2 투과 효과로 구분합니다.</li><li><strong>종양</strong>: 세포가 빽빽한 종양은 물의 확산을 제한해 ADC가 낮게 나타나는 경향이 있고, 치료 효과 감시에도 쓰입니다(Koh &amp; Collins, 2007; Hamstra 등, 2007).</li><li><strong>b값 의존성</strong>: 같은 조직이라도 b값이 클수록 ADC가 낮게 측정되는 경향이 있으므로 값은 b값 조합과 함께 해석합니다.</li><li><strong>절대 문턱 없음</strong>: 정상과 병변을 가르는 하나의 값은 장비, 자기장 세기, b값, 부위에 따라 달라집니다. 연구 안에서 기준을 정하고 사용한 조건을 밝혀야 합니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li><strong>획득 조건</strong>: 자기장 세기, b값 조합, 확산 가중 방향 수를 적습니다.</li><li><strong>측정 방식</strong>: 관심영역(ROI)을 어떻게 그렸는지(전체 병변 또는 일부, 몇 명이 그렸는지)와 평균·최솟값 중 무엇을 썼는지 밝힙니다.</li><li><strong>단위</strong>: 단위(mm²/s)와 자릿수 표기(예: × 10⁻³ mm²/s)를 본문과 표에서 일관되게 적습니다.</li><li><strong>재현성</strong>: 판독자 간 또는 반복 촬영 간 일치도를 함께 보고하면 믿을 만합니다.</li></ul>
+  <p><code>병변의 평균 ADC는 0.62 ± 0.11 × 10⁻³ mm²/s로, 대측 정상 조직(0.80 ± 0.09 × 10⁻³ mm²/s)보다 낮았다(b = 0, 1000 s/mm²).</code> (형식 예시이며 수치는 가상입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"확산강조영상에서 고신호강도를 보인 병변은 ADC 지도에서 저신호강도로 확인되어 급성 경색에 합당하였다."</div>
   <p>확산강조영상에서 밝게 보인 부위가 ADC 지도에서는 어둡게 나와, 진짜 급성 뇌경색이라는 것이 확인되었다는 의미입니다.</p>
   <div class="example">"겉보기확산계수는 서로 다른 확산가중치로 얻은 영상 신호를 수학적으로 계산하여 조직별 물 분자 이동성을 수치화한 지도로 표현한다."</div>
@@ -162,6 +184,21 @@
 
   <h2>주의할 점</h2>
   <p>ADC 값만으로는 아급성기 뇌경색과 다른 병변을 완전히 구별하기 어려울 수 있어 임상 경과와 함께 종합적으로 해석해야 합니다. ADC 값만으로는 아급성기 뇌경색과 다른 병변을 완전히 구별하기 어려울 수 있어 임상 경과와 함께 종합적으로 해석해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>확산강조영상과 ADC 지도는 같은 자료에서 나오지만 읽는 법이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">읽는 법</th></tr></thead><tbody><tr><th scope="row"><a href="diffusion-weighted-imaging.html">확산강조영상(DWI)</a></th><td>확산에 민감하게 얻은 영상</td><td>T2 가중이 섞여 있어 밝은 부위가 곧 확산 제한은 아님</td></tr><tr><th scope="row">겉보기확산계수(ADC) 지도</th><td>여러 b값 영상으로 계산한 정량 지도</td><td>T2 가중을 제거. 낮은 값이 확산 제한</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Le Bihan, D., Breton, E., Lallemand, D., Grenier, P., Cabanis, E., &amp; Laval-Jeantet, M. (1986). MR imaging of intravoxel incoherent motions: Application to diffusion and perfusion in neurologic disorders. Radiology, 161(2), 401–407.</li>
+    <li>Moseley, M. E., Cohen, Y., Mintorovitch, J., Chileuitt, L., Shimizu, H., Kucharczyk, J., Wendland, M. F., &amp; Weinstein, P. R. (1990). Early detection of regional cerebral ischemia in cats: Comparison of diffusion- and T2-weighted MRI and spectroscopy. Magnetic Resonance in Medicine, 14(2), 330–346.</li>
+    <li>Schaefer, P. W., Grant, P. E., &amp; Gonzalez, R. G. (2000). Diffusion-weighted MR imaging of the brain. Radiology, 217(2), 331–345.</li>
+    <li>Koh, D.-M., &amp; Collins, D. J. (2007). Diffusion-weighted MRI in the body: Applications and challenges in oncology. American Journal of Roentgenology, 188(6), 1622–1635.</li>
+    <li>Hamstra, D. A., Rehemtulla, A., &amp; Ross, B. D. (2007). Diffusion magnetic resonance imaging: A biomarker for treatment response in oncology. Journal of Clinical Oncology, 25(26), 4104–4109.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
