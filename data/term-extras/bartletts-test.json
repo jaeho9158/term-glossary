@@ -1,0 +1,55 @@
+{
+  "type": "test",
+  "fixes": [
+    {
+      "find": "중앙값 기반으로 계산되어 정규성에 덜 민감한 레빈 검정을",
+      "replace": "집단 중심(평균 또는 중앙값)에서 벗어난 절대편차를 써서 정규성에 덜 민감한 레빈 검정을"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<ul><li>k개 집단(k ≥ 2)의 모집단 분산이 모두 같은지 검정합니다. H₀: σ₁² = σ₂² = … = σ<sub>k</sub>², H₁: 적어도 두 집단의 분산이 다릅니다.</li><li>ANOVA 같은 방법이 요구하는 <strong>등분산 가정</strong>을 본 분석 전에 점검할 때 쓰입니다.</li><li>자료가 각 집단에서 정규분포를 따른다고 전제합니다. 이 전제가 흔들리면 검정이 분산 차이가 아니라 비정규성에 반응할 수 있습니다.</li><li>통계량은 로그 분산을 이용한 우도비 검정의 변형으로, M. S. Bartlett이 1937년 Proceedings of the Royal Society A 논문에서 제안했습니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>통계량은 다음과 같고, H₀ 아래에서 근사적으로 자유도 k − 1의 카이제곱분포를 따릅니다.</p><p><code>χ² = [ (N − k)·ln(S<sub>p</sub>²) − Σ(n<sub>i</sub> − 1)·ln(S<sub>i</sub>²) ] / [ 1 + (1/(3(k − 1)))·( Σ 1/(n<sub>i</sub> − 1) − 1/(N − k) ) ]</code></p><p>여기서 N은 전체 표본 수, S<sub>i</sub>²는 집단별 표본분산, S<sub>p</sub>²는 합동분산 Σ(n<sub>i</sub> − 1)S<sub>i</sub>² / (N − k)입니다. 분자는 합동분산의 로그와 집단 분산 로그의 가중 평균의 차이이므로, 집단 분산이 서로 다를수록 커집니다.</p><p>가상의 예입니다. 세 집단(각 6명)의 측정값이 다음과 같습니다.</p><table><thead><tr><th>집단</th><th>측정값</th><th>표본분산</th></tr></thead><tbody><tr><td>A</td><td>12, 14, 11, 13, 15, 12</td><td>2.17</td></tr><tr><td>B</td><td>10, 18, 9, 16, 20, 13</td><td>19.47</td></tr><tr><td>C</td><td>11, 13, 12, 14, 12, 13</td><td>1.10</td></tr></tbody></table><p>합동분산은 약 7.58, 통계량은 χ² ≈ 10.28, 자유도 2, p ≈ .006입니다. 유의수준 .05라면 H₀를 기각하고 “세 집단의 분산이 같다고 보기 어렵다”고 읽습니다. 집단 B의 분산이 다른 집단의 약 9~18배라 이런 결과가 나옵니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li><strong>보고 형식 예</strong>: “Bartlett 검정 결과 집단 간 분산이 동일하다는 가정이 기각되었다, χ²(2) = 10.28, p = .006.” 통계 소프트웨어는 이 통계량을 “Bartlett’s K-squared” 같은 이름으로 출력하기도 하므로 쓰는 프로그램의 표기를 따릅니다.</li><li><strong>정규성 점검 순서</strong>: 이 항목 본문대로 정규성을 먼저 확인하고 그 결과를 함께 적습니다. 정규성이 불확실하면 Levene 계열 검정을 대안으로 제시합니다.</li><li><strong>기각되었을 때</strong>: 등분산 가정이 필요 없는 분석(예: Welch 방식)이나 변환, 비모수 방법으로 전환한 이유를 적습니다.</li><li><strong>기각되지 않았을 때</strong>: “분산이 같다”가 증명된 것이 아니라 다르다고 할 근거가 부족한 것입니다. 표본이 작으면 검정력이 낮습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "등분산 검정은 이름이 비슷하고 가정이 달라 자주 혼동됩니다.",
+    "headers": [
+      "검정",
+      "정규성 가정",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[bartletts-test|바틀렛 검정]]",
+        "필요, 어긋나면 크게 흔들림",
+        "로그 분산 기반, 정규 자료에서 효율적"
+      ],
+      [
+        "[[levenes-test|레빈 검정]]",
+        "덜 민감",
+        "집단 중심으로부터의 절대편차에 ANOVA를 적용, 평균을 쓰는 원형과 중앙값을 쓰는 변형(엄밀히는 Brown–Forsythe)이 모두 쓰임"
+      ],
+      [
+        "[[anova|분산분석]]",
+        "검정 대상이 아니라 전제를 요구하는 분석",
+        "등분산 가정을 확인해야 하는 쪽"
+      ]
+    ]
+  },
+  "references": [
+    "Bartlett, M. S. (1937). Properties of sufficiency and statistical tests. Proceedings of the Royal Society of London. Series A, 160(901), 268–282.",
+    "Box, G. E. P. (1953). Non-normality and tests on variances. Biometrika, 40(3–4), 318–335.",
+    "Brown, M. B., & Forsythe, A. B. (1974). Robust tests for the equality of variances. Journal of the American Statistical Association, 69(346), 364–367.",
+    "Conover, W. J., Johnson, M. E., & Johnson, M. M. (1981). A comparative study of tests for homogeneity of variances, with applications to the outer continental shelf bidding data. Technometrics, 23(4), 351–361."
+  ]
+}

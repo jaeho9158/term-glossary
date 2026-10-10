@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>ANOVA, t검정, 회귀분석의 오차항 등 많은 통계 기법이 "집단 간 분산이 같다"는 가정 위에서 유의확률을 계산합니다. 이 가정이 무너지면 검정 결과가 실제보다 유의하거나 유의하지 않게 왜곡될 수 있어서, 본 분석에 들어가기 전에 등분산성을 확인하는 절차가 방법론 섹션에 관행적으로 포함됩니다. 바틀렛 검정은 이러한 사전 점검 단계에서 가장 오래 쓰여온 방법 중 하나이기 때문에, 통계적 가정 검증을 다루는 논문에서 자주 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <ul><li>k개 집단(k ≥ 2)의 모집단 분산이 모두 같은지 검정합니다. H₀: σ₁² = σ₂² = … = σ<sub>k</sub>², H₁: 적어도 두 집단의 분산이 다릅니다.</li><li>ANOVA 같은 방법이 요구하는 <strong>등분산 가정</strong>을 본 분석 전에 점검할 때 쓰입니다.</li><li>자료가 각 집단에서 정규분포를 따른다고 전제합니다. 이 전제가 흔들리면 검정이 분산 차이가 아니라 비정규성에 반응할 수 있습니다.</li><li>통계량은 로그 분산을 이용한 우도비 검정의 변형으로, M. S. Bartlett이 1937년 Proceedings of the Royal Society A 논문에서 제안했습니다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>통계량은 다음과 같고, H₀ 아래에서 근사적으로 자유도 k − 1의 카이제곱분포를 따릅니다.</p><p><code>χ² = [ (N − k)·ln(S<sub>p</sub>²) − Σ(n<sub>i</sub> − 1)·ln(S<sub>i</sub>²) ] / [ 1 + (1/(3(k − 1)))·( Σ 1/(n<sub>i</sub> − 1) − 1/(N − k) ) ]</code></p><p>여기서 N은 전체 표본 수, S<sub>i</sub>²는 집단별 표본분산, S<sub>p</sub>²는 합동분산 Σ(n<sub>i</sub> − 1)S<sub>i</sub>² / (N − k)입니다. 분자는 합동분산의 로그와 집단 분산 로그의 가중 평균의 차이이므로, 집단 분산이 서로 다를수록 커집니다.</p><p>가상의 예입니다. 세 집단(각 6명)의 측정값이 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>집단</th><th>측정값</th><th>표본분산</th></tr></thead><tbody><tr><td>A</td><td>12, 14, 11, 13, 15, 12</td><td>2.17</td></tr><tr><td>B</td><td>10, 18, 9, 16, 20, 13</td><td>19.47</td></tr><tr><td>C</td><td>11, 13, 12, 14, 12, 13</td><td>1.10</td></tr></tbody></table></div><p>합동분산은 약 7.58, 통계량은 χ² ≈ 10.28, 자유도 2, p ≈ .006입니다. 유의수준 .05라면 H₀를 기각하고 “세 집단의 분산이 같다고 보기 어렵다”고 읽습니다. 집단 B의 분산이 다른 집단의 약 9~18배라 이런 결과가 나옵니다.</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li><strong>보고 형식 예</strong>: “Bartlett 검정 결과 집단 간 분산이 동일하다는 가정이 기각되었다, χ²(2) = 10.28, p = .006.” 통계 소프트웨어는 이 통계량을 “Bartlett’s K-squared” 같은 이름으로 출력하기도 하므로 쓰는 프로그램의 표기를 따릅니다.</li><li><strong>정규성 점검 순서</strong>: 이 항목 본문대로 정규성을 먼저 확인하고 그 결과를 함께 적습니다. 정규성이 불확실하면 Levene 계열 검정을 대안으로 제시합니다.</li><li><strong>기각되었을 때</strong>: 등분산 가정이 필요 없는 분석(예: Welch 방식)이나 변환, 비모수 방법으로 전환한 이유를 적습니다.</li><li><strong>기각되지 않았을 때</strong>: “분산이 같다”가 증명된 것이 아니라 다르다고 할 근거가 부족한 것입니다. 표본이 작으면 검정력이 낮습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"세 처리 집단의 등분산성을 확인하기 위해 바틀렛 검정(Bartlett's test)을 실시한 결과 유의한 차이가 없어(p = .312) 등분산 가정을 만족하는 것으로 나타났다."</div>
   <p>이 문장은 세 집단의 분산이 통계적으로 유의하게 다르지 않았기 때문에, 등분산을 전제로 하는 일반적인 ANOVA를 그대로 사용해도 된다는 뜻입니다.</p>
 
@@ -160,10 +178,24 @@
   <p>환경과학·생태학 논문에서는 정규성이 확보된 데이터임을 먼저 밝히고, 그 조건 위에서 바틀렛 검정을 정당화하는 방식으로 서술하는 경우가 많습니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>바틀렛 검정 통계량은 각 집단의 표본분산과 전체를 합친 통합분산(pooled variance)의 차이를 카이제곱분포에 근사시켜 계산합니다. 이 근사 과정이 정규분포 가정에 크게 의존하기 때문에, 데이터가 정규분포에서 벗어나면 검정 통계량 자체가 왜곡되어 신뢰하기 어려워집니다. 그래서 논문에서는 흔히 바틀렛 검정에 앞서 샤피로-윌크 검정 등으로 정규성을 먼저 확인하거나, 정규성이 불확실한 경우 중앙값 기반으로 계산되어 정규성에 덜 민감한 레빈 검정을 대체 방법으로 함께 제시하는 구성을 취합니다.</p>
+  <p>바틀렛 검정 통계량은 각 집단의 표본분산과 전체를 합친 통합분산(pooled variance)의 차이를 카이제곱분포에 근사시켜 계산합니다. 이 근사 과정이 정규분포 가정에 크게 의존하기 때문에, 데이터가 정규분포에서 벗어나면 검정 통계량 자체가 왜곡되어 신뢰하기 어려워집니다. 그래서 논문에서는 흔히 바틀렛 검정에 앞서 샤피로-윌크 검정 등으로 정규성을 먼저 확인하거나, 정규성이 불확실한 경우 집단 중심(평균 또는 중앙값)에서 벗어난 절대편차를 써서 정규성에 덜 민감한 레빈 검정을 대체 방법으로 함께 제시하는 구성을 취합니다.</p>
 
   <h2>주의할 점</h2>
   <p>바틀렛 검정은 정규성 가정에 매우 민감합니다. 데이터가 정규분포에서 벗어나 있으면 실제로는 분산이 같아도 유의하다고 잘못 판단할 수 있으므로, 정규성이 확실하지 않다면 정규성 위반에 더 강건한 <a href="levenes-test.html">레빈 검정</a>을 대신 사용하는 것이 권장됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>등분산 검정은 이름이 비슷하고 가정이 달라 자주 혼동됩니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">정규성 가정</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>바틀렛 검정</strong></th><td>필요, 어긋나면 크게 흔들림</td><td>로그 분산 기반, 정규 자료에서 효율적</td></tr><tr><th scope="row"><a href="levenes-test.html">레빈 검정</a></th><td>덜 민감</td><td>집단 중심으로부터의 절대편차에 ANOVA를 적용, 평균을 쓰는 원형과 중앙값을 쓰는 변형(엄밀히는 Brown–Forsythe)이 모두 쓰임</td></tr><tr><th scope="row"><a href="anova.html">분산분석</a></th><td>검정 대상이 아니라 전제를 요구하는 분석</td><td>등분산 가정을 확인해야 하는 쪽</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Bartlett, M. S. (1937). Properties of sufficiency and statistical tests. Proceedings of the Royal Society of London. Series A, 160(901), 268–282.</li>
+    <li>Box, G. E. P. (1953). Non-normality and tests on variances. Biometrika, 40(3–4), 318–335.</li>
+    <li>Brown, M. B., &amp; Forsythe, A. B. (1974). Robust tests for the equality of variances. Journal of the American Statistical Association, 69(346), 364–367.</li>
+    <li>Conover, W. J., Johnson, M. E., &amp; Johnson, M. M. (1981). A comparative study of tests for homogeneity of variances, with applications to the outer continental shelf bidding data. Technometrics, 23(4), 351–361.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
