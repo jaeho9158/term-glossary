@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>버퍼 오버플로우는 소프트웨어 보안 분야에서 가장 오래되고 근본적인 취약점 유형 중 하나로, 원격 코드 실행이나 권한 상승 같은 심각한 공격으로 이어질 수 있어 시스템 보안 연구에서 꾸준히 다뤄집니다. 그래서 이를 탐지하는 정적·동적 분석 기법, 취약점을 자동으로 찾아내는 퍼징(fuzzing) 기법, 메모리 안전성을 보장하는 프로그래밍 언어와 런타임 방어 기법 연구가 모두 이 개념과 맞닿아 있습니다. 임베디드 시스템이나 운영체제 커널처럼 성능 때문에 여전히 C/C++을 쓰는 영역에서는 지금도 실무적으로 중요한 문제로 남아 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>버퍼 오버플로우는 버퍼에 쓰는 데이터가 경계 검사 부족으로 버퍼 바깥, 곧 인접한 메모리 주소의 값까지 훼손하는 현상입니다. 대상 버퍼보다 큰 데이터를 경계 확인 없이 복사할 때 생깁니다.</li><li>C와 C++는 배열에 쓰는 데이터가 경계 안인지 자동으로 검사하지 않고, 메모리를 직접 다루게 해 줍니다. 이 때문에 이 언어들과 전통적으로 연결됩니다. Java, Python, Eiffel처럼 형식이 엄격하고 메모리 직접 접근을 허용하지 않는 언어는 대부분의 경우 이 문제를 막습니다.</li><li>문서로 확인되는 가장 이른 악의적 악용은 1988년 모리스 웜의 전파 수단 가운데 하나였습니다.</li><li>방어는 한 겹이 아니라 여러 겹으로 설계합니다. 경계 검사를 해 주는 라이브러리·언어, 반환 주소 앞의 값을 검사하는 <a href="stack-canary.html">스택 카나리</a>, 주소를 무작위로 배치하는 <a href="address-space-layout-randomization.html">ASLR</a>, 데이터 영역의 실행을 막는 DEP/NX가 대표적입니다. ASLR은 악용을 어렵게 만들 뿐 불가능하게 하지는 않습니다.</li><li>연구 문헌에서는 메모리 오류를 오래된 보안 과제로 다룹니다. Szekeres 등(2013, 2014)의 논문 제목이 ‘메모리를 둘러싼 끝없는 전쟁’(Eternal war in memory)이고, Shacham 등(2004)은 주소 공간 무작위화의 효과(effectiveness)를 논문 주제로 삼았습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방어</th><th>하는 일</th><th>한계(논문에서 같이 언급되는 점)</th></tr></thead><tbody><tr><td>경계 검사·메모리 안전 언어</td><td>범위를 벗어난 접근을 막거나 오류로 처리</td><td>해당 언어·라이브러리를 써야 효과가 있음</td></tr><tr><td>스택 카나리</td><td>함수 종료 때 심어 둔 값이 바뀌었는지 검사</td><td>주로 스택 버퍼 오버플로를 탐지</td></tr><tr><td>ASLR</td><td>주소를 실행마다 무작위로 배치</td><td>악용을 어렵게 할 뿐 불가능하게 하지는 않음</td></tr><tr><td>DEP/NX</td><td>데이터 영역을 실행 불가로 표시</td><td>데이터 영역에 심어 둔 코드의 실행을 차단</td></tr></tbody></table></div><p>위 표는 개념 비교용 요약입니다. 취약점 탐지 연구는 정적 분석(실행 없이 코드 검사)과 <a href="fuzzing.html">퍼징</a>(입력을 바꿔 가며 실행)을 서로 보완하는 접근으로 다루는 경우가 많습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>Java나 Python에는 버퍼 오버플로우가 없다.</td><td>형식이 엄격하고 메모리 직접 접근을 허용하지 않는 언어는 버퍼 오버플로우를 ‘대부분의 경우’ 막는다고 설명됩니다. ‘전혀 없다’고 쓰면 과장입니다.</td></tr><tr><td>ASLR이나 카나리가 있으면 안전하다.</td><td>이런 방어는 악용을 어렵게 만드는 것이지 취약점을 없애는 것이 아닙니다. 근본 해결은 경계를 지키는 코드 작성과 검사입니다.</td></tr><tr><td>SQL 인젝션과 같은 종류의 공격이다.</td><td>둘 다 입력값 처리 부실에서 오지만, 버퍼 오버플로우는 데이터베이스가 아니라 프로세스 메모리의 경계를 침범하는 문제입니다.</td></tr><tr><td>오래된 취약점이라 이제는 연구할 것이 없다.</td><td>1988년의 악용 사례 이후에도 Szekeres 등의 2013·2014년 논문처럼 메모리 오류를 다루는 연구가 이어졌습니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안하는 정적 분석 도구는 C 언어 코드에서 버퍼 오버플로우가 발생할 수 있는 경계 검사 누락 구간을 높은 정확도로 탐지했다."</div>
   <p>이 문장은 프로그램 코드를 실행하지 않고도 분석해서(정적 분석), 배열이나 메모리 공간의 크기를 제대로 확인하지 않는 위험한 코드 구간을 자동으로 찾아냈다는 뜻입니다.</p>
 
@@ -170,6 +188,19 @@
 
   <h2>주의할 점</h2>
   <p>버퍼 오버플로우는 C, C++처럼 메모리를 직접 다루는 저수준 언어에서 특히 흔하며, Java나 Python처럼 메모리 경계를 자동으로 검사하는 언어에서는 상대적으로 드뭅니다. <a href="sql-injection.html">SQL 인젝션</a>처럼 입력값 검증이 부실할 때 발생한다는 공통점이 있지만, 버퍼 오버플로우는 데이터베이스가 아니라 메모리 공간 자체를 침범한다는 점에서 다릅니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>취약점 이름과 방어 기법 이름이 한 논문에 같이 나오므로 구분해 두면 편합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><strong>버퍼 오버플로우</strong></th><td>경계를 넘어 인접 메모리를 훼손하는 오류</td><td>취약점(원인)</td></tr><tr><th scope="row"><a href="buffer-overflow-exploitation.html">버퍼 오버플로우 익스플로잇</a></th><td>이 오류를 이용해 프로그램의 동작을 바꾸려는 공격 쪽의 용어</td><td>공격</td></tr><tr><th scope="row"><a href="stack-canary.html">스택 카나리</a></th><td>반환 주소 앞의 값이 바뀌었는지 검사</td><td>방어</td></tr><tr><th scope="row"><a href="address-space-layout-randomization.html">ASLR</a></th><td>메모리 배치 주소를 무작위로 바꿈</td><td>방어</td></tr><tr><th scope="row"><a href="sql-injection.html">SQL 인젝션</a></th><td>SQL 질의에 악의적 입력을 끼워 넣는 공격</td><td>다른 종류의 입력 검증 실패</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Shacham, H., Page, M., Pfaff, B., Goh, E.-J., Modadugu, N., &amp; Boneh, D. (2004). On the effectiveness of address-space randomization. Proceedings of the 11th ACM Conference on Computer and Communications Security, 298–307.</li>
+    <li>Szekeres, L., Payer, M., Wei, T., &amp; Song, D. (2013). SoK: Eternal war in memory. 2013 IEEE Symposium on Security and Privacy, 48–62.</li>
+    <li>Szekeres, L., Payer, M., Wei, L. T., &amp; Sekar, R. (2014). Eternal war in memory. IEEE Security &amp; Privacy, 12(3), 45–53.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
