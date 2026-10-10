@@ -1,0 +1,52 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>추상 자료형(ADT)은 값의 집합과 <strong>연산, 그 연산이 만족해야 하는 규칙</strong>으로 자료형을 정의합니다. 내부 표현은 정의의 일부가 아닙니다.</li><li>1974년 리스코프와 질레스가 프로그래밍 맥락에서 제안했고, 정의와 구현을 분리해 구현을 바꿔도 사용하는 코드가 영향을 받지 않게 하는 것이 목적입니다.</li><li>ADT 정의는 인터페이스(어떤 연산이 있는가)와 행동 규칙(연산들 사이의 관계)으로 이루어집니다. 규칙의 예: 스택에서 push 뒤에 top을 하면 방금 넣은 값이 나옵니다.</li><li>자료구조(배열, 연결 리스트 등)는 ADT를 실제로 만드는 <strong>구현</strong>입니다. 하나의 ADT에 여러 구현이 있을 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>스택과 큐는 연산 이름이 비슷하지만 <strong>규칙</strong>이 달라 서로 다른 ADT입니다.</p><table><thead><tr><th>ADT</th><th>핵심 연산</th><th>규칙</th><th>구현 후보</th></tr></thead><tbody><tr><td>[[stack-and-queue|스택]]</td><td>push, pop, top</td><td>마지막에 넣은 것이 먼저 나옴(LIFO)</td><td>배열, [[linked-list|연결 리스트]]</td></tr><tr><td>[[stack-and-queue|큐]]</td><td>enqueue, dequeue, front</td><td>먼저 넣은 것이 먼저 나옴(FIFO)</td><td>원형 배열, 연결 리스트</td></tr></tbody></table><p>사용하는 쪽은 규칙만 알면 되고, 내부가 배열인지 연결 리스트인지는 몰라도 됩니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ADT와 자료구조는 같은 말이다.</td><td>ADT는 행동의 명세이고 자료구조는 구체적 표현입니다.</td></tr><tr><td>ADT는 클래스나 인터페이스와 똑같다.</td><td>언어의 인터페이스는 연산 이름과 형만 정하는 경우가 많고, ADT는 연산 사이의 규칙까지 포함합니다.</td></tr><tr><td>같은 ADT면 성능도 같다.</td><td>구현에 따라 연산의 시간 복잡도가 달라집니다.</td></tr><tr><td>ADT는 객체지향에서만 쓴다.</td><td>개념은 언어와 무관하며, 대수적 명세로 수학적으로 다루기도 합니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇을 말하나",
+      "예"
+    ],
+    "rows": [
+      [
+        "추상 자료형",
+        "연산과 규칙으로 정한 행동 명세",
+        "스택"
+      ],
+      [
+        "자료구조",
+        "메모리 위의 구체적 표현",
+        "배열, [[linked-list|연결 리스트]]"
+      ],
+      [
+        "알고리즘",
+        "문제를 푸는 절차",
+        "정렬"
+      ]
+    ]
+  },
+  "references": [
+    "Liskov, B., & Zilles, S. (1974). Programming with abstract data types. ACM SIGPLAN Notices, 9(4), 50–59.",
+    "Cardelli, L., & Wegner, P. (1985). On understanding types, data abstraction, and polymorphism. ACM Computing Surveys, 17(4), 471–523."
+  ],
+  "fixes": [
+    {
+      "find": "\"넣고 꺼내는 순서(LIFO)\"라는 연산 규칙",
+      "replace": "\"넣고 꺼내는 순서(스택은 LIFO, 큐는 FIFO)\"라는 연산 규칙"
+    }
+  ]
+}

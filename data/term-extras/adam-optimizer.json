@@ -1,0 +1,48 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>Adam은 기울기의 <strong>1차 모멘트(지수 이동 평균, 방향)</strong>와 <strong>2차 모멘트(제곱의 지수 이동 평균, 크기)</strong>를 함께 추정해 매개변수마다 보폭을 조절합니다(Kingma &amp; Ba, 2015).</p><ol><li>m_t = β₁ m_(t−1) + (1−β₁) g_t</li><li>v_t = β₂ v_(t−1) + (1−β₂) g_t²</li><li>초기에 m과 v가 0 쪽으로 치우치므로 편향 보정: m̂ = m/(1−β₁^t), v̂ = v/(1−β₂^t)</li><li>갱신: θ ← θ − η · m̂ / (√v̂ + ε)</li></ol><p>흔히 쓰는 기본값은 β₁ = 0.9, β₂ = 0.999, ε = 10⁻⁸이고, 학습률 η는 문제마다 정합니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>첫 번째 단계(t=1)에서 기울기가 g일 때 보폭을 계산해 보았습니다(η = 0.001, 기본값, 코드로 계산).</p><table><thead><tr><th>기울기 g</th><th>첫 단계 이동량</th></tr></thead><tbody><tr><td>0.5</td><td>약 0.0010</td></tr><tr><td>0.005</td><td>약 0.0010</td></tr></tbody></table><p>기울기 크기가 100배 달라도 첫 단계의 이동량은 거의 η입니다. 보폭이 기울기의 단위가 아니라 η에 비례하도록 정규화되기 때문입니다. 이 성질이 Adam을 ‘튜닝 부담이 적은 기본 선택지’로 만든 이유 중 하나로 설명됩니다.</p><ul><li><strong>잘 맞는 곳:</strong> 기울기가 잡음이 많거나 희소한 딥러닝 학습.</li><li>[[gradient-descent|경사하강법]]이나 [[momentum-optimization|모멘텀]]을 쓰는 [[stochastic-gradient-descent|SGD]]와 비교해 초기 수렴이 빠른 편이지만, 항상 최종 성능이 더 좋은 것은 아닙니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>η, β₁, β₂, ε, 배치 크기, 학습 일정(스케줄), 가중치 감쇠 방식을 모두 적습니다.</li><li>이론적 한계: 일부 볼록 문제에서 수렴하지 않는 반례가 제시되었고(Reddi et al., 2018), 그 보완으로 AMSGrad 같은 변형이 나왔습니다.</li><li>일반화: 적응형 방법이 SGD보다 실질적으로 낫다는 통념에 의문을 제기한 연구가 있습니다(Wilson et al., 2017). 결과는 설정에 의존하므로 비교 조건을 확인해야 합니다.</li><li>가중치 감쇠: Adam에서 L2 정규화와 가중치 감쇠는 다르며, 이를 분리한 AdamW가 제안되었습니다(Loshchilov &amp; Hutter, 2019).</li><li>비교 실험에서는 모든 방법에 학습률을 똑같이 탐색했는지 밝힙니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "방법",
+      "방향 정보",
+      "보폭 조절"
+    ],
+    "rows": [
+      [
+        "[[gradient-descent|경사하강법]]",
+        "현재 기울기",
+        "고정 학습률"
+      ],
+      [
+        "[[momentum-optimization|모멘텀]]",
+        "기울기의 이동 평균",
+        "고정 학습률"
+      ],
+      [
+        "Adam",
+        "기울기의 이동 평균",
+        "기울기 제곱의 이동 평균으로 매개변수별 조절"
+      ]
+    ]
+  },
+  "references": [
+    "Kingma, D. P., & Ba, J. (2015). Adam: A method for stochastic optimization. In Proceedings of the 3rd International Conference on Learning Representations (ICLR 2015).",
+    "Reddi, S. J., Kale, S., & Kumar, S. (2018). On the convergence of Adam and beyond. In Proceedings of the 6th International Conference on Learning Representations (ICLR 2018).",
+    "Wilson, A. C., Roelofs, R., Stern, M., Srebro, N., & Recht, B. (2017). The marginal value of adaptive gradient methods in machine learning. arXiv preprint arXiv:1705.08292.",
+    "Loshchilov, I., & Hutter, F. (2019). Decoupled weight decay regularization. In Proceedings of the 7th International Conference on Learning Representations (ICLR 2019)."
+  ]
+}

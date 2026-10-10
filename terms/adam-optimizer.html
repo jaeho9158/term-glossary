@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>딥러닝 모델은 파라미터 수가 많고 손실함수의 지형이 매우 복잡하기 때문에, 어떤 최적화 알고리즘을 쓰느냐에 따라 학습이 안정적으로 수렴하는지, 얼마나 빨리 좋은 성능에 도달하는지가 크게 달라집니다. Adam은 별도의 정교한 튜닝 없이도 폭넓은 모델과 데이터에서 안정적으로 작동하기 때문에, 새로운 아키텍처나 학습 기법을 제안하는 논문에서도 최적화 방식 자체보다 다른 기여에 집중할 수 있게 해주는 사실상의 기본값 역할을 합니다. 그래서 컴퓨터비전, 자연어처리, 강화학습 등 거의 모든 딥러닝 하위분야의 논문에서 실험 설정을 설명할 때 빠지지 않고 언급됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>Adam은 기울기의 <strong>1차 모멘트(지수 이동 평균, 방향)</strong>와 <strong>2차 모멘트(제곱의 지수 이동 평균, 크기)</strong>를 함께 추정해 매개변수마다 보폭을 조절합니다(Kingma &amp; Ba, 2015).</p><ol><li>m_t = β₁ m_(t−1) + (1−β₁) g_t</li><li>v_t = β₂ v_(t−1) + (1−β₂) g_t²</li><li>초기에 m과 v가 0 쪽으로 치우치므로 편향 보정: m̂ = m/(1−β₁^t), v̂ = v/(1−β₂^t)</li><li>갱신: θ ← θ − η · m̂ / (√v̂ + ε)</li></ol><p>흔히 쓰는 기본값은 β₁ = 0.9, β₂ = 0.999, ε = 10⁻⁸이고, 학습률 η는 문제마다 정합니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>첫 번째 단계(t=1)에서 기울기가 g일 때 보폭을 계산해 보았습니다(η = 0.001, 기본값, 코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>기울기 g</th><th>첫 단계 이동량</th></tr></thead><tbody><tr><td>0.5</td><td>약 0.0010</td></tr><tr><td>0.005</td><td>약 0.0010</td></tr></tbody></table></div><p>기울기 크기가 100배 달라도 첫 단계의 이동량은 거의 η입니다. 보폭이 기울기의 단위가 아니라 η에 비례하도록 정규화되기 때문입니다. 이 성질이 Adam을 ‘튜닝 부담이 적은 기본 선택지’로 만든 이유 중 하나로 설명됩니다.</p><ul><li><strong>잘 맞는 곳:</strong> 기울기가 잡음이 많거나 희소한 딥러닝 학습.</li><li><a href="gradient-descent.html">경사하강법</a>이나 <a href="momentum-optimization.html">모멘텀</a>을 쓰는 <a href="stochastic-gradient-descent.html">SGD</a>와 비교해 초기 수렴이 빠른 편이지만, 항상 최종 성능이 더 좋은 것은 아닙니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>η, β₁, β₂, ε, 배치 크기, 학습 일정(스케줄), 가중치 감쇠 방식을 모두 적습니다.</li><li>이론적 한계: 일부 볼록 문제에서 수렴하지 않는 반례가 제시되었고(Reddi et al., 2018), 그 보완으로 AMSGrad 같은 변형이 나왔습니다.</li><li>일반화: 적응형 방법이 SGD보다 실질적으로 낫다는 통념에 의문을 제기한 연구가 있습니다(Wilson et al., 2017). 결과는 설정에 의존하므로 비교 조건을 확인해야 합니다.</li><li>가중치 감쇠: Adam에서 L2 정규화와 가중치 감쇠는 다르며, 이를 분리한 AdamW가 제안되었습니다(Loshchilov &amp; Hutter, 2019).</li><li>비교 실험에서는 모든 방법에 학습률을 똑같이 탐색했는지 밝힙니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델 학습에는 Adam optimizer(learning rate = 0.001)를 사용하였으며, 총 100 epoch 동안 학습을 진행하였다."</div>
   <p>이 문장은 연구자가 모델의 가중치를 업데이트하는 최적화 알고리즘으로 Adam을 선택했고, 학습 속도를 조절하는 기본 보폭(learning rate) 값을 0.001로 설정했다는 뜻입니다. 딥러닝 논문의 실험 설정(experimental setup) 부분에 거의 항상 등장하는 표현입니다.</p>
   <div class="example">"본 연구에서는 사전학습된 언어모델을 미세조정하기 위해 AdamW를 채택하였으며, weight decay와 learning rate warmup을 함께 적용하였다."</div>
@@ -168,6 +186,19 @@
 
   <h2>주의할 점</h2>
   <p>Adam이 대부분의 상황에서 무난하고 빠르게 수렴한다고 해서 항상 가장 좋은 최종 성능을 내는 것은 아닙니다. 일부 연구에서는 단순한 <a href="gradient-descent.html">경사하강법</a>에 momentum을 더한 방식이 학습은 더 오래 걸려도 최종적으로 더 일반화가 잘 되는 모델을 만든다고 보고하기도 합니다. 즉 Adam은 "빠르고 안정적인 기본값"이지 "무조건 최고의 선택"은 아니라는 점을 기억해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">방향 정보</th><th scope="col">보폭 조절</th></tr></thead><tbody><tr><th scope="row"><a href="gradient-descent.html">경사하강법</a></th><td>현재 기울기</td><td>고정 학습률</td></tr><tr><th scope="row"><a href="momentum-optimization.html">모멘텀</a></th><td>기울기의 이동 평균</td><td>고정 학습률</td></tr><tr><th scope="row">Adam</th><td>기울기의 이동 평균</td><td>기울기 제곱의 이동 평균으로 매개변수별 조절</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kingma, D. P., &amp; Ba, J. (2015). Adam: A method for stochastic optimization. In Proceedings of the 3rd International Conference on Learning Representations (ICLR 2015).</li>
+    <li>Reddi, S. J., Kale, S., &amp; Kumar, S. (2018). On the convergence of Adam and beyond. In Proceedings of the 6th International Conference on Learning Representations (ICLR 2018).</li>
+    <li>Wilson, A. C., Roelofs, R., Stern, M., Srebro, N., &amp; Recht, B. (2017). The marginal value of adaptive gradient methods in machine learning. arXiv preprint arXiv:1705.08292.</li>
+    <li>Loshchilov, I., &amp; Hutter, F. (2019). Decoupled weight decay regularization. In Proceedings of the 7th International Conference on Learning Representations (ICLR 2019).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="gradient-descent.html">경사하강법</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="momentum-optimization.html">모멘텀 최적화</a><a href="stochastic-gradient-descent.html">확률적 경사 하강법(SGD)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
