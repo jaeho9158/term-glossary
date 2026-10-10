@@ -1,0 +1,50 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<ul><li>결과가 “사건이 일어났는가”가 아니라 “사건이 일어나기까지 걸린 시간”일 때 씁니다(사망, 재발, 고장, 해지 등).</li><li>추적 기간 안에 사건이 일어나지 않았거나 중간에 관찰이 끊긴 대상([[right-censoring|중도절단]])이 섞여 있어도 그 정보를 버리지 않고 반영합니다.</li><li>집단 간 비교에는 [[kaplan-meier-survival-analysis|카플란-마이어 곡선]]과 [[log-rank-test|로그순위검정]], 여러 변수를 보정하려면 [[cox-proportional-hazards-model|Cox 비례위험모형]]을 흔히 씁니다.</li></ul>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>카플란-마이어 추정은 사건이 일어난 시점마다 “그 시점에 위험에 놓인 대상 중 사건이 일어나지 않은 비율”을 차례로 곱해 나갑니다. 가상의 자료 8명(개월): 2, 3, 3+, 5, 6+, 8, 9+, 10 (+는 중도절단)으로 계산하면 다음과 같습니다.</p><table><thead><tr><th>시점</th><th>위험집단 수</th><th>사건 수</th><th>생존확률 S(t)</th></tr></thead><tbody><tr><td>2</td><td>8</td><td>1</td><td>0.875</td></tr><tr><td>3</td><td>7</td><td>1</td><td>0.750</td></tr><tr><td>5</td><td>5</td><td>1</td><td>0.600</td></tr><tr><td>8</td><td>3</td><td>1</td><td>0.400</td></tr><tr><td>10</td><td>1</td><td>1</td><td>0.000</td></tr></tbody></table><p>시점 3에는 사건 1명과 중도절단 1명이 함께 있으며, 둘 다 그 시점의 위험집단(7명)에 포함되고 중도절단 대상은 이후 위험집단에서 빠집니다. 중도절단 시점(3+, 6+, 9+)에서는 곡선이 내려가지 않고 위험집단 수만 줄어듭니다. 중앙생존시간은 곡선이 처음 0.5 이하로 내려가는 시점이므로 이 예에서는 8개월입니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>사건의 정의, 시간의 시작점(진단일, 무작위배정일 등)과 추적 종료 기준을 적습니다.</li><li>중도절단 대상 수와 이유, 중앙 추적 기간을 보고합니다.</li><li>집단 비교는 곡선과 위험집단 수를 함께 제시하고, 로그순위검정 p값과 함께 위험비와 신뢰구간을 적습니다.</li><li>Cox 모형을 쓰면 비례위험 가정을 어떻게 확인했는지 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "생존분석 안의 비슷한 말들입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "무엇을 주나"
+    ],
+    "rows": [
+      [
+        "[[kaplan-meier-survival-analysis|카플란-마이어 추정]]",
+        "시간에 따른 생존확률 곡선",
+        "생존확률"
+      ],
+      [
+        "[[log-rank-test|로그순위검정]]",
+        "두 곡선이 같은지 비교",
+        "p값"
+      ],
+      [
+        "[[cox-proportional-hazards-model|Cox 모형]]",
+        "여러 변수를 보정한 회귀",
+        "[[hazard-ratio|위험비]]"
+      ]
+    ]
+  },
+  "references": [
+    "Kaplan, E. L., & Meier, P. (1958). Nonparametric estimation from incomplete observations. Journal of the American Statistical Association, 53(282), 457–481.",
+    "Cox, D. R. (1972). Regression models and life-tables. Journal of the Royal Statistical Society: Series B, 34(2), 187–202.",
+    "Bland, J. M., & Altman, D. G. (1998). Survival probabilities (the Kaplan-Meier method). BMJ, 317(7172), 1572.",
+    "Clark, T. G., Bradburn, M. J., Love, S. B., & Altman, D. G. (2003). Survival analysis part I: basic concepts and first analyses. British Journal of Cancer, 89(2), 232–238.",
+    "Bradburn, M. J., Clark, T. G., Love, S. B., & Altman, D. G. (2003). Survival analysis part II: multivariate data analysis – an introduction to concepts and methods. British Journal of Cancer, 89(3), 431–436."
+  ]
+}

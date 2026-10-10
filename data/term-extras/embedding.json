@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>임베딩은 단어·문장·이미지 같은 대상을 고정 길이의 실수 벡터로 바꾼 표현입니다.</li><li>학습 목적에 따라, 비슷하게 쓰이는 대상일수록 벡터가 가깝게 놓이도록 만듭니다.</li><li>단어 임베딩의 대표 연구로 Word2vec(Mikolov 등, 2013)과 GloVe(Pennington 등, 2014)가 있고, 신경망 언어모형으로 단어의 분산표현을 학습한 초기 연구로 Bengio 등(2003)이 있습니다.</li><li>가까움은 코사인 유사도, 내적, 유클리드 거리 같은 척도로 잽니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 3차원 벡터 a = (1, 2, 0), b = (2, 3, 1)로 코사인 유사도를 계산해 봅니다. 내적은 1×2 + 2×3 + 0×1 = 8, 길이는 √5 ≈ 2.236과 √14 ≈ 3.742입니다. 따라서 cos = 8 ÷ (2.236 × 3.742) ≈ 0.956으로 방향이 매우 비슷합니다. 실제 임베딩은 수백 차원이지만 계산 방식은 같습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>임베딩의 각 차원은 사람이 읽을 수 있는 의미를 갖는다.</td><td>대부분의 학습된 임베딩에서 개별 차원은 해석하기 어렵고, 벡터 사이의 관계가 의미를 가집니다.</td></tr><tr><td>같은 단어는 항상 같은 벡터다.</td><td>Word2vec 같은 정적 임베딩은 그렇지만, 문맥 임베딩은 문장에 따라 달라집니다.</td></tr><tr><td>임베딩은 학습 데이터와 무관하다.</td><td>학습한 말뭉치의 특성과 편향이 그대로 반영될 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "표현 학습 관련 용어입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "비고"
+    ],
+    "rows": [
+      [
+        "[[word-embedding|워드 임베딩]]",
+        "단어를 벡터로 나타낸 임베딩",
+        "임베딩의 한 종류"
+      ],
+      [
+        "[[tokenization|토큰화]]",
+        "텍스트를 처리 단위로 나누는 전처리",
+        "임베딩 이전 단계"
+      ],
+      [
+        "[[cosine-similarity|코사인 유사도]]",
+        "두 벡터 방향의 유사도 척도",
+        "임베딩 간 비교에 쓰임"
+      ]
+    ]
+  },
+  "references": [
+    "Mikolov, T., Chen, K., Corrado, G., & Dean, J. (2013). Efficient estimation of word representations in vector space. arXiv preprint arXiv:1301.3781.",
+    "Pennington, J., Socher, R., & Manning, C. (2014). GloVe: Global vectors for word representation. Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (EMNLP), 1532–1543.",
+    "Bengio, Y., Ducharme, R., Vincent, P., & Jauvin, C. (2003). A neural probabilistic language model. Journal of Machine Learning Research, 3, 1137–1155."
+  ]
+}
