@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,17 +148,44 @@
   <h2>왜 중요한가</h2>
   <p>연급군분석은 특정 세대의 생존율과 어획에 따른 감소를 구분해서 볼 수 있게 해주기 때문에, 자원량을 추정하고 향후 어획 가능량을 결정하는 데 기초 자료로 쓰입니다. 여러 연급군이 겹쳐서 존재하는 실제 어장 상황을 이해하는 데도 필수적입니다. 연급군분석에서 도출되는 순간사망계수는 어획강도가 다른 시나리오에서 미래 자원량이 어떻게 변할지 예측하는 모의실험의 입력값으로도 활용되어, 어획할당량 산정과 직접 연결됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>연급군분석은 같은 해에 태어난 무리(연급군)가 해마다 얼마나 잡혔는지에서 거슬러 올라가, 과거 각 연도의 연령별 개체수를 복원하는 방법입니다. 영어로는 cohort analysis라 하고, 가상개체군분석(VPA, virtual population analysis)이라는 이름과 겹쳐 쓰입니다. Ulltang(1977)의 논문 제목이 두 이름을 같은 방법으로 병기하는 것이 그 예입니다.</li><li>VPA에서 “가상”이라고 부르는 이유는 개체군 크기를 직접 관측하지 않고, 관측된 어획량과 가정한 자연 사망률을 설명하도록 과거 크기를 역산하기 때문입니다.</li><li>한 연급군에서 줄어드는 개체는 어획으로 죽는 것과 자연적으로 죽는 것으로 나뉘며, 자연 사망률은 보통 외부에서 가정해서 넣습니다.</li><li>이 방법은 Gulland(1965)가 어류 자원평가에 도입했고, 연급군 재구성의 아이디어는 1918년 바라노프(Baranov), 1949년 프라이(Fry), 1957년 비버턴과 홀트(Beverton and Holt) 등의 작업에서 여러 번 독립적으로 나왔다고 알려져 있습니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 예입니다. 한 연급군이 2세부터 5세까지 해마다 잡히고, 5세에는 남은 개체가 모두 잡혔다고 합시다. 연령별 어획량이 2세 400마리, 3세 300마리, 4세 150마리, 5세 50마리이고 자연사망을 0으로 단순화하면(교육용 단순화이며 실제로는 자연 사망률을 가정해 넣습니다) 역산은 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>나이(연초)</th><th>어획량</th><th>연초 개체수</th></tr></thead><tbody><tr><td>5세</td><td>50</td><td>50</td></tr><tr><td>4세</td><td>150</td><td>50 + 150 = 200</td></tr><tr><td>3세</td><td>300</td><td>200 + 300 = 500</td></tr><tr><td>2세</td><td>400</td><td>500 + 400 = 900</td></tr></tbody></table></div><p>연초 개체수에서 해당 연령의 어획 비율은 5세 100%, 4세 150/200 = 75%, 3세 300/500 = 60%, 2세 400/900 ≈ 44%입니다. 이 값이 해마다 어획 강도가 어떻게 달라졌는지를 보여 줍니다. 마지막 연령(5세)에 남은 개체수를 얼마로 두느냐가 전체 역산의 시작점이 되므로, 이 가정이 결과를 크게 좌우합니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>연령별 어획량 자료의 출처와 연령 판독 방법을 적습니다.</li><li>자연 사망률을 얼마로 가정했는지, 가장 높은 연령군과 가장 최근 연도의 출발값을 어떻게 정했는지 적습니다. Sims(1984)는 제목에서 이 가정의 오차가 자원량 추정에 미치는 영향을 분석했음을 보입니다.</li><li>VPA 구현 도구(ADAPT, XSA 등)에서는 개체군 크기 지수에 맞추는 통계적 보정(tuning) 방식이 다릅니다. 어떤 도구를 썼는지 밝혀야 결과를 비교할 수 있습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 2015~2020년 연급군분석을 통해 대상 어종의 연도별 순간사망계수를 추정하였다."</div>
   <p>특정 시기에 태어난 무리를 대상으로 사망률을 계산했다는 뜻입니다.</p>
   <div class="example">"연급군분석 결과, 초기 가입량이 큰 연급군일수록 이후 어획량 기여도가 높게 나타났다."</div>
   <p>처음에 개체수가 많았던 세대가 이후 어획에 더 크게 기여했다는 해석입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>연급군분석은 보통 연령별 어획자료(catch-at-age)를 바탕으로 각 연급군의 개체수가 시간에 따라 지수적으로 감소한다고 가정하여 계산됩니다. 이 과정에서 자연사망과 어획사망을 구분해 추정하기 위해 가상개체군분석(VPA)과 같은 후속 기법이 함께 사용되는 경우가 많습니다. 연급군별 자료를 여러 해에 걸쳐 누적하면 자원의 연도별 변동 추이도 파악할 수 있습니다. 연급군분석은 코호트가 일정 연령까지 관측된 완결형 자료를 전제로 하는 경우가 많아, 최근 가입한 어린 연급군처럼 관측이 아직 끝나지 않은 자료에는 별도의 보정이나 다른 자원평가 모델이 함께 사용됩니다.</p>
+  <p>연급군분석은 보통 연령별 어획자료(catch-at-age)를 바탕으로 각 연급군의 개체수가 시간에 따라 지수적으로 감소한다고 가정하여 계산됩니다. 이 계산은 가상개체군분석(VPA)이라는 이름으로도 불리며, 줄어든 개체를 어획으로 죽은 몫과 자연사망으로 죽은 몫으로 나누되 자연사망률은 자료에서 따로 추정하지 않고 보통 외부에서 가정한 값을 넣습니다. 연급군별 자료를 여러 해에 걸쳐 누적하면 자원의 연도별 변동 추이도 파악할 수 있습니다. 연급군분석은 코호트가 일정 연령까지 관측된 완결형 자료를 전제로 하는 경우가 많아, 최근 가입한 어린 연급군처럼 관측이 아직 끝나지 않은 자료에는 별도의 보정이나 다른 자원평가 모델이 함께 사용됩니다.</p>
 
   <h2>주의할 점</h2>
   <p>연급군분석은 어획자료의 정확성과 연령 판정의 신뢰도에 크게 의존하므로, 자료 품질이 낮으면 추정 결과의 오차가 커질 수 있습니다. 또한 단일 연급군만으로는 전체 자원 상태를 대표하기 어렵기 때문에 여러 연급군을 종합적으로 살펴보는 것이 일반적입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ulltang, Ø. (1977). Sources of errors in and limitations of virtual population analysis (cohort analysis). ICES Journal of Marine Science, 37(3), 249–260.</li>
+    <li>Sims, S. E. (1984). An analysis of the effect of errors in the natural mortality rate on stock-size estimates using virtual population analysis (cohort analysis). ICES Journal of Marine Science, 41(2), 149–153.</li>
+    <li>Quinn, T. J., &amp; Deriso, R. B. (1999). Quantitative fish dynamics. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
