@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>캠버는 받음각이 0일 때도 양력을 만들어 주는 형상 변수이므로, 순항 양력계수에 맞춰 에어포일을 고르거나 <a href="flap.html">플랩</a>으로 캠버를 임시로 키워 저속 양력을 확보하는 설계 결정의 출발점입니다. 에어포일 최적화 논문에서는 캠버선 형상을 설계변수로 두고 양항비와 <a href="pitching-moment.html">피칭모멘트</a>의 절충을 탐색합니다. 캠버는 날개 위아래의 곡률 차이를 조절해 양력 발생 효율을 결정하므로, 저속기와 고속기의 날개 단면 설계에서 서로 다른 값이 채택된다. 캠버가 클수록 저속에서 큰 양력을 얻을 수 있지만 고속에서는 항력이 늘어나는 단점이 있다. 가변캠버 장치처럼 비행 단계에 맞춰 캠버 자체를 조절하는 설계도 현대 여객기에 도입되어 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>캠버는 익형의 위·아래 면 사이 한가운데를 지나는 <strong>캠버선(평균 캠버선) Z(x)</strong>가 익현선에서 얼마나 벗어나는지로 나타냅니다. 위아래 면은 캠버선 ± 두께 함수의 절반으로 구성됩니다. 캠버가 0이면 대칭 익형입니다.</p><p>NACA 4자리 익형은 첫 자리가 최대 캠버(익현 길이의 %), 둘째 자리가 최대 캠버 위치(익현의 10분의 몇), 뒤 두 자리가 최대 두께(%)입니다. 최대 캠버를 m, 그 위치를 p(모두 익현 길이에 대한 비)라 하면 캠버선은 다음과 같습니다.</p><ul><li>0 ≤ x ≤ p: y<sub>c</sub> = m / p² × (2px − x²)</li><li>p ≤ x ≤ 1: y<sub>c</sub> = m / (1 − p)² × ((1 − 2p) + 2px − x²)</li></ul><p><strong>예</strong>: NACA 2412는 m = 0.02(2%), p = 0.4(40%)입니다. 위 식으로 계산한 캠버선 높이는 다음과 같습니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x(익현 비)</th><th>캠버선 높이 y<sub>c</sub></th></tr></thead><tbody><tr><td>0.2</td><td>1.50 %c</td></tr><tr><td>0.4</td><td>2.00 %c</td></tr><tr><td>0.6</td><td>1.78 %c</td></tr><tr><td>0.8</td><td>1.11 %c</td></tr><tr><td>1.0</td><td>0.00 %c</td></tr></tbody></table></div><p>NACA 0012처럼 첫 두 자리가 00이면 캠버선이 곧 익현선인 대칭 익형입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>캠버가 있으면 최대 양력계수(C<sub>Lmax</sub>)가 커져 같은 날개하중에서 실속 속도가 낮아집니다.</li><li>캠버가 0인 대칭 익형도 받음각이 있으면 <a href="lift.html">양력</a>을 냅니다. 양력이 오직 캠버에서만 나오는 것은 아닙니다.</li><li>초임계 익형은 윗면을 평평하게 하고 뒤쪽에 큰 캠버를 두는 형태로 설명되며, 조파 항력이 시작되는 시점을 늦추는 것이 목적입니다.</li><li>캠버선이 뒷전 근처에서 위로 되감기는 ‘리플렉스 캠버’는 꼬리날개가 없는 항공기에서 공력중심 둘레의 모멘트를 0으로 만들 수 있어 쓰입니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>최대 캠버와 그 위치를 모두 익현 길이에 대한 비(%c)로 적습니다. NACA 코드(예: 2412)만 적어도 이 두 값을 알 수 있습니다.</li><li>‘평균 캠버선’ 기준인지, 단순히 위아래 면의 비대칭을 가리키는 것인지 밝힙니다.</li><li><a href="angle-of-attack.html">받음각</a>과 함께 보고합니다. 같은 양력이라도 캠버가 크면 낮은 받음각에서 얻을 수 있어, 캠버와 받음각은 함께 읽어야 합니다.</li><li><a href="flap.html">플랩</a>처럼 캠버를 바꾸는 장치가 쓰였다면 그 상태(펼침 각도)도 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"플랩을 20도 전개하여 유효 캠버를 증가시킨 결과 저속 구간의 최대 양력계수가 크게 향상되었다."</div>
   <p>날개 뒷부분을 펴서 곡률을 키우자 느린 속도에서도 얻을 수 있는 최대 양력이 커졌다는 결과를 설명한 문장입니다.</p>
   <div class="example">익형의 캠버를 달리한 모델을 풍동에서 시험하여 받음각별 양력 계수를 측정하였다.</div>
@@ -158,6 +176,18 @@
 
   <h2>주의할 점</h2>
   <p>캠버가 0인 대칭 익형도 받음각만 있으면 양력을 발생시킬 수 있으므로, 양력이 오직 캠버 때문에만 생긴다고 오해해서는 안 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>익형 형상을 나타내는 용어들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">정의</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><strong>캠버</strong></th><td>캠버선이 익현선에서 벗어난 정도</td><td>형상(곡률)</td></tr><tr><th scope="row"><a href="chord-line.html">익현선</a></th><td>앞전과 뒷전을 잇는 기준선</td><td>기준선</td></tr><tr><th scope="row"><a href="angle-of-attack.html">받음각</a></th><td>익현선과 기류 방향이 이루는 각</td><td>자세(운용 조건)</td></tr><tr><th scope="row"><a href="airfoil.html">익형</a></th><td>날개의 단면 형상</td><td>형상 전체</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Abbott, I. H., &amp; von Doenhoff, A. E. (1959). Theory of Wing Sections: Including a Summary of Airfoil Data. Dover.</li>
+    <li>Anderson, J. D., Jr. (2007). Fundamentals of Aerodynamics (4th ed.). McGraw-Hill Higher Education.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

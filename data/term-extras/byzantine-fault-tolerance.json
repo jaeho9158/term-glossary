@@ -1,0 +1,52 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>비잔틴 장애는 고장 난 구성요소가 관찰자마다 서로 다른 신호를 주어, 다른 쪽에서는 그것이 고장인지 알기 어려운 문제입니다. 이름은 ‘비잔틴 장군 문제’라는 비유에서 왔고, 이 비유는 Lamport, Shostak, Pease(1982)의 논문이 소개했습니다.</li><li>메시지에 서명이 없는 모형에서는, 합의를 이루려면 전체 노드 수가 불성실(결함) 노드 수의 3배보다 커야 한다고 알려져 있습니다. 결함 노드가 f개이면 전체는 최소 3f+1개입니다. 이 결과는 Pease, Shostak, Lamport(1980)의 논문에 실렸습니다.</li><li>위조할 수 없는 디지털 서명을 쓸 수 있는 경우는 조건이 달라지며, 이 사례도 1980년 논문에서 다뤘습니다.</li><li>실용적인 알고리즘의 예로 Castro와 Liskov의 PBFT(실용적 비잔틴 장애 허용)가 있으며, 이 알고리즘을 능동 복구와 함께 다룬 논문이 Castro와 Liskov(2002)입니다.</li><li>[[fault-tolerance|결함허용]] 중 비잔틴 장애는 가장 일반적이고 어려운 부류로 설명됩니다. 결함 노드가 어떤 오류든 만들어 낼 수 있다고 보기 때문입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>서명이 없는 모형에서 f개의 비잔틴 노드를 견디려면 필요한 최소 노드 수(n ≥ 3f+1)를 계산하면 다음과 같습니다.</p><table><thead><tr><th>견딜 결함 노드 수 f</th><th>필요한 최소 노드 수 3f+1</th><th>부족한 경우(3f)</th></tr></thead><tbody><tr><td>1</td><td>4</td><td>3</td></tr><tr><td>2</td><td>7</td><td>6</td></tr><tr><td>3</td><td>10</td><td>9</td></tr><tr><td>4</td><td>13</td><td>12</td></tr></tbody></table><p>예를 들어 4개 노드는 1개의 비잔틴 노드까지, 3개 노드는 1개도 견디지 못한다는 뜻입니다(위 모형의 조건에서). 블록체인의 [[proof-of-work|작업증명]]처럼 다른 방식의 합의도 있으므로, 이 조건이 모든 합의에 적용되는 것은 아닙니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>비잔틴 장애 허용은 블록체인에서 나온 개념이다.</td><td>1970년대 말 Shostak이 SIFT 프로젝트에서 정식화한 문제로, 1980년과 1982년 논문에서 이론이 정리되었습니다. 블록체인보다 훨씬 오래된 개념입니다.</td></tr><tr><td>과반수가 동의하면 합의가 안전하다.</td><td>서명이 없는 모형에서는 결함 노드가 전체의 3분의 1 이상이면 합의를 보장할 수 없습니다. 과반수 정도로는 충분하지 않습니다.</td></tr><tr><td>충돌 장애만 견디는 알고리즘이면 충분하다.</td><td>충돌 장애(노드가 멈추는 것)는 가장 단순한 부류이고, 비잔틴 장애는 거짓 메시지까지 포함하는 가장 일반적인 부류입니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "분산 시스템의 장애와 합의 관련 용어입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[fault-tolerance|결함허용]]",
+        "일부 구성요소가 고장 나도 시스템이 동작을 이어 가는 성질"
+      ],
+      [
+        "충돌 장애(fail-stop)",
+        "노드가 멈추고 다른 노드가 그것을 알아챌 수 있는 가장 단순한 장애"
+      ],
+      [
+        "[[byzantine-fault-tolerance|비잔틴 장애 허용]]",
+        "노드가 임의의, 심지어 거짓된 메시지를 보내도 합의에 이르는 성질"
+      ],
+      [
+        "[[consensus-algorithm|합의 알고리즘]]",
+        "여러 노드가 하나의 값에 동의하도록 하는 절차. 비잔틴 장애 허용은 그 조건의 하나"
+      ],
+      [
+        "[[cap-theorem|CAP 정리]]",
+        "일관성·가용성·분할 내성의 동시 충족 한계를 말하는 정리로, 비잔틴 장애와는 다른 축의 문제"
+      ]
+    ]
+  },
+  "references": [
+    "Lamport, L., Shostak, R., & Pease, M. (1982). The Byzantine generals problem. ACM Transactions on Programming Languages and Systems, 4(3), 382–401.",
+    "Pease, M., Shostak, R., & Lamport, L. (1980). Reaching agreement in the presence of faults. Journal of the ACM, 27(2), 228–234.",
+    "Castro, M., & Liskov, B. (2002). Practical Byzantine fault tolerance and proactive recovery. ACM Transactions on Computer Systems, 20(4), 398–461."
+  ]
+}
