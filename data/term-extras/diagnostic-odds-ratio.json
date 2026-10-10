@@ -1,0 +1,65 @@
+{
+  "type": "metric",
+  "fixes": [
+    {
+      "find": "양성우도비와 음성우도비를 곱하면 진단오즈비가 된다",
+      "replace": "양성우도비를 음성우도비로 나누면 진단오즈비가 된다"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>검사 결과를 2×2표(진짜 양성 TP, 위음성 FN, 위양성 FP, 진짜 음성 TN)로 정리하면 진단오즈비는 다음과 같습니다.</p><p><strong>DOR = (TP × TN) / (FN × FP)</strong> = [민감도/(1 − 민감도)] / [(1 − 특이도)/특이도] = 양성우도비 / 음성우도비</p><p>가상의 예: TP 90, FN 10, FP 20, TN 80이면 민감도 .90, 특이도 .80이고 DOR = (90 × 80)/(10 × 20) = 36입니다. 같은 값을 우도비로 계산하면 양성우도비 4.5, 음성우도비 .125이고 4.5 / .125 = 36으로 일치합니다.</p><ul><li>범위는 0에서 무한대이며, 1이면 검사 결과가 병의 유무와 무관합니다. 1보다 크면 양성 결과가 병이 있는 쪽에서 더 흔합니다.</li><li>FN이나 FP가 0이면 분모가 0이 되어 그대로는 계산할 수 없습니다. 보정 방법을 쓰는 경우 그 방법을 밝혀야 합니다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>값이 클수록 검사가 병이 있는 사람과 없는 사람을 더 잘 가릅니다. 어느 값부터 &quot;좋다&quot;는 보편적인 기준은 없으므로 검사의 용도와 비교 대상에 맞춰 읽습니다.</li><li>Glas 등(2003)은 진단오즈비가 민감도·특이도 같은 기존 지표와 밀접히 연결되고, 진단검사 연구의 메타분석을 쉽게 하며, 이질성을 보정하는 변수를 넣을 수 있는 로지스틱 모형에서 도출된다고 설명합니다. 같은 논문은 진짜 양성률과 위양성률에 따로 가중치를 줄 수 없다는 단점도 적고 있습니다.</li></ul><p>그 단점은 아래 가상의 예로 확인됩니다.</p><table><thead><tr><th>검사</th><th>민감도</th><th>특이도</th><th>진단오즈비</th></tr></thead><tbody><tr><td>가</td><td>.95</td><td>.60</td><td>28.5</td></tr><tr><td>나</td><td>.60</td><td>.95</td><td>28.5</td></tr></tbody></table><p>두 검사의 진단오즈비는 같지만, 한쪽은 놓치는 사람이 적고 다른 쪽은 위양성이 적어 선별용인지 확진용인지에 따라 쓰임이 다릅니다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>진단오즈비와 95% 신뢰구간을 함께 적고, 가능하면 2×2표나 민감도·특이도도 같이 제시합니다.</li><li>메타분석에서는 연구별 값을 어떤 모형으로 합쳤는지, 0칸 보정을 했는지 밝힙니다.</li><li>양성예측도는 유병률에 따라 달라지므로 진단오즈비만으로 답할 수 없습니다. 위 가상의 검사(민감도 .90, 특이도 .80)도 유병률이 10%이면 양성예측도가 약 .33입니다.</li></ul><p class=\"te-note\">보고 예: &quot;진단오즈비는 36(95% CI …)이었다.&quot;처럼 값, 신뢰구간, 분석 단위를 함께 적습니다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "진단검사 성능 지표는 서로 다른 질문에 답합니다.",
+    "headers": [
+      "용어",
+      "답하는 질문",
+      "유병률의 영향"
+    ],
+    "rows": [
+      [
+        "[[diagnostic-odds-ratio|진단오즈비]]",
+        "검사가 병의 유무를 한 숫자로 얼마나 잘 가르는가",
+        "받지 않음"
+      ],
+      [
+        "[[odds-ratio|교차비(오즈비)]]",
+        "두 집단 사이 오즈의 비(진단오즈비는 이를 검사 결과에 적용한 것)",
+        "해당 없음(진단검사 전용 지표가 아님)"
+      ],
+      [
+        "[[likelihood-ratio|우도비]]",
+        "양성 또는 음성 결과가 병의 가능성을 몇 배로 바꾸는가",
+        "받지 않음"
+      ],
+      [
+        "[[positive-predictive-value|양성예측도]]",
+        "양성이 나온 사람이 실제로 병일 확률",
+        "크게 받음"
+      ],
+      [
+        "[[roc-curve|ROC 곡선]]",
+        "기준값을 옮기며 민감도·특이도의 관계를 보는 곡선",
+        "받지 않음"
+      ]
+    ]
+  },
+  "references": [
+    "Glas, A. S., Lijmer, J. G., Prins, M. H., Bonsel, G. J., & Bossuyt, P. M. M. (2003). The diagnostic odds ratio: A single indicator of test performance. Journal of Clinical Epidemiology, 56(11), 1129–1135.",
+    "Deeks, J. J. (2001). Systematic reviews of evaluations of diagnostic and screening tests. BMJ, 323(7305), 157–162.",
+    "Zhou, X.-H., Obuchowski, N. A., & McClish, D. K. (2002). Statistical Methods in Diagnostic Medicine. Wiley-Interscience.",
+    "Pepe, M. S. (2003). The Statistical Evaluation of Medical Tests for Classification and Prediction. Oxford University Press."
+  ]
+}

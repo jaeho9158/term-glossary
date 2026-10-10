@@ -1,0 +1,48 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>보험회사의 잉여금은 보험료로 꾸준히 늘고 청구가 들어올 때마다 뚝 떨어지는 계단형 과정입니다. 확산근사는 이를 평균과 분산을 맞춘 &quot;표류(drift)가 있는 브라운 운동&quot;으로 바꿔 파산확률을 계산합니다.</li><li>단위 시간당 평균 증가량(순 표류) <em>μ</em> = 보험료율 − 청구 발생률 × 평균 청구액, 분산율 <em>σ</em><sup>2</sup> = 청구 발생률 × 청구액의 2차 적률일 때, 초기 잉여금 <em>u</em>에서 파산확률은 ψ(<em>u</em>) ≈ exp(−2<em>μu</em>/<em>σ</em><sup>2</sup>)입니다. 파산확률이 잉여금에 대해 지수적으로 줄어드는 단순한 꼴입니다.</li><li>Iglehart(1969)는 보험회사의 위험 준비금이 무작위로 요동하는 집합위험이론에서 이런 확산 근사를 다루었고, Grandell(1977)은 파산확률 근사의 한 부류를 다룬 논문입니다.</li><li>근사는 평균과 분산만 쓰므로 왜도 이상의 정보는 반영하지 못합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>가상의 예: 청구가 평균 1건/시간 비율로 발생하고 청구액은 평균 1인 지수분포, 보험료율은 1.1이라 합시다. 순 표류 <em>μ</em> = 1.1 − 1 = 0.1, 분산율 <em>σ</em><sup>2</sup> = 1 × 2 = 2이므로 확산근사는 ψ(<em>u</em>) ≈ exp(−0.1<em>u</em>)입니다.</p><p>이 경우 지수분포 청구에 대한 알려진 정확한 식 ψ(<em>u</em>) = [1/(1 + θ)]·exp(−θ<em>u</em>/(1 + θ))(θ = 0.1, 안전할증률)과 견주면 다음과 같습니다. 두 식은 확률과정과 파산이론에서 널리 쓰이는 표준 결과이고, 표의 값은 그 식에 숫자를 넣어 직접 계산한 것입니다.</p><table><thead><tr><th>초기 잉여금 <em>u</em></th><th>정확한 값</th><th>확산근사</th></tr></thead><tbody><tr><td>0</td><td>0.909</td><td>1.000</td></tr><tr><td>5</td><td>0.577</td><td>0.607</td></tr><tr><td>10</td><td>0.366</td><td>0.368</td></tr><tr><td>20</td><td>0.148</td><td>0.135</td></tr></tbody></table><p>안전할증률이 작은 이 예에서는 <em>u</em>가 클 때 두 값이 가깝지만, <em>u</em>가 0에 가까우면 확산근사가 파산확률을 1로 두어 차이가 큽니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>확산근사는 정확한 파산확률이다.</td><td>평균과 분산을 맞춘 근사일 뿐이며, 위 예처럼 오차가 있습니다.</td></tr><tr><td>청구액 분포와 상관없이 쓸 수 있다.</td><td>왜도 같은 정보를 반영하지 못해 청구액 분포가 치우친 경우 오차가 커질 수 있습니다.</td></tr></tbody></table>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "파산확률 근사·한계식 용어를 구분합니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "[[diffusion-approximation-ruin|확산근사]]",
+        "잉여금 과정을 평균·분산이 같은 브라운 운동으로 바꿔 파산확률을 계산"
+      ],
+      [
+        "[[de-vylder-approximation|드파일더근사]]",
+        "확산근사를 보완하는 방법으로 함께 논의되는 근사"
+      ],
+      [
+        "[[lundberg-inequality|룬드베리부등식]]",
+        "파산확률의 상한을 주는 부등식"
+      ],
+      [
+        "[[cramer-lundberg-model|크레머-룬드베리 모형]]",
+        "확산근사가 근사하려는 원래의 고전적 잉여금 모형"
+      ]
+    ]
+  },
+  "references": [
+    "Iglehart, D. L. (1969). Diffusion approximations in collective risk theory. Journal of Applied Probability, 6(2), 285–292.",
+    "Grandell, J. (1977). A class of approximations of ruin probabilities. Scandinavian Actuarial Journal, 1977(sup1), 37–52.",
+    "Asmussen, S., & Albrecher, H. (2010). Ruin Probabilities (2nd ed.). World Scientific."
+  ]
+}
