@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>베타는 개별 자산 수익률이 시장 수익률에 얼마나 민감하게 움직이는지를 나타내는 계수로, <a href="capital-asset-pricing-model.html">CAPM</a>에서 체계적 위험의 유일한 척도이자 요구수익률 계산의 핵심 입력값입니다. 기업의 자기자본비용 추정, 사업부 평가, 펀드 성과의 위험조정에서 거의 예외 없이 등장합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>베타는 개별 자산 수익률(R<sub>i</sub>)과 시장 수익률(R<sub>m</sub>)의 공분산을 시장 수익률의 분산으로 나눈 값입니다.</p><p><code>β<sub>i</sub> = Cov(R<sub>i</sub>, R<sub>m</sub>) / Var(R<sub>m</sub>) = ρ<sub>i,m</sub> × (σ<sub>i</sub> / σ<sub>m</sub>)</code></p><ul><li>이론상 값의 범위에 제한이 없으며, 시장과 반대로 움직이는 자산이면 음수가 될 수 있습니다.</li><li>실제로는 자산 수익률을 시장 수익률에 회귀시킨 직선의 <strong>기울기</strong>로 추정합니다.</li><li>CAPM에서 요구수익률은 <code>E(R<sub>i</sub>) = R<sub>f</sub> + β<sub>i</sub>(E(R<sub>m</sub>) − R<sub>f</sub>)</code>입니다. 무위험이자율 3%, 시장위험프리미엄 5%, β = 1.3이면 3% + 1.3×5% = 9.5%입니다(가상의 값).</li></ul><p><strong>작은 예.</strong> 가상으로 만든 월간 수익률 60개월치(난수 시드 42)에 회귀를 적용하면 β̂ ≈ 1.25, 표준오차 ≈ 0.10, 95% 신뢰구간 [1.05, 1.44], 결정계수 R² ≈ 0.74가 나옵니다. R²가 0.74이므로 이 자산 수익률 변동의 약 26%는 시장과 무관한 고유 요인입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>시장 전체의 베타는 정의상 1입니다. 베타가 1보다 크면 평균보다 위험하다고 보아 더 높은 할인율을 적용하고, 1보다 작으면 평균보다 위험이 낮다고 봅니다.</li><li>베타는 <strong>체계적 위험만</strong> 반영합니다. 베타가 낮아도 고유 위험이 크면 총변동성은 클 수 있습니다.</li><li>이 값들은 추정치입니다. CAPM은 Sharpe(1964), Lintner(1965) 등이 제시했으나, Fama와 French(2004)는 모형의 실증 성적이 실제 응용 방식의 타당성을 흔들 만큼 부실하다고 평가했고, 참 시장 포트폴리오를 관찰할 수 없다는 Roll의 비판과 저변동성 이상현상(낮은 베타 주식이 모형 예측보다 높은 수익)도 알려져 있습니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>같은 종목이라도 추정 방식에 따라 값이 다르므로 아래를 밝힙니다.</p><ul><li>추정 기간과 수익률의 빈도(일·주·월), 시장지수(예: KOSPI), 무위험이자율의 처리</li><li>점추정치와 함께 표준오차나 신뢰구간, 결정계수</li><li>조정 베타나 레버리지 조정(무부채 베타 환산)을 했다면 그 방법</li></ul><p><code>월간 수익률을 시장수익률에 회귀한 결과 베타는 1.25(SE = 0.10, 95% CI [1.05, 1.44], R² = .74)였다(가상의 값).</code></p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Sharpe, W. F. (1964). Capital Asset Prices: A Theory of Market Equilibrium under Conditions of Risk. Journal of Finance.</div>
   <p>샤프의 CAPM에서 베타는 개별 자산 수익률과 시장포트폴리오 수익률 간 공분산을 시장포트폴리오 분산으로 나눈 값으로 정의되며, 위험프리미엄을 결정하는 유일한 위험지표로 제시되었다.</p>
 
@@ -162,6 +180,20 @@
 
   <h2>주의할 점</h2>
   <p>베타는 과거 데이터를 기반으로 추정되므로 추정기간, 수익률 측정주기, 시장지수 선택에 따라 값이 달라질 수 있고, 기업의 사업구조가 변화하면 과거 베타가 미래 위험을 대표하지 못할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>베타는 위험의 한 측면만 재는 값입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 재나</th><th scope="col">베타와의 관계</th></tr></thead><tbody><tr><th scope="row">표준편차(σ)</th><td>자산 수익률의 총변동성</td><td>β = ρ × σ자산 / σ시장</td></tr><tr><th scope="row">상관계수(ρ)</th><td>시장과 함께 움직이는 방향·정도(−1~1)</td><td>베타는 상관계수에 변동성 비율을 곱한 값</td></tr><tr><th scope="row"><a href="systematic-risk.html">체계적 위험</a></th><td>분산투자로 없앨 수 없는 위험</td><td>베타가 그 크기를 재는 지표</td></tr><tr><th scope="row"><a href="security-market-line.html">증권시장선</a></th><td>베타와 요구수익률의 직선 관계</td><td>가로축이 베타</td></tr></tbody></table></div>
+  <p class="te-note">베타 1.5는 “시장이 오르내릴 때 평균적으로 1.5배 움직이는 경향”이지 늘 그렇게 움직인다는 뜻이 아닙니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Sharpe, W. F. (1964). Capital asset prices: A theory of market equilibrium under conditions of risk. The Journal of Finance, 19(3), 425–442.</li>
+    <li>Lintner, J. (1965). The valuation of risk assets and the selection of risky investments in stock portfolios and capital budgets. The Review of Economics and Statistics, 47(1), 13–37.</li>
+    <li>Fama, E. F., &amp; French, K. R. (2004). The capital asset pricing model: Theory and evidence. Journal of Economic Perspectives, 18(3), 25–46.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>베르누이 방정식은 유체의 압력과 속도 사이 관계를 정량적으로 다루는 가장 기본적인 도구이기 때문에 유량계 설계, 항공기 양력 해석, 배관 시스템 설계 등 기계공학의 다양한 응용 분야에서 기초 이론으로 사용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>비압축성 유체가 점성을 무시할 수 있는 정상류로 흐를 때, <strong>한 유선을 따라</strong> 압력 에너지, 운동 에너지, 위치 에너지의 합이 일정합니다.</p><p><code>p + ½ρv² + ρgz = 일정</code></p><ul><li>양변을 ρg로 나누면 압력수두 + 속도수두 + 위치수두 = 전수두(<code>H = p/ρg + v²/2g + z</code>)가 됩니다.</li><li>가정: 정상류, 비압축성, 점성 마찰 무시, 같은 유선 위의 두 점 비교. 흐름이 비회전(irrotational)이면 유선이 달라도 한 상수로 묶을 수 있습니다.</li><li>Daniel Bernoulli가 1738년 <em>Hydrodynamica</em>에서 압력이 속도에 따라 변함을 보였고, 우리가 쓰는 형태의 식은 Euler가 1752년에 유도한 것으로 소개됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 값, 이상유체 가정) 물(ρ = 1,000 kg/m³)이 10 L/s로 흐르는 수평관의 지름이 100 mm에서 50 mm로 좁아지는 벤투리 구간입니다.</p><ul><li>넓은 쪽 속도 v₁ = Q/A₁ ≈ 1.27 m/s, 좁은 쪽 v₂ = Q/A₂ ≈ 5.09 m/s</li><li>수평이므로 z는 같고, 압력 차 p₁ − p₂ = ½ρ(v₂² − v₁²) ≈ 12.2 kPa</li></ul><p>좁아진 곳에서 속도가 빨라지고 압력이 낮아지는 것이 벤투리 효과입니다. 또 수조 수면에서 높이 2 m 아래의 작은 구멍으로 나오는 물의 이상적 속도는 √(2gh) ≈ 6.26 m/s로, 토리첼리 법칙으로 알려진 결과입니다. 실제로는 점성과 수축으로 이보다 느립니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“날개 위 공기가 같은 시간에 만나려고 더 빨리 가므로 양력이 생긴다”</strong>: 같은 시간에 만나야 한다는 물리 원리는 없으며, 실제로 날개 윗면의 공기는 더 빨리 지나갑니다. 베르누이 방정식 자체는 양력 계산에 올바르게 쓰이지만 이 ‘동일 통과 시간’ 설명은 틀렸습니다.</li><li><strong>“종이 위로 입김을 불면 베르누이 때문에 뜬다”</strong>: 입에서 나온 공기는 주변과 같은 압력이며, 서로 다른 유동장을 이 식으로 비교할 수 없습니다. 휘어지는 기류가 만드는 압력 구배로 설명하는 편이 정확합니다.</li><li><strong>점성이 큰 흐름에 그대로 쓰기</strong>: 마찰 손실이 있는 관 흐름에서는 손실 항을 더한 확장 형태를 씁니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"베르누이 방정식(Bernoulli's equation)을 이용해 노즐 출구에서의 유속을 이론적으로 산정하였다."</div>
   <p>노즐을 빠져나가는 유체의 속도를 실험 없이 압력 조건만으로 계산했다는 뜻입니다.</p>
   <div class="example">"본 연구는 비정상 유동 조건에서 베르누이 방정식의 적용 한계를 수치해석을 통해 검토하였다."</div>
@@ -161,6 +179,20 @@
 
   <h2>주의할 점</h2>
   <p>베르누이 방정식은 비점성, 비압축성, 정상류라는 이상화된 가정 위에서 성립하므로, 점성 손실이 크거나 흐름이 시간에 따라 변하는 경우에는 그대로 적용할 수 없습니다. 회전하는 유체(와류 내부)나 급격한 형상 변화가 있는 구간에서는 유선 간 베르누이 상수가 서로 달라질 수 있어, 서로 다른 유선 위의 값을 함부로 비교해서는 안 됩니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>유체의 보존 법칙과 운동방정식은 서로 다른 역할을 합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 말하나</th><th scope="col">베르누이 방정식과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="continuity-equation.html">연속방정식</a></th><td>질량 보존(유입량과 유출량의 관계)</td><td>속도를 구해 베르누이 식에 넣을 때 함께 사용</td></tr><tr><th scope="row"><a href="euler-equation-fluid.html">오일러 유동방정식</a></th><td>비점성 유체의 운동방정식</td><td>유선을 따라 적분한 결과가 베르누이 방정식</td></tr></tbody></table></div>
+  <p class="te-note">베르누이 방정식은 에너지 보존의 한 형태이지만, 가정이 맞는 경우에만 성립하는 근사식입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Bernoulli, D. (1738). Hydrodynamica, sive de viribus et motibus fluidorum commentarii. Johannis Reinholdi Dulseckeri.</li>
+    <li>Batchelor, G. K. (1967). An Introduction to Fluid Dynamics. Cambridge University Press.</li>
+    <li>Kundu, P. K., &amp; Cohen, I. M. (2008). Fluid Mechanics (4th ed.). Academic Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

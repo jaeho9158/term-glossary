@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>굽힘모멘트는 구조물이 하중을 받았을 때 어느 단면이 가장 위험한지를 알려주는 기본 지표이기 때문에, 구조공학·토목공학·기계공학 논문에서 빠지지 않고 등장합니다. 교량, 건축 골조, 항공기 날개, 로봇 팔처럼 휘는 힘을 받는 부재를 설계하거나 해석하는 연구는 대부분 굽힘모멘트 분포를 구하는 과정에서 출발합니다. 또한 유한요소해석(FEA)이나 구조 최적화 연구에서도 굽힘모멘트 값은 응력 계산과 안전성 평가의 중간 결과물로 자주 인용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>굽힘모멘트는 외부 하중 때문에 보의 한 단면에 생기는 <strong>내부 짝힘(우력)의 합</strong>으로, 보통 단면의 중립축을 기준으로 계산합니다. 단위는 N·m(또는 kN·m)입니다.</p><ul><li><strong>하중-전단력-모멘트의 관계</strong>: 전단력 선도의 기울기는 분포하중의 크기(부호는 방향 규약에 따름)이고, 모멘트 선도의 기울기는 그 지점의 전단력과 같습니다(dM/dx = V). 그래서 전단력이 0이 되는 곳에서 모멘트가 극값을 가집니다.</li><li><strong>휨응력</strong>: 단면에 생기는 휨응력은 모멘트에 비례하고 단면의 2차 모멘트(<code>I</code>)에 반비례합니다. 직선 보에서는 <code>σ = M·c / I</code>로 쓰며 c는 중립축에서 가장 먼 거리입니다.</li><li>모멘트의 부호는 책마다 다릅니다. 처짐 방향이 아래로 볼록(sagging)일 때를 양으로 두는 쪽이 많지만, 반대로 정의하는 저자도 있어 논문에서는 규약을 밝힙니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>길이 L = 4 m인 단순지지보를 가정합니다(가상의 값).</p><ul><li><strong>중앙 집중하중 P = 10 kN</strong>: 최대 모멘트는 중앙 단면에서 M<sub>max</sub> = PL/4 = 10 kN·m</li><li><strong>등분포하중 w = 5 kN/m</strong>: 반력은 wL/2 = 10 kN이고 M(x) = wLx/2 − wx²/2입니다. 전단력이 0인 x = L/2에서 M<sub>max</sub> = wL²/8 = 10 kN·m</li></ul><p>두 하중 모두 최대 모멘트가 10 kN·m로 같아졌습니다. 이를 폭 100 mm, 높이 200 mm인 직사각형 단면에 적용하면 I = bh³/12 ≈ 6.67×10⁷ mm⁴이고, 가장자리 응력은 σ = M(h/2)/I = 10×10⁶ N·mm × 100 mm ÷ 6.67×10⁷ mm⁴ = 15 MPa입니다. 단면을 세워 쓰면(높이 방향) 같은 모멘트에서도 응력이 작아지는 이유가 이 식에 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“모멘트가 크면 많이 휜다”</strong>: 모멘트는 내부 힘의 크기이고, 실제 휨 변형(처짐)은 재료의 강성과 단면 형상까지 함께 고려해 따로 구합니다.</li><li><strong>“최대 모멘트는 하중이 놓인 곳에서만 난다”</strong>: 등분포하중이 걸린 단순지지보에서는 하중 위치가 아니라 전단력이 0이 되는 중앙에서 최대가 됩니다.</li><li><strong>“모멘트가 같으면 안전성도 같다”</strong>: 같은 모멘트라도 단면의 I와 재료 강도에 따라 응력과 여유가 달라집니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"단순지지보 중앙에 집중하중이 작용할 때 최대 굽힘모멘트는 지간 중앙 단면에서 발생하는 것으로 계산되었다."</div>
   <p>이 문장은 양 끝이 받쳐진 보의 한가운데에 무게가 실릴 때, 그 보를 가장 세게 휘게 만드는 지점이 바로 보의 중앙이라는 계산 결과를 설명하고 있습니다.</p>
 
@@ -166,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>굽힘모멘트는 구조물에 걸리는 "내부 힘의 크기"를 나타낼 뿐, 그 구조물이 실제로 얼마나 변형되는지는 별개의 계산이 필요합니다. 부재가 실제로 얼마나 휘어지는지는 굽힘모멘트와 재료의 강성을 함께 고려한 <a href="beam-deflection.html">보의 처짐</a> 계산을 통해 확인하며, 재료가 버틸 수 있는 한계는 <a href="yield-strength.html">항복강도</a>와 비교해서 판단합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>보의 해석에서 함께 등장하는 양들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">굽힘모멘트와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="shear-force.html">전단력</a></th><td>단면을 미끄러뜨리려는 내부 힘</td><td>모멘트 선도의 기울기가 전단력</td></tr><tr><th scope="row"><a href="moment-of-inertia.html">단면 2차모멘트</a></th><td>단면 형상이 휨에 저항하는 정도</td><td>응력은 M을 I로 나누어 구함</td></tr><tr><th scope="row"><a href="beam-deflection.html">보의 처짐</a></th><td>보가 실제로 휘어진 변형량</td><td>모멘트와 강성(EI)에서 따로 구함</td></tr></tbody></table></div>
+  <p class="te-note">굽힘모멘트는 원인이 되는 내부 하중, 응력과 처짐은 그 결과로 계산되는 값입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Timoshenko, S. (1930). Strength of Materials. D. Van Nostrand.</li>
+    <li>Gere, J. M., &amp; Goodno, B. J. (2008). Mechanics of Materials, SI Edition. Cengage Learning.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="beam-bending-theory.html">보의 굽힘 이론</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="moment-of-inertia-section.html">단면 2차모멘트</a><a href="beam-deflection.html">보의 처짐</a><a href="shear-bending-moment-diagram.html">전단력선도와 굽힘모멘트도</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

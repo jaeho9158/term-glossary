@@ -1,0 +1,44 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>베버턴홀트모델은 산란자원량 S와 가입량 R의 관계를 <code>R = aS / (1 + bS)</code>로 나타냅니다. Beverton과 Holt(1957)가 어업 자원 연구에서 제시한 것으로 소개됩니다.</p><ul><li><strong>a</strong>: S가 작을 때의 기울기입니다. S가 아주 작으면 R ≈ aS입니다.</li><li><strong>a/b</strong>: S를 아무리 키워도 가입량이 다가가는 한계(점근선)입니다. 곡선은 증가하다가 평평해질 뿐 줄어들지 않습니다.</li><li>같은 형태는 개체군 생태학에서 <code>n<sub>t+1</sub> = R<sub>0</sub>n<sub>t</sub> / (1 + n<sub>t</sub>/M)</code>로도 쓰이며, 환경수용력 K = (R<sub>0</sub> − 1)M으로 수렴합니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>(가상의 값) a = 2, b = 0.001이면 점근선은 a/b = 2,000입니다. 비교를 위해 리커 모형 <code>R = aS·e<sup>−b′S</sup></code>(a = 2, b′ = 0.0005)도 계산했습니다.</p><table><thead><tr><th>S</th><th>베버턴홀트</th><th>리커</th></tr></thead><tbody><tr><td>100</td><td>181.8</td><td>190.2</td></tr><tr><td>500</td><td>666.7</td><td>778.8</td></tr><tr><td>1,000</td><td>1,000.0</td><td>1,213.1</td></tr><tr><td>2,000</td><td>1,333.3</td><td>1,471.5</td></tr><tr><td>5,000</td><td>1,666.7</td><td>820.8</td></tr><tr><td>10,000</td><td>1,818.2</td><td>134.8</td></tr></tbody></table><p>S가 작을 때는 두 곡선이 비슷하지만, S가 커지면 베버턴홀트는 2,000에 다가가고 리커는 S = 2,000 부근을 정점으로 감소합니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“포화 = 더 이상 늘지 않는다”</strong>: 점근선에 한없이 다가갈 뿐 도달하지는 않으며, 증가율이 점점 둔화되는 것입니다.</li><li><strong>“모형이 자원 생물학의 법칙이다”</strong>: 이 식은 관측 자료에 맞추는 경험적·단순화된 함수 관계이며, 환경 변동이나 포식 같은 요인은 포함하지 않습니다.</li><li><strong>점근선을 실제 최대 가입량으로 단정</strong>: 관측된 S의 범위 밖(특히 높은 S)은 자료가 부족한 외삽이므로, 두 모형 중 무엇이 맞는지는 적합도로 비교합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "가입 모형은 높은 산란자원량에서 갈립니다.",
+    "headers": [
+      "모형",
+      "식",
+      "높은 S에서"
+    ],
+    "rows": [
+      [
+        "베버턴홀트",
+        "R = aS/(1+bS)",
+        "점근선 a/b에 수렴(감소 없음)"
+      ],
+      [
+        "[[ricker-stock-recruitment-model|리커 모형]]",
+        "R = aS·exp(−bS)",
+        "정점 이후 감소"
+      ]
+    ],
+    "note": "어느 모형이 적절한지는 어종과 자료의 범위에 따라 적합도를 비교하여 판단합니다."
+  },
+  "references": [
+    "Beverton, R. J. H., & Holt, S. J. (1957). On the Dynamics of Exploited Fish Populations. Chapman & Hall.",
+    "Ricker, W. E. (1954). Stock and recruitment. Journal of the Fisheries Research Board of Canada, 11(5), 559–623.",
+    "Hilborn, R., & Walters, C. J. (2011). Quantitative Fisheries Stock Assessment. Springer."
+  ]
+}

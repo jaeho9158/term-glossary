@@ -1,0 +1,54 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>베타는 개별 자산 수익률(R<sub>i</sub>)과 시장 수익률(R<sub>m</sub>)의 공분산을 시장 수익률의 분산으로 나눈 값입니다.</p><p><code>β<sub>i</sub> = Cov(R<sub>i</sub>, R<sub>m</sub>) / Var(R<sub>m</sub>) = ρ<sub>i,m</sub> × (σ<sub>i</sub> / σ<sub>m</sub>)</code></p><ul><li>이론상 값의 범위에 제한이 없으며, 시장과 반대로 움직이는 자산이면 음수가 될 수 있습니다.</li><li>실제로는 자산 수익률을 시장 수익률에 회귀시킨 직선의 <strong>기울기</strong>로 추정합니다.</li><li>CAPM에서 요구수익률은 <code>E(R<sub>i</sub>) = R<sub>f</sub> + β<sub>i</sub>(E(R<sub>m</sub>) − R<sub>f</sub>)</code>입니다. 무위험이자율 3%, 시장위험프리미엄 5%, β = 1.3이면 3% + 1.3×5% = 9.5%입니다(가상의 값).</li></ul><p><strong>작은 예.</strong> 가상으로 만든 월간 수익률 60개월치(난수 시드 42)에 회귀를 적용하면 β̂ ≈ 1.25, 표준오차 ≈ 0.10, 95% 신뢰구간 [1.05, 1.44], 결정계수 R² ≈ 0.74가 나옵니다. R²가 0.74이므로 이 자산 수익률 변동의 약 26%는 시장과 무관한 고유 요인입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>시장 전체의 베타는 정의상 1입니다. 베타가 1보다 크면 평균보다 위험하다고 보아 더 높은 할인율을 적용하고, 1보다 작으면 평균보다 위험이 낮다고 봅니다.</li><li>베타는 <strong>체계적 위험만</strong> 반영합니다. 베타가 낮아도 고유 위험이 크면 총변동성은 클 수 있습니다.</li><li>이 값들은 추정치입니다. CAPM은 Sharpe(1964), Lintner(1965) 등이 제시했으나, Fama와 French(2004)는 모형의 실증 성적이 실제 응용 방식의 타당성을 흔들 만큼 부실하다고 평가했고, 참 시장 포트폴리오를 관찰할 수 없다는 Roll의 비판과 저변동성 이상현상(낮은 베타 주식이 모형 예측보다 높은 수익)도 알려져 있습니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>같은 종목이라도 추정 방식에 따라 값이 다르므로 아래를 밝힙니다.</p><ul><li>추정 기간과 수익률의 빈도(일·주·월), 시장지수(예: KOSPI), 무위험이자율의 처리</li><li>점추정치와 함께 표준오차나 신뢰구간, 결정계수</li><li>조정 베타나 레버리지 조정(무부채 베타 환산)을 했다면 그 방법</li></ul><p><code>월간 수익률을 시장수익률에 회귀한 결과 베타는 1.25(SE = 0.10, 95% CI [1.05, 1.44], R² = .74)였다(가상의 값).</code></p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "베타는 위험의 한 측면만 재는 값입니다.",
+    "headers": [
+      "용어",
+      "무엇을 재나",
+      "베타와의 관계"
+    ],
+    "rows": [
+      [
+        "표준편차(σ)",
+        "자산 수익률의 총변동성",
+        "β = ρ × σ자산 / σ시장"
+      ],
+      [
+        "상관계수(ρ)",
+        "시장과 함께 움직이는 방향·정도(−1~1)",
+        "베타는 상관계수에 변동성 비율을 곱한 값"
+      ],
+      [
+        "[[systematic-risk|체계적 위험]]",
+        "분산투자로 없앨 수 없는 위험",
+        "베타가 그 크기를 재는 지표"
+      ],
+      [
+        "[[security-market-line|증권시장선]]",
+        "베타와 요구수익률의 직선 관계",
+        "가로축이 베타"
+      ]
+    ],
+    "note": "베타 1.5는 “시장이 오르내릴 때 평균적으로 1.5배 움직이는 경향”이지 늘 그렇게 움직인다는 뜻이 아닙니다."
+  },
+  "references": [
+    "Sharpe, W. F. (1964). Capital asset prices: A theory of market equilibrium under conditions of risk. The Journal of Finance, 19(3), 425–442.",
+    "Lintner, J. (1965). The valuation of risk assets and the selection of risky investments in stock portfolios and capital budgets. The Review of Economics and Statistics, 47(1), 13–37.",
+    "Fama, E. F., & French, K. R. (2004). The capital asset pricing model: Theory and evidence. Journal of Economic Perspectives, 18(3), 25–46."
+  ]
+}

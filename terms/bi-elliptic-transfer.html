@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,17 +152,48 @@
   <h2>왜 중요한가</h2>
   <p>궤도 전이 방식 중 가장 기본적으로 비교되는 호만전이와 함께, 두 궤도의 반경비가 클 때 연료 효율이 어떻게 달라지는지를 설명하는 핵심 사례로 궤도역학 교과서와 논문에 자주 등장합니다. 연료(추진제) 소모를 최소화해야 하는 심우주 임무나 대형 궤도 변경 임무에서 이중타원전이의 적용 가능성이 검토됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>반지름 r<sub>1</sub>인 원궤도에서 r<sub>2</sub>인 원궤도로 옮기는 방법으로, 호만 전이(추력 2회)보다 추력이 한 번 많은 <strong>세 번의 추력</strong>을 씁니다.</p><ol><li>r<sub>1</sub>에서 첫 추력으로, 목표보다 먼 반지름 r<sub>b</sub>까지 올라가는 타원궤도에 진입합니다.</li><li>r<sub>b</sub>(원지점)에서 두 번째 추력으로 근지점이 r<sub>2</sub>가 되는 두 번째 타원으로 바꿉니다.</li><li>r<sub>2</sub>에서 세 번째 추력으로 원궤도로 만듭니다.</li></ol><p>a<sub>1</sub> = (r<sub>1</sub>+r<sub>b</sub>)/2, a<sub>2</sub> = (r<sub>2</sub>+r<sub>b</sub>)/2일 때 세 추력의 속도 변화는 다음과 같습니다(μ는 중력상수).</p><ul><li>Δv<sub>1</sub> = √(2μ/r<sub>1</sub> − μ/a<sub>1</sub>) − √(μ/r<sub>1</sub>)</li><li>Δv<sub>2</sub> = √(2μ/r<sub>b</sub> − μ/a<sub>2</sub>) − √(2μ/r<sub>b</sub> − μ/a<sub>1</sub>)</li><li>Δv<sub>3</sub> = √(2μ/r<sub>2</sub> − μ/a<sub>2</sub>) − √(μ/r<sub>2</sub>)</li></ul><p>r<sub>b</sub> = r<sub>2</sub>로 두면 Δv<sub>3</sub> = 0이 되어 호만 전이가 됩니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>반지름비 R = r<sub>2</sub>/r<sub>1</sub>에 따라 유리한 쪽이 갈립니다.</p><ul><li>R &lt; 11.94: 항상 호만 전이가 연료 면에서 유리합니다.</li><li>11.94 ≤ R ≤ 15.58: r<sub>b</sub>에 따라 달라집니다. 어떤 값보다 r<sub>b</sub>가 크면 이중타원이 유리합니다.</li><li>R &gt; 15.58: r<sub>b</sub>가 r<sub>2</sub>보다 크기만 하면 어떤 이중타원 전이든 호만보다 적은 Δv가 듭니다.</li></ul><p><strong>작은 예(계산).</strong> Δv를 √(μ/r<sub>1</sub>) 단위로 나타냅니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>R</th><th>호만</th><th>이중타원(r<sub>b</sub>)</th></tr></thead><tbody><tr><td>5</td><td>0.4800</td><td>r<sub>b</sub>=15: 0.5611 (불리)</td></tr><tr><td>13</td><td>0.5353</td><td>r<sub>b</sub>=19.5: 0.5376 (불리), r<sub>b</sub>=130: 0.5320 (유리)</td></tr><tr><td>20</td><td>0.5347</td><td>r<sub>b</sub>=60: 0.5207, r<sub>b</sub>=200: 0.5117, r<sub>b</sub>→∞: 0.5068</td></tr></tbody></table></div><p>R = 20에서 r<sub>b</sub>를 무한히 키우면 Δv는 (√2−1)(1+1/√R) ≈ 0.5068에 다가가 호만보다 약 5% 줄어듭니다. 그러나 r<sub>b</sub>가 멀수록 전이 궤도의 주기가 길어져 비행시간이 크게 늘어납니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p><code>반지름비 R = 20에서 이중타원 전이(r<sub>b</sub> = 60r<sub>1</sub>)의 총 Δv는 0.5207√(μ/r<sub>1</sub>)로 호만 전이(0.5347√(μ/r<sub>1</sub>))보다 작았으나, 비행시간은 길어졌다(가상의 값).</code></p><ul><li>반지름비와 중간 반지름 r<sub>b</sub>를 함께 적습니다. “반지름비 11.94 이상이면 이중타원이 유리하다”라고만 쓰면 11.94~15.58 구간에서 부정확합니다.</li><li>총 Δv뿐 아니라 비행시간, 추력 횟수, 궤도면 변경 포함 여부를 적습니다.</li><li>추력을 순간(충격)으로 가정했는지, 유한 추력 손실을 고려했는지 명시합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"목표 궤도와 출발 궤도의 반경비가 약 11.94를 초과하는 경우, 이중타원전이가 호만전이보다 더 적은 델타-V를 요구함을 확인하였다."</div>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
+  <div class="example">"목표 궤도와 출발 궤도의 반경비가 약 11.94를 초과하고 중간 원지점 반경이 충분히 큰 경우, 이중타원전이가 호만전이보다 더 적은 델타-V를 요구함을 확인하였다."</div>
   <p>이중타원전이와 호만전이의 연료 효율을 비교하는 전형적인 예시입니다.</p>
   <div class="example">"중간 전이궤도의 원지점 반경을 변수로 하여 총 델타-V를 최소화하는 최적 이중타원전이 궤적을 도출하였다."</div>
   <p>이중타원전이의 설계 변수를 최적화하는 연구 예입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>이중타원전이는 출발 궤도에서 첫 번째 추력으로 매우 먼 중간 지점까지의 전이궤도에 진입하고, 그 지점에서 두 번째 추력으로 궤도면을 바꾸거나 근지점을 낮추는 새 전이궤도에 진입한 뒤, 목표 궤도에서 세 번째 추력으로 원형화하는 총 세 번의 추력을 사용합니다. 중간 지점의 반경을 무한대에 가깝게 키울수록 이론적인 델타-V는 줄어들지만, 그만큼 비행 시간이 크게 늘어나는 상충 관계가 있습니다. 이중타원전이는 첫 번째 분사로 목표보다 먼 원지점까지 올라간 뒤, 그 원지점에서 두 번째 분사로 근지점을 목표 궤도 높이까지 올리고, 마지막으로 목표 궤도에서 감속해 원궤도에 들어가는 세 번의 분사를 사용합니다. 목표·초기 궤도 반지름 비가 약 11.94를 넘으면 중간 원지점을 충분히 높게 잡을 때 호만전이보다 총 델타-V가 적어질 수 있고, 약 15.58을 넘으면 항상 유리해지지만 전이 시간이 훨씬 길어지는 대가가 따르는 것으로 다뤄집니다.</p>
+  <p>이중타원전이는 출발 궤도에서 첫 번째 추력으로 매우 먼 중간 지점까지의 전이궤도에 진입하고, 그 지점에서 두 번째 추력으로 궤도면을 바꾸거나 근지점을 목표 궤도 반지름에 맞추는 새 전이궤도에 진입한 뒤, 목표 궤도에서 세 번째 추력으로 원형화하는 총 세 번의 추력을 사용합니다. 중간 지점의 반경을 무한대에 가깝게 키울수록 이론적인 델타-V는 줄어들지만, 그만큼 비행 시간이 크게 늘어나는 상충 관계가 있습니다. 이중타원전이는 첫 번째 분사로 목표보다 먼 원지점까지 올라간 뒤, 그 원지점에서 두 번째 분사로 근지점을 목표 궤도 높이까지 올리고, 마지막으로 목표 궤도에서 감속해 원궤도에 들어가는 세 번의 분사를 사용합니다. 목표·초기 궤도 반지름 비가 약 11.94를 넘으면 중간 원지점을 충분히 높게 잡을 때 호만전이보다 총 델타-V가 적어질 수 있고, 약 15.58을 넘으면 항상 유리해지지만 전이 시간이 훨씬 길어지는 대가가 따르는 것으로 다뤄집니다.</p>
 
   <h2>주의할 점</h2>
   <p>이중타원전이가 호만전이보다 연료 면에서 유리한 것은 두 궤도의 반경비가 매우 클 때에 한하며, 반경비가 작을 때는 오히려 호만전이가 더 효율적입니다. 또한 비행 시간이 훨씬 길어지므로 시간 제약이 있는 임무에는 적합하지 않을 수 있습니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>두 방식은 연료와 시간의 교환 관계가 반대입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">추력 횟수</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="hohmann-transfer-orbit.html">호만 전이</a></th><td>2회</td><td>반지름비가 크지 않을 때 연료가 가장 적고 비행시간이 짧음</td></tr><tr><th scope="row">이중타원 전이</th><td>3회</td><td>반지름비가 매우 크면 연료가 적으나 비행시간이 길어짐</td></tr></tbody></table></div>
+  <p class="te-note">연료 소모(Δv)가 적다는 것과 임무에 유리하다는 것은 별개이며, 비행시간 제약을 함께 봅니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hoelker, R., &amp; Silber, R. (1961). The bi-elliptical transfer between co-planar circular orbits. Planetary and Space Science, 7, 164–175.</li>
+    <li>Curtis, H. D. (2010). Orbital Mechanics for Engineering Students. Butterworth-Heinemann.</li>
+    <li>Vallado, D. A. (2001). Fundamentals of Astrodynamics and Applications. Microcosm Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
