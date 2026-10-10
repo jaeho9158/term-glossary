@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>유전자 자체의 서열만으로는 세포마다 왜 다른 유전자가 켜지고 꺼지는지 설명하기 어렵다. ATAC-seq은 이 차이를 만드는 열린 염색질(조절 영역)의 지도를 세포 유형별, 상태별로 그려낼 수 있어 발생학, 암 연구, 면역학 등 조절 유전체학 전반에서 널리 활용된다. 단일세포 기술과 결합하면 조직 내 세포 이질성에 따른 조절 지형 차이까지 볼 수 있어, 최근에는 단일 실험보다 다른 오믹스 데이터와 통합해 해석하는 방향으로 연구가 확장되고 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>세포에서 핵(또는 세포)을 확보합니다. 원래 방법은 천연 상태의 염색질을 그대로 쓰며, 원 논문이 보고한 입력량은 500~50,000개 세포입니다(Buenrostro et al., 2013).</li><li>초활성 Tn5 트랜스포사아제가 열려 있는 DNA에 시퀀싱 어댑터를 끼워 넣으며 동시에 DNA를 잘라 냅니다. 이 한 단계를 ‘태그멘테이션(tagmentation)’이라 부릅니다.</li><li>어댑터가 붙은 조각을 정제하고 PCR로 증폭한 뒤 시퀀싱합니다.</li><li>읽기(read)를 유전체에 정렬하고 읽기가 많이 쌓인 곳을 ‘피크(peak)’로 호출합니다. 읽기 수는 해당 부위가 얼마나 열려 있는지와 대응한다고 해석합니다.</li><li>피크를 유전자·조절 영역(프로모터, 인핸서)에 대응시키고 조건 간 차이, 전사인자 발자국(footprint) 분석 등으로 이어 갑니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>얻는 것</strong>: 열린 염색질 영역의 지도, 뉴클레오솜 위치, 전사인자 결합 단서. 같은 시료로 한 번에 얻을 수 있다는 점이 강점입니다.</li><li>원 논문(Buenrostro et al., 2013)은 이 방법을 빠르고 민감한 방법으로 소개했고, 한 사람에게서 연이은 날에 얻은 CD4<sup>+</sup> T 세포로 개인의 에피게놈을 임상적 의사결정에 맞는 시간 안에 분석할 수 있음을 보였다고 밝혔습니다.</li><li>DNase-seq, FAIRE-seq, MNase-seq에 비해 프로토콜이 단순하고 투입 DNA가 적게 든다는 점이 자주 꼽힙니다(소요 시간은 3시간 미만으로 서술되기도 합니다).</li><li><a href="chip-seq.html">ChIP-seq</a>은 ‘특정 단백질이나 히스톤 표지가 어디 있는가’를 항체로 묻고, ATAC-seq은 ‘어디가 접근 가능한가’를 묻는다는 점이 다릅니다. 둘은 <a href="chromatin-accessibility.html">염색질 접근성</a>과 <a href="histone-modification-mapping.html">히스톤 변형 지도화</a> 맥락에서 함께 쓰입니다.</li><li>단일세포 버전(scATAC-seq)은 세포 이질성을 볼 수 있으나 데이터 행렬이 매우 희소(0이 아닌 칸이 소수)해 대치(imputation), 차원 축소, 군집화 같은 단계를 거칩니다. 단일세포 방법 자체는 Buenrostro et al. (2015)가 미세유체 장치와 결합해 보고했습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>시료(세포 종류, 입력 세포 수, 신선·동결 여부), 프로토콜(원래 방법 또는 개량 방법, 예: Corces et al., 2017의 Omni-ATAC), 트랜스포사아제 조건을 적습니다.</li><li>시퀀싱 정보(읽기 길이, 단·양 말단, 깊이)와 정렬·필터 단계(미토콘드리아 읽기·중복 제거 여부)를 밝힙니다.</li><li>피크 호출기와 버전·옵션을 적습니다. 가장 널리 쓰이는 MACS2는 본래 ChIP-seq용으로 개발된 도구를 ATAC-seq에 맞춰 쓰는 것이므로 사용한 옵션을 밝혀야 합니다.</li><li>품질 지표(미토콘드리아 읽기 비율, 단편 길이 분포, 복제 간 재현성)와 복제 수를 보고합니다. 분석 흐름 전반은 Yan et al. (2020)의 안내서가 참고됩니다.</li><li>표현 예: “ATAC-seq은 50,000개 핵을 이용해 수행하였고, 피크는 MACS2(옵션 명시)로 호출하였다.”</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"ATAC-seq 분석 결과 분화된 세포에서 특정 인핸서 영역의 염색질 접근성이 유의하게 증가했다."</div>
   <p>세포 분화 과정에서 조절 영역의 열림 정도가 변화한다는 것을 보여주는 예문이다.</p>
 
@@ -167,7 +185,22 @@
   <p>ATAC-seq 데이터를 해석할 때는 접근성이 높게 나타나는 지점을 '피크(peak)'로 호출해 분석하는 것이 일반적이며, 이 피크들이 프로모터에 몰려 있는지 인핸서 등 원거리 조절 영역에 걸쳐 있는지에 따라 생물학적 의미가 달라진다. 또한 트랜스포사아제 삽입 위치를 서열 특이적 결합인자의 발자국(footprint)처럼 정밀하게 분석하면, 어떤 전사인자가 해당 부위에 결합해 있었을 가능성이 높은지까지 추정할 수 있다. 실험 품질 지표로는 미토콘드리아 DNA 유래 리드의 비율이나 뉴클레오솜 위치에 따른 단편 크기 분포가 흔히 사용되며, 대체로 이러한 지표들이 안정적일수록 신뢰도 높은 결과로 여겨진다.</p>
 
   <h2>주의할 점</h2>
-  <p>ATAC-seq은 세포가 살아있는 상태에서 신선하게 준비해야 신호 품질이 좋아, 시료 처리 과정에 특히 주의가 필요하다.</p>
+  <p>ATAC-seq은 시료 준비 상태에 따라 신호 품질이 달라지므로 시료 처리 과정에 주의가 필요하다. 다만 신선한 세포만 쓸 수 있는 것은 아니며, 개량 프로토콜인 Omni-ATAC은 보관된 동결 조직 시료에서도 염색질 접근성 프로파일을 얻었다고 보고되었다(Corces et al., 2017).</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>염색질 상태를 읽는 방법들은 묻는 질문이 다릅니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">묻는 것</th><th scope="col">핵심 시약·기법</th></tr></thead><tbody><tr><th scope="row">ATAC-seq</th><td>어디가 열려 있는가</td><td>Tn5 트랜스포사아제</td></tr><tr><th scope="row"><a href="chip-seq.html">ChIP-seq</a></th><td>특정 단백질·히스톤 표지가 어디에 있는가</td><td>항체로 침전</td></tr><tr><th scope="row">DNase-seq</th><td>어디가 열려 있는가(효소 절단 민감성)</td><td>DNase I 소화</td></tr><tr><th scope="row">MNase-seq</th><td>뉴클레오솜이 어디에 있는가</td><td>MNase 소화</td></tr></tbody></table></div>
+  <p class="te-note">DNase-seq·MNase-seq의 시약은 일반 개관에서 확인한 서술을 따랐습니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Buenrostro, J. D., Giresi, P. G., Zaba, L. C., Chang, H. Y., &amp; Greenleaf, W. J. (2013). Transposition of native chromatin for fast and sensitive epigenomic profiling of open chromatin, DNA-binding proteins and nucleosome position. Nature Methods, 10(12), 1213–1218.</li>
+    <li>Buenrostro, J. D., Wu, B., Litzenburger, U. M., et al. (2015). Single-cell chromatin accessibility reveals principles of regulatory variation. Nature, 523(7561), 486–490.</li>
+    <li>Corces, M. R., Trevino, A. E., Hamilton, E. G., et al. (2017). An improved ATAC-seq protocol reduces background and enables interrogation of frozen tissues. Nature Methods, 14(10), 959–962.</li>
+    <li>Yan, F., Powell, D. R., Curtis, D. J., &amp; Wong, N. C. (2020). From reads to insight: A hitchhiker's guide to ATAC-seq data analysis. Genome Biology, 21(1), 22.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
