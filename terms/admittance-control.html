@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>대부분의 산업용 로봇은 관절토크 명령을 직접 받지 않고 위치 명령만 받으므로, 힘센서를 달아 접촉에 순응시키려면 어드미턴스제어가 현실적인 선택입니다. 사람이 로봇팔을 손으로 끌고 다니는 직접교시, 연마·조립 접촉 작업 논문에서 표준 구조로 쓰입니다. 협동로봇에서 사람이 로봇 팔을 손으로 밀어 원하는 위치로 직접 이동시키는 다이렉트 티칭 기능이 어드미턴스제어의 대표적인 활용 사례로 꼽힙니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>어드미턴스제어는 ‘힘을 읽고 → 가상의 질량-감쇠-스프링 모델에 넣어 → 움직임(위치·속도 명령)을 계산하고 → 내부 위치제어기가 그대로 따라가게’ 하는 이중 구조입니다.</p><p><code>M·ẍ + D·ẋ + K·x = F<sub>ext</sub></code></p><ul><li>F<sub>ext</sub>: 힘토크센서로 측정한 외력(<a href="force-torque-sensor.html">힘토크센서</a>)</li><li>M, D, K: 설계자가 정하는 가상의 관성·감쇠·강성. 이 값이 ‘로봇이 얼마나 말랑하게 느껴지는가’를 정합니다.</li><li>x: 원래 목표 위치에서 모델이 허용하는 이탈량. 최종 명령은 목표 위치에 x를 더해 내부 위치제어기에 넘깁니다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>쓰는 경우</strong>: 토크 명령을 받지 못하고 위치 명령만 받는 로봇(많은 산업용·협동로봇)에 힘 순응성을 주고 싶을 때. 사람이 팔을 끌어 움직이는 직접교시가 대표적입니다.</li><li><strong>임피던스제어와의 관계</strong>: 임피던스제어는 위치를 입력받아 힘을 출력하는 쪽이고 어드미턴스제어는 반대입니다(Hogan, 1985는 임피던스 제어의 기본 틀). 두 방식을 통합해 다루는 연구도 있습니다(Ott 외, 2010).</li><li><strong>계산 예(가상의 값)</strong>: M = 2 kg, D = 40 N·s/m, K = 500 N/m, 일정한 외력 10 N이면 정상상태 변위는 F/K = 20 mm, 고유진동수 √(K/M) ≈ 15.8 rad/s, 감쇠비 D/(2√(KM)) ≈ 0.63입니다. 같은 힘에 K를 줄이면 더 많이 밀립니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>가상 모델의 M, D, K 값(또는 축별 값)과 그렇게 정한 이유</li><li>힘센서의 종류, 샘플링 주기, 잡음 제거 필터와 차단 주파수</li><li>내부 위치제어기의 종류와 제어 주기</li><li>실험 조건: 접촉 대상의 강성(자유공간, 단단한 면 등)과 성능 지표(접촉력 오차, 안정성 여부)</li></ul><p>접촉 대상이 단단하거나 내부 위치제어기의 강성이 높으면 접촉이 불안정해질 수 있어, 안정성 분석이나 실험 결과를 함께 제시하는 것이 일반적입니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 시스템은 어드미턴스제어를 적용하여 힘센서로 측정된 외력을 위치 오프셋으로 변환해 순응 동작을 구현하였다.</div>
   <p>논문에서 어드미턴스제어는 임피던스제어와 상호 반대되는 인과관계(힘 입력, 위치 출력)를 갖는 접근으로 설명됩니다.</p>
   <div class="example">환경과의 접촉이 예측되지 않는 자유공간 작업에서는 어드미턴스제어가 임피던스제어보다 안정적인 응답을 보였다.</div>
@@ -158,6 +176,18 @@
 
   <h2>주의할 점</h2>
   <p>어드미턴스제어는 내부 위치제어기의 강성에 크게 의존하므로, 위치제어기가 매우 강성이면 접촉이 불안정해질 수 있다. 위치 제어 성능이 뛰어난 로봇에서는 효과적이지만, 힘 센서의 노이즈나 지연이 위치 보정에 그대로 반영되어 접촉이 불안정해질 수 있어 신호 필터링이 중요합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">입력 → 출력</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><strong>어드미턴스제어</strong></th><td>측정한 힘 → 위치(속도) 명령</td><td>위치제어형 로봇에 적합</td></tr><tr><th scope="row"><a href="impedance-control.html">임피던스제어</a></th><td>위치(운동) → 힘(토크) 명령</td><td>토크 제어가 가능한 로봇에 적합</td></tr><tr><th scope="row"><a href="force-control.html">힘제어</a></th><td>목표 힘과 측정 힘의 차이 → 명령</td><td>접촉력 자체를 목표로 삼음</td></tr><tr><th scope="row"><a href="compliance-control.html">컴플라이언스제어</a></th><td>—</td><td>접촉에 순응하게 만드는 제어를 넓게 부르는 말</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Hogan, N. (1985). Impedance control: An approach to manipulation: Part I—Theory. Journal of Dynamic Systems, Measurement, and Control, 107(1), 1–7.</li>
+    <li>Ott, C., Mukherjee, R., &amp; Nakamura, Y. (2010). Unified impedance and admittance control. In Proceedings of the IEEE International Conference on Robotics and Automation (pp. 554–561).</li>
+    <li>Ott, C., Mukherjee, R., &amp; Nakamura, Y. (2014). A hybrid system framework for unified impedance and admittance control. Journal of Intelligent &amp; Robotic Systems, 78(3–4), 359–375.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

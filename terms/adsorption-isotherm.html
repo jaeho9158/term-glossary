@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,24 @@
   <h2>왜 중요한가</h2>
   <p>흡착등온선은 흡착 공정의 용량과 효율을 예측하는 기본 자료이기 때문에, 활성탄이나 제올라이트 같은 흡착제를 이용한 정제, 탈색, 오염물질 제거 공정을 설계하고 평가하는 논문에서 필수적으로 제시됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>흡착등온선은 <strong>온도를 고정</strong>하고, 평형에서 흡착제 단위 질량당 흡착량(q<sub>e</sub>)을 평형 농도(C<sub>e</sub>, 기체라면 압력)에 대해 그린 곡선입니다. 곡선의 모양과 식은 흡착이 어떤 가정 위에서 일어난다고 보느냐에 따라 달라집니다.</p><ul><li><strong>Langmuir</strong>(1918): 균일한 표면의 자리에 한 겹만 붙고 자리가 다 차면 포화한다고 가정합니다. <code>q<sub>e</sub> = q<sub>max</sub>·K·C<sub>e</sub> / (1 + K·C<sub>e</sub>)</code> → <a href="langmuir-isotherm.html">랭뮤어 등온식</a></li><li><strong>Freundlich</strong>: 비균일한 표면을 경험적으로 나타내는 식으로, 포화 용량이 따로 없습니다. <code>q<sub>e</sub> = K<sub>F</sub>·C<sub>e</sub><sup>1/n</sup></code> → <a href="freundlich-isotherm.html">프로인들리히 등온식</a></li><li><strong>BET</strong>(Brunauer 외, 1938): 여러 겹으로 쌓이는 다분자층 흡착으로 Langmuir 가정을 넓힌 이론이며, 표면적 측정에 널리 쓰입니다.</li><li>기체 물리흡착으로 표면적과 세공 분포를 평가하는 방법에 대해서는 IUPAC 기술보고서(Thommes 외, 2015)가 권고를 정리하고 있습니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 값) q<sub>max</sub> = 100 mg/g, K = 0.05 L/mg인 Langmuir 흡착제에서 평형 농도가 10, 100, 1000 mg/L일 때 흡착량은 각각 33.3, 83.3, 98.0 mg/g입니다. 농도를 100배 올려도 흡착량은 3배도 늘지 않고 q<sub>max</sub>에 가까워지는데, 이것이 ‘포화’입니다.</p><p>실험 자료는 보통 식을 직선으로 바꾸어(예: C<sub>e</sub>/q<sub>e</sub> 대 C<sub>e</sub>) 기울기와 절편에서 q<sub>max</sub>, K를 구하거나, 비선형 회귀로 직접 맞춥니다. 두 방법은 오차를 다루는 방식이 달라 같은 자료에서도 매개변수가 다르게 나올 수 있습니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“결정계수가 높으니 그 모델이 맞다.”</strong> 높은 R²는 곡선이 점들에 가깝다는 뜻일 뿐, 모델의 가정(균일 표면, 단분자층 등)이 실제로 성립한다는 증거는 아닙니다. 모형 해설과 비교는 Ayawei 외(2017) 같은 개관에서 볼 수 있습니다.</li><li><strong>“한 온도에서 구한 매개변수를 다른 온도에도 쓴다.”</strong> 등온선은 이름 그대로 일정 온도의 관계이므로 온도가 달라지면 다시 구해야 합니다.</li><li><strong>“q<sub>max</sub>는 흡착제의 고유 상수다.”</strong> 흡착질, pH, 이온 세기 등 조건이 바뀌면 달라지는 값입니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"활성탄에 대한 염료 흡착 실험 결과를 흡착등온선(adsorption isotherm) 모델에 적합시켜 최대 흡착 용량을 산출하였다."</div>
   <p>오염물질 제거 연구에서 흡착등온선을 적용한 사례입니다.</p>
   <div class="example">"실험 데이터는 Langmuir 흡착등온선보다 Freundlich 모델에 더 잘 부합하는 것으로 나타났다."</div>
@@ -160,6 +178,20 @@
   <p>흡착등온선은 특정 온도에서 얻어진 관계이므로, 온도가 달라지면 곡선의 형태도 달라집니다. 하나의 모델이 모든 흡착계에 보편적으로 적용되는 것은 아니므로 실험 데이터를 통한 검증이 필요합니다.</p>
 
   <p>등온선은 특정 온도에서만 유효하므로 온도가 바뀌면 새로운 흡착 실험이나 흡착열을 이용한 온도 보정이 필요하며, 한 모델의 매개변수를 다른 흡착질-흡착제 조합에 그대로 적용해서는 안 됩니다. 저농도와 고농도 영역의 실험 데이터가 고르지 않으면 회귀된 매개변수가 특정 영역에 치우쳐 다른 농도 범위에서 예측 오차가 커질 수 있습니다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">가정</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="langmuir-isotherm.html">랭뮤어 등온식</a></th><td>균일 표면, 단분자층</td><td>포화 용량(q_max)이 있음</td></tr><tr><th scope="row"><a href="freundlich-isotherm.html">프로인들리히 등온식</a></th><td>비균일 표면, 경험식</td><td>포화 용량이 따로 없고 거듭제곱 형태</td></tr></tbody></table></div>
+  <p class="te-note">두 식 중 어느 쪽이 맞는지는 계(흡착질-흡착제 조합)마다 다르며, 자료로 확인해야 합니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Langmuir, I. (1918). The adsorption of gases on plane surfaces of glass, mica and platinum. Journal of the American Chemical Society, 40(9), 1361–1403.</li>
+    <li>Brunauer, S., Emmett, P. H., &amp; Teller, E. (1938). Adsorption of gases in multimolecular layers. Journal of the American Chemical Society, 60(2), 309–319.</li>
+    <li>Thommes, M., Kaneko, K., Neimark, A. V., Olivier, J. P., Rodriguez-Reinoso, F., Rouquerol, J., &amp; Sing, K. S. W. (2015). Physisorption of gases, with special reference to the evaluation of surface area and pore size distribution (IUPAC Technical Report). Pure and Applied Chemistry, 87(9–10), 1051–1069.</li>
+    <li>Ayawei, N., Ebelegi, A. N., &amp; Wankasi, D. (2017). Modelling and interpretation of adsorption isotherms. Journal of Chemistry, 2017, 1–11.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="langmuir-isotherm.html">랭뮤어 등온식</a><a href="freundlich-isotherm.html">프로인들리히 등온식</a></div></div><p class="concept-family-map"><a href="../concept-map/chemeng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

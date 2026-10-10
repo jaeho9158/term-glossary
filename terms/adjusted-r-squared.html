@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,27 @@
   <h2>왜 중요한가</h2>
   <p>회귀분석을 쓰는 논문에서는 대개 모형을 한 번에 확정하지 않고, 통제변수나 새로운 설명변수를 단계적으로 추가하며 "이 변수가 정말 설명력을 높이는가"를 검증합니다. 이 과정에서 일반 R제곱만 보면 변수를 추가할수록 값이 기계적으로 오르기 때문에, 모형 선택이나 변수 개수가 다른 여러 모형 간 비교가 왜곡될 수 있습니다. 수정된 결정계수는 이런 왜곡을 줄여주므로, 위계적 회귀분석이나 모형 비교를 다루는 논문에서 거의 표준적으로 함께 보고됩니다. 그래서 심사자나 독자가 모형의 개선이 실질적인지를 판단할 때 핵심 근거로 삼는 지표이기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>표본 수 n, 독립변수 수 k, 결정계수 R²일 때 수정된 결정계수는 다음과 같이 계산합니다.</p><p><code>수정 R² = 1 − (1 − R²) × (n − 1) / (n − k − 1)</code></p><ul><li>R²는 변수를 더하면 줄지 않지만, 수정 R²는 (n−1)/(n−k−1) 배율이 커지는 만큼 벌점을 받아 <strong>오르거나 내릴 수 있습니다</strong>.</li><li>항상 R² 이하이고 1을 넘지 않으며, <strong>음수</strong>도 될 수 있습니다.</li><li>표본에서 얻은 다중상관이 모집단보다 부풀려지는 현상(shrinkage)을 보정하는 공식은 일찍부터 연구되었습니다(Wherry, 1931). 흔히 ‘수정 R²’라고 하면 위의 식을 가리킵니다.</li></ul><p><strong>계산 예(가상의 값).</strong> n = 30, 변수 3개, R² = .50이면 수정 R² = .442입니다. 여기에 관련 없는 변수 1개를 더해 R²가 .51로 조금 올랐다면(k = 4) 수정 R² = .432로 <strong>내려갑니다</strong>. 반대로 R²가 .60이 되었다면 수정 R² = .536로 올라, 그 변수는 설명력에 기여했다고 볼 수 있습니다. R² = .05, k = 3, n = 30이면 수정 R² = −.060로 음수입니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>정해진 합격선은 없습니다. ‘얼마 이상이면 좋다’는 분야와 자료에 따라 다릅니다.</li><li>변수 수가 다른 모형을 비교할 때 R²보다 공정하지만, 모형 선택 기준으로는 <a href="akaike-information-criterion.html">아카이케 정보기준</a>처럼 다른 지표도 함께 씁니다.</li><li>수정 R²가 R²보다 많이 작다면 표본에 비해 변수가 많다는 신호입니다.</li><li>같은 표본에서 계산한 값이므로 새 자료에서의 설명력은 교차검증 등으로 따로 확인합니다. 추정치의 성질을 부트스트랩으로 살펴본 연구도 있습니다(Ohtani, 2000).</li><li>인과를 보증하지 않으며, 다중공선성·가정 위반 여부는 별도로 확인합니다(<a href="multicollinearity.html">다중공선성</a>, <a href="regression-assumptions.html">다중회귀분석의 가정</a>).</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>R²와 수정 R²를 함께 적고, 표본 수와 변수 수를 밝힙니다. (아래 수치는 형식을 보여 주는 가상의 값)</p><p><code>모형은 유의하였다(F(3, 26) = 8.67, p &lt; .01, R² = .50, 수정 R² = .442).</code></p><ul><li>위계적 회귀에서는 단계별 수정 R²를 표로 제시하고, 단계 간 R² 변화(ΔR²)와 그 검정을 함께 적습니다.</li><li>소수점 표기(.442 또는 0.442)는 학술지 규정에 맞춥니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“또한 적설심 25cm의 최심신적설을 이용한 모형에서 수정된 결정계수가 0.7 이상, N-RMSE가 8.2% 이하로 매우 높은 모형 효율을 보였다.”</blockquote><p class="te-cite">통계분석을 통한 대설 피해 경보에 적합한 적설심 기준 제안, 한국방재학회논문집, 2017 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002221128" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"통제변수를 추가한 최종 모형의 설명력은 크게 향상되었다 (수정된 R² = .42, ΔR² = .15)."</div>
   <p>이 문장은 "변수를 추가한 것이 단순한 착시가 아니라, 실제로 종속변수를 설명하는 힘을 15%p만큼 실질적으로 높였다"는 뜻입니다. 만약 여기서 일반 R제곱만 보고했다면, 그 상승분이 진짜 효과인지 변수 개수 때문인지 독자가 판단하기 어려웠을 것입니다.</p>
 
@@ -171,6 +192,18 @@
 
   <h2>주의할 점</h2>
   <p>수정된 결정계수는 여전히 "이 모형이 얼마나 잘 맞는가"를 나타낼 뿐, 인과관계를 증명하지 않습니다. 또한 값이 음수로 나올 수도 있는데, 이는 모형이 종속변수의 평균으로만 예측하는 것보다도 못하다는 뜻입니다. 표본크기가 작고 <a href="multicollinearity.html">다중공선성</a>이 심한 모형에서는 수정된 R² 값이 불안정하게 움직일 수 있으므로, <a href="regression-assumptions.html">다중회귀분석의 가정</a>이 충족되는지도 함께 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">수정 R²와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="r-squared.html">결정계수(R²)</a></th><td>종속변수 변동 중 모형이 설명하는 비율</td><td>변수를 추가하면 줄지 않음. 수정 R²는 변수 수에 벌점을 줌</td></tr><tr><th scope="row"><a href="akaike-information-criterion.html">아카이케 정보기준</a></th><td>적합도와 복잡도를 함께 반영한 모형 비교 지표</td><td>값이 작을수록 좋은 상대 비교용 지표로, 0~1 범위의 설명력이 아님</td></tr><tr><th scope="row"><a href="correlation.html">상관관계</a></th><td>두 변수가 함께 움직이는 정도</td><td>단순회귀에서는 R²가 상관계수의 제곱</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wherry, R. J. (1931). A new formula for predicting the shrinkage of the coefficient of multiple correlation. The Annals of Mathematical Statistics, 2(4), 440–457.</li>
+    <li>Raju, N. S., Bilgic, R., Edwards, J. E., &amp; Fleer, P. F. (1997). Methodology review: Estimation of population validity and cross-validity, and the use of equal weights in prediction. Applied Psychological Measurement, 21(4), 291–305.</li>
+    <li>Ohtani, K. (2000). Bootstrapping R2 and adjusted R2 in regression analysis. Economic Modelling, 17(4), 473–483.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="r-squared.html">결정계수</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

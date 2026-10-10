@@ -1,0 +1,47 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>표본 수 n, 독립변수 수 k, 결정계수 R²일 때 수정된 결정계수는 다음과 같이 계산합니다.</p><p><code>수정 R² = 1 − (1 − R²) × (n − 1) / (n − k − 1)</code></p><ul><li>R²는 변수를 더하면 줄지 않지만, 수정 R²는 (n−1)/(n−k−1) 배율이 커지는 만큼 벌점을 받아 <strong>오르거나 내릴 수 있습니다</strong>.</li><li>항상 R² 이하이고 1을 넘지 않으며, <strong>음수</strong>도 될 수 있습니다.</li><li>표본에서 얻은 다중상관이 모집단보다 부풀려지는 현상(shrinkage)을 보정하는 공식은 일찍부터 연구되었습니다(Wherry, 1931). 흔히 ‘수정 R²’라고 하면 위의 식을 가리킵니다.</li></ul><p><strong>계산 예(가상의 값).</strong> n = 30, 변수 3개, R² = .50이면 수정 R² = .442입니다. 여기에 관련 없는 변수 1개를 더해 R²가 .51로 조금 올랐다면(k = 4) 수정 R² = .432로 <strong>내려갑니다</strong>. 반대로 R²가 .60이 되었다면 수정 R² = .536로 올라, 그 변수는 설명력에 기여했다고 볼 수 있습니다. R² = .05, k = 3, n = 30이면 수정 R² = −.060로 음수입니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>정해진 합격선은 없습니다. ‘얼마 이상이면 좋다’는 분야와 자료에 따라 다릅니다.</li><li>변수 수가 다른 모형을 비교할 때 R²보다 공정하지만, 모형 선택 기준으로는 [[akaike-information-criterion|아카이케 정보기준]]처럼 다른 지표도 함께 씁니다.</li><li>수정 R²가 R²보다 많이 작다면 표본에 비해 변수가 많다는 신호입니다.</li><li>같은 표본에서 계산한 값이므로 새 자료에서의 설명력은 교차검증 등으로 따로 확인합니다. 추정치의 성질을 부트스트랩으로 살펴본 연구도 있습니다(Ohtani, 2000).</li><li>인과를 보증하지 않으며, 다중공선성·가정 위반 여부는 별도로 확인합니다([[multicollinearity|다중공선성]], [[regression-assumptions|다중회귀분석의 가정]]).</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>R²와 수정 R²를 함께 적고, 표본 수와 변수 수를 밝힙니다. (아래 수치는 형식을 보여 주는 가상의 값)</p><p><code>모형은 유의하였다(F(3, 26) = 8.67, p &lt; .01, R² = .50, 수정 R² = .442).</code></p><ul><li>위계적 회귀에서는 단계별 수정 R²를 표로 제시하고, 단계 간 R² 변화(ΔR²)와 그 검정을 함께 적습니다.</li><li>소수점 표기(.442 또는 0.442)는 학술지 규정에 맞춥니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "수정 R²와의 차이"
+    ],
+    "rows": [
+      [
+        "[[r-squared|결정계수(R²)]]",
+        "종속변수 변동 중 모형이 설명하는 비율",
+        "변수를 추가하면 줄지 않음. 수정 R²는 변수 수에 벌점을 줌"
+      ],
+      [
+        "[[akaike-information-criterion|아카이케 정보기준]]",
+        "적합도와 복잡도를 함께 반영한 모형 비교 지표",
+        "값이 작을수록 좋은 상대 비교용 지표로, 0~1 범위의 설명력이 아님"
+      ],
+      [
+        "[[correlation|상관관계]]",
+        "두 변수가 함께 움직이는 정도",
+        "단순회귀에서는 R²가 상관계수의 제곱"
+      ]
+    ]
+  },
+  "references": [
+    "Wherry, R. J. (1931). A new formula for predicting the shrinkage of the coefficient of multiple correlation. The Annals of Mathematical Statistics, 2(4), 440–457.",
+    "Raju, N. S., Bilgic, R., Edwards, J. E., & Fleer, P. F. (1997). Methodology review: Estimation of population validity and cross-validity, and the use of equal weights in prediction. Applied Psychological Measurement, 21(4), 291–305.",
+    "Ohtani, K. (2000). Bootstrapping R2 and adjusted R2 in regression analysis. Economic Modelling, 17(4), 473–483."
+  ]
+}
