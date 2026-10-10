@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,29 @@
   <h2>왜 중요한가</h2>
   <p>상자그림과 사분위수는 데이터를 단 하나의 대표값으로 요약하지 않고 분포의 흩어진 정도와 치우침, 극단값의 존재까지 함께 보여주기 때문에 여러 집단을 비교하는 논문에서 특히 자주 등장합니다. 실험군과 대조군의 결과를 나란히 놓고 중앙값과 퍼짐을 한눈에 비교하거나, 정규분포를 가정하기 어려운 데이터에서 평균·표준편차 대신 강건한(robust) 요약 통계로 쓰이는 경우가 많습니다. 또한 이상치 판별 기준으로 사분위범위(IQR)를 활용하는 것은 이후의 데이터 전처리나 통계 검정 방법 선택에도 영향을 주기 때문에, 분석 절차 전체의 신뢰성과 연결되는 개념이기도 합니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>자료를 작은 값부터 큰 값까지 정렬하고 중앙값(Q2)을 구합니다.</li><li>중앙값을 기준으로 아래쪽 절반의 중앙값을 제1사분위수(Q1), 위쪽 절반의 중앙값을 제3사분위수(Q3)로 잡습니다. 사분위범위(IQR)는 Q3 − Q1입니다.</li><li>Q1에서 Q3까지를 상자로 그리고 중앙값 위치에 선을 긋습니다.</li><li>수염(whisker)의 끝을 정합니다. 가장 단순한 방식은 자료의 최솟값과 최댓값까지 긋는 것이고, 널리 쓰이는 다른 방식은 상자 끝에서 IQR의 1.5배 이내에 있는 가장 먼 관측값까지만 긋는 것입니다. 후자에서는 그 밖의 관측값을 점으로 따로 찍어 이상치 후보로 표시합니다.</li></ol><p>상자그림은 “5수 요약”(최솟값, Q1, 중앙값, Q3, 최댓값)을 그림으로 옮긴 것에 가깝습니다. 상자-수염 그림은 1970년 튜키(Tukey)가 소개했고 1977년 저서 <em>Exploratory Data Analysis</em>로 널리 알려진 것으로 정리됩니다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>여러 집단의 중앙값, 퍼짐(상자 길이), 치우침(중앙값 선이 상자 안에서 한쪽으로 쏠린 정도), 이상치 후보를 한 그림에서 비교할 때 씁니다. 평균과 표준편차 대신 순서 통계량만 쓰므로 극단값에 잘 흔들리지 않는다는 점이 장점입니다. 상자 가운데에 홈(notch)을 판 변형도 있는데, 두 상자의 홈이 겹치지 않으면 중앙값에 차이가 있다는 대략적인 단서로 쓰며 홈의 폭은 1.58×IQR/√n으로 잡습니다. 이는 어디까지나 개략적인 지침입니다.</p><p><strong>사분위수 계산법에 따라 값이 달라집니다.</strong> 아래는 가상의 자료 11개(2, 4, 4, 5, 6, 7, 8, 9, 11, 12, 31)를 코드로 계산한 결과입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계산법</th><th>Q1</th><th>중앙값</th><th>Q3</th><th>IQR</th><th>1.5×IQR 경계</th></tr></thead><tbody><tr><td>중앙값을 뺀 아래·위 절반의 중앙값</td><td>4</td><td>7</td><td>11</td><td>7</td><td>−6.5 ~ 21.5</td></tr><tr><td>선형 보간(R 기본값 계열)</td><td>4.5</td><td>7</td><td>10</td><td>5.5</td><td>−3.75 ~ 18.25</td></tr></tbody></table></div><p>두 방법 모두 31만 이상치 후보가 되지만, 자료가 경계 근처에 놓여 있으면 어느 값이 후보가 되는지가 달라질 수 있습니다. 통계 패키지마다 표본 분위수의 정의가 여러 가지로 쓰이므로 어떤 소프트웨어의 어떤 옵션인지를 밝혀 두는 것이 좋습니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li><strong>수염의 정의</strong>를 반드시 적습니다. “수염은 최솟값·최댓값”인지 “1.5×IQR 이내의 최원단 관측값”인지에 따라 점의 의미가 달라집니다.</li><li>상자 가운데 선이 중앙값이라는 점, 상자 양 끝이 Q1과 Q3라는 점을 그림 설명(범례)에 적습니다.</li><li>이상치 후보는 “제외했다”가 아니라 어떤 기준으로 확인했고 분석에서 어떻게 처리했는지를 따로 적는 것이 안전합니다. 1.5×IQR은 튜키 이후 널리 쓰이는 <em>관행</em>이며, 분야와 자료에 따라 다른 배수를 쓰기도 합니다.</li><li>표본 수가 작으면 상자그림만으로는 분포 모양을 알기 어렵습니다. 점을 함께 찍거나 n을 적어 줍니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“연직방향 풍속의 이상치를 파악하기 위해 적용된 통계분석방법은 사분위수를 바탕으로 상자그림(boxplot)의 분석결과 중에 이상치를 판별하기 위한 interquartile range (IQR)을 적용하여 이상치를 탐색하였다.”</blockquote><p class="te-cite">실제증발산 측정 시 연직 풍속 이상치 탐색 및 대체, 대한토목학회논문집(국문), 2014 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001915509" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“통계적 공정관리 성능지수는 상용 통계해석 프로그램인 JMP를 통해 분산분석을 수행하여 통계적 유의차를 도출하였으며, 상자그림으로 각 변수들의 결함을 분류하는 기준인 0.8과 1.5를 선정하였다.”</blockquote><p class="te-cite">통계적 공정관리 성능지표를 통한 구름 베어링의 결함 검출에 관한 연구, 대한기계학회논문집 A, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002662770" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 연구는 상자그림을 활용한 두 표본 비교 과제를 다룰 때 학생들이 사용하는 비교 추리에 관한 추론 방식과 그 수준을 탐색함으로써, 상자그림을 활용한 비형식적 통계적 추리 지도를 위한 교수학적 시사점을 도출하는 것을 목적으로 한다.”</blockquote><p class="te-cite">고등학생들의 비형식적 통계적 추리 수준 분석 연구, 수학교육학연구, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003144095" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"집단별 응답 점수의 분포는 상자그림(box plot)으로 시각화하였으며, 사분위범위(IQR)를 벗어난 값은 이상치로 판별하여 분석에서 제외하였다."</div>
   <p>이 문장은 "데이터를 사분위수로 나눈 뒤, 상자와 수염을 이용해 전체적인 퍼짐과 특이하게 동떨어진 값을 함께 보여주었다"는 뜻입니다.</p>
 
@@ -171,6 +194,19 @@
 
   <h2>주의할 점</h2>
   <p>상자그림은 평균이 아니라 중앙값을 기준으로 그려지므로, 데이터가 한쪽으로 치우친 경우 <a href="measures-of-central-tendency.html">대푯값</a>인 평균과 중앙값이 서로 다르게 나타날 수 있다는 점에 유의해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">상자그림과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="interquartile-range.html">사분위범위(IQR)</a></th><td>Q3 − Q1. 자료 가운데 50%가 퍼진 폭</td><td>상자의 길이이자 수염 규칙의 단위</td></tr><tr><th scope="row"><a href="outlier.html">이상치</a></th><td>다른 관측값에서 동떨어진 값</td><td>1.5×IQR 밖의 점은 이상치 후보일 뿐, 오류라는 뜻은 아님</td></tr><tr><th scope="row"><a href="median-absolute-deviation.html">중앙값절대편차(MAD)</a></th><td>중앙값에서의 절대편차의 중앙값으로 퍼짐을 재는 통계량</td><td>그림이 아니라 숫자 하나로 요약하는 또 다른 로버스트 척도</td></tr><tr><th scope="row"><a href="exploratory-data-analysis.html">탐색적 자료분석</a></th><td>자료를 그림과 요약으로 먼저 살펴보는 접근</td><td>상자그림이 이 접근에서 나온 대표 도구</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Tukey, J. W. (1977). Exploratory Data Analysis. Addison-Wesley.</li>
+    <li>Frigge, M., Hoaglin, D. C., &amp; Iglewicz, B. (1989). Some implementations of the boxplot. The American Statistician, 43(1), 50–54.</li>
+    <li>Krzywinski, M., &amp; Altman, N. (2014). Visualizing samples with box plots. Nature Methods, 11(2), 119–120.</li>
+    <li>Hyndman, R. J., &amp; Fan, Y. (1996). Sample quantiles in statistical packages. The American Statistician, 50(4), 361–365.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

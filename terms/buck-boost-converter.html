@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>재생에너지, 배터리 구동 기기, 전기차 등 입력 전압이 시시각각 변하는 환경이 늘어나면서, 항상 일정한 출력 전압을 만들어내는 전력변환 기술의 중요성이 커지고 있습니다. 벅-부스트 컨버터는 강압과 승압을 하나의 회로로 처리할 수 있어 태양광·배터리 전원 관리, 모터 구동, 소형 전자기기 전원부 설계 등 다양한 전력전자 연구에서 기본 구성 요소로 다뤄집니다. 특히 효율, 소형화, 전자기간섭 억제 같은 상위 목표를 다루는 논문에서는 이 컨버터의 스위칭 방식이나 제어 알고리즘 개선이 핵심 기여로 제시되는 경우가 많습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>벅-부스트 컨버터는 출력 전압의 <em>크기</em>가 입력 전압보다 크거나 작을 수 있는 DC-DC 변환기입니다. 변압기 대신 인덕터 하나를 쓰는 플라이백 컨버터와 같은 구조로 볼 수 있습니다.</li><li><strong>기본(반전형) 회로</strong>의 동작: 스위치가 켜진 동안 입력 전원이 인덕터에 연결되어 에너지가 인덕터에 쌓이고, 이때 부하에는 커패시터가 전력을 공급합니다. 스위치가 꺼지면 인덕터가 부하·커패시터에 연결되어 에너지가 옮겨 갑니다.</li><li>반전형에서는 출력 전압의 극성이 입력과 반대이고, 이상적인 연속전도모드에서 출력은 듀티비 D에 따라 <code>V<sub>o</sub> = −V<sub>i</sub>·D/(1−D)</code>입니다. 듀티비가 커질수록 출력의 절댓값이 커지며 이론적으로는 D가 1에 가까울수록 무한대로 갑니다.</li><li>극성을 유지하면서 승압·강압을 하는 <strong>비반전형</strong>도 있습니다. 벅과 부스트를 결합한 네 스위치 구조나 SEPIC 구조가 이에 해당합니다. 비슷한 계열인 Ćuk 컨버터는 승압·강압이 모두 되지만 기본 반전형처럼 출력 극성이 뒤집힙니다.</li><li>인덕터 전류가 한 주기 동안 0까지 내려가지 않으면 연속전도모드(CCM), 내려가면 불연속전도모드(DCM)입니다. 불연속모드에서는 출력 전압이 듀티비뿐 아니라 인덕터 값, 입력 전압, 부하 전류에도 의존해 식이 훨씬 복잡해집니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예</strong>: 입력 12 V의 이상적인 반전형 벅-부스트(연속전도모드). 출력은 −12 V × D/(1−D)로 계산됩니다(코드 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>듀티비 D</th><th>V<sub>o</sub>/V<sub>i</sub></th><th>출력 전압</th><th>동작</th></tr></thead><tbody><tr><td>0.25</td><td>−0.33</td><td>−4 V</td><td>강압(크기가 입력보다 작음)</td></tr><tr><td>0.40</td><td>−0.67</td><td>−8 V</td><td>강압</td></tr><tr><td>0.50</td><td>−1.00</td><td>−12 V</td><td>크기가 같음</td></tr><tr><td>0.60</td><td>−1.50</td><td>−18 V</td><td>승압</td></tr><tr><td>0.75</td><td>−3.00</td><td>−36 V</td><td>승압</td></tr></tbody></table></div><p>D = 0.5를 경계로 크기가 줄거나 늘어납니다. 실제 회로는 스위치와 다이오드의 손실, 인덕터 저항 때문에 이 이상적인 값보다 승압 폭이 제한됩니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>벅 컨버터와 부스트 컨버터를 이어 놓은 것이 벅-부스트다.</td><td>두 컨버터를 결합한 비반전형도 벅-부스트라고 부르지만, 가장 기본적인 벅-부스트는 하나의 인덕터와 스위치로 이루어진 반전형 회로입니다.</td></tr><tr><td>출력은 항상 입력과 같은 극성이다.</td><td>기본 반전형은 극성이 뒤집힙니다. 논문에서 쓰는 구조가 반전형인지 비반전형인지 먼저 확인해야 합니다.</td></tr><tr><td>듀티비만 정하면 출력이 정해진다.</td><td>위 식은 이상적인 연속전도모드에서만 맞습니다. 부하가 가벼워 불연속전도모드로 들어가면 식이 달라집니다.</td></tr><tr><td>스위칭 주파수는 높을수록 좋다.</td><td>소형화에는 유리하지만 전자기 간섭, 스위칭 손실 등 대가가 있어 설계에서 함께 고려합니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"태양광 패널의 출력 전압 변동에 대응하기 위해 벅-부스트 컨버터를 적용하였으며, 최대전력점 추종 알고리즘과 결합하여 변환 효율 94.2%를 달성하였다."</div>
   <p>이 문장은 "햇빛의 세기에 따라 흔들리는 태양광 패널의 전압을, 벅-부스트 컨버터로 안정적인 전압으로 바꾸었고, 그 과정에서 에너지 손실을 최소화하는 알고리즘까지 함께 써서 94.2%의 효율을 얻었다"는 뜻입니다.</p>
 
@@ -168,6 +186,17 @@
 
   <h2>주의할 점</h2>
   <p>기본적인 벅-부스트 회로는 출력 전압의 극성(+/-)이 입력과 반대로 뒤집히는 구조라는 점에 유의해야 합니다. 실제 응용에서는 극성을 유지하면서 승압·강압을 모두 지원하는 non-inverting 벅-부스트 구조를 쓰는 경우가 많으므로, 논문에서 회로 구조를 설명할 때는 어떤 방식인지 구분해서 봐야 합니다. 또한 스위칭 주파수가 높을수록 소형화에는 유리하지만 <a href="electromagnetic-interference.html">전자기간섭</a>이 커질 수 있어 이를 함께 고려해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">출력 전압</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="buck-converter.html">벅 컨버터(강압)</a></th><td>입력보다 낮음</td><td>입력 전압을 낮추는 강압형 DC-DC 컨버터</td></tr><tr><th scope="row"><a href="boost-converter.html">부스트 컨버터(승압)</a></th><td>입력보다 높음</td><td>입력 전압을 높이는 승압형 DC-DC 컨버터</td></tr><tr><th scope="row">벅-부스트(반전형)</th><td>입력보다 높거나 낮고 극성이 반대</td><td>인덕터 하나, 스위치 하나의 기본 구조</td></tr><tr><th scope="row">벅-부스트(비반전형)</th><td>입력보다 높거나 낮고 극성이 같음</td><td>네 스위치 구조나 SEPIC 구조 등으로 구현(Ćuk 컨버터는 출력이 반전됨)</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Erickson, R. W., &amp; Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic / Springer.</li>
+    <li>Mohan, N., Undeland, T. M., &amp; Robbins, W. P. (1989). Power Electronics: Converters, Applications and Design. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="voltage-regulator.html">전압 레귤레이터 (선형·스위칭)</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

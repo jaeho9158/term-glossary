@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>경계층 이론은 유체 전체 영역을 풀지 않고도 벽면 근처의 마찰저항, 열전달, 유동 박리를 근사적으로 다룰 수 있게 해 주기 때문에, 항공우주공학·자동차공학·풍력터빈 설계 등 실무 유동해석의 기본 틀로 자리 잡고 있습니다. 또한 전산유체역학(CFD)에서 격자를 생성하거나 난류 모델을 선택할 때도 경계층의 두께와 특성이 중요한 기준이 되어, 관련 연구가 꾸준히 이어지고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <ul><li>점성의 영향은 벽 가까운 <strong>얇은 층</strong>에 몰려 있고, 그 바깥은 점성을 무시한 흐름으로 다룰 수 있다는 것이 핵심 착상입니다. 이렇게 흐름 영역을 둘로 나누면 전체 나비에-스토크스 방정식을 단순화한 방정식으로 두 영역을 따로 풀 수 있습니다. 이 착상은 1904년 하이델베르크에서 열린 제3회 국제수학자대회에서 프란틀(Ludwig Prandtl)이 처음 제시한 것으로 알려져 있습니다.</li><li>벽에서는 유체 속도가 0이고(무미끄럼 조건), 벽에서 멀어질수록 속도가 단조롭게 늘어 바깥 흐름 속도에 가까워집니다.</li><li>경계층 두께는 흔히 속도가 바깥 흐름 속도의 99%가 되는 벽으로부터의 거리로 정의합니다. 배제두께처럼 다른 방식의 정의도 함께 쓰이므로 논문에서는 어느 정의인지 확인해야 합니다.</li><li>벽 수직 방향의 압력은 경계층 안에서 거의 일정하다고 근사합니다. 온도 차가 있으면 속도 경계층과 별도로 온도 경계층이 생기며, 두 두께의 비는 프란틀 수가 결정합니다.</li></ul>
+
+  <h2>근거와 대표 연구</h2>
+  <p>평판 위의 층류 경계층에는 블라지우스(Blasius)의 정확한 상사해가 있고, 여기서 99% 속도 기준 두께는 <code>δ ≈ 5.0·x/√Re<sub>x</sub></code>로 쓰입니다(x는 앞쪽 끝에서의 거리, Re<sub>x</sub> = Ux/ν). 아래는 이 식을 코드로 계산한 가상의 예입니다(공기의 동점성계수를 1.5×10<sup>−5</sup> m²/s, 바깥 흐름 속도를 10 m/s로 가정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>앞쪽 끝에서의 거리 x</th><th>Re<sub>x</sub></th><th>경계층 두께 δ</th></tr></thead><tbody><tr><td>0.1 m</td><td>6.7×10<sup>4</sup></td><td>약 1.9 mm</td></tr><tr><td>0.5 m</td><td>3.3×10<sup>5</sup></td><td>약 4.3 mm</td></tr><tr><td>1.0 m</td><td>6.7×10<sup>5</sup></td><td>약 6.1 mm</td></tr></tbody></table></div><p>흐름 방향으로 갈수록 두꺼워지지만 √x에 비례할 뿐이어서, 1 m를 가도 몇 mm에 그칩니다. 그래서 “얇은 층”이라는 가정이 성립합니다. 다만 이 식은 층류에만 해당합니다. 층류 경계층은 마찰저항이 작은 대신 불안정하여 어느 지점에서 난류로 전이하며, 항공기 날개 설계에서는 이 전이 위치를 뒤로 미루는 것이 항력 감소의 관건으로 논의됩니다.</p>
+
+  <h2>비판과 한계</h2>
+  <ul><li><strong>적용 범위</strong>: 경계층 방정식은 얇고 벽에 붙어 흐르는 층을 전제로 합니다. 층류 경계층은 압력이 뒤쪽에서 다시 올라가는 구간(역압력 구배)의 영향을 크게 받아 벽에서 떨어져 나가기(박리) 쉬우며, 박리가 일어난 뒤의 영역은 이 이론만으로 다룰 수 없어 전체 방정식이나 별도의 모형이 필요합니다.</li><li><strong>층류와 난류</strong>: 위의 두께 식은 층류용입니다. 난류 경계층에는 다른 관계식을 쓰며, 논문에서 쓴 식이 어느 상태를 가정했는지 확인해야 합니다.</li><li><strong>정의의 다양성</strong>: 99% 두께, 배제두께, 운동량두께는 서로 다른 양입니다. 값을 비교할 때 같은 정의인지 먼저 맞춰야 합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"경계층 이론을 바탕으로 평판 표면의 마찰저항계수를 산출하였다."</div>
   <p>공력 설계에서 표면 마찰항력을 계산하거나 유동 박리 현상을 분석할 때 경계층 이론이 기본 틀로 사용된다.</p>
 
@@ -164,6 +182,19 @@
 
   <h2>주의할 점</h2>
   <p>경계층은 흐름 방향으로 갈수록 두꺼워지며 층류에서 난류로 전환될 수 있어, 해석 시 이 전환 지점을 고려해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>이름이 비슷하거나 한 묶음으로 다뤄지는 용어들입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">경계층 이론과의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="boundary-layer.html">경계층</a></th><td>고체 표면을 따라 흐를 때 표면 근처에서 유속이 느려지는 얇은 층</td><td>이론이 설명하는 대상(현상) 자체</td></tr><tr><th scope="row"><a href="boundary-layer-separation.html">경계층 박리</a></th><td>경계층이 벽에서 떨어져 나가는 현상</td><td>이론의 가정이 깨지는 대표적 상황</td></tr><tr><th scope="row"><a href="laminar-turbulent-flow.html">층류와 난류</a></th><td>흐름이 규칙적인지 불규칙한지의 구분</td><td>경계층이 발달하며 층류에서 난류로 전이함</td></tr><tr><th scope="row"><a href="reynolds-number.html">레이놀즈 수</a></th><td>관성력과 점성력의 비를 나타내는 무차원수</td><td>경계층 두께를 정하는 핵심 변수(Re_x)</td></tr></tbody></table></div>
+  <p class="te-note">경계층 이론은 이 틀로 흐름을 해석하는 접근이고, 경계층은 그 틀이 가리키는 물리적 층입니다.</p>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Schlichting, H. (1960). Boundary Layer Theory (4th ed.). McGraw-Hill.</li>
+    <li>Anderson, J. D. (2005). Ludwig Prandtl's boundary layer. Physics Today, 58(12), 42–48.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

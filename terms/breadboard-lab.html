@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,17 +148,46 @@
   <h2>왜 중요한가</h2>
   <p>전자회로를 처음 배우거나 새로운 회로 아이디어를 빠르게 검증해야 할 때, 영구적으로 납땜하기 전에 브레드보드로 시제품을 구성해 동작을 확인하는 것이 표준적인 방법입니다. 이는 시행착오 비용을 크게 줄여주기 때문에 교육용 전자공학 실습과 프로토타이핑 연구에서 필수적으로 쓰입니다. 완성된 회로를 인쇄회로기판으로 옮기기 전 단계에서 오류를 미리 걸러낼 수 있어, 아두이노나 센서를 다루는 메이커 교육과 임베디드 시스템 개발 실습에서도 표준적으로 쓰이는 도구입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>솔더리스 브레드보드는 납땜 없이 부품 다리를 꽂아 회로를 임시로 만들어 보는 판입니다. 납땜이나 배선 파괴가 필요 없어 재사용할 수 있어 교육과 시제품에 많이 쓰입니다.</li><li>플라스틱 블록 안에 도금한 스프링 클립(연결점)이 줄지어 있고, 구멍 간격은 0.1인치(2.54 mm)로 DIP 집적회로 핀 간격과 같습니다.</li><li>가운데 홈을 기준으로 양쪽에 <strong>터미널 스트립</strong>이 있습니다. 홈 한쪽에서 보통 다섯 구멍이 한 줄로 연결되어 있고, 홈을 건너서는 연결되지 않습니다. 가장자리의 <strong>버스 스트립</strong>은 전원과 접지를 길게 나릅니다. 제조사에 따라 버스 스트립이 가운데에서 끊어진 것도 있습니다.</li><li>역사적으로는 1960년 드브리(DeVry) 기술연구소의 오빌 톰프슨(Orville Thompson)이 스프링 금속으로 구멍 줄을 잇는 솔더리스 브레드보드의 특허를 냈고, 1971년 E&amp;L Instruments의 로널드 포르투갈(Ronald Portugal)이 0.1인치 간격 구조의 특허를 낸 것이 오늘날 형태의 바탕이 되었다고 정리됩니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 예</strong>: 5 V 전원에 LED를 저항과 함께 직렬로 연결합니다. LED의 순방향 전압을 2 V, 원하는 전류를 10 mA로 가정하면 저항은 (5 − 2) ÷ 0.010 = 300 Ω입니다. 보드에는 이 저항의 한쪽 다리와 LED의 한쪽 다리를 <em>같은 다섯 구멍 줄</em>에 꽂아야 서로 연결됩니다. 가까이 꽂았더라도 서로 다른 줄이면 연결되지 않습니다. 시판 저항 중 가까운 330 Ω을 쓰면 전류는 3 ÷ 330 ≈ 9.1 mA가 됩니다(코드 계산).</p><p>논문에서 “브레드보드로 먼저 시험했다”는 말은 이처럼 납땜 전에 연결과 부품 값을 확인했다는 뜻입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>구멍이 가까우면 서로 연결된다.</td><td>같은 줄(보통 다섯 구멍)만 연결됩니다. 홈 반대편이나 다른 번호의 줄은 연결되지 않습니다.</td></tr><tr><td>브레드보드에서 된 회로는 인쇄회로기판에서도 똑같이 동작한다.</td><td>브레드보드는 기생 정전용량이 크고(인접한 줄 사이 약 2 pF 수준으로 소개됨) 접촉저항이 높아, 보통 약 10 MHz 이하의 낮은 주파수에서 쓰는 것이 일반적인 한계로 소개됩니다.</td></tr><tr><td>어떤 부품이든 꽂을 수 있다.</td><td>표면실장(SMD) 부품이나 0.1인치 간격이 아닌 부품은 어댑터가 필요합니다. 전압·전류 정격에도 한계가 있습니다.</td></tr><tr><td>한 번 맞게 꽂으면 계속 안정적이다.</td><td>쉽게 꽂고 뺄 수 있는 만큼 연결이 흔들리기 쉽고, 접촉저항이 시간이 지나며 커져서 복잡한 회로는 신뢰성이 떨어집니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 센서 회로는 Breadboard 위에 먼저 구현되어 동작을 검증한 뒤 인쇄회로기판으로 옮겨졌다."</div>
   <p>본격적인 제작에 앞서 브레드보드로 먼저 시험해봤다는 뜻입니다.</p>
   <div class="example">"학생들은 브레드보드를 이용해 저항과 LED로 구성된 간단한 직렬회로를 조립하고 옴의 법칙을 검증하는 실습을 수행하였다."</div>
   <p>브레드보드로 직접 회로를 만들어 이론을 확인했다는 의미입니다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>일반적인 브레드보드는 중앙의 골(홈)을 기준으로 좌우에 짧은 세로줄들이 있고, 상하 가장자리에는 전원과 접지용으로 긴 가로줄(레일)이 배치되어 있습니다. 세로줄은 보통 5개 구멍이 하나로 연결되어 있어 그 안에서는 부품끼리 자동으로 이어지지만, 다른 줄과는 연결되지 않으므로 회로도를 보고 구멍의 연결 구조를 정확히 이해하는 것이 중요합니다. 일반적인 브레드보드는 중앙의 골(홈)을 기준으로 좌우에 짧은 세로줄들이 있고, 상하 가장자리에는 전원과 접지용으로 긴 가로줄(레일)이 배치되어 있습니다.</p>
+  <p>일반적인 브레드보드는 중앙의 골(홈)을 기준으로 좌우에 짧은 세로줄들이 있고, 상하 가장자리에는 전원과 접지용으로 긴 가로줄(레일)이 배치되어 있습니다. 세로줄은 보통 5개 구멍이 하나로 연결되어 있어 그 안에서는 부품끼리 자동으로 이어지지만, 다른 줄과는 연결되지 않으므로 회로도를 보고 구멍의 연결 구조를 정확히 이해하는 것이 중요합니다.</p>
 
   <h2>주의할 점</h2>
   <p>구멍 내부의 금속 클립은 반복 사용으로 헐거워질 수 있어 접촉 불량으로 인한 오동작이 흔하므로, 회로가 예상대로 작동하지 않을 때는 접촉 상태를 먼저 확인해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">차이</th></tr></thead><tbody><tr><th scope="row">브레드보드(솔더리스)</th><td>납땜 없이 꽂아서 회로를 임시로 구성하는 판</td><td>재사용 가능, 저주파 시험용</td></tr><tr><th scope="row"><a href="breadboard-prototype.html">브레드보드 시제품</a></th><td>외관을 고려하지 않고 원리를 확인하려고 임시로 연결해 만든 초기 실험용 시제품</td><td>‘브레드보드’라는 말이 쓰이지만 보드 자체가 아니라 시제품이라는 개념</td></tr><tr><th scope="row">퍼프보드·스트립보드</th><td>구멍판에 납땜해 쓰는 기판</td><td>납땜이 필요하고 트랙을 끊어 쓰므로 재사용성이 낮음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Cook, D. (2015). Solderless breadboard setup. In Robot Building for Beginners (pp. 159–169). Apress.</li>
+    <li>Cook, D. (2015). Solderless prototyping. In Robot Building for Beginners (pp. 139–158). Apress.</li>
+    <li>Piatt, T. L., &amp; Laferty, K. E. (2017). This is my breadboard. In Circuit Analysis Laboratory Workbook (pp. 1–4). Springer.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
