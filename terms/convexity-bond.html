@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>볼록성은 채권가격과 수익률의 관계가 직선이 아니라 휘어져 있다는 사실을 수치화한 것으로, <a href="duration-bond.html">듀레이션</a>만으로 근사한 가격 변화의 오차를 보정합니다. 금리 변동 폭이 클 때 듀레이션 근사는 하락은 과대, 상승은 과소평가하므로, 채권 포트폴리오 실무에서는 듀레이션과 볼록성을 함께 맞추는 것이 <a href="immunization-strategy.html">면역화 전략</a>의 기본입니다. 볼록성은 듀레이션만으로는 설명되지 않는 금리변화 폭이 클 때의 가격 오차를 보정해주는 2차 근사항으로, 정밀한 채권 가치평가와 위험관리에 필수적인 보완 지표입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>채권가격 P를 수익률 y의 함수로 보면 곡선입니다. 연 1회 이자를 지급하는 채권의 현금흐름을 CF<sub>t</sub>(t=1…n)라 하면 볼록성은 가격의 2차 도함수를 가격으로 나눈 값입니다.</p><p><code>C = (1/P) · Σ t(t+1)·CF<sub>t</sub> / (1+y)<sup>t+2</sup></code></p><p>가격 변화율은 <code>ΔP/P ≈ −D<sub>mod</sub>·Δy + ½·C·(Δy)²</code> 로 근사합니다(앞 항이 듀레이션, 뒤 항이 볼록성 보정). 단위는 연수<sup>2</sup>이고, 현금흐름이 고정된 무옵션 채권에서는 양수입니다.</p><p><strong>작은 예(가상의 채권).</strong> 만기 10년, 연 5% 이표(연 1회), 액면 100, 수익률 5%이면 가격은 100.000, 수정듀레이션은 7.72, 볼록성은 약 75.0입니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>수익률 변화</th><th>실제 가격</th><th>듀레이션만 쓴 근사</th><th>볼록성까지 쓴 근사</th></tr></thead><tbody><tr><td>−2%p</td><td>117.060</td><td>115.443</td><td>116.943</td></tr><tr><td>−1%p</td><td>108.111</td><td>107.722</td><td>108.097</td></tr><tr><td>+1%p</td><td>92.640</td><td>92.278</td><td>92.653</td></tr><tr><td>+2%p</td><td>85.953</td><td>84.557</td><td>86.056</td></tr></tbody></table></div><p>듀레이션만 쓴 근사는 수익률이 오르든 내리든 실제 가격보다 낮게 나오고, 변화 폭이 클수록 오차가 커집니다. 2차항을 더하면 오차가 크게 줄어듭니다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>같은 듀레이션이라면 볼록성이 큰 채권이 수익률이 내릴 때 가격이 더 오르고 오를 때 덜 떨어집니다. 그래서 시장에서는 그 대가로 낮은 수익률로 거래되는 경향이 있다고 설명됩니다.</li><li>수의상환채·주택저당증권처럼 조기상환 옵션이 붙은 채권은 일부 구간에서 볼록성이 음수가 될 수 있어, 위 공식(현금흐름이 고정인 경우)을 그대로 쓰지 않고 옵션을 반영한 유효볼록성을 씁니다.</li><li>이 값은 수익률곡선이 평행 이동한다는 가정 위에서 정의되며, 자료에 따라 ½을 곱한 값을 볼록성으로 부르거나 연 단위·반기 단위가 다를 수 있으므로 정의를 확인해야 합니다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <p>채권 분석에서는 듀레이션과 함께 제시하는 경우가 많습니다. 어떤 정의(½ 포함 여부, 지급 주기)를 썼는지 밝히는 것이 안전합니다.</p><p><code>수정듀레이션 7.72, 볼록성 75.0(연수²)이므로, 수익률 +1%p일 때 가격 변화율은 약 −7.72% + 0.5×75.0×0.01² = −7.72% + 0.38% ≈ −7.35%이다.</code> (가상의 값, 위 표의 실제 변화율은 −7.36%)</p><ul><li>가격 변화를 두 항으로 나누어 적으면 독자가 근사 오차의 출처를 이해하기 쉽습니다.</li><li>유효듀레이션·유효볼록성(옵션부 채권)과 일반 볼록성을 섞어 비교하지 않도록 구분해 적습니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">채권분석 문헌들은 가격-수익률 곡선을 테일러급수로 전개하여 1차항인 듀레이션과 2차항인 볼록성을 결합하면 금리변동에 대한 가격변화 예측이 훨씬 정확해진다고 설명한다.</div>
   <p>이들은 동일한 듀레이션을 가진 채권이라도 볼록성이 클수록 금리가 오르든 내리든 더 유리한 가격변동을 보인다는 것을 수리적으로 증명하며, 볼록성이 투자자에게 항상 바람직한 특성임을 강조했다.</p>
 
@@ -161,6 +179,20 @@
 
   <h2>주의할 점</h2>
   <p>콜옵션부채권과 같이 조기상환 옵션이 내재된 채권은 특정 금리구간에서 오히려 음(-)의 볼록성을 가질 수 있어 일반 채권과 다른 위험 특성을 보인다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>듀레이션 계열 지표는 이름이 비슷합니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 나타내나</th></tr></thead><tbody><tr><th scope="row"><a href="macaulay-duration.html">맥컬리 듀레이션</a></th><td>현금흐름 현재가치로 가중한 평균 회수 시점(연)</td></tr><tr><th scope="row"><a href="modified-duration.html">수정듀레이션</a></th><td>수익률 변화에 대한 가격의 상대 변화율(1차 민감도)</td></tr><tr><th scope="row">볼록성</th><td>가격-수익률 곡선의 곡률(2차 민감도). 듀레이션 근사의 오차를 보정</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fabozzi, F. J. (2013). Bond Markets, Analysis, and Strategies. Pearson.</li>
+    <li>Macaulay, F. R. (1938). Some Theoretical Problems Suggested by the Movements of Interest Rates, Bond Yields and Stock Prices in the United States since 1856. National Bureau of Economic Research.</li>
+    <li>Fisher, L., &amp; Weil, R. L. (1971). Coping with the risk of interest-rate fluctuations: Returns to bondholders from naive and optimal strategies. The Journal of Business, 44(4), 408.</li>
+    <li>Redington, F. M. (1952). Review of the principles of life-office valuations. Journal of the Institute of Actuaries, 78(3), 286–340.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

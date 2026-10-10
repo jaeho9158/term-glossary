@@ -1,0 +1,45 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>채권가격 P를 수익률 y의 함수로 보면 곡선입니다. 연 1회 이자를 지급하는 채권의 현금흐름을 CF<sub>t</sub>(t=1…n)라 하면 볼록성은 가격의 2차 도함수를 가격으로 나눈 값입니다.</p><p><code>C = (1/P) · Σ t(t+1)·CF<sub>t</sub> / (1+y)<sup>t+2</sup></code></p><p>가격 변화율은 <code>ΔP/P ≈ −D<sub>mod</sub>·Δy + ½·C·(Δy)²</code> 로 근사합니다(앞 항이 듀레이션, 뒤 항이 볼록성 보정). 단위는 연수<sup>2</sup>이고, 현금흐름이 고정된 무옵션 채권에서는 양수입니다.</p><p><strong>작은 예(가상의 채권).</strong> 만기 10년, 연 5% 이표(연 1회), 액면 100, 수익률 5%이면 가격은 100.000, 수정듀레이션은 7.72, 볼록성은 약 75.0입니다.</p><table><thead><tr><th>수익률 변화</th><th>실제 가격</th><th>듀레이션만 쓴 근사</th><th>볼록성까지 쓴 근사</th></tr></thead><tbody><tr><td>−2%p</td><td>117.060</td><td>115.443</td><td>116.943</td></tr><tr><td>−1%p</td><td>108.111</td><td>107.722</td><td>108.097</td></tr><tr><td>+1%p</td><td>92.640</td><td>92.278</td><td>92.653</td></tr><tr><td>+2%p</td><td>85.953</td><td>84.557</td><td>86.056</td></tr></tbody></table><p>듀레이션만 쓴 근사는 수익률이 오르든 내리든 실제 가격보다 낮게 나오고, 변화 폭이 클수록 오차가 커집니다. 2차항을 더하면 오차가 크게 줄어듭니다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>같은 듀레이션이라면 볼록성이 큰 채권이 수익률이 내릴 때 가격이 더 오르고 오를 때 덜 떨어집니다. 그래서 시장에서는 그 대가로 낮은 수익률로 거래되는 경향이 있다고 설명됩니다.</li><li>수의상환채·주택저당증권처럼 조기상환 옵션이 붙은 채권은 일부 구간에서 볼록성이 음수가 될 수 있어, 위 공식(현금흐름이 고정인 경우)을 그대로 쓰지 않고 옵션을 반영한 유효볼록성을 씁니다.</li><li>이 값은 수익률곡선이 평행 이동한다는 가정 위에서 정의되며, 자료에 따라 ½을 곱한 값을 볼록성으로 부르거나 연 단위·반기 단위가 다를 수 있으므로 정의를 확인해야 합니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>채권 분석에서는 듀레이션과 함께 제시하는 경우가 많습니다. 어떤 정의(½ 포함 여부, 지급 주기)를 썼는지 밝히는 것이 안전합니다.</p><p><code>수정듀레이션 7.72, 볼록성 75.0(연수²)이므로, 수익률 +1%p일 때 가격 변화율은 약 −7.72% + 0.5×75.0×0.01² = −7.72% + 0.38% ≈ −7.35%이다.</code> (가상의 값, 위 표의 실제 변화율은 −7.36%)</p><ul><li>가격 변화를 두 항으로 나누어 적으면 독자가 근사 오차의 출처를 이해하기 쉽습니다.</li><li>유효듀레이션·유효볼록성(옵션부 채권)과 일반 볼록성을 섞어 비교하지 않도록 구분해 적습니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "듀레이션 계열 지표는 이름이 비슷합니다.",
+    "headers": [
+      "용어",
+      "무엇을 나타내나"
+    ],
+    "rows": [
+      [
+        "[[macaulay-duration|맥컬리 듀레이션]]",
+        "현금흐름 현재가치로 가중한 평균 회수 시점(연)"
+      ],
+      [
+        "[[modified-duration|수정듀레이션]]",
+        "수익률 변화에 대한 가격의 상대 변화율(1차 민감도)"
+      ],
+      [
+        "볼록성",
+        "가격-수익률 곡선의 곡률(2차 민감도). 듀레이션 근사의 오차를 보정"
+      ]
+    ]
+  },
+  "references": [
+    "Fabozzi, F. J. (2013). Bond Markets, Analysis, and Strategies. Pearson.",
+    "Macaulay, F. R. (1938). Some Theoretical Problems Suggested by the Movements of Interest Rates, Bond Yields and Stock Prices in the United States since 1856. National Bureau of Economic Research.",
+    "Fisher, L., & Weil, R. L. (1971). Coping with the risk of interest-rate fluctuations: Returns to bondholders from naive and optimal strategies. The Journal of Business, 44(4), 408.",
+    "Redington, F. M. (1952). Review of the principles of life-office valuations. Journal of the Institute of Actuaries, 78(3), 286–340."
+  ]
+}
