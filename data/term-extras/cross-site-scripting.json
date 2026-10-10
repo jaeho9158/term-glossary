@@ -1,0 +1,47 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>크로스사이트 스크립팅(XSS)은 공격자가 웹 애플리케이션을 이용해, 보통 브라우저에서 실행되는 스크립트 형태의 악성 코드를 다른 사용자에게 보내는 공격입니다. OWASP는 이 취약점이 웹 애플리케이션이 사용자 입력을 검증하거나 인코딩하지 않고 출력에 쓰는 곳이면 어디서나 생길 수 있다고 설명합니다. 사용자의 브라우저는 그 스크립트를 믿어서는 안 된다는 것을 알 방법이 없어서, 믿는 사이트에서 온 것으로 보고 실행하며, 그 결과 해당 사이트와 관련된 쿠키·세션 토큰 같은 정보에 접근하거나 페이지 내용을 바꿀 수 있습니다. 취약점 분류 체계 CWE에서는 CWE-79, “웹 페이지 생성 중 입력의 부적절한 무해화(‘크로스사이트 스크립팅’)”로 분류합니다.</p><p>OWASP는 유형을 크게 반사형(reflected)과 저장형(stored)으로 나누고, 덜 알려진 세 번째로 DOM 기반(DOM based) XSS를 설명합니다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<ul><li><strong>저장형</strong>: 입력이 서버에 저장되었다가 다른 사용자의 페이지에 출력되어 실행됩니다(게시글·댓글 등).</li><li><strong>반사형</strong>: 요청에 담긴 입력이 응답에 그대로 반영되어 실행됩니다(검색어 등).</li><li><strong>DOM 기반</strong>: 서버를 거치지 않고 브라우저의 스크립트가 입력을 처리하는 과정에서 생깁니다. Lekies 외(2013)는 대규모 웹사이트를 대상으로 이런 취약점 후보의 흐름을 탐지하는 연구를 했습니다.</li><li><strong>방어의 문헌</strong>: OWASP의 예방 지침은 출력 위치(HTML, 속성, 스크립트, CSS, URL)별 출력 인코딩과 콘텐츠 보안 정책(CSP)을 다룹니다([[content-security-policy|콘텐츠 보안 정책]]). Weinberger 외(2011)는 웹 프레임워크의 XSS 무해화(sanitization)를 체계적으로 분석했습니다.</li></ul><p>이 페이지는 개념을 설명하며, 공격 코드는 싣지 않습니다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“입력만 걸러내면 끝”</strong>: 입력 검증만이 아니라 출력할 때의 맥락별 인코딩이 함께 논의됩니다.</li><li><strong>“서버 문제만이다”</strong>: DOM 기반 XSS는 서버를 거치지 않고 브라우저 코드에서 발생합니다.</li><li><strong>“SQL 인젝션과 같다”</strong>: 둘 다 신뢰할 수 없는 입력을 다루는 취약점이지만, XSS는 다른 사용자의 브라우저에서 실행되는 코드를 심고 SQL 인젝션은 데이터베이스 질의를 바꿉니다([[sql-injection|SQL 인젝션]]).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "공격이 실행되는 곳",
+      "핵심"
+    ],
+    "rows": [
+      [
+        "[[cross-site-scripting|크로스사이트 스크립팅]]",
+        "다른 사용자의 브라우저",
+        "신뢰하는 사이트를 통해 스크립트 실행"
+      ],
+      [
+        "[[sql-injection|SQL 인젝션]]",
+        "서버의 데이터베이스",
+        "질의문에 입력이 섞여 구조가 바뀜"
+      ],
+      [
+        "[[content-security-policy|콘텐츠 보안 정책]]",
+        "브라우저 쪽 방어",
+        "실행할 수 있는 스크립트의 출처를 제한"
+      ]
+    ]
+  },
+  "references": [
+    "Hydara, I., Sultan, A. B. M., Zulzalil, H., & Admodisastro, N. (2015). Current state of research on cross-site scripting (XSS) – A systematic literature review. Information and Software Technology, 58, 170–186.",
+    "Weinberger, J., Saxena, P., Akhawe, D., Finifter, M., Shin, R., & Song, D. (2011). A systematic analysis of XSS sanitization in web application frameworks. In Computer Security – ESORICS 2011 (pp. 150–171). Springer.",
+    "Lekies, S., Stock, B., & Johns, M. (2013). 25 million flows later. In Proceedings of the 2013 ACM SIGSAC Conference on Computer & Communications Security (pp. 1193–1204). ACM."
+  ]
+}

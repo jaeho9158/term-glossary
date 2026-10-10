@@ -1,0 +1,54 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>같은 사람들을 두 시점 이상 반복 측정했고, 두 변수(X, Y) 중 어느 쪽이 나중의 다른 쪽을 앞서 예측하는지 보려 할 때 씁니다. 가장 단순한 두 시점 모형은 다음 두 식입니다.</p><p><code>X<sub>2</sub> = a·X<sub>1</sub> + d·Y<sub>1</sub> + e<sub>X</sub>,  Y<sub>2</sub> = b·Y<sub>1</sub> + c·X<sub>1</sub> + e<sub>Y</sub></code></p><p>a, b는 자기 자신의 이전 값이 이후 값을 예측하는 정도(자기회귀 경로)이고, c, d가 서로 엇갈려 예측하는 정도(교차지연 경로)입니다. 자기회귀 경로를 통제한 상태에서 c와 d를 비교하는 것이 핵심 논리입니다. 이 방법의 뿌리는 교차지연 상관을 이용해 가짜 상관 여부를 검토하자는 Kenny(1975)의 제안으로 거슬러 올라가고, Rogosa(1980)는 교차지연 상관의 해석에 대한 비판을 제기했습니다.</p><p>세 시점 이상에서는 같은 형태가 시점마다 반복됩니다. 추정은 보통 구조방정식모형 틀에서 이루어집니다([[structural-equation-modeling|구조방정식모형]]).</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p><strong>가상의 표준화 계수 예</strong>(형식을 보여 주기 위한 값):</p><table><thead><tr><th>경로</th><th>β</th><th>읽는 법</th></tr></thead><tbody><tr><td>스트레스(T1) → 스트레스(T2)</td><td>.50</td><td>안정성(자기회귀)</td></tr><tr><td>수면의 질(T1) → 수면의 질(T2)</td><td>.45</td><td>안정성(자기회귀)</td></tr><tr><td>스트레스(T1) → 수면의 질(T2)</td><td>−.12</td><td>스트레스가 높았던 사람이 이후 수면의 질이 더 낮은 경향(안정성 통제 후)</td></tr><tr><td>수면의 질(T1) → 스트레스(T2)</td><td>−.03</td><td>이 방향의 경로는 거의 없음</td></tr></tbody></table><ul><li>두 교차경로의 크기·유의성을 비교해 “어느 방향이 더 강한가”를 서술합니다. 방향 간 차이를 주장하려면 두 경로를 같게 놓은 모형과의 적합도 비교 같은 검정이 필요합니다.</li><li>이 계수는 시점 사이의 시간 순서상 예측일 뿐, 개인 안에서의 인과 효과로 곧바로 읽으면 안 됩니다.</li></ul><p>Hamaker 외(2015)는 변수의 안정성이 어느 정도 개인마다 고정된 성질(특성)이면, 전통적 CLPM의 자기회귀 경로가 이를 충분히 반영하지 못해 교차지연 계수가 개인 내 관계를 나타내지 못하고 효과의 존재·우세·부호에 대해 잘못된 결론에 이를 수 있다고 보였습니다. 이 문제를 줄이려고 개인별 임의절편을 넣은 모형(RI-CLPM)을 제안했습니다. Orth 외(2021)는 자존감과 우울의 관계를 사례로 일곱 가지 교차지연 모형을 10개 표본에서 비교해, CLPM과 RI-CLPM은 모든 표본에서 수렴했고 RI-CLPM의 적합도가 더 좋았지만 교차지연 효과의 일관성은 CLPM이 더 높았다고 보고했습니다. 모형 선택은 연구 질문에 맞게 해야 합니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>측정 시점의 수와 간격, 표본의 이탈(결측) 처리 방법을 적습니다.</li><li>시점 간 측정불변성을 확인했는지 밝힙니다([[measurement-invariance|측정불변성]]).</li><li>자기회귀 경로와 교차지연 경로의 표준화·비표준화 계수와 신뢰구간을 모두 제시합니다.</li><li>CLPM만 썼는지 RI-CLPM 등 확장 모형도 비교했는지, 적합도 지수와 모형 비교 결과를 쓰고 시간 간격 선택의 근거를 설명합니다.</li><li>인과를 단정하지 않고, 공변량·제3의 변수의 가능성을 한계로 서술합니다.</li></ul><p><code>1차에서 높은 스트레스는 안정성을 통제한 뒤 2차 수면의 질을 예측하였다(β = −.12, 95% CI [−.20, −.04]). (가상의 값)</code></p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "핵심 차이"
+    ],
+    "rows": [
+      [
+        "[[cross-lagged-panel-model|교차지연 패널모형(CLPM)]]",
+        "자기회귀 경로를 통제하고 교차지연 경로를 비교",
+        "개인 간 고정된 차이를 따로 분리하지 않음"
+      ],
+      [
+        "RI-CLPM(임의절편 교차지연 패널모형)",
+        "개인별 임의절편으로 개인 간 안정적 차이와 개인 내 과정을 분리",
+        "Hamaker 외(2015)가 제안한 대안"
+      ],
+      [
+        "[[autoregressive-model|자기회귀모형]]",
+        "변수의 과거 값이 현재 값을 예측",
+        "CLPM의 자기회귀 부분에 해당"
+      ],
+      [
+        "[[confounding-variable|교란변수]]",
+        "두 변수에 모두 영향을 주는 제3의 변수",
+        "CLPM 해석을 위협하는 대표 요인"
+      ]
+    ]
+  },
+  "references": [
+    "Kenny, D. A. (1975). Cross-lagged panel correlation: A test for spuriousness. Psychological Bulletin, 82(6), 887–903.",
+    "Rogosa, D. (1980). A critique of cross-lagged correlation. Psychological Bulletin, 88(2), 245–258.",
+    "Hamaker, E. L., Kuiper, R. M., & Grasman, R. P. P. P. (2015). A critique of the cross-lagged panel model. Psychological Methods, 20(1), 102–116.",
+    "Orth, U., Clark, D. A., Donnellan, M. B., & Robins, R. W. (2021). Testing prospective effects in longitudinal research: Comparing seven competing cross-lagged models. Journal of Personality and Social Psychology, 120(4), 1013–1034.",
+    "Mulder, J. D., & Hamaker, E. L. (2021). Three extensions of the random intercept cross-lagged panel model. Structural Equation Modeling, 28(4), 638–648."
+  ]
+}
