@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>일사량과 토양 수분이 사면 방향에 따라 달라지므로, 산불 확산 예측, 산사태 위험지 평가, 태양광 발전 적지 분석 등에서 <a href="slope-analysis.html">경사분석</a>과 함께 기본 입력값으로 쓰입니다. 식생 분포나 적설 잔존 기간을 설명하는 변수로도 활용됩니다. 귤이나 사과 과수원의 적지를 고를 때, 일사량이 풍부한 남향 사면을 우선 고려하는 근거 자료로 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>사면향 분석은 수치표고모형(DEM)의 각 격자에서 지표면이 어느 방향으로 기울어 있는지를 방위각(0~360°, 정북 0°에서 시계 방향)으로 계산해 새 격자 자료를 만드는 작업입니다(<a href="dem.html">수치표고모형</a>, <a href="slope-analysis.html">경사분석</a>).</p><ol><li>DEM의 이웃 격자(보통 3×3 창)의 고도 차이로 동서·남북 방향의 기울기 변화를 구합니다. 계산식은 방법마다 다르며, 대표적인 문헌으로 Horn(1981)과 Zevenbergen &amp; Thorne(1987)이 있습니다.</li><li>기울기 변화의 방향을 방위각으로 환산합니다. 평지는 방향이 정의되지 않으므로 별도 값(예: −1)으로 표시하는 방식이 흔합니다.</li><li>필요하면 8방위나 4방위처럼 범주로 나눕니다. 북쪽 범주는 337.5°~22.5°처럼 0°를 가로지른다는 점에 유의합니다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>일사량, 적설 잔존, 식생 분포처럼 방향에 따라 달라지는 현상을 설명하는 입력 변수로 씁니다. 결과는 방위각 격자 또는 방위 범주 격자입니다. 통계 처리에서 주의할 점은 <strong>방위각이 원형 자료</strong>라는 것입니다. 0°와 360°는 같은 방향이므로 일반 평균을 쓰면 왜곡됩니다.</p><p><strong>작은 예(가상의 값).</strong> 세 격자의 방위각이 350°, 10°, 20°(모두 북쪽 근처)라면 산술평균은 (350 + 10 + 20) ÷ 3 ≈ <strong>126.7°</strong>(동남쪽)이라는 엉뚱한 값이 나옵니다. 각 방위각을 단위원 위의 점으로 바꿔 사인·코사인을 평균한 뒤 <code>atan2</code>로 되돌리는 원형 평균은 약 <strong>6.7°</strong>로, 실제로 북쪽 근처라는 직관과 맞습니다. 방위를 사인·코사인(또는 남향성 지수 같은 변환값)으로 바꿔 회귀나 상관에 넣는 방법도 같은 이유에서 쓰입니다. 원형 자료의 통계는 Fisher(1993)가 정리한 분야입니다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>사용한 DEM의 출처와 격자 크기(해상도), 좌표계</li><li>사면향 계산 소프트웨어와 알고리즘(어떤 이웃 격자 방법인지)</li><li>평지(방향 미정) 처리 방법과 방위 범주 구분 기준</li><li>방위를 통계에 쓸 때 변환 방법(원형 통계, 사인·코사인 변환 등)</li><li>결과 해석: 어느 방향 사면이 일사나 적설 등 대상 현상과 어떻게 연결되는지</li></ul><p>형식 예시: “30 m 격자 DEM으로부터 사면향을 산출하고 8방위로 구분하였으며, 평지는 별도 범주로 분리하였다.” (해상도는 연구마다 다름)</p><p>DEM의 해상도와 평탄지 처리 방식에 따라 결과가 달라지므로 이 두 가지는 반드시 밝혀 둡니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">일조량 추정을 위해 사면향분석 결과를 태양복사 모델에 결합하여 활용하였다.</div>
   <p>사면향은 일사량, 식생분포, 적설 지속기간 등에 영향을 미치므로 생태 및 재해 연구에서 자주 활용된다.</p>
   <div class="example">산지의 사면향을 분석하여 일조량 차이에 따른 식생 분포의 방향성을 설명하였다.</div>
@@ -161,6 +179,20 @@
   <p>평지에 가까운 지역은 사면향 값이 불안정하게 계산될 수 있어 해석에 주의가 필요하다.</p>
 
   <p>사면향 자료를 일반적인 산술 통계(평균 등)로 요약하면 순환 자료의 특성 때문에 왜곡된 값이 나올 수 있어 원형통계 기법을 써야 한다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>지형 분석에서 함께 나오는 파생 변수입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 재나</th><th scope="col">값의 성격</th></tr></thead><tbody><tr><th scope="row">사면향</th><td>사면이 향한 방위</td><td>원형 자료(0°=360°)</td></tr><tr><th scope="row"><a href="slope-analysis.html">경사분석</a></th><td>사면의 가파른 정도</td><td>일반 연속 자료</td></tr><tr><th scope="row"><a href="dem.html">수치표고모형</a></th><td>원자료인 지표면 고도 격자</td><td>두 파생 변수의 입력</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Horn, B. K. P. (1981). Hill shading and the reflectance map. Proceedings of the IEEE, 69(1), 14-47.</li>
+    <li>Zevenbergen, L. W., &amp; Thorne, C. R. (1987). Quantitative analysis of land surface topography. Earth Surface Processes and Landforms, 12(1), 47-56.</li>
+    <li>Fisher, N. I. (1993). Statistical Analysis of Circular Data. Cambridge University Press.</li>
+    <li>Burrough, P. A., &amp; McDonnell, R. A. (1998). Principles of Geographical Information Systems. Oxford University Press.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="surface-analysis.html">표면분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="viewshed-analysis.html">가시권분석(뷰쉐드 분석)</a><a href="slope-analysis.html">경사분석</a><a href="watershed-analysis.html">유역분석</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

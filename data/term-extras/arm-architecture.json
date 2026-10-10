@@ -1,0 +1,53 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>ARM은 특정 칩의 이름이기 전에 <strong>명령어 집합 구조(ISA)</strong>의 계열입니다([[instruction-set-architecture|명령어 집합 구조]]). 소프트웨어가 CPU에 내리는 명령의 약속을 정한 것이어서, 같은 ISA를 따르는 서로 다른 회사의 칩이 같은 프로그램을 돌릴 수 있습니다.</p><ul><li><strong>유래</strong>: “Acorn RISC Machine” 프로젝트가 1983년 10월에 시작되었고 첫 실리콘(ARM1)은 1985년에 동작을 확인했습니다. ARM이라는 이름은 이 프로젝트에서 왔습니다.</li><li><strong>사업 방식</strong>: Arm사는 ISA와 코어 설계를 라이선스로 제공합니다. 코어 라이선스는 설계된 코어를 받아 칩을 만드는 것이고, 아키텍처 라이선스는 ISA를 따르면서 자기 코어를 직접 설계하는 것입니다. 애플 M1의 코어처럼 자체 설계한 코어가 후자의 예입니다.</li><li><strong>64비트</strong>: 2011년 ARMv8-A가 64비트 주소 공간과 64비트 연산을 도입했고, 이 64비트 실행 상태가 AArch64입니다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>같은 소스 코드도 ISA마다 따로 컴파일해야 합니다. 예를 들어 x86 컴퓨터에서 만든 실행 파일은 ARM 기반 보드에서 그대로 실행되지 않으므로, 교차 컴파일의 대상(target)을 <code>aarch64</code>처럼 지정하거나 ARM 기기에서 직접 빌드합니다.</p><p>논문이 실험 환경을 적을 때 ARM과 관련해 밝혀 두면 좋은 정보는 다음과 같습니다(형식 예시).</p><ul><li>CPU 모델명과 ISA 버전(예: ARMv8-A), 코어 수와 클럭</li><li>운영체제·컴파일러 버전과 최적화 옵션</li><li>전력·에너지를 어떤 방법으로(외부 계측기, 내장 센서 등) 쟀는지</li><li>비교 대상(x86 서버 등)의 사양, 그리고 같은 부하·같은 조건으로 비교했는지</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>“ARM은 Arm사가 만든 칩이다”</strong>: Arm사가 파는 것은 주로 설계(IP)와 ISA이고, 실리콘은 라이선스를 받은 회사들이 만듭니다.</li><li><strong>“ARM이면 곧 저전력이다”</strong>: 전력과 성능은 ISA 이름만이 아니라 코어 설계(마이크로아키텍처), 제조 공정, 시스템 구성에 좌우됩니다. Blem 외(2013)는 ARM(RISC)과 x86(CISC)을 비교하며 “ISA 자체가 성능과 에너지 효율에 본질적 역할을 하는가”를 실제 하드웨어 측정으로 따져 본 연구입니다.</li><li><strong>“ARM은 휴대기기용이라 서버에는 못 쓴다”</strong>: 위 연구도 저전력이던 ARM이 고성능 서버 시장에, 고성능이던 x86이 모바일 시장에 진입하고 있다고 서술합니다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "ISA, 코어 설계, 칩은 서로 다른 층입니다.",
+    "headers": [
+      "용어",
+      "층",
+      "예"
+    ],
+    "rows": [
+      [
+        "[[instruction-set-architecture|명령어 집합 구조(ISA)]]",
+        "소프트웨어와 하드웨어 사이의 약속",
+        "ARM, x86"
+      ],
+      [
+        "마이크로아키텍처",
+        "ISA를 하드웨어로 구현한 코어 내부 설계",
+        "같은 ARMv8-A를 구현한 서로 다른 회사의 코어"
+      ],
+      [
+        "SoC(시스템 온 칩)",
+        "코어와 주변 회로를 묶어 제조한 제품",
+        "스마트폰용 칩, 서버용 칩"
+      ],
+      [
+        "[[microcontroller|마이크로컨트롤러]]",
+        "CPU·메모리·입출력을 한 칩에 담은 소형 제어용 칩",
+        "ARM 코어를 쓰는 제품도 많음"
+      ]
+    ]
+  },
+  "references": [
+    "Patterson, D. A., & Hennessy, J. L. (2016). Computer Organization and Design ARM Edition: The Hardware Software Interface. Elsevier.",
+    "Hennessy, J. L., & Patterson, D. A. (2019). Computer Architecture: A Quantitative Approach. Morgan Kaufmann.",
+    "Blem, E., Menon, J., & Sankaralingam, K. (2013). Power struggles: Revisiting the RISC vs. CISC debate on contemporary ARM and x86 architectures. In 2013 IEEE 19th International Symposium on High Performance Computer Architecture (HPCA) (pp. 1-12). IEEE."
+  ]
+}

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>목표까지의 인력과 장애물의 척력을 더한 뒤 기울기를 따라 내려가면 되므로 구현이 매우 단순하고 계산이 빨라, 실시간 <a href="obstacle-avoidance.html">장애물회피</a>와 다중로봇 대형 유지에 폭넓게 쓰입니다. 반응형 제어의 대표 사례로 새로운 회피 기법의 비교 대상이 됩니다. 다중로봇 군집에서는 각 로봇이 이웃 로봇을 척력원으로, 목표나 대형 위치를 인력원으로 삼아 개별 계산만으로 전체 대형을 유지하는 분산 제어에 널리 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>로봇의 위치를 포텐셜장 위의 한 점으로 보고, 목표에서는 끌어당기고 장애물에서는 밀어내는 함수를 더해 전체 포텐셜 <code>U(q) = U<sub>att</sub>(q) + U<sub>rep</sub>(q)</code>를 만듭니다. 로봇은 포텐셜의 기울기 반대 방향(<code>F = −∇U</code>)으로 움직입니다. 척력 포텐셜은 장애물에 가까울수록 커지고 영향 반경 밖에서는 0이 되도록 설계합니다.</p><p><strong>작은 예(가상의 값).</strong> Khatib(1986)이 제시한 형태를 따라 척력 포텐셜을 <code>U<sub>rep</sub> = ½·η·(1/ρ − 1/ρ₀)²</code>(ρ ≤ ρ₀, 그 밖에서는 0)로 두고 η = 100, 영향 반경 ρ₀ = 2 m라고 하면, 장애물까지 거리 ρ = 2 m에서 0, ρ = 1 m에서 12.5, ρ = 0.5 m에서 112.5입니다. 가까워질수록 척력 포텐셜이 급격히 커집니다. (식의 꼴과 계수 표기는 논문마다 다릅니다.)</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>얻는 것</strong>: 계산이 간단해 실시간 반응형 장애물 회피와 군집 대형 제어에 쓰기 좋습니다(<a href="obstacle-avoidance.html">장애물회피</a>, <a href="potential-field-method.html">포텐셜필드법</a>).</li><li><strong>대표적 한계</strong>: 장이 만든 지형의 국소 최소점에 갇히면 경로를 못 찾거나 최적이 아닌 경로를 얻습니다. 조화 포텐셜장이나 내비게이션 함수처럼 목표 외에는 극소점이 없도록 만든 함수가 대안으로 설명됩니다. Rimon &amp; Koditschek(1992)는 인공 포텐셜 함수를 이용한 정확한 로봇 항법을, Koren &amp; Borenstein(1991)은 포텐셜장 방법의 본질적 한계를 다룬 논문입니다.</li><li><strong>그래서 논문에서는</strong> 전역 경로계획과 결합하거나(<a href="path-planning.html">경로계획</a>) 척력장의 영향 반경·감쇠 계수를 조정해 한계를 완화하는 변형을 제안하는 경우가 많습니다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>인력·척력 포텐셜 함수의 식과 모든 계수값(인력 계수, 척력 계수, 영향 반경 등)</li><li>로봇 모델(점 로봇인지 크기가 있는지)과 장애물 형상, 시뮬레이션/실험 환경</li><li>평가 지표: 목표 도달 성공률, 경로 길이, 소요 시간, 최소 장애물 거리, 정지·진동 발생 여부</li><li>국소 최소점 사례를 포함했는지와, 이를 벗어나는 방법(있다면)</li><li>비교 방법(기본 포텐셜장법, 다른 반응형 기법)과 같은 조건에서 비교했는지</li></ul><p>형식 예시: “영향 반경 ρ₀를 2 m로 두고 척력 계수를 100으로 하였으며, 좁은 통로 시나리오 30회 중 ○회에서 목표에 도달하였다.” (횟수는 결과를 대신 적습니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 논문에서는 척력장의 영향 반경을 조절하여 인공포텐셜필드의 국소최솟값 문제를 완화하였다.</div>
   <p>논문에서 인공포텐셜필드는 포텐셜필드법을 구성하는 구체적인 함수 설계로, 인력·척력 함수의 형태가 성능에 직접적인 영향을 미칩니다.</p>
   <div class="example">"좁은 통로를 지나는 이동로봇 시뮬레이션에서 척력장의 영향 반경을 좁게 설정하자, 양쪽 벽 사이에서 발생하던 진동 현상이 크게 줄어들었다."</div>
@@ -162,6 +180,19 @@
 
   <h2>주의할 점</h2>
   <p>인공포텐셜필드는 함수 설계(감쇠 상수, 영향 반경 등)에 성능이 크게 좌우되어 환경마다 파라미터 튜닝이 필요할 수 있다. 여러 장애물이 동시에 영향을 미치는 좁은 공간에서는 척력 벡터들이 서로 다른 방향으로 상쇄되어 로봇이 사실상 정지하는 상황이 흔히 관찰된다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>함수와 방법, 그리고 더 큰 문제의 구분입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">인공포텐셜필드</th><td>인력·척력으로 설계한 스칼라 포텐셜 함수 자체</td><td>방법에서 쓰는 함수</td></tr><tr><th scope="row"><a href="potential-field-method.html">포텐셜필드법</a></th><td>그 함수의 기울기를 따라 움직이는 방법 전체</td><td>인공포텐셜필드를 쓰는 방법</td></tr><tr><th scope="row"><a href="obstacle-avoidance.html">장애물회피</a></th><td>충돌을 피하는 문제</td><td>포텐셜필드법은 그 해법의 하나</td></tr><tr><th scope="row"><a href="path-planning.html">경로계획</a></th><td>출발점에서 목표까지 경로를 구하는 문제</td><td>전역 계획과 지역 회피를 결합하기도 함</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Khatib, O. (1986). Real-time obstacle avoidance for manipulators and mobile robots. The International Journal of Robotics Research, 5(1), 90-98.</li>
+    <li>Koren, Y., &amp; Borenstein, J. (1991). Potential field methods and their inherent limitations for mobile robot navigation. In Proceedings of the 1991 IEEE International Conference on Robotics and Automation (pp. 1398-1404). IEEE.</li>
+    <li>Rimon, E., &amp; Koditschek, D. E. (1992). Exact robot navigation using artificial potential functions. IEEE Transactions on Robotics and Automation, 8(5), 501-518.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

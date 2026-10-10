@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>ARM 아키텍처는 저전력·고효율 컴퓨팅이라는 큰 흐름과 맞닿아 있어서, 온디바이스 AI·엣지 컴퓨팅·모바일 시스템을 다루는 논문에서 실험 환경을 설명할 때 자주 등장한다. 데이터센터용 서버 CPU 역시 ARM 기반 설계를 채택하는 사례가 늘면서, 전력 대비 성능(에너지 효율)을 다루는 컴퓨터 구조·시스템 연구에서도 비교 대상으로 언급된다. 또한 x86과 명령어 체계가 달라 소프트웨어 이식성·컴파일러 최적화·크로스 플랫폼 성능 평가 같은 주제와도 연결된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>ARM은 특정 칩의 이름이기 전에 <strong>명령어 집합 구조(ISA)</strong>의 계열입니다(<a href="instruction-set-architecture.html">명령어 집합 구조</a>). 소프트웨어가 CPU에 내리는 명령의 약속을 정한 것이어서, 같은 ISA를 따르는 서로 다른 회사의 칩이 같은 프로그램을 돌릴 수 있습니다.</p><ul><li><strong>유래</strong>: “Acorn RISC Machine” 프로젝트가 1983년 10월에 시작되었고 첫 실리콘(ARM1)은 1985년에 동작을 확인했습니다. ARM이라는 이름은 이 프로젝트에서 왔습니다.</li><li><strong>사업 방식</strong>: Arm사는 ISA와 코어 설계를 라이선스로 제공합니다. 코어 라이선스는 설계된 코어를 받아 칩을 만드는 것이고, 아키텍처 라이선스는 ISA를 따르면서 자기 코어를 직접 설계하는 것입니다. 애플 M1의 코어처럼 자체 설계한 코어가 후자의 예입니다.</li><li><strong>64비트</strong>: 2011년 ARMv8-A가 64비트 주소 공간과 64비트 연산을 도입했고, 이 64비트 실행 상태가 AArch64입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>같은 소스 코드도 ISA마다 따로 컴파일해야 합니다. 예를 들어 x86 컴퓨터에서 만든 실행 파일은 ARM 기반 보드에서 그대로 실행되지 않으므로, 교차 컴파일의 대상(target)을 <code>aarch64</code>처럼 지정하거나 ARM 기기에서 직접 빌드합니다.</p><p>논문이 실험 환경을 적을 때 ARM과 관련해 밝혀 두면 좋은 정보는 다음과 같습니다(형식 예시).</p><ul><li>CPU 모델명과 ISA 버전(예: ARMv8-A), 코어 수와 클럭</li><li>운영체제·컴파일러 버전과 최적화 옵션</li><li>전력·에너지를 어떤 방법으로(외부 계측기, 내장 센서 등) 쟀는지</li><li>비교 대상(x86 서버 등)의 사양, 그리고 같은 부하·같은 조건으로 비교했는지</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“ARM은 Arm사가 만든 칩이다”</strong>: Arm사가 파는 것은 주로 설계(IP)와 ISA이고, 실리콘은 라이선스를 받은 회사들이 만듭니다.</li><li><strong>“ARM이면 곧 저전력이다”</strong>: 전력과 성능은 ISA 이름만이 아니라 코어 설계(마이크로아키텍처), 제조 공정, 시스템 구성에 좌우됩니다. Blem 외(2013)는 ARM(RISC)과 x86(CISC)을 비교하며 “ISA 자체가 성능과 에너지 효율에 본질적 역할을 하는가”를 실제 하드웨어 측정으로 따져 본 연구입니다.</li><li><strong>“ARM은 휴대기기용이라 서버에는 못 쓴다”</strong>: 위 연구도 저전력이던 ARM이 고성능 서버 시장에, 고성능이던 x86이 모바일 시장에 진입하고 있다고 서술합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"엣지 디바이스 배포를 위해 모델을 ARM 기반 프로세서에서 양자화하여 실행하였다."</div>
   <p>스마트폰이나 임베디드 기기에 흔히 쓰이는 ARM 계열 프로세서에서 모델이 돌아가도록 경량화했다는 뜻이다.</p>
 
@@ -166,6 +184,19 @@
 
   <h2>주의할 점</h2>
   <p>ARM은 인텔·AMD가 주로 쓰는 CISC 계열 명령어 체계와 근본적으로 달라, 한쪽에서 컴파일된 프로그램이 다른 쪽에서 그대로 실행되지 않는 경우가 많다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>ISA, 코어 설계, 칩은 서로 다른 층입니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">층</th><th scope="col">예</th></tr></thead><tbody><tr><th scope="row"><a href="instruction-set-architecture.html">명령어 집합 구조(ISA)</a></th><td>소프트웨어와 하드웨어 사이의 약속</td><td>ARM, x86</td></tr><tr><th scope="row">마이크로아키텍처</th><td>ISA를 하드웨어로 구현한 코어 내부 설계</td><td>같은 ARMv8-A를 구현한 서로 다른 회사의 코어</td></tr><tr><th scope="row">SoC(시스템 온 칩)</th><td>코어와 주변 회로를 묶어 제조한 제품</td><td>스마트폰용 칩, 서버용 칩</td></tr><tr><th scope="row"><a href="microcontroller.html">마이크로컨트롤러</a></th><td>CPU·메모리·입출력을 한 칩에 담은 소형 제어용 칩</td><td>ARM 코어를 쓰는 제품도 많음</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Patterson, D. A., &amp; Hennessy, J. L. (2016). Computer Organization and Design ARM Edition: The Hardware Software Interface. Elsevier.</li>
+    <li>Hennessy, J. L., &amp; Patterson, D. A. (2019). Computer Architecture: A Quantitative Approach. Morgan Kaufmann.</li>
+    <li>Blem, E., Menon, J., &amp; Sankaralingam, K. (2013). Power struggles: Revisiting the RISC vs. CISC debate on contemporary ARM and x86 architectures. In 2013 IEEE 19th International Symposium on High Performance Computer Architecture (HPCA) (pp. 1-12). IEEE.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="instruction-set-architecture.html">명령어 집합 구조</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
