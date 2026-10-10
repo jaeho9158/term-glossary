@@ -1,0 +1,60 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>드롭아웃은 학습 중 매 단계마다 은닉 유닛(뉴런)을 확률적으로 제거하는 절차입니다. Srivastava 외(2014)는 이를 유닛을 연결과 함께 무작위로 떨어뜨리는 일로 설명하며, 이렇게 하면 유닛끼리 지나치게 짝을 이루어 의존하는 상호 적응(co-adaptation)이 막힌다고 봅니다. 학습 중에는 매번 서로 다른 ‘얇아진 네트워크’가 표집되고, 시험(추론) 때에는 가중치를 줄인 네트워크 하나로 그 평균을 근사한다고 합니다. 이 아이디어를 담은 초기 보고(Hinton 외, 2012)는 학습 사례마다 특징 검출기의 절반을 무작위로 생략하는 방식을 썼습니다.</p><p><strong>작은 예 (가상의 값).</strong> 어떤 뉴런의 출력이 <code>a = 2.0</code>이고 끌 확률이 <code>p = 0.25</code>라고 합니다. 본문에서 말한 ‘인버티드’ 방식에서는 학습 때 남은 출력을 <code>1/(1−p)</code>배 합니다.</p><table><thead><tr><th>학습 중 상태</th><th>확률</th><th>이 뉴런의 출력</th></tr></thead><tbody><tr><td>꺼짐</td><td>0.25</td><td>0</td></tr><tr><td>유지</td><td>0.75</td><td>2.0 ÷ 0.75 ≈ 2.667</td></tr></tbody></table><p>기댓값은 <code>0.25 × 0 + 0.75 × 2.667 = 2.0</code>으로 원래 출력과 같습니다. 같은 규칙을 100만 번 모의 실행했을 때 평균은 약 1.999였고 유지된 비율은 약 0.7495였습니다. 즉 학습 때의 평균 출력이 추론 때(드롭아웃 없이 a = 2.0)와 맞춰집니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>원 논문은 드롭아웃이 과적합을 크게 줄이고 다른 정규화 방법보다 큰 개선을 준다고 보고하며, 시각과 음성인식 과제에서 성능이 좋아졌다고 밝힙니다(Srivastava 외, 2014). 다만 적용 위치에 따라 효과가 달라집니다.</p><ul><li><strong>순환 신경망</strong>: LSTM 같은 순환망에서는 드롭아웃이 잘 듣지 않는다는 지적이 있었고, Zaremba 외(2014)는 LSTM에 드롭아웃을 ‘올바르게’ 적용하는 방법을 제시했습니다. Gal과 Ghahramani(2015)도 순환층에 그대로 적용하면 실패한다고 보고, 드롭아웃을 근사 베이즈 추론으로 해석하는 틀에서 순환망에 쓰는 방법에 대한 시사점을 제시했습니다. 이들이 제안한 변형은 입력·출력·순환 연결 모두에서 모든 시간 단계에 같은 드롭아웃 마스크를 반복해 쓰는 방식입니다. 본문에서 구조에 따라 적용 방식이 달라진다고 한 것은 이런 연구 흐름 때문입니다.</li><li><strong>배치 정규화와의 조합</strong>: Li 외(2018)는 드롭아웃을 배치 정규화 앞에 두면 성능이 오히려 나빠지는 일이 흔한 이유를, 학습에서 시험으로 넘어갈 때 드롭아웃이 유닛의 분산을 바꾸는 ‘분산 이동(variance shift)’으로 설명했습니다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>드롭아웃을 쓴 모델은 아래를 명시하면 재현이 쉽습니다.</p><ul><li>비율 <code>p</code>와 그 정의(‘끌 확률’인지 ‘남길 확률’인지는 논문과 라이브러리마다 같지 않을 수 있으므로 문서를 확인해 적습니다)</li><li>어느 층에 적용했는지(입력층, 완전연결층, 합성곱 뒤, 순환 경로 여부)</li><li>추론 때 드롭아웃을 끈다는 점과, 불확실성 추정 등으로 켜 둔 경우 그 사실</li><li>배치 정규화 등과 함께 쓴 순서</li><li>비율을 어떻게 골랐는지(탐색 범위와 검증 기준)</li></ul><p><code>완전연결층 뒤에 드롭아웃(p = 0.5, 끌 확률 기준)을 적용하였으며 평가 시에는 비활성화하였다.</code> (형식을 보여 주려는 가상의 문장입니다.)</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "모두 과적합을 줄이는 ‘정규화’ 계열이지만 건드리는 대상이 다릅니다.",
+    "headers": [
+      "용어",
+      "건드리는 대상",
+      "드롭아웃과의 차이"
+    ],
+    "rows": [
+      [
+        "[[regularization|정규화]]",
+        "학습 전반",
+        "드롭아웃이 속하는 상위 범주"
+      ],
+      [
+        "[[weight-decay|가중치 감쇠]]",
+        "가중치의 크기",
+        "가중치에 벌점을 주는 방식이며 뉴런을 끄지 않음"
+      ],
+      [
+        "[[early-stopping|조기종료]]",
+        "학습을 멈추는 시점",
+        "구조나 가중치를 바꾸지 않고 학습 횟수를 조절"
+      ],
+      [
+        "[[label-smoothing|레이블 스무딩]]",
+        "정답 라벨의 분포",
+        "정답을 부드럽게 만들어 지나친 확신을 줄임"
+      ],
+      [
+        "[[batch-normalization|배치 정규화]]",
+        "층 입력의 통계량",
+        "정규화 이름이 붙지만 주된 목적은 학습 안정화이며, 드롭아웃과 함께 쓸 때 순서에 주의"
+      ]
+    ]
+  },
+  "references": [
+    "Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: A simple way to prevent neural networks from overfitting. Journal of Machine Learning Research, 15(56), 1929–1958.",
+    "Hinton, G. E., Srivastava, N., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. R. (2012). Improving neural networks by preventing co-adaptation of feature detectors. arXiv preprint arXiv:1207.0580.",
+    "Zaremba, W., Sutskever, I., & Vinyals, O. (2014). Recurrent neural network regularization. arXiv preprint arXiv:1409.2329.",
+    "Gal, Y., & Ghahramani, Z. (2015). A theoretically grounded application of dropout in recurrent neural networks. arXiv preprint arXiv:1512.05287.",
+    "Li, X., Chen, S., Hu, X., & Yang, J. (2018). Understanding the disharmony between dropout and batch normalization by variance shift. arXiv preprint arXiv:1801.05134."
+  ]
+}

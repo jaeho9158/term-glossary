@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,27 @@
   <h2>왜 중요한가</h2>
   <p>실제 데이터는 정규분포를 따르지 않거나 표본 크기가 작은 경우가 많아 순위 기반의 비모수 검정을 사용해야 하는 상황이 흔하며, 크루스칼-왈리스 검정으로 전체 차이만 확인하고 끝나는 논문은 드뭅니다. 어느 집단들이 실제로 다른지 밝혀야 연구가설을 구체적으로 뒷받침할 수 있기 때문에, 던 검정은 의학·심리학·생태학 등 정규성을 가정하기 어려운 데이터를 다루는 분야의 다중집단 비교 논문에서 필수적인 사후분석 절차로 자리 잡고 있습니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>세 집단 이상의 순위 자료를 <a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a>으로 비교해 유의한 차이가 확인된 뒤, 어느 집단 쌍이 다른지 가릴 때 씁니다. Dinno(2015)는 던 검정을 크루스칼-왈리스 검정이 기각된 뒤에 쓰는 적절한 비모수 쌍별 다중비교 절차라고 소개하며, 가족별 오류율(FWER)을 다루는 보정으로 던이 제안한 본페로니, 시다크, 홀름, 홀름-시다크를 들고 거짓발견율(FDR)을 다루는 벤저민-호크버그 보정도 선택지로 듭니다.</p><p>던 검정은 크루스칼-왈리스 검정과 같은 순위를 쓰고, 그 검정의 귀무가설이 함의하는 합동 분산을 쓰므로 쌍마다 따로 맨-휘트니 검정을 하는 것과 다릅니다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>쓰는 검정</th></tr></thead><tbody><tr><td>순위 기반, 모든 쌍 비교</td><td>던 검정</td></tr><tr><td>정규성 등 모수 가정이 성립, 모든 쌍 비교</td><td><a href="tukey-hsd-test.html">튜키의 HSD 검정</a></td></tr><tr><td>모수 가정이 성립, 대조군과만 비교</td><td><a href="dunnetts-test.html">더넷 검정</a></td></tr></tbody></table></div>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <p>쌍 <em>i</em>, <em>j</em>의 통계량은 전체 자료에서 매긴 평균 순위의 차이를 표준오차로 나눈 z입니다.</p><p><code>z = (R̄<sub>i</sub> − R̄<sub>j</sub>) ÷ √( [N(N+1)/12 − Σ(t³−t)/(12(N−1))] × (1/n<sub>i</sub> + 1/n<sub>j</sub>) )</code></p><p>여기서 N은 전체 표본 수, t는 같은 값(동점) 묶음의 크기입니다. 이 z에서 양측 p를 구한 뒤 비교 횟수에 맞춰 보정합니다.</p><p><strong>작은 예 (가상의 자료).</strong> 세 집단 A, B, C가 각 4명이고 점수는 A = 3, 5, 4, 6, B = 7, 8, 6, 9, C = 12, 10, 11, 13입니다. 전체 12개를 순위로 바꾸면 6이 두 번 나오므로 동점 보정이 들어가고(t = 2), 평균 순위는 A 2.625, B 6.375, C 10.5입니다. 크루스칼-왈리스 검정은 H = 9.58, 자유도 2, p = .008이므로 어딘가에 차이가 있습니다. 쌍별 비교는 다음과 같습니다(비교 3회).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>쌍</th><th>z</th><th>보정 전 p</th><th>본페로니 보정 p</th><th>홀름 보정 p</th></tr></thead><tbody><tr><td>A–B</td><td>−1.47</td><td>.141</td><td>.422</td><td>.210</td></tr><tr><td>A–C</td><td>−3.09</td><td>.002</td><td>.006</td><td>.006</td></tr><tr><td>B–C</td><td>−1.62</td><td>.105</td><td>.315</td><td>.210</td></tr></tbody></table></div><p>보정 후 .05 아래인 쌍은 A–C뿐입니다. 이웃한 B가 낀 두 쌍은 보정 전에도 유의하지 않았습니다. 이렇게 읽으면 ‘A와 C는 구별되지만, B는 A와도 C와도 구별한다고 말할 근거가 부족하다’가 됩니다. 이는 ‘B가 A나 C와 같다’는 증명이 아닙니다(표본이 작아서일 수 있습니다).</p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>먼저 크루스칼-왈리스 검정의 H, 자유도, p를 적습니다.</li><li>던 검정이라는 이름, 쓴 다중비교 보정 방법(본페로니, 홀름 등)과 비교 횟수를 밝힙니다. 보정 방법에 따라 p가 달라지므로 방법을 적지 않으면 재현할 수 없습니다.</li><li>쌍별 결과는 보정 후 p를 중심으로 표로 제시하고, 보정 전 p인지 후 p인지 열 머리에 명시합니다.</li><li>동점이 많았는지, 집단별 분포 모양이 비슷했는지(비슷하지 않으면 평균 순위 차이를 ‘중앙값 차이’로 해석하기 어렵습니다)를 적습니다.</li></ul><p><code>크루스칼-왈리스 검정에서 집단 간 차이가 유의하였다(H(2) = 9.58, p = .008). 사후검정으로 던 검정을 실시하고 홀름 방법으로 p를 보정한 결과, A집단과 C집단 사이에서만 유의한 차이가 나타났다(z = −3.09, 보정 p = .006).</code> (위 가상 자료로 만든 보고 문장입니다.)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“Mann-Whitney와 Kruskal-Wallis test, scheffė test와 Dunn’s test, 피어슨 상관계수 및 다중회귀분석으로 분석하였다”</blockquote><p class="te-cite">간호학과 여학생의 식습관에 영향을 미치는 요인, 안전문화연구, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003169900" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"크루스칼-왈리스 검정 결과 세 집단 간 유의한 차이가 발견되어(H=12.4, p&lt;.01), 사후검정으로 던 검정(Bonferroni 보정)을 실시한 결과 A집단과 C집단 사이에서만 유의한 차이가 나타났다."</div>
   <p>이 문장은 전체 비교에서 어딘가 차이가 있다는 것을 확인한 후, 던 검정을 통해 실제로 차이가 나는 짝을 구체적으로 짚어냈다는 뜻입니다.</p>
   <div class="example">"세 가지 토양 처리구 간 식물 생장량의 크루스칼-왈리스 검정이 유의하여, 던 검정을 실시한 결과 대조구는 두 처리구 모두와 유의한 차이를 보였으나 두 처리구 사이에는 차이가 없었다."</div>
@@ -168,6 +189,19 @@
 
   <h2>주의할 점</h2>
   <p>던 검정 없이 두 그룹씩 <a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a>을 반복해서 짝짓기 비교를 하면, 비교 횟수가 늘어날수록 우연히 유의한 결과가 나타날 확률(1종 오류)이 눈덩이처럼 커집니다. 그래서 세 그룹 이상을 짝지어 비교할 때는 반드시 <a href="multiple-comparisons-correction.html">다중비교보정</a>이 포함된 던 검정 같은 사후검정 절차를 사용해야 합니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <p>사후검정은 자료의 가정과 비교 대상에 따라 갈립니다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">가정·대상</th><th scope="col">던 검정과의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></th><td>세 집단 이상의 전체 비교</td><td>‘어딘가 다르다’까지만 알려 주며, 던 검정이 그다음 단계</td></tr><tr><th scope="row"><a href="tukey-hsd-test.html">튜키의 HSD 검정</a></th><td>모수 가정 아래 모든 쌍</td><td>던 검정의 모수 대응에 해당</td></tr><tr><th scope="row"><a href="dunnetts-test.html">더넷 검정</a></th><td>모수 가정 아래 대조군과 비교</td><td>모든 쌍이 아니라 대조군과만 비교</td></tr><tr><th scope="row"><a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a></th><td>두 집단 비교</td><td>쌍마다 반복하면 보정이 따로 필요</td></tr><tr><th scope="row"><a href="multiple-comparisons-correction.html">다중비교보정</a></th><td>여러 검정의 오류율 조정</td><td>던 검정에 결합되어 쓰이는 보정 원리</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Dunn, O. J. (1964). Multiple comparisons using rank sums. Technometrics, 6(3), 241–252.</li>
+    <li>Dinno, A. (2015). Nonparametric pairwise multiple comparisons in independent groups using Dunn's test. The Stata Journal, 15(1), 292–300.</li>
+    <li>Kruskal, W. H., &amp; Wallis, W. A. (1952). Use of ranks in one-criterion variance analysis. Journal of the American Statistical Association, 47(260), 583–621.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="nonparametric-test.html">비모수검정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="wald-wolfowitz-runs-test.html">런 검정</a><a href="mcnemars-test.html">맥니마 검정</a><a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a><a href="sign-test.html">부호검정</a><a href="permutation-test.html">순열검정</a><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a><a href="cochrans-q-test.html">코크란 Q 검정</a><a href="kolmogorov-smirnov-test.html">콜모고로프-스미르노프 검정</a><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a><a href="friedman-test.html">프리드만 검정</a><a href="fishers-exact-test.html">피셔의 정확검정</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
