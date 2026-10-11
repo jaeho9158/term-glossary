@@ -1,0 +1,54 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>토큰화는 텍스트를 모델이 다루는 단위(토큰)로 나누고, 각 토큰을 어휘 사전의 번호로 바꾸는 전처리 단계입니다. 단위를 어떻게 잡느냐에 따라 방법이 갈립니다. 서브워드 방식 가운데 바이트 쌍 인코딩(BPE)은 원래 1994년 필립 게이지가 설명한 데이터 압축 알고리즘이며, 언어 모델용으로 바꾼 변형은 <strong>가장 자주 이웃하는 토큰 쌍을 새 토큰으로 합치는 일을 정해 둔 어휘 크기에 이를 때까지 반복</strong>합니다.</p><ol><li>모든 단어를 글자 단위로 쪼개 놓고 시작합니다.</li><li>이웃한 두 토큰의 쌍이 말뭉치에서 몇 번 나오는지 셉니다.</li><li>가장 자주 나오는 쌍을 하나의 새 토큰으로 합칩니다(합친 규칙을 기록).</li><li>어휘가 목표 크기가 될 때까지 2~3을 반복합니다.</li><li>새 문장은 기록한 규칙을 순서대로 적용해 나눕니다.</li></ol><p>아래는 계산으로 확인한 작은 예입니다(가상의 말뭉치: low 5번, lower 2번, newest 6번, widest 3번).</p><table><thead><tr><th>단계</th><th>합친 쌍(빈도)</th><th>합친 뒤 모습</th></tr></thead><tbody><tr><td>시작</td><td>—</td><td>l o w / l o w e r / n e w e s t / w i d e s t</td></tr><tr><td>1</td><td>e + s (9)</td><td>n e w es t / w i d es t</td></tr><tr><td>2</td><td>es + t (9)</td><td>n e w est / w i d est</td></tr><tr><td>3</td><td>l + o (7)</td><td>lo w / lo w e r</td></tr><tr><td>4</td><td>lo + w (7)</td><td>low / low e r</td></tr><tr><td>5</td><td>e + w (6)</td><td>n ew est</td></tr></tbody></table><p>말뭉치에 없던 단어 “lowest”는 같은 규칙을 순서대로 적용하면 “low + est” 두 조각이 됩니다. 처음 보는 단어도 아는 조각의 조합으로 표현되는 것이 서브워드 방식의 요점입니다. 빈도가 같은 쌍이 여럿일 때 무엇을 먼저 합칠지는 구현마다 정하는 규칙이 달라서, 위 표는 사전순으로 고른 한 예입니다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>같은 ‘토큰화’라도 두 갈래의 쓰임이 있습니다.</p><table><thead><tr><th>쓰임</th><th>목적</th><th>전형적인 모습</th></tr></thead><tbody><tr><td>모델 입력용</td><td>모델이 다룰 어휘를 정하고 모르는 단어도 처리</td><td>서브워드 토크나이저(BPE, 유니그램 언어모델, SentencePiece 등)</td></tr><tr><td>텍스트 분석용</td><td>단어 빈도·토픽 분석을 위한 전처리</td><td>토큰화 → 명사 등 품사 추출 → 불용어 제거 → 동의어 통일</td></tr></tbody></table><p>모델 입력용 방법의 특징은 대표 논문에서 확인됩니다.</p><ul><li>Sennrich 등(2016)은 신경 기계번역이 고정 어휘를 쓰지만 번역은 열린 어휘 문제라는 점에서 출발해, 희귀어·미등록어를 서브워드 단위의 열로 부호화하는 방법을 제안했습니다. 문자 n-gram 모델과 BPE 기반 분절을 비교했고, 서브워드 모델이 사전으로 대체하는(back-off dictionary) 기준선보다 낫다고 보고했습니다.</li><li>Kudo(2018)는 같은 어휘로도 한 문장을 여러 방식으로 나눌 수 있다는 점에 주목해, 학습 중에 여러 분절을 확률적으로 뽑아 쓰는 서브워드 정규화와 유니그램 언어모델 기반의 새 분절 알고리즘을 제안했습니다.</li><li>Kudo와 Richardson(2018)의 SentencePiece는 입력이 미리 단어로 나뉘어 있다고 가정하는 기존 도구와 달리 원문 문장에서 직접 서브워드 모델을 학습하는 언어 독립적 도구입니다.</li></ul><p>텍스트 분석용 사례는 한국 연구에서 흔합니다. 여성체육학·노인체육·체육측정평가 분야 연구동향 분석에서 제목이나 초록을 토큰화해 명사만 추출하고 불용어를 제거한 뒤 토픽모델링을 했다는 서술이 반복됩니다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>토큰화 방식은 결과를 바꾸므로 재현에 필요한 정보를 적습니다.</p><ul><li>토크나이저의 종류와 구현(BPE, SentencePiece 유니그램, 형태소 분석기 등)과 버전</li><li>어휘 크기, 특수 토큰, 최대 입력 길이</li><li>토크나이저를 학습한 말뭉치와 전처리(정규화, 소문자화 여부)</li><li>텍스트 분석이라면 어떤 품사를 남겼는지, 불용어 목록의 출처</li></ul><p>예시 문장(가상의 예): “입력 문장은 어휘 크기 32,000의 BPE 토크나이저로 서브워드 단위로 나누었고, 최대 길이 128 토큰을 넘는 문장은 잘라 냈다.”</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "intro": "토큰화의 앞뒤에서 같이 나오는 용어입니다.",
+    "headers": [
+      "용어",
+      "한 줄 설명",
+      "토큰화와의 관계"
+    ],
+    "rows": [
+      [
+        "[[byte-pair-encoding|바이트 페어 인코딩]]",
+        "자주 붙어 나오는 글자 쌍을 합쳐 서브워드로 쪼개는 방법",
+        "토큰화의 한 방법입니다."
+      ],
+      [
+        "[[embedding|임베딩]]",
+        "데이터를 숫자 벡터로 바꾼 표현",
+        "토큰화가 낸 토큰을 벡터로 바꾸는 다음 단계입니다."
+      ],
+      [
+        "[[natural-language-processing|자연어처리]]",
+        "컴퓨터가 사람의 언어를 이해하고 생성하도록 다루는 분야",
+        "토큰화는 그 파이프라인의 첫 단계입니다."
+      ],
+      [
+        "[[large-language-model|대규모 언어 모델]]",
+        "대량의 텍스트로 학습한 언어 모델",
+        "토크나이저가 어휘와 입력 길이를 정해 모델의 입력 단위가 됩니다."
+      ]
+    ]
+  },
+  "references": [
+    "Sennrich, R., Haddow, B., & Birch, A. (2016). Neural machine translation of rare words with subword units. Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 1715–1725.",
+    "Kudo, T. (2018). Subword regularization: Improving neural network translation models with multiple subword candidates. Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 66–75.",
+    "Kudo, T., & Richardson, J. (2018). SentencePiece: A simple and language independent subword tokenizer and detokenizer for neural text processing. Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing: System Demonstrations, 66–71.",
+    "Jurafsky, D., & Martin, J. H. (2008). Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition (2nd ed.). Pearson Prentice Hall."
+  ]
+}
