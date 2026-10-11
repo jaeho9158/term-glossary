@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -147,7 +148,28 @@
   <h2>왜 중요한가</h2>
   <p>신용위험은 거래상대방이 약정된 지급을 이행하지 못할 가능성에서 오는 손실 위험으로, 은행 대출·회사채·파생상품 거래에서 가장 기본적인 위험 유형입니다. 예상손실을 <a href="default-probability.html">부도확률</a>, 부도 시 노출액, 손실률의 곱으로 분해하는 틀은 <a href="basel-accords.html">바젤 규제</a>의 자본 산정과 회계상 대손충당금 설정의 공통 언어입니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>신용위험은 거래상대방이 약속한 지급을 하지 못할 가능성에서 생기는 손실 위험입니다. 부도뿐 아니라 신용등급 하락으로 채권 가격이 떨어지는 위험까지 넓게 봅니다.</li><li>손실의 기대값은 세 요소의 곱으로 나눕니다: <strong>예상손실(EL) = 부도확률(PD) × 부도 시 손실률(LGD) × 부도 시 노출액(EAD)</strong>.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>요소</th><th>뜻</th><th>단위</th></tr></thead><tbody><tr><td><a href="default-probability.html">부도확률 PD</a></td><td>일정 기간 안에 채무불이행이 일어날 확률</td><td>%</td></tr><tr><td><a href="loss-given-default.html">부도시손실률 LGD</a></td><td>부도가 났을 때 노출액 가운데 잃는 비율(회수하지 못하는 몫)</td><td>%</td></tr><tr><td><a href="exposure-at-default.html">부도시익스포저 EAD</a></td><td>부도 시점에 걸려 있는 금액</td><td>원</td></tr></tbody></table></div><ul><li>평균적으로 예상되는 예상손실과, 그 예상을 넘는 비예상손실을 구분합니다. 은행 규제자본은 비예상손실에 대비하도록 설계됩니다.</li><li>Merton(1974)은 주식을 기업가치에 대한 콜옵션으로 보는 구조모형으로 신용위험을 옵션가격이론의 틀에 올렸습니다. 다른 한편 Altman(1968)은 재무비율로 기업의 부도를 판별하는 통계적 접근의 고전입니다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>(가상의 예 1) 어떤 은행이 기업에 10억 원을 빌려주었고, 1년 부도확률 2%, 부도 시 손실률 45%로 추정했습니다.</p><p>EL = 1,000,000,000 × 0.02 × 0.45 = 9,000,000원, 곧 대출액의 0.9%(= 0.02 × 0.45)입니다. 이 손실을 금리로 메우려면 대출액의 약 0.9%에 해당하는 몫이 필요합니다. 자금조달 비용, 예상을 넘는 손실에 대한 대가는 이 계산에서 뺀 단순화입니다.</p><p>(가상의 예 2, Merton식 단순화) 1년 뒤 만기인 부채 액면이 100이고 기업가치가 V라고 합시다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>1년 뒤 기업가치 V</th><th>주주가 받는 몫 max(V−100, 0)</th><th>채권자가 받는 몫 min(V, 100)</th><th>채권자 회수율</th></tr></thead><tbody><tr><td>120</td><td>20</td><td>100</td><td>100%</td></tr><tr><td>80</td><td>0</td><td>80</td><td>80%</td></tr></tbody></table></div><p>기업가치가 부채 액면 아래로 내려가면 주주의 몫은 0이 되고 채권자가 기업을 가져가 손실을 봅니다. 주식이 ‘부채 액면을 행사가격으로 하는 콜옵션’으로 읽히는 이유입니다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>신용위험은 부도 여부만의 문제다.</td><td>부도에 이르지 않아도 신용등급이 내려가면 채권 가격이 떨어지는 손실이 생깁니다.</td></tr><tr><td>부도확률이 같으면 손실도 같다.</td><td>손실은 PD뿐 아니라 LGD와 EAD에 따라 달라집니다. 담보가 있어 회수율이 높으면 같은 PD에서도 손실이 작습니다.</td></tr><tr><td>예상손실만 대비하면 된다.</td><td>예상을 넘는 비예상손실은 자본으로 감당해야 하며, 둘을 혼동하면 자본 요건을 잘못 읽습니다.</td></tr><tr><td>개별 차주의 부도는 서로 독립적이다.</td><td>부도는 경기와 함께 움직이는 경향이 있어, 포트폴리오 신용위험은 상관관계 가정에 크게 좌우됩니다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“금융회사의 신용평가시스템이 경기변동에 따른 신용위험 변화를 적시에 반영하지 못하는 경우, 이러한 신용평가의 후행성으로 인하여 가계부채의 경기순응성이 심화될 수 있다.”</blockquote><p class="te-cite">가계부채의 경기순응성과 거시정보결합 신용평가에 대한 연구, 한국경제의 분석, 2015 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001984013" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“양 보험은 신용위험을 대상으로 하여 신용위험이 훼손된 채무불이행을 보험사고로 한다는 점에서 다른 손해보험과 구별된다.”</blockquote><p class="te-cite">신용보험 법제의 개선방안에 관한 소고, 금융법연구, 2022 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002922559" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">Merton(1974)은 「On the Pricing of Corporate Debt」에서 주식을 기업가치에 대한 콜옵션으로, 위험부채를 무위험채권에서 풋옵션을 뺀 것으로 해석하는 구조모형을 통해 신용위험을 옵션가격결정이론의 틀로 정식화했다.</div>
   <p>그는 기업가치가 부채의 액면가 이하로 하락할 경우 주주가 회사를 채권자에게 넘기는 것이 유리해진다는 논리로, 부도확률과 신용스프레드를 기업가치의 변동성과 레버리지로부터 도출했다.</p>
   <div class="example">신용위험 평가 모형은 거시경제 변수와 연동될 때 경기 하강 국면에서의 부도율 급등을 더 잘 설명한다고 보고된다.</div>
@@ -160,6 +182,19 @@
   <p>머튼모형은 직접 관측하기 어려운 기업가치가 연속적인 확산과정을 따른다고 가정하므로, 실제 신용사건은 급격한 정보충격으로 인해 예측보다 갑작스럽게 발생하는 경우가 많다.</p>
 
   <p>신용위험은 채무자의 부도 여부라는 이분법적 사건뿐 아니라, 부도에는 이르지 않아도 신용등급이 하락해 채권가격이 떨어지는 신용등급 하락위험까지 포함하는 더 넓은 개념으로 이해해야 한다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><a href="default-probability.html">부도확률</a></th><td>채무불이행이 일어날 가능성(확률)</td></tr><tr><th scope="row"><a href="recovery-rate.html">회수율</a></th><td>부도 뒤 되찾을 수 있는 비율. 손실률과 서로 반대 방향의 개념입니다.</td></tr><tr><th scope="row"><a href="credit-rating.html">신용등급</a></th><td>채무자의 상환 능력을 등급으로 요약한 평가</td></tr><tr><th scope="row"><a href="credit-spread.html">신용스프레드</a></th><td>신용위험에 대한 보상으로 무위험 금리 위에 붙는 금리 차이</td></tr><tr><th scope="row"><a href="merton-structural-credit-model.html">머튼 구조형 모형</a></th><td>기업가치가 부채 아래로 내려갈 때 부도가 난다고 보고 위험을 계산하는 모형</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Merton, R. C. (1974). On the pricing of corporate debt: The risk structure of interest rates. The Journal of Finance, 29(2), 449–470.</li>
+    <li>Altman, E. I. (1968). Financial ratios, discriminant analysis and the prediction of corporate bankruptcy. The Journal of Finance, 23(4), 589–609.</li>
+    <li>Jarrow, R. A., &amp; Turnbull, S. M. (1995). Pricing derivatives on financial securities subject to credit risk. The Journal of Finance, 50(1), 53–85.</li>
+    <li>Basel Committee on Banking Supervision (2006). Basel II: International Convergence of Capital Measurement and Capital Standards: A Revised Framework, Comprehensive Version. Bank for International Settlements.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="loss-given-default.html">부도시손실률</a><a href="exposure-at-default.html">부도시익스포저</a><a href="default-probability.html">부도확률</a><a href="credit-rating.html">신용등급</a><a href="credit-spread.html">신용스프레드</a><a href="recovery-rate.html">회수율</a></div></div><p class="concept-family-map"><a href="../concept-map/finance.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
