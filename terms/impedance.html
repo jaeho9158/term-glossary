@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,28 @@
   <h2>왜 중요한가</h2>
   <p>임피던스는 교류 신호가 흐르는 모든 시스템, 즉 전력 전달, 통신, 오디오, 전기화학 측정에 이르기까지 폭넓게 적용되는 기초 개념이기 때문에 전기전자공학 논문에서 반복적으로 등장합니다. 두 회로 사이의 임피던스가 서로 맞지 않으면 신호가 반사되거나 전력이 제대로 전달되지 않기 때문에, 스피커나 안테나, 전송선로 설계 논문에서는 임피던스 정합 여부가 성능을 좌우하는 핵심 요소로 다뤄집니다. 또한 임피던스는 물질이나 생체조직의 내부 상태를 간접적으로 알아내는 진단 도구로도 널리 응용됩니다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>임피던스 <code>Z</code>는 교류 회로에서 정현파 전압과 전류의 복소수 표현의 비로 정의되며, 단위는 옴(Ω)입니다. 저항과 달리 크기와 위상을 함께 가지며, 주파수에 따라 달라질 수 있습니다.</li><li>복소수로 <code>Z = R + jX</code>라고 씁니다(<code>j</code>는 허수단위). 실수부 <code>R</code>은 저항, 허수부 <code>X</code>는 리액턴스입니다.</li><li>크기는 <code>|Z| = √(R² + X²)</code>, 위상각은 <code>θ = atan(X/R)</code>입니다. 복소 임피던스의 위상은 전류가 전압보다 늦는 정도를 나타냅니다.</li><li>코일(인덕터)의 리액턴스는 <code>X<sub>L</sub> = ωL = 2πfL</code>로 양수이고, 콘덴서(커패시터)의 리액턴스는 <code>X<sub>C</sub> = −1/(ωC)</code>로 음수입니다. 직류(ω = 0)에서는 코일이 단락처럼, 콘덴서가 개방처럼 보입니다.</li><li>임피던스의 역수는 어드미턴스(단위 지멘스)입니다. ‘임피던스’라는 말은 1886년 올리버 헤비사이드가 만들었다고 알려져 있습니다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>직렬 RLC 회로를 가상의 예로 계산해 보겠습니다: R = 100 Ω, L = 10 mH, C = 1 μF, 주파수 1 kHz.</p><ol><li>ω = 2πf = 6283.2 rad/s</li><li>X<sub>L</sub> = ωL = 62.83 Ω, X<sub>C</sub> = −1/(ωC) = −159.15 Ω → X = X<sub>L</sub> + X<sub>C</sub> = -96.32 Ω</li><li>Z = 100 − j96.32 Ω → |Z| = 138.85 Ω, θ = -43.9°</li><li>10 V(실효값)를 걸면 전류의 크기는 10 / 138.85 = 0.0720 A</li></ol><p>위상각이 음수이므로 이 주파수에서는 콘덴서 성분이 우세한(용량성) 회로이고, 전류가 전압보다 앞섭니다. 위상각이 양수면 코일 성분이 우세한(유도성) 회로입니다. 리액턴스가 0이 되는 주파수 <code>f<sub>0</sub> = 1/(2π√(LC))</code>는 이 예에서 약 1591.5 Hz로, 이때 <code>Z = R</code>이 되어 임피던스가 가장 작습니다.</p><p>전송선로에서는 임피던스가 맞는지(정합)를 반사계수 <code>Γ = (Z<sub>L</sub> − Z<sub>0</sub>) / (Z<sub>L</sub> + Z<sub>0</sub>)</code>와 정재파비 <code>VSWR = (1 + |Γ|) / (1 − |Γ|)</code>로 나타냅니다. 특성임피던스 50 Ω 선로에 75 Ω 부하를 달면 Γ = 0.20, VSWR = 1.50입니다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>임피던스는 주파수에 따라 변하므로 <strong>측정 주파수</strong>(또는 주파수 범위)와 함께 적습니다. 한 값만 적을 때는 어느 주파수에서 잰 값인지 밝혀야 합니다.</li><li><code>|Z|</code>와 위상각 <code>θ</code>, 또는 실수부 <code>R</code>과 허수부 <code>X</code>를 함께 적습니다. 크기만으로는 유도성인지 용량성인지 알 수 없습니다.</li><li>단위(Ω)와 측정 조건(인가 신호 크기, 온도, 측정 장비, 전극 또는 시료 배치)을 표기합니다. 생체 조직이나 전기화학 시료는 이 조건에 따라 값이 크게 달라질 수 있습니다.</li><li>‘임피던스 정합’을 주장할 때는 정합 대상(원천과 부하의 임피던스)과 평가 지표(Γ, VSWR 등)를 함께 제시합니다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“이에 관한 원인분석을 위해서 막전극 접합체의 고주파 저항, 내부저항 보정 분극곡선, Tafel 기울기, Mass activity 및 임피던스 분광법을 사용하여 특성 분석을 실시하였다.”</blockquote><p class="te-cite">알칼리막 연료전지용 전극의 제조방법에 따른 전기화학적 특성 분석, 전기화학회지, 2021 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002778596" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 저자의 연구결과를 중심으로 잘 알려진 박막, 결정, 세라믹, 액체와 생체, 인체 피부의 임피던스 측정 실험방법과 측정된 각 물질의 임피던스 데이터의 이론적 적용과 해석적 방법들을 몇가지로 범주화 하여 소개하였다.”</blockquote><p class="te-cite">다양한 재료의 임피던스 측정 방법과 분석에 관한 연구, 새물리, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002434686" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"전기화학 임피던스 분광법(EIS)을 이용해 배터리 내부 저항의 주파수 응답 특성을 분석하였다."</div>
   <p>이 문장은 배터리에 다양한 주파수의 교류 신호를 흘려보내면서 임피던스가 어떻게 변하는지 측정하여, 전극이나 전해질에서 일어나는 화학적 반응 특성을 간접적으로 파악했다는 뜻입니다. 안테나 설계나 회로 매칭에서도 임피던스를 맞추는 것이 신호 손실을 줄이는 핵심입니다.</p>
 
@@ -165,6 +187,17 @@
 
   <h2>주의할 점</h2>
   <p>임피던스는 "저항"과 혼동되기 쉽지만, 저항은 주파수에 관계없이 일정한 반면 임피던스는 주파수에 따라 값이 달라질 수 있습니다. 또한 <a href="power-factor.html">역률</a>은 임피던스의 위상 어긋남 정도가 전력 효율에 미치는 영향을 나타내는 별도의 지표입니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">표기·단위</th></tr></thead><tbody><tr><th scope="row"><strong>임피던스</strong></th><td>저항과 리액턴스를 합친 교류 회로의 복소 ‘방해’</td><td>Z = R + jX, Ω</td></tr><tr><th scope="row">저항(레지스턴스)</th><td>임피던스의 실수부</td><td>R, Ω</td></tr><tr><th scope="row">리액턴스</th><td>임피던스의 허수부로, 코일은 양수 콘덴서는 음수</td><td>X, Ω</td></tr><tr><th scope="row">어드미턴스</th><td>임피던스의 역수로 ‘전류가 얼마나 잘 흐르는가’</td><td>Y = 1/Z, 지멘스</td></tr><tr><th scope="row"><a href="electrochemical-impedance-spectroscopy.html">전기화학 임피던스 분광법</a></th><td>여러 주파수에서 임피던스를 재어 전기화학 시스템을 분석하는 기법</td><td>주파수별 Z</td></tr><tr><th scope="row"><a href="transmission-line-impedance-matching.html">임피던스 정합</a></th><td>원천과 부하의 임피던스를 맞추어 전력 전달을 키우거나 반사를 줄이는 일</td><td>Γ, VSWR</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Orazem, Mark E., &amp; Tribollet, Bernard (2011). Electrochemical impedance spectroscopy. John Wiley &amp; Sons.</li>
+    <li>Pozar, David M. (2011). Microwave engineering. Wiley.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">
