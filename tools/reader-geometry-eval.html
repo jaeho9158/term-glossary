@@ -36,9 +36,14 @@
   <label><input type="checkbox" id="both" checked> 글꼴 측정 켬 + 끔(<code>measure=off</code>) 둘 다 측정</label>
   <button id="run" type="button">측정 시작</button>
 </div>
-<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;shift=0.5</code>(대조군: 상자를 글자 높이의 이 비율만큼 오른쪽으로 이동) <code>&amp;maxpages=N</code></p>
+<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;shift=0.5</code>(대조군: 상자를 글자 높이의 이 비율만큼 오른쪽으로 이동) <code>&amp;maxpages=N</code> <code>&amp;refine=on</code>(잉크 보정 적용: 기준 잉크 범위는 보정 전 상자로 구하고, 보정된 가장자리를 같은 엄격 척도로 채점. 보정 전 결과는 <code>hit0</code>로 같이 낸다)
+<code>&amp;sample=docA,docB</code>(보정 모드에서 그 문서들의 낱말 그림을 무작위로 모아 눈으로 확인) <code>&amp;sampleper=10</code></p>
 <div id="status"></div>
 <div id="out"></div>
+<h2>보정이 0.4 넘게 옮긴 가장자리 (빨강 = 보정 전, 파랑 = 보정 후, 초록 = 독립으로 구한 잉크 끝)</h2>
+<div id="moved" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+<h2>무작위 낱말 그림 (파랑 = 화면에 보일 보정 상자, 쪽 캔버스 원본 픽셀 위)</h2>
+<div id="samples" style="display:flex;flex-wrap:wrap;gap:8px"></div>
 <h2>가장 크게 틀린 낱말 24개 (빨강 = 계산한 상자, 초록 = 독립으로 구한 낱말 잉크의 좌우 끝)</h2>
 <div id="gallery"></div>
 <details><summary>JSON</summary><pre id="json" style="white-space:pre-wrap;word-break:break-all"></pre></details>
@@ -52,6 +57,7 @@
 <script src="../assets/term-match.js"></script>
 <script src="../assets/reader/geometry.js"></script>
 <script src="../assets/reader/text-map.js"></script>
+<script src="../assets/reader/ink.js"></script>
 <script>
 (function () {
   "use strict";
@@ -66,6 +72,9 @@
   var PASS_RATE = 98;
   var POLARITY = params.get("polarity") !== "off"; // off: 어두운 바탕 위 밝은 글자를 뒤집지 않는 엄격 판정
   var SHIFT = Number(params.get("shift")) || 0; // 시험용 대조군: 모든 상자를 글자 높이의 이 비율만큼 오른쪽으로 민다(측정이 민감한지 확인)
+  var REFINE = params.get("refine") === "on";
+  var SAMPLE_DOCS = (params.get("sample") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+  var SAMPLE_PER = Number(params.get("sampleper")) || 10;
   var G = window.ReaderGeometry;
   var TMAP = window.ReaderTextMap;
 
@@ -334,10 +343,39 @@
     return f;
   }
 
+  // 쪽 캔버스 원본 픽셀을 3배로 키우고 상자를 그린다. boxes = [{r, color}], lines = 세로선 x 목록(쪽 좌표, 초록)
+  function cropCanvas(canvas, R, boxes, lines, label) {
+    var S = RENDER_SCALE;
+    var pad = R.h * 1.2;
+    var x0 = Math.max(0, Math.floor((R.x - pad) * S)), x1 = Math.min(canvas.width, Math.ceil((R.x + R.w + pad) * S));
+    var y0 = Math.max(0, Math.floor((R.y - R.h * 0.4) * S)), y1 = Math.min(canvas.height, Math.ceil((R.y + R.h * 1.4) * S));
+    var k = 3;
+    var c = document.createElement("canvas");
+    c.width = (x1 - x0) * k; c.height = (y1 - y0) * k;
+    var cx = c.getContext("2d");
+    cx.imageSmoothingEnabled = false;
+    cx.drawImage(canvas, x0, y0, x1 - x0, y1 - y0, 0, 0, c.width, c.height);
+    boxes.forEach(function (b) {
+      cx.strokeStyle = b.color; cx.lineWidth = 1;
+      cx.strokeRect((b.r.x * S - x0) * k + 0.5, (b.r.y * S - y0) * k + 0.5, b.r.w * S * k, b.r.h * S * k);
+    });
+    cx.strokeStyle = "rgba(0,150,0,0.95)";
+    (lines || []).forEach(function (v) {
+      var X = (v * S - x0) * k + 0.5;
+      cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, c.height); cx.stroke();
+    });
+    var f = document.createElement("figure");
+    f.appendChild(c);
+    var cap = document.createElement("figcaption");
+    cap.textContent = label;
+    f.appendChild(cap);
+    return f;
+  }
+
   async function evalDoc(file, useMeasure, worst) {
     var buf = await file.arrayBuffer();
     var pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(buf), isEvalSupported: false }).promise;
-    var rec = { name: file.name, pages: pdf.numPages, pagesWithText: 0, words: [], skippedMultiRect: 0, misses: [], pieces: { measured: 0, weighted: 0 }, fonts: {} };
+    var rec = { moved: [], samples: [], name: file.name, pages: pdf.numPages, pagesWithText: 0, words: [], skippedMultiRect: 0, misses: [], pieces: { measured: 0, weighted: 0 }, fonts: {} };
     var measure = useMeasure ? TMAP.makeMeasure() : null;
     var docSeed = SEED ^ hashStr(file.name);
     var pages = Math.min(pdf.numPages, MAX_PAGES);
@@ -387,8 +425,29 @@
         if (fontName) rec.fonts[fontName] = rec.fonts[fontName] || measured;
         var sj = strictJudge(img, box, P, N);
         var lj = judge(img, box); // 이전(느슨한) 척도
+        // 잉크 보정: 기준 잉크 범위(sj)는 위에서 보정 전 상자로 이미 구했다. 보정한 가장자리를 같은 척도로 채점한다.
+        var ref = box, eL0 = NaN, eR0 = NaN, mv = 0;
+        if (REFINE) {
+          ref = window.ReaderInk.refineRects(n, [box], { canvas: canvas, pageW: vp1.width, pageH: vp1.height })[0];
+          if (!sj.noInk) {
+            eL0 = sj.eL; eR0 = sj.eR;
+            mv = Math.max(Math.abs(ref.x - box.x), Math.abs(ref.x + ref.w - box.x - box.w)) / g;
+            sj.eL = (ref.x - sj.inkL) / g;
+            sj.eR = ((ref.x + ref.w) - sj.inkR) / g;
+          }
+        }
         var cls = /[가-힣]/.test(w.word) ? "h" : "l";
         var row = { sc: cls, m: measured ? 1 : 0, loose: lj.ok ? 1 : 0, noInk: sj.noInk ? 1 : 0, len: w.word.length };
+        if (REFINE) {
+          row.mv = mv;
+          row.hit0 = (!isNaN(eL0) && Math.abs(eL0) <= HIT_TOL && Math.abs(eR0) <= HIT_TOL) ? 1 : 0;
+          if (!sj.noInk && mv > 0.4 && rec.moved.length < 60) {
+            rec.moved.push({ rnd: rng(), fig: cropCanvas(canvas, box, [{ r: box, color: "rgba(220,0,0,0.95)" }, { r: ref, color: "rgba(20,60,255,0.95)" }], [sj.inkL, sj.inkR], rec.name + " p" + n + " \"" + w.word + "\" 이동 " + mv.toFixed(2) + " 오차 " + round2(eL0) + "/" + round2(eR0) + " -> " + round2(sj.eL) + "/" + round2(sj.eR)) });
+          }
+        }
+        if (REFINE && SAMPLE_DOCS.some(function (d) { return rec.name.indexOf(d) >= 0; }) && useMeasure && rng() < 0.12 && rec.samples.length < SAMPLE_PER * 2) {
+          rec.samples.push(cropCanvas(canvas, box, [{ r: ref, color: "rgba(20,60,255,0.95)" }], [], rec.name + " p" + n + " \"" + w.word + "\" " + (measured ? "측정" : "가중치")));
+        }
         if (!sj.noInk) {
           row.eL = sj.eL; row.eR = sj.eR;
           row.hit = (Math.abs(sj.eL) <= HIT_TOL && Math.abs(sj.eR) <= HIT_TOL) ? 1 : 0;
@@ -431,13 +490,13 @@
 
   function summarize(ws) {
     var n = ws.length;
-    var o = { n: n, hit: 0, loose: 0, noInk: 0, clip: 0, wide: 0, nbr: 0 };
+    var o = { n: n, hit0: 0, big: 0, hit: 0, loose: 0, noInk: 0, clip: 0, wide: 0, nbr: 0 };
     var aL = [], aR = [];
     ws.forEach(function (w) {
-      o.hit += w.hit; o.loose += w.loose; o.noInk += w.noInk; o.clip += w.clip; o.wide += w.wide; o.nbr += w.nbr || 0;
+      o.hit += w.hit; o.hit0 += w.hit0 || 0; o.big += (w.mv > 0.4 ? 1 : 0); o.loose += w.loose; o.noInk += w.noInk; o.clip += w.clip; o.wide += w.wide; o.nbr += w.nbr || 0;
       if (!w.noInk) { aL.push(Math.abs(w.eL)); aR.push(Math.abs(w.eR)); }
     });
-    o.strictRate = pct(o.hit, n);
+    o.strictRate = pct(o.hit, n); o.strict0Rate = pct(o.hit0, n); o.bigRate = pct(o.big, n);
     o.looseRate = pct(o.loose, n);
     o.clipRate = pct(o.clip, n);
     o.wideRate = pct(o.wide, n);
@@ -447,9 +506,9 @@
   }
   function f2(v) { return Number.isFinite(v) ? v.toFixed(2) : "-"; }
   function summaryCells(s) {
-    return "<td>" + s.n + "</td><td><b>" + fmt(s.strictRate) + "</b></td><td>" + fmt(s.looseRate) + "</td><td>" + f2(s.medL) + "</td><td>" + f2(s.p95L) + "</td><td>" + f2(s.medR) + "</td><td>" + f2(s.p95R) + "</td><td>" + fmt(s.clipRate) + "</td><td>" + fmt(s.wideRate) + "</td><td>" + s.noInk + "</td>";
+    return "<td>" + s.n + "</td>" + (REFINE ? "<td>" + fmt(s.strict0Rate) + "</td>" : "") + "<td><b>" + fmt(s.strictRate) + "</b></td><td>" + fmt(s.looseRate) + "</td><td>" + f2(s.medL) + "</td><td>" + f2(s.p95L) + "</td><td>" + f2(s.medR) + "</td><td>" + f2(s.p95R) + "</td><td>" + fmt(s.clipRate) + "</td><td>" + fmt(s.wideRate) + "</td><td>" + s.noInk + "</td>";
   }
-  var SUM_HEAD = "<th>낱말</th><th>엄격 맞음</th><th>느슨(이전 척도)</th><th>왼쪽 오차 중앙값</th><th>95%</th><th>오른쪽 오차 중앙값</th><th>95%</th><th>25% 넘게 잘림</th><th>50% 넘게 과대</th><th>잉크 없음</th>";
+  var SUM_HEAD = "<th>낱말</th>" + (REFINE ? "<th>보정 전 엄격</th>" : "") + "<th>엄격 맞음" + (REFINE ? "(보정 후)" : "") + "</th><th>느슨(이전 척도)</th><th>왼쪽 오차 중앙값</th><th>95%</th><th>오른쪽 오차 중앙값</th><th>95%</th><th>25% 넘게 잘림</th><th>50% 넘게 과대</th><th>잉크 없음</th>";
 
   function renderTables(result) {
     var out = $("out");
@@ -473,7 +532,7 @@
         d.summary = s;
         var tr = document.createElement("tr");
         if (!d.pagesWithText) {
-          tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>0</td><td class=\"l\" colspan=\"10\">글 없음(스캔본으로 판단, 낱말 0개)</td><td>0</td><td>-</td>";
+          tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>0</td><td class=\"l\" colspan=\"" + (REFINE ? 11 : 10) + "\">글 없음(스캔본으로 판단, 낱말 0개)</td><td>0</td><td>-</td>";
         } else {
           tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>" + d.pagesWithText + "</td>" + summaryCells(s) + "<td>" + d.skippedMultiRect + "</td><td>" + d.pieces.measured + " / " + d.pieces.weighted + "</td>";
         }
@@ -556,9 +615,18 @@
       result.modes.push(m);
     }
     renderTables(result);
+    window.__evalWords = result.modes.map(function (m) { return m.docs.map(function (d) { return { name: d.name, words: d.words }; }); });
+    if (REFINE) {
+      var mv = [];
+      var sm = [];
+      result.modes[0].docs.forEach(function (d) { d.moved.forEach(function (x) { mv.push(x); }); d.samples.slice(0, SAMPLE_PER).forEach(function (x) { sm.push(x); }); });
+      mv.sort(function (a, b) { return a.rnd - b.rnd; });
+      mv.slice(0, 10).forEach(function (x) { $("moved").appendChild(x.fig); });
+      sm.forEach(function (f) { $("samples").appendChild(f); });
+    }
     worst.list.forEach(function (w) { $("gallery").appendChild(w.fig); });
     // 요약 JSON(낱말별 원자료는 뺀다)
-    var slim = JSON.parse(JSON.stringify(result, function (k, v) { return (k === "words" || k === "all") ? undefined : v; }));
+    var slim = JSON.parse(JSON.stringify(result, function (k, v) { return (k === "words" || k === "all" || k === "moved" || k === "samples") ? undefined : v; }));
     $("status").textContent = "끝. window.__evalResult 에 요약이 있습니다.";
     $("json").textContent = JSON.stringify(slim);
     window.__evalResult = slim;

@@ -3,12 +3,17 @@
 // 그래서 배율이 바뀌어도 사각형을 다시 계산하지 않는다. 컨테이너가 transform 을 가지므로
 // 형광펜 층의 mix-blend-mode: multiply 는 컨테이너 자신에게 건다(자손에게 걸면 캔버스와 섞이지 않는다).
 // 겹침층은 pointer-events: none 이라 클릭 대상은 entryAt(좌표)로 직접 찾는다.
+//
+// 잉크 보정: entry 에 refine: true 를 주면(search 층은 기본 켜짐, refine: false 로 끌 수 있다) 쪽 캔버스가 그려진 뒤
+// ReaderInk.refineRects 로 좌우 가장자리를 실제 글자에 맞춘 사각형을 그린다. entry.rects(보정 전)가 원본이고
+// 보정 결과는 쪽을 다시 그릴 때마다 새로 계산한다. 화면에 보이는 것(보정 후)을 entryAt 이 그대로 판정한다.
 window.ReaderOverlay = (function (root) {
   "use strict";
 
   // 아래에서 위로 쌓는 순서: search > highlight > ref > term (flash 는 맨 위)
   var LAYER_ORDER = ["term", "ref", "highlight", "search", "flash"];
   var FLASH_MS = 1200;
+  var REFINE_LAYERS = { search: true }; // 층별 기본값. entry.refine 이 있으면 그것이 우선
   var HIT_SLOP = 1; // entryAt 에서 사각형 경계 여유(쪽 좌표)
 
   var store = {}; // store[layer] = Map(page -> entries[])
@@ -20,6 +25,23 @@ window.ReaderOverlay = (function (root) {
   function rootEl() { return document.getElementById("reader"); }
   function D() { return root.ReaderDoc; }
   function validLayer(layer) { return LAYER_ORDER.indexOf(layer) >= 0; }
+
+  // 화면에 보일 사각형. 보정 대상이고 쪽이 그려졌으면 보정한 것, 아니면 원본.
+  var refinedCache = new WeakMap(); // entry -> {gen, rects}
+  var gens = new Map(); // page -> 다시 그린 횟수(보정 결과 무효화용)
+  function wantsRefine(layer, en) {
+    return en.refine !== undefined ? !!en.refine : !!REFINE_LAYERS[layer];
+  }
+  function displayRects(page, layer, en) {
+    var raw = en.rects || [];
+    if (!raw.length || !rendered.has(page) || !wantsRefine(layer, en) || !root.ReaderInk) return raw;
+    var gen = gens.get(page) || 0;
+    var c = refinedCache.get(en);
+    if (c && c.gen === gen && c.page === page && c.src === raw) return c.rects;
+    var rects = root.ReaderInk.refineRects(page, raw);
+    refinedCache.set(en, { gen: gen, page: page, src: raw, rects: rects });
+    return rects;
+  }
 
   function layerBox(overlay, layer) {
     var sel = ":scope > .rd-layer-" + layer;
@@ -56,7 +78,7 @@ window.ReaderOverlay = (function (root) {
     box.style.height = size.h + "px";
     var frag = document.createDocumentFragment();
     entries.forEach(function (en) {
-      (en.rects || []).forEach(function (r) {
+      displayRects(page, layer, en).forEach(function (r) {
         var d = document.createElement("div");
         d.className = "rd-rect rd-" + layer + (en.className ? " " + en.className : "");
         d.style.left = r.x + "px";
@@ -117,7 +139,7 @@ window.ReaderOverlay = (function (root) {
       if (!entries) continue;
       for (var ei = entries.length - 1; ei >= 0; ei--) {
         var en = entries[ei];
-        var rects = en.rects || [];
+        var rects = displayRects(hit.page, layer, en);
         for (var ri = 0; ri < rects.length; ri++) {
           var r = rects[ri];
           if (hit.x >= r.x - HIT_SLOP && hit.x <= r.x + r.w + HIT_SLOP && hit.y >= r.y - HIT_SLOP && hit.y <= r.y + r.h + HIT_SLOP) {
@@ -149,6 +171,7 @@ window.ReaderOverlay = (function (root) {
   function reset() {
     LAYER_ORDER.forEach(function (l) { store[l].clear(); });
     rendered = new Set();
+    gens.clear();
     flashTimers.forEach(function (t) { clearTimeout(t); });
     flashTimers.clear();
   }
@@ -158,6 +181,8 @@ window.ReaderOverlay = (function (root) {
     if (!el) return;
     el.addEventListener("reader:pagerendered", function (e) {
       rendered.add(e.detail.page);
+      gens.set(e.detail.page, (gens.get(e.detail.page) || 0) + 1);
+      if (root.ReaderInk) root.ReaderInk.invalidate(e.detail.page);
       drawPage(e.detail.page);
     });
     el.addEventListener("reader:scalechange", function (e) { setScaleVar(e.detail.scale); });
