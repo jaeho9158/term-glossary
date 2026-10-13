@@ -10,6 +10,11 @@
 <meta property="og:description" content="논문 본문을 붙여넣으면 등록된 학술용어를 자동으로 찾아줍니다.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/reader/reader.css?v=32998369a6">
+<link rel="stylesheet" href="assets/reader/annotations.css?v=32998369a6">
+<link rel="stylesheet" href="assets/reader/outline.css?v=32998369a6">
+<link rel="stylesheet" href="assets/reader/biblio.css?v=32998369a6">
+<link rel="stylesheet" href="assets/reader/preview.css?v=32998369a6">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -78,108 +83,171 @@
   </div>
 </header>
 
-<main class="wide">
+<main class="wide rd-home" id="home">
   <h1>논문 용어 자동 찾기 — 논문 읽기 도구</h1>
-  <p class="subtitle">논문 텍스트를 붙여넣으면 등록된 학술용어를 찾아 우측에 보여드립니다.</p>
+  <p class="subtitle">PDF 논문을 열면 전체 화면으로 읽을 수 있습니다. 논문 글을 붙여넣어도 등록된 학술용어를 찾아 보여드립니다. PDF는 이 브라우저 밖으로 나가지 않습니다.</p>
 
-  <div class="viewer-layout">
-    <div class="viewer-input no-pdf" id="viewer-input-pane">
-      <div class="search-area">
-        <!-- 첫 화면 진입점. 아무것도 열지 않았을 때만 보이고, PDF나 텍스트를
-             열면 JS가 숨긴다. 버튼과 드롭 영역을 같은 시각 무게로 둔다. -->
-        <div id="pdf-dropzone" class="pdf-dropzone">
-          <span class="pdf-dropzone-text">PDF를 여기에 끌어다 놓으세요</span>
-          <label class="pdf-upload-label" for="pdf-upload">📄 PDF 파일 선택</label>
-        </div>
-        <!-- 최근에 연 PDF 최대 5개. 진입점(드롭 영역) 바로 아래에 둬야 첫
-             화면에서 눈에 들어온다. 문서를 열면 JS가 숨긴다. -->
-        <section id="recent-docs" class="recent-docs" hidden>
-          <h2 class="recent-docs-title">최근 문서</h2>
-          <ul class="recent-docs-list" id="recent-docs-list"></ul>
-        </section>
-        <textarea id="paper-text" class="search-input" placeholder="논문 초록이나 본문 일부를 붙여넣어 보세요. 예: 본 연구는 유의확률(p-value)이 0.05 미만인 경우를 통계적으로 유의한 상관관계로 정의하였다."></textarea>
-        <div id="viewer-rendered" class="viewer-rendered" hidden></div>
-        <div id="pdf-toolbar" class="pdf-toolbar" hidden>
-          <div class="pdf-toolbar-group">
-            <!-- PDF 모드 기본은 원본 화면. 추출 텍스트(형광펜·메모)는 토글로만 본다. -->
-            <button type="button" id="pdf-original-toggle" class="pdf-original-toggle" aria-pressed="true" title="추출한 텍스트로 본다">텍스트로 보기</button>
-            <button type="button" id="pdf-zoom-out" title="축소">−</button>
-            <span id="pdf-zoom-label">100%</span>
-            <button type="button" id="pdf-zoom-in" title="확대">+</button>
-            <button type="button" id="pdf-zoom-fit" title="화면 너비에 맞춤">화면맞춤</button>
-            <button type="button" id="pdf-zoom-fit-page" title="한 페이지 전체가 보이도록 맞춤">페이지맞춤</button>
-          </div>
-          <div class="pdf-toolbar-group pdf-page-group">
-            <input type="number" id="pdf-page-input" min="1" step="1" aria-label="페이지 번호" title="페이지 번호를 입력하고 Enter">
-            <span id="pdf-page-total">/ 전체 0</span>
-          </div>
-          <div class="pdf-toolbar-group pdf-search-group">
-            <input type="search" id="pdf-search-input" placeholder="PDF 본문 검색" aria-label="PDF 본문 검색">
-            <button type="button" id="pdf-search-prev" title="이전 결과">↑</button>
-            <button type="button" id="pdf-search-next" title="다음 결과">↓</button>
-            <span id="pdf-search-count"></span>
-          </div>
-        </div>
-        <button type="button" id="pdf-hl-notice" class="pdf-hl-notice" hidden></button>
-        <div id="pdf-viewer" class="pdf-viewer"></div>
-      </div>
-      <div class="viewer-input-actions">
-        <button id="find-terms-btn" type="button" disabled>용어 찾기</button>
-        <button id="edit-text-btn" type="button" hidden>✏️ 다시 입력</button>
-        <label class="pdf-upload-label" for="pdf-upload">📄 PDF 파일 선택</label>
-        <input type="file" id="pdf-upload" accept="application/pdf" hidden>
-      </div>
-      <p id="pdf-status" hidden aria-live="polite"></p>
-      <p id="viewer-restore-status" class="viewer-restore-status" hidden aria-live="polite"></p>
-    </div>
-    <aside class="viewer-terms">
-      <button type="button" id="terms-panel-toggle" class="terms-panel-toggle" aria-expanded="true" title="용어 패널 접기">
-        <span class="terms-panel-toggle-icon" aria-hidden="true">»</span>
-        <span class="terms-panel-toggle-label">패널 접기</span>
-      </button>
-      <div class="viewer-tabs" role="tablist">
-        <button type="button" class="viewer-tab active" data-tab="terms" role="tab">찾은 용어</button>
-        <button type="button" class="viewer-tab" data-tab="notes" role="tab">내 메모 <span id="notes-count-badge" class="tab-badge" hidden>0</span></button>
-      </div>
-      <div class="viewer-tab-panel" id="tab-panel-terms">
-        <input type="search" id="term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
-        <div class="term-filter-bar" id="term-filter-bar">
-          <div class="term-filter-group">
-            <select id="category-filter-select" aria-label="분야 필터">
-              <option value="">전체 분야</option>
-            </select>
-            <label class="term-filter-checkbox"><input type="checkbox" id="english-only-filter"> 영어 용어만</label>
-            <button type="button" id="show-hidden-terms-btn" class="term-filter-link" hidden></button>
-          </div>
-        </div>
-        <!-- PDF 읽기 모드에서 지금 보고 있는 페이지의 용어. 페이지가 바뀌면
-             이 영역만 다시 그린다(스크롤 중 전체 재렌더 금지). -->
-        <div id="current-page-terms" class="current-page-terms" aria-live="polite" hidden></div>
-        <h2 id="matched-count">용어 찾기를 눌러보세요</h2>
-        <a id="quiz-from-terms-btn" class="viewer-quiz-link" target="_blank" rel="noopener" hidden>찾은 용어로 퀴즈 풀기</a>
-        <ul class="term-list" id="matched-terms"></ul>
-      </div>
-      <div class="viewer-tab-panel" id="tab-panel-notes" hidden>
-        <p id="notes-empty-msg" class="notes-empty">텍스트 보기에서 본문을 드래그하면 형광펜을 칠하고 메모를 남길 수 있어요.</p>
-        <ul class="note-list" id="note-list"></ul>
-      </div>
-    </aside>
+  <div id="rd-dropzone" class="rd-dropzone">
+    <span class="rd-dropzone-text">PDF를 여기에 끌어다 놓으세요</span>
+    <label class="rd-file-label" for="rd-file">PDF 파일 선택</label>
+    <input type="file" id="rd-file" accept="application/pdf" hidden>
   </div>
+  <p id="rd-home-error" class="rd-home-error" role="alert" hidden></p>
+
+  <section id="rd-recent" class="rd-recent" hidden>
+    <h2 class="rd-recent-title">최근 문서</h2>
+    <ul class="rd-recent-list" id="rd-recent-list"></ul>
+  </section>
+
+  <section id="rd-paste" class="rd-paste" aria-labelledby="rd-paste-title">
+    <h2 id="rd-paste-title" class="rd-paste-title">글 붙여넣기</h2>
+    <textarea id="rd-paste-text" class="rd-paste-text" aria-label="논문 글 붙여넣기" placeholder="논문 초록이나 본문 일부를 붙여넣어 보세요. 예: 본 연구는 유의확률(p-value)이 0.05 미만인 경우를 통계적으로 유의한 상관관계로 정의하였다."></textarea>
+    <div id="rd-paste-rendered" class="viewer-rendered rd-paste-rendered" hidden></div>
+    <div class="rd-paste-actions">
+      <button type="button" id="rd-paste-find" class="rd-paste-btn" disabled>용어 찾기</button>
+      <button type="button" id="rd-paste-edit" class="rd-paste-btn rd-paste-btn-plain" hidden>다시 입력</button>
+    </div>
+    <p id="rd-paste-status" class="rd-paste-status" role="status" aria-live="polite" hidden></p>
+    <div id="rd-paste-result" class="rd-paste-result" hidden>
+      <aside class="viewer-terms rd-paste-terms" aria-label="찾은 용어">
+        <h3 id="rd-paste-count" class="rd-paste-count"></h3>
+        <input type="search" id="rd-paste-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
+        <div class="term-filter-bar">
+          <div class="term-filter-group">
+            <select id="rd-paste-category" aria-label="분야 필터"><option value="">전체 분야</option></select>
+            <label class="term-filter-checkbox"><input type="checkbox" id="rd-paste-english"> 영어 용어만</label>
+          </div>
+        </div>
+        <a id="rd-paste-quiz" class="viewer-quiz-link" target="_blank" rel="noopener" hidden>찾은 용어로 퀴즈 풀기</a>
+        <ul class="term-list" id="rd-paste-list"></ul>
+        <button type="button" id="rd-paste-more" class="term-list-more-btn" hidden></button>
+      </aside>
+    </div>
+  </section>
 </main>
 
-<div id="highlight-toolbar" class="highlight-toolbar" hidden>
-  <button type="button" class="hl-color" data-color="yellow" title="노랑" style="--hl-color:#ffe066"></button>
-  <button type="button" class="hl-color" data-color="green" title="초록" style="--hl-color:#8ce99a"></button>
-  <button type="button" class="hl-color" data-color="pink" title="분홍" style="--hl-color:#ffc9de"></button>
-  <button type="button" class="hl-color" data-color="blue" title="파랑" style="--hl-color:#a5d8ff"></button>
-</div>
-<div id="memo-popover" class="memo-popover" hidden>
-  <textarea id="memo-textarea" placeholder="메모를 남겨보세요 (선택)"></textarea>
-  <div class="memo-popover-actions">
-    <button type="button" id="memo-delete-btn" class="memo-btn memo-btn-danger">삭제</button>
-    <button type="button" id="memo-save-btn" class="memo-btn memo-btn-primary">저장</button>
+<div id="reader" class="rd" hidden>
+  <div id="rd-toolbar" class="rd-toolbar" role="toolbar" aria-label="리더 도구">
+    <button type="button" id="rd-close" class="rd-btn" title="리더 닫기 (Esc)" aria-label="리더 닫기">닫기</button>
+    <span id="rd-title" class="rd-title"></span>
+
+    <div class="rd-group rd-pagebox">
+      <input type="number" id="rd-page-input" class="rd-page-input" min="1" step="1" inputmode="numeric" aria-label="쪽 번호" title="쪽 번호를 입력하고 Enter (← → 로 쪽 이동)">
+      <span id="rd-page-total" class="rd-page-total">/ 0</span>
+    </div>
+
+    <div class="rd-group rd-search">
+      <input type="search" id="rd-search-input" class="rd-search-input" placeholder="본문 검색" aria-label="본문 검색" title="본문 검색 (Ctrl F)" autocomplete="off" disabled>
+      <button type="button" id="rd-search-prev" class="rd-btn rd-icon-btn" title="이전 결과" aria-label="이전 결과" disabled>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3.5 10 8 5.5 12.5 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" id="rd-search-next" class="rd-btn rd-icon-btn" title="다음 결과" aria-label="다음 결과" disabled>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span id="rd-search-count" class="rd-search-count" aria-live="polite"></span>
+      <button type="button" id="rd-search-close" class="rd-btn rd-search-close" aria-label="검색 닫기">닫기</button>
+    </div>
+
+    <div class="rd-spacer"></div>
+
+    <div id="rd-extra" class="rd-extra" role="group" aria-label="더보기 메뉴">
+      <div class="rd-group rd-zoom">
+        <button type="button" id="rd-zoom-out" class="rd-btn rd-icon-btn" title="축소 (Ctrl −)" aria-label="축소">−</button>
+        <span id="rd-zoom-label" class="rd-zoom-label" aria-live="polite">100%</span>
+        <button type="button" id="rd-zoom-in" class="rd-btn rd-icon-btn" title="확대 (Ctrl +)" aria-label="확대">+</button>
+        <button type="button" id="rd-fit-width" class="rd-btn" title="너비에 맞춤 (Ctrl 0)" aria-label="너비에 맞춤">너비</button>
+        <button type="button" id="rd-fit-page" class="rd-btn" title="한 쪽 전체가 보이게 맞춤" aria-label="한 쪽 전체가 보이게 맞춤">쪽</button>
+      </div>
+      <button type="button" id="rd-terms-toggle" class="rd-btn" aria-pressed="true" title="용어 표시 켜기/끄기">용어 표시</button>
+    </div>
+
+    <button type="button" id="rd-more" class="rd-btn rd-more" aria-expanded="false" aria-controls="rd-extra" aria-label="더보기" title="더보기">⋯</button>
+
+    <div class="rd-group rd-panelbtns">
+      <button type="button" id="rd-left-toggle" class="rd-btn rd-icon-btn" aria-expanded="false" aria-controls="rd-left" title="목차·쪽 패널 ( [ )" aria-label="목차·쪽 패널">
+        <svg viewBox="0 0 18 16" width="18" height="16" aria-hidden="true"><rect x="1.5" y="2" width="15" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 2v12" stroke="currentColor" stroke-width="1.4"/></svg>
+        <span class="rd-btn-label">목차</span>
+      </button>
+      <button type="button" id="rd-right-toggle" class="rd-btn rd-icon-btn" aria-expanded="true" aria-controls="rd-right" title="용어·메모 패널 ( ] )" aria-label="용어·메모 패널">
+        <svg viewBox="0 0 18 16" width="18" height="16" aria-hidden="true"><rect x="1.5" y="2" width="15" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M11.5 2v12" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
+    </div>
   </div>
-</div>
+
+  <div id="rd-notice" class="rd-notice" role="status" aria-live="polite" hidden></div>
+
+  <div id="rd-body" class="rd-body">
+    <aside id="rd-left" class="rd-panel rd-panel-left" aria-label="목차와 쪽">
+      <div class="rd-tabs" role="tablist" aria-label="왼쪽 패널">
+        <button type="button" role="tab" class="rd-tab" id="rd-tab-outline" data-tab="outline" aria-selected="true" aria-controls="rd-pane-outline">목차</button>
+        <button type="button" role="tab" class="rd-tab" id="rd-tab-pages" data-tab="pages" aria-selected="false" aria-controls="rd-pane-pages" tabindex="-1">쪽</button>
+        <button type="button" class="rd-btn rd-panel-close" aria-label="패널 닫기">닫기</button>
+      </div>
+      <div role="tabpanel" class="rd-pane" id="rd-pane-outline" data-tab="outline" aria-labelledby="rd-tab-outline"></div>
+      <div role="tabpanel" class="rd-pane" id="rd-pane-pages" data-tab="pages" aria-labelledby="rd-tab-pages" hidden></div>
+    </aside>
+
+    <div id="rd-scroll" class="rd-scroll" tabindex="0" aria-label="논문 본문">
+      <div id="rd-pages" class="rd-pages"></div>
+    </div>
+
+    <aside id="rd-right" class="rd-panel rd-panel-right" aria-label="용어와 메모">
+      <div class="rd-tabs" role="tablist" aria-label="오른쪽 패널">
+        <button type="button" role="tab" class="rd-tab" id="rd-tab-terms" data-tab="terms" aria-selected="true" aria-controls="rd-pane-terms">용어</button>
+        <button type="button" role="tab" class="rd-tab" id="rd-tab-notes" data-tab="notes" aria-selected="false" aria-controls="rd-pane-notes" tabindex="-1">메모</button>
+        <button type="button" class="rd-btn rd-panel-close" aria-label="패널 닫기">닫기</button>
+      </div>
+      <div role="tabpanel" class="rd-pane" id="rd-pane-terms" data-tab="terms" aria-labelledby="rd-tab-terms">
+        <section id="rd-lookup" class="rd-term-block" aria-live="polite" hidden></section>
+        <section id="rd-term-focus" class="rd-term-block" hidden></section>
+        <p id="rd-term-status" class="rd-term-status" role="status" hidden></p>
+        <input type="search" id="rd-term-filter" class="rd-term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
+        <div class="term-filter-bar">
+          <div class="term-filter-group">
+            <select id="rd-term-category" aria-label="분야 필터"><option value="">전체 분야</option></select>
+            <label class="term-filter-checkbox"><input type="checkbox" id="rd-term-english"> 영어 용어만</label>
+            <button type="button" id="rd-term-showhidden" class="term-filter-link" hidden></button>
+          </div>
+        </div>
+        <section id="rd-term-page" class="current-page-terms" aria-live="polite" hidden></section>
+        <h3 id="rd-term-count" class="rd-term-count"></h3>
+        <a id="rd-term-quiz" class="viewer-quiz-link" target="_blank" rel="noopener" hidden>찾은 용어로 퀴즈 풀기</a>
+        <ul class="term-list" id="rd-term-list"></ul>
+        <button type="button" id="rd-term-more" class="term-list-more-btn" hidden></button>
+      </div>
+      <div role="tabpanel" class="rd-pane" id="rd-pane-notes" data-tab="notes" aria-labelledby="rd-tab-notes" hidden></div>
+    </aside>
+  </div>
+
+  <div id="rd-seltool" class="rd-seltool" role="toolbar" aria-label="선택 도구" hidden>
+    <button type="button" class="rd-hlbtn rd-hl-yellow" data-act="hl" data-color="yellow" title="노랑 형광펜" aria-label="노랑 형광펜"></button>
+    <button type="button" class="rd-hlbtn rd-hl-green" data-act="hl" data-color="green" title="초록 형광펜" aria-label="초록 형광펜"></button>
+    <button type="button" class="rd-hlbtn rd-hl-pink" data-act="hl" data-color="pink" title="분홍 형광펜" aria-label="분홍 형광펜"></button>
+    <button type="button" class="rd-hlbtn rd-hl-blue" data-act="hl" data-color="blue" title="파랑 형광펜" aria-label="파랑 형광펜"></button>
+    <span class="rd-seltool-sep" aria-hidden="true"></span>
+    <button type="button" class="rd-seltool-btn" data-act="memo">메모</button>
+    <button type="button" class="rd-seltool-btn" data-act="copy">복사</button>
+    <button type="button" class="rd-seltool-btn" data-act="lookup">사전에서 찾기</button>
+  </div>
+
+  <div id="rd-annopop" class="rd-annopop" role="dialog" aria-label="형광펜 편집" hidden>
+    <div class="rd-annopop-colors">
+      <button type="button" class="rd-annopop-color rd-hl-yellow" data-color="yellow" title="노랑" aria-label="노랑" aria-pressed="false"></button>
+      <button type="button" class="rd-annopop-color rd-hl-green" data-color="green" title="초록" aria-label="초록" aria-pressed="false"></button>
+      <button type="button" class="rd-annopop-color rd-hl-pink" data-color="pink" title="분홍" aria-label="분홍" aria-pressed="false"></button>
+      <button type="button" class="rd-annopop-color rd-hl-blue" data-color="blue" title="파랑" aria-label="파랑" aria-pressed="false"></button>
+    </div>
+    <textarea id="rd-annopop-note" class="rd-annopop-note" rows="3" placeholder="메모를 남겨보세요 (선택)" aria-label="메모"></textarea>
+    <div class="rd-annopop-actions">
+      <button type="button" class="rd-annopop-btn is-term" data-act="term" hidden>용어 보기</button>
+      <button type="button" class="rd-annopop-btn is-danger" data-act="delete">삭제</button>
+      <button type="button" class="rd-annopop-btn" data-act="copy">복사</button>
+      <button type="button" class="rd-annopop-btn is-primary" data-act="save">저장</button>
+    </div>
+  </div>
+
+  <div id="rd-scrim" class="rd-scrim" aria-hidden="true"></div>
+  <button type="button" id="rd-back" class="rd-back" hidden>돌아가기</button>
 </div>
 
 <footer class="site-footer">
@@ -191,14 +259,42 @@
   pdfjsLib.GlobalWorkerOptions.workerSrc = "./assets/vendor/pdfjs/pdf.worker.min.mjs";
   window.pdfjsLib = pdfjsLib;
 </script>
+<script>
+  // 형광펜·메모 저장 계층(ES module)을 클래식 스크립트가 쓸 수 있게 window.ReaderStore 로 넘긴다. 못 불러오면 null.
+  window.ReaderStoreReady = import("./assets/pdf-annotations.js?v=32998369a6").then(function (m) {
+    window.ReaderStore = {
+      loadAnnotations: m.loadAnnotations,
+      createAnnotation: m.createAnnotation,
+      updateAnnotationNote: m.updateAnnotationNote,
+      updateAnnotationAnchor: m.updateAnnotationAnchor,
+      deleteAnnotation: m.deleteAnnotation,
+    };
+    return window.ReaderStore;
+  }).catch(function (err) { console.error("[reader] 저장 계층을 불러오지 못했습니다", err); return null; });
+</script>
 <script src="assets/escape.js"></script>
-<!-- fuse: viewer.js 의 fuzzy 매칭은 6단계에서 코드째 삭제했다. 이 로드는
-     아래 header-search.js(헤더 용어 검색)가 쓰는 것이라 남긴다. -->
-<script src="assets/vendor/fuse.min.js"></script>
 <script src="assets/category-data.js"></script>
-<script src="assets/viewer-storage.js"></script>
-<script src="assets/term-match.js?v=0ca55531ec"></script>
-<script src="assets/viewer.js?v=0ca55531ec"></script>
+<script src="assets/viewer-storage.js?v=32998369a6"></script>
+<script src="assets/term-match.js?v=32998369a6"></script>
+<script src="assets/reader/doc.js?v=32998369a6"></script>
+<script src="assets/reader/panels.js?v=32998369a6"></script>
+<script src="assets/reader/geometry.js?v=32998369a6"></script>
+<script src="assets/reader/ink.js?v=32998369a6"></script>
+<script src="assets/reader/text-map.js?v=32998369a6"></script>
+<script src="assets/reader/overlay.js?v=32998369a6"></script>
+<script src="assets/reader/search.js?v=32998369a6"></script>
+<script src="assets/reader/selection.js?v=32998369a6"></script>
+<script src="assets/reader/annotations.js?v=32998369a6"></script>
+<script src="assets/reader/terms-layer.js?v=32998369a6"></script>
+<script src="assets/reader/nav.js?v=32998369a6"></script>
+<script src="assets/reader/outline.js?v=32998369a6"></script>
+<script src="assets/reader/refs.js?v=32998369a6"></script>
+<script src="assets/reader/preview.js?v=32998369a6"></script>
+<script src="assets/reader/biblio.js?v=32998369a6"></script>
+<script src="assets/reader/reader.js?v=32998369a6"></script>
+<script src="assets/reader/log.js?v=32998369a6"></script>
+<script src="assets/reader/paste.js?v=32998369a6"></script>
+<script src="assets/vendor/fuse.min.js"></script>
 <script src="assets/header-search.js"></script>
 <script type="module" src="assets/nav-auth.js"></script>
 <script src="assets/mobile-nav.js"></script>

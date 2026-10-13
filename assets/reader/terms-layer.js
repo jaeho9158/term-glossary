@@ -1,6 +1,6 @@
 // 용어 밑줄·카드·용어 패널.
 //
-// 문서를 열면 쪽 글 전체를 옛 뷰어(viewer.js)와 똑같이 이어 붙여 한 번만 용어 매칭을 돌리고(분야 추정·동음이의어 판정이
+// 문서를 열면 쪽 글 전체를 옛 뷰어와 똑같이 이어 붙여 한 번만 용어 매칭을 돌리고(분야 추정·동음이의어 판정이
 // 문서 단위이기 때문), splitMatchesByPage 로 쪽마다 나눈다. 쪽 글과 글자 상자가 준비되면 그 쪽의 밑줄 사각형만 계산해
 // ReaderOverlay 의 "term" 층에 넘긴다. 데이터 파일·저장 키·매칭 함수는 옛 뷰어와 같다
 // (viewer-index.json, viewer-defs/<버킷>.json, localStorage "viewerHiddenTermSlugs", data/learn/slug-index.json).
@@ -381,6 +381,8 @@
     st.ready = true;
     renderAll();
     st.rendered.forEach(function (p) { queueDraw(p); });
+    // 용어 찾기가 끝났다는 알림(분석 이벤트용). 개수만 싣는다.
+    if (rd()) rd().dispatchEvent(new CustomEvent("reader:termsready", { detail: { count: st.matches.length } }));
   }
 
   // ---------- 쪽 밑줄 ----------
@@ -536,6 +538,16 @@
     var exact = TM.matchTermsWithIndex(q, exactIndex);
     await attachDefinitions(exact);
     return TM.applySenseToMatches(exact, q);
+  }
+
+  // 첫 화면 붙여넣기 분석(paste.js)용: 원문 그대로의 글에서 용어를 찾는다. 위치는 원문 기준이다.
+  async function analyze(text) {
+    var t = String(text || "");
+    if (!t.trim()) return [];
+    await ensureIndex();
+    var exact = TM.matchTermsWithIndex(t, exactIndex);
+    await attachDefinitions(exact);
+    return pruneMatches(TM.applySenseToMatches(exact, t), t);
   }
 
   // ---------- 패널 ----------
@@ -1202,6 +1214,7 @@
     isSuppressed: function () { return suppressed; },
     hide: hide,
     restoreAll: restoreAll,
+    analyze: analyze, // Promise<matches>: 붙여넣은 글 분석(원문 위치 그대로)
     lookup: lookup, // Promise<matches>: 정의 청크를 받아 와야 해서 비동기다
     firstPerPage: firstPerPage,
     // 시험·진단용

@@ -1,6 +1,6 @@
 // 영문 동음이의어 등급 4("영문 단독 불가"): plasma·shape·substance 같은 짧은 일반
 // 영어 단어는 영문만으로는 잡지 않고, 같은 문서에 국문 표제어도 나올 때만 인정한다.
-// 목록은 생성 스크립트의 데이터, 런타임(viewer.js)은 6번째 칸 등급만 본다.
+// 목록은 생성 스크립트의 데이터, 런타임(term-match.js)은 6번째 칸 등급만 본다.
 const assert = require("assert");
 const { matchTerms } = require("../assets/term-match.js");
 const { englishGrade, ENGLISH_NEEDS_KOREAN } = require("../scripts/generate-viewer-index.js");

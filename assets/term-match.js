@@ -946,7 +946,7 @@ function matchTerms(text, terms) {
 
 // 공용 escapeHtml: 브라우저에서는 assets/escape.js가 먼저 로드돼 전역 함수로
 // 제공된다(아래 var 선언은 기존 전역을 덮어쓰지 않는 no-op). Node 테스트에서
-// viewer.js를 require하면 이 블록이 실행돼 공용본을 불러온다.
+// term-match.js를 require하면 이 블록이 실행돼 공용본을 불러온다.
 if (typeof module !== "undefined" && module.exports) {
   var escapeHtml = require("./escape.js").escapeHtml;
 }
@@ -1493,7 +1493,7 @@ function decodeDefChunk(map) {
   return out;
 }
 
-// 캐시 버전. viewer.html이 `assets/viewer.js?v=<해시>`로 이 파일을 부르고
+// 캐시 버전. viewer.html이 `assets/term-match.js?v=<해시>`로 이 파일을 부르고
 // (scripts/stamp-viewer-version.js가 찍음), 인덱스·청크 요청에도 같은 v를 붙인다.
 // 배포 뒤 옛 코드와 새 청크가 섞이지 않게 하려는 것 — 버전은 HTML 한 곳에만 둔다.
 function assetVersionFromSrc(src) {

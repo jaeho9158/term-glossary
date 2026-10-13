@@ -2,7 +2,8 @@
    종이(쪽)가 주인공이라 도구 막대는 얇은 한 줄, 배경은 중립색, 패널은 완전히 접힌다. */
 
 /* ---------- 첫 화면 ---------- */
-main.rd-home { max-width: 720px; }
+main.rd-home { max-width: 960px; }
+.rd-home .rd-dropzone, .rd-home .rd-recent, .rd-home .rd-home-error { max-width: 720px; }
 .rd-home h1 { margin: 0 0 6px; font-size: 1.6rem; }
 .rd-home .subtitle { margin: 0 0 24px; color: var(--muted); }
 
@@ -63,6 +64,61 @@ main.rd-home { max-width: 720px; }
 .rd-recent-size { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
 .rd-recent-delete { color: var(--muted); font-size: 0.8rem !important; }
 .rd-recent-delete:hover { color: var(--accent); }
+
+/* ---------- 첫 화면: 글 붙여넣기 ---------- */
+.rd-paste { margin-top: 36px; }
+.rd-paste-title { margin: 0 0 8px; font-size: 1.05rem; }
+.rd-paste-text {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.rd-paste-text[hidden], .rd-paste-rendered[hidden], .rd-paste-result[hidden], .rd-paste-status[hidden] { display: none; }
+.rd-paste-rendered {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  min-height: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.rd-paste-actions { display: flex; gap: 8px; margin-top: 10px; }
+.rd-paste-btn {
+  height: 40px;
+  padding: 0 18px;
+  border: 1.5px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.rd-paste-btn:disabled { opacity: 0.5; cursor: default; }
+.rd-paste-btn-plain { background: transparent; color: var(--accent); }
+.rd-paste-btn-plain:hover { background: var(--hover-tint); }
+.rd-paste-btn[hidden] { display: none; }
+.rd-paste-status { margin: 8px 0 0; font-size: 0.85rem; color: var(--muted); }
+.rd-paste-result { margin-top: 18px; }
+.rd-paste-terms { position: static; max-height: none; overflow: visible; }
+.rd-paste-count { margin: 0 0 10px; font-size: 1rem; }
+@media (max-width: 640px) {
+  .rd-paste-btn { height: 44px; }
+}
 
 /* ---------- 전체 화면 ---------- */
 body.rd-open { overflow: hidden; }

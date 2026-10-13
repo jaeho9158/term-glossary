@@ -543,7 +543,7 @@
     }
     scrollEl().onscroll = scheduleUpdate;
 
-    var info = { docHash: hash, title: docTitle, numPages: total };
+    var info = { docHash: hash, title: docTitle, numPages: total, fileName: String(file.name || "") };
     emit("reader:docopen", info);
     // 이 이벤트를 받은 쪽(reader.js)이 리더를 보여 주고 배율을 정한다. 숨김 상태였다면 크기 관찰자가 그 뒤에 그린다.
     lastBox = "";

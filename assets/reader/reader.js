@@ -403,6 +403,8 @@
 
   async function openDebugPdf() {
     var raw;
+    // 개발용이라 로컬 주소에서만 받는다(운영 주소에서는 ?debugpdf= 를 무시한다).
+    if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(root.location.hostname)) return;
     try { raw = new URLSearchParams(root.location.search).get("debugpdf"); } catch (e) { return; }
     if (!raw) return;
     var url;
