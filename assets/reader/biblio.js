@@ -26,22 +26,63 @@
       .replace(/[øłđæœßðþ]/g, function (c) { return SPECIAL[c]; }).normalize("NFC");
   }
 
-  var ROMAN = { i: 1, ii: 1, iii: 1, iv: 1, v: 1, vi: 1, vii: 1, viii: 1, ix: 1, x: 1 };
-  function isNumOrRoman(w) { return /^\d+$/.test(w) || ROMAN[w] === 1; }
-  var NUMWORD = { one: 1, two: 1, three: 1, four: 1, five: 1, six: 1, seven: 1, eight: 1, nine: 1, ten: 1, first: 1, second: 1, third: 1 };
-  function isNumber(w) { return isNumOrRoman(w) || NUMWORD[w] === 1; }
+  // 숫자·로마 숫자(20까지)·영어 수사(20까지, 서수 열째까지)는 모두 "구별 낱말"이다.
+  // 비교할 때는 숫자로 바꾼다("part two" = "part 2" = "part II").
+  var ROMANV = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10, xi: 11, xii: 12, xiii: 13,
+    xiv: 14, xv: 15, xvi: 16, xvii: 17, xviii: 18, xix: 19, xx: 20 };
+  var NUMV = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11,
+    twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20,
+    first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10 };
+  // 이 낱말 바로 뒤의 한 글자는 구별 라벨(Part A / Part B)
+  var LABELS = { part: 1, study: 1, experiment: 1, appendix: 1, phase: 1, type: 1 };
+  function isNumOrRoman(w) { return /^\d+$/.test(w) || own(ROMANV, w); }
+
+  // 구별 낱말이면 비교용 표기(숫자 문자열), 아니면 null
+  function canonNum(w) {
+    if (/^\d+d?$/.test(w)) return w.replace(/^0+(?=\d)/, ""); // "2d"/"3d"도 구별 낱말
+    if (own(ROMANV, w)) return String(ROMANV[w]);
+    if (own(NUMV, w)) return String(NUMV[w]);
+    if (/^\p{L}$/u.test(w)) return "#" + w; // 라벨 뒤에서만 남는 한 글자(Part A)
+    return null;
+  }
+  function isNumber(w) { return canonNum(w) !== null; }
 
   // 문자열의 낱말 보기. joined가 true면 낱말 안의 하이픈을 붙인다("2-D" → "2d").
-  // words: 2글자 이상 낱말(숫자·로마 숫자는 길이와 무관하게 유지), raw: 모든 낱말(위치 포함)
+  // 글자별로 접어 원문 위치를 함께 기록한다(wo: 낱말이 원문에서 시작하는 위치).
+  // words: 2글자 이상 낱말(숫자·로마 숫자는 길이와 무관, 라벨 뒤 한 글자 유지), raw: 모든 낱말(위치 포함)
   function view(text, joined) {
-    var s = fold(text).replace(/([\p{L}\p{N}])['’ʼ](?=\p{L})/gu, "$1");
-    if (joined) s = s.replace(/([\p{L}\p{N}])[\-‐‑](?=[\p{L}\p{N}])/gu, "$1");
-    var re = /[\p{L}\p{N}]+/gu;
-    var raw = [];
-    var m;
-    while ((m = re.exec(s))) raw.push({ t: m[0], s: m.index, e: m.index + m[0].length });
-    var words = raw.map(function (x) { return x.t; }).filter(function (w) { return w.length >= 2 || isNumOrRoman(w); });
-    return { str: s, raw: raw, words: words };
+    var src = String(text == null ? "" : text);
+    var F = [], O = [], i, k, f, q;
+    for (i = 0; i < src.length;) {
+      var ch = String.fromCodePoint(src.codePointAt(i));
+      f = Array.from(fold(ch));
+      for (q = 0; q < f.length; q++) { F.push(f[q]); O.push(i); }
+      i += ch.length;
+    }
+    var AN = /[\p{L}\p{N}]/u, L = /\p{L}/u;
+    var K = [], KO = [];
+    for (k = 0; k < F.length; k++) {
+      var c = F[k];
+      var inner = k > 0 && k + 1 < F.length;
+      if (inner && /['’ʼ]/.test(c) && AN.test(F[k - 1]) && L.test(F[k + 1])) continue;
+      if (joined && inner && /[\-‐‑]/.test(c) && AN.test(F[k - 1]) && AN.test(F[k + 1])) continue;
+      K.push(c); KO.push(O[k]);
+    }
+    var raw = [], str = "", pos = 0, cur = null;
+    for (k = 0; k < K.length; k++) {
+      if (AN.test(K[k])) {
+        if (!cur) cur = { t: "", s: pos, e: 0, o: KO[k] };
+        cur.t += K[k];
+      } else if (cur) { cur.e = pos; raw.push(cur); cur = null; }
+      str += K[k]; pos += K[k].length;
+    }
+    if (cur) { cur.e = pos; raw.push(cur); }
+    var words = [], wo = [];
+    for (k = 0; k < raw.length; k++) {
+      var t = raw[k].t;
+      if (t.length >= 2 || isNumOrRoman(t) || (k > 0 && own(LABELS, raw[k - 1].t) && L.test(t))) { words.push(t); wo.push(raw[k].o); }
+    }
+    return { src: src, str: str, raw: raw, words: words, wo: wo };
   }
 
   function normalizeTitle(s) { return view(s, false).words; }
@@ -57,10 +98,10 @@
 
   // 글자 중 한글이 절반을 넘는가
   function mostlyHangul(s) {
-    var str = String(s == null ? "" : s);
-    var l = (str.match(/\p{L}/gu) || []).length;
+    var head = Array.from(trimRef(s)).slice(0, 120).join(""); // 앞 120자만 본다(뒤쪽 학술지명 등 제외)
+    var l = (head.match(/\p{L}/gu) || []).length;
     if (!l) return false;
-    return (str.match(/\p{Script=Hangul}/gu) || []).length / l > 0.5;
+    return (head.match(/\p{Script=Hangul}/gu) || []).length * 2 >= l; // 정확히 절반이면 한글
   }
 
   // 앞쪽 목록 번호 "[12]" "12." 제거, 공백 정리, 300자(코드 포인트) 이내 낱말 경계로 자름
@@ -160,39 +201,73 @@
 
   // 단체 저자: 의미 낱말 전부가 순서대로 이어서 나오거나(불용어는 건너뜀),
   // 첫 글자를 모은 약어(3글자 이상)가 대문자 낱말로 나와야 한다.
-  function orgMatch(refText, name) {
-    var sig = orgSig(name);
+  function orgMatch(refText, name, pre) {
+    var accs = [];
+    // 끝의 괄호 약어 "(CDC)"는 떼어 내고, 대문자 약어면 약어 후보로 쓴다
+    var nm = String(name).replace(/\s*\(([^()]*)\)\s*$/, function (all, inner) {
+      if (/^[A-Z]{2,8}$/.test(inner.trim())) accs.push(inner.trim());
+      return "";
+    });
+    var sig = orgSig(nm);
     if (!sig.length) return false;
     var rt = letterToks(refText, true).filter(function (w) { return !ORG_STOP[w]; });
     if (hasRun(rt, sig)) return true;
-    if (sig.length >= 3) {
-      var acr = sig.map(function (w) { return Array.from(w)[0]; }).join("").toUpperCase();
-      var re = new RegExp("(?<![\\p{L}\\p{N}])" + acr + "(?![\\p{L}\\p{N}])", "u");
-      if (re.test(String(refText).normalize("NFKC"))) return true;
+    if (sig.length >= 2) accs.push(sig.map(function (w) { return Array.from(w)[0]; }).join("").toUpperCase());
+    // 약어는 대문자로 쓰였고 저자 자리(제목 앞)에 있어야 한다. 두 글자 약어는 의미 낱말이 정확히 둘일 때만(UN, EU).
+    var region = String(pre == null ? "" : pre).normalize("NFKC");
+    for (var i = 0; i < accs.length; i++) {
+      var a = accs[i];
+      if (a.length < 2 || (a.length === 2 && sig.length !== 2) || !/^\p{L}+$/u.test(a)) continue;
+      if (new RegExp("(?<![\\p{L}\\p{N}])" + a + "(?![\\p{L}\\p{N}])", "u").test(region)) return true;
     }
     return false;
   }
 
   // ----- 제목 -----
 
-  // 정렬 표(접미·접두 LCS)
-  function lcsTables(a, b) {
-    var n = a.length, m = b.length, S = [], P = [], i, j;
+  // 편집 거리가 1 이하인가
+  function lev1(a, b) {
+    if (a === b) return true;
+    var la = a.length, lb = b.length;
+    if (Math.abs(la - lb) > 1) return false;
+    var i = 0;
+    while (i < la && i < lb && a.charAt(i) === b.charAt(i)) i++;
+    if (la === lb) return a.slice(i + 1) === b.slice(i + 1);
+    if (la > lb) return a.slice(i + 1) === b.slice(i);
+    return a.slice(i) === b.slice(i + 1);
+  }
+
+  // 제목 낱말 a가 서지 낱말 b와 같은가. 구별 낱말은 숫자로 바꿔 정확히, 6글자 이상 글자 낱말은 편집 거리 1(첫 글자 같음)까지.
+  function wordEq(a, b) {
+    var ca = canonNum(a), cb = canonNum(b);
+    if (ca !== null || cb !== null) return ca === cb;
+    if (a === b) return true;
+    return a.length >= 6 && /^\p{L}+$/u.test(a) && /^\p{L}+$/u.test(b) && a.charAt(0) === b.charAt(0) && lev1(a, b);
+  }
+
+  function exactEq(a, b) {
+    var ca = canonNum(a), cb = canonNum(b);
+    return ca !== null || cb !== null ? ca === cb : a === b;
+  }
+
+  // 정렬 표(접미·접두 LCS). E[i][j]는 제목 i번째와 문구 j번째가 같은 낱말인지.
+  function lcsTables(E, n, m) {
+    var S = [], P = [], i, j;
     for (i = 0; i <= n + 1; i++) { S.push(new Array(m + 2).fill(0)); P.push(new Array(m + 2).fill(0)); }
     for (i = n - 1; i >= 0; i--) {
-      for (j = m - 1; j >= 0; j--) S[i][j] = a[i] === b[j] ? S[i + 1][j + 1] + 1 : Math.max(S[i + 1][j], S[i][j + 1]);
+      for (j = m - 1; j >= 0; j--) S[i][j] = E[i][j] ? S[i + 1][j + 1] + 1 : Math.max(S[i + 1][j], S[i][j + 1]);
     }
     for (i = 1; i <= n; i++) {
-      for (j = 1; j <= m; j++) P[i][j] = a[i - 1] === b[j - 1] ? P[i - 1][j - 1] + 1 : Math.max(P[i - 1][j], P[i][j - 1]);
+      for (j = 1; j <= m; j++) P[i][j] = E[i - 1][j - 1] ? P[i - 1][j - 1] + 1 : Math.max(P[i - 1][j], P[i][j - 1]);
     }
     return { S: S, P: P };
   }
 
   // 가장 이른 위치끼리 맞춘 정렬 [[제목 인덱스, 문구 인덱스], …]
-  function alignForward(a, b, S) {
+  function alignForward(E, n, m, S) {
     var out = [], i = 0, j = 0;
-    while (i < a.length && j < b.length) {
-      if (a[i] === b[j] && S[i][j] === S[i + 1][j + 1] + 1) { out.push([i, j]); i++; j++; }
+    while (i < n && j < m) {
+      if (E[i][j] && S[i][j] === S[i + 1][j + 1] + 1) { out.push([i, j]); i++; j++; }
       else if (S[i + 1][j] === S[i][j]) i++;
       else j++;
     }
@@ -200,26 +275,14 @@
   }
 
   // 가장 늦은 위치끼리 맞춘 정렬
-  function alignBackward(a, b, P) {
-    var out = [], i = a.length, j = b.length;
+  function alignBackward(E, n, m, P) {
+    var out = [], i = n, j = m;
     while (i > 0 && j > 0) {
-      if (a[i - 1] === b[j - 1] && P[i][j] === P[i - 1][j - 1] + 1) { out.push([i - 1, j - 1]); i--; j--; }
+      if (E[i - 1][j - 1] && P[i][j] === P[i - 1][j - 1] + 1) { out.push([i - 1, j - 1]); i--; j--; }
       else if (P[i - 1][j] === P[i][j]) i--;
       else j--;
     }
     return out.reverse();
-  }
-
-  // 제목의 숫자·로마 숫자 낱말은 전부 정렬되어야 하고,
-  // 정렬된 문구 구간(첫~끝) 안의 숫자·로마 숫자 낱말은 모두 제목과 짝이 있어야 한다.
-  function numbersOk(words, refWords, al) {
-    if (!al.length) return false;
-    var cand = {}, ref = {}, k;
-    for (k = 0; k < al.length; k++) { cand[al[k][0]] = true; ref[al[k][1]] = true; }
-    for (k = 0; k < words.length; k++) if (isNumber(words[k]) && !cand[k]) return false;
-    var lo = al[0][1], hi = al[al.length - 1][1];
-    for (k = lo; k <= hi; k++) if (isNumber(refWords[k]) && !ref[k]) return false;
-    return true;
   }
 
   // 후보 제목이 인용된 제목의 앞부분일 뿐인가(제목 바로 뒤에 낱말이 이어지거나 ':' '-' 부제가 붙음)
@@ -241,51 +304,132 @@
     return found;
   }
 
-  // 제목 하나(보기 하나씩)의 판정: 통과하면 { n, full }, 아니면 null
-  function evalTitle(refV, titleV) {
-    var w = titleV.words, r = refV.words, n = w.length;
-    if (n < 3) return null;
-    var T = lcsTables(w, r);
-    var lcs = T.S[0][0];
-    if (n <= 6 ? lcs !== n : lcs / n < 0.8) return null; // 짧은 제목은 전부, 긴 제목은 순서 일치 80%
-    if (!(numbersOk(w, r, alignForward(w, r, T.S)) || numbersOk(w, r, alignBackward(w, r, T.P)))) return null;
-    if (titleContinues(refV, titleV)) return null;
-    return { n: n, full: lcs === n };
+  // 정정·철회·답변·논평·심사·머리말류 표제(앞 세 낱말 안): 이 낱말들은 생략·하이픈 복구로 넘길 수 없고 정렬되어야 한다.
+  // 표제 첫 낱말이면 서지 문구의 제목 구간 맨 앞에 있어야 하므로(첫 낱말은 항상 정렬 필수) 위치까지 맞는다.
+  var NOTICE_WORDS = ["correction", "corrigendum", "erratum", "errata", "retraction", "retracted", "withdrawal",
+    "addendum", "reply", "response", "comment", "commentary", "editorial", "discussion", "letter", "obituary",
+    "preface", "foreword", "index", "abstracts", "review"];
+  var NOTICE_PHRASES = [["book", "review"], ["decision", "letter"], ["author", "response"], ["peer", "review"],
+    ["review", "for"], ["expression", "of", "concern"], ["letter", "to", "the", "editor"], ["in", "reply"],
+    ["authors", "reply"], ["author", "reply"], ["in", "memoriam"], ["table", "of", "contents"],
+    ["introduction", "to", "the", "special", "issue"]];
+
+  function noticeMust(w, rawTitle) {
+    var must = {}, k, p, s, t;
+    for (k = 0; k < Math.min(3, w.length); k++) if (NOTICE_WORDS.indexOf(w[k]) !== -1) must[k] = true;
+    for (p = 0; p < NOTICE_PHRASES.length; p++) {
+      var ph = NOTICE_PHRASES[p];
+      for (s = 0; s < 3; s++) {
+        var ok = s + ph.length <= w.length;
+        for (t = 0; ok && t < ph.length; t++) if (w[s + t] !== ph[t]) ok = false;
+        if (ok) for (t = 0; t < ph.length; t++) must[s + t] = true;
+      }
+    }
+    if (w[0] === "re" && /^\s*re\s*:/i.test(String(rawTitle))) must[0] = true;
+    return must;
   }
 
-  // 정정·철회·답변·논평·심사류 표제(앞 세 낱말 안): 서지 문구에도 같은 낱말이 있을 때만
-  var NOTICE_WORDS = ["correction", "corrigendum", "erratum", "errata", "retraction", "retracted", "withdrawal",
-    "addendum", "reply", "response", "comment", "commentary", "editorial", "discussion"];
-  var NOTICE_PHRASES = [["book", "review"], ["decision", "letter"], ["author", "response"], ["peer", "review"],
-    ["review", "for"], ["expression", "of", "concern"]];
+  // 정렬 al이 규칙에 맞는지: 통과하면 { n, full, firstR, lastR }, 아니면 null
+  //  - 제목 낱말은 모두 정렬. 예외는 가운데 낱말 하나뿐: 서지 문구에 그 낱말이 없거나(전체 한 번만, 구별 낱말 제외),
+  //    줄 끝 하이픈으로 갈라져 이웃 사이 낱말들을 이어 붙이면 그 낱말이 되는 경우
+  //  - 바뀐 낱말(다른 낱말이 그 자리에 있음)은 불일치
+  //  - 정렬된 문구 구간 안의 정렬 안 된 낱말은 둘 이하, 구간 안의 구별 낱말은 모두 정렬
+  function judge(w, r, al, must) {
+    var n = w.length, tAl = new Array(n).fill(-1), rAl = {}, k;
+    if (!al.length) return null;
+    for (k = 0; k < al.length; k++) { tAl[al[k][0]] = al[k][1]; rAl[al[k][1]] = true; }
+    if (tAl[0] < 0 || tAl[n - 1] < 0) return null;
+    for (k in must) if (tAl[k] < 0) return null;
+    var omitted = 0, hyph = 0, i = 0;
+    while (i < n) {
+      if (tAl[i] >= 0) { i++; continue; }
+      var a = i;
+      while (i < n && tAl[i] < 0) i++;
+      if (i - a > 1) return null; // 연속 두 낱말 이상 빠짐/바뀜
+      var t = w[a];
+      if (isNumber(t)) return null;
+      var gap = r.slice(tAl[a - 1] + 1, tAl[a + 1]);
+      if (!gap.length) { if (++omitted > 1) return null; }
+      else if (gap.join("") === t) hyph++;
+      else return null; // 다른 낱말로 바뀜
+    }
+    var firstR = tAl[0], lastR = tAl[n - 1];
+    if (lastR - firstR + 1 - al.length > 2) return null; // 흩어짐
+    for (k = firstR; k <= lastR; k++) if (isNumber(r[k]) && !rAl[k]) return null;
+    var full = !omitted && !hyph;
+    for (k = 0; full && k < al.length; k++) if (!exactEq(w[al[k][0]], r[al[k][1]])) full = false;
+    return { n: n, full: full, firstR: firstR, lastR: lastR };
+  }
 
-  function noticeOk(refText, title) {
-    var head = view(title, false).raw.slice(0, 3).map(function (x) { return x.t; });
-    var ref = view(refText, false).raw.map(function (x) { return x.t; });
-    var k;
-    for (k = 0; k < head.length; k++) {
-      if (NOTICE_WORDS.indexOf(head[k]) !== -1 && ref.indexOf(head[k]) === -1) return false;
+  // 제목 하나(보기 하나씩)의 판정: 통과하면 { n, full, firstR, lastR }, 아니면 null
+  function evalTitle(refV, titleV, rawTitle) {
+    var w = titleV.words, r = refV.words, n = w.length, m = r.length, i, j;
+    if (n < 3 || !m) return null;
+    if (titleContinues(refV, titleV)) return null;
+    var E = [];
+    for (i = 0; i < n; i++) {
+      var row = [];
+      for (j = 0; j < m; j++) row.push(wordEq(w[i], r[j]));
+      E.push(row);
     }
-    for (k = 0; k < NOTICE_PHRASES.length; k++) {
-      if (hasRun(head, NOTICE_PHRASES[k]) && !hasRun(ref, NOTICE_PHRASES[k])) return false;
+    var T = lcsTables(E, n, m);
+    var must = noticeMust(w, rawTitle);
+    var als = [alignForward(E, n, m, T.S), alignBackward(E, n, m, T.P)];
+    for (var k = 0; k < als.length; k++) {
+      var res = judge(w, r, als[k], must);
+      if (res) return res;
     }
-    return true;
+    return null;
   }
 
   var BAD_TYPES = { "peer-review": 1, "journal-issue": 1, "journal": 1, "book-series": 1, "component": 1 };
 
-  // 비교할 제목 문자열들: 제목, 제목+부제(별도 필드), 부제를 뺀 앞부분(낱말 5개 이상일 때만)
+  // 부제에 이런 낱말이 있으면 앞부분만으로는 비교하지 않는다(시리즈의 다른 편일 수 있음)
+  var SUBMARK = { part: 1, pt: 1, volume: 1, vol: 1, edition: 1, ed: 1 };
+
+  function subtitleBlocks(sub) {
+    var raw = view(sub, false).raw;
+    for (var k = 0; k < raw.length; k++) {
+      var t = raw[k].t;
+      if (/^\d/.test(t) || own(ROMANV, t) || own(NUMV, t) || own(SUBMARK, t)) return true;
+      if (t.length === 1 && k > 0 && own(LABELS, raw[k - 1].t)) return true; // Part A / Part B
+    }
+    return false;
+  }
+
+  // 비교할 제목 문자열들: 제목, 제목+부제(별도 필드), 부제를 뺀 앞부분(낱말 5개 이상, 부제에 번호·편 표지가 없을 때만)
   function titleVariants(title, subtitle) {
-    var out = [title];
-    if (subtitle) out.push(title + ": " + subtitle);
+    var out = [{ t: title, fb: false }];
+    if (subtitle) out.push({ t: title + ": " + subtitle, fb: false });
     var m = /^(.*?)(?::\s| [–—-] )/.exec(title);
-    if (m && m[1] && normalizeTitle(m[1]).length >= 5) out.push(m[1]);
+    if (m && m[1] && normalizeTitle(m[1]).length >= 5 && !subtitleBlocks(title.slice(m[0].length))) out.push({ t: m[1], fb: true });
     return out;
   }
 
-  function authorOk(refText, authors, r) {
+  // 제목 구간 바로 뒤: "Part 2"·"Vol. 3"처럼 후보 제목에 없는 편 표지가 이어지면 다른 편이다.
+  // 부제를 뗀 비교(fb)에서는 뒤따르는 네 낱말 안의 편 표지, 바로 다음의 번호(연도 제외)도 본다.
+  function tailOk(rv, r, fb) {
+    var words = rv.words, nx = words[r.lastR + 1], i, t;
+    if (nx === "part" || nx === "pt" || nx === "volume" || nx === "vol") {
+      var n2 = words[r.lastR + 2];
+      if (n2 !== undefined && isNumber(n2)) return false;
+    }
+    if (!fb) return true;
+    for (i = 1; i <= 4; i++) {
+      t = words[r.lastR + i];
+      if (t === undefined) break;
+      if (own(SUBMARK, t) || t === "chapter") return false;
+    }
+    if (nx !== undefined && isNumber(nx) && !/^(?:19|20)\d\d$/.test(nx)) return false;
+    return true;
+  }
+
+  function authorOk(refText, authors, r, rv) {
     var ak = authorKey(authors);
-    if (ak) return ak.org ? orgMatch(refText, ak.org) : familyMatch(refText, ak.family);
+    if (ak) {
+      if (!ak.org) return familyMatch(refText, ak.family);
+      return orgMatch(refText, ak.org, refText.slice(0, rv.wo[r.firstR]));
+    }
     return r.n >= 8 && r.full; // 저자 정보가 없으면 긴 제목이 전부 일치할 때만
   }
 
@@ -297,16 +441,16 @@
     if (mostlyHangul(title) || mostlyHangul(refText)) return false;
     var year = candidate.year == null ? "" : String(candidate.year);
     if (!year || yearsIn(refText).indexOf(year) === -1) return false;
-    if (!noticeOk(refText, title)) return false;
 
     var sub = typeof candidate.subtitle === "string" ? candidate.subtitle : "";
     var vars = titleVariants(title, sub);
+    var rvs = [view(refText, false), view(refText, true)];
     for (var a = 0; a < vars.length; a++) {
       for (var jr = 0; jr < 2; jr++) {
-        var rv = view(refText, jr === 1);
         for (var jt = 0; jt < 2; jt++) {
-          var r = evalTitle(rv, view(vars[a], jt === 1));
-          if (r && authorOk(refText, candidate.author, r)) return true;
+          var rv = rvs[jr];
+          var r = evalTitle(rv, view(vars[a].t, jt === 1), vars[a].t);
+          if (r && tailOk(rv, r, vars[a].fb) && authorOk(refText, candidate.author, r, rv)) return true;
         }
       }
     }
@@ -438,6 +582,18 @@
     return apiBaseFor(typeof location !== "undefined" ? location : null);
   }
 
+  var warned = false; // 문서당 한 번만 내부 예외를 진단 출력
+
+  function expectedErr(msg) { var e = new Error(msg); e.biblioExpected = true; return e; }
+
+  // 네트워크·HTTP·응답 모양 문제가 아닌 내부 예외는 진단용으로 한 번만 console.warn(상태는 그대로 "error")
+  function noteError(err) {
+    var expected = err && (err.biblioExpected || err.name === "AbortError" || err instanceof TypeError);
+    if (expected || warned) return;
+    warned = true;
+    try { console.warn("[biblio]", err); } catch (e) { /* 콘솔 없음 */ }
+  }
+
   function lookup(refText) {
     var q = trimRef(refText);
     if (!q) return Promise.resolve({ status: "nomatch" });
@@ -455,16 +611,18 @@
 
     var p = fetch(url, { signal: ctrl.signal, referrerPolicy: "no-referrer", credentials: "omit" })
       .then(function (res) {
-        if (!res.ok) throw new Error("http " + res.status); // 429 포함
-        return res.json();
+        if (!res.ok) throw expectedErr("http " + res.status); // 429 포함
+        return Promise.resolve().then(function () { return res.json(); }).catch(function () { throw expectedErr("json"); });
       })
       .then(function (json) {
         var items = json && json.message && json.message.items;
-        if (!Array.isArray(items)) throw new Error("shape");
-        var hit = pickMatch(q, items);
-        return hit ? { status: "ok", data: toData(hit) } : { status: "nomatch" };
+        if (!Array.isArray(items)) throw expectedErr("shape");
+        try {
+          var hit = pickMatch(q, items);
+          return hit ? { status: "ok", data: toData(hit) } : { status: "nomatch" };
+        } catch (e) { noteError(e); throw expectedErr("internal"); } // 일치 판정 중 내부 예외(TypeError 포함)
       })
-      .catch(function () { return { status: "error" }; })
+      .catch(function (err) { noteError(err); return { status: "error" }; })
       .then(function (r) {
         clearTimeout(timer);
         var i = inflight.indexOf(ctrl);
@@ -480,6 +638,7 @@
 
   function reset() {
     generation++;
+    warned = false;
     cache = Object.create(null);
     inflight.splice(0).forEach(function (c) { try { c.abort(); } catch (e) { /* 이미 끝남 */ } });
   }

@@ -383,8 +383,8 @@ test("기관 저자: 의미 낱말 전부 또는 약어", () => {
   assert.equal(B.isMatch("WHO. " + t + ". Geneva, 2020.", { title: t, year: "2020", author: [{ name: "World Health Organization" }] }), true);
   assert.equal(B.isMatch("Who said so? " + t + ". Geneva, 2020.", { title: t, year: "2020", author: [{ name: "World Health Organization" }] }), false);
   assert.equal(B.isMatch("Centers for Disease Control & Prevention. " + t + ". 2020.", { title: t, year: "2020", author: [{ name: "Centers for Disease Control and Prevention" }] }), true);
-  // 두 글자 약어는 쓰지 않음
-  assert.equal(B.isMatch("UN. " + t + ". 2020.", { title: t, year: "2020", author: [{ name: "United Nations" }] }), false);
+  // 두 글자 약어: 대문자이고 의미 낱말이 정확히 둘일 때만(재검수 3차에서 허용으로 변경)
+  assert.equal(B.isMatch("UN. " + t + ". 2020.", { title: t, year: "2020", author: [{ name: "United Nations" }] }), true);
 });
 
 test("라틴 저자: 합자·전사·아포스트로피·하이픈", () => {
@@ -421,8 +421,8 @@ test("제목: 하이픈 결합/분리, 부제 필드, 부제 생략", () => {
   assert.equal(ok("Kim, A. Deep learning for cats. Nature, 2020.", "Deep learning for cats: a survey of whiskers"), false);
   // 형제 부제는 여전히 배제
   assert.equal(ok("Kim, A. Deep learning for cats in homes: part one. Nature, 2020.", "Deep learning for cats in homes: part two"), false);
-  // 철자 변형 허용 안 함
-  assert.equal(ok("Kim, A. Organization of deep learning for cats. Nature, 2020.", "Organisation of deep learning for cats"), false);
+  // 철자 변형: 편집 거리 1은 허용(재검수 3차에서 변경), 거리 2는 불허
+  assert.equal(ok("Kim, A. Organization of deep learning for cats. Nature, 2020.", "Organisation of deep learning for cats"), true);
 });
 
 test("toData: 유형 라벨 전체 매핑과 기타", () => {
@@ -490,4 +490,241 @@ test("render: 가짜 DOM에서 textContent만 사용, 링크 속성", async () =
     assert.ok(flat.some((n) => n.className === "biblio-title" && n._t.indexOf("Deep learning for cats") !== -1));
     assert.ok(flat.some((n) => n.className === "biblio-abstract" && n._t === "ab"));
   } finally { s.restore(); globalThis.document = realDoc; }
+});
+
+// ---------- 재검수 3차: 제목 정렬 판정 ----------
+
+const refOf = (t, tail) => "Kim, A., & Lee, B. (2020). " + t + (tail === undefined ? ". Journal of Things, 12(3), 45-67." : tail);
+const accepts = (refTitle, cand, extra, tail) => B.isMatch(refOf(refTitle, tail), Object.assign({ title: cand, year: "2020", author: KIM }, extra));
+
+test("자매 논문 아홉 쌍: 서로 배제, 자기 자신은 일치", () => {
+  const pairs = [
+    ["Effects of exercise training on bone density in children", "Effects of exercise training on bone density in adults"],
+    ["Study protocol for a trial of cognitive therapy in insomnia", "Study results for a trial of cognitive therapy in insomnia"],
+    ["Evolution of structure in bacterial ribosomes and antibiotics", "Evolution of function in bacterial ribosomes and antibiotics"],
+    ["Vitamin supplementation and mortality: a randomized trial", "Vitamin supplementation and mortality: a cohort study"],
+    ["Sleep duration and cardiovascular risk in men over fifty", "Sleep duration and cardiovascular risk in women over fifty"],
+    ["Long-term outcomes of bariatric surgery in adolescents", "Short-term outcomes of bariatric surgery in adolescents"],
+    ["Thermal decomposition of transition metal oxalates. Part 1", "Thermal decomposition of transition metal oxalates. Part 2"],
+    ["Photochemistry of aromatic ketones: I. Theory", "Photochemistry of aromatic ketones: II. Experiments"],
+    ["Acute effects of caffeine on working memory in students", "Chronic effects of caffeine on working memory in students"]
+  ];
+  for (const [x, y] of pairs) {
+    assert.equal(accepts(x, y), false, x + " / " + y);
+    assert.equal(accepts(y, x), false, y + " / " + x);
+    assert.equal(accepts(x, x), true, x);
+    assert.equal(accepts(y, y), true, y);
+  }
+});
+
+test("줄 끝 하이픈 복구: 낱말 5·8·14개 제목", () => {
+  const titles = [
+    "Deep learning prediction of rainfall",
+    "Machine learning for rainfall prediction in tropical catchments",
+    "A comparative evaluation of machine learning approaches for rainfall prediction in tropical regions of Asia"
+  ];
+  assert.deepEqual(titles.map((t) => B.normalizeTitle(t).length), [5, 8, 14]);
+  for (const t of titles) {
+    assert.equal(accepts(t.replace("prediction", "predic- tion"), t), true, t);
+    assert.equal(accepts(t.replace("prediction", "predic-tion"), t), true, t);
+    assert.equal(accepts(t.replace("prediction", "predic tion"), t), true, t);
+    assert.equal(accepts(t.replace("prediction", "predic- tin"), t), false, t); // 이어 붙여도 다른 낱말
+  }
+});
+
+test("가운데 낱말 하나 생략은 허용, 둘·처음·끝은 불허, 구별 낱말은 생략 불가", () => {
+  const t = "Effects of acute exercise on bone density in older adults";
+  assert.equal(accepts("Effects of exercise on bone density in older adults", t), true);
+  assert.equal(accepts("Effects of exercise on density in older adults", t), false);
+  assert.equal(accepts("Effects of acute exercise on bone density in older", t), false); // 끝 생략
+  assert.equal(accepts("of acute exercise on bone density in older adults", t), false); // 처음 생략
+  assert.equal(accepts("Seven habits of effective cats in homes", "Seven habits of 2 effective cats in homes"), false);
+  assert.equal(accepts("Cats and their habits in homes, Part", "Cats and their habits in homes, Part 2"), false);
+});
+
+test("오타·OCR: 6글자 이상은 거리 1까지, 거리 2는 불허, 짧은 낱말은 정확히", () => {
+  const t = "Machine learning for rainfall prediction in tropical catchments";
+  assert.equal(accepts(t.replace("rainfall", "rainfal"), t), true);
+  assert.equal(accepts(t.replace("rainfall", "rainfa"), t), false);
+  assert.equal(accepts(t.replace("tropical", "tropicl"), t), true);
+  assert.equal(accepts(t.replace("tropical", "tropcl"), t), false);
+  assert.equal(accepts("Sleep duration and cardiovascular risk in adults aged fifty", "Sleep duration and cardiovascular risk in adults aged fifth"), false);
+  assert.equal(accepts("Symmetric catalysis of aromatic ketones in water", "Asymmetric catalysis of aromatic ketones in water"), false);
+});
+
+test("제목 낱말이 흩어져 있기만 하면 불일치(정렬 구간 안 여분 낱말 3개 이상)", () => {
+  const t = "Machine learning for rainfall prediction in tropical catchments";
+  assert.equal(accepts("Machine learning, Kim A. Journal of Things. For rainfall prediction in tropical catchments", t), false);
+  assert.equal(accepts("Machine learning methods and tools for rainfall prediction in tropical catchments", t), false);
+  assert.equal(accepts("Machine learning methods for rainfall prediction in tropical catchments", t), true); // 여분 하나는 허용
+});
+
+test("부제 생략 비교 우회 차단: 편 번호·로마 숫자·뒤따르는 Part", () => {
+  const A = { year: "2020", author: KIM };
+  const cand = (title) => Object.assign({ title }, A);
+  const ref1 = "Kim, A. Thermal decomposition of transition metal oxalates. Part 2. J Things, 2020.";
+  assert.equal(B.isMatch(ref1, cand("Thermal decomposition of transition metal oxalates: Part 1")), false);
+  const ref2 = "Kim, A. Photochemistry of aromatic ketones in water: II. Experiments. J Things, 2020.";
+  assert.equal(B.isMatch(ref2, cand("Photochemistry of aromatic ketones in water: I. Theory")), false);
+  // 부제에 번호 표지가 없어도, 서지 문구에서 제목 바로 뒤에 Part가 오면 다른 편
+  assert.equal(B.isMatch(ref1, cand("Thermal decomposition of transition metal oxalates: a review")), false);
+  const ref4 = "Kim, A. Thermal decomposition of transition metal oxalates. J Things, 2020.";
+  for (const s of ["Part A", "Volume three", "Second edition", "Experiment B", "Vol. 4", "2nd edition"]) {
+    assert.equal(B.isMatch(ref4, cand("Thermal decomposition of transition metal oxalates: " + s)), false, s);
+  }
+  // 정상: 인용에 부제가 없고 부제에 번호 표지가 없음
+  assert.equal(B.isMatch(ref4, cand("Thermal decomposition of transition metal oxalates: a kinetic survey")), true);
+  // 부제가 있어도 인용에 같은 부제가 있으면 일반 비교로 일치
+  assert.equal(B.isMatch(ref1, cand("Thermal decomposition of transition metal oxalates: Part 2")), true);
+  // 일반 비교에서도 제목 바로 뒤의 "Part 2"는 다른 편
+  assert.equal(B.isMatch(ref1, cand("Thermal decomposition of transition metal oxalates")), false);
+});
+
+test("번호 표기: part two = part 2 != part 3, Part A != Part B, 2D != 3D, XI != XII", () => {
+  const base = "Cats and their habits in homes";
+  assert.equal(accepts(base + ", Part two", base + ", Part 2"), true);
+  assert.equal(accepts(base + ", Part 2", base + ", Part two"), true);
+  assert.equal(accepts(base + ", Part II", base + ", Part 2"), true);
+  assert.equal(accepts(base + ", Part two", base + ", Part 3"), false);
+  assert.equal(accepts(base + ", Part three", base + ", Part 2"), false);
+  assert.equal(accepts(base + ", Part A", base + ", Part A"), true);
+  assert.equal(accepts(base + ", Part A", base + ", Part B"), false);
+  assert.equal(accepts(base + ", Part B", base + ", Part A"), false);
+  assert.equal(accepts("3D imaging methods for cats", "2D imaging methods for cats"), false);
+  assert.equal(accepts("3-D imaging methods for cats", "2-D imaging methods for cats"), false);
+  assert.equal(accepts("2-D imaging methods for cats", "2D imaging methods for cats"), true);
+  assert.equal(accepts(base + ", Part XII", base + ", Part XI"), false);
+  assert.equal(accepts(base + ", Part XI", base + ", Part XI"), true);
+  assert.equal(accepts(base + ", Study 4", base + ", Study four"), true);
+  assert.equal(accepts(base + ", First study", base + ", Second study"), false);
+});
+
+test("공지류 표제: 새 접두 거부, 'Review of' 정상 논문은 위치가 맞을 때만 일치", () => {
+  for (const p of ["Review: ", "Review of ", "Book review: ", "Re: ", "Letter: ", "Letter to the Editor: ", "In reply: ",
+    "Authors' reply: ", "Author reply: ", "Obituary: ", "In memoriam: ", "Preface: ", "Foreword: ",
+    "Introduction to the special issue: ", "Table of contents: ", "Index: ", "Abstracts: "]) {
+    assert.equal(accepts(LONG, p + LONG), false, p);
+  }
+  const rv = "Review of machine learning methods for rainfall prediction";
+  assert.equal(accepts(rv, rv), true);
+  assert.equal(accepts("Machine learning methods for rainfall prediction", rv), false);
+  // 다른 곳에 review가 있어도 제목 구간 앞머리가 아니면 불일치
+  const other = "Kim, A. Machine learning methods for rainfall prediction. Review of Things, 2020.";
+  assert.equal(B.isMatch(other, { title: rv, year: "2020", author: KIM }), false);
+  assert.equal(B.isMatch(other, { title: "Machine learning methods for rainfall prediction", year: "2020", author: KIM }), true);
+});
+
+test("pickMatch: Crossref 유형·공지류로 배제된 후보는 모호성에 세지 않음", () => {
+  const ref = "Kim, A. Deep learning for cats. J. Cat Sci., 2020. Deep learning for cats in homes.";
+  const a = { title: ["Deep learning for cats"], issued: { "date-parts": [[2020]] }, author: [{ family: "Kim" }], type: "journal-article" };
+  const b = { title: ["Deep learning for cats in homes"], issued: { "date-parts": [[2020]] }, author: [{ family: "Kim" }], type: "peer-review" };
+  assert.equal(B.pickMatch(ref, [a, b]), a);
+  assert.equal(B.pickMatch(ref, [b, a]), a);
+  assert.equal(B.pickMatch(ref, [b]), null);
+  const c = { title: ["Letter to the Editor: Deep learning for cats in homes"], issued: { "date-parts": [[2020]] }, author: [{ family: "Kim" }] };
+  assert.equal(B.pickMatch(ref, [a, c]), a);
+});
+
+test("기관 저자: 괄호 약어, UN, 약어는 저자 자리에서만", () => {
+  const t = LONG;
+  const cdc = { name: "Centers for Disease Control and Prevention (CDC)" };
+  const org = (ref, author) => B.isMatch(ref, { title: t, year: "2020", author: [author] });
+  assert.equal(org("Centers for Disease Control and Prevention. " + t + ". MMWR, 2020.", cdc), true);
+  assert.equal(org("CDC. " + t + ". MMWR, 2020.", cdc), true);
+  assert.equal(org("Centers for Disease Control & Prevention (CDC). " + t + ". MMWR, 2020.", cdc), true);
+  assert.equal(org("Cdc. " + t + ". MMWR, 2020.", cdc), false);
+  assert.equal(org("UN. " + t + ". New York, 2020.", { name: "United Nations" }), true);
+  assert.equal(org("EU. " + t + ". Brussels, 2020.", { name: "European Union" }), true);
+  assert.equal(org("un. " + t + ". New York, 2020.", { name: "United Nations" }), false);
+  // 두 글자 약어는 의미 낱말이 정확히 둘일 때만
+  assert.equal(org("WB. " + t + ". 2020.", { name: "World Bank Group Institute" }), false);
+  assert.equal(org("WB. " + t + ". 2020.", { name: "World Bank" }), true);
+  // 약어가 제목 뒤(저자 자리가 아님)에 있으면 불일치
+  assert.equal(org(t + ". WHO, Geneva, 2020.", { name: "World Health Organization" }), false);
+  assert.equal(org(t + ". UN, New York, 2020.", { name: "United Nations" }), false);
+  assert.equal(org("WHO. " + t + ". Geneva, 2020.", { name: "World Health Organization" }), true);
+});
+
+test("한글 문턱: 앞 120자의 한글이 정확히 절반이면 한글", async () => {
+  const real = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; return okRes(GOOD); };
+  try {
+    B.reset();
+    // 글자 수: 라틴 4(K,i,m,A) + 한글 4 = 정확히 50%
+    const half = "Kim, A. 가나다라 2020";
+    assert.equal(B.mostlyHangul(half), true);
+    assert.equal((await B.lookup(half)).status, "nomatch");
+    assert.equal(calls, 0);
+    // 한글 3 / 전체 7 = 43%: 조회함
+    const less = "Kim, A. 가나다 2020";
+    assert.equal(B.mostlyHangul(less), false);
+    await B.lookup(less);
+    assert.equal(calls, 1);
+    // 앞 120자만 본다
+    const en = "Kim, A. Deep learning for cats and dogs in the wild and in the house of the cat people. J. Cat Sci. 2020. ";
+    const head = en + "x".repeat(Math.max(0, 120 - en.length));
+    assert.equal(B.mostlyHangul(head + "가나다라마바사아자차카타파하".repeat(20)), false);
+    const ko = "김철수 이영희 청소년의 스마트폰 과의존이 학업성취에 미치는 영향 교육학연구 청소년 스마트폰 과의존 학업성취 영향 연구 방법 분석 ";
+    assert.equal(B.mostlyHangul(ko + "english tail ".repeat(30)), true);
+  } finally { globalThis.fetch = real; B.reset(); }
+});
+
+test("lookup catch: 내부 예외만 문서당 한 번 console.warn, 상태는 error", async () => {
+  const realWarn = console.warn;
+  const warns = [];
+  console.warn = (...a) => { warns.push(a); };
+  const boom = { get title() { throw new RangeError("internal boom"); } };
+  const s = stubFetch(async () => okRes({ message: { items: [boom] } }));
+  try {
+    B.reset();
+    assert.equal((await B.lookup(LREF)).status, "error");
+    assert.equal((await B.lookup("Lee, B. Another cat paper about whiskers and tails. J, 2021.")).status, "error");
+    assert.equal(warns.length, 1);
+    assert.equal(warns[0][0], "[biblio]");
+    B.reset(); // 문서가 바뀌면 다시 한 번
+    assert.equal((await B.lookup(LREF)).status, "error");
+    assert.equal(warns.length, 2);
+  } finally { console.warn = realWarn; s.restore(); }
+  // 네트워크 TypeError·HTTP·깨진 JSON은 경고 없음
+  console.warn = (...a) => { warns.push(a); };
+  const n0 = warns.length;
+  const s2 = stubFetch(async () => { throw new TypeError("Failed to fetch"); });
+  try { B.reset(); assert.equal((await B.lookup(LREF)).status, "error"); } finally { s2.restore(); }
+  const s3 = stubFetch(async () => ({ ok: false, status: 503, json: async () => ({}) }));
+  try { assert.equal((await B.lookup(LREF)).status, "error"); } finally { s3.restore(); }
+  const s4 = stubFetch(async () => ({ ok: true, status: 200, json: async () => { throw new SyntaxError("bad"); } }));
+  try { assert.equal((await B.lookup(LREF)).status, "error"); } finally { s4.restore(); }
+  console.warn = realWarn;
+  assert.equal(warns.length, n0);
+});
+
+test("알려진 정상 사례: Watson&Crick 1953(부제 유무), Hochreiter&Schmidhuber 1997, Kahneman&Tversky 1979", async () => {
+  const watson = { title: ["Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid"],
+    author: [{ given: "J. D.", family: "Watson", sequence: "first" }, { given: "F. H. C.", family: "Crick", sequence: "additional" }],
+    issued: { "date-parts": [[1953, 4]] }, "container-title": ["Nature"], DOI: "10.1038/171737a0", type: "journal-article" };
+  const lstm = { title: ["Long Short-Term Memory"],
+    author: [{ given: "Sepp", family: "Hochreiter", sequence: "first" }, { given: "Jürgen", family: "Schmidhuber", sequence: "additional" }],
+    issued: { "date-parts": [[1997, 11, 1]] }, "container-title": ["Neural Computation"], DOI: "10.1162/neco.1997.9.8.1735", type: "journal-article" };
+  const pt = { title: ["Prospect Theory: An Analysis of Decision under Risk"],
+    author: [{ given: "Daniel", family: "Kahneman", sequence: "first" }, { given: "Amos", family: "Tversky", sequence: "additional" }],
+    issued: { "date-parts": [[1979, 3]] }, "container-title": ["Econometrica"], DOI: "10.2307/1914185", type: "journal-article" };
+  const noise = { title: ["The Double Helix: A Personal Account of the Discovery of the Structure of DNA"],
+    author: [{ given: "James", family: "Watson" }], issued: { "date-parts": [[1968]] }, type: "book" };
+  const refs = [
+    ["Watson, J. D., & Crick, F. H. C. (1953). Molecular structure of nucleic acids: A structure for deoxyribose nucleic acid. Nature, 171(4356), 737-738.", watson],
+    ["Watson JD, Crick FHC. Molecular structure of nucleic acids. Nature. 1953;171:737-738.", watson],
+    ["Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. Neural Computation, 9(8), 1735-1780.", lstm],
+    ["Kahneman, D., & Tversky, A. (1979). Prospect theory: An analysis of decision under risk. Econometrica, 47(2), 263-291.", pt]
+  ];
+  for (const [ref, item] of refs) {
+    assert.equal(B.pickMatch(ref, [noise, item]), item, ref);
+    const s = stubFetch(async () => okRes({ message: { items: [noise, item] } }));
+    try {
+      B.reset();
+      const r = await B.lookup(ref);
+      assert.equal(r.status, "ok", ref);
+      assert.equal(r.data.title, item.title[0]);
+    } finally { s.restore(); }
+  }
 });
