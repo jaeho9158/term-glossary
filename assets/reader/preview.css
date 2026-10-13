@@ -1,0 +1,59 @@
+/* 인용 카드와 그림·표·절·식 미리보기 (작업 7) */
+
+/* 표시는 평소에는 투명, 마우스를 올렸을 때만 옅은 배경 */
+.rd-layer .rd-rect.rd-ref { background: transparent; border-radius: 2px; }
+.rd-layer .rd-rect.rd-ref.is-hover {
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.rd-scroll.is-ref-hover .textLayer,
+.rd-scroll.is-ref-hover .textLayer * { cursor: pointer; }
+
+/* 카드: 용어 카드(45)보다 위 */
+.rd-ref-pop { z-index: 46; width: min(380px, calc(100vw - 16px)); overflow: auto; overscroll-behavior: contain; }
+.rd-ref-pop[hidden] { display: none; }
+
+.rd-ref-list { list-style: none; margin: 0; padding: 0; }
+.rd-ref-item + .rd-ref-item { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.rd-ref-text { margin: 0; font-size: 0.86rem; line-height: 1.55; word-break: break-word; }
+.rd-ref-actions { display: flex; gap: 14px; margin-top: 6px; }
+.rd-ref-go,
+.rd-ref-more,
+.rd-ref-prev-go {
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.rd-ref-go:hover,
+.rd-ref-more:hover,
+.rd-ref-prev-go:hover { text-decoration: underline; }
+.rd-ref-detail:empty { display: none; }
+.rd-ref-detail { margin-top: 8px; font-size: 0.82rem; }
+.rd-ref-more-count { margin: 8px 0 0; color: var(--muted); font-size: 0.82rem; }
+
+/* 미리보기: 마우스에서는 클릭을 가로채지 않는다 */
+.rd-ref-pop.is-preview { width: min(378px, calc(100vw - 16px)); padding: 8px; }
+.rd-ref-pop.is-preview:not(.is-touch) { pointer-events: none; }
+.rd-ref-prev-head { margin: 0 0 6px; color: var(--muted); font-size: 0.78rem; }
+.rd-ref-prev-body { color: var(--muted); font-size: 0.82rem; line-height: 0; }
+.rd-ref-prev-body canvas { display: block; max-width: 100%; height: auto !important; background: #fff; border-radius: 4px; border: 1px solid var(--border); }
+.rd-ref-pop.is-preview .rd-ref-prev-body:not(:has(canvas)) { line-height: 1.5; }
+.rd-ref-prev-go { margin-top: 6px; padding: 8px 4px; font-size: 0.9rem; }
+
+@media (max-width: 767px) {
+  .rd-ref-pop.is-sheet {
+    left: 8px !important;
+    right: 8px;
+    top: auto !important;
+    bottom: 8px;
+    width: auto;
+    z-index: 50;
+    max-height: 60vh;
+  }
+  .rd-ref-pop.is-preview.is-sheet { max-height: 70vh; }
+  .rd-ref-go, .rd-ref-more { padding: 8px 4px; font-size: 0.9rem; }
+}
