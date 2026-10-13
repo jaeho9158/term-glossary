@@ -77,6 +77,7 @@
   function view(text, joined) {
     var src = String(text == null ? "" : text);
     var F = [], O = [], i, k, f, q;
+    src = src.replace(/\s&\s/g, " and "); // "Sleep & memory" ≡ "Sleep and memory"
     for (i = 0; i < src.length;) {
       var ch = String.fromCodePoint(src.codePointAt(i));
       f = Array.from(fold(ch));
@@ -112,7 +113,7 @@
       }
       if (keep) { words.push(t); wo.push(raw[k].o); wi.push(k); }
     }
-    return { src: src, str: str, raw: raw, words: words, wo: wo, wi: wi };
+    return { src: src, str: str, raw: raw, words: words, wo: wo, wi: wi, wl: wi };
   }
 
   function normalizeTitle(s) { return view(s, false).words; }
@@ -128,7 +129,11 @@
 
   // 글자 중 한글이 절반을 넘는가
   function mostlyHangul(s) {
-    var head = Array.from(trimRef(s)).slice(0, 120).join(""); // 앞 120자만 본다(뒤쪽 학술지명 등 제외)
+    var t0 = trimRef(s);
+    // 첫 글자 낱말이 한글 두 음절 이상이면 국문 문헌이다(뒤에 영문 원문이 섞여 있어도)
+    var fl = /^[^\p{L}]*(\p{L}+)/u.exec(t0);
+    if (fl && /^[가-힣]{2,}/.test(fl[1])) return true;
+    var head = Array.from(t0.replace(/https?:\/\/\S+|www\.\S+/gi, " ")).slice(0, 120).join(""); // 앞 120자만 본다(뒤쪽 학술지명 등 제외). URL 은 세지 않는다.
     var l = (head.match(/\p{L}/gu) || []).length;
     if (!l) return false;
     return (head.match(/\p{Script=Hangul}/gu) || []).length * 2 >= l; // 정확히 절반이면 한글
@@ -165,7 +170,7 @@
   }
 
   // Crossref의 여러 날짜 필드(인쇄본·온라인·게시·발행·등록)의 연도들
-  var DATE_FIELDS = ["published-print", "published-online", "published", "issued", "created"];
+  var DATE_FIELDS = ["published-print", "published-online", "published", "issued"];
   function datedYears(item) {
     var out = [];
     for (var k = 0; k < DATE_FIELDS.length; k++) {
@@ -274,13 +279,15 @@
     if (Math.abs(la - lb) > 1 || a.charAt(0) !== b.charAt(0) || !/^\p{L}+$/u.test(a) || !/^\p{L}+$/u.test(b)) return false;
     while (i < la && i < lb && a.charAt(i) === b.charAt(i)) i++;
     if (la === lb) {
+      // 인접한 두 글자 맞바꿈(8글자 이상): recieve 류. 그 밖의 한 글자 치환은 다른 낱말이다.
+      if (la >= 8 && a.charAt(i) === b.charAt(i + 1) && a.charAt(i + 1) === b.charAt(i) && a.slice(i + 2) === b.slice(i + 2)) return true;
       if (la < 6 || a.slice(i + 1) !== b.slice(i + 1)) return false;
       return (a.charAt(i) === "s" && b.charAt(i) === "z") || (a.charAt(i) === "z" && b.charAt(i) === "s");
     }
     var lg = la > lb ? a : b, sh = la > lb ? b : a;
     if (sh.slice(i) !== lg.slice(i + 1)) return false;
-    if (lg.charAt(i) === "u" && i > 0 && lg.charAt(i - 1) === "o" && sh.length >= 5) return true; // tumour/tumor
-    return la >= 6;
+    // 한 글자 삽입·삭제는 철자 변이 o↔ou(tumour/tumor)만. Morality/Mortality, thorough/through 는 다른 낱말이다.
+    return lg.charAt(i) === "u" && i > 0 && lg.charAt(i - 1) === "o" && sh.length >= 5;
   }
 
   // 제목 낱말 a가 서지 낱말 b와 같은가. ca·cb는 canonNum 값. 구별 낱말은 정확히, 그 밖의 글자 낱말은 typoEq까지.
@@ -348,6 +355,15 @@
     return found;
   }
 
+  // 정렬된 구간 바로 뒤의 낱말이 공백·':'·'-' 뿐인 틈으로 이어지면 제목이 거기서 끝나지 않는다(하이픈 복구·철자 변이·숫자 붙임을 거친 구간도)
+  function spanContinues(rv, r) {
+    var li = rv.wl ? rv.wl[r.lastR] : rv.wi[r.lastR];
+    var last = rv.raw[li], next = rv.raw[li + 1];
+    if (!last || !next) return false;
+    var gap = rv.str.slice(last.e, next.s).replace(/\s+/g, "");
+    return gap === "" || /^[:\-–—]+$/.test(gap);
+  }
+
   // 정정·철회·답변·논평·심사·머리말류 표제(앞 세 낱말 안): 이 낱말들은 생략·하이픈 복구로 넘길 수 없고 정렬되어야 한다.
   // 표제 첫 낱말이면 서지 문구의 제목 구간 맨 앞에 있어야 하므로(첫 낱말은 항상 정렬 필수) 위치까지 맞는다.
   var NOTICE_WORDS = ["correction", "corrigendum", "erratum", "errata", "retraction", "retracted", "withdrawal",
@@ -402,7 +418,7 @@
     for (k = 0; k < al.length; k++) { tAl[al[k][0]] = al[k][1]; rAl[al[k][1]] = true; }
     if (tAl[0] < 0 || tAl[n - 1] < 0) return null;
     for (k in must) if (tAl[k] < 0) return null;
-    var omitted = 0, hyph = 0, i = 0;
+    var hyph = 0, extra = 0, i = 0;
     while (i < n) {
       if (tAl[i] >= 0) { i++; continue; }
       var a = i;
@@ -411,14 +427,14 @@
       var t = w[a];
       if (tv.cw[a] !== null) return null;
       var gap = r.slice(tAl[a - 1] + 1, tAl[a + 1]);
-      if (!gap.length) { if (++omitted > 1) return null; }
-      else if (gap.join("") === t) hyph++;
+      if (!gap.length) return null; // 제목 낱말이 서지 문구에 없음: 생략은 받지 않는다(틀린 연결이 못 찾는 것보다 나쁘다)
+      else if (gap.join("") === t) { hyph++; extra += gap.length; }
       else return null; // 다른 낱말로 바뀜
     }
     var firstR = tAl[0], lastR = tAl[n - 1];
-    if (lastR - firstR + 1 - al.length > 2) return null; // 흩어짐
+    if (lastR - firstR + 1 - al.length > extra) return null; // 흩어짐: 구간 안의 끼어든 낱말은 하이픈 복구로 이은 것만
     for (k = firstR; k <= lastR; k++) if (rv.cr[k] !== null && !rAl[k]) return null;
-    var full = !omitted && !hyph;
+    var full = !hyph;
     for (k = 0; full && k < al.length; k++) if (!exactEq(w[al[k][0]], r[al[k][1]], tv.cw[al[k][0]], rv.cr[al[k][1]])) full = false;
     return { n: n, full: full, firstR: firstR, lastR: lastR };
   }
@@ -438,7 +454,7 @@
   function mergeView(rv, tv) {
     var r = rv.words, wi = rv.wi, tset = Object.create(null), any = false, i = 0, len, q;
     for (q = 0; q < tv.words.length; q++) tset[tv.words[q]] = 1;
-    var words = [], wo = [], wix = [];
+    var words = [], wo = [], wix = [], wlx = [];
     while (i < r.length) {
       var done = false;
       for (len = 3; len >= 2 && !done; len--) {
@@ -448,11 +464,11 @@
           if (wi[i + q] !== wi[i + q - 1] + 1) { ok = false; break; }
           c += r[i + q];
         }
-        if (ok && tset[c] === 1) { words.push(c); wo.push(rv.wo[i]); wix.push(wi[i]); i += len; done = true; any = true; }
+        if (ok && tset[c] === 1) { words.push(c); wo.push(rv.wo[i]); wix.push(wi[i]); wlx.push(rv.wl[i + len - 1]); i += len; done = true; any = true; }
       }
-      if (!done) { words.push(r[i]); wo.push(rv.wo[i]); wix.push(wi[i]); i++; }
+      if (!done) { words.push(r[i]); wo.push(rv.wo[i]); wix.push(wi[i]); wlx.push(rv.wl[i]); i++; }
     }
-    return any ? { src: rv.src, str: rv.str, raw: rv.raw, words: words, wo: wo, wi: wix } : null;
+    return any ? { src: rv.src, str: rv.str, raw: rv.raw, words: words, wo: wo, wi: wix, wl: wlx } : null;
   }
 
   // 서지 문구 보기 하나와 제목 보기 하나의 판정: 통과하면 { n, full, firstR, lastR, rv }, 아니면 null
@@ -485,7 +501,7 @@
     }
     for (var k = 0; k < als.length; k++) {
       var res = judge(tv, rv, als[k]);
-      if (res) { res.rv = rv; return res; }
+      if (res && !spanContinues(rv, res)) { res.rv = rv; return res; }
     }
     return null;
   }
@@ -528,6 +544,18 @@
     return out;
   }
 
+  // 제목 뒤 숫자가 쪽·권 번호("prediction. 577:706–710", "prediction, 123–130", "prediction.1 Nature", "10.1038/…")이지 다음 편이 아닌가.
+  // 틈에 구두점이 있고 숫자 바로 뒤가 ':'·'–'+숫자 또는 '.'+숫자이거나, 마침표 바로 뒤에 붙은 위첨자 번호일 때만.
+  function volumeOrPageAfter(rv, r, nx) {
+    var li = rv.wl ? rv.wl[r.lastR] : rv.wi[r.lastR];
+    var last = rv.raw[li], nr = rv.raw[rv.wi[r.lastR + 1]];
+    if (!last || !nr) return false;
+    var gap = rv.str.slice(last.e, nr.s), after = rv.str.slice(nr.e, nr.e + 2);
+    if (/^[.]$/.test(gap) && /^\d+$/.test(nx)) return true; // "prediction.1 Nature"
+    if (/^\s*$/.test(gap) || !/[.,;]/.test(gap)) return false;
+    return /^[:–—\-.]\d/.test(after);
+  }
+
   // 제목 구간 바로 뒤: "Part 2"·"Vol. 3"처럼 후보 제목에 없는 편 표지가 이어지면 다른 편이다.
   // 부제를 뗀 비교(fb)에서는 뒤따르는 네 낱말 안의 편 표지, 바로 다음의 번호(연도 제외)도 본다.
   function tailOk(rv, r, fb) {
@@ -537,9 +565,13 @@
       if (n2 !== undefined && isNumber(n2)) return false;
     }
     // 제목 바로 뒤의 연도 아닌 번호("X. II. Experiments", "X (2)")는 다른 편이다. 그 뒤가 연도면 학술지 권호로 본다.
-    if (nx !== undefined && isNumLike(nx) && !/^(?:19|20)\d\d$/.test(nx)) {
+    // 숫자와 두 글자 이상 로마 숫자에만 적용한다("First Monday"·"One Earth"·"X-Ray" 같은 학술지명은 제외).
+    // 영어 수사("Two", "One")는 학술지명 첫 낱말일 수 있으므로("One Earth", "Second Language Research") 뒤에 낱말이 이어질 때는 제외한다.
+    var nxr = nx === undefined ? null : rv.raw[rv.wi[r.lastR + 1]];
+    var spelled = nx !== undefined && own(NUMV, nx) && !(nxr && /^\s+\p{L}/u.test(rv.str.slice(nxr.e)));
+    if (nx !== undefined && (/^\d+$/.test(nx) || (own(ROMANV, nx) && nx.length >= 2) || spelled) && !/^(?:19|20)\d\d$/.test(nx)) {
       var n3 = words[r.lastR + 2];
-      if (!(n3 !== undefined && /^(?:19|20)\d\d$/.test(n3))) return false;
+      if (!(n3 !== undefined && /^(?:19|20)\d\d$/.test(n3)) && !volumeOrPageAfter(rv, r, nx)) return false;
     }
     if (!fb) return true;
     for (i = 1; i <= 4; i++) {
@@ -551,15 +583,32 @@
   }
 
   // 제목 구간 바로 앞의 부정어("Anti ", "Non ", "No ")는 후보 제목에 없는 낱말이 제목에 붙은 것이다.
+  var HEAD_NOTICE = { correction: 1, corrigendum: 1, erratum: 1, errata: 1, retraction: 1, reply: 1, comment: 1, comments: 1, commentary: 1, addendum: 1 };
   function headOk(rv, r) {
     var prev = rv.words[r.firstR - 1];
-    return prev === undefined || !own(NEG, prev);
+    if (prev !== undefined && own(NEG, prev)) return false;
+    for (var q = 1; q <= 4; q++) {
+      var w = rv.words[r.firstR - q];
+      if (w === undefined) break;
+      if (own(HEAD_NOTICE, w)) return false; // "Correction to: …", "Reply to comments on …"
+    }
+    // 제목 구간 바로 앞이 공백만으로 이어진 3글자 이상 낱말이면 그 낱말이 제목에 붙어 있던 것이다("Revisiting the …", "Long-term …")
+    var fi = rv.wi[r.firstR], pr = rv.raw[fi - 1], cur = rv.raw[fi];
+    if (pr && cur && /^\p{L}{3,}$/u.test(pr.t) && /^\s*$/.test(rv.str.slice(pr.e, cur.s))) return false;
+    return true;
   }
 
   function authorOk(refText, authors, r, rv) {
     var ak = authorKey(authors);
     if (ak) {
-      if (!ak.org) return familyMatch(refText, ak.family);
+      if (!ak.org) {
+        // 제목 구간 앞에서 먼저 찾는다. 제목 뒤에서만 찾으면 제목 앞에 저자 모양 글이 없을 때만 받는다(제목 안 낱말은 저자가 아니다).
+        var pre = refText.slice(0, rv.wo[r.firstR]);
+        if (familyMatch(pre, ak.family)) return true;
+        if (/\p{L}/u.test(pre)) return false;
+        var post = refText.slice(rv.wo[r.lastR] + 1).replace(/^\p{L}*/u, "");
+        return familyMatch(post, ak.family);
+      }
       return orgMatch(refText, ak.org, refText.slice(0, rv.wo[r.firstR]));
     }
     return r.n >= 8 && r.full; // 저자 정보가 없으면 긴 제목이 전부 일치할 때만
@@ -801,7 +850,7 @@
     if (cache[q]) return cache[q];
     var url;
     try {
-      url = apiBase() + "?rows=3&select=" + encodeURIComponent("title,subtitle,author,issued,published-print,published-online,published,created,container-title,DOI,abstract,type") +
+      url = apiBase() + "?rows=3&select=" + encodeURIComponent("title,subtitle,author,issued,published-print,published-online,published,container-title,DOI,abstract,type") +
         "&query.bibliographic=" + encodeURIComponent(q);
     } catch (e) { return Promise.resolve({ status: "error", reason: "query" }); } // 짝 없는 서로게이트
     var gen = generation;

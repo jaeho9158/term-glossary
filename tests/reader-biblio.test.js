@@ -261,7 +261,7 @@ test("lookup: 일치 → ok, 요청 URL·옵션 점검", async () => {
     assert.equal(u.origin + u.pathname, "https://api.crossref.org/works");
     assert.deepEqual([...u.searchParams.keys()].sort(), ["query.bibliographic", "rows", "select"]);
     assert.equal(u.searchParams.get("query.bibliographic"), LREF);
-    assert.equal(u.searchParams.get("select"), "title,subtitle,author,issued,published-print,published-online,published,created,container-title,DOI,abstract,type");
+    assert.equal(u.searchParams.get("select"), "title,subtitle,author,issued,published-print,published-online,published,container-title,DOI,abstract,type");
     const o = s.calls[0].opts;
     assert.equal(o.headers, undefined);
     assert.deepEqual(Object.keys(o).sort(), ["credentials", "referrerPolicy", "signal"]);
@@ -535,9 +535,9 @@ test("줄 끝 하이픈 복구: 낱말 5·8·14개 제목", () => {
   }
 });
 
-test("가운데 낱말 하나 생략은 허용, 둘·처음·끝은 불허, 구별 낱말은 생략 불가", () => {
+test("낱말 생략은 가운데 하나도 불허(최종 검수 B2: 기대 변경), 처음·끝·둘·구별 낱말도 불허", () => {
   const t = "Effects of acute exercise on bone density in older adults";
-  assert.equal(accepts("Effects of exercise on bone density in older adults", t), true);
+  assert.equal(accepts("Effects of exercise on bone density in older adults", t), false); // 종전 true: 가운데 한 낱말 생략 허용을 없앴다
   assert.equal(accepts("Effects of exercise on density in older adults", t), false);
   assert.equal(accepts("Effects of acute exercise on bone density in older", t), false); // 끝 생략
   assert.equal(accepts("of acute exercise on bone density in older adults", t), false); // 처음 생략
@@ -547,9 +547,9 @@ test("가운데 낱말 하나 생략은 허용, 둘·처음·끝은 불허, 구�
 
 test("오타·OCR: 6글자 이상은 거리 1까지, 거리 2는 불허, 짧은 낱말은 정확히", () => {
   const t = "Machine learning for rainfall prediction in tropical catchments";
-  assert.equal(accepts(t.replace("rainfall", "rainfal"), t), true);
+  assert.equal(accepts(t.replace("rainfall", "rainfal"), t), false); // 종전 true: 한 글자 삭제 오타 허용을 없앴다(B7)
   assert.equal(accepts(t.replace("rainfall", "rainfa"), t), false);
-  assert.equal(accepts(t.replace("tropical", "tropicl"), t), true);
+  assert.equal(accepts(t.replace("tropical", "tropicl"), t), false); // 종전 true(B7)
   assert.equal(accepts(t.replace("tropical", "tropcl"), t), false);
   assert.equal(accepts("Sleep duration and cardiovascular risk in adults aged fifty", "Sleep duration and cardiovascular risk in adults aged fifth"), false);
   assert.equal(accepts("Symmetric catalysis of aromatic ketones in water", "Asymmetric catalysis of aromatic ketones in water"), false);
@@ -559,7 +559,7 @@ test("제목 낱말이 흩어져 있기만 하면 불일치(정렬 구간 안 �
   const t = "Machine learning for rainfall prediction in tropical catchments";
   assert.equal(accepts("Machine learning, Kim A. Journal of Things. For rainfall prediction in tropical catchments", t), false);
   assert.equal(accepts("Machine learning methods and tools for rainfall prediction in tropical catchments", t), false);
-  assert.equal(accepts("Machine learning methods for rainfall prediction in tropical catchments", t), true); // 여분 하나는 허용
+  assert.equal(accepts("Machine learning methods for rainfall prediction in tropical catchments", t), false); // 종전 true: 구간 안 여분 낱말 허용을 0으로(B2)
 });
 
 test("부제 생략 비교 우회 차단: 편 번호·로마 숫자·뒤따르는 Part", () => {
@@ -826,7 +826,7 @@ test("오타 허용: 삽입·삭제, s↔z, o↔ou만. 한 글자 치환은 다�
   same("We analyse mortality in tumour patients across hospitals", "We analyze mortality in tumor patients across hospitals");
   same("We analyze mortality in tumor patients across hospitals", "We analyse mortality in tumour patients across hospitals");
   same("Colour perception in children with reading difficulty", "Color perception in children with reading difficulty");
-  same("Machine learning for rainfal prediction in tropical catchments", "Machine learning for rainfall prediction in tropical catchments");
+  assert.equal(r4rej("Machine learning for rainfal prediction in tropical catchments", "Machine learning for rainfall prediction in tropical catchments"), false); // 종전 same: 한 글자 삭제 오타 허용을 없앴다(B7)
   assert.equal(r4rej("Machine learning for rainfa prediction in tropical catchments", "Machine learning for rainfall prediction in tropical catchments"), false);
 });
 
@@ -986,7 +986,7 @@ test("정상 사례 28건 회귀 블록", () => {
     ["et al + abbreviated journal", "Vaswani A et al. Attention is all you need. Adv Neural Inf Process Syst. 2017;30.", item("Attention Is All You Need", [P("Vaswani", "Ashish")], 2017), true],
     ["interior hyphenation", "Silver D, Huang A, et al. Mastering the game of Go with deep neural net- works and tree search. Nature 2016;529:484.", item("Mastering the game of Go with deep neural networks and tree search", [P("Silver", "David")], 2016), true],
     ["last-word hyphenation", "Krizhevsky A, Sutskever I, Hinton GE. ImageNet classification with deep convolutional neural net- works. Commun ACM 2017;60:84.", item("ImageNet classification with deep convolutional neural networks", [P("Krizhevsky", "Alex")], 2017), true],
-    ["dropped 'the'", "Fama EF. Efficient capital markets: a review of theory and empirical work. J Finance 1970;25:383.", item("Efficient Capital Markets: A Review of the Theory and Empirical Work", [P("Fama", "Eugene F.")], 1970), true],
+    ["dropped 'the'", "Fama EF. Efficient capital markets: a review of theory and empirical work. J Finance 1970;25:383.", item("Efficient Capital Markets: A Review of the Theory and Empirical Work", [P("Fama", "Eugene F.")], 1970), false], // 종전 true: 낱말 생략 허용을 없앴다(B2)
     ["curly apostrophe", "McKhann GM, et al. The diagnosis of dementia due to Alzheimer’s disease. Alzheimers Dement. 2011;7:263.", item("The diagnosis of dementia due to Alzheimer's disease", [P("McKhann", "Guy M.")], 2011), true],
     ["period inside quotes", "D. Kingma and J. Ba, “Adam: A method for stochastic optimization.” arXiv 2014.", item("Adam: A Method for Stochastic Optimization", [P("Kingma", "Diederik")], 2014), true],
     ["diacritics both", "Schrödinger E. Die gegenwärtige Situation in der Quantenmechanik. Naturwissenschaften 1935;23:807.", item("Die gegenwärtige Situation in der Quantenmechanik", [P("Schrödinger", "E.")], 1935), true],
@@ -1011,4 +1011,84 @@ test("정상 사례 28건 회귀 블록", () => {
   // 같은 논문인데 Crossref에 인쇄 연도가 있으면 통과
   const pr = item("Outcomes of early rhythm control in atrial fibrillation patients", [P("Smith", "J")], 2020, null, { "published-print": { "date-parts": [[2021]] } });
   assert.ok(B.pickMatch("Smith J. Outcomes of early rhythm control in atrial fibrillation patients. Heart 2021;107:10.", [pr]));
+});
+
+// ---------- 최종 검수 반영 (판정 규칙) ----------
+const SM = [{ family: "Smith" }];
+const sm = (ref, title, extra) => B.isMatch(ref, Object.assign({ title, year: "2020", author: SM }, extra));
+
+test("isMatch: 제목 구간 뒤에 낱말이 이어지면(하이픈 복구·철자 변이·숫자 붙임을 거친 구간 포함) 다른 제목이다(B1)", () => {
+  assert.equal(sm("Smith J. Neural net- works for image recognition and segmentation. CVPR 2020.", "Neural networks for image recognition"), false);
+  assert.equal(sm("Smith J. Deep learning for protein structure prediction and design. Nature 2020.", "Deep learning for protein-structure prediction"), false);
+  assert.equal(sm("Smith J. Organization of memory systems in the brain and behavior. Nature 2020.", "Organisation of memory systems in the brain"), false);
+  assert.equal(sm("Smith J. Capture of CO 2 from flue gas streams with amines and ionic liquids. Nature 2020.", "Capture of CO2 from flue gas streams with amines"), false);
+  assert.equal(sm("Smith J. Sleep & memory in older adults: a randomized trial of napping. Sleep 2020;1:1.", "Sleep and memory in older adults: evidence from animal models"), false);
+  // 제목이 끝나는 자리(구두점)가 있으면 여전히 일치
+  assert.equal(sm("Smith J. Neural net- works for image recognition. CVPR 2020.", "Neural networks for image recognition"), true);
+  assert.equal(sm("Smith J. Capture of CO 2 from flue gas streams with amines. Nature 2020.", "Capture of CO2 from flue gas streams with amines"), true);
+});
+
+test("isMatch: 정정·답변·덧붙은 앞말·낱말 생략·구간 안 끼어든 낱말은 일치가 아니다(B2)", () => {
+  assert.equal(sm("Smith J. Correction to: Deep learning for protein structure prediction. Nature 2020.", "Deep learning for protein structure prediction"), false);
+  assert.equal(sm("Smith J. Reply to comments on the economics of climate change policy. Econ J 2020.", "The economics of climate change policy"), false);
+  assert.equal(sm("Smith J. Revisiting the economics of climate change policy. Econ J 2020.", "The economics of climate change policy"), false);
+  assert.equal(sm("Smith J. Long-term outcomes of bariatric surgery in adolescents. Obes 2020.", "Outcomes of bariatric surgery in adolescents"), false);
+  assert.equal(sm("Smith J. Efficacy of high-dose vitamin D supplementation in children. Peds 2020.", "Efficacy of vitamin D supplementation in children"), false);
+  assert.equal(sm("Smith J. Management of acute myeloid leukemia in older adults. Blood 2020.", "Management of myeloid leukemia in older adults"), false);
+  assert.equal(sm("Smith J. Effects of aerobic training on working memory in older adults. J Aging 2020.", "Effects of training on memory in older adults"), false);
+  // 정상 일치
+  assert.equal(sm("Smith J. Efficacy of vitamin D supplementation in children. Peds 2020.", "Efficacy of vitamin D supplementation in children"), true);
+  assert.equal(sm("Smith J, Lee K. 2020. Effects of training on memory in older adults. J Aging.", "Effects of training on memory in older adults"), true);
+});
+
+test("lookup: 한글 문헌은 URL을 떼고 세며, 첫 글자 낱말이 한글 두 음절 이상이면 한글이다(B3)", async () => {
+  const real = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; return okRes(GOOD); };
+  try {
+    B.reset();
+    const refs = [
+      "머니투데이(2022. 11. 1.). https://news.mt.co.kr/mtview.php?no=2022110116361374821",
+      "법제처(2022. 11. 10.). (https://www.law.go.kr/)",
+      "식품의약품안전처(2022. 11. 5.). (https://www.mfds.go.kr)",
+      "한국중독관리센터협회(2022. 11. 5.). (http://www.kaacc.co.kr)",
+      "뉴로스카이, ‘EEG biosensor’, http://neurosky.com/",
+      "홍현미라. (2005), “ 학위논문｣, 이화여자대학교 대학원. <국외문헌> Connell, J. Deep learning for cats, J. Cat Sci., 2020.",
+    ];
+    for (const r of refs) { assert.equal(B.mostlyHangul(r), true, r); assert.equal((await B.lookup(r)).status, "nomatch", r); }
+    assert.equal(calls, 0);
+    // 영문 문헌은 그대로 조회
+    assert.equal(B.mostlyHangul("Kim, A. Deep learning for cats. J. Cat Sci. 2020. https://doi.org/10.1000/cat"), false);
+  } finally { globalThis.fetch = real; B.reset(); }
+});
+
+test("isMatch: 등록(created) 연도는 연도 후보가 아니다(B4)", () => {
+  const item = { title: ["Deep learning for cats"], author: [{ family: "Smith" }], issued: { "date-parts": [[2019]] }, created: { "date-parts": [[2020]] }, type: "journal-article" };
+  assert.equal(B.pickMatch("Smith J. Deep learning for cats. J Cat Sci 2020.", [item]), null);
+});
+
+test("isMatch: 제목 뒤 번호 규칙은 숫자·두 글자 이상 로마 숫자에만 적용한다(B5)", () => {
+  const T = "Deep learning for cats";
+  ["First Monday", "One Earth", "Second Language Research", "X-Ray Spectrom"].forEach((j) => assert.equal(sm("Smith J. " + T + ". " + j + " 2020.", T), true, j));
+  assert.equal(sm("Smith J. Deep learning for cats X. II. Experiments. 2020.", "Deep learning for cats X"), false);
+  assert.equal(sm("Smith J. Deep learning for cats 2. Cat Sci 2020.", T), false);
+  assert.equal(sm("Smith J. Deep learning for cats II. Cat Sci 2020.", T), false);
+  assert.equal(sm("Smith J. Deep learning for cats. 577:706-710. 2020.", T), true);
+  assert.equal(sm("Smith J. Deep learning for cats, 123-130. In Proc. ICML 2020.", T), true);
+  assert.equal(sm("Smith J. Deep learning for cats.1 Nature 2020.", T), true);
+});
+
+test("isMatch: 첫 저자 성은 제목 구간 앞에서 먼저 찾고, 제목 안의 낱말은 저자가 아니다(B6)", () => {
+  assert.equal(B.isMatch("Jones K. Depression in young adults and sleep. J Psych 2020.", { title: "Depression in young adults and sleep", year: "2020", author: [{ family: "Young" }] }), false);
+  assert.equal(B.isMatch("Young K. Depression in young adults and sleep. J Psych 2020.", { title: "Depression in young adults and sleep", year: "2020", author: [{ family: "Young" }] }), true);
+  // 제목이 앞에 오고 저자가 뒤에 오는 서지
+  assert.equal(B.isMatch("Depression in young adults and sleep. Young K. J Psych 2020.", { title: "Depression in young adults and sleep", year: "2020", author: [{ family: "Young" }] }), true);
+});
+
+test("isMatch: 한 글자 삽입·삭제 오타는 같은 낱말이 아니다(B7)", () => {
+  assert.equal(sm("Smith J. Morality and religion in early modern Europe. Hist 2020.", "Mortality and religion in early modern Europe"), false);
+  assert.equal(sm("Smith J. A thorough analysis of cat behaviour and welfare. Cat 2020.", "A through analysis of cat behaviour and welfare"), false);
+  // 철자 변이(s/z, our/or)는 계속 같은 낱말
+  assert.equal(sm("Smith J. Organization of memory systems in the brain. Nature 2020.", "Organisation of memory systems in the brain"), true);
+  assert.equal(sm("Smith J. Tumour growth in cats and dogs of the wild. Nature 2020.", "Tumor growth in cats and dogs of the wild"), true);
 });

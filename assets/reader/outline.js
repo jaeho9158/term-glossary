@@ -104,7 +104,7 @@
         Math.abs(y - cur.y) <= (small ? 0.7 : 0.35) * ref &&
         x >= cur.x2 - 0.5 * ref &&
         x - cur.x2 <= ((cur.lastLen === 1 && it.str.trim().length === 1) ? 4 : gapEm) * ref && // 자간을 벌린 제목("본 론")은 글자 하나씩 조각난다
-        !(cur.ws && x - cur.tx2 > (gapEm + WS_TOL_EM) * ref) &&
+        !(cur.ws && x - cur.tx2 > (((cur.lastLen === 1 && it.str.trim().length === 1) ? 4 : gapEm) + WS_TOL_EM) * ref) &&
         !(gx !== null && gx !== undefined && cur.x < gx && x >= gx);
       if (!joins) {
         flush();
@@ -209,7 +209,7 @@
   // 저자 나열("Kim and J. Lee", "Kim, J. Lee", "Smith & Jones", "Kim et al")
   var AUTHOR_LIST_RE = /^[A-Z][A-Za-z'’-]+(?:\s+[A-Z]\.?)*\s*(?:,\s*|\s+&\s+|\s+and\s+)(?:[A-Z]\.|[A-Z][a-z]+\b)|^[A-Z][A-Za-z'’-]+\s+et\s+al\b/;
   // 참고문헌 항목("Kim JH, ...", "Rychert J. ...", "J. Lee ...", "김철수 (2010)", "et al")
-  var REF_ENTRY_RE = /^[가-힣]{2,4}(?:\s*[․·ㆍ,]\s*[가-힣]{2,4})+\s*[.,]|^[A-Z][A-Za-z'’-]+,?\s+[A-Z]{1,3}[,.]|^(?:[A-Z]\.\s*)+[A-Z][a-z]+|\bet\s+al\b|\(\s*(?:19|20)\d{2}[a-z]?\s*\)/;
+  var REF_ENTRY_RE = /^[가-힣]{2,4}(?:\s*[․·ㆍ,]\s*[가-힣]{2,4})+\s*[.,]|^\p{Lu}[\p{L}'’-]+,?\s+[A-Z]{1,3}[,.]|^(?:[A-Z]\.\s*)+[A-Z][a-z]+|\bet\s+al\b|\(\s*(?:19|20)\d{2}[a-z]?\s*\)/u;
 
   // 번호·표제 형식에 맞는지 본다. {kind, depth, rest, keyword, nodot}
   // nodot: 번호 뒤에 점·닫는 괄호가 없다("1 Introduction"). 소속·주소와 구별이 어려워 호출한 쪽에서 위치 조건을 더 건다.
@@ -321,7 +321,7 @@
     return { all: all, total: total, body: body };
   }
 
-  var LEADER_RE = /(\.{4,}|·{3,}|…{2,}|⋯{2,}|\.\s\.\s\.)/;
+  var LEADER_RE = /(\.{4,}|·{3,}|…{2,}|⋯{2,}|\.\s\.\s\.|-{4,}|_{4,}|─{3,})/;
 
   // 굵기 판정 규칙(결정적): pdf.js 는 글꼴의 실제 이름(Bold 여부)을 그 쪽이 그려진 뒤에야 주므로 쓰지 않는다
   // (같은 PDF가 그려진 순서에 따라 다른 목차가 나오면 안 된다). textContent.styles 의 fontFamily 는 serif/sans-serif 같은
@@ -399,7 +399,7 @@
   var KO_SURNAMES = "김이박최정강조윤장임한오서신권황안송전홍유고문양손배백허남심노하곽성차주우구민나진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용예경봉사부";
   var META_LINE_RE = /^(?:received|accepted|revised|published|submitted|available\s+online|online\s+(?:first|publication)|correspond|address|copyright|keywords?|key\s+words?|running\s+(?:title|head)|orcid|corresponding|이메일|접수|수정|게재|투고|심사|채택|발행|수신|주저자|교신|공동저자|제\s*1\s*저자|키워드|주제어|핵심어)|orcid|\b(?:issn|isbn|vol\.?|pp\.?)\s*\d|\bno\.\s*\d|©|\b(?:19|20)\d{2}\s*년\s*\d{1,2}\s*월|(?:\d{1,2}\s+)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?\s+(?:\d{1,2},?\s+)?(?:19|20)\d{2}\b/i;
   var JOURNAL_RE = /\b(?:journal|proceedings|transactions|annals|archives|bulletin)\s+of\b|\bjournal\s*$|학회지|학술지|논문집|학보$|저널/i;
-  var INSTITUTION_RE = /^(?:department|dept\.?|division|school|faculty|institute|college|center|centre)\s+of\b|\buniversity\b|\bhospital\b|\blaborator(?:y|ies)\b|\blabs?\b|\bcorp(?:oration)?\.?$|\b(?:ltd|inc|gmbh|llc)\.?$|대학교|대학원|병원|연구소|연구원/i;
+  var INSTITUTION_RE = /^(?:department|dept\.?|division|school|faculty|institute|college|center|centre)\s+of\b|\b(?:university|hospital|laborator(?:y|ies))\s+(?:of\b|(?:college|school|hospital|medical|press|library|institute|department|graduate|center|centre)\b)|\b(?:university|hospital|laborator(?:y|ies))\s*$|\blabs?\b|\bcorp(?:oration)?\.?$|\b(?:ltd|inc|gmbh|llc)\.?$|대학교|대학원|병원|연구소|연구원/i;
   // 한글 저자 나열("김철수 이영희 박민수", "김철수·이영희"): 성씨로 시작하는 세 글자 낱말이 둘 이상이고 조사·접미로 끝나는 것이 없을 때.
   var KO_NON_NAME_END = "의에를은는과와로적들화론학법계률율업제책소회국인";
   function isKoreanNameList(text) {
@@ -412,10 +412,12 @@
     }
     return true;
   }
+  // 쉼표·&·머리글자·et al 이 있거나 "Kim Jaeho and Lee Minsu"(양쪽 모두 두 낱말)일 때만 저자 나열이다: "Men and Women", "Supply and Demand" 는 제목.
+  var AUTHOR_SHAPE_RE = /,|&|\b[A-Z]\.|\bet\s+al\b|^[A-Z][a-z]+ [A-Z][a-z]+ and [A-Z][a-z]+ [A-Z][a-z]+$/;
   function isPersonOrMeta(text) {
     if (META_LINE_RE.test(text) || JOURNAL_RE.test(text) || INSTITUTION_RE.test(text)) return true;
     if (INITIAL_AUTHOR_RE.test(text)) return true;
-    if (!TITLE_WORDS_RE.test(text) && (AUTHOR_LIST_RE.test(text) || EN_NAME_LIST_RE.test(text))) return true;
+    if (!TITLE_WORDS_RE.test(text) && ((AUTHOR_LIST_RE.test(text) && AUTHOR_SHAPE_RE.test(text)) || EN_NAME_LIST_RE.test(text))) return true;
     return isKoreanNameList(text);
   }
 
@@ -427,6 +429,7 @@
     if (!/[A-Za-z가-힣]/.test(text) || SENTENCE_END_RE.test(text) || CAPTION_RE.test(text)) return null;
     if (/[@\[\]*†‡]|https?:|doi/i.test(text) || LEADER_RE.test(text)) return null; // 저자 표시(*, †)가 붙은 줄은 저자명
     if (!/^[A-Z가-힣一-鿿]/.test(text)) return null; // 소문자·숫자·부호로 시작하면 문장 조각
+    if (!/[가-힣一-鿿]/.test(text) && text.replace(/[^A-Za-z]/g, "").length < 4) return null; // "Li" 같은 라틴 조각
     if (isPersonOrMeta(text)) return null;
     if (text.split(" ").length > 8) return null;
     var ratio = ctx.body > 0 ? line.fontSize / ctx.body : 1;
@@ -492,9 +495,17 @@
       var weak = c.kind === "title" || (c.nodot && !c.keyword);
       return !weak || c.page * 1e6 + c.line.y > st.firstPos;
     });
+    // 앞 번호가 없는 3번 이상의 "15)"·"3." 줄은 참고문헌 목록의 항목이다(앞 번호가 후보로 있어야 연속 번호로 본다. 걸러진 후보끼리 연쇄하지 않도록 거르기 전 후보로 본다).
+    var seqHave = {};
+    cands.forEach(function (c) {
+      var sm = (c.kind === "num" || c.kind === "paren") && /^(\d{1,3})\s*[.)]/.exec(c.title);
+      if (sm) seqHave[c.kind + "|" + sm[1]] = true;
+    });
     var out = [];
     cands.forEach(function (c) {
       if (Object.keys(seen[c.key]).length >= REPEAT_PAGES) return;
+      var sq = (c.kind === "num" || c.kind === "paren") && /^(\d{1,3})\s*[.)]/.exec(c.title);
+      if (sq && Number(sq[1]) >= 3 && !seqHave[c.kind + "|" + (Number(sq[1]) - 1)]) return;
       var prev = out[out.length - 1];
       if (prev && prev.page === c.page && prev.title === c.title) return;
       var top = Math.max(0, c.line.y - c.line.fontSize);
@@ -502,8 +513,8 @@
     });
     // 번호가 붙은 같은 제목이 되풀이되면 앞의 것은 목차 쪽이다. 마지막(본문) 것만 남긴다.
     var lastIdx = {};
-    out.forEach(function (e, i) { if (e.kind !== "keyword" && e.kind !== "title") lastIdx[e.kind + "|" + e.title] = i; });
-    out = out.filter(function (e, i) { return e.kind === "keyword" || e.kind === "title" || lastIdx[e.kind + "|" + e.title] === i; });
+    out.forEach(function (e, i) { if (e.kind !== "keyword" && e.kind !== "title") lastIdx[e.kind + "|" + e.title.replace(/\s+/g, "")] = i; });
+    out = out.filter(function (e, i) { return e.kind === "keyword" || e.kind === "title" || lastIdx[e.kind + "|" + e.title.replace(/\s+/g, "")] === i; });
     // 참고문헌 구역의 항목(문헌 목록)은 제목이 아니다. 다른 표제어(부록, 영문 초록 등)가 나오면 구역이 끝난다.
     var inRefs = false;
     out = out.filter(function (e) {

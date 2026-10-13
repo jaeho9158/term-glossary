@@ -774,7 +774,9 @@ test("findTargets: 목차 제목이 있거나 점선 쪽 번호 줄이 3줄 이�
   const b = "List of Tables\nTable 1. Short .... 3\nTable 2. Short .... 4\nTable 3. A long title that wraps onto\nthe next line .... 5\nTable 4. Short .... 6\nTable 5. Another long title wraps\nagain .... 7";
   assert.equal(R.findTargets([b]).size, 0);
   assert.equal(R.findTargets(["표 목차\n표 1. 요약\n표 2. 결과"]).size, 0);
-  ["그림 목차", "그림 차례", "표 차례", "목차", "차례", "Contents", "Table of Contents"].forEach((h) => assert.equal(R.findTargets([h + "\n그림 1. 가\n본문\n표 2. 나"]).size, 0, h));
+  ["그림 목차", "그림 차례", "표 차례"].forEach((h) => assert.equal(R.findTargets([h + "\n그림 1. 가\n본문\n표 2. 나"]).size, 0, h));
+  // 일반 제목(목차·차례·Contents)은 쪽 번호 꼬리 줄이 2줄 이상 있어야 쪽 전체를 버린다(최종 검수 R6: 기대 변경)
+  ["목차", "차례", "Contents", "Table of Contents"].forEach((h) => assert.equal(R.findTargets([h + "\n서론 .... 3\n방법 .... 5\n그림 1. 가\n본문\n표 2. 나"]).size, 0, h));
   // 목록 쪽이 먼저 와도 뒤 쪽의 진짜 캡션이 대상이 된다
   const m = R.findTargets([a, "본문\nFigure 1. 실제 캡션 제목\n본문"]);
   assert.equal(m.get("fig:1").page, 2);
@@ -860,4 +862,82 @@ test("findTargets: 줄 위치를 알면 나란한 캡션·그림 간격이 큰 �
   assert.equal(R.findTargets([l2.join("\n")], [m3]).size, 0);
   // 줄 위치가 없으면 지금처럼 3줄 연속은 목록
   assert.equal(R.findTargets([l2.join("\n")]).size, 0);
+});
+
+// ---------- 최종 검수 반영 (판정 규칙) ----------
+test("findNumericCitations: 'to'·'sets'·'values' 앞의 평범한 인용은 살리고, 통계 표기의 콜론 변형은 거른다(R2)", () => {
+  ["According to [3, 5], the effect is small.", "similar to [3-5]", "compared to [2, 4]", "due to [1, 2].", "we refer to [4-6]", "data sets [3, 4].", "reported values [3, 4]"]
+    .forEach((s) => assert.equal(numTexts(s).length, 1, s));
+  ["(95% CI: [2, 4])", "IQR: [3, 7]", "range: [1, 10]", "95% CI [2, 4]", "values in [1, 5]", "the set [1, 2, 3]", "indices [1, 2]", "set to [1, 5]", "scaled to [0, 1]", "normalised to [1, 10]", "mapped to [1, 4]"]
+    .forEach((s) => assert.deepEqual(numTexts(s), [], s));
+});
+
+test("findCrossRefs: 이 논문 그림·표 뒤에 인용형 괄호·연도 표기가 나오는 다른 논문 지칭은 등록하지 않는다(R3)", () => {
+  [
+    "in Kim (2020, Table 2)", "Kim (2020; Fig. 3)", "(Kim 2020: Table 2)", "(Kim, 2020: 표 2)", "김철수(2020, 표 2)", "김철수(2020: 표 2)", "Smith's (2020) Table 2",
+    "Figure 2 of the same paper", "Table 2 in that study", "Fig. 1 therein", "위 논문의 표 2", "동 논문의 그림 3", "해당 논문의 표 2",
+  ].forEach((s) => assert.deepEqual(crossKeys(s), [], s));
+});
+
+test("findCrossRefs: 문장 속 'previous studies'·'reference group'·'Korea (2020)'·'(Fig. 4)' 는 이 논문 지칭이다(R4)", () => {
+  assert.deepEqual(crossKeys("Table 5 compares our method with results from previous studies."), ["table:5"]);
+  assert.deepEqual(crossKeys("Table 3 lists values in the reference group."), ["table:3"]);
+  assert.deepEqual(crossKeys("Table 2 shows the results in Korea (2020)."), ["table:2"]);
+  assert.deepEqual(crossKeys("the range was extended (Fig. 4)."), ["fig:4"]);
+  assert.deepEqual(crossKeys("변수를 추가(표 3)하였다"), ["table:3"]);
+  assert.deepEqual(crossKeys("(Korea, 2020; Table 1)"), []);
+  assert.deepEqual(crossKeys("Table 2 in the references [5]"), []);
+  assert.deepEqual(crossKeys("Extended Data Fig. 3"), []);
+  assert.deepEqual(crossKeys("Supplementary Table 1"), []);
+});
+
+test("findTargets: 앞 줄이 한글 조사로 끝나도 그림·표 간격 뒤의 실제 캡션은 줄 머리다(R1)", () => {
+  [["…세 이었다. 두통의", "Table 1. Characteristics of Subjects"], ["…대상자는 항체 검사에", "Table 1. Survey items and responses"]].forEach(([prev, cap]) => {
+    const lines = [];
+    const meta = [];
+    for (let i = 0; i < 6; i++) { lines.push("Left column body line number " + i + " with some more words."); meta.push({ x0: 50, w: 200, fs: 10, y: 700 - i * 12 }); }
+    lines.push(prev); meta.push({ x0: 50, w: 120, fs: 10, y: 628 });
+    lines.push(cap); meta.push({ x0: 50, w: 150, fs: 10, y: 628 - 2.7 * 12 });
+    lines.push("다음 본문 줄이 이어진다 그리고 더 이어진다"); meta.push({ x0: 50, w: 200, fs: 10, y: 628 - 3.7 * 12 });
+    assert.ok(R.findTargets([lines.join("\n")], [meta]).has("table:1"), cap);
+  });
+});
+
+test("findTargets: 쪽 번호가 달린 나란한 약한 꼬리(목록 이어짐)는 대상이 아니고 뒤 쪽의 실제 캡션이 대상이다(R5)", () => {
+  const m = R.findTargets(["본문 줄이다\nTable 31. Summary of results 87\nTable 32. Comparison of models 88\n본문 줄이다", "Table 31. Summary of results\n본문 줄이다 가나다라마바사", "그 다음\nTable 32. Comparison of models\n본문 줄이다 가나다라마바사"]);
+  assert.equal(m.get("table:31").page, 2);
+  assert.equal(m.get("table:32").page, 3);
+  // 홀로 있는 숫자 꼬리 캡션은 그대로 대상
+  assert.equal(R.findTargets(["본문\n\nTable 2. Demographic characteristics of group 1\n본문"]).get("table:2").page, 1);
+});
+
+test("findTargets: 일반 'Contents'·'목 차' 줄은 쪽 번호 꼬리 줄이 2줄 이상일 때만 쪽 전체를 버린다, 표 행 세 줄은 쪽을 버리지 않는다(R6)", () => {
+  const body = "본문 줄이다 가나다라마바사 아자차카.";
+  assert.equal(R.findTargets(["Contents\n" + body + "\nTable 1. Real caption here\n" + body]).has("table:1"), true);
+  assert.equal(R.findTargets(["목 차\n" + body + "\nTable 1. Real caption here\n" + body]).has("table:1"), true);
+  assert.equal(R.findTargets(["목 차\n1. 서론 ........ 3\n2. 방법 ........ 5\nTable 1. Real caption here\n" + body]).has("table:1"), false);
+  assert.equal(R.findTargets(["List of Tables\n" + body + "\nTable 1. Real caption here\n" + body]).has("table:1"), false);
+  assert.equal(R.findTargets(["그림 목차\n" + body + "\nFigure 1. Real caption here\n" + body]).has("fig:1"), false);
+  assert.equal(R.findTargets(["표 목차\n" + body + "\nTable 1. Real caption here\n" + body]).has("table:1"), false);
+  // 일반 표 행이 점선 꼬리로 끝나도(캡션 모양이 아니면) 쪽을 버리지 않는다
+  assert.equal(R.findTargets(["Table 1. Real caption here\nSeoul .. 45\nBusan .. 46\nDaegu .. 47\n" + body]).has("table:1"), true);
+  // 캡션 모양 줄이 셋이면 목록 쪽
+  assert.equal(R.findTargets(["Table 1. A ..... 4\nTable 2. B ..... 5\nTable 3. C ..... 6\nTable 4. Real caption here\n" + body]).has("table:4"), false);
+});
+
+test("성능: 와/과가 이어지는 한글 줄과 아주 긴 줄에서 멈추지 않는다(R8)", () => {
+  let t0 = Date.now();
+  R.findAuthorYearCitations("와과".repeat(40) + " (2020)");
+  R.findAuthorYearCitations("와과".repeat(40));
+  assert.ok(Date.now() - t0 < 200, "와과 x40: " + (Date.now() - t0) + "ms");
+  t0 = Date.now();
+  const longLine = "word ".repeat(80000) + "1";
+  R.findTargets([longLine + "\nTable 1. Real caption here"]);
+  R.findNumericCitations(longLine + " Kim[3]", 5);
+  assert.ok(Date.now() - t0 < 1500, "긴 줄: " + (Date.now() - t0) + "ms");
+});
+
+test("findCrossRefs: 창 안에서 문헌 번호를 직접 가리키는 'adapted from [5]'는 다른 논문이다(R4 회귀 방지)", () => {
+  assert.deepEqual(crossKeys("Fig. 3 (adapted from [5])"), []);
+  assert.deepEqual(crossKeys("Fig. 2, taken from [3]"), []);
 });

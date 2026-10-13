@@ -264,7 +264,7 @@ function titleProbe(texts) {
 
 test("번호 없는 제목 후보: 저자·날짜·학술지·식별자 줄은 받지 않는다", () => {
   const bad = ["Kim Jaeho and Lee Minsu", "김철수 이영희 박민수", "J. Kim, S. Lee", "Received 12 March 2020", "Journal of Korean Medicine", "Orcid",
-    "김철수·이영희", "Smith and Jones", "Accepted: May 3, 2020", "한국의학회지"];
+    "김철수·이영희", "Smith & Jones", "Accepted: May 3, 2020", "한국의학회지"];
   assert.deepEqual(titleProbe(bad), []);
 });
 
@@ -491,4 +491,43 @@ test("linesFromItems: 낱말 사이 공백 조각의 폭을 줄 끝에 더하므
   const it = (str, x, w) => ({ str, transform: [9.6, 0, 0, 9.6, x, 100], width: w, fontName: "f" });
   const lines = linesFromItems([it("2.8", 284.9, 13.5), it(" ", 298.4, 9.8), it("혈전", 308.2, 18.5), it(" ", 326.6, 9.6), it("수축", 336.2, 18.5), it(" ", 354.7, 9.6), it("분석", 364.3, 18.5)], vt, {});
   assert.deepEqual(lines.map((l) => l.text), ["2.8 혈전 수축 분석"]);
+});
+
+// ---------- 최종 검수 반영 (판정 규칙) ----------
+test("linesFromItems: 자간을 벌리고 사이에 공백 조각이 낀 'I. 서 론'은 한 줄이다(O1)", () => {
+  const vt = [1, 0, 0, -1, 0, 800];
+  const it = (str, x, w) => ({ str, transform: [12, 0, 0, 12, x, 700], width: w, fontName: "f" });
+  const lines = linesFromItems([it("I.", 148.5, 6), it(" ", 154.5, 0.2), it("서", 157.4, 12), it(" ", 169.4, 1.44), it("론", 186.7, 12)], vt, {});
+  assert.deepEqual(lines.map((l) => l.text), ["I. 서 론"]);
+  // 한 글자 조각이 아니면 종전 한계(1em+허용)를 그대로 쓴다
+  const far = linesFromItems([it("서론", 100, 24), it(" ", 124, 1.4), it("본론", 170, 24)], vt, {});
+  assert.equal(far.length, 2);
+});
+
+test("guessHeadings: 문헌 목록 줄('15) Headache Classification Committee…', '18) Bjørk MH, …')은 앞 번호가 없으면 제목이 아니다(O2)", () => {
+  assert.deepEqual(titleProbe(["15) Headache Classification Committee of the International", "18) Bjørk MH, Stovner LJ, Hagen K, Sand T. What initiates a migraine"]), []);
+  assert.equal(classifyHeading("18) Bjørk MH, Stovner LJ, Hagen K, Sand T. What initiates a migraine"), null);
+  // 앞 번호가 후보로 있으면 연속 번호는 남는다
+  assert.deepEqual(titleProbe(["1) Aims", "2) Subjects", "3) Analysis"]), ["1) Aims", "2) Subjects", "3) Analysis"]);
+});
+
+test("번호 없는 제목 후보: Laboratory Findings 같은 진짜 제목은 받고 기관·저자 줄은 계속 거른다(O3)", () => {
+  const good = ["Laboratory Findings", "Laboratory Tests", "Hospital Course", "Strengths and Limitations", "Sample and Procedure", "Measures and Instruments",
+    "Cells and Reagents", "Animals and Housing", "Men and Women", "Supply and Demand"];
+  assert.deepEqual(titleProbe(good), good);
+  const bad = ["Seoul National University Hospital", "Department of Medicine", "Yonsei University College of Medicine", "Hospital of the University of Pennsylvania",
+    "Laboratory of Immunology", "Kim Jaeho and Lee Minsu", "Smith, Jones", "Smith & Jones", "Kim J and Lee S", "Smith et al"];
+  assert.deepEqual(titleProbe(bad), []);
+});
+
+test("제목 후보: 줄표·밑줄 점선 줄과 라틴 3글자 이하 조각은 제외, 공백 차이만 있는 목차 되풀이는 본문 것만(O4)", () => {
+  assert.deepEqual(titleProbe(["2. Methods ------------ 5", "3. Results ____________ 7", "4. Aims ─────── 9"]), []);
+  assert.deepEqual(titleProbe(["Li"]), []);
+  assert.deepEqual(titleProbe(["Aims"]), ["Aims"]);
+  const pages = [
+    { page: 1, lines: [H("1. 서론", 13, 60), H("2. 연구 방법", 13, 90), H("3. 결과", 13, 120), ...bodyAt(10, 150)] },
+    { page: 2, lines: [H("1. 서론", 13, 60), ...bodyAt(25, 80), H("2. 연구방법", 13, 480), ...bodyAt(5, 500)] },
+    { page: 3, lines: [...bodyAt(10, 60), H("3. 결과", 13, 300), ...bodyAt(10, 320), H("참고문헌", 13, 480)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "2. 연구방법", "3. 결과", "참고문헌"]);
 });
