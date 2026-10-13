@@ -47,7 +47,11 @@ test("clampTarget: 다른 쪽 요소 안의 끝점은 당기지 않는다(여러
 
 test("clampTarget: 쪽 사이 틈은 안쪽 끝점의 쪽에 바로 붙은 틈일 때만", () => {
   assert.deepEqual(clampTarget(true, [L(3, -1), L(4, 1)], { anchorPage: 3, where: "gap", nearPages: [3, 4] }), { page: 3, edge: "end" });
-  assert.equal(clampTarget(true, [L(3, -1), L(4, -1), L(5, 1)], { anchorPage: 3, where: "gap", nearPages: [4, 5] }), null);
+  // 앵커 쪽에 붙지 않은 틈도 앵커 쪽의 끝/처음으로 당긴다(선택 전체를 버리지 않는다)
+  assert.deepEqual(clampTarget(true, [L(3, -1), L(4, -1), L(5, 1)], { anchorPage: 3, where: "gap", nearPages: [4, 5] }), { page: 3, edge: "end" });
+  assert.deepEqual(clampTarget(false, [L(3, 1), L(4, 1), L(5, -1)], { anchorPage: 4, where: "gap", nearPages: [2, 3] }), { page: 4, edge: "start" });
+  // 층이 끝점의 반대쪽에 있으면 당기지 않는다
+  assert.equal(clampTarget(true, [L(3, 1)], { anchorPage: 3, where: "gap", nearPages: [1, 2] }), null);
 });
 
 test("clampTarget: 패널·도구 막대 같은 본문 밖 끝점은 안쪽 끝점의 쪽 끝/처음으로만", () => {

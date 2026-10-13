@@ -141,7 +141,7 @@ test("drawGroups: 겹치는 기록은 한 범위로 묶고 가장 나중 기록�
   assert.equal(g[1].primaryId, "c");
 });
 
-const { mergeNotes, foldNotes, withTimeout } = require("../assets/reader/annotations.js");
+const { mergeNotes, foldNotes, withTimeout, makeStoreCaller } = require("../assets/reader/annotations.js");
 
 test("mergeNotes: 빈 메모는 버리고 같은 글은 처음 것만, 순서 유지", () => {
   assert.equal(mergeNotes(["n1", "", "n2", "n1", null, "n2", "n3"]), "n1\nn2\nn3");
@@ -202,4 +202,42 @@ test("withTimeout: 시간 뒤에 늦게 끝난 값은 onLate 로 넘기고 결�
   resolveLate("늦은 값");
   await new Promise((r) => setImmediate(r));
   assert.deepEqual(late, ["늦은 값"]);
+});
+
+test("planMerge: 합친 뒤 고친 원본 메모는 다시 접어 넣는다(고친 글 보존, 옛 글 중복 없음)", () => {
+  const o = { start: at("alpha"), end: at("alpha") + 5, id: "1", note: "A2" };
+  const un = { start: at("alpha"), end: at("alpha") + 5, id: "unsaved-1", note: "A", replaces: ["1"], snap: ["A"] };
+  const p = planMerge([o, un], PT, at("alpha"), at("alpha") + 3, "");
+  assert.equal(p.note, "A2\nA");
+  assert.equal(p.note.split("\n").filter((l) => l === "A").length, 1);
+  const same = planMerge([{ ...o, note: "A" }, un], PT, at("alpha"), at("alpha") + 3, "");
+  assert.equal(same.note, "A");
+});
+
+test("mergeNotes: 줄 단위로 중복 제거(삭제 실패로 남은 원본 + 합친 메모)", () => {
+  assert.equal(mergeNotes(["A", "A\nB"]), "A\nB");
+  assert.equal(mergeNotes(["A\n\nB", "B\nC\nA"]), "A\nB\nC");
+});
+
+test("makeStoreCaller: 시간 초과 뒤 30초는 바로 실패, 이후엔 다시 시도", async () => {
+  const tm = fakeTimers();
+  let t = 1000;
+  const call = makeStoreCaller({ timeoutMs: 10000, failFastMs: 30000, now: () => t, timers: tm });
+  const p = call(() => new Promise(() => {}), "FAIL");
+  tm.fns[0].f();
+  assert.equal(await p, "FAIL");
+  let calls = 0;
+  t = 1000 + 29999;
+  assert.equal(await call(() => { calls++; return "OK"; }, "FAIL"), "FAIL");
+  assert.equal(calls, 0);
+  t = 1000 + 30000;
+  assert.equal(await call(() => { calls++; return "OK"; }, "FAIL"), "OK");
+  assert.equal(calls, 1);
+});
+
+test("makeStoreCaller: 오류는 실패 결과일 뿐 빠른 실패를 켜지 않는다", async () => {
+  const call = makeStoreCaller({ now: () => 0, timers: fakeTimers() });
+  assert.equal(await call(() => { throw new Error("x"); }, false), false);
+  assert.equal(await call(() => Promise.reject(new Error("y")), false), false);
+  assert.equal(await call(() => "OK", false), "OK");
 });

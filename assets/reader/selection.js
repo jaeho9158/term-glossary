@@ -35,7 +35,7 @@
   // 당기는 곳은 글자 층 안쪽 끝점이 있는 쪽(ctx.anchorPage) 하나뿐이다 — 그 쪽을 벗어나 여러 쪽에 걸친 미리보기가 되지 않게 한다.
   // layers: 그려진 글자 층들의 [{page, rel}] — rel 은 끝점 기준 위치: -1 층이 끝점보다 앞, +1 층이 끝점보다 뒤.
   // ctx.where: "page"  끝점이 같은 .rd-page 요소 안(ctx.pointPage 가 anchorPage 와 같을 때만),
-  //            "gap"   쪽과 쪽 사이 빈 곳(ctx.nearPages 에 anchorPage 가 있을 때만, 곧 그 쪽에 바로 붙은 틈),
+  //            "gap"   쪽과 쪽 사이 빈 곳(앵커 쪽에 붙은 틈이 아니어도 앵커 쪽의 끝/처음으로 — 층이 끝점의 올바른 쪽에 있을 때),
   //            "outside" 본문 스크롤 영역 밖(패널·도구 막대): 안쪽 끝점의 쪽 끝/처음으로.
   // 끝(isEnd)이면 그 쪽 글자 층의 끝으로, 시작이면 처음으로. 해당하지 않으면 null(그때만 선택 전체를 무시한다).
   function clampTarget(isEnd, layers, ctx) {
@@ -47,7 +47,7 @@
     if (ctx.where === "page") {
       if (ctx.pointPage !== A || mine.rel !== needRel) return null;
     } else if (ctx.where === "gap") {
-      if ((Array.isArray(ctx.nearPages) ? ctx.nearPages : []).indexOf(A) < 0 || mine.rel !== needRel) return null;
+      if (mine.rel !== needRel) return null; // 앵커 쪽에 붙은 틈이 아니어도 그 쪽의 끝/처음으로 당긴다
     } else if (ctx.where !== "outside") {
       return null;
     }
