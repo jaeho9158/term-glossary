@@ -29,3 +29,22 @@ test("쪽이 잘못됐거나 숫자가 아닌 조각은 버린다", () => {
   assert.deepEqual(normalizeRanges(null), []);
   assert.deepEqual(normalizeRanges([null, { page: 0, a: 1, b: 2 }, { page: 1, a: "x", b: 2 }, { page: 1, a: NaN, b: 2 }]), []);
 });
+
+const { clampTarget } = require("../assets/reader/selection.js");
+
+test("clampTarget: 끝점이 글자 층 밖이면 앞쪽 마지막 층의 끝으로", () => {
+  assert.deepEqual(clampTarget(true, [{ page: 3, rel: -1 }, { page: 4, rel: -1 }, { page: 5, rel: 1 }]), { page: 4, edge: "end" });
+  assert.deepEqual(clampTarget(true, [{ page: 3, rel: -1 }]), { page: 3, edge: "end" });
+});
+
+test("clampTarget: 시작점이 글자 층 밖이면 뒤쪽 첫 층의 처음으로", () => {
+  assert.deepEqual(clampTarget(false, [{ page: 3, rel: -1 }, { page: 4, rel: 1 }, { page: 5, rel: 1 }]), { page: 4, edge: "start" });
+});
+
+test("clampTarget: 알맞은 층이 없거나 입력이 이상하면 null", () => {
+  assert.equal(clampTarget(true, [{ page: 3, rel: 1 }]), null);
+  assert.equal(clampTarget(false, [{ page: 3, rel: -1 }]), null);
+  assert.equal(clampTarget(true, []), null);
+  assert.equal(clampTarget(true, null), null);
+  assert.equal(clampTarget(true, [null, { page: 0, rel: -1 }, { page: 2, rel: 0 }]), null);
+});

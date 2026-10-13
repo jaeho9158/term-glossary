@@ -31,14 +31,31 @@
     return Array.from(byPage.values()).sort(function (x, y) { return x.page - y.page; });
   }
 
-  if (typeof module !== "undefined" && module.exports) module.exports = { normalizeRanges: normalizeRanges };
+  // 글자 층 밖에 놓인 선택 끝점을 어디로 당길지 정한다(예: 쪽의 마지막 줄을 세 번 눌렀을 때 끝점이 글자 층 바깥 요소에 놓인다).
+  // layers: 그려진 글자 층들의 [{page, rel}] — rel 은 끝점 기준 위치: -1 층이 끝점보다 앞, +1 층이 끝점보다 뒤.
+  // 끝(isEnd)이면 끝점보다 앞에 있는 마지막 층의 끝으로, 시작이면 시작점보다 뒤에 있는 첫 층의 처음으로 당긴다.
+  // 해당하는 층이 없으면 null(그때만 선택 전체를 무시한다).
+  function clampTarget(isEnd, layers) {
+    var list = (Array.isArray(layers) ? layers : []).filter(function (l) { return l && l.page >= 1 && (l.rel === -1 || l.rel === 1); });
+    var i;
+    if (isEnd) {
+      for (i = list.length - 1; i >= 0; i--) if (list[i].rel === -1) return { page: list[i].page, edge: "end" };
+      return null;
+    }
+    for (i = 0; i < list.length; i++) if (list[i].rel === 1) return { page: list[i].page, edge: "start" };
+    return null;
+  }
+
+  var PURE = { normalizeRanges: normalizeRanges, clampTarget: clampTarget };
+  if (typeof module !== "undefined" && module.exports) module.exports = PURE;
   if (typeof document === "undefined") {
-    root.ReaderSelection = { normalizeRanges: normalizeRanges };
+    root.ReaderSelection = PURE;
     return;
   }
 
   var G = root.ReaderGeometry;
   var DEBOUNCE_MS = 120;
+  var BOXES_TIMEOUT_MS = 1500; // 안 그린 쪽의 측정을 기다리는 전체 제한
   var MAX_PAGES = 30; // 한 번에 다룰 수 있는 쪽 수(전체 선택 같은 경우를 막는다)
   var TOOL_GAP = 8;
 
@@ -112,6 +129,28 @@
     return { page: page, node: p.node, off: p.off };
   }
 
+  // 글자 층 밖 끝점: 선택 방향으로 가장 가까운 쪽 글의 끝(시작)으로 당긴다.
+  function clampedPoint(node, off, isEnd) {
+    if (!node || !node.nodeType) return null;
+    var layers = Array.prototype.slice.call(document.querySelectorAll(".rd-page .textLayer")).map(function (tl) {
+      // 끝점이 쪽 요소처럼 글자 층의 조상일 수도 있어 위치 비교는 (노드, 오프셋) 지점으로 한다.
+      var rel = 0;
+      try {
+        var lr = document.createRange();
+        lr.selectNodeContents(tl);
+        var c = lr.comparePoint(node, off);
+        rel = c > 0 ? -1 : c < 0 ? 1 : 0; // 지점이 층 뒤에 있으면 층이 지점보다 앞(-1)
+      } catch (err) { rel = 0; }
+      return { page: pageOfLayer(tl), rel: rel, el: tl };
+    });
+    var t = clampTarget(isEnd, layers);
+    if (!t) return null;
+    var tl2 = layers.filter(function (l) { return l.page === t.page; })[0].el;
+    var sp = t.edge === "end" ? lastSpanIn(tl2) : firstSpanIn(tl2);
+    if (!sp) return null;
+    return { page: t.page, node: sp, off: t.edge === "end" ? 1 : 0 };
+  }
+
   async function pageText(p) {
     var res = await TM().get(p, { measure: false, quiet: true });
     return res ? res.text : null;
@@ -124,8 +163,8 @@
     var raw = sel.toString();
     if (raw.replace(/\s+/g, "").length < 2) return null;
     var r = sel.getRangeAt(0);
-    var s = pointOf(r.startContainer, r.startOffset, false);
-    var e = pointOf(r.endContainer, r.endOffset, true);
+    var s = pointOf(r.startContainer, r.startOffset, false) || (textLayerOf(r.startContainer) ? null : clampedPoint(r.startContainer, r.startOffset, false));
+    var e = pointOf(r.endContainer, r.endOffset, true) || (textLayerOf(r.endContainer) ? null : clampedPoint(r.endContainer, r.endOffset, true));
     if (!s || !e) return null;
     // 두 끝점의 쪽 글이 준비돼야 DOM 위치를 쪽 글 위치로 바꿀 수 있다.
     var ensured = await Promise.all([TM().get(s.page, { measure: false, quiet: true }), TM().get(e.page, { measure: false, quiet: true })]);
@@ -171,21 +210,31 @@
 
     // 미리보기 사각형(쪽 좌표)과 도구를 놓을 화면 사각형
     var rects = {};
+    var datas = await boxesForPages(ranges.map(function (rg) { return rg.page; }));
     for (var i = 0; i < ranges.length; i++) {
       var rr = ranges[i];
-      var data = await boxesFor(rr.page);
+      var data = datas[rr.page];
       rects[rr.page] = data ? G.rangeRects(data.charBoxes, rr.start, rr.end) : [];
     }
     return { ranges: ranges, text: raw, quote: quote, rects: rects, clientRect: clientRectOf(rects) };
   }
 
   // 그려진 쪽이면 측정 상자, 아직 안 그린 쪽이면 가중치 상자(미리보기만 쓴다)
-  function boxesFor(page) {
-    var measured = TM().get(page);
-    var fallback = new Promise(function (resolve) {
-      setTimeout(function () { resolve(TM().get(page, { measure: false, quiet: true })); }, 400);
+  // 쪽들을 한꺼번에 기다린다(제한 시간은 전체에 한 번). 시간 안에 측정이 끝난 쪽은 측정 상자, 나머지는 가중치 상자.
+  async function boxesForPages(pages) {
+    var out = {};
+    var measured = pages.map(function (p) {
+      return TM().get(p).then(function (d) { out[p] = d; }, function () { /* 아래에서 가중치 상자로 대신한다 */ });
     });
-    return Promise.race([measured, fallback]);
+    var timer = 0;
+    var timeout = new Promise(function (resolve) { timer = setTimeout(resolve, BOXES_TIMEOUT_MS); });
+    await Promise.race([Promise.all(measured), timeout]);
+    clearTimeout(timer);
+    await Promise.all(pages.map(async function (p) {
+      if (out[p]) return;
+      try { out[p] = await TM().get(p, { measure: false, quiet: true }); } catch (err) { out[p] = null; }
+    }));
+    return out;
   }
 
   function clientRectOf(rects) {
@@ -239,6 +288,23 @@
     if (top + h > vh - 8) top = Math.max(barBottom + 4, Math.min(above, vh - h - 8));
     el.style.left = Math.round(left) + "px";
     el.style.top = Math.round(top) + "px";
+  }
+  // 창 크기·확대 배율이 바뀌면 도구를 선택 위치에 다시 맞춘다(선택이 화면 밖이면 닫는다).
+  function reposition() {
+    if (!cur) return;
+    cur.clientRect = clientRectOf(cur.rects);
+    var el = tool();
+    if (!cur.clientRect || !el || el.hidden) { if (!cur.clientRect) hideTool(); return; }
+    showTool(cur);
+  }
+  function repositionSoon() {
+    if (!cur) return;
+    hideTool();
+    root.requestAnimationFrame(function () { root.requestAnimationFrame(function () {
+      if (!cur) return;
+      cur.clientRect = clientRectOf(cur.rects);
+      if (cur.clientRect && !down) showTool(cur);
+    }); });
   }
   function hideTool() {
     var el = tool();
@@ -358,8 +424,10 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && (cur || (tool() && !tool().hidden))) clear();
     });
+    root.addEventListener("resize", function () { if (cur) reposition(); });
     var rd = $("reader");
     if (rd) {
+      rd.addEventListener("reader:scalechange", repositionSoon);
       rd.addEventListener("reader:docclose", clear);
       rd.addEventListener("reader:docopen", clear);
     }
@@ -368,6 +436,7 @@
   root.ReaderSelection = {
     init: init,
     normalizeRanges: normalizeRanges,
+    clampTarget: clampTarget,
     current: function () {
       if (!cur) return null;
       return { ranges: cur.ranges, text: cur.text, quote: cur.quote, clientRect: cur.clientRect };
