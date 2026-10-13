@@ -286,4 +286,22 @@ const VT = [1, 0, 0, -1, 0, 800]; // 배율 1, 높이 800 쪽의 viewport transf
   assert.deepStrictEqual(boxes, [null, null]);
 }
 
+// stats: 측정 폭을 실제로 쓴 조각만 measured 로 센다(전부 0 이어서 가중치로 돌아간 조각, 회전 조각은 weighted)
+{
+  const VT2 = [1, 0, 0, -1, 0, 800];
+  const items = [
+    item("가나다", 10, 700, 36, 12),
+    item("라마바", 10, 680, 36, 12),
+    { str: "사아", transform: [0, 12, -12, 0, 100, 600], width: 24 },
+  ];
+  const pt = buildPageText(items, 600);
+  const measure = (f, sz, str) => (str === "라마바" ? [0, 0, 0] : [12, 12, 12].slice(0, str.length));
+  const stats = { measured: 0, weighted: 0 };
+  buildCharBoxes(items, VT2, pt, measure, stats);
+  assert.deepStrictEqual(stats, { measured: 1, weighted: 2 });
+  const st2 = { measured: 0, weighted: 0 };
+  buildCharBoxes(items, VT2, pt, null, st2);
+  assert.deepStrictEqual(st2, { measured: 0, weighted: 3 });
+}
+
 console.log("reader-text-map: all tests passed");

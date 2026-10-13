@@ -190,6 +190,7 @@
         var x1 = tx[4] + bounds[k + 1] * sx;
         out[k] = { x: x0, y: top, w: x1 - x0, h: bh, p: pieceId };
       }
+      out.usedMeasured = !!widths; // 실제로 측정 폭을 쓴 조각(전부 0 이어서 가중치로 돌아갔거나 회전 조각이면 false)
       return out;
     }
 
@@ -230,7 +231,8 @@
 
   // 쪽 글의 글자마다 상자를 만든다. 쪽 글에 없는 글자(삽입된 공백·줄바꿈)와 계산이 안 되는 글자는 null.
   // measure(fontName, fontSizePx, str) -> 글자별 폭 배열 | null.
-  function buildCharBoxes(items, viewportTransform, pageText, measure) {
+  // stats 를 주면 {measured, weighted} 를 센다: 글자가 쪽 글에 나오는 조각 중 측정 폭을 실제로 쓴 것 / 가중치로 나눈 것.
+  function buildCharBoxes(items, viewportTransform, pageText, measure, stats) {
     var vt = viewportTransform || [1, 0, 0, 1, 0, 0];
     var n = pageText.text.length;
     var boxes = new Array(n);
@@ -258,6 +260,7 @@
       if (rawBoxes === undefined) {
         rawBoxes = itemCharBoxes(items[idx], vt, measuredAt.get(idx), idx);
         perItem.set(idx, rawBoxes);
+        if (stats) { if (rawBoxes && rawBoxes.usedMeasured) stats.measured++; else stats.weighted++; }
       }
       if (!rawBoxes) continue;
       var b = rawBoxes[pageText.charOffset[i]];
@@ -382,6 +385,11 @@
       if (first < 0) first = w;
       else if (Math.abs(w - first) > 0.01) return null;
     }
+    // 시도했다가 뺀 규칙(2026-10-14): ①, →, 그리스 글자처럼 세 계열이 모두 같은 시스템 글꼴로 풀리는 기호는 위 확인을 통과한다.
+    // ASCII·한글·라틴 글자 밖의 글자에 한해 "대체 계열(serif)만으로 잰 폭과 같으면 거부"를 더해 보았으나, 따옴표·가운뎃점·괄호 같은
+    // 흔한 기호는 내장 글꼴이 실제로 가지고 있어도 시스템 serif 와 폭이 같은 일이 많아 측정 낱말이 3830 -> 3734 로 줄고
+    // 엄격 맞음(16개 PDF 4424 낱말, 배율 2, 보정 전)이 89.4 -> 88.6 으로 나빠졌다(한글 낱말 93.8 -> 92.7). 보정 후도 94.6 -> 94.3.
+    // 기호 쪽 폭 오차는 가중치와 크게 다르지 않아 이득이 없다고 보고 쓰지 않는다.
     return first;
   }
   var measureFn = makeMeasure();
@@ -393,6 +401,9 @@
     cacheSync = new Map();
     rendered = new Set();
     allTextsPromise = null;
+    // 글꼴 이름(g_d0_f1 등)은 문서마다 다른 글꼴을 가리키므로 폭·등록 캐시도 문서가 바뀌면 버린다.
+    widthCache = new Map();
+    familyOk = new Map();
   }
 
   function bindEvents() {
@@ -455,13 +466,8 @@
       return (useMeasure ? waitRendered(n) : Promise.resolve(true)).then(function (ok) {
         if (!ok) return null; // 문서가 닫히거나 바뀜
         var vp = base.viewport;
-        var stats = { measured: 0, weighted: 0 }; // 조각 단위: 실제 글꼴로 잰 조각 / 가중치로 나눈 조각
-        var counting = useMeasure ? function (f, sz, str) {
-          var w = measureFn(f, sz, str);
-          if (w) stats.measured++; else stats.weighted++;
-          return w;
-        } : null;
-        var boxes = buildCharBoxes(base.items, vp.transform, base.pageText, counting);
+        var stats = { measured: 0, weighted: 0 }; // 조각 단위: 측정 폭을 실제로 쓴 조각 / 가중치로 나눈 조각
+        var boxes = buildCharBoxes(base.items, vp.transform, base.pageText, useMeasure ? measureFn : null, stats);
         return {
           text: base.pageText.text,
           charBoxes: boxes,

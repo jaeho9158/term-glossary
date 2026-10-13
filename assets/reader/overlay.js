@@ -4,8 +4,11 @@
 // 형광펜 층의 mix-blend-mode: multiply 는 컨테이너 자신에게 건다(자손에게 걸면 캔버스와 섞이지 않는다).
 // 겹침층은 pointer-events: none 이라 클릭 대상은 entryAt(좌표)로 직접 찾는다.
 //
+// 가장자리별 보정: entry.refineLeft / refineRight(첫 사각형의 왼쪽 / 마지막 사각형의 오른쪽)가 불리언으로 주어지면 refine 와 상관없이
+// 그 가장자리는 그 값을 따른다(한쪽만 낱말 경계인 용어도 그쪽은 보정된다). 주어지지 않으면 refine: true 는 양쪽, false/없음은 층 기본값(search 만 켜짐).
+// flash 도 같다. 판단은 ReaderInk.edgeMode(순수, 시험함).
 // 잉크 보정: entry 에 refine: true 를 주면(search 층은 기본 켜짐, refine: false 로 끌 수 있다) 쪽 캔버스가 그려진 뒤
-// ReaderInk.refineRects 로 좌우 가장자리를 실제 글자에 맞춘 사각형을 그린다. entry.rects(보정 전)가 원본이고
+// ReaderInk.request 로 좌우 가장자리를 실제 글자에 맞춘 사각형을 구해 그린다(계산 전에는 원본을 먼저 그린다). entry.rects(보정 전)가 원본이고
 // 보정 결과는 쪽을 다시 그릴 때마다 새로 계산한다. 화면에 보이는 것(보정 후)을 entryAt 이 그대로 판정한다.
 window.ReaderOverlay = (function (root) {
   "use strict";
@@ -26,21 +29,18 @@ window.ReaderOverlay = (function (root) {
   function D() { return root.ReaderDoc; }
   function validLayer(layer) { return LAYER_ORDER.indexOf(layer) >= 0; }
 
-  // 화면에 보일 사각형. 보정 대상이고 쪽이 그려졌으면 보정한 것, 아니면 원본.
-  var refinedCache = new WeakMap(); // entry -> {gen, rects}
-  var gens = new Map(); // page -> 다시 그린 횟수(보정 결과 무효화용)
+  // 화면에 보일 사각형. 보정 대상이고 쪽이 그려졌으면, 보정이 끝난 것은 보정한 것을 쓰고 아직이면 원본을 쓴다.
+  // 보정은 ReaderInk.request 가 한가할 때 계산하고, 끝나면 onReady 로 알려 그 쪽 층을 다시 그린다(원본 -> 보정, 한 번만 바뀐다).
+  
   function wantsRefine(layer, en) {
-    return en.refine !== undefined ? !!en.refine : !!REFINE_LAYERS[layer];
+    return root.ReaderInk && root.ReaderInk.edgeMode ? root.ReaderInk.edgeMode(!!REFINE_LAYERS[layer], en).any : (en.refine !== undefined ? !!en.refine : !!REFINE_LAYERS[layer]);
   }
   function displayRects(page, layer, en) {
     var raw = en.rects || [];
-    if (!raw.length || !rendered.has(page) || !wantsRefine(layer, en) || !root.ReaderInk) return raw;
-    var gen = gens.get(page) || 0;
-    var c = refinedCache.get(en);
-    if (c && c.gen === gen && c.page === page && c.src === raw) return c.rects;
-    var rects = root.ReaderInk.refineRects(page, raw);
-    refinedCache.set(en, { gen: gen, page: page, src: raw, rects: rects });
-    return rects;
+    if (!raw.length || !rendered.has(page) || !root.ReaderInk || !root.ReaderInk.request) return raw;
+    var m = root.ReaderInk.edgeMode(!!REFINE_LAYERS[layer], en);
+    if (!m.any) return raw;
+    return root.ReaderInk.request(page, raw, { refineLeft: m.left, refineRight: m.right }) || raw;
   }
 
   function layerBox(overlay, layer) {
@@ -152,11 +152,16 @@ window.ReaderOverlay = (function (root) {
   }
 
   // 1.2초 반짝임. 같은 쪽에서 다시 부르면 앞의 것을 바꿔 끼운다.
-  function flash(page, rects) {
+  // 반짝이는 사각형도 표시되는 표시와 같은 보정을 받는다(opts.refine 기본 true, opts.refineLeft / refineRight).
+  function flash(page, rects, opts) {
     if (!rects || !rects.length) return;
     var prev = flashTimers.get(page);
     if (prev) clearTimeout(prev);
-    setRects(page, "flash", [{ id: "flash", rects: rects, className: "rd-flash-rect" }]);
+    setRects(page, "flash", [{
+      id: "flash", rects: rects, className: "rd-flash-rect",
+      refine: !(opts && opts.refine === false),
+      refineLeft: opts && opts.refineLeft, refineRight: opts && opts.refineRight,
+    }]);
     flashTimers.set(page, setTimeout(function () {
       flashTimers.delete(page);
       clearPage(page, "flash");
@@ -171,7 +176,6 @@ window.ReaderOverlay = (function (root) {
   function reset() {
     LAYER_ORDER.forEach(function (l) { store[l].clear(); });
     rendered = new Set();
-    gens.clear();
     flashTimers.forEach(function (t) { clearTimeout(t); });
     flashTimers.clear();
   }
@@ -181,10 +185,19 @@ window.ReaderOverlay = (function (root) {
     if (!el) return;
     el.addEventListener("reader:pagerendered", function (e) {
       rendered.add(e.detail.page);
-      gens.set(e.detail.page, (gens.get(e.detail.page) || 0) + 1);
       if (root.ReaderInk) root.ReaderInk.invalidate(e.detail.page);
       drawPage(e.detail.page);
     });
+    // 보정이 끝나면 그 쪽의 보정 대상 층만 다시 그린다.
+    if (root.ReaderInk && root.ReaderInk.onReady) {
+      root.ReaderInk.onReady(function (page) {
+        if (!rendered.has(page)) return;
+        LAYER_ORDER.forEach(function (layer) {
+          var list = store[layer].get(page);
+          if (list && list.some(function (en) { return wantsRefine(layer, en); })) drawLayer(page, layer);
+        });
+      });
+    }
     el.addEventListener("reader:scalechange", function (e) { setScaleVar(e.detail.scale); });
     el.addEventListener("reader:docopen", function () { reset(); setScaleVar(D().getScale()); });
     el.addEventListener("reader:docclose", reset);

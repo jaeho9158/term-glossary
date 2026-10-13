@@ -130,18 +130,47 @@
   }
 
   function isWs(ch) { return /\s/.test(ch); }
+  var CJK_RE = /[가-힣ㄱ-ㅎㅏ-ㅣ぀-ヿ㐀-鿿豈-﫿]/;
 
   // 범위 [start, end) 를 가장 가까운 낱말 경계로 넓힌다(순수). 낱말 = 공백·줄바꿈으로 끊긴 덩어리(한글은 어절).
   // 범위의 시작이나 끝이 낱말 안쪽이면 그 낱말 끝까지 넓히고, 이미 경계(공백 옆)면 그대로 둔다.
-  // 글자 상자가 글자 하나 정도 어긋나도 형광펜이 낱말 단위로는 맞게 하려는 용도다. 빈 범위나 범위 밖은 쪽 글 안으로 잘라 돌려준다.
+  // 글자 상자가 글자 하나 정도 어긋나도 형광펜이 낱말 단위로는 맞게 하려는 용도다.
+  // - 결과의 앞뒤 공백은 뺀다(" 감염" 0~2 -> 1~2). 빈 범위나 공백뿐인 범위는 쪽 글 안으로 잘라 그대로 돌려준다.
+  // - 줄 끝에서 끊긴 어절(한글·한자·가나 두 글자 사이의 줄바꿈 하나, 하이픈·빈 줄 없음)은 한 낱말로 본다.
+  //   단, 낱말 안쪽에서 넓혀 온 가장자리만 줄바꿈을 건넌다. 범위가 줄 끝에서 정확히 끝나거나 줄 처음에서 시작하면 그대로 둔다
+  //   (그렇지 않으면 한 줄의 마지막 낱말을 고를 때마다 다음 줄 첫 낱말까지 끌려 들어간다).
   function snapToWords(text, start, end) {
     var t = String(text == null ? "" : text);
     var s = Math.max(0, Math.min(t.length, Math.floor(Number(start) || 0)));
     var e = Math.max(0, Math.min(t.length, Math.floor(Number(end) || 0)));
     if (e <= s) return { start: s, end: Math.max(s, e) };
-    while (s > 0 && !isWs(t.charAt(s - 1)) && !isWs(t.charAt(s))) s--;
-    while (e < t.length && !isWs(t.charAt(e - 1)) && !isWs(t.charAt(e))) e++;
-    return { start: s, end: e };
+    var a = s, b = e;
+    while (a < b && isWs(t.charAt(a))) a++;
+    while (b > a && isWs(t.charAt(b - 1))) b--;
+    if (a >= b) return { start: s, end: e }; // 공백뿐
+    // 줄바꿈 하나만으로 이루어진 공백 덩어리인가
+    var lineBreak = function (from, to) { var r = t.slice(from, to); return r === "\n" || r === "\r\n"; };
+    var movedL = false;
+    for (;;) {
+      if (a > 0 && !isWs(t.charAt(a - 1))) { a--; movedL = true; continue; }
+      if (movedL && a > 0) {
+        var j = a - 1;
+        while (j >= 0 && isWs(t.charAt(j))) j--;
+        if (j >= 0 && lineBreak(j + 1, a) && CJK_RE.test(t.charAt(j)) && CJK_RE.test(t.charAt(a))) { a = j; continue; }
+      }
+      break;
+    }
+    var movedR = false;
+    for (;;) {
+      if (b < t.length && !isWs(t.charAt(b))) { b++; movedR = true; continue; }
+      if (movedR && b < t.length) {
+        var k = b;
+        while (k < t.length && isWs(t.charAt(k))) k++;
+        if (k < t.length && lineBreak(b, k) && CJK_RE.test(t.charAt(b - 1)) && CJK_RE.test(t.charAt(k))) { b = k + 1; continue; }
+      }
+      break;
+    }
+    return { start: a, end: b };
   }
 
   var api = {

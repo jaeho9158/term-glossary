@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("assert");
-const { columnInk, gaps, snapEdge } = require("../assets/reader/ink.js");
+const { columnInk, columnInkLum, toLum, gaps, snapEdge, refinable, edgeFlags, edgeMode } = require("../assets/reader/ink.js");
 
 // 합성 띠: 한 줄 높이 h, 폭 W. words = [[시작,끝)...] 열 범위에 잉크를 칠한다.
 function band(W, h, words, dark) {
@@ -89,4 +89,134 @@ test("좌우 대칭: 거울상 띠에서 대칭인 결과", () => {
     const r = snapEdge(W - (40 + d), gm, 8, "right");
     assert.strictEqual(W - r, l);
   }
+});
+
+// ---------- 안쪽 이동 제한(잉크 덩어리를 넘어 조이지 않는다) ----------
+test("안쪽 이동은 잉크 없는 열 위에서만: 잉크 위 가장자리는 덩어리의 바깥 경계로", () => {
+  const g = run(band(120, 12, WORD), 5);
+  assert.strictEqual(snapEdge(43, g, 20, "left"), 40);
+  assert.strictEqual(snapEdge(77, g, 20, "right"), 80);
+});
+test("두 덩어리 사이 틈을 향해 잉크를 넘어 조이지 않는다", () => {
+  // 덩어리 A [20,40), 틈 [40,52), 덩어리 B [52,90)
+  const g = run(band(120, 12, [[20, 40], [52, 90]]), 5);
+  assert.strictEqual(snapEdge(25, g, 30, "left"), 20);
+  assert.strictEqual(snapEdge(85, g, 30, "right"), 90);
+  assert.strictEqual(snapEdge(35, g, 30, "right"), 40);
+});
+test("바깥 이동은 잉크를 넘어도 된다(maxMove 안에서)", () => {
+  const g = run(band(120, 12, WORD), 5);
+  assert.strictEqual(snapEdge(70, g, 30, "left"), 40);
+  assert.strictEqual(snapEdge(50, g, 30, "right"), 80);
+  assert.strictEqual(snapEdge(70, g, 20, "left"), 70);
+});
+
+// "(III)와" 사례: 얇은 "(" [30,33), 틈 [33,45), 몸통 [45,100)
+const PAREN = [[8, 18], [30, 33], [45, 100]]; // 앞 낱말 꼬리, 틈 [18,30), "(", 틈 [33,45), 몸통
+test("얇은 덩어리: 가장자리가 그 위에 있으면 덩어리 시작으로(잘리지 않는다)", () => {
+  const g = run(band(140, 12, PAREN), 5);
+  assert.strictEqual(snapEdge(31, g, 10, "left", 4), 30);
+  assert.strictEqual(snapEdge(31, g, 10, "left"), 30);
+});
+test("얇은 덩어리와 몸통 사이 틈의 가장자리: 제자리(몸통 쪽으로 조이지 않는다)", () => {
+  const g = run(band(140, 12, PAREN), 5);
+  for (let x = 33; x <= 45; x++) {
+    const r = snapEdge(x, g, 20, "left", 4);
+    assert.strictEqual(r, x, "x=" + x + " -> " + r); // 제자리: 몸통(45) 쪽으로 안 간다
+  }
+  assert.strictEqual(snapEdge(45, g, 20, "left", 4), 45); // 몸통 시작에 정확히 있으면 그대로(이웃의 "(" 를 끌어들이지 않는다)
+  assert.strictEqual(snapEdge(36, g, 20, "left"), 45); // thin 을 안 주면 몸통 쪽으로 조인다
+  // 덩어리가 thin 보다 넓으면(진짜 한 글자 낱말) 예전처럼 몸통 시작으로
+  const wide = run(band(140, 12, [[30, 40], [52, 100]]), 5);
+  assert.strictEqual(snapEdge(44, wide, 20, "left", 4), 52);
+});
+test("얇은 덩어리 오른쪽 가장자리 대칭", () => {
+  const g = run(band(140, 12, [[20, 80], [92, 95], [108, 125]]), 5);
+  for (let x = 80; x <= 92; x++) {
+    const r = snapEdge(x, g, 20, "right", 4);
+    assert.strictEqual(r, x, "x=" + x + " -> " + r);
+  }
+  assert.strictEqual(snapEdge(86, g, 20, "right"), 80);
+  assert.strictEqual(snapEdge(92, g, 20, "right", 4), 92); // 얇은 덩어리 시작에 정확히 있으면 그대로
+  assert.strictEqual(snapEdge(94, g, 20, "right", 4), 95); // 얇은 덩어리 위: 그 덩어리의 바깥 경계(끝)로
+});
+test("얇은 덩어리가 maxMove 밖이면 따라가지 않는다", () => {
+  const g = run(band(140, 12, PAREN), 5);
+  assert.strictEqual(snapEdge(44, g, 8, "left", 4), 45);
+});
+test("\"10\" 사례: 가는 1 [30,33), 틈, 0 [40,52). 가장자리가 어디 있어도 1 이 잘리지 않는다", () => {
+  const g = run(band(100, 12, [[5, 15], [30, 33], [40, 52]]), 5);
+  for (let x = 30; x <= 40; x++) {
+    const r = snapEdge(x, g, 10, "left", 4);
+    assert.ok(r <= x, "x=" + x + " -> " + r); // 오른쪽(몸통 쪽)으로 가지 않는다
+  }
+});
+test("글자 간격이 벌어진 한글 제목: 낱말 경계는 그대로 잡는다", () => {
+  const bandImg = band(160, 14, [[10, 20], [40, 52], [58, 70], [76, 88], [124, 136]]);
+  const g = run(bandImg, 8);
+  assert.strictEqual(snapEdge(43, g, 10, "left", 4), 40);
+  assert.strictEqual(snapEdge(85, g, 10, "right", 4), 88);
+  assert.strictEqual(snapEdge(37, g, 10, "left", 4), 40);
+  assert.strictEqual(snapEdge(91, g, 10, "right", 4), 88);
+  assert.strictEqual(snapEdge(55, g, 10, "left", 4), 55);
+});
+
+// ---------- 저해상도 건너뛰기 ----------
+test("refinable: 틈 기준이 2.5 픽셀 미만이면 보정하지 않는다", () => {
+  assert.strictEqual(refinable(11.5, 1), false); // 1.7px
+  assert.strictEqual(refinable(11.5, 1.5), true); // 2.6px
+  assert.strictEqual(refinable(11.5, 2), true);
+  assert.strictEqual(refinable(11.5, 4), true);
+  assert.strictEqual(refinable(2.5 / 0.15, 1), true);
+  assert.strictEqual(refinable(2.49 / 0.15, 1), false);
+  assert.strictEqual(refinable(11.5, 1, { minGap: 0.15, minGapPx: 1.5 }), true);
+});
+
+// ---------- 밝기 버퍼 ----------
+test("columnInkLum 은 RGBA columnInk 와 같은 열을 낸다", () => {
+  const img = band(120, 12, [[40, 80], [90, 95]]);
+  const a = columnInk(img, 10, 0, 100, 12);
+  const b = columnInkLum(toLum(img, 0, 0), 10, 0, 100, 12);
+  assert.deepStrictEqual(Array.from(a), Array.from(b));
+});
+test("toLum: 크기·원점 보존", () => {
+  const l = toLum(band(10, 4, []), 7, 3);
+  assert.strictEqual(l.lum.length, 40); assert.strictEqual(l.ox, 7); assert.strictEqual(l.oy, 3);
+});
+
+// ---------- 낱말 안쪽 가장자리는 보정하지 않는다 ----------
+test("edgeFlags: 낱말 안쪽에서 끝난 가장자리만 끈다", () => {
+  const t = "the control point";
+  const s = t.indexOf("contro");
+  assert.deepStrictEqual(edgeFlags(t, s, s + 6), { refineLeft: true, refineRight: false });
+  assert.deepStrictEqual(edgeFlags(t, s + 1, s + 7), { refineLeft: false, refineRight: true });
+  assert.deepStrictEqual(edgeFlags(t, s + 1, s + 5), { refineLeft: false, refineRight: false });
+  assert.deepStrictEqual(edgeFlags(t, s, s + 7), { refineLeft: true, refineRight: true });
+  assert.deepStrictEqual(edgeFlags(t, 0, 3), { refineLeft: true, refineRight: true });
+  assert.deepStrictEqual(edgeFlags(t, t.length - 5, t.length), { refineLeft: true, refineRight: true });
+  assert.deepStrictEqual(edgeFlags("감염병은", 0, 2), { refineLeft: true, refineRight: false });
+  assert.deepStrictEqual(edgeFlags("감염\n관리", 0, 2), { refineLeft: true, refineRight: true });
+  assert.deepStrictEqual(edgeFlags(undefined, 0, 0), { refineLeft: true, refineRight: true });
+});
+
+test("얇은 덩어리 바깥이 띠 가장자리의 빈 구간이면(이웃 낱말의 잘린 조각일 수 있다) 따라가지 않는다", () => {
+  // 가장자리 빈 구간 [0,3), 조각 [3,7), 틈 [7,20), 몸통 [20,70)
+  const g = run(band(100, 12, [[3, 7], [20, 70]]), 5);
+  assert.strictEqual(snapEdge(14, g, 20, "left", 5, 5, 100), 20);
+  const gr = run(band(100, 12, [[20, 70], [80, 84]]), 5); // 몸통 끝 70, 틈 [70,80), 조각 [80,84), 가장자리 빈 구간 [84,100)
+  assert.strictEqual(snapEdge(75, gr, 20, "right", 5, 5, 100), 70);
+  // 바깥 이웃 틈이 낱말 사이 틈 폭보다 좁아도 마찬가지
+  const narrow = run(band(100, 12, [[5, 10], [12, 15], [30, 70]]), 2); // 틈 [10,12) 폭 2
+  assert.strictEqual(snapEdge(22, narrow, 20, "left", 5, 4, 100), 30);
+});
+
+test("edgeMode: 가장자리 플래그가 refine 보다 우선", () => {
+  assert.deepStrictEqual(edgeMode(false, { refine: false, refineLeft: true, refineRight: false }), { left: true, right: false, any: true });
+  assert.deepStrictEqual(edgeMode(false, { refine: false, refineLeft: false, refineRight: true }), { left: false, right: true, any: true });
+  assert.deepStrictEqual(edgeMode(true, { refineLeft: false, refineRight: false }), { left: false, right: false, any: false });
+  assert.deepStrictEqual(edgeMode(false, { refine: true }), { left: true, right: true, any: true });
+  assert.deepStrictEqual(edgeMode(false, { refine: false }), { left: false, right: false, any: false });
+  assert.deepStrictEqual(edgeMode(false, {}), { left: false, right: false, any: false });
+  assert.deepStrictEqual(edgeMode(true, {}), { left: true, right: true, any: true });
+  assert.deepStrictEqual(edgeMode(true, { refine: false, refineRight: true }), { left: false, right: true, any: true });
 });

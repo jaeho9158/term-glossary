@@ -36,7 +36,7 @@
   <label><input type="checkbox" id="both" checked> 글꼴 측정 켬 + 끔(<code>measure=off</code>) 둘 다 측정</label>
   <button id="run" type="button">측정 시작</button>
 </div>
-<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;shift=0.5</code>(대조군: 상자를 글자 높이의 이 비율만큼 오른쪽으로 이동) <code>&amp;maxpages=N</code> <code>&amp;refine=on</code>(잉크 보정 적용: 기준 잉크 범위는 보정 전 상자로 구하고, 보정된 가장자리를 같은 엄격 척도로 채점. 보정 전 결과는 <code>hit0</code>로 같이 낸다)
+<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;shift=0.5</code>(대조군: 상자를 글자 높이의 이 비율만큼 오른쪽으로 이동) <code>&amp;maxpages=N</code> <code>&amp;renderscale=1</code>(잉크 측정용 렌더 배율, 기본 2; 1·1.5 로 저해상도 보정 건너뛰기를 확인) <code>&amp;inkparam=thin:0,maxMove:0.3</code>(보정 조정값 덮어쓰기, 진단용) <code>&amp;refine=on</code>(잉크 보정 적용: 기준 잉크 범위는 보정 전 상자로 구하고, 보정된 가장자리를 같은 엄격 척도로 채점. 보정 전 결과는 <code>hit0</code>로 같이 낸다)
 <code>&amp;sample=docA,docB</code>(보정 모드에서 그 문서들의 낱말 그림을 무작위로 모아 눈으로 확인) <code>&amp;sampleper=10</code></p>
 <div id="status"></div>
 <div id="out"></div>
@@ -65,7 +65,7 @@
   var SEED = Number(params.get("seed")) || 20261013; // 고정 시드: 같은 PDF 는 항상 같은 낱말을 뽑는다
   var WORDS_PER_PAGE = Number(params.get("words")) || 20;
   var MAX_PAGES = Number(params.get("maxpages")) || Infinity;
-  var RENDER_SCALE = 2; // 잉크 측정용 렌더 배율(상자 계산은 배율 1 좌표라 결과에 영향 없음)
+  var RENDER_SCALE = Number(params.get("renderscale")) || 2; // 잉크 측정용 렌더 배율(상자 계산은 배율 1 좌표라 결과에 영향 없음). ink 보정은 배율 1 에서는 건너뛴다
   var INK_LUM = 128;
   var MIN_FRAC = 0.9; // 스펙 §7.1
   var MAX_SHIFT = 0.25; // 글자 높이 대비
@@ -73,6 +73,7 @@
   var POLARITY = params.get("polarity") !== "off"; // off: 어두운 바탕 위 밝은 글자를 뒤집지 않는 엄격 판정
   var SHIFT = Number(params.get("shift")) || 0; // 시험용 대조군: 모든 상자를 글자 높이의 이 비율만큼 오른쪽으로 민다(측정이 민감한지 확인)
   var REFINE = params.get("refine") === "on";
+  (params.get("inkparam") || "").split(",").forEach(function (kv) { var p = kv.split(":"); if (p[0] && window.ReaderInk && p[0] in window.ReaderInk.params && isFinite(Number(p[1]))) window.ReaderInk.params[p[0]] = Number(p[1]); }); // 진단: 보정 조정값 덮어쓰기 (예: inkparam=thin:0,maxMove:0.3)
   var SAMPLE_DOCS = (params.get("sample") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
   var SAMPLE_PER = Number(params.get("sampleper")) || 10;
   var G = window.ReaderGeometry;

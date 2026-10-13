@@ -63,4 +63,13 @@ assert.deepStrictEqual(findAll("1-\n2", "12"), []);
 // 줄바꿈이 없는 글에서는 변형이 의미 없다(같은 결과)
 assert.deepStrictEqual(findAll("네트 워크", "네트워크"), []);
 
+// 문단 경계(빈 줄)는 이어 붙이지 않는다
+assert.deepStrictEqual(findAll("감염\n\n관리", "감염관리"), []);
+assert.deepStrictEqual(findAll("감염\n \n관리", "감염관리"), []);
+assert.deepStrictEqual(findAll("감염\n관리", "감염관리"), [{ start: 0, end: 5 }]);
+assert.deepStrictEqual(findAll("net-\n\nwork", "network"), []);
+assert.deepStrictEqual(findAll("net-\nwork", "network"), [{ start: 0, end: 9 }]);
+// 빈 줄이 있어도 기본 접기(공백 하나)로는 찾는다
+assert.deepStrictEqual(findAll("감염\n\n관리", "감염 관리"), [{ start: 0, end: 6 }]);
+
 console.log("reader-search: all tests passed");

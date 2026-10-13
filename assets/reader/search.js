@@ -28,9 +28,10 @@
       var ch = text.charAt(i);
       if (isSpace(text.charCodeAt(i))) {
         var j = i;
-        var hasNL = false;
-        while (j < text.length && isSpace(text.charCodeAt(j))) { if (text.charCodeAt(j) === 10) hasNL = true; j++; }
-        if (mode && hasNL && i > 0 && j < text.length) {
+        var nl = 0;
+        while (j < text.length && isSpace(text.charCodeAt(j))) { if (text.charCodeAt(j) === 10) nl++; j++; }
+        // 줄바꿈이 한 번인 공백 덩어리만 줄 끝으로 본다. 두 번 이상(빈 줄)은 문단 경계라 이어 붙이지 않는다.
+        if (mode && nl === 1 && i > 0 && j < text.length) {
           var pc = text.charAt(i - 1);
           var nc = text.charAt(j);
           if (mode === "join" && CJK_RE.test(pc) && CJK_RE.test(nc)) { i = j - 1; continue; }
@@ -126,11 +127,15 @@
     return root.ReaderTextMap.get(page).then(function (data) {
       if (myToken !== token || !data) return;
       var entries = hits.map(function (h) {
+        // 낱말 안쪽에서 끝난 가장자리(예: "contro" 가 "control" 안)는 잉크 보정을 하지 않는다.
+        var fl = root.ReaderInk && root.ReaderInk.edgeFlags ? root.ReaderInk.edgeFlags(data.text, h.r.start, h.r.end) : {};
         return {
           id: h.i,
           rects: root.ReaderGeometry.rangeRects(data.charBoxes, h.r.start, h.r.end),
           className: h.i === cur ? "rd-current" : "",
           data: { index: h.i },
+          refineLeft: fl.refineLeft,
+          refineRight: fl.refineRight,
         };
       });
       root.ReaderOverlay.setRects(page, "search", entries);

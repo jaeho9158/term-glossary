@@ -112,11 +112,37 @@ for (const withPiece of [false, true]) {
   // 하이픈 낱말은 하나로 본다
   assert.deepStrictEqual(snapToWords(t, at("drug") + 1, at("drug") + 2), { start: at("drug-abuse"), end: at("drug-abuse") + 10 });
   // 공백 위에서 시작·끝나면 넓히지 않는다
-  assert.deepStrictEqual(snapToWords("가나 다라", 2, 5), { start: 2, end: 5 });
+  assert.deepStrictEqual(snapToWords("가나 다라", 3, 5), { start: 3, end: 5 });
   // 빈 범위·범위 밖
   assert.deepStrictEqual(snapToWords("가나", 1, 1), { start: 1, end: 1 });
   assert.deepStrictEqual(snapToWords("가나 다", -5, 99), { start: 0, end: 4 });
   assert.deepStrictEqual(snapToWords("", 0, 3), { start: 0, end: 0 });
 }
+
+// 앞뒤 공백은 결과에서 뺀다
+assert.deepStrictEqual(snapToWords(" 감염", 0, 2), { start: 1, end: 3 });
+assert.deepStrictEqual(snapToWords("감염 ", 0, 3), { start: 0, end: 2 });
+assert.deepStrictEqual(snapToWords("가 나 다", 1, 4), { start: 2, end: 3 });
+// 공백뿐인 범위·빈 범위는 그대로(start === end 의미 유지)
+assert.deepStrictEqual(snapToWords("가나  다라", 2, 4), { start: 2, end: 4 });
+assert.deepStrictEqual(snapToWords("가나 다라", 2, 2), { start: 2, end: 2 });
+assert.deepStrictEqual(snapToWords("가나 다라", 4, 2), { start: 4, end: 4 });
+// 줄 끝에서 끊긴 어절은 한 낱말: 안쪽에서 넓혀 온 가장자리가 줄바꿈 하나를 건넌다
+{
+  const t = "분석 네트워\n크 구조";
+  const w = t.indexOf("네트워"); // 3
+  assert.deepStrictEqual(snapToWords(t, w + 1, w + 2), { start: w, end: w + 5 }); // 앞 절반 안쪽 -> 뒤 절반까지
+  assert.deepStrictEqual(snapToWords(t, w + 1, w + 3), { start: w, end: w + 3 }); // 앞 절반 끝(줄 끝)에서 정확히 끝나면 그대로
+  assert.deepStrictEqual(snapToWords("네트워\n크기 입니다", 4, 5), { start: 4, end: 6 }); // 줄 처음에서 시작하면 그대로(앞 줄로 끌려가지 않는다)
+  assert.deepStrictEqual(snapToWords("네트워\n크기 입니다", 5, 6), { start: 0, end: 6 });
+}
+// 줄바꿈이 두 번(빈 줄), 하이픈, 한글이 아닌 글자 사이, 공백이 낀 줄바꿈은 건너지 않는다
+assert.deepStrictEqual(snapToWords("네트워\n\n크 구조", 1, 2), { start: 0, end: 3 });
+assert.deepStrictEqual(snapToWords("net-\nwork", 1, 2), { start: 0, end: 4 });
+assert.deepStrictEqual(snapToWords("abc\ndef", 1, 2), { start: 0, end: 3 });
+assert.deepStrictEqual(snapToWords("네트워 \n크", 1, 2), { start: 0, end: 3 });
+// 줄 끝에서 정확히 끝나거나 줄 처음에서 시작하는 범위는 이웃 줄로 끌려가지 않는다
+assert.deepStrictEqual(snapToWords("마약류\n범죄 관리", 0, 3), { start: 0, end: 3 });
+assert.deepStrictEqual(snapToWords("마약류\n범죄 관리", 4, 6), { start: 4, end: 6 });
 
 console.log("reader-geometry: all tests passed");
