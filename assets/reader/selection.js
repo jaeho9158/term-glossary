@@ -32,18 +32,26 @@
   }
 
   // 글자 층 밖에 놓인 선택 끝점을 어디로 당길지 정한다(예: 쪽의 마지막 줄을 세 번 눌렀을 때 끝점이 글자 층 바깥 요소에 놓인다).
+  // 당기는 곳은 글자 층 안쪽 끝점이 있는 쪽(ctx.anchorPage) 하나뿐이다 — 그 쪽을 벗어나 여러 쪽에 걸친 미리보기가 되지 않게 한다.
   // layers: 그려진 글자 층들의 [{page, rel}] — rel 은 끝점 기준 위치: -1 층이 끝점보다 앞, +1 층이 끝점보다 뒤.
-  // 끝(isEnd)이면 끝점보다 앞에 있는 마지막 층의 끝으로, 시작이면 시작점보다 뒤에 있는 첫 층의 처음으로 당긴다.
-  // 해당하는 층이 없으면 null(그때만 선택 전체를 무시한다).
-  function clampTarget(isEnd, layers) {
-    var list = (Array.isArray(layers) ? layers : []).filter(function (l) { return l && l.page >= 1 && (l.rel === -1 || l.rel === 1); });
-    var i;
-    if (isEnd) {
-      for (i = list.length - 1; i >= 0; i--) if (list[i].rel === -1) return { page: list[i].page, edge: "end" };
+  // ctx.where: "page"  끝점이 같은 .rd-page 요소 안(ctx.pointPage 가 anchorPage 와 같을 때만),
+  //            "gap"   쪽과 쪽 사이 빈 곳(ctx.nearPages 에 anchorPage 가 있을 때만, 곧 그 쪽에 바로 붙은 틈),
+  //            "outside" 본문 스크롤 영역 밖(패널·도구 막대): 안쪽 끝점의 쪽 끝/처음으로.
+  // 끝(isEnd)이면 그 쪽 글자 층의 끝으로, 시작이면 처음으로. 해당하지 않으면 null(그때만 선택 전체를 무시한다).
+  function clampTarget(isEnd, layers, ctx) {
+    if (!ctx || !(ctx.anchorPage >= 1)) return null;
+    var A = ctx.anchorPage;
+    var mine = (Array.isArray(layers) ? layers : []).filter(function (l) { return l && l.page === A && (l.rel === -1 || l.rel === 1 || l.rel === 0); })[0];
+    if (!mine) return null;
+    var needRel = isEnd ? -1 : 1; // 끝: 층이 끝점보다 앞, 시작: 층이 시작점보다 뒤
+    if (ctx.where === "page") {
+      if (ctx.pointPage !== A || mine.rel !== needRel) return null;
+    } else if (ctx.where === "gap") {
+      if ((Array.isArray(ctx.nearPages) ? ctx.nearPages : []).indexOf(A) < 0 || mine.rel !== needRel) return null;
+    } else if (ctx.where !== "outside") {
       return null;
     }
-    for (i = 0; i < list.length; i++) if (list[i].rel === 1) return { page: list[i].page, edge: "start" };
-    return null;
+    return { page: A, edge: isEnd ? "end" : "start" };
   }
 
   var PURE = { normalizeRanges: normalizeRanges, clampTarget: clampTarget };
@@ -129,9 +137,37 @@
     return { page: page, node: p.node, off: p.off };
   }
 
-  // 글자 층 밖 끝점: 선택 방향으로 가장 가까운 쪽 글의 끝(시작)으로 당긴다.
-  function clampedPoint(node, off, isEnd) {
-    if (!node || !node.nodeType) return null;
+  // 글자 층 밖 끝점이 놓인 곳: 같은 쪽 요소 안 / 쪽 사이 틈 / 본문 스크롤 영역 밖.
+  function clampContext(node, off, anchorPage) {
+    var ctx = { anchorPage: anchorPage, where: "outside", pointPage: null, nearPages: [] };
+    var el = node.nodeType === 3 ? node.parentElement : node;
+    var pageEl = el && el.closest ? el.closest(".rd-page") : null;
+    if (pageEl) {
+      ctx.where = "page";
+      ctx.pointPage = Number(pageEl.dataset.page) || 0;
+      return ctx;
+    }
+    var sc = $("rd-scroll");
+    if (sc && sc.contains(node)) {
+      ctx.where = "gap";
+      var prev = 0, next = 0;
+      Array.prototype.forEach.call(sc.querySelectorAll(".rd-page"), function (pe) {
+        try {
+          var pr = document.createRange();
+          pr.selectNode(pe);
+          var c = pr.comparePoint(node, off); // 1: 지점이 쪽 뒤, -1: 지점이 쪽 앞
+          var n = Number(pe.dataset.page) || 0;
+          if (c > 0) prev = n; else if (c < 0 && !next) next = n;
+        } catch (err) { /* 비교할 수 없는 쪽은 건너뛴다 */ }
+      });
+      ctx.nearPages = [prev, next].filter(function (n) { return n >= 1; });
+    }
+    return ctx;
+  }
+
+  // 글자 층 밖 끝점: 글자 층 안쪽 끝점이 있는 쪽의 끝(시작)으로만 당긴다.
+  function clampedPoint(node, off, isEnd, anchorPage) {
+    if (!node || !node.nodeType || !(anchorPage >= 1)) return null;
     var layers = Array.prototype.slice.call(document.querySelectorAll(".rd-page .textLayer")).map(function (tl) {
       // 끝점이 쪽 요소처럼 글자 층의 조상일 수도 있어 위치 비교는 (노드, 오프셋) 지점으로 한다.
       var rel = 0;
@@ -143,7 +179,7 @@
       } catch (err) { rel = 0; }
       return { page: pageOfLayer(tl), rel: rel, el: tl };
     });
-    var t = clampTarget(isEnd, layers);
+    var t = clampTarget(isEnd, layers, clampContext(node, off, anchorPage));
     if (!t) return null;
     var tl2 = layers.filter(function (l) { return l.page === t.page; })[0].el;
     var sp = t.edge === "end" ? lastSpanIn(tl2) : firstSpanIn(tl2);
@@ -163,8 +199,11 @@
     var raw = sel.toString();
     if (raw.replace(/\s+/g, "").length < 2) return null;
     var r = sel.getRangeAt(0);
-    var s = pointOf(r.startContainer, r.startOffset, false) || (textLayerOf(r.startContainer) ? null : clampedPoint(r.startContainer, r.startOffset, false));
-    var e = pointOf(r.endContainer, r.endOffset, true) || (textLayerOf(r.endContainer) ? null : clampedPoint(r.endContainer, r.endOffset, true));
+    var s = pointOf(r.startContainer, r.startOffset, false);
+    var e = pointOf(r.endContainer, r.endOffset, true);
+    // 한쪽 끝점만 글자 층 밖이면 안쪽 끝점이 있는 쪽 안에서만 당긴다(두 끝점이 다 층 밖이면 무시).
+    if (!s && e && !textLayerOf(r.startContainer)) s = clampedPoint(r.startContainer, r.startOffset, false, e.page);
+    else if (!e && s && !textLayerOf(r.endContainer)) e = clampedPoint(r.endContainer, r.endOffset, true, s.page);
     if (!s || !e) return null;
     // 두 끝점의 쪽 글이 준비돼야 DOM 위치를 쪽 글 위치로 바꿀 수 있다.
     var ensured = await Promise.all([TM().get(s.page, { measure: false, quiet: true }), TM().get(e.page, { measure: false, quiet: true })]);

@@ -140,3 +140,66 @@ test("drawGroups: 겹치는 기록은 한 범위로 묶고 가장 나중 기록�
   assert.deepEqual(g[0].ids.slice().sort(), ["a", "b"]);
   assert.equal(g[1].primaryId, "c");
 });
+
+const { mergeNotes, foldNotes, withTimeout } = require("../assets/reader/annotations.js");
+
+test("mergeNotes: 빈 메모는 버리고 같은 글은 처음 것만, 순서 유지", () => {
+  assert.equal(mergeNotes(["n1", "", "n2", "n1", null, "n2", "n3"]), "n1\nn2\nn3");
+  assert.equal(mergeNotes(null), "");
+});
+
+test("planMerge: 저장 못 한 합친 기록이 이미 옛 메모를 품고 있으면 원본 메모를 다시 붙이지 않는다", () => {
+  const o1 = { start: at("alpha"), end: at("alpha") + 5, id: "1", note: "n1" };
+  const o2 = { start: at("gamma"), end: at("gamma") + 5, id: "2", note: "n2" };
+  const un = { start: at("alpha"), end: at("gamma") + 5, id: "unsaved-1", note: "n1\nn2", replaces: ["1", "2"] };
+  const p = planMerge([o1, o2, un], PT, at("beta"), at("beta") + 4, "새");
+  assert.equal(p.olds.length, 3);
+  assert.equal(p.note, "n1\nn2\n새");
+});
+
+test("planMerge: 삭제 실패로 원본이 남은 경우에도 같은 메모는 한 번만", () => {
+  const a = { start: at("beta"), end: at("beta") + 4, id: "a", note: "같음" };
+  const b = { start: at("beta"), end: at("gamma") + 5, id: "b", note: "같음" };
+  const p = planMerge([a, b], PT, at("gamma"), at("gamma") + 5, "같음");
+  assert.equal(p.note, "같음");
+});
+
+test("foldNotes: 합칠 때 가져간 메모에서 바뀐 원본 메모만 접어 넣는다", () => {
+  assert.equal(foldNotes("n1\nn2", [{ note: "n1", snap: "n1" }, { note: "n2", snap: "n2" }]), "n1\nn2");
+  assert.equal(foldNotes("n1\nn2", [{ note: "n1 고침", snap: "n1" }, { note: "n2", snap: "n2" }]), "n1\nn2\nn1 고침");
+  assert.equal(foldNotes("", [{ note: "새로", snap: "" }, { note: "고침", snap: "옛" }]), "새로\n고침");
+});
+
+function fakeTimers() {
+  const t = { fns: [], cleared: [] };
+  t.setTimeout = (f, ms) => { t.fns.push({ f, ms }); return t.fns.length; };
+  t.clearTimeout = (id) => { t.cleared.push(id); };
+  return t;
+}
+
+test("withTimeout: 끝나지 않는 promise 는 시간이 지나면 실패 결과로", async () => {
+  const tm = fakeTimers();
+  const p = withTimeout(new Promise(() => {}), 10000, "FAIL", { timers: tm });
+  assert.equal(tm.fns[0].ms, 10000);
+  tm.fns[0].f();
+  assert.equal(await p, "FAIL");
+});
+
+test("withTimeout: 제때 끝나면 값 그대로, 시계는 정리, 거부는 전달", async () => {
+  const tm = fakeTimers();
+  assert.equal(await withTimeout(Promise.resolve("값"), 50, "FAIL", { timers: tm }), "값");
+  assert.deepEqual(tm.cleared, [1]);
+  await assert.rejects(withTimeout(Promise.reject(new Error("x")), 50, "FAIL", { timers: fakeTimers() }), /x/);
+});
+
+test("withTimeout: 시간 뒤에 늦게 끝난 값은 onLate 로 넘기고 결과는 바뀌지 않는다", async () => {
+  const tm = fakeTimers();
+  let resolveLate;
+  const late = [];
+  const p = withTimeout(new Promise((r) => { resolveLate = r; }), 10, "FAIL", { timers: tm, onLate: (v) => late.push(v) });
+  tm.fns[0].f();
+  assert.equal(await p, "FAIL");
+  resolveLate("늦은 값");
+  await new Promise((r) => setImmediate(r));
+  assert.deepEqual(late, ["늦은 값"]);
+});

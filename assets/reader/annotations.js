@@ -67,8 +67,50 @@
       if (next.start === rg.start && next.end === rg.end) break;
       rg = next;
     }
-    var notes = olds.map(function (o) { return noteText(o.note); }).concat([noteText(note)]).filter(Boolean).join("\n");
-    return { start: rg.start, end: rg.end, olds: olds, note: notes };
+    // 저장에 실패해 화면에만 남은 합친 기록(replaces)이 이미 옛 메모를 품고 있다 — 그 원본들의 메모는 다시 붙이지 않는다.
+    var covered = {};
+    olds.forEach(function (o) { (Array.isArray(o.replaces) ? o.replaces : []).forEach(function (id) { covered[String(id)] = true; }); });
+    var list = olds.filter(function (o) { return !covered[String(o.id)]; }).map(function (o) { return noteText(o.note); });
+    list.push(noteText(note));
+    return { start: rg.start, end: rg.end, olds: olds, note: mergeNotes(list) };
+  }
+
+  // 메모들을 줄바꿈으로 잇는다. 빈 메모는 버리고, 글이 똑같은 메모는 처음 것만 남긴다(순서 유지).
+  function mergeNotes(list) {
+    var seen = {};
+    var out = [];
+    (Array.isArray(list) ? list : []).forEach(function (n) {
+      var t = noteText(n);
+      if (!t || seen["k" + t]) return;
+      seen["k" + t] = true;
+      out.push(t);
+    });
+    return out.join("\n");
+  }
+
+  // "다시 저장" 때: 합쳐질 옛 기록의 메모가 실패~재시도 사이에 바뀌었으면 그 현재 메모를 다시 저장하는 기록에 접어 넣는다.
+  // originals: [{note, snap}] — snap 은 합칠 때 가져간 메모. 바뀐 것만 접는다. base 는 지금 화면 기록의 메모.
+  function foldNotes(base, originals) {
+    var changed = (Array.isArray(originals) ? originals : []).filter(function (o) { return noteText(o.note) !== noteText(o.snap); }).map(function (o) { return o.note; });
+    return mergeNotes([base].concat(changed));
+  }
+
+  // 시간 제한: promise 가 ms 안에 끝나지 않으면 fallback 으로 끝낸다(거부는 그대로 전달). 제한 뒤에 늦게 끝나면 onLate(값).
+  // opts.timers = {setTimeout, clearTimeout} 로 시계를 바꿀 수 있다(테스트용).
+  function withTimeout(promise, ms, fallback, opts) {
+    var o = opts || {};
+    var timers = o.timers || { setTimeout: function (f, d) { return setTimeout(f, d); }, clearTimeout: function (t) { clearTimeout(t); } };
+    return new Promise(function (resolve, reject) {
+      var done = false;
+      var t = timers.setTimeout(function () { if (done) return; done = true; resolve(fallback); }, ms);
+      Promise.resolve(promise).then(function (v) {
+        if (done) { if (o.onLate) { try { o.onLate(v); } catch (e) { /* 늦은 결과 정리 실패는 무시 */ } } return; }
+        done = true; timers.clearTimeout(t); resolve(v);
+      }, function (e) {
+        if (done) return;
+        done = true; timers.clearTimeout(t); reject(e);
+      });
+    });
   }
 
   // 합친 새 기록이 실제로 저장된 뒤에만 옛 기록을 지운다. 저장에 실패했으면 옛 기록(과 그 메모)을 그대로 둔다.
@@ -100,18 +142,37 @@
     module.exports = {
       sanitizeRecords: sanitizeRecords, placeRecords: placeRecords, planMerge: planMerge, shouldDeleteOld: shouldDeleteOld,
       finalizeRange: finalizeRange, drawGroups: drawGroups, noteText: noteText,
+      mergeNotes: mergeNotes, foldNotes: foldNotes, withTimeout: withTimeout,
     };
   }
   if (typeof document === "undefined") {
     root.ReaderAnnotations = {
       sanitizeRecords: sanitizeRecords, placeRecords: placeRecords, planMerge: planMerge, shouldDeleteOld: shouldDeleteOld,
       finalizeRange: finalizeRange, drawGroups: drawGroups, noteText: noteText,
+      mergeNotes: mergeNotes, foldNotes: foldNotes, withTimeout: withTimeout,
     };
     return;
   }
 
   var MSG_SAVE_FAIL = "형광펜을 저장하지 못했습니다. 이 화면을 닫으면 사라집니다.";
   var MSG_CHANGE_FAIL = "변경 내용을 저장하지 못했습니다.";
+  var STORE_TIMEOUT_MS = 10000; // 저장 계층 호출 하나를 기다리는 한도
+
+  // 저장 계층 호출은 모두 이것을 거친다: 오류·시간 초과는 fallback(실패 결과)이 된다. 늦게 성공한 결과는 onLate 로 정리한다.
+  function callStore(fn, fallback, onLate) {
+    var p;
+    try { p = Promise.resolve(fn()); } catch (err) { console.error("[reader] 저장 호출 실패", err); return Promise.resolve(fallback); }
+    return withTimeout(p, STORE_TIMEOUT_MS, fallback, { onLate: onLate }).catch(function (err) {
+      console.error("[reader] 저장 호출 실패", err);
+      return fallback;
+    });
+  }
+  // 시간 제한 뒤에 늦게 만들어진 기록은 지운다(안 그러면 화면에 없는 복사본이 저장소에 남는다).
+  function lateCreateCleanup(store, docHash) {
+    return function (late) {
+      if (late && usableId(late.id)) callStore(function () { return store.deleteAnnotation(docHash, late.id); }, false);
+    };
+  }
 
   // ---------- 상태 ----------
   var S = {
@@ -139,7 +200,7 @@
 
   async function getStore() {
     if (root.ReaderStore) return root.ReaderStore;
-    if (root.ReaderStoreReady) { try { return await root.ReaderStoreReady; } catch (e) { return null; } }
+    if (root.ReaderStoreReady) return callStore(function () { return root.ReaderStoreReady; }, null);
     return null;
   }
 
@@ -177,7 +238,7 @@
       var rects = G.rangeRects(data.charBoxes, g.start, g.end);
       if (!prim || !rects.length) return;
       var color = colorOf(prim.record);
-      entries.push({ id: prim.record.id, rects: rects, refine: true, data: { color: color }, className: "rd-hl-" + color });
+      entries.push({ id: prim.record.id, rects: rects, refine: true, data: { color: color, ids: g.ids }, className: "rd-hl-" + color });
     });
     onPage.forEach(function (item) {
       var sn = drawRange(item);
@@ -322,7 +383,9 @@
     S.renamed = {};
     S.goToken++;
     pendingGoTo = null;
+    pendingColor = null; // 이전 문서의 색 바꾸기가 멈춰 있어도 새 문서로 넘기지 않는다(늦게 오는 결과는 토큰 검사로 버려진다)
     closeEditor({ save: false });
+    busyColors(false);
     renderPanel();
   }
 
@@ -337,16 +400,12 @@
       notify("저장 기능을 불러오지 못해 형광펜·메모를 쓸 수 없습니다. 페이지를 새로 고쳐 주세요.");
       return;
     }
-    var raw = [];
-    try {
-      raw = await store.loadAnnotations(docHash);
-    } catch (err) {
-      console.error("[reader] 형광펜 불러오기 실패", err);
-      if (tok !== S.token) return;
+    var raw = await callStore(function () { return store.loadAnnotations(docHash); }, null);
+    if (tok !== S.token) return;
+    if (raw === null) {
       notify("저장해 둔 하이라이트·메모를 불러오지 못했습니다.");
       return;
     }
-    if (tok !== S.token) return;
     var records = sanitizeRecords(raw);
     if (!records.length) { renderPanel(); return; }
 
@@ -389,14 +448,12 @@
     for (var i = 0; i < toPersist.length; i++) {
       var rec = toPersist[i];
       if (tok !== S.token) return;
-      try {
-        await store.updateAnnotationAnchor(docHash, rec.id, {
+      // 실패해도 이번 화면에는 제대로 그려진다. 다음에 열 때 같은 재탐색을 한 번 더 할 뿐이라 문구는 띄우지 않는다.
+      await callStore(function () {
+        return store.updateAnnotationAnchor(docHash, rec.id, {
           page: rec.page, startOffset: rec.startOffset, endOffset: rec.endOffset, quoteText: rec.quoteText,
         });
-      } catch (err3) {
-        // 이번 화면에는 제대로 그려진다. 다음에 열 때 같은 재탐색을 한 번 더 할 뿐이라 문구는 띄우지 않는다.
-        console.error("[reader] 형광펜 위치 다시 저장 실패", err3);
-      }
+      }, false);
     }
   }
 
@@ -431,7 +488,12 @@
     var list = ranges.slice().sort(function (a, b) { return a.page - b.page; });
     for (var i = 0; i < list.length; i++) {
       var r = list[i];
-      var pt = await pageTextFor(r.page);
+      var pt;
+      try { pt = await pageTextFor(r.page); } catch (errPt) {
+        console.error("[reader] 쪽 글 읽기 실패", errPt);
+        if (tok === S.token) notify(MSG_SAVE_FAIL);
+        return out;
+      }
       if (tok !== S.token) return out;
       var start = Math.max(0, Math.min(pt.length, r.start));
       var end = Math.max(start, Math.min(pt.length, r.end));
@@ -439,7 +501,7 @@
 
       var existing = S.items
         .filter(function (it) { return it.record.page === r.page && it.status !== "lost"; })
-        .map(function (it) { return { start: it.start, end: it.end, createdAt: it.record.createdAt, id: it.record.id, note: it.record.note, item: it }; });
+        .map(function (it) { return { start: it.start, end: it.end, createdAt: it.record.createdAt, id: it.record.id, note: it.record.note, replaces: (it.replaces || []).map(function (o) { return o.record.id; }), item: it }; });
       var plan = planMerge(existing, pt, start, end, note);
       var olds = plan.olds.map(function (o) { return o.item; });
       start = plan.start;
@@ -450,7 +512,7 @@
 
       var rec = null;
       if (store) {
-        try { rec = await store.createAnnotation(docHash, S.title, payload); } catch (err) { console.error("[reader] createAnnotation", err); rec = null; }
+        rec = await callStore(function () { return store.createAnnotation(docHash, S.title, payload); }, null, lateCreateCleanup(store, docHash));
       }
       if (tok !== S.token) return out;
       if (!rec) {
@@ -464,8 +526,7 @@
           var old = olds[j];
           var ok = true;
           if (!old.record.unsaved && store) {
-            ok = false;
-            try { ok = (await store.deleteAnnotation(docHash, old.record.id)) !== false; } catch (err2) { console.error("[reader] deleteAnnotation/merge", err2); }
+            ok = (await callStore(function () { return store.deleteAnnotation(docHash, old.record.id); }, false)) !== false;
             if (tok !== S.token) return out;
           }
           if (!ok) { failedDeletes++; continue; }
@@ -474,7 +535,7 @@
       } else {
         keep = olds; // 저장하지 못했으니 옛 기록은 건드리지 않는다. 다시 저장에 성공하면 그때 정리한다.
       }
-      var item = { record: rec, start: start, end: end, status: "offset", replaces: keep };
+      var item = { record: rec, start: start, end: end, status: "offset", replaces: keep, snap: keep.map(function (o) { return noteText(o.record.note); }) };
       S.items.push(item);
       out.push(rec);
       renderPanel();
@@ -485,22 +546,26 @@
     return out;
   }
 
-  // 저장되지 않은 형광펜을 다시 저장한다. 성공하면 합쳐지기로 했던 옛 기록을 정리한다.
+  // 저장되지 않은 형광펜을 다시 저장한다. 성공하면 합쳐지기로 했던 옛 기록을 정리한다(첫 저장과 같은 shouldDeleteOld 를 거친다).
+  // 실패~재시도 사이에 옛 기록의 메모가 바뀌었으면 그 메모를 다시 저장하는 기록에 접어 넣은 뒤에 지운다.
+  // 재시도 도중 화면 기록에 한 고침(메모·색)은 되돌리지 않는다.
   async function retrySave(id) {
     var item = findItem(id);
     if (!item || !item.record.unsaved || item.retrying) return false;
     var tok = S.token;
     var docHash = S.docHash;
     var old = item.record;
+    var sentNote = noteText(old.note);
+    var sentColor = colorOf(old);
     item.retrying = true;
     var store = await getStore();
     var rec = null;
     if (store) {
-      try {
-        rec = await store.createAnnotation(docHash, S.title, {
-          page: old.page, startOffset: old.startOffset, endOffset: old.endOffset, quoteText: old.quoteText, color: colorOf(old), note: noteText(old.note),
+      rec = await callStore(function () {
+        return store.createAnnotation(docHash, S.title, {
+          page: old.page, startOffset: old.startOffset, endOffset: old.endOffset, quoteText: old.quoteText, color: sentColor, note: sentNote,
         });
-      } catch (err) { console.error("[reader] retrySave", err); }
+      }, null, lateCreateCleanup(store, docHash));
     }
     item.retrying = false;
     if (!rec) {
@@ -509,28 +574,46 @@
     }
     if (tok !== S.token || S.items.indexOf(item) < 0) {
       // 그 사이 문서가 바뀌었거나 사용자가 지웠다: 방금 저장한 것을 되돌린다.
-      try { if (store) await store.deleteAnnotation(docHash, rec.id); } catch (err3) { console.error("[reader] retrySave/undo", err3); }
+      await callStore(function () { return store.deleteAnnotation(docHash, rec.id); }, false);
       return false;
     }
     S.renamed[key(old)] = key(rec);
     item.record = rec;
-    var failed = 0;
-    var olds = item.replaces || [];
+    var olds = (item.replaces || []).slice();
+    var snaps = (item.snap || []).slice();
     item.replaces = [];
-    for (var j = 0; j < olds.length; j++) {
-      var o = olds[j];
-      if (S.items.indexOf(o) < 0) continue;
+    item.snap = [];
+    var failed = 0;
+    var go = shouldDeleteOld(rec);
+    var present = [];
+    olds.forEach(function (o, idx) { if (S.items.indexOf(o) >= 0) present.push({ item: o, snap: snaps[idx] }); });
+    // 메모 접기: 바뀐 원본 메모 + 재시도 도중 고친 화면 메모
+    var target = foldNotes(noteText(old.note), present.map(function (x) { return { note: noteText(x.item.record.note), snap: x.snap }; }));
+    var noteOk = true;
+    if (go && target !== noteText(rec.note)) {
+      var upd = await callStore(function () { return store.updateAnnotationNote(docHash, rec.id, target); }, false);
+      if (tok !== S.token) return true;
+      noteOk = upd !== false;
+      if (noteOk) rec.note = target;
+    }
+    for (var j = 0; j < present.length; j++) {
+      var o = present[j].item;
+      if (!go || S.items.indexOf(o) < 0) continue;
+      var changed = noteText(o.record.note) !== noteText(present[j].snap);
+      if (changed && !noteOk) { failed++; continue; } // 접어 넣지 못한 바뀐 메모는 원본과 함께 남긴다
       var ok = true;
       if (!o.record.unsaved) {
-        ok = false;
-        try { ok = (await store.deleteAnnotation(docHash, o.record.id)) !== false; } catch (err2) { console.error("[reader] retrySave/delete", err2); }
+        ok = (await callStore(function () { return store.deleteAnnotation(docHash, o.record.id); }, false)) !== false;
         if (tok !== S.token) return true;
       }
       if (ok) dropItem(o); else failed++;
     }
-    if (failed) notify(MSG_CHANGE_FAIL);
+    if (failed || !noteOk) notify(MSG_CHANGE_FAIL);
     renderPanel();
     redrawPage(rec.page);
+    // 재시도 도중 색을 바꿨으면 새 기록에 이어서 적용한다.
+    var wantColor = colorOf(old);
+    if (wantColor !== colorOf(rec) && S.items.indexOf(item) >= 0) await setColor(rec.id, wantColor);
     return true;
   }
 
@@ -546,11 +629,17 @@
   // 진행 중에는 색 단추를 막고, 다른 색 바꾸기 요청은 진행 중인 것의 결과를 그대로 돌려준다.
   function setColor(id, color) {
     if (pendingColor) return pendingColor.promise;
+    var mine = {};
+    var tok = S.token;
     var p = (async function () {
       try { return await doSetColor(id, color); }
-      finally { pendingColor = null; busyColors(false); }
+      finally {
+        // 문서가 바뀌어 reset 이 이미 비웠거나 새 문서의 색 바꾸기가 시작됐다면 건드리지 않는다.
+        if (pendingColor === mine) { pendingColor = null; if (tok === S.token) busyColors(false); }
+      }
     })();
-    pendingColor = { promise: p };
+    mine.promise = p;
+    pendingColor = mine;
     busyColors(true);
     return p;
   }
@@ -571,19 +660,18 @@
     var store = await getStore();
     var rec = null;
     if (store) {
-      try {
-        rec = await store.createAnnotation(docHash, S.title, {
+      rec = await callStore(function () {
+        return store.createAnnotation(docHash, S.title, {
           page: old.page, startOffset: old.startOffset, endOffset: old.endOffset, quoteText: old.quoteText, color: col, note: noteText(old.note),
         });
-      } catch (err) { console.error("[reader] setColor/create", err); }
+      }, null, lateCreateCleanup(store, docHash));
     }
     if (!rec) {
       if (tok === S.token) notify(MSG_CHANGE_FAIL);
       return tok === S.token ? old : null;
     }
     // 문서가 그 사이 바뀌었어도 이 문서(docHash)의 옛 기록은 지운다 — 저장된 복사본이 남지 않게.
-    var ok = false;
-    try { ok = (await store.deleteAnnotation(docHash, old.id)) !== false; } catch (err2) { console.error("[reader] setColor/delete", err2); }
+    var ok = (await callStore(function () { return store.deleteAnnotation(docHash, old.id); }, false)) !== false;
     if (tok !== S.token) return null;
     if (!ok) notify(MSG_CHANGE_FAIL);
     else { dropItem(item); S.renamed[key(old)] = key(rec); }
@@ -604,7 +692,9 @@
       var store = await getStore();
       ok = false;
       if (store) {
-        try { ok = (await store.updateAnnotationNote(S.docHash, item.record.id, text)) !== false; } catch (err) { console.error("[reader] updateAnnotationNote", err); }
+        var nid = item.record.id;
+        var dh = S.docHash;
+        ok = (await callStore(function () { return store.updateAnnotationNote(dh, nid, text); }, false)) !== false;
       }
       if (tok !== S.token) return false;
     }
@@ -625,7 +715,9 @@
       var store = await getStore();
       ok = false;
       if (store) {
-        try { ok = (await store.deleteAnnotation(S.docHash, item.record.id)) !== false; } catch (err) { console.error("[reader] deleteAnnotation", err); }
+        var did = item.record.id;
+        var dh2 = S.docHash;
+        ok = (await callStore(function () { return store.deleteAnnotation(dh2, did); }, false)) !== false;
       }
       if (tok !== S.token) return false;
     }
@@ -666,15 +758,35 @@
     D().goToPage(page);
     var sc = $("rd-scroll");
     pendingGoTo = { token: my, top: sc ? sc.scrollTop : 0 };
-    if (item.status === "lost") { pendingGoTo = null; return; }
+    if (item.status === "lost") { pendingGoTo = null; return { page: page, rects: [] }; }
     var rects = [];
     try { rects = await itemRects(item); } catch (err) { console.error("[reader] goTo", err); }
-    if (tok !== S.token || my !== S.goToken) return;
+    if (tok !== S.token || my !== S.goToken) return null;
     pendingGoTo = null;
     var size = D().pageSize(page);
     var y = rects.length ? rects[0].y / (size.h || 1) : 0;
     D().goToPage(page, { yRatio: Math.max(0, Math.min(1, y)) });
     if (rects.length) root.ReaderOverlay.flash(page, rects);
+    return { page: page, rects: rects };
+  }
+
+  // 메모 패널에서 항목을 눌렀을 때: 그 기록으로 이동한 뒤 그 기록의 편집 창을 연다(겹쳐 가려진 기록도 여기서 열린다).
+  async function goToAndEdit(id) {
+    var tok = S.token;
+    var r = await goTo(id);
+    if (!r || tok !== S.token) return;
+    // 이동 때문에 생기는 scroll 이벤트가 편집 창을 닫지 않도록 화면이 안정된 뒤에 연다.
+    await new Promise(function (resolve) { root.requestAnimationFrame(function () { root.requestAnimationFrame(resolve); }); });
+    if (tok !== S.token || !findItem(id)) return;
+    var a = null;
+    if (r.rects.length) {
+      var first = r.rects[0];
+      var last = r.rects[r.rects.length - 1];
+      var tl = D().pageToClient(r.page, { x: first.x, y: first.y });
+      var br = D().pageToClient(r.page, { x: last.x + last.w, y: last.y + last.h });
+      if (tl && br) a = { left: tl.x, right: br.x, top: tl.y, bottom: br.y };
+    }
+    openEditor(id, a);
   }
 
 
@@ -704,12 +816,65 @@
     });
   }
 
-  function openEditor(id, anchor) {
+  // 겹친 기록(한 덩어리로 그려진 것) 사이를 옮기는 작은 "1 / 2" 바. 기록이 하나뿐이면 숨긴다.
+  function ensureSwitcher() {
+    var el = pop();
+    if (!el) return null;
+    var sw = $("rd-annopop-switch");
+    if (!sw) {
+      sw = document.createElement("div");
+      sw.id = "rd-annopop-switch";
+      sw.style.cssText = "display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px";
+      [["-1", "‹", "이전 기록"], ["1", "›", "다음 기록"]].forEach(function (d, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.dataset.switch = d[0];
+        b.textContent = d[1];
+        b.setAttribute("aria-label", d[2]);
+        b.style.cssText = "padding:0 8px;cursor:pointer";
+        if (i === 1) { var lab = document.createElement("span"); lab.className = "rd-annopop-switchlabel"; sw.appendChild(lab); }
+        sw.appendChild(b);
+      });
+      el.insertBefore(sw, el.firstChild);
+    }
+    return sw;
+  }
+  function renderSwitcher() {
+    var sw = ensureSwitcher();
+    if (!sw) return;
+    var multi = !!(editing && editing.group && editing.group.length > 1);
+    sw.hidden = !multi;
+    var lab = sw.querySelector(".rd-annopop-switchlabel");
+    if (lab) lab.textContent = multi ? (editing.index + 1) + " / " + editing.group.length : "";
+  }
+  function switchRecord(delta) {
+    if (!editing || !editing.group || editing.group.length < 2) return;
+    var g = editing.group;
+    var idx = (editing.index + delta + g.length) % g.length;
+    if (dirty()) setNote(editing.id, $("rd-annopop-note").value); // 쓰던 메모는 저장하고 넘어간다
+    openEditor(g[idx], editing.anchor, g, idx);
+  }
+
+  // group: 한 덩어리로 그려진 기록들의 id(클릭한 덩어리), index: 그중 열 기록의 자리
+  function openEditor(id, anchor, group, index) {
     var item = findItem(id);
     var el = pop();
     if (!item || !el) return;
     if (el.hidden) prevFocus = document.activeElement;
-    editing = { id: item.record.id, base: noteText(item.record.note) };
+    var grp = null;
+    if (Array.isArray(group)) {
+      var seen = {};
+      grp = group.map(function (gid) { var it = findItem(gid); return it ? it.record.id : null; }).filter(function (gid) {
+        if (gid === null || seen[String(gid)]) return false;
+        seen[String(gid)] = true;
+        return true;
+      });
+      var pos = grp.indexOf(item.record.id);
+      if (pos < 0) { grp.push(item.record.id); pos = grp.length - 1; }
+      index = pos;
+    }
+    editing = { id: item.record.id, base: noteText(item.record.note), group: grp, index: index || 0, anchor: anchor || null };
+    renderSwitcher();
     $("rd-annopop-note").value = noteText(item.record.note);
     syncPopColors(item.record);
     busyColors(!!pendingColor);
@@ -748,14 +913,33 @@
     return !!document.querySelector('dialog[open], [role="dialog"]:not([hidden]):not(#rd-annopop), [aria-modal="true"]:not([hidden])');
   }
 
+  // 한 덩어리의 기록들을 만든 순서로(같으면 id 순) 늘어놓는다.
+  function sortGroup(ids) {
+    return ids.slice().sort(function (a, b) {
+      var ia = findItem(a);
+      var ib = findItem(b);
+      var ca = ia ? String(ia.record.createdAt || "") : "";
+      var cb = ib ? String(ib.record.createdAt || "") : "";
+      return ca.localeCompare(cb) || String(a).localeCompare(String(b));
+    });
+  }
+
   function bindEditor() {
     var el = pop();
     if (!el) return;
     el.addEventListener("click", async function (ev) {
+      var swBtn = ev.target.closest("button[data-switch]");
+      if (swBtn) { switchRecord(Number(swBtn.dataset.switch)); return; }
       var colorBtn = ev.target.closest(".rd-annopop-color");
       if (colorBtn && editing) {
-        var rec = await setColor(editing.id, colorBtn.dataset.color);
-        if (rec && editing) { editing.id = rec.id; syncPopColors(rec); }
+        // 기다리는 사이 다른 기록의 편집 창이 열렸을 수 있다: 같은 편집 세션일 때만 새 id 를 이어받는다.
+        var sess = editing;
+        var rec = await setColor(sess.id, colorBtn.dataset.color);
+        if (rec && editing === sess) {
+          if (sess.group && sess.group[sess.index] === sess.id) sess.group[sess.index] = rec.id;
+          sess.id = rec.id;
+          syncPopColors(rec);
+        }
         return;
       }
       var act = ev.target.closest("button[data-act]");
@@ -827,7 +1011,8 @@
         if (sel && !sel.isCollapsed) return;
         var hit = root.ReaderOverlay.entryAt(ev.clientX, ev.clientY, ["highlight"]);
         if (!hit || hit.id === undefined) return;
-        openEditor(hit.id, { left: ev.clientX, right: ev.clientX, top: ev.clientY, bottom: ev.clientY });
+        var ids = hit.data && Array.isArray(hit.data.ids) && hit.data.ids.length > 1 ? sortGroup(hit.data.ids) : null;
+        openEditor(hit.id, { left: ev.clientX, right: ev.clientX, top: ev.clientY, bottom: ev.clientY }, ids);
       });
     }
 
@@ -838,7 +1023,7 @@
         if (rt) { retrySave(rt.dataset.id); return; }
         var btn = ev.target.closest(".rd-note");
         if (!btn) return;
-        goTo(btn.dataset.id);
+        goToAndEdit(btn.dataset.id);
         // 좁은 화면에서는 서랍이 본문을 가린다.
         if (root.matchMedia && root.matchMedia("(max-width: 767px)").matches) root.ReaderPanels.close("right");
       });
