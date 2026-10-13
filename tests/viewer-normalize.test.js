@@ -3,7 +3,7 @@
 const assert = require("assert");
 const { extract } = require("./helpers/extract-fn.js");
 
-const { normalizeWord, extractWords } = extract("assets/viewer.js", {
+const { normalizeWord, extractWords } = extract("assets/term-match.js", {
   fns: ["normalizeWord", "extractWords"],
 });
 

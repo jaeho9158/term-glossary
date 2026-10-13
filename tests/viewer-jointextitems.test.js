@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { joinTextItems, orderTextItemsByColumn } = require("../assets/viewer.js");
+const { joinTextItems, orderTextItemsByColumn } = require("../assets/term-match.js");
 
 // pdf.js text items: {str, transform: [scaleX, skewY, skewX, scaleY, x, y], width, hasEOL}.
 // height is derived from |transform[3]|; word-internal splits sit right next

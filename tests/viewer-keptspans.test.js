@@ -2,7 +2,7 @@
 // 텍스트 렌더러와 PDF 텍스트 레이어가 공유한다. 인접/중첩/동일 시작점 경계가
 // 많아 회귀 위험이 높은데 직접 테스트가 없었다.
 const assert = require("assert");
-const { computeKeptSpans } = require("../assets/viewer.js");
+const { computeKeptSpans } = require("../assets/term-match.js");
 
 const span = (slug, start, length, extra) =>
   Object.assign({ slug, firstStart: start, firstLength: length }, extra);

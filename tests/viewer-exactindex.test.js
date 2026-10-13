@@ -1,7 +1,7 @@
 // buildExactIndex는 PDF/텍스트 매칭의 입구다. 짧은 키·조사·모호한 일반어를
 // 걸러내는 안전장치가 회귀하면 예전의 "격조사까지 하이라이트" 버그가 재발한다.
 const assert = require("assert");
-const { buildExactIndex } = require("../assets/viewer.js");
+const { buildExactIndex } = require("../assets/term-match.js");
 
 const mk = (slug, ko, en) => ({ slug, title_ko: ko, title_en: en });
 

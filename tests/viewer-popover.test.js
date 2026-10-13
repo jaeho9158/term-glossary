@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { popoverHTML } = require("../assets/viewer.js");
+const { popoverHTML } = require("../assets/term-match.js");
 
 // 1) 한글명·영문명·한 줄 정의·상세 링크가 모두 들어간다
 {

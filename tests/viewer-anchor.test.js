@@ -6,7 +6,7 @@ const {
   resolveAnnotationAnchor,
   mergeOverlappingRanges,
   shouldPersistReanchor,
-} = require("../assets/viewer.js");
+} = require("../assets/term-match.js");
 
 test("findNearestOccurrence: 없으면 -1", () => {
   assert.strictEqual(findNearestOccurrence("가나다라", "마바", 0), -1);

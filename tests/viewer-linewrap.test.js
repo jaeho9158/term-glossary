@@ -2,7 +2,7 @@
 // PDF 추출 텍스트는 줄 끝에서 낱말을 그냥 끊는다: "단\n백질"(단백질)의
 // "백질"이 백질(white matter)로, "fac-\ntor"의 "tor"가 토르(지형)로 잡혔다.
 const assert = require("assert");
-const { matchTerms, isLineWrapFragment } = require("../assets/viewer.js");
+const { matchTerms, isLineWrapFragment } = require("../assets/term-match.js");
 
 // 앞 줄이 한 글자 한글 조각으로 끝나면 다음 줄 첫 낱말은 조각이다
 {

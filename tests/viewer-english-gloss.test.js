@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { englishGlossVerdict } = require("../assets/viewer.js");
+const { englishGlossVerdict } = require("../assets/term-match.js");
 
 const at = (text, word) => {
   const occ = [];

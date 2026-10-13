@@ -1,7 +1,7 @@
 // 문서 분야 추정 → 패널 정렬(계획 3단계 2번). 철회된 a4cdbf8d6은 분야로
 // "숨겨서" 문제였으므로, 여기서는 숨기지 않고 순서만 바꾼다는 것이 핵심이다.
 const assert = require("assert");
-const { estimateDocumentFields, groupMatchesByField } = require("../assets/viewer.js");
+const { estimateDocumentFields, groupMatchesByField } = require("../assets/term-match.js");
 
 const m = (slug, cats, extra) => Object.assign({ slug, title_ko: slug, categories: cats, count: 1 }, extra || {});
 

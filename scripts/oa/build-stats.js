@@ -20,7 +20,7 @@ const OUT_DIR = path.join(ROOT, "data", "oa-corpus");
 const INDEX = path.join(OUT_DIR, "index.jsonl");
 const TEXT_DIR = path.join(OUT_DIR, "text");
 const OUTPUT = path.join(ROOT, "data", "oa-stats.json");
-const viewer = require(path.join(ROOT, "assets", "viewer.js"));
+const viewer = require(path.join(ROOT, "assets", "term-match.js"));
 
 const COOC_WINDOW = 200;
 const COOC_TOP = 20;

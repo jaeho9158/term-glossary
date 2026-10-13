@@ -2,7 +2,7 @@
 // 짧은 용어가 자주 나온다는 이유만으로 대표 용어 위에 오면 패널이
 // "이 논문의 주제어"를 거꾸로 보여 준다.
 const assert = require("assert");
-const { orderNestedMatches, sortMatches, matchTerms } = require("../assets/viewer.js");
+const { orderNestedMatches, sortMatches, matchTerms } = require("../assets/term-match.js");
 
 const m = (slug, title_ko, count, extra) =>
   Object.assign({ slug, title_ko, title_en: "", categories: ["mech"], count, score: 0 }, extra || {});
@@ -96,7 +96,7 @@ const m = (slug, title_ko, count, extra) =>
 console.log("orderNestedMatches: all tests passed");
 
 // ── 카드 묶기 ─────────────────────────────────────────────────────────
-const { buildCardUnits, termCardHTML } = require("../assets/viewer.js");
+const { buildCardUnits, termCardHTML } = require("../assets/term-match.js");
 
 // 대표 카드 하나에 기초 용어가 접혀 들어간다
 {

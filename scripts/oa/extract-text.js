@@ -14,7 +14,7 @@ const ROOT = path.join(__dirname, "..", "..");
 const OUT_DIR = path.join(ROOT, "data", "oa-corpus");
 const INDEX = path.join(OUT_DIR, "index.jsonl");
 const TEXT_DIR = path.join(OUT_DIR, "text");
-const viewer = require(path.join(ROOT, "assets", "viewer.js"));
+const viewer = require(path.join(ROOT, "assets", "term-match.js"));
 // 스캔본·깨진 글꼴은 한글이 거의 안 나온다. 국문 논문 한 편이면 수천 자는 된다.
 const MIN_HANGUL = 500;
 

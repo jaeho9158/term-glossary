@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { computeFitPageScale, clampPdfScale, clampPdfPageNumber } = require("../assets/viewer.js");
+const { computeFitPageScale, clampPdfScale, clampPdfPageNumber } = require("../assets/term-match.js");
 
 const MIN = 0.5;
 const MAX = 3;

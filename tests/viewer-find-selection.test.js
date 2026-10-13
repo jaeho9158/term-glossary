@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { findSelectionInText } = require("../assets/viewer.js");
+const { findSelectionInText } = require("../assets/term-match.js");
 
 test("findSelectionInText: 정확히 일치하면 원문 오프셋을 돌려준다", () => {
   const t = "가나다 라마바 사아자";

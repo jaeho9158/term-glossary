@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { assetVersionFromSrc, withAssetVersion } = require("../assets/viewer.js");
+const { assetVersionFromSrc, withAssetVersion } = require("../assets/term-match.js");
 const { stampHtml } = require("../scripts/stamp-viewer-version.js");
 
 test("assetVersionFromSrc: script src의 v 파라미터를 읽는다", () => {

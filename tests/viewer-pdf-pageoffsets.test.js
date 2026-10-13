@@ -4,7 +4,7 @@ const {
   offsetToPageOffset,
   pageOffsetToGlobal,
   splitMatchesByPage,
-} = require("../assets/viewer.js");
+} = require("../assets/term-match.js");
 
 // 읽기 모드는 페이지별 <section>에 본문을 흘리는데, 용어 매칭은 페이지를
 // 이어 붙인 전체 텍스트 하나에서 돌린다. 그래서 "전체 오프셋 ↔ (페이지,

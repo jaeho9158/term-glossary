@@ -2,7 +2,7 @@
 // 위치 앞뒤 창의 낱말과 그 용어의 "뜻 키워드"(사전 정의·관련어·분야명에서 빌드 시
 // 뽑음)가 하나도 겹치지 않고 등장이 적을 때 강등한다.
 const assert = require("assert");
-const { applySenseContextRule, senseStems, decodeViewerIndex } = require("../assets/viewer.js");
+const { applySenseContextRule, senseStems, decodeViewerIndex } = require("../assets/term-match.js");
 const { senseKeywords } = require("../scripts/generate-viewer-index.js");
 
 // 어간 후보: 조사·흔한 어미를 뗀 형태

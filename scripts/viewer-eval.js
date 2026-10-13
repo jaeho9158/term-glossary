@@ -1,6 +1,6 @@
 // 뷰어 용어 매칭 채점기. docs/viewer-corpus/README.md 참고.
 //
-// 뷰어(assets/viewer.js)와 같은 인덱스(viewer-index.json)와 같은 매칭 함수
+// 뷰어(assets/term-match.js)와 같은 인덱스(viewer-index.json)와 같은 매칭 함수
 // (buildExactIndex/matchTermsWithIndex)를 그대로 돌려서, 브라우저에서 보는
 // 결과와 채점 결과가 어긋나지 않게 한다. PDF 텍스트 추출도 뷰어와 같은
 // pdf.js + joinTextItems 경로를 쓴다.
@@ -9,7 +9,7 @@ const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
 const CORPUS = path.join(ROOT, "docs", "viewer-corpus");
-const viewer = require(path.join(ROOT, "assets", "viewer.js"));
+const viewer = require(path.join(ROOT, "assets", "term-match.js"));
 
 function loadIndex() {
   const raw = JSON.parse(fs.readFileSync(path.join(ROOT, "viewer-index.json"), "utf8"));

@@ -2,7 +2,7 @@
 // 결합과 겹치기 쉽다. 그 2음절 표제어가 문서 안에 조사 없이 단독으로도 1회 이상
 // 나올 때만 인정한다.
 const assert = require("assert");
-const { matchTerms, needsBareCorroboration } = require("../assets/viewer.js");
+const { matchTerms, needsBareCorroboration } = require("../assets/term-match.js");
 
 const terms = [
   { slug: "echelon", title_ko: "제대", title_en: "Echelon", categories: ["military"] },

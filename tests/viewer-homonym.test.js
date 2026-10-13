@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { applySenseContextRule } = require("../assets/viewer.js");
+const { applySenseContextRule } = require("../assets/term-match.js");
 
 // 같은 한글 표제어를 가진 두 용어(중독 = addiction / poisoning)가 한 자리에서 함께
 // 잡혔을 때, 문맥 뜻 키워드가 더 많이 겹치는 쪽만 남기고 다른 쪽은 강등한다.

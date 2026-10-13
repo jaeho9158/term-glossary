@@ -3,7 +3,7 @@
 // 무관하면 결과에서 빼지 않고 distant로 강등한다(밑줄 없음, "다른 분야" 맨 아래). 의학 논문의 "여과"(화학공학)·"감마"(금융 옵션)·
 // "제대"(군사) 같은 동음이의어가 대상이다.
 const assert = require("assert");
-const { filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, matchTerms, groupMatchesByField } = require("../assets/viewer.js");
+const { filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, matchTerms, groupMatchesByField } = require("../assets/term-match.js");
 
 const m = (slug, title_ko, cats, extra) => ({ slug, title_ko, title_en: "", categories: cats, viaHangul: true, ...extra });
 

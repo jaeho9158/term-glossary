@@ -2,7 +2,7 @@
 // 참고문헌의 영어 제목("Stress Hormones", "Walker NM")과 영문 초록이
 // 무관한 분야의 영문 표제어와 맞아 말뭉치 오탐의 큰 몫을 차지했다.
 const assert = require("assert");
-const { excludedRanges, matchTerms } = require("../assets/viewer.js");
+const { excludedRanges, matchTerms } = require("../assets/term-match.js");
 
 const inRanges = (ranges, offset) => ranges.some(([s, e]) => offset >= s && offset < e);
 

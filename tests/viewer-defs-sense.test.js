@@ -2,7 +2,7 @@
 // 옮겼다. 인덱스는 매칭에 필요한 것만 남기고(≈3.1MB), 뜻 키워드는 매칭된 용어의
 // 청크를 받을 때 definition과 함께 온다. 규칙 1은 그 뒤 후처리로 적용한다.
 const assert = require("assert");
-const { decodeDefChunk, applySenseToMatches, matchTerms } = require("../assets/viewer.js");
+const { decodeDefChunk, applySenseToMatches, matchTerms } = require("../assets/term-match.js");
 const { buildDefBuckets, defBucket } = require("../scripts/generate-viewer-index.js");
 
 // 청크 항목: 문자열(정의만, 옛 형식) 또는 {d, s}(정의 + 공백 구분 뜻 키워드)
