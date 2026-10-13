@@ -668,6 +668,20 @@ function senseOverlap(match, text) {
   const keys = new Set(match.sense || []);
   if (!keys.size) return -1;
   const hit = new Set();
+  // 영문으로 잡힌 자리의 글자 자체(gamma)는 같은 낱말이 둘레 창에 또 나와도(Interferon gamma 가
+  // 세 번 잇달아 나오는 표) 뜻의 증거가 아니다 — 키워드 쪽에서 뺀다.
+  // 한글로 잡힌 자리가 하나라도 있으면(촉매 … (catalyst)) 병기한 영문은 오히려 증거라 그대로 둔다.
+  const selfWords = new Set();
+  let anyHangul = false;
+  for (const occ of match.occurrences || []) {
+    const surf = text.slice(occ.start, occ.start + occ.length);
+    if (/[가-힣]/.test(surf)) anyHangul = true;
+    else if (!/^[A-Z]{4,}$/.test(surf)) selfWords.add(surf.toLowerCase()); // ORCID·EDTA 같은 약어는 둘레의 같은 낱말(orcid.org)도 증거
+  }
+  if (!anyHangul) {
+    for (const k of selfWords) keys.delete(k);
+    if (!keys.size) return 0;
+  }
   for (const occ of match.occurrences || []) {
     const from = Math.max(0, occ.start - SENSE_WINDOW);
     const to = Math.min(text.length, occ.start + occ.length + SENSE_WINDOW);
@@ -675,7 +689,11 @@ function senseOverlap(match, text) {
     // 자신과 늘 겹친다(라운드 4). 한글로 잡힌 경우는 그대로 둔다 — 표제어 안에 든
     // 키워드(사교육⊃교육, 부적응⊃적응)가 스스로 맞아 규칙을 비껴가는 셈인데, 빼 보니
     // 25편에서 정답 2개(사교육·부적응)만 강등되고 오탐은 줄지 않았다.
-    const win = match.viaHangul === false
+    // 한 용어 안에서도 등장마다 다르다("감마" 용어가 어떤 자리는 한글 "감마를", 어떤 자리는
+    // "Interferon gamma"로 잡힌다). 용어 전체의 viaHangul 대신 그 자리 글자가 한글을 품었는지로
+    // 본다 — 그래야 영문으로만 잡힌 자리가 제 영문 토큰(gamma·polymorphism·quorum)으로 스스로 맞춰지지 않는다.
+    const selfLatin = !/[가-힣]/.test(text.slice(occ.start, occ.start + occ.length));
+    const win = selfLatin
       ? text.slice(from, occ.start) + " " + text.slice(occ.start + occ.length, to)
       : text.slice(from, to);
     const lower = win.toLowerCase();
@@ -764,6 +782,107 @@ function applyHomonymRule(list, text) {
   }
 }
 
+// ---- 뒷받침 없는 동형어·낯선 뜻 배제(2026-10-13, 문서 분야 분포 기준) --------------
+// 분야 거리·문맥 뜻 규칙은 "상위 분야군" 한 겹으로만 문서와 견준다. 그러면 같은 분야군 안의
+// 다른 세부 분야 동음이의어(결정다형성=약학 vs 유전학 polymorphism, 미분화=약학 vs 병리 미분화암,
+// 석회화=해양 vs 병리)가 모두 통과한다. 그래서 용어의 세부 분야(categories)가 이 문서의 다른
+// 용어 어느 것과도 겹치지 않는지를 본다 — 문서가 그 세부 분야 이야기를 하고 있다는 증거가 없으면
+// 다른 뜻으로 쓰였을 가능성이 높다.
+// 25편 중 13편에 손으로 정답 매긴 표본(distinct 용어 286)에서의 결과는 아래 상수 옆에 적었다.
+// 잡힌 용어가 이보다 적은 글(붙여넣기 짧은 글 포함)은 증거가 못 미더워 규칙을 쓰지 않는다.
+const STRAY_MIN_ALIVE = 6;
+const STRAY_REASON = "stray";
+
+function firstOccSurface(match, text) {
+  const o = (match.occurrences || [])[0];
+  return o ? text.slice(o.start, o.start + o.length) : "";
+}
+
+// 표제어가 짧은 쪽(동형어가 생기기 쉬운 쪽): 한글 3음절 이하, 또는 영문 한 단어 표제.
+function isStrayCandidate(match) {
+  if (isSenseTarget(match)) return true;
+  return /^[A-Za-z]+$/.test((match.title_en || "").trim());
+}
+
+function isBasicMethodTerm(match) {
+  return (match.categories || []).some((c) => fieldGroupOf(c) === BASIC_GROUP);
+}
+
+// match 와 세부 분야(categories 코드)를 하나라도 공유하는 다른 살아 있는 용어가 있는가.
+function hasFieldPeer(match, alive) {
+  const mine = new Set(match.categories || []);
+  if (!mine.size) return true; // 분야 정보가 없으면 판단하지 않는다
+  for (const other of alive) {
+    if (other === match) continue;
+    for (const c of other.categories || []) if (mine.has(c)) return true;
+  }
+  return false;
+}
+
+// 같은 자리(첫 등장 위치·길이가 같음)를 차지한 서로 다른 용어(Presence = 현존 / 무용 현존성)들 중
+// 문서가 뒷받침하는 쪽만 남긴다. 뒷받침 = (뜻 키워드 겹침, 세부 분야 동료 유무). 한쪽이 앞서면 나머지를
+// 강등하고, 모두 뒷받침이 없으면 모두 강등한다(어느 쪽 뜻인지 모르는 채 밑줄을 긋지 않는다).
+function applySameSpanRule(list, text, baseline) {
+  const alive = list.filter((m) => !m.distant);
+  if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
+  const groups = new Map();
+  for (const match of alive) {
+    const o = (match.occurrences || [])[0];
+    if (!o) continue;
+    const key = o.start + ":" + o.length;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(match);
+  }
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    const outside = alive.filter((m) => !group.includes(m));
+    const scored = group.map((m) => ({
+      m,
+      ov: Math.max(0, senseOverlap(m, text)),
+      peer: isBasicMethodTerm(m) || hasFieldPeer(m, outside) ? 1 : 0,
+    }));
+    const rank = (x) => x.ov * 2 + x.peer;
+    const best = Math.max(...scored.map(rank));
+    for (const x of scored) {
+      if (rank(x) < best || best === 0) { x.m.distant = true; x.m.demotedBy = "same-span"; }
+    }
+  }
+}
+
+// 위험한(짧은) 표제어가 ① 등장 자리 둘레 어디에도 제 사전 뜻 키워드가 없고 ② 그 세부 분야의
+// 다른 용어도 문서에 없으면 강등한다. 연구 기초·방법(통계·도구) 용어는 어느 분야 글에나 나오므로 제외.
+// 저자가 직접 밝힌 뜻: 한글 표제어 바로 뒤 괄호의 영문(englishGlossVerdict "match") 또는
+// 괄호 속 영문 바로 앞에 놓인 한글 낱말이 한글 표제어와 겹치는 경우(신경조절술(Neuromodulation)).
+function hasAuthorGloss(match, text, top) {
+  if (englishGlossVerdict(match, text, top) === "match") return true;
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  if (ko.length < 2) return false;
+  for (const occ of match.occurrences || []) {
+    if (/[가-힣]/.test(text.slice(occ.start, occ.start + occ.length))) continue;
+    const before = text.slice(Math.max(0, occ.start - 20), occ.start);
+    const run = /([가-힣]+)\s?\(\s?$/.exec(before);
+    if (!run) continue;
+    const word = run[1];
+    if (word.length >= 2 && (ko.includes(word.slice(-2)) || word.includes(ko.slice(0, 2)))) return true;
+  }
+  return false;
+}
+
+function applyStrayRule(list, text, top, baseline) {
+  const alive = list.filter((m) => !m.distant);
+  if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
+  for (const match of alive) {
+    if (!isStrayCandidate(match) || isBasicMethodTerm(match)) continue;
+    // ORCID·EDTA·SPSS 같은 4글자 이상 대문자 약어는 다른 분야 낱말과 겹칠 일이 드물다.
+    if (/^[A-Z]{4,}$/.test(firstOccSurface(match, text))) continue;
+    if (senseOverlap(match, text) !== 0) continue; // -1(뜻 키워드 없음)은 판단 보류
+    if (hasFieldPeer(match, alive)) continue;
+    if (hasAuthorGloss(match, text, top)) continue;
+    match.distant = true;
+    match.demotedBy = STRAY_REASON;
+  }
+}
+
 function applySenseContextRule(list, text, top) {
   // 분야 추정이 없는 문서(잡힌 용어 < FIELD_DISTANCE_MIN_MATCHES): 예전엔 규칙을 통째로
   // 껐다. 2026-09-29 사용자 결정("틀린 용어보다 놓치는 게 낫다")으로 이런 문서에서도
@@ -777,6 +896,8 @@ function applySenseContextRule(list, text, top) {
     }
     return list;
   }
+  // 증거가 되는 "살아 있는 용어" 수는 뜻 규칙이 강등하기 전 값으로 센다(강등이 늘수록 증거가 줄어 규칙이 꺼지지 않게).
+  const baseline = list.filter((m) => !m.distant).length;
   applyHomonymRule(list, text);
   for (const match of list) {
     // 규칙 6(영문 병기 불일치)은 상위 분야군 안에서도 쓴다: 저자가 괄호로 밝힌 뜻이
@@ -800,6 +921,8 @@ function applySenseContextRule(list, text, top) {
     if (overlap < 0) continue;
     if (overlap < SENSE_MIN_OVERLAP) { match.distant = true; match.demotedBy = "sense"; }
   }
+  applySameSpanRule(list, text, baseline);
+  applyStrayRule(list, text, top, baseline);
   return list;
 }
 
@@ -1871,6 +1994,6 @@ function findSelectionInText(bodyText, selected) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
+  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
 }
 

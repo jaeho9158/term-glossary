@@ -65,6 +65,23 @@
     if (m.occurrences && m.occurrences.length) return m.occurrences;
     return m.firstStart >= 0 ? [{ start: m.firstStart, length: m.firstLength }] : [];
   }
+  // "fac- tor"처럼 줄이 바뀌며 생긴 하이픈+공백을 지운 글과, 그 글의 각 글자가 원문 어디인지(map)를 돌려준다.
+  // 영문 글자 사이의 "-" + 공백 뒤가 소문자일 때만 지운다("COVID- 19", "Ca- ions" 같은 건 그대로 둔다).
+  var WRAP_HYPHEN = /([A-Za-z])-(?:[ \t]+|[ \t]*\n[ \t]*)(?=[a-z])/g;
+  function fuseWrapHyphens(str) {
+    var out = [];
+    var map = [];
+    var last = 0;
+    var m;
+    WRAP_HYPHEN.lastIndex = 0;
+    while ((m = WRAP_HYPHEN.exec(str)) !== null) {
+      var keepEnd = m.index + 1; // 영문자까지는 남긴다
+      for (var i = last; i < keepEnd; i++) { out.push(str.charAt(i)); map.push(i); }
+      last = m.index + m[0].length;
+    }
+    for (var j = last; j < str.length; j++) { out.push(str.charAt(j)); map.push(j); }
+    return { text: out.join(""), map: map };
+  }
   function pruneMatches(matches, text) {
     var list = Array.isArray(matches) ? matches : [];
     var urls = [];
@@ -79,12 +96,16 @@
       occurrencesOf(m).forEach(function (o) { all.push({ mi: mi, slug: m.slug, start: o.start, end: o.start + o.length, len: o.length }); });
     });
     // 영문 표제가 본문에 그대로 있으면 그 구간은 덮개로만 쓴다(표시는 만들지 않음): 안에 든 다른 용어의 등장은 뺀다.
-    var lower = str.toLowerCase();
+    // 줄바꿈 하이픈("fac- tor", "sin- gle")은 이어 붙인 글에서 찾고, 찾은 자리는 원문 위치로 되돌린다.
+    var fused = fuseWrapHyphens(str);
+    var lower = fused.text.toLowerCase();
     var covers = [];
     list.forEach(function (m) {
       var en = String(m.title_en || "").replace(/\s*\([^)]*\)\s*$/, "").trim().toLowerCase();
       if (!en || (en.split(/\s+/).length < 2 && en.length < 8)) return;
-      for (var at = lower.indexOf(en); at >= 0; at = lower.indexOf(en, at + en.length)) covers.push({ slug: m.slug, start: at, end: at + en.length });
+      for (var at = lower.indexOf(en); at >= 0; at = lower.indexOf(en, at + en.length)) {
+        covers.push({ slug: m.slug, start: fused.map[at], end: fused.map[at + en.length - 1] + 1 });
+      }
     });
     all.sort(function (a, b) { return a.start - b.start || b.len - a.len; });
     var drop = new Set();
@@ -93,7 +114,9 @@
       active = active.filter(function (c) { return c.end > o.start; });
       var inUrl = urls.some(function (u) { return o.start >= u[0] && o.end <= u[1]; });
       var inLonger = active.some(function (c) { return c.slug !== o.slug && c.end >= o.end && c.len > o.len; });
-      var inCover = covers.some(function (c) { return c.slug !== o.slug && o.start >= c.start && o.end <= c.end; });
+      // 덮개는 등장보다 긴 것만 인정한다: 같은 자리를 서로 다른 두 용어가 영문 표제로 차지하면(Presence ×2)
+      // 서로를 덮어 둘 다 사라지던 문제 — 그 경우의 선택은 TM.applySameSpanRule 이 한다.
+      var inCover = covers.some(function (c) { return c.slug !== o.slug && o.start >= c.start && o.end <= c.end && c.end - c.start > o.len; });
       if (inUrl || inLonger || inCover) drop.add(o.mi + ":" + o.start);
       active.push(o);
     });
