@@ -53,9 +53,11 @@ function computeReaderVersion(root = ROOT) {
 }
 
 const READER_ASSET_RE = /((?:src|href)="assets\/(?:reader\/[\w-]+\.(?:js|css)|term-match\.js|viewer-storage\.js))(\?v=[0-9a-z]*)?(")/g;
+// 모듈 import("./assets/….js") 도 같은 버전을 받는다(pdf-annotations.js 는 버전 해시에 들어 있다).
+const READER_IMPORT_RE = /(import\("\.\/assets\/[\w-]+\.js)(\?v=[0-9a-z]*)?("\))/g;
 function stampReaderHtml(html, version) {
   if (!/assets\/term-match\.js/.test(html)) throw new Error("reader.html에서 assets/term-match.js 로드를 찾지 못했습니다");
-  return html.replace(READER_ASSET_RE, "$1?v=" + version + "$3");
+  return html.replace(READER_ASSET_RE, "$1?v=" + version + "$3").replace(READER_IMPORT_RE, "$1?v=" + version + "$3");
 }
 
 function stampHtml(html, version) {

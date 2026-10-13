@@ -78,6 +78,14 @@
     list.forEach(function (m, mi) {
       occurrencesOf(m).forEach(function (o) { all.push({ mi: mi, slug: m.slug, start: o.start, end: o.start + o.length, len: o.length }); });
     });
+    // 영문 표제가 본문에 그대로 있으면 그 구간은 덮개로만 쓴다(표시는 만들지 않음): 안에 든 다른 용어의 등장은 뺀다.
+    var lower = str.toLowerCase();
+    var covers = [];
+    list.forEach(function (m) {
+      var en = String(m.title_en || "").replace(/\s*\([^)]*\)\s*$/, "").trim().toLowerCase();
+      if (!en || (en.split(/\s+/).length < 2 && en.length < 8)) return;
+      for (var at = lower.indexOf(en); at >= 0; at = lower.indexOf(en, at + en.length)) covers.push({ slug: m.slug, start: at, end: at + en.length });
+    });
     all.sort(function (a, b) { return a.start - b.start || b.len - a.len; });
     var drop = new Set();
     var active = [];
@@ -85,7 +93,8 @@
       active = active.filter(function (c) { return c.end > o.start; });
       var inUrl = urls.some(function (u) { return o.start >= u[0] && o.end <= u[1]; });
       var inLonger = active.some(function (c) { return c.slug !== o.slug && c.end >= o.end && c.len > o.len; });
-      if (inUrl || inLonger) drop.add(o.mi + ":" + o.start);
+      var inCover = covers.some(function (c) { return c.slug !== o.slug && o.start >= c.start && o.end <= c.end; });
+      if (inUrl || inLonger || inCover) drop.add(o.mi + ":" + o.start);
       active.push(o);
     });
     var out = [];

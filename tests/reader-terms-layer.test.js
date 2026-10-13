@@ -127,6 +127,21 @@ test("pruneMatches: 주소 속 용어와 더 긴 다른 용어 속 용어는 뺀
   assert.equal(matches[0].occurrences.length, 3, "입력은 바꾸지 않는다");
 });
 
+test("pruneMatches: 영문 표제 구절 안에 든 다른 용어는 한글 표제로만 잡힌 경우에도 뺀다", () => {
+  const { pruneMatches } = require("../assets/reader/terms-layer.js");
+  const mk = (text) => {
+    const a = text.indexOf("aspiration");
+    return [
+      { slug: "fna", title_ko: "세침흡인검사", title_en: "Fine Needle Aspiration (FNA)", occurrences: [{ start: 0, length: 6 }], firstStart: 0, firstLength: 6, count: 1 },
+      { slug: "asp", title_ko: "기도흡인", title_en: "Aspiration", occurrences: [{ start: a, length: 10 }], firstStart: a, firstLength: 10, count: 1 },
+    ];
+  };
+  const t1 = "세침흡인검사(fine needle aspiration; FNA)";
+  assert.deepEqual(pruneMatches(mk(t1), t1).map((m) => m.slug), ["fna"]);
+  const t2 = "세침흡인검사(FNA) 후 aspiration";
+  assert.deepEqual(pruneMatches(mk(t2), t2).map((m) => m.slug), ["fna", "asp"]);
+});
+
 test("pruneMatches: 남은 등장이 없으면 목록에서 빼고, 같은 용어끼리·같은 길이는 건드리지 않는다", () => {
   const { pruneMatches } = require("../assets/reader/terms-layer.js");
   const text = "doi.org/10.1000/transcription factor transcription factor";

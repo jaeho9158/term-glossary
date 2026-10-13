@@ -53,6 +53,9 @@ test("stampReaderHtml: 리더 자산 태그에 같은 버전을 찍고 다시 �
   assert.ok(once.includes('src="assets/reader/doc.js?v=aaa"'));
   assert.ok(once.includes('src="assets/escape.js"'));
   assert.ok(stampReaderHtml(once, "bbb").includes('doc.js?v=bbb"'));
+  const imp = stampReaderHtml('<script src="assets/term-match.js"></script>import("./assets/pdf-annotations.js")', "aaa");
+  assert.ok(imp.includes('import("./assets/pdf-annotations.js?v=aaa")'));
+  assert.ok(stampReaderHtml(imp, "bbb").includes('pdf-annotations.js?v=bbb")'));
   assert.throws(() => stampReaderHtml("<p></p>", "x"));
 });
 
@@ -68,4 +71,12 @@ test("reader.html의 자산 스탬프가 현재 computeReaderVersion()과 같다
   const tags = html.match(/(?:src|href)="assets\/reader\/[\w-]+\.(?:js|css)[^"]*"/g) || [];
   assert.ok(tags.length > 0, "reader.html에 assets/reader/ 태그가 없다");
   tags.forEach((t) => assert.ok(t.endsWith("?v=" + want + '"'), t + " 의 버전이 다르다: node scripts/stamp-viewer-version.js 로 다시 찍을 것"));
+});
+
+test("reader.html의 pdf-annotations import 에 현재 버전이 붙는다", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const { computeReaderVersion } = require("../scripts/stamp-viewer-version.js");
+  const html = fs.readFileSync(path.join(__dirname, "..", "reader.html"), "utf8");
+  assert.ok(html.includes('import("./assets/pdf-annotations.js?v=' + computeReaderVersion() + '")'));
 });

@@ -247,8 +247,10 @@ body.rd-open .site-footer { display: none; }
   background: var(--rd-desk);
   outline: none;
 }
-.rd .rd-scroll:focus:not(:focus-visible) { outline: none; }
-.rd .rd-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.rd .rd-scroll:focus,
+.rd .rd-scroll:focus-visible { outline: none; }
+/* 읽기 영역 테두리는 키보드로 움직일 때만(스크립트 초점·마우스 클릭엔 없음) */
+.rd.rd-kbd .rd-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .rd-pages {
   box-sizing: border-box;
   display: flex;

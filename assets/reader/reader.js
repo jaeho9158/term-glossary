@@ -454,6 +454,13 @@
     try { s[1](); } catch (err) { initFailed = true; console.error("[reader] 초기화 실패:", s[0], err); }
   });
   document.addEventListener("keydown", onKeydown);
+  // 입력 방식: Tab·방향·쪽 이동 키면 rd-kbd(읽기 영역 초점 테두리 허용), 포인터를 누르면 해제.
+  document.addEventListener("keydown", function (e) {
+    if (/^(Tab|Arrow(Up|Down|Left|Right)|Page(Up|Down)|Home|End)$/.test(e.key)) root.document.getElementById("reader").classList.add("rd-kbd");
+  }, true);
+  document.addEventListener("pointerdown", function () {
+    root.document.getElementById("reader").classList.remove("rd-kbd");
+  }, true);
   if (initFailed) {
     showHomeError(LOAD_FAIL_MSG);
     readerEl.addEventListener("reader:docopen", function () {
