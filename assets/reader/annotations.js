@@ -692,6 +692,7 @@
     if (!unsavedCount()) {
       var rdEl = $("reader");
       if (rdEl) rdEl.dispatchEvent(new CustomEvent("reader:unsavedclear", { detail: {} }));
+      if (D() && D().unnotify) D().unnotify(MSG_SAVE_FAIL);
     }
     // 재시도 도중 색을 바꿨으면 새 기록에 이어서 적용한다.
     var wantColor = colorOf(old);

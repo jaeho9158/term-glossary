@@ -101,6 +101,12 @@
     noticeLines = [];
     renderNotice();
   }
+  function unnotify(msg) {
+    var i = noticeLines.indexOf(msg);
+    if (i < 0) return;
+    noticeLines.splice(i, 1);
+    renderNotice();
+  }
 
   // ---------- 쪽 정보 ----------
   function getPage(n) {
@@ -628,6 +634,7 @@
     clientToPage: clientToPage,
     planWindow: planWindow,
     notify: notify,
+    unnotify: unnotify,
     clearNotices: clearNotices,
   };
 })(typeof window !== "undefined" ? window : globalThis);
