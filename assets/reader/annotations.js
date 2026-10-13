@@ -249,6 +249,20 @@
     return G.snapToWords(textOfPage(item.record.page), item.start, item.end);
   }
 
+  // 문장부호·괄호 옆 가장자리의 잉크 틈 탐색 중심: 범위 끝(또는 처음) 글자 상자와 이웃 글자 상자의 경계. 반경은 글자 폭의 절반.
+  function snapAt(boxes, idx, side) {
+    var a = side === "right" ? boxes[idx - 1] : boxes[idx];       // 범위 안쪽 글자
+    var n = side === "right" ? boxes[idx] : boxes[idx - 1];       // 범위 밖 기호
+    if (!a) return undefined;
+    var edge = side === "right" ? a.x + a.w : a.x;
+    var c = edge;
+    if (n && Math.abs((n.y + n.h / 2) - (a.y + a.h / 2)) < a.h * 0.5) {
+      var other = side === "right" ? n.x : n.x + n.w;
+      c = (edge + other) / 2;
+    }
+    return { c: c, r: Math.max(0.5, a.w * 0.5) };
+  }
+
   // ---------- 그리기 ----------
   function drawPage(page, data) {
     if (!data) return;
@@ -282,6 +296,8 @@
       entries.push({
         id: prim.record.id, rects: rects, refine: fl ? undefined : true,
         refineLeft: fl ? fl.refineLeft : undefined, refineRight: fl ? fl.refineRight : undefined,
+        snapLeft: fl && fl.snapLeft ? snapAt(data.charBoxes, g.start, "left") : undefined,
+        snapRight: fl && fl.snapRight ? snapAt(data.charBoxes, g.end, "right") : undefined,
         data: { color: color, ids: g.ids }, className: "rd-hl-" + color,
       });
     });
@@ -896,7 +912,7 @@
     return TXM().get(item.record.page).then(function (d) {
       if (!d || item.status === "lost") return [];
       var sn = drawRange(item);
-      return G.rangeRects(d.charBoxes, sn.start, sn.end);
+      return G.rangeRects(d.charBoxes, sn.start, sn.end, d.text);
     });
   }
 

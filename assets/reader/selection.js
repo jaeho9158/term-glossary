@@ -255,7 +255,7 @@
     for (var i = 0; i < ranges.length; i++) {
       var rr = ranges[i];
       var data = datas[rr.page];
-      rects[rr.page] = data ? G.rangeRects(data.charBoxes, rr.start, rr.end) : [];
+      rects[rr.page] = data ? G.rangeRects(data.charBoxes, rr.start, rr.end, data.text) : [];
     }
     return { ranges: ranges, text: raw, quote: quote, rects: rects, clientRect: clientRectOf(rects) };
   }

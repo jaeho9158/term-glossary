@@ -280,3 +280,139 @@ test("refineRects: 사각형 안에 잉크가 거의 없으면(깎을 근거가 
   const [r] = refineRects(1, [src], { canvas, pageW: 200, pageH: 20 });
   assert.ok(r.x <= src.x && r.x + r.w >= src.x + src.w, "깎지 않는다");
 });
+
+// ---------- 옅은 글자·가장자리 띠의 잉크는 줄 끝에서 잘리지 않는다 ----------
+// paint(px, py) -> [r,g,b] 또는 밝기. 쪽 좌표 (px, py) 의 색.
+function paintCanvas(W, H, sc, paint) {
+  return {
+    width: W * sc, height: H * sc,
+    getContext() {
+      return {
+        getImageData(x0, y0, w, h) {
+          const data = new Uint8ClampedArray(w * h * 4);
+          for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+            let v = paint((x0 + x) / sc, (y0 + y) / sc);
+            if (typeof v === "number") v = [v, v, v];
+            const p = (y * w + x) * 4;
+            data[p] = v[0]; data[p + 1] = v[1]; data[p + 2] = v[2]; data[p + 3] = 255;
+          }
+          return { data, width: w, height: h };
+        },
+      };
+    },
+  };
+}
+const DARK = (px, py) => (px >= 10 && px < 60 && py > 3 && py < 9 ? 10 : 250);
+function trimmedRight(second) {
+  const canvas = paintCanvas(200, 20, 3, (px, py) => {
+    const s = second(px, py);
+    return s !== null ? s : DARK(px, py);
+  });
+  const [r] = refineRects(1, [{ x: 10, y: 0, w: 100, h: 12 }], { canvas, pageW: 200, pageH: 20 });
+  return r.x + r.w;
+}
+const inRun = (px) => px >= 64 && px < 110;
+
+test("refineRects: 노란 형광 글자 같은 옅은 두 번째 덩어리는 줄 끝에서 잘리지 않는다", () => {
+  const right = trimmedRight((px, py) => (inRun(px) && py > 3 && py < 9 ? [255, 255, 0] : null));
+  assert.ok(right > 109, "오른쪽 가장자리 유지: " + right);
+});
+test("refineRects: 옅은 회색(225) 글자도 잘리지 않는다", () => {
+  const right = trimmedRight((px, py) => (inRun(px) && py > 3 && py < 9 ? 225 : null));
+  assert.ok(right > 109, "오른쪽 가장자리 유지: " + right);
+});
+test("refineRects: 아래 12% 에만 있는 밑줄은 잘리지 않는다", () => {
+  const right = trimmedRight((px, py) => (inRun(px) && py > 10.8 && py < 11.8 ? 10 : null));
+  assert.ok(right > 109, "오른쪽 가장자리 유지: " + right);
+});
+test("refineRects: 위 10% 에만 있는 표시는 잘리지 않는다", () => {
+  const right = trimmedRight((px, py) => (inRun(px) && py > 0.1 && py < 1.0 ? 10 : null));
+  assert.ok(right > 109, "오른쪽 가장자리 유지: " + right);
+});
+test("refineRects: 진짜 빈 여백은 여전히 줄인다", () => {
+  const right = trimmedRight(() => null);
+  assert.ok(right < 62 && right > 59.5, "줄어든다: " + right);
+});
+
+// ---------- 문장부호 옆 가장자리 ----------
+test("refineRects: 닫는 괄호 옆 가장자리는 글자와 기호 사이 틈으로 맞춘다", () => {
+  // 글자 잉크 10..50, 틈 50..52, ")" 잉크 52..55. 글자 상자는 55 까지(기호까지 덮음)
+  const canvas = paintCanvas(100, 20, 4, (px, py) => ((px >= 10 && px < 50) || (px >= 52 && px < 55)) && py > 3 && py < 9 ? 10 : 250);
+  const rect = { x: 10, y: 0, w: 45, h: 12 };
+  const [r] = refineRects(1, [rect], { canvas, pageW: 100, pageH: 20, refineRight: { c: 51, r: 2 } });
+  assert.ok(r.x + r.w > 50 && r.x + r.w < 52, "틈 안: " + (r.x + r.w));
+  // 틈이 탐색 범위 밖이면 원래 자리
+  const [k] = refineRects(1, [rect], { canvas, pageW: 100, pageH: 20, refineRight: { c: 40, r: 0.5 } });
+  assert.strictEqual(k.x + k.w, 55);
+});
+test("edgeFlags: 닫는 기호 앞/여는 기호 뒤는 snap 표지", () => {
+  assert.deepStrictEqual(edgeFlags("(heterogeneity) x", 1, 14), { refineLeft: false, refineRight: false, snapLeft: true, snapRight: true });
+  assert.deepStrictEqual(edgeFlags("the control", 4, 8), { refineLeft: true, refineRight: false });
+});
+
+// ---------- 생애: 읽기 실패 뒤 복구, 즉시 보정, 배율 ----------
+function installDoc(opts) {
+  const pw = 200, ph = 40;
+  const state = { renders: [], failOnce: opts.failOnce };
+  const makeCanvas = () => {
+    const c = { width: 0, height: 0, getContext() {
+      const sc = c.width / pw;
+      return { getImageData(x0, y0, w, h) {
+        if (state.failOnce && w > 1) { state.failOnce = false; throw new Error("읽기 실패"); }
+        const data = new Uint8ClampedArray(w * h * 4);
+        for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+          const px = (x0 + x) / sc, py = (y0 + y) / sc;
+          const v = px >= 20 && px < 60 && py > 3 && py < 9 ? 10 : 250;
+          const p = (y * w + x) * 4; data[p] = data[p + 1] = data[p + 2] = v; data[p + 3] = 255;
+        }
+        return { data, width: w, height: h };
+      } };
+    } };
+    return c;
+  };
+  global.document = { createElement: makeCanvas, getElementById: () => null };
+  const shown = { canvas: { width: 100, height: 20 } };
+  global.ReaderDoc = {
+    pageEl: () => ({ querySelector: () => shown.canvas }),
+    pageSize: () => ({ w: pw, h: ph }),
+    currentPage: () => 1,
+    getPage: async () => ({
+      getViewport: ({ scale }) => { state.renders.push(scale); return { width: pw * scale, height: ph * scale }; },
+      render: () => ({ promise: Promise.resolve(), cancel() {} }),
+    }),
+  };
+  return state;
+}
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function waitFor(fn, ms) { const t = Date.now(); while (!fn() && Date.now() - t < ms) await sleep(10); return fn(); }
+
+test("ReaderInk.request: 읽기가 한 번 실패해도 나중 표시는 보정된다", async () => {
+  const ink = require("../assets/reader/ink.js");
+  const saved = ink.params.retryMs;
+  ink.params.retryMs = 30;
+  const st = installDoc({ failOnce: true });
+  ink.invalidate();
+  const first = { x: 20, y: 0, w: 100, h: 12 };
+  assert.strictEqual(ink.request(1, [first]), null);
+  const ok = await waitFor(() => ink.request(1, [first]) !== null, 3000);
+  assert.ok(ok, "재시도 뒤 보정 결과가 나온다");
+  assert.ok(await waitFor(() => !ink._stats().running, 1000), "running 이 풀린다");
+  // 다른 표시도 즉시(버퍼가 있으므로 같은 호출에서) 보정된다
+  const second = { x: 20, y: 0, w: 90, h: 12 };
+  const res = ink.request(1, [second]);
+  assert.ok(res && res[0].x + res[0].w < 65, "즉시 보정: " + (res && res[0].x + res[0].w));
+  ink.params.retryMs = saved;
+  ink.invalidate();
+  assert.ok(st.renders.length >= 2);
+});
+
+test("ReaderInk.request: 가장 작은 사각형 기준으로 렌더 배율을 정한다", async () => {
+  const ink = require("../assets/reader/ink.js");
+  const st = installDoc({});
+  ink.invalidate();
+  const small = { x: 20, y: 0, w: 100, h: 6 }, big = { x: 20, y: 20, w: 100, h: 20 };
+  ink.request(1, [big]); ink.request(1, [big, small].slice(1)); // 큰 것·작은 것 모두 줄 섬
+  await waitFor(() => ink.request(1, [small]) !== null, 3000);
+  assert.ok(st.renders[0] >= 16.7 / 6 - 1e-9 || st.renders[0] === 4, "scale " + st.renders[0]);
+  ink.invalidate();
+});

@@ -17,6 +17,13 @@
     minGapPx: 2.5,        // 낱말 사이 틈 기준(minGap·높이·배율)이 이 픽셀 수보다 작으면(저해상도) 보정하지 않는다
     thin: 0.3,            // 이 폭(높이 대비)보다 좁게 떨어진 잉크 덩어리는 "(" "「" 같은 얇은 글자로 보고 잘라내지 않는다
     keepMs: 4000,         // 쪽 잉크 버퍼를 마지막 사용 뒤 이만큼 두었다가 풀어 준다
+    keepCurMs: 30000,     // 지금 보는 쪽의 버퍼는 이만큼 둔다(그 쪽에 표시를 하면 바로 보정되도록)
+    retryMs: 1500,        // 잉크를 읽지 못했을 때 한 번 다시 시도하기까지의 시간
+    syncMs: 8,            // 요청 즉시(동기) 보정에 쓰는 시간 예산(50ms 창마다)
+    syncMax: 200,         // 동기 보정할 최대 사각형 수
+    trimDelta: 12,        // 줄 끝·처음을 줄이기 전에 다시 확인할 때 쓰는 낮은 밝기 차이
+    trimMargin: 0.08,     // 그 확인에서 사각형 위아래로 더 보는 여백(높이 대비)
+    punctWin: 0.5,        // 문장부호 옆 가장자리: 글자 상자 경계 둘레로 글자 폭의 이만큼 안에서 틈을 찾는다
     maxBufs: 3,           // 동시에 들고 있는 쪽 버퍼 수
     chunkMs: 6,           // 한가한 시간 한 번에 쓰는 최대 시간
     hiMin: 2,             // 화면 배율과 무관하게 잉크를 읽는 쪽 렌더 배율의 하한
@@ -136,8 +143,15 @@
   function edgeFlags(text, start, end) {
     var t = String(text == null ? "" : text);
     var inside = function (i) { return i > 0 && i < t.length && !/\s/.test(t.charAt(i - 1)) && !/\s/.test(t.charAt(i)); };
-    return { refineLeft: !inside(start), refineRight: !inside(end) };
+    var res = { refineLeft: !inside(start), refineRight: !inside(end) };
+    // 범위 바로 뒤가 닫는 문장부호·괄호(또는 바로 앞이 여는 괄호·따옴표)면, 낱말 틈 대신 글자와 기호 사이의 잉크 틈에 맞춘다(snapLeft / snapRight).
+    var ns = function (i) { return i >= 0 && i < t.length && !/\s/.test(t.charAt(i)); };
+    if (!res.refineRight && ns(end - 1) && CLOSERS.indexOf(t.charAt(end)) >= 0) res.snapRight = true;
+    if (!res.refineLeft && ns(start) && OPENERS.indexOf(t.charAt(start - 1)) >= 0) res.snapLeft = true;
+    return res;
   }
+  var CLOSERS = ")]}>.,;:!?’”»」』〉》】〕\"'";
+  var OPENERS = "([{<‘“«「『〈《【〔\"'";
 
   // 항목(entry)의 가장자리별 보정 여부. 층 기본값 layerDefault(불리언), entry.refine, entry.refineLeft / refineRight.
   // 가장자리 플래그가 불리언으로 주어지면 그 가장자리는 refine 와 상관없이 그 값을 따른다. 주어지지 않은 쪽은
@@ -146,7 +160,9 @@
     var base = en && en.refine !== undefined ? !!en.refine : !!layerDefault;
     var l = en && typeof en.refineLeft === "boolean" ? en.refineLeft : base;
     var r = en && typeof en.refineRight === "boolean" ? en.refineRight : base;
-    return { left: l, right: r, any: l || r };
+    if (en && !l && en.snapLeft && typeof en.snapLeft === "object") l = en.snapLeft;
+    if (en && !r && en.snapRight && typeof en.snapRight === "object") r = en.snapRight;
+    return { left: l, right: r, any: !!(l || r) };
   }
 
   // ---------- 보정 한 건 ----------
@@ -178,19 +194,69 @@
     var maxMove = o.maxMove * h * sx, thinPx = o.thin * h * sx;
     var left = r.x, right = r.x + r.w;
     var xl = r.x * sx - bx0, xr = (r.x + r.w) * sx - bx0;
+    // 줄 처음·끝을 줄이기 전의 재확인: 사각형 전체 높이(+여백)에서 낮은 문턱으로 본 잉크 열. 가운데 띠에서 안 보이는 옅은 글자·밑줄·위아래 가장자리의 표시를 살린다.
+    var full = {};
+    var fullCols = function (delta) {
+      var dk = delta === undefined ? o.trimDelta : delta;
+      if (full[dk]) return full[dk];
+      var m = o.trimMargin * h;
+      var fy0 = Math.max(oy, Math.floor((r.y - m) * sy)), fy1 = Math.min(oy + src.height, Math.ceil((r.y + h + m) * sy));
+      full[dk] = fy1 > fy0 ? columnInkLum(src, bx0 - ox, fy0 - oy, bx1 - bx0, fy1 - fy0, dk) : col;
+      return full[dk];
+    };
+    // 문장부호·괄호 옆 가장자리: 글자 상자 경계(c) 둘레 반경 r 안에서 잉크 없는 틈을 찾는다. 없으면 null(원래 자리).
+    var punctEdge = function (sn, side) {
+      var fc = fullCols(o.inkDelta); // 글자와 기호 사이 틈은 번져서 옅다: 문턱을 낮추면 틈이 메워진다
+      var c = sn.c * sx - bx0, rad = Math.max(1, sn.r * sx);
+      var best = null, bd = Infinity, i = 0, n = fc.length;
+      while (i < n) {
+        if (fc[i]) { i++; continue; }
+        var a = i;
+        while (i < n && !fc[i]) i++;
+        var d = c < a ? a - c : (c > i ? c - i : 0);
+        if (d <= rad && d < bd) { bd = d; best = { a: a, b: i }; }
+      }
+      if (!best) return null;
+      var inkBefore = best.a > 0, inkAfter = best.b < n;
+      var pos;
+      if (inkBefore && inkAfter) pos = (best.a + best.b) / 2;
+      else if (side === "right") pos = best.a;
+      else pos = best.b;
+      return (pos + bx0) / sx;
+    };
     if (fl) {
-      left = (snapEdge(xl, gl, maxMove, "left", thinPx, mg, col.length) + bx0) / sx - o.pad * h;
-      // 줄 처음 쪽에 잉크 없는 긴 여백이 있으면 첫 잉크까지 줄인다(글자 상자가 실제보다 앞서 시작한 경우).
-      var il = Math.max(0, Math.ceil(xl));
-      while (il < col.length && !col[il]) il++;
-      if (il < col.length && il - xl > o.trimMin * h * sx && il < xr) left = Math.max(left, (il + bx0) / sx - o.pad * h);
+      if (typeof fl === "object") {
+        var pl = punctEdge(fl, "left");
+        if (pl !== null) left = Math.min(r.x + r.w, pl);
+      } else {
+        left = (snapEdge(xl, gl, maxMove, "left", thinPx, mg, col.length) + bx0) / sx - o.pad * h;
+        // 줄 처음 쪽에 잉크 없는 긴 여백이 있으면 첫 잉크까지 줄인다(글자 상자가 실제보다 앞서 시작한 경우).
+        var il = Math.max(0, Math.ceil(xl));
+        while (il < col.length && !col[il]) il++;
+        if (il < col.length && il - xl > o.trimMin * h * sx && il < xr) {
+          var fc1 = fullCols();
+          il = Math.max(0, Math.ceil(xl));
+          while (il < fc1.length && !fc1[il]) il++;
+          if (il < fc1.length && il - xl > o.trimMin * h * sx && il < xr) left = Math.max(left, (il + bx0) / sx - o.pad * h);
+        }
+      }
     }
     if (fr) {
-      right = (snapEdge(xr, gl, maxMove, "right", thinPx, mg, col.length) + bx0) / sx + o.pad * h;
-      // 줄 끝 쪽: 마지막 잉크 뒤로 잉크 없는 긴 여백이 이어지면 마지막 잉크까지 줄인다(글자 상자가 실제보다 뒤까지 간 경우).
-      var ir = Math.min(col.length - 1, Math.floor(xr) - 1);
-      while (ir >= 0 && !col[ir]) ir--;
-      if (ir >= 0 && xr - (ir + 1) > o.trimMin * h * sx && ir + 1 > xl) right = Math.min(right, (ir + 1 + bx0) / sx + o.pad * h);
+      if (typeof fr === "object") {
+        var pr = punctEdge(fr, "right");
+        if (pr !== null) right = Math.max(r.x, pr);
+      } else {
+        right = (snapEdge(xr, gl, maxMove, "right", thinPx, mg, col.length) + bx0) / sx + o.pad * h;
+        // 줄 끝 쪽: 마지막 잉크 뒤로 잉크 없는 긴 여백이 이어지면 마지막 잉크까지 줄인다(글자 상자가 실제보다 뒤까지 간 경우).
+        var ir = Math.min(col.length - 1, Math.floor(xr) - 1);
+        while (ir >= 0 && !col[ir]) ir--;
+        if (ir >= 0 && xr - (ir + 1) > o.trimMin * h * sx && ir + 1 > xl) {
+          var fc2 = fullCols();
+          ir = Math.min(fc2.length - 1, Math.floor(xr) - 1);
+          while (ir >= 0 && !fc2[ir]) ir--;
+          if (ir >= 0 && xr - (ir + 1) > o.trimMin * h * sx && ir + 1 > xl) right = Math.min(right, (ir + 1 + bx0) / sx + o.pad * h);
+        }
+      }
     }
     if (!(right > left) || right - left < o.minKeep * r.w) return r;
     return { x: left, y: r.y, w: right - left, h: r.h };
@@ -240,7 +306,7 @@
           try { src = toLum(ctx.getImageData(gx0, gy0, gx1 - gx0, gy1 - gy0), gx0, gy0); } catch (e) { src = null; }
         }
         g.idx.forEach(function (i) {
-          out[i] = src ? refineOne(src, sx, sy, rects[i], o, i > 0 || opts.refineLeft !== false, i < last || opts.refineRight !== false) : rects[i];
+          out[i] = src ? refineOne(src, sx, sy, rects[i], o, i > 0 || edgeOpt(opts.refineLeft), i < last || edgeOpt(opts.refineRight)) : rects[i];
         });
       });
       return out;
@@ -269,13 +335,16 @@
   }
 
   var keyMemo = new WeakMap(); // rects 배열 -> 키(마우스를 움직일 때마다 entryAt 이 부르므로 배열마다 한 번만 만든다)
+  function edgeOpt(v) { return v === false ? false : (v && typeof v === "object" ? v : true); }
+  function edgeKey(f) { return f && typeof f === "object" ? "s" + f.c + ":" + f.r : (f ? "1" : "0"); }
+  var syncWin = 0, syncSpent = 0;
   function jobKey(rects, fl, fr) {
     var k = keyMemo.get(rects);
     if (k === undefined) {
       k = rects.map(function (r) { return r.x + "," + r.y + "," + r.w + "," + r.h; }).join(";");
       keyMemo.set(rects, k);
     }
-    return (fl ? 1 : 0) + "" + (fr ? 1 : 0) + "|" + k;
+    return edgeKey(fl) + edgeKey(fr) + "|" + k;
   }
 
   var cnt = { maxFlushMs: 0, maxStripMs: 0, maxJobMs: 0, builds: 0, buildMs: 0, convertMs: 0, refineMs: 0, refined: 0, peakBytes: 0 };
@@ -310,6 +379,7 @@
     if (page === undefined || page === null) {
       state.forEach(freeBuf);
       state.clear();
+      running = false;
     } else {
       var st = state.get(page);
       if (st) { freeBuf(st); state.delete(page); }
@@ -324,7 +394,7 @@
   function stateFor(page) {
     var st = state.get(page);
     if (!st) {
-      st = { cache: new Map(), queue: [], queued: new Set(), buf: null, build: null, timer: 0, used: 0, token: 0 };
+      st = { cap: 0, fails: 0, retryAt: 0, cache: new Map(), queue: [], queued: new Set(), buf: null, build: null, timer: 0, used: 0, token: 0 };
       state.set(page, st);
     }
     return st;
@@ -334,11 +404,24 @@
   // 준비되면 onReady 구독자에게 쪽 번호를 알린다. 호출 쪽은 null 이면 원본을 그대로 그리면 된다.
   function request(page, rects, opts) {
     if (!rects || !rects.length) return rects || [];
-    var fl = !(opts && opts.refineLeft === false), fr = !(opts && opts.refineRight === false);
+    var fl = edgeOpt(opts && opts.refineLeft), fr = edgeOpt(opts && opts.refineRight);
     var st = stateFor(page);
     var key = jobKey(rects, fl, fr);
     var hit = st.cache.get(key);
     if (hit) return hit;
+    // 쪽 버퍼가 이미 있으면 같은 프레임에 바로 보정한다(그렸다가 줄어드는 현상 방지). 예산을 넘거나 해상도가 모자라면 아래 비동기 경로로.
+    if (st.buf && rects.length <= P.syncMax) {
+      var t = now();
+      if (t - syncWin > 50) { syncWin = t; syncSpent = 0; }
+      if (syncSpent < P.syncMs && !needsRebuild(st, st.buf, rects)) {
+        var res = refineJob(st.buf, rects, fl, fr);
+        syncSpent += now() - t;
+        st.cache.set(key, res);
+        st.used = now();
+        armTimer(st, page);
+        return res;
+      }
+    }
     if (!st.queued.has(key)) {
       st.queued.add(key);
       st.queue.push({ key: key, rects: rects, fl: fl, fr: fr });
@@ -358,14 +441,45 @@
     idle(step);
   }
 
-  // 이 쪽 일에 알맞은 렌더 배율: 사각형 높이의 중앙값이 hiTarget 픽셀이 되도록(하한 hiMin), 상한과 픽셀 예산 안에서.
+  // 쪽 크기에서 낼 수 있는 렌더 배율 상한(1/8 단위로 내림). 픽셀 예산을 넘지 않는다.
+  function capScale(pw, ph) {
+    var c = Math.min(P.hiMaxScale, Math.sqrt(P.hiMaxPixels / Math.max(1, pw * ph)));
+    return Math.floor(c * 8) / 8;
+  }
+
+  // 이 쪽 일에 알맞은 렌더 배율: 줄 선 사각형 중 가장 낮은 것도 보정 기준(minGapPx/minGap)을 넘도록(하한 hiMin), 상한 안에서.
   function wantScale(st, pw, ph) {
-    var hs = [];
-    st.queue.forEach(function (j) { j.rects.forEach(function (r) { if (r.h > 0) hs.push(r.h); }); });
+    var hmin = Infinity;
+    st.queue.forEach(function (j) { j.rects.forEach(function (r) { if (r.h > 0 && r.h < hmin) hmin = r.h; }); });
     var s = P.hiMin;
-    if (hs.length) { hs.sort(function (a, b) { return a - b; }); s = Math.max(s, P.hiTarget / hs[hs.length >> 1]); }
-    s = Math.min(s, P.hiMaxScale, Math.sqrt(P.hiMaxPixels / Math.max(1, pw * ph)));
-    return Math.max(1, Math.round(s * 8) / 8);
+    if (hmin < Infinity) s = Math.max(s, Math.ceil(P.minGapPx / P.minGap / hmin * 8 + 1e-6) / 8);
+    return Math.min(s, capScale(pw, ph));
+  }
+
+  // 버퍼 해상도가 모자라 보정 못 하는 사각형이 있고 더 높일 수 있으면 true(그 쪽은 더 높은 배율로 다시 읽는다).
+  function needsRebuild(st, buf, rects) {
+    if (!(st.cap > buf.scale + 1e-9)) return false;
+    for (var i = 0; i < rects.length; i++) if (rects[i].h > 0 && !refinable(rects[i].h, buf.scale, P)) return true;
+    return false;
+  }
+
+  function refineJob(buf, rects, fl, fr) {
+    var tr = now(), last = rects.length - 1;
+    var res = rects.map(function (r, i) {
+      return refineOne(buf, buf.scale, buf.scale, r, P, i > 0 ? true : fl, i < last ? true : fr);
+    });
+    var dt = now() - tr;
+    cnt.refineMs += dt; cnt.refined++;
+    if (dt > cnt.maxJobMs) cnt.maxJobMs = dt;
+    return res;
+  }
+
+  // 쪽 버퍼를 둘 시간: 지금 보는 쪽은 길게.
+  function armTimer(st, page) {
+    if (st.timer) clearTimeout(st.timer);
+    var cur = D() && D().currentPage ? D().currentPage() : 0;
+    var ms = page === cur ? P.keepCurMs : P.keepMs;
+    st.timer = setTimeout(function () { st.timer = 0; freeBuf(st); }, ms);
   }
 
   function startBuild(st, page, pw, ph) {
@@ -373,6 +487,7 @@
     state.forEach(function (o) { if ((o.buf || o.build) && o !== st) others.push(o); });
     others.sort(function (a, b) { return a.used - b.used; });
     while (others.length >= P.maxBufs) freeBuf(others.shift());
+    st.cap = capScale(pw, ph);
     var s = wantScale(st, pw, ph);
     var token = ++st.token;
     var b = { scale: s, task: null, canvas: null, ctx: null, W: 0, H: 0, y: 0, lum: null, t0: now(), rendered: false, failed: false };
@@ -407,7 +522,13 @@
       if (now() > deadline) { cnt.convertMs += now() - t0; return false; }
       var hh = Math.min(STRIP, b.H - b.y);
       var ts = now();
-      b.lum.set(toLum(b.ctx.getImageData(0, b.y, b.W, hh), 0, b.y).lum, b.y * b.W);
+      try {
+        b.lum.set(toLum(b.ctx.getImageData(0, b.y, b.W, hh), 0, b.y).lum, b.y * b.W);
+      } catch (e) { // 캔버스를 읽지 못했다: 이 만들기는 실패로 치고 step 이 처리한다
+        b.failed = true;
+        cnt.convertMs += now() - t0;
+        return false;
+      }
       b.y += hh;
       if (now() - ts > cnt.maxStripMs) cnt.maxStripMs = now() - ts;
     }
@@ -422,6 +543,24 @@
   var busyMs = 0, maxStepMs = 0, steps = 0; // 진단용: 한가한 시간 계산에 쓴 시간 합, 한 번 최대, 횟수
   function step() {
     var t0 = now();
+    var out = null;
+    try {
+      out = stepBody(t0);
+    } catch (e) {
+      console.error("[reader] 잉크 보정 실패", e);
+    } finally {
+      running = false; // 예외가 나도 다음 요청이 다시 돌릴 수 있게
+    }
+    var dt = now() - t0;
+    busyMs += dt; steps++; if (dt > maxStepMs) maxStepMs = dt;
+    if (!out) return;
+    if (out.more) kick();
+    out.touched.forEach(function (p) {
+      listeners.forEach(function (fn) { try { fn(p); } catch (e) { console.error("[reader] 보정 알림 실패", e); } });
+    });
+  }
+
+  function stepBody(t0) {
     var deadline = t0 + P.chunkMs;
     var touched = new Set();
     var more = false;
@@ -437,6 +576,7 @@
     pages.forEach(function (page) {
       var st = state.get(page);
       if (!st.queue.length && !st.build) return;
+      if (st.retryAt && now() < st.retryAt) return; // 읽기에 실패해 잠시 쉬는 중: 때가 되면 타이머가 kick 한다
       if (now() > deadline) { more = true; return; }
       var pc = pageCanvas(page);
       var shown = !!(D() && D().getPage && pc.canvas && pc.canvas.width > 0 && pc.pw > 0 && pc.ph > 0);
@@ -454,47 +594,41 @@
       st.used = now();
       if (st.build) {
         var b = st.build;
-        if (b.failed) { // 고해상도로 읽지 못했다: 원본 그대로 확정
+        if (b.failed) {
+          // 고해상도로 읽지 못했다: 처음 한 번은 줄을 그대로 두고 잠시 뒤 다시 시도한다. 두 번째도 실패하면 원본 그대로 확정한다.
           dropBuild(st);
+          st.fails++;
+          if (st.fails <= 1) {
+            st.retryAt = now() + P.retryMs;
+            setTimeout(function () { st.retryAt = 0; if (state.get(page) === st) kick(); }, P.retryMs);
+            return;
+          }
         } else if (!b.rendered || !convert(st, b, deadline)) {
-          if (b.rendered) more = true;
+          if (b.rendered && !b.failed) more = true;
+          else if (b.failed) more = true; // 다음 step 에서 실패를 처리한다
           return;
         }
       }
       var buf = st.buf, drained = false;
       while (st.queue.length && now() <= deadline) {
-        var job = st.queue.shift();
+        var job = st.queue[0];
+        // 버퍼 해상도가 모자라 보정 못 하는 사각형이 있고 더 높일 수 있으면: 일을 그대로 두고 더 높은 배율로 다시 읽는다.
+        if (buf && needsRebuild(st, buf, job.rects)) { freeBuf(st); buf = null; more = true; break; }
+        st.queue.shift();
         st.queued.delete(job.key);
-        var res = job.rects;
-        if (buf) {
-          var tr = now(), last = job.rects.length - 1;
-          res = job.rects.map(function (r, i) {
-            return refineOne(buf, buf.scale, buf.scale, r, P, i > 0 || job.fl, i < last || job.fr);
-          });
-          cnt.refineMs += now() - tr; cnt.refined++;
-          if (now() - tr > cnt.maxJobMs) cnt.maxJobMs = now() - tr;
-        }
+        var res = buf ? refineJob(buf, job.rects, job.fl, job.fr) : job.rects;
         st.cache.set(job.key, res);
         drained = true;
       }
       // 겹침층 다시 그리기는 쪽의 일이 다 끝났을 때 한 번만 알린다(층을 통째로 다시 그리는 비용이 크다).
       if (drained && !st.queue.length) touched.add(page);
       if (st.queue.length) more = true;
-      else if (st.buf) {
-        if (st.timer) clearTimeout(st.timer);
-        st.timer = setTimeout(function () { st.timer = 0; freeBuf(st); }, P.keepMs);
-      }
+      else if (st.buf) armTimer(st, page);
     });
     building = false;
     state.forEach(function (st) { if (st.build) building = true; });
-    if (!building) state.forEach(function (st) { if (st.queue.length) more = true; }); // 그리던 쪽이 끝났으면 기다리던 쪽을 이어서
-    running = false;
-    var dt = now() - t0;
-    busyMs += dt; steps++; if (dt > maxStepMs) maxStepMs = dt;
-    if (more) kick();
-    touched.forEach(function (p) {
-      listeners.forEach(function (fn) { try { fn(p); } catch (e) { console.error("[reader] 보정 알림 실패", e); } });
-    });
+    if (!building) state.forEach(function (st) { if (st.queue.length && !(st.retryAt && now() < st.retryAt)) more = true; }); // 그리던 쪽이 끝났으면 기다리던 쪽을 이어서
+    return { more: more, touched: touched };
   }
 
   function onReady(fn) { listeners.push(fn); }
