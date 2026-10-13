@@ -17,7 +17,7 @@ test("withAssetVersion: 버전이 있을 때만 ?v= 를 붙인다", () => {
 });
 
 test("stampHtml: viewer.js 로드에 버전을 찍고, 다시 찍으면 교체한다", () => {
-  const html = '<script src="assets/viewer-storage.js"></script>\n<script src="assets/viewer.js"></script>';
+  const html = '<script src="assets/viewer-storage.js"></script>\n<script src="assets/term-match.js"></script>\n<script src="assets/viewer.js"></script>';
   const once = stampHtml(html, "aaa");
   assert.ok(once.includes('<script src="assets/viewer.js?v=aaa"></script>'));
   assert.ok(once.includes('<script src="assets/viewer-storage.js"></script>'));
@@ -34,4 +34,7 @@ test("viewer.html의 ?v= 스탬프가 현재 computeViewerVersion()과 같다", 
   const m = html.match(/assets\/viewer\.js\?v=([^"'&]+)/);
   assert.ok(m, "viewer.html에 viewer.js?v= 스탬프가 없다");
   assert.strictEqual(m[1], computeViewerVersion(), "node scripts/stamp-viewer-version.js 로 다시 찍을 것");
+  const tm = html.match(/assets\/term-match\.js\?v=([^"'&]+)/);
+  assert.ok(tm, "viewer.html에 term-match.js?v= 스탬프가 없다");
+  assert.strictEqual(tm[1], m[1], "term-match.js와 viewer.js의 스탬프가 다르다");
 });

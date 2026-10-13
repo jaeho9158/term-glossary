@@ -37,6 +37,7 @@ function computeViewerVersion(root = ROOT) {
 
 function stampHtml(html, version) {
   if (!SCRIPT_SRC_RE.test(html)) throw new Error("viewer.html에서 assets/viewer.js 로드를 찾지 못했습니다");
+  if (!TERM_MATCH_SRC_RE.test(html)) throw new Error("viewer.html에서 assets/term-match.js 로드를 찾지 못했습니다");
   return html.replace(SCRIPT_SRC_RE, `$1?v=${version}$3`).replace(TERM_MATCH_SRC_RE, `$1?v=${version}$3`);
 }
 

@@ -140,7 +140,7 @@ function commonGrade(signals) {
   return 0;
 }
 
-// 신호로는 닿지 않는 잔여분. 옛 assets/term-match.js의
+// 신호로는 닿지 않는 잔여분. 옛 assets/viewer.js의
 // AMBIGUOUS_COMMON_WORD_TITLES를 그대로 옮겨 온 것으로, 다섯 차례 수동
 // 감사로 확인된 "사전의 뜻은 좁은데 일상어 뜻이 압도적인" 표제어들이다.
 // 위 신호(df·분야·복합어)는 빈도가 높은 것만 잡아내므로, "직시"(df 1)나
