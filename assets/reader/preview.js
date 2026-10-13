@@ -4,7 +4,9 @@
 //  - 인용([12], (Kim et al., 2020)): 마우스를 300ms 올리면 참고문헌 목록의 해당 문구 카드. 누르면 그 항목으로 이동.
 //  - 참조(Fig. 3, Table 2, Eq. (5), Section 2.1): 대상 영역을 page.render 로 작은 캔버스에 그려 미리보기. 누르면 이동.
 //  - 터치: 누르면 카드, 카드의 "이동" 으로 이동.
-// 연결 못 한 것은 등록하지 않는다(카드 없음). 용어 밑줄과 겹치면 인용·참조가 이긴다(아래 onMove).
+// 연결 못 한 것은 등록하지 않는다(카드 없음). 겹침 우선순위는 검색 > 형광펜 > 인용·참조 > 용어.
+//  - 형광펜 위의 클릭은 형광펜 편집기가 맡는다(여기서는 아무것도 안 하고 이벤트를 그대로 통과시킨다). 호버 카드는 형광펜 위에서도 뜬다.
+//  - 용어 카드는 ReaderTerms.setSuppressed() 로 막는다: 포인터가 표시 위에 있거나 카드가 열려 있는 동안.
 // "자세히" 버튼(.rd-ref-more)은 #reader 에 reader:refdetail {index, text, container} 만 낸다(조회는 biblio.js 가 한다).
 (function (root) {
   "use strict";
@@ -15,9 +17,11 @@
     authorYear: true,
     fig: true,
     table: true,
-    eq: true,
-    sec: true,
+    // eq·sec 은 꺼 둔다: 정밀도를 입증하지 못했다(측정 표본이 식 2건, 절 0건). 코드는 남겨 두고 근거가 모이면 다시 켠다.
+    eq: false,
+    sec: false,
   };
+  var META_MAX_PAGES = 120; // 줄 폭·글자 크기를 읽을 캡션 후보 쪽의 상한
 
   var OPEN_DELAY = 300;
   var CLOSE_DELAY = 220;
@@ -62,11 +66,14 @@
       if (!TM || !TM.allPageTexts || !R()) return;
       TM.allPageTexts().then(function (texts) {
         if (st !== S) return;
-        var a = R().analyzeDocument(texts);
-        st.analysis = a;
-        st.display = a.display;
-        registerReady();
-        loadOutline(st);
+        return buildLineMeta(texts, st).then(function (meta) {
+          if (st !== S) return;
+          var a = R().analyzeDocument(texts, meta);
+          st.analysis = a;
+          st.display = a.display;
+          registerReady();
+          loadOutline(st);
+        });
       }).catch(function (err) {
         if (st !== S) return;
         if (err && /문서가 바뀌었습니다/.test(String(err.message))) return;
@@ -76,6 +83,27 @@
     };
     if (root.requestIdleCallback) root.requestIdleCallback(run, { timeout: 1500 });
     else root.setTimeout(run, 50);
+  }
+
+  // 캡션 후보가 있는 쪽의 줄별 {x0, w, fs, y}(줄 폭·글자 크기·세로 위치). 본문 줄바꿈과 캡션을 가르는 데 쓴다. 못 읽으면 그 쪽은 글만으로 판정한다.
+  function buildLineMeta(texts, st) {
+    var meta = [];
+    var TM = TMAP();
+    if (!R().captionPages || !R().lineMetaFromItems || !D() || !D().getPage || !D().getTextContent) return Promise.resolve(meta);
+    var list = R().captionPages(texts).slice(0, META_MAX_PAGES);
+    var i = 0;
+    return new Promise(function (resolve) {
+      (function next() {
+        if (st !== S || i >= list.length) { resolve(meta); return; }
+        var n = list[i++];
+        Promise.all([D().getPage(n), D().getTextContent(n)]).then(function (res) {
+          var vp = res[0].getViewport({ scale: 1 });
+          var items = (res[1] && res[1].items) || [];
+          var pt = TM.buildPageText(items, vp.width);
+          if (pt.text === texts[n - 1]) meta[n - 1] = R().lineMetaFromItems(pt, items);
+        }).catch(function () { /* 이 쪽은 글만으로 판정 */ }).then(function () { setTimeout(next, 0); });
+      })();
+    });
   }
 
   // 절 참조는 목차가 있어야 한다. 목차가 없거나 번호를 읽을 수 없으면 등록하지 않는다.
@@ -121,7 +149,7 @@
   }
 
   function displayable(st, idx) {
-    return idx >= 0 && R().referenceUsable(st.display[idx]);
+    return idx >= 0 && !(st.analysis.refs[idx] && st.analysis.refs[idx].unreliable) && R().referenceUsable(st.display[idx]);
   }
 
   function buildEntries(page, tm, st) {
@@ -371,7 +399,7 @@
   var downPos = null;
   var lastType = "mouse";
   var last = { x: 0, y: 0 };
-  var synthLeave = false;
+  var ignoreScrollUntil = 0; // 카드를 피하려고 스스로 스크롤한 직후에는 scroll 이벤트로 카드를 닫지 않는다
 
   function ensureCard() {
     if (card) return card;
@@ -391,11 +419,18 @@
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     if (cardTask) { cardTask.cancel(); cardTask = null; }
-    if (!card || card.hidden) return;
+    if (!card || card.hidden) { syncSuppress(); return; }
     card.hidden = true;
     card.textContent = "";
     card.classList.remove("is-preview", "is-touch", "is-sheet");
     cardState = null;
+    syncSuppress();
+  }
+
+  // 용어 층에 알린다: 포인터가 표시 위에 있거나 카드가 열려 있으면 용어 카드는 막는다.
+  function syncSuppress() {
+    var T = root.ReaderTerms;
+    if (T && typeof T.setSuppressed === "function") T.setSuppressed(!!(S && S.hover) || cardOpen());
   }
   function scheduleClose() {
     clearTimeout(closeTimer);
@@ -448,11 +483,29 @@
     return { left: a.x, top: a.y, right: b.x, bottom: b.y };
   }
 
+  // 좁은 화면의 아래 시트가 누른 줄을 가리면, 그 줄이 시트 바로 위에 오도록 쪽을 스크롤한다. rect(화면 좌표)도 같이 옮겨 둔다.
+  function revealAboveSheet(rect) {
+    var sc = scrollEl();
+    if (!rect || !sc || !cardOpen() || !card.classList.contains("is-sheet")) return;
+    var sheetTop = card.getBoundingClientRect().top;
+    var gap = 12;
+    if (!(rect.bottom > sheetTop - gap)) return;
+    var delta = rect.bottom - (sheetTop - gap);
+    delta = Math.min(delta, Math.max(0, rect.top - sc.getBoundingClientRect().top - 4)); // 줄이 화면 위로 밀려 나가지는 않게
+    if (!(delta > 0)) return;
+    ignoreScrollUntil = Date.now() + 400;
+    var before = sc.scrollTop;
+    sc.scrollTop = before + delta;
+    var moved = sc.scrollTop - before;
+    rect.top -= moved;
+    rect.bottom -= moved;
+  }
+
   // 표시한 줄을 가리지 않게 위나 아래에 놓고, 화면 밖으로 나가지 않게 한다.
   function position(rect) {
     var sheet = isNarrow();
     card.classList.toggle("is-sheet", sheet);
-    if (sheet) { card.style.left = ""; card.style.top = ""; card.style.maxHeight = ""; return; }
+    if (sheet) { card.style.left = ""; card.style.top = ""; card.style.maxHeight = ""; revealAboveSheet(rect); return; }
     var margin = 8;
     var gap = 6;
     var vw = root.innerWidth;
@@ -484,6 +537,7 @@
     var anchor = nearestRectClient(hit, cx, cy);
     if (data.type === "cite") openCitationCard(c, data, hit, anchor);
     else openPreviewCard(c, data, hit, anchor, touch);
+    syncSuppress();
   }
 
   function openCitationCard(c, data, hit, anchor) {
@@ -585,15 +639,7 @@
     if (next) pushHover(next.page);
     var sc = scrollEl();
     if (sc) sc.classList.toggle("is-ref-hover", !!next);
-  }
-
-  // 용어 층이 같은 위치의 pointermove 를 못 보게 하고, 이미 시작한 용어 카드 타이머는 pointerleave 로 거둔다.
-  function silenceTerms() {
-    var sc = scrollEl();
-    if (!sc) return;
-    synthLeave = true;
-    try { sc.dispatchEvent(new PointerEvent("pointerleave", { pointerType: "mouse" })); } catch (e) { /* 지원하지 않는 환경 */ }
-    synthLeave = false;
+    syncSuppress();
   }
 
   function onMove(e) {
@@ -604,12 +650,10 @@
     if (!S.analysis || e.target.closest && e.target.closest(".rd-ref-pop")) return;
     var hit = (pointerDown || selectionActive()) ? null : OV().entryAt(e.clientX, e.clientY, ["ref"]);
     if (hit && hit.data) {
-      e.stopPropagation(); // 같은 자리의 용어 밑줄보다 인용·참조가 먼저
       var same = S.hover && S.hover.page === hit.page && S.hover.id === hit.id;
       clearTimeout(closeTimer);
       if (same) return;
-      silenceTerms();
-      setHover(hit);
+      setHover(hit); // 용어 카드도 여기서 막힌다(syncSuppress)
       clearTimeout(openTimer);
       if (cardOpen() && cardState && cardState.page === hit.page && cardState.id === hit.id) return;
       var key = hit.page + ":" + hit.id;
@@ -631,9 +675,9 @@
     if (e.target.closest && e.target.closest(".rd-ref-pop")) return;
     if (selectionActive()) return;
     if (downPos && Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 5) return;
+    if (OV().entryAt(e.clientX, e.clientY, ["highlight"])) return; // 형광펜 > 인용·참조: 형광펜 편집기가 맡는다
     var hit = OV().entryAt(e.clientX, e.clientY, ["ref"]);
     if (!hit || !hit.data) return;
-    e.stopPropagation(); // 용어 층의 클릭 처리보다 먼저
     if (lastType === "touch") {
       if (cardOpen() && cardState && cardState.page === hit.page && cardState.id === hit.id) { closeCard(); return; }
       openCard(hit, e.clientX, e.clientY);
@@ -653,7 +697,6 @@
     if (!sc) return;
     sc.addEventListener("pointermove", onMove, true);
     sc.addEventListener("pointerleave", function () {
-      if (synthLeave) return;
       clearTimeout(openTimer);
       setHover(null);
       if (cardOpen()) scheduleClose();
@@ -664,10 +707,16 @@
       downPos = { x: e.clientX, y: e.clientY };
       clearTimeout(openTimer);
       setHover(null);
-      if (cardOpen() && !(card && card.contains(e.target))) closeCard();
+      if (cardOpen() && !(card && card.contains(e.target))) {
+        // 터치로 같은 표시를 다시 누르면 카드를 닫는 쪽으로 간다: 여기서 닫으면 이어지는 click 이 다시 열어 버린다
+        var again = lastType === "touch" && S.analysis ? OV().entryAt(e.clientX, e.clientY, ["ref"]) : null;
+        var sameMark = !!(again && again.data && cardState && cardState.page === again.page && cardState.id === again.id);
+        if (!sameMark) closeCard();
+      }
     }, true);
-    sc.addEventListener("click", onClick, true);
+    sc.addEventListener("click", onClick);
     sc.addEventListener("scroll", function () {
+      if (Date.now() < ignoreScrollUntil) return;
       clearTimeout(openTimer);
       setHover(null);
       closeCard();
@@ -685,19 +734,23 @@
     if (!el0) return;
     ready = true;
     bindScroll();
-    el0.addEventListener("reader:docopen", function () {
+    // 문서를 열거나 닫을 때 표시·카드·막기 상태를 전부 거둔다
+    var resetUi = function () {
+      clearTimeout(openTimer);
+      clearTimeout(closeTimer);
       closeCard();
       pageInfoCache.clear();
       cache = [];
       S = fresh();
+      var sc = scrollEl();
+      if (sc) sc.classList.remove("is-ref-hover");
+      syncSuppress();
+    };
+    el0.addEventListener("reader:docopen", function () {
+      resetUi();
       startAnalysis();
     });
-    el0.addEventListener("reader:docclose", function () {
-      closeCard();
-      pageInfoCache.clear();
-      cache = [];
-      S = fresh();
-    });
+    el0.addEventListener("reader:docclose", resetUi);
     el0.addEventListener("reader:pagetext", function (e) {
       var p = e.detail && e.detail.page;
       if (!(p >= 1)) return;

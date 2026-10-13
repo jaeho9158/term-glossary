@@ -297,7 +297,8 @@ test("findCrossRefs: 단어 일부는 참조가 아니다 (대표 2, 발표 3, C
 // ---------- findTargets ----------
 test("findTargets: 줄 머리의 캡션만 대상", () => {
   const pages = [
-    "본문 문장이다.\nFigure 3. Overview of the system.\n계속\nFig. 4: Another one.\nTable 2. Results table.\n그림 5. 한글 그림.\n표 1. 한글 표.\n<표 6> 꺾쇠 표.\n[그림 7] 대괄호 그림.",
+    "본문 문장이다.\nFigure 3. Overview of the system.\n계속\nFig. 4: Another one.\n본문이 이어진다.\nTable 2. Results table.",
+    "그림 5. 한글 그림.\n본문이 이어진다.\n표 1. 한글 표.\n본문이 또 이어진다.\n<표 6> 꺾쇠 표.\n본문 문장이다.\n[그림 7] 대괄호 그림.",
   ];
   const m = R.findTargets(pages);
   ["fig:3", "fig:4", "table:2", "fig:5", "table:1", "table:6", "fig:7"].forEach((k) => assert.ok(m.has(k), k));
@@ -425,4 +426,320 @@ test("referenceUsable: 연도가 없거나 너무 짧은 항목 문구는 쓰지
   assert.equal(R.referenceUsable("K. A. Her, C casestudy of Biomimicry -"), false);
   assert.equal(R.referenceUsable("Kim, A. (2020). Title of the thing."), true);
   assert.equal(R.referenceUsable("Kim 2020"), false);
+});
+
+// =====================================================================
+// 검수 반영(작업 7 보정 1차): 틀린 연결 배제. 아래 사례는 검수자의 재현 스크립트(adv.js)에서 가져왔다.
+// =====================================================================
+const numTexts = (s, n = 30) => R.findNumericCitations(s, n).map((c) => s.slice(c.start, c.end));
+const xrKeys = (s) => R.findCrossRefs(s).map((x) => x.key);
+
+// ---------- 9. 수식 대괄호 ----------
+test("findNumericCitations: 수식·구간·배열 첨자의 대괄호는 인용이 아니다", () => {
+  [
+    "x in [1, 2] holds", "vector v = [1, 2, 3]", "range [1, 10] of scores", "scored on a scale [1–5]", "the interval [0, 1]",
+    "[0.5, 1]", "[95% CI 1.2–3.4]", "y = ax + b [5]", "arr[3] and data[2]", "x[3]", "A[1,2]", "f(x)[2]", "word[3]", "ISO[3]", "Na[1]", "H2O[4]",
+    "값의 범위 [1, 5] 이다", "척도 [1–5] 를", "(−1 ∈ [1, 2])",
+  ].forEach((s) => assert.deepEqual(numTexts(s), [], s));
+});
+
+test("findNumericCitations: 인용으로 남는 것 — 한글 뒤 붙임, 쪽 표시, 이어진 대괄호, 범위", () => {
+  assert.deepEqual(numTexts("연구[12]에 따르면"), ["[12]"]);
+  assert.deepEqual(numTexts("as shown in [3] and described in [4]"), ["[3]", "[4]"]);
+  assert.deepEqual(numTexts("as reported [3, 5]"), ["[3, 5]"]);
+  assert.deepEqual(numTexts("see [12, p. 34]"), ["[12, p. 34]"]);
+  assert.deepEqual(R.findNumericCitations("see [12, p. 34]", 30)[0].numbers, [12]);
+  const rg = R.findNumericCitations("studies [12]–[15] show", 30);
+  assert.equal(rg.length, 1);
+  assert.deepEqual(rg[0].numbers, [12, 13, 14, 15]);
+  assert.deepEqual(numTexts("건물외피 [3][4]. 이에"), ["[3]", "[4]"]);
+  assert.deepEqual(numTexts("“연구”[7]"), ["[7]"]);
+});
+
+// ---------- 1. 병합된 참고문헌 항목 ----------
+test("splitReferences: 이름을 다 쓴 서양식·머리글자 쉼표 없는 형식도 새 항목 시작으로 본다", () => {
+  const cases = [
+    ["Kim, A. (2020). Title one. Journal.\nKim, Min-Soo (2020). Title two.\nLee, B. (2019). Other.", 3],
+    ["Kim, A. (2020). Title one. Journal.\nKim, Byung Ho. (2020). Title two.\nLee, B. (2019). Other.", 3],
+    ["Kim A, Lee B. Title one. J Med. 2020;12:1-5.\nKim C. Title two. J Med. 2020;13:1-5.\nLee B. Other. 2019.", 3],
+    ["Kim A. Title one. J Med. 2020 Jan;12:1-5.\nKim B. Title two. J Med. 2020 Feb;13:1-5.\nLee C. Other. J Med. 2019 Mar;1:2-3.", 3],
+  ];
+  cases.forEach(([t, n]) => assert.equal(R.splitReferences(t).length, n, t.slice(0, 40)));
+});
+
+test("matchAuthorYear: 같은 성·연도의 항목이 둘이면(예전엔 한 항목으로 합쳐졌다) 연결하지 않는다", () => {
+  ["Kim, A. (2020). Title one. Journal.\nKim, Min-Soo (2020). Title two.\nLee, B. (2019). Other.",
+    "Kim, A. (2020). Title one. Journal.\nKim, Byung Ho. (2020). Title two.\nLee, B. (2019). Other.",
+    "Kim, A. (2020). Title one. Journal.\nKim B. Title two. J Med. 2020;13:1-5.\nLee, B. (2019). Other.",
+  ].forEach((t) => {
+    const refs = R.splitReferences(t);
+    assert.equal(R.matchAuthorYear(ay("(Kim, 2020)")[0], refs), -1, t.slice(0, 50));
+  });
+});
+
+test("matchAuthorYear: 병합된 것처럼 보이는 항목(첫 줄 뒤에 같은 성으로 시작하는 줄)은 분할이 놓쳤어도 연결하지 않는다", () => {
+  const merged = [{ n: null, text: "Kim, A. (2020). Title one. Journal.\nKim, Min-Soo (2020). Title two.", start: 0, end: 1 }, { n: null, text: "Lee, B. (2019). Other. Journal.", start: 2, end: 3 }];
+  assert.equal(R.matchAuthorYear(ay("(Kim, 2020)")[0], merged), -1);
+  assert.equal(R.matchAuthorYear(ay("(Lee, 2019)")[0], merged), 1);
+  // 저자 목록이 줄바꿈된 것은 병합이 아니다
+  const wrapped = [{ n: null, text: "Kim, A., Kim,\nB., & Lee, C. (2020). Title. Journal.", start: 0, end: 1 }];
+  assert.equal(R.matchAuthorYear(ay("Kim et al. (2020)")[0], wrapped), 0);
+  // 저자 자리의 두 번째 (연도)
+  const two = [{ n: null, text: "Kim, A. (2020). Title one is here. Journal.\nPark, C. (2019). Title two is here.", start: 0, end: 1 }];
+  assert.equal(R.matchAuthorYear(ay("(Kim, 2020)")[0], two), -1);
+});
+
+// ---------- 2. 다저자 인용의 마지막 이름 ----------
+test("findAuthorYearCitations: 'Kim, Lee, Park (2020)' 는 Park 한 사람이 아니라 세 저자로 읽는다", () => {
+  const c = ay("Kim, Lee, Park (2020) showed")[0];
+  assert.deepEqual(c.authors, ["Kim", "Lee", "Park"]);
+  const refs = refsOf("Park, C. (2020). Single park paper.");
+  assert.equal(R.matchAuthorYear(c, refs), -1);
+  assert.equal(R.matchAuthorYear(ay("Park (2020)")[0], refs), 0);
+});
+
+test("findAuthorYearCitations: 'However, Park (2020)' 의 문장 머리 부사는 저자가 아니다", () => {
+  const s = "However, Park (2020) argued";
+  const c = ay(s)[0];
+  assert.deepEqual(c.authors, ["Park"]);
+  assert.equal(s.slice(c.start, c.end), "Park (2020)");
+});
+
+test("matchAuthorYear: 'Kim and Lee (2020)' 는 세 저자 항목에 붙지 않는다", () => {
+  const refs = refsOf("Kim, A., Lee, B., & Park, C. (2020). Three authors. Journal.");
+  assert.equal(R.matchAuthorYear(ay("Kim and Lee (2020)")[0], refs), -1);
+  assert.equal(R.matchAuthorYear(ay("Kim, Lee, and Park (2020)")[0], refs), 0);
+  assert.equal(R.matchAuthorYear(ay("Kim et al. (2020)")[0], refs), 0);
+});
+
+// ---------- 3. 그림·표 목록 ----------
+test("findTargets: 쪽 번호로 끝나는 목차 줄(점선·공백·기호 무엇이든)은 대상이 아니다", () => {
+  const lists = ["그림 3. 실험 장치 12", "<표 2> 결과 요약 ‥‥‥‥‥ 15", "표 4. 요약 ⋯⋯⋯⋯ 16", "Figure 7. Setup          9", "Table 8. Summary -------- 10", "표 9. 요약 ········ 16", "Fig. 5. 장치 . . . . 14"];
+  lists.forEach((l) => assert.equal(R.captionOfLine(l, null), null, l));
+  const m = R.findTargets(["본문\n" + lists.join("\n") + "\n", "그림 3. 실험 장치\n본문\n<표 2> 결과 요약\n"]);
+  assert.equal(m.get("fig:3").page, 2);
+  assert.equal(m.get("table:2").page, 2);
+  assert.ok(!m.has("table:8") && !m.has("fig:7"));
+});
+
+test("findTargets: 캡션 모양 줄이 3줄 이상 이어지면 목록이다 / 목록 줄이 5개 넘는 쪽은 통째로 거른다", () => {
+  assert.equal(R.findTargets(["그림 목차\nFigure 1. Setup\nFigure 2. Result\nFigure 3. Summary\n"]).size, 0);
+  assert.equal(R.findTargets(["그림 1. 가\n본문\n그림 2. 나\n본문\n그림 3. 다\n본문\n그림 4. 라"]).size, 4);
+  const listPage = ["그림 목차", "그림 1. 가 3", "그림 2. 나 4", "본문 한 줄", "그림 3. 다 5", "그림 4. 라 6", "그림 5. 마 7", "그림 6. 바\n본문\n그림 9. 진짜 캡션"].join("\n");
+  assert.equal(R.findTargets([listPage]).size, 0);
+});
+
+test("findTargets: 쪽 번호 판정은 소수점·연도·붙임표 숫자를 쪽 번호로 보지 않는다", () => {
+  ["Table 2. Mean value 3.5", "Table 2. Results in 2020", "Fig. 3. Tumor cells are negative for factor-1", "Fig. 4. Ratio 10:30", "Table 5. Costs, 1,200"].forEach((l) =>
+    assert.ok(R.captionOfLine(l, null), l));
+});
+
+// ---------- 4. 줄바꿈된 본문 ----------
+test("findTargets: 문장 중간에서 줄바꿈된 본문 줄('listed in / Table 2. The values')은 대상이 아니다", () => {
+  const pages = [
+    "The results are listed in\nTable 2. The values were\nhigher than those in [3]\nFig. 4. Then we",
+    "Table 2. Real caption\n본문\nFig. 4. Real caption\n",
+  ];
+  const m = R.findTargets(pages);
+  assert.equal(m.get("table:2").page, 2);
+  assert.equal(m.get("fig:4").page, 2);
+  assert.equal(R.captionOfLine("Table 2. The values", "listed in"), null);
+  assert.equal(R.captionOfLine("Fig. 4. Then we", "higher than those in [3]"), null);
+  assert.equal(R.captionOfLine("Table 2. The values", "as in [3])"), null);
+  assert.ok(R.captionOfLine("Table 2. Results", "The model fits well."));
+  assert.ok(R.captionOfLine("Table 2. Results", ""));
+  assert.ok(R.captionOfLine("Table 2. Results", "2.1.1. 이론적 배경"));
+  assert.ok(R.captionOfLine("<표 2> 마약류 사범 동향", "한국 청소년의 마약류 남용과 대응방안 69"));
+});
+
+test("findTargets: 줄 폭·글자 크기 정보가 있으면 본문 줄바꿈과 캡션을 더 정확히 가른다", () => {
+  const body = (i) => "이 문장은 본문의 한 줄이며 폭을 꽉 채운다 그리고 더 길게 이어진다 " + i;
+  const text = [body(1), body(2), "Table 2. The values are higher", body(3), body(4), body(5)].join("\n");
+  const meta = text.split("\n").map((_, i) => ({ x0: 50, w: 400, fs: 10, y: 700 - i * 12 }));
+  assert.equal(R.findTargets([text], [meta]).size, 0, "본문과 같은 크기로 폭을 채운 줄이 이어지면 본문");
+  // 같은 글이라도 앞 줄이 짧게 끝나고 세로 간격이 벌어진 작은 글씨 줄이면 캡션(앞 줄이 문장 끝 표시 없이 끝나도)
+  const text2 = [body(1), body(2), "충분히 짧게 끝나는 마지막 줄", "Table 2. The values are higher", body(3), body(4), body(5)].join("\n");
+  const m2 = [0, 1, 2, 3, 4, 5, 6].map((i) => ({ x0: 50, w: 400, fs: 10, y: 700 - i * 12 }));
+  m2[2] = { x0: 50, w: 120, fs: 10, y: 676 };
+  m2[3] = { x0: 50, w: 180, fs: 8, y: 654 };
+  assert.ok(R.findTargets([text2], [m2]).has("table:2"));
+});
+
+// ---------- 5·6. 교차 참조 ----------
+test("findCrossRefs: 다른 논문·부록·다른 계열의 그림·표는 등록하지 않는다", () => {
+  [
+    "Table 2 of Kim et al. [5]", "Figure 3 in [12]", "Fig. 4 of Ref. 7", "(see Fig. 4 of Ref. 7)", "Table 1 in the Supplementary", "Extended Data Fig. 3",
+    "S. Table 2", "Supplementary Fig. 2", "Appendix Table 1", "Table S1", "Fig. S3", "Table A1", "Online Table 2", "eTable 2", "부록 표 1", "Figure 3 in Smith (2020)",
+    "Table 2 from Kim and Lee (2019)", "their Fig. 2",
+  ].forEach((s) => assert.deepEqual(xrKeys(s), [], s));
+  assert.deepEqual(xrKeys("Table 2 shows the results in 2019 and Fig. 3 in this paper"), ["table:2", "fig:3"]);
+});
+
+test("findCrossRefs: 복합 번호는 끝까지 읽고, 네 자리 이상은 자르지 않고 거절한다", () => {
+  assert.deepEqual(xrKeys("Figure 3.2 shows"), ["fig:3.2"]);
+  assert.deepEqual(xrKeys("Table 2.1"), ["table:2.1"]);
+  assert.deepEqual(xrKeys("표 2-1 과 그림 3-2"), ["table:2-1", "fig:3-2"]);
+  assert.deepEqual(xrKeys("Fig. 3A and Fig. 4b"), ["fig:3", "fig:4"]);
+  assert.deepEqual(xrKeys("Fig. 1000"), []);
+  assert.deepEqual(xrKeys("Table 1,000 won"), []);
+  assert.deepEqual(xrKeys("Fig. 3.2000"), []);
+  assert.deepEqual(xrKeys("Table IV and Table X"), ["table:4", "table:10"]);
+  assert.deepEqual(xrKeys(" 표 3개와 그림 4"), ["fig:4"]);
+});
+
+test("findTargets: 복합 번호 캡션은 번호 전체로 등록한다", () => {
+  const m = R.findTargets(["Figure 3.2. Setup\n본문\nTable 2-1. 결과\n본문\nFigure 3. Plain"]);
+  assert.ok(m.has("fig:3.2") && m.has("table:2-1") && m.has("fig:3"));
+  assert.ok(!m.has("table:2"));
+});
+
+// ---------- 7. 식·절 ----------
+test("preview.js: 식·절 참조는 정밀도 근거가 없어 꺼 둔다", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "../assets/reader/preview.js"), "utf8");
+  assert.match(src, /eq: false,/);
+  assert.match(src, /sec: false,/);
+});
+
+// ---------- 12. 한국어 절 ----------
+test("findCrossRefs: '약 2 절반', '비용 3 절감' 은 절 참조가 아니다 (꺼져 있어도 패턴은 맞게)", () => {
+  assert.deepEqual(xrKeys("약 2 절반"), []);
+  assert.deepEqual(xrKeys("비용 3 절감"), []);
+  assert.deepEqual(xrKeys("2.1절에서 보듯"), ["sec:2.1"]);
+  assert.deepEqual(xrKeys("총 3절이 있다"), []);
+});
+
+// ---------- 11. 구두점 없는 캡션 ----------
+test("captionOfLine: 'Table 3 Results of …', '표 5 제목' 처럼 구두점 없는 짧은 캡션을 인식한다", () => {
+  assert.deepEqual(R.captionOfLine("Table 3 Results of the regression", null), { kind: "table", num: "3" });
+  assert.deepEqual(R.captionOfLine("표 5 제목없음", null), { kind: "table", num: "5" });
+  assert.deepEqual(R.captionOfLine("Fig. 6 Illustration of the model", null), { kind: "fig", num: "6" });
+  assert.equal(R.captionOfLine("Table 4 shows the values", null), null);
+  assert.equal(R.captionOfLine("Table 5 Shows that the values", null), null);
+  assert.equal(R.captionOfLine("표 3 에서 보듯이 값이 높다", null), null);
+  assert.equal(R.captionOfLine("Table 3 results", null), null);
+  assert.equal(R.captionOfLine("표 5 " + "가".repeat(100), null), null);
+});
+
+// ---------- 10. 항목 경계와 뒤쪽 자료 ----------
+function mkRefs(n) {
+  const s = [];
+  for (let i = 1; i <= n; i++) s.push("[" + i + "] Author" + i + ", A. Title number " + i + ". Journal, 20" + (10 + (i % 10)) + ".");
+  return s.join("\n");
+}
+
+test("splitReferences: 이어진 줄이 '[n+1]' 로 시작하면 두 항목 모두 카드를 만들지 않는다", () => {
+  const t = mkRefs(25).replace("[7] Author7", "[7] Author7, see\n[8] in the previous list, and");
+  const d = R.analyzeDocument(["Body\nReferences\n" + t]);
+  const at = (n) => d.refs.findIndex((r) => r.n === n);
+  assert.equal(d.display[at(7)], "");
+  assert.equal(d.display[at(8)], "");
+  assert.ok(R.referenceUsable(d.display[at(9)]));
+  assert.ok(R.referenceUsable(d.display[at(6)]));
+});
+
+test("splitReferences: 번호를 건너뛴 이어진 줄('[9] heavily;')과 그 안에 삼켜진 '(8)' 항목은 쓰지 않는다", () => {
+  const t = mkRefs(25).replace("[7] Author7", "[7] Author7 cites\n[9] heavily;").replace("[8] Author8", "(8) Author8");
+  const d = R.analyzeDocument(["Body\nReferences\n" + t]);
+  d.refs.forEach((r, i) => { if (r.n === 7 || r.n === 9) assert.equal(d.display[i], "", "n=" + r.n); });
+  assert.ok(!d.refs.some((r) => r.n === 8));
+});
+
+test("splitReferences: 쪽 범위가 줄바꿈된 '28-\\n35.' 의 숫자는 번호가 아니다", () => {
+  const t = "1. Han D. First title here. J Med 2022;1:1-2.\n2. Park K, Ryu H. Lab Med Online 2025;15:28-\n35.\n3. Kim A, Lee B. Other title here. J Med 2024;1:2-3.\n4. Choi C. Third title here. J Med 2023;1:4-5.";
+  const r = R.splitReferences(t);
+  assert.deepEqual(r.map((x) => !!x.unreliable), [false, false, false, false]);
+});
+
+test("splitReferences: 마지막 항목은 감사의 글·부록·저자 소개·접수일 앞에서 끝난다", () => {
+  const body = mkRefs(25);
+  const tails = ["\nAcknowledgements\nThis work was supported by a grant.", "\nAppendix A. Survey\n1. Item one 2020", "\n부록\n설문지", "\n감사의 글\n도움을 주신 분께", "\nJohn Smith received his PhD in 2001 from MIT. He works on [3] things.",
+    "\nReceived: 12 March 2021; Accepted: 3 May 2021", "\n\nAuthor biographies\nA. Smith is a professor.", "\nAuthor contributions\n26. Extra numbered note in the back matter 2021.\n27. Another numbered note 2021."];
+  tails.forEach((tail) => {
+    const d = R.analyzeDocument(["Body\nReferences\n" + body + tail]);
+    assert.equal(d.refs.length, 25, JSON.stringify(tail));
+    assert.ok(d.refs[24].text.endsWith("2015."), JSON.stringify(tail));
+  });
+});
+
+test("splitReferences: 빈 줄로 갈린 문헌 같지 않은 덩어리(제목 줄·숫자 없는 문단)에서 마지막 항목이 끝난다", () => {
+  const refs = "[1] Kim, A. Title one is long enough. Journal 2020;1:2-3.\n[2] Lee, B. Title two is long enough. Journal 2019;1:2-3.\n[3] Park, C. Title three is long enough. Journal 2018;1:2-3.";
+  [refs + "\n\nAbout the Authors\nSmith works here", refs + "\n\n이 연구는 정부의 지원을 받아 수행되었으며 저자들은 이해 충돌이 없음을 밝힌다 그리고 더 쓴다"].forEach((t) => {
+    const r = R.splitReferences(t);
+    assert.equal(r.length, 3);
+    assert.ok(r[2].text.endsWith("1:2-3."), r[2].text);
+  });
+});
+
+test("splitReferences: 항목 하나가 700자를 넘으면 믿을 수 없는 항목으로 표시한다", () => {
+  const long = "[2] Lee, B. " + "Very long continuing text of something. ".repeat(25) + "2019.";
+  const r = R.splitReferences("[1] Kim, A. Title one. Journal 2020.\n" + long + "\n[3] Park, C. Third. Journal 2018.");
+  assert.deepEqual(r.map((x) => !!x.unreliable), [false, true, false]);
+  const d = R.analyzeDocument(["Body\nReferences\n[1] Kim, A. Title one is long enough. Journal 2020.\n" + long + "\n[3] Park, C. Third title is long enough. Journal 2018."]);
+  assert.equal(d.display[1], "");
+});
+
+test("splitReferences: 저자-연도 목록 뒤에 붙은 번호 목록(부록 설문 항목)은 참고문헌이 아니다", () => {
+  const r = R.splitReferences("Kim, A. (2020). Title one. Journal.\nLee, B. (2019). Other.\nPark, C. (2018). Third.\n1. First survey item\n2. Second survey item\n3. Third survey item\n4. Fourth");
+  assert.equal(r.length, 3);
+  assert.ok(r.every((x) => x.n === null));
+});
+
+// ---------- 15. 두 단 참고문헌 ----------
+test("analyzeDocument: 글 순서가 단별로 정리된 두 단 목록(실제 text-map 출력 모양)은 번호식 인용을 유지한다", () => {
+  // quorum-sensing-2col 의 모양: 왼쪽 단 1~3, 이어서 오른쪽 단 4~6 (단 안에서 줄바꿈된 항목)
+  const colText = [
+    "1. Aguilar, C., A. Carlier, K. Riedel, and L. Eberl. 2010. Cell-",
+    "to-cell communication in bacteria. Microbiology 148: 1119-1127.",
+    "2. Bassler, B. L. 1999. How bacteria talk to each other. Curr.",
+    "Opin. Microbiol. 2: 582-587.",
+    "3. Boyer, M. and F. Wisniewski-Dye. 2009. Cell-cell signalling in",
+    "bacteria. FEMS Microbiol. Ecol. 70: 1-19.",
+    "4. Camilli, A. and B. L. Bassler. 2006. Bacterial small-molecule",
+    "signaling pathways. Science 311: 1113-1116.",
+    "5. Chen, X. 2002. Structural identification of a bacterial quorum",
+    "sensing signal. Nature 415: 545-549.",
+    "6. Davies, D. G. 1998. The involvement of cell-to-cell signals. Science 280: 295-298.",
+  ].join("\n");
+  const d = R.analyzeDocument(["본문 [1]-[3]\nReferences\n" + colText]);
+  assert.equal(d.refs.length, 6);
+  assert.equal(d.numericOk, true);
+  assert.ok(d.refs.every((r) => !r.unreliable));
+});
+
+test("analyzeDocument: 줄 단위로 섞인 두 단 목록(kci-3017798 모양, 번호가 어긋남)은 번호식 인용을 끈다", () => {
+  const inter = [
+    "[1] N. Y. Kim, H. S. Lee, Biomimicry Based Facade Design Process Development",
+    "[6] Y. C. Kwon, High insulation technology of building envelope, 2010, Vol.4, No.4, pp.17",
+    "Buildings, Architectural Institute of Korea, (2017), Vol.33, No.1, pp.11",
+    "[2] S. Cho, Comprehensive energy performance measurement technology for building",
+    "[7] D. W. Kim, C. S. Park, Performance Assessment of Building Envelopes, 2009, pp.77",
+    "Architectural Sustainable Environment and Building Systems, (2011), Vol.5, No.2, pp.19",
+    "[3] S. Y. Lee, J. S. Kang, K. S. Kim, Energy Performance Evaluation of a Double Skin, 2010",
+    "[8] A. Choi, Residential Buildings, Jounal of the Korean Solar Society, (2010), Vol.30, No.6, pp.1",
+    "[4] Y. Yoon, Another study of facades, 2012, Vol.1, pp.1-2",
+    "[9] Z. Han, And one more study of facades, 2013, Vol.2, pp.3-4",
+  ].join("\n");
+  const d = R.analyzeDocument(["본문\nReferences\n" + inter]);
+  assert.equal(d.numericOk, false);
+  d.refs.forEach((r, i) => { if (r.unreliable) assert.equal(d.display[i], ""); });
+  assert.ok(d.refs.filter((r) => r.unreliable).length >= 3);
+});
+
+test("splitReferences: 두 단 목록이 [1] [6] [2] [7] … 으로 섞이면 섞인 항목은 믿을 수 없는 항목이다", () => {
+  const r = R.splitReferences("[1] A. Kim, T, 2020.\n[6] F. Six, 2015.\n[2] B. Lee, 2019.\n[7] G. Seven, 2014.\n[3] C. Park, 2018.\n[8] H. Eight 2013.\n[4] D 2017\n[5] E 2016");
+  assert.ok(r[0].unreliable && r[1].unreliable && r[2].unreliable);
+});
+
+// ---------- 줄 정보 입력 ----------
+test("lineMetaFromItems: 줄마다 왼쪽 x·폭·글자 크기·세로 위치를 뽑는다", () => {
+  const items = [
+    { str: "Fig", transform: [10, 0, 0, 10, 50, 700], width: 20 },
+    { str: " 1.", transform: [10, 0, 0, 10, 72, 700], width: 18 },
+    { str: "body", transform: [12, 0, 0, 12, 50, 680], width: 100 },
+  ];
+  const pt = { text: "Fig 1.\nbody", charItem: [0, 0, 0, 1, 1, 1, -1, 2, 2, 2, 2] };
+  const m = R.lineMetaFromItems(pt, items);
+  assert.equal(m.length, 2);
+  assert.deepEqual([m[0].x0, m[0].w, m[0].fs, m[0].y], [50, 40, 10, 700]);
+  assert.deepEqual([m[1].x0, m[1].w, m[1].fs, m[1].y], [50, 100, 12, 680]);
 });

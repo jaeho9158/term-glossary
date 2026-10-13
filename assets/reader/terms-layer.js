@@ -800,6 +800,8 @@
   var downPos = null;
   var moveRaf = 0;
   var last = { x: 0, y: 0 };
+  // 다른 층(인용·참조 카드)이 같은 자리를 쓰는 동안 용어 카드를 막는 스위치. setSuppressed() 로만 바꾼다.
+  var suppressed = false;
 
   function ensureCard() {
     if (card) return card;
@@ -887,7 +889,7 @@
   }
 
   function openCard(hit, cx, cy) {
-    if (!S || !S.ready) return;
+    if (!S || !S.ready || suppressed) return;
     var m = S.matchBySlug.get(hit.id);
     if (!m) return;
     var covered = ((hit.data && hit.data.covered) || [])
@@ -919,6 +921,7 @@
   function evalHover() {
     moveRaf = 0;
     if (!S || !S.ready || !visible || lastType === "touch") { setHover(null); return; }
+    if (suppressed) { clearTimeout(openTimer); setHover(null); return; }
     var blocked = pointerDown || selectionActive();
     var hit = blocked ? null : OV().entryAt(last.x, last.y, ["term"]);
     setHover(hit);
@@ -928,7 +931,7 @@
       clearTimeout(openTimer);
       var key = hit.page + ":" + hit.id;
       openTimer = setTimeout(function () {
-        if (pointerDown || selectionActive() || !visible) return;
+        if (pointerDown || selectionActive() || !visible || suppressed) return;
         var again = OV().entryAt(last.x, last.y, ["term"]);
         if (!again || again.page + ":" + again.id !== key) return;
         openCard(again, last.x, last.y);
@@ -944,15 +947,34 @@
     lastType = e.pointerType || "mouse";
     last.x = e.clientX;
     last.y = e.clientY;
+    if (suppressed) return;
     if (!moveRaf) moveRaf = requestAnimationFrame(evalHover);
   }
 
+  // 용어 카드를 막거나 푼다. 막는 동안: 호버 카드가 열리지 않고, 열린 카드는 닫히고, 기다리던 타이머·rAF 는 취소되며, 용어 클릭은 무시된다.
+  // 풀면 마지막 포인터 위치로 호버를 다시 계산한다. 우선순위(형광펜 > 인용·참조 > 용어)는 호출하는 쪽이 entryAt 으로 판정해 넘긴다.
+  function setSuppressed(flag) {
+    var next = !!flag;
+    if (next === suppressed) return;
+    suppressed = next;
+    if (suppressed) {
+      clearTimeout(openTimer);
+      clearTimeout(closeTimer);
+      if (moveRaf) { cancelAnimationFrame(moveRaf); moveRaf = 0; }
+      setHover(null);
+      closeCard(true);
+    } else if (!moveRaf && lastType !== "touch" && S && S.ready) {
+      moveRaf = requestAnimationFrame(evalHover);
+    }
+  }
+
   function onClick(e) {
-    if (e.button !== 0 || !S || !S.ready || !visible) return;
+    if (e.button !== 0 || !S || !S.ready || !visible || suppressed) return;
     if (selectionActive()) return;
     if (downPos && Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 5) return;
     // 형광펜 위의 클릭은 형광펜 편집기가 맡는다(용어 카드는 마우스를 올릴 때만 뜬다).
     if (OV().entryAt(e.clientX, e.clientY, ["highlight"])) return;
+    if (OV().entryAt(e.clientX, e.clientY, ["ref"])) return; // 인용·참조 표시가 있는 자리는 인용 층이 맡는다(형광펜 > 인용·참조 > 용어)
     var hit = OV().entryAt(e.clientX, e.clientY, ["term"]);
     if (!hit) return;
     if (lastType === "touch") { openCard(hit, e.clientX, e.clientY); return; }
@@ -1088,6 +1110,8 @@
     init: init,
     setVisible: setVisible,
     isVisible: function () { return visible; },
+    setSuppressed: setSuppressed,
+    isSuppressed: function () { return suppressed; },
     hide: hide,
     restoreAll: restoreAll,
     lookup: lookup, // Promise<matches>: 정의 청크를 받아 와야 해서 비동기다

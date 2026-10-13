@@ -1,11 +1,19 @@
 /* 인용 카드와 그림·표·절·식 미리보기 (작업 7) */
 
-/* 표시는 평소에는 투명, 마우스를 올렸을 때만 옅은 배경 */
-.rd-layer .rd-rect.rd-ref { background: transparent; border-radius: 2px; }
+/* 표시는 마우스를 올렸을 때만 보인다. reader.css 의 .rd-rect.rd-ref 가 주는 밑줄(border-bottom)을 지우고 배경도 투명으로 둔다.
+   .rd-layer 를 붙여 reader.css 보다 구체적으로 만든다. */
+.rd-layer .rd-rect.rd-ref {
+  background: transparent;
+  border: 0;
+  border-bottom: 0;
+  border-radius: 2px;
+}
 .rd-layer .rd-rect.rd-ref.is-hover {
   background: var(--accent-soft);
   background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
+/* 표시 위에 있는 동안(preview.js 가 #rd-scroll 에 is-ref-hover 를 붙인다) 손 모양 */
+.rd-scroll.is-ref-hover,
 .rd-scroll.is-ref-hover .textLayer,
 .rd-scroll.is-ref-hover .textLayer * { cursor: pointer; }
 

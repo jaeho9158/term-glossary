@@ -85,11 +85,14 @@
 
   async function pageTexts(pdf) {
     var out = [];
+    out.raw = []; // 쪽마다 {pt, items}: 캡션이 있는 쪽의 줄 폭·글자 크기를 뽑는 데 쓴다(preview.js 와 같은 입력)
     for (var n = 1; n <= pdf.numPages; n++) {
       var page = await pdf.getPage(n);
       var vp = page.getViewport({ scale: 1 });
       var tc = await page.getTextContent();
-      out.push(window.ReaderTextMap.buildPageText(tc.items, vp.width).text);
+      var pt = window.ReaderTextMap.buildPageText(tc.items, vp.width);
+      out.raw.push({ pt: pt, items: tc.items });
+      out.push(pt.text);
     }
     return out;
   }
@@ -121,7 +124,9 @@
   async function evalPdf(name, data) {
     var pdf = await window.pdfjsLib.getDocument({ data: data }).promise;
     var texts = await pageTexts(pdf);
-    var a = R.analyzeDocument(texts);
+    var meta = [];
+    R.captionPages(texts).forEach(function (p) { meta[p - 1] = R.lineMetaFromItems(texts.raw[p - 1].pt, texts.raw[p - 1].items); });
+    var a = R.analyzeDocument(texts, meta);
     var res = {
       name: name, pages: texts.length,
       section: a.section, refs: a.refs.length, numbered: a.numbered, refCount: a.refCount, targets: a.targets.size,
