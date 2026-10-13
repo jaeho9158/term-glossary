@@ -7,6 +7,8 @@
 
   var API = "https://api.crossref.org/works";
   var TIMEOUT_MS = 8000;
+  var RETRY_MS = 1200; // 일시 실패 뒤 한 번만 다시 시도하기 전 대기
+  var RETRY_STATUS = { 429: 1, 502: 1, 503: 1, 504: 1 };
   var DOI_RE = /^10\.\d{4,9}\/\S+$/;
 
   var MSG_LOADING = "불러오는 중…";
@@ -35,15 +37,37 @@
     first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10 };
   // 이 낱말 바로 뒤의 한 글자는 구별 라벨(Part A / Part B)
   var LABELS = { part: 1, study: 1, experiment: 1, appendix: 1, phase: 1, type: 1 };
+  // 한 글자 구분자를 받는 명사: 이 뒤의 "a"는 관사가 아니라 구분자(Vitamin A, Hepatitis A)
+  var DESIG_NOUNS = { vitamin: 1, hepatitis: 1, influenza: 1, type: 1, group: 1, class: 1, grade: 1, stage: 1, phase: 1,
+    part: 1, factor: 1, protein: 1, complex: 1, subunit: 1, chain: 1, virus: 1, strain: 1, cyclin: 1, interleukin: 1, interferon: 1 };
+  // 그리스 문자(기호는 이름으로 접는다: α ≡ alpha)는 정확히 일치해야 하고 빼거나 끼울 수 없다
+  var GREEK = { alpha: 1, beta: 1, gamma: 1, delta: 1, epsilon: 1, zeta: 1, eta: 1, theta: 1, iota: 1, kappa: 1, lambda: 1, mu: 1,
+    nu: 1, xi: 1, omicron: 1, pi: 1, rho: 1, sigma: 1, tau: 1, upsilon: 1, phi: 1, chi: 1, psi: 1, omega: 1 };
+  var GREEKCH = { "α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta", "ε": "epsilon", "ϵ": "epsilon", "ζ": "zeta", "η": "eta",
+    "θ": "theta", "ϑ": "theta", "ι": "iota", "κ": "kappa", "λ": "lambda", "μ": "mu", "ν": "nu", "ξ": "xi", "ο": "omicron",
+    "π": "pi", "ρ": "rho", "σ": "sigma", "ς": "sigma", "τ": "tau", "υ": "upsilon", "φ": "phi", "ϕ": "phi", "χ": "chi",
+    "ψ": "psi", "ω": "omega" };
+  // 부정·범위 낱말: 정확히 일치해야 하고 빼거나 끼울 수 없다
+  var NEG = { non: 1, not: 1, no: 1, without: 1, never: 1, anti: 1, nor: 1, neither: 1, none: 1 };
   function isNumOrRoman(w) { return /^\d+$/.test(w) || own(ROMANV, w); }
+  // 번호 꼴 낱말(숫자·로마 숫자·영어 수사)
+  function isNumLike(w) { return /^\d+$/.test(w) || own(ROMANV, w) || own(NUMV, w); }
 
-  // 구별 낱말이면 비교용 표기(숫자 문자열), 아니면 null
+  // 구별 낱말(숫자·한 글자·그리스 문자·부정어)이면 비교용 표기, 아니면 null. 낱말별로 한 번만 계산한다.
+  var canonCache = Object.create(null), canonCount = 0;
   function canonNum(w) {
-    if (/^\d+d?$/.test(w)) return w.replace(/^0+(?=\d)/, ""); // "2d"/"3d"도 구별 낱말
-    if (own(ROMANV, w)) return String(ROMANV[w]);
-    if (own(NUMV, w)) return String(NUMV[w]);
-    if (/^\p{L}$/u.test(w)) return "#" + w; // 라벨 뒤에서만 남는 한 글자(Part A)
-    return null;
+    var c = canonCache[w];
+    if (c !== undefined) return c;
+    if (/^\d+d?$/.test(w)) c = w.replace(/^0+(?=\d)/, ""); // "2d"/"3d"도 구별 낱말
+    else if (own(ROMANV, w)) c = String(ROMANV[w]);
+    else if (own(NUMV, w)) c = String(NUMV[w]);
+    else if (/^\p{L}$/u.test(w)) c = "#" + w; // 한 글자 구분자(Part A, hepatitis B)
+    else if (own(GREEK, w)) c = "g:" + w;
+    else if (own(NEG, w)) c = "n:" + w;
+    else c = null;
+    if (++canonCount > 20000) { canonCache = Object.create(null); canonCount = 0; }
+    canonCache[w] = c;
+    return c;
   }
   function isNumber(w) { return canonNum(w) !== null; }
 
@@ -56,6 +80,7 @@
     for (i = 0; i < src.length;) {
       var ch = String.fromCodePoint(src.codePointAt(i));
       f = Array.from(fold(ch));
+      if (f.length === 1 && own(GREEKCH, f[0])) f = Array.from(GREEKCH[f[0]]);
       for (q = 0; q < f.length; q++) { F.push(f[q]); O.push(i); }
       i += ch.length;
     }
@@ -77,12 +102,17 @@
       str += K[k]; pos += K[k].length;
     }
     if (cur) { cur.e = pos; raw.push(cur); }
-    var words = [], wo = [];
+    var words = [], wo = [], wi = [];
     for (k = 0; k < raw.length; k++) {
-      var t = raw[k].t;
-      if (t.length >= 2 || isNumOrRoman(t) || (k > 0 && own(LABELS, raw[k - 1].t) && L.test(t))) { words.push(t); wo.push(raw[k].o); }
+      var t = raw[k].t, keep = false;
+      if (t.length >= 2 || isNumOrRoman(t)) keep = true;
+      else if (L.test(t)) {
+        // 한 글자는 구분자로 남긴다. 관사 "a"만 예외(구분자를 받는 명사 바로 뒤의 "a"는 남김)
+        keep = t !== "a" || (k > 0 && own(DESIG_NOUNS, raw[k - 1].t) && /^[\s\-‐‑–]*$/.test(str.slice(raw[k - 1].e, raw[k].s)));
+      }
+      if (keep) { words.push(t); wo.push(raw[k].o); wi.push(k); }
     }
-    return { src: src, str: str, raw: raw, words: words, wo: wo };
+    return { src: src, str: str, raw: raw, words: words, wo: wo, wi: wi };
   }
 
   function normalizeTitle(s) { return view(s, false).words; }
@@ -134,6 +164,17 @@
     return typeof v === "string" ? stripMarkup(v) : "";
   }
 
+  // Crossref의 여러 날짜 필드(인쇄본·온라인·게시·발행·등록)의 연도들
+  var DATE_FIELDS = ["published-print", "published-online", "published", "issued", "created"];
+  function datedYears(item) {
+    var out = [];
+    for (var k = 0; k < DATE_FIELDS.length; k++) {
+      var y = yearOf({ issued: item[DATE_FIELDS[k]] });
+      if (y && out.indexOf(y) === -1) out.push(y);
+    }
+    return out;
+  }
+
   function titleOf(item) { return item ? firstString(item.title) : ""; }
 
   function toCandidate(item) {
@@ -142,6 +183,7 @@
       subtitle: item ? firstString(item.subtitle) : "",
       type: item && typeof item.type === "string" ? item.type : "",
       year: item && item.year ? String(item.year) : yearOf(item),
+      years: item ? datedYears(item) : [],
       author: item && Array.isArray(item.author) ? item.author : []
     };
   }
@@ -225,28 +267,30 @@
 
   // ----- 제목 -----
 
-  // 편집 거리가 1 이하인가
-  function lev1(a, b) {
-    if (a === b) return true;
-    var la = a.length, lb = b.length;
-    if (Math.abs(la - lb) > 1) return false;
-    var i = 0;
+  // 오타 허용(첫 글자 같음, 글자만): (a) 한 글자 삽입·삭제(제목 낱말 6글자 이상), (b) s↔z 치환(organisation/organization),
+  // (c) o↔ou 삽입(tumour/tumor: 짧은 쪽 5글자 이상). 그 밖의 한 글자 치환(nitrate/nitrite)은 다른 낱말이다.
+  function typoEq(a, b) {
+    var la = a.length, lb = b.length, i = 0;
+    if (Math.abs(la - lb) > 1 || a.charAt(0) !== b.charAt(0) || !/^\p{L}+$/u.test(a) || !/^\p{L}+$/u.test(b)) return false;
     while (i < la && i < lb && a.charAt(i) === b.charAt(i)) i++;
-    if (la === lb) return a.slice(i + 1) === b.slice(i + 1);
-    if (la > lb) return a.slice(i + 1) === b.slice(i);
-    return a.slice(i) === b.slice(i + 1);
+    if (la === lb) {
+      if (la < 6 || a.slice(i + 1) !== b.slice(i + 1)) return false;
+      return (a.charAt(i) === "s" && b.charAt(i) === "z") || (a.charAt(i) === "z" && b.charAt(i) === "s");
+    }
+    var lg = la > lb ? a : b, sh = la > lb ? b : a;
+    if (sh.slice(i) !== lg.slice(i + 1)) return false;
+    if (lg.charAt(i) === "u" && i > 0 && lg.charAt(i - 1) === "o" && sh.length >= 5) return true; // tumour/tumor
+    return la >= 6;
   }
 
-  // 제목 낱말 a가 서지 낱말 b와 같은가. 구별 낱말은 숫자로 바꿔 정확히, 6글자 이상 글자 낱말은 편집 거리 1(첫 글자 같음)까지.
-  function wordEq(a, b) {
-    var ca = canonNum(a), cb = canonNum(b);
-    if (ca !== null || cb !== null) return ca === cb;
+  // 제목 낱말 a가 서지 낱말 b와 같은가. ca·cb는 canonNum 값. 구별 낱말은 정확히, 그 밖의 글자 낱말은 typoEq까지.
+  function wordEq(a, b, ca, cb) {
     if (a === b) return true;
-    return a.length >= 6 && /^\p{L}+$/u.test(a) && /^\p{L}+$/u.test(b) && a.charAt(0) === b.charAt(0) && lev1(a, b);
+    if (ca !== null || cb !== null) return ca === cb;
+    return typoEq(a, b);
   }
 
-  function exactEq(a, b) {
-    var ca = canonNum(a), cb = canonNum(b);
+  function exactEq(a, b, ca, cb) {
     return ca !== null || cb !== null ? ca === cb : a === b;
   }
 
@@ -264,8 +308,8 @@
   }
 
   // 가장 이른 위치끼리 맞춘 정렬 [[제목 인덱스, 문구 인덱스], …]
-  function alignForward(E, n, m, S) {
-    var out = [], i = 0, j = 0;
+  function alignForward(E, n, m, S, i0, j0) {
+    var out = [], i = i0 || 0, j = j0 || 0;
     while (i < n && j < m) {
       if (E[i][j] && S[i][j] === S[i + 1][j + 1] + 1) { out.push([i, j]); i++; j++; }
       else if (S[i + 1][j] === S[i][j]) i++;
@@ -314,13 +358,16 @@
     ["authors", "reply"], ["author", "reply"], ["in", "memoriam"], ["table", "of", "contents"],
     ["introduction", "to", "the", "special", "issue"]];
 
+  // 표지어가 앞 세 낱말 또는 뒤 세 낱말 안에 있으면 그 자리는 정렬 필수(뒤쪽: "T – CORRIGENDUM", "T: Erratum").
   function noticeMust(w, rawTitle) {
-    var must = {}, k, p, s, t;
-    for (k = 0; k < Math.min(3, w.length); k++) if (NOTICE_WORDS.indexOf(w[k]) !== -1) must[k] = true;
+    var must = {}, k, p, s, t, n = w.length;
+    function edge(i) { return i < 3 || i >= n - 3; }
+    for (k = 0; k < n; k++) if (edge(k) && NOTICE_WORDS.indexOf(w[k]) !== -1) must[k] = true;
     for (p = 0; p < NOTICE_PHRASES.length; p++) {
       var ph = NOTICE_PHRASES[p];
-      for (s = 0; s < 3; s++) {
-        var ok = s + ph.length <= w.length;
+      for (s = 0; s + ph.length <= n; s++) {
+        if (!edge(s) && !edge(s + ph.length - 1)) continue;
+        var ok = true;
         for (t = 0; ok && t < ph.length; t++) if (w[s + t] !== ph[t]) ok = false;
         if (ok) for (t = 0; t < ph.length; t++) must[s + t] = true;
       }
@@ -329,13 +376,28 @@
     return must;
   }
 
+  // 낱말 어디에든 표지어·표지 구절이 있는가(부제·뗀 부분 검사용)
+  function hasNotice(w) {
+    var k, p, s, t;
+    for (k = 0; k < w.length; k++) if (NOTICE_WORDS.indexOf(w[k]) !== -1) return true;
+    for (p = 0; p < NOTICE_PHRASES.length; p++) {
+      var ph = NOTICE_PHRASES[p];
+      for (s = 0; s + ph.length <= w.length; s++) {
+        var ok = true;
+        for (t = 0; ok && t < ph.length; t++) if (w[s + t] !== ph[t]) ok = false;
+        if (ok) return true;
+      }
+    }
+    return false;
+  }
+
   // 정렬 al이 규칙에 맞는지: 통과하면 { n, full, firstR, lastR }, 아니면 null
   //  - 제목 낱말은 모두 정렬. 예외는 가운데 낱말 하나뿐: 서지 문구에 그 낱말이 없거나(전체 한 번만, 구별 낱말 제외),
   //    줄 끝 하이픈으로 갈라져 이웃 사이 낱말들을 이어 붙이면 그 낱말이 되는 경우
   //  - 바뀐 낱말(다른 낱말이 그 자리에 있음)은 불일치
   //  - 정렬된 문구 구간 안의 정렬 안 된 낱말은 둘 이하, 구간 안의 구별 낱말은 모두 정렬
-  function judge(w, r, al, must) {
-    var n = w.length, tAl = new Array(n).fill(-1), rAl = {}, k;
+  function judge(tv, rv, al) {
+    var w = tv.words, r = rv.words, must = tv.must, n = w.length, tAl = new Array(n).fill(-1), rAl = {}, k;
     if (!al.length) return null;
     for (k = 0; k < al.length; k++) { tAl[al[k][0]] = al[k][1]; rAl[al[k][1]] = true; }
     if (tAl[0] < 0 || tAl[n - 1] < 0) return null;
@@ -347,7 +409,7 @@
       while (i < n && tAl[i] < 0) i++;
       if (i - a > 1) return null; // 연속 두 낱말 이상 빠짐/바뀜
       var t = w[a];
-      if (isNumber(t)) return null;
+      if (tv.cw[a] !== null) return null;
       var gap = r.slice(tAl[a - 1] + 1, tAl[a + 1]);
       if (!gap.length) { if (++omitted > 1) return null; }
       else if (gap.join("") === t) hyph++;
@@ -355,31 +417,85 @@
     }
     var firstR = tAl[0], lastR = tAl[n - 1];
     if (lastR - firstR + 1 - al.length > 2) return null; // 흩어짐
-    for (k = firstR; k <= lastR; k++) if (isNumber(r[k]) && !rAl[k]) return null;
+    for (k = firstR; k <= lastR; k++) if (rv.cr[k] !== null && !rAl[k]) return null;
     var full = !omitted && !hyph;
-    for (k = 0; full && k < al.length; k++) if (!exactEq(w[al[k][0]], r[al[k][1]])) full = false;
+    for (k = 0; full && k < al.length; k++) if (!exactEq(w[al[k][0]], r[al[k][1]], tv.cw[al[k][0]], rv.cr[al[k][1]])) full = false;
     return { n: n, full: full, firstR: firstR, lastR: lastR };
   }
 
-  // 제목 하나(보기 하나씩)의 판정: 통과하면 { n, full, firstR, lastR }, 아니면 null
-  function evalTitle(refV, titleV, rawTitle) {
-    var w = titleV.words, r = refV.words, n = w.length, m = r.length, i, j;
+  function prepTitle(tv, rawTitle) {
+    if (!tv.cw) { tv.cw = tv.words.map(canonNum); tv.must = noticeMust(tv.words, rawTitle); }
+    return tv;
+  }
+
+  function prepRef(rv) {
+    if (!rv.cr) rv.cr = rv.words.map(canonNum);
+    return rv;
+  }
+
+  // 서지 문구의 이웃한 낱말 둘·셋을 이어 붙이면 제목의 한 낱말이 되는 곳(CO 2 → CO2, net- works → networks)을 합친 보기.
+  // 이웃해야 하고(사이에 버려진 낱말 없음) 이어 붙인 결과가 제목 낱말과 정확히 같아야 한다. 없으면 null.
+  function mergeView(rv, tv) {
+    var r = rv.words, wi = rv.wi, tset = Object.create(null), any = false, i = 0, len, q;
+    for (q = 0; q < tv.words.length; q++) tset[tv.words[q]] = 1;
+    var words = [], wo = [], wix = [];
+    while (i < r.length) {
+      var done = false;
+      for (len = 3; len >= 2 && !done; len--) {
+        if (i + len > r.length) continue;
+        var ok = true, c = r[i];
+        for (q = 1; q < len; q++) {
+          if (wi[i + q] !== wi[i + q - 1] + 1) { ok = false; break; }
+          c += r[i + q];
+        }
+        if (ok && tset[c] === 1) { words.push(c); wo.push(rv.wo[i]); wix.push(wi[i]); i += len; done = true; any = true; }
+      }
+      if (!done) { words.push(r[i]); wo.push(rv.wo[i]); wix.push(wi[i]); i++; }
+    }
+    return any ? { src: rv.src, str: rv.str, raw: rv.raw, words: words, wo: wo, wi: wix } : null;
+  }
+
+  // 서지 문구 보기 하나와 제목 보기 하나의 판정: 통과하면 { n, full, firstR, lastR, rv }, 아니면 null
+  function evalCore(rv, tv) {
+    var w = tv.words, r = rv.words, n = w.length, m = r.length, i, j;
     if (n < 3 || !m) return null;
-    if (titleContinues(refV, titleV)) return null;
+    prepRef(rv);
+    var f = false, l = false;
+    for (j = 0; j < m && !(f && l); j++) {
+      if (!f && wordEq(w[0], r[j], tv.cw[0], rv.cr[j])) f = true;
+      if (!l && wordEq(w[n - 1], r[j], tv.cw[n - 1], rv.cr[j])) l = true;
+    }
+    if (!f || !l) return null; // 첫 낱말과 끝 낱말은 반드시 정렬되어야 한다
+    if (titleContinues(rv, tv)) return null;
     var E = [];
     for (i = 0; i < n; i++) {
-      var row = [];
-      for (j = 0; j < m; j++) row.push(wordEq(w[i], r[j]));
+      var row = [], wi = w[i], ci = tv.cw[i];
+      for (j = 0; j < m; j++) row.push(wordEq(wi, r[j], ci, rv.cr[j]));
       E.push(row);
     }
     var T = lcsTables(E, n, m);
-    var must = noticeMust(w, rawTitle);
     var als = [alignForward(E, n, m, T.S), alignBackward(E, n, m, T.P)];
+    // 제목 첫 낱말이 서지 문구에 여러 번 나오면(저자 위치 등) 각 위치에서 시작하는 촘촘한 정렬도 시험한다(최대 4곳)
+    for (j = 0, i = 0; j < m && i < 4; j++) {
+      if (!E[0][j]) continue;
+      i++;
+      var st = alignForward(E, n, m, T.S, 1, j + 1);
+      st.unshift([0, j]);
+      als.push(st);
+    }
     for (var k = 0; k < als.length; k++) {
-      var res = judge(w, r, als[k], must);
-      if (res) return res;
+      var res = judge(tv, rv, als[k]);
+      if (res) { res.rv = rv; return res; }
     }
     return null;
+  }
+
+  function evalTitle(rv, tv) {
+    prepRef(rv);
+    var res = evalCore(rv, tv);
+    if (res) return res;
+    var mv = mergeView(rv, tv);
+    return mv ? evalCore(mv, tv) : null;
   }
 
   var BAD_TYPES = { "peer-review": 1, "journal-issue": 1, "journal": 1, "book-series": 1, "component": 1 };
@@ -397,12 +513,18 @@
     return false;
   }
 
-  // 비교할 제목 문자열들: 제목, 제목+부제(별도 필드), 부제를 뺀 앞부분(낱말 5개 이상, 부제에 번호·편 표지가 없을 때만)
+  // 비교할 제목 문자열들: 제목, 제목+부제(별도 필드), 부제를 뺀 앞부분(낱말 5개 이상, 부제에 번호·편 표지가 없을 때만).
+  // 부제 필드에 공지 표지어가 있으면 제목만으로는 비교하지 않고, 뗀 부분에 표지어가 있으면 앞부분 비교를 하지 않는다.
   function titleVariants(title, subtitle) {
-    var out = [{ t: title, fb: false }];
+    var subNotice = !!subtitle && hasNotice(normalizeTitle(subtitle));
+    var out = [];
+    if (!subNotice) out.push({ t: title, fb: false });
     if (subtitle) out.push({ t: title + ": " + subtitle, fb: false });
     var m = /^(.*?)(?::\s| [–—-] )/.exec(title);
-    if (m && m[1] && normalizeTitle(m[1]).length >= 5 && !subtitleBlocks(title.slice(m[0].length))) out.push({ t: m[1], fb: true });
+    if (m && m[1] && !subNotice && normalizeTitle(m[1]).length >= 5) {
+      var dropped = title.slice(m[0].length);
+      if (!subtitleBlocks(dropped) && !hasNotice(normalizeTitle(dropped))) out.push({ t: m[1], fb: true });
+    }
     return out;
   }
 
@@ -414,14 +536,24 @@
       var n2 = words[r.lastR + 2];
       if (n2 !== undefined && isNumber(n2)) return false;
     }
+    // 제목 바로 뒤의 연도 아닌 번호("X. II. Experiments", "X (2)")는 다른 편이다. 그 뒤가 연도면 학술지 권호로 본다.
+    if (nx !== undefined && isNumLike(nx) && !/^(?:19|20)\d\d$/.test(nx)) {
+      var n3 = words[r.lastR + 2];
+      if (!(n3 !== undefined && /^(?:19|20)\d\d$/.test(n3))) return false;
+    }
     if (!fb) return true;
     for (i = 1; i <= 4; i++) {
       t = words[r.lastR + i];
       if (t === undefined) break;
       if (own(SUBMARK, t) || t === "chapter") return false;
     }
-    if (nx !== undefined && isNumber(nx) && !/^(?:19|20)\d\d$/.test(nx)) return false;
     return true;
+  }
+
+  // 제목 구간 바로 앞의 부정어("Anti ", "Non ", "No ")는 후보 제목에 없는 낱말이 제목에 붙은 것이다.
+  function headOk(rv, r) {
+    var prev = rv.words[r.firstR - 1];
+    return prev === undefined || !own(NEG, prev);
   }
 
   function authorOk(refText, authors, r, rv) {
@@ -433,24 +565,49 @@
     return r.n >= 8 && r.full; // 저자 정보가 없으면 긴 제목이 전부 일치할 때만
   }
 
+  var refMemo = { text: null, views: null };
+
+  function refViews(refText) {
+    if (refMemo.text !== refText) {
+      var a = view(refText, false), b = view(refText, true);
+      refMemo = { text: refText, views: b.str === a.str ? [a] : [a, b] };
+    }
+    return refMemo.views;
+  }
+
+  function candidateYears(candidate) {
+    var out = [], y = candidate.year == null ? "" : String(candidate.year), k;
+    if (y) out.push(y);
+    if (Array.isArray(candidate.years)) {
+      for (k = 0; k < candidate.years.length; k++) {
+        var z = candidate.years[k] == null ? "" : String(candidate.years[k]);
+        if (/^\d{4}$/.test(z) && out.indexOf(z) === -1) out.push(z);
+      }
+    }
+    return out;
+  }
+
   function isMatch(refText, candidate) {
     if (!candidate || typeof refText !== "string") return false;
     var title = candidate.title;
     if (typeof title !== "string" || !title) return false;
     if (typeof candidate.type === "string" && own(BAD_TYPES, candidate.type)) return false;
     if (mostlyHangul(title) || mostlyHangul(refText)) return false;
-    var year = candidate.year == null ? "" : String(candidate.year);
-    if (!year || yearsIn(refText).indexOf(year) === -1) return false;
+    var ys = candidateYears(candidate), refYears = yearsIn(refText), yok = false, q;
+    for (q = 0; q < ys.length; q++) if (refYears.indexOf(ys[q]) !== -1) yok = true;
+    if (!yok) return false;
 
     var sub = typeof candidate.subtitle === "string" ? candidate.subtitle : "";
     var vars = titleVariants(title, sub);
-    var rvs = [view(refText, false), view(refText, true)];
+    var rvs = refViews(refText);
     for (var a = 0; a < vars.length; a++) {
-      for (var jr = 0; jr < 2; jr++) {
-        for (var jt = 0; jt < 2; jt++) {
-          var rv = rvs[jr];
-          var r = evalTitle(rv, view(vars[a].t, jt === 1), vars[a].t);
-          if (r && tailOk(rv, r, vars[a].fb) && authorOk(refText, candidate.author, r, rv)) return true;
+      var tv0 = view(vars[a].t, false), tv1 = view(vars[a].t, true);
+      var tvs = tv1.str === tv0.str ? [tv0] : [tv0, tv1];
+      for (var jt = 0; jt < tvs.length; jt++) {
+        prepTitle(tvs[jt], vars[a].t);
+        for (var jr = 0; jr < rvs.length; jr++) {
+          var r = evalTitle(rvs[jr], tvs[jt]);
+          if (r && headOk(r.rv, r) && tailOk(r.rv, r, vars[a].fb) && authorOk(refText, candidate.author, r, r.rv)) return true;
         }
       }
     }
@@ -584,7 +741,7 @@
 
   var warned = false; // 문서당 한 번만 내부 예외를 진단 출력
 
-  function expectedErr(msg) { var e = new Error(msg); e.biblioExpected = true; return e; }
+  function expectedErr(msg, retry) { var e = new Error(msg); e.biblioExpected = true; e.reason = msg; e.retry = !!retry; return e; }
 
   // 네트워크·HTTP·응답 모양 문제가 아닌 내부 예외는 진단용으로 한 번만 console.warn(상태는 그대로 "error")
   function noteError(err) {
@@ -594,6 +751,49 @@
     try { console.warn("[biblio]", err); } catch (e) { /* 콘솔 없음 */ }
   }
 
+  // 요청 한 번. 실패하면 reason·retry가 붙은 오류로 거부한다. 제한 시간·진행 목록 정리는 시도마다 따로.
+  function attempt(url) {
+    var ctrl = new AbortController();
+    var timedOut = false;
+    var timer = setTimeout(function () { timedOut = true; ctrl.abort(); }, TIMEOUT_MS);
+    inflight.push(ctrl);
+    function done() {
+      clearTimeout(timer);
+      var i = inflight.indexOf(ctrl);
+      if (i !== -1) inflight.splice(i, 1);
+    }
+    var f;
+    try { f = fetch(url, { signal: ctrl.signal, referrerPolicy: "no-referrer", credentials: "omit" }); } catch (e) { f = Promise.reject(e); }
+    return f.then(function (res) {
+      if (!res.ok) throw expectedErr("http " + res.status, own(RETRY_STATUS, res.status));
+      return Promise.resolve().then(function () { return res.json(); }).catch(function () {
+        throw timedOut ? expectedErr("timeout", true) : expectedErr("json");
+      });
+    }, function (err) {
+      if (timedOut) throw expectedErr("timeout", true);
+      if (err instanceof TypeError) throw expectedErr("network", true);
+      throw expectedErr(err && err.name === "AbortError" ? "aborted" : "error");
+    }).then(function (json) { done(); return json; }, function (e) { done(); throw e; });
+  }
+
+  var retryDelay = null; // 시험용: (ms) => Promise
+  var waiters = [];
+
+  function wait(ms) {
+    if (retryDelay) return Promise.resolve(retryDelay(ms));
+    return new Promise(function (resolve) {
+      var w = { resolve: resolve };
+      w.t = setTimeout(function () {
+        var i = waiters.indexOf(w);
+        if (i !== -1) waiters.splice(i, 1);
+        resolve();
+      }, ms);
+      waiters.push(w);
+    });
+  }
+
+  function setRetryDelay(fn) { retryDelay = typeof fn === "function" ? fn : null; }
+
   function lookup(refText) {
     var q = trimRef(refText);
     if (!q) return Promise.resolve({ status: "nomatch" });
@@ -601,18 +801,19 @@
     if (cache[q]) return cache[q];
     var url;
     try {
-      url = apiBase() + "?rows=3&select=" + encodeURIComponent("title,subtitle,author,issued,container-title,DOI,abstract,type") +
+      url = apiBase() + "?rows=3&select=" + encodeURIComponent("title,subtitle,author,issued,published-print,published-online,published,created,container-title,DOI,abstract,type") +
         "&query.bibliographic=" + encodeURIComponent(q);
-    } catch (e) { return Promise.resolve({ status: "error" }); } // 짝 없는 서로게이트
+    } catch (e) { return Promise.resolve({ status: "error", reason: "query" }); } // 짝 없는 서로게이트
     var gen = generation;
-    var ctrl = new AbortController();
-    var timer = setTimeout(function () { ctrl.abort(); }, TIMEOUT_MS);
-    inflight.push(ctrl);
 
-    var p = fetch(url, { signal: ctrl.signal, referrerPolicy: "no-referrer", credentials: "omit" })
-      .then(function (res) {
-        if (!res.ok) throw expectedErr("http " + res.status); // 429 포함
-        return Promise.resolve().then(function () { return res.json(); }).catch(function () { throw expectedErr("json"); });
+    var p = attempt(url)
+      .catch(function (err) {
+        // 네트워크 TypeError·시간 초과·429/502/503/504만 한 번 더. 문서가 바뀌었으면 그만둔다.
+        if (!err || !err.retry || gen !== generation) throw err;
+        return wait(RETRY_MS).then(function () {
+          if (gen !== generation) throw err;
+          return attempt(url);
+        });
       })
       .then(function (json) {
         var items = json && json.message && json.message.items;
@@ -622,11 +823,8 @@
           return hit ? { status: "ok", data: toData(hit) } : { status: "nomatch" };
         } catch (e) { noteError(e); throw expectedErr("internal"); } // 일치 판정 중 내부 예외(TypeError 포함)
       })
-      .catch(function (err) { noteError(err); return { status: "error" }; })
+      .catch(function (err) { noteError(err); return { status: "error", reason: (err && err.reason) || "internal" }; })
       .then(function (r) {
-        clearTimeout(timer);
-        var i = inflight.indexOf(ctrl);
-        if (i !== -1) inflight.splice(i, 1);
         if (r.status === "error" || gen !== generation) {
           if (cache[q] === p) delete cache[q];
         }
@@ -641,6 +839,7 @@
     warned = false;
     cache = Object.create(null);
     inflight.splice(0).forEach(function (c) { try { c.abort(); } catch (e) { /* 이미 끝남 */ } });
+    waiters.splice(0).forEach(function (w) { clearTimeout(w.t); w.resolve(); }); // 대기 중인 재시도는 깨워서 문서 변경으로 끝낸다
   }
 
   // ---------- 화면 ----------
@@ -713,7 +912,7 @@
     normalizeTitle: normalizeTitle, yearsIn: yearsIn, isMatch: isMatch, pickMatch: pickMatch,
     lookup: lookup, trimRef: trimRef, yearOf: yearOf, validDoi: validDoi, doiUrl: doiUrl,
     stripTags: stripTags, apiBaseFor: apiBaseFor, toData: toData, cutAbstract: cutAbstract, render: render, reset: reset,
-    viewModel: viewModel, mostlyHangul: mostlyHangul
+    viewModel: viewModel, mostlyHangul: mostlyHangul, setRetryDelay: setRetryDelay
   };
 
   if (typeof window !== "undefined" && typeof document !== "undefined") {

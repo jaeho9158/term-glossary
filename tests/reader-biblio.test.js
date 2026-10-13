@@ -241,7 +241,8 @@ function stubFetch(handler) {
   const real = globalThis.fetch;
   const calls = [];
   globalThis.fetch = (url, opts) => { calls.push({ url, opts }); return handler(url, opts); };
-  return { calls, restore: () => { globalThis.fetch = real; B.reset(); } };
+  B.setRetryDelay(() => Promise.resolve()); // 재시도 대기 없음
+  return { calls, restore: () => { globalThis.fetch = real; B.setRetryDelay(null); B.reset(); } };
 }
 const okRes = (json) => ({ ok: true, status: 200, json: async () => json });
 const GOOD = { message: { items: [{ title: ["Deep learning for cats"], issued: { "date-parts": [[2020]] }, author: [{ family: "Kim", given: "A." }], "container-title": ["J. Cat Sci."], DOI: "10.1000/cat", type: "journal-article" }] } };
@@ -260,7 +261,7 @@ test("lookup: 일치 → ok, 요청 URL·옵션 점검", async () => {
     assert.equal(u.origin + u.pathname, "https://api.crossref.org/works");
     assert.deepEqual([...u.searchParams.keys()].sort(), ["query.bibliographic", "rows", "select"]);
     assert.equal(u.searchParams.get("query.bibliographic"), LREF);
-    assert.equal(u.searchParams.get("select"), "title,subtitle,author,issued,container-title,DOI,abstract,type");
+    assert.equal(u.searchParams.get("select"), "title,subtitle,author,issued,published-print,published-online,published,created,container-title,DOI,abstract,type");
     const o = s.calls[0].opts;
     assert.equal(o.headers, undefined);
     assert.deepEqual(Object.keys(o).sort(), ["credentials", "referrerPolicy", "signal"]);
@@ -277,13 +278,15 @@ test("lookup: 불일치 → nomatch이고 캐시됨", async () => {
   } finally { s.restore(); }
 });
 
-test("lookup: 429 → error, 캐시 안 됨", async () => {
+test("lookup: 429 → 한 번 재시도 후 error(reason 포함), 캐시 안 됨", async () => {
   B.reset();
   const s = stubFetch(async () => ({ ok: false, status: 429, json: async () => ({}) }));
   try {
+    const r1 = await B.lookup(LREF);
+    assert.equal(r1.status, "error");
+    assert.equal(r1.reason, "http 429");
     assert.equal((await B.lookup(LREF)).status, "error");
-    assert.equal((await B.lookup(LREF)).status, "error");
-    assert.equal(s.calls.length, 2);
+    assert.equal(s.calls.length, 4); // 조회마다 시도 둘(변경: 재시도 도입 전에는 2)
   } finally { s.restore(); }
 });
 
@@ -727,4 +730,285 @@ test("알려진 정상 사례: Watson&Crick 1953(부제 유무), Hochreiter&Schm
       assert.equal(r.data.title, item.title[0]);
     } finally { s.restore(); }
   }
+});
+
+// ---------- 재검수 4차 ----------
+
+const r4SM = [{ family: "Smith", given: "J" }];
+const r4cand = (title, extra) => Object.assign({ title, year: "2015", author: r4SM }, extra);
+const r4refOf = (title) => "Smith J, Lee K. " + title + ". Lancet 2015;385:100-110.";
+const r4rej = (refTitle, candTitle, extra) => B.isMatch(r4refOf(refTitle), r4cand(candTitle, extra));
+// 서로 배제(양방향)되어야 하고, 자기 자신은 일치해야 한다
+function r4siblings(a, b) {
+  assert.equal(r4rej(a, b), false, "ref[" + a + "] r4cand[" + b + "]");
+  assert.equal(r4rej(b, a), false, "ref[" + b + "] r4cand[" + a + "]");
+  assert.equal(r4rej(a, a), true, "self[" + a + "]");
+  assert.equal(r4rej(b, b), true, "self[" + b + "]");
+}
+
+const r4DT = "Deep learning methods for protein folding prediction";
+const r4DR = "Smith J, Lee K. " + r4DT + ". Nature 2020;1:2-10.";
+
+test("공지 접미: 뒤쪽 표지어(– CORRIGENDUM, : Erratum …)는 앞부분 비교로 넘길 수 없다", () => {
+  for (const suf of [" – CORRIGENDUM", " — ERRATUM", ": Erratum", ": Correction", ": Authors' reply", ": a commentary", " - Retraction",
+    ": Retracted article", ": Reply to Jones", ": Addendum", " – Discussion", ": Expression of concern", " (Erratum)"]) {
+    assert.equal(B.isMatch(r4DR, { title: r4DT + suf, year: "2020", author: r4SM }), false, suf);
+    // 서지 문구가 그 공지 자체를 인용하면 일치
+    assert.equal(B.isMatch("Smith J, Lee K. " + r4DT + suf + ". Nature 2020;1:2-10.", { title: r4DT + suf, year: "2020", author: r4SM }), true, "self " + suf);
+  }
+  // 부제 필드가 Erratum이면 제목만으로 비교하지 않는다
+  assert.equal(B.isMatch(r4DR, { title: r4DT, subtitle: "Erratum", year: "2020", author: r4SM }), false);
+  assert.equal(B.isMatch("Smith J. " + r4DT + ": Erratum. Nature 2020.", { title: r4DT, subtitle: "Erratum", year: "2020", author: r4SM }), true);
+  // 표지어 없는 부제 생략은 그대로 허용
+  assert.equal(B.isMatch(r4DR, { title: r4DT + ": methods and validation of cats", year: "2020", author: r4SM }), true);
+  // pickMatch: 정정 공지와 본 논문이 함께 오면 본 논문만 고른다
+  const it = (title, sub) => ({ title: [title], subtitle: sub ? [sub] : undefined, author: r4SM, issued: { "date-parts": [[2020]] } });
+  const paper = it(r4DT), notice = it(r4DT + " – CORRIGENDUM"), n2 = it(r4DT, "Erratum");
+  assert.equal(B.pickMatch(r4DR, [notice, n2, paper]), paper);
+});
+
+test("한 글자·그리스 문자 구분자는 정확히 일치해야 한다", () => {
+  r4siblings("Global prevalence of hepatitis B virus infection in adults", "Global prevalence of hepatitis C virus infection in adults");
+  r4siblings("Vitamin D supplementation and risk of fractures in adults", "Vitamin E supplementation and risk of fractures in adults");
+  r4siblings("Antiviral activity of interferon-α against hepatitis viruses in vitro", "Antiviral activity of interferon-γ against hepatitis viruses in vitro");
+  r4siblings("Epidemiology of influenza A virus infection in children", "Epidemiology of influenza B virus infection in children");
+  // 구분자는 빼거나 끼울 수 없다
+  assert.equal(r4rej("Global prevalence of hepatitis virus infection in adults", "Global prevalence of hepatitis B virus infection in adults"), false);
+  assert.equal(r4rej("Global prevalence of hepatitis B virus infection in adults", "Global prevalence of hepatitis virus infection in adults"), false);
+  // α ≡ alpha, 관사 a는 구분자가 아니다
+  assert.equal(r4rej("Antiviral activity of interferon-alpha against hepatitis viruses in vitro", "Antiviral activity of interferon-α against hepatitis viruses in vitro"), true);
+  assert.equal(r4rej("Antiviral activity of interferon-α against hepatitis viruses in vitro", "Antiviral activity of interferon-alpha against hepatitis viruses in vitro"), true);
+  assert.equal(r4rej("Antiviral activity of interferon-alpha against hepatitis viruses in vitro", "Antiviral activity of interferon-γ against hepatitis viruses in vitro"), false);
+  assert.equal(r4rej("Learning to navigate a maze with rats in cages", "Learning to navigate maze with rats in cages"), true);
+  assert.equal(r4rej("Learning to navigate a maze with rats in cages", "Learning to navigate a maze with rats in cages"), true);
+  // titleKey: 구분자가 다르면 다른 제목, pickMatch는 문구가 말하는 쪽을 고른다
+  const it = (title) => ({ title: [title], author: r4SM, issued: { "date-parts": [[2015]] } });
+  const hb = it("Global prevalence of hepatitis B virus infection in adults"), hc = it("Global prevalence of hepatitis C virus infection in adults");
+  assert.equal(B.pickMatch(r4refOf("Global prevalence of hepatitis B virus infection in adults"), [hc, hb]), hb);
+  assert.equal(B.pickMatch(r4refOf("Global prevalence of hepatitis C virus infection in adults"), [hc, hb]), hc);
+  assert.notEqual(B.normalizeTitle(hb.title[0]).join(" "), B.normalizeTitle(hc.title[0]).join(" "));
+  assert.deepEqual(B.normalizeTitle("Vitamin A and TGF-β in a cell"), ["vitamin", "a", "and", "tgf", "beta", "in", "cell"]);
+});
+
+test("제목 뒤의 연도 아닌 번호는 모든 비교에서 다른 편", () => {
+  const T = "Fluid dynamics of turbulent jets in open channels";
+  const c = (extra) => B.isMatch("Smith J. " + extra, { title: T, year: "2001", author: r4SM });
+  assert.equal(c(T + ". II. Experiments. J Fluid Mech 2001."), false);
+  assert.equal(c(T + " (2). J Fluid Mech 2001."), false);
+  assert.equal(c(T + ": III. J Fluid Mech 2001."), false);
+  assert.equal(c(T + ", Two. J Fluid Mech 2001."), false);
+  assert.equal(c(T + ". J Fluid Mech 2001."), true);
+  assert.equal(c(T + ". 2001. J Fluid Mech 12:3."), true);
+  assert.equal(c(T + " (2001). J Fluid Mech 12:3."), true);
+  assert.equal(c(T + ". J Fluid Mech 12 (2001) 3-10."), true);
+  assert.equal(c(T + ". 12 (2001) 3-10."), true); // 번호 다음이 연도: 권호
+});
+
+test("부정·범위 낱말은 빼거나 끼울 수 없다(양방향)", () => {
+  r4siblings("Treatment of non-small cell lung cancer in elderly patients", "Treatment of small cell lung cancer in elderly patients");
+  r4siblings("Effects of drug treatment in rats and mice models", "Effects of drug treatment in rats and not mice models");
+  r4siblings("Is there a role for surgery in pancreatic cancer care", "Is there no role for surgery in pancreatic cancer care");
+  r4siblings("Surgery with adjuvant chemotherapy for gastric cancer outcomes", "Surgery without adjuvant chemotherapy for gastric cancer outcomes");
+  r4siblings("Anti inflammatory drugs for chronic pain in older adults", "Inflammatory drugs for chronic pain in older adults");
+  // 하이픈 표기 차이는 같은 낱말
+  assert.equal(r4rej("Treatment of non small cell lung cancer in elderly patients", "Treatment of non-small cell lung cancer in elderly patients"), true);
+});
+
+test("오타 허용: 삽입·삭제, s↔z, o↔ou만. 한 글자 치환은 다른 낱말", () => {
+  r4siblings("Removal of nitrate from drinking water by ion exchange", "Removal of nitrite from drinking water by ion exchange");
+  r4siblings("Synthesis of substituted alkenes via palladium catalysis", "Synthesis of substituted alkynes via palladium catalysis");
+  r4siblings("Adsorption of carbon dioxide on activated carbon fibers", "Absorption of carbon dioxide on activated carbon fibers");
+  r4siblings("Microvascular complications of diabetes in young adults", "Macrovascular complications of diabetes in young adults");
+  r4siblings("Hypertension during anesthesia in elderly surgical patients", "Hypotension during anesthesia in elderly surgical patients");
+  const same = (a, b) => assert.equal(r4rej(a, b), true, a + " / " + b);
+  same("Organisation of care for patients with heart failure", "Organization of care for patients with heart failure");
+  same("Organization of care for patients with heart failure", "Organisation of care for patients with heart failure");
+  same("We analyse mortality in tumour patients across hospitals", "We analyze mortality in tumor patients across hospitals");
+  same("We analyze mortality in tumor patients across hospitals", "We analyse mortality in tumour patients across hospitals");
+  same("Colour perception in children with reading difficulty", "Color perception in children with reading difficulty");
+  same("Machine learning for rainfal prediction in tropical catchments", "Machine learning for rainfall prediction in tropical catchments");
+  assert.equal(r4rej("Machine learning for rainfa prediction in tropical catchments", "Machine learning for rainfall prediction in tropical catchments"), false);
+});
+
+test("끝·처음 하이픈 분리와 쪼개진 화학식은 이웃한 낱말을 이어 붙여 복구", () => {
+  const T = "ImageNet classification with deep convolutional neural networks";
+  assert.equal(r4rej("ImageNet classification with deep convolutional neural net- works", T), true);
+  assert.equal(r4rej("Immuno- therapy for advanced melanoma in adults", "Immunotherapy for advanced melanoma in adults"), true);
+  assert.equal(r4rej("Deep learn- ing methods for protein fold- ing prediction", r4DT), true);
+  assert.equal(r4rej("Electrochemical reduction of CO 2 on copper electrodes", "Electrochemical reduction of CO2 on copper electrodes"), true);
+  assert.equal(r4rej("CO 2 reduction on copper electrodes in water", "CO2 reduction on copper electrodes in water"), true);
+  // 이웃하지 않으면(사이에 낱말) 복구하지 않는다
+  assert.equal(r4rej("Electrochemical reduction of CO and 2 on copper electrodes", "Electrochemical reduction of CO2 on copper electrodes"), false);
+  assert.equal(r4rej("Electrochemical reduction of CO 3 on copper electrodes", "Electrochemical reduction of CO2 on copper electrodes"), false);
+});
+
+test("연도: Crossref의 인쇄·온라인·게시·발행·등록 연도 중 하나가 문구에 있으면 일치", () => {
+  const item = (extra) => Object.assign({ title: [r4DT], author: r4SM, issued: { "date-parts": [[2020]] } }, extra);
+  const ref21 = "Smith J, Lee K. " + r4DT + ". Nature 2021;1:2-10.";
+  assert.equal(B.pickMatch(ref21, [item()]), null); // issued만 2020
+  const pp = item({ "published-print": { "date-parts": [[2021, 3]] } });
+  assert.equal(B.pickMatch(ref21, [pp]), pp);
+  const po = item({ "published-online": { "date-parts": [[2021]] } });
+  assert.equal(B.pickMatch(ref21, [po]), po);
+  assert.equal(B.pickMatch(r4DR, [pp]), pp); // issued(2020)도 계속 통과
+  assert.equal(B.pickMatch("Smith J, Lee K. " + r4DT + ". Nature 2019;1:2-10.", [pp]), null);
+  assert.equal(B.isMatch(ref21, { title: r4DT, year: "2020", years: ["2021"], author: r4SM }), true);
+  assert.equal(B.isMatch(ref21, { title: r4DT, year: "2020", years: ["20211"], author: r4SM }), false);
+});
+
+test("lookup 재시도: 일시 실패는 같은 약속 안에서 한 번만 다시", async () => {
+  const delays = [];
+  // 실패 뒤 성공 → ok, 요청 정확히 2번
+  let n = 0;
+  let s = stubFetch(async () => { if (n++ === 0) throw new TypeError("Failed to fetch"); return okRes(GOOD); });
+  B.setRetryDelay((ms) => { delays.push(ms); return Promise.resolve(); });
+  try {
+    B.reset();
+    const r = await B.lookup(LREF);
+    assert.equal(r.status, "ok");
+    assert.equal(s.calls.length, 2);
+    assert.deepEqual(delays, [1200]);
+    assert.equal((await B.lookup(LREF)).status, "ok"); // 캐시
+    assert.equal(s.calls.length, 2);
+  } finally { s.restore(); }
+  // 두 번 실패 → error(reason), 캐시 안 됨
+  s = stubFetch(async () => { throw new TypeError("Failed to fetch"); });
+  try {
+    B.reset();
+    const r = await B.lookup(LREF);
+    assert.equal(r.status, "error");
+    assert.equal(r.reason, "network");
+    assert.equal(s.calls.length, 2);
+    assert.equal((await B.lookup(LREF)).status, "error");
+    assert.equal(s.calls.length, 4);
+  } finally { s.restore(); }
+  // 502/503/504/429는 재시도, 404·500·400은 재시도 안 함
+  for (const [st, calls] of [[502, 2], [503, 2], [504, 2], [429, 2], [404, 1], [500, 1], [400, 1]]) {
+    s = stubFetch(async () => ({ ok: false, status: st, json: async () => ({}) }));
+    try {
+      B.reset();
+      const r = await B.lookup(LREF);
+      assert.equal(r.status, "error", String(st));
+      assert.equal(r.reason, "http " + st);
+      assert.equal(s.calls.length, calls, "http " + st);
+    } finally { s.restore(); }
+  }
+  // 깨진 JSON·모양 이상·내부 예외는 재시도 안 함
+  s = stubFetch(async () => ({ ok: true, status: 200, json: async () => { throw new SyntaxError("bad"); } }));
+  try { B.reset(); const r = await B.lookup(LREF); assert.deepEqual([r.status, r.reason, s.calls.length], ["error", "json", 1]); } finally { s.restore(); }
+  s = stubFetch(async () => okRes({ message: {} }));
+  try { B.reset(); const r = await B.lookup(LREF); assert.deepEqual([r.status, r.reason, s.calls.length], ["error", "shape", 1]); } finally { s.restore(); }
+  const warn = console.warn; console.warn = () => {};
+  s = stubFetch(async () => okRes({ message: { items: [{ get title() { throw new RangeError("boom"); } }] } }));
+  try { B.reset(); const r = await B.lookup(LREF); assert.deepEqual([r.status, r.reason, s.calls.length], ["error", "internal", 1]); } finally { console.warn = warn; s.restore(); }
+});
+
+test("lookup 재시도: 대기 중 reset하면 두 번째 요청 없음, 두 번째 시도의 컨트롤러도 reset에 중단", async () => {
+  // 대기 중 reset
+  let release;
+  let s = stubFetch(async () => { throw new TypeError("Failed to fetch"); });
+  B.setRetryDelay(() => new Promise((res) => { release = res; }));
+  try {
+    B.reset();
+    const p = B.lookup(LREF);
+    await new Promise((r) => setImmediate(r));
+    assert.equal(s.calls.length, 1);
+    B.reset();
+    release();
+    const r = await p;
+    assert.equal(r.status, "error");
+    assert.equal(s.calls.length, 1);
+    assert.equal(r.reason, "network");
+  } finally { s.restore(); }
+  // 실제 대기(타이머)도 reset이 깨운다: 1.2초를 기다리지 않고 끝난다
+  s = stubFetch(async () => { throw new TypeError("Failed to fetch"); });
+  B.setRetryDelay(null);
+  try {
+    B.reset();
+    const t0 = Date.now();
+    const p = B.lookup(LREF);
+    await new Promise((r) => setImmediate(r));
+    B.reset();
+    assert.equal((await p).status, "error");
+    assert.ok(Date.now() - t0 < 1000);
+    assert.equal(s.calls.length, 1);
+  } finally { s.restore(); }
+  // 두 번째 시도 도중 reset → 중단
+  let n = 0, aborted = false;
+  s = stubFetch((url, opts) => {
+    if (n++ === 0) throw new TypeError("Failed to fetch");
+    return new Promise((_, r4rej) => opts.signal.addEventListener("abort", () => { aborted = true; r4rej(new Error("aborted")); }));
+  });
+  try {
+    B.reset();
+    const p = B.lookup(LREF);
+    await new Promise((r) => setTimeout(r, 5));
+    assert.equal(s.calls.length, 2);
+    B.reset();
+    assert.equal(aborted, true);
+    assert.equal((await p).status, "error");
+  } finally { s.restore(); }
+});
+
+test("lookup 재시도: 8초 시간 초과도 한 번 재시도, reason은 timeout", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  const tick = () => new Promise((r) => setImmediate(r));
+  const s = stubFetch((url, opts) => new Promise((_, r4rej) => {
+    opts.signal.addEventListener("abort", () => r4rej(Object.assign(new Error("aborted"), { name: "AbortError" })));
+  }));
+  try {
+    B.reset();
+    const p = B.lookup(LREF);
+    await tick();
+    assert.equal(s.calls.length, 1);
+    t.mock.timers.tick(8000);
+    await tick(); await tick();
+    assert.equal(s.calls.length, 2);
+    t.mock.timers.tick(8000);
+    const r = await p;
+    assert.deepEqual([r.status, r.reason], ["error", "timeout"]);
+  } finally { s.restore(); t.mock.timers.reset(); }
+});
+
+// 재검수가 모은 정상 사례 28건: 회귀 방지(통과 25건, 설계상 불일치 3건)
+test("정상 사례 28건 회귀 블록", () => {
+  const item = (title, authors, y, sub, extra) => Object.assign({ title: [title], subtitle: sub ? [sub] : undefined, author: authors, issued: { "date-parts": [[y]] }, type: "journal-article", DOI: "10.1000/x" }, extra);
+  const P = (f, g) => ({ family: f, given: g });
+  const cases = [
+    ["APA", "Kahneman, D., & Tversky, A. (1979). Prospect theory: An analysis of decision under risk. Econometrica, 47(2), 263–291.", item("Prospect Theory: An Analysis of Decision under Risk", [P("Kahneman", "Daniel"), P("Tversky", "Amos")], 1979), true],
+    ["Vancouver", "12. Hochreiter S, Schmidhuber J. Long short-term memory. Neural Comput. 1997;9(8):1735-80.", item("Long Short-Term Memory", [P("Hochreiter", "Sepp")], 1997), true],
+    ["IEEE quotes", "[7] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” in Proc. IEEE CVPR, 2016, pp. 770–778.", item("Deep Residual Learning for Image Recognition", [P("He", "Kaiming")], 2016), true],
+    ["Harvard", "Watson, J.D. and Crick, F.H.C., 1953. Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid. Nature, 171(4356), pp.737-738.", item("Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic Acid", [P("Watson", "J. D.")], 1953), true],
+    ["Chicago", "Granovetter, Mark S. “The Strength of Weak Ties.” American Journal of Sociology 78, no. 6 (1973): 1360–80.", item("The Strength of Weak Ties", [P("Granovetter", "Mark S.")], 1973), true],
+    ["subtitle field", "Page MJ, McKenzie JE, et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.", item("The PRISMA 2020 statement", [P("Page", "Matthew J")], 2021, "an updated guideline for reporting systematic reviews"), true],
+    ["subtitle only in crossref (one-word title: nomatch by design)", "Thaler RH, Sunstein CR. Nudge. Yale University Press; 2008.", item("Nudge", [P("Thaler", "R")], 2008, "Improving decisions about health, wealth, and happiness"), false],
+    ["main-title fallback", "Jumper J, et al. Highly accurate protein structure prediction with AlphaFold. Nature 2021;596:583–589.", item("Highly accurate protein structure prediction with AlphaFold: methods and validation", [P("Jumper", "John")], 2021), true],
+    ["et al + abbreviated journal", "Vaswani A et al. Attention is all you need. Adv Neural Inf Process Syst. 2017;30.", item("Attention Is All You Need", [P("Vaswani", "Ashish")], 2017), true],
+    ["interior hyphenation", "Silver D, Huang A, et al. Mastering the game of Go with deep neural net- works and tree search. Nature 2016;529:484.", item("Mastering the game of Go with deep neural networks and tree search", [P("Silver", "David")], 2016), true],
+    ["last-word hyphenation", "Krizhevsky A, Sutskever I, Hinton GE. ImageNet classification with deep convolutional neural net- works. Commun ACM 2017;60:84.", item("ImageNet classification with deep convolutional neural networks", [P("Krizhevsky", "Alex")], 2017), true],
+    ["dropped 'the'", "Fama EF. Efficient capital markets: a review of theory and empirical work. J Finance 1970;25:383.", item("Efficient Capital Markets: A Review of the Theory and Empirical Work", [P("Fama", "Eugene F.")], 1970), true],
+    ["curly apostrophe", "McKhann GM, et al. The diagnosis of dementia due to Alzheimer’s disease. Alzheimers Dement. 2011;7:263.", item("The diagnosis of dementia due to Alzheimer's disease", [P("McKhann", "Guy M.")], 2011), true],
+    ["period inside quotes", "D. Kingma and J. Ba, “Adam: A method for stochastic optimization.” arXiv 2014.", item("Adam: A Method for Stochastic Optimization", [P("Kingma", "Diederik")], 2014), true],
+    ["diacritics both", "Schrödinger E. Die gegenwärtige Situation in der Quantenmechanik. Naturwissenschaften 1935;23:807.", item("Die gegenwärtige Situation in der Quantenmechanik", [P("Schrödinger", "E.")], 1935), true],
+    ["diacritics lost in ref", "Schrodinger E, Muller K. Etude de la diffusion des electrons dans les metaux. J Phys 1935;23:807.", item("Étude de la diffusion des électrons dans les métaux", [P("Schrödinger", "E.")], 1935), true],
+    ["& vs and", "Deci EL, Ryan RM. The “what” & “why” of goal pursuits: human needs & the self-determination of behavior. Psychol Inq 2000;11:227.", item("The \"What\" and \"Why\" of Goal Pursuits: Human Needs and the Self-Determination of Behavior", [P("Deci", "Edward L.")], 2000), true],
+    ["one & vs and", "Ostrom E. Rules, games & common-pool resources in practice. Univ Michigan Press 1994.", item("Rules, Games, and Common-Pool Resources in Practice", [P("Ostrom", "Elinor")], 1994), true],
+    ["numbers", "Sung H, et al. Global cancer statistics 2020: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries. CA Cancer J Clin 2021;71:209.", item("Global Cancer Statistics 2020: GLOBOCAN Estimates of Incidence and Mortality Worldwide for 36 Cancers in 185 Countries", [P("Sung", "Hyuna")], 2021), true],
+    ["greek spelled out in ref", "Massagué J. TGF-beta signalling in context of tumour biology. Nat Rev Mol Cell Biol 2012;13:616.", item("TGF-β signalling in context of tumour biology", [P("Massagué", "Joan")], 2012), true],
+    ["greek in ref, spelled in crossref", "Selkoe DJ. The amyloid β-protein hypothesis of Alzheimer disease at 25 years. EMBO Mol Med 2016;8:595.", item("The amyloid beta-protein hypothesis of Alzheimer disease at 25 years", [P("Selkoe", "Dennis J")], 2016), true],
+    ["formula w/ JATS sub", "Fujishima A, Honda K. Electrochemical photolysis of water at a TiO2 semiconductor electrode. Nature 1972;238:37.", item("Electrochemical Photolysis of Water at a TiO<sub>2</sub> Semiconductor Electrode", [P("Fujishima", "Akira")], 1972), true],
+    ["formula split in PDF text", "Hori Y. Electrochemical reduction of CO 2 on metal electrodes in aqueous media. Mod Asp Electrochem 2008;42:89.", item("Electrochemical reduction of CO2 on metal electrodes in aqueous media", [P("Hori", "Y.")], 2008), true],
+    ["UK/US spelling", "Moher D, et al. Randomised trials of behaviour change interventions in tumour patients. BMJ 2010;340:c332.", item("Randomized trials of behavior change interventions in tumor patients", [P("Moher", "David")], 2010), true],
+    ["two-word title (nomatch by design)", "LeCun Y, Bengio Y, Hinton G. Deep learning. Nature 2015;521:436–444.", item("Deep learning", [P("LeCun", "Yann")], 2015), false],
+    ["print year != issued, fixture has no print date (nomatch)", "Smith J. Outcomes of early rhythm control in atrial fibrillation patients. Heart 2021;107:10.", item("Outcomes of early rhythm control in atrial fibrillation patients", [P("Smith", "J")], 2020), false],
+    ["title case + compound surname", "van der Maaten L, Hinton G. Visualizing Data Using t-SNE. J Mach Learn Res 2008;9:2579.", item("Visualizing data using t-SNE", [P("van der Maaten", "Laurens")], 2008), true],
+    ["org author", "World Health Organization. Global status report on road safety 2018. Geneva: WHO; 2018.", item("Global status report on road safety 2018", [{ name: "World Health Organization" }], 2018), true]
+  ];
+  assert.equal(cases.length, 28);
+  for (const [label, ref, it, expectHit] of cases) {
+    assert.equal(!!B.pickMatch(B.trimRef(ref), [it]), expectHit, label);
+  }
+  // 같은 논문인데 Crossref에 인쇄 연도가 있으면 통과
+  const pr = item("Outcomes of early rhythm control in atrial fibrillation patients", [P("Smith", "J")], 2020, null, { "published-print": { "date-parts": [[2021]] } });
+  assert.ok(B.pickMatch("Smith J. Outcomes of early rhythm control in atrial fibrillation patients. Heart 2021;107:10.", [pr]));
 });
