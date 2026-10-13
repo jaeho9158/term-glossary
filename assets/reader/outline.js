@@ -7,7 +7,8 @@
 
   // ---------- 순수 계산 ----------
   var BOLD_RE = /bold|black|heavy/i;
-  var GAP_LIMIT_EM = 1.5;      // 한 줄로 이을 수 있는 조각 사이 최대 간격(글자 크기 배수). 이보다 벌어지면 단이 다른 것으로 본다
+  var GAP_LIMIT_EM = 1.0;      // 한 줄로 이을 수 있는 조각 사이 최대 간격(글자 크기 배수). 이보다 벌어지면 단이 다른 것으로 본다
+  var DETECT_GAP_EM = 0.5;     // 단 위치를 찾을 때 한 줄로 이을 최대 간격
   var WORD_GAP_EM = 0.18;      // 이 이상 벌어지면 공백을 넣는다
   var BIG_RATIO = 1.12;        // 본문보다 이 배수 이상 크면 "큰 글자"
   var MIN_BOLD_RATIO = 0.95;   // 굵은 제목 후보의 최소 크기 비율
@@ -71,7 +72,8 @@
   }
 
   // textContent.items 를 글줄로 묶는다. 같은 밑선에서 이어지고 간격이 좁은 조각만 한 줄이 된다(단이 다르면 갈라진다).
-  function linesFromItems(items, viewportTransform, fonts) {
+  // gx: 두 단 쪽의 단 사이 가로 위치(없으면 null). 단 경계를 넘어 이어 붙이지 않는다.
+  function assembleLines(items, viewportTransform, fonts, gx, gapEm) {
     var vt = viewportTransform || [1, 0, 0, 1, 0, 0];
     var hScale = Math.hypot(vt[0], vt[1]) || 1;
     var lines = [];
@@ -84,11 +86,19 @@
     }
     (items || []).forEach(function (it) {
       if (!it || typeof it.str !== "string" || !it.transform) return;
+      var m = mul(vt, it.transform);
       if (it.str.trim() === "") {
+        // 낱말 사이 공백 조각은 그 폭만큼 줄 끝을 늘린다(안 그러면 공백이 낀 틈이 실제보다 넓게 보여 줄이 갈라진다)
+        var sw = (Number(it.width) || 0) * hScale;
+        var sfs = Math.hypot(m[2], m[3]);
+        if (cur && sfs > 0 && sw > 0 && sw <= 1.5 * sfs && Math.abs(m[5] - cur.y) <= 0.35 * cur.maxFs &&
+            m[4] >= cur.x2 - 0.5 * cur.maxFs && m[4] - cur.x2 <= 0.3 * cur.maxFs) {
+          if (cur.parts.length && !/\s$/.test(cur.parts[cur.parts.length - 1])) cur.parts.push(" ");
+          cur.x2 = Math.max(cur.x2, m[4] + Math.min(sw, 0.6 * sfs)); // 한 칸 공백은 0.6em 까지만 인정
+        }
         if (it.hasEOL) flush();
         return;
       }
-      var m = mul(vt, it.transform);
       // 세로로 눕은 글(표 안 회전 글 등)은 제목 후보에서 뺀다
       if (Math.abs(m[1]) > Math.abs(m[0])) { flush(); return; }
       var fs = Math.hypot(m[2], m[3]);
@@ -104,7 +114,8 @@
       var joins = cur &&
         Math.abs(y - cur.y) <= (small ? 0.7 : 0.35) * ref &&
         x >= cur.x2 - 0.5 * ref &&
-        x - cur.x2 <= ((cur.lastLen === 1 && it.str.trim().length === 1) ? 4 : GAP_LIMIT_EM) * ref; // 자간을 벌린 제목("본 론")은 글자 하나씩 조각난다
+        x - cur.x2 <= ((cur.lastLen === 1 && it.str.trim().length === 1) ? 4 : gapEm) * ref && // 자간을 벌린 제목("본 론")은 글자 하나씩 조각난다
+        !(gx !== null && gx !== undefined && cur.x < gx && x >= gx);
       if (!joins) {
         flush();
         cur = { parts: [], sizes: {}, fontChars: {}, chars: 0, boldChars: 0, knownChars: 0, x: x, y: y, x2: x, maxFs: fs };
@@ -127,6 +138,49 @@
       if (it.hasEOL) flush();
     });
     flush();
+    return lines;
+  }
+
+  // 글줄 시작 가로 위치의 분포로 두 단 쪽인지 본다. 두 단이면 단 사이 가로 위치, 아니면 null.
+  // 긴 줄(20자 이상)의 시작 위치가 왼쪽 끝과, 그보다 100pt 이상 오른쪽의 한 지점(±3pt)에 각각 6줄 이상·25% 이상 모이고,
+  // (줄 끝 x2 를 아는 경우) 왼쪽 줄이 오른쪽 시작점을 넘어 뻗지 않으면 두 단이다.
+  function detectGutter(lines) {
+    var longL = (lines || []).filter(function (l) {
+      return typeof l.x === "number" && String(l.text || "").replace(/\s/g, "").length >= 20;
+    });
+    if (longL.length < 12) return null;
+    var xs = longL.map(function (l) { return l.x; }).sort(function (a, b) { return a - b; });
+    var minX = xs[Math.floor(xs.length * 0.05)];
+    var left = longL.filter(function (l) { return l.x <= minX + 12; });
+    var rest = longL.filter(function (l) { return l.x >= minX + 100; });
+    if (left.length < 6 || rest.length < 6) return null;
+    var buckets = {};
+    rest.forEach(function (l) { var k = Math.round(l.x / 6); buckets[k] = (buckets[k] || 0) + 1; });
+    var bestK = null;
+    Object.keys(buckets).forEach(function (k) {
+      var n = (buckets[k] || 0) + (buckets[Number(k) - 1] || 0) + (buckets[Number(k) + 1] || 0);
+      if (bestK === null || n > bestK.n) bestK = { k: Number(k), n: n };
+    });
+    if (!bestK) return null;
+    var rightLines = rest.filter(function (l) { return Math.abs(l.x / 6 - bestK.k) <= 1.01; });
+    if (rightLines.length < 6 || rightLines.length < 0.25 * longL.length || left.length < 0.25 * longL.length) return null;
+    var xr = medianOf(rightLines.map(function (l) { return l.x; }));
+    var withX2 = left.filter(function (l) { return typeof l.x2 === "number"; });
+    if (withX2.length >= 4) {
+      var e = withX2.map(function (l) { return l.x2; }).sort(function (a, b) { return a - b; });
+      var p90 = e[Math.floor(e.length * 0.9)];
+      if (p90 > xr + 1) return null; // 왼쪽 줄이 오른쪽 시작점을 넘어서면 한 단(들여쓴 줄 모음)
+      return (p90 + xr) / 2;
+    }
+    return xr - 6;
+  }
+
+  function linesFromItems(items, viewportTransform, fonts) {
+    // 단 사이 간격이 좁아도(1em 미만) 단을 알아볼 수 있도록 먼저 0.5em 이상 벌어진 곳에서 끊어 단 위치를 찾고,
+    // 찾았으면 그 경계를 넘지 않게, 못 찾았으면 1em 까지의 간격만 이어 붙인다.
+    var g = detectGutter(assembleLines(items, viewportTransform, fonts, null, DETECT_GAP_EM));
+    var lines = assembleLines(items, viewportTransform, fonts, g, GAP_LIMIT_EM);
+    lines.gutter = g;
     return lines;
   }
 
@@ -157,31 +211,49 @@
   var SUBLETTER_RE = /^([A-Z])\s*[.)]\s+(\S.{1,})$/;
   var TITLE_START_RE = /^[A-Z가-힣一-鿿(\[「『“"']/;
   var SENTENCE_END_RE = /[.,;:。，；：]$|[-‐‑–]$/; // 문장 끝 부호, 또는 줄바꿈 하이픈
+  // 소속·주소·전자우편 줄("1 Department of Medicine", "2 서울대학교 의과대학")
+  var AFFIL_RE = /\b(?:Department|Dept|University|Univ|Institute|Institution|College|School|Hospital|Center|Centre|Laboratory|Faculty|Clinic|Division|Graduate|Academy|Corresponding|Tel|Fax|Seoul|Korea|Japan|China|USA|Taiwan|Germany|France|Canada|Australia|Kingdom)\b|대학교|대학원|대학|학과|학부|연구소|연구원|병원|센터|우편|주소|@|e-?mail|\b\d{5}(?:-\d{4})?\b/i;
+  // 저자 나열("Kim and J. Lee", "Kim, J. Lee", "Smith & Jones", "Kim et al")
+  var AUTHOR_LIST_RE = /^[A-Z][A-Za-z'’-]+(?:\s+[A-Z]\.?)*\s*(?:,\s*|\s+&\s+|\s+and\s+)(?:[A-Z]\.|[A-Z][a-z]+\b)|^[A-Z][A-Za-z'’-]+\s+et\s+al\b/;
+  // 참고문헌 항목("Kim JH, ...", "Rychert J. ...", "J. Lee ...", "김철수 (2010)", "et al")
+  var REF_ENTRY_RE = /^[A-Z][A-Za-z'’-]+,?\s+[A-Z]{1,3}[,.]|^(?:[A-Z]\.\s*)+[A-Z][a-z]+|\bet\s+al\b|\(\s*(?:19|20)\d{2}[a-z]?\s*\)/;
 
-  // 번호·표제 형식에 맞는지 본다. {kind, depth, rest, keyword}
+  // 번호·표제 형식에 맞는지 본다. {kind, depth, rest, keyword, nodot}
+  // nodot: 번호 뒤에 점·닫는 괄호가 없다("1 Introduction"). 소속·주소와 구별이 어려워 호출한 쪽에서 위치 조건을 더 건다.
   function classifyHeading(text) {
     var m;
     var depth = 0;
     var kind = "";
     var rest = text;
+    var nodot = false;
     if ((m = JANG_RE.exec(text))) {
       kind = "jang";
       depth = m[1] === "절" ? 2 : 1;
       rest = m[2] || "";
     } else if ((m = ROMAN_RE.exec(text))) {
-      kind = "roman";
-      depth = 1;
-      rest = m[2];
+      var r = m[2];
+      // 한 글자 로마 숫자("I.")는 저자 이름의 머리글자와 같다: 저자 나열·참고문헌 항목 모양이면 제목이 아니다
+      var authorLike = /^[IVX]$/.test(m[1]) && KEYWORDS[keywordKey(r)] !== true &&
+        (AUTHOR_LIST_RE.test(r) || REF_ENTRY_RE.test(r) || (r.match(/,/g) || []).length >= 2);
+      if (!authorLike) {
+        kind = "roman";
+        depth = 1;
+        rest = r;
+      }
     } else if ((m = NUM_RE.exec(text))) {
       var firstNum = parseInt(m[1].split(".")[0], 10);
-      if (firstNum >= 1 && firstNum <= 30 && TITLE_START_RE.test(m[3]) && m[3].length >= 2) {
+      var hasDot = /[.)]/.test(m[2]);
+      if (firstNum >= 1 && firstNum <= 30 && TITLE_START_RE.test(m[3]) && m[3].length >= 2 &&
+          !REF_ENTRY_RE.test(m[3]) && (hasDot || !AFFIL_RE.test(m[3]))) {
         // "1)" 처럼 닫는 괄호만 있으면 "1." 아래 단계
         kind = m[2].indexOf(")") >= 0 && m[1].indexOf(".") < 0 ? "paren" : "num";
         depth = m[1].split(".").length;
         rest = m[3];
+        nodot = !hasDot;
       }
     }
-    if (!kind && (m = SUBLETTER_RE.exec(text)) && TITLE_START_RE.test(m[2]) && !/[,&]/.test(m[2].slice(0, 30))) {
+    if (!kind && (m = SUBLETTER_RE.exec(text)) && TITLE_START_RE.test(m[2]) && !/[,&]/.test(m[2].slice(0, 30)) &&
+        !AUTHOR_LIST_RE.test(m[2]) && !REF_ENTRY_RE.test(m[2])) {
       kind = "letter";
       depth = 2;
       rest = m[2];
@@ -192,7 +264,7 @@
       kind = "keyword";
       depth = 1;
     }
-    return { kind: kind, depth: Math.min(4, depth), rest: rest, keyword: isKeyword };
+    return { kind: kind, depth: Math.min(4, depth), rest: rest, keyword: isKeyword, nodot: nodot };
   }
 
   // 본문 크기: 쪽마다 긴 줄(문장)에서 가장 많이 쓰인 크기를 구하고, 그런 쪽이 가장 많은 크기를 고른다
@@ -258,6 +330,16 @@
 
   var LEADER_RE = /(\.{4,}|·{3,}|…{2,}|⋯{2,}|\.\s\.\s\.)/;
 
+  // 굵기 판정 규칙(결정적): pdf.js 는 글꼴의 실제 이름(Bold 여부)을 그 쪽이 그려진 뒤에야 주므로 쓰지 않는다
+  // (같은 PDF가 그려진 순서에 따라 다른 목차가 나오면 안 된다). textContent.styles 의 fontFamily 는 serif/sans-serif 같은
+  // 대체 글꼴 분류일 뿐 굵기를 담지 않아 쓰지 않는다. 쓰는 신호는 getTextContent 만으로 모든 쪽에서 얻는 둘뿐이다:
+  // (1) 글자 크기가 본문 크기의 몇 배인가, (2) 줄의 글꼴 번호가 본문 글꼴과 다르면서 문서 전체 글자의 20% 이하로 드문가.
+  // line.bold 는 읽지 않는다.
+  function isRareFont(line, ctx) {
+    return !!line.font && !!ctx.fonts.body && line.font !== ctx.fonts.body &&
+      ctx.fonts.total > 0 && (ctx.fonts.all[line.font] || 0) / ctx.fonts.total <= RARE_FONT_SHARE;
+  }
+
   // 한 줄이 제목이면 {level, kind, emph}, 아니면 null. ctx = {body, fonts}
   function judgeLine(line, ctx) {
     var text = String(line.text || "").replace(/\s+/g, " ").trim();
@@ -267,11 +349,8 @@
     if (LEADER_RE.test(text)) return null; // 목차 쪽의 점선 줄
     var ratio = ctx.body > 0 ? line.fontSize / ctx.body : 1;
     var big = ratio >= BIG_RATIO;
-    // 굵기: 글꼴 이름에 Bold 가 있으면 굵음. 이름만으로 알 수 없는 글꼴(예 "YDVYGO34")이 많으므로,
-    // 본문과 다른 글꼴이면서 문서에서 드물게(전체 글자의 20% 이하) 쓰인 글꼴도 강조로 본다. 문자 번호 목록(A. B.)은 이 추정을 쓰지 않는다.
-    var rareFont = !!line.font && !!ctx.fonts.body && line.font !== ctx.fonts.body &&
-      ctx.fonts.total > 0 && (ctx.fonts.all[line.font] || 0) / ctx.fonts.total <= RARE_FONT_SHARE;
-    var bold = (line.bold === true || (rareFont && cls.kind !== "letter")) && ratio >= MIN_BOLD_RATIO;
+    // 문자 번호 목록(A. B.)은 드문 글꼴 추정을 쓰지 않는다.
+    var bold = isRareFont(line, ctx) && cls.kind !== "letter" && ratio >= MIN_BOLD_RATIO;
     // 문장 끝 부호로 끝나는 줄은 본문이다(번호 뒤의 점은 위에서 이미 번호로 처리됨).
     if (SENTENCE_END_RE.test(text)) return null;
     var numbered = cls.kind === "num" || cls.kind === "roman" || cls.kind === "jang" || cls.kind === "paren";
@@ -279,20 +358,23 @@
     if (numbered && cls.keyword) ok = big || bold || ratio >= MIN_BOLD_RATIO; // "1. 서론" 은 본문 크기여도 제목(본문보다 작으면 목차·각주)
     else ok = big || bold;                                                    // 번호만 있고 본문 크기·보통 굵기면 본문 항목
     if (!ok) return null;
-    return { level: cls.depth, kind: cls.kind, emph: big || bold, big: big, bold: bold };
+    return { level: cls.depth, kind: cls.kind, emph: big || bold, big: big, bold: bold, nodot: cls.nodot, keyword: cls.keyword };
   }
 
+  // 머리말·꼬리말 판별 열쇠: 줄 처음이나 끝의 쪽 번호 모양("3", "- 3 -", "3 / 12")만 떼고 비교한다.
+  // 글 속 숫자까지 지우면 "1.1 개요 / 2.1 개요 / 3.1 개요" 같은 진짜 소절이 머리말로 오인된다.
   function repeatKey(text, y) {
-    return text.replace(/\d+/g, "#").replace(/\s+/g, "") + "|" + Math.round(y / 3);
+    var s = String(text).replace(/\s+/g, " ").trim();
+    s = s.replace(/^[–—-]?\s*\d{1,4}(?:\s*\/\s*\d{1,4})?\s*[–—-]?(?=\s|$)\s*/, "");
+    s = s.replace(/(?:^|\s)[–—-]?\s*\d{1,4}(?:\s*\/\s*\d{1,4})?\s*[–—-]?$/, "");
+    return s.replace(/\s+/g, "") + "|" + Math.round(y / 3);
   }
 
-  // 줄이 강조(큰 글자·굵은 글꼴·드문 글꼴)인지.
+  // 줄이 강조(큰 글자·드문 글꼴)인지.
   function isEmphLine(line, ctx) {
     var ratio = ctx.body > 0 ? line.fontSize / ctx.body : 1;
     if (ratio >= BIG_RATIO) return true;
-    if (line.bold === true && ratio >= MIN_BOLD_RATIO) return true;
-    return !!line.font && !!ctx.fonts.body && line.font !== ctx.fonts.body && ctx.fonts.total > 0 &&
-      (ctx.fonts.all[line.font] || 0) / ctx.fonts.total <= RARE_FONT_SHARE && ratio >= MIN_BOLD_RATIO;
+    return isRareFont(line, ctx) && ratio >= MIN_BOLD_RATIO;
   }
 
   // 제목이 두 줄로 꺾인 경우 다음 줄을 이어 붙일 수 있는지(둘 다 강조이고 크기·간격이 이어짐).
@@ -309,7 +391,9 @@
     return isEmphLine(next, ctx);
   }
 
-  var CAPTION_RE = /^(table|fig|figure|supplementary|그림|표|도표|부록\s*\d)\b/i;
+  // 표·그림 캡션 시작. \b 는 한글에서 경계로 동작하지 않으므로 "뒤에 글자가 이어지지 않음"으로 본다("표본", "도입"은 캡션이 아니다).
+  var CAPTION_RE = /^(?:table|tab\.|fig\.?|figure|scheme|chart|plate|supplementary|supplemental|appendix\s+table|표|그림|도표|도|사진|식|부록\s*\d)(?![A-Za-z가-힣])/i;
+  var TITLE_EMPH_RATIO = 1.1;
 
   // 번호·표제어가 없는 짧은 제목 후보(예: "세균에서의 QS", "Conflicts of Interest").
   function judgeTitleLine(line, ctx) {
@@ -321,10 +405,7 @@
     if (!/^[A-Z가-힣一-鿿]/.test(text)) return null; // 소문자·숫자·부호로 시작하면 문장 조각
     if (text.split(" ").length > 8) return null;
     var ratio = ctx.body > 0 ? line.fontSize / ctx.body : 1;
-    var rareFont = !!line.font && !!ctx.fonts.body && line.font !== ctx.fonts.body &&
-      ctx.fonts.total > 0 && (ctx.fonts.all[line.font] || 0) / ctx.fonts.total <= RARE_FONT_SHARE;
-    var emph = (line.bold === true && ratio >= MIN_BOLD_RATIO) || (rareFont && ratio >= 1.1);
-    return emph ? { level: 1, kind: "title" } : null;
+    return isRareFont(line, ctx) && ratio >= TITLE_EMPH_RATIO ? { level: 1, kind: "title" } : null;
   }
 
   function medianOf(a) {
@@ -332,50 +413,67 @@
     return b.length ? b[Math.floor(b.length / 2)] : 0;
   }
 
-  // pages: [{page, lines:[{text,fontSize,bold,font?,x,y}], height?}] -> [{title,page,y,yRatio?,level}]
-  function guessHeadings(pages) {
-    var ctx = { body: bodyFontSize(pages), fonts: fontStats(pages), lineWidth: bodyLineWidth(pages) };
-    var cands = [];
-    var seen = {};
-    var firstPos = Infinity; // 번호·표제어 제목이 처음 나온 자리(쪽 번호와 세로 위치로 비교)
-    function push(p, l, title, j, key) {
-      cands.push({ title: title, page: p.page, line: l, level: j.level, kind: j.kind, key: key, height: p.height });
-    }
-    (pages || []).forEach(function (p) {
-      var lines = p.lines || [];
-      for (var i = 0; i < lines.length; i++) {
-        var l = lines[i];
-        var j = judgeLine(l, ctx);
-        var titleOnly = false;
-        if (!j) {
-          j = judgeTitleLine(l, ctx);
-          if (!j) continue;
-          titleOnly = true;
-          // 앞 줄과 같은 글꼴·크기로 이어지는 줄은 여러 줄 제목(표지의 긴 제목 등)의 뒷부분이다
-          var prev = lines[i - 1];
-          if (prev && prev.font === l.font && Math.abs(prev.fontSize - l.fontSize) <= 0.6 && l.y - prev.y > 0 && l.y - prev.y <= l.fontSize * 1.9) continue;
-        } else {
-          firstPos = Math.min(firstPos, p.page * 1e6 + l.y);
-        }
-        var title = String(l.text).replace(/\s+/g, " ").trim();
-        var key = repeatKey(title, l.y);
-        (seen[key] = seen[key] || {})[p.page] = true;
-        if (!titleOnly && isContinuation(l, j, lines[i + 1], ctx)) {
-          title += " " + String(lines[i + 1].text).replace(/\s+/g, " ").trim();
-          i++;
-        }
-        push(p, l, title, j, key);
+  // ----- 제목 추정 단계 (동기 버전과 쪼갠 비동기 버전이 같은 단계를 쓴다) -----
+  function makeContext(pages) {
+    return { body: bodyFontSize(pages), fonts: fontStats(pages), lineWidth: bodyLineWidth(pages) };
+  }
+
+  function newState() {
+    return { cands: [], seen: {}, firstPos: Infinity };
+  }
+
+  // 한 쪽의 후보를 모은다. 두 단 쪽의 후보는 읽는 순서(단, 세로 위치)로 정렬해 담는다.
+  function pageCandidates(p, ctx, st) {
+    var lines = p.lines || [];
+    var gutter = p.gutter !== undefined ? p.gutter : detectGutter(lines);
+    var tc = typeof gutter === "number";
+    var mine = [];
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i];
+      var j = judgeLine(l, ctx);
+      var titleOnly = false;
+      if (!j) {
+        j = judgeTitleLine(l, ctx);
+        if (!j) continue;
+        titleOnly = true;
+        // 앞 줄과 같은 글꼴·크기로 이어지는 줄은 여러 줄 제목(표지의 긴 제목 등)의 뒷부분이다
+        var prev = lines[i - 1];
+        if (prev && prev.font === l.font && Math.abs(prev.fontSize - l.fontSize) <= 0.6 && l.y - prev.y > 0 && l.y - prev.y <= l.fontSize * 1.9) continue;
+      } else if (!j.nodot || j.keyword) {
+        // 표지·소속과 구별되는 확실한 제목(점이 붙은 번호, 표제어)만 "본문이 시작된 자리"를 정한다
+        st.firstPos = Math.min(st.firstPos, p.page * 1e6 + l.y);
       }
+      var title = String(l.text).replace(/\s+/g, " ").trim();
+      var key = repeatKey(title, l.y);
+      (st.seen[key] = st.seen[key] || {})[p.page] = true;
+      if (!titleOnly && isContinuation(l, j, lines[i + 1], ctx)) {
+        title += " " + String(lines[i + 1].text).replace(/\s+/g, " ").trim();
+        i++;
+      }
+      mine.push({
+        title: title, page: p.page, line: l, level: j.level, kind: j.kind, key: key, height: p.height,
+        nodot: !!j.nodot, keyword: !!j.keyword, tc: tc, col: tc && l.x >= gutter ? 1 : 0,
+      });
+    }
+    if (tc) mine.sort(function (a, b) { return a.col - b.col || a.line.y - b.line.y; });
+    for (var k = 0; k < mine.length; k++) st.cands.push(mine[k]);
+  }
+
+  function finishGuess(st) {
+    var seen = st.seen;
+    // 표지의 제목·저자·소속은 본문 제목이 아니다. 번호 없는 제목과 점 없는 번호("1 Department…")는
+    // 점이 붙은 번호·표제어 제목이 처음 나온 자리 뒤에서만 받는다.
+    var cands = st.cands.filter(function (c) {
+      var weak = c.kind === "title" || (c.nodot && !c.keyword);
+      return !weak || c.page * 1e6 + c.line.y > st.firstPos;
     });
-    // 표지의 제목·저자·소속은 본문 제목이 아니다. 번호·표제어 제목이 처음 나온 자리 뒤의 번호 없는 제목만 받는다.
-    cands = cands.filter(function (c) { return c.kind !== "title" || c.page * 1e6 + c.line.y > firstPos; });
     var out = [];
     cands.forEach(function (c) {
       if (Object.keys(seen[c.key]).length >= REPEAT_PAGES) return;
       var prev = out[out.length - 1];
       if (prev && prev.page === c.page && prev.title === c.title) return;
       var top = Math.max(0, c.line.y - c.line.fontSize);
-      out.push({ title: c.title, page: c.page, y: top, level: c.level, kind: c.kind, size: c.line.fontSize, yRatio: c.height > 0 ? Math.min(1, top / c.height) : undefined });
+      out.push({ title: c.title, page: c.page, y: top, level: c.level, kind: c.kind, size: c.line.fontSize, tc: c.tc, col: c.col, yRatio: c.height > 0 ? Math.min(1, top / c.height) : undefined });
     });
     // 번호가 붙은 같은 제목이 되풀이되면 앞의 것은 목차 쪽이다. 마지막(본문) 것만 남긴다.
     var lastIdx = {};
@@ -407,8 +505,37 @@
     return out.map(function (e) {
       var o = { title: e.title, page: e.page, y: e.y, level: e.level - (minLevel - 1) };
       if (e.yRatio !== undefined) o.yRatio = e.yRatio;
+      if (e.tc) { o.tc = true; o.col = e.col; }
       return o;
     });
+  }
+
+  // pages: [{page, lines:[{text,fontSize,font?,x,y}], height?, gutter?}] -> [{title,page,y,yRatio?,level,tc?,col?}] (읽는 순서)
+  function guessHeadings(pages) {
+    var ctx = makeContext(pages);
+    var st = newState();
+    (pages || []).forEach(function (p) { pageCandidates(p, ctx, st); });
+    return finishGuess(st);
+  }
+
+  // 같은 계산을 단계 사이에 pace() 를 불러 쪼갠다(pace 가 false 를 돌려주면 중단하고 null). 큰 문서에서 한 작업이 길게 막지 않도록.
+  async function guessHeadingsAsync(pages, pace) {
+    pages = pages || [];
+    async function step() { return pace ? (await pace()) !== false : true; }
+    if (!(await step())) return null;
+    var ctx = { body: bodyFontSize(pages) };
+    if (!(await step())) return null;
+    ctx.fonts = fontStats(pages);
+    if (!(await step())) return null;
+    ctx.lineWidth = bodyLineWidth(pages);
+    if (!(await step())) return null;
+    var st = newState();
+    for (var i = 0; i < pages.length; i++) {
+      pageCandidates(pages[i], ctx, st);
+      if ((i & 7) === 7 && !(await step())) return null;
+    }
+    if (!(await step())) return null;
+    return finishGuess(st);
   }
 
   // 평평한 목록 [{title,page,y,level}] 을 children 이 있는 트리로 바꾼다.
@@ -418,6 +545,7 @@
     (flat || []).forEach(function (f) {
       var node = { title: f.title, page: f.page, y: f.y, level: f.level, children: [] };
       if (f.yRatio !== undefined) node.yRatio = f.yRatio;
+      if (f.tc) { node.tc = true; node.col = f.col; }
       while (stack.length && stack[stack.length - 1].level >= node.level) stack.pop();
       if (stack.length) stack[stack.length - 1].children.push(node);
       else roots.push(node);
@@ -435,16 +563,87 @@
     return out;
   }
 
-  // 지금 읽는 위치(page, y)보다 앞서 있거나 같은 마지막 항목의 번호. 없으면 -1. flat 은 문서 순서.
+  // 지금 읽는 위치(page, y)보다 앞서 있거나 같은 마지막 항목의 번호. 없으면 -1. flat 은 읽는 순서.
+  // 두 단 쪽(항목의 tc)에서는 위에서 아래로 스크롤하는 동안 "어느 단을 읽는지" 알 수 없으므로 다음 규칙을 쓴다:
+  // 이전 쪽의 마지막 항목이 기본이고, 이 쪽에서는 왼쪽 단 항목(y 가 위쪽 이하인 마지막 것)을 따르다가,
+  // 보이는 맨 위가 이 쪽의 왼쪽 단 마지막 제목 y 를 지나면 그때부터 y 를 지난 오른쪽 단 항목을 따른다.
   function findCurrentEntry(flat, page, y) {
+    var pos = (y || 0) + 2;
     var idx = -1;
-    var pos = page * 1e6 + (y || 0);
+    var onPage = [];
     for (var i = 0; i < flat.length; i++) {
-      var e = flat[i];
-      var p = e.page * 1e6 + (e.y || 0);
-      if (p <= pos + 2) idx = i;
+      if (flat[i].page < page) idx = i;
+      else if (flat[i].page === page) onPage.push(i);
     }
-    return idx;
+    if (!onPage.length) return idx;
+    var twoCol = onPage.some(function (i) { return flat[i].tc; });
+    if (!twoCol) {
+      onPage.forEach(function (i) { if ((flat[i].y || 0) <= pos) idx = i; });
+      return idx;
+    }
+    var leftIdx = -1;
+    var rightIdx = -1;
+    var lastLeftY = -Infinity;
+    onPage.forEach(function (i) {
+      var e = flat[i];
+      var ey = e.y || 0;
+      if (e.col === 1) { if (ey <= pos) rightIdx = i; } else {
+        if (ey > lastLeftY) lastLeftY = ey;
+        if (ey <= pos) leftIdx = i;
+      }
+    });
+    if (rightIdx >= 0 && pos >= lastLeftY) return rightIdx;
+    return leftIdx >= 0 ? leftIdx : idx;
+  }
+
+  // 그려 둔 축소 그림(쪽 번호 목록 done)이 max 개를 넘으면 비울 쪽 번호들: 현재 쪽에서 먼 것부터, 현재 쪽과 화면에 보이는 것(inView: Set)은 제외.
+  function thumbsToRelease(done, cur, inView, max) {
+    if (done.length <= max) return [];
+    var order = done.slice().sort(function (a, b) { return Math.abs(b - cur) - Math.abs(a - cur) || b - a; });
+    var out = [];
+    var left = done.length;
+    for (var i = 0; i < order.length && left > max; i++) {
+      if (order[i] === cur || (inView && inView.has(order[i]))) continue;
+      out.push(order[i]);
+      left--;
+    }
+    return out;
+  }
+
+  // ----- 내장 목차 변환 (순수: resolve 가 대상을 {page,y,yRatio} 로 바꿔 준다) -----
+  function shiftLevels(list, d) {
+    (list || []).forEach(function (n) { n.level += d; shiftLevels(n.children, d); });
+    return list;
+  }
+
+  function clampLevels(list, max) {
+    (list || []).forEach(function (n) { if (n.level > max) n.level = max; clampLevels(n.children, max); });
+    return list;
+  }
+
+  async function convertNodes(nodes, resolve, level, stale) {
+    var out = [];
+    for (var i = 0; i < nodes.length; i++) {
+      if (stale && stale()) return out;
+      var n = nodes[i];
+      var title = String((n && n.title) || "").replace(/[\u0000-\u001f]/g, " ").replace(/\s+/g, " ").trim();
+      var pos = null;
+      try { pos = n && n.dest ? await resolve(n.dest) : null; } catch (e) { pos = null; }
+      var kids = n && n.items && n.items.length && level < 60 ? await convertNodes(n.items, resolve, level + 1, stale) : [];
+      if (!pos || !title) {
+        // 대상이 없는 항목은 건너뛰고 아래 항목은 한 단계 올린다(건너뛴 조상 하나당 한 단계)
+        shiftLevels(kids, -1).forEach(function (k) { out.push(k); });
+        continue;
+      }
+      out.push({ title: title, page: pos.page, y: pos.y, yRatio: pos.yRatio, level: level, children: kids });
+    }
+    return out;
+  }
+
+  // 6단계보다 깊은 항목은 버리지 않고 6단계로 눌러 둔다.
+  async function convertOutlineTree(nodes, resolve, stale) {
+    var tree = await convertNodes(nodes || [], resolve, 1, stale);
+    return clampLevels(tree, 6);
   }
 
   // ---------- 브라우저 ----------
@@ -472,6 +671,7 @@
       var io = null;
       var THUMB_W = 120;
       var THUMB_CONCURRENCY = 2;
+      var MAX_THUMBS = 60;      // 그려 둔 채로 두는 축소 그림 수의 상한
       var pumpTimer = 0;
 
       function $(id) { return document.getElementById(id); }
@@ -520,64 +720,35 @@
         return { page: page, y: y, yRatio: yRatio };
       }
 
-      async function convertOutline(pdf, nodes, level, tk) {
-        var out = [];
-        for (var i = 0; i < nodes.length; i++) {
-          if (tk !== token) return out;
-          var n = nodes[i];
-          var title = String((n && n.title) || "").replace(/[\u0000-\u001f]/g, " ").replace(/\s+/g, " ").trim();
-          var pos = null;
-          try { pos = n && n.dest ? await resolveDest(pdf, n.dest) : null; } catch (e) { pos = null; }
-          var kids = n && n.items && n.items.length && level < 6 ? await convertOutline(pdf, n.items, level + 1, tk) : [];
-          if (!pos || !title) {
-            // 대상이 없는 항목은 건너뛰고 아래 항목은 같은 깊이로 올린다
-            kids.forEach(function (k) { out.push(k); });
-            continue;
-          }
-          out.push({ title: title, page: pos.page, y: pos.y, yRatio: pos.yRatio, level: level, children: kids });
-        }
-        return out;
-      }
-
       // ----- 제목 추정 -----
-      // 글꼴 번호는 문서 전체에서 같다. 그려진 쪽에서만 이름을 알 수 있으므로 알게 된 것은 문서 단위로 모은다.
-      function collectFontNames(pg, tc, names) {
-        (tc.items || []).forEach(function (it) {
-          var f = it.fontName;
-          if (!f || names[f]) return;
-          try {
-            if (pg.commonObjs.has(f)) {
-              var o = pg.commonObjs.get(f);
-              if (o && o.name) names[f] = o.name;
-            }
-          } catch (e) { /* 아직 읽히지 않은 글꼴 */ }
-        });
-      }
-
+      // 글꼴 이름(Bold 여부)은 쓰지 않는다: 그려진 쪽에서만 알 수 있어 결과가 렌더 순서에 따라 달라지므로
+      // 크기와 글꼴 번호의 드묾만으로 판정한다(위 순수 함수 isRareFont 설명 참고).
+      // 한 번에 오래 막지 않도록 "동기로 일한 시간"만 재서(기다린 시간은 세지 않는다) 10ms 가 넘으면 유휴 시간에 양보한다.
       async function guessDocument(tk) {
         var total = D.numPages();
         var pages = [];
-        var names = {};
-        var t0 = performance.now();
+        var work = 0;
         for (var n = 1; n <= total; n++) {
           if (tk !== token) return null;
           var tc = await D.getTextContent(n);
           var pg = await D.getPage(n);
           if (tk !== token) return null;
+          var t0 = performance.now();
           var vp = pg.getViewport({ scale: 1 });
-          collectFontNames(pg, tc, names);
-          var lines = linesFromItems(tc.items, vp.transform, names);
-          pages.push({ page: n, lines: lines, height: vp.height });
-          if (performance.now() - t0 > 10) { await nextIdle(); t0 = performance.now(); }
+          var lines = linesFromItems(tc.items, vp.transform);
+          pages.push({ page: n, lines: lines, height: vp.height, gutter: lines.gutter });
+          work += performance.now() - t0;
+          if (work > 10) { await nextIdle(); work = 0; }
         }
         if (tk !== token) return null;
-        // 나중에 그려진 쪽에서 알게 된 글꼴 이름으로 앞쪽의 모르던 굵기를 채운다
-        pages.forEach(function (p) {
-          p.lines.forEach(function (l) {
-            if (l.bold === null && l.font && names[l.font]) l.bold = /bold|black|heavy/i.test(names[l.font]);
-          });
-        });
-        return guessHeadings(pages);
+        // 모아 둔 줄 기록(글, 크기, 글꼴 번호, 위치)만으로 문서 전체 단계를 단계별로 쪼개 돌린다
+        var last = performance.now();
+        function pace() {
+          if (tk !== token) return false;
+          if (performance.now() - last < 8) return true;
+          return nextIdle().then(function () { last = performance.now(); return tk === token; });
+        }
+        return guessHeadingsAsync(pages, pace);
       }
 
       async function loadFor(tk) {
@@ -587,7 +758,7 @@
         try { outline = await pdf.getOutline(); } catch (e) { outline = null; }
         if (tk !== token) return null;
         if (outline && outline.length) {
-          var tree = await convertOutline(pdf, outline, 1, tk);
+          var tree = await convertOutlineTree(outline, function (dest) { return resolveDest(pdf, dest); }, function () { return tk !== token; });
           if (tk !== token) return null;
           if (tree.length) return { source: "pdf", entries: tree };
         }
@@ -815,6 +986,7 @@
           th.box.textContent = "";
           th.box.appendChild(canvas);
           th.state = "done";
+          trimThumbs();
         } catch (err) {
           if (tk !== token) return;
           var cancelled = err && (err.name === "RenderingCancelledException" || /cancel/i.test(String(err.message || "")));
@@ -830,6 +1002,35 @@
             pump();
           }
         }
+      }
+
+      // 그려 둔 축소 그림이 MAX_THUMBS 를 넘으면 현재 쪽에서 가장 먼 것부터 비운다(캔버스 크기를 0 으로 줄여 메모리를 돌려준다).
+      // 지금 화면에 보이는 것과 현재 쪽은 비우지 않으며, 비운 것은 다시 보이면 새로 그려진다.
+      function trimThumbs() {
+        var done = [];
+        for (var n = 1; n < thumbs.length; n++) if (thumbs[n] && thumbs[n].state === "done") done.push(n);
+        thumbsToRelease(done, curThumb, inView, MAX_THUMBS).forEach(function (k) { releaseThumb(thumbs[k]); });
+      }
+
+      function releaseThumb(th) {
+        var cv = th.box.querySelector("canvas");
+        if (cv) { cv.width = 0; cv.height = 0; }
+        th.box.textContent = "";
+        th.state = "idle";
+      }
+
+      // "쪽"·"목차" 탭이 나중에 열렸을 때 그 순간 현재 항목이 보이게 한다(숨겨진 동안에는 스크롤 위치를 계산할 수 없다).
+      var wasShown = { pages: false, outline: false };
+      function revealCurrent() {
+        var P = panes();
+        function shown(pane) { return !!pane && !pane.hidden && pane.clientHeight > 0; }
+        var sp = shown(P.pages);
+        var so = shown(P.outline);
+        // 보이지 않던 것이 보이게 된 때만(보이는 동안 사용자가 스크롤한 자리는 건드리지 않는다)
+        if (sp && !wasShown.pages && curThumb && thumbs[curThumb]) keepVisible(P.pages, thumbs[curThumb].btn);
+        if (so && !wasShown.outline && currentIdx >= 0 && items[currentIdx]) keepVisible(P.outline, items[currentIdx].el);
+        wasShown.pages = sp;
+        wasShown.outline = so;
       }
 
       function markCurrentThumb(n) {
@@ -861,6 +1062,8 @@
         running = 0;
         thumbs = [null];
         curThumb = 0;
+        wasShown.pages = false;
+        wasShown.outline = false;
         if (pumpTimer) { root.clearTimeout(pumpTimer); pumpTimer = 0; }
         var p = panes();
         if (p.outline) p.outline.textContent = "";
@@ -910,14 +1113,21 @@
               pump();
             }
           });
+          // 키보드로 탭을 바꿔도 사용자가 고른 것으로 본다(ReaderPanels 는 탭 변경 알림을 내보내지 않아 키 입력을 직접 본다).
+          left.addEventListener("keydown", function (ev) {
+            if (!/^(Arrow(Left|Right|Up|Down)|Home|End|Enter| )$/.test(ev.key)) return;
+            if (ev.target && ev.target.closest && ev.target.closest('[role="tab"]')) { userPicked = true; pump(); }
+          }, true);
         }
         // 패널·탭이 열리고 닫힐 때 보이는 축소 그림을 다시 살핀다.
         if (typeof MutationObserver !== "undefined") {
-          var mo = new MutationObserver(function () { pump(); });
+          var mo = new MutationObserver(function () { pump(); revealCurrent(); });
           var b = $("rd-body");
           if (b) mo.observe(b, { attributes: true, attributeFilter: ["class"] });
           var pp = panes().pages;
           if (pp) mo.observe(pp, { attributes: true, attributeFilter: ["hidden"] });
+          var po = panes().outline;
+          if (po) mo.observe(po, { attributes: true, attributeFilter: ["hidden"] });
         }
         // 이미 열린 문서가 있으면 따라잡는다.
         if (D && D.getPdf && D.getPdf()) onDocOpen();
@@ -936,7 +1146,14 @@
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
       guessHeadings: guessHeadings,
+      guessHeadingsAsync: guessHeadingsAsync,
       linesFromItems: linesFromItems,
+      detectGutter: detectGutter,
+      thumbsToRelease: thumbsToRelease,
+      repeatKey: repeatKey,
+      convertOutlineTree: convertOutlineTree,
+      shiftLevels: shiftLevels,
+      clampLevels: clampLevels,
       classifyHeading: classifyHeading,
       bodyFontSize: bodyFontSize,
       buildTree: buildTree,

@@ -1,9 +1,10 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { guessHeadings, linesFromItems, classifyHeading, buildTree, flattenTree, findCurrentEntry } = require("../assets/reader/outline.js");
+const { guessHeadings, guessHeadingsAsync, linesFromItems, detectGutter, repeatKey, convertOutlineTree, thumbsToRelease, classifyHeading, buildTree, flattenTree, findCurrentEntry } = require("../assets/reader/outline.js");
 
+// 굵은 줄은 드문 글꼴 번호("H")로 표현한다. 굵기 이름은 판정에 쓰이지 않는다.
 function L(text, fontSize, bold, y, x) {
-  return { text, fontSize, bold: !!bold, x: x === undefined ? 70 : x, y };
+  return { text, fontSize, bold: !!bold, font: bold ? "H" : "B", x: x === undefined ? 70 : x, y };
 }
 function body(n, y0) {
   const out = [];
@@ -75,7 +76,7 @@ test("guessHeadings: 문장 부호로 끝나는 줄, 영문 표제", () => {
 
 test("guessHeadings: 최상위 단계가 1이 되도록 단계를 당긴다", () => {
   const pages = [
-    { page: 1, lines: [L("1.1 가나 배경", 11, true, 80), L("1.2 다라 방법", 11, true, 200), L("1.3 마바 결과", 11, true, 300), ...body(40, 320)] },
+    { page: 1, lines: [L("1.1. 가나 배경", 11, true, 80), L("1.2. 다라 방법", 11, true, 200), L("1.3. 마바 결과", 11, true, 300), ...body(40, 320)] },
   ];
   const r = guessHeadings(pages);
   assert.deepEqual(r.map((e) => e.level), [1, 1, 1]);
@@ -198,4 +199,200 @@ test("guessHeadings: 저자 표시(*)가 붙은 줄과 표지의 줄은 번호 �
     { page: 2, lines: [f("결론", 12, true, 100), f("참고문헌", 12, true, 300), ...mk(5, 320)] },
   ];
   assert.deepEqual(guessHeadings(pages).map((e) => e.title), ["서론", "결론", "참고문헌"]);
+});
+
+// ---------- 검수 반영 ----------
+const longBody = (x, y) => ({ text: "본 연구는 대상자의 특성을 살펴보기 위하여 설문을 실시하였다", fontSize: 10, font: "B", x, x2: x + 200, y });
+const bodyAt = (n, y0, x) => Array.from({ length: n }, (_, i) => longBody(x === undefined ? 70 : x, y0 + i * 14));
+const H = (text, size, y, x) => ({ text, fontSize: size, font: "H", x: x === undefined ? 70 : x, x2: (x === undefined ? 70 : x) + 100, y });
+const titles = (r) => r.map((e) => e.title);
+
+test("캡션: 굵은 '표 1.'·'그림 3.'·Table·Fig. 줄은 제목이 아니고 '표본 설계' 같은 제목은 남는다", () => {
+  const caps = ["표 1. 일반적 특성", "그림 3. 처리 결과", "도 2 시스템 구성", "사진 1 현장 모습", "식 3 추정 모형", "Table 2 Characteristics", "Fig. 4 Overview", "Figure 5 Flow", "Scheme 1 Synthesis", "Chart 2 Trend", "Appendix Table 1 Items"];
+  const pages = [
+    { page: 1, lines: [H("1. 서론", 13, 60), ...bodyAt(20, 80)] },
+    { page: 2, lines: [...caps.map((c, i) => H(c, 11, 60 + i * 20)), H("표본 설계", 11, 300), H("도입 배경", 11, 330), ...bodyAt(20, 360)] },
+    { page: 3, lines: [H("결론", 13, 60), ...bodyAt(20, 80), H("참고문헌", 13, 400)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "표본 설계", "도입 배경", "결론", "참고문헌"]);
+});
+
+test("결정적: 굵기 힌트(bold)가 있든 없든 같은 입력은 같은 결과", () => {
+  const mk = (boldVal) => {
+    const strip = (l) => { const o = { ...l }; if (boldVal === undefined) delete o.bold; else o.bold = boldVal; return o; };
+    return [
+      { page: 1, lines: [H("Abstract", 12, 60), ...bodyAt(20, 80)].map(strip) },
+      { page: 2, lines: [H("1. 서론", 13, 60), longBody(70, 80), { ...longBody(70, 94), font: "B", text: "굵기 힌트가 있어도 본문 줄은 제목이 아니다 진짜로" }, ...bodyAt(20, 110)].map(strip) },
+      { page: 3, lines: [H("참고문헌", 13, 60), ...bodyAt(5, 80)].map(strip) },
+    ];
+  };
+  const a = guessHeadings(mk(undefined));
+  assert.deepEqual(a, guessHeadings(mk(true)));
+  assert.deepEqual(a, guessHeadings(mk(false)));
+  assert.deepEqual(titles(a), ["Abstract", "1. 서론", "참고문헌"]);
+  // 같은 글꼴 번호의 줄이 bold 힌트만 달라서는 결과가 바뀌지 않는다
+  const withHint = guessHeadings([{ page: 1, lines: [{ ...H("Abstract", 12, 60), bold: true }, { ...H("서론", 13, 100), bold: true }, { ...H("결론", 13, 140), bold: true }, ...bodyAt(20, 160).map((l) => ({ ...l, bold: true }))] }]);
+  const noHint = guessHeadings([{ page: 1, lines: [H("Abstract", 12, 60), H("서론", 13, 100), H("결론", 13, 140), ...bodyAt(20, 160)] }]);
+  assert.deepEqual(withHint, noHint);
+  assert.equal(noHint.length, 3);
+});
+
+test("소속·주소 줄('1 Department…', '2 서울대학교 의과대학')과 저자 줄('I. Kim and J. Lee')은 제목이 아니다", () => {
+  const pages = [
+    { page: 1, lines: [
+      H("Effects of Light on Growth", 18, 40),
+      H("I. Kim and J. Lee", 12, 70),
+      H("1 Department of Medicine, Seoul National University", 12, 90),
+      H("2 서울대학교 의과대학", 12, 105),
+      H("3 Jeju Health Sciences", 12, 120), // 소속 낱말이 없어도 첫 제목 앞의 점 없는 번호는 받지 않는다
+      H("Abstract", 12, 150), ...bodyAt(10, 170),
+      H("1 Introduction", 13, 330), ...bodyAt(10, 350),
+    ] },
+    { page: 2, lines: [H("2 Methods", 13, 60), ...bodyAt(10, 80), H("2.1 Study design", 12, 300), ...bodyAt(10, 320), H("References", 13, 500), ...bodyAt(5, 520)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["Abstract", "1 Introduction", "2 Methods", "2.1 Study design", "References"]);
+});
+
+test("점 없는 번호 제목('1 Introduction')과 로마·한글 번호 제목은 정상으로 받는다", () => {
+  assert.equal(classifyHeading("1 Introduction").kind, "num");
+  assert.equal(classifyHeading("1 Introduction").nodot, true);
+  assert.equal(classifyHeading("1. 서론").nodot, false);
+  assert.equal(classifyHeading("I. INTRODUCTION").kind, "roman");
+  assert.equal(classifyHeading("Ⅱ. 이론적 배경").kind, "roman");
+  assert.equal(classifyHeading("I. Related Work").kind, "roman");
+  assert.equal(classifyHeading("I. Design and implementation").kind, "roman");
+  assert.equal(classifyHeading("II. Kim and Lee").kind, "roman"); // 두 글자 이상 로마 숫자는 이니셜이 아니다
+  assert.equal(classifyHeading("1. Study design").kind, "num");
+  const pages = [
+    { page: 1, lines: [H("I. INTRODUCTION", 13, 60), ...bodyAt(10, 80), H("Ⅱ. 이론적 배경", 13, 300), ...bodyAt(10, 320)] },
+    { page: 2, lines: [H("1. 서론", 13, 60), ...bodyAt(10, 80)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["I. INTRODUCTION", "Ⅱ. 이론적 배경", "1. 서론"]);
+});
+
+test("저자 나열·참고문헌 항목 모양은 번호가 있어도 제목이 아니다", () => {
+  ["I. Kim and J. Lee", "I. Kim, J. Lee, and S. Park", "V. Smith & Jones", "X. Kim et al", "I. Kim, J. Lee"].forEach((t) => assert.equal(classifyHeading(t), null, t));
+  ["12. Smith AB, Jones C (2010) Title of paper", "3 Kim J, Lee S. Foo bar", "5. Rychert J. In support of interoperability", "4. 김철수 (2010) 연구", "7 Lee et al. studied this"].forEach((t) => assert.equal(classifyHeading(t), null, t));
+  ["1 Department of Medicine", "2 서울대학교 의과대학", "3 Seoul, Korea", "4 kim@univ.ac.kr", "1 Institute of Science"].forEach((t) => assert.equal(classifyHeading(t), null, t));
+  assert.equal(classifyHeading("2. Department of Medicine").kind, "num"); // 점이 붙은 번호는 소속 낱말만으로 거르지 않는다
+});
+
+test("참고문헌 구역 안의 점 없는 번호·번호 항목은 제목이 아니다", () => {
+  const pages = [
+    { page: 1, lines: [H("1. 서론", 13, 60), ...bodyAt(10, 80), H("2. 결과", 13, 300), ...bodyAt(10, 320)] },
+    { page: 2, lines: [H("References", 13, 60), H("1 Lee Method for estimation", 12, 90), H("2 Kim Overview of topics", 12, 110), ...bodyAt(10, 130)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "2. 결과", "References"]);
+});
+
+test("머리말 판별: 쪽 번호 모양만 떼고 비교하므로 '1.1 개요/2.1 개요/3.1 개요'는 소절로 남는다", () => {
+  assert.equal(repeatKey("- 3 -", 30), repeatKey("- 4 -", 30));
+  assert.equal(repeatKey("3 / 12", 30), repeatKey("4 / 12", 30));
+  assert.equal(repeatKey("연구방법 12", 30), repeatKey("연구방법 13", 30));
+  assert.equal(repeatKey("3 연구방법", 30), repeatKey("4 연구방법", 30));
+  assert.notEqual(repeatKey("1.1 개요", 200), repeatKey("2.1 개요", 200));
+  const pages = [1, 2, 3].map((p) => ({ page: p, lines: [H(p === 1 ? "1. 서론" : p + ". 절차", 13, 60), H(p + ".1 개요", 12, 200), ...bodyAt(10, 220)] }));
+  pages[2].lines.push(H("참고문헌", 13, 500));
+  assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "1.1 개요", "2. 절차", "2.1 개요", "3. 절차", "3.1 개요", "참고문헌"]);
+});
+
+function makeItems(rows, gap) {
+  // 쪽 높이 800, 글자 10pt. 한 행: 왼쪽 단 조각(너비 200)과 오른쪽 단 조각
+  const items = [];
+  rows.forEach((r, i) => {
+    const y = 700 - i * 14;
+    items.push({ str: r.left, transform: [10, 0, 0, 10, 70, y], width: 200, fontName: "f", hasEOL: true });
+    if (r.right) items.push({ str: r.right, transform: [10, 0, 0, 10, 270 + gap, y], width: 200, fontName: "f", hasEOL: true });
+  });
+  return items;
+}
+
+test("linesFromItems: 단 사이가 12pt(1.2em)여도 오른쪽 단 제목이 왼쪽 줄에 붙지 않는다", () => {
+  const vt = [1, 0, 0, -1, 0, 800];
+  const rows = [{ left: "본 연구는 대상자의 특성을 살펴보기 위하여 설문을 실시", right: "3. 연구결과" }, { left: "하였다" }];
+  const lines = linesFromItems(makeItems(rows, 12), vt, {});
+  assert.deepEqual(lines.map((l) => l.text), ["본 연구는 대상자의 특성을 살펴보기 위하여 설문을 실시", "3. 연구결과", "하였다"]);
+});
+
+test("linesFromItems: 두 단 쪽으로 보이면 1em 미만(8pt)의 좁은 단 사이도 넘어 붙이지 않는다", () => {
+  const vt = [1, 0, 0, -1, 0, 800];
+  const rows = Array.from({ length: 16 }, (_, i) => ({ left: "본 연구는 대상자의 특성을 살펴보기 위하여 설문", right: i === 3 ? "3. 연구결과" : "오른쪽 단의 본문도 비슷하게 길게 이어지는 글이다" }));
+  const lines = linesFromItems(makeItems(rows, 8), vt, {});
+  assert.equal(lines.length, 32);
+  assert.ok(lines.some((l) => l.text === "3. 연구결과"));
+  assert.equal(typeof lines.gutter, "number");
+  assert.ok(lines.gutter > 270 && lines.gutter < 278);
+  assert.equal(detectGutter(bodyAt(14, 60)), null); // 한 단은 null
+});
+
+test("두 단 쪽: 후보를 읽는 순서(왼쪽 단 위→아래, 오른쪽 단)로 내놓는다", () => {
+  const left = bodyAt(14, 100, 70);
+  const right = bodyAt(14, 100, 330);
+  const pages = [{ page: 1, lines: [H("3. 결과", 13, 60, 330), H("1. 서론", 13, 80, 70), ...left, H("2. 방법", 13, 300, 70), ...right] }];
+  const r = guessHeadings(pages);
+  assert.deepEqual(r.map((e) => [e.title, e.col]), [["1. 서론", 0], ["2. 방법", 0], ["3. 결과", 1]]);
+  assert.ok(r.every((e) => e.tc === true));
+});
+
+test("현재 항목: 두 단 쪽에서 왼쪽 단 1절을 읽는 동안 오른쪽 단의 3절을 가리키지 않는다", () => {
+  const flat = [
+    { title: "0. 앞쪽", page: 1, y: 40, level: 1 },
+    { title: "1. 서론", page: 2, y: 100, level: 1, tc: true, col: 0 },
+    { title: "2. 방법", page: 2, y: 400, level: 1, tc: true, col: 0 },
+    { title: "3. 결과", page: 2, y: 120, level: 1, tc: true, col: 1 },
+    { title: "4. 논의", page: 3, y: 100, level: 1 },
+  ];
+  assert.equal(findCurrentEntry(flat, 2, 50), 0, "쪽 맨 위: 이전 쪽 항목");
+  assert.equal(findCurrentEntry(flat, 2, 300), 1, "왼쪽 단 1절 읽는 중(3절 y=120 은 지났지만 가리키지 않음)");
+  assert.equal(findCurrentEntry(flat, 2, 395), 1);
+  assert.equal(findCurrentEntry(flat, 2, 400), 3, "왼쪽 단 마지막 제목을 지나면 오른쪽 단 항목");
+  assert.equal(findCurrentEntry(flat, 3, 0), 3, "다음 쪽 첫 항목 앞: 이전 쪽의 마지막(읽는 순서) 항목");
+  assert.equal(findCurrentEntry(flat, 3, 200), 4);
+});
+
+test("guessHeadingsAsync: 동기 결과와 같고, 단계 사이에 pace 를 부르며, false 면 중단한다", async () => {
+  const pages = [];
+  for (let p = 1; p <= 30; p++) pages.push({ page: p, lines: [H(p === 1 ? "1. 서론" : p + ". 절차", 13, 60), ...bodyAt(10, 80)] });
+  let calls = 0;
+  const a = await guessHeadingsAsync(pages, () => { calls++; });
+  assert.deepEqual(a, guessHeadings(pages));
+  assert.ok(calls >= 8, "calls " + calls);
+  let n = 0;
+  assert.equal(await guessHeadingsAsync(pages, () => (++n < 3 ? true : false)), null);
+});
+
+test("convertOutlineTree: 대상 없는 항목의 자식은 조상 하나당 한 단계 올리고, 6단계보다 깊은 항목도 버리지 않는다", async () => {
+  const resolve = async (d) => (d ? { page: 1, y: 0, yRatio: 0 } : null);
+  const nodes = [{ title: "A", dest: 1, items: [{ title: "B(대상 없음)", items: [{ title: "C", dest: 1, items: [{ title: "D", dest: 1 }] }] }] }];
+  const t = await convertOutlineTree(nodes, resolve);
+  assert.equal(t[0].title, "A");
+  assert.equal(t[0].children[0].title, "C");
+  assert.equal(t[0].children[0].level, 2);
+  assert.equal(t[0].children[0].children[0].level, 3);
+  let deep = { title: "L9", dest: 1 };
+  for (let i = 8; i >= 1; i--) deep = { title: "L" + i, dest: 1, items: [deep] };
+  const dt = await convertOutlineTree([deep], resolve);
+  const flat = flattenTree(dt);
+  assert.equal(flat.length, 9);
+  assert.deepEqual(flat.map((e) => e.level), [1, 2, 3, 4, 5, 6, 6, 6, 6]);
+  // 건너뛴 조상이 둘이면 두 단계 올라간다
+  const t2 = await convertOutlineTree([{ title: "x", items: [{ title: "y", items: [{ title: "Z", dest: 1 }] }] }], resolve);
+  assert.deepEqual(t2.map((e) => [e.title, e.level]), [["Z", 1]]);
+});
+
+test("thumbsToRelease: 상한을 넘으면 현재 쪽에서 먼 것부터, 현재 쪽·보이는 것은 남긴다", () => {
+  const done = Array.from({ length: 70 }, (_, i) => i + 1);
+  assert.deepEqual(thumbsToRelease(done.slice(0, 60), 30, new Set(), 60), []);
+  const rel = thumbsToRelease(done, 30, new Set([1, 2]), 60);
+  assert.equal(rel.length, 10);
+  assert.ok(!rel.includes(30) && !rel.includes(1) && !rel.includes(2));
+  assert.ok(rel.includes(70) && rel.includes(69) && rel.includes(68));
+  assert.ok(!rel.includes(31));
+});
+
+test("linesFromItems: 낱말 사이 공백 조각의 폭을 줄 끝에 더하므로 '2.8 혈전 수축 분석' 같은 제목이 갈라지지 않는다", () => {
+  const vt = [1, 0, 0, -1, 0, 800];
+  const it = (str, x, w) => ({ str, transform: [9.6, 0, 0, 9.6, x, 100], width: w, fontName: "f" });
+  const lines = linesFromItems([it("2.8", 284.9, 13.5), it(" ", 298.4, 9.8), it("혈전", 308.2, 18.5), it(" ", 326.6, 9.6), it("수축", 336.2, 18.5), it(" ", 354.7, 9.6), it("분석", 364.3, 18.5)], vt, {});
+  assert.deepEqual(lines.map((l) => l.text), ["2.8 혈전 수축 분석"]);
 });

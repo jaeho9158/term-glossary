@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { createNav, BACK_MS } = require("../assets/reader/nav.js");
+const { createNav, BACK_MS, hideButton } = require("../assets/reader/nav.js");
 
 function makeEnv() {
   const env = {
@@ -102,4 +102,21 @@ test("잘못된 쪽 번호는 무시하고, 현재 위치를 모르면 이동만
   nav.jump(5, 2);
   assert.deepEqual(env.gone[0], [5, 1]);
   assert.equal(nav.canGoBack(), false);
+});
+
+test("hideButton: 단추가 초점을 가진 채 숨겨지면 읽는 영역으로 초점을 옮긴다", () => {
+  const btn = { hidden: false };
+  const calls = [];
+  const sc = { focus: (o) => calls.push(o) };
+  hideButton(btn, { activeElement: btn }, () => sc);
+  assert.equal(btn.hidden, true);
+  assert.deepEqual(calls, [{ preventScroll: true }]);
+});
+
+test("hideButton: 초점이 다른 곳에 있으면 초점을 건드리지 않는다", () => {
+  const btn = { hidden: false };
+  const calls = [];
+  hideButton(btn, { activeElement: {} }, () => ({ focus: () => calls.push(1) }));
+  assert.equal(btn.hidden, true);
+  assert.equal(calls.length, 0);
 });

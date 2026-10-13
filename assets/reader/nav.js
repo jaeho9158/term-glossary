@@ -108,6 +108,16 @@
     position: readingPoint,
   };
 
+  // 돌아가기 단추가 초점을 가진 채 숨겨지면 초점이 사라지므로 읽는 영역으로 옮긴다.
+  function hideButton(btn, doc, getScroll) {
+    var focused = doc && doc.activeElement === btn;
+    btn.hidden = true;
+    if (focused) {
+      var sc = getScroll();
+      if (sc && typeof sc.focus === "function") sc.focus({ preventScroll: true });
+    }
+  }
+
   function wire() {
     var el = document.getElementById("reader");
     var btn = document.getElementById("rd-back");
@@ -121,7 +131,13 @@
       scrollTop: function () { var D = rd(); var sc = D && D.scrollEl(); return sc ? sc.scrollTop : 0; },
       viewportH: function () { var D = rd(); var sc = D && D.scrollEl(); return sc ? sc.clientHeight : 800; },
       show: function () { btn.hidden = false; },
-      hide: function () { btn.hidden = true; },
+      hide: function () {
+        hideButton(btn, document, function () {
+          var sc = document.getElementById("rd-scroll");
+          if (sc && !sc.hasAttribute("tabindex")) sc.setAttribute("tabindex", "-1"); // 프로그램으로만 초점을 받는다
+          return sc;
+        });
+      },
       setTimer: function (fn, ms) { return root.setTimeout(fn, ms); },
       clearTimer: function (id) { root.clearTimeout(id); },
       now: function () { return Date.now(); },
@@ -143,5 +159,5 @@
     else wire();
   }
 
-  if (typeof module !== "undefined" && module.exports) module.exports = { createNav: createNav, BACK_MS: BACK_MS };
+  if (typeof module !== "undefined" && module.exports) module.exports = { createNav: createNav, BACK_MS: BACK_MS, hideButton: hideButton };
 })(typeof window !== "undefined" ? window : globalThis);
