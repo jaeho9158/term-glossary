@@ -230,6 +230,55 @@ const VT = [1, 0, 0, -1, 0, 800]; // 배율 1, 높이 800 쪽의 viewport transf
   // 아래에서 위로 쓰므로 viewport 에서는 y 가 줄어드는 방향으로 진행한다.
   assert.ok(boxes[0].y > boxes[3].y);
 }
+// /Rotate 90 쪽: 조각 변환은 기울어 있어도 쪽 변환과 합치면 화면에서 곧게 서면 측정 폭을 쓴다
+{
+  const VT90 = [0, 1, 1, 0, 0, 0];
+  const up = { str: "가나다라", transform: [0, 12, -12, 0, 100, 500], width: 40 };
+  const boxes = buildCharBoxes([up], VT90, buildPageText([up]), () => [1, 1, 1, 37]);
+  assert.deepStrictEqual(boxes.map((b) => Math.round(b.w * 1000) / 1000), [1, 1, 1, 37], "측정 폭 사용");
+  assert.ok(Math.abs(boxes[0].x - 500) < 1e-9 && Math.abs(boxes[3].x + boxes[3].w - 540) < 1e-9);
+  assert.ok(Math.abs(boxes[0].h - 12 * 1.15) < 1e-9 && Math.abs(boxes[0].y - (100 - 12 * 0.85)) < 1e-9);
+  // 배율이 있는 쪽 변환(가로 2배)에서도 합친 변환의 크기로 폭을 환산한다
+  const VT90s = [0, 2, 2, 0, 0, 0];
+  const bs = buildCharBoxes([up], VT90s, buildPageText([up]), () => [1, 1, 1, 37]);
+  assert.ok(Math.abs(bs[3].x + bs[3].w - (1000 + 80)) < 1e-9, "배율 2");
+  assert.ok(Math.abs(bs[0].h - 24 * 1.15) < 1e-9);
+  // 화면에서 옆으로 누운 조각(쪽 회전과 조각 방향이 합쳐도 곧게 서지 않음)은 균등 분할
+  const side = { str: "가나다라", transform: [12, 0, 0, 12, 100, 500], width: 40 };
+  const sb = buildCharBoxes([side], VT90, buildPageText([side]), () => [1, 1, 1, 37]);
+  sb.forEach((b) => assert.ok(Math.abs(b.h - 10) < 1e-6, "균등 분할(세로 방향): " + b.h));
+}
+
+// 공백 폭: 내장 글꼴에 공백이 없어 측정이 공백을 0.3em 으로 때운 조각(spaceFallback)은, 한글 위주면 같은 글꼴 전각 글자 폭의 절반으로 바꾼다.
+{
+  const hz = { str: "가 나다", transform: [10, 0, 0, 10, 50, 700], width: 35, fontName: "F" };
+  const flagged = (font, size, str) => {
+    const w = Array.from(str, (ch) => (ch === " " ? 0.3 * size : size));
+    w.spaceFallback = true;
+    return w;
+  };
+  const b1 = buildCharBoxes([hz], VT, buildPageText([hz]), flagged);
+  // 폭 [10, 5, 10, 10] -> 합 35 = 조각 폭: '나' 는 x = 50 + 10 + 5
+  assert.ok(Math.abs(b1[2].x - 65) < 1e-9, "한글 위주: 공백 절반 폭 " + b1[2].x);
+  // 측정 단위가 부풀려져 있어도(전각 글자 11) 전각 글자 폭의 절반(5.5)을 쓴다
+  const inflated = (font, size, str) => { const w = Array.from(str, (ch) => (ch === " " ? 0.3 * size : 1.1 * size)); w.spaceFallback = true; return w; };
+  const b2 = buildCharBoxes([hz], VT, buildPageText([hz]), inflated);
+  assert.ok(Math.abs(b2[2].x - (50 + 35 * (11 + 5.5) / (11 + 5.5 + 22))) < 1e-9, "측정 단위 비례: " + b2[2].x);
+  // 라틴 위주 조각은 0.3em 그대로
+  const lt = { str: "ab c", transform: [10, 0, 0, 10, 50, 700], width: 20, fontName: "F" };
+  const lm = (font, size, str) => { const w = Array.from(str, (ch) => (ch === " " ? 0.3 * size : 5)); w.spaceFallback = true; return w; };
+  const b3 = buildCharBoxes([lt], VT, buildPageText([lt]), lm);
+  assert.ok(Math.abs(b3[3].x - (50 + 20 * 13 / 18)) < 1e-9, "라틴: " + b3[3].x);
+  // 공백을 직접 잰 조각(플래그 없음)은 건드리지 않는다
+  const real = buildCharBoxes([hz], VT, buildPageText([hz]), (f, sz, str) => Array.from(str, (ch) => (ch === " " ? 0.25 * sz : sz)));
+  assert.ok(Math.abs(real[2].x - (50 + 35 * 12.5 / 32.5)) < 1e-9, "측정한 공백 유지: " + real[2].x);
+  // 가중치 경로: 한글 위주 공백 0.5, 라틴 0.3
+  const wh = buildCharBoxes([hz], VT, buildPageText([hz]), null);
+  assert.ok(Math.abs(wh[2].x - 65) < 1e-9, "가중치 한글: " + wh[2].x);
+  const wl = buildCharBoxes([{ str: "ab c", transform: [10, 0, 0, 10, 50, 700], width: 20 }], VT, buildPageText([{ str: "ab c", transform: [10, 0, 0, 10, 50, 700], width: 20 }]), null);
+  assert.ok(Math.abs(wl[3].x - (50 + 20 * (0.55 + 0.55 + 0.3) / (0.55 * 3 + 0.3))) < 1e-9, "가중치 라틴: " + wl[3].x);
+}
+
 // 쪽 글 밖의 조각이 없고 폭 정보가 전혀 없으면 null (오류 없음)
 {
   const items = [{ str: "가나", transform: [12, 0, 0, 12, 0, 700] }];

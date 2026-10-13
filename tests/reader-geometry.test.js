@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { charWeights, splitWidth, rangeRects, hitTest, unionRect } = require("../assets/reader/geometry.js");
+const { charWeights, splitWidth, rangeRects, hitTest, unionRect, snapToWords } = require("../assets/reader/geometry.js");
 
 function row(xs, w, y, h, p) {
   return xs.map((x) => (p === undefined ? { x, y, w, h } : { x, y, w, h, p }));
@@ -94,6 +94,29 @@ for (const withPiece of [false, true]) {
   assert.strictEqual(unionRect([]), null);
   assert.strictEqual(unionRect(null), null);
   assert.deepStrictEqual(unionRect([{ x: 0, y: 0, w: 10, h: 5 }, { x: 20, y: 10, w: 10, h: 5 }]), { x: 0, y: 0, w: 30, h: 15 });
+}
+
+// snapToWords: 낱말(공백·줄바꿈 단위, 한글은 어절) 경계로 넓힌다
+{
+  const t = "청소년 마약류범죄에 대하여는\nthe drug-abuse policy";
+  const at = (w) => t.indexOf(w);
+  // 낱말 안쪽 -> 낱말 전체
+  assert.deepStrictEqual(snapToWords(t, at("약류") , at("약류") + 2), { start: at("마약류범죄에"), end: at("마약류범죄에") + 6 });
+  // 이미 경계면 그대로
+  assert.deepStrictEqual(snapToWords(t, at("마약류범죄에"), at("마약류범죄에") + 6), { start: at("마약류범죄에"), end: at("마약류범죄에") + 6 });
+  // 여러 낱말에 걸치면 양끝만 넓힌다
+  assert.deepStrictEqual(snapToWords(t, at("범죄에") , at("하여는") + 2), { start: at("마약류범죄에"), end: at("대하여는") + 4 });
+  // 줄바꿈도 경계
+  assert.deepStrictEqual(snapToWords(t, at("하여는") + 1, at("하여는") + 3), { start: at("대하여는"), end: at("대하여는") + 4 });
+  assert.deepStrictEqual(snapToWords(t, at("the") + 1, at("the") + 2), { start: at("the"), end: at("the") + 3 });
+  // 하이픈 낱말은 하나로 본다
+  assert.deepStrictEqual(snapToWords(t, at("drug") + 1, at("drug") + 2), { start: at("drug-abuse"), end: at("drug-abuse") + 10 });
+  // 공백 위에서 시작·끝나면 넓히지 않는다
+  assert.deepStrictEqual(snapToWords("가나 다라", 2, 5), { start: 2, end: 5 });
+  // 빈 범위·범위 밖
+  assert.deepStrictEqual(snapToWords("가나", 1, 1), { start: 1, end: 1 });
+  assert.deepStrictEqual(snapToWords("가나 다", -5, 99), { start: 0, end: 4 });
+  assert.deepStrictEqual(snapToWords("", 0, 3), { start: 0, end: 0 });
 }
 
 console.log("reader-geometry: all tests passed");

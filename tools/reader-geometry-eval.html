@@ -27,17 +27,19 @@
 </head>
 <body>
 <h1>리더 글자 상자 위치 측정 (스펙 §7.1)</h1>
-<p>쪽마다 낱말 20개를 고정 시드로 뽑아, <code>buildCharBoxes</code>가 계산한 낱말 상자가 캔버스에 실제로 그려진 글자 위에 놓이는지 잰다.
-맞음 = 상자 안에 그 낱말 잉크의 90% 이상이 들어오고, 상자 좌우 경계가 가장 가까운 "잉크 없는 세로 틈"에서 글자 높이의 25% 이하로 벗어남. 통과 기준 98%.</p>
+<p>쪽마다 낱말 20개를 고정 시드로 뽑아, <code>buildCharBoxes</code>가 계산한 낱말 상자를 캔버스에 실제로 그려진 글자와 견준다.
+<b>엄격 척도(머리 숫자)</b>: 낱말 잉크의 좌우 끝을 상자와 독립적으로 캔버스에서 구하고(앞 낱말 예측 오른쪽 끝 ~ 뒤 낱말 예측 왼쪽 끝 사이에서, 상자 세로 범위의 줄 띠에 든 잉크 덩어리의 합집합),
+좌우 끝 오차를 글자 높이 단위로 낸다. 상자가 이웃 글자 쪽으로 밀리면 구간 경계가 그 글자를 가르고 오차로 드러난다. 두 끝이 모두 0.25 이내면 맞음, 통과 기준 98%.
+<b>느슨 척도(이전 방식)</b>는 보조 열로 남긴다: 상자 안 잉크 90% 이상 + 경계가 가장 가까운 잉크 없는 틈에서 25% 이하.</p>
 <div class="row">
   <input type="file" id="files" accept="application/pdf" multiple>
   <label><input type="checkbox" id="both" checked> 글꼴 측정 켬 + 끔(<code>measure=off</code>) 둘 다 측정</label>
   <button id="run" type="button">측정 시작</button>
 </div>
-<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;maxpages=N</code></p>
+<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;shift=0.5</code>(대조군: 상자를 글자 높이의 이 비율만큼 오른쪽으로 이동) <code>&amp;maxpages=N</code></p>
 <div id="status"></div>
 <div id="out"></div>
-<h2>틀린 낱말 그림(처음 60개: 빨강 = 계산한 상자, 파랑 = 가까운 틈)</h2>
+<h2>가장 크게 틀린 낱말 24개 (빨강 = 계산한 상자, 초록 = 독립으로 구한 낱말 잉크의 좌우 끝)</h2>
 <div id="gallery"></div>
 <details><summary>JSON</summary><pre id="json" style="white-space:pre-wrap;word-break:break-all"></pre></details>
 
@@ -88,23 +90,6 @@
       if (window.pdfjsLib) return res();
       window.addEventListener("pdfjs-ready", function () { res(); }, { once: true });
     });
-  }
-
-  // 낱말 후보: 공백으로 나눈 덩어리 중 글자(한글·영문·숫자)가 2자 이상이고, 모든 글자 상자가 있으며 한 조각 흐름 안에 있는 것.
-  function candidateWords(text, boxes) {
-    var out = [];
-    var re = /\S+/g;
-    var m;
-    while ((m = re.exec(text))) {
-      var s = m.index;
-      var e = s + m[0].length;
-      var letters = (m[0].match(/[가-힣A-Za-z0-9]/g) || []).length;
-      if (letters < 2) continue;
-      var ok = true;
-      for (var i = s; i < e; i++) if (!boxes[i]) { ok = false; break; }
-      if (ok) out.push({ s: s, e: e, word: m[0] });
-    }
-    return out;
   }
 
   function pickWords(cands, rng, n) {
@@ -224,11 +209,109 @@
     };
   }
 
-  function cropToGallery(img, R, label, j) {
+  // ---------- 엄격 척도: 낱말 잉크의 실제 좌우 끝을 상자와 독립적으로 구해 비교한다 ----------
+  //   1. 줄 띠: 상자의 세로 범위(위아래 12%씩 뺀 가운데)에서 세로 열마다 잉크 유무를 본다.
+  //   2. 상자 좌우 2×글자 높이 창 안에서 잉크 덩어리(글자 사이 틈 0.12×글자 높이 이하는 이음)를 구한다.
+  //   3. 낱말 구간 = 앞 낱말의 예측 오른쪽 끝 ~ 뒤 낱말의 예측 왼쪽 끝. 이 구간과 겹치는 덩어리(걸친 덩어리는 통째로)의
+  //      합집합이 그 낱말의 잉크다. 상자 자신의 좌우 끝은 쓰지 않는다. 예측이 한 글자 밀리면 구간 경계가 이웃 글자를
+  //      가르고, 그 글자가 통째로 들어와 한쪽 끝에 그 차이가 그대로 드러난다.
+  //   오차 = 상자 끝 - 잉크 끝, 글자 높이 단위. 왼쪽 오차 > 0 이면 상자가 글자 앞쪽을 자름, 오른쪽 오차 < 0 이면 뒤쪽을 자름.
+  var HIT_TOL = 0.25; // 양쪽 끝 모두 글자 높이의 25% 이내면 "엄격 맞음"
+  var CLIP_TOL = 0.25; // 한쪽 끝이라도 잉크를 25% 넘게 자르면 "잘림"
+  var WIDE_TOL = 0.5; // 한쪽 끝이라도 잉크 밖으로 50% 넘게 남으면 "과대"
+
+  function strictJudge(img, R, P, N) {
     var S = RENDER_SCALE;
-    var pad = R.h;
+    var g = R.h / 1.15;
+    var W = img.w, H = img.h, ink = img.ink;
+    var y0 = Math.max(0, Math.round((R.y + 0.12 * R.h) * S));
+    var y1 = Math.min(H, Math.round((R.y + 0.88 * R.h) * S));
+    var xa = Math.max(0, Math.floor((R.x - 2 * g) * S));
+    var xb = Math.min(W - 1, Math.ceil((R.x + R.w + 2 * g) * S));
+    if (xb <= xa || y1 <= y0) return { noInk: true, why: "쪽 밖" };
+    var dark = 0, cells = 0, x, y;
+    for (y = y0; y < y1; y++) for (x = xa; x <= xb; x++) { dark += ink[y * W + x]; cells++; }
+    var inv = (POLARITY && dark / cells > 0.5) ? 1 : 0;
+    var len = xb - xa + 1;
+    var col = new Uint8Array(len);
+    for (x = xa; x <= xb; x++) {
+      for (y = y0; y < y1; y++) if (ink[y * W + x] ^ inv) { col[x - xa] = 1; break; }
+    }
+    // 잉크 덩어리: 글자 사이 틈(글자 높이의 0.12배 이하)은 이어서 하나로 본다.
+    var gapMax = Math.max(1, Math.round(0.12 * g * S));
+    var runs = [];
+    var a = -1, last = -1;
+    for (x = 0; x < len; x++) {
+      if (!col[x]) continue;
+      if (a < 0) a = x;
+      else if (x - last - 1 > gapMax) { runs.push([a, last]); a = x; }
+      last = x;
+    }
+    if (a >= 0) runs.push([a, last]);
+    // 낱말 구간 = 앞 낱말 예측 오른쪽 끝 ~ 뒤 낱말 예측 왼쪽 끝(이웃이 없는 쪽은 상자 끝에서 허용 오차 0.25×글자 높이만큼 바깥).
+    // 이 구간과 충분히 겹치는 덩어리(구간에 걸친 덩어리는 통째로)의 합집합이 낱말 잉크다.
+    var lo = (P ? (P.x + P.w) : R.x - HIT_TOL * g) * S - xa;
+    var hi = (N ? N.x : R.x + R.w + HIT_TOL * g) * S - xa;
+    var L = Infinity, Rr = -Infinity;
+    runs.forEach(function (r) {
+      var ov = Math.min(r[1] + 1, hi) - Math.max(r[0], lo);
+      // 덩어리가 구간 안에 절반 이상 들어 있거나, 글자 높이의 0.35배 넘게 파고들면 이 낱말의 잉크로 본다.
+      if (ov > 0 && (ov >= 0.5 * (r[1] + 1 - r[0]) || ov >= 0.35 * g * S)) { if (r[0] < L) L = r[0]; if (r[1] + 1 > Rr) Rr = r[1] + 1; }
+    });
+    if (!(Rr > L)) return { noInk: true, why: "구간에 잉크 없음" };
+    L += xa; Rr += xa;
+    return {
+      noInk: false,
+      eL: (R.x * S - L) / S / g,
+      eR: ((R.x + R.w) * S - Rr) / S / g,
+      inkL: L / S, inkR: Rr / S, g: g, clippedByNeighbor: false, lo: (lo + xa) / S, hi: (hi + xa) / S,
+    };
+  }
+
+  function vOverlap(a, b) {
+    var inter = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+    return inter / Math.min(a.h, b.h);
+  }
+
+  // 같은 줄에서 바로 앞/뒤 낱말(사이가 공백뿐)의 예측 상자. 없으면 null.
+  function neighborBox(text, boxes, toks, ti, dir, R, g) {
+    var t = toks[ti + dir];
+    var cur = toks[ti];
+    if (!t) return null;
+    var between = dir < 0 ? text.slice(t.e, cur.s) : text.slice(cur.e, t.s);
+    if (!/^ +$/.test(between)) return null;
+    var rects = G.rangeRects(boxes, t.s, t.e);
+    if (!rects.length) return null;
+    var nb = dir < 0 ? rects[rects.length - 1] : rects[0];
+    if (vOverlap(nb, R) < 0.5) return null;
+    var gap = dir < 0 ? R.x - (nb.x + nb.w) : nb.x - (R.x + R.w);
+    if (gap > 2 * g || gap < -0.5 * g) return null;
+    return nb;
+  }
+
+  function candidateTokens(text, boxes) {
+    var toks = [];
+    var cands = [];
+    var re = /\S+/g;
+    var m;
+    while ((m = re.exec(text))) {
+      var s = m.index;
+      var e = s + m[0].length;
+      toks.push({ s: s, e: e, word: m[0] });
+      var letters = (m[0].match(/[가-힣A-Za-z0-9]/g) || []).length;
+      if (letters < 2) continue;
+      var ok = true;
+      for (var i = s; i < e; i++) if (!boxes[i]) { ok = false; break; }
+      if (ok) cands.push({ s: s, e: e, word: m[0], ti: toks.length - 1 });
+    }
+    return { toks: toks, cands: cands };
+  }
+
+  function cropWorst(img, R, j, label) {
+    var S = RENDER_SCALE;
+    var pad = R.h * 1.2;
     var x0 = Math.max(0, Math.floor((R.x - pad) * S)), x1 = Math.min(img.w, Math.ceil((R.x + R.w + pad) * S));
-    var y0 = Math.max(0, Math.floor((R.y - R.h * 0.5) * S)), y1 = Math.min(img.h, Math.ceil((R.y + R.h * 1.5) * S));
+    var y0 = Math.max(0, Math.floor((R.y - R.h * 0.4) * S)), y1 = Math.min(img.h, Math.ceil((R.y + R.h * 1.4) * S));
     var k = 3;
     var c = document.createElement("canvas");
     c.width = (x1 - x0) * k; c.height = (y1 - y0) * k;
@@ -236,28 +319,25 @@
     cx.fillStyle = "#fff"; cx.fillRect(0, 0, c.width, c.height);
     cx.fillStyle = "#000";
     for (var y = y0; y < y1; y++) for (var x = x0; x < x1; x++) if (img.ink[y * img.w + x]) cx.fillRect((x - x0) * k, (y - y0) * k, k, k);
-    cx.strokeStyle = "rgba(220,0,0,0.9)"; cx.lineWidth = 1;
+    cx.strokeStyle = "rgba(220,0,0,0.95)"; cx.lineWidth = 1;
     cx.strokeRect((R.x * S - x0) * k + 0.5, (R.y * S - y0) * k + 0.5, R.w * S * k, R.h * S * k);
-    if (j) {
-      cx.strokeStyle = "rgba(0,80,255,0.9)";
-      [j.gl, j.gr].forEach(function (v) {
-        if (v == null) return;
-        var X = (v * S - x0) * k + 0.5;
-        cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, c.height); cx.stroke();
-      });
-    }
+    cx.strokeStyle = "rgba(0,150,0,0.95)";
+    [j.inkL, j.inkR].forEach(function (v) {
+      var X = (v * S - x0) * k + 0.5;
+      cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, c.height); cx.stroke();
+    });
     var f = document.createElement("figure");
     f.appendChild(c);
     var cap = document.createElement("figcaption");
     cap.textContent = label;
     f.appendChild(cap);
-    $("gallery").appendChild(f);
+    return f;
   }
 
-  async function evalDoc(file, useMeasure, galleryBudget) {
+  async function evalDoc(file, useMeasure, worst) {
     var buf = await file.arrayBuffer();
     var pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(buf), isEvalSupported: false }).promise;
-    var rec = { devs: [], byScript: { hangul: { n: 0, h: 0 }, latin: { n: 0, h: 0 } }, inverted: 0, topSum: 0, botSum: 0, slackN: 0, inkAbove: 0, inkBelow: 0, name: file.name, pages: pdf.numPages, pagesWithText: 0, sampled: 0, hits: 0, skippedMultiRect: 0, misses: [], measuredWords: 0, fonts: {} };
+    var rec = { name: file.name, pages: pdf.numPages, pagesWithText: 0, words: [], skippedMultiRect: 0, misses: [], pieces: { measured: 0, weighted: 0 }, fonts: {} };
     var measure = useMeasure ? TMAP.makeMeasure() : null;
     var docSeed = SEED ^ hashStr(file.name);
     var pages = Math.min(pdf.numPages, MAX_PAGES);
@@ -276,45 +356,59 @@
       var pt = TMAP.buildPageText(items, vp1.width);
       if (!pt.text.trim()) { canvas.width = 0; continue; }
       rec.pagesWithText++;
-      var boxes = TMAP.buildCharBoxes(items, vp1.transform, pt, measure);
+      var counting = measure ? function (f, sz, str) {
+        var w = measure(f, sz, str);
+        if (w) rec.pieces.measured++; else rec.pieces.weighted++;
+        return w;
+      } : null;
+      var boxes = TMAP.buildCharBoxes(items, vp1.transform, pt, counting);
       var rng = mulberry32((docSeed + n * 7919) >>> 0);
-      var picks = pickWords(candidateWords(pt.text, boxes), rng, WORDS_PER_PAGE);
+      var tk = candidateTokens(pt.text, boxes);
+      var picks = pickWords(tk.cands, rng, WORDS_PER_PAGE);
       var img = makeInk(canvas);
       picks.forEach(function (w) {
         var rects = G.rangeRects(boxes, w.s, w.e);
         if (rects.length !== 1) { rec.skippedMultiRect++; return; }
-        var it = items[pt.charItem[w.s]];
-        var fontName = it && it.fontName;
-        var measured = !!(measure && it && fontName && measure(fontName, Math.abs(it.transform[3]) || 10, it.str));
-        if (measured) rec.measuredWords++;
-        rec.fonts[fontName] = rec.fonts[fontName] || measured;
-        var box = rects[0];
-        if (SHIFT) box = { x: box.x + SHIFT * box.h / 1.15, y: box.y, w: box.w, h: box.h };
-        var j = judge(img, box);
-        rec.sampled++;
-        if (j.inverted) rec.inverted++;
-        if (Number.isFinite(j.devL) && Number.isFinite(j.devR)) {
-          var dl = j.devL / j.g, dr = j.devR / j.g;
-          rec.devs.push(Math.round(dl * 1000) / 1000, Math.round(dr * 1000) / 1000);
+        var sh = function (b) { return b && (SHIFT ? { x: b.x + SHIFT * b.h / 1.15, y: b.y, w: b.w, h: b.h } : b); };
+        var box = sh(rects[0]);
+        var g = box.h / 1.15;
+        var P = sh(neighborBox(pt.text, boxes, tk.toks, w.ti, -1, rects[0], rects[0].h / 1.15));
+        var N = sh(neighborBox(pt.text, boxes, tk.toks, w.ti, +1, rects[0], rects[0].h / 1.15));
+        // 낱말을 이루는 모든 조각이 실제 글꼴로 측정됐는가
+        var measured = !!measure;
+        var fontName = null, str0 = "";
+        for (var ci = w.s; ci < w.e && measured; ci++) {
+          var itn = pt.charItem[ci];
+          if (itn < 0) continue;
+          var it = items[itn];
+          if (!fontName) { fontName = it.fontName; str0 = it.str.slice(0, 40); }
+          if (!measure(it.fontName, Math.abs(it.transform[3]) || Math.hypot(it.transform[0], it.transform[1]) || 10, it.str)) measured = false;
         }
-        var cls = /[가-힣]/.test(w.word) ? "hangul" : "latin";
-        rec.byScript[cls].n++;
-        if (j.ok) rec.byScript[cls].h++;
-        if (Number.isFinite(j.topSlack)) {
-          rec.topSum += j.topSlack; rec.botSum += j.botSlack; rec.slackN++;
-          if (j.topSlack < 0) rec.inkAbove++;
-          if (j.botSlack < 0) rec.inkBelow++;
-        }
-        if (j.ok) { rec.hits++; return; }
-        var miss = {
-          page: n, word: w.word, reason: j.reason,
-          shiftL: round2(j.shiftL), shiftR: round2(j.shiftR), shiftPx: round2(j.shiftPx), g: round2(j.g),
-          fracIn: round2(j.fracIn), font: fontName, measured: measured, str: it ? it.str.slice(0, 40) : "",
-        };
+        if (fontName) rec.fonts[fontName] = rec.fonts[fontName] || measured;
+        var sj = strictJudge(img, box, P, N);
+        var lj = judge(img, box); // 이전(느슨한) 척도
+        var cls = /[가-힣]/.test(w.word) ? "h" : "l";
+        var row = { sc: cls, m: measured ? 1 : 0, loose: lj.ok ? 1 : 0, noInk: sj.noInk ? 1 : 0, len: w.word.length };
+        if (!sj.noInk) {
+          row.eL = sj.eL; row.eR = sj.eR;
+          row.hit = (Math.abs(sj.eL) <= HIT_TOL && Math.abs(sj.eR) <= HIT_TOL) ? 1 : 0;
+          row.clip = (sj.eL > CLIP_TOL || -sj.eR > CLIP_TOL) ? 1 : 0;
+          row.wide = (-sj.eL > WIDE_TOL || sj.eR > WIDE_TOL) ? 1 : 0;
+          row.nbr = sj.clippedByNeighbor ? 1 : 0;
+        } else { row.hit = 0; row.clip = 0; row.wide = 0; }
+        rec.words.push(row);
+        if (row.hit) return;
+        var kind = sj.noInk ? "잉크없음" : (sj.eL > CLIP_TOL ? "왼쪽 잘림" : (-sj.eR > CLIP_TOL ? "오른쪽 잘림" : (-sj.eL > HIT_TOL ? "왼쪽 여백" : "오른쪽 여백")));
+        if (!sj.noInk && sj.eL > CLIP_TOL && -sj.eR > CLIP_TOL) kind = "양쪽 잘림";
+        if (!sj.noInk && -sj.eL > HIT_TOL && sj.eR > HIT_TOL) kind = "양쪽 여백";
+        var score = sj.noInk ? 99 : Math.max(Math.abs(sj.eL), Math.abs(sj.eR));
+        var miss = { doc: rec.name, page: n, word: w.word, kind: kind, eL: sj.noInk ? null : round2(sj.eL), eR: sj.noInk ? null : round2(sj.eR), measured: measured, font: fontName, str: str0, score: score, nbr: (P ? 1 : 0) + (N ? 2 : 0), lo: sj.lo && round2((sj.lo - box.x) / g), hi: sj.hi && round2((sj.hi - box.x - box.w) / g) };
         rec.misses.push(miss);
-        if (galleryBudget.n > 0) {
-          galleryBudget.n--;
-          cropToGallery(img, box, rec.name + " p" + n + " \"" + w.word + "\" " + j.reason, j);
+        if (worst && !sj.noInk && (worst.list.length < worst.max || score > worst.list[worst.list.length - 1].score)) {
+          var fig = cropWorst(img, box, sj, rec.name + " p" + n + " \"" + w.word + "\" " + kind + " (" + miss.eL + " / " + miss.eR + ")" + (measured ? " 측정" : " 가중치"));
+          worst.list.push({ score: score, fig: fig });
+          worst.list.sort(function (a, b) { return b.score - a.score; });
+          if (worst.list.length > worst.max) worst.list.length = worst.max;
         }
       });
       canvas.width = 0;
@@ -327,134 +421,147 @@
 
   function pct(a, b) { return b ? (100 * a / b) : 0; }
   function fmt(v) { return v.toFixed(1) + "%"; }
+  function quant(arr, q) {
+    if (!arr.length) return NaN;
+    var s = arr.slice().sort(function (a, b) { return a - b; });
+    var pos = (s.length - 1) * q;
+    var lo = Math.floor(pos), hi = Math.ceil(pos);
+    return s[lo] + (s[hi] - s[lo]) * (pos - lo);
+  }
+
+  function summarize(ws) {
+    var n = ws.length;
+    var o = { n: n, hit: 0, loose: 0, noInk: 0, clip: 0, wide: 0, nbr: 0 };
+    var aL = [], aR = [];
+    ws.forEach(function (w) {
+      o.hit += w.hit; o.loose += w.loose; o.noInk += w.noInk; o.clip += w.clip; o.wide += w.wide; o.nbr += w.nbr || 0;
+      if (!w.noInk) { aL.push(Math.abs(w.eL)); aR.push(Math.abs(w.eR)); }
+    });
+    o.strictRate = pct(o.hit, n);
+    o.looseRate = pct(o.loose, n);
+    o.clipRate = pct(o.clip, n);
+    o.wideRate = pct(o.wide, n);
+    o.medL = quant(aL, 0.5); o.p95L = quant(aL, 0.95);
+    o.medR = quant(aR, 0.5); o.p95R = quant(aR, 0.95);
+    return o;
+  }
+  function f2(v) { return Number.isFinite(v) ? v.toFixed(2) : "-"; }
+  function summaryCells(s) {
+    return "<td>" + s.n + "</td><td><b>" + fmt(s.strictRate) + "</b></td><td>" + fmt(s.looseRate) + "</td><td>" + f2(s.medL) + "</td><td>" + f2(s.p95L) + "</td><td>" + f2(s.medR) + "</td><td>" + f2(s.p95R) + "</td><td>" + fmt(s.clipRate) + "</td><td>" + fmt(s.wideRate) + "</td><td>" + s.noInk + "</td>";
+  }
+  var SUM_HEAD = "<th>낱말</th><th>엄격 맞음</th><th>느슨(이전 척도)</th><th>왼쪽 오차 중앙값</th><th>95%</th><th>오른쪽 오차 중앙값</th><th>95%</th><th>25% 넘게 잘림</th><th>50% 넘게 과대</th><th>잉크 없음</th>";
 
   function renderTables(result) {
     var out = $("out");
     out.textContent = "";
     var modes = result.modes;
-    var h = document.createElement("h2");
-    h.textContent = "문서별 결과";
-    out.appendChild(h);
-    var tbl = document.createElement("table");
-    var head = "<tr><th>문서</th><th>쪽</th><th>글 있는 쪽</th>";
-    modes.forEach(function (m) { head += "<th>" + m.label + " 낱말</th><th>맞음</th><th>맞은 비율</th>"; });
-    head += "<th>건너뜀(여러 사각형)</th></tr>";
-    tbl.innerHTML = head;
-    var names = modes[0].docs.map(function (d) { return d.name; });
-    names.forEach(function (name, i) {
-      var tr = document.createElement("tr");
-      var d0 = modes[0].docs[i];
-      var html = "<td>" + esc(name) + "</td><td>" + d0.pages + "</td><td>" + d0.pagesWithText + "</td>";
-      modes.forEach(function (m) {
-        var d = m.docs[i];
-        html += "<td>" + d.sampled + "</td><td>" + d.hits + "</td><td>" + fmt(pct(d.hits, d.sampled)) + "</td>";
-      });
-      html += "<td>" + d0.skippedMultiRect + "</td>";
-      tr.innerHTML = html;
-      tbl.appendChild(tr);
-    });
-    var tot = document.createElement("tr");
-    tot.className = "total";
-    var th = "<td>전체</td><td></td><td></td>";
+    var intro = document.createElement("p");
+    intro.innerHTML = "오차 단위 = 글자 높이. <b>엄격 맞음</b> = 낱말 잉크의 좌우 끝(상자와 독립적으로 캔버스에서 구함, 이웃 낱말 예측 상자로 검증)이 상자 좌우 끝에서 모두 0.25 이내. 통과 기준 " + PASS_RATE + "%." + (SHIFT ? " <b>대조군: 모든 상자를 글자 높이 " + SHIFT + "배 오른쪽으로 이동</b>" : "");
+    out.appendChild(intro);
     modes.forEach(function (m) {
-      var s = 0, hh = 0;
-      m.docs.forEach(function (d) { s += d.sampled; hh += d.hits; });
-      var rate = pct(hh, s);
-      m.total = { sampled: s, hits: hh, rate: rate };
-      th += "<td>" + s + "</td><td>" + hh + "</td><td class=\"" + (rate >= PASS_RATE ? "pass" : "fail") + "\">" + fmt(rate) + "</td>";
-    });
-    th += "<td></td>";
-    tot.innerHTML = th;
-    tbl.appendChild(tot);
-    out.appendChild(tbl);
-
-    var h3 = document.createElement("h2");
-    h3.textContent = "보조 척도: 상자 좌우 끝과 낱말 잉크 좌우 끝의 차이(글자 높이 비율). 자름 = 상자 끝이 잉크 안으로 파고든 정도, 여백 = 잉크 밖으로 남는 정도";
-    out.appendChild(h3);
-    var dt = document.createElement("table");
-    dt.innerHTML = "<tr><th>모드</th><th>측정 낱말</th><th>양쪽 모두 자름 25% 이하</th><th>비율</th><th>자름 25% 초과 끝</th><th>여백 50% 초과 끝</th><th>왼쪽 여백 평균</th><th>오른쪽 여백 평균</th><th>자름 최대</th></tr>";
-    modes.forEach(function (m) {
-      var n = 0, okN = 0, clipEdges = 0, padEdges = 0, ls = 0, rs = 0, clipMax = 0;
-      m.docs.forEach(function (d) {
-        for (var i = 0; i < d.devs.length; i += 2) {
-          var dl = d.devs[i], dr = d.devs[i + 1];
-          var clipL = Math.max(0, dl), clipR = Math.max(0, -dr);
-          n++;
-          if (clipL <= MAX_SHIFT && clipR <= MAX_SHIFT) okN++;
-          if (clipL > MAX_SHIFT) clipEdges++;
-          if (clipR > MAX_SHIFT) clipEdges++;
-          if (-dl > 0.5) padEdges++;
-          if (dr > 0.5) padEdges++;
-          ls += -dl; rs += dr;
-          clipMax = Math.max(clipMax, clipL, clipR);
-        }
-      });
-      m.strict = { n: n, hits: okN, rate: pct(okN, n), clipEdges: clipEdges, padEdges: padEdges, meanPadL: n ? ls / n : 0, meanPadR: n ? rs / n : 0, clipMax: clipMax };
-      var tr = document.createElement("tr");
-      tr.innerHTML = "<td>" + m.label + "</td><td>" + n + "</td><td>" + okN + "</td><td>" + fmt(m.strict.rate) + "</td><td>" + clipEdges + " / " + (2 * n) + "</td><td>" + padEdges + " / " + (2 * n) + "</td><td>" + m.strict.meanPadL.toFixed(3) + "</td><td>" + m.strict.meanPadR.toFixed(3) + "</td><td>" + clipMax.toFixed(2) + "</td>";
-      dt.appendChild(tr);
-    });
-    out.appendChild(dt);
-
-    var sh = document.createElement("h2");
-    sh.textContent = "글자 종류별(낱말에 한글이 있으면 한글, 없으면 영문·숫자)";
-    out.appendChild(sh);
-    var st = document.createElement("table");
-    st.innerHTML = "<tr><th>모드</th><th>한글 낱말</th><th>맞음</th><th>비율</th><th>영문·숫자 낱말</th><th>맞음</th><th>비율</th></tr>";
-    modes.forEach(function (m) {
-      var a = { hangul: { n: 0, h: 0 }, latin: { n: 0, h: 0 } };
-      m.docs.forEach(function (d) { ["hangul", "latin"].forEach(function (k) { a[k].n += d.byScript[k].n; a[k].h += d.byScript[k].h; }); });
-      m.byScript = a;
-      var tr = document.createElement("tr");
-      tr.innerHTML = "<td>" + m.label + "</td><td>" + a.hangul.n + "</td><td>" + a.hangul.h + "</td><td>" + fmt(pct(a.hangul.h, a.hangul.n)) + "</td><td>" + a.latin.n + "</td><td>" + a.latin.h + "</td><td>" + fmt(pct(a.latin.h, a.latin.n)) + "</td>";
-      st.appendChild(tr);
-    });
-    out.appendChild(st);
-
-    modes.forEach(function (m) {
-      var h2 = document.createElement("h2");
-      var allMiss = [];
-      m.docs.forEach(function (d) { d.misses.forEach(function (x) { allMiss.push(Object.assign({ doc: d.name }, x)); }); });
-      h2.textContent = m.label + ": 틀린 낱말 " + allMiss.length + "개 (판정: 전체 " + fmt(m.total.rate) + " " + (m.total.rate >= PASS_RATE ? "통과" : "기준 미달") + ")";
-      out.appendChild(h2);
+      var all = [];
+      m.docs.forEach(function (d) { d.words.forEach(function (w) { all.push(w); }); });
+      m.all = all;
+      m.total = summarize(all);
+      var h = document.createElement("h2");
+      h.textContent = m.label + ": 문서별 (엄격 " + fmt(m.total.strictRate) + (m.total.strictRate >= PASS_RATE ? " 통과" : " 기준 미달") + ")";
+      out.appendChild(h);
       var t = document.createElement("table");
-      t.innerHTML = "<tr><th>문서</th><th>쪽</th><th>낱말</th><th>어긋남 px (좌/우)</th><th>글자 높이</th><th>안쪽 잉크</th><th>글꼴 측정</th><th>사유</th></tr>";
-      allMiss.slice(0, 200).forEach(function (x) {
+      t.innerHTML = "<tr><th>문서</th><th>쪽</th><th>글 있는 쪽</th>" + SUM_HEAD + "<th>건너뜀</th><th>조각 측정/가중치</th></tr>";
+      m.docs.forEach(function (d) {
+        var s = summarize(d.words);
+        d.summary = s;
         var tr = document.createElement("tr");
-        tr.innerHTML = "<td>" + esc(x.doc) + "</td><td>" + x.page + "</td><td class=\"l\">" + esc(x.word) + "</td><td>" + x.shiftL + " / " + x.shiftR + "</td><td>" + x.g + "</td><td>" + Math.round(x.fracIn * 100) + "%</td><td>" + (x.measured ? "예" : "아니오") + "</td><td class=\"l\">" + esc(x.reason) + "</td>";
+        if (!d.pagesWithText) {
+          tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>0</td><td class=\"l\" colspan=\"10\">글 없음(스캔본으로 판단, 낱말 0개)</td><td>0</td><td>-</td>";
+        } else {
+          tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>" + d.pagesWithText + "</td>" + summaryCells(s) + "<td>" + d.skippedMultiRect + "</td><td>" + d.pieces.measured + " / " + d.pieces.weighted + "</td>";
+        }
         t.appendChild(tr);
       });
+      var tot = document.createElement("tr");
+      tot.className = "total";
+      var pm = 0, pw = 0, sk = 0;
+      m.docs.forEach(function (d) { pm += d.pieces.measured; pw += d.pieces.weighted; sk += d.skippedMultiRect; });
+      tot.innerHTML = "<td>전체</td><td></td><td></td>" + summaryCells(m.total).replace("<b>" + fmt(m.total.strictRate) + "</b>", "<b class=\"" + (m.total.strictRate >= PASS_RATE ? "pass" : "fail") + "\">" + fmt(m.total.strictRate) + "</b>") + "<td>" + sk + "</td><td>" + pm + " / " + pw + "</td>";
+      t.appendChild(tot);
       out.appendChild(t);
-      if (allMiss.length > 200) {
-        var more = document.createElement("p");
-        more.textContent = "…나머지 " + (allMiss.length - 200) + "개는 JSON 참고";
-        out.appendChild(more);
-      }
-      console.log("[" + m.label + "] 틀린 낱말 " + allMiss.length + "개");
-      console.table(allMiss.slice(0, 300));
+
+      // 글자 종류 x 글꼴 측정 여부
+      var h2 = document.createElement("h2");
+      h2.textContent = m.label + ": 글자 종류별 · 측정/가중치별";
+      out.appendChild(h2);
+      var groups = [
+        ["전체", function () { return true; }],
+        ["한글 낱말", function (w) { return w.sc === "h"; }],
+        ["영문·숫자 낱말", function (w) { return w.sc === "l"; }],
+        ["실제 글꼴로 잰 낱말", function (w) { return w.m === 1; }],
+        ["가중치로 나눈 낱말", function (w) { return w.m === 0; }],
+        ["한글 + 측정", function (w) { return w.sc === "h" && w.m === 1; }],
+        ["한글 + 가중치", function (w) { return w.sc === "h" && w.m === 0; }],
+        ["영문·숫자 + 측정", function (w) { return w.sc === "l" && w.m === 1; }],
+        ["영문·숫자 + 가중치", function (w) { return w.sc === "l" && w.m === 0; }],
+        ["짧은 낱말(3자 이하)", function (w) { return w.len <= 3; }],
+        ["긴 낱말(4자 이상)", function (w) { return w.len >= 4; }],
+      ];
+      var gt = document.createElement("table");
+      gt.innerHTML = "<tr><th>구분</th>" + SUM_HEAD + "</tr>";
+      m.groups = {};
+      groups.forEach(function (gp) {
+        var s = summarize(all.filter(gp[1]));
+        m.groups[gp[0]] = s;
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + gp[0] + "</td>" + summaryCells(s);
+        gt.appendChild(tr);
+      });
+      out.appendChild(gt);
+
+      // 틀린 유형
+      var kinds = {};
+      var allMiss = [];
+      m.docs.forEach(function (d) { d.misses.forEach(function (x) { allMiss.push(x); kinds[x.kind] = (kinds[x.kind] || 0) + 1; }); });
+      allMiss.sort(function (a, b) { return b.score - a.score; });
+      m.kinds = kinds;
+      var h3 = document.createElement("h2");
+      h3.textContent = m.label + ": 틀린 낱말 " + allMiss.length + "개 — " + Object.keys(kinds).map(function (k) { return k + " " + kinds[k]; }).join(", ");
+      out.appendChild(h3);
+      var mt = document.createElement("table");
+      mt.innerHTML = "<tr><th>문서</th><th>쪽</th><th>낱말</th><th>유형</th><th>왼쪽 오차</th><th>오른쪽 오차</th><th>글꼴 측정</th><th>조각 글</th></tr>";
+      allMiss.slice(0, 80).forEach(function (x) {
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + esc(x.doc) + "</td><td>" + x.page + "</td><td class=\"l\">" + esc(x.word) + "</td><td class=\"l\">" + x.kind + "</td><td>" + x.eL + "</td><td>" + x.eR + "</td><td>" + (x.measured ? "예" : "아니오") + "</td><td class=\"l\">" + esc(x.str) + "</td>";
+        mt.appendChild(tr);
+      });
+      out.appendChild(mt);
+      m.worstMisses = allMiss.slice(0, 300);
     });
-    console.table(modes.map(function (m) { return { 모드: m.label, 낱말: m.total.sampled, 맞음: m.total.hits, 맞은비율: Math.round(m.total.rate * 100) / 100 }; }));
+    console.table(modes.map(function (m) { return { 모드: m.label, 낱말: m.total.n, 엄격맞음: Math.round(m.total.strictRate * 100) / 100, 느슨: Math.round(m.total.looseRate * 100) / 100 }; }));
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]; }); }
+
+  window.__evalInternals = { strictJudge: strictJudge, makeInk: makeInk, neighborBox: neighborBox, candidateTokens: candidateTokens, RENDER_SCALE: RENDER_SCALE };
 
   async function runAll(files, modeList) {
     await waitPdfjs();
     $("gallery").textContent = "";
-    var result = { seed: SEED, polarity: POLARITY, shift: SHIFT, wordsPerPage: WORDS_PER_PAGE, renderScale: RENDER_SCALE, criteria: { minInkFraction: MIN_FRAC, maxShiftOfHeight: MAX_SHIFT, passRate: PASS_RATE }, modes: [] };
-    var budget = { n: 60 };
+    var result = { seed: SEED, polarity: POLARITY, shift: SHIFT, wordsPerPage: WORDS_PER_PAGE, renderScale: RENDER_SCALE, criteria: { hitTolerance: HIT_TOL, clipTolerance: CLIP_TOL, wideTolerance: WIDE_TOL, passRate: PASS_RATE }, modes: [] };
+    var worst = { list: [], max: 24 };
     for (var mi = 0; mi < modeList.length; mi++) {
       var useMeasure = modeList[mi];
       var m = { label: useMeasure ? "글꼴 측정" : "측정 끔(가중치)", measure: useMeasure, docs: [] };
       for (var fi = 0; fi < files.length; fi++) {
-        // 가중치 모드의 틀린 그림은 측정 모드 그림과 섞이지 않게 측정 모드에서만 모은다.
-        m.docs.push(await evalDoc(files[fi], useMeasure, useMeasure ? budget : { n: 0 }));
+        // 최악 예시 그림은 측정 모드에서만 모은다.
+        m.docs.push(await evalDoc(files[fi], useMeasure, useMeasure ? worst : null));
       }
       result.modes.push(m);
     }
     renderTables(result);
-    $("status").textContent = "끝. window.__evalResult 에 결과가 있습니다.";
-    $("json").textContent = JSON.stringify(result);
-    window.__evalResult = result;
+    worst.list.forEach(function (w) { $("gallery").appendChild(w.fig); });
+    // 요약 JSON(낱말별 원자료는 뺀다)
+    var slim = JSON.parse(JSON.stringify(result, function (k, v) { return (k === "words" || k === "all") ? undefined : v; }));
+    $("status").textContent = "끝. window.__evalResult 에 요약이 있습니다.";
+    $("json").textContent = JSON.stringify(slim);
+    window.__evalResult = slim;
     window.__evalDone = true;
     return result;
   }

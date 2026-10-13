@@ -10,14 +10,35 @@
     return code === 32 || code === 10 || code === 13 || code === 9 || code === 160 || code === 12;
   }
 
+  var CJK_RE = /[가-힣ㄱ-ㅎㅏ-ㅣ぀-ヿ㐀-鿿豈-﫿]/;
+  var LATIN_RE = /[A-Za-z]/;
+  var LOWER_LATIN_RE = /[a-z]/;
+
   // 소문자로 바꾸고 연속 공백류를 공백 하나로 접는다. map[i] = folded[i] 가 나온 원문 위치.
-  function foldText(text) {
+  // mode: 줄 끝에서 낱말이 끊긴 경우를 위해 줄바꿈이 낀 공백 덩어리를 통째로 지우는 변형.
+  //   "join": 한글·한자·가나 사이의 줄바꿈을 없앤다("네트워" 줄바꿈 "크" -> "네트워크").
+  //           라틴 낱말 사이의 "-" + 줄바꿈도 없앤다("net-" 줄바꿈 "work" -> "network").
+  //   "keep": 라틴 "-" + 줄바꿈에서 줄바꿈만 없애고 하이픈은 둔다("well-" 줄바꿈 "known" -> "well-known").
+  //   생략: 줄바꿈은 공백 하나(라틴 문장은 이쪽).
+  function foldText(text, mode) {
     var out = [];
     var map = [];
     var prevSpace = false;
     for (var i = 0; i < text.length; i++) {
       var ch = text.charAt(i);
       if (isSpace(text.charCodeAt(i))) {
+        var j = i;
+        var hasNL = false;
+        while (j < text.length && isSpace(text.charCodeAt(j))) { if (text.charCodeAt(j) === 10) hasNL = true; j++; }
+        if (mode && hasNL && i > 0 && j < text.length) {
+          var pc = text.charAt(i - 1);
+          var nc = text.charAt(j);
+          if (mode === "join" && CJK_RE.test(pc) && CJK_RE.test(nc)) { i = j - 1; continue; }
+          if (pc === "-" && i > 1 && LATIN_RE.test(text.charAt(i - 2)) && LOWER_LATIN_RE.test(nc)) {
+            if (mode === "join") { out.pop(); map.pop(); i = j - 1; prevSpace = false; continue; }
+            if (mode === "keep") { i = j - 1; prevSpace = false; continue; }
+          }
+        }
         if (prevSpace) continue;
         out.push(" ");
         map.push(i);
@@ -31,21 +52,37 @@
     return { folded: out.join(""), map: map };
   }
 
-  // 쪽 글에서 query 가 나오는 모든 [start, end) (원문 위치). 겹치는 결과는 앞의 것만.
-  function findAll(text, query) {
-    var q = foldText(String(query || "")).folded.trim();
+  function findIn(f, q) {
     var res = [];
-    if (!q) return res;
-    var f = foldText(text);
     var from = 0;
     for (;;) {
       var at = f.folded.indexOf(q, from);
       if (at < 0) break;
-      var start = f.map[at];
-      var end = f.map[at + q.length - 1] + 1;
-      res.push({ start: start, end: end });
+      res.push({ start: f.map[at], end: f.map[at + q.length - 1] + 1 });
       from = at + q.length;
     }
+    return res;
+  }
+
+  // 쪽 글에서 query 가 나오는 모든 [start, end) (원문 위치). 겹치는 결과는 앞의 것만.
+  // 기본 접기 말고 "줄 끝에서 끊긴 낱말" 변형(join, keep)으로도 찾아 합치며, 같은 자리는 한 번만 낸다.
+  function findAll(text, query) {
+    var q = foldText(String(query || "")).folded.trim();
+    if (!q) return [];
+    var text0 = String(text == null ? "" : text);
+    var all = findIn(foldText(text0), q);
+    if (text0.indexOf("\n") >= 0) {
+      all = all.concat(findIn(foldText(text0, "join"), q), findIn(foldText(text0, "keep"), q));
+    }
+    all.forEach(function (h, i) { h.o = i; });
+    all.sort(function (a, b) { return a.start - b.start || a.o - b.o; });
+    var res = [];
+    var lastEnd = -1;
+    all.forEach(function (h) {
+      if (h.start < lastEnd) return; // 겹침(같은 자리 포함)
+      res.push({ start: h.start, end: h.end });
+      lastEnd = h.end;
+    });
     return res;
   }
 

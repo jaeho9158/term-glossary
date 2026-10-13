@@ -112,8 +112,33 @@
   }
   function near0(v) { return Math.abs(v) < 1e-6; }
 
+  var SPACE_RE = /\s/;
+  var CJK_RE = /[가-힣ㄱ-ㅎㅏ-ㅣ぀-ヿ㐀-鿿豈-﫿]/;
+  var CJK_SPACE_RATIO = 0.5; // 전각(1em) 글자 글꼴의 공백은 반각이 보통이다: 같은 글꼴 전각 글자 폭의 절반
+
+  // 글자 중 한글·한자·가나가 절반 이상이면(공백 제외) 그 개수와 측정/가중치 합을 돌려준다. 아니면 null.
+  function cjkMajority(raw, w) {
+    var cj = 0;
+    var sum = 0;
+    var other = 0;
+    for (var i = 0; i < raw.length; i++) {
+      var ch = raw.charAt(i);
+      if (SPACE_RE.test(ch)) continue;
+      if (CJK_RE.test(ch)) { cj++; sum += w ? w[i] : 1; } else other++;
+    }
+    return cj > 0 && cj >= other ? { n: cj, mean: sum / cj } : null;
+  }
+
+  // 가중치 분할(측정 없음)의 글자 비율. 한글 위주 조각은 공백도 전각 글자(1)의 절반(0.5)으로 본다(기본 0.3).
+  function charWeightsWithSpace(raw) {
+    var w = G.charWeights(raw);
+    if (cjkMajority(raw, null)) for (var i = 0; i < w.length; i++) if (SPACE_RE.test(raw.charAt(i))) w[i] = CJK_SPACE_RATIO;
+    return w;
+  }
+
   // 한 조각의 원래 str 글자마다 상자를 만든다(길이 raw.length). 바로 쓸 수 없으면 null.
-  function itemCharBoxes(item, vt, measure, pieceId) {
+  // measured: measure() 가 이 조각에 준 글자별 폭(없으면 null).
+  function itemCharBoxes(item, vt, measured, pieceId) {
     var raw = item.str || "";
     var n = raw.length;
     var t = item.transform;
@@ -123,18 +148,23 @@
     var fontSize = Math.abs(t[3]) || Math.hypot(t[0], t[1]) || 0;
     if (!(fontSize > 0)) return null;
 
-    var widths = null;
-    if (typeof measure === "function") {
-      try { widths = measure(item.fontName, fontSize, raw); } catch (e) { widths = null; }
-      if (widths && widths.length !== n) widths = null;
+    var widths = measured && measured.length === n ? measured : null;
+    var cj = null;
+    if (widths && widths.spaceFallback) {
+      // 내장 글꼴에 공백이 없어 흔한 폭(0.3em)으로 때운 자리: 한글 위주 조각은 전각 글자 폭의 절반으로 바꾼다.
+      cj = cjkMajority(raw, widths);
+      if (cj) {
+        widths = widths.slice();
+        for (var q = 0; q < n; q++) if (SPACE_RE.test(raw.charAt(q))) widths[q] = CJK_SPACE_RATIO * cj.mean;
+      }
     }
-    var weights = widths || G.charWeights(raw);
+    var weights = widths || charWeightsWithSpace(raw);
     var wsum = 0;
     for (var i = 0; i < n; i++) wsum += weights[i] > 0 ? weights[i] : 0;
     if (!(wsum > 0) && widths) {
       // 측정값이 전부 0 이면 측정이 안 된 것과 같다(글꼴이 글자를 모름). 가중치로 돌아간다.
       widths = null;
-      weights = G.charWeights(raw);
+      weights = charWeightsWithSpace(raw);
       for (i = 0, wsum = 0; i < n; i++) wsum += weights[i];
     }
     if (!(wsum > 0)) return null;
@@ -143,13 +173,15 @@
     if (!(total > 0)) return null;
     var bounds = G.splitWidth(total, weights);
 
-    var unrotated = near0(t[1]) && near0(t[2]) && near0(vt[1]) && near0(vt[2]) && t[0] > 0;
+    // 화면에서 곧게 선 글인지는 조각 변환과 쪽 변환을 합친 tx 로 본다(/Rotate 90 쪽의 가로 표 등은 조각이
+    // 기울어 있어도 합치면 곧게 선다). 배율은 합친 변환의 크기를 조각 변환의 크기로 나눠 구한다.
+    var unrotated = near0(tx[1]) && near0(tx[2]) && tx[0] > 0;
     var out = new Array(n);
     var k;
     if (unrotated) {
-      var sx = Math.abs(vt[0]);
-      var sy = Math.abs(vt[3]);
-      var h = fontSize * sy;
+      var lx0 = Math.hypot(t[0], t[1]);
+      var sx = lx0 > 1e-9 ? Math.abs(tx[0]) / lx0 : Math.abs(vt[0]) || 1;
+      var h = Math.abs(tx[3]); // 화면에서의 글자 높이(em)
       var base = tx[5];
       var top = base - h * BOX_ASCENT;
       var bh = h * BOX_TOTAL;
@@ -203,13 +235,28 @@
     var n = pageText.text.length;
     var boxes = new Array(n);
     for (var z = 0; z < n; z++) boxes[z] = null;
+    // 쪽 글에 나오는 조각마다 글자별 폭을 한 번만 잰다.
+    var measuredAt = new Map();
+    for (var j = 0; j < n; j++) {
+      var ix = pageText.charItem[j];
+      if (ix < 0 || measuredAt.has(ix)) continue;
+      var it = items[ix];
+      var raw = it.str || "";
+      var fs = it.transform ? Math.abs(it.transform[3]) || Math.hypot(it.transform[0], it.transform[1]) : 0;
+      var m = null;
+      if (typeof measure === "function" && raw && fs > 0) {
+        try { m = measure(it.fontName, fs, raw); } catch (e) { m = null; }
+        if (m && m.length !== raw.length) m = null;
+      }
+      measuredAt.set(ix, m);
+    }
     var perItem = new Map();
     for (var i = 0; i < n; i++) {
       var idx = pageText.charItem[i];
       if (idx < 0) continue;
       var rawBoxes = perItem.get(idx);
       if (rawBoxes === undefined) {
-        rawBoxes = itemCharBoxes(items[idx], vt, measure, idx);
+        rawBoxes = itemCharBoxes(items[idx], vt, measuredAt.get(idx), idx);
         perItem.set(idx, rawBoxes);
       }
       if (!rawBoxes) continue;
@@ -244,7 +291,7 @@
   // ============ 브라우저 부분 ============
 
   var PAGE_BATCH = 4;
-  var SPACE_EM = 0.3; // 글꼴에 공백이 없을 때 쓰는 공백 폭(글자 크기 비율). charWeights 의 공백 0.3 과 같다
+  var SPACE_EM = 0.3; // 글꼴에 공백이 없을 때 쓰는 공백 폭(글자 크기 비율, 라틴 위주 조각). charWeights 의 공백 0.3 과 같다
   var MEASURE_REF = 100; // 큰 크기로 재서 글꼴 힌팅의 반올림 영향을 줄이고 비율로 줄인다.
   var measureEnabled = true;
   var gen = 0;
@@ -299,7 +346,7 @@
         }
         if (w === null) {
           // 공백은 글자가 아니라 위치 이동으로 표현되는 일이 많아 내장 글꼴에 없어도 이상하지 않다. 흔한 공백 폭으로 대신한다.
-          if (/\s/.test(ch)) { out[i] = SPACE_EM * fontSizePx; continue; }
+          if (/\s/.test(ch)) { out[i] = SPACE_EM * fontSizePx; out.spaceFallback = true; continue; }
           return null; // 글꼴이 이 글자를 모른다 -> 이 조각은 측정 불가(가중치 분할로)
         }
         out[i] = w * k;
@@ -311,14 +358,31 @@
   // 글자 하나의 가로 이동 폭(MEASURE_REF px 기준). 그 글꼴이 그 글자를 실제로 가지고 있지 않으면 null.
   // 확인법: pdf.js 내장 글꼴은 글자를 유니코드가 아니라 글리프 번호로 연결하는 경우가 많아, 이름만 지정하면
   // 브라우저가 조용히 다른 글꼴로 대신 그리고(폭도 그 글꼴의 것), 어떤 글꼴은 폭 0 을 돌려준다.
-  // 대체 글꼴 계열을 둘(serif / monospace)로 바꿔 두 번 재서 값이 다르면 그 글꼴에 글자가 없는 것이다.
+  // 내장 글꼴 뒤에 대체 계열을 서로 다른 셋(serif / monospace / cursive)으로 바꿔 재서 셋이 모두 같아야 받아들인다.
+  // 하나라도 다르면 대체 글꼴이 섞인 것(그 글자를 내장 글꼴이 모름)이다. 둘(serif/monospace)만 쓸 때는 두 계열이
+  // 같은 시스템 글꼴로 풀리는 글자가 새어 들 수 있어 하나를 더했다.
+  //
+  // 관찰(2026-10-14, 한국어 Windows Chrome 에서 없는 글꼴 이름 뒤에 각 계열만 붙여 100px 로 잰 값):
+  // - 한글('가' 등): serif 96.6, monospace 100, cursive 100 -> 서로 달라 "글꼴이 모름"으로 걸러진다. 즉 이 컴퓨터에서는
+  //   한글 글리프 누락이 serif / monospace 두 계열만으로도 잡힌다. serif·monospace 가 같은 시스템 글꼴로 풀리는 환경이면 세 번째
+  //   계열이 필요하고, 셋이 모두 같은 환경이라면 누락된 한글이 시스템 글꼴 폭(1em)으로 받아들여지지만 한글 폭은 가중치(1)와 같은
+  //   값이라 상자 위치는 변하지 않는다. 위험은 폭이 1em 이 아닌 글꼴뿐이다.
+  //   (한글 위주 조각의 공백 폭은 별도로 전각 글자 폭의 절반을 쓴다: cjkMajority, CJK_SPACE_RATIO)
+  // - 라틴·숫자·공백·구두점('a' 55.7/50/61.3, '5' 55.8/50/58.3, ' ' 31/50/33.3): 세 계열이 모두 달라 내장 글꼴에 글자가 없으면
+  //   걸러진다(nanoparticle 등 글리프 번호 글꼴은 이 경로로 전부 가중치 분할이 된다).
+  // - "대체 계열만으로 잰 폭과 같으면 거부" 규칙도 시험했다: 숫자처럼 내장 글꼴과 시스템 serif 가 우연히 같은 폭인 글자를
+  //   잘못 거부해 글꼴 측정 조각이 줄고 위치가 나빠져(led-plant 엄격 맞음 79.3% -> 70.7%) 채택하지 않았다.
+  var FALLBACK_FAMILIES = ["serif", "monospace", "cursive"];
   function glyphAdvance(fontName, ch) {
-    ctx.font = MEASURE_REF + 'px "' + fontName + '", serif';
-    var a = ctx.measureText(ch).width;
-    ctx.font = MEASURE_REF + 'px "' + fontName + '", monospace';
-    var b = ctx.measureText(ch).width;
-    if (!(a > 0) || Math.abs(a - b) > 0.01) return null;
-    return a;
+    var first = -1;
+    for (var f = 0; f < FALLBACK_FAMILIES.length; f++) {
+      ctx.font = MEASURE_REF + 'px "' + fontName + '", ' + FALLBACK_FAMILIES[f];
+      var w = ctx.measureText(ch).width;
+      if (!(w > 0)) return null;
+      if (first < 0) first = w;
+      else if (Math.abs(w - first) > 0.01) return null;
+    }
+    return first;
   }
   var measureFn = makeMeasure();
 
@@ -355,17 +419,25 @@
     return p;
   }
 
+  // 쪽 n 이 그려질 때까지 기다린다. 그려지면 true, 문서가 닫히거나 바뀌면 null, 그리기가 실패하면 reject.
   function waitRendered(n) {
-    if (rendered.has(n)) return Promise.resolve();
-    return new Promise(function (resolve) {
+    if (rendered.has(n)) return Promise.resolve(true);
+    return new Promise(function (resolve, reject) {
       var el = rootEl();
-      var myGen = gen;
-      function on(e) {
-        if (e.detail.page !== n) return;
-        el.removeEventListener("reader:pagerendered", on);
-        if (myGen === gen) resolve();
+      if (!el) { resolve(true); return; }
+      function off() {
+        el.removeEventListener("reader:pagerendered", onOk);
+        el.removeEventListener("reader:pageerror", onErr);
+        el.removeEventListener("reader:docopen", onGone);
+        el.removeEventListener("reader:docclose", onGone);
       }
-      el.addEventListener("reader:pagerendered", on);
+      function onOk(e) { if (e.detail.page === n) { off(); resolve(true); } }
+      function onErr(e) { if (e.detail.page === n) { off(); reject(new Error(n + "쪽 그리기 실패")); } }
+      function onGone() { off(); resolve(null); }
+      el.addEventListener("reader:pagerendered", onOk);
+      el.addEventListener("reader:pageerror", onErr);
+      el.addEventListener("reader:docopen", onGone);
+      el.addEventListener("reader:docclose", onGone);
     });
   }
 
@@ -379,10 +451,17 @@
     if (p) return p;
     var myGen = gen;
     p = pageTextOnly(n).then(function (base) {
-      if (!base.pageText.text) return { text: "", charBoxes: [], items: base.items, charItem: base.pageText.charItem, charOffset: base.pageText.charOffset, itemIndex: indexItems(base.pageText, base.items.length), measured: false };
-      return (useMeasure ? waitRendered(n) : Promise.resolve()).then(function () {
+      if (!base.pageText.text) return { text: "", charBoxes: [], items: base.items, charItem: base.pageText.charItem, charOffset: base.pageText.charOffset, itemIndex: indexItems(base.pageText, base.items.length), measured: false, stats: { measured: 0, weighted: 0 } };
+      return (useMeasure ? waitRendered(n) : Promise.resolve(true)).then(function (ok) {
+        if (!ok) return null; // 문서가 닫히거나 바뀜
         var vp = base.viewport;
-        var boxes = buildCharBoxes(base.items, vp.transform, base.pageText, useMeasure ? measureFn : null);
+        var stats = { measured: 0, weighted: 0 }; // 조각 단위: 실제 글꼴로 잰 조각 / 가중치로 나눈 조각
+        var counting = useMeasure ? function (f, sz, str) {
+          var w = measureFn(f, sz, str);
+          if (w) stats.measured++; else stats.weighted++;
+          return w;
+        } : null;
+        var boxes = buildCharBoxes(base.items, vp.transform, base.pageText, counting);
         return {
           text: base.pageText.text,
           charBoxes: boxes,
@@ -391,10 +470,11 @@
           charOffset: base.pageText.charOffset,
           itemIndex: indexItems(base.pageText, base.items.length),
           measured: useMeasure,
+          stats: stats,
         };
       });
     }).then(function (res) {
-      if (myGen !== gen) return null;
+      if (!res || myGen !== gen) return null;
       cacheSync.set(n, { gen: gen, items: res.items, itemIndex: res.itemIndex, charItem: res.charItem, charOffset: res.charOffset, spanMap: spanItemIndex(res.items) });
       if (!(opts && opts.quiet)) emit("reader:pagetext", { page: n });
       return res;

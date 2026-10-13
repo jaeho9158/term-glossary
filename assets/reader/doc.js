@@ -220,6 +220,7 @@
       st.renderTask = null;
       st.textLayer = null;
       console.error("[reader] 쪽 그리기 실패", n, err);
+      emit("reader:pageerror", { page: n });
       notify(n + "쪽을 그리지 못했습니다. 다른 쪽은 그대로 볼 수 있습니다.");
     }
   }

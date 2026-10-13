@@ -129,7 +129,23 @@
     return best;
   }
 
+  function isWs(ch) { return /\s/.test(ch); }
+
+  // 범위 [start, end) 를 가장 가까운 낱말 경계로 넓힌다(순수). 낱말 = 공백·줄바꿈으로 끊긴 덩어리(한글은 어절).
+  // 범위의 시작이나 끝이 낱말 안쪽이면 그 낱말 끝까지 넓히고, 이미 경계(공백 옆)면 그대로 둔다.
+  // 글자 상자가 글자 하나 정도 어긋나도 형광펜이 낱말 단위로는 맞게 하려는 용도다. 빈 범위나 범위 밖은 쪽 글 안으로 잘라 돌려준다.
+  function snapToWords(text, start, end) {
+    var t = String(text == null ? "" : text);
+    var s = Math.max(0, Math.min(t.length, Math.floor(Number(start) || 0)));
+    var e = Math.max(0, Math.min(t.length, Math.floor(Number(end) || 0)));
+    if (e <= s) return { start: s, end: Math.max(s, e) };
+    while (s > 0 && !isWs(t.charAt(s - 1)) && !isWs(t.charAt(s))) s--;
+    while (e < t.length && !isWs(t.charAt(e - 1)) && !isWs(t.charAt(e))) e++;
+    return { start: s, end: e };
+  }
+
   var api = {
+    snapToWords: snapToWords,
     charWeights: charWeights,
     splitWidth: splitWidth,
     rangeRects: rangeRects,
