@@ -127,20 +127,20 @@ assert.deepStrictEqual(snapToWords("가 나 다", 1, 4), { start: 2, end: 3 });
 assert.deepStrictEqual(snapToWords("가나  다라", 2, 4), { start: 2, end: 4 });
 assert.deepStrictEqual(snapToWords("가나 다라", 2, 2), { start: 2, end: 2 });
 assert.deepStrictEqual(snapToWords("가나 다라", 4, 2), { start: 4, end: 4 });
-// 줄 끝에서 끊긴 어절은 한 낱말: 안쪽에서 넓혀 온 가장자리가 줄바꿈 하나를 건넌다
+// 줄바꿈은 언제나 낱말 경계: 이웃 줄의 낱말을 끌어들이지 않는다
 {
-  const t = "분석 네트워\n크 구조";
-  const w = t.indexOf("네트워"); // 3
-  assert.deepStrictEqual(snapToWords(t, w + 1, w + 2), { start: w, end: w + 5 }); // 앞 절반 안쪽 -> 뒤 절반까지
-  assert.deepStrictEqual(snapToWords(t, w + 1, w + 3), { start: w, end: w + 3 }); // 앞 절반 끝(줄 끝)에서 정확히 끝나면 그대로
-  assert.deepStrictEqual(snapToWords("네트워\n크기 입니다", 4, 5), { start: 4, end: 6 }); // 줄 처음에서 시작하면 그대로(앞 줄로 끌려가지 않는다)
-  assert.deepStrictEqual(snapToWords("네트워\n크기 입니다", 5, 6), { start: 0, end: 6 });
+  const t0 = "했다\n그리고";
+  assert.deepStrictEqual(snapToWords(t0, 4, 6), { start: 3, end: 6 });
+  const t = "가나\n다라\n마바\n사아";
+  const r = snapToWords(t, 4, 5);
+  assert.strictEqual(t.slice(r.start, r.end), "다라");
+  const r2 = snapToWords(t, 7, 8);
+  assert.strictEqual(t.slice(r2.start, r2.end), "마바");
+  const r3 = snapToWords(t0, 1, 5); // 했다 안쪽 ~ 그리고 안쪽
+  assert.strictEqual(t0.slice(r3.start, r3.end), "했다\n그리고");
+  const r4 = snapToWords(t0, 0, 2); // 줄 끝에서 정확히 끝남
+  assert.strictEqual(t0.slice(r4.start, r4.end), "했다");
 }
-// 줄바꿈이 두 번(빈 줄), 하이픈, 한글이 아닌 글자 사이, 공백이 낀 줄바꿈은 건너지 않는다
-assert.deepStrictEqual(snapToWords("네트워\n\n크 구조", 1, 2), { start: 0, end: 3 });
-assert.deepStrictEqual(snapToWords("net-\nwork", 1, 2), { start: 0, end: 4 });
-assert.deepStrictEqual(snapToWords("abc\ndef", 1, 2), { start: 0, end: 3 });
-assert.deepStrictEqual(snapToWords("네트워 \n크", 1, 2), { start: 0, end: 3 });
 // 줄 끝에서 정확히 끝나거나 줄 처음에서 시작하는 범위는 이웃 줄로 끌려가지 않는다
 assert.deepStrictEqual(snapToWords("마약류\n범죄 관리", 0, 3), { start: 0, end: 3 });
 assert.deepStrictEqual(snapToWords("마약류\n범죄 관리", 4, 6), { start: 4, end: 6 });

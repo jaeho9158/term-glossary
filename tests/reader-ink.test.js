@@ -130,6 +130,16 @@ test("얇은 덩어리와 몸통 사이 틈의 가장자리: 제자리(몸통 �
   const wide = run(band(140, 12, [[30, 40], [52, 100]]), 5);
   assert.strictEqual(snapEdge(44, wide, 20, "left", 4), 52);
 });
+test("얇은 덩어리 바깥 틈이 띠 가장자리까지 닿아도 몸통 쪽으로 조이지 않는다", () => {
+  // 띠 [0,30) 빈 구간(가장자리까지), "(" [30,32), 틈 [32,45), 몸통 [45,100)
+  const g = run(band(140, 12, [[30, 32], [45, 100]]), 5);
+  for (let x = 32; x <= 45; x++) {
+    const r = snapEdge(x, g, 20, "left", 4, 5, 140);
+    assert.ok(r <= x && r < 45 || x === 45, "x=" + x + " -> " + r);
+    assert.ok(r <= x, "x=" + x + " -> " + r);
+  }
+  assert.strictEqual(snapEdge(38, g, 20, "left", 4, 5, 140), 38);
+});
 test("얇은 덩어리 오른쪽 가장자리 대칭", () => {
   const g = run(band(140, 12, [[20, 80], [92, 95], [108, 125]]), 5);
   for (let x = 80; x <= 92; x++) {
@@ -199,12 +209,12 @@ test("edgeFlags: 낱말 안쪽에서 끝난 가장자리만 끈다", () => {
   assert.deepStrictEqual(edgeFlags(undefined, 0, 0), { refineLeft: true, refineRight: true });
 });
 
-test("얇은 덩어리 바깥이 띠 가장자리의 빈 구간이면(이웃 낱말의 잘린 조각일 수 있다) 따라가지 않는다", () => {
+test("얇은 덩어리 바깥 이웃 틈이 너무 좁거나 폭이 부족하면 따라가지 않는다", () => {
   // 가장자리 빈 구간 [0,3), 조각 [3,7), 틈 [7,20), 몸통 [20,70)
   const g = run(band(100, 12, [[3, 7], [20, 70]]), 5);
   assert.strictEqual(snapEdge(14, g, 20, "left", 5, 5, 100), 20);
   const gr = run(band(100, 12, [[20, 70], [80, 84]]), 5); // 몸통 끝 70, 틈 [70,80), 조각 [80,84), 가장자리 빈 구간 [84,100)
-  assert.strictEqual(snapEdge(75, gr, 20, "right", 5, 5, 100), 70);
+  assert.strictEqual(snapEdge(75, gr, 20, "right", 5, 5, 100), 75); // 띠 가장자리 틈이어도 얇은 글자를 보호한다
   // 바깥 이웃 틈이 낱말 사이 틈 폭보다 좁아도 마찬가지
   const narrow = run(band(100, 12, [[5, 10], [12, 15], [30, 70]]), 2); // 틈 [10,12) 폭 2
   assert.strictEqual(snapEdge(22, narrow, 20, "left", 5, 4, 100), 30);

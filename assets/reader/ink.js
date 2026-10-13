@@ -107,9 +107,9 @@
     if (k >= 0) {
       g = gapsList[k];
       var nb = left ? gapsList[k - 1] : gapsList[k + 1];
-      // 얇은 덩어리 바깥쪽 이웃 틈은 띠 가장자리의 빈 구간이 아니어야 하고(그 뒤에 남은 이웃 낱말의 잘린 꼬리·자모 조각을 얇은 글자로 오인하지 않기 위해)
-      // 폭도 낱말 사이 틈 폭(minGapPx) 이상이어야 한다.
-      if (nb && (left ? nb.start > 0 : (bandLen === undefined || nb.end < bandLen)) && nb.end - nb.start >= (minGapPx || 0)) {
+      // 얇은 덩어리 바깥쪽 이웃 틈은 띠 가장자리까지 닿는 틈이어도 된다(어떤 잉크 덩어리도 안쪽으로 넘어 건너지 않는다).
+      // 폭은 낱말 사이 틈 폭(minGapPx) 이상이어야 한다.
+      if (nb && nb.end - nb.start >= (minGapPx || 0)) {
         var runW = left ? g.start - nb.end : nb.start - g.end;
         var edge = left ? nb.end : nb.start;
         if (runW < thin && Math.abs(x - edge) <= maxMovePx) return x; // 얇은 글자가 범위에 속하는지 알 수 없으므로 안쪽으로 조이지도, 끌어들이지도 않는다

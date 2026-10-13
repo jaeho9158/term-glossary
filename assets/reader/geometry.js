@@ -130,7 +130,6 @@
   }
 
   function isWs(ch) { return /\s/.test(ch); }
-  var CJK_RE = /[가-힣ㄱ-ㅎㅏ-ㅣ぀-ヿ㐀-鿿豈-﫿]/;
 
   // 범위 [start, end) 를 가장 가까운 낱말 경계로 넓힌다(순수). 낱말 = 공백·줄바꿈으로 끊긴 덩어리(한글은 어절).
   // 범위의 시작이나 끝이 낱말 안쪽이면 그 낱말 끝까지 넓히고, 이미 경계(공백 옆)면 그대로 둔다.
@@ -148,28 +147,8 @@
     while (a < b && isWs(t.charAt(a))) a++;
     while (b > a && isWs(t.charAt(b - 1))) b--;
     if (a >= b) return { start: s, end: e }; // 공백뿐
-    // 줄바꿈 하나만으로 이루어진 공백 덩어리인가
-    var lineBreak = function (from, to) { var r = t.slice(from, to); return r === "\n" || r === "\r\n"; };
-    var movedL = false;
-    for (;;) {
-      if (a > 0 && !isWs(t.charAt(a - 1))) { a--; movedL = true; continue; }
-      if (movedL && a > 0) {
-        var j = a - 1;
-        while (j >= 0 && isWs(t.charAt(j))) j--;
-        if (j >= 0 && lineBreak(j + 1, a) && CJK_RE.test(t.charAt(j)) && CJK_RE.test(t.charAt(a))) { a = j; continue; }
-      }
-      break;
-    }
-    var movedR = false;
-    for (;;) {
-      if (b < t.length && !isWs(t.charAt(b))) { b++; movedR = true; continue; }
-      if (movedR && b < t.length) {
-        var k = b;
-        while (k < t.length && isWs(t.charAt(k))) k++;
-        if (k < t.length && lineBreak(b, k) && CJK_RE.test(t.charAt(b - 1)) && CJK_RE.test(t.charAt(k))) { b = k + 1; continue; }
-      }
-      break;
-    }
+    while (a > 0 && !isWs(t.charAt(a - 1))) a--;
+    while (b < t.length && !isWs(t.charAt(b))) b++;
     return { start: a, end: b };
   }
 
