@@ -460,9 +460,6 @@
     if (sc) sc.addEventListener("scroll", function () {
       if (cur && !toolHiddenByScroll) { toolHiddenByScroll = true; hideTool(); }
     }, { passive: true });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && (cur || (tool() && !tool().hidden))) clear();
-    });
     root.addEventListener("resize", function () { if (cur) reposition(); });
     var rd = $("reader");
     if (rd) {
@@ -483,6 +480,12 @@
     onSelect: function (cb) { if (typeof cb === "function") selectCbs.push(cb); },
     onAction: function (cb) { if (typeof cb === "function") actionCbs.push(cb); },
     clear: clear,
+    // 선택 도구가 떠 있으면 닫고 true (Esc 가 한 번에 하나만 닫도록 reader.js 가 부른다)
+    dismiss: function () {
+      if (!(cur || (tool() && !tool().hidden))) return false;
+      clear();
+      return true;
+    },
     copyText: copyText,
   };
 })(typeof window !== "undefined" ? window : globalThis);

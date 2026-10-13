@@ -901,16 +901,24 @@
     var lab = sw.querySelector(".rd-annopop-switchlabel");
     if (lab) lab.textContent = multi ? (editing.index + 1) + " / " + editing.group.length : "";
   }
+  // 형광펜 밑에 용어 표시가 겹쳐 있으면(터치에서는 형광펜이 눌림을 먼저 받는다) 용어로 가는 길을 편집 창에 둔다.
+  function renderTermButton() {
+    var b = pop() && pop().querySelector('[data-act="term"]');
+    if (!b) return;
+    var t = editing && editing.term;
+    b.hidden = !t;
+    b.textContent = t && t.title ? "용어 보기: " + (t.title.length > 12 ? t.title.slice(0, 12) + "…" : t.title) : "용어 보기";
+  }
   function switchRecord(delta) {
     if (!editing || !editing.group || editing.group.length < 2) return;
     var g = editing.group;
     var idx = (editing.index + delta + g.length) % g.length;
     if (dirty()) setNote(editing.id, $("rd-annopop-note").value); // 쓰던 메모는 저장하고 넘어간다
-    openEditor(g[idx], editing.anchor, g, idx, true); // 누른 이전·다음 단추에 포커스를 둔다
+    openEditor(g[idx], editing.anchor, g, idx, true, editing.term); // 누른 이전·다음 단추에 포커스를 둔다
   }
 
   // group: 한 덩어리로 그려진 기록들의 id(클릭한 덩어리), index: 그중 열 기록의 자리
-  function openEditor(id, anchor, group, index, keepFocus) {
+  function openEditor(id, anchor, group, index, keepFocus, term) {
     var item = findItem(id);
     var el = pop();
     if (!item || !el || item.record.saving) return;
@@ -927,8 +935,9 @@
       if (pos < 0) { grp.push(item.record.id); pos = grp.length - 1; }
       index = pos;
     }
-    editing = { id: item.record.id, base: noteText(item.record.note), group: grp, index: index || 0, anchor: anchor || null };
+    editing = { id: item.record.id, base: noteText(item.record.note), group: grp, index: index || 0, anchor: anchor || null, term: term || null };
     renderSwitcher();
+    renderTermButton();
     $("rd-annopop-note").value = noteText(item.record.note);
     syncPopColors(item.record);
     busyColors(!!pendingColor);
@@ -962,9 +971,12 @@
     if (save && e) setNote(e.id, val);
   }
 
-  // 다른 대화 상자가 위에 열려 있으면 Esc 는 그쪽 몫이다.
-  function otherDialogOpen() {
-    return !!document.querySelector('dialog[open], [role="dialog"]:not([hidden]):not(#rd-annopop), [aria-modal="true"]:not([hidden])');
+  // Esc: 편집 창이 열려 있으면 (메모는 저장하지 않고) 닫고 true. 어느 것을 닫을지는 reader.js 의 Esc 처리가 정한다.
+  function dismissEditor() {
+    var p = pop();
+    if (!p || p.hidden) return false;
+    closeEditor({ save: false });
+    return true;
   }
 
   // 한 덩어리의 기록들을 읽는 순서로(시작 위치, 같으면 만든 순서, 그다음 id 순) 늘어놓는다.
@@ -1001,6 +1013,12 @@
       }
       var act = ev.target.closest("button[data-act]");
       if (!act || !editing) return;
+      if (act.dataset.act === "term") {
+        var tm = editing.term;
+        closeEditor({ save: true }); // 쓰던 메모는 저장하고 간다
+        if (tm && root.ReaderTerms && root.ReaderTerms.showTerm) root.ReaderTerms.showTerm(tm.slug);
+        return;
+      }
       var item = findItem(editing.id);
       if (!item) { closeEditor({ save: false }); return; }
       if (act.dataset.act === "save") {
@@ -1033,14 +1051,7 @@
       }
     });
     el.addEventListener("keydown", function (ev) {
-      if (ev.key === "Escape") { ev.stopPropagation(); closeEditor({ save: false }); }
-      else if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) { ev.preventDefault(); var b = el.querySelector('[data-act="save"]'); if (b) b.click(); }
-    });
-    document.addEventListener("keydown", function (ev) {
-      if (ev.key !== "Escape" || ev.defaultPrevented) return;
-      var p = pop();
-      if (!p || p.hidden || otherDialogOpen()) return;
-      closeEditor({ save: false });
+      if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) { ev.preventDefault(); var b = el.querySelector('[data-act="save"]'); if (b) b.click(); }
     });
     document.addEventListener("pointerdown", function (ev) {
       var p = pop();
@@ -1079,7 +1090,14 @@
         var hit = root.ReaderOverlay.entryAt(ev.clientX, ev.clientY, ["highlight"]);
         if (!hit || hit.id === undefined) return;
         var ids = hit.data && Array.isArray(hit.data.ids) && hit.data.ids.length > 1 ? sortGroup(hit.data.ids) : null;
-        openEditor(ids ? ids[0] : hit.id, { left: ev.clientX, right: ev.clientX, top: ev.clientY, bottom: ev.clientY }, ids);
+        var th = root.ReaderOverlay.entryAt(ev.clientX, ev.clientY, ["term"]);
+        var term = null;
+        if (th && th.id !== undefined) {
+          var tms = root.ReaderTerms && root.ReaderTerms._state ? root.ReaderTerms._state() : null;
+          var tmatch = tms && tms.matchBySlug ? tms.matchBySlug.get(th.id) : null;
+          term = { slug: String(th.id), title: tmatch ? (tmatch.title_ko || "") : "" };
+        }
+        openEditor(ids ? ids[0] : hit.id, { left: ev.clientX, right: ev.clientX, top: ev.clientY, bottom: ev.clientY }, ids, undefined, false, term);
       });
     }
 
@@ -1120,6 +1138,7 @@
     goTo: goTo,
     retrySave: retrySave,
     edit: openEditor,
+    dismissEditor: dismissEditor,
     sanitizeRecords: sanitizeRecords,
     placeRecords: placeRecords,
     colors: COLORS,

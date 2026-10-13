@@ -270,21 +270,10 @@
         e.preventDefault();
         if (input.value.trim() !== query) { clearTimeout(timer); run(input.value); return; }
         move(e.shiftKey ? -1 : 1);
-      } else if (e.key === "Escape" && input.value) {
-        e.stopPropagation();
-        clear();
       }
     });
     $("rd-search-next").addEventListener("click", function () { move(1); });
     $("rd-search-prev").addEventListener("click", function () { move(-1); });
-    document.addEventListener("keydown", function (e) {
-      if (el.hidden) return;
-      if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && (e.key === "f" || e.key === "F")) {
-        e.preventDefault();
-        input.focus();
-        input.select();
-      }
-    });
     // 글자 상자가 준비되면(쪽이 그려진 뒤) 그 쪽의 검색 표시를 그린다.
     el.addEventListener("reader:pagetext", function (e) {
       if (results.some(function (r) { return r.page === e.detail.page; })) paintPage(e.detail.page, token);
@@ -300,6 +289,7 @@
     next: function () { move(1); },
     prev: function () { move(-1); },
     clear: clear,
+    focusInput: function () { var i = $("rd-search-input"); if (i && !i.disabled) { i.focus(); i.select(); } },
     count: function () { return results.length; },
     index: function () { return cur; },
     results: function () { return results.slice(); },

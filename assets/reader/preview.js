@@ -415,16 +415,23 @@
   }
   function cardOpen() { return !!card && !card.hidden; }
 
+  var cardPrevFocus = null; // 터치로 카드를 열기 전의 초점 자리(닫을 때 돌려준다)
   function closeCard() {
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     if (cardTask) { cardTask.cancel(); cardTask = null; }
     if (!card || card.hidden) { syncSuppress(); return; }
+    var back = cardPrevFocus;
+    cardPrevFocus = null;
+    var hadFocus = card.contains(document.activeElement);
     card.hidden = true;
     card.textContent = "";
     card.classList.remove("is-preview", "is-touch", "is-sheet");
     cardState = null;
     syncSuppress();
+    if (hadFocus && back && document.contains(back) && typeof back.focus === "function") {
+      try { back.focus({ preventScroll: true }); } catch (err) { /* 무시 */ }
+    }
   }
 
   // 용어 층에 알린다: 포인터가 표시 위에 있거나 카드가 열려 있으면 용어 카드는 막는다.
@@ -538,6 +545,11 @@
     if (data.type === "cite") openCitationCard(c, data, hit, anchor);
     else openPreviewCard(c, data, hit, anchor, touch);
     syncSuppress();
+    if (touch) { // 터치로 연 카드로 초점을 옮긴다
+      if (!cardPrevFocus) cardPrevFocus = document.activeElement;
+      c.tabIndex = -1;
+      try { c.focus({ preventScroll: true }); } catch (err) { /* 무시 */ }
+    }
   }
 
   function openCitationCard(c, data, hit, anchor) {
@@ -723,7 +735,6 @@
     }, { passive: true });
     document.addEventListener("pointerup", function () { pointerDown = false; }, true);
     document.addEventListener("pointercancel", function () { pointerDown = false; }, true);
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && cardOpen()) closeCard(); });
   }
 
   // ---------- 연결 ----------
@@ -768,6 +779,7 @@
 
   root.ReaderPreview = {
     init: init,
+    closeCard: function () { if (!cardOpen()) return false; closeCard(); return true; }, // Esc 가 한 번에 하나만 닫도록 reader.js 가 부른다
     // 시험·진단용
     _state: function () { return S; },
     _enabled: ENABLED,

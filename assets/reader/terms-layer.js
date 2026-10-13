@@ -224,6 +224,30 @@
       li.insertBefore(p, li.querySelector(":scope > .term-card-detail"));
     });
   }
+  // 카드 이름을 초점이 가는 단추로 만든다(키보드·보조기기로도 카드를 누를 수 있게). 단추를 누르면 li 의 누름 처리기가 그대로 받는다.
+  // 이 문서에 없는 용어(사전 찾기 결과)는 뜻을 펼치고 접는 단추라 aria-expanded 를 여기에 둔다.
+  function decorateCards(container) {
+    if (!container) return;
+    container.querySelectorAll(".term-card").forEach(function (li) {
+      var name = li.querySelector(":scope > .term-card-name");
+      if (!name || name.querySelector(":scope > .rd-card-go")) return;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "rd-card-go";
+      while (name.firstChild) btn.appendChild(name.firstChild);
+      var slug = li.dataset.slug;
+      var inLookup = !!li.closest("#rd-lookup");
+      if (inLookup && !(S && S.matchBySlug.get(slug))) {
+        btn.setAttribute("aria-expanded", li.classList.contains("is-expanded") ? "true" : "false");
+        btn.title = "뜻 전체 펼치기·접기";
+      } else if (inLookup) {
+        btn.title = "이 문서의 용어 카드 보기";
+      } else {
+        btn.title = "본문에서 이 용어가 나온 곳으로 이동";
+      }
+      name.appendChild(btn);
+    });
+  }
   var retrying = new Map();
   function retryDefs(slug) {
     var bucket = TM.defBucket(slug);
@@ -548,6 +572,7 @@
     var n = Math.min(S.shown, primary.length);
     list.innerHTML = primary.slice(0, n).map(unitHTML).join("") + (n >= primary.length ? others : "");
     decorateFailed(list);
+    decorateCards(list);
     if (n < primary.length) {
       more.hidden = false;
       var rest = primary.length - n;
@@ -570,6 +595,7 @@
       '<ul class="term-list current-page-cards">' +
       items.map(function (m) { return TM.termCardHTML(S.matchBySlug.get(m.slug) || m); }).join("") + "</ul>";
     decorateFailed(box);
+    decorateCards(box);
   }
 
   function renderFocus() {
@@ -583,6 +609,7 @@
       '<button type="button" class="term-filter-link rd-focus-close">닫기</button></div>' +
       '<ul class="term-list rd-focus-card">' + TM.termCardHTML(m, basics) + "</ul>";
     decorateFailed(box);
+    decorateCards(box);
     var fc = box.querySelector(".term-card");
     if (fc) fc.classList.add("term-card-flash");
   }
@@ -739,6 +766,7 @@
     ul.querySelectorAll(".term-card-hide-btn").forEach(function (b) { b.remove(); });
     decorateFailed(ul);
     body.appendChild(ul);
+    decorateCards(ul); // 문서에 붙은 뒤에 한다(#rd-lookup 안인지 보고 단추 종류를 정한다)
     if (res.length > LOOKUP_MAX) {
       var more = document.createElement("p");
       more.className = "rd-term-hint";
@@ -827,13 +855,20 @@
   }
   function cardOpen() { return !!card && !card.hidden; }
 
+  var cardPrevFocus = null; // 터치로 카드를 열기 전의 초점 자리
   function closeCard() {
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     if (!card || card.hidden) return;
+    var back = cardPrevFocus;
+    cardPrevFocus = null;
+    var hadFocus = card.contains(document.activeElement);
     card.hidden = true;
     card.innerHTML = "";
     cardState = { slug: null, page: 0 };
+    if (hadFocus && back && document.contains(back) && typeof back.focus === "function") {
+      try { back.focus({ preventScroll: true }); } catch (err) { /* 무시 */ }
+    }
   }
   function scheduleClose() {
     clearTimeout(closeTimer);
@@ -905,6 +940,12 @@
     el.hidden = false;
     cardState = { slug: hit.id, page: hit.page };
     positionCard(anchorClientRect(hit, cx, cy));
+    // 터치로 연 카드는 초점을 카드로 옮긴다(마우스를 올려서 연 카드는 읽던 자리의 초점을 건드리지 않는다).
+    if (lastType === "touch") {
+      if (!cardPrevFocus) cardPrevFocus = document.activeElement;
+      el.tabIndex = -1;
+      try { el.focus({ preventScroll: true }); } catch (err) { /* 무시 */ }
+    }
   }
 
   function setHover(hit) {
@@ -1007,9 +1048,6 @@
     }, { passive: true });
     document.addEventListener("pointerup", function () { pointerDown = false; }, true);
     document.addEventListener("pointercancel", function () { pointerDown = false; }, true);
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && cardOpen()) closeCard(true);
-    });
   }
 
   // ---------- 패널 입력 ----------
@@ -1032,14 +1070,8 @@
         if (S.matchBySlug.get(c.dataset.slug)) { S.focusSlug = c.dataset.slug; renderFocus(); return; }
         // 이 문서에 없는 용어: 그 자리에서 뜻 전체를 펼친다.
         var open = c.classList.toggle("is-expanded");
-        c.setAttribute("aria-expanded", open ? "true" : "false");
-        var def = c.querySelector(":scope > .term-card-definition");
-        if (def) {
-          def.style.display = open ? "block" : "";
-          def.style.overflow = open ? "visible" : "";
-          def.style.webkitLineClamp = open ? "unset" : "";
-        }
-        c.style.borderColor = open ? "var(--accent)" : "";
+        var goBtn = c.querySelector(":scope > .term-card-name > .rd-card-go");
+        if (goBtn) goBtn.setAttribute("aria-expanded", open ? "true" : "false");
         return;
       }
       jumpTo(c.dataset.slug, inPage ? S.curPage : 0);
@@ -1111,6 +1143,8 @@
     setVisible: setVisible,
     isVisible: function () { return visible; },
     setSuppressed: setSuppressed,
+    closeCard: function () { if (!cardOpen()) return false; closeCard(true); return true; }, // Esc 가 한 번에 하나만 닫도록 reader.js 가 부른다
+    showTerm: function (slug) { showInPanel(slug); },
     isSuppressed: function () { return suppressed; },
     hide: hide,
     restoreAll: restoreAll,

@@ -2,7 +2,36 @@
 // 이후 작업이 이 파일에 기능을 이어 붙인다. 문서·쪽 로직은 ReaderDoc, 패널은 ReaderPanels 에 있다.
 (function (root) {
   "use strict";
+
+  // 키 입력 하나가 리더에서 무엇을 뜻하는지(순수 함수: 시험이 직접 부른다). 스펙 §3.4 의 표.
+  //   e = {key, ctrlKey, metaKey, shiftKey, altKey?, targetIsInput, inSearchInput}
+  //   반환: "search" | "search-next" | "search-prev" | "zoom-in" | "zoom-out" | "fit-width" | "page-next" | "page-prev"
+  //         | "toggle-left" | "toggle-right" | "escape" | null
+  // 입력란에 초점이 있으면 글자 키([ ]), 화살표, PageUp/PageDown 은 null. Esc 와 Ctrl+F 는 입력란에서도 동작한다.
+  function keyAction(e) {
+    if (!e) return null;
+    var key = e.key;
+    var mod = !!(e.ctrlKey || e.metaKey);
+    if (key === "Escape") return "escape";
+    if (mod && !e.shiftKey && !e.altKey && (key === "f" || key === "F")) return "search";
+    if (e.inSearchInput && key === "Enter" && !mod && !e.altKey) return e.shiftKey ? "search-prev" : "search-next";
+    if (mod && !e.altKey) {
+      if (key === "+" || key === "=") return "zoom-in";
+      if (key === "-" || key === "_") return "zoom-out";
+      if (key === "0") return "fit-width";
+      return null;
+    }
+    if (e.altKey || e.targetIsInput) return null;
+    if (key === "[") return "toggle-left";
+    if (key === "]") return "toggle-right";
+    if (e.shiftKey) return null;
+    if (key === "ArrowRight" || key === "PageDown") return "page-next";
+    if (key === "ArrowLeft" || key === "PageUp") return "page-prev";
+    return null;
+  }
+  if (typeof module !== "undefined" && module.exports) module.exports = { keyAction: keyAction };
   if (typeof document === "undefined") return;
+  root.ReaderKeys = { keyAction: keyAction };
 
   var SCALE_KEY = "rd-scale";
   var ZOOM_STEP = 1.1;
@@ -187,6 +216,7 @@
       var on = !bar.classList.contains("more-open");
       bar.classList.toggle("more-open", on);
       more.setAttribute("aria-expanded", on ? "true" : "false");
+      if (on) { var first = $("rd-extra").querySelector("button"); if (first) first.focus(); }
     });
     document.addEventListener("click", function (e) {
       if (!bar.classList.contains("more-open")) return;
@@ -194,6 +224,105 @@
       bar.classList.remove("more-open");
       more.setAttribute("aria-expanded", "false");
     });
+
+    // 좁은 화면: 검색 칸에 초점이 있거나 검색어가 있으면 도구 막대를 검색에 내준다(CSS 의 .rd-searching).
+    var sIn = $("rd-search-input");
+    var sBox = sIn.closest(".rd-search");
+    function syncSearching() {
+      var active = !!sIn.value || sBox.contains(document.activeElement);
+      bar.classList.toggle("rd-searching", active);
+    }
+    sIn.addEventListener("input", syncSearching);
+    sBox.addEventListener("focusin", syncSearching);
+    sBox.addEventListener("focusout", function () { setTimeout(syncSearching, 0); });
+    readerEl.addEventListener("reader:docclose", function () { bar.classList.remove("rd-searching"); });
+    $("rd-search-close").addEventListener("click", function () {
+      root.ReaderSearch.clear();
+      syncSearching();
+      $("rd-scroll").focus({ preventScroll: true });
+      syncSearching();
+    });
+  }
+
+  // 도구 막대의 더보기 메뉴가 열려 있으면 닫고 true
+  function closeMore() {
+    var bar = $("rd-toolbar");
+    if (!bar.classList.contains("more-open")) return false;
+    var had = $("rd-extra").contains(document.activeElement);
+    bar.classList.remove("more-open");
+    var more = $("rd-more");
+    more.setAttribute("aria-expanded", "false");
+    if (had) more.focus();
+    return true;
+  }
+
+  // ---------- 키보드 ----------
+  function isTextEntry(el) {
+    if (!el || !el.tagName) return false;
+    var t = el.tagName;
+    if (t === "TEXTAREA" || t === "SELECT") return true;
+    if (t === "INPUT") return !/^(button|checkbox|radio|submit|reset|image|file)$/i.test(el.type || "");
+    return !!el.isContentEditable;
+  }
+
+  // 입력란에 초점이 있으면 놓는다(검색 입력이면 검색어도 지운다). 놓은 게 있으면 true.
+  function leaveInput() {
+    var ae = document.activeElement;
+    if (!isTextEntry(ae) || !readerEl.contains(ae)) return false;
+    if (ae.id === "rd-search-input") root.ReaderSearch.clear();
+    ae.blur();
+    $("rd-scroll").focus({ preventScroll: true });
+    return true;
+  }
+
+  // Esc 한 번에 하나만 닫는다. 순서: 카드 → 선택 도구 → 편집 창 → 더보기 → 서랍 → 입력란 초점. 닫은 게 있으면 true.
+  function closeTopmost() {
+    var chain = [
+      function () { return root.ReaderTerms.closeCard(); },
+      function () { return root.ReaderPreview && root.ReaderPreview.closeCard ? root.ReaderPreview.closeCard() : false; },
+      function () { return root.ReaderSelection.dismiss(); },
+      function () { return root.ReaderAnnotations.dismissEditor(); },
+      closeMore,
+      function () { return root.ReaderPanels.closeDrawer(); },
+      leaveInput,
+    ];
+    for (var i = 0; i < chain.length; i++) {
+      if (chain[i]()) return true;
+    }
+    return false;
+  }
+
+  function onKeydown(e) {
+    if (readerEl.hidden || e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
+    var ae = document.activeElement;
+    var act = keyAction({
+      key: e.key, ctrlKey: e.ctrlKey, metaKey: e.metaKey, shiftKey: e.shiftKey, altKey: e.altKey,
+      targetIsInput: isTextEntry(e.target) || isTextEntry(ae),
+      inSearchInput: e.target && e.target.id === "rd-search-input",
+    });
+    if (!act) return;
+    var D = root.ReaderDoc;
+    var drawer = root.ReaderPanels.drawerOpen();
+    switch (act) {
+      case "escape":
+        e.preventDefault();
+        if (!closeTopmost()) closeReader();
+        return;
+      case "search":
+        e.preventDefault();
+        root.ReaderSearch.focusInput();
+        return;
+      case "search-next":
+      case "search-prev":
+        return; // 검색 입력의 Enter 는 search.js 가 처리한다
+      case "zoom-in": e.preventDefault(); D.setScale(D.getScale() * ZOOM_STEP); return;
+      case "zoom-out": e.preventDefault(); D.setScale(D.getScale() / ZOOM_STEP); return;
+      case "fit-width": e.preventDefault(); D.fitWidth(); return;
+      case "page-next": if (drawer) return; e.preventDefault(); D.goToPage(D.currentPage() + 1); return;
+      case "page-prev": if (drawer) return; e.preventDefault(); D.goToPage(D.currentPage() - 1); return;
+      case "toggle-left": e.preventDefault(); root.ReaderPanels.toggle("left"); return;
+      case "toggle-right": e.preventDefault(); root.ReaderPanels.toggle("right"); return;
+    }
   }
 
   // ---------- 첫 화면 입력 ----------
@@ -298,6 +427,7 @@
   root.ReaderAnnotations.init();
   root.ReaderTerms.init();
   bindToolbar();
+  document.addEventListener("keydown", onKeydown);
   bindHome();
   // 새로고침으로 #doc= 만 남은 주소는 첫 화면이다. 해시를 정리한다.
   if (/^#doc=/.test(root.location.hash)) {

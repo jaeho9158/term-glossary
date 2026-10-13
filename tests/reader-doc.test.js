@@ -1,7 +1,7 @@
 // assets/reader/doc.js 의 순수 부분(planWindow) 검증.
 const test = require("node:test");
 const assert = require("node:assert");
-const { planWindow, anchorScrollTop } = require("../assets/reader/doc.js");
+const { planWindow, anchorScrollTop, anchorOf } = require("../assets/reader/doc.js");
 
 test("planWindow: 가운데 쪽은 앞뒤 radius만큼", () => {
   assert.deepStrictEqual(planWindow(5, 20, 2), [3, 4, 5, 6, 7]);
@@ -30,4 +30,19 @@ test("anchorScrollTop: 쪽 높이가 두 배가 돼도 같은 지점이 같은 �
   const next = anchorScrollTop(top * 2, h * 2, ratio, off);
   assert.strictEqual(next + off - top * 2, ratio * h * 2);
   assert.strictEqual(next, 2830);
+});
+
+test("anchorOf: 문서 맨 위(쪽 윗변이 칸 안, 위 여백 16px)에서 줄여도 scrollTop 이 0 으로 돌아온다", () => {
+  // 확대 전: scrollTop 0, 쪽 1 윗변이 칸 윗변에서 16px 아래
+  const a = anchorOf(16, 1000);
+  const pageTopAfter = 16; // 쪽 1 은 위 여백 16px 뒤에서 시작한다
+  const newHeight = 500; // 줄였다
+  assert.strictEqual(anchorScrollTop(pageTopAfter, newHeight, a.ratio, a.offset), 0);
+  // 예전 식(비율만): 줄이면 위 여백 일부가 남았다
+  assert.ok(anchorScrollTop(pageTopAfter, newHeight, -16 / 1000, 0) > 0);
+});
+
+test("anchorOf: 쪽 안을 읽는 중이면 쪽 비율을 지킨다", () => {
+  assert.deepStrictEqual(anchorOf(-200, 800), { ratio: 0.25, offset: 0 });
+  assert.deepStrictEqual(anchorOf(0, 800), { ratio: -0, offset: 0 });
 });

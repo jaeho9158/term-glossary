@@ -31,7 +31,14 @@
     return Math.max(0, pageTop + ratio * pageHeight - (viewportOffset || 0));
   }
 
-  if (typeof module !== "undefined" && module.exports) module.exports = { planWindow: planWindow, anchorScrollTop: anchorScrollTop };
+  // 배율을 바꾸기 전 읽던 자리. top = 현재 쪽 윗변이 보이는 칸 윗변에서 떨어진 거리(쪽 위쪽 여백에 있으면 양수).
+  // 쪽 윗변이 칸 안쪽에 있으면(문서 맨 위의 여백) 쪽 비율이 아니라 그 거리를 그대로 지켜야, 줄일 때 여백이 남지 않는다.
+  function anchorOf(top, height) {
+    if (top > 0) return { ratio: 0, offset: top };
+    return { ratio: -top / (height || 1), offset: 0 };
+  }
+
+  if (typeof module !== "undefined" && module.exports) module.exports = { planWindow: planWindow, anchorScrollTop: anchorScrollTop, anchorOf: anchorOf };
   if (typeof document === "undefined") return;
 
   var pdfjs = function () { return root.pdfjsLib; };
@@ -300,7 +307,8 @@
     if (!el || !sc) return null;
     var top = el.getBoundingClientRect().top - sc.getBoundingClientRect().top;
     var h = el.getBoundingClientRect().height || 1;
-    return { page: current, ratio: -top / h, offset: 0 };
+    var an = anchorOf(top, h);
+    return { page: current, ratio: an.ratio, offset: an.offset };
   }
   function anchorRestore(a) {
     if (!a) return;

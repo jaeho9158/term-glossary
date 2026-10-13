@@ -9,6 +9,8 @@
   var state = { left: false, right: true };
   var mq = null;
   var ready = false;
+  var tabCbs = [];
+  var opener = null; // 서랍을 연 단추: 닫을 때 초점을 돌려준다
 
   function body() { return document.getElementById("rd-body"); }
   function panel(side) { return document.getElementById("rd-" + side); }
@@ -42,19 +44,68 @@
         btn.classList.toggle("is-on", open);
       }
     });
-    b.classList.toggle("rd-drawer-open", isNarrow() && (state.left || state.right));
+    var drawer = isNarrow() && (state.left || state.right);
+    b.classList.toggle("rd-drawer-open", drawer);
+    // 서랍이 열려 있는 동안: 서랍은 대화 상자, 뒤의 본문·도구 막대는 초점과 보조기기에서 뺀다.
+    ["left", "right"].forEach(function (side) {
+      var p = panel(side);
+      if (!p) return;
+      if (drawer && state[side]) { p.setAttribute("role", "dialog"); p.setAttribute("aria-modal", "true"); }
+      else { p.removeAttribute("role"); p.removeAttribute("aria-modal"); }
+    });
+    ["rd-toolbar", "rd-scroll", "rd-notice", "rd-back"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (drawer) el.setAttribute("inert", ""); else el.removeAttribute("inert");
+    });
+  }
+
+  function focusInto(side) {
+    var p = panel(side);
+    if (!p) return;
+    var t = p.querySelector('[role="tab"][aria-selected="true"]') || p.querySelector(".rd-panel-close");
+    if (t) { try { t.focus({ preventScroll: true }); } catch (e) { /* 초점을 못 옮겨도 서랍은 열렸다 */ } }
+  }
+  function restoreFocus(side) {
+    var p = panel(side);
+    var ae = document.activeElement;
+    var back = opener;
+    opener = null;
+    if (!back || !document.contains(back) || typeof back.focus !== "function") back = null;
+    if (back && (!ae || ae === document.body || (p && p.contains(ae)))) {
+      try { back.focus({ preventScroll: true }); } catch (e) { /* 무시 */ }
+      // 연 단추가 이미 사라졌거나 숨겨졌으면(예: 닫힌 편집 창의 단추) 이 서랍의 여닫이 단추로 돌려준다.
+      if (document.activeElement !== back) {
+        var tg = document.getElementById("rd-" + side + "-toggle");
+        if (tg) { try { tg.focus({ preventScroll: true }); } catch (e2) { /* 무시 */ } }
+      }
+    }
   }
 
   function setOpen(side, open) {
     if (side !== "left" && side !== "right") return;
+    var narrow = isNarrow();
+    var was = !!state[side];
+    if (narrow && open && !was && !(state.left || state.right)) opener = document.activeElement;
     state[side] = !!open;
     // 좁은 화면에서는 서랍이 한 번에 하나만 열린다.
-    if (open && isNarrow()) state[side === "left" ? "right" : "left"] = false;
+    if (open && narrow) state[side === "left" ? "right" : "left"] = false;
     apply();
     save();
+    if (narrow && open && !was) focusInto(side);
+    else if (narrow && !open && was && !(state.left || state.right)) restoreFocus(side);
   }
 
-  function selectTab(side, tabId) {
+  // 좁은 화면에서 열린 서랍을 닫는다. 닫은 게 있으면 true (Esc 가 한 번에 하나만 닫도록 reader.js 가 쓴다).
+  function closeDrawer() {
+    if (!isNarrow()) return false;
+    var side = state.left ? "left" : (state.right ? "right" : "");
+    if (!side) return false;
+    setOpen(side, false);
+    return true;
+  }
+
+  function selectTab(side, tabId, opts) {
     var p = panel(side);
     if (!p) return;
     var tabs = p.querySelectorAll('[role="tab"]');
@@ -69,6 +120,8 @@
     p.querySelectorAll('[role="tabpanel"]').forEach(function (pane) {
       pane.hidden = pane.dataset.tab !== tabId;
     });
+    // 사용자가 직접 고른 경우에만 알린다(문서를 열 때 등 프로그램이 고르는 것은 알리지 않는다).
+    if (opts && opts.user) tabCbs.slice().forEach(function (cb) { try { cb({ side: side, tab: tabId, user: true }); } catch (e) { console.error(e); } });
   }
 
   function init() {
@@ -85,13 +138,14 @@
       if (!p) return;
       var tabs = p.querySelectorAll('[role="tab"]');
       tabs.forEach(function (t) {
-        t.addEventListener("click", function () { selectTab(side, t.dataset.tab); });
+        t.addEventListener("click", function () { selectTab(side, t.dataset.tab, { user: true }); });
         t.addEventListener("keydown", function (e) {
           if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
           var list = Array.prototype.slice.call(tabs);
           var i = list.indexOf(t) + (e.key === "ArrowRight" ? 1 : -1);
           var next = list[(i + list.length) % list.length];
-          selectTab(side, next.dataset.tab);
+          e.preventDefault();
+          selectTab(side, next.dataset.tab, { user: true });
           next.focus();
         });
       });
@@ -123,6 +177,9 @@
     open: function (side) { setOpen(side, true); },
     close: function (side) { setOpen(side, false); },
     selectTab: selectTab,
+    onTabChange: function (cb) { if (typeof cb === "function") tabCbs.push(cb); },
+    closeDrawer: closeDrawer,
+    drawerOpen: function () { return isNarrow() && (state.left || state.right); },
     tabPanel: function (side, tabId) {
       var p = panel(side);
       if (!p) return null;

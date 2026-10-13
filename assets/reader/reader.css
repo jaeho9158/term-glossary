@@ -81,7 +81,10 @@ body.rd-open .site-footer { display: none; }
   --rd-left-w: 260px;
   --rd-right-w: 340px;
   --rd-desk: color-mix(in srgb, var(--text) 6%, var(--bg));
+  --rd-danger: #c0392b;
+  --rd-hl-ink: #1f2328; /* 형광펜 색 위의 표시: 형광펜 색은 다크 모드에서도 같은 연한 색이라 글자색도 고정 */
 }
+:root[data-theme="dark"] .rd { --rd-danger: #ff8f84; }
 .rd[hidden] { display: none; }
 .rd button, .rd input { font-family: inherit; }
 .rd :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
@@ -238,6 +241,7 @@ body.rd-open .site-footer { display: none; }
   background: var(--rd-desk);
   outline: none;
 }
+.rd .rd-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .rd-pages {
   box-sizing: border-box;
   display: flex;
@@ -295,8 +299,10 @@ body.rd-open .site-footer { display: none; }
   border-radius: 50%;
 }
 .rd-rect.rd-selpreview {
-  background: rgba(36, 84, 255, 0.16);
-  outline: calc(1px / var(--rd-scale, 1)) solid rgba(36, 84, 255, 0.5);
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  outline: calc(1px / var(--rd-scale, 1)) solid var(--accent);
+  outline: calc(1px / var(--rd-scale, 1)) solid color-mix(in srgb, var(--accent) 50%, transparent);
   border-radius: 2px;
 }
 
@@ -391,7 +397,14 @@ body.rd-open .site-footer { display: none; }
 }
 .rd-annopop-btn:hover { background: var(--hover-tint); }
 .rd-annopop-btn.is-primary { border-color: var(--accent); background: var(--accent); color: #fff; }
-.rd-annopop-btn.is-danger { margin-right: auto; color: #c0392b; }
+.rd-annopop-btn.is-danger { margin-right: auto; color: var(--rd-danger); }
+.rd-annopop-btn.is-term { color: var(--accent); border-color: var(--accent); }
+.rd-annopop-btn[hidden] { display: none; }
+/* 겹친 기록이 없으면 숨긴다: 이 칸의 인라인 display:flex 가 hidden 을 이기므로 !important */
+#rd-annopop-switch[hidden] { display: none !important; }
+.rd-annopop-actions { flex-wrap: wrap; }
+/* 색만으로 구분하지 않게: 고른 색에는 표시를 붙인다 */
+.rd-annopop-color[aria-pressed="true"]::after { content: "✓"; display: block; color: var(--rd-hl-ink); font-size: 0.8rem; font-weight: 700; line-height: 20px; text-align: center; }
 
 .rd-tab-count {
   display: inline-block;
@@ -557,6 +570,31 @@ body.rd-open .site-footer { display: none; }
 #rd-pane-terms .term-card-hide-btn:hover { background: var(--hover-tint); color: var(--text); }
 #rd-pane-terms .term-card-basics { margin-top: 6px; font-size: 0.82rem; }
 #rd-pane-terms .term-card-basics-list { list-style: none; margin: 6px 0 0; padding: 0; }
+/* 카드 이름 단추: 키보드로 카드를 누를 수 있게 한다. 모양은 글자 그대로. */
+.rd-card-go {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rd-card-go[aria-expanded]::after { content: " ▾"; color: var(--muted); }
+.rd-card-go[aria-expanded="true"]::after { content: " ▴"; }
+/* 사전 찾기 결과에서 펼친 카드: 뜻 전체를 보여 준다 */
+#rd-pane-terms .term-card.is-expanded { border-color: var(--accent); }
+#rd-pane-terms .term-card.is-expanded > .term-card-definition {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+/* 뜻을 받지 못한 카드의 안내 */
+.rd-def-failed { margin: 4px 0 6px; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.rd-def-failed .rd-def-retry { color: var(--accent); text-decoration: underline; }
 @media (max-width: 767px) {
   .rd-term-card.is-sheet {
     left: 8px !important;
@@ -578,11 +616,19 @@ body.rd-open .site-footer { display: none; }
   .rd-search-input { width: 100%; min-width: 0; }
   .rd-search { flex: 1 1 0; min-width: 0; }
   .rd-search-count,
-  .rd-search .rd-icon-btn { display: none; }
-  .rd-search:has(.rd-search-input:not(:placeholder-shown)) { flex: 1 1 auto; }
-  .rd-search:has(.rd-search-input:not(:placeholder-shown)) .rd-search-input { flex: 1 1 4em; width: auto; }
-  .rd-search:has(.rd-search-input:not(:placeholder-shown)) .rd-search-count,
-  .rd-search:has(.rd-search-input:not(:placeholder-shown)) .rd-icon-btn { display: inline-flex; flex: 0 0 auto; }
+  .rd-search .rd-icon-btn,
+  .rd-search-close { display: none; }
+  /* 검색 칸에 초점이 있거나 검색어가 있으면(reader.js 가 .rd-searching 을 붙인다) 도구 막대를 검색에 내준다:
+     입력 칸은 남는 폭을 다 쓰고, 이전·다음·건수·검색 닫기가 보인다. */
+  .rd-toolbar.rd-searching #rd-close,
+  .rd-toolbar.rd-searching .rd-pagebox,
+  .rd-toolbar.rd-searching .rd-more,
+  .rd-toolbar.rd-searching .rd-panelbtns { display: none; }
+  .rd-toolbar.rd-searching .rd-search { flex: 1 1 auto; gap: 4px; }
+  .rd-toolbar.rd-searching .rd-search-input { flex: 1 1 4em; width: auto; }
+  .rd-toolbar.rd-searching .rd-search-count { display: inline-block; flex: 0 0 auto; min-width: 3em; text-align: center; margin: 0; }
+  .rd-toolbar.rd-searching .rd-search .rd-icon-btn,
+  .rd-toolbar.rd-searching .rd-search-close { display: inline-flex; flex: 0 0 auto; }
   .rd-spacer { display: none; }
   .rd-panelbtns { padding-left: 4px; }
   .rd-more { display: inline-flex; }
@@ -638,8 +684,44 @@ body.rd-open .site-footer { display: none; }
   .rd-drawer-open ~ .rd-scrim { display: block; position: fixed; inset: 0; z-index: 25; background: rgba(0, 0, 0, 0.35); }
 }
 
+/* ---------- 좁은 화면: 터치 대상 40px, 배경 스크롤 잠금 ---------- */
+@media (max-width: 767px) {
+  .rd-toolbar { height: 48px; }
+  .rd-btn { min-height: 40px; min-width: 40px; }
+  .rd-page-input { width: 2.8em; height: 40px; font-size: 1rem; }
+  .rd-search-input { height: 40px; font-size: 1rem; } /* 16px 이상이어야 iOS 가 입력할 때 확대하지 않는다 */
+  .rd-tab { height: 40px; min-width: 40px; }
+  #rd-annopop-switch button { min-width: 40px; min-height: 40px; }
+  .rd-hlbtn { width: 40px; height: 40px; }
+  .rd-seltool { gap: 2px; }
+  .rd-seltool-btn { height: 40px; padding: 0 12px; }
+  .rd-annopop-color { width: 40px; height: 40px; }
+  .rd-annopop-color[aria-pressed="true"]::after { line-height: 36px; font-size: 1rem; }
+  .rd-annopop-colors { gap: 12px; }
+  .rd-annopop-btn { height: 40px; padding: 0 14px; }
+  .rd-annopop-note { font-size: 1rem; }
+  .rd-note { min-height: 40px; }
+  .rd-card-go { min-height: 40px; display: flex; align-items: center; }
+  #rd-pane-terms .term-card { padding-right: 46px; }
+  #rd-pane-terms .term-card-hide-btn { top: 0; right: 0; width: 40px; height: 40px; }
+  #rd-pane-terms .term-list li a.term-card-detail { min-height: 40px; padding: 0 14px; align-items: center; }
+  .term-filter-link, .rd-focus-close, .rd-lookup-close, #rd-term-more, .rd-term-hide { min-height: 40px; }
+  #rd-term-category, .rd-term-filter { min-height: 40px; font-size: 1rem; }
+  .term-filter-checkbox { min-height: 40px; display: inline-flex; align-items: center; gap: 6px; }
+  .ro-item { min-height: 40px; align-items: center; }
+  .rd-term-card .dict-popover-close, .rd-term-card .dict-popover-detail { min-width: 40px; min-height: 40px; }
+  .rd-ref-go, .rd-ref-more, .rd-ref-prev-go { min-height: 40px; min-width: 40px; }
+  .rd-back { height: 40px; }
+  .rd-recent-item button { min-height: 40px; }
+  .rd-file-label { height: 44px; }
+  /* 서랍이 열려 있으면 뒤의 본문은 스크롤하지 않는다(뒤 본문은 inert 이기도 하다). 두 손가락 확대는 막지 않는다. */
+  .rd-body.rd-drawer-open .rd-scroll { overflow: hidden; }
+  .rd-pane { overscroll-behavior: contain; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rd-panel { transition: none !important; }
+  .rd *, .rd *::before, .rd *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
 /* ---------- 겹침층(작업 3) ---------- */

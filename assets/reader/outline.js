@@ -1137,19 +1137,11 @@
             scheduled = root.requestAnimationFrame(function () { scheduled = 0; updateCurrent(); });
           }, { passive: true });
         }
-        var left = $("rd-left");
-        if (left) {
-          left.addEventListener("click", function (ev) {
-            if (ev.target && ev.target.closest && ev.target.closest('[role="tab"]')) {
-              userPicked = true;
-              pump();
-            }
+        // 사용자가 직접 탭을 고르면(누르기·화살표 키) 자동 전환을 멈춘다. 알림은 ReaderPanels 가 준다.
+        if (root.ReaderPanels && root.ReaderPanels.onTabChange) {
+          root.ReaderPanels.onTabChange(function (ev) {
+            if (ev.side === "left") { userPicked = true; pump(); }
           });
-          // 키보드로 탭을 바꿔도 사용자가 고른 것으로 본다(ReaderPanels 는 탭 변경 알림을 내보내지 않아 키 입력을 직접 본다).
-          left.addEventListener("keydown", function (ev) {
-            if (!/^(Arrow(Left|Right|Up|Down)|Home|End|Enter| )$/.test(ev.key)) return;
-            if (ev.target && ev.target.closest && ev.target.closest('[role="tab"]')) { userPicked = true; pump(); }
-          }, true);
         }
         // 패널·탭이 열리고 닫힐 때 보이는 축소 그림을 다시 살핀다.
         if (typeof MutationObserver !== "undefined") {
