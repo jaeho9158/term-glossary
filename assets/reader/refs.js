@@ -324,7 +324,8 @@
       var l = ls[i].replace(/^\s+/, "");
       if (!l) continue;
       var prev = ls[i - 1].replace(/\s+$/, "");
-      if (/[,&ㆍ･·]$/.test(prev) || /\band$/i.test(prev)) continue; // 저자 목록이 줄바꿈된 것
+      // 저자 목록이 줄바꿈된 것. 단 앞 줄까지 이미 연도가 나왔으면 저자 목록이 아니라 제목·출처가 줄바꿈된 뒤 다음 항목이 붙은 것이다
+      if ((/[,&ㆍ･·]$/.test(prev) || /\band$/i.test(prev)) && !/(?:19|20)\d\d/.test(ls.slice(0, i).join(" "))) continue;
       var mm = new RegExp("^(" + NAME_LAT + "|[가-힣]{2,10})", "u").exec(l);
       if (mm) {
         var k = NAME_HAN_FULL.test(mm[1]) ? mm[1] : surnameKey(mm[1]);
@@ -351,19 +352,47 @@
   var MATH_PREV_WORD = /(?:^|[^A-Za-z])(?:range|interval|scale|from|between)(?:\s+of)?\s*$/i;
   var MATH_PREV_HAN = /(?:범위|구간|척도)(?:\s*[는은의:])?\s*$/;
   var MATH_VAR_IN = /(?:^|[\s(,;])[A-Za-z0-9)]\s+in\s*$/;
+  var MATH_PREV_STAT = /(?:^|[^A-Za-z])(?:CI|IQR|Likert|sets?|indices|values?(?:\s+in)?|to)\s*$|(?:^|[^A-Za-z])(?:OR|RR|HR|AOR)\s+\d+(?:\.\d+)?\s*$/i;
+
+  // 영어 낱말에 붙은 숫자 인용 "FlowScan[10]", "ISO[3]", "Kim[3]" 만 되살린다. 배열 첨자("arr[3]", "Arr[3] = 5", "Arr[3][4]")는 그대로 버린다.
+  function attachedOk(t, start, end, parenHan) {
+    var before = t.slice(0, start);
+    var after = t.charAt(end);
+    if (parenHan) {
+      // 한글 낱말 바로 뒤 괄호: "머신(SVM)[3]", "연구(2020)[3]"
+      var op = before.lastIndexOf("(", before.length - 2);
+      if (op < 1 || /[()\n]/.test(before.slice(op + 1, -1)) || !/[가-힣]/.test(before.charAt(op - 1))) return false;
+    } else {
+      var mm = /(^|[^A-Za-z0-9_.)\]])([A-Za-z]+)$/.exec(before);
+      if (!mm) return false;
+      if (mm[2].length < 3 || !/^[A-Z]/.test(mm[2])) return false;
+    }
+    if (after && !/[\s,.;:)가-힣]/.test(after)) return false;
+    if (after === "." && /[A-Za-z]/.test(t.charAt(end + 1))) return false;
+    var line = t.slice(t.lastIndexOf("\n", start) + 1, (t.indexOf("\n", end) + 1 || t.length + 1) - 1);
+    if (/[=<>{}]|\[[^\]\d]/.test(line.replace(/\[\s*\d[\d\s,;\-–~]*\]/g, ""))) return false;
+    return true;
+  }
 
   // 대괄호 묶음이 수식·구간·배열 첨자로 보이는지(참이면 인용이 아니다)
-  function mathBracket(t, start, multi) {
+  function mathBracket(t, start, end, multi) {
     var before = start > 0 ? t.charAt(start - 1) : "";
     // 글자·숫자·닫는 괄호 바로 뒤에 붙은 대괄호는 배열 첨자("arr[3]", "f(x)[2]"). 한글 낱말·닫는 따옴표 뒤는 "연구[12]" 식 인용이다.
     // 바로 앞이 "]" 이어도 그것이 숫자 인용 "[3]" 이면 "[3][4]" 로 이어진 인용이다.
-    if (before && /[\p{L}\d)\]]/u.test(before) && !/[가-힣]/.test(before) && !(before === "]" && /\[\s*\d[\d\s,;\-–~]*\]$/.test(t.slice(Math.max(0, start - 24), start)))) return true;
+    if (before && /[\p{L}\d)\]]/u.test(before) && !/[가-힣]/.test(before) && !(before === "]" && /\[\s*\d[\d\s,;\-–~]*\]$/.test(t.slice(Math.max(0, start - 24), start)))) {
+      if (multi || !/[A-Za-z)]/.test(before) || !attachedOk(t, start, end, before === ")")) return true;
+    }
+    if (before === "]") {
+      // "Arr[3][4]": 앞 대괄호가 낱말에 붙은 배열 첨자면 이어진 대괄호도 첨자다
+      var ps = t.lastIndexOf("[", start - 2);
+      if (ps >= 1 && /[\p{L}\d)]/u.test(t.charAt(ps - 1)) && !/[가-힣]/.test(t.charAt(ps - 1))) return true;
+    }
     var ctx = t.slice(Math.max(0, start - 12), start);
     var eq = ctx.lastIndexOf("=");
     if (eq >= 0 && !/[).;]/.test(ctx.slice(eq + 1))) return true; // "y = ax + b [5]", "v = [1, 2, 3]"
     if (ctx.indexOf("∈") >= 0) return true;
     if (MATH_VAR_IN.test(ctx)) return true; // "x in [1, 2]"
-    if (multi && (MATH_PREV_WORD.test(ctx) || MATH_PREV_HAN.test(ctx))) return true; // "range [1, 10]", "scale [1–5]"
+    if (multi && (MATH_PREV_WORD.test(ctx) || MATH_PREV_HAN.test(ctx) || MATH_PREV_STAT.test(ctx))) return true; // "range [1, 10]", "scale [1–5]", "95% CI [2, 4]", "values in [1, 5]"
     return false;
   }
 
@@ -387,7 +416,8 @@
         for (var v = a; v <= b; v++) if (nums.indexOf(v) < 0) nums.push(v);
       }
       if (!good || !nums.length) continue;
-      if (mathBracket(t, start, parts.length > 1 || /[-‐-―~]/.test(m[1]))) continue;
+      if (/;/.test(m[1]) && m[1].split(";").every(function (q) { return q.split(/[,，]/).length >= 2; })) continue; // "[1, 2; 3, 4]" 행렬
+      if (mathBracket(t, start, start + m[0].length, parts.length > 1 || /[-‐-―~]/.test(m[1]))) continue;
       out.push({ start: start, end: start + m[0].length, numbers: nums });
     }
     // "[12]–[15]" 는 12~15 의 한 묶음
@@ -527,7 +557,11 @@
 
   function authorCountsAgree(cite, mt) {
     var named = cite.authors.length;
-    if (cite.etAl) return mt.multi || /et\s+al/i.test(mt.authors);
+    if (cite.etAl) {
+      // 서양식 "Kim et al." 은 저자 셋 이상을 뜻한다: 저자가 꼭 둘인 항목에는 붙이지 않는다
+      if (!NAME_HAN_FULL.test(cite.authors[0]) && mt.count === 2 && !/et\s+al/i.test(mt.authors)) return false;
+      return mt.multi || /et\s+al/i.test(mt.authors);
+    }
     if (named === 1) return !mt.multi;
     if (!mt.multi) return false;
     if (mt.count && mt.count !== named) return false; // "Kim and Lee (2020)" 가 세 저자 항목에 붙으면 안 된다
@@ -580,25 +614,44 @@
   var COUNTER_AFTER = /^(?:개|명|회|번|건|가지|곳|배|차|위|점|세|살|년|월|일|원|권|부|종|단계|군|호|층|%)/;
 
   // 다른 논문·부록의 그림·표를 가리키는 앞말: "Supplementary Table 1", "Extended Data Fig. 3", "S. Table 2", "Appendix Fig. 1", "their Fig. 2", "부록 표 1"
-  var SUPPL_BEFORE = /(?:supplement(?:ary|al)?|suppl?\.?|appendix|online|extended(?:\s+data)?|additional|부록|보충|추가|별첨)[\s-]*(?:data[\s-]*)?(?:figure|fig\.?|table|tab\.?|표|그림)?[\s(]*$|(?:^|[\s(])S\.\s*$|(?:\b(?:their|his|her|its)|\w['’]s)\s+$/i;
+  var SUPPL_BEFORE = /(?:supplement(?:ary|al)?|suppl?\.?|appendix|online|extended(?:\s+data)?|additional|부록|보충|추가|별첨)[\s-]*(?:data[\s-]*)?(?:figure|fig\.?|table|tab\.?|표|그림)?[\s(]*$|(?:^|[\s(])S\.\s*$|(?:\b(?:their|his|her|its)|[\w.]['’]s)\s+$/i;
 
   // 번호 뒤 40자 안에 "of|in|from + 인용" 이 이어지면 이 논문의 그림이 아니다: "Table 2 of Kim et al. [5]", "Figure 3 in [12]", "Fig. 4 of Ref. 7"
   var OTHER_SRC = [
     /^\[\s*\d/,
-    /^\(?\s*Refs?\b\.?\s*\d/i,
+    /^\(?\s*Refs?\b\.?\s*\[?\s*\d/i,
     /^(?:the\s+)?references?\b/i,
     /^(?:the\s+)?(?:supplement|appendix|online|extended)/i,
     /^(?:the\s+)?(?:paper|work|study|article|book|report|thesis|results?)\s+(?:of|by)\s/i,
     /^(?:their|his|her)\s+(?:paper|work|study)/i,
     /^\p{Lu}[\p{L}'’\-]+(?:\s+(?:and|&)\s+\p{Lu}[\p{L}'’\-]+)?\s+et\s+al\b/u,
     /^\p{Lu}[\p{L}'’\-]+(?:\s+(?:and|&)\s+\p{Lu}[\p{L}'’\-]+)*\s*[,(]?\s*\(?\s*(?:19|20)\d\d/u,
+    /^(?:the\s+)?(?:original|previous|earlier|prior|preceding|cited|referenced|published|other|related|existing)\s+(?:paper|papers|work|works|study|studies|article|articles|book|report|thesis|research|literature)\b/i,
   ];
+
+  // 번호 바로 앞이 다른 논문을 가리키는 말인가: "(Kim et al., 2020, Fig. 3)", "[5, Fig. 3]", "Kim (2020)의 표 2", "[5]의 그림 3", "선행연구의 표 2"
+  var BEFORE_NUM = /\[\s*\d{1,3}(?:\s*[-–,;]\s*\d{1,3})*\s*[,;]\s*$/;
+  var BEFORE_AY = /[(（][^()（）]*?(\p{Lu}[\p{L}'’\-]+|[가-힣]{2,8})(?:\s+et\s+al\.?|\s*(?:외|등))?\s*,?\s*(?:19|20)\d\d[a-z]?\s*[,;]\s*(?:pp?\.\s*\d+(?:\s*[-–]\s*\d+)?\s*[,;]\s*)?$/u;
+  var BEFORE_HAN = [
+    /(?:19|20)\d\d[a-z]?\s*[)）]\s*의\s*$/,
+    /\[\s*\d[\d\s,\-–~]*\]\s*의\s*$/,
+    /(?:선행|기존|이전|앞선|관련|타|다른|원|기발표)\s*(?:연구|논문|문헌)(?:들|자들?)?\s*의\s*$/,
+    /원\s*(?:문|논문)\s*의\s*$/,
+  ];
+  function otherPaperBefore(t, idx) {
+    var pre = t.slice(Math.max(0, idx - 100), idx).replace(/[<〈【]\s*$/, "");
+    if (BEFORE_NUM.test(pre)) return true;
+    var m = BEFORE_AY.exec(pre);
+    if (m && !NOT_AUTHOR[m[1].toLowerCase()]) return true;
+    for (var i = 0; i < BEFORE_HAN.length; i++) if (BEFORE_HAN[i].test(pre)) return true;
+    return false;
+  }
   function pointsElsewhere(t, end) {
     var win = t.slice(end, end + 60);
     var cut = /[.!?;](?=\s|$)|\n/.exec(win.replace(/et\s+al\./g, "et al"));
     if (cut) win = win.slice(0, cut.index);
     win = win.slice(0, 40);
-    var re = /\b(?:of|in|from)\s+/g;
+    var re = /\b(?:of|in|from|by)\s+/g;
     var m;
     while ((m = re.exec(win))) {
       var rest = t.slice(end + m.index + m[0].length, end + m.index + m[0].length + 50);
@@ -623,7 +676,7 @@
         if (def.han && COUNTER_AFTER.test(t.slice(end, end + 3))) continue; // "표 3개"
         if (def.secHan && COUNTER_WORD.test(t.slice(Math.max(0, m.index - 4), m.index))) continue;
         if (def.kind === "fig" || def.kind === "table") {
-          if (pointsElsewhere(t, end)) continue;
+          if (pointsElsewhere(t, end) || otherPaperBefore(t, m.index)) continue;
         }
         all.push({
           start: m.index,
@@ -657,16 +710,19 @@
   // 번호가 붙은 제목 줄("2.1.1. 이론적 배경", "3. Methods", "제2장 …")은 문장 중간에서 끊긴 본문이 아니다
   var HEADING_LIKE = /^\s*(?:\d+(?:\.\d+)*\.?|[IVX]+\.|[가-힣]\.|제\s*\d+\s*[장절편])\s/;
 
-  // 줄 끝이 쪽 번호로 끝나는가(목차·그림 목록): "…. 12", "⋯⋯ 16", "Setup   9", "장치 12". 소수점·시각·연도·쉼표 뒤 숫자는 쪽 번호가 아니다.
+  // 줄 끝이 쪽 번호로 끝나는가(목차·그림 목록): 0 아님, 1 약함(공백 하나 뒤 숫자), 2 확실함(점선·넓은 여백): "…. 12", "⋯⋯ 16", "Setup   9", "장치 12". 소수점·시각·연도·쉼표 뒤 숫자는 쪽 번호가 아니다.
   function endsWithPageNumber(rest) {
     var tail = String(rest || "").replace(/\s+$/, "");
     // 쪽 번호 앞에는 공백이나 점선·줄표 같은 이음 글자(공백 없이 한 글자짜리 붙임표 "factor-1" 은 제외)가 온다
     var m = /^(.*?)((?:\s|[.·‥…⋯_\-–—•])+)(\d{1,4})$/.exec(tail);
-    if (!m || !m[1]) return false;
-    if (!/\s/.test(m[2]) && m[2].length < 2) return false;
-    if (/^(?:19|20)\d\d$/.test(m[3])) return false;
-    if (/[\d.,:;/%+−(]$/.test(m[1])) return false;
-    return true;
+    if (!m || !m[1]) return 0;
+    if (!/\s/.test(m[2]) && m[2].length < 2) return 0;
+    if (/^(?:19|20)\d\d$/.test(m[3])) return 0;
+    if (/[\d.,:;/%+−(]$/.test(m[1])) return 0;
+    // 점선·말줄임·세 칸 이상 여백으로 이어졌으면 확실한 쪽 번호(2), 공백 하나로 이어진 숫자는 "group 1" 같은 제목 끝일 수 있어 약한 증거(1)
+    var lead = (m[2].match(/[.·‥…⋯_\-–—•]/g) || []).length;
+    if (lead >= 2 || /[‥…⋯]/.test(m[2]) || /\s{3,}/.test(m[2])) return 2;
+    return 1;
   }
 
   // 앞 줄이 문장 중간에서 줄바꿈된 본문 줄인가("…listed in" / "…than those in [3]")
@@ -706,7 +762,8 @@
     if (!ok) return null;
     if (CONTINUED_RE.test(restTrim.replace(/^[.:：]\s*/, ""))) return null; // "Table 5. Continued" 는 이어진 쪽이지 캡션이 아니다
     var tail = close ? rest : restTrim;
-    return { kind: kind, num: num, pageTail: endsWithPageNumber(tail), bracketed: !!(open && close) };
+    var tailKind = endsWithPageNumber(tail);
+    return { kind: kind, num: num, pageTail: tailKind === 2, weakTail: tailKind === 1, bracketed: !!(open && close) };
   }
 
   // 줄 하나가 캡션 머리인지. {kind, num} | null. (그림·표 목록 줄, 문장 중간에서 줄바꿈된 본문 줄은 아니다)
@@ -733,6 +790,12 @@
     return { num: num };
   }
 
+  // 목록 쪽 증거: 목차 제목 줄, 점선·여백 뒤 쪽 번호로 끝나는 줄
+  var LIST_HEAD = /^\s*(?:List\s+of\s+(?:Figures|Tables|Illustrations)|(?:Table\s+of\s+)?Contents|(?:그림|표)(?:\s*(?:및|,)\s*(?:그림|표))?\s*(?:목차|차례|목록)|목\s*차|차\s*례)\s*:?\s*$/i;
+  var LEADER_LINE = /(?:[.·‥…⋯]{2,}|(?:\.\s){2,}\.?)\s*\d{1,4}\s*$|[^\d\s.,:;%)]\s{3,}\d{1,4}\s*$/;
+  // 앞 줄이 문장 중간(전치사·접속사·조사)에서 끊겼는가
+  var OPEN_END = /(?:\b(?:in|by|see|and|or|of|the|to|with|than|as|from|on|at|for|are|is|was|were|be|that|which|a|an)|[에은는를을의와과로이가도])\s*$/i;
+
   // 한 쪽의 캡션 후보를 거른다. lines: splitLines 결과, cores: 줄마다 captionCore 결과, meta: 줄마다 {x0, w, fs, y} | null (선택)
   // 반환: 줄마다 true(대상으로 쓸 수 있음) / false
   function acceptCaptions(lines, cores, meta) {
@@ -740,20 +803,26 @@
     var okFlags = new Array(n);
     var i;
     for (i = 0; i < n; i++) okFlags[i] = !!cores[i];
-    // 목록 줄: 쪽 번호로 끝나는 줄, 그리고 (빈 줄을 건너뛰고) 연속 3줄 이상 이어지는 캡션 모양 줄
-    var listy = 0;
-    for (i = 0; i < n; i++) if (cores[i] && cores[i].pageTail) listy++;
-    var run = [];
-    var flush = function () {
-      if (run.length >= 3) { run.forEach(function (x) { okFlags[x] = false; if (!cores[x].pageTail) listy++; }); }
-      run = [];
-    };
+    var none = function () { return okFlags.map(function () { return false; }); };
+    // 목록 쪽: 목차 제목 줄이 있거나, 점선·여백 뒤 쪽 번호로 끝나는 줄이 3줄 이상이면 이 쪽의 후보는 모두 버린다(첫 번째가 이기므로 목록 쪽이 진짜 캡션을 가린다)
+    var leaders = 0;
     for (i = 0; i < n; i++) {
-      if (!lines[i].text.trim()) continue;
-      if (cores[i]) run.push(i); else flush();
+      var tx = lines[i].text;
+      if (tx.length <= 40 && LIST_HEAD.test(tx)) return none();
+      if (LEADER_LINE.test(tx)) leaders++;
     }
-    flush();
-    if (listy >= 5) return okFlags.map(function () { return false; }); // 그림·표 목차 쪽
+    if (leaders >= 3) return none();
+    var strong = 0;
+    var tails = 0;
+    for (i = 0; i < n; i++) {
+      if (!cores[i]) continue;
+      if (cores[i].pageTail) { strong++; tails++; } else if (cores[i].weakTail) tails++;
+    }
+    if (strong || leaders) {
+      // 목록 증거가 있는 쪽에서는 숫자로만 끝나는 후보도 쪽 번호로 본다
+      for (i = 0; i < n; i++) if (cores[i] && cores[i].weakTail) okFlags[i] = false;
+    }
+    var listy = tails;
     var stats = null;
     if (meta) {
       var ws = [];
@@ -771,10 +840,32 @@
       gaps.sort(function (a, b) { return a - b; });
       if (ws.length >= 5) stats = { maxW: ws[Math.floor(ws.length * 0.9)], fs: fss.length ? fss[fss.length >> 1] : 0, pitch: gaps.length ? gaps[gaps.length >> 1] : 0 };
     }
+    // 연속 3줄 이상 이어지는 캡션 모양 줄(빈 줄은 건너뛴다)은 목록이다. 줄 위치와 줄 간격을 알면 왼쪽 x 가 같고 세로 간격이 줄 간격 안팎인 줄끼리만 한 목록으로 본다
+    // (같은 높이에 나란한 캡션, 그림 크기만큼 떨어진 캡션 더미는 목록이 아니다)
+    var chained = function (a, b) {
+      if (!(meta && stats && stats.pitch && meta[a] && meta[b])) return true;
+      if (!isFinite(meta[a].x0) || !isFinite(meta[b].x0) || !isFinite(meta[a].y) || !isFinite(meta[b].y)) return true;
+      var dy = Math.abs(meta[a].y - meta[b].y);
+      return Math.abs(meta[a].x0 - meta[b].x0) <= 3 && dy >= stats.pitch * 0.5 && dy <= stats.pitch * 2.5;
+    };
+    var run = [];
+    var flush = function () {
+      if (run.length >= 3) { run.forEach(function (x) { okFlags[x] = false; if (!cores[x].pageTail && !cores[x].weakTail) listy++; }); }
+      run = [];
+    };
+    for (i = 0; i < n; i++) {
+      if (!lines[i].text.trim()) continue;
+      if (cores[i]) {
+        if (run.length && !chained(run[run.length - 1], i)) flush();
+        run.push(i);
+      } else flush();
+    }
+    flush();
+    if (listy >= 5) return none(); // 그림·표 목차 쪽
     var prevIdx = function (idx) { for (var q = idx - 1; q >= 0; q--) if (lines[q].text.trim()) return q; return -1; };
     var nextIdx = function (idx) { for (var q = idx + 1; q < n; q++) if (lines[q].text.trim()) return q; return -1; };
-    var full = function (q) { return q >= 0 && meta[q] && stats && meta[q].w >= stats.maxW * 0.93; };
-    var bodySize = function (q) { return q >= 0 && meta[q] && stats && stats.fs && Math.abs(meta[q].fs - stats.fs) <= stats.fs * 0.06; };
+    var full = function (q) { return q >= 0 && meta && meta[q] && stats && meta[q].w >= stats.maxW * 0.93; };
+    var bodySize = function (q) { return q >= 0 && meta && meta[q] && stats && stats.fs && Math.abs(meta[q].fs - stats.fs) <= stats.fs * 0.06; };
     for (i = 0; i < n; i++) {
       if (!okFlags[i]) continue;
       if (cores[i].pageTail) { okFlags[i] = false; continue; }
@@ -782,12 +873,14 @@
       var pi = prevIdx(i);
       if (pi >= 0) {
         var ptxt = lines[pi].text;
-        // 앞 줄과의 세로 간격이 줄 간격보다 훨씬 크거나 글자 크기가 본문과 다르면, 이 줄은 새 덩어리(캡션)에서 시작한다
+        // 앞 줄과의 세로 간격이 줄 간격보다 훨씬 크거나 앞 줄과 글자 크기가 다르면, 이 줄은 새 덩어리(캡션)에서 시작한다.
+        // 단, 앞 줄이 전치사·조사에서 끊겼으면 그 간격은 단 바꿈일 뿐이다. 글자 크기는 본문이 아니라 바로 앞 줄과 견준다.
         var blockStart = false;
         if (meta && stats && stats.pitch && meta[pi] && meta[i] && isFinite(meta[pi].y) && isFinite(meta[i].y)) {
-          blockStart = Math.abs(meta[pi].y - meta[i].y) > stats.pitch * 1.45;
+          blockStart = Math.abs(meta[pi].y - meta[i].y) > stats.pitch * 1.45 && !OPEN_END.test(ptxt);
         }
-        if (meta && stats && stats.fs && meta[i] && !bodySize(i)) blockStart = true;
+        if (meta && stats && meta[pi] && meta[i] && meta[pi].fs && meta[i].fs &&
+            Math.abs(meta[pi].fs - meta[i].fs) > Math.max(meta[pi].fs, meta[i].fs) * 0.06) blockStart = true;
         if (!blockStart) {
           if (proseWrapped(ptxt) && !HEADING_LIKE.test(ptxt)) { okFlags[i] = false; continue; }
           // 앞 줄이 본문 폭을 꽉 채웠는데 문장이 끝나지 않았으면 같은 문장이 이어지는 것이다

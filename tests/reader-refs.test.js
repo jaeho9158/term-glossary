@@ -247,7 +247,8 @@ test("matchAuthorYear: 저자 수가 어긋나면 연결하지 않는다 ((Kim, 
   assert.equal(R.matchAuthorYear(ay("(Kim, 2020)")[0], refs), -1);
   assert.equal(R.matchAuthorYear(ay("(Kim & Lee, 2020)")[0], refs), 0);
   assert.equal(R.matchAuthorYear(ay("(Kim & Park, 2020)")[0], refs), -1);
-  assert.equal(R.matchAuthorYear(ay("(Kim et al., 2020)")[0], refs), 0);
+  // 서양식 "et al." 은 저자 셋 이상: 저자가 꼭 둘인 항목에는 붙이지 않는다
+  assert.equal(R.matchAuthorYear(ay("(Kim et al., 2020)")[0], refs), -1);
 });
 
 test("matchAuthorYear: 단독 저자 항목과 공저 항목이 함께 있으면 저자 수가 맞는 쪽", () => {
@@ -438,7 +439,7 @@ const xrKeys = (s) => R.findCrossRefs(s).map((x) => x.key);
 test("findNumericCitations: 수식·구간·배열 첨자의 대괄호는 인용이 아니다", () => {
   [
     "x in [1, 2] holds", "vector v = [1, 2, 3]", "range [1, 10] of scores", "scored on a scale [1–5]", "the interval [0, 1]",
-    "[0.5, 1]", "[95% CI 1.2–3.4]", "y = ax + b [5]", "arr[3] and data[2]", "x[3]", "A[1,2]", "f(x)[2]", "word[3]", "ISO[3]", "Na[1]", "H2O[4]",
+    "[0.5, 1]", "[95% CI 1.2–3.4]", "y = ax + b [5]", "arr[3] and data[2]", "x[3]", "A[1,2]", "f(x)[2]", "word[3]", "Na[1]", "H2O[4]",
     "값의 범위 [1, 5] 이다", "척도 [1–5] 를", "(−1 ∈ [1, 2])",
   ].forEach((s) => assert.deepEqual(numTexts(s), [], s));
 });
@@ -515,7 +516,8 @@ test("matchAuthorYear: 'Kim and Lee (2020)' 는 세 저자 항목에 붙지 않�
 // ---------- 3. 그림·표 목록 ----------
 test("findTargets: 쪽 번호로 끝나는 목차 줄(점선·공백·기호 무엇이든)은 대상이 아니다", () => {
   const lists = ["그림 3. 실험 장치 12", "<표 2> 결과 요약 ‥‥‥‥‥ 15", "표 4. 요약 ⋯⋯⋯⋯ 16", "Figure 7. Setup          9", "Table 8. Summary -------- 10", "표 9. 요약 ········ 16", "Fig. 5. 장치 . . . . 14"];
-  lists.forEach((l) => assert.equal(R.captionOfLine(l, null), null, l));
+  // 공백 하나 뒤 숫자("… 12")는 목록 증거가 있는 쪽에서만 쪽 번호다: 줄 하나만 보면 캡션
+  lists.filter((l) => !/^그림 3\./.test(l)).forEach((l) => assert.equal(R.captionOfLine(l, null), null, l));
   const m = R.findTargets(["본문\n" + lists.join("\n") + "\n", "그림 3. 실험 장치\n본문\n<표 2> 결과 요약\n"]);
   assert.equal(m.get("fig:3").page, 2);
   assert.equal(m.get("table:2").page, 2);
@@ -742,4 +744,120 @@ test("lineMetaFromItems: 줄마다 왼쪽 x·폭·글자 크기·세로 위치�
   assert.equal(m.length, 2);
   assert.deepEqual([m[0].x0, m[0].w, m[0].fs, m[0].y], [50, 40, 10, 700]);
   assert.deepEqual([m[1].x0, m[1].w, m[1].fs, m[1].y], [50, 100, 12, 680]);
+});
+
+// ---------- 재검수 2 ----------
+const crossKeys = (t) => R.findCrossRefs(t).map((c) => c.key);
+
+test("findCrossRefs: 다른 논문의 그림·표를 가리키는 말(앞·뒤)은 등록하지 않는다", () => {
+  [
+    "Fig. 3 in Ref. [5]", "Kim et al.'s Fig. 2", "(Kim et al., 2020, Fig. 3)", "(see Kim, 2020, Table 2)", "[5, Fig. 3]", "Figure 2 by Kim et al.",
+    "Table 2 of the original paper", "Table 2 of the previous study", "Kim (2020)의 표 2", "[5]의 그림 3", "김철수(2020)의 <표 3>", "선행연구의 표 2",
+  ].forEach((s) => assert.deepEqual(crossKeys(s), [], s));
+});
+
+test("findCrossRefs: 이 논문의 그림·표 지칭은 그대로 등록한다", () => {
+  assert.deepEqual(crossKeys("as shown in Fig. 3"), ["fig:3"]);
+  assert.deepEqual(crossKeys("(Fig. 3)"), ["fig:3"]);
+  assert.deepEqual(crossKeys("(see Table 2)"), ["table:2"]);
+  assert.deepEqual(crossKeys("표 2의 결과"), ["table:2"]);
+  assert.deepEqual(crossKeys("<표 3>에서"), ["table:3"]);
+  assert.deepEqual(crossKeys("그림 3과 같이"), ["fig:3"]);
+  assert.deepEqual(crossKeys("Table 2 of this study"), ["table:2"]);
+  assert.deepEqual(crossKeys("본 연구의 표 2"), ["table:2"]);
+  assert.deepEqual(crossKeys("(In 2020, Fig. 3 shows)"), ["fig:3"]);
+});
+
+test("findTargets: 목차 제목이 있거나 점선 쪽 번호 줄이 3줄 이상인 쪽의 후보는 모두 버린다", () => {
+  const a = "List of Figures\nFigure 1. A long title of the first figure that wraps onto\nthe next line ........ 12\nFigure 2. Second ........ 14\nFigure 3. Third ........ 15\n";
+  assert.equal(R.findTargets([a]).size, 0);
+  const b = "List of Tables\nTable 1. Short .... 3\nTable 2. Short .... 4\nTable 3. A long title that wraps onto\nthe next line .... 5\nTable 4. Short .... 6\nTable 5. Another long title wraps\nagain .... 7";
+  assert.equal(R.findTargets([b]).size, 0);
+  assert.equal(R.findTargets(["표 목차\n표 1. 요약\n표 2. 결과"]).size, 0);
+  ["그림 목차", "그림 차례", "표 차례", "목차", "차례", "Contents", "Table of Contents"].forEach((h) => assert.equal(R.findTargets([h + "\n그림 1. 가\n본문\n표 2. 나"]).size, 0, h));
+  // 목록 쪽이 먼저 와도 뒤 쪽의 진짜 캡션이 대상이 된다
+  const m = R.findTargets([a, "본문\nFigure 1. 실제 캡션 제목\n본문"]);
+  assert.equal(m.get("fig:1").page, 2);
+  // 점선 줄이 둘뿐이면 목록 쪽이 아니다
+  assert.ok(R.findTargets(["Figure 1. Real caption here\n본문\nSetup ..... 3\nMethods ..... 5\n"]).has("fig:1"));
+});
+
+test("findTargets: 글자 크기는 바로 앞 줄과 견줘 줄 머리를 판정한다 (본문과만 다르다고 줄 머리가 아니다)", () => {
+  const body = [];
+  const meta = [];
+  for (let i = 0; i < 8; i++) { body.push("This is a normal body line number " + i + " of the paper text."); meta.push({ x0: 50, w: 400, fs: 10, y: 700 - i * 12 }); }
+  body.push("and the text says the values are listed in", "Table 2. The values were higher than those reported before", "one more line of small print");
+  meta.push({ x0: 50, w: 250, fs: 8, y: 600 }, { x0: 50, w: 280, fs: 8, y: 590 }, { x0: 50, w: 200, fs: 8, y: 580 });
+  assert.equal(R.findTargets([body.join("\n")], [meta]).has("table:2"), false);
+  // 앞 줄이 본문 크기이고 캡션만 작으면(크기 변화) 캡션
+  const b2 = body.slice(0, 8).concat(["Table 2. The values were higher than those reported before", "one more line of small print"]);
+  const m2 = meta.slice(0, 8).concat([{ x0: 50, w: 280, fs: 8, y: 590 }, { x0: 50, w: 200, fs: 8, y: 580 }]);
+  assert.ok(R.findTargets([b2.join("\n")], [m2]).has("table:2"));
+});
+
+test("findTargets: 단 바꿈(세로 위치가 크게 달라짐)은 앞 줄이 문장 중간에서 끊겼으면 줄 머리가 아니다", () => {
+  const lines = [];
+  const meta = [];
+  for (let i = 0; i < 6; i++) { lines.push("Left column body line number " + i + " with some more words."); meta.push({ x0: 50, w: 200, fs: 10, y: 700 - i * 12 }); }
+  lines.push("the tables are listed in");
+  meta.push({ x0: 50, w: 120, fs: 10, y: 628 });
+  lines.push("Table 2. The values were");
+  meta.push({ x0: 320, w: 120, fs: 10, y: 700 });
+  lines.push("higher in the second group of runs here.");
+  meta.push({ x0: 320, w: 200, fs: 10, y: 688 });
+  assert.equal(R.findTargets([lines.join("\n")], [meta]).has("table:2"), false);
+  // 앞 줄이 문장으로 끝났으면 단 바꿈 뒤의 캡션은 그대로
+  lines[6] = "These tables are listed above.";
+  assert.ok(R.findTargets([lines.join("\n")], [meta]).has("table:2"));
+});
+
+test("looksMerged: 연도가 나온 뒤 쉼표로 끝난 줄 다음 같은 성 항목은 병합으로 본다", () => {
+  const refs = R.splitReferences("Kim, A. (2020). Title one. Journal of Things, 1,\nKim, B. (2020). Title two. Journal.\nLee, C. (2019). Other work. Journal.");
+  assert.equal(R.matchAuthorYear(R.findAuthorYearCitations("(Kim, 2020)")[0], refs), -1);
+});
+
+test("findNumericCitations: 통계 구간·집합·행렬 대괄호는 인용이 아니다", () => {
+  ["95% CI [2, 4]", "OR 1.5 [1, 3]", "Likert [1-5]", "takes values in [1, 5]", "normalized to [1, 10]", "the set [1, 2, 3]", "indices [1, 2]", "[1, 2; 3, 4]"]
+    .forEach((s) => assert.deepEqual(numTexts(s), [], s));
+  assert.deepEqual(numTexts("shown in [1, 5]"), ["[1, 5]"]);
+  assert.deepEqual(numTexts("reported in [3]"), ["[3]"]);
+});
+
+test("findNumericCitations: 영어 낱말에 붙은 인용은 엄격한 조건에서만 인용이다", () => {
+  assert.deepEqual(numTexts("FlowScan[10]"), ["[10]"]);
+  assert.deepEqual(numTexts("FlowScan[10]은 좋다"), ["[10]"]);
+  assert.deepEqual(numTexts("MRTG[9]와 FlowScan[10]."), ["[9]", "[10]"]);
+  assert.deepEqual(numTexts("ISO[3]"), ["[3]"]);
+  assert.deepEqual(numTexts("Kim[3] showed"), ["[3]"]);
+  assert.deepEqual(numTexts("머신(SVM)[3]"), ["[3]"]);
+  assert.deepEqual(numTexts("연구(2020)[3]"), ["[3]"]);
+  ["a[10]", "x[i]", "arr[3]", "data[2]", "word[3]", "A[1]", "Na[1]", "DP[3]", "H2O[4]", "f(x)[2]", "obj.Arr[3]", "Arr[3] = 5", "Arr[3][4]", "Arr[3].len", "my_Arr[3]", "if Arr[3] > Arr[i]"]
+    .forEach((s) => assert.deepEqual(numTexts(s), [], s));
+});
+
+test("findTargets: 번호로 끝나는 실제 캡션은 목록 증거가 없으면 대상이다", () => {
+  ["Table 2. Demographic characteristics of group 1", "Fig. 3. Results of experiment 2", "표 3. 실험 2", "Figure 4. Comparison of Model 1 and Model 2"].forEach((c) => {
+    const m = R.findTargets(["본문\n\n" + c + "\n본문"]);
+    assert.equal(m.size, 1, c);
+  });
+  // 목록 증거(점선 쪽 번호 줄)가 함께 있으면 숫자 꼬리는 쪽 번호
+  assert.equal(R.findTargets(["Table 2. Demographic characteristics of group 1\nSetup ..... 3\nTable 3. Other ........ 5"]).has("table:2"), false);
+});
+
+test("findTargets: 줄 위치를 알면 나란한 캡션·그림 간격이 큰 캡션은 목록이 아니다", () => {
+  const lines = [];
+  const meta = [];
+  for (let i = 0; i < 6; i++) { lines.push("Body line number " + i + " with enough words to count as long."); meta.push({ x0: 50, w: 300, fs: 10, y: 700 - i * 12 }); }
+  lines.push("Figure 1. First", "Figure 2. Second", "Figure 3. Third");
+  meta.push({ x0: 50, w: 80, fs: 9, y: 500 }, { x0: 50, w: 80, fs: 9, y: 300 }, { x0: 50, w: 80, fs: 9, y: 100 });
+  assert.equal(R.findTargets([lines.join("\n")], [meta]).size, 3);
+  // 같은 높이에 나란한 캡션
+  const l2 = lines.slice(0, 6).concat(["Figure 1. First", "Figure 2. Second", "Figure 3. Third"]);
+  const m2 = meta.slice(0, 6).concat([{ x0: 50, w: 80, fs: 9, y: 500 }, { x0: 200, w: 80, fs: 9, y: 500 }, { x0: 350, w: 80, fs: 9, y: 500 }]);
+  assert.equal(R.findTargets([l2.join("\n")], [m2]).size, 3);
+  // 줄 간격으로 쌓인 같은 x 의 캡션은 목록
+  const m3 = meta.slice(0, 6).concat([{ x0: 50, w: 80, fs: 9, y: 500 }, { x0: 50, w: 80, fs: 9, y: 488 }, { x0: 50, w: 80, fs: 9, y: 476 }]);
+  assert.equal(R.findTargets([l2.join("\n")], [m3]).size, 0);
+  // 줄 위치가 없으면 지금처럼 3줄 연속은 목록
+  assert.equal(R.findTargets([l2.join("\n")]).size, 0);
 });
