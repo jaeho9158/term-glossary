@@ -79,7 +79,7 @@
     return !!file && (file.type === "application/pdf" || /\.pdf$/i.test(file.name || ""));
   }
 
-  async function openFile(file) {
+  async function openFile(file, opts) {
     if (opening) return;
     if (!isPdf(file)) { showHomeError("PDF 파일만 열 수 있습니다."); return; }
     opening = true;
@@ -88,7 +88,7 @@
     zone.setAttribute("aria-busy", "true");
     zone.classList.add("is-busy");
     try {
-      await root.ReaderDoc.open(file);
+      await root.ReaderDoc.open(file, opts);
     } catch (err) {
       showHomeError(err && err.message ? err.message : "PDF를 열 수 없습니다. 파일이 손상되었을 수 있습니다");
     } finally {
@@ -262,16 +262,17 @@
     try { raw = new URLSearchParams(root.location.search).get("debugpdf"); } catch (e) { return; }
     if (!raw) return;
     var url;
+    // 상대 주소만 받는다: "//" 로 시작하거나 스킴(예: https:)이 들어 있으면 거절.
+    if (/^\s*\/\//.test(raw) || /^\s*[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw) || raw.indexOf("\\") >= 0) { showHomeError("debugpdf 는 같은 출처의 상대 주소만 받습니다."); return; }
     try { url = new URL(raw, root.location.href); } catch (e2) { return; }
-    // 같은 출처만 가져온다. 외부 주소가 오면 아무것도 하지 않는다.
     if (url.origin !== root.location.origin) { showHomeError("debugpdf 는 같은 출처의 상대 주소만 받습니다."); return; }
     try {
       await waitForPdfjs();
-      var res = await fetch(url.href);
+      var res = await fetch(url.href, { redirect: "error" });
       if (!res.ok) throw new Error("HTTP " + res.status);
       var blob = await res.blob();
       var name = decodeURIComponent(url.pathname.split("/").pop() || "debug.pdf");
-      await openFile(new File([blob], name, { type: "application/pdf" }));
+      await openFile(new File([blob], name, { type: "application/pdf" }), { skipRecent: true });
     } catch (err) {
       console.error("[reader] debugpdf 실패", err);
       showHomeError("debugpdf 를 열지 못했습니다: " + (err && err.message ? err.message : err));

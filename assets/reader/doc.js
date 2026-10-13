@@ -26,7 +26,12 @@
     return out;
   }
 
-  if (typeof module !== "undefined" && module.exports) module.exports = { planWindow: planWindow };
+  // 배율을 바꾼 뒤 읽던 자리를 되살릴 scrollTop. ratio = 쪽 높이 중 읽던 지점의 비율, viewportOffset = 그 지점이 보이는 칸 윗변에서 떨어진 거리.
+  function anchorScrollTop(pageTop, pageHeight, ratio, viewportOffset) {
+    return Math.max(0, pageTop + ratio * pageHeight - (viewportOffset || 0));
+  }
+
+  if (typeof module !== "undefined" && module.exports) module.exports = { planWindow: planWindow, anchorScrollTop: anchorScrollTop };
   if (typeof document === "undefined") return;
 
   var pdfjs = function () { return root.pdfjsLib; };
@@ -136,6 +141,7 @@
     cancelState(st);
     st.ready = false;
     st.busy = false;
+    st.failed = false;
     st.scale = null;
     var canvas = el.querySelector(".rd-canvas");
     if (canvas) { canvas.width = 0; canvas.height = 0; canvas.style.width = ""; canvas.style.height = ""; }
@@ -147,7 +153,9 @@
     var el = pageEls[n];
     if (!el || !pdf) return;
     var st = states[n];
+    if (st.failed && st.scale === null && st.failedScale === scale) return;
     if (st.scale === scale && (st.ready || st.busy)) return;
+    st.failed = false;
     cancelState(st);
     var token = st.token;
     var myScale = scale;
@@ -207,6 +215,8 @@
       if (token !== st.token) return; // 취소는 오류가 아니다
       st.busy = false;
       st.scale = null;
+      st.failed = true;
+      st.failedScale = myScale;
       st.renderTask = null;
       st.textLayer = null;
       console.error("[reader] 쪽 그리기 실패", n, err);
@@ -289,11 +299,16 @@
     if (!el || !sc) return null;
     var top = el.getBoundingClientRect().top - sc.getBoundingClientRect().top;
     var h = el.getBoundingClientRect().height || 1;
-    return { page: current, ratio: -top / h };
+    return { page: current, ratio: -top / h, offset: 0 };
   }
   function anchorRestore(a) {
     if (!a) return;
-    goToPageNoEvent(a.page, a.ratio);
+    var el = pageEls[a.page];
+    var sc = scrollEl();
+    if (!el || !sc) return;
+    var r = el.getBoundingClientRect();
+    var pageTop = r.top - sc.getBoundingClientRect().top + sc.scrollTop;
+    sc.scrollTop = anchorScrollTop(pageTop, r.height, a.ratio, a.offset);
   }
 
   function applyScale(next, mode) {
@@ -452,7 +467,7 @@
     return "PDF를 열 수 없습니다. 파일이 손상되었을 수 있습니다";
   }
 
-  async function open(file) {
+  async function open(file, opts) {
     var token = ++openToken;
     close(true);
     var buf;
@@ -485,6 +500,9 @@
       sizes[1] = { w: v.width, h: v.height };
     } catch (err2) {
       pdf = null;
+      hash = null;
+      total = 0;
+      try { loaded.destroy(); } catch (e3) { /* 무시 */ }
       console.error("[reader] 첫 쪽 읽기 실패", err2);
       throw new Error(friendlyError(err2));
     }
@@ -505,19 +523,21 @@
     lastBox = "";
     onResize();
 
-    saveRecent(file);
+    if (!opts || !opts.skipRecent) saveRecent(file, token);
     probeScanned(token);
     return info;
   }
 
-  function saveRecent(file) {
+  function saveRecent(file, token) {
     var store = root.ViewerStorage;
     if (!store || !store.saveDocument) return;
     Promise.resolve(store.saveDocument(file, hash, total)).then(function (res) {
+      if (token !== openToken) return;
       if (res && res.ok === false) {
         notify("이 문서를 최근 문서 목록에 저장하지 못했습니다. 브라우저 저장 공간이 부족하거나 막혀 있을 수 있습니다.");
       }
     }, function () {
+      if (token !== openToken) return;
       notify("이 문서를 최근 문서 목록에 저장하지 못했습니다. 브라우저 저장 공간이 부족하거나 막혀 있을 수 있습니다.");
     });
   }
