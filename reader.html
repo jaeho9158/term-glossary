@@ -156,6 +156,32 @@
     </aside>
   </div>
 
+  <div id="rd-seltool" class="rd-seltool" role="toolbar" aria-label="선택 도구" hidden>
+    <button type="button" class="rd-hlbtn rd-hl-yellow" data-act="hl" data-color="yellow" title="노랑 형광펜" aria-label="노랑 형광펜"></button>
+    <button type="button" class="rd-hlbtn rd-hl-green" data-act="hl" data-color="green" title="초록 형광펜" aria-label="초록 형광펜"></button>
+    <button type="button" class="rd-hlbtn rd-hl-pink" data-act="hl" data-color="pink" title="분홍 형광펜" aria-label="분홍 형광펜"></button>
+    <button type="button" class="rd-hlbtn rd-hl-blue" data-act="hl" data-color="blue" title="파랑 형광펜" aria-label="파랑 형광펜"></button>
+    <span class="rd-seltool-sep" aria-hidden="true"></span>
+    <button type="button" class="rd-seltool-btn" data-act="memo">메모</button>
+    <button type="button" class="rd-seltool-btn" data-act="copy">복사</button>
+    <button type="button" class="rd-seltool-btn" data-act="lookup">사전에서 찾기</button>
+  </div>
+
+  <div id="rd-annopop" class="rd-annopop" role="dialog" aria-label="형광펜 편집" hidden>
+    <div class="rd-annopop-colors">
+      <button type="button" class="rd-annopop-color rd-hl-yellow" data-color="yellow" title="노랑" aria-label="노랑" aria-pressed="false"></button>
+      <button type="button" class="rd-annopop-color rd-hl-green" data-color="green" title="초록" aria-label="초록" aria-pressed="false"></button>
+      <button type="button" class="rd-annopop-color rd-hl-pink" data-color="pink" title="분홍" aria-label="분홍" aria-pressed="false"></button>
+      <button type="button" class="rd-annopop-color rd-hl-blue" data-color="blue" title="파랑" aria-label="파랑" aria-pressed="false"></button>
+    </div>
+    <textarea id="rd-annopop-note" class="rd-annopop-note" rows="3" placeholder="메모를 남겨보세요 (선택)" aria-label="메모"></textarea>
+    <div class="rd-annopop-actions">
+      <button type="button" class="rd-annopop-btn is-danger" data-act="delete">삭제</button>
+      <button type="button" class="rd-annopop-btn" data-act="copy">복사</button>
+      <button type="button" class="rd-annopop-btn is-primary" data-act="save">저장</button>
+    </div>
+  </div>
+
   <div id="rd-scrim" class="rd-scrim"></div>
   <button type="button" id="rd-back" class="rd-back" hidden>돌아가기</button>
 </div>
@@ -169,6 +195,19 @@
   pdfjsLib.GlobalWorkerOptions.workerSrc = "./assets/vendor/pdfjs/pdf.worker.min.mjs";
   window.pdfjsLib = pdfjsLib;
 </script>
+<script>
+  // 형광펜·메모 저장 계층(ES module)을 클래식 스크립트가 쓸 수 있게 window.ReaderStore 로 넘긴다. 못 불러오면 null.
+  window.ReaderStoreReady = import("./assets/pdf-annotations.js").then(function (m) {
+    window.ReaderStore = {
+      loadAnnotations: m.loadAnnotations,
+      createAnnotation: m.createAnnotation,
+      updateAnnotationNote: m.updateAnnotationNote,
+      updateAnnotationAnchor: m.updateAnnotationAnchor,
+      deleteAnnotation: m.deleteAnnotation,
+    };
+    return window.ReaderStore;
+  }).catch(function (err) { console.error("[reader] 저장 계층을 불러오지 못했습니다", err); return null; });
+</script>
 <script src="assets/escape.js"></script>
 <script src="assets/category-data.js"></script>
 <script src="assets/viewer-storage.js"></script>
@@ -176,9 +215,12 @@
 <script src="assets/reader/doc.js"></script>
 <script src="assets/reader/panels.js"></script>
 <script src="assets/reader/geometry.js"></script>
+<script src="assets/reader/ink.js"></script>
 <script src="assets/reader/text-map.js"></script>
 <script src="assets/reader/overlay.js"></script>
 <script src="assets/reader/search.js"></script>
+<script src="assets/reader/selection.js"></script>
+<script src="assets/reader/annotations.js"></script>
 <script src="assets/reader/reader.js"></script>
 <script src="assets/vendor/fuse.min.js"></script>
 <script src="assets/header-search.js"></script>

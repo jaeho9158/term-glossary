@@ -279,9 +279,23 @@
     }
   }
 
+  // ---------- 형광펜·메모 ----------
+  var lastColor = "yellow";
+  readerEl.addEventListener("reader:docopen", function (e) {
+    root.ReaderAnnotations.load(e.detail.docHash, e.detail.title);
+  });
+  root.ReaderSelection.onAction(async function (act, color, sel) {
+    if (color) lastColor = color;
+    var recs = await root.ReaderAnnotations.add(sel.ranges, sel.quote, lastColor, "");
+    // 메모: 칠한 뒤 바로 메모 입력 창을 연다(여러 쪽에 걸쳐도 첫 쪽 기록 하나만).
+    if (act === "memo" && recs.length) root.ReaderAnnotations.edit(recs[0].id, sel.clientRect);
+  });
+
   // ---------- 시작 ----------
   root.ReaderPanels.init();
   root.ReaderSearch.init();
+  root.ReaderSelection.init();
+  root.ReaderAnnotations.init();
   bindToolbar();
   bindHome();
   // 새로고침으로 #doc= 만 남은 주소는 첫 화면이다. 해시를 정리한다.

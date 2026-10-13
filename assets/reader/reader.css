@@ -280,6 +280,165 @@ body.rd-open .site-footer { display: none; }
 .rd-back[hidden] { display: none; }
 .rd-scrim { display: none; }
 
+/* ===== 작업 4: 선택 도구·형광펜·메모 패널 (시작) ===== */
+.rd-hl-yellow { --hl-rgb: 255, 224, 102; --hl-solid: #ffe066; }
+.rd-hl-green { --hl-rgb: 140, 233, 154; --hl-solid: #8ce99a; }
+.rd-hl-pink { --hl-rgb: 255, 201, 222; --hl-solid: #ffc9de; }
+.rd-hl-blue { --hl-rgb: 165, 216, 255; --hl-solid: #a5d8ff; }
+.rd-rect.rd-highlight.rd-hl-yellow,
+.rd-rect.rd-highlight.rd-hl-green,
+.rd-rect.rd-highlight.rd-hl-pink,
+.rd-rect.rd-highlight.rd-hl-blue { background: rgba(var(--hl-rgb), 0.6); }
+.rd-rect.rd-highlight.rd-memo-mark {
+  background: var(--hl-solid);
+  border: calc(1px / var(--rd-scale, 1)) solid rgba(0, 0, 0, 0.55);
+  border-radius: 50%;
+}
+.rd-rect.rd-selpreview {
+  background: rgba(36, 84, 255, 0.16);
+  outline: calc(1px / var(--rd-scale, 1)) solid rgba(36, 84, 255, 0.5);
+  border-radius: 2px;
+}
+
+.rd-seltool {
+  position: fixed;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100vw - 16px);
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+}
+.rd-seltool[hidden] { display: none; }
+.rd-hlbtn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid var(--card-bg);
+  border-radius: 50%;
+  background: var(--hl-solid);
+  box-shadow: 0 0 0 1px var(--border);
+  cursor: pointer;
+}
+.rd-hlbtn:hover { box-shadow: 0 0 0 2px var(--accent); }
+.rd-seltool-sep { width: 1px; height: 18px; background: var(--border); margin: 0 2px; }
+.rd-seltool-btn {
+  height: 28px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rd-seltool-btn:hover { background: var(--hover-tint); }
+
+.rd-annopop {
+  position: fixed;
+  z-index: 41;
+  box-sizing: border-box;
+  width: min(280px, calc(100vw - 16px));
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+}
+.rd-annopop[hidden] { display: none; }
+.rd-annopop-colors { display: flex; gap: 8px; margin-bottom: 8px; }
+.rd-annopop-color {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 2px solid var(--card-bg);
+  border-radius: 50%;
+  background: var(--hl-solid);
+  box-shadow: 0 0 0 1px var(--border);
+  cursor: pointer;
+}
+.rd-annopop-color[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--accent); }
+.rd-annopop-note {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 64px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+.rd-annopop-actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 8px; }
+.rd-annopop-btn {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.rd-annopop-btn:hover { background: var(--hover-tint); }
+.rd-annopop-btn.is-primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+.rd-annopop-btn.is-danger { margin-right: auto; color: #c0392b; }
+
+.rd-tab-count {
+  display: inline-block;
+  min-width: 1.4em;
+  margin-left: 4px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.rd-pane-empty { margin: 16px 12px; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+.rd-note-list { margin: 0; padding: 0; list-style: none; }
+.rd-note-item { border-bottom: 1px solid var(--border); }
+.rd-note {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.rd-note:hover { background: var(--hover-tint); }
+.rd-note-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: var(--hl-solid);
+  box-shadow: 0 0 0 1px var(--border);
+}
+.rd-note-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.rd-note-page { color: var(--muted); font-size: 0.75rem; }
+.rd-note-quote { font-size: 0.85rem; line-height: 1.45; overflow-wrap: anywhere; }
+.rd-note-memo { font-size: 0.85rem; line-height: 1.45; color: var(--accent); white-space: pre-wrap; overflow-wrap: anywhere; }
+.rd-note.is-lost .rd-note-quote { color: var(--muted); }
+.rd-note-losthead { margin: 14px 12px 2px; font-size: 0.85rem; color: var(--muted); }
+.rd-note-losthint { margin: 0 12px 6px; color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
+/* ===== 작업 4 (끝) ===== */
+
 /* ---------- 좁은 화면: 패널은 아래 서랍 ---------- */
 @media (max-width: 767px) {
   .rd-toolbar { gap: 4px; padding: 0 6px; }
