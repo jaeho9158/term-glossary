@@ -1,0 +1,347 @@
+/* 논문 리더. 색·글꼴은 style.css 의 변수(--bg, --card-bg, --border, --accent …)만 쓴다.
+   종이(쪽)가 주인공이라 도구 막대는 얇은 한 줄, 배경은 중립색, 패널은 완전히 접힌다. */
+
+/* ---------- 첫 화면 ---------- */
+main.rd-home { max-width: 720px; }
+.rd-home h1 { margin: 0 0 6px; font-size: 1.6rem; }
+.rd-home .subtitle { margin: 0 0 24px; color: var(--muted); }
+
+.rd-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 44px 20px;
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.rd-dropzone.dragover { border-color: var(--accent); background: var(--hover-tint); }
+.rd-dropzone.is-busy { opacity: 0.6; pointer-events: none; }
+.rd-dropzone-text { color: var(--muted); font-size: 0.95rem; }
+.rd-file-label {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  border: 1.5px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.rd-file-label:hover { background: var(--hover-tint); }
+.rd-home-error {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--error-border);
+  border-radius: 6px;
+  background: var(--error-bg);
+  font-size: 0.9rem;
+}
+.rd-home-error[hidden], .rd-recent[hidden], .rd-notice[hidden] { display: none; }
+
+.rd-recent { margin-top: 28px; }
+.rd-recent-title { margin: 0 0 6px; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.rd-recent-list { list-style: none; margin: 0; padding: 0; }
+.rd-recent-item { display: flex; align-items: center; gap: 4px; border-bottom: 1px solid var(--border); }
+.rd-recent-item button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 10px 4px;
+}
+.rd-recent-open { flex: 1; display: flex; justify-content: space-between; gap: 12px; text-align: left; }
+.rd-recent-open:hover { color: var(--accent); }
+.rd-recent-size { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+.rd-recent-delete { color: var(--muted); font-size: 0.8rem !important; }
+.rd-recent-delete:hover { color: var(--accent); }
+
+/* ---------- 전체 화면 ---------- */
+body.rd-open { overflow: hidden; }
+body.rd-open .site-header,
+body.rd-open .site-footer { display: none; }
+
+.rd {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+  --rd-left-w: 260px;
+  --rd-right-w: 340px;
+  --rd-desk: color-mix(in srgb, var(--text) 6%, var(--bg));
+}
+.rd[hidden] { display: none; }
+.rd button, .rd input { font-family: inherit; }
+.rd :focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---------- 도구 막대 ---------- */
+.rd-toolbar {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 10px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.rd-group { display: flex; align-items: center; gap: 2px; }
+.rd-spacer { flex: 1 1 0; }
+.rd-title {
+  flex: 0 1 260px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.rd-btn {
+  height: 30px;
+  min-width: 30px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.rd-btn:hover:not(:disabled) { background: var(--hover-tint); }
+.rd-btn:disabled { color: var(--muted); opacity: 0.55; cursor: default; }
+.rd-btn.is-on,
+.rd-btn[aria-pressed="true"]:not(:disabled) { background: var(--accent-soft); color: var(--accent); }
+.rd-icon-btn { padding: 0 6px; font-size: 1.05rem; }
+
+.rd-page-input {
+  width: 3.4em;
+  height: 28px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.85rem;
+  text-align: right;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.rd-page-input::-webkit-outer-spin-button,
+.rd-page-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.rd-page-total { color: var(--muted); margin-left: 4px; white-space: nowrap; }
+
+.rd-search-input {
+  width: 150px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+.rd-search-input:disabled { opacity: 0.55; }
+.rd-search-count { color: var(--muted); min-width: 2.5em; margin-left: 4px; font-size: 0.8rem; white-space: nowrap; }
+
+.rd-extra { display: flex; align-items: center; gap: 10px; }
+.rd-zoom-label { min-width: 3.2em; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rd-more { display: none; font-size: 1.2rem; }
+.rd-panelbtns { padding-left: 8px; border-left: 1px solid var(--border); }
+
+/* ---------- 안내 ---------- */
+.rd-notice {
+  flex: none;
+  padding: 7px 16px;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.rd-notice p { margin: 0; }
+.rd-notice p + p { margin-top: 2px; }
+
+/* ---------- 본문 + 패널 ---------- */
+.rd-body {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 0 minmax(0, 1fr) 0;
+}
+.rd-body.rd-left-open { grid-template-columns: var(--rd-left-w) minmax(0, 1fr) 0; }
+.rd-body.rd-right-open { grid-template-columns: 0 minmax(0, 1fr) var(--rd-right-w); }
+.rd-body.rd-left-open.rd-right-open { grid-template-columns: var(--rd-left-w) minmax(0, 1fr) var(--rd-right-w); }
+
+.rd-panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--card-bg);
+  visibility: hidden;
+}
+.rd-panel-left { border-right: 1px solid var(--border); }
+.rd-panel-right { border-left: 1px solid var(--border); }
+.rd-left-open .rd-panel-left,
+.rd-right-open .rd-panel-right { visibility: visible; }
+.rd-body:not(.rd-left-open) .rd-panel-left,
+.rd-body:not(.rd-right-open) .rd-panel-right { border-width: 0; }
+
+.rd-tabs {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rd-tab {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--muted);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.rd-tab:hover { color: var(--text); }
+.rd-tab[aria-selected="true"] { color: var(--text); font-weight: 600; border-bottom-color: var(--accent); }
+.rd-panel-close { display: none; margin-left: auto; margin-bottom: 4px; }
+.rd-pane { flex: 1 1 0; min-height: 0; overflow: auto; padding: 12px; font-size: 0.88rem; }
+.rd-pane[hidden] { display: none; }
+.rd-pane:empty::before { content: "표시할 내용이 없습니다."; color: var(--muted); }
+
+/* ---------- 쪽 ---------- */
+.rd-scroll {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  background: var(--rd-desk);
+  outline: none;
+}
+.rd-pages {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  min-width: 100%;
+  padding: 16px;
+}
+.rd-page {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+.rd-canvas { position: absolute; left: 0; top: 0; display: block; }
+.rd-page .textLayer { z-index: 2; }
+.rd-overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* ---------- 돌아가기 ---------- */
+.rd-back {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 5;
+  height: 36px;
+  padding: 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+.rd-back[hidden] { display: none; }
+.rd-scrim { display: none; }
+
+/* ---------- 좁은 화면: 패널은 아래 서랍 ---------- */
+@media (max-width: 767px) {
+  .rd-toolbar { gap: 4px; padding: 0 6px; }
+  .rd-title { display: none; }
+  .rd-search-input { width: 100%; min-width: 0; }
+  .rd-search { flex: 1 1 0; min-width: 0; }
+  .rd-search-count,
+  .rd-search .rd-icon-btn { display: none; }
+  .rd-spacer { display: none; }
+  .rd-panelbtns { padding-left: 4px; }
+  .rd-more { display: inline-flex; }
+  .rd-extra {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 6px;
+    z-index: 20;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  }
+  .rd-toolbar.more-open .rd-extra { display: flex; }
+
+  .rd-body,
+  .rd-body.rd-left-open,
+  .rd-body.rd-right-open,
+  .rd-body.rd-left-open.rd-right-open { grid-template-columns: minmax(0, 1fr); }
+  .rd-scroll { grid-column: 1; grid-row: 1; }
+  .rd-panel,
+  .rd-panel-left,
+  .rd-panel-right {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    height: 70vh;
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: var(--border);
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(100%);
+    visibility: hidden;
+    transition: transform 0.2s ease, visibility 0s linear 0.2s;
+  }
+  .rd-left-open .rd-panel-left,
+  .rd-right-open .rd-panel-right {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.2s ease, visibility 0s;
+  }
+  .rd-body:not(.rd-left-open) .rd-panel-left,
+  .rd-body:not(.rd-right-open) .rd-panel-right { border-width: 1px 0 0; }
+  .rd-panel-close { display: inline-flex; }
+  .rd-drawer-open ~ .rd-scrim { display: block; position: fixed; inset: 0; z-index: 25; background: rgba(0, 0, 0, 0.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-panel { transition: none !important; }
+}
