@@ -439,6 +439,138 @@ body.rd-open .site-footer { display: none; }
 .rd-note-losthint { margin: 0 12px 6px; color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
 /* ===== 작업 4 (끝) ===== */
 
+/* ===== 작업 5: 용어 밑줄·카드·용어 패널 (시작) ===== */
+/* 밑줄은 조용하게: 옅은 점선, 배경 없음. 마우스를 올린 용어만 옅은 배경. 형광펜 층과 따로라 겹쳐도 둘 다 보인다.
+   파일 끝 겹침층 규칙(.rd-rect.rd-term)보다 뒤에 오지 않으므로 .rd-layer 를 붙여 우선하게 한다. */
+.rd-layer .rd-rect.rd-term {
+  border-bottom: calc(1px / var(--rd-scale, 1)) dotted var(--muted);
+  opacity: 0.85;
+}
+.rd-layer .rd-rect.rd-term.is-hover {
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-bottom-color: var(--accent);
+  opacity: 1;
+}
+.rd-scroll.is-term-hover .textLayer,
+.rd-scroll.is-term-hover .textLayer * { cursor: pointer; }
+
+.rd-term-card { z-index: 45; }
+.rd-term-card[hidden] { display: none; }
+.rd-term-hide {
+  margin-top: 8px;
+  margin-left: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.rd-term-hide:hover { color: var(--text); }
+.rd-term-card .dict-popover-detail { display: inline-block; }
+
+.rd-term-block {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--card-bg);
+}
+.rd-term-block[hidden] { display: none; }
+.rd-term-sectionhead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.rd-term-sectionhead .current-page-terms-title { margin: 0; }
+.rd-lookup-none { margin: 0 0 6px; color: var(--text); }
+#rd-lookup a { color: var(--accent); }
+.rd-term-hint { margin: 6px 0 0; color: var(--muted); font-size: 0.8rem; }
+.rd-term-status { margin: 0 0 10px; color: var(--muted); }
+.rd-term-status[hidden] { display: none; }
+.rd-term-filter {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.88rem;
+}
+.rd-term-filter:disabled { opacity: 0.55; }
+#rd-term-category {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+.rd-term-count { margin: 12px 0 6px; font-size: 0.9rem; }
+#rd-pane-terms .term-list { gap: 0; }
+#rd-pane-terms .term-card {
+  position: relative;
+  display: block;
+  padding: 10px 34px 10px 12px;
+  margin-bottom: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+#rd-pane-terms .term-card:hover { border-color: var(--accent); }
+#rd-pane-terms .term-card-name { display: block; font-weight: 600; }
+#rd-pane-terms .term-card-definition {
+  margin: 4px 0 6px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+#rd-pane-terms .rd-focus-card .term-card-definition,
+#rd-pane-terms .rd-lookup-list .term-card-definition { display: block; overflow: visible; }
+#rd-pane-terms .term-list li a.term-card-detail {
+  display: inline-flex;
+  margin-top: 4px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  text-decoration: none;
+}
+#rd-pane-terms .term-card-hide-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+#rd-pane-terms .term-card-hide-btn:hover { background: var(--hover-tint); color: var(--text); }
+#rd-pane-terms .term-card-basics { margin-top: 6px; font-size: 0.82rem; }
+#rd-pane-terms .term-card-basics-list { list-style: none; margin: 6px 0 0; padding: 0; }
+@media (max-width: 767px) {
+  .rd-term-card.is-sheet {
+    left: 8px !important;
+    right: 8px;
+    top: auto !important;
+    bottom: 8px;
+    width: auto;
+    z-index: 50;
+    max-height: 60vh;
+    overflow: auto;
+  }
+}
+/* ===== 작업 5 (끝) ===== */
+
 /* ---------- 좁은 화면: 패널은 아래 서랍 ---------- */
 @media (max-width: 767px) {
   .rd-toolbar { gap: 4px; padding: 0 6px; }

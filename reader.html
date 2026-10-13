@@ -113,7 +113,7 @@
         <button type="button" id="rd-fit-width" class="rd-btn" title="너비에 맞춤">너비</button>
         <button type="button" id="rd-fit-page" class="rd-btn" title="한 쪽 전체가 보이게 맞춤">쪽</button>
       </div>
-      <button type="button" id="rd-terms-toggle" class="rd-btn" aria-pressed="true" title="용어 표시 켜기/끄기" disabled>용어 표시</button>
+      <button type="button" id="rd-terms-toggle" class="rd-btn" aria-pressed="true" title="용어 표시 켜기/끄기">용어 표시</button>
     </div>
 
     <button type="button" id="rd-more" class="rd-btn rd-more" aria-expanded="false" aria-controls="rd-extra" aria-label="더보기" title="더보기">⋯</button>
@@ -151,7 +151,24 @@
         <button type="button" role="tab" class="rd-tab" id="rd-tab-notes" data-tab="notes" aria-selected="false" aria-controls="rd-pane-notes" tabindex="-1">메모</button>
         <button type="button" class="rd-btn rd-panel-close" aria-label="패널 닫기">닫기</button>
       </div>
-      <div role="tabpanel" class="rd-pane" id="rd-pane-terms" data-tab="terms" aria-labelledby="rd-tab-terms"></div>
+      <div role="tabpanel" class="rd-pane" id="rd-pane-terms" data-tab="terms" aria-labelledby="rd-tab-terms">
+        <section id="rd-lookup" class="rd-term-block" aria-live="polite" hidden></section>
+        <section id="rd-term-focus" class="rd-term-block" hidden></section>
+        <p id="rd-term-status" class="rd-term-status" role="status" hidden></p>
+        <input type="search" id="rd-term-filter" class="rd-term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
+        <div class="term-filter-bar">
+          <div class="term-filter-group">
+            <select id="rd-term-category" aria-label="분야 필터"><option value="">전체 분야</option></select>
+            <label class="term-filter-checkbox"><input type="checkbox" id="rd-term-english"> 영어 용어만</label>
+            <button type="button" id="rd-term-showhidden" class="term-filter-link" hidden></button>
+          </div>
+        </div>
+        <section id="rd-term-page" class="current-page-terms" aria-live="polite" hidden></section>
+        <h3 id="rd-term-count" class="rd-term-count"></h3>
+        <a id="rd-term-quiz" class="viewer-quiz-link" target="_blank" rel="noopener" hidden>찾은 용어로 퀴즈 풀기</a>
+        <ul class="term-list" id="rd-term-list"></ul>
+        <button type="button" id="rd-term-more" class="term-list-more-btn" hidden></button>
+      </div>
       <div role="tabpanel" class="rd-pane" id="rd-pane-notes" data-tab="notes" aria-labelledby="rd-tab-notes" hidden></div>
     </aside>
   </div>
@@ -221,6 +238,7 @@
 <script src="assets/reader/search.js"></script>
 <script src="assets/reader/selection.js"></script>
 <script src="assets/reader/annotations.js"></script>
+<script src="assets/reader/terms-layer.js"></script>
 <script src="assets/reader/reader.js"></script>
 <script src="assets/vendor/fuse.min.js"></script>
 <script src="assets/header-search.js"></script>

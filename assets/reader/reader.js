@@ -296,6 +296,7 @@
   root.ReaderSearch.init();
   root.ReaderSelection.init();
   root.ReaderAnnotations.init();
+  root.ReaderTerms.init();
   bindToolbar();
   bindHome();
   // 새로고침으로 #doc= 만 남은 주소는 첫 화면이다. 해시를 정리한다.
