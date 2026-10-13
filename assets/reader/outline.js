@@ -6,8 +6,8 @@
   "use strict";
 
   // ---------- 순수 계산 ----------
-  var BOLD_RE = /bold|black|heavy/i;
   var GAP_LIMIT_EM = 1.0;      // 한 줄로 이을 수 있는 조각 사이 최대 간격(글자 크기 배수). 이보다 벌어지면 단이 다른 것으로 본다
+  var WS_TOL_EM = 0.05;        // 공백 조각이 낀 틈의 허용 오차(공백 글자 폭이 정확히 1em 인 글꼴이 있다)
   var DETECT_GAP_EM = 0.5;     // 단 위치를 찾을 때 한 줄로 이을 최대 간격
   var WORD_GAP_EM = 0.18;      // 이 이상 벌어지면 공백을 넣는다
   var BIG_RATIO = 1.12;        // 본문보다 이 배수 이상 크면 "큰 글자"
@@ -30,13 +30,6 @@
 
   function roundHalf(v) { return Math.round(v * 2) / 2; }
 
-  // fonts: {fontName: 실제 글꼴 이름} 또는 fontName -> 이름 함수. 없으면 굵기를 알 수 없어 보통으로 본다.
-  function fontRealName(fonts, fontName) {
-    if (!fonts || !fontName) return "";
-    var v = typeof fonts === "function" ? fonts(fontName) : fonts[fontName];
-    return typeof v === "string" ? v : "";
-  }
-
   function normalizeLineText(s) {
     // 일부 글꼴은 공백을 NUL 같은 제어 문자로 내보낸다
     var t = String(s).replace(/[\u0000-\u001f\u00a0\u200b]/g, " ").replace(/\s+/g, " ").trim();
@@ -54,16 +47,12 @@
     return bestKey;
   }
 
-  // bold: 글꼴 이름을 아는 글자가 절반을 넘으면 true/false, 모르면 null(글꼴 이름은 그 쪽이 그려져야 알 수 있다).
   function finishLine(cur) {
     var text = normalizeLineText(cur.parts.join(""));
     if (!text) return null;
-    var bold = null;
-    if (cur.knownChars * 2 >= cur.chars && cur.knownChars > 0) bold = cur.boldChars * 2 > cur.knownChars;
     return {
       text: text,
       fontSize: Number(topKey(cur.sizes)),
-      bold: bold,
       font: topKey(cur.fontChars),
       x: cur.x,
       y: cur.y,
@@ -73,7 +62,7 @@
 
   // textContent.items 를 글줄로 묶는다. 같은 밑선에서 이어지고 간격이 좁은 조각만 한 줄이 된다(단이 다르면 갈라진다).
   // gx: 두 단 쪽의 단 사이 가로 위치(없으면 null). 단 경계를 넘어 이어 붙이지 않는다.
-  function assembleLines(items, viewportTransform, fonts, gx, gapEm) {
+  function assembleLines(items, viewportTransform, gx, gapEm) {
     var vt = viewportTransform || [1, 0, 0, 1, 0, 0];
     var hScale = Math.hypot(vt[0], vt[1]) || 1;
     var lines = [];
@@ -91,10 +80,11 @@
         // 낱말 사이 공백 조각은 그 폭만큼 줄 끝을 늘린다(안 그러면 공백이 낀 틈이 실제보다 넓게 보여 줄이 갈라진다)
         var sw = (Number(it.width) || 0) * hScale;
         var sfs = Math.hypot(m[2], m[3]);
-        if (cur && sfs > 0 && sw > 0 && sw <= 1.5 * sfs && Math.abs(m[5] - cur.y) <= 0.35 * cur.maxFs &&
+        if (cur && sfs > 0 && sw > 0 && sw <= (GAP_LIMIT_EM + WS_TOL_EM) * sfs && Math.abs(m[5] - cur.y) <= 0.35 * cur.maxFs &&
             m[4] >= cur.x2 - 0.5 * cur.maxFs && m[4] - cur.x2 <= 0.3 * cur.maxFs) {
           if (cur.parts.length && !/\s$/.test(cur.parts[cur.parts.length - 1])) cur.parts.push(" ");
           cur.x2 = Math.max(cur.x2, m[4] + Math.min(sw, 0.6 * sfs)); // 한 칸 공백은 0.6em 까지만 인정
+          cur.ws = true; // 공백 조각이 낀 틈: 실제 글자 사이 전체 간격이 한계(1em)를 넘으면 이어 붙이지 않는다
         }
         if (it.hasEOL) flush();
         return;
@@ -107,7 +97,6 @@
       var y = m[5];
       var w = (Number(it.width) || 0) * hScale;
       var chars = it.str.replace(/\s/g, "").length;
-      var realName = fontRealName(fonts, it.fontName);
       var ref = cur ? Math.max(fs, cur.maxFs) : fs;
       // 위·아래 첨자(본문보다 작은 조각)는 밑선이 더 벌어져도 같은 줄로 본다
       var small = cur && fs <= 0.8 * cur.maxFs;
@@ -115,10 +104,11 @@
         Math.abs(y - cur.y) <= (small ? 0.7 : 0.35) * ref &&
         x >= cur.x2 - 0.5 * ref &&
         x - cur.x2 <= ((cur.lastLen === 1 && it.str.trim().length === 1) ? 4 : gapEm) * ref && // 자간을 벌린 제목("본 론")은 글자 하나씩 조각난다
+        !(cur.ws && x - cur.tx2 > (gapEm + WS_TOL_EM) * ref) &&
         !(gx !== null && gx !== undefined && cur.x < gx && x >= gx);
       if (!joins) {
         flush();
-        cur = { parts: [], sizes: {}, fontChars: {}, chars: 0, boldChars: 0, knownChars: 0, x: x, y: y, x2: x, maxFs: fs };
+        cur = { parts: [], sizes: {}, fontChars: {}, chars: 0, x: x, y: y, x2: x, maxFs: fs };
       } else if (x - cur.x2 > WORD_GAP_EM * ref) {
         var last = cur.parts.length ? cur.parts[cur.parts.length - 1] : "";
         if (!/\s$/.test(last) && !/^\s/.test(it.str)) cur.parts.push(" ");
@@ -129,11 +119,9 @@
       cur.sizes[key] = (cur.sizes[key] || 0) + chars;
       cur.chars += chars;
       cur.fontChars[it.fontName || ""] = (cur.fontChars[it.fontName || ""] || 0) + chars;
-      if (realName) {
-        cur.knownChars += chars;
-        if (BOLD_RE.test(realName)) cur.boldChars += chars;
-      }
       cur.x2 = x + w;
+      cur.tx2 = x + w;
+      cur.ws = false;
       if (fs > cur.maxFs) cur.maxFs = fs;
       if (it.hasEOL) flush();
     });
@@ -142,7 +130,7 @@
   }
 
   // 글줄 시작 가로 위치의 분포로 두 단 쪽인지 본다. 두 단이면 단 사이 가로 위치, 아니면 null.
-  // 긴 줄(20자 이상)의 시작 위치가 왼쪽 끝과, 그보다 100pt 이상 오른쪽의 한 지점(±3pt)에 각각 6줄 이상·25% 이상 모이고,
+  // 긴 줄(20자 이상)의 시작 위치가 왼쪽(왼쪽 끝에서 100pt 안쪽 전부, 들여쓴 줄 포함)과, 왼쪽 끝에서 100pt 이상 오른쪽의 한 지점(±1칸=6pt 창, 들여쓴 줄 포함)에 각각 6줄 이상·25% 이상 모이고,
   // (줄 끝 x2 를 아는 경우) 왼쪽 줄이 오른쪽 시작점을 넘어 뻗지 않으면 두 단이다.
   function detectGutter(lines) {
     var longL = (lines || []).filter(function (l) {
@@ -151,7 +139,8 @@
     if (longL.length < 12) return null;
     var xs = longL.map(function (l) { return l.x; }).sort(function (a, b) { return a - b; });
     var minX = xs[Math.floor(xs.length * 0.05)];
-    var left = longL.filter(function (l) { return l.x <= minX + 12; });
+    // 왼쪽 단: 오른쪽 단 후보(왼쪽 끝에서 100pt 이상 오른쪽)에 못 미치는 모든 줄. 내어쓰기·들여쓴 첫 줄(참고문헌 쪽의 "50 x14 / 70 x34")도 같은 단이다.
+    var left = longL.filter(function (l) { return l.x < minX + 100; });
     var rest = longL.filter(function (l) { return l.x >= minX + 100; });
     if (left.length < 6 || rest.length < 6) return null;
     var buckets = {};
@@ -162,9 +151,13 @@
       if (bestK === null || n > bestK.n) bestK = { k: Number(k), n: n };
     });
     if (!bestK) return null;
-    var rightLines = rest.filter(function (l) { return Math.abs(l.x / 6 - bestK.k) <= 1.01; });
-    if (rightLines.length < 6 || rightLines.length < 0.25 * longL.length || left.length < 0.25 * longL.length) return null;
+    // 후보를 고른 것과 같은 반올림 창(k-1..k+1)으로 줄을 거른다. 실수 비교(|x/6-k|<=1.01)로 하면 창 가장자리 줄이 빠져 진짜 두 단 쪽을 놓친다.
+    var rightLines = rest.filter(function (l) { return Math.abs(Math.round(l.x / 6) - bestK.k) <= 1; });
+    if (rightLines.length < 1) return null;
     var xr = medianOf(rightLines.map(function (l) { return l.x; }));
+    // 오른쪽 단의 들여쓴 첫 줄·내어쓴 줄(±25pt)도 같은 단 군집으로 센다.
+    var rightAll = rest.filter(function (l) { return Math.abs(l.x - xr) <= 25; });
+    if (rightAll.length < 6 || rightAll.length < 0.25 * longL.length || left.length < 0.25 * longL.length) return null;
     var withX2 = left.filter(function (l) { return typeof l.x2 === "number"; });
     if (withX2.length >= 4) {
       var e = withX2.map(function (l) { return l.x2; }).sort(function (a, b) { return a - b; });
@@ -175,11 +168,11 @@
     return xr - 6;
   }
 
-  function linesFromItems(items, viewportTransform, fonts) {
+  function linesFromItems(items, viewportTransform) {
     // 단 사이 간격이 좁아도(1em 미만) 단을 알아볼 수 있도록 먼저 0.5em 이상 벌어진 곳에서 끊어 단 위치를 찾고,
     // 찾았으면 그 경계를 넘지 않게, 못 찾았으면 1em 까지의 간격만 이어 붙인다.
-    var g = detectGutter(assembleLines(items, viewportTransform, fonts, null, DETECT_GAP_EM));
-    var lines = assembleLines(items, viewportTransform, fonts, g, GAP_LIMIT_EM);
+    var g = detectGutter(assembleLines(items, viewportTransform, null, DETECT_GAP_EM));
+    var lines = assembleLines(items, viewportTransform, g, GAP_LIMIT_EM);
     lines.gutter = g;
     return lines;
   }
@@ -212,11 +205,11 @@
   var TITLE_START_RE = /^[A-Z가-힣一-鿿(\[「『“"']/;
   var SENTENCE_END_RE = /[.,;:。，；：]$|[-‐‑–]$/; // 문장 끝 부호, 또는 줄바꿈 하이픈
   // 소속·주소·전자우편 줄("1 Department of Medicine", "2 서울대학교 의과대학")
-  var AFFIL_RE = /\b(?:Department|Dept|University|Univ|Institute|Institution|College|School|Hospital|Center|Centre|Laboratory|Faculty|Clinic|Division|Graduate|Academy|Corresponding|Tel|Fax|Seoul|Korea|Japan|China|USA|Taiwan|Germany|France|Canada|Australia|Kingdom)\b|대학교|대학원|대학|학과|학부|연구소|연구원|병원|센터|우편|주소|@|e-?mail|\b\d{5}(?:-\d{4})?\b/i;
+  var AFFIL_RE = /\b(?:Department|Dept|University|Univ|Institute|Institution|College|School|Hospital|Center|Centre|Laboratory|Faculty|Clinic|Division|Graduate|Academy|Labs?|Laborator(?:y|ies)|Corp|Corporation|Inc|Ltd|GmbH|LLC|Company|Corresponding|Tel|Fax|Seoul|Korea|Japan|China|USA|Taiwan|Germany|France|Canada|Australia|Kingdom)\b|대학교|대학원|대학|학과|학부|연구소|연구원|병원|센터|우편|주소|@|e-?mail|\b\d{5}(?:-\d{4})?\b/i;
   // 저자 나열("Kim and J. Lee", "Kim, J. Lee", "Smith & Jones", "Kim et al")
   var AUTHOR_LIST_RE = /^[A-Z][A-Za-z'’-]+(?:\s+[A-Z]\.?)*\s*(?:,\s*|\s+&\s+|\s+and\s+)(?:[A-Z]\.|[A-Z][a-z]+\b)|^[A-Z][A-Za-z'’-]+\s+et\s+al\b/;
   // 참고문헌 항목("Kim JH, ...", "Rychert J. ...", "J. Lee ...", "김철수 (2010)", "et al")
-  var REF_ENTRY_RE = /^[A-Z][A-Za-z'’-]+,?\s+[A-Z]{1,3}[,.]|^(?:[A-Z]\.\s*)+[A-Z][a-z]+|\bet\s+al\b|\(\s*(?:19|20)\d{2}[a-z]?\s*\)/;
+  var REF_ENTRY_RE = /^[가-힣]{2,4}(?:\s*[․·ㆍ,]\s*[가-힣]{2,4})+\s*[.,]|^[A-Z][A-Za-z'’-]+,?\s+[A-Z]{1,3}[,.]|^(?:[A-Z]\.\s*)+[A-Z][a-z]+|\bet\s+al\b|\(\s*(?:19|20)\d{2}[a-z]?\s*\)/;
 
   // 번호·표제 형식에 맞는지 본다. {kind, depth, rest, keyword, nodot}
   // nodot: 번호 뒤에 점·닫는 괄호가 없다("1 Introduction"). 소속·주소와 구별이 어려워 호출한 쪽에서 위치 조건을 더 건다.
@@ -334,8 +327,9 @@
   // (같은 PDF가 그려진 순서에 따라 다른 목차가 나오면 안 된다). textContent.styles 의 fontFamily 는 serif/sans-serif 같은
   // 대체 글꼴 분류일 뿐 굵기를 담지 않아 쓰지 않는다. 쓰는 신호는 getTextContent 만으로 모든 쪽에서 얻는 둘뿐이다:
   // (1) 글자 크기가 본문 크기의 몇 배인가, (2) 줄의 글꼴 번호가 본문 글꼴과 다르면서 문서 전체 글자의 20% 이하로 드문가.
-  // line.bold 는 읽지 않는다.
+  // 호출자가 준 입력 플래그 line.bold === true 는 같은 신호로 본다(입력만으로 정해지므로 결정적). 브라우저 경로(linesFromItems)는 bold 를 만들지 않는다.
   function isRareFont(line, ctx) {
+    if (line.bold === true) return true;
     return !!line.font && !!ctx.fonts.body && line.font !== ctx.fonts.body &&
       ctx.fonts.total > 0 && (ctx.fonts.all[line.font] || 0) / ctx.fonts.total <= RARE_FONT_SHARE;
   }
@@ -392,8 +386,38 @@
   }
 
   // 표·그림 캡션 시작. \b 는 한글에서 경계로 동작하지 않으므로 "뒤에 글자가 이어지지 않음"으로 본다("표본", "도입"은 캡션이 아니다).
-  var CAPTION_RE = /^(?:table|tab\.|fig\.?|figure|scheme|chart|plate|supplementary|supplemental|appendix\s+table|표|그림|도표|도|사진|식|부록\s*\d)(?![A-Za-z가-힣])/i;
+  var CAPTION_RE = /^(?:table|tab\.|fig\.?|figure|scheme|chart|plate|supplementary|supplemental|appendix\s+table|box|algorithm|equation|표|그림|도표|도|사진|식|부록\s*\d)(?![A-Za-z가-힣])/i;
   var TITLE_EMPH_RATIO = 1.1;
+
+  // 번호 없는 제목 후보에서 뺄 줄: 저자명 나열, 날짜·접수 정보, 학술지명, 식별자.
+  var TITLE_WORDS_RE = /\b(?:analysis|study|studies|review|effects?|factors?|disease|diseases|treatment|therapy|outcomes?|risk|model|models|method|methods|approach|design|system|systems|research|development|evaluation|management|prevention|diagnosis|clinical|patients?|policy|education)\b/i;
+  var EN_NAME = "[A-Z][a-z]+(?:[-'’][A-Z]?[a-z]+)?";
+  // "Kim Jaeho and Lee Minsu", "Kim Jaeho, Lee Minsu & Park"
+  var EN_NAME_LIST_RE = new RegExp("^" + EN_NAME + "(?:\\s+(?:[A-Z]\\.?|" + EN_NAME + ")){1,2}\\s*(?:,|\\s+and\\s+|\\s+&\\s+)\\s*" + EN_NAME + "(?:\\s+(?:[A-Z]\\.?|" + EN_NAME + ")){0,2}(?:\\s*(?:,|\\s+and\\s+|\\s+&\\s+).*)?$");
+  // "J. Kim, S. Lee", "Kim, J., Lee, S."
+  var INITIAL_AUTHOR_RE = /^(?:[A-Z]\.\s*)+[A-Z][a-z]+(?:\s*[,&]|\s+and\b)|^[A-Z][a-z]+,\s*(?:[A-Z]\.\s*)+/;
+  var KO_SURNAMES = "김이박최정강조윤장임한오서신권황안송전홍유고문양손배백허남심노하곽성차주우구민나진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용예경봉사부";
+  var META_LINE_RE = /^(?:received|accepted|revised|published|submitted|available\s+online|online\s+(?:first|publication)|correspond|address|copyright|keywords?|key\s+words?|running\s+(?:title|head)|orcid|corresponding|이메일|접수|수정|게재|투고|심사|채택|발행|수신|주저자|교신|공동저자|제\s*1\s*저자|키워드|주제어|핵심어)|orcid|\b(?:issn|isbn|vol\.?|pp\.?)\s*\d|\bno\.\s*\d|©|\b(?:19|20)\d{2}\s*년\s*\d{1,2}\s*월|(?:\d{1,2}\s+)?(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?\s+(?:\d{1,2},?\s+)?(?:19|20)\d{2}\b/i;
+  var JOURNAL_RE = /\b(?:journal|proceedings|transactions|annals|archives|bulletin)\s+of\b|\bjournal\s*$|학회지|학술지|논문집|학보$|저널/i;
+  var INSTITUTION_RE = /^(?:department|dept\.?|division|school|faculty|institute|college|center|centre)\s+of\b|\buniversity\b|\bhospital\b|\blaborator(?:y|ies)\b|\blabs?\b|\bcorp(?:oration)?\.?$|\b(?:ltd|inc|gmbh|llc)\.?$|대학교|대학원|병원|연구소|연구원/i;
+  // 한글 저자 나열("김철수 이영희 박민수", "김철수·이영희"): 성씨로 시작하는 세 글자 낱말이 둘 이상이고 조사·접미로 끝나는 것이 없을 때.
+  var KO_NON_NAME_END = "의에를은는과와로적들화론학법계률율업제책소회국인";
+  function isKoreanNameList(text) {
+    var toks = text.split(/[\s,·․ㆍ•]+/).filter(Boolean);
+    if (toks.length < 2 || toks.length > 8) return false;
+    for (var i = 0; i < toks.length; i++) {
+      // 이름은 모두 세 글자(성+이름 두 글자)이고 낱말 끝이 조사·접미(의, 적, 학, 법, 인 …)가 아니다: "연구 방법의 한계" 같은 제목을 이름으로 오인하지 않는다
+      if (!/^[가-힣]{3}$/.test(toks[i]) || KO_SURNAMES.indexOf(toks[i].charAt(0)) < 0 || KO_NON_NAME_END.indexOf(toks[i].charAt(2)) >= 0) return false;
+      if (KEYWORDS[keywordKey(toks[i])] === true) return false;
+    }
+    return true;
+  }
+  function isPersonOrMeta(text) {
+    if (META_LINE_RE.test(text) || JOURNAL_RE.test(text) || INSTITUTION_RE.test(text)) return true;
+    if (INITIAL_AUTHOR_RE.test(text)) return true;
+    if (!TITLE_WORDS_RE.test(text) && (AUTHOR_LIST_RE.test(text) || EN_NAME_LIST_RE.test(text))) return true;
+    return isKoreanNameList(text);
+  }
 
   // 번호·표제어가 없는 짧은 제목 후보(예: "세균에서의 QS", "Conflicts of Interest").
   function judgeTitleLine(line, ctx) {
@@ -403,6 +427,7 @@
     if (!/[A-Za-z가-힣]/.test(text) || SENTENCE_END_RE.test(text) || CAPTION_RE.test(text)) return null;
     if (/[@\[\]*†‡]|https?:|doi/i.test(text) || LEADER_RE.test(text)) return null; // 저자 표시(*, †)가 붙은 줄은 저자명
     if (!/^[A-Z가-힣一-鿿]/.test(text)) return null; // 소문자·숫자·부호로 시작하면 문장 조각
+    if (isPersonOrMeta(text)) return null;
     if (text.split(" ").length > 8) return null;
     var ratio = ctx.body > 0 ? line.fontSize / ctx.body : 1;
     return isRareFont(line, ctx) && ratio >= TITLE_EMPH_RATIO ? { level: 1, kind: "title" } : null;
@@ -1021,9 +1046,16 @@
 
       // "쪽"·"목차" 탭이 나중에 열렸을 때 그 순간 현재 항목이 보이게 한다(숨겨진 동안에는 스크롤 위치를 계산할 수 없다).
       var wasShown = { pages: false, outline: false };
+      function paneShown(pane) { return !!pane && !pane.hidden && pane.clientHeight > 0; }
+      // 처음 관찰을 시작할 때 실제 상태로 맞춰 둔다(그렇지 않으면 이미 열려 있던 탭이 첫 변화 때 한 번 스크롤된다).
+      function syncShown() {
+        var P = panes();
+        wasShown.pages = paneShown(P.pages);
+        wasShown.outline = paneShown(P.outline);
+      }
       function revealCurrent() {
         var P = panes();
-        function shown(pane) { return !!pane && !pane.hidden && pane.clientHeight > 0; }
+        var shown = paneShown;
         var sp = shown(P.pages);
         var so = shown(P.outline);
         // 보이지 않던 것이 보이게 된 때만(보이는 동안 사용자가 스크롤한 자리는 건드리지 않는다)
@@ -1129,6 +1161,7 @@
           var po = panes().outline;
           if (po) mo.observe(po, { attributes: true, attributeFilter: ["hidden"] });
         }
+        syncShown();
         // 이미 열린 문서가 있으면 따라잡는다.
         if (D && D.getPdf && D.getPdf()) onDocOpen();
       }

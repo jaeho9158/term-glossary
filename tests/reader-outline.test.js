@@ -2,9 +2,9 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { guessHeadings, guessHeadingsAsync, linesFromItems, detectGutter, repeatKey, convertOutlineTree, thumbsToRelease, classifyHeading, buildTree, flattenTree, findCurrentEntry } = require("../assets/reader/outline.js");
 
-// 굵은 줄은 드문 글꼴 번호("H")로 표현한다. 굵기 이름은 판정에 쓰이지 않는다.
+// 브리프의 입력 모양 그대로: {text, fontSize, bold, x, y}. 굵은 줄은 bold === true 로 제목이 될 수 있다(입력 플래그, 결정적).
 function L(text, fontSize, bold, y, x) {
-  return { text, fontSize, bold: !!bold, font: bold ? "H" : "B", x: x === undefined ? 70 : x, y };
+  return { text, fontSize, bold: !!bold, font: "B", x: x === undefined ? 70 : x, y };
 }
 function body(n, y0) {
   const out = [];
@@ -106,12 +106,12 @@ test("linesFromItems: 조각을 줄로 묶고 굵기·크기·위치를 구한�
   const lines = linesFromItems(items, vt, { f1: "ABCDEF+NanumGothic-Bold", f2: "ABCDEF+Batang" });
   assert.equal(lines.length, 3);
   assert.equal(lines[0].text, "1. 서론");
-  assert.equal(lines[0].bold, true);
+  // 브라우저 경로는 글꼴 이름으로 굵기를 만들지 않는다(렌더 순서에 따라 달라지므로)
+  assert.ok(lines.every((l) => !("bold" in l) || l.bold === undefined));
   assert.equal(lines[0].fontSize, 13);
   assert.equal(lines[0].y, 100);
   assert.equal(lines[0].x, 70);
   assert.equal(lines[1].text, "본문 첫 줄이다");
-  assert.equal(lines[1].bold, false);
   assert.equal(lines[2].text, "오른쪽 단");
 });
 
@@ -217,7 +217,7 @@ test("캡션: 굵은 '표 1.'·'그림 3.'·Table·Fig. 줄은 제목이 아니�
   assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "표본 설계", "도입 배경", "결론", "참고문헌"]);
 });
 
-test("결정적: 굵기 힌트(bold)가 있든 없든 같은 입력은 같은 결과", () => {
+test("결정적: 같은 입력은 같은 결과(글꼴 번호가 정한 제목은 bold 플래그가 true/false/없음이어도 같다)", () => {
   const mk = (boldVal) => {
     const strip = (l) => { const o = { ...l }; if (boldVal === undefined) delete o.bold; else o.bold = boldVal; return o; };
     return [
@@ -230,11 +230,107 @@ test("결정적: 굵기 힌트(bold)가 있든 없든 같은 입력은 같은 �
   assert.deepEqual(a, guessHeadings(mk(true)));
   assert.deepEqual(a, guessHeadings(mk(false)));
   assert.deepEqual(titles(a), ["Abstract", "1. 서론", "참고문헌"]);
-  // 같은 글꼴 번호의 줄이 bold 힌트만 달라서는 결과가 바뀌지 않는다
-  const withHint = guessHeadings([{ page: 1, lines: [{ ...H("Abstract", 12, 60), bold: true }, { ...H("서론", 13, 100), bold: true }, { ...H("결론", 13, 140), bold: true }, ...bodyAt(20, 160).map((l) => ({ ...l, bold: true }))] }]);
+  // 제목 줄에만 bold 플래그가 얹혀도 같은 제목이 나온다(이미 드문 글꼴이므로)
+  const withHint = guessHeadings([{ page: 1, lines: [{ ...H("Abstract", 12, 60), bold: true }, { ...H("서론", 13, 100), bold: true }, { ...H("결론", 13, 140), bold: true }, ...bodyAt(20, 160)] }]);
   const noHint = guessHeadings([{ page: 1, lines: [H("Abstract", 12, 60), H("서론", 13, 100), H("결론", 13, 140), ...bodyAt(20, 160)] }]);
   assert.deepEqual(withHint, noHint);
   assert.equal(noHint.length, 3);
+});
+
+test("굵기 입력 계약: line.bold === true 는 드문 글꼴과 같은 신호이고, false/없음은 신호가 아니다", () => {
+  const pg = (flag) => [{ page: 1, lines: [
+    { text: "1. 서론", fontSize: 10, font: "B", x: 70, y: 60, ...(flag === undefined ? {} : { bold: flag }) },
+    ...bodyAt(20, 80),
+    { text: "2. 연구 방법", fontSize: 10, font: "B", x: 70, y: 400, ...(flag === undefined ? {} : { bold: flag }) },
+    ...bodyAt(10, 420),
+    { text: "3. 결과 요약", fontSize: 10, font: "B", x: 70, y: 600, ...(flag === undefined ? {} : { bold: flag }) },
+  ] }];
+  assert.deepEqual(titles(guessHeadings(pg(true))), ["1. 서론", "2. 연구 방법", "3. 결과 요약"]);
+  assert.deepEqual(titles(guessHeadings(pg(false))), []); // 신호가 없으면 본문 크기의 번호 줄은 제목이 아니다
+  assert.deepEqual(titles(guessHeadings(pg(undefined))), []);
+  // 같은 입력은 몇 번을 돌려도 같다
+  assert.deepEqual(guessHeadings(pg(true)), guessHeadings(pg(true)));
+});
+
+// 첫 제목이 나온 뒤(둘째 쪽)에 드문 글꼴·11.5pt(본문 10pt)로 나온 번호 없는 줄이 제목으로 받아들여지는지 본다.
+function titleProbe(texts) {
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 60), ...bodyAt(25, 80), H("1. Introduction", 13, 480), ...bodyAt(5, 500)] },
+    { page: 2, lines: [...bodyAt(10, 60), ...texts.map((t, i) => H(t, 11.5, 220 + i * 40)), ...bodyAt(15, 220 + texts.length * 40 + 20)] },
+    { page: 3, lines: [H("2. Methods", 13, 60), ...bodyAt(25, 80), H("References", 13, 480), ...bodyAt(5, 500)] },
+  ];
+  return titles(guessHeadings(pages)).filter((t) => texts.indexOf(t) >= 0);
+}
+
+test("번호 없는 제목 후보: 저자·날짜·학술지·식별자 줄은 받지 않는다", () => {
+  const bad = ["Kim Jaeho and Lee Minsu", "김철수 이영희 박민수", "J. Kim, S. Lee", "Received 12 March 2020", "Journal of Korean Medicine", "Orcid",
+    "김철수·이영희", "Smith and Jones", "Accepted: May 3, 2020", "한국의학회지"];
+  assert.deepEqual(titleProbe(bad), []);
+});
+
+test("번호 없는 제목 후보: 진짜 짧은 제목은 계속 받는다", () => {
+  const good = ["Pathogenesis and Treatment", "Risk Factors and Clinical Outcomes", "세균에서의 QS", "Clinical Implications", "연구 방법의 한계"];
+  assert.deepEqual(titleProbe(good), good);
+});
+
+test("번호 없는 제목 후보: 표·그림 계열 캡션(Box/Algorithm/Equation/Scheme/Chart/Appendix Table)은 제목이 아니다", () => {
+  const caps = ["Box 1 Key messages", "Algorithm 1 Training loop", "Equation 2 Loss function", "Scheme 1 Synthesis route", "Chart 1 Annual trend", "Appendix Table 1", "Table 2 Results", "Figure 3 Flow"];
+  assert.deepEqual(titleProbe(caps), []);
+  assert.deepEqual(titleProbe(["Boxing Training", "Equations of State"]), ["Boxing Training", "Equations of State"]);
+});
+
+test("번호 붙은 소속·참고문헌 항목: '1 Samsung Medical Research Labs', '3. 김철수․이영희. 청소년…'은 제목이 아니다", () => {
+  assert.equal(classifyHeading("1 Samsung Medical Research Labs"), null);
+  assert.equal(classifyHeading("2 Acme Corp"), null);
+  assert.equal(classifyHeading("3. 김철수․이영희. 청소년 약물 남용의 실태"), null);
+  assert.equal(classifyHeading("4. 김철수·이영희, 박민수. 청소년 약물"), null);
+  assert.equal(classifyHeading("3. 청소년 약물 남용의 실태").kind, "num");
+  assert.equal(classifyHeading("1 Introduction").kind, "num");
+});
+
+test("detectGutter: 반올림 창 가장자리 줄도 오른쪽 단으로 센다(natural-extract p3: 275 x28 / 284.88 x4 / 289 x1)", () => {
+  const T = "본 연구는 청소년의 마약류 남용 실태를 분석하고 대응 방안을 제시하였다";
+  const mk = (x, y) => ({ text: T, fontSize: 9.5, font: "B", x, x2: x === 57 ? 250 : x + 200, y });
+  const lines = [];
+  for (let i = 0; i < 30; i++) lines.push(mk(57, 100 + i * 12));
+  for (let i = 0; i < 28; i++) lines.push(mk(275, 100 + i * 12));
+  for (let i = 0; i < 4; i++) lines.push(mk(284.88, 460 + i * 12));
+  lines.push(mk(289, 520));
+  const g = detectGutter(lines);
+  assert.equal(typeof g, "number");
+  assert.ok(g > 250 && g < 275, "단 사이: " + g);
+});
+
+test("detectGutter: 내어쓰기·들여쓴 첫 줄이 갈라놓은 왼쪽 단(50 x14 / 70 x34)도 한 단 군집이다", () => {
+  const T = "Quorum sensing regulates biofilm formation in many bacterial species worldwide";
+  const lines = [];
+  for (let i = 0; i < 14; i++) lines.push({ text: T, fontSize: 9, font: "B", x: 50, x2: 250, y: 60 + i * 11 });
+  for (let i = 0; i < 34; i++) lines.push({ text: T, fontSize: 9, font: "B", x: 70, x2: 250, y: 220 + i * 11 });
+  for (let i = 0; i < 48; i++) lines.push({ text: T, fontSize: 9, font: "B", x: 300, x2: 500, y: 60 + i * 11 });
+  const g = detectGutter(lines);
+  assert.equal(typeof g, "number");
+  assert.ok(g > 250 && g < 300, "단 사이: " + g);
+});
+
+test("detectGutter: 한 단 쪽은 들여쓴 줄이 많아도 두 단으로 보지 않는다", () => {
+  const T = "본 연구는 청소년의 마약류 남용 실태를 분석하고 대응 방안을 제시하였다";
+  const lines = [];
+  for (let i = 0; i < 30; i++) lines.push({ text: T, fontSize: 10, font: "B", x: 70, x2: 520, y: 100 + i * 14 });
+  for (let i = 0; i < 12; i++) lines.push({ text: T, fontSize: 10, font: "B", x: 190, x2: 520, y: 540 + i * 14 }); // 인용 블록 들여쓰기
+  assert.equal(detectGutter(lines), null);
+  assert.equal(detectGutter(lines.slice(0, 30)), null); // 오른쪽 군집이 없으면 null
+});
+
+test("linesFromItems: 공백 조각이 있어도 실제 글자 사이 간격이 1em 을 넘으면 이어 붙이지 않는다", () => {
+  const vt = [1, 0, 0, -1, 0, 800];
+  const it = (str, x, w) => ({ str, transform: [10, 0, 0, 10, x, 100], width: w, fontName: "f" });
+  // "AAAA"(70~100) 공백(102, 폭 10, 0.6em 인정) "BBBB"(116): 공백 뒤 틈은 0.8em 이지만 글자 사이는 1.6em → 둘로 갈라진다
+  const far = linesFromItems([it("AAAA", 70, 30), it(" ", 102, 10), it("BBBB", 116, 30)], vt);
+  assert.equal(far.length, 2);
+  // 간격 0.9em 이면 공백을 끼고 한 줄
+  const near = linesFromItems([it("AAAA", 70, 30), it(" ", 101, 9), it("BBBB", 109, 30)], vt);
+  assert.equal(near.length, 1);
+  assert.equal(near[0].text, "AAAA BBBB");
 });
 
 test("소속·주소 줄('1 Department…', '2 서울대학교 의과대학')과 저자 줄('I. Kim and J. Lee')은 제목이 아니다", () => {
