@@ -283,10 +283,11 @@
     return true;
   }
 
-  // Esc 한 번에 하나만 닫는다. 순서: 카드 → 선택 도구 → 편집 창 → 더보기 → 서랍 → 입력란 초점. 닫은 게 있으면 true.
+  // Esc 한 번에 하나만 닫는다. 순서: 카드 → 선택한 용어 카드(옆 패널) → 선택 도구 → 편집 창 → 더보기 → 서랍 → 입력란 초점. 닫은 게 있으면 true.
   function closeTopmost() {
     var chain = [
       function () { return !!(root.ReaderTerms && root.ReaderTerms.closeCard && root.ReaderTerms.closeCard()); },
+      function () { return !!(root.ReaderTerms && root.ReaderTerms.clearFocus && root.ReaderTerms.clearFocus()); },
       function () { return root.ReaderPreview && root.ReaderPreview.closeCard ? root.ReaderPreview.closeCard() : false; },
       function () { return !!(root.ReaderSelection && root.ReaderSelection.dismiss && root.ReaderSelection.dismiss()); },
       function () { return !!(root.ReaderAnnotations && root.ReaderAnnotations.dismissEditor && root.ReaderAnnotations.dismissEditor()); },

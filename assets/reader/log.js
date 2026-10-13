@@ -31,12 +31,26 @@
     };
   }
 
+  // 한 번 본 키는 다시 true 를 주지 않는 함수를 만든다(같은 화면에서 같은 항목을 읽기 기록에 여러 번 올리지 않으려고).
+  // 빈 키는 구분할 수 없으니 막지 않는다.
+  function createOnce() {
+    var seen = new Set();
+    return function (key) {
+      if (!key) return true;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    };
+  }
+
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { termCountBucket: termCountBucket, historyTitle: historyTitle, createThrottle: createThrottle };
+    module.exports = { termCountBucket: termCountBucket, historyTitle: historyTitle, createThrottle: createThrottle, createOnce: createOnce };
   }
   if (typeof document === "undefined") return;
 
   var allowAnalyze = createThrottle(THROTTLE_MS);
+  var onceTitle = createOnce(); // 붙여넣은 글: 같은 제목(앞 40자)은 한 번만
+  var onceDoc = createOnce();   // PDF: 같은 문서(해시)는 한 번만
 
   function trackAnalyze(source, count) {
     if (!root.trackEvent || !allowAnalyze()) return;
@@ -66,19 +80,25 @@
     historyTitle: historyTitle,
     trackAnalyze: trackAnalyze,
     logPaperHistory: logPaperHistory,
-    // 붙여넣은 글 분석이 끝났을 때(paste.js)
-    pasteAnalyzed: function (text, count) {
-      logPaperHistory(historyTitle("", text));
+    // 붙여넣은 글 분석이 끝났을 때(paste.js). 읽기 기록은 "용어 찾기" 누름·붙여넣기로 시작한 분석(opts.log)만 남긴다.
+    // 입력 중 자동 분석과 초안 복원은 통계만 보낸다.
+    pasteAnalyzed: function (text, count, opts) {
+      if (opts && opts.log) {
+        var title = historyTitle("", text);
+        if (onceTitle(title)) logPaperHistory(title);
+      }
       trackAnalyze("paste", count);
     },
   };
 
   var readerEl = document.getElementById("reader");
   if (readerEl) {
-    // 문서를 열 때마다 읽은 기록 한 줄(옛 뷰어는 PDF 분석이 끝날 때 한 번이었다).
+    // 문서를 열 때마다 읽은 기록 한 줄(같은 문서를 이 화면에서 다시 열면 더 올리지 않는다).
     readerEl.addEventListener("reader:docopen", function (e) {
       var d = e.detail || {};
-      logPaperHistory(historyTitle(d.fileName || (d.title ? d.title + ".pdf" : ""), ""));
+      var title = historyTitle(d.fileName || (d.title ? d.title + ".pdf" : ""), "");
+      if (!onceDoc(d.docHash || "")) return;
+      logPaperHistory(title);
     });
     // 용어 찾기가 끝나면 통계(출처 pdf, 용어 수 구간).
     readerEl.addEventListener("reader:termsready", function (e) {

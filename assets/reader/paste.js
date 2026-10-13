@@ -4,7 +4,8 @@
 // 강조 HTML 은 term-match.js 의 buildHighlightedHtml / escapeHtml 만 거친다. 사용자가 붙여넣은 글은 innerHTML 에 날것으로 넣지 않는다.
 // 초안은 ViewerStorage.saveText / loadText 로 저장·복원한다(옛 뷰어와 같은 키).
 //
-// 옛 뷰어에서 가져오지 않은 것: 용어 카드의 "숨기기" 단추(문서마다 되돌릴 자리가 필요해 붙여넣기 화면에서는 뺐다).
+// 숨긴 용어: PDF 리더와 같은 목록(ViewerStorage 가 아니라 terms-layer.js 가 쓰는 localStorage "viewerHiddenTermSlugs")을
+// ReaderTerms.hiddenSlugs / hide / restoreAll 로 함께 쓴다. 카드의 "숨기기"와 "숨긴 용어 다시 보기"가 이 화면에도 있다.
 (function (root) {
   "use strict";
   if (typeof document === "undefined") return;
@@ -29,6 +30,7 @@
   var catSelect = $("rd-paste-category");
   var engCheck = $("rd-paste-english");
   var quizLink = $("rd-paste-quiz");
+  var showHiddenBtn = $("rd-paste-show-hidden");
 
   var matches = [];
   var shown = 0;
@@ -77,7 +79,12 @@
     showText(true);
   }
 
-  function marked() { return matches.filter(function (m) { return !m.distant; }); }
+  function hiddenSet() {
+    return new Set(root.ReaderTerms && root.ReaderTerms.hiddenSlugs ? root.ReaderTerms.hiddenSlugs() : []);
+  }
+  function visibleMatches() { var h = hiddenSet(); return matches.filter(function (m) { return !h.has(m.slug); }); }
+
+  function marked() { return visibleMatches().filter(function (m) { return !m.distant; }); }
 
   function renderText(text) {
     closePopover();
@@ -91,7 +98,7 @@
     var q = (filterInput.value || "").trim().toLowerCase();
     var cat = catSelect.value;
     var eng = engCheck.checked;
-    return matches.filter(function (m) {
+    return visibleMatches().filter(function (m) {
       if (q && !(m.title_ko.toLowerCase().indexOf(q) >= 0 || (m.title_en || "").toLowerCase().indexOf(q) >= 0)) return false;
       if (cat && (m.categories || []).indexOf(cat) < 0) return false;
       if (eng && /[가-힣]/.test(m.title_ko)) return false;
@@ -103,7 +110,7 @@
 
   function renderCategories() {
     var codes = new Set();
-    matches.forEach(function (m) { var c = (m.categories || [])[0]; if (c) codes.add(c); });
+    visibleMatches().forEach(function (m) { var c = (m.categories || [])[0]; if (c) codes.add(c); });
     var prev = catSelect.value;
     var labels = typeof CATEGORY_LABELS !== "undefined" ? CATEGORY_LABELS : {};
     catSelect.innerHTML = '<option value="">전체 분야</option>' + Array.from(codes)
@@ -132,8 +139,6 @@
         '<ul class="term-others-list">' + others.map(unitHTML).join("") + "</ul></details></li>";
     }
     listEl.innerHTML = primary.slice(0, n).map(unitHTML).join("") + (n >= primary.length ? othersHtml : "");
-    // 숨기기 단추는 두지 않는다.
-    listEl.querySelectorAll(".term-card-hide-btn").forEach(function (b) { b.remove(); });
     if (n < primary.length) {
       var rest = primary.length - n;
       moreBtn.hidden = false;
@@ -146,7 +151,7 @@
   var quizIndex = null;
   function updateQuizLink() {
     var go = function (index) {
-      var slugs = matches
+      var slugs = visibleMatches()
         .filter(function (m) { return !m.distant && index[m.slug]; })
         .sort(function (a, b) { return (b.count || 0) - (a.count || 0); })
         .slice(0, 50)
@@ -164,12 +169,23 @@
 
   function renderPanel() {
     resultBox.hidden = false;
-    countEl.textContent = matches.length ? "이 글에 나온 용어 (" + matches.length + "개)" : "이 글에서 사전에 등록된 용어를 찾지 못했습니다.";
-    filterInput.disabled = !matches.length;
+    var vis = visibleMatches();
+    var hiddenCount = matches.length - vis.length;
+    countEl.textContent = vis.length ? "이 글에 나온 용어 (" + vis.length + "개)" : (matches.length ? "표시할 용어가 없습니다. 모두 숨긴 상태입니다." : "이 글에서 사전에 등록된 용어를 찾지 못했습니다.");
+    filterInput.disabled = !vis.length;
+    showHiddenBtn.hidden = hiddenCount === 0;
+    showHiddenBtn.textContent = hiddenCount ? "숨긴 용어 " + hiddenCount + "개 다시 보기" : "";
     shown = pageSize();
     renderCategories();
     renderList();
-    if (matches.length) updateQuizLink(); else quizLink.hidden = true;
+    if (vis.length) updateQuizLink(); else quizLink.hidden = true;
+  }
+
+  // 숨김·복원 뒤 본문 강조와 목록을 다시 그린다.
+  function refreshAfterHiddenChange() {
+    if (!matches.length) return;
+    if (!rendered.hidden) renderText(textarea.value);
+    renderPanel();
   }
 
   // ---------- 분석 ----------
@@ -180,18 +196,26 @@
     if (!root.ReaderTerms || !root.ReaderTerms.analyze) { showStatus("용어 찾기를 불러오지 못했습니다. 새로고침 해주세요."); return; }
     var mine = ++token;
     findBtn.disabled = true;
-    findBtn.textContent = "찾는 중...";
+    // 용어 데이터를 처음 받는 중이면 그렇게 알린다.
+    var loading = !(root.ReaderTerms.indexReady && root.ReaderTerms.indexReady());
+    findBtn.textContent = loading ? "용어 데이터 불러오는 중…" : "찾는 중...";
+    if (loading) {
+      showStatus("용어 데이터 불러오는 중…");
+    }
     try {
       var res = await root.ReaderTerms.analyze(text);
+      if (loading && mine === token && statusEl.textContent === "용어 데이터 불러오는 중…") hideStatus();
       // 기다리는 사이 글이 바뀌었으면(더 최근 분석이 있거나 비웠으면) 이 결과는 옛 글 기준이다.
       if (mine !== token || text !== textarea.value) return;
       matches = res;
       if (trigger === "typing" && document.activeElement === textarea) resultBox.hidden = false;
       else renderText(text);
       renderPanel();
-      if (root.ReaderLog) root.ReaderLog.pasteAnalyzed(text, matches.length);
+      // 읽은 기록은 "용어 찾기" 누름·붙여넣기로 시작한 분석만 남긴다(입력 중 자동 분석·초안 복원은 제외).
+      if (root.ReaderLog) root.ReaderLog.pasteAnalyzed(text, matches.length, { log: trigger === "click" || trigger === "paste" });
     } catch (err) {
       console.error("[paste] 분석 실패", err);
+      if (loading && mine === token && statusEl.textContent === "용어 데이터 불러오는 중…") hideStatus();
       if (mine !== token) return;
       countEl.textContent = "용어 데이터를 불러오지 못했습니다. 새로고침 해주세요.";
       resultBox.hidden = false;
@@ -206,8 +230,8 @@
 
   function schedule(opts) {
     clearTimeout(timer);
-    if (!textarea.value.trim()) { token++; reset(); return; }
-    if (opts && opts.immediate) { analyze("now"); return; }
+    if (!textarea.value.trim()) { token++; reset(); hideStatus(); return; }
+    if (opts && opts.immediate) { analyze(opts.trigger || "now"); return; }
     timer = setTimeout(function () { analyze("typing"); }, DEBOUNCE);
   }
 
@@ -302,7 +326,7 @@
     if (!rec || textarea.value.trim()) return;
     textarea.value = rec.text;
     findBtn.disabled = rec.text.trim().length === 0;
-    schedule({ immediate: true });
+    schedule({ immediate: true, trigger: "restore" });
     showStatus("이전에 작성하던 텍스트를 복원했습니다", [{
       label: "지우기",
       onClick: function () {
@@ -322,11 +346,11 @@
     schedule();
   });
   // paste 시점에는 value 가 아직 바뀌기 전이라 한 틱 미룬다.
-  textarea.addEventListener("paste", function () { setTimeout(function () { schedule({ immediate: true }); }, 0); });
+  textarea.addEventListener("paste", function () { setTimeout(function () { schedule({ immediate: true, trigger: "paste" }); }, 0); });
   findBtn.addEventListener("click", function () {
     clearTimeout(timer);
     hideStatus();
-    analyze("now");
+    analyze("click");
   });
   editBtn.addEventListener("click", function () {
     closePopover();
@@ -349,10 +373,22 @@
   root.addEventListener("resize", closePopover);
 
   listEl.addEventListener("click", function (e) {
+    var hideBtn = e.target.closest(".term-card-hide-btn");
+    if (hideBtn) {
+      if (root.ReaderTerms && root.ReaderTerms.hide) {
+        root.ReaderTerms.hide(hideBtn.dataset.hideSlug, true);
+        refreshAfterHiddenChange();
+      }
+      return;
+    }
     if (e.target.closest(".term-card-detail")) return;
     var card = e.target.closest(".term-card");
     if (!card) return;
     scrollToMark(card.dataset.slug);
+  });
+  showHiddenBtn.addEventListener("click", function () {
+    if (root.ReaderTerms && root.ReaderTerms.restoreAll) root.ReaderTerms.restoreAll();
+    refreshAfterHiddenChange();
   });
   moreBtn.addEventListener("click", function () { shown += pageSize(); renderList(); });
   filterInput.addEventListener("input", function () { shown = pageSize(); renderList(); });

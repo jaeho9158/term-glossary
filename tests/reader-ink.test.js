@@ -388,22 +388,30 @@ async function waitFor(fn, ms) { const t = Date.now(); while (!fn() && Date.now(
 
 test("ReaderInk.request: 읽기가 한 번 실패해도 나중 표시는 보정된다", async () => {
   const ink = require("../assets/reader/ink.js");
-  const saved = ink.params.retryMs;
-  ink.params.retryMs = 30;
-  const st = installDoc({ failOnce: true });
-  ink.invalidate();
-  const first = { x: 20, y: 0, w: 100, h: 12 };
-  assert.strictEqual(ink.request(1, [first]), null);
-  const ok = await waitFor(() => ink.request(1, [first]) !== null, 3000);
-  assert.ok(ok, "재시도 뒤 보정 결과가 나온다");
-  assert.ok(await waitFor(() => !ink._stats().running, 1000), "running 이 풀린다");
-  // 다른 표시도 즉시(버퍼가 있으므로 같은 호출에서) 보정된다
-  const second = { x: 20, y: 0, w: 90, h: 12 };
-  const res = ink.request(1, [second]);
-  assert.ok(res && res[0].x + res[0].w < 65, "즉시 보정: " + (res && res[0].x + res[0].w));
-  ink.params.retryMs = saved;
-  ink.invalidate();
-  assert.ok(st.renders.length >= 2);
+  const saved = { retryMs: ink.params.retryMs, chunkMs: ink.params.chunkMs, keepMs: ink.params.keepMs, keepCurMs: ink.params.keepCurMs, syncMs: ink.params.syncMs };
+  // 시간에 기대지 않도록: 재시도 지연은 아주 짧게, 한 번에 쓰는 시간 예산·버퍼 보존 시간은 넉넉히(부하가 있어도 마감 때문에 미뤄지지 않게).
+  ink.params.retryMs = 1;
+  ink.params.chunkMs = 1e6;
+  ink.params.keepMs = 1e9;
+  ink.params.keepCurMs = 1e9;
+  ink.params.syncMs = 1e6;
+  try {
+    const st = installDoc({ failOnce: true });
+    ink.invalidate();
+    const first = { x: 20, y: 0, w: 100, h: 12 };
+    assert.strictEqual(ink.request(1, [first]), null);
+    const ok = await waitFor(() => ink.request(1, [first]) !== null, 20000);
+    assert.ok(ok, "재시도 뒤 보정 결과가 나온다");
+    assert.ok(await waitFor(() => !ink._stats().running, 20000), "running 이 풀린다");
+    // 다른 표시도 즉시(버퍼가 있으므로 같은 호출에서) 보정된다
+    const second = { x: 20, y: 0, w: 90, h: 12 };
+    const res = ink.request(1, [second]);
+    assert.ok(res && res[0].x + res[0].w < 65, "즉시 보정: " + (res && res[0].x + res[0].w));
+    assert.ok(st.renders.length >= 2);
+  } finally {
+    Object.assign(ink.params, saved);
+    ink.invalidate();
+  }
 });
 
 test("ReaderInk.request: 가장 작은 사각형 기준으로 렌더 배율을 정한다", async () => {

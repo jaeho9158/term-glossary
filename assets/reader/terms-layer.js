@@ -506,10 +506,10 @@
   }
 
   // ---------- 숨기기 ----------
-  function hide(slug) {
+  function hide(slug, force) {
     if (!slug) return;
-    // 이 문서에 없는 용어는 숨기지 않는다(복원 단추가 보이지 않아 되돌릴 길이 없다).
-    if (S && S.ready && !S.matchBySlug.has(slug)) return;
+    // 이 문서에 없는 용어는 숨기지 않는다(복원 단추가 보이지 않아 되돌릴 길이 없다). 붙여넣기 화면(force)은 자기 복원 링크가 있다.
+    if (!force && S && S.ready && !S.matchBySlug.has(slug)) return;
     hidden.add(slug);
     saveHidden(hidden);
     closeCard(true);
@@ -529,6 +529,17 @@
       renderAll();
     }
   }
+
+  // 첫 화면(paste.js)이 같은 숨김 목록을 쓰도록 읽기만 열어 둔다.
+  function hiddenSlugs() { return Array.from(hidden); }
+  // 선택한 용어 카드를 닫는다(Esc 순서의 한 단계). 닫은 게 있으면 true.
+  function clearFocus() {
+    if (!S || !S.focusSlug) return false;
+    S.focusSlug = null;
+    renderFocus();
+    return true;
+  }
+  function indexReady() { return !!cachedTerms; }
 
   // ---------- 사전에서 찾기 ----------
   async function lookup(text) {
@@ -1214,6 +1225,9 @@
     isSuppressed: function () { return suppressed; },
     hide: hide,
     restoreAll: restoreAll,
+    hiddenSlugs: hiddenSlugs,
+    clearFocus: clearFocus,
+    indexReady: indexReady,
     analyze: analyze, // Promise<matches>: 붙여넣은 글 분석(원문 위치 그대로)
     lookup: lookup, // Promise<matches>: 정의 청크를 받아 와야 해서 비동기다
     firstPerPage: firstPerPage,

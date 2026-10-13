@@ -69,6 +69,12 @@ function run() {
       continue;
     }
 
+    // 리다이렉트 스텁(noindex + meta refresh)에는 분석 스니펫을 넣지 않는다(insert-adsense.js 와 같은 기준).
+    if (html.includes('http-equiv="refresh"')) {
+      console.warn(`건너뜀 (리다이렉트 스텁): ${relativePath}`);
+      continue;
+    }
+
     // 마커 없이 수기로 넣은 gtag 로더가 있으면 이중 삽입을 막기 위해 경고 후 스킵.
     if (html.includes("googletagmanager.com/gtag/js") && !html.includes(START_MARKER)) {
       console.warn(`건너뜀 (마커 없는 GA4 로더 존재 — 이중 삽입 방지): ${relativePath}`);

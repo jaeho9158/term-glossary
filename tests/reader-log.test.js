@@ -36,3 +36,15 @@ test("붙여넣기 강조 HTML: 글에 든 마크업은 이스케이프된다", 
   assert.ok(html.includes("&amp;"));
   assert.ok(html.includes('<mark class="dict-mark" data-slug="regression"'));
 });
+
+test("createOnce: 같은 키는 한 번만 true, 빈 키는 막지 않는다", () => {
+  const { createOnce } = require("../assets/reader/log.js");
+  const once = createOnce();
+  assert.strictEqual(once("가".repeat(40) + "..."), true);
+  assert.strictEqual(once("가".repeat(40) + "..."), false);
+  assert.strictEqual(once("다른 글..."), true);
+  assert.strictEqual(once(""), true);
+  assert.strictEqual(once(""), true);
+  const other = createOnce();
+  assert.strictEqual(other("가".repeat(40) + "..."), true, "인스턴스끼리 독립");
+});

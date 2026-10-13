@@ -8,6 +8,7 @@ main.rd-home { max-width: 960px; }
 .rd-home .subtitle { margin: 0 0 24px; color: var(--muted); }
 
 .rd-dropzone {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +37,20 @@ main.rd-home { max-width: 960px; }
   cursor: pointer;
 }
 .rd-file-label:hover { background: var(--hover-tint); }
+/* 파일 입력은 화면에서만 숨기고 초점은 받는다(키보드로 Tab → Enter/Space 로 열 수 있다). */
+.rd-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.rd-file-input:focus-visible + .rd-file-label { outline: 2px solid var(--accent); outline-offset: 3px; background: var(--hover-tint); }
 .rd-home-error {
   margin: 12px 0 0;
   padding: 10px 12px;
@@ -590,6 +605,14 @@ body.rd-open .site-footer { display: none; }
   color: var(--text);
   font-size: 0.85rem;
 }
+#rd-paste-category {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.85rem;
+}
 .rd-term-count { margin: 12px 0 6px; font-size: 0.9rem; }
 #rd-pane-terms .term-list { gap: 0; }
 #rd-pane-terms .term-card {
@@ -777,7 +800,7 @@ body.rd-open .site-footer { display: none; }
   #rd-pane-terms .term-card-hide-btn { top: 0; right: 0; width: 40px; height: 40px; }
   #rd-pane-terms .term-list li a.term-card-detail { min-height: 40px; padding: 0 14px; align-items: center; }
   .term-filter-link, .rd-focus-close, .rd-lookup-close, #rd-term-more, .rd-term-hide { min-height: 40px; }
-  #rd-term-category, .rd-term-filter { min-height: 40px; font-size: 1rem; }
+  #rd-term-category, #rd-paste-category, .rd-term-filter { min-height: 40px; font-size: 1rem; }
   .term-filter-checkbox { min-height: 40px; display: inline-flex; align-items: center; gap: 6px; }
   .ro-item { min-height: 40px; align-items: center; }
   .rd-term-card .dict-popover-close, .rd-term-card .dict-popover-detail { min-width: 40px; min-height: 40px; }
@@ -831,3 +854,8 @@ body.rd-open .site-footer { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .rd-flash-rect { animation: none; }
 }
+
+/* 문서를 여는 동안 전체 화면 리더 뒤로 자동 광고가 비치지 않게 한다(애드센스 로더는 그대로 둔다). */
+body.rd-open > ins.adsbygoogle,
+body.rd-open > .google-auto-placed,
+body.rd-open > .adsbygoogle { display: none !important; }
