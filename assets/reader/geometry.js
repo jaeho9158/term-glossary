@@ -129,11 +129,26 @@
     return best;
   }
 
-  function isWs(ch) { return /\s/.test(ch); }
+  // 공백·줄바꿈뿐 아니라 제어 문자(U+0000 등, 일부 PDF 가 낱말 사이에 넣는다)도 낱말 경계다.
+  function isWs(ch) { return /\s/.test(ch) || (ch !== "" && ch.charCodeAt(0) < 0x20); }
 
-  // 범위 [start, end) 를 가장 가까운 낱말 경계로 넓힌다(순수). 낱말 = 공백·줄바꿈으로 끊긴 덩어리(한글은 어절).
+  var OPENERS = "([{<「『“‘〈《";
+  var CLOSERS = ")]}>」』”’〉》";
+  function isWordChar(ch) { return /[0-9A-Za-zÀ-ɏ가-힣]/.test(ch); }
+  // 낱말 확장을 멈추는 괄호·따옴표. 영어 낱말 속 아포스트로피(don’t)는 괄호로 보지 않는다.
+  function isBracket(t, i) {
+    var ch = t.charAt(i);
+    if (OPENERS.indexOf(ch) < 0 && CLOSERS.indexOf(ch) < 0) return false;
+    if ((ch === "’" || ch === "‘") && i > 0 && i + 1 < t.length && isWordChar(t.charAt(i - 1)) && isWordChar(t.charAt(i + 1))) return false;
+    return true;
+  }
+
+  // 범위 [start, end) 를 가장 가까운 낱말 경계로 넓힌다(순수). 낱말 = 공백·줄바꿈·괄호로 끊긴 덩어리(한글은 어절).
   // 범위의 시작이나 끝이 낱말 안쪽이면 그 낱말 끝까지 넓히고, 이미 경계(공백 옆)면 그대로 둔다.
   // 글자 상자가 글자 하나 정도 어긋나도 형광펜이 낱말 단위로는 맞게 하려는 용도다.
+  // - 괄호·따옴표(( [ { 「 『 " ' < 〈 《 와 닫는 짝)는 넓힐 때 넘지 않는다: "있다(UNODC," 의 UNODC -> "UNODC",
+  //   "기구(WHO)의" 의 WHO -> "WHO". 괄호 앞의 "세계보건기구" 만 골라도 괄호 앞까지만 넓힌다.
+  // - 결과 끝의 쉼표·마침표·쌍반점·쌍점 한 글자는 뺀다.
   // - 결과의 앞뒤 공백은 뺀다(" 감염" 0~2 -> 1~2). 빈 범위나 공백뿐인 범위는 쪽 글 안으로 잘라 그대로 돌려준다.
   // - 줄 끝에서 끊긴 어절(한글·한자·가나 두 글자 사이의 줄바꿈 하나, 하이픈·빈 줄 없음)은 한 낱말로 본다.
   //   단, 낱말 안쪽에서 넓혀 온 가장자리만 줄바꿈을 건넌다. 범위가 줄 끝에서 정확히 끝나거나 줄 처음에서 시작하면 그대로 둔다
@@ -147,8 +162,9 @@
     while (a < b && isWs(t.charAt(a))) a++;
     while (b > a && isWs(t.charAt(b - 1))) b--;
     if (a >= b) return { start: s, end: e }; // 공백뿐
-    while (a > 0 && !isWs(t.charAt(a - 1))) a--;
-    while (b < t.length && !isWs(t.charAt(b))) b++;
+    while (a > 0 && !isWs(t.charAt(a - 1)) && !isBracket(t, a - 1)) a--;
+    while (b < t.length && !isWs(t.charAt(b)) && !isBracket(t, b)) b++;
+    if (b - a > 1 && ",.;:".indexOf(t.charAt(b - 1)) >= 0) b--;
     return { start: a, end: b };
   }
 

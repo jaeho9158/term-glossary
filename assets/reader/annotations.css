@@ -1,0 +1,81 @@
+/* 형광펜·메모: 저장 상태 표시, 삭제 되돌리기, 좁은 화면의 선택 도구. reader.css 의 변수(--rd-danger 등)를 쓴다. */
+
+.rd-note-saving,
+.rd-note-unsaved {
+  margin-left: 0.5em;
+  font-weight: 600;
+}
+.rd-note-saving { color: color-mix(in srgb, var(--text) 72%, var(--bg)); }
+.rd-note-unsaved { color: var(--rd-danger, #c0392b); }
+.rd-note-retry {
+  margin: 2px 0 6px 28px;
+  padding: 2px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* 삭제 되돌리기: 5초 동안 아래쪽에 뜬다 */
+.rd-undo {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 16px);
+  padding: 6px 8px 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+}
+.rd-undo[hidden] { display: none; }
+.rd-undo-btn {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rd-undo-btn:hover { background: var(--hover-tint); }
+
+/* 선택 도구는 한 줄로 둔다. 넘치면 안에서 가로로 민다. */
+.rd-seltool {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.rd-seltool::-webkit-scrollbar { display: none; }
+.rd-seltool > * { flex: none; }
+
+@media (max-width: 767px) {
+  /* 눌리는 영역은 세로 40px, 눈에 보이는 점은 22px */
+  .rd-seltool .rd-hlbtn {
+    position: relative;
+    width: 36px;
+    height: 40px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .rd-seltool .rd-hlbtn::before {
+    content: "";
+    position: absolute;
+    inset: 9px 7px;
+    border-radius: 50%;
+    background: var(--hl-solid);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  .rd-seltool .rd-seltool-btn { padding: 0 6px; }
+  .rd-seltool .rd-seltool-sep { margin: 0; }
+}

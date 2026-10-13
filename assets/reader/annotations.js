@@ -260,8 +260,19 @@
       var sn = drawRange(item);
       return { id: item.record.id, start: sn.start, end: sn.end, createdAt: item.record.createdAt };
     });
-    // 겹치는 기록은 한 범위로 한 번만 그린다(눌렀을 때는 가장 나중 기록이 열린다). 저장은 건드리지 않는다.
-    drawGroups(ranges).forEach(function (g) {
+    // 같은 색끼리 겹치는 기록은 한 범위로 한 번만 그린다(눌렀을 때는 가장 나중 기록이 열린다). 저장은 건드리지 않는다.
+    // 다른 색은 따로 그린다: 나중에 만든 것이 위에 놓이도록 만든 순서대로 늘어놓는다.
+    var groups = [];
+    COLORS.forEach(function (c) {
+      var same = ranges.filter(function (rg) { return colorOf(byId.get(String(rg.id)).record) === c; });
+      drawGroups(same).forEach(function (g) { groups.push(g); });
+    });
+    groups.sort(function (a, b) {
+      var ca = String(byId.get(String(a.primaryId)).record.createdAt || "");
+      var cb = String(byId.get(String(b.primaryId)).record.createdAt || "");
+      return ca < cb ? -1 : ca > cb ? 1 : 0;
+    });
+    groups.forEach(function (g) {
       var prim = byId.get(String(g.primaryId));
       var rects = G.rangeRects(data.charBoxes, g.start, g.end);
       if (!prim || !rects.length) return;
@@ -324,14 +335,12 @@
       var sbadge = document.createElement("span");
       sbadge.className = "rd-note-saving";
       sbadge.textContent = "저장 중…";
-      sbadge.style.cssText = "margin-left:.5em;color:#666;font-weight:600";
       page.appendChild(sbadge);
     }
     if (rec.unsaved) {
       var badge = document.createElement("span");
       badge.className = "rd-note-unsaved";
       badge.textContent = "저장되지 않음";
-      badge.style.cssText = "margin-left:.5em;color:#b3261e;font-weight:600";
       page.appendChild(badge);
     }
     var quote = document.createElement("span");
@@ -355,7 +364,6 @@
       retry.className = "rd-note-retry";
       retry.dataset.id = key(rec);
       retry.textContent = "다시 저장";
-      retry.style.cssText = "margin:2px 0 6px 28px;padding:2px 10px;font-size:12px;cursor:pointer";
       li.appendChild(retry);
     }
     return li;
@@ -408,8 +416,23 @@
     }
   }
 
+  // 문서를 닫을 때(되돌아가기 포함) 편집 창에 쓰던 메모가 있으면 저장한다. 닫는 순간 토큰·문서 해시가 바뀌므로 여기서 먼저 보낸다.
+  function flushEditorNote() {
+    if (!editing || !dirty()) return;
+    var item = findItem(editing.id);
+    if (!item || item.record.saving || item.record.unsaved || !S.docHash) return;
+    var dh = S.docHash;
+    var nid = item.record.id;
+    var val = $("rd-annopop-note").value.trim();
+    getStore().then(function (store) {
+      if (store) return callStore(function () { return store.updateAnnotationNote(dh, nid, val); }, false);
+    });
+  }
+
   // ---------- 불러오기 ----------
   function reset() {
+    flushEditorNote();
+    hideUndo();
     S.token++;
     S.docHash = null;
     S.title = "";
@@ -473,7 +496,7 @@
           // 옛 뷰어와 같다: 새 위치로 맞추고, 너무 짧은 글귀가 아니면 저장해 다음에는 위치만으로 끝나게 한다.
           pl.record.startOffset = pl.start;
           pl.record.endOffset = pl.end;
-          pl.record.quoteText = pt.slice(pl.start, pl.end);
+          pl.record.quoteText = TM.normalizeQuoteText(pt.slice(pl.start, pl.end));
           if (TM.shouldPersistReanchor(pl.record.quoteText)) toPersist.push(pl.record);
         }
       });
@@ -539,14 +562,14 @@
       var pkey = r.page + ":" + start + ":" + end;
       if (S.pending[pkey]) continue;
       var existing = S.items
-        .filter(function (it) { return it.record.page === r.page && it.status !== "lost" && !it.record.saving; })
+        .filter(function (it) { return it.record.page === r.page && it.status !== "lost" && !it.record.saving && colorOf(it.record) === col; })
         .map(function (it) { return { start: it.start, end: it.end, createdAt: it.record.createdAt, id: it.record.id, note: it.record.note, replaces: (it.replaces || []).map(function (o) { return o.record.id; }), snap: it.snap, item: it }; });
       var plan = planMerge(existing, pt, start, end, note);
       var olds = plan.olds.map(function (o) { return o.item; });
       start = plan.start;
       end = plan.end;
       var createdAt = new Date().toISOString();
-      var quote = pt.slice(start, end);
+      var quote = TM.normalizeQuoteText(pt.slice(start, end)); // 공백·줄바꿈·제어 문자의 연속은 공백 하나로(글자 범위는 그대로)
       var payload = { page: r.page, startOffset: start, endOffset: end, quoteText: quote, color: col, note: plan.note };
 
       // 저장이 끝나기 전에도 바로 보여 준다("저장 중…"). 끝나면 이 항목의 기록을 바꿔 끼운다.
@@ -665,6 +688,11 @@
     if (failed || !noteOk) notify(MSG_CHANGE_FAIL);
     renderPanel();
     redrawPage(rec.page);
+    // 저장되지 않은 형광펜이 하나도 남지 않았다: 저장 실패 안내를 거둘 수 있게 알린다(doc.js 에 문구별 삭제가 없다).
+    if (!unsavedCount()) {
+      var rdEl = $("reader");
+      if (rdEl) rdEl.dispatchEvent(new CustomEvent("reader:unsavedclear", { detail: {} }));
+    }
     // 재시도 도중 색을 바꿨으면 새 기록에 이어서 적용한다.
     var wantColor = colorOf(old);
     if (wantColor !== colorOf(rec) && S.items.indexOf(item) >= 0) await setColor(rec.id, wantColor);
@@ -775,11 +803,81 @@
       }
       if (tok !== S.token) return false;
     }
-    if (!ok) notify(MSG_CHANGE_FAIL);
+    if (!ok) {
+      // 저장소에서 지우지 못했으면 화면에서도 지우지 않는다(다시 열면 되살아나는 일이 없게).
+      notify(MSG_CHANGE_FAIL);
+      return false;
+    }
+    var snap = { record: Object.assign({}, item.record), start: item.start, end: item.end, status: item.status };
     dropItem(item);
     renderPanel();
     redrawPage(item.record.page);
+    showUndo(snap);
     return ok;
+  }
+
+  // ---------- 삭제 되돌리기 ----------
+  var UNDO_MS = 5000;
+  var undoState = null; // {snap, timer, docHash, token}
+
+  function hideUndo() {
+    if (undoState) { clearTimeout(undoState.timer); undoState = null; }
+    var el = $("rd-undo");
+    if (el) el.hidden = true;
+  }
+
+  function showUndo(snap) {
+    if (undoState) clearTimeout(undoState.timer);
+    var el = $("rd-undo");
+    if (!el) {
+      var host = $("reader");
+      if (!host) return;
+      el = document.createElement("div");
+      el.id = "rd-undo";
+      el.className = "rd-undo";
+      el.setAttribute("role", "status");
+      el.setAttribute("aria-live", "polite");
+      var msg = document.createElement("span");
+      msg.className = "rd-undo-msg";
+      msg.textContent = "삭제했습니다";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "rd-undo-btn";
+      btn.textContent = "되돌리기";
+      btn.addEventListener("click", function () { undoDelete(); });
+      el.appendChild(msg);
+      el.appendChild(btn);
+      host.appendChild(el);
+    }
+    el.hidden = false;
+    undoState = { snap: snap, token: S.token, docHash: S.docHash, timer: setTimeout(hideUndo, UNDO_MS) };
+  }
+
+  // 방금 지운 형광펜(메모 포함)을 같은 자리에 다시 만든다.
+  async function undoDelete() {
+    var u = undoState;
+    if (!u) return false;
+    hideUndo();
+    if (u.token !== S.token) return false;
+    var old = u.snap.record;
+    var payload = { page: old.page, startOffset: old.startOffset, endOffset: old.endOffset, quoteText: old.quoteText, color: colorOf(old), note: noteText(old.note) };
+    var store = await getStore();
+    var rec = null;
+    if (store && !old.unsaved) rec = await callStore(function () { return store.createAnnotation(u.docHash, S.title, payload); }, null, lateCreateCleanup(store, u.docHash));
+    if (u.token !== S.token) return false;
+    if (!rec) {
+      S.unsavedSeq++;
+      rec = Object.assign({}, old, { id: "unsaved-" + S.unsavedSeq, unsaved: true });
+      notify(MSG_SAVE_FAIL);
+    }
+    S.items.push({ record: rec, start: u.snap.start, end: u.snap.end, status: u.snap.status, replaces: [], snap: [] });
+    renderPanel();
+    redrawPage(rec.page);
+    return true;
+  }
+
+  function unsavedCount() {
+    return S.items.filter(function (i) { return i.record && i.record.unsaved; }).length;
   }
 
   function list() {
@@ -971,11 +1069,11 @@
     if (save && e) setNote(e.id, val);
   }
 
-  // Esc: 편집 창이 열려 있으면 (메모는 저장하지 않고) 닫고 true. 어느 것을 닫을지는 reader.js 의 Esc 처리가 정한다.
+  // Esc: 편집 창이 열려 있으면 (고친 메모는 저장하고) 닫고 true. 어느 것을 닫을지는 reader.js 의 Esc 처리가 정한다.
   function dismissEditor() {
     var p = pop();
     if (!p || p.hidden) return false;
-    closeEditor({ save: false });
+    closeEditor({ save: true });
     return true;
   }
 
@@ -1114,6 +1212,16 @@
       });
     }
 
+    // Ctrl/Cmd+Z: 방금 지운 형광펜을 되돌린다(5초 안에만). 글을 쓰는 칸에서는 그 칸의 되돌리기를 방해하지 않는다.
+    document.addEventListener("keydown", function (ev) {
+      if (!undoState || ev.defaultPrevented) return;
+      if (!(ev.ctrlKey || ev.metaKey) || ev.altKey || ev.shiftKey || String(ev.key).toLowerCase() !== "z") return;
+      var t = ev.target;
+      if (t && t.closest && t.closest("input, textarea, select, [contenteditable]")) return;
+      ev.preventDefault();
+      undoDelete();
+    });
+
     var rd = $("reader");
     if (rd) {
       // 쪽 글과 글자 상자가 준비되면(또는 다시 준비되면) 그 쪽의 표시를 그린다.
@@ -1137,6 +1245,8 @@
     list: list,
     goTo: goTo,
     retrySave: retrySave,
+    unsavedCount: unsavedCount,
+    undoDelete: undoDelete,
     edit: openEditor,
     dismissEditor: dismissEditor,
     sanitizeRecords: sanitizeRecords,

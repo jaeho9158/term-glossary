@@ -145,4 +145,28 @@ assert.deepStrictEqual(snapToWords("가나 다라", 4, 2), { start: 4, end: 4 })
 assert.deepStrictEqual(snapToWords("마약류\n범죄 관리", 0, 3), { start: 0, end: 3 });
 assert.deepStrictEqual(snapToWords("마약류\n범죄 관리", 4, 6), { start: 4, end: 6 });
 
+// 괄호는 낱말 확장을 멈춘다.
+function snapped(text, word) {
+  const i = text.indexOf(word);
+  const r = snapToWords(text, i, i + word.length);
+  return text.slice(r.start, r.end);
+}
+assert.strictEqual(snapped("국제 기구는 있다(UNODC, 이다", "UNODC"), "UNODC");
+assert.strictEqual(snapped("세계보건기구(WHO)의 설립", "WHO"), "WHO");
+assert.strictEqual(snapped("분류(ICD)에서는 쓴다", "ICD"), "ICD");
+assert.strictEqual(snapped("세계보건기구(WHO)의 설립", "세계보건기구"), "세계보건기구");
+assert.strictEqual(snapped("세계보건기구(WHO)의 설립", "의"), "의");
+assert.strictEqual(snapped("그는 「법률」을 봤다", "법률"), "법률");
+assert.strictEqual(snapped("I don’t know", "don"), "don’t", "낱말 속 아포스트로피는 괄호가 아니다");
+assert.strictEqual(snapped("끝 문장이다. 다음", "이다"), "문장이다".slice(2) === "이다" ? "문장이다" : "", "마침표가 없으면 어절 전체");
+assert.strictEqual(snapped("앞 단어, 뒤", "단"), "단어", "끝의 쉼표는 뺀다");
+assert.strictEqual(snapped("앞 단어. 뒤", "단"), "단어", "끝의 마침표는 뺀다");
+
+// 제어 문자(U+0000)는 공백처럼 낱말 경계다.
+{
+  const t = "치매 환자 수";
+  const r = snapToWords(t, 3, 4);
+  assert.strictEqual(t.slice(r.start, r.end), "환자");
+}
+
 console.log("reader-geometry: all tests passed");

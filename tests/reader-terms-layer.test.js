@@ -106,3 +106,38 @@ test("resolveAssetVersion: 자기 src 의 v → term-match.js 의 v → 빈 문�
   assert.equal(resolveAssetVersion([undefined, null]), "");
   assert.equal(resolveAssetVersion(), "");
 });
+
+test("pruneMatches: 주소 속 용어와 더 긴 다른 용어 속 용어는 뺀다", () => {
+  const { pruneMatches } = require("../assets/reader/terms-layer.js");
+  const text = "see https://example.org/aspiration-page and fine needle aspiration then aspiration alone";
+  const at = (w, from) => text.indexOf(w, from || 0);
+  const url = at("aspiration");
+  const longStart = at("fine needle aspiration");
+  const innerStart = longStart + "fine needle ".length;
+  const alone = at("aspiration", innerStart + 5);
+  const matches = [
+    { slug: "asp", title_ko: "흡인", occurrences: [{ start: url, length: 10 }, { start: innerStart, length: 10 }, { start: alone, length: 10 }], firstStart: url, firstLength: 10, count: 3 },
+    { slug: "fna", title_ko: "세침흡인검사", occurrences: [{ start: longStart, length: 22 }], firstStart: longStart, firstLength: 22, count: 1 },
+  ];
+  const out = pruneMatches(matches, text);
+  assert.deepEqual(out[0].occurrences, [{ start: alone, length: 10 }]);
+  assert.equal(out[0].firstStart, alone);
+  assert.equal(out[0].count, 1);
+  assert.equal(out[1], matches[1]);
+  assert.equal(matches[0].occurrences.length, 3, "입력은 바꾸지 않는다");
+});
+
+test("pruneMatches: 남은 등장이 없으면 목록에서 빼고, 같은 용어끼리·같은 길이는 건드리지 않는다", () => {
+  const { pruneMatches } = require("../assets/reader/terms-layer.js");
+  const text = "doi.org/10.1000/transcription factor transcription factor";
+  const m = [
+    { slug: "t", occurrences: [{ start: 15, length: 13 }], firstStart: 15, firstLength: 13 },
+  ];
+  assert.deepEqual(pruneMatches(m, text), [], "주소 속");
+  const same = [
+    { slug: "a", occurrences: [{ start: 0, length: 4 }], firstStart: 0, firstLength: 4 },
+    { slug: "b", occurrences: [{ start: 0, length: 4 }], firstStart: 0, firstLength: 4 },
+  ];
+  assert.equal(pruneMatches(same, "abcd efg").length, 2);
+  assert.deepEqual(pruneMatches(undefined, "x"), []);
+});

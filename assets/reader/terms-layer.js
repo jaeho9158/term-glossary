@@ -56,6 +56,51 @@
     return { refine: e.left && e.right, refineLeft: e.left, refineRight: e.right };
   }
 
+  // 틀린 뜻으로 보이기 쉬운 두 경우를 걸러 낸다(쪽 번호 없는 전체 글 기준 위치).
+  //  (a) 주소(https://…, www.…, doi.org/…) 안에서 잡힌 용어
+  //  (b) 같은 자리의 더 긴 다른 용어 안에 통째로 들어간 용어("fine needle aspiration" 속 "aspiration")
+  // 등장 위치(occurrences)를 걸러 내고, 남은 등장이 없는 용어는 목록에서 뺀다. 입력은 바꾸지 않는다.
+  var URL_TOKEN = /(?:https?:\/\/|www\.|doi\.org\/)\S*/gi;
+  function occurrencesOf(m) {
+    if (m.occurrences && m.occurrences.length) return m.occurrences;
+    return m.firstStart >= 0 ? [{ start: m.firstStart, length: m.firstLength }] : [];
+  }
+  function pruneMatches(matches, text) {
+    var list = Array.isArray(matches) ? matches : [];
+    var urls = [];
+    var str = String(text || "");
+    var um;
+    URL_TOKEN.lastIndex = 0;
+    while ((um = URL_TOKEN.exec(str)) !== null) urls.push([um.index, um.index + um[0].length]);
+
+    // (b) 시작 순(같으면 긴 것 먼저)으로 훑으며, 아직 끝나지 않은 다른 용어의 등장이 통째로 감싸면 버린다.
+    var all = [];
+    list.forEach(function (m, mi) {
+      occurrencesOf(m).forEach(function (o) { all.push({ mi: mi, slug: m.slug, start: o.start, end: o.start + o.length, len: o.length }); });
+    });
+    all.sort(function (a, b) { return a.start - b.start || b.len - a.len; });
+    var drop = new Set();
+    var active = [];
+    all.forEach(function (o) {
+      active = active.filter(function (c) { return c.end > o.start; });
+      var inUrl = urls.some(function (u) { return o.start >= u[0] && o.end <= u[1]; });
+      var inLonger = active.some(function (c) { return c.slug !== o.slug && c.end >= o.end && c.len > o.len; });
+      if (inUrl || inLonger) drop.add(o.mi + ":" + o.start);
+      active.push(o);
+    });
+    var out = [];
+    list.forEach(function (m, mi) {
+      var occ = occurrencesOf(m);
+      var keep = occ.filter(function (o) { return !drop.has(mi + ":" + o.start); });
+      if (keep.length === occ.length) { out.push(m); return; }
+      if (!keep.length) return;
+      var copy = Object.assign({}, m, { occurrences: keep, firstStart: keep[0].start, firstLength: keep[0].length });
+      if (typeof m.count === "number") copy.count = keep.length;
+      out.push(copy);
+    });
+    return out;
+  }
+
   // 자산 버전(?v=). 이 스크립트의 src 에 v 가 있으면 그것, 없으면 term-match.js 태그의 src, 없으면 "".
   // srcs 는 우선순위 순서의 src 문자열 목록.
   function resolveAssetVersion(srcs) {
@@ -72,7 +117,7 @@
     if (typeof module !== "undefined" && module.exports) {
       module.exports = {
         firstPerPage: firstPerPage, planPageSpans: planPageSpans, wordEdges: wordEdges,
-        refineFlags: refineFlags, resolveAssetVersion: resolveAssetVersion,
+        refineFlags: refineFlags, resolveAssetVersion: resolveAssetVersion, pruneMatches: pruneMatches,
       };
     }
     return;
@@ -319,7 +364,7 @@
     st.stats.defsMs = now() - t0;
     if (st.gen !== S.gen) return;
     // 규칙 1(문맥 뜻 판별)이 강등을 바꾸므로 정의 청크를 받은 뒤에 돌린다(옛 뷰어와 같은 순서).
-    st.matches = TM.applySenseToMatches(exact, joined);
+    st.matches = pruneMatches(TM.applySenseToMatches(exact, joined), joined);
     st.matchBySlug = new Map(st.matches.map(function (m) { return [m.slug, m]; }));
     st.stats.pages = texts.length;
     st.stats.matches = st.matches.length;

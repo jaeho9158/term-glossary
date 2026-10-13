@@ -75,6 +75,8 @@
   var selectCbs = [];
   var actionCbs = [];
   var toolHiddenByScroll = false;
+  var scrollTimer = 0;
+  var SCROLL_END_MS = 150;
   var ready = false;
 
   function $(id) { return document.getElementById(id); }
@@ -82,7 +84,7 @@
   function TM() { return root.ReaderTextMap; }
   function tool() { return $("rd-seltool"); }
   function isCoarse() { return !!(root.matchMedia && root.matchMedia("(pointer: coarse)").matches); }
-  function isWs(ch) { return /\s/.test(ch); }
+  function isWs(ch) { return /\s/.test(ch) || (ch !== "" && ch.charCodeAt(0) < 0x20); }
 
   // ---------- 브라우저 선택 -> 쪽 글 위치 ----------
   function textLayerOf(node) {
@@ -459,6 +461,15 @@
     var sc = $("rd-scroll");
     if (sc) sc.addEventListener("scroll", function () {
       if (cur && !toolHiddenByScroll) { toolHiddenByScroll = true; hideTool(); }
+      // 스크롤이 멎으면(150ms) 선택이 아직 화면 안에 있을 때 도구를 다시 띄운다.
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () {
+        if (!cur || !toolHiddenByScroll || down) return;
+        cur.clientRect = clientRectOf(cur.rects);
+        var vr = sc.getBoundingClientRect();
+        var cr = cur.clientRect;
+        if (cr && cr.bottom > vr.top && cr.top < vr.bottom) showTool(cur);
+      }, SCROLL_END_MS);
     }, { passive: true });
     root.addEventListener("resize", function () { if (cur) reposition(); });
     var rd = $("reader");
@@ -481,10 +492,12 @@
     onAction: function (cb) { if (typeof cb === "function") actionCbs.push(cb); },
     clear: clear,
     // 선택 도구가 떠 있으면 닫고 true (Esc 가 한 번에 하나만 닫도록 reader.js 가 부른다)
+    // 도구가 스크롤로 숨겨져 있으면 선택만 정리하고 false (보이지 않는 것을 닫은 셈이 아니다).
     dismiss: function () {
-      if (!(cur || (tool() && !tool().hidden))) return false;
+      var visible = !!(tool() && !tool().hidden);
+      if (!cur && !visible) return false;
       clear();
-      return true;
+      return visible;
     },
     copyText: copyText,
   };

@@ -1181,7 +1181,37 @@ function orderTextItemsByColumn(items, pageWidth) {
   // (제목·쪽번호처럼 열 위아래에 있는 것은 정상이므로 세지 않는다).
   if (middle.length / total > COLUMN_SPAN_MAX_RATIO) return items;
 
+  // 한 단짜리 쪽도 item 이 낱말마다 쪼개져 오면(한글 문서 내보내기에 흔함) 가운데 선 양쪽에
+  // item 이 고르게 놓여 2단으로 오인된다. 같은 줄의 왼쪽 끝과 오른쪽 시작이 이어져 있으면
+  // (가운데를 걸친 item 이 있거나 틈이 글자 높이보다 좁으면) 그 줄은 한 단으로 이어진 줄이다.
+  // 그런 줄이 3개 이상이고 절반을 넘으면 재배열하지 않는다. 진짜 2단은 단 사이 여백이 있다.
+  if (hasContinuousLines(items, mid, tolerance)) return items;
+
   return header.concat(left, middle, right, footer);
+}
+
+function hasContinuousLines(items, mid, tolerance) {
+  const lines = new Map();
+  for (const item of items) {
+    if (!item || typeof item.str !== "string" || !item.str.trim() || !item.transform) continue;
+    const y = Math.round(textItemY(item));
+    const x = textItemX(item);
+    const w = item.width || 0;
+    const h = Math.abs(item.transform[3]) || Math.abs(item.transform[0]) || 10;
+    let line = lines.get(y);
+    if (!line) { line = { leftEnd: -Infinity, rightStart: Infinity, h: h, span: false }; lines.set(y, line); }
+    if (x + w <= mid + tolerance) line.leftEnd = Math.max(line.leftEnd, x + w);
+    else if (x >= mid - tolerance) line.rightStart = Math.min(line.rightStart, x);
+    else line.span = true;
+  }
+  let both = 0;
+  let continuous = 0;
+  lines.forEach(function (line) {
+    if (line.leftEnd === -Infinity || line.rightStart === Infinity) return;
+    both++;
+    if (line.span || line.rightStart - line.leftEnd < line.h) continuous++;
+  });
+  return both >= 3 && continuous / both > 0.5;
 }
 
 // 자간이 큰 PDF(학위논문에 흔함)는 pdf.js가 글자 사이를 띄어쓰기로 오인해
@@ -1673,12 +1703,49 @@ function findNearestOccurrence(text, quote, hintOffset) {
   return best;
 }
 
-// 연속 공백을 하나로 줄인 뒤 다시 찾아본다. 읽기 모드와 텍스트 레이어는
-// 띄어쓰기를 넣는 규칙이 달라서, 같은 문장인데 공백 개수만 다른 경우가 있다.
-function findLooseOccurrence(text, quote, hintOffset) {
-  const collapsed = quote.replace(/\s+/g, " ").trim();
-  if (!collapsed || collapsed === quote) return -1;
-  return findNearestOccurrence(text, collapsed, hintOffset);
+// 저장하는 글귀: 공백·줄바꿈·제어 문자(U+0000 등)의 연속을 공백 하나로 줄이고 앞뒤를 자른다.
+// 단 바꿈을 가로지르는 형광펜이 줄바꿈을 수십 개 담지 않게 한다. 저장하는 글자 범위는 그대로다.
+function normalizeQuoteText(str) {
+  return String(str == null ? "" : str).replace(/[\u0000-\u001f\s]+/g, " ").trim();
+}
+
+// 공백 차이를 무시하고 다시 찾아본다. 읽기 모드와 텍스트 레이어는 띄어쓰기를 넣는 규칙이 달라서,
+// 같은 문장인데 공백 개수·종류만 다른 경우가 있다. 반환: 본문 기준 { start, end } 또는 null.
+function findNormalizedOccurrence(text, quote, hintOffset) {
+  const want = normalizeQuoteText(quote);
+  if (!want || typeof text !== "string" || !text) return null;
+  let collapsed = "";
+  const startAt = [];
+  const endAt = [];
+  let prevSpace = true;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text.charAt(i);
+    if (/\s/.test(ch) || ch.charCodeAt(0) < 0x20) {
+      if (prevSpace) continue;
+      collapsed += " ";
+      startAt.push(i);
+      endAt.push(i + 1);
+      prevSpace = true;
+    } else {
+      collapsed += ch;
+      startAt.push(i);
+      endAt.push(i + 1);
+      prevSpace = false;
+    }
+  }
+  const hint = Number.isFinite(hintOffset) ? hintOffset : 0;
+  let best = -1;
+  let bestDist = Infinity;
+  let from = 0;
+  for (;;) {
+    const at = collapsed.indexOf(want, from);
+    if (at === -1) break;
+    const dist = Math.abs(startAt[at] - hint);
+    if (dist < bestDist) { bestDist = dist; best = at; }
+    from = at + 1;
+  }
+  if (best === -1) return null;
+  return { start: startAt[best], end: endAt[best + want.length - 1] };
 }
 
 // 겹친 하이라이트는 한 범위로 합쳐서 그린다. 겹친 채로 하나씩 감싸면 먼저 감싼
@@ -1736,15 +1803,14 @@ function resolveAnnotationAnchor(pageText, anchor) {
   const inRange = Number.isFinite(start) && Number.isFinite(end) && start >= 0 && end > start && end <= pageText.length;
 
   if (quote) {
-    if (inRange && pageText.slice(start, end) === quote) {
+    if (inRange && (pageText.slice(start, end) === quote || normalizeQuoteText(pageText.slice(start, end)) === normalizeQuoteText(quote))) {
       return { startOffset: start, endOffset: end, status: "offset" };
     }
     const hint = Number.isFinite(start) ? start : 0;
     const at = findNearestOccurrence(pageText, quote, hint);
     if (at !== -1) return { startOffset: at, endOffset: at + quote.length, status: "quote" };
-    const collapsed = quote.replace(/\s+/g, " ").trim();
-    const loose = findLooseOccurrence(pageText, quote, hint);
-    if (loose !== -1) return { startOffset: loose, endOffset: loose + collapsed.length, status: "quote" };
+    const loose = findNormalizedOccurrence(pageText, quote, hint);
+    if (loose) return { startOffset: loose.start, endOffset: loose.end, status: "quote" };
     return ANNOTATION_LOST;
   }
 
@@ -1805,6 +1871,6 @@ function findSelectionInText(bodyText, selected) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
+  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
 }
 
