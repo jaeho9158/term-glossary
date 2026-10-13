@@ -1,6 +1,7 @@
 // 인용 카드의 "자세히" — Crossref 서지 조회. 사용자가 누를 때만, 참고문헌 한 건의 문구만 보낸다.
 // 요청에는 사용자 지정 헤더·mailto·식별자를 넣지 않는다(사이트 규칙). 잘못된 논문을 "그 문헌"으로
-// 보여 주는 것이 최악이므로 일치 판정은 보수적이다: 제목 낱말 80%·연도·첫 저자 성이 모두 맞아야 한다.
+// 보여 주는 것이 최악이므로 일치 판정은 보수적이다: 제목 낱말 순서 일치·연도·첫 저자가 모두 맞아야 한다.
+// 한글(국문) 문헌은 조회하지 않는다(Crossref의 국문 제목 수록이 빈약하고 판정 근거가 약함).
 (function () {
   "use strict";
 
@@ -13,21 +14,37 @@
   var MSG_ERROR = "정보를 가져오지 못했습니다";
   var MSG_RETRY = "다시 시도";
 
+  function own(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+
   // ---------- 순수 함수 ----------
 
+  var SPECIAL = { "ø": "o", "ł": "l", "đ": "d", "æ": "ae", "œ": "oe", "ß": "ss", "ð": "d", "þ": "th" };
+
+  // NFKD(합자·호환 문자 풀기) → 결합 기호 제거 → 소문자 → 특수 문자 접기 → NFC
   function fold(s) {
-    return String(s == null ? "" : s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+    return String(s == null ? "" : s).normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase()
+      .replace(/[øłđæœßðþ]/g, function (c) { return SPECIAL[c]; }).normalize("NFC");
   }
 
   var ROMAN = { i: 1, ii: 1, iii: 1, iv: 1, v: 1, vi: 1, vii: 1, viii: 1, ix: 1, x: 1 };
   function isNumOrRoman(w) { return /^\d+$/.test(w) || ROMAN[w] === 1; }
+  var NUMWORD = { one: 1, two: 1, three: 1, four: 1, five: 1, six: 1, seven: 1, eight: 1, nine: 1, ten: 1, first: 1, second: 1, third: 1 };
+  function isNumber(w) { return isNumOrRoman(w) || NUMWORD[w] === 1; }
 
-  // 소문자·발음 기호 접기·기호 제거 → 2글자 이상 낱말 배열(숫자·로마 숫자 낱말은 길이와 무관하게 유지)
-  function normalizeTitle(s) {
-    var t = fold(s).normalize("NFC").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
-    if (!t) return [];
-    return t.split(/\s+/).filter(function (w) { return w.length >= 2 || isNumOrRoman(w); });
+  // 문자열의 낱말 보기. joined가 true면 낱말 안의 하이픈을 붙인다("2-D" → "2d").
+  // words: 2글자 이상 낱말(숫자·로마 숫자는 길이와 무관하게 유지), raw: 모든 낱말(위치 포함)
+  function view(text, joined) {
+    var s = fold(text).replace(/([\p{L}\p{N}])['’ʼ](?=\p{L})/gu, "$1");
+    if (joined) s = s.replace(/([\p{L}\p{N}])[\-‐‑](?=[\p{L}\p{N}])/gu, "$1");
+    var re = /[\p{L}\p{N}]+/gu;
+    var raw = [];
+    var m;
+    while ((m = re.exec(s))) raw.push({ t: m[0], s: m.index, e: m.index + m[0].length });
+    var words = raw.map(function (x) { return x.t; }).filter(function (w) { return w.length >= 2 || isNumOrRoman(w); });
+    return { str: s, raw: raw, words: words };
   }
+
+  function normalizeTitle(s) { return view(s, false).words; }
 
   function yearsIn(s) {
     var out = [];
@@ -38,13 +55,13 @@
     return out;
   }
 
-  function hangulRatio(s) {
-    var h = (String(s).match(/[가-힣]/g) || []).length;
-    var l = (String(s).match(/[A-Za-zÀ-ɏ]/g) || []).length;
-    return h + l === 0 ? 0 : h / (h + l);
+  // 글자 중 한글이 절반을 넘는가
+  function mostlyHangul(s) {
+    var str = String(s == null ? "" : s);
+    var l = (str.match(/\p{L}/gu) || []).length;
+    if (!l) return false;
+    return (str.match(/\p{Script=Hangul}/gu) || []).length / l > 0.5;
   }
-
-  function hasHangul(s) { return /[가-힣]/.test(String(s)); }
 
   // 앞쪽 목록 번호 "[12]" "12." 제거, 공백 정리, 300자(코드 포인트) 이내 낱말 경계로 자름
   function trimRef(s) {
@@ -71,158 +88,229 @@
     } catch (e) { return ""; }
   }
 
-  function titleOf(item) {
-    if (!item) return "";
-    var t = item.title;
-    if (Array.isArray(t)) t = t[0];
-    return typeof t === "string" ? stripMarkup(t) : "";
+  function firstString(v) {
+    if (Array.isArray(v)) v = v[0];
+    return typeof v === "string" ? stripMarkup(v) : "";
   }
+
+  function titleOf(item) { return item ? firstString(item.title) : ""; }
 
   function toCandidate(item) {
     return {
       title: titleOf(item),
+      subtitle: item ? firstString(item.subtitle) : "",
+      type: item && typeof item.type === "string" ? item.type : "",
       year: item && item.year ? String(item.year) : yearOf(item),
       author: item && Array.isArray(item.author) ? item.author : []
     };
   }
 
-  function lettersOf(s) {
-    return fold(s).normalize("NFC").match(/\p{L}+/gu) || [];
-  }
+  // ----- 저자 -----
 
   var ORG_STOP = { the: 1, of: 1, for: 1, and: 1, a: 1, an: 1, de: 1, la: 1, le: 1, der: 1, die: 1, das: 1 };
 
-  // 첫 저자: 성(family) → 없으면 단체명(name)의 첫 의미 낱말 → 없으면 저자 정보 없음
+  // 글자 낱말 배열. dropApos면 아포스트로피를 없애고(O'Brien → obrien), 아니면 낱말을 가른다.
+  function letterToks(s, dropApos) {
+    var t = fold(s);
+    if (dropApos) t = t.replace(/['’ʼ`´]/g, "");
+    return t.match(/\p{L}+/gu) || [];
+  }
+
+  // 독일식 전사 ue/oe/ae ↔ ü/ö/ä (성 비교 전용)
+  function famCanon(w) { return w.replace(/ae/g, "a").replace(/oe/g, "o").replace(/ue/g, "u"); }
+
+  function orgSig(name) {
+    return letterToks(name, true).filter(function (w) { return !ORG_STOP[w] && w.length > 1; });
+  }
+
+  // 첫 저자: 성(family) → 없으면 단체명(name)의 의미 낱말 → 없으면 저자 정보 없음
   function authorKey(authors) {
     if (!Array.isArray(authors) || !authors.length) return null;
     var a = authors[0];
     if (!a || typeof a !== "object") return null;
-    if (typeof a.family === "string" && lettersOf(a.family).length) return { value: a.family, org: false };
-    if (typeof a.name === "string") {
-      var ws = lettersOf(a.name).filter(function (w) { return !ORG_STOP[w]; });
-      if (ws.length) return { value: ws[0], org: true };
-    }
+    if (typeof a.family === "string" && letterToks(a.family, true).length) return { family: a.family };
+    if (typeof a.name === "string" && orgSig(a.name).length) return { org: a.name };
     return null;
   }
 
-  // 성은 서지 문구의 낱말(문자 연속)과 같아야 한다(부분 문자열 금지). 여러 낱말 성은 연속 낱말.
-  // 한글 성은 성으로 시작하는 2~4음절 낱말(김철수)이어야 한다.
-  function familyMatch(refText, fam, isOrg) {
-    var ft = lettersOf(fam);
-    if (!ft.length) return false;
-    var rt = lettersOf(refText);
-    if (hasHangul(fam)) {
-      var f = ft.join("");
-      var fl = Array.from(f).length;
-      for (var k = 0; k < rt.length; k++) {
-        if (rt[k].indexOf(f) !== 0) continue;
-        if (isOrg) return true;
-        var len = Array.from(rt[k]).length;
-        if (len >= fl + 1 && len <= fl + 2 && len >= 2 && len <= 4) return true;
-      }
-      return false;
-    }
-    for (var i = 0; i + ft.length <= rt.length; i++) {
+  function hasRun(hay, needle) {
+    if (!needle.length) return false;
+    for (var i = 0; i + needle.length <= hay.length; i++) {
       var ok = true;
-      for (var j = 0; j < ft.length; j++) if (rt[i + j] !== ft[j]) { ok = false; break; }
+      for (var j = 0; j < needle.length; j++) if (hay[i + j] !== needle[j]) { ok = false; break; }
       if (ok) return true;
     }
     return false;
   }
 
-  // 한글 제목: 공백을 뺀 서지 문구에 제목 낱말(띄어쓰기 단위)이 통째로 들어 있는 비율이 80% 이상
-  function hangulTitleScore(refText, title) {
-    var squash = function (x) { return fold(x).normalize("NFC").replace(/[^\p{L}\p{N}]+/gu, ""); };
-    var words = fold(title).normalize("NFC").replace(/[^\p{L}\p{N}]+/gu, " ").trim().split(/\s+/).filter(Boolean);
-    var ref = squash(refText);
-    var hit = 0;
-    for (var i = 0; i < words.length; i++) if (ref.indexOf(words[i]) !== -1) hit++;
-    return { n: words.length, hit: hit };
-  }
-
-  // 최장 공통 부분 수열 길이(제목 낱말이 서지 문구에서 같은 순서로 나오는 개수)
-  function lcsLen(a, b) {
-    var prev = [], cur, i, j;
-    for (j = 0; j <= b.length; j++) prev.push(0);
-    for (i = 1; i <= a.length; i++) {
-      cur = [0];
-      for (j = 1; j <= b.length; j++) {
-        cur.push(a[i - 1] === b[j - 1] ? prev[j - 1] + 1 : Math.max(prev[j], cur[j - 1]));
-      }
-      prev = cur;
+  // 성은 서지 문구의 낱말(문자 연속)과 같아야 한다(부분 문자열 금지). 여러 낱말 성은 연속 낱말.
+  // 아포스트로피·하이픈·공백 차이와 ue/oe/ae 전사 차이는 같은 성으로 본다.
+  function familyMatch(refText, fam) {
+    var noApos = letterToks(fam, true).map(famCanon);
+    var split = letterToks(fam, false).map(famCanon);
+    var joined = noApos.join("");
+    if (!noApos.length || joined.length < 2) return false;
+    var variants = [noApos, split, [joined]];
+    var views = [letterToks(refText, true).map(famCanon), letterToks(refText, false).map(famCanon)];
+    for (var v = 0; v < views.length; v++) {
+      for (var k = 0; k < variants.length; k++) if (hasRun(views[v], variants[k])) return true;
     }
-    return prev[b.length];
+    return false;
   }
 
-  function rawTokens(s) {
-    var str = fold(s).normalize("NFC");
-    var re = /[\p{L}\p{N}]+/gu;
-    var out = [];
-    var m;
-    while ((m = re.exec(str))) out.push({ t: m[0], s: m.index, e: m.index + m[0].length });
-    return { str: str, toks: out };
+  // 단체 저자: 의미 낱말 전부가 순서대로 이어서 나오거나(불용어는 건너뜀),
+  // 첫 글자를 모은 약어(3글자 이상)가 대문자 낱말로 나와야 한다.
+  function orgMatch(refText, name) {
+    var sig = orgSig(name);
+    if (!sig.length) return false;
+    var rt = letterToks(refText, true).filter(function (w) { return !ORG_STOP[w]; });
+    if (hasRun(rt, sig)) return true;
+    if (sig.length >= 3) {
+      var acr = sig.map(function (w) { return Array.from(w)[0]; }).join("").toUpperCase();
+      var re = new RegExp("(?<![\\p{L}\\p{N}])" + acr + "(?![\\p{L}\\p{N}])", "u");
+      if (re.test(String(refText).normalize("NFKC"))) return true;
+    }
+    return false;
+  }
+
+  // ----- 제목 -----
+
+  // 정렬 표(접미·접두 LCS)
+  function lcsTables(a, b) {
+    var n = a.length, m = b.length, S = [], P = [], i, j;
+    for (i = 0; i <= n + 1; i++) { S.push(new Array(m + 2).fill(0)); P.push(new Array(m + 2).fill(0)); }
+    for (i = n - 1; i >= 0; i--) {
+      for (j = m - 1; j >= 0; j--) S[i][j] = a[i] === b[j] ? S[i + 1][j + 1] + 1 : Math.max(S[i + 1][j], S[i][j + 1]);
+    }
+    for (i = 1; i <= n; i++) {
+      for (j = 1; j <= m; j++) P[i][j] = a[i - 1] === b[j - 1] ? P[i - 1][j - 1] + 1 : Math.max(P[i - 1][j], P[i][j - 1]);
+    }
+    return { S: S, P: P };
+  }
+
+  // 가장 이른 위치끼리 맞춘 정렬 [[제목 인덱스, 문구 인덱스], …]
+  function alignForward(a, b, S) {
+    var out = [], i = 0, j = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j] && S[i][j] === S[i + 1][j + 1] + 1) { out.push([i, j]); i++; j++; }
+      else if (S[i + 1][j] === S[i][j]) i++;
+      else j++;
+    }
+    return out;
+  }
+
+  // 가장 늦은 위치끼리 맞춘 정렬
+  function alignBackward(a, b, P) {
+    var out = [], i = a.length, j = b.length;
+    while (i > 0 && j > 0) {
+      if (a[i - 1] === b[j - 1] && P[i][j] === P[i - 1][j - 1] + 1) { out.push([i - 1, j - 1]); i--; j--; }
+      else if (P[i - 1][j] === P[i][j]) i--;
+      else j--;
+    }
+    return out.reverse();
+  }
+
+  // 제목의 숫자·로마 숫자 낱말은 전부 정렬되어야 하고,
+  // 정렬된 문구 구간(첫~끝) 안의 숫자·로마 숫자 낱말은 모두 제목과 짝이 있어야 한다.
+  function numbersOk(words, refWords, al) {
+    if (!al.length) return false;
+    var cand = {}, ref = {}, k;
+    for (k = 0; k < al.length; k++) { cand[al[k][0]] = true; ref[al[k][1]] = true; }
+    for (k = 0; k < words.length; k++) if (isNumber(words[k]) && !cand[k]) return false;
+    var lo = al[0][1], hi = al[al.length - 1][1];
+    for (k = lo; k <= hi; k++) if (isNumber(refWords[k]) && !ref[k]) return false;
+    return true;
   }
 
   // 후보 제목이 인용된 제목의 앞부분일 뿐인가(제목 바로 뒤에 낱말이 이어지거나 ':' '-' 부제가 붙음)
-  function titleContinues(refText, title) {
-    var r = rawTokens(refText);
-    var tt = rawTokens(title).toks.map(function (x) { return x.t; });
+  function titleContinues(refV, titleV) {
+    var tt = titleV.raw.map(function (x) { return x.t; });
     if (!tt.length) return false;
+    var r = refV;
     var found = false;
-    for (var i = 0; i + tt.length <= r.toks.length; i++) {
+    for (var i = 0; i + tt.length <= r.raw.length; i++) {
       var ok = true;
-      for (var j = 0; j < tt.length; j++) if (r.toks[i + j].t !== tt[j]) { ok = false; break; }
+      for (var j = 0; j < tt.length; j++) if (r.raw[i + j].t !== tt[j]) { ok = false; break; }
       if (!ok) continue;
       found = true;
-      var next = r.toks[i + tt.length];
+      var next = r.raw[i + tt.length];
       if (!next) return false;
-      var gap = r.str.slice(r.toks[i + tt.length - 1].e, next.s).replace(/\s+/g, "");
+      var gap = r.str.slice(r.raw[i + tt.length - 1].e, next.s).replace(/\s+/g, "");
       if (!(gap === "" || /^[:\-–—]+$/.test(gap))) return false; // 제목이 끝나는 곳이 있음
     }
     return found;
   }
 
-  var NOTICE_RE = /^\s*(correction|corrigendum|erratum|errata|retraction|retracted|reply|response|comment|commentary|editorial)\b/i;
+  // 제목 하나(보기 하나씩)의 판정: 통과하면 { n, full }, 아니면 null
+  function evalTitle(refV, titleV) {
+    var w = titleV.words, r = refV.words, n = w.length;
+    if (n < 3) return null;
+    var T = lcsTables(w, r);
+    var lcs = T.S[0][0];
+    if (n <= 6 ? lcs !== n : lcs / n < 0.8) return null; // 짧은 제목은 전부, 긴 제목은 순서 일치 80%
+    if (!(numbersOk(w, r, alignForward(w, r, T.S)) || numbersOk(w, r, alignBackward(w, r, T.P)))) return null;
+    if (titleContinues(refV, titleV)) return null;
+    return { n: n, full: lcs === n };
+  }
+
+  // 정정·철회·답변·논평·심사류 표제(앞 세 낱말 안): 서지 문구에도 같은 낱말이 있을 때만
+  var NOTICE_WORDS = ["correction", "corrigendum", "erratum", "errata", "retraction", "retracted", "withdrawal",
+    "addendum", "reply", "response", "comment", "commentary", "editorial", "discussion"];
+  var NOTICE_PHRASES = [["book", "review"], ["decision", "letter"], ["author", "response"], ["peer", "review"],
+    ["review", "for"], ["expression", "of", "concern"]];
+
+  function noticeOk(refText, title) {
+    var head = view(title, false).raw.slice(0, 3).map(function (x) { return x.t; });
+    var ref = view(refText, false).raw.map(function (x) { return x.t; });
+    var k;
+    for (k = 0; k < head.length; k++) {
+      if (NOTICE_WORDS.indexOf(head[k]) !== -1 && ref.indexOf(head[k]) === -1) return false;
+    }
+    for (k = 0; k < NOTICE_PHRASES.length; k++) {
+      if (hasRun(head, NOTICE_PHRASES[k]) && !hasRun(ref, NOTICE_PHRASES[k])) return false;
+    }
+    return true;
+  }
+
+  var BAD_TYPES = { "peer-review": 1, "journal-issue": 1, "journal": 1, "book-series": 1, "component": 1 };
+
+  // 비교할 제목 문자열들: 제목, 제목+부제(별도 필드), 부제를 뺀 앞부분(낱말 5개 이상일 때만)
+  function titleVariants(title, subtitle) {
+    var out = [title];
+    if (subtitle) out.push(title + ": " + subtitle);
+    var m = /^(.*?)(?::\s| [–—-] )/.exec(title);
+    if (m && m[1] && normalizeTitle(m[1]).length >= 5) out.push(m[1]);
+    return out;
+  }
+
+  function authorOk(refText, authors, r) {
+    var ak = authorKey(authors);
+    if (ak) return ak.org ? orgMatch(refText, ak.org) : familyMatch(refText, ak.family);
+    return r.n >= 8 && r.full; // 저자 정보가 없으면 긴 제목이 전부 일치할 때만
+  }
 
   function isMatch(refText, candidate) {
     if (!candidate || typeof refText !== "string") return false;
     var title = candidate.title;
     if (typeof title !== "string" || !title) return false;
+    if (typeof candidate.type === "string" && own(BAD_TYPES, candidate.type)) return false;
+    if (mostlyHangul(title) || mostlyHangul(refText)) return false;
     var year = candidate.year == null ? "" : String(candidate.year);
     if (!year || yearsIn(refText).indexOf(year) === -1) return false;
+    if (!noticeOk(refText, title)) return false;
 
-    var refToks = normalizeTitle(refText);
-    var refSet = {};
-    refToks.forEach(function (w) { refSet[w] = true; });
-
-    // 정정·철회·답변·논평류 표제는 서지 문구에도 같은 낱말이 있을 때만
-    var nm = NOTICE_RE.exec(title);
-    if (nm && !refSet[nm[1].toLowerCase()]) return false;
-
-    var n, hit;
-    if (hasHangul(title)) {
-      var sc = hangulTitleScore(refText, title);
-      n = sc.n; hit = sc.hit;
-      if (n < 3 || hit / n < 0.8) return false;
-    } else if (hangulRatio(refText) > 0.5) {
-      return false; // 한글 서지에는 한글 규칙으로만 일치시킨다
-    } else {
-      var words = normalizeTitle(title);
-      n = words.length;
-      if (n < 3) return false;
-      hit = 0;
-      for (var i = 0; i < n; i++) {
-        if (refSet[words[i]]) hit++;
-        else if (isNumOrRoman(words[i])) return false; // 권·부 번호가 다르면 다른 글
+    var sub = typeof candidate.subtitle === "string" ? candidate.subtitle : "";
+    var vars = titleVariants(title, sub);
+    for (var a = 0; a < vars.length; a++) {
+      for (var jr = 0; jr < 2; jr++) {
+        var rv = view(refText, jr === 1);
+        for (var jt = 0; jt < 2; jt++) {
+          var r = evalTitle(rv, view(vars[a], jt === 1));
+          if (r && authorOk(refText, candidate.author, r)) return true;
+        }
       }
-      if (n <= 6 ? hit !== n : hit / n < 0.8) return false;
-      if (lcsLen(words, refToks) / n < 0.8) return false; // 낱말이 흩어져 있기만 한 경우
-      if (titleContinues(refText, title)) return false;
     }
-
-    var ak = authorKey(candidate.author);
-    if (ak) return familyMatch(refText, ak.value, ak.org);
-    return n >= 8 && hit === n; // 저자 정보가 없으면 긴 제목이 전부 일치할 때만
+    return false;
   }
 
   function titleKey(item) { return normalizeTitle(titleOf(item)).join(" "); }
@@ -270,7 +358,7 @@
         return " ";
       }
       var k = e.toLowerCase();
-      return Object.prototype.hasOwnProperty.call(ENTITIES, k) ? ENTITIES[k] : m;
+      return own(ENTITIES, k) ? ENTITIES[k] : m;
     });
     return t.replace(/\s+/g, " ").trim();
   }
@@ -293,9 +381,17 @@
   }
 
   var TYPE_LABELS = {
-    "book-chapter": "책의 장", "book": "책", "monograph": "책", "dissertation": "학위논문",
-    "proceedings-article": "학술대회 논문", "posted-content": "프리프린트"
+    "journal-article": "",
+    "book-chapter": "책의 장", "book-section": "책의 장", "book-part": "책의 장", "reference-entry": "책의 장",
+    "book": "책", "monograph": "책", "edited-book": "책", "reference-book": "책",
+    "dissertation": "학위논문", "proceedings-article": "학술대회 논문", "posted-content": "프리프린트",
+    "report": "보고서", "report-component": "보고서", "dataset": "데이터세트", "standard": "표준"
   };
+
+  function typeLabelOf(type) {
+    if (typeof type !== "string" || !type) return "";
+    return own(TYPE_LABELS, type) ? TYPE_LABELS[type] : "기타 자료";
+  }
 
   function toData(item) {
     var ct = Array.isArray(item["container-title"]) ? item["container-title"][0] : "";
@@ -304,10 +400,20 @@
       authors: authorLine(item.author),
       year: yearOf(item),
       journal: typeof ct === "string" ? stripMarkup(ct) : "",
-      typeLabel: typeof item.type === "string" && Object.prototype.hasOwnProperty.call(TYPE_LABELS, item.type) ? TYPE_LABELS[item.type] : "",
+      typeLabel: typeLabelOf(item.type),
       abstract: typeof item.abstract === "string" ? cutAbstract(item.abstract) : "",
       doi: validDoi(item.DOI) ? item.DOI : ""
     };
+  }
+
+  // 화면에 그릴 내용(DOM 없음): 제목, 줄들, 초록, DOI 주소(유효하지 않으면 "")
+  function viewModel(d) {
+    var lines = [];
+    if (d.authors) lines.push({ label: "저자", value: d.authors });
+    if (d.year) lines.push({ label: "연도", value: d.year });
+    if (d.journal) lines.push({ label: "학술지", value: d.journal, typeLabel: d.typeLabel || "" });
+    else if (d.typeLabel) lines.push({ label: "유형", value: d.typeLabel });
+    return { title: d.title, lines: lines, abstract: d.abstract || "", href: doiUrl(d.doi), source: "서지 정보: Crossref" };
   }
 
   // ---------- 조회 ----------
@@ -335,10 +441,11 @@
   function lookup(refText) {
     var q = trimRef(refText);
     if (!q) return Promise.resolve({ status: "nomatch" });
+    if (mostlyHangul(q)) return Promise.resolve({ status: "nomatch" }); // 국문 문헌은 조회하지 않음
     if (cache[q]) return cache[q];
     var url;
     try {
-      url = apiBase() + "?rows=3&select=" + encodeURIComponent("title,author,issued,container-title,DOI,abstract,type") +
+      url = apiBase() + "?rows=3&select=" + encodeURIComponent("title,subtitle,author,issued,container-title,DOI,abstract,type") +
         "&query.bibliographic=" + encodeURIComponent(q);
     } catch (e) { return Promise.resolve({ status: "error" }); } // 짝 없는 서로게이트
     var gen = generation;
@@ -386,10 +493,11 @@
     return n;
   }
 
-  function line(label, value) {
+  function line(l) {
     var d = el("div", "biblio-line");
-    d.appendChild(el("span", "biblio-label", label));
-    d.appendChild(el("span", "biblio-value", value));
+    d.appendChild(el("span", "biblio-label", l.label));
+    d.appendChild(el("span", "biblio-value", l.value));
+    if (l.typeLabel) d.appendChild(el("span", "biblio-type", l.typeLabel));
     return d;
   }
 
@@ -407,27 +515,18 @@
       if (!live()) return; // 카드가 닫혔거나 다시 조회 중
       container.textContent = "";
       if (r.status === "ok") {
-        var d = r.data;
-        container.appendChild(el("p", "biblio-title", d.title));
-        if (d.authors) container.appendChild(line("저자", d.authors));
-        if (d.year) container.appendChild(line("연도", d.year));
-        if (d.journal) {
-          var jl = line("학술지", d.journal);
-          if (d.typeLabel) jl.appendChild(el("span", "biblio-type", d.typeLabel));
-          container.appendChild(jl);
-        } else if (d.typeLabel) {
-          container.appendChild(line("유형", d.typeLabel));
-        }
-        if (d.abstract) container.appendChild(el("p", "biblio-abstract", d.abstract));
-        var href = doiUrl(d.doi);
-        if (href) {
+        var vm = viewModel(r.data);
+        container.appendChild(el("p", "biblio-title", vm.title));
+        vm.lines.forEach(function (l) { container.appendChild(line(l)); });
+        if (vm.abstract) container.appendChild(el("p", "biblio-abstract", vm.abstract));
+        if (vm.href) {
           var a = el("a", "biblio-link", "원문 보기 (DOI)");
-          a.href = href;
+          a.href = vm.href;
           a.target = "_blank";
           a.rel = "noopener noreferrer";
           container.appendChild(a);
         }
-        container.appendChild(el("p", "biblio-source", "서지 정보: Crossref"));
+        container.appendChild(el("p", "biblio-source", vm.source));
       } else if (r.status === "nomatch") {
         container.appendChild(el("p", "biblio-status", MSG_NOMATCH));
       } else {
@@ -454,7 +553,8 @@
   var api = {
     normalizeTitle: normalizeTitle, yearsIn: yearsIn, isMatch: isMatch, pickMatch: pickMatch,
     lookup: lookup, trimRef: trimRef, yearOf: yearOf, validDoi: validDoi, doiUrl: doiUrl,
-    stripTags: stripTags, apiBaseFor: apiBaseFor, toData: toData, cutAbstract: cutAbstract, render: render, reset: reset
+    stripTags: stripTags, apiBaseFor: apiBaseFor, toData: toData, cutAbstract: cutAbstract, render: render, reset: reset,
+    viewModel: viewModel, mostlyHangul: mostlyHangul
   };
 
   if (typeof window !== "undefined" && typeof document !== "undefined") {

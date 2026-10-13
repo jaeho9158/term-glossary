@@ -30,15 +30,6 @@ test("isMatch: 발음 기호를 접어 비교(Müller / Muller)", () => {
   assert.equal(B.isMatch(ref2, { title: "Learning of Cats and Dogs in the Wild", year: "2019", author: [{ family: "Muller" }] }), true);
 });
 
-test("isMatch: 한글 서지와 한글 제목", () => {
-  const ref = "김철수·이영희 (2018). 청소년의 스마트폰 과의존이 학업성취에 미치는 영향. 교육학연구, 56(2), 1-25.";
-  assert.equal(B.isMatch(ref, { title: "청소년의 스마트폰 과의존이 학업성취에 미치는 영향", year: "2018", author: [{ family: "김" }] }), true);
-  assert.equal(B.isMatch(ref, { title: "청소년의 스마트폰 과의존이 학업성취에 미치는 영향", year: "2017" }), false);
-  assert.equal(B.isMatch(ref, { title: "성인의 인터넷 사용이 직무만족에 미치는 영향 연구", year: "2018" }), false);
-  // 한글 서지에 영문 제목 후보는 한글 규칙을 통과하지 못하므로 false
-  assert.equal(B.isMatch(ref, { title: "Smartphone overdependence of adolescents", year: "2018" }), false);
-});
-
 test("pickMatch: 첫 일치를 고르고, 전부 불일치면 null", () => {
   const items = [
     { title: ["Something Else Entirely Here"], issued: { "date-parts": [[2020]] } },
@@ -109,11 +100,6 @@ test("저자 성: 낱말 단위 일치(Li/Reliability, 김/김포교육)", () =>
   assert.equal(B.isMatch(smith, { title: T4, year: "2020", author: [{ family: "Li" }] }), false);
   const li = "Li, X. Deep learning for cats. Reliability Engineering, 2020.";
   assert.equal(B.isMatch(li, { title: T4, year: "2020", author: [{ family: "Li" }] }), true);
-  const ko = "박영수 (2018). 청소년의 스마트폰 과의존이 학업성취에 미치는 영향. 김포교육연구, 56(2), 1-25.";
-  const kt = "청소년의 스마트폰 과의존이 학업성취에 미치는 영향";
-  assert.equal(B.isMatch(ko, { title: kt, year: "2018", author: [{ family: "김" }] }), false);
-  const ko2 = "김철수, 이영희(2018). 청소년의 스마트폰 과의존이 학업성취에 미치는 영향. 교육학연구, 56(2), 1-25.";
-  assert.equal(B.isMatch(ko2, { title: kt, year: "2018", author: [{ family: "김" }] }), true);
 });
 
 test("저자 성: 여러 낱말 성과 발음 기호", () => {
@@ -235,7 +221,7 @@ test("toData: 유형 라벨", () => {
   assert.equal(lab("proceedings-article"), "학술대회 논문");
   assert.equal(lab("posted-content"), "프리프린트");
   assert.equal(lab("journal-article"), "");
-  assert.equal(lab("constructor"), "");
+  assert.equal(lab("constructor"), "기타 자료");
   assert.equal(lab(undefined), "");
 });
 
@@ -274,7 +260,7 @@ test("lookup: 일치 → ok, 요청 URL·옵션 점검", async () => {
     assert.equal(u.origin + u.pathname, "https://api.crossref.org/works");
     assert.deepEqual([...u.searchParams.keys()].sort(), ["query.bibliographic", "rows", "select"]);
     assert.equal(u.searchParams.get("query.bibliographic"), LREF);
-    assert.equal(u.searchParams.get("select"), "title,author,issued,container-title,DOI,abstract,type");
+    assert.equal(u.searchParams.get("select"), "title,subtitle,author,issued,container-title,DOI,abstract,type");
     const o = s.calls[0].opts;
     assert.equal(o.headers, undefined);
     assert.deepEqual(Object.keys(o).sort(), ["credentials", "referrerPolicy", "signal"]);
@@ -328,4 +314,180 @@ test("lookup: reset이 진행 중 요청을 중단 → error, 캐시 없음", as
     assert.equal((await B.lookup(LREF)).status, "ok");
     assert.equal(s2.calls.length, 1);
   } finally { s2.restore(); }
+});
+
+// ---------- 재검수 2차 ----------
+
+const KIM = [{ family: "Kim" }];
+const LONG = "Deep learning for cats and dogs in the wild";
+const ok = (ref, title, extra) => B.isMatch(ref, Object.assign({ title, year: "2020", author: KIM }, extra));
+
+test("한글 문헌: 조회하지 않음, 한글 후보 제목 배제", async () => {
+  const real = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; return okRes(GOOD); };
+  try {
+    B.reset();
+    const ko = "김철수·이영희 (2018). 청소년의 스마트폰 과의존이 학업성취에 미치는 영향. 교육학연구, 56(2), 1-25.";
+    assert.equal((await B.lookup(ko)).status, "nomatch");
+    assert.equal(calls, 0);
+    // 영문이 대부분이고 한글 낱말이 조금 섞인 서지는 보통 경로
+    const mixed = "Kim, A. Deep learning for cats. J. Cat Sci. (고양이 연구), 2020.";
+    assert.equal(B.mostlyHangul(mixed), false);
+    assert.equal((await B.lookup(mixed)).status, "ok");
+    assert.equal(calls, 1);
+  } finally { globalThis.fetch = real; B.reset(); }
+  assert.equal(B.isMatch("Kim 청소년의 스마트폰 과의존이 학업성취에 미치는 영향 2018", { title: "청소년의 스마트폰 과의존이 학업성취에 미치는 영향", year: "2018", author: [{ family: "김" }] }), false);
+  assert.equal(B.isMatch(REF, { title: "고양이를 위한 깊은 학습 연구 방법", year: "2020", author: KIM }), false);
+});
+
+test("정정·답글류: 앞 세 낱말 안의 표지어", () => {
+  const ref = "Kim, A. " + LONG + ". Nature, 2020.";
+  for (const p of ["Author Correction: ", "Publisher Correction: ", "Addendum: ", "Book review: ", "Decision letter: ",
+    "Discussion of ", "Peer review of ", "Review for ", "Author response: ", "Expression of concern: ", "Comment on ", "Retracted: ", "Withdrawal notice: "]) {
+    assert.equal(ok(ref, p + LONG), false, p);
+  }
+  // 서지 문구에도 그 낱말이 있으면 통과
+  assert.equal(ok("Kim, A. Addendum: " + LONG + ". Nature, 2020.", "Addendum: " + LONG), true);
+  // 제목 뒤쪽의 response는 정상 논문
+  const t = "Plant growth and the stress response of cats in wild habitats";
+  assert.equal(ok("Kim, A. " + t + ". Nature, 2020.", t), true);
+});
+
+test("Crossref 유형: peer-review 배제, 호·학술지·총서·구성요소는 불일치", () => {
+  const ref = "Kim, A. " + LONG + ". Nature, 2020.";
+  for (const type of ["peer-review", "journal-issue", "journal", "book-series", "component"]) {
+    assert.equal(ok(ref, LONG, { type }), false, type);
+  }
+  assert.equal(ok(ref, LONG, { type: "journal-article" }), true);
+});
+
+test("번호·로마 숫자: 제목 구간 안에서 정렬", () => {
+  const ref = "Kim, A. Deep learning for cats, Part 1. J Mech 2, 33, 2020.";
+  assert.equal(ok(ref, "Deep learning for cats, Part 1"), true);
+  assert.equal(ok(ref, "Deep learning for cats, Part 2"), false);
+  assert.equal(ok("Kim, A. Deep learning for cats, Part II. J Cat 2020", "Deep learning for cats, Part II"), true);
+  assert.equal(ok("Kim, A. Deep learning for cats, Part II. J Cat 2020", "Deep learning for cats, Part I"), false);
+  assert.equal(ok("Kim, A. Cats and their habits, Study 2. J Cat 2020", "Cats and their habits, Study 3"), false);
+  assert.equal(ok("Kim, A. COVID-19 vaccine effectiveness in adults. Lancet 2020", "COVID-19 vaccine effectiveness in adults"), true);
+  assert.equal(ok("Kim, A. 2D imaging methods for cats. Lancet 2020", "2D imaging methods for cats"), true);
+  assert.equal(ok("Kim, A. The 2008 financial crisis and bank lending. Fin 2008, 2020", "The 2008 financial crisis and bank lending"), true);
+});
+
+test("기관 저자: 의미 낱말 전부 또는 약어", () => {
+  const t = LONG;
+  const org = (name) => B.isMatch("World Health Organization. " + t + ". Geneva, 2020.", { title: t, year: "2020", author: [{ name }] });
+  assert.equal(org("World Health Organization"), true);
+  assert.equal(org("World Bank"), false);
+  assert.equal(org("National Health Organization"), false);
+  assert.equal(B.isMatch("WHO. " + t + ". Geneva, 2020.", { title: t, year: "2020", author: [{ name: "World Health Organization" }] }), true);
+  assert.equal(B.isMatch("Who said so? " + t + ". Geneva, 2020.", { title: t, year: "2020", author: [{ name: "World Health Organization" }] }), false);
+  assert.equal(B.isMatch("Centers for Disease Control & Prevention. " + t + ". 2020.", { title: t, year: "2020", author: [{ name: "Centers for Disease Control and Prevention" }] }), true);
+  // 두 글자 약어는 쓰지 않음
+  assert.equal(B.isMatch("UN. " + t + ". 2020.", { title: t, year: "2020", author: [{ name: "United Nations" }] }), false);
+});
+
+test("라틴 저자: 합자·전사·아포스트로피·하이픈", () => {
+  const r = (name) => name + ", A. " + LONG + ". Nature, 2020.";
+  assert.equal(ok(r("Mueller"), LONG, { author: [{ family: "Müller" }] }), true);
+  assert.equal(ok(r("Müller"), LONG, { author: [{ family: "Mueller" }] }), true);
+  assert.equal(ok(r("Muller"), LONG, { author: [{ family: "Müller" }] }), true);
+  assert.equal(ok(r("OBrien"), LONG, { author: [{ family: "O'Brien" }] }), true);
+  assert.equal(ok(r("O'Brien"), LONG, { author: [{ family: "OBrien" }] }), true);
+  assert.equal(ok(r("O Brien"), LONG, { author: [{ family: "O’Brien" }] }), true);
+  assert.equal(ok(r("Smith Jones"), LONG, { author: [{ family: "Smith-Jones" }] }), true);
+  assert.equal(ok(r("Smith-Jones"), LONG, { author: [{ family: "Smith Jones" }] }), true);
+  assert.equal(ok(r("Smith"), LONG, { author: [{ family: "Smith-Jones" }] }), false);
+  assert.equal(ok("L. I. Smith. " + LONG + ". Nature, 2020.", LONG, { author: [{ family: "Li" }] }), false);
+  // 합자 ﬁ
+  assert.equal(ok("Kim, A. Scientiﬁc deep learning for cats in homes. Nature, 2020.", "Scientific deep learning for cats in homes"), true);
+  assert.equal(ok("Kim, A. Scientific deep learning for cats in homes. Nature, 2020.", "Scientiﬁc deep learning for cats in homes"), true);
+});
+
+test("제목: 하이픈 결합/분리, 부제 필드, 부제 생략", () => {
+  assert.equal(ok("Kim, A. 2-D imaging methods for cats. Lancet 2020", "2D imaging methods for cats"), true);
+  assert.equal(ok("Kim, A. 2D imaging methods for cats. Lancet 2020", "2-D imaging methods for cats"), true);
+  assert.equal(ok("Kim, A. COVID 19 vaccine effectiveness in adults. Lancet 2020", "COVID-19 vaccine effectiveness in adults"), true);
+  assert.equal(ok("Kim, A. COVID19 vaccine effectiveness in adults. Lancet 2020", "COVID-19 vaccine effectiveness in adults"), true);
+  // 부제가 별도 필드
+  const full = "Kim, A. Deep learning for cats: a survey of whiskers. Nature, 2020.";
+  assert.equal(ok(full, "Deep learning for cats", { subtitle: "a survey of whiskers" }), true);
+  assert.equal(ok(full, "Deep learning for cats", { subtitle: "something else entirely" }), false);
+  assert.equal(ok(full, "Deep learning for cats"), false); // 부제 정보 없이 앞부분만: 배제 유지
+  // 인용에 부제가 없고 후보에 있음: 앞부분이 낱말 5개 이상일 때만
+  const short = "Kim, A. Deep learning for cats in homes. Nature, 2020.";
+  assert.equal(ok(short, "Deep learning for cats in homes: a survey of whiskers"), true);
+  assert.equal(ok(short, "Deep learning for cats in homes – a survey of whiskers"), true);
+  assert.equal(ok("Kim, A. Deep learning for cats. Nature, 2020.", "Deep learning for cats: a survey of whiskers"), false);
+  // 형제 부제는 여전히 배제
+  assert.equal(ok("Kim, A. Deep learning for cats in homes: part one. Nature, 2020.", "Deep learning for cats in homes: part two"), false);
+  // 철자 변형 허용 안 함
+  assert.equal(ok("Kim, A. Organization of deep learning for cats. Nature, 2020.", "Organisation of deep learning for cats"), false);
+});
+
+test("toData: 유형 라벨 전체 매핑과 기타", () => {
+  const lab = (type) => B.toData({ title: ["T"], type, issued: { "date-parts": [[2020]] } }).typeLabel;
+  for (const t of ["book-chapter", "book-section", "book-part", "reference-entry"]) assert.equal(lab(t), "책의 장");
+  for (const t of ["book", "monograph", "edited-book", "reference-book"]) assert.equal(lab(t), "책");
+  assert.equal(lab("report"), "보고서");
+  assert.equal(lab("report-component"), "보고서");
+  assert.equal(lab("dataset"), "데이터세트");
+  assert.equal(lab("standard"), "표준");
+  assert.equal(lab("journal-article"), "");
+  assert.equal(lab("peer-review"), "기타 자료");
+  assert.equal(lab(""), "");
+  assert.equal(lab(undefined), "");
+});
+
+test("viewModel: 모든 항목, DOI 무효 시 링크 없음, 초록 600자, 저자 3명 + 외", () => {
+  const item = {
+    title: ["T <i>x</i>"], issued: { "date-parts": [[2020]] }, "container-title": ["J. Cat"], type: "book-chapter",
+    author: [{ given: "A", family: "One" }, { given: "B", family: "Two" }, { given: "C", family: "Three" }, { family: "Four" }],
+    abstract: "<jats:p>" + "a".repeat(700) + "</jats:p>", DOI: "10.1000/cat"
+  };
+  const vm = B.viewModel(B.toData(item));
+  assert.equal(vm.title, "T x");
+  assert.deepEqual(vm.lines.map((l) => l.label), ["저자", "연도", "학술지"]);
+  assert.equal(vm.lines[0].value, "A One, B Two, C Three 외");
+  assert.equal(vm.lines[2].typeLabel, "책의 장");
+  assert.equal(Array.from(vm.abstract).length, 601);
+  assert.ok(vm.abstract.endsWith("…"));
+  assert.equal(vm.href, "https://doi.org/10.1000/cat");
+  assert.equal(B.viewModel(B.toData(Object.assign({}, item, { DOI: "bad doi" }))).href, "");
+  const bare = B.viewModel(B.toData({ title: ["T"], type: "dataset" }));
+  assert.deepEqual(bare.lines, [{ label: "유형", value: "데이터세트" }]);
+});
+
+test("render: 가짜 DOM에서 textContent만 사용, 링크 속성", async () => {
+  const mk = (tag) => {
+    const n = { tag, children: [], className: "", attrs: {}, listeners: {}, _t: "" };
+    n.classList = { add: (c) => { n.className += " " + c; } };
+    n.setAttribute = (k, v) => { n.attrs[k] = v; };
+    n.appendChild = (c) => { n.children.push(c); return c; };
+    n.addEventListener = (k, f) => { n.listeners[k] = f; };
+    Object.defineProperty(n, "textContent", { get: () => n._t, set: (v) => { n._t = String(v); n.children = []; } });
+    Object.defineProperty(n, "innerHTML", { set: () => { throw new Error("innerHTML forbidden"); } });
+    return n;
+  };
+  const realDoc = globalThis.document;
+  globalThis.document = { createElement: mk };
+  const s = stubFetch(async () => okRes({ message: { items: [{
+    title: ["<i>Deep</i> learning for cats"], issued: { "date-parts": [[2020]] }, author: [{ family: "Kim", given: "A." }],
+    "container-title": ["J. Cat Sci."], DOI: "10.1000/cat", type: "journal-article", abstract: "ab"
+  }] } }));
+  try {
+    B.reset();
+    const c = mk("div");
+    B.render(c, LREF);
+    assert.equal(c.children[0]._t, "불러오는 중…");
+    await new Promise((r) => setTimeout(r, 20));
+    const flat = [];
+    const walk = (n) => { flat.push(n); n.children.forEach(walk); };
+    walk(c);
+    const link = flat.find((n) => n.className === "biblio-link");
+    assert.equal(link.href, "https://doi.org/10.1000/cat");
+    assert.equal(link.rel, "noopener noreferrer");
+    assert.ok(flat.some((n) => n.className === "biblio-title" && n._t.indexOf("Deep learning for cats") !== -1));
+    assert.ok(flat.some((n) => n.className === "biblio-abstract" && n._t === "ab"));
+  } finally { s.restore(); globalThis.document = realDoc; }
 });
