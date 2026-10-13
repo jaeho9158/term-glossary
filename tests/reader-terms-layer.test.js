@@ -80,3 +80,29 @@ test("wordEdges: 낱말 경계는 앞뒤가 글자·숫자가 아닐 때", () =>
   assert.deepEqual(wordEdges("(분산)", 1, 3), { left: true, right: true });
   assert.equal(wordEdges("ANOVA2", 0, 5).right, false);
 });
+
+const { refineFlags, resolveAssetVersion } = require("../assets/reader/terms-layer.js");
+
+test("wordEdges: 줄 처음·문장부호·쪽 글 끝", () => {
+  assert.deepEqual(wordEdges("유의확률은 작다", 0, 4), { left: true, right: false }, "줄 처음 + 조사");
+  assert.deepEqual(wordEdges("값(유의확률)이다", 2, 6), { left: true, right: true }, "괄호 안");
+  assert.deepEqual(wordEdges("a, 분산. b", 3, 5), { left: true, right: true }, "마침표는 경계");
+  assert.deepEqual(wordEdges("표본 분산", 3, 5), { left: true, right: true }, "쪽 글 끝");
+  assert.deepEqual(wordEdges("표본분산", 2, 4), { left: false, right: true }, "앞이 글자");
+});
+
+test("refineFlags: refine 은 두 가장자리가 모두 경계일 때만, 가장자리별 표지는 그대로", () => {
+  const t = "표본 유의확률은 작다";
+  const s = t.indexOf("유의확률");
+  assert.deepEqual(refineFlags(t, s, s + 4), { refine: false, refineLeft: true, refineRight: false });
+  assert.deepEqual(refineFlags("분산", 0, 2), { refine: true, refineLeft: true, refineRight: true });
+  assert.deepEqual(refineFlags("표본분산이", 2, 4), { refine: false, refineLeft: false, refineRight: false });
+});
+
+test("resolveAssetVersion: 자기 src 의 v → term-match.js 의 v → 빈 문자열", () => {
+  assert.equal(resolveAssetVersion(["http://x/assets/reader/terms-layer.js?v=abc", "http://x/assets/term-match.js?v=zzz"]), "abc");
+  assert.equal(resolveAssetVersion(["http://x/assets/reader/terms-layer.js", "http://x/assets/term-match.js?a=1&v=zzz"]), "zzz");
+  assert.equal(resolveAssetVersion(["http://x/assets/reader/terms-layer.js", "http://x/assets/term-match.js"]), "");
+  assert.equal(resolveAssetVersion([undefined, null]), "");
+  assert.equal(resolveAssetVersion(), "");
+});

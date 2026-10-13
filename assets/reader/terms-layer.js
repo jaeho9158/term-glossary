@@ -5,8 +5,8 @@
 // ReaderOverlay 의 "term" 층에 넘긴다. 데이터 파일·저장 키·매칭 함수는 옛 뷰어와 같다
 // (viewer-index.json, viewer-defs/<버킷>.json, localStorage "viewerHiddenTermSlugs", data/learn/slug-index.json).
 //
-// 순수 부분(Node 테스트 대상): firstPerPage, planPageSpans, wordEdges.
-// 브라우저 부분: window.ReaderTerms { init, setVisible, isVisible, hide, restoreAll, lookup }.
+// 순수 부분(Node 테스트 대상): firstPerPage, planPageSpans, wordEdges, refineFlags, resolveAssetVersion.
+// 브라우저 부분: window.ReaderTerms { init, setVisible, isVisible, hide, restoreAll, lookup, stats }.
 (function (root) {
   "use strict";
 
@@ -48,9 +48,32 @@
     };
   }
 
+  // 겹침층 entry 의 보정 표지. 낱말 경계인 가장자리만 보정한다.
+  // refine(불리언)은 두 가장자리가 모두 경계일 때만 참이다(불리언만 아는 겹침층이 한쪽 경계 용어의 반대쪽까지 보정하지 않도록).
+  // 가장자리별 표지를 아는 겹침층은 refineLeft / refineRight 로 정확히 그 가장자리만 보정한다.
+  function refineFlags(text, start, end) {
+    var e = wordEdges(text, start, end);
+    return { refine: e.left && e.right, refineLeft: e.left, refineRight: e.right };
+  }
+
+  // 자산 버전(?v=). 이 스크립트의 src 에 v 가 있으면 그것, 없으면 term-match.js 태그의 src, 없으면 "".
+  // srcs 는 우선순위 순서의 src 문자열 목록.
+  function resolveAssetVersion(srcs) {
+    var list = srcs || [];
+    for (var i = 0; i < list.length; i++) {
+      if (!list[i]) continue;
+      var m = /[?&]v=([^&#]+)/.exec(String(list[i]));
+      if (m) return m[1];
+    }
+    return "";
+  }
+
   if (typeof document === "undefined") {
     if (typeof module !== "undefined" && module.exports) {
-      module.exports = { firstPerPage: firstPerPage, planPageSpans: planPageSpans, wordEdges: wordEdges };
+      module.exports = {
+        firstPerPage: firstPerPage, planPageSpans: planPageSpans, wordEdges: wordEdges,
+        refineFlags: refineFlags, resolveAssetVersion: resolveAssetVersion,
+      };
     }
     return;
   }
@@ -63,7 +86,11 @@
   var CLOSE_DELAY = 200;
   var NARROW = "(max-width: 767px)";
   var LOOKUP_MAX = 10;
-  var ASSET_VERSION = TM.assetVersionFromSrc(document.currentScript && document.currentScript.src);
+  var ASSET_VERSION = (function () {
+    var own = document.currentScript && document.currentScript.src;
+    var tm = document.querySelector('script[src*="term-match.js"]');
+    return resolveAssetVersion([own, tm && tm.src]);
+  })();
 
   function $(id) { return document.getElementById(id); }
   function rd() { return $("reader"); }
@@ -115,9 +142,13 @@
       rendered: new Set(),
       computing: new Map(),
       curPage: 1,
+      epoch: 0, // 다시 그리기(숨김·복원)마다 올린다. 진행 중이던 계산 결과를 버리는 데 쓴다
+      skipped: new Set(), // 쪽 글 불일치로 밑줄을 건너뛴 쪽
+      warned: false,
+      pumpErrLogged: false,
       shown: pageSize(),
       focusSlug: null,
-      stats: { indexMs: 0, textMs: 0, matchMs: 0, defsMs: 0, pages: 0, matches: 0, rectMs: [] },
+      stats: { indexMs: 0, textMs: 0, matchMs: 0, defsMs: 0, pages: 0, matches: 0, rectMs: [], pagesSkipped: 0 },
     };
   }
 
@@ -144,7 +175,25 @@
   var senseCache = new Map();
   var outsideSlugs = new Set();
   var loadedBuckets = new Set();
+  var failedBuckets = new Set(); // 받아 오지 못한 정의 청크(다시 시도 대상)
   var defWarned = false;
+  function fetchBucket(bucket) {
+    return fetch(TM.withAssetVersion("viewer-defs/" + String(bucket).padStart(3, "0") + ".json", ASSET_VERSION)).then(function (res) {
+      if (!res.ok) throw new Error("정의 청크 " + bucket + " HTTP " + res.status);
+      return res.json();
+    }).then(function (json) {
+      TM.decodeDefChunk(json).forEach(function (entry, slug) {
+        definitionCache.set(slug, entry.definition);
+        if (entry.sense.length) senseCache.set(slug, entry.sense);
+        if (entry.outside) outsideSlugs.add(slug);
+      });
+      failedBuckets.delete(bucket);
+    }).catch(function (err) {
+      failedBuckets.add(bucket);
+      console.error("[terms] 정의 청크", err);
+      if (!defWarned) { defWarned = true; notify("용어 뜻을 일부 불러오지 못했습니다. 카드의 '다시 시도'를 눌러 보세요."); }
+    });
+  }
   function loadDefinitions(slugs) {
     var needed = new Set();
     slugs.forEach(function (slug) {
@@ -152,22 +201,48 @@
       if (!loadedBuckets.has(b)) needed.add(b);
     });
     return Promise.all(Array.from(needed).map(function (bucket) {
-      loadedBuckets.add(bucket); // 실패해도 같은 404를 되풀이하지 않는다
-      return fetch(TM.withAssetVersion("viewer-defs/" + String(bucket).padStart(3, "0") + ".json", ASSET_VERSION)).then(function (res) {
-        if (!res.ok) return null;
-        return res.json();
-      }).then(function (json) {
-        if (!json) return;
-        TM.decodeDefChunk(json).forEach(function (entry, slug) {
-          definitionCache.set(slug, entry.definition);
-          if (entry.sense.length) senseCache.set(slug, entry.sense);
-          if (entry.outside) outsideSlugs.add(slug);
-        });
-      }).catch(function (err) {
-        console.error("[terms] 정의 청크", err);
-        if (!defWarned) { defWarned = true; notify("용어 뜻을 일부 불러오지 못했습니다. 잠시 뒤 새로고침해 보세요."); }
-      });
+      loadedBuckets.add(bucket); // 실패해도 같은 404를 저절로 되풀이하지 않는다(다시 시도는 사용자가)
+      return fetchBucket(bucket);
     }));
+  }
+  function defFailed(slug) { return failedBuckets.has(TM.defBucket(slug)) && !definitionCache.has(slug); }
+  // 뜻을 받지 못한 카드에 안내와 '다시 시도' 링크를 붙인다.
+  function decorateFailed(container) {
+    if (!container || !failedBuckets.size) return;
+    container.querySelectorAll(".term-card").forEach(function (li) {
+      var slug = li.dataset.slug;
+      if (!slug || !defFailed(slug) || li.querySelector(":scope > .rd-def-failed")) return;
+      var p = document.createElement("p");
+      p.className = "rd-def-failed";
+      p.appendChild(document.createTextNode("뜻을 불러오지 못했습니다 "));
+      var a = document.createElement("a");
+      a.href = "#";
+      a.className = "rd-def-retry";
+      a.dataset.slug = slug;
+      a.textContent = "다시 시도";
+      p.appendChild(a);
+      li.insertBefore(p, li.querySelector(":scope > .term-card-detail"));
+    });
+  }
+  var retrying = new Map();
+  function retryDefs(slug) {
+    var bucket = TM.defBucket(slug);
+    if (retrying.has(bucket)) return retrying.get(bucket);
+    var pr = fetchBucket(bucket).then(function () {
+      var fill = function (m) {
+        if (TM.defBucket(m.slug) !== bucket) return;
+        m.definition = definitionCache.get(m.slug) || m.definition || "";
+        if (senseCache.has(m.slug)) m.sense = senseCache.get(m.slug);
+        if (outsideSlugs.has(m.slug)) m.oaOutside = true;
+      };
+      if (S) S.matches.forEach(fill);
+      if (lookupView) lookupView.res.forEach(fill);
+      if (S && S.ready) renderAll();
+      refillLookup();
+      if (card && !card.hidden) closeCard(true);
+    }).then(function () { retrying.delete(bucket); }, function () { retrying.delete(bucket); });
+    retrying.set(bucket, pr);
+    return pr;
   }
   function attachDefinitions(matches) {
     if (!matches.length) return Promise.resolve();
@@ -251,7 +326,13 @@
         var best = null;
         drawQueue.forEach(function (p) { if (best === null || Math.abs(p - cur) < Math.abs(best - cur)) best = p; });
         drawQueue.delete(best);
-        if (!S.entries.has(best)) await drawPage(best);
+        if (S.entries.has(best)) continue;
+        try {
+          await drawPage(best);
+        } catch (err) {
+          // 한 쪽이 실패해도 다음 쪽으로 넘어간다. 로그는 문서당 한 번만.
+          if (S && !S.pumpErrLogged) { S.pumpErrLogged = true; console.error("[terms] 밑줄 계산 실패", err); }
+        }
       }
     } finally { pumping = false; }
   }
@@ -266,24 +347,32 @@
     var st = S;
     if (!st || !st.ready) return;
     if (st.computing.has(page)) return st.computing.get(page);
+    var epoch = st.epoch;
     var p = (async function () {
-      var spans = pageEntries(page);
-      if (!spans.length) { st.entries.set(page, []); return; }
+      if (!pageEntries(page).length) { st.entries.set(page, []); return; }
       var d = await TXM().get(page);
-      if (!d || st !== S) return;
+      if (st !== S) return;
+      // 기다리는 사이 숨김·복원으로 다시 그리기가 시작됐으면 이 결과는 낡았다: 버리고 다시 줄 세운다.
+      if (epoch !== st.epoch) { drawQueue.add(page); return; }
+      if (!d) return;
       var t0 = now();
       if (d.text !== st.pageTexts[page - 1]) {
-        console.warn("[terms] " + page + "쪽: 글자 상자의 쪽 글이 문서 전체 글과 달라 밑줄을 그리지 않습니다.");
+        // 이 쪽의 밑줄은 조용히 건너뛴다. 진단용으로 세기만 하고 경고는 문서당 한 번.
+        st.skipped.add(page);
+        st.stats.pagesSkipped = st.skipped.size;
+        st.entries.set(page, []);
+        if (!st.warned) { st.warned = true; console.warn("[terms] 글자 상자의 쪽 글이 문서 전체 글과 달라 일부 쪽의 밑줄을 그리지 않습니다(ReaderTerms.stats().pagesSkipped)."); }
         return;
       }
+      var spans = pageEntries(page); // 현재 숨김 상태 기준으로 다시 계산
       var list = [];
       spans.forEach(function (sp) {
         var rects = G.rangeRects(d.charBoxes, sp.start, sp.end);
         if (!rects.length) return;
-        var e = wordEdges(d.text, sp.start, sp.end);
+        var f = refineFlags(d.text, sp.start, sp.end);
         list.push({
           id: sp.slug, rects: rects, data: { slug: sp.slug, covered: sp.covered },
-          refine: e.left || e.right, refineLeft: e.left, refineRight: e.right,
+          refine: f.refine, refineLeft: f.refineLeft, refineRight: f.refineRight,
         });
       });
       st.entries.set(page, list);
@@ -291,10 +380,8 @@
       pushEntries(page);
     })();
     st.computing.set(page, p);
-    p.then(function () { st.computing.delete(page); }, function (err) {
-      st.computing.delete(page);
-      console.error("[terms] 밑줄 계산 실패", err);
-    });
+    var done = function () { if (st.computing.get(page) === p) st.computing.delete(page); };
+    p.then(done, done);
     return p;
   }
 
@@ -311,6 +398,7 @@
   }
   function redrawAllMarks() {
     if (!S) return;
+    S.epoch++;
     OV().clear("term");
     S.entries.clear();
     S.computing.clear();
@@ -340,9 +428,12 @@
   // ---------- 숨기기 ----------
   function hide(slug) {
     if (!slug) return;
+    // 이 문서에 없는 용어는 숨기지 않는다(복원 단추가 보이지 않아 되돌릴 길이 없다).
+    if (S && S.ready && !S.matchBySlug.has(slug)) return;
     hidden.add(slug);
     saveHidden(hidden);
     closeCard(true);
+    if (S && S.focusSlug === slug) S.focusSlug = null;
     if (S && S.ready) {
       rebuildPageTables();
       redrawAllMarks();
@@ -456,6 +547,7 @@
     var others = othersHTML(TM.buildCardUnits(grouped.others));
     var n = Math.min(S.shown, primary.length);
     list.innerHTML = primary.slice(0, n).map(unitHTML).join("") + (n >= primary.length ? others : "");
+    decorateFailed(list);
     if (n < primary.length) {
       more.hidden = false;
       var rest = primary.length - n;
@@ -477,6 +569,7 @@
     box.innerHTML = '<h3 class="current-page-terms-title">' + p + "쪽의 용어 (" + items.length + ")</h3>" +
       '<ul class="term-list current-page-cards">' +
       items.map(function (m) { return TM.termCardHTML(S.matchBySlug.get(m.slug) || m); }).join("") + "</ul>";
+    decorateFailed(box);
   }
 
   function renderFocus() {
@@ -489,8 +582,9 @@
     box.innerHTML = '<div class="rd-term-sectionhead"><h3 class="current-page-terms-title">선택한 용어</h3>' +
       '<button type="button" class="term-filter-link rd-focus-close">닫기</button></div>' +
       '<ul class="term-list rd-focus-card">' + TM.termCardHTML(m, basics) + "</ul>";
-    var card = box.querySelector(".term-card");
-    if (card) card.classList.add("term-card-flash");
+    decorateFailed(box);
+    var fc = box.querySelector(".term-card");
+    if (fc) fc.classList.add("term-card-flash");
   }
 
   function renderTabCount() {
@@ -603,6 +697,7 @@
     body.textContent = "찾는 중…";
     box.appendChild(body);
     var token = ++lookupToken;
+    lookupView = null;
     var res;
     try {
       res = await lookup(q);
@@ -627,10 +722,22 @@
       body.appendChild(a);
       return;
     }
+    lookupView = { body: body, res: res };
+    fillLookup();
+  }
+  // 사전 찾기 결과 목록. 숨기기 단추는 두지 않는다(이 문서의 용어가 아니면 되돌릴 길이 없다).
+  var lookupView = null;
+  function fillLookup() {
+    if (!lookupView) return;
+    var body = lookupView.body;
+    var res = lookupView.res;
+    body.textContent = "";
     var units = TM.buildCardUnits(res.slice(0, LOOKUP_MAX));
     var ul = document.createElement("ul");
     ul.className = "term-list rd-lookup-list";
     ul.innerHTML = units.map(unitHTML).join("");
+    ul.querySelectorAll(".term-card-hide-btn").forEach(function (b) { b.remove(); });
+    decorateFailed(ul);
     body.appendChild(ul);
     if (res.length > LOOKUP_MAX) {
       var more = document.createElement("p");
@@ -638,6 +745,10 @@
       more.textContent = "그 밖에 " + (res.length - LOOKUP_MAX) + "개가 더 있습니다. 더 짧게 골라 보세요.";
       body.appendChild(more);
     }
+  }
+  function refillLookup() {
+    var box = $("rd-lookup");
+    if (lookupView && box && !box.hidden && box.contains(lookupView.body)) fillLookup();
   }
   var lookupToken = 0;
 
@@ -702,6 +813,8 @@
       if (e.target.closest(".dict-popover-close")) { closeCard(true); return; }
       var hideBtn = e.target.closest(".rd-term-hide");
       if (hideBtn) { hide(cardState.slug); return; }
+      var rt = e.target.closest(".rd-def-retry");
+      if (rt) { e.preventDefault(); retryDefs(rt.dataset.slug); return; }
       if (e.target.closest("a")) return;
       var slug = cardState.slug;
       closeCard(true);
@@ -728,7 +841,11 @@
 
   function selectionActive() {
     var sel = root.getSelection ? root.getSelection() : null;
-    return !!(sel && !sel.isCollapsed && String(sel).trim());
+    if (!sel || sel.isCollapsed || !String(sel).trim()) return false;
+    // 쪽 글 위의 선택만 센다(옆 패널 안에서 고른 글은 밑줄 동작을 막지 않는다).
+    var sc = $("rd-scroll");
+    if (!sc) return true;
+    return sc.contains(sel.anchorNode) || sc.contains(sel.focusNode);
   }
 
   function anchorClientRect(hit, cx, cy) {
@@ -781,6 +898,7 @@
     clearTimeout(closeTimer);
     el.setAttribute("aria-label", (m.title_ko || m.slug) + " 뜻 풀이");
     el.innerHTML = TM.popoverHTML(m, covered, { count: m.count, basics: basics }) +
+      (defFailed(m.slug) ? '<p class="rd-def-failed">뜻을 불러오지 못했습니다 <a href="#" class="rd-def-retry" data-slug="' + String(m.slug).replace(/"/g, "&quot;") + '">다시 시도</a></p>' : "") +
       '<button type="button" class="rd-term-hide">이 용어 숨기기</button>';
     el.hidden = false;
     cardState = { slug: hit.id, page: hit.page };
@@ -833,6 +951,8 @@
     if (e.button !== 0 || !S || !S.ready || !visible) return;
     if (selectionActive()) return;
     if (downPos && Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 5) return;
+    // 형광펜 위의 클릭은 형광펜 편집기가 맡는다(용어 카드는 마우스를 올릴 때만 뜬다).
+    if (OV().entryAt(e.clientX, e.clientY, ["highlight"])) return;
     var hit = OV().entryAt(e.clientX, e.clientY, ["term"]);
     if (!hit) return;
     if (lastType === "touch") { openCard(hit, e.clientX, e.clientY); return; }
@@ -875,6 +995,8 @@
     var pane = root.ReaderPanels && root.ReaderPanels.tabPanel("right", "terms");
     if (!pane) return;
     pane.addEventListener("click", function (e) {
+      var rt = e.target.closest(".rd-def-retry");
+      if (rt) { e.preventDefault(); retryDefs(rt.dataset.slug); return; }
       var hideBtn = e.target.closest(".term-card-hide-btn");
       if (hideBtn) { hide(hideBtn.dataset.hideSlug); return; }
       if (e.target.closest(".rd-focus-close")) { if (S) S.focusSlug = null; renderFocus(); return; }
@@ -884,7 +1006,20 @@
       if (!c || !S) return;
       var inPage = c.closest("#rd-term-page");
       var inLookup = c.closest("#rd-lookup");
-      if (inLookup) { S.focusSlug = c.dataset.slug; renderFocus(); return; }
+      if (inLookup) {
+        if (S.matchBySlug.get(c.dataset.slug)) { S.focusSlug = c.dataset.slug; renderFocus(); return; }
+        // 이 문서에 없는 용어: 그 자리에서 뜻 전체를 펼친다.
+        var open = c.classList.toggle("is-expanded");
+        c.setAttribute("aria-expanded", open ? "true" : "false");
+        var def = c.querySelector(":scope > .term-card-definition");
+        if (def) {
+          def.style.display = open ? "block" : "";
+          def.style.overflow = open ? "visible" : "";
+          def.style.webkitLineClamp = open ? "unset" : "";
+        }
+        c.style.borderColor = open ? "var(--accent)" : "";
+        return;
+      }
       jumpTo(c.dataset.slug, inPage ? S.curPage : 0);
     });
     $("rd-term-filter").addEventListener("input", function () { if (S && S.ready) { S.shown = pageSize(); renderFullList(); } });
@@ -959,6 +1094,7 @@
     firstPerPage: firstPerPage,
     // 시험·진단용
     _state: function () { return S; },
+    stats: function () { return S ? S.stats : null; }, // pagesSkipped: 쪽 글 불일치로 밑줄을 건너뛴 쪽 수
     _stats: function () { return S ? S.stats : null; },
   };
 })(typeof window !== "undefined" ? window : globalThis);
