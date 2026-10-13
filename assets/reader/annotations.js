@@ -274,14 +274,20 @@
     });
     groups.forEach(function (g) {
       var prim = byId.get(String(g.primaryId));
-      var rects = G.rangeRects(data.charBoxes, g.start, g.end);
+      var rects = G.rangeRects(data.charBoxes, g.start, g.end, data.text);
       if (!prim || !rects.length) return;
       var color = colorOf(prim.record);
-      entries.push({ id: prim.record.id, rects: rects, refine: true, data: { color: color, ids: g.ids }, className: "rd-hl-" + color });
+      // 낱말로 넓힌 뒤 끝의 쉼표·마침표나 앞의 괄호는 범위 밖이다: 그 쪽 가장자리는 낱말 틈에 맞추면 기호까지 덮으므로 보정하지 않는다.
+      var fl = root.ReaderInk && root.ReaderInk.edgeFlags ? root.ReaderInk.edgeFlags(data.text, g.start, g.end) : null;
+      entries.push({
+        id: prim.record.id, rects: rects, refine: fl ? undefined : true,
+        refineLeft: fl ? fl.refineLeft : undefined, refineRight: fl ? fl.refineRight : undefined,
+        data: { color: color, ids: g.ids }, className: "rd-hl-" + color,
+      });
     });
     onPage.forEach(function (item) {
       var sn = drawRange(item);
-      var rects = G.rangeRects(data.charBoxes, sn.start, sn.end);
+      var rects = G.rangeRects(data.charBoxes, sn.start, sn.end, data.text);
       if (!rects.length) return;
       var color = colorOf(item.record);
       if (noteText(item.record.note)) {

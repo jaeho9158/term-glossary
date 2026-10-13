@@ -230,3 +230,53 @@ test("edgeMode: 가장자리 플래그가 refine 보다 우선", () => {
   assert.deepStrictEqual(edgeMode(true, {}), { left: true, right: true, any: true });
   assert.deepStrictEqual(edgeMode(true, { refine: false, refineRight: true }), { left: false, right: true, any: true });
 });
+
+// ---------- 줄 처음·끝의 빈 여백 줄이기 ----------
+const { refineRects } = require("../assets/reader/ink.js");
+
+// 가짜 캔버스: 쪽 좌표 폭 W·높이 H 를 배율 sc 로 그린 것. words = 쪽 좌표 x 구간들, y 는 3..9 에 잉크.
+function fakeCanvas(W, H, sc, words) {
+  const cw = W * sc, ch = H * sc;
+  return {
+    width: cw, height: ch,
+    getContext() {
+      return {
+        getImageData(x0, y0, w, h) {
+          const data = new Uint8ClampedArray(w * h * 4);
+          for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+            const px = (x0 + x) / sc, py = (y0 + y) / sc;
+            let v = 250;
+            for (const [a, b] of words) if (px >= a && px < b && py > 3 && py < 9) v = 10;
+            const p = (y * w + x) * 4;
+            data[p] = data[p + 1] = data[p + 2] = v; data[p + 3] = 255;
+          }
+          return { data, width: w, height: h };
+        },
+      };
+    },
+  };
+}
+
+test("refineRects: 줄 끝 사각형이 마지막 잉크보다 한참 뒤까지 가면 마지막 잉크까지 줄인다", () => {
+  const canvas = fakeCanvas(200, 20, 3, [[10, 60]]);
+  const o = { canvas, pageW: 200, pageH: 20 };
+  const [r] = refineRects(1, [{ x: 10, y: 0, w: 100, h: 12 }], o); // 오른쪽 50pt(높이의 4배)가 빈 여백
+  assert.ok(r.x + r.w < 62, "오른쪽 가장자리가 마지막 잉크(60) 가까이로 줄어든다: " + (r.x + r.w));
+  assert.ok(r.x + r.w > 59.5, "잉크를 자르지 않는다: " + (r.x + r.w));
+  // 오른쪽 가장자리를 보정하지 않는 요청(낱말 안쪽에서 끝난 검색)은 그대로 둔다
+  const [k] = refineRects(1, [{ x: 10, y: 0, w: 100, h: 12 }], Object.assign({ refineRight: false }, o));
+  assert.strictEqual(k.x + k.w, 110);
+});
+
+test("refineRects: 줄 처음 쪽 빈 여백도 첫 잉크까지 줄인다", () => {
+  const canvas = fakeCanvas(200, 20, 3, [[100, 150]]);
+  const [r] = refineRects(1, [{ x: 50, y: 0, w: 100, h: 12 }], { canvas, pageW: 200, pageH: 20 });
+  assert.ok(r.x > 98 && r.x < 100.5, "왼쪽 가장자리가 첫 잉크(100) 가까이로: " + r.x);
+});
+
+test("refineRects: 사각형 안에 잉크가 거의 없으면(깎을 근거가 없으면) 그대로", () => {
+  const canvas = fakeCanvas(200, 20, 3, [[150, 190]]);
+  const src = { x: 10, y: 0, w: 60, h: 12 };
+  const [r] = refineRects(1, [src], { canvas, pageW: 200, pageH: 20 });
+  assert.ok(r.x <= src.x && r.x + r.w >= src.x + src.w, "깎지 않는다");
+});

@@ -12,6 +12,18 @@
 
   var MERGE_GAP_RATIO = 0.6; // 서로 다른 조각이라도 가로 간격이 글자 높이의 이 비율 미만이면 한 사각형
   var SAME_LINE_OVERLAP = 0.5; // 같은 줄로 보는 세로 겹침 비율
+  var WS_GAP_RATIO = 3; // 사이가 공백뿐일 때 한 사각형으로 잇는 간격 상한(글자 높이 대비)
+
+  // t 의 [a, b) 가 줄바꿈 없는 공백(공백·탭·제어문자)뿐이고 비어 있지 않은가.
+  function onlySpaces(t, a, b) {
+    if (b <= a) return false;
+    for (var k = a; k < b; k++) {
+      var cc = t.charCodeAt(k);
+      // 줄바꿈(10, 13)은 건너지 않는다(단을 넘어 잇지 않으려고). 공백·탭·제어문자·NBSP·전각 공백은 공백으로 본다.
+      if (cc === 10 || cc === 13 || !(cc <= 32 || cc === 0xa0 || cc === 0x3000 || (cc >= 0x2000 && cc <= 0x200b))) return false;
+    }
+    return true;
+  }
 
   // 글자 종류별 가로 폭 가중치. 글꼴 측정이 없을 때 조각 폭을 나누는 데 쓴다.
   function charWeights(str) {
@@ -76,13 +88,17 @@
   // - 같은 조각(p 가 같음) 안의 글자는 항상 하나로.
   // - 다른 조각이라도 같은 줄(세로 겹침 50% 이상)이고 가로 간격이 글자 높이의 0.6 미만이면 하나로.
   // - 그보다 벌어지면(단 사이 여백) 끊는다. null 상자는 건너뛴다. 범위는 배열 안으로 잘라 처리한다.
-  function rangeRects(charBoxes, start, end) {
+  // - text(쪽 글)를 주면: 두 상자 사이의 글자가 공백뿐이고 같은 줄이면 간격이 글자 높이의 WS_GAP_RATIO 배 미만인 한 하나로 잇는다
+  //   (겹공백·탭 때문에 한 형광펜 안에 이음매가 생기는 것을 막는다).
+  function rangeRects(charBoxes, start, end, text) {
     var out = [];
     if (!charBoxes || !charBoxes.length) return out;
     var s = Math.max(0, Math.floor(Number(start) || 0));
     var e = Math.min(charBoxes.length, Math.floor(Number(end) || 0));
     var cur = null;
     var curP;
+    var lastIdx = -1;
+    var t = typeof text === "string" ? text : null;
     for (var i = s; i < e; i++) {
       var b = charBoxes[i];
       if (!b) continue;
@@ -92,8 +108,11 @@
         if (!merge && verticalOverlapRatio(cur, b) >= SAME_LINE_OVERLAP) {
           var gap = b.x - (cur.x + cur.w);
           var ref = Math.max(cur.h, b.h);
-          // 왼쪽으로 크게 되돌아가는 경우(gap 이 음수로 큼)는 다른 단·다른 덩어리다.
-          if (gap < ref * MERGE_GAP_RATIO && gap > -ref) merge = true;
+          // 앞 덩어리의 시작보다 왼쪽으로 되돌아가는 경우는 다른 단·다른 덩어리다. 앞 덩어리 안쪽에서 시작해 겹치는 것(조각 상자가 글자보다 넓은 PDF)은
+          // 같은 줄의 같은 자리이므로 잇는다(겹친 채로 따로 그리면 곱하기 섞임으로 그 자리만 진해진다).
+          var back = gap > -ref || b.x >= cur.x;
+          if (gap < ref * MERGE_GAP_RATIO && back) merge = true;
+          else if (t && gap < ref * WS_GAP_RATIO && back && onlySpaces(t, lastIdx + 1, i)) merge = true;
         }
         if (merge) {
           var nx0 = Math.min(cur.x, b.x);
@@ -102,12 +121,14 @@
           var ny1 = Math.max(cur.y + cur.h, b.y + b.h);
           cur = { x: nx0, y: ny0, w: nx1 - nx0, h: ny1 - ny0 };
           curP = b.p !== undefined ? b.p : curP;
+          lastIdx = i;
           continue;
         }
         out.push(cur);
       }
       cur = { x: b.x, y: b.y, w: b.w, h: b.h };
       curP = b.p;
+      lastIdx = i;
     }
     if (cur) out.push(cur);
     return out;

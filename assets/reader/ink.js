@@ -19,6 +19,11 @@
     keepMs: 4000,         // 쪽 잉크 버퍼를 마지막 사용 뒤 이만큼 두었다가 풀어 준다
     maxBufs: 3,           // 동시에 들고 있는 쪽 버퍼 수
     chunkMs: 6,           // 한가한 시간 한 번에 쓰는 최대 시간
+    hiMin: 2,             // 화면 배율과 무관하게 잉크를 읽는 쪽 렌더 배율의 하한
+    hiTarget: 20,         // 사각형 높이가 이만큼의 픽셀이 되도록 렌더 배율을 정한다(작은 글자도 보정 기준 16.7px 를 넘기려고)
+    hiMaxScale: 4,        // 렌더 배율 상한
+    hiMaxPixels: 9e6,     // 쪽 하나의 렌더 픽셀 상한(메모리 보호). 넘으면 배율을 낮춘다
+    trimMin: 0.5,         // 줄 끝·처음에서 잉크 없는 여백이 이 길이(사각형 높이 대비)를 넘으면 마지막/첫 잉크까지 줄인다
   };
 
   // ---------- 순수 함수 ----------
@@ -155,6 +160,7 @@
   }
 
   // 밝기 조각 src(캔버스 안 원점 ox,oy) 위에서 사각형 하나를 보정한다. fl/fr = 왼쪽/오른쪽 가장자리를 보정할지.
+  // (낱말 안쪽 가장자리를 글자 사이 틈에 맞추는 시도는 측정에서 이득이 없어 뺐다. 보고서 참조.)
   function refineOne(src, sx, sy, r, o, fl, fr) {
     var h = r.h;
     if (!refinable(h, sx, o) || (!fl && !fr)) return r;
@@ -171,8 +177,21 @@
     var gl = gaps(col, mg);
     var maxMove = o.maxMove * h * sx, thinPx = o.thin * h * sx;
     var left = r.x, right = r.x + r.w;
-    if (fl) left = (snapEdge(r.x * sx - bx0, gl, maxMove, "left", thinPx, mg, col.length) + bx0) / sx - o.pad * h;
-    if (fr) right = (snapEdge((r.x + r.w) * sx - bx0, gl, maxMove, "right", thinPx, mg, col.length) + bx0) / sx + o.pad * h;
+    var xl = r.x * sx - bx0, xr = (r.x + r.w) * sx - bx0;
+    if (fl) {
+      left = (snapEdge(xl, gl, maxMove, "left", thinPx, mg, col.length) + bx0) / sx - o.pad * h;
+      // 줄 처음 쪽에 잉크 없는 긴 여백이 있으면 첫 잉크까지 줄인다(글자 상자가 실제보다 앞서 시작한 경우).
+      var il = Math.max(0, Math.ceil(xl));
+      while (il < col.length && !col[il]) il++;
+      if (il < col.length && il - xl > o.trimMin * h * sx && il < xr) left = Math.max(left, (il + bx0) / sx - o.pad * h);
+    }
+    if (fr) {
+      right = (snapEdge(xr, gl, maxMove, "right", thinPx, mg, col.length) + bx0) / sx + o.pad * h;
+      // 줄 끝 쪽: 마지막 잉크 뒤로 잉크 없는 긴 여백이 이어지면 마지막 잉크까지 줄인다(글자 상자가 실제보다 뒤까지 간 경우).
+      var ir = Math.min(col.length - 1, Math.floor(xr) - 1);
+      while (ir >= 0 && !col[ir]) ir--;
+      if (ir >= 0 && xr - (ir + 1) > o.trimMin * h * sx && ir + 1 > xl) right = Math.min(right, (ir + 1 + bx0) / sx + o.pad * h);
+    }
     if (!(right > left) || right - left < o.minKeep * r.w) return r;
     return { x: left, y: r.y, w: right - left, h: r.h };
   }
@@ -230,10 +249,13 @@
     }
   }
 
-  // ---------- 브라우저: 쪽당 한 번 읽고, 한가할 때 계산 ----------
-  // state[page] = {sig, buf, rows, cache: Map(key -> rects), queue: [job], queued: Set(key), timer, used}
-  //   buf = 밝기 바이트 조각(쪽 캔버스 전체 크기). 필요한 가로 줄만 캔버스에서 읽어 채우고 rows[줄]=1 로 표시한다
-  //   (히트가 적은 쪽은 몇 줄만 읽는다). 쪽이 다시 그려지거나 배율이 바뀌면 통째로 버리고, 마지막 사용 뒤 keepMs 가 지나도 푼다.
+  // ---------- 브라우저: 쪽당 한 번 고해상도로 읽고, 한가할 때 계산 ----------
+  // 잉크는 화면 캔버스가 아니라 쪽을 따로 오프스크린에 그려(배율 = 화면 배율과 무관, 작은 글자도 보정 기준을 넘도록) 읽는다.
+  // 사각형은 쪽 좌표(배율 1)라 그 결과는 어느 확대 배율에서도 그대로 맞으므로, 계산한 결과(cache)는 확대·축소와 쪽 다시 그리기에도 버리지 않는다
+  // (문서를 열고 닫을 때만 버린다). 밝기 버퍼는 마지막 사용 뒤 keepMs 가 지나거나 확대 배율이 바뀌면 풀어 준다.
+  // state[page] = {cache: Map(key -> rects), queue: [job], queued: Set(key), buf, build, timer, used, token}
+  //   buf = {lum, width, height, ox, oy, scale} 밝기 바이트 조각(쪽 전체, 배율 scale).
+  //   build = 만드는 중: {scale, task, canvas, ctx, W, H, y, lum, t0}. 그리기가 끝나면 STRIP 줄씩 한가한 시간에 밝기로 바꾼다.
   var state = new Map();
   var listeners = [];
   var running = false;
@@ -256,11 +278,34 @@
     return (fl ? 1 : 0) + "" + (fr ? 1 : 0) + "|" + k;
   }
 
+  var cnt = { maxFlushMs: 0, maxStripMs: 0, maxJobMs: 0, builds: 0, buildMs: 0, convertMs: 0, refineMs: 0, refined: 0, peakBytes: 0 };
+
+  function liveBytes() {
+    var n = 0;
+    state.forEach(function (st) {
+      if (st.buf) n += st.buf.lum.length;
+      if (st.build) { if (st.build.lum) n += st.build.lum.length; if (st.build.canvas) n += st.build.canvas.width * st.build.canvas.height * 4; }
+    });
+    return n;
+  }
+  function notePeak() { var n = liveBytes(); if (n > cnt.peakBytes) cnt.peakBytes = n; }
+
+  function dropBuild(st) {
+    var b = st.build;
+    if (!b) return;
+    st.build = null;
+    st.token++;
+    if (b.task) { try { b.task.cancel(); } catch (e) { /* 이미 끝남 */ } }
+    if (b.canvas) { b.canvas.width = 0; b.canvas.height = 0; b.canvas = null; }
+    b.lum = null;
+  }
   function freeBuf(st) {
-    st.buf = null; st.rows = null;
+    dropBuild(st);
+    st.buf = null;
     if (st.timer) { clearTimeout(st.timer); st.timer = 0; }
   }
 
+  // page 생략: 모두. 계산 결과까지 버린다(문서를 열고 닫을 때).
   function invalidate(page) {
     if (page === undefined || page === null) {
       state.forEach(freeBuf);
@@ -271,13 +316,15 @@
     }
   }
 
+  // 밝기 버퍼만 풀고 계산 결과는 둔다(확대 배율이 바뀔 때). 줄 서 있던 일은 버리며, 다시 그려지는 겹침층이 다시 request 한다.
+  function release() {
+    state.forEach(function (st) { freeBuf(st); st.queue = []; st.queued = new Set(); });
+  }
+
   function stateFor(page) {
-    var pc = pageCanvas(page);
-    var sig = pc.canvas ? pc.canvas.width + "x" + pc.canvas.height : "none";
     var st = state.get(page);
-    if (st && st.sig !== sig) { freeBuf(st); st = null; state.delete(page); }
     if (!st) {
-      st = { sig: sig, buf: null, rows: null, cache: new Map(), queue: [], queued: new Set(), timer: 0, used: 0 };
+      st = { cache: new Map(), queue: [], queued: new Set(), buf: null, build: null, timer: 0, used: 0, token: 0 };
       state.set(page, st);
     }
     return st;
@@ -311,44 +358,65 @@
     idle(step);
   }
 
-  // 캔버스 줄 [y0, y1) 이 버퍼에 채워지게 한다. 아직 안 읽은 줄 묶음만 읽는다. 다 됐으면 true, 시간이 다 되면 false(다음 한가한 때 이어서).
-  function ensureRows(st, canvas, y0, y1, deadline) {
-    var W = canvas.width, H = canvas.height;
-    if (!st.buf) {
-      var others = [];
-      state.forEach(function (o) { if (o.buf && o !== st) others.push(o); });
-      others.sort(function (a, b) { return a.used - b.used; });
-      while (others.length >= P.maxBufs) freeBuf(others.shift());
-      st.buf = { lum: new Uint8Array(W * H), width: W, height: H, ox: 0, oy: 0 };
-      st.rows = new Uint8Array(H);
-    }
-    y0 = Math.max(0, y0); y1 = Math.min(H, y1);
-    if (y1 <= y0) return true;
-    var ctx = canvas.getContext("2d");
-    var rows = st.rows, y = y0;
-    while (y < y1) {
-      if (rows[y]) { y++; continue; }
-      var ya = y;
-      while (y < y1 && !rows[y]) y++;
-      for (var ys = ya; ys < y; ys += STRIP) { // 안 읽은 연속 줄만 STRIP 줄씩 읽는다
-        if (now() > deadline) return false;
-        var hh = Math.min(STRIP, y - ys);
-        st.buf.lum.set(toLum(ctx.getImageData(0, ys, W, hh), 0, ys).lum, ys * W);
-        rows.fill(1, ys, ys + hh);
-      }
-    }
-    return true;
+  // 이 쪽 일에 알맞은 렌더 배율: 사각형 높이의 중앙값이 hiTarget 픽셀이 되도록(하한 hiMin), 상한과 픽셀 예산 안에서.
+  function wantScale(st, pw, ph) {
+    var hs = [];
+    st.queue.forEach(function (j) { j.rects.forEach(function (r) { if (r.h > 0) hs.push(r.h); }); });
+    var s = P.hiMin;
+    if (hs.length) { hs.sort(function (a, b) { return a - b; }); s = Math.max(s, P.hiTarget / hs[hs.length >> 1]); }
+    s = Math.min(s, P.hiMaxScale, Math.sqrt(P.hiMaxPixels / Math.max(1, pw * ph)));
+    return Math.max(1, Math.round(s * 8) / 8);
   }
 
-  // 한 일(rects)이 읽을 캔버스 줄 범위. 보정할 사각형이 없으면(저해상도) null.
-  function jobRows(job, sx, sy) {
-    var y0 = Infinity, y1 = -Infinity;
-    job.rects.forEach(function (r) {
-      if (!refinable(r.h, sx, P)) return;
-      y0 = Math.min(y0, Math.round((r.y + P.bandTop * r.h) * sy));
-      y1 = Math.max(y1, Math.round((r.y + (1 - P.bandTop) * r.h) * sy));
-    });
-    return y1 > y0 ? [y0, y1] : null;
+  function startBuild(st, page, pw, ph) {
+    var others = [];
+    state.forEach(function (o) { if ((o.buf || o.build) && o !== st) others.push(o); });
+    others.sort(function (a, b) { return a.used - b.used; });
+    while (others.length >= P.maxBufs) freeBuf(others.shift());
+    var s = wantScale(st, pw, ph);
+    var token = ++st.token;
+    var b = { scale: s, task: null, canvas: null, ctx: null, W: 0, H: 0, y: 0, lum: null, t0: now(), rendered: false, failed: false };
+    st.build = b;
+    var fail = function () { if (st.build === b) { b.failed = true; kick(); } };
+    D().getPage(page).then(function (pg) {
+      if (st.token !== token || st.build !== b) return null;
+      var vp = pg.getViewport({ scale: s });
+      b.W = Math.ceil(vp.width); b.H = Math.ceil(vp.height);
+      var c = document.createElement("canvas");
+      c.width = b.W; c.height = b.H;
+      b.canvas = c;
+      b.ctx = c.getContext("2d", { willReadFrequently: true });
+      b.lum = new Uint8Array(b.W * b.H);
+      notePeak();
+      b.task = pg.render({ canvasContext: b.ctx, viewport: vp });
+      return b.task.promise.then(function () { if (st.build === b) { b.rendered = true; b.task = null; kick(); } });
+    }).catch(function () { fail(); });
+  }
+
+  // 만드는 중인 버퍼의 캔버스를 deadline 까지 밝기로 바꾼다. 끝나면 true.
+  function convert(st, b, deadline) {
+    var t0 = now();
+    // 처음 읽을 때 캔버스에 쌓인 그리기가 한꺼번에 래스터화된다(15~60ms). 그 한 번만 따로 한 조각으로 치러 다른 일과 겹치지 않게 한다.
+    if (!b.flushed) {
+      b.flushed = true;
+      try { b.ctx.getImageData(0, 0, 1, 1); } catch (e) { /* 아래 줄 읽기에서 다시 실패한다 */ }
+      cnt.convertMs += now() - t0; if (now() - t0 > cnt.maxFlushMs) cnt.maxFlushMs = now() - t0;
+      return false;
+    }
+    while (b.y < b.H) {
+      if (now() > deadline) { cnt.convertMs += now() - t0; return false; }
+      var hh = Math.min(STRIP, b.H - b.y);
+      var ts = now();
+      b.lum.set(toLum(b.ctx.getImageData(0, b.y, b.W, hh), 0, b.y).lum, b.y * b.W);
+      b.y += hh;
+      if (now() - ts > cnt.maxStripMs) cnt.maxStripMs = now() - ts;
+    }
+    cnt.convertMs += now() - t0;
+    st.buf = { lum: b.lum, width: b.W, height: b.H, ox: 0, oy: 0, scale: b.scale };
+    b.canvas.width = 0; b.canvas.height = 0; b.canvas = null; b.ctx = null;
+    st.build = null;
+    cnt.builds++; cnt.buildMs += now() - b.t0;
+    return true;
   }
 
   var busyMs = 0, maxStepMs = 0, steps = 0; // 진단용: 한가한 시간 계산에 쓴 시간 합, 한 번 최대, 횟수
@@ -357,40 +425,69 @@
     var deadline = t0 + P.chunkMs;
     var touched = new Set();
     var more = false;
+    // 한 번에 한 쪽만 그린다. 지금 보는 쪽에 가까운 쪽부터.
+    var cur = D() && D().currentPage ? D().currentPage() : 0;
+    var pages = [];
+    var building = false;
     state.forEach(function (st, page) {
-      if (!st.queue.length) return;
+      if (st.queue.length || st.build) pages.push(page);
+      if (st.build) building = true;
+    });
+    pages.sort(function (x, y) { return Math.abs(x - cur) - Math.abs(y - cur) || x - y; });
+    pages.forEach(function (page) {
+      var st = state.get(page);
+      if (!st.queue.length && !st.build) return;
       if (now() > deadline) { more = true; return; }
       var pc = pageCanvas(page);
-      var ok = !!(pc.canvas && pc.canvas.width > 0 && pc.canvas.height > 0 && pc.pw > 0 && pc.ph > 0
-        && pc.canvas.width + "x" + pc.canvas.height === st.sig);
-      var sx = ok ? pc.canvas.width / pc.pw : 1, sy = ok ? pc.canvas.height / pc.ph : 1;
+      var shown = !!(D() && D().getPage && pc.canvas && pc.canvas.width > 0 && pc.pw > 0 && pc.ph > 0);
+      if (!shown) { // 쪽이 화면에서 사라졌다: 일을 접는다(다시 그려지면 겹침층이 다시 요청한다)
+        st.queue = []; st.queued = new Set();
+        if (st.build) dropBuild(st);
+        return;
+      }
+      if (!st.buf && !st.build && st.queue.length) {
+        if (building) return; // 다른 쪽을 그리는 중: 끝나면 kick 된다
+        st.used = now();
+        startBuild(st, page, pc.pw, pc.ph);
+        building = true;
+      }
       st.used = now();
-      while (st.queue.length && now() <= deadline) {
-        var job = st.queue[0];
-        if (ok) {
-          try {
-            var rows = jobRows(job, sx, sy);
-            if (rows && !ensureRows(st, pc.canvas, rows[0], rows[1], deadline)) { more = true; break; }
-          } catch (e) { ok = false; }
+      if (st.build) {
+        var b = st.build;
+        if (b.failed) { // 고해상도로 읽지 못했다: 원본 그대로 확정
+          dropBuild(st);
+        } else if (!b.rendered || !convert(st, b, deadline)) {
+          if (b.rendered) more = true;
+          return;
         }
-        st.queue.shift();
+      }
+      var buf = st.buf, drained = false;
+      while (st.queue.length && now() <= deadline) {
+        var job = st.queue.shift();
         st.queued.delete(job.key);
         var res = job.rects;
-        if (ok && st.buf) {
-          var last = job.rects.length - 1;
+        if (buf) {
+          var tr = now(), last = job.rects.length - 1;
           res = job.rects.map(function (r, i) {
-            return refineOne(st.buf, sx, sy, r, P, i > 0 || job.fl, i < last || job.fr);
+            return refineOne(buf, buf.scale, buf.scale, r, P, i > 0 || job.fl, i < last || job.fr);
           });
+          cnt.refineMs += now() - tr; cnt.refined++;
+          if (now() - tr > cnt.maxJobMs) cnt.maxJobMs = now() - tr;
         }
         st.cache.set(job.key, res);
-        touched.add(page);
+        drained = true;
       }
+      // 겹침층 다시 그리기는 쪽의 일이 다 끝났을 때 한 번만 알린다(층을 통째로 다시 그리는 비용이 크다).
+      if (drained && !st.queue.length) touched.add(page);
       if (st.queue.length) more = true;
       else if (st.buf) {
         if (st.timer) clearTimeout(st.timer);
         st.timer = setTimeout(function () { st.timer = 0; freeBuf(st); }, P.keepMs);
       }
     });
+    building = false;
+    state.forEach(function (st) { if (st.build) building = true; });
+    if (!building) state.forEach(function (st) { if (st.queue.length) more = true; }); // 그리던 쪽이 끝났으면 기다리던 쪽을 이어서
     running = false;
     var dt = now() - t0;
     busyMs += dt; steps++; if (dt > maxStepMs) maxStepMs = dt;
@@ -404,12 +501,17 @@
 
   // 시험·진단용: 버퍼 상태
   function _stats() {
-    var bytes = 0, pages = 0, jobs = 0, cached = 0;
+    var bytes = 0, pages = 0, jobs = 0, cached = 0, building = 0;
     state.forEach(function (st) {
       if (st.buf) { bytes += st.buf.lum.length; pages++; }
+      if (st.build) building++;
       jobs += st.queue.length; cached += st.cache.size;
     });
-    return { bufferPages: pages, bufferBytes: bytes, pendingJobs: jobs, cachedJobs: cached, running: running, busyMs: busyMs, maxStepMs: maxStepMs, steps: steps };
+    return {
+      bufferPages: pages, bufferBytes: bytes, building: building, pendingJobs: jobs, cachedJobs: cached, running: running,
+      busyMs: busyMs, maxStepMs: maxStepMs, steps: steps,
+      builds: cnt.builds, buildMs: cnt.buildMs, convertMs: cnt.convertMs, refineMs: cnt.refineMs, refined: cnt.refined, peakBytes: cnt.peakBytes, maxStripMs: cnt.maxStripMs, maxFlushMs: cnt.maxFlushMs, maxJobMs: cnt.maxJobMs,
+    };
   }
 
   var api = {
@@ -425,6 +527,7 @@
     request: request,
     onReady: onReady,
     invalidate: invalidate,
+    release: release,
     _stats: _stats,
     params: P,
   };
@@ -435,8 +538,8 @@
     var bind = function () {
       var el = document.getElementById("reader");
       if (!el) return;
-      el.addEventListener("reader:pagerendered", function (e) { invalidate(e.detail && e.detail.page); });
-      el.addEventListener("reader:scalechange", function () { invalidate(); });
+      // 쪽 좌표의 보정 결과는 확대 배율·다시 그리기와 무관하다. 확대 배율이 바뀌면 밝기 버퍼만 푼다.
+      el.addEventListener("reader:scalechange", function () { release(); });
       el.addEventListener("reader:docopen", function () { invalidate(); });
       el.addEventListener("reader:docclose", function () { invalidate(); });
     };

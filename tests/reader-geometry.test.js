@@ -169,4 +169,29 @@ assert.strictEqual(snapped("앞 단어. 뒤", "단"), "단어", "끝의 마침�
   assert.strictEqual(t.slice(r.start, r.end), "환자");
 }
 
+// 같은 줄에서 앞 덩어리 안쪽에서 시작해 겹치는 조각은 하나로 잇는다(조각 상자가 글자보다 넓은 PDF: 겹친 채 따로 그리면 곱하기 섞임으로 진해진다).
+{
+  const boxes = [
+    { x: 0, y: 0, w: 80, h: 10, p: 1 },
+    { x: 40, y: 0, w: 80, h: 10, p: 2 }, // 앞 조각 안쪽에서 시작해 오른쪽으로 더 간다
+    { x: 100, y: 0, w: 60, h: 10, p: 3 },
+  ];
+  assert.deepStrictEqual(rangeRects(boxes, 0, 3), [{ x: 0, y: 0, w: 160, h: 10 }]);
+  // 앞 덩어리보다 왼쪽에서 시작하는 것(다른 단)은 잇지 않는다.
+  const back = [{ x: 200, y: 0, w: 40, h: 10, p: 1 }, { x: 20, y: 0, w: 40, h: 10, p: 2 }];
+  assert.strictEqual(rangeRects(back, 0, 2).length, 2);
+}
+
+// text 를 주면 사이가 공백뿐인 같은 줄 조각은 간격이 커도(겹공백) 하나로 잇는다. 줄바꿈은 건너지 않는다. 글자가 끼면 잇지 않는다.
+{
+  const mk = () => [{ x: 0, y: 0, w: 20, h: 10, p: 1 }, null, null, { x: 40, y: 0, w: 20, h: 10, p: 2 }];
+  assert.strictEqual(rangeRects(mk(), 0, 4).length, 2, "text 없이는 기존대로 끊긴다");
+  assert.deepStrictEqual(rangeRects(mk(), 0, 4, "가  나"), [{ x: 0, y: 0, w: 60, h: 10 }]);
+  assert.strictEqual(rangeRects(mk(), 0, 4, "가\n 나").length, 2, "줄바꿈이 있으면 잇지 않는다");
+  assert.strictEqual(rangeRects(mk(), 0, 4, "가XY나").length, 2, "공백이 아닌 글자가 있으면 잇지 않는다");
+  // 너무 멀리 벌어지면(탭 리더·단 사이) 공백뿐이어도 끊는다
+  const far = [{ x: 0, y: 0, w: 20, h: 10, p: 1 }, null, { x: 120, y: 0, w: 20, h: 10, p: 2 }];
+  assert.strictEqual(rangeRects(far, 0, 3, "가 나").length, 2);
+}
+
 console.log("reader-geometry: all tests passed");

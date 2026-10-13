@@ -9,7 +9,7 @@
 // flash 도 같다. 판단은 ReaderInk.edgeMode(순수, 시험함).
 // 잉크 보정: entry 에 refine: true 를 주면(search 층은 기본 켜짐, refine: false 로 끌 수 있다) 쪽 캔버스가 그려진 뒤
 // ReaderInk.request 로 좌우 가장자리를 실제 글자에 맞춘 사각형을 구해 그린다(계산 전에는 원본을 먼저 그린다). entry.rects(보정 전)가 원본이고
-// 보정 결과는 쪽을 다시 그릴 때마다 새로 계산한다. 화면에 보이는 것(보정 후)을 entryAt 이 그대로 판정한다.
+// 보정 결과는 쪽 좌표라 확대 배율이 바뀌거나 쪽을 다시 그려도 다시 계산하지 않는다.
 window.ReaderOverlay = (function (root) {
   "use strict";
 
@@ -185,7 +185,7 @@ window.ReaderOverlay = (function (root) {
     if (!el) return;
     el.addEventListener("reader:pagerendered", function (e) {
       rendered.add(e.detail.page);
-      if (root.ReaderInk) root.ReaderInk.invalidate(e.detail.page);
+      // 보정 결과는 쪽 좌표라 다시 그려도 그대로 맞다(ReaderInk 가 문서를 열고 닫을 때만 비운다).
       drawPage(e.detail.page);
     });
     // 보정이 끝나면 그 쪽의 보정 대상 층만 다시 그린다.
