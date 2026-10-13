@@ -345,3 +345,40 @@ body.rd-open .site-footer { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .rd-panel { transition: none !important; }
 }
+
+/* ---------- 겹침층(작업 3) ---------- */
+/* 쪽을 격리해 형광펜의 multiply 가 캔버스와 섞이게 한다. 겹침층 자체는 쌓임 맥락을 만들지 않는다(텍스트 레이어 아래). */
+.rd-page { isolation: isolate; }
+.rd-page .rd-overlay { z-index: auto; }
+.rd-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  transform: scale(var(--rd-scale, 1));
+  pointer-events: none;
+}
+.rd-layer-highlight { mix-blend-mode: multiply; }
+.rd-rect { position: absolute; box-sizing: border-box; pointer-events: none; }
+.rd-rect.rd-highlight { background: rgba(255, 224, 51, 0.5); border-radius: 1px; }
+.rd-rect.rd-term { border-bottom: calc(1px / var(--rd-scale, 1)) dotted var(--accent); }
+.rd-rect.rd-ref { border-bottom: calc(1px / var(--rd-scale, 1)) solid var(--accent); }
+.rd-rect.rd-search {
+  background: rgba(255, 190, 40, 0.28);
+  border: calc(1px / var(--rd-scale, 1)) solid rgba(210, 130, 0, 0.7);
+  border-radius: 2px;
+}
+.rd-rect.rd-search.rd-current {
+  background: rgba(255, 140, 0, 0.5);
+  border-color: rgba(190, 80, 0, 0.95);
+  box-shadow: 0 0 0 calc(1px / var(--rd-scale, 1)) rgba(190, 80, 0, 0.5);
+}
+.rd-flash-rect {
+  background: rgba(36, 84, 255, 0.35);
+  border-radius: 2px;
+  animation: rd-flash-fade 1.2s ease-out forwards;
+}
+@keyframes rd-flash-fade { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .rd-flash-rect { animation: none; }
+}
