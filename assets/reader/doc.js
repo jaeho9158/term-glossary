@@ -76,11 +76,21 @@
     var box = $("rd-notice");
     if (!box) return;
     box.textContent = "";
+    var lines = document.createElement("div");
+    lines.className = "rd-notice-lines";
     noticeLines.forEach(function (line) {
       var p = document.createElement("p");
       p.textContent = line;
-      box.appendChild(p);
+      lines.appendChild(p);
     });
+    box.appendChild(lines);
+    var x = document.createElement("button");
+    x.type = "button";
+    x.className = "rd-notice-close";
+    x.setAttribute("aria-label", "알림 닫기");
+    x.textContent = "×";
+    x.addEventListener("click", clearNotices);
+    box.appendChild(x);
     box.hidden = noticeLines.length === 0;
   }
   function notify(msg) {
@@ -477,6 +487,7 @@
   }
 
   async function open(file, opts) {
+    if (!pdfjs()) throw new Error("PDF 엔진을 불러오지 못했습니다. 새로고침 해주세요.");
     var token = ++openToken;
     close(true);
     var buf;
@@ -521,7 +532,7 @@
     clearNotices();
 
     if (!ro && typeof ResizeObserver !== "undefined") {
-      ro = new ResizeObserver(function () { onResize(); });
+      ro = new ResizeObserver(function () { root.requestAnimationFrame(onResize); });
       ro.observe(scrollEl());
     }
     scrollEl().onscroll = scheduleUpdate;

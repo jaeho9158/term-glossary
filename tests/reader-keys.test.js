@@ -16,9 +16,9 @@ test("Ctrl+F / Cmd+F: 검색 입력으로 (입력란 안에서도)", () => {
   assert.strictEqual(k("f", { ctrlKey: true, shiftKey: true }), null);
 });
 
-test("검색 입력에서 Enter / Shift+Enter: 다음 / 이전 결과", () => {
-  assert.strictEqual(k("Enter", { inSearchInput: true, targetIsInput: true }), "search-next");
-  assert.strictEqual(k("Enter", { inSearchInput: true, targetIsInput: true, shiftKey: true }), "search-prev");
+test("검색 입력의 Enter / Shift+Enter 는 search.js 가 처리한다(keyAction 은 null)", () => {
+  assert.strictEqual(k("Enter", { inSearchInput: true, targetIsInput: true }), null);
+  assert.strictEqual(k("Enter", { inSearchInput: true, targetIsInput: true, shiftKey: true }), null);
   assert.strictEqual(k("Enter"), null);
   assert.strictEqual(k("Enter", { targetIsInput: true }), null);
 });

@@ -169,6 +169,8 @@ body.rd-open .site-footer { display: none; }
 .rd-more { display: none; font-size: 1.2rem; }
 .rd-panelbtns { padding-left: 8px; border-left: 1px solid var(--border); }
 
+.rd-search-close { display: none; }
+
 /* ---------- 안내 ---------- */
 .rd-notice {
   flex: none;
@@ -177,6 +179,10 @@ body.rd-open .site-footer { display: none; }
   border-bottom: 1px solid var(--border);
   font-size: 0.85rem;
 }
+.rd-notice { display: flex; align-items: flex-start; gap: 8px; }
+.rd-notice[hidden] { display: none; }
+.rd-notice-lines { flex: 1 1 auto; min-width: 0; }
+.rd-notice-close { flex: none; border: 0; background: none; color: inherit; font-size: 1.1rem; line-height: 1; padding: 0 4px; cursor: pointer; }
 .rd-notice p { margin: 0; }
 .rd-notice p + p { margin-top: 2px; }
 
@@ -241,6 +247,7 @@ body.rd-open .site-footer { display: none; }
   background: var(--rd-desk);
   outline: none;
 }
+.rd .rd-scroll:focus:not(:focus-visible) { outline: none; }
 .rd .rd-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .rd-pages {
   box-sizing: border-box;
@@ -617,7 +624,6 @@ body.rd-open .site-footer { display: none; }
   .rd-search { flex: 1 1 0; min-width: 0; }
   .rd-search-count,
   .rd-search .rd-icon-btn,
-  .rd-search-close { display: none; }
   /* 검색 칸에 초점이 있거나 검색어가 있으면(reader.js 가 .rd-searching 을 붙인다) 도구 막대를 검색에 내준다:
      입력 칸은 남는 폭을 다 쓰고, 이전·다음·건수·검색 닫기가 보인다. */
   .rd-toolbar.rd-searching #rd-close,
@@ -752,7 +758,7 @@ body.rd-open .site-footer { display: none; }
   box-shadow: 0 0 0 calc(1px / var(--rd-scale, 1)) rgba(190, 80, 0, 0.5);
 }
 .rd-flash-rect {
-  background: rgba(36, 84, 255, 0.35);
+  background: var(--rd-flash, color-mix(in srgb, var(--accent) 35%, transparent));
   border-radius: 2px;
   animation: rd-flash-fade 1.2s ease-out forwards;
 }

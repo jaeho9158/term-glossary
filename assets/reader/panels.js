@@ -46,6 +46,12 @@
     });
     var drawer = isNarrow() && (state.left || state.right);
     b.classList.toggle("rd-drawer-open", drawer);
+    if (drawer) {
+      var bar = document.getElementById("rd-toolbar");
+      var mo = document.getElementById("rd-more");
+      if (bar) bar.classList.remove("more-open");
+      if (mo) mo.setAttribute("aria-expanded", "false");
+    }
     // 서랍이 열려 있는 동안: 서랍은 대화 상자, 뒤의 본문·도구 막대는 초점과 보조기기에서 뺀다.
     ["left", "right"].forEach(function (side) {
       var p = panel(side);
@@ -71,15 +77,15 @@
     var ae = document.activeElement;
     var back = opener;
     opener = null;
-    if (!back || !document.contains(back) || typeof back.focus !== "function") back = null;
-    if (back && (!ae || ae === document.body || (p && p.contains(ae)))) {
+    if (back === document.body || !back || !document.contains(back) || typeof back.focus !== "function") back = null;
+    if (!(!ae || ae === document.body || (p && p.contains(ae)))) return;
+    if (back) {
       try { back.focus({ preventScroll: true }); } catch (e) { /* 무시 */ }
-      // 연 단추가 이미 사라졌거나 숨겨졌으면(예: 닫힌 편집 창의 단추) 이 서랍의 여닫이 단추로 돌려준다.
-      if (document.activeElement !== back) {
-        var tg = document.getElementById("rd-" + side + "-toggle");
-        if (tg) { try { tg.focus({ preventScroll: true }); } catch (e2) { /* 무시 */ } }
-      }
+      if (document.activeElement === back) return;
     }
+    // 연 단추가 없거나(본문에서 열었음) 사라졌거나 숨겨졌으면(예: 닫힌 편집 창의 단추) 이 서랍의 여닫이 단추로 돌려준다.
+    var tg = document.getElementById("rd-" + side + "-toggle");
+    if (tg) { try { tg.focus({ preventScroll: true }); } catch (e2) { /* 무시 */ } }
   }
 
   function setOpen(side, open) {
@@ -160,8 +166,16 @@
 
     if (mq) {
       var onChange = function () {
+        var ae0 = document.activeElement;
+        var lostSide = "";
+        ["left", "right"].forEach(function (sd) { var pp = panel(sd); if (pp && ae0 && pp.contains(ae0)) lostSide = sd; });
         if (isNarrow()) { state.left = false; state.right = false; } else { state.left = false; state.right = true; load(); }
         apply();
+        // 넓은 화면 -> 좁은 화면으로 바뀌어 초점이 있던 패널이 닫히면 그 여닫이 단추로 옮긴다.
+        if (lostSide && isNarrow()) {
+          var tg2 = document.getElementById("rd-" + lostSide + "-toggle");
+          if (tg2) { try { tg2.focus({ preventScroll: true }); } catch (e3) { /* 무시 */ } }
+        }
       };
       if (mq.addEventListener) mq.addEventListener("change", onChange);
       else if (mq.addListener) mq.addListener(onChange);

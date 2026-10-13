@@ -38,3 +38,34 @@ test("viewer.html의 ?v= 스탬프가 현재 computeViewerVersion()과 같다", 
   assert.ok(tm, "viewer.html에 term-match.js?v= 스탬프가 없다");
   assert.strictEqual(tm[1], m[1], "term-match.js와 viewer.js의 스탬프가 다르다");
 });
+
+test("stampReaderHtml: 리더 자산 태그에 같은 버전을 찍고 다시 찍으면 교체한다", () => {
+  const { stampReaderHtml } = require("../scripts/stamp-viewer-version.js");
+  const html = [
+    '<link rel="stylesheet" href="assets/reader/reader.css">',
+    '<script src="assets/term-match.js"></script>',
+    '<script src="assets/reader/doc.js?v=old"></script>',
+    '<script src="assets/escape.js"></script>',
+  ].join("\n");
+  const once = stampReaderHtml(html, "aaa");
+  assert.ok(once.includes('href="assets/reader/reader.css?v=aaa"'));
+  assert.ok(once.includes('src="assets/term-match.js?v=aaa"'));
+  assert.ok(once.includes('src="assets/reader/doc.js?v=aaa"'));
+  assert.ok(once.includes('src="assets/escape.js"'));
+  assert.ok(stampReaderHtml(once, "bbb").includes('doc.js?v=bbb"'));
+  assert.throws(() => stampReaderHtml("<p></p>", "x"));
+});
+
+test("reader.html의 자산 스탬프가 현재 computeReaderVersion()과 같다", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const { computeReaderVersion } = require("../scripts/stamp-viewer-version.js");
+  const html = fs.readFileSync(path.join(__dirname, "..", "reader.html"), "utf8");
+  const want = computeReaderVersion();
+  const tm = html.match(/assets\/term-match\.js\?v=([^"'&]+)/);
+  assert.ok(tm, "reader.html에 term-match.js?v= 스탬프가 없다: node scripts/stamp-viewer-version.js 로 다시 찍을 것");
+  assert.strictEqual(tm[1], want, "node scripts/stamp-viewer-version.js 로 다시 찍을 것");
+  const tags = html.match(/(?:src|href)="assets\/reader\/[\w-]+\.(?:js|css)[^"]*"/g) || [];
+  assert.ok(tags.length > 0, "reader.html에 assets/reader/ 태그가 없다");
+  tags.forEach((t) => assert.ok(t.endsWith("?v=" + want + '"'), t + " 의 버전이 다르다: node scripts/stamp-viewer-version.js 로 다시 찍을 것"));
+});

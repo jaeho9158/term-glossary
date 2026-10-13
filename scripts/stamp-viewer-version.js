@@ -15,6 +15,7 @@ const crypto = require("crypto");
 
 const ROOT = path.join(__dirname, "..");
 const HTML = path.join(ROOT, "viewer.html");
+const READER_HTML = path.join(ROOT, "reader.html");
 const SCRIPT_SRC_RE = /(<script src="assets\/viewer\.js)(\?v=[0-9a-z]*)?(")/;
 // term-match.js(viewer.js에서 분리한 순수 함수)도 같은 버전을 받는다.
 const TERM_MATCH_SRC_RE = /(<script src="assets\/term-match\.js)(\?v=[0-9a-z]*)?(")/;
@@ -35,6 +36,28 @@ function computeViewerVersion(root = ROOT) {
   return hash.digest("hex").slice(0, 10);
 }
 
+// reader.html 의 자산(assets/reader/*.js·css, term-match.js, viewer-storage.js)에 붙이는 버전.
+// viewer 버전(term-match·viewer.js·색인·정의 청크)에 리더 자산 내용을 더해 해시한다.
+function computeReaderVersion(root = ROOT) {
+  const hash = crypto.createHash("sha1");
+  const read = (file) => fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n");
+  hash.update(computeViewerVersion(root));
+  const dir = path.join(root, "assets", "reader");
+  for (const name of fs.readdirSync(dir).filter((n) => /\.(js|css)$/.test(n)).sort()) {
+    hash.update(name);
+    hash.update(read(path.join(dir, name)));
+  }
+  hash.update(read(path.join(root, "assets", "viewer-storage.js")));
+  hash.update(read(path.join(root, "assets", "pdf-annotations.js")));
+  return hash.digest("hex").slice(0, 10);
+}
+
+const READER_ASSET_RE = /((?:src|href)="assets\/(?:reader\/[\w-]+\.(?:js|css)|term-match\.js|viewer-storage\.js))(\?v=[0-9a-z]*)?(")/g;
+function stampReaderHtml(html, version) {
+  if (!/assets\/term-match\.js/.test(html)) throw new Error("reader.html에서 assets/term-match.js 로드를 찾지 못했습니다");
+  return html.replace(READER_ASSET_RE, "$1?v=" + version + "$3");
+}
+
 function stampHtml(html, version) {
   if (!SCRIPT_SRC_RE.test(html)) throw new Error("viewer.html에서 assets/viewer.js 로드를 찾지 못했습니다");
   if (!TERM_MATCH_SRC_RE.test(html)) throw new Error("viewer.html에서 assets/term-match.js 로드를 찾지 못했습니다");
@@ -47,8 +70,13 @@ function run() {
   const after = stampHtml(before, version);
   if (after !== before) fs.writeFileSync(HTML, after, "utf8");
   console.log(`viewer 버전: ${version}${after === before ? " (변경 없음)" : ""}`);
+  const rv = computeReaderVersion();
+  const rBefore = fs.readFileSync(READER_HTML, "utf8");
+  const rAfter = stampReaderHtml(rBefore, rv);
+  if (rAfter !== rBefore) fs.writeFileSync(READER_HTML, rAfter, "utf8");
+  console.log(`reader 버전: ${rv}${rAfter === rBefore ? " (변경 없음)" : ""}`);
 }
 
 if (require.main === module) run();
 
-module.exports = { computeViewerVersion, stampHtml, run };
+module.exports = { computeViewerVersion, computeReaderVersion, stampHtml, stampReaderHtml, run };

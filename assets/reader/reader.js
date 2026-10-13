@@ -4,8 +4,8 @@
   "use strict";
 
   // 키 입력 하나가 리더에서 무엇을 뜻하는지(순수 함수: 시험이 직접 부른다). 스펙 §3.4 의 표.
-  //   e = {key, ctrlKey, metaKey, shiftKey, altKey?, targetIsInput, inSearchInput}
-  //   반환: "search" | "search-next" | "search-prev" | "zoom-in" | "zoom-out" | "fit-width" | "page-next" | "page-prev"
+  //   e = {key, ctrlKey, metaKey, shiftKey, altKey?, targetIsInput}  (검색 입력의 Enter 는 search.js 가 처리한다)
+  //   반환: "search" | "zoom-in" | "zoom-out" | "fit-width" | "page-next" | "page-prev"
   //         | "toggle-left" | "toggle-right" | "escape" | null
   // 입력란에 초점이 있으면 글자 키([ ]), 화살표, PageUp/PageDown 은 null. Esc 와 Ctrl+F 는 입력란에서도 동작한다.
   function keyAction(e) {
@@ -14,7 +14,6 @@
     var mod = !!(e.ctrlKey || e.metaKey);
     if (key === "Escape") return "escape";
     if (mod && !e.shiftKey && !e.altKey && (key === "f" || key === "F")) return "search";
-    if (e.inSearchInput && key === "Enter" && !mod && !e.altKey) return e.shiftKey ? "search-prev" : "search-next";
     if (mod && !e.altKey) {
       if (key === "+" || key === "=") return "zoom-in";
       if (key === "-" || key === "_") return "zoom-out";
@@ -36,7 +35,6 @@
   var SCALE_KEY = "rd-scale";
   var ZOOM_STEP = 1.1;
   var store = root.ViewerStorage || null;
-  var baseTitle = document.title;
 
   function $(id) { return document.getElementById(id); }
   var readerEl = $("reader");
@@ -109,7 +107,7 @@
   }
 
   async function openFile(file, opts) {
-    if (opening) return;
+    if (opening) { showHomeError("다른 문서를 여는 중입니다. 잠시 뒤 다시 시도해 주세요."); return; }
     if (!isPdf(file)) { showHomeError("PDF 파일만 열 수 있습니다."); return; }
     opening = true;
     showHomeError("");
@@ -141,7 +139,6 @@
     var input = $("rd-page-input");
     input.max = String(d.numPages);
     input.value = "1";
-    document.title = d.title + " - 논문 리더";
     applyScalePref();
     $("rd-scroll").scrollTop = 0;
     try {
@@ -156,7 +153,6 @@
     readerEl.hidden = true;
     homeEl.hidden = false;
     document.body.classList.remove("rd-open");
-    document.title = baseTitle;
     $("rd-back").hidden = true;
     $("rd-toolbar").classList.remove("more-open");
     $("rd-more").setAttribute("aria-expanded", "false");
@@ -172,7 +168,11 @@
   }
 
   root.addEventListener("popstate", function () {
-    if (!readerEl.hidden) teardown();
+    if (!readerEl.hidden) { teardown(); return; }
+    // 닫은 뒤 앞으로 가기로 돌아온 {rd:1} 항목: 열린 문서가 없으니 해시를 정리한다.
+    if (history.state && history.state.rd) {
+      try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* 무시 */ }
+    }
   });
 
   // ---------- 도구 막대 ----------
@@ -236,6 +236,14 @@
     sBox.addEventListener("focusin", syncSearching);
     sBox.addEventListener("focusout", function () { setTimeout(syncSearching, 0); });
     readerEl.addEventListener("reader:docclose", function () { bar.classList.remove("rd-searching"); });
+    // 더보기 메뉴는 좁은 화면에서만 있다: 넓어지면 열린 상태를 걷고, 서랍이 열리면(panels.js 가) 메뉴를 닫는다.
+    var wideMq = root.matchMedia ? root.matchMedia("(min-width: 768px)") : null;
+    function resetMore() { bar.classList.remove("more-open"); more.setAttribute("aria-expanded", "false"); }
+    if (wideMq) {
+      var onWide = function () { if (wideMq.matches) resetMore(); };
+      if (wideMq.addEventListener) wideMq.addEventListener("change", onWide);
+      else if (wideMq.addListener) wideMq.addListener(onWide);
+    }
     $("rd-search-close").addEventListener("click", function () {
       root.ReaderSearch.clear();
       syncSearching();
@@ -278,12 +286,12 @@
   // Esc 한 번에 하나만 닫는다. 순서: 카드 → 선택 도구 → 편집 창 → 더보기 → 서랍 → 입력란 초점. 닫은 게 있으면 true.
   function closeTopmost() {
     var chain = [
-      function () { return root.ReaderTerms.closeCard(); },
+      function () { return !!(root.ReaderTerms && root.ReaderTerms.closeCard && root.ReaderTerms.closeCard()); },
       function () { return root.ReaderPreview && root.ReaderPreview.closeCard ? root.ReaderPreview.closeCard() : false; },
-      function () { return root.ReaderSelection.dismiss(); },
-      function () { return root.ReaderAnnotations.dismissEditor(); },
+      function () { return !!(root.ReaderSelection && root.ReaderSelection.dismiss && root.ReaderSelection.dismiss()); },
+      function () { return !!(root.ReaderAnnotations && root.ReaderAnnotations.dismissEditor && root.ReaderAnnotations.dismissEditor()); },
       closeMore,
-      function () { return root.ReaderPanels.closeDrawer(); },
+      function () { return !!(root.ReaderPanels && root.ReaderPanels.closeDrawer && root.ReaderPanels.closeDrawer()); },
       leaveInput,
     ];
     for (var i = 0; i < chain.length; i++) {
@@ -292,13 +300,20 @@
     return false;
   }
 
+  // 좌우 화살표·PageUp/Down 이 쪽 넘김이 아니라 다른 용도일 때: 가로로 스크롤되는 확대 상태이거나, 옆 패널의 단추·목록에 초점이 있을 때.
+  function arrowBelongsElsewhere(e, ae) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return false;
+    var sc = $("rd-scroll");
+    if (sc && sc.scrollWidth > sc.clientWidth + 1) return true;
+    return !!(ae && ae.closest && ae.closest(".rd-panel") && ae !== sc);
+  }
+
   function onKeydown(e) {
     if (readerEl.hidden || e.defaultPrevented || e.isComposing || e.keyCode === 229) return;
     var ae = document.activeElement;
     var act = keyAction({
       key: e.key, ctrlKey: e.ctrlKey, metaKey: e.metaKey, shiftKey: e.shiftKey, altKey: e.altKey,
       targetIsInput: isTextEntry(e.target) || isTextEntry(ae),
-      inSearchInput: e.target && e.target.id === "rd-search-input",
     });
     if (!act) return;
     var D = root.ReaderDoc;
@@ -306,20 +321,20 @@
     switch (act) {
       case "escape":
         e.preventDefault();
-        if (!closeTopmost()) closeReader();
+        if (closeTopmost()) return;
+        // 검색어가 남아 있으면(초점이 다른 곳이어도) 닫기 전에 먼저 지운다.
+        if (root.ReaderSearch && root.ReaderSearch.query && root.ReaderSearch.query()) { root.ReaderSearch.clear(); return; }
+        closeReader();
         return;
       case "search":
         e.preventDefault();
         root.ReaderSearch.focusInput();
         return;
-      case "search-next":
-      case "search-prev":
-        return; // 검색 입력의 Enter 는 search.js 가 처리한다
       case "zoom-in": e.preventDefault(); D.setScale(D.getScale() * ZOOM_STEP); return;
       case "zoom-out": e.preventDefault(); D.setScale(D.getScale() / ZOOM_STEP); return;
       case "fit-width": e.preventDefault(); D.fitWidth(); return;
-      case "page-next": if (drawer) return; e.preventDefault(); D.goToPage(D.currentPage() + 1); return;
-      case "page-prev": if (drawer) return; e.preventDefault(); D.goToPage(D.currentPage() - 1); return;
+      case "page-next": if (drawer || arrowBelongsElsewhere(e, ae)) return; e.preventDefault(); D.goToPage(D.currentPage() + 1); return;
+      case "page-prev": if (drawer || arrowBelongsElsewhere(e, ae)) return; e.preventDefault(); D.goToPage(D.currentPage() - 1); return;
       case "toggle-left": e.preventDefault(); root.ReaderPanels.toggle("left"); return;
       case "toggle-right": e.preventDefault(); root.ReaderPanels.toggle("right"); return;
     }
@@ -411,28 +426,43 @@
   // ---------- 형광펜·메모 ----------
   var lastColor = "yellow";
   readerEl.addEventListener("reader:docopen", function (e) {
-    root.ReaderAnnotations.load(e.detail.docHash, e.detail.title);
+    if (root.ReaderAnnotations && root.ReaderAnnotations.load) root.ReaderAnnotations.load(e.detail.docHash, e.detail.title);
   });
-  root.ReaderSelection.onAction(async function (act, color, sel) {
-    if (color) lastColor = color;
-    var recs = await root.ReaderAnnotations.add(sel.ranges, sel.quote, lastColor, "");
-    // 메모: 칠한 뒤 바로 메모 입력 창을 연다(여러 쪽에 걸쳐도 첫 쪽 기록 하나만).
-    if (act === "memo" && recs.length) root.ReaderAnnotations.edit(recs[0].id, sel.clientRect);
-  });
+  function bindSelectionActions() {
+    root.ReaderSelection.onAction(async function (act, color, sel) {
+      if (color) lastColor = color;
+      var recs = await root.ReaderAnnotations.add(sel.ranges, sel.quote, lastColor, "");
+      // 메모: 칠한 뒤 바로 메모 입력 창을 연다(여러 쪽에 걸쳐도 첫 쪽 기록 하나만).
+      if (act === "memo" && recs.length) root.ReaderAnnotations.edit(recs[0].id, sel.clientRect);
+    });
+  }
 
   // ---------- 시작 ----------
-  root.ReaderPanels.init();
-  root.ReaderSearch.init();
-  root.ReaderSelection.init();
-  root.ReaderAnnotations.init();
-  root.ReaderTerms.init();
-  bindToolbar();
-  document.addEventListener("keydown", onKeydown);
+  // 첫 화면 입력부터 묶는다: 핵심 스크립트 하나가 빠져도 첫 화면은 살아 있고 안내가 보인다.
+  var initFailed = false;
+  var LOAD_FAIL_MSG = "리더 일부를 불러오지 못했습니다. 새로고침 해주세요.";
   bindHome();
+  renderRecent();
+  [
+    ["ReaderPanels", function () { root.ReaderPanels.init(); }],
+    ["ReaderSearch", function () { root.ReaderSearch.init(); }],
+    ["ReaderSelection", function () { root.ReaderSelection.init(); bindSelectionActions(); }],
+    ["ReaderAnnotations", function () { root.ReaderAnnotations.init(); }],
+    ["ReaderTerms", function () { root.ReaderTerms.init(); }],
+    ["toolbar", bindToolbar],
+  ].forEach(function (s) {
+    try { s[1](); } catch (err) { initFailed = true; console.error("[reader] 초기화 실패:", s[0], err); }
+  });
+  document.addEventListener("keydown", onKeydown);
+  if (initFailed) {
+    showHomeError(LOAD_FAIL_MSG);
+    readerEl.addEventListener("reader:docopen", function () {
+      if (root.ReaderDoc && root.ReaderDoc.notify) root.ReaderDoc.notify(LOAD_FAIL_MSG);
+    });
+  }
   // 새로고침으로 #doc= 만 남은 주소는 첫 화면이다. 해시를 정리한다.
   if (/^#doc=/.test(root.location.hash)) {
     try { history.replaceState(null, "", root.location.pathname + root.location.search); } catch (e) { /* 무시 */ }
   }
-  renderRecent();
   openDebugPdf();
 })(typeof window !== "undefined" ? window : globalThis);

@@ -768,6 +768,13 @@
       S.pagesReady.add(p);
       if (S.analysis) registerPage(p);
     });
+    // 글자 상자를 아무도 요청하지 않은 쪽(용어·강조·검색 결과가 없는 쪽)도 인용·그림 표시를 받도록 쪽이 그려질 때도 등록한다.
+    el0.addEventListener("reader:pagerendered", function (e) {
+      var p = e.detail && e.detail.page;
+      if (!(p >= 1)) return;
+      S.pagesReady.add(p);
+      if (S.analysis) registerPage(p);
+    });
     el0.addEventListener("reader:scalechange", function () { closeCard(); });
     if (D() && D().numPages && D().numPages() > 0 && D().getPdf && D().getPdf()) { S = fresh(); startAnalysis(); } // 이미 열린 문서
   }

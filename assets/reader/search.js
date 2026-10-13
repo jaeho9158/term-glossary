@@ -7,7 +7,7 @@
   var DEBOUNCE_MS = 250;
 
   function isSpace(code) {
-    return code === 32 || code === 10 || code === 13 || code === 9 || code === 160 || code === 12;
+    return code <= 32 || code === 160;
   }
 
   var CJK_RE = /[가-힣ㄱ-ㅎㅏ-ㅣ぀-ヿ㐀-鿿豈-﫿]/;
@@ -47,6 +47,8 @@
         continue;
       }
       prevSpace = false;
+      var cc = text.charCodeAt(i);
+      if (cc >= 0xFF01 && cc <= 0xFF5E) ch = String.fromCharCode(cc - 0xFEE0); // 전각 ASCII -> 반각(1:1 이라 위치가 밀리지 않는다)
       var low = ch.toLowerCase();
       for (var k = 0; k < low.length; k++) { out.push(low.charAt(k)); map.push(i); }
     }
@@ -266,6 +268,7 @@
       timer = setTimeout(function () { run(v); }, DEBOUNCE_MS);
     });
     input.addEventListener("keydown", function (e) {
+      if (e.isComposing || e.keyCode === 229) return;
       if (e.key === "Enter") {
         e.preventDefault();
         if (input.value.trim() !== query) { clearTimeout(timer); run(input.value); return; }
@@ -290,6 +293,7 @@
     prev: function () { move(-1); },
     clear: clear,
     focusInput: function () { var i = $("rd-search-input"); if (i && !i.disabled) { i.focus(); i.select(); } },
+    query: function () { return query; },
     count: function () { return results.length; },
     index: function () { return cur; },
     results: function () { return results.slice(); },

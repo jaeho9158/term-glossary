@@ -72,4 +72,16 @@ assert.deepStrictEqual(findAll("net-\nwork", "network"), [{ start: 0, end: 9 }])
 // 빈 줄이 있어도 기본 접기(공백 하나)로는 찾는다
 assert.deepStrictEqual(findAll("감염\n\n관리", "감염 관리"), [{ start: 0, end: 6 }]);
 
+
+// 제어문자(U+0000)는 공백으로 접힌다
+assert.strictEqual(findAll("채택하였다.\u0000구체적으로는", "채택하였다. 구체적으로는").length, 1);
+// 전각 ASCII 는 반각과 같게 찾고 위치는 그대로다
+{
+  const t = "값 p＜0.05 이다";
+  const r = findAll(t, "p<0.05");
+  assert.strictEqual(r.length, 1);
+  assert.strictEqual(t.slice(r[0].start, r[0].end), "p＜0.05");
+  assert.strictEqual(findAll("p<0.05", "p＜0.05").length, 1);
+}
+
 console.log("reader-search: all tests passed");
