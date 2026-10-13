@@ -1,11 +1,14 @@
 // 리더의 좌우 패널과 탭. 넓은 화면에서는 3열 그리드, 좁은 화면(767px 이하)에서는 아래 서랍.
-// 열림 상태는 localStorage "rd-panels" 에 {left,right} 로 기억한다(좁은 화면의 서랍 상태는 기억하지 않는다).
+// 열림 상태는 사용자가 직접 여닫은 쪽만 localStorage "rd-panel-left" / "rd-panel-right" ("1"|"0")에 기억한다
+// (좁은 화면의 서랍 상태는 기억하지 않는다). 기억한 값이 없으면 기본값: 왼쪽은 화면 폭 1100px 이상에서 열림, 오른쪽은 열림.
 (function (root) {
   "use strict";
   if (typeof document === "undefined") return;
 
-  var KEY = "rd-panels";
+  var KEY = { left: "rd-panel-left", right: "rd-panel-right" };
+  var LEGACY_KEY = "rd-panels"; // 예전 형식 {left,right}: 오른쪽 값만 이어받는다(왼쪽은 기본값이 바뀌었으므로 버린다)
   var NARROW = "(max-width: 767px)";
+  var WIDE_MIN = 1100;
   var state = { left: false, right: true };
   var mq = null;
   var ready = false;
@@ -16,18 +19,32 @@
   function panel(side) { return document.getElementById("rd-" + side); }
   function isNarrow() { return !!(mq && mq.matches); }
 
-  function load() {
-    try {
-      var raw = root.localStorage.getItem(KEY);
-      if (!raw) return;
-      var v = JSON.parse(raw);
-      if (v && typeof v.left === "boolean") state.left = v.left;
-      if (v && typeof v.right === "boolean") state.right = v.right;
-    } catch (e) { /* 저장소를 못 읽으면 기본값 */ }
+  function isWide() {
+    var w = root.innerWidth || (document.documentElement && document.documentElement.clientWidth) || 0;
+    return w >= WIDE_MIN;
   }
-  function save() {
+  function readSaved(side) {
+    try {
+      var v = root.localStorage.getItem(KEY[side]);
+      if (v === "1") return true;
+      if (v === "0") return false;
+      if (side === "right") {
+        var raw = root.localStorage.getItem(LEGACY_KEY);
+        if (raw) { var o = JSON.parse(raw); if (o && typeof o.right === "boolean") return o.right; }
+      }
+    } catch (e) { /* 저장소를 못 읽으면 기본값 */ }
+    return null;
+  }
+  // 기억한 선택이 있으면 그것을, 없으면 기본값을 상태에 넣는다.
+  function load() {
+    var l = readSaved("left");
+    var r = readSaved("right");
+    state.left = l === null ? isWide() : l;
+    state.right = r === null ? true : r;
+  }
+  function save(side) {
     if (isNarrow()) return;
-    try { root.localStorage.setItem(KEY, JSON.stringify({ left: state.left, right: state.right })); } catch (e) { /* 저장 실패는 기능에 영향 없음 */ }
+    try { root.localStorage.setItem(KEY[side], state[side] ? "1" : "0"); } catch (e) { /* 저장 실패는 기능에 영향 없음 */ }
   }
 
   function apply() {
@@ -97,7 +114,7 @@
     // 좁은 화면에서는 서랍이 한 번에 하나만 열린다.
     if (open && narrow) state[side === "left" ? "right" : "left"] = false;
     apply();
-    save();
+    save(side);
     if (narrow && open && !was) focusInto(side);
     else if (narrow && !open && was && !(state.left || state.right)) restoreFocus(side);
   }
@@ -169,7 +186,7 @@
         var ae0 = document.activeElement;
         var lostSide = "";
         ["left", "right"].forEach(function (sd) { var pp = panel(sd); if (pp && ae0 && pp.contains(ae0)) lostSide = sd; });
-        if (isNarrow()) { state.left = false; state.right = false; } else { state.left = false; state.right = true; load(); }
+        if (isNarrow()) { state.left = false; state.right = false; } else { load(); }
         apply();
         // 넓은 화면 -> 좁은 화면으로 바뀌어 초점이 있던 패널이 닫히면 그 여닫이 단추로 옮긴다.
         if (lostSide && isNarrow()) {

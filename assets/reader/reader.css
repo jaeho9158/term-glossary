@@ -133,6 +133,9 @@ body.rd-open .site-footer { display: none; }
 .rd-btn.is-on,
 .rd-btn[aria-pressed="true"]:not(:disabled) { background: var(--accent-soft); color: var(--accent); }
 .rd-icon-btn { padding: 0 6px; font-size: 1.05rem; }
+#rd-left-toggle { gap: 5px; }
+#rd-left-toggle .rd-btn-label { font-size: 0.85rem; white-space: nowrap; }
+@media (max-width: 767px) { #rd-left-toggle .rd-btn-label { display: none; } }
 
 .rd-page-input {
   width: 3.4em;
@@ -462,17 +465,21 @@ body.rd-open .site-footer { display: none; }
 /* ===== 작업 4 (끝) ===== */
 
 /* ===== 작업 5: 용어 밑줄·카드·용어 패널 (시작) ===== */
-/* 밑줄은 조용하게: 옅은 점선, 배경 없음. 마우스를 올린 용어만 옅은 배경. 형광펜 층과 따로라 겹쳐도 둘 다 보인다.
+/* 용어 표시: 눈에 띄되 쪽이 지저분해지지 않게. 약 1.75px 실선 밑줄(강조색 75%)과 아주 옅은 배경(9%).
+   마우스를 올린 용어는 밑줄이 진해지고 배경도 짙어진다. 형광펜(불투명도 0.6 안팎의 채움)이 겹치면 형광펜이 우세하다.
+   사각형은 겹침층 요소일 뿐, pdf.js 글자층 요소는 건드리지 않는다.
    파일 끝 겹침층 규칙(.rd-rect.rd-term)보다 뒤에 오지 않으므로 .rd-layer 를 붙여 우선하게 한다. */
 .rd-layer .rd-rect.rd-term {
-  border-bottom: calc(1px / var(--rd-scale, 1)) dotted var(--muted);
-  opacity: 0.85;
+  /* 테두리는 레이아웃에서 정수 화소로 내림되어 배율 1에서 1px 로 줄어드므로, 내림이 없는 안쪽 그림자로 긋는다. */
+  border-bottom: 0;
+  box-shadow: inset 0 calc(-1.75px / var(--rd-scale, 1)) 0 var(--accent);
+  box-shadow: inset 0 calc(-1.75px / var(--rd-scale, 1)) 0 color-mix(in srgb, var(--accent) 75%, transparent);
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
 }
 .rd-layer .rd-rect.rd-term.is-hover {
-  background: var(--accent-soft);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  border-bottom-color: var(--accent);
-  opacity: 1;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: inset 0 calc(-1.75px / var(--rd-scale, 1)) 0 var(--accent);
 }
 .rd-scroll.is-term-hover .textLayer,
 .rd-scroll.is-term-hover .textLayer * { cursor: pointer; }
