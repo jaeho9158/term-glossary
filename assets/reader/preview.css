@@ -12,6 +12,28 @@
   background: var(--accent-soft);
   background: color-mix(in srgb, var(--accent) 16%, transparent);
 }
+/* 키보드 초점(preview.js 의 focusNext / focusPrev): 마우스를 올리지 않아도 보이는 윤곽선 */
+.rd-layer .rd-rect.rd-ref.is-focus {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+@media (forced-colors: active) {
+  .rd-layer .rd-rect.rd-ref.is-focus { outline-color: Highlight; }
+}
+/* 화면 읽기 프로그램용 안내문(보이지 않는다) */
+.rd-ref-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 /* 표시 위에 있는 동안(preview.js 가 #rd-scroll 에 is-ref-hover 를 붙인다) 손 모양 */
 .rd-scroll.is-ref-hover,
 .rd-scroll.is-ref-hover .textLayer,
@@ -45,7 +67,11 @@
 
 /* 미리보기: 마우스에서는 클릭을 가로채지 않는다 */
 .rd-ref-pop.is-preview { width: min(378px, calc(100vw - 16px)); padding: 8px; }
-.rd-ref-pop.is-preview:not(.is-touch) { pointer-events: none; }
+.rd-ref-pop.is-preview:not(.is-touch):not(.is-kbd) { pointer-events: none; }
+.rd-ref-pop:focus-visible,
+.rd-ref-go:focus-visible,
+.rd-ref-more:focus-visible,
+.rd-ref-prev-go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .rd-ref-prev-head { margin: 0 0 6px; color: var(--muted); font-size: 0.78rem; }
 .rd-ref-prev-body { color: var(--muted); font-size: 0.82rem; line-height: 0; }
 .rd-ref-prev-body canvas { display: block; max-width: 100%; height: auto !important; background: #fff; border-radius: 4px; border: 1px solid var(--border); }

@@ -6,7 +6,7 @@
 //  - 터치: 누르면 카드, 카드의 "이동" 으로 이동.
 // 연결 못 한 것은 등록하지 않는다(카드 없음). 겹침 우선순위는 검색 > 형광펜 > 인용·참조 > 용어.
 //  - 형광펜 위의 클릭은 형광펜 편집기가 맡는다(여기서는 아무것도 안 하고 이벤트를 그대로 통과시킨다). 호버 카드는 형광펜 위에서도 뜬다.
-//  - 용어 카드는 ReaderTerms.setSuppressed() 로 막는다: 포인터가 표시 위에 있거나 카드가 열려 있는 동안.
+//  - 용어 카드는 ReaderTerms.setSuppressed() 로 막는다: 이 층의 카드가 실제로 열려 있는 동안만. 표시 위를 스쳐 지나가기만 하면(카드가 뜨기 전) 열려 있는 용어 카드를 닫지 않는다.
 // "자세히" 버튼(.rd-ref-more)은 #reader 에 reader:refdetail {index, text, container} 만 낸다(조회는 biblio.js 가 한다).
 (function (root) {
   "use strict";
@@ -14,6 +14,7 @@
   // 형식별 스위치. 정밀도 측정에서 98% 에 못 미친 형식은 여기서 끈다(근거는 작업 7 보고서).
   var ENABLED = {
     numeric: true,
+    superscript: true, // 위첨자 번호 인용: 글자 크기·기준선 기하가 필요하고 번호식 참고문헌이 있을 때만
     authorYear: true,
     fig: true,
     table: true,
@@ -52,6 +53,7 @@
       pagesReady: new Set(), // reader:pagetext 를 받은 쪽
       entries: new Map(), // page -> overlay entry[]
       hover: null, // {page, id}
+      checked: new Set(), // 인용·참조 찾기를 마친 쪽(표시가 없어도 마친 것)
     };
   }
 
@@ -137,15 +139,18 @@
 
   function registerPage(page) {
     var st = S;
-    if (!st.analysis) return;
+    if (!st.analysis) return Promise.resolve();
     var TM = TMAP();
-    TM.get(page).then(function (tm) {
-      if (st !== S || !tm || !tm.text) return;
+    return TM.get(page).then(function (tm) {
+      if (st !== S) return;
+      if (!tm || !tm.text) { st.checked.add(page); return; }
       var entries = buildEntries(page, tm, st);
       if (entries.length) st.entries.set(page, entries);
       else st.entries.delete(page);
+      st.checked.add(page);
       OV().setRects(page, "ref", entries);
-    }).catch(function (err) { console.error("[refs] 쪽 등록 실패", page, err); });
+      if ((st.hover && st.hover.page === page) || (kbCur && kbCur.page === page)) pushHover(page); // 호버·키보드 초점 표시를 다시 입힌다
+    }).catch(function (err) { st.checked.add(page); console.error("[refs] 쪽 등록 실패", page, err); });
   }
 
   function displayable(st, idx) {
@@ -160,25 +165,31 @@
     var G = root.ReaderGeometry;
     var list = [];
 
+    var addNumeric = function (c, style) {
+      if (inSection(c.start)) return;
+      var idxs = [];
+      for (var i = 0; i < c.numbers.length; i++) {
+        var at = -1;
+        for (var k = 0; k < a.refs.length; k++) if (a.refs[k].n === c.numbers[i]) { at = k; break; }
+        if (!displayable(st, at)) return; // 하나라도 못 찾으면 이 인용은 연결하지 않는다
+        idxs.push(at);
+      }
+      list.push({ start: c.start, end: c.end, data: { type: "cite", style: style, refs: idxs, label: text.slice(c.start, c.end).replace(/\s+/g, " ").trim() } });
+    };
     if (ENABLED.numeric && a.numericOk) {
-      R().findNumericCitations(text, a.refCount).forEach(function (c) {
-        if (inSection(c.start)) return;
-        var idxs = [];
-        for (var i = 0; i < c.numbers.length; i++) {
-          var at = -1;
-          for (var k = 0; k < a.refs.length; k++) if (a.refs[k].n === c.numbers[i]) { at = k; break; }
-          if (!displayable(st, at)) return; // 하나라도 못 찾으면 이 인용은 연결하지 않는다
-          idxs.push(at);
-        }
-        list.push({ start: c.start, end: c.end, data: { type: "cite", style: "numeric", refs: idxs } });
-      });
+      R().findNumericCitations(text, a.refCount).forEach(function (c) { addNumeric(c, "numeric"); });
+    }
+    // 위첨자 번호("…한다.7)", "word7,8)"): 글자 크기·기준선을 알아야 하므로 글자 조각(tm.items)이 있을 때만. 번호식 참고문헌이 있어야 한다.
+    if (ENABLED.superscript && a.numericOk && tm.items && tm.charItem && R().findSuperscriptCitations && R().charGeometry) {
+      var geom = R().charGeometry({ text: text, charItem: tm.charItem }, tm.items);
+      R().findSuperscriptCitations(text, a.refCount, geom).forEach(function (c) { addNumeric(c, "superscript"); });
     }
     if (ENABLED.authorYear && a.refs.length) {
       R().findAuthorYearCitations(text).forEach(function (c) {
         if (inSection(c.start)) return;
         var idx = R().matchAuthorYear(c, a.refs);
         if (!displayable(st, idx)) return;
-        list.push({ start: c.start, end: c.end, data: { type: "cite", style: "authorYear", refs: [idx] } });
+        list.push({ start: c.start, end: c.end, data: { type: "cite", style: "authorYear", refs: [idx], label: text.slice(c.start, c.end).replace(/\s+/g, " ").trim() } });
       });
     }
     R().findCrossRefs(text).forEach(function (x) {
@@ -410,10 +421,23 @@
     card.addEventListener("pointerenter", function () { clearTimeout(closeTimer); });
     card.addEventListener("pointerleave", function () { scheduleClose(); });
     card.addEventListener("click", onCardClick);
+    card.addEventListener("keydown", onCardKeydown);
     rd().appendChild(card);
     return card;
   }
   function cardOpen() { return !!card && !card.hidden; }
+
+  // 키보드로 연 카드 안에서 Tab 이 카드 밖으로 새지 않게 한다(Esc 는 reader.js 의 closeTopmost 가 닫는다).
+  function onCardKeydown(e) {
+    if (e.key !== "Tab" || !card) return;
+    var btns = Array.prototype.slice.call(card.querySelectorAll("button"));
+    if (!btns.length) { e.preventDefault(); return; }
+    var first = btns[0];
+    var lastBtn = btns[btns.length - 1];
+    var ae = document.activeElement;
+    if (e.shiftKey && (ae === first || ae === card)) { e.preventDefault(); lastBtn.focus(); }
+    else if (!e.shiftKey && ae === lastBtn) { e.preventDefault(); first.focus(); }
+  }
 
   var cardPrevFocus = null; // 터치로 카드를 열기 전의 초점 자리(닫을 때 돌려준다)
   function closeCard() {
@@ -426,7 +450,7 @@
     var hadFocus = card.contains(document.activeElement);
     card.hidden = true;
     card.textContent = "";
-    card.classList.remove("is-preview", "is-touch", "is-sheet");
+    card.classList.remove("is-preview", "is-touch", "is-sheet", "is-kbd");
     cardState = null;
     syncSuppress();
     if (hadFocus && back && document.contains(back) && typeof back.focus === "function") {
@@ -434,10 +458,10 @@
     }
   }
 
-  // 용어 층에 알린다: 포인터가 표시 위에 있거나 카드가 열려 있으면 용어 카드는 막는다.
+  // 용어 층에 알린다: 이 층의 카드가 열려 있을 때만 용어 카드를 막는다(마우스가 표시 위를 지나가는 것만으로는 막지 않는다).
   function syncSuppress() {
     var T = root.ReaderTerms;
-    if (T && typeof T.setSuppressed === "function") T.setSuppressed(!!(S && S.hover) || cardOpen());
+    if (T && typeof T.setSuppressed === "function") T.setSuppressed(cardOpen());
   }
   function scheduleClose() {
     clearTimeout(closeTimer);
@@ -531,21 +555,24 @@
     card.style.top = Math.round(top) + "px";
   }
 
-  function openCard(hit, cx, cy) {
+  // opts.keyboard: 키보드로 연다. 초점이 카드 안으로 들어가고, 미리보기에도 "이동" 단추가 붙고 클릭을 받는다.
+  function openCard(hit, cx, cy, opts) {
     var data = hit.data;
     if (!data || !S.analysis) return;
-    var touch = lastType === "touch";
+    var kbd = !!(opts && opts.keyboard);
+    var touch = lastType === "touch" && !kbd;
     var c = ensureCard();
     clearTimeout(closeTimer);
     if (cardTask) { cardTask.cancel(); cardTask = null; }
     c.textContent = "";
     c.classList.toggle("is-touch", touch);
+    c.classList.toggle("is-kbd", kbd);
     cardState = { page: hit.page, id: hit.id, type: data.type };
     var anchor = nearestRectClient(hit, cx, cy);
     if (data.type === "cite") openCitationCard(c, data, hit, anchor);
-    else openPreviewCard(c, data, hit, anchor, touch);
+    else openPreviewCard(c, data, hit, anchor, touch || kbd);
     syncSuppress();
-    if (touch) { // 터치로 연 카드로 초점을 옮긴다
+    if (touch || kbd) { // 터치·키보드로 연 카드로 초점을 옮긴다(닫으면 원래 자리로 돌려준다)
       if (!cardPrevFocus) cardPrevFocus = document.activeElement;
       c.tabIndex = -1;
       try { c.focus({ preventScroll: true }); } catch (err) { /* 무시 */ }
@@ -634,12 +661,17 @@
     return !!(sel && !sel.isCollapsed && String(sel).trim());
   }
 
+  // 마우스 올림(is-hover)과 키보드 초점(is-focus)을 그 쪽 표시에 입힌다.
   function pushHover(page) {
     var list = S.entries.get(page);
     if (!list) return;
     var h = S.hover;
+    var k = kbCur;
     OV().setRects(page, "ref", list.map(function (en) {
-      return h && h.page === page && h.id === en.id ? Object.assign({}, en, { className: "rd-ref-mark is-hover" }) : en;
+      var cls = "rd-ref-mark";
+      if (h && h.page === page && h.id === en.id) cls += " is-hover";
+      if (k && k.page === page && k.id === en.id) cls += " is-focus";
+      return cls === "rd-ref-mark" ? en : Object.assign({}, en, { className: cls });
     }));
   }
   function setHover(hit) {
@@ -665,7 +697,7 @@
       var same = S.hover && S.hover.page === hit.page && S.hover.id === hit.id;
       clearTimeout(closeTimer);
       if (same) return;
-      setHover(hit); // 용어 카드도 여기서 막힌다(syncSuppress)
+      setHover(hit);
       clearTimeout(openTimer);
       if (cardOpen() && cardState && cardState.page === hit.page && cardState.id === hit.id) return;
       var key = hit.page + ":" + hit.id;
@@ -737,6 +769,166 @@
     document.addEventListener("pointercancel", function () { pointerDown = false; }, true);
   }
 
+  // ---------- 키보드 이동 ----------
+  // reader.js 가 키를 묶는다(이 파일은 함수만 내놓는다). 초점 표시는 겹침층의 is-focus 표시와 aria-live 안내문이고, 실제 DOM 초점은 건드리지 않는다.
+  //  focusNext() / focusPrev(): 읽는 순서(현재 쪽 -> 뒤 쪽, 한 쪽 안에서는 글 순서)로 다음·이전 인용·그림·표 표시로 초점을 옮기고 화면에 보이게 스크롤한다.
+  //    아직 찾지 않은 쪽이 사이에 있으면 그 쪽부터 찾은 뒤 옮긴다. 옮겼거나 옮기는 중이면 true, 더 없으면 false(끝이라고 안내한다).
+  //  activateFocused(): 초점 표시의 카드를 연다. 초점이 카드 안으로 들어가고(role="dialog"), 닫으면 원래 자리로 돌아온다. 카드의 "이동" 단추에서 Enter 면 그 대상으로 이동한다.
+  var kbCur = null; // {page, id, start}
+  var kbToken = 0;
+  var live = null;
+
+  function ensureLive() {
+    if (live && live.parentNode) return live;
+    live = document.createElement("div");
+    live.className = "rd-ref-live";
+    live.setAttribute("role", "status");
+    live.setAttribute("aria-live", "polite");
+    live.setAttribute("aria-atomic", "true");
+    rd().appendChild(live);
+    return live;
+  }
+  function announce(msg) {
+    if (!rd()) return;
+    var n = ensureLive();
+    n.textContent = ""; // 같은 문구도 다시 읽히도록 비웠다가 채운다
+    n.textContent = msg;
+  }
+
+  function startOf(en) { var m = /^ref:(\d+)$/.exec(String(en.id)); return m ? parseInt(m[1], 10) : 0; }
+  function entryByStart(page, start) {
+    var list = S.entries.get(page) || [];
+    for (var i = 0; i < list.length; i++) if (startOf(list[i]) === start) return list[i];
+    return null;
+  }
+
+  // 모든 표시를 읽는 순서로: [{page, start, en}]
+  function orderedMarks() {
+    var pages = Array.from(S.entries.keys()).sort(function (a, b) { return a - b; });
+    var out = [];
+    pages.forEach(function (p) {
+      S.entries.get(p).forEach(function (en) { out.push({ page: p, start: startOf(en), en: en }); });
+    });
+    out.sort(function (a, b) { return a.page - b.page || a.start - b.start; });
+    return out;
+  }
+
+  // 기준(초점 표시, 없으면 현재 쪽) 뒤/앞의 첫 표시. 없으면 null.
+  function adjacentMark(dir) {
+    var list = orderedMarks();
+    var base = kbCur ? { page: kbCur.page, start: kbCur.start } : null;
+    if (!base) {
+      var cur = D() && D().currentPage ? D().currentPage() : 1;
+      base = dir > 0 ? { page: cur, start: -1 } : { page: cur, start: Infinity };
+    }
+    var best = null;
+    for (var i = 0; i < list.length; i++) {
+      var m = list[i];
+      var after = m.page > base.page || (m.page === base.page && m.start > base.start);
+      var before = m.page < base.page || (m.page === base.page && m.start < base.start);
+      if (dir > 0 && after) { best = m; break; }
+      if (dir < 0 && before) best = m;
+    }
+    return best;
+  }
+
+  // 기준과 후보 사이(후보가 없으면 문서 끝까지)에서 아직 찾지 않은 쪽. 가까운 쪽부터.
+  function pendingPages(dir, cand) {
+    var n = D() && D().numPages ? D().numPages() : 0;
+    var basePage = kbCur ? kbCur.page : (D() && D().currentPage ? D().currentPage() : 1);
+    var out = [];
+    if (dir > 0) {
+      var hi = cand ? cand.page - 1 : n;
+      for (var p = basePage; p <= hi; p++) if (!S.checked.has(p)) out.push(p);
+    } else {
+      var lo = cand ? cand.page + 1 : 1;
+      for (var q = basePage; q >= lo; q--) if (!S.checked.has(q)) out.push(q);
+    }
+    return out;
+  }
+
+  function markText(en) {
+    var d = en.data;
+    if (d.type === "cite") {
+      var ref = S.display[d.refs[0]] || "";
+      if (ref.length > 110) ref = ref.slice(0, 110) + "…";
+      return "인용 " + (d.label || "") + (ref ? ": " + ref : "") + (d.refs.length > 1 ? " 외 " + (d.refs.length - 1) + "건" : "");
+    }
+    return (d.label || KIND_LABEL[d.kind] || "참조") + ", " + d.target.page + "쪽의 " + (KIND_LABEL[d.kind] || "대상");
+  }
+
+  // 표시가 화면 안(위아래 여유 포함)에 오도록 스크롤한다.
+  function revealMark(page, en) {
+    var sc = scrollEl();
+    var r0 = en.rects && en.rects[0];
+    if (!sc || !r0 || !D().pageToClient) return;
+    var a = D().pageToClient(page, { x: r0.x, y: r0.y });
+    var b = D().pageToClient(page, { x: r0.x + r0.w, y: r0.y + r0.h });
+    if (!a || !b) { if (D().goToPage) D().goToPage(page); return; }
+    var box = sc.getBoundingClientRect();
+    var margin = Math.min(80, box.height * 0.2);
+    var dy = 0;
+    if (a.y < box.top + margin || b.y > box.bottom - margin) dy = a.y - (box.top + box.height * 0.35);
+    var dx = 0;
+    if (a.x < box.left + 16) dx = a.x - box.left - 40;
+    else if (b.x > box.right - 16) dx = b.x - box.right + 40;
+    if (dy || dx) {
+      ignoreScrollUntil = Date.now() + 400;
+      if (dy) sc.scrollTop += dy;
+      if (dx) sc.scrollLeft += dx;
+    }
+  }
+
+  function setFocusMark(m) {
+    var prev = kbCur;
+    if (cardOpen()) closeCard();
+    kbCur = { page: m.page, id: m.en.id, start: m.start };
+    if (prev && prev.page !== m.page) pushHover(prev.page);
+    pushHover(m.page);
+    revealMark(m.page, m.en);
+    announce(markText(m.en));
+  }
+
+  function stepFocus(dir) {
+    if (!S.analysis) return false;
+    var token = ++kbToken;
+    var st = S;
+    var cand = adjacentMark(dir);
+    var pend = pendingPages(dir, cand);
+    if (!pend.length) {
+      if (cand) { setFocusMark(cand); return true; }
+      announce(dir > 0 ? "마지막 인용·참조입니다" : "첫 인용·참조입니다");
+      return false;
+    }
+    (function more() {
+      var batch = pend.slice(0, 6);
+      Promise.all(batch.map(function (p) { return registerPage(p); })).then(function () {
+        if (st !== S || token !== kbToken) return;
+        var c2 = adjacentMark(dir);
+        pend = pendingPages(dir, c2);
+        if (!pend.length) {
+          if (c2) setFocusMark(c2);
+          else announce(dir > 0 ? "마지막 인용·참조입니다" : "첫 인용·참조입니다");
+          return;
+        }
+        more();
+      });
+    })();
+    return true;
+  }
+
+  function activateFocused() {
+    if (!S.analysis || !kbCur) return false;
+    var en = entryByStart(kbCur.page, kbCur.start);
+    if (!en || !en.rects || !en.rects.length) return false;
+    var r0 = en.rects[0];
+    var pt = D().pageToClient ? D().pageToClient(kbCur.page, { x: r0.x + r0.w / 2, y: r0.y + r0.h / 2 }) : null;
+    var cx = pt ? pt.x : 0;
+    var cy = pt ? pt.y : 0;
+    openCard({ page: kbCur.page, id: en.id, data: en.data }, cx, cy, { keyboard: true });
+    return cardOpen();
+  }
+
   // ---------- 연결 ----------
   var ready = false;
   function init() {
@@ -752,6 +944,9 @@
       closeCard();
       pageInfoCache.clear();
       cache = [];
+      kbCur = null;
+      kbToken++;
+      if (live) live.textContent = "";
       S = fresh();
       var sc = scrollEl();
       if (sc) sc.classList.remove("is-ref-hover");
@@ -787,6 +982,10 @@
   root.ReaderPreview = {
     init: init,
     closeCard: function () { if (!cardOpen()) return false; closeCard(); return true; }, // Esc 가 한 번에 하나만 닫도록 reader.js 가 부른다
+    focusNext: function () { return stepFocus(1); },
+    focusPrev: function () { return stepFocus(-1); },
+    activateFocused: activateFocused,
+    _focused: function () { return kbCur; },
     // 시험·진단용
     _state: function () { return S; },
     _enabled: ENABLED,

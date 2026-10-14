@@ -941,3 +941,233 @@ test("findCrossRefs: 창 안에서 문헌 번호를 직접 가리키는 'adapted
   assert.deepEqual(crossKeys("Fig. 3 (adapted from [5])"), []);
   assert.deepEqual(crossKeys("Fig. 2, taken from [3]"), []);
 });
+
+// ---------- 위첨자 번호 인용 (글자 기하 필요) ----------
+// seg: 문자열 = 본문(크기 10, 기준선 0), {sup: "7)"} = 작고 올라간 글자 조각, {t, fs, dy} = 임의 조각. 조각마다 새 item 이다.
+function geomPage(segs, opt) {
+  opt = opt || {};
+  let text = "";
+  const fsArr = [], yArr = [], x0Arr = [], x1Arr = [], itemArr = [];
+  let x = 50;
+  let line = 0;
+  segs.forEach((sg, idx) => {
+    const o = typeof sg === "string" ? { t: sg, fs: 10, dy: 0 } : sg.sup !== undefined ? { t: sg.sup, fs: sg.fs || 6, dy: sg.dy === undefined ? 4 : sg.dy } : sg;
+    for (let k = 0; k < o.t.length; k++) {
+      const ch = o.t[k];
+      text += ch;
+      fsArr.push(ch === "\n" ? 0 : o.fs);
+      yArr.push(700 - line * 12 + (o.dy || 0));
+      x0Arr.push(x);
+      x1Arr.push(x + o.t.length * o.fs * 0.5);
+      itemArr.push(idx);
+      if (ch === "\n") { line++; x = 50; }
+    }
+    x += o.t.length * o.fs * 0.5;
+  });
+  const g = { fs: Float32Array.from(fsArr), y: Float32Array.from(yArr), x0: Float32Array.from(x0Arr), x1: Float32Array.from(x1Arr), item: Int32Array.from(itemArr) };
+  return { text, geom: g };
+}
+const BODY = "이 문단은 본문 글자 크기를 정하기 위한 충분히 긴 글이다. ".repeat(3);
+function sup(segs, max) {
+  const p = geomPage([BODY].concat(segs));
+  return R.findSuperscriptCitations(p.text, max === undefined ? 20 : max, p.geom).map((c) => ({ s: p.text.slice(c.start, c.end), n: c.numbers }));
+}
+
+test("findSuperscriptCitations: 올라간 작은 번호는 인용이다 (한다.7) / Health)1)에 / word7,8) / word7-9))", () => {
+  assert.deepEqual(sup(["…라고 한다.", { sup: "7)" }, " 다음 문장"]), [{ s: "7)", n: [7] }]);
+  assert.deepEqual(sup(["(National Institute of Health)", { sup: "1)" }, "에 의하면"]), [{ s: "1)", n: [1] }]);
+  assert.deepEqual(sup(["후속 연구가 있다", { sup: "7,8)" }, " 그리고"]), [{ s: "7,8)", n: [7, 8] }]);
+  assert.deepEqual(sup(["후속 연구가 있다", { sup: "7-9)" }, " 그리고"]), [{ s: "7-9)", n: [7, 8, 9] }]);
+  assert.deepEqual(sup(["as shown previously.", { sup: "12,13" }, " Next we"]), [{ s: "12,13", n: [12, 13] }]);
+  assert.deepEqual(sup(["is a common disease", { sup: "1–3" }, " in adults. "]), [{ s: "1–3", n: [1, 2, 3] }]);
+});
+
+test("findSuperscriptCitations: 본문과 같은 크기이거나 올라가지 않은 숫자는 인용이 아니다", () => {
+  assert.deepEqual(sup(["…라고 한다.7) 다음"]), []);
+  assert.deepEqual(sup(["…라고 한다.", { t: "7)", fs: 10, dy: 0 }, " 다음"]), []); // 같은 크기
+  assert.deepEqual(sup(["…라고 한다.", { t: "7)", fs: 6, dy: 0 }, " 다음"]), []); // 작지만 올라가지 않음(아래 첨자 포함)
+  assert.deepEqual(sup(["…라고 한다.", { t: "7)", fs: 6, dy: -3 }, " 다음"]), []);
+  assert.deepEqual(sup(["…라고 한다.", { t: "7)", fs: 6, dy: 12 }, " 다음"]), []); // 너무 높음(다른 줄)
+});
+
+test("findSuperscriptCitations: 기하가 없거나 참고문헌이 번호식이 아니면 아무것도 찾지 않는다", () => {
+  const p = geomPage([BODY, "한다.", { sup: "7)" }, " 다음"]);
+  assert.deepEqual(R.findSuperscriptCitations(p.text, 20, null), []);
+  assert.deepEqual(R.findSuperscriptCitations(p.text, 20, { fs: new Float32Array(3) }), []);
+  assert.deepEqual(R.findSuperscriptCitations(p.text, 0, p.geom), []);
+});
+
+test("findSuperscriptCitations: 범위를 벗어난 번호는 버린다", () => {
+  assert.deepEqual(sup(["…한다.", { sup: "25)" }, " 다음"], 20), []);
+  assert.deepEqual(sup(["…한다.", { sup: "7-30)" }, " 다음"], 20), []);
+  assert.deepEqual(sup(["…한다.", { sup: "9-7)" }, " 다음"], 20), []);
+  assert.deepEqual(sup(["…한다.", { sup: "0)" }, " 다음"], 20), []);
+  assert.deepEqual(sup(["…한다.", { sup: "20)" }, " 다음"], 20), [{ s: "20)", n: [20] }]);
+});
+
+test("findSuperscriptCitations: 지수·단위·변수 뒤의 올라간 숫자는 인용이 아니다 (m2, cm3, x2, 10^3, Ca2+, χ2)", () => {
+  ["the area was 5 m", "volume of 3 cm", "where x", "the value of r", "and 10", "a ratio of 1.5×10", "level of Ca", "the χ", "area in km", "mol"].forEach((pre) => {
+    assert.deepEqual(sup([pre, { sup: "2" }, " was measured"]), [], pre + "2");
+    assert.deepEqual(sup([pre, { sup: "3)" }, " was measured"]), [], pre + "3)");
+  });
+  assert.deepEqual(sup(["level of Ca", { sup: "2+" }, " was"]), []);
+  assert.deepEqual(sup(["a rate of 10", { sup: "3" }, " per year"]), []);
+  assert.deepEqual(sup(["the area (m", { sup: "2" }, ") was"]), []);
+  assert.deepEqual(sup(["we use x", { sup: "2" }, " and y", { sup: "3" }, " here"]), []);
+});
+
+test("findSuperscriptCitations: 서수·표 값·단위 낱말은 인용이 아니다", () => {
+  assert.deepEqual(sup(["the 1", { sup: "st" }, " group"]), []);
+  assert.deepEqual(sup(["30 ㎠ and 5", { sup: "2" }, " value"]), []);
+  assert.deepEqual(sup(["Group A 12", { sup: "3" }, " 45 67"]), []);
+});
+
+test("findSuperscriptCitations: 저자 뒤 소속 번호와 각주 번호는 인용이 아니다", () => {
+  assert.deepEqual(sup(["Kim", { sup: "1" }, ", Lee", { sup: "2" }, ", Park", { sup: "3" }, " and Choi", { sup: "4" }, "\n"]), []);
+  assert.deepEqual(sup(["Kwon", { sup: "1" }, ", Lee", { sup: "2" }, "\n"]), []);
+  assert.deepEqual(sup(["김철수", { sup: "1" }, " 이영희", { sup: "2" }, "\n"]), []);
+  // 쪽 아래에 같은 번호로 시작하는 작은 글자 줄이 있으면 본문의 그 번호는 각주 표시다
+  const p = geomPage([BODY, "이 제도는 오래되었다.", { sup: "3)" }, " 다음 문장이다.\n", { t: "3) 각주 설명이 이어지는 작은 글자 줄이다 충분히 길다.\n", fs: 7, dy: 0 }]);
+  assert.deepEqual(R.findSuperscriptCitations(p.text, 20, p.geom), []);
+  // 같은 번호가 아니면 인용이다
+  const p2 = geomPage([BODY, "이 제도는 오래되었다.", { sup: "5)" }, " 다음 문장이다.\n", { t: "3) 각주 설명이 이어지는 작은 글자 줄이다 충분히 길다.\n", fs: 7, dy: 0 }]);
+  assert.equal(R.findSuperscriptCitations(p2.text, 20, p2.geom).length, 1);
+});
+
+test("findSuperscriptCitations: 줄 머리의 작은 번호(소속 표시 '1Department')와 한글 낱말에 붙은 괄호 없는 숫자는 인용이 아니다", () => {
+  assert.deepEqual(sup(["\n", { sup: "1" }, "Department of Medicine, Seoul\n"]), []);
+  assert.deepEqual(sup(["서울대학교", { sup: "1" }, " 연세대학교", { sup: "2" }, "\n"]), []);
+});
+
+test("charGeometry: pdf.js 글 조각의 크기·기준선·x 범위를 글자마다 돌려준다", () => {
+  const items = [
+    { str: "word", transform: [10, 0, 0, 10, 50, 700], width: 20 },
+    { str: "7", transform: [6, 0, 0, 6, 70, 704], width: 3 },
+    { str: "x", transform: [0, 10, -10, 0, 80, 700], width: 5 }, // 세로쓰기·회전
+  ];
+  const pt = { text: "word7x", charItem: Int32Array.from([0, 0, 0, 0, 1, 2]) };
+  const g = R.charGeometry(pt, items);
+  assert.equal(g.fs[0], 10);
+  assert.equal(g.fs[4], 6);
+  assert.equal(g.y[4], 704);
+  assert.equal(g.x1[3], 70);
+  assert.equal(g.fs[5], 0);
+  assert.equal(g.item[4], 1);
+  const un = R.charGeometry({ text: "ab", charItem: null }, items);
+  assert.equal(un.fs[0], 0);
+});
+
+test("findSuperscriptCitations: charGeometry 와 이어 쓰면 실제 조각 목록에서도 찾는다", () => {
+  const body = { str: BODY + "한다.", transform: [10, 0, 0, 10, 50, 700], width: 300 };
+  const s = { str: "7)", transform: [6, 0, 0, 6, 350, 704], width: 6 };
+  const tail = { str: " 다음 문장", transform: [10, 0, 0, 10, 356, 700], width: 40 };
+  const items = [body, s, tail];
+  const text = body.str + s.str + tail.str;
+  const charItem = [];
+  [body, s, tail].forEach((it, i) => { for (let k = 0; k < it.str.length; k++) charItem.push(i); });
+  const g = R.charGeometry({ text, charItem: Int32Array.from(charItem) }, items);
+  const found = R.findSuperscriptCitations(text, 10, g);
+  assert.equal(found.length, 1);
+  assert.deepEqual(found[0].numbers, [7]);
+});
+
+// ---------- 저자-연도 연결 보강 ----------
+function ayIdx(list, cite) {
+  const refs = R.splitReferences(list);
+  const c = R.findAuthorYearCitations(cite);
+  assert.ok(c.length >= 1, "인용을 못 찾음: " + cite);
+  return { refs, idx: R.matchAuthorYear(c[0], refs) };
+}
+
+test("matchAuthorYear: 한글 저자 수가 어긋나면(두 이름 인용 -> 세 저자 항목) 연결하지 않는다", () => {
+  const list = "김철수, 이영희, 박민수 (2020). 셋. 학회지.\n박민수 (2021). 혼자. 학회지.";
+  assert.equal(ayIdx(list, "김철수와 이영희(2020)").idx, -1);
+  assert.equal(ayIdx(list, "김철수, 이영희, 박민수(2020)").idx, 0);
+  assert.equal(ayIdx(list, "김철수 외(2020)").idx, 0);
+  assert.equal(ayIdx(list, "박민수(2021)").idx, 1);
+});
+
+test("matchAuthorYear: 한글 저자 한 명 + 따옴표 제목 항목은 홑저자다 (김학신, “제목”, 학술지, 2012)", () => {
+  const list = "김학신, “마약류 관리법상 청소년의 마약범죄 실태”, 법학논총, 제36권제1호, 2012, 469-505.\n공태명, 최응렬, “청소년 마약류범죄의 실태”, 보고, 제21권, 2012, 9-40.";
+  assert.equal(ayIdx(list, "(김학신, 2012)").idx, 0);
+  assert.equal(ayIdx(list, "(공태명, 최응렬, 2012)").idx, 1);
+  assert.equal(ayIdx(list, "(공태명, 2012)").idx, -1);
+});
+
+test("matchAuthorYear: 서양식 홑저자 + 쉼표 제목 항목 (Sellers, B. G., Title, Journal, 2015)", () => {
+  const list = "Sellers, B. G., Community-based recovery and youth justice, Criminal Justice and Behavior, Vol.42 No.1, 2015, 58-69.\nDervishi, E., & Ibrahimi, S., Risk factors related to juvenile drug use, Open Journal for Psychological Research, Vol.2 No.2, 2018, 1-9.";
+  assert.equal(ayIdx(list, "(Sellers, 2015)").idx, 0);
+  assert.equal(ayIdx(list, "(Dervishi & Ibrahimi, 2018)").idx, 1);
+  assert.equal(ayIdx(list, "(Dervishi, 2018)").idx, -1);
+  assert.equal(ayIdx(list, "(Dervishi, Ibrahimi, & Kim, 2018)").idx, -1);
+});
+
+test("matchAuthorYear: 기관명 + 문서 종류, 날짜형 연도 '(2022. 11. 10.)'", () => {
+  const list = "여성가족부 보도자료. (2022). 제4차 청소년보호종합대책.\n법제처(2022. 11. 10.). 국가법령정보. https://www.law.go.kr/";
+  assert.equal(ayIdx(list, "(여성가족부, 2022)").idx, 0);
+  assert.equal(ayIdx(list, "(법제처, 2022)").idx, 1);
+});
+
+test("splitReferences: 저자 목록이 길어 연도가 260자 밖이어도 항목 머리다 (그리고 본문 이어짐은 항목이 아니다)", () => {
+  const authors = "Caunca, Michelle R., Hannah Gardener, Marialaura Simonetto, Ying Kuen Cheung,\nNoam Alperin, Mitsuhiro Yoshita, Charles DeCarli, Mitchell S. V. Elkind,\nRalph L. Sacco, Clinton B. Wright, & Tatjana Rundek(2019), “Measures of obesity”, Neurology, 93(8): e791-e803.";
+  const list = "Berrios, German E.(1990), “Alzheimer's disease”, Int J Geriatr Psychiatry, 5(6): 355-365.\n" + authors + "\nGuo, De-Huang, Masaki Yamamoto(2020), “Visceral adipose”, Cell, 1: 1-2.";
+  const refs = R.splitReferences(list);
+  assert.equal(refs.length, 3);
+  const c = R.findAuthorYearCitations("Caunca et al.(2019)")[0];
+  assert.equal(R.matchAuthorYear(c, refs), 1);
+  // 저자 목록 중간 줄(앞 줄이 쉼표로 끝나지 않아도 앞 줄이 항목을 끝내지 않았으면) 은 시작이 아니다
+  assert.equal(R.splitReferences("Blanchard, Joel W., Michael Bula, Jose Davila-Velderrain, Leyla Anne Akay, Lena\nZhu, Alexander Frank, Matheus B. Victor, Julia Maeve Bonner, Hansruedi Mathys, Yuan-Ta Lin, Tak Ko, David A. Bennett, Hugh P. Cam, Manolis Kellis & Li-Huei Tsai(2020), “Title”, Nature, 26: 1-2.\nKim, A. (2019). Other. J, 1.").length, 2);
+});
+
+test("splitReferences: 앞 항목 끝에 이어 붙은 한글 항목을 나눈다 (…301-338. 김준호 외 5인. (2003). 책)", () => {
+  const list = "김은경. (2006). “한국 마약류 사용사범 특성 연구”, ｢형사정책연구｣, 65: 301-338. 김준호 외 5인. (2003). ｢청소년비행론｣, 청목출판사.\n조학래. (2009). 다른 연구. 학회지, 1: 1-2.";
+  const refs = R.splitReferences(list);
+  assert.equal(refs.length, 3);
+  assert.equal(ayIdx(list, "김준호 외 (2003)").idx, 1);
+  assert.equal(ayIdx(list, "(김은경, 2006)").idx, 0);
+  // 제목 속 문장 끝 뒤의 '연도' 는 나누지 않는다
+  assert.equal(R.splitReferences("김철수. (2020). 연구 방법의 변화. 학회지, 1: 1-2.\n이영희. (2019). 다른 논문. 학회지, 2: 3-4.").length, 2);
+});
+
+test("findTargets: 공백이 빠진 추출 글 'Table1.모려분의 성분분석'도 캡션이다 (본문 문장은 아니다)", () => {
+  const body = "본문 줄이다 가나다라마바사 아자차카 타파하 가나다.";
+  assert.equal(R.findTargets([body + "\nTable1.모려분의 성분분석\n" + body]).has("table:1"), true);
+  assert.equal(R.findTargets([body + "\nFigure2.Cartridgeplug formation\n" + body]).has("fig:2"), true);
+  assert.equal(R.findTargets([body + "\nTable1.결과는 다음과 같다.\n" + body]).has("table:1"), false);
+});
+
+test("findTargets: 제목이 수치로 시작하는 캡션 'Table 4 25 μmol m-2s-1 PPFD … results'", () => {
+  const body = "본문 줄이다 가나다라마바사 아자차카 타파하 가나다.";
+  assert.equal(R.findTargets([body + "\nTable 4 25 PPFD radish sprouts growth promotion test results\n" + body]).has("table:4"), true);
+  assert.equal(R.findTargets([body + "\nTable 4 25 mg were used\n" + body]).has("table:4"), false);
+});
+
+test("findTargets: 앞 줄이 'of the' 로 끝나도 줄 간격이 1.5배 이상 벌어진 같은 단의 'Fig. 2.' 는 캡션이다 (R4-4)", () => {
+  const mk = (gap, ffPrev, ffCap, fsCap) => {
+    const lines = [];
+    const meta = [];
+    for (let i = 0; i < 5; i++) { lines.push("Left column body line number " + i + " with some more words."); meta.push({ x0: 72, w: 220, fs: 9.8, y: 700 - i * 15, ff: "g_font_1" }); }
+    lines.push("the picture is shown on the right side of the"); meta.push({ x0: 72, w: 200, fs: 9.8, y: 625, ff: ffPrev });
+    lines.push("Fig. 2. (H&E, ×400)."); meta.push({ x0: 72, w: 60, fs: fsCap, y: 625 - gap, ff: ffCap });
+    return R.findTargets([lines.join("\n")], [meta]).has("fig:2");
+  };
+  assert.equal(mk(15, "g_font_1", "g_font_1", 9.8), false); // 같은 줄 간격: 본문 이어짐
+  assert.equal(mk(24, "g_font_1", "g_font_1", 9.8), true); // 1.6배 간격
+  assert.equal(mk(15, "g_font_1", "g_font_2", 9.8), true); // 글꼴 계열이 다름
+  assert.equal(mk(15, "g_font_1", "g_font_1", 8.6), true); // 글자 크기가 다름
+});
+
+test("로마 숫자 표 번호는 정규형만: Table IIII·VX·IIX 는 대상이 아니다, 'From Table I conclude' 는 Table I 캡션이 있을 때만 연결 (R4-7)", () => {
+  assert.deepEqual(crossKeys("Table IIII shows"), []);
+  assert.deepEqual(crossKeys("Table VX and Table IIX"), []);
+  assert.deepEqual(crossKeys("Tables IV, Table IX and Table XXXIX"), ["table:4", "table:9", "table:39"]);
+  assert.equal(R.findTargets(["Table IIII. Results\n본문"]).has("table:4"), false);
+  const body = "본문 줄이다 가나다라마바사 아자차카 타파하 가나다.";
+  const withCap = ["From Table I conclude that it works.\n" + body, "Table I. Summary of results\n" + body];
+  const a = R.analyzeDocument(withCap);
+  const ref = R.findCrossRefs(withCap[0]).map((x) => x.key);
+  assert.deepEqual(ref, ["table:1"]);
+  assert.equal(a.targets.has("table:1"), true);
+  const noCap = R.analyzeDocument(["From Table I conclude that it works.\n" + body, body]);
+  assert.equal(noCap.targets.has("table:1"), false);
+});
