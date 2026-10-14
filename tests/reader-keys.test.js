@@ -19,7 +19,6 @@ test("Ctrl+F / Cmd+F: 검색 입력으로 (입력란 안에서도)", () => {
 test("검색 입력의 Enter / Shift+Enter 는 search.js 가 처리한다(keyAction 은 null)", () => {
   assert.strictEqual(k("Enter", { inSearchInput: true, targetIsInput: true }), null);
   assert.strictEqual(k("Enter", { inSearchInput: true, targetIsInput: true, shiftKey: true }), null);
-  assert.strictEqual(k("Enter"), null);
   assert.strictEqual(k("Enter", { targetIsInput: true }), null);
 });
 
@@ -70,6 +69,32 @@ test("입력란에 초점이 있으면 [ ] 와 화살표·PageUp/PageDown 은 nu
 });
 
 test("그 밖의 키는 null", () => {
-  ["a", "Enter", "Tab", " ", "Home", "End", "F5", "ArrowUp", "ArrowDown"].forEach((key) => assert.strictEqual(k(key), null, key));
+  ["a", "Tab", " ", "Home", "End", "F5", "ArrowUp", "ArrowDown"].forEach((key) => assert.strictEqual(k(key), null, key));
   assert.strictEqual(keyAction(null), null);
+});
+
+test("N / Shift+N: 다음 / 이전 인용·그림·표 표시", () => {
+  assert.strictEqual(k("n"), "mark-next");
+  assert.strictEqual(k("N", { shiftKey: true }), "mark-prev");
+  assert.strictEqual(k("n", { shiftKey: true }), "mark-prev");
+});
+
+test("Enter / H / ?: 표시 열기 · 선택 도구로 · 단축키 안내", () => {
+  assert.strictEqual(k("Enter"), "mark-open");
+  assert.strictEqual(k("h"), "sel-tool");
+  assert.strictEqual(k("?", { shiftKey: true }), "help");
+  assert.strictEqual(k("Enter", { shiftKey: true }), null);
+  assert.strictEqual(k("H", { shiftKey: true }), null);
+});
+
+test("새 키는 입력란 안이나 Shift 외 수정키와 함께면 무시한다", () => {
+  ["n", "N", "h", "Enter", "?"].forEach((key) => {
+    assert.strictEqual(k(key, { targetIsInput: true }), null, key + " 입력란");
+    assert.strictEqual(k(key, { altKey: true }), null, key + " Alt");
+  });
+  ["n", "h", "Enter"].forEach((key) => {
+    assert.notStrictEqual(k(key, { ctrlKey: true }), "mark-next");
+    assert.strictEqual(k(key, { ctrlKey: true }), null, key + " Ctrl");
+    assert.strictEqual(k(key, { metaKey: true }), null, key + " Meta");
+  });
 });

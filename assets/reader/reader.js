@@ -6,7 +6,7 @@
   // 키 입력 하나가 리더에서 무엇을 뜻하는지(순수 함수: 시험이 직접 부른다). 스펙 §3.4 의 표.
   //   e = {key, ctrlKey, metaKey, shiftKey, altKey?, targetIsInput}  (검색 입력의 Enter 는 search.js 가 처리한다)
   //   반환: "search" | "zoom-in" | "zoom-out" | "fit-width" | "page-next" | "page-prev"
-  //         | "toggle-left" | "toggle-right" | "escape" | null
+  //         | "toggle-left" | "toggle-right" | "mark-next" | "mark-prev" | "mark-open" | "sel-tool" | "help" | "escape" | null
   // 입력란에 초점이 있으면 글자 키([ ]), 화살표, PageUp/PageDown 은 null. Esc 와 Ctrl+F 는 입력란에서도 동작한다.
   function keyAction(e) {
     if (!e) return null;
@@ -23,6 +23,10 @@
     if (e.altKey || e.targetIsInput) return null;
     if (key === "[") return "toggle-left";
     if (key === "]") return "toggle-right";
+    if (key === "?") return "help";
+    if (key === "n" || key === "N") return e.shiftKey ? "mark-prev" : "mark-next";
+    if (key === "h" || key === "H") return e.shiftKey ? null : "sel-tool";
+    if (key === "Enter") return e.shiftKey ? null : "mark-open";
     if (e.shiftKey) return null;
     if (key === "ArrowRight" || key === "PageDown") return "page-next";
     if (key === "ArrowLeft" || key === "PageUp") return "page-prev";
@@ -264,6 +268,33 @@
     return true;
   }
 
+  // ---------- 단축키 안내 ----------
+  var keysReturn = null;
+  function openKeys() {
+    var d = $("rd-keys");
+    if (!d || !d.hidden) return;
+    keysReturn = document.activeElement;
+    d.hidden = false;
+    var c = $("rd-keys-close");
+    if (c) c.focus();
+  }
+  function closeKeys() {
+    var d = $("rd-keys");
+    if (!d || d.hidden) return false;
+    d.hidden = true;
+    var r = keysReturn;
+    keysReturn = null;
+    if (r && r.focus && document.contains(r)) r.focus({ preventScroll: true });
+    else $("rd-scroll").focus({ preventScroll: true });
+    return true;
+  }
+  function bindKeys() {
+    var b = $("rd-keys-btn");
+    if (b) b.addEventListener("click", function () { var d = $("rd-keys"); if (d && d.hidden) openKeys(); else closeKeys(); });
+    var c = $("rd-keys-close");
+    if (c) c.addEventListener("click", closeKeys);
+  }
+
   // ---------- 키보드 ----------
   function isTextEntry(el) {
     if (!el || !el.tagName) return false;
@@ -286,6 +317,7 @@
   // Esc 한 번에 하나만 닫는다. 순서: 카드 → 선택한 용어 카드(옆 패널) → 선택 도구 → 편집 창 → 더보기 → 서랍 → 입력란 초점. 닫은 게 있으면 true.
   function closeTopmost() {
     var chain = [
+      closeKeys,
       function () { return !!(root.ReaderTerms && root.ReaderTerms.closeCard && root.ReaderTerms.closeCard()); },
       function () { return !!(root.ReaderTerms && root.ReaderTerms.clearFocus && root.ReaderTerms.clearFocus()); },
       function () { return root.ReaderPreview && root.ReaderPreview.closeCard ? root.ReaderPreview.closeCard() : false; },
@@ -306,7 +338,7 @@
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return false;
     var sc = $("rd-scroll");
     if (sc && sc.scrollWidth > sc.clientWidth + 1) return true;
-    return !!(ae && ae.closest && ae.closest(".rd-panel") && ae !== sc);
+    return !!(ae && ae.closest && (ae.closest(".rd-panel") || ae.closest("#rd-seltool")) && ae !== sc);
   }
 
   function onKeydown(e) {
@@ -336,6 +368,18 @@
       case "fit-width": e.preventDefault(); D.fitWidth(); return;
       case "page-next": if (drawer || arrowBelongsElsewhere(e, ae)) return; e.preventDefault(); D.goToPage(D.currentPage() + 1); return;
       case "page-prev": if (drawer || arrowBelongsElsewhere(e, ae)) return; e.preventDefault(); D.goToPage(D.currentPage() - 1); return;
+      case "help": e.preventDefault(); openKeys(); return;
+      case "mark-next": e.preventDefault(); if (root.ReaderPreview) root.ReaderPreview.focusNext(); return;
+      case "mark-prev": e.preventDefault(); if (root.ReaderPreview) root.ReaderPreview.focusPrev(); return;
+      case "sel-tool":
+        if (root.ReaderSelection && root.ReaderSelection.focusTool && root.ReaderSelection.focusTool()) e.preventDefault();
+        return;
+      case "mark-open":
+        // 단추·링크·탭에 초점이 있으면 그 Enter 는 그 요소의 것이다. 본문(또는 아무 데도 아님)일 때만 가로챈다.
+        if (ae && ae !== document.body && ae.id !== "rd-scroll" && !(ae.closest && ae.closest(".textLayer"))) return;
+        if (root.ReaderSelection && root.ReaderSelection.focusTool && root.ReaderSelection.focusTool()) { e.preventDefault(); return; }
+        if (root.ReaderPreview && root.ReaderPreview._focused && root.ReaderPreview._focused() && root.ReaderPreview.activateFocused()) e.preventDefault();
+        return;
       case "toggle-left": e.preventDefault(); root.ReaderPanels.toggle("left"); return;
       case "toggle-right": e.preventDefault(); root.ReaderPanels.toggle("right"); return;
     }
@@ -453,6 +497,7 @@
     ["ReaderAnnotations", function () { root.ReaderAnnotations.init(); }],
     ["ReaderTerms", function () { root.ReaderTerms.init(); }],
     ["toolbar", bindToolbar],
+    ["keys", bindKeys],
   ].forEach(function (s) {
     try { s[1](); } catch (err) { initFailed = true; console.error("[reader] 초기화 실패:", s[0], err); }
   });

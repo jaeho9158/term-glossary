@@ -446,7 +446,56 @@
   }
   function hideTool() {
     var el = tool();
-    if (el) el.hidden = true;
+    if (!el) return;
+    var had = el.contains(document.activeElement);
+    el.hidden = true;
+    if (had) restoreFocus();
+  }
+
+  // ---------- 키보드 ----------
+  // 키보드로 만든 선택(커서 탐색 + Shift+화살표 등)도 같은 selectionchange 길로 도구가 뜬다. 여기서는 도구로 초점을 옮기고 되돌리는 일만 한다.
+  var returnEl = null;
+  var lastPointerAt = 0;
+  var liveEl = null;
+  function restoreFocus() {
+    var r = returnEl;
+    returnEl = null;
+    if (r && r.focus && document.contains(r) && !(tool() && tool().contains(r))) r.focus({ preventScroll: true });
+    else if ($("rd-scroll")) $("rd-scroll").focus({ preventScroll: true });
+  }
+  function announce(msg) {
+    if (!$("reader")) return;
+    if (!liveEl || !liveEl.parentNode) {
+      liveEl = document.createElement("div");
+      liveEl.className = "rd-ref-live";
+      liveEl.setAttribute("role", "status");
+      liveEl.setAttribute("aria-live", "polite");
+      $("reader").appendChild(liveEl);
+    }
+    liveEl.textContent = "";
+    liveEl.textContent = msg;
+  }
+  // 도구가 떠 있으면 첫 단추(노랑)로 초점을 옮기고 true. 선택은 그대로 둔다.
+  function focusTool() {
+    var el = tool();
+    if (!cur || !el || el.hidden) return false;
+    if (!el.contains(document.activeElement)) returnEl = document.activeElement;
+    var b = el.querySelector("button[data-act]");
+    if (!b) return false;
+    b.focus({ preventScroll: true });
+    return true;
+  }
+  function onToolKey(e) {
+    var el = tool();
+    if (!el || el.hidden) return;
+    var k = e.key;
+    if (k !== "ArrowLeft" && k !== "ArrowRight" && k !== "Home" && k !== "End") return;
+    var btns = Array.prototype.slice.call(el.querySelectorAll("button[data-act]"));
+    var i = btns.indexOf(document.activeElement);
+    if (i < 0) return;
+    e.preventDefault();
+    var n = k === "Home" ? 0 : k === "End" ? btns.length - 1 : (i + (k === "ArrowRight" ? 1 : -1) + btns.length) % btns.length;
+    btns[n].focus({ preventScroll: true });
   }
 
   // ---------- 갱신 ----------
@@ -458,8 +507,10 @@
     var had = !!cur;
     cur = res;
     if (res) {
+      var wasHidden = !tool() || tool().hidden;
       drawPreview(res);
       showTool(res);
+      if (wasHidden && Date.now() - lastPointerAt > 1500) announce("선택 도구가 열렸습니다. H 또는 Enter를 누르면 선택 도구로 이동합니다.");
     } else {
       clearPreview();
       hideTool();
@@ -552,9 +603,11 @@
       el.addEventListener("mousedown", function (e) { e.preventDefault(); });
       el.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
       el.addEventListener("click", onToolClick);
+      el.addEventListener("keydown", onToolKey);
     }
     document.addEventListener("selectionchange", schedule);
     document.addEventListener("pointerdown", function (e) {
+      lastPointerAt = Date.now();
       var t = e.target;
       if (t.closest && t.closest("#rd-seltool")) return;
       down = true;
@@ -643,5 +696,6 @@
       return visible;
     },
     copyText: copyText,
+    focusTool: focusTool,
   };
 })(typeof window !== "undefined" ? window : globalThis);
