@@ -98,3 +98,14 @@ test("새 키는 입력란 안이나 Shift 외 수정키와 함께면 무시한�
     assert.strictEqual(k(key, { metaKey: true }), null, key + " Meta");
   });
 });
+
+test("단축키 창이 열려 있으면 Esc·? 외의 동작은 걸러진다", () => {
+  const { gateAction } = require("../assets/reader/reader.js");
+  for (const a of ["mark-next", "mark-prev", "mark-open", "sel-tool", "toggle-left", "toggle-right", "page-next", "page-prev", "zoom-in", "search"]) {
+    assert.strictEqual(gateAction(a, true), null);
+    assert.strictEqual(gateAction(a, false), a);
+  }
+  assert.strictEqual(gateAction("escape", true), "escape");
+  assert.strictEqual(gateAction("help", true), "help");
+  assert.strictEqual(gateAction(null, true), null);
+});

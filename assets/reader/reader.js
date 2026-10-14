@@ -32,9 +32,14 @@
     if (key === "ArrowLeft" || key === "PageUp") return "page-prev";
     return null;
   }
-  if (typeof module !== "undefined" && module.exports) module.exports = { keyAction: keyAction };
+  // 단축키 창이 열려 있는 동안에는 닫기(escape)와 안내(help)만 동작한다. 나머지는 뒤의 리더에 닿지 않게 null.
+  function gateAction(act, keysOpen) {
+    if (keysOpen && act !== "escape" && act !== "help") return null;
+    return act;
+  }
+  if (typeof module !== "undefined" && module.exports) module.exports = { keyAction: keyAction, gateAction: gateAction };
   if (typeof document === "undefined") return;
-  root.ReaderKeys = { keyAction: keyAction };
+  root.ReaderKeys = { keyAction: keyAction, gateAction: gateAction };
 
   var SCALE_KEY = "rd-scale";
   var ZOOM_STEP = 1.1;
@@ -275,8 +280,8 @@
     if (!d || !d.hidden) return;
     keysReturn = document.activeElement;
     d.hidden = false;
-    var c = $("rd-keys-close");
-    if (c) c.focus();
+    var f = d.querySelector("button, [href], input, select, textarea, [tabindex]");
+    if (f) f.focus();
   }
   function closeKeys() {
     var d = $("rd-keys");
@@ -293,6 +298,18 @@
     if (b) b.addEventListener("click", function () { var d = $("rd-keys"); if (d && d.hidden) openKeys(); else closeKeys(); });
     var c = $("rd-keys-close");
     if (c) c.addEventListener("click", closeKeys);
+    var d = $("rd-keys");
+    if (d) d.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var items = Array.prototype.filter.call(d.querySelectorAll("button, [href], input, select, textarea, [tabindex]"), function (el) {
+        return !el.disabled && el.tabIndex >= 0;
+      });
+      e.preventDefault();
+      if (!items.length) return;
+      var i = items.indexOf(document.activeElement);
+      var n = e.shiftKey ? (i <= 0 ? items.length - 1 : i - 1) : (i < 0 || i >= items.length - 1 ? 0 : i + 1);
+      items[n].focus();
+    });
   }
 
   // ---------- 키보드 ----------
@@ -348,6 +365,8 @@
       key: e.key, ctrlKey: e.ctrlKey, metaKey: e.metaKey, shiftKey: e.shiftKey, altKey: e.altKey,
       targetIsInput: isTextEntry(e.target) || isTextEntry(ae),
     });
+    var kd = $("rd-keys");
+    act = gateAction(act, !!(kd && !kd.hidden));
     if (!act) return;
     var D = root.ReaderDoc;
     var drawer = root.ReaderPanels.drawerOpen();
