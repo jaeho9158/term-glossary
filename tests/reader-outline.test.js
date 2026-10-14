@@ -256,7 +256,9 @@ test("굵기 입력 계약: line.bold === true 는 드문 글꼴과 같은 신�
 function titleProbe(texts) {
   const pages = [
     { page: 1, lines: [H("Abstract", 12, 60), ...bodyAt(25, 80), H("1. Introduction", 13, 480), ...bodyAt(5, 500)] },
-    { page: 2, lines: [...bodyAt(10, 60), ...texts.map((t, i) => H(t, 11.5, 220 + i * 40)), ...bodyAt(15, 220 + texts.length * 40 + 20)] },
+    { page: 2, lines: [...bodyAt(10, 60), ...texts.map((t, i) => H(t, 11.5, 220 + i * 40)), ...bodyAt(15, 220 + texts.length * 40 + 20),
+      // "Men and Women" 처럼 두 낱말이 본문에 나오는 제목만 받는다(이름 줄 규칙)
+      { text: "men women supply demand laboratory findings tests hospital course strengths limitations sample procedure measures instruments cells reagents animals housing", fontSize: 10, font: "B", x: 70, x2: 270, y: 900 }] },
     { page: 3, lines: [H("2. Methods", 13, 60), ...bodyAt(25, 80), H("References", 13, 480), ...bodyAt(5, 500)] },
   ];
   return titles(guessHeadings(pages)).filter((t) => texts.indexOf(t) >= 0);
@@ -530,4 +532,212 @@ test("제목 후보: 줄표·밑줄 점선 줄과 라틴 3글자 이하 조각�
     { page: 3, lines: [...bodyAt(10, 60), H("3. 결과", 13, 300), ...bodyAt(10, 320), H("참고문헌", 13, 480)] },
   ];
   assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "2. 연구방법", "3. 결과", "참고문헌"]);
+});
+
+// ---------- 잔여 결함 수정 (목차 추정) ----------
+const { promoteDocTitle } = require("../assets/reader/outline.js");
+// 본문 글꼴 B, 10pt, 폭 200 / 제목 글꼴 H
+const plain = (text, y, x, x2) => ({ text, fontSize: 10, font: "B", x: x === undefined ? 70 : x, x2: x2 === undefined ? 170 : x2, y });
+const outl = (pages) => guessHeadings(pages).map((e) => [e.title, e.page, e.level]);
+
+test("본문 크기 소제목: 앞 번호가 이어지는 짧은 한 줄만 제목이다(1.1 은 1. 아래, 2.1 은 2. 아래)", () => {
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(8, 60), H("1. 서론", 13, 200), plain("1.1 연구의 배경", 230), ...bodyAt(8, 262),
+      plain("1.2 연구의 방법", 390), ...bodyAt(8, 420)] },
+    { page: 2, lines: [H("2. 연구방법", 13, 60), plain("2.1 연구대상", 90), ...bodyAt(8, 122), plain("2.2 자료수집", 250), ...bodyAt(6, 280), H("참고문헌", 13, 600)] },
+  ];
+  assert.deepEqual(outl(pages), [
+    ["Abstract", 1, 1], ["1. 서론", 1, 1], ["1.1 연구의 배경", 1, 2], ["1.2 연구의 방법", 1, 2],
+    ["2. 연구방법", 2, 1], ["2.1 연구대상", 2, 2], ["2.2 자료수집", 2, 2], ["참고문헌", 2, 1],
+  ]);
+});
+
+test("본문 크기 소제목: 윗 번호가 없거나 번호가 거슬러 오르거나 단위·수식·문장·옆 칸이 있으면 받지 않는다", () => {
+  const sent = { text: "1.3 이 줄은 마침표로 끝나는 문장이다.", fontSize: 10, font: "B", x: 70, x2: 170, y: 440 };
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(8, 60), H("1. 서론", 13, 200), plain("1.1 연구의 배경", 230), ...bodyAt(8, 262),
+      plain("1.1 연구의 배경", 380), ...bodyAt(3, 410), // 번호가 거슬러 오름(되풀이)
+      plain("3.1 윗 번호 없는 소절", 460), ...bodyAt(3, 490), // 3. 이 없다
+      plain("1.5 Hz 자극", 540), ...bodyAt(3, 570), // 단위
+      plain("1.6 Y = aX + b", 620), ...bodyAt(3, 650), // 수식
+      sent, ...bodyAt(3, 470),
+      plain("1.7 표 칸", 700), plain("12.5", 700, 200, 230), ...bodyAt(3, 730), // 같은 줄 옆 칸
+    ] },
+    { page: 2, lines: [H("2. 결과", 13, 60), ...bodyAt(8, 90), H("참고문헌", 13, 600)] },
+  ];
+  assert.deepEqual(outl(pages).map((e) => e[0]), ["Abstract", "1. 서론", "1.1 연구의 배경", "2. 결과", "참고문헌"]);
+});
+
+test("본문 크기 소제목: 본문 폭을 채우는 긴 줄·위아래가 붙은 줄은 받지 않는다", () => {
+  const wide = { text: "1.2 이 소절 이름은 아주 길어서 본문 폭을 거의 다 채운다", fontSize: 10, font: "B", x: 70, x2: 270, y: 400 };
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(8, 60), H("1. 서론", 13, 200), plain("1.1 연구의 배경", 230), ...bodyAt(8, 262), wide, ...bodyAt(3, 414)] },
+    { page: 2, lines: [H("2. 결과", 13, 60), ...bodyAt(8, 90), plain("2.1 붙은 줄", 218, 70, 270), ...bodyAt(3, 232), H("참고문헌", 13, 600)] },
+  ];
+  assert.deepEqual(outl(pages).map((e) => e[0]), ["Abstract", "1. 서론", "1.1 연구의 배경", "2. 결과", "참고문헌"]);
+});
+
+test("단독 표제어: 본문 크기·보통 굵기여도 줄에 이 말만 있으면 제목(<참고문헌>, 【Abstract】, References, <ABSTRACT>)", () => {
+  const heads = ["<참고문헌>", "【Abstract】", "References", "<ABSTRACT>", "참 고 문 헌", "REFERENCES", "초록", "요약", "감사의 글", "Acknowledgements", "부록", "Appendix"];
+  const pages = [
+    { page: 1, lines: [H("1. 서론", 13, 40), ...bodyAt(8, 60)] },
+    ...heads.map((h, i) => ({ page: i + 2, lines: [...bodyAt(4, 60), plain(h, 130, 70, 140), ...bodyAt(4, 150)] })),
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)).slice(1), heads.map((h) => h));
+});
+
+test("단독 표제어: 옆 칸이 있는 표 안의 말이나 문장 속의 말은 제목이 아니다", () => {
+  const pages = [
+    { page: 1, lines: [H("1. 서론", 13, 40), H("2. 방법", 13, 70), ...bodyAt(8, 100),
+      plain("요약", 300, 70, 100), plain("12.4 ± 3.1", 300, 150, 200), // 표 칸
+      plain("참고문헌을 따랐다", 330, 70, 150), // 문장
+      ...bodyAt(4, 360)] },
+    { page: 2, lines: [H("3. 결과", 13, 60), ...bodyAt(4, 90), H("결론", 13, 300)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "2. 방법", "3. 결과", "결론"]);
+});
+
+test("참고문헌 제목을 놓치지 않으면 그 아래 '1. 국내문헌' 같은 구분은 이전 장의 하위로 매달리지 않는다", () => {
+  const pages = [
+    { page: 1, lines: [H("Ⅰ. 서론", 13, 40), ...bodyAt(8, 60), H("Ⅱ. 결론", 13, 200), ...bodyAt(8, 220)] },
+    { page: 2, lines: [plain("<참고문헌>", 60, 70, 140), H("1. 국내문헌", 11, 90), ...bodyAt(4, 110), H("2. 국외문헌", 11, 200), ...bodyAt(4, 220)] },
+  ];
+  assert.deepEqual(outl(pages), [["Ⅰ. 서론", 1, 1], ["Ⅱ. 결론", 1, 1], ["<참고문헌>", 2, 1]]);
+});
+
+test("표제어 아래에서 번호가 1 부터 다시 시작하면 그 표제어의 하위로 둔다(머리말·'1. 서론' 체계는 그대로)", () => {
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(6, 60), H("1. 서론", 13, 160), ...bodyAt(6, 180), H("결과", 13, 280), ...bodyAt(4, 300),
+      H("1. 검체 종류", 11.5, 360), ...bodyAt(4, 380), H("2. 유병률", 11.5, 450), ...bodyAt(4, 470), H("고찰", 13, 540), ...bodyAt(4, 560)] },
+    { page: 2, lines: [H("참고문헌", 13, 60)] },
+  ];
+  assert.deepEqual(outl(pages), [
+    ["Abstract", 1, 1], ["1. 서론", 1, 1], ["결과", 1, 1], ["1. 검체 종류", 1, 2], ["2. 유병률", 1, 2], ["고찰", 1, 1], ["참고문헌", 2, 1],
+  ]);
+});
+
+test("두 줄 제목: 같은 글꼴·크기로 바로 아래 이어지는 줄을 잇는다(내어쓰기·가운데 맞춤 포함, 세 줄·120자까지)", () => {
+  const h = (text, y, x, x2) => ({ text, fontSize: 11, font: "H", x, x2, y });
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(6, 60),
+      h("1. 서론 연구의 배경과 목적을 길게 쓴 제목의 첫째 줄", 200, 70, 270), h("둘째 줄", 213, 60, 110), ...bodyAt(4, 245),
+      h("2. 가운데 맞춤 제목의 첫 줄과", 330, 100, 260), h("둘째 줄", 343, 150, 210), ...bodyAt(4, 375),
+      h("3. 네 줄로 꺾인 제목의 첫 줄", 460, 70, 200), h("둘째 줄", 473, 70, 130), h("셋째 줄", 486, 70, 130), h("넷째 줄", 499, 70, 130), ...bodyAt(4, 530),
+      H("4. 문장이 끝난 제목.", 11, 620), H("다음 제목이 아닌 줄", 11, 633), ...bodyAt(3, 660),
+      H("참고문헌", 13, 800)] },
+  ];
+  const r = titles(guessHeadings(pages));
+  assert.ok(r.includes("1. 서론 연구의 배경과 목적을 길게 쓴 제목의 첫째 줄 둘째 줄"));
+  assert.ok(r.includes("2. 가운데 맞춤 제목의 첫 줄과 둘째 줄"));
+  assert.ok(r.includes("3. 네 줄로 꺾인 제목의 첫 줄 둘째 줄 셋째 줄"));
+  assert.ok(!r.some((t) => /다음 제목이 아닌 줄/.test(t)));
+});
+
+test("두 줄 제목: 단·쪽 끝에서 잘린 제목은 다음 단(쪽) 맨 위 줄이 이어질 때만 잇는다(소문자로 시작하거나 괄호가 열린 채)", () => {
+  const h = (text, y, x) => ({ text, fontSize: 11, font: "H", x, x2: x + 200, y });
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(6, 60), H("1. 서론", 13, 160), ...bodyAt(30, 180),
+      h("2.1 폴리페놀 함량 (Polyphenol", 640, 70)] },
+    { page: 2, lines: [h("and flavonoid content)", 60, 70), ...bodyAt(10, 90), H("2. 결과", 13, 400), ...bodyAt(10, 420)] },
+    { page: 3, lines: [...bodyAt(3, 60), H("3. 결론", 13, 200), ...bodyAt(30, 220), h("3.1 열린 괄호 없는 제목", 640, 70)] },
+    { page: 4, lines: [h("Capitalized Next Line", 60, 70), ...bodyAt(10, 90), H("참고문헌", 13, 500)] },
+  ];
+  const r = titles(guessHeadings(pages));
+  assert.ok(r.includes("2.1 폴리페놀 함량 (Polyphenol and flavonoid content)"), r.join("|"));
+  assert.ok(r.includes("3.1 열린 괄호 없는 제목"), r.join("|")); // 다음 쪽 줄이 대문자로 시작하고 괄호도 닫혀 있으니 잇지 않는다
+  assert.ok(!r.some((t) => /Capitalized/.test(t) && /3\.1/.test(t)));
+});
+
+test("첫 쪽 논문 제목·저자 줄은 목차에서 뺀다, 'Men and Women' 은 본문에 나오는 낱말일 때만 제목이다", () => {
+  const big = (text, y) => ({ text, fontSize: 18, font: "T", x: 70, x2: 300, y });
+  const pages = [
+    { page: 1, lines: [big("바이오 자성나노입자 연구의 현황과 전망", 60), H("Smith and Jones", 12, 100), H("Abstract", 12, 140), ...bodyAt(6, 160),
+      H("1. 서론", 13, 260), ...bodyAt(6, 280)] },
+    { page: 2, lines: [...bodyAt(3, 60), H("Smith and Jones", 12, 140), ...bodyAt(3, 160), H("Men and Women", 12, 240),
+      { text: "men were compared with women in this study design", fontSize: 10, font: "B", x: 70, x2: 270, y: 280 },
+      ...bodyAt(3, 300), H("2. 방법", 13, 400), ...bodyAt(4, 420), H("참고문헌", 13, 700)] },
+  ];
+  const r = titles(guessHeadings(pages));
+  assert.ok(!r.includes("바이오 자성나노입자 연구의 현황과 전망"));
+  assert.ok(!r.includes("Smith and Jones"));
+  assert.ok(r.includes("Men and Women"), r.join("|"));
+});
+
+test("내장 목차 첫 항목이 첫 쪽의 논문 제목이면 문서 제목으로 표시하고 아래 장·절을 한 단계 올린다", () => {
+  const mk = (title, page, level, children) => ({ title, page, y: 10, level, children: children || [] });
+  const tree = [mk("바이오-메디컬 자성나노입자 연구의 현황과 전망", 1, 1, [mk("Ⅰ. 개요", 1, 2, [mk("1. 배경", 1, 3)]), mk("Ⅱ. 정책", 3, 2)]), mk("부록", 9, 1)];
+  const lines = [{ text: "바이오-메디컬 자성나노입자", fontSize: 18, y: 60 }, { text: "연구의 현황과 전망", fontSize: 18, y: 84 }, { text: "저자", fontSize: 11, y: 120 }];
+  const r = flattenTree(promoteDocTitle(tree, lines));
+  assert.deepEqual(r.map((e) => [e.title, e.level, !!e.docTitle]), [
+    ["바이오-메디컬 자성나노입자 연구의 현황과 전망", 1, true], ["Ⅰ. 개요", 1, false], ["1. 배경", 2, false], ["Ⅱ. 정책", 1, false], ["부록", 1, false],
+  ]);
+  // 첫 쪽 제목과 다르면 그대로
+  const other = [mk("Ⅰ. 개요", 1, 1, [mk("1. 배경", 1, 2)]), mk("Ⅱ. 정책", 3, 1)];
+  assert.deepEqual(flattenTree(promoteDocTitle(other, lines)).map((e) => e.title), ["Ⅰ. 개요", "1. 배경", "Ⅱ. 정책"]);
+});
+
+test("번호 뒤에 단위나 수식이 오는 줄과 번호 순서가 이어지지 않는 점 없는 번호는 제목이 아니다", () => {
+  const pages = [
+    { page: 1, lines: [H("1. 서론", 13, 40), ...bodyAt(6, 60), H("2. 방법", 13, 160), ...bodyAt(4, 180),
+      H("5 Hz stimulation", 11.5, 260), ...bodyAt(3, 280), H("2) Y = aX + b", 11.5, 340), ...bodyAt(3, 360),
+      H("7 Results overview", 11.5, 440), ...bodyAt(3, 460), H("3. 결과", 13, 540), ...bodyAt(4, 560), H("참고문헌", 13, 700)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["1. 서론", "2. 방법", "3. 결과", "참고문헌"]);
+});
+
+test("두 단 쪽의 전폭 제목은 y 순서로 두 단 본문 앞에 놓이고, 전폭 줄 위의 항목은 그 앞에 온다", () => {
+  const w = (text, y, x, x2, size, font) => ({ text, fontSize: size || 12, font: font || "H", x, x2, y });
+  const left = (n, y0) => Array.from({ length: n }, (_, i) => longBody(60, y0 + i * 14));
+  const right = (n, y0) => Array.from({ length: n }, (_, i) => longBody(320, y0 + i * 14));
+  const page1 = { page: 1, gutter: 300, lines: [
+    ...left(6, 40), w("Abstract", 20, 60, 120), // 왼쪽 단 위쪽 제목
+    w("Ⅰ. 전폭 제목은 양쪽 단에 걸친다", 130, 120, 500, 14), // 전폭 줄
+    ...left(8, 150), w("1. 왼쪽 아래 제목", 300, 60, 160), ...left(4, 320),
+    w("2. 오른쪽 위 제목", 160, 320, 420), ...right(8, 180),
+  ] };
+  const page2 = { page: 2, gutter: 300, lines: [...left(6, 60), ...right(6, 60), w("Ⅱ. 결론", 400, 60, 140, 14), ...left(5, 420), H("참고문헌", 13, 600, 60)] };
+  const r = guessHeadings([page1, page2]);
+  assert.deepEqual(r.map((e) => e.title), ["Abstract", "Ⅰ. 전폭 제목은 양쪽 단에 걸친다", "1. 왼쪽 아래 제목", "2. 오른쪽 위 제목", "Ⅱ. 결론", "참고문헌"]);
+  const full = r[1];
+  assert.equal(full.fw, true);
+  assert.equal(full.col, 0);
+  assert.ok(r[2].by === full.by && r[3].by === full.by);
+});
+
+test("findCurrentEntry: 전폭 줄은 쪽을 위아래 구간으로 가르고, 구간 안에서만 왼쪽→오른쪽 단 규칙을 쓴다", () => {
+  const flat = [
+    { page: 1, y: 20, tc: true, col: 0, title: "위 왼쪽" },
+    { page: 1, y: 130, tc: true, col: 0, fw: true, by: 130, title: "전폭" },
+    { page: 1, y: 300, tc: true, col: 0, by: 130, title: "아래 왼쪽" },
+    { page: 1, y: 160, tc: true, col: 1, by: 130, title: "아래 오른쪽" },
+  ];
+  assert.equal(findCurrentEntry(flat, 1, 30), 0); // 전폭 줄 위, 왼쪽 단
+  assert.equal(findCurrentEntry(flat, 1, 135), 1); // 전폭 줄을 지났고 두 단 제목은 아직
+  assert.equal(findCurrentEntry(flat, 1, 200), 1); // 왼쪽 단 제목(300)을 지나기 전에는 오른쪽 단을 따르지 않는다
+  assert.equal(findCurrentEntry(flat, 1, 310), 3); // 왼쪽 마지막 제목을 지나면 오른쪽 단 항목
+  assert.equal(findCurrentEntry(flat, 2, 10), 3);
+});
+
+test("첫 제목 자리 판정은 읽는 순서로 한다: 오른쪽 단 위쪽의 번호 없는 제목은 왼쪽 단 아래의 첫 표제어 뒤에 놓여 받는다", () => {
+  const w = (text, y, x, x2, size, font) => ({ text, fontSize: size, font: font || "H", x, x2, y });
+  const left = (n, y0) => Array.from({ length: n }, (_, i) => longBody(60, y0 + i * 14));
+  const right = (n, y0) => Array.from({ length: n }, (_, i) => longBody(320, y0 + i * 14));
+  const pages = [
+    { page: 1, gutter: 300, lines: [...left(25, 60), w("Abstract", 420, 60, 140, 12), ...left(6, 440), w("세균에서의 QS", 100, 320, 420, 12), ...right(8, 130)] },
+    { page: 2, gutter: 300, lines: [w("1. 서론", 60, 60, 140, 13), ...left(8, 90), ...right(8, 90), w("참고문헌", 400, 60, 140, 13)] },
+  ];
+  assert.deepEqual(titles(guessHeadings(pages)), ["Abstract", "세균에서의 QS", "1. 서론", "참고문헌"]);
+});
+
+test("결정성: 쪽을 어떤 순서로 줘도(비동기 포함) 같은 목차가 나온다", async () => {
+  const pages = [
+    { page: 1, lines: [H("Abstract", 12, 40), ...bodyAt(8, 60), H("1. 서론", 13, 200), plain("1.1 연구의 배경", 230), ...bodyAt(8, 262)] },
+    { page: 2, lines: [H("2. 연구방법", 13, 60), plain("2.1 연구대상", 90), ...bodyAt(8, 122), H("결과", 13, 260), H("1. 검체", 11.5, 290), ...bodyAt(4, 310)] },
+    { page: 3, lines: [...bodyAt(5, 60), H("고찰", 13, 150), ...bodyAt(4, 170), H("참고문헌", 13, 300)] },
+  ];
+  const base = JSON.stringify(guessHeadings(pages));
+  const orders = [[2, 0, 1], [1, 2, 0], [2, 1, 0]];
+  for (const o of orders) assert.equal(JSON.stringify(guessHeadings(o.map((i) => pages[i]))), base);
+  assert.equal(JSON.stringify(await guessHeadingsAsync([pages[2], pages[0], pages[1]])), base);
+  assert.ok(JSON.parse(base).length >= 8);
 });
