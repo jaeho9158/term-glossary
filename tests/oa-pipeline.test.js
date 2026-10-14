@@ -5,7 +5,7 @@ const { parseIssue, parseJournalList, fieldOf } = require("../scripts/oa/collect
 const { stripExcluded, hangulCount } = require("../scripts/oa/extract-text.js");
 const { buildStats } = require("../scripts/oa/build-stats.js");
 const gen = require("../scripts/generate-viewer-index.js");
-const { applySenseContextRule, decodeDefChunk } = require("../assets/viewer.js");
+const { applySenseContextRule, decodeDefChunk } = require("../assets/term-match.js");
 
 test("수집기: 저널 이름으로 분야 코드", () => {
   assert.strictEqual(fieldOf("Korean Journal of Adult Nursing"), "nursing");

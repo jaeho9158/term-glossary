@@ -1,0 +1,93 @@
+/* 인용 카드와 그림·표·절·식 미리보기 (작업 7) */
+
+/* 표시는 마우스를 올렸을 때만 보인다. reader.css 의 .rd-rect.rd-ref 가 주는 밑줄(border-bottom)을 지우고 배경도 투명으로 둔다.
+   .rd-layer 를 붙여 reader.css 보다 구체적으로 만든다. */
+.rd-layer .rd-rect.rd-ref {
+  background: transparent;
+  border: 0;
+  border-bottom: 0;
+  border-radius: 2px;
+}
+.rd-layer .rd-rect.rd-ref.is-hover {
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+/* 키보드 초점(preview.js 의 focusNext / focusPrev): 마우스를 올리지 않아도 보이는 윤곽선 */
+.rd-layer .rd-rect.rd-ref.is-focus {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+@media (forced-colors: active) {
+  .rd-layer .rd-rect.rd-ref.is-focus { outline-color: Highlight; }
+}
+/* 화면 읽기 프로그램용 안내문(보이지 않는다) */
+.rd-ref-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+/* 표시 위에 있는 동안(preview.js 가 #rd-scroll 에 is-ref-hover 를 붙인다) 손 모양 */
+.rd-scroll.is-ref-hover,
+.rd-scroll.is-ref-hover .textLayer,
+.rd-scroll.is-ref-hover .textLayer * { cursor: pointer; }
+
+/* 카드: 용어 카드(45)보다 위 */
+.rd-ref-pop { z-index: 46; width: min(380px, calc(100vw - 16px)); overflow: auto; overscroll-behavior: contain; }
+.rd-ref-pop[hidden] { display: none; }
+
+.rd-ref-list { list-style: none; margin: 0; padding: 0; }
+.rd-ref-item + .rd-ref-item { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.rd-ref-text { margin: 0; font-size: 0.86rem; line-height: 1.55; word-break: break-word; }
+.rd-ref-actions { display: flex; gap: 14px; margin-top: 6px; }
+.rd-ref-go,
+.rd-ref-more,
+.rd-ref-prev-go {
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.rd-ref-go:hover,
+.rd-ref-more:hover,
+.rd-ref-prev-go:hover { text-decoration: underline; }
+.rd-ref-detail:empty { display: none; }
+.rd-ref-detail { margin-top: 8px; font-size: 0.82rem; }
+.rd-ref-more-count { margin: 8px 0 0; color: var(--muted); font-size: 0.82rem; }
+
+/* 미리보기: 마우스에서는 클릭을 가로채지 않는다 */
+.rd-ref-pop.is-preview { width: min(378px, calc(100vw - 16px)); padding: 8px; }
+.rd-ref-pop.is-preview:not(.is-touch):not(.is-kbd) { pointer-events: none; }
+.rd-ref-pop:focus-visible,
+.rd-ref-go:focus-visible,
+.rd-ref-more:focus-visible,
+.rd-ref-prev-go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rd-ref-prev-head { margin: 0 0 6px; color: var(--muted); font-size: 0.78rem; }
+.rd-ref-prev-body { color: var(--muted); font-size: 0.82rem; line-height: 0; }
+.rd-ref-prev-body canvas { display: block; max-width: 100%; height: auto !important; background: #fff; border-radius: 4px; border: 1px solid var(--border); }
+.rd-ref-pop.is-preview .rd-ref-prev-body:not(:has(canvas)) { line-height: 1.5; }
+.rd-ref-prev-go { margin-top: 6px; padding: 8px 4px; font-size: 0.9rem; }
+
+@media (max-width: 767px) {
+  .rd-ref-pop.is-sheet {
+    left: 8px !important;
+    right: 8px;
+    top: auto !important;
+    bottom: 8px;
+    width: auto;
+    z-index: 50;
+    max-height: 60vh;
+  }
+  .rd-ref-pop.is-preview.is-sheet { max-height: 70vh; }
+  .rd-ref-go, .rd-ref-more { padding: 8px 4px; font-size: 0.9rem; }
+}

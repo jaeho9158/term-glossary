@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>리더 인용·참조 연결 정밀도 측정</title>
+<style>
+  body { font: 14px/1.5 system-ui, "Malgun Gothic", sans-serif; margin: 16px; color: #1a1a1a; background: #fff; }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  h2 { font-size: 15px; margin: 22px 0 6px; }
+  h3 { font-size: 14px; margin: 14px 0 4px; }
+  table { border-collapse: collapse; margin: 6px 0 14px; }
+  th, td { border: 1px solid #bbb; padding: 3px 8px; vertical-align: top; font-variant-numeric: tabular-nums; }
+  td.n { text-align: right; }
+  td.ctx { max-width: 520px; }
+  td.ref { max-width: 520px; color: #124; background: #f4f8ff; }
+  td.miss { color: #a40; }
+  mark { background: #ffe066; }
+  #status { margin: 8px 0; color: #444; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 6px 0; }
+  code { background: #f1f1f1; padding: 0 3px; }
+  .small { color: #555; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>리더 인용·참조 연결 정밀도 측정 (스펙 §7.2)</h1>
+<p>PDF 를 열면 <code>refs.js</code> 로 참고문헌·인용·참조를 찾아, 연결된 것을 문서·형식마다 최대 30건 무작위(고정 시드)로 뽑아
+"주변 문장 / 연결된 참고문헌 문구(또는 참조 대상 줄)" 를 나란히 보여 준다. 표를 직접 읽고 맞음/틀림을 센다.
+재현율은 연결된 수 / 찾은 수(참고문헌 구역 밖의 것만).</p>
+<div class="row">
+  <input type="file" id="files" accept="application/pdf" multiple>
+  <button id="run" type="button">시작</button>
+</div>
+<p class="small">주소 인자: <code>?pdf=a.pdf,b.pdf</code>(이 페이지 기준 상대 주소, 쉼표로 여러 개) <code>&amp;seed=N</code>(기본 7) <code>&amp;n=30</code> <code>&amp;auto=1</code>(바로 시작)</p>
+<div id="status"></div>
+<div id="summary"></div>
+<div id="out"></div>
+<details><summary>JSON</summary><pre id="json" style="white-space:pre-wrap;word-break:break-all"></pre></details>
+
+<script type="module">
+  import * as pdfjsLib from "../assets/vendor/pdfjs/pdf.min.mjs";
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "../assets/vendor/pdfjs/pdf.worker.min.mjs";
+  window.pdfjsLib = pdfjsLib;
+  window.dispatchEvent(new Event("pdfjs-ready"));
+</script>
+<script src="../assets/term-match.js"></script>
+<script src="../assets/reader/geometry.js"></script>
+<script src="../assets/reader/text-map.js"></script>
+<script src="../assets/reader/refs.js"></script>
+<script>
+(function () {
+  "use strict";
+  var q = new URLSearchParams(location.search);
+  var SEED = parseInt(q.get("seed") || "7", 10);
+  var N = parseInt(q.get("n") || "30", 10);
+  var $ = function (id) { return document.getElementById(id); };
+  var R = window.ReaderRefs;
+  var RESULTS = [];
+  window.EVAL = { results: RESULTS };
+
+  function rng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6d2b79f5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function sample(list, n, seed) {
+    var r = rng(seed);
+    var idx = list.map(function (_, i) { return i; });
+    for (var i = idx.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
+    return idx.slice(0, n).sort(function (a, b) { return a - b; }).map(function (i) { return list[i]; });
+  }
+  function hashStr(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h >>> 0; }
+  function waitPdfjs() {
+    return new Promise(function (res) {
+      if (window.pdfjsLib) return res();
+      window.addEventListener("pdfjs-ready", function () { res(); }, { once: true });
+    });
+  }
+
+  async function pageTexts(pdf) {
+    var out = [];
+    out.raw = []; // 쪽마다 {pt, items}: 캡션이 있는 쪽의 줄 폭·글자 크기를 뽑는 데 쓴다(preview.js 와 같은 입력)
+    for (var n = 1; n <= pdf.numPages; n++) {
+      var page = await pdf.getPage(n);
+      var vp = page.getViewport({ scale: 1 });
+      var tc = await page.getTextContent();
+      var pt = window.ReaderTextMap.buildPageText(tc.items, vp.width);
+      out.raw.push({ pt: pt, items: tc.items });
+      out.push(pt.text);
+    }
+    return out;
+  }
+
+  function td(text, cls) { var e = document.createElement("td"); if (cls) e.className = cls; e.textContent = text; return e; }
+  function ctxCell(nt, start, end) {
+    var c = document.createElement("td");
+    c.className = "ctx";
+    var from = Math.max(0, start - 90);
+    var to = Math.min(nt.length, end + 70);
+    c.appendChild(document.createTextNode((from > 0 ? "…" : "") + nt.slice(from, start).replace(/\n/g, " ")));
+    var m = document.createElement("mark");
+    m.textContent = nt.slice(start, end).replace(/\n/g, " ");
+    c.appendChild(m);
+    c.appendChild(document.createTextNode(nt.slice(end, to).replace(/\n/g, " ") + (to < nt.length ? "…" : "")));
+    return c;
+  }
+  function pct(a, b) { return b ? (100 * a / b).toFixed(1) + "%" : "-"; }
+
+  function lineAtOffset(text, off) {
+    var s = text.lastIndexOf("\n", off - 1) + 1;
+    var e = text.indexOf("\n", off);
+    if (e < 0) e = text.length;
+    var e2 = text.indexOf("\n", e + 1);
+    if (e2 < 0) e2 = text.length;
+    return text.slice(s, e2).replace(/\n/g, " ⏎ ");
+  }
+
+  async function evalPdf(name, data) {
+    var pdf = await window.pdfjsLib.getDocument({ data: data }).promise;
+    var texts = await pageTexts(pdf);
+    var meta = [];
+    R.captionPages(texts).forEach(function (p) { meta[p - 1] = R.lineMetaFromItems(texts.raw[p - 1].pt, texts.raw[p - 1].items); });
+    var a = R.analyzeDocument(texts, meta);
+    var res = {
+      name: name, pages: texts.length,
+      section: a.section, refs: a.refs.length, numbered: a.numbered, refCount: a.refCount, targets: a.targets.size,
+      numericOk: a.numericOk, numeric: { found: 0, linked: 0, samples: [] },
+      authorYear: { found: 0, linked: 0, samples: [] },
+      xref: { fig: { found: 0, linked: 0 }, table: { found: 0, linked: 0 }, eq: { found: 0, linked: 0 }, sec: { found: 0, linked: 0 }, samples: [] },
+    };
+    var numAll = [], ayAll = [], xAll = [];
+    texts.forEach(function (t, i) {
+      var page = i + 1;
+      var nt = R.norm(t);
+      var sp = R.sectionSpanOnPage(a.section, page, t.length);
+      var inSec = function (s) { return !!sp && s >= sp.from && s < sp.to; };
+      if (a.numericOk) {
+        R.findNumericCitations(t, a.refCount).forEach(function (c) {
+          if (inSec(c.start)) return;
+          res.numeric.found++;
+          var refs = c.numbers.map(function (n) { return a.refs.find(function (r) { return r.n === n; }); });
+          var ok = refs.every(function (r) { return r && R.referenceUsable(a.display[a.refs.indexOf(r)]); });
+          if (ok) { res.numeric.linked++; numAll.push({ page: page, nt: nt, c: c, refs: refs }); }
+        });
+      }
+      R.findAuthorYearCitations(t).forEach(function (c) {
+        if (inSec(c.start)) return;
+        res.authorYear.found++;
+        var idx = a.refs.length ? R.matchAuthorYear(c, a.refs) : -1;
+        if (idx >= 0 && R.referenceUsable(a.display[idx])) { res.authorYear.linked++; ayAll.push({ page: page, nt: nt, c: c, ref: a.display[idx] }); }
+      });
+      R.findCrossRefs(t).forEach(function (x) {
+        if (inSec(x.start) || x.kind === "sec") return; // 절 참조는 목차가 필요해 측정 페이지에서는 제외
+        var bucket = res.xref[x.kind];
+        bucket.found++;
+        var tg = a.targets.get(x.key);
+        if (tg) {
+          var tl = lineAtOffset(texts[tg.page - 1], tg.offset);
+          var own = tg.page === page && x.start >= tg.offset && x.start < tg.offset + 200 && lineAtOffset(t, x.start) === tl;
+          if (own) return;
+          bucket.linked++;
+          xAll.push({ page: page, nt: nt, x: x, target: tg, tline: tl, linked: true });
+        } else xAll.push({ page: page, nt: nt, x: x, linked: false });
+      });
+    });
+    var seed = SEED + hashStr(name);
+    res.numeric.samples = sample(numAll, N, seed).map(function (s) {
+      return { page: s.page, nt: s.nt, start: s.c.start, end: s.c.end, ref: s.refs.map(function (r) { return "[" + r.n + "] " + a.display[a.refs.indexOf(r)].slice(0, 170); }).join("  ||  ") };
+    });
+    res.authorYear.samples = sample(ayAll, N, seed + 1).map(function (s) {
+      return { page: s.page, nt: s.nt, start: s.c.start, end: s.c.end, ref: s.ref.slice(0, 200) };
+    });
+    var xl = xAll.filter(function (s) { return s.linked; });
+    var xn = xAll.filter(function (s) { return !s.linked; });
+    res.xref.samples = sample(xl, N, seed + 2).map(function (s) {
+      return { page: s.page, nt: s.nt, start: s.x.start, end: s.x.end, key: s.x.key, target: "p." + s.target.page + ": " + s.tline.slice(0, 140) };
+    });
+    res.xref.notFoundSamples = sample(xn, 8, seed + 3).map(function (s) {
+      return { page: s.page, nt: s.nt, start: s.x.start, end: s.x.end, key: s.x.key };
+    });
+    res.refSample = (a.display || []).slice(0, 3).map(function (d) { return d.slice(0, 110); });
+    return res;
+  }
+
+  function sampleTable(title, rows, withRef) {
+    var h = document.createElement("h3");
+    h.textContent = title + " (" + rows.length + "건)";
+    var t = document.createElement("table");
+    var hr = document.createElement("tr");
+    ["#", "쪽", "주변 문장", withRef].forEach(function (x) { var th = document.createElement("th"); th.textContent = x; hr.appendChild(th); });
+    t.appendChild(hr);
+    rows.forEach(function (r, i) {
+      var tr = document.createElement("tr");
+      tr.appendChild(td(String(i + 1), "n"));
+      tr.appendChild(td(String(r.page), "n"));
+      tr.appendChild(ctxCell(r.nt, r.start, r.end));
+      tr.appendChild(td(r.ref || r.target || "(대상 없음)", r.ref || r.target ? "ref" : "miss"));
+      t.appendChild(tr);
+    });
+    var f = document.createDocumentFragment();
+    f.appendChild(h); f.appendChild(t);
+    return f;
+  }
+
+  function render(res) {
+    var out = $("out");
+    var h = document.createElement("h2");
+    h.textContent = res.name + " — " + res.pages + "쪽, 참고문헌 " + res.refs + "건" + (res.numbered ? "(번호식, 최대 번호 " + res.refCount + ")" : "(번호 없음)") + ", 대상 " + res.targets + "개";
+    out.appendChild(h);
+    var p = document.createElement("p");
+    p.className = "small";
+    p.textContent = "구역: " + JSON.stringify(res.section) + "  |  처음·끝 항목: " + res.refSample.join("  ·  ");
+    out.appendChild(p);
+    if (res.numeric.found) out.appendChild(sampleTable("번호식 인용 무작위", res.numeric.samples, "연결된 참고문헌"));
+    if (res.authorYear.found) out.appendChild(sampleTable("저자-연도식 인용 무작위", res.authorYear.samples, "연결된 참고문헌"));
+    if (res.xref.samples.length) out.appendChild(sampleTable("그림·표·식 참조 무작위", res.xref.samples, "대상 줄"));
+    if (res.xref.notFoundSamples.length) out.appendChild(sampleTable("대상을 못 찾은 참조 (일부)", res.xref.notFoundSamples, "대상"));
+  }
+
+  function renderSummary() {
+    var s = $("summary");
+    s.textContent = "";
+    var t = document.createElement("table");
+    var head = ["문서", "쪽", "참고문헌", "번호식 찾음", "연결", "재현율", "저자-연도 찾음", "연결", "재현율", "그림 찾음/연결", "표 찾음/연결", "식 찾음/연결"];
+    var hr = document.createElement("tr");
+    head.forEach(function (x) { var th = document.createElement("th"); th.textContent = x; hr.appendChild(th); });
+    t.appendChild(hr);
+    RESULTS.forEach(function (r) {
+      var tr = document.createElement("tr");
+      [r.name, r.pages, r.refs, r.numeric.found, r.numeric.linked, pct(r.numeric.linked, r.numeric.found),
+        r.authorYear.found, r.authorYear.linked, pct(r.authorYear.linked, r.authorYear.found),
+        r.xref.fig.found + " / " + r.xref.fig.linked, r.xref.table.found + " / " + r.xref.table.linked, r.xref.eq.found + " / " + r.xref.eq.linked
+      ].forEach(function (v, i) { tr.appendChild(td(String(v), i ? "n" : "")); });
+      t.appendChild(tr);
+    });
+    s.appendChild(t);
+    var slim = RESULTS.map(function (r) {
+      return { name: r.name, pages: r.pages, refs: r.refs, numbered: r.numbered, targets: r.targets, numeric: { found: r.numeric.found, linked: r.numeric.linked }, authorYear: { found: r.authorYear.found, linked: r.authorYear.linked }, xref: { fig: r.xref.fig, table: r.xref.table, eq: r.xref.eq } };
+    });
+    $("json").textContent = JSON.stringify(slim);
+    if (typeof console.table === "function") console.table(slim.map(function (r) { return { name: r.name, refs: r.refs, numFound: r.numeric.found, numLinked: r.numeric.linked, ayFound: r.authorYear.found, ayLinked: r.authorYear.linked }; }));
+  }
+
+  async function runFiles(items) {
+    $("out").textContent = "";
+    RESULTS.length = 0;
+    await waitPdfjs();
+    for (var i = 0; i < items.length; i++) {
+      $("status").textContent = "측정 중 (" + (i + 1) + "/" + items.length + "): " + items[i].name;
+      try {
+        var res = await evalPdf(items[i].name, items[i].data);
+        RESULTS.push(res);
+        render(res);
+      } catch (err) {
+        console.error(err);
+        var e = document.createElement("p");
+        e.textContent = items[i].name + " 실패: " + (err && err.message ? err.message : err);
+        $("out").appendChild(e);
+      }
+    }
+    renderSummary();
+    $("status").textContent = "끝";
+    window.EVAL.done = true;
+  }
+
+  $("run").addEventListener("click", async function () {
+    var fs = $("files").files;
+    var items = [];
+    for (var i = 0; i < fs.length; i++) items.push({ name: fs[i].name, data: new Uint8Array(await fs[i].arrayBuffer()) });
+    if (items.length) runFiles(items);
+  });
+
+  (async function () {
+    var list = (q.get("pdf") || "").split(",").map(function (x) { return x.trim(); }).filter(Boolean);
+    if (!list.length) return;
+    var items = [];
+    for (var i = 0; i < list.length; i++) {
+      var url = new URL(list[i], location.href);
+      if (url.origin !== location.origin) { $("status").textContent = "같은 출처의 상대 주소만 받습니다: " + list[i]; return; }
+      var r = await fetch(url.href);
+      if (!r.ok) { $("status").textContent = "불러오지 못함: " + list[i]; return; }
+      items.push({ name: decodeURIComponent(url.pathname.split("/").pop()), data: new Uint8Array(await r.arrayBuffer()) });
+    }
+    if (q.get("auto") === "1") runFiles(items);
+    else $("status").textContent = items.length + "개 준비됨 — auto=1 을 붙이면 바로 시작합니다.";
+  })();
+})();
+</script>
+</body>
+</html>

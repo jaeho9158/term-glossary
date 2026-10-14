@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { orderRangesForWrapping } = require("../assets/viewer.js");
+const { orderRangesForWrapping } = require("../assets/term-match.js");
 
 // wrapPageRange 에 오프셋 맵을 한 번 만들어 돌려 쓰려면 "시작 오프셋 내림차순"
 // 이어야 한다. 이 불변식이 깨지면 하이라이트가 조용히 엉뚱한 자리에 그어지므로,

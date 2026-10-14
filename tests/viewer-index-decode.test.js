@@ -2,7 +2,7 @@
 // 저장돼 있다. 디코더가 깨지면 "용어 찾기"가 조용히 0건이 되거나 카테고리
 // 필터가 빈 목록이 되므로, 생성 스크립트와 짝이 맞는지 여기서 고정한다.
 const assert = require("assert");
-const { decodeViewerIndex, defBucket, buildExactIndex } = require("../assets/viewer.js");
+const { decodeViewerIndex, defBucket, buildExactIndex } = require("../assets/term-match.js");
 const gen = require("../scripts/generate-viewer-index.js");
 
 // 정상: 행이 기존 term 객체 모양으로 복원되고 카테고리 코드가 되살아난다

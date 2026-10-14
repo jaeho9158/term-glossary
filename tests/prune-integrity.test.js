@@ -8,7 +8,7 @@ const path = require("path");
 
 const REPO = path.join(__dirname, "..");
 const ROOT = process.env.PRUNE_ROOT ? path.resolve(process.env.PRUNE_ROOT) : REPO;
-const viewer = require(path.join(REPO, "assets", "viewer.js"));
+const viewer = require(path.join(REPO, "assets", "term-match.js"));
 
 const terms = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
 const slugSet = new Set(terms.map((t) => t.slug));

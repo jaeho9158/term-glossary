@@ -1,9 +1,9 @@
 // normalizeWord / extractWords 는 용어 매칭 파이프라인의 맨 앞 단계다.
-// viewer.js에서 export되지 않아 추출 헬퍼로 테스트한다.
+// term-match.js에서 export되지 않아 추출 헬퍼로 테스트한다.
 const assert = require("assert");
 const { extract } = require("./helpers/extract-fn.js");
 
-const { normalizeWord, extractWords } = extract("assets/viewer.js", {
+const { normalizeWord, extractWords } = extract("assets/term-match.js", {
   fns: ["normalizeWord", "extractWords"],
 });
 

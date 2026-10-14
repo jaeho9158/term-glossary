@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { termCardHTML } = require("../assets/viewer.js");
+const { termCardHTML } = require("../assets/term-match.js");
 
 // Test 1: renders Korean name, English name, definition, and detail link
 {

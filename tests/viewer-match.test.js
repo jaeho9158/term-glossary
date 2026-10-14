@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { matchTerms } = require("../assets/viewer.js");
+const { matchTerms } = require("../assets/term-match.js");
 
 const terms = [
   { slug: "p-value", title_ko: "유의확률", title_en: "p-value", categories: ["stat"] },

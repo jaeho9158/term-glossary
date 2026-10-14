@@ -1,7 +1,7 @@
 // escapeHtml은 사용자가 붙여넣은 논문 텍스트가 통과하는 XSS 최종 방어선인데
 // 지금까지 직접 테스트가 없었다. 정상/경계/실패(악성 입력) 케이스를 고정한다.
 const assert = require("assert");
-const { escapeHtml } = require("../assets/viewer.js");
+const { escapeHtml } = require("../assets/term-match.js");
 
 // 정상: 특수문자 없는 텍스트는 그대로
 {

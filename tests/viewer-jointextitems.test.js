@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { joinTextItems, orderTextItemsByColumn } = require("../assets/viewer.js");
+const { joinTextItems, orderTextItemsByColumn } = require("../assets/term-match.js");
 
 // pdf.js text items: {str, transform: [scaleX, skewY, skewX, scaleY, x, y], width, hasEOL}.
 // height is derived from |transform[3]|; word-internal splits sit right next
@@ -106,4 +106,24 @@ console.log("joinTextItems: all tests passed");
   assert.strictEqual(joinTextItems([item("피 부 ,혈 관", 0, 0, 58)]).trim(), "피부 ,혈관");
   assert.strictEqual(joinTextItems([item("제 10인 자 (Xa)", 0, 0, 58)]).trim(), "제 10인자 (Xa)");
   assert.strictEqual(joinTextItems([item("혈액 응고의 외인성 경로", 0, 0, 120)]).trim(), "혈액 응고의 외인성 경로");
+}
+
+// 한 단 쪽인데 item 이 낱말마다 쪼개져 가운데 선 양쪽에 놓이는 경우(한글 문서 내보내기):
+// 줄이 이어져 있으므로 순서를 바꾸면 안 된다. 진짜 2단(단 사이 여백)은 그대로 왼쪽 단 먼저.
+{
+  const words = ["오늘", "우리는", "함께", "공부를", "시작했다", "그리고", "내일도", "계속한다"]; // 8 items/line
+  const single = [];
+  for (let line = 0; line < 5; line++) {
+    words.forEach((w, k) => single.push(item(w, 60 + k * 62, 700 - line * 20, 56, 12)));
+  }
+  assert.strictEqual(orderTextItemsByColumn(single, PAGE_W), single, "낱말마다 쪼개진 한 단 쪽은 순서 유지");
+
+  const two = [];
+  for (let line = 0; line < 5; line++) {
+    two.push(item("좌" + line, 50, 700 - line * 20, 200, 12));
+    two.push(item("우" + line, 330, 700 - line * 20, 200, 12));
+  }
+  const ordered = orderTextItemsByColumn(two, PAGE_W);
+  assert.notStrictEqual(ordered, two);
+  assert.strictEqual(ordered.map((i) => i.str).join(","), "좌0,좌1,좌2,좌3,좌4,우0,우1,우2,우3,우4", "진짜 2단은 왼쪽 단 먼저");
 }

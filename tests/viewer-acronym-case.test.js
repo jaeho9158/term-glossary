@@ -2,7 +2,7 @@
 // 참고문헌의 저자 성 "Daly"가 DALY(장애보정생존년수)로, 학명의 "var."
 // (변종)가 VaR(Value at Risk)로 잡히던 오탐(말뭉치 psychiatry, thesis-toc).
 const assert = require("assert");
-const { matchTerms } = require("../assets/viewer.js");
+const { matchTerms } = require("../assets/term-match.js");
 
 const terms = [
   { slug: "daly", title_ko: "장애보정생존년수", title_en: "DALY", categories: ["pubhealth"] },

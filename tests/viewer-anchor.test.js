@@ -6,7 +6,7 @@ const {
   resolveAnnotationAnchor,
   mergeOverlappingRanges,
   shouldPersistReanchor,
-} = require("../assets/viewer.js");
+} = require("../assets/term-match.js");
 
 test("findNearestOccurrence: 없으면 -1", () => {
   assert.strictEqual(findNearestOccurrence("가나다라", "마바", 0), -1);
@@ -141,4 +141,20 @@ test("shouldPersistReanchor: 공백 뺀 4글자 미만은 되저장하지 않는
   assert.strictEqual(shouldPersistReanchor("응력"), false);
   assert.strictEqual(shouldPersistReanchor("  값 "), false);
   assert.strictEqual(shouldPersistReanchor(null), false);
+});
+
+test("정규화한 글귀로도 제자리를 알아본다(공백·줄바꿈·NUL 연속은 공백 하나)", () => {
+  const { normalizeQuoteText, resolveAnnotationAnchor } = require("../assets/term-match.js");
+  assert.strictEqual(normalizeQuoteText(" 가 \n\n\n 나\u0000\u0000다 "), "가 나 다");
+  const text = "머리말\n급증 문제는 \n\n\n사용하였던 화석연료의 고갈";
+  const start = text.indexOf("급증");
+  const end = text.indexOf("고갈") + 2;
+  const quote = normalizeQuoteText(text.slice(start, end));
+  assert.deepStrictEqual(resolveAnnotationAnchor(text, { startOffset: start, endOffset: end, quoteText: quote }),
+    { startOffset: start, endOffset: end, status: "offset" });
+  // 위치가 어긋나도 공백 차이를 무시하고 원문 범위로 찾는다.
+  const found = resolveAnnotationAnchor("앞에 덧붙은 말 " + text, { startOffset: 0, endOffset: 5, quoteText: quote });
+  assert.strictEqual(found.status, "quote");
+  const shifted = "앞에 덧붙은 말 " + text;
+  assert.strictEqual(shifted.slice(found.startOffset, found.endOffset), text.slice(start, end));
 });

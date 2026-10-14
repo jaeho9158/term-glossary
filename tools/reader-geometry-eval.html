@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>리더 글자 상자 위치 측정</title>
+<style>
+  body { font: 14px/1.5 system-ui, "Malgun Gothic", sans-serif; margin: 16px; color: #1a1a1a; background: #fff; }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  h2 { font-size: 15px; margin: 20px 0 6px; }
+  table { border-collapse: collapse; margin: 6px 0 14px; }
+  th, td { border: 1px solid #bbb; padding: 3px 8px; text-align: right; font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  td.l { text-align: left; }
+  tr.total td { font-weight: 700; background: #f2f2f2; }
+  .pass { color: #0a7a2f; font-weight: 700; }
+  .fail { color: #b3261e; font-weight: 700; }
+  #status { margin: 8px 0; color: #444; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 6px 0; }
+  #gallery { display: flex; flex-wrap: wrap; gap: 8px; }
+  #gallery figure { margin: 0; border: 1px solid #ccc; padding: 2px; font-size: 11px; max-width: 360px; }
+  #gallery canvas { display: block; max-width: 356px; image-rendering: pixelated; }
+  code { background: #f1f1f1; padding: 0 3px; }
+  details { margin: 6px 0; }
+</style>
+</head>
+<body>
+<h1>리더 글자 상자 위치 측정 (스펙 §7.1)</h1>
+<p>쪽마다 낱말 20개를 고정 시드로 뽑아, <code>buildCharBoxes</code>가 계산한 낱말 상자를 캔버스에 실제로 그려진 글자와 견준다.
+<b>엄격 척도(머리 숫자)</b>: 낱말 잉크의 좌우 끝을 상자와 독립적으로 캔버스에서 구하고(앞 낱말 예측 오른쪽 끝 ~ 뒤 낱말 예측 왼쪽 끝 사이에서, 상자 세로 범위의 줄 띠에 든 잉크 덩어리의 합집합),
+좌우 끝 오차를 글자 높이 단위로 낸다. 상자가 이웃 글자 쪽으로 밀리면 구간 경계가 그 글자를 가르고 오차로 드러난다. 두 끝이 모두 0.25 이내면 맞음, 통과 기준 98%.
+<b>느슨 척도(이전 방식)</b>는 보조 열로 남긴다: 상자 안 잉크 90% 이상 + 경계가 가장 가까운 잉크 없는 틈에서 25% 이하.</p>
+<div class="row">
+  <input type="file" id="files" accept="application/pdf" multiple>
+  <label><input type="checkbox" id="both" checked> 글꼴 측정 켬 + 끔(<code>measure=off</code>) 둘 다 측정</label>
+  <button id="run" type="button">측정 시작</button>
+</div>
+<p>주소 인자: <code>?pdf=a.pdf,b.pdf</code>(같은 출처 상대 주소, 쉼표로 여러 개) <code>&amp;measure=off</code>(가중치 분할만) <code>&amp;both=1</code>(둘 다) <code>&amp;auto=1</code>(바로 시작) <code>&amp;seed=N</code> <code>&amp;words=20</code> <code>&amp;shift=0.5</code>(대조군: 상자를 글자 높이의 이 비율만큼 오른쪽으로 이동) <code>&amp;maxpages=N</code> <code>&amp;renderscale=1</code>(잉크 측정용 렌더 배율, 기본 2; 1·1.5 로 저해상도 보정 건너뛰기를 확인) <code>&amp;inkparam=thin:0,maxMove:0.3</code>(보정 조정값 덮어쓰기, 진단용) <code>&amp;refine=on</code>(잉크 보정 적용: 기준 잉크 범위는 보정 전 상자로 구하고, 보정된 가장자리를 같은 엄격 척도로 채점. 보정 전 결과는 <code>hit0</code>로 같이 낸다)
+<code>&amp;sample=docA,docB</code>(보정 모드에서 그 문서들의 낱말 그림을 무작위로 모아 눈으로 확인) <code>&amp;sampleper=10</code></p>
+<div id="status"></div>
+<div id="out"></div>
+<h2>보정이 0.4 넘게 옮긴 가장자리 (빨강 = 보정 전, 파랑 = 보정 후, 초록 = 독립으로 구한 잉크 끝)</h2>
+<div id="moved" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+<h2>무작위 낱말 그림 (파랑 = 화면에 보일 보정 상자, 쪽 캔버스 원본 픽셀 위)</h2>
+<div id="samples" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+<h2>가장 크게 틀린 낱말 24개 (빨강 = 계산한 상자, 초록 = 독립으로 구한 낱말 잉크의 좌우 끝)</h2>
+<div id="gallery"></div>
+<details><summary>JSON</summary><pre id="json" style="white-space:pre-wrap;word-break:break-all"></pre></details>
+
+<script type="module">
+  import * as pdfjsLib from "../assets/vendor/pdfjs/pdf.min.mjs";
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "../assets/vendor/pdfjs/pdf.worker.min.mjs";
+  window.pdfjsLib = pdfjsLib;
+  window.dispatchEvent(new Event("pdfjs-ready"));
+</script>
+<script src="../assets/term-match.js"></script>
+<script src="../assets/reader/geometry.js"></script>
+<script src="../assets/reader/text-map.js"></script>
+<script src="../assets/reader/ink.js"></script>
+<script>
+(function () {
+  "use strict";
+  var params = new URLSearchParams(location.search);
+  var SEED = Number(params.get("seed")) || 20261013; // 고정 시드: 같은 PDF 는 항상 같은 낱말을 뽑는다
+  var WORDS_PER_PAGE = Number(params.get("words")) || 20;
+  var MAX_PAGES = Number(params.get("maxpages")) || Infinity;
+  var RENDER_SCALE = Number(params.get("renderscale")) || 2; // 잉크 측정용 렌더 배율(상자 계산은 배율 1 좌표라 결과에 영향 없음). ink 보정은 배율 1 에서는 건너뛴다
+  var INK_LUM = 128;
+  var MIN_FRAC = 0.9; // 스펙 §7.1
+  var MAX_SHIFT = 0.25; // 글자 높이 대비
+  var PASS_RATE = 98;
+  var POLARITY = params.get("polarity") !== "off"; // off: 어두운 바탕 위 밝은 글자를 뒤집지 않는 엄격 판정
+  var SHIFT = Number(params.get("shift")) || 0; // 시험용 대조군: 모든 상자를 글자 높이의 이 비율만큼 오른쪽으로 민다(측정이 민감한지 확인)
+  var REFINE = params.get("refine") === "on";
+  (params.get("inkparam") || "").split(",").forEach(function (kv) { var p = kv.split(":"); if (p[0] && window.ReaderInk && p[0] in window.ReaderInk.params && isFinite(Number(p[1]))) window.ReaderInk.params[p[0]] = Number(p[1]); }); // 진단: 보정 조정값 덮어쓰기 (예: inkparam=thin:0,maxMove:0.3)
+  var SAMPLE_DOCS = (params.get("sample") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+  var SAMPLE_PER = Number(params.get("sampleper")) || 10;
+  var G = window.ReaderGeometry;
+  var TMAP = window.ReaderTextMap;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6d2b79f5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function hashStr(s) {
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  }
+
+  function waitPdfjs() {
+    return new Promise(function (res) {
+      if (window.pdfjsLib) return res();
+      window.addEventListener("pdfjs-ready", function () { res(); }, { once: true });
+    });
+  }
+
+  function pickWords(cands, rng, n) {
+    var a = cands.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a.slice(0, n);
+  }
+
+  function makeInk(canvas) {
+    var ctx = canvas.getContext("2d");
+    var w = canvas.width, h = canvas.height;
+    var d = ctx.getImageData(0, 0, w, h).data;
+    var ink = new Uint8Array(w * h);
+    for (var i = 0, p = 0; i < ink.length; i++, p += 4) {
+      var lum = 0.299 * d[p] + 0.587 * d[p + 1] + 0.114 * d[p + 2];
+      ink[i] = lum < INK_LUM ? 1 : 0;
+    }
+    return { ink: ink, w: w, h: h };
+  }
+
+  // 한 낱말 상자 R(쪽 좌표, 배율 1)을 잉크 그림과 비교한다.
+  function judge(img, R) {
+    var S = RENDER_SCALE;
+    var g = R.h / 1.15; // 글자 높이(상자는 높이의 1.15배)
+    var W = img.w, H = img.h, ink = img.ink;
+    var xa = Math.max(0, Math.floor((R.x - g) * S));
+    var xb = Math.min(W - 1, Math.ceil((R.x + R.w + g) * S));
+    var ry0 = Math.max(0, Math.round(R.y * S));
+    var ry1 = Math.min(H, Math.round((R.y + R.h) * S));
+    if (xb <= xa || ry1 <= ry0) return { ok: false, reason: "쪽 밖", fracIn: 0, shiftL: NaN, shiftR: NaN, shiftPx: NaN, g: g };
+    // 극성: 상자 띠에서 어두운 픽셀이 절반을 넘으면 어두운 바탕 위의 밝은 글자로 보고 잉크 판정을 뒤집는다.
+    var dark = 0, cells = 0;
+    for (var y0 = ry0; y0 < ry1; y0++) for (var x0 = xa; x0 <= xb; x0++) { dark += ink[y0 * W + x0]; cells++; }
+    var inv = (POLARITY && dark / cells > 0.5) ? 1 : 0;
+    var col = new Uint8Array(xb - xa + 1);
+    for (var x = xa; x <= xb; x++) {
+      var any = 0;
+      for (var y = ry0; y < ry1; y++) if (ink[y * W + x] ^ inv) { any = 1; break; }
+      col[x - xa] = any;
+    }
+    var maxD = Math.ceil(1.5 * g * S);
+    function nearestGap(edge) {
+      var px = Math.round(edge * S);
+      for (var d = 0; d <= maxD; d++) {
+        var a = px - d, b = px + d;
+        if (a >= xa && a <= xb && !col[a - xa]) return { col: a, d: -d };
+        if (b >= xa && b <= xb && !col[b - xa]) return { col: b, d: d };
+      }
+      return null;
+    }
+    // 보조 척도(더 엄격): 상자 중심에서 시작해 "글자 사이 틈"(글자 높이의 0.2배 미만)은 건너뛰며 잉크가 이어지는
+    // 범위(낱말 잉크의 실제 좌우 끝)를 구하고, 상자 좌우 끝과의 차이를 잰다. 낱말 사이 띄어쓰기는 이 틈보다 넓다.
+    var gapMax = Math.max(1, Math.round(0.2 * g * S));
+    var mid = Math.round((R.x + R.w / 2) * S) - xa;
+    var c0 = -1;
+    for (var dd = 0; dd <= xb - xa && c0 < 0; dd++) {
+      if (mid - dd >= 0 && mid - dd < col.length && col[mid - dd]) c0 = mid - dd;
+      else if (mid + dd >= 0 && mid + dd < col.length && col[mid + dd]) c0 = mid + dd;
+    }
+    var devL = NaN, devR = NaN;
+    if (c0 >= 0) {
+      var ea = c0, eb = c0, run = 0, q;
+      for (q = c0 - 1; q >= 0; q--) { if (col[q]) { ea = q; run = 0; } else if (++run > gapMax) break; }
+      run = 0;
+      for (q = c0 + 1; q < col.length; q++) { if (col[q]) { eb = q; run = 0; } else if (++run > gapMax) break; }
+      devL = (R.x * S - (ea + xa)) / S; // + 이면 상자 왼쪽 끝이 잉크보다 오른쪽(글자를 자름)
+      devR = ((R.x + R.w) * S - (eb + xa + 1)) / S; // - 이면 상자 오른쪽 끝이 잉크보다 왼쪽(글자를 자름)
+    }
+    var gl = nearestGap(R.x);
+    var gr = nearestGap(R.x + R.w);
+    var shiftL = gl ? gl.d / S : Infinity; // 부호: +면 틈이 오른쪽(상자 경계가 글자 앞쪽을 자름)
+    var shiftR = gr ? gr.d / S : Infinity; // +면 틈이 오른쪽(상자가 글자보다 짧음)
+    var cx0 = gl ? gl.col : Math.round(R.x * S);
+    var cx1 = gr ? gr.col : Math.round((R.x + R.w) * S);
+    if (cx0 > cx1) { var tmp = cx0; cx0 = cx1; cx1 = tmp; }
+    cx0 = Math.max(xa, cx0); cx1 = Math.min(xb, cx1);
+    // 세로는 상자 위·아래로 첫 "잉크 없는 줄"까지(최대 글자 높이의 0.5배) 넓혀 잉크 전체를 센다.
+    var ext = Math.ceil(0.5 * g * S);
+    function rowInk(y) {
+      for (var x = cx0; x <= cx1; x++) if (ink[y * W + x] ^ inv) return true;
+      return false;
+    }
+    var top = ry0;
+    while (top > 0 && top > ry0 - ext && rowInk(top - 1)) top--;
+    var bot = ry1;
+    while (bot < H && bot < ry1 + ext && rowInk(bot)) bot++;
+    var inTotal = 0, inBox = 0;
+    var inkTop = Infinity, inkBot = -Infinity;
+    var bx0 = Math.round(R.x * S), bx1 = Math.round((R.x + R.w) * S);
+    for (var yy = top; yy < bot; yy++) {
+      for (var xx = cx0; xx <= cx1; xx++) {
+        if (!(ink[yy * W + xx] ^ inv)) continue;
+        if (yy < inkTop) inkTop = yy;
+        if (yy > inkBot) inkBot = yy;
+        inTotal++;
+        if (yy >= ry0 && yy < ry1 && xx >= bx0 && xx < bx1) inBox++;
+      }
+    }
+    var frac = inTotal ? inBox / inTotal : 0;
+    var shiftPx = Math.max(Math.abs(shiftL), Math.abs(shiftR));
+    var limit = MAX_SHIFT * g;
+    var reasons = [];
+    if (!inTotal) reasons.push("잉크 없음");
+    if (inTotal && frac < MIN_FRAC) reasons.push("상자 안 잉크 " + Math.round(frac * 100) + "%");
+    if (!(shiftPx <= limit)) reasons.push(shiftPx === Infinity ? "가까운 틈 없음" : "가로 어긋남 " + shiftPx.toFixed(1) + "px(글자 높이의 " + Math.round((shiftPx / g) * 100) + "%)");
+    return {
+      ok: reasons.length === 0,
+      reason: reasons.join(", "),
+      fracIn: frac, shiftL: shiftL, shiftR: shiftR, shiftPx: shiftPx, g: g, inverted: !!inv,
+      // 세로 여유(글자 높이 비율): + 이면 상자가 잉크보다 넓다, - 이면 잉크가 상자 밖으로 나온다.
+      topSlack: inTotal ? (inkTop - ry0) / S / g : NaN, botSlack: inTotal ? (ry1 - 1 - inkBot) / S / g : NaN,
+      devL: devL, devR: devR,
+      gl: gl && gl.col / S, gr: gr && gr.col / S,
+    };
+  }
+
+  // ---------- 엄격 척도: 낱말 잉크의 실제 좌우 끝을 상자와 독립적으로 구해 비교한다 ----------
+  //   1. 줄 띠: 상자의 세로 범위(위아래 12%씩 뺀 가운데)에서 세로 열마다 잉크 유무를 본다.
+  //   2. 상자 좌우 2×글자 높이 창 안에서 잉크 덩어리(글자 사이 틈 0.12×글자 높이 이하는 이음)를 구한다.
+  //   3. 낱말 구간 = 앞 낱말의 예측 오른쪽 끝 ~ 뒤 낱말의 예측 왼쪽 끝. 이 구간과 겹치는 덩어리(걸친 덩어리는 통째로)의
+  //      합집합이 그 낱말의 잉크다. 상자 자신의 좌우 끝은 쓰지 않는다. 예측이 한 글자 밀리면 구간 경계가 이웃 글자를
+  //      가르고, 그 글자가 통째로 들어와 한쪽 끝에 그 차이가 그대로 드러난다.
+  //   오차 = 상자 끝 - 잉크 끝, 글자 높이 단위. 왼쪽 오차 > 0 이면 상자가 글자 앞쪽을 자름, 오른쪽 오차 < 0 이면 뒤쪽을 자름.
+  var HIT_TOL = 0.25; // 양쪽 끝 모두 글자 높이의 25% 이내면 "엄격 맞음"
+  var CLIP_TOL = 0.25; // 한쪽 끝이라도 잉크를 25% 넘게 자르면 "잘림"
+  var WIDE_TOL = 0.5; // 한쪽 끝이라도 잉크 밖으로 50% 넘게 남으면 "과대"
+
+  function strictJudge(img, R, P, N) {
+    var S = RENDER_SCALE;
+    var g = R.h / 1.15;
+    var W = img.w, H = img.h, ink = img.ink;
+    var y0 = Math.max(0, Math.round((R.y + 0.12 * R.h) * S));
+    var y1 = Math.min(H, Math.round((R.y + 0.88 * R.h) * S));
+    var xa = Math.max(0, Math.floor((R.x - 2 * g) * S));
+    var xb = Math.min(W - 1, Math.ceil((R.x + R.w + 2 * g) * S));
+    if (xb <= xa || y1 <= y0) return { noInk: true, why: "쪽 밖" };
+    var dark = 0, cells = 0, x, y;
+    for (y = y0; y < y1; y++) for (x = xa; x <= xb; x++) { dark += ink[y * W + x]; cells++; }
+    var inv = (POLARITY && dark / cells > 0.5) ? 1 : 0;
+    var len = xb - xa + 1;
+    var col = new Uint8Array(len);
+    for (x = xa; x <= xb; x++) {
+      for (y = y0; y < y1; y++) if (ink[y * W + x] ^ inv) { col[x - xa] = 1; break; }
+    }
+    // 잉크 덩어리: 글자 사이 틈(글자 높이의 0.12배 이하)은 이어서 하나로 본다.
+    var gapMax = Math.max(1, Math.round(0.12 * g * S));
+    var runs = [];
+    var a = -1, last = -1;
+    for (x = 0; x < len; x++) {
+      if (!col[x]) continue;
+      if (a < 0) a = x;
+      else if (x - last - 1 > gapMax) { runs.push([a, last]); a = x; }
+      last = x;
+    }
+    if (a >= 0) runs.push([a, last]);
+    // 낱말 구간 = 앞 낱말 예측 오른쪽 끝 ~ 뒤 낱말 예측 왼쪽 끝(이웃이 없는 쪽은 상자 끝에서 허용 오차 0.25×글자 높이만큼 바깥).
+    // 이 구간과 충분히 겹치는 덩어리(구간에 걸친 덩어리는 통째로)의 합집합이 낱말 잉크다.
+    var lo = (P ? (P.x + P.w) : R.x - HIT_TOL * g) * S - xa;
+    var hi = (N ? N.x : R.x + R.w + HIT_TOL * g) * S - xa;
+    var L = Infinity, Rr = -Infinity;
+    runs.forEach(function (r) {
+      var ov = Math.min(r[1] + 1, hi) - Math.max(r[0], lo);
+      // 덩어리가 구간 안에 절반 이상 들어 있거나, 글자 높이의 0.35배 넘게 파고들면 이 낱말의 잉크로 본다.
+      if (ov > 0 && (ov >= 0.5 * (r[1] + 1 - r[0]) || ov >= 0.35 * g * S)) { if (r[0] < L) L = r[0]; if (r[1] + 1 > Rr) Rr = r[1] + 1; }
+    });
+    if (!(Rr > L)) return { noInk: true, why: "구간에 잉크 없음" };
+    L += xa; Rr += xa;
+    return {
+      noInk: false,
+      eL: (R.x * S - L) / S / g,
+      eR: ((R.x + R.w) * S - Rr) / S / g,
+      inkL: L / S, inkR: Rr / S, g: g, clippedByNeighbor: false, lo: (lo + xa) / S, hi: (hi + xa) / S,
+    };
+  }
+
+  function vOverlap(a, b) {
+    var inter = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+    return inter / Math.min(a.h, b.h);
+  }
+
+  // 같은 줄에서 바로 앞/뒤 낱말(사이가 공백뿐)의 예측 상자. 없으면 null.
+  function neighborBox(text, boxes, toks, ti, dir, R, g) {
+    var t = toks[ti + dir];
+    var cur = toks[ti];
+    if (!t) return null;
+    var between = dir < 0 ? text.slice(t.e, cur.s) : text.slice(cur.e, t.s);
+    if (!/^ +$/.test(between)) return null;
+    var rects = G.rangeRects(boxes, t.s, t.e);
+    if (!rects.length) return null;
+    var nb = dir < 0 ? rects[rects.length - 1] : rects[0];
+    if (vOverlap(nb, R) < 0.5) return null;
+    var gap = dir < 0 ? R.x - (nb.x + nb.w) : nb.x - (R.x + R.w);
+    if (gap > 2 * g || gap < -0.5 * g) return null;
+    return nb;
+  }
+
+  function candidateTokens(text, boxes) {
+    var toks = [];
+    var cands = [];
+    var re = /\S+/g;
+    var m;
+    while ((m = re.exec(text))) {
+      var s = m.index;
+      var e = s + m[0].length;
+      toks.push({ s: s, e: e, word: m[0] });
+      var letters = (m[0].match(/[가-힣A-Za-z0-9]/g) || []).length;
+      if (letters < 2) continue;
+      var ok = true;
+      for (var i = s; i < e; i++) if (!boxes[i]) { ok = false; break; }
+      if (ok) cands.push({ s: s, e: e, word: m[0], ti: toks.length - 1 });
+    }
+    return { toks: toks, cands: cands };
+  }
+
+  function cropWorst(img, R, j, label) {
+    var S = RENDER_SCALE;
+    var pad = R.h * 1.2;
+    var x0 = Math.max(0, Math.floor((R.x - pad) * S)), x1 = Math.min(img.w, Math.ceil((R.x + R.w + pad) * S));
+    var y0 = Math.max(0, Math.floor((R.y - R.h * 0.4) * S)), y1 = Math.min(img.h, Math.ceil((R.y + R.h * 1.4) * S));
+    var k = 3;
+    var c = document.createElement("canvas");
+    c.width = (x1 - x0) * k; c.height = (y1 - y0) * k;
+    var cx = c.getContext("2d");
+    cx.fillStyle = "#fff"; cx.fillRect(0, 0, c.width, c.height);
+    cx.fillStyle = "#000";
+    for (var y = y0; y < y1; y++) for (var x = x0; x < x1; x++) if (img.ink[y * img.w + x]) cx.fillRect((x - x0) * k, (y - y0) * k, k, k);
+    cx.strokeStyle = "rgba(220,0,0,0.95)"; cx.lineWidth = 1;
+    cx.strokeRect((R.x * S - x0) * k + 0.5, (R.y * S - y0) * k + 0.5, R.w * S * k, R.h * S * k);
+    cx.strokeStyle = "rgba(0,150,0,0.95)";
+    [j.inkL, j.inkR].forEach(function (v) {
+      var X = (v * S - x0) * k + 0.5;
+      cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, c.height); cx.stroke();
+    });
+    var f = document.createElement("figure");
+    f.appendChild(c);
+    var cap = document.createElement("figcaption");
+    cap.textContent = label;
+    f.appendChild(cap);
+    return f;
+  }
+
+  // 쪽 캔버스 원본 픽셀을 3배로 키우고 상자를 그린다. boxes = [{r, color}], lines = 세로선 x 목록(쪽 좌표, 초록)
+  function cropCanvas(canvas, R, boxes, lines, label) {
+    var S = RENDER_SCALE;
+    var pad = R.h * 1.2;
+    var x0 = Math.max(0, Math.floor((R.x - pad) * S)), x1 = Math.min(canvas.width, Math.ceil((R.x + R.w + pad) * S));
+    var y0 = Math.max(0, Math.floor((R.y - R.h * 0.4) * S)), y1 = Math.min(canvas.height, Math.ceil((R.y + R.h * 1.4) * S));
+    var k = 3;
+    var c = document.createElement("canvas");
+    c.width = (x1 - x0) * k; c.height = (y1 - y0) * k;
+    var cx = c.getContext("2d");
+    cx.imageSmoothingEnabled = false;
+    cx.drawImage(canvas, x0, y0, x1 - x0, y1 - y0, 0, 0, c.width, c.height);
+    boxes.forEach(function (b) {
+      cx.strokeStyle = b.color; cx.lineWidth = 1;
+      cx.strokeRect((b.r.x * S - x0) * k + 0.5, (b.r.y * S - y0) * k + 0.5, b.r.w * S * k, b.r.h * S * k);
+    });
+    cx.strokeStyle = "rgba(0,150,0,0.95)";
+    (lines || []).forEach(function (v) {
+      var X = (v * S - x0) * k + 0.5;
+      cx.beginPath(); cx.moveTo(X, 0); cx.lineTo(X, c.height); cx.stroke();
+    });
+    var f = document.createElement("figure");
+    f.appendChild(c);
+    var cap = document.createElement("figcaption");
+    cap.textContent = label;
+    f.appendChild(cap);
+    return f;
+  }
+
+  async function evalDoc(file, useMeasure, worst) {
+    var buf = await file.arrayBuffer();
+    var pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(buf), isEvalSupported: false }).promise;
+    var rec = { moved: [], samples: [], name: file.name, pages: pdf.numPages, pagesWithText: 0, words: [], skippedMultiRect: 0, misses: [], pieces: { measured: 0, weighted: 0 }, fonts: {} };
+    var measure = useMeasure ? TMAP.makeMeasure() : null;
+    var docSeed = SEED ^ hashStr(file.name);
+    var pages = Math.min(pdf.numPages, MAX_PAGES);
+    for (var n = 1; n <= pages; n++) {
+      $("status").textContent = file.name + " " + n + "/" + pages + (useMeasure ? " (글꼴 측정)" : " (측정 끔)");
+      var page = await pdf.getPage(n);
+      var vp1 = page.getViewport({ scale: 1 });
+      var vpS = page.getViewport({ scale: RENDER_SCALE });
+      var canvas = document.createElement("canvas");
+      canvas.width = Math.ceil(vpS.width); canvas.height = Math.ceil(vpS.height);
+      var ctx = canvas.getContext("2d", { willReadFrequently: true });
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      await page.render({ canvasContext: ctx, viewport: vpS }).promise; // 이때 글꼴이 document.fonts 에 등록된다
+      var tc = await page.getTextContent();
+      var items = tc.items;
+      var pt = TMAP.buildPageText(items, vp1.width);
+      if (!pt.text.trim()) { canvas.width = 0; continue; }
+      rec.pagesWithText++;
+      var counting = measure ? function (f, sz, str) {
+        var w = measure(f, sz, str);
+        if (w) rec.pieces.measured++; else rec.pieces.weighted++;
+        return w;
+      } : null;
+      var boxes = TMAP.buildCharBoxes(items, vp1.transform, pt, counting);
+      var rng = mulberry32((docSeed + n * 7919) >>> 0);
+      var tk = candidateTokens(pt.text, boxes);
+      var picks = pickWords(tk.cands, rng, WORDS_PER_PAGE);
+      var img = makeInk(canvas);
+      picks.forEach(function (w) {
+        var rects = G.rangeRects(boxes, w.s, w.e);
+        if (rects.length !== 1) { rec.skippedMultiRect++; return; }
+        var sh = function (b) { return b && (SHIFT ? { x: b.x + SHIFT * b.h / 1.15, y: b.y, w: b.w, h: b.h } : b); };
+        var box = sh(rects[0]);
+        var g = box.h / 1.15;
+        var P = sh(neighborBox(pt.text, boxes, tk.toks, w.ti, -1, rects[0], rects[0].h / 1.15));
+        var N = sh(neighborBox(pt.text, boxes, tk.toks, w.ti, +1, rects[0], rects[0].h / 1.15));
+        // 낱말을 이루는 모든 조각이 실제 글꼴로 측정됐는가
+        var measured = !!measure;
+        var fontName = null, str0 = "";
+        for (var ci = w.s; ci < w.e && measured; ci++) {
+          var itn = pt.charItem[ci];
+          if (itn < 0) continue;
+          var it = items[itn];
+          if (!fontName) { fontName = it.fontName; str0 = it.str.slice(0, 40); }
+          if (!measure(it.fontName, Math.abs(it.transform[3]) || Math.hypot(it.transform[0], it.transform[1]) || 10, it.str)) measured = false;
+        }
+        if (fontName) rec.fonts[fontName] = rec.fonts[fontName] || measured;
+        var sj = strictJudge(img, box, P, N);
+        var lj = judge(img, box); // 이전(느슨한) 척도
+        // 잉크 보정: 기준 잉크 범위(sj)는 위에서 보정 전 상자로 이미 구했다. 보정한 가장자리를 같은 척도로 채점한다.
+        var ref = box, eL0 = NaN, eR0 = NaN, mv = 0;
+        if (REFINE) {
+          ref = window.ReaderInk.refineRects(n, [box], { canvas: canvas, pageW: vp1.width, pageH: vp1.height })[0];
+          if (!sj.noInk) {
+            eL0 = sj.eL; eR0 = sj.eR;
+            mv = Math.max(Math.abs(ref.x - box.x), Math.abs(ref.x + ref.w - box.x - box.w)) / g;
+            sj.eL = (ref.x - sj.inkL) / g;
+            sj.eR = ((ref.x + ref.w) - sj.inkR) / g;
+          }
+        }
+        var cls = /[가-힣]/.test(w.word) ? "h" : "l";
+        var row = { sc: cls, m: measured ? 1 : 0, loose: lj.ok ? 1 : 0, noInk: sj.noInk ? 1 : 0, len: w.word.length };
+        if (REFINE) {
+          row.mv = mv;
+          row.hit0 = (!isNaN(eL0) && Math.abs(eL0) <= HIT_TOL && Math.abs(eR0) <= HIT_TOL) ? 1 : 0;
+          if (!sj.noInk && mv > 0.4 && rec.moved.length < 60) {
+            rec.moved.push({ rnd: rng(), fig: cropCanvas(canvas, box, [{ r: box, color: "rgba(220,0,0,0.95)" }, { r: ref, color: "rgba(20,60,255,0.95)" }], [sj.inkL, sj.inkR], rec.name + " p" + n + " \"" + w.word + "\" 이동 " + mv.toFixed(2) + " 오차 " + round2(eL0) + "/" + round2(eR0) + " -> " + round2(sj.eL) + "/" + round2(sj.eR)) });
+          }
+        }
+        if (REFINE && SAMPLE_DOCS.some(function (d) { return rec.name.indexOf(d) >= 0; }) && useMeasure && rng() < 0.12 && rec.samples.length < SAMPLE_PER * 2) {
+          rec.samples.push(cropCanvas(canvas, box, [{ r: ref, color: "rgba(20,60,255,0.95)" }], [], rec.name + " p" + n + " \"" + w.word + "\" " + (measured ? "측정" : "가중치")));
+        }
+        if (!sj.noInk) {
+          row.eL = sj.eL; row.eR = sj.eR;
+          row.hit = (Math.abs(sj.eL) <= HIT_TOL && Math.abs(sj.eR) <= HIT_TOL) ? 1 : 0;
+          row.clip = (sj.eL > CLIP_TOL || -sj.eR > CLIP_TOL) ? 1 : 0;
+          row.wide = (-sj.eL > WIDE_TOL || sj.eR > WIDE_TOL) ? 1 : 0;
+          row.nbr = sj.clippedByNeighbor ? 1 : 0;
+        } else { row.hit = 0; row.clip = 0; row.wide = 0; }
+        rec.words.push(row);
+        if (row.hit) return;
+        var kind = sj.noInk ? "잉크없음" : (sj.eL > CLIP_TOL ? "왼쪽 잘림" : (-sj.eR > CLIP_TOL ? "오른쪽 잘림" : (-sj.eL > HIT_TOL ? "왼쪽 여백" : "오른쪽 여백")));
+        if (!sj.noInk && sj.eL > CLIP_TOL && -sj.eR > CLIP_TOL) kind = "양쪽 잘림";
+        if (!sj.noInk && -sj.eL > HIT_TOL && sj.eR > HIT_TOL) kind = "양쪽 여백";
+        var score = sj.noInk ? 99 : Math.max(Math.abs(sj.eL), Math.abs(sj.eR));
+        var miss = { doc: rec.name, page: n, word: w.word, kind: kind, eL: sj.noInk ? null : round2(sj.eL), eR: sj.noInk ? null : round2(sj.eR), measured: measured, font: fontName, str: str0, score: score, nbr: (P ? 1 : 0) + (N ? 2 : 0), lo: sj.lo && round2((sj.lo - box.x) / g), hi: sj.hi && round2((sj.hi - box.x - box.w) / g) };
+        rec.misses.push(miss);
+        if (worst && !sj.noInk && (worst.list.length < worst.max || score > worst.list[worst.list.length - 1].score)) {
+          var fig = cropWorst(img, box, sj, rec.name + " p" + n + " \"" + w.word + "\" " + kind + " (" + miss.eL + " / " + miss.eR + ")" + (measured ? " 측정" : " 가중치"));
+          worst.list.push({ score: score, fig: fig });
+          worst.list.sort(function (a, b) { return b.score - a.score; });
+          if (worst.list.length > worst.max) worst.list.length = worst.max;
+        }
+      });
+      canvas.width = 0;
+      page.cleanup();
+    }
+    await pdf.destroy();
+    return rec;
+  }
+  function round2(v) { return Number.isFinite(v) ? Math.round(v * 100) / 100 : v; }
+
+  function pct(a, b) { return b ? (100 * a / b) : 0; }
+  function fmt(v) { return v.toFixed(1) + "%"; }
+  function quant(arr, q) {
+    if (!arr.length) return NaN;
+    var s = arr.slice().sort(function (a, b) { return a - b; });
+    var pos = (s.length - 1) * q;
+    var lo = Math.floor(pos), hi = Math.ceil(pos);
+    return s[lo] + (s[hi] - s[lo]) * (pos - lo);
+  }
+
+  function summarize(ws) {
+    var n = ws.length;
+    var o = { n: n, hit0: 0, big: 0, hit: 0, loose: 0, noInk: 0, clip: 0, wide: 0, nbr: 0 };
+    var aL = [], aR = [];
+    ws.forEach(function (w) {
+      o.hit += w.hit; o.hit0 += w.hit0 || 0; o.big += (w.mv > 0.4 ? 1 : 0); o.loose += w.loose; o.noInk += w.noInk; o.clip += w.clip; o.wide += w.wide; o.nbr += w.nbr || 0;
+      if (!w.noInk) { aL.push(Math.abs(w.eL)); aR.push(Math.abs(w.eR)); }
+    });
+    o.strictRate = pct(o.hit, n); o.strict0Rate = pct(o.hit0, n); o.bigRate = pct(o.big, n);
+    o.looseRate = pct(o.loose, n);
+    o.clipRate = pct(o.clip, n);
+    o.wideRate = pct(o.wide, n);
+    o.medL = quant(aL, 0.5); o.p95L = quant(aL, 0.95);
+    o.medR = quant(aR, 0.5); o.p95R = quant(aR, 0.95);
+    return o;
+  }
+  function f2(v) { return Number.isFinite(v) ? v.toFixed(2) : "-"; }
+  function summaryCells(s) {
+    return "<td>" + s.n + "</td>" + (REFINE ? "<td>" + fmt(s.strict0Rate) + "</td>" : "") + "<td><b>" + fmt(s.strictRate) + "</b></td><td>" + fmt(s.looseRate) + "</td><td>" + f2(s.medL) + "</td><td>" + f2(s.p95L) + "</td><td>" + f2(s.medR) + "</td><td>" + f2(s.p95R) + "</td><td>" + fmt(s.clipRate) + "</td><td>" + fmt(s.wideRate) + "</td><td>" + s.noInk + "</td>";
+  }
+  var SUM_HEAD = "<th>낱말</th>" + (REFINE ? "<th>보정 전 엄격</th>" : "") + "<th>엄격 맞음" + (REFINE ? "(보정 후)" : "") + "</th><th>느슨(이전 척도)</th><th>왼쪽 오차 중앙값</th><th>95%</th><th>오른쪽 오차 중앙값</th><th>95%</th><th>25% 넘게 잘림</th><th>50% 넘게 과대</th><th>잉크 없음</th>";
+
+  function renderTables(result) {
+    var out = $("out");
+    out.textContent = "";
+    var modes = result.modes;
+    var intro = document.createElement("p");
+    intro.innerHTML = "오차 단위 = 글자 높이. <b>엄격 맞음</b> = 낱말 잉크의 좌우 끝(상자와 독립적으로 캔버스에서 구함, 이웃 낱말 예측 상자로 검증)이 상자 좌우 끝에서 모두 0.25 이내. 통과 기준 " + PASS_RATE + "%." + (SHIFT ? " <b>대조군: 모든 상자를 글자 높이 " + SHIFT + "배 오른쪽으로 이동</b>" : "");
+    out.appendChild(intro);
+    modes.forEach(function (m) {
+      var all = [];
+      m.docs.forEach(function (d) { d.words.forEach(function (w) { all.push(w); }); });
+      m.all = all;
+      m.total = summarize(all);
+      var h = document.createElement("h2");
+      h.textContent = m.label + ": 문서별 (엄격 " + fmt(m.total.strictRate) + (m.total.strictRate >= PASS_RATE ? " 통과" : " 기준 미달") + ")";
+      out.appendChild(h);
+      var t = document.createElement("table");
+      t.innerHTML = "<tr><th>문서</th><th>쪽</th><th>글 있는 쪽</th>" + SUM_HEAD + "<th>건너뜀</th><th>조각 측정/가중치</th></tr>";
+      m.docs.forEach(function (d) {
+        var s = summarize(d.words);
+        d.summary = s;
+        var tr = document.createElement("tr");
+        if (!d.pagesWithText) {
+          tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>0</td><td class=\"l\" colspan=\"" + (REFINE ? 11 : 10) + "\">글 없음(스캔본으로 판단, 낱말 0개)</td><td>0</td><td>-</td>";
+        } else {
+          tr.innerHTML = "<td>" + esc(d.name) + "</td><td>" + d.pages + "</td><td>" + d.pagesWithText + "</td>" + summaryCells(s) + "<td>" + d.skippedMultiRect + "</td><td>" + d.pieces.measured + " / " + d.pieces.weighted + "</td>";
+        }
+        t.appendChild(tr);
+      });
+      var tot = document.createElement("tr");
+      tot.className = "total";
+      var pm = 0, pw = 0, sk = 0;
+      m.docs.forEach(function (d) { pm += d.pieces.measured; pw += d.pieces.weighted; sk += d.skippedMultiRect; });
+      tot.innerHTML = "<td>전체</td><td></td><td></td>" + summaryCells(m.total).replace("<b>" + fmt(m.total.strictRate) + "</b>", "<b class=\"" + (m.total.strictRate >= PASS_RATE ? "pass" : "fail") + "\">" + fmt(m.total.strictRate) + "</b>") + "<td>" + sk + "</td><td>" + pm + " / " + pw + "</td>";
+      t.appendChild(tot);
+      out.appendChild(t);
+
+      // 글자 종류 x 글꼴 측정 여부
+      var h2 = document.createElement("h2");
+      h2.textContent = m.label + ": 글자 종류별 · 측정/가중치별";
+      out.appendChild(h2);
+      var groups = [
+        ["전체", function () { return true; }],
+        ["한글 낱말", function (w) { return w.sc === "h"; }],
+        ["영문·숫자 낱말", function (w) { return w.sc === "l"; }],
+        ["실제 글꼴로 잰 낱말", function (w) { return w.m === 1; }],
+        ["가중치로 나눈 낱말", function (w) { return w.m === 0; }],
+        ["한글 + 측정", function (w) { return w.sc === "h" && w.m === 1; }],
+        ["한글 + 가중치", function (w) { return w.sc === "h" && w.m === 0; }],
+        ["영문·숫자 + 측정", function (w) { return w.sc === "l" && w.m === 1; }],
+        ["영문·숫자 + 가중치", function (w) { return w.sc === "l" && w.m === 0; }],
+        ["짧은 낱말(3자 이하)", function (w) { return w.len <= 3; }],
+        ["긴 낱말(4자 이상)", function (w) { return w.len >= 4; }],
+      ];
+      var gt = document.createElement("table");
+      gt.innerHTML = "<tr><th>구분</th>" + SUM_HEAD + "</tr>";
+      m.groups = {};
+      groups.forEach(function (gp) {
+        var s = summarize(all.filter(gp[1]));
+        m.groups[gp[0]] = s;
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + gp[0] + "</td>" + summaryCells(s);
+        gt.appendChild(tr);
+      });
+      out.appendChild(gt);
+
+      // 틀린 유형
+      var kinds = {};
+      var allMiss = [];
+      m.docs.forEach(function (d) { d.misses.forEach(function (x) { allMiss.push(x); kinds[x.kind] = (kinds[x.kind] || 0) + 1; }); });
+      allMiss.sort(function (a, b) { return b.score - a.score; });
+      m.kinds = kinds;
+      var h3 = document.createElement("h2");
+      h3.textContent = m.label + ": 틀린 낱말 " + allMiss.length + "개 — " + Object.keys(kinds).map(function (k) { return k + " " + kinds[k]; }).join(", ");
+      out.appendChild(h3);
+      var mt = document.createElement("table");
+      mt.innerHTML = "<tr><th>문서</th><th>쪽</th><th>낱말</th><th>유형</th><th>왼쪽 오차</th><th>오른쪽 오차</th><th>글꼴 측정</th><th>조각 글</th></tr>";
+      allMiss.slice(0, 80).forEach(function (x) {
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + esc(x.doc) + "</td><td>" + x.page + "</td><td class=\"l\">" + esc(x.word) + "</td><td class=\"l\">" + x.kind + "</td><td>" + x.eL + "</td><td>" + x.eR + "</td><td>" + (x.measured ? "예" : "아니오") + "</td><td class=\"l\">" + esc(x.str) + "</td>";
+        mt.appendChild(tr);
+      });
+      out.appendChild(mt);
+      m.worstMisses = allMiss.slice(0, 300);
+    });
+    console.table(modes.map(function (m) { return { 모드: m.label, 낱말: m.total.n, 엄격맞음: Math.round(m.total.strictRate * 100) / 100, 느슨: Math.round(m.total.looseRate * 100) / 100 }; }));
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]; }); }
+
+  window.__evalInternals = { strictJudge: strictJudge, makeInk: makeInk, neighborBox: neighborBox, candidateTokens: candidateTokens, RENDER_SCALE: RENDER_SCALE };
+
+  async function runAll(files, modeList) {
+    await waitPdfjs();
+    $("gallery").textContent = "";
+    var result = { seed: SEED, polarity: POLARITY, shift: SHIFT, wordsPerPage: WORDS_PER_PAGE, renderScale: RENDER_SCALE, criteria: { hitTolerance: HIT_TOL, clipTolerance: CLIP_TOL, wideTolerance: WIDE_TOL, passRate: PASS_RATE }, modes: [] };
+    var worst = { list: [], max: 24 };
+    for (var mi = 0; mi < modeList.length; mi++) {
+      var useMeasure = modeList[mi];
+      var m = { label: useMeasure ? "글꼴 측정" : "측정 끔(가중치)", measure: useMeasure, docs: [] };
+      for (var fi = 0; fi < files.length; fi++) {
+        // 최악 예시 그림은 측정 모드에서만 모은다.
+        m.docs.push(await evalDoc(files[fi], useMeasure, useMeasure ? worst : null));
+      }
+      result.modes.push(m);
+    }
+    renderTables(result);
+    window.__evalWords = result.modes.map(function (m) { return m.docs.map(function (d) { return { name: d.name, words: d.words }; }); });
+    if (REFINE) {
+      var mv = [];
+      var sm = [];
+      result.modes[0].docs.forEach(function (d) { d.moved.forEach(function (x) { mv.push(x); }); d.samples.slice(0, SAMPLE_PER).forEach(function (x) { sm.push(x); }); });
+      mv.sort(function (a, b) { return a.rnd - b.rnd; });
+      mv.slice(0, 10).forEach(function (x) { $("moved").appendChild(x.fig); });
+      sm.forEach(function (f) { $("samples").appendChild(f); });
+    }
+    worst.list.forEach(function (w) { $("gallery").appendChild(w.fig); });
+    // 요약 JSON(낱말별 원자료는 뺀다)
+    var slim = JSON.parse(JSON.stringify(result, function (k, v) { return (k === "words" || k === "all" || k === "moved" || k === "samples") ? undefined : v; }));
+    $("status").textContent = "끝. window.__evalResult 에 요약이 있습니다.";
+    $("json").textContent = JSON.stringify(slim);
+    window.__evalResult = slim;
+    window.__evalDone = true;
+    return result;
+  }
+
+  function modesFromUI() {
+    if (params.get("measure") === "off") return $("both").checked && params.get("both") === "1" ? [true, false] : [false];
+    return $("both").checked ? [true, false] : [true];
+  }
+
+  $("run").addEventListener("click", async function () {
+    var files = Array.prototype.slice.call($("files").files);
+    if (!files.length) { $("status").textContent = "PDF 를 고르세요."; return; }
+    try { await runAll(files, modesFromUI()); } catch (e) { console.error(e); $("status").textContent = "오류: " + e.message; }
+  });
+
+  async function auto() {
+    var list = (params.get("pdf") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!list.length) return;
+    $("both").checked = params.get("both") === "1" || (params.get("measure") !== "off" && params.get("both") !== "0");
+    if (params.get("measure") === "off" && params.get("both") !== "1") $("both").checked = false;
+    var files = [];
+    for (var i = 0; i < list.length; i++) {
+      var url = new URL(list[i], location.href);
+      if (url.origin !== location.origin) { $("status").textContent = "같은 출처의 PDF 만 받습니다: " + list[i]; return; }
+      var res = await fetch(url.href);
+      if (!res.ok) { $("status").textContent = "불러오기 실패: " + list[i] + " (HTTP " + res.status + ")"; return; }
+      var blob = await res.blob();
+      files.push(new File([blob], decodeURIComponent(url.pathname.split("/").pop()), { type: "application/pdf" }));
+    }
+    if (params.get("auto") === "1") {
+      var modes = params.get("measure") === "off" ? (params.get("both") === "1" ? [true, false] : [false]) : (params.get("both") === "0" ? [true] : [true, false]);
+      try { await runAll(files, modes); } catch (e) { console.error(e); $("status").textContent = "오류: " + e.message; window.__evalError = String(e && e.stack || e); }
+    } else {
+      $("status").textContent = files.length + "개 불러옴. '측정 시작'을 누르세요.";
+      window.__pending = files;
+    }
+  }
+  auto();
+})();
+</script>
+</body>
+</html>

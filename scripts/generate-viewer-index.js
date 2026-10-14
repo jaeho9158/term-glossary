@@ -16,7 +16,7 @@ const DEFS_DIR = path.join(ROOT_DIR, "viewer-defs");
 //
 // viewer-index.json은 키 이름 반복(37,416 × {"slug":...,"title_ko":...})만으로
 // 수 MB가 붙기 때문에 배열-of-배열로 저장하고, 카테고리 코드도 98종짜리
-// 사전의 인덱스 숫자로 치환한다. 디코더는 assets/viewer.js의
+// 사전의 인덱스 숫자로 치환한다. 디코더는 assets/term-match.js의
 // decodeViewerIndex()이며, 형식을 바꾸면 그쪽도 같이 고쳐야 한다.
 //
 // aliases는 넣지 않는다 — buildExactIndex()가 title_ko/title_en만 인덱싱하므로
@@ -28,7 +28,7 @@ const DEFS_DIR = path.join(ROOT_DIR, "viewer-defs");
 // 용어 몇 개 때문에 수백 KB를 받게 되므로 잘게 쪼개는 쪽이 싸다.
 const DEF_BUCKETS = 512;
 
-// FNV-1a. assets/viewer.js의 defBucket()과 반드시 같은 결과를 내야 한다.
+// FNV-1a. assets/term-match.js의 defBucket()과 반드시 같은 결과를 내야 한다.
 function defBucket(slug) {
   let h = 2166136261 >>> 0;
   for (let i = 0; i < slug.length; i++) {
@@ -146,7 +146,7 @@ function commonGrade(signals) {
 // 위 신호(df·분야·복합어)는 빈도가 높은 것만 잡아내므로, "직시"(df 1)나
 // "렌치"(df 3)처럼 사전 안에서 드문 말은 계산으로 절대 걸러지지 않는다.
 // 이걸 빼면 이미 고쳤던 오탐이 되살아나므로, 런타임 상수 대신 빌드 데이터로
-// 남긴다 — 런타임(assets/viewer.js)에는 더 이상 블록리스트가 없다.
+// 남긴다 — 런타임(assets/term-match.js)에는 더 이상 블록리스트가 없다.
 // "감사"는 옛 목록에서도 의도적으로 제외했다(감사 보고서류에서 실제로 쓰임).
 const CURATED_COMMON_WORDS = [
   "단가", "보존", "등록", "복원", "열화", "환수", "후원", "유증", "응답",
@@ -302,7 +302,7 @@ function isSenseTitle(t) {
 
 let senseStemsFn = null;
 function nounOf(word) {
-  if (!senseStemsFn) senseStemsFn = require("../assets/viewer.js").senseStems;
+  if (!senseStemsFn) senseStemsFn = require("../assets/term-match.js").senseStems;
   let best = null;
   for (const stem of senseStemsFn(word)) {
     if (stem.length >= 2 && stem.length <= 4 && (!best || stem.length < best.length)) best = stem;
@@ -433,7 +433,7 @@ function senseKeywords(terms) {
 }
 
 // 청크 항목: 정의만 있으면 문자열, 뜻 키워드(짧은 표제어)가 있으면 {d: 정의, s: "공백 구분
-// 키워드"}. 디코더는 assets/viewer.js의 decodeDefChunk()(문자열 항목도 그대로 읽는다).
+// 키워드"}. 디코더는 assets/term-match.js의 decodeDefChunk()(문자열 항목도 그대로 읽는다).
 // 정의가 비어도 뜻 키워드는 싣는다 — 규칙 1은 정의 유무와 무관하다.
 // outside(OA 연동 b): 실제 논문에서 자기 분야군 밖에서 주로 쓰인 용어면 o: 1을 단다.
 // 뜻 키워드가 있을 때만 의미가 있다(규칙 1이 키워드로 판별하므로).

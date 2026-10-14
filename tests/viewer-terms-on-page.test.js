@@ -1,5 +1,5 @@
 const assert = require("assert");
-const { buildPageOffsets, termsOnPage } = require("../assets/viewer.js");
+const { buildPageOffsets, termsOnPage } = require("../assets/term-match.js");
 
 // 읽기 모드에서 "지금 보고 있는 페이지의 용어"를 패널 맨 위에 올리기 위한 표.
 // 스크롤 때마다 다시 계산하면 느리므로 한 번 만들어 두고 page로 꺼내 쓴다.

@@ -1,6 +1,6 @@
 // 한 글자 표제어는 본문에 같은 글자가 있어도 매칭하지 않는다.
 const assert = require("assert");
-const { matchTerms } = require("../assets/viewer.js");
+const { matchTerms } = require("../assets/term-match.js");
 
 {
   const terms = [
