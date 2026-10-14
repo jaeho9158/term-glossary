@@ -16,6 +16,7 @@
     inkDelta: 40,         // 바탕과의 밝기 차이가 이 이상이면 잉크(0~255)
     minGapPx: 2.5,        // 낱말 사이 틈 기준(minGap·높이·배율)이 이 픽셀 수보다 작으면(저해상도) 보정하지 않는다
     thin: 0.3,            // 이 폭(높이 대비)보다 좁게 떨어진 잉크 덩어리는 "(" "「" 같은 얇은 글자로 보고 잘라내지 않는다
+    warmIdleMs: 300,      // 현재 쪽이 이만큼 머물면 그 쪽 잉크를 미리 읽는다
     keepMs: 4000,         // 쪽 잉크 버퍼를 마지막 사용 뒤 이만큼 두었다가 풀어 준다
     keepCurMs: 30000,     // 지금 보는 쪽의 버퍼는 이만큼 둔다(그 쪽에 표시를 하면 바로 보정되도록)
     retryMs: 1500,        // 잉크를 읽지 못했을 때 한 번 다시 시도하기까지의 시간
@@ -30,6 +31,14 @@
     hiTarget: 20,         // 사각형 높이가 이만큼의 픽셀이 되도록 렌더 배율을 정한다(작은 글자도 보정 기준 16.7px 를 넘기려고)
     hiMaxScale: 4,        // 렌더 배율 상한
     hiMaxPixels: 9e6,     // 쪽 하나의 렌더 픽셀 상한(메모리 보호). 넘으면 배율을 낮춘다
+    cellWin: 0.6,         // 글자 칸 나누기: 예상 경계 둘레로 칸 폭의 이만큼 안에서 골짜기를 찾는다
+    cellDepth: 0.5,       // 고른 골짜기의 잉크 양이 낱말 안 열 잉크 양 중앙값의 이 비율을 넘으면 골짜기가 없는 것으로 보고 건드리지 않는다
+    cellA: 2,             // 골짜기 고르기 비용: 잉크 양(중앙값 대비) 가중치
+    cellB: 4,             // 골짜기 고르기 비용: 예상 위치에서 떨어진 거리(칸 폭 단위 제곱) 가중치
+    cellMin: 0.1,           // 글자 칸 경계가 원래 자리에서 이보다(높이 대비) 가까우면 옮기지 않는다
+    cellZero: 1,          // 1 이면 잉크가 전혀 없는 열이 있는 골짜기만 쓴다
+    cellMove: 1,          // 글자 칸 경계로 옮길 수 있는 최대 거리(사각형 높이 대비)
+    cellRatio: 0.25,      // 낱말 잉크 폭이 예상 폭과 이 비율 넘게 다르면 칸 나누기를 하지 않는다
     trimMin: 0.5,         // 줄 끝·처음에서 잉크 없는 여백이 이 길이(사각형 높이 대비)를 넘으면 마지막/첫 잉크까지 줄인다
   };
 
@@ -83,6 +92,127 @@
   // RGBA imageData 용 호환 함수.
   function columnInk(imageData, x0, y0, w, h, delta) {
     return columnInkLum(toLum(imageData, 0, 0), x0, y0, w, h, delta);
+  }
+
+  // columnInkLum 과 같은 방식으로 띠를 읽되, 열마다 잉크 픽셀 수를 센다(글자 칸 나누기의 골짜기 깊이).
+  function columnCounts(src, x0, y0, w, h, delta) {
+    var out = new Uint16Array(Math.max(0, w));
+    var W = src.width, H = src.height, d = src.lum;
+    var xa = Math.max(0, x0), xb = Math.min(W, x0 + w);
+    var ya = Math.max(0, y0), yb = Math.min(H, y0 + h);
+    if (xb <= xa || yb <= ya) return out;
+    var thr = delta === undefined ? P.inkDelta : delta;
+    var hist = new Uint32Array(16), sum = new Float64Array(16);
+    var x, y, p, L;
+    for (y = ya; y < yb; y++) {
+      p = y * W + xa;
+      for (x = xa; x < xb; x++, p++) { L = d[p]; hist[L >> 4]++; sum[L >> 4] += L; }
+    }
+    var best = 0;
+    for (var i = 1; i < 16; i++) if (hist[i] > hist[best]) best = i;
+    var bg = sum[best] / hist[best];
+    for (y = ya; y < yb; y++) {
+      p = y * W + xa;
+      for (x = xa; x < xb; x++, p++) {
+        L = d[p] - bg;
+        if (L > thr || -L > thr) out[x - x0]++;
+      }
+    }
+    return out;
+  }
+
+  // 글자 칸 나누기(순수): 낱말의 열 잉크 양 counts(L..R 가 낱말의 잉크 폭, 열 번호)를 n 칸으로 나누는 n-1 개 경계를 고른다.
+  // 예상 경계 pred[1..n-1](열, 소수 가능) 둘레 ±win 안의 열 중, 잉크 양이 적고 예상에 가까운 것을 순서가 뒤바뀌지 않게 동적 계획으로 고른다.
+  // 반환: [{c, a, b, ok}] (경계 j=1..n-1 → 인덱스 j-1). c = 고른 열, [a, b) = 그 열을 포함한 잉크 최소 구간(0 이면 잉크 없는 틈, 아니면 한 열),
+  // ok = 골짜기가 뚜렷한가(잉크 양이 낱말 안 중앙값의 depth 배 이하).
+  function cellBoundaries(counts, L, R, pred, win, depth, wa, wb) {
+    var A = wa === undefined ? P.cellA : wa, B = wb === undefined ? P.cellB : wb;
+    var n = pred.length + 1;
+    if (n < 2 || !(R > L)) return null;
+    var cw = (R - L) / n;
+    var med = (function () {
+      var a = [];
+      for (var i = Math.max(0, Math.floor(L)); i < Math.min(counts.length, Math.ceil(R)); i++) if (counts[i] > 0) a.push(counts[i]);
+      if (!a.length) return 0;
+      a.sort(function (x, y) { return x - y; });
+      return a[a.length >> 1];
+    })();
+    if (!(med > 0)) return null;
+    var w = Math.max(1, Math.round(win * cw));
+    var cand = [], cost = [], from = [];
+    var j, i, k;
+    for (j = 0; j < pred.length; j++) {
+      var lo = Math.max(Math.ceil(L) + 1, Math.round(pred[j]) - w), hi = Math.min(Math.floor(R) - 1, Math.round(pred[j]) + w);
+      var cs = [];
+      for (i = lo; i <= hi; i++) cs.push(i);
+      if (!cs.length) cs.push(Math.max(0, Math.min(counts.length - 1, Math.round(pred[j]))));
+      cand.push(cs);
+      var cj = new Array(cs.length), fj = new Array(cs.length);
+      for (i = 0; i < cs.length; i++) {
+        var dx = (cs[i] - pred[j]) / cw;
+        var local = A * counts[cs[i]] / med + dx * dx * B;
+        var bestc = j === 0 ? 0 : Infinity, bestk = -1;
+        if (j > 0) {
+          for (k = 0; k < cand[j - 1].length; k++) {
+            if (cand[j - 1][k] < cs[i] && cost[j - 1][k] < bestc) { bestc = cost[j - 1][k]; bestk = k; }
+          }
+          if (bestk < 0) { bestc = Infinity; }
+        }
+        cj[i] = bestc + local; fj[i] = bestk;
+      }
+      cost.push(cj); from.push(fj);
+    }
+    var bi = -1, bc = Infinity;
+    for (i = 0; i < cand[pred.length - 1].length; i++) if (cost[pred.length - 1][i] < bc) { bc = cost[pred.length - 1][i]; bi = i; }
+    if (bi < 0 || bc === Infinity) return null;
+    var res = new Array(pred.length);
+    for (j = pred.length - 1; j >= 0; j--) {
+      var c = cand[j][bi];
+      var m = counts[c];
+      var a = c, b = c + 1;
+      while (a > 0 && counts[a - 1] <= m) a--;
+      while (b < counts.length && counts[b] <= m) b++;
+      res[j] = { c: c, a: a, b: b, ok: m <= depth * med };
+      bi = from[j][bi];
+    }
+    return res;
+  }
+
+  // 검색 결과의 낱말 안쪽 가장자리용 글자 칸 정보(순수). text/boxes = 쪽 글·글자 상자, [start,end) = 검색 범위.
+  // 낱말(공백 아닌 연속 구간) 전체가 한 줄에 놓이고 모든 글자에 상자가 있을 때만 {cellLeft / cellRight: {cells:[x0..xn], k}} 를 돌려준다.
+  // cells = 낱말 글자들의 경계 예상 위치(쪽 좌표, n+1 개), k = 이 가장자리가 놓인 경계 번호(1..n-1). 해당 없으면 빈 객체.
+  function cellEdges(text, boxes, start, end) {
+    var res = {};
+    var t = String(text == null ? "" : text);
+    if (!boxes || !(end > start)) return res;
+    var inside = function (i) { return i > 0 && i < t.length && !/\s/.test(t.charAt(i - 1)) && !/\s/.test(t.charAt(i)); };
+    var one = function (pos) {
+      var ws = pos, we = pos;
+      while (ws > 0 && !/\s/.test(t.charAt(ws - 1))) ws--;
+      while (we < t.length && !/\s/.test(t.charAt(we))) we++;
+      var n = we - ws;
+      if (n < 3 || n > 40) return null;
+      var xs = [];
+      var y0 = Infinity, y1 = -Infinity, i;
+      for (i = ws; i < we; i++) {
+        var b = boxes[i];
+        if (!b || !(b.w > 0)) return null;
+        xs.push(b.x);
+        if (b.y < y0) y0 = b.y;
+        if (b.y + b.h > y1) y1 = b.y + b.h;
+      }
+      xs.push(boxes[we - 1].x + boxes[we - 1].w);
+      // 한 줄: 모든 글자 상자가 같은 높이띠에 있고 가로로 차례대로 놓여야 한다.
+      var hh = y1 - y0;
+      for (i = ws; i < we; i++) {
+        if (boxes[i].h < 0.6 * hh || boxes[i].y - y0 > 0.4 * hh) return null;
+        if (i > ws && boxes[i].x < boxes[i - 1].x - 0.2 * boxes[i].h) return null;
+      }
+      return { cells: xs, k: pos - ws };
+    };
+    if (inside(start)) { var l = one(start); if (l) res.cellLeft = l; }
+    if (inside(end)) { var r = one(end); if (r) res.cellRight = r; }
+    return res;
   }
 
   // 잉크 없는 연속 구간 중 minGapPx 이상인 것: [{start, end}] (start 포함, end 미포함 = end 는 오른쪽 잉크의 첫 열).
@@ -162,6 +292,8 @@
     var r = en && typeof en.refineRight === "boolean" ? en.refineRight : base;
     if (en && !l && en.snapLeft && typeof en.snapLeft === "object") l = en.snapLeft;
     if (en && !r && en.snapRight && typeof en.snapRight === "object") r = en.snapRight;
+    if (en && !l && en.cellLeft && typeof en.cellLeft === "object") l = en.cellLeft;
+    if (en && !r && en.cellRight && typeof en.cellRight === "object") r = en.cellRight;
     return { left: l, right: r, any: !!(l || r) };
   }
 
@@ -173,6 +305,40 @@
     var o = {};
     for (var k in P) o[k] = opts && opts[k] !== undefined ? opts[k] : P[k];
     return o;
+  }
+
+  // 낱말 안쪽 가장자리: 낱말(f.cells = 글자 경계 예상 x 들, f.k = 이 가장자리의 경계 번호)의 잉크 열 분포를 글자 수만큼의 칸으로 나눠
+  // 경계 k 의 실제 위치를 쪽 좌표로 돌려준다. 골짜기가 뚜렷하지 않거나 어긋남이 크면 null(원래 자리).
+  function cellEdgeX(src, sx, sy, r, o, f, side) {
+    var cells = f.cells, n = cells.length - 1, k = f.k, h = r.h;
+    if (n < 3 || !(k > 0 && k < n)) return null;
+    var ox = src.ox, oy = src.oy;
+    var bx0 = Math.max(ox, Math.floor((cells[0] - o.bandSide * h) * sx));
+    var bx1 = Math.min(ox + src.width, Math.ceil((cells[n] + o.bandSide * h) * sx));
+    var by0 = Math.max(oy, Math.round((r.y + o.bandTop * h) * sy));
+    var by1 = Math.min(oy + src.height, Math.round((r.y + (1 - o.bandTop) * h) * sy));
+    if (bx1 - bx0 < 4 || by1 - by0 < 1) return null;
+    var counts = columnCounts(src, bx0 - ox, by0 - oy, bx1 - bx0, by1 - by0, o.inkDelta);
+    var col = new Uint8Array(counts.length);
+    for (var i = 0; i < counts.length; i++) col[i] = counts[i] > 0 ? 1 : 0;
+    var mg = Math.max(1, Math.round(o.minGap * h * sx));
+    var gl = gaps(col, mg);
+    var maxMove = o.maxMove * h * sx, thinPx = o.thin * h * sx;
+    var predL = cells[0] * sx - bx0, predR = cells[n] * sx - bx0;
+    var L = snapEdge(predL, gl, maxMove, "left", thinPx, mg, col.length);
+    var R = snapEdge(predR, gl, maxMove, "right", thinPx, mg, col.length);
+    var pw = predR - predL;
+    if (!(R > L) || Math.abs((R - L) - pw) > o.cellRatio * pw) { L = predL; R = predR; }
+    var pred = [];
+    for (var j = 1; j < n; j++) pred.push(L + (cells[j] - cells[0]) * sx * (R - L) / pw);
+    var bd = cellBoundaries(counts, L, R, pred, o.cellWin, o.cellDepth, o.cellA, o.cellB);
+    if (!bd || !bd[k - 1] || !bd[k - 1].ok) return null;
+    var v = bd[k - 1];
+    var x = side === "left" ? (v.b + bx0) / sx - o.pad * h : (v.a + bx0) / sx + o.pad * h;
+    var raw = (side === "left" ? r.x : r.x + r.w);
+    if (Math.abs(x - raw) > o.cellMove * h || Math.abs(x - raw) < o.cellMin * h) return null;
+    if (o.cellZero && counts[v.c] > 0) return null;
+    return x;
   }
 
   // 밝기 조각 src(캔버스 안 원점 ox,oy) 위에서 사각형 하나를 보정한다. fl/fr = 왼쪽/오른쪽 가장자리를 보정할지.
@@ -225,7 +391,10 @@
       return (pos + bx0) / sx;
     };
     if (fl) {
-      if (typeof fl === "object") {
+      if (typeof fl === "object" && fl.cells) {
+        var cl = cellEdgeX(src, sx, sy, r, o, fl, "left");
+        if (cl !== null) left = Math.min(r.x + r.w, cl);
+      } else if (typeof fl === "object") {
         var pl = punctEdge(fl, "left");
         if (pl !== null) left = Math.min(r.x + r.w, pl);
       } else {
@@ -242,7 +411,10 @@
       }
     }
     if (fr) {
-      if (typeof fr === "object") {
+      if (typeof fr === "object" && fr.cells) {
+        var cr = cellEdgeX(src, sx, sy, r, o, fr, "right");
+        if (cr !== null) right = Math.max(r.x, cr);
+      } else if (typeof fr === "object") {
         var pr = punctEdge(fr, "right");
         if (pr !== null) right = Math.max(r.x, pr);
       } else {
@@ -300,6 +472,14 @@
       });
       groups.forEach(function (g) {
         var gx0 = Math.max(0, Math.floor(g.x0 * sx) - 1), gx1 = Math.min(canvas.width, Math.ceil(g.x1 * sx) + 1);
+        // 낱말 안쪽 가장자리(글자 칸 나누기)는 낱말 전체의 잉크를 본다.
+        [[0, opts.refineLeft], [last, opts.refineRight]].forEach(function (e) {
+          var f = e[1];
+          if (g.idx.indexOf(e[0]) < 0 || !f || typeof f !== "object" || !f.cells) return;
+          var hh = rects[e[0]].h;
+          gx0 = Math.max(0, Math.min(gx0, Math.floor((f.cells[0] - o.bandSide * hh) * sx) - 1));
+          gx1 = Math.min(canvas.width, Math.max(gx1, Math.ceil((f.cells[f.cells.length - 1] + o.bandSide * hh) * sx) + 1));
+        });
         var gy0 = Math.max(0, Math.floor(g.y0 * sy)), gy1 = Math.min(canvas.height, Math.ceil(g.y1 * sy));
         var src = null;
         if (gx1 > gx0 && gy1 > gy0) {
@@ -336,7 +516,10 @@
 
   var keyMemo = new WeakMap(); // rects 배열 -> 키(마우스를 움직일 때마다 entryAt 이 부르므로 배열마다 한 번만 만든다)
   function edgeOpt(v) { return v === false ? false : (v && typeof v === "object" ? v : true); }
-  function edgeKey(f) { return f && typeof f === "object" ? "s" + f.c + ":" + f.r : (f ? "1" : "0"); }
+  function edgeKey(f) {
+    if (f && typeof f === "object") return f.cells ? "c" + f.k + ":" + f.cells.map(function (v) { return Math.round(v * 100); }).join(",") + ";" : "s" + f.c + ":" + f.r;
+    return f ? "1" : "0";
+  }
   var syncWin = 0, syncSpent = 0;
   function jobKey(rects, fl, fr) {
     var k = keyMemo.get(rects);
@@ -394,7 +577,7 @@
   function stateFor(page) {
     var st = state.get(page);
     if (!st) {
-      st = { cap: 0, fails: 0, retryAt: 0, cache: new Map(), queue: [], queued: new Set(), buf: null, build: null, timer: 0, used: 0, token: 0 };
+      st = { cap: 0, fails: 0, retryAt: 0, cache: new Map(), queue: [], queued: new Set(), buf: null, build: null, timer: 0, used: 0, token: 0, warm: false, hint: 0 };
       state.set(page, st);
     }
     return st;
@@ -451,6 +634,7 @@
   function wantScale(st, pw, ph) {
     var hmin = Infinity;
     st.queue.forEach(function (j) { j.rects.forEach(function (r) { if (r.h > 0 && r.h < hmin) hmin = r.h; }); });
+    if (hmin === Infinity && st.hint > 0) hmin = st.hint; // 미리 읽기(warm): 쪽의 작은 글자 높이로 정한다
     var s = P.hiMin;
     if (hmin < Infinity) s = Math.max(s, Math.ceil(P.minGapPx / P.minGap / hmin * 8 + 1e-6) / 8);
     return Math.min(s, capScale(pw, ph));
@@ -569,24 +753,26 @@
     var pages = [];
     var building = false;
     state.forEach(function (st, page) {
-      if (st.queue.length || st.build) pages.push(page);
+      if (st.queue.length || st.build || st.warm) pages.push(page);
       if (st.build) building = true;
     });
     pages.sort(function (x, y) { return Math.abs(x - cur) - Math.abs(y - cur) || x - y; });
     pages.forEach(function (page) {
       var st = state.get(page);
-      if (!st.queue.length && !st.build) return;
+      if (!st.queue.length && !st.build && !st.warm) return;
       if (st.retryAt && now() < st.retryAt) return; // 읽기에 실패해 잠시 쉬는 중: 때가 되면 타이머가 kick 한다
       if (now() > deadline) { more = true; return; }
       var pc = pageCanvas(page);
       var shown = !!(D() && D().getPage && pc.canvas && pc.canvas.width > 0 && pc.pw > 0 && pc.ph > 0);
       if (!shown) { // 쪽이 화면에서 사라졌다: 일을 접는다(다시 그려지면 겹침층이 다시 요청한다)
-        st.queue = []; st.queued = new Set();
+        st.queue = []; st.queued = new Set(); st.warm = false;
         if (st.build) dropBuild(st);
         return;
       }
-      if (!st.buf && !st.build && st.queue.length) {
+      if (st.buf && st.warm) { st.warm = false; st.used = now(); armTimer(st, page); }
+      if (!st.buf && !st.build && (st.queue.length || st.warm)) {
         if (building) return; // 다른 쪽을 그리는 중: 끝나면 kick 된다
+        st.warm = false;
         st.used = now();
         startBuild(st, page, pc.pw, pc.ph);
         building = true;
@@ -627,8 +813,37 @@
     });
     building = false;
     state.forEach(function (st) { if (st.build) building = true; });
-    if (!building) state.forEach(function (st) { if (st.queue.length && !(st.retryAt && now() < st.retryAt)) more = true; }); // 그리던 쪽이 끝났으면 기다리던 쪽을 이어서
+    if (!building) state.forEach(function (st) { if ((st.queue.length || st.warm) && !(st.retryAt && now() < st.retryAt)) more = true; }); // 그리던 쪽이 끝났으면 기다리던 쪽을 이어서
     return { more: more, touched: touched };
+  }
+
+  // 쪽 잉크 버퍼를 미리 만든다(첫 표시가 거친 모양으로 그려졌다가 바뀌는 것을 줄인다). 이미 있거나 만드는 중이면 사용 시각만 갱신한다.
+  // 쪽이 화면에 그려지지 않았으면 아무것도 하지 않는다. 호출은 값싸다(한가한 시간에 만든다).
+  function warm(page) {
+    var n = Number(page);
+    if (!(n >= 1) || !D() || !D().getPage) return false;
+    var st = stateFor(n);
+    if (st.buf || st.build) { st.used = now(); if (st.buf) armTimer(st, n); return true; }
+    if (st.warm) return true;
+    var pc = pageCanvas(n);
+    if (!(pc.canvas && pc.canvas.width > 0 && pc.pw > 0 && pc.ph > 0)) return false;
+    st.warm = true;
+    // 작은 글자도 보정 기준을 넘도록 렌더 배율을 정하려고, 글자 상자의 작은 높이(하위 10%)를 본다. 글 정보가 없으면 기본 배율.
+    var TMm = root.ReaderTextMap;
+    if (TMm && TMm.get && !st.hint) {
+      TMm.get(n, { measure: false, quiet: true }).then(function (d) {
+        if (!d || !d.charBoxes) return;
+        var hs = [];
+        for (var i = 0; i < d.charBoxes.length; i += Math.max(1, Math.floor(d.charBoxes.length / 400))) {
+          var b = d.charBoxes[i];
+          if (b && b.h > 0 && !/\s/.test(d.text.charAt(i))) hs.push(b.h);
+        }
+        hs.sort(function (a, b) { return a - b; });
+        if (hs.length) st.hint = hs[Math.floor(hs.length * 0.1)];
+      }, function () { /* 기본 배율 */ });
+    }
+    kick();
+    return true;
   }
 
   function onReady(fn) { listeners.push(fn); }
@@ -656,9 +871,13 @@
     snapEdge: snapEdge,
     refinable: refinable,
     edgeFlags: edgeFlags,
+    cellEdges: cellEdges,
+    cellBoundaries: cellBoundaries,
+    columnCounts: columnCounts,
     edgeMode: edgeMode,
     refineRects: refineRects,
     request: request,
+    warm: warm,
     onReady: onReady,
     invalidate: invalidate,
     release: release,
@@ -676,6 +895,24 @@
       el.addEventListener("reader:scalechange", function () { release(); });
       el.addEventListener("reader:docopen", function () { invalidate(); });
       el.addEventListener("reader:docclose", function () { invalidate(); });
+      // 첫 표시 전에 쪽 잉크를 미리 읽는다: 글자 층에서 누른 순간(드래그해 선택하기 직전), 그리고 쪽이 머문 지 WARM_IDLE_MS 뒤(현재 쪽).
+      el.addEventListener("pointerdown", function (e) {
+        var t = e.target;
+        var pe = t && t.closest ? t.closest(".textLayer") : null;
+        pe = pe && pe.closest ? pe.closest(".rd-page") : null;
+        if (pe && pe.dataset && Number(pe.dataset.page) >= 1) warm(Number(pe.dataset.page));
+      }, true);
+      var idleTimer = 0;
+      var idleWarm = function () {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(function () {
+          idleTimer = 0;
+          var d = D();
+          if (d && d.currentPage && d.currentPage() >= 1) warm(d.currentPage());
+        }, P.warmIdleMs);
+      };
+      el.addEventListener("reader:pagerendered", idleWarm);
+      el.addEventListener("reader:pagechange", idleWarm);
     };
     bind();
   }

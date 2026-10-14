@@ -54,7 +54,39 @@
     return { page: A, edge: isEnd ? "end" : "start" };
   }
 
-  var PURE = { normalizeRanges: normalizeRanges, clampTarget: clampTarget };
+  // 쪽 좌표 (x, y) 에 가장 가까운 글자 사이 위치(쪽 글 오프셋). 가장 가까운 줄의 가장 가까운 글자를 찾고,
+  // 점이 그 글자의 오른쪽 절반이면 글자 뒤, 아니면 앞. 공백·빈 상자는 건너뛴다. 글자가 없으면 -1.
+  // 끌기 시작·끝 지점을 브라우저 선택과 무관하게 글 위치로 바꾸는 데 쓴다(DOM 조각 순서와 읽기 순서가 달라도 같은 답).
+  function nearestCaret(charBoxes, text, x, y) {
+    if (!charBoxes || !charBoxes.length) return -1;
+    var best = -1;
+    var bestD = Infinity;
+    var bestAfter = false;
+    for (var i = 0; i < charBoxes.length; i++) {
+      var b = charBoxes[i];
+      if (!b || (text && /\s/.test(text.charAt(i)))) continue;
+      var dx = x < b.x ? b.x - x : x > b.x + b.w ? x - (b.x + b.w) : 0;
+      var dy = y < b.y ? b.y - y : y > b.y + b.h ? y - (b.y + b.h) : 0;
+      var cx = b.x + b.w / 2;
+      var d = dx * dx + dy * dy + 1e-6 * Math.abs(x - cx);
+      if (d < bestD) { bestD = d; best = i; bestAfter = x > cx; }
+    }
+    return best < 0 ? -1 : (bestAfter ? best + 1 : best);
+  }
+
+  // 끌기 지점으로 읽은 범위와 브라우저(DOM) 선택으로 읽은 범위를 견주어 어느 쪽을 쓸지 정한다.
+  // dom, pts: {ps, os, pe, oe} (쪽·오프셋, 순서 보정됨) 또는 null. 두 범위가 허용 오차 안에서 같으면 DOM 쪽(키보드·낱말 끌기와 같은 길),
+  // DOM 이 없거나 크게 어긋나면(pdf.js 조각 순서 때문에 선택이 다른 줄로 번지는 경우) 지점 쪽.
+  var DRAG_TOL = 6;
+  function pickRange(dom, pts) {
+    if (!pts) return dom;
+    if (!dom) return pts;
+    if (dom.ps !== pts.ps || dom.pe !== pts.pe) return pts;
+    if (Math.abs(dom.os - pts.os) > DRAG_TOL || Math.abs(dom.oe - pts.oe) > DRAG_TOL) return pts;
+    return dom;
+  }
+
+  var PURE = { normalizeRanges: normalizeRanges, clampTarget: clampTarget, nearestCaret: nearestCaret, pickRange: pickRange };
   if (typeof module !== "undefined" && module.exports) module.exports = PURE;
   if (typeof document === "undefined") {
     root.ReaderSelection = PURE;
@@ -78,6 +110,13 @@
   var scrollTimer = 0;
   var SCROLL_END_MS = 150;
   var ready = false;
+  var dragStart = null; // 눌린 마우스 끌기 {x, y, moved}
+  var lastDrag = null; // 방금 끝난 끌기 {a:{x,y}, b:{x,y}} — 키보드·낱말 끌기는 비워 DOM 선택 길로 간다
+  var clickCount = 1;
+  var liveTimer = 0;
+  var liveToken = 0;
+  var DRAG_MIN_PX = 5;
+  var LIVE_MS = 90;
 
   function $(id) { return document.getElementById(id); }
   function D() { return root.ReaderDoc; }
@@ -194,32 +233,90 @@
     return res ? res.text : null;
   }
 
+  function orderPoints(pa, oa, pb, ob) {
+    if (pa > pb || (pa === pb && oa > ob)) return { ps: pb, os: ob, pe: pa, oe: oa };
+    return { ps: pa, os: oa, pe: pb, oe: ob };
+  }
+
+  // 화면 좌표가 놓인 쪽(가장 가까운 쪽)과 그 쪽 좌표. 쪽 사이 틈이면 세로로 가장 가까운 쪽.
+  function pageAtClient(x, y) {
+    var best = null;
+    var bestD = Infinity;
+    Array.prototype.forEach.call(document.querySelectorAll(".rd-page"), function (pe) {
+      var n = Number(pe.dataset.page) || 0;
+      if (!n) return;
+      var r = pe.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      var dy = y < r.top ? r.top - y : y > r.bottom ? y - r.bottom : 0;
+      var dx = x < r.left ? r.left - x : x > r.right ? x - r.right : 0;
+      var d = dy * 1000 + dx;
+      if (d < bestD) { bestD = d; best = { page: n, rect: r }; }
+    });
+    if (!best) return null;
+    var size = D().pageSize(best.page);
+    if (!size || !size.w) return null;
+    var k = best.rect.width / size.w;
+    return { page: best.page, x: (x - best.rect.left) / k, y: (y - best.rect.top) / k };
+  }
+
+  // 끌기의 시작·끝 지점 -> 쪽 글 범위(순서 보정). 못 읽으면 null.
+  async function dragRange(drag) {
+    var pa = pageAtClient(drag.a.x, drag.a.y);
+    var pb = pageAtClient(drag.b.x, drag.b.y);
+    if (!pa || !pb) return null;
+    var pages = pa.page === pb.page ? [pa.page] : [pa.page, pb.page];
+    var datas = await boxesForPages(pages);
+    var da = datas[pa.page];
+    var db = datas[pb.page];
+    if (!da || !db) return null;
+    var oa = nearestCaret(da.charBoxes, da.text, pa.x, pa.y);
+    var ob = nearestCaret(db.charBoxes, db.text, pb.x, pb.y);
+    if (oa < 0 || ob < 0) return null;
+    return orderPoints(pa.page, oa, pb.page, ob);
+  }
+
   // 반환: null | {ranges:[{page,start,end}], text, quote, rects:{page:[Rect]}, clientRect}
   async function compute() {
     var sel = root.getSelection ? root.getSelection() : null;
-    if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return null;
-    var raw = sel.toString();
-    if (raw.replace(/\s+/g, "").length < 2) return null;
-    var r = sel.getRangeAt(0);
-    var s = pointOf(r.startContainer, r.startOffset, false);
-    var e = pointOf(r.endContainer, r.endOffset, true);
-    // 한쪽 끝점만 글자 층 밖이면 안쪽 끝점이 있는 쪽 안에서만 당긴다(두 끝점이 다 층 밖이면 무시).
-    if (!s && e && !textLayerOf(r.startContainer)) s = clampedPoint(r.startContainer, r.startOffset, false, e.page);
-    else if (!e && s && !textLayerOf(r.endContainer)) e = clampedPoint(r.endContainer, r.endOffset, true, s.page);
-    if (!s || !e) return null;
+    var drag = lastDrag;
+    var raw = null;
+    var s = null;
+    var e = null;
+    if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+      raw = sel.toString();
+      if (raw.replace(/\s+/g, "").length < 2 && !drag) return null;
+      var r = sel.getRangeAt(0);
+      s = pointOf(r.startContainer, r.startOffset, false);
+      e = pointOf(r.endContainer, r.endOffset, true);
+      // 한쪽 끝점만 글자 층 밖이면 안쪽 끝점이 있는 쪽 안에서만 당긴다(두 끝점이 다 층 밖이면 무시).
+      if (!s && e && !textLayerOf(r.startContainer)) s = clampedPoint(r.startContainer, r.startOffset, false, e.page);
+      else if (!e && s && !textLayerOf(r.endContainer)) e = clampedPoint(r.endContainer, r.endOffset, true, s.page);
+    } else if (!drag) return null;
+    if ((!s || !e) && !drag) return null;
     // 두 끝점의 쪽 글이 준비돼야 DOM 위치를 쪽 글 위치로 바꿀 수 있다.
-    var ensured = await Promise.all([TM().get(s.page, { measure: false, quiet: true }), TM().get(e.page, { measure: false, quiet: true })]);
-    if (!ensured[0] || !ensured[1]) return null;
-    var os = TM().domPointToOffset(s.page, s.node, s.off);
-    var oe = TM().domPointToOffset(e.page, e.node, e.off);
-    if (os < 0 || oe < 0) return null;
-    var ps = s.page;
-    var pe = e.page;
-    if (ps > pe || (ps === pe && os > oe)) { var tp = ps; ps = pe; pe = tp; var to = os; os = oe; oe = to; }
-    if (pe - ps + 1 > MAX_PAGES) {
+    var dom = null;
+    if (s && e) {
+      var ensured = await Promise.all([TM().get(s.page, { measure: false, quiet: true }), TM().get(e.page, { measure: false, quiet: true })]);
+      if (ensured[0] && ensured[1]) {
+        var os0 = TM().domPointToOffset(s.page, s.node, s.off);
+        var oe0 = TM().domPointToOffset(e.page, e.node, e.off);
+        if (os0 >= 0 && oe0 >= 0) dom = orderPoints(s.page, os0, e.page, oe0);
+      }
+    }
+    var pts = drag ? await dragRange(drag) : null;
+    var pick = pickRange(dom, pts);
+    if (!pick) return null;
+    if (pick.pe - pick.ps + 1 > MAX_PAGES) {
       D().notify("한 번에 " + MAX_PAGES + "쪽을 넘게 선택할 수 없습니다. 범위를 줄여 주세요.");
       return null;
     }
+    return rangesToResult(pick, raw);
+  }
+
+  // {ps, os, pe, oe} -> 낱말로 넓힌 범위·인용·미리보기 사각형. 못 만들면 null. (끝난 선택과 끌기 중 미리보기가 같이 쓴다)
+  async function rangesToResult(pick, raw) {
+    var ps = pick.ps, os = pick.os, pe = pick.pe, oe = pick.oe;
+    if (pe - ps + 1 > MAX_PAGES) return null;
     var texts = {};
     for (var p = ps; p <= pe; p++) {
       var t = await pageText(p);
@@ -257,7 +354,7 @@
       var data = datas[rr.page];
       rects[rr.page] = data ? G.rangeRects(data.charBoxes, rr.start, rr.end, data.text) : [];
     }
-    return { ranges: ranges, text: raw, quote: quote, rects: rects, clientRect: clientRectOf(rects) };
+    return { ranges: ranges, text: raw == null ? quote : raw, quote: quote, rects: rects, clientRect: clientRectOf(rects) };
   }
 
   // 그려진 쪽이면 측정 상자, 아직 안 그린 쪽이면 가중치 상자(미리보기만 쓴다)
@@ -374,8 +471,22 @@
     timer = setTimeout(function () { if (!down) refresh(); }, DEBOUNCE_MS);
   }
 
+  // 끌기 중 미리보기: 시작 지점과 지금 지점으로 읽은 범위를 같은 규칙(낱말 넓힘·글자 상자)으로 그린다.
+  async function livePreview() {
+    if (!down || !dragStart || !dragStart.moved) return;
+    var my = ++liveToken;
+    var drag = { a: { x: dragStart.x, y: dragStart.y }, b: { x: dragStart.cx, y: dragStart.cy } };
+    var rg;
+    try { rg = await dragRange(drag); } catch (err) { return; }
+    if (my !== liveToken || !down || !rg) return;
+    var res = await rangesToResult(rg, false);
+    if (my !== liveToken || !down || !res) return;
+    drawPreview(res);
+  }
+
   function clear() {
     token++;
+    lastDrag = null;
     clearTimeout(timer);
     var sel = root.getSelection ? root.getSelection() : null;
     if (sel && sel.rangeCount) sel.removeAllRanges();
@@ -447,13 +558,43 @@
       var t = e.target;
       if (t.closest && t.closest("#rd-seltool")) return;
       down = true;
+      lastDrag = null;
+      dragStart = null;
+      liveToken++;
+      clearTimeout(liveTimer);
+      // 마우스·펜으로 쪽 본문에서 시작한 끌기만 지점 기준으로 다시 읽는다(터치 손잡이·낱말/문단 끌기·Shift 확장은 DOM 길).
+      if ((e.pointerType === "mouse" || e.pointerType === "pen") && e.button === 0 && !e.shiftKey && t.closest && t.closest(".rd-page")) {
+        dragStart = { x: e.clientX, y: e.clientY, moved: false, ok: true };
+      }
       hideTool();
       // 본문 밖(패널·도구 막대 등)을 누르면 선택을 정리한다. 본문 안은 브라우저가 선택을 바꾼다.
       if (cur && !(t.closest && t.closest(".textLayer"))) clear();
     }, true);
-    function release() {
+    // 눌린 채 움직이면 같은 지점 기준 범위로 미리보기를 계속 그린다(저장될 범위를 끌면서 본다).
+    document.addEventListener("mousedown", function (e) {
+      clickCount = e.detail || 1;
+      if (clickCount > 1) dragStart = null;
+    }, true);
+    document.addEventListener("pointermove", function (e) {
+      if (!down || !dragStart || !dragStart.ok) return;
+      if (!dragStart.moved && Math.hypot(e.clientX - dragStart.x, e.clientY - dragStart.y) < DRAG_MIN_PX) return;
+      dragStart.moved = true;
+      dragStart.cx = e.clientX;
+      dragStart.cy = e.clientY;
+      if (!liveTimer) liveTimer = setTimeout(function () { liveTimer = 0; livePreview(); }, LIVE_MS);
+    }, true);
+    document.addEventListener("keydown", function () { lastDrag = null; }, true);
+    function release(e) {
       if (!down) return;
       down = false;
+      clearTimeout(liveTimer);
+      liveTimer = 0;
+      liveToken++;
+      if (e && e.type === "pointerup" && dragStart && dragStart.ok && dragStart.moved && clickCount === 1
+        && Math.hypot(e.clientX - dragStart.x, e.clientY - dragStart.y) >= DRAG_MIN_PX) {
+        lastDrag = { a: { x: dragStart.x, y: dragStart.y }, b: { x: e.clientX, y: e.clientY } };
+      }
+      dragStart = null;
       setTimeout(refresh, 0);
     }
     document.addEventListener("pointerup", release, true);
@@ -484,6 +625,8 @@
     init: init,
     normalizeRanges: normalizeRanges,
     clampTarget: clampTarget,
+    nearestCaret: nearestCaret,
+    pickRange: pickRange,
     current: function () {
       if (!cur) return null;
       return { ranges: cur.ranges, text: cur.text, quote: cur.quote, clientRect: cur.clientRect };

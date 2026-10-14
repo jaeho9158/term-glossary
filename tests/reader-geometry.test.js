@@ -195,3 +195,36 @@ assert.strictEqual(snapped("앞 단어. 뒤", "단"), "단어", "끝의 마침�
 }
 
 console.log("reader-geometry: all tests passed");
+
+// rangeRects: 부푼 공백 상자는 이웃 글자 사이로 잘라 쓰고 줄 처음·끝 공백은 쓰지 않는다
+{
+  const G = require("../assets/reader/geometry.js");
+  const t = "ab cd ";
+  const boxes = [
+    { x: 0, y: 0, w: 5, h: 10, p: 1 }, { x: 5, y: 0, w: 5, h: 10, p: 1 },
+    { x: 10, y: 0, w: 40, h: 10, p: 1 }, // 부푼 공백(다음 글자 위로 번진다)
+    { x: 14, y: 0, w: 5, h: 10, p: 2 }, { x: 19, y: 0, w: 5, h: 10, p: 2 },
+    { x: 24, y: 0, w: 30, h: 10, p: 2 }, // 끝 공백
+  ];
+  const withText = G.rangeRects(boxes, 0, 6, t);
+  assert.strictEqual(withText.length, 1);
+  assert.strictEqual(withText[0].x, 0);
+  assert.strictEqual(withText[0].x + withText[0].w, 24, "끝 글자 상자까지");
+  // 글을 주지 않으면 예전과 같다(공백 상자 포함)
+  const raw = G.rangeRects(boxes, 0, 6);
+  assert.strictEqual(raw[0].x + raw[0].w, 54);
+  // 낱말 사이의 공백은 두 글자 사이 틈을 잇는다(벌어진 줄도 끊기지 않는다)
+  const wide = [
+    { x: 0, y: 0, w: 5, h: 10 }, { x: 5, y: 0, w: 5, h: 10 }, { x: 10, y: 0, w: 12, h: 10 }, { x: 22, y: 0, w: 5, h: 10 }, { x: 27, y: 0, w: 5, h: 10 },
+  ];
+  const r2 = G.rangeRects(wide, 0, 5, "ab cd");
+  assert.strictEqual(r2.length, 1);
+  assert.strictEqual(r2[0].w, 32);
+  // 줄 끝의 공백 상자(다음 줄 글자가 이어짐)는 건너뛴다
+  const wrap = [
+    { x: 0, y: 0, w: 5, h: 10 }, { x: 5, y: 0, w: 5, h: 10 }, { x: 10, y: 0, w: 30, h: 10 }, { x: 0, y: 14, w: 5, h: 10 }, { x: 5, y: 14, w: 5, h: 10 },
+  ];
+  const r3 = G.rangeRects(wrap, 0, 5, "ab cd");
+  assert.strictEqual(r3.length, 2);
+  assert.strictEqual(r3[0].x + r3[0].w, 10, "첫 줄은 b 까지");
+}

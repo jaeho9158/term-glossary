@@ -84,12 +84,19 @@
     return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
   }
 
+  // t[i] 가 공백류(줄바꿈 포함)인가: 제어문자·NBSP·전각 공백 포함.
+  function isSpaceAt(t, i) {
+    var cc = t.charCodeAt(i);
+    return cc <= 32 || cc === 0xa0 || cc === 0x3000 || (cc >= 0x2000 && cc <= 0x200b);
+  }
+
   // [start, end) 범위의 글자 상자를 줄·조각 단위로 병합한 사각형들.
   // - 같은 조각(p 가 같음) 안의 글자는 항상 하나로.
   // - 다른 조각이라도 같은 줄(세로 겹침 50% 이상)이고 가로 간격이 글자 높이의 0.6 미만이면 하나로.
   // - 그보다 벌어지면(단 사이 여백) 끊는다. null 상자는 건너뛴다. 범위는 배열 안으로 잘라 처리한다.
   // - text(쪽 글)를 주면: 두 상자 사이의 글자가 공백뿐이고 같은 줄이면 간격이 글자 높이의 WS_GAP_RATIO 배 미만인 한 하나로 잇는다
-  //   (겹공백·탭 때문에 한 형광펜 안에 이음매가 생기는 것을 막는다).
+  //   (겹공백·탭 때문에 한 형광펜 안에 이음매가 생기는 것을 막는다). 또 이때 공백 글자 상자는 앞뒤 글자 사이로 잘라 쓰고
+  //   줄 처음·끝의 공백은 쓰지 않는다(공백 상자가 부풀어 사각형 끝이 글자보다 멀리 나가는 것을 막는다).
   function rangeRects(charBoxes, start, end, text) {
     var out = [];
     if (!charBoxes || !charBoxes.length) return out;
@@ -99,9 +106,25 @@
     var curP;
     var lastIdx = -1;
     var t = typeof text === "string" ? text : null;
+    var prevNs = null; // 지금까지 본 마지막 공백 아닌 글자 상자(공백 상자를 이웃 글자 사이로 자르는 데 쓴다)
+    var nextNsIdx = -1; // i 뒤의 첫 공백 아닌 글자 상자 번호(캐시)
     for (var i = s; i < e; i++) {
       var b = charBoxes[i];
       if (!b) continue;
+      if (t && isSpaceAt(t, i)) {
+        // 공백 글자 상자는 조각 폭을 나눈 값이라 이웃 글자까지 번지는 일이 있다(kci: 42 폭의 공백 상자가 다음 글자 위에 걸쳐 줄 끝이 한 글자 이상 넘침).
+        // 앞뒤 글자와 같은 줄에서 그 두 글자 사이에 든 부분만 쓰고, 줄 처음·끝의 공백은 쓰지 않는다.
+        if (nextNsIdx <= i) {
+          nextNsIdx = i + 1;
+          while (nextNsIdx < e && (!charBoxes[nextNsIdx] || isSpaceAt(t, nextNsIdx))) nextNsIdx++;
+        }
+        var nb = nextNsIdx < e ? charBoxes[nextNsIdx] : null;
+        if (!prevNs || !nb || verticalOverlapRatio(prevNs, b) < SAME_LINE_OVERLAP || verticalOverlapRatio(nb, b) < SAME_LINE_OVERLAP) continue;
+        var cl = Math.max(b.x, prevNs.x + prevNs.w);
+        var cr = Math.min(b.x + b.w, nb.x);
+        if (!(cr > cl)) continue;
+        b = { x: cl, y: b.y, w: cr - cl, h: b.h, p: b.p };
+      } else prevNs = b;
       if (cur) {
         var sameP = b.p !== undefined && curP !== undefined && b.p === curP;
         var merge = sameP;

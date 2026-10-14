@@ -75,3 +75,32 @@ test("여러 쪽에 걸친 진짜 드래그(양 끝점이 글자 층 안)는 cla
     [{ page: 2, start: 10, end: 50 }, { page: 3, start: 0, end: 40 }, { page: 4, start: 0, end: 5 }]
   );
 });
+
+test("nearestCaret: 가장 가까운 줄의 가장 가까운 글자 앞뒤로 읽는다(공백은 건너뜀)", () => {
+  const { nearestCaret } = require("../assets/reader/selection.js");
+  // 두 줄: "ab cd"(y 0~10) 와 "ef"(y 14~24)
+  const text = "ab cdef";
+  const boxes = [
+    { x: 0, y: 0, w: 5, h: 10 }, { x: 5, y: 0, w: 5, h: 10 }, { x: 10, y: 0, w: 5, h: 10 },
+    { x: 15, y: 0, w: 5, h: 10 }, { x: 20, y: 0, w: 5, h: 10 },
+    { x: 0, y: 14, w: 5, h: 10 }, { x: 5, y: 14, w: 5, h: 10 },
+  ];
+  assert.equal(nearestCaret(boxes, text, 1, 5), 0, "첫 글자 왼쪽 절반: 글자 앞");
+  assert.equal(nearestCaret(boxes, text, 4, 5), 1, "첫 글자 오른쪽 절반: 글자 뒤");
+  assert.equal(nearestCaret(boxes, text, 12, 5), 2, "공백 상자 위: 더 가까운 이웃 글자 b 의 뒤(공백은 건너뜀)");
+  assert.equal(nearestCaret(boxes, text, 9, 12) <= 5, true, "틈 위쪽(y 12)은 첫 줄");
+  assert.equal(nearestCaret(boxes, text, 9, 13) >= 5, true, "틈 아래쪽(y 13)은 둘째 줄");
+  assert.equal(nearestCaret(boxes, text, 100, 200), 7, "범위 밖: 가장 가까운 끝(마지막 글자 뒤)");
+  assert.equal(nearestCaret([], "", 0, 0), -1);
+});
+
+test("pickRange: 두 읽기가 비슷하면 DOM, 어긋나거나 한쪽만 있으면 지점 읽기", () => {
+  const { pickRange } = require("../assets/reader/selection.js");
+  const dom = { ps: 2, os: 100, pe: 2, oe: 160 };
+  assert.equal(pickRange(dom, { ps: 2, os: 103, pe: 2, oe: 158 }), dom);
+  const pts = { ps: 2, os: 100, pe: 2, oe: 1400 };
+  assert.equal(pickRange(dom, pts), pts, "끝이 크게 어긋남");
+  assert.equal(pickRange(dom, { ps: 3, os: 0, pe: 3, oe: 5 }).ps, 3, "쪽이 다름");
+  assert.equal(pickRange(null, pts), pts);
+  assert.equal(pickRange(dom, null), dom);
+});

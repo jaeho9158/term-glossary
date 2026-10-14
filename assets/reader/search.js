@@ -131,6 +131,7 @@
       var entries = hits.map(function (h) {
         // 낱말 안쪽에서 끝난 가장자리(예: "contro" 가 "control" 안)는 잉크 보정을 하지 않는다.
         var fl = root.ReaderInk && root.ReaderInk.edgeFlags ? root.ReaderInk.edgeFlags(data.text, h.r.start, h.r.end) : {};
+        var cell = root.ReaderInk && root.ReaderInk.cellEdges ? root.ReaderInk.cellEdges(data.text, data.charBoxes, h.r.start, h.r.end) : {};
         return {
           id: h.i,
           rects: root.ReaderGeometry.rangeRects(data.charBoxes, h.r.start, h.r.end),
@@ -138,6 +139,9 @@
           data: { index: h.i },
           refineLeft: fl.refineLeft,
           refineRight: fl.refineRight,
+          // 낱말 안쪽에서 시작·끝나는 가장자리는 그 낱말의 글자 칸 경계에 맞춘다(낱말 span 을 잉크 쪽에 넘긴다).
+          cellLeft: cell.cellLeft,
+          cellRight: cell.cellRight,
         };
       });
       root.ReaderOverlay.setRects(page, "search", entries);

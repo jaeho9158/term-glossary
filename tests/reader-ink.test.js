@@ -424,3 +424,105 @@ test("ReaderInk.request: 가장 작은 사각형 기준으로 렌더 배율을 �
   assert.ok(st.renders[0] >= 16.7 / 6 - 1e-9 || st.renders[0] === 4, "scale " + st.renders[0]);
   ink.invalidate();
 });
+
+// ---------- 글자 칸 나누기(낱말 안쪽 가장자리) ----------
+
+test("cellEdges: 낱말 안쪽 가장자리만 글자 칸 정보를 준다", () => {
+  const { cellEdges } = require("../assets/reader/ink.js");
+  const text = "Intrathyroid gland";
+  const boxes = [];
+  for (let i = 0; i < text.length; i++) boxes.push({ x: 10 + i * 6, y: 0, w: 6, h: 10 });
+  const mid = cellEdges(text, boxes, 5, 12); // "thyroid" 앞: 낱말 안쪽, 뒤: 낱말 끝
+  assert.ok(mid.cellLeft && !mid.cellRight);
+  assert.strictEqual(mid.cellLeft.k, 5);
+  assert.strictEqual(mid.cellLeft.cells.length, 13);
+  assert.strictEqual(mid.cellLeft.cells[0], 10);
+  assert.strictEqual(mid.cellLeft.cells[12], 10 + 12 * 6);
+  const both = cellEdges(text, boxes, 2, 9);
+  assert.strictEqual(both.cellLeft.k, 2);
+  assert.strictEqual(both.cellRight.k, 9);
+  assert.deepStrictEqual(cellEdges(text, boxes, 0, 12), {}); // 낱말 전체
+  // 글자 상자가 없거나 다른 줄에 걸치면 주지 않는다
+  const holes = boxes.slice(); holes[7] = null;
+  assert.deepStrictEqual(cellEdges(text, holes, 5, 12), {});
+  const wrapped = boxes.map((b, i) => (i >= 8 ? { x: 10 + (i - 8) * 6, y: 14, w: 6, h: 10 } : b));
+  assert.deepStrictEqual(cellEdges(text, wrapped, 5, 12), {});
+  assert.deepStrictEqual(cellEdges("ab cd", [{ x: 0, y: 0, w: 5, h: 9 }, { x: 5, y: 0, w: 5, h: 9 }, null, { x: 15, y: 0, w: 5, h: 9 }, { x: 20, y: 0, w: 5, h: 9 }], 1, 4), {}); // 너무 짧은 낱말
+});
+
+// 글자 6칸 잉크: 칸마다 폭 cw, 칸 사이 gap 열은 잉크 없음. 반환: counts(열 잉크 양)
+function cellCounts(n, cw, gap, lead) {
+  const W = lead * 2 + n * (cw + gap);
+  const c = new Uint16Array(W);
+  for (let i = 0; i < n; i++) for (let x = 0; x < cw; x++) c[lead + i * (cw + gap) + x] = 10;
+  return c;
+}
+
+test("cellBoundaries: 예상 경계가 한 칸 가까이 틀려도 잉크 골짜기로 고른다", () => {
+  const { cellBoundaries } = require("../assets/reader/ink.js");
+  const n = 6, cw = 8, gap = 2, lead = 10;
+  const counts = cellCounts(n, cw, gap, lead);
+  const L = lead, R = lead + n * (cw + gap) - gap;
+  // 참 경계(골짜기 가운데) = lead + i*(cw+gap) - 1 (i=1..5)
+  const truth = [1, 2, 3, 4, 5].map((i) => lead + i * (cw + gap) - 1);
+  const pred = truth.map((t, j) => t + [3, -3, 2, -2, 3][j]); // 예상이 빗나감
+  const bd = cellBoundaries(counts, L, R, pred, 0.6, 0.5, 2, 1);
+  assert.strictEqual(bd.length, 5);
+  bd.forEach((b, j) => {
+    assert.ok(b.ok, "골짜기 j=" + j);
+    assert.ok(b.a <= truth[j] && truth[j] < b.b + 1, "경계 " + j + " " + b.c + " 정답 " + truth[j]);
+    assert.strictEqual(counts[b.c], 0);
+  });
+});
+
+test("cellBoundaries: 골짜기가 없으면 ok 가 거짓이고 잉크가 없으면 null", () => {
+  const { cellBoundaries } = require("../assets/reader/ink.js");
+  const flat = new Uint16Array(80).fill(9);
+  const bd = cellBoundaries(flat, 10, 70, [20, 30, 40, 50, 60], 0.6, 0.5, 2, 1);
+  assert.ok(bd && bd.every((b) => b.ok === false), "평평하면 골짜기가 없다");
+  assert.strictEqual(cellBoundaries(new Uint16Array(80), 10, 70, [30, 50], 0.6, 0.5), null);
+});
+
+test("refineRects: 낱말 안쪽 왼쪽 가장자리가 글자 칸 경계로 간다", () => {
+  const ink = require("../assets/reader/ink.js");
+  // 낱말 6글자(칸 폭 4, 틈 6) 가 x=20.. 에 놓인 합성 캔버스: 배율 2, 줄 높이 10(쪽 좌표)
+  const sx = 2, n = 6, cw = 4, gap = 6; // 쪽 좌표 단위(잉크가 칸의 소수여야 바탕으로 읽히지 않는다)
+  const x0 = 20, h = 10;
+  const words = [];
+  for (let i = 0; i < n; i++) words.push([(x0 + i * (cw + gap)) * sx, (x0 + i * (cw + gap) + cw) * sx]);
+  const W = 140 * sx, H = 14 * sx;
+  const data = new Uint8ClampedArray(W * H * 4).fill(250);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    let v = 250;
+    for (const [a, b] of words) if (x >= a && x < b && y > 3 && y < H - 3) v = 10;
+    const p = (y * W + x) * 4;
+    data[p] = data[p + 1] = data[p + 2] = v; data[p + 3] = 255;
+  }
+  const canvas = { width: W, height: H, getContext: () => ({ getImageData: (x, y, w, h2) => {
+    const out = new Uint8ClampedArray(w * h2 * 4);
+    for (let r = 0; r < h2; r++) for (let c = 0; c < w; c++) { const s = ((y + r) * W + x + c) * 4, d = (r * w + c) * 4; out[d] = data[s]; out[d + 1] = data[s + 1]; out[d + 2] = data[s + 2]; out[d + 3] = 255; }
+    return { data: out, width: w, height: h2 };
+  } }) };
+  // 예상 칸 경계(상자): 균등하지만 글자 폭의 절반쯤 밀려 있다. 세 번째 글자 앞이 가장자리.
+  const shift = 2;
+  const cells = [];
+  for (let i = 0; i <= n; i++) cells.push(x0 + i * (cw + gap) + shift - (i === n ? gap : 0));
+  const trueEdge = x0 + 2 * (cw + gap); // 세 번째 글자 잉크의 왼쪽
+  const rect = { x: cells[2], y: 2, w: cells[n] - cells[2], h };
+  const out = ink.refineRects(1, [rect], { canvas, pageW: 140, pageH: 14, refineLeft: { cells, k: 2 }, refineRight: false });
+  assert.ok(Math.abs(out[0].x - trueEdge) < 2.5, "left " + out[0].x + " 정답 " + trueEdge);
+  assert.ok(Math.abs(out[0].x - trueEdge) < Math.abs(rect.x - trueEdge), "원래보다 정답에 가깝다");
+  assert.strictEqual(out[0].x + out[0].w, rect.x + rect.w, "오른쪽은 그대로");
+  // 칸 정보가 없으면(보정 끔) 건드리지 않는다
+  const same = ink.refineRects(1, [rect], { canvas, pageW: 140, pageH: 14, refineLeft: false, refineRight: false });
+  assert.strictEqual(same[0].x, rect.x);
+});
+
+test("edgeMode: cellLeft/cellRight 는 보정이 꺼진 가장자리에서만 객체로 나온다", () => {
+  const cl = { cells: [0, 1, 2, 3], k: 1 };
+  const m = edgeMode(true, { refineLeft: false, refineRight: false, cellLeft: cl });
+  assert.strictEqual(m.left, cl);
+  assert.strictEqual(m.right, false);
+  assert.strictEqual(m.any, true);
+  assert.strictEqual(edgeMode(true, { refineLeft: true, cellLeft: cl }).left, true);
+});
