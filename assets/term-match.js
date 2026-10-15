@@ -665,8 +665,14 @@ function senseEnglishHit(lower, key) {
 // 등장 자리 창들과 뜻 키워드의 교집합 크기(전체 등장 합산, 키워드 중복 없이).
 // 뜻 키워드가 없는 용어는 -1(판단 보류).
 function senseOverlap(match, text) {
+  const hit = senseHitKeys(match, text);
+  return hit ? hit.size : -1;
+}
+
+// 창 안에서 맞은 뜻 키워드 집합. 뜻 키워드가 없는 용어는 null(판단 보류).
+function senseHitKeys(match, text) {
   const keys = new Set(match.sense || []);
-  if (!keys.size) return -1;
+  if (!keys.size) return null;
   const hit = new Set();
   // 영문으로 잡힌 자리의 글자 자체(gamma)는 같은 낱말이 둘레 창에 또 나와도(Interferon gamma 가
   // 세 번 잇달아 나오는 표) 뜻의 증거가 아니다 — 키워드 쪽에서 뺀다.
@@ -680,7 +686,7 @@ function senseOverlap(match, text) {
   }
   if (!anyHangul) {
     for (const k of selfWords) keys.delete(k);
-    if (!keys.size) return 0;
+    if (!keys.size) return new Set();
   }
   for (const occ of match.occurrences || []) {
     const from = Math.max(0, occ.start - SENSE_WINDOW);
@@ -704,7 +710,7 @@ function senseOverlap(match, text) {
       if (/^[a-z]+$/.test(k) ? senseEnglishHit(lower, k) : win.includes(k)) hit.add(k);
     }
   }
-  return hit.size;
+  return hit;
 }
 
 // 영문 병기 불일치(라운드 5 규칙 6): 짧은 한글 표제어 바로 뒤 괄호 속 영문
@@ -883,6 +889,85 @@ function applyStrayRule(list, text, top, baseline) {
   }
 }
 
+// ---- 위험한 표면형(risky surface) ------------------------------------------------------
+// 일상어·타 분야 뜻이 압도적이어서, 세부 분야가 좁은 사전 용어로 잡히면 대개 오탐인 표제어.
+// 아래 슬러그는 문서 안 "강한 증거"가 있을 때만 표시한다(없으면 distant 로 강등 = 접힌 기타 묶음).
+//   강한 증거 = (a) 문서가 직접 병기(한글 표제어 옆 영문 표제, 또는 그 반대),
+//               (b) 등장 둘레 창에 뜻 키워드가 서로 다른 것 2개 이상,
+//               (c) 같은 세부 분야의 다른 살아 있는 용어가 같은 쪽(RISKY_PEER_WINDOW자) 안에 있음.
+// 목록은 13편 손 라벨 표본의 오탐(2026-10)과 같은 모양(2~3음절 한글/영문 한 단어, 세부 분야 하나)의
+// 표제어를 사전 정의와 대조해 고른 것이다. 슬러그로 지정한다(대리/Agency 처럼 동형어가 있어서).
+const RISKY_SURFACE_SLUGS = new Set([
+  // (1) 13편 손 라벨 표본에서 실제로 오탐이던 표제어(2026-10).
+  "sensitivity", "disease-vector", "pet-imaging", "incubation-period", "regularization", "quorum",
+  "incapacitation", "maladaptation", "modeling-imitation", "spread-effect", "pharmaceutical-hydrate",
+  "agency-civil-law",
+  // (2) 같은 모양: 한글 2음절의 흔한 일상어인데 사전 뜻은 좁은 한 분야(단계·요소·조사·보장·압력·의지·감사·조류…).
+  "archaeological-phase", "urea-reagent", "roving", "step-length", "pressure", "prosthesis",
+  "auditor-corporate", "tidal-current", "echelon", "parallax", "tonic-key", "stage-direction",
+  "urban-block", "registration", "tablet", "worker-burnout", "breeding-line", "jiyeoksa",
+  "reduplication", "force-of-interest", "field-planting",
+  // (3) 같은 모양: 일상 동사·명사(조절·구분·대응·시점·조정·저장·조합·억제·강도·공유·인정·보존·강화·배경·교차·노출·수용·비용·불안·해결).
+  "accommodation", "division-in-classification", "response", "point-of-view", "mediation", "storage",
+  "partnership-contract", "deterrence", "robbery", "co-ownership", "recognition", "conservation",
+  "fortition", "setting-literary", "crossing-over", "dramatic-exposition", "acceptance-principle",
+  "expenses", "angst", "resolution",
+  // (4) 한의학 용어(정치·기체·위기·여기·경기·사진·상승·기기)는 한 글자씩 떼면 전부 일상어다.
+  "corrective-treatment", "qi-stagnation", "defensive-qi", "pestilential-qi", "meridian-qi",
+  "four-diagnostic-methods", "excessive-restraint", "qi-mechanism",
+]);
+const RISKY_PEER_WINDOW = 2500; // 한 쪽 분량의 글자 수 근사
+const RISKY_MIN_SENSE_HITS = 2;
+const RISKY_MIN_KEY_LENGTH = 3; // 통계·질병·추가 같은 2글자 키워드는 어느 글에나 있어 증거가 못 된다
+const RISKY_REASON = "risky";
+
+// 같은 세부 분야의 다른 살아 있는(그리고 위험 목록 밖인) 용어가 match 의 등장 둘레에 있는가.
+function hasNearFieldPeer(match, alive) {
+  const mine = new Set(match.categories || []);
+  if (!mine.size) return false;
+  const occs = match.occurrences || [];
+  for (const other of alive) {
+    // 연구 기초·방법 용어(통계·도구)는 어느 분야 글에나 나오므로 같은 분야의 증거가 못 된다.
+    if (other === match || RISKY_SURFACE_SLUGS.has(other.slug) || isBasicMethodTerm(other)) continue;
+    if (!(other.categories || []).some((c) => mine.has(c))) continue;
+    for (const a of occs) {
+      for (const b of other.occurrences || []) {
+        if (Math.abs(a.start - b.start) <= RISKY_PEER_WINDOW) return true;
+      }
+    }
+  }
+  return false;
+}
+
+// 뜻 키워드 적중 수. 표제어 자신에 든 키워드(부적응⊃적응)와, 다른 적중 키워드 안에 든 키워드
+// (환경⊂환경학)는 같은 증거를 두 번 세는 것이라 뺀다.
+function riskySenseHits(match, text) {
+  const hit = senseHitKeys(match, text);
+  if (!hit) return 0;
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  const en = (match.title_en || "").toLowerCase();
+  const ks = [...hit].filter((k) => k.length >= RISKY_MIN_KEY_LENGTH && !ko.includes(k) && !en.includes(k));
+  return ks.filter((k) => !ks.some((o) => o !== k && o.includes(k))).length;
+}
+
+function riskyEvidence(match, text, alive, top) {
+  if (hasAuthorGloss(match, text, top)) return "gloss";
+  if (riskySenseHits(match, text) >= RISKY_MIN_SENSE_HITS) return "sense";
+  if (hasNearFieldPeer(match, alive)) return "peer";
+  return "";
+}
+
+function applyRiskyRule(list, text, top, baseline) {
+  const alive = list.filter((m) => !m.distant);
+  if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
+  for (const match of alive) {
+    if (!RISKY_SURFACE_SLUGS.has(match.slug)) continue;
+    if (riskyEvidence(match, text, alive, top)) continue;
+    match.distant = true;
+    match.demotedBy = RISKY_REASON;
+  }
+}
+
 function applySenseContextRule(list, text, top) {
   // 분야 추정이 없는 문서(잡힌 용어 < FIELD_DISTANCE_MIN_MATCHES): 예전엔 규칙을 통째로
   // 껐다. 2026-09-29 사용자 결정("틀린 용어보다 놓치는 게 낫다")으로 이런 문서에서도
@@ -923,6 +1008,7 @@ function applySenseContextRule(list, text, top) {
   }
   applySameSpanRule(list, text, baseline);
   applyStrayRule(list, text, top, baseline);
+  applyRiskyRule(list, text, top, baseline);
   return list;
 }
 
@@ -1994,6 +2080,6 @@ function findSelectionInText(bodyText, selected) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
+  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applyRiskyRule, riskyEvidence, RISKY_SURFACE_SLUGS, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
 }
 
