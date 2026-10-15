@@ -491,8 +491,12 @@ const OA_OUTSIDE_MIN_GROUP_SHARE = 0.03;
 const OA_BASIC_GROUP = "연구 기초·방법";
 // (c) 공기어 보강: 실제 논문에서 그 표제어 옆에 나온 명사 상위 몇 개를 뜻 키워드 앞에 둔다.
 const OA_COOC_TAKE = 8;
-// OA_COOC_FIELD=1: 분야 조건부 공기어(coocField: 자기 분야 문서에서 더 많이 나온 낱말)만 쓴다.
+// OA_COOC_FIELD=1: 분야 조건부 공기어(coocField: 자기 분야 문서에서 3편 이상, 다른 분야보다 더 많이 나온 낱말)만 쓴다.
 const OA_COOC_FIELD = !!process.env.OA_COOC_FIELD;
+// 영어 초록 공기어(coocEn)를 영문 뜻 키워드로 덧붙인다(분야 모드에서 기본 켬, OA_COOC_EN=none으로 끔).
+// 분야 조건부 영문(coocEnField)은 13편 채점에서 효과가 없었다. 10개까지.
+const OA_COOC_EN = process.env.OA_COOC_EN || (OA_COOC_FIELD ? "all" : "");
+const OA_COOC_EN_TAKE = Number(process.env.OA_COOC_EN_TAKE) || 10;
 
 function loadOaStats() {
   if (!fs.existsSync(OA_STATS)) return null;
@@ -556,7 +560,10 @@ function mergeOaCooc(senses, terms, oa) {
       if (w === own || own.includes(w) || ko.includes(w)) continue;
       if (ko.length < SENSE_KEYWORDS_MAX) ko.push(w);
     }
-    senses.set(t.slug, [...ko, ...old.filter((w) => !/[가-힣]/.test(w))]);
+    const en = old.filter((w) => !/[가-힣]/.test(w));
+    const enList = OA_COOC_EN && OA_COOC_EN !== "none" ? (OA_COOC_EN === "field" ? s.coocEnField : s.coocEn) : null;
+    if (enList) for (const w of enList.slice(0, OA_COOC_EN_TAKE)) if (!en.includes(w)) en.push(w);
+    senses.set(t.slug, [...ko, ...en]);
   }
   return senses;
 }

@@ -29,6 +29,9 @@ const COOC_TOP = 20;
 const COOC_STOP_SHARE = 0.3;
 // 한 편에서만 같이 나온 낱말은 우연일 수 있어 공기어로 치지 않는다.
 const COOC_MIN_DOCS = 2;
+// 분야 조건부 공기어(coocField)는 자기 분야 문서 3편 이상 + 다른 분야보다 자기 분야에서 더 많이 나온 낱말만.
+// 2편이면 우연히 겹친 일반어가 끼어 정답 손실이 늘었다(13편 채점: 2편 정답 246/손실 8, 3편 정답 247/손실 5, 오답 4 불변).
+const COOC_FIELD_MIN_DOCS = 3;
 // 명사 근거: 말뭉치에서 격조사가 붙은 꼴로 이만큼 이상 나온 어간(사전 표제어는 무조건 인정).
 const NOUN_PARTICLES = ["을", "를", "의", "에", "와", "과", "으로", "에서", "에게"];
 const NOUN_MIN_EVIDENCE = 3;
@@ -169,7 +172,7 @@ function buildStats(allDocs, terms) {
     if (s.dfNeutral) entry.fieldsNeutral = s.fieldsNeutral;
     if (cooc.length) entry.cooc = cooc;
     // 분야 조건부 공기어: 자기 분야 문서에서 2편 이상, 다른 분야 문서보다 자기 분야에서 더 많이 나온 낱말
-    const coocField = [...s.coocOwn.entries()].filter(([w, c]) => c >= COOC_MIN_DOCS && c > (s.coocOther.get(w) || 0))
+    const coocField = [...s.coocOwn.entries()].filter(([w, c]) => c >= COOC_FIELD_MIN_DOCS && c > (s.coocOther.get(w) || 0))
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, COOC_TOP).map(([w]) => w);
     if (coocField.length) entry.coocField = coocField;
     // 분야 균형 df: 분야별 출현율(그 분야 문서 중 몇 %)의 평균 x1000. 분야 쏠림을 보정한 인기도.
