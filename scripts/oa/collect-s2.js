@@ -1,8 +1,8 @@
-// Semantic Scholar Graph API — 키 없이(공유 풀) /paper/search/bulk. 인문·사회·법·교육·예술·경영·공학 보강.
-// 키는 읽지도 보내지도 않는다. 요청 간 3.5초 이상, 429는 지수 백오프(30s,60s,...), 상한 후 중단.
-// 사용: node scripts/oa/collect-s2.js [--max-requests N]
-// 재실행 안전: index.s2.jsonl / state.s2.json 으로 이어받음.
-// 이용: 초록은 통계 산출용으로만 로컬 보관(비공개, 재배포 없음). 결과물/논문에는 "Semantic Scholar Open Data Platform" 인용.
+﻿// Semantic Scholar Graph API ?????놁씠(怨듭쑀 ?) /paper/search/bulk. ?몃Ц쨌?ы쉶쨌踰빧룰탳?≤룹삁?졖룰꼍?겶룰났??蹂닿컯.
+// ?ㅻ뒗 ?쎌???蹂대궡吏???딅뒗?? ?붿껌 媛?3.5珥??댁긽, 429??吏??諛깆삤??30s,60s,...), ?곹븳 ??以묐떒.
+// ?ъ슜: node scripts/oa/collect-s2.js [--max-requests N]
+// ?ъ떎???덉쟾: index.s2.jsonl / state.s2.json ?쇰줈 ?댁뼱諛쏆쓬.
+// ?댁슜: 珥덈줉? ?듦퀎 ?곗텧?⑹쑝濡쒕쭔 濡쒖뺄 蹂닿?(鍮꾧났媛? ?щ같???놁쓬). 寃곌낵臾??쇰Ц?먮뒗 "Semantic Scholar Open Data Platform" ?몄슜.
 const C = require("./en-common");
 
 const API = "https://api.semanticscholar.org/graph/v1/paper/search/bulk";
@@ -12,7 +12,7 @@ const TERM_CAP = 12;
 const TERMS_PER_CODE = 20;
 const FIELDS = "title,abstract,year,venue,fieldsOfStudy,externalIds,openAccessPdf,isOpenAccess";
 
-// 우리 카테고리 코드 -> S2 fieldsOfStudy (쉼표 구분 가능)
+// ?곕━ 移댄뀒怨좊━ 肄붾뱶 -> S2 fieldsOfStudy (?쇳몴 援щ텇 媛??
 const FOS = {
   philo: "Philosophy", history: "History", lit: "Art,Linguistics", religion: "Philosophy,History", ling: "Linguistics",
   translation: "Linguistics", archaeo: "History,Geology", museum: "History,Art",
@@ -66,12 +66,12 @@ function buildTasks(terms) {
 }
 
 async function main() {
-  const fetcher = C.makeFetcher({ delayMs: DELAY_MS, maxRequests: C.argNum("--max-requests", 600), backoffBaseMs: 30000, maxRetries: 5 });
+  const fetcher = C.makeFetcher({ delayMs: DELAY_MS, maxRequests: C.argNum("--max-requests", 600), backoffBaseMs: 30000, maxRetries: 7 });
   const store = C.makeStore("s2");
   await C.crawl({
     source: "s2", tasks: buildTasks(C.loadTerms()), store, fetcher, quotaPerCode: QUOTA_PER_CODE,
     fetchPage: async (task) => {
-      // 한 질의당 첫 페이지(최대 1000편, 피인용 순)만 사용 — 상위 TERM_CAP편만 취하므로 다음 토큰은 쓰지 않는다.
+      // ??吏덉쓽??泥??섏씠吏(理쒕? 1000?? ?쇱씤????留??ъ슜 ???곸쐞 TERM_CAP?몃쭔 痍⑦븯誘濡??ㅼ쓬 ?좏겙? ?곗? ?딅뒗??
       const page = parseBulk(JSON.parse(await fetcher.get(buildUrl(task, null))));
       page.next = null;
       return page;
