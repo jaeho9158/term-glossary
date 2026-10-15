@@ -20,8 +20,28 @@ const today = (d = new Date()) => d.toISOString().slice(0, 10);
 const redactWith = (key) => (s) => (key ? String(s).split(key).join("<KEY>") : String(s));
 
 // 한 분야의 작업 목록: 질의어 x 연도 창. 질의어 순서를 유지하며 연도를 번갈아 돌려 편향을 줄인다.
+// 라벨 낱말의 어간(학/공학/과학 제거 뒤 앞 2자·뒤 2자). 합성어 라벨(전기전자공학)은 제목에 통째로 거의 안 나온다.
+function stems(label) {
+  const out = [];
+  for (const w of String(label || "").split(/[s·‧・/]+/)) {
+    const b = w.replace(/(공학|과학|학)$/, "");
+    if (!/^[가-힣]{2,}$/.test(b)) continue;
+    out.push(b);
+    if (b.length >= 4) out.push(b.slice(0, 2), b.slice(-2));
+  }
+  return [...new Set(out)];
+}
+
+function queriesFor(label) {
+  const base = neutralQueries(label, undefined, 99);
+  const st = stems(label);
+  const combos = [];
+  for (const n of ["연구", "분석", "효과", "영향", "특성", "평가"]) for (const t of st) combos.push(`${t} ${n}`);
+  return [...new Set([...base.slice(0, 1), ...st, ...base.slice(1), ...combos])].slice(0, 24);
+}
+
 function buildTasks(code, label) {
-  const qs = neutralQueries(label);
+  const qs = queriesFor(label);
   const tasks = [];
   for (const y of YEARS) for (const q of qs) tasks.push({ code, q, year: y, key: `${code}|${q}|${y}` });
   return tasks;
@@ -128,4 +148,4 @@ async function main() {
 
 if (require.main === module) main().catch((e) => { console.error(String(e.message).slice(0, 200)); process.exit(1); });
 
-module.exports = { buildTasks, pickNext, makeRecord, today, redactWith };
+module.exports = { stems, queriesFor, buildTasks, pickNext, makeRecord, today, redactWith };

@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { buildTasks, pickNext, makeRecord, redactWith } = require("../scripts/oa/collect-kci-bulk.js");
+const { stems, buildTasks, pickNext, makeRecord, redactWith } = require("../scripts/oa/collect-kci-bulk.js");
 
 test("buildTasks: 질의어 x 연도, 고유 키", () => {
   const t = buildTasks("math", "수학 통계");
@@ -17,4 +17,9 @@ test("makeRecord 형태와 redact", () => {
   const r = makeRecord({ id: "X", journal: "J", title: "T", year: 2020, url: "u", citations: 1 }, "math", "q");
   assert.strictEqual(r.id, "kci-X"); assert.strictEqual(r.lang, "ko"); assert.strictEqual(r.sampling, "neutral");
   assert.strictEqual(redactWith("sekret")("a sekret b"), "a <KEY> b");
+});
+
+test("stems: 합성 라벨 어간", () => {
+  assert.deepStrictEqual(stems("전기전자공학"), ["전기전자", "전기", "전자"]);
+  assert.ok(stems("약학").length === 0 || stems("약학").every((w) => w.length >= 2));
 });
