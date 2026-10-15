@@ -741,3 +741,78 @@ test("결정성: 쪽을 어떤 순서로 줘도(비동기 포함) 같은 목차�
   assert.equal(JSON.stringify(await guessHeadingsAsync([pages[2], pages[0], pages[1]])), base);
   assert.ok(JSON.parse(base).length >= 8);
 });
+
+// ---------- 번호 순서를 잇는 본문 크기 제목 · 제목 전용 글꼴 · 문서의 단 위치 ----------
+const bl = (text, y, x, x2, font) => ({ text, fontSize: 10, font: font || "B", x, x2, y });
+function seqDoc(head, tailText, afterX, heads) {
+  // 1쪽: "1. 서론"(굵은 큰 글자) 다음 본문, 본문 크기 번호 제목 head(두 줄로 꺾임) + 끝줄 + 아래 문단
+  return [{ page: 1, lines: [
+    H("1. 서론", 13, 40), ...bodyAt(6, 60),
+    bl(head, 160, 70, 250), bl(tailText, 174, 70, 100), bl("본 연구는 대상자의 특성을 살펴보기 위하여 설문을 실시하였다", 188, afterX, afterX + 200),
+    ...bodyAt(5, 202), ...(heads || []), H("참고문헌", 13, 340),
+  ] }];
+}
+
+test("본문 크기 번호 제목: 앞 제목(1.)에 정확히 이어지는 2. 가 두 줄로 꺾여도 제목이다(끝줄을 합친다)", () => {
+  const r = guessHeadings(seqDoc("2. 휴대용 뇌파분석기와 아두이노를 이용한 집중력 향상", "시스템", 80));
+  assert.deepEqual(titles(r), ["1. 서론", "2. 휴대용 뇌파분석기와 아두이노를 이용한 집중력 향상 시스템", "참고문헌"]);
+});
+
+test("본문 크기 번호 제목: 번호가 이어지지 않거나(3.) 아래가 새 문단이 아니거나 문장이면 제목이 아니다", () => {
+  const has = (r) => titles(r).some((t) => /^[23]\. 휴대용/.test(t));
+  const mid = [H("2. 방법", 13, 300)];
+  assert.ok(!has(guessHeadings(seqDoc("3. 휴대용 뇌파분석기와 아두이노를 이용한 집중력 향상", "시스템", 80, mid))));
+  assert.ok(!has(guessHeadings(seqDoc("2. 휴대용 뇌파분석기와 아두이노를 이용한 집중력 향상", "시스템", 70, mid)))); // 같은 왼쪽 끝: 번호 목록
+  assert.ok(!has(guessHeadings(seqDoc("2. 휴대용 뇌파분석기와 아두이노를 이용한 집중력 향상", "시스템이다.", 80, mid))));
+  // 앞 제목이 없으면(사슬 없음) 받지 않는다
+  const pages = [{ page: 1, lines: [H("서론", 13, 40), ...bodyAt(6, 60), bl("2. 휴대용 뇌파분석기와 아두이노를 이용한 집중력 향상", 160, 70, 250), bl("시스템", 174, 70, 100), bl("본 연구는 대상자의 특성을 살펴보기 위하여 설문을 실시하였다", 188, 80, 280), ...bodyAt(5, 202), H("방법", 13, 300), H("참고문헌", 13, 340)] }];
+  assert.ok(!has(guessHeadings(pages)));
+});
+
+test("본문 크기 번호 제목: 위아래가 트인 한 줄 3. 도 앞 번호에 이어질 때만 제목이다", () => {
+  const mk = (num) => [{ page: 1, lines: [
+    H("1. 서론", 13, 40), ...bodyAt(6, 60), H("2. 방법", 13, 160), ...bodyAt(4, 180),
+    bl(num + ". 시스템 구성", 270, 70, 150), ...bodyAt(4, 300), H("참고문헌", 13, 400),
+  ] }];
+  assert.deepEqual(titles(guessHeadings(mk(3))), ["1. 서론", "2. 방법", "3. 시스템 구성", "참고문헌"]);
+  assert.deepEqual(titles(guessHeadings(mk(5))), ["1. 서론", "2. 방법", "참고문헌"]);
+});
+
+test("제목 전용 글꼴: 이 글꼴이 짧은 제목 줄에만 쓰이면 본문 크기여도, 위가 트인 한 줄이면 제목이다", () => {
+  const S = (text, y) => bl(text, y, 70, 70 + text.length * 8, "S");
+  const mk = (page2) => [
+    { page: 1, lines: [H("1. 서론", 13, 40), ...bodyAt(40, 60), H("2. 방법", 13, 640)] },
+    { page: 2, lines: [...page2, H("참고문헌", 13, 500)] },
+  ];
+  const good = [...bodyAt(4, 60), S("효소 반응 연구", 130), ...bodyAt(4, 144), S("억제 전략의 개발", 230), ...bodyAt(4, 244), S("마지막 소제목 예시", 330), ...bodyAt(4, 344)];
+  const r = titles(guessHeadings(mk(good)));
+  assert.ok(r.includes("효소 반응 연구") && r.includes("억제 전략의 개발"), r.join("|"));
+  // 같은 글꼴이 문장(마침표로 끝나는 줄)에도 쓰였으면 제목 전용 글꼴이 아니다
+  const r2 = titles(guessHeadings(mk([...good, S("이 글꼴은 문장도 쓴다.", 430), ...bodyAt(1, 444)])));
+  assert.ok(!r2.includes("효소 반응 연구"));
+  // 위가 트이지 않은(앞 문단에 바로 붙은) 줄은 제목이 아니다
+  const tight = [...bodyAt(4, 60), S("효소 반응 연구", 116), ...bodyAt(4, 130), S("억제 전략의 개발", 186), ...bodyAt(4, 200), S("세 번째 제목", 256), ...bodyAt(4, 270)];
+  const r3 = titles(guessHeadings(mk(tight)));
+  assert.ok(!r3.includes("억제 전략의 개발") && !r3.includes("효소 반응 연구"));
+});
+
+test("문서의 단 위치: 단을 못 찾은 쪽도 다른 쪽들과 같은 자리에서 두 단이면 읽는 순서(왼쪽 단 → 오른쪽 단)로 놓는다", () => {
+  const left = (n, y0) => Array.from({ length: n }, (_, i) => longBody(60, y0 + i * 14));
+  const right = (n, y0) => Array.from({ length: n }, (_, i) => longBody(320, y0 + i * 14));
+  const w = (text, y, x) => ({ text, fontSize: 13, font: "H", x, x2: x + 100, y });
+  const full = (n, y0) => Array.from({ length: n }, (_, i) => ({ text: "전폭으로 깔린 제목과 초록 줄이다 전폭으로 깔린 제목과 초록 줄이다", fontSize: 10, font: "B", x: 60, x2: 560, y: y0 + i * 14 }));
+  const two = (pg, a, b) => ({ page: pg, lines: [...left(14, 60), ...right(14, 60), w(a, 300, 60), w(b, 120, 320)] });
+  // 3쪽: 전폭 줄이 많아 쪽만으로는 단 위치를 못 찾는다
+  const odd = { page: 3, lines: [...full(14, 40), ...left(6, 250), ...right(6, 250), w("Ⅳ. 넷째 장", 400, 60), w("Ⅴ. 다섯째 장", 270, 320)] };
+  const last = { page: 4, lines: [...left(3, 60), w("참고문헌", 200, 60)] };
+  assert.equal(detectGutter(odd.lines), null);
+  const docs = [two(1, "Ⅰ. 첫째 장", "Ⅱ. 둘째 장"), two(2, "Ⅲ. 셋째 장", "Ⅲ. 셋째 장 계속"), odd, last];
+  const r = guessHeadings(docs);
+  assert.deepEqual(r.filter((e) => e.page === 3).map((e) => e.title), ["Ⅳ. 넷째 장", "Ⅴ. 다섯째 장"]);
+  assert.deepEqual(r.filter((e) => e.page === 3).map((e) => e.col), [0, 1]);
+  // 쪽 순서를 바꿔도 같다
+  assert.equal(JSON.stringify(guessHeadings([docs[3], docs[1], docs[2], docs[0]])), JSON.stringify(r));
+  // 다른 쪽에서 단 위치를 찾지 못하면(한 단 문서) 이 쪽에 단 위치를 주지 않는다
+  const r1 = guessHeadings([{ page: 1, lines: [...bodyAt(14, 60), H("Ⅰ. 첫째 장", 13, 40)] }, { page: 2, lines: [...bodyAt(14, 60), H("Ⅱ. 둘째 장", 13, 40)] }, odd, last]);
+  assert.ok(r1.filter((e) => e.page === 3).every((e) => e.col === undefined));
+});
