@@ -491,6 +491,8 @@ const OA_OUTSIDE_MIN_GROUP_SHARE = 0.03;
 const OA_BASIC_GROUP = "연구 기초·방법";
 // (c) 공기어 보강: 실제 논문에서 그 표제어 옆에 나온 명사 상위 몇 개를 뜻 키워드 앞에 둔다.
 const OA_COOC_TAKE = 8;
+// OA_COOC_FIELD=1: 분야 조건부 공기어(coocField: 자기 분야 문서에서 더 많이 나온 낱말)만 쓴다.
+const OA_COOC_FIELD = !!process.env.OA_COOC_FIELD;
 
 function loadOaStats() {
   if (!fs.existsSync(OA_STATS)) return null;
@@ -545,11 +547,12 @@ function mergeOaCooc(senses, terms, oa) {
   if (!oa) return senses;
   for (const t of terms) {
     const s = oa.terms[t.slug];
-    if (!s || !s.cooc || !isSenseTitle(t)) continue;
+    const oaList = OA_COOC_FIELD ? s && s.coocField : s && s.cooc;
+    if (!s || !oaList || !isSenseTitle(t)) continue;
     const own = (t.title_ko || "").replace(/\s+/g, "");
     const old = senses.get(t.slug) || [];
     const ko = [];
-    for (const w of [...s.cooc.slice(0, OA_COOC_TAKE), ...old.filter((w) => /[가-힣]/.test(w))]) {
+    for (const w of [...oaList.slice(0, OA_COOC_TAKE), ...old.filter((w) => /[가-힣]/.test(w))]) {
       if (w === own || own.includes(w) || ko.includes(w)) continue;
       if (ko.length < SENSE_KEYWORDS_MAX) ko.push(w);
     }

@@ -16,7 +16,8 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "..", "..");
-const OUT_DIR = path.join(ROOT, "data", "oa-corpus");
+// 말뭉치는 메인 저장소에만 있다(gitignore). 워크트리에서는 OA_CORPUS_DIR로 가리킨다. 통계 출력은 항상 ROOT/data.
+const OUT_DIR = process.env.OA_CORPUS_DIR ? path.resolve(process.env.OA_CORPUS_DIR) : path.join(ROOT, "data", "oa-corpus");
 const INDEX = path.join(OUT_DIR, "index.jsonl");
 const TEXT_DIR = path.join(OUT_DIR, "text");
 const OUTPUT = path.join(ROOT, "data", "oa-stats.json");
@@ -32,12 +33,44 @@ const COOC_MIN_DOCS = 2;
 const NOUN_PARTICLES = ["을", "를", "의", "에", "와", "과", "으로", "에서", "에게"];
 const NOUN_MIN_EVIDENCE = 3;
 
+// 수집기마다 자기 색인(index.<출처>.jsonl)에 쓴다 — index.jsonl과 index.*.jsonl을 모두 읽고,
+// DOI(있으면) → 정규화한 제목 순으로 중복을 걸러 처음 것을 남긴다.
+function indexFiles() {
+  if (!fs.existsSync(OUT_DIR)) return [];
+  return fs.readdirSync(OUT_DIR).filter((f) => f === "index.jsonl" || /^index\..+\.jsonl$/.test(f)).sort((a, b) => (a === "index.jsonl" ? -1 : b === "index.jsonl" ? 1 : a.localeCompare(b)));
+}
+const normTitle = (t) => String(t || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+function dedupe(rows) {
+  const seen = new Set(), out = [];
+  for (const r of rows) {
+    const doi = r.doi ? "doi:" + String(r.doi).toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, "") : null;
+    const nt = normTitle(r.title).length >= 12 ? "t:" + normTitle(r.title) : null;
+    if ((doi && seen.has(doi)) || (nt && seen.has(nt)) || seen.has("id:" + r.id)) continue;
+    if (doi) seen.add(doi);
+    if (nt) seen.add(nt);
+    seen.add("id:" + r.id);
+    out.push(r);
+  }
+  return out;
+}
 function loadDocs() {
-  if (!fs.existsSync(INDEX)) return [];
-  return fs.readFileSync(INDEX, "utf8").split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l))
+  const rows = [];
+  for (const f of indexFiles()) {
+    for (const l of fs.readFileSync(path.join(OUT_DIR, f), "utf8").split("\n")) {
+      if (!l.trim()) continue;
+      try { rows.push(JSON.parse(l)); } catch (e) { /* 쓰는 중인 마지막 줄 */ }
+    }
+  }
+  return dedupe(rows)
     .filter((r) => !r.skipped && fs.existsSync(path.join(TEXT_DIR, `${r.id}.txt`)))
     .map((r) => ({ ...r, text: fs.readFileSync(path.join(TEXT_DIR, `${r.id}.txt`), "utf8") }));
 }
+
+const EN_STOP = new Set(("a an the and or but if of in on at to for from by with without within between among about as is are was were be been being this that these those it its we our they their " +
+  "he she his her not no nor so than then there here which who whom whose what when where how all any both each few more most other some such only own same too very can will just should would could may might must also " +
+  "into over under again further once during before after above below up down out off per via using used use based study studies results result method methods analysis data paper research show shown shows found find however thus " +
+  "et al fig table one two three").split(" "));
+function enTokens(text) { return (text.toLowerCase().match(/[a-z][a-z-]{2,}/g) || []).filter((w) => !EN_STOP.has(w)); }
 
 function loadTerms() {
   const raw = JSON.parse(fs.readFileSync(path.join(ROOT, "viewer-index.json"), "utf8"));
@@ -66,7 +99,9 @@ function nounEvidence(docs) {
   return ev;
 }
 
-function buildStats(docs, terms) {
+function buildStats(allDocs, terms) {
+  const docs = allDocs.filter((d) => d.lang !== "en");
+  const enDocs = allDocs.filter((d) => d.lang === "en");
   const index = viewer.buildExactIndex(terms);
   const titles = new Set(terms.map((t) => (t.title_ko || "").replace(/\s+/g, "")));
   const evidence = nounEvidence(docs);
@@ -85,12 +120,14 @@ function buildStats(docs, terms) {
   });
   const stopDf = Math.max(COOC_MIN_DOCS + 1, Math.ceil(docs.length * COOC_STOP_SHARE));
 
+  const catOf = new Map(terms.map((t) => [t.slug, new Set(t.categories || [])]));
+  const ownCodes = (slug) => catOf.get(slug) || new Set();
   const stats = new Map();
   docs.forEach((d) => {
     const matches = viewer.matchTermsWithIndex(d.text, index);
     for (const m of matches) {
       let s = stats.get(m.slug);
-      if (!s) stats.set(m.slug, (s = { title_ko: m.title_ko, title_en: m.title_en, df: 0, count: 0, fields: {}, dfNeutral: 0, fieldsNeutral: {}, cooc: new Map() }));
+      if (!s) stats.set(m.slug, (s = { title_ko: m.title_ko, title_en: m.title_en, df: 0, count: 0, fields: {}, dfNeutral: 0, fieldsNeutral: {}, cooc: new Map(), coocOwn: new Map(), coocOther: new Map() }));
       s.df++;
       s.count += (m.occurrences || []).length || m.count || 1;
       s.fields[d.field] = (s.fields[d.field] || 0) + 1;
@@ -109,10 +146,17 @@ function buildStats(docs, terms) {
           near.add(n);
         }
       }
-      for (const n of near) s.cooc.set(n, (s.cooc.get(n) || 0) + 1);
+      const inOwn = ownCodes(m.slug).has(d.field);
+      for (const n of near) {
+        s.cooc.set(n, (s.cooc.get(n) || 0) + 1);
+        const side = inOwn ? s.coocOwn : s.coocOther;
+        side.set(n, (side.get(n) || 0) + 1);
+      }
     }
   });
 
+  const fieldDocsKo = {};
+  for (const d of docs) fieldDocsKo[d.field] = (fieldDocsKo[d.field] || 0) + 1;
   const out = {};
   for (const slug of [...stats.keys()].sort()) {
     const s = stats.get(slug);
@@ -124,14 +168,57 @@ function buildStats(docs, terms) {
     const entry = { df: s.df, count: s.count, fields: s.fields, dfNeutral: s.dfNeutral };
     if (s.dfNeutral) entry.fieldsNeutral = s.fieldsNeutral;
     if (cooc.length) entry.cooc = cooc;
+    // 분야 조건부 공기어: 자기 분야 문서에서 2편 이상, 다른 분야 문서보다 자기 분야에서 더 많이 나온 낱말
+    const coocField = [...s.coocOwn.entries()].filter(([w, c]) => c >= COOC_MIN_DOCS && c > (s.coocOther.get(w) || 0))
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, COOC_TOP).map(([w]) => w);
+    if (coocField.length) entry.coocField = coocField;
+    // 분야 균형 df: 분야별 출현율(그 분야 문서 중 몇 %)의 평균 x1000. 분야 쏠림을 보정한 인기도.
+    const rates = Object.entries(fieldDocsKo).map(([f, n]) => (s.fields[f] || 0) / n);
+    entry.dfBal = Math.round((1000 * rates.reduce((a, b) => a + b, 0)) / rates.length);
     out[slug] = entry;
   }
+  const en = buildEnglish(enDocs, terms, out);
+  const sourceDocs = {};
+  for (const d of allDocs) { const k = d.source + "/" + (d.lang === "en" ? "en" : "ko"); sourceDocs[k] = (sourceDocs[k] || 0) + 1; }
   const fieldDocs = {};
   for (const d of docs) fieldDocs[d.field] = (fieldDocs[d.field] || 0) + 1;
   const neutralDocs = docs.filter((d) => d.sampling === "neutral");
   const fieldDocsNeutral = {};
   for (const d of neutralDocs) fieldDocsNeutral[d.field] = (fieldDocsNeutral[d.field] || 0) + 1;
-  return { v: 2, docs: docs.length, docsNeutral: neutralDocs.length, fieldDocs, fieldDocsNeutral, sources: [...new Set(docs.map((d) => d.source))].sort(), terms: out };
+  return { v: 3, sourceDocs, docsEn: enDocs.length, fieldDocsEn: en.fieldDocsEn, docs: docs.length, docsNeutral: neutralDocs.length, fieldDocs, fieldDocsNeutral, sources: [...new Set(docs.map((d) => d.source))].sort(), terms: out };
+}
+
+// 영어 초록: 뷰어 매칭을 영어 본문에 그대로 쓰고(영문 표제어·별칭만 걸린다), 공기어는 소문자 낱말(불용어 제외).
+function buildEnglish(enDocs, terms, out) {
+  const fieldDocsEn = {};
+  for (const d of enDocs) fieldDocsEn[d.field] = (fieldDocsEn[d.field] || 0) + 1;
+  if (!enDocs.length) return { fieldDocsEn };
+  const index = viewer.buildExactIndex(terms);
+  const tokDf = new Map();
+  for (const d of enDocs) for (const w of new Set(enTokens(d.text))) tokDf.set(w, (tokDf.get(w) || 0) + 1);
+  const stopDf = Math.max(COOC_MIN_DOCS + 1, Math.ceil(enDocs.length * COOC_STOP_SHARE));
+  const st = new Map();
+  for (const d of enDocs) {
+    for (const m of viewer.matchTermsWithIndex(d.text, index)) {
+      let s = st.get(m.slug);
+      if (!s) st.set(m.slug, (s = { df: 0, fields: {}, cooc: new Map() }));
+      s.df++; s.fields[d.field] = (s.fields[d.field] || 0) + 1;
+      const own = new Set(enTokens(m.title_en || ""));
+      const near = new Set();
+      for (const occ of m.occurrences || []) {
+        const win = d.text.slice(Math.max(0, occ.start - COOC_WINDOW), occ.start + occ.length + COOC_WINDOW);
+        for (const w of enTokens(win)) if (!own.has(w) && (tokDf.get(w) || 0) < stopDf) near.add(w);
+      }
+      for (const w of near) s.cooc.set(w, (s.cooc.get(w) || 0) + 1);
+    }
+  }
+  for (const [slug, s] of st) {
+    const e = out[slug] || (out[slug] = { df: 0, count: 0, fields: {}, dfNeutral: 0 });
+    e.dfEn = s.df; e.fieldsEn = s.fields;
+    const c = [...s.cooc.entries()].filter(([, n]) => n >= COOC_MIN_DOCS).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, COOC_TOP).map(([w]) => w);
+    if (c.length) e.coocEn = c;
+  }
+  return { fieldDocsEn };
 }
 
 function main() {
@@ -140,7 +227,7 @@ function main() {
   const result = buildStats(docs, loadTerms());
   // 한 줄에 표제어 하나: diff를 읽을 수 있고 크기도 들여쓰기 전체보다 작다.
   const body = Object.entries(result.terms).map(([k, v]) => JSON.stringify(k) + ":" + JSON.stringify(v)).join(",\n");
-  const json = `{"v":${result.v},"docs":${result.docs},"docsNeutral":${result.docsNeutral},"fieldDocs":${JSON.stringify(result.fieldDocs)},"fieldDocsNeutral":${JSON.stringify(result.fieldDocsNeutral)},"sources":${JSON.stringify(result.sources)},"terms":{\n${body}\n}}\n`;
+  const json = `{"v":${result.v},"docs":${result.docs},"docsEn":${result.docsEn},"fieldDocsEn":${JSON.stringify(result.fieldDocsEn)},"sourceDocs":${JSON.stringify(result.sourceDocs)},"docsNeutral":${result.docsNeutral},"fieldDocs":${JSON.stringify(result.fieldDocs)},"fieldDocsNeutral":${JSON.stringify(result.fieldDocsNeutral)},"sources":${JSON.stringify(result.sources)},"terms":{\n${body}\n}}\n`;
   const outArg = process.argv.indexOf("--out");
   const output = outArg > 0 ? path.resolve(process.argv[outArg + 1]) : OUTPUT;
   fs.writeFileSync(output, json, "utf8");

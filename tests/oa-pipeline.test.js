@@ -70,7 +70,7 @@ test("통계: dfNeutral·fieldsNeutral은 sampling:neutral 문서만 센다", ()
     { id: "3", field: "psych", source: "kci", sampling: "neutral", text: "수술 후 회복을 보았다." },
   ];
   const s = buildStats(docs, TERMS);
-  assert.strictEqual(s.v, 2);
+  assert.strictEqual(s.v, 3);
   assert.strictEqual(s.docsNeutral, 2);
   assert.deepStrictEqual(s.fieldDocsNeutral, { psych: 2 });
   assert.strictEqual(s.terms.stress.df, 2);
@@ -152,4 +152,20 @@ test("연동 (c): cooc 상위 토큰을 뜻 키워드에 합집합(한글 12개 
   const before = new Map(senses);
   gen.mergeOaCooc(senses, terms, null);
   assert.deepStrictEqual(senses, before);
+});
+
+test("통계: 영문 문서는 dfEn·fieldsEn·coocEn으로 따로 세고 국문 df는 그대로", () => {
+  const docs = [
+    { id: "1", field: "nursing", source: "kci", text: "환자의 스트레스와 코르티솔 수치를 측정하였다." },
+    { id: "e1", field: "psych", source: "openalex", lang: "en", text: "Chronic stress raises cortisol levels in workers under pressure." },
+    { id: "e2", field: "psych", source: "openalex", lang: "en", text: "We measured cortisol after acute stress exposure in workers." },
+  ];
+  const s = buildStats(docs, TERMS);
+  assert.strictEqual(s.docs, 1);
+  assert.strictEqual(s.docsEn, 2);
+  assert.deepStrictEqual(s.fieldDocsEn, { psych: 2 });
+  assert.strictEqual(s.terms.stress.df, 1);
+  assert.strictEqual(s.terms.stress.dfEn, 2);
+  assert.ok(s.terms.stress.coocEn.includes("workers") || s.terms.stress.coocEn.includes("cortisol"));
+  assert.strictEqual(s.sourceDocs["openalex/en"], 2);
 });
