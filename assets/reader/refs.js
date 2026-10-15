@@ -583,7 +583,8 @@
     return nums.length ? nums : null;
   }
 
-  function findSuperscriptCitations(pageText, refCount, geom) {
+  // maxOverlap: 번호가 바로 앞 글자 조각의 끝을 글자 크기의 몇 배까지 파고들어도 이어 붙은 것으로 보는지(기본 0.5)
+  function scanSuperscripts(pageText, refCount, geom, maxOverlap) {
     var out = [];
     var max = Math.floor(Number(refCount)) || 0;
     var t = norm(pageText);
@@ -610,7 +611,7 @@
       while (jj >= 0 && /\s/.test(t.charAt(jj))) jj--;
       if (jj < 0 || !(geom.fs[jj] > 0) || geom.item[jj] === geom.item[pos]) return false;
       var gp = geom.x0[pos] - geom.x1[jj];
-      return gp >= -geom.fs[jj] * 0.5 && gp <= geom.fs[jj] && geom.y[pos] - geom.y[jj] >= geom.fs[jj] * 0.12 && geom.y[pos] - geom.y[jj] <= geom.fs[jj] * 0.9;
+      return gp >= -geom.fs[jj] * maxOverlap && gp <= geom.fs[jj] && geom.y[pos] - geom.y[jj] >= geom.fs[jj] * 0.12 && geom.y[pos] - geom.y[jj] <= geom.fs[jj] * 0.9;
     };
     lines.forEach(function (ln) {
       var mk = /^[ 	]*(\d{1,2})(\))?(?=\S)/.exec(ln.text);
@@ -644,7 +645,7 @@
       // 기준 글자의 조각 바로 끝에 이어 붙어 있어야 한다(줄 머리의 번호가 앞 줄 끝 낱말에 붙은 경우도 같은 모양이다)
       if (geom.item[j] === geom.item[start]) continue;
       var gap = geom.x0[start] - geom.x1[j];
-      if (gap < -bfs * 0.5 || gap > bfs * 1.0) continue;
+      if (gap < -bfs * maxOverlap || gap > bfs * 1.0) continue;
       // 기준 글자: 숫자·연산 기호 뒤는 지수, 한 글자·두 글자 라틴 낱말과 단위 뒤도 지수
       var bc = t.charAt(j);
       if (/[\d%°=+\-−×÷^\/<>]/.test(bc)) continue;
@@ -693,7 +694,27 @@
       if (c.numbers.some(function (v) { return markers[c.paren ? "paren" : "bare"][v]; })) return false;
       return true;
     });
-    res.forEach(function (c) { out.push({ start: c.start, end: c.end, numbers: c.numbers, superscript: true }); });
+    res.forEach(function (c) { out.push({ start: c.start, end: c.end, numbers: c.numbers, superscript: true, paren: c.paren }); });
+    return out;
+  }
+
+  // 일부 PDF 는 조각 너비가 실제 글자보다 넓어 위첨자가 앞 글자 위로 최대 한 글자 남짓 겹쳐 놓인다(gap -0.3 ~ -1.2em).
+  // 이 쪽에서 엄격한 기준(겹침 0.5em 이하)으로 이미 ")" 꼴 위첨자를 3개 이상 찾았을 때만, 그 쪽에서 겹침 1.3em 까지 같은 기하(작고 올라간 글자, 기준 글자 바로 뒤)의 번호를 더 받는다.
+  // 나머지 방어(변수·단위 뒤, 소속·각주, 번호 밀집)는 그대로다.
+  var SUP_STYLE_MIN = 3;
+  var SUP_RELAXED_OVERLAP = 1.3;
+  function findSuperscriptCitations(pageText, refCount, geom) {
+    var strict = scanSuperscripts(pageText, refCount, geom, 0.5);
+    var parens = 0;
+    strict.forEach(function (c) { if (c.paren) parens++; });
+    var out = strict.map(function (c) { return { start: c.start, end: c.end, numbers: c.numbers, superscript: true }; });
+    if (parens < SUP_STYLE_MIN) return out;
+    var seen = {};
+    out.forEach(function (c) { seen[c.start] = true; });
+    scanSuperscripts(pageText, refCount, geom, SUP_RELAXED_OVERLAP).forEach(function (c) {
+      if (c.paren && !seen[c.start]) out.push({ start: c.start, end: c.end, numbers: c.numbers, superscript: true });
+    });
+    out.sort(function (a, b) { return a.start - b.start; });
     return out;
   }
 

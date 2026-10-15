@@ -951,7 +951,8 @@ function geomPage(segs, opt) {
   let x = 50;
   let line = 0;
   segs.forEach((sg, idx) => {
-    const o = typeof sg === "string" ? { t: sg, fs: 10, dy: 0 } : sg.sup !== undefined ? { t: sg.sup, fs: sg.fs || 6, dy: sg.dy === undefined ? 4 : sg.dy } : sg;
+    const o = typeof sg === "string" ? { t: sg, fs: 10, dy: 0 } : sg.sup !== undefined ? { t: sg.sup, fs: sg.fs || 6, dy: sg.dy === undefined ? 4 : sg.dy, ox: sg.ox } : sg;
+    x += o.ox || 0; // 앞 조각 끝을 파고드는 위첨자(조각 너비가 실제보다 넓은 PDF)
     for (let k = 0; k < o.t.length; k++) {
       const ch = o.t[k];
       text += ch;
@@ -1037,6 +1038,26 @@ test("findSuperscriptCitations: 저자 뒤 소속 번호와 각주 번호는 인
 test("findSuperscriptCitations: 줄 머리의 작은 번호(소속 표시 '1Department')와 한글 낱말에 붙은 괄호 없는 숫자는 인용이 아니다", () => {
   assert.deepEqual(sup(["\n", { sup: "1" }, "Department of Medicine, Seoul\n"]), []);
   assert.deepEqual(sup(["서울대학교", { sup: "1" }, " 연세대학교", { sup: "2" }, "\n"]), []);
+});
+
+test("findSuperscriptCitations: 같은 쪽에서 엄격한 ')' 위첨자를 3개 이상 찾았을 때만 앞 글자를 파고든(최대 1.3em) 위첨자도 받는다", () => {
+  const F = BODY + BODY; // 인용 사이를 90자 넘게 벌린다(번호 밀집 방어에 걸리지 않게)
+  const strict = ["…한다.", { sup: "1)" }, " 그리고 ", F, "…했다.", { sup: "2)" }, " 그러나 ", F, "…였다.", { sup: "3)" }, " 또한 ", F];
+  // 겹침 0.9em(글자 크기 10 기준 9): 엄격 규칙은 못 받고, 양식이 확인된 쪽에서는 받는다
+  assert.deepEqual(sup(strict.concat(["…보고되었다", { sup: "7,11,14)", ox: -9 }, ". 다음"])), [
+    { s: "1)", n: [1] }, { s: "2)", n: [2] }, { s: "3)", n: [3] }, { s: "7,11,14)", n: [7, 11, 14] },
+  ]);
+  // 엄격 위첨자가 2개뿐이면 겹친 것은 받지 않는다
+  assert.deepEqual(sup(["…한다.", { sup: "1)" }, " 그리고 ", F, "…했다.", { sup: "2)" }, " 그러나 ", F, "…보고되었다", { sup: "7,11,14)", ox: -9 }, ". 다음"]), [
+    { s: "1)", n: [1] }, { s: "2)", n: [2] },
+  ]);
+  // 1.3em 넘게 겹치면 받지 않는다
+  assert.deepEqual(sup(strict.concat(["…보고되었다", { sup: "7)", ox: -14 }, ". 다음"])).map((c) => c.s), ["1)", "2)", "3)"]);
+  // 괄호 없는 번호와 지수·단위 뒤 숫자는 여전히 받지 않는다
+  assert.deepEqual(sup(strict.concat(["…보고되었다", { sup: "7,11", ox: -9 }, ". 다음"])).map((c) => c.s), ["1)", "2)", "3)"]);
+  assert.deepEqual(sup(strict.concat(["the area in m", { sup: "3)", ox: -9 }, " was"])).map((c) => c.s), ["1)", "2)", "3)"]);
+  // 같은 쪽의 번호 밀집(저자 소속 줄)은 겹쳐도 인용이 아니다
+  assert.deepEqual(sup(strict.concat(["Kim", { sup: "4)", ox: -9 }, " Lee", { sup: "5)", ox: -9 }, " Park", { sup: "6)", ox: -9 }, " Choi", { sup: "7)", ox: -9 }, " "])).map((c) => c.s), ["1)", "2)", "3)"]);
 });
 
 test("charGeometry: pdf.js 글 조각의 크기·기준선·x 범위를 글자마다 돌려준다", () => {
