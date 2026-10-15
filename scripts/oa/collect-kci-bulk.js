@@ -9,7 +9,7 @@ const path = require("path");
 const { neutralQueries, parseRecords } = require("./collect-kci-neutral.js");
 
 const ROOT = path.join(__dirname, "..", "..");
-const CORPUS = process.env.OA_CORPUS_DIR || "C:\Users\hssh9\용돈벌이\data\oa-corpus";
+const CORPUS = process.env.OA_CORPUS_DIR || "C:/Users/hssh9/용돈벌이/data/oa-corpus";
 const LOG = process.env.KCI2_LOG || path.join(ROOT, ".superpowers", "tmp-review", "oa", "kci2.log");
 const API = "https://open.kci.go.kr/po/openapi/openApiSearch.kci";
 const DELAY_MS = 1100;
