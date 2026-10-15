@@ -892,9 +892,9 @@ function applyStrayRule(list, text, top, baseline) {
 // ---- 위험한 표면형(risky surface) ------------------------------------------------------
 // 일상어·타 분야 뜻이 압도적이어서, 세부 분야가 좁은 사전 용어로 잡히면 대개 오탐인 표제어.
 // 아래 슬러그는 문서 안 "강한 증거"가 있을 때만 표시한다(없으면 distant 로 강등 = 접힌 기타 묶음).
-//   강한 증거 = (a) 문서가 직접 병기(한글 표제어 옆 영문 표제, 또는 그 반대),
+//   강한 증거 = (a) 문서가 직접 병기(한글 표제어 옆 영문 표제, 또는 그 반대) + 뜻 키워드 1개 이상,
 //               (b) 등장 둘레 창에 뜻 키워드가 서로 다른 것 2개 이상,
-//               (c) 같은 세부 분야의 다른 살아 있는 용어가 같은 쪽(RISKY_PEER_WINDOW자) 안에 있음.
+//               (c) 같은 세부 분야의 다른 살아 있는 용어 2개 이상이 같은 쪽(RISKY_PEER_WINDOW자) 안에 있음.
 // 목록은 13편 손 라벨 표본의 오탐(2026-10)과 같은 모양(2~3음절 한글/영문 한 단어, 세부 분야 하나)의
 // 표제어를 사전 정의와 대조해 고른 것이다. 슬러그로 지정한다(대리/Agency 처럼 동형어가 있어서).
 const RISKY_SURFACE_SLUGS = new Set([
@@ -918,6 +918,7 @@ const RISKY_SURFACE_SLUGS = new Set([
 ]);
 const RISKY_PEER_WINDOW = 2500; // 한 쪽 분량의 글자 수 근사
 const RISKY_MIN_SENSE_HITS = 2;
+const RISKY_MIN_PEERS = 2; // 같은 세부 분야 이웃 하나는 우연히 겹칠 수 있다(마약 논문의 수화물 + 향정신성의약품)
 const RISKY_MIN_KEY_LENGTH = 3; // 통계·질병·추가 같은 2글자 키워드는 어느 글에나 있어 증거가 못 된다
 const RISKY_REASON = "risky";
 
@@ -926,15 +927,13 @@ function hasNearFieldPeer(match, alive) {
   const mine = new Set(match.categories || []);
   if (!mine.size) return false;
   const occs = match.occurrences || [];
+  let peers = 0;
   for (const other of alive) {
     // 연구 기초·방법 용어(통계·도구)는 어느 분야 글에나 나오므로 같은 분야의 증거가 못 된다.
     if (other === match || RISKY_SURFACE_SLUGS.has(other.slug) || isBasicMethodTerm(other)) continue;
     if (!(other.categories || []).some((c) => mine.has(c))) continue;
-    for (const a of occs) {
-      for (const b of other.occurrences || []) {
-        if (Math.abs(a.start - b.start) <= RISKY_PEER_WINDOW) return true;
-      }
-    }
+    const near = occs.some((a) => (other.occurrences || []).some((b) => Math.abs(a.start - b.start) <= RISKY_PEER_WINDOW));
+    if (near && ++peers >= RISKY_MIN_PEERS) return true;
   }
   return false;
 }
@@ -951,7 +950,9 @@ function riskySenseHits(match, text) {
 }
 
 function riskyEvidence(match, text, alive, top) {
-  if (hasAuthorGloss(match, text, top)) return "gloss";
+  // 병기는 표제어의 "이름"이 맞다는 증거일 뿐 뜻이 맞다는 증거는 아니다(민감도(sensitivity): 뇌파 장비 민감도 vs 진단검사 민감도).
+  // 그래서 위험 표제어는 병기에 더해 뜻 키워드(3자 이상, 표제어 자신 제외)가 둘레에 하나라도 있어야 한다.
+  if (hasAuthorGloss(match, text, top) && riskySenseHits(match, text) >= 1) return "gloss";
   if (riskySenseHits(match, text) >= RISKY_MIN_SENSE_HITS) return "sense";
   if (hasNearFieldPeer(match, alive)) return "peer";
   return "";

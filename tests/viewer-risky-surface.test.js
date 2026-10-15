@@ -1,5 +1,5 @@
 // 위험한 표면형(일상어와 겹치는 표제어, 2026-10): 문서 안 강한 증거가 있을 때만 표시한다.
-// 증거 = (a) 저자 병기 (b) 뜻 키워드 2개 이상 (c) 같은 쪽의 같은 세부 분야 용어.
+// 증거 = (a) 저자 병기 + 뜻 키워드 1개 이상 (b) 뜻 키워드 2개 이상 (c) 같은 쪽의 같은 세부 분야 용어 2개 이상.
 const test = require("node:test");
 const assert = require("node:assert");
 const TM = require("../assets/term-match.js");
@@ -72,12 +72,17 @@ test("(b) 표제어 안에 든 키워드(부적응⊃적응)와 2글자 키워�
 });
 
 test("(c) 같은 쪽의 같은 세부 분야 용어가 있으면 유지, 연구 기초·방법 용어는 동료로 치지 않는다", () => {
-  const text = BASE + " 법률 대리 와 계약.";
+  const text = BASE + " 법률 대리 와 계약 그리고 소송.";
   const m = agency(text);
   const peer = term(text, "계약", { slug: "contract", title_ko: "계약", title_en: "Contract", categories: ["law"] });
-  const list = fillers(text).concat([m, peer]);
+  const peer2 = term(text, "소송", { slug: "lawsuit", title_ko: "소송", title_en: "Lawsuit", categories: ["law"] });
+  const list = fillers(text).concat([m, peer, peer2]);
   TM.applyRiskyRule(list, text, TOP);
   assert.ok(!m.distant);
+  // 이웃이 하나뿐이면 우연한 겹침일 수 있어 유지하지 않는다.
+  const m1 = agency(text);
+  TM.applyRiskyRule(fillers(text).concat([m1, peer]), text, TOP);
+  assert.equal(m1.distant, true);
   const m2 = agency(text);
   const basic = term(text, "계약", { slug: "stat-thing", title_ko: "계약", title_en: "X", categories: ["law", "method"] });
   TM.applyRiskyRule(fillers(text).concat([m2, basic]), text, TOP);
