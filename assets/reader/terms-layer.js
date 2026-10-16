@@ -251,6 +251,7 @@
   var definitionCache = new Map();
   var senseCache = new Map();
   var outsideSlugs = new Set();
+  var fieldGroupCache = new Map(); // 분야 관문용: 말뭉치에서 실제 쓰인 분야군 코드
   var loadedBuckets = new Set();
   var failedBuckets = new Set(); // 받아 오지 못한 정의 청크(다시 시도 대상)
   var defWarned = false;
@@ -263,6 +264,7 @@
         definitionCache.set(slug, entry.definition);
         if (entry.sense.length) senseCache.set(slug, entry.sense);
         if (entry.outside) outsideSlugs.add(slug);
+        if (typeof entry.fieldGroups === "string") fieldGroupCache.set(slug, entry.fieldGroups);
       });
       failedBuckets.delete(bucket);
     }).catch(function (err) {
@@ -335,6 +337,7 @@
         m.definition = definitionCache.get(m.slug) || m.definition || "";
         if (senseCache.has(m.slug)) m.sense = senseCache.get(m.slug);
         if (outsideSlugs.has(m.slug)) m.oaOutside = true;
+        if (fieldGroupCache.has(m.slug)) m.fieldGroups = fieldGroupCache.get(m.slug);
       };
       if (S) S.matches.forEach(fill);
       if (lookupView) lookupView.res.forEach(fill);
@@ -352,6 +355,7 @@
         m.definition = definitionCache.get(m.slug) || "";
         m.sense = senseCache.get(m.slug) || m.sense || [];
         if (outsideSlugs.has(m.slug)) m.oaOutside = true;
+        if (fieldGroupCache.has(m.slug)) m.fieldGroups = fieldGroupCache.get(m.slug);
       });
     });
   }

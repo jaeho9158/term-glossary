@@ -437,17 +437,20 @@ function senseKeywords(terms) {
 // 정의가 비어도 뜻 키워드는 싣는다 — 규칙 1은 정의 유무와 무관하다.
 // outside(OA 연동 b): 실제 논문에서 자기 분야군 밖에서 주로 쓰인 용어면 o: 1을 단다.
 // 뜻 키워드가 있을 때만 의미가 있다(규칙 1이 키워드로 판별하므로).
-function buildDefBuckets(terms, senses, outside) {
+function buildDefBuckets(terms, senses, outside, fieldGroups) {
   const buckets = Array.from({ length: DEF_BUCKETS }, () => ({}));
   for (const t of terms) {
     if (!t.slug) continue;
     const sense = senses.get(t.slug);
-    if (!t.definition && !sense) continue;
+    const fg = fieldGroups && fieldGroups.get(t.slug);
+    if (!t.definition && !sense && fg === undefined) continue;
     let entry = t.definition;
-    if (sense) {
-      entry = { s: sense.join(" ") };
-      if (t.definition) entry = { d: t.definition, s: entry.s };
-      if (outside && outside.has(t.slug)) entry.o = 1;
+    if (sense || fg !== undefined) {
+      entry = {};
+      if (t.definition) entry.d = t.definition;
+      if (sense) entry.s = sense.join(" ");
+      if (sense && outside && outside.has(t.slug)) entry.o = 1;
+      if (fg !== undefined) entry.g = fg || "-";
     }
     buckets[defBucket(t.slug)][t.slug] = entry;
   }
@@ -529,6 +532,35 @@ function groupDocs(groups, oa) {
   let n = 0;
   for (const [code, c] of Object.entries(oa.fieldDocs || {})) if (groups.has(groupOfCode.get(code))) n += c;
   return n;
+}
+
+// 분야 관문(term-match.js applyFieldGateRule)용: 짧은 표제어마다 말뭉치에서 실제 등장한 문서의 분야군 분포를 보고
+// 10% 이상 차지하는 분야군의 코드를 모은 문자열(코드는 TM.fieldGroupCode). 통계가 6편 미만이면 판단하지 않는다(미등록).
+const OA_FIELDGATE_MIN_DF = 6;
+const OA_FIELDGATE_MIN_SHARE = 0.1;
+function oaFieldGroups(terms, oa) {
+  const TM = require("../assets/term-match.js");
+  const out = new Map();
+  if (!oa) return out;
+  for (const t of terms) {
+    const s = oa.terms[t.slug];
+    if (!s || !isSenseTitle(t)) continue;
+    const counts = {};
+    let tot = 0;
+    const merged = Object.assign({}, s.fieldsNeutral || s.fields);
+    for (const [k, n] of Object.entries(s.fieldsEn || {})) merged[k] = (merged[k] || 0) + n;
+    for (const [code, n] of Object.entries(merged)) {
+      const g = TM.fieldGroupOf(code); // 뷰어와 같은 분류(한의학 분리 포함)
+      if (!g || g === OA_BASIC_GROUP) continue;
+      counts[g] = (counts[g] || 0) + n;
+      tot += n;
+    }
+    if (tot < OA_FIELDGATE_MIN_DF) continue;
+    let codes = "";
+    for (const [g, n] of Object.entries(counts)) if (n / tot >= OA_FIELDGATE_MIN_SHARE) codes += TM.fieldGroupCode(g);
+    out.set(t.slug, [...codes].sort().join(""));
+  }
+  return out;
 }
 
 function oaOutsideFlags(terms, oa) {
@@ -620,7 +652,7 @@ function run() {
   fs.rmSync(DEFS_DIR, { recursive: true, force: true });
   fs.mkdirSync(DEFS_DIR, { recursive: true });
 
-  const buckets = buildDefBuckets(terms, senses, outside);
+  const buckets = buildDefBuckets(terms, senses, outside, oaFieldGroups(terms, oa));
   let defsBytes = 0;
   buckets.forEach((bucket, i) => {
     const file = path.join(DEFS_DIR, `${String(i).padStart(3, "0")}.json`);

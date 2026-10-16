@@ -1006,6 +1006,44 @@ function applyRiskyRule(list, text, top, baseline) {
   }
 }
 
+
+// ---- 문서 분야 관문(field gate) --------------------------------------------------------
+// 사전 항목의 분야(categories)는 편집 분류일 뿐, 그 말이 실제 논문에서 어느 분야에 쓰이는지와 다르다
+// (회귀분석·재현성·구성개념은 통계 항목이지만 다른 분야 글에서 다른 뜻으로 잡힌다). 빌드가 OA 말뭉치에서
+// 짧은 표제어마다 "실제로 등장한 분야군 중 10% 이상을 차지하는 분야군"(match.fieldGroups, 코드 문자열)을
+// 달아 둔다. 문서의 상위 분야군이 그 어디에도 없고, 등장이 적고(FIELD_GATE_MAX_COUNT), 문서 안에 뜻 증거
+// (riskyEvidence 와 같은 기준: 병기+뜻 키워드 / 뜻 키워드 / 같은 세부 분야 이웃)가 없으면 강등한다.
+// 말뭉치 통계가 부족한 표제어(fieldGroups 없음)는 판단하지 않는다.
+const FIELD_GATE = { maxCount: 3, minHits: 1 };
+const FIELD_GATE_REASON = "field";
+const FIELD_GROUP_CODE_ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+function fieldGroupCode(label) {
+  fieldGroupOf(""); // 지도 초기화
+  const labels = [...new Set(fieldGroupMap.values())].sort();
+  const i = labels.indexOf(label);
+  return i < 0 ? "" : FIELD_GROUP_CODE_ALPHABET[i];
+}
+function fieldGateEvidence(match, text, alive, top) {
+  if (hasAuthorGloss(match, text, top) && riskySenseHits(match, text) >= 1) return true;
+  if (riskySenseHits(match, text) >= FIELD_GATE.minHits) return true;
+  return hasNearFieldPeer(match, alive);
+}
+function applyFieldGateRule(list, text, top, baseline) {
+  if (!top || !top.length) return;
+  const alive = list.filter((m) => !m.distant);
+  if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
+  const topCodes = top.map(fieldGroupCode).filter(Boolean);
+  for (const match of alive) {
+    const seen = match.fieldGroups;
+    if (typeof seen !== "string" || !isStrayCandidate(match)) continue;
+    if ((match.occurrences || []).length > FIELD_GATE.maxCount) continue;
+    if (topCodes.some((c) => seen.includes(c))) continue;
+    if (fieldGateEvidence(match, text, alive, top)) continue;
+    match.distant = true;
+    match.demotedBy = FIELD_GATE_REASON;
+  }
+}
+
 function applySenseContextRule(list, text, top) {
   // 분야 추정이 없는 문서(잡힌 용어 < FIELD_DISTANCE_MIN_MATCHES): 예전엔 규칙을 통째로
   // 껐다. 2026-09-29 사용자 결정("틀린 용어보다 놓치는 게 낫다")으로 이런 문서에서도
@@ -1047,6 +1085,7 @@ function applySenseContextRule(list, text, top) {
   applySameSpanRule(list, text, baseline);
   applyStrayRule(list, text, top, baseline);
   applyRiskyRule(list, text, top, baseline);
+  if (!FIELD_GATE.off) applyFieldGateRule(list, text, top, baseline);
   return list;
 }
 
@@ -1734,6 +1773,8 @@ function decodeDefChunk(map) {
       const entry = { definition: v.d || "", sense: v.s ? v.s.split(" ") : [] };
       // o: 1 = 실제 논문 말뭉치에서 자기 분야군 밖에서 주로 쓰인 용어(OA 연동 b).
       if (v.o) entry.outside = true;
+      // g: 말뭉치에서 이 표제어가 실제 쓰인 분야군 코드(분야 관문). "-" = 통계는 충분하나 10% 넘는 분야군 없음.
+      if (typeof v.g === "string") entry.fieldGroups = v.g === "-" ? "" : v.g;
       out.set(slug, entry);
     }
   }
@@ -2118,6 +2159,6 @@ function findSelectionInText(bodyText, selected) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applyRiskyRule, riskyEvidence, RISKY_SURFACE_SLUGS, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
+  module.exports = { FIELD_GATE, fieldGroupCode, applyFieldGateRule, findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applyRiskyRule, riskyEvidence, RISKY_SURFACE_SLUGS, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
 }
 
