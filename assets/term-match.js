@@ -174,6 +174,36 @@ function excludedRanges(text) {
   return merged;
 }
 
+// ---- 서지(인용) 문맥·URL 조각 -----------------------------------------------------------------
+// 각주·참고문헌 항목의 논문 제목 속 낱말(「…현지화」, "Between Sovereignty and Accountability")이나
+// 주소 조각(strobe-statement.org)은 본문이 쓰는 용어가 아니다. 참고문헌 제목 줄이 없는 문서(각주식)에서는
+// excludedRanges 가 못 잡으므로, 등장 둘레에 서지 표지가 서로 다른 종류로 2개 이상이면 건너뛴다.
+const CITATION_CUES = [
+  /[A-Za-z가-힣]\s?\(\d{4}[a-z]?\)/, // 저자(2017)
+  /pp?\.\s?\d/i,
+  /\d\s?쪽/,
+  /[Vv]ol\.|No\.\s?\d|\d+\(\d+\),\s?\d/,
+  /[「」『』｢｣]/,
+  /et al|doi:|https?:\/\//i,
+];
+const CITATION_WINDOW = 90;
+function isCitationContext(text, start) {
+  const from = Math.max(0, start - CITATION_WINDOW);
+  const win = text.slice(from, Math.min(text.length, start + CITATION_WINDOW));
+  let kinds = 0;
+  for (const re of CITATION_CUES) if (re.test(win) && ++kinds >= 2) return true;
+  return false;
+}
+// 공백 없이 이어진 토큰이 주소(도메인·경로)이면 그 안의 낱말은 용어가 아니다.
+function isUrlFragment(text, start) {
+  let a = start;
+  while (a > 0 && !/\s/.test(text[a - 1])) a--;
+  let b = start;
+  while (b < text.length && !/\s/.test(text[b])) b++;
+  const tok = text.slice(a, b);
+  return /(?:https?:|www\.)|\.(?:org|com|net|kr|gov|edu|io)(?:[\/:.]|$)/.test(tok) && /[A-Za-z]/.test(tok) && !/[가-힣]/.test(tok.slice(0, start - a + 1));
+}
+
 function isInRanges(ranges, offset) {
   for (const [s, e] of ranges) {
     if (offset < s) return false;
@@ -916,6 +946,13 @@ const RISKY_SURFACE_SLUGS = new Set([
   "corrective-treatment", "qi-stagnation", "defensive-qi", "pestilential-qi", "meridian-qi",
   "four-diagnostic-methods", "excessive-restraint", "qi-mechanism",
 ]);
+// 앞 낱말 + 일반 머리말(방식·기준·체계·제도·집단·평가)로 된 한글 합성어는 뜻이 낱말의 합이라
+// 어느 분야 글에서나 그냥 쓰는 말이다(수용방식·평가기준·기호체계·예산제도·준거집단·영향평가).
+// 슬러그를 하나씩 올리지 않고 형태로 위험 표제어에 넣는다(증거 규칙은 같다).
+const GENERIC_HEAD_COMPOUND = /^[가-힣]{2,}(?:방식|기준|체계|제도|집단|평가)$/;
+function isRiskySurface(match) {
+  return RISKY_SURFACE_SLUGS.has(match.slug) || GENERIC_HEAD_COMPOUND.test((match.title_ko || "").replace(/\s/g, ""));
+}
 const RISKY_PEER_WINDOW = 2500; // 한 쪽 분량의 글자 수 근사
 const RISKY_MIN_SENSE_HITS = 2;
 const RISKY_MIN_PEERS = 2; // 같은 세부 분야 이웃 하나는 우연히 겹칠 수 있다(마약 논문의 수화물 + 향정신성의약품)
@@ -930,7 +967,7 @@ function hasNearFieldPeer(match, alive) {
   let peers = 0;
   for (const other of alive) {
     // 연구 기초·방법 용어(통계·도구)는 어느 분야 글에나 나오므로 같은 분야의 증거가 못 된다.
-    if (other === match || RISKY_SURFACE_SLUGS.has(other.slug) || isBasicMethodTerm(other)) continue;
+    if (other === match || isRiskySurface(other) || isBasicMethodTerm(other)) continue;
     if (!(other.categories || []).some((c) => mine.has(c))) continue;
     const near = occs.some((a) => (other.occurrences || []).some((b) => Math.abs(a.start - b.start) <= RISKY_PEER_WINDOW));
     if (near && ++peers >= RISKY_MIN_PEERS) return true;
@@ -962,7 +999,7 @@ function applyRiskyRule(list, text, top, baseline) {
   const alive = list.filter((m) => !m.distant);
   if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
   for (const match of alive) {
-    if (!RISKY_SURFACE_SLUGS.has(match.slug)) continue;
+    if (!isRiskySurface(match)) continue;
     if (riskyEvidence(match, text, alive, top)) continue;
     match.distant = true;
     match.demotedBy = RISKY_REASON;
@@ -1102,7 +1139,7 @@ function matchTermsWithIndex(text, exactIndex) {
   const keptWords = [];
 
   for (const [word, allStarts] of wordOccurrences(text)) {
-    const starts = allStarts.filter((s) => !(excluded.length && isInRanges(excluded, s)) && !isLineWrapFragment(text, s));
+    const starts = allStarts.filter((s) => !(excluded.length && isInRanges(excluded, s)) && !isLineWrapFragment(text, s) && !isCitationContext(text, s) && !isUrlFragment(text, s));
     if (!starts.length) continue;
     keptWords.push(normalizeWord(word));
     const hits = findExactMatches(word, exactIndex);
