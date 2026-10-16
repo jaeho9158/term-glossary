@@ -402,7 +402,9 @@
     st.stats.defsMs = now() - t0;
     if (st.gen !== S.gen) return;
     // 규칙 1(문맥 뜻 판별)이 강등을 바꾸므로 정의 청크를 받은 뒤에 돌린다(옛 뷰어와 같은 순서).
-    st.matches = pruneMatches(TM.applySenseToMatches(exact, joined), joined);
+    var sensed = TM.applySenseToMatches(exact, joined);
+    st.topFieldGroups = (sensed && sensed.topFieldGroups) || [];
+    st.matches = pruneMatches(sensed, joined);
     st.matchBySlug = new Map(st.matches.map(function (m) { return [m.slug, m]; }));
     st.stats.pages = texts.length;
     st.stats.matches = st.matches.length;
@@ -977,7 +979,7 @@
     var m = S && S.matchBySlug.get(slug);
     if (!m || !root.ReaderReport || btn.disabled) return;
     btn.disabled = true;
-    var info = { slug: slug, surface: m.title_ko || "", docField: m.fieldGroups, pageUrl: root.location.origin + root.location.pathname };
+    var info = { slug: slug, surface: m.title_ko || "", docField: (S.topFieldGroups || []).join(","), pageUrl: root.location.origin + root.location.pathname };
     try {
       var o = occurrenceOf(m, page);
       if (o) {
