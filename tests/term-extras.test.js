@@ -129,7 +129,7 @@ test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크,
   assert.ok(html.includes('target="_blank" rel="noopener"'));
   assert.ok(html.includes("<blockquote"));
   const none = renderUsage([]);
-  assert.ok(none.includes("수집하지 못했습니다") && !none.includes("<blockquote"));
+  assert.ok(none.includes("모으지 못했다") && !none.includes("<blockquote"));
   assert.throws(() => renderUsage([{ quote: "a", title: "t", journal: "j", year: 2020, url: "http://x" }]), /필요/);
   const kmed = renderUsage([{ quote: "q", title: "t", journal: "j", year: 2020, url: "https://synapse.koreamed.org/articles/1", source: "koreamed" }]);
   assert.ok(kmed.includes("KoreaMed Synapse"));

@@ -278,4 +278,4 @@ function describe(spec, title) {
   return t;
 }
 
-module.exports = { validate, layout, describe, dual: () => true, caption: "개념 설명용 모식도 — 실제 데이터가 아닙니다" };
+module.exports = { validate, layout, describe, dual: () => true, caption: "개념 설명용 모식도 — 실제 데이터가 아니다" };

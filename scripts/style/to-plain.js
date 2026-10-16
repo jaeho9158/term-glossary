@@ -357,7 +357,15 @@ function convertHtml(html, lex, opts) {
     const clean = (x) => x.replace(/[\u0001\u0002]/g, "·").trim();
     let field = "intro";
     for (const f of fieldAt) { if (f.ps <= start) field = f.field; else break; }
-    const rec = { tier: d.tier, rule: d.rule, word: W, wordAfter: d.from ? W.slice(0, W.length - d.from.length) + d.to : null, field, sentBefore: clean(plain.slice(ss, se)) };
+    let pb = plain.lastIndexOf("\n", start - 1) + 1;
+    let pa = plain.indexOf("\n", end);
+    if (pa < 0) pa = plain.length;
+    let para = clean(plain.slice(pb, pa));
+    if (para.length > 300) {
+      const k = Math.max(0, Math.min(start - pb - 100, para.length - 300));
+      para = para.slice(k, k + 300);
+    }
+    const rec = { tier: d.tier, rule: d.rule, word: W, para, wordAfter: d.from ? W.slice(0, W.length - d.from.length) + d.to : null, field, sentBefore: clean(plain.slice(ss, se)) };
     if (templates && templates.has(rec.sentBefore)) {
       rec.tier = "T";
       rec.rule = "template";

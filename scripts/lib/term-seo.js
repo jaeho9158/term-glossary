@@ -77,7 +77,7 @@ function buildTermTitle(term) {
 function buildTermDescription(term) {
   const tailShort = ` 쉬운 풀이, 논문 예문과 관련 용어까지 - ${SITE}`;
   const field = clean(term.subcategory);
-  const tailLong = ` ${field ? field + " 분야 용어 " : ""}${termLabel(term)}의 뜻을 쉬운 풀이와 논문 예문, 관련 용어까지 정리했습니다 - ${SITE}`;
+  const tailLong = ` ${field ? field + " 분야 용어 " : ""}${termLabel(term)}의 뜻을 쉬운 풀이와 논문 예문, 관련 용어까지 정리했다 - ${SITE}`;
   const def = clean(term.definition);
   const first = firstSentence(def);
   let body = first;

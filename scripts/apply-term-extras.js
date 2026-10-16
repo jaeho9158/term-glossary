@@ -137,9 +137,9 @@ function sourceLabel(q) {
 function renderUsage(quotes) {
   const parts = ['<h3 class="te-sub">실제 논문에서</h3>'];
   if (!quotes || !quotes.length) {
-    parts.push('<p class="te-note">이 용어를 직접 쓴 국내 논문 문장을 아직 수집하지 못했습니다. 수집되는 대로 출처와 함께 싣겠습니다.</p>');
+    parts.push('<p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>');
   } else {
-    parts.push('<p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼습니다. 제목·학술지·연도와 원문 링크를 함께 적었습니다.</p>');
+    parts.push('<p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼다. 제목·학술지·연도와 원문 링크를 함께 적었다.</p>');
     parts.push('<ul class="te-quotes">');
     for (const q of quotes) {
       if (!q.quote || !q.title || !q.journal || !q.year || !/^https:\/\//.test(q.url || "")) throw new Error("인용 항목에 quote/title/journal/year/url 필요");
@@ -149,7 +149,7 @@ function renderUsage(quotes) {
     parts.push("</ul>");
   }
   parts.push('<h3 class="te-sub">예시 문장</h3>');
-  parts.push('<p class="te-note">아래는 용어의 쓰임을 보여 주려고 만든 예시로, 실제 논문에서 가져온 문장이 아닙니다.</p>');
+  parts.push('<p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>');
   return parts.join("\n  ");
 }
 
@@ -164,7 +164,7 @@ function renderTail(x) {
   }
   out.push("<h2>참고 문헌</h2>");
   out.push(`<ol class="te-refs">\n${x.references.map((r) => `    <li>${esc(r)}</li>`).join("\n")}\n  </ol>`);
-  out.push('<p class="te-note">표의 기준값은 위 문헌에 근거한 관례이며, 분야·학술지마다 다른 기준을 쓸 수 있습니다.</p>');
+  out.push('<p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>');
   return out.join("\n  ");
 }
 

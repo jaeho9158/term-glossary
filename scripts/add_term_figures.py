@@ -38,7 +38,7 @@ def tpl_gear():
         '<circle cx="100" cy="100" r="6" fill="var(--text)"/>'
         '<circle cx="205" cy="100" r="6" fill="var(--text)"/>'
         '</svg>',
-        "맞물린 두 기어가 회전을 전달하는 기본 구조입니다.",
+        "맞물린 두 기어가 회전을 전달하는 기본 구조이다.",
     )
 
 
@@ -55,7 +55,7 @@ def tpl_beam():
         '<line x1="255" y1="120" x2="285" y2="120" stroke="var(--text)" stroke-width="3"/>'
         '<text x="150" y="140" font-size="12" fill="var(--muted)" text-anchor="middle">지지된 보에 하중이 작용하는 모습</text>'
         '</svg>',
-        "구조 부재에 하중이 가해지는 기본 개념을 나타냅니다.",
+        "구조 부재에 하중이 가해지는 기본 개념을 나타낸다.",
     )
 
 
@@ -71,7 +71,7 @@ def tpl_fluid():
         + '<polygon points="270,72 288,80 270,88" fill="var(--accent)"/>'
         '<text x="150" y="130" font-size="12" fill="var(--muted)" text-anchor="middle">유체의 흐름 방향을 나타낸 개념도</text>'
         '</svg>',
-        "관 또는 유로 내부를 흐르는 유체의 유동 개념을 나타냅니다.",
+        "관 또는 유로 내부를 흐르는 유체의 유동 개념을 나타낸다.",
     )
 
 
@@ -87,7 +87,7 @@ def tpl_thermal():
         + '<text x="150" y="30" font-size="12" fill="var(--muted)" text-anchor="middle">고온측</text>'
         '<text x="150" y="100" font-size="12" fill="var(--text)" text-anchor="middle">열 전달</text>'
         '</svg>',
-        "열이 고온부에서 저온부로 이동하는 열전달 개념을 나타냅니다.",
+        "열이 고온부에서 저온부로 이동하는 열전달 개념을 나타낸다.",
     )
 
 
@@ -99,7 +99,7 @@ def tpl_vibration():
         '<line x1="20" y1="80" x2="280" y2="80" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="4 4"/>'
         '<text x="150" y="140" font-size="12" fill="var(--muted)" text-anchor="middle">시간에 따른 진동/파형 변화</text>'
         '</svg>',
-        "시간에 따라 반복되는 진동 또는 파형의 개념을 나타냅니다.",
+        "시간에 따라 반복되는 진동 또는 파형의 개념을 나타낸다.",
     )
 
 
@@ -117,7 +117,7 @@ def tpl_linkage():
         )
         + '<text x="150" y="185" font-size="12" fill="var(--muted)" text-anchor="middle">링크(막대)와 관절로 이루어진 기구 구조</text>'
         '</svg>',
-        "여러 링크(막대)와 관절로 이루어져 특정 운동을 만들어내는 기구의 기본 구조입니다.",
+        "여러 링크(막대)와 관절로 이루어져 특정 운동을 만들어내는 기구의 기본 구조이다.",
     )
 
 
@@ -131,7 +131,7 @@ def tpl_sensor():
         '<polyline points="230,20 245,60 260,10 275,50" fill="none" stroke="var(--accent)" stroke-width="2.5"/>'
         '<text x="150" y="130" font-size="12" fill="var(--muted)" text-anchor="middle">센서가 신호를 측정·기록하는 개념</text>'
         '</svg>',
-        "대상의 물리량을 센서로 측정하고 신호로 기록하는 계측 개념을 나타냅니다.",
+        "대상의 물리량을 센서로 측정하고 신호로 기록하는 계측 개념을 나타낸다.",
     )
 
 
@@ -146,7 +146,7 @@ def tpl_composite():
         )
         + '<text x="150" y="150" font-size="12" fill="var(--muted)" text-anchor="middle">적층된 층 구조(레이어)</text>'
         '</svg>',
-        "서로 다른 층(레이어)이 겹겹이 쌓인 적층 구조를 나타냅니다.",
+        "서로 다른 층(레이어)이 겹겹이 쌓인 적층 구조를 나타낸다.",
     )
 
 
@@ -161,7 +161,7 @@ def tpl_rotation():
         '<path d="M0,0 L8,4 L0,8 Z" fill="var(--accent)"/></marker></defs>'
         '<text x="150" y="140" font-size="12" fill="var(--muted)" text-anchor="middle">축을 중심으로 회전하는 구조</text>'
         '</svg>',
-        "회전축을 중심으로 부품이 회전하는 기본 구조를 나타냅니다.",
+        "회전축을 중심으로 부품이 회전하는 기본 구조를 나타낸다.",
     )
 
 
@@ -175,7 +175,7 @@ def tpl_circuit():
         )
         + '<text x="150" y="130" font-size="12" fill="var(--muted)" text-anchor="middle">신호/전류가 소자를 거쳐 흐르는 회로 개념</text>'
         '</svg>',
-        "여러 소자를 거쳐 신호나 전류가 흐르는 회로의 기본 개념을 나타냅니다.",
+        "여러 소자를 거쳐 신호나 전류가 흐르는 회로의 기본 개념을 나타낸다.",
     )
 
 
