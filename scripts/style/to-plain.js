@@ -29,14 +29,14 @@ const SEED_A_SET = new Set(
 );
 const SEED_V_SET = new Set(
   ("가 오 보 주 받 먹 쓰 읽 하 되 나타나 나타내 만들 만드 이루 이르 쓰이 보이 나누 돕 묻 듣 얻 잃 찾 놓 넣 두 세우 말하 뜻하 " +
-    "의미하 가리키 포함하 구성하 적용하 비교하 평가하 사용하 분석하 연구하 설명하 측정하 검증하 제공하").split(/\s+/)
+    "쓰이 보이 놓이 쌓이 모이 높이 줄이 먹이 붙이 섞이 묶이 깎이 덮이 끼이 꽂이 나 두 의미하 가리키 포함하 구성하 적용하 비교하 평가하 사용하 분석하 연구하 설명하 측정하 검증하 제공하").split(/\s+/)
 );
 const ADJ_SUFFIX = ["스럽", "롭", "답", "스러"]; // 자랑스럽, 새롭, 아름답
 const VERB_SUFFIX = ["시키", "당하"]; // 이 말로 끝나는 어간은 동사
 
 // ---------- 어휘 ----------
 function newLexicon() {
-  return { V: new Map(), A: new Map() };
+  return { V: new Map(), A: new Map(), N: new Map() };
 }
 function bump(m, k) {
   m.set(k, (m.get(k) || 0) + 1);
@@ -61,6 +61,10 @@ function addToLexicon(lex, text) {
     if (body === "하") continue;
     bump(lex.A, body);
   }
+  const reN = /([가-힣]+)(?:를|의)(?=[\s,.)])/g;
+  while ((m = reN.exec(text))) bump(lex.N, m[1]);
+  const reYeo = /([가-힣]*[가-힣])여(?=[\s,.)])/g;
+  while ((m = reYeo.exec(text))) if (m[1] !== "하") bump(lex.V, m[1] + "이");
   const reAdn = /([가-힣]*[가-힣])는(?=[\s,.)])/g;
   while ((m = reAdn.exec(text))) {
     const st = m[1];
@@ -80,8 +84,8 @@ function classifyExact(lex, stem) {
   if (v === 0 && a === 0) return SEED_A_SET.has(stem) ? "A" : SEED_V_SET.has(stem) ? "V" : null;
   if (a === 0) return "V";
   if (v === 0) return "A";
-  if (v >= 5 * a && v >= 3) return "V";
-  if (a >= 5 * v && a >= 3) return "A";
+  if (v >= 10 * a && v >= 3) return "V";
+  if (a >= 10 * v && a >= 3) return "A";
   return null;
 }
 // 어간 판정: 정확히 일치 -> 길이 3 이상이면 뒤쪽 접미(2자 이상)로 후퇴
@@ -134,7 +138,17 @@ function decideAnh(lex, ctx, from, toV, toA) {
 
 function decideHapsyo(lex, W, ctx) {
   if (W.endsWith("아닙니다")) return rep("아닙니다", "아니다", "anida");
-  if (W.endsWith("입니다")) return rep("입니다", "이다", "ida");
+  if (W.endsWith("입니다")) {
+    // 명사+입니다(이다) 대 동사 어간 X이(쓰이/보이/놓이 …)+ㅂ니다
+    const X = W.slice(0, -3);
+    if (X && classifyExact(lex, X + "이") === "V") {
+      if ((lex.N.get(X) || 0) > 0) return C("ida-vs-verb-i-ambiguous");
+      return rep("입니다", "인다", "verb-i-bnida");
+    }
+    return rep("입니다", "이다", "ida");
+  }
+  if (/답니다$/.test(W) || /랍니다$/.test(W)) return C("hearsay-dapnida");
+  if (W.endsWith("맙니다")) return C("mal-da");
   if (W.length >= 4 && W.endsWith("습니다") && (jongOf(W[W.length - 4]) === JSS || W[W.length - 4] === "겠")) return rep("습니다", "다", "past-future");
   if (/[있없]습니다$/.test(W)) return rep("습니다", "다", "iss-eops");
   if (W === "않습니다") return decideAnh(lex, ctx, "습니다", "는다", "다");
@@ -148,7 +162,7 @@ function decideHapsyo(lex, W, ctx) {
     if (c === "A") return rep("합니다", "하다", "ha-adj");
     return C("ha-ambiguous");
   }
-  if (/[아어여해워와]집니다$/.test(W)) return rep("집니다", "진다", "jida");
+  if (W.endsWith("집니다") && W.length > 3) return rep("집니다", "진다", "jida");
   if (isBnida(W)) {
     const syl = W[W.length - 3];
     const pre = W.slice(0, -3);
@@ -317,7 +331,7 @@ function convertHtml(html, lex) {
     const clean = (x) => x.replace(/[\u0001\u0002]/g, "·").trim();
     let field = "intro";
     for (const f of fieldAt) { if (f.ps <= start) field = f.field; else break; }
-    const rec = { tier: d.tier, rule: d.rule, word: W, field, sentBefore: clean(plain.slice(ss, se)) };
+    const rec = { tier: d.tier, rule: d.rule, word: W, wordAfter: d.from ? W.slice(0, W.length - d.from.length) + d.to : null, field, sentBefore: clean(plain.slice(ss, se)) };
     if (d.tier === "A") {
       const fs0 = end - d.from.length;
       const seg = segs.find((g) => fs0 >= g.ps && end <= g.pe);
@@ -376,7 +390,7 @@ if (require.main === module) {
   }
   const root = path.resolve(opt("root", path.join(__dirname, "..", "..")));
   const nSample = +opt("sample", 300), nC = +opt("c", 100);
-  let seed = +opt("seed", 1);
+  let seed = +opt("seed", 20261016);
   const rnd = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
   const files = fs.readdirSync(path.join(root, "terms")).filter((f) => f.endsWith(".html"));
   const lex = newLexicon();
@@ -395,11 +409,13 @@ if (require.main === module) {
   const tally = { A: 0, C: 0 };
   const ruleCount = {};
   const headingCount = {};
+  const pairCount = {};
   const defCount = { A: 0, C: 0 };
   const take = (slug, edits, forceField) => {
     for (const e of edits) {
       tally[e.tier]++;
       if (forceField) defCount[e.tier]++;
+      if (e.tier === "A" && e.wordAfter) { const pk = e.word + " → " + e.wordAfter; pairCount[pk] = (pairCount[pk] || 0) + 1; }
       const rk = e.tier + ":" + e.rule;
       ruleCount[rk] = (ruleCount[rk] || 0) + 1;
       all.push({ slug, ...e, field: forceField || e.field });
@@ -426,6 +442,7 @@ if (require.main === module) {
   md += `## 집계\n- 합쇼/해요 종결 총 ${total}건: 등급 A(자동 변환) ${tally.A} (${pct(tally.A)}), 등급 C(검수 필요, 변환 안 함) ${tally.C} (${pct(tally.C)})\n- 정의(terms.json): A ${defCount.A} / C ${defCount.C}\n\n### 규칙별\n| 규칙 | 건수 |\n|---|---|\n`;
   md += Object.entries(ruleCount).sort((a, b) => b[1] - a[1]).map(([k, v]) => `| ${k} | ${v} |`).join("\n") + "\n\n";
   md += "### 문장형 제목(변환 제외, 별도 처리 대상)\n| 제목 | 쪽수 |\n|---|---|\n" + Object.entries(headingCount).sort((a, b) => b[1] - a[1]).slice(0, 60).map(([k, v]) => `| ${esc(k)} | ${v} |`).join("\n") + "\n\n";
+  md += "### 어절 변환쌍 상위 200 (전 → 후, 건수)\n| 전 → 후 | 건수 |\n|---|---|\n" + Object.entries(pairCount).sort((x, y) => y[1] - x[1]).slice(0, 200).map(([k, v]) => `| ${esc(k)} | ${v} |`).join("\n") + "\n\n";
   md += `## 변환 표본 ${nSample}건\n\n`;
   for (const e of pick(A, nSample)) md += `- \`${e.slug}\` [${esc(e.field)}] ${e.rule}\n  - 전: ${esc(e.sentBefore)}\n  - 후: ${esc(e.sentAfter)}\n`;
   md += `\n## 등급 C 표본 ${nC}건\n\n`;

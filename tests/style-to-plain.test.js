@@ -131,3 +131,62 @@ test("이미 해라체인 문장은 그대로", () => {
   const s = "이것은 기준이다. 값을 분석한다.";
   assert.strictEqual(conv(s), s);
 });
+
+// ---- 2차: 동사 어간 X이 + ㅂ니다, 불규칙 ----
+const lex2 = newLexicon();
+addToLexicon(
+  lex2,
+  [
+    "널리 쓰인다.", "눈에 보인다.", "책상 위에 놓인다.", "눈이 쌓인다.", "사람이 모인다.", "값을 줄인다.", "값을 줄여 쓴다.", "먹이를 먹인다.",
+    "줄을 선다.", "줄의 길이가 길다.", "줄을 그린다.", "줄의 수를 센다.", "빠르다.", "다르다.", "어렵다.", "쉽다.", "깊다.", "길다.", "달다.",
+    "집을 짓는다.", "일이 난다.", "비가 온다.", "문을 닫는다.", "잠깐 둔다.", "책을 준다.", "그림을 본다.", "가까워진다.", "나이가 든다.", "만든다.", "그 일을 안다.",
+    "정확하지 않다.", "분석한다.", "필요하다.",
+  ].join("\n")
+);
+const c2 = (s) => convertText(s, lex2).text;
+const t2 = (s) => convertText(s, lex2).edits.map((e) => e.tier + ":" + e.rule);
+
+test("X이 동사 어간 + 입니다: 쓰입니다 -> 쓰인다, 기준입니다 -> 기준이다", () => {
+  assert.strictEqual(c2("널리 쓰입니다."), "널리 쓰인다.");
+  assert.strictEqual(c2("눈에 잘 보입니다."), "눈에 잘 보인다.");
+  assert.strictEqual(c2("위에 놓입니다."), "위에 놓인다.");
+  assert.strictEqual(c2("눈이 쌓입니다."), "눈이 쌓인다.");
+  assert.strictEqual(c2("사람이 모입니다."), "사람이 모인다.");
+  assert.strictEqual(c2("기준입니다."), "기준이다.");
+  assert.strictEqual(c2("도구입니다."), "도구이다.");
+  assert.deepStrictEqual(t2("값을 줄입니다."), ["C:ida-vs-verb-i-ambiguous"]); // 줄(명사)+입니다 와 구분 불가
+});
+
+test("-지다 / 가다·오다·나다·두다·주다·보다", () => {
+  assert.strictEqual(c2("가까워집니다."), "가까워진다.");
+  assert.strictEqual(c2("거리가 멀어집니다."), "거리가 멀어진다.");
+  assert.strictEqual(c2("일이 납니다."), "일이 난다.");
+  assert.strictEqual(c2("비가 옵니다."), "비가 온다.");
+  assert.strictEqual(c2("학교에 갑니다."), "학교에 간다.");
+  assert.strictEqual(c2("잠깐 둡니다."), "잠깐 둔다.");
+  assert.strictEqual(c2("책을 줍니다."), "책을 준다.");
+  assert.strictEqual(c2("그림을 봅니다."), "그림을 본다.");
+  assert.deepStrictEqual(t2("하지 맙니다."), ["C:mal-da"]);
+});
+
+test("형용사 큽니다/빠릅니다는 -다, ㄹ탈락 만듭니다->만든다, 깁니다->길다", () => {
+  assert.strictEqual(c2("속도가 빠릅니다."), "속도가 빠르다.");
+  assert.strictEqual(c2("결과가 다릅니다."), "결과가 다르다.");
+  assert.strictEqual(c2("틀을 만듭니다."), "틀을 만든다.");
+  assert.strictEqual(c2("범위가 깁니다."), "범위가 길다.");
+  assert.deepStrictEqual(t2("과일이 답니다."), ["C:hearsay-dapnida"]);
+});
+
+test("ㅂ 불규칙 형용사: 어렵습니다/쉽습니다/깊습니다 -> 어렵다/쉽다/깊다, 르/ㅂ 활용 해요는 C", () => {
+  assert.strictEqual(c2("해석이 어렵습니다."), "해석이 어렵다.");
+  assert.strictEqual(c2("계산이 쉽습니다."), "계산이 쉽다.");
+  assert.strictEqual(c2("골이 깊습니다."), "골이 깊다.");
+  assert.deepStrictEqual(t2("해석이 어려워요."), ["C:yo-other"]);
+  assert.deepStrictEqual(t2("값이 달라요."), ["C:yo-other"]);
+});
+
+test("어휘 증거가 엇갈리면 C (동사/형용사 모두 관찰된 어간)", () => {
+  const l = newLexicon();
+  addToLexicon(l, "그는 변한다.\n그것은 변하다.\n");
+  assert.deepStrictEqual(convertText("값이 변합니다.", l).edits.map((e) => e.tier), ["C"]);
+});
