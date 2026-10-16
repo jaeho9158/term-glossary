@@ -1044,6 +1044,58 @@ function applyFieldGateRule(list, text, top, baseline) {
   }
 }
 
+// ---- 확신 등급(confidence tier) --------------------------------------------------------
+// 2026-10 사용자 결정: "틀린 표시보다 놓치는 게 낫다" - 확신이 큰 표시만 기본으로 밑줄을 긋는다.
+// 짧은 한 낱말 표면형(한글 CONFIDENCE.koMax음절 이하, 영문 한 단어)이 ① 같은 표면형의 다른 항목이 있거나
+// (뜻이 여럿) ② 위험 표제어이거나 ③ 말뭉치에서 여러 분야군에 두루 쓰이면(match.fieldGroups 길이) 문서 안
+// 강한 증거(riskyEvidence: 병기+뜻 키워드 / 뜻 키워드 2개 / 같은 세부 분야 이웃 2개)가 있을 때만 남긴다.
+// 둘 이상의 낱말로 된 표제어, 3음절 이상 한글 합성어, 뜻이 하나이고 일상어가 아닌 표제어는 건드리지 않는다.
+// 강등한 것은 distant(demotedBy "confidence")로 두므로 용어 목록의 "다른 분야"에서는 여전히 볼 수 있다.
+const CONFIDENCE = { koMax: 2, minGroups: 3, minMethodPeers: 3 };
+const CONFIDENCE_REASON = "confidence";
+function isShortSingleWord(match) {
+  const ko = (match.title_ko || "").replace(/[^가-힣]/g, "");
+  const en = (match.title_en || "").trim();
+  if (match.viaHangul !== false) {
+    if (/\s/.test((match.title_ko || "").trim())) return false;
+    return ko.length > 0 && ko.length <= CONFIDENCE.koMax;
+  }
+  return /^[A-Za-z]+$/.test(en);
+}
+function confidenceRisk(match) {
+  const r = [];
+  if ((match.surfaceTerms || 1) > 1) r.push("homonym");
+  if (isRiskySurface(match)) r.push("risky");
+  if (typeof match.fieldGroups === "string" && match.fieldGroups.length >= CONFIDENCE.minGroups) r.push("broad");
+  return r;
+}
+// 연구 기초·방법(통계·방법론) 용어는 어느 분야에나 두루 쓰여 "넓게 쓰임"만으로는 못 거른다. 대신 같은 쪽 둘레에
+// 다른 기초·방법 용어가 CONFIDENCE.minMethodPeers개 이상 있으면(통계·방법 서술 글) 그 낱말도 방법 용어로 본다.
+function hasMethodCluster(match, alive) {
+  const occs = match.occurrences || [];
+  let peers = 0;
+  for (const other of alive) {
+    if (other === match || !isBasicMethodTerm(other)) continue;
+    if (occs.some((a) => (other.occurrences || []).some((b) => Math.abs(a.start - b.start) <= RISKY_PEER_WINDOW)) && ++peers >= CONFIDENCE.minMethodPeers) return true;
+  }
+  return false;
+}
+function applyConfidenceRule(list, text, top, baseline) {
+  if (CONFIDENCE.off) return;
+  const alive = list.filter((m) => !m.distant);
+  if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
+  for (const match of alive) {
+    if (!isShortSingleWord(match)) continue;
+    const risk = confidenceRisk(match);
+    if (!risk.length) continue;
+    if (riskyEvidence(match, text, alive, top)) continue;
+    if (isBasicMethodTerm(match) && hasMethodCluster(match, alive)) continue;
+    match.distant = true;
+    match.demotedBy = CONFIDENCE_REASON;
+    match.confidenceRisk = risk.join("+");
+  }
+}
+
 function applySenseContextRule(list, text, top) {
   // 분야 추정이 없는 문서(잡힌 용어 < FIELD_DISTANCE_MIN_MATCHES): 예전엔 규칙을 통째로
   // 껐다. 2026-09-29 사용자 결정("틀린 용어보다 놓치는 게 낫다")으로 이런 문서에서도
@@ -1086,6 +1138,7 @@ function applySenseContextRule(list, text, top) {
   applyStrayRule(list, text, top, baseline);
   applyRiskyRule(list, text, top, baseline);
   if (!FIELD_GATE.off) applyFieldGateRule(list, text, top, baseline);
+  applyConfidenceRule(list, text, top, baseline);
   return list;
 }
 
@@ -1190,6 +1243,9 @@ function matchTermsWithIndex(text, exactIndex) {
       for (const term of hit.candidates) {
         if (!acronymCaseMatches(word, hit.matchedLength, term)) continue;
         recordMatch(resultsMap, term, starts, hit.matchedLength, 0);
+        // 같은 표면형을 쓰는 사전 항목 수(동형어 = 뜻이 여럿). 확신 규칙(applyConfidenceRule)이 쓴다.
+        const sameSurface = resultsMap.get(term.slug);
+        sameSurface.surfaceTerms = Math.max(sameSurface.surfaceTerms || 1, hit.candidates.length);
         // 분야 거리 규칙이 "영문 한 단어로만 잡혔는가"를 본다.
         const item = resultsMap.get(term.slug);
         item.viaHangul = item.viaHangul || /[가-힣]/.test(word);
@@ -2159,6 +2215,6 @@ function findSelectionInText(bodyText, selected) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { FIELD_GATE, fieldGroupCode, applyFieldGateRule, findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applyRiskyRule, riskyEvidence, RISKY_SURFACE_SLUGS, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
+  module.exports = { applyConfidenceRule, CONFIDENCE, confidenceRisk, isShortSingleWord, FIELD_GATE, fieldGroupCode, applyFieldGateRule, findSelectionInText, englishGlossVerdict, assetVersionFromSrc, withAssetVersion, applySenseContextRule, applySameSpanRule, applyStrayRule, applyRiskyRule, riskyEvidence, RISKY_SURFACE_SLUGS, applySenseToMatches, decodeDefChunk, senseStems, excludedRanges, isLineWrapFragment, needsBareCorroboration, filterDistantFieldMatches, estimateFieldGroups, fieldGroupOf, orderRangesForWrapping, findNearestOccurrence, resolveAnnotationAnchor, normalizeQuoteText, findNormalizedOccurrence, mergeOverlappingRanges, shouldPersistReanchor, buildCardUnits, orderNestedMatches, estimateDocumentFields, groupMatchesByField, sortMatches, orderTextItemsByColumn, buildPageOffsets, offsetToPageOffset, pageOffsetToGlobal, splitMatchesByPage, termsOnPage, escapeRegExp, matchTerms, matchTermsWithIndex, buildExactIndex, escapeHtml, buildHighlightedHtml, computeKeptSpans, termCardHTML, popoverHTML, wrapPageRange, buildOffsetMap, joinTextItems, decodeViewerIndex, defBucket, computeFitPageScale, clampPdfScale, clampPdfPageNumber, computeDocHash, collapseLetterSpacedHangul, textItemX, textItemY };
 }
 

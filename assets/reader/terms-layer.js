@@ -368,7 +368,9 @@
   }
 
   // ---------- 문서 전체 매칭(문서당 한 번) ----------
-  function markable(m) { return !m.distant && !hidden.has(m.slug); }
+  // 확신 등급: 애매한 짧은 낱말은 기본으로 밑줄을 긋지 않는다(demotedBy "confidence"). "애매한 용어도 표시해요"를 켜면 긋는다.
+  var showUncertain = false;
+  function markable(m) { return (!m.distant || (showUncertain && m.demotedBy === "confidence")) && !hidden.has(m.slug); }
 
   function rebuildPageTables() {
     var vis = S.matches.filter(markable);
@@ -769,6 +771,13 @@
     renderFullList();
     renderCurrentPage(S.curPage);
     renderFocus();
+    var uncertainCount = S.matches.filter(function (m) { return m.demotedBy === "confidence"; }).length;
+    var uncertainBox = $("rd-term-uncertain");
+    if (uncertainBox) {
+      uncertainBox.hidden = uncertainCount === 0;
+      uncertainBox.querySelector("input").checked = showUncertain;
+      uncertainBox.querySelector("span").textContent = "애매한 용어도 표시해요 (" + uncertainCount + ")";
+    }
     showHidden.hidden = hiddenCount === 0;
     showHidden.textContent = hiddenCount ? "숨긴 용어 " + hiddenCount + "개 다시 보기" : "";
     updateQuizLink();
@@ -783,6 +792,7 @@
     $("rd-term-quiz").hidden = true;
     $("rd-term-more").hidden = true;
     $("rd-term-showhidden").hidden = true;
+    if ($("rd-term-uncertain")) $("rd-term-uncertain").hidden = true;
     $("rd-term-count").textContent = "";
     setStatus("");
   }
@@ -1185,6 +1195,11 @@
     $("rd-term-english").addEventListener("change", function () { if (S && S.ready) { S.shown = pageSize(); renderFullList(); } });
     $("rd-term-more").addEventListener("click", function () { if (S && S.ready) { S.shown += pageSize(); renderFullList(); } });
     $("rd-term-showhidden").addEventListener("click", restoreAll);
+    var uncertain = $("rd-term-uncertain");
+    if (uncertain) uncertain.querySelector("input").addEventListener("change", function (e) {
+      showUncertain = !!e.target.checked;
+      if (S && S.ready) { rebuildPageTables(); redrawAllMarks(); renderAll(); }
+    });
   }
 
   // ---------- 연결 ----------
