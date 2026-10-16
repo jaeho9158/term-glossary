@@ -776,7 +776,7 @@
     if (uncertainBox) {
       uncertainBox.hidden = uncertainCount === 0;
       uncertainBox.querySelector("input").checked = showUncertain;
-      uncertainBox.querySelector("span").textContent = "애매한 용어도 표시해요 (" + uncertainCount + ")";
+      uncertainBox.querySelector("span").textContent = "모든 용어 보기 (" + uncertainCount + ")";
     }
     showHidden.hidden = hiddenCount === 0;
     showHidden.textContent = hiddenCount ? "숨긴 용어 " + hiddenCount + "개 다시 보기" : "";
@@ -957,6 +957,8 @@
       if (e.target.closest(".dict-popover-close")) { closeCard(true); return; }
       var hideBtn = e.target.closest(".rd-term-hide");
       if (hideBtn) { hide(cardState.slug); return; }
+      var rpt = e.target.closest(".rd-term-report");
+      if (rpt) { reportTerm(rpt); return; }
       var rt = e.target.closest(".rd-def-retry");
       if (rt) { e.preventDefault(); retryDefs(rt.dataset.slug); return; }
       if (e.target.closest("a")) return;
@@ -968,6 +970,33 @@
     return card;
   }
   function cardOpen() { return !!card && !card.hidden; }
+
+  // "뜻이 틀려요": 이 카드의 용어·쪽 한 번만. 문서 글에서 앞뒤 약 100자를 잘라 함께 보낸다.
+  async function reportTerm(btn) {
+    var slug = cardState.slug, page = cardState.page;
+    var m = S && S.matchBySlug.get(slug);
+    if (!m || !root.ReaderReport || btn.disabled) return;
+    btn.disabled = true;
+    var info = { slug: slug, surface: m.title_ko || "", docField: m.fieldGroups, pageUrl: root.location.origin + root.location.pathname };
+    try {
+      var o = occurrenceOf(m, page);
+      if (o) {
+        var d = await TXM().get(o.page);
+        if (d && d.text) { info.text = d.text; info.start = o.start; info.end = o.end; }
+      }
+    } catch (err) { /* 글을 못 얻어도 신고는 보낸다 */ }
+    var ok = await root.ReaderReport.submit(info, page);
+    if (!btn.isConnected) return;
+    if (ok) {
+      var done = document.createElement("span");
+      done.className = "rd-term-report is-done";
+      done.textContent = "알려 주셔서 고마워요";
+      btn.replaceWith(done);
+    } else {
+      btn.disabled = false;
+      btn.textContent = "보내지 못했어요";
+    }
+  }
 
   var cardPrevFocus = null; // 터치로 카드를 열기 전의 초점 자리
   function closeCard() {
@@ -1050,7 +1079,10 @@
     el.setAttribute("aria-label", (m.title_ko || m.slug) + " 뜻 풀이");
     el.innerHTML = TM.popoverHTML(m, covered, { count: m.count, basics: basics }) +
       (defFailed(m.slug) ? '<p class="rd-def-failed">뜻을 불러오지 못했습니다 <a href="#" class="rd-def-retry" data-slug="' + String(m.slug).replace(/"/g, "&quot;") + '">다시 시도</a></p>' : "") +
-      '<button type="button" class="rd-term-hide">이 용어 숨기기</button>';
+      '<button type="button" class="rd-term-hide">이 용어 숨기기</button>' +
+      (root.ReaderReport && root.ReaderReport.isSent(m.slug, hit.page)
+        ? '<span class="rd-term-report is-done">알려 주셔서 고마워요</span>'
+        : '<button type="button" class="rd-term-report">뜻이 틀려요</button>');
     el.hidden = false;
     cardState = { slug: hit.id, page: hit.page };
     positionCard(anchorClientRect(hit, cx, cy));
