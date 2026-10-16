@@ -126,11 +126,24 @@ function decide(lex, W, next, ctx) {
   return null;
 }
 
+// 동사/형용사 동형어: 절 안에서 가장 가까운 주격 조사(이/가/은/는/도)는 형용사, 목적격(을/를)은 동사. 둘 다 없으면 불명.
+const HOMO = new Set(["적", "맞", "낫", "굳", "늘", "밝", "붇"]);
+function homoKind(stem, ctx) {
+  if (!HOMO.has(stem)) return undefined;
+  const ws = (ctx && ctx.clause) || [];
+  for (let i = ws.length - 1; i >= 0; i--) {
+    const w = ws[i];
+    if (/[가-힣][을를]$/.test(w)) return "V";
+    if (/[가-힣](이|가|은|는|도)$/.test(w)) return "A";
+  }
+  return null;
+}
 function decideAnh(lex, ctx, from, toV, toA) {
   const m = (ctx.prev || "").match(/^(.*)지(는|도|를)?$/);
   if (!m || !m[1]) return C("anh-no-ji");
   const stem = m[1];
-  const c = /[있없]$/.test(stem) ? "A" : classify(lex, stem);
+  const hk = homoKind(stem, ctx);
+  const c = hk !== undefined ? hk : /[있없]$/.test(stem) ? "A" : classify(lex, stem);
   if (c === "V") return rep(from, toV, "anh-verb");
   if (c === "A") return rep(from, toA, "anh-adj");
   return C("anh-ambiguous");
@@ -153,7 +166,12 @@ function decideHapsyo(lex, W, ctx) {
   if (/[있없]습니다$/.test(W)) return rep("습니다", "다", "iss-eops");
   if (W === "않습니다") return decideAnh(lex, ctx, "습니다", "는다", "다");
   if (W.endsWith("됩니다")) return rep("됩니다", "된다", "doeda");
-  if (W.endsWith("못합니다")) return /만$/.test(ctx.prev) ? C("mot-ha-adj") : rep("합니다", "한다", "mot-ha");
+  if (W.endsWith("못합니다")) {
+    const cl = ctx.clause || [];
+    if (ctx.prev === "지" || /지$/.test(ctx.prev)) return rep("합니다", "한다", "mot-ha");
+    if (/만$/.test(ctx.prev) || cl.some((w) => /보다$/.test(w))) return rep("합니다", "하다", "mot-ha-adj");
+    return rep("합니다", "한다", "mot-ha");
+  }
   if (W.endsWith("합니다")) {
     const X = W.slice(0, -3);
     if (X === "") return rep("합니다", "한다", "ha-verb-bare");
@@ -178,7 +196,9 @@ function decideHapsyo(lex, W, ctx) {
   if (W.endsWith("습니다")) {
     const head = W.slice(0, -3);
     if (!head) return C("seumnida-bare");
-    const c = classify(lex, head);
+    const hk = homoKind(head, ctx);
+    if (hk === null) return C("homograph-no-particle");
+    const c = hk !== undefined ? hk : classify(lex, head);
     if (c === "V") return rep("습니다", "는다", "verb-seumnida");
     if (c === "A") return rep("습니다", "다", "adj-seumnida");
     return C("seumnida-ambiguous");
@@ -207,7 +227,9 @@ function decideHaeyo(lex, W, ctx) {
     const stem = m[1];
     const j = jongOf(stem[stem.length - 1]);
     if (j !== 0 && j !== JSS) {
-      const c = classify(lex, stem);
+      const hk = homoKind(stem, ctx);
+      if (hk === null) return C("homograph-no-particle");
+      const c = hk !== undefined ? hk : classify(lex, stem);
       if (c === "V") return rep(W.slice(stem.length), "는다", "yo-cons-verb");
       if (c === "A") return rep(W.slice(stem.length), "다", "yo-cons-adj");
       return C("yo-cons-ambiguous");
@@ -303,7 +325,8 @@ function sentStartOf(s, pos) {
 
 // ---------- 변환 본체 ----------
 // 반환: { html, edits:[{tier,rule,word,field,sentBefore,sentAfter?}], headings }
-function convertHtml(html, lex) {
+function convertHtml(html, lex, opts) {
+  const templates = (opts && opts.templates) || null;
   const toks = tokenize(html);
   const { plain, segs, fieldAt } = buildPlain(toks);
   const masked = plain.split("\n").map(maskQuotes).join("\n");
@@ -321,8 +344,11 @@ function convertHtml(html, lex) {
     while (s >= 0 && /[가-힣]/.test(masked[s])) s--;
     const prev = masked.slice(s + 1, j + 1);
     let nx = masked[end];
-    if (nx === " " && /^ +[—–(\[]/.test(masked.slice(end, end + 4))) nx = ".";
-    const d = decide(lex, W, nx, { prev });
+    if (nx === " " && /^ +[—–(\[\u0002]/.test(masked.slice(end, end + 4))) nx = ".";
+    let cs = start - 1;
+    while (cs >= 0 && !/[,.;:!?\n\u0001]/.test(masked[cs])) cs--;
+    const clause = masked.slice(cs + 1, start).trim().split(/\s+/).filter(Boolean).slice(-8);
+    const d = decide(lex, W, nx, { prev, clause });
     if (!d) continue;
     const ss = sentStartOf(plain, start);
     let se = end;
@@ -332,7 +358,10 @@ function convertHtml(html, lex) {
     let field = "intro";
     for (const f of fieldAt) { if (f.ps <= start) field = f.field; else break; }
     const rec = { tier: d.tier, rule: d.rule, word: W, wordAfter: d.from ? W.slice(0, W.length - d.from.length) + d.to : null, field, sentBefore: clean(plain.slice(ss, se)) };
-    if (d.tier === "A") {
+    if (templates && templates.has(rec.sentBefore)) {
+      rec.tier = "T";
+      rec.rule = "template";
+    } else if (d.tier === "A") {
       const fs0 = end - d.from.length;
       const seg = segs.find((g) => fs0 >= g.ps && end <= g.pe);
       if (!seg) {
@@ -427,6 +456,27 @@ if (require.main === module) {
     take(slug, r.edits);
     for (const h of r.headings) if (/(니다|다|요)$/.test(h.text)) headingCount[h.text] = (headingCount[h.text] || 0) + 1;
   }
+  // 반복 템플릿 문장(전체 문장이 100회 이상 동일): 본문 변환에서 제외하고 생성기에서 손으로 고친다
+  const sentCount = {};
+  for (const e of all) sentCount[e.sentBefore] = (sentCount[e.sentBefore] || 0) + 1;
+  const templates = Object.entries(sentCount).filter(([, n]) => n >= 100).sort((a, b) => b[1] - a[1]);
+  const tset = new Set(templates.map(([k]) => k));
+  const srcFiles = [];
+  for (const d of ["scripts", "assets"]) {
+    const walk = (dir) => { for (const f of fs.readdirSync(path.join(root, dir), { withFileTypes: true })) { if (f.name === "enrich-data" || f.name === "node_modules") continue; const rel = dir + "/" + f.name; if (f.isDirectory()) walk(rel); else if (f.name.endsWith(".js")) srcFiles.push(rel); } };
+    walk(d);
+  }
+  const findSrc = (sent) => { const frag = sent.replace(/[.!?]$/, "").slice(-14); for (const f of srcFiles) { const ls = fs.readFileSync(path.join(root, f), "utf8").split("\n"); const i = ls.findIndex((l) => l.includes(frag)); if (i >= 0) return f + ":" + (i + 1); } return "(생성기에서 못 찾음: 데이터/정적 HTML)"; };
+  tally.A = 0; tally.C = 0; tally.T = 0;
+  for (const k of Object.keys(ruleCount)) delete ruleCount[k];
+  for (const k of Object.keys(pairCount)) delete pairCount[k];
+  for (const e of all) {
+    if (tset.has(e.sentBefore)) e.tier = "T";
+    tally[e.tier]++;
+    const rk = e.tier + ":" + (e.tier === "T" ? "template" : e.rule);
+    ruleCount[rk] = (ruleCount[rk] || 0) + 1;
+    if (e.tier === "A" && e.wordAfter) { const pk = e.word + " → " + e.wordAfter; pairCount[pk] = (pairCount[pk] || 0) + 1; }
+  }
   const total = tally.A + tally.C;
   const pct = (x) => ((x / total) * 100).toFixed(1) + "%";
   const A = all.filter((e) => e.tier === "A");
@@ -442,6 +492,7 @@ if (require.main === module) {
   md += `## 집계\n- 합쇼/해요 종결 총 ${total}건: 등급 A(자동 변환) ${tally.A} (${pct(tally.A)}), 등급 C(검수 필요, 변환 안 함) ${tally.C} (${pct(tally.C)})\n- 정의(terms.json): A ${defCount.A} / C ${defCount.C}\n\n### 규칙별\n| 규칙 | 건수 |\n|---|---|\n`;
   md += Object.entries(ruleCount).sort((a, b) => b[1] - a[1]).map(([k, v]) => `| ${k} | ${v} |`).join("\n") + "\n\n";
   md += "### 문장형 제목(변환 제외, 별도 처리 대상)\n| 제목 | 쪽수 |\n|---|---|\n" + Object.entries(headingCount).sort((a, b) => b[1] - a[1]).slice(0, 60).map(([k, v]) => `| ${esc(k)} | ${v} |`).join("\n") + "\n\n";
+  md += "### 반복 템플릿 문장 (변환 제외, 생성기에서 직접 수정)\n| 문장 | 건수 | 생성기 |\n|---|---|---|\n" + templates.map(([k, n]) => `| ${esc(k)} | ${n} | ${findSrc(k)} |`).join("\n") + "\n\n";
   md += "### 어절 변환쌍 상위 200 (전 → 후, 건수)\n| 전 → 후 | 건수 |\n|---|---|\n" + Object.entries(pairCount).sort((x, y) => y[1] - x[1]).slice(0, 200).map(([k, v]) => `| ${esc(k)} | ${v} |`).join("\n") + "\n\n";
   md += `## 변환 표본 ${nSample}건\n\n`;
   for (const e of pick(A, nSample)) md += `- \`${e.slug}\` [${esc(e.field)}] ${e.rule}\n  - 전: ${esc(e.sentBefore)}\n  - 후: ${esc(e.sentAfter)}\n`;
@@ -452,5 +503,5 @@ if (require.main === module) {
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, md);
   }
-  console.log(JSON.stringify({ pages: mains.length, total, A: tally.A, C: tally.C, autoPct: pct(tally.A), defCount, ruleCount }, null, 1));
+  console.log(JSON.stringify({ pages: mains.length, total, T: tally.T, templates: templates.map(([k, n]) => [k, n, findSrc(k)]), A: tally.A, C: tally.C, autoPct: pct(tally.A), defCount, ruleCount }, null, 1));
 }

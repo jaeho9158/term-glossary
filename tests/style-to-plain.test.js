@@ -190,3 +190,35 @@ test("어휘 증거가 엇갈리면 C (동사/형용사 모두 관찰된 어간)
   addToLexicon(l, "그는 변한다.\n그것은 변하다.\n");
   assert.deepStrictEqual(convertText("값이 변합니다.", l).edits.map((e) => e.tier), ["C"]);
 });
+
+// ---- 3차: 동형어(적다/맞다/낫다), 못하다, 템플릿 ----
+test("적습니다: 주격이면 형용사, 목적격이면 동사, 조사 없으면 C", () => {
+  assert.strictEqual(c2("사례가 적습니다."), "사례가 적다.");
+  assert.strictEqual(c2("표본도 적습니다."), "표본도 적다.");
+  assert.strictEqual(c2("메모를 적습니다."), "메모를 적는다.");
+  assert.strictEqual(c2("이름을 표에 적습니다."), "이름을 표에 적는다.");
+  assert.deepStrictEqual(t2("여기에 적습니다."), ["C:homograph-no-particle"]);
+  assert.strictEqual(c2("사례가 적지 않습니다."), "사례가 적지 않다.");
+  assert.strictEqual(c2("값을 적지 않습니다."), "값을 적지 않는다.");
+});
+
+test("맞습니다/낫습니다 동형어", () => {
+  assert.strictEqual(c2("이 설명이 맞습니다."), "이 설명이 맞다.");
+  assert.strictEqual(c2("공을 맞습니다."), "공을 맞는다.");
+  assert.strictEqual(c2("후자가 낫습니다."), "후자가 낫다.");
+  assert.deepStrictEqual(t2("조건에 맞습니다."), ["C:homograph-no-particle"]);
+});
+
+test("못합니다: 비교/만 못하다는 형용사, 지 못하다는 동사", () => {
+  assert.strictEqual(c2("A가 B보다 못합니다."), "A가 B보다 못하다.");
+  assert.strictEqual(c2("전체만 못합니다."), "전체만 못하다.");
+  assert.strictEqual(c2("확인하지 못합니다."), "확인하지 못한다.");
+  assert.strictEqual(c2("잘 못합니다."), "잘 못한다.");
+});
+
+test("템플릿 문장은 opts.templates 로 제외한다", () => {
+  const s = "<p>아직 수집하지 못했습니다. 곧 싣겠습니다.</p>";
+  const r = convertHtml(s, lex2, { templates: new Set(["아직 수집하지 못했습니다."]) });
+  assert.strictEqual(r.html, "<p>아직 수집하지 못했습니다. 곧 싣겠다.</p>");
+  assert.deepStrictEqual(r.edits.map((e) => e.tier), ["T", "A"]);
+});
