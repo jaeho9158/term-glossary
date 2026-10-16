@@ -47,55 +47,73 @@ function shortDefinition(def, max) {
   return cut.replace(/[\s,·(]+$/, "") + "…";
 }
 
-const TITLE_DEF_MIN = 12;
+const TITLE_SUFFIX = "쉬운 설명·예시";
+
+/** 영문명 단어 머리글자와 일치하는 대문자 약어 별칭(예: Implicit Association Test → IAT). 없으면 "". */
+function acronymAlias(term) {
+  const en = shortEn(term.title_en);
+  const words = en.split(/[\s\-\/,]+/).filter((w) => w && !/^(of|and|the|for|in|to|a|an|&)$/i.test(w));
+  const initials = words.map((w) => w[0].toUpperCase()).join("");
+  for (const a of term.aliases || []) {
+    const v = clean(a);
+    if (!/^[A-Z][A-Za-z]{1,7}$/.test(v) || !/^[A-Z]{2,}/.test(v)) continue;
+    if (v.toUpperCase() !== initials) continue;
+    if (new RegExp("(^|[^A-Za-z])" + v + "($|[^A-Za-z])", "i").test(en)) continue;
+    return v;
+  }
+  return "";
+}
 
 /**
- * title: `한글명(영문명) 뜻 - 한 줄 정의… | 논문용어사전`, 60자 안.
- * 넘치면 (1) 정의를 12자까지 줄이고 (2) 그래도 넘치면 영문명을 빼고 정의를 남기며
- * (3) 그래도 넘치면 정의를 뺀다. 검색어인 "한글명 뜻"은 항상 맨 앞에 남는다 — 검색 결과에서
- * 정의 미리보기가 CTR을 좌우하므로 영문명보다 정의를 우선 지킨다.
+ * title: `한글명(영문명[, 약어]) 뜻 — 쉬운 설명·예시 | 논문용어사전`, 60자 안.
+ * 사용자가 치는 검색어("OO 뜻", "IAT 검사")가 앞쪽에 그대로 들어가게 하고, 정의는 중간에서 잘린 채
+ * 제목에 넣지 않는다(정의는 description 이 맡는다). 넘치면 (1) 약어 (2) 보충 문구 (3) 영문명 순으로 뺀다.
  */
 function buildTermTitle(term) {
   const tail = ` | ${SITE}`;
   const ko = clean(term.title_ko);
-  const heads = [`${termLabel(term, true)} 뜻`];
-  if (ko && `${ko} 뜻` !== heads[0]) heads.push(`${ko} 뜻`);
-  const def = clean(term.definition);
-  for (const head of heads) {
-    const budget = Math.min(TITLE_DEF_MAX, TITLE_MAX - head.length - tail.length - 3);
-    if (def && budget >= TITLE_DEF_MIN) {
-      const d = shortDefinition(def, budget);
-      if (d && d !== "…") return `${head} - ${d}${tail}`;
+  const en = shortEn(term.title_en);
+  const acr = acronymAlias(term);
+  const labels = [];
+  if (ko && en && ko.toLowerCase() !== en.toLowerCase()) {
+    if (acr) labels.push(`${ko}(${en}, ${acr})`);
+    labels.push(`${ko}(${en})`);
+  }
+  labels.push(ko || en);
+  const full = clean(term.title_en);
+  if (full !== en && ko && ko.toLowerCase() !== en.toLowerCase()) labels.push(`${ko}(${full})`);
+  const fits = (t) => t.length <= TITLE_MAX;
+  for (const l of labels) {
+    for (const mid of [` 뜻 — ${TITLE_SUFFIX}`, " 뜻"]) {
+      const t = `${l}${mid}${tail}`;
+      if (fits(t)) return t;
     }
   }
-  for (const head of heads) {
-    if (head.length + tail.length <= TITLE_MAX) return `${head}${tail}`;
-  }
-  return `${heads[heads.length - 1]}${tail}`;
+  return `${ko || en} 뜻${tail}`;
 }
 
+/**
+ * description: 정의 첫 문장을 어미 그대로 보여 준다(안내 문구 없음). 150자 안.
+ * 정의가 길면 어절 경계에서 자르고 …, 이때는 안내를 붙이지 않는다.
+ */
 function buildTermDescription(term) {
-  const tailShort = ` 쉬운 풀이, 논문 예문과 관련 용어까지 - ${SITE}`;
-  const field = clean(term.subcategory);
-  const tailLong = ` ${field ? field + " 분야 용어 " : ""}${termLabel(term)}의 뜻을 쉬운 풀이와 논문 예문, 관련 용어까지 정리했습니다 - ${SITE}`;
+  // 문장 끝은 괄호 밖의 마침표만 본다. 어미(합쇼체 등)는 정의 그대로 둔다.
   const def = clean(term.definition);
-  const first = firstSentence(def);
-  let body = first;
-  // 첫 문장이 짧으면 정의의 다음 문장을 이어 붙인다.
-  if (body.length + tailShort.length < DESC_MIN && def.length > first.length) {
-    body = def;
+  let depth = 0, end = def.length;
+  for (let i = 0; i < def.length; i++) {
+    const c = def[i];
+    if (c === "(") depth++;
+    else if (c === ")") depth = Math.max(0, depth - 1);
+    else if (depth === 0 && /[.!?]/.test(c) && (i + 1 === def.length || /\s/.test(def[i + 1]))) { end = i + 1; break; }
   }
-  let tail = body.length + tailShort.length < DESC_MIN ? tailLong : tailShort;
-  if (body.length + tail.length < DESC_MIN) tail = tailLong;
-  if (tail === tailLong && tail.length > DESC_MAX - 40) tail = tailShort;
-  const room = DESC_MAX - tail.length;
-  if (body.length > room) {
-    let cut = body.slice(0, room - 1);
+  let body = def.slice(0, end);
+  if (body.length > DESC_MAX) {
+    let cut = body.slice(0, DESC_MAX - 1);
     const sp = cut.lastIndexOf(" ");
-    if (sp >= room * 0.6) cut = cut.slice(0, sp);
-    body = cut.replace(/[\s,·(.]+$/, "") + "…";
+    if (sp >= DESC_MAX * 0.6) cut = cut.slice(0, sp);
+    return cut.replace(/[\s,·(.]+$/, "") + "…";
   }
-  return (body + tail).trim();
+  return body;
 }
 
 // ---------- 같은 분야 관련 용어 ----------
@@ -181,6 +199,7 @@ module.exports = {
   firstSentence,
   shortDefinition,
   buildTermTitle,
+  acronymAlias,
   buildTermDescription,
   buildFieldIndex,
   fieldFill,
