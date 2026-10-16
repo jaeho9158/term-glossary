@@ -25,7 +25,7 @@ const MED = TM.fieldGroupCode("의학·생명");
 const SOC = TM.fieldGroupCode("사회과학");
 
 function pluralism(text, fieldGroups) {
-  return term(text, "다원주의", { slug: "pluralism", title_ko: "다원주의", title_en: "Pluralism", categories: ["socialecon"], sense: ["정치", "사회", "가치"], fieldGroups });
+  return term(text, "다원주의", { slug: "pluralism", title_ko: "다원주의", title_en: "Pluralism", categories: ["socialecon"], sense: ["정치철학", "사회구조", "가치체계"], fieldGroups });
 }
 
 test("fieldGroupCode: 분야군마다 서로 다른 한 글자", () => {
@@ -56,7 +56,7 @@ test("말뭉치 통계 없음(fieldGroups 없음)이면 판단하지 않는다",
 });
 
 test("문서 안 뜻 키워드 증거가 있으면 유지, 등장이 많아도 유지", () => {
-  const ev = BASE + " 정치 사회 다원주의 가치.";
+  const ev = BASE + " 정치철학 사회구조 다원주의 가치체계.";
   const m1 = pluralism(ev, SOC);
   TM.applyFieldGateRule(fillers(ev).concat([m1]), ev, TOP, 7);
   assert.ok(!m1.distant, "뜻 키워드 1개 이상");
