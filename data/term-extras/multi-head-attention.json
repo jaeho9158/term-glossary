@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ol><li><strong>선형 변환으로 쿼리·키·값 만들기</strong>: 입력 표현 X(토큰 수 n × 모델 차원 d<sub>model</sub>)에 헤드마다 다른 가중치 행렬 W<sub>i</sub><sup>Q</sup>, W<sub>i</sub><sup>K</sup>, W<sub>i</sub><sup>V</sup>를 곱해 Q<sub>i</sub>, K<sub>i</sub>, V<sub>i</sub>를 만든다. 각 헤드의 차원은 보통 d<sub>k</sub> = d<sub>model</sub> ÷ h로 정한다.</li><li><strong>헤드별 스케일드 점곱 어텐션</strong>: 헤드마다 softmax(Q<sub>i</sub>K<sub>i</sub><sup>T</sup> ÷ √d<sub>k</sub>)V<sub>i</sub>를 계산한다. 헤드끼리 서로 독립이므로 병렬로 계산할 수 있다.</li><li><strong>이어 붙이기</strong>: h개 헤드의 결과를 옆으로 이어 붙인다.</li><li><strong>출력 변환</strong>: 이어 붙인 결과에 W<sup>O</sup>를 곱해 d<sub>model</sub> 차원으로 합칩니다.</li></ol><p>Vaswani 외(2017)의 기본 모델은 h = 8, d<sub>model</sub> = 512, d<sub>k</sub> = d<sub>v</sub> = 64를 썼다. 관련 개념은 [[attention-mechanism|어텐션 메커니즘]]과 [[transformer-architecture|트랜스포머 구조]]에서 다룬다.</p>"
+      "html": "<ol><li><strong>선형 변환으로 쿼리·키·값 만들기</strong>: 입력 표현 X(토큰 수 n × 모델 차원 d<sub>model</sub>)에 헤드마다 다른 가중치 행렬 W<sub>i</sub><sup>Q</sup>, W<sub>i</sub><sup>K</sup>, W<sub>i</sub><sup>V</sup>를 곱해 Q<sub>i</sub>, K<sub>i</sub>, V<sub>i</sub>를 만든다. 각 헤드의 차원은 보통 d<sub>k</sub> = d<sub>model</sub> ÷ h로 정한다.</li><li><strong>헤드별 스케일드 점곱 어텐션</strong>: 헤드마다 softmax(Q<sub>i</sub>K<sub>i</sub><sup>T</sup> ÷ √d<sub>k</sub>)V<sub>i</sub>를 계산한다. 헤드끼리 서로 독립이므로 병렬로 계산할 수 있다.</li><li><strong>이어 붙이기</strong>: h개 헤드의 결과를 옆으로 이어 붙인다.</li><li><strong>출력 변환</strong>: 이어 붙인 결과에 W<sup>O</sup>를 곱해 d<sub>model</sub> 차원으로 합친다.</li></ol><p>Vaswani 외(2017)의 기본 모델은 h = 8, d<sub>model</sub> = 512, d<sub>k</sub> = d<sub>v</sub> = 64를 썼다. 관련 개념은 [[attention-mechanism|어텐션 메커니즘]]과 [[transformer-architecture|트랜스포머 구조]]에서 다룬다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li>구조를 적을 때는 층 수, 헤드 수 h, 모델 차원 d<sub>model</sub>, 헤드 차원 d<sub>k</sub>, 드롭아웃 비율을 함께 제시한다. 예: “인코더는 h = 8인 멀티헤드 어텐션 층으로 구성하였다.”</li><li>헤드 수를 바꾼 실험(절제 연구)이라면 d<sub>model</sub>을 고정했는지, 매개변수 수를 맞췄는지를 밝혀야 공정한 비교가 된다.</li><li>“헤드가 문법 관계에 주목한다”처럼 헤드의 역할을 해석하는 문장에는 근거(어텐션 가중치 시각화, 가지치기 실험)를 붙여야 한다. 어텐션 가중치가 곧 설명이라는 해석은 논쟁이 있으므로 단정하지 않는 것이 안전하다.</li><li>[[gradient-descent|경사하강법]]으로 학습하는 일반 매개변수와 같으므로, 학습 설정(옵티마이저, 학습률)은 별도로 적습니다.</li></ul>"
+      "html": "<ul><li>구조를 적을 때는 층 수, 헤드 수 h, 모델 차원 d<sub>model</sub>, 헤드 차원 d<sub>k</sub>, 드롭아웃 비율을 함께 제시한다. 예: “인코더는 h = 8인 멀티헤드 어텐션 층으로 구성하였다.”</li><li>헤드 수를 바꾼 실험(절제 연구)이라면 d<sub>model</sub>을 고정했는지, 매개변수 수를 맞췄는지를 밝혀야 공정한 비교가 된다.</li><li>“헤드가 문법 관계에 주목한다”처럼 헤드의 역할을 해석하는 문장에는 근거(어텐션 가중치 시각화, 가지치기 실험)를 붙여야 한다. 어텐션 가중치가 곧 설명이라는 해석은 논쟁이 있으므로 단정하지 않는 것이 안전하다.</li><li>[[gradient-descent|경사하강법]]으로 학습하는 일반 매개변수와 같으므로, 학습 설정(옵티마이저, 학습률)은 별도로 적는다.</li></ul>"
     }
   ],
   "compare": {

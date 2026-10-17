@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>시스템을 <code>x<sub>k</sub> = f(x<sub>k−1</sub>, u<sub>k</sub>) + w<sub>k</sub></code>, 관측을 <code>z<sub>k</sub> = h(x<sub>k</sub>) + v<sub>k</sub></code>로 둔다. f와 h는 비선형 함수이고, w와 v는 평균 0인 잡음으로 공분산이 각각 Q, R이다. 한 번의 반복은 두 단계이다.</p><ol><li><strong>예측</strong>: 상태는 비선형 모델 그대로 전파합니다. <code>x̂<sup>−</sup> = f(x̂, u)</code>. 공분산은 f를 현재 추정치에서 선형화한 야코비안 F로 전파한다. <code>P<sup>−</sup> = F P F<sup>T</sup> + Q</code>.</li><li><strong>갱신</strong>: h를 예측치에서 선형화한 야코비안 H로 칼만 이득을 구한다. <code>K = P<sup>−</sup>H<sup>T</sup>(H P<sup>−</sup>H<sup>T</sup> + R)<sup>−1</sup></code>. 그리고 <code>x̂ = x̂<sup>−</sup> + K(z − h(x̂<sup>−</sup>))</code>, <code>P = (I − K H)P<sup>−</sup></code>.</li></ol><p>선형 [[kalman-filter|칼만 필터]]와 다른 점은 상태 전파와 예측 관측에는 <em>비선형 함수 자체</em>를 쓰고, 선형화는 공분산과 이득을 구하는 데만 쓴다는 것이다(Gelb, 1974).</p>"
+      "html": "<p>시스템을 <code>x<sub>k</sub> = f(x<sub>k−1</sub>, u<sub>k</sub>) + w<sub>k</sub></code>, 관측을 <code>z<sub>k</sub> = h(x<sub>k</sub>) + v<sub>k</sub></code>로 둔다. f와 h는 비선형 함수이고, w와 v는 평균 0인 잡음으로 공분산이 각각 Q, R이다. 한 번의 반복은 두 단계이다.</p><ol><li><strong>예측</strong>: 상태는 비선형 모델 그대로 전파한다. <code>x̂<sup>−</sup> = f(x̂, u)</code>. 공분산은 f를 현재 추정치에서 선형화한 야코비안 F로 전파한다. <code>P<sup>−</sup> = F P F<sup>T</sup> + Q</code>.</li><li><strong>갱신</strong>: h를 예측치에서 선형화한 야코비안 H로 칼만 이득을 구한다. <code>K = P<sup>−</sup>H<sup>T</sup>(H P<sup>−</sup>H<sup>T</sup> + R)<sup>−1</sup></code>. 그리고 <code>x̂ = x̂<sup>−</sup> + K(z − h(x̂<sup>−</sup>))</code>, <code>P = (I − K H)P<sup>−</sup></code>.</li></ol><p>선형 [[kalman-filter|칼만 필터]]와 다른 점은 상태 전파와 예측 관측에는 <em>비선형 함수 자체</em>를 쓰고, 선형화는 공분산과 이득을 구하는 데만 쓴다는 것이다(Gelb, 1974).</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li>상태 벡터, 운동 모델 f와 관측 모델 h, 입력 u를 식으로 제시하고, 야코비안을 해석적으로 유도했는지 수치 미분을 썼는지 밝힌다.</li><li>잡음 공분산 Q, R의 값과 <strong>결정 방법</strong>(센서 사양, 시험 데이터, 시행착오 조정)을 적습니다. EKF의 성능은 이 값에 민감하다.</li><li>초기 상태와 초기 공분산을 적고, 발산 여부를 점검한 방법(잔차가 평균 0 부근에 머무는지, 추정 공분산이 실제 오차와 맞는지)을 보고한다.</li><li>비교 대상([[unscented-kalman-filter|무향 칼만 필터]], [[particle-filter|파티클필터]])과 같은 데이터·초기 조건에서 정확도와 계산 시간을 함께 제시한다.</li><li>선형화 오차 때문에 비일관성이 생길 수 있고, 가우시안 단봉 분포만 표현한다는 한계를 명시한다.</li></ul>"
+      "html": "<ul><li>상태 벡터, 운동 모델 f와 관측 모델 h, 입력 u를 식으로 제시하고, 야코비안을 해석적으로 유도했는지 수치 미분을 썼는지 밝힌다.</li><li>잡음 공분산 Q, R의 값과 <strong>결정 방법</strong>(센서 사양, 시험 데이터, 시행착오 조정)을 적는다. EKF의 성능은 이 값에 민감하다.</li><li>초기 상태와 초기 공분산을 적고, 발산 여부를 점검한 방법(잔차가 평균 0 부근에 머무는지, 추정 공분산이 실제 오차와 맞는지)을 보고한다.</li><li>비교 대상([[unscented-kalman-filter|무향 칼만 필터]], [[particle-filter|파티클필터]])과 같은 데이터·초기 조건에서 정확도와 계산 시간을 함께 제시한다.</li><li>선형화 오차 때문에 비일관성이 생길 수 있고, 가우시안 단봉 분포만 표현한다는 한계를 명시한다.</li></ul>"
     }
   ],
   "compare": {

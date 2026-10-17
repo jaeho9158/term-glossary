@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ul><li>제한 단위를 정한다: 사용자, IP, API 키, 엔드포인트별로 “시간당 요청 수”를 정한다.</li><li>알고리즘을 고른다. <strong>고정 윈도우</strong>는 구간마다 개수를 세고, <strong>슬라이딩 윈도우</strong>는 직전 일정 시간을 계속 세며, <strong>[[token-bucket-algorithm|토큰 버킷]]</strong>은 일정 속도로 토큰을 채우고 요청마다 소모합니다. <strong>리키 버킷</strong>은 요청을 대기열에 넣고 일정 속도로 내보낸다(Turner, 1986의 leaky bucket이 원형).</li><li>초과하면 거절(HTTP 429 Too Many Requests, RFC 6585), 지연, 대기열 처리 중 하나를 한다. 보통 남은 횟수나 재시도 시간을 응답 헤더로 알린다.</li><li>분산 환경에서는 카운터를 여러 서버가 공유할 저장소가 필요하다.</li></ul>"
+      "html": "<ul><li>제한 단위를 정한다: 사용자, IP, API 키, 엔드포인트별로 “시간당 요청 수”를 정한다.</li><li>알고리즘을 고른다. <strong>고정 윈도우</strong>는 구간마다 개수를 세고, <strong>슬라이딩 윈도우</strong>는 직전 일정 시간을 계속 세며, <strong>[[token-bucket-algorithm|토큰 버킷]]</strong>은 일정 속도로 토큰을 채우고 요청마다 소모한다. <strong>리키 버킷</strong>은 요청을 대기열에 넣고 일정 속도로 내보낸다(Turner, 1986의 leaky bucket이 원형).</li><li>초과하면 거절(HTTP 429 Too Many Requests, RFC 6585), 지연, 대기열 처리 중 하나를 한다. 보통 남은 횟수나 재시도 시간을 응답 헤더로 알린다.</li><li>분산 환경에서는 카운터를 여러 서버가 공유할 저장소가 필요하다.</li></ul>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",

@@ -7,11 +7,11 @@
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<p>계산은 두 가지 중 하나로 같은 결론이 나온다.</p><ul><li><strong>기준을 낮추는 방식</strong>: 개별 검정의 유의수준을 α′ = α/m로 둔다. 원래 p가 α′보다 작아야 유의합니다.</li><li><strong>p를 키우는 방식</strong>: 보정 p = min(1, m × p)로 바꾸고 이것을 .05와 비교한다.</li></ul><p>통계 프로그램이 ‘Bonferroni’ 옵션으로 이미 보정 p를 출력했다면 그 값을 다시 m으로 나누어 .05/m과 비교하면 이중 보정이 된다. 어느 쪽 값을 보고 있는지 먼저 확인해야 한다.</p><table><thead><tr><th>검정 수 m</th><th>개별 기준 α′ = .05/m</th></tr></thead><tbody><tr><td>3</td><td>.0167</td></tr><tr><td>5</td><td>.010</td></tr><tr><td>10</td><td>.005</td></tr><tr><td>20</td><td>.0025</td></tr><tr><td>100</td><td>.0005</td></tr></tbody></table><p><strong>작은 예.</strong> 세 번의 쌍별 비교에서 원래 p가 .012, .030, .200이었다면 보정 p는 각각 .036, .090, .600이다. 보정 전에는 두 개가 유의했지만 보정 후에는 첫 번째만 .05 아래에 남는다.</p>"
+      "html": "<p>계산은 두 가지 중 하나로 같은 결론이 나온다.</p><ul><li><strong>기준을 낮추는 방식</strong>: 개별 검정의 유의수준을 α′ = α/m로 둔다. 원래 p가 α′보다 작아야 유의하다.</li><li><strong>p를 키우는 방식</strong>: 보정 p = min(1, m × p)로 바꾸고 이것을 .05와 비교한다.</li></ul><p>통계 프로그램이 ‘Bonferroni’ 옵션으로 이미 보정 p를 출력했다면 그 값을 다시 m으로 나누어 .05/m과 비교하면 이중 보정이 된다. 어느 쪽 값을 보고 있는지 먼저 확인해야 한다.</p><table><thead><tr><th>검정 수 m</th><th>개별 기준 α′ = .05/m</th></tr></thead><tbody><tr><td>3</td><td>.0167</td></tr><tr><td>5</td><td>.010</td></tr><tr><td>10</td><td>.005</td></tr><tr><td>20</td><td>.0025</td></tr><tr><td>100</td><td>.0005</td></tr></tbody></table><p><strong>작은 예.</strong> 세 번의 쌍별 비교에서 원래 p가 .012, .030, .200이었다면 보정 p는 각각 .036, .090, .600이다. 보정 전에는 두 개가 유의했지만 보정 후에는 첫 번째만 .05 아래에 남는다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
-      "html": "<p>무엇을 하나의 가설족으로 보고 m을 몇으로 잡았는지, 보정된 기준인지 보정된 p인지를 밝힌다.</p><p><code>세 집단 간 쌍별 비교에는 Bonferroni 보정을 적용하여 유의수준을 .05/3 = .017로 하였다. 그 결과 A집단과 C집단의 차이만 유의하였다(p = .012).</code></p><p>또는 <code>보정된 p값(Bonferroni)은 .036이었다</code>처럼 보정 p를 적습니다. 한국어 논문에서는 “Bonferroni 사후검정”이라는 표현이 흔한데, 엄밀히는 사후검정 방법 이름이 아니라 쌍별 비교에 쓴 <em>보정 방식</em>이므로 어떤 쌍별 검정(t검정, 맨-휘트니 등)에 적용했는지도 함께 적는 것이 정확하다. 탐색적 분석에서 보정을 하지 않았다면 그 이유와 ‘탐색적’이라는 점을 밝힌다.</p>"
+      "html": "<p>무엇을 하나의 가설족으로 보고 m을 몇으로 잡았는지, 보정된 기준인지 보정된 p인지를 밝힌다.</p><p><code>세 집단 간 쌍별 비교에는 Bonferroni 보정을 적용하여 유의수준을 .05/3 = .017로 하였다. 그 결과 A집단과 C집단의 차이만 유의하였다(p = .012).</code></p><p>또는 <code>보정된 p값(Bonferroni)은 .036이었다</code>처럼 보정 p를 적는다. 한국어 논문에서는 “Bonferroni 사후검정”이라는 표현이 흔한데, 엄밀히는 사후검정 방법 이름이 아니라 쌍별 비교에 쓴 <em>보정 방식</em>이므로 어떤 쌍별 검정(t검정, 맨-휘트니 등)에 적용했는지도 함께 적는 것이 정확하다. 탐색적 분석에서 보정을 하지 않았다면 그 이유와 ‘탐색적’이라는 점을 밝힌다.</p>"
     }
   ],
   "compare": {
@@ -24,7 +24,7 @@
       ["[[tukey-hsd-test|Tukey HSD]]", "FWER(모든 쌍별 비교)", "쌍별 비교에 맞춤", "분산분석 뒤 평균의 모든 쌍을 비교할 때"],
       ["[[false-discovery-rate|FDR 통제(벤자미니-호크버그)]]", "FDR(발견 중 거짓의 비율)", "덜 보수적", "검정이 수십~수만 개일 때(유전체, 뇌영상 등)"]
     ],
-    "note": "상위 개념은 [[multiple-comparisons-correction|다중비교보정]]을 참고하세요."
+    "note": "상위 개념은 [[multiple-comparisons-correction|다중비교보정]]을 참고하라."
   },
   "references": [
     "Bonferroni, C. E. (1936). Teoria statistica delle classi e calcolo delle probabilità. Pubblicazioni del R Istituto Superiore di Scienze Economiche e Commerciali di Firenze, 8, 3–62.",
