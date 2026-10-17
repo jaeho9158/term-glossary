@@ -1,0 +1,66 @@
+{
+  "slug": "vector-to-raster-conversion",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "출력 격자 정의",
+      "color": "gray",
+      "sub": "범위·셀 크기·좌표계"
+    },
+    {
+      "id": "n1",
+      "label": "셀 값 필드 선택",
+      "color": "violet",
+      "sub": "예: 토지이용 코드"
+    },
+    {
+      "id": "n2",
+      "label": "값 부여 규칙",
+      "color": "blue",
+      "sub": "셀 중심점 / 최대면적"
+    },
+    {
+      "id": "n3",
+      "label": "겹침·빈 셀 처리",
+      "color": "amber",
+      "sub": "우선순위 필드·NoData"
+    },
+    {
+      "id": "n4",
+      "label": "원본과 겹쳐 검증",
+      "color": "green",
+      "sub": "가는 선·작은 폴리곤 누락"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "경계가 계단 모양이 되고 위상이 사라짐; 셀 크기가 정확도를 좌우",
+      "tone": "limit"
+    }
+  ],
+  "source": "Esri ArcGIS Pro, Polygon to Raster (https://doc.esri.com/en/arcgis-pro/latest/tool-reference/conversion/polygon-to-raster.html) — value field, cell assignment CELL_CENTER/MAXIMUM_AREA/MAXIMUM_COMBINED_AREA, priority field, cell size 열람",
+  "reviewed": true
+}

@@ -1,0 +1,76 @@
+{
+  "slug": "cubic-spline-trajectory",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "경유점·시각 지정",
+      "color": "amber"
+    },
+    {
+      "id": "n1",
+      "label": "위치 조건",
+      "color": "blue",
+      "sub": "구간 끝이 경유점 통과"
+    },
+    {
+      "id": "n2",
+      "label": "속도 연속",
+      "color": "violet",
+      "sub": "1계 미분 일치"
+    },
+    {
+      "id": "n3",
+      "label": "가속도 연속",
+      "color": "violet",
+      "sub": "2계 미분 일치"
+    },
+    {
+      "id": "n4",
+      "label": "경계 조건",
+      "color": "amber",
+      "sub": "자연·고정 스플라인"
+    },
+    {
+      "id": "n5",
+      "label": "삼중대각 연립 풀이",
+      "color": "green",
+      "sub": "구간별 계수 결정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "가속도까지 연속이어도 저크는 불연속",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Spline interpolation, https://en.wikipedia.org/wiki/Spline_interpolation (열람: 매듭 통과, 1·2계 미분 연속, natural/clamped, tridiagonal system)",
+  "reviewed": true
+}

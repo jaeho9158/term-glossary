@@ -1,0 +1,64 @@
+{
+  "slug": "surrogate-endpoint",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "치료(개입)",
+      "color": "amber"
+    },
+    {
+      "id": "n1",
+      "label": "질병 과정",
+      "color": "gray",
+      "sub": "병태생리"
+    },
+    {
+      "id": "n2",
+      "label": "대리지표",
+      "color": "violet",
+      "sub": "바이오마커·종양반응"
+    },
+    {
+      "id": "n3",
+      "label": "진짜 임상 결과",
+      "color": "green",
+      "sub": "생존·증상·기능"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n0",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "대리지표 밖 경로"
+    }
+  ],
+  "notes": [
+    {
+      "text": "상관만으론 부족: 치료가 결과에 미치는 효과를 대리지표가 전달해야(Prentice 1989)",
+      "tone": "limit"
+    },
+    {
+      "text": "CAST(1989): 부정맥 억제는 좋아졌으나 사망은 늘었다(페이지)",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Surrogate endpoint (https://en.wikipedia.org/wiki/Surrogate_endpoint) — biomarker substituting for clinical endpoint, 'a correlate does not make a surrogate', effect on surrogate must predict effect on outcome 열람; 다른 경로는 페이지(Fleming & DeMets 1996)",
+  "reviewed": true
+}

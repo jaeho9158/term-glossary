@@ -1,0 +1,77 @@
+{
+  "slug": "spring-design-calculation",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "요구 조건",
+      "color": "amber",
+      "sub": "하중 F·변위 δ·공간·수명"
+    },
+    {
+      "id": "n1",
+      "label": "재료 선정",
+      "color": "gray",
+      "sub": "전단탄성계수 G·허용응력"
+    },
+    {
+      "id": "n2",
+      "label": "스프링지수 C=D/d",
+      "color": "violet",
+      "sub": "보통 4~12"
+    },
+    {
+      "id": "n3",
+      "label": "강성 k=Gd⁴/8D³Na",
+      "color": "blue",
+      "sub": "d·D·유효권수 결정"
+    },
+    {
+      "id": "n4",
+      "label": "응력 τ=K·8FD/πd³",
+      "color": "rose",
+      "sub": "K: Wahl 보정계수"
+    },
+    {
+      "id": "n5",
+      "label": "안전율·피로·좌굴",
+      "color": "green",
+      "sub": "자유길이·밀착높이 확정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "압축 코일스프링 기준; 판·토션 스프링은 식이 다름",
+      "tone": "limit"
+    }
+  ],
+  "source": "eFunda, Compression Spring Designer Equations (https://www.efunda.com/designstandards/springs/calc_comp_designer_eqn.cfm) — k from G and geometry, max shear stress with Wahl factor and spring index 열람; 식은 페이지(Budynas & Nisbett)",
+  "reviewed": true
+}

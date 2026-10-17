@@ -1,0 +1,66 @@
+{
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "발전계수 추정",
+      "color": "violet",
+      "sub": "손해발생삼각형"
+    },
+    {
+      "id": "b",
+      "label": "보고율 계산",
+      "color": "violet",
+      "sub": "w = 1 ÷ LDF"
+    },
+    {
+      "id": "c",
+      "label": "사전 최종손해",
+      "color": "amber",
+      "sub": "예정손해율×보험료"
+    },
+    {
+      "id": "d",
+      "label": "IBNR 추정",
+      "color": "blue",
+      "sub": "사전 최종×(1−w)"
+    },
+    {
+      "id": "e",
+      "label": "최종손해액",
+      "color": "green",
+      "sub": "누적 손해+IBNR"
+    }
+  ],
+  "notes": [
+    {
+      "text": "사전 예정손해율이 틀리면 결과도 틀린다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Bornhuetter–Ferguson method, https://en.wikipedia.org/wiki/Bornhuetter%E2%80%93Ferguson_method (열람) — BF = L + ELR·Exposure·(1−w), w=1/LDF",
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "slug": "bornhuetter-ferguson-method",
+  "reviewed": true
+}

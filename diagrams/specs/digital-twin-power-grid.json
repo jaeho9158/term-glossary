@@ -1,0 +1,70 @@
+{
+  "slug": "digital-twin-power-grid",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "전력망 설비",
+      "color": "blue",
+      "sub": "선로·변압기·모선"
+    },
+    {
+      "id": "n1",
+      "label": "PMU 동기 계측",
+      "color": "violet",
+      "sub": "GPS·IEEE 1588 시각"
+    },
+    {
+      "id": "n2",
+      "label": "상태추정",
+      "color": "violet",
+      "sub": "전체 모선 상태 추정"
+    },
+    {
+      "id": "n3",
+      "label": "트윈 모델 보정",
+      "color": "blue",
+      "sub": "매개변수 동기화"
+    },
+    {
+      "id": "n4",
+      "label": "감시·시험·예지",
+      "color": "green",
+      "sub": "시나리오·노후화 추적"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "보정이 끊기면 가상 모델이 실제 계통에서 점점 멀어진다",
+      "tone": "limit"
+    },
+    {
+      "text": "빠른 보호·제어와 느린 노후화는 같은 모델로 다루기 어렵다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Phasor measurement unit, https://en.wikipedia.org/wiki/Phasor_measurement_unit (열람) — GPS/IEEE 1588 synchronization·state estimation; Wikipedia, Digital twin (열람); 페이지 본문 Palensky 외(2022) 요약·동기화 절차",
+  "reviewed": true
+}

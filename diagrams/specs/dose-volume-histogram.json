@@ -1,0 +1,70 @@
+{
+  "slug": "dose-volume-histogram",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "3차원 선량 계산",
+      "color": "violet",
+      "sub": "CT 기반 치료계획"
+    },
+    {
+      "id": "n1",
+      "label": "구조별 복셀 분할",
+      "color": "violet",
+      "sub": "표적·위험장기 윤곽"
+    },
+    {
+      "id": "n2",
+      "label": "선량 구간별 부피",
+      "color": "blue",
+      "sub": "미분 DVH"
+    },
+    {
+      "id": "n3",
+      "label": "누적 DVH",
+      "color": "blue",
+      "sub": "그 선량 이상 받은 %부피"
+    },
+    {
+      "id": "n4",
+      "label": "지표로 평가",
+      "color": "green",
+      "sub": "Vx·Dmean·선량제약"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "위치 정보가 사라지므로 등선량곡선과 함께 본다",
+      "tone": "limit"
+    },
+    {
+      "text": "윤곽 설정과 구간 크기에 결과가 좌우된다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Dose-volume histogram, https://en.wikipedia.org/wiki/Dose-volume_histogram (열람) — dose bins·differential vs cumulative·no spatial information; 페이지 본문 Drzymala 외(1991), Vx·Dmean",
+  "reviewed": true
+}

@@ -1,0 +1,66 @@
+{
+  "slug": "variance-inflation-factor",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "Xj를 종속변수로",
+      "color": "violet",
+      "sub": "나머지 설명변수로 회귀"
+    },
+    {
+      "id": "b",
+      "label": "결정계수 Rj²",
+      "color": "violet",
+      "sub": "겹치는 정도"
+    },
+    {
+      "id": "c",
+      "label": "VIF = 1/(1−Rj²)",
+      "color": "blue",
+      "sub": "공차 = 1/VIF"
+    },
+    {
+      "id": "d",
+      "label": "기준과 비교",
+      "color": "amber",
+      "sub": "10 또는 5 관례"
+    },
+    {
+      "id": "e",
+      "label": "변수마다 반복",
+      "color": "gray",
+      "sub": "√VIF = 표준오차 배율"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "문턱값은 관례이며 표본 크기·효과 크기에 따라 결론이 다를 수 있음(O'Brien 2007)",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Variance inflation factor, https://en.wikipedia.org/wiki/Variance_inflation_factor (열람: OLS regression of X_i on other explanatory variables, VIF = 1/(1−R²), repeat for each predictor, rule of thumb 10 / cutoff 5, tolerance reciprocal, square root of VIF = SE inflation)",
+  "reviewed": true
+}

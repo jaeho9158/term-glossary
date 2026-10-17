@@ -1,0 +1,70 @@
+{
+  "slug": "eddy-covariance-method",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "고빈도 동시 측정",
+      "color": "violet",
+      "sub": "초음파풍속계+가스분석기"
+    },
+    {
+      "id": "n1",
+      "label": "레이놀즈 분해",
+      "color": "violet",
+      "sub": "평균 + 변동(w′, c′)"
+    },
+    {
+      "id": "n2",
+      "label": "공분산 계산",
+      "color": "blue",
+      "sub": "w′c′ 평균 = 난류 플럭스"
+    },
+    {
+      "id": "n3",
+      "label": "보정·품질관리",
+      "color": "amber",
+      "sub": "주파수 응답·밀도·u* 필터"
+    },
+    {
+      "id": "n4",
+      "label": "플럭스 보고",
+      "color": "green",
+      "sub": "풋프린트·에너지수지 폐합"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "야간 약풍 조건에서는 플럭스가 과소 추정되는 경향이 있어 자료 처리 방식을 밝힌다",
+      "tone": "limit"
+    },
+    {
+      "text": "에너지수지 미폐합(약 15~20%)이 흔히 보고된다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Eddy covariance, https://en.wikipedia.org/wiki/Eddy_covariance (열람) — ultrasonic anemometer + gas analyser 5–40 Hz, decomposed into mean and fluctuating components, covariance ∝ flux, frequency response correction, flux footprint; 페이지 본문 레이놀즈 분해 예·u* 품질관리·폐합률(Mauder 외, 2024)",
+  "reviewed": true
+}

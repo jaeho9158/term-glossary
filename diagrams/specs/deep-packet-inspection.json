@@ -1,0 +1,70 @@
+{
+  "slug": "deep-packet-inspection",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "패킷 획득",
+      "color": "gray",
+      "sub": "미러링·탭"
+    },
+    {
+      "id": "n1",
+      "label": "헤더 분석",
+      "color": "blue",
+      "sub": "주소·포트 → 흐름"
+    },
+    {
+      "id": "n2",
+      "label": "페이로드 검사",
+      "color": "violet",
+      "sub": "시그니처 대조"
+    },
+    {
+      "id": "n3",
+      "label": "트래픽 분류",
+      "color": "violet",
+      "sub": "응용·위협 식별"
+    },
+    {
+      "id": "n4",
+      "label": "조치",
+      "color": "amber",
+      "sub": "차단·우선순위·기록"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "헤더만 보는 상태 검사(stateful inspection)와 구별",
+      "tone": "general"
+    },
+    {
+      "text": "암호화(TLS) 페이로드는 시그니처 검사가 어려움",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Deep packet inspection (https://en.wikipedia.org/wiki/Deep_packet_inspection) — port mirroring/tap, headers vs payload, flow identification, signature database classification, actions(block, rate-limit, re-route, tag for QoS, report), encryption evasion",
+  "reviewed": true
+}

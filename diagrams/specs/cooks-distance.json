@@ -1,0 +1,70 @@
+{
+  "slug": "cooks-distance",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "전체 적합",
+      "color": "blue",
+      "sub": "모든 관측치"
+    },
+    {
+      "id": "n1",
+      "label": "i 제외 재적합",
+      "color": "violet",
+      "sub": "관측치 하나 뺌"
+    },
+    {
+      "id": "n2",
+      "label": "예측값 변화 요약",
+      "color": "violet",
+      "sub": "Dᵢ 계산"
+    },
+    {
+      "id": "n3",
+      "label": "기준과 비교",
+      "color": "amber",
+      "sub": "D > 1 또는 4/n"
+    },
+    {
+      "id": "n4",
+      "label": "원인 확인·보고",
+      "color": "green",
+      "sub": "포함·제외 둘 다"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "Dᵢ는 잔차와 레버리지가 함께 클수록 커진다",
+      "tone": "general"
+    },
+    {
+      "text": "큰 D가 곧 제거 대상은 아님: 입력 오류·다른 모집단·드문 사례인지 먼저 확인",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Cook's distance (https://en.wikipedia.org/wiki/Cook%27s_distance) — Definition(deleting observation i), formula with residual·leverage·p·s², cutoff D_i>1; 4/n 기준은 페이지 본문 관례",
+  "reviewed": true
+}

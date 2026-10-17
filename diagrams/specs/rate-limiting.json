@@ -1,0 +1,66 @@
+{
+  "slug": "rate-limiting",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "레이트 리미팅",
+      "color": "blue",
+      "sub": "요청 수 상한"
+    },
+    {
+      "id": "k0",
+      "label": "고정 윈도우",
+      "color": "violet",
+      "sub": "구간마다 개수 셈"
+    },
+    {
+      "id": "k1",
+      "label": "슬라이딩 윈도우",
+      "color": "violet",
+      "sub": "직전 일정 시간 셈"
+    },
+    {
+      "id": "k2",
+      "label": "토큰 버킷",
+      "color": "violet",
+      "sub": "토큰 채우고 소모"
+    },
+    {
+      "id": "k3",
+      "label": "리키 버킷",
+      "color": "violet",
+      "sub": "대기열서 일정 속도"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "k0",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "k1",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "k2",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "k3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "한도를 넘으면 HTTP 429로 거절",
+      "tone": "general"
+    }
+  ],
+  "source": "Wikipedia, \"Rate limiting\" (https://en.wikipedia.org/wiki/Rate_limiting) — Algorithms(See also), Protocol servers(HTTP 429)",
+  "reviewed": true
+}

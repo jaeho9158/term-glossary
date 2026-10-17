@@ -1,0 +1,65 @@
+{
+  "slug": "thiessen-polygon",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "관측점 좌표 확정",
+      "color": "gray"
+    },
+    {
+      "id": "n1",
+      "label": "수직이등분선 긋기",
+      "color": "violet",
+      "sub": "이웃 점 쌍마다"
+    },
+    {
+      "id": "n2",
+      "label": "최근접 영역 다각형",
+      "color": "blue",
+      "sub": "보로노이 셀"
+    },
+    {
+      "id": "n3",
+      "label": "유역 경계로 자르기",
+      "color": "amber",
+      "sub": "영역 면적 Ai"
+    },
+    {
+      "id": "n4",
+      "label": "면적 가중 평균",
+      "color": "green",
+      "sub": "P = ΣAiPi / ΣAi"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "직선거리만 쓰므로 지형·도로망 영향은 반영 못함",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Voronoi diagram (https://en.wikipedia.org/wiki/Voronoi_diagram) — cell of points closer to seed, perpendicular bisectors, Thiessen 1911 rainfall area-weighted mean 열람",
+  "reviewed": true
+}

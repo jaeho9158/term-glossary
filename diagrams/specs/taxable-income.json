@@ -1,0 +1,75 @@
+{
+  "slug": "taxable-income",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "결산서 당기순이익",
+      "color": "gray",
+      "sub": "기업회계 이익"
+    },
+    {
+      "id": "n1",
+      "label": "세무조정",
+      "color": "violet",
+      "sub": "익금·손금 가감"
+    },
+    {
+      "id": "n2",
+      "label": "각 사업연도 소득",
+      "color": "blue",
+      "sub": "익금 − 손금"
+    },
+    {
+      "id": "n3",
+      "label": "이월결손금·비과세·공제",
+      "color": "amber",
+      "sub": "차감"
+    },
+    {
+      "id": "n4",
+      "label": "과세표준",
+      "color": "blue"
+    },
+    {
+      "id": "n5",
+      "label": "× 세율 = 산출세액",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "'과세소득'이 소득금액인지 과세표준인지 단계를 먼저 밝혀야 함",
+      "tone": "limit"
+    }
+  ],
+  "source": "ko.wikipedia, 법인세 (대한민국) (https://ko.wikipedia.org/wiki/법인세_(대한민국)) — 익금−손금=각 사업연도 소득금액, 이월결손금·비과세·소득감면 적용해 과세표준, 세율 곱해 산출세액 열람; 세무조정은 페이지",
+  "reviewed": true
+}

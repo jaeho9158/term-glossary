@@ -1,0 +1,58 @@
+{
+  "slug": "dicom-image-standard",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "환자",
+      "color": "blue"
+    },
+    {
+      "id": "s",
+      "label": "검사(Study)",
+      "color": "blue",
+      "sub": "한 환자에 여러 검사"
+    },
+    {
+      "id": "se",
+      "label": "시리즈(Series)",
+      "color": "violet",
+      "sub": "한 검사에 여러 시리즈"
+    },
+    {
+      "id": "i",
+      "label": "영상(Instance)",
+      "color": "violet",
+      "sub": "같은 시리즈 정보 공유"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "s",
+      "kind": "arrow"
+    },
+    {
+      "from": "s",
+      "to": "se",
+      "kind": "arrow"
+    },
+    {
+      "from": "se",
+      "to": "i",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "검사·시리즈·영상마다 전 세계 유일 UID(환자는 환자 ID)",
+      "tone": "general"
+    },
+    {
+      "text": "통신은 저장·조회/가져오기·작업목록 같은 서비스로 정의",
+      "tone": "general"
+    }
+  ],
+  "source": "DICOM PS3.3 Annex A, Composite Information Object Definitions (https://dicom.nema.org/medical/dicom/current/output/chtml/part03/chapter_A.html) — a Patient is the subject of one or more Studies; each Study is associated with exactly one Patient; a Study is a collection of one or more Series; each Series is associated with exactly one Study; all Composite Instances within a Series share the same Series information. UID 언급은 페이지 본문; Wikipedia DICOM(services, 1993 DICOM 3.0)",
+  "reviewed": true
+}

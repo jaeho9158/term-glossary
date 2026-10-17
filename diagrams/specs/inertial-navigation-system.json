@@ -1,0 +1,66 @@
+{
+  "slug": "inertial-navigation-system",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "초기 정렬",
+      "color": "gray",
+      "sub": "초기 자세·위치"
+    },
+    {
+      "id": "b",
+      "label": "자세 갱신",
+      "color": "violet",
+      "sub": "자이로 각속도 적분"
+    },
+    {
+      "id": "c",
+      "label": "좌표 변환",
+      "color": "violet",
+      "sub": "비력→항법 좌표계"
+    },
+    {
+      "id": "d",
+      "label": "중력 보상",
+      "color": "amber",
+      "sub": "중력 모형 반영"
+    },
+    {
+      "id": "e",
+      "label": "이중 적분",
+      "color": "blue",
+      "sub": "속도→위치"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "오차가 시간에 따라 누적되어 GNSS 등과 융합함",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Inertial navigation system (https://en.wikipedia.org/wiki/Inertial_navigation_system) — Design/Strapdown",
+  "reviewed": true
+}

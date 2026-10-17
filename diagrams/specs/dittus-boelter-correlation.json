@@ -1,0 +1,70 @@
+{
+  "slug": "dittus-boelter-correlation",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "Re·Pr 계산",
+      "color": "violet",
+      "sub": "물성치는 벌크 온도"
+    },
+    {
+      "id": "n1",
+      "label": "적용 범위 확인",
+      "color": "amber",
+      "sub": "Re≳10⁴, 0.6≤Pr≤160"
+    },
+    {
+      "id": "n2",
+      "label": "지수 n 선택",
+      "color": "violet",
+      "sub": "가열 0.4 · 냉각 0.3"
+    },
+    {
+      "id": "n3",
+      "label": "Nu 계산",
+      "color": "blue",
+      "sub": "0.023 Re^0.8 Prⁿ"
+    },
+    {
+      "id": "n4",
+      "label": "h = Nu·k/D",
+      "color": "green",
+      "sub": "대류 열전달계수"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "단상 난류 전용이다. 비등이 시작되면 첸상관식 같은 별도 식으로 바꾼다",
+      "tone": "limit"
+    },
+    {
+      "text": "L/D ≳ 10의 완전발달 조건을 전제한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Nusselt number, https://en.wikipedia.org/wiki/Nusselt_number (열람) — Dittus–Boelter equation(0.023 Re^0.8 Pr^n, n=0.4/0.3, 범위, Nu=hD/k); 페이지 본문 계산 예",
+  "reviewed": true
+}

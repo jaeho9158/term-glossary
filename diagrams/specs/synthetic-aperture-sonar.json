@@ -1,0 +1,66 @@
+{
+  "slug": "synthetic-aperture-sonar",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "이동하며 핑·에코 기록",
+      "color": "gray",
+      "sub": "진폭·위상 보존"
+    },
+    {
+      "id": "n1",
+      "label": "펄스 압축",
+      "color": "violet",
+      "sub": "거리 해상도 = 대역폭"
+    },
+    {
+      "id": "n2",
+      "label": "핑 간 이동 추정",
+      "color": "amber",
+      "sub": "INS·DVL·미세항법"
+    },
+    {
+      "id": "n3",
+      "label": "코히어런트 합산",
+      "color": "blue",
+      "sub": "왕복 시간 보정·위상 정합"
+    },
+    {
+      "id": "n4",
+      "label": "자동초점 보정",
+      "color": "green",
+      "sub": "잔여 위상 오차"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "방위 해상도가 거리와 무관(≈L/2)하지만 위치를 파장 일부 수준으로 알아야 함",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Synthetic-aperture sonar (https://en.wikipedia.org/wiki/Synthetic-aperture_sonar) — several pings on same spot, coherent reorganization, range-independent along-track resolution, accurate positioning needed 열람; 세부 단계는 페이지(Hayes & Gough 2009)",
+  "reviewed": true
+}

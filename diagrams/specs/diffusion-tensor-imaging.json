@@ -1,0 +1,66 @@
+{
+  "slug": "diffusion-tensor-imaging",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "다방향 확산강조영상",
+      "color": "violet",
+      "sub": "경사자장 6방향 이상"
+    },
+    {
+      "id": "n1",
+      "label": "복셀별 텐서 추정",
+      "color": "blue",
+      "sub": "3×3 대칭 행렬"
+    },
+    {
+      "id": "n2",
+      "label": "고유값 분해",
+      "color": "blue",
+      "sub": "λ₁ ≥ λ₂ ≥ λ₃"
+    },
+    {
+      "id": "n3",
+      "label": "FA·MD 계산",
+      "color": "amber",
+      "sub": "이방성·평균 확산도"
+    },
+    {
+      "id": "n4",
+      "label": "트랙토그래피",
+      "color": "green",
+      "sub": "주 방향 이어 경로"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "교차 섬유는 단일 텐서로 표현 못 함",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Diffusion MRI, https://en.wikipedia.org/wiki/Diffusion_MRI (열람: 6방향 최소, 텐서, 고유값, FA·MD, tractography, 교차 섬유 한계)",
+  "reviewed": true
+}

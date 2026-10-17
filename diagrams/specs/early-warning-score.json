@@ -1,0 +1,70 @@
+{
+  "slug": "early-warning-score",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "활력징후 측정",
+      "color": "violet",
+      "sub": "호흡·SpO₂·혈압·맥박·의식·체온"
+    },
+    {
+      "id": "n1",
+      "label": "항목별 0~3점",
+      "color": "violet",
+      "sub": "산소 투여는 0 또는 2점"
+    },
+    {
+      "id": "n2",
+      "label": "합산",
+      "color": "blue",
+      "sub": "NEWS 0~20점"
+    },
+    {
+      "id": "n3",
+      "label": "등급별 대응",
+      "color": "amber",
+      "sub": "5~6 긴급 평가 · 7↑ 응급"
+    },
+    {
+      "id": "n4",
+      "label": "재평가·보고",
+      "color": "green",
+      "sub": "한 항목 3점도 긴급"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "절단점과 대응은 RCP(2012) 권고이며 기관마다 정한다",
+      "tone": "limit"
+    },
+    {
+      "text": "점수는 임상 판단을 대신하지 않는다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Early warning score, https://en.wikipedia.org/wiki/Early_warning_score (열람) — parameters, up to 3 points per measure, sum = EWS, escalation thresholds; RCP NEWS2 소개 페이지 (열람) — 6개 지표·산소 2점 가산; 페이지 본문 RCP(2012) 5~6점·7점 이상·단일 항목 3점 권고",
+  "reviewed": true
+}

@@ -1,0 +1,65 @@
+{
+  "slug": "dbscan",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "ε·minPts 설정",
+      "color": "violet",
+      "sub": "k-거리 그래프 꺾임"
+    },
+    {
+      "id": "n1",
+      "label": "ε 이웃 수 세기",
+      "color": "blue"
+    },
+    {
+      "id": "n2",
+      "label": "핵심점 판정",
+      "color": "blue",
+      "sub": "이웃 ≥ minPts"
+    },
+    {
+      "id": "n3",
+      "label": "밀도 연결로 확장",
+      "color": "green",
+      "sub": "경계점 포함"
+    },
+    {
+      "id": "n4",
+      "label": "잡음점 분류",
+      "color": "rose",
+      "sub": "어느 핵심점에도 안 닿음"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "군집마다 밀도가 다르면 한 ε으로 어렵다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, DBSCAN, https://en.wikipedia.org/wiki/DBSCAN (열람: 매개변수, core/border/noise, 확장 절차, k-distance graph)",
+  "reviewed": true
+}

@@ -1,0 +1,58 @@
+{
+  "slug": "aspect-analysis",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "DEM 입력",
+      "color": "gray"
+    },
+    {
+      "id": "n1",
+      "label": "3×3 창",
+      "color": "violet",
+      "sub": "이웃 8칸"
+    },
+    {
+      "id": "n2",
+      "label": "dz/dx·dz/dy",
+      "color": "violet",
+      "sub": "고도 변화율"
+    },
+    {
+      "id": "n3",
+      "label": "방위각 환산",
+      "color": "blue",
+      "sub": "북 0°, 시계방향"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "평지는 방향이 없어 −1로 표시",
+      "tone": "general"
+    },
+    {
+      "text": "방위각은 원형 자료라 평균에 주의",
+      "tone": "limit"
+    }
+  ],
+  "source": "Esri, How Aspect works (https://doc.esri.com/en/arcgis-pro/latest/tool-reference/spatial-analyst/how-aspect-works.html) ; 원형 통계는 용어 페이지 본문",
+  "reviewed": true
+}

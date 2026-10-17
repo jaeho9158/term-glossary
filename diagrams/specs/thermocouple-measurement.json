@@ -1,0 +1,76 @@
+{
+  "slug": "thermocouple-measurement",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "두 금속 접합",
+      "color": "blue",
+      "sub": "K형: 크로멜–알루멜"
+    },
+    {
+      "id": "n1",
+      "label": "접점 온도차",
+      "color": "amber",
+      "sub": "측정 접점 vs 기준 접점"
+    },
+    {
+      "id": "n2",
+      "label": "제벡 전압",
+      "color": "violet",
+      "sub": "K형 ≈ 41 μV/°C"
+    },
+    {
+      "id": "n3",
+      "label": "냉접점 보상",
+      "color": "violet",
+      "sub": "기준 접점 온도 반영"
+    },
+    {
+      "id": "n4",
+      "label": "기준표·다항식 변환",
+      "color": "gray",
+      "sub": "비선형, NIST"
+    },
+    {
+      "id": "n5",
+      "label": "온도",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "다른 금속이 만나는 모든 접속부가 새 열전대가 되므로 보상도선을 쓴다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Thermocouple (https://en.wikipedia.org/wiki/Thermocouple) — Seebeck effect, measuring vs reference junction, cold junction compensation, nonlinear tables (NIST), type K ~41 μV/°C, extension wire 열람",
+  "reviewed": true
+}

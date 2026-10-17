@@ -1,0 +1,67 @@
+{
+  "slug": "person-years-lived-lx",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "q",
+      "label": "사망확률 qₓ",
+      "color": "amber",
+      "sub": "x세→x+1세 사망"
+    },
+    {
+      "id": "l",
+      "label": "생존자수 lₓ",
+      "color": "blue",
+      "sub": "l₀=100,000"
+    },
+    {
+      "id": "L",
+      "label": "정상인년수 Lₓ",
+      "color": "violet",
+      "sub": "구간에 산 인년"
+    },
+    {
+      "id": "T",
+      "label": "총생존연수 Tₓ",
+      "color": "violet",
+      "sub": "Lₓ를 x세 이후 합산"
+    },
+    {
+      "id": "e",
+      "label": "기대여명 eₓ",
+      "color": "green",
+      "sub": "Tₓ ÷ lₓ"
+    }
+  ],
+  "edges": [
+    {
+      "from": "q",
+      "to": "l",
+      "kind": "arrow",
+      "label": "lₓ₊₁=lₓ(1−qₓ)"
+    },
+    {
+      "from": "l",
+      "to": "L",
+      "kind": "arrow"
+    },
+    {
+      "from": "L",
+      "to": "T",
+      "kind": "arrow"
+    },
+    {
+      "from": "T",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "Lₓ≈(lₓ+lₓ₊₁)/2는 사망이 고르다는 가정; 영아·최고령 구간은 별도 처리",
+      "tone": "limit"
+    }
+  ],
+  "source": "WHO GHO, GHE life tables: nMx, nqx, lx, ndx, nLx, Tx, ex, https://www.who.int/data/gho/indicator-metadata-registry/imr-details/29 (열람; nLx=person-years lived, Tx=person-years above x) ; ONS, Guide to calculating national life tables (열람; dx=qx·lx, Tx=ΣLx, ex=Tx/lx)",
+  "reviewed": true
+}

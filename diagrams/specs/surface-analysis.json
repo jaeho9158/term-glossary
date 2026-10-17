@@ -1,0 +1,55 @@
+{
+  "slug": "surface-analysis",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "격자 표면 준비",
+      "color": "gray",
+      "sub": "DEM, 점이면 보간"
+    },
+    {
+      "id": "n1",
+      "label": "3×3 이동창 계산",
+      "color": "violet",
+      "sub": "Horn 1981 차분"
+    },
+    {
+      "id": "n2",
+      "label": "파생 표면 생성",
+      "color": "blue",
+      "sub": "경사·사면향·곡률·음영"
+    },
+    {
+      "id": "n3",
+      "label": "시각화·해석",
+      "color": "green",
+      "sub": "등고선·색 단계"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "결과는 추정값이며 격자 간격·원자료 오차가 그대로 반영됨",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Geomorphometry (https://en.wikipedia.org/wiki/Geomorphometry) — input DEM, Horn's method uses cell and eight neighbors, slope/aspect/curvature/hillshade 열람",
+  "reviewed": true
+}
