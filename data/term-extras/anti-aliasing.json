@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ul><li>계단현상(에일리어싱, jaggies)은 연속적인 장면을 픽셀 격자로 샘플링하기 때문에 생긴다. Crow(1977)는 컴퓨터로 만든 음영 이미지의 에일리어싱 문제를 다룬 논문이다.</li><li><strong>슈퍼샘플링 계열(SSAA, MSAA 등)</strong>: 렌더링 중 픽셀마다 여러 샘플을 계산해 평균한다. SSAA(FSAA)는 가장 먼저 쓰인 방식으로, 이미지가 부드러워지지만 계산 비용이 크다.</li><li><strong>후처리 계열(FXAA, TAA 등)</strong>: 이미 그린 이미지에 필터를 적용한다. 상대적으로 가볍고, TAA는 시간축 정보를 이용한다.</li><li><strong>학습 기반</strong>: 신경망이 필터를 학습한다.</li><li>관련 문헌으로 Yang 등(2009)의 “Amortized supersampling”과 재구성 필터를 다룬 Mitchell과 Netravali(1988)가 있다.</li></ul>"
+      "html": "<ul><li>계단현상(에일리어싱, jaggies)은 연속적인 장면을 픽셀 격자로 샘플링하기 때문에 생긴다. Crow(1977)는 컴퓨터로 만든 음영 이미지의 에일리어싱 문제를 다룬 논문이다.</li><li><strong>슈퍼샘플링 계열(SSAA, MSAA 등)</strong>: 렌더링 중 픽셀마다 여러 샘플을 계산해 평균한다. SSAA(FSAA)는 가장 먼저 쓰인 방식으로, 이미지가 부드러워지지만 계산 비용이 크다.</li><li><strong>후처리 계열(FXAA, TAA 등)</strong>: 이미 그린 이미지에 필터를 적용한다. 상대적으로 가볍고, TAA는 시간축 정보를 이용한다.</li><li><strong>학습 기반</strong>: 신경망이 필터를 학습한다.</li><li>관련 문헌으로 Yang 등(2009)의 “Amortized supersampling”과 재구성 필터를 다룬 Mitchell과 Netravali(1988)가 있다.</li></ul><p>초기 방식인 슈퍼샘플링(SSAA, 전체 화면 안티앨리어싱 FSAA)은 화면 해상도의 2배 또는 4배로 그린 뒤 평균해 줄이며, 초기 비디오 카드에서 처음 쓰인 방식이다. 가장 단순한 면적 샘플링은 픽셀을 도형이 덮는 비율을 그 픽셀의 밝기로 쓴다. 필터로는 싱크, 란초스, 가우시안이 쓰인다. 역사적으로 Freeman(1974), Crow(1977), Catmull(1978)의 연구가 초기 문헌으로 꼽힌다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>슈퍼샘플링이 하는 일을 가상의 픽셀로 계산해 본다. 한 변이 1인 픽셀 안에서 y &lt; 0.2 + 0.5x 인 영역(경계선 아래)이 물체라고 하면 정확한 덮인 면적은 0.45이다. 샘플 1개(픽셀 중심)로는 덮임 0.00, 2×2 샘플로는 0.50, 4×4 샘플로는 0.50, 8×8 샘플로는 0.44이다. 샘플 수가 늘수록 정확한 값에 가까워지며, 그 비율만큼 배경색과 물체색을 섞어 칠하면 경계가 부드러워진다.</p>"
+      "html": "<p>슈퍼샘플링이 하는 일을 가상의 픽셀로 계산해 본다. 한 변이 1인 픽셀 안에서 y &lt; 0.2 + 0.5x 인 영역(경계선 아래)이 물체라고 하면 정확한 덮인 면적은 0.45이다. 샘플 1개(픽셀 중심)로는 덮임 0.00, 2×2 샘플로는 0.50, 4×4 샘플로는 0.50, 8×8 샘플로는 0.44이다. 샘플 수가 늘수록 정확한 값에 가까워지며, 그 비율만큼 배경색과 물체색을 섞어 칠하면 경계가 부드러워진다.</p><p>감마 압축된 영상에 선형 필터를 그대로 쓰면 대비가 큰 세부가 어두워져 밝은 선은 가늘어지고 어두운 선은 굵어진다. 객체 기반 안티앨리어싱은 실루엣 모서리에만 적용하는 방식으로, 실리콘 그래픽스가 인디 워크스테이션용으로 처음 개발했다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -38,6 +38,7 @@
   "references": [
     "Crow, F. C. (1977). The aliasing problem in computer-generated shaded images. Communications of the ACM, 20(11), 799–805.",
     "Mitchell, D. P., & Netravali, A. N. (1988). Reconstruction filters in computer-graphics. ACM SIGGRAPH Computer Graphics, 22(4), 221–228.",
-    "Yang, L., Nehab, D., Sander, P. V., Sitthi-amorn, P., Lawrence, J., & Hoppe, H. (2009). Amortized supersampling. ACM Transactions on Graphics, 28(5), 1–12."
+    "Yang, L., Nehab, D., Sander, P. V., Sitthi-amorn, P., Lawrence, J., & Hoppe, H. (2009). Amortized supersampling. ACM Transactions on Graphics, 28(5), 1–12.",
+    "Wikipedia contributors. (2025). Spatial anti-aliasing. Wikipedia."
   ]
 }

@@ -3,15 +3,15 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>추상 자료형(ADT)은 값의 집합과 <strong>연산, 그 연산이 만족해야 하는 규칙</strong>으로 자료형을 정의한다. 내부 표현은 정의의 일부가 아니다.</li><li>1974년 리스코프와 질레스가 프로그래밍 맥락에서 제안했고, 정의와 구현을 분리해 구현을 바꿔도 사용하는 코드가 영향을 받지 않게 하는 것이 목적이다.</li><li>ADT 정의는 인터페이스(어떤 연산이 있는가)와 행동 규칙(연산들 사이의 관계)으로 이루어진다. 규칙의 예: 스택에서 push 뒤에 top을 하면 방금 넣은 값이 나온다.</li><li>자료구조(배열, 연결 리스트 등)는 ADT를 실제로 만드는 <strong>구현</strong>이다. 하나의 ADT에 여러 구현이 있을 수 있다.</li></ul>"
+      "html": "<ul><li>추상 자료형(ADT)은 값의 집합과 <strong>연산, 그 연산이 만족해야 하는 규칙</strong>으로 자료형을 정의한다. 내부 표현은 정의의 일부가 아니다.</li><li>1974년 리스코프와 질레스가 프로그래밍 맥락에서 제안했고, 정의와 구현을 분리해 구현을 바꿔도 사용하는 코드가 영향을 받지 않게 하는 것이 목적이다.</li><li>ADT 정의는 인터페이스(어떤 연산이 있는가)와 행동 규칙(연산들 사이의 관계)으로 이루어진다. 규칙의 예: 스택에서 push 뒤에 top을 하면 방금 넣은 값이 나온다.</li><li>자료구조(배열, 연결 리스트 등)는 ADT를 실제로 만드는 <strong>구현</strong>이다. 하나의 ADT에 여러 구현이 있을 수 있다.</li></ul><p>ADT는 값의 가능한 집합, 연산, 연산의 동작을 사용자 관점에서 정의하는 수학적 모형이며, 구현자가 고른 구체적 표현인 자료구조와 구별된다. 형식적으로는 대수 구조처럼 정의역, 연산 집합, 연산이 만족해야 할 제약으로 이루어진다. 인터페이스가 비슷해도 행동 제약이 스택(후입선출)과 큐(선입선출)를 구분한다. 제약을 쓰는 방식은 두 가지 관점으로 나뉜다. 공리적(함수적) 관점은 상태마다 별개의 값으로 보고 연산을 부작용 없는 함수로 두어 제약을 공리로 쓰고, 조작적(명령형) 관점은 ADT를 시간에 따라 변하는 것으로 보아 연산 순서가 중요하며 제약은 주로 문장으로 설명한다.</p>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>스택과 큐는 연산 이름이 비슷하지만 <strong>규칙</strong>이 달라 서로 다른 ADT이다.</p><table><thead><tr><th>ADT</th><th>핵심 연산</th><th>규칙</th><th>구현 후보</th></tr></thead><tbody><tr><td>[[stack-and-queue|스택]]</td><td>push, pop, top</td><td>마지막에 넣은 것이 먼저 나옴(LIFO)</td><td>배열, [[linked-list|연결 리스트]]</td></tr><tr><td>[[stack-and-queue|큐]]</td><td>enqueue, dequeue, front</td><td>먼저 넣은 것이 먼저 나옴(FIFO)</td><td>원형 배열, 연결 리스트</td></tr></tbody></table><p>사용하는 쪽은 규칙만 알면 되고, 내부가 배열인지 연결 리스트인지는 몰라도 된다.</p>"
+      "html": "<p>스택과 큐는 연산 이름이 비슷하지만 <strong>규칙</strong>이 달라 서로 다른 ADT이다.</p><table><thead><tr><th>ADT</th><th>핵심 연산</th><th>규칙</th><th>구현 후보</th></tr></thead><tbody><tr><td>[[stack-and-queue|스택]]</td><td>push, pop, top</td><td>마지막에 넣은 것이 먼저 나옴(LIFO)</td><td>배열, [[linked-list|연결 리스트]]</td></tr><tr><td>[[stack-and-queue|큐]]</td><td>enqueue, dequeue, front</td><td>먼저 넣은 것이 먼저 나옴(FIFO)</td><td>원형 배열, 연결 리스트</td></tr></tbody></table><p>사용하는 쪽은 규칙만 알면 되고, 내부가 배열인지 연결 리스트인지는 몰라도 된다.</p><p>스택의 공리 예로는 push 직후 pop하면 이전 상태로 돌아가고, push 직후의 top은 방금 넣은 값이며, 새로 만든 스택은 비어 있고, push를 한 스택은 비어 있지 않다는 것이 있다. 구현은 구체적 자료구조를 골라 공리를 만족하는 절차를 쓰는 일이며, 클라이언트는 불투명 타입이나 핸들로 보호되어 구현을 바꿔도 코드가 깨지지 않는다. C++과 Java 같은 객체지향 언어는 ADT를 클래스로 나타낸다.</p>"
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ADT와 자료구조는 같은 말이다.</td><td>ADT는 행동의 명세이고 자료구조는 구체적 표현이다.</td></tr><tr><td>ADT는 클래스나 인터페이스와 똑같다.</td><td>언어의 인터페이스는 연산 이름과 형만 정하는 경우가 많고, ADT는 연산 사이의 규칙까지 포함한다.</td></tr><tr><td>같은 ADT면 성능도 같다.</td><td>구현에 따라 연산의 시간 복잡도가 달라진다.</td></tr><tr><td>ADT는 객체지향에서만 쓴다.</td><td>개념은 언어와 무관하며, 대수적 명세로 수학적으로 다루기도 한다.</td></tr></tbody></table>"
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ADT와 자료구조는 같은 말이다.</td><td>ADT는 행동의 명세이고 자료구조는 구체적 표현이다.</td></tr><tr><td>ADT는 클래스나 인터페이스와 똑같다.</td><td>언어의 인터페이스는 연산 이름과 형만 정하는 경우가 많고, ADT는 연산 사이의 규칙까지 포함한다.</td></tr><tr><td>같은 ADT면 성능도 같다.</td><td>구현에 따라 연산의 시간 복잡도가 달라진다.</td></tr><tr><td>ADT는 객체지향에서만 쓴다.</td><td>개념은 언어와 무관하며, 대수적 명세로 수학적으로 다루기도 한다.</td></tr></tbody></table><p>1980년 무렵에는 보편대수에 바탕을 둔 대수적 명세가 주요 연구 분야였고 당시에는 ADT와 거의 같은 뜻으로 쓰였다. 복잡도 보장을 ADT 인터페이스에 포함시켜야 한다는 주장(C++ 표준 템플릿 라이브러리를 설계한 스테파노프)과, ADT는 구현 비용과 무관해야 한다는 견해가 맞서 있다.</p>"
     }
   ],
   "compare": {
@@ -41,12 +41,7 @@
   },
   "references": [
     "Liskov, B., & Zilles, S. (1974). Programming with abstract data types. ACM SIGPLAN Notices, 9(4), 50–59.",
-    "Cardelli, L., & Wegner, P. (1985). On understanding types, data abstraction, and polymorphism. ACM Computing Surveys, 17(4), 471–523."
-  ],
-  "fixes": [
-    {
-      "find": "\"넣고 꺼내는 순서(LIFO)\"라는 연산 규칙",
-      "replace": "\"넣고 꺼내는 순서(스택은 LIFO, 큐는 FIFO)\"라는 연산 규칙"
-    }
+    "Cardelli, L., & Wegner, P. (1985). On understanding types, data abstraction, and polymorphism. ACM Computing Surveys, 17(4), 471–523.",
+    "Wikipedia contributors. (2026). Abstract data type. Wikipedia."
   ]
 }
