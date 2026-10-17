@@ -154,7 +154,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>A*는 시작 노드에서 목표까지 가는 최소 비용 경로를 찾는 탐색 알고리즘이다(Hart 외, 1968). 각 노드 n마다 <code>f(n) = g(n) + h(n)</code>을 계산한다. g(n)은 시작에서 n까지 실제로 든 비용, h(n)은 n에서 목표까지의 <strong>추정 비용(휴리스틱)</strong>이다.</p><ol><li>시작 노드를 열린 목록에 넣는다.</li><li>f가 가장 작은 노드를 꺼내 닫힌 목록으로 옮긴다.</li><li>그 노드가 목표면 끝난다. 아니면 이웃 노드의 g를 갱신하고(더 싼 경로를 찾으면), 열린 목록에 넣는다.</li><li>2~3을 반복한다.</li></ol><p>h가 항상 0이면 <a href="dijkstra-algorithm.html">다익스트라 알고리즘</a>과 같다.</p>
+  <p>A*는 시작 노드에서 목표까지 가는 최소 비용 경로를 찾는 탐색 알고리즘이다(Hart 외, 1968). 각 노드 n마다 <code>f(n) = g(n) + h(n)</code>을 계산한다. g(n)은 시작에서 n까지 실제로 든 비용, h(n)은 n에서 목표까지의 <strong>추정 비용(휴리스틱)</strong>이다.</p><ol><li>시작 노드를 열린 목록에 넣는다.</li><li>f가 가장 작은 노드를 꺼내 닫힌 목록으로 옮긴다.</li><li>그 노드가 목표면 끝난다. 아니면 이웃 노드의 g를 갱신하고(더 싼 경로를 찾으면), 열린 목록에 넣는다.</li><li>2~3을 반복한다.</li></ol><p>h가 항상 0이면 <a href="dijkstra-algorithm.html">다익스트라 알고리즘</a>과 같다.</p><ul><li>A*는 1968년 스탠퍼드 연구소(SRI)의 Hart, Nilsson, Raphael이 로봇 Shakey의 경로 계획을 위해 발표했다. 경로 비용과 휴리스틱을 합치는 아이디어는 Raphael이, 허용성과 일관성 개념은 Hart가 냈다고 알려져 있다.</li><li>일관적 휴리스틱을 쓰면 각 노드를 한 번만 처리하고도 최적 경로를 얻는다. Dechter와 Pearl(1985)은 일관적 휴리스틱을 쓰는 A*가 병적이지 않은 문제에서 같은 부류의 허용적 A* 유사 알고리즘 가운데 효율이 가장 높음을 보였다.</li><li>최악의 시간·공간 복잡도는 O(b<sup>d</sup>)(b는 분기 계수, d는 해의 깊이)로 흔히 말한다. 생성한 노드를 모두 메모리에 두는 것이 가장 큰 단점이며, 이를 줄이려고 IDA*, SMA* 같은 변형이 나왔다.</li><li>가중 A*는 h에 ε을 곱해 속도를 얻는 대신 해가 최적의 ε배 이내임만 보장한다.</li></ul>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <p>h가 <strong>허용적(admissible)</strong>, 곧 실제 남은 비용을 절대 과대평가하지 않으면 A*는 최단 경로를 보장한다. 또 h가 <strong>일관적(consistent)</strong>이면 한 번 닫힌 노드를 다시 열 필요가 없다(Dechter &amp; Pearl, 1985의 최적성 논의 참조). 격자에서 상하좌우 이동 비용이 1일 때 맨해튼 거리가 이런 휴리스틱의 대표이다.</p><p><strong>작은 예(코드로 실행).</strong> 9행×10열 격자(#은 벽)에서 S에서 G까지 간다고 하자.</p><p><code>..........<br>..####....<br>..#..#....<br>..#..#.##.<br>..#..#..#.<br>S.#..####.<br>..#.......<br>..####.##.<br>........#G</code></p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>경로 길이</th><th>확장한 노드 수</th></tr></thead><tbody><tr><td>다익스트라(h = 0)</td><td>16</td><td>60</td></tr><tr><td>A*(맨해튼 거리)</td><td>16</td><td>25</td></tr><tr><td>A*(맨해튼×2, 비허용)</td><td>16</td><td>18</td></tr></tbody></table></div><p>같은 최단 길이를 더 적은 노드로 찾는 것이 휴리스틱의 이점이다. 맨해튼×2는 과대평가하는 비허용 휴리스틱이어서 최적성이 보장되지 않는데, 이 격자에서는 우연히 최적을 찾았다. 노드 수는 동률일 때의 처리 순서(여기서는 g, 좌표 순)에 따라 조금 달라질 수 있다.</p>
@@ -192,6 +192,7 @@
     <li>Hart, P. E., Nilsson, N. J., &amp; Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107.</li>
     <li>Dechter, R., &amp; Pearl, J. (1985). Generalized best-first search strategies and the optimality of A*. Journal of the ACM, 32(3), 505–536.</li>
     <li>Russell, S., &amp; Norvig, P. (2020). Artificial Intelligence: A Modern Approach (4th ed.). Pearson.</li>
+    <li>Wikipedia contributors. (n.d.). A* search algorithm. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

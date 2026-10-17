@@ -151,13 +151,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>f(x) = max(0, x). 입력이 양수면 그대로, 0 이하면 0이다.</li><li>도함수는 x &gt; 0에서 1, x &lt; 0에서 0이다. x = 0에서는 미분 불가능하며, 구현에서는 관례로 0(또는 1)을 쓴다.</li><li>양의 구간에서 기울기가 1이어서 층을 깊게 쌓아도 <a href="sigmoid-function.html">시그모이드</a>처럼 기울기가 계속 작아지는 문제(기울기 소실)가 덜하다.</li><li>계산이 비교 한 번이라 빠르고, 출력의 상당수가 0이 되는 희소(sparse)한 표현이 만들어진다(Glorot 등, 2011).</li><li>이 함수를 딥러닝 은닉층에 널리 퍼뜨린 연구로 Nair와 Hinton(2010), Krizhevsky 등(2012)이 자주 인용된다.</li></ul>
+  <ul><li>f(x) = max(0, x). 입력이 양수면 그대로, 0 이하면 0이다.</li><li>도함수는 x &gt; 0에서 1, x &lt; 0에서 0이다. x = 0에서는 미분 불가능하며, 구현에서는 관례로 0(또는 1)을 쓴다.</li><li>양의 구간에서 기울기가 1이어서 층을 깊게 쌓아도 <a href="sigmoid-function.html">시그모이드</a>처럼 기울기가 계속 작아지는 문제(기울기 소실)가 덜하다.</li><li>계산이 비교 한 번이라 빠르고, 출력의 상당수가 0이 되는 희소(sparse)한 표현이 만들어진다(Glorot 등, 2011).</li><li>이 함수를 딥러닝 은닉층에 널리 퍼뜨린 연구로 Nair와 Hinton(2010), Krizhevsky 등(2012)이 자주 인용된다.</li></ul><ul><li>ReLU(정류 선형 단위)는 max(0, x)로 입력의 음이 아닌 부분을 출력하는 활성화 함수이며 램프 함수라고도 부른다.</li><li>연혁: Householder(1941)가 생물 신경망의 수학적 모형으로 썼고, Fukushima(1969)가 계층 신경망의 시각 특징 추출에 썼다. Hahnloser 등(2000)은 뉴런 발화율과 입력 전류의 관계를 근사한다고 주장했고, Nair와 Hinton(2010)이 소프트플러스의 근사로 제안한 뒤 널리 쓰이게 되었다. Glorot 등(2011)은 생물학적 유사성, 기울기 소실 회피, 낮은 계산 비용, 희소 표현을 장점으로 들었다.</li></ul>
 
   <h2>예시로 보기</h2>
-  <p>입력 -2, -0.5, 0, 0.5, 3에 적용한 결과이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x</th><th>-2</th><th>-0.5</th><th>0</th><th>0.5</th><th>3</th></tr></thead><tbody><tr><td>ReLU(x)</td><td>0</td><td>0</td><td>0</td><td>0.5</td><td>3</td></tr><tr><td>Leaky ReLU(x), α=0.01</td><td>-0.02</td><td>-0.005</td><td>0</td><td>0.5</td><td>3</td></tr></tbody></table></div><p>음수 입력은 ReLU에서 모두 0이 되므로, 어떤 뉴런이 모든 입력에 대해 음수 값만 받게 되면 기울기도 0이어서 더는 학습되지 않는다(‘죽은 ReLU’). Leaky ReLU(Maas 등, 2013)는 음수 구간에 작은 기울기 α를 주어 이 문제를 줄이려는 변형이다.</p>
+  <p>입력 -2, -0.5, 0, 0.5, 3에 적용한 결과이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x</th><th>-2</th><th>-0.5</th><th>0</th><th>0.5</th><th>3</th></tr></thead><tbody><tr><td>ReLU(x)</td><td>0</td><td>0</td><td>0</td><td>0.5</td><td>3</td></tr><tr><td>Leaky ReLU(x), α=0.01</td><td>-0.02</td><td>-0.005</td><td>0</td><td>0.5</td><td>3</td></tr></tbody></table></div><p>음수 입력은 ReLU에서 모두 0이 되므로, 어떤 뉴런이 모든 입력에 대해 음수 값만 받게 되면 기울기도 0이어서 더는 학습되지 않는다(‘죽은 ReLU’). Leaky ReLU(Maas 등, 2013)는 음수 구간에 작은 기울기 α를 주어 이 문제를 줄이려는 변형이다.</p><ul><li>무작위 초기화 신경망에서 은닉 단위의 약 50%가 활성 상태이다(희소 활성). 포화형 시그모이드 계열보다 기울기 소실 문제가 적고, 비교와 덧셈만 필요해 효율적이며, a ≥ 0에서 max(0, ax) = a·max(0, x)로 크기에 대해 불변이다.</li></ul>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ReLU면 기울기 소실이 완전히 사라진다.</td><td>양의 구간에서 완화될 뿐이며, 가중치 초기화·정규화·구조 설계도 함께 영향을 준다.</td></tr><tr><td>ReLU는 모든 층에 최선이다.</td><td>출력층은 과제에 맞는 함수(시그모이드, 소프트맥스 등)를 쓰고, 모델에 따라 GELU 같은 다른 함수가 쓰이기도 한다.</td></tr><tr><td>음수 정보는 버려도 된다.</td><td>음수 입력 구간의 정보를 잃는 것이 ReLU의 특성이므로, 필요하면 변형을 선택한다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ReLU면 기울기 소실이 완전히 사라진다.</td><td>양의 구간에서 완화될 뿐이며, 가중치 초기화·정규화·구조 설계도 함께 영향을 준다.</td></tr><tr><td>ReLU는 모든 층에 최선이다.</td><td>출력층은 과제에 맞는 함수(시그모이드, 소프트맥스 등)를 쓰고, 모델에 따라 GELU 같은 다른 함수가 쓰이기도 한다.</td></tr><tr><td>음수 정보는 버려도 된다.</td><td>음수 입력 구간의 정보를 잃는 것이 ReLU의 특성이므로, 필요하면 변형을 선택한다.</td></tr></tbody></table></div><ul><li>죽은 ReLU 문제: 어떤 뉴런이 거의 모든 입력에서 비활성이 되면 기울기가 흐르지 않아 그 상태에 갇힌다. 죽은 뉴런이 많으면 모형 용량이 줄고 학습이 멈출 수 있으며, 학습률이 너무 클 때 흔히 생긴다.</li><li>변형으로 Leaky ReLU(음수 입력에 0.01~0.3 정도의 작은 기울기), PReLU(2016, 그 기울기를 학습), ELU(2015), GELU(2016), SiLU/Swish(x·sigmoid(x)), Mish(2019) 등이 있다. Leaky ReLU는 완화책이지만 과제에 따라 성능이 떨어질 수 있다.</li></ul>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -194,6 +194,7 @@
     <li>Glorot, X., Bordes, A., &amp; Bengio, Y. (2011). Deep sparse rectifier neural networks. Proceedings of the 14th International Conference on Artificial Intelligence and Statistics, 315–323.</li>
     <li>Krizhevsky, A., Sutskever, I., &amp; Hinton, G. E. (2012). ImageNet classification with deep convolutional neural networks. Advances in Neural Information Processing Systems, 25.</li>
     <li>Maas, A. L., Hannun, A. Y., &amp; Ng, A. Y. (2013). Rectifier nonlinearities improve neural network acoustic models. ICML Workshop on Deep Learning for Audio, Speech and Language Processing.</li>
+    <li>Wikipedia contributors. (n.d.). Rectifier (neural networks). Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

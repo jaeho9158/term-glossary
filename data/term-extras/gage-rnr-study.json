@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>Gage R&amp;R(반복성·재현성) 연구는 측정시스템이 만드는 변동이 전체 변동에서 얼마나 되는지 나누어 본다. 가장 흔한 교차 설계는 다음과 같다.</p><ol><li><strong>부품 선택</strong>: 공정이 만드는 산포 범위를 대표하는 부품(AIAG 매뉴얼의 예는 10개)을 고른다.</li><li><strong>측정자와 반복</strong>: 여러 측정자(예: 3명)가 각 부품을 여러 번(예: 2~3회) 무작위 순서로, 서로 결과를 모르는 상태에서 측정한다.</li><li><strong>분석</strong>: 평균-범위법 또는 분산분석(ANOVA)으로 변동 요인을 나눈다.</li></ol>"
+      "html": "<p>Gage R&amp;R(반복성·재현성) 연구는 측정시스템이 만드는 변동이 전체 변동에서 얼마나 되는지 나누어 본다. 가장 흔한 교차 설계는 다음과 같다.</p><ol><li><strong>부품 선택</strong>: 공정이 만드는 산포 범위를 대표하는 부품(AIAG 매뉴얼의 예는 10개)을 고른다.</li><li><strong>측정자와 반복</strong>: 여러 측정자(예: 3명)가 각 부품을 여러 번(예: 2~3회) 무작위 순서로, 서로 결과를 모르는 상태에서 측정한다.</li><li><strong>분석</strong>: 평균-범위법 또는 분산분석(ANOVA)으로 변동 요인을 나눈다.</li></ol><ul><li>분산분석(ANOVA) 방식은 랜덤 효과 모형으로 전체 변동을 부품 간, 측정자, 반복성, 부품-측정자 교호작용 성분으로 나눈다. 흔한 설계는 부품 10개를 측정자 2명이 각 2회 측정하는 10×2×2이다. 보편적인 최소 표본 크기는 없다고 설명된다.</li><li>이 방법은 정확도가 아닌 정밀도만 다루며, 교차·중첩·확장 설계가 있다. 식스 시그마 도구이자 PPAP 문서의 요구 사항이다.</li></ul>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>변동은 서로 독립인 성분의 제곱합으로 더해진다.</p><ul><li><strong>반복성(EV)</strong>: 같은 측정자가 같은 부품을 반복 측정할 때의 변동.</li><li><strong>재현성(AV)</strong>: 측정자 사이의 변동.</li><li><strong>GRR</strong> = √(EV² + AV²), <strong>전체 변동 TV</strong> = √(GRR² + PV²) (PV는 부품 간 변동).</li><li><strong>%GRR</strong> = GRR / TV × 100, <strong>구별범주수 ndc</strong> = 1.41 × PV / GRR (소수점 아래는 버림).</li></ul><p>(가상의 표준편차, 계산은 프로그램으로 확인) EV = 0.02, AV = 0.01, PV = 0.15이면 GRR = 0.02236, TV = 0.1517, %GRR = 14.7%, ndc = 9.46 → 9 이다. AIAG 매뉴얼의 관례적 기준은 %GRR이 10% 미만이면 수용 가능, 10~30%는 용도에 따라 조건부, 30%를 넘으면 개선이 필요하다고 보며, ndc는 5 이상을 요구한다. 이 예(약 15%, ndc 9)는 조건부 구간이지만 ndc 기준은 충족한다.</p><p>이 연구는 측정의 정밀도(산포)를 보는 것이며, 참값에서의 치우침(편의), 선형성, 안정성은 MSA 매뉴얼의 다른 연구로 따로 확인한다.</p>"
+      "html": "<p>변동은 서로 독립인 성분의 제곱합으로 더해진다.</p><ul><li><strong>반복성(EV)</strong>: 같은 측정자가 같은 부품을 반복 측정할 때의 변동.</li><li><strong>재현성(AV)</strong>: 측정자 사이의 변동.</li><li><strong>GRR</strong> = √(EV² + AV²), <strong>전체 변동 TV</strong> = √(GRR² + PV²) (PV는 부품 간 변동).</li><li><strong>%GRR</strong> = GRR / TV × 100, <strong>구별범주수 ndc</strong> = 1.41 × PV / GRR (소수점 아래는 버림).</li></ul><p>(가상의 표준편차) EV = 0.02, AV = 0.01, PV = 0.15이면 GRR = 0.02236, TV = 0.1517, %GRR = 14.7%, ndc = 9.46 → 9 이다. AIAG 매뉴얼의 관례적 기준은 %GRR이 10% 미만이면 수용 가능, 10~30%는 용도에 따라 조건부, 30%를 넘으면 개선이 필요하다고 보며, ndc는 5 이상을 요구한다. 이 예(약 15%, ndc 9)는 조건부 구간이지만 ndc 기준은 충족한다.</p><p>이 연구는 측정의 정밀도(산포)를 보는 것이며, 참값에서의 치우침(편의), 선형성, 안정성은 MSA 매뉴얼의 다른 연구로 따로 확인한다.</p><ul><li>공차 대비 정밀도를 보는 P/T 비는 0.1 미만이면 부품이 공차를 만족하는지를 믿을 만하게 판정할 수 있고, 0.3을 넘으면 불량 부품을 합격으로 측정할 수 있어 부적합하다고 소개된다.</li></ul>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -42,6 +42,7 @@
   "references": [
     "Automotive Industry Action Group. (2010). Measurement Systems Analysis: Reference Manual (4th ed.). AIAG.",
     "Burdick, R. K., Borror, C. M., & Montgomery, D. C. (2005). Design and Analysis of Gauge R&R Studies: Making Decisions with Confidence Intervals in Random and Mixed ANOVA Models. SIAM.",
-    "Montgomery, D. C., & Runger, G. C. (1993). Gauge capability and designed experiments. Part I: Basic methods. Quality Engineering, 6(1)."
+    "Montgomery, D. C., & Runger, G. C. (1993). Gauge capability and designed experiments. Part I: Basic methods. Quality Engineering, 6(1).",
+    "Wikipedia contributors. (n.d.). ANOVA gauge R&R. Wikipedia."
   ]
 }

@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>PID 제어는 목표값과 측정값의 차이인 오차 e(t)로 조작량을 정한다. <code>u = K<sub>p</sub>·e + K<sub>i</sub>·∫e dt + K<sub>d</sub>·de/dt</code>.</li><li><strong>P</strong>는 현재 오차에 비례해 반응이 빠르고, <strong>I</strong>는 오차를 누적해 정상상태 오차를 없애며, <strong>D</strong>는 오차의 변화율로 급한 변화에 제동을 건다.</li><li>I를 키우면 오버슈트와 진동이 늘 수 있고, D는 측정 잡음을 증폭하므로 필터가 흔히 필요하다.</li><li>이 이론은 [[feedback-control|피드백제어]]의 대표 구조이며, 구현된 장치는 [[pid-controller|PID 제어기]]라고 부른다.</li></ul>"
+      "html": "<ul><li>PID 제어는 목표값과 측정값의 차이인 오차 e(t)로 조작량을 정한다. <code>u = K<sub>p</sub>·e + K<sub>i</sub>·∫e dt + K<sub>d</sub>·de/dt</code>.</li><li><strong>P</strong>는 현재 오차에 비례해 반응이 빠르고, <strong>I</strong>는 오차를 누적해 정상상태 오차를 없애며, <strong>D</strong>는 오차의 변화율로 급한 변화에 제동을 건다.</li><li>I를 키우면 오버슈트와 진동이 늘 수 있고, D는 측정 잡음을 증폭하므로 필터가 흔히 필요하다.</li><li>이 이론은 [[feedback-control|피드백제어]]의 대표 구조이며, 구현된 장치는 [[pid-controller|PID 제어기]]라고 부른다.</li></ul>\n<p>PID 제어는 오차 e(t) = 목표값 − 측정값에 대해 비례(P), 적분(I), 미분(D) 세 항을 합쳐 조작량을 정한다. u(t) = Kp·e(t) + Ki∫e dτ + Kd·de/dt이다. 비례항은 현재 오차에 비례하고, 적분항은 과거 오차를 누적하여 정상상태 편차를 없애며, 미분항은 오차의 변화율로 과도한 오버슈트를 줄인다.</p><ul><li>니콜라스 미노르스키가 1922년 미국 해군 선박의 자동 조타를 설계하면서 3항 제어 법칙을 이론적으로 처음 세웠다. 지글러와 니콜스의 조정법은 1940년대에 소개되었다.</li><li>지글러-니콜스법은 한계 이득 Ku와 진동 주기 Tu로 PID의 Kp = 0.60Ku, Ki = 1.2Ku/Tu, Kd = 3KuTu/40을 정한다. 코언-쿤법은 1953년, 릴레이법(오스트룀-해글룬드)은 1984년에 나왔다.</li><li><strong>적분 와인드업</strong>: 설정값이 크게 바뀌면 적분항이 출력이 낼 수 있는 한도보다 많이 쌓여 오버슈트가 생긴다. 적분을 잠시 끄거나 적분항에 한계를 두는 방식으로 막는다.</li><li><strong>미분 잡음</strong>: 미분항은 고주파 잡음을 증폭한다. 저역통과 필터를 쓰지만 필터가 지나치면 미분의 효과가 줄어든다. 미분 동작을 끄면 PI 제어기가 된다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
@@ -43,6 +43,7 @@
   "references": [
     "Ziegler, J. G., & Nichols, N. B. (1942). Optimum settings for automatic controllers. Transactions of the ASME, 64(11), 759–768.",
     "Åström, K. J., & Hägglund, T. (1995). PID Controllers: Theory, Design, and Tuning (2nd ed.). Instrument Society of America.",
-    "Åström, K. J., & Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press."
+    "Åström, K. J., & Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press.",
+    "Wikipedia contributors. (n.d.). Proportional-integral-derivative controller. Wikipedia."
   ]
 }
