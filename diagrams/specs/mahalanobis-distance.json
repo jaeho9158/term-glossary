@@ -1,0 +1,59 @@
+{
+  "slug": "mahalanobis-distance",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "평균 μ·공분산 Σ",
+      "color": "gray",
+      "sub": "분포의 중심과 퍼짐"
+    },
+    {
+      "id": "b",
+      "label": "Σ⁻¹로 보정",
+      "color": "violet",
+      "sub": "방향별 퍼짐·상관 반영"
+    },
+    {
+      "id": "c",
+      "label": "백색화 후 거리",
+      "color": "blue",
+      "sub": "유클리드 거리와 같음"
+    },
+    {
+      "id": "d",
+      "label": "이상치·분류",
+      "color": "green",
+      "sub": "다변량 이상치 탐지"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "Σ가 단위행렬이면 일반 유클리드 거리가 된다",
+      "tone": "general"
+    },
+    {
+      "text": "단위 없음, 척도 불변",
+      "tone": "pos"
+    }
+  ],
+  "source": "Wikipedia, Mahalanobis distance (https://en.wikipedia.org/wiki/Mahalanobis_distance): 정의 sqrt((x-μ)ᵀΣ⁻¹(x-μ)), 백색화 후 유클리드 거리, 척도 불변, 이상치 탐지·분류 용도",
+  "reviewed": true
+}

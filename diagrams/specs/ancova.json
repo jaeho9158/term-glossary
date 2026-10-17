@@ -1,0 +1,70 @@
+{
+  "slug": "ancova",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "공변량 중복 확인",
+      "color": "blue",
+      "sub": "상관 약 0.5 이상"
+    },
+    {
+      "id": "b",
+      "label": "분산 동질성",
+      "color": "violet",
+      "sub": "Levene 검정"
+    },
+    {
+      "id": "c",
+      "label": "회귀 기울기 동질성",
+      "color": "violet",
+      "sub": "집단×공변량 상호작용"
+    },
+    {
+      "id": "d",
+      "label": "ANCOVA 재적합",
+      "color": "amber",
+      "sub": "상호작용 제외"
+    },
+    {
+      "id": "e",
+      "label": "조정 평균 보고",
+      "color": "green",
+      "sub": "사후 검정"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "상호작용이 유의하면 표준 ANCOVA를 쓰지 않음",
+      "tone": "limit"
+    },
+    {
+      "text": "공변량 조정으로 오차가 줄어 검정력이 오르나, 기존 집단 차이를 보정하는 용도는 논란",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Analysis of covariance https://en.wikipedia.org/wiki/Analysis_of_covariance",
+  "reviewed": true
+}
