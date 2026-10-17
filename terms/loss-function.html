@@ -152,7 +152,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>손실함수 <code>L(y, ŷ)</code>는 <strong>하나의 예측 ŷ이 정답 y에서 얼마나 벗어났는지</strong>를 0 이상의 숫자로 돌려준다. 학습 데이터 전체에 대한 평균을 경험적 위험(empirical risk)이라 하며, 모델은 이를 줄이도록 <a href="gradient-descent.html">경사하강법</a> 등으로 학습된다(Goodfellow 등, 2016).</li><li><strong>회귀</strong>에서 흔한 선택은 제곱오차(L2)와 절대오차(L1)이다. 제곱오차는 큰 오차를 더 세게 벌주고, 절대오차는 이상치에 덜 민감하다. Huber 손실은 오차가 작을 땐 제곱, 클 땐 절대값처럼 행동해 둘을 절충한다(Huber, 1964).</li><li><strong>분류</strong>에서는 정답 클래스에 부여한 확률 p에 대해 <code>−log p</code>인 <a href="cross-entropy-loss.html">교차엔트로피</a>가 표준이다. 정확도(0-1 손실)는 미분이 안 되어 학습에 쓰기 어렵기 때문에 매끄러운 대리 손실을 쓴다(Hastie 등, 2009).</li><li><a href="regularization.html">정규화</a> 항을 손실에 더하기도 한다. 이때 최소화하는 대상은 ‘손실 + 정규화 항’이다.</li></ul>
+  <ul><li>손실함수 <code>L(y, ŷ)</code>는 <strong>하나의 예측 ŷ이 정답 y에서 얼마나 벗어났는지</strong>를 0 이상의 숫자로 돌려준다. 학습 데이터 전체에 대한 평균을 경험적 위험(empirical risk)이라 하며, 모델은 이를 줄이도록 <a href="gradient-descent.html">경사하강법</a> 등으로 학습된다(Goodfellow 등, 2016).</li><li><strong>회귀</strong>에서 흔한 선택은 제곱오차(L2)와 절대오차(L1)이다. 제곱오차는 큰 오차를 더 세게 벌주고, 절대오차는 이상치에 덜 민감하다. Huber 손실은 오차가 작을 땐 제곱, 클 땐 절대값처럼 행동해 둘을 절충한다(Huber, 1964).</li><li><strong>분류</strong>에서는 정답 클래스에 부여한 확률 p에 대해 <code>−log p</code>인 <a href="cross-entropy-loss.html">교차엔트로피</a>가 표준이다. 정확도(0-1 손실)는 미분이 안 되어 학습에 쓰기 어렵기 때문에 매끄러운 대리 손실을 쓴다(Hastie 등, 2009).</li><li><a href="regularization.html">정규화</a> 항을 손실에 더하기도 한다. 이때 최소화하는 대상은 ‘손실 + 정규화 항’이다.</li><li><strong>통계·결정이론의 뿌리</strong>: 손실함수 개념은 라플라스까지 거슬러 올라가며, 20세기 중반 아브라함 왈드(Wald)가 통계학에 다시 도입했다. 새비지(Savage)는 손실을 사후에 알게 된 최선의 결정과 실제 결정의 결과 차이, 곧 후회(regret)로 정의하자고 주장했다. 이익·효용처럼 최대화하는 목적함수는 손실함수의 부호를 바꾼 것으로 볼 수 있다.</li></ul>
 
   <h2>예시로 보기</h2>
   <p>가상의 예측값으로 이상치가 두 손실에 미치는 영향을 계산해 본다. 정답이 [10, 12, 11, 13, 10]일 때, 예측을 두 가지로 가정한다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>예측</th><th>오차(예측 − 정답)</th><th>MSE (평균 제곱오차)</th><th>MAE (평균 절대오차)</th></tr></thead><tbody><tr><td>[11, 11, 12, 12, 13]</td><td>1, −1, 1, −1, 3</td><td>2.6</td><td>1.4</td></tr><tr><td>[11, 11, 12, 12, 30]</td><td>1, −1, 1, −1, 20</td><td>80.8</td><td>4.8</td></tr></tbody></table></div><p>마지막 한 점의 오차가 3에서 20이 되자 MAE는 1.4에서 4.8(약 3.4배)로 늘었지만 MSE는 2.6에서 80.8(약 31배)로 폭증했다. 이상치가 있을 때 L2가 그 점에 끌려가는 이유이다.</p><p>분류에서는 정답 클래스 확률이 낮을수록 교차엔트로피가 급격히 커진다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>정답 클래스 확률 p</th><th>0.9</th><th>0.5</th><th>0.1</th><th>0.01</th></tr></thead><tbody><tr><td>−ln p</td><td>0.105</td><td>0.693</td><td>2.303</td><td>4.605</td></tr></tbody></table></div>
@@ -193,6 +193,7 @@
     <li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). Deep Learning. MIT Press.</li>
     <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning: Data Mining, Inference, and Prediction (2nd ed.). Springer.</li>
     <li>Huber, P. J. (1964). Robust estimation of a location parameter. The Annals of Mathematical Statistics, 35(1), 73–101.</li>
+    <li>Wikipedia contributors. (n.d.). Loss function. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

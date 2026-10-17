@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>분산원장은 거래 기록을 한 기관이 아니라 <strong>네트워크의 여러 노드가 각자 사본으로 보유</strong>하고, 합의 절차([[consensus-mechanism|합의 메커니즘]])로 기록의 추가를 함께 검증하는 구조이다. 암호학적 해시와 서명으로 기록의 위·변조를 어렵게 한다.</li><li>[[blockchain|블록체인]]은 거래를 블록으로 묶어 해시로 사슬처럼 연결하는 분산원장의 한 구현 방식이다. 따라서 상하위 관계이며 같은 말이 아니다. 블록 구조가 아닌 분산원장도 있다.</li><li>참여 자격에 따라 누구나 참여하는 <strong>공개(퍼블릭)형</strong>과 승인된 기관만 참여하는 <strong>허가(프라이빗·컨소시엄)형</strong>으로 나뉜다. 금융기관의 시범 도입은 허가형이 대부분이다.</li><li>[[smart-contract|스마트 계약]]이나 토큰은 분산원장 위에 얹을 수 있지만 필수 요소는 아니다. 토큰 없이 기록만 공유하는 응용도 많다.</li><li>영국 정부 과학청의 보고서(Walport, 2016)는 ‘블록체인 너머’의 분산원장기술이라는 관점에서 공공·금융 분야의 응용을 검토했다.</li></ul>"
+      "html": "<ul><li>분산원장은 거래 기록을 한 기관이 아니라 <strong>네트워크의 여러 노드가 각자 사본으로 보유</strong>하고, 합의 절차([[consensus-mechanism|합의 메커니즘]])로 기록의 추가를 함께 검증하는 구조이다. 암호학적 해시와 서명으로 기록의 위·변조를 어렵게 한다.</li><li>[[blockchain|블록체인]]은 거래를 블록으로 묶어 해시로 사슬처럼 연결하는 분산원장의 한 구현 방식이다. 따라서 상하위 관계이며 같은 말이 아니다. 블록 구조가 아닌 분산원장도 있다.</li><li>참여 자격에 따라 누구나 참여하는 <strong>공개(퍼블릭)형</strong>과 승인된 기관만 참여하는 <strong>허가(프라이빗·컨소시엄)형</strong>으로 나뉜다. 금융기관의 시범 도입은 허가형이 대부분이다.</li><li>[[smart-contract|스마트 계약]]이나 토큰은 분산원장 위에 얹을 수 있지만 필수 요소는 아니다. 토큰 없이 기록만 공유하는 응용도 많다.</li><li>영국 정부 과학청의 보고서(Walport, 2016)는 ‘블록체인 너머’의 분산원장기술이라는 관점에서 공공·금융 분야의 응용을 검토했다.</li></ul><p>분산원장은 참여 자격을 제한하는 <strong>허가형</strong>(private)과 누구나 참여하는 <strong>비허가형</strong>(public)으로 나뉜다. 블록체인은 기록을 한 줄로 잇는 가장 흔한 구조이지만 유일한 형태는 아니다. IOTA의 Tangle처럼 방향성 비순환 그래프(DAG)로 거래를 잇는 구조는 거래 데이터와 비용을 줄이고 속도를 높이려는 시도이고, Holochain은 전역 합의 없이 참여자별 기록 사슬과 분산 해시 테이블을 쓴다.</p>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>허가형 원장에서 일부 참여자가 고장 나거나 악의적으로 행동해도(비잔틴 장애) 합의가 유지되려면, 고전적 결과(Lamport 외, 1982)에 따라 전체 참여자 수 n이 장애 허용 수 f에 대해 <code>n ≥ 3f + 1</code>이어야 한다.</p><table><thead><tr><th>참여 기관 수 n</th><th>허용할 수 있는 장애 노드 수 f</th></tr></thead><tbody><tr><td>4</td><td>1</td></tr><tr><td>7</td><td>2</td></tr><tr><td>10</td><td>3</td></tr></tbody></table><p>가상의 예이다(위 관계식으로 계산). 은행 4곳이 만든 컨소시엄 원장에서는 1곳이 오작동해도 합의가 유지되지만 2곳이 동시에 이상하면 안전하지 않다. 비잔틴 장애까지 견디는 합의 알고리즘을 쓰는 경우의 기준이며, 장애를 ‘멈춤’으로만 가정하는 알고리즘은 요건이 다르다.</p>"
+      "html": "<p>허가형 원장에서 일부 참여자가 고장 나거나 악의적으로 행동해도(비잔틴 장애) 합의가 유지되려면, 고전적 결과(Lamport 외, 1982)에 따라 전체 참여자 수 n이 장애 허용 수 f에 대해 <code>n ≥ 3f + 1</code>이어야 한다.</p><table><thead><tr><th>참여 기관 수 n</th><th>허용할 수 있는 장애 노드 수 f</th></tr></thead><tbody><tr><td>4</td><td>1</td></tr><tr><td>7</td><td>2</td></tr><tr><td>10</td><td>3</td></tr></tbody></table><p>가상의 예이다(위 관계식으로 계산). 은행 4곳이 만든 컨소시엄 원장에서는 1곳이 오작동해도 합의가 유지되지만 2곳이 동시에 이상하면 안전하지 않다. 비잔틴 장애까지 견디는 합의 알고리즘을 쓰는 경우의 기준이며, 장애를 ‘멈춤’으로만 가정하는 알고리즘은 요건이 다르다.</p><p>금융 분야 실험도 이어졌다. 2016년에 은행들이 결제에 분산원장을 시험했고, 2022년 싱가포르 통화청의 시범 사업에서는 JP Morgan, DBS 등이 토큰화한 국채와 통화를 스마트 계약으로 실제 거래했다. 데이터 관리 기반이 갖춰지지 않은 것이 도입의 흔한 장벽으로 꼽힌다.</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -43,6 +43,7 @@
     "Nakamoto, S. (2008). Bitcoin: A peer-to-peer electronic cash system. [White paper].",
     "Lamport, L., Shostak, R., & Pease, M. (1982). The Byzantine generals problem. ACM Transactions on Programming Languages and Systems, 4(3), 382–401.",
     "Yermack, D. (2017). Corporate governance and blockchains. Review of Finance, 21(1), 7–31.",
-    "Walport, M. (2016). Distributed Ledger Technology: Beyond Block Chain. UK Government Office for Science."
+    "Walport, M. (2016). Distributed Ledger Technology: Beyond Block Chain. UK Government Office for Science.",
+    "Wikipedia contributors. (n.d.). Distributed ledger. In Wikipedia, The Free Encyclopedia."
   ]
 }

@@ -9,15 +9,15 @@
   "sections": [
     {
       "heading": "계산과 범위",
-      "html": "<p><code>J = 민감도 + 특이도 − 1</code> (= 민감도 − 위양성률)</p><ul><li><strong>범위</strong>: 이 값은 −1부터 1까지이다. 0은 검사 결과가 질병 여부와 무관한 우연 수준(ROC 곡선의 대각선 위), 1은 완벽한 구분이다. 모든 절단값을 훑어 가장 큰 J를 찾으면 0 이상이 된다.</li><li>ROC 곡선 위의 한 점에서 J는 그 점과 대각선 사이의 <strong>수직 거리</strong>이다. 이 거리가 가장 큰 점에 해당하는 검사값이 흔히 ‘최적 절단값’으로 쓰인다.</li></ul><p><strong>작은 예</strong>(모의 점수, 환자 50명·정상 100명, 계산 결과). 점수가 절단값 이상이면 양성으로 판정할 때:</p><table><thead><tr><th>절단값</th><th>민감도</th><th>특이도</th><th>J</th></tr></thead><tbody><tr><td>40</td><td>0.94</td><td>0.30</td><td>0.24</td></tr><tr><td>45</td><td>0.90</td><td>0.47</td><td>0.37</td></tr><tr><td><strong>50</strong></td><td>0.86</td><td>0.59</td><td><strong>0.45</strong></td></tr><tr><td>55</td><td>0.64</td><td>0.77</td><td>0.41</td></tr><tr><td>60</td><td>0.44</td><td>0.87</td><td>0.31</td></tr></tbody></table><p>표의 다섯 절단값 가운데 J가 가장 큰 것은 50점이다.</p>"
+      "html": "<p><code>J = 민감도 + 특이도 − 1</code> (= 민감도 − 위양성률)</p><ul><li><strong>범위</strong>: 이 값은 −1부터 1까지이다. 0은 검사 결과가 질병 여부와 무관한 우연 수준(ROC 곡선의 대각선 위), 1은 완벽한 구분이다. 모든 절단값을 훑어 가장 큰 J를 찾으면 0 이상이 된다.</li><li>ROC 곡선 위의 한 점에서 J는 그 점과 대각선 사이의 <strong>수직 거리</strong>이다. 이 거리가 가장 큰 점에 해당하는 검사값이 흔히 ‘최적 절단값’으로 쓰인다.</li></ul><p><strong>작은 예</strong>(모의 점수, 환자 50명·정상 100명, 계산 결과). 점수가 절단값 이상이면 양성으로 판정할 때:</p><table><thead><tr><th>절단값</th><th>민감도</th><th>특이도</th><th>J</th></tr></thead><tbody><tr><td>40</td><td>0.94</td><td>0.30</td><td>0.24</td></tr><tr><td>45</td><td>0.90</td><td>0.47</td><td>0.37</td></tr><tr><td><strong>50</strong></td><td>0.86</td><td>0.59</td><td><strong>0.45</strong></td></tr><tr><td>55</td><td>0.64</td><td>0.77</td><td>0.41</td></tr><tr><td>60</td><td>0.44</td><td>0.87</td><td>0.31</td></tr></tbody></table><p>표의 다섯 절단값 가운데 J가 가장 큰 것은 50점이다.</p><p><strong>다른 이름과 기원.</strong> 이 지수는 유든이 1950년에 진단검사의 성능을 하나의 수로 요약하는 방법으로 제안했지만, 같은 식은 이미 1884년 퍼스(C. S. Peirce)가 『Science』에 발표했다. 기상학에서는 같은 통계량을 퍼스 기량 점수(PSS), 한센-카위퍼스 판별량(HKD), 참기량 통계량(TSS)이라 부른다.</p>"
     },
     {
       "heading": "해석 기준",
-      "html": "<p>J에 ‘이 정도면 좋다’는 보편적 기준은 없다. 0.5 이상이면 쓸 만하다는 식의 말은 관례일 뿐이며, 질병의 중증도와 검사의 용도에 따라 달라진다.</p><ul><li>J가 최대인 절단값은 <strong>민감도와 특이도를 같은 무게로</strong> 본 결과이다. 놓치면 치명적인 질병의 선별검사라면 민감도를, 확진 전 불필요한 시술을 피해야 한다면 특이도를 더 높게 두는 절단값을 쓸 수 있다.</li><li>같은 자료로 절단값을 고르고 성능을 평가하면 성능이 실제보다 좋게 나온다. 부트스트랩이나 교차검증, 별도의 검증 자료로 확인한다.</li><li>J는 유병률의 영향을 받지 않지만, 검사 결과를 받은 사람이 실제 환자일 확률(양성예측도)은 유병률에 따라 크게 달라진다.</li></ul>"
+      "html": "<p>J에 ‘이 정도면 좋다’는 보편적 기준은 없다. 0.5 이상이면 쓸 만하다는 식의 말은 관례일 뿐이며, 질병의 중증도와 검사의 용도에 따라 달라진다.</p><ul><li>J가 최대인 절단값은 <strong>민감도와 특이도를 같은 무게로</strong> 본 결과이다. 놓치면 치명적인 질병의 선별검사라면 민감도를, 확진 전 불필요한 시술을 피해야 한다면 특이도를 더 높게 두는 절단값을 쓸 수 있다.</li><li>같은 자료로 절단값을 고르고 성능을 평가하면 성능이 실제보다 좋게 나온다. 부트스트랩이나 교차검증, 별도의 검증 자료로 확인한다.</li><li>J는 유병률의 영향을 받지 않지만, 검사 결과를 받은 사람이 실제 환자일 확률(양성예측도)은 유병률에 따라 크게 달라진다.</li></ul><p><strong>음수의 뜻과 그래프 해석.</strong> 계산상 J가 0보다 작게 나올 수 있는데, 이는 양성과 음성의 표지가 뒤바뀌었다는 뜻일 뿐이며 표지를 바로잡으면 0~1 범위로 돌아온다. J는 위양성과 위음성에 같은 무게를 주므로, J가 같은 검사들은 전체 오분류 비율도 같다. ROC 곡선은 거의 언제나 볼록하므로, J가 최대인 점은 대개 곡선에서 왼쪽 위 모서리(위양성·위음성이 없는 점)에 가장 가까운 점과 일치한다.</p>"
     },
     {
       "heading": "보고 방법",
-      "html": "<p>절단값과 함께 민감도·특이도(각각의 신뢰구간), AUC를 같이 적고, 절단값을 어떻게 정했는지 밝힌다.</p><p><code>ROC 분석에서 AUC는 0.82(95% CI 0.75–0.89)였고, Youden 지수가 최대(J = 0.45)가 되는 절단값은 50점이었다(민감도 86%, 특이도 59%).</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>절단값이 자료에서 얻은 것인지, 외부 연구에서 가져온 것인지를 구분해 적는다.</li><li>J가 같은 절단값이 여러 개일 수 있으므로 선택 기준을 적는다.</li></ul>"
+      "html": "<p>절단값과 함께 민감도·특이도(각각의 신뢰구간), AUC를 같이 적고, 절단값을 어떻게 정했는지 밝힌다.</p><p><code>ROC 분석에서 AUC는 0.82(95% CI 0.75–0.89)였고, Youden 지수가 최대(J = 0.45)가 되는 절단값은 50점이었다(민감도 86%, 특이도 59%).</code> (형식을 보여 주려는 가상의 문장)</p><ul><li>절단값이 자료에서 얻은 것인지, 외부 연구에서 가져온 것인지를 구분해 적는다.</li><li>J가 같은 절단값이 여러 개일 수 있으므로 선택 기준을 적는다.</li></ul><p><strong>신뢰구간 계산.</strong> 절단값이 미리 정해져 있다면 J는 환자군의 민감도와 정상군의 위양성률이라는 서로 독립인 두 이항 비율의 차이이다. 따라서 두 비율 차이에 대한 Z 검정과 왈드 신뢰구간 같은 표준 방법을 그대로 쓸 수 있다. 반면 같은 자료에서 J가 최대인 절단값을 고른 뒤 그 J의 신뢰구간을 구하면 이 방법은 맞지 않으므로, 앞서 말한 부트스트랩 등으로 추정한다.</p>"
     }
   ],
   "compare": {
@@ -55,6 +55,7 @@
   "references": [
     "Youden, W. J. (1950). Index for rating diagnostic tests. Cancer, 3(1), 32–35.",
     "Fluss, R., Faraggi, D., & Reiser, B. (2005). Estimation of the Youden Index and its associated cutoff point. Biometrical Journal, 47(4), 458–472.",
-    "Zweig, M. H., & Campbell, G. (1993). Receiver-operating characteristic (ROC) plots: A fundamental evaluation tool in clinical medicine. Clinical Chemistry, 39(4), 561–577."
+    "Zweig, M. H., & Campbell, G. (1993). Receiver-operating characteristic (ROC) plots: A fundamental evaluation tool in clinical medicine. Clinical Chemistry, 39(4), 561–577.",
+    "Wikipedia contributors. (n.d.). Youden's J statistic. In Wikipedia, The Free Encyclopedia."
   ]
 }

@@ -3,15 +3,15 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>X가 이항분포 B(n, p)를 따르면 평균은 np, 분산은 np(1 − p)이다. n이 충분히 크고 p가 0이나 1에 너무 가깝지 않으면 X는 대략 N(np, np(1 − p))를 따른다. 이를 드무아브르–라플라스 정리라고 하며, 중심극한정리의 가장 오래된 형태이다.</p><ul><li><strong>사용 기준</strong>: 흔히 np ≥ 5 그리고 n(1 − p) ≥ 5를 쓴다. 교재에 따라 10을 기준으로 삼기도 하므로 기준은 정해진 법칙이 아니라 경험칙이다.</li><li><strong>연속성 수정</strong>: 이산분포를 연속분포로 근사할 때 P(X ≤ k) ≈ Φ((k + 0.5 − np) / √(np(1 − p)))처럼 0.5를 더해 오차를 줄인다.</li><li><strong>비율</strong>로 쓰면 표본비율 p̂ ≈ N(p, p(1 − p)/n)이 되어, 비율의 z검정과 Wald 신뢰구간이 이 근사에 기대고 있다.</li><li>n이 크고 p가 매우 작을 때는 정규분포보다 [[poisson-distribution|포아송분포]]가 더 적합한 근사이다.</li></ul>"
+      "html": "<p>X가 이항분포 B(n, p)를 따르면 평균은 np, 분산은 np(1 − p)이다. n이 충분히 크고 p가 0이나 1에 너무 가깝지 않으면 X는 대략 N(np, np(1 − p))를 따른다. 이를 드무아브르–라플라스 정리라고 하며, 중심극한정리의 가장 오래된 형태이다.</p><ul><li><strong>사용 기준</strong>: 흔히 np ≥ 5 그리고 n(1 − p) ≥ 5를 쓴다. 교재에 따라 10을 기준으로 삼기도 하므로 기준은 정해진 법칙이 아니라 경험칙이다.</li><li><strong>연속성 수정</strong>: 이산분포를 연속분포로 근사할 때 P(X ≤ k) ≈ Φ((k + 0.5 − np) / √(np(1 − p)))처럼 0.5를 더해 오차를 줄인다.</li><li><strong>비율</strong>로 쓰면 표본비율 p̂ ≈ N(p, p(1 − p)/n)이 되어, 비율의 z검정과 Wald 신뢰구간이 이 근사에 기대고 있다.</li><li>n이 크고 p가 매우 작을 때는 정규분포보다 [[poisson-distribution|포아송분포]]가 더 적합한 근사이다.</li><li>경험칙은 여러 가지이다. 왜도의 절댓값이 0.3 미만이면 충분하다는 규칙, 평균 ± 3 표준편차가 0과 n 사이에 들어가야 한다는 더 엄격한 규칙(n &gt; 9(1−p)/p 이고 n &gt; 9p/(1−p)와 같다)이 있다. np ≥ 5 규칙에서 5 대신 9를 쓰면 앞의 규칙들이 함께 성립한다. 역사적으로 이 근사는 드무아브르가 1738년 『우연의 원리』 2판에서 소개한 정규분포의 첫 사용이었다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>(가상의 예) n = 100, p = .3일 때 P(X ≤ 25)를 구한다. 평균 30, 표준편차 4.58이다.</p><table><thead><tr><th>방법</th><th>P(X ≤ 25)</th></tr></thead><tbody><tr><td>정확한 이항분포</td><td>0.1631</td></tr><tr><td>정규근사(수정 없음)</td><td>0.1376</td></tr><tr><td>정규근사(연속성 수정)</td><td>0.1631</td></tr></tbody></table><p>연속성 수정을 하면 정확한 값과 거의 같아진다. 반대로 n = 20, p = .1(np = 2 &lt; 5)에서 P(X ≤ 0)(= P(X = 0))을 구하면 정확한 값은 0.1216인데, 수정 없는 정규근사는 0.0680, 수정한 근사도 0.1318로 차이가 난다. 기준을 못 채우면 근사가 흔들린다는 뜻이다.</p>"
+      "html": "<p>(가상의 예) n = 100, p =.3일 때 P(X ≤ 25)를 구한다. 평균 30, 표준편차 4.58이다.</p><table><thead><tr><th>방법</th><th>P(X ≤ 25)</th></tr></thead><tbody><tr><td>정확한 이항분포</td><td>0.1631</td></tr><tr><td>정규근사(수정 없음)</td><td>0.1376</td></tr><tr><td>정규근사(연속성 수정)</td><td>0.1631</td></tr></tbody></table><p>연속성 수정을 하면 정확한 값과 거의 같아진다. 반대로 n = 20, p =.1(np = 2 &lt; 5)에서 P(X ≤ 0)(= P(X = 0))을 구하면 정확한 값은 0.1216인데, 수정 없는 정규근사는 0.0680, 수정한 근사도 0.1318로 차이가 난다. 기준을 못 채우면 근사가 흔들린다는 뜻이다.</p>"
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<ul><li><strong>“n ≥ 30이면 항상 정규근사를 써도 된다”</strong>: 필요한 크기는 p에 달려 있다. p가 .01 같은 값이면 n = 30이어도 np = 0.3이라 정규근사는 맞지 않다.</li><li><strong>“근사는 항상 보수적이다”</strong>: 어느 방향으로 틀리는지는 p와 n에 따라 다르다.</li><li><strong>“정규근사 Wald 신뢰구간은 믿을 만하다”</strong>: 표본비율이 0이나 1 근처, 또는 n이 작을 때 포함확률이 목표(95%)에 많이 못 미칠 수 있다. Brown, Cai, DasGupta(2001)는 Wilson 구간이나 Agresti–Coull 구간을 권고했다.</li><li><strong>“근사는 정확검정보다 낫다”</strong>: 계산 자원이 충분한 지금은 정확 이항검정이 어렵지 않다. 근사는 이해와 손계산, 큰 n의 편의를 위한 도구이다.</li></ul>"
+      "html": "<ul><li><strong>“n ≥ 30이면 항상 정규근사를 써도 된다”</strong>: 필요한 크기는 p에 달려 있다. p가.01 같은 값이면 n = 30이어도 np = 0.3이라 정규근사는 맞지 않다.</li><li><strong>“근사는 항상 보수적이다”</strong>: 어느 방향으로 틀리는지는 p와 n에 따라 다르다.</li><li><strong>“정규근사 Wald 신뢰구간은 믿을 만하다”</strong>: 표본비율이 0이나 1 근처, 또는 n이 작을 때 포함확률이 목표(95%)에 많이 못 미칠 수 있다. Brown, Cai, DasGupta(2001)는 Wilson 구간이나 Agresti–Coull 구간을 권고했다.</li><li><strong>“근사는 정확검정보다 낫다”</strong>: 계산 자원이 충분한 지금은 정확 이항검정이 어렵지 않다. 근사는 이해와 손계산, 큰 n의 편의를 위한 도구이다.</li></ul>"
     }
   ],
   "compare": {
@@ -49,6 +49,7 @@
     "De Moivre, A. (1738). The Doctrine of Chances (2nd ed.). H. Woodfall.",
     "Brown, L. D., Cai, T. T., & DasGupta, A. (2001). Interval estimation for a binomial proportion. Statistical Science, 16(2), 101–133.",
     "Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. Journal of the American Statistical Association, 22(158), 209–212.",
-    "Agresti, A., & Coull, B. A. (1998). Approximate is better than “exact” for interval estimation of binomial proportions. The American Statistician, 52(2), 119–126."
+    "Agresti, A., & Coull, B. A. (1998). Approximate is better than “exact” for interval estimation of binomial proportions. The American Statistician, 52(2), 119–126.",
+    "Wikipedia contributors. (n.d.). Binomial distribution. In Wikipedia, The Free Encyclopedia."
   ]
 }

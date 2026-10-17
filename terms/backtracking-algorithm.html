@@ -161,7 +161,7 @@
   <ol><li>해를 조금씩 키워 가는 <strong>부분 후보</strong>를 만든다(예: 앞의 k개 행에만 퀸을 놓은 상태).</li><li>부분 후보가 이미 제약을 어겼으면 그 아래로는 더 가지 않고 버린다(<code>reject</code>, 가지치기).</li><li>아니면 해가 완성되었는지 확인하고(<code>accept</code>), 아니면 다음 선택지(<code>first</code>, <code>next</code>)를 하나씩 붙여 같은 일을 되풀이한다.</li><li>막히면 직전 갈림길로 돌아가 다른 선택지를 시도한다. 이 순회는 탐색 트리를 뿌리부터 깊이 우선으로 내려가는 방식이다.</li></ol><p>“백트랙”이라는 말은 D. H. Lehmer가 1950년대에 만든 것으로 소개된다. 가지치기 판정이 뿌리에 가깝게 일어날수록 효과가 크고, 판정이 늘 거짓이면 사실상 완전탐색과 같아진다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>부분 후보를 만들 수 있고 빠르게 “이 후보는 틀렸다”고 판정할 수 있을 때 쓴다. 대표 예가 N-퀸 문제이다. 8×8 판에서 해는 92개(회전과 대칭을 같은 것으로 보면 12개)이다. 행마다 하나씩 퀸을 놓는 백트래킹을 직접 구현해 방문한 노드 수(재귀 호출 수)를 센 값이다(구현에 따른 값).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>N</th><th>방문 노드 수</th><th>해의 수</th></tr></thead><tbody><tr><td>4</td><td>17</td><td>2</td></tr><tr><td>6</td><td>153</td><td>4</td></tr><tr><td>8</td><td>2,057</td><td>92</td></tr></tbody></table></div><p>가지치기가 없다면 행마다 8칸 중 하나를 고르는 8⁸ = 16,777,216가지를 모두 늘어놓아야 한다. 백트래킹은 충돌이 생기는 순간 그 아래를 버리므로 2,057개 노드만 방문했다. 다만 최악의 경우에는 여전히 많은 노드를 봐야 할 수 있으므로, 효율은 가지치기 규칙과 변수, 값의 선택 순서에 좌우된다.</p>
+  <p>부분 후보를 만들 수 있고 빠르게 “이 후보는 틀렸다”고 판정할 수 있을 때 쓴다. 대표 예가 N-퀸 문제이다. 8×8 판에서 해는 92개(회전과 대칭을 같은 것으로 보면 12개)이다. 행마다 하나씩 퀸을 놓는 백트래킹을 직접 구현해 방문한 노드 수(재귀 호출 수)를 센 값이다(구현에 따른 값).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>N</th><th>방문 노드 수</th><th>해의 수</th></tr></thead><tbody><tr><td>4</td><td>17</td><td>2</td></tr><tr><td>6</td><td>153</td><td>4</td></tr><tr><td>8</td><td>2,057</td><td>92</td></tr></tbody></table></div><p>가지치기가 없다면 행마다 8칸 중 하나를 고르는 8⁸ = 16,777,216가지를 모두 늘어놓아야 한다. 백트래킹은 충돌이 생기는 순간 그 아래를 버리므로 2,057개 노드만 방문했다. 다만 최악의 경우에는 여전히 많은 노드를 봐야 할 수 있으므로, 효율은 가지치기 규칙과 변수, 값의 선택 순서에 좌우된다.</p><p>백트래킹이 통하려면 ‘부분 후보’라는 개념과 그 후보가 완성될 수 있는지 빠르게 판정하는 검사가 있어야 한다. 그래서 정렬되지 않은 표에서 특정 값을 찾는 문제처럼 부분 후보가 의미 없는 문제에는 쓸모가 없다. 반대로 크로스워드, 복면산, 스도쿠 같은 퍼즐, 구문 분석(파싱), 배낭 문제 같은 조합 최적화에서는 자주 쓰이는 방법이다. Icon, Planner, Prolog 같은 언어는 답을 생성하는 실행 방식 자체에 백트래킹을 쓰며, 1962년의 문자열 처리 언어 SNOBOL이 범용 백트래킹 기능을 내장한 첫 언어였을 수 있다고 소개된다.</p><p>백트래킹은 문제를 정의하는 절차(reject, accept, first, next)를 사용자가 채워 넣는 틀이어서 특정 알고리즘이라기보다 메타휴리스틱에 가깝다. 다만 다른 메타휴리스틱과 달리 유한한 문제에서는 모든 해를 유한한 시간 안에 반드시 찾는다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>후보를 어떻게 표현하고(부분 해의 정의), 어떤 가지치기 규칙을 쓰는지 적는다.</li><li>변수와 값의 선택 순서(휴리스틱)를 밝힌다. 순서에 따라 방문 노드 수가 크게 달라진다.</li><li>첫 해에서 멈추는지, 모든 해를 찾는지, 시간이나 후보 수 제한이 있는지 적다.</li><li>실행 시간과 함께 방문한 노드 수를 보고하면 구현이나 컴퓨터가 달라도 비교하기 쉽다.</li></ul>
@@ -198,6 +198,7 @@
     <li>Knuth, D. E. (1975). Estimating the efficiency of backtrack programs. Mathematics of Computation, 29(129), 122-136.</li>
     <li>Haralick, R. M., &amp; Elliott, G. L. (1980). Increasing tree search efficiency for constraint satisfaction problems. Artificial Intelligence, 14(3), 263-313.</li>
     <li>Knuth, D. E. (2019). The art of computer programming, Volume 4, Fascicle 5. Addison-Wesley.</li>
+    <li>Wikipedia contributors. (n.d.). Backtracking. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

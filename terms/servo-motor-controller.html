@@ -153,13 +153,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>서보모터 컨트롤러는 목표값(위치·속도)과 센서가 알려 주는 실제값의 <strong>오차를 계속 계산해</strong> 그 오차를 줄이도록 모터에 가하는 전압·전류를 조절하는 장치이다. 이렇게 출력을 입력으로 되먹이는 구조를 <strong>폐루프(피드백) 제어</strong>라 한다.</li><li>순환은 ‘오차 계산 → 제어 출력 → 모터 구동 → 센서 피드백 → 다시 오차 계산’이다.</li><li>제어 방식으로는 <a href="pid-control.html">PID 제어</a>가 가장 널리 쓰인다. P(비례)는 현재 오차에, I(적분)는 오차의 누적에, D(미분)는 오차의 변화율에 반응한다(Åström &amp; Hägglund, 2006).</li><li>산업용 서보는 보통 위치 제어 안에 속도 제어, 그 안에 전류(토크) 제어가 들어 있는 다중 루프 구조이다. 위치 센서로는 엔코더가 흔히 쓰인다.</li></ul>
+  <ul><li>서보모터 컨트롤러는 목표값(위치·속도)과 센서가 알려 주는 실제값의 <strong>오차를 계속 계산해</strong> 그 오차를 줄이도록 모터에 가하는 전압·전류를 조절하는 장치이다. 이렇게 출력을 입력으로 되먹이는 구조를 <strong>폐루프(피드백) 제어</strong>라 한다.</li><li>순환은 ‘오차 계산 → 제어 출력 → 모터 구동 → 센서 피드백 → 다시 오차 계산’이다.</li><li>제어 방식으로는 <a href="pid-control.html">PID 제어</a>가 가장 널리 쓰인다. P(비례)는 현재 오차에, I(적분)는 오차의 누적에, D(미분)는 오차의 변화율에 반응한다(Åström &amp; Hägglund, 2006).</li><li>산업용 서보는 보통 위치 제어 안에 속도 제어, 그 안에 전류(토크) 제어가 들어 있는 다중 루프 구조이다. 위치 센서로는 엔코더가 흔히 쓰인다.</li></ul><p>가장 단순한 서보는 가변저항(포텐셔미터)으로 위치만 감지하고, 모터를 최대 속도로 돌리거나 멈추는 두 가지 상태만 쓰는 뱅뱅(bang-bang) 제어를 한다. 산업용 동작 제어에는 잘 쓰이지 않지만 무선조종 모형용 저가 서보의 바탕이 된다. 더 정교한 서보는 절대형 엔코더로 축의 위치를 계산하고 속도를 추정하며, 가변속 드라이브와 보통 PID 알고리즘을 함께 써서 지령 위치에 더 빠르고 정확하게, 오버슈트를 덜 내며 도달하게 한다.</p>
 
   <h2>예시로 보기</h2>
   <p>(가상의 예) 시간 상수 0.5초인 1차 지연 특성의 모터 속도를 목표 1로 올린다고 하자. 비례 제어(Kp = 2)만 쓰면 속도가 목표에 도달하지 못하고 정상상태 오차가 남는다. 여기에 적분 동작(Ki = 4)을 더하면 오차가 사라진다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시간(초)</th><th>P 제어 (Kp=2) 속도</th><th>PI 제어 (Kp=2, Ki=4) 속도</th></tr></thead><tbody><tr><td>1</td><td>0.665</td><td>0.982</td></tr><tr><td>2</td><td>0.667</td><td>1.000</td></tr><tr><td>4</td><td>0.667</td><td>1.000</td></tr></tbody></table></div><p>P 제어의 최종값 0.667은 Kp/(1 + Kp)이고 남는 오차는 1/(1 + Kp)이다. 이 단순한 모델에서는 Kp를 키울수록 오차가 줄지만, 실제 시스템에서는 Kp를 키우면 진동과 불안정이 생길 수 있어 한계가 있다. 적분 동작이 정상상태 오차를 없애는 이유가 여기에 있다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>서보모터는 특별한 종류의 모터다.</td><td>서보는 모터의 종류가 아니라 <strong>피드백으로 위치·속도를 제어하는 시스템</strong>을 가리키는 말이다. 모터, 센서, 컨트롤러가 함께 서보 시스템을 이룬다.</td></tr><tr><td>이득을 키울수록 항상 좋아진다.</td><td>이득이 너무 크면 진동하거나 불안정해진다. 응답 속도와 안정성의 절충이 필요하다(Ogata, 2010).</td></tr><tr><td>스텝모터도 컨트롤러가 오차를 보정한다.</td><td>일반적인 <a href="stepper-motor.html">스텝모터</a>는 개루프로 구동되어 위치 피드백이 없다. 이 점이 서보와의 큰 차이이다.</td></tr><tr><td>컨트롤러는 모터 드라이버와 같은 말이다.</td><td>드라이버는 전력을 증폭해 모터에 공급하는 부분이고, 컨트롤러는 오차를 계산해 지령을 만드는 부분이다. 제품에서는 하나로 합쳐 팔기도 한다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>서보모터는 특별한 종류의 모터다.</td><td>서보는 모터의 종류가 아니라 <strong>피드백으로 위치·속도를 제어하는 시스템</strong>을 가리키는 말이다. 모터, 센서, 컨트롤러가 함께 서보 시스템을 이룬다.</td></tr><tr><td>이득을 키울수록 항상 좋아진다.</td><td>이득이 너무 크면 진동하거나 불안정해진다. 응답 속도와 안정성의 절충이 필요하다(Ogata, 2010).</td></tr><tr><td>스텝모터도 컨트롤러가 오차를 보정한다.</td><td>일반적인 <a href="stepper-motor.html">스텝모터</a>는 개루프로 구동되어 위치 피드백이 없다. 이 점이 서보와의 큰 차이이다.</td></tr><tr><td>컨트롤러는 모터 드라이버와 같은 말이다.</td><td>드라이버는 전력을 증폭해 모터에 공급하는 부분이고, 컨트롤러는 오차를 계산해 지령을 만드는 부분이다. 제품에서는 하나로 합쳐 팔기도 한다.</td></tr></tbody></table></div><p>스텝모터는 개루프로 쓸 때 전원을 켠 직후 자기 위치를 모르므로, 처음에 리밋 스위치에 닿을 때까지 움직여 기준 위치를 잡는다. 잉크젯 프린터가 켜질 때 헤드가 한쪽 끝으로 움직이는 것이 그 예이다. 서보는 엔코더 피드백으로 위치를 계속 알기 때문에 이런 절차의 필요가 다르다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -191,6 +191,7 @@
     <li>Ogata, K. (2010). Modern Control Engineering (5th ed.). Prentice Hall.</li>
     <li>Åström, K. J., &amp; Hägglund, T. (2006). Advanced PID Control. ISA – The Instrumentation, Systems, and Automation Society.</li>
     <li>Åström, K. J., &amp; Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press.</li>
+    <li>Wikipedia contributors. (2026). Servomotor. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

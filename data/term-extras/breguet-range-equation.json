@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li><strong>제트기 형태:</strong> <code>R = (V / c) · (L/D) · ln(W<sub>i</sub> / W<sub>f</sub>)</code>. <em>V</em>는 순항 속도, <em>c</em>는 무게 기준 연료소비율(단위 시간당 소모 연료 무게 ÷ 추력, 단위 1/s), <em>L/D</em>는 [[lift-to-drag-ratio|양항비]], <em>W</em><sub>i</sub>, <em>W</em><sub>f</sub>는 순항 시작과 끝의 무게이다.</li><li>프로펠러기는 <em>V</em>/<em>c</em> 자리에 (프로펠러 효율 η) ÷ (동력 기준 연료소비율)을 넣는 꼴이 된다.</li><li>식의 구조는 <strong>효율의 곱</strong>이다: 엔진 효율(<em>V</em>/<em>c</em>) × 공기역학 효율(<em>L/D</em>) × 구조·연료 비율(ln <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub>). 어느 항을 몇 % 개선하면 항속거리가 비례해 몇 % 늘어나는지 한눈에 보인다.</li><li>연료가 줄어 가벼워지는 만큼 같은 조건을 유지하는 방법에 따라 식이 조금씩 달라진다(고도·속도·받음각 중 무엇을 고정하느냐). 위 식은 <em>V</em>, <em>c</em>, <em>L/D</em>가 순항 내내 일정하다는 가정의 대표 형태이다.</li><li><strong>순항 구간만</strong>의 거리이다. 이륙·상승·하강과 예비 연료는 따로 계산해 더해야 한다.</li></ul>"
+      "html": "<ul><li><strong>제트기 형태:</strong><code>R = (V / c) · (L/D) · ln(W<sub>i</sub> / W<sub>f</sub>)</code>. <em>V</em>는 순항 속도, <em>c</em>는 무게 기준 연료소비율(단위 시간당 소모 연료 무게 ÷ 추력, 단위 1/s), <em>L/D</em>는 [[lift-to-drag-ratio|양항비]], <em>W</em><sub>i</sub>, <em>W</em><sub>f</sub>는 순항 시작과 끝의 무게이다.</li><li>프로펠러기는 <em>V</em>/<em>c</em> 자리에 (프로펠러 효율 η) ÷ (동력 기준 연료소비율)을 넣는 꼴이 된다.</li><li>식의 구조는 <strong>효율의 곱</strong>이다: 엔진 효율(<em>V</em>/<em>c</em>) × 공기역학 효율(<em>L/D</em>) × 구조·연료 비율(ln <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub>). 어느 항을 몇 % 개선하면 항속거리가 비례해 몇 % 늘어나는지 한눈에 보인다.</li><li>연료가 줄어 가벼워지는 만큼 같은 조건을 유지하는 방법에 따라 식이 조금씩 달라진다(고도·속도·받음각 중 무엇을 고정하느냐). 위 식은 <em>V</em>, <em>c</em>, <em>L/D</em>가 순항 내내 일정하다는 가정의 대표 형태이다.</li><li><strong>순항 구간만</strong>의 거리이다. 이륙·상승·하강과 예비 연료는 따로 계산해 더해야 한다.</li></ul><p>식을 유도할 때는 비행기가 준정상 상태로 난다고 보고, 연료 단위 질량당 비행 거리인 비항속거리(specific range, 단위 m/kg)를 먼저 구한 뒤 순항 동안 적분한다. 제트기와 프로펠러기는 추력과 동력 중 어느 쪽으로 엔진 성능을 나타내느냐가 달라 식의 꼴이 갈린다. 동력이 없는 항공기는 일조 시간, 기상, 위치에너지, 조종사의 지구력에 따라 비행 시간이 정해지므로 이 식을 정확히 적용할 수 없다.</p>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>가상의 예이다. 순항 속도 <em>V</em> = 250 m/s, 연료소비율 0.6 lb/(lbf·h) (= 0.6/3600 ≈ 1.667×10⁻⁴ 1/s), <em>L/D</em> = 18, <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub> = 1.25. 아래는 코드 계산이다.</p><table><thead><tr><th>조건</th><th>항속거리</th></tr></thead><tbody><tr><td>기준값 (L/D 18, 무게비 1.25)</td><td>6,025 km (3,253 해리)</td></tr><tr><td>L/D만 20으로 (+11.1%)</td><td>6,694 km (+11.1%)</td></tr><tr><td>연료를 늘려 무게비 1.30으로</td><td>7,084 km (+17.6%)</td></tr></tbody></table><p>L/D를 11.1% 개선하면 항속거리도 11.1% 늘고, 연료를 20% 더 실으면(무게비 1.25 → 1.30, 출발 무게는 4% 증가) 약 17.6% 늘어난다. 연료를 더 실을수록 이득이 로그처럼 줄어든다(자체 무게를 더 싣고 가야 하므로).</p>"
+      "html": "<p>가상의 예이다. 순항 속도 <em>V</em> = 250 m/s, 연료소비율 0.6 lb/(lbf·h) (= 0.6/3600 ≈ 1.667×10⁻⁴ 1/s), <em>L/D</em> = 18, <em>W</em><sub>i</sub>/<em>W</em><sub>f</sub> = 1.25. 이 값으로 구한 결과는 다음과 같다.</p><table><thead><tr><th>조건</th><th>항속거리</th></tr></thead><tbody><tr><td>기준값 (L/D 18, 무게비 1.25)</td><td>6,025 km (3,253 해리)</td></tr><tr><td>L/D만 20으로 (+11.1%)</td><td>6,694 km (+11.1%)</td></tr><tr><td>연료를 늘려 무게비 1.30으로</td><td>7,084 km (+17.6%)</td></tr></tbody></table><p>L/D를 11.1% 개선하면 항속거리도 11.1% 늘고, 연료를 20% 더 실으면(무게비 1.25 → 1.30, 출발 무게는 4% 증가) 약 17.6% 늘어난다. 연료를 더 실을수록 이득이 로그처럼 줄어든다(자체 무게를 더 싣고 가야 하므로).</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -45,6 +45,7 @@
   },
   "references": [
     "Anderson, J. D. (1999). Aircraft Performance and Design. McGraw-Hill.",
-    "Raymer, D. P. (2018). Aircraft Design: A Conceptual Approach (6th ed.). American Institute of Aeronautics and Astronautics."
+    "Raymer, D. P. (2018). Aircraft Design: A Conceptual Approach (6th ed.). American Institute of Aeronautics and Astronautics.",
+    "Wikipedia contributors. (2026). Range (aeronautics). Wikipedia."
   ]
 }

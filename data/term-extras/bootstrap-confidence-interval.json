@@ -1,9 +1,15 @@
 {
   "type": "method",
+  "fixes": [
+    {
+      "find": "표본평균에서 부트스트랩 분포의 편차를 뺀 뒤 백분위를 적용하는 피벗법(basic method)",
+      "replace": "추정값의 두 배에서 부트스트랩 분포의 위쪽·아래쪽 백분위수를 각각 빼 구간의 양 끝을 뒤집어 잡는 기본법(basic method, 역백분위법)"
+    }
+  ],
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>부트스트랩 신뢰구간은 가진 표본을 모집단 대신으로 삼아, 표본에서 같은 크기(n)만큼 <strong>복원추출</strong>을 B번 반복하고 매번 통계량을 계산해 얻은 분포로 구간을 만든다.</p><ol><li>원표본에서 크기 n의 재표본을 복원추출한다.</li><li>재표본에서 관심 통계량(평균, 중앙값, 상관계수 등)을 계산한다.</li><li>1-2를 B번(보통 수천 번) 반복해 부트스트랩 분포를 얻는다.</li><li>그 분포에서 구간을 읽는다. 가장 단순한 <strong>백분위법</strong>은 95% 구간이면 2.5번째와 97.5번째 백분위수를 쓴다.</li></ol><p>백분위법 외에 기본(basic, 역백분위) 구간, 편향과 비대칭을 보정하는 BCa 구간 등이 있다(Carpenter와 Bithell, 2000이 여러 방법의 강약점을 검토했다).</p>"
+      "html": "<p>부트스트랩 신뢰구간은 가진 표본을 모집단 대신으로 삼아, 표본에서 같은 크기(n)만큼 <strong>복원추출</strong>을 B번 반복하고 매번 통계량을 계산해 얻은 분포로 구간을 만든다.</p><ol><li>원표본에서 크기 n의 재표본을 복원추출한다.</li><li>재표본에서 관심 통계량(평균, 중앙값, 상관계수 등)을 계산한다.</li><li>1-2를 B번(보통 수천 번) 반복해 부트스트랩 분포를 얻는다.</li><li>그 분포에서 구간을 읽는다. 가장 단순한 <strong>백분위법</strong>은 95% 구간이면 2.5번째와 97.5번째 백분위수를 쓴다.</li></ol><p>백분위법 외에 기본(basic, 역백분위) 구간, 편향과 비대칭을 보정하는 BCa 구간 등이 있다(Carpenter와 Bithell, 2000이 여러 방법의 강약점을 검토했다).</p><ul><li><strong>BCa 구간</strong>은 Efron(1987)이 내놓은 방법으로, 부트스트랩 분포의 편향과 치우침(왜도)을 함께 보정한다.</li><li><strong>스튜던트화(bootstrap-t) 구간</strong>은 정규분포나 t분포의 분위수 대신, 재표본마다 계산한 t 통계량의 분포에서 분위수를 가져온다. 이 통계량이 추축량(pivot)에 가까워 이론적 성질이 좋다고 설명된다.</li></ul>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -11,7 +17,7 @@
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li>구간 방법(백분위, 기본, BCa 등)과 신뢰수준을 적는다.</li><li>재표본 횟수 B, 난수 시드, 소프트웨어 이름과 버전을 밝힌다.</li><li>원표본의 크기와 추출 방식을 적는다. 원표본이 모집단을 잘 대표하지 못하거나 매우 작으면 부트스트랩도 그 한계를 벗어나지 못한다.</li><li>군집 자료·시계열처럼 관측값이 독립이 아니면 단순 복원추출을 쓸 수 없으므로 어떤 재표본 방식을 썼는지 적는다.</li></ul>"
+      "html": "<ul><li>구간 방법(백분위, 기본, BCa 등)과 신뢰수준을 적는다.</li><li>재표본 횟수 B, 난수 시드, 소프트웨어 이름과 버전을 밝힌다.</li><li>원표본의 크기와 추출 방식을 적는다. 원표본이 모집단을 잘 대표하지 못하거나 매우 작으면 부트스트랩도 그 한계를 벗어나지 못한다.</li><li>군집 자료·시계열처럼 관측값이 독립이 아니면 단순 복원추출을 쓸 수 없으므로 어떤 재표본 방식을 썼는지 적는다.</li></ul><ul><li>재표본 횟수는 목적에 따라 다르다. 표준오차만 추정할 때는 100번을 넘겨도 개선이 미미하다는 보고가 있고, Efron은 50번으로도 꽤 괜찮은 추정이 나온다고 보았다. 구간의 끝점(꼬리 분위수)을 읽을 때는 이보다 훨씬 많은 횟수가 필요하다.</li></ul>"
     }
   ],
   "compare": {
@@ -54,12 +60,7 @@
     "Efron, B., & Tibshirani, R. J. (1993). An Introduction to the Bootstrap. Chapman & Hall.",
     "DiCiccio, T. J., & Efron, B. (1996). Bootstrap confidence intervals. Statistical Science, 11(3), 189-228.",
     "Carpenter, J., & Bithell, J. (2000). Bootstrap confidence intervals: when, which, what? A practical guide for medical statisticians. Statistics in Medicine, 19(9), 1141-1164.",
-    "Efron, B. (1979). Bootstrap methods: another look at the jackknife. The Annals of Statistics, 7(1), 1-26."
-  ],
-  "fixes": [
-    {
-      "find": "표본평균에서 부트스트랩 분포의 편차를 뺀 뒤 백분위를 적용하는 피벗법(basic method)",
-      "replace": "추정값의 두 배에서 부트스트랩 분포의 위쪽·아래쪽 백분위수를 각각 빼 구간의 양 끝을 뒤집어 잡는 기본법(basic method, 역백분위법)"
-    }
+    "Efron, B. (1979). Bootstrap methods: another look at the jackknife. The Annals of Statistics, 7(1), 1-26.",
+    "Wikipedia contributors. (n.d.). Bootstrapping (statistics). In Wikipedia, The Free Encyclopedia."
   ]
 }

@@ -154,10 +154,10 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <p>ARM은 특정 칩의 이름이기 전에 <strong>명령어 집합 구조(ISA)</strong>의 계열이다(<a href="instruction-set-architecture.html">명령어 집합 구조</a>). 소프트웨어가 CPU에 내리는 명령의 약속을 정한 것이어서, 같은 ISA를 따르는 서로 다른 회사의 칩이 같은 프로그램을 돌릴 수 있다.</p><ul><li><strong>유래</strong>: “Acorn RISC Machine” 프로젝트가 1983년 10월에 시작되었고 첫 실리콘(ARM1)은 1985년에 동작을 확인했다. ARM이라는 이름은 이 프로젝트에서 왔다.</li><li><strong>사업 방식</strong>: Arm사는 ISA와 코어 설계를 라이선스로 제공한다. 코어 라이선스는 설계된 코어를 받아 칩을 만드는 것이고, 아키텍처 라이선스는 ISA를 따르면서 자기 코어를 직접 설계하는 것이다. 애플 M1의 코어처럼 자체 설계한 코어가 후자의 예이다.</li><li><strong>64비트</strong>: 2011년 ARMv8-A가 64비트 주소 공간과 64비트 연산을 도입했고, 이 64비트 실행 상태가 AArch64이다.</li></ul>
+  <p>ARM은 특정 칩의 이름이기 전에 <strong>명령어 집합 구조(ISA)</strong>의 계열이다(<a href="instruction-set-architecture.html">명령어 집합 구조</a>). 소프트웨어가 CPU에 내리는 명령의 약속을 정한 것이어서, 같은 ISA를 따르는 서로 다른 회사의 칩이 같은 프로그램을 돌릴 수 있다.</p><ul><li><strong>유래</strong>: “Acorn RISC Machine” 프로젝트가 1983년 10월에 시작되었고 첫 실리콘(ARM1)은 1985년에 동작을 확인했다. ARM이라는 이름은 이 프로젝트에서 왔다.</li><li><strong>사업 방식</strong>: Arm사는 ISA와 코어 설계를 라이선스로 제공한다. 코어 라이선스는 설계된 코어를 받아 칩을 만드는 것이고, 아키텍처 라이선스는 ISA를 따르면서 자기 코어를 직접 설계하는 것이다. 애플 M1의 코어처럼 자체 설계한 코어가 후자의 예이다.</li><li><strong>64비트</strong>: 2011년 ARMv8-A가 64비트 주소 공간과 64비트 연산을 도입했고, 이 64비트 실행 상태가 AArch64이다.</li></ul><p>낮은 비용, 적은 전력 소모와 발열 덕분에 스마트폰·태블릿·노트북과 임베디드 시스템에 널리 쓰이며, 2003년 이후 적어도 2,300억 개가 넘는 ARM 칩이 생산되어 가장 널리 쓰이는 ISA 계열이 되었다. 데스크톱과 서버에도 쓰여, 2020~2022년 세계에서 가장 빠른 슈퍼컴퓨터였던 일본의 후가쿠(Fugaku)도 ARM 기반이다.</p>
 
   <h2>예시로 보기</h2>
-  <p>같은 소스 코드도 ISA마다 따로 컴파일해야 한다. 예를 들어 x86 컴퓨터에서 만든 실행 파일은 ARM 기반 보드에서 그대로 실행되지 않으므로, 교차 컴파일의 대상(target)을 <code>aarch64</code>처럼 지정하거나 ARM 기기에서 직접 빌드한다.</p><p>논문이 실험 환경을 적을 때 ARM과 관련해 밝혀 두면 좋은 정보는 다음과 같다(형식 예시).</p><ul><li>CPU 모델명과 ISA 버전(예: ARMv8-A), 코어 수와 클럭</li><li>운영체제·컴파일러 버전과 최적화 옵션</li><li>전력·에너지를 어떤 방법으로(외부 계측기, 내장 센서 등) 쟀는지</li><li>비교 대상(x86 서버 등)의 사양, 그리고 같은 부하·같은 조건으로 비교했는지</li></ul>
+  <p>같은 소스 코드도 ISA마다 따로 컴파일해야 한다. 예를 들어 x86 컴퓨터에서 만든 실행 파일은 ARM 기반 보드에서 그대로 실행되지 않으므로, 교차 컴파일의 대상(target)을 <code>aarch64</code>처럼 지정하거나 ARM 기기에서 직접 빌드한다.</p><p>논문이 실험 환경을 적을 때 ARM과 관련해 밝혀 두면 좋은 정보는 다음과 같다(형식 예시).</p><ul><li>CPU 모델명과 ISA 버전(예: ARMv8-A), 코어 수와 클럭</li><li>운영체제·컴파일러 버전과 최적화 옵션</li><li>전력·에너지를 어떤 방법으로(외부 계측기, 내장 센서 등) 쟀는지</li><li>비교 대상(x86 서버 등)의 사양, 그리고 같은 부하·같은 조건으로 비교했는지</li></ul><ul><li>첫 ARM1은 내부 구조가 32비트였지만 주소 공간이 26비트여서 주기억장치가 64 MB로 제한되었다. ARMv3에서 32비트 주소 공간이 도입되었고 ARMv7까지 32비트가 이어졌다.</li><li>ARMv8-A(2011)는 64비트 주소 공간·연산과 함께 새로운 32비트 고정 길이 명령어 집합을 더했다.</li><li><strong>Thumb</strong> 확장은 16비트·32비트 명령을 섞어 코드 밀도를 높이고, <strong>Jazelle</strong>은 자바 바이트코드를 직접 처리하는 명령을 더했다.</li></ul><p>ARM의 배경에는 Acorn Computers가 1981년 12월에 내놓은 BBC Micro가 있다. 6502 CPU를 썼지만 Hitachi에서 받은 빠른 4 MHz DRAM 덕분에 Apple II 같은 경쟁 기종보다 약 두 배 빨랐다.</p>
 
   <h2>자주 하는 오해</h2>
   <ul><li><strong>“ARM은 Arm사가 만든 칩이다”</strong>: Arm사가 파는 것은 주로 설계(IP)와 ISA이고, 실리콘은 라이선스를 받은 회사들이 만든다.</li><li><strong>“ARM이면 곧 저전력이다”</strong>: 전력과 성능은 ISA 이름만이 아니라 코어 설계(마이크로아키텍처), 제조 공정, 시스템 구성에 좌우된다. Blem 외(2013)는 ARM(RISC)과 x86(CISC)을 비교하며 “ISA 자체가 성능과 에너지 효율에 본질적 역할을 하는가”를 실제 하드웨어 측정으로 따져 본 연구이다.</li><li><strong>“ARM은 휴대기기용이라 서버에는 못 쓴다”</strong>: 위 연구도 저전력이던 ARM이 고성능 서버 시장에, 고성능이던 x86이 모바일 시장에 진입하고 있다고 서술한다.</li></ul>
@@ -194,6 +194,7 @@
     <li>Patterson, D. A., &amp; Hennessy, J. L. (2016). Computer Organization and Design ARM Edition: The Hardware Software Interface. Elsevier.</li>
     <li>Hennessy, J. L., &amp; Patterson, D. A. (2019). Computer Architecture: A Quantitative Approach. Morgan Kaufmann.</li>
     <li>Blem, E., Menon, J., &amp; Sankaralingam, K. (2013). Power struggles: Revisiting the RISC vs. CISC debate on contemporary ARM and x86 architectures. In 2013 IEEE 19th International Symposium on High Performance Computer Architecture (HPCA) (pp. 1-12). IEEE.</li>
+    <li>Wikipedia contributors. (n.d.). ARM architecture family. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

@@ -154,10 +154,10 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>로봇의 위치를 포텐셜장 위의 한 점으로 보고, 목표에서는 끌어당기고 장애물에서는 밀어내는 함수를 더해 전체 포텐셜 <code>U(q) = U<sub>att</sub>(q) + U<sub>rep</sub>(q)</code>를 만든다. 로봇은 포텐셜의 기울기 반대 방향(<code>F = −∇U</code>)으로 움직인다. 척력 포텐셜은 장애물에 가까울수록 커지고 영향 반경 밖에서는 0이 되도록 설계한다.</p><p><strong>작은 예(가상의 값).</strong> Khatib(1986)이 제시한 형태를 따라 척력 포텐셜을 <code>U<sub>rep</sub> = ½·η·(1/ρ − 1/ρ₀)²</code>(ρ ≤ ρ₀, 그 밖에서는 0)로 두고 η = 100, 영향 반경 ρ₀ = 2 m라고 하면, 장애물까지 거리 ρ = 2 m에서 0, ρ = 1 m에서 12.5, ρ = 0.5 m에서 112.5이다. 가까워질수록 척력 포텐셜이 급격히 커진다. (식의 꼴과 계수 표기는 논문마다 다르다.)</p>
+  <p>로봇의 위치를 포텐셜장 위의 한 점으로 보고, 목표에서는 끌어당기고 장애물에서는 밀어내는 함수를 더해 전체 포텐셜 <code>U(q) = U<sub>att</sub>(q) + U<sub>rep</sub>(q)</code>를 만든다. 로봇은 포텐셜의 기울기 반대 방향(<code>F = −∇U</code>)으로 움직인다. 척력 포텐셜은 장애물에 가까울수록 커지고 영향 반경 밖에서는 0이 되도록 설계한다.</p><p><strong>작은 예(가상의 값).</strong> Khatib(1986)이 제시한 형태를 따라 척력 포텐셜을 <code>U<sub>rep</sub> = ½·η·(1/ρ − 1/ρ₀)²</code>(ρ ≤ ρ₀, 그 밖에서는 0)로 두고 η = 100, 영향 반경 ρ₀ = 2 m라고 하면, 장애물까지 거리 ρ = 2 m에서 0, ρ = 1 m에서 12.5, ρ = 0.5 m에서 112.5이다. 가까워질수록 척력 포텐셜이 급격히 커진다. (식의 꼴과 계수 표기는 논문마다 다르다.)</p><p>포텐셜장은 로봇을 점전하처럼 다루는 정전기 포텐셜과 비슷한 연속 방정식으로 다룰 수도 있고, 장 안의 움직임을 일련의 언어적 규칙으로 이산화해 다룰 수도 있다. 여기서 로봇의 위치 q는 작업공간 좌표가 아니라 <strong>형상공간(configuration space)</strong>의 한 점이다. 평면을 움직이는 점 로봇이면 (x, y) 두 변수, 평면에서 이동·회전하는 2차원 물체면 (x, y, θ) 세 변수, 회전 관절 N개인 고정 매니퓰레이터면 N차원이다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <ul><li><strong>얻는 것</strong>: 계산이 간단해 실시간 반응형 장애물 회피와 군집 대형 제어에 쓰기 좋다(<a href="obstacle-avoidance.html">장애물회피</a>, <a href="potential-field-method.html">포텐셜필드법</a>).</li><li><strong>대표적 한계</strong>: 장이 만든 지형의 국소 최소점에 갇히면 경로를 못 찾거나 최적이 아닌 경로를 얻는다. 조화 포텐셜장이나 내비게이션 함수처럼 목표 외에는 극소점이 없도록 만든 함수가 대안으로 설명된다. Rimon &amp; Koditschek(1992)는 인공 포텐셜 함수를 이용한 정확한 로봇 항법을, Koren &amp; Borenstein(1991)은 포텐셜장 방법의 본질적 한계를 다룬 논문이다.</li><li><strong>그래서 논문에서는</strong> 전역 경로계획과 결합하거나(<a href="path-planning.html">경로계획</a>) 척력장의 영향 반경·감쇠 계수를 조정해 한계를 완화하는 변형을 제안하는 경우가 많다.</li></ul>
+  <ul><li><strong>얻는 것</strong>: 계산이 간단해 실시간 반응형 장애물 회피와 군집 대형 제어에 쓰기 좋다(<a href="obstacle-avoidance.html">장애물회피</a>, <a href="potential-field-method.html">포텐셜필드법</a>).</li><li><strong>대표적 한계</strong>: 장이 만든 지형의 국소 최소점에 갇히면 경로를 못 찾거나 최적이 아닌 경로를 얻는다. 조화 포텐셜장이나 내비게이션 함수처럼 목표 외에는 극소점이 없도록 만든 함수가 대안으로 설명된다. Rimon &amp; Koditschek(1992)는 인공 포텐셜 함수를 이용한 정확한 로봇 항법을, Koren &amp; Borenstein(1991)은 포텐셜장 방법의 본질적 한계를 다룬 논문이다.</li><li><strong>그래서 논문에서는</strong> 전역 경로계획과 결합하거나(<a href="path-planning.html">경로계획</a>) 척력장의 영향 반경·감쇠 계수를 조정해 한계를 완화하는 변형을 제안하는 경우가 많다.</li></ul><p>운동계획 방법 전체에서 보면, 고차원·복잡한 제약 아래의 정확한 운동계획은 계산상 다루기 어렵고, 포텐셜장 알고리즘은 효율적이지만 국소 최소점에 빠지기 쉬우며(조화 포텐셜장은 예외), 표본 기반(sampling-based) 알고리즘은 국소 최소점 문제를 피하면서 많은 문제를 빠르게 푼다. 확률적 내비게이션 함수도 목표 외에는 최소점이 없도록 만든 인공 포텐셜 함수의 한 종류이다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>인력·척력 포텐셜 함수의 식과 모든 계수값(인력 계수, 척력 계수, 영향 반경 등)</li><li>로봇 모델(점 로봇인지 크기가 있는지)과 장애물 형상, 시뮬레이션/실험 환경</li><li>평가 지표: 목표 도달 성공률, 경로 길이, 소요 시간, 최소 장애물 거리, 정지·진동 발생 여부</li><li>국소 최소점 사례를 포함했는지와, 이를 벗어나는 방법(있다면)</li><li>비교 방법(기본 포텐셜장법, 다른 반응형 기법)과 같은 조건에서 비교했는지</li></ul><p>형식 예시: “영향 반경 ρ₀를 2 m로 두고 척력 계수를 100으로 하였으며, 좁은 통로 시나리오 30회 중 ○회에서 목표에 도달하였다.” (횟수는 결과를 대신 적는다.)</p>
@@ -190,6 +190,7 @@
     <li>Khatib, O. (1986). Real-time obstacle avoidance for manipulators and mobile robots. The International Journal of Robotics Research, 5(1), 90-98.</li>
     <li>Koren, Y., &amp; Borenstein, J. (1991). Potential field methods and their inherent limitations for mobile robot navigation. In Proceedings of the 1991 IEEE International Conference on Robotics and Automation (pp. 1398-1404). IEEE.</li>
     <li>Rimon, E., &amp; Koditschek, D. E. (1992). Exact robot navigation using artificial potential functions. IEEE Transactions on Robotics and Automation, 8(5), 501-518.</li>
+    <li>Wikipedia contributors. (n.d.). Motion planning. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
