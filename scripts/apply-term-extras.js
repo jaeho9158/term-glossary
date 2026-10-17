@@ -194,8 +194,15 @@ function applyToHtml(html, slug, extras, usage) {
   for (const f of extras.fixes || []) {
     if (!f.find || typeof f.replace !== "string") throw new Error(`${slug}: fixes 형식 오류`);
     // 바꿀 문구가 찾을 문구를 품고 있으면 이미 반영된 페이지에 다시 적용하지 않는다(멱등)
-    if (f.replace.includes(f.find) && out.includes(f.replace)) continue;
-    out = out.split(f.find).join(f.replace);
+    // CRLF 페이지에서는 여러 줄 문구의 줄바꿈도 CRLF 로 맞춰 찾는다(안 맞으면 교정이 빠지고 문단이 중복됨).
+    let { find, replace } = f;
+    if (!out.includes(find) && out.includes("\r\n") && find.includes("\n")) {
+      find = find.replace(/\r?\n/g, "\r\n");
+      replace = replace.replace(/\r?\n/g, "\r\n");
+    }
+    if (!out.includes(find)) continue;
+    if (replace.includes(find) && out.includes(replace)) continue;
+    out = out.split(find).join(replace);
   }
   if (!out.includes(ANCHOR_H2) || !out.includes(NAV_CSS_LINK)) return null;
   // 뒤에서부터 넣어 앞쪽 위치가 밀리지 않게 한다.

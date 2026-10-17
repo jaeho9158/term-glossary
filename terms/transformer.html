@@ -144,7 +144,7 @@
   <!-- concept-diagram:end -->
 
   <h2>쉽게 풀면</h2>
-  <p>여러 사람이 모인 회의를 떠올려 보세요. 유능한 진행자는 한 사람의 말이 끝나기를 순서대로 기다리는 대신, 지금 논의 주제와 관련해 누구의 발언이 더 중요한지를 그때그때 파악하면서 전체 맥락을 동시에 읽어낸다.</p>
+  <p>여러 사람이 모인 회의를 떠올려 보자. 유능한 진행자는 한 사람의 말이 끝나기를 순서대로 기다리는 대신, 지금 논의 주제와 관련해 누구의 발언이 더 중요한지를 그때그때 파악하면서 전체 맥락을 동시에 읽어낸다.</p>
   <p>트랜스포머도 이와 비슷하게, 문장의 단어를 처음부터 끝까지 순서대로 하나씩 읽는 대신 모든 단어를 한 번에 놓고 서로 얼마나 관련 있는지를 계산한다. 이 덕분에 "그것"이 앞 문장의 어떤 단어를 가리키는지 같은 문맥 정보를 훨씬 효율적으로, 그리고 병렬로 빠르게 처리할 수 있다.</p>
 
   <h2>왜 중요한가</h2>
@@ -152,7 +152,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <p>트랜스포머는 입력 안의 모든 위치가 서로를 직접 참조하는 <strong>셀프 어텐션</strong>을 핵심 연산으로 쓰는 신경망 구조이다. Vaswani 외(2017)가 순환 구조 없이 어텐션만으로 기계 번역을 하는 모델로 제안했다. 셀프 어텐션은 다음과 같이 계산한다.</p><p><code>Attention(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V</code></p><ul><li>각 입력은 쿼리(Q), 키(K), 값(V) 벡터로 변환된다.</li><li>쿼리와 키의 내적이 ‘얼마나 관련 있는가’의 점수가 되고, softmax로 합이 1인 가중치가 된다. 이 가중치로 값을 가중평균합니다.</li><li><code>√d<sub>k</sub></code>로 나누는 것은 차원이 클 때 내적 값이 커지는 것을 막기 위한 크기 조정이다.</li><li>순서 정보는 구조에 없으므로 <a href="positional-encoding.html">위치 인코딩</a>을 더해 준다. 서로 다른 관계를 동시에 보도록 어텐션을 여러 개 두는 것이 <a href="multi-head-attention.html">멀티헤드 어텐션</a>이다.</li></ul>
+  <p>트랜스포머는 입력 안의 모든 위치가 서로를 직접 참조하는 <strong>셀프 어텐션</strong>을 핵심 연산으로 쓰는 신경망 구조이다. Vaswani 외(2017)가 순환 구조 없이 어텐션만으로 기계 번역을 하는 모델로 제안했다. 셀프 어텐션은 다음과 같이 계산한다.</p><p><code>Attention(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V</code></p><ul><li>각 입력은 쿼리(Q), 키(K), 값(V) 벡터로 변환된다.</li><li>쿼리와 키의 내적이 ‘얼마나 관련 있는가’의 점수가 되고, softmax로 합이 1인 가중치가 된다. 이 가중치로 값을 가중평균한다.</li><li><code>√d<sub>k</sub></code>로 나누는 것은 차원이 클 때 내적 값이 커지는 것을 막기 위한 크기 조정이다.</li><li>순서 정보는 구조에 없으므로 <a href="positional-encoding.html">위치 인코딩</a>을 더해 준다. 서로 다른 관계를 동시에 보도록 어텐션을 여러 개 두는 것이 <a href="multi-head-attention.html">멀티헤드 어텐션</a>이다.</li></ul>
 
   <h2>예시로 보기</h2>
   <p>(작은 가상의 입력으로 코드 계산) 토큰 3개, <code>d<sub>k</sub> = 2</code>로 쿼리와 키를 같게 두고 <code>Q = K = [[1,0],[0,1],[1,1]]</code>, 값을 <code>V = [[1,2],[3,4],[5,6]]</code>이라 합시다. 점수 <code>QKᵀ/√2</code>는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>토큰1</th><th>토큰2</th><th>토큰3</th></tr></thead><tbody><tr><th scope="row">토큰1</th><td>0.707</td><td>0.000</td><td>0.707</td></tr><tr><th scope="row">토큰2</th><td>0.000</td><td>0.707</td><td>0.707</td></tr><tr><th scope="row">토큰3</th><td>0.707</td><td>0.707</td><td>1.414</td></tr></tbody></table></div><p>각 행에 softmax를 적용한 어텐션 가중치(행의 합 1)는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th></th><th>토큰1</th><th>토큰2</th><th>토큰3</th></tr></thead><tbody><tr><th scope="row">토큰1</th><td>0.401</td><td>0.198</td><td>0.401</td></tr><tr><th scope="row">토큰2</th><td>0.198</td><td>0.401</td><td>0.401</td></tr><tr><th scope="row">토큰3</th><td>0.248</td><td>0.248</td><td>0.503</td></tr></tbody></table></div><p>토큰1의 출력은 가중치로 값을 섞은 <code>0.401×[1,2] + 0.198×[3,4] + 0.401×[5,6] = [3.000, 4.000]</code>이다. 이렇게 각 토큰의 출력이 다른 모든 토큰의 정보를 한 번에 반영한다.</p>
@@ -191,7 +191,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>트랜스포머와 함께 나오는 용어는 구조·응용·이전 방식으로 나눠진다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">트랜스포머와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="recurrent-neural-network.html">순환 신경망</a></th><td>순서대로 한 단계씩 읽으며 은닉 상태를 갱신하는 구조</td><td>트랜스포머는 순환 없이 모든 위치를 한 번에 참조합니다.</td></tr><tr><th scope="row"><a href="vision-transformer.html">비전 트랜스포머</a></th><td>이미지 조각을 토큰처럼 다루는 트랜스포머</td><td>같은 구조를 이미지에 적용한 변형이다.</td></tr><tr><th scope="row"><a href="large-language-model.html">대규모 언어 모델</a></th><td>방대한 텍스트로 학습한 언어 모델</td><td>트랜스포머 구조를 기반으로 하는 경우가 많다.</td></tr><tr><th scope="row"><a href="multi-head-attention.html">멀티헤드 어텐션</a></th><td>어텐션을 여러 개 병렬로 두는 방식</td><td>트랜스포머를 이루는 부품이다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">트랜스포머와의 관계</th></tr></thead><tbody><tr><th scope="row"><a href="recurrent-neural-network.html">순환 신경망</a></th><td>순서대로 한 단계씩 읽으며 은닉 상태를 갱신하는 구조</td><td>트랜스포머는 순환 없이 모든 위치를 한 번에 참조한다.</td></tr><tr><th scope="row"><a href="vision-transformer.html">비전 트랜스포머</a></th><td>이미지 조각을 토큰처럼 다루는 트랜스포머</td><td>같은 구조를 이미지에 적용한 변형이다.</td></tr><tr><th scope="row"><a href="large-language-model.html">대규모 언어 모델</a></th><td>방대한 텍스트로 학습한 언어 모델</td><td>트랜스포머 구조를 기반으로 하는 경우가 많다.</td></tr><tr><th scope="row"><a href="multi-head-attention.html">멀티헤드 어텐션</a></th><td>어텐션을 여러 개 병렬로 두는 방식</td><td>트랜스포머를 이루는 부품이다.</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>

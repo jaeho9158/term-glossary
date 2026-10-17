@@ -154,7 +154,7 @@
   <ul><li>유한 오토마타는 <strong>(상태 집합 Q, 입력 기호 Σ, 전이 함수 δ, 시작 상태 q<sub>0</sub>, 수락 상태 집합 F)</strong> 다섯 가지로 정의되는 계산 모델이다. 입력 문자열을 한 글자씩 읽으며 상태를 옮기다가 마지막에 수락 상태에 있으면 그 문자열을 받아들인다.</li><li>결정적(DFA)은 상태와 입력마다 다음 상태가 하나로 정해지고, 비결정적(NFA)은 여러 갈래가 가능하다. 두 모델이 인식하는 언어의 범위는 같다. NFA를 DFA로 바꾸면 상태 수가 최악의 경우 지수적으로 늘어날 수 있다.</li><li>유한 오토마타가 인식하는 언어가 <strong>정규 언어</strong>이고, 정규 언어는 <a href="regular-expression.html">정규표현식</a>으로 쓸 수 있는 언어와 같다(Kleene, 1956; Rabin &amp; Scott, 1959).</li><li>기억은 현재 상태뿐이라서, 0과 1의 개수를 맞춰 세는 것처럼 무한한 기억이 필요한 언어(예: 0<sup>n</sup>1<sup>n</sup>)는 인식하지 못한다. 이런 언어는 스택이 있는 <a href="pushdown-automaton.html">푸시다운 오토마타</a>나 <a href="turing-machine.html">튜링 기계</a>가 필요하다.</li></ul>
 
   <h2>예시로 보기</h2>
-  <p>“0이 짝수 개인 문자열만 받아들이는” DFA는 상태가 두 개(짝수 E, 홀수 O)뿐이다. 시작 상태는 E이고, 0을 읽을 때마다 E와 O를 오가며, 1은 상태를 바꾸지 않는다. E가 수락 상태이다. 몇 개의 문자열을 실제로 돌려 본 결과이다(코드로 계산).</p>
+  <p>“0이 짝수 개인 문자열만 받아들이는” DFA는 상태가 두 개(짝수 E, 홀수 O)뿐이다. 시작 상태는 E이고, 0을 읽을 때마다 E와 O를 오가며, 1은 상태를 바꾸지 않는다. E가 수락 상태이다. 몇 개의 문자열을 실제로 돌려 본 결과이다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>입력</th><th>0의 개수</th><th>끝난 상태</th></tr></thead><tbody><tr><td><code>(빈 문자열)</code></td><td>0</td><td>짝수 상태(수락)</td></tr><tr><td><code>1</code></td><td>0</td><td>짝수 상태(수락)</td></tr><tr><td><code>0</code></td><td>1</td><td>홀수 상태(거부)</td></tr><tr><td><code>01010</code></td><td>3</td><td>홀수 상태(거부)</td></tr><tr><td><code>1001</code></td><td>2</td><td>짝수 상태(수락)</td></tr><tr><td><code>000</code></td><td>3</td><td>홀수 상태(거부)</td></tr><tr><td><code>11111</code></td><td>0</td><td>짝수 상태(수락)</td></tr></tbody></table></div>
   <p>입력이 아무리 길어도 필요한 기억은 “지금까지 0이 짝수였나 홀수였나”라는 한 비트뿐이다. 상태 수가 유한한 모델이 할 수 있는 일의 전형이다.</p>
 
