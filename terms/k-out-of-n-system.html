@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 설비의 다중화 설계(예: 3개 중 2개 일치로 판정하는 제어기, 여러 펌프·발전기 구성)는 순수 직렬이나 병렬보다 이 구조로 더 정확히 표현된다. 그래서 중복설계와 신뢰도 배분 최적화 논문에서 기본 모형으로 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>k-out-of-n 시스템은 n개 구성품 중 k개 이상이 정상이면 전체가 작동하는 신뢰성 구조이다.</li><li>삼중 모듈 중복(TMR)은 같은 일을 하는 세 시스템의 출력을 다수결 요소가 하나로 고르는 방식이다. 하나가 고장 나면 나머지 둘이 이를 눌러 오류를 가린다. 3개 중 2개가 필요한 2-out-of-3 구조이다.</li><li>다수결기는 2-out-of-3 투표를 구현하는 3입력 다수결 게이트이다. 세 회로 중 고장이 하나 이하이면 출력이 맞다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>수동 중복은 여분의 용량이나 안전 여유로 고장을 흡수하며 성능이 떨어질 수 있다(교량 케이블의 여유 강도 등). 능동 중복은 장치를 감시하고 다수결과 전환으로 구성을 바꿔 성능 저하를 피한다.</li><li>고장 확률의 표준 공식은 고장이 서로 독립이라고 가정한다. 같은 전원 소켓을 쓰는 두 전원 장치처럼 약점을 공유하면 이 가정이 깨진다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>다수결 방식에서 세 개가 모두 고장 나야 시스템이 고장 난다고 보면 틀리다. 다수가 다른 값을 내면 고장이 난다.</li><li>다수결기 자체가 고장 나면 시스템 전체가 무너지는 단일 고장점이 된다. 일부 설계는 다수결기도 3중으로 두지만 대부분은 다수결 게이트가 보호 대상 회로보다 훨씬 단순하고 믿을 만하다고 보아 그렇게 하지 않는다.</li><li>공통 원인 고장을 줄이려면 서로 다른 설계(이종 중복)를 쓴다. 같은 소프트웨어는 같은 결함을 공유한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"안전계장시스템의 센서를 2-out-of-3 구조로 구성하여 불필요한 정지와 위험 미탐지를 함께 줄였다."</div>
   <p>센서 세 개 중 두 개가 같은 신호를 줄 때 동작하도록 설계했다는 뜻이다.</p>
   <div class="example">신뢰성공학 연구는 k-out-of-n 구조가 병렬 구조(k=1)와 직렬 구조(k=n)를 양 극단으로 포함하는 일반화된 모형이라고 설명한다.</div>
@@ -163,6 +181,15 @@
 
   <h2>주의할 점</h2>
   <p>직렬·병렬 시스템 신뢰도 항목은 k가 n이거나 1인 양 끝의 특수한 경우를 다루고, 이 항목은 그 사이의 일반적인 경우를 다룬다는 점이 다르다. 공통원인고장이 있으면 독립 가정이 깨져 이항분포 계산이 신뢰도를 과대평가할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Redundancy (engineering). Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Triple modular redundancy. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

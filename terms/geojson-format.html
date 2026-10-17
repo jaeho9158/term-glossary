@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>웹 기반 지도 서비스와 오픈소스 GIS 생태계가 확산되면서 브라우저에서 바로 읽고 렌더링할 수 있는 GeoJSON의 활용도가 크게 늘었다. 연구자들도 분석 결과를 웹 지도나 대화형 시각화로 공유할 때 자주 사용하며, 데이터 공유의 개방성과 재현성을 높이는 형식으로 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>GeoJSON은 JSON을 바탕으로 단순한 지리 객체와 그 비공간 속성을 표현하는 개방형 표준 형식이다.</li><li>도형 유형은 점(Point), 선(LineString), 면(Polygon)과 이들의 다중 도형(MultiPoint, MultiLineString, MultiPolygon), GeometryCollection이다.</li><li>Feature 객체는 도형과 속성(properties)을 갖고, 여러 Feature를 FeatureCollection으로 묶는다.</li><li>좌표는 [x, y] 또는 [x, y, z]로 쓰며, 모두 WGS 84 측지계의 십진 각도 단위이다. 런던은 [-0.1278, 51.5074]처럼 경도, 위도 순서다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>표준화 경과는 다음과 같다. 2007년 3월 작업 그룹이 시작되어 2008년 6월 명세가 확정되었고, 2015년 4월 IETF가 Geographic JSON 작업 그룹을 만들어 2016년 8월 RFC 7946으로 발표했다.</p><p>관련 형식으로 위상을 담아 보통 파일이 더 작은 TopoJSON, 한 줄에 한 객체를 담는 GeoJSONSeq와 GeoJSONL이 있다. 다른 공간자료 형식은 <a href="shapefile-format.html">셰이프파일</a>과 비교할 수 있고, 웹 지도 좌표는 <a href="web-mercator.html">웹 메르카토르</a>와 연결된다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>좌표 순서가 위도, 경도라는 오해</strong>: GeoJSON은 경도, 위도 순서이다.</li><li><strong>다른 좌표계를 지정할 수 있다는 오해</strong>: RFC 7946 이후 WGS 84를 전제한다. 이전 판에서 쓰던 좌표계 지정 방식은 쓰지 않는다.</li><li><strong>복잡한 위상 분석에 적합하다는 오해</strong>: 단순 지리 객체 표현용이며, 위상을 담으려면 TopoJSON 등을 쓴다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"수집된 관측 지점 좌표를 GeoJSON(GeoJSON) 형식으로 정리하여 웹 기반 시각화 도구에 입력하였다."</div>
   <p>현장에서 얻은 좌표 자료를 웹에서 바로 표시할 수 있도록 GeoJSON으로 변환했다는 의미이다.</p>
   <div class="example">"공개된 행정경계 GeoJSON 파일을 활용하여 지역 단위 통계지도를 제작하였다."</div>
@@ -161,6 +179,15 @@
 
   <h2>주의할 점</h2>
   <p>텍스트 기반이라 대용량 자료에서는 파일 크기가 커지고 처리 속도가 느려질 수 있어, 방대한 자료에는 다른 형식이 더 적합할 수 있다. 좌표계 표기가 명시되지 않은 경우 다른 좌표계 자료와 혼동할 위험도 있다. GeoJSON은 좌표계를 위경도(WGS84)로 가정하는 것이 관례이므로, 다른 좌표계의 자료를 변환 없이 그대로 저장하면 위치가 어긋날 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Butler, H., Daly, M., Doyle, A., Gillies, S., Hagen, S., &amp; Schaub, T. (2016). The GeoJSON Format. RFC 7946. IETF.</li>
+    <li>Wikipedia contributors. (n.d.). GeoJSON. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>딥러닝을 비롯한 대규모 수치 연산 연구는 대부분 GPU 병렬 처리에 의존하기 때문에, CUDA는 실험 재현성과 성능 비교의 전제 조건으로 논문에서 자주 언급된다. 컴퓨터비전, 자연어처리, 계산과학 등 GPU를 활용하는 거의 모든 하위분야에서 실험 환경을 기술할 때 빠지지 않는 요소이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>CUDA는 엔비디아가 만든 독점 병렬 컴퓨팅 플랫폼이자 API로, 특정 GPU를 범용 계산에 쓸 수 있게 한다. 2004년에 만들어져 2007년에 공식 출시되었고, 첫 공개 SDK는 2007년 2월 15일에 윈도우와 리눅스용으로 나왔다.</li><li>프로그램은 CPU(호스트)가 <strong>커널</strong>을 실행시키면 GPU(디바이스)가 이를 수행하는 구조이다. 커널은 스레드가 모인 블록, 블록이 모인 그리드의 형태로 많은 프로세서에서 동시에 실행된다.</li><li>스레드는 32개씩 묶인 워프(warp) 단위로 SIMD 명령을 수행하고, 블록은 스트리밍 멀티프로세서(SM)에서 돈다.</li><li>메모리는 전역·상수·텍스처 메모리(VRAM과 L2 캐시), 같은 블록의 스레드가 공유하는 빠른 공유 메모리, 스레드별 레지스터로 나뉜다.</li><li>언어는 CUDA C/C++(nvcc로 PTX 코드로 컴파일), CUDA Fortran, Python(PyCUDA, CuPy 같은 래퍼)이 있고, OpenACC, OpenMP, OpenCL도 지원한다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>같은 연산을 많은 데이터에 동시에 적용하는 계산(행렬 연산, 푸리에 변환, 난수 생성 등)에서 이득이 크다. 선형대수 cuBLAS, 푸리에 변환 cuFFT, 난수 cuRAND, 희소 행렬 cuSPARSE 같은 라이브러리가 제공된다.</li><li>각 GPU가 지원하는 기능은 X.Y 형태의 연산 능력(compute capability)으로 구분한다. 암페어는 8.x, 호퍼는 9.0, 블랙웰은 10.0, 12.0 등이 예이다.</li><li>한계도 있다. 엔비디아 GPU에서만 쓸 수 있고, 호스트와 디바이스 사이 메모리 복사는 버스 대역폭과 지연 때문에 비용이 들며, 갈래가 많이 나뉘는 작업은 SIMD 구조상 성능이 떨어진다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>실험 환경에는 <strong>GPU 모델, CUDA 버전, 드라이버 버전, 사용 라이브러리 버전</strong>을 적는다. 예를 들어 "실험은 CUDA 12.1 환경의 NVIDIA A100 GPU에서 수행하였다"처럼 쓴다. 이 문장은 형식을 보이기 위한 예시이다.</p><ul><li>같은 코드도 GPU의 연산 능력과 CUDA 버전에 따라 속도가 달라지므로 둘을 함께 밝힌다.</li><li>속도 비교는 호스트-디바이스 복사 시간을 포함했는지 명시한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모든 모델은 CUDA 11.8과 cuDNN 8.6 환경에서 학습되었다."</div>
   <p>실험을 재현하려면 특정 버전의 CUDA와 그 위에서 동작하는 딥러닝 연산 라이브러리 cuDNN이 필요하다는 것을 명시한 문장이다.</p>
 
@@ -164,6 +182,18 @@
 
   <h2>주의할 점</h2>
   <p>CUDA는 엔비디아 GPU 전용 기술이라 AMD나 다른 제조사의 GPU에서는 그대로 쓸 수 없으며, 이 때문에 이식성 문제가 자주 발생한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><strong>CUDA</strong></th><td>엔비디아 GPU용 병렬 계산 플랫폼과 프로그래밍 모델</td></tr><tr><th scope="row"><a href="gpu.html">GPU</a></th><td>병렬 계산에 강한 그래픽 처리 장치</td></tr><tr><th scope="row"><a href="tensor-core.html">텐서 코어</a></th><td>행렬 곱셈을 빠르게 하는 GPU 내부 연산 유닛</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>NVIDIA (2007). CUDA 출시 보도자료.</li>
+    <li>NVIDIA. (n.d.). CUDA C++ Programming Guide.</li>
+    <li>Wikipedia contributors. (n.d.). CUDA. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

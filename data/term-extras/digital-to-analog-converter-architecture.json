@@ -1,0 +1,47 @@
+{
+  "type": "structure",
+  "sections": [
+    {
+      "heading": "어디에 있고 어떻게 생겼나",
+      "html": "<p>DAC의 구조는 디지털 입력 비트를 아날로그 출력으로 합치는 방식에 따라 나뉜다. 대표적인 것은 다음과 같다.</p><ul><li><strong>이진 가중형</strong>: 비트마다 2의 거듭제곱으로 가중된 소자를 연산증폭기에서 합한다. 빠르지만 소자를 매우 정밀하게 맞춰야 한다.</li><li><strong>R-2R 사다리</strong>: R과 2R 두 가지 저항만 되풀이해 쓰므로 정합이 쉬워 정밀도를 높이기 좋다.</li><li><strong>온도계 부호형</strong>: 출력 단계마다 같은 크기의 소자를 하나씩 둔다. 빠르고 정밀하지만 8비트에 255개, 16비트에 65,535개가 필요하다.</li><li><strong>분할형</strong>: 상위 비트는 온도계 부호, 하위 비트는 이진 가중으로 만들어 정밀도와 소자 수를 절충한다.</li><li><strong>델타-시그마</strong>: 과표본화와 펄스 밀도 방식을 쓴다.</li></ul>"
+    },
+    {
+      "heading": "맡은 기능",
+      "html": "<p>구조에 따라 속도, 정밀도, 면적이 달라진다. 성능은 INL(적분 비선형성: 이상적인 직선에서 벗어난 정도, LSB 단위)과 DNL(미분 비선형성: 인접 코드 간격이 이상값 1 LSB에서 벗어난 정도)로 나타낸다. 최대 DNL이 1 LSB보다 작으면 단조성이 보장된다.</p><p>그 밖에 글리치 에너지, 이득·오프셋 오차, SFDR, THD 등도 비교 지표로 쓰인다.</p>"
+    },
+    {
+      "heading": "연구에서 다루는 방식",
+      "html": "<p>논문은 해상도, 변환 속도, 소비전력, INL/DNL, SFDR을 함께 제시해 구조를 비교하는 경우가 많다. 시판 DAC 칩은 여러 방식을 섞은 혼합형이 많고, 소자 불일치를 줄이는 동적 소자 정합(dynamic element matching) 같은 기법이 함께 쓰인다.</p>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 구조",
+    "intro": "소자 수와 정합 난이도의 균형이 다르다.",
+    "headers": [
+      "구조",
+      "특징",
+      "약점"
+    ],
+    "rows": [
+      [
+        "이진 가중형",
+        "빠름",
+        "소자를 매우 정밀하게 맞춰야 함"
+      ],
+      [
+        "R-2R 사다리",
+        "저항 두 값만 필요해 정합이 쉬움",
+        "-"
+      ],
+      [
+        "온도계 부호형",
+        "빠르고 정밀함",
+        "소자 수가 지수적으로 늘어남"
+      ]
+    ]
+  },
+  "references": [
+    "Kester, W. (n.d.). Basic DAC Architectures I: String DACs and Thermometer (Fully Decoded) DACs. Analog Devices.",
+    "Van De Plassche, R. (1976). Dynamic element matching for high-accuracy monolithic D/A converters. IEEE Journal of Solid-State Circuits."
+  ]
+}
