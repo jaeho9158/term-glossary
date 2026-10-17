@@ -288,6 +288,8 @@ EXCLUDED_SLUGS = {
     # --- landscape(조경학) 카테고리 확장 시 발견된 오탐 ---
     "amphitheater",  # 야외극장 형태이며 열전달 개념과 무관
     "structural-planting",  # 식재를 이용한 공간 설계 기법이며 물리적 구조용 보 아님
+    # --- 2026-10 페이지 오류 검수 ---
+    "thermocouple-measurement",  # 'thermo' 부분매칭. 열전대(제벡 효과) 측정이며 일반 열전달 도식과 무관
 }
 
 
