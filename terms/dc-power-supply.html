@@ -150,13 +150,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>직류 전원공급장치는 설정한 전압(또는 전류)을 부하 변화에도 유지하는 장비이다. 대부분 <strong>정전압(CV)</strong>과 <strong>정전류(CC)</strong> 두 동작 모드를 가지며 부하에 따라 자동 전환된다.</li><li>전압을 V<sub>set</sub>, 전류 제한을 I<sub>lim</sub>으로 두면 전환점의 부하 저항은 R = V<sub>set</sub> ÷ I<sub>lim</sub>이다. 이보다 부하가 크면 CV, 작으면 CC로 동작하며 CC에서는 전압이 V<sub>set</sub>보다 낮아진다.</li><li>방식은 크게 선형 전원(저잡음, 효율은 낮음)과 스위칭 전원(효율 높음, 스위칭 잡음 존재)으로 나뉜다.</li><li>논문에 적는 사양은 출력 범위, 설정 분해능, 라인 레귤레이션(입력 변동에 대한 출력 변화), 로드 레귤레이션(부하 변동에 대한 출력 변화), 리플·잡음, 과도 응답 속도 등이다.</li></ul>
+  <ul><li>직류 전원공급장치는 설정한 전압(또는 전류)을 부하 변화에도 유지하는 장비이다. 대부분 <strong>정전압(CV)</strong>과 <strong>정전류(CC)</strong> 두 동작 모드를 가지며 부하에 따라 자동 전환된다.</li><li>전압을 V<sub>set</sub>, 전류 제한을 I<sub>lim</sub>으로 두면 전환점의 부하 저항은 R = V<sub>set</sub> ÷ I<sub>lim</sub>이다. 이보다 부하가 크면 CV, 작으면 CC로 동작하며 CC에서는 전압이 V<sub>set</sub>보다 낮아진다.</li><li>방식은 크게 선형 전원(저잡음, 효율은 낮음)과 스위칭 전원(효율 높음, 스위칭 잡음 존재)으로 나뉜다.</li><li>논문에 적는 사양은 출력 범위, 설정 분해능, 라인 레귤레이션(입력 변동에 대한 출력 변화), 로드 레귤레이션(부하 변동에 대한 출력 변화), 리플·잡음, 과도 응답 속도 등이다.</li></ul><p>선형 전원은 상용 교류를 상용 주파수 변압기로 낮춘 뒤 정류하고 거르는 방식이고, 선형 영역에서 동작하는 부품에서 열로 손실되는 전력 때문에 효율이 낮다. 스위칭 전원(SMPS)은 교류를 정류·평활해 직류로 만든 뒤 약 10 kHz에서 1 MHz로 스위칭하므로 변압기와 축전기를 훨씬 작고 가볍고 싸게 만들 수 있다. 스위칭 전원은 보통 부하 전류를 감시하는 되먹임 제어기로 조절하며, 전력 수요가 늘수록 스위칭 듀티비가 커진다.</p>
 
   <h2>예시로 보기</h2>
-  <p>가상의 실험이다. 전압 5 V, 전류 제한 0.5 A로 설정하면 전환점 저항은 5 ÷ 0.5 = 10 Ω이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>부하 저항</th><th>모드</th><th>출력</th></tr></thead><tbody><tr><td>20 Ω</td><td>CV</td><td>5 V, 0.25 A</td></tr><tr><td>10 Ω</td><td>경계</td><td>5 V, 0.5 A</td></tr><tr><td>5 Ω</td><td>CC</td><td>2.5 V, 0.5 A</td></tr></tbody></table></div><p>부하가 5 Ω이면 전압이 5 V가 아니라 2.5 V로 내려가는데, 이는 고장이 아니라 전류 제한이 작동한 결과이다. 측정 결과가 이상할 때 이를 먼저 확인해야 한다.</p>
+  <p>가상의 실험이다. 전압 5 V, 전류 제한 0.5 A로 설정하면 전환점 저항은 5 ÷ 0.5 = 10 Ω이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>부하 저항</th><th>모드</th><th>출력</th></tr></thead><tbody><tr><td>20 Ω</td><td>CV</td><td>5 V, 0.25 A</td></tr><tr><td>10 Ω</td><td>경계</td><td>5 V, 0.5 A</td></tr><tr><td>5 Ω</td><td>CC</td><td>2.5 V, 0.5 A</td></tr></tbody></table></div><p>부하가 5 Ω이면 전압이 5 V가 아니라 2.5 V로 내려가는데, 이는 고장이 아니라 전류 제한이 작동한 결과이다. 측정 결과가 이상할 때 이를 먼저 확인해야 한다.</p><p>리플은 직류 출력에 남는 교류 성분이다. 입력 주파수와 동작 방식에 따라 달라지며, 필터로 줄이되 필요한 수준은 부하가 견디는 정도에 따라 정한다. 선형 레귤레이터를 뒤에 두면 출력이 일정해지고 리플과 잡음도 줄어든다. 실험실용 전원에는 전자식 전류 제한이 흔하며, 폴드백 제한은 고장 시 전류를 최대 정상 전류보다 훨씬 낮게 떨어뜨린다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>설정한 전압이 항상 출력된다.</td><td>전류 제한에 걸리면 전압이 설정값보다 낮아진다.</td></tr><tr><td>디스플레이 값이 곧 부하 단자의 전압이다.</td><td>긴 도선·접촉 저항으로 부하 단자에서는 전압이 낮을 수 있고, 원격 감지 기능으로 보정하기도 한다.</td></tr><tr><td>전원 사양은 보고하지 않아도 된다.</td><td>재현성을 위해 모드, 설정값, 리플·잡음 등이 필요할 수 있다.</td></tr><tr><td>스위칭 전원은 모든 실험에 적합하다.</td><td>저잡음 측정에서는 선형 전원이 선호되기도 한다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>설정한 전압이 항상 출력된다.</td><td>전류 제한에 걸리면 전압이 설정값보다 낮아진다.</td></tr><tr><td>디스플레이 값이 곧 부하 단자의 전압이다.</td><td>긴 도선·접촉 저항으로 부하 단자에서는 전압이 낮을 수 있고, 원격 감지 기능으로 보정하기도 한다.</td></tr><tr><td>전원 사양은 보고하지 않아도 된다.</td><td>재현성을 위해 모드, 설정값, 리플·잡음 등이 필요할 수 있다.</td></tr><tr><td>스위칭 전원은 모든 실험에 적합하다.</td><td>저잡음 측정에서는 선형 전원이 선호되기도 한다.</td></tr></tbody></table></div><p>보호 기능은 과전압(OVP), 과전류(OCP), 저전압(UVP), 과온도(OTP), 단락(SCP), 과전력(OPP)의 약어로 표기한다. 스위칭 전원에는 출력이 설정 전압을 넘으면 출력을 접지로 눌러 버리는 크로바(crowbar) 회로를 두는 경우가 많다. 논문에서 실험 전원을 기술할 때는 어떤 보호 기능이 설정되어 있었는지도 함께 적는다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -188,6 +188,7 @@
     <li>Horowitz, P., &amp; Hill, W. (2015). The Art of Electronics (3rd ed.). Cambridge University Press.</li>
     <li>Mohan, N., Undeland, T. M., &amp; Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley.</li>
     <li>Erickson, R. W., &amp; Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic.</li>
+    <li>Wikipedia contributors (n.d.). Power supply. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

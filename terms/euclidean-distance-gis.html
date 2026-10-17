@@ -149,13 +149,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>계산과 범위</h2>
-  <ul><li>평면 좌표 (x₁, y₁), (x₂, y₂) 사이 직선거리: d = √((x₂ − x₁)² + (y₂ − y₁)²). 단위는 좌표계의 단위(보통 m)이며 0 이상이다. 두 점이 같으면 0이다.</li><li>GIS의 “유클리드 거리” 도구는 래스터의 각 셀에서 가장 가까운 원천 객체까지의 직선거리를 셀마다 계산한 격자를 만든다. 계산은 셀 중심 사이의 거리로 근사한다.</li><li><strong>좌표계가 중요하다.</strong> 경위도(도 단위) 값에 그대로 적용하면 단위가 도(°)라 거리로 해석할 수 없다. 투영 좌표계(<a href="projected-coordinate-system.html">투영좌표계</a>)로 바꾼 뒤 계산하거나, 넓은 범위에서는 <a href="great-circle-route.html">대원</a> 거리(구면 거리)를 쓴다.</li></ul>
+  <ul><li>평면 좌표 (x₁, y₁), (x₂, y₂) 사이 직선거리: d = √((x₂ − x₁)² + (y₂ − y₁)²). 단위는 좌표계의 단위(보통 m)이며 0 이상이다. 두 점이 같으면 0이다.</li><li>GIS의 “유클리드 거리” 도구는 래스터의 각 셀에서 가장 가까운 원천 객체까지의 직선거리를 셀마다 계산한 격자를 만든다. 계산은 셀 중심 사이의 거리로 근사한다.</li><li><strong>좌표계가 중요하다.</strong> 경위도(도 단위) 값에 그대로 적용하면 단위가 도(°)라 거리로 해석할 수 없다. 투영 좌표계(<a href="projected-coordinate-system.html">투영좌표계</a>)로 바꾼 뒤 계산하거나, 넓은 범위에서는 <a href="great-circle-route.html">대원</a> 거리(구면 거리)를 쓴다.</li></ul><p>소프트웨어 설명서의 동작 방식은 다음과 같다. ArcGIS Pro의 유클리드 거리 도구는 출력 격자의 각 셀에서 가장 가까운 원천까지의 거리를 계산하며, 결과 격자는 부동소수점이다. 원천은 래스터(값이 있는 셀, 0도 유효)이거나 점·선·면 피처이다.</p>
 
   <h2>해석 기준</h2>
-  <p>서울시청(약 37.5663°N, 126.9779°E)과 부산시청(약 35.1796°N, 129.0756°E) 사이를 비교한 예이다(좌표는 어림값, 코드로 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계산 방식</th><th>결과</th><th>의미</th></tr></thead><tbody><tr><td>경위도를 그대로 대입한 유클리드 거리</td><td>3.18 (도)</td><td>거리로 해석 불가</td></tr><tr><td>구면(하버사인) 거리, 지구 반지름 6,371.0 km</td><td>약 325 km</td><td>지구 곡률 반영한 직선(대권) 거리</td></tr></tbody></table></div><p>좁은 지역(도시 규모)에서는 투영 좌표계의 평면 거리와 구면 거리의 차이가 작지만, 투영 왜곡 때문에 범위가 넓어질수록 차이가 커진다. 실제 이동거리는 도로·지형을 따르므로 직선거리보다 대개 길다.</p>
+  <p>서울시청(약 37.5663°N, 126.9779°E)과 부산시청(약 35.1796°N, 129.0756°E) 사이를 비교한 예이다(좌표는 어림값).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계산 방식</th><th>결과</th><th>의미</th></tr></thead><tbody><tr><td>경위도를 그대로 대입한 유클리드 거리</td><td>3.18 (도)</td><td>거리로 해석 불가</td></tr><tr><td>구면(하버사인) 거리, 지구 반지름 6,371.0 km</td><td>약 325 km</td><td>지구 곡률 반영한 직선(대권) 거리</td></tr></tbody></table></div><p>좁은 지역(도시 규모)에서는 투영 좌표계의 평면 거리와 구면 거리의 차이가 작지만, 투영 왜곡 때문에 범위가 넓어질수록 차이가 커진다. 실제 이동거리는 도로·지형을 따르므로 직선거리보다 대개 길다.</p><p>피처 원천은 내부적으로 ‘셀 중심’ 방식으로 래스터화된다. 그래서 셀 크기에 비해 작은 피처는 셀 중심을 덮지 못하면 분석에서 빠질 수 있고, 이럴 때는 셀 크기를 더 작게 하거나 먼저 래스터로 변환하라고 안내한다. 최대 거리를 정하면 그 너머의 셀은 NoData가 되고, 기본값은 출력 래스터의 가장자리까지이다.</p>
 
   <h2>보고 방법</h2>
-  <ul><li>쓴 <strong>좌표계(투영법·EPSG 코드)</strong>와 거리 계산 방식(평면/구면), 래스터 셀 크기를 적는다.</li><li>접근성·시설 분석에서는 직선거리를 <strong>근사치</strong>로 밝히고, 가능하면 <a href="network-distance.html">네트워크거리</a>와 비교해 오차(예: 도로망 거리와의 비율)를 함께 보고한다.</li><li>보건 접근성 연구는 직선거리와 주행거리가 상관은 높지만 도시·농촌에서 차이가 달라진다고 보고한다(Phibbs &amp; Luft, 1995; Boscoe 외, 2012). 대상 지역 특성을 설명해야 한다.</li><li>버퍼 분석의 반경도 같은 거리 개념을 쓰므로 단위(m, km)를 명시한다.</li></ul>
+  <ul><li>쓴 <strong>좌표계(투영법·EPSG 코드)</strong>와 거리 계산 방식(평면/구면), 래스터 셀 크기를 적는다.</li><li>접근성·시설 분석에서는 직선거리를 <strong>근사치</strong>로 밝히고, 가능하면 <a href="network-distance.html">네트워크거리</a>와 비교해 오차(예: 도로망 거리와의 비율)를 함께 보고한다.</li><li>보건 접근성 연구는 직선거리와 주행거리가 상관은 높지만 도시·농촌에서 차이가 달라진다고 보고한다(Phibbs &amp; Luft, 1995; Boscoe 외, 2012). 대상 지역 특성을 설명해야 한다.</li><li>버퍼 분석의 반경도 같은 거리 개념을 쓰므로 단위(m, km)를 명시한다.</li></ul><p>거리 계산 방식은 투영 평면에서 계산하는 평면(planar)이 기본값이고, 타원체 위에서 계산하는 측지(geodesic) 방식을 고를 수도 있다. 이 도구는 기능과 성능이 개선된 ‘거리 누적(Distance Accumulation)’ 도구가 나오면서 지원 중단 예정 도구로 안내되고 있다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -188,6 +188,7 @@
     <li>Longley, P. A., Goodchild, M. F., Maguire, D. J., &amp; Rhind, D. W. (2015). Geographic Information Science and Systems (4th ed.). Wiley.</li>
     <li>Phibbs, C. S., &amp; Luft, H. S. (1995). Correlation of travel time on roads versus straight line distance. Medical Care Research and Review, 52(4), 532–542.</li>
     <li>Boscoe, F. P., Henry, K. A., &amp; Zdeb, M. S. (2012). A nationwide comparison of driving distance versus straight-line distance to hospitals. The Professional Geographer, 64(2), 188–196.</li>
+    <li>Esri (n.d.). Euclidean Distance (Spatial Analyst), ArcGIS Pro documentation.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

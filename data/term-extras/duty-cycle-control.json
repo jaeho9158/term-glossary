@@ -3,26 +3,21 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ul><li>듀티비 D = 스위치가 켜진 시간 ÷ 스위칭 주기이다(0~1).</li><li>이상적인 연속 전도 모드(CCM)에서 컨버터의 출력은 D로 정해집니다: [[buck-converter|벅]] V<sub>o</sub> = D·V<sub>in</sub>, [[boost-converter|부스트]] V<sub>o</sub> = V<sub>in</sub>/(1−D), [[buck-boost-converter|벅-부스트]] V<sub>o</sub> = −D·V<sub>in</sub>/(1−D)(반전 출력).</li><li>폐루프에서는 출력 전압을 측정해 기준값과 비교한 오차를 PI 같은 보상기에 넣고, 그 출력(제어 신호)을 삼각파와 비교해 [[pwm|PWM]] 스위칭 신호를 만든다.</li><li>전압모드는 출력 전압만, 전류모드는 인덕터 전류도 함께 되먹임한다.</li></ul>"
+      "html": "<ul><li>듀티비 D = 스위치가 켜진 시간 ÷ 스위칭 주기이다(0~1).</li><li>이상적인 연속 전도 모드(CCM)에서 컨버터의 출력은 D로 정해진다: [[buck-converter|벅]] V<sub>o</sub> = D·V<sub>in</sub>, [[boost-converter|부스트]] V<sub>o</sub> = V<sub>in</sub>/(1−D), [[buck-boost-converter|벅-부스트]] V<sub>o</sub> = −D·V<sub>in</sub>/(1−D)(반전 출력).</li><li>폐루프에서는 출력 전압을 측정해 기준값과 비교한 오차를 PI 같은 보상기에 넣고, 그 출력(제어 신호)을 삼각파와 비교해 [[pwm|PWM]] 스위칭 신호를 만든다.</li><li>전압모드는 출력 전압만, 전류모드는 인덕터 전류도 함께 되먹임한다.</li></ul><p>벅 컨버터는 입력 전압을 낮추고 전류를 높이는 비절연 직류–직류 강압 컨버터로, 스위치, 다이오드(또는 두 번째 트랜지스터), 인덕터, 커패시터로 이루어진다. 연속 전도 모드에서는 출력이 듀티비에 선형으로 변해 D = V_o / V_i이므로 V_o ≤ V_i이다. 이상적인 경우 12 V를 3 V로 낮추려면 듀티비가 25%여야 한다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>(가상의 예) V<sub>in</sub> = 12 V일 때 코드로 계산한 이상적 출력이다.</p><table><thead><tr><th>D</th><th>벅</th><th>부스트</th><th>벅-부스트</th></tr></thead><tbody><tr><td>0.2</td><td>2.4 V</td><td>15 V</td><td>−3 V</td></tr><tr><td>0.4</td><td>4.8 V</td><td>20 V</td><td>−8 V</td></tr><tr><td>0.5</td><td>6 V</td><td>24 V</td><td>−12 V</td></tr><tr><td>0.6</td><td>7.2 V</td><td>30 V</td><td>−18 V</td></tr><tr><td>0.8</td><td>9.6 V</td><td>60 V</td><td>−48 V</td></tr></tbody></table><p>12 V를 5 V로 낮추려면 D = 5/12 ≈ 0.417(벅), 12 V를 24 V로 올리려면 D = 0.5(부스트)이다. 부스트에서는 D가 1에 가까워질수록 식이 급격히 커지지만 실제 회로는 손실 때문에 그만큼 오르지 않고 효율이 떨어지므로, 설계에서는 D의 상·하한을 둔다. 위 식은 손실을 무시한 이상적인 경우이며, 불연속 전도 모드에서는 식이 달라진다.</p>"
+      "html": "<p>(가상의 예) V<sub>in</sub> = 12 V일 때 계산한 이상적 출력이다.</p><table><thead><tr><th>D</th><th>벅</th><th>부스트</th><th>벅-부스트</th></tr></thead><tbody><tr><td>0.2</td><td>2.4 V</td><td>15 V</td><td>−3 V</td></tr><tr><td>0.4</td><td>4.8 V</td><td>20 V</td><td>−8 V</td></tr><tr><td>0.5</td><td>6 V</td><td>24 V</td><td>−12 V</td></tr><tr><td>0.6</td><td>7.2 V</td><td>30 V</td><td>−18 V</td></tr><tr><td>0.8</td><td>9.6 V</td><td>60 V</td><td>−48 V</td></tr></tbody></table><p>12 V를 5 V로 낮추려면 D = 5/12 ≈ 0.417(벅), 12 V를 24 V로 올리려면 D = 0.5(부스트)이다. 부스트에서는 D가 1에 가까워질수록 식이 급격히 커지지만 실제 회로는 손실 때문에 그만큼 오르지 않고 효율이 떨어지므로, 설계에서는 D의 상·하한을 둔다. 위 식은 손실을 무시한 이상적인 경우이며, 불연속 전도 모드에서는 식이 달라진다.</p><p>인덕터 전류가 한 주기 안에서 0까지 내려가는 불연속 전도 모드(DCM)는 보통 경부하에서 일어나며, 이때는 출력이 듀티비뿐 아니라 입력 전압, 인덕턴스, 주기, 출력 전류에도 의존한다. 벅 컨버터의 DCM 출력은 V_o = V_i / (2L·I_o / (D²·V_i·T) + 1)로 주어진다. 두 모드의 경계는 인덕터 전류가 주기 끝에서 정확히 0이 되는 때로, 경계 출력 전류는 I_o,lim = V_i(1 − D)DT / (2L)이다. 하드웨어에서 이 경계를 감지하려면 정확하고 빠른 인덕터 전류 감지가 필요하다. 펄스 주파수 변조를 쓰면 DCM의 스위칭 손실을 줄일 수 있다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li>컨버터 토폴로지, 입력·출력 전압, 스위칭 주파수, 인덕터·커패시터 값을 적는다.</li><li>제어 방식(전압모드/전류모드), 보상기 종류와 이득, PWM 구현 방법을 밝힌다.</li><li>D를 변화시킨 실험이면 범위와 간격, 측정 장비를 적고 출력 전압–D 곡선을 이론식과 함께 보인다.</li><li>부하·입력 변동 때의 과도 응답(정착 시간, 오버슈트)과 정상상태 오차를 정량 보고한다.</li></ul>"
+      "html": "<ul><li>컨버터 토폴로지, 입력·출력 전압, 스위칭 주파수, 인덕터·커패시터 값을 적는다.</li><li>제어 방식(전압모드/전류모드), 보상기 종류와 이득, PWM 구현 방법을 밝힌다.</li><li>D를 변화시킨 실험이면 범위와 간격, 측정 장비를 적고 출력 전압–D 곡선을 이론식과 함께 보인다.</li><li>부하·입력 변동 때의 과도 응답(정착 시간, 오버슈트)과 정상상태 오차를 정량 보고한다.</li></ul><p>효율을 논할 때는 환류 다이오드를 두 번째 스위치(보통 MOSFET)로 바꾸는 동기 정류를 고려할 수 있다. 예를 들어 5 V를 3.3 V로 낮추는 10 A 출력에서 0.7 V 다이오드는 약 2.38 W, 0.015 Ω MOSFET은 약 0.51 W를 잃는다. 대신 비용이 늘고 구동 회로가 복잡해지며, 두 스위치가 동시에 켜지는 관통을 막으려면 데드타임 제어가 필요하다. 스위칭 손실은 대체로 주파수에 비례하여, 높은 주파수는 크기를 줄이는 대신 효율을 깎는다.</p>"
     }
   ],
   "references": [
     "Erickson, R. W., & Maksimović, D. (2001). Fundamentals of Power Electronics (2nd ed.). Kluwer Academic Publishers.",
     "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). John Wiley & Sons.",
-    "Middlebrook, R. D., & Ćuk, S. (1976). A general unified approach to modelling switching-converter power stages. IEEE Power Electronics Specialists Conference Record, 18–34."
-  ],
-  "fixes": [
-    {
-      "find": "듀티비는 컨버터 위상 구조에 따라",
-      "replace": "듀티비는 컨버터 토폴로지에 따라"
-    }
+    "Middlebrook, R. D., & Ćuk, S. (1976). A general unified approach to modelling switching-converter power stages. IEEE Power Electronics Specialists Conference Record, 18–34.",
+    "Wikipedia contributors (n.d.). Buck converter. Wikipedia."
   ]
 }

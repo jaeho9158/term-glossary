@@ -150,16 +150,16 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>주기가 T인 함수 f(t)를 사인·코사인 항의 합으로 쓴 것이 푸리에 급수이다.<br><code>f(t) = a<sub>0</sub>/2 + Σ [ a<sub>n</sub> cos(nωt) + b<sub>n</sub> sin(nωt) ]</code>, ω = 2π/T</li><li>n = 1인 항을 기본파, n ≥ 2인 항을 고조파(harmonic)라 하며, 계수 a<sub>n</sub>, b<sub>n</sub>은 함수에 각 사인·코사인을 곱해 한 주기 동안 적분해서 얻는다(Folland, 1992).</li><li>모든 주기함수가 아니라 <strong>적분 가능한 조건</strong>(예: 구간별 매끈한 함수)에서 급수가 함수로 수렴하며, 불연속점에서는 좌우 극한의 평균으로 수렴한다.</li><li>주기가 없는 신호까지 다루도록 확장한 것이 <a href="fourier-transform.html">푸리에 변환</a>이다.</li></ul>
+  <ul><li>주기가 T인 함수 f(t)를 사인·코사인 항의 합으로 쓴 것이 푸리에 급수이다.<br><code>f(t) = a<sub>0</sub>/2 + Σ [ a<sub>n</sub> cos(nωt) + b<sub>n</sub> sin(nωt) ]</code>, ω = 2π/T</li><li>n = 1인 항을 기본파, n ≥ 2인 항을 고조파(harmonic)라 하며, 계수 a<sub>n</sub>, b<sub>n</sub>은 함수에 각 사인·코사인을 곱해 한 주기 동안 적분해서 얻는다(Folland, 1992).</li><li>모든 주기함수가 아니라 <strong>적분 가능한 조건</strong>(예: 구간별 매끈한 함수)에서 급수가 함수로 수렴하며, 불연속점에서는 좌우 극한의 평균으로 수렴한다.</li><li>주기가 없는 신호까지 다루도록 확장한 것이 <a href="fourier-transform.html">푸리에 변환</a>이다.</li></ul><p>주기가 2L인 함수에서는 nx 자리에 nπx/L를 넣으면 같은 꼴이 된다. 짝함수는 사인 계수 b<sub>n</sub>이 모두 0이고, 홀함수는 코사인 계수 a<sub>n</sub>이 모두 0이다. 복소수 형태로는 f(x) = Σ A<sub>n</sub>e<sup>inx</sup>, A<sub>n</sub> = (1/2π)∫f(x)e<sup>−inx</sup>dx로 쓰며, 이 형태가 푸리에 변환으로 이어진다(Weisstein, MathWorld).</p>
 
   <h2>예시로 보기</h2>
-  <p>가장 유명한 예는 높이 +1과 −1을 번갈아 갖는 사각파이다. 사각파는 홀수 고조파만으로 이루어진 급수 <code>(4/π) Σ sin((2k−1)ωt)/(2k−1)</code>로 표현된다. 항을 몇 개까지 더하느냐에 따라 정확도가 달라지는데, 급수를 코드로 계산해 불연속점 근처의 최댓값을 보면 다음과 같다.</p>
+  <p>가장 유명한 예는 높이 +1과 −1을 번갈아 갖는 사각파이다. 사각파는 홀수 고조파만으로 이루어진 급수 <code>(4/π) Σ sin((2k−1)ωt)/(2k−1)</code>로 표현된다. 항을 몇 개까지 더하느냐에 따라 정확도가 달라지는데, 급수를 계산해 불연속점 근처의 최댓값을 보면 다음과 같다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>더한 홀수 고조파 수</th><th>최댓값</th><th>튀어나온 정도(도약 크기 2 대비)</th></tr></thead><tbody><tr><td>5</td><td>1.182</td><td>9.1%</td></tr><tr><td>25</td><td>1.179</td><td>9.0%</td></tr><tr><td>100</td><td>1.179</td><td>8.9%</td></tr><tr><td>500</td><td>1.179</td><td>8.9%</td></tr></tbody></table></div>
-  <p>항을 늘려도 튀어나온 정도가 약 9%로 줄지 않는 것이 이 페이지가 말하는 <strong>깁스 현상</strong>이다. 튀어나온 구간이 점점 좁아질 뿐 높이는 변하지 않는다(Hewitt &amp; Hewitt, 1979 참조).</p>
+  <p>항을 늘려도 튀어나온 정도가 약 9%로 줄지 않는 것이 이른바 <strong>깁스 현상</strong>이다. 튀어나온 구간이 점점 좁아질 뿐 높이는 변하지 않는다(Hewitt &amp; Hewitt, 1979 참조).</p><p>급수가 함수로 수렴하는 충분조건으로 디리클레 조건이 있다. 이 조건은 충분조건이지 필요조건이 아니다. 적분 가능한 함수의 푸리에 계수는 |n|이 커지면 0으로 간다(리만-르베그 보조정리). 또 L²에 속하는 함수에서는 한 주기 동안 |s(x)|²의 평균이 모든 조화 성분 |S[n]|²의 합과 같다(파르세발 정리).</p>
 
   <h2>자주 하는 오해</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>항을 충분히 많이 더하면 불연속점에서도 오차가 사라진다.</td><td>불연속점 부근의 최대 오차는 줄지 않고(약 9%), 좁은 구간에 모일 뿐이다.</td></tr><tr><td>푸리에 급수는 아무 신호에나 쓴다.</td><td>기본적으로 주기함수를 다룬다. 비주기 신호에는 푸리에 변환을 쓴다.</td></tr><tr><td>푸리에 급수의 계수는 신호의 시간 정보를 담는다.</td><td>계수는 각 주파수 성분의 크기와 위상을 나타내며, 신호의 한 주기 전체에서 구한 값이다.</td></tr></tbody></table></div>
-  <p>공학 논문에서는 주기 신호를 유한 개의 고조파로 근사하는 모델을 제안하는 방식으로 자주 등장한다(Oppenheim 외, 1997).</p>
+  <p>공학 논문에서는 주기 신호를 유한 개의 고조파로 근사하는 모델을 제안하는 방식으로 자주 등장한다(Oppenheim 외, 1997).</p><p>역사적으로 푸리에는 1807년 열의 전파에 관한 논문에서 열방정식을 풀려고 이 급수를 도입했고, 1811년 경연 논문에 대해 라그랑주와 라플라스가 포함된 심사위원회는 일반성과 엄밀성이 부족하다고 평했다. 그의 『열의 해석적 이론』은 1822년에 출간되었고, 이후 디리클레와 리만이 푸리에의 결과를 더 정확하게 서술했다. 푸리에 이전에도 오일러, 달랑베르, 다니엘 베르누이가 삼각급수를 다루었다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -195,6 +195,8 @@
     <li>Folland, G. B. (1992). Fourier Analysis and Its Applications. Wadsworth &amp; Brooks/Cole.</li>
     <li>Hewitt, E., &amp; Hewitt, R. E. (1979). The Gibbs-Wilbraham phenomenon: An episode in Fourier analysis. Archive for History of Exact Sciences, 21(2), 129–160.</li>
     <li>Oppenheim, A. V., Willsky, A. S., &amp; Nawab, S. H. (1997). Signals and Systems (2nd ed.). Prentice Hall.</li>
+    <li>Weisstein, E. W (n.d.). Fourier Series. MathWorld—A Wolfram Web Resource.</li>
+    <li>Wikipedia contributors (n.d.). Fourier series. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

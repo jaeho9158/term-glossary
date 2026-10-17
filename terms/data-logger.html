@@ -153,13 +153,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>무엇을 재는가</h2>
-  <p>데이터 로거는 그 자체가 무언가를 재는 것이 아니라 <strong>연결된 센서의 값을 정해진 간격으로 시각과 함께 기록해 저장</strong>하는 장비이다. 재는 양은 연결한 센서가 정하므로(온도, 습도, 수위, 전압, 진동 등), 로거와 센서를 따로 평가해야 한다. 현장에 두고 가면 사람 없이 오랜 기간 자료가 쌓인다.</p>
+  <p>데이터 로거는 그 자체가 무언가를 재는 것이 아니라 <strong>연결된 센서의 값을 정해진 간격으로 시각과 함께 기록해 저장</strong>하는 장비이다. 재는 양은 연결한 센서가 정하므로(온도, 습도, 수위, 전압, 진동 등), 로거와 센서를 따로 평가해야 한다. 현장에 두고 가면 사람 없이 오랜 기간 자료가 쌓인다.</p><p>데이터 로거는 센서나 기기를 내장하거나 외부에 연결해 시간에 따른 값, 또는 위치에 따른 값을 기록하는 전자 장치이다. 대부분 디지털이고 작고 배터리로 구동하며 마이크로프로세서와 내부 메모리를 갖는다. 컴퓨터에 연결해 소프트웨어로 설정하고 분석하는 유형도 있고, 자체 키패드나 LCD로 단독 동작하는 유형도 있다.</p>
 
   <h2>구성과 채점</h2>
-  <ul><li><strong>구성</strong>: 센서 입력부, 아날로그 신호를 숫자로 바꾸는 변환기, 시계, 메모리, 전원(배터리), 컴퓨터로 내려받는 인터페이스. 센서가 내장된 소형 로거와 외부 센서를 연결하는 로거가 있다.</li><li><strong>기록 간격(샘플링 주기)</strong>이 가장 중요한 설정이다. 짧을수록 변화를 자세히 잡지만 저장 용량과 배터리를 더 쓴다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>기록 간격</th><th>하루 기록 수</th><th>30일 기록 수</th></tr></thead><tbody><tr><td>1분</td><td>1,440</td><td>43,200</td></tr><tr><td>10분</td><td>144</td><td>4,320</td></tr><tr><td>60분</td><td>24</td><td>720</td></tr></tbody></table></div><p>변화가 가장 빠른 신호의 주기보다 충분히 짧게, 이론상 최소 두 배 빠르게 표본을 잡아야 변화를 놓치지 않는다(표본화 정리). 실제로는 여유 있게 더 촘촘히 잡는다(Bentley, 2005).</p>
+  <ul><li><strong>구성</strong>: 센서 입력부, 아날로그 신호를 숫자로 바꾸는 변환기, 시계, 메모리, 전원(배터리), 컴퓨터로 내려받는 인터페이스. 센서가 내장된 소형 로거와 외부 센서를 연결하는 로거가 있다.</li><li><strong>기록 간격(샘플링 주기)</strong>이 가장 중요한 설정이다. 짧을수록 변화를 자세히 잡지만 저장 용량과 배터리를 더 쓴다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>기록 간격</th><th>하루 기록 수</th><th>30일 기록 수</th></tr></thead><tbody><tr><td>1분</td><td>1,440</td><td>43,200</td></tr><tr><td>10분</td><td>144</td><td>4,320</td></tr><tr><td>60분</td><td>24</td><td>720</td></tr></tbody></table></div><p>변화가 가장 빠른 신호의 주기보다 충분히 짧게, 이론상 최소 두 배 빠르게 표본을 잡아야 변화를 놓치지 않는다(표본화 정리). 실제로는 여유 있게 더 촘촘히 잡는다(Bentley, 2005).</p><p>데이터 수집 장치(DAQ)에 비해 표본 추출이 느린 편이어서, 로거에서는 1 Hz도 매우 빠른 속도로 본다. 자료는 배터리 백업 SRAM, 플래시, EEPROM에 저장되며 며칠에서 몇 달 치를 담는 것도 있다. 내장 실시간 시계로 각 측정에 시각을 붙이므로, 모델을 고를 때 시계의 공표된 드리프트를 확인한다. 채널 수는 하나에서 여럿까지이고 채널 간 계산이나 경보 기능을 갖춘 것도 있다.</p>
 
   <h2>결과 읽는 법</h2>
-  <ul><li><strong>분해능과 정확도는 다르다.</strong> 소수 둘째 자리까지 표시된다고 정확한 것은 아니다. 센서의 정확도, 교정 상태, 불확도를 따로 확인한다(<a href="measurement-uncertainty.html">측정불확도</a>, Fraden, 2010).</li><li><strong>교정</strong>: 설치 전과 회수 후에 표준기와 비교해 센서가 서서히 틀어졌는지(드리프트) 확인한다(<a href="calibration-curve.html">검량선</a>).</li><li>기록을 내려받으면 시각 어긋남(시계 오차), 빠진 구간, 비정상적으로 튀는 값, 배터리 방전 시점을 확인한다. 결측과 이상값을 어떻게 처리했는지 논문에 밝힌다.</li><li>같은 장소의 센서가 직사광선·바람의 영향을 받았는지 등 <em>설치 조건</em>이 값에 영향을 준다.</li></ul><p><em>보고 예.</em> “온도는 데이터 로거(분해능 0.1 °C)로 지상 1.5 m 높이에서 10분 간격으로 30일간 기록하였다. 로거는 설치 전후 표준 온도계와 비교하여 교정하였다.” (조건은 예시이다.)</p>
+  <ul><li><strong>분해능과 정확도는 다르다.</strong> 소수 둘째 자리까지 표시된다고 정확한 것은 아니다. 센서의 정확도, 교정 상태, 불확도를 따로 확인한다(<a href="measurement-uncertainty.html">측정불확도</a>, Fraden, 2010).</li><li><strong>교정</strong>: 설치 전과 회수 후에 표준기와 비교해 센서가 서서히 틀어졌는지(드리프트) 확인한다(<a href="calibration-curve.html">검량선</a>).</li><li>기록을 내려받으면 시각 어긋남(시계 오차), 빠진 구간, 비정상적으로 튀는 값, 배터리 방전 시점을 확인한다. 결측과 이상값을 어떻게 처리했는지 논문에 밝힌다.</li><li>같은 장소의 센서가 직사광선·바람의 영향을 받았는지 등 <em>설치 조건</em>이 값에 영향을 준다.</li></ul><p><em>보고 예.</em> “온도는 데이터 로거(분해능 0.1 °C)로 지상 1.5 m 높이에서 10분 간격으로 30일간 기록하였다. 로거는 설치 전후 표준 온도계와 비교하여 교정하였다.”</p><p>자료 교환 형식으로는 XML, JSON, YAML이, 계측기 통신 규약으로는 SDI-12, MODBUS, CAN 버스(ISO 11898)가 거론되며, 표준화는 과제였으나 업계에서 점차 확산되고 있다고 한다. 논문에는 사용한 규약과 파일 형식, 시계 보정 여부도 적어 두면 재분석에 도움이 된다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -189,6 +189,7 @@
     <li>Bentley, J. P. (2005). Principles of Measurement Systems (4th ed.). Pearson Prentice Hall.</li>
     <li>Fraden, J. (2010). Handbook of Modern Sensors: Physics, Designs, and Applications (4th ed.). Springer.</li>
     <li>Joint Committee for Guides in Metrology. (2008). Evaluation of measurement data: Guide to the expression of uncertainty in measurement (JCGM 100:2008). BIPM.</li>
+    <li>Wikipedia contributors (n.d.). Data logger. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

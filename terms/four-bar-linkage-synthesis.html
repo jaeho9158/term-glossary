@@ -174,10 +174,10 @@
   <p>4절 링크 합성은 “이런 움직임을 내라”는 요구에서 거꾸로 링크 길이와 관절 위치를 정하는 설계 절차이다(Hartenberg &amp; Denavit, 1964). 요구의 종류에 따라 세 가지로 나눈다.</p><ul><li><strong>함수 생성</strong>: 입력 링크 각도와 출력 링크 각도 사이에 원하는 관계를 만든다.</li><li><strong>경로 생성</strong>: 커플러 위의 한 점이 원하는 곡선을 지나가게 한다.</li><li><strong>운동 생성</strong>: 강체(커플러)가 위치와 자세의 지정된 순서를 지나가게 한다.</li></ul><p>보통은 요구 조건을 몇 개의 <strong>정밀점</strong>(반드시 만족시킬 위치)으로 준다. 정밀점이 늘수록 설계 변수(링크 길이 등)가 소진되어, 모든 점을 정확히 만족시키려면 해가 없거나 조립이 불가능한 경우가 생긴다. 이때 대수적 방법(Freudenstein, 1954)으로 해를 구하거나, 수치 최적화로 오차를 최소화한다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>합성한 기구가 <strong>크랭크로 완전 회전할 수 있는가</strong>는 Grashof 조건으로 먼저 걸러 낸다. 가장 짧은 링크 s, 가장 긴 링크 l, 나머지 두 링크 p, q에 대해 s + l ≤ p + q이면 적어도 한 링크가 한 바퀴 돌 수 있다. 코드로 확인한 예(길이 단위 임의)는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>링크 길이</th><th>s + l</th><th>p + q</th><th>Grashof 조건</th></tr></thead><tbody><tr><td>2, 4, 5, 6</td><td>8</td><td>9</td><td>만족(s+l &lt; p+q)</td></tr><tr><td>3, 4, 5, 6</td><td>9</td><td>9</td><td>등호(변환점 기구)</td></tr><tr><td>4, 5, 6, 12</td><td>16</td><td>11</td><td>불만족(모든 링크가 흔들이)</td></tr></tbody></table></div><p>조건을 만족해도 어느 링크를 고정하느냐에 따라 기구의 종류가 달라진다. s + l &lt; p + q일 때 가장 짧은 링크의 이웃을 고정하면 크랭크-로커, 가장 짧은 링크를 고정하면 이중 크랭크, 맞은편 링크를 고정하면 이중 로커가 된다.</p>
+  <p>합성한 기구가 <strong>크랭크로 완전 회전할 수 있는가</strong>는 Grashof 조건으로 먼저 걸러 낸다. 가장 짧은 링크 s, 가장 긴 링크 l, 나머지 두 링크 p, q에 대해 s + l ≤ p + q이면 적어도 한 링크가 한 바퀴 돌 수 있다. 예(길이 단위 임의)는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>링크 길이</th><th>s + l</th><th>p + q</th><th>Grashof 조건</th></tr></thead><tbody><tr><td>2, 4, 5, 6</td><td>8</td><td>9</td><td>만족(s+l &lt; p+q)</td></tr><tr><td>3, 4, 5, 6</td><td>9</td><td>9</td><td>등호(변환점 기구)</td></tr><tr><td>4, 5, 6, 12</td><td>16</td><td>11</td><td>불만족(모든 링크가 흔들이)</td></tr></tbody></table></div><p>조건을 만족해도 어느 링크를 고정하느냐에 따라 기구의 종류가 달라진다. s + l &lt; p + q일 때 가장 짧은 링크의 이웃을 고정하면 크랭크-로커, 가장 짧은 링크를 고정하면 이중 크랭크, 맞은편 링크를 고정하면 이중 로커가 된다.</p><p>Grashof 조건이 성립하면 가장 짧은 링크가 이웃 링크에 대해 완전히 회전할 수 있다. 어느 링크를 고정하느냐에 따른 대표 형태는 크랭크-로커(한 링크가 돌고 다른 링크는 흔들림, 펌프잭에 쓰임), 이중 크랭크(고정 링크에 닿은 두 링크가 모두 회전), 이중 로커(둘 다 흔들림, 애커먼 조향에 쓰임)이다. 조건을 만족하지 않는 비Grashof 기구에서는 어떤 링크도 한 바퀴 돌지 못한다. 평행사변형과 역평행사변형 링크도 4절 링크의 한 부류로 분류된다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
-  <ul><li>합성의 종류(함수·경로·운동 생성), 정밀점의 개수와 좌표, 사용한 방법(대수적·그래프·최적화)을 적는다.</li><li>얻은 링크 길이를 표로 제시하고 Grashof 조건과 기구의 종류를 밝힌다.</li><li>설계 후 조립 가능 범위, 전달각, 요구 경로와의 최대 오차를 시뮬레이션이나 실험으로 확인했음을 보고한다.</li></ul><p><code>정밀점 3개를 만족하도록 링크 길이를 구하였고, 요구 경로 대비 최대 오차는 0.8 mm였다.</code> (형식을 보여 주려는 가상의 문장이다.)</p>
+  <ul><li>합성의 종류(함수·경로·운동 생성), 정밀점의 개수와 좌표, 사용한 방법(대수적·그래프·최적화)을 적는다.</li><li>얻은 링크 길이를 표로 제시하고 Grashof 조건과 기구의 종류를 밝힌다.</li><li>설계 후 조립 가능 범위, 전달각, 요구 경로와의 최대 오차를 시뮬레이션이나 실험으로 확인했음을 보고한다.</li></ul><p><code>정밀점 3개를 만족하도록 링크 길이를 구하였고, 요구 경로 대비 최대 오차는 0.8 mm였다.</code></p><p>왕복 운동 기구를 합성할 때는 빠른 행정과 느린 행정의 시간 비 Q(느린 쪽 시간 ÷ 빠른 쪽 시간, 1 이상)를 설계 조건으로 준다. 불균형각 β는 β = 180° × (Q − 1) ÷ (Q + 1)로 구하며, Q가 1보다 큰 급속 귀환 기구에서 링크 배치와 행정 시간을 연결한다. 4절 링크는 와이퍼, 문 닫개, 재봉틀, 선풍기 회전부, 더블 위시본 서스펜션 등 여러 기계에서 쓰인다. 다만 치수 합성은 링크 길이를 반복해서 분석하며 고르는 과정이어서, 조건에 따라 정확한 절차가 없는 경우도 있다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -207,6 +207,7 @@
     <li>Freudenstein, F. (1954). An analytical approach to the design of four-link mechanisms. Transactions of the ASME, 76.</li>
     <li>Hartenberg, R. S., &amp; Denavit, J. (1964). Kinematic Synthesis of Linkages. McGraw-Hill.</li>
     <li>Sandor, G. N., &amp; Erdman, A. G. (1984). Advanced Mechanism Design: Analysis and Synthesis (Vol. 2). Prentice-Hall.</li>
+    <li>Wikipedia contributors (n.d.). Four-bar linkage. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

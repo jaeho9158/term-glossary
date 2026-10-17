@@ -150,13 +150,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>Gazebo는 로봇 모델과 가상 환경을 물리 엔진 위에서 돌려 보는 시뮬레이터로, 다중 로봇 연구용으로 설계되었다(Koenig &amp; Howard, 2004). 논문에서 쓰이는 전형적인 절차는 다음과 같다.</p><ol><li><strong>로봇 모델 기술</strong>: 링크·관절·질량·관성을 SDF(또는 ROS에서 흔한 URDF) 파일로 기술한다.</li><li><strong>월드 구성</strong>: 지면, 장애물, 조명, 중력 등 환경을 정의하고 물리 엔진(ODE, Bullet, DART, Simbody 등 지원되는 것 중)을 고른다.</li><li><strong>센서·구동기 연결</strong>: 카메라, 라이다, IMU 등 센서 모델과 모터 모델을 플러그인으로 붙이고, 제어 소프트웨어(예: ROS 노드; Quigley 외, 2009)와 메시지로 연결한다.</li><li><strong>실행과 기록</strong>: 시나리오를 반복 실행해 지표를 기록한다.</li></ol>
+  <p>Gazebo는 로봇 모델과 가상 환경을 물리 엔진 위에서 돌려 보는 시뮬레이터로, 다중 로봇 연구용으로 설계되었다(Koenig &amp; Howard, 2004). 논문에서 쓰이는 전형적인 절차는 다음과 같다.</p><ol><li><strong>로봇 모델 기술</strong>: 링크·관절·질량·관성을 SDF(또는 ROS에서 흔한 URDF) 파일로 기술한다.</li><li><strong>월드 구성</strong>: 지면, 장애물, 조명, 중력 등 환경을 정의하고 물리 엔진(ODE, Bullet, DART, Simbody 등 지원되는 것 중)을 고른다.</li><li><strong>센서·구동기 연결</strong>: 카메라, 라이다, IMU 등 센서 모델과 모터 모델을 플러그인으로 붙이고, 제어 소프트웨어(예: ROS 노드; Quigley 외, 2009)와 메시지로 연결한다.</li><li><strong>실행과 기록</strong>: 시나리오를 반복 실행해 지표를 기록한다.</li></ol><p>Gazebo의 개발은 2002년에 시작되었고, 2011년까지 Player 프로젝트의 일부였다가 Willow Garage의 지원으로 독립했으며, 2012년부터 Open Source Robotics Foundation이 관리를 맡았다. Gazebo Classic의 기본 물리 엔진은 ODE이고 Bullet 등 다른 엔진도 쓸 수 있다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <ul><li><strong>얻는 것</strong>: 실제 로봇 없이 알고리즘(경로 계획, 제어, 인지)을 반복 시험할 수 있고, 위험하거나 비싼 실험을 먼저 걸러 낼 수 있다. 같은 조건의 시나리오를 반복해서 돌릴 수 있어 비교 실험에 유리하다.</li><li><strong>한계</strong>: 접촉·마찰·변형체의 모형은 단순화되어 있고 센서 잡음 모형도 현실보다 단순한 경우가 많아, 시뮬레이션에서의 성능이 실제 로봇에서 그대로 재현되지 않을 수 있다(<a href="sim-to-real-transfer.html">시뮬레이션-실환경 전이</a>). 접촉이 중요한 문제에서는 <a href="contact-dynamics.html">접촉 동역학</a> 모형의 정확도를 따져 보아야 한다.</li><li>로봇 시뮬레이터들을 비교한 종설(Collins 외, 2021)이 있어, 목적에 맞는 시뮬레이터를 고르는 근거로 인용된다.</li></ul>
 
   <h2>논문에는 이렇게 적는다</h2>
-  <ul><li>시뮬레이터의 이름뿐 아니라 <strong>버전</strong>(기존 Gazebo인지 새 계열인지), 물리 엔진과 시간 간격(step size)을 적는다.</li><li>로봇 모델의 출처(상용 모델인지 직접 작성했는지)와 물성 값, 센서 모델의 잡음 설정을 밝힌다.</li><li>반복 실행 횟수와 난수 시드, 평가 지표를 적고, 실제 로봇 실험을 병행했다면 두 결과의 차이를 함께 보고한다.</li></ul><p><code>Gazebo에서 물리 엔진 ODE, 시간 간격 1 ms로 각 시나리오를 30회 반복하였다.</code> (형식을 보여 주려는 가상의 문장이다.)</p>
+  <ul><li>시뮬레이터의 이름뿐 아니라 <strong>버전</strong>(기존 Gazebo인지 새 계열인지), 물리 엔진과 시간 간격(step size)을 적는다.</li><li>로봇 모델의 출처(상용 모델인지 직접 작성했는지)와 물성 값, 센서 모델의 잡음 설정을 밝힌다.</li><li>반복 실행 횟수와 난수 시드, 평가 지표를 적고, 실제 로봇 실험을 병행했다면 두 결과의 차이를 함께 보고한다.</li></ul><p><code>Gazebo에서 물리 엔진 ODE, 시간 간격 1 ms로 각 시나리오를 30회 반복하였다.</code></p><p>버전 표기가 중요한 이유는 계열이 갈렸기 때문이다. 2017년에 기존의 단일 구조 시뮬레이터(Gazebo Classic)와 모듈형 라이브러리 모음(당시 이름 Ignition)으로 개발이 나뉘었고, 2022년 상표 분쟁 이후 Ignition이 Gazebo라는 이름을 쓰게 되었다. Gazebo Classic은 2025년 1월에 지원이 종료되었다고 설명되므로, 2025년 이후 논문과 재현 자료에서는 어느 계열을 썼는지를 분명히 적는다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -184,6 +184,7 @@
     <li>Koenig, N., &amp; Howard, A. (2004). Design and use paradigms for Gazebo, an open-source multi-robot simulator. In Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS).</li>
     <li>Quigley, M., Conley, K., Gerkey, B., Faust, J., Foote, T., Leibs, J., Wheeler, R., &amp; Ng, A. Y. (2009). ROS: an open-source Robot Operating System. In ICRA Workshop on Open Source Software.</li>
     <li>Collins, J., Chand, S., Vanderkop, A., &amp; Howard, D. (2021). A review of physics simulators for robotic applications. IEEE Access, 9, 51416–51431.</li>
+    <li>Wikipedia contributors (n.d.). Gazebo (simulator). Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

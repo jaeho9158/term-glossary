@@ -152,13 +152,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <p>과적합은 모델이 학습 자료의 잡음까지 따라가서, 학습 자료에서는 잘 맞지만 새 자료에서는 오차가 커지는 현상이다(Hastie 외, 2009). 모델이 복잡할수록(예: 다항식의 차수, 신경망의 크기) 학습 오차는 계속 줄어들지만 일반화 오차는 어느 지점부터 다시 커진다.</p><ul><li>학습 곡선에서 학습 손실은 줄고 검증 손실은 늘어나기 시작하면 과적합이 의심된다.</li><li>대응: 더 많은 자료, 단순한 모델, 정규화(L1·L2), 조기 종료, 드롭아웃(Srivastava 외, 2014), 교차검증으로 복잡도 선택.</li><li>회귀 분석에서도 변수가 표본 수에 비해 많으면 같은 문제가 생긴다(Babyak, 2004).</li></ul>
+  <p>과적합은 모델이 학습 자료의 잡음까지 따라가서, 학습 자료에서는 잘 맞지만 새 자료에서는 오차가 커지는 현상이다(Hastie 외, 2009). 모델이 복잡할수록(예: 다항식의 차수, 신경망의 크기) 학습 오차는 계속 줄어들지만 일반화 오차는 어느 지점부터 다시 커진다.</p><ul><li>학습 곡선에서 학습 손실은 줄고 검증 손실은 늘어나기 시작하면 과적합이 의심된다.</li><li>대응: 더 많은 자료, 단순한 모델, 정규화(L1·L2), 조기 종료, 드롭아웃(Srivastava 외, 2014), 교차검증으로 복잡도 선택.</li><li>회귀 분석에서도 변수가 표본 수에 비해 많으면 같은 문제가 생긴다(Babyak, 2004).</li></ul><p>과적합한 모델은 자료가 정당화하는 것보다 많은 모수를 가지며, 잔차의 잡음을 모형의 구조인 양 다룬다. 원인으로는 자료 크기에 비해 큰 모델 복잡도, 너무 오래 학습하거나 학습 예시가 적은 경우, 모델을 고르는 기준(학습 자료 적합도)과 평가하는 기준(새 자료 성능)의 불일치, 후보 모델이 많은데 이론적 지침이 적은 경우가 있다. 변수가 p개이고 자료가 p개인 선형회귀는 직선이 모든 점을 정확히 지나게 만들 수 있다. 반대편에는 모델이 자료 구조를 잡지 못하는 과소적합(예: 비선형 자료에 선형 모델)이 있고 편향이 크고 분산이 작다.</p>
 
   <h2>예시로 보기</h2>
-  <p><strong>코드로 만든 예(가상의 자료).</strong> y = sin(2πx) + 잡음(표준편차 0.2)에서 10개 점으로 다항식을 맞추고, 같은 분포에서 새로 뽑은 200개 점으로 평균제곱오차(MSE)를 비교했다(난수 시드 고정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>다항식 차수</th><th>학습 MSE</th><th>새 자료 MSE</th></tr></thead><tbody><tr><td>1</td><td>0.261</td><td>0.265</td></tr><tr><td>3</td><td>0.017</td><td>0.049</td></tr><tr><td>9</td><td>거의 0</td><td>0.110</td></tr></tbody></table></div><p>1차는 너무 단순해 학습·새 자료 오차가 둘 다 크다(과소적합). 9차는 10개 점을 거의 정확히 지나 학습 오차가 거의 0이지만 새 자료 오차는 3차의 두 배 이상이다. 잡음의 분산이 0.04이므로 새 자료 오차 0.049는 이론상 한계에 가깝다.</p>
+  <p><strong>가상의 자료로 만든 예.</strong> y = sin(2πx) + 잡음(표준편차 0.2)에서 10개 점으로 다항식을 맞추고, 같은 분포에서 새로 뽑은 200개 점으로 평균제곱오차(MSE)를 비교했다(난수 시드 고정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>다항식 차수</th><th>학습 MSE</th><th>새 자료 MSE</th></tr></thead><tbody><tr><td>1</td><td>0.261</td><td>0.265</td></tr><tr><td>3</td><td>0.017</td><td>0.049</td></tr><tr><td>9</td><td>거의 0</td><td>0.110</td></tr></tbody></table></div><p>1차는 너무 단순해 학습·새 자료 오차가 둘 다 크다(과소적합). 9차는 10개 점을 거의 정확히 지나 학습 오차가 거의 0이지만 새 자료 오차는 3차의 두 배 이상이다. 잡음의 분산이 0.04이므로 새 자료 오차 0.049는 이론상 한계에 가깝다.</p><p>scikit-learn 문서의 예는 cos(1.5πX)의 일부에 잡음을 얹은 표본에 다항식 특징 선형회귀를 1차, 4차, 15차로 맞추고 10겹 교차검증의 평균제곱오차(MSE)로 평가한다. 결과는 1차가 약 0.41(과소적합), 4차가 약 0.043(가장 잘 일반화), 15차가 약 1.8×10⁸(심한 과적합)이다. 15차는 잡음까지 배워 검증 자료에서 오차가 폭발한다.</p>
 
   <h2>자주 하는 오해</h2>
-  <ul><li><strong>“학습 정확도가 높으면 좋은 모델”이 아니다.</strong> 반드시 학습에 쓰이지 않은 검증·시험 자료에서 성능을 확인한다.</li><li><strong>시험 자료로 모델을 계속 고르면 시험 자료에도 과적합된다.</strong> 모델 선택용 검증 자료와 최종 평가용 시험 자료를 분리해야 한다.</li><li><strong>복잡한 모델이 항상 과적합하는 것은 아니다.</strong> 자료가 충분하고 정규화가 적절하면 큰 모델도 일반화한다. 문제는 복잡도 자체가 아니라 자료량 대비 복잡도이다.</li></ul>
+  <ul><li><strong>“학습 정확도가 높으면 좋은 모델”이 아니다.</strong> 반드시 학습에 쓰이지 않은 검증·시험 자료에서 성능을 확인한다.</li><li><strong>시험 자료로 모델을 계속 고르면 시험 자료에도 과적합된다.</strong> 모델 선택용 검증 자료와 최종 평가용 시험 자료를 분리해야 한다.</li><li><strong>복잡한 모델이 항상 과적합하는 것은 아니다.</strong> 자료가 충분하고 정규화가 적절하면 큰 모델도 일반화한다. 문제는 복잡도 자체가 아니라 자료량 대비 복잡도이다.</li></ul><p>대응책은 모델 비교와 교차검증, 정규화와 베이즈 사전분포, 조기 종료와 가지치기, 드롭아웃(신경망), 더 큰 새 자료로의 확인이다. 로지스틱·Cox 모형에서는 사건 수 대비 변수 수의 경험칙이 있어 변수당 5~9건, 10건, 10~15건 등으로 다르게 제시되며 변수당 10건 기준이 ‘10분의 1 규칙’이다. 표본 밖 성능이 표본 안 성능보다 낮아지는 현상을 수축(shrinkage)이라 하고 R²도 줄어든다. 무관한 변수가 많으면 일부가 우연히 유의하게 나오는 프리드먼의 역설도 생긴다. Burnham과 Anderson(2002)은 과적합을 피하려면 간결성 원리를 따라야 하며 “최적의 근사 모델은 과소적합과 과적합의 오차를 균형 있게 맞출 때 얻는다”고 했다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -198,6 +198,8 @@
     <li>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.</li>
     <li>Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., &amp; Salakhutdinov, R. (2014). Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine Learning Research, 15, 1929–1958.</li>
     <li>Babyak, M. A. (2004). What you see may not be what you get: a brief, nontechnical introduction to overfitting in regression-type models. Psychosomatic Medicine, 66(3), 411–421.</li>
+    <li>Wikipedia contributors (n.d.). Overfitting. Wikipedia.</li>
+    <li>scikit-learn developers (n.d.). Underfitting vs. Overfitting.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

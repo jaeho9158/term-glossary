@@ -157,13 +157,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>연결 리스트는 각 칸(노드)이 값과 다음 칸의 위치(포인터)를 함께 가지고 줄줄이 이어진 자료구조이다. 시작점을 가리키는 head를 알면 전체를 따라갈 수 있다.</li><li>변형: 다음 칸만 가리키는 단일 연결 리스트, 앞뒤를 모두 가리키는 이중 연결 리스트, 마지막이 처음으로 이어지는 원형 연결 리스트.</li><li>배열은 칸이 메모리에 나란히 놓여 번호로 바로 찾아가지만, 연결 리스트는 칸이 흩어져 있어 앞에서부터 따라가야 한다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>연산</th><th>연결 리스트</th><th>배열</th></tr></thead><tbody><tr><td>i번째 접근</td><td>O(n)</td><td>O(1)</td></tr><tr><td>맨 앞 삽입</td><td>O(1)</td><td>O(n)</td></tr><tr><td>노드를 이미 가리키고 있을 때 뒤에 삽입</td><td>O(1)</td><td>O(n)</td></tr><tr><td>값으로 탐색</td><td>O(n)</td><td>O(n)</td></tr></tbody></table></div><p>삽입이 O(1)이려면 삽입할 자리의 노드를 이미 알고 있어야 한다. 그 자리를 찾는 비용은 따로 든다(Cormen et al., 2009).</p>
+  <ul><li>연결 리스트는 각 칸(노드)이 값과 다음 칸의 위치(포인터)를 함께 가지고 줄줄이 이어진 자료구조이다. 시작점을 가리키는 head를 알면 전체를 따라갈 수 있다.</li><li>변형: 다음 칸만 가리키는 단일 연결 리스트, 앞뒤를 모두 가리키는 이중 연결 리스트, 마지막이 처음으로 이어지는 원형 연결 리스트.</li><li>배열은 칸이 메모리에 나란히 놓여 번호로 바로 찾아가지만, 연결 리스트는 칸이 흩어져 있어 앞에서부터 따라가야 한다.</li></ul><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>연산</th><th>연결 리스트</th><th>배열</th></tr></thead><tbody><tr><td>i번째 접근</td><td>O(n)</td><td>O(1)</td></tr><tr><td>맨 앞 삽입</td><td>O(1)</td><td>O(n)</td></tr><tr><td>노드를 이미 가리키고 있을 때 뒤에 삽입</td><td>O(1)</td><td>O(n)</td></tr><tr><td>값으로 탐색</td><td>O(n)</td><td>O(n)</td></tr></tbody></table></div><p>삽입이 O(1)이려면 삽입할 자리의 노드를 이미 알고 있어야 한다. 그 자리를 찾는 비용은 따로 든다(Cormen et al., 2009).</p><p>변형으로는 앞서 든 세 가지 외에 한 노드가 둘 이상의 링크 필드를 가져 같은 데이터를 서로 다른 순서로 엮는 다중 연결 리스트도 있다. 이중 연결 리스트는 노드당 공간을 더 쓰는 대신 삽입과 삭제가 쉽다. 센티넬(sentinel) 노드는 첫 노드 앞이나 마지막 노드 뒤에 두는 더미 노드로, 빈 리스트와 끝 검사를 위한 예외 처리를 없애 준다. 대신 공간이 조금 더 든다.</p>
 
   <h2>예시로 보기</h2>
-  <p>세 노드 3 → 7 → 9 에서 7 뒤에 8을 끼워 넣으면 다음 두 줄이면 된다.</p><p><code>새노드.next = 7노드.next</code><br><code>7노드.next = 새노드</code></p><p>결과는 3 → 7 → 8 → 9 이다. 뒤의 노드를 하나도 옮기지 않았다는 점이 배열과 다르다. 반대로 3번째 값을 읽으려면 head에서 두 번 따라가야 한다.</p><p>이 구조는 스택·큐 구현, 해시 테이블의 체이닝(같은 칸에 걸린 값을 줄로 잇기), 그래프의 인접 리스트, 메모리 할당기의 빈 블록 목록 등에 쓰인다.</p>
+  <p>세 노드 3 → 7 → 9 에서 7 뒤에 8을 끼워 넣으면 다음 두 줄이면 된다.</p><p><code>새노드.next = 7노드.next</code><br><code>7노드.next = 새노드</code></p><p>결과는 3 → 7 → 8 → 9 이다. 뒤의 노드를 하나도 옮기지 않았다는 점이 배열과 다르다. 반대로 3번째 값을 읽으려면 head에서 두 번 따라가야 한다.</p><p>이 구조는 스택·큐 구현, 해시 테이블의 체이닝(같은 칸에 걸린 값을 줄로 잇기), 그래프의 인접 리스트, 메모리 할당기의 빈 블록 목록 등에 쓰인다.</p><p>XOR 연결 리스트는 이웃 노드 주소를 XOR한 값 하나만 저장해 이중 연결 리스트 기능을 내는 구조이다. 주소에 비트 연산을 해야 해서 일부 고수준 언어에서는 쓸 수 없다. 언롤드 연결 리스트는 노드 하나에 값 하나가 아니라 배열을 담아 캐시 성능을 높이고 원소당 링크 부담을 줄인다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>연결 리스트는 배열보다 항상 삽입·삭제가 빠르다.</td><td>삽입 자리를 찾는 시간까지 합치면 O(n)일 수 있다. 또한 노드가 메모리에 흩어져 있으면 CPU 캐시 효율이 떨어져 실제로는 배열이 더 빠른 경우가 많다.</td></tr><tr><td>메모리를 덜 쓴다.</td><td>노드마다 포인터를 더 저장하므로 같은 데이터에서 보통 메모리를 더 쓴다.</td></tr><tr><td>크기를 미리 몰라도 된다는 건 크기에 한계가 없다는 뜻이다.</td><td>필요할 때 노드를 할당하지만 전체 메모리 한도는 그대로이다.</td></tr><tr><td>스택·큐와 같은 말이다.</td><td>스택·큐는 넣고 빼는 규칙(추상 자료형)이고, 연결 리스트나 배열은 이를 구현하는 방법이다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>연결 리스트는 배열보다 항상 삽입·삭제가 빠르다.</td><td>삽입 자리를 찾는 시간까지 합치면 O(n)일 수 있다. 또한 노드가 메모리에 흩어져 있으면 CPU 캐시 효율이 떨어져 실제로는 배열이 더 빠른 경우가 많다.</td></tr><tr><td>메모리를 덜 쓴다.</td><td>노드마다 포인터를 더 저장하므로 같은 데이터에서 보통 메모리를 더 쓴다.</td></tr><tr><td>크기를 미리 몰라도 된다는 건 크기에 한계가 없다는 뜻이다.</td><td>필요할 때 노드를 할당하지만 전체 메모리 한도는 그대로이다.</td></tr><tr><td>스택·큐와 같은 말이다.</td><td>스택·큐는 넣고 빼는 규칙(추상 자료형)이고, 연결 리스트나 배열은 이를 구현하는 방법이다.</td></tr></tbody></table></div><p>역사적으로 연결 리스트는 빅토르 잉그베(Yngve)의 기계 번역 언어 COMIT와 매카시(McCarthy)의 LISP에서 핵심 자료구조로 쓰였다. 동적 배열과 비교하면 알려진 위치에서의 삽입·삭제가 상수 시간이고 재할당이 필요 없지만, 순차 접근만 가능하고 링크 공간이 더 들며 캐시 지역성이 나쁘다. 운영체제는 프로세스와 스레드를 추적하는 데 연결 리스트를 쓰고, 해시 테이블의 체이닝과 스킵 리스트의 바탕으로도 쓰인다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -197,6 +197,7 @@
   <ol class="te-refs">
     <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., &amp; Stein, C. (2009). Introduction to Algorithms (3rd ed.). MIT Press.</li>
     <li>Knuth, D. E. (1997). The Art of Computer Programming, Volume 1: Fundamental Algorithms (3rd ed.). Addison-Wesley.</li>
+    <li>Wikipedia contributors (n.d.). Linked list. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
