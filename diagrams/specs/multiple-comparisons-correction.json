@@ -1,0 +1,60 @@
+{
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "검정을 m번 반복",
+      "color": "amber",
+      "sub": "같은 데이터"
+    },
+    {
+      "id": "b",
+      "label": "위양성 기회 누적",
+      "color": "blue",
+      "sub": "검정마다 우연 유의 가능"
+    },
+    {
+      "id": "c",
+      "label": "전체 위양성 확률 증가",
+      "color": "rose",
+      "sub": "독립 6회면 약 26.5%"
+    },
+    {
+      "id": "d",
+      "label": "유의수준 엄격화",
+      "color": "green",
+      "sub": "본페로니는 α/m"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow",
+      "label": "보정"
+    }
+  ],
+  "notes": [
+    {
+      "text": "FWER 통제는 확정적 결론, FDR 통제는 탐색 연구에 흔히 쓰임",
+      "tone": "general"
+    },
+    {
+      "text": "본페로니는 보수적이라 홀름 방법이 더 검정력이 높음",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia Multiple comparisons problem (en.wikipedia.org/wiki/Multiple_comparisons_problem): FWER = 1-(1-alpha)^m for independent tests (6 tests at .05 -> ~0.265); Bonferroni alpha/m; Holm more powerful; FWER vs FDR",
+  "slug": "multiple-comparisons-correction",
+  "reviewed": true
+}

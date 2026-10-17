@@ -1,0 +1,70 @@
+{
+  "slug": "cohen-kappa",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "관찰 일치율",
+      "color": "blue",
+      "sub": "p_o"
+    },
+    {
+      "id": "b",
+      "label": "우연 일치율",
+      "color": "amber",
+      "sub": "p_e, 각자 분포로 계산"
+    },
+    {
+      "id": "c",
+      "label": "우연분 제외",
+      "color": "violet",
+      "sub": "p_o − p_e"
+    },
+    {
+      "id": "d",
+      "label": "최대치로 나눔",
+      "color": "violet",
+      "sub": "÷ (1 − p_e)"
+    },
+    {
+      "id": "e",
+      "label": "κ",
+      "color": "green",
+      "sub": "1 완전 일치, 0 우연 수준"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "범주 분포가 치우치면 일치율이 높아도 κ가 낮을 수 있음",
+      "tone": "limit"
+    },
+    {
+      "text": "해석 구간(Landis-Koch 등)은 관례로 임의적",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Cohen's kappa (열람)",
+  "reviewed": true
+}
