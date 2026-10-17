@@ -1,0 +1,55 @@
+{
+  "slug": "odometry",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "엔코더 눈금 계수",
+      "color": "blue",
+      "sub": "바퀴 회전량"
+    },
+    {
+      "id": "n1",
+      "label": "거리로 환산",
+      "color": "violet",
+      "sub": "눈금×(둘레/해상도)"
+    },
+    {
+      "id": "n2",
+      "label": "방향 변화 추정",
+      "color": "violet",
+      "sub": "좌우 바퀴 이동 차이"
+    },
+    {
+      "id": "n3",
+      "label": "위치 누적 갱신",
+      "color": "amber",
+      "sub": "시작점 기준"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "속도를 적분해 위치를 구하므로 오차가 누적됨",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia, Odometry, https://en.wikipedia.org/wiki/Odometry (열람)",
+  "reviewed": true
+}
