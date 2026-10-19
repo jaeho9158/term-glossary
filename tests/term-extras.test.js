@@ -3,7 +3,7 @@ const test = require("node:test");
 const assert = require("node:assert");
 const fs = require("fs");
 const path = require("path");
-const { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, sanitizeFragment, linkify, stripAll } = require("../scripts/apply-term-extras.js");
+const { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, sanitizeFragment, linkify, stripAll, normalizeEol } = require("../scripts/apply-term-extras.js");
 const { fingerprints } = require("../scripts/review-data.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -159,7 +159,9 @@ test("파일럿 페이지는 데이터와 일치(재적용해도 변화 없음)�
   for (const slug of slugs) {
     const html = fs.readFileSync(path.join(ROOT, "terms", `${slug}.html`), "utf8");
     const next = applyToHtml(html, slug, readJson(path.join(EXTRAS_DIR, `${slug}.json`)), readJson(path.join(USAGE_DIR, `${slug}.json`)));
-    assert.strictEqual(next, html, `${slug}: npm 대신 node scripts/apply-term-extras.js 를 다시 실행하세요`);
+    // 체크아웃 줄바꿈(core.autocrlf)과 무관하게 비교한다
+    assert.ok(next !== null, `${slug}: 앵커 없음`);
+    assert.strictEqual(normalizeEol(next), normalizeEol(html), `${slug}: npm 대신 node scripts/apply-term-extras.js 를 다시 실행하세요`);
     assert.strictEqual(html.split("assets/term-extras.css").length - 1, 1, slug);
     // 마커 밖의 표는 없어야 하고, 마커 안의 표는 모두 래퍼 안에 있다
     const inside = [...html.matchAll(/<!-- term-extras:(\w+):start -->([\s\S]*?)<!-- term-extras:\1:end -->/g)].map((m) => m[2]).join("");
@@ -175,6 +177,15 @@ test("파일럿 밖 페이지에는 term-extras 가 없다(표본 검사)", () =
   for (const f of files) {
     const html = fs.readFileSync(path.join(dir, f), "utf8");
     assert.ok(!html.includes("term-extras"), f);
+  }
+});
+
+test("CRLF 체크아웃에서도 파일럿 페이지 재적용 결과가 같다(교정 문단 중복 없음)", () => {
+  for (const slug of slugs) {
+    const html = fs.readFileSync(path.join(ROOT, "terms", `${slug}.html`), "utf8").replace(/\r?\n/g, "\r\n");
+    const next = applyToHtml(html, slug, readJson(path.join(EXTRAS_DIR, `${slug}.json`)), readJson(path.join(USAGE_DIR, `${slug}.json`)));
+    assert.ok(next !== null, `${slug}: CRLF 에서 앵커 없음`);
+    assert.strictEqual(normalizeEol(next), normalizeEol(html), `${slug}: CRLF 재적용 결과가 다름`);
   }
 });
 

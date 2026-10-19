@@ -201,7 +201,8 @@ function applyToHtml(html, slug, extras, usage) {
       replace = replace.replace(/\r?\n/g, "\r\n");
     }
     if (!out.includes(find)) continue;
-    if (replace.includes(find) && out.includes(replace)) continue;
+    // 이미 반영됐는지는 줄바꿈과 무관하게 본다(CRLF 체크아웃에서 한 줄 find + 여러 줄 replace 가 거듭 삽입되던 문제).
+    if (replace.includes(find) && normalizeEol(out).includes(normalizeEol(replace))) continue;
     out = out.split(find).join(replace);
   }
   if (!out.includes(ANCHOR_H2) || !out.includes(NAV_CSS_LINK)) return null;
@@ -220,6 +221,9 @@ function applyToHtml(html, slug, extras, usage) {
   out = out.replace(NAV_LINE_RE, (m, link, nl) => link + nl + CSS_LINK + nl);
   return out;
 }
+
+// 체크아웃 줄바꿈(CRLF/LF)과 무관하게 비교할 때 쓴다.
+function normalizeEol(s) { return s.replace(/\r\n/g, "\n"); }
 
 function archiveSet() {
   try { return new Set(JSON.parse(fs.readFileSync(path.join(ROOT, "data", "index-tiers.json"), "utf8")).archive || []); } catch (e) { return new Set(); }
@@ -243,7 +247,7 @@ function main() {
     const html = fs.readFileSync(file, "utf8");
     const next = applyToHtml(html, slug, readJson(path.join(EXTRAS_DIR, `${slug}.json`)), readJson(path.join(USAGE_DIR, `${slug}.json`), []));
     if (next === null) { console.warn(`건너뜀(앵커 없음, 스텁?): ${slug}`); skipped++; continue; }
-    if (next === html) { same++; continue; }
+    if (normalizeEol(next) === normalizeEol(html)) { same++; continue; }
     if (!dry) fs.writeFileSync(file, next);
     changed++;
     console.log(`${dry ? "[dry] " : ""}반영: ${slug}`);
@@ -251,5 +255,5 @@ function main() {
   console.log(`반영 ${changed}, 변경 없음 ${same}, 건너뜀 ${skipped}`);
 }
 
-module.exports = { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, renderCell, sanitizeFragment, linkify, esc, stripAll };
+module.exports = { normalizeEol, TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, renderCell, sanitizeFragment, linkify, esc, stripAll };
 if (require.main === module) main();
