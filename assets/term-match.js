@@ -306,26 +306,45 @@ function isUnsafeIndexKey(key) {
   return key.length < 2 || PARTICLE_SET.has(key);
 }
 
+// 띄어쓰기가 있는 표제어("평형 이동")의 키. 토큰은 낱말 하나씩이라 단일어 경로로는
+// 영영 닿지 않는다. matchPhrases가 이웃 토큰을 이어 붙여 이 키들만 찾는다.
+// 붙여 쓴 표제어("신호전달")는 여기에 넣지 않는다 — "신호 전달"처럼 띄어 쓴 두 낱말을
+// 붙여 쓴 한 낱말 표제어로 잡으면 우연한 이웃 낱말 결합이 오탐이 된다.
+const PHRASE_TOKEN = /[가-힣A-Za-z-]+/g;
+function phraseWordCount(title) {
+  const t = title.trim();
+  // 토큰과 공백만으로 이뤄진 제목만(괄호·숫자가 섞인 제목은 토큰 이음으로 재현되지 않는다).
+  if (!/^[가-힣A-Za-z-]+(?:\s+[가-힣A-Za-z-]+)+$/.test(t)) return 0;
+  return (t.match(PHRASE_TOKEN) || []).length;
+}
+
 function buildExactIndex(terms) {
   const map = new Map();
-  const add = (key, term) => {
+  map.phraseKeys = new Set();
+  map.maxPhraseWords = 0;
+  const add = (key, term, title) => {
     if (!key || isUnsafeIndexKey(key)) return;
+    const words = title ? phraseWordCount(title) : 0;
+    if (words >= 2) {
+      map.phraseKeys.add(key);
+      if (words > map.maxPhraseWords) map.maxPhraseWords = words;
+    }
     if (!map.has(key)) map.set(key, []);
     const bucket = map.get(key);
     if (!bucket.some((t) => t.slug === term.slug)) bucket.push(term);
   };
   for (const term of terms) {
     if (term.title_ko && (term.common || 0) < COMMON_GRADE_EXCLUDE) {
-      add(normalizeWord(term.title_ko), term);
+      add(normalizeWord(term.title_ko), term, term.title_ko);
     }
     // 영문 일반어(treatment·function·tor 등, 생성 스크립트가 판정, 등급 1)는 영문
     // 키만 뺀다. 한글 표제어로는 그대로 잡힌다. 등급 4는 넣되 매칭 뒤에 거른다.
-    if (term.title_en && term.common_en !== EN_GRADE_EXCLUDE) add(normalizeWord(term.title_en), term);
+    if (term.title_en && term.common_en !== EN_GRADE_EXCLUDE) add(normalizeWord(term.title_en), term, term.title_en);
     // 병합으로 흡수된 페이지의 제목(match_titles). 한글이면 대표의 일반어 등급, 영문이면 영문 등급을
     // 그대로 따른다. aliases는 여전히 인덱싱하지 않는다(용량).
     for (const title of term.match_titles || []) {
       if (/[가-힣]/.test(title) ? (term.common || 0) < COMMON_GRADE_EXCLUDE : term.common_en !== EN_GRADE_EXCLUDE) {
-        add(normalizeWord(title), term);
+        add(normalizeWord(title), term, title);
       }
     }
   }
@@ -1224,11 +1243,65 @@ function hasPrefixCorroboration(stem, words) {
   return false;
 }
 
+// 여러 단어 구문 매칭. 이웃 토큰 사이가 공백(여러 칸·줄바꿈 포함)뿐일 때만 잇는다 —
+// 문장부호가 끼면 다른 구절이다. 낱말 경계는 단일어와 같다: 앞 토큰들은 통째로, 마지막
+// 토큰은 통째로 또는 조사만 뗀 형태로 맞아야 한다("평형 이동은" O, "불평형 이동"·"평형 이동성" X).
+// 한 자리에서는 가장 긴 구문 하나만 잡고, 잡힌 구문 안에서 다시 시작하지 않는다.
+function matchPhrases(text, exactIndex, resultsMap, startOk) {
+  const keys = exactIndex.phraseKeys;
+  const maxWords = exactIndex.maxPhraseWords || 0;
+  if (!keys || !keys.size || maxWords < 2) return;
+  const tokens = [];
+  const re = new RegExp(PHRASE_TOKEN.source, "g");
+  let m;
+  while ((m = re.exec(text)) !== null) tokens.push({ word: m[0], start: m.index, end: m.index + m[0].length });
+  const gapOk = (a, b) => /^\s+$/.test(text.slice(a.end, b.start));
+  const hits = new Map();
+  for (let i = 0; i < tokens.length; i++) {
+    if (!startOk(tokens[i].start)) continue;
+    let found = null;
+    for (let k = Math.min(maxWords, tokens.length - i); k >= 2 && !found; k--) {
+      let ok = true;
+      for (let j = i + 1; j < i + k; j++) {
+        if (!gapOk(tokens[j - 1], tokens[j]) || !startOk(tokens[j].start)) { ok = false; break; }
+      }
+      if (!ok) continue;
+      const last = tokens[i + k - 1];
+      let head = "";
+      for (let j = i; j < i + k - 1; j++) head += normalizeWord(tokens[j].word);
+      for (const cand of candidateNormalizedForms(last.word)) {
+        const key = head + cand.form;
+        if (!keys.has(key)) continue;
+        const candidates = exactIndex.get(key);
+        if (!candidates) continue;
+        found = { k, candidates, length: last.start + cand.matchedLength - tokens[i].start };
+        break;
+      }
+    }
+    if (!found) continue;
+    for (const term of found.candidates) {
+      if (!hits.has(term.slug)) hits.set(term.slug, { term, starts: [], length: found.length, surfaceTerms: found.candidates.length, hangul: false });
+      const h = hits.get(term.slug);
+      h.starts.push(tokens[i].start);
+      h.hangul = h.hangul || /[가-힣]/.test(tokens[i].word);
+    }
+    i += found.k - 1;
+  }
+  for (const h of hits.values()) {
+    recordMatch(resultsMap, h.term, h.starts, h.length, 0);
+    const item = resultsMap.get(h.term.slug);
+    item.surfaceTerms = Math.max(item.surfaceTerms || 1, h.surfaceTerms);
+    item.viaHangul = item.viaHangul || h.hangul;
+    item.bare = true;
+  }
+}
+
 function matchTermsWithIndex(text, exactIndex) {
   const resultsMap = new Map();
   // 텍스트 모드·PDF 모드 모두 이 함수로 들어오므로 제외 구간도 여기서 한 번에.
   const excluded = excludedRanges(text);
   const keptWords = [];
+  matchPhrases(text, exactIndex, resultsMap, (s) => !(excluded.length && isInRanges(excluded, s)) && !isLineWrapFragment(text, s) && !isCitationContext(text, s) && !isUrlFragment(text, s));
 
   for (const [word, allStarts] of wordOccurrences(text)) {
     const starts = allStarts.filter((s) => !(excluded.length && isInRanges(excluded, s)) && !isLineWrapFragment(text, s) && !isCitationContext(text, s) && !isUrlFragment(text, s));
