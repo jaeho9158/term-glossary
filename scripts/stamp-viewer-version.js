@@ -34,10 +34,12 @@ function computeViewerVersion(root = ROOT) {
   }
   hash.update(read(path.join(root, "assets", "viewer-storage.js")));
   hash.update(read(path.join(root, "assets", "pdf-annotations.js")));
+  hash.update(read(path.join(root, "assets", "category-picker.js")));
+  hash.update(read(path.join(root, "assets", "category-picker.css")));
   return hash.digest("hex").slice(0, 10);
 }
 
-const ASSET_RE = /((?:src|href)="assets\/(?:reader\/[\w-]+\.(?:js|css)|term-match\.js|viewer-storage\.js))(\?v=[0-9a-z]*)?(")/g;
+const ASSET_RE = /((?:src|href)="assets\/(?:reader\/[\w-]+\.(?:js|css)|term-match\.js|viewer-storage\.js|category-picker\.(?:js|css)))(\?v=[0-9a-z]*)?(")/g;
 // 모듈 import("./assets/….js") 도 같은 버전을 받는다(pdf-annotations.js 는 버전 해시에 들어 있다).
 const IMPORT_RE = /(import\("\.\/assets\/[\w-]+\.js)(\?v=[0-9a-z]*)?("\))/g;
 

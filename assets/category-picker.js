@@ -48,7 +48,9 @@
     if (top.length) sections.push({ label: "", items: top });
     var used = {};
     (groups || []).forEach(function (g) {
-      var list = g.codes.filter(function (c) { return byValue[c]; }).map(function (c) { used[c] = true; return byValue[c]; }).filter(match);
+      var all = g.codes.filter(function (c) { return byValue[c]; }).map(function (c) { used[c] = true; return byValue[c]; });
+      // 검색어가 묶음 이름과 맞으면 그 묶음 전체를 보여 준다(예: '생명' → '의학·생명').
+      var list = q && g.label.toLowerCase().indexOf(q) >= 0 ? all : all.filter(match);
       if (list.length) sections.push({ label: g.label, items: list });
     });
     var rest = items.filter(function (it) { return !used[it.value] && match(it); });

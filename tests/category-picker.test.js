@@ -52,3 +52,9 @@ test("최근 선택은 3개까지, localStorage가 막혀도 던지지 않는다
   assert.doesNotThrow(() => P.saveRecent("a"));
   globalThis.localStorage = saved;
 });
+
+test("검색어가 묶음 이름과 맞으면 그 묶음의 분야를 모두 보여 준다", () => {
+  const s = P.buildSections(items, CATEGORY_GROUPS, "생명", [], "전체 분야");
+  assert.deepEqual(s.map((x) => x.label), ["의학·생명"]);
+  assert.deepEqual(s[0].items.map((i) => i.value), ["med"]);
+});
