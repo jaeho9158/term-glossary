@@ -52,3 +52,15 @@ test("오탐 방지: 낱말 경계·문장부호·낱말 안 일치는 잡지 �
   // 띄어 쓴 구문 키는 붙여 쓴 표제어("신호전달")를 두 낱말로 잡지 않는다
   assert.ok(!slugs("신호 전달 과정").includes("signal-transduction"));
 });
+
+test("구문 전용 일반어·관사 시작 영문 구문은 구문 경로로 잡지 않는다", () => {
+  const t2 = [
+    { slug: "structural-break", title_ko: "구조적 변화", title_en: "Structural Break", categories: ["stat"] },
+    { slug: "the-other", title_ko: "타자", title_en: "the Other", categories: ["philo"] },
+    { slug: "social-dominance", title_ko: "사회적 우위", title_en: "social dominance", categories: ["psych"] },
+  ];
+  const s = (text) => matchTerms(text, t2).map((m) => m.slug);
+  assert.ok(!s("수용체에 구조적 변화가 유도된다.").includes("structural-break"));
+  assert.ok(!s("and the other six disease sets").includes("the-other"));
+  assert.ok(s("사회적 우위 상태가 유지된다.").includes("social-dominance"), "정상 구문은 그대로");
+});

@@ -311,8 +311,14 @@ function isUnsafeIndexKey(key) {
 // 붙여 쓴 표제어("신호전달")는 여기에 넣지 않는다 — "신호 전달"처럼 띄어 쓴 두 낱말을
 // 붙여 쓴 한 낱말 표제어로 잡으면 우연한 이웃 낱말 결합이 오탐이 된다.
 const PHRASE_TOKEN = /[가-힣A-Za-z-]+/g;
+// 구문 전용 일반어: 문장 속 흔한 결합이 다른 분야 표제어와 겹친 경우(말뭉치 판정
+// .superpowers/viewer-multiword-triage.jsonl). 구문 경로에서만 막고, 붙여 쓴 형태는 그대로 잡는다.
+const PHRASE_COMMON = new Set(["구조적변화", "통계적방법", "네트워크효과", "hotspot"]);
+// 관사로 시작하는 영문 구문("the other")은 일반 영어다.
+const PHRASE_LEADING_ARTICLE = /^(?:the|a|an)\s/i;
 function phraseWordCount(title) {
   const t = title.trim();
+  if (PHRASE_LEADING_ARTICLE.test(t) || PHRASE_COMMON.has(normalizeWord(t))) return 0;
   // 토큰과 공백만으로 이뤄진 제목만(괄호·숫자가 섞인 제목은 토큰 이음으로 재현되지 않는다).
   if (!/^[가-힣A-Za-z-]+(?:\s+[가-힣A-Za-z-]+)+$/.test(t)) return 0;
   return (t.match(PHRASE_TOKEN) || []).length;
