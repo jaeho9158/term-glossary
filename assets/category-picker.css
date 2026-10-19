@@ -1,0 +1,149 @@
+/* 분야 선택 부품(assets/category-picker.js). 색은 style.css 토큰만 써서 다크 테마를 그대로 따른다. */
+.cat-picker {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.cat-picker-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  min-width: 9rem;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+}
+.cat-picker-trigger:hover { border-color: var(--accent); }
+.cat-picker-trigger:focus-visible,
+.cat-picker.is-open .cat-picker-trigger {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.cat-picker-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cat-picker-caret {
+  flex: none;
+  width: 0.45em;
+  height: 0.45em;
+  margin-top: -0.2em;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg);
+}
+
+.cat-picker-panel {
+  position: absolute;
+  z-index: 60;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+.cat-picker-panel[hidden],
+.cat-picker-scrim[hidden] { display: none; }
+
+.cat-picker-search {
+  margin: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.cat-picker-search:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.cat-picker-list {
+  max-height: 340px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 6px 8px;
+}
+.cat-picker-group {
+  position: sticky;
+  top: 0;
+  padding: 10px 8px 4px;
+  background: var(--card-bg);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.cat-picker-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.cat-picker-option.is-active { background: var(--hover-tint); }
+.cat-picker-option[aria-selected="true"] { color: var(--accent); font-weight: 600; }
+.cat-picker-tag {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+.cat-picker-empty {
+  margin: 12px 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* 좁은 화면: 아래에서 올라오는 시트 */
+@media (max-width: 640px) {
+  .cat-picker-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.45);
+  }
+  .cat-picker-panel {
+    position: fixed;
+    z-index: 1001;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    max-width: none;
+    max-height: 80vh;
+    border-radius: 14px 14px 0 0;
+    border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .cat-picker-search { margin: 12px 16px 8px; font-size: 1rem; }
+  .cat-picker-list { max-height: none; flex: 1 1 auto; padding: 0 10px 12px; }
+  .cat-picker-option { padding: 10px 12px; font-size: 1rem; }
+}
+@media (min-width: 641px) {
+  .cat-picker-scrim { display: none !important; }
+}
