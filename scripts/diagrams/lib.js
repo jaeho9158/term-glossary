@@ -23,7 +23,7 @@ const TYPES = Object.keys(TYPE_MODS);
 // ── 통합 엔진(svg-illus) 이행 ───────────────────────────
 // 여기 적힌 type만 페이지용 figure를 svg-illus(scripts/svg-illus)로 낸다. 한 줄씩 켜고 끈다.
 // renderSpec(SVG 한 장)은 원본 그대로라 scripts/svg-illus/tools/parity.mjs가 계속 비교 기준으로 쓴다.
-const SI_TYPES = new Set(["venn", "timeline", "matrix", "cycle", "plot", "contrast", "procedure", "hierarchy"]);
+const SI_TYPES = new Set(["venn", "timeline", "matrix", "cycle", "plot", "contrast", "procedure", "hierarchy", "chain"]);
 let siLib = null;
 function si() {
   // Node 22.12+ 는 ESM을 require로 동기 로드한다(scripts/svg-illus/package.json 이 type:module).
