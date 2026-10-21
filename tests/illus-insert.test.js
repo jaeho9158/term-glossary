@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { START, END, validate, renderFigure, applyIllus, removeIllus, loadAll } = require("../scripts/illus/insert.js");
 const { applyDiagram, removeDiagram } = require("../scripts/diagrams/insert.js");
+const { build } = require("../scripts/illus/build-svg.js");
 
 const ROOT = path.join(__dirname, "..");
 const page = (nl = "\n") => ["<main>", "  <h1>용어</h1>", '  <div class="definition-box">', "    <strong>한 줄 정의:</strong> 설명", "  </div>", "", "  <h2>쉽게 풀면</h2>", "  <!-- term-extras:sections:start -->", "  <h2>핵심 정리</h2>", "  <!-- term-extras:sections:end -->", "</main>"].join(nl);
@@ -60,7 +61,7 @@ test("공용 그림: lazy 로딩, 출처·라이선스 표기", () => {
   const h = renderFigure(commons);
   assert.ok(/<img [^>]*loading="lazy"/.test(h) && /width="800" height="600"/.test(h));
   assert.ok(h.includes('href="https://commons.wikimedia.org/wiki/File:X.jpg"') && h.includes("CC BY-SA 4.0") && h.includes('rel="license noopener"'));
-  assert.ok(h.includes('class="term-illus"') && !h.includes("term-figure"));
+  assert.ok(h.includes('class="si-figure"') && h.includes('data-kind="illus"') && !h.includes("term-figure") && !h.includes('class="term-illus"'));
 });
 
 test("라이선스 필드 누락·허용 밖 라이선스는 거부", () => {
@@ -90,7 +91,32 @@ test("저장소 데이터: 모두 유효하고 그림 파일이 있으며, 반�
     assert.strictEqual(count(html, /<!-- term-illus:start -->/g), 1, d.slug);
     assert.strictEqual(count(html, /<!-- term-illus:end -->/g), 1, d.slug);
     const svg = d.method === "svg" ? fs.readFileSync(asset, "utf8") : null;
-    assert.strictEqual(applyIllus(html, renderFigure(d, svg)), html, d.slug + " 재실행 시 바뀌면 안 됨");
+    const specFile = path.join(ROOT, "data", "illus", "specs", d.slug + ".json");
+    const spec = d.method === "svg" ? JSON.parse(fs.readFileSync(specFile, "utf8")) : null;
+    assert.strictEqual(applyIllus(html, renderFigure(d, svg, spec)), html, d.slug + " 재실행 시 바뀌면 안 됨");
+    if (d.method === "svg") {
+      assert.ok(html.includes("CC BY 4.0") && html.includes("creativecommons.org/licenses/by/4.0"), d.slug + " CC BY 4.0 표기");
+      assert.strictEqual(build(spec), svg, d.slug + ": assets/illus SVG가 스펙과 다름(node scripts/illus/build-svg.js)");
+    }
     if (d.method === "commons") assert.ok(html.includes(d.credit.pageUrl) && html.includes(d.credit.license), d.slug + " 출처 표기");
+  }
+});
+
+test("vector-projection 범례는 벡터 기호이고 color-wheel 범례(HSL·보색)가 아니다", () => {
+  const spec = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "illus", "specs", "vector-projection.json"), "utf8"));
+  const syms = spec.legend.map((x) => x.sym || "").join("|");
+  assert.ok(syms.includes("proj_{b} a") && !/HSL|보색/.test(syms));
+  const html = fs.readFileSync(path.join(ROOT, "terms", "vector-projection.html"), "utf8");
+  assert.ok(html.includes("정사영(projection)") && !html.slice(html.indexOf("term-illus:start"), html.indexOf("term-illus:end")).includes("HSL"));
+});
+
+test("코드 SVG 스펙 11개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
+  const { renderSVG, templates } = require("../scripts/svg-illus/src/index.js");
+  const dir = path.join(ROOT, "data", "illus", "specs");
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  assert.strictEqual(files.length, 11);
+  for (const f of files) {
+    const r = renderSVG(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")), { templates });
+    assert.deepStrictEqual(r.report.unresolved, [], f);
   }
 });

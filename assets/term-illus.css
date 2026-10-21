@@ -56,3 +56,18 @@
   .illus-labels td:nth-child(n+2) { grid-column: 2; }
   .illus-labels .orig { white-space: normal; }
 }
+
+/* 통합 엔진 마크업(figure.si-figure[data-kind=illus]): 도해 SVG·사진의 크기와 좁은 화면 처리 */
+.si-figure[data-kind="illus"] .si-frame { align-items: stretch; }
+.si-figure[data-kind="illus"] .si-frame svg,
+.si-figure[data-kind="illus"] .si-frame img { display: block; width: 100%; height: auto; max-height: 460px; object-fit: contain; }
+.si-figure[data-kind="illus"] .si-frame img { border-radius: 4px; }
+.si-figure[data-kind="illus"] figcaption { font-size: 0.875rem; }
+.si-figure[data-kind="illus"] .si-caption { color: var(--text); }
+.si-figure[data-kind="illus"] figcaption .illus-labels a, .si-figure[data-kind="illus"] figcaption .illus-note a { color: var(--accent); }
+@media (max-width: 480px) {
+  .si-figure[data-kind="illus"] { padding: 8px; }
+  /* 좁은 화면에서 SVG 글자가 너무 작아지지 않게 최소 폭을 두고 가로로 넘긴다 */
+  .si-figure[data-kind="illus"] .si-frame:has(svg) { overflow-x: auto; align-items: flex-start; }
+  .si-figure[data-kind="illus"] .si-frame svg { min-width: 440px; }
+}

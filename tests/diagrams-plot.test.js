@@ -31,7 +31,7 @@ for (const s of [power, roc]) {
   assert.ok(!/#[0-9a-fA-F]{6}/.test(r.svg.replace(/<desc[\s\S]*?<\/desc>/, "")));
 }
 const fig = renderFigure(power, "검정력");
-assert.ok(fig.html.includes("<figcaption>개념 설명용 모식도"), "모식도 캡션");
+assert.ok(/<figcaption><span class="si-caption">개념 설명용 모식도/.test(fig.html), "모식도 캡션");
 // 가로판(440px 그림)과 휴대폰판(343px 컬럼에 1:1) 두 벌
 assert.strictEqual((fig.html.match(/<svg/g) || []).length, 2);
 for (const s of [power, roc]) {

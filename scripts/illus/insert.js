@@ -6,16 +6,21 @@
 // - 블록은 <!-- term-illus:start --> … <!-- term-illus:end --> 로 감싸고, 재실행하면 마커 사이만 갈아 끼운다.
 // - 위치: 도식 블록(<!-- concept-diagram:end -->)이 있으면 그 뒤, 없으면 정의 박스 뒤.
 //   도식 insert.js 는 정의 박스 바로 뒤에 넣으므로 나중에 도식이 생겨도 순서는 정의 → 도식 → 도해로 유지된다.
-// - figure 클래스는 term-illus(도식 insert.js 가 지우는 term-figure 와 다름).
+// - figure 는 통합 엔진(svg-illus)과 같은 마크업: figure.si-figure[data-kind=illus] > .si-frame + figcaption(도식 insert.js 가 지우는 term-figure 와 다름).
 // - 코드 SVG(assets/illus/<slug>.svg)는 인라인으로 넣는다(사이트 CSS 변수로 다크 모드 색이 바뀜).
+//   이 SVG와 기호 범례는 data/illus/specs/<slug>.json(svg-illus 스펙)에서 나온다. 고치려면 스펙을 고치고
+//   node scripts/illus/build-svg.js 로 SVG를 다시 만든 뒤 이 스크립트를 돌린다.
 // - 위키미디어 공용 그림은 assets/illus 의 축소본을 loading="lazy" 로 넣고, 출처·라이선스를 그림 아래에 적는다.
 // - 데이터에서 빠진 slug 는 data/illus/inserted.json 매니페스트로 찾아 블록을 지운다.
 "use strict";
 const fs = require("fs");
 const path = require("path");
+// svg-illus는 ESM이지만 Node 22.12+ 에서는 require로 동기 로드된다.
+const { legendHTML } = require("../svg-illus/src/index.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const DATA_DIR = path.join(ROOT, "data", "illus");
+const SPEC_DIR = path.join(DATA_DIR, "specs"); // 코드 SVG의 svg-illus 스펙(scripts/illus/build-svg.js가 assets/illus/*.svg로 렌더)
 const MANIFEST = path.join(DATA_DIR, "inserted.json");
 const START = "<!-- term-illus:start -->";
 const END = "<!-- term-illus:end -->";
@@ -72,8 +77,9 @@ function renderCredit(d) {
   return `<small class="illus-credit">그림: ${esc(c.author)} 작성, <a href="https://creativecommons.org/licenses/by/4.0/deed.ko" rel="license noopener" target="_blank">CC BY 4.0</a> · 대조한 출처: ${src}</small>`;
 }
 
-// 순수 함수: 데이터(+SVG 문자열) → 블록 안쪽 HTML(한 줄씩)
-function renderFigure(d, svgText) {
+// 순수 함수: 데이터(+SVG 문자열, +svg-illus 스펙) → 블록 안쪽 HTML(한 줄씩)
+// 스펙이 있으면 기호 범례는 스펙의 legend(엔진 마크업), 없으면 데이터의 legend(옛 형식)를 쓴다.
+function renderFigure(d, svgText, spec) {
   const errs = validate(d);
   if (errs.length) throw new Error(`${d && d.slug}: ${errs.join(", ")}`);
   let media;
@@ -84,7 +90,8 @@ function renderFigure(d, svgText) {
     media = `<img src="../${esc(d.image.src)}" width="${d.image.width}" height="${d.image.height}" alt="${esc(d.alt)}" loading="lazy" decoding="async">`;
   }
   const notes = (d.notes || []).map((n) => `<p class="illus-note">${n}</p>`).join("");
-  return `<link rel="stylesheet" href="${CSS_HREF}">\n  <figure class="term-illus" id="illus" data-method="${d.method}"><div class="illus-frame">${media}</div><figcaption><span class="illus-caption">${esc(d.caption)}</span>${renderLegend(d)}${notes}${renderTable(d)}${renderCredit(d)}</figcaption></figure>`;
+  const legend = spec && spec.legend ? legendHTML(spec.legend) : renderLegend(d);
+  return `<link rel="stylesheet" href="${CSS_HREF}">\n  <figure class="si-figure" id="illus" data-kind="illus" data-method="${d.method}"><div class="si-frame">${media}</div><figcaption><span class="si-caption">${esc(d.caption)}</span>${legend}${notes}${renderTable(d)}${renderCredit(d)}</figcaption></figure>`;
 }
 
 // 순수 함수: 페이지에 블록을 넣거나 교체. 앵커가 없으면 null.
@@ -123,8 +130,10 @@ function run() {
     if (!fs.existsSync(file)) { console.warn(`건너뜀(페이지 없음): ${d.slug}`); continue; }
     const svg = d.method === "svg" ? fs.readFileSync(path.join(ROOT, d.svg), "utf8") : null;
     if (d.method === "commons" && !fs.existsSync(path.join(ROOT, d.image.src))) throw new Error(`${d.slug}: 그림 파일 없음 ${d.image.src}`);
+    const specFile = path.join(SPEC_DIR, d.slug + ".json");
+    const spec = d.method === "svg" && fs.existsSync(specFile) ? JSON.parse(fs.readFileSync(specFile, "utf8")) : null;
     const html = fs.readFileSync(file, "utf8");
-    const next = applyIllus(html, renderFigure(d, svg));
+    const next = applyIllus(html, renderFigure(d, svg, spec));
     if (next === null) { console.warn(`건너뜀(정의 박스 없음): ${d.slug}`); continue; }
     done.push(d.slug);
     if (next === html) { same++; continue; }

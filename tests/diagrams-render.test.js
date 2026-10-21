@@ -183,14 +183,14 @@ console.log("diagrams-render: all tests passed");
   assert.ok(h.svg.includes("승인"), "줄을 건너는 엣지 라벨도 그려야 함");
   const fig = renderFigure(long, "t");
   assert.strictEqual((fig.html.match(/<svg/g) || []).length, 2);
-  assert.ok(fig.html.includes("dg-dual"));
+  assert.ok(fig.html.includes("si-dual"));
   // 되돌이 엣지가 있어 감을 수 없고 폭이 H_FIT_W를 넘으면 세로판만 싣는다
   const arc = { ...long, edges: [...long.edges, { from: "s8", to: "s0", kind: "arrow", label: "반복" }] };
   const hh = renderSpec(arc, { orientation: "h" });
   assert.ok(hh.width > H_FIT_W);
   const fig2 = renderFigure(arc, "t");
   assert.strictEqual((fig2.html.match(/<svg/g) || []).length, 1);
-  assert.ok(fig2.html.includes("dg-v") && !fig2.html.includes("dg-dual"));
+  assert.ok(fig2.html.includes("dg-v") && !fig2.html.includes("si-dual"));
   assert.ok(fig2.html.includes("반복"), "세로판에서도 되돌이 엣지 라벨을 그려야 함");
   assert.deepStrictEqual(fig2.warnings, []);
 }
