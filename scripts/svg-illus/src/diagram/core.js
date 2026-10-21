@@ -288,8 +288,11 @@ function drawNotes(cv, notes, width, top) {
     const lines = wrap(n.text, width - MARGIN * 2 - indent, FS_NOTE);
     lines.forEach((l, i) => {
       y += FS_NOTE + 4;
+      const fr = hasFrac(l); // 분수가 든 줄은 위아래로 더 높아 줄 간격을 늘린다(노드 라벨과 같은 값).
+      if (fr) y += FS_NOTE * FRAC_UP;
       if (i === 0 && tag) cv.text(MARGIN, y, tag, { fs: FS_NOTE, fill: color, anchor: "start", bold: true, owner: "note-tag" });
       cv.text(MARGIN + indent, y, l, { fs: FS_NOTE, fill: color, anchor: "start", owner: "note" });
+      if (fr) y += FS_NOTE * FRAC_DOWN;
     });
   }
   return y;
