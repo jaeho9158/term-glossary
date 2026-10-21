@@ -70,6 +70,32 @@ const FNS = {
     f: (x, p) => Math.exp(-(((x - p.peak) / p.width) ** 2)) },
   decay: { params: { rate: { gt: 0 } }, domain: [0, Infinity], desc: "감쇠 곡선",
     f: (x, p) => Math.exp(-p.rate * x) },
+  // ── 추가 함수 9개(plot-ext.json 제안 7 + km_function·mixing_free_energy). scripts/svg-illus/src/diagram/plot-fns.js 와 같게 유지 ──
+  power: { params: { a: { gt: 0 }, b: {} }, domain: [0, Infinity], desc: "거듭제곱 곡선",
+    f: (x, p) => p.a * x ** p.b },
+  reciprocal: { params: { k: { gt: 0 }, c: {} }, domain: [0, Infinity], desc: "반비례 곡선",
+    f: (x, p) => (x <= 0 ? Infinity : p.k / x + p.c) },
+  // 전망 이론 가치 함수: 이득 x^α, 손실 −λ(−x)^β
+  prospect_value: { params: { alpha: { gt: 0 }, beta: { gt: 0 }, lambda: { gt: 0 } }, desc: "가치 함수(전망 이론)",
+    f: (x, p) => (x >= 0 ? x ** p.alpha : -p.lambda * (-x) ** p.beta) },
+  // 펌프 양정 H0 − aQ²(branch 0)와 계통 저항 Hs + kQ²(branch 1). series 두 개로 그리면 교점이 운전점
+  quadratic_pair: { params: { H0: { gt: 0 }, a: { gt: 0 }, Hs: { gte: 0 }, k: { gt: 0 }, branch: { gte: 0, lt: 2 } }, domain: [0, Infinity], desc: "펌프·계통 곡선",
+    f: (x, p) => (p.branch >= 1 ? p.Hs + p.k * x * x : p.H0 - p.a * x * x) },
+  // 카플란-마이어 계단: S(t) = Π_{t_i ≤ t} (1 − d_i/n_i)
+  step_survival: { params: { times: { arr: true }, events: { arr: true }, atRisk: { arr: true } }, domain: [0, Infinity], desc: "생존 곡선(계단)",
+    f: (x, p) => { let s = 1; p.times.forEach((t, i) => { if (t <= x && p.atRisk[i] > 0) s *= 1 - p.events[i] / p.atRisk[i]; }); return s; } },
+  // 1구획 경구 투여 혈중 농도: scale·ka/(ka−ke)·(e^(−ke t) − e^(−ka t))
+  concentration_time: { params: { ka: { gt: 0 }, ke: { gt: 0 }, scale: { gt: 0 } }, domain: [0, Infinity], desc: "혈중 농도-시간 곡선",
+    f: (x, p) => (Math.abs(p.ka - p.ke) < 1e-12 ? p.scale * p.ka * x * Math.exp(-p.ke * x) : p.scale * p.ka / (p.ka - p.ke) * (Math.exp(-p.ke * x) - Math.exp(-p.ka * x))) },
+  // 비례위험: 가로축 공변량 x, h = h0·exp(βx)
+  cox_hazard: { params: { beta: {}, h0: { gt: 0 } }, desc: "비례위험 곡선",
+    f: (x, p) => p.h0 * Math.exp(p.beta * x) },
+  // 쿠벨카-뭉크 함수 K/S = (1−R)²/(2R). 가로축 R(반사율, 0<R≤1)
+  km_function: { params: {}, domain: [0.001, 1], desc: "쿠벨카-뭉크 함수",
+    f: (x) => (1 - x) ** 2 / (2 * x) },
+  // 플로리-허긴스 혼합 자유에너지 ΔG/kT = (φ/N1)lnφ + ((1−φ)/N2)ln(1−φ) + χφ(1−φ). 가로축 φ(0<φ<1)
+  mixing_free_energy: { params: { N1: { gt: 0 }, N2: { gt: 0 }, chi: {} }, domain: [0.001, 0.999], desc: "혼합 자유에너지 곡선",
+    f: (x, p) => (x / p.N1) * Math.log(x) + ((1 - x) / p.N2) * Math.log(1 - x) + p.chi * x * (1 - x) },
 };
 
 function checkParams(fn, params) {
@@ -79,6 +105,7 @@ function checkParams(fn, params) {
   const given = params && typeof params === "object" ? params : {};
   for (const [k, rule] of Object.entries(F.params)) {
     const v = given[k];
+    if (rule.arr) { if (!Array.isArray(v) || !v.length || !v.every(Number.isFinite)) errs.push(`${fn}: 매개변수 ${k}는 숫자 배열`); continue; }
     if (typeof v !== "number" || !Number.isFinite(v)) { errs.push(`${fn}: 매개변수 ${k} 없음 또는 숫자 아님`); continue; }
     const bad = ("gt" in rule && !(v > rule.gt)) || ("gte" in rule && !(v >= rule.gte)) ||
       ("lt" in rule && !(v < rule.lt)) || ("ne" in rule && v === rule.ne);

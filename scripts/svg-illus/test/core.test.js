@@ -163,3 +163,19 @@ test('plot 함수: 기존 10개 + 추가 7개', () => {
   assert.equal(F.cox_hazard.f(0, { beta: 0.7, h0: 0.1 }), 0.1);
   assert.ok(isDiagram({ type: 'venn' }) && !isDiagram({ type: 'plot', elements: [] }));
 });
+
+test('plot 함수: km_function·mixing_free_energy', () => {
+  const near = (a, b, t = 1e-9) => assert.ok(Math.abs(a - b) < t, `${a} != ${b}`);
+  near(PLOT_FNS.km_function.f(0.8, {}), 0.025);
+  near(PLOT_FNS.km_function.f(0.1, {}), 4.05);
+  near(PLOT_FNS.km_function.f(1, {}), 0);
+  // 고분자 부피분율 φ(N1=100), 용매(N2=1): χ=0이면 ΔG/kT = (φ/100) ln φ + (1−φ) ln(1−φ)
+  near(PLOT_FNS.mixing_free_energy.f(0.5, { N1: 100, N2: 1, chi: 0 }), 0.5 * Math.log(0.5) + 0.005 * Math.log(0.5));
+  near(PLOT_FNS.mixing_free_energy.f(0.5, { N1: 100, N2: 1, chi: 1 }), 0.5 * Math.log(0.5) + 0.005 * Math.log(0.5) + 0.25);
+  // 임계 χc = ½(1/√N1 + 1/√N2)² = 0.605 에서 φ=φc=√N1/(√N1+√N2) 의 2차 도함수가 0
+  const p = { N1: 100, N2: 1, chi: 0.605 }, c = 1 / 11, h = 1e-4;
+  const d2 = (PLOT_FNS.mixing_free_energy.f(c + h, p) - 2 * PLOT_FNS.mixing_free_energy.f(c, p) + PLOT_FNS.mixing_free_energy.f(c - h, p)) / (h * h);
+  assert.ok(Math.abs(d2) < 1e-2, String(d2));
+  assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'km_function', params: {} }], x: { label: 'R', range: [0.05, 1] }, y: { label: 'K/S' } } }, { requireMeta: false }), []);
+  assert.ok(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'mixing_free_energy', params: { N1: 0, N2: 1, chi: 1 } }], x: { label: 'φ', range: [0, 1] }, y: { label: 'g' } } }, { requireMeta: false }).some(e => e.includes('N1=0 범위 밖')));
+});

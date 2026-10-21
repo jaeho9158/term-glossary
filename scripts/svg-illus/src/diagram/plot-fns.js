@@ -90,6 +90,12 @@ const FNS = {
   // 비례위험: 가로축 공변량 x, h = h0·exp(βx)
   cox_hazard: { params: { beta: {}, h0: { gt: 0 } }, desc: "비례위험 곡선",
     f: (x, p) => p.h0 * Math.exp(p.beta * x) },
+  // 쿠벨카-뭉크 함수 K/S = (1−R)²/(2R). 가로축 R(반사율, 0<R≤1)
+  km_function: { params: {}, domain: [0.001, 1], desc: "쿠벨카-뭉크 함수",
+    f: (x) => (1 - x) ** 2 / (2 * x) },
+  // 플로리-허긴스 혼합 자유에너지 ΔG/kT = (φ/N1)lnφ + ((1−φ)/N2)ln(1−φ) + χφ(1−φ). 가로축 φ(0<φ<1)
+  mixing_free_energy: { params: { N1: { gt: 0 }, N2: { gt: 0 }, chi: {} }, domain: [0.001, 0.999], desc: "혼합 자유에너지 곡선",
+    f: (x, p) => (x / p.N1) * Math.log(x) + ((1 - x) / p.N2) * Math.log(1 - x) + p.chi * x * (1 - x) },
 };
 
 function checkParams(fn, params) {

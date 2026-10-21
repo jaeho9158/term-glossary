@@ -61,3 +61,20 @@ assert.ok(checkParams("linear", { a: 1, b: 2, toString: 3 }).some((e) => e.inclu
 assert.ok(checkParams("normal", { mu: 0, sigma: 1, constructor: 1 }).some((e) => e.includes("알 수 없는")));
 
 console.log("diagrams-plot-fns: all tests passed");
+
+// km_function: K/S = (1−R)²/(2R) (쿠벨카-뭉크), mixing_free_energy: 플로리-허긴스 ΔG/kT
+near(FNS.km_function.f(0.8, {}), 0.025);
+near(FNS.km_function.f(0.1, {}), 4.05);
+near(FNS.km_function.f(1, {}), 0);
+assert.deepStrictEqual(checkParams("km_function", {}), []);
+{
+  const g = (x, chi) => FNS.mixing_free_energy.f(x, { N1: 100, N2: 1, chi });
+  near(g(0.5, 0), 0.005 * Math.log(0.5) + 0.5 * Math.log(0.5));
+  near(g(0.5, 1), g(0.5, 0) + 0.25);
+  // 임계 χc=0.605, φc=1/11 에서 2차 도함수 0
+  const c = 1 / 11, h = 1e-4;
+  assert.ok(Math.abs((g(c + h, 0.605) - 2 * g(c, 0.605) + g(c - h, 0.605)) / (h * h)) < 1e-2);
+  assert.ok(checkParams("mixing_free_energy", { N1: 0, N2: 1, chi: 1 }).length > 0);
+  const pts = sample("mixing_free_energy", { N1: 100, N2: 1, chi: 1 }, 0, 1);
+  assert.ok(pts.every(([, y]) => Number.isFinite(y)));
+}
