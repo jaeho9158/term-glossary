@@ -1,0 +1,70 @@
+{
+  "slug": "slam",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "센서 입력",
+      "color": "amber",
+      "sub": "카메라·라이다·IMU"
+    },
+    {
+      "id": "n1",
+      "label": "전단부",
+      "color": "violet",
+      "sub": "움직임 추정·관측 연결"
+    },
+    {
+      "id": "n3",
+      "label": "폐루프 검출",
+      "color": "green",
+      "sub": "같은 장소 재인식"
+    },
+    {
+      "id": "n2",
+      "label": "후단부",
+      "color": "violet",
+      "sub": "궤적·지도 최적화"
+    },
+    {
+      "id": "n4",
+      "label": "지도 표현",
+      "color": "blue",
+      "sub": "점군·격자·특징점"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "폐루프 검출은 누적 오차를 한 번에 바로잡음",
+      "tone": "general"
+    },
+    {
+      "text": "초기 연구는 후단부에 확장 칼만 필터를 주로 씀",
+      "tone": "general"
+    }
+  ],
+  "source": "용어 페이지 구성 요소 목록(Cadena 외 2016 인용). 폐루프 검출을 전단부와 후단부 사이에 둔 순서는 본문 서술(전단부가 같은 장소 관측을 연결, 후단부가 최적화)에 따른 배열(본문 근거). 위키백과 SLAM에서 loop closure 정의 확인",
+  "reviewed": true
+}
