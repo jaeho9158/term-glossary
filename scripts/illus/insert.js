@@ -69,7 +69,7 @@ function renderCredit(d) {
     return `<small class="illus-credit">그림: <a href="${esc(c.pageUrl)}" rel="noopener" target="_blank">${esc(c.author)}</a>, ${lic}, 위키미디어 공용${c.modified ? ` · 변경: ${esc(c.modified)}` : ""}</small>`;
   }
   const src = (d.sources || []).map((u) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(u.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a>`).join(", ");
-  return `<small class="illus-credit">그림: ${esc(c.author)} 작성 · 대조한 출처: ${src}</small>`;
+  return `<small class="illus-credit">그림: ${esc(c.author)} 작성, <a href="https://creativecommons.org/licenses/by/4.0/deed.ko" rel="license noopener" target="_blank">CC BY 4.0</a> · 대조한 출처: ${src}</small>`;
 }
 
 // 순수 함수: 데이터(+SVG 문자열) → 블록 안쪽 HTML(한 줄씩)
