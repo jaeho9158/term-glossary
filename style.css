@@ -95,6 +95,56 @@
   .concept-diagram.dg-dual .dg-v { display: block; }
 }
 
+/* ---------- 통합 도식·도해 엔진 svg-illus (scripts/svg-illus) ----------
+   --si-* 는 기존 --dg-* 와 사이트 변수를 가리키는 별칭이라 다크 모드 값은 한 곳에서만 바꾼다.
+   단계 3(전환 완료) 전까지 .concept-diagram, .term-illus 규칙과 함께 둔다. */
+:root {
+  --si-blue-f: var(--dg-blue-f);     --si-blue-s: var(--dg-blue-s);     --si-blue-t: var(--dg-blue-t);
+  --si-green-f: var(--dg-green-f);   --si-green-s: var(--dg-green-s);   --si-green-t: var(--dg-green-t);
+  --si-amber-f: var(--dg-amber-f);   --si-amber-s: var(--dg-amber-s);   --si-amber-t: var(--dg-amber-t);
+  --si-rose-f: var(--dg-rose-f);     --si-rose-s: var(--dg-rose-s);     --si-rose-t: var(--dg-rose-t);
+  --si-violet-f: var(--dg-violet-f); --si-violet-s: var(--dg-violet-s); --si-violet-t: var(--dg-violet-t);
+  --si-gray-f: var(--dg-gray-f);     --si-gray-s: var(--dg-gray-s);     --si-gray-t: var(--dg-gray-t);
+  --si-navy: var(--dg-navy);
+  --si-pos: var(--dg-pos);
+  --si-limit: var(--dg-limit);
+  --si-general: var(--dg-general);
+  --si-badge-t: var(--dg-badge-t);
+  --si-ink: var(--text);
+  --si-accent: var(--accent);
+  --si-accent-soft: var(--accent-soft);
+  --si-bg: var(--card-bg);
+  --si-border: var(--border);
+}
+.si-figure { margin: 1.5em 0; padding: 1em; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); }
+.si-figure .si-frame { display: flex; flex-direction: column; align-items: center; }
+.si-figure svg { display: block; width: 100%; height: auto; margin: 0 auto; }
+.si-figure svg.si-illus { color: var(--text); }
+.si-figure figcaption { margin-top: 0.6em; font-size: 0.8em; line-height: 1.6; color: var(--muted); }
+.si-figure .si-caption { display: block; color: var(--muted); }
+.si-figure .si-credit { display: block; margin-top: 4px; font-size: 0.8125rem; }
+.si-figure .si-credit a { color: inherit; }
+.si-figure.si-dual .dg-v { display: none; }
+@media (max-width: 640px) {
+  .si-figure.si-dual .dg-h { display: none; }
+  .si-figure.si-dual .dg-v { display: block; }
+}
+.si-legend { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 8px 0; padding: 8px 10px; background: var(--accent-soft); border-radius: 6px; color: var(--text); }
+.si-legend > div { display: contents; }
+.si-legend dt { font-weight: 600; white-space: nowrap; }
+.si-legend dt i { font-family: "Times New Roman", serif; font-style: italic; font-size: 1.08em; }
+.si-legend dd { margin: 0; }
+.si-math { font-size: 1.05em; color: inherit; }
+.si-note { margin: 6px 0; font-size: 0.8125rem; }
+.si-table-wrap { overflow-x: auto; margin: 8px 0; }
+.si-table { border-collapse: collapse; font-size: 0.8125rem; color: var(--text); }
+.si-table th, .si-table td { border: 1px solid var(--border); padding: 3px 8px; text-align: left; }
+.si-badge { display: inline-block; min-width: 18px; height: 18px; line-height: 18px; border-radius: 50%; background: var(--accent); color: var(--card-bg); text-align: center; font-weight: 700; font-size: 11px; }
+@media (max-width: 480px) {
+  .si-legend { grid-template-columns: 1fr; }
+  .si-legend dd { margin: 0 0 6px; }
+}
+
 :root[data-theme="dark"] {
   --bg: #14171a;
   --text: #e6edf3;

@@ -22,9 +22,10 @@ function parseTermPage(html) {
   const raw = html.slice(start, end);
   // 도식(figure.concept-diagram)은 본문 지문에서 빼고 따로 지문을 만든다.
   // 도식을 다시 그려도 본문 검수는 유지되고, 도식 확인만 다시 하면 된다.
-  const figures = raw.match(/<figure[^>]*class="[^"]*concept-diagram[\s\S]*?<\/figure>/g) || [];
+  const FIG = /<figure[^>]*class="[^"]*concept-diagram[\s\S]*?<\/figure>|<figure class="si-figure[^"]*" data-kind="diagram"[\s\S]*?<\/figure>/g;
+  const figures = raw.match(FIG) || [];
   const diagram = figures.map(strip).join("\n");
-  const body = raw.replace(/<figure[^>]*class="[^"]*concept-diagram[\s\S]*?<\/figure>/g, "");
+  const body = raw.replace(FIG, "");
   const parts = body.split(/<h2[^>]*>/);
   const definition = strip(parts[0]);
   const sections = {};

@@ -20,6 +20,17 @@ const { COLORS, TONES, MARGIN, H_WRAP_W, textWidth, wrap, esc, Canvas, drawNotes
 
 const TYPES = Object.keys(TYPE_MODS);
 
+// ── 통합 엔진(svg-illus) 이행 ───────────────────────────
+// 여기 적힌 type만 페이지용 figure를 svg-illus(scripts/svg-illus)로 낸다. 한 줄씩 켜고 끈다.
+// renderSpec(SVG 한 장)은 원본 그대로라 scripts/svg-illus/tools/parity.mjs가 계속 비교 기준으로 쓴다.
+const SI_TYPES = new Set([]);
+let siLib = null;
+function si() {
+  // Node 22.12+ 는 ESM을 require로 동기 로드한다(scripts/svg-illus/package.json 이 type:module).
+  if (!siLib) siLib = require("../svg-illus/src/index.js");
+  return siLib;
+}
+
 // ── 검증 ─────────────────────────────────────────────────
 // knownSlugs: terms.json의 slug 집합(없으면 slug 존재 검사는 건너뜀)
 function validateSpec(spec, knownSlugs) {
@@ -77,6 +88,10 @@ const H_FIT_W = 680;
 
 // 페이지에 넣을 <figure> 전체. type이 원하면 가로·세로 두 벌을 넣는다.
 function renderFigure(spec, title) {
+  if (SI_TYPES.has(spec.type)) {
+    const r = si().renderDiagram(spec, { title });
+    return { html: r.html, warnings: r.warnings, desc: r.desc };
+  }
   const mod = TYPE_MODS[spec.type];
   const h = renderSpec(spec, { title, orientation: "h" });
   const v = mod.dual(spec, h.width) ? renderSpec(spec, { title, orientation: "v" }) : null;
@@ -90,4 +105,4 @@ function renderFigure(spec, title) {
   return { html, warnings, desc: h.desc };
 }
 
-module.exports = { TYPES, COLORS, H_WRAP_W, H_FIT_W, textWidth, wrap, validateSpec, renderSpec, renderFigure, describe, Canvas, checkOverlaps };
+module.exports = { SI_TYPES, TYPES, COLORS, H_WRAP_W, H_FIT_W, textWidth, wrap, validateSpec, renderSpec, renderFigure, describe, Canvas, checkOverlaps };

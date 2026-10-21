@@ -59,11 +59,11 @@ function findChrome() {
 function pngPage(figureHtml, theme, width, narrow) {
   const css = fs.readFileSync(path.join(ROOT, "style.css"), "utf8");
   const narrowCss = narrow
-    ? ".wrap .concept-diagram.dg-dual .dg-h{display:none}.wrap .concept-diagram.dg-dual .dg-v{display:block}"
+    ? ".wrap .concept-diagram.dg-dual .dg-h,.wrap .si-dual .dg-h{display:none}.wrap .concept-diagram.dg-dual .dg-v,.wrap .si-dual .dg-v{display:block}"
     : "";
   return `<!doctype html><html data-theme="${theme}"><head><meta charset="utf-8"><style>${css}
 body{margin:0;padding:12px;background:var(--bg);font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif}
-.wrap{width:${width}px;box-sizing:border-box}.concept-diagram{margin:0}${narrowCss}</style></head><body><div class="wrap">${figureHtml}</div></body></html>`;
+.wrap{width:${width}px;box-sizing:border-box}.concept-diagram,.si-figure{margin:0}${narrowCss}</style></head><body><div class="wrap">${figureHtml}</div></body></html>`;
 }
 
 async function run() {
@@ -111,7 +111,7 @@ h2{font-size:16px;margin:0 0 8px} small{color:#888;font-weight:400}
 .pane{padding:4px} .dark{background:#14171a}
 .err{color:#b00} .warn{color:#a60}
 /* 미리보기에서도 좁은 컬럼은 세로판을 보여 준다(미디어쿼리 대신 컨테이너 기준). */
-.narrow .concept-diagram.dg-dual .dg-h{display:none} .narrow .concept-diagram.dg-dual .dg-v{display:block}
+.narrow .concept-diagram.dg-dual .dg-h,.narrow .si-dual .dg-h{display:none} .narrow .concept-diagram.dg-dual .dg-v,.narrow .si-dual .dg-v{display:block}
 </style></head><body><h1>개념 도식 미리보기 (${rows.length}개)</h1>${cards}</body></html>`;
   // 다크 칸은 data-theme 속성만으로 변수가 바뀌도록 style.css 선택자를 흉내 낸다.
   const darkVars = fs.readFileSync(path.join(ROOT, "style.css"), "utf8").match(/:root\[data-theme="dark"\] \{\n  --dg-blue-f[\s\S]*?\n\}/);
