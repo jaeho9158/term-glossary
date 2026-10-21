@@ -120,3 +120,16 @@ test("코드 SVG 스펙 11개: 모두 렌더되고 라벨 겹침이 남지 않�
     assert.deepStrictEqual(r.report.unresolved, [], f);
   }
 });
+
+test("코드 SVG 11개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
+  const { outOfBounds } = require("../scripts/illus/check-bounds.js");
+  for (const d of loadAll().filter((x) => x.method === "svg")) {
+    const svg = fs.readFileSync(path.join(ROOT, d.svg), "utf8");
+    assert.deepStrictEqual(outOfBounds(svg), [], d.slug);
+    const html = fs.readFileSync(path.join(ROOT, "terms", d.slug + ".html"), "utf8");
+    const block = html.slice(html.indexOf("term-illus:start"), html.indexOf("term-illus:end"));
+    const notes = [...block.matchAll(/<p class="(?:illus|si)-note">([\s\S]*?)<\/p>/g)].map((m) => m[1].replace(/<[^>]+>/g, "").slice(0, 25));
+    assert.strictEqual(new Set(notes).size, notes.length, d.slug + " 노트 중복");
+    assert.ok(!/data-kind="illus"] .si-frame svg { min-width: 440px/.test(fs.readFileSync(path.join(ROOT, "assets", "term-illus.css"), "utf8")), "가로 스크롤 최소 폭 금지");
+  }
+});
