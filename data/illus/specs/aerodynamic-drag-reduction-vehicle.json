@@ -1,0 +1,100 @@
+{
+ "id": "aerodynamic-drag-reduction-vehicle",
+ "template": "functionPlot",
+ "title": "속도에 따른 공기 항력 소요 동력",
+ "params": {
+  "width": 520,
+  "height": 340,
+  "x": [
+   0,
+   140
+  ],
+  "y": [
+   0,
+   24
+  ],
+  "xLabel": "속도 (km/h)",
+  "yLabel": "동력 (kW)",
+  "fns": [
+   {
+    "expr": "0.5*1.2*0.30*2.2*(x/3.6)^3/1000",
+    "label": "C_{d} = 0.30",
+    "color": "accent",
+    "labelAt": [
+     112,
+     11.9
+    ]
+   },
+   {
+    "expr": "0.5*1.2*0.27*2.2*(x/3.6)^3/1000",
+    "label": "C_{d} = 0.27",
+    "color": "rose",
+    "labelAt": [
+     138,
+     20.1
+    ]
+   }
+  ],
+  "points": [
+   {
+    "at": [
+     60,
+     1.83
+    ],
+    "label": "1.8"
+   },
+   {
+    "at": [
+     100,
+     8.49
+    ],
+    "label": "8.5"
+   },
+   {
+    "at": [
+     130,
+     18.65
+    ],
+    "label": "18.6"
+   }
+  ]
+ },
+ "legend": [
+  {
+   "sym": "P",
+   "desc": "항력을 이기는 데 드는 동력. P = D·v",
+   "kind": "var"
+  },
+  {
+   "sym": "D",
+   "desc": "공기 항력. D = ½ρC_{d}Av^{2}",
+   "kind": "var"
+  },
+  {
+   "sym": "ρ",
+   "desc": "공기 밀도 1.2 kg/m^{3}",
+   "kind": "var"
+  },
+  {
+   "sym": "C_{d}",
+   "desc": "항력계수(drag coefficient). 형상을 반영하는 무차원 값",
+   "kind": "var"
+  },
+  {
+   "sym": "A",
+   "desc": "앞에서 본 투영 면적 2.2 m^{2}",
+   "kind": "var"
+  },
+  {
+   "sym": "v",
+   "desc": "상대 속도",
+   "kind": "var"
+  },
+  {
+   "desc": "P = ½ρC_{d}Av^{3}. 점은 C_{d} = 0.30일 때 60, 100, 130 km/h의 동력(약 1.8, 8.5, 18.6 kW)이다. 구름저항은 제외한 공기 항력만 계산했다(가상의 승용차 예)."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
