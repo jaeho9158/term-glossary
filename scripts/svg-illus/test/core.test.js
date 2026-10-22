@@ -229,3 +229,11 @@ test('plot 함수: f_dist·moving_avg_mag·iso834·square_partial·eps_ntu', () 
   near(PLOT_FNS.eps_ntu.f(2, { Cr: 0.5, branch: 1 }), 0.633, 5e-4);
   assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'f_dist', params: { d1: 2, d2: 27 } }], x: { label: 'F', range: [0, 6] }, y: { label: 'g' } } }, { requireMeta: false }), []);
 });
+
+test('plot 함수: gaussian_sum·debye·piecewise_linear·haldane', () => {
+  const near = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) < tol, `${a} != ${b}`);
+  near(PLOT_FNS.gaussian_sum.f(2, { a: [1, 0.5], mu: [2, 5], sigma: [1, 1] }), 1 + 0.5 * Math.exp(-4.5));
+  near(PLOT_FNS.debye.f(1, {}), 0.9517, 1e-3);
+  near(PLOT_FNS.piecewise_linear.f(80, { k: [105, 95], s: [1, -1], c: -3.4 }), 11.6);
+  near(PLOT_FNS.haldane.f(50, { mumax: 0.5, Ks: 10, Ki: 250 }), 0.357, 6e-4);
+});

@@ -172,3 +172,20 @@ console.log("diagrams-plot-fns: ext12 tests passed");
   assert.deepStrictEqual(checkParams("f_dist", { d1: 2, d2: 27 }), []);
 }
 console.log("diagrams-plot-fns: ext5 tests passed");
+
+// round7 plot-ext: gaussian_sum·debye·piecewise_linear·haldane
+{
+  near(FNS.gaussian_sum.f(2, { a: [1, 0.5], mu: [2, 5], sigma: [1, 1] }), 1 + 0.5 * Math.exp(-4.5), 1e-9);
+  assert.ok(Number.isNaN(FNS.gaussian_sum.f(0, { a: [1], mu: [0], sigma: [0] })));
+  near(FNS.debye.f(1, {}), 0.9517, 1e-3);
+  near(FNS.debye.f(2, {}), 0.9876, 1e-3);
+  near(FNS.debye.f(0.05, {}), (4 * Math.PI ** 4 / 5) * 0.05 ** 3, 1e-6);
+  const sp = { k: [105, 95], s: [1, -1], c: -3.4 };
+  for (const [x, v] of [[80, 11.6], [90, 1.6], [95, -3.4], [100, -3.4], [105, -3.4], [110, 1.6], [120, 11.6]]) near(FNS.piecewise_linear.f(x, sp), v, 1e-9);
+  const hp = { mumax: 0.5, Ks: 10, Ki: 250 };
+  for (const [S, v] of [[5, 0.166], [10, 0.245], [50, 0.357], [250, 0.245], [1000, 0.100]]) near(FNS.haldane.f(S, hp), v, 6e-4);
+  assert.deepStrictEqual(checkParams("haldane", hp), []);
+  assert.ok(checkParams("haldane", { mumax: 0.5, Ks: 10, Ki: 0 }).length > 0);
+  assert.deepStrictEqual(checkParams("gaussian_sum", { a: [1], mu: [0], sigma: [1] }), []);
+}
+console.log("diagrams-plot-fns: round7 tests passed");
