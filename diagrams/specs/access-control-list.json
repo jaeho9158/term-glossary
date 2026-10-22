@@ -1,0 +1,59 @@
+{
+  "slug": "access-control-list",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "패킷 도착",
+      "color": "gray",
+      "sub": "10.0.1.7 → 웹서버 443"
+    },
+    {
+      "id": "b",
+      "label": "규칙 1",
+      "color": "violet",
+      "sub": "10.0.1.0/24 · 443: 허용"
+    },
+    {
+      "id": "c",
+      "label": "규칙 2",
+      "color": "violet",
+      "sub": "10.0.0.0/16 · 전체: 거부"
+    },
+    {
+      "id": "d",
+      "label": "암묵적 거부",
+      "color": "rose",
+      "sub": "어느 규칙에도 불일치"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "위에서부터 차례로 검사해 처음 일치하는 규칙에서 멈춘다. 10.0.1.7은 규칙 1에서 허용된다",
+      "tone": "general"
+    },
+    {
+      "text": "규칙 1·2의 순서를 바꾸면 10.0.1.7도 거부되어 결과가 반대가 된다. 규칙과 주소는 본문의 가상 예이다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 가상 예; https://www.cisco.com/c/en/us/support/docs/ip/access-lists/26448-ACLsamples.html (열람: 순차 검사, 첫 일치 적용, 암묵적 전부 거부 확인)",
+  "reviewed": true
+}

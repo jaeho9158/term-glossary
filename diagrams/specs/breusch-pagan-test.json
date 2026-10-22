@@ -1,0 +1,59 @@
+{
+  "slug": "breusch-pagan-test",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "원 회귀 잔차",
+      "color": "blue",
+      "sub": "적합 후 잔차 계산"
+    },
+    {
+      "id": "b",
+      "label": "보조 회귀",
+      "color": "violet",
+      "sub": "잔차 제곱을 설명변수에 회귀"
+    },
+    {
+      "id": "c",
+      "label": "LM = nR²",
+      "color": "amber",
+      "sub": "예: 100 × .199 ≈ 19.9"
+    },
+    {
+      "id": "d",
+      "label": "카이제곱 판정",
+      "color": "rose",
+      "sub": "자유도 1, p < .001"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "귀무가설은 동분산이며 기각되면 강건 표준오차 등을 쓴다",
+      "tone": "general"
+    },
+    {
+      "text": "Koenker 수정식(nR²)이며 원래 BP 통계량은 정규성을 가정한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "열람: https://en.wikipedia.org/wiki/Breusch%E2%80%93Pagan_test (Koenker LM = nR^2 from regression of squared residuals; original needs normality); 예는 본문 모의 자료 R²=.199",
+  "reviewed": true
+}

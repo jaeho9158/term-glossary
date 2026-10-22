@@ -1,0 +1,59 @@
+{
+  "slug": "certificate-authority",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "루트 CA",
+      "color": "rose",
+      "sub": "키 오프라인 보관"
+    },
+    {
+      "id": "m",
+      "label": "중간 CA",
+      "color": "violet",
+      "sub": "실제 인증서 발급"
+    },
+    {
+      "id": "s",
+      "label": "서버 인증서",
+      "color": "blue",
+      "sub": "주체·공개키·서명"
+    },
+    {
+      "id": "v",
+      "label": "폐지 정보",
+      "color": "amber",
+      "sub": "CRL·OCSP 응답"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "m",
+      "kind": "arrow"
+    },
+    {
+      "from": "m",
+      "to": "s",
+      "kind": "arrow"
+    },
+    {
+      "from": "m",
+      "to": "v",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "CA: 인증기관, CRL: 인증서 폐지 목록, OCSP: 온라인 인증서 상태 프로토콜",
+      "tone": "general"
+    },
+    {
+      "text": "폐지 확인은 구현에 따라 생략되기도 한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 https://termglossary.kr/terms/certificate-authority.html; https://en.wikipedia.org/wiki/Certificate_authority (루트→중간 CA 계층, CRL·OCSP 확인, 열람)",
+  "reviewed": true
+}

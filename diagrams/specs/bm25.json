@@ -1,0 +1,41 @@
+{
+  "slug": "bm25",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "hill",
+        "params": {
+          "ec50": 1.2,
+          "n": 1
+        },
+        "label": "빈도 항",
+        "color": "blue"
+      }
+    ],
+    "shade": [],
+    "vlines": [],
+    "x": {
+      "label": "단어 빈도 f",
+      "range": [
+        0,
+        20
+      ]
+    },
+    "y": {
+      "label": "빈도 항(포화)"
+    }
+  },
+  "notes": [
+    {
+      "text": "빈도 항 f(k₁+1)/(f+k₁)는 f가 커져도 k₁+1 = 2.2(k₁=1.2)를 넘지 않는다",
+      "tone": "general"
+    },
+    {
+      "text": "문서 길이 보정을 끈 경우(b=0)의 곡선이다",
+      "tone": "limit"
+    }
+  ],
+  "source": "열람: https://en.wikipedia.org/wiki/Okapi_BM25 (score = Σ IDF·f(k1+1)/(f+k1(1−b+b|D|/avgdl)); k1 usually 1.2~2.0); b=0이면 f(k1+1)/(f+k1), 곡선 모양은 f/(f+k1)와 같다",
+  "reviewed": true
+}

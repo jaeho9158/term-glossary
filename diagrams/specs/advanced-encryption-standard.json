@@ -1,0 +1,70 @@
+{
+  "slug": "advanced-encryption-standard",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "AddRoundKey",
+      "color": "amber",
+      "sub": "처음 한 번"
+    },
+    {
+      "id": "b",
+      "label": "SubBytes",
+      "color": "violet",
+      "sub": "S-박스 치환"
+    },
+    {
+      "id": "c",
+      "label": "ShiftRows",
+      "color": "violet",
+      "sub": "행 이동"
+    },
+    {
+      "id": "d",
+      "label": "MixColumns",
+      "color": "violet",
+      "sub": "열 안에서 섞기"
+    },
+    {
+      "id": "e",
+      "label": "AddRoundKey",
+      "color": "amber",
+      "sub": "라운드 키 더하기"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "둘째~다섯째 노드가 한 라운드이며, 키 128·192·256비트에 따라 10·12·14번 반복한다. 마지막 라운드는 MixColumns를 생략한다",
+      "tone": "general"
+    },
+    {
+      "text": "블록은 128비트(바이트 4×4 state)로 고정이다",
+      "tone": "general"
+    }
+  ],
+  "source": "https://en.wikipedia.org/wiki/Advanced_Encryption_Standard (열람: 128비트 블록, 10/12/14 라운드, 네 단계, FIPS 197); 용어 페이지 본문",
+  "reviewed": true
+}
