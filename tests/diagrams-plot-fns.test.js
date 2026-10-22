@@ -78,3 +78,27 @@ assert.deepStrictEqual(checkParams("km_function", {}), []);
   const pts = sample("mixing_free_energy", { N1: 100, N2: 1, chi: 1 }, 0, 1);
   assert.ok(pts.every(([, y]) => Number.isFinite(y)));
 }
+
+// 추가 6개: unbalance_response, laplace, sin_squared, cumulative_sin_squared, stretched_exp, damped_oscillation
+near(FNS.unbalance_response.f(0.5, {}), 0.25 / 0.75);
+near(FNS.unbalance_response.f(2, {}), 4 / 3);
+near(FNS.unbalance_response.f(1, {}), 20); // 표시용 상한(분모 하한 0.05)
+near(FNS.laplace.f(0, { mu: 0, b: 1 }), 0.5);
+near(FNS.laplace.f(2, { mu: 0, b: 2 }), Math.exp(-1) / 4);
+near(FNS.sin_squared.f(0.5, {}), 1);
+near(FNS.sin_squared.f(0, {}), 0);
+near(FNS.cumulative_sin_squared.f(0.3, {}), 0.3 - Math.sin(0.6 * Math.PI) / (2 * Math.PI));
+near(FNS.cumulative_sin_squared.f(0.5, {}), 0.5);
+near(FNS.cumulative_sin_squared.f(1, {}), 1);
+near(FNS.stretched_exp.f(0, { k: 0.1, n: 1.5 }), 1);
+near(FNS.stretched_exp.f(4, { k: 0.1, n: 2 }), Math.exp(-1.6));
+near(FNS.damped_oscillation.f(0, { zeta: 0.3, wn: 1.2 }), 1);
+// 한 감쇠 주기 뒤 진폭비 exp(−2πζ/√(1−ζ²)) (본문 표: ζ=0.05 → 73%, ζ=0.30 → 14%)
+for (const [z, r] of [[0.05, 0.73], [0.3, 0.14]]) {
+  const T = 2 * Math.PI / (1.2 * Math.sqrt(1 - z * z));
+  assert.ok(Math.abs(FNS.damped_oscillation.f(T, { zeta: z, wn: 1.2 }) - r) < 0.005);
+}
+assert.ok(checkParams("damped_oscillation", { zeta: 1, wn: 1 }).length > 0);
+assert.ok(checkParams("laplace", { mu: 0, b: 0 }).length > 0);
+assert.deepStrictEqual(checkParams("sin_squared", {}), []);
+console.log("diagrams-plot-fns: ext6 tests passed");

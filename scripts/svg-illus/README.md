@@ -161,7 +161,7 @@ node bin/svg-illus.js ../term-style/diagrams/specs/3-hydroxykynurenine.json --ht
 - `overlay`: 도해 요소 배열입니다. plot에서는 데이터 좌표, 다른 유형에서는 픽셀 좌표로 놓습니다(`overlayCoords: "px"`로 강제할 수 있습니다). 라벨은 도식의 글자와 박스를 피해서 놓입니다. 주석 라벨이나 영역 음영을 넣을 때 씁니다.
 - `legend`, `table`, `caption`, `credit`, `license`: 도해와 같은 figcaption 구조로 나옵니다.
 
-plot 함수는 기존 10개(normal, t, chi2, exponential, logistic, linear, roc, hill, inverted_u, decay)에 9개를 더했습니다: km_function(쿠벨카-뭉크 K/S), mixing_free_energy(플로리-허긴스 혼합 자유에너지, 매개변수 N1·N2·chi), power, reciprocal, prospect_value, quadratic_pair(branch 0=펌프, 1=계통), step_survival, concentration_time, cox_hazard.
+plot 함수는 기존 10개(normal, t, chi2, exponential, logistic, linear, roc, hill, inverted_u, decay)에 15개를 더했습니다: unbalance_response, laplace, sin_squared, cumulative_sin_squared, stretched_exp, damped_oscillation, km_function(쿠벨카-뭉크 K/S), mixing_free_energy(플로리-허긴스 혼합 자유에너지, 매개변수 N1·N2·chi), power, reciprocal, prospect_value, quadratic_pair(branch 0=펌프, 1=계통), step_survival, concentration_time, cox_hazard.
 
 ## 예제
 
@@ -209,4 +209,4 @@ npm test                   # 또는 node --test
 
 ## 테스트
 
-`node --test`로 돌립니다. 다음 항목을 확인합니다: 겹침 회피(빈자리 찾기, 지시선, fixed, 측정 훅), 첨자와 분수 파싱, MathML 출력, 범례 kind, 스펙 검증 오류(경로 표시, 수식 이름 제한), 템플릿, 도식 어댑터와 overlay, plot 함수 19개.
+`node --test`로 돌립니다. 다음 항목을 확인합니다: 겹침 회피(빈자리 찾기, 지시선, fixed, 측정 훅), 첨자와 분수 파싱, MathML 출력, 범례 kind, 스펙 검증 오류(경로 표시, 수식 이름 제한), 템플릿, 도식 어댑터와 overlay, plot 함수 25개.

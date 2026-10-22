@@ -96,6 +96,24 @@ const FNS = {
   // 플로리-허긴스 혼합 자유에너지 ΔG/kT = (φ/N1)lnφ + ((1−φ)/N2)ln(1−φ) + χφ(1−φ). 가로축 φ(0<φ<1)
   mixing_free_energy: { params: { N1: { gt: 0 }, N2: { gt: 0 }, chi: {} }, domain: [0.001, 0.999], desc: "혼합 자유에너지 곡선",
     f: (x, p) => (x / p.N1) * Math.log(x) + ((1 - x) / p.N2) * Math.log(1 - x) + p.chi * x * (1 - x) },
+  // 감쇠 없는 불균형 응답비 r/e = x²/|1−x²|, 가로축 x=Ω/ω (x=1 공진에서 발산하므로 표시용으로 분모 하한 0.05를 둔다)
+  unbalance_response: { params: {}, domain: [0, Infinity], desc: "불균형 응답비 곡선",
+    f: (x) => (x * x) / Math.max(Math.abs(1 - x * x), 0.05) },
+  // 라플라스 분포 밀도 exp(−|x−mu|/b)/(2b)
+  laplace: { params: { mu: {}, b: { gt: 0 } }, desc: "라플라스 분포 곡선",
+    f: (x, p) => Math.exp(-Math.abs(x - p.mu) / p.b) / (2 * p.b) },
+  // 제어봉 미분가 sin²(πx), 가로축 x=z/H (0≤x≤1)
+  sin_squared: { params: {}, domain: [0, 1], desc: "미분제어봉가 곡선",
+    f: (x) => Math.sin(Math.PI * x) ** 2 },
+  // 제어봉 적분가(누적 비율) x − sin(2πx)/(2π), 가로축 x=z/H
+  cumulative_sin_squared: { params: {}, domain: [0, 1], desc: "적분제어봉가 곡선",
+    f: (x) => x - Math.sin(2 * Math.PI * x) / (2 * Math.PI) },
+  // Page 건조 모형 MR = exp(−k·t^n)
+  stretched_exp: { params: { k: { gt: 0 }, n: { gt: 0 } }, domain: [0, Infinity], desc: "Page 건조 곡선",
+    f: (x, p) => Math.exp(-p.k * x ** p.n) },
+  // 2차계 자유 응답 exp(−ζωn t)·cos(ωn√(1−ζ²) t), 0≤ζ<1
+  damped_oscillation: { params: { zeta: { gte: 0, lt: 1 }, wn: { gt: 0 } }, domain: [0, Infinity], desc: "감쇠 진동 곡선",
+    f: (x, p) => Math.exp(-p.zeta * p.wn * x) * Math.cos(p.wn * Math.sqrt(1 - p.zeta * p.zeta) * x) },
 };
 
 function checkParams(fn, params) {

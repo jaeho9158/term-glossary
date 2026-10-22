@@ -1,0 +1,59 @@
+{
+ "slug": "data-pipeline",
+ "type": "procedure",
+ "nodes": [
+  {
+   "id": "a",
+   "label": "수집",
+   "color": "blue",
+   "sub": "원시 7줄"
+  },
+  {
+   "id": "b",
+   "label": "정제",
+   "color": "violet",
+   "sub": "중복 제거 → 6줄"
+  },
+  {
+   "id": "c",
+   "label": "변환",
+   "color": "violet",
+   "sub": "결측 제거 → 4줄"
+  },
+  {
+   "id": "d",
+   "label": "적재",
+   "color": "green",
+   "sub": "센서별 평균 저장"
+  }
+ ],
+ "edges": [
+  {
+   "from": "a",
+   "to": "b",
+   "kind": "arrow"
+  },
+  {
+   "from": "b",
+   "to": "c",
+   "kind": "arrow"
+  },
+  {
+   "from": "c",
+   "to": "d",
+   "kind": "arrow"
+  }
+ ],
+ "notes": [
+  {
+   "text": "가상 센서 로그 7줄의 예: 단계마다 줄 수가 7→6→4로 줄어든다",
+   "tone": "general"
+  },
+  {
+   "text": "ETL은 변환 후 적재, ELT는 적재 후 변환",
+   "tone": "general"
+  }
+ ],
+ "source": "용어 페이지 본문",
+ "reviewed": true
+}

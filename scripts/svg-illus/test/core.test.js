@@ -179,3 +179,16 @@ test('plot 함수: km_function·mixing_free_energy', () => {
   assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'km_function', params: {} }], x: { label: 'R', range: [0.05, 1] }, y: { label: 'K/S' } } }, { requireMeta: false }), []);
   assert.ok(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'mixing_free_energy', params: { N1: 0, N2: 1, chi: 1 } }], x: { label: 'φ', range: [0, 1] }, y: { label: 'g' } } }, { requireMeta: false }).some(e => e.includes('N1=0 범위 밖')));
 });
+
+test('plot 함수: 추가 6개(응답비·라플라스·제어봉가·Page·감쇠진동)', () => {
+  const near = (a, b, t = 1e-9) => assert.ok(Math.abs(a - b) < t, `${a} != ${b}`);
+  near(PLOT_FNS.unbalance_response.f(2, {}), 4 / 3);
+  near(PLOT_FNS.unbalance_response.f(1, {}), 20);
+  near(PLOT_FNS.laplace.f(0, { mu: 0, b: 1 }), 0.5);
+  near(PLOT_FNS.sin_squared.f(0.5, {}), 1);
+  near(PLOT_FNS.cumulative_sin_squared.f(0.5, {}), 0.5);
+  near(PLOT_FNS.stretched_exp.f(4, { k: 0.1, n: 2 }), Math.exp(-1.6));
+  const T = 2 * Math.PI / (1.2 * Math.sqrt(1 - 0.09));
+  assert.ok(Math.abs(PLOT_FNS.damped_oscillation.f(T, { zeta: 0.3, wn: 1.2 }) - 0.14) < 0.005);
+  assert.ok(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'damped_oscillation', params: { zeta: 1, wn: 1 } }], x: { label: 't', range: [0, 10] }, y: { label: 'y' } } }, { requireMeta: false }).some(e => e.includes('zeta=1 범위 밖')));
+});
