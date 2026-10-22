@@ -1,0 +1,85 @@
+{
+  "slug": "resilience-index-disaster",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "이론 틀 설정",
+      "color": "blue",
+      "sub": "BRIC·Bruneau"
+    },
+    {
+      "id": "b",
+      "label": "지표 선정",
+      "color": "violet"
+    },
+    {
+      "id": "c",
+      "label": "결측 처리",
+      "color": "violet"
+    },
+    {
+      "id": "d",
+      "label": "정규화",
+      "color": "violet",
+      "sub": "(x−min)÷(max−min)"
+    },
+    {
+      "id": "e",
+      "label": "가중",
+      "color": "amber"
+    },
+    {
+      "id": "f",
+      "label": "집계",
+      "color": "violet",
+      "sub": "Σ w × I"
+    },
+    {
+      "id": "g",
+      "label": "민감도 분석",
+      "color": "green",
+      "sub": "가 60.0에서 68.0"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    },
+    {
+      "from": "e",
+      "to": "f",
+      "kind": "arrow"
+    },
+    {
+      "from": "f",
+      "to": "g",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "가중치만 바꿔도 가는 60.0에서 68.0으로 오르고 나는 61.7에서 61.0으로 내려, 순위가 뒤바뀐다",
+      "tone": "limit"
+    }
+  ],
+  "source": "OECD 합성지표 안내서(Nardo 외 2008)의 7단계 본문 인용; 가상 점수(가 80·40·60, 나 60·70·55)를 직접 재계산: 동일 가중 60.0/61.7, 가중(0.6,0.2,0.2) 68.0/61.0",
+  "reviewed": true
+}

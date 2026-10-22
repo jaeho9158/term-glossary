@@ -1,0 +1,59 @@
+{
+  "slug": "reticulocyte-count",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "망상적혈구 6%",
+      "color": "blue",
+      "sub": "적혈구용적률 25%"
+    },
+    {
+      "id": "b",
+      "label": "보정 3.33%",
+      "color": "violet",
+      "sub": "6 × {frac:25,45}"
+    },
+    {
+      "id": "c",
+      "label": "RPI 1.67",
+      "color": "violet",
+      "sub": "3.33 ÷ 성숙계수 2.0"
+    },
+    {
+      "id": "d",
+      "label": "RPI로 판정",
+      "color": "amber",
+      "sub": "낮으면 생산 저하"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "RPI가 높으면 용혈이나 출혈 뒤 보상 반응을 시사한다",
+      "tone": "pos"
+    },
+    {
+      "text": "성숙계수는 용적률 45%일 때 1.0, 25%일 때 2.0 등 교육용 관례",
+      "tone": "limit"
+    }
+  ],
+  "source": "https://en.wikipedia.org/wiki/Reticulocyte (열람: 정상 비율, 생산지수로 골수 반응 판단); CRC·RPI 식과 성숙계수는 본문 표 인용, 계산 6×25/45=3.33, 3.33/2.0=1.67 재계산",
+  "reviewed": true
+}
