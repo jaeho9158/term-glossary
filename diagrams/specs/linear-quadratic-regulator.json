@@ -1,0 +1,59 @@
+{
+  "slug": "linear-quadratic-regulator",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "가중치 선택",
+      "color": "amber",
+      "sub": "Q·R 정함"
+    },
+    {
+      "id": "b",
+      "label": "리카티 방정식",
+      "color": "violet",
+      "sub": "P를 구함"
+    },
+    {
+      "id": "c",
+      "label": "이득 계산",
+      "color": "violet",
+      "sub": "K=R⁻¹BᵀP"
+    },
+    {
+      "id": "d",
+      "label": "상태 피드백",
+      "color": "green",
+      "sub": "u=−Kx"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "스칼라 예(a=b=1): R=10이면 극 −1.049, Q=10이면 극 −3.317",
+      "tone": "general"
+    },
+    {
+      "text": "모든 상태를 안다고 가정하므로 보통 관측기와 함께 쓴다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 '어떤 절차인가'; https://en.wikipedia.org/wiki/Linear%E2%80%93quadratic_regulator (비용 J, 리카티 방정식, u=-Kx 확인). 스칼라 예는 P=R+sqrt(R^2+QR)로 직접 산술 검증(R=1,Q=1 K=2.414; R=10 K=2.049; Q=10 K=4.317)",
+  "reviewed": true
+}

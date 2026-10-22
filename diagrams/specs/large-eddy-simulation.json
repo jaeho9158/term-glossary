@@ -1,0 +1,55 @@
+{
+  "slug": "large-eddy-simulation",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "공간 필터링",
+      "color": "violet",
+      "sub": "폭 Δ로 규모 분리"
+    },
+    {
+      "id": "b",
+      "label": "필터링된 방정식",
+      "color": "blue",
+      "sub": "아격자 응력 발생"
+    },
+    {
+      "id": "c",
+      "label": "아격자 모델",
+      "color": "violet",
+      "sub": "Smagorinsky·동적"
+    },
+    {
+      "id": "d",
+      "label": "시간 전진",
+      "color": "green",
+      "sub": "큰 에디 직접 계산"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "벽 근처까지 풀면 비용이 급증해 벽 모델 LES도 쓰인다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 '어떤 절차인가'; https://en.wikipedia.org/wiki/Large_eddy_simulation (필터 폭 Δ, 아격자 응력 모델링, Smagorinsky 1963, Germano 외 1991 확인). 시간 전진 단계와 벽 모델은 본문만 근거. 3열 비교(RANS/LES/DNS)는 contrast가 2열만 지원해 절차로 대체",
+  "reviewed": true
+}

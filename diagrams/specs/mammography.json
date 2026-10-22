@@ -1,0 +1,69 @@
+{
+  "slug": "mammography",
+  "type": "hierarchy",
+  "nodes": [
+    {
+      "id": "r",
+      "label": "선별 대상",
+      "color": "blue",
+      "sub": "가상 1만 명"
+    },
+    {
+      "id": "c",
+      "label": "암 50명",
+      "color": "rose",
+      "sub": "유병률 0.5%"
+    },
+    {
+      "id": "n",
+      "label": "암 없음 9,950명",
+      "color": "gray"
+    },
+    {
+      "id": "tp",
+      "label": "양성 42.5명",
+      "color": "green",
+      "sub": "민감도 85%"
+    },
+    {
+      "id": "fp",
+      "label": "위양성 995명",
+      "color": "rose",
+      "sub": "특이도 90%"
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "r",
+      "to": "n",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "tp",
+      "kind": "arrow"
+    },
+    {
+      "from": "n",
+      "to": "fp",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "양성 1,037.5명 중 실제 암은 42.5명이라 양성예측도는 약 4.1%",
+      "tone": "general"
+    },
+    {
+      "text": "민감도·특이도가 높아도 유병률이 낮으면 양성 결과의 대부분은 암이 아니다(가상의 계산 예)",
+      "tone": "limit"
+    }
+  ],
+  "source": "본문 논문에는 이렇게 적는다의 가상 계산 예(산술 검산 일치: 42.5/1,037.5≈4.1%). Wikipedia Mammography https://en.wikipedia.org/wiki/Mammography 는 BI-RADS·CC/MLO·DBT 확인, 계산 예 수치는 본문 근거",
+  "reviewed": true
+}
