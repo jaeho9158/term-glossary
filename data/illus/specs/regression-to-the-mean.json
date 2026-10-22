@@ -1,0 +1,228 @@
+{
+ "id": "regression-to-the-mean",
+ "width": 520,
+ "height": 380,
+ "title": "평균으로의 회귀: 첫 측정과 두 번째 측정의 관계",
+ "axes": {
+  "x": {
+   "min": 70,
+   "max": 130,
+   "step": 10,
+   "label": "첫 측정 점수"
+  },
+  "y": {
+   "min": 70,
+   "max": 130,
+   "step": 10,
+   "label": "두 번째 측정 점수"
+  },
+  "grid": true
+ },
+ "elements": [
+  {
+   "type": "line",
+   "from": [
+    70,
+    70
+   ],
+   "to": [
+    130,
+    130
+   ],
+   "dash": true,
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "type": "curve",
+   "fn": "100+0.8*(x-100)",
+   "domain": [
+    70,
+    130
+   ],
+   "stroke": "accent",
+   "width": 2.2
+  },
+  {
+   "type": "line",
+   "from": [
+    100,
+    70
+   ],
+   "to": [
+    100,
+    100
+   ],
+   "width": 0.9,
+   "dash": "3 3",
+   "opacity": 0.6,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    70,
+    100
+   ],
+   "to": [
+    100,
+    100
+   ],
+   "width": 0.9,
+   "dash": "3 3",
+   "opacity": 0.6,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    119.6,
+    119.6
+   ],
+   "to": [
+    119.6,
+    115.7
+   ],
+   "width": 2.2,
+   "stroke": "rose"
+  },
+  {
+   "type": "line",
+   "from": [
+    80.4,
+    80.4
+   ],
+   "to": [
+    80.4,
+    84.2
+   ],
+   "width": 2.2,
+   "stroke": "green"
+  },
+  {
+   "type": "dot",
+   "at": [
+    119.6,
+    115.7
+   ],
+   "r": 3.5,
+   "color": "rose"
+  },
+  {
+   "type": "dot",
+   "at": [
+    80.4,
+    84.2
+   ],
+   "r": 3.5,
+   "color": "green"
+  },
+  {
+   "type": "dot",
+   "at": [
+    100,
+    100
+   ],
+   "r": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    112.5
+   ],
+   "text": "상위 10%",
+   "size": 11,
+   "anchor": "start",
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    108.5
+   ],
+   "text": "119.6 → 115.7",
+   "size": 11,
+   "anchor": "start",
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    83,
+    79
+   ],
+   "text": "하위 10%",
+   "size": 11,
+   "anchor": "start",
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    83,
+    75.5
+   ],
+   "text": "80.4 → 84.2",
+   "size": 11,
+   "anchor": "start",
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    72,
+    126
+   ],
+   "text": "기울기 1 (변화 없음)",
+   "size": 11,
+   "anchor": "start",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    103,
+    87
+   ],
+   "text": "회귀선 기울기 0.8",
+   "size": 11,
+   "anchor": "start",
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    101.5,
+    97
+   ],
+   "text": "평균 100",
+   "size": 11,
+   "anchor": "start"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "기울기 1",
+   "desc": "두 번째 점수가 첫 점수와 같을 때의 대각선(점선)",
+   "kind": "term"
+  },
+  {
+   "sym": "기울기 0.8",
+   "desc": "기대 재측정값 = 100 + 0.8 × (첫 점수 − 100). 상관 r = .80이다.",
+   "kind": "term"
+  },
+  {
+   "desc": "점 위치는 본문 시뮬레이션의 집단 평균(상위·하위 10%)이다. 화살표는 처치 없이 평균 쪽으로 이동한 방향이다. 공식으로는 하위 집단이 84.3이고 시뮬레이션 평균은 84.2로 0.1 차이가 난다."
+  }
+ ],
+ "caption": "r = .80인 두 번 측정 자료에서 첫 점수가 극단인 집단은 두 번째 측정에서 대각선보다 회귀선 쪽, 곧 평균 쪽에 놓인다.",
+ "checked": [
+  "https://en.wikipedia.org/wiki/Regression_toward_the_mean"
+ ],
+ "checkResult": "출처: r<1이면 기대 재측정값=평균+r(첫값-평균)이고 r=1에서만 회귀 없음(Galton 키 예시) 일치. 100+0.8*19.6=115.68, 100-0.8*19.6=84.32 직접 계산: 상위 115.7 일치, 하위는 84.3(본문 시뮬 84.2).",
+ "credit": "직접 작성 도해",
+ "license": "CC BY 4.0",
+ "reviewed": true
+}
