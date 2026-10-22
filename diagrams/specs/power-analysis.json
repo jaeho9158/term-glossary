@@ -1,0 +1,76 @@
+{
+  "slug": "power-analysis",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "normal",
+        "params": {
+          "mu": 0,
+          "sigma": 1
+        },
+        "label": "귀무가설",
+        "color": "gray"
+      },
+      {
+        "fn": "normal",
+        "params": {
+          "mu": 2.83,
+          "sigma": 1
+        },
+        "label": "대립가설",
+        "color": "blue"
+      }
+    ],
+    "shade": [
+      {
+        "series": 0,
+        "from": 1.96,
+        "to": null,
+        "color": "rose"
+      },
+      {
+        "series": 1,
+        "from": null,
+        "to": 1.96,
+        "label": "β",
+        "color": "amber"
+      },
+      {
+        "series": 1,
+        "from": 1.96,
+        "to": null,
+        "label": "검정력 1−β",
+        "color": "green"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 1.96,
+        "label": "임계값"
+      }
+    ],
+    "x": {
+      "label": "검정통계량",
+      "range": [
+        -3,
+        6
+      ]
+    },
+    "y": {
+      "label": "밀도"
+    }
+  },
+  "notes": [
+    {
+      "text": "분홍 꼬리가 α/2(양측 .05의 한쪽). 검정력 .80, d 0.5이면 집단당 64명(본문 표)",
+      "tone": "general"
+    },
+    {
+      "text": "α·검정력·효과크기·표본크기 중 셋을 정하면 나머지가 정해진다",
+      "tone": "general"
+    }
+  ],
+  "source": "https://en.wikipedia.org/wiki/Statistical_power (power=1−β, α·효과크기·표본크기 관계 확인); 모식도: d 0.5·n 64 → δ≈2.83",
+  "reviewed": true
+}

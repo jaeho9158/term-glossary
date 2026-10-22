@@ -1,0 +1,65 @@
+{
+  "slug": "power-spectral-density-analysis",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "구간 분할",
+      "color": "blue",
+      "sub": "겹침 허용"
+    },
+    {
+      "id": "n1",
+      "label": "창 함수 적용",
+      "color": "violet"
+    },
+    {
+      "id": "n2",
+      "label": "구간별 주기도",
+      "color": "violet",
+      "sub": "DFT 제곱 크기"
+    },
+    {
+      "id": "n3",
+      "label": "구간 평균",
+      "color": "amber",
+      "sub": "분산 감소"
+    },
+    {
+      "id": "n4",
+      "label": "PSD 추정",
+      "color": "green",
+      "sub": "Hz당 파워"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "구간이 짧을수록 분산은 줄지만 주파수 해상도는 거칠어진다",
+      "tone": "limit"
+    }
+  ],
+  "source": "https://en.wikipedia.org/wiki/Welch%27s_method (분할·창·주기도·평균 4단계, 분산-해상도 교환 확인)",
+  "reviewed": true
+}

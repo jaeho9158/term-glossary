@@ -1,0 +1,66 @@
+{
+  "slug": "power-system-state-estimation",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "모델 구성",
+      "color": "blue",
+      "sub": "토폴로지·선로 정수"
+    },
+    {
+      "id": "n1",
+      "label": "측정 모델",
+      "color": "violet",
+      "sub": "z = h(x) + e"
+    },
+    {
+      "id": "n2",
+      "label": "WLS 추정",
+      "color": "violet",
+      "sub": "가중 최소자승"
+    },
+    {
+      "id": "n3",
+      "label": "관측성 확인",
+      "color": "amber",
+      "sub": "상태 유일성"
+    },
+    {
+      "id": "n4",
+      "label": "불량 데이터 검정",
+      "color": "rose",
+      "sub": "χ² 기준 초과 시 제거"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "J가 자유도 2의 χ² 95% 기준 5.99를 넘으면 불량 데이터를 의심한다",
+      "tone": "general"
+    }
+  ],
+  "source": "본문 절차(Abur & Gómez Expósito 등 단행본; 위키 페이지 404라 URL 확인 못 함). χ²(2, 95%)=5.99는 계산으로 확인",
+  "reviewed": true
+}
