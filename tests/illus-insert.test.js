@@ -110,11 +110,11 @@ test("vector-projection 범례는 벡터 기호이고 color-wheel 범례(HSL·�
   assert.ok(html.includes("정사영(projection)") && !html.slice(html.indexOf("term-illus:start"), html.indexOf("term-illus:end")).includes("HSL"));
 });
 
-test("코드 SVG 스펙 106개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
+test("코드 SVG 스펙 128개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
   const { renderSVG, templates } = require("../scripts/svg-illus/src/index.js");
   const dir = path.join(ROOT, "data", "illus", "specs");
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-  assert.strictEqual(files.length, 106);
+  assert.strictEqual(files.length, 128);
   for (const f of files) {
     const r = renderSVG(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")), { templates });
     assert.deepStrictEqual(r.report.unresolved, [], f);
