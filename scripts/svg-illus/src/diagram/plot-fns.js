@@ -114,6 +114,43 @@ const FNS = {
   // 2차계 자유 응답 exp(−ζωn t)·cos(ωn√(1−ζ²) t), 0≤ζ<1
   damped_oscillation: { params: { zeta: { gte: 0, lt: 1 }, wn: { gt: 0 } }, domain: [0, Infinity], desc: "감쇠 진동 곡선",
     f: (x, p) => Math.exp(-p.zeta * p.wn * x) * Math.cos(p.wn * Math.sqrt(1 - p.zeta * p.zeta) * x) },
+  // ── 추가 12개(round4 plot-ext, 본문 수치로 검증): bet·binomial_pmf·saturation_exp·birthday_collision·planck·log·arrhenius_ratio·complement_power·gain_amplification·poisson·bose_einstein·cohesive_triangle ──
+  // BET 흡착등온식 v = vm·c·x/((1−x)(1−x+cx)), 가로축 x=P/P0 (0≤x<1)
+  bet: { params: { vm: { gt: 0 }, c: { gt: 0 } }, domain: [0, 0.999], desc: "BET 흡착등온선",
+    f: (x, p) => (p.vm * p.c * x) / ((1 - x) * (1 - x + p.c * x)) },
+  // 이항분포 확률 P(X=k)=C(n,k)p^k(1−p)^(n−k). 이산 분포라 가로축 x를 가장 가까운 정수 k로 반올림한 막대 높이(계단)로 그린다
+  binomial_pmf: { params: { n: { gt: 0 }, p: { gt: 0, lt: 1 } }, domain: [0, Infinity], desc: "이항분포 확률",
+    f: (x, p) => { const k = Math.round(x), n = Math.round(p.n); return k < 0 || k > n ? 0 : Math.exp(lgamma(n + 1) - lgamma(k + 1) - lgamma(n - k + 1) + k * Math.log(p.p) + (n - k) * Math.log(1 - p.p)); } },
+  // 포화 곡선 y = L0(1 − e^(−kx)) (BOD 일차 반응 등)
+  saturation_exp: { params: { L0: { gt: 0 }, k: { gt: 0 } }, domain: [0, Infinity], desc: "포화 곡선",
+    f: (x, p) => p.L0 * (1 - Math.exp(-p.k * x)) },
+  // 생일 문제 P(n)=1−d!/((d−n)!·d^n). 정수 n의 값을 감마 함수로 매끄럽게 이은 곡선(n≥d이면 1)
+  birthday_collision: { params: { d: { gt: 0 } }, domain: [0, Infinity], desc: "생일 충돌 확률 곡선",
+    f: (x, p) => (x <= 0 ? 0 : x >= p.d ? 1 : 1 - Math.exp(lgamma(p.d + 1) - lgamma(p.d - x + 1) - x * Math.log(p.d))) },
+  // 플랑크 법칙 B_λ = (2hc²/λ⁵)/(e^(hc/λkT) − 1). 가로축 λ(µm), 값은 W·sr⁻¹·m⁻²·µm⁻¹. SI 정의값 h, c, k
+  planck: { params: { T: { gt: 0 } }, domain: [0, Infinity], desc: "플랑크 분광 복사 곡선",
+    f: (x, p) => { if (x <= 0) return 0; const h = 6.62607015e-34, c = 299792458, k = 1.380649e-23, l = x * 1e-6; return (2 * h * c * c / l ** 5 / Math.expm1(h * c / (l * k * p.T))) * 1e-6; } },
+  // 로그 곡선 a·ln x + b (브레게 항속거리, 칼슨 영양상태지수 등). x>0
+  log: { params: { a: { gt: 0 }, b: {} }, domain: [1e-9, Infinity], desc: "로그 곡선",
+    f: (x, p) => p.a * Math.log(x) + p.b },
+  // 활성화 에너지 감소에 따른 속도 상수 비 exp(b/T), b=ΔEa/R(K). 가로축 온도 T(K)
+  arrhenius_ratio: { params: { b: { gt: 0 } }, domain: [1e-9, Infinity], desc: "속도 상수 비 곡선",
+    f: (x, p) => Math.exp(p.b / x) },
+  // 1 − a^x (독립 검정 x개 중 적어도 하나가 유의할 확률 등, 0<a<1)
+  complement_power: { params: { a: { gt: 0, lt: 1 } }, domain: [0, Infinity], desc: "누적 확률 곡선",
+    f: (x, p) => 1 - p.a ** x },
+  // 피드백 증폭 a/(1−x), 가로축 이득 x<1 (x→1에서 발산하므로 0.999까지)
+  gain_amplification: { params: { a: { gt: 0 } }, domain: [-Infinity, 0.999], desc: "피드백 증폭 곡선",
+    f: (x, p) => p.a / (1 - x) },
+  // 푸아송 분포 P(n)=e^(−λ)λ^n/n!. 이산 분포라 x를 가장 가까운 정수로 반올림한 막대 높이(계단)
+  poisson: { params: { lambda: { gt: 0 } }, domain: [0, Infinity], desc: "푸아송 분포",
+    f: (x, p) => { const k = Math.round(x); return k < 0 ? 0 : Math.exp(-p.lambda + k * Math.log(p.lambda) - lgamma(k + 1)); } },
+  // 보스–아인슈타인(열광) 분포 P(n)=n̄^n/(1+n̄)^(n+1). 반올림 계단
+  bose_einstein: { params: { nbar: { gt: 0 } }, domain: [0, Infinity], desc: "보스–아인슈타인 분포",
+    f: (x, p) => { const k = Math.round(x); return k < 0 ? 0 : Math.exp(k * Math.log(p.nbar) - (k + 1) * Math.log(1 + p.nbar)); } },
+  // 삼각형(이선형) 응집법칙: δ0까지 σmax로 선형 상승, δf까지 선형 하강. δf>δ0 필요(아니면 NaN)
+  cohesive_triangle: { params: { sigmaMax: { gt: 0 }, delta0: { gt: 0 }, deltaF: { gt: 0 } }, domain: [0, Infinity], desc: "삼각형 응집법칙 곡선",
+    f: (x, p) => (p.deltaF <= p.delta0 ? NaN : x < 0 ? 0 : x <= p.delta0 ? p.sigmaMax * x / p.delta0 : x <= p.deltaF ? p.sigmaMax * (p.deltaF - x) / (p.deltaF - p.delta0) : 0) },
 };
 
 function checkParams(fn, params) {

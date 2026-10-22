@@ -102,3 +102,50 @@ assert.ok(checkParams("damped_oscillation", { zeta: 1, wn: 1 }).length > 0);
 assert.ok(checkParams("laplace", { mu: 0, b: 0 }).length > 0);
 assert.deepStrictEqual(checkParams("sin_squared", {}), []);
 console.log("diagrams-plot-fns: ext6 tests passed");
+
+// 추가 12개(round4 plot-ext): 본문 수치로 대조
+near(FNS.bet.f(0.1, { vm: 30, c: 100 }), 30.58, 0.005);
+near(FNS.bet.f(0.2, { vm: 30, c: 100 }), 36.06, 0.005);
+near(FNS.bet.f(0.3, { vm: 30, c: 100 }), 41.88, 0.005);
+{
+  let tail = 0;
+  for (let k = 18; k <= 40; k++) tail += FNS.binomial_pmf.f(k, { n: 40, p: 0.3 });
+  near(tail, 0.032, 0.0005); // 이항검정 본문 단측 p
+  near(FNS.binomial_pmf.f(12.4, { n: 40, p: 0.3 }), FNS.binomial_pmf.f(12, { n: 40, p: 0.3 })); // 반올림 계단
+  assert.strictEqual(FNS.binomial_pmf.f(41, { n: 40, p: 0.3 }), 0);
+}
+near(FNS.saturation_exp.f(5, { L0: 100, k: 0.23 }), 68.34, 0.01);
+near(FNS.saturation_exp.f(20, { L0: 100, k: 0.23 }), 98.99, 0.01);
+near(FNS.birthday_collision.f(23, { d: 365 }), 0.507297, 1e-6);
+near(FNS.birthday_collision.f(0, { d: 365 }), 0);
+near(FNS.birthday_collision.f(366, { d: 365 }), 1);
+{
+  const peak = (T) => { let b = 0, l = 0; for (let x = 0.1; x < 3; x += 0.0005) { const v = FNS.planck.f(x, { T }); if (v > b) { b = v; l = x; } } return l; };
+  near(peak(3000), 0.966, 0.001); // 본문: 약 966 nm
+  near(peak(5772), 0.502, 0.001); // 본문: 약 502 nm
+}
+near(FNS.log.f(1.25, { a: 27000, b: 0 }), 6025, 0.2);
+near(FNS.log.f(1.3, { a: 27000, b: 0 }), 7084, 0.2);
+near(FNS.log.f(1, { a: 9.81, b: 30.6 }), 30.6);
+near(FNS.log.f(56, { a: 9.81, b: 30.6 }), 70.1, 0.02);
+near(FNS.arrhenius_ratio.f(298, { b: 25000 / 8.314 }), 2.4e4, 200);
+near(FNS.arrhenius_ratio.f(600, { b: 25000 / 8.314 }), 150, 1);
+for (const [k, v] of [[1, 0.05], [3, 0.1426], [5, 0.2262], [10, 0.4013], [20, 0.6415]]) near(FNS.complement_power.f(k, { a: 0.95 }), v, 0.0001);
+for (const [f, v] of [[0.3, 1.71], [0.5, 2.4], [0.7, 4], [0.9, 12]]) near(FNS.gain_amplification.f(f, { a: 1.2 }), v, 0.005);
+for (const [n, v] of [[0, 0.0183], [1, 0.0733], [4, 0.1954], [8, 0.0298]]) near(FNS.poisson.f(n, { lambda: 4 }), v, 0.00005);
+for (const [n, v] of [[0, 0.2], [3, 0.1024], [8, 0.0336]]) near(FNS.bose_einstein.f(n, { nbar: 4 }), v, 0.00005);
+{
+  const c = { sigmaMax: 50, delta0: 0.0005, deltaF: 0.02 };
+  near(FNS.cohesive_triangle.f(0.0005, c), 50);
+  near(FNS.cohesive_triangle.f(0.02, c), 0);
+  near(FNS.cohesive_triangle.f(0.03, c), 0);
+  // 곡선 아래 면적 = ½·σmax·δf = Gc = 0.5 N/mm
+  let area = 0; const N = 40000;
+  for (let i = 0; i < N; i++) area += FNS.cohesive_triangle.f((i + 0.5) * 0.02 / N, c) * 0.02 / N;
+  near(area, 0.5, 1e-4);
+  assert.ok(Number.isNaN(FNS.cohesive_triangle.f(0.01, { sigmaMax: 50, delta0: 0.02, deltaF: 0.01 })));
+}
+assert.ok(checkParams("complement_power", { a: 1 }).length > 0);
+assert.ok(checkParams("binomial_pmf", { n: 40, p: 1 }).length > 0);
+assert.deepStrictEqual(checkParams("planck", { T: 3000 }), []);
+console.log("diagrams-plot-fns: ext12 tests passed");

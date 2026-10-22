@@ -192,3 +192,26 @@ test('plot 함수: 추가 6개(응답비·라플라스·제어봉가·Page·감�
   assert.ok(Math.abs(PLOT_FNS.damped_oscillation.f(T, { zeta: 0.3, wn: 1.2 }) - 0.14) < 0.005);
   assert.ok(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'damped_oscillation', params: { zeta: 1, wn: 1 } }], x: { label: 't', range: [0, 10] }, y: { label: 'y' } } }, { requireMeta: false }).some(e => e.includes('zeta=1 범위 밖')));
 });
+
+test('plot 함수: 추가 12개(BET·이항·포화·생일·플랑크·로그·아레니우스·보수 거듭제곱·피드백·푸아송·보스–아인슈타인·삼각 응집)', () => {
+  const near = (a, b, t = 1e-9) => assert.ok(Math.abs(a - b) < t, `${a} != ${b}`);
+  near(PLOT_FNS.bet.f(0.1, { vm: 30, c: 100 }), 30.58, 0.005);
+  let tail = 0;
+  for (let k = 18; k <= 40; k++) tail += PLOT_FNS.binomial_pmf.f(k, { n: 40, p: 0.3 });
+  near(tail, 0.032, 0.0005);
+  near(PLOT_FNS.saturation_exp.f(5, { L0: 100, k: 0.23 }), 68.34, 0.01);
+  near(PLOT_FNS.birthday_collision.f(23, { d: 365 }), 0.507297, 1e-6);
+  near(PLOT_FNS.log.f(1.25, { a: 27000, b: 0 }), 6025, 0.2);
+  near(PLOT_FNS.arrhenius_ratio.f(600, { b: 25000 / 8.314 }), 150, 1);
+  near(PLOT_FNS.complement_power.f(10, { a: 0.95 }), 0.4013, 0.0001);
+  near(PLOT_FNS.gain_amplification.f(0.9, { a: 1.2 }), 12, 1e-9);
+  near(PLOT_FNS.poisson.f(4, { lambda: 4 }), 0.1954, 0.00005);
+  near(PLOT_FNS.bose_einstein.f(0, { nbar: 4 }), 0.2, 1e-12);
+  near(PLOT_FNS.cohesive_triangle.f(0.0005, { sigmaMax: 50, delta0: 0.0005, deltaF: 0.02 }), 50);
+  // 플랑크: 5772 K에서 최대가 약 0.502 µm(빈 변위법칙 2.898e-3 m·K)
+  let b = 0, l = 0;
+  for (let x = 0.1; x < 3; x += 0.0005) { const v = PLOT_FNS.planck.f(x, { T: 5772 }); if (v > b) { b = v; l = x; } }
+  near(l, 0.502, 0.001);
+  assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'poisson', params: { lambda: 4 } }, { fn: 'bose_einstein', params: { nbar: 4 } }], x: { label: 'n', range: [0, 8] }, y: { label: 'P' } } }, { requireMeta: false }), []);
+  assert.ok(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'complement_power', params: { a: 1 } }], x: { label: 'k', range: [0, 20] }, y: { label: 'p' } } }, { requireMeta: false }).some(e => e.includes('a=1 범위 밖')));
+});

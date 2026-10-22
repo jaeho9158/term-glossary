@@ -1,0 +1,51 @@
+{
+  "slug": "biochemical-oxygen-demand",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "saturation_exp",
+        "params": {
+          "L0": 100,
+          "k": 0.23
+        },
+        "label": "일차 반응 k = 0.23/일 (가정)",
+        "color": "blue"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 5,
+        "label": "5일 약 68%"
+      },
+      {
+        "x": 20,
+        "label": "20일 약 99%"
+      }
+    ],
+    "x": {
+      "label": "배양 일수 (일)",
+      "range": [
+        0,
+        20
+      ],
+      "ticks": true
+    },
+    "y": {
+      "label": "소비된 산소 (최종 산소요구량 L0 대비 %)",
+      "ticks": true
+    }
+  },
+  "notes": [
+    {
+      "text": "일차 반응식 BODt = L0(1 − e^(−kt))에서 k = 0.23/일(가정)이면 5일 값은 L0의 약 68%, 20일 값은 약 99%이다",
+      "tone": "general"
+    },
+    {
+      "text": "반응속도 상수는 오염물질과 수온에 따라 달라 이 비율은 시료마다 다르다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 \"계산과 범위\"의 일차 반응식(Tchobanoglous 외 2003 인용)과 k=0.23/일 가정. 1−e^(−1.15)=0.683, 1−e^(−4.6)=0.990을 계산으로 대조",
+  "reviewed": true
+}
