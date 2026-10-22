@@ -1,0 +1,58 @@
+{
+  "slug": "volume-rendering",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "볼륨 데이터",
+      "color": "gray",
+      "sub": "CT·MRI 복셀 격자"
+    },
+    {
+      "id": "b",
+      "label": "분류",
+      "color": "violet",
+      "sub": "전달함수"
+    },
+    {
+      "id": "c",
+      "label": "광선 투사·합성",
+      "color": "blue",
+      "sub": "앞에서 뒤로 누적"
+    },
+    {
+      "id": "d",
+      "label": "조명·시점 조정",
+      "color": "green"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "합성은 C ← C + (1 − A)·α·c, A ← A + (1 − A)·α이다. (α, c)가 (0.2, 0.3), (0.5, 0.6), (0.9, 1.0)인 복셀 셋이면 누적 색은 0.06, 0.30, 0.66, 누적 불투명도는 0.2, 0.6, 0.96이다",
+      "tone": "general"
+    },
+    {
+      "text": "누적 불투명도가 1에 가까우면 뒤쪽 복셀 계산을 멈출 수 있다(조기 종료)",
+      "tone": "general"
+    }
+  ],
+  "source": "Wikipedia, Volume rendering (https://en.wikipedia.org/wiki/Volume_rendering) — front-to-back RGBA compositing, early ray termination, Levoy 1988, Drebin 1988; 수치는 산술 확인; 4단계는 용어 페이지 본문 서술",
+  "reviewed": true
+}

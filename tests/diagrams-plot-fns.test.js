@@ -172,3 +172,22 @@ console.log("diagrams-plot-fns: ext12 tests passed");
   assert.deepStrictEqual(checkParams("f_dist", { d1: 2, d2: 27 }), []);
 }
 console.log("diagrams-plot-fns: ext5 tests passed");
+
+// round8 추가 함수
+{
+  const AN = { A: 8.07131, B: 1730.63, C: 233.426 };
+  near(FNS.antoine_p.f(100, AN), 760.1, 0.2);
+  near(FNS.antoine_t.f(200, AN), 66.5, 0.1);
+  near(FNS.antoine_t.f(FNS.antoine_p.f(60, AN), AN), 60, 1e-6);
+  near(FNS.raoult_dew.f(0.625, { p1: 100, p2: 40 }), 64, 1e-9);
+  assert.ok(Number.isNaN(FNS.vdw.f(0.04, { T: 300, a: 3.64, b: 0.04267 })));
+  near(FNS.vdw.f(10, { T: 300, a: 3.64, b: 0.04267 }), 2.47, 0.01);
+  near(FNS.growth_mai.f(38, { A: 600, k: 0.05, m: 3 }), 9.711, 0.001);
+  near(FNS.growth_cai.f(38, { A: 600, k: 0.05, m: 3 }), 9.736, 0.001);
+  near(FNS.nh3_fraction.f(8, { T: 25 }), 5.37, 0.01);
+  near(FNS.nh3_fraction.f(9, { T: 25 }), 36.19, 0.01);
+  const L = { shares: [0, 10, 20, 30, 140] };
+  near(FNS.lorenz.f(0.2, L), 0); near(FNS.lorenz.f(0.6, L), 0.15); near(FNS.lorenz.f(1, L), 1); near(FNS.lorenz.f(0.5, L), 0.1);
+  near(FNS.sine_wave.f(0.25, { f: 1 }), 1);
+  assert.deepStrictEqual(checkParams('lorenz', L), []);
+}

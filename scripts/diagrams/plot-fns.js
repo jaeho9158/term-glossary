@@ -168,7 +168,33 @@ const FNS = {
   // 열교환기 유효도 ε(NTU), Cr=Cmin/Cmax(0≤Cr<1). branch 0=대향류, 1=병류
   eps_ntu: { params: { Cr: { gte: 0, lt: 1 }, branch: { gte: 0, lt: 2 } }, domain: [0, Infinity], desc: "열교환기 유효도 곡선",
     f: (x, p) => (p.branch >= 1 ? (1 - Math.exp(-x * (1 + p.Cr))) / (1 + p.Cr)
-      : (1 - Math.exp(-x * (1 - p.Cr))) / (1 - p.Cr * Math.exp(-x * (1 - p.Cr)))) },
+      : (1 - Math.exp(-x * (1 - p.Cr))) / (1 - p.Cr * Math.exp(-x * (1 - p.Cr)))) },  // ── 추가 함수(round8): antoine_p·antoine_t·raoult_dew·vdw·growth_mai·growth_cai·nh3_fraction·lorenz·sine_wave ──
+  // 안토인 식: log10 P = A − B/(C + T). antoine_p는 T→P, antoine_t는 P→T(역함수)
+  antoine_p: { params: { A: {}, B: { gt: 0 }, C: {} }, desc: "안토인 증기압 곡선",
+    f: (x, p) => (p.C + x <= 0 ? NaN : Math.pow(10, p.A - p.B / (p.C + x))) },
+  antoine_t: { params: { A: {}, B: { gt: 0 }, C: {} }, domain: [1e-6, Infinity], desc: "안토인 끓는점 곡선",
+    f: (x, p) => (x <= 0 || p.A - Math.log10(x) <= 0 ? NaN : p.B / (p.A - Math.log10(x)) - p.C) },
+  // 라울 법칙 이성분계의 이슬점 곡선: 가로축 y1(기상 조성), P = 1/(y1/P1sat + (1−y1)/P2sat)
+  raoult_dew: { params: { p1: { gt: 0 }, p2: { gt: 0 } }, domain: [0, 1], desc: "이슬점 곡선(라울 법칙)",
+    f: (x, p) => 1 / (x / p.p1 + (1 - x) / p.p2) },
+  // 반데르발스 등온선 P = RT/(V−b) − a/V² (R=0.083145 L·bar/(mol·K), V L/mol, P bar). V≤b면 NaN
+  vdw: { params: { T: { gt: 0 }, a: { gt: 0 }, b: { gt: 0 } }, domain: [0, Infinity], desc: "반데르발스 등온선",
+    f: (x, p) => (x <= p.b ? NaN : 0.083145 * p.T / (x - p.b) - p.a / (x * x)) },
+  // 임목 재적 V(t)=A(1−e^{−kt})^m의 평균생장량 V/t와 연년생장량 dV/dt
+  growth_mai: { params: { A: { gt: 0 }, k: { gt: 0 }, m: { gt: 0 } }, domain: [0, Infinity], desc: "평균생장량 곡선",
+    f: (x, p) => (x <= 0 ? 0 : p.A * Math.pow(1 - Math.exp(-p.k * x), p.m) / x) },
+  growth_cai: { params: { A: { gt: 0 }, k: { gt: 0 }, m: { gt: 0 } }, domain: [0, Infinity], desc: "연년생장량 곡선",
+    f: (x, p) => (x < 0 ? 0 : p.A * p.m * p.k * Math.exp(-p.k * x) * Math.pow(1 - Math.exp(-p.k * x), p.m - 1)) },
+  // 비이온화 암모니아(NH3) 비율(%)의 pH 의존성(민물): pKa = 0.09018 + 2729.92/T(K), T는 ℃로 받는다
+  nh3_fraction: { params: { T: { gt: -273 } }, desc: "비이온화 암모니아 비율 곡선",
+    f: (x, p) => 100 / (1 + Math.pow(10, 0.09018 + 2729.92 / (p.T + 273.15) - x)) },
+  // 로렌츠 곡선: shares는 오름차순 개인(가구)별 몫(합은 임의). 0≤x≤1에서 누적 점유율의 꺾은선
+  lorenz: { params: { shares: { arr: true } }, domain: [0, 1], desc: "로렌츠 곡선",
+    f: (x, p) => { const n = p.shares.length, tot = p.shares.reduce((a, b) => a + b, 0); const t = Math.min(Math.max(x, 0), 1) * n; const i = Math.min(Math.floor(t), n - 1); let c = 0; for (let k = 0; k < i; k++) c += p.shares[k]; return (c + p.shares[i] * (t - i)) / tot; } },
+  // 사인파 sin(2π·f·x)
+  sine_wave: { params: { f: { gt: 0 } }, domain: [0, Infinity], desc: "사인파",
+    f: (x, p) => Math.sin(2 * Math.PI * p.f * x) },
+
 };
 
 function checkParams(fn, params) {
