@@ -149,3 +149,26 @@ assert.ok(checkParams("complement_power", { a: 1 }).length > 0);
 assert.ok(checkParams("binomial_pmf", { n: 40, p: 1 }).length > 0);
 assert.deepStrictEqual(checkParams("planck", { T: 3000 }), []);
 console.log("diagrams-plot-fns: ext12 tests passed");
+
+// ext5: f_dist·moving_avg_mag·iso834·square_partial·eps_ntu
+{
+  const upper = (d1, d2, c) => { let a = 0; const N = 400000, H = 1500; for (let i = 0; i < N; i++) a += FNS.f_dist.f(c + (i + 0.5) * (H - c) / N, { d1, d2 }) * (H - c) / N; return a; };
+  near(upper(2, 27, 3.354), 0.05, 5e-4);
+  near(upper(1, 27, 4.21), 0.05, 5e-4);
+  near(upper(2, 15, 3.68), 0.05, 5e-4);
+  near(upper(2, 15, 7.36), 0.006, 5e-4);
+  near(FNS.f_dist.f(0, { d1: 2, d2: 27 }), 1);
+  for (const [w, v] of [[0, 1], [Math.PI / 3, 0.667], [2 * Math.PI / 3, 0], [Math.PI, 0.333]]) near(FNS.moving_avg_mag.f(w, { M: 3 }), v, 5e-4);
+  for (const [t, v] of [[5, 576], [15, 739], [30, 842], [60, 945], [90, 1006], [120, 1049]]) near(FNS.iso834.f(t, {}), v, 0.6);
+  for (const [n, v] of [[5, 1.182], [25, 1.179], [100, 1.179]]) {
+    let mx = 0; for (let i = 1; i < 100000; i++) mx = Math.max(mx, FNS.square_partial.f(Math.PI * i / 100000, { n }));
+    near(mx, v, 0.001);
+  }
+  for (const [N, c, p] of [[0.5, 0.362, 0.352], [1, 0.565, 0.518], [2, 0.775, 0.633], [3, 0.874, 0.659]]) {
+    near(FNS.eps_ntu.f(N, { Cr: 0.5, branch: 0 }), c, 5e-4);
+    near(FNS.eps_ntu.f(N, { Cr: 0.5, branch: 1 }), p, 5e-4);
+  }
+  assert.ok(checkParams("eps_ntu", { Cr: 1, branch: 0 }).length > 0);
+  assert.deepStrictEqual(checkParams("f_dist", { d1: 2, d2: 27 }), []);
+}
+console.log("diagrams-plot-fns: ext5 tests passed");

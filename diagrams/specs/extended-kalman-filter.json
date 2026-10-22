@@ -1,0 +1,48 @@
+{
+  "slug": "extended-kalman-filter",
+  "type": "cycle",
+  "center": "EKF 반복",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "예측",
+      "color": "blue",
+      "sub": "f로 상태 전파"
+    },
+    {
+      "id": "b",
+      "label": "선형화",
+      "color": "violet",
+      "sub": "야코비안 F·H"
+    },
+    {
+      "id": "c",
+      "label": "칼만 이득",
+      "color": "amber",
+      "sub": "P⁻ 전파 후 K 계산"
+    },
+    {
+      "id": "d",
+      "label": "갱신",
+      "color": "green",
+      "sub": "x̂·P 보정"
+    }
+  ],
+  "edges": [],
+  "notes": [
+    {
+      "text": "상태·예측 관측은 비선형 f, h 그대로, 선형화는 공분산과 이득 계산에만 쓴다",
+      "tone": "general"
+    },
+    {
+      "text": "1회 계산 예(가상): 추정치 x̂ 4 → 4.353, 분산 P 1 → 0.0588",
+      "tone": "general"
+    },
+    {
+      "text": "선형화 오차가 쌓이면 발산할 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "source": "https://en.wikipedia.org/wiki/Extended_Kalman_filter (Predict·Update 절); 수치는 본문 계산표(산술 재확인)",
+  "reviewed": true
+}

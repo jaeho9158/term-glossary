@@ -1,0 +1,68 @@
+{
+  "slug": "evoked-potential",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "power",
+        "params": {
+          "a": 50,
+          "b": -0.5
+        },
+        "label": "잡음 = 50/√N",
+        "color": "rose"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": 0,
+          "b": 5
+        },
+        "label": "반응 5 µV",
+        "color": "blue"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 100,
+        "label": "100회"
+      },
+      {
+        "x": 400,
+        "label": "400회"
+      },
+      {
+        "x": 1600,
+        "label": "1600회"
+      }
+    ],
+    "x": {
+      "label": "평균 횟수 N",
+      "range": [
+        1,
+        1600
+      ],
+      "ticks": true
+    },
+    "y": {
+      "label": "진폭 (µV)",
+      "ticks": true
+    }
+  },
+  "notes": [
+    {
+      "text": "100회: 잡음 5 µV로 반응과 같음(신호대잡음비 1), 400회 2.5 µV, 1600회 1.25 µV",
+      "tone": "general"
+    },
+    {
+      "text": "가상 예시: 단일 시행 잡음 50 µV, 반응 5 µV 가정. 평균 횟수를 4배로 하면 잡음은 절반",
+      "tone": "general"
+    },
+    {
+      "text": "반응이 시행마다 같고 잡음이 독립일 때만 성립",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 '예시로 보기' 표(잡음=50/√N, SNR=5/잡음): N=25→10, 100→5, 400→2.5, 1600→1.25를 계산으로 대조. Wikipedia Evoked potential https://en.wikipedia.org/wiki/Evoked_potential (반복 평균 필요)",
+  "reviewed": true
+}

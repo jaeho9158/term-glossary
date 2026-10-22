@@ -1,0 +1,49 @@
+{
+  "slug": "finite-impulse-response-filter",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "moving_avg_mag",
+        "params": {
+          "M": 3
+        },
+        "label": "3점 이동평균 |H(ω)|",
+        "color": "blue"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 1.0472,
+        "label": "π/3: .667"
+      },
+      {
+        "x": 2.0944,
+        "label": "2π/3: 0"
+      }
+    ],
+    "x": {
+      "label": "각주파수 ω (0 ~ π)",
+      "range": [
+        0,
+        3.1416
+      ],
+      "ticks": false
+    },
+    "y": {
+      "label": "진폭 응답 |H|"
+    }
+  },
+  "notes": [
+    {
+      "text": "b = (1/3, 1/3, 1/3)인 3점 이동평균의 진폭 응답은 |sin(3ω/2) / (3 sin(ω/2))|이다. ω = 0에서 1, π/3에서 0.667, 2π/3에서 0, π에서 0.333이다",
+      "tone": "general"
+    },
+    {
+      "text": "높은 주파수를 줄이는 저역통과 성격이지만 차단이 완만하다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Dirichlet 커널과 이동평균 필터의 푸리에 변환 관계: https://en.wikipedia.org/wiki/Dirichlet_kernel (M=2n+1일 때 sin(Mx/2)/sin(x/2), M으로 나눠 정규화). 용어 페이지 본문 4점(1.000, 0.667, 0.000, 0.333)을 계산으로 대조",
+  "reviewed": true
+}

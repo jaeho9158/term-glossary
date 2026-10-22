@@ -1,0 +1,70 @@
+{
+  "slug": "image-rectification",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "기준 자료",
+      "color": "gray",
+      "sub": "지도·보정 영상·GPS점"
+    },
+    {
+      "id": "b",
+      "label": "기준점 선정",
+      "color": "blue",
+      "sub": "지상기준점(GCP) 짝"
+    },
+    {
+      "id": "c",
+      "label": "변환식 추정",
+      "color": "violet",
+      "sub": "다항식 등"
+    },
+    {
+      "id": "d",
+      "label": "정확도 평가",
+      "color": "amber",
+      "sub": "평균제곱근오차·검증점"
+    },
+    {
+      "id": "e",
+      "label": "재배열",
+      "color": "green",
+      "sub": "새 격자로 화소값 이동"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "최근접 이웃은 원래 화소값을 보존한다",
+      "tone": "general"
+    },
+    {
+      "text": "지형 기복 왜곡은 다항식으로 제거되지 않아 수치표고모형(DEM)을 쓰는 정사보정이 필요하다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 '어떤 절차인가' 5단계. https://en.wikipedia.org/wiki/Image_rectification , /Georeferencing 은 GCP·좌표 변환·정사보정만 지지, RMSE·재배열 비교는 본문 근거",
+  "reviewed": true
+}

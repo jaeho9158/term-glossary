@@ -161,7 +161,7 @@ node bin/svg-illus.js ../term-style/diagrams/specs/3-hydroxykynurenine.json --ht
 - `overlay`: 도해 요소 배열입니다. plot에서는 데이터 좌표, 다른 유형에서는 픽셀 좌표로 놓습니다(`overlayCoords: "px"`로 강제할 수 있습니다). 라벨은 도식의 글자와 박스를 피해서 놓입니다. 주석 라벨이나 영역 음영을 넣을 때 씁니다.
 - `legend`, `table`, `caption`, `credit`, `license`: 도해와 같은 figcaption 구조로 나옵니다.
 
-plot 함수는 기존 10개(normal, t, chi2, exponential, logistic, linear, roc, hill, inverted_u, decay)에 27개를 더했습니다: bet, binomial_pmf, saturation_exp, birthday_collision, planck(λ는 µm), log, arrhenius_ratio, complement_power, gain_amplification, poisson, bose_einstein, cohesive_triangle, unbalance_response, laplace, sin_squared, cumulative_sin_squared, stretched_exp, damped_oscillation, km_function(쿠벨카-뭉크 K/S), mixing_free_energy(플로리-허긴스 혼합 자유에너지, 매개변수 N1·N2·chi), power, reciprocal, prospect_value, quadratic_pair(branch 0=펌프, 1=계통), step_survival, concentration_time, cox_hazard.
+plot 함수는 기존 10개(normal, t, chi2, exponential, logistic, linear, roc, hill, inverted_u, decay)에 27개를 더했습니다: bet, binomial_pmf, saturation_exp, birthday_collision, planck(λ는 µm), log, arrhenius_ratio, complement_power, gain_amplification, poisson, bose_einstein, cohesive_triangle, unbalance_response, laplace, sin_squared, cumulative_sin_squared, stretched_exp, damped_oscillation, km_function(쿠벨카-뭉크 K/S), mixing_free_energy(플로리-허긴스 혼합 자유에너지, 매개변수 N1·N2·chi), power, reciprocal, prospect_value, quadratic_pair(branch 0=펌프, 1=계통), step_survival, concentration_time, cox_hazard. 이어서 f_dist(F 분포), moving_avg_mag(이동평균 진폭 응답), iso834(표준 화재 곡선), square_partial(사각파 푸리에 부분합), eps_ntu(열교환기 유효도, branch 0=대향류·1=병류)를 더했습니다.
 
 ## 예제
 

@@ -151,6 +151,24 @@ const FNS = {
   // 삼각형(이선형) 응집법칙: δ0까지 σmax로 선형 상승, δf까지 선형 하강. δf>δ0 필요(아니면 NaN)
   cohesive_triangle: { params: { sigmaMax: { gt: 0 }, delta0: { gt: 0 }, deltaF: { gt: 0 } }, domain: [0, Infinity], desc: "삼각형 응집법칙 곡선",
     f: (x, p) => (p.deltaF <= p.delta0 ? NaN : x < 0 ? 0 : x <= p.delta0 ? p.sigmaMax * x / p.delta0 : x <= p.deltaF ? p.sigmaMax * (p.deltaF - x) / (p.deltaF - p.delta0) : 0) },
+  // ── 추가 5개(P-WRITE-PLOT): f_dist·moving_avg_mag·iso834·square_partial·eps_ntu ──
+  // F 분포 밀도(NIST 1.3.6.6.5). x=0: d1>2면 0, d1=2면 1, d1<2면 발산(Infinity)
+  f_dist: { params: { d1: { gt: 0 }, d2: { gt: 0 } }, domain: [0, Infinity], desc: "F 분포",
+    f: (x, p) => (x < 0 ? 0 : x === 0 ? (p.d1 > 2 ? 0 : p.d1 === 2 ? 1 : Infinity)
+      : Math.exp(lgamma((p.d1 + p.d2) / 2) - lgamma(p.d1 / 2) - lgamma(p.d2 / 2) + (p.d1 / 2) * Math.log(p.d1 / p.d2) + (p.d1 / 2 - 1) * Math.log(x) - ((p.d1 + p.d2) / 2) * Math.log(1 + p.d1 * x / p.d2))) },
+  // M점 이동평균 FIR의 진폭 응답 |sin(Mω/2)/(M sin(ω/2))|, 가로축 ω(rad, 0≤ω≤π). ω=0이면 1
+  moving_avg_mag: { params: { M: { gt: 0 } }, domain: [0, Math.PI], desc: "이동평균 필터 진폭 응답",
+    f: (x, p) => (x < 1e-9 ? 1 : Math.abs(Math.sin(p.M * x / 2) / (p.M * Math.sin(x / 2)))) },
+  // ISO 834-1 표준 가열 곡선 T = 345·log10(8t+1) + 20 (t 분, T ℃)
+  iso834: { params: {}, domain: [0, Infinity], desc: "표준 화재 곡선",
+    f: (x) => 345 * Math.log10(8 * x + 1) + 20 },
+  // 사각파(진폭 ±1)의 푸리에 부분합 (4/π)Σ_{k=1..n} sin((2k−1)x)/(2k−1). n은 반올림한 항 수
+  square_partial: { params: { n: { gt: 0 } }, desc: "사각파 푸리에 부분합",
+    f: (x, p) => { let s = 0; for (let k = 1; k <= Math.round(p.n); k++) s += Math.sin((2 * k - 1) * x) / (2 * k - 1); return 4 / Math.PI * s; } },
+  // 열교환기 유효도 ε(NTU), Cr=Cmin/Cmax(0≤Cr<1). branch 0=대향류, 1=병류
+  eps_ntu: { params: { Cr: { gte: 0, lt: 1 }, branch: { gte: 0, lt: 2 } }, domain: [0, Infinity], desc: "열교환기 유효도 곡선",
+    f: (x, p) => (p.branch >= 1 ? (1 - Math.exp(-x * (1 + p.Cr))) / (1 + p.Cr)
+      : (1 - Math.exp(-x * (1 - p.Cr))) / (1 - p.Cr * Math.exp(-x * (1 - p.Cr)))) },
 };
 
 function checkParams(fn, params) {

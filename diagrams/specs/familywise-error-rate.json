@@ -1,0 +1,63 @@
+{
+  "slug": "familywise-error-rate",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "complement_power",
+        "params": {
+          "a": 0.95
+        },
+        "label": "보정 없음 FWER = 1 − (1 − α)^m",
+        "color": "rose"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": 0,
+          "b": 0.05
+        },
+        "label": "본페로니 보정 후 목표 .05",
+        "color": "blue"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 5,
+        "label": "m=5: .226"
+      },
+      {
+        "x": 10,
+        "label": "m=10: .401"
+      },
+      {
+        "x": 20,
+        "label": "m=20: .642"
+      }
+    ],
+    "x": {
+      "label": "독립 검정 수 m (모두 귀무가설 참, α = .05)",
+      "range": [
+        1,
+        20
+      ],
+      "ticks": true
+    },
+    "y": {
+      "label": "FWER",
+      "ticks": true
+    }
+  },
+  "notes": [
+    {
+      "text": "보정 없이 각 검정을 α = .05로 하면 FWER은 m = 1, 5, 10, 20에서 .050, .226, .401, .642로 커진다. 본페로니 기준 α/m으로 각 검정을 하면 FWER을 .05 이하로 묶는다",
+      "tone": "general"
+    },
+    {
+      "text": "곡선은 독립 검정이라는 가정에서 나온 값이다. 본페로니 기준은 독립 여부와 무관한 상한이다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 \"계산과 범위\"의 표(m=1 .050, 5 .226, 10 .401, 20 .642)를 계산으로 대조. 본페로니 α/m: Wikipedia Family-wise error rate",
+  "reviewed": true
+}

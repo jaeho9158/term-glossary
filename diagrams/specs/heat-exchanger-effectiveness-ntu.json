@@ -1,0 +1,56 @@
+{
+  "slug": "heat-exchanger-effectiveness-ntu",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "eps_ntu",
+        "params": {
+          "Cr": 0.5,
+          "branch": 0
+        },
+        "label": "대향류",
+        "color": "blue"
+      },
+      {
+        "fn": "eps_ntu",
+        "params": {
+          "Cr": 0.5,
+          "branch": 1
+        },
+        "label": "병류",
+        "color": "rose"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 2,
+        "label": "NTU=2"
+      }
+    ],
+    "x": {
+      "label": "NTU = UA / Cmin",
+      "range": [
+        0,
+        3
+      ],
+      "ticks": true
+    },
+    "y": {
+      "label": "유효도 ε",
+      "ticks": true
+    }
+  },
+  "notes": [
+    {
+      "text": "Cr = Cmin/Cmax = 0.5일 때 NTU 2에서 유효도는 대향류 0.775, 병류 0.633이다. 병류는 NTU가 커져도 1/(1+Cr) = 0.667을 넘지 못한다",
+      "tone": "general"
+    },
+    {
+      "text": "NTU가 클수록 대향류와 병류의 차이가 벌어진다",
+      "tone": "limit"
+    }
+  ],
+  "source": "유효도 식(대향류·병류): https://en.wikipedia.org/wiki/NTU_method . 용어 페이지 본문 Cr=0.5 표(NTU 0.5 .362/.352, 1 .565/.518, 2 .775/.633, 3 .874/.659)를 계산으로 대조해 일치",
+  "reviewed": true
+}

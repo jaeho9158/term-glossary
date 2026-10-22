@@ -215,3 +215,17 @@ test('plot 함수: 추가 12개(BET·이항·포화·생일·플랑크·로그·
   assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'poisson', params: { lambda: 4 } }, { fn: 'bose_einstein', params: { nbar: 4 } }], x: { label: 'n', range: [0, 8] }, y: { label: 'P' } } }, { requireMeta: false }), []);
   assert.ok(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'complement_power', params: { a: 1 } }], x: { label: 'k', range: [0, 20] }, y: { label: 'p' } } }, { requireMeta: false }).some(e => e.includes('a=1 범위 밖')));
 });
+
+test('plot 함수: f_dist·moving_avg_mag·iso834·square_partial·eps_ntu', () => {
+  const near = (a, b, t = 1e-9) => assert.ok(Math.abs(a - b) < t, `${a} != ${b}`);
+  let a = 0; const N = 400000, H = 1500, c = 3.354;
+  for (let i = 0; i < N; i++) a += PLOT_FNS.f_dist.f(c + (i + 0.5) * (H - c) / N, { d1: 2, d2: 27 }) * (H - c) / N;
+  near(a, 0.05, 5e-4);
+  near(PLOT_FNS.moving_avg_mag.f(Math.PI / 3, { M: 3 }), 0.667, 5e-4);
+  near(PLOT_FNS.iso834.f(60, {}), 945, 0.6);
+  let mx = 0; for (let i = 1; i < 100000; i++) mx = Math.max(mx, PLOT_FNS.square_partial.f(Math.PI * i / 100000, { n: 5 }));
+  near(mx, 1.182, 0.001);
+  near(PLOT_FNS.eps_ntu.f(2, { Cr: 0.5, branch: 0 }), 0.775, 5e-4);
+  near(PLOT_FNS.eps_ntu.f(2, { Cr: 0.5, branch: 1 }), 0.633, 5e-4);
+  assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'f_dist', params: { d1: 2, d2: 27 } }], x: { label: 'F', range: [0, 6] }, y: { label: 'g' } } }, { requireMeta: false }), []);
+});
