@@ -283,6 +283,41 @@ const FNS = {
   // 사인파 sin(2π·f·x)
   sine_wave: { params: { f: { gt: 0 } }, domain: [0, Infinity], desc: "사인파",
     f: (x, p) => Math.sin(2 * Math.PI * p.f * x) },
+  // ── 추가 7개(round9 plot-ext, 본문 수치로 검증): taylor_poly·triprotic_fractions·power_offset·bond_price_yield·geometric_pmf·threshold_series·discrete_series ──
+  // 테일러 다항식. kind 0: e^x의 n차 매클로린 다항식, 1: ln(1+x)의 n항 부분합, 2: 실제 e^x, 3: 실제 ln(1+x)(x>−1). 2·3에서 n은 쓰지 않는다(0으로 둔다)
+  taylor_poly: { params: { n: { gte: 0 }, kind: { gte: 0, lt: 4 } }, desc: "테일러 다항식 근사",
+    f: (x, p) => { const n = Math.round(p.n), kd = Math.floor(p.kind); if (kd === 2) return Math.exp(x); if (kd === 3) return x > -1 ? Math.log1p(x) : NaN; let s = 0; if (kd === 0) { let t = 1; for (let k = 0; k <= n; k++) { s += t; t *= x / (k + 1); } } else for (let k = 1; k <= n; k++) s += (k % 2 ? 1 : -1) * x ** k / k; return s; } },
+  // 삼양성자산의 pH별 화학종 분율(%). 가로축 pH, species 0=H3A 1=H2A− 2=HA2− 3=A3−, pKa1·pKa2·pKa3는 단계별 pKa
+  triprotic_fractions: { params: { pKa1: {}, pKa2: {}, pKa3: {}, species: { gte: 0, lt: 4 } }, desc: "삼양성자산 화학종 분율 곡선",
+    f: (x, p) => { const h = 10 ** -x, k1 = 10 ** -p.pKa1, k2 = 10 ** -p.pKa2, k3 = 10 ** -p.pKa3; const t = [h * h * h, k1 * h * h, k1 * k2 * h, k1 * k2 * k3]; return (100 * t[Math.floor(p.species)]) / (t[0] + t[1] + t[2] + t[3]); } },
+  // 거듭제곱에서 상수를 뺀 곡선 a·x^b − c. Heskestad 화염높이 L = 0.235·Q^(2/5) − 1.02·D 에서 D를 고정하면 c = 1.02·D
+  power_offset: { params: { a: { gt: 0 }, b: { gt: 0 }, c: {} }, domain: [0, Infinity], desc: "거듭제곱 빼기 상수 곡선",
+    f: (x, p) => p.a * Math.max(x, 0) ** p.b - p.c },
+  // 채권 가격-수익률 곡선(연 1회 이표, 액면 100). 가로축 수익률 y(%), c 쿠폰율(%), n 만기(년), nc 콜 시점(년), K 콜가격. branch 0=일반채권(만기까지), 1=수의상환채(만기가격과 콜가격 기준 가격 중 낮은 값)
+  bond_price_yield: { params: { c: { gte: 0 }, n: { gt: 0 }, nc: { gt: 0 }, K: { gt: 0 }, branch: { gte: 0, lt: 2 } }, domain: [0, Infinity], desc: "채권 가격-수익률 곡선",
+    f: (x, p) => { const r = 1 + x / 100, pv = (N, F) => { let s = F / r ** N; for (let t = 1; t <= N; t++) s += p.c / r ** t; return s; }; const m = pv(Math.round(p.n), 100); return p.branch >= 1 ? Math.min(m, pv(Math.round(p.nc), p.K)) : m; } },
+  // 기하분포 확률 P(X=k)=(1−p)^(k−1)·p, k=1,2,… 이산 분포라 x를 가장 가까운 정수로 반올림한 막대 높이(계단). k<1이면 0
+  geometric_pmf: { params: { p: { gt: 0, lt: 1 } }, domain: [0, Infinity], desc: "기하분포 확률",
+    f: (x, q) => { const k = Math.round(x); return k < 1 ? 0 : (1 - q.p) ** (k - 1) * q.p; } },
+  // 일 단위 값 계열(해양열파의 평년 대비 편차 등): x를 가장 가까운 정수 일(1일째=values[0])로 반올림한 계단. 범위 밖은 0
+  threshold_series: { params: { values: { arr: true } }, domain: [0, Infinity], desc: "일별 값 계열(계단)",
+    f: (x, p) => { const d = Math.round(x); return d >= 1 && d <= p.values.length ? p.values[d - 1] : 0; } },
+  // 정수 위치의 이산 값 계열(차수별 점수 등): x를 가장 가까운 정수로 반올림해 ys[0]이 x=0. 범위 밖은 끝 값을 유지하는 계단
+  discrete_series: { params: { ys: { arr: true } }, domain: [0, Infinity], desc: "정수 위치별 값 계열(계단)",
+    f: (x, p) => p.ys[Math.min(Math.max(Math.round(x), 0), p.ys.length - 1)] },
+  // ── round9 추가 4개: norrish_aw·shockley_diode·te_efficiency·double_well ──
+  // 노리시(Norrish, 1966) 수분활성도 Aw = x_w·exp(−K·x_s²). 가로축 용질 중량%(0~100), M 용질 몰질량(g/mol), K 용질 상수(자당 6.47). 물 몰질량 18.015
+  norrish_aw: { params: { K: { gte: 0 }, M: { gt: 0 } }, domain: [0, 100], desc: "노리시 수분활성도 곡선",
+    f: (x, p) => { if (x < 0 || x >= 100) return NaN; const ns = x / p.M, nw = (100 - x) / 18.015, xs = ns / (ns + nw); return (1 - xs) * Math.exp(-p.K * xs * xs); } },
+  // 쇼클리 다이오드 식 I = Is·[exp(V/(n·VT)) − 1]. 가로축 전압 V(볼트), VT 열전압(V), Is는 세로축 단위 그대로
+  shockley_diode: { params: { Is: { gt: 0 }, n: { gt: 0 }, VT: { gt: 0 } }, desc: "쇼클리 다이오드 전류-전압 곡선",
+    f: (x, p) => p.Is * Math.expm1(x / (p.n * p.VT)) },
+  // 열전 소자 최대 효율(%) η = [(Th−Tc)/Th]·[√(1+ZT)−1]/[√(1+ZT)+Tc/Th]. 가로축 평균 ZT(≥0)
+  te_efficiency: { params: { Th: { gt: 0 }, Tc: { gt: 0 } }, domain: [0, Infinity], desc: "열전 변환 효율 곡선",
+    f: (x, p) => { const s = Math.sqrt(1 + Math.max(x, 0)); return (100 * (p.Th - p.Tc) / p.Th) * (s - 1) / (s + p.Tc / p.Th); } },
+  // 이중 우물(두 골짜기) 곡선 x⁴ − b·x² + a·x. a≠0이면 두 극소의 높이가 달라 국소 최소와 전역 최소가 생긴다
+  double_well: { params: { a: {}, b: { gt: 0 } }, desc: "이중 우물 곡선",
+    f: (x, p) => x ** 4 - p.b * x * x + p.a * x },
 
 };
 

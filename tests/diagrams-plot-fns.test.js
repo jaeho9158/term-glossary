@@ -280,3 +280,28 @@ console.log("diagrams-plot-fns: round7 tests passed");
   near(FNS.sine_wave.f(0.25, { f: 1 }), 1);
   assert.deepStrictEqual(checkParams('lorenz', L), []);
 }
+console.log("diagrams-plot-fns: round8 tests passed");
+
+// round9 추가 함수: 용어 페이지 표 값과 대조
+{
+  near(FNS.taylor_poly.f(1.5, { n: 5, kind: 1 }), 1.753125, 1e-9);
+  near(FNS.taylor_poly.f(1.5, { n: 10, kind: 1 }), -2.403, 1e-3);
+  near(FNS.taylor_poly.f(1, { n: 3, kind: 0 }), 1 + 1 + 0.5 + 1 / 6, 1e-12);
+  near(FNS.taylor_poly.f(0.5, { n: 0, kind: 3 }), Math.log(1.5), 1e-12);
+  const cit = { pKa1: 3.13, pKa2: 4.76, pKa3: 6.4 };
+  near(FNS.triprotic_fractions.f(5, { ...cit, species: 2 }), 61.6, 0.05);
+  near(FNS.triprotic_fractions.f(7, { ...cit, species: 3 }), 79.8, 0.05);
+  near([0, 1, 2, 3].reduce((s, k) => s + FNS.triprotic_fractions.f(4, { ...cit, species: k }), 0), 100, 1e-9);
+  near(FNS.power_offset.f(1000, { a: 0.235, b: 0.4, c: 1.02 }), 2.70, 0.005);
+  near(FNS.bond_price_yield.f(5.92, { c: 7, n: 10, nc: 5, K: 100, branch: 0 }), 107.98, 0.01);
+  assert.ok(FNS.bond_price_yield.f(3, { c: 7, n: 10, nc: 5, K: 100, branch: 1 }) < FNS.bond_price_yield.f(3, { c: 7, n: 10, nc: 5, K: 100, branch: 0 }));
+  near(FNS.geometric_pmf.f(4, { p: 0.3 }), 0.1029, 1e-4);
+  near(FNS.geometric_pmf.f(0, { p: 0.3 }), 0);
+  near(FNS.threshold_series.f(7, { values: [1, 2, 3, 4, 5, 6, 2.7] }), 2.7);
+  near(FNS.discrete_series.f(2, { ys: [1, 0.73, 0.46] }), 0.46);
+  near(FNS.norrish_aw.f(65, { K: 6.47, M: 342.3 }), 0.865, 5e-4);
+  near(FNS.norrish_aw.f(65, { K: 2.25, M: 180.16 }), 0.798, 5e-4);
+  near(FNS.shockley_diode.f(0, { Is: 1e-9, n: 1, VT: 0.02585 }), 0);
+  near(FNS.te_efficiency.f(1, { Th: 500, Tc: 300 }), 8.2, 0.05);
+  near(FNS.double_well.f(1, { a: 0.4, b: 2 }), -0.6, 1e-12);
+}

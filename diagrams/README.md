@@ -58,6 +58,7 @@ type별 규칙:
   `vlines` 0~3개(`x`·`label`). shade에 `color`를 주면 계열 색 대신 그 색으로 칠한다(예: α 꼬리 rose), `x: {label, range: [lo, hi], ticks?}`, `y: {label, ticks?}`.
   함수: `normal(mu,sigma)` `t(df)` `chi2(df)` `exponential(rate)` `logistic(x0,k)` `linear(a,b)`
   `roc(auc)`(0.5≤auc<1, 범위 [0,1] 고정, 다른 함수와 혼용 불가) `hill(ec50,n)` `inverted_u(peak,width)` `decay(rate)`.
+  추가 함수(round9): `taylor_poly(n,kind)` kind 0=e^x n차 다항식·1=ln(1+x) n항 부분합·2=실제 e^x·3=실제 ln(1+x) · `triprotic_fractions(pKa1,pKa2,pKa3,species)` 삼양성자산 화학종 분율(%, 가로축 pH, species 0=H3A~3=A3−) · `power_offset(a,b,c)` a·x^b−c · `bond_price_yield(c,n,nc,K,branch)` 채권 가격-수익률(가로축 수익률 %, branch 0=일반채권·1=수의상환채) · `geometric_pmf(p)` 기하분포 확률(반올림 계단, k≥1) · `threshold_series(values)` 일별 값 계열(1일째=values[0], 계단) · `discrete_series(ys)` 정수 위치 값 계열(ys[0]이 x=0, 계단).
   눈금 숫자는 기본으로 숨기고, 페이지에는 "개념 설명용 모식도" 캡션이 붙는다.
   곡선·음영은 그래프 영역 밖을 잘라 내고, 0 근처에서 발산하는 곡선(chi2 df<2 등)은 세로 범위를 98백분위로 자른다.
 
