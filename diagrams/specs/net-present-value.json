@@ -1,0 +1,60 @@
+{
+  "slug": "net-present-value",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "npv_curve",
+        "params": {
+          "cashflows": [
+            -1000,
+            300,
+            400,
+            500,
+            300
+          ]
+        },
+        "label": "NPV(r)",
+        "color": "blue"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": 0,
+          "b": 0
+        },
+        "label": "NPV=0",
+        "color": "gray"
+      }
+    ],
+    "shade": [],
+    "vlines": [
+      {
+        "x": 0.18,
+        "label": "IRR 약 18%"
+      }
+    ],
+    "x": {
+      "label": "할인율 r (0.10=10%)",
+      "range": [
+        0,
+        0.2
+      ]
+    },
+    "y": {
+      "label": "NPV (백만 원)"
+    }
+  },
+  "notes": [
+    {
+      "text": "투자 −1,000에 1~4년차 300, 400, 500, 300이면 NPV가 6%에서 296.5, 10%에서 183.9, 15%에서 63.6으로 할인율이 오를수록 줄고, 약 18%에서 0이 된다",
+      "tone": "general"
+    },
+    {
+      "text": "가상의 현금흐름이다. NPV가 0이 되는 할인율이 IRR이며 약 18.0%이다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 해석 기준 표(6%→296.5, 8%→238.1, 10%→183.9, 12%→133.3, 15%→63.6, IRR 약 18%) + Wikipedia Net present value. Σ CF_t/(1+r)^t 직접 계산 296.455/238.138/183.867/133.280/63.611/0.56(18%)로 일치, IRR 18.03%",
+  "reviewed": true
+}

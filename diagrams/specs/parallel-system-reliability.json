@@ -1,0 +1,23 @@
+{
+  "slug": "parallel-system-reliability",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {"fn": "complement_power", "params": {"a": 0.1}, "label": "병렬 시스템 신뢰도 1 − 0.1ⁿ (부품 신뢰도 0.9)", "color": "blue"}
+    ],
+    "shade": [],
+    "vlines": [
+      {"x": 1, "label": "1개 0.9"},
+      {"x": 2, "label": "2개 0.99"},
+      {"x": 3, "label": "3개 0.999"}
+    ],
+    "x": {"label": "병렬 부품 수 n", "range": [0, 4]},
+    "y": {"label": "시스템 신뢰도"}
+  },
+  "notes": [
+    {"text": "부품 신뢰도 R = 0.9 가상 예: 4개 병렬은 0.9999. 하나 더할 때마다 이득이 줄어듦(0.9 → 0.99 → 0.999)", "tone": "general"},
+    {"text": "부품 수는 정수라 점 사이 곡선은 이어 그린 것. 공통원인 고장(동시 고장 확률 0.02)이 있으면 2개 병렬이 0.9702로 독립 가정의 0.99보다 낮아짐", "tone": "limit"}
+  ],
+  "source": "용어 페이지 본문 '해석 기준' 표(1개 0.9, 2개 0.99, 3개 0.999, 4개 0.9999, 공통원인 (1−0.02)×0.99=0.9702)를 complement_power(a=0.1)로 계산해 대조(0.9/0.99/0.999/0.9999 일치). 독립 병렬식: Wikipedia Redundancy (engineering) https://en.wikipedia.org/wiki/Redundancy_(engineering) 병렬 가용도 1−(1−X)^N, 독립 가정이 깨지는 공통 원인 예 확인. 공통원인 0.02는 본문 가상값(출처 미확인)",
+  "reviewed": true
+}
