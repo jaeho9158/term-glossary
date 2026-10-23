@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>t-SNE(t-distributed Stochastic Neighbor Embedding)는 van der Maaten과 Hinton(2008)이 제안한 시각화용 차원 축소법으로, Hinton과 Roweis(2002)의 SNE를 개선한 것이다. 큰 흐름은 다음과 같다.</p><ol><li>고차원에서 각 점 i에 대해 가까운 이웃일수록 큰 확률을 주는 가우스 분포로 “i가 j를 이웃으로 고를 확률”을 정한다. 이웃의 유효 개수는 <strong>퍼플렉시티(perplexity)</strong>로 조절한다.</li><li>저차원(보통 2차원)에도 점을 무작위 또는 PCA로 초기 배치하고, 같은 방식의 확률을 자유도 1인 스튜던트 t 분포로 정의한다. 꼬리가 두꺼워 멀리 떨어진 점들을 더 넓게 퍼뜨릴 수 있다.</li><li>두 확률 분포의 차이(KL 발산)가 줄어들도록 경사하강법으로 저차원 점의 위치를 반복해서 옮긴다.</li></ol><p>이웃 관계, 즉 가까운 점들의 구조를 보존하는 데 초점을 맞추는 방법이다.</p>"
+      "html": "<p>t-SNE(t-distributed Stochastic Neighbor Embedding)는 van der Maaten과 Hinton(2008)이 제안한 시각화용 차원 축소법으로, Hinton과 Roweis(2002)의 SNE를 개선한 것이다. 큰 흐름은 다음과 같다.</p><ol><li>고차원에서 각 점 i에 대해 가까운 이웃일수록 큰 확률을 주는 가우스 분포로 “i가 j를 이웃으로 고를 확률”을 정한다. 이웃의 유효 개수는 <strong>퍼플렉시티(perplexity)</strong>로 조절한다.</li><li>저차원(보통 2차원)에도 점을 무작위 또는 PCA로 초기 배치하고, 같은 방식의 확률을 자유도 1인 스튜던트 t 분포로 정의한다. 꼬리가 두꺼워 멀리 떨어진 점들을 더 넓게 퍼뜨릴 수 있다.</li><li>두 확률 분포의 차이(KL 발산)가 줄어들도록 경사하강법으로 저차원 점의 위치를 반복해서 옮긴다.</li></ol><p>이웃 관계, 즉 가까운 점들의 구조를 보존하는 데 초점을 맞추는 방법이다.</p><ul><li><strong>계산 비용</strong>: 정확한 t-SNE는 시간과 공간이 모두 점 수 n의 제곱에 비례한다. 바네스-허트 근사 구현이 원저자의 C++ 코드, ELKI, scikit-learn에 있고, scikit-learn은 정확 방식과 근사 방식을 모두 제공한다. 퍼플렉시티는 각 점의 가우스 폭을 이분법으로 맞춰 정하며, 원저자는 5~50 사이를 권한다. 지도는 보통 2차원 또는 3차원이다.</li></ul>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -43,6 +43,7 @@
     "van der Maaten, L., & Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9, 2579–2605.",
     "Hinton, G. E., & Roweis, S. T. (2002). Stochastic neighbor embedding. Advances in Neural Information Processing Systems, 15.",
     "Wattenberg, M., Viégas, F., & Johnson, I. (2016). How to use t-SNE effectively. Distill, 1(10), e2.",
-    "Kobak, D., & Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. Nature Communications, 10, 5416."
+    "Kobak, D., & Berens, P. (2019). The art of using t-SNE for single-cell transcriptomics. Nature Communications, 10, 5416.",
+    "Wikipedia contributors. (n.d.). t-distributed stochastic neighbor embedding. Wikipedia."
   ]
 }

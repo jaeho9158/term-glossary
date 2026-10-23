@@ -155,7 +155,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>ImageJ는 NIH의 Wayne Rasband가 만든 NIH Image의 후속으로 Java로 작성된 이미지 분석 프로그램이다(Schneider 외, 2012). 정량 분석의 기본 순서는 다음과 같다.</p><ol><li><strong>길이 보정(Set Scale)</strong>: 영상 속 스케일 바 길이(픽셀)와 실제 길이(µm 등)를 입력해 픽셀을 실제 단위로 바꾼다.</li><li><strong>전처리</strong>: 배경 보정, 필요하면 잡음 제거. 같은 비교 군에는 <em>모든 영상에 똑같이</em> 적용한다.</li><li><strong>관심 영역(ROI) 지정</strong>: 손으로 그리거나, 임계값(Threshold)으로 신호와 배경을 나눈 뒤 입자·세포를 자동으로 찾는다(Analyze Particles).</li><li><strong>측정(Measure)</strong>: 면적, 평균 회색값, 적분 밀도(IntDen = 면적 × 평균 회색값) 등을 얻어 표로 내보낸다.</li></ol>
+  <p>ImageJ는 NIH의 Wayne Rasband가 만든 NIH Image의 후속으로 Java로 작성된 이미지 분석 프로그램이다(Schneider 외, 2012). 정량 분석의 기본 순서는 다음과 같다.</p><ol><li><strong>길이 보정(Set Scale)</strong>: 영상 속 스케일 바 길이(픽셀)와 실제 길이(µm 등)를 입력해 픽셀을 실제 단위로 바꾼다.</li><li><strong>전처리</strong>: 배경 보정, 필요하면 잡음 제거. 같은 비교 군에는 <em>모든 영상에 똑같이</em> 적용한다.</li><li><strong>관심 영역(ROI) 지정</strong>: 손으로 그리거나, 임계값(Threshold)으로 신호와 배경을 나눈 뒤 입자·세포를 자동으로 찾는다(Analyze Particles).</li><li><strong>측정(Measure)</strong>: 면적, 평균 회색값, 적분 밀도(IntDen = 면적 × 평균 회색값) 등을 얻어 표로 내보낸다.</li></ol><p>NIH Image는 구형 매킨토시용 Object Pascal 프로그램이었고, ImageJ는 이를 이어받아 Java로 작성되었다. NIH와 위스콘신대 LOCI에서 개발되었으며 Rasband가 2010년 NIH를 퇴직한 뒤에도 개발을 이어 가고 있다. ImageJ 1.x는 퍼블릭 도메인, ImageJ2와 관련 프로젝트(SciJava, ImgLib2, SCIFIO)는 BSD-2 라이선스이다. 8·16·32비트 영상과 TIFF, PNG, JPEG, DICOM, FITS 등을 다루며 영상 스택, 필터링, 기하 변환, 자바 플러그인과 매크로로 확장한다. 천문 측광용 AstroImageJ(2017)도 이를 바탕으로 한다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <ul><li><strong>쓰임</strong>: 현미경 사진의 세포 크기, 조직 절편의 염색 면적 비율, 웨스턴 블롯 밴드의 밝기, 형광 강도, 상처 치유(scratch) 면적, 재료 단면의 입자 크기 등.</li><li><strong>확장판</strong>: Fiji는 ImageJ에 생물영상 분석용 플러그인을 묶어 배포한 것이고(Schindelin 외, 2012), ImageJ2는 ImageJ 구조를 새로 만든 다음 세대판이다(Rueden 외, 2017).</li><li>반복 작업은 매크로(macro)로 자동화해 사람마다 달라지는 편차를 줄인다.</li></ul><p><strong>작은 예 1: 길이 보정</strong>(가상). 스케일 바 100 µm가 영상에서 250 픽셀이면 1픽셀 = 0.40 µm이다. 어떤 구조의 면적이 1,800 픽셀²였다면 실제 면적은 1,800 × 0.40² = <strong>288 µm²</strong>이다.</p><p><strong>작은 예 2: 보정 전체 세포 형광(CTCF)</strong>(가상, 널리 쓰이는 계산식). CTCF = IntDen − (ROI 면적 × 배경의 평균 회색값). 세포 ROI의 면적이 2400픽셀², 적분 밀도가 128,000, 근처 빈 곳(배경)의 평균 회색값이 12.5라면 CTCF = 128,000 − 2,400 × 12.5 = <strong>98,000</strong>이다.</p>
@@ -197,6 +197,7 @@
     <li>Schneider, C. A., Rasband, W. S., &amp; Eliceiri, K. W. (2012). NIH Image to ImageJ: 25 years of image analysis. Nature Methods, 9(7), 671–675.</li>
     <li>Schindelin, J., Arganda-Carreras, I., Frise, E., Kaynig, V., Longair, M., Pietzsch, T., et al. (2012). Fiji: An open-source platform for biological-image analysis. Nature Methods, 9(7), 676–682.</li>
     <li>Rueden, C. T., Schindelin, J., Hiner, M. C., DeZonia, B. E., Walter, A. E., Arena, E. T., &amp; Eliceiri, K. W. (2017). ImageJ2: ImageJ for the next generation of scientific image data. BMC Bioinformatics, 18, 529.</li>
+    <li>Wikipedia contributors. (n.d.). ImageJ. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

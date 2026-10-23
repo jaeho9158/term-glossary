@@ -9,11 +9,11 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>금리·물가·환율처럼 여러 시계열이 <strong>서로 영향을 주고받는</strong> 상황에서, 변수 사이의 동태적 관계를 이론적 제약을 최소화하고 추정하고 싶을 때 쓴다(Sims, 1980).</p><ul><li>모든 변수를 “자기 자신과 다른 변수들의 과거값”으로 설명하는 방정식 K개를 세운다. 변수가 K개, 시차가 p이면 방정식마다 절편 포함 1 + Kp개 계수를 추정한다(전체 K + K²p개).</li><li>변수들이 정상 시계열이어야 한다. 비정상이면 차분하거나, 변수들 사이에 공적분 관계가 있을 때는 오차수정모형(VECM)을 쓴다.</li><li>목적은 보통 예측, 그레인저 인과성 검정, 충격반응함수, 예측오차 분산분해 중 하나이다.</li></ul>"
+      "html": "<p>금리·물가·환율처럼 여러 시계열이 <strong>서로 영향을 주고받는</strong> 상황에서, 변수 사이의 동태적 관계를 이론적 제약을 최소화하고 추정하고 싶을 때 쓴다(Sims, 1980).</p><ul><li>모든 변수를 “자기 자신과 다른 변수들의 과거값”으로 설명하는 방정식 K개를 세운다. 변수가 K개, 시차가 p이면 방정식마다 절편 포함 1 + Kp개 계수를 추정한다(전체 K + K²p개).</li><li>변수들이 정상 시계열이어야 한다. 비정상이면 차분하거나, 변수들 사이에 공적분 관계가 있을 때는 오차수정모형(VECM)을 쓴다.</li><li>목적은 보통 예측, 그레인저 인과성 검정, 충격반응함수, 예측오차 분산분해 중 하나이다.</li></ul><p>VAR는 k개의 내생변수 각각을 자신과 다른 변수의 과거값, 오차항의 선형함수로 나타낸다. 시차 p를 정하는 일이 중요하며, 추론은 선택한 시차 차수가 맞는지에 달려 있다. 크리스토퍼 심스(Sims, 1980)는 구조 모형의 “믿기 어려운 식별 제약”에 대한 대안으로 VAR를 옹호했다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<ul><li><strong>개별 계수</strong>는 변수 사이에 상관이 있어 단독으로 해석하기 어렵다. 대신 그레인저 인과성 검정(“X의 과거값이 Y 예측을 개선하는가”)과 충격반응함수를 본다.</li><li><strong>시차 선택</strong>: AIC, BIC, HQ 같은 정보기준이 가장 작은 p를 고른다. AIC는 더 긴 시차를, BIC는 더 짧은 시차를 고르는 경향이 있다.</li><li><strong>안정성</strong>: 계수 행렬(동반 행렬)의 고유값의 절댓값이 모두 1 미만이어야 모형이 정상이다.</li><li><strong>충격반응함수와 분산분해</strong>는 변수의 순서(촐레스키 분해)나 구조적 가정에 따라 달라진다. 순서를 어떻게 정했는지가 결과의 일부이다.</li></ul><p>(가상의 예) 변수 2개, 시차 1인 VAR에서 만든 모의 자료 300개 시점을 분석해 직접 계산한 값이다. 참 모형의 계수 행렬은 [[.5, .1], [.2, .4]]이다.</p><table><caption>정보기준(작을수록 좋음. ln|Σ̂| + 벌점 형태)</caption><thead><tr><th>시차 p</th><th>AIC</th><th>BIC</th></tr></thead><tbody><tr><td>1</td><td>0.250</td><td>0.325</td></tr><tr><td>2</td><td>0.254</td><td>0.379</td></tr><tr><td>3</td><td>0.262</td><td>0.437</td></tr><tr><td>4</td><td>0.285</td><td>0.509</td></tr></tbody></table><p>AIC와 BIC 모두 p = 1을 고른다. 시차 1 모형의 추정 계수 행렬은 [[0.47, 0.09], [0.23, 0.31]]이고 고유값의 절댓값은 0.55, 0.23로 1보다 작아 안정적이다.</p>"
+      "html": "<ul><li><strong>개별 계수</strong>는 변수 사이에 상관이 있어 단독으로 해석하기 어렵다. 대신 그레인저 인과성 검정(“X의 과거값이 Y 예측을 개선하는가”)과 충격반응함수를 본다.</li><li><strong>시차 선택</strong>: AIC, BIC, HQ 같은 정보기준이 가장 작은 p를 고른다. AIC는 더 긴 시차를, BIC는 더 짧은 시차를 고르는 경향이 있다.</li><li><strong>안정성</strong>: 계수 행렬(동반 행렬)의 고유값의 절댓값이 모두 1 미만이어야 모형이 정상이다.</li><li><strong>충격반응함수와 분산분해</strong>는 변수의 순서(촐레스키 분해)나 구조적 가정에 따라 달라진다. 순서를 어떻게 정했는지가 결과의 일부이다.</li></ul><p>(가상의 예) 변수 2개, 시차 1인 VAR에서 만든 모의 자료 300개 시점을 분석해 직접 계산한 값이다. 참 모형의 계수 행렬은 [[.5, .1], [.2, .4]]이다.</p><table><caption>정보기준(작을수록 좋음. ln|Σ̂| + 벌점 형태)</caption><thead><tr><th>시차 p</th><th>AIC</th><th>BIC</th></tr></thead><tbody><tr><td>1</td><td>0.250</td><td>0.325</td></tr><tr><td>2</td><td>0.254</td><td>0.379</td></tr><tr><td>3</td><td>0.262</td><td>0.437</td></tr><tr><td>4</td><td>0.285</td><td>0.509</td></tr></tbody></table><p>AIC와 BIC 모두 p = 1을 고른다. 시차 1 모형의 추정 계수 행렬은 [[0.47, 0.09], [0.23, 0.31]]이고 고유값의 절댓값은 0.55, 0.23로 1보다 작아 안정적이다.</p><p>1차 VAR에서 충격의 영향은 계수 행렬의 고유값이 모두 절댓값 1보다 작을 때(안정적일 때) 시간이 지나며 줄어든다. 변수들이 모두 정상(I(0))이면 수준 변수로 추정하고, 비정상이지만 공적분이면 벡터오차수정모형(VECM)을, 공적분이 아니면 차분해서 추정한다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -56,6 +56,7 @@
     "Lütkepohl, H. (2005). New Introduction to Multiple Time Series Analysis. Springer.",
     "Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press.",
     "Stock, J. H., & Watson, M. W. (2001). Vector autoregressions. Journal of Economic Perspectives, 15(4), 101–115.",
-    "Granger, C. W. J. (1969). Investigating causal relations by econometric models and cross-spectral methods. Econometrica, 37(3), 424–438."
+    "Granger, C. W. J. (1969). Investigating causal relations by econometric models and cross-spectral methods. Econometrica, 37(3), 424–438.",
+    "Wikipedia contributors. (n.d.). Vector autoregression. In Wikipedia, The Free Encyclopedia."
   ]
 }

@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>실험계획법은 여러 요인이 결과(반응)에 미치는 영향을 적은 실험 횟수로 추정하도록 실험 조건의 조합을 미리 정해 두는 방법이다. Fisher(1935)가 농업 실험에서 체계화했고, 요인(조절하는 변수), 수준(요인이 취하는 값), 반응변수(결과) 세 용어로 구조를 설명한다. 기본 원리는 다음과 같다.</p><ul><li><strong>반복</strong>: 같은 조건을 되풀이해 오차의 크기를 추정한다.</li><li><strong>랜덤화</strong>: 실험 순서나 배정을 무작위로 해 숨은 요인의 영향을 흩뜨린다.</li><li><strong>블록화</strong>: 알려진 변동 원인(날짜, 배치 등)을 묶어 비교의 정밀도를 높인다.</li></ul><p>대표적인 설계는 모든 조합을 하는 [[factorial-design|요인설계]], 일부 조합만 하는 [[fractional-factorial-design|부분요인설계]], 곡면 형태의 최적 조건을 찾는 [[response-surface-methodology|반응표면법]], 직교배열을 쓰는 [[taguchi-method|다구치 기법]]이다. 결과 분석에는 보통 [[anova|분산분석]]이 함께 쓰인다.</p>"
+      "html": "<p>실험계획법은 여러 요인이 결과(반응)에 미치는 영향을 적은 실험 횟수로 추정하도록 실험 조건의 조합을 미리 정해 두는 방법이다. Fisher(1935)가 농업 실험에서 체계화했고, 요인(조절하는 변수), 수준(요인이 취하는 값), 반응변수(결과) 세 용어로 구조를 설명한다. 기본 원리는 다음과 같다.</p><ul><li><strong>반복</strong>: 같은 조건을 되풀이해 오차의 크기를 추정한다.</li><li><strong>랜덤화</strong>: 실험 순서나 배정을 무작위로 해 숨은 요인의 영향을 흩뜨린다.</li><li><strong>블록화</strong>: 알려진 변동 원인(날짜, 배치 등)을 묶어 비교의 정밀도를 높인다.</li></ul><p>대표적인 설계는 모든 조합을 하는 [[factorial-design|요인설계]], 일부 조합만 하는 [[fractional-factorial-design|부분요인설계]], 곡면 형태의 최적 조건을 찾는 [[response-surface-methodology|반응표면법]], 직교배열을 쓰는 [[taguchi-method|다구치 기법]]이다. 결과 분석에는 보통 [[anova|분산분석]]이 함께 쓰인다.</p><p>실험은 독립변수를 조작하고 종속변수를 관찰하며 통제변수를 일정하게 유지한다. 설계는 요인 설정의 고유한 조합인 설계점을 정한다. Fisher의 원리에는 반복, 랜덤화, 블록화 외에 직교성(직교 대비는 서로 상관이 없어 각각 다른 정보를 준다)이 함께 거론된다. 한 번에 한 요인씩 바꾸는 방식보다 여러 요인을 동시에 바꾸는 다요인 실험이 효율적이며 교호작용도 드러낸다. 분석은 관측된 분산을 출처별로 쪼개는 분산분석(ANOVA)에 바탕을 둔다. 역사적으로는 Peirce가 1870~80년대에 랜덤화에 기반한 추론을 주장했고, Fisher의 1920~30년대 연구가 현대 틀을 세웠으며, 이후 Plackett–Burman 설계, 직교배열(C. R. Rao), 다구치 방법이 나왔다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>(가상의 실험) 요인 A, B, C가 각각 두 수준(−, +)이면 전체 요인설계는 2³ = 8회이다. 정의관계 <code>I = ABC</code>로 절반만 하는 부분요인설계(2³⁻¹)는 4회이다.</p><table><thead><tr><th>실험</th><th>A</th><th>B</th><th>C</th><th>반응(가상 값)</th></tr></thead><tbody><tr><td>1</td><td>−</td><td>−</td><td>+</td><td>60</td></tr><tr><td>2</td><td>−</td><td>+</td><td>−</td><td>72</td></tr><tr><td>3</td><td>+</td><td>−</td><td>−</td><td>54</td></tr><tr><td>4</td><td>+</td><td>+</td><td>+</td><td>68</td></tr></tbody></table><p>주효과는 ‘+ 수준의 평균 − − 수준의 평균’으로 구한다. A = <strong>-5.0</strong>, B = <strong>13.0</strong>, C = <strong>1.0</strong>이다. 이 설계에서는 A의 효과가 BC 교호작용과, B가 AC와, C가 AB와 <em>구별되지 않고 섞인다</em>(교락). 실험이 절반으로 줄어든 대가이므로, 교호작용이 작다고 가정하거나 필요하면 나머지 절반을 추가로 실험한다.</p><ul><li><strong>얻는 것</strong>: 한 번에 한 요인씩 바꾸는 방식보다 적은 실험으로 주효과와 교호작용을 함께 추정한다.</li><li><strong>순서</strong>: 많은 요인을 선별(스크리닝) → 중요한 요인을 최적화(반응표면법)로 이어 가는 흐름이 흔하다(Box &amp; Wilson, 1951).</li></ul>"
+      "html": "<p>(가상의 실험) 요인 A, B, C가 각각 두 수준(−, +)이면 전체 요인설계는 2³ = 8회이다. 정의관계 <code>I = ABC</code>로 절반만 하는 부분요인설계(2³⁻¹)는 4회이다.</p><table><thead><tr><th>실험</th><th>A</th><th>B</th><th>C</th><th>반응(가상 값)</th></tr></thead><tbody><tr><td>1</td><td>−</td><td>−</td><td>+</td><td>60</td></tr><tr><td>2</td><td>−</td><td>+</td><td>−</td><td>72</td></tr><tr><td>3</td><td>+</td><td>−</td><td>−</td><td>54</td></tr><tr><td>4</td><td>+</td><td>+</td><td>+</td><td>68</td></tr></tbody></table><p>주효과는 ‘+ 수준의 평균 − − 수준의 평균’으로 구한다. A = <strong>-5.0</strong>, B = <strong>13.0</strong>, C = <strong>1.0</strong>이다. 이 설계에서는 A의 효과가 BC 교호작용과, B가 AC와, C가 AB와 <em>구별되지 않고 섞인다</em>(교락). 실험이 절반으로 줄어든 대가이므로, 교호작용이 작다고 가정하거나 필요하면 나머지 절반을 추가로 실험한다.</p><ul><li><strong>얻는 것</strong>: 한 번에 한 요인씩 바꾸는 방식보다 적은 실험으로 주효과와 교호작용을 함께 추정한다.</li><li><strong>순서</strong>: 많은 요인을 선별(스크리닝) → 중요한 요인을 최적화(반응표면법)로 이어 가는 흐름이 흔하다(Box &amp; Wilson, 1951).</li></ul><p>여덟 물체를 재는 Hadamard 행렬 계량 설계는 물체를 하나씩 재는 것과 같은 횟수로 각 무게 추정치의 분산을 σ²에서 σ²/8로 줄인다. 거짓 양성을 피하려면 이중맹검, 사전등록, 철저한 기록이 쓰이며, 인과 추론은 무작위 배정에서 가장 강하다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -54,6 +54,7 @@
     "Fisher, R. A. (1935). The Design of Experiments. Oliver & Boyd.",
     "Box, G. E. P., Hunter, J. S., & Hunter, W. G. (2005). Statistics for Experimenters: Design, Innovation, and Discovery (2nd ed.). Wiley.",
     "Montgomery, D. C. (2017). Design and Analysis of Experiments (9th ed.). Wiley.",
-    "Box, G. E. P., & Wilson, K. B. (1951). On the experimental attainment of optimum conditions. Journal of the Royal Statistical Society: Series B, 13(1), 1–45."
+    "Box, G. E. P., & Wilson, K. B. (1951). On the experimental attainment of optimum conditions. Journal of the Royal Statistical Society: Series B, 13(1), 1–45.",
+    "Wikipedia. (n.d.). Design of experiments. In Wikipedia, the free encyclopedia."
   ]
 }

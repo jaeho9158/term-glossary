@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>DICOM(Digital Imaging and Communications in Medicine)은 의료영상의 <strong>파일 형식</strong>과 <strong>통신 규약</strong>을 함께 정한 표준이다. 미국방사선학회(ACR)와 전미전기제조업협회(NEMA)의 ACR-NEMA 표준에서 출발해 1993년 DICOM 3.0이 되었다(Bidgood 외, 1997). 이후 국제표준 ISO 12052로도 채택되었다.</li><li>데이터는 <strong>태그</strong>(그룹 번호, 요소 번호)로 이름 붙은 항목들의 모음이다. 환자 정보, 촬영 조건, 장비 정보가 영상 픽셀 값과 한 파일에 들어간다. 영상 자체는 픽셀 데이터 태그에 있다.</li><li>정보는 계층으로 정리된다. 환자 → 검사(Study) → 시리즈(Series) → 영상(Instance)이고, 검사·시리즈·영상 단계에는 전 세계에서 유일한 식별자(UID)가 붙고, 환자 단계는 기관이 부여하는 Patient ID로 구분한다.</li><li>통신은 서비스 규약으로 정의된다. 영상 저장(C-STORE), 조회(C-FIND), 가져오기(C-MOVE), 연결 확인(C-ECHO), 검사 목록 전달(Modality Worklist) 등이 있어 서로 다른 제조사의 장비와 영상 저장 전송 시스템(PACS)이 연결된다(Mildenberger 외, 2002).</li><li>실제 호환성은 장비마다 제공하는 <strong>적합성 선언서</strong>(Conformance Statement)에서 확인한다. 지원하는 서비스, 영상 종류, 압축 방식이 장비마다 달라 같은 DICOM이라도 모든 기능이 맞물리는 것은 아니다.</li></ul>"
+      "html": "<ul><li>DICOM(Digital Imaging and Communications in Medicine)은 의료영상의 <strong>파일 형식</strong>과 <strong>통신 규약</strong>을 함께 정한 표준이다. 미국방사선학회(ACR)와 전미전기제조업협회(NEMA)의 ACR-NEMA 표준에서 출발해 1993년 DICOM 3.0이 되었다(Bidgood 외, 1997). 이후 국제표준 ISO 12052로도 채택되었다.</li><li>데이터는 <strong>태그</strong>(그룹 번호, 요소 번호)로 이름 붙은 항목들의 모음이다. 환자 정보, 촬영 조건, 장비 정보가 영상 픽셀 값과 한 파일에 들어간다. 영상 자체는 픽셀 데이터 태그에 있다.</li><li>정보는 계층으로 정리된다. 환자 → 검사(Study) → 시리즈(Series) → 영상(Instance)이고, 검사·시리즈·영상 단계에는 전 세계에서 유일한 식별자(UID)가 붙고, 환자 단계는 기관이 부여하는 Patient ID로 구분한다.</li><li>통신은 서비스 규약으로 정의된다. 영상 저장(C-STORE), 조회(C-FIND), 가져오기(C-MOVE), 연결 확인(C-ECHO), 검사 목록 전달(Modality Worklist) 등이 있어 서로 다른 제조사의 장비와 영상 저장 전송 시스템(PACS)이 연결된다(Mildenberger 외, 2002).</li><li>실제 호환성은 장비마다 제공하는 <strong>적합성 선언서</strong>(Conformance Statement)에서 확인한다. 지원하는 서비스, 영상 종류, 압축 방식이 장비마다 달라 같은 DICOM이라도 모든 기능이 맞물리는 것은 아니다.</li></ul><ul><li>ACR와 NEMA는 1983년 위원회를 꾸렸고 첫 표준 ACR/NEMA 300이 1985년에 나왔다. 1988년의 2판을 거쳐 1993년 ‘Digital Imaging and Communications in Medicine’로 이름이 바뀌었다. 1993년 이후에는 하위 호환을 유지하며 갱신하므로 ‘3.0’이라는 표기는 더 쓰지 않으며 DICOM 4.0 계획도 없다. NEMA PS3, ISO 12052:2017로도 불린다.</li><li>파일은 Part 10 파일이라 부르며 확장자는 .dcm, MIME 형식은 application/dicom이다. DICOM 매체에서는 파일 이름이 8자로 제한되고 DICOMDIR 파일이 내용을 색인한다. 픽셀 데이터는 JPEG, 무손실 JPEG, JPEG 2000, 런렝스 부호화(RLE)로 압축할 수 있다.</li><li>서비스로는 저장, 저장 확인, 질의/검색, 모달리티 작업 목록, MPPS, 인쇄, 오프라인 매체가 있다. 네트워크 포트는 104(예약)와 11112(등록)가 흔하고, 웹 기반으로는 WADO-RS, STOW-RS, QIDO-RS를 묶은 DICOMweb이 있다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
@@ -48,6 +48,7 @@
   "references": [
     "Pianykh, O. S. (2012). Digital Imaging and Communications in Medicine (DICOM): A Practical Introduction and Survival Guide (2nd ed.). Springer.",
     "Mildenberger, P., Eichelberg, M., & Martin, E. (2002). Introduction to the DICOM standard. European Radiology, 12(4), 920–927.",
-    "Bidgood, W. D., Jr., Horii, S. C., Prior, F. W., & Van Syckle, D. E. (1997). Understanding and using DICOM, the data interchange standard for biomedical imaging. Journal of the American Medical Informatics Association, 4(3), 199–212."
+    "Bidgood, W. D., Jr., Horii, S. C., Prior, F. W., & Van Syckle, D. E. (1997). Understanding and using DICOM, the data interchange standard for biomedical imaging. Journal of the American Medical Informatics Association, 4(3), 199–212.",
+    "Wikipedia contributors. (n.d.). DICOM. In Wikipedia, The Free Encyclopedia."
   ]
 }

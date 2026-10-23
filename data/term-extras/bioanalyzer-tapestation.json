@@ -11,7 +11,7 @@
     },
     {
       "heading": "결과 읽는 법",
-      "html": "<ul><li><strong>RNA</strong>: 온전한 포유류 총 RNA는 18S와 28S rRNA 두 봉우리가 뚜렷하고 그 앞뒤 신호가 작다. 분해되면 봉우리가 낮아지고 작은 조각 쪽 신호가 늘어 RIN이 낮아진다. RNA-seq 시작 기준으로 RIN 7~8 이상을 요구하는 경우가 많지만 이는 라이브러리 방식과 시료에 따른 관행이지 보편 규칙이 아니다. FFPE는 RIN이 낮아도 DV200 같은 값으로 판단하는 키트가 있다.</li><li><strong>라이브러리</strong>: 목표 크기 범위에 봉우리가 모여 있는지, 약 120~130 염기쌍 부근에 어댑터 이량체로 보이는 작은 봉우리가 있는지 확인한다. 어댑터 이량체가 크면 시퀀싱 읽기를 낭비하므로 비드 정제를 한 번 더 한다.</li><li><strong>농도</strong>: 이 장비의 농도 추정은 형광 정량(Qubit 등)보다 덜 정확한 편이라 농도는 형광 정량으로, 크기는 이 장비로 확인하는 조합이 흔하다.</li></ul><p>가상의 예(몰 농도 계산): 라이브러리 농도가 2 ng/µL(형광 정량), 평균 크기가 400 bp(이 장비의 지정 구간 평균)라면 몰 농도 = 2 × 10⁶ ÷ (660 × 400) = 7.58 nM이다(660은 염기쌍 1개의 평균 분자량). 이를 4 nM으로 맞춰 총 10 µL를 만들려면 C₁V₁ = C₂V₂에서 V₁ = 4 × 10 ÷ 7.58 ≈ 5.28 µL의 라이브러리에 4.72 µL의 완충액을 더한다. 이 값은 구간을 어떻게 잡느냐에 따라 평균 크기가 달라지고 몰 농도도 달라지므로, 보고할 때는 구간도 함께 적다.</p>"
+      "html": "<ul><li><strong>RNA</strong>: 온전한 포유류 총 RNA는 18S와 28S rRNA 두 봉우리가 뚜렷하고 그 앞뒤 신호가 작다. 분해되면 봉우리가 낮아지고 작은 조각 쪽 신호가 늘어 RIN이 낮아진다. RNA-seq 시작 기준으로 RIN 7~8 이상을 요구하는 경우가 많지만 이는 라이브러리 방식과 시료에 따른 관행이지 보편 규칙이 아니다. FFPE는 RIN이 낮아도 DV200 같은 값으로 판단하는 키트가 있다.</li><li><strong>라이브러리</strong>: 목표 크기 범위에 봉우리가 모여 있는지, 약 120~130 염기쌍 부근에 어댑터 이량체로 보이는 작은 봉우리가 있는지 확인한다. 어댑터 이량체가 크면 시퀀싱 읽기를 낭비하므로 비드 정제를 한 번 더 한다.</li><li><strong>농도</strong>: 이 장비의 농도 추정은 형광 정량(Qubit 등)보다 덜 정확한 편이라 농도는 형광 정량으로, 크기는 이 장비로 확인하는 조합이 흔하다.</li></ul><p>가상의 예(몰 농도 계산): 라이브러리 농도가 2 ng/µL(형광 정량), 평균 크기가 400 bp(이 장비의 지정 구간 평균)라면 몰 농도 = 2 × 10⁶ ÷ (660 × 400) = 7.58 nM이다(660은 염기쌍 1개의 평균 분자량). 이를 4 nM으로 맞춰 총 10 µL를 만들려면 C₁V₁ = C₂V₂에서 V₁ = 4 × 10 ÷ 7.58 ≈ 5.28 µL의 라이브러리에 4.72 µL의 완충액을 더한다. 이 값은 구간을 어떻게 잡느냐에 따라 평균 크기가 달라지고 몰 농도도 달라지므로, 보고할 때는 구간도 함께 적다.</p><p><strong>RIN의 한계.</strong> RIN은 2005년 애질런트가 개발한 알고리즘으로, 전기영동도의 여러 특징 가운데 총 RNA 비율과 28S 봉우리 높이에 가장 큰 비중을 둔다고 한다. 정확한 알고리즘은 공개되어 있지 않다. 이 값은 rRNA의 온전함을 반영할 뿐 mRNA나 마이크로RNA의 안정성과는 다를 수 있다. 또 진핵·원핵·엽록체의 rRNA를 구분하지 못해 식물 시료나 진핵-원핵 상호작용 연구에서는 품질이 낮게 나올 수 있고, 원핵 시료의 RIN(23S, 16S)은 진핵보다 검증이 덜 되었다.</p>"
     }
   ],
   "compare": {
@@ -42,6 +42,7 @@
   "references": [
     "Schroeder, A., et al. (2006). The RIN: an RNA integrity number for assigning integrity values to RNA measurements. BMC Molecular Biology, 7.",
     "Imbeaud, S., et al. (2005). Towards standardization of RNA quality assessment using user-independent classifiers of microcapillary electrophoresis traces. Nucleic Acids Research, 33.",
-    "Fleige, S., & Pfaffl, M. W. (2006). RNA integrity and the effect on the real-time qRT-PCR performance. Molecular Aspects of Medicine, 27."
+    "Fleige, S., & Pfaffl, M. W. (2006). RNA integrity and the effect on the real-time qRT-PCR performance. Molecular Aspects of Medicine, 27.",
+    "Wikipedia contributors. (n.d.). RNA integrity number. In Wikipedia, The Free Encyclopedia."
   ]
 }

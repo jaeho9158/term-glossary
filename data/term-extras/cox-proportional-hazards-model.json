@@ -9,11 +9,11 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>사건(사망, 재발, 이탈, 상장폐지 등)이 일어날 때까지의 시간 자료에서, 여러 변수가 <strong>위험(hazard)</strong>에 미치는 영향을 한꺼번에 추정할 때 쓴다. 추적이 끝나도 사건이 일어나지 않은 대상(중도절단)을 그대로 분석에 쓸 수 있는 것이 강점이다.</p><ul><li>모형은 <code>h(t | x) = h₀(t) · exp(β₁x₁ + β₂x₂ + …)</code>이다. h₀(t)는 기저위험으로, 모양을 특정하지 않는다(준모수적).</li><li>핵심 가정은 <strong>비례위험</strong>이다. 두 대상의 위험의 <em>비</em>는 시간이 지나도 일정하다. 위험 자체는 시간에 따라 변해도 된다.</li><li>변수 효과는 위험비(HR)로 요약된다. 기저위험의 모양을 정하지 않으므로 생존 시간이 어떤 분포를 따르는지 가정할 필요가 없다.</li><li>사건 수가 충분해야 한다. 변수 하나당 사건이 대략 10개 이상이라는 경험칙(EPV)이 흔히 인용된다(Peduzzi 외, 1995).</li></ul>"
+      "html": "<p>사건(사망, 재발, 이탈, 상장폐지 등)이 일어날 때까지의 시간 자료에서, 여러 변수가 <strong>위험(hazard)</strong>에 미치는 영향을 한꺼번에 추정할 때 쓴다. 추적이 끝나도 사건이 일어나지 않은 대상(중도절단)을 그대로 분석에 쓸 수 있는 것이 강점이다.</p><ul><li>모형은 <code>h(t | x) = h₀(t) · exp(β₁x₁ + β₂x₂ + …)</code>이다. h₀(t)는 기저위험으로, 모양을 특정하지 않는다(준모수적).</li><li>핵심 가정은 <strong>비례위험</strong>이다. 두 대상의 위험의 <em>비</em>는 시간이 지나도 일정하다. 위험 자체는 시간에 따라 변해도 된다.</li><li>변수 효과는 위험비(HR)로 요약된다. 기저위험의 모양을 정하지 않으므로 생존 시간이 어떤 분포를 따르는지 가정할 필요가 없다.</li><li>사건 수가 충분해야 한다. 변수 하나당 사건이 대략 10개 이상이라는 경험칙(EPV)이 흔히 인용된다(Peduzzi 외, 1995).</li></ul><p>Cox(1972)의 논문 「Regression models and life-tables」가 공변량의 효과를 위험 함수 전체를 특정하지 않고 추정하는 이 모형을 처음 제시했다. 부분우도를 최대화하면 기저위험이 소거된 채 계수를 추정할 수 있다. 기저위험을 와이블 분포처럼 특정한 형태로 두면 모수적 비례위험 모형이 된다. 사건 시간에 동점이 있을 때는 브레슬로 방법이 표준 절차를 그대로 쓰고, 에프론 방법이 더 나은 결과를 준다고 평가된다. 시간에 따라 변하는 공변량, 시간 의존 층, 한 대상의 여러 사건은 앤더슨–길의 계수 과정 정식화로 다룬다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<ul><li><strong>β</strong>: 변수가 1 단위 늘 때 로그 위험의 변화. <strong>HR = e<sup>β</sup></strong>가 위험이 몇 배가 되는지이다.</li><li>HR = 1은 효과 없음, 1보다 크면 위험 증가, 작으면 감소이다. 95% 신뢰구간이 1을 포함하는지로 유의성을 본다.</li><li>연속 변수의 HR은 <em>단위</em>에 따라 달라진다(나이 1년당 HR과 10년당 HR은 다름).</li><li>HR은 “지금 사건이 일어나는 순간의 위험”의 비이다. 생존 기간이 몇 배 길다는 뜻이 아니며, 누적 사건 확률의 비도 아니다.</li><li><strong>비례위험 점검</strong>: 로그–로그 생존곡선이 평행한지, 슈엔펠트 잔차와 시간의 관계(Grambsch–Therneau 검정)를 본다.</li><li>가정이 깨지면 시간 의존 계수, 층화 Cox, 가속실패시간 모형 등을 쓴다.</li></ul><p>(가상의 예) 두 집단(각 100명)의 모의 자료이다. 참 위험비는 2로 설정했고 추적 중 125명에서 사건이 일어났다. 부분우도를 최대화해 구한 추정값은 다음과 같다.</p><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>β̂ (SE)</td><td>0.503 (0.181)</td></tr><tr><td>HR = e<sup>β</sup></td><td>1.65</td></tr><tr><td>HR의 95% 신뢰구간</td><td>[1.16, 2.36]</td></tr><tr><td>Wald z, p</td><td>2.77, 0.0056</td></tr><tr><td>우도비 검정</td><td>χ²(1) = 7.69, p = 0.0056</td></tr></tbody></table><p>추정값 1.65는 설정한 2와 다르지만 신뢰구간 안에 있다. 표본이 한 번 뽑힌 결과의 흔들림이다.</p>"
+      "html": "<ul><li><strong>β</strong>: 변수가 1 단위 늘 때 로그 위험의 변화. <strong>HR = e<sup>β</sup></strong>가 위험이 몇 배가 되는지이다.</li><li>HR = 1은 효과 없음, 1보다 크면 위험 증가, 작으면 감소이다. 95% 신뢰구간이 1을 포함하는지로 유의성을 본다.</li><li>연속 변수의 HR은 <em>단위</em>에 따라 달라진다(나이 1년당 HR과 10년당 HR은 다름).</li><li>HR은 “지금 사건이 일어나는 순간의 위험”의 비이다. 생존 기간이 몇 배 길다는 뜻이 아니며, 누적 사건 확률의 비도 아니다.</li><li><strong>비례위험 점검</strong>: 로그–로그 생존곡선이 평행한지, 슈엔펠트 잔차와 시간의 관계(Grambsch–Therneau 검정)를 본다.</li><li>가정이 깨지면 시간 의존 계수, 층화 Cox, 가속실패시간 모형 등을 쓴다.</li></ul><p>(가상의 예) 두 집단(각 100명)의 모의 자료이다. 참 위험비는 2로 설정했고 추적 중 125명에서 사건이 일어났다. 부분우도를 최대화해 구한 추정값은 다음과 같다.</p><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>β̂ (SE)</td><td>0.503 (0.181)</td></tr><tr><td>HR = e<sup>β</sup></td><td>1.65</td></tr><tr><td>HR의 95% 신뢰구간</td><td>[1.16, 2.36]</td></tr><tr><td>Wald z, p</td><td>2.77, 0.0056</td></tr><tr><td>우도비 검정</td><td>χ²(1) = 7.69, p = 0.0056</td></tr></tbody></table><p>추정값 1.65는 설정한 2와 다르지만 신뢰구간 안에 있다. 표본이 한 번 뽑힌 결과의 흔들림이다.</p><p>예를 들어 이진 변수의 β = 2.12이면 위험비는 e<sup>2.12</sup> ≈ 8.32이고, 연속 변수 β = −0.34이면 한 단위 증가당 e<sup>−0.34</sup> ≈ 0.71이다. 공변량의 비례 효과가 시간에 따라 달라질 수도 있으며, 이 변화는 검정할 수 있다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -61,6 +61,7 @@
     "Cox, D. R. (1975). Partial likelihood. Biometrika, 62(2), 269–276.",
     "Grambsch, P. M., & Therneau, T. M. (1994). Proportional hazards tests and diagnostics based on weighted residuals. Biometrika, 81(3), 515–526.",
     "Peduzzi, P., Concato, J., Feinstein, A. R., & Holford, T. R. (1995). Importance of events per independent variable in proportional hazards regression analysis. II. Accuracy and precision of regression estimates. Journal of Clinical Epidemiology, 48(12), 1503–1510.",
-    "Collett, D. (2015). Modelling Survival Data in Medical Research (3rd ed.). CRC Press."
+    "Collett, D. (2015). Modelling Survival Data in Medical Research (3rd ed.). CRC Press.",
+    "Wikipedia contributors. (n.d.). Proportional hazards model. In Wikipedia, The Free Encyclopedia."
   ]
 }

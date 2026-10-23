@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<table><thead><tr><th>얻는 것</th><th>한계</th></tr></thead><tbody><tr><td>외부 기준 없이 빠르게 갱신되는 상대 위치·자세 추정</td><td>오차가 누적되어 시간이 갈수록 커진다.</td></tr><tr><td>다른 센서가 끊겨도 잠시 이어 가는 보조 정보</td><td>바퀴 미끄러짐·지면 상태에 민감하다.</td></tr><tr><td>필터·SLAM의 예측 단계 입력</td><td>방향 오차가 거리에 곱해져 위치 오차로 커진다.</td></tr></tbody></table><p>방향 오차의 영향을 계산해 보면, 1°의 방향 오차를 가진 채 100 m를 직진하면 옆으로 100 × sin(1°) ≈ 1.75 m 벗어난다. 오차는 크게 두 가지이다. ① 체계적 오차: 바퀴 지름 불일치, 휠베이스 불확실성 등(Borenstein &amp; Feng 1996은 이를 보정하는 UMBmark 절차를 제안). ② 비체계적 오차: 미끄러짐, 바닥 요철 등.</p><p>그래서 오도메트리는 단독으로 쓰기보다 [[kalman-filter|칼만 필터]], [[slam|SLAM]], GPS·IMU 등과 결합한다. 원리는 [[dead-reckoning|추측항법]]과 같다.</p>"
+      "html": "<table><thead><tr><th>얻는 것</th><th>한계</th></tr></thead><tbody><tr><td>외부 기준 없이 빠르게 갱신되는 상대 위치·자세 추정</td><td>오차가 누적되어 시간이 갈수록 커진다.</td></tr><tr><td>다른 센서가 끊겨도 잠시 이어 가는 보조 정보</td><td>바퀴 미끄러짐·지면 상태에 민감하다.</td></tr><tr><td>필터·SLAM의 예측 단계 입력</td><td>방향 오차가 거리에 곱해져 위치 오차로 커진다.</td></tr></tbody></table><p>방향 오차의 영향을 계산해 보면, 1°의 방향 오차를 가진 채 100 m를 직진하면 옆으로 100 × sin(1°) ≈ 1.75 m 벗어난다. 오차는 크게 두 가지이다. ① 체계적 오차: 바퀴 지름 불일치, 휠베이스 불확실성 등(Borenstein &amp; Feng 1996은 이를 보정하는 UMBmark 절차를 제안). ② 비체계적 오차: 미끄러짐, 바닥 요철 등.</p><p>그래서 오도메트리는 단독으로 쓰기보다 [[kalman-filter|칼만 필터]], [[slam|SLAM]], GPS·IMU 등과 결합한다. 원리는 [[dead-reckoning|추측항법]]과 같다.</p><p>철도에서도 쓰인다. 열차는 선로에 고정된 센서로 절대 위치를 얻고, 그 센서 사이 구간의 상대 위치는 오도메트리로 추적한다. 오도메트리는 속도를 시간에 걸쳐 적분하므로 측정 오차가 쌓이기 쉽고, 정확한 자료 수집과 기기 보정이 있어야 제대로 작동한다. 용어는 그리스어 odos(길)와 metron(측정)에서 왔다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -43,6 +43,7 @@
     "Borenstein, J., & Feng, L. (1996). Measurement and correction of systematic odometry errors in mobile robots. IEEE Transactions on Robotics and Automation, 12(6), 869–880.",
     "Siegwart, R., Nourbakhsh, I. R., & Scaramuzza, D. (2011). Introduction to Autonomous Mobile Robots (2nd ed.). MIT Press.",
     "Scaramuzza, D., & Fraundorfer, F. (2011). Visual odometry: Part I – The first 30 years and fundamentals. IEEE Robotics & Automation Magazine, 18(4), 80–92.",
-    "Geiger, A., Lenz, P., & Urtasun, R. (2012). Are we ready for autonomous driving? The KITTI vision benchmark suite. IEEE Conference on Computer Vision and Pattern Recognition, 3354–3361."
+    "Geiger, A., Lenz, P., & Urtasun, R. (2012). Are we ready for autonomous driving? The KITTI vision benchmark suite. IEEE Conference on Computer Vision and Pattern Recognition, 3354–3361.",
+    "Wikipedia contributors. (n.d.). Odometry. In Wikipedia."
   ]
 }

@@ -154,7 +154,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>교착 상태는 둘 이상의 주체가 서로가 쥔 자원을 기다리며 영원히 멈춘 상태이다. Coffman 등(1971)은 다음 네 조건이 <strong>동시에</strong> 성립할 때 생긴다고 정리했다.</li><li><strong>상호 배제</strong>(자원을 한 번에 하나만 쓴다), <strong>점유 대기</strong>(자원을 쥔 채 다른 자원을 기다린다), <strong>비선점</strong>(쥔 자원을 강제로 빼앗을 수 없다), <strong>순환 대기</strong>(기다리는 관계가 원형으로 닫힌다)이다.</li><li>넷 중 하나만 깨도 교착 상태는 일어나지 않는다. 락을 항상 같은 순서로 잡거나(순환 대기 방지), 필요한 자원을 한꺼번에 요청하거나(점유 대기 방지), 시간 제한 후 락을 놓는(비선점 보완) 방법이 대표적이다.</li><li>방지 말고도 은행가 알고리즘 같은 <strong>회피</strong>, 자원 할당 그래프에서 순환을 찾아 사후 복구하는 <strong>탐지·복구</strong>, 문제를 무시하는 방식이 쓰인다.</li></ul><p>‘무시’ 전략은 타조 알고리즘이라고도 한다. 교착 상태가 드물고 가끔 데이터를 잃어도 감당할 수 있을 때 쓰며, 초기 UNIX와 MINIX가 이 방식을 썼다. 분산 시스템에서는 공유 메모리가 없어 노드끼리 메시지로 대기 관계를 맞춰 봐야 하므로 탐지가 더 어렵다. 대기 그래프(wait-for graph)나 Chandy-Misra-Haas 같은 간선 추적 방법이 쓰인다.</p>
+  <ul><li>교착 상태는 둘 이상의 주체가 서로가 쥔 자원을 기다리며 영원히 멈춘 상태이다. Coffman 등(1971)은 다음 네 조건이 <strong>동시에</strong> 성립할 때 생긴다고 정리했다.</li><li><strong>상호 배제</strong>(자원을 한 번에 하나만 쓴다), <strong>점유 대기</strong>(자원을 쥔 채 다른 자원을 기다린다), <strong>비선점</strong>(쥔 자원을 강제로 빼앗을 수 없다), <strong>순환 대기</strong>(기다리는 관계가 원형으로 닫힌다)이다.</li><li>넷 중 하나만 깨도 교착 상태는 일어나지 않는다. 락을 항상 같은 순서로 잡거나(순환 대기 방지), 필요한 자원을 한꺼번에 요청하거나(점유 대기 방지), 시간 제한 후 락을 놓는(비선점 보완) 방법이 대표적이다.</li><li>방지 말고도 은행가 알고리즘 같은 <strong>회피</strong>, 자원 할당 그래프에서 순환을 찾아 사후 복구하는 <strong>탐지·복구</strong>, 문제를 무시하는 방식이 쓰인다.</li></ul><p>‘무시’ 전략은 타조 알고리즘이라고도 한다. 교착 상태가 드물고 가끔 데이터를 잃어도 감당할 수 있을 때 쓰며, 초기 UNIX와 MINIX가 이 방식을 썼다. 분산 시스템에서는 공유 메모리가 없어 노드끼리 메시지로 대기 관계를 맞춰 봐야 하므로 탐지가 더 어렵다. 대기 그래프(wait-for graph)나 Chandy-Misra-Haas 같은 간선 추적 방법이 쓰인다.</p><p>Coffman 조건은 자원이 단일 인스턴스일 때는 교착 상태의 충분조건이지만, 자원 인스턴스가 여럿이면 교착 상태가 가능함을 알릴 뿐이다. 통신 시스템에서는 자원 경합보다 신호의 손실이나 훼손이 주된 원인이다. 라이브락은 프로세스가 서로에게 반응해 상태를 바꾸면서도 진전이 없는 상태로, 자원 기아의 특수한 경우이다. 교착 상태 처리법은 무시, 탐지·복구(종료·롤백·선점), 방지(조건 하나 깨기), 회피(미래 자원 요구 정보로 요청을 미리 검사, 은행가 알고리즘)로 나뉜다.</p>
 
   <h2>예시로 보기</h2>
   <p>스레드 1이 락 A 다음 B를, 스레드 2가 락 B 다음 A를 잡는 경우와, 둘 다 A 다음 B 순서로 잡는 경우를 가능한 모든 실행 순서에 대해 검사했다(각 스레드는 두 락을 모두 얻으면 둘 다 놓는다고 가정).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>락 획득 순서</th><th>가능한 실행 경로</th><th>교착 상태로 끝난 경로</th><th>정상 종료한 경로</th></tr></thead><tbody><tr><td>스레드 1: A→B, 스레드 2: B→A</td><td>4</td><td>2</td><td>2</td></tr><tr><td>스레드 1: A→B, 스레드 2: A→B (순서 통일)</td><td>2</td><td>0</td><td>2</td></tr></tbody></table></div><p>순서가 엇갈리면 ‘스레드 1이 A를, 스레드 2가 B를 먼저 잡는’ 경로에서 서로 상대 락을 기다리며 멈춘다. 모든 경로가 교착 상태로 끝나는 것은 아니므로 <strong>테스트에서 한 번 통과했다고 안전한 것은 아니다</strong>. 락 순서를 통일하면 순환 대기가 생기지 않아 교착 상태 경로가 사라진다.</p>
@@ -190,6 +190,7 @@
     <li>Coffman, E. G., Elphick, M., &amp; Shoshani, A. (1971). System deadlocks. ACM Computing Surveys, 3(2), 67–78.</li>
     <li>Silberschatz, A., Galvin, P. B., &amp; Gagne, G. (2018). Operating System Concepts (10th ed.). Wiley.</li>
     <li>Tanenbaum, A. S., &amp; Bos, H. (2015). Modern Operating Systems (4th ed.). Pearson.</li>
+    <li>Wikipedia contributors. (n.d.). Deadlock (computer science). In Wikipedia, The Free Encyclopedia.</li>
     <li>Wikipedia contributors. (n.d.). Deadlock (computer science). In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>

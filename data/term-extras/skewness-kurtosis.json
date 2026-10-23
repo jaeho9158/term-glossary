@@ -9,11 +9,11 @@
   "sections": [
     {
       "heading": "계산과 범위",
-      "html": "<p>표본의 평균을 중심으로 한 2차·3차·4차 적률(m₂, m₃, m₄)로 계산한다. 소프트웨어마다 쓰는 식이 달라 같은 자료도 값이 조금씩 다르다.</p><ul><li><strong>왜도</strong>: g₁ = m₃ / m₂<sup>3/2</sup>. SPSS·SAS·Excel 등은 표본 수를 보정한 G₁ = g₁ × √(n(n−1)) / (n−2)를 보여 준다.</li><li><strong>첨도</strong>: g₂ = m₄ / m₂² − 3(‘초과첨도’). 정규분포가 0이 되도록 3을 뺀 값이다. 3을 빼지 않은 ‘첨도 = 3’ 기준도 있어 어느 정의인지 확인해야 한다. 보정식은 G₂ = (n−1)/((n−2)(n−3)) × [(n+1)g₂ + 6]이다.</li><li><strong>범위</strong>: 왜도는 이론상 제한이 없고 정규분포는 0이다. 초과첨도는 −2보다 작아질 수 없고 위로는 제한이 없으며, 정규분포는 0, 균등분포는 −1.2이다.</li></ul><p><strong>작은 예(가상).</strong> 10명의 점수 2, 3, 3, 4, 4, 4, 5, 5, 6, 15는 평균 5.1, SD 3.67이며 G₁ = 2.59, G₂ = 7.44(보정 전 g₁ = 2.19, g₂ = 3.67)이다. 극단값 15를 7로 바꾸면 G₁ = 0.36, G₂ = −0.15로 정규분포에 가까워진다. 즉 이 두 지표는 <strong>극단값 하나에 크게 흔들린다</strong>.</p>"
+      "html": "<p>표본의 평균을 중심으로 한 2차·3차·4차 적률(m₂, m₃, m₄)로 계산한다. 소프트웨어마다 쓰는 식이 달라 같은 자료도 값이 조금씩 다르다.</p><ul><li><strong>왜도</strong>: g₁ = m₃ / m₂<sup>3/2</sup>. SPSS·SAS·Excel 등은 표본 수를 보정한 G₁ = g₁ × √(n(n−1)) / (n−2)를 보여 준다.</li><li><strong>첨도</strong>: g₂ = m₄ / m₂² − 3(‘초과첨도’). 정규분포가 0이 되도록 3을 뺀 값이다. 3을 빼지 않은 ‘첨도 = 3’ 기준도 있어 어느 정의인지 확인해야 한다. 보정식은 G₂ = (n−1)/((n−2)(n−3)) × [(n+1)g₂ + 6]이다.</li><li><strong>범위</strong>: 왜도는 이론상 제한이 없고 정규분포는 0이다. 초과첨도는 −2보다 작아질 수 없고 위로는 제한이 없으며, 정규분포는 0, 균등분포는 −1.2이다.</li></ul><p><strong>작은 예(가상).</strong> 10명의 점수 2, 3, 3, 4, 4, 4, 5, 5, 6, 15는 평균 5.1, SD 3.67이며 G₁ = 2.59, G₂ = 7.44(보정 전 g₁ = 2.19, g₂ = 3.67)이다. 극단값 15를 7로 바꾸면 G₁ = 0.36, G₂ = −0.15로 정규분포에 가까워진다. 즉 이 두 지표는 <strong>극단값 하나에 크게 흔들린다</strong>.</p><p>왜도는 표준화한 3차 적률(γ₁)이다. 단봉 분포에서 음의 왜도는 대개 왼쪽 꼬리가 길다는 뜻이지만, 왜도가 0이라고 대칭이 보장되는 것은 아니다. 정규분포의 왜도는 0, 지수분포는 2이다. 피어슨의 다른 계수로 (평균−최빈값)/표준편차와 3(평균−중앙값)/표준편차가 있다.</p>"
     },
     {
       "heading": "해석 기준",
-      "html": "<ul><li><strong>왜도 &gt; 0</strong>: 오른쪽 꼬리가 길다(소득처럼 작은 값이 많고 큰 값이 드문 자료). <strong>왜도 &lt; 0</strong>: 왼쪽 꼬리가 길다(쉬운 시험 점수처럼 높은 값에 몰린 자료).</li><li><strong>초과첨도 &gt; 0</strong>: 정규분포보다 꼬리가 두꺼워 극단값이 더 자주 나온다. <strong>&lt; 0</strong>: 꼬리가 얇고 극단값이 드물다. 첨도는 ‘뾰족함’이 아니라 꼬리의 극단성을 재는 값이라는 설명이 통계학계에서 널리 받아들여진다(Westfall, 2014).</li><li><strong>관례적 기준</strong>: 구조방정식 분야에서는 |왜도| 2, |첨도| 7 이상을 눈에 띄는 비정규성으로 보자는 제안(West 외, 1995)과 |왜도| 3, |첨도| 10 이상을 문제로 보자는 제안(Kline, 2016)이 자주 인용된다. 둘 다 연구자들이 쓰는 관례일 뿐 통계적 정답은 아니다.</li><li>왜도·첨도를 표준오차로 나눈 z 값으로 ‘유의한 비정규성’을 판정하는 방법도 있는데, 표본이 크면 사소한 편차에도 유의해지고 작으면 반대로 놓치므로 히스토그램·Q-Q 플롯을 함께 본다. 위 예에서는 SE가 왜도 0.69, 첨도 1.33이라 z가 각각 3.77, 5.58이다.</li></ul>"
+      "html": "<ul><li><strong>왜도 &gt; 0</strong>: 오른쪽 꼬리가 길다(소득처럼 작은 값이 많고 큰 값이 드문 자료). <strong>왜도 &lt; 0</strong>: 왼쪽 꼬리가 길다(쉬운 시험 점수처럼 높은 값에 몰린 자료).</li><li><strong>초과첨도 &gt; 0</strong>: 정규분포보다 꼬리가 두꺼워 극단값이 더 자주 나온다. <strong>&lt; 0</strong>: 꼬리가 얇고 극단값이 드물다. 첨도는 ‘뾰족함’이 아니라 꼬리의 극단성을 재는 값이라는 설명이 통계학계에서 널리 받아들여진다(Westfall, 2014).</li><li><strong>관례적 기준</strong>: 구조방정식 분야에서는 |왜도| 2, |첨도| 7 이상을 눈에 띄는 비정규성으로 보자는 제안(West 외, 1995)과 |왜도| 3, |첨도| 10 이상을 문제로 보자는 제안(Kline, 2016)이 자주 인용된다. 둘 다 연구자들이 쓰는 관례일 뿐 통계적 정답은 아니다.</li><li>왜도·첨도를 표준오차로 나눈 z 값으로 ‘유의한 비정규성’을 판정하는 방법도 있는데, 표본이 크면 사소한 편차에도 유의해지고 작으면 반대로 놓치므로 히스토그램·Q-Q 플롯을 함께 본다. 위 예에서는 SE가 왜도 0.69, 첨도 1.33이라 z가 각각 3.77, 5.58이다.</li></ul><p>표본 왜도 추정량에는 b₁=m₃/s³, g₁=m₃/m₂^(3/2), 그리고 보정형 G₁=√(n(n−1))/(n−2)·g₁이 있다. G₁은 엑셀·미니탭·SAS·SPSS가 쓰는 형태이므로 프로그램마다 값이 다를 수 있음을 보고서에 밝히는 편이 좋다.</p>"
     },
     {
       "heading": "보고 방법",
@@ -57,6 +57,7 @@
     "DeCarlo, L. T. (1997). On the meaning and use of kurtosis. Psychological Methods, 2(3), 292–307.",
     "Westfall, P. H. (2014). Kurtosis as peakedness, 1905–2014. R.I.P. The American Statistician, 68(3), 191–195.",
     "West, S. G., Finch, J. F., & Curran, P. J. (1995). Structural equation models with nonnormal variables: Problems and remedies. In R. H. Hoyle (Ed.), Structural equation modeling: Concepts, issues, and applications. Sage.",
-    "Kline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press."
+    "Kline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.",
+    "Wikipedia contributors. (n.d.). Skewness. Wikipedia."
   ]
 }

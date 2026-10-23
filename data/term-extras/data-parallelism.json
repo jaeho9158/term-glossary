@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ol><li><strong>모델 복제</strong>: 같은 모델을 장치(GPU) N개에 똑같이 올린다. 초기 가중치는 같게 맞춘다.</li><li><strong>배치 분할</strong>: 전역 배치(global batch)를 N등분해 장치마다 다른 조각을 준다.</li><li><strong>지역 계산</strong>: 각 장치가 자기 조각으로 순전파·역전파를 해 그레이디언트를 구한다.</li><li><strong>동기화</strong>: 장치들의 그레이디언트를 모아 평균을 낸다(보통 all-reduce 집합 통신).</li><li><strong>동시 갱신</strong>: 평균 그레이디언트로 모든 장치가 같은 방식으로 가중치를 갱신해 복제본이 항상 같게 유지된다.</li></ol><p>이렇게 모든 장치가 한 걸음마다 기다려 맞추는 방식이 동기식이며, 기다림을 줄이려고 장치별로 따로 갱신하는 비동기식은 학습 안정성이 떨어질 수 있다. 비동기 방식의 초기 사례로 Dean 등(2012)의 대규모 분산 학습 시스템이 자주 인용된다.</p>"
+      "html": "<ol><li><strong>모델 복제</strong>: 같은 모델을 장치(GPU) N개에 똑같이 올린다. 초기 가중치는 같게 맞춘다.</li><li><strong>배치 분할</strong>: 전역 배치(global batch)를 N등분해 장치마다 다른 조각을 준다.</li><li><strong>지역 계산</strong>: 각 장치가 자기 조각으로 순전파·역전파를 해 그레이디언트를 구한다.</li><li><strong>동기화</strong>: 장치들의 그레이디언트를 모아 평균을 낸다(보통 all-reduce 집합 통신).</li><li><strong>동시 갱신</strong>: 평균 그레이디언트로 모든 장치가 같은 방식으로 가중치를 갱신해 복제본이 항상 같게 유지된다.</li></ol><p>이렇게 모든 장치가 한 걸음마다 기다려 맞추는 방식이 동기식이며, 기다림을 줄이려고 장치별로 따로 갱신하는 비동기식은 학습 안정성이 떨어질 수 있다. 비동기 방식의 초기 사례로 Dean 등(2012)의 대규모 분산 학습 시스템이 자주 인용된다.</p><p>데이터 병렬성은 같은 연산을 데이터의 서로 다른 부분집합에 적용하는 것이고, 과업 병렬성은 서로 다른 연산을 실행하는 것이다. 실제 프로그램은 둘 사이에 놓이는 경우가 많다. 데이터 병렬성은 SIMD 시스템에 대응하며 벡터·배열 프로세서가 초기 사례이고 오늘날에는 GPU가 대표적이다. 이 개념은 1960년대 벡터 프로세서인 Solomon 기계에서 나왔고, 용어 자체는 1980년대 Connection Machine의 프로그래밍 방식을 가리키며 쓰이기 시작했다. 성능은 데이터 지역성과 캐시 크기에 크게 좌우된다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -48,6 +48,7 @@
     "Dean, J., Corrado, G. S., Monga, R., Chen, K., Devin, M., Le, Q. V., Mao, M. Z., Ranzato, M., Senior, A., Tucker, P., Yang, K., & Ng, A. Y. (2012). Large scale distributed deep networks. Advances in Neural Information Processing Systems, 25.",
     "Goyal, P., Dollár, P., Girshick, R., Noordhuis, P., Wesolowski, L., Kyrola, A., Tulloch, A., Jia, Y., & He, K. (2017). Accurate, large minibatch SGD: Training ImageNet in 1 hour. arXiv:1706.02677.",
     "Sergeev, A., & Del Balso, M. (2018). Horovod: Fast and easy distributed deep learning in TensorFlow. arXiv:1802.05799.",
-    "Li, S., Zhao, Y., Varma, R., Salpekar, O., Noordhuis, P., Li, T., Paszke, A., Smith, J., Vaughan, B., Damania, P., & Chintala, S. (2020). PyTorch Distributed: Experiences on accelerating data parallel training. Proceedings of the VLDB Endowment, 13(12), 3005–3018."
+    "Li, S., Zhao, Y., Varma, R., Salpekar, O., Noordhuis, P., Li, T., Paszke, A., Smith, J., Vaughan, B., Damania, P., & Chintala, S. (2020). PyTorch Distributed: Experiences on accelerating data parallel training. Proceedings of the VLDB Endowment, 13(12), 3005–3018.",
+    "Wikipedia contributors. (n.d.). Data parallelism. In Wikipedia, The Free Encyclopedia."
   ]
 }

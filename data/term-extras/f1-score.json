@@ -7,7 +7,7 @@
     },
     {
       "heading": "해석 기준",
-      "html": "<p>F1에는 Cohen의 d나 카파처럼 널리 합의된 등급표가 <strong>없다</strong>. 논문에서 보이는 “0.8 이상이면 양호” 같은 말은 분야와 과제에 따라 달라지는 관행일 뿐이며, 같은 F1이라도 양성 비율(유병률)과 과제 난이도에 따라 의미가 전혀 다르다. 따라서 문턱값 대신 <em>비교 기준</em>을 세워서 읽는다.</p><table><thead><tr><th>비교 기준</th><th>설명</th></tr></thead><tbody><tr><td>모두 양성으로 예측하는 모델</td><td>양성 비율이 π일 때 F1 = 2π/(1 + π). 예: 양성 4%이면 약 0.08. 이보다 확실히 높아야 한다.</td></tr><tr><td>모두 음성으로 예측하는 모델</td><td>진양성이 없으므로 F1 = 0 (정확도는 높게 나올 수 있음)</td></tr><tr><td>선행 연구·기존 방법</td><td>같은 자료·같은 분할에서 비교한 값이어야 의미가 있음</td></tr><tr><td>사람 평가자 간 일치</td><td>사람끼리의 일치도가 모델 성능의 현실적 상한인 경우가 많음</td></tr></tbody></table><p>클래스가 둘 이상이면 평균 방식에 따라 값이 달라진다. 매크로 F1(클래스별 F1의 단순 평균)은 작은 클래스를 똑같이 중시하고, 마이크로 F1(전체 TP·FP·FN을 합쳐 계산, 단일 레이블 다중분류에서는 정확도와 같음)은 큰 클래스가 지배하며, 가중 F1은 클래스 크기로 가중 평균한다.</p>"
+      "html": "<p>F1에는 Cohen의 d나 카파처럼 널리 합의된 등급표가 <strong>없다</strong>. 논문에서 보이는 “0.8 이상이면 양호” 같은 말은 분야와 과제에 따라 달라지는 관행일 뿐이며, 같은 F1이라도 양성 비율(유병률)과 과제 난이도에 따라 의미가 전혀 다르다. 따라서 문턱값 대신 <em>비교 기준</em>을 세워서 읽는다.</p><table><thead><tr><th>비교 기준</th><th>설명</th></tr></thead><tbody><tr><td>모두 양성으로 예측하는 모델</td><td>양성 비율이 π일 때 F1 = 2π/(1 + π). 예: 양성 4%이면 약 0.08. 이보다 확실히 높아야 한다.</td></tr><tr><td>모두 음성으로 예측하는 모델</td><td>진양성이 없으므로 F1 = 0 (정확도는 높게 나올 수 있음)</td></tr><tr><td>선행 연구·기존 방법</td><td>같은 자료·같은 분할에서 비교한 값이어야 의미가 있음</td></tr><tr><td>사람 평가자 간 일치</td><td>사람끼리의 일치도가 모델 성능의 현실적 상한인 경우가 많음</td></tr></tbody></table><p>클래스가 둘 이상이면 평균 방식에 따라 값이 달라진다. 매크로 F1(클래스별 F1의 단순 평균)은 작은 클래스를 똑같이 중시하고, 마이크로 F1(전체 TP·FP·FN을 합쳐 계산, 단일 레이블 다중분류에서는 정확도와 같음)은 큰 클래스가 지배하며, 가중 F1은 클래스 크기로 가중 평균한다.</p><p>F 점수라는 이름은 van Rijsbergen의 책에 나오는 다른 F 함수에서 왔을 것으로 여겨지며, 이 용어는 1992년 제4회 메시지 이해 학회(MUC-4)에서 도입되었다고 알려져 있다. 다중분류에서 매크로 F1은 클래스별 점수의 평균이고 마이크로 F1은 마이크로 정밀도와 재현율의 조화평균이며, 마이크로 F1이 정확도와 항상 같은 것은 아니다. 비판으로는 정밀도와 재현율에 같은 비중을 주지만 실제 오류 비용은 다르다는 Hand의 지적, 진음성을 무시하므로 불균형 자료에서 오도할 수 있다는 Powers의 지적, 이진 분류에서는 매튜스 상관계수가 더 많은 정보를 준다는 Chicco와 Jurman의 주장, 기대 비용이 더 원칙적인 지표라는 주장이 있다. 값이 양성과 음성의 비율에 의존하므로 클래스 균형이 다른 자료 사이의 비교도 어렵다.</p>"
     },
     {
       "heading": "보고 방법",
@@ -17,20 +17,49 @@
   "compare": {
     "heading": "헷갈리기 쉬운 용어",
     "intro": "분류 성능 지표는 이름이 비슷하고, 같은 대상을 다른 이름으로 부르기도 한다.",
-    "headers": ["지표", "계산", "특징"],
+    "headers": [
+      "지표",
+      "계산",
+      "특징"
+    ],
     "rows": [
-      ["[[accuracy|정확도]]", "(TP + TN) / 전체", "음성이 많으면 후하게 나옴, 불균형 자료에 취약"],
-      ["[[precision|정밀도]]", "TP / (TP + FP)", "양성이라고 한 것 중 진짜 양성 비율"],
-      ["[[recall|재현율]] = 민감도", "TP / (TP + FN)", "진짜 양성 중 찾아낸 비율. 의학에서는 ‘민감도’([[sensitivity-specificity|민감도와 특이도]])"],
-      ["[[f1-score|F1 점수]]", "2PR / (P + R)", "정밀도와 재현율의 조화평균, TN을 보지 않음"],
-      ["[[f-measure|F-measure]]", "Fβ 계열의 총칭", "F1은 β = 1인 특수한 경우"],
-      ["[[auc-roc|AUC]]", "ROC 곡선 아래 면적", "문턱값과 무관하게 순위 능력을 평가"]
+      [
+        "[[accuracy|정확도]]",
+        "(TP + TN) / 전체",
+        "음성이 많으면 후하게 나옴, 불균형 자료에 취약"
+      ],
+      [
+        "[[precision|정밀도]]",
+        "TP / (TP + FP)",
+        "양성이라고 한 것 중 진짜 양성 비율"
+      ],
+      [
+        "[[recall|재현율]] = 민감도",
+        "TP / (TP + FN)",
+        "진짜 양성 중 찾아낸 비율. 의학에서는 ‘민감도’([[sensitivity-specificity|민감도와 특이도]])"
+      ],
+      [
+        "[[f1-score|F1 점수]]",
+        "2PR / (P + R)",
+        "정밀도와 재현율의 조화평균, TN을 보지 않음"
+      ],
+      [
+        "[[f-measure|F-measure]]",
+        "Fβ 계열의 총칭",
+        "F1은 β = 1인 특수한 경우"
+      ],
+      [
+        "[[auc-roc|AUC]]",
+        "ROC 곡선 아래 면적",
+        "문턱값과 무관하게 순위 능력을 평가"
+      ]
     ]
   },
   "references": [
     "van Rijsbergen, C. J. (1979). Information Retrieval (2nd ed.). Butterworths.",
     "Sokolova, M., & Lapalme, G. (2009). A systematic analysis of performance measures for classification tasks. Information Processing & Management, 45(4), 427–437.",
     "Powers, D. M. W. (2011). Evaluation: From precision, recall and F-measure to ROC, informedness, markedness and correlation. Journal of Machine Learning Technologies, 2(1), 37–63.",
-    "Chicco, D., & Jurman, G. (2020). The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation. BMC Genomics, 21, 6."
+    "Chicco, D., & Jurman, G. (2020). The advantages of the Matthews correlation coefficient (MCC) over F1 score and accuracy in binary classification evaluation. BMC Genomics, 21, 6.",
+    "Wikipedia. (n.d.). F-score. In Wikipedia, the free encyclopedia."
   ]
 }

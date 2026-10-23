@@ -7,18 +7,19 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<ul><li><strong>언제.</strong> 카메라가 본 물체 위치를 로봇 좌표로 옮겨 집거나 조립해야 할 때, 비전 기반 제어([[visual-servoing|비주얼 서보잉]])의 전 단계로 필요하다.</li><li><strong>무엇을 얻나.</strong> 손끝-카메라(또는 로봇 기저-카메라) 사이의 4×4 동차변환행렬 하나, 곧 회전 3자유도와 이동 3자유도이다.</li><li><strong>풀리는 조건.</strong> 해가 하나로 정해지려면 회전축이 서로 평행하지 않은 이동이 최소 둘 필요하다고 알려져 있다(Tsai &amp; Lenz, 1989; Park &amp; Martin, 1994). 같은 축 둘레의 회전만 반복하면 방정식이 퇴화한다.</li><li><strong>정확도를 깎는 요인.</strong> 로봇 기구학 오차([[robot-calibration|로봇 캘리브레이션]]이 선행되지 않은 경우), 카메라 내부 파라미터 오차, 표적 자세 추정의 잡음(특히 카메라가 표적을 비스듬히 볼 때), 영상과 로봇 자세의 시각 동기 어긋남이다.</li></ul>"
+      "html": "<ul><li><strong>언제.</strong> 카메라가 본 물체 위치를 로봇 좌표로 옮겨 집거나 조립해야 할 때, 비전 기반 제어([[visual-servoing|비주얼 서보잉]])의 전 단계로 필요하다.</li><li><strong>무엇을 얻나.</strong> 손끝-카메라(또는 로봇 기저-카메라) 사이의 4×4 동차변환행렬 하나, 곧 회전 3자유도와 이동 3자유도이다.</li><li><strong>풀리는 조건.</strong> 해가 하나로 정해지려면 회전축이 서로 평행하지 않은 이동이 최소 둘 필요하다고 알려져 있다(Tsai &amp; Lenz, 1989; Park &amp; Martin, 1994). 같은 축 둘레의 회전만 반복하면 방정식이 퇴화한다.</li><li><strong>정확도를 깎는 요인.</strong> 로봇 기구학 오차([[robot-calibration|로봇 캘리브레이션]]이 선행되지 않은 경우), 카메라 내부 파라미터 오차, 표적 자세 추정의 잡음(특히 카메라가 표적을 비스듬히 볼 때), 영상과 로봇 자세의 시각 동기 어긋남이다.</li><li>일반형 AX = ZB에서 X = Z인 특수한 경우가 AX = XB이다. 풀이법은 회전을 먼저 구하고 이동을 따로 구하는 분리형 닫힌해, 회전과 이동을 함께 구하는 동시형 닫힌해, 반복법의 세 갈래로 나뉘며 대부분 회전을 쿼터니언으로 나타낸다.</li></ul>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li>카메라 배치(eye-in-hand 또는 eye-to-hand)와 사용한 표적, 사용한 방정식 형태를 먼저 밝힌다.</li><li>자세 수와 회전 범위를 적는다. 자세가 서로 비슷하면 결과가 불안정하다는 점을 논문도 인정하는 편이다.</li><li>풀이 방법(2단계, 동시 최적화 등)과 소프트웨어를 적는다.</li><li>정확도는 <strong>회전 오차(도)와 이동 오차(mm)</strong>를 따로, 수집에 쓰지 않은 검증 자세에서 보고한다. 학습에 쓴 자세의 잔차만 제시하면 과대평가가 될 수 있다.</li><li>이후 작업(집기·조립)의 정밀도를 말할 때는 이 오차가 포함된 값임을 밝힌다.</li></ul>"
+      "html": "<ul><li>카메라 배치(eye-in-hand 또는 eye-to-hand)와 사용한 표적, 사용한 방정식 형태를 먼저 밝힌다.</li><li>자세 수와 회전 범위를 적는다. 자세가 서로 비슷하면 결과가 불안정하다는 점을 논문도 인정하는 편이다.</li><li>풀이 방법(2단계, 동시 최적화 등)과 소프트웨어를 적는다.</li><li>정확도는 <strong>회전 오차(도)와 이동 오차(mm)</strong>를 따로, 수집에 쓰지 않은 검증 자세에서 보고한다. 학습에 쓴 자세의 잔차만 제시하면 과대평가가 될 수 있다.</li><li>이후 작업(집기·조립)의 정밀도를 말할 때는 이 오차가 포함된 값임을 밝힌다.</li><li>분리형은 회전 추정의 오차가 이동 벡터에 그대로 쌓이는 약점이 있고, 동시형은 오차 전파가 작다. 반복법은 정확할 수 있으나 계산이 무겁고 최적해로 수렴하지 않을 수 있다.</li></ul>"
     }
   ],
   "references": [
     "Tsai, R. Y., & Lenz, R. K. (1989). A new technique for fully autonomous and efficient 3D robotics hand/eye calibration. IEEE Transactions on Robotics and Automation, 5(3).",
     "Shiu, Y. C., & Ahmad, S. (1989). Calibration of wrist-mounted robotic sensors by solving homogeneous transform equations of the form AX=XB. IEEE Transactions on Robotics and Automation, 5(1).",
     "Park, F. C., & Martin, B. J. (1994). Robot sensor calibration: Solving AX=XB on the Euclidean group. IEEE Transactions on Robotics and Automation, 10(5).",
-    "Daniilidis, K. (1999). Hand-eye calibration using dual quaternions. International Journal of Robotics Research, 18(3)."
+    "Daniilidis, K. (1999). Hand-eye calibration using dual quaternions. International Journal of Robotics Research, 18(3).",
+    "Wikipedia contributors. (n.d.). Hand eye calibration problem. Wikipedia."
   ],
   "compare": {
     "heading": "헷갈리기 쉬운 용어",

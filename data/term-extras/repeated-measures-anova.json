@@ -9,7 +9,7 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>같은 대상을 세 번 이상 측정하거나 같은 대상에게 세 가지 이상의 조건을 모두 주고 평균이 달라지는지 볼 때 쓴다(두 번이면 [[paired-t-test|대응표본 t검정]]과 같다). 개인차를 오차에서 분리해 낼 수 있어서 같은 사람 수로도 독립 집단 설계보다 검정력이 높다.</p><ul><li>피험자 내 요인(시간, 조건)만 있으면 일원 반복측정, 집단(피험자 간 요인)도 함께 있으면 혼합 설계이고 시간 × 집단 상호작용이 보통 핵심 결과이다.</li><li>주요 가정은 <strong>구형성</strong>이다. 모든 시점 쌍의 차이 점수의 분산이 서로 같아야 한다. 시점이 셋 이상일 때만 문제가 되며, 깨지면 F검정이 너무 관대해진다([[mauchlys-test-of-sphericity|모클리 구형성 검정]]).</li><li>전통적 방법은 결측이 있는 대상을 통째로 제외한다. 결측이 많거나 측정 간격이 들쑥날쑥하면 [[mixed-effects-model|혼합효과모형]]이 대안이다.</li><li>서열 자료이거나 정규성을 믿기 어려우면 [[friedman-test|프리드먼 검정]]을 쓴다.</li></ul>"
+      "html": "<p>같은 대상을 세 번 이상 측정하거나 같은 대상에게 세 가지 이상의 조건을 모두 주고 평균이 달라지는지 볼 때 쓴다(두 번이면 [[paired-t-test|대응표본 t검정]]과 같다). 개인차를 오차에서 분리해 낼 수 있어서 같은 사람 수로도 독립 집단 설계보다 검정력이 높다.</p><ul><li>피험자 내 요인(시간, 조건)만 있으면 일원 반복측정, 집단(피험자 간 요인)도 함께 있으면 혼합 설계이고 시간 × 집단 상호작용이 보통 핵심 결과이다.</li><li>주요 가정은 <strong>구형성</strong>이다. 모든 시점 쌍의 차이 점수의 분산이 서로 같아야 한다. 시점이 셋 이상일 때만 문제가 되며, 깨지면 F검정이 너무 관대해진다([[mauchlys-test-of-sphericity|모클리 구형성 검정]]).</li><li>전통적 방법은 결측이 있는 대상을 통째로 제외한다. 결측이 많거나 측정 간격이 들쑥날쑥하면 [[mixed-effects-model|혼합효과모형]]이 대안이다.</li><li>서열 자료이거나 정규성을 믿기 어려우면 [[friedman-test|프리드먼 검정]]을 쓴다.</li></ul><p>가정은 각 수준에서의 정규성, 무작위성, 그리고 구형성(sphericity)이다. 구형성은 어떤 두 수준의 차이 점수든 분산이 같아야 한다는 조건이며, 수준이 3개 이상일 때만 적용된다. 위반하면 제1종 오류가 부풀려지기 쉽다. 이때 자유도를 낮춰 임계 F값을 보정하는데, Greenhouse–Geisser는 더 보수적이고 Huynh–Feldt는 덜 보수적이어서, 위반이 작으면 Huynh–Feldt를, 크면 Greenhouse–Geisser를 쓰도록 제안된다. 다변량 검정은 구형성을 가정하지 않지만 매우 보수적이다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
@@ -17,7 +17,7 @@
     },
     {
       "heading": "논문에는 이렇게 보고한다",
-      "html": "<p>구형성 검정 또는 보정 여부, 보정된 자유도, F, p, 효과크기, 사후비교 방법을 적는다. (위 가상 자료 기준)</p><p><code>모클리 구형성 검정 대신 그린하우스-가이서 보정(ε = .81)을 적용하였다. 점수는 시점에 따라 유의하게 달라졌다, F(1.62, 8.11) = 94.14, p &lt; .001, 부분 η² = .95. 본페로니 보정 사후비교에서 모든 시점 쌍이 유의하였다(p &lt; .01).</code></p><ul><li>모클리 검정은 표본이 작으면 위반을 잡아내지 못하는 일이 흔해서, 검정 결과와 상관없이 그린하우스-가이서(또는 후인-펠트) 보정을 기본으로 보고하는 방식도 쓰인다.</li><li>사후비교는 시점 쌍마다 비교하므로 다중비교 보정이 필요하다([[multiple-comparisons-correction|다중비교보정]]).</li><li>한국어 논문의 ‘반복측정 분산분석’은 구형성 위반 시 “Greenhouse-Geisser 수정값을 사용하였다”고 짧게 적는 경우가 많다. 자유도가 소수로 나타나면 보정된 값이다.</li></ul>"
+      "html": "<p>구형성 검정 또는 보정 여부, 보정된 자유도, F, p, 효과크기, 사후비교 방법을 적는다. (위 가상 자료 기준)</p><p><code>모클리 구형성 검정 대신 그린하우스-가이서 보정(ε = .81)을 적용하였다. 점수는 시점에 따라 유의하게 달라졌다, F(1.62, 8.11) = 94.14, p &lt; .001, 부분 η² = .95. 본페로니 보정 사후비교에서 모든 시점 쌍이 유의하였다(p &lt; .01).</code></p><ul><li>모클리 검정은 표본이 작으면 위반을 잡아내지 못하는 일이 흔해서, 검정 결과와 상관없이 그린하우스-가이서(또는 후인-펠트) 보정을 기본으로 보고하는 방식도 쓰인다.</li><li>사후비교는 시점 쌍마다 비교하므로 다중비교 보정이 필요하다([[multiple-comparisons-correction|다중비교보정]]).</li><li>한국어 논문의 ‘반복측정 분산분석’은 구형성 위반 시 “Greenhouse-Geisser 수정값을 사용하였다”고 짧게 적는 경우가 많다. 자유도가 소수로 나타나면 보정된 값이다.</li></ul><p>장점은 개인차에서 오는 집단 간 변동을 분리해 F값을 키울 수 있고, 참가자 수가 적어도 되며, 짧거나 긴 기간의 변화를 볼 수 있다는 것이다. 단점으로 학습·지루함·피로 같은 순서 효과가 있어 조건 순서를 반대로 한 두 집단으로 상쇄(역균형) 설계를 하고, 중도 탈락이 결과를 치우치게 할 수 있으며, 평균으로의 회귀와 성숙 같은 위협도 있다. 결측이 있거나 측정 시점이 서로 다르거나 구형성을 어길 때는 선형 혼합모형이 더 낫다.</p>"
     }
   ],
   "compare": {
@@ -62,6 +62,7 @@
     "Greenhouse, S. W., & Geisser, S. (1959). On methods in the analysis of profile data. Psychometrika, 24(2), 95–112.",
     "Huynh, H., & Feldt, L. S. (1976). Estimation of the Box correction for degrees of freedom from sample data in randomized block and split-plot designs. Journal of Educational Statistics, 1(1), 69–82.",
     "Maxwell, S. E., & Delaney, H. D. (2004). Designing experiments and analyzing data: A model comparison perspective (2nd ed.). Lawrence Erlbaum.",
-    "Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384."
+    "Bakeman, R. (2005). Recommended effect size statistics for repeated measures designs. Behavior Research Methods, 37(3), 379–384.",
+    "Wikipedia contributors. (n.d.). Repeated measures design. In Wikipedia."
   ]
 }

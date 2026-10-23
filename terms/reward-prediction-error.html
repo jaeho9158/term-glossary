@@ -158,10 +158,10 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 주장</h2>
-  <ul><li>학습은 <strong>예측과 결과의 차이</strong>로 일어난다. 받은 보상이 예측보다 크면 양의 오차, 같으면 0, 작으면(또는 예상한 보상이 안 오면) 음의 오차이며, 이 오차만큼 예측을 고친다.</li><li>가장 단순한 형태는 δ = r − V (r: 받은 보상, V: 예측값)이고, 예측은 V ← V + α·δ 로 갱신된다(Rescorla &amp; Wagner, 1972). 시간차 학습에서는 다음 시점의 예측을 포함한 δ = r + γV(s′) − V(s) 로 확장된다.</li><li>Schultz, Dayan, Montague(1997)는 원숭이 중뇌 도파민 뉴런의 단일 뉴런 기록을 시간차 학습의 오차 신호와 연결해, 도파민 뉴런의 일시적 발화가 이 오차를 나타낸다고 해석했다.</li></ul>
+  <ul><li>학습은 <strong>예측과 결과의 차이</strong>로 일어난다. 받은 보상이 예측보다 크면 양의 오차, 같으면 0, 작으면(또는 예상한 보상이 안 오면) 음의 오차이며, 이 오차만큼 예측을 고친다.</li><li>가장 단순한 형태는 δ = r − V (r: 받은 보상, V: 예측값)이고, 예측은 V ← V + α·δ 로 갱신된다(Rescorla &amp; Wagner, 1972). 시간차 학습에서는 다음 시점의 예측을 포함한 δ = r + γV(s′) − V(s) 로 확장된다.</li><li>Schultz, Dayan, Montague(1997)는 원숭이 중뇌 도파민 뉴런의 단일 뉴런 기록을 시간차 학습의 오차 신호와 연결해, 도파민 뉴런의 일시적 발화가 이 오차를 나타낸다고 해석했다.</li></ul><p>시간차 학습에서 오차 δ = R(t+1) + γV(S(t+1)) − V(S(t))는 현재 추정치와 시간차 목표값의 차이이다. 이 방식의 기초 논문은 Sutton(1988)이다. 배쪽피개영역(VTA)과 흑질 치밀부(SNc)의 도파민 뉴런이 이 알고리즘의 오차 함수를 따라 한다는 해석이 Schultz 등(1997)에 의해 제시되었다.</p>
 
   <h2>근거와 대표 연구</h2>
-  <ul><li><strong>세 가지 반응 패턴</strong>: 예상치 못한 보상에는 발화가 증가하고, 완전히 예측된 보상에는 거의 반응하지 않으며, 예측된 보상이 오지 않으면 기준 발화 아래로 억제된다. 보상의 시점이 예상과 어긋날 때도 오차 신호가 보인다(Hollerman &amp; Schultz, 1998).</li><li><strong>계산 예(가상의 값)</strong>: 학습률 α = 0.3, 보상 r = 1일 때 시행마다 오차는 1.000 → 0.700 → 0.490 → 0.343 → 0.240 → 0.168 → 0.118 → 0.082로 줄고, 8회 뒤 예측값은 약 0.94이다. 이때 보상이 갑자기 안 오면 오차는 0 − 0.94 ≈ −0.94가 되어 큰 음의 오차가 생긴다.</li><li><strong>인과 증거</strong>: Steinberg 등(2013)은 쥐에서 보상 단서가 이미 예측되는 조건에 도파민 뉴런을 광유전학으로 인위 활성화하면, 평소 학습되지 않던 새 단서가 학습된다고 보고했다.</li></ul>
+  <ul><li><strong>세 가지 반응 패턴</strong>: 예상치 못한 보상에는 발화가 증가하고, 완전히 예측된 보상에는 거의 반응하지 않으며, 예측된 보상이 오지 않으면 기준 발화 아래로 억제된다. 보상의 시점이 예상과 어긋날 때도 오차 신호가 보인다(Hollerman &amp; Schultz, 1998).</li><li><strong>계산 예(가상의 값)</strong>: 학습률 α = 0.3, 보상 r = 1일 때 시행마다 오차는 1.000 → 0.700 → 0.490 → 0.343 → 0.240 → 0.168 → 0.118 → 0.082로 줄고, 8회 뒤 예측값은 약 0.94이다. 이때 보상이 갑자기 안 오면 오차는 0 − 0.94 ≈ −0.94가 되어 큰 음의 오차가 생긴다.</li><li><strong>인과 증거</strong>: Steinberg 등(2013)은 쥐에서 보상 단서가 이미 예측되는 조건에 도파민 뉴런을 광유전학으로 인위 활성화하면, 평소 학습되지 않던 새 단서가 학습된다고 보고했다.</li></ul><p>원숭이에게 주스 보상을 주는 실험에서 도파민 발화는 처음에는 보상이 전달될 때 증가했다. 학습이 진행되면 보상을 안정적으로 예고하는 가장 이른 신호로 발화가 옮겨 갔다. 보상이 완전히 예측되면 보상 시점의 발화는 늘지 않았고, 예상한 보상이 빠지면 발화가 기준선 아래로 떨어져 음의 오차와 맞아떨어졌다.</p>
 
   <h2>비판과 한계</h2>
   <ul><li><strong>도파민 = 오차 신호만은 아니다.</strong> 도파민이 보상 자체의 쾌락이 아니라 동기와 유인 현저성을 매개한다는 대안 해석이 있다(Berridge, 2007). 두 해석이 완전히 배타적이지는 않으며 논쟁이 이어진다.</li><li><strong>사람 연구</strong>: fMRI의 BOLD 신호로 오차 신호를 찾는 연구가 많지만 이는 도파민 발화를 직접 잰 것이 아닌 간접 지표이다.</li><li><strong>모형 의존성</strong>: 어떤 학습 모형을 쓰느냐에 따라 같은 데이터에서 오차 값이 다르게 계산된다.</li></ul>
@@ -200,6 +200,8 @@
     <li>Hollerman, J. R., &amp; Schultz, W. (1998). Dopamine neurons report an error in the temporal prediction of reward during learning. Nature Neuroscience, 1, 304–309.</li>
     <li>Berridge, K. C. (2007). The debate over dopamine's role in reward: the case for incentive salience. Psychopharmacology, 191, 391–431.</li>
     <li>Steinberg, E. E., Keiflin, R., Boivin, J. R., Witten, I. B., Deisseroth, K., &amp; Janak, P. H. (2013). A causal link between prediction errors, dopamine neurons and learning. Nature Neuroscience, 16, 966–973.</li>
+    <li>Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. Machine Learning, 3(1), 9–44.</li>
+    <li>Wikipedia contributors. (n.d.). Temporal difference learning. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

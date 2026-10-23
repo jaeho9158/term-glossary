@@ -7,7 +7,7 @@
     },
     {
       "heading": "예시로 보기",
-      "html": "<p><strong>헤도닉 가격 모형 한 사례(가상의 자료).</strong> 같은 동네 아파트 8채의 전용면적, 근린공원까지의 거리, 가격이 아래와 같다고 하자.</p><table><thead><tr><th>전용면적(㎡)</th><th>공원까지 거리(m)</th><th>가격(억 원)</th></tr></thead><tbody><tr><td>60</td><td>500</td><td>3.0</td></tr><tr><td>85</td><td>300</td><td>4.3</td></tr><tr><td>59</td><td>800</td><td>2.8</td></tr><tr><td>110</td><td>200</td><td>5.9</td></tr><tr><td>75</td><td>650</td><td>3.4</td></tr><tr><td>95</td><td>150</td><td>5.2</td></tr><tr><td>70</td><td>900</td><td>3.0</td></tr><tr><td>100</td><td>400</td><td>5.0</td></tr></tbody></table><p>최소제곱법으로 <code>가격 = β<sub>0</sub> + β<sub>1</sub>·면적 + β<sub>2</sub>·(거리/100m)</code>을 적합하면 <code>β<sub>1</sub> ≈ 0.048억 원/㎡</code>, <code>β<sub>2</sub> ≈ −0.119억 원</code>이 나오고 설명력은 <code>R² ≈ 0.99</code>이다. 즉 면적을 같다고 놓았을 때 공원이 100 m 멀어지면 가격이 약 1,190만 원 낮다는 뜻이다. 이 값을 ‘공원 어메니티의 암묵적 가격’으로 해석한다.</p><p>다만 8개 자료는 방법을 보여주려는 것이고, 실제 연구는 수백~수천 건의 거래 자료, 층·연식·학군 같은 통제변수, 공간 자기상관 처리가 필요하다. 공원 근처에 원래 비싼 동네가 몰려 있어서 생기는 착시(내생성)도 따져야 한다.</p>"
+      "html": "<p><strong>헤도닉 가격 모형 한 사례(가상의 자료).</strong> 같은 동네 아파트 8채의 전용면적, 근린공원까지의 거리, 가격이 아래와 같다고 하자.</p><table><thead><tr><th>전용면적(㎡)</th><th>공원까지 거리(m)</th><th>가격(억 원)</th></tr></thead><tbody><tr><td>60</td><td>500</td><td>3.0</td></tr><tr><td>85</td><td>300</td><td>4.3</td></tr><tr><td>59</td><td>800</td><td>2.8</td></tr><tr><td>110</td><td>200</td><td>5.9</td></tr><tr><td>75</td><td>650</td><td>3.4</td></tr><tr><td>95</td><td>150</td><td>5.2</td></tr><tr><td>70</td><td>900</td><td>3.0</td></tr><tr><td>100</td><td>400</td><td>5.0</td></tr></tbody></table><p>최소제곱법으로 <code>가격 = β<sub>0</sub> + β<sub>1</sub>·면적 + β<sub>2</sub>·(거리/100m)</code>을 적합하면 <code>β<sub>1</sub> ≈ 0.048억 원/㎡</code>, <code>β<sub>2</sub> ≈ −0.119억 원</code>이 나오고 설명력은 <code>R² ≈ 0.99</code>이다. 즉 면적을 같다고 놓았을 때 공원이 100 m 멀어지면 가격이 약 1,190만 원 낮다는 뜻이다. 이 값을 ‘공원 어메니티의 암묵적 가격’으로 해석한다.</p><p>다만 8개 자료는 방법을 보여주려는 것이고, 실제 연구는 수백~수천 건의 거래 자료, 층·연식·학군 같은 통제변수, 공간 자기상관 처리가 필요하다. 공원 근처에 원래 비싼 동네가 몰려 있어서 생기는 착시(내생성)도 따져야 한다.</p><p>헤도닉 회귀는 차별화된 재화를 구성 특성으로 나누어 각 특성의 기여 가치를 추정하는 현시 선호 방법이다. 이를 위해 재화가 구성 요소로 환원될 수 있어야 한다. 주택 가격에서는 환경 어메니티가 집값에 반영되는 정도를 추정하는 데 자주 쓰이며, 다른 주택 특성을 고정한 채 근처 공원이 집값에 미치는 효과를 재는 것이 예이다. 로그 모형에서는 가격이 아니라 탄력성이 추정된다. 이 방법은 1939년 Court의 자동차 가격 분석에서 뿌리를 찾으며, 1920년대에 농지 수요와 가격을 평가하는 데도 쓰였다고 소개된다.</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -17,17 +17,38 @@
   "compare": {
     "heading": "헷갈리기 쉬운 용어",
     "intro": "어메니티와 함께 나오지만 서로 다른 층위의 개념이다.",
-    "headers": ["용어", "무엇인가", "어메니티와의 관계"],
+    "headers": [
+      "용어",
+      "무엇인가",
+      "어메니티와의 관계"
+    ],
     "rows": [
-      ["어메니티", "지역을 쾌적하게 만드는 비시장적 요소", "원인·설명변수 쪽"],
-      ["[[urban-regeneration|도시재생]]", "쇠퇴한 지역의 환경·경제·사회 기능을 되살리는 정책", "어메니티를 개선하는 수단이 되기도 함"],
-      ["젠트리피케이션", "환경 개선 후 지가 상승으로 기존 주민이 밀려나는 현상", "어메니티 향상의 부작용으로 지적됨"],
-      ["[[spatial-justice|공간정의]]", "자원과 기회의 공간적 분배가 공정해야 한다는 규범", "어메니티 접근의 형평성을 따질 때 쓰는 관점"]
+      [
+        "어메니티",
+        "지역을 쾌적하게 만드는 비시장적 요소",
+        "원인·설명변수 쪽"
+      ],
+      [
+        "[[urban-regeneration|도시재생]]",
+        "쇠퇴한 지역의 환경·경제·사회 기능을 되살리는 정책",
+        "어메니티를 개선하는 수단이 되기도 함"
+      ],
+      [
+        "젠트리피케이션",
+        "환경 개선 후 지가 상승으로 기존 주민이 밀려나는 현상",
+        "어메니티 향상의 부작용으로 지적됨"
+      ],
+      [
+        "[[spatial-justice|공간정의]]",
+        "자원과 기회의 공간적 분배가 공정해야 한다는 규범",
+        "어메니티 접근의 형평성을 따질 때 쓰는 관점"
+      ]
     ]
   },
   "references": [
     "Ullman, E. L. (1954). Amenities as a factor in regional growth. Geographical Review, 44(1), 119–132.",
     "Rosen, S. (1974). Hedonic prices and implicit markets: Product differentiation in pure competition. Journal of Political Economy, 82(1), 34–55.",
-    "Roback, J. (1982). Wages, rents, and the quality of life. Journal of Political Economy, 90(6), 1257–1278."
+    "Roback, J. (1982). Wages, rents, and the quality of life. Journal of Political Economy, 90(6), 1257–1278.",
+    "Wikipedia contributors. (2026). Hedonic regression. Wikipedia."
   ]
 }

@@ -154,7 +154,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>범주형 변수(성별, 직급, 지역 등)를 회귀식에 넣기 위해 <strong>0 또는 1만 갖는 변수</strong>로 바꾼 것이 더미변수(가변수)이다. 해당 범주이면 1, 아니면 0이다.</li><li>범주가 k개이면 더미변수는 <strong>k − 1개</strong>만 만들고, 빠진 한 범주가 <strong>기준(참조) 범주</strong>가 된다. 모두 넣으면 더미들의 합이 항상 1이 되어 절편과 완전한 공선성이 생긴다(더미변수 함정).</li><li>더미변수의 회귀계수는 “다른 변수를 고정했을 때 <strong>기준 범주에 비해</strong> 그 범주의 평균이 얼마나 다른가”를 뜻한다. 계수 자체는 그 범주의 효과가 아니라 기준 범주와의 차이이다.</li><li>절편은 모든 더미가 0인 집단, 곧 기준 범주의 기댓값이다(다른 변수가 있다면 그것들이 0일 때).</li><li>더미변수와 연속변수의 곱(상호작용항)을 넣으면 범주에 따라 기울기가 달라지는 모형을 만들 수 있다(<a href="interaction-effect.html">상호작용 효과</a>).</li></ul>
+  <ul><li>범주형 변수(성별, 직급, 지역 등)를 회귀식에 넣기 위해 <strong>0 또는 1만 갖는 변수</strong>로 바꾼 것이 더미변수(가변수)이다. 해당 범주이면 1, 아니면 0이다.</li><li>범주가 k개이면 더미변수는 <strong>k − 1개</strong>만 만들고, 빠진 한 범주가 <strong>기준(참조) 범주</strong>가 된다. 모두 넣으면 더미들의 합이 항상 1이 되어 절편과 완전한 공선성이 생긴다(더미변수 함정).</li><li>더미변수의 회귀계수는 “다른 변수를 고정했을 때 <strong>기준 범주에 비해</strong> 그 범주의 평균이 얼마나 다른가”를 뜻한다. 계수 자체는 그 범주의 효과가 아니라 기준 범주와의 차이이다.</li><li>절편은 모든 더미가 0인 집단, 곧 기준 범주의 기댓값이다(다른 변수가 있다면 그것들이 0일 때).</li><li>더미변수와 연속변수의 곱(상호작용항)을 넣으면 범주에 따라 기울기가 달라지는 모형을 만들 수 있다(<a href="interaction-effect.html">상호작용 효과</a>).</li></ul><p>같은 변수를 통계에서는 지시변수(indicator variable), 기계학습에서는 원-핫 인코딩(one-hot encoding)이라 부른다. 시계열의 계절·전쟁·파업 효과, 패널 자료의 개체 고정효과를 넣을 때도 쓴다. 더미를 많이 넣으면 표본 안의 설명력(R²)은 올라가지만 자유도를 잃고 표본 밖의 일반화는 나빠질 수 있다.</p>
 
   <h2>예시로 보기</h2>
   <p>직급(사원·대리·과장)에 따른 월급(만원)을 회귀분석한다고 하자. 사원을 기준 범주로 하면 두 개의 더미변수를 만든다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>직급</th><th>대리 더미</th><th>과장 더미</th></tr></thead><tbody><tr><td>사원</td><td>0</td><td>0</td></tr><tr><td>대리</td><td>1</td><td>0</td></tr><tr><td>과장</td><td>0</td><td>1</td></tr></tbody></table></div><p>추정된 식이 <code>월급 = 300 + 50 × 대리 + 120 × 과장</code>이라면</p><ul><li>사원의 평균 월급은 절편 <strong>300</strong>,</li><li>대리는 300 + 50 = <strong>350</strong>, 과장은 300 + 120 = <strong>420</strong>이다.</li><li>“과장 계수 120”은 사원 대비 차이이다. 대리 대비 과장의 차이는 120 − 50 = 70이며, 기준 범주를 대리로 바꿔 다시 추정하면 과장 계수가 70으로 나온다.</li></ul><p>기준 범주를 무엇으로 정하느냐에 따라 계수의 값과 유의성이 달라 보이지만 모형의 예측은 같다. 가장 표본이 많거나 해석이 자연스러운 범주를 기준으로 삼는 것이 일반적이다. 수치는 원리를 보이기 위한 가상의 값이다.</p>
@@ -199,6 +199,7 @@
     <li>Hardy, M. A. (1993). Regression with Dummy Variables. Sage.</li>
     <li>Cohen, J., Cohen, P., West, S. G., &amp; Aiken, L. S. (2003). Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences (3rd ed.). Lawrence Erlbaum.</li>
     <li>Wooldridge, J. M. (2020). Introductory Econometrics: A Modern Approach (7th ed.). Cengage Learning.</li>
+    <li>Wikipedia. (n.d.). Dummy variable (statistics). In Wikipedia, the free encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

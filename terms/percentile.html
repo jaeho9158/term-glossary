@@ -154,7 +154,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>계산과 범위</h2>
-  <p>p번째 백분위수는 자료를 작은 값부터 늘어놓았을 때 <strong>전체의 p%가 그 값 이하</strong>가 되는 값이다. 50번째는 중앙값, 25·75번째는 제1·제3사분위수이다. 범위는 자료의 최솟값(0번째)부터 최댓값(100번째)까지이다.</p><p>자료 개수가 유한하면 위치가 정수로 딱 떨어지지 않으므로 <strong>계산 방법이 여러 가지</strong>이다(Hyndman &amp; Fan, 1996). 다음은 10개 자료 3, 5, 7, 8, 9, 11, 13, 15, 17, 20에 대한 결과이다(계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>25번째</th><th>50번째</th><th>75번째</th><th>90번째</th></tr></thead><tbody><tr><td>선형보간 (n − 1) 기준 — R 기본값, 엑셀 PERCENTILE.INC</td><td>7.25</td><td>10.0</td><td>14.5</td><td>17.3</td></tr><tr><td>(n + 1) 기준 — 엑셀 PERCENTILE.EXC</td><td>6.5</td><td>10.0</td><td>15.5</td><td>19.7</td></tr></tbody></table></div><p>같은 자료인데 90번째 백분위수가 17.3과 19.7로 달라졌다. 표본이 작을수록, 극단 쪽 백분위수일수록 차이가 크다.</p>
+  <p>p번째 백분위수는 자료를 작은 값부터 늘어놓았을 때 <strong>전체의 p%가 그 값 이하</strong>가 되는 값이다. 50번째는 중앙값, 25·75번째는 제1·제3사분위수이다. 범위는 자료의 최솟값(0번째)부터 최댓값(100번째)까지이다.</p><p>자료 개수가 유한하면 위치가 정수로 딱 떨어지지 않으므로 <strong>계산 방법이 여러 가지</strong>이다(Hyndman &amp; Fan, 1996). 다음은 10개 자료 3, 5, 7, 8, 9, 11, 13, 15, 17, 20에 대한 결과이다(계산 결과).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방법</th><th>25번째</th><th>50번째</th><th>75번째</th><th>90번째</th></tr></thead><tbody><tr><td>선형보간 (n − 1) 기준 — R 기본값, 엑셀 PERCENTILE.INC</td><td>7.25</td><td>10.0</td><td>14.5</td><td>17.3</td></tr><tr><td>(n + 1) 기준 — 엑셀 PERCENTILE.EXC</td><td>6.5</td><td>10.0</td><td>15.5</td><td>19.7</td></tr></tbody></table></div><p>같은 자료인데 90번째 백분위수가 17.3과 19.7로 달라졌다. 표본이 작을수록, 극단 쪽 백분위수일수록 차이가 크다.</p><p>백분위수에 단일한 표준 정의는 없고, Hyndman과 Fan이 정리한 아홉 가지 방법 중 하나를 소프트웨어가 쓴다. 최근접 순위법은 순위 n = ⌈P/100 × N⌉ 번째 값을 그대로 취하므로 결과가 항상 실제 자료값이다. 또 백분위수는 자료와 같은 단위를 가지며(키라면 cm), 정규분포에서 평균 −1 표준편차는 약 15.87번째, +2 표준편차는 약 97.72번째에 해당한다.</p>
 
   <h2>해석 기준</h2>
   <p>백분위수에는 정해진 ‘좋고 나쁨’ 기준이 없고, 쓰는 목적에 따라 관례적인 구분이 있다.</p><ul><li><strong>기준범위(참고구간)</strong>: 건강한 사람 집단에서 2.5~97.5 백분위수(중앙 95%)로 정하는 것이 임상검사의 관례이다. 논문에 따라 한쪽 끝(예: 95 백분위수)만 기준으로 삼기도 한다.</li><li><strong>성장도표</strong>: 같은 나이·성별의 기준집단에서 몇 번째에 해당하는지로 읽는다. 구분점(예: 5, 85, 95 백분위수)은 도표를 정한 기관의 약속이다.</li><li><strong>백분위(순위)와 백분위수(값)</strong>를 구분한다. ‘수능 백분위 96’은 점수가 아니라 <em>내 아래에 약 96%가 있다</em>는 위치이고, ‘BMI 95 백분위수’는 특정 BMI 수치(기준점)라는 <em>값</em>이다.</li><li>백분위는 순위일 뿐이라 간격이 균등하지 않는다. 정규분포에서는 50→60번째의 점수 차이보다 90→99번째의 점수 차이가 훨씬 크다.</li></ul><p>정규분포에서는 표준편차 단위와 백분위가 고정되어 대응한다. 평균은 50번째, 평균 +1 표준편차는 약 84.13번째 백분위에 해당한다. 백분위수는 의료 밖에서도 쓰인다. 인터넷 회선 요금을 사용량의 95번째 백분위수로 정하거나, 차량 주행 속도의 85번째 백분위수를 제한속도 설정의 참고값으로 삼는 것이 그 예이다.</p>
@@ -200,6 +200,7 @@
     <li>Hyndman, R. J., &amp; Fan, Y. (1996). Sample quantiles in statistical packages. The American Statistician, 50(4), 361–365.</li>
     <li>Agresti, A., &amp; Finlay, B. (2009). Statistical Methods for the Social Sciences (4th ed.). Pearson.</li>
     <li>Moore, D. S., McCabe, G. P., &amp; Craig, B. A. (2017). Introduction to the Practice of Statistics (9th ed.). W. H. Freeman.</li>
+    <li>Wikipedia contributors. (n.d.). Percentile. In Wikipedia, The Free Encyclopedia.</li>
     <li>Wikipedia contributors. (n.d.). Percentile. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>

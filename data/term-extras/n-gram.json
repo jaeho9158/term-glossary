@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>n-그램은 텍스트에서 연속한 n개 항목(단어, 형태소, 문자 등)의 연쇄이다. n = 1은 유니그램, 2는 바이그램, 3은 트라이그램이라 부른다. 항목이 N개인 텍스트에서 만들 수 있는 n-그램은 N − n + 1개이다.</li><li>언어모델에서는 문장의 확률을 “직전 n−1개 항목만 보고 다음 항목을 예측한다”는 마르코프 가정으로 근사한다. 최대우도 추정으로는 P(w | 앞의 항목들) = (그 연쇄의 빈도) / (앞의 항목들의 빈도)이다(Jurafsky와 Martin, 2009; Manning과 Schütze, 1999).</li><li>n-그램으로 언어를 근사하는 발상은 Shannon(1948)이 영어 문자·단어의 연쇄 확률로 문장을 흉내 낸 데까지 거슬러 올라간다. 용도는 언어모델, 연어와 습관적 연쇄의 탐지, 저자 판별, 언어 식별, 기계번역 평가 지표(BLEU는 n-그램 일치를 이용), 텍스트마이닝의 빈도 분석 등이다. 문자 n-그램은 띄어쓰기나 철자 오류에 강해 언어 식별 등에 쓰인다.</li><li>한국어처럼 조사와 어미가 붙는 언어에서는 띄어쓰기 단위(어절) n-그램이 매우 희소해, 형태소 단위로 분석하는 경우가 많다. 어떤 단위를 항목으로 삼았는지는 연구의 결과에 직접 영향을 준다.</li><li>n이 커지면 문맥은 풍부해지지만 같은 연쇄가 거의 나타나지 않는 희소성 문제가 심해져, 스무딩이나 백오프 기법을 함께 쓴다. Brown 외(1992)는 이런 문제를 줄이는 클래스 기반 n-그램 모형을 제안했다.</li></ul>"
+      "html": "<ul><li>n-그램은 텍스트에서 연속한 n개 항목(단어, 형태소, 문자 등)의 연쇄이다. n = 1은 유니그램, 2는 바이그램, 3은 트라이그램이라 부른다. 항목이 N개인 텍스트에서 만들 수 있는 n-그램은 N − n + 1개이다.</li><li>언어모델에서는 문장의 확률을 “직전 n−1개 항목만 보고 다음 항목을 예측한다”는 마르코프 가정으로 근사한다. 최대우도 추정으로는 P(w | 앞의 항목들) = (그 연쇄의 빈도) / (앞의 항목들의 빈도)이다(Jurafsky와 Martin, 2009; Manning과 Schütze, 1999).</li><li>n-그램으로 언어를 근사하는 발상은 Shannon(1948)이 영어 문자·단어의 연쇄 확률로 문장을 흉내 낸 데까지 거슬러 올라간다. 용도는 언어모델, 연어와 습관적 연쇄의 탐지, 저자 판별, 언어 식별, 기계번역 평가 지표(BLEU는 n-그램 일치를 이용), 텍스트마이닝의 빈도 분석 등이다. 문자 n-그램은 띄어쓰기나 철자 오류에 강해 언어 식별 등에 쓰인다.</li><li>한국어처럼 조사와 어미가 붙는 언어에서는 띄어쓰기 단위(어절) n-그램이 매우 희소해, 형태소 단위로 분석하는 경우가 많다. 어떤 단위를 항목으로 삼았는지는 연구의 결과에 직접 영향을 준다.</li><li>n이 커지면 문맥은 풍부해지지만 같은 연쇄가 거의 나타나지 않는 희소성 문제가 심해져, 스무딩이나 백오프 기법을 함께 쓴다. Brown 외(1992)는 이런 문제를 줄이는 클래스 기반 n-그램 모형을 제안했다.</li></ul><ul><li>n-그램의 항목은 문자(구두점과 공백 포함), 음절, 단어, 음성의 음소, 유전체의 염기쌍 등이 될 수 있다. 계산생물학에서는 고정 길이 연쇄를 k-mer라 하고, 항목이 단어일 때는 섀글(shingle)이라고도 한다.</li><li>“to be or not to be”에서 바이그램은 to be, be or, or not, not to, to be이고 트라이그램은 to be or, be or not, or not to, not to be이다. n-그램 모형이 만드는 마르코프 모형의 차수는 n보다 1 작다(유니그램 0, 바이그램 1, 트라이그램 2).</li><li>단어 주머니(bag-of-words) 모형에 n-그램을 쓰면 단어 순서의 일부를 담을 수 있다. 짧은 문맥만 쓰는 n-그램이 만든 문장은 국소적으로는 그럴듯해도 전체로는 맥락이 맞지 않는다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
@@ -49,6 +49,7 @@
     "Shannon, C. E. (1948). A mathematical theory of communication. Bell System Technical Journal, 27(3), 379–423.",
     "Brown, P. F., Della Pietra, V. J., deSouza, P. V., Lai, J. C., & Mercer, R. L. (1992). Class-based n-gram models of natural language. Computational Linguistics, 18(4), 467–479.",
     "Manning, C. D., & Schütze, H. (1999). Foundations of Statistical Natural Language Processing. MIT Press.",
-    "Jurafsky, D., & Martin, J. H. (2009). Speech and Language Processing (2nd ed.). Prentice Hall."
+    "Jurafsky, D., & Martin, J. H. (2009). Speech and Language Processing (2nd ed.). Prentice Hall.",
+    "Wikipedia contributors. (n.d.). n-gram. In Wikipedia, The Free Encyclopedia."
   ]
 }

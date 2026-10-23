@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>설명변수가 서로 강하게 상관되어 최소제곱 추정이 불안정하거나(다중공선성), 변수 수가 표본에 비해 많아 과적합이 걱정될 때 쓴다. 목적이 <strong>예측 정확도</strong>일 때 특히 유용하다.</p><ul><li>목적함수: <code>RSS + λ × Σβ<sub>j</sub>²</code> (λ ≥ 0). 계수 크기의 제곱합에 벌점을 준다. 절편에는 벌점을 주지 않는 것이 일반적이다.</li><li>변수의 단위가 다르면 벌점이 불공평하게 걸리므로 <strong>설명변수를 먼저 표준화</strong>한다.</li><li>λ = 0이면 최소제곱, λ가 커질수록 계수가 0으로 줄어든다. 라쏘와 달리 계수를 정확히 0으로 만들지는 않아 변수 선택은 하지 못한다.</li><li>λ는 보통 k-겹 교차검증으로 고른다.</li></ul>"
+      "html": "<p>설명변수가 서로 강하게 상관되어 최소제곱 추정이 불안정하거나(다중공선성), 변수 수가 표본에 비해 많아 과적합이 걱정될 때 쓴다. 목적이 <strong>예측 정확도</strong>일 때 특히 유용하다.</p><ul><li>목적함수: <code>RSS + λ × Σβ<sub>j</sub>²</code> (λ ≥ 0). 계수 크기의 제곱합에 벌점을 준다. 절편에는 벌점을 주지 않는 것이 일반적이다.</li><li>변수의 단위가 다르면 벌점이 불공평하게 걸리므로 <strong>설명변수를 먼저 표준화</strong>한다.</li><li>λ = 0이면 최소제곱, λ가 커질수록 계수가 0으로 줄어든다. 라쏘와 달리 계수를 정확히 0으로 만들지는 않아 변수 선택은 하지 못한다.</li><li>λ는 보통 k-겹 교차검증으로 고른다.</li></ul><p>역사를 보면 Hoerl과 Kennard가 1970년 『Technometrics』의 두 논문으로 이론을 소개했고, Tikhonov 정칙화는 이와 별도로 티호노프가 적분방정식에 적용하며 발전했다. 유한 차원의 경우는 Hoerl이 통계적 접근으로 정리했다.</p><p>닫힌 해는 β̂λ = (XᵀX + λI)⁻¹XᵀY이다. λI가 XᵀX의 대각선을 키워 조건수를 낮추므로 다중공선성이 있어도 역행렬이 안정적으로 구해진다. λ가 0으로 가면 최소 노름 최소제곱해로 수렴한다. 계수 제곱합이 일정하다는 제약 아래 잔차제곱합을 최소화하는 문제와 같고 λ는 라그랑주 승수 구실을 한다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<p><strong>작은 예</strong>(모의 자료, n = 60, 두 변수의 상관 .94, 실제로는 두 변수의 효과가 같음, 표준화한 단위의 계수, 계산 결과).</p><table><thead><tr><th>λ</th><th>x₁ 계수</th><th>x₂ 계수</th></tr></thead><tbody><tr><td>0 (최소제곱)</td><td>1.46</td><td>0.35</td></tr><tr><td>1</td><td>1.32</td><td>0.47</td></tr><tr><td>10</td><td>0.97</td><td>0.69</td></tr><tr><td>100</td><td>0.50</td><td>0.46</td></tr></tbody></table><p>최소제곱은 두 변수의 효과를 한쪽에 몰아 1.46과 0.35로 갈라 놓았다. λ가 커지면 계수가 서로 비슷해지고 전체적으로 줄어든다. 표본을 2,000번 다시 뽑는 부트스트랩으로 보면 계수의 표준편차가 최소제곱에서는 0.34·0.33, λ = 10의 릿지에서는 0.10·0.09로 크게 줄어, 추정이 안정된다.</p><ul><li>대가: 계수가 0 쪽으로 <strong>편향</strong>된다(편향-분산 절충). 벌점이 커질수록 편향은 늘고 분산은 줄어드는데, 합친 예측오차가 최소가 되는 λ를 교차검증으로 찾는다.</li><li>릿지 계수는 최소제곱처럼 간단한 표준오차·p값을 주지 않는다. 가설검정이 목적이라면 부적합할 수 있다.</li></ul>"
+      "html": "<p><strong>작은 예</strong>(모의 자료, n = 60, 두 변수의 상관 .94, 실제로는 두 변수의 효과가 같음, 표준화한 단위의 계수, 계산 결과).</p><table><thead><tr><th>λ</th><th>x₁ 계수</th><th>x₂ 계수</th></tr></thead><tbody><tr><td>0 (최소제곱)</td><td>1.46</td><td>0.35</td></tr><tr><td>1</td><td>1.32</td><td>0.47</td></tr><tr><td>10</td><td>0.97</td><td>0.69</td></tr><tr><td>100</td><td>0.50</td><td>0.46</td></tr></tbody></table><p>최소제곱은 두 변수의 효과를 한쪽에 몰아 1.46과 0.35로 갈라 놓았다. λ가 커지면 계수가 서로 비슷해지고 전체적으로 줄어든다. 표본을 2,000번 다시 뽑는 부트스트랩으로 보면 계수의 표준편차가 최소제곱에서는 0.34·0.33, λ = 10의 릿지에서는 0.10·0.09로 크게 줄어, 추정이 안정된다.</p><ul><li>대가: 계수가 0 쪽으로 <strong>편향</strong>된다(편향-분산 절충). 벌점이 커질수록 편향은 늘고 분산은 줄어드는데, 합친 예측오차가 최소가 되는 λ를 교차검증으로 찾는다.</li><li>릿지 계수는 최소제곱처럼 간단한 표준오차·p값을 주지 않는다. 가설검정이 목적이라면 부적합할 수 있다.</li></ul><p>베이즈 관점에서는 계수에 평균 0, 동일한 표준편차의 독립 정규 사전분포를 두고 오차가 평균 0의 독립 오차라고 가정하면, 릿지 해가 자료가 주어졌을 때 가장 그럴듯한(MAP) 해가 된다. 이때 잡음과 사전분포의 표준편차 비가 정칙화 모수의 역할을 한다. λ를 고르는 방법은 교차검증과 플러그인 추정 외에 일반화 교차검증, 불일치 원리, L-곡선, 제한 최대우도가 있다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -55,6 +55,7 @@
     "Hoerl, A. E., & Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55–67.",
     "Hoerl, A. E., & Kennard, R. W. (1970). Ridge regression: Applications to nonorthogonal problems. Technometrics, 12(1), 69–82.",
     "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.",
-    "James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An Introduction to Statistical Learning. Springer."
+    "James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An Introduction to Statistical Learning. Springer.",
+    "Wikipedia contributors. (n.d.). Ridge regression. Wikipedia."
   ]
 }

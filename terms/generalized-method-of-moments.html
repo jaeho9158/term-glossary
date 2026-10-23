@@ -150,7 +150,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>언제 쓰나</h2>
-  <p>설명변수가 오차항과 상관되어 있거나(<a href="endogeneity.html">내생성</a>), 모형에 맞는 우도함수를 세우기 어려울 때 <strong>‘모형이 만족해야 할 조건(적률조건)’만으로</strong> 모수를 추정하는 방법이다. 경제·금융·경영 논문에서 특히 흔하다.</p><ul><li>도구변수가 모수보다 많을 때(과대식별) 2단계최소제곱법보다 이분산·자기상관에 강건하게 효율을 높일 수 있다.</li><li>패널자료에서 종속변수의 과거값이 설명변수로 들어가는 <strong>동태 패널모형</strong>은 고정효과로 풀면 편향이 생기므로, Arellano-Bond(차분 GMM)나 Blundell-Bond(시스템 GMM)를 쓴다. 특히 개체 수(N)가 크고 기간(T)이 짧은 자료에 맞다.</li><li>효율 이득을 보려면 도구변수가 ‘외생적이고 설명변수와 충분히 상관되어 있어야’ 한다. 약한 도구변수는 소표본에서 편향을 만든다.</li></ul>
+  <p>설명변수가 오차항과 상관되어 있거나(<a href="endogeneity.html">내생성</a>), 모형에 맞는 우도함수를 세우기 어려울 때 <strong>‘모형이 만족해야 할 조건(적률조건)’만으로</strong> 모수를 추정하는 방법이다. 경제·금융·경영 논문에서 특히 흔하다.</p><ul><li>도구변수가 모수보다 많을 때(과대식별) 2단계최소제곱법보다 이분산·자기상관에 강건하게 효율을 높일 수 있다.</li><li>패널자료에서 종속변수의 과거값이 설명변수로 들어가는 <strong>동태 패널모형</strong>은 고정효과로 풀면 편향이 생기므로, Arellano-Bond(차분 GMM)나 Blundell-Bond(시스템 GMM)를 쓴다. 특히 개체 수(N)가 크고 기간(T)이 짧은 자료에 맞다.</li><li>효율 이득을 보려면 도구변수가 ‘외생적이고 설명변수와 충분히 상관되어 있어야’ 한다. 약한 도구변수는 소표본에서 편향을 만든다.</li></ul><p>GMM은 Pearson이 1894년에 제안한 적률법을 Hansen(1982)이 일반화한 것이다. 모형의 적률조건을 표본 평균으로 바꾸고 그 가중 노름을 최소화하며, 가중행렬을 어떻게 잡아도 일치추정량은 되지만 분산 최소의 효율적 추정량은 가중행렬을 적률의 분산행렬 Ω의 역행렬에 비례하게 잡을 때 얻어진다. Ω는 모르는 모수에 의존하므로 1단계에서 임의의 양정치 행렬(예: 단위행렬)로 예비 추정을 한 뒤 2단계에서 Ω를 추정해 다시 추정하는 2단계 GMM을 쓴다. 과대식별 J 통계량은 귀무가설에서 점근적으로 카이제곱(자유도 = 적률조건 수 − 모수 수)을 따르며, 가중행렬이 Ω의 역행렬과 정확히 같아야 이 분포가 성립한다.</p>
 
   <h2>결과는 이렇게 읽는다</h2>
   <p>GMM 결과표에서는 계수 못지않게 <strong>진단 검정</strong>을 읽어야 한다.</p><ul><li><strong>Hansen(또는 Sargan) J 검정</strong>: 귀무가설은 ‘모든 도구변수(적률조건)가 타당하다’이다. p가 작으면 도구변수 일부가 부적절하다는 신호이고, p가 충분히 크면 부적절하다는 증거가 없다는 뜻이다. p가 1에 너무 가까우면(예: 1.00) 도구변수가 지나치게 많아 검정력이 약해진 것일 수 있다(Roodman, 2009).</li><li><strong>AR(1), AR(2) 검정</strong>(동태 패널): 차분한 오차는 구조상 1차 자기상관이 있는 것이 정상이라 AR(1)은 유의해도 괜찮고, <strong>AR(2)가 유의하면</strong> 사용한 시차 도구변수가 타당하지 않다는 신호이다.</li><li>도구변수의 개수: 개체 수를 넘지 않도록 하라는 것이 Roodman(2009)의 경험칙이다.</li></ul><p><strong>작은 예</strong>(모의 자료, n = 500, 계산 결과). 진짜 기울기가 2.0인 모형에서 x가 오차와 상관되어 있으면 OLS 기울기는 2.51로 위쪽으로 치우치고, 외생적 도구변수 z를 쓴 추정(도구변수가 1개일 때의 GMM)은 1.98로 참값에 가깝다.</p>
@@ -198,6 +198,7 @@
     <li>Blundell, R., &amp; Bond, S. (1998). Initial conditions and moment restrictions in dynamic panel data models. Journal of Econometrics, 87(1), 115–143.</li>
     <li>Roodman, D. (2009). How to do xtabond2: An introduction to difference and system GMM in Stata. The Stata Journal, 9(1), 86–136.</li>
     <li>Hall, A. R. (2005). Generalized Method of Moments. Oxford University Press.</li>
+    <li>Wikipedia contributors. (n.d.). Generalized method of moments. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

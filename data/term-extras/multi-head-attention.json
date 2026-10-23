@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p><strong>언제 쓰나</strong>: 트랜스포머의 인코더 자기어텐션, 디코더 자기어텐션, 인코더-디코더 교차어텐션에 모두 쓰이며, 비전 트랜스포머 같은 다른 영역에도 그대로 옮겨졌다.</p><p><strong>무엇을 얻나</strong>: 헤드마다 서로 다른 부분 공간에서 토큰 사이의 관계를 보므로, 한 번의 어텐션보다 다양한 관계를 동시에 표현할 수 있다. 매개변수 수를 늘리지 않고 이렇게 나눌 수 있다는 점이 설계의 특징이다. d<sub>model</sub> = 512에서 헤드 수만 바꿔 계산하면 다음과 같다(편향 제외).</p><table><thead><tr><th>헤드 수 h</th><th>헤드 차원 d<sub>k</sub></th><th>투영 가중치 수 (3·h·d<sub>model</sub>·d<sub>k</sub> + d<sub>model</sub>²)</th></tr></thead><tbody><tr><td>1</td><td>512</td><td>1,048,576</td></tr><tr><td>8</td><td>64</td><td>1,048,576</td></tr><tr><td>16</td><td>32</td><td>1,048,576</td></tr></tbody></table><p>헤드 수와 관계없이 가중치 수가 같다. 헤드를 늘려도 모델이 자동으로 좋아지는 것은 아니다. Voita 외(2019)는 학습된 번역 모델에서 소수의 헤드가 주된 역할을 하고 나머지는 성능 손실이 작게 잘라 낼 수 있음을 보였고, Michel 외(2019)도 많은 헤드를 테스트 때 제거해도 성능이 크게 떨어지지 않는 경우가 많다고 보고했다.</p><p><strong>변형</strong>: 디코딩의 메모리 비용을 줄이려고 모든 헤드가 키와 값을 공유하는 멀티쿼리 어텐션(Shazeer, 2019), 그 중간 단계인 그룹쿼리 어텐션 같은 변형이 쓰인다.</p>"
+      "html": "<p><strong>언제 쓰나</strong>: 트랜스포머의 인코더 자기어텐션, 디코더 자기어텐션, 인코더-디코더 교차어텐션에 모두 쓰이며, 비전 트랜스포머 같은 다른 영역에도 그대로 옮겨졌다.</p><p><strong>무엇을 얻나</strong>: 헤드마다 서로 다른 부분 공간에서 토큰 사이의 관계를 보므로, 한 번의 어텐션보다 다양한 관계를 동시에 표현할 수 있다. 매개변수 수를 늘리지 않고 이렇게 나눌 수 있다는 점이 설계의 특징이다. d<sub>model</sub> = 512에서 헤드 수만 바꿔 계산하면 다음과 같다(편향 제외).</p><table><thead><tr><th>헤드 수 h</th><th>헤드 차원 d<sub>k</sub></th><th>투영 가중치 수 (3·h·d<sub>model</sub>·d<sub>k</sub> + d<sub>model</sub>²)</th></tr></thead><tbody><tr><td>1</td><td>512</td><td>1,048,576</td></tr><tr><td>8</td><td>64</td><td>1,048,576</td></tr><tr><td>16</td><td>32</td><td>1,048,576</td></tr></tbody></table><p>헤드 수와 관계없이 가중치 수가 같다. 헤드를 늘려도 모델이 자동으로 좋아지는 것은 아니다. Voita 외(2019)는 학습된 번역 모델에서 소수의 헤드가 주된 역할을 하고 나머지는 성능 손실이 작게 잘라 낼 수 있음을 보였고, Michel 외(2019)도 많은 헤드를 테스트 때 제거해도 성능이 크게 떨어지지 않는 경우가 많다고 보고했다.</p><p><strong>변형</strong>: 디코딩의 메모리 비용을 줄이려고 모든 헤드가 키와 값을 공유하는 멀티쿼리 어텐션(Shazeer, 2019), 그 중간 단계인 그룹쿼리 어텐션 같은 변형이 쓰인다.</p><p>어텐션 행렬의 크기가 입력 토큰 수의 제곱에 비례해 커지기 때문에, 긴 입력에서는 메모리 사용을 줄이는 구현(플래시 어텐션 등)이 쓰인다. 멀티헤드 자기어텐션은 입력 행의 순서를 바꾸면 출력도 같은 방식으로 바뀌는 등변성을 가지므로, 순서 정보는 위치 인코딩으로 따로 넣어 준다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -49,6 +49,7 @@
     "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems 30.",
     "Voita, E., Talbot, D., Moiseev, F., Sennrich, R., & Titov, I. (2019). Analyzing multi-head self-attention: Specialized heads do the heavy lifting, the rest can be pruned. Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics.",
     "Michel, P., Levy, O., & Neubig, G. (2019). Are sixteen heads really better than one? Advances in Neural Information Processing Systems 32.",
-    "Shazeer, N. (2019). Fast transformer decoding: One write-head is all you need. arXiv preprint arXiv:1911.02150."
+    "Shazeer, N. (2019). Fast transformer decoding: One write-head is all you need. arXiv preprint arXiv:1911.02150.",
+    "Wikipedia contributors. (n.d.). Attention (machine learning). In Wikipedia, The Free Encyclopedia."
   ]
 }

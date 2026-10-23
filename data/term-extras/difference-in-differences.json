@@ -7,7 +7,7 @@
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<p>추정치는 DID = (처치집단의 후 − 전) − (비교집단의 후 − 전)이다.</p><table><thead><tr><th></th><th>처치 전</th><th>처치 후</th><th>변화</th></tr></thead><tbody><tr><td>처치집단</td><td>60</td><td>72</td><td>+12</td></tr><tr><td>비교집단</td><td>58</td><td>64</td><td>+6</td></tr><tr><td>차이의 차이</td><td></td><td></td><td>12 − 6 = <strong>6</strong></td></tr></tbody></table><p>처치집단이 12 올랐지만 그중 6은 비교집단도 겪은 공통 변화이므로, 처치의 효과는 6으로 추정한다. 회귀로 쓰면 Y = β₀ + β₁·처치집단 + β₂·후기간 + β₃·(처치집단 × 후기간) + 오차이고, <strong>상호작용항의 계수 β₃</strong>가 DID 추정치이다.</p><ul><li>표준오차는 같은 집단·같은 지역의 관측치들이 서로 독립이 아닌 경우가 많아 군집표준오차(cluster-robust)를 쓰는 것이 일반적이다(Bertrand, Duflo, Mullainathan, 2004).</li><li>처치 이전 시점들의 계수(사건연구 그래프)가 0 근처라는 것이 평행추세를 뒷받침하는 정황 증거이다.</li><li>처치 시점이 집단마다 다른 경우, 이원 고정효과 회귀가 이미 처치받은 집단을 비교집단으로 쓰며 편향될 수 있어 Goodman-Bacon(2021)은 이 편향이 어디서 생기는지 분해해 진단하는 방법을, Callaway와 Sant’Anna(2021) 등은 이를 피하는 추정량을 제안했고, 후자와 같은 추정량을 쓴다.</li></ul>"
+      "html": "<p>추정치는 DID = (처치집단의 후 − 전) − (비교집단의 후 − 전)이다.</p><table><thead><tr><th></th><th>처치 전</th><th>처치 후</th><th>변화</th></tr></thead><tbody><tr><td>처치집단</td><td>60</td><td>72</td><td>+12</td></tr><tr><td>비교집단</td><td>58</td><td>64</td><td>+6</td></tr><tr><td>차이의 차이</td><td></td><td></td><td>12 − 6 = <strong>6</strong></td></tr></tbody></table><p>처치집단이 12 올랐지만 그중 6은 비교집단도 겪은 공통 변화이므로, 처치의 효과는 6으로 추정한다. 회귀로 쓰면 Y = β₀ + β₁·처치집단 + β₂·후기간 + β₃·(처치집단 × 후기간) + 오차이고, <strong>상호작용항의 계수 β₃</strong>가 DID 추정치이다.</p><ul><li>표준오차는 같은 집단·같은 지역의 관측치들이 서로 독립이 아닌 경우가 많아 군집표준오차(cluster-robust)를 쓰는 것이 일반적이다(Bertrand, Duflo, Mullainathan, 2004).</li><li>처치 이전 시점들의 계수(사건연구 그래프)가 0 근처라는 것이 평행추세를 뒷받침하는 정황 증거이다.</li><li>처치 시점이 집단마다 다른 경우, 이원 고정효과 회귀가 이미 처치받은 집단을 비교집단으로 쓰며 편향될 수 있어 Goodman-Bacon(2021)은 이 편향이 어디서 생기는지 분해해 진단하는 방법을, Callaway와 Sant’Anna(2021) 등은 이를 피하는 추정량을 제안했다. 이런 경우에는 후자와 같은 추정량을 쓴다.</li></ul><p>회귀식으로는 y = β<sub>0</sub> + β<sub>1</sub>T + β<sub>2</sub>S + β<sub>3</sub>(T·S) + ε로 쓰며 T는 시기 더미, S는 집단 더미이고 상호작용항의 계수 β<sub>3</sub>가 이중차분 추정치이다. 평행추세는 처치와 동시에 한 집단에만 다른 변화가 생기면 깨지며, 매칭과 함께 써서 평행추세가 성립할 가능성을 높이기도 한다. 두 집단의 구성이 시간이 지나도 변하지 않는다는 가정도 필요하다. 대표 사례인 Card와 Krueger(1994)는 1992년 4월 뉴저지의 최저임금이 4.25달러에서 5.05달러로 오른 뒤 인접한 펜실베이니아를 비교집단으로 삼아 1992년 2월과 11월의 패스트푸드 고용을 비교했다. Card는 이 연구 등으로 2021년 노벨 경제학상을 받았다. 처치 시점이 어긋나는 다기간 설정은 Callaway와 Sant'Anna 등이 다루었다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -51,6 +51,7 @@
     "Angrist, J. D., & Pischke, J.-S. (2009). Mostly Harmless Econometrics: An Empiricist's Companion. Princeton University Press.",
     "Bertrand, M., Duflo, E., & Mullainathan, S. (2004). How much should we trust differences-in-differences estimates? Quarterly Journal of Economics, 119(1), 249–275.",
     "Callaway, B., & Sant'Anna, P. H. C. (2021). Difference-in-differences with multiple time periods. Journal of Econometrics, 225(2), 200–230.",
-    "Goodman-Bacon, A. (2021). Difference-in-differences with variation in treatment timing. Journal of Econometrics, 225(2), 254–277."
+    "Goodman-Bacon, A. (2021). Difference-in-differences with variation in treatment timing. Journal of Econometrics, 225(2), 254–277.",
+    "Wikipedia contributors. (2026). Difference in differences. Wikipedia."
   ]
 }

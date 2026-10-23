@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>같은 대상을 두 번 잰 자료(사전-사후), 또는 짝지은 두 조건의 값을 비교할 때 쓴다. 짝 사이의 <strong>차이값</strong>이 정규분포를 따른다고 보기 어렵거나 표본이 작을 때 대응표본 t검정의 대안이 된다.</p><ul><li>각 짝의 차이를 계산할 수 있어야 하고, 차이의 크기에 순위를 매길 수 있어야 한다(서열 이상의 척도에 차이의 크기가 의미가 있어야 함).</li><li>차이값의 분포가 0을 중심으로 대칭이라는 가정이 필요하다. 심하게 비대칭이면 부호검정이 더 안전할 수 있다.</li><li>차이가 정확히 0인 짝은 보통 분석에서 빠지므로, 유효한 짝의 수가 줄어드는지 확인해야 한다.</li></ul>"
+      "html": "<p>같은 대상을 두 번 잰 자료(사전-사후), 또는 짝지은 두 조건의 값을 비교할 때 쓴다. 짝 사이의 <strong>차이값</strong>이 정규분포를 따른다고 보기 어렵거나 표본이 작을 때 대응표본 t검정의 대안이 된다.</p><ul><li>각 짝의 차이를 계산할 수 있어야 하고, 차이의 크기에 순위를 매길 수 있어야 한다(서열 이상의 척도에 차이의 크기가 의미가 있어야 함).</li><li>차이값의 분포가 0을 중심으로 대칭이라는 가정이 필요하다. 심하게 비대칭이면 부호검정이 더 안전할 수 있다.</li><li>차이가 정확히 0인 짝은 보통 분석에서 빠지므로, 유효한 짝의 수가 줄어드는지 확인해야 한다.</li></ul><p>이 검정은 윌콕슨이 1945년 독립표본용 순위합 검정과 같은 논문에서 제안했고, 1956년 시드니 시걸이 널리 알렸다. 차이가 0인 짝은 윌콕슨이 제안한 대로 빼는 방식과, 프랫(Pratt)이 제안한 대로 순위는 매기되 통계량에서 제외하는 방식이 있어 결과가 달라질 수 있으므로 프로그램의 처리 방식을 확인한다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<ul><li><strong>W (또는 T)</strong>: 차이의 절댓값에 순위를 매긴 뒤, 양(+)인 차이의 순위합과 음(−)인 차이의 순위합 중 <em>작은 쪽</em>을 보고하는 것이 일반적이다. 두 순위합을 더하면 n(n+1)/2가 된다.</li><li><strong>z</strong>: 표본이 어느 정도 크면 W를 정규분포로 근사한다. 평균은 n(n+1)/4, 분산은 n(n+1)(2n+1)/24이다(동점이 있으면 보정).</li><li><strong>p</strong>: 차이의 중심이 0이라는 귀무가설 아래에서 이만큼 극단적인 W가 나올 확률이다. 짝이 매우 적을 때는 정확 검정의 p를 쓴다.</li><li><strong>효과크기</strong>: 짝지은 순위 이연상관 r = (양의 순위합 − 음의 순위합) / (n(n+1)/2)가 해석하기 쉽다(−1~1). r = |z|/√N을 쓰는 경우도 많은데, N이 쌍의 수인지 전체 관측 수인지 문헌마다 달라 어떻게 계산했는지 밝혀야 한다.</li></ul>"
+      "html": "<ul><li><strong>W (또는 T)</strong>: 차이의 절댓값에 순위를 매긴 뒤, 양(+)인 차이의 순위합과 음(−)인 차이의 순위합 중 <em>작은 쪽</em>을 보고하는 것이 일반적이다. 두 순위합을 더하면 n(n+1)/2가 된다.</li><li><strong>z</strong>: 표본이 어느 정도 크면 W를 정규분포로 근사한다. 평균은 n(n+1)/4, 분산은 n(n+1)(2n+1)/24이다(동점이 있으면 보정).</li><li><strong>p</strong>: 차이의 중심이 0이라는 귀무가설 아래에서 이만큼 극단적인 W가 나올 확률이다. 짝이 매우 적을 때는 정확 검정의 p를 쓴다.</li><li><strong>효과크기</strong>: 짝지은 순위 이연상관 r = (양의 순위합 − 음의 순위합) / (n(n+1)/2)가 해석하기 쉽다(−1~1). r = |z|/√N을 쓰는 경우도 많은데, N이 쌍의 수인지 전체 관측 수인지 문헌마다 달라 어떻게 계산했는지 밝혀야 한다.</li></ul><p>표본이 작으면 부호의 모든 조합을 나열해 정확한 분포로 p를 구하고, 클 때는 위의 정규 근사를 쓴다. 동점이 있으면 평균 순위를 주는 방식이 가장 흔하며, 동점과 0은 귀무분포를 바꾼다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -54,6 +54,7 @@
     "Wilcoxon, F. (1945). Individual comparisons by ranking methods. Biometrics Bulletin, 1(6), 80–83.",
     "Pratt, J. W. (1959). Remarks on zeros and ties in the Wilcoxon signed rank procedures. Journal of the American Statistical Association, 54(287), 655–667.",
     "Conover, W. J. (1999). Practical Nonparametric Statistics (3rd ed.). Wiley.",
-    "Hollander, M., Wolfe, D. A., & Chicken, E. (2014). Nonparametric Statistical Methods (3rd ed.). Wiley."
+    "Hollander, M., Wolfe, D. A., & Chicken, E. (2014). Nonparametric Statistical Methods (3rd ed.). Wiley.",
+    "Wikipedia. (n.d.). Wilcoxon signed-rank test. In Wikipedia, the free encyclopedia."
   ]
 }

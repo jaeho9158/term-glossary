@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>최소기술길이(MDL) 원리는 “자료의 규칙성을 잘 잡은 모형은 자료를 짧게 압축한다”는 생각에서 출발한다. 모형 선택에서는 <strong>모형을 적는 길이 + 그 모형으로 자료를 적는 길이</strong>의 합이 가장 짧은 모형을 고릅니다(Rissanen, 1978).</p><p><code>L(총) = L(모형) + L(자료 | 모형)</code></p><ul><li>복잡한 모형은 L(자료 | 모형)이 작아도(잘 맞아도) L(모형)이 커서 합이 줄지 않는다. 이것이 과적합을 막는 장치이다.</li><li>길이는 비트(또는 nat)로 잰 부호 길이이다. 확률분포는 부호와 일대일로 대응하므로 L(자료 | 모형) = −log(우도)이다.</li><li>가장 단순한 “두 부분 부호화”에서 파라미터가 k개인 모형의 L(모형)은 약 (k/2)·log n으로 근사되며, 이는 BIC의 벌점과 같은 꼴이다(Schwarz, 1978). 다만 정교한 MDL(정규화 최대우도 부호 등)은 BIC와 다른 벌점을 준다.</li><li>베이즈 추론의 사전분포 없이도 정의될 수 있고, 모형이 “참”이라고 가정하지 않는 점이 특징이다(Grünwald, 2007).</li></ul>"
+      "html": "<p>최소기술길이(MDL) 원리는 “자료의 규칙성을 잘 잡은 모형은 자료를 짧게 압축한다”는 생각에서 출발한다. 모형 선택에서는 <strong>모형을 적는 길이 + 그 모형으로 자료를 적는 길이</strong>의 합이 가장 짧은 모형을 고른다(Rissanen, 1978).</p><p><code>L(총) = L(모형) + L(자료 | 모형)</code></p><ul><li>복잡한 모형은 L(자료 | 모형)이 작아도(잘 맞아도) L(모형)이 커서 합이 줄지 않는다. 이것이 과적합을 막는 장치이다.</li><li>길이는 비트(또는 nat)로 잰 부호 길이이다. 확률분포는 부호와 일대일로 대응하므로 L(자료 | 모형) = −log(우도)이다.</li><li>가장 단순한 “두 부분 부호화”에서 파라미터가 k개인 모형의 L(모형)은 약 (k/2)·log n으로 근사되며, 이는 BIC의 벌점과 같은 꼴이다(Schwarz, 1978). 다만 정교한 MDL(정규화 최대우도 부호 등)은 BIC와 다른 벌점을 준다.</li><li>베이즈 추론의 사전분포 없이도 정의될 수 있고, 모형이 “참”이라고 가정하지 않는 점이 특징이다(Grünwald, 2007).</li></ul><ul><li>Rissanen이 1978년 논문에서 이 방법을 제안했고, 이후 정규화 최대우도(NML) 부호 같은 보편 부호로 발전했다. 지수족 모형에서 제프리스 사전분포를 쓴 베이즈 주변우도 부호는 점근적으로 NML 부호와 같아진다.</li><li>자료의 어떤 규칙성이든 자료를 압축하는 데 쓸 수 있다는 것이 이 원리의 바탕이다(Grünwald).</li></ul>"
     },
     {
       "heading": "예시로 보기",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<ul><li><strong>“MDL은 가장 단순한 모형을 고르는 규칙이다”</strong>: 단순함이 아니라 총 부호 길이(적합 + 복잡도)의 최소화이다. 자료가 충분하면 복잡한 모형도 선택된다.</li><li><strong>“MDL = BIC”</strong>: 조잡한(두 부분) 부호화의 근사에서 닮았을 뿐, 정교한 MDL은 파라미터 공간의 기하까지 반영해 다른 값을 준다.</li><li><strong>“압축이 곧 인과·참 모형을 알려 준다”</strong>: MDL은 주어진 후보 중에서 자료를 잘 압축하는 모형을 고를 뿐 참을 보장하지 않는다.</li><li><strong>“부호화 방식은 상관없다”</strong>: 파라미터 정밀도나 부호 설계에 따라 결과가 달라질 수 있어, 실제 사용에서 부호화를 정의해야 한다.</li></ul>"
+      "html": "<ul><li><strong>“MDL은 가장 단순한 모형을 고르는 규칙이다”</strong>: 단순함이 아니라 총 부호 길이(적합 + 복잡도)의 최소화이다. 자료가 충분하면 복잡한 모형도 선택된다.</li><li><strong>“MDL = BIC”</strong>: 조잡한(두 부분) 부호화의 근사에서 닮았을 뿐, 정교한 MDL은 파라미터 공간의 기하까지 반영해 다른 값을 준다.</li><li><strong>“압축이 곧 인과·참 모형을 알려 준다”</strong>: MDL은 주어진 후보 중에서 자료를 잘 압축하는 모형을 고를 뿐 참을 보장하지 않는다.</li><li><strong>“부호화 방식은 상관없다”</strong>: 파라미터 정밀도나 부호 설계에 따라 결과가 달라질 수 있어, 실제 사용에서 부호화를 정의해야 한다.</li></ul><ul><li><strong>“MDL은 베이즈 추론과 같다”</strong>: 일부 연구자는 같다고 보지만, NML 부호에는 베이즈 쪽 대응물이 없다. 또 MDL은 자료를 만든 참 과정이 있다고 가정하지 않는다.</li></ul>"
     }
   ],
   "compare": {
@@ -45,6 +45,7 @@
     "Schwarz, G. (1978). Estimating the dimension of a model. The Annals of Statistics, 6(2), 461–464.",
     "Barron, A., Rissanen, J., & Yu, B. (1998). The minimum description length principle in coding and modeling. IEEE Transactions on Information Theory, 44(6), 2743–2760.",
     "Hansen, M. H., & Yu, B. (2001). Model selection and the principle of minimum description length. Journal of the American Statistical Association, 96(454), 746–774.",
-    "Grünwald, P. D. (2007). The Minimum Description Length Principle. MIT Press."
+    "Grünwald, P. D. (2007). The Minimum Description Length Principle. MIT Press.",
+    "Wikipedia contributors. (n.d.). Minimum description length. In Wikipedia, The Free Encyclopedia."
   ]
 }

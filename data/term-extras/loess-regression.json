@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>산점도에서 관계가 직선인지 곡선인지 모를 때, 먼저 <strong>모양을 눈으로 확인</strong>하려는 탐색 단계에서 쓴다. 모형의 형태(예: 이차식)를 정하지 않아도 되고, 시계열의 추세 분리(STL 분해 등)에도 쓰인다.</p><ul><li>n이 수십~수천 개 정도이고 x가 1~2개일 때 잘 맞다. 설명변수가 많아지면 이웃 점이 희박해져(차원의 저주) 성능이 떨어진다.</li><li>결과는 계수가 아니라 <strong>곡선</strong>이다. 가설검정이나 외삽(자료 범위 밖 예측)에는 적합하지 않다.</li><li>LOWESS는 Cleveland(1979)의 원래 방법(국소 1차식 + 이상치에 강한 반복 가중), LOESS는 Cleveland와 Devlin(1988)의 일반화(기본값이 국소 2차식인 구현이 많음)로 구분하기도 하지만, 실제 소프트웨어에서는 두 이름이 섞여 쓰인다.</li></ul>"
+      "html": "<p>산점도에서 관계가 직선인지 곡선인지 모를 때, 먼저 <strong>모양을 눈으로 확인</strong>하려는 탐색 단계에서 쓴다. 모형의 형태(예: 이차식)를 정하지 않아도 되고, 시계열의 추세 분리(STL 분해 등)에도 쓰인다.</p><ul><li>n이 수십~수천 개 정도이고 x가 1~2개일 때 잘 맞다. 설명변수가 많아지면 이웃 점이 희박해져(차원의 저주) 성능이 떨어진다.</li><li>결과는 계수가 아니라 <strong>곡선</strong>이다. 가설검정이나 외삽(자료 범위 밖 예측)에는 적합하지 않다.</li><li>LOWESS는 Cleveland(1979)의 원래 방법(국소 1차식 + 이상치에 강한 반복 가중), LOESS는 Cleveland와 Devlin(1988)의 일반화(기본값이 국소 2차식인 구현이 많음)로 구분하기도 하지만, 실제 소프트웨어에서는 두 이름이 섞여 쓰인다.</li></ul><p>국소회귀는 이동평균과 다항회귀를 일반화한 방법으로, 국소 다항회귀·이동회귀라고도 한다. 역사를 보면 Henderson(1916)이 보험수리 분야에서 3차 다항식으로 자료를 매끄럽게 고르는 데 쓴 것이 시초이고, Savitzky와 Golay(1964)의 필터, 0차 국소상수 모형인 Nadaraya–Watson 커널 평활(1964), Cleveland(1979)의 강건 LOWESS, Cleveland와 Devlin(1988)의 다변량 LOESS가 이어졌다. Tibshirani와 Hastie(1987)는 이를 일반화선형모형의 국소 우도 추정으로 확장했다. 국소 다항식의 차수는 보통 0~3이고, 1차는 0차보다 경계에서의 편향이 작다. 대역폭은 교차검증, Mallows의 Cp, AIC 등으로 고른다. 단점으로는 비교적 크고 촘촘한 자료가 필요하고, 결과를 간단한 식으로 줄 수 없어 자료와 소프트웨어 없이는 공유하기 어려우며, 계산량이 많고 이상치에 민감하다는 점이 꼽힌다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
@@ -49,6 +49,7 @@
     "Cleveland, W. S. (1979). Robust locally weighted regression and smoothing scatterplots. Journal of the American Statistical Association, 74(368), 829–836.",
     "Cleveland, W. S., & Devlin, S. J. (1988). Locally weighted regression: An approach to regression analysis by local fitting. Journal of the American Statistical Association, 83(403), 596–610.",
     "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning (2nd ed.). Springer.",
-    "Cleveland, W. S., Grosse, E., & Shyu, W. M. (1992). Local regression models. In J. M. Chambers & T. J. Hastie (Eds.), Statistical Models in S (pp. 309–376). Wadsworth & Brooks/Cole."
+    "Cleveland, W. S., Grosse, E., & Shyu, W. M. (1992). Local regression models. In J. M. Chambers & T. J. Hastie (Eds.), Statistical Models in S (pp. 309–376). Wadsworth & Brooks/Cole.",
+    "Wikipedia contributors. (n.d.). Local regression. In Wikipedia, The Free Encyclopedia."
   ]
 }

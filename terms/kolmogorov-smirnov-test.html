@@ -159,7 +159,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>언제 쓰나</h2>
-  <p>표본의 누적분포함수(계단 모양)가 이론분포와 얼마나 다른지, 혹은 두 표본의 누적분포가 서로 다른지를 <strong>가장 크게 벌어진 거리 D</strong>로 검정한다.</p><ul><li><strong>일표본</strong>: 자료가 지정한 분포(예: 평균 100, 표준편차 15인 정규분포)에서 나왔는지. 귀무가설은 ‘표본의 분포가 그 이론분포와 같다’.</li><li><strong>이표본</strong>: 두 표본이 같은 분포에서 나왔는지. 평균뿐 아니라 퍼짐·모양의 차이도 반응한다.</li><li>정규성 검정으로 쓰는 경우가 많지만, 평균과 표준편차를 <em>표본에서 추정해</em> 넣으면 표준 K-S 표를 쓸 수 없고 Lilliefors 보정이 필요하다(Lilliefors, 1967).</li><li>분포의 중심 부근 차이에는 민감하고 양쪽 끝(꼬리) 차이에는 둔한 편이다. 이산형 자료에는 보수적(유의하기 어려움)이다.</li></ul>
+  <p>표본의 누적분포함수(계단 모양)가 이론분포와 얼마나 다른지, 혹은 두 표본의 누적분포가 서로 다른지를 <strong>가장 크게 벌어진 거리 D</strong>로 검정한다.</p><ul><li><strong>일표본</strong>: 자료가 지정한 분포(예: 평균 100, 표준편차 15인 정규분포)에서 나왔는지. 귀무가설은 ‘표본의 분포가 그 이론분포와 같다’.</li><li><strong>이표본</strong>: 두 표본이 같은 분포에서 나왔는지. 평균뿐 아니라 퍼짐·모양의 차이도 반응한다.</li><li>정규성 검정으로 쓰는 경우가 많지만, 평균과 표준편차를 <em>표본에서 추정해</em> 넣으면 표준 K-S 표를 쓸 수 없고 Lilliefors 보정이 필요하다(Lilliefors, 1967).</li><li>분포의 중심 부근 차이에는 민감하고 양쪽 끝(꼬리) 차이에는 둔한 편이다. 이산형 자료에는 보수적(유의하기 어려움)이다.</li></ul><p>이 검정은 1930년대에 안드레이 콜모고로프와 니콜라이 스미르노프가 개발했고 그 이름을 땄다. 이표본 K-S 검정은 두 표본의 경험적 누적분포함수가 위치와 모양 양쪽에서 다른 데 민감하기 때문에 두 표본을 비교하는 가장 유용하고 일반적인 비모수 방법의 하나이다. 이표본의 공통 분포는 고전적으로 연속이라고 가정하지만 순수하게 이산이거나 혼합일 때도 적용할 수 있고, 이 경우에는 동점 관측값이 있을 수 있다.</p>
 
   <h2>결과는 이렇게 읽는다</h2>
   <p><strong>일표본 예</strong>(모의 자료, 평균 100·표준편차 15인 정규분포에서 40명, 계산 결과).</p><ul><li>평균 100, 표준편차 15를 <em>미리 안다고</em> 보고 검정하면 D = 0.109, p = .69로 기각하지 못한다.</li><li>같은 자료에서 평균·표준편차를 표본에서 추정해 검정하면 D = 0.075이다. 표준 K-S의 p는 .96으로 지나치게 크게 나오는데, 시뮬레이션으로 구한 Lilliefors 보정 p는 약 .82이다. 표본 40개에서 5% 유의수준의 임계 D는 표준 K-S로는 약 0.21이지만, 평균·표준편차를 추정할 때(Lilliefors)는 약 0.14로 훨씬 작다. 보정 없이 쓰면 정규성을 너무 잘 통과시킨다.</li></ul><p><strong>이표본 예</strong>(두 집단 30명씩, 평균이 0.8표준편차 다른 정규분포). D = 0.233, p = .39로 유의하지 않다. 실제 차이가 있어도 표본이 작으면 K-S는 힘이 약하다.</p><ul><li>SPSS 같은 소프트웨어의 ‘p = .200*’은 “참 유의확률의 하한”이라는 뜻의 표시로, 실제로는 .200 이상임을 의미한다.</li><li>표본이 아주 크면 사소한 이탈도 유의하게 나오므로 Q-Q 도표를 함께 본다.</li></ul>
@@ -209,6 +209,7 @@
     <li>Massey, F. J. (1951). The Kolmogorov–Smirnov test for goodness of fit. Journal of the American Statistical Association, 46(253), 68–78.</li>
     <li>Lilliefors, H. W. (1967). On the Kolmogorov–Smirnov test for normality with mean and variance unknown. Journal of the American Statistical Association, 62(318), 399–402.</li>
     <li>Razali, N. M., &amp; Wah, Y. B. (2011). Power comparisons of Shapiro–Wilk, Kolmogorov–Smirnov, Lilliefors and Anderson–Darling tests. Journal of Statistical Modeling and Analytics, 2(1), 21–33.</li>
+    <li>Wikipedia contributors. (n.d.). Kolmogorov–Smirnov test. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

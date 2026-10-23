@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>통계량의 표준오차나 신뢰구간을 구하는 공식이 없거나 분포 가정이 의심스러울 때, <strong>가진 표본을 모집단 대신 삼아 복원추출을 반복</strong>해서 그 통계량의 변동을 직접 관찰한다(Efron, 1979).</p><ol><li>원래 표본(크기 n)에서 n개를 복원추출해 부트스트랩 표본을 만든다.</li><li>그 표본에서 관심 통계량(평균, 중앙값, 상관, 간접효과 등)을 계산한다.</li><li>1~2를 수천 번 반복한다.</li><li>얻은 통계량들의 표준편차를 표준오차로, 백분위수를 신뢰구간으로 쓴다.</li></ol><ul><li>쓰임: 중앙값·비율·회귀계수의 신뢰구간, 매개효과의 간접효과 신뢰구간([[sobel-test|소벨 검정]]의 대안), 머신러닝의 앙상블 등.</li><li>표본이 모집단을 잘 대표하고 관측치가 독립이어야 한다. 시계열·군집 자료는 덩어리째 뽑는 블록(군집) 부트스트랩이 필요하다.</li><li>최댓값처럼 극단에 의존하는 통계량이나 표본이 아주 작을 때는 잘 작동하지 않는다. 부트스트랩은 <em>새 정보를 만들어 내지 못하므로</em> 표본이 작다고 데이터를 불려 주지 않는다.</li></ul>"
+      "html": "<p>통계량의 표준오차나 신뢰구간을 구하는 공식이 없거나 분포 가정이 의심스러울 때, <strong>가진 표본을 모집단 대신 삼아 복원추출을 반복</strong>해서 그 통계량의 변동을 직접 관찰한다(Efron, 1979).</p><ol><li>원래 표본(크기 n)에서 n개를 복원추출해 부트스트랩 표본을 만든다.</li><li>그 표본에서 관심 통계량(평균, 중앙값, 상관, 간접효과 등)을 계산한다.</li><li>1~2를 수천 번 반복한다.</li><li>얻은 통계량들의 표준편차를 표준오차로, 백분위수를 신뢰구간으로 쓴다.</li></ol><ul><li>쓰임: 중앙값·비율·회귀계수의 신뢰구간, 매개효과의 간접효과 신뢰구간([[sobel-test|소벨 검정]]의 대안), 머신러닝의 앙상블 등.</li><li>표본이 모집단을 잘 대표하고 관측치가 독립이어야 한다. 시계열·군집 자료는 덩어리째 뽑는 블록(군집) 부트스트랩이 필요하다.</li><li>최댓값처럼 극단에 의존하는 통계량이나 표본이 아주 작을 때는 잘 작동하지 않는다. 부트스트랩은 <em>새 정보를 만들어 내지 못하므로</em> 표본이 작다고 데이터를 불려 주지 않는다.</li></ul><p>재표본 횟수는 보통 1,000회나 10,000회를 쓴다. 표준오차에는 100회를 넘겨도 이득이 거의 없고 Efron은 50회도 꽤 좋을 것이라고 보았다. 백분위수 구간은 부트스트랩 분포가 대칭이고 관측 통계량을 중심으로 할 때 잘 맞으며, Efron(1987)의 BCa(편향 수정 가속) 구간은 편향과 비대칭을 보정해 다양한 상황에서 정확하다. 한계도 있다. 표본이 50 미만이면 분산의 백분위수 구간이 너무 좁을 수 있고, 20개 자료에서 명목 90% 구간이 참 분산을 포함한 비율이 78%였다는 예가 있다. 모집단의 분산이 유한하지 않은 무거운 꼬리 분포에서는 평균의 단순 부트스트랩이 실패한다. 자료가 서로 의존적이면 단순 사례 재표본이 상관을 깨뜨리므로 블록 부트스트랩을 쓴다. 일반적인 유한 표본 보장은 없다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
@@ -51,6 +51,7 @@
     "Efron, B., & Tibshirani, R. J. (1993). An introduction to the bootstrap. Chapman & Hall.",
     "Davison, A. C., & Hinkley, D. V. (1997). Bootstrap methods and their application. Cambridge University Press.",
     "DiCiccio, T. J., & Efron, B. (1996). Bootstrap confidence intervals. Statistical Science, 11(3), 189–228.",
-    "Preacher, K. J., & Hayes, A. F. (2008). Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models. Behavior Research Methods, 40(3), 879–891."
+    "Preacher, K. J., & Hayes, A. F. (2008). Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models. Behavior Research Methods, 40(3), 879–891.",
+    "Wikipedia contributors. (2026). Bootstrapping (statistics). Wikipedia."
   ]
 }

@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>가상의 데이터: 환자 6명의 준식별자(연령대, 지역)가 다음과 같다고 하자.</p><table><thead><tr><th>처리</th><th>그룹 구성</th><th>k(가장 작은 그룹 크기)</th></tr></thead><tbody><tr><td>처리 전</td><td>(30대, 서울) 3명 / (40대, 부산) 2명 / (50대, 대구) 1명</td><td>1</td></tr><tr><td>일반화 후(40대 이상, 영남)</td><td>(30대, 서울) 3명 / (40대 이상, 영남) 3명</td><td>3</td></tr></tbody></table><p>처리 전에는 (50대, 대구)인 사람이 한 명뿐이라 외부 정보와 결합하면 바로 특정된다(k = 1). 두 그룹을 일반화로 합치자 모든 조합이 최소 3명이 되어 k = 3이 된다([[k-anonymity|k-익명성]]). 대가로 연령·지역 정보의 정밀도가 떨어지는 정보 손실이 생긴다.</p><p>k-익명성만으로는 한 그룹의 민감 정보가 모두 같으면 값이 노출되는 문제(동질성 공격)가 있어 l-다양성 같은 보완 모델이 제안되었고(Machanavajjhala et al., 2007), 수학적 보장을 주는 [[differential-privacy|차분 프라이버시]](Dwork, 2006)도 쓰인다. 미국 의료정보 규정 HIPAA에는 18가지 식별자를 제거하는 ‘Safe Harbor’ 방식과 전문가가 위험이 작다고 판정하는 방식이 있다.</p>"
+      "html": "<p>가상의 데이터: 환자 6명의 준식별자(연령대, 지역)가 다음과 같다고 하자.</p><table><thead><tr><th>처리</th><th>그룹 구성</th><th>k(가장 작은 그룹 크기)</th></tr></thead><tbody><tr><td>처리 전</td><td>(30대, 서울) 3명 / (40대, 부산) 2명 / (50대, 대구) 1명</td><td>1</td></tr><tr><td>일반화 후(40대 이상, 영남)</td><td>(30대, 서울) 3명 / (40대 이상, 영남) 3명</td><td>3</td></tr></tbody></table><p>처리 전에는 (50대, 대구)인 사람이 한 명뿐이라 외부 정보와 결합하면 바로 특정된다(k = 1). 두 그룹을 일반화로 합치자 모든 조합이 최소 3명이 되어 k = 3이 된다([[k-anonymity|k-익명성]]). 대가로 연령·지역 정보의 정밀도가 떨어지는 정보 손실이 생긴다.</p><p>k-익명성만으로는 한 그룹의 민감 정보가 모두 같으면 값이 노출되는 문제(동질성 공격)가 있어 l-다양성 같은 보완 모델이 제안되었고(Machanavajjhala et al., 2007), 수학적 보장을 주는 [[differential-privacy|차분 프라이버시]](Dwork, 2006)도 쓰인다. 미국 의료정보 규정 HIPAA에는 18가지 식별자를 제거하는 ‘Safe Harbor’ 방식과 전문가가 위험이 작다고 판정하는 방식이 있다.</p><p>k-익명성의 개념은 Dalenius의 1986년 논문까지 거슬러 올라가며 이름은 1998년 Samarati와 Sweeney가 붙였다. 처리에서는 열을 식별자(제거), 비식별자(유지), 준식별자(가공)로 나누고, 준식별자는 값을 ‘*’로 바꾸는 억제나 범위로 바꾸는 일반화로 다룬다. 한계로는 같은 그룹의 민감 값이 모두 같으면 드러나는 동질성 공격, 외부 배경지식으로 가능한 값이 좁혀지는 배경지식 공격, 무작위성이 없어서 확정적 추론이 가능하다는 점이 있다. 최적의 k-익명화를 찾는 것은 NP-난해 문제이고, 어떤 속성이 식별 속성인지를 수학적으로 정하는 방법이 없으며, 고차원 자료에서는 성능이 떨어진다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -42,6 +42,7 @@
   "references": [
     "Sweeney, L. (2002). k-anonymity: A model for protecting privacy. International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, 10(5), 557–570.",
     "Machanavajjhala, A., Kifer, D., Gehrke, J., & Venkitasubramaniam, M. (2007). l-diversity: Privacy beyond k-anonymity. ACM Transactions on Knowledge Discovery from Data, 1(1), Article 3.",
-    "Dwork, C. (2006). Differential privacy. In Automata, Languages and Programming (ICALP 2006), Lecture Notes in Computer Science, Vol. 4052, 1–12. Springer."
+    "Dwork, C. (2006). Differential privacy. In Automata, Languages and Programming (ICALP 2006), Lecture Notes in Computer Science, Vol. 4052, 1–12. Springer.",
+    "Wikipedia contributors. (n.d.). K-anonymity. In Wikipedia, The Free Encyclopedia."
   ]
 }

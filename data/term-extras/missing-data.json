@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>결측치를 어떻게 다룰지는 <strong>왜 비었는가(결측 기제)</strong>에 달려 있다(Rubin, 1976).</p><table><thead><tr><th>기제</th><th>뜻</th><th>예</th></tr></thead><tbody><tr><td>MCAR (완전 무작위 결측)</td><td>결측 여부가 어떤 변수와도 무관</td><td>설문지 일부가 우연히 오염되어 판독 불가</td></tr><tr><td>MAR (무작위 결측)</td><td>결측 여부가 <em>관측된</em> 변수로 설명됨</td><td>고연령자가 소득 문항에 더 많이 답하지 않음(연령은 관측됨)</td></tr><tr><td>MNAR (비무작위 결측)</td><td>결측 여부가 <em>결측된 값 자체</em>와 관련됨</td><td>소득이 높은 사람일수록 소득을 안 밝힘</td></tr></tbody></table><ul><li>MAR과 MNAR은 관측된 자료만으로는 구별할 수 없다. 리틀의 MCAR 검정은 MCAR을 기각할 수 있지만 MAR인지 MNAR인지는 알려 주지 않는다.</li><li>결측치의 비율이 얼마 이하면 무시해도 된다는 보편적 기준은 없다. 5%, 10% 같은 숫자는 관례일 뿐이다.</li></ul>"
+      "html": "<p>결측치를 어떻게 다룰지는 <strong>왜 비었는가(결측 기제)</strong>에 달려 있다(Rubin, 1976).</p><table><thead><tr><th>기제</th><th>뜻</th><th>예</th></tr></thead><tbody><tr><td>MCAR (완전 무작위 결측)</td><td>결측 여부가 어떤 변수와도 무관</td><td>설문지 일부가 우연히 오염되어 판독 불가</td></tr><tr><td>MAR (무작위 결측)</td><td>결측 여부가 <em>관측된</em> 변수로 설명됨</td><td>고연령자가 소득 문항에 더 많이 답하지 않음(연령은 관측됨)</td></tr><tr><td>MNAR (비무작위 결측)</td><td>결측 여부가 <em>결측된 값 자체</em>와 관련됨</td><td>소득이 높은 사람일수록 소득을 안 밝힘</td></tr></tbody></table><ul><li>MAR과 MNAR은 관측된 자료만으로는 구별할 수 없다. 리틀의 MCAR 검정은 MCAR을 기각할 수 있지만 MAR인지 MNAR인지는 알려 주지 않는다.</li><li>결측치의 비율이 얼마 이하면 무시해도 된다는 보편적 기준은 없다. 5%, 10% 같은 숫자는 관례일 뿐이다.</li></ul><ul><li>다중대체는 결측값을 여러 번 채워 만든 자료 세트를 각각 분석한 뒤 결과를 합친다. Rubin(1987)은 대체 횟수가 5회 이하여도 추정이 크게 개선된다고 보았으나, 요즘은 20~100회 이상을 권하는 학자도 있다.</li><li>EM 알고리즘은 결측 패턴을 고려해 완전한 자료에서 구할 통계량을 추정하며, 보통 개별 값을 채우지는 않는다. 계획된 결측(응답 부담을 줄이려고 설계 단계에서 일부러 두는 결측)도 있다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>모의 자료(n = 2,000, 계산 결과)로 확인해 보자. 변수 y의 실제 평균은 0.00이고 x와 상관이 있다. y에 결측을 만들고, <strong>결측 없는 사례만</strong> 쓴 평균을 비교한다.</p><table><thead><tr><th>결측 기제</th><th>결측 비율</th><th>완전사례 평균</th></tr></thead><tbody><tr><td>MCAR (무작위로 30%)</td><td>30%</td><td>0.00</td></tr><tr><td>MAR (x가 클수록 y를 잃음)</td><td>31%</td><td>−0.23</td></tr><tr><td>MNAR (y가 클수록 y를 잃음)</td><td>32%</td><td>−0.36</td></tr></tbody></table><p>MCAR에서는 완전사례분석이 편향되지 않지만 표본이 줄어든다. MAR에서는 y가 x와 관련된 만큼 평균이 한쪽으로 치우친다. 이때 관측된 x로 y의 결측을 설명하는 회귀대체를 하면 평균이 −0.02로 참값에 가까워진다(MAR이므로 가능). MNAR에서는 x 같은 관측 변수로 보정되지 않으며, 결측 기제에 대한 별도의 가정과 민감도 분석이 필요하다.</p>"
+      "html": "<p>모의 자료(n = 2,000)로 확인해 보자. 변수 y의 실제 평균은 0.00이고 x와 상관이 있다. y에 결측을 만들고, <strong>결측 없는 사례만</strong> 쓴 평균을 비교한다.</p><table><thead><tr><th>결측 기제</th><th>결측 비율</th><th>완전사례 평균</th></tr></thead><tbody><tr><td>MCAR (무작위로 30%)</td><td>30%</td><td>0.00</td></tr><tr><td>MAR (x가 클수록 y를 잃음)</td><td>31%</td><td>−0.23</td></tr><tr><td>MNAR (y가 클수록 y를 잃음)</td><td>32%</td><td>−0.36</td></tr></tbody></table><p>MCAR에서는 완전사례분석이 편향되지 않지만 표본이 줄어든다. MAR에서는 y가 x와 관련된 만큼 평균이 한쪽으로 치우친다. 이때 관측된 x로 y의 결측을 설명하는 회귀대체를 하면 평균이 −0.02로 참값에 가까워진다(MAR이므로 가능). MNAR에서는 x 같은 관측 변수로 보정되지 않으며, 결측 기제에 대한 별도의 가정과 민감도 분석이 필요하다.</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -56,6 +56,7 @@
     "Little, R. J. A., & Rubin, D. B. (2019). Statistical Analysis with Missing Data (3rd ed.). Wiley.",
     "Schafer, J. L., & Graham, J. W. (2002). Missing data: Our view of the state of the art. Psychological Methods, 7(2), 147–177.",
     "Enders, C. K. (2010). Applied Missing Data Analysis. Guilford Press.",
-    "Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. Journal of the American Statistical Association, 83(404), 1198–1202."
+    "Little, R. J. A. (1988). A test of missing completely at random for multivariate data with missing values. Journal of the American Statistical Association, 83(404), 1198–1202.",
+    "Wikipedia contributors. (n.d.). Missing data. In Wikipedia, The Free Encyclopedia."
   ]
 }

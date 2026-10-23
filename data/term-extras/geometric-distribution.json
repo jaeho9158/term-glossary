@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>성공 확률이 p인 독립 시행을 반복할 때, <strong>첫 성공이 나오는 시행 횟수</strong> X(1, 2, 3, …)의 분포이다.</p><p><code>P(X = k) = (1 − p)<sup>k−1</sup> · p, P(X ≤ k) = 1 − (1 − p)<sup>k</sup></code></p><ul><li><strong>평균</strong> E(X) = 1/p, <strong>분산</strong> Var(X) = (1 − p)/p². p가 작을수록 평균과 분산이 모두 커진다.</li><li><strong>무기억성</strong>: P(X &gt; m + n | X &gt; m) = P(X &gt; n). 이미 m번 실패했다는 사실이 앞으로의 대기 시간에 영향을 주지 않는다. 이산분포 중 무기억성을 갖는 것은 기하분포뿐이고, 연속분포 중에서는 지수분포가 이에 대응한다.</li><li>“첫 성공 전의 실패 횟수”(0, 1, 2, …)로 정의하는 책도 있다. 이때는 P(Y = k) = (1 − p)<sup>k</sup> · p이고 평균은 (1 − p)/p이다. 정의를 확인해야 한다.</li><li>기하분포를 여러 번 합치면 음이항분포가 된다(r번째 성공까지의 시행 수).</li></ul><p>정의가 두 가지라는 점에 주의한다. 첫 성공까지의 시행 횟수 X(1, 2, 3, …)로 정의하기도 하고, 첫 성공 전의 실패 횟수 Y = X − 1(0, 1, 2, …)로 정의하기도 한다. Y의 평균은 (1 − p)/p이고 분산은 X와 같다. 소프트웨어마다 기본 정의가 다르므로 어느 쪽인지 확인한다.</p>"
+      "html": "<p>성공 확률이 p인 독립 시행을 반복할 때, <strong>첫 성공이 나오는 시행 횟수</strong> X(1, 2, 3, …)의 분포이다.</p><p><code>P(X = k) = (1 − p)<sup>k−1</sup> · p, P(X ≤ k) = 1 − (1 − p)<sup>k</sup></code></p><ul><li><strong>평균</strong> E(X) = 1/p, <strong>분산</strong> Var(X) = (1 − p)/p². p가 작을수록 평균과 분산이 모두 커진다.</li><li><strong>무기억성</strong>: P(X &gt; m + n | X &gt; m) = P(X &gt; n). 이미 m번 실패했다는 사실이 앞으로의 대기 시간에 영향을 주지 않는다. 이산분포 중 무기억성을 갖는 것은 기하분포뿐이고, 연속분포 중에서는 지수분포가 이에 대응한다.</li><li>“첫 성공 전의 실패 횟수”(0, 1, 2, …)로 정의하는 책도 있다. 이때는 P(Y = k) = (1 − p)<sup>k</sup> · p이고 평균은 (1 − p)/p이다. 정의를 확인해야 한다.</li><li>기하분포를 여러 번 합치면 음이항분포가 된다(r번째 성공까지의 시행 수).</li><li>모멘트생성함수는 M<sub>X</sub>(t) = p·e<sup>t</sup> / (1 − (1 − p)e<sup>t</sup>) (t &lt; −ln(1 − p))이다. 왜도는 (2 − p)/√(1 − p)이고, 엔트로피는 −[(1 − p)ln(1 − p) + p ln p]/p(단위 nat)이다.</li><li>지수분포를 따르는 변수(모수 λ)에 내림 함수를 적용하면 p = 1 − e<sup>−λ</sup>인 기하분포(실패 횟수 정의)가 된다.</li></ul><p>정의가 두 가지라는 점에 주의한다. 첫 성공까지의 시행 횟수 X(1, 2, 3, …)로 정의하기도 하고, 첫 성공 전의 실패 횟수 Y = X − 1(0, 1, 2, …)로 정의하기도 한다. Y의 평균은 (1 − p)/p이고 분산은 X와 같다. 소프트웨어마다 기본 정의가 다르므로 어느 쪽인지 확인한다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -54,6 +54,7 @@
     "Casella, G., & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.",
     "Ross, S. M. (2014). A First Course in Probability (9th ed.). Pearson.",
     "Feller, W. (1968). An Introduction to Probability Theory and Its Applications (Vol. 1, 3rd ed.). Wiley.",
-    "Wikipedia contributors. (n.d.). Geometric distribution. In Wikipedia, The Free Encyclopedia."
+    "Wikipedia contributors. (n.d.). Geometric distribution. In Wikipedia, The Free Encyclopedia.",
+    "Wikipedia contributors. (n.d.). Geometric distribution. Wikipedia."
   ]
 }

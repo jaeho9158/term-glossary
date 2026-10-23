@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>API 게이트웨이는 클라이언트(웹, 모바일 앱 등)와 여러 백엔드 서비스 사이에서 <strong>단일 진입점</strong> 역할을 하는 서버이다. 마이크로서비스 구조에서 흔한 설계 패턴으로 정리되어 있다(Richardson, 2018).</li><li>흔히 맡는 기능은 요청 <strong>라우팅</strong>, 인증·권한 확인, 호출 횟수 제한([[api-rate-limiting|속도 제한]]), TLS 종료, 로깅·모니터링, 응답 캐싱, 프로토콜 변환(예: 외부는 REST, 내부는 gRPC), 여러 서비스 응답을 하나로 모으는 <strong>집계(aggregation)</strong>이다.</li><li>트래픽 방향으로 보면 게이트웨이는 외부 클라이언트에서 시스템 안으로 들어오는 ‘남북(north-south)’ 트래픽을 다루고, 서비스끼리 주고받는 ‘동서(east-west)’ 트래픽은 주로 [[service-mesh|서비스 메시]]가 다룬다.</li><li>클라이언트 종류(웹, 모바일 등)마다 별도의 게이트웨이를 두는 변형을 ‘Backends for Frontends’ 패턴이라 하며, 뉴먼(Newman, 2015)이 소개한 것으로 알려져 있다.</li><li>단점: 모든 요청이 지나가므로 <strong>단일 장애점이나 병목</strong>이 될 수 있어 이중화가 필요하고, 한 단계가 더 생기는 만큼 지연이 늘며, 비즈니스 로직까지 넣으면 게이트웨이가 또 하나의 거대한 덩어리가 된다.</li></ul>"
+      "html": "<ul><li>API 게이트웨이는 클라이언트(웹, 모바일 앱 등)와 여러 백엔드 서비스 사이에서 <strong>단일 진입점</strong> 역할을 하는 서버이다. 마이크로서비스 구조에서 흔한 설계 패턴으로 정리되어 있다(Richardson, 2018).</li><li>흔히 맡는 기능은 요청 <strong>라우팅</strong>, 인증·권한 확인, 호출 횟수 제한([[api-rate-limiting|속도 제한]]), TLS 종료, 로깅·모니터링, 응답 캐싱, 프로토콜 변환(예: 외부는 REST, 내부는 gRPC), 여러 서비스 응답을 하나로 모으는 <strong>집계(aggregation)</strong>이다.</li><li>트래픽 방향으로 보면 게이트웨이는 외부 클라이언트에서 시스템 안으로 들어오는 ‘남북(north-south)’ 트래픽을 다루고, 서비스끼리 주고받는 ‘동서(east-west)’ 트래픽은 주로 [[service-mesh|서비스 메시]]가 다룬다.</li><li>클라이언트 종류(웹, 모바일 등)마다 별도의 게이트웨이를 두는 변형을 ‘Backends for Frontends’ 패턴이라 하며, 뉴먼(Newman, 2015)이 소개한 것으로 알려져 있다.</li><li>단점: 모든 요청이 지나가므로 <strong>단일 장애점이나 병목</strong>이 될 수 있어 이중화가 필요하고, 한 단계가 더 생기는 만큼 지연이 늘며, 비즈니스 로직까지 넣으면 게이트웨이가 또 하나의 거대한 덩어리가 된다.</li></ul><p>API 관리는 웹 API를 만들고 공개하며 사용 정책을 적용하고 접근을 통제하고 성능을 추적하는 활동이며, 게이트웨이는 그 안에서 API 요청을 받아 백엔드 서비스로 넘기고 응답을 돌려주는 부분이다. 인증, 인가, 보안, 감사, 규제 준수를 지원하고, 호출 제한 정책을 적용하며, 캐싱과 분석 정보 수집을 제공한다. 요청과 응답을 즉석에서 바꾸는 변환 엔진을 두기도 한다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -47,6 +47,7 @@
   "references": [
     "Newman, S. (2015). Building Microservices: Designing Fine-Grained Systems. O'Reilly Media.",
     "Richardson, C. (2018). Microservices Patterns: With Examples in Java. Manning Publications.",
-    "Dragoni, N., Giallorenzo, S., Lluch Lafuente, A., Mazzara, M., Montesi, F., Mustafin, R., & Safina, L. (2017). Microservices: Yesterday, today, and tomorrow. In M. Mazzara & B. Meyer (Eds.), Present and Ulterior Software Engineering. Springer."
+    "Dragoni, N., Giallorenzo, S., Lluch Lafuente, A., Mazzara, M., Montesi, F., Mustafin, R., & Safina, L. (2017). Microservices: Yesterday, today, and tomorrow. In M. Mazzara & B. Meyer (Eds.), Present and Ulterior Software Engineering. Springer.",
+    "Wikipedia. (n.d.). API management. In Wikipedia, the free encyclopedia."
   ]
 }
