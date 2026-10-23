@@ -128,7 +128,7 @@ function run() {
   for (const d of all) {
     const file = path.join(ROOT, "terms", d.slug + ".html");
     if (!fs.existsSync(file)) { console.warn(`건너뜀(페이지 없음): ${d.slug}`); continue; }
-    const svg = d.method === "svg" ? fs.readFileSync(path.join(ROOT, d.svg), "utf8") : null;
+    const svg = d.method === "svg" ? fs.readFileSync(path.join(ROOT, d.svg), "utf8").replace(/\r\n/g, "\n") : null;
     if (d.method === "commons" && !fs.existsSync(path.join(ROOT, d.image.src))) throw new Error(`${d.slug}: 그림 파일 없음 ${d.image.src}`);
     const specFile = path.join(SPEC_DIR, d.slug + ".json");
     const spec = d.method === "svg" && fs.existsSync(specFile) ? JSON.parse(fs.readFileSync(specFile, "utf8")) : null;

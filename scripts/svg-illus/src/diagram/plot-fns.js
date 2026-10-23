@@ -257,7 +257,7 @@ const FNS = {
   // Haldane(Andrews) 기질저해 μ = μmax·S/(Ks+S+S²/Ki). Ki를 매우 크게 두면 Monod
   haldane: { params: { mumax: { gt: 0 }, Ks: { gt: 0 }, Ki: { gt: 0 } }, domain: [0, Infinity], desc: "기질저해 성장 곡선",
     f: (x, p) => (x <= 0 ? 0 : p.mumax * x / (p.Ks + x + x * x / p.Ki)) },
-      : (1 - Math.exp(-x * (1 - p.Cr))) / (1 - p.Cr * Math.exp(-x * (1 - p.Cr)))) },  // ── 추가 함수(round8): antoine_p·antoine_t·raoult_dew·vdw·growth_mai·growth_cai·nh3_fraction·lorenz·sine_wave ──
+  // ── 추가 함수(round8): antoine_p·antoine_t·raoult_dew·vdw·growth_mai·growth_cai·nh3_fraction·lorenz·sine_wave ──
   // 안토인 식: log10 P = A − B/(C + T). antoine_p는 T→P, antoine_t는 P→T(역함수)
   antoine_p: { params: { A: {}, B: { gt: 0 }, C: {} }, desc: "안토인 증기압 곡선",
     f: (x, p) => (p.C + x <= 0 ? NaN : Math.pow(10, p.A - p.B / (p.C + x))) },

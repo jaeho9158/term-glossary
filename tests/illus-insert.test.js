@@ -90,7 +90,7 @@ test("저장소 데이터: 모두 유효하고 그림 파일이 있으며, 반�
     const html = fs.readFileSync(path.join(ROOT, "terms", d.slug + ".html"), "utf8");
     assert.strictEqual(count(html, /<!-- term-illus:start -->/g), 1, d.slug);
     assert.strictEqual(count(html, /<!-- term-illus:end -->/g), 1, d.slug);
-    const svg = d.method === "svg" ? fs.readFileSync(asset, "utf8") : null;
+    const svg = d.method === "svg" ? fs.readFileSync(asset, "utf8").replace(/\r\n/g, "\n") : null;
     const specFile = path.join(ROOT, "data", "illus", "specs", d.slug + ".json");
     const spec = d.method === "svg" ? JSON.parse(fs.readFileSync(specFile, "utf8")) : null;
     assert.strictEqual(applyIllus(html, renderFigure(d, svg, spec)), html, d.slug + " 재실행 시 바뀌면 안 됨");
@@ -110,18 +110,18 @@ test("vector-projection 범례는 벡터 기호이고 color-wheel 범례(HSL·�
   assert.ok(html.includes("정사영(projection)") && !html.slice(html.indexOf("term-illus:start"), html.indexOf("term-illus:end")).includes("HSL"));
 });
 
-test("코드 SVG 스펙 154개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
+test("코드 SVG 스펙 288개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
   const { renderSVG, templates } = require("../scripts/svg-illus/src/index.js");
   const dir = path.join(ROOT, "data", "illus", "specs");
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-  assert.strictEqual(files.length, 154);
+  assert.strictEqual(files.length, 288);
   for (const f of files) {
     const r = renderSVG(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")), { templates });
     assert.deepStrictEqual(r.report.unresolved, [], f);
   }
 });
 
-test("코드 SVG 154개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
+test("코드 SVG 288개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
   const { outOfBounds } = require("../scripts/illus/check-bounds.js");
   for (const d of loadAll().filter((x) => x.method === "svg")) {
     const svg = fs.readFileSync(path.join(ROOT, d.svg), "utf8");

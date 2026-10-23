@@ -24,7 +24,7 @@ function run() {
     if (spec.id + ".json" !== f) throw new Error(`${f}: id 불일치`);
     const out = path.join(OUT_DIR, spec.id + ".svg");
     const svg = build(spec);
-    const prev = fs.existsSync(out) ? fs.readFileSync(out, "utf8") : null;
+    const prev = fs.existsSync(out) ? fs.readFileSync(out, "utf8").replace(/\r\n/g, "\n") : null;
     if (prev === svg) { same++; continue; }
     changed++;
     if (!check) fs.writeFileSync(out, svg, "utf8");
