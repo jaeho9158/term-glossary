@@ -222,6 +222,28 @@ const FNS = {
   // 사건관련전위 봉우리 amp·exp(−((t−latency)/width)²). 폭은 모식값
   erp_peak: { params: { amp: {}, latency: {}, width: { gt: 0 } }, desc: "사건관련전위 파형",
     f: (x, p) => p.amp * Math.exp(-(((x - p.latency) / p.width) ** 2)) },
+  // ── 추가 7개(round6 plot-ext, 본문 수치로 검증): quadratic·saturating_exponential·saturating_hyperbola·one_minus_reciprocal·harmonic_mix·cumulative_step·piecewise_linear ──
+  // 2차 곡선 a + b·x² (로스비파 위상속도 c = U − β(L/2π)² 등, 매개변수는 가로축 단위에 맞춰 환산)
+  quadratic: { params: { a: {}, b: {} }, desc: "2차 곡선",
+    f: (x, p) => p.a + p.b * x * x },
+  // 오프셋이 있는 포화 지수 곡선 a + b(1 − e^(−x/c)) (R-곡선 등, x≥0)
+  saturating_exponential: { params: { a: {}, b: { gt: 0 }, c: { gt: 0 } }, domain: [0, Infinity], desc: "포화 지수 곡선",
+    f: (x, p) => p.a + p.b * (1 - Math.exp(-x / p.c)) },
+  // 포화 쌍곡선 a·x/(1+x) (CSTR 전환율 kτ/(1+kτ) 등, x≥0)
+  saturating_hyperbola: { params: { a: { gt: 0 } }, domain: [0, Infinity], desc: "포화 쌍곡선",
+    f: (x, p) => (p.a * x) / (1 + x) },
+  // a(1 − 1/x) (털록 경쟁의 전체 지출 100(n−1)/n 등, x≥1)
+  one_minus_reciprocal: { params: { a: { gt: 0 } }, domain: [1, Infinity], desc: "1에서 반비례를 뺀 곡선",
+    f: (x, p) => p.a * (1 - 1 / x) },
+  // 조화평균 혼합(Reuss 하한) 1/(x/a + (1−x)/b), 가로축 x=Vf (0≤x≤1)
+  harmonic_mix: { params: { a: { gt: 0 }, b: { gt: 0 } }, domain: [0, 1], desc: "조화평균 혼합 곡선",
+    f: (x, p) => 1 / (x / p.a + (1 - x) / p.b) },
+  // 누적 계단: 구간 k ≤ x < k+1 에서 values의 처음 k개 합(x<1이면 0, 마지막 값 이후는 전체 합)
+  cumulative_step: { params: { values: { arr: true } }, domain: [0, Infinity], desc: "누적 계단 곡선",
+    f: (x, p) => { let s = 0; const k = Math.min(Math.floor(x), p.values.length); for (let i = 0; i < k; i++) s += p.values[i]; return s; } },
+  // 꺾은선: 점 (xs[i], ys[i])를 직선으로 잇는다. xs는 증가해야 하고 범위 밖은 끝 값을 유지
+  piecewise_linear: { params: { xs: { arr: true }, ys: { arr: true } }, desc: "꺾은선",
+    f: (x, p) => { const n = p.xs.length; if (x <= p.xs[0]) return p.ys[0]; if (x >= p.xs[n - 1]) return p.ys[n - 1]; let i = 1; while (p.xs[i] < x) i++; return p.ys[i - 1] + ((p.ys[i] - p.ys[i - 1]) * (x - p.xs[i - 1])) / (p.xs[i] - p.xs[i - 1]); } },
 };
 
 function checkParams(fn, params) {
@@ -236,6 +258,10 @@ function checkParams(fn, params) {
     const bad = ("gt" in rule && !(v > rule.gt)) || ("gte" in rule && !(v >= rule.gte)) ||
       ("lt" in rule && !(v < rule.lt)) || ("ne" in rule && v === rule.ne);
     if (bad) errs.push(`${fn}: ${k}=${v} 범위 밖`);
+  }
+  if (fn === "piecewise_linear" && Array.isArray(given.xs) && Array.isArray(given.ys)) {
+    if (given.xs.length !== given.ys.length || given.xs.length < 2) errs.push("piecewise_linear: xs와 ys는 같은 길이(2 이상)");
+    else if (given.xs.some((v, i) => i > 0 && !(v > given.xs[i - 1]))) errs.push("piecewise_linear: xs는 증가해야 함");
   }
   for (const k of Object.keys(given)) if (!Object.prototype.hasOwnProperty.call(F.params, k)) errs.push(`${fn}: 알 수 없는 매개변수 ${k}`);
   return errs;

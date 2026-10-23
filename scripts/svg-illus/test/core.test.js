@@ -228,4 +228,20 @@ test('plot 함수: f_dist·moving_avg_mag·iso834·square_partial·eps_ntu', () 
   near(PLOT_FNS.eps_ntu.f(2, { Cr: 0.5, branch: 0 }), 0.775, 5e-4);
   near(PLOT_FNS.eps_ntu.f(2, { Cr: 0.5, branch: 1 }), 0.633, 5e-4);
   assert.deepEqual(validateDiagram({ type: 'plot', plot: { series: [{ fn: 'f_dist', params: { d1: 2, d2: 27 } }], x: { label: 'F', range: [0, 6] }, y: { label: 'g' } } }, { requireMeta: false }), []);
+test('plot 함수: round6 추가 7개(2차·포화 지수·포화 쌍곡선·1−1/x·조화평균·누적 계단·꺾은선)', () => {
+  const near = (a, b, t = 1e-9) => assert.ok(Math.abs(a - b) < t, `${a} != ${b}`);
+  const q = { a: 15, b: -4.1035e-7 };
+  near(PLOT_FNS.quadratic.f(5000, q), 4.74, 0.01); near(PLOT_FNS.quadratic.f(10000, q), -26.03, 0.01); near(PLOT_FNS.quadratic.f(20000, q), -149.1, 0.1);
+  near(PLOT_FNS.saturating_exponential.f(50, { a: 3, b: 3, c: 50 }), 3 + 3 * (1 - Math.exp(-1)));
+  near(PLOT_FNS.saturating_hyperbola.f(9, { a: 1 }), 0.9);
+  near(PLOT_FNS.one_minus_reciprocal.f(5, { a: 100 }), 80);
+  near(PLOT_FNS.harmonic_mix.f(0.6, { a: 230, b: 3.5 }), 8.5547, 1e-3);
+  const gdd = { values: [2, 4, 5.5, 8, 9.5, 7, 10.5, 12, 12, 13.5] };
+  near(PLOT_FNS.cumulative_step.f(0.5, gdd), 0); near(PLOT_FNS.cumulative_step.f(8, gdd), 58.5); near(PLOT_FNS.cumulative_step.f(9, gdd), 70.5);
+  const pl = { xs: [0, 1, 3], ys: [0, 2, 0] };
+  near(PLOT_FNS.piecewise_linear.f(0.5, pl), 1); near(PLOT_FNS.piecewise_linear.f(2, pl), 1); near(PLOT_FNS.piecewise_linear.f(9, pl), 0);
+  const ok = (series) => validateDiagram({ type: 'plot', plot: { series, x: { label: 'x', range: [0, 3] }, y: { label: 'y' } } }, { requireMeta: false });
+  assert.deepEqual(ok([{ fn: 'piecewise_linear', params: pl }]), []);
+  assert.ok(ok([{ fn: 'piecewise_linear', params: { xs: [0, 1], ys: [1] } }]).some(e => e.includes('같은 길이')));
+  assert.ok(ok([{ fn: 'piecewise_linear', params: { xs: [1, 0], ys: [1, 2] } }]).some(e => e.includes('증가')));
 });

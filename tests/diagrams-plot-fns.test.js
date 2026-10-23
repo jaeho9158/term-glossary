@@ -200,3 +200,47 @@ console.log("diagrams-plot-fns: ext12 tests passed");
   assert.deepStrictEqual(checkParams("f_dist", { d1: 2, d2: 27 }), []);
 }
 console.log("diagrams-plot-fns: ext5 tests passed");
+// round6 plot-ext 7개: quadratic·saturating_exponential·saturating_hyperbola·one_minus_reciprocal·harmonic_mix·cumulative_step·piecewise_linear (본문 수치로 검증)
+{
+  const nr = (a, b, t) => near(a, b, t);
+  // 로스비파 c = U − β(L/2π)², U=15, β=1.62e-11 → 4.74·−26.03·−149.1 m/s, 정체 파장 6,046 km
+  const q = { a: 15, b: -4.1035e-7 };
+  nr(FNS.quadratic.f(5000, q), 4.74, 0.01); nr(FNS.quadratic.f(10000, q), -26.03, 0.01); nr(FNS.quadratic.f(20000, q), -149.1, 0.1);
+  nr(FNS.quadratic.f(6046, q), 0, 0.05);
+  // R-곡선 3+3(1−e^(−Δa/50))
+  const sx = { a: 3, b: 3, c: 50 };
+  nr(FNS.saturating_exponential.f(0, sx), 3); nr(FNS.saturating_exponential.f(50, sx), 3 + 3 * (1 - Math.exp(-1))); nr(FNS.saturating_exponential.f(1e6, sx), 6);
+  // CSTR kτ/(1+kτ): 0.333·0.5·0.667·0.8, 90%는 kτ=9
+  for (const [k, v] of [[0.5, 0.3333], [1, 0.5], [2, 0.6667], [4, 0.8], [9, 0.9]]) nr(FNS.saturating_hyperbola.f(k, { a: 1 }), v, 1e-4);
+  // 털록 전체 지출 100(n−1)/n
+  nr(FNS.one_minus_reciprocal.f(1, { a: 100 }), 0); nr(FNS.one_minus_reciprocal.f(2, { a: 100 }), 50); nr(FNS.one_minus_reciprocal.f(5, { a: 100 }), 80);
+  // Reuss 하한: Vf=0.6 → 8.55 GPa, 끝점은 기지·섬유 값, Voigt(직선)보다 항상 아래
+  const hm = { a: 230, b: 3.5 };
+  nr(FNS.harmonic_mix.f(0.6, hm), 8.5547, 1e-3); nr(FNS.harmonic_mix.f(0, hm), 3.5); nr(FNS.harmonic_mix.f(1, hm), 230);
+  assert.ok(FNS.harmonic_mix.f(0.4, hm) < FNS.linear.f(0.4, { a: 226.5, b: 3.5 }));
+  // 적산온도 누적: 58.5(8일)·70.5(9일)
+  const gdd = { values: [2, 4, 5.5, 8, 9.5, 7, 10.5, 12, 12, 13.5] };
+  nr(FNS.cumulative_step.f(0.5, gdd), 0); nr(FNS.cumulative_step.f(1, gdd), 2); nr(FNS.cumulative_step.f(8.9, gdd), 58.5); nr(FNS.cumulative_step.f(9, gdd), 70.5); nr(FNS.cumulative_step.f(99, gdd), 84);
+  // 꺾은선: 꼭짓점에서 정확, 사이는 직선, 바깥은 끝 값
+  const pl = { xs: [0, 1, 3], ys: [0, 2, 0] };
+  nr(FNS.piecewise_linear.f(0.5, pl), 1); nr(FNS.piecewise_linear.f(2, pl), 1); nr(FNS.piecewise_linear.f(1, pl), 2); nr(FNS.piecewise_linear.f(-1, pl), 0); nr(FNS.piecewise_linear.f(9, pl), 0);
+  assert.deepStrictEqual(checkParams("piecewise_linear", pl), []);
+  assert.ok(checkParams("piecewise_linear", { xs: [0, 1], ys: [1] }).length > 0);
+  assert.ok(checkParams("piecewise_linear", { xs: [0, 0], ys: [1, 2] }).length > 0);
+  assert.ok(checkParams("cumulative_step", { values: [] }).length > 0);
+  assert.ok(checkParams("harmonic_mix", { a: 0, b: 1 }).length > 0);
+  assert.ok(sample("one_minus_reciprocal", { a: 100 }, 0, 10).every(([x, y]) => x >= 1 && Number.isFinite(y)));
+  // 플로리-허긴스 N=100: χ=0.01은 아래로 볼록, χ=0.03(>χc=0.02)은 φ=0.5가 극대인 이중 우물
+  const g = (x, chi) => FNS.mixing_free_energy.f(x, { N1: 100, N2: 100, chi });
+  const d2 = (chi) => (g(0.5 + 1e-3, chi) - 2 * g(0.5, chi) + g(0.5 - 1e-3, chi)) / 1e-6;
+  assert.ok(d2(0.01) > 0 && d2(0.03) < 0 && Math.abs(d2(0.02)) < 1e-2);
+  // 역제곱·거듭제곱
+  nr(FNS.power.f(2, { a: 100, b: -2 }), 25); nr(FNS.power.f(30, { a: 100, b: 1.5 }), 16432, 0.5);
+  // 펌프·시스템 교점 (118.3, 17.0), 80% 속도 (86.7, 13.8)
+  const pp = { H0: 45, a: 0.002, Hs: 10, k: 0.0005 };
+  nr(FNS.quadratic_pair.f(118.3, { ...pp, branch: 0 }), 17.0, 0.02); nr(FNS.quadratic_pair.f(118.3, { ...pp, branch: 1 }), 17.0, 0.02);
+  nr(FNS.quadratic_pair.f(86.7, { ...pp, H0: 28.8, branch: 0 }), 13.77, 0.02);
+  // Weiss 식 I = 100(1+2/t)
+  for (const [t, v] of [[1, 300], [2, 200], [5, 140], [10, 120], [100, 102]]) nr(FNS.reciprocal.f(t, { k: 200, c: 100 }), v, 1e-9);
+}
+console.log("diagrams-plot-fns: round6 tests passed");

@@ -1,0 +1,76 @@
+{
+  "slug": "pump-performance-curve",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "quadratic_pair",
+        "params": {
+          "H0": 45,
+          "a": 0.002,
+          "Hs": 10,
+          "k": 0.0005,
+          "branch": 0
+        },
+        "label": "펌프 45−0.002Q²",
+        "color": "blue"
+      },
+      {
+        "fn": "quadratic_pair",
+        "params": {
+          "H0": 45,
+          "a": 0.002,
+          "Hs": 10,
+          "k": 0.0005,
+          "branch": 1
+        },
+        "label": "시스템 10+0.0005Q²",
+        "color": "amber"
+      },
+      {
+        "fn": "quadratic_pair",
+        "params": {
+          "H0": 28.8,
+          "a": 0.002,
+          "Hs": 10,
+          "k": 0.0005,
+          "branch": 0
+        },
+        "label": "펌프 80% 속도",
+        "color": "violet"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 86.7,
+        "label": "80%: 86.7"
+      },
+      {
+        "x": 118.3,
+        "label": "100%: 118.3"
+      }
+    ],
+    "x": {
+      "label": "유량 Q(m³/h)",
+      "range": [
+        0,
+        150
+      ]
+    },
+    "y": {
+      "label": "양정 H(m)"
+    }
+  },
+  "notes": [
+    {
+      "text": "펌프 곡선과 시스템 곡선이 만나는 곳이 운전점: 기준은 (118.3 m³/h, 17.0 m), 80% 속도는 (86.7, 13.8)",
+      "tone": "general"
+    },
+    {
+      "text": "실제 곡선은 시험으로 얻으며 여기서는 2차식으로 단순화했다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 예시로 보기 운전점 표. 외부 URL은 열지 않고 본문 수치로 검증",
+  "reviewed": true
+}

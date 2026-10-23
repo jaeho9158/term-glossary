@@ -1,0 +1,59 @@
+{
+  "slug": "rest-api",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "클라이언트",
+      "color": "blue",
+      "sub": "요청을 보냄"
+    },
+    {
+      "id": "b",
+      "label": "GET /books/123",
+      "color": "violet",
+      "sub": "메서드 + 주소"
+    },
+    {
+      "id": "c",
+      "label": "서버",
+      "color": "blue",
+      "sub": "자원 123번 책"
+    },
+    {
+      "id": "d",
+      "label": "200 OK",
+      "color": "green",
+      "sub": "없으면 404"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "POST /books는 201, PUT·DELETE /books/123은 200 또는 204 응답이 가능하다",
+      "tone": "general"
+    },
+    {
+      "text": "서버는 요청 사이의 세션 상태를 기억하지 않는다(무상태성)",
+      "tone": "general"
+    }
+  ],
+  "source": "https://en.wikipedia.org/wiki/Representational_state_transfer (열람: 제약 6개, 무상태성); 메서드·상태 코드 예는 본문(가상 온라인 서점) 인용",
+  "reviewed": true
+}
