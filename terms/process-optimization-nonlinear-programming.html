@@ -152,6 +152,7 @@
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
   <ol><li><strong>변수 구분</strong>: 직접 조절하는 결정변수(온도, 압력, 유량, 장치 크기)와 모델이 계산하는 상태변수를 나눈다.</li><li><strong>문제 정식화</strong>: 목적함수(비용 최소화, 수율 최대화 등)와 제약을 쓴다. 물질·에너지 수지는 등식 제약, 설계 한계·안전 기준은 부등식 제약이다. 목적함수나 제약식이 비선형이면 비선형계획법(NLP)이다.</li><li><strong>모델 구성</strong>: 공정 흐름도 시뮬레이터를 반복 호출하는 순차모듈 방식, 또는 모든 식을 한꺼번에 솔버에 넘기는 방정식 지향(equation-oriented) 방식 중 선택한다.</li><li><strong>알고리즘 선택</strong>: 순차이차계획법(SQP), 내점법(예: IPOPT, Wächter &amp; Biegler, 2006), 일반화 환원기울기법 등을 쓴다. 장치 수·운전 모드처럼 정수 결정이 있으면 혼합정수 비선형계획(MINLP)이 된다.</li><li><strong>초기값과 스케일링</strong>: 비선형 문제는 초기값에 민감하므로 변수 크기를 맞추고 여러 초기값에서 시작한다.</li><li><strong>해의 확인</strong>: 수렴 기준(KKT 조건 만족 정도)을 확인하고, 라그랑주 승수로 제약이 목적함수에 주는 영향(민감도)을 읽는다.</li></ol>
+  <p>비선형 계획법은 목적함수가 선형이 아니거나 제약식 중 선형 등식이 아닌 것이 있는 최적화 문제를 푸는 수리최적화의 한 분야이다. 미분 가능성과 제약 규정 조건 아래에서 KKT 조건은 최적성의 필요조건이 되고, 문제가 볼록하면 전역 최적의 충분조건도 된다. 볼록하지 않으면 지역 최적에 대해서만 충분하다. 현실의 문제는 대개 1차·2차 도함수를 쓰는 반복 수치 기법으로 푼다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <ul><li><strong>언제 쓰나</strong>: 변수와 제약이 많아 직관으로 최적점을 찾기 어려운 설계·운전 문제(반응기 조건, 증류탑 운전, 열교환망 설계, 실시간 최적화).</li><li><strong>무엇을 얻나</strong>: 제약을 지키는 최적 운전점, 제약 활성 여부, 제약 완화 시 목적함수 변화(라그랑주 승수).</li><li><strong>한계</strong>: 비볼록 문제에서는 전역 최적해를 보장하지 않고 국소 최적해에 수렴할 수 있다(Biegler, 2010). 물성 모델에 불연속·잡음이 있으면 기울기 기반 알고리즘이 흔들려 도함수가 필요 없는 방법이나 대리모델을 검토한다. 불확실성은 별도의 확률적·강건 최적화가 필요하다.</li></ul>
@@ -191,6 +192,7 @@
     <li>Nocedal, J., &amp; Wright, S. J. (2006). Numerical Optimization (2nd ed.). Springer.</li>
     <li>Wächter, A., &amp; Biegler, L. T. (2006). On the implementation of an interior-point filter line-search algorithm for large-scale nonlinear programming. Mathematical Programming, 106(1), 25–57.</li>
     <li>Biegler, L. T. (2010). Nonlinear Programming: Concepts, Algorithms, and Applications to Chemical Processes. SIAM.</li>
+    <li>Wikipedia contributors. (n.d.). Nonlinear programming. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

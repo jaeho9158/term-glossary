@@ -158,7 +158,7 @@
   <p>가상의 비교이다. 하루 평균 20건의 사건이 생기는 서비스의 상태를 60초마다 폴링하면 하루 1,440번 요청하고, 그중 약 98.6%는 빈 응답이다. 사건을 알아차리는 데 걸리는 지연은 평균 30초, 최대 60초이다. 웹훅은 요청이 사건 수와 같은 20건이고, 지연은 네트워크 전달 시간 정도이다. 대신 수신 서버가 항상 요청을 받을 수 있게 열려 있어야 하고, 위조된 요청과 중복 전송에 대비하는 설계 부담을 진다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>웹훅은 REST API의 한 종류이다.</td><td>웹훅은 사건을 알리는 방식이고, REST는 자원 중심 설계 규칙이다. 서로 층위가 다르다.</td></tr><tr><td>웹훅은 한 번만, 순서대로 온다.</td><td>재시도로 중복이 생기고 순서가 바뀔 수 있으므로 멱등 처리가 필요하다.</td></tr><tr><td>URL을 비밀로 하면 안전하다.</td><td>URL이 노출되면 누구나 위조 요청을 보낼 수 있다. 서명 검증 같은 진위 확인이 일반적이다.</td></tr><tr><td>웹훅이면 항상 실시간이다.</td><td>송신 측의 큐, 재시도 정책, 수신 서버 처리 지연에 따라 늦어질 수 있다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>웹훅은 REST API의 한 종류이다.</td><td>웹훅은 사건을 알리는 방식이고, REST는 자원 중심 설계 규칙이다. 서로 층위가 다르다.</td></tr><tr><td>웹훅은 한 번만, 순서대로 온다.</td><td>재시도로 중복이 생기고 순서가 바뀔 수 있으므로 멱등 처리가 필요하다.</td></tr><tr><td>URL을 비밀로 하면 안전하다.</td><td>URL이 노출되면 누구나 위조 요청을 보낼 수 있다. 서명 검증 같은 진위 확인이 일반적이다.</td></tr><tr><td>웹훅이면 항상 실시간이다.</td><td>송신 측의 큐, 재시도 정책, 수신 서버 처리 지연에 따라 늦어질 수 있다.</td></tr></tbody></table></div><p>용어는 Jeff Lindsay가 2007년에 프로그래밍 용어 ‘훅’에서 따와 만들었다고 설명된다. 받는 쪽은 들어온 POST를 인증해야 위조를 막을 수 있고, 타임스탬프를 확인해야 재전송 공격을 막을 수 있다. 방법으로는 기본 HTTP 인증, 공유 비밀·전자서명, HMAC 헤더, 상호 TLS 등이 있다. 보내는 쪽이 사용자가 정한 임의의 URL로 요청하므로 서버측 요청 위조(SSRF) 위험이 있어 전송 전에 대상 IP를 다시 확인하라는 권고가 있다. 발신 IP 허용 목록만으로는 충분하지 않다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -195,6 +195,7 @@
     <li>Hohpe, G., &amp; Woolf, B. (2003). Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions. Addison-Wesley.</li>
     <li>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media.</li>
     <li>Richardson, C. (2018). Microservices Patterns. Manning Publications.</li>
+    <li>Wikipedia contributors. (n.d.). Webhook. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

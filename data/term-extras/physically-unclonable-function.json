@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>PUF는 칩 제조 과정의 불가피한 공정 편차를 이용해 <strong>칩마다 다른 입력-출력 대응</strong>을 만드는 회로이다. 입력을 “챌린지”, 출력을 “응답”이라 하고, 한 쌍을 CRP(challenge-response pair)라고 부른다.</li><li>구조는 크게 둘로 나눈다. 챌린지가 몇 개 안 되는 <em>약한 PUF</em>(예: SRAM PUF)는 주로 키 생성에, 챌린지 수가 매우 많은 <em>강한 PUF</em>(예: 아비터 PUF)는 인증에 쓰인다.</li><li>SRAM PUF는 전원이 켜지는 순간 각 셀이 갖는 초기값이 셀 내부 트랜지스터의 미세한 불균형에 의해 정해지는 점을 이용한다(Holcomb 등, 2009). 아비터 PUF는 두 신호 경로의 지연 차이를, 링 오실레이터 PUF는 발진 주파수의 차이를 비교한다.</li><li>품질은 해밍 거리 기반의 세 지표로 평가한다. <strong>고유성</strong>은 서로 다른 칩 응답 사이의 거리(이상적으로 50%), <strong>신뢰성</strong>은 같은 칩을 반복 측정했을 때 응답이 달라지는 비율(이상적으로 0%), <strong>균일성</strong>은 응답에서 1의 비율(이상적으로 50%)이다.</li><li>온도·전압 변화와 노화로 응답이 흔들리므로 안정적인 키를 얻으려면 오류정정 코드와 보조 데이터(helper data)가 함께 쓰인다(Herder 등, 2014).</li></ul>"
+      "html": "<ul><li>PUF는 칩 제조 과정의 불가피한 공정 편차를 이용해 <strong>칩마다 다른 입력-출력 대응</strong>을 만드는 회로이다. 입력을 “챌린지”, 출력을 “응답”이라 하고, 한 쌍을 CRP(challenge-response pair)라고 부른다.</li><li>구조는 크게 둘로 나눈다. 챌린지가 몇 개 안 되는 <em>약한 PUF</em>(예: SRAM PUF)는 주로 키 생성에, 챌린지 수가 매우 많은 <em>강한 PUF</em>(예: 아비터 PUF)는 인증에 쓰인다.</li><li>SRAM PUF는 전원이 켜지는 순간 각 셀이 갖는 초기값이 셀 내부 트랜지스터의 미세한 불균형에 의해 정해지는 점을 이용한다(Holcomb 등, 2009). 아비터 PUF는 두 신호 경로의 지연 차이를, 링 오실레이터 PUF는 발진 주파수의 차이를 비교한다.</li><li>품질은 해밍 거리 기반의 세 지표로 평가한다. <strong>고유성</strong>은 서로 다른 칩 응답 사이의 거리(이상적으로 50%), <strong>신뢰성</strong>은 같은 칩을 반복 측정했을 때 응답이 달라지는 비율(이상적으로 0%), <strong>균일성</strong>은 응답에서 1의 비율(이상적으로 50%)이다.</li><li>온도·전압 변화와 노화로 응답이 흔들리므로 안정적인 키를 얻으려면 오류정정 코드와 보조 데이터(helper data)가 함께 쓰인다(Herder 등, 2014).</li></ul><ul><li><strong>유형 분류</strong>: 지금까지 40가지가 넘는 PUF가 제안되었다. 강한 PUF와 약한 PUF라는 구분은 근래 챌린지 수가 매우 많은 ‘확장형’과 제한된 ‘한정형’이라는 용어로 바꿔 부르기도 한다.</li><li><strong>역사</strong>: Pappu가 2001년 ‘물리적 일방향 함수’로 처음 제안했고, ‘PUF’라는 이름과 실리콘 기반 설계는 2002년 Gassend 등이 내놓았다. 스마트카드 분야에서는 2010년경부터 상용화 관심이 커졌고 일부 FPGA에도 쓰인다.</li><li><strong>신뢰성 지표</strong>: 신뢰성은 같은 칩의 반복 측정 응답 사이 평균 해밍 거리 비율을 μ<sub>1</sub>이라 할 때 (1 − μ<sub>1</sub>) × 100%로 계산하며, 이상값은 100%이다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>k개의 칩에서 n비트 응답을 얻었을 때 고유성은 모든 칩 쌍의 해밍 거리 평균으로 구한다.</p><p>고유성(%) = [2 / (k(k−1))] × Σ<sub>i&lt;j</sub> [HD(R<sub>i</sub>, R<sub>j</sub>) / n] × 100</p><p>이 값이 50%에 가까울수록 칩끼리 응답이 서로 무관하게 다르다는 뜻이다. 신뢰성은 같은 칩의 기준 응답과 반복 측정 응답 사이의 평균 해밍 거리로 보고하고, 보통 환경 조건(전압, 온도)을 바꿔 가며 제시한다. 값의 해석은 설계 목적(키 생성인지 인증인지)에 따라 달라진다.</p>"
+      "html": "<p>k개의 칩에서 n비트 응답을 얻었을 때 고유성은 모든 칩 쌍의 해밍 거리 평균으로 구한다.</p><p>고유성(%) = [2 / (k(k−1))] × Σ<sub>i&lt;j</sub> [HD(R<sub>i</sub>, R<sub>j</sub>) / n] × 100</p><p>이 값이 50%에 가까울수록 칩끼리 응답이 서로 무관하게 다르다는 뜻이다. 신뢰성은 같은 칩의 기준 응답과 반복 측정 응답 사이의 평균 해밍 거리로 보고하고, 보통 환경 조건(전압, 온도)을 바꿔 가며 제시한다. 값의 해석은 설계 목적(키 생성인지 인증인지)에 따라 달라진다.</p><p>잡음이 있는 응답에서 매번 같은 키를 얻으려면 퍼지 추출기나 오류정정 코드가 필요하고, 키 생성용 설계에서는 블록 오류 확률을 매우 낮게(예: 10억 비트에 1비트 수준) 잡는 기준이 논의된다. 확장형 PUF는 챌린지-응답 쌍을 모아 기계학습으로 모델링할 수 있어, 2015년 한 연구는 XOR 아비터 PUF를 소수의 CRP로 모델링할 수 있음을 보였다.</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -45,6 +45,7 @@
     "Suh, G. E., & Devadas, S. (2007). Physical unclonable functions for device authentication and secret key generation. In Proceedings of the 44th ACM/IEEE Design Automation Conference.",
     "Holcomb, D. E., Burleson, W. P., & Fu, K. (2009). Initial SRAM state as a fingerprint and source of true random numbers for RFID tags. IEEE Transactions on Computers, 58(9).",
     "Herder, C., Yu, M.-D., Koushanfar, F., & Devadas, S. (2014). Physical unclonable functions and applications: A tutorial. Proceedings of the IEEE, 102(8).",
-    "Rührmair, U., Sehnke, F., Sölter, J., Dror, G., Devadas, S., & Schmidhuber, J. (2010). Modeling attacks on physical unclonable functions. In Proceedings of the 17th ACM Conference on Computer and Communications Security."
+    "Rührmair, U., Sehnke, F., Sölter, J., Dror, G., Devadas, S., & Schmidhuber, J. (2010). Modeling attacks on physical unclonable functions. In Proceedings of the 17th ACM Conference on Computer and Communications Security.",
+    "Wikipedia contributors. (n.d.). Physical unclonable function. Wikipedia, The Free Encyclopedia."
   ]
 }

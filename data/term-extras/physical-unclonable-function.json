@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>PUF는 하드웨어의 제조 편차에서 얻은 <strong>기기 고유 응답</strong>을 보안 기능(인증, 키 생성, 위조 방지)에 쓰는 기법이다. 비밀키를 비휘발성 메모리에 저장하는 대신, 필요할 때마다 물리적 특성에서 키를 재생성하는 접근이다.</li><li>아이디어의 뿌리는 광학 매질에서 레이저 산란 무늬를 읽는 “물리적 일방향 함수”이다(Pappu 등, 2002). 실리콘 회로에서의 구현은 Gassend 등(2002)이 제안했고, 인증과 키 생성에의 응용이 정리되었다(Suh &amp; Devadas, 2007).</li><li><strong>인증</strong>(강한 PUF 위주): 등록 단계에서 서버가 많은 CRP를 기록하고, 인증 단계에서 새 챌린지를 보내 온 응답이 기록과 충분히 가까운지(해밍 거리가 임계값 이하) 확인한다. 응답이 잡음을 포함하므로 정확한 일치가 아니라 근사 일치로 판정한다.</li><li><strong>키 생성</strong>(약한 PUF 위주): 잡음이 있는 응답에서 안정된 키를 뽑기 위해 퍼지 추출기와 보조 데이터를 쓴다(Maes, 2013).</li><li><strong>공격과 한계</strong>: 일부 구조는 충분한 CRP를 수집한 뒤 기계학습으로 응답을 예측하는 모델링 공격에 취약함이 보고되었다(Rührmair 등, 2010). 그 밖에 부채널·침투 공격, 환경 변화에 따른 신뢰성 저하, 노화가 연구 쟁점이다.</li></ul>"
+      "html": "<ul><li>PUF는 하드웨어의 제조 편차에서 얻은 <strong>기기 고유 응답</strong>을 보안 기능(인증, 키 생성, 위조 방지)에 쓰는 기법이다. 비밀키를 비휘발성 메모리에 저장하는 대신, 필요할 때마다 물리적 특성에서 키를 재생성하는 접근이다.</li><li>아이디어의 뿌리는 광학 매질에서 레이저 산란 무늬를 읽는 “물리적 일방향 함수”이다(Pappu 등, 2002). 실리콘 회로에서의 구현은 Gassend 등(2002)이 제안했고, 인증과 키 생성에의 응용이 정리되었다(Suh &amp; Devadas, 2007).</li><li><strong>인증</strong>(강한 PUF 위주): 등록 단계에서 서버가 많은 CRP를 기록하고, 인증 단계에서 새 챌린지를 보내 온 응답이 기록과 충분히 가까운지(해밍 거리가 임계값 이하) 확인한다. 응답이 잡음을 포함하므로 정확한 일치가 아니라 근사 일치로 판정한다.</li><li><strong>키 생성</strong>(약한 PUF 위주): 잡음이 있는 응답에서 안정된 키를 뽑기 위해 퍼지 추출기와 보조 데이터를 쓴다(Maes, 2013).</li><li><strong>공격과 한계</strong>: 일부 구조는 충분한 CRP를 수집한 뒤 기계학습으로 응답을 예측하는 모델링 공격에 취약함이 보고되었다(Rührmair 등, 2010). 그 밖에 부채널·침투 공격, 환경 변화에 따른 신뢰성 저하, 노화가 연구 쟁점이다.</li></ul><p>PUF의 초기 착상은 Bauder(1983), Simmons(1984), Naccache·Frémanteau(1992)의 메모리 카드 인증 제안에서 찾을 수 있고, Pappu가 2001년 물리적 일방향 함수(POWF)로 정식 제안했으며 ‘PUF’라는 이름은 2002년 최초의 집적 실리콘 설계와 함께 만들어졌다. 40가지가 넘는 유형이 제안되어 있고 SRAM PUF, XOR 아비터 PUF 등이 언급된다. 닫힌(confined) PUF는 임의 초기화 메모리처럼 작동해 챌린지-응답 쌍(CRP)의 수가 적어 소진될 수 있고, 넓은(extensive) PUF는 CRP가 훨씬 많다. 응답에는 잡음이 있어 같은 키를 재현하려면 퍼지 추출기(fuzzy extractor) 같은 오류 정정이 필요하고, 칩 내 오류 정정은 크기·전력·시간 부담을 늘리며 전력 분석 취약성을 드러낼 수도 있다. 기계학습 공격으로 관측한 CRP에서 응답을 예측할 수 있고, 지연 기반 PUF는 부채널 공격에 취약하다는 보고(2011)가 있다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -44,6 +44,7 @@
     "Gassend, B., Clarke, D., van Dijk, M., & Devadas, S. (2002). Silicon physical random functions. In Proceedings of the 9th ACM Conference on Computer and Communications Security.",
     "Suh, G. E., & Devadas, S. (2007). Physical unclonable functions for device authentication and secret key generation. In Proceedings of the 44th ACM/IEEE Design Automation Conference.",
     "Rührmair, U., Sehnke, F., Sölter, J., Dror, G., Devadas, S., & Schmidhuber, J. (2010). Modeling attacks on physical unclonable functions. In Proceedings of the 17th ACM Conference on Computer and Communications Security.",
-    "Maes, R. (2013). Physically Unclonable Functions: Constructions, Properties and Applications. Springer."
+    "Maes, R. (2013). Physically Unclonable Functions: Constructions, Properties and Applications. Springer.",
+    "Wikipedia contributors. (n.d.). Physical unclonable function. Wikipedia."
   ]
 }

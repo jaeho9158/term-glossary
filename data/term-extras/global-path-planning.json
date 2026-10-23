@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<ul><li><strong>알고리즘 성질</strong>: Dijkstra는 간선 비용이 음수가 아니면, A*는 휴리스틱이 허용적(실제 비용을 과대평가하지 않음)이면 최적 경로를 보장한다([[a-star-algorithm|A* 알고리즘]]). RRT는 확률적 완전성을 갖지만 일반적으로 최적은 아니고, 표본이 늘면 최적에 수렴하도록 개선한 [[rrt-star|RRT*]]가 있다(Karaman &amp; Frazzoli, 2011).</li><li><strong>언제</strong>: 지도가 미리 주어지고 환경이 크게 변하지 않을 때(건물 도면이 있는 실내 배송 로봇 등) 전역 계획만으로도 효율적인 이동이 가능하다.</li><li><strong>한계</strong>: 지도에 없는 장애물에는 대응할 수 없고, 지도가 바뀌면 경로를 다시 계산해야 한다. 샘플링 기반 방법은 실행마다 다른 경로가 나올 수 있다.</li></ul><p><em>가상의 예(계산 결과).</em> 아래 10×10 격자에서 4방향 이동, 칸당 비용 1, 맨해튼 거리 휴리스틱으로 S에서 G까지 찾았다(#은 장애물, 빈 칸은 60개).</p><p><code>S.........</code><br><code>.####.###.</code><br><code>.#......#.</code><br><code>.#.####.#.</code><br><code>.#.#..#.#.</code><br><code>.#.#.##.#.</code><br><code>.#.#....#.</code><br><code>.#.######.</code><br><code>.#........</code><br><code>...#####.G</code></p><p>Dijkstra와 A*는 모두 비용 18의 같은 최적 경로를 찾았고, 확장한 노드 수는 Dijkstra가 58개, A*가 38개였다. 휴리스틱이 목표 쪽으로 탐색을 유도해 계산량을 줄인 것이다(동점 처리 순서에 따라 확장 수는 조금 달라질 수 있다).</p>"
+      "html": "<ul><li><strong>알고리즘 성질</strong>: Dijkstra는 간선 비용이 음수가 아니면, A*는 휴리스틱이 허용적(실제 비용을 과대평가하지 않음)이면 최적 경로를 보장한다([[a-star-algorithm|A* 알고리즘]]). RRT는 확률적 완전성을 갖지만 일반적으로 최적은 아니고, 표본이 늘면 최적에 수렴하도록 개선한 [[rrt-star|RRT*]]가 있다(Karaman &amp; Frazzoli, 2011).</li><li><strong>언제</strong>: 지도가 미리 주어지고 환경이 크게 변하지 않을 때(건물 도면이 있는 실내 배송 로봇 등) 전역 계획만으로도 효율적인 이동이 가능하다.</li><li><strong>한계</strong>: 지도에 없는 장애물에는 대응할 수 없고, 지도가 바뀌면 경로를 다시 계산해야 한다. 샘플링 기반 방법은 실행마다 다른 경로가 나올 수 있다.</li></ul><p><em>가상의 예(계산 결과).</em> 아래 10×10 격자에서 4방향 이동, 칸당 비용 1, 맨해튼 거리 휴리스틱으로 S에서 G까지 찾았다(#은 장애물, 빈 칸은 60개).</p><p><code>S.........</code><br><code>.####.###.</code><br><code>.#......#.</code><br><code>.#.####.#.</code><br><code>.#.#..#.#.</code><br><code>.#.#.##.#.</code><br><code>.#.#....#.</code><br><code>.#.######.</code><br><code>.#........</code><br><code>...#####.G</code></p><p>Dijkstra와 A*는 모두 비용 18의 같은 최적 경로를 찾았고, 확장한 노드 수는 Dijkstra가 58개, A*가 38개였다. 휴리스틱이 목표 쪽으로 탐색을 유도해 계산량을 줄인 것이다(동점 처리 순서에 따라 확장 수는 조금 달라질 수 있다).</p><p>격자 기반 방법은 형상공간에 격자를 덮고 인접 격자점 사이를 충돌 검사한 뒤 A* 같은 탐색으로 경로를 찾는다. 격자가 성기면 빠르지만 좁은 통로를 놓칠 수 있고, 격자점 수가 차원에 따라 지수적으로 늘어 저차원 문제에 알맞다. 표본추출 기반 방법(PRM, RRT)은 국소 최솟값을 피하고 고차원에 확장되지만, 실패가 ‘경로가 없다’는 증명은 되지 못한다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -55,6 +55,7 @@
     "Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107.",
     "LaValle, S. M. (2006). Planning Algorithms. Cambridge University Press.",
     "Kavraki, L. E., Švestka, P., Latombe, J.-C., & Overmars, M. H. (1996). Probabilistic roadmaps for path planning in high-dimensional configuration spaces. IEEE Transactions on Robotics and Automation, 12(4), 566–580.",
-    "Karaman, S., & Frazzoli, E. (2011). Sampling-based algorithms for optimal motion planning. The International Journal of Robotics Research, 30(7), 846–894."
+    "Karaman, S., & Frazzoli, E. (2011). Sampling-based algorithms for optimal motion planning. The International Journal of Robotics Research, 30(7), 846–894.",
+    "Wikipedia contributors. (n.d.). Motion planning. Wikipedia."
   ]
 }

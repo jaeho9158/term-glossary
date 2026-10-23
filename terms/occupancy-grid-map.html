@@ -155,7 +155,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>환경을 같은 크기의 셀로 나누고, 각 셀이 <strong>점유(장애물)되어 있을 확률</strong> p(occ)를 저장한다(Elfes, 1989).</li><li>보통 셀을 서로 독립으로 가정하고, 센서 관측이 들어올 때마다 베이즈 규칙으로 갱신한다. 독립 가정은 계산을 단순하게 하기 위한 근사이다(Thrun et al., 2005).</li><li>구현에서는 확률 대신 <strong>로그 오즈</strong> l = log(p/(1−p))를 저장한다. 그러면 갱신이 덧셈 l ← l + l_sensor − l_prior가 되고 0과 1 근처의 수치 문제도 줄어든다.</li><li>센서 모델에 따라 거리 측정이 닿은 셀은 ‘점유’ 쪽으로, 빔이 지나간 셀은 ‘비어 있음’ 쪽으로 갱신한다. 아직 보지 못한 셀은 p = 0.5(모름)로 둔다.</li><li><a href="metric-map.html">계량지도</a>의 한 종류이며, 장소와 연결 관계로 표현하는 <a href="topological-map.html">위상지도</a>와 대비된다. 3차원은 메모리 때문에 옥트리 같은 구조를 쓴다(OctoMap; Hornung et al., 2013).</li></ul>
+  <ul><li>환경을 같은 크기의 셀로 나누고, 각 셀이 <strong>점유(장애물)되어 있을 확률</strong> p(occ)를 저장한다(Elfes, 1989).</li><li>보통 셀을 서로 독립으로 가정하고, 센서 관측이 들어올 때마다 베이즈 규칙으로 갱신한다. 독립 가정은 계산을 단순하게 하기 위한 근사이다(Thrun et al., 2005).</li><li>구현에서는 확률 대신 <strong>로그 오즈</strong> l = log(p/(1−p))를 저장한다. 그러면 갱신이 덧셈 l ← l + l_sensor − l_prior가 되고 0과 1 근처의 수치 문제도 줄어든다.</li><li>센서 모델에 따라 거리 측정이 닿은 셀은 ‘점유’ 쪽으로, 빔이 지나간 셀은 ‘비어 있음’ 쪽으로 갱신한다. 아직 보지 못한 셀은 p = 0.5(모름)로 둔다.</li><li><a href="metric-map.html">계량지도</a>의 한 종류이며, 장소와 연결 관계로 표현하는 <a href="topological-map.html">위상지도</a>와 대비된다. 3차원은 메모리 때문에 옥트리 같은 구조를 쓴다(OctoMap; Hornung et al., 2013).</li></ul><p>점유격자 지도는 로봇의 자세를 안다고 가정하고 잡음 있는 센서 자료로 지도를 만드는 알고리즘군이다. 전체 지도의 사후분포는 다루기 어려워(10,000칸 지도면 가능한 지도가 2<sup>10,000</sup>가지) 셀별 추정의 곱으로 분해하며, 이 때문에 이웃 셀 사이의 의존은 모형에 반영되지 않는다. 점유격자는 1985년 Moravec과 Elfes가 제안했다.</p>
 
   <h2>예시로 보기</h2>
   <p><strong>가상의 예</strong> 한 셀의 초기값은 p = 0.5이므로 로그 오즈는 0이다. 센서가 이 셀을 ‘점유’라고 보고할 때의 역센서 모델을 p = 0.7(로그 오즈 ≈ +0.847)이라고 가정하면, 같은 셀에 관측이 누적될 때 점유 확률은 다음처럼 변한다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>점유 관측 횟수</th><th>누적 로그 오즈</th><th>점유 확률</th></tr></thead><tbody><tr><td>1</td><td>0.847</td><td>0.700</td></tr><tr><td>2</td><td>1.695</td><td>0.845</td></tr><tr><td>3</td><td>2.542</td><td>0.927</td></tr><tr><td>4</td><td>3.389</td><td>0.967</td></tr></tbody></table></div><p>여기에 ‘비어 있음’ 관측(p = 0.4, 로그 오즈 ≈ −0.405) 한 번이 들어오면 4회 누적 후 확률이 0.967에서 약 0.952로 내려간다. 즉 한 번의 반대 관측으로 뒤집히지 않고, 관측이 쌓일수록 확신이 커진다. 동적 장애물이 지나가면 이 누적 때문에 잔상이 남을 수 있어 실제 시스템은 값의 상·하한을 두어 ‘잊을’ 수 있게 한다.</p>
@@ -197,6 +197,7 @@
     <li>Moravec, H., &amp; Elfes, A. (1985). High resolution maps from wide angle sonar. Proceedings of the IEEE International Conference on Robotics and Automation.</li>
     <li>Thrun, S., Burgard, W., &amp; Fox, D. (2005). Probabilistic Robotics. MIT Press.</li>
     <li>Hornung, A., Wurm, K. M., Bennewitz, M., Stachniss, C., &amp; Burgard, W. (2013). OctoMap: An efficient probabilistic 3D mapping framework based on octrees. Autonomous Robots, 34(3), 189–206.</li>
+    <li>Wikipedia contributors. (n.d.). Occupancy grid mapping. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

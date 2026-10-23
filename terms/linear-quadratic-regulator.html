@@ -156,7 +156,7 @@
   <p>선형 시스템 <code>ẋ = Ax + Bu</code> 와 비용 <code>J = ∫(xᵀQx + uᵀRu) dt</code> 에서, 무한 구간 LQR은 다음 순서로 이득을 구한다.</p><ol><li>가중 행렬 Q(상태 오차의 비용, 반정치)와 R(입력 크기의 비용, 정치)을 정한다.</li><li>대수 리카티 방정식 <code>AᵀP + PA − P B R⁻¹ BᵀP + Q = 0</code> 을 푼다.</li><li>이득 <code>K = R⁻¹ BᵀP</code> 를 구하고 제어 법칙 <code>u = −K x</code> 를 쓴다.</li><li>(A, B)가 안정화 가능하고 (Q<sup>1/2</sup>, A)가 검출 가능하면 폐루프 A − BK 는 안정하다.</li></ol><p><strong>가상의 스칼라 예</strong>: ẋ = x + u (불안정한 플랜트, a = 1, b = 1)에서 Q = 1 로 두고 R 만 바꿔 보았다(코드 계산).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>R</th><th>P</th><th>이득 K</th><th>폐루프 극 a−bK</th><th>해석</th></tr></thead><tbody><tr><td>1</td><td>2.414</td><td>2.414</td><td>−1.414</td><td>기준</td></tr><tr><td>10</td><td>20.488</td><td>2.049</td><td>−1.049</td><td>입력에 더 큰 비용 → 이득 감소, 응답이 느려짐</td></tr><tr><td>1 (Q=10)</td><td>4.317</td><td>4.317</td><td>−3.317</td><td>상태 오차에 더 큰 비용 → 이득 증가, 응답이 빨라짐</td></tr></tbody></table></div><p>R이 크면 입력을 아끼므로 이득이 줄어 극이 덜 왼쪽에 놓이고, Q가 크면 오차를 빨리 줄이려 이득이 커진다. 이것이 Q와 R의 균형으로 성능을 조절한다는 설명의 구체적 모습이다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <ul><li><strong>언제 쓰나</strong>: 모델이 선형(또는 선형화 가능)하고 상태 전부를 쓸 수 있을 때 입력 에너지와 오차 사이의 균형을 정량적으로 정하려는 경우이다.</li><li><strong>얻는 것</strong>: 안정성이 보장되는 최적 이득과 체계적 설계 절차. 다입출력 시스템에도 같은 절차를 쓴다. 고전적으로 LQR은 입력 쪽에서 큰 안정 여유(위상 여유 60도 이상 등)를 갖는 것으로 알려져 있다.</li><li><strong>Q, R 선택</strong>: 시행착오가 많고, 브라이슨 규칙처럼 각 변수의 허용 최대값의 제곱의 역수로 대각 성분을 정하는 출발점이 교재에 소개된다(Bryson &amp; Ho, 1975).</li><li><strong>한계</strong>: 상태를 모두 안다고 가정하므로 실제로는 <a href="state-observer.html">상태 관측기</a>와 함께 쓰이고(LQG), 모델 오차에는 별도 강인성 검증이 필요하다.</li></ul>
+  <ul><li><strong>언제 쓰나</strong>: 모델이 선형(또는 선형화 가능)하고 상태 전부를 쓸 수 있을 때 입력 에너지와 오차 사이의 균형을 정량적으로 정하려는 경우이다.</li><li><strong>얻는 것</strong>: 안정성이 보장되는 최적 이득과 체계적 설계 절차. 다입출력 시스템에도 같은 절차를 쓴다. 고전적으로 LQR은 입력 쪽에서 큰 안정 여유(위상 여유 60도 이상 등)를 갖는 것으로 알려져 있다.</li><li><strong>Q, R 선택</strong>: 시행착오가 많고, 브라이슨 규칙처럼 각 변수의 허용 최대값의 제곱의 역수로 대각 성분을 정하는 출발점이 교재에 소개된다(Bryson &amp; Ho, 1975).</li><li><strong>한계</strong>: 상태를 모두 안다고 가정하므로 실제로는 <a href="state-observer.html">상태 관측기</a>와 함께 쓰이고(LQG), 모델 오차에는 별도 강인성 검증이 필요하다.</li></ul><p>LQR 비용 함수에서 Q는 상태 비용 행렬, R은 제어 비용 행렬이며 각각 상태 편차와 제어 노력에 가중을 준다. 유한 구간 연속시간 문제에서는 행렬 P를 리카티 미분방정식으로 구하고, 최적 제어 법칙은 상태 피드백 u = −Kx이다. LQR 제어기는 이득 여유와 위상 여유가 보장되는 고유한 강인성을 지닌다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>플랜트 모델과 선형화 점, Q·R 값, 선택 이유(튜닝 과정)를 적는다.</li><li>이득 K와 폐루프 극, 비용 함수 값을 제시한다.</li><li>시뮬레이션·실험에서 상태 응답, 입력 크기(포화 여부), 정착시간, 정상상태 오차를 보이고 Q, R를 바꾼 민감도 결과를 함께 보인다.</li><li>모든 상태를 측정하지 않았다면 추정기를 쓴 구성임을 명시한다.</li></ul>
@@ -189,6 +189,7 @@
     <li>Kalman, R. E. (1960). Contributions to the theory of optimal control. Boletín de la Sociedad Matemática Mexicana, 5, 102–119.</li>
     <li>Anderson, B. D. O., &amp; Moore, J. B. (1990). Optimal Control: Linear Quadratic Methods. Prentice Hall.</li>
     <li>Bryson, A. E., &amp; Ho, Y.-C. (1975). Applied Optimal Control: Optimization, Estimation, and Control. Hemisphere Publishing.</li>
+    <li>Wikipedia contributors. (n.d.). Linear–quadratic regulator. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

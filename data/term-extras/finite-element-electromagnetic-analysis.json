@@ -41,12 +41,13 @@
     "Jin, J.-M. (2014). The Finite Element Method in Electromagnetics (3rd ed.). Wiley-IEEE Press.",
     "Bastos, J. P. A., & Sadowski, N. (2003). Electromagnetic Modeling by Finite Element Methods. Marcel Dekker.",
     "Silvester, P. P., & Ferrari, R. L. (1996). Finite Elements for Electrical Engineers (3rd ed.). Cambridge University Press.",
-    "Salon, S. J. (1995). Finite Element Analysis of Electrical Machines. Kluwer Academic Publishers."
+    "Salon, S. J. (1995). Finite Element Analysis of Electrical Machines. Kluwer Academic Publishers.",
+    "Wikipedia contributors. (n.d.). Finite element method. Wikipedia."
   ],
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ol><li><strong>문제 정의</strong>: 해석 영역, 재료(투자율·도전율·B–H 곡선), 전류·전압·자석 같은 가진(excitation)을 정한다.</li><li><strong>지배방정식 고르기</strong>: 정자기(시간에 따라 변하지 않는 자기장), 와전류를 포함하는 준정적 해석, 시간 영역 과도해석, 고주파 전파 해석 등 문제에 맞는 맥스웰 방정식 꼴을 택한다([[maxwells-equations|맥스웰 방정식]]). 2차원 정자기에서는 자기벡터퍼텐셜의 한 성분만 미지수로 두는 경우가 흔하다.</li><li><strong>요소망(mesh) 생성</strong>: 영역을 삼각형(2차원)이나 사면체(3차원) 요소로 나눈다. 공극이나 모서리처럼 자속이 급변하는 곳은 더 조밀하게 한다. 3차원 벡터장에서는 불필요한 가짜 해를 피하기 위해 변(edge)에 자유도를 두는 요소를 쓰는 것이 일반적이다(Jin, 2014).</li><li><strong>경계조건</strong>: 자속이 경계에 평행하거나 수직인 조건, 회전기에서 한 극만 떼어 해석하기 위한 주기·반주기 조건 등을 준다.</li><li><strong>풀이</strong>: 포화되는 철심은 비선형이므로 반복법(뉴턴–랩슨 등)으로 수렴할 때까지 계산한다.</li><li><strong>후처리</strong>: 자속밀도 분포, 토크(맥스웰 응력 텐서나 가상일 원리), 인덕턴스, 손실 등을 계산한다.</li></ol>"
+      "html": "<ol><li><strong>문제 정의</strong>: 해석 영역, 재료(투자율·도전율·B–H 곡선), 전류·전압·자석 같은 가진(excitation)을 정한다.</li><li><strong>지배방정식 고르기</strong>: 정자기(시간에 따라 변하지 않는 자기장), 와전류를 포함하는 준정적 해석, 시간 영역 과도해석, 고주파 전파 해석 등 문제에 맞는 맥스웰 방정식 꼴을 택한다([[maxwells-equations|맥스웰 방정식]]). 2차원 정자기에서는 자기벡터퍼텐셜의 한 성분만 미지수로 두는 경우가 흔하다.</li><li><strong>요소망(mesh) 생성</strong>: 영역을 삼각형(2차원)이나 사면체(3차원) 요소로 나눈다. 공극이나 모서리처럼 자속이 급변하는 곳은 더 조밀하게 한다. 3차원 벡터장에서는 불필요한 가짜 해를 피하기 위해 변(edge)에 자유도를 두는 요소를 쓰는 것이 일반적이다(Jin, 2014).</li><li><strong>경계조건</strong>: 자속이 경계에 평행하거나 수직인 조건, 회전기에서 한 극만 떼어 해석하기 위한 주기·반주기 조건 등을 준다.</li><li><strong>풀이</strong>: 포화되는 철심은 비선형이므로 반복법(뉴턴–랩슨 등)으로 수렴할 때까지 계산한다.</li><li><strong>후처리</strong>: 자속밀도 분포, 토크(맥스웰 응력 텐서나 가상일 원리), 인덕턴스, 손실 등을 계산한다.</li></ol>\n<p>유한요소법은 큰 문제를 유한요소라는 작은 부분으로 나누어 영역 전체의 미지 함수를 근사하고, 그 결과로 얻는 대수 방정식을 컴퓨터로 푼다. 영역을 격자로 나누고 요소 방정식을 전체 방정식으로 조립하며, 격자는 삼각형이 흔하고 기저 함수는 대개 구간별 다항식이다. 격자 크기 h에 대해 오차가 C·h<sup>p</sup>로 제한되면 p차 방법이라 한다. 전자기학의 예로 코일, 강자성체, 공기에 각각 물성을 부여하는 자기 차폐 문제가 있으며, 이런 배치의 자기장은 닫힌 해가 현실적이지 않아 유한요소법 없이는 계산하기 매우 어렵다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",

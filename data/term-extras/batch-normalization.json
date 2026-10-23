@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<ul><li><strong>얻는 것</strong>: 더 큰 학습률에서도 안정적으로 학습되고, 초기화에 덜 민감하며, 배치 통계의 잡음 덕에 약한 정규화(regularization) 효과도 보고된다(Ioffe &amp; Szegedy, 2015).</li><li><strong>왜 효과가 있나</strong>: 원 논문은 층 입력 분포가 학습 중 계속 바뀌는 “내부 공변량 변화”를 줄이기 때문이라고 설명했지만, Santurkar 등(2018)은 그보다 손실 함수의 지형을 더 매끄럽게 하기 때문이라고 보고했다. 효과의 원인은 아직 논쟁 중이며 페이지의 쉬운 설명은 원 논문의 설명을 따른 것이다.</li><li><strong>한계</strong>: 배치 크기가 작으면 평균·분산 추정이 불안정하고, 순차 데이터 모형에는 쓰기 불편하다. 이를 보완해 배치가 아닌 축으로 정규화하는 [[layer-normalization|레이어 정규화]](Ba et al., 2016)와 그룹 정규화(Wu &amp; He, 2018) 등이 나왔다.</li></ul>"
+      "html": "<ul><li><strong>얻는 것</strong>: 더 큰 학습률에서도 안정적으로 학습되고, 초기화에 덜 민감하며, 배치 통계의 잡음 덕에 약한 정규화(regularization) 효과도 보고된다(Ioffe &amp; Szegedy, 2015).</li><li><strong>왜 효과가 있나</strong>: 원 논문은 층 입력 분포가 학습 중 계속 바뀌는 “내부 공변량 변화”를 줄이기 때문이라고 설명했지만, Santurkar 등(2018)은 그보다 손실 함수의 지형을 더 매끄럽게 하기 때문이라고 보고했다. 효과의 원인은 아직 논쟁 중이며 페이지의 쉬운 설명은 원 논문의 설명을 따른 것이다.</li><li><strong>한계</strong>: 배치 크기가 작으면 평균·분산 추정이 불안정하고, 순차 데이터 모형에는 쓰기 불편하다. 이를 보완해 배치가 아닌 축으로 정규화하는 [[layer-normalization|레이어 정규화]](Ba et al., 2016)와 그룹 정규화(Wu &amp; He, 2018) 등이 나왔다.</li></ul><p>배치 정규화는 2015년 Sergey Ioffe와 Christian Szegedy가 학습을 빠르고 안정적으로 만들려고 제안했다. 처음에는 층 입력의 분포가 학습 중 변하는 ‘내부 공변량 이동’을 줄이려는 방법으로 설명되었다. 각 층은 정규화 뒤에 학습되는 크기 γ와 이동 β를 적용한다. 학습 때는 미니배치의 통계를 쓰고 추론 때는 모집단 통계(평균 E[x], 분산 Var[x])로 바꿔 출력을 결정적으로 만든다. Santurkar 등(2018)은 이 설명에 이의를 제기하며 주된 효과가 손실 지형을 매끄럽게 하는 것이라고 주장했다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -54,6 +54,7 @@
     "Ioffe, S., & Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. Proceedings of the 32nd International Conference on Machine Learning, 37, 448–456.",
     "Santurkar, S., Tsipras, D., Ilyas, A., & Madry, A. (2018). How does batch normalization help optimization? Advances in Neural Information Processing Systems, 31.",
     "Ba, J. L., Kiros, J. R., & Hinton, G. E. (2016). Layer normalization. arXiv preprint.",
-    "Wu, Y., & He, K. (2018). Group normalization. Proceedings of the European Conference on Computer Vision."
+    "Wu, Y., & He, K. (2018). Group normalization. Proceedings of the European Conference on Computer Vision.",
+    "Wikipedia contributors. (n.d.). Batch normalization. In Wikipedia, The Free Encyclopedia."
   ]
 }

@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<ul><li><strong>언제</strong>: 에너지관리시스템(EMS)에서 SCADA·PMU 측정값을 받아 주기적으로 계통 상태를 구할 때 쓰고, 결과는 안전도 해석과 최적조류계산의 입력이 된다.</li><li><strong>얻는 것</strong>: 측정되지 않은 모선을 포함한 전체 모선의 전압·위상각, 측정 오차가 걸러진 조류, 의심 측정값 목록이다.</li><li><strong>한계</strong>: WLS는 오차가 정규분포를 따른다는 가정에 기대어 극단적 이상치에 취약하므로 불량 데이터 검출이나 강건 추정과 함께 쓰인다. 측정점이 부족하거나 통신 오류가 크면 정확도가 크게 떨어진다.</li></ul><p><em>가상의 예(계산 결과).</em> 모선 3개, 선로 리액턴스 x₁₂ = 0.1, x₁₃ = 0.2, x₂₃ = 0.1 pu의 직류 근사 모형에서 모선 1을 기준(위상각 0)으로 한다. 측정값은 P₁₂ = 0.520, P₁₃ = 0.390, P₂₃ = 0.315, 모선 2의 주입 P₂ = −0.230 pu이고 표준편차는 모두 0.01 pu로 둔다(측정 4개, 상태 2개). WLS로 풀면 θ₂ = −0.0519 rad, θ₃ = −0.0817 rad이며 잔차는 (0.0008, −0.0183, 0.0175, −0.0083), 목적함수 J = 7.13이다. 자유도 2의 카이제곱 95% 기준값 5.99를 넘으므로 이 측정 집합에는 불량 데이터가 있을 수 있다고 판단하고 정규화 잔차 검정으로 의심 측정을 찾게 된다. 이 예의 측정값은 참값(θ₂ = −0.05, θ₃ = −0.08)에 오차를 손으로 더해 만들었다.</p>"
+      "html": "<ul><li><strong>언제</strong>: 에너지관리시스템(EMS)에서 SCADA·PMU 측정값을 받아 주기적으로 계통 상태를 구할 때 쓰고, 결과는 안전도 해석과 최적조류계산의 입력이 된다.</li><li><strong>얻는 것</strong>: 측정되지 않은 모선을 포함한 전체 모선의 전압·위상각, 측정 오차가 걸러진 조류, 의심 측정값 목록이다.</li><li><strong>한계</strong>: WLS는 오차가 정규분포를 따른다는 가정에 기대어 극단적 이상치에 취약하므로 불량 데이터 검출이나 강건 추정과 함께 쓰인다. 측정점이 부족하거나 통신 오류가 크면 정확도가 크게 떨어진다.</li></ul><p><em>가상의 계산 예.</em> 모선 3개, 선로 리액턴스 x₁₂ = 0.1, x₁₃ = 0.2, x₂₃ = 0.1 pu의 직류 근사 모형에서 모선 1을 기준(위상각 0)으로 한다. 측정값은 P₁₂ = 0.520, P₁₃ = 0.390, P₂₃ = 0.315, 모선 2의 주입 P₂ = −0.230 pu이고 표준편차는 모두 0.01 pu로 둔다(측정 4개, 상태 2개). WLS로 풀면 θ₂ = −0.0519 rad, θ₃ = −0.0817 rad이며 잔차는 (0.0008, −0.0183, 0.0175, −0.0083), 목적함수 J = 7.13이다. 자유도 2의 카이제곱 95% 기준값 5.99를 넘으므로 이 측정 집합에는 불량 데이터가 있을 수 있다고 판단하고 정규화 잔차 검정으로 의심 측정을 찾게 된다. 이 예의 측정값은 참값(θ₂ = −0.05, θ₃ = −0.08)에 오차를 손으로 더해 만들었다.</p><ul><li><strong>선형 추정으로의 확장</strong>: 비선형 측정 함수 때문에 반복 계산이 필요한 기존 WLS와 달리, PMU의 전압·전류 위상 측정을 직교 좌표로 쓰고 기존 측정값(RTU)을 유사측정으로 바꿔 선형 WLS로 푸는 방법이 제안되었다(Jovicic &amp; Hug, 2020). RTU와 PMU 측정이 섞인 계통에서 불량 데이터 검출을 함께 다룬다.</li><li><strong>불량 데이터 검정의 쓰임</strong>: 카이제곱 검정은 목적함수 J의 전체 크기로 불량 데이터 존재 여부를 판단하고, 최대 정규화 잔차 검정은 잔차를 공분산으로 정규화한 값 가운데 가장 큰 것이 문턱을 넘으면 그 측정을 의심 대상으로 삼아 제거한 뒤 다시 추정한다.</li></ul>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -54,6 +54,7 @@
     "Schweppe, F. C., & Wildes, J. (1970). Power system static-state estimation, Part I: Exact model. IEEE Transactions on Power Apparatus and Systems, PAS-89(1), 120–125.",
     "Abur, A., & Gómez Expósito, A. (2004). Power System State Estimation: Theory and Implementation. Marcel Dekker.",
     "Monticelli, A. (1999). State Estimation in Electric Power Systems: A Generalized Approach. Kluwer Academic.",
-    "Handschin, E., Schweppe, F. C., Kohlas, J., & Fiechter, A. (1975). Bad data analysis for power system state estimation. IEEE Transactions on Power Apparatus and Systems, 94(2), 329–337."
+    "Handschin, E., Schweppe, F. C., Kohlas, J., & Fiechter, A. (1975). Bad data analysis for power system state estimation. IEEE Transactions on Power Apparatus and Systems, 94(2), 329–337.",
+    "Jovicic, A., & Hug, G. (2020). Linear state estimation and bad data detection for power systems with RTU and PMU measurements. arXiv:2001.10764."
   ]
 }

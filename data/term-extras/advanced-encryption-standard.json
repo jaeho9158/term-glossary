@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<ul><li><strong>쓰이는 곳</strong>: 파일·디스크 암호화, 통신 보안(TLS 등), 무선 통신, 저장 매체 보호에 널리 쓰인다. 많은 프로세서가 AES 전용 명령어를 지원해 속도가 빠르다.</li><li><strong>운용 모드가 필요</strong>: 블록 암호 하나만으로는 128비트 블록만 처리하므로, 긴 데이터에는 운용 모드가 필요하다(Dworkin, 2001). ECB는 같은 평문 블록이 같은 암호문 블록이 되어 패턴이 드러나기 쉽고, CBC와 CTR는 초기화 벡터나 카운터를 쓴다. 인증을 겸하는 GCM은 Dworkin(2007)이 규정한다([[block-cipher-mode-of-operation|운용 모드]], [[aes-gcm|AES-GCM]]).</li><li><strong>안전성의 수준</strong>: 128비트 키를 전수 탐색하려면 2<sup>128</sup> ≈ 3.4×10<sup>38</sup>번의 시도가 필요하다. 초당 10<sup>12</sup>개 키를 시험할 수 있다고 가상으로 가정하면 약 1.1×10<sup>19</sup>년으로, 우주 나이(약 1.4×10<sup>10</sup>년)의 약 8억 배이다. 전수 탐색은 현실적이지 않다.</li><li><strong>알려진 분석</strong>: 완전한 라운드를 가진 AES에 대해 공개된 최선의 키 복구 분석은 전수 탐색보다 약간 나은 수준(AES-128에 대해 약 2<sup>126.1</sup>, Bogdanov, Khovratovich, &amp; Rechberger, 2011)으로, 실용적 위협은 아니다. 실제 사고는 알고리즘보다 구현(부채널)이나 모드·키 관리의 오용에서 생긴다고 논의된다.</li></ul>"
+      "html": "<ul><li><strong>쓰이는 곳</strong>: 파일·디스크 암호화, 통신 보안(TLS 등), 무선 통신, 저장 매체 보호에 널리 쓰인다. 많은 프로세서가 AES 전용 명령어를 지원해 속도가 빠르다.</li><li><strong>운용 모드가 필요</strong>: 블록 암호 하나만으로는 128비트 블록만 처리하므로, 긴 데이터에는 운용 모드가 필요하다(Dworkin, 2001). ECB는 같은 평문 블록이 같은 암호문 블록이 되어 패턴이 드러나기 쉽고, CBC와 CTR는 초기화 벡터나 카운터를 쓴다. 인증을 겸하는 GCM은 Dworkin(2007)이 규정한다([[block-cipher-mode-of-operation|운용 모드]], [[aes-gcm|AES-GCM]]).</li><li><strong>안전성의 수준</strong>: 128비트 키를 전수 탐색하려면 2<sup>128</sup> ≈ 3.4×10<sup>38</sup>번의 시도가 필요하다. 초당 10<sup>12</sup>개 키를 시험할 수 있다고 가상으로 가정하면 약 1.1×10<sup>19</sup>년으로, 우주 나이(약 1.4×10<sup>10</sup>년)의 약 8억 배이다. 전수 탐색은 현실적이지 않다.</li><li><strong>알려진 분석</strong>: 완전한 라운드를 가진 AES에 대해 공개된 최선의 키 복구 분석은 전수 탐색보다 약간 나은 수준(AES-128에 대해 약 2<sup>126.1</sup>, Bogdanov, Khovratovich, &amp; Rechberger, 2011)으로, 실용적 위협은 아니다. 실제 사고는 알고리즘보다 구현(부채널)이나 모드·키 관리의 오용에서 생긴다고 논의된다.</li></ul><p>AES는 2001년 11월 26일 FIPS PUB 197로 발표되었고 2002년 5월 26일 미국 연방 표준으로 발효되었다. 미국 정부는 2003년 정책에서 AES의 모든 키 길이가 SECRET 등급까지의 정보를 보호하기에 충분하고 TOP SECRET에는 192비트나 256비트 키가 필요하다고 밝혔으며, 이후 NSA 지침은 기밀 정보에 256비트 키만 허용한다. 알려진 최선의 공격(biclique)도 AES-128은 약 2<sup>126</sup>, AES-192는 약 2<sup>190</sup>, AES-256은 약 2<sup>254</sup> 연산이 필요해 실용적이지 않다. 현실의 위험은 알고리즘보다 구현의 부채널(캐시 타이밍 등) 쪽에 있으며, 전용 명령어(AES-NI)는 이런 타이밍 공격에 대한 방어에도 도움이 된다. 속도는 Intel Westmere 프로세서의 AES-NI에서 AES-128이 바이트당 약 1.3사이클이다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -60,6 +60,7 @@
     "Dworkin, M. (2001). Recommendation for Block Cipher Modes of Operation: Methods and Techniques (NIST Special Publication 800-38A).",
     "Daemen, J., & Rijmen, V. (2002). The Design of Rijndael: AES, the Advanced Encryption Standard. Springer.",
     "Dworkin, M. (2007). Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC (NIST Special Publication 800-38D).",
-    "Bogdanov, A., Khovratovich, D., & Rechberger, C. (2011). Biclique cryptanalysis of the full AES. In Advances in Cryptology: ASIACRYPT 2011 (LNCS 7073, pp. 344–371). Springer."
+    "Bogdanov, A., Khovratovich, D., & Rechberger, C. (2011). Biclique cryptanalysis of the full AES. In Advances in Cryptology: ASIACRYPT 2011 (LNCS 7073, pp. 344–371). Springer.",
+    "Wikipedia contributors. (n.d.). Advanced Encryption Standard. In Wikipedia, The Free Encyclopedia."
   ]
 }

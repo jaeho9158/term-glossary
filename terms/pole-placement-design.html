@@ -156,6 +156,7 @@
   <p>시스템 x' = Ax + Bu에 상태 피드백 u = −Kx를 걸면 폐루프 행렬은 A − BK가 된다. 극배치 설계는 <strong>A − BK의 고유값(폐루프 극점)이 원하는 위치에 오도록 K를 정하는 것</strong>이다.</p>
   <ol><li>요구 성능(오버슈트, 정착시간, 감쇠비)을 목표 극점으로 바꾼다.</li><li>쌍 (A, B)가 <strong>제어가능</strong>한지 확인한다. 제어가능성 행렬의 계수가 상태 수 n과 같으면 극점을 임의로 옮길 수 있다는 것이 Wonham(1967)의 결과이다.</li><li>특성다항식을 맞춰 K를 구한다. 입력이 하나인 경우 Ackermann 공식이 대표적인 계산법이다.</li><li>폐루프의 고유값과 시간 응답을 검증한다.</li></ol>
   <p>입력이 둘 이상이면 같은 극점을 만드는 K가 하나로 정해지지 않으므로, 남는 자유도를 강건성에 쓰는 방법이 연구되었다(Kautsky et al., 1985).</p>
+  <p>단일 입력 시스템의 이득은 Ackermann 공식 K = [0 ⋯ 0 1]·C⁻¹·Δ(A)로 구한다. 여기서 C는 제어가능성 행렬, Δ는 원하는 특성다항식이며, C가 가역이어야 하므로 시스템이 제어가능해야 한다. 이 공식은 1972년 Jürgen Ackermann이 발표했다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <p>예로 이중 적분기 x1' = x2, x2' = u를 본다. A = [[0, 1], [0, 0]], B = [0, 1]이고 제어가능하다. 요구 성능을 감쇠비 ζ = 0.7, 고유진동수 ωn = 2 rad/s로 잡는다(숫자는 설명용). 목표 특성다항식은 s² + 2ζωn s + ωn² = s² + 2.8s + 4이다. 폐루프 특성다항식은 s² + k2 s + k1이므로 K = [4, 2.8]이다.</p>
@@ -197,6 +198,7 @@
     <li>Kautsky, J., Nichols, N. K., &amp; Van Dooren, P. (1985). Robust pole assignment in linear state feedback. International Journal of Control, 41(5), 1129–1155.</li>
     <li>Franklin, G. F., Powell, J. D., &amp; Emami-Naeini, A. (2019). Feedback Control of Dynamic Systems (8th ed.). Pearson.</li>
     <li>Åström, K. J., &amp; Murray, R. M. (2021). Feedback Systems: An Introduction for Scientists and Engineers (2nd ed.). Princeton University Press.</li>
+    <li>Wikipedia contributors. (n.d.). Ackermann's formula. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

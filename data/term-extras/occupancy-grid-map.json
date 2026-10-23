@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>환경을 같은 크기의 셀로 나누고, 각 셀이 <strong>점유(장애물)되어 있을 확률</strong> p(occ)를 저장한다(Elfes, 1989).</li><li>보통 셀을 서로 독립으로 가정하고, 센서 관측이 들어올 때마다 베이즈 규칙으로 갱신한다. 독립 가정은 계산을 단순하게 하기 위한 근사이다(Thrun et al., 2005).</li><li>구현에서는 확률 대신 <strong>로그 오즈</strong> l = log(p/(1−p))를 저장한다. 그러면 갱신이 덧셈 l ← l + l_sensor − l_prior가 되고 0과 1 근처의 수치 문제도 줄어든다.</li><li>센서 모델에 따라 거리 측정이 닿은 셀은 ‘점유’ 쪽으로, 빔이 지나간 셀은 ‘비어 있음’ 쪽으로 갱신한다. 아직 보지 못한 셀은 p = 0.5(모름)로 둔다.</li><li>[[metric-map|계량지도]]의 한 종류이며, 장소와 연결 관계로 표현하는 [[topological-map|위상지도]]와 대비된다. 3차원은 메모리 때문에 옥트리 같은 구조를 쓴다(OctoMap; Hornung et al., 2013).</li></ul>"
+      "html": "<ul><li>환경을 같은 크기의 셀로 나누고, 각 셀이 <strong>점유(장애물)되어 있을 확률</strong> p(occ)를 저장한다(Elfes, 1989).</li><li>보통 셀을 서로 독립으로 가정하고, 센서 관측이 들어올 때마다 베이즈 규칙으로 갱신한다. 독립 가정은 계산을 단순하게 하기 위한 근사이다(Thrun et al., 2005).</li><li>구현에서는 확률 대신 <strong>로그 오즈</strong> l = log(p/(1−p))를 저장한다. 그러면 갱신이 덧셈 l ← l + l_sensor − l_prior가 되고 0과 1 근처의 수치 문제도 줄어든다.</li><li>센서 모델에 따라 거리 측정이 닿은 셀은 ‘점유’ 쪽으로, 빔이 지나간 셀은 ‘비어 있음’ 쪽으로 갱신한다. 아직 보지 못한 셀은 p = 0.5(모름)로 둔다.</li><li>[[metric-map|계량지도]]의 한 종류이며, 장소와 연결 관계로 표현하는 [[topological-map|위상지도]]와 대비된다. 3차원은 메모리 때문에 옥트리 같은 구조를 쓴다(OctoMap; Hornung et al., 2013).</li></ul><p>점유격자 지도는 로봇의 자세를 안다고 가정하고 잡음 있는 센서 자료로 지도를 만드는 알고리즘군이다. 전체 지도의 사후분포는 다루기 어려워(10,000칸 지도면 가능한 지도가 2<sup>10,000</sup>가지) 셀별 추정의 곱으로 분해하며, 이 때문에 이웃 셀 사이의 의존은 모형에 반영되지 않는다. 점유격자는 1985년 Moravec과 Elfes가 제안했다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -49,6 +49,7 @@
     "Elfes, A. (1989). Using occupancy grids for mobile robot perception and navigation. Computer, 22(6), 46–57.",
     "Moravec, H., & Elfes, A. (1985). High resolution maps from wide angle sonar. Proceedings of the IEEE International Conference on Robotics and Automation.",
     "Thrun, S., Burgard, W., & Fox, D. (2005). Probabilistic Robotics. MIT Press.",
-    "Hornung, A., Wurm, K. M., Bennewitz, M., Stachniss, C., & Burgard, W. (2013). OctoMap: An efficient probabilistic 3D mapping framework based on octrees. Autonomous Robots, 34(3), 189–206."
+    "Hornung, A., Wurm, K. M., Bennewitz, M., Stachniss, C., & Burgard, W. (2013). OctoMap: An efficient probabilistic 3D mapping framework based on octrees. Autonomous Robots, 34(3), 189–206.",
+    "Wikipedia contributors. (n.d.). Occupancy grid mapping. Wikipedia."
   ]
 }

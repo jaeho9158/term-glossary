@@ -156,7 +156,7 @@
   <p>프로그래머는 두 함수를 정의한다. Map은 입력 조각 하나를 읽어 (키, 값) 쌍들을 내고, Reduce는 같은 키로 모인 값들을 합쳐 결과를 낸다(Dean &amp; Ghemawat, 2004). 사이의 <strong>셔플</strong> 단계에서 같은 키의 쌍이 같은 Reduce 작업으로 모인다. 입력 분할, 작업 배정, 장애 시 작업 재실행은 실행 시스템이 맡는다.</p><p><strong>가상의 예(계산함)</strong>: 세 개의 짧은 문서 “a b a”, “b c”, “a c c”의 단어 수를 세는 경우이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>단계</th><th>결과</th></tr></thead><tbody><tr><td>Map(문서마다 단어별 (단어, 1) 출력)</td><td>(a,1) (b,1) (a,1) / (b,1) (c,1) / (a,1) (c,1) (c,1)</td></tr><tr><td>셔플(키별 묶음)</td><td>a: [1,1,1], b: [1,1], c: [1,1,1]</td></tr><tr><td>Reduce(합산)</td><td>a=3, b=2, c=3</td></tr></tbody></table></div><p>같은 키를 같은 Reduce가 받는다는 점만 보장되면 문서를 어느 컴퓨터가 처리하든 결과가 같아서, 컴퓨터를 늘려 병렬화하기 쉽다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>한 대의 컴퓨터에 담기 어려운 로그, 문서, 센서 자료에 단순한 집계나 변환을 적용할 때 쓰인다. 대표적 오픈소스 구현은 하둡(Hadoop)이며(White, 2015), 국내 논문에서도 하둡 분산파일시스템과 함께 대용량 자료 분석 시스템을 제안하는 형태로 많이 등장한다.</p><ul><li><strong>이점</strong>: 병렬화 세부를 숨겨 주고, 범용 서버 장애가 있어도 해당 작업만 재실행해 완주한다.</li><li><strong>한계</strong>: 단계마다 중간 결과를 디스크에 기록하므로 반복 계산(기계학습, 그래프 계산)에는 느리다. 이를 보완하려고 중간 결과를 메모리에 유지하는 후속 시스템이 나왔다(Zaharia 외, 2012).</li><li><strong>주의</strong>: 특정 키에 자료가 쏠리면 한 Reduce 작업이 전체 시간을 늦추므로 키 설계가 성능을 좌우한다.</li></ul>
+  <p>한 대의 컴퓨터에 담기 어려운 로그, 문서, 센서 자료에 단순한 집계나 변환을 적용할 때 쓰인다. 대표적 오픈소스 구현은 하둡(Hadoop)이며(White, 2015), 국내 논문에서도 하둡 분산파일시스템과 함께 대용량 자료 분석 시스템을 제안하는 형태로 많이 등장한다.</p><ul><li><strong>이점</strong>: 병렬화 세부를 숨겨 주고, 범용 서버 장애가 있어도 해당 작업만 재실행해 완주한다.</li><li><strong>한계</strong>: 단계마다 중간 결과를 디스크에 기록하므로 반복 계산(기계학습, 그래프 계산)에는 느리다. 이를 보완하려고 중간 결과를 메모리에 유지하는 후속 시스템이 나왔다(Zaharia 외, 2012).</li><li><strong>주의</strong>: 특정 키에 자료가 쏠리면 한 Reduce 작업이 전체 시간을 늦추므로 키 설계가 성능을 좌우한다.</li></ul><p>실행 시스템의 마스터 노드가 응답이 없는 노드를 장애로 보고 그 작업을 다른 노드에 다시 배정한다. 비판도 있었는데, DeWitt와 Stonebraker는 인터페이스가 너무 저수준이고 Teradata 같은 앞선 선례가 있어 새롭지 않다고 주장했다. Google은 2014년경 MapReduce를 주된 대용량 처리 모델로 쓰지 않게 되었다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>클러스터 구성(노드 수, 코어, 메모리)과 소프트웨어 버전</li><li>자료의 크기와 형식, Map·Reduce가 하는 일(키와 값을 무엇으로 정했는지)</li><li>Map·Reduce 작업의 수, 중간 결과를 줄이는 장치(컴바이너 사용 여부)</li><li>비교 대상(단일 서버, 다른 분산 프레임워크)과 지표(처리 시간, 노드 수에 따른 확장성)</li><li>자료 쏠림과 장애 처리에 대한 논의</li></ul>
@@ -197,6 +197,7 @@
     <li>Ghemawat, S., Gobioff, H., &amp; Leung, S.-T. (2003). The Google file system. Proceedings of the 19th ACM Symposium on Operating Systems Principles (SOSP).</li>
     <li>Zaharia, M., Chowdhury, M., Das, T., Dave, A., Ma, J., McCauley, M., Franklin, M. J., Shenker, S., &amp; Stoica, I. (2012). Resilient distributed datasets: A fault-tolerant abstraction for in-memory cluster computing. Proceedings of the 9th USENIX Symposium on Networked Systems Design and Implementation (NSDI).</li>
     <li>White, T. (2015). Hadoop: The Definitive Guide (4th ed.). O'Reilly Media.</li>
+    <li>Wikipedia contributors. (n.d.). MapReduce. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

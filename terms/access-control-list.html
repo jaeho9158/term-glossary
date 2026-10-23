@@ -155,7 +155,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>접근제어목록(ACL)은 <strong>자원(파일·장치·네트워크 인터페이스)마다</strong> ‘누가 무엇을 할 수 있는가’를 항목(주체, 권한, 허용/거부)의 목록으로 붙여 두는 방식이다. 자원 쪽에서 보면 열이 하나의 ACL이 된다(Lampson, 1971).</li><li>접근제어 행렬(주체 × 객체 × 권한)을 <strong>열 단위로 저장</strong>하면 ACL, <strong>행 단위로 저장</strong>하면 능력목록(capability list)이다. ACL은 ‘이 자원에 접근 가능한 주체’를 보기 쉽고, 능력목록은 ‘이 주체가 할 수 있는 일’을 보기 쉽다.</li><li>파일시스템에서는 소유자·그룹·기타 같은 기본 권한 비트를 넘어서 주체별 항목을 붙이는 확장 ACL로 쓰인다.</li><li>라우터·방화벽의 ACL은 규칙을 <strong>위에서부터 차례로</strong> 검사해 처음 일치하는 규칙을 적용하고, 어느 규칙에도 일치하지 않으면 거부하는 것이 일반적인 설계이다. 그래서 규칙의 <strong>순서</strong>가 결과를 바꾼다.</li><li>관련 설계 원칙은 최소 권한과 기본 거부(fail-safe default)이다(Saltzer &amp; Schroeder, 1975).</li></ul>
+  <ul><li>접근제어목록(ACL)은 <strong>자원(파일·장치·네트워크 인터페이스)마다</strong> ‘누가 무엇을 할 수 있는가’를 항목(주체, 권한, 허용/거부)의 목록으로 붙여 두는 방식이다. 자원 쪽에서 보면 열이 하나의 ACL이 된다(Lampson, 1971).</li><li>접근제어 행렬(주체 × 객체 × 권한)을 <strong>열 단위로 저장</strong>하면 ACL, <strong>행 단위로 저장</strong>하면 능력목록(capability list)이다. ACL은 ‘이 자원에 접근 가능한 주체’를 보기 쉽고, 능력목록은 ‘이 주체가 할 수 있는 일’을 보기 쉽다.</li><li>파일시스템에서는 소유자·그룹·기타 같은 기본 권한 비트를 넘어서 주체별 항목을 붙이는 확장 ACL로 쓰인다.</li><li>라우터·방화벽의 ACL은 규칙을 <strong>위에서부터 차례로</strong> 검사해 처음 일치하는 규칙을 적용하고, 어느 규칙에도 일치하지 않으면 거부하는 것이 일반적인 설계이다. 그래서 규칙의 <strong>순서</strong>가 결과를 바꾼다.</li><li>관련 설계 원칙은 최소 권한과 기본 거부(fail-safe default)이다(Saltzer &amp; Schroeder, 1975).</li></ul><p>ACL의 첫 구현은 1965년 Multics 파일 시스템에서 나왔다. 유닉스 계열에서는 POSIX 작업반이 ACL 표준화를 시도했으나 초안이 1997년에 철회되었는데도 리눅스·FreeBSD·솔라리스 등이 POSIX.1e 방식 ACL을 지원하며 보통 확장 속성으로 저장한다. NFSv4 ACL은 윈도 NT의 NTFS ACL과 비슷하게 조직된 표준이다. Barkley(1997)는 최소한의 RBAC 모델과 그룹만 쓰는 ACL이 서로 동등함을 보였다.</p>
 
   <h2>예시로 보기</h2>
   <p><strong>가상의 예</strong> 어느 네트워크 ACL의 규칙이 아래 순서로 쓰여 있다고 합시다(위에서부터 처음 일치하는 규칙 적용).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>번호</th><th>규칙</th></tr></thead><tbody><tr><td>1</td><td>10.0.1.0/24 → 웹서버, 포트 443: 허용</td></tr><tr><td>2</td><td>10.0.0.0/16 → 웹서버, 모든 포트: 거부</td></tr><tr><td>3</td><td>그 외: 거부(암묵적)</td></tr></tbody></table></div><p>10.0.1.7이 웹서버 443으로 접속하면 1번에 먼저 일치해 <strong>허용</strong>된다. 10.0.2.9가 같은 접속을 하면 1번에 해당하지 않고 2번에 일치해 <strong>거부</strong>된다. 만약 1번과 2번의 순서를 바꾸면 10.0.1.7도 거부되어 의도와 정반대가 된다. 이처럼 ACL은 개별 규칙만이 아니라 <em>배열 전체</em>를 읽어야 한다. 규칙이 늘면 충돌·가려진 규칙(shadowing)이 생기기 쉬워 주기적 점검이 필요하다.</p>
@@ -193,6 +193,7 @@
     <li>Saltzer, J. H., &amp; Schroeder, M. D. (1975). The protection of information in computer systems. Proceedings of the IEEE, 63(9), 1278–1308.</li>
     <li>Sandhu, R. S., Coyne, E. J., Feinstein, H. L., &amp; Youman, C. E. (1996). Role-based access control models. Computer, 29(2), 38–47.</li>
     <li>Ferraiolo, D. F., &amp; Kuhn, D. R. (1992). Role-based access controls. Proceedings of the 15th National Computer Security Conference.</li>
+    <li>Wikipedia contributors. (n.d.). Access-control list. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

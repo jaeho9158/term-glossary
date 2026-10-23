@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "계산과 범위",
-      "html": "<ul><li>FWER = P(V ≥ 1)이다. V는 참인 귀무가설 중에서 잘못 기각한 개수이고, 값의 범위는 0에서 1이다(Hochberg &amp; Tamhane, 1987).</li><li>검정 m개가 모두 참이고 서로 독립이면 FWER = 1 − (1 − α)<sup>m</sup>이다. 아래 표는 α = .05에서 이 값을 계산한 결과이다.</li></ul><table><thead><tr><th>검정 수 m</th><th>보정 없이 쓸 때의 FWER</th><th>본페로니 기준(α ÷ m)</th><th>시닥 기준(1 − (1 − α)<sup>1/m</sup>)</th></tr></thead><tbody><tr><td>1</td><td>.050</td><td>.0500</td><td>.0500</td></tr><tr><td>3</td><td>.143</td><td>.0167</td><td>.0170</td></tr><tr><td>5</td><td>.226</td><td>.0100</td><td>.0102</td></tr><tr><td>10</td><td>.401</td><td>.0050</td><td>.0051</td></tr><tr><td>20</td><td>.642</td><td>.0025</td><td>.0026</td></tr><tr><td>100</td><td>.994</td><td>.0005</td><td>.0005</td></tr></tbody></table><ul><li>FWER을 통제하는 방법에는 [[bonferroni-correction|본페로니 보정]](Dunn, 1961), 시닥 보정(Šidák, 1967), 이를 단계적으로 개선해 검정력이 더 큰 [[holm-bonferroni-method|홀름 절차]](Holm, 1979), 닫힌 검정 절차(Marcus, Peritz, &amp; Gabriel, 1976)가 있고, 분산분석 뒤의 쌍대비교에는 [[tukey-hsd-test|튜키 HSD]], 대조군과의 비교에는 [[dunnetts-test|던넛 검정]]이 쓰인다.</li><li>통제의 강도에는 두 가지가 구분된다. 모든 귀무가설이 참일 때만 FWER ≤ α이면 약한 통제, 참과 거짓이 섞인 어떤 경우에도 FWER ≤ α이면 강한 통제이다(Hochberg &amp; Tamhane, 1987). 일반적으로 요구되는 것은 강한 통제이다.</li></ul>"
+      "html": "<ul><li>FWER = P(V ≥ 1)이다. V는 참인 귀무가설 중에서 잘못 기각한 개수이고, 값의 범위는 0에서 1이다(Hochberg &amp; Tamhane, 1987).</li><li>검정 m개가 모두 참이고 서로 독립이면 FWER = 1 − (1 − α)<sup>m</sup>이다. 아래 표는 α = .05에서 이 값을 계산한 결과이다.</li></ul><table><thead><tr><th>검정 수 m</th><th>보정 없이 쓸 때의 FWER</th><th>본페로니 기준(α ÷ m)</th><th>시닥 기준(1 − (1 − α)<sup>1/m</sup>)</th></tr></thead><tbody><tr><td>1</td><td>.050</td><td>.0500</td><td>.0500</td></tr><tr><td>3</td><td>.143</td><td>.0167</td><td>.0170</td></tr><tr><td>5</td><td>.226</td><td>.0100</td><td>.0102</td></tr><tr><td>10</td><td>.401</td><td>.0050</td><td>.0051</td></tr><tr><td>20</td><td>.642</td><td>.0025</td><td>.0026</td></tr><tr><td>100</td><td>.994</td><td>.0005</td><td>.0005</td></tr></tbody></table><ul><li>FWER을 통제하는 방법에는 [[bonferroni-correction|본페로니 보정]](Dunn, 1961), 시닥 보정(Šidák, 1967), 이를 단계적으로 개선해 검정력이 더 큰 [[holm-bonferroni-method|홀름 절차]](Holm, 1979), 닫힌 검정 절차(Marcus, Peritz, &amp; Gabriel, 1976)가 있고, 분산분석 뒤의 쌍대비교에는 [[tukey-hsd-test|튜키 HSD]], 대조군과의 비교에는 [[dunnetts-test|던넛 검정]]이 쓰인다.</li><li>통제의 강도에는 두 가지가 구분된다. 모든 귀무가설이 참일 때만 FWER ≤ α이면 약한 통제, 참과 거짓이 섞인 어떤 경우에도 FWER ≤ α이면 강한 통제이다(Hochberg &amp; Tamhane, 1987). 일반적으로 요구되는 것은 강한 통제이다.</li></ul><p>홀름 절차는 p값을 작은 것부터 늘어놓고 기준을 α/m, α/(m−1), …로 차례로 느슨하게 하며 처음 기각하지 못하는 지점에서 멈춘다. 모든 경우에 본페로니보다 검정력이 같거나 크면서 FWER을 강하게 통제한다. 시닥 보정은 본페로니보다 약간 더 강력하나 검정들이 음의 상관일 때는 FWER을 통제하지 못할 수 있다.</p>"
     },
     {
       "heading": "해석 기준",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "보고 방법",
-      "html": "<ul><li>보정 방법과 가족의 정의, 가족에 포함된 검정 수 m을 적는다. 예: “Holm 절차로 가족별 오류율을 .05로 통제하였다(가족: 세 집단의 모든 쌍대비교 3건).”</li><li>보정 전 p와 보정 후 p(또는 보정된 기준 α)를 구분해서 적다. 어느 쪽 값을 보고하는지 표나 각주에 밝혀야 한다.</li><li>가족의 정의와 보정 방법은 분석 계획에 미리 적어 두고(사전등록 포함), 사후에 바꾸지 않는다.</li><li>분석 전체에서 보정하지 않은 검정이 있다면 그 이유(예: 사전에 지정된 단일 주요 가설)를 설명한다.</li></ul>"
+      "html": "<ul><li>보정 방법과 가족의 정의, 가족에 포함된 검정 수 m을 적는다. 예: “Holm 절차로 가족별 오류율을 .05로 통제하였다(가족: 세 집단의 모든 쌍대비교 3건).”</li><li>보정 전 p와 보정 후 p(또는 보정된 기준 α)를 구분해서 적는다. 어느 쪽 값을 보고하는지 표나 각주에 밝혀야 한다.</li><li>가족의 정의와 보정 방법은 분석 계획에 미리 적어 두고(사전등록 포함), 사후에 바꾸지 않는다.</li><li>분석 전체에서 보정하지 않은 검정이 있다면 그 이유(예: 사전에 지정된 단일 주요 가설)를 설명한다.</li></ul>"
     }
   ],
   "compare": {
@@ -56,6 +56,7 @@
     "Marcus, R., Peritz, E., & Gabriel, K. R. (1976). On closed testing procedures with special reference to ordered analysis of variance. Biometrika, 63(3), 655–660.",
     "Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics, 6(2), 65–70.",
     "Hochberg, Y., & Tamhane, A. C. (1987). Multiple Comparison Procedures. Wiley.",
-    "Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 57(1), 289–300."
+    "Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. Journal of the Royal Statistical Society: Series B, 57(1), 289–300.",
+    "Wikipedia contributors. (n.d.). Family-wise error rate. Wikipedia."
   ]
 }

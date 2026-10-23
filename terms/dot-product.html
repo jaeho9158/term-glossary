@@ -159,7 +159,7 @@
   <ul><li>정의: <code>a·b = Σ a<sub>i</sub>b<sub>i</sub> = |a||b|cos θ</code>. 성분으로 계산하는 식과 각도로 쓰는 식은 같은 값을 준다.</li><li>결과는 스칼라이다. 대칭(a·b = b·a)이고 각 인자에 대해 선형이며, a·a = |a|²이다.</li><li>범위: 코시-슈바르츠 부등식에 의해 −|a||b| ≤ a·b ≤ |a||b|. 같은 방향이면 최댓값, 반대 방향이면 최솟값, 서로 수직이면 0이다(영벡터가 아닐 때).</li><li>단위: 두 벡터 단위의 곱이다. 힘(N)과 변위(m)의 내적은 일(N·m = J)이다.</li></ul>
 
   <h2>해석 기준</h2>
-  <ul><li>부호: 양수이면 두 벡터가 이루는 각이 90도보다 작고, 0이면 직교, 음수이면 90도보다 크다.</li><li>크기: 벡터 길이에 따라 커지므로 방향 유사도만 보려면 두 길이의 곱으로 나눈다. 그 값이 <a href="cosine-similarity.html">코사인 유사도</a>이고 범위는 −1~1이다. 임베딩이 이미 길이 1로 정규화되어 있으면 내적과 코사인 유사도는 같다.</li><li>투영: <code>a·b/|b|</code>는 a를 b 방향에 투영한 길이(부호 포함)이다.</li><li>가상의 예: a = (3, 4), b = (4, 3)이면 a·b = 24, |a| = |b| = 5이므로 cos θ = 24/25 = 0.96, θ ≈ 16.3도이다. 힘 (10, 5) N이 (3, 0) m 이동에 한 일은 30 J이다. (1, 2)와 (−2, 1)의 내적은 0이어서 직교합니다(계산 확인).</li><li>고차원에서는 내적이 차원의 제곱근에 비례해 커진다. 성분이 서로 독립이고 평균 0·분산 1인 두 벡터의 내적의 표준편차는 약 √d이다(d = 64이면 약 8, 시뮬레이션에서 7.99). 트랜스포머의 스케일드 내적 어텐션이 √d<sub>k</sub>로 나누는 이유이다(Vaswani et al., 2017).</li></ul>
+  <ul><li>부호: 양수이면 두 벡터가 이루는 각이 90도보다 작고, 0이면 직교, 음수이면 90도보다 크다.</li><li>크기: 벡터 길이에 따라 커지므로 방향 유사도만 보려면 두 길이의 곱으로 나눈다. 그 값이 <a href="cosine-similarity.html">코사인 유사도</a>이고 범위는 −1~1이다. 임베딩이 이미 길이 1로 정규화되어 있으면 내적과 코사인 유사도는 같다.</li><li>투영: <code>a·b/|b|</code>는 a를 b 방향에 투영한 길이(부호 포함)이다.</li><li>가상의 예: a = (3, 4), b = (4, 3)이면 a·b = 24, |a| = |b| = 5이므로 cos θ = 24/25 = 0.96, θ ≈ 16.3도이다. 힘 (10, 5) N이 (3, 0) m 이동에 한 일은 30 J이다. (1, 2)와 (−2, 1)의 내적은 0이어서 직교합니다(계산 확인).</li><li>고차원에서는 내적이 차원의 제곱근에 비례해 커진다. 성분이 서로 독립이고 평균 0·분산 1인 두 벡터의 내적의 표준편차는 약 √d이다(d = 64이면 약 8, 시뮬레이션에서 7.99). 트랜스포머의 스케일드 내적 어텐션이 √d<sub>k</sub>로 나누는 이유이다(Vaswani et al., 2017).</li></ul><p>내적은 곱셈 점 ‘⋅’에서 이름이 왔으며, 결과가 스칼라임을 강조해 스칼라곱이라고도 한다. 예를 들어 [1, 3, −5] · [4, −2, −1] = 3이다. 내적은 교환법칙이 성립하고 쌍선형이며, a · a는 0 이상이고 영벡터일 때만 0이다. 0이 아닌 두 벡터가 수직이려면 내적이 0이어야 하고 그 역도 성립한다.</p>
 
   <h2>보고 방법</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>적는 내용</th></tr></thead><tbody><tr><td>정의</td><td>유클리드 내적인지 가중 내적인지, 차원</td></tr><tr><td>정규화</td><td>벡터를 길이 1로 정규화했는지(내적 = 코사인 유사도)</td></tr><tr><td>스케일</td><td>어텐션에서 √d<sub>k</sub> 등으로 나누었는지</td></tr><tr><td>비교</td><td>내적, 코사인 유사도, 유클리드 거리 중 무엇을 유사도로 썼는지(결과 해석에 영향)</td></tr><tr><td>단위</td><td>물리량이면 단위(예: J)</td></tr></tbody></table></div>
@@ -196,6 +196,7 @@
     <li>Strang, G. (2016). Introduction to Linear Algebra (5th ed.). Wellesley-Cambridge Press.</li>
     <li>Marsden, J. E., &amp; Tromba, A. J. (2011). Vector Calculus (6th ed.). W. H. Freeman.</li>
     <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30, 5998–6008.</li>
+    <li>Wikipedia contributors. (n.d.). Dot product. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

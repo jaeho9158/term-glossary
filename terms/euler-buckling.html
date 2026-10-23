@@ -158,7 +158,7 @@
   <p>오일러 좌굴하중은 양 끝이 힌지로 지지된 이상적인 기둥에 대해 <code>P<sub>cr</sub> = π²EI / L²</code>이고, 다른 지지 조건에서는 유효길이 계수 K를 써서 <code>P<sub>cr</sub> = π²EI / (KL)²</code>로 일반화합니다(Timoshenko &amp; Gere, 1961). 이 식은 Euler(1744)의 기둥 연구에서 비롯된 고전 결과이다.</p><ul><li>E: 탄성계수, I: 단면2차모멘트, L: 기둥 길이. 좌굴하중은 <strong>재료의 항복강도가 아니라 E와 형상(EI, L)</strong>으로 정해진다.</li><li>K의 이론값은 양단 힌지 1.0, 한쪽 고정·한쪽 자유 2.0, 한쪽 고정·한쪽 힌지 약 0.7, 양단 고정 0.5이다. 설계 기준은 실제 구속이 완전하지 않음을 고려해 더 보수적인 값을 쓰기도 한다.</li><li>세장비 λ = KL/r(r: 단면2차반경)로 쓰면 임계응력은 <code>σ<sub>cr</sub> = π²E/λ²</code>이다.</li></ul>
 
   <h2>예시로 보기</h2>
-  <p><strong>작은 예(가상의 값).</strong> 지름 20 mm의 강봉(E = 200 GPa)이면 I = πd⁴/64 ≈ 7.85×10<sup>−9</sup> m⁴, r = d/4 = 5 mm이다. 길이 1 m에서 지지 조건별 계산 결과는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>지지 조건(K)</th><th>세장비 λ</th><th>P<sub>cr</sub></th><th>σ<sub>cr</sub></th></tr></thead><tbody><tr><td>양단 힌지(1.0)</td><td>200</td><td>15.5 kN</td><td>49.3 MPa</td></tr><tr><td>양단 고정(0.5)</td><td>100</td><td>62.0 kN</td><td>197 MPa</td></tr><tr><td>한쪽 고정·한쪽 자유(2.0)</td><td>400</td><td>3.88 kN</td><td>12.3 MPa</td></tr></tbody></table></div><p>같은 봉의 길이를 2 m로 늘리면 양단 힌지의 좌굴하중은 3.88 kN이 되어 1/4로 줄어든다(L²에 반비례). 한편 오일러 식은 σ<sub>cr</sub>이 비례한도(또는 항복강도) 아래일 때만 맞다. σ<sub>y</sub> = 250 MPa로 가정하면 한계 세장비는 π√(E/σ<sub>y</sub>) ≈ 89이므로, 위 세 경우는 모두 이보다 큰 λ를 가져 오일러 식을 쓸 수 있는 범위이다(양단 고정은 100이라 한계에 가깝다).</p>
+  <p><strong>작은 예(가상의 값).</strong> 지름 20 mm의 강봉(E = 200 GPa)이면 I = πd⁴/64 ≈ 7.85×10<sup>−9</sup> m⁴, r = d/4 = 5 mm이다. 길이 1 m에서 지지 조건별 계산 결과는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>지지 조건(K)</th><th>세장비 λ</th><th>P<sub>cr</sub></th><th>σ<sub>cr</sub></th></tr></thead><tbody><tr><td>양단 힌지(1.0)</td><td>200</td><td>15.5 kN</td><td>49.3 MPa</td></tr><tr><td>양단 고정(0.5)</td><td>100</td><td>62.0 kN</td><td>197 MPa</td></tr><tr><td>한쪽 고정·한쪽 자유(2.0)</td><td>400</td><td>3.88 kN</td><td>12.3 MPa</td></tr></tbody></table></div><p>같은 봉의 길이를 2 m로 늘리면 양단 힌지의 좌굴하중은 3.88 kN이 되어 1/4로 줄어든다(L²에 반비례). 한편 오일러 식은 σ<sub>cr</sub>이 비례한도(또는 항복강도) 아래일 때만 맞다. σ<sub>y</sub> = 250 MPa로 가정하면 한계 세장비는 π√(E/σ<sub>y</sub>) ≈ 89이므로, 위 세 경우는 모두 이보다 큰 λ를 가져 오일러 식을 쓸 수 있는 범위이다(양단 고정은 100이라 한계에 가깝다).</p><p>오일러 임계 하중은 F = π²EI/(KL)²이며 E는 탄성계수, I는 최소 단면 2차 모멘트, L은 지지되지 않은 길이, K는 유효 길이 계수이다. 양단이 핀으로 지지되어 회전이 자유로우면 K = 1.0이다. 기둥 거동에 관한 이론은 1757년 수학자 레온하르트 오일러가 연구했다.</p>
 
   <h2>자주 하는 오해</h2>
   <ul><li><strong>“더 강한 강재로 바꾸면 좌굴하중이 오른다.”</strong> E가 거의 같으므로 거의 오르지 않는다. 항복강도 향상은 좌굴이 아닌 항복이 지배하는 짧은 기둥에서 의미가 크다.</li><li><strong>“오일러 식이 모든 기둥에 맞는다.”</strong> 세장비가 작은 기둥은 좌굴 전에 항복하므로 존슨 공식 같은 비탄성 좌굴 이론이 필요하다.</li><li><strong>“시험 좌굴하중은 이론값과 같다.”</strong> 실제 기둥은 완전히 곧지 않고 하중이 정확히 중심에 걸리지 않으며 잔류응력이 있어, 시험값이 이론값보다 낮은 경우가 흔하다.</li><li>이 식은 기둥의 압축 좌굴에 관한 것으로, 보의 횡비틀림좌굴 등 다른 좌굴 유형의 식과는 다르다.</li></ul>
@@ -192,6 +192,7 @@
   <ol class="te-refs">
     <li>Timoshenko, S. P., &amp; Gere, J. M. (1961). Theory of Elastic Stability (2nd ed.). McGraw-Hill.</li>
     <li>Euler, L. (1744). Methodus inveniendi lineas curvas maximi minimive proprietate gaudentes, Additamentum I. Bousquet.</li>
+    <li>Wikipedia contributors. (n.d.). Buckling. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

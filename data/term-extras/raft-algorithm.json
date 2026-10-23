@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>Raft는 여러 서버가 같은 순서로 같은 명령을 적용하도록 하는 <strong>복제 상태 기계</strong>에 쓰인다. 분산 키-값 저장소, 설정·서비스 탐색 저장소(예: etcd, Consul) 같은 시스템이 Raft를 채택하고 있다. 얻는 성질은 임기마다 리더가 최대 한 명이고, 확정된 항목은 사라지지 않으며, 모든 노드가 같은 순서로 로그를 적용한다는 안전성이다. 이 안전성은 메시지가 지연·유실·중복되고 노드가 멈췄다 다시 살아나는 환경을 가정한다. 노드가 거짓 정보를 보내는 비잔틴 장애는 다루지 않는다.</p><p>가용성은 과반수 노드가 서로 통신할 수 있을 때만 보장된다. 네트워크가 갈라져 과반이 없는 쪽은 새 항목을 확정하지 못한다.</p>"
+      "html": "<p>Raft는 여러 서버가 같은 순서로 같은 명령을 적용하도록 하는 <strong>복제 상태 기계</strong>에 쓰인다. 분산 키-값 저장소, 설정·서비스 탐색 저장소(예: etcd, Consul) 같은 시스템이 Raft를 채택하고 있다. 얻는 성질은 임기마다 리더가 최대 한 명이고, 확정된 항목은 사라지지 않으며, 모든 노드가 같은 순서로 로그를 적용한다는 안전성이다. 이 안전성은 메시지가 지연·유실·중복되고 노드가 멈췄다 다시 살아나는 환경을 가정한다. 노드가 거짓 정보를 보내는 비잔틴 장애는 다루지 않는다.</p><p>가용성은 과반수 노드가 서로 통신할 수 있을 때만 보장된다. 네트워크가 갈라져 과반이 없는 쪽은 새 항목을 확정하지 못한다.</p><p>Raft는 다섯 가지 안전성을 보장한다고 정리된다: 선거 안전성(임기당 리더 최대 한 명), 리더 추가 전용(리더는 자기 로그를 덮어쓰거나 지우지 않음), 로그 일치, 리더 완전성, 상태 기계 안전성. 다수 서버에 저장된 항목은 커밋된 것으로 본다. 임기는 매번 선거로 시작하며, 표가 갈려 선거가 실패하면 새 임기에서 다시 선거한다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -44,6 +44,7 @@
     "Ongaro, D., & Ousterhout, J. (2014). In search of an understandable consensus algorithm. In Proceedings of the 2014 USENIX Annual Technical Conference (pp. 305–319). USENIX Association.",
     "Lamport, L. (1998). The part-time parliament. ACM Transactions on Computer Systems, 16(2), 133–169.",
     "Lamport, L. (2001). Paxos made simple. ACM SIGACT News, 32(4).",
-    "Howard, H., & Mortier, R. (2020). Paxos vs Raft: Have we reached consensus on distributed consensus? In Proceedings of the 7th Workshop on Principles and Practice of Consistency for Distributed Data. ACM."
+    "Howard, H., & Mortier, R. (2020). Paxos vs Raft: Have we reached consensus on distributed consensus? In Proceedings of the 7th Workshop on Principles and Practice of Consistency for Distributed Data. ACM.",
+    "Wikipedia contributors. (n.d.). Raft (algorithm). In Wikipedia, The Free Encyclopedia."
   ]
 }

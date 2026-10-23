@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<ul><li><strong>쓰는 때:</strong> 여러 시기 영상의 변화탐지, GIS 자료와의 중첩, 영상 모자이크처럼 위치가 서로 맞아야 하는 모든 작업의 전처리이다.</li><li><strong>얻는 것:</strong> 지도 좌표계에 맞춘 영상과 위치 정확도를 나타내는 수치(RMSE)이다.</li><li><strong>다항식의 한계:</strong> 다항식 변환은 지형 기복에 따른 왜곡을 제거하지 못한다. 산지처럼 기복이 큰 곳은 수치표고모형(DEM)을 쓰는 정사보정이 필요하다.</li><li><strong>GCP 배치:</strong> GCP가 너무 적거나 한쪽에 몰리면 기준점에서 먼 곳의 왜곡이 커진다.</li><li><strong>분류·지수 계산과의 순서:</strong> 재배열은 화소값을 바꾸므로 분광 분석 전에 적용할지는 연구 목적에 따라 정하며, 논문에는 그 순서를 밝힌다.</li></ul>"
+      "html": "<ul><li><strong>쓰는 때:</strong> 여러 시기 영상의 변화탐지, GIS 자료와의 중첩, 영상 모자이크처럼 위치가 서로 맞아야 하는 모든 작업의 전처리이다.</li><li><strong>얻는 것:</strong> 지도 좌표계에 맞춘 영상과 위치 정확도를 나타내는 수치(RMSE)이다.</li><li><strong>다항식의 한계:</strong> 다항식 변환은 지형 기복에 따른 왜곡을 제거하지 못한다. 산지처럼 기복이 큰 곳은 수치표고모형(DEM)을 쓰는 정사보정이 필요하다.</li><li><strong>GCP 배치:</strong> GCP가 너무 적거나 한쪽에 몰리면 기준점에서 먼 곳의 왜곡이 커진다.</li><li><strong>분류·지수 계산과의 순서:</strong> 재배열은 화소값을 바꾸므로 분광 분석 전에 적용할지는 연구 목적에 따라 정하며, 논문에는 그 순서를 밝힌다.</li></ul><p>변환 결과를 보관하는 방식은 둘로 나뉜다. 변환 계수만 GeoTIFF 머리말이나 월드 파일(여섯 개의 아핀 계수를 담은 보조 파일)에 적어 두고 화면에 띄울 때 변환하는 방식이 있고, 새 격자로 재배열해 영상 자체를 바꾸는 방식이 있다. 후자를 재배열(rectification)이라 하며 전통적으로 유일한 방식이었고, 지금도 표시와 분석 성능이 더 좋다는 장점이 있다. 기하보정에서는 최소 개수보다 많은 GCP를 두고 최소제곱법으로 계수를 맞추는 것이 권장된다. 점 수와 계수 수가 같아 오차 없이 맞아떨어지는 해는 GCP 자체의 오차를 가려 버리기 때문이다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -47,6 +47,7 @@
   "references": [
     "Lillesand, T. M., Kiefer, R. W., & Chipman, J. W. (2015). Remote Sensing and Image Interpretation (7th ed.). Wiley.",
     "Richards, J. A. (2013). Remote Sensing Digital Image Analysis: An Introduction (5th ed.). Springer.",
-    "Toutin, T. (2004). Geometric processing of remote sensing images: Models, algorithms and methods. International Journal of Remote Sensing, 25(10), 1893–1924."
+    "Toutin, T. (2004). Geometric processing of remote sensing images: Models, algorithms and methods. International Journal of Remote Sensing, 25(10), 1893–1924.",
+    "Wikipedia contributors. (n.d.). Georeferencing. In Wikipedia, The Free Encyclopedia."
   ]
 }

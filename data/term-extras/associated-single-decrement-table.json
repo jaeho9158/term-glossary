@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>다중탈퇴표에는 원인별 탈퇴확률 q<sup>(j)</sup>(다른 원인과 함께 작용할 때 원인 j로 탈퇴할 확률)와 총 탈퇴확률 q<sup>(τ)</sup>가 있다. 연관단일탈퇴표는 여기서 각 원인이 홀로 작용할 때의 탈퇴확률 q′<sup>(j)</sup>를 구해 만든 표이다. 원인별 탈퇴력(force of decrement) μ<sup>(j)</sup>를 기준으로 하면 q′<sup>(j)</sup> = 1 − exp(−∫μ<sup>(j)</sup>dt)로 정의된다.</p><p>탈퇴가 연도 안에서 어떻게 분포하는지에 대한 가정이 있어야 q에서 q′로 옮겨 갈 수 있다. 다중탈퇴표에서 탈퇴가 균등분포(UDD)이거나 탈퇴력이 일정하다고 가정하면 다음 변환식이 나온다(Bowers et al., 1997; Dickson et al., 2013).</p><p>q′<sup>(j)</sup> = 1 − (1 − q<sup>(τ)</sup>)<sup>q<sup>(j)</sup>/q<sup>(τ)</sup></sup></p>"
+      "html": "<p>다중탈퇴표에는 원인별 탈퇴확률 q<sup>(j)</sup>(다른 원인과 함께 작용할 때 원인 j로 탈퇴할 확률)와 총 탈퇴확률 q<sup>(τ)</sup>가 있다. 연관단일탈퇴표는 여기서 각 원인이 홀로 작용할 때의 탈퇴확률 q′<sup>(j)</sup>를 구해 만든 표이다. 원인별 탈퇴력(force of decrement) μ<sup>(j)</sup>를 기준으로 하면 q′<sup>(j)</sup> = 1 − exp(−∫μ<sup>(j)</sup>dt)로 정의된다.</p><p>탈퇴가 연도 안에서 어떻게 분포하는지에 대한 가정이 있어야 q에서 q′로 옮겨 갈 수 있다. 다중탈퇴표에서 탈퇴가 균등분포(UDD)이거나 탈퇴력이 일정하다고 가정하면 다음 변환식이 나온다(Bowers et al., 1997; Dickson et al., 2013).</p><p>q′<sup>(j)</sup> = 1 − (1 − q<sup>(τ)</sup>)<sup>q<sup>(j)</sup>/q<sup>(τ)</sup></sup></p><p>연관단일탈퇴표는 원인 j만 작용한다고 두고 구한 독립(절대) 탈퇴확률 q′<sup>(j)</sup>를 담는다. 각 연관단일표에서 탈퇴가 연도 안에 균등하다고 하면 정수 연령 x와 0 ≤ t &lt; 1에 대해 <sub>t</sub>p′<sub>x</sub><sup>(j)</sup> = 1 − t·q′<sub>x</sub><sup>(j)</sup>이다. 반대로 다중탈퇴표에서 연도 안의 탈퇴가 균등하다고 하면 탈퇴력은 μ<sub>x+t</sub><sup>(j)</sup> = q<sub>x</sub><sup>(j)</sup> / (1 − t·q<sub>x</sub><sup>(τ)</sup>)이고, 이를 적분하면 1 − q′<sup>(j)</sup> = (p<sup>(τ)</sup>)<sup>q<sup>(j)</sup>/q<sup>(τ)</sup></sup>을 얻는다. 어느 쪽 가정에서 출발했는지에 따라 변환식이 달라진다는 뜻이다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>가상의 값으로 계산해 본다. 어느 연령에서 사망 q<sup>(1)</sup> = 0.02, 해약 q<sup>(2)</sup> = 0.10이면 q<sup>(τ)</sup> = 0.12이다. 위 식으로 구하면(코드 계산):</p><ul><li>사망의 연관단일탈퇴확률 q′<sup>(1)</sup> = 1 − 0.88<sup>0.02/0.12</sup> ≈ <strong>0.02108</strong></li><li>해약의 연관단일탈퇴확률 q′<sup>(2)</sup> = 1 − 0.88<sup>0.10/0.12</sup> ≈ <strong>0.10105</strong></li></ul><p>해약이 없다고 가정한 순수 사망확률(0.0211)은 해약과 함께 있을 때의 사망확률(0.02)보다 크다. 해약으로 먼저 계약을 떠난 사람은 그 해 사망으로 집계될 수 없기 때문이다. 반대 방향으로 q′에서 q를 구하는 근사 q<sup>(1)</sup> ≈ q′<sup>(1)</sup>(1 − q′<sup>(2)</sup>/2)에 넣으면 0.02002로 원래 값 0.02와 맞아 들어간다. 이 표는 해약률이 달라지는 상품 설계나 사망률 비교처럼 한 원인을 따로 보고 싶을 때 쓰인다.</p>"
+      "html": "<p>가상의 값으로 계산해 본다. 어느 연령에서 사망 q<sup>(1)</sup> = 0.02, 해약 q<sup>(2)</sup> = 0.10이면 q<sup>(τ)</sup> = 0.12이다. 위 식으로 구하면:</p><ul><li>사망의 연관단일탈퇴확률 q′<sup>(1)</sup> = 1 − 0.88<sup>0.02/0.12</sup> ≈ <strong>0.02108</strong></li><li>해약의 연관단일탈퇴확률 q′<sup>(2)</sup> = 1 − 0.88<sup>0.10/0.12</sup> ≈ <strong>0.10105</strong></li></ul><p>해약이 없다고 가정한 순수 사망확률(0.0211)은 해약과 함께 있을 때의 사망확률(0.02)보다 크다. 해약으로 먼저 계약을 떠난 사람은 그 해 사망으로 집계될 수 없기 때문이다. 반대 방향으로 q′에서 q를 구하는 근사 q<sup>(1)</sup> ≈ q′<sup>(1)</sup>(1 − q′<sup>(2)</sup>/2)에 넣으면 0.02002로 원래 값 0.02와 맞아 들어간다. 이 표는 해약률이 달라지는 상품 설계나 사망률 비교처럼 한 원인을 따로 보고 싶을 때 쓰인다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -42,6 +42,7 @@
   },
   "references": [
     "Bowers, N. L., Jr., Gerber, H. U., Hickman, J. C., Jones, D. A., & Nesbitt, C. J. (1997). Actuarial Mathematics (2nd ed.). Society of Actuaries.",
-    "Dickson, D. C. M., Hardy, M. R., & Waters, H. R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd ed.). Cambridge University Press."
+    "Dickson, D. C. M., Hardy, M. R., & Waters, H. R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd ed.). Cambridge University Press.",
+    "Frees, E. W. (n.d.). Actuarial mathematics: Multiple decrement models, UDD in the single decrement models and UDD in the MDT [Lecture notes]. University of Wisconsin–Madison."
   ]
 }

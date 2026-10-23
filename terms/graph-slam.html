@@ -155,7 +155,7 @@
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
   <p>그래프기반 SLAM은 문제를 <strong>자세 그래프(pose graph)</strong>로 바꿔 푸는 방법이다. 노드는 로봇의 시간별 자세(필요하면 랜드마크), 에지는 두 노드 사이의 상대 측정(오도메트리, 루프클로저)이다(Lu &amp; Milios, 1997; Thrun &amp; Montemerlo, 2006).</p>
-  <ol><li><strong>프런트엔드</strong>: 센서 데이터에서 제약을 만든다. 연속한 자세 사이의 상대 변환은 오도메트리나 스캔 정합으로, 먼 자세 사이의 제약은 <a href="slam.html">SLAM</a>의 루프클로저 검출로 얻는다.</li><li><strong>백엔드</strong>: 모든 제약의 오차를 합친 목적함수를 최소화한다. 각 에지의 오차를 정보행렬로 가중해 제곱합을 만들고(마할라노비스 거리), 이를 비선형 최소제곱으로 푼다. 가우스-뉴턴이나 레벤버그-마쿼트로 반복하며, 선형화한 연립방정식이 희소하다는 점을 활용한다(Grisetti et al., 2010).</li><li><strong>기준 고정</strong>: 전체를 평행이동해도 목적함수는 같으므로, 첫 자세를 고정해 해를 유일하게 만든다.</li><li><strong>이상치 처리</strong>: 잘못된 루프클로저 에지가 지도를 크게 왜곡할 수 있으므로 강건 비용함수나 이상치 거부를 쓴다.</li></ol>
+  <ol><li><strong>프런트엔드</strong>: 센서 데이터에서 제약을 만든다. 연속한 자세 사이의 상대 변환은 오도메트리나 스캔 정합으로, 먼 자세 사이의 제약은 <a href="slam.html">SLAM</a>의 루프클로저 검출로 얻는다.</li><li><strong>백엔드</strong>: 모든 제약의 오차를 합친 목적함수를 최소화한다. 각 에지의 오차를 정보행렬로 가중해 제곱합을 만들고(마할라노비스 거리), 이를 비선형 최소제곱으로 푼다. 가우스-뉴턴이나 레벤버그-마쿼트로 반복하며, 선형화한 연립방정식이 희소하다는 점을 활용한다(Grisetti et al., 2010).</li><li><strong>기준 고정</strong>: 전체를 평행이동해도 목적함수는 같으므로, 첫 자세를 고정해 해를 유일하게 만든다.</li><li><strong>이상치 처리</strong>: 잘못된 루프클로저 에지가 지도를 크게 왜곡할 수 있으므로 강건 비용함수나 이상치 거부를 쓴다.</li></ol><p>GraphSLAM은 관측 사이의 의존 관계를 팩터 그래프로 만들어 얻는 희소 정보행렬을 쓰며 최적화 알고리즘에 바탕을 둔다고 설명된다. 한편 SLAM 연구의 출발점으로는 1986년 Smith와 Cheeseman의 공간 불확실성 표현·추정 연구가 꼽힌다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <p>가상의 1차원 예(숫자는 설명용)로 ‘오차가 그래프 전체에 퍼진다’는 점을 본다. 자세 x0=0에서 출발해 세 번 이동했고 오도메트리는 매번 1.0을 가리킨다. 그러나 루프클로저는 x3가 x0에서 2.7만큼 떨어져 있다고 말한다. 모든 제약에 같은 가중치를 주고 최소제곱으로 풀면 결과는 다음과 같다.</p>
@@ -202,6 +202,7 @@
     <li>Kümmerle, R., Grisetti, G., Strasdat, H., Konolige, K., &amp; Burgard, W. (2011). g2o: A general framework for graph optimization. In Proceedings of the IEEE International Conference on Robotics and Automation (ICRA).</li>
     <li>Kaess, M., Johannsson, H., Roberts, R., Ila, V., Leonard, J. J., &amp; Dellaert, F. (2012). iSAM2: Incremental smoothing and mapping using the Bayes tree. International Journal of Robotics Research, 31(2), 216–235.</li>
     <li>Cadena, C., Carlone, L., Carrillo, H., Latif, Y., Scaramuzza, D., Neira, J., Reid, I., &amp; Leonard, J. J. (2016). Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. IEEE Transactions on Robotics, 32(6), 1309–1332.</li>
+    <li>Wikipedia contributors. (n.d.). Simultaneous localization and mapping. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

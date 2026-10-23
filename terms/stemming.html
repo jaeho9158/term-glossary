@@ -154,7 +154,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>어간추출은 단어 끝의 접미사를 규칙으로 잘라 내 같은 어간으로 묶는 알고리즘이다. 대표인 포터(Porter) 알고리즘은 5단계로 접미사를 차례로 처리하며, 어간에 모음과 자음이 번갈아 나오는 횟수(‘measure’)가 일정 이상일 때만 접미사를 자르도록 조건을 둔다(Porter, 1980). 첫 단계 규칙의 예는 다음과 같다.</p><ul><li>caresses → caress (SSES → SS)</li><li>ponies → poni (IES → I)</li><li>caress → caress (SS → SS)</li><li>cats → cat (S → 제거)</li></ul><p>결과가 사전에 있는 단어일 필요는 없다. ‘poni’처럼 색인에서 같은 표지로 쓰일 문자열이면 된다. 이 점이 사전을 이용해 기본형으로 되돌리는 <a href="lemmatization.html">표제어화</a>와 다르다.</p>
+  <p>어간추출은 단어 끝의 접미사를 규칙으로 잘라 내 같은 어간으로 묶는 알고리즘이다. 대표인 포터(Porter) 알고리즘은 5단계로 접미사를 차례로 처리하며, 어간에 모음과 자음이 번갈아 나오는 횟수(‘measure’)가 일정 이상일 때만 접미사를 자르도록 조건을 둔다(Porter, 1980). 첫 단계 규칙의 예는 다음과 같다.</p><ul><li>caresses → caress (SSES → SS)</li><li>ponies → poni (IES → I)</li><li>caress → caress (SS → SS)</li><li>cats → cat (S → 제거)</li></ul><p>결과가 사전에 있는 단어일 필요는 없다. ‘poni’처럼 색인에서 같은 표지로 쓰일 문자열이면 된다. 이 점이 사전을 이용해 기본형으로 되돌리는 <a href="lemmatization.html">표제어화</a>와 다르다.</p><p>포터 어간 추출기는 universal, university, universe를 모두 univers로 줄이는데, 서로 관련 없는 단어가 같은 어간이 되는 이런 오류가 과잉 어간 추출(overstemming)이다. 반대로 alumnus, alumni, alumna가 서로 다른 어간으로 남는 것은 과소 어간 추출(understemming)이다. 포터가 만든 스노볼(Snowball)은 여러 언어의 어간 추출기를 쓰기 위한 틀이다. 어간 추출은 규칙으로 접사를 떼는 반면, 표제어 추출은 먼저 품사를 알아낸 뒤 범주별 규칙을 적용하므로 품사 태깅의 정확성에 달려 있다. 영어는 비교적 단순하고, 터키어처럼 어형 변화가 매우 많은 언어는 한 어근에서 수백 가지 형태가 나온다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <p>정보검색에서 어간추출은 색인어를 줄이고, 활용형이 다른 단어를 한 번의 검색으로 찾아 주어 <strong>재현율</strong>을 높이는 데 쓰인다(Manning et al., 2008). 대신 서로 다른 뜻의 단어를 같은 어간으로 묶어 <strong>정확률</strong>을 떨어뜨릴 수 있다. 예컨대 포터 알고리즘은 universe, university, universal 계열을 같은 어간 univers 부근으로 묶는 것으로 자주 거론되는데, 이런 현상을 과잉절단(overstemming)이라 한다. 그 반대로 같은 뜻의 단어를 서로 다른 어간으로 남기는 것이 과소절단(understemming)이다.</p><p>알고리즘 선택도 비교 대상이다. 러빈스(Lovins, 1968)는 한 번에 가장 긴 접미사를 제거하는 초기 알고리즘이고, 페이스(Paice, 1990)의 스테머는 반복 규칙 방식이다.</p><p>한국어는 어미가 풍부한 교착어라서 영어 규칙을 그대로 쓸 수 없고, 형태소 분석으로 용언의 어간과 어미를 가르는 방식이 쓰인다.</p>
@@ -193,6 +193,7 @@
     <li>Lovins, J. B. (1968). Development of a stemming algorithm. Mechanical Translation and Computational Linguistics, 11(1–2), 22–31.</li>
     <li>Paice, C. D. (1990). Another stemmer. ACM SIGIR Forum, 24(3), 56–61.</li>
     <li>Manning, C. D., Raghavan, P., &amp; Schütze, H. (2008). Introduction to Information Retrieval. Cambridge University Press.</li>
+    <li>Wikipedia contributors. (n.d.). Stemming. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

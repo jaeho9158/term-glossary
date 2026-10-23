@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>네트워크는 컴퓨터 같은 장치(노드)가 선로나 무선 링크로 연결되어 데이터를 주고받는 구조이고, 프로토콜은 그 교환에서 지켜야 할 규칙의 묶음이다. 프로토콜 명세는 보통 세 가지를 정한다.</p><ul><li><strong>형식(문법)</strong>: 메시지가 어떤 필드로 어떤 순서로 구성되는가</li><li><strong>의미</strong>: 각 필드와 메시지가 무엇을 뜻하고 받은 쪽이 어떻게 반응해야 하는가</li><li><strong>절차(순서·시간)</strong>: 연결을 어떻게 시작하고, 오류가 나면 언제 재전송하며, 언제 끝내는가</li></ul><p>실제 통신은 한 프로토콜이 아니라 <strong>계층화된</strong> 여러 프로토콜이 맡는다. 각 계층은 아래 계층이 제공하는 서비스를 이용해 위 계층에 서비스를 제공하고, 보내는 쪽에서는 계층마다 자기 헤더를 덧붙이며(캡슐화) 받는 쪽에서는 이를 거꾸로 벗겨 낸다.</p><table><thead><tr><th>TCP/IP 계층</th><th>맡은 일</th><th>대표 프로토콜</th></tr></thead><tbody><tr><td>응용</td><td>프로그램끼리의 요청·응답 규칙</td><td>HTTP, DNS, MQTT</td></tr><tr><td>전송</td><td>프로그램(포트) 단위 전달, 신뢰성·흐름 제어</td><td>TCP, UDP</td></tr><tr><td>인터넷</td><td>주소 지정과 경로 선택</td><td>IP</td></tr><tr><td>링크</td><td>같은 망 안에서의 프레임 전달</td><td>이더넷, Wi-Fi</td></tr></tbody></table><p>OSI 7계층은 이를 물리·데이터링크·네트워크·전송·세션·표현·응용으로 더 잘게 나눈 참조 모형이며, 실제 인터넷은 TCP/IP 구조를 따른다.</p>"
+      "html": "<p>네트워크는 컴퓨터 같은 장치(노드)가 선로나 무선 링크로 연결되어 데이터를 주고받는 구조이고, 프로토콜은 그 교환에서 지켜야 할 규칙의 묶음이다. 프로토콜 명세는 보통 세 가지를 정한다.</p><ul><li><strong>형식(문법)</strong>: 메시지가 어떤 필드로 어떤 순서로 구성되는가</li><li><strong>의미</strong>: 각 필드와 메시지가 무엇을 뜻하고 받은 쪽이 어떻게 반응해야 하는가</li><li><strong>절차(순서·시간)</strong>: 연결을 어떻게 시작하고, 오류가 나면 언제 재전송하며, 언제 끝내는가</li></ul><p>실제 통신은 한 프로토콜이 아니라 <strong>계층화된</strong> 여러 프로토콜이 맡는다. 각 계층은 아래 계층이 제공하는 서비스를 이용해 위 계층에 서비스를 제공하고, 보내는 쪽에서는 계층마다 자기 헤더를 덧붙이며(캡슐화) 받는 쪽에서는 이를 거꾸로 벗겨 낸다.</p><table><thead><tr><th>TCP/IP 계층</th><th>맡은 일</th><th>대표 프로토콜</th></tr></thead><tbody><tr><td>응용</td><td>프로그램끼리의 요청·응답 규칙</td><td>HTTP, DNS, MQTT</td></tr><tr><td>전송</td><td>프로그램(포트) 단위 전달, 신뢰성·흐름 제어</td><td>TCP, UDP</td></tr><tr><td>인터넷</td><td>주소 지정과 경로 선택</td><td>IP</td></tr><tr><td>링크</td><td>같은 망 안에서의 프레임 전달</td><td>이더넷, Wi-Fi</td></tr></tbody></table><p>OSI 7계층은 이를 물리·데이터링크·네트워크·전송·세션·표현·응용으로 더 잘게 나눈 참조 모형이며, 실제 인터넷은 TCP/IP 구조를 따른다.</p><p>프로토콜은 하드웨어, 소프트웨어, 또는 둘 모두로 구현될 수 있다. 명세에는 앞의 세 요소 외에 오류가 났을 때 회복하는 방법도 포함된다. 이를 프로그래밍 언어와 비교하면, 프로그래밍 언어가 계산의 규칙이듯 프로토콜은 통신의 규칙이다. 인터넷 프로토콜 모음의 기본 규격은 1989년 RFC 1122와 RFC 1123으로 정리되었고, TCP의 초기 명세 RFC 675는 1974년 12월에 나왔다. 표준화는 ISO, ITU, IEEE, IETF, W3C 같은 기구가 맡으며, IETF는 ‘대략적 합의와 동작하는 코드’를 표어로 삼는다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<ul><li><strong>프로토콜은 규칙이지 프로그램이 아니다.</strong> 같은 프로토콜도 구현마다 성능이 다를 수 있어서, 논문은 프로토콜 이름과 함께 버전·구현체·설정을 적어야 재현할 수 있다.</li><li><strong>TCP/IP는 하나의 프로토콜이 아니라 프로토콜 묶음이다.</strong> 이름은 그 중 TCP와 IP에서 따왔다.</li><li><strong>HTTPS는 별개의 낯선 규칙이 아니라</strong> HTTP를 TLS 암호화 위에서 쓰는 것이다.</li><li><strong>OSI 7계층은 실제 구현 구조가 아니라 설명용 참조 모형이다.</strong> 프로토콜이 어느 계층에 속하는지는 문헌마다 경계가 조금씩 다르게 서술될 수 있다.</li><li><strong>‘TCP가 더 좋다/UDP가 더 좋다’는 일반 결론은 없다.</strong> 손실률·지연·전송 크기 같은 환경 조건에 따라 달라지므로, 비교 실험이라면 그 조건을 함께 밝혀야 한다.</li></ul>"
+      "html": "<ul><li><strong>프로토콜은 규칙이지 프로그램이 아니다.</strong> 같은 프로토콜도 구현마다 성능이 다를 수 있어서, 논문은 프로토콜 이름과 함께 버전·구현체·설정을 적어야 재현할 수 있다.</li><li><strong>TCP/IP는 하나의 프로토콜이 아니라 프로토콜 묶음이다.</strong> 이름은 그 중 TCP와 IP에서 따왔다.</li><li><strong>HTTPS는 별개의 낯선 규칙이 아니라</strong> HTTP를 TLS 암호화 위에서 쓰는 것이다.</li><li><strong>OSI 7계층은 실제 구현 구조가 아니라 설명용 참조 모형이다.</strong> 프로토콜이 어느 계층에 속하는지는 문헌마다 경계가 조금씩 다르게 서술될 수 있다.</li><li><strong>‘TCP가 더 좋다/UDP가 더 좋다’는 일반 결론은 없다.</strong> 손실률·지연·전송 크기 같은 환경 조건에 따라 달라지므로, 비교 실험이라면 그 조건을 함께 밝혀야 한다.</li></ul><ul><li><strong>OSI와 TCP/IP는 전제가 다르다.</strong> OSI 참조 모형(1984년 발간)은 연결지향 망을 전제로 설계되었고, TCP/IP는 비연결형 망을 전제로 한다. 두 모형의 계층이 일대일로 맞아떨어지지 않는 까닭 중 하나이다.</li></ul>"
     }
   ],
   "fixes": [
@@ -51,6 +51,7 @@
     "Zimmermann, H. (1980). OSI reference model: The ISO model of architecture for open systems interconnection. IEEE Transactions on Communications, 28(4), 425–432.",
     "Postel, J. (1981). Transmission Control Protocol (RFC 793). Information Sciences Institute.",
     "Banks, A., & Gupta, R. (Eds.). (2014). MQTT Version 3.1.1. OASIS Standard.",
-    "Tanenbaum, A. S., & Wetherall, D. J. (2011). Computer Networks (5th ed.). Pearson."
+    "Tanenbaum, A. S., & Wetherall, D. J. (2011). Computer Networks (5th ed.). Pearson.",
+    "Wikipedia contributors. (n.d.). Communication protocol. Wikipedia."
   ]
 }

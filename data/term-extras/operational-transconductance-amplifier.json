@@ -3,15 +3,15 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>OTA는 두 입력 전압의 차이에 비례하는 <strong>전류</strong>를 내보내는 증폭기이다. 핵심 관계는 <code>I<sub>out</sub> = g<sub>m</sub>·(V<sub>+</sub> − V<sub>−</sub>)</code>이고, 비례상수 g<sub>m</sub>(트랜스컨덕턴스, 단위 S)이 이득의 역할을 한다. 이상적인 OTA는 입력·출력 임피던스가 모두 무한대라고 가정한다.</p><ul><li>g<sub>m</sub>은 바이어스 전류로 조절한다. 쌍극접합 트랜지스터 차동쌍에서는 g<sub>m</sub> = I<sub>B</sub>/(2V<sub>T</sub>)(I<sub>B</sub>는 꼬리 전류, V<sub>T</sub>는 열전압)로, 바이어스 전류에 거의 비례한다.</li><li>출력이 전류이므로 출력 단자에 커패시터만 달아도 적분기가 된다. 이 적분기를 이어 붙여 만든 필터가 Gm-C 필터이다.</li></ul>"
+      "html": "<p>OTA는 두 입력 전압의 차이에 비례하는 <strong>전류</strong>를 내보내는 증폭기이다. 핵심 관계는 <code>I<sub>out</sub> = g<sub>m</sub>·(V<sub>+</sub> − V<sub>−</sub>)</code>이고, 비례상수 g<sub>m</sub>(트랜스컨덕턴스, 단위 S)이 이득의 역할을 한다. 이상적인 OTA는 입력·출력 임피던스가 모두 무한대라고 가정한다.</p><ul><li>g<sub>m</sub>은 바이어스 전류로 조절한다. 쌍극접합 트랜지스터 차동쌍에서는 g<sub>m</sub> = I<sub>B</sub>/(2V<sub>T</sub>)(I<sub>B</sub>는 꼬리 전류, V<sub>T</sub>는 열전압)로, 바이어스 전류에 거의 비례한다.</li><li>출력이 전류이므로 출력 단자에 커패시터만 달아도 적분기가 된다. 이 적분기를 이어 붙여 만든 필터가 Gm-C 필터이다.</li></ul><ul><li><strong>역사</strong>: 최초의 상용 OTA 집적회로는 1969년 RCA의 CA3080이다. 이후 선형화 다이오드와 버퍼를 내장한 LM13700 같은 제품이 나왔다.</li><li><strong>전압 이득</strong>: 출력에 부하 저항 R<sub>load</sub>를 접지로 달면 전압 이득은 R<sub>load</sub>·gm이다.</li><li><strong>용도</strong>: 전압 제어 필터, 가변 주파수 발진기, 전압 제어 저항, 가변 이득 증폭기에 쓰인다. 일반 연산증폭기 회로를 OTA로 그대로 옮기기는 어렵다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p><strong>작은 예(가상의 값).</strong> g<sub>m</sub> = 100 μS인 OTA에 C = 10 pF 커패시터를 달아 1차 저역통과 필터를 만들면 차단 주파수는 <code>f<sub>c</sub> = g<sub>m</sub>/(2πC)</code> ≈ 1.59 MHz이다. 바이어스 전류를 두 배로 늘려 g<sub>m</sub>이 두 배가 되면 커패시터를 바꾸지 않고도 f<sub>c</sub>가 약 3.18 MHz로 올라간다. 이것이 ‘전류로 조정되는 필터’라는 말의 의미이다.</p><p>한편 이 식은 선형 구간에서만 성립한다. 입력 차 전압이 크면 차동쌍이 포화되어 g<sub>m</sub>이 입력에 따라 변하고(비선형 왜곡), 이를 줄이는 선형화 기법이 별도의 연구 주제가 된다.</p>"
+      "html": "<p><strong>작은 예(가상의 값).</strong> g<sub>m</sub> = 100 μS인 OTA에 C = 10 pF 커패시터를 달아 1차 저역통과 필터를 만들면 차단 주파수는 <code>f<sub>c</sub> = g<sub>m</sub>/(2πC)</code> ≈ 1.59 MHz이다. 바이어스 전류를 두 배로 늘려 g<sub>m</sub>이 두 배가 되면 커패시터를 바꾸지 않고도 f<sub>c</sub>가 약 3.18 MHz로 올라간다. 이것이 ‘전류로 조정되는 필터’라는 말의 의미이다.</p><p>한편 이 식은 선형 구간에서만 성립한다. 입력 차 전압이 크면 차동쌍이 포화되어 g<sub>m</sub>이 입력에 따라 변하고(비선형 왜곡), 이를 줄이는 선형화 기법이 별도의 연구 주제가 된다.</p><p>초기 CA3080의 입력단은 차동 입력이 약 20 mV 이하일 때만 거의 선형이다. 개방 루프로 쓰므로 궤환으로 선형성을 보정할 수 없다. 선형화 다이오드를 넣으면 같은 왜곡 수준에서 허용 입력이 4배(20 mV에서 80 mV)로 늘고, 온도에 따른 gm 변화도 상당 부분 상쇄된다고 제조사가 밝혔다.</p>"
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<ul><li><strong>“OTA는 연산증폭기의 다른 이름이다.”</strong> 아니다. 연산증폭기는 보통 부궤환을 걸어 전압 이득을 정하고 출력 임피던스가 낮다. OTA는 대개 궤환 없이 개방 루프로 쓰이며, 출력 임피던스가 높아 부하에 따라 이득이 달라진다.</li><li><strong>“g<sub>m</sub>은 상수다.”</strong> 바이어스 전류·온도·입력 진폭에 따라 달라지므로, 논문에서는 g<sub>m</sub>의 조정 범위와 온도 의존성을 함께 보고한다.</li><li>‘OTA’라는 약어는 같은 분야에서 ‘이득이 높은 2단 증폭기’를 가리키는 말로도 쓰이는 경우가 있어, 전류 출력 소자를 뜻하는지 문맥으로 확인해야 한다. 이 항목은 전류 출력 소자를 다룬다.</li></ul>"
+      "html": "<ul><li><strong>“OTA는 연산증폭기의 다른 이름이다.”</strong> 아니다. 연산증폭기는 보통 부궤환을 걸어 전압 이득을 정하고 출력 임피던스가 낮다. OTA는 대개 궤환 없이 개방 루프로 쓰이며, 출력 임피던스가 높아 부하에 따라 이득이 달라진다.</li><li><strong>“g<sub>m</sub>은 상수다.”</strong> 바이어스 전류·온도·입력 진폭에 따라 달라지므로, 논문에서는 g<sub>m</sub>의 조정 범위와 온도 의존성을 함께 보고한다.</li><li>‘OTA’라는 약어는 같은 분야에서 ‘이득이 높은 2단 증폭기’를 가리키는 말로도 쓰이는 경우가 있어, 전류 출력 소자를 뜻하는지 문맥으로 확인해야 한다. 이 항목은 전류 출력 소자를 다룬다.</li></ul><p>gm 외에 입력·출력 임피던스, 입력 바이어스 전류, 입력 오프셋 전압도 바이어스 전류 I<sub>abc</sub>에 따라 달라지므로, 이 값들을 바이어스 조건과 함께 적는다.</p>"
     }
   ],
   "compare": {
@@ -43,6 +43,7 @@
   "references": [
     "Geiger, R. L., & Sánchez-Sinencio, E. (1985). Active filter design using operational transconductance amplifiers: A tutorial. IEEE Circuits and Devices Magazine, 1(2), 20–32.",
     "Razavi, B. (2001). Design of Analog CMOS Integrated Circuits. McGraw-Hill.",
-    "Schaumann, R., & Van Valkenburg, M. E. (2001). Design of Analog Filters. Oxford University Press."
+    "Schaumann, R., & Van Valkenburg, M. E. (2001). Design of Analog Filters. Oxford University Press.",
+    "Wikipedia contributors. (n.d.). Operational transconductance amplifier. Wikipedia, The Free Encyclopedia."
   ]
 }

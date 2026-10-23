@@ -151,7 +151,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>로트 스트리밍은 한 작업(로트)을 서브로트로 나눠 앞 공정에서 일부가 끝나는 대로 다음 공정으로 보내는 결정 문제이다. 결정할 것은 크게 세 가지이다.</p><ol><li><strong>서브로트 수</strong>: 몇 개로 나눌 것인가</li><li><strong>서브로트 크기</strong>: 크기를 같게 할지(동일), 공정마다 같은 분할을 쓰되 크기를 달리할지(일관), 공정마다 다르게 나눌지(가변)</li><li><strong>순서와 대기</strong>: 서브로트의 처리 순서, 기계가 서브로트 사이에 쉬는 것(유휴)을 허용할지</li></ol><p>준비시간이 서브로트마다 필요한지, 서브로트 사이 이송시간이 있는지에 따라 모형이 달라지며, 목적함수는 대개 완료시간(메이크스팬)이나 평균 흐름시간이다(Trietsch &amp; Baker, 1993).</p>
+  <p>로트 스트리밍은 한 작업(로트)을 서브로트로 나눠 앞 공정에서 일부가 끝나는 대로 다음 공정으로 보내는 결정 문제이다. 결정할 것은 크게 세 가지이다.</p><ol><li><strong>서브로트 수</strong>: 몇 개로 나눌 것인가</li><li><strong>서브로트 크기</strong>: 크기를 같게 할지(동일), 공정마다 같은 분할을 쓰되 크기를 달리할지(일관), 공정마다 다르게 나눌지(가변)</li><li><strong>순서와 대기</strong>: 서브로트의 처리 순서, 기계가 서브로트 사이에 쉬는 것(유휴)을 허용할지</li></ol><p>준비시간이 서브로트마다 필요한지, 서브로트 사이 이송시간이 있는지에 따라 모형이 달라지며, 목적함수는 대개 완료시간(메이크스팬)이나 평균 흐름시간이다(Trietsch &amp; Baker, 1993).</p><p>로트 스트리밍이 주로 다루는 흐름작업(flow shop)에서는 각 작업이 m개의 공정을 정해진 순서로 거치며 기계는 동시에 둘 이상의 작업을 할 수 없고, 보통 전체 일정의 길이인 메이크스팬을 최소화한다. Garey 등(1976)은 이 문제의 대부분의 확장이 NP-난해임을 보였고, 기계가 두 대인 순열 흐름작업은 존슨 규칙(1954)으로 최적해를 얻는다. 일반적인 메이크스팬 문제에는 최적을 보장하는 알고리즘이 없어 분지한계법 같은 정확해법과 유전 알고리즘 같은 휴리스틱을 쓴다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <p>설비를 늘리지 않고 완료시간을 줄이고 싶을 때 쓰인다. 가장 단순한 경우로 효과를 보겠다. <strong>가상의 예(계산함)</strong>: 100개 로트가 기계 1, 기계 2를 차례로 거치고, 두 기계 모두 개당 1시간이 걸리며 준비·이송시간은 없다고 한다. 로트를 k개의 같은 크기 서브로트로 나누면 완료시간은 100 + 100/k시간이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>서브로트 수 k</th><th>완료시간(시간)</th></tr></thead><tbody><tr><td>1(분할 없음)</td><td>200</td></tr><tr><td>2</td><td>150</td></tr><tr><td>4</td><td>125</td></tr><tr><td>10</td><td>110</td></tr><tr><td>100(개당 이송)</td><td>101</td></tr></tbody></table></div><p>처음 몇 번의 분할이 효과가 크고, 그 뒤로는 이득이 빠르게 줄어든다. 실제 공정에서는 서브로트가 늘수록 준비시간, 이송 횟수, 관리 부담이 늘어 이득을 상쇄하므로 최적 분할 수는 이 상충 관계로 정해진다. 여러 작업·여러 기계로 넓히면 최적화 난이도가 올라 혼합정수계획이나 메타휴리스틱이 쓰인다(Chang &amp; Chiu, 2005).</p>
@@ -189,6 +189,7 @@
     <li>Trietsch, D., &amp; Baker, K. R. (1993). Basic techniques for lot streaming. Operations Research, 41(6).</li>
     <li>Potts, C. N., &amp; Baker, K. R. (1989). Flow shop scheduling with lot streaming. Operations Research Letters, 8(6).</li>
     <li>Chang, J. H., &amp; Chiu, H. N. (2005). A comprehensive review of lot streaming. International Journal of Production Research, 43(8).</li>
+    <li>Wikipedia. (n.d.). Flow shop scheduling. In Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

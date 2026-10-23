@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>F검정은 하나의 검정이 아니라 검정통계량이 귀무가설 아래에서 F분포를 따르는 검정을 묶어 부르는 말이다. 논문에서는 주로 네 곳에서 만난다.</p><ul><li><strong>분산분석(ANOVA)</strong>: 집단 간 평균제곱을 집단 내 평균제곱으로 나눈 F로 “모든 집단의 평균이 같다”를 검정한다.</li><li><strong>회귀모형의 전체 유의성</strong>: 절편을 뺀 모든 회귀계수가 동시에 0인지 본다.</li><li><strong>모형 비교</strong>: 작은 모형(제약 모형)과 변수를 더한 큰 모형의 잔차제곱합을 비교한다. <code>F = [(RSS<sub>작은</sub> − RSS<sub>큰</sub>) / (df<sub>작은</sub> − df<sub>큰</sub>)] / [RSS<sub>큰</sub> / df<sub>큰</sub>]</code></li><li><strong>두 분산의 비교</strong>: 표본분산의 비 s<sub>1</sub>²/s<sub>2</sub>²가 F분포를 따른다는 점을 이용한다.</li></ul><p>자료가 정규분포에 가깝고, 관측이 서로 독립이며, ANOVA·회귀에서는 집단(또는 오차)의 분산이 비슷하다는 가정이 바탕에 있다.</p>"
+      "html": "<p>F검정은 하나의 검정이 아니라 검정통계량이 귀무가설 아래에서 F분포를 따르는 검정을 묶어 부르는 말이다. 논문에서는 주로 네 곳에서 만난다.</p><ul><li><strong>분산분석(ANOVA)</strong>: 집단 간 평균제곱을 집단 내 평균제곱으로 나눈 F로 “모든 집단의 평균이 같다”를 검정한다.</li><li><strong>회귀모형의 전체 유의성</strong>: 절편을 뺀 모든 회귀계수가 동시에 0인지 본다.</li><li><strong>모형 비교</strong>: 작은 모형(제약 모형)과 변수를 더한 큰 모형의 잔차제곱합을 비교한다. <code>F = [(RSS<sub>작은</sub> − RSS<sub>큰</sub>) / (df<sub>작은</sub> − df<sub>큰</sub>)] / [RSS<sub>큰</sub> / df<sub>큰</sub>]</code></li><li><strong>두 분산의 비교</strong>: 표본분산의 비 s<sub>1</sub>²/s<sub>2</sub>²가 F분포를 따른다는 점을 이용한다.</li></ul><p>자료가 정규분포에 가깝고, 관측이 서로 독립이며, ANOVA·회귀에서는 집단(또는 오차)의 분산이 비슷하다는 가정이 바탕에 있다.</p><p>분산분석에서 F가 유의하면 어느 집단 쌍이 다른지는 튜키의 HSD나 셰페의 방법 같은 다중비교로 확인한다. 회귀에서 구조적 변화 여부를 보는 초우(Chow) 검정도 F검정의 한 형태이다. F검정은 우도비검정이기도 한데, F가 우도비 통계량의 단조 함수이기 때문이다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "논문에는 이렇게 보고한다",
-      "html": "<p>F(분자 자유도, 분모 자유도) = 값, p, 효과크기 순으로 적는다. 두 자유도를 모두 적어야 독자가 어떤 F분포로 p를 구했는지 알 수 있다.</p><p><code>세 집단의 점수 평균은 유의하게 달랐다(F(2, 15) = 7.36, p = .006, η² = .50).</code></p><ul><li>정확한 p값을 적고, 매우 작으면 p &lt; .001로 쓴다.</li><li>ANOVA라면 사후검정의 종류와 다중비교 보정을 함께 밝힌다.</li><li>회귀라면 R²와 함께 <code>F(4, 195) = 12.6, p &lt; .001</code>처럼 적고, 개별 계수의 t검정 결과를 따로 제시한다.</li><li>등분산 가정을 확인했다면 어떤 방법을 썼는지 적고, 가정이 어긋나면 웰치 방식 같은 대안을 썼는지 밝힌다.</li></ul><p>(위 수치는 형식을 보여 주는 가상의 값이다.)</p>"
+      "html": "<p>F(분자 자유도, 분모 자유도) = 값, p, 효과크기 순으로 적는다. 두 자유도를 모두 적어야 독자가 어떤 F분포로 p를 구했는지 알 수 있다.</p><p><code>세 집단의 점수 평균은 유의하게 달랐다(F(2, 15) = 7.36, p = .006, η² = .50).</code></p><ul><li>정확한 p값을 적고, 매우 작으면 p &lt; .001로 쓴다.</li><li>ANOVA라면 사후검정의 종류와 다중비교 보정을 함께 밝힌다.</li><li>회귀라면 R²와 함께 <code>F(4, 195) = 12.6, p &lt; .001</code>처럼 적고, 개별 계수의 t검정 결과를 따로 제시한다.</li><li>등분산 가정을 확인했다면 어떤 방법을 썼는지 적고, 가정이 어긋나면 웰치 방식 같은 대안을 썼는지 밝힌다.</li></ul><p>(위 수치는 형식을 보여 주는 가상의 값이다.)</p><p>F통계량은 1920년대에 피셔가 분산비로 개발했고, 스네데커가 피셔를 기려 F라고 이름 붙였다. 등분산을 먼저 검정한 뒤 평균을 검정하는 순서는 전체 제1종 오류율을 높일 수 있으므로, 이 순서를 쓰는지 밝히는 것이 좋다.</p>"
     }
   ],
   "compare": {
@@ -49,6 +49,7 @@
     "Fisher, R. A. (1925). Statistical Methods for Research Workers. Oliver and Boyd.",
     "Snedecor, G. W. (1934). Calculation and Interpretation of Analysis of Variance and Covariance. Collegiate Press.",
     "Box, G. E. P. (1953). Non-normality and tests on variances. Biometrika, 40(3/4), 318–335.",
-    "Levene, H. (1960). Robust tests for equality of variances. In Contributions to Probability and Statistics: Essays in Honor of Harold Hotelling. Stanford University Press."
+    "Levene, H. (1960). Robust tests for equality of variances. In Contributions to Probability and Statistics: Essays in Honor of Harold Hotelling. Stanford University Press.",
+    "Wikipedia contributors. (n.d.). F-test. Wikipedia."
   ]
 }

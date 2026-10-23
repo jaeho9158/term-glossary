@@ -158,7 +158,7 @@
   <ul><li><strong>언제 쓰나</strong>: 사람마다 속도, 지연, 정보가 달라서 평균값으로는 설명되지 않고, 상호작용(병목, 군집 행동)이 결과를 좌우할 때. 출구 폭, 안내 방식 같은 정책을 가상 실험할 때.</li><li><strong>무엇을 얻나</strong>: 평균이 아니라 분포(대기 시간의 최댓값, 병목 위치), 규칙의 작은 변화가 전체 결과에 주는 영향.</li><li><strong>한계</strong>: 결과는 행위자에게 부여한 규칙과 가정에 크게 좌우된다. 실제 행동 자료로 규칙을 정하고 검증하지 않으면 현실과 동떨어질 수 있다.</li></ul><p><strong>간단한 모의 실험(가상의 예).</strong> 200명이 출구 하나(초당 1명 통과)를 이용하고, 각자 출발 지연이 0~D초 사이에서 무작위, 출구까지 이동 시간이 10~30초 사이에서 무작위라고 한다. 선착순으로 통과시키며 100회 반복한 평균이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>출발 지연 범위 D</th><th>전원 탈출 시간(평균)</th><th>가장 오래 기다린 사람의 대기(평균)</th><th>단순 합산식 추정*</th></tr></thead><tbody><tr><td>0초</td><td>약 210초</td><td>약 179초</td><td>220초</td></tr><tr><td>60초</td><td>약 215초</td><td>약 128초</td><td>250초</td></tr><tr><td>120초</td><td>약 218초</td><td>약 75초</td><td>280초</td></tr><tr><td>240초</td><td>약 265초</td><td>약 8초</td><td>340초</td></tr></tbody></table></div><p>*단순 합산식 = 평균 출발 지연 + 평균 이동 시간(20초) + 200명 ÷ 통과율. 지연이 분산되면 출발 지연과 문 앞 대기가 겹치기 때문에 단순 합산식은 탈출 시간을 크게 과대 추정한다. 반면 지연 범위가 아주 넓어지면 출구가 비는 시간이 생겨 총 시간이 다시 늘어난다. 평균만 쓰는 모형으로는 보기 어려운 이런 결과가 개별 행위자를 두는 이유이다. 위 수치는 가정한 단순 모형의 결과이다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
-  <ul><li>모형을 ODD 프로토콜 순서로 서술하고, 행위자 속성과 규칙의 근거(관측 자료, 선행연구)를 표로 제시한다.</li><li>난수를 쓰면 반복 횟수와 시드, 결과의 분포(평균만이 아니라 표준편차나 구간)를 적다.</li><li>민감도 분석으로 어떤 가정이 결과를 크게 바꾸는지 보이고, 가능하면 실제 대피 훈련이나 실험 자료와 비교해 검증한 범위를 밝힌다.</li><li>재난 상황의 심리 요인(공황 등)을 넣었다면 그 규칙이 어떤 자료에 근거했는지 명시하고, 일반화 한계를 서술한다.</li></ul>
+  <ul><li>모형을 ODD 프로토콜 순서로 서술하고, 행위자 속성과 규칙의 근거(관측 자료, 선행연구)를 표로 제시한다.</li><li>난수를 쓰면 반복 횟수와 시드, 결과의 분포(평균만이 아니라 표준편차나 구간)를 적다.</li><li>민감도 분석으로 어떤 가정이 결과를 크게 바꾸는지 보이고, 가능하면 실제 대피 훈련이나 실험 자료와 비교해 검증한 범위를 밝힌다.</li><li>재난 상황의 심리 요인(공황 등)을 넣었다면 그 규칙이 어떤 자료에 근거했는지 명시하고, 일반화 한계를 서술한다.</li></ul><p>모형 점검은 검증(verification)과 타당화(validation)로 나뉜다. 검증은 구현한 모형이 개념 모형과 일치하는지 보는 것이고, 타당화는 구현한 모형이 현실과 관련되는지 보는 것이다. 타당화의 측면으로는 외관 타당화, 민감도 분석, 보정(calibration), 통계적 타당화가 꼽힌다. 행위자기반모형은 순차 구조로 구현된 틀이 많아 속도와 확장성에 한계가 있고, 분산 컴퓨팅이나 GPU가 도움이 되지만 복잡성이 더해진다. 역학 분야의 행위자기반모형은 가정이 단순하고 비현실적이라는 비판을 받으며, 정확히 보정되었을 때만 쓸모가 있다고 평가된다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -191,6 +191,7 @@
     <li>Schelling, T. C. (1971). Dynamic models of segregation. Journal of Mathematical Sociology, 1(2).</li>
     <li>Grimm, V., Berger, U., DeAngelis, D. L., Polhill, J. G., Giske, J., &amp; Railsback, S. F. (2010). The ODD protocol: A review and first update. Ecological Modelling, 221(23).</li>
     <li>Epstein, J. M., &amp; Axtell, R. (1996). Growing Artificial Societies: Social Science from the Bottom Up. Brookings Institution Press and MIT Press.</li>
+    <li>Wikipedia contributors. (n.d.). Agent-based model. Wikipedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>대상들 사이의 <strong>거리(또는 비유사도)</strong>만 주어졌을 때, 그 거리 관계를 2~3차원 평면에 점으로 옮겨 구조를 눈으로 보고 싶을 때 쓴다.</p><ul><li>입력이 원자료(변수들)가 아니라 거리 행렬이다. 응답자가 브랜드 쌍마다 매긴 “얼마나 비슷한가” 평점, 단어가 함께 등장한 빈도에서 만든 비유사도, 유전적 거리 등이 그 예이다.</li><li>거리가 정확한 수치면 <strong>계량적(metric) 다차원척도법</strong>(고전적 방법은 Torgerson, 1952), 순서 정보만 믿을 수 있으면 <strong>비계량적(non-metric)</strong> 방법(Kruskal, 1964)을 쓴다.</li><li>목적은 지도로 시각화하는 것이다. 군집이 있다면 지도에서 가까운 대상끼리 모여 보이지만, 군집을 확정하려면 [[cluster-analysis|군집분석]]을 따로 해야 한다.</li></ul>"
+      "html": "<p>대상들 사이의 <strong>거리(또는 비유사도)</strong>만 주어졌을 때, 그 거리 관계를 2~3차원 평면에 점으로 옮겨 구조를 눈으로 보고 싶을 때 쓴다.</p><ul><li>입력이 원자료(변수들)가 아니라 거리 행렬이다. 응답자가 브랜드 쌍마다 매긴 “얼마나 비슷한가” 평점, 단어가 함께 등장한 빈도에서 만든 비유사도, 유전적 거리 등이 그 예이다.</li><li>거리가 정확한 수치면 <strong>계량적(metric) 다차원척도법</strong>(고전적 방법은 Torgerson, 1952), 순서 정보만 믿을 수 있으면 <strong>비계량적(non-metric)</strong> 방법(Kruskal, 1964)을 쓴다.</li><li>목적은 지도로 시각화하는 것이다. 군집이 있다면 지도에서 가까운 대상끼리 모여 보이지만, 군집을 확정하려면 [[cluster-analysis|군집분석]]을 따로 해야 한다.</li></ul><p>고전적 다차원척도법은 주좌표 분석(PCoA), Torgerson-Gower 척도법으로도 불리며, 비유사도 행렬의 제곱 거리를 이중 중심화한 뒤 고유값 분해로 좌표를 얻고 스트레인(strain)을 최소화한다. 계량적 MDS는 이를 일반화해 거리에 지수 p의 거듭제곱 변환을 쓰며(p = 1이 고전적 방법) 스트레스를 최소화한다. 비계량 MDS는 비유사도와 지도상 거리 사이의 단조 관계를 등위 회귀(isotonic regression)로 추정한다. Guttman의 최소 공간 분석이 그 예로 꼽힌다. 그 밖에 비유클리드 공간에 끼워 넣는 일반화 MDS(GMDS) 같은 변형이 있다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<ul><li><strong>좌표와 지도</strong>: 지도에서 가까운 점은 원래 자료에서 비슷한 대상이다. 축 자체에는 의미가 없고 회전·반전해도 같은 해이다. 축에 이름을 붙이는 것은 연구자의 해석이며, 그 근거는 대상의 속성 값과의 상관 등으로 보강한다.</li><li><strong>스트레스(stress)</strong>: 지도상의 거리가 원래 거리를 얼마나 어긋나게 재현하는지를 요약한 값으로, 작을수록 좋다. Kruskal(1964)은 스트레스-1을 기준으로 .20 나쁨, .10 보통, .05 좋음, .025 매우 좋음, 0 완전이라는 어림 기준을 소개했다. 이 값은 대상 수와 차원에 따라 달라지는 <strong>관례</strong>이므로, 기준에 맞는지만 보지 말고 지도가 자료를 잘 대변하는지 함께 판단한다(Borg &amp; Groenen, 2005).</li><li><strong>차원 수 정하기</strong>: 차원을 1, 2, 3, … 으로 늘려 가며 스트레스를 그린 스크리 도표에서 꺾이는 지점을 찾는다. 해석 가능성이 높은 2~3차원이 선호된다. 고전적 방법에서는 고유값의 크기도 참고한다.</li><li><strong>셰퍼드 도표</strong>: 원래 거리 대 지도상 거리의 산점도로, 점이 한 줄로 모일수록 잘 맞다.</li></ul><p><strong>작은 예</strong>(가상의 거리, 대상 4개): 거리 행렬이 A–B 3, A–C 4, A–D 5, B–C 5, B–D 4.2, C–D 3.1이라고 하자. 고전적 방법의 고유값은 16.27, 8.75, 0.55, 0이고 처음 두 개가 전체의 약 97.9%를 차지하므로 2차원 지도로 충분하다. 2차원 지도에서 계산한 스트레스-1(원래 거리와의 차이 기준)은 .016이다.</p>"
+      "html": "<ul><li><strong>좌표와 지도</strong>: 지도에서 가까운 점은 원래 자료에서 비슷한 대상이다. 축 자체에는 의미가 없고 회전·반전해도 같은 해이다. 축에 이름을 붙이는 것은 연구자의 해석이며, 그 근거는 대상의 속성 값과의 상관 등으로 보강한다.</li><li><strong>스트레스(stress)</strong>: 지도상의 거리가 원래 거리를 얼마나 어긋나게 재현하는지를 요약한 값으로, 작을수록 좋다. Kruskal(1964)은 스트레스-1을 기준으로 .20 나쁨, .10 보통, .05 좋음, .025 매우 좋음, 0 완전이라는 어림 기준을 소개했다. 이 값은 대상 수와 차원에 따라 달라지는 <strong>관례</strong>이므로, 기준에 맞는지만 보지 말고 지도가 자료를 잘 대변하는지 함께 판단한다(Borg &amp; Groenen, 2005).</li><li><strong>차원 수 정하기</strong>: 차원을 1, 2, 3, … 으로 늘려 가며 스트레스를 그린 스크리 도표에서 꺾이는 지점을 찾는다. 해석 가능성이 높은 2~3차원이 선호된다. 고전적 방법에서는 고유값의 크기도 참고한다.</li><li><strong>셰퍼드 도표</strong>: 원래 거리 대 지도상 거리의 산점도로, 점이 한 줄로 모일수록 잘 맞다.</li></ul><p><strong>작은 예</strong>(가상의 거리, 대상 4개): 거리 행렬이 A–B 3, A–C 4, A–D 5, B–C 5, B–D 4.2, C–D 3.1이라고 하자. 고전적 방법의 고유값은 16.27, 8.75, 0.55, 0이고 처음 두 개가 전체의 약 97.9%를 차지하므로 2차원 지도로 충분하다. 2차원 지도에서 계산한 스트레스-1(원래 거리와의 차이 기준)은 .016이다.</p><p>비계량 스트레스는 지도상 거리의 제곱합으로 나누어 모든 점이 한 곳으로 몰리는 붕괴를 막는다. 알고리즘은 단조 변환의 적합과 점의 재배치를 번갈아 하며 보통 경사하강법을 쓴다. 차원이 너무 적으면 중요한 구조를 놓치고 너무 많으면 잡음에 과적합하므로 AIC, BIC, 베이즈 인자, 교차 검증이 선택 도구로 제안된다. 응용으로는 청량음료 브랜드 같은 제품 유사도·선호의 지각도, 미국 하원의 투표 양상 시각화, 생태 군집 분석 등이 있다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -55,6 +55,7 @@
     "Kruskal, J. B. (1964). Multidimensional scaling by optimizing goodness of fit to a nonmetric hypothesis. Psychometrika, 29(1), 1–27.",
     "Borg, I., & Groenen, P. J. F. (2005). Modern Multidimensional Scaling: Theory and Applications (2nd ed.). Springer.",
     "Cox, T. F., & Cox, M. A. A. (2001). Multidimensional Scaling (2nd ed.). Chapman and Hall/CRC.",
-    "de Leeuw, J., & Mair, P. (2009). Multidimensional scaling using majorization: SMACOF in R. Journal of Statistical Software, 31(3), 1–30."
+    "de Leeuw, J., & Mair, P. (2009). Multidimensional scaling using majorization: SMACOF in R. Journal of Statistical Software, 31(3), 1–30.",
+    "Wikipedia contributors. (n.d.). Multidimensional scaling. Wikipedia."
   ]
 }

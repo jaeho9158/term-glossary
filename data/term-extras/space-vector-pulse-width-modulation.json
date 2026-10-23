@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ol><li><strong>좌표 변환</strong>: 3상 기준 전압을 클라크(Clarke) 변환으로 정지 좌표계 α–β의 기준 전압벡터 <code>V<sub>ref</sub> = V<sub>α</sub> + jV<sub>β</sub></code>로 바꾸어 크기 |V<sub>ref</sub>|와 각도를 구한다.</li><li><strong>섹터 판별</strong>: 3상 2레벨 인버터의 8개 스위칭 상태 중 6개는 크기가 같은 유효벡터(60° 간격), 2개는 영벡터이다. 기준벡터가 어느 60° 구간(섹터)에 있는지 판별한다.</li><li><strong>인가시간 계산</strong>: 섹터 시작 벡터에서 잰 각도를 θ, 스위칭 주기를 T<sub>s</sub>, 직류단 전압을 V<sub>dc</sub>라 하면 인접한 두 유효벡터의 인가시간은 <code>T<sub>1</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin(60° − θ)</code>, <code>T<sub>2</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin θ</code>이고, 나머지 <code>T<sub>0</sub> = T<sub>s</sub> − T<sub>1</sub> − T<sub>2</sub></code>를 영벡터에 배분한다. 여기서 |V<sub>ref</sub>|는 상전압 진폭이다.</li><li><strong>스위칭 순서 배치</strong>: 영벡터를 앞뒤에 나누어 넣는 대칭 배치(7구간 등)를 많이 쓴다. 배치에 따라 스위칭 횟수와 전류 리플이 달라진다.</li><li><strong>게이트 신호 생성</strong>: 계산한 시간을 디지털 컨트롤러의 비교값으로 바꾸어 각 상 스위치에 출력한다.</li></ol>"
+      "html": "<ol><li><strong>좌표 변환</strong>: 3상 기준 전압을 클라크(Clarke) 변환으로 정지 좌표계 α–β의 기준 전압벡터 <code>V<sub>ref</sub> = V<sub>α</sub> + jV<sub>β</sub></code>로 바꾸어 크기 |V<sub>ref</sub>|와 각도를 구한다.</li><li><strong>섹터 판별</strong>: 3상 2레벨 인버터의 8개 스위칭 상태 중 6개는 크기가 같은 유효벡터(60° 간격), 2개는 영벡터이다. 기준벡터가 어느 60° 구간(섹터)에 있는지 판별한다.</li><li><strong>인가시간 계산</strong>: 섹터 시작 벡터에서 잰 각도를 θ, 스위칭 주기를 T<sub>s</sub>, 직류단 전압을 V<sub>dc</sub>라 하면 인접한 두 유효벡터의 인가시간은 <code>T<sub>1</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin(60° − θ)</code>, <code>T<sub>2</sub> = √3·T<sub>s</sub>·(|V<sub>ref</sub>|/V<sub>dc</sub>)·sin θ</code>이고, 나머지 <code>T<sub>0</sub> = T<sub>s</sub> − T<sub>1</sub> − T<sub>2</sub></code>를 영벡터에 배분한다. 여기서 |V<sub>ref</sub>|는 상전압 진폭이다.</li><li><strong>스위칭 순서 배치</strong>: 영벡터를 앞뒤에 나누어 넣는 대칭 배치(7구간 등)를 많이 쓴다. 배치에 따라 스위칭 횟수와 전류 리플이 달라진다.</li><li><strong>게이트 신호 생성</strong>: 계산한 시간을 디지털 컨트롤러의 비교값으로 바꾸어 각 상 스위치에 출력한다.</li></ol>\n<p>삼상 인버터에는 V0~V7의 8가지 스위칭 상태가 있으며 6개의 유효 벡터(V1~V6)와 2개의 영 벡터(V0, V7)로 이루어진다. 같은 레그의 스위치는 상보적이어야 하며 둘이 동시에 켜지면 직류 전원이 단락된다. 기준 벡터는 주파수 f<sub>s</sub>(T<sub>s</sub> = 1/f<sub>s</sub>)로 표본화하고, 이웃한 두 유효 벡터와 영 벡터 하나 또는 둘로 합성한다. 벡터를 배치하는 순서와 영 벡터 선택은 고조파 성분과 스위칭 손실에 영향을 준다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -48,6 +48,7 @@
     "van der Broeck, H. W., Skudelny, H.-C., & Stanke, G. V. (1988). Analysis and realization of a pulsewidth modulator based on voltage space vectors. IEEE Transactions on Industry Applications, 24(1), 142–150.",
     "Holmes, D. G., & Lipo, T. A. (2003). Pulse Width Modulation for Power Converters: Principles and Practice. IEEE Press/Wiley.",
     "Mohan, N., Undeland, T. M., & Robbins, W. P. (2003). Power Electronics: Converters, Applications, and Design (3rd ed.). Wiley.",
-    "Zhou, K., & Wang, D. (2002). Relationship between space-vector modulation and three-phase carrier-based PWM: A comprehensive analysis. IEEE Transactions on Industrial Electronics, 49(1), 186–196."
+    "Zhou, K., & Wang, D. (2002). Relationship between space-vector modulation and three-phase carrier-based PWM: A comprehensive analysis. IEEE Transactions on Industrial Electronics, 49(1), 186–196.",
+    "Wikipedia contributors. (n.d.). Space vector modulation. Wikipedia."
   ]
 }

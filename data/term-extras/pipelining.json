@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>파이프라이닝은 명령어 실행을 <strong>여러 단계</strong>(예: 인출, 해독, 실행, 메모리 접근, 쓰기의 5단계)로 나누고, 각 단계가 <em>서로 다른 명령어</em>를 동시에 처리하게 하는 방식이다.</li><li>이상적인 경우 한 명령어가 단계를 지나는 데 걸리는 시간(지연시간)은 거의 그대로(단계 사이 레지스터 때문에 오히려 약간 늘기도 함)이지만, 클록마다 한 명령어가 끝나므로 <strong>처리량</strong>이 단계 수에 가깝게 늘어난다.</li><li>단계 수가 k이고 명령어가 n개면, 순차 실행은 <code>n·k</code> 클록, 이상적 파이프라인은 <code>k + n − 1</code> 클록이다.</li><li>이상에서 벗어나는 이유는 <strong>위험(hazard)</strong>이다. 구조적 위험(자원 충돌), 데이터 위험(앞 명령어 결과를 기다림), 제어 위험(분기 결과를 모름) 때문에 파이프라인이 멈추거나(stall) 비워진다. 포워딩, 분기 예측, 명령어 재배치 같은 기법이 이를 줄인다.</li><li>성능은 CPI(명령어당 클록 수)로 표현한다. 이상적으로 CPI = 1이고, 정체가 있으면 CPI = 1 + 명령어당 평균 정체 클록 수이다.</li></ul>"
+      "html": "<ul><li>파이프라이닝은 명령어 실행을 <strong>여러 단계</strong>(예: 인출, 해독, 실행, 메모리 접근, 쓰기의 5단계)로 나누고, 각 단계가 <em>서로 다른 명령어</em>를 동시에 처리하게 하는 방식이다.</li><li>이상적인 경우 한 명령어가 단계를 지나는 데 걸리는 시간(지연시간)은 거의 그대로(단계 사이 레지스터 때문에 오히려 약간 늘기도 함)이지만, 클록마다 한 명령어가 끝나므로 <strong>처리량</strong>이 단계 수에 가깝게 늘어난다.</li><li>단계 수가 k이고 명령어가 n개면, 순차 실행은 <code>n·k</code> 클록, 이상적 파이프라인은 <code>k + n − 1</code> 클록이다.</li><li>이상에서 벗어나는 이유는 <strong>위험(hazard)</strong>이다. 구조적 위험(자원 충돌), 데이터 위험(앞 명령어 결과를 기다림), 제어 위험(분기 결과를 모름) 때문에 파이프라인이 멈추거나(stall) 비워진다. 포워딩, 분기 예측, 명령어 재배치 같은 기법이 이를 줄인다.</li><li>성능은 CPI(명령어당 클록 수)로 표현한다. 이상적으로 CPI = 1이고, 정체가 있으면 CPI = 1 + 명령어당 평균 정체 클록 수이다.</li></ul><p>고전적 RISC 파이프라인은 명령어 인출, 해독/레지스터 읽기, 실행, 메모리 접근, 레지스터 쓰기 5단계이다. 클록당 약 한 명령어를 끝내는 것을 목표로 하며, 오버헤드 때문에 지연시간은 늘 수 있다. 단계를 더 잘게 쪼개 각 단계의 일을 줄이면 클록을 높일 수 있고 이런 구조를 슈퍼파이프라인이라 부른다. 위험이 생기면 거품(bubble)을 넣어 멈추거나, 피연산자 포워딩, 비순차 실행을 쓴다. 초기 설계 중에는 지연 슬롯을 두거나 프로그래머가 NOP를 넣게 한 경우도 있다.</p>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>5단계 파이프라인에서 명령어 n개를 처리하는 데 필요한 클록 수를 계산했다(정체 없음, 가상의 이상적 경우).</p><table><thead><tr><th>명령어 수 n</th><th>순차 실행(n·5)</th><th>파이프라인(5 + n − 1)</th><th>속도 향상</th></tr></thead><tbody><tr><td>10</td><td>50</td><td>14</td><td>3.57배</td></tr><tr><td>100</td><td>500</td><td>104</td><td>4.81배</td></tr><tr><td>1000</td><td>5000</td><td>1004</td><td>4.98배</td></tr></tbody></table><p>n이 커질수록 향상 폭이 단계 수 5에 다가간다. 이제 분기 명령이 전체의 20%이고 분기마다 2클록이 낭비된다고 가정해 보면, CPI = 1 + 0.2 × 2 = 1.4가 되어 n = 1000일 때 속도 향상은 이상적인 4.98배에서 약 3.56배로 줄어든다. 위험을 얼마나 잘 처리하느냐가 성능을 좌우한다.</p>"
+      "html": "<p>5단계 파이프라인에서 명령어 n개를 처리하는 데 필요한 클록 수를 계산했다(정체 없음, 가상의 이상적 경우).</p><table><thead><tr><th>명령어 수 n</th><th>순차 실행(n·5)</th><th>파이프라인(5 + n − 1)</th><th>속도 향상</th></tr></thead><tbody><tr><td>10</td><td>50</td><td>14</td><td>3.57배</td></tr><tr><td>100</td><td>500</td><td>104</td><td>4.81배</td></tr><tr><td>1000</td><td>5000</td><td>1004</td><td>4.98배</td></tr></tbody></table><p>n이 커질수록 향상 폭이 단계 수 5에 다가간다. 이제 분기 명령이 전체의 20%이고 분기마다 2클록이 낭비된다고 가정해 보면, CPI = 1 + 0.2 × 2 = 1.4가 되어 n = 1000일 때 속도 향상은 이상적인 4.98배에서 약 3.56배로 줄어든다. 위험을 얼마나 잘 처리하느냐가 성능을 좌우한다.</p><p>분기, 특히 조건 분기는 결과를 아직 모를 수 있어 파이프라인을 어지럽힌다. 프로세서는 멈추거나, 분기를 예측하거나, 두 경로를 모두 실행해 보며, 예측이 틀리면 잘못된 경로를 비워야 한다. 역사적으로는 ILLIAC II와 IBM Stretch가 대표 사례로 꼽히고 단순한 형태는 Z1(1939)과 Z3(1941)에도 있었다고 한다. Intel Pentium 4 계열은 약 20단계였고 이후 NetBurst의 Prescott와 Cedar Mill 코어는 31단계였다. 반대로 Atmel AVR과 PIC 마이크로컨트롤러는 2단계 파이프라인을 쓴다.</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -17,6 +17,7 @@
   "references": [
     "Hennessy, J. L., & Patterson, D. A. (2017). Computer Architecture: A Quantitative Approach (6th ed.). Morgan Kaufmann.",
     "Patterson, D. A., & Hennessy, J. L. (2020). Computer Organization and Design: The Hardware/Software Interface, RISC-V Edition (2nd ed.). Morgan Kaufmann.",
-    "Kogge, P. M. (1981). The Architecture of Pipelined Computers. McGraw-Hill."
+    "Kogge, P. M. (1981). The Architecture of Pipelined Computers. McGraw-Hill.",
+    "Wikipedia contributors. (n.d.). Instruction pipelining. Wikipedia."
   ]
 }

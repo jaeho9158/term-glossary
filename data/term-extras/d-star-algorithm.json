@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ol><li><strong>초기 계획</strong>: 목표 노드에서 거꾸로 각 노드까지의 최단 비용을 계산한다. 모르는 구역은 통행 가능하다고 가정하는 것(자유공간 가정)이 보통이다.</li><li><strong>이동과 감지</strong>: 로봇이 경로를 따라 이동하며 센서로 간선 비용의 변화(새 장애물 등)를 감지한다.</li><li><strong>국소 갱신</strong>: 비용이 바뀐 간선 주변에서 값이 불일치하게 된 노드만 우선순위 큐에 올려 비용을 전파한다. 전체 지도를 처음부터 다시 탐색하지 않는다.</li><li><strong>경로 추종</strong>: 현재 위치에서 목표 쪽으로 비용이 가장 작게 이어지는 이웃으로 이동한다.</li></ol><p>원조 D*는 Stentz(1994)가 제안했고, D* Lite(Koenig &amp; Likhachev, 2002)는 Lifelong Planning A*(LPA*)에 기반해 더 단순하게 같은 동작을 구현한 알고리즘이다. 연구와 실무에서는 D* Lite가 기준으로 자주 쓰인다.</p>"
+      "html": "<ol><li><strong>초기 계획</strong>: 목표 노드에서 거꾸로 각 노드까지의 최단 비용을 계산한다. 모르는 구역은 통행 가능하다고 가정하는 것(자유공간 가정)이 보통이다.</li><li><strong>이동과 감지</strong>: 로봇이 경로를 따라 이동하며 센서로 간선 비용의 변화(새 장애물 등)를 감지한다.</li><li><strong>국소 갱신</strong>: 비용이 바뀐 간선 주변에서 값이 불일치하게 된 노드만 우선순위 큐에 올려 비용을 전파한다. 전체 지도를 처음부터 다시 탐색하지 않는다.</li><li><strong>경로 추종</strong>: 현재 위치에서 목표 쪽으로 비용이 가장 작게 이어지는 이웃으로 이동한다.</li></ol><p>원조 D*는 Stentz(1994)가 제안했고, D* Lite(Koenig &amp; Likhachev, 2002)는 Lifelong Planning A*(LPA*)에 기반해 더 단순하게 같은 동작을 구현한 알고리즘이다. 연구와 실무에서는 D* Lite가 기준으로 자주 쓰인다.</p><p>이름의 D는 간선 비용이 실행 중에 바뀔 수 있다는 뜻의 동적(Dynamic) A*에서 왔다. D*는 A*와 달리 목표에서 거꾸로 탐색하므로 각 노드가 목표까지의 비용과 다음 노드를 가리키는 역포인터를 갖고, 장애물이 나타나면 영향받는 노드를 RAISE로 표시해 비용 변화를 파동처럼 전파하며 새 경로를 찾는다. D*를 쓴 내비게이션 시스템으로는 화성 탐사 로버 Opportunity와 Spirit에서 시험한 시제품이 있으며, 카네기멜런 대학교에서 개발되었다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -50,6 +50,7 @@
     "Koenig, S., & Likhachev, M. (2002). D* Lite. Proceedings of the AAAI Conference on Artificial Intelligence, 476–483.",
     "Koenig, S., Likhachev, M., & Furcy, D. (2004). Lifelong planning A*. Artificial Intelligence, 155(1–2), 93–146.",
     "Koenig, S., & Likhachev, M. (2005). Fast replanning for navigation in unknown terrain. IEEE Transactions on Robotics, 21(3), 354–363.",
-    "Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107."
+    "Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107.",
+    "Wikipedia contributors. (n.d.). D*. Wikipedia."
   ]
 }

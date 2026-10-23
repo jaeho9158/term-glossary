@@ -9,11 +9,11 @@
   "sections": [
     {
       "heading": "계산과 범위",
-      "html": "<p>시차(lag) k의 자기상관은 같은 변수를 k기간 어긋나게 놓고 계산한 상관계수이다.</p><p><code>r<sub>k</sub> = Σ(y<sub>t</sub> − ȳ)(y<sub>t+k</sub> − ȳ) / Σ(y<sub>t</sub> − ȳ)²</code></p><ul><li><strong>범위</strong>: −1~1. 양수면 큰 값 뒤에 큰 값이, 음수면 큰 값 뒤에 작은 값이 따라오는 경향이다. 시차 0의 자기상관은 항상 1이다.</li><li>여러 시차의 r<sub>k</sub>를 늘어놓은 것이 자기상관함수(ACF)이고, 중간 시차의 영향을 제거한 것이 편자기상관함수(PACF)이다.</li><li>회귀분석에서는 원자료가 아니라 <strong>잔차</strong>의 자기상관이 문제가 된다. 이 경우 [[durbin-watson-test|더빈-왓슨 통계량]] d는 대략 2(1 − r₁)에 가까워서, r₁이 0이면 d ≈ 2이다.</li></ul><p><strong>작은 예</strong>(가상의 월별 값, n = 12): 3, 4, 6, 7, 9, 8, 10, 12, 11, 13, 14, 13. 평균 9.17을 기준으로 계산하면 r₁ = .73, r₂ = .46, r₃ = .26이다. 자료가 위로 올라가는 추세라서 이웃한 값끼리 비슷해 자기상관이 크다.</p>"
+      "html": "<p>시차(lag) k의 자기상관은 같은 변수를 k기간 어긋나게 놓고 계산한 상관계수이다.</p><p><code>r<sub>k</sub> = Σ(y<sub>t</sub> − ȳ)(y<sub>t+k</sub> − ȳ) / Σ(y<sub>t</sub> − ȳ)²</code></p><ul><li><strong>범위</strong>: −1~1. 양수면 큰 값 뒤에 큰 값이, 음수면 큰 값 뒤에 작은 값이 따라오는 경향이다. 시차 0의 자기상관은 항상 1이다.</li><li>여러 시차의 r<sub>k</sub>를 늘어놓은 것이 자기상관함수(ACF)이고, 중간 시차의 영향을 제거한 것이 편자기상관함수(PACF)이다.</li><li>회귀분석에서는 원자료가 아니라 <strong>잔차</strong>의 자기상관이 문제가 된다. 이 경우 [[durbin-watson-test|더빈-왓슨 통계량]] d는 대략 2(1 − r₁)에 가까워서, r₁이 0이면 d ≈ 2이다.</li><li>이산 시간 자료에서는 <strong>계열상관(serial correlation)</strong>이라고도 한다. 분야에 따라 정의가 달라 어떤 분야에서는 자기공분산과 같은 뜻으로 쓰므로, 논문마다 어떤 정의를 따르는지 확인해야 한다.</li><li>시차별 자기상관을 세로축에 그린 그림을 상관도표(correlogram)라 한다. 잡음에 가려진 사인파가 있으면 시차 0 오른쪽에 규칙적으로 봉우리가 나타나고, 그 간격으로 숨은 주기를 가늠할 수 있다.</li><li>자료가 길면 정의대로 계산하는 방법은 n²에 비례해 느리다. 위너-힌친 정리를 이용하면 푸리에 변환 두 번(FFT)으로 n log n 시간에 구할 수 있다.</li></ul><p><strong>작은 예</strong>(가상의 월별 값, n = 12): 3, 4, 6, 7, 9, 8, 10, 12, 11, 13, 14, 13. 평균 9.17을 기준으로 계산하면 r₁ = .73, r₂ = .46, r₃ = .26이다. 자료가 위로 올라가는 추세라서 이웃한 값끼리 비슷해 자기상관이 크다.</p>"
     },
     {
       "heading": "해석 기준",
-      "html": "<p>자기상관이 우연으로 나올 수준인지 보려고 ACF 그림에 <strong>±1.96/√n</strong> 띠를 그린다. 자료가 서로 독립인 백색잡음일 때 r<sub>k</sub>가 대략 이 범위 안에 들어온다는 근사에 기초한 관례이다. 위 예는 n = 12이므로 띠가 ±.57이고, r₁ = .73은 띠를 넘지만 r₂, r₃는 넘지 않는다.</p><ul><li>여러 시차를 동시에 보면 5%만 해도 20개 중 1개는 띠를 벗어나는 것이 정상이다. 시차 전체를 한 번에 검정하는 융-박스(Ljung–Box) 검정(Ljung &amp; Box, 1978)을 함께 쓴다. 모형의 잔차에 쓸 때는 추정한 모수 수만큼 자유도를 줄인다.</li><li>추세나 계절성이 있는 자료는 ACF가 천천히 줄어든다. 추세를 제거하거나 차분한 뒤 다시 봐야 자기상관 구조를 읽을 수 있다([[stationarity|정상성]]).</li><li>회귀 잔차에 <strong>양의 자기상관</strong>이 있으면 계수 추정치는 그대로 불편이지만 표준오차가 작게 나와 유의성이 과대평가되는 것이 보통이다.</li><li>시간이 아니라 공간에서의 이웃 값 상관은 공간자기상관이라 하며 [[morans-i|Moran의 I]] 같은 별도의 지표를 쓴다.</li></ul>"
+      "html": "<p>자기상관이 우연으로 나올 수준인지 보려고 ACF 그림에 <strong>±1.96/√n</strong> 띠를 그린다. 자료가 서로 독립인 백색잡음일 때 r<sub>k</sub>가 대략 이 범위 안에 들어온다는 근사에 기초한 관례이다. 위 예는 n = 12이므로 띠가 ±.57이고, r₁ = .73은 띠를 넘지만 r₂, r₃는 넘지 않는다.</p><ul><li>여러 시차를 동시에 보면 5%만 해도 20개 중 1개는 띠를 벗어나는 것이 정상이다. 시차 전체를 한 번에 검정하는 융-박스(Ljung–Box) 검정(Ljung &amp; Box, 1978)을 함께 쓴다. 모형의 잔차에 쓸 때는 추정한 모수 수만큼 자유도를 줄인다.</li><li>추세나 계절성이 있는 자료는 ACF가 천천히 줄어든다. 추세를 제거하거나 차분한 뒤 다시 봐야 자기상관 구조를 읽을 수 있다([[stationarity|정상성]]).</li><li>회귀 잔차에 <strong>양의 자기상관</strong>이 있으면 계수 추정치는 그대로 불편이지만 표준오차가 작게 나와 유의성이 과대평가되는 것이 보통이다.</li><li>시간이 아니라 공간에서의 이웃 값 상관은 공간자기상관이라 하며 [[morans-i|Moran의 I]] 같은 별도의 지표를 쓴다.</li><li>회귀 잔차의 자기상관은 오차항이 서로 상관이 없다는 최소제곱법의 가정을 깨뜨려 가우스-마르코프 정리가 적용되지 않게 하며, OLS 추정량이 최량 선형 불편 추정량(BLUE)이 아니게 된다. 계수 추정치는 편향되지 않지만, 낮은 시차의 오차 자기상관이 양수이면 표준오차가 과소 추정되고 t값이 과대 추정되는 경향이 있다.</li><li>1차 자기상관의 전통적 검정은 더빈-왓슨 통계량이다. 설명변수에 종속변수의 시차값이 들어 있으면 더빈의 h 통계량을 쓴다. 더 높은 차수의 자기상관까지, 시차 종속변수 포함 여부와 관계없이 쓸 수 있는 검정으로 Breusch–Godfrey 검정이 있다.</li></ul>"
     },
     {
       "heading": "보고 방법",
@@ -53,6 +53,7 @@
     "Box, G. E. P., Jenkins, G. M., Reinsel, G. C., & Ljung, G. M. (2015). Time Series Analysis: Forecasting and Control (5th ed.). Wiley.",
     "Ljung, G. M., & Box, G. E. P. (1978). On a measure of lack of fit in time series models. Biometrika, 65(2), 297–303.",
     "Durbin, J., & Watson, G. S. (1950). Testing for serial correlation in least squares regression. I. Biometrika, 37(3–4), 409–428.",
-    "Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press."
+    "Hamilton, J. D. (1994). Time Series Analysis. Princeton University Press.",
+    "Wikipedia contributors. (n.d.). Autocorrelation. In Wikipedia, The Free Encyclopedia."
   ]
 }

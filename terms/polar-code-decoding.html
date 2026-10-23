@@ -156,13 +156,13 @@
   <h2>어떤 절차인가</h2>
   <p>극부호는 채널 분극화(Arıkan, 2009)를 이용한다. 같은 채널을 여러 번 결합·분할하면 부채널의 신뢰도가 좋은 쪽과 나쁜 쪽으로 갈라지므로, 정보 비트는 좋은 부채널에 싣고 나머지 자리(고정 비트)는 송수신이 미리 약속한 값으로 둔다. 복호는 이 구조를 거꾸로 푸는 것이다.</p>
   <ol><li><strong>연속 제거(SC) 복호</strong>: 비트를 u1, u2, …, uN 순서로 하나씩 정한다. 고정 비트 자리는 약속한 값을 그대로 쓰고, 정보 비트 자리는 수신 신호와 이미 정한 앞쪽 비트를 바탕으로 더 가능성이 높은 값을 고른다. 복잡도는 N log N 수준이다.</li><li><strong>SC 리스트(SCL) 복호</strong>: 한 비트를 정할 때마다 후보 경로를 최대 L개까지 함께 유지하고, 마지막에 가장 가능성이 높은 경로를 고른다(Tal &amp; Vardy, 2015).</li><li><strong>CRC 보조 SCL</strong>: 정보 비트에 순환중복검사(CRC)를 붙여 두고, 리스트 가운데 CRC를 통과하는 경로를 고른다(Niu &amp; Chen, 2012).</li></ol>
-  <p>부채널의 신뢰도 순서를 정하는 절차를 부호 구성이라 하며, Tal과 Vardy(2013)가 효율적인 방법을 제시했다.</p>
+  <p>부채널의 신뢰도 순서를 정하는 절차를 부호 구성이라 하며, Tal과 Vardy(2013)가 효율적인 방법을 제시했다.</p><p>극부호는 대칭인 이진 입력 무기억 채널에서 채널 용량에 이른다는 것이 증명된, 명시적으로 구성되는 최초의 부호로 소개된다. 부호화와 연속 제거 복호의 복잡도는 블록 길이 N에 대해 O(N log N)이다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
   <p>분극화를 이해하기 쉽도록 이진 소거 채널(BEC)의 예를 계산한다(수치는 설명용 설정). 소거 확률 0.5인 BEC를 세 번 결합·분할하면 N = 8개의 부채널이 만들어지고, 한 번의 분할에서 소거 확률 ε은 나쁜 쪽 2ε − ε², 좋은 쪽 ε²가 된다.</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>부채널</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr></thead><tbody><tr><td>소거 확률</td><td>0.9961</td><td>0.8789</td><td>0.8086</td><td>0.3164</td><td>0.6836</td><td>0.1914</td><td>0.1211</td><td>0.0039</td></tr></tbody></table></div>
   <p>소거 확률이 낮은 4개(4, 6, 7, 8번)에 정보 비트 4개를 싣고 나머지 4개를 고정 비트로 두면 부호율 1/2이다. 용량의 합(8 × 0.5 = 4)은 분극화 뒤에도 보존되고, 소거 확률이 0 또는 1 쪽으로 갈라진다. N이 커질수록 이 갈라짐이 뚜렷해진다.</p>
-  <ul><li><strong>쓰임</strong>: 채널 용량에 도달하는 부호로 알려져 있으며, 5G NR에서는 제어 채널의 부호화 방식으로 채택되었다(3GPP, 2018).</li><li><strong>한계</strong>: SC 복호는 순차적이라 병렬화가 어렵고 한 번 틀린 비트가 뒤로 전파된다. 짧은 부호 길이에서는 SC만으로 성능이 낮아 리스트 크기와 CRC 결합이 중요하다.</li><li><strong>절충</strong>: 리스트 크기 L을 키우면 오류 성능은 좋아지지만 메모리와 지연이 함께 늘어난다. LLR 기반으로 구현을 다듬은 연구가 있다(Balatsoukas-Stimming et al., 2015).</li></ul>
+  <ul><li><strong>쓰임</strong>: 채널 용량에 도달하는 부호로 알려져 있으며, 5G NR에서는 제어 채널의 부호화 방식으로 채택되었다(3GPP, 2018).</li><li><strong>한계</strong>: SC 복호는 순차적이라 병렬화가 어렵고 한 번 틀린 비트가 뒤로 전파된다. 짧은 부호 길이에서는 SC만으로 성능이 낮아 리스트 크기와 CRC 결합이 중요하다.</li><li><strong>절충</strong>: 리스트 크기 L을 키우면 오류 성능은 좋아지지만 메모리와 지연이 함께 늘어난다. LLR 기반으로 구현을 다듬은 연구가 있다(Balatsoukas-Stimming et al., 2015).</li></ul><ul><li><strong>표준화</strong>: 2016년 11월 3GPP는 5G 향상된 모바일 광대역(eMBB)의 제어 채널에 극부호를, 데이터 채널에는 LDPC를 채택했다. 같은 해 10월 Huawei는 극부호를 쓴 5G 현장 시험에서 27 Gbit/s를 보고했다.</li><li><strong>리스트 복호의 위상</strong>: 연속 제거 복호만으로는 짧은 부호 길이에서 성능이 낮아, CRC를 결합한 리스트 복호가 실용적인 기준선으로 쓰인다. 다만 리스트 복호는 구현 효율이 낮다는 지적도 있다.</li></ul>
 
   <h2>논문에는 이렇게 적는다</h2>
   <p>극부호 복호 논문은 아래 항목을 적는 편이다.</p>
@@ -202,6 +202,7 @@
     <li>Niu, K., &amp; Chen, K. (2012). CRC-aided decoding of polar codes. IEEE Communications Letters, 16(10), 1668–1671.</li>
     <li>Balatsoukas-Stimming, A., Parizi, M. B., &amp; Burg, A. (2015). LLR-based successive cancellation list decoding of polar codes. IEEE Transactions on Signal Processing, 63(19), 5165–5179.</li>
     <li>3GPP. (2018). TS 38.212: NR; Multiplexing and channel coding (Release 15). 3rd Generation Partnership Project.</li>
+    <li>Wikipedia contributors. (n.d.). Polar code (coding theory). Wikipedia, The Free Encyclopedia.</li>
   </ol>
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->

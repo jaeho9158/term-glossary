@@ -7,7 +7,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>다변수 공정이나 다축 구동기처럼 한 입력이 여러 출력에 영향을 주는 대상에 쓰인다. 얻는 것은 ‘루프 단위로 설계하고 조정할 수 있다’는 단순함이다.</p><p><strong>가상의 예(계산함)</strong>: 정상상태 이득이 G = [[2, 1], [1.5, 3]]인 2입력 2출력 시스템에서 정적 디커플러를 D = G<sup>−1</sup> = [[0.667, −0.222], [−0.333, 0.444]]로 잡으면 G·D가 단위행렬이 되어 정상상태에서 입력 1은 출력 1만, 입력 2는 출력 2만 움직인다. 이 G의 RGA 대각 원소는 1/(1 − (1·1.5)/(2·3)) = 1.33으로, 1에 가까워 간섭이 크지 않은 편이다. 반면 G = [[2, 1.9], [1.9, 2]]처럼 입력 사이 영향이 거의 같은 경우 RGA 원소가 약 10.3까지 커지며, 이때는 D = G<sup>−1</sup>의 값이 입력 오차에 매우 민감해진다. RGA 값이 1에서 멀수록 상호작용이 강하다는 읽기는 관례이며, 기준선은 문헌마다 다르다.</p><p>완전한 디커플링은 모델이 정확하다는 전제가 필요하고, 우반평면 영점이 있으면 구현할 수 없는 경우가 있다. 그래서 디커플링 대신 간섭을 남긴 채 다변수 제어기를 통째로 설계하는 방법과 비교되곤 한다(Skogestad &amp; Postlethwaite, 2005).</p>"
+      "html": "<p>다변수 공정이나 다축 구동기처럼 한 입력이 여러 출력에 영향을 주는 대상에 쓰인다. 얻는 것은 ‘루프 단위로 설계하고 조정할 수 있다’는 단순함이다.</p><p><strong>가상의 예(계산함)</strong>: 정상상태 이득이 G = [[2, 1], [1.5, 3]]인 2입력 2출력 시스템에서 정적 디커플러를 D = G<sup>−1</sup> = [[0.667, −0.222], [−0.333, 0.444]]로 잡으면 G·D가 단위행렬이 되어 정상상태에서 입력 1은 출력 1만, 입력 2는 출력 2만 움직인다. 이 G의 RGA 대각 원소는 1/(1 − (1·1.5)/(2·3)) = 1.33으로, 1에 가까워 간섭이 크지 않은 편이다. 반면 G = [[2, 1.9], [1.9, 2]]처럼 입력 사이 영향이 거의 같은 경우 RGA 원소가 약 10.3까지 커지며, 이때는 D = G<sup>−1</sup>의 값이 입력 오차에 매우 민감해진다. RGA 값이 1에서 멀수록 상호작용이 강하다는 읽기는 관례이며, 기준선은 문헌마다 다르다.</p><p>완전한 디커플링은 모델이 정확하다는 전제가 필요하고, 우반평면 영점이 있으면 구현할 수 없는 경우가 있다. 그래서 디커플링 대신 간섭을 남긴 채 다변수 제어기를 통째로 설계하는 방법과 비교되곤 한다(Skogestad &amp; Postlethwaite, 2005).</p><p>다입력 다출력(MIMO) 계의 분리 제어에서는 전달 행렬 모델로부터 분리 보상기를 구해 원래의 전송 극점과 영점을 유지한 채 대각화된 플랜트를 만들 수 있다. Barros 등(2021)은 Smith-McMillan 형식을 이용하면 모든 주파수에서 플랜트 전달 행렬을 완전히 분리할 수 있음을 보였으며, 이때 각 채널을 단일 입출력 제어로 다룰 수 있다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
@@ -45,6 +45,7 @@
     "Skogestad, S., & Postlethwaite, I. (2005). Multivariable Feedback Control: Analysis and Design (2nd ed.). Wiley.",
     "Bristol, E. H. (1966). On a new measure of interaction for multivariable process control. IEEE Transactions on Automatic Control, 11(1).",
     "Falb, P. L., & Wolovich, W. A. (1967). Decoupling in the design and synthesis of multivariable control systems. IEEE Transactions on Automatic Control, 12(6).",
-    "Wang, Q.-G. (2003). Decoupling Control. Springer."
+    "Wang, Q.-G. (2003). Decoupling Control. Springer.",
+    "Barros, C. P. B., Butler, H., & Tóth, R. (2021). On the use of the Smith-McMillan form in decoupling system dynamics. arXiv preprint."
   ]
 }

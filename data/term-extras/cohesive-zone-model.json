@@ -47,7 +47,8 @@
     "Hillerborg, A., Modéer, M., & Petersson, P.-E. (1976). Analysis of crack formation and crack growth in concrete by means of fracture mechanics and finite elements. Cement and Concrete Research, 6(6), 773–781.",
     "Needleman, A. (1987). A continuum model for void nucleation by inclusion debonding. Journal of Applied Mechanics, 54(3), 525–531.",
     "Camanho, P. P., Dávila, C. G., & de Moura, M. F. (2003). Numerical simulation of mixed-mode progressive delamination in composite materials. Journal of Composite Materials, 37(16), 1415–1438.",
-    "Turon, A., Dávila, C. G., Camanho, P. P., & Costa, J. (2007). An engineering solution for mesh size effects in the simulation of delamination using cohesive zone models. Engineering Fracture Mechanics, 74(10), 1665–1682."
+    "Turon, A., Dávila, C. G., Camanho, P. P., & Costa, J. (2007). An engineering solution for mesh size effects in the simulation of delamination using cohesive zone models. Engineering Fracture Mechanics, 74(10), 1665–1682.",
+    "Wikipedia contributors. (n.d.). Cohesive zone model. In Wikipedia, The Free Encyclopedia."
   ],
   "sections": [
     {
@@ -56,7 +57,7 @@
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>균열 선단의 무한대 응력(특이점)을 직접 다루지 않고 <strong>균열의 발생과 진전을 하나의 모델로</strong> 표현할 수 있고, 접착 조인트의 박리나 복합재료의 [[delamination-in-composites|층간분리]]처럼 균열이 퍼지는 경로가 계면으로 정해져 있는 문제에 잘 맞다. 이와 달리 전통적인 파괴역학은 이미 있는 균열이 자랄지 판정하는 데 [[j-integral|J-적분]] 같은 양과 [[fracture-toughness|파괴인성]]을 쓴다.</p>\n<p>한계도 분명하다. 일반적인 계면 응집요소는 균열이 진행할 경로를 <strong>미리 알고 그 경로에 배치</strong>해야 한다. 또 요소망이 응집영역 길이에 비해 너무 거칠면 결과가 부정확해진다(Turon et al., 2007).</p>\n<p>아래는 가상의 접착층 값으로 삼각형 법칙을 계산한 예이다.</p>\n<ul><li>최대 견인력 σ<sub>max</sub> = 50 MPa, 파괴에너지 G<sub>c</sub> = 0.5 N/mm, 초기 강성 K = 100,000 N/mm³</li><li>손상 시작 변위 δ<sub>0</sub> = σ<sub>max</sub> / K = 0.0005 mm</li><li>완전 분리 변위 δ<sub>f</sub> = 2G<sub>c</sub> / σ<sub>max</sub> = 0.02 mm (삼각형 면적 ½·σ<sub>max</sub>·δ<sub>f</sub> = G<sub>c</sub>)</li><li>특성 길이 l = E·G<sub>c</sub> / σ<sub>max</sub>² = 0.6 mm (E = 3000 MPa 가정). 응집영역 길이는 이 길이에 모델에 따른 상수(대략 0.2~1)를 곱한 정도이고, 그 길이 안에 요소가 여러 개 들어가야 한다.</li></ul>"
+      "html": "<p>균열 선단의 무한대 응력(특이점)을 직접 다루지 않고 <strong>균열의 발생과 진전을 하나의 모델로</strong> 표현할 수 있고, 접착 조인트의 박리나 복합재료의 [[delamination-in-composites|층간분리]]처럼 균열이 퍼지는 경로가 계면으로 정해져 있는 문제에 잘 맞다. 이와 달리 전통적인 파괴역학은 이미 있는 균열이 자랄지 판정하는 데 [[j-integral|J-적분]] 같은 양과 [[fracture-toughness|파괴인성]]을 쓴다.</p>\n<p>한계도 분명하다. 일반적인 계면 응집요소는 균열이 진행할 경로를 <strong>미리 알고 그 경로에 배치</strong>해야 한다. 또 요소망이 응집영역 길이에 비해 너무 거칠면 결과가 부정확해진다(Turon et al., 2007).</p>\n<p>아래는 가상의 접착층 값으로 삼각형 법칙을 계산한 예이다.</p>\n<ul><li>최대 견인력 σ<sub>max</sub> = 50 MPa, 파괴에너지 G<sub>c</sub> = 0.5 N/mm, 초기 강성 K = 100,000 N/mm³</li><li>손상 시작 변위 δ<sub>0</sub> = σ<sub>max</sub> / K = 0.0005 mm</li><li>완전 분리 변위 δ<sub>f</sub> = 2G<sub>c</sub> / σ<sub>max</sub> = 0.02 mm (삼각형 면적 ½·σ<sub>max</sub>·δ<sub>f</sub> = G<sub>c</sub>)</li><li>특성 길이 l = E·G<sub>c</sub> / σ<sub>max</sub>² = 0.6 mm (E = 3000 MPa 가정). 응집영역 길이는 이 길이에 모델에 따른 상수(대략 0.2~1)를 곱한 정도이고, 그 길이 안에 요소가 여러 개 들어가야 한다.</li></ul><p>응집 영역 모형에서 견인-변위 곡선 아래 넓이는 분리에 필요한 에너지와 같다. Dugdale 모형은 얇은 탄성-완전소성 판의 균열 선단에 얇은 소성 띠를 가정하고, Barenblatt 모형은 비슷하지만 취성 고체에 적용된다. 이 모형은 응력 특이성을 없애고 응력을 재료의 응집 강도로 제한한다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",

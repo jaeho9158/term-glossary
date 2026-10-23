@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>직접 측정한 변수들(관측변수) 사이에 이론적으로 가정한 원인-결과 순서가 있고, 직접효과와 간접효과(매개)를 한 모형에서 함께 보고 싶을 때 쓴다. 방법의 뿌리는 Wright(1921, 1934)의 경로계수이다.</p><ul><li>변수의 인과 순서(어떤 변수가 앞서는지)가 연구 설계나 이론으로 정해져 있어야 한다. 자료가 순서를 정해 주지 않는다.</li><li>모든 변수를 관측변수로 쓰므로 측정오차가 없다고 가정한다. 설문 문항을 합산한 점수를 쓰면 이 가정이 완전히 맞지 않아 간접효과가 달라질 수 있다. 문항 수준의 측정오차까지 다루려면 [[structural-equation-modeling|구조방정식모형]]을 쓴다.</li><li>여러 개의 회귀식을 개별 회귀로 따로 추정하는 것보다, 전체 모형을 한꺼번에 평가하고 간접효과를 쉽게 구할 수 있다.</li></ul>"
+      "html": "<p>직접 측정한 변수들(관측변수) 사이에 이론적으로 가정한 원인-결과 순서가 있고, 직접효과와 간접효과(매개)를 한 모형에서 함께 보고 싶을 때 쓴다. 방법의 뿌리는 Wright(1921, 1934)의 경로계수이다.</p><ul><li>변수의 인과 순서(어떤 변수가 앞서는지)가 연구 설계나 이론으로 정해져 있어야 한다. 자료가 순서를 정해 주지 않는다.</li><li>모든 변수를 관측변수로 쓰므로 측정오차가 없다고 가정한다. 설문 문항을 합산한 점수를 쓰면 이 가정이 완전히 맞지 않아 간접효과가 달라질 수 있다. 문항 수준의 측정오차까지 다루려면 [[structural-equation-modeling|구조방정식모형]]을 쓴다.</li><li>여러 개의 회귀식을 개별 회귀로 따로 추정하는 것보다, 전체 모형을 한꺼번에 평가하고 간접효과를 쉽게 구할 수 있다.</li></ul><p>경로분석은 유전학자 Sewall Wright가 1918년 무렵 개발하고 1920년대에 더 폭넓게 논했으며, 생물학, 심리학, 사회학, 계량경제학에서 쓰였다. Judea Pearl은 이를 인과 추론 기법의 직계 조상으로 본다. 경로도에서 외생변수는 나가는 화살표만 갖고, 내생변수는 들어오는 화살표를 하나 이상 갖는다. 내생변수에는 측정오차를 포함한 바깥 요인이 오차항(e)으로 붙으며, 외생변수 사이의 상관은 양방향 화살표로 그린다. 구조모형만 있고 측정모형이 없는, 변수마다 지표가 하나인 구조방정식모형의 특수한 경우로 볼 수 있어 ‘인과모형’, ‘공분산구조분석’이라는 이름으로 불리기도 한다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<ul><li><strong>경로계수</strong>: 화살표 하나의 회귀계수이다. 표준화하면 변수 간 상대적 크기를 비교할 수 있다.</li><li><strong>직접효과·간접효과·총효과</strong>: X → M → Y 모형에서 간접효과는 a × b(경로계수의 곱), 총효과 = 직접효과 c′ + 간접효과 a × b이다.</li><li><strong>간접효과의 유의성</strong>: 곱의 표집분포가 정규분포가 아니므로 정규분포에 기초한 검정보다 부트스트랩 신뢰구간이 권장된다(Shrout &amp; Bolger, 2002; Preacher &amp; Hayes, 2008).</li><li><strong>적합도</strong>: 모든 가능한 경로를 그린 “포화모형”(자유도 0)은 자료를 정확히 재현하므로 적합도 지수가 의미가 없다. 일부 경로를 0으로 고정한 모형일 때만 카이제곱, CFI, RMSEA 등으로 적합도를 평가할 수 있다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료 200명, X → M → Y): a = .517, b = .281, 직접효과 c′ = .278이므로 간접효과 a × b = <strong>.145</strong>, 총효과는 .278 + .145 = .423이다(X만으로 Y를 회귀한 계수와 같음). 5,000번 부트스트랩한 간접효과의 95% 백분위 신뢰구간은 [.077, .231]로 0을 포함하지 않는다. (자료를 만든 참값은 a = .5, b = .4, c′ = .2였고 추정치는 표본에 따라 흔들린다.)</p>"
+      "html": "<ul><li><strong>경로계수</strong>: 화살표 하나의 회귀계수이다. 표준화하면 변수 간 상대적 크기를 비교할 수 있다.</li><li><strong>직접효과·간접효과·총효과</strong>: X → M → Y 모형에서 간접효과는 a × b(경로계수의 곱), 총효과 = 직접효과 c′ + 간접효과 a × b이다.</li><li><strong>간접효과의 유의성</strong>: 곱의 표집분포가 정규분포가 아니므로 정규분포에 기초한 검정보다 부트스트랩 신뢰구간이 권장된다(Shrout &amp; Bolger, 2002; Preacher &amp; Hayes, 2008).</li><li><strong>적합도</strong>: 모든 가능한 경로를 그린 “포화모형”(자유도 0)은 자료를 정확히 재현하므로 적합도 지수가 의미가 없다. 일부 경로를 0으로 고정한 모형일 때만 카이제곱, CFI, RMSEA 등으로 적합도를 평가할 수 있다.</li></ul><p><strong>작은 예</strong>(컴퓨터로 만든 가상의 자료 200명, X → M → Y): a = .517, b = .281, 직접효과 c′ = .278이므로 간접효과 a × b = <strong>.145</strong>, 총효과는 .278 + .145 = .423이다(X만으로 Y를 회귀한 계수와 같음). 5,000번 부트스트랩한 간접효과의 95% 백분위 신뢰구간은 [.077, .231]로 0을 포함하지 않는다. (자료를 만든 참값은 a = .5, b = .4, c′ = .2였고 추정치는 표본에 따라 흔들린다.)</p><p>두 변수 사이의 기대 상관은 둘을 잇는 모든 경로의 기여를 더한 값이고, 각 경로의 기여는 그 경로의 표준화 경로계수의 곱이다. Wright(1934)의 추적 규칙은 세 가지이다. 화살표를 따라 앞으로 갔다가 되돌아가지 않고, 한 사슬에서 같은 변수를 한 번만 지나며, 한 사슬에 양방향 화살표를 하나까지만 포함한다. 이 규칙은 되먹임 고리가 없는 방향 비순환 그래프를 전제로 한다. 경로를 제거한 대안 모형을 만들어 적합도를 통계적으로 비교할 수도 있다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -49,6 +49,7 @@
     "Wright, S. (1934). The method of path coefficients. The Annals of Mathematical Statistics, 5(3), 161–215.",
     "Shrout, P. E., & Bolger, N. (2002). Mediation in experimental and nonexperimental studies: New procedures and recommendations. Psychological Methods, 7(4), 422–445.",
     "Preacher, K. J., & Hayes, A. F. (2008). Asymptotic and resampling strategies for assessing and comparing indirect effects in multiple mediator models. Behavior Research Methods, 40(3), 879–891.",
-    "Kline, R. B. (2016). Principles and Practice of Structural Equation Modeling (4th ed.). Guilford Press."
+    "Kline, R. B. (2016). Principles and Practice of Structural Equation Modeling (4th ed.). Guilford Press.",
+    "Wikipedia contributors. (n.d.). Path analysis (statistics). Wikipedia."
   ]
 }
