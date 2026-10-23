@@ -244,6 +244,19 @@ const FNS = {
   // 꺾은선: 점 (xs[i], ys[i])를 직선으로 잇는다. xs는 증가해야 하고 범위 밖은 끝 값을 유지
   piecewise_linear: { params: { xs: { arr: true }, ys: { arr: true } }, desc: "꺾은선",
     f: (x, p) => { const n = p.xs.length; if (x <= p.xs[0]) return p.ys[0]; if (x >= p.xs[n - 1]) return p.ys[n - 1]; let i = 1; while (p.xs[i] < x) i++; return p.ys[i - 1] + ((p.ys[i] - p.ys[i - 1]) * (x - p.xs[i - 1])) / (p.xs[i] - p.xs[i - 1]); } },
+  // ── round7 plot-ext 4개: gaussian_sum·debye·piecewise_linear·haldane ──
+  // 가우스 봉우리 합 Σ a_i·exp(−(x−μ_i)²/(2σ_i²)). a·mu·sigma는 같은 길이의 배열(sigma>0)
+  gaussian_sum: { params: { a: { arr: true }, mu: { arr: true }, sigma: { arr: true } }, desc: "가우스 봉우리 합 곡선",
+    f: (x, p) => { let s = 0; for (let i = 0; i < p.a.length; i++) { const sg = p.sigma[i]; if (!(sg > 0)) return NaN; s += p.a[i] * Math.exp(-((x - p.mu[i]) ** 2) / (2 * sg * sg)); } return s; } },
+  // 디바이 비열 C/3R = 3x³∫₀^{1/x} t⁴eᵗ/(eᵗ−1)² dt, x=T/θD (심프슨 적분, 저온 극한 (4π⁴/5)x³)
+  debye: { params: {}, domain: [0, Infinity], desc: "디바이 비열 곡선",
+    f: (x) => { if (x <= 0) return 0; if (x < 0.02) return (4 * Math.PI ** 4 / 5) * x ** 3; const U = 1 / x, N = 400, h = U / N; const g = (t) => (t < 1e-9 ? 0 : (t ** 4 * Math.exp(t)) / (Math.expm1(t) ** 2)); let s = g(0) + g(U); for (let i = 1; i < N; i++) s += g(i * h) * (i % 2 ? 4 : 2); return 3 * x ** 3 * s * h / 3; } },
+  // 구간 선형 Σ max(s_i(x−k_i),0)+c. k·s는 같은 길이의 배열(옵션 만기손익 등)
+  piecewise_slope: { params: { k: { arr: true }, s: { arr: true }, c: {} }, desc: "구간 선형(꺾은선) 곡선",
+    f: (x, p) => { let y = p.c; for (let i = 0; i < p.k.length; i++) y += Math.max(p.s[i] * (x - p.k[i]), 0); return y; } },
+  // Haldane(Andrews) 기질저해 μ = μmax·S/(Ks+S+S²/Ki). Ki를 매우 크게 두면 Monod
+  haldane: { params: { mumax: { gt: 0 }, Ks: { gt: 0 }, Ki: { gt: 0 } }, domain: [0, Infinity], desc: "기질저해 성장 곡선",
+    f: (x, p) => (x <= 0 ? 0 : p.mumax * x / (p.Ks + x + x * x / p.Ki)) },
 };
 
 function checkParams(fn, params) {
