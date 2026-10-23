@@ -1,0 +1,65 @@
+{
+  "slug": "marine-connectivity",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "decay",
+        "params": {
+          "rate": 0.1
+        },
+        "label": "평균 분산 거리 L=10 km",
+        "color": "blue"
+      },
+      {
+        "fn": "decay",
+        "params": {
+          "rate": 0.025
+        },
+        "label": "평균 분산 거리 L=40 km",
+        "color": "amber"
+      }
+    ],
+    "shade": [],
+    "vlines": [
+      {
+        "x": 5,
+        "label": "5 km"
+      },
+      {
+        "x": 20,
+        "label": "20 km"
+      },
+      {
+        "x": 50,
+        "label": "50 km"
+      }
+    ],
+    "x": {
+      "label": "거리 d(km)",
+      "range": [
+        0,
+        50
+      ]
+    },
+    "y": {
+      "label": "d 이상 이동하는 유생 비율"
+    }
+  },
+  "notes": [
+    {
+      "text": "지수 분포를 가정하면 d 이상 이동하는 비율은 exp(−d/L)",
+      "tone": "general"
+    },
+    {
+      "text": "L=10 km: 5 km 61%, 20 km 13.5%, 50 km 0.7% / L=40 km: 88%, 61%, 29%",
+      "tone": "general"
+    },
+    {
+      "text": "가정한 분포의 결과로, 실제 분산 커널은 꼬리가 길어 드물게 먼 거리를 건너는 개체가 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 예시로 보기(가상 지수 분포 exp(−d/L), L=10·40 km, d=5·20·50 km 값). 함수 계산 검산: decay(1/L)에서 0.6065/0.1353/0.0067/0.8825/0.6065/0.2865 일치. 출처 URL은 열리지 않아 본문 계산만 사용.",
+  "reviewed": true
+}

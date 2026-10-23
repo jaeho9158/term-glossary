@@ -148,6 +148,34 @@ for (const [n, v] of [[0, 0.2], [3, 0.1024], [8, 0.0336]]) near(FNS.bose_einstei
 assert.ok(checkParams("complement_power", { a: 1 }).length > 0);
 assert.ok(checkParams("binomial_pmf", { n: 40, p: 1 }).length > 0);
 assert.deepStrictEqual(checkParams("planck", { T: 3000 }), []);
+// round5 추가 13개: 본문 수치 대조
+{
+  const c = [-1000, 300, 400, 500, 300];
+  [[0.06, 296.455], [0.08, 238.138], [0.1, 183.867], [0.12, 133.28], [0.15, 63.611]].forEach(([r, v]) => near(FNS.npv_curve.f(r, { cashflows: c }), v, 0.001));
+  [[3, 30.0], [5, 16.4], [7, 11.0], [9, 8.4], [11, 6.4], [21, 2.4]].forEach(([n, v]) => near(FNS.staircase_thd.f(n), v, 0.06));
+  [[10, 0.91], [20, 3.6], [30, 8.01], [40, 14.01]].forEach(([r, v]) => near(FNS.hyperbolic_phase.f(r, { lambda: 0.55, f: 100 }), v, 0.005));
+  [[0.05, 5.13], [0.1, 10.52], [0.3, 34.99], [0.7, 101.38]].forEach(([b, v]) => near(FNS.expm1_scale.f(b, { scale: 100 }), v, 0.005));
+  const L = { mu: 0, sigma: 0.5 };
+  assert.ok(FNS.lognormal.f(Math.exp(-0.25), L) > FNS.lognormal.f(1, L) && FNS.lognormal.f(1, L) > FNS.lognormal.f(Math.exp(0.125), L));
+  assert.strictEqual(FNS.lognormal.f(0, L), 0);
+  const q = { gamma: 16, p: -0.25, beta: 5 };
+  [[-1, 0.49], [-0.1, 0.79], [0, 1], [0.1, 1.5], [0.5, 3.5], [1, 6]].forEach(([z, v]) => near(FNS.piecewise_power.f(z, q), v, 0.005));
+  near(FNS.reciprocal_shift.f(10, { a: 36, c: 37 }), 1 + 10 / 30);
+  near(80 * FNS.reciprocal_shift.f(8, { a: 36, c: 37 }), 99.31, 0.01);
+  assert.strictEqual(FNS.reciprocal_shift.f(37, { a: 36, c: 37 }), Infinity);
+  near(FNS.doubling.f(10, { period: 1 }), 1024); near(FNS.doubling.f(10, { period: 2 }), 32); near(FNS.doubling.f(1, { period: 2 }), Math.SQRT2);
+  const sp = { edges: [0, 4, 6, 8], values: [50, 200, 0] };
+  near(FNS.step_profile.f(1, sp), 50); near(FNS.step_profile.f(5, sp), 200); near(FNS.step_profile.f(7, sp), 0);
+  let twa = 0; for (let i = 0; i < 8000; i++) twa += FNS.step_profile.f((i + 0.5) / 1000, sp) / 1000; near(twa / 8, 75, 0.01);
+  near(FNS.step_profile.f(23, { edges: [0, 22, 24], values: [15, 60] }), 60);
+  near(FNS.lorentzian_resonance.f(1.005, { f0: 1, q: 100 }), 0.5); near(FNS.lorentzian_resonance.f(1, { f0: 1, q: 100 }), 1);
+  near(FNS.erp_peak.f(340, { amp: 8.2, latency: 340, width: 90 }), 8.2);
+  near(FNS.lm_kinked.f(2, { i0: 1, x0: 3, slope: 0.8 }), 1); near(FNS.lm_kinked.f(5, { i0: 1, x0: 3, slope: 0.8 }), 2.6);
+  near(FNS.offer_curve.f(4, { a: 2, b: 0.5, branch: 0 }), 4); near(FNS.offer_curve.f(4, { a: 2, b: 0.5, branch: 1 }), 4);
+  assert.ok(checkParams("offer_curve", { a: 2, b: 1, branch: 0 }).length > 0);
+  assert.ok(checkParams("step_profile", { edges: [0, 1], values: [] }).length > 0);
+  assert.deepStrictEqual(checkParams("staircase_thd", {}), []);
+}
 console.log("diagrams-plot-fns: ext12 tests passed");
 
 // ext5: f_dist·moving_avg_mag·iso834·square_partial·eps_ntu

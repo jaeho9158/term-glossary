@@ -1,0 +1,59 @@
+{
+  "slug": "orcid-identifier",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "앞 15자리 숫자",
+      "color": "blue",
+      "sub": "본체"
+    },
+    {
+      "id": "n1",
+      "label": "MOD 11-2 계산",
+      "color": "violet",
+      "sub": "ISO/IEC 7064"
+    },
+    {
+      "id": "n2",
+      "label": "검증 문자 7",
+      "color": "violet",
+      "sub": "0~9 또는 X"
+    },
+    {
+      "id": "n3",
+      "label": "ORCID iD",
+      "color": "blue",
+      "sub": "4자리씩 4묶음"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "예: 000000021825009 → 검증 문자 7 → 0000-0002-1825-0097",
+      "tone": "general"
+    },
+    {
+      "text": "검증 문자는 입력 오류를 잡는 용도이며 신원을 보증하지는 않는다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 + https://en.wikipedia.org/wiki/ORCID (16자 식별자, 4자리 묶음, 예 0000-0002-1825-0097, 마지막 문자 X(10) 가능, MOD 11-2·ISO/IEC 7064:2003). 검증 문자 7은 로컬 재계산으로 일치 확인",
+  "reviewed": true
+}

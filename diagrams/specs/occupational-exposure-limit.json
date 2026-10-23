@@ -1,0 +1,68 @@
+{
+  "slug": "occupational-exposure-limit",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "step_profile",
+        "params": {
+          "edges": [
+            0,
+            4,
+            6,
+            8
+          ],
+          "values": [
+            50,
+            200,
+            0
+          ]
+        },
+        "label": "농도(ppm)",
+        "color": "blue"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": 0,
+          "b": 75
+        },
+        "label": "TWA 75 ppm",
+        "color": "amber"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": 0,
+          "b": 100
+        },
+        "label": "기준 100 ppm",
+        "color": "rose"
+      }
+    ],
+    "shade": [],
+    "vlines": [],
+    "x": {
+      "label": "작업 시간 (h)",
+      "range": [
+        0,
+        8
+      ]
+    },
+    "y": {
+      "label": "농도 (ppm)"
+    }
+  },
+  "notes": [
+    {
+      "text": "4시간 50 ppm, 2시간 200 ppm, 2시간 0 ppm이면 8시간 가중평균 TWA=(200+400+0)/8=75 ppm이라 기준 100 ppm 이하이다",
+      "tone": "general"
+    },
+    {
+      "text": "순간 농도가 200 ppm까지 올라도 TWA만 보면 기준을 넘지 않는다. STEL 같은 단기 한도는 따로 본다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 가상 예(4h×50 + 2h×200 + 2h×0 → TWA 75 ppm, 기준 100 ppm). (200+400+0)/8 = 75 계산으로 대조",
+  "reviewed": true
+}

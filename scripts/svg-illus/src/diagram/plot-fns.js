@@ -169,6 +169,59 @@ const FNS = {
   eps_ntu: { params: { Cr: { gte: 0, lt: 1 }, branch: { gte: 0, lt: 2 } }, domain: [0, Infinity], desc: "열교환기 유효도 곡선",
     f: (x, p) => (p.branch >= 1 ? (1 - Math.exp(-x * (1 + p.Cr))) / (1 + p.Cr)
       : (1 - Math.exp(-x * (1 - p.Cr))) / (1 - p.Cr * Math.exp(-x * (1 - p.Cr)))) },
+  // ── 추가(round5 plot-ext·needs-fn, 본문 수치로 검증): lognormal·piecewise_power·offer_curve·lm_kinked·expm1_scale·hyperbolic_phase·lorentzian_resonance·doubling·staircase_thd·npv_curve·step_profile·reciprocal_shift·erp_peak ──
+  // 로그정규분포 밀도 1/(xσ√2π)·exp(−(ln x−μ)²/2σ²). x>0
+  lognormal: { params: { mu: {}, sigma: { gt: 0 } }, domain: [0, Infinity], desc: "로그정규분포",
+    f: (x, p) => (x <= 0 ? 0 : Math.exp(-0.5 * ((Math.log(x) - p.mu) / p.sigma) ** 2) / (x * p.sigma * Math.sqrt(2 * Math.PI))) },
+  // 모닌-오부코프형 상사함수: x<0이면 (1−γx)^p, x≥0이면 1+βx (Businger–Dyer형, p=−1/4)
+  piecewise_power: { params: { gamma: { gt: 0 }, p: {}, beta: { gt: 0 } }, desc: "구간별 상사함수",
+    f: (x, q) => (x < 0 ? (1 - q.gamma * x) ** q.p : 1 + q.beta * x) },
+  // 오퍼곡선. branch 0: y=a·x^b(수출재 가로축), branch 1: 상대국 곡선 x=a·y^b를 같은 축에 그린 y=(x/a)^(1/b). 0<b<1
+  offer_curve: { params: { a: { gt: 0 }, b: { gt: 0, lt: 1 }, branch: { gte: 0, lt: 2 } }, domain: [0, Infinity], desc: "오퍼곡선",
+    f: (x, p) => (x <= 0 ? 0 : p.branch >= 1 ? (x / p.a) ** (1 / p.b) : p.a * x ** p.b) },
+  // LM 곡선(유동성 함정): x≤x0에서 수평 i0, 이후 기울기 slope로 상승
+  lm_kinked: { params: { i0: {}, x0: {}, slope: { gt: 0 } }, desc: "꺾인 LM 곡선",
+    f: (x, p) => (x <= p.x0 ? p.i0 : p.i0 + p.slope * (x - p.x0)) },
+  // scale·(e^x − 1): 로그-선형 회귀 계수 b의 정확한 변화율(%)은 scale=100
+  expm1_scale: { params: { scale: { gt: 0 } }, desc: "정확한 변화율 곡선",
+    f: (x, p) => p.scale * Math.expm1(x) },
+  // 메타렌즈 쌍곡선 위상 (√(r²+f²)−f)/λ (주기 단위). 가로축 반지름 r≥0
+  hyperbolic_phase: { params: { lambda: { gt: 0 }, f: { gt: 0 } }, domain: [0, Infinity], desc: "렌즈 위상 곡선",
+    f: (x, p) => (Math.sqrt(x * x + p.f * p.f) - p.f) / p.lambda },
+  // 공진기 전력 응답 1/(1+4Q²((x−f0)/f0)²). 반치폭 f0/Q
+  lorentzian_resonance: { params: { f0: { gt: 0 }, q: { gt: 0 } }, desc: "공진 응답 곡선",
+    f: (x, p) => 1 / (1 + 4 * p.q * p.q * ((x - p.f0) / p.f0) ** 2) },
+  // 2^(x/period): 배가 주기 period마다 두 배
+  doubling: { params: { period: { gt: 0 } }, domain: [0, Infinity], desc: "배가 성장 곡선",
+    f: (x, p) => 2 ** (x / p.period) },
+  // 반올림 계단파 round(M sin t)/M, M=(N−1)/2 의 49차까지 THD(%). 가로축 레벨 수 N≥3. 푸리에 계수는 계단 경계로 정확히 계산
+  staircase_thd: { params: {}, domain: [3, Infinity], desc: "계단파 THD 곡선",
+    f: (x) => {
+      // 홀수 N에서만 정의되는 값이라, 그 사이는 이웃한 홀수 N 값을 직선으로 잇는다
+      const at = (N) => {
+        const M = (N - 1) / 2, ts = [];
+        for (let k = 0; k + 0.5 <= M; k++) ts.push(Math.asin((k + 0.5) / M));
+        const b = (h) => ts.reduce((s, t) => s + Math.cos(h * t), 0) / h;
+        let s2 = 0;
+        for (let h = 3; h <= 49; h += 2) s2 += b(h) ** 2;
+        return (100 * Math.sqrt(s2)) / b(1);
+      };
+      if (!(x >= 3)) return NaN;
+      const lo = 2 * Math.floor((x - 1) / 2) + 1;
+      return lo === x ? at(lo) : at(lo) + ((x - lo) / 2) * (at(lo + 2) - at(lo));
+    } },
+  // 순현재가치 NPV(r)=Σ CF_t/(1+r)^t. 가로축 할인율 r (소수, r>−1)
+  npv_curve: { params: { cashflows: { arr: true } }, domain: [0, Infinity], desc: "순현재가치 곡선",
+    f: (x, p) => p.cashflows.reduce((s, cf, t) => s + cf / (1 + x) ** t, 0) },
+  // 구간별 상수: edges 길이 = values 길이 + 1, edges[i] ≤ x < edges[i+1]이면 values[i] (범위 밖은 0)
+  step_profile: { params: { edges: { arr: true }, values: { arr: true } }, desc: "구간별 상수 농도(계단)",
+    f: (x, p) => { if (p.edges.length !== p.values.length + 1) return NaN; for (let i = 0; i < p.values.length; i++) if (x >= p.edges[i] && x < p.edges[i + 1]) return p.values[i]; return 0; } },
+  // a/(c−x) (Brzycki 1RM/w = 36/(37−n)). x≥c이면 발산
+  reciprocal_shift: { params: { a: { gt: 0 }, c: {} }, desc: "이동한 반비례 곡선",
+    f: (x, p) => (x >= p.c ? Infinity : p.a / (p.c - x)) },
+  // 사건관련전위 봉우리 amp·exp(−((t−latency)/width)²). 폭은 모식값
+  erp_peak: { params: { amp: {}, latency: {}, width: { gt: 0 } }, desc: "사건관련전위 파형",
+    f: (x, p) => p.amp * Math.exp(-(((x - p.latency) / p.width) ** 2)) },
 };
 
 function checkParams(fn, params) {

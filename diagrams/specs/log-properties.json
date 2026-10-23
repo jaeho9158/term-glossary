@@ -1,0 +1,54 @@
+{
+  "slug": "log-properties",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "expm1_scale",
+        "params": {
+          "scale": 100
+        },
+        "label": "정확한 변화율 100(e^b−1)",
+        "color": "blue"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": 100,
+          "b": 0
+        },
+        "label": "근사 100b",
+        "color": "gray"
+      }
+    ],
+    "shade": [],
+    "vlines": [
+      {
+        "x": 0.3,
+        "label": "b=0.30"
+      }
+    ],
+    "x": {
+      "label": "ln y 회귀 계수 b",
+      "range": [
+        0,
+        0.7
+      ]
+    },
+    "y": {
+      "label": "y의 변화율(%)"
+    }
+  },
+  "notes": [
+    {
+      "text": "계수가 작으면 100b와 100(e^b−1)이 거의 같지만, b=0.30이면 30%와 34.99%, b=0.70이면 70%와 101.38%로 벌어진다",
+      "tone": "general"
+    },
+    {
+      "text": "b가 작을 때(약 0.1 이하)만 100b를 변화율 근사로 쓸 수 있다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문 해석 기준 표(b 0.05/0.10/0.30/0.70 → 5.13/10.52/34.99/101.38%). 100(e^b−1) 직접 계산으로 일치 확인",
+  "reviewed": true
+}
