@@ -1,0 +1,56 @@
+{
+  "slug": "drug-interaction-checker",
+  "type": "chain",
+  "nodes": [
+    {
+      "id": "n0",
+      "label": "신규 처방",
+      "color": "amber",
+      "sub": "기존 복용약과 함께"
+    },
+    {
+      "id": "n1",
+      "label": "상호작용 DB 대조",
+      "color": "violet",
+      "sub": "처방 목록 자동 점검"
+    },
+    {
+      "id": "n2",
+      "label": "중증도별 경고",
+      "color": "blue",
+      "sub": "경미·중등도·중대"
+    },
+    {
+      "id": "n3",
+      "label": "경고피로",
+      "color": "rose",
+      "sub": "경고가 과다할 때"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "kind": "arrow"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "kind": "arrow"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "kind": "arrow",
+      "label": "과다 시"
+    }
+  ],
+  "notes": [
+    {
+      "text": "데이터베이스마다 상호작용 목록과 중증도 기준이 달라 시스템 간 결과가 다를 수 있음",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 본문",
+  "reviewed": true
+}
