@@ -1,9 +1,10 @@
 // 결정표에서 승인한 "분야 병합"(catmerge) 적용. 흡수 분야 A의 용어를 대표 분야 K로 옮기고 A를 없앤다.
 //
-// 사용: node scripts/prune/apply-category-merge.js (--in <결정표 덤프> | --plan <plan.json>) [--dry] [--root <dir>] [--rebuild]
+// 사용: node scripts/prune/apply-category-merge.js (--in <결정표 덤프> | --plan <plan.json>) [--texts <json>] [--dry] [--root <dir>] [--rebuild]
 //   --in    ArtifactData list 결과. 배열/{docs:[...]}/{id: doc} JSON 파일 또는 문서별 JSON 파일이 든 폴더.
 //           분야 병합 묶음(항목 slug가 "../category/<code>")만 읽고, decision이 approve/partial인 것만 쓴다.
 //   --plan  {groups:[{keeper, label?, absorb:[...], description?, intro?}]}. 덤프 대신 직접 줄 때.
+//   --texts 이름이 바뀌는 대표 분야의 새 설명·소개문 {code:{description,intro}}. 기본: scripts/prune/category-merge-texts.json
 //   --root  대상 트리(기본: 저장소 루트). 시험은 복사본(git worktree)에서 한다.
 //   --dry   아무것도 쓰지 않고 계획만 출력한다.
 //   --rebuild  직접 고친 뒤 대상 트리에서 생성 스크립트(색인·분야 페이지·학습·개념 지도·사이트맵)를 차례로 돌린다.
@@ -520,8 +521,19 @@ function main() {
   let plan;
   if (arg("--plan")) plan = JSON.parse(fs.readFileSync(path.resolve(arg("--plan")), "utf8"));
   else if (arg("--in")) plan = planFromDocs(readDump(path.resolve(arg("--in"))));
-  else { console.error("usage: node scripts/prune/apply-category-merge.js (--in <dump> | --plan <plan.json>) [--dry] [--root <dir>] [--rebuild]"); process.exit(1); }
+  else { console.error("usage: node scripts/prune/apply-category-merge.js (--in <dump> | --plan <plan.json>) [--texts <json>] [--dry] [--root <dir>] [--rebuild]"); process.exit(1); }
   if (!plan.groups.length) { console.log("승인된 분야 병합이 없습니다."); return; }
+  // 이름이 바뀌는 대표 분야의 새 설명·소개문(계획에 없으면 이 파일에서).
+  const textsFile = path.resolve(arg("--texts") || path.join(__dirname, "category-merge-texts.json"));
+  if (fs.existsSync(textsFile)) {
+    const texts = JSON.parse(fs.readFileSync(textsFile, "utf8"));
+    for (const g of plan.groups) {
+      const t = texts[g.keeper];
+      if (!t) continue;
+      if (t.description && !g.description) g.description = t.description;
+      if (t.intro && !g.intro) g.intro = t.intro;
+    }
+  }
   console.log(`대상: ${root}`);
   applyCategoryMerge({ plan, root, dry: has("--dry") });
   if (has("--dry")) return;
