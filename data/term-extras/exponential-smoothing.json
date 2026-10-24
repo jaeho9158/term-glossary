@@ -1,0 +1,42 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>단순 지수평활은 s<sub>0</sub> = x<sub>0</sub>에서 시작해 s<sub>t</sub> = α·x<sub>t</sub> + (1 − α)·s<sub>t−1</sub>로 갱신한다. α는 평활 계수로 0과 1 사이이다. 식을 펼치면 k기 전 관측값의 가중치가 α(1 − α)<sup>k</sup>가 되어 기하급수적으로 줄어든다. 이 점이 이름의 유래이다. α가 1에 가까우면 최근 변화에 빠르게 반응하고, 0에 가까우면 더 많이 평활한다.</p><table><thead><tr><th>관측값</th><th>α = 0.2</th><th>α = 0.4</th><th>α = 0.6</th><th>α = 0.8</th></tr></thead><tbody><tr><td>y<sub>T</sub></td><td>0.2000</td><td>0.4000</td><td>0.6000</td><td>0.8000</td></tr><tr><td>y<sub>T−1</sub></td><td>0.1600</td><td>0.2400</td><td>0.2400</td><td>0.1600</td></tr><tr><td>y<sub>T−2</sub></td><td>0.1280</td><td>0.1440</td><td>0.0960</td><td>0.0320</td></tr><tr><td>y<sub>T−3</sub></td><td>0.1024</td><td>0.0864</td><td>0.0384</td><td>0.0064</td></tr></tbody></table><p>예측은 마지막 수준(level) 값 하나로 고정된다. 모든 미래 시점의 예측이 같으므로(flat forecast) 추세나 계절성이 없을 때만 알맞다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>추세가 있으면 Holt의 선형 방법을 쓴다. 수준 s<sub>t</sub>와 추세 b<sub>t</sub>를 따로 갱신하고(추세 평활 계수 β) 예측은 F<sub>t+m</sub> = s<sub>t</sub> + m·b<sub>t</sub>이다.</li><li>계절성이 있으면 Holt-Winters 방법을 쓴다. 계절 길이를 L, 계절 평활 계수를 γ로 두며, 계절 효과가 일정한 양이면 가법형, 수준에 비례하면 승법형을 쓴다. 계절 요소를 초기화하려면 최소 두 계절 이상의 자료가 권장된다.</li><li>α와 초기 수준은 판단으로 정하거나, 한 단계 앞 예측 오차의 제곱합(SSE)을 최소로 하는 값을 비선형 최적화로 추정한다. 닫힌 해가 없어 최적화 도구가 필요하다.</li><li>역사: Robert Goodell Brown이 1956년에 제안했고, Charles Holt가 1957년에 추세로 확장했으며, 그의 학생 Peter Winters가 1960년에 계절 방법을 제안했다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 형태(단순, Holt, Holt-Winters 가법·승법)와 평활 계수 값, 추정 방법을 밝힌다.</li><li>초기값을 어떻게 정했는지 적는다. 첫 관측값을 그대로 쓰면 첫 값의 영향이 지나치게 커질 수 있다.</li><li>비교 기준 모형으로 쓸 때는 같은 예측 구간과 오차 지표로 다른 모형과 비교한다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "지수평활법",
+        "최근 관측값에 지수적으로 큰 가중을 두는 예측"
+      ],
+      [
+        "이동평균",
+        "같은 가중으로 최근 몇 개를 평균"
+      ],
+      [
+        "[[stationarity|정상성]]",
+        "시계열의 통계적 성질이 시간에 따라 변하지 않는 성질"
+      ]
+    ]
+  },
+  "references": [
+    "Wikipedia contributors. (n.d.). Exponential smoothing. Wikipedia.",
+    "OTexts. (n.d.). Forecasting: Principles and practice, Chapter 8: Exponential smoothing."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<table><thead><tr><th>지수</th><th>식</th><th>뜻</th></tr></thead><tbody><tr><td>Cp</td><td>(USL − LSL) / 6σ</td><td>평균이 중심에 있을 때의 잠재 능력. 중심 이탈을 무시한다.</td></tr><tr><td>Cpk</td><td>min[(USL − μ)/3σ, (μ − LSL)/3σ]</td><td>치우침을 반영한다. 평균이 규격 밖이면 음수이다.</td></tr><tr><td>Cpm</td><td>(USL − LSL) / (6√(σ² + (μ − T)²))</td><td>목표값 T에서 벗어난 정도에 벌점을 준다.</td></tr></tbody></table><p>표본 추정에서는 μ와 σ 대신 x̄와 s를 쓴다. 한쪽 규격만 있으면 Cpu = (USL − μ)/3σ 또는 Cpl = (μ − LSL)/3σ를 쓴다. Cpk는 Cp를 넘지 않으며, 둘의 차가 크면 공정이 한쪽으로 치우쳤다는 신호이다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<table><thead><tr><th>상황</th><th>권장 최소값(Montgomery)</th></tr></thead><tbody><tr><td>기존 공정, 양쪽 규격</td><td>1.33</td></tr><tr><td>신규 공정, 양쪽 규격</td><td>1.50</td></tr><tr><td>안전·핵심 특성(기존 / 신규)</td><td>1.50 / 1.67</td></tr><tr><td>식스 시그마 품질</td><td>2.00</td></tr></tbody></table><p>평균이 중심인 공정에서 Cp=1.00은 부적합률 약 0.27%, 1.33은 약 64 ppm, 1.66은 약 0.6 ppm, 2.00은 약 2 ppb에 해당한다. 목표값은 의견의 문제이고 업종마다 다르며, 2.5를 넘으면 효과 없이 비용만 늘 수 있다.</p><p>예: USL=20, LSL=8, s=2이면 Cp = 12/12 = 1.0이다. 평균이 16이면 Cpk ≈ 0.667로 공정 능력이 부족하다. 변동을 줄이거나 평균을 중심으로 옮겨야 한다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>공정이 통계적 관리 상태여야 하고 자료가 대략 정규분포여야 한다. 관리 상태가 아니면 지수가 의미가 없다.</li><li>표준편차 추정에는 대략 50개의 독립 값이 필요하고, 신뢰구간 근사에는 25개 이상, 능력 연구에는 보통 약 100개가 필요하다고 한다.</li><li>비정규 자료는 Box-Cox 변환을 하거나 백분위수를 쓰는 비모수 지수(Cnp, Cnpk, Cnpm)를 쓴다.</li><li>장기에는 공정이 이동하므로 1.5σ 이동을 가정하면 Cp=2.00에서도 부적합이 약 0.002 ppm에서 약 3.4 ppm으로 늘어난다.</li><li>보고에는 지수 종류, 규격 한계, 표본 크기, 정규성 확인 방법을 함께 적는다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Wikipedia (n.d.). Process capability index.",
+    "National Institute of Standards and Technology (n.d.). Process capability. In NIST/SEMATECH e-Handbook of Statistical Methods."
+  ]
+}

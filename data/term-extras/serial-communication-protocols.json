@@ -1,0 +1,22 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li><strong>UART</strong>: 클럭선 없이 비동기로 통신한다. 선이 쉴 때는 높은 상태이고, 문자마다 낮은 시작 비트로 시작한다. 이어 데이터 비트 5~9개, 선택적인 패리티 비트, 높은 정지 비트 1~2개가 온다. 송수신 양쪽이 보율, 데이터 비트 수, 패리티, 정지 비트를 미리 맞춰야 한다.</li><li><strong>SPI</strong>: 모토로라가 설계한 동기식 전이중 직렬 버스로, 마스터가 클럭(SCLK)과 칩 선택(SS)을 만든다. 신호선은 SCLK, MOSI, MISO, SS이다.</li><li><strong>I²C</strong>: 필립스가 개발했다. 데이터선(SDA)과 클럭선(SCL) 두 선을 쓰며, 둘 다 풀업 저항으로 끌어올린다. 기본 주소는 7비트이고 10비트 확장이 있으나 드물게 쓰인다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<ul><li>UART의 가장 흔한 설정은 8N1(데이터 8비트, 패리티 없음, 정지 비트 1)이다. 문자 하나가 10비트로 전송되므로 효율은 8/10 = 80%이고, 초당 문자 수는 비트율을 10으로 나눈 값이다.</li><li>I²C의 속도 모드는 표준 100 kbit/s, 빠른 모드 400 kbit/s, 빠른 모드 플러스 1 Mbit/s, 고속 모드 3.4 Mbit/s이다. 8비트 데이터마다 수신 측이 SDA를 낮춰 응답(ACK)하고, SDA가 높게 남으면 NACK이다. 시작 조건은 SCL이 높을 때 SDA가 내려가는 것, 정지 조건은 SCL이 높을 때 SDA가 올라가는 것이다.</li><li>SPI의 클럭 극성(CPOL)과 위상(CPHA)은 모드 0~3의 네 가지 조합을 만든다. 최대 클럭 속도는 규약이 정하지 않고 장치마다 다르다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>SPI는 표준 규격이 있어 장치끼리 항상 호환된다.</td><td>SPI는 공식 표준이 없어 적합성을 검증할 수 없다. 장치의 데이터시트에서 모드와 속도를 확인해야 한다.</td></tr><tr><td>I²C가 SPI보다 항상 빠르다.</td><td>SPI는 주소가 필요 없고 기본적으로 전이중이어서 처리량이 I²C나 SMBus보다 높다. 대신 핀이 더 많이 든다.</td></tr><tr><td>UART는 SPI·I²C처럼 클럭선이 있다.</td><td>UART는 클럭 신호를 공유하지 않고, 수신기가 내부 클럭으로 비트 가운데를 표본 추출한다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Serial Peripheral Interface. Wikipedia.",
+    "Wikipedia contributors. (n.d.). I²C. Wikipedia.",
+    "Wikipedia contributors. (n.d.). Universal asynchronous receiver-transmitter. Wikipedia."
+  ]
+}

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>유한요소법은 형상이 복잡하거나 재료 특성이 균일하지 않은 문제도 비교적 유연하게 다룰 수 있어, 구조공학뿐 아니라 유체역학, 전자기학, 생체역학 등 연속체를 다루는 거의 모든 공학·응용과학 분야의 수치해석 표준 기법으로 자리잡았다. 상용 소프트웨어가 널리 보급되어 있어 실험이 어렵거나 비용이 큰 상황에서 설계를 검증하는 수단으로 폭넓게 쓰이며, 새로운 해석 알고리즘이나 요소 기법을 제안하는 연구의 기반이 되기도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>유한요소법(FEM)은 편미분방정식을 푸는 수치 방법이다. 실제 적용을 유한요소 해석(FEA)이라 한다.</li><li>1. 이산화(메시 분할): 영역을 유한요소라는 작고 단순한 부분 영역으로 나눈다. 2차원 예에서는 삼각형을 쓰지만 사각형이나 곡선 모양도 가능하다.</li><li>2. 기저(형상) 함수: 각 요소에 미지의 해를 근사하는 단순한 함수(보통 구간별 다항식)를 둔다. 1차원 예의 "텐트" 함수는 한 절점에서 1, 다른 절점에서 0이다.</li><li>3. 조립: 요소 방정식을 하나의 전체 시스템으로 합친다. 1차원 예에서는 강성 행렬과 질량 행렬이 나오며 둘 다 희소 행렬이다.</li><li>4. 풀이와 후처리: 선형 대수 시스템을 푼다. 대칭 양의 정부호 시스템에는 켤레 기울기법이 선호된다. 이후 관심량을 뽑고 오차를 추정한다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>강형식은 해가 편미분방정식을 각 점에서 만족하도록 요구한다. 약형식은 시험 함수 v를 곱해 적분하고 부분적분으로 미분 하나를 시험 함수 쪽으로 옮기므로 해에 요구되는 매끄러움이 줄어든다.</li><li>약형식을 유한 차원 부분공간 V에 이산화하면 풀 수 있는 선형 시스템이 된다. 갈러킨 방법(Galerkin method)에서는 해를 근사하는 기저 함수가 시험 함수 구실도 하며, 행렬 성분은 A_ij = a(e_j, e_i)이다. 갈러킨 방법은 유한요소법에서 전체 강성 행렬을 구하는 가장 흔한 방법으로 설명된다. 쌍선형 형식이 대칭이면 행렬이 대칭이다.</li><li>오차는 h-방법(메시를 세분), p-방법(다항식 차수를 높임), hp-방법(둘을 결합)으로 줄인다. 차수 d인 구간별 다항식에서 적절한 가정(볼록 영역 등) 아래 오차 차수는 p = d + 1이다. 따라서 1차 요소(d = 1)에서 요소 크기 h를 절반으로 줄이면 오차가 약 1/4로 줄어든다.</li><li>세 가지 역사적 흐름이 있다. 1940년대 초 흐렌니코프(격자 유사)와 쿠랑(삼각형 부분 영역), 1960~70년대 아르지리스(슈투트가르트), 클러프(버클리), 지엔키에비츠와 동료들(스완지), 그리고 1973년 스트랭과 픽스의 엄밀한 수학적 기초이다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>적용 분야는 구조 해석, 열전달, 유체 흐름, 물질 수송, 전자기학 등이다. 자동차 충돌 시뮬레이션과 수치 일기 예보가 예이다.</li><li>논문에서는 요소 종류와 차수, 메시 크기, 경계 조건, 사용한 소프트웨어와 풀이기를 적고, 메시를 세분하여 해가 수렴하는지 보인 결과를 함께 싣는다.</li><li>오차 추정이 허용 범위를 넘으면 메시를 다시 세분하는 적응형 방법이 쓰인다. 메시 수렴을 보이지 않은 해석 결과는 해석 신뢰도를 판단하기 어렵다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 상용 유한요소법 소프트웨어를 이용하여 브래킷의 응력 분포를 해석하였다."</div>
   <p>금속 브래킷을 컴퓨터 모델로 잘게 나누어 하중이 가해졌을 때 어디에 응력이 집중되는지 계산했다는 뜻이다.</p>
   <div class="example">"차량 충돌 안전성을 평가하기 위해 외연적 동적 유한요소법을 적용하여 충돌 시 프레임의 변형 과정을 시간에 따라 해석하였다."</div>
@@ -166,6 +184,15 @@
 
   <h2>주의할 점</h2>
   <p>결과가 그럴듯해 보여도 요소 크기나 경계조건 설정이 부적절하면 오차가 커질 수 있어 <a href="mesh-convergence-study.html">메시 수렴성 검토(메쉬 수렴성 해석)</a>가 함께 이루어져야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Finite element method. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Galerkin method. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="mesh-convergence-study.html">메시 수렴성 검토(메쉬 수렴성 해석)</a><a href="explicit-dynamics-fea.html">외연적 동적 유한요소해석</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

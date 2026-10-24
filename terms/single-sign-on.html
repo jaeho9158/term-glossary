@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>사용자가 서비스마다 별도의 비밀번호를 관리하면 약한 비밀번호를 재사용하는 등 보안 위험이 커지는데, 통합인증은 이를 줄이면서도 사용성을 높이는 효과가 있다. 정보보안학에서는 SAML, OAuth, OpenID Connect 같은 프로토콜을 기반으로 안전한 통합인증 체계를 설계하고 취약점을 분석하는 연구가 이루어진다. 여러 서비스마다 각각 비밀번호를 기억해야 하는 부담과, 그로 인한 비밀번호 재사용의 위험을 줄여주기 때문에 대규모 조직의 사용자 편의성과 보안을 동시에 개선하는 수단으로 널리 도입되어 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>통합인증(SSO, single sign-on)은 한 번의 로그인으로 서로 관련되고 독립적인 여러 소프트웨어 시스템을 쓸 수 있게 하는 인증 방식이다. 진정한 SSO에서는 사용자가 한 번 로그인한 뒤 인증 요소를 다시 입력하지 않고 서비스에 접근한다. SSO는 최초 자격 증명을 내부에 저장하고 서로 다른 인증 방식에 맞게 변환해야 한다.</p><ul><li><strong>Kerberos</strong>: 최초 로그인으로 티켓 발급 티켓(TGT)을 받고, 다른 응용이 TGT로 서비스 티켓을 요청하므로 다시 묻지 않는다.</li><li><strong>SAML</strong>: 신원 제공자(IdP)와 서비스 제공자(SP) 사이에 보안 정보를 주고받는 XML 기반 방식이다.</li><li><strong>OpenID Connect</strong>: 사용자 동의 같은 선택 단계를 끄면 SSO로 구성할 수 있다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>브라우저 기반 SAML 2.0의 SSO 흐름은 다음과 같다.</p><ol><li>사용자가 서비스 제공자(SP)의 보호된 자원을 요청한다.</li><li>SP가 브라우저를 IdP의 SSO 서비스로 보낸다.</li><li>IdP가 필요하면 사용자를 인증한다.</li><li>IdP가 SAML 응답을 담은 양식을 SP로 보낸다.</li><li>SP가 보안 컨텍스트를 만들고 자원을 제공한다.</li></ol><p>SAML 단언(assertion)에는 인증 진술(누가 언제 어떻게 로그인했는가), 속성 진술, 인가 결정 진술이 있다. SAML 2.0은 2005년 3월 OASIS 표준이 되었고, 2008년에는 정부, 고등 교육, 기업에서 흔했다. 실제로는 클라우드 업무용 소프트웨어 로그인에 가장 많이 쓰인다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에서는 어떤 프로토콜(SAML, OpenID Connect, Kerberos)로 구현했는지, IdP와 SP의 구성, 세션 유효 시간, 다중 인증(MFA) 적용 여부를 적는다. 이점은 비밀번호 피로와 재입력 시간, 비밀번호 관련 지원 요청이 줄어 IT 비용이 낮아지는 것이다. 위험은 하나의 자격 증명이 뚫리면 많은 자원이 한꺼번에 노출된다는 점, 인증 시스템이 멈추면 연결된 시스템 모두에 접근할 수 없다는 점이다. 2012년 연구는 여러 주요 제공자에서 논리 결함을 찾았고, 2014년 Covert Redirect 취약점은 거의 모든 SSO 프로토콜에 영향을 주었다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 OpenID Connect 기반의 통합인증 흐름에서 발생할 수 있는 토큰 재사용 공격의 위험성을 분석하였다."</div>
   <p>통합인증에 사용되는 인증 토큰이 잘못 재사용될 경우의 보안 문제를 다루었다는 의미이다.</p>
   <div class="example">"교내 다수의 학사 서비스에 통합인증을 적용하여 학생과 교직원의 계정 관리 부담을 줄였다."</div>
@@ -161,6 +179,15 @@
 
   <h2>주의할 점</h2>
   <p>중앙 인증 서버가 침해되면 연동된 모든 서비스가 동시에 위험에 노출될 수 있으므로, 중앙 인증 시스템 자체의 보안 강화가 매우 중요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Single sign-on. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Security Assertion Markup Language. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

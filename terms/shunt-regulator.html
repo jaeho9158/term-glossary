@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>전력 버스의 전압이 불안정하면 통신 장비, 컴퓨터, 각종 센서 등 우주선 내 거의 모든 전자 부품의 정상 작동에 영향을 줄 수 있다. 션트레귤레이터는 구조가 비교적 단순하고 신뢰성이 높아, 오랜 기간 검증된 위성 전력계 설계의 표준적인 구성 요소로 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>션트 레귤레이터는 부하에 걸리는 전압을 일정하게 하려고, 남는 전류를 부하 대신 별도 경로로 흘려보내는 조정 방식이다. 직렬(시리즈) 레귤레이터는 통과 소자가 부하로 가는 전류를 조절하지만, 션트 방식은 기준 전압에서 도통하는 소자가 남는 전류를 접지로 우회시킨다. 소자로는 제너 다이오드, 애벌랜치 다이오드, 전압 조정관이 쓰인다. 전원은 션트 소자가 안전하게 견딜 수 있는 전류 이상을 공급하지 않아야 한다.</p><p>션트 레귤레이터는 흔히 수동적이고 단순하지만 부하에 쓰이지 못한 전류를 버리므로 항상 효율이 낮다. 전력이 큰 경우에는 션트의 출력을 기준 전압으로만 삼아 더 큰 전자식 조정기를 구동한다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>우주선 태양전지판에서는 같은 원리를 순차 션트(sequential shunt)로 쓴다. 전지판이 필요한 것보다 많은 전력을 만들 때 남는 전력을 전력 버스에서 돌려 버스 전압을 일정하게 둔다. 보잉의 특허(US 7777367, 2008년 출원)에 설명된 구조는 다음과 같다. 전지판 전류원마다 리플 조정기가 붙어 있고 설정 전압이 서로 달라서 버스 전압이 오르면 하나씩 차례로 션트로 전환한다. 각 리플 조정기는 전류를 전부 버스로 보내거나 전부 션트하며, 하나의 PWM 조정기가 그 사이에서 일부만 보내고 나머지를 션트하며 미세 조정을 맡는다. 증폭기가 버스 전압을 감지해 모든 설정값을 같은 만큼 옮겨 버스를 목표 전압에 맞춘다.</p><p>특허의 예에서는 약 8 A, 8 A, 10 A의 전류원에서 PWM 설정값이 약 101 V, 리플 설정값이 약 102 V와 103 V이고 버스 목표는 약 100 V이다. 션트 전류가 늘면 PWM 듀티가 약 0%에서 80%까지 변하고 리플 조정기가 하나씩 션트로 바뀐다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>션트는 낭비가 크다는 점이 약점이다. 직렬 선형 조정기는 입력이 출력보다 높아야 하고 LDO는 입출력 차가 작아도 되어 손실이 적다. 스위칭 조정기는 효율이 70~90% 범위로 훨씬 높다고 한다.</li><li>선형 조정기는 전압을 올리거나 반전하지 못하고 입력이 출력에 너무 가까워지면 조정이 풀린다(dropout).</li><li>구성 소자는 단순한 제너 션트와 우주선 전력계의 순차 션트가 크게 다르다. 같은 이름이라도 논문에서는 어느 구조인지 밝혀야 한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 위성의 전력계는 션트레귤레이터(shunt regulator)를 이용하여 일사량 변화에도 버스 전압을 안정적으로 유지하도록 설계되었다."</div>
   <p>햇빛의 세기가 변해도 잉여 전력을 우회시켜 버스 전압을 일정하게 지키는 설계 사례이다.</p>
   <div class="example">"션트레귤레이터 방식과 직렬레귤레이터 방식의 전력 손실 및 열 발생 특성을 비교 분석하였다."</div>
@@ -161,6 +179,15 @@
   <p>션트레귤레이터는 잉여 전력을 그냥 버리는 방식이기 때문에 태양전지판이 만들어낸 전력을 효율적으로 활용하는 것은 아니며, 최대 전력 추출이 목적이라면 피크전력추적기 방식이 함께 검토된다.</p>
 
   <p>잉여 전력을 열로 방출하는 방식이기 때문에 방열 설계가 충분하지 않으면 위성 내부 열관리에 부담을 줄 수 있다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Voltage regulator. Wikipedia.</li>
+    <li>Boeing. (2008). Sequential shunt solar array controller (US Patent 7,777,367).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="electrical-power-system.html">전력시스템</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="lithium-ion-battery-cell-space.html">우주선리튬이온배터리셀</a><a href="power-conditioning-unit.html">전력조정장치</a><a href="solar-array.html">태양전지판</a><a href="peak-power-tracker.html">피크전력추적기</a></div></div><p class="concept-family-map"><a href="../concept-map/aviation.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

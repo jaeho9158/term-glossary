@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -159,7 +160,24 @@
   <h2>왜 중요한가</h2>
   <p>임베디드 시스템 논문에서는 센서, 액추에이터, 통신 모듈을 어떻게 연결했는지가 실험 재현성과 시스템 성능에 직접 영향을 미치기 때문에, 사용한 직렬 통신 프로토콜을 명시하는 경우가 많다. 배선 수와 속도, 확장성 사이의 트레이드오프를 이해하면 논문에서 왜 특정 프로토콜을 선택했는지 파악하는 데 도움이 된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>UART</strong>: 클럭선 없이 비동기로 통신한다. 선이 쉴 때는 높은 상태이고, 문자마다 낮은 시작 비트로 시작한다. 이어 데이터 비트 5~9개, 선택적인 패리티 비트, 높은 정지 비트 1~2개가 온다. 송수신 양쪽이 보율, 데이터 비트 수, 패리티, 정지 비트를 미리 맞춰야 한다.</li><li><strong>SPI</strong>: 모토로라가 설계한 동기식 전이중 직렬 버스로, 마스터가 클럭(SCLK)과 칩 선택(SS)을 만든다. 신호선은 SCLK, MOSI, MISO, SS이다.</li><li><strong>I²C</strong>: 필립스가 개발했다. 데이터선(SDA)과 클럭선(SCL) 두 선을 쓰며, 둘 다 풀업 저항으로 끌어올린다. 기본 주소는 7비트이고 10비트 확장이 있으나 드물게 쓰인다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>UART의 가장 흔한 설정은 8N1(데이터 8비트, 패리티 없음, 정지 비트 1)이다. 문자 하나가 10비트로 전송되므로 효율은 8/10 = 80%이고, 초당 문자 수는 비트율을 10으로 나눈 값이다.</li><li>I²C의 속도 모드는 표준 100 kbit/s, 빠른 모드 400 kbit/s, 빠른 모드 플러스 1 Mbit/s, 고속 모드 3.4 Mbit/s이다. 8비트 데이터마다 수신 측이 SDA를 낮춰 응답(ACK)하고, SDA가 높게 남으면 NACK이다. 시작 조건은 SCL이 높을 때 SDA가 내려가는 것, 정지 조건은 SCL이 높을 때 SDA가 올라가는 것이다.</li><li>SPI의 클럭 극성(CPOL)과 위상(CPHA)은 모드 0~3의 네 가지 조합을 만든다. 최대 클럭 속도는 규약이 정하지 않고 장치마다 다르다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>SPI는 표준 규격이 있어 장치끼리 항상 호환된다.</td><td>SPI는 공식 표준이 없어 적합성을 검증할 수 없다. 장치의 데이터시트에서 모드와 속도를 확인해야 한다.</td></tr><tr><td>I²C가 SPI보다 항상 빠르다.</td><td>SPI는 주소가 필요 없고 기본적으로 전이중이어서 처리량이 I²C나 SMBus보다 높다. 대신 핀이 더 많이 든다.</td></tr><tr><td>UART는 SPI·I²C처럼 클럭선이 있다.</td><td>UART는 클럭 신호를 공유하지 않고, 수신기가 내부 클럭으로 비트 가운데를 표본 추출한다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"온도·습도 센서와 마이크로컨트롤러는 I2C 버스로 연결되었으며, 100kHz의 클럭 속도로 데이터를 주기적으로 수집하였다."</div>
   <p>이 문장은 센서와 제어 칩이 두 개의 신호선만으로 연결되어, 1초에 10만 번의 클럭 신호에 맞춰 데이터를 주고받으며 측정값을 읽어왔다는 뜻이다.</p>
 
@@ -174,6 +192,16 @@
 
   <h2>주의할 점</h2>
   <p>세 프로토콜은 배선 수, 통신 속도, 한 버스에 연결 가능한 장치 수가 서로 다르므로, <a href="microcontroller.html">마이크로컨트롤러</a>와 주변장치의 사양에 맞춰 적절한 방식을 선택해야 한다. 예를 들어 배선을 최소화하려면 I2C가, 속도가 중요하면 SPI가 유리하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Serial Peripheral Interface. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). I²C. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Universal asynchronous receiver-transmitter. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

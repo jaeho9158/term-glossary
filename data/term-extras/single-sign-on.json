@@ -1,0 +1,21 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>통합인증(SSO, single sign-on)은 한 번의 로그인으로 서로 관련되고 독립적인 여러 소프트웨어 시스템을 쓸 수 있게 하는 인증 방식이다. 진정한 SSO에서는 사용자가 한 번 로그인한 뒤 인증 요소를 다시 입력하지 않고 서비스에 접근한다. SSO는 최초 자격 증명을 내부에 저장하고 서로 다른 인증 방식에 맞게 변환해야 한다.</p><ul><li><strong>Kerberos</strong>: 최초 로그인으로 티켓 발급 티켓(TGT)을 받고, 다른 응용이 TGT로 서비스 티켓을 요청하므로 다시 묻지 않는다.</li><li><strong>SAML</strong>: 신원 제공자(IdP)와 서비스 제공자(SP) 사이에 보안 정보를 주고받는 XML 기반 방식이다.</li><li><strong>OpenID Connect</strong>: 사용자 동의 같은 선택 단계를 끄면 SSO로 구성할 수 있다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>브라우저 기반 SAML 2.0의 SSO 흐름은 다음과 같다.</p><ol><li>사용자가 서비스 제공자(SP)의 보호된 자원을 요청한다.</li><li>SP가 브라우저를 IdP의 SSO 서비스로 보낸다.</li><li>IdP가 필요하면 사용자를 인증한다.</li><li>IdP가 SAML 응답을 담은 양식을 SP로 보낸다.</li><li>SP가 보안 컨텍스트를 만들고 자원을 제공한다.</li></ol><p>SAML 단언(assertion)에는 인증 진술(누가 언제 어떻게 로그인했는가), 속성 진술, 인가 결정 진술이 있다. SAML 2.0은 2005년 3월 OASIS 표준이 되었고, 2008년에는 정부, 고등 교육, 기업에서 흔했다. 실제로는 클라우드 업무용 소프트웨어 로그인에 가장 많이 쓰인다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>논문에서는 어떤 프로토콜(SAML, OpenID Connect, Kerberos)로 구현했는지, IdP와 SP의 구성, 세션 유효 시간, 다중 인증(MFA) 적용 여부를 적는다. 이점은 비밀번호 피로와 재입력 시간, 비밀번호 관련 지원 요청이 줄어 IT 비용이 낮아지는 것이다. 위험은 하나의 자격 증명이 뚫리면 많은 자원이 한꺼번에 노출된다는 점, 인증 시스템이 멈추면 연결된 시스템 모두에 접근할 수 없다는 점이다. 2012년 연구는 여러 주요 제공자에서 논리 결함을 찾았고, 2014년 Covert Redirect 취약점은 거의 모든 SSO 프로토콜에 영향을 주었다.</p>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Single sign-on. Wikipedia.",
+    "Wikipedia contributors. (n.d.). Security Assertion Markup Language. Wikipedia."
+  ]
+}

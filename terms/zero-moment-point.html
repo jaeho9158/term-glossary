@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>지지 다각형 내부에 있는지를 기준으로 동적 안정성을 판별할 수 있어, 이족보행로봇의 보행 제어에서 가장 널리 활용되는 안정성 기준으로 다뤄진다. 예비제어 기반 보행계획은 미래 일정 구간의 목표 ZMP 궤적을 미리 알고 있다는 가정 하에 현재의 최적 무게중심 궤적을 역산하는 방식으로, 이족보행 제어의 표준 틀로 자리 잡았다. 발바닥 힘 센서로 실측한 ZMP와 계획한 목표 ZMP의 차이를 피드백해 무게중심 궤적을 실시간 보정하는 것이 대부분의 이족보행 안정화 제어기의 핵심 구조다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>ZMP는 발에 작용하는 반력이 수평 방향 모멘트를 만들지 않는 점이다. 같은 말로, 수평 관성력과 중력의 합이 0이 되는 점이다. 접촉 면이 평면이고 발이 미끄러지지 않을 만큼 마찰이 충분하다고 가정한다.</li><li>Miomir Vukobratović와 Davor Juričić가 1968년 1월 모스크바의 제3차 전소련 이론·응용역학 대회에서 처음 제안했고, ‘zero moment point’라는 용어는 1970~1972년 논문에서 굳어졌다.</li><li>동적 자세 안정성은 ZMP가 미리 정한 안정 영역 경계에서 얼마나 떨어져 있는지로 정량화한다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>중력과 관성의 합력은 F<sup>gi</sup> = mg − m a<sub>G</sub>이고(a<sub>G</sub>는 질량중심 가속도), 점 X에 대한 모멘트는 M<sub>X</sub><sup>gi</sup> = XG × mg − XG × m a<sub>G</sub> − Ḣ<sub>G</sub>이다(Ḣ<sub>G</sub>는 질량중심 둘레 각운동량의 변화율). 균형 조건은 접촉력이 이들과 반대여서 F<sup>c</sup> + F<sup>gi</sup> = 0, M<sub>X</sub><sup>c</sup> + M<sub>X</sub><sup>gi</sup> = 0이다. 접촉 평면 위 ZMP의 위치는 P<sub>Z</sub> = (n × M<sub>P</sub><sup>gi</sup>) / (F<sup>gi</sup> · n)이다(n은 면의 법선, P는 접촉면 위의 한 점).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>사례</th><th>내용</th></tr></thead><tbody><tr><td>혼다 P2(1996), ASIMO</td><td>ZMP 피드백으로 보행했다. ASIMO는 2000년부터 2022년까지 상용 개발되었다.</td></tr><tr><td>KAIST HUBO</td><td>2015년 DARPA 로봇 챌린지에서 우승했다.</td></tr><tr><td>와세다 WABIAN-2R</td><td>ZMP 궤적으로 운동을 계획하고 제어했다.</td></tr></tbody></table></div><p>보행 궤적은 ZMP가 안정 영역 안에 머물도록 계획한다. 다리 운동을 계획하면 몸통을 움직이는 데 필요한 발목 토크를 줄일 수 있다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>평면 접촉과 높은 마찰을 가정하므로 발이 미끄러지면 모형이 맞지 않는다.</li><li>몸통의 질량과 관성이 커서 균형 잡기가 어렵고 큰 발목 토크가 필요할 수 있다.</li><li>정적 보행은 질량중심을 지지 영역 위에 두는 방식이고(예: 히타치 WHL-11, 1985년, 한 걸음에 13초), 동적 보행에서는 접촉력 정보와 현재·목표 운동을 알아야 하며, 이 문제의 해법이 ZMP이다. 휴머노이드 개요에서는 Vukobratović가 1970년에 이족보행의 이론 모형을 제안한 것이 ZMP의 기원이라고 설명한다.</li><li>로봇은 가속도계, 기울기 센서, 발과 손의 힘 센서로 균형과 접촉을 감지한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 이족보행로봇은 영모멘트점이 지지 다각형 내부에 유지되도록 실시간 궤적을 보정하는 보행 제어기를 설계하였다.</div>
   <p>논문에서 영모멘트점은 동적 보행 안정성을 판별하는 핵심 지표로, 보행계획과 균형 제어기 설계의 목표 조건으로 사용된다.</p>
 
@@ -166,6 +184,15 @@
 
   <h2>주의할 점</h2>
   <p>영모멘트점은 지면 반력이 존재하는 접촉 상태를 전제로 계산되는 개념이므로, 두 발이 모두 지면에서 떨어지는 도약 동작에는 적용할 수 없다. ZMP가 지지 다각형 경계에 걸리면 이론상 안정 한계이지만 모델 오차나 외란에 대한 여유가 거의 없는 상태이므로, 실무에서는 경계보다 안쪽에 여유를 두고 목표 궤적을 설계한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Zero moment point. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Humanoid robot. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

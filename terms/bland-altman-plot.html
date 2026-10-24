@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>새로운 측정 장비나 검사법을 도입하려면 기존 표준 방법과 실질적으로 같은 값을 내는지 검증해야 하는데, 상관계수만으로는 이를 제대로 확인할 수 없다. 그래서 의공학, 임상검사의학, 생리학 등 방법 비교(method comparison) 연구에서는 Bland-Altman plot이 사실상 표준 검증 절차로 자리 잡았다. 웨어러블 기기나 비침습적 측정법이 늘어나면서, 이를 기존 정밀 장비와 비교해 신뢰성을 입증하는 논문의 수요도 함께 커지고 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>블랜드-알트만 도표는 두 측정법이 얼마나 일치하는지 평가하는 도표이다. 의학 통계에서 블랜드와 알트만이 널리 알렸으며 다른 분야에서는 투키 평균-차이 도표라고도 부른다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>순서</th><th>내용</th></tr></thead><tbody><tr><td>1. 자료</td><td>표본 n개를 두 방법으로 모두 측정한다</td></tr><tr><td>2. 좌표</td><td>각 표본을 x = 두 측정값의 평균, y = 두 측정값의 차이로 찍는다(원래 구성은 새 방법 − 표준 방법)</td></tr><tr><td>3. 편향선</td><td>평균 차이를 수평선으로 긋는다. 양수면 새 방법이 높게, 음수면 낮게 읽는 경향이다</td></tr><tr><td>4. 일치한계</td><td>편향선과 나란히 보통 평균 ± 1.96 SD를 긋는다</td></tr><tr><td>5. 신뢰구간</td><td>표본이 작으면 일치한계가 불안정하므로 일치한계의 신뢰구간을 계산한다</td></tr></tbody></table></div>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>새 방법이 표준 방법을 대체할 수 있는지는 일치한계가 맥락에 따라 미리 정한 허용 기준 안에 드는지로 판단한다. 일치한계는 차이가 대략 정규분포한다고 가정하며, 그렇지 않으면 백분위수를 쓴다(Bland &amp; Altman, 1999). 차이가 측정 크기에 따라 커지면 부채꼴 모양이 되는데, 이는 비례 편향이나 이분산의 신호이다. 선형 회귀로 확인하고 브로이슈-파간 검정이나 화이트 검정으로 이분산을 점검한다. 대책은 비율 차이 또는 로그 척도 차이를 그리는 것이다. 비율 자료는 밑 2 로그로 변환하며 이 형태를 MA 도표라 부른다.</p><p>상관계수와 구분해야 한다. 피어슨 상관은 변수마다 따로 선형 변환해도 값이 같아(Y = 2X + 1이면 r = 1) 일치도를 나타내지 못한다. 급내상관계수(ICC)는 같은 집단 안의 값이 얼마나 닮았는지를 나타내며, 해석 기준(Koo &amp; Li, 2016)은 0.50 미만 낮음, 0.50~0.75 보통, 0.75~0.90 좋음, 0.90 초과 매우 좋음이다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에는 평균 차이(편향)와 일치한계의 값과 단위, 일치한계의 신뢰구간, 허용 기준과 그 근거를 적는다. 예: &quot;평균 차이 1.2 mmHg, 95% 일치한계 −8.4~10.8 mmHg.&quot; 표본 크기는 신뢰구간 폭만 보던 초기 지침 대신 검정력(보통 80%) 기반 틀(Lu 등, 2016)을 쓸 수 있으며 MedCalc나 R 패키지 blandPower로 계산한다. 원 논문은 Bland JM, Altman DG(1986), Lancet 327(8476), 307-310이다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"새로 개발한 웨어러블 혈압계와 표준 수은혈압계 간의 측정값 일치도를 평가하기 위해 Bland-Altman plot을 작성하였다 (평균 차이 = 1.2mmHg, 95% 일치한계 = -8.4~10.8mmHg)."</div>
   <p>이 문장은 두 혈압계의 측정값이 평균적으로 1.2mmHg 정도 차이가 나며, 대부분의 경우 그 차이가 -8.4~10.8mmHg 범위 안에 들어온다는 뜻이다. 이 범위가 임상적으로 허용 가능한 수준이라면 두 기기는 "일치한다"고 판단할 수 있다.</p>
 
@@ -170,6 +188,15 @@
 
   <h2>주의할 점</h2>
   <p>Bland-Altman plot은 두 측정치 사이의 "상관관계"가 아니라 "일치도"를 보는 도구이다. <a href="correlation.html">상관관계</a>가 높다고 해서 두 측정법이 서로 바꿔 쓸 수 있을 만큼 일치한다는 뜻은 아니므로, 방법 비교 연구에서는 상관계수만 보고할 것이 아니라 반드시 이 그래프로 일치도를 함께 확인해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Bland–Altman plot. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Intraclass correlation. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

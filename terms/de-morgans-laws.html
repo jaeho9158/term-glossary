@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>드모르간의 법칙은 논리식을 동치인 다른 형태로 자유롭게 바꿀 수 있게 해주기 때문에, 디지털 논리회로 설계에서 게이트 구성을 단순화하거나, 프로그래밍 언어의 조건문·컴파일러 최적화에서 부정 조건을 다루기 쉬운 형태로 정규화하는 데 실용적으로 쓰인다. 이런 이유로 전산학과 전자공학의 이론적 배경뿐 아니라 실제 시스템 최적화 논문의 수식 전개 과정에서도 흔히 근거로 인용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>드모르간의 법칙은 명제 논리와 불 대수에서 부정을 이용해 논리곱과 논리합을 서로 바꿔 쓰게 하는 한 쌍의 타당한 변환 규칙이다. "A이고 B이다"의 부정은 "A가 아니거나 B가 아니다"와 같다. 기호로는 ¬(P ∧ Q) ↔ (¬P ∨ ¬Q), ¬(P ∨ Q) ↔ (¬P ∧ ¬Q)이고, 여기서 "또는"은 포함적이다.</p><ul><li>집합에서는 "여집합을 취하면 합집합과 교집합이 서로 바뀐다"고 요약하며, (A ∪ B)ᶜ = Aᶜ ∩ Bᶜ, (A ∩ B)ᶜ = Aᶜ ∪ Bᶜ이다.</li><li>기억법으로 "선을 끊고 부호를 바꾼다(break the line, change the sign)"가 소개된다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>여집합 Aᶜ는 전체집합 U에서 A에 속하지 않는 원소의 집합이고 Aᶜ = U ∖ A로 쓴다. 이중 여집합은 원래 집합과 같다((Aᶜ)ᶜ = A).</p><p>법칙은 유한, 가산 무한, 비가산 무한 집합족 어느 것에도 확장된다. 모든 집합의 교집합의 여집합은 여집합들의 합집합과 같고, 합집합의 여집합은 여집합들의 교집합과 같다. 논리에서도 n개 명제로 확장된다. 프로그래밍에서는 복잡한 논리 조건을 단순화하거나 올바르게 부정하는 데 쓰고, 디지털 회로 설계와 AND, OR, NOT을 쓰는 텍스트 검색에도 쓰인다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>이름은 19세기 영국 수학자 오거스터스 드모르간(1806~1871)에서 왔다. 그는 1847년 『Formal Logic』에서 처음 명시했고, 조지 불의 논리 대수화에 영향을 받았다. 비슷한 관찰은 아리스토텔레스도 했으며, 14세기 윌리엄 오컴과 장 뷔리당도 비슷한 규칙을 다루었다.</li><li>부정을 이용해 입력과 출력 모두에 부정을 붙이고 연산자를 바꾸면 동치인 식이 된다. 예를 들어 (P ∧ Q) ⟺ ¬(¬P ∨ ¬Q)이다.</li><li>컴파일러가 불 식을 최적화할 때도 쓰지만 동치인 식 사이의 성능 차이는 대개 무시할 수준이다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"조건절의 부정 표현을 정규화하기 위해 드모르간의 법칙을 적용하여 논리식을 동치인 형태로 변환하였다."</div>
   <p>이 문장은 논리 회로 설계, 프로그램 조건문 최적화, 데이터베이스 질의 조건 단순화 등을 다루는 논문에서, 복잡한 부정 조건식을 더 다루기 쉬운 형태로 바꾸는 근거로 이 법칙을 사용했다는 뜻이다.</p>
 
@@ -167,6 +185,15 @@
 
   <h2>주의할 점</h2>
   <p>드모르간의 법칙은 집합 두 개뿐 아니라 세 개 이상의 집합, 그리고 명제 논리의 "그리고(∧)"와 "또는(∨)" 연산자에도 똑같이 확장되어 적용된다. 다만 이때 반드시 전체집합(또는 전체 논의 영역) 안에서의 여집합을 기준으로 해야 하며, 이는 <a href="set-theory-basics.html">집합</a>과 <a href="propositional-logic.html">명제와 논리</a> 개념을 함께 이해해야 정확히 적용할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). De Morgan's laws. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Complement (set theory). Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="set-operations.html">집합의 연산</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

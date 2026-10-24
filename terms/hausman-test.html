@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>하우스만 검정은 패널데이터 분석의 결과가 편향되지 않도록 모형 선택의 타당성을 뒷받침하는 절차이기 때문에, 경제학, 경영학, 정책학 등 패널데이터를 다루는 실증연구 논문에서 방법론 부분에 거의 필수적으로 포함된다. 특히 관측되지 않는 개체 특성이 독립변수와 관련이 있는지(내생성 문제)를 판단하는 근거로 쓰이기 때문에, 인과관계를 주장하려는 연구에서 추정 결과의 신뢰성을 높이는 중요한 절차로 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <ul><li>이미 일치성이 알려진 덜 효율적인 추정량과 비교해 어떤 추정량이 일치성을 가지는지 검정할 때 쓴다.</li><li>패널데이터에서는 고정효과와 확률효과 중 선택에 쓴다. 고정효과는 관측되지 않는 개체 효과가 설명변수와 상관되어도 되지만, 확률효과는 둘이 상관되지 않아야 하며 상관되면 확률효과 추정량은 일치성이 없다.</li><li>같은 검정을 내생성 검정(도구변수 대 최소제곱)과 추가 도구변수의 타당성 검정에도 쓴다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구분</th><th>내용</th></tr></thead><tbody><tr><td>귀무가설</td><td>두 추정량 모두 일치성이 있고 b1이 효율적이다(패널에서는 확률효과가 적절하다).</td></tr><tr><td>대립가설</td><td>b0는 일치성이 있지만 b1은 없다(패널에서는 고정효과가 적절하다).</td></tr><tr><td>통계량</td><td>H = (b1 − b0)′ (Var(b0) − Var(b1))<sup>†</sup> (b1 − b0). †는 무어-펜로즈 유사역행렬이다.</td></tr><tr><td>분포</td><td>귀무가설 아래 점근적으로 카이제곱분포를 따르고 자유도는 Var(b0) − Var(b1)의 계수이다.</td></tr></tbody></table></div><p>귀무가설을 기각하면 b1이 일치성이 없다는 뜻이다. </p>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>검정통계량 값, 자유도, p값, 그리고 어느 모형을 택했는지를 함께 적는다.</li><li>검정의 도출은 추정량의 결합 정규성과 점근 분포를 가정한다.</li><li>이름은 Durbin(1954), Wu(1973), Hausman(1978)에서 왔다.</li><li>예: 하우스만 검정에서 귀무가설이 기각되어 고정효과모형을 최종 모형으로 채택하였다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"하우스만 검정 결과 확률효과모형의 가정이 기각되어(χ² = 24.3, p &lt; .001), 본 연구는 고정효과모형을 최종 분석모형으로 채택하였다."</div>
   <p>이 문장은 두 모형의 계수 추정치 차이가 우연이라 보기 어려울 만큼 크게 나타났고, 그래서 개체 고유의 특성이 독립변수와 무관하다는 확률효과모형의 전제를 신뢰할 수 없다고 판단해 고정효과모형을 사용했다는 뜻이다.</p>
   <div class="example">"기업 재무자료를 이용한 패널분석에서 하우스만 검정 결과가 유의하지 않게 나타나(p = .312), 보다 효율적인 확률효과모형을 채택하였다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>하우스만 검정에서 유의하지 않다고 해서 확률효과모형이 "옳다"고 확정되는 것은 아니며, 단지 고정효과모형과 결과가 크게 다르지 않다는 뜻일 뿐이다. 또한 이 검정은 <a href="robust-standard-errors.html">강건표준오차</a>를 사용하는 상황이나 표본이 작은 경우 정확도가 떨어질 수 있어, 최근에는 이론적 근거(개체 특성이 독립변수와 관련될 가능성)를 함께 고려해 모형을 선택하라는 지적도 많다. 검정 결과 하나만으로 모형을 기계적으로 정하기보다는 연구 설계와 이론적 배경을 함께 제시하는 것이 바람직하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia (n.d.). Hausman test.</li>
+    <li>Wikipedia (n.d.). Fixed effects model.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

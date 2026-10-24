@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>임상시험, 코호트 연구, 패널조사처럼 같은 대상을 여러 번 측정하거나 병원·학급 같은 군집 단위로 자료를 모으는 연구 설계는 매우 흔한데, 이런 자료의 상관 구조를 무시하면 효과 추정치의 표준오차가 왜곡되어 실제로는 유의하지 않은 결과를 유의하다고 잘못 판단할 위험이 있다. GEE는 개인별 효과의 세부적인 형태를 정확히 모형화하지 않고도 이런 상관을 적절히 보정할 수 있어, 반복측정 임상시험이나 역학 연구에서 집단 수준의 평균적 개입 효과를 안정적으로 추정하는 표준적인 방법으로 자리잡았다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>일반화 추정 방정식(GEE)은 반복 측정처럼 모형에 담지 않은 방식으로 관측값이 상관될 수 있을 때 일반화 선형 모형의 모수를 추정하는 방법이다. 처음 두 적률(평균과 분산)만 지정하는 준모수적 방법이며, 큰 역학 연구와 다기관 코호트에서 흔히 쓰인다. 일반화 선형 모형은 지수족 분포의 반응변수, 선형 예측자 η = Xβ, 평균을 η와 잇는 연결 함수 g로 이루어진다. 정규분포와 항등 연결은 선형 회귀, 베르누이와 로짓 연결은 로지스틱 회귀, 포아송과 로그 연결은 계수 자료 회귀가 된다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li><strong>작업 상관 구조</strong>: 독립, 교환가능(exchangeable), 자기회귀, 정상 m-종속, 비구조 등을 고른다. 구조를 잘못 골라도 계수 추정은 일관되지만 효율이 떨어진다.</li><li><strong>강건(샌드위치) 표준오차</strong>: Huber-White 표준오차로 추정한다. 계열 자기상관이 없을 때 효율을 높일 수 있으나 주변 해석을 잃을 수 있다.</li><li><strong>모집단 평균 효과</strong>: 모집단 전체의 평균 반응을 추정한다.</li><li><strong>검정</strong>: Wald 검정이 가장 흔하고 점수 검정도 쓰지만 우도비 검정은 쓰지 못한다. 모형 선택에는 AIC에 대응하는 QIC를 쓴다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에는 연결 함수와 분포, 작업 상관 구조, 표준오차 종류(강건 여부), 추정 효과가 모집단 평균 의미임을 적는다. 우도 기반 지표가 없으므로 모형 비교는 QIC로 보고한다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"환자 내 반복측정에 따른 상관을 고려하기 위해 교환가능 상관구조(exchangeable correlation)를 가정한 GEE 모형을 적용하였으며, 중재군은 대조군보다 혈압이 유의하게 더 감소하였다 (β = -6.2, p = .01)."</div>
   <p>이 문장은 반복측정 데이터의 상관 구조를 명시적으로 지정한 뒤, 집단 간 평균적인 변화 차이를 추정했다는 뜻이다.</p>
   <div class="example">"학급 단위로 군집화된 학생 자료의 특성을 고려하여 GEE를 적용한 결과, 교수법 개입은 학급 내 상관을 보정한 이후에도 학업성취도에 유의한 정적 효과를 보였다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>GEE는 "집단 전체의 평균적인 효과"를 추정하는 데 초점을 두는 반면, <a href="mixed-effects-model.html">혼합효과모형</a>은 개인마다 다른 효과(개인차)까지 추정할 수 있다는 차이가 있다. 연구 목적이 개인별 변화 양상 파악이라면 혼합효과모형이 더 적합할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Generalized estimating equation. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Generalized linear model. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

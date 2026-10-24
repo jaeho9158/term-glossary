@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>사건 발생 횟수를 다루는 연구 질문은 보건학, 범죄학, 생태학, 공학 등 매우 다양한 분야에서 등장하기 때문에, 포아송 회귀는 계수형 자료를 다루는 표준적인 통계 도구로 널리 쓰인다. 특정 위험 요인이 사건 발생 빈도를 얼마나 증가 또는 감소시키는지를 발생률비(IRR)라는 해석하기 쉬운 지표로 제시할 수 있다는 점도 실무·정책 연구에서 선호되는 이유이다. 또한 일반화선형모형(GLM)이라는 더 큰 통계 틀 안에서 로지스틱 회귀, 음이항 회귀와 함께 다뤄지므로, 이 틀을 이해하는 것은 다양한 형태의 종속변수를 분석하는 능력으로 이어진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>포아송 회귀는 종속변수 Y가 포아송 분포를 따르고, 기댓값의 로그가 독립변수의 선형결합이라고 가정하는 일반화선형모형이다.</p><p><code>log E(Y | x) = α + β′x</code>, 즉 <code>E(Y | x) = exp(θ′x)</code></p><ul><li>계수는 최대우도법으로 추정한다. 닫힌 해가 없어 뉴턴-랩슨 같은 수치 방법을 쓴다. 로그우도는 오목하므로 수렴이 잘 되는 편이다.</li><li>x가 한 단위 늘면 log E(Y)가 β만큼 변하고, 기대 건수는 e<sup>β</sup>배가 된다. e<sup>β</sup>가 발생률비(IRR)이다.</li><li>관찰 기간이나 인구가 서로 다르면 노출량의 로그를 <strong>오프셋</strong>(계수 1로 고정)으로 넣어 건수 대신 발생률을 모형화한다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>횟수 자료에 쓴다. 음수가 되지 않고 0 근처에 몰린 건수를 일반 선형회귀로 다루면 예측이 음수가 되거나 분산이 맞지 않는다.</p><ul><li><strong>가정</strong>: 평균과 분산이 같다. 실제로는 분산이 평균보다 큰 과대산포가 흔하며, 누락된 설명변수나 관측치의 종속성이 원인이 된다. 이때 쓰는 대안은 준포아송(분산 = θμ)과 음이항 모형(분산 = μ(1 + κμ))이다.</li><li>0이 별도 과정에서 생겨 포아송이 예측하는 것보다 0이 많다면(예: 비흡연자의 흡연량) 영과잉 모형이나 음이항 모형이 더 맞을 수 있다.</li><li>능형회귀처럼 로그우도에 벌점을 더하는 규제 포아송 회귀도 있다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>종속변수가 어떤 횟수이고 노출 단위(기간, 인구, 면적)가 무엇인지, 오프셋을 썼는지 밝힌다.</li><li>계수 B 대신 exp(B), 곧 IRR과 95% 신뢰구간을 함께 적는다. 예: IRR = 1.15는 독립변수가 한 단위 늘 때 기대 건수가 15% 많다는 뜻이다(형식을 보이는 가상의 값).</li><li>과대산포 검토 결과와 선택한 모형(포아송, 준포아송, 음이항)을 적는다.</li><li>영과잉 여부를 확인했다면 함께 보고한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"포아송 회귀분석(Poisson regression) 결과, 대기오염도가 10단위 증가할 때마다 응급실 방문 건수가 유의하게 증가하는 것으로 나타났다(IRR = 1.15, p &lt; .05)."</div>
   <p>이 문장은 대기오염 수치와 응급실 방문 "횟수" 사이의 관계를 포아송 회귀로 분석했고, 오염도가 높아질수록 방문 횟수가 평균 15% 늘어난다는 뜻이다(IRR은 발생률비를 의미한다). 보건학, 범죄학, 공학 등 사건 발생 빈도를 다루는 논문에서 자주 등장한다.</p>
   <div class="example">"특정 지역의 월별 범죄 발생 건수를 종속변수로 하는 포아송 회귀모형을 적용하여 순찰 인력 배치가 범죄 건수 감소에 미치는 효과를 분석하였다."</div>
@@ -164,6 +182,17 @@
 
   <h2>주의할 점</h2>
   <p>포아송 회귀는 "평균과 분산이 같다"는 강한 가정을 전제로 한다. 실제 데이터에서 분산이 평균보다 훨씬 큰 과대산포(overdispersion) 현상이 나타나면 이 가정이 깨지므로, 이런 경우에는 <a href="negative-binomial-regression.html">음이항 회귀</a>를 대신 사용하는 것이 일반적이다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">포아송 회귀와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="negative-binomial-regression.html">음이항 회귀</a></th><td>분산이 평균보다 큰 횟수 자료용 모형</td><td>포아송은 분산이 평균과 같다고 가정한다</td></tr><tr><th scope="row"><a href="logistic-regression.html">로지스틱 회귀</a></th><td>0/1 결과를 예측하는 회귀</td><td>결과가 횟수가 아니라 이분형이다</td></tr><tr><th scope="row"><a href="generalized-linear-model.html">일반화선형모형</a></th><td>연결함수와 분포를 고르는 회귀 틀</td><td>포아송 회귀는 로그 연결함수를 쓰는 한 종류이다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Poisson regression. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Wikipedia contributors. (n.d.). Overdispersion. In Wikipedia, The Free Encyclopedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="generalized-linear-model.html">일반화선형모형</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="logistic-regression.html">로지스틱 회귀</a><a href="negative-binomial-regression.html">음이항 회귀</a><a href="probit-regression.html">프로빗 회귀분석</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

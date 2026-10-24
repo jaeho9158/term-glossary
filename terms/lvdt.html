@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>재료의 응력-변형률 곡선, 구조물의 처짐, 정밀 기계 부품의 위치 오차 등은 실험 결과의 신뢰성을 좌우하는 핵심 데이터이며, 이를 접촉 마찰이나 전기 노이즈 없이 정밀하게 확보할 수 있어야 후속 해석(탄성계수 산출, 피로 수명 예측 등)이 가능해진다. LVDT는 비접촉·비마모 구조 덕분에 반복 시험이나 장시간 모니터링에서도 측정 특성이 잘 변하지 않아, 재료공학·토목공학·정밀기계 분야 논문에서 변위 측정의 표준 수단으로 자주 채택된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <p>선형 가변 차동 변압기(LVDT)는 선형 변위, 곧 주어진 방향의 위치를 재는 전기 변압기의 한 종류이다. 선형 가변 변위 변압기나 변위 변환기, 간단히 차동 변압기라고도 한다. 회전 변위를 재는 대응 장치는 RVDT(회전 가변 차동 변압기)이다.</p><p>LVDT는 기계적 기준(영점 또는 널 위치)에서 벗어난 위치나 선형 변위를 비례하는 전기 신호로 바꾼다. 이 신호는 방향을 알려 주는 위상과 거리를 알려 주는 진폭 정보를 담고 있다.</p>
+
+  <h2>구성과 채점</h2>
+  <p>구조는 다음과 같다. 관 둘레에 솔레노이드 코일 세 개를 끝에서 끝으로 늘어놓는다. 가운데 코일이 1차 코일이고 바깥의 두 코일이 위쪽·아래쪽 2차 권선이다. 투자율이 높은 원통형 자성 코어가 위치를 재려는 물체에 붙어 관의 축을 따라 미끄러진다.</p><ol><li>1차 코일에 교류(보통 1~10 kHz)를 흘리면 각 2차 코일에 1차와의 상호 인덕턴스에 비례하는 전압이 유도된다.</li><li>코어가 움직이면 1차와 두 2차 코일의 결합이 달라져 유도 전압이 변한다.</li><li>2차 권선은 직렬로 반대 방향으로 연결되어 출력 전압은 두 유도 전압의 차이이다(그래서 "차동"이다).</li><li>코어가 가운데 위치에 있으면 두 2차 코일의 전압이 같아 서로 상쇄되어 출력이 이론상 0이다.</li><li>코어가 위쪽으로 가면 위쪽 2차 전압이 늘고 아래쪽이 줄어 출력이 0에서 올라간다. 반대쪽으로 가면 출력도 0에서 커지되 위상이 1차와 반대이다.</li></ol><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>출력의 요소</th><th>의미</th></tr></thead><tbody><tr><td>출력 전압의 위상</td><td>변위의 방향(위 또는 아래)</td></tr><tr><td>출력 전압의 진폭</td><td>변위의 크기</td></tr><tr><td>동기 검파기</td><td>부호가 있는 출력 전압을 얻어 변위와 연결한다</td></tr></tbody></table></div>
+
+  <h2>결과 읽는 법</h2>
+  <p>LVDT는 가늘고 긴 코일로 설계해 수 인치(수백 mm)에 이르는 변위에서 출력 전압이 거의 선형이다. 견고하고 절대 선형 위치/변위 변환기이며 본질적으로 마찰이 없어 올바르게 쓰면 사실상 무한한 수명이 있다. 교류로 작동하는 LVDT에는 전자 부품이 없어서 극저온이나 650 °C(1200 °F)까지의 환경, 심한 진동과 충격에서도 쓸 수 있다. 전원을 껐다 켜도 같은 측정값을 보여 위치 정보를 잃지 않는다. 코어가 관 안쪽에 닿지 않으므로 미끄러지는 접점이나 회전 접점이 없어 환경에 대해 완전히 밀봉할 수 있다. 코어의 단축 직선 운동 외에 축 둘레의 회전은 측정에 영향을 주지 않는다.</p><p>코어가 가운데 있어도 1차가 두 2차에 결합하는 방식의 작은 차이 때문에 작은 전압이 출력되며, 이를 위상 이동에서 비롯된 직교 오차라고 한다. 폐루프 제어계에서는 영점 둘레의 진동을 일으킬 수 있고 단순 측정에서도 받아들일 수 없는 경우가 있다. 동기 복조로 2차 전압을 교류에서 직접 빼는 방식의 결과이다. 현대적인 방식에서는 각 2차 신호를 따로 정밀 정류로 복조한 뒤 직류 신호를 빼서 차이를 구한다. 이 방식에는 직교 오차가 없고 위치에 따른 차이 전압이 영점에서 매끄럽게 0을 지난다. 일정한 여기 전압에서 두 2차 전압의 합은 작동 행정 전체에서 거의 일정하여 합이 한계를 벗어나면 내부 고장으로 빨리 검출할 수 있다. 디지털 처리가 가능하면 차이를 합으로 나누어(비율 측정) 여기 신호의 정확한 진폭에 독립인 측정을 할 수 있다.</p><p>리니어 인코더는 눈금자에 위치를 부호화하고 읽기 센서가 이를 신호로 바꾸는 센서이다. 증분식과 절대식이 있고 광학, 자기, 유도, 정전용량, 와전류 방식이 있다. LVDT는 이 가운데 절대 위치 센서로 쓰인다는 점에서 구별된다.</p><p>논문에는 측정 범위와 분해능, 여기 주파수와 전압, 신호 조절 방식(동기 복조 또는 개별 정류), 영점 조정 방법, 선형성 한계 범위를 적는다. 위치 피드백이나 공작기계 자동 측정에 흔히 쓰이는 만큼 사용 환경(온도, 진동)도 밝힌다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"압축 시험 중 시편의 변위는 LVDT를 이용하여 0.1 μm 분해능으로 측정하였다."</div>
   <p>압축시험을 하는 동안 시편이 눌리는 정도를 0.1마이크로미터의 분해능을 가진 LVDT로 정밀하게 측정했다는 뜻이다.</p>
   <div class="example">"교량 모형의 하중 재하 시험에서 지간 중앙부의 처짐량을 LVDT로 실시간 계측하여 해석 모델의 예측값과 비교하였다."</div>
@@ -166,6 +184,17 @@
 
   <h2>주의할 점</h2>
   <p>측정 가능한 변위 범위(스트로크)가 정해져 있어 그 범위를 넘는 큰 변위를 측정하려면 더 긴 스트로크의 LVDT를 선택해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="laser-displacement-sensor.html">레이저변위센서</a></th><td>레이저로 비접촉 변위를 재는 센서</td></tr><tr><th scope="row"><a href="capacitive-displacement-sensor.html">정전용량 변위센서</a></th><td>정전용량 변화로 변위를 재는 센서</td></tr><tr><th scope="row"><a href="power-transformer.html">변압기</a></th><td>전자기 유도로 교류 전압의 크기를 바꾸는 전기 장치로, LVDT도 변압기의 한 종류이다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Linear variable differential transformer. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Linear encoder. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="sensor-types.html">센서의 종류 (온도·압력·근접센서)</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="imu.html">관성측정장치(IMU)</a><a href="lidar.html">라이다</a><a href="rotary-encoder.html">로터리 엔코더</a><a href="strain-gauge.html">스트레인 게이지</a><a href="pressure-transducer.html">압력 트랜스듀서</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

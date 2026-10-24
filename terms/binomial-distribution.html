@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>이항분포는 "성공/실패처럼 두 가지 결과만 있는 사건을 여러 번 반복했을 때 몇 번 성공하는가"라는 매우 흔한 질문에 답을 주기 때문에, 통계적 가설검정이나 실험 설계를 다루는 논문에서 기본 도구로 자주 등장한다. 임상시험에서 치료 반응자 수, 설문조사에서 특정 응답자 수, 품질검사에서 불량품 개수처럼 분야를 가리지 않고 폭넓게 쓰인다. 또한 로지스틱 회귀나 카이제곱 검정 같은 더 복잡한 통계 기법들도 이항분포의 가정 위에서 출발하는 경우가 많아, 이 개념을 이해하면 관련 논문의 통계 방법론 부분을 훨씬 수월하게 읽을 수 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>n번의 독립 베르누이 시행에서 성공이 정확히 k번일 확률은 f(k, n, p) = C(n, k)·p<sup>k</sup>(1 − p)<sup>n−k</sup> (k = 0, …, n)이다. 조건은 시행 횟수가 정해져 있고, 시행이 서로 독립이며, 각 시행의 결과가 예/아니오 둘뿐이고 성공 확률 p가 같다는 것이다. 평균은 np, 분산은 np(1 − p)이다. n = 1이면 베르누이 분포가 되고, 서로 독립인 베르누이(p) 확률변수 n개의 합이 이항분포를 따른다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>공정한 동전(p = 0.5)을 10번 던질 때 앞면이 정확히 7번 나올 확률은 C(10, 7)/2<sup>10</sup> = 120/1024로 약 0.117이다. 또 앞면 확률이 0.3인 편향 동전을 6번 던져 앞면이 정확히 4번일 확률이 0.059535이다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <p>n이 크면 계산 대신 근사를 쓴다. 정규 근사는 np와 n(1 − p)가 모두 약 5 이상일 때를 흔히 쓰고, 더 엄격한 규칙은 n &gt; 9(1 − p)/p이고 n &gt; 9p/(1 − p)이다(평균이 0~n 범위의 표준편차 3개 안에 든다는 뜻). n이 크고 p가 작으면 포아송 근사(λ = np)를 쓰며, n ≥ 20이고 p ≤ 0.05, 또는 n ≥ 100이고 np ≤ 10이 기준으로 제시된다. 논문에는 n과 p의 값, 독립성 가정이 성립하는 근거, 근사를 쓴 경우 그 조건을 적는다. 예를 들어 같은 사람이 여러 번 응답한 자료처럼 독립이 깨지면 이항 가정이 맞지 않는다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설문에 응답한 100명 중 찬성 의견을 낼 확률이 각각 독립적이라고 가정하고, 찬성자 수를 이항분포 B(100, 0.3)으로 모형화하였다."</div>
   <p>이 문장은 100번의 독립적인 시행에서 각각 30%의 확률로 "성공(찬성)"이 일어난다고 가정하고, 전체 찬성자 수의 분포를 이항분포로 나타냈다는 뜻이다.</p>
 
@@ -163,6 +181,15 @@
 
   <h2>주의할 점</h2>
   <p>이항분포를 쓰려면 각 시행이 서로 독립적이고 성공 확률이 매번 동일해야 한다는 전제가 반드시 필요하다. 이 전제가 깨지면(예: 표본을 비복원으로 뽑아 확률이 계속 바뀌는 경우) 다른 분포를 써야 한다. 시행 횟수가 충분히 크면 이항분포는 <a href="normal-distribution.html">정규분포</a>에 가까운 모양으로 근사되기도 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Binomial distribution. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Bernoulli distribution. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="discrete-probability.html">이산 확률</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="binomial-distribution-mean-variance.html">이항분포의 평균과 분산 (Mean and Variance of Binomial Distribution)</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

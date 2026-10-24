@@ -1,0 +1,50 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>일반화선형모형(GLM)은 선형 회귀를 정규분포가 아닌 반응변수로 넓히는 틀이다. 1972년 John Nelder와 Robert Wedderburn이 선형, 로지스틱, 포아송 회귀를 통일하려고 정식화했고, 최대우도 추정을 위한 반복 재가중 최소제곱법(IRLS)을 제안했다. 세 요소로 이루어진다.</p><ol><li>확률 성분: 반응 Y가 정규, 이항, 포아송, 감마 같은 지수족 분포를 따른다.</li><li>선형 예측자: η = Xβ.</li><li>연결함수: E(Y|X) = μ = g<sup>−1</sup>(η). g는 전단사여야 역함수가 존재한다.</li></ol><p>정규분포와 항등 연결은 보통의 선형 회귀이고, 포아송과 로그 연결은 개수 자료(μ = exp(Xβ)), 이항·베르누이와 로짓 연결은 로지스틱 회귀(μ = 1/(1 + exp(−Xβ)))이다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<ul><li>로지스틱 모형에서 logit p = ln(p/(1−p)) = β<sub>0</sub> + β<sub>1</sub>x이고, x가 1 늘 때 오즈에 e<sup>β<sub>1</sub></sup>가 곱해진다. 이진 예측변수의 오즈비는 2×2 표에서 ad/(bc)이다.</li><li>정준 연결(canonical link)은 지수족 밀도에서 유도되며 정규의 항등, 포아송의 로그, 베르누이의 로짓이다. 정준 연결을 쓰면 X<sup>T</sup>y가 β의 충분통계량이 된다.</li><li>추정은 최대우도이며 IRLS, 뉴턴법, 피셔 점수법으로 계산한다. 항등 연결의 정규 모형 말고는 대개 닫힌 해가 없다.</li><li>분산이 Var(Y) = V(μ)에 분산 모수 τ를 곱한 꼴일 때, 포아송에서 τ &gt; 1이면 과산포(overdispersion)이다. τ를 추정하는 모형을 준이항, 준포아송이라고 한다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>반응변수의 분포(예: 포아송, 이항)와 연결함수(예: 로그, 로짓)를 함께 적는다.</li><li>계수는 연결 척도의 값과 변환한 값(오즈비 등)을 구분해 보고한다.</li><li>개수 자료에서는 과산포를 점검했는지와 준포아송 등으로 대응했는지를 밝힌다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "일반화선형모형",
+        "연결함수로 회귀를 비정규 반응에 확장한 틀"
+      ],
+      [
+        "[[logistic-regression|로지스틱 회귀]]",
+        "이진 반응에 로짓 연결을 쓴 GLM"
+      ],
+      [
+        "[[regression|회귀분석]]",
+        "변수 간 관계를 모형화하는 방법"
+      ],
+      [
+        "[[maximum-likelihood-estimation|최대우도추정]]",
+        "모수를 우도로 추정하는 방법"
+      ],
+      [
+        "[[overdispersion|과산포]]",
+        "분산이 모형 가정보다 큰 현상"
+      ]
+    ]
+  },
+  "references": [
+    "Wikipedia contributors. (n.d.). Generalized linear model. Wikipedia.",
+    "Wikipedia contributors. (n.d.). Logistic regression. Wikipedia."
+  ]
+}

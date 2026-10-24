@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,24 @@
   <h2>왜 중요한가</h2>
   <p>벨-라파둘라 모델은 기밀성을 수학적으로 정형화한 최초의 대표적 보안 모델로, 강제적 접근제어(MAC)와 다단계 보안 시스템 설계의 이론적 토대가 되었다. 보안 모델을 배울 때 가장 먼저 등장하는 고전이다. 이 모델은 이후 등장한 여러 강제적 접근제어 시스템의 이론적 원형이 되었으며, 등급이 다른 정보가 섞여서는 안 되는 정부·군사 시스템 설계에서 지금도 참조되는 기준이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 주장</h2>
+  <ul><li>벨-라파둘라(BLP) 모델은 데이비드 엘리엇 벨(David Elliott Bell)과 레너드 라파둘라(Leonard J. LaPadula)가 로저 셸(Roger R. Schell)의 지도를 받아 미국 국방부의 다단계 보안(MLS) 정책을 형식화한 상태 기계 모델이다. 원 자료는 1973년과 1976년의 MITRE 보고서이다.</li><li>무결성이 아니라 <strong>기밀성</strong>에 초점을 둔다.</li><li>세 가지 성질이 있다. 단순 보안 성질: 주체는 더 높은 보안 수준의 객체를 읽을 수 없다(no read-up). 별(*) 성질: 주체는 더 낮은 수준의 객체에 쓸 수 없다(no write-down). 임의 보안 성질: 접근 행렬로 임의적 접근 통제를 정한다.</li><li>신뢰된 주체는 별 성질에서 면제되지만 신뢰할 수 있음이 입증되어야 한다.</li></ul>
+
+  <h2>근거와 대표 연구</h2>
+  <p>안정성(tranquility) 원칙은 보안 수준의 변경을 다룬다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구분</th><th>내용</th></tr></thead><tbody><tr><td>강한 안정성</td><td>정상 운영 중 보안 수준이 바뀌지 않는다</td></tr><tr><td>약한 안정성</td><td>수준이 바뀔 수 있으나 보안 정책을 어기는 방식으로는 바뀌지 않는다. 낮은 허가로 시작해 필요할 때 높이는 최소 권한과 맞는다</td></tr></tbody></table></div><p>Biba 모델(1977년, Kenneth J. Biba)은 BLP의 직접적 역상으로 무결성을 지킨다. BLP는 ‘아래를 읽고 위에 쓴다’(read down, write up), Biba는 ‘위를 읽고 아래에 쓴다’(read up, write down)로 요약된다.</p>
+
+  <h2>비판과 한계</h2>
+  <ul><li>무결성은 쓰기 통제라는 한 측면만 다룬다.</li><li>은닉 채널(covert channel)은 언급되지만 포괄적으로 다뤄지지 않는다.</li><li>안정성 때문에 보안 수준이 동적으로 바뀌는 시스템에는 잘 맞지 않는다. 신뢰된 주체를 통해 높은 수준에서 낮은 수준으로 통제된 복사는 가능하다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"벨-라파둘라 모델의 &#39;올려 읽기 금지, 내려 쓰기 금지&#39; 규칙을 적용해, 일반 등급 프로세스가 비밀 등급 파일을 열람하는 경로를 차단하였다."</div>
   <p></p>
   <div class="example">정보보호 연구는 벨-라파둘라 모델을 적용한 시스템에서 기밀성은 보장되지만 데이터 무결성 통제는 별도로 필요하다는 점을 지적하였다.</div>
@@ -167,6 +185,15 @@
 
   <h2>주의할 점</h2>
   <p>벨-라파둘라는 기밀성만 지킬 뿐, 낮은 등급이 높은 등급 데이터를 오염시키는 무결성 문제는 막지 못한다. 이 점에서 무결성 중심의 비바 모델과 정확히 대칭 관계라는 것을 구분해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Bell–LaPadula model. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Biba Model. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="mandatory-access-control.html">강제적 접근통제</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="biba-model.html">비바 모델</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

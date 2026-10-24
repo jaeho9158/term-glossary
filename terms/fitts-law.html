@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>피츠의 법칙은 목표에 도달하는 시간이 거리가 멀수록 늘고 목표가 클수록 줄어드는 로그 관계를 수식으로 나타낸 것으로, 버튼을 크게 만들고 자주 쓰는 것을 가까이 두라는 UI 설계 권고의 정량적 근거이다. 화면 가장자리와 모서리는 커서가 멈추는 무한 크기의 목표가 되므로 맥OS 메뉴바가 화면 최상단에 있는 것이 정당화되고, <a href="touch-target-size.html">터치 타깃 크기</a> 기준을 도출하는 데도 쓰인다. 터치스크린에서는 손가락 끝의 접촉 면적 자체가 마우스 커서보다 훨씬 넓어, 동일한 공식이라도 최소 목표 크기 기준을 마우스 인터페이스보다 더 크게 잡아야 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>피츠의 법칙은 목표를 가리켜 선택하는 데 걸리는 이동 시간이 목표까지의 거리와 목표의 폭으로 정해진다는 법칙이다. Fitts(1954)는 팔 운동 실험에서 난이도를 ID = log<sub>2</sub>(2D/W)(비트)로 정의했다. D는 목표 중심까지의 거리, W는 목표의 폭이다. 이동 시간은 MT = a + b·ID로 나타내며, 상수 a와 b는 장치와 사용자 집단마다 회귀분석으로 구한다.</p><p>HCI에서는 MacKenzie(1992)가 제안한 Shannon 공식 ID = log<sub>2</sub>(D/W + 1)이 널리 쓰인다. 이 식은 거리가 0에 가까울 때 난이도가 음수가 되지 않는다. 입력 장치를 비교할 때는 ID를 이동 시간으로 나눈 처리율(throughput, bits/s)을 쓰며, 실제로 찍은 좌표의 표준편차로 구한 유효 폭(We = 4.133×SD)을 W 대신 넣어 정확도까지 반영하는 방식이 권장된다.</p>
+
+  <h2>예시로 보기</h2>
+  <ul><li>같은 거리에서 버튼 폭을 2배로 하면 ID가 1비트 가까이 줄어, 예측 이동 시간이 b만큼 짧아진다.</li><li>화면 가장자리와 모서리는 커서가 가장자리에서 멈추므로 사실상 폭이 매우 큰 목표가 된다. 메뉴를 화면 가장자리에 두는 설계의 근거로 인용된다.</li><li>마우스, 트랙볼, 터치패드처럼 장치마다 a와 b가 달라서, 이 법칙은 입력 장치를 비교하는 실험에 쓰인다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>MT = a + b·log<sub>2</sub>(2D/W)는 원래의 Fitts 식이고, D/W + 1 꼴은 MacKenzie의 변형이다. 두 식을 섞어 쓰면 논문 간 수치를 비교할 수 없다.</li><li>이 법칙은 가리키기 운동을 다룬다. 목표를 찾는 시각 탐색 시간이나 스크롤·제스처 같은 연속 궤적 동작은 설명하지 못한다.</li><li>MacKenzie의 식은 Shannon–Hartley 정리와 모양이 닮아 이름이 붙었지만, 둘 사이의 수학적 연결이 확립된 것은 아니다.</li><li>항상 크고 가까운 것이 좋은 설계는 아니다. 삭제처럼 위험한 조작은 일부러 작고 멀게 둘 수 있다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">본 연구는 피츠의법칙에 근거해 모바일 버튼 크기와 위치를 조정한 결과 터치 오류율이 감소함을 확인하였다.</div>
   <p>버튼 크기와 거리 조정이 실제 터치 정확도에 미친 영향을 검증한 실험이다.</p>
   <div class="example">노년층 사용자를 대상으로 한 실험에서는 목표 크기를 키웠을 때 이동 시간과 함께 오류율도 뚜렷하게 줄어들었다.</div>
@@ -162,6 +180,18 @@
 
   <h2>주의할 점</h2>
   <p>피츠의법칙은 물리적 포인팅 동작을 전제로 하며 스크롤이나 제스처 등 다른 상호작용에는 그대로 적용되지 않을 수 있다. 스크롤이나 스와이프처럼 목표 지점을 클릭하는 것이 아니라 연속적인 궤적을 그리는 동작에는 이 법칙이 그대로 성립하지 않아 별도의 운동 모델이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">피츠의 법칙</th><td>거리와 목표 폭으로 가리키기 시간을 예측하는 모형</td></tr><tr><th scope="row"><a href="touch-target-size.html">터치 타깃 크기</a></th><td>피츠의 법칙을 근거로 삼는 최소 목표 크기 기준</td></tr><tr><th scope="row"><a href="gesture-interaction.html">제스처 인터랙션</a></th><td>연속 궤적 동작이라 피츠의 법칙이 그대로 맞지 않음</td></tr><tr><th scope="row"><a href="interaction-design.html">인터랙션 디자인</a></th><td>법칙을 적용하는 상위 설계 분야</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Fitts, P. M. (1954). The information capacity of the human motor system in controlling the amplitude of movement. Journal of Experimental Psychology, 47(6), 381–391.</li>
+    <li>MacKenzie, I. S. (1992). Fitts' law as a research and design tool in human-computer interaction. Human–Computer Interaction, 7(1), 91–139.</li>
+    <li>Wikipedia contributors. (n.d.). Fitts's law. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

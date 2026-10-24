@@ -7,7 +7,7 @@
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<p>차수 조합마다 모형의 성격이 달라서, 차수만 봐도 모형이 무엇을 말하는지 대략 읽힌다.</p><ul><li><code>ARIMA(0,0,0)</code>: 백색잡음. 예측할 구조가 없다.</li><li><code>ARIMA(0,1,0)</code>: 임의보행. 다음 값의 예측은 마지막 관측값(상수항이 있으면 평균 증가분을 더한 값)이다. 연구에서 비교의 기준선으로 자주 쓰인다([[random-walk|임의보행]]).</li><li><code>ARIMA(0,1,1)</code>(상수항 없음): 단순 지수평활과 같은 형태의 예측을 준다([[exponential-smoothing|지수평활]]).</li></ul><p><strong>작은 예(가상의 값).</strong> 월별 값이 100, 104, 103, 108, 112였다면 1차 차분은 4, −1, 5, 4이고 평균은 3이다. 평균 증가분을 반영한 ARIMA(0,1,0) 예측은 112 + 3 = <strong>115</strong>이다. 차분의 AR(1) 계수를 0.5로 가정한 ARIMA(1,1,0)이라면, 다음 차분 예측은 3 + 0.5 × (4 − 3) = 3.5이므로 예측값이 112 + 3.5 = <strong>115.5</strong>이다(계수는 설명을 위해 임의로 정한 값이며 추정한 것이 아니다).</p><p>적합한 뒤에는 잔차에 자기상관이 남지 않았는지(잔차가 백색잡음에 가까운지) 진단해야 한다. 정보기준 값이 작다는 것만으로 모형이 적절하다고 결론내리지 않는다.</p>"
+      "html": "<p>차수 조합마다 모형의 성격이 달라서, 차수만 봐도 모형이 무엇을 말하는지 대략 읽힌다.</p><ul><li><code>ARIMA(0,0,0)</code>: 백색잡음. 예측할 구조가 없다.</li><li><code>ARIMA(0,1,0)</code>: 임의보행. 다음 값의 예측은 마지막 관측값(상수항이 있으면 평균 증가분을 더한 값)이다. 연구에서 비교의 기준선으로 자주 쓰인다([[random-walk|임의보행]]).</li><li><code>ARIMA(0,1,1)</code>(상수항 없음): 단순 지수평활과 같은 형태의 예측을 준다([[exponential-smoothing|지수평활]]).</li></ul><p><strong>작은 예(가상의 값).</strong> 월별 값이 100, 104, 103, 108, 112였다면 1차 차분은 4, −1, 5, 4이고 평균은 3이다. 평균 증가분을 반영한 ARIMA(0,1,0) 예측은 112 + 3 = <strong>115</strong>이다. 차분의 AR(1) 계수를 0.5로 가정한 ARIMA(1,1,0)이라면, 다음 차분 예측은 3 + 0.5 × (4 − 3) = 3.5이므로 예측값이 112 + 3.5 = <strong>115.5</strong>이다(계수는 설명을 위해 임의로 정한 값이며 추정한 것이 아니다).</p><p>적합한 뒤에는 잔차에 자기상관이 남지 않았는지(잔차가 백색잡음에 가까운지) 진단해야 한다. 정보기준 값이 작다는 것만으로 모형이 적절하다고 결론내리지 않는다.</p><p>보충. 다른 차수 조합의 예로 ARIMA(1,0,0)은 AR(1), ARIMA(0,0,1)은 MA(1)이고, ARIMA(0,2,2)는 가법 오차를 가진 홀트 선형 방법에 해당한다. 차분 횟수 d는 자료에서 과거 값을 뺀 횟수이며, 정상성을 얻으려면 2차 차분이 필요할 수 있다. 차분은 추세를 없애 평균에 대해 정상으로 만들지만, 분산이나 자기공분산이 일정하지 않은 문제는 해결하지 못한다. 또한 d > 0인 ARIMA 모형으로 정확히 기술되는 과정은 넓은 의미의 정상 과정이 아니다.</p>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
@@ -48,6 +48,7 @@
   "references": [
     "Box, G. E. P., & Jenkins, G. M. (1970). Time Series Analysis: Forecasting and Control. Holden-Day.",
     "Hyndman, R. J., & Khandakar, Y. (2008). Automatic time series forecasting: The forecast package for R. Journal of Statistical Software, 27(3).",
-    "Hyndman, R. J., & Athanasopoulos, G. (2014). Forecasting: Principles and Practice. OTexts."
+    "Hyndman, R. J., & Athanasopoulos, G. (2014). Forecasting: Principles and Practice. OTexts.",
+    "Wikipedia contributors. (n.d.). Autoregressive integrated moving average. Wikipedia."
   ]
 }

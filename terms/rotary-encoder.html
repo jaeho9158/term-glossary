@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>피드백 제어 시스템은 목표값과 현재값의 차이를 계속 확인하며 동작을 수정해야 하는데, 회전체의 현재 위치나 속도를 정확히 알려주는 로터리 엔코더는 이 피드백 루프의 출발점 역할을 한다. 로봇공학, 자동화 설비, 정밀 계측 등 회전 운동을 다루는 거의 모든 공학 논문에서 위치·속도 제어의 정확도를 뒷받침하는 핵심 부품으로 언급되며, 엔코더의 해상도와 정확도는 곧 전체 시스템의 제어 성능을 좌우한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li><strong>절대형</strong>: 축의 현재 위치를 출력한다. 전원이 없어도 위치 정보를 유지하므로 기준점으로 돌아갈 필요가 없다. 다회전형은 전체 회전 수도 센다.</li><li><strong>증분형</strong>: 움직임의 변화를 출력하며, 다른 전자 회로가 이를 위치·속도·거리로 바꾼다. 절대 위치를 추적하지 않으므로 먼저 원점 복귀가 필요할 수 있다.</li><li>증분형은 A, B 두 출력이 90° 위상차의 구형파(직교)를 낸다. A-B 위상 관계가 방향을, 파형의 주파수가 속도를, 펄스 수가 이동 거리를 알려 준다. 선택적인 인덱스(Z) 출력은 기준 각도에서 한 바퀴에 한 번 펄스를 낸다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>해상도는 센서 자체로 제한되지 않아 일부 증분형은 한 바퀴에 10,000 카운트 이상에 이른다.</li><li><strong>감지 방식</strong>: 기계식(브러시가 PCB의 구리 트랙을 읽으며 싸지만 마모됨), 광학식(원판 슬릿을 통과한 빛을 포토다이오드가 읽으며 흔하지만 먼지에 약함), 자기식(홀 소자나 자기저항 소자가 극을 읽음), 정전용량식(모양이 있는 원판이 전극 사이 정전용량을 바꿈).</li><li><strong>그레이 코드</strong>: 일반 이진 코드에서는 접점이 어긋나면 경계에서 읽기값이 멀리 떨어진 구간으로 튈 수 있다. 그레이 코드는 이웃한 위치 사이에서 비트 하나만 바뀌어 이런 오독을 막는다. 3비트 순서는 000, 001, 011, 010, 110, 111, 101, 100이다. n번째 그레이 코드는 n XOR ⌊n/2⌋이다.</li><li>프랭크 그레이가 1947년 특허 출원에서 ‘반사 이진 코드’라는 이름을 붙였고 1953년 특허가 났다. 벨 연구소의 스티비츠가 1941년 비슷한 코드를 특허 출원했다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>절대형의 출력 방식은 병렬 이진, 아날로그, 직렬 버스(SSI, BiSS, EnDat, Modbus, CANopen, EtherCAT) 등이다.</li><li>응용: 산업 제어, 로봇, 카메라 렌즈, 컴퓨터 마우스와 트랙볼, 레오미터, 레이더 플랫폼, 브러시리스 모터 정류, 오디오의 볼륨 조절.</li><li>2007년에 비간드 센서를 쓴 에너지 수확형 자기 구동 다회전 엔코더가 나왔다.</li><li>논문에는 절대형인지 증분형인지, 한 바퀴당 카운트 수, 감지 방식, 출력 인터페이스를 적는다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모터 축에 부착된 1024 PPR 로터리 엔코더로부터 실시간 각속도 데이터를 획득하였으며, 이를 <a href='pid-controller.html'>PID 제어기</a>의 피드백 신호로 사용하였다."</div>
   <p>이 문장은 "모터가 한 바퀴 돌 때마다 1024번 신호를 세는 정밀한 회전 센서를 붙여서 지금 얼마나 빨리 돌고 있는지를 계속 측정했고, 그 값을 제어 알고리즘에 넣어 목표 속도에 맞추도록 조정했다"는 뜻이다.</p>
   <div class="example">"이동로봇의 좌우 바퀴 축에 각각 로터리 엔코더를 부착하여 바퀴의 회전량 차이로부터 로봇의 이동 거리와 방향을 추정하는 오도메트리(odometry)를 구현하였다."</div>
@@ -164,6 +182,15 @@
 
   <h2>주의할 점</h2>
   <p>로터리 엔코더는 회전 "위치"나 "속도"를 알려주는 감지 장치일 뿐, 그 자체로는 모터를 움직이는 힘을 만들어내지 않는다. 실제로 축을 원하는 위치까지 회전시키는 <a href="servo-motor.html">서보모터</a> 안에는 대개 이런 엔코더가 내장되어, 모터가 목표 위치를 정확히 찾아가도록 실시간으로 위치 정보를 알려주는 역할을 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Rotary encoder. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Gray code. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="sensor-types.html">센서의 종류 (온도·압력·근접센서)</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="imu.html">관성측정장치(IMU)</a><a href="lidar.html">라이다</a><a href="strain-gauge.html">스트레인 게이지</a><a href="pressure-transducer.html">압력 트랜스듀서</a><a href="lvdt.html">LVDT(선형 가변 차동 변압기)</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

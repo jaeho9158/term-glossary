@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>자율주행, 드론, 보행 로봇, 협동 로봇 등에서 안전 보장 제어의 대표 기법으로 빠르게 확산되었다. 이차계획으로 실시간 계산이 가능하고, 학습 기반 제어기에 안전장치를 덧붙이는 용도로도 많이 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>제어 장벽 함수(CBF)는 시스템이 ‘안전 집합’을 벗어나지 않도록 입력을 제한하는 데 쓰는 함수이다. 안전은 집합의 <strong>불변성</strong>으로 정의된다. 안전 집합 C는 연속 미분 가능한 함수 h의 상위 수준 집합 C = {x : h(x) ≥ 0}이다.</li><li>안정성(점근 수렴)은 liveness, 안전은 ‘나쁜 일이 일어나지 않는다’는 safety에 해당하며, 리아푸노프 함수가 안정성 연구에서 맡은 역할을 CBF가 안전 연구에서 맡는다는 취지로 소개된다(Ames 등 2019).</li><li>정의: 어떤 확장 K급 함수 α가 있어 모든 x에 대해 sup_u [L_f h(x) + L_g h(x)u] ≥ −α(h(x))이면 h는 CBF이다. 이때 안전을 지키는 입력의 집합은 K_cbf(x) = {u : L_f h(x) + L_g h(x)u + α(h(x)) ≥ 0}이다.</li><li>CBF가 있고 경계에서 h의 기울기가 0이 아니면, K_cbf에서 고른 립시츠 연속 제어기는 집합 C를 안전하게 만든다. 집합 C는 점근 안정이기도 해서, 잡음이나 모형 오차로 잠시 벗어나도 제어기가 시스템을 다시 C로 되돌린다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>기존 제어기 u = k(x)를 가능한 한 적게 고쳐 안전을 보장하는 방법이 <strong>CBF-QP</strong>이다. 입력 제약이 없을 때 u(x) = argmin ½‖u − k(x)‖² 를 위 부등식 제약 아래에서 푼다. 제약이 하나뿐이면 KKT 조건에서 닫힌 형태의 해(최소 노름 제어기)가 나온다.</p><p>안정과 안전을 함께 다루려면 제어 리아푸노프 함수(CLF) 제약과 CBF 제약을 한 QP에 넣는다(CLF-CBF QP). 해가 없어지지 않게 CLF 쪽에 완화 변수 δ(벌점 p)를 두므로, 안전을 위해 안정 조건을 완화한다.</p><p>가상의 예이다. 앞차와의 간격이 d이고 상대 속도가 v_r = v_앞 − v_자기, 자기 차의 가속도가 u이며 ḋ = v_r, v̇_자기 = u라고 하자. 시간 간격 τ를 두고 h = d − τ·v_자기로 정의하면 ḣ = v_r − τu이고, ḣ ≥ −γh를 풀면 u ≤ (v_r + γh)/τ인 하나의 부등식이 된다. 그러면 안전 필터는 u* = min(u_nom, (v_r + γh)/τ)이다. 이 도출은 식을 직접 전개한 것이다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>CBF는 장애물까지 거리 하나만 쓰는 방법이다.</td><td>안전 집합을 h(x) ≥ 0으로 정의하면 어떤 제약이든 쓸 수 있다. 장애물 거리는 한 가지 예일 뿐이다.</td></tr><tr><td>CBF는 안정화(목표 도달)를 보장한다.</td><td>CBF는 집합의 불변성(안전)을 보장한다. 안정화는 CLF의 몫이고, 둘을 합칠 때는 안전을 위해 안정 조건을 완화한다.</td></tr><tr><td>‘장벽(barrier)’은 처음부터 지금의 h ≥ 0 꼴이다.</td><td>최초의 CBF는 경계에서 값이 무한대로 커지는 역수(reciprocal) 장벽 함수로 정의되었다. 경계 밖에서도 잘 정의되는 h 꼴이 일반적으로 선호된다.</td></tr></tbody></table></div><p>역사: 집합 불변성의 필요충분조건은 1940년대 나구모(Nagumo)가 제시했고, 2000년대에는 하이브리드 시스템 검증을 위해 장벽 인증서(barrier certificate)가 도입되었다. ‘장벽’이라는 이름은 최적화에서 원치 않는 영역을 피하려 비용에 더하는 장벽 함수에서 왔다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"공칭 제어기의 입력을 제어 장벽 함수 제약을 포함한 이차계획으로 수정하여 장애물과의 최소 거리를 보장하였다."</div>
   <p>CBF 기반 안전 필터의 전형적 문장이다.</p>
   <div class="example">"다중 드론 충돌 회피 실험에서는 제어 장벽 함수 기반 안전 필터를 학습된 정책에 결합했을 때, 정책 성능 저하 없이 충돌 없는 비행 궤적이 유지되었다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p><a href="lyapunov-stability.html">리아푸노프 안정성</a>이 목표점으로 수렴하는 성질을 다룬다면, 제어 장벽 함수는 위험 영역에 들어가지 않는 안전성을 다룬다는 점이 다르다. 모델이 틀리면 안전 보장도 성립하지 않을 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Ames, A. D., Coogan, S., Egerstedt, M., Notomista, G., Sreenath, K., &amp; Tabuada, P. (2019). Control barrier functions: Theory and applications. arXiv:1903.11199.</li>
+    <li>Wikipedia contributors. (n.d.). Control-Lyapunov function. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>삼각형 넓이 공식은 복잡한 도형의 면적을 계산할 때 가장 기본이 되는 도구이다. 임의의 다각형은 여러 삼각형으로 분할해 넓이를 구할 수 있기 때문에, 측량, 지리정보시스템(GIS), 컴퓨터 그래픽스에서 메시(mesh)를 다루는 연구에 이르기까지 넓이나 부피 계산이 필요한 거의 모든 응용 분야에서 삼각형 넓이 공식이 계산의 기초 단위로 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>삼각형의 넓이를 구하는 방법은 알고 있는 값에 따라 네 가지로 나뉜다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>아는 값</th><th>공식</th></tr></thead><tbody><tr><td>밑변 b, 높이 h</td><td>T = ½bh</td></tr><tr><td>두 변 a, b와 끼인각 γ</td><td>T = ½ab sin γ (h = a sin γ에서 유도)</td></tr><tr><td>세 변 a, b, c</td><td>헤론의 공식: s = ½(a + b + c)일 때 T = √(s(s−a)(s−b)(s−c))</td></tr><tr><td>세 꼭짓점 좌표</td><td>신발끈 공식: ½|x<sub>A</sub>y<sub>B</sub> − x<sub>B</sub>y<sub>A</sub> + x<sub>B</sub>y<sub>C</sub> − x<sub>C</sub>y<sub>B</sub> + x<sub>C</sub>y<sub>A</sub> − x<sub>A</sub>y<sub>C</sub>|</td></tr></tbody></table></div><p>헤론의 공식은 세 변이 삼각 부등식을 만족해 실제 삼각형이 될 때만 쓸 수 있다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>세 변이 4, 13, 15인 삼각형은 s = 16이므로 넓이는 √(16·12·3·1) = 24이다. 이 공식은 알렉산드리아의 헤론이 <em>Metrica</em>에서 증명한 것으로 전해지고, 히스는 아르키메데스가 더 일찍 알았을 것이라 추정했으며, 진구소는 1247년에 변의 제곱을 이용한 같은 공식을 실었다. 증명은 코사인 법칙과 ½ab sin γ를 쓰는 삼각법 증명, 피타고라스 정리로 높이를 구하는 대수적 증명 등이 있다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>밑변과 높이가 있어야만 넓이를 구할 수 있다고 생각하기 쉽다. 두 변과 끼인각, 세 변, 좌표 중 하나만 알아도 된다.</li><li>끼인각이 아닌 각을 넣어도 된다고 생각하기 쉽다. ½ab sin γ의 γ는 두 변 사이의 각이어야 한다.</li><li>헤론의 공식은 컴퓨터에서도 항상 정확하다고 생각하기 쉽다. 아주 작은 각을 가진 삼각형에서는 두 변이 s에 가까워 ‘파국적 상쇄’가 일어나 부동소수점으로 계산하면 0.000이 나올 수 있고(참값 약 0.205인 예), 카한이 제안한 변을 정렬한 안정된 형태가 쓰인다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"드론으로 촬영한 지형 좌표를 삼각분할한 뒤, 각 삼각형의 넓이 공식을 적용하여 전체 부지 면적을 산출하였다."</div>
   <p>측량, 지리정보시스템(GIS), 컴퓨터 그래픽스 연구에서는 불규칙한 다각형 영역을 여러 개의 삼각형으로 쪼갠 뒤 각 삼각형의 넓이를 합산하는 방식으로 전체 면적을 구하는 데 이 공식들이 기초로 쓰인다.</p>
 
@@ -165,6 +183,15 @@
 
   <h2>주의할 점</h2>
   <p>두 변과 끼인각을 이용한 공식은 반드시 "끼인각"(두 변 사이의 각)을 사용해야 하며, 다른 각을 넣으면 틀린 값이 나온다. 각도 대신 세 변의 길이로 구할 때는 <a href="pythagorean-theorem.html">피타고라스의 정리</a>와는 다른 별도의 헤론의 공식을 사용해야 한다는 점도 헷갈리지 않아야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Triangle. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Heron's formula. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="heron-formula.html">헤론의 공식 (Heron's Formula)</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>계통 전압이 급격히 변동하는 상황에서 빠르게 무효전력을 조절해 전압을 안정시켜야 하므로, 정지형 무효전력 보상장치는 전력계통 안정도 향상 논문에서 대표적인 실용 기술로 다뤄진다. 부하 변동이 큰 산업 설비나 재생에너지 접속점에서 전압 안정화를 위해 널리 활용된다. 사이리스터제어리액터(TCR)와 사이리스터스위치드커패시터(TSC)를 조합해 구성하는 것이 일반적이며, 두 요소의 비중에 따라 흡수와 공급 가능한 무효전력 범위가 달라진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>SVC는 최소한 사이리스터 스위치 뱅크 하나를 가진다. 구성 요소는 사이리스터 제어 리액터(TCR), 사이리스터 스위치드 커패시터(TSC), 고조파 필터, 차단기로 개폐하는 기계식 커패시터·리액터이다.</li><li>사이리스터가 위상각을 조절해 리액터를 가변적으로 투입하므로 무효전력을 연속적으로 주입하거나 흡수한다.</li><li>계통이 용량성(진상)일 때 TCR이 무효전력을 흡수해 전압을 낮추고, 유도성(지상)일 때는 커패시터 뱅크를 투입해 전압을 올린다.</li><li>유연송전시스템(FACTS)의 가장 흔한 장치이며 사이리스터 덕분에 가능해진 최초의 현대적 FACTS 장치로 서술된다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>커패시터는 거친 전압 조정을, TCR은 부드러운 조정을 맡는다. TSC는 더 부드러운 제어와 유연성을 준다.</li><li>폐루프 제어기가 전압을 조절하며, 원격 감시 제어나 수동 설정값 조정도 흔하다.</li><li>변압기가 송전 전압(예: 230 kV)을 낮춰(예: 9.0 kV) 연결하는 것이 일반적이다. 산업용은 33이나 34.5 kV 중전압 모선에 직접 접속하기도 한다.</li><li>사이리스터는 직렬·역병렬로 이어 ‘사이리스터 밸브’를 이루고 실내에 둔다. 열이 나므로 탈이온수로 냉각하는 경우가 많다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>응답은 전압 변화에 거의 순간적이며, 밀리초 단위로 투입되어 고장을 감지하고 대응한다고 서술된다. 그래서 영점 근처에서 운전해 빠른 보정을 극대화하는 경우가 많다.</li><li>회전 동기조상기보다 대체로 싸고 용량이 크며 빠르고 믿을 수 있다. 내부 개폐기를 빼면 움직이는 부품이 거의 없다.</li><li>TCR이 만드는 홀수차 고조파가 크므로 대용량 필터를 두는 것이 보통이다.</li><li>기계식으로 개폐하는 커패시터보다 비싸 두 방식을 함께 쓰는 사업자가 많다.</li><li>FACTS는 유효전력을 더하지 않고 회로 매개변수를 바꿔 조류를 바꾸는 장치군이다. 병렬(전압), 직렬(임피던스), 위상각 보상의 세 방식이 있고 SVC는 병렬 장치이다. STATCOM은 전압형 변환기를 쓰는 병렬 장치로 SVC와 구별된다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"정지형 무효전력 보상장치를 계통에 설치한 결과 순간적인 전압 강하에 대한 응답 속도가 크게 개선되었다."</div>
   <p>SVC의 빠른 응답 특성이 전압 안정화에 활용된 사례이다.</p>
   <div class="example">"제안된 제어기는 정지형 무효전력 보상장치의 점호각을 조절하여 필요한 무효전력을 연속적으로 공급하였다."</div>
@@ -164,6 +182,15 @@
   <p>스위칭 동작 과정에서 고조파가 발생할 수 있어 별도의 필터가 함께 설치되는 경우가 많으며, 무효전력만 조절할 뿐 유효전력을 직접 제어하지는 못한다는 한계가 있다.</p>
 
   <p>전압원 인버터 기반의 STATCOM과 달리 수동 소자의 조합으로 무효전력을 만들기 때문에, 계통 전압이 매우 낮아지는 상황에서는 공급 가능한 무효전력이 함께 줄어드는 한계가 있다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Static VAR compensator. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Flexible AC transmission system. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="flexible-ac-transmission-system.html">유연송전시스템</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="static-synchronous-compensator.html">정지형 동기보상기</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

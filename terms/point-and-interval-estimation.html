@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>모든 통계적 추론은 결국 관측되지 않은 모집단의 특성을 표본으로부터 추측하는 작업이기 때문에, 점추정과 구간추정은 의학·사회과학·공학 등 거의 모든 실증 연구 논문의 결과 보고에서 기본 골격을 이룬다. 특히 점추정값만 제시하면 그 값이 우연히 표본에서만 나온 값인지, 실제로 신뢰할 만한 값인지 판단할 수 없기 때문에, 재현성과 통계적 엄밀성을 중시하는 최근 연구 관행에서는 구간추정을 함께 보고하는 것이 표준으로 자리잡고 있다. 이 개념은 가설검정, 표본크기 설계, 메타분석 등 후속 통계 절차를 이해하는 기초가 된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>점추정(point estimation)은 표본 자료로 모평균, 분산, 모형 모수 같은 미지의 양에 대해 하나의 값, 곧 &quot;최선의 추측&quot;을 계산하는 것이다. 구간추정(interval estimation)은 표본 자료로 모수가 놓일 수 있는 값의 구간을 구한다.</p><ul><li><strong>편향</strong>: 추정량의 기댓값과 참값의 차이이다. 표본평균과 불편 표본분산은 대표적인 불편 추정량이다.</li><li><strong>일치성</strong>: 표본 크기가 커질수록 추정량이 참값 근처에 놓일 확률이 1에 가까워진다.</li><li><strong>효율성</strong>: 불편 추정량 중 분산이 낮은 쪽이 더 효율적이다. 크라메르-라오 하한에 이르는 추정량을 효율적이라고 한다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>점추정의 방법으로는 관측 자료가 가장 그럴듯해지는 모수를 고르는 최대가능도 추정과, 모집단 적률을 표본 적률과 같다고 놓고 푸는 적률법이 있다. 표본평균은 모평균의 불편 추정량이고 1차 표본 적률이라 적률법에서 자연스럽게 나온다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구분</th><th>신뢰구간(빈도주의)</th><th>신용구간(베이즈)</th></tr></thead><tbody><tr><td>필요한 것</td><td>표본 자료</td><td>사전분포와 가능도</td></tr><tr><td>수준의 뜻</td><td>100γ%는 절차에 대한 신뢰이고 모수에 대한 확률이 아님. 같은 절차를 반복할 때 구간이 모수를 포함하는 비율</td><td>모수가 구간 안에 있을 확률이 100γ%</td></tr><tr><td>경계 설정</td><td>z표(정규, 분산 알 때), 이항 자료는 Wald, Jeffreys, Clopper-Pearson, 분포를 모르면 부트스트랩</td><td>최고사후밀도, 양쪽 꼬리 동일, 평균 중심</td></tr></tbody></table></div>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>95% 구간 안에 자료의 95%가 들어 있다고 생각하기 쉽다. 그것은 허용구간(tolerance interval)이라는 다른 개념이다.</li><li>95% 신뢰구간이 모수가 구간 안에 있을 확률이 95%라는 뜻이라고 생각하기 쉽다. 신뢰구간의 수준은 절차에 대한 신뢰이며, 그런 확률 해석은 사전분포를 쓰는 신용구간에서 가능하다.</li><li>점추정이면 충분하다고 생각하기 쉽다. 구간추정은 추정이 얼마나 믿을 만한지까지 전해 주므로 추론에서 흔히 더 선호된다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"평균 치료 효과에 대한 점추정값은 4.3점이었으며, 95% 신뢰구간을 이용한 구간추정 결과는 [2.1, 6.5]로 나타났다."</div>
   <p>논문에서는 대개 점추정값 하나만 보고하지 않고, 그 값이 얼마나 불확실한지를 함께 판단할 수 있도록 구간추정 결과(대표적으로 <a href="confidence-interval.html">신뢰구간</a>)를 나란히 제시한다.</p>
   <div class="example">"회귀계수의 점추정치는 0.42였고, 부트스트랩 방법으로 구한 95% 구간추정치는 [0.18, 0.66]이었다."</div>
@@ -164,6 +182,15 @@
 
   <h2>주의할 점</h2>
   <p>점추정값이 정확해 보인다고 해서 오차가 없다는 뜻은 아니다. 같은 점추정값이라도 표본크기가 작으면 구간추정의 폭이 넓어져 불확실성이 커진다. 구간추정의 폭을 결정하는 핵심 재료는 <a href="standard-error.html">표준오차</a>이며, 점추정값을 구하는 대표적인 통계적 방법으로는 <a href="maximum-likelihood-estimation.html">최대우도추정</a>이 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Interval estimation. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Point estimation. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="confidence-interval.html">신뢰구간</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

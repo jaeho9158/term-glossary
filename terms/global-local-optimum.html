@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>지역 최적해와 전역 최적해의 구분은 최적화 이론뿐 아니라 머신러닝, 운용과학, 제어공학 등 최적화 문제를 다루는 거의 모든 분야에서 알고리즘의 성능과 신뢰성을 평가하는 기본 틀이 된다. 딥러닝 모델 학습, 하이퍼파라미터 탐색, 신경망 구조 탐색처럼 목적함수가 복잡하고 볼록하지 않은 문제에서는 지역 최적해에 갇히는 것을 얼마나 잘 피하느냐가 알고리즘 설계의 핵심 관심사이다. 실험 재현성 측면에서도 초기값이나 무작위성에 따라 결과가 달라질 수 있다는 점이 알고리즘 비교 연구에서 자주 언급된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>최소화 문제에서 지역 최소점 x*는 이웃한 허용점 x(x*에서 어떤 δ&gt;0 이내)에 대해 f(x*) ≤ f(x)를 만족하는 점이다.</li><li>전역 최소점은 모든 허용점에 대해 이 부등식이 성립하는 점이다.</li><li>볼록 최소화 문제에서는 모든 지역 최소점이 곧 전역 최소점이다. 비볼록 문제에서는 지역 최소점이 여럿일 수 있고 전부가 전역 최소점일 필요는 없다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>함수</th><th>최적점</th></tr></thead><tbody><tr><td>x²</td><td>x=0에 유일한 전역 최소점이 있다.</td></tr><tr><td>x³</td><td>전역 극값이 없다. x=0에서 도함수가 0이지만 변곡점이다.</td></tr><tr><td>cos(x)</td><td>전역 최대점과 최소점이 무한히 많다.</td></tr><tr><td>f(x,y) = x² + y²(1−x)³</td><td>(0,0)은 지역 최소점이지만 전역 최소점은 아니다. f(2,3) = −5이기 때문이다.</td></tr></tbody></table></div><p>닫힌 유계 구간에서 연속인 함수는 최댓값과 최솟값을 반드시 가진다(극값 정리).</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>최적화 알고리즘이 수렴한 해는 전역 최적해이다.</td><td>상용 풀이기를 포함한 많은 알고리즘은 지역 최적해와 전역 최적해를 구별하지 못하고 지역 최적해를 해로 취급한다.</td></tr><tr><td>전역 최적화는 지역 최적화를 좀 더 오래 돌리면 된다.</td><td>전역 최적화는 참 최적해로의 수렴을 보장하려는 훨씬 어려운 문제이며, 전역 최적화기는 보통 지역 최적화기보다 훨씬 느리다.</td></tr><tr><td>다중 시작이나 시뮬레이티드 어닐링은 전역 최적해를 보장한다.</td><td>이런 휴리스틱은 전역 최적해를 보장하지 않으며 쓸 만한 근사해를 줄 뿐이다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 방법이 여러 지역 최적해 중 하나에 수렴할 위험이 있어 다양한 초기값에서 반복 실험하였다."</div>
   <p>볼록하지 않은 손실함수를 최적화할 때 알고리즘이 지역 최적해에 갇히는 문제는 실무에서 흔히 다뤄지는 과제다.</p>
   <div class="example">"유전 알고리즘에 다양성 유지 메커니즘을 도입한 결과, 조기 수렴으로 인한 지역 최적해 정체 현상이 완화되었다."</div>
@@ -163,6 +181,15 @@
 
   <h2>주의할 점</h2>
   <p>딥러닝처럼 매우 고차원인 문제에서는 안장점이 지역 최적해보다 더 흔한 장애물로 지적되기도 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia (n.d.). Local optimum.</li>
+    <li>Wikipedia (n.d.). Mathematical optimization.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

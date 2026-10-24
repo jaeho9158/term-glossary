@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -160,7 +161,24 @@
   <h2>왜 중요한가</h2>
   <p>IDS/IPS는 네트워크 보안의 핵심 방어 계층으로, 시그니처 기반 탐지와 이상 탐지(anomaly detection)를 비교하거나 머신러닝을 접목한 탐지 정확도 향상 연구에서 기본 프레임으로 자주 등장한다. 침해사고 대응 체계를 논할 때도 필수적으로 언급되는 구성 요소이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>IDS(침입 탐지 시스템)는 네트워크나 시스템을 감시해 의심스러운 악성 활동을 관리자나 SIEM에 알린다. 트래픽 경로 밖에 놓인다. IPS(침입 방지 시스템)는 경로 안에 놓여(in-line) 탐지한 침입을 능동적으로 차단한다. 패킷을 버리거나 연결을 재설정한다. IPS는 IDPS라고도 한다.</p>
+
+  <h2>예시로 보기</h2>
+  <ul><li><strong>시그니처 기반</strong>: 알려진 공격 패턴과 트래픽을 대조한다. 알려진 위협에는 효과적이나 새 공격과 변형은 놓친다.</li><li><strong>이상 기반(통계)</strong>: 정상 행동의 기준선과 비교한다. 모르는 공격도 잡을 수 있으나 기준선이 잘못되면 오탐이 늘 수 있다.</li><li><strong>상태 기반 프로토콜 분석</strong>: 프로토콜 행동이 허용된 정상 프로파일에서 벗어나는지 본다. 정확하나 자원을 많이 쓴다.</li></ul><p>배치는 방화벽 뒤 네트워크 경계가 가장 흔하며 들어오는 트래픽을 잘 볼 수 있다. 방화벽 밖에 두면 인터넷의 스캔과 잡음을 보아 오탐을 줄이는 데 도움이 되고, 내부에 두면 이미 침투한 공격자의 내부 활동을 감지한다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“IDS와 IPS는 같다”</strong>: IDS는 알리고 IPS는 차단한다.</li><li><strong>“시그니처 방식이면 충분하다”</strong>: 새 공격과 변형은 놓친다.</li><li><strong>“이상 탐지는 정확하다”</strong>: 기준선이 잘못 조정되면 오탐이 많다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 이상 탐지 알고리즘을 기존 시그니처 기반 IDS와 비교한 결과 오탐률이 유의하게 감소하였다."</div>
   <p>새로 만든 탐지 방법이 기존 방식보다 잘못된 경고(오탐)를 덜 낸다는 것을 실험으로 확인했다는 뜻이다.</p>
   <div class="example">"본 시스템은 IPS 모듈을 통해 탐지된 공격 트래픽을 실시간으로 자동 차단하도록 설계되었다."</div>
@@ -173,6 +191,15 @@
   <p>IPS는 자동 차단 기능 때문에 오탐이 발생하면 정상 트래픽까지 차단해 서비스 장애를 일으킬 수 있어, 탐지 정확도와 운영 정책 설계가 중요하다.</p>
 
   <p>암호화 트래픽이 대세가 된 오늘날에는 페이로드 검사가 제한되기 때문에, 메타데이터나 행위 패턴 기반 탐지로 무게중심이 옮겨가는 추세이다. IPS는 오탐(false positive) 발생 시 정상 트래픽까지 차단할 위험이 있어, 탐지 정확도와 정책 튜닝이 방화벽보다 훨씬 세밀하게 요구된다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Intrusion detection system. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Intrusion prevention system. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="misuse-detection.html">오용 기반 탐지</a><a href="anomaly-based-detection.html">이상 기반 탐지</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

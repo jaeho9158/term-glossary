@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>사력은 특정 순간에 사망할 순간적 위험률로, 연속 시간에서 정의된 사망 위험이며 생존분석의 위험함수와 같은 개념이다. <a href="gompertz-makeham-law.html">곰퍼츠-메이컴 법칙</a> 같은 사망률 모형이 사력을 함수로 표현하며, 사망률 예측 모형의 기본 단위가 된다. 생명표를 이산적인 연령 구간이 아니라 연속함수로 다루고 싶을 때 반드시 필요한 개념으로, 곰페르츠-메이컴 법칙처럼 사망률을 수식으로 모형화하는 생존분석 연구의 기초가 된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>사력 μ(x)는 x세까지 살아 있다는 조건에서 아주 짧은 구간 Δx 안에 사망할 확률을 Δx로 나눈 값의 극한이다. 수명의 밀도함수를 f(x), 생존함수를 S(x)라 하면 μ(x) = f(x) / S(x) = −d/dx ln S(x)이다.</p><p>생존분석에서는 같은 함수를 위험함수(hazard function), 신뢰성 공학에서는 고장률이라고 부른다. 확률이 아니라 순간의 비율이어서 단위는 시간의 역수(예: 1/년)이다.</p><p><strong>생존과의 관계</strong>: 누적 위험 H(x) = ∫<sub>0</sub><sup>x</sup> μ(u) du로 두면 S(x) = exp(−H(x))이다. x세인 사람이 t년 더 살 확률은 <sub>t</sub>p<sub>x</sub> = exp(−∫<sub>x</sub><sup>x+t</sup> μ(u) du)이다.</p>
+
+  <h2>예시로 보기</h2>
+  <p><strong>대표적인 꼴</strong></p><ul><li>사력이 상수 λ이면 수명은 지수분포를 따르고, 지금까지 산 기간과 무관하게 앞으로의 위험이 같다.</li><li>곰퍼츠-메이컴 법칙은 μ(x) = A + B·c<sup>x</sup>(A ≥ 0, B &gt; 0, c &gt; 1)로, 나이와 무관한 위험 A에 나이에 따라 지수적으로 커지는 위험을 더한다. A = 0이면 곰퍼츠 법칙이다. 곰퍼츠(1825)가 사력이 나이에 따라 거의 지수적으로 커진다고 제안했고, 메이컴(1860)이 사고나 급성 감염처럼 나이와 무관한 위험을 나타내는 상수항을 더했다. 지수 부분은 일정한 기간마다 두 배가 되며, 성인 사망률의 전형적인 값에서는 약 8년이다.</li><li>와이블 꼴은 모수에 따라 사력이 줄거나, 일정하거나, 늘어날 수 있다.</li></ul><p>가상의 값으로, 사력이 해마다 0.01로 일정하다면 10년 생존 확률은 exp(−0.01 × 10) = exp(−0.1) ≈ 0.905이다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <p><strong>‘사력은 사망확률이다’</strong>: 사력은 순간의 비율이어서 1보다 클 수도 있다. 1년 사망확률 q<sub>x</sub>와는 q<sub>x</sub> = 1 − exp(−∫<sub>x</sub><sup>x+1</sup> μ(u) du)로 이어진다.</p><p><strong>‘사력과 위험함수는 다른 개념이다’</strong>: 분야에 따라 이름만 다를 뿐 같은 함수이다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"연령에 따른 사력의 변화를 모형화하여 고령층의 사망력 개선 속도를 추정하였다."</div>
   <p>순간적인 사망 위험이 나이에 따라 어떻게 변하는지를 수학적으로 나타내 고령층 사망률 개선 속도를 계산했다는 뜻이다.</p>
   <div class="example">"한 인구집단의 연령별 사망자료를 모형화한 결과 90세 이후 사력의 증가 속도가 곰퍼츠 법칙이 예측하는 것보다 완만해지는 현상이 관찰되었다."</div>
@@ -161,6 +179,15 @@
   <p>사력은 이산적인 사망확률(qx)과 수치상 유사하지만 수학적으로 연속 함수로 정의되므로 통계 모형에서 서로 구분해서 사용해야 한다.</p>
 
   <p>사력은 사망확률(qx)과 수치가 비슷해 혼동되기 쉽지만, qx가 이산적인 1년 사망확률인 반면 사력은 순간적인 위험률로 정의된 연속함수라는 점에서 개념적으로 다르다. 두 값은 qx=1-exp(-∫μ)로 연결되며, 구간 내 사력이 일정하면 사력은 중앙사망률 mx와 같아진다.</p>
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Force of mortality. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Wikipedia contributors. (n.d.). Gompertz–Makeham law of mortality. In Wikipedia, The Free Encyclopedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
+
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="life-table.html">생명표</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="abridged-life-table.html">간이생명표</a><a href="period-life-table.html">기간생명표</a><a href="life-expectancy-ex.html">기대여명</a><a href="multiple-decrement-life-table.html">다중감소생명표</a><a href="multistate-life-table.html">다중상태생명표</a><a href="probability-of-dying.html">사망확률</a><a href="survival-curve.html">생명표 생존곡선</a><a href="survivorship-function-lx.html">생존자수</a><a href="probability-of-surviving.html">생존확률</a><a href="complete-life-table.html">완전생명표</a><a href="cause-deleted-life-table.html">원인제거생명표</a><a href="person-years-lived-lx.html">정상인년수</a><a class="concept-family-more" href="../concept-map/demog.html#r-life-table">외 4개 →</a></div></div><p class="concept-family-map"><a href="../concept-map/demog.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">

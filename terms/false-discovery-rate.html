@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>유전체학, 뇌영상, 대규모 설문처럼 수백에서 수만 개의 항목을 한꺼번에 검정하는 연구가 늘면서, 개별 검정을 보정 없이 그대로 해석하면 우연에 의한 거짓 발견이 대량으로 섞여 들어가는 문제가 발생한다. FDR은 이런 대규모 탐색적 분석에서도 지나치게 보수적이지 않으면서 위양성을 합리적인 수준으로 관리할 수 있게 해주기 때문에, 오믹스 데이터 분석을 비롯한 여러 분야에서 다중검정 문제를 다루는 표준적인 방법으로 자리 잡았다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>위양성발견율(FDR)은 기각한 귀무가설 중 실제로는 거짓 발견인 비율의 기댓값이다. 거짓 발견 수 V, 전체 기각 수 R일 때 Q = V/R이고 R = 0이면 Q = 0으로 정하며, FDR은 E[Q]이다. 이를 형식적으로 쓰면 E[V/R | R > 0] · P(R > 0)이다.</p><p>벤저민-호흐베르크(BH) 절차(1995)는 m개의 p값을 오름차순으로 정렬하고 수준 α를 정한 뒤 다음 순서로 진행한다.</p><ol><li>P(k) ≤ (k/m)α를 만족하는 가장 큰 k를 찾는다.</li><li>가장 작은 k개 p값에 해당하는 귀무가설을 기각한다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가족별 오류율(FWER)은 거짓 양성이 하나라도 있을 확률 P(V ≥ 1)이고, 본페로니 보정이 이를 통제한다. FDR 절차는 FWER 절차보다 덜 엄격해서 검정력이 높지만 제1종 오류를 더 허용한다. 모든 귀무가설이 참이면 FDR을 통제하는 것이 FWER도 통제하고, 일부 대립가설이 참이면 FWER은 FDR 이상이다.</p><p>다중 비교 문제에서 독립 검정 m개의 가족별 오류율은 1 - (1 - α)^m이다. α = 0.05에서 6개 검정이면 0.2649이고, 100개 검정이면 귀무가설이 모두 참일 때 기대되는 거짓 양성 수가 5이며 하나 이상일 확률은 약 99.4%이다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>BH는 검정이 독립일 때 FDR을 통제한다. 여러 의존 상황에서도 유효하지만 "보편적으로 유효하지는 않다." 임의의 의존에는 하모닉 수로 보정하는 벤저민-예쿠티엘리를 쓴다.</li><li>스토리-티브시라니 절차는 q값으로 FDR을 통제한다.</li><li>FWER은 대규모 확정적 결과에서 가장 널리 받아들여지고, FDR은 탐색적 연구나 유의한 결과를 독립 연구로 쉽게 다시 검정할 수 있을 때 선호된다.</li><li>보고할 때는 사용한 절차(BH 등), α, 검정 개수 m, 보정 전후 유의한 항목 수를 적는다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"다중검정에 따른 위양성 문제를 통제하기 위해 Benjamini-Hochberg 방법으로 FDR을 5%로 보정하였다."</div>
   <p>이 문장은 수많은 항목을 동시에 검정하면서도, 최종적으로 "유의하다"고 보고한 항목들 가운데 가짜가 섞여 있을 비율을 5% 이내로 관리했다는 뜻이다.</p>
 
@@ -168,6 +186,15 @@
 
   <h2>주의할 점</h2>
   <p>FDR은 <a href="multiple-comparisons-correction.html">다중비교보정</a>의 한 방식이지만, 본페로니 교정처럼 "단 하나라도 잘못 판정할 확률(전체오류율)"을 통제하는 방법과는 목표 자체가 다르다. FDR은 상대적으로 덜 보수적이어서 유전체 분석처럼 검정 수가 아주 많은 탐색적 연구에 자주 쓰이지만, 그만큼 개별 결과의 확실성은 본페로니 방식보다 낮다는 점을 함께 보고해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). False discovery rate. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Multiple comparisons problem. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="multiple-comparisons-correction.html">다중비교보정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="bonferroni-correction.html">본페로니 교정</a><a href="holm-bonferroni-method.html">홀름-본페로니 절차</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

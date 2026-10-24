@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>비둘기집의 원리는 증명 방법 자체가 매우 단순하면서도 강력해서, 존재성(existence)을 증명해야 하는 다양한 이산수학·전산학 논문에서 기초적인 논증 도구로 자주 등장한다. 알고리즘의 최악의 경우 성능을 분석하거나, 압축·해싱처럼 유한한 자원에 무한히 많은 입력을 대응시켜야 하는 상황의 한계를 보일 때 특히 유용하다. 복잡한 계산 없이도 "반드시 일어난다"는 결론을 이끌어낼 수 있어, 더 정교한 증명의 출발점이나 보조 도구로도 널리 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>비둘기집 원리는 n개의 물건을 m개의 상자에 넣을 때 n이 m보다 크면 적어도 한 상자에는 둘 이상이 들어간다는 원리다. 예를 들어 장갑 세 짝을 고르면 왼손용이나 오른손용 중 같은 쪽이 둘이다. 일반화하면 n개를 m개 상자에 넣을 때 어떤 상자에는 적어도 ⌈n/m⌉개가 들어간다. n = km + 1이면 어떤 상자에는 적어도 k + 1개가 들어간다.</p><p>1622년 Jean Leurechon의 저작에 초기 언급이 있고, Dirichlet이 1834년에 Schubfachprinzip("서랍 원리")로 다루어 "디리클레의 상자 원리"라고도 부른다.</p>
+
+  <h2>예시로 보기</h2>
+  <ul><li>양말: 두 색 양말이 든 서랍에서 세 짝을 꺼내면 같은 색 한 쌍이 반드시 있다.</li><li>악수: n > 1명 중 적어도 둘은 악수한 횟수가 같다.</li><li>생일: 윤일을 포함해 가능한 날짜가 366개이므로 367명이면 같은 생일이 반드시 있다. 윤일을 무시해 365일로 보면 366명이다. 확률로는 23명이면 같은 생일이 있을 확률이 약 50.7%로, 보장되는 인원보다 훨씬 적다.</li><li>팀: 선수 7명을 4팀에 나누면 적어도 둘은 같은 팀이다. 1~9에서 고른 여섯 수에는 합이 10인 두 수가 있다.</li><li>증명에 쓰임: 모든 입력을 줄이는 무손실 압축은 불가능하다(일부 출력이 겹쳐야 하므로). 정규 언어의 펌핑 보조정리에도 변형이 나온다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>"반드시 있다"는 보장과 "확률이 높다"를 구분한다. n ≤ m이어도 확률적으로는 충돌이 생길 수 있다. 비둘기 두 마리를 구멍 네 개에 넣어도 약 25% 확률로 같은 구멍에 들어간다.</li><li>유한 집합에서의 역은 무한 집합에 그대로 확장되지 않는다. 가산 개의 구멍에 비가산 개의 비둘기를 넣으면 어떤 구멍에는 비가산 개가 들어간다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"해시 테이블의 버킷 수보다 삽입되는 키의 개수가 많아지는 순간, 비둘기집의 원리에 의해 적어도 하나의 버킷에서는 충돌이 발생할 수밖에 없다."</div>
   <p>이 문장은 저장 공간(둥지)보다 저장할 데이터(비둘기)가 많아지면 충돌이 이론적으로 피할 수 없는 결과임을 설명하는 데 이 원리를 사용하고 있다. 비둘기집의 원리는 이처럼 "충돌이 일어날 수 있다"가 아니라 "반드시 일어난다"는 것을 증명해야 할 때, 복잡한 계산 없이도 결론을 이끌어내는 강력한 논증 도구로 쓰인다.</p>
 
@@ -166,6 +184,15 @@
 
   <h2>주의할 점</h2>
   <p>비둘기집의 원리는 충돌이나 중복이 "존재한다"는 사실만 증명할 뿐, 그것이 정확히 몇 번 일어나는지나 어느 위치에서 일어나는지는 알려주지 않는다. 몇 가지 경우가 가능한지 세는 문제는 <a href="fundamental-counting-principle.html">경우의 수</a>나 <a href="permutations-combinations.html">순열과 조합</a>을 통해 별도로 계산해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Pigeonhole principle. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Birthday problem. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

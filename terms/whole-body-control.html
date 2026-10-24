@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>다자유도 로봇의 여러 작업 목표를 우선순위에 따라 통합적으로 만족시킬 수 있어, 인간형 로봇이나 다관절 로봇이 균형을 유지하면서 동시에 여러 작업을 수행하는 데 활용된다. 이 때문에 실제 로봇 응용에서는 균형·접촉력·자세 등 작업의 우선순위를 과제 특성에 맞게 설계하는 것이 중요하다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>전신제어는 팔·다리·몸통처럼 자유도가 많은 로봇의 모든 관절을 하나로 묶어 여러 목표를 함께 다루는 접근이다. 관절 수가 작업에 필요한 자유도보다 많은 여유(redundant) 로봇은 같은 자세에 이르는 방법이 무한히 많고, 수치 방법으로는 추가 선호를 비용으로 넣어 해를 고를 수 있다. 전신제어는 이 여유를 균형, 접촉, 말단 추종 같은 여러 목표에 나누어 쓴다.</p><p>인간형 로봇의 이동 연구(Dafarra, 2020)는 환경과 접촉하지 않고서는 앞으로 나아가기 어렵고 접촉력이 제한되어 제어 설계가 어렵다는 문제를 다룬다. 한 걸음 밀림 회복에서 시작해 걷기의 생성과 안정화, 큰 계단 오르기 같은 동적 동작에 예측 제어를 쓰는 식으로 복잡도를 높여 간다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>얻는 것</th></tr></thead><tbody><tr><td>균형을 잡으며 손으로 작업</td><td>한 번에 여러 목표를 달성</td></tr><tr><td>접촉이 있는 이동</td><td>접촉력 제한 안에서 걷기·밀림 회복</td></tr><tr><td>여유 자유도가 있는 로봇팔</td><td>추가 비용을 최소화하는 해 선택</td></tr></tbody></table></div><p>우선순위를 정하는 방법은 엄격한 계층과 가중치 합산이 있으며, 후자는 설계가 쉽지만 가중치 조정에 따라 높은 우선순위 작업도 영향을 받을 수 있다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>작업 목록과 우선순위 순서(균형, 접촉력, 자세 등)를 명시한다.</li><li>우선순위를 엄격한 계층으로 처리했는지 가중치로 합산했는지 밝힌다.</li><li>접촉 조건과 제약(마찰, 반력 한계)을 적는다.</li><li>제어 주기와 풀이 방법(최적화 종류)을 밝힌다.</li></ul><p>예: “균형 유지를 최우선 작업으로 두고 손 위치 추종을 하위 작업으로 배치하였다.” (가상의 문장)</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">전신제어는 다수의 작업을 우선순위 계층으로 정렬하여 영공간 투영(null-space projection)을 통해 상위 작업을 방해하지 않는 범위에서 하위 작업을 동시에 만족시키는 최적화 기법이다.</div>
   <p>가장 중요한 작업(예: 균형 유지)을 먼저 만족시키고, 그 여유 자유도 안에서 나머지 덜 중요한 작업들을 최대한 함께 수행한다는 뜻이다.</p>
   <div class="example">전신제어를 다루는 연구는 대개 작업 우선순위 설정 방식이 접촉 상황에서의 안정성에 미치는 영향을 함께 분석한다.</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>작업 우선순위 설정이 잘못되면 중요한 작업(예: 균형)이 부차적인 작업에 의해 방해받을 수 있다. 동시에 처리해야 할 작업과 제약의 수가 많아질수록 매 제어 주기마다 풀어야 하는 최적화 문제의 계산량이 커져 실시간성 확보가 어려워질 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Dafarra, S. (2020). Predictive whole-body control of humanoid robot locomotion. arXiv:2004.07699.</li>
+    <li>Wikipedia contributors. (n.d.). Inverse kinematics. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

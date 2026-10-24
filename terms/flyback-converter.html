@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>가정용 전자기기는 안전을 위해 전원 콘센트의 고전압 회로와 사용자가 만지는 저전압 회로를 절연해야 하는데, 플라이백 컨버터는 부품 수가 적으면서도 이 절연 기능을 만족시켜 저전력 어댑터 설계의 표준적인 선택지로 연구되고 산업에 적용된다. 부품 수가 적고 여러 출력전압을 하나의 트랜스포머로 동시에 얻을 수 있어 저전력 절연형 어댑터나 대기전력용 전원에 널리 채택된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>플라이백 컨버터는 AC/DC와 DC/DC 변환에 두루 쓰이며 입력과 출력을 갈바닉 절연한다. 벅-부스트 컨버터의 인덕터를 둘로 나눠 변압기로 만든 것이라고 설명되며, 변압기가 전압비를 곱하고 절연을 더한다.</p><ul><li>스위치 켬: 1차 쪽이 입력에 연결되어 전류와 자속이 늘고 변압기에 에너지가 저장된다. 2차 쪽 다이오드는 역바이어스되어 출력 커패시터가 부하를 공급한다.</li><li>스위치 끔: 1차 전류와 자속이 줄고, 2차 전압이 다이오드를 순방향으로 만들어 변압기의 에너지가 커패시터를 충전하고 부하에 공급된다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>출력 전압은 권선비를 따라가므로 변압기 하나로 여러 출력을 얻을 수 있다.</li><li>쓰이는 곳: 휴대폰 충전기와 대기 전원 같은 저전력 스위치 모드 전원, 저가 다출력 전원, CRT용 고전압 전원, 제논 플래시·레이저·복사기의 고전압 발생, 절연 게이트 드라이버. 흔히 50~100 W 범위에서 쓴다.</li><li>제어는 전압 모드와 전류 모드가 있고 안정성 때문에 대개 전류 모드가 우세하다. 출력 전압 되먹임은 옵토커플러, 별도 교차 조정 권선, 1차 측 감지로 얻는다. 1차 측 감지는 방전 사건이 계속 일어나도록 최소 부하가 필요하다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>연속 모드에서는 우반면 영점 때문에 전압 루프 대역폭을 낮춰야 하고, 듀티비가 50%를 넘으면 기울기 보상이 필요하다. 능동 클램프 플라이백이 대안으로 언급된다.</li><li>불연속 모드는 높은 RMS·피크 전류와 큰 자속 변동 때문에 효율이 제한된다.</li><li>순방향 컨버터는 스위치가 도통하는 동안 에너지를 저장하지 않고 변압기 작용으로 출력에 직접 전달한다. 플라이백은 에어갭 자기장에 저장했다가 스위치가 꺼질 때 내보낸다. 순방향의 출력 전압은 V<sub>out</sub> = D·(N<sub>S</sub>/N<sub>P</sub>)·V<sub>supply</sub>로 제한되지만 플라이백의 출력 전압은 이론상 제한이 없고, 순방향이 일반적으로 에너지 효율이 더 높다고 설명된다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 소형 전원 어댑터 설계를 위해 절연형 플라이백 컨버터 토폴로지를 채택하고 변압기 권선비를 최적화하였다."</div>
   <p>충전기와 같은 소형 절연형 전원장치 설계에서 플라이백 컨버터가 선택되는 배경을 보여준다.</p>
   <div class="example">"제안된 능동 클램프 플라이백 컨버터는 누설 인덕턴스에 의한 스위치 전압 스트레스를 완화하였다."</div>
@@ -161,6 +179,17 @@
 
   <h2>주의할 점</h2>
   <p>플라이백 컨버터는 구조가 단순한 대신 변압기 자화 에너지 관리와 누설 인덕턴스 문제로 인해 고전력 응용에는 잘 쓰이지 않으며, 대체로 수백 와트 이하의 저전력 절연형 전원에 적합하다. 누설 인덕턴스로 인한 전압 스파이크가 스위치에 인가되므로 이를 흡수하는 스너버나 클램프 회로가 반드시 필요하며, 대전력 용도에는 리플과 EMI 특성상 적합하지 않다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row">플라이백 컨버터</th><td>에너지를 저장했다가 스위치가 꺼질 때 전달하는 절연형 컨버터</td></tr><tr><th scope="row"><a href="forward-converter.html">순방향 컨버터</a></th><td>스위치가 켜진 동안 에너지를 전달하는 절연형 컨버터</td></tr><tr><th scope="row"><a href="buck-converter.html">벅 컨버터</a></th><td>전압을 낮추는 비절연 컨버터</td></tr><tr><th scope="row"><a href="boost-converter.html">부스트 컨버터</a></th><td>전압을 높이는 비절연 컨버터</td></tr><tr><th scope="row"><a href="snubber-circuit.html">스너버 회로</a></th><td>스위칭 과전압을 줄이는 보조 회로</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Flyback converter. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Forward converter. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

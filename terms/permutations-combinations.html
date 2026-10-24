@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,26 @@
   <h2>왜 중요한가</h2>
   <p>순열과 조합은 수학 교육 연구에서 학생들의 개념 학습과 오개념을 분석하는 대표적인 단원으로 다뤄질 뿐 아니라, 확률·통계·전산학 등 다른 분야 논문에서도 경우의 수를 세는 기초 도구로 반복해서 등장한다. 학생들이 "순서를 따지는가"라는 판단 기준을 어디에 적용해야 할지 헷갈려 하는 경우가 많아, 이 개념의 이해도는 이후 확률 단원 학습 성취도와도 밀접하게 연결되는 것으로 여겨진다. 이 때문에 순열과 조합은 수학교육 연구뿐 아니라 응용 분야 논문의 방법론 설명에서도 빠지지 않고 등장한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>순열은 순서를 따지는 배열이고 조합은 순서를 따지지 않는 선택이다. 서로 다른 n개에서 k개를 골라 줄 세우는 경우의 수는 P(n,k) = n!/(n−k)! = n(n−1)…(n−k+1)이고, k = n이면 n!이 된다. 조합은 같은 선택이 k!가지 순서로 나타나므로 C(n,k) = P(n,k)/k! = n!/(k!(n−k)!)이다. C(n,k)는 이항계수이며 (1+X)<sup>n</sup>을 전개했을 때 X<sup>k</sup>의 계수와 같다.</p>
+  <p>사과와 배 중 2개를 고르는 것은 '사과와 배'와 '배와 사과'가 같은 선택이다. 그래서 과일 3종에서 2개를 고르는 조합은 3가지이다.</p>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>경우의 수</th><th>예</th></tr></thead><tbody><tr><td>n개에서 k개 순서 있게(중복 없음)</td><td>n!/(n−k)!</td><td>—</td></tr><tr><td>n개에서 k개 순서 없이</td><td>C(n,k)</td><td>카드 52장에서 5장: C(52,5) = 2,598,960</td></tr><tr><td>중복 허용하며 k개 순서 있게</td><td>n<sup>k</sup></td><td>—</td></tr><tr><td>중복 허용하며 k개 순서 없이</td><td>C(n+k−1, k)</td><td>도넛 4종 3개: C(6,3) = 20</td></tr><tr><td>같은 것이 있는 n개 나열</td><td>n!/(n<sub>1</sub>!n<sub>2</sub>!…)</td><td>MISSISSIPPI: 11!/(1!·4!·4!·2!) = 34,650</td></tr></tbody></table></div>
+  <p>대칭성 C(n,k) = C(n,n−k)가 성립하는 이유는 k개를 고르는 것이 나머지 n−k개를 남기는 것과 같기 때문이다. k를 0부터 n까지 모두 더하면 2<sup>n</sup>으로, n개 원소 집합의 부분집합 수와 같다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>순서가 의미 있는지 먼저 확인한다. 회장·부회장을 뽑으면 순열, 위원 2명을 뽑으면 조합이다.</li><li>중복 순열 n<sup>k</sup>는 일반적 의미의 순열이 아니다. 같은 원소를 다시 쓸 수 있는 k개의 나열이다.</li><li>k > n이면 중복 없는 순열은 0이다.</li><li>같은 것이 섞인 나열을 n!으로 세면 같은 배열을 여러 번 센다. 같은 것의 개수 팩토리얼로 나눈다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 중학생 30명을 대상으로 순열과 조합 개념에 대한 오개념 유형을 분석하기 위해 사전 검사를 실시하였다."</div>
   <p>이 문장은 순열과 조합이 교육 연구에서 학생들의 개념 이해도나 오개념을 조사하는 기본 단원으로 자주 등장한다는 것을 보여준다. 특히 학생들이 "순서를 따지는지"를 문제 상황에서 판단하지 못해 두 개념을 혼동하는 경우가 연구의 주요 분석 대상이 된다.</p>
   <div class="example">"가능한 실험 처리 순서의 조합을 순열 공식으로 산출하여 무작위 배정에 필요한 전체 경우의 수를 확인하였다."</div>
@@ -168,6 +188,15 @@
 
   <h2>주의할 점</h2>
   <p>순열과 조합을 헷갈리는 가장 큰 이유는 "순서가 결과에 영향을 주는가"를 문제 상황에서 판단하지 못하기 때문이다. 로또 번호를 고르는 것처럼 뽑고 나면 순서가 의미 없는 경우는 조합이고, 계주 주자의 순번을 정하는 것처럼 누가 몇 번째인지가 결과를 바꾸는 경우는 순열이다. 이 개념은 이후 <a href="probability.html">확률</a>을 계산할 때 경우의 수를 세는 기초 도구로 쓰이므로 정확히 구분하는 것이 중요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Combination. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Permutation. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="derangement.html">교란순열</a><a href="circular-permutation.html">원순열</a><a href="permutations-with-repetition.html">중복순열</a><a href="combinations-with-repetition.html">중복조합</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

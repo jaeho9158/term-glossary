@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>중적분 계산에서 한쪽 순서로는 손으로 풀 수 없던 적분이 순서를 바꾸면 쉽게 풀리는 경우가 많아 실제 계산에서 폭넓게 활용된다. 확률론에서도 결합분포의 기댓값을 반복 계산으로 바꾸는 근거가 되어 자주 인용된다. 이 정리 덕분에 다변수 함수의 복잡한 다중적분을 익숙한 단일적분의 반복 계산으로 바꾸어 풀 수 있게 되어, 확률론에서 결합분포의 기댓값을 계산할 때에도 핵심적으로 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>푸비니 정리는 이중적분을 한 번에 한 변수씩 적분하는 반복적분으로 계산할 수 있는 조건을 말해 준다. 빵 덩어리의 부피가 표준 조각으로 썰어 더하든 길고 가는 조각으로 썰어 더하든 같듯이, 정리의 가정이 충족되면 이중적분의 값은 적분 순서에 관계없다.</li><li>이중적분은 직사각형 아래, 함수 그래프 위쪽이 이루는 입체의 부피로 볼 수 있고, 직사각형을 작은 직사각형으로 쪼갠 리만 합의 극한으로 정의한다.</li><li>직사각형 X × Y 위에서 함수가 르베그 적분 가능하면 <code>∬ f d(x,y) = ∫ (∫ f dy) dx = ∫ (∫ f dx) dy</code>가 성립한다.</li><li>이 식은 리만 적분에서는 일반적으로 성립하지 않는다. 다만 함수가 직사각형에서 연속이면 성립하며, 다변수 미적분에서는 이 약한 결과를 푸비니 정리라 부르기도 한다.</li><li>토넬리 정리는 적분 가능한 함수가 아니라 음이 아닌 가측 함수에 적용되는 유사한 정리이다. 두 정리를 합쳐 푸비니-토넬리 정리라 하고, 반복적분의 순서를 바꿀 수 있는 조건을 준다.</li><li>두 측도 공간에서는 σ-유한이라는 가정을 흔히 둔다. 이때 곱 측도가 유일하다. 적분 가능성의 조건은 절댓값의 적분이 유한하다는 것이다.</li><li>무한급수에 대한 비슷한 결과도 있다. 이중 지표 수열의 합이 절대수렴하면 m으로 먼저 더하든 n으로 먼저 더하든 같다. 이는 알프레드 프링스하임의 결과이다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>이 정리의 역사는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시기</th><th>내용</th></tr></thead><tbody><tr><td>18세기</td><td>오일러가 닫힌 유계 집합의 곱 위의 연속 함수에 대한 특수한 경우를 알고 있었다</td></tr><tr><td>1904</td><td>르베그가 유계 가측 함수로 확장했다</td></tr><tr><td>1907</td><td>푸비니가 가적분 함수까지 일반화했다(베포 레비가 추측)</td></tr><tr><td>1909</td><td>토넬리가 음이 아닌 함수에 대한 변형을 제시했다</td></tr></tbody></table></div><p>조건이 필요하다는 것은 반례로 확인할 수 있다. 양의 정수 위의 두 측도 공간을 잡고 함수 f(x, y)를 x = y이면 1, x = y + 1이면 −1, 그 외에는 0이라 하자. 이 경우 두 반복 합은 각각 0과 1로 달라진다. 절댓값의 합이 무한대이므로 푸비니 정리의 조건이 깨진 것이다.</p><p>또 다른 반례로 (x² − y²)/(x² + y²)² 형태의 함수가 있고, 절댓값의 적분이 유한하다는 조건 없이 한 순서로 적분한 값과 다른 순서로 적분한 값이 달라질 수 있다. 가측이 아닌 함수나 σ-유한이 아닌 공간에서도 반복적분이 다른 값을 낸다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>"반복적분은 순서를 바꿔도 항상 같다": 절댓값의 적분이 무한이면 두 반복적분이 서로 다른 값을 가질 수 있다.</li><li>"푸비니 정리는 리만 적분에서도 그대로 성립한다": 일반적으로 성립하지 않지만, 직사각형에서 연속인 함수에서는 성립한다.</li><li>"푸비니 정리와 토넬리 정리는 같은 말이다": 푸비니는 가적분 함수에, 토넬리는 음이 아닌 가측 함수에 적용된다. 실제 증명에서는 토넬리로 절댓값 적분이 유한함을 보인 다음 푸비니를 쓰는 식으로 함께 쓴다.</li><li>"σ-유한 조건은 없어도 된다": 이 조건 없이는 곱 측도가 여러 가지일 수 있고, 반복적분이 다른 값을 내는 반례가 있다. 가측이 아닌 함수에서도 마찬가지이다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"피적분함수의 절댓값이 적분 가능함을 확인한 뒤 푸비니 정리에 따라 적분 순서를 교환하였다."</div>
   <p></p>
   <div class="example">"한 확률 계산 예제는 결합확률밀도함수의 절댓값 적분이 유한함을 먼저 토넬리 정리로 확인한 뒤 푸비니 정리를 적용해 기댓값을 반복적분으로 바꾸어 계산하였다."</div>
@@ -161,6 +179,17 @@
 
   <h2>주의할 점</h2>
   <p>적분 가능성 조건을 확인하지 않고 순서를 바꾸면 두 반복적분의 값이 달라지는 반례가 존재한다. 또 적분 순서 교환과 적분 영역의 모양 변경은 별개의 문제라서, 영역이 직사각형이 아닐 때는 적분 한계를 다시 계산해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="multiple-integral.html">이중적분과 삼중적분</a></th><td>푸비니 정리가 반복적분으로 바꿔 주는 대상</td></tr><tr><th scope="row"><a href="lebesgue-integral.html">르베그 적분</a></th><td>푸비니 정리가 가장 일반적인 형태로 성립하는 적분</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Fubini's theorem. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Multiple integral. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

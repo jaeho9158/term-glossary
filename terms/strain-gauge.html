@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>구조물이나 기계 부품의 실제 변형 거동은 수치해석만으로 완전히 검증되지 않기 때문에, 스트레인 게이지는 실험적 응력 해석의 표준 도구로 다양한 공학 분야 논문에서 반복적으로 등장한다. 구조공학·기계설계·재료시험·항공우주 등 하중을 받는 대상을 다루는 연구 전반에서 유한요소해석 결과의 검증, 피로수명 평가, 실사용 환경 모니터링의 기초 데이터로 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>무엇을 재는가</h2>
+  <p>스트레인 게이지는 물체의 변형률을 재는 전자 부품이다. 흔한 박막(포일)형은 유연한 절연 받침 위에 금속 박막 무늬가 있고 접착제로 대상에 붙인다. 도체를 늘이면 가늘어지고 길어져 전기 저항이 커지고, 압축하면 저항이 줄어든다. 이 저항 변화를 보통 휘트스톤 브리지로 읽어 변형률을 얻는다.</p><p>게이지율은 GF = (ΔR/R<sub>G</sub>)/ε로, 일반적인 금속 박막 게이지에서는 2를 조금 넘는다. 1938년 에드워드 시먼스와 아서 루지가 서로 독립적으로 발명했다.</p>
+
+  <h2>구성과 채점</h2>
+  <p>브리지 구성에서 가변 저항 없이 R2를 고정하고 미터 값으로 Rx를 계산하는 방식이 스트레인 게이지와 저항 온도계 측정에 자주 쓰인다. 전압을 읽는 것이 저항을 조절해 영점을 맞추는 것보다 빠르기 때문이다. 균형 상태에서 R2/R1 = Rx/R3이고 출력은 V<sub>G</sub> = (R2/(R1 + R2) − Rx/(Rx + R3))·V<sub>s</sub>이다. 활성 게이지 하나와 더미 저항 세 개로 균형을 맞춘 브리지의 출력은 대략 S<sub>V</sub> = E<sub>V</sub>·GF·ε/4이다(E<sub>V</sub>는 여기 전압).</p><p>온도 영향은 자기 온도보상형 콘스탄탄 합금이나 인접한 브리지 팔의 더미 게이지로 상쇄한다. 3선식·4선식 결선은 도선 영향을 없앤다.</p>
+
+  <h2>결과 읽는 법</h2>
+  <p>정밀하게 설치하면 최소 10%까지의 변형률도 잴 수 있다. 좋은 관행은 ±3000 마이크로스트레인을 넘지 않는 것이다. 120 Ω 같은 저저항 게이지는 습도 오차에 덜 민감하다. 접착과 설치 상태에 따라 값이 달라지므로 논문에는 게이지 종류, 게이지율, 브리지 구성, 온도 보상 방법을 적는다.</p><ul><li>박막형 말고도 반도체(압저항)형, 나노입자형, 수은-고무형, 광섬유형, 진동 선형, 정전용량형, 비접촉 디지털 화상 상관법이 있다.</li><li>게이지가 재는 것은 저항 변화이고 힘이나 응력은 아니다. 힘을 구하려면 재료의 탄성 성질이 따로 필요하다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"보의 중앙 하단부에 스트레인 게이지(strain gauge)를 부착하여 하중 재하 시 발생하는 변형률을 실시간으로 측정하였다."</div>
   <p>이 문장은 "실제 구조물에 센서를 붙여서, 하중을 걸었을 때 그 지점이 실제로 얼마나 변형되는지를 직접 측정했다"는 뜻이다. 컴퓨터 시뮬레이션(유한요소해석)으로 예측한 변형량이 실제 실험 결과와 얼마나 일치하는지 검증할 때, 스트레인 게이지로 얻은 실측 데이터가 기준값 역할을 한다.</p>
 
@@ -168,6 +186,15 @@
 
   <h2>주의할 점</h2>
   <p>스트레인 게이지는 응력(stress)이 아니라 변형률(strain)을 직접 측정하는 센서이다. 응력 값이 필요하면 측정된 변형률에 재료의 <a href="youngs-modulus.html">영률</a>을 곱해서 간접적으로 계산해야 하며, 이 둘을 혼동하면 잘못된 해석으로 이어질 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Strain gauge. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Wheatstone bridge. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="sensor-types.html">센서의 종류 (온도·압력·근접센서)</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="imu.html">관성측정장치(IMU)</a><a href="lidar.html">라이다</a><a href="rotary-encoder.html">로터리 엔코더</a><a href="pressure-transducer.html">압력 트랜스듀서</a><a href="lvdt.html">LVDT(선형 가변 차동 변압기)</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

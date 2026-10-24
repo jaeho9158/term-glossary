@@ -1,0 +1,22 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>RDMA는 한 컴퓨터의 메모리에서 다른 컴퓨터의 메모리로, 양쪽 운영체제를 거치지 않고 네트워크로 데이터를 옮기는 기술이다. 처리량이 높고 지연이 낮아 대규모 병렬 컴퓨터 클러스터에서 특히 유용하다.</li><li>네트워크 어댑터가 데이터를 응용 프로그램 메모리와 선로 사이에서 직접 옮기므로 운영체제 버퍼로의 복사가 없다(제로카피). CPU 작업, 캐시 사용, 문맥 전환도 필요 없다.</li><li>수신 쪽은 요청이 끝났다는 알림을 받지 않는데, 이를 한쪽만 관여하는 통신이라고 한다. 응용은 제출 큐에 작업 요청을 넣고 완료 큐로 응답을 확인한다.</li><li>구현은 InfiniBand, RoCE(RDMA over Converged Ethernet), iWARP(TCP/IP 위에서의 RDMA) 등이 있다. InfiniBand는 RDMA 기능을 제공하며 4x 링크 기준 처리량이 SDR 8 Gbit/s에서 NDR 400 Gbit/s까지 세대별로 올랐다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<table><thead><tr><th>구현</th><th>특징</th></tr></thead><tbody><tr><td>InfiniBand</td><td>스위치드 패브릭 구조. 신용 기반 알고리즘으로 어댑터 사이 무손실 통신을 보장한다</td></tr><tr><td>RoCE v1</td><td>이더넷 링크 계층 프로토콜(EtherType 0x8915). 한 이더넷 브로드캐스트 영역 안에서만 쓰이고 라우팅되지 않는다</td></tr><tr><td>RoCE v2</td><td>UDP 위의 인터넷 계층에서 동작해 라우팅되며 UDP 목적지 포트 4791이 예약되어 있다</td></tr><tr><td>iWARP</td><td>TCP/IP를 전송 계층으로 쓰는 이더넷 위 RDMA. 표준 기반의 저렴한 인프라를 목표로 한다</td></tr></tbody></table><p>RoCE는 이더넷에서 돌기 때문에 InfiniBand에 가까운 성능을 내려면 무손실 이더넷이 필요할 수 있으며, 흐름 제어나 우선순위 흐름 제어(PFC)로 구성한다. PFC는 네트워크 전체 교착 상태를 일으킬 수 있다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li>RDMA는 TCP/IP를 대체하는 새 프로토콜 이름이 아니라 전송 방식의 한 종류이며, 위의 구현마다 장비와 조건이 다르다.</li><li>RoCE v2는 UDP를 쓰므로 자체 신뢰성이 없다. 이를 보완하려면 LAN 전체를 컨버지드 이더넷 스위치로 구성하거나 핸드셰이크를 더하는 신뢰성 RoCE를 써야 하며, 후자는 성능이 줄어든다.</li><li>RDMA 전송에는 신뢰 연결(RC)과 비신뢰 데이터그램(UD)이 있다. RC는 요청을 잃지 않게 보존하고, UD는 연결이 없어 큐 하나로 여러 호스트를 상대할 수 있다.</li><li>InfiniBand는 1999년 Future I/O와 NGIO의 통합에서 나왔고 1.0 명세는 2000년에 나왔다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Remote direct memory access. Wikipedia.",
+    "Wikipedia contributors. (n.d.). InfiniBand. Wikipedia.",
+    "Wikipedia contributors. (n.d.). RDMA over Converged Ethernet. Wikipedia."
+  ]
+}

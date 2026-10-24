@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li><strong>목적</strong>: 체크섬은 전송이나 저장 중에 생긴 오류를 알아내려고 다른 데이터 블록에서 만든 작은 데이터이다. 데이터의 <strong>무결성</strong>을 확인하는 데 쓰이지만, 데이터가 누구에게서 왔는지를 뜻하는 <strong>진본성</strong>을 보증하는 용도로는 의존하지 않는다.</li><li><strong>종류</strong>: 가장 단순한 것은 비트들을 모두 XOR한 값을 덧붙이는 패리티 검사이다. 패리티 비트와 검사숫자는 체크섬의 특수한 경우이다. 인터넷의 IP·UDP·TCP는 ‘인터넷 체크섬’을 쓴다(RFC 1071). 암호학적 해시 함수는 입력이 조금만 달라져도 크게 다른 값을 내므로 많은 종류의 손상을 찾아내고 무결성을 확인하는 데 쓰인다. SHA-2 계열 알고리즘은 미국 연방 표준(FIPS 180-4)에서 메시지가 다이제스트를 만든 뒤 바뀌었는지 알아내는 데 쓰는 해시 알고리즘으로 규정된다.</li><li><strong>일부 오류정정부호</strong>는 특별한 체크섬을 바탕으로 해서, 흔한 오류를 찾아낼 뿐 아니라 경우에 따라 원래 데이터를 복원할 수도 있다.</li><li><strong>디지털 보존에서의 쓰임</strong>: 데이터의 고정성(fixity)을 유지하는 가장 흔한 방법은 데이터를 바꿀 수 없게 두는 것과 파일 체크섬·암호학적 해시를 쓰는 것이다(Tikhonov, 2019).</li></ul>"
+      "html": "<ul><li><strong>목적</strong>: 체크섬은 전송이나 저장 중에 생긴 오류를 알아내려고 다른 데이터 블록에서 만든 작은 데이터이다. 데이터의 <strong>무결성</strong>을 확인하는 데 쓰이지만, 데이터가 누구에게서 왔는지를 뜻하는 <strong>진본성</strong>을 보증하는 용도로는 의존하지 않는다.</li><li><strong>종류</strong>: 가장 단순한 것은 비트들을 모두 XOR한 값을 덧붙이는 패리티 검사이다. 패리티 비트와 검사숫자는 체크섬의 특수한 경우이다. 인터넷의 IP·UDP·TCP는 ‘인터넷 체크섬’을 쓴다(RFC 1071). 암호학적 해시 함수는 입력이 조금만 달라져도 크게 다른 값을 내므로 많은 종류의 손상을 찾아내고 무결성을 확인하는 데 쓰인다. SHA-2 계열 알고리즘은 미국 연방 표준(FIPS 180-4)에서 메시지가 다이제스트를 만든 뒤 바뀌었는지 알아내는 데 쓰는 해시 알고리즘으로 규정된다.</li><li><strong>일부 오류정정부호</strong>는 특별한 체크섬을 바탕으로 해서, 흔한 오류를 찾아낼 뿐 아니라 경우에 따라 원래 데이터를 복원할 수도 있다.</li><li><strong>디지털 보존에서의 쓰임</strong>: 데이터의 고정성(fixity)을 유지하는 가장 흔한 방법은 데이터를 바꿀 수 없게 두는 것과 파일 체크섬·암호학적 해시를 쓰는 것이다(Tikhonov, 2019).</li></ul><p>알고리즘 종류로 패리티(고정 크기 단어를 XOR해 덧붙임)는 한 비트 오류나 홀수 개 비트 오류를 찾지만 같은 위치의 두 비트 오류와 단어 순서 바뀜을 놓친다. 합의 보수 방식은 단어를 부호 없는 이진수로 더해 넘침을 버리고 합의 2의 보수를 덧붙인다. 플레처 체크섬, Adler-32, CRC처럼 각 단어의 위치까지 고려하는 방식은 순서 바뀜과 0 단어의 삽입·삭제를 잡지만 계산이 더 든다. 일부 파일 시스템(ZFS, Btrfs)은 체크섬으로 파일 무결성을 자동 점검한다. 검출은 확률적이어서 오류가 빠져나갈 수 있다. 체크섬과 해시 계열 함수는 설계 목표가 달라 쓰임이 다르고, 무결성과 진본성이 모두 필요하면 HMAC을 쓴다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -13,6 +13,12 @@
       "heading": "자주 하는 오해",
       "html": "<ul><li><strong>“체크섬이 맞으면 진짜 원본이다”</strong> → 체크섬은 우발적 변경을 찾는 데 쓰이며 진본성을 보증하지 않는다. 체크섬 값이 파일과 함께 바뀔 수 있는 곳에 있으면 검증의 의미가 없어진다.</li><li><strong>“체크섬이 달라졌으니 파일이 손상된 것이다”</strong> → 장기 보존을 위해 파일을 새 형식으로 이전(migration)하면 내용은 같아도 체크섬은 달라진다(Tikhonov, 2019는 이 한계를 지적하고 지각 해시를 대안으로 탐색했다).</li><li><strong>“체크섬은 오류를 고쳐 준다”</strong> → 일반적인 체크섬은 변경이 있었음을 알릴 뿐 복원은 하지 못한다. 복원이 필요하면 오류정정부호나 별도의 복제본이 필요하다.</li><li><strong>“알고리즘만 같으면 비교된다”</strong> → 같은 알고리즘, 같은 입력 바이트여야 한다. 위 예의 hello와 Hello처럼 한 글자만 달라도 값이 달라진다.</li></ul>"
     }
+  ],
+  "references": [
+    "Braden, R., Borman, D., & Partridge, C. (1988). Computing the Internet checksum (RFC 1071). Network Working Group.",
+    "National Institute of Standards and Technology (2015). Secure Hash Standard (SHS) (FIPS PUB 180-4).",
+    "Tikhonov, A. (2019). Preservation of digital images: Question of fixity. Heritage, 2(2), 1160–1165.",
+    "Wikipedia contributors. (n.d.). Checksum. Wikipedia."
   ],
   "compare": {
     "heading": "헷갈리기 쉬운 용어",
@@ -49,10 +55,5 @@
         "검출만 하는 체크섬과 달리 복원까지 하는 오류정정부호"
       ]
     ]
-  },
-  "references": [
-    "Braden, R., Borman, D., & Partridge, C. (1988). Computing the Internet checksum (RFC 1071). Network Working Group.",
-    "National Institute of Standards and Technology (2015). Secure Hash Standard (SHS) (FIPS PUB 180-4).",
-    "Tikhonov, A. (2019). Preservation of digital images: Question of fixity. Heritage, 2(2), 1160–1165."
-  ]
+  }
 }

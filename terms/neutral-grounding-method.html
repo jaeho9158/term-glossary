@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>지락 사고 시 흐르는 전류 크기, 건전상의 전압 상승, 보호계전기의 검출 방법이 모두 이 방식에 따라 결정된다. 그래서 설비 절연 설계와 보호 협조, 통신선 유도 장해까지 영향을 준다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>배전계통은 한 회로 도체를 접지 전극에 직접 이어 단단히 접지할 수 있다. 또는 계통과 대지 사이에 저항이나 인덕터(코일) 같은 임피던스를 두어 대지로 흐르는 전류를 제한할 수 있다.</li><li>다상 교류계통에서 상 전압의 순간 벡터 합은 0이고, 이 중성점을 상도체를 접지하는 대신 상 전압을 대지에 맞추는 기준으로 쓰는 일이 흔하다. 델타-와이(Δ-Y) 변압기를 이 목적에 쓸 수 있고, 지그재그 변압기도 쓴다.</li><li>저임피던스 접지는 고장 시 수백 암페어, 고임피던스 접지는 수 암페어로 고장 전류를 제한한다. 큰 직접 접지 계통의 지락 전류는 수만 암페어가 될 수 있다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li><strong>저저항 접지.</strong> 중성점 접지 저항기(NGR)로 고장 전류를 25 A 이상으로 제한한다. 저항기는 시간 정격(예: 10초)이 있어 과열 전에 지락 보호 계전기가 차단기를 열어야 한다.</li><li><strong>고저항 접지(HRG).</strong> NGR로 고장 전류를 25 A 이하로 제한한다. 연속 정격이라 첫 지락에서 곧바로 차단되지 않고 운전할 수 있다. 두 번째 지락이 생기면 계전기가 차단한다. 감지 저항기로 연속성을 감시해, NGR의 단선 같은 개방을 감지해야 한다.</li><li><strong>비접지.</strong> 감전 위험이 큰 곳(병원의 환자 치료 구역, 젖은 공사장, 조선소)에 누설 전류를 줄이려고 쓴다. 병원에서는 누설 전류 증가를 경고하는 감시 장치를 둔다.</li><li>저압 설비의 접지 방식 분류(IEC)에서 IT는 모든 충전부가 대지로부터 절연되어 있거나 한 점이 임피던스를 거쳐 대지에 연결된 방식이다. TN은 전원의 한 점이 대지에 직접 연결되며 보통 변압기의 중성점이다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>접지는 안전을 위한 한 가지 방식뿐이다.</td><td>직접 접지, 임피던스(저항·리액터) 접지, 비접지가 있고 지락 시 전류 크기와 보호 방식이 다르다.</td></tr><tr><td>고저항 접지는 첫 지락에서 곧바로 차단된다.</td><td>HRG는 첫 지락에서 차단되지 않고 계속 운전하도록 설계된다. 두 번째 지락에서 보호 계전기가 작동한다.</td></tr><tr><td>저압 설비의 TN, TT, IT 분류와 계통의 중성점 접지 방식은 같은 분류다.</td><td>전자는 IEC 설비 접지 계통의 분류이고 후자는 변압기·발전기 중성점의 접지 방식이다. 둘은 관련되지만 논문에서는 어느 쪽 이야기인지 밝힌다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"대상 배전계통은 다중 접지된 중성선을 갖는 직접 접지 방식이므로 1선 지락 시 건전상 전압 상승이 작다고 가정하였다."</div>
   <p>접지방식에서 곧바로 고장 특성 가정을 도출한 문장이다.</p>
   <div class="example">"연구는 배전계통을 다중접지에서 저항접지로 전환했을 때 지락사고 시 통신선 유도장해가 얼마나 줄어드는지 시뮬레이션하였다."</div>
@@ -163,6 +181,15 @@
 
   <h2>주의할 점</h2>
   <p>접지시스템 설계는 접지극·접지망을 어떻게 만들지를 다루고, 중성점 접지방식은 계통의 중성점을 대지에 연결하는 원리를 다룬다. 저압 수용가의 TN·TT·IT 접지계통 분류와는 적용 범위가 다르므로 섞어 쓰지 않아야 한다. 동일한 전압 등급이라도 나라와 계통 운영 철학에 따라 채택하는 접지방식이 달라, 해외 문헌의 수치를 국내 계통에 그대로 적용할 수 없다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Ground (electricity). Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Earthing system. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

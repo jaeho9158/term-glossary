@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>로봇 기구학은 로봇을 어떻게 움직일지 계획하는 모든 작업의 출발점이기 때문에, 로봇 팔 제어부터 이동 로봇의 경로 계획, 심지어 사람의 손과 팔 동작을 모방하는 로봇 손 설계까지 다양한 연구에서 기본 도구로 쓰인다. 특히 물체를 정확한 위치에서 잡거나 조립해야 하는 산업용 로봇, 사람과 함께 작업하는 협동로봇에서는 정확한 기구학 모델이 없으면 원하는 동작 자체를 구현할 수 없다. 이런 이유로 새로운 로봇 구조를 제안하는 논문에서는 대체로 기구학 모델을 먼저 유도한 뒤 제어나 응용 결과를 다룬다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>순기구학(FK)은 관절 변수가 주어질 때 말단장치의 위치를 구하는 문제이다. 직렬 팔은 직접 대입으로 풀고, 병렬 팔은 다항식 제약을 풀어야 해서 여러 위치가 나올 수 있다.</li><li>역기구학(IK)은 원하는 말단장치 위치에서 관절 변수를 구하는 문제이다. 직렬 팔에서는 다항식을 풀어야 하고 여러 형상이 나올 수 있다. 일반적인 6R 직렬 팔의 역기구학 해는 16개이다.</li><li>로봇은 강체 링크의 다자유도 기구학 사슬로 모형화하며, 관절은 회전 또는 직동 운동을 제공한다. 로봇이 닿을 수 있는 공간의 부피를 작업공간이라 한다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>D-H 변수</th><th>뜻</th></tr></thead><tbody><tr><td>θ</td><td>이전 z축을 중심으로, 옛 x축에서 새 x축까지의 회전</td></tr><tr><td>d</td><td>이전 z축을 따라 공통 법선까지의 거리</td></tr><tr><td>r(a)</td><td>공통 법선의 길이</td></tr><tr><td>α</td><td>공통 법선을 축으로, 옛 z축에서 새 z축까지의 각</td></tr></tbody></table></div><p>링크마다 Trans<sub>z</sub>(d)·Rot<sub>z</sub>(θ)·Trans<sub>x</sub>(r)·Rot<sub>x</sub>(α)로 4×4 동차변환행렬을 만들고, 이를 차례로 곱하면 말단 링크의 자세 T가 나온다. 이 규약은 1955년 자크 드나비트와 리처드 하르텐베르크가 도입했고, 1981년 리처드 폴이 로봇 기구학에서의 가치를 보였다. 크레이그의 교재처럼 프레임 배치와 변환 순서가 다른 수정 D-H도 쓴다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>역기구학은 해가 하나다.</td><td>직렬 연쇄에서는 여러 해가 나올 수 있다.</td></tr><tr><td>특이점에서도 속도를 거꾸로 구할 수 있다.</td><td>자코비안이 역행렬을 갖지 않는 형상에서는 역속도와 역정역학을 풀 수 없다. 특이점 근처에서는 작은 구동 토크가 말단에서 큰 힘을 낸다.</td></tr><tr><td>D-H 규약은 하나뿐이다.</td><td>고전형과 수정형이 있어 어느 쪽을 썼는지 밝혀야 한다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 6자유도 로봇팔의 역기구학을 D-H(Denavit-Hartenberg) 파라미터 기반으로 유도하고, 목표 궤적에 대한 관절 각도 해를 수치적으로 산출하였다."</div>
   <p>이 문장은 로봇팔 끝이 지나가야 할 경로가 정해졌을 때, 각 관절이 시간에 따라 어떤 각도로 움직여야 하는지를 수학적으로 계산했다는 뜻이다.</p>
 
@@ -168,6 +186,15 @@
 
   <h2>주의할 점</h2>
   <p>기구학은 관절의 위치와 각도 관계만 다룰 뿐, 그 움직임을 만들어내는 힘이나 <a href="torque.html">토크</a>는 다루지 않는다. 힘과 가속도까지 고려하는 것은 "로봇 동역학"이라는 별개의 영역이므로 혼동하지 않아야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia (n.d.). Robot kinematics.</li>
+    <li>Wikipedia (n.d.). Denavit–Hartenberg parameters.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="inverse-kinematics.html">역기구학</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

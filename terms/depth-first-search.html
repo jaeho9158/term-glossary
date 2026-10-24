@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>깊이 우선 탐색은 컴퓨터과학 전반에서 그래프와 트리 문제를 푸는 가장 기초적인 도구 중 하나이기 때문에, 알고리즘 설계·컴파일러·네트워크 분석 등 다양한 연구에서 반복적으로 활용된다. 위상 정렬, 강한 연결 요소 탐색, 미로나 퍼즐의 상태공간 탐색처럼 더 복잡한 알고리즘의 구성 요소로 쓰이는 경우가 많아, 이를 정확히 이해하는 것이 그래프 이론 관련 논문을 읽는 데 필수적이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>시작 정점을 방문했다고 표시한다.</li><li>그 정점에서 나가는 간선을 따라 아직 방문하지 않은 이웃 정점으로 간다.</li><li>그 정점에서 같은 일을 되풀이하며 갈 수 있는 한 깊이 내려간다.</li><li>방문하지 않은 이웃이 없으면 직전 정점으로 되돌아와 남은 이웃을 살핀다.</li><li>시작 정점에서 갈 수 있는 모든 정점을 지나면 끝난다.</li></ol><p>되돌아올 곳을 기억하려면 추가 메모리가 필요하고, 보통 스택을 쓴다. 이 알고리즘의 한 형태는 19세기에 프랑스 수학자 샤를 피에르 트레모(Charles Pierre Trémaux)가 미로를 푸는 전략으로 연구했다.</p><p>재귀로 쓰면 첫 번째 이웃부터 방문하고, 스택으로 반복문을 쓰면 간선 목록의 마지막 이웃부터 방문한다. 그래서 같은 그래프라도 방문 순서가 달라질 수 있다. 방문 여부를 기록하지 않으면 사이클이 있는 그래프에서는 같은 정점들을 끝없이 돈다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>그래프 전체를 훑는 경우 시간은 정점 수 V와 간선 수 E의 합에 비례하는 O(V+E)이고, 최악의 공간도 O(V)이다. 이는 너비 우선 탐색과 같아서, 둘 중 무엇을 고를지는 복잡도보다 정점이 방문되는 순서의 성질에 달려 있다. 스택 대신 큐를 쓰면 너비 우선 탐색이 된다.</p><p>탐색 결과는 방문한 정점을 이은 신장 트리로 나타낼 수 있고, 원래 그래프의 간선은 트리 간선, 앞으로 가는 간선(자손을 가리킴), 뒤로 가는 간선(조상을 가리킴), 교차 간선으로 나뉜다. 무방향 그래프에는 트리 간선과 뒤로 가는 간선만 있다. 정점을 처음 방문한 순서(전위)와 마지막으로 방문한 순서(후위)로 줄을 세울 수도 있고, 방향 비순환 그래프에서 후위 순서를 뒤집으면 위상 정렬이 된다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>활용</th><th>내용</th></tr></thead><tbody><tr><td>연결 요소 찾기</td><td>한 정점에서 도달하는 정점을 한 묶음으로 센다</td></tr><tr><td>위상 정렬</td><td>후위 순서를 뒤집어 선후 관계를 어기지 않는 순서를 얻는다</td></tr><tr><td>2중·3중 연결 요소</td><td>간선이나 정점을 하나 또는 둘 지워도 이어지는 부분을 찾는다</td></tr></tbody></table></div><p>탐색할 그래프가 매우 크거나 끝이 없는 인공지능 탐색, 웹 크롤링 같은 경우에는 깊이 제한을 두고 탐색한다. 이때 공간은 깊이 제한에 비례할 뿐이고, 이미 방문한 정점을 모두 저장하지 않아 같은 정점을 여러 번 지날 수도 있다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>인접 리스트와 인접 행렬 가운데 무엇을 썼는지, 이웃 정점을 어떤 순서로 방문했는지를 적는다. 방문 순서가 구현에 따라 달라지기 때문이다.</li><li>재귀 구현인지 스택을 쓴 반복 구현인지, 방문 표시를 언제 하는지(스택에 넣을 때 또는 꺼낼 때)를 밝힌다.</li><li>복잡도는 O(V+E)처럼 점근 표기로 적고, 깊이 제한을 둔 변형이면 제한 값을 함께 적는다.</li><li>불완전한 깊이 우선 탐색으로 그래프에서 정점을 표본 추출하면 차수가 높은 정점 쪽으로 치우친다는 점을 한계로 언급한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"그래프의 사이클 존재 여부를 판별하기 위해 깊이 우선 탐색을 수행하며 방문 중인 정점을 추적하였다."</div>
   <p>그래프의 구조적 성질(사이클, 연결성, 위상 순서 등)을 분석하는 알고리즘의 기반 기법으로 인용된다.</p>
 
@@ -166,6 +184,17 @@
 
   <h2>주의할 점</h2>
   <p>재귀로 구현할 경우 그래프가 매우 크거나 깊으면 스택 오버플로우가 발생할 수 있어, 이런 경우 명시적 스택을 사용한 반복적 구현이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="breadth-first-search.html">너비 우선 탐색</a></th><td>가까운 정점부터 층별로 퍼지며 큐를 쓴다</td></tr><tr><th scope="row"><a href="backtracking.html">백트래킹</a></th><td>해가 될 수 없는 경로에서 되돌아오는 탐색 전략이며 깊이 우선 탐색을 틀로 삼는다</td></tr><tr><th scope="row"><a href="topological-sort.html">위상 정렬</a></th><td>방향 비순환 그래프의 선후 관계를 지키는 정점 순서로, 깊이 우선 탐색으로 구할 수 있다</td></tr><tr><th scope="row"><a href="stack-and-queue.html">스택과 큐</a></th><td>깊이 우선 탐색은 스택, 너비 우선 탐색은 큐에 대응하는 자료구조</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Depth-first search. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Topological sorting. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="graph-traversal.html">그래프 순회</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="breadth-first-search.html">너비 우선 탐색</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

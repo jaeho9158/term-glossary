@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>Word2Vec은 신경망 기반 단어 임베딩을 대규모로 학습할 수 있음을 보여준 초기 대표 사례로, 이후 자연어처리 연구 전반에서 텍스트를 벡터화하는 표준적인 접근법으로 자리 잡았다. 검색, 추천, 문서 분류처럼 텍스트를 다루는 다양한 응용 분야에서 입력 표현을 만들 때 기준점으로 자주 인용되며, 이후 등장한 GloVe나 문맥화 임베딩과 비교되는 벤치마크 역할도 한다. 또한 학습 방식(Skip-gram, CBOW)의 단순함 덕분에 다른 도메인(추천 시스템의 아이템 임베딩 등)으로도 응용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>word2vec은 구글의 토마시 미콜로프(Tomáš Mikolov), 카이 첸, 그레그 코라도, 일리야 서츠케버, 제프 딘이 2013년에 낸 단어 임베딩 방법이다. 구조는 두 가지이다. CBOW(연속 단어 주머니)는 주변 단어로 가운데 단어를 맞히고, 스킵그램(skip-gram)은 가운데 단어로 주변 단어를 맞힌다.</p><ol><li>말뭉치에서 (중심 단어, 주변 단어) 쌍을 만든다.</li><li>CBOW 또는 스킵그램으로 신경망을 학습한다.</li><li>계산을 줄이기 위해 계층적 소프트맥스(허프만 트리 사용) 또는 음의 표본추출(negative sampling)을 쓴다.</li><li>학습된 가중치를 단어 벡터로 쓴다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>저자들은 CBOW가 더 빠르고 스킵그램은 드문 단어에서 더 낫다고 보고했다. 계층적 소프트맥스는 드문 단어에, 음의 표본추출은 흔한 단어와 낮은 차원 벡터에 더 좋다고 한다. 차원은 보통 100~1,000이며 차원이 늘수록 품질이 오르되 이득은 줄어든다. 문맥 창은 스킵그램 10, CBOW 5를 권장한다. 알츠질러 등(2017)은 1,000만 단어가 넘는 중간 이상의 말뭉치에서 word2vec이 LSA보다 낫고 작은 말뭉치에서는 LSA가 낫다고 했다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>유추 예로 'Brother − Man + Woman'을 계산하면 'Sister'에 가장 가까운 벡터가 나온다. 두 번째 2013년 논문은 음의 표본추출, 빈출 단어 부표본추출, 구(phrase) 표현을 소개했고 2023년 NeurIPS 시간의 시험상을 받았다. word2vec 같은 정적 임베딩은 뜻이 여럿인 단어를 하나의 벡터로 합친다(예: club). 2010년대 후반의 ELMo와 BERT는 같은 단어도 문맥마다 다른 임베딩을 준다. 논문에는 구조(CBOW/스킵그램), 차원, 창 크기, 음의 표본 수, 말뭉치 크기를 밝힌다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 Word2Vec의 Skip-gram 모델을 사용해 각 단어를 300차원의 벡터로 사전학습하였다."</div>
   <p>이 문장은 "단어 하나하나를 300개의 숫자로 이루어진 좌표로 바꾸었고, 그 과정에서 Word2Vec이라는 방법과 그 안의 Skip-gram이라는 세부 기법을 사용했다"는 뜻이다.</p>
 
@@ -167,6 +185,15 @@
 
   <h2>주의할 점</h2>
   <p>Word2Vec은 단어 하나에 딱 하나의 벡터만 부여하기 때문에, "배"라는 단어가 "먹는 배"인지 "타는 배"인지 문맥에 따라 뜻이 달라져도 같은 벡터로 표현된다는 한계가 있다. 이런 문제는 문맥에 따라 벡터가 달라지는 <a href="transformer.html">트랜스포머</a> 기반 모델이 등장하면서 상당 부분 해결되었다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Word2vec. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Word embedding. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="word-embedding.html">워드 임베딩</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

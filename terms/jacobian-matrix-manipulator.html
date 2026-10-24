@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>자코비안은 로봇의 속도 제어, 힘 제어, 특이점 분석, 역기구학의 수치적 계산 등 로봇공학 전반에서 반복적으로 쓰이는 핵심 도구이다. 자코비안이 랭크를 잃는 지점(특이점)에서는 로봇이 특정 방향으로 움직이지 못하거나 제어가 불안정해질 수 있어, 로봇 설계와 궤적 계획 단계에서 반드시 분석해야 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>벡터값 함수의 야코비안 행렬은 모든 1차 편미분을 모은 행렬로, (i, j) 성분이 ∂f<sub>i</sub>/∂x<sub>j</sub>이다. 이름은 카를 구스타프 야코프 야코비(1804~1851)에서 왔다.</li><li>행렬이 정사각이면 그 행렬식이 야코비 행렬식이다. 절댓값은 한 점 근처에서 사상이 부피를 늘리거나 줄이는 비율이고, 부호가 바뀌면 방향이 뒤집힌 것이다.</li><li>행렬의 계수(rank)가 최대가 아닌 점을 임계점이라 부른다. 정사각인 사상에서는 야코비 행렬식이 0인 점이다.</li><li>이 행렬은 역함수 정리, 다중적분의 변수 변환, 평형점 안정성, 뉴턴 방법에도 쓰인다. 매니퓰레이터에서는 관절 변수에서 말단 위치로 가는 함수의 야코비안이 쓰인다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>역운동학의 야코비안 역행렬 기법은 위치 함수를 m개의 변수(관절각이나 길이)에서 3차원 위치로 가는 사상으로 보고, 작은 변화에서 p(x<sub>1</sub>) ≈ p(x<sub>0</sub>) + J<sub>p</sub>(x<sub>0</sub>)Δx로 선형 근사한다. 여기서 J<sub>p</sub>는 3 × m 행렬이다. 그러면 무어-펜로즈 유사역행렬을 써서 Δx ≈ J<sub>p</sub><sup>+</sup>(x<sub>0</sub>)Δp를 얻으며, 이 유사역행렬은 특이값 분해로 계산할 수 있다. 한 번 적용한 값은 거친 추정이라 단계 크기를 조절하고 Δx<sub>k+1</sub> = J<sub>p</sub><sup>+</sup>(x<sub>k</sub>)Δp<sub>k</sub>로 다듬는 뉴턴-랩슨 방법을 쓴다. 오차가 0에 가까워지면 끝낸다. 해석적 식이 어려우면 유한 차분으로 성분을 근사한다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>야코비안은 변수가 작게 변할 때 위치가 얼마나 변하는지를 선형으로 근사하는 도구이므로, 근사가 맞는 범위는 변화량이 작은 경우이다.</li><li>야코비안이 계수를 잃는 점에서는 유사역행렬 해가 불안정해질 수 있다.</li><li>유사역행렬로 구한 해는 한 번에 정확하지 않고 반복으로 수렴시킨다. 헤세 행렬을 쓰는 방법은 더 적은 반복에 수렴하지만 계산 자원이 더 든다고 보고된다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"매니퓰레이터의 자코비안 행렬을 유도하고 그 특이값 분해를 통해 작업 공간 내 조작성(manipulability)을 정량적으로 평가하였다."</div>
   <p>로봇 팔이 특정 자세에서 얼마나 자유롭게 움직일 수 있는지를 자코비안을 이용해 수치로 평가했다는 뜻이다.</p>
   <div class="example">"자코비안 전치 행렬 기반 제어 기법을 적용하여 관절 토크만으로 엔드이펙터의 힘 제어를 구현하였다."</div>
@@ -166,6 +184,15 @@
 
   <h2>주의할 점</h2>
   <p>자코비안 행렬은 로봇의 특정 자세에서만 유효한 순간적인 선형 근사이며, 자세가 바뀌면 다시 계산해야 한다. 또한 자코비안이 특이(singular)해지는 자세에서는 역행렬 계산이 불안정해질 수 있으므로 별도의 처리가 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Jacobian matrix and determinant. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Inverse kinematics. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

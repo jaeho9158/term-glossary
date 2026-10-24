@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>결측 메커니즘 구분은 어떤 결측치 처리 기법을 써도 그 정당성이 결측 발생 원리에 대한 가정에 달려 있기 때문에, 통계학뿐 아니라 결측이 흔히 발생하는 임상연구, 패널조사, 교육평가 등 거의 모든 실증 분야의 논문에서 방법론 검토의 출발점으로 다뤄진다. 메커니즘을 잘못 가정하면 결과가 겉보기에는 정상적으로 보여도 체계적으로 편향될 수 있어, 연구의 타당성을 평가하는 중요한 기준이 된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>결측이 왜 생겼는지를 세 가지로 나눈다.</p><ul><li><strong>MCAR</strong>(완전 무작위 결측): 결측이 관측 변수와 관심 모수 모두와 독립이다. 이 경우의 분석은 편향이 없지만 실제로는 드물다.</li><li><strong>MAR</strong>(무작위 결측): 완전히 관측된 변수로 결측을 설명할 수 있다.</li><li><strong>MNAR</strong>(무시할 수 없는 무응답): 결측이 결측의 이유 자체와 관련이 있다.</li></ul><p>MCAR와 MAR는 통계적으로 검증할 수 없고 가정으로만 둘 수 있다. MCAR는 비현실적으로 강한 가정이다.</p>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>유형</th><th>우울 설문의 예</th></tr></thead><tbody><tr><td>MAR</td><td>남성이 우울 설문을 덜 끝낸다. 성별을 통제하면 결측은 우울과 무관하다.</td></tr><tr><td>MNAR</td><td>우울 수준이 높아서 설문을 건너뛴다.</td></tr></tbody></table></div><p>시뮬레이션(n = 60, 로지스틱 무응답)에서는 MNAR 비율이 높을수록 우울 강도가 과소추정되었다. 그래프 기반 모형 검정으로 MAR 또는 MCAR를 기각할 수 있다. 완전히 관측된 Z에 대해 X가 R<sub>y</sub>와 (R<sub>x</sub>, Z) 조건부로 독립이어야 하는데, 이 조건이 깨지면 MNAR를 시사한다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>결측 값을 평균으로 채우면 해결된다.</td><td>결측의 유형에 따라 분석의 편향 여부가 달라진다. 유형은 데이터만으로 확정할 수 없다.</td></tr><tr><td>다중대체는 몇 번이든 비슷하다.</td><td>Rubin(1987)은 5회 이하면 추정이 크게 개선된다고 했다. 2–3회만으로 상대효율 대부분을 얻지만 최근에는 20–100회 이상을 권장하는 학자도 있다.</td></tr><tr><td>MAR이면 따로 할 일이 없다.</td><td>MAR 가정이 타당한지는 실질적 근거로 판단해야 한다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"결측 양상을 검토한 결과 소득 변수의 결측은 연령 및 학력과 유의하게 연관되어 있어 무작위결측(MAR)으로 판단되었으며, 이에 따라 다중대체법을 적용하였다."</div>
   <p>이 문장은 결측치를 아무 근거 없이 채우거나 삭제하기 전에, 먼저 결측이 생긴 패턴을 분석해 그 메커니즘을 확인하고, 그 결과에 맞는 처리 방법을 골랐다는 뜻이다.</p>
 
@@ -170,6 +188,15 @@
 
   <h2>주의할 점</h2>
   <p>실제 데이터에서는 결측이 MCAR인지 MNAR인지를 데이터만 보고 완벽하게 증명할 방법이 없다. 흔히 저지르는 실수는 "결측치를 <a href="multiple-imputation.html">다중대체법</a>으로 채웠으니 문제가 해결됐다"고 단정하는 것인데, 다중대체법은 MCAR나 MAR을 전제로 한 방법이라 결측이 MNAR에 가깝다면 여전히 편향된 결론에 이를 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Missing data. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Rubin, D. B. (1987). 다중대체 이론서.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

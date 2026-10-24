@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 데이터에는 측정 오류나 특이 사례로 인한 극단값이 섞이는 경우가 흔한데, 일반 평균은 이런 값 하나에도 크게 흔들릴 수 있다. 절사평균은 극단값의 영향을 줄이면서도 중앙값보다 더 많은 정보를 활용할 수 있는 강건한(robust) 대표값이기 때문에, 심리학·의학·계측 데이터를 다루는 논문에서 이상치가 우려되는 경우 표준 평균의 대안으로 자주 채택된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>절사평균(trimmed mean, truncated mean)은 표본에서 가장 높은 값과 가장 낮은 값을 일정 비율만큼 제거하고 나머지를 평균한 중심경향 척도이다. 보통 양쪽에서 같은 양을 5%에서 25%까지 제거한다. 예를 들어 표본이 8개이면 12.5%를 자르면 최솟값과 최댓값이 빠진다. 자르는 비율이 정수 개수로 떨어지지 않으면 선형 보간으로 구할 수 있다.</p><ul><li>25% 절사평균은 사분위 평균(interquartile mean)이다.</li><li>중앙값은 완전히 절사한 평균으로 볼 수 있고 가장 강건하다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <p>절사평균은 일반 평균보다 이상치에 강하다. 또한 코시 분포처럼 꼬리가 두꺼운 분포에서는 더 효율적이고 정규분포 같은 분포에서는 덜 효율적이다. 윈저화 평균(winsorized mean)은 극단값을 버리지 않고 남은 값 중 가장 가까운 값으로 바꾼다. 둘을 혼동하지 않아야 한다.</p><p>20개 자료의 예시에서 평균이 101.5이던 것이 18개 값만 남기는 절사평균에서는 56.5로 내려가고, 90% 윈저화에서는 55.65가 되었다. 절사는 자료 크기가 줄지만 윈저화는 표본 크기가 유지된다. 올림픽 평균(Olympic average)은 심판 점수에서 최고점과 최저점을 버리고 나머지를 평균하여 편향된 심판 한 명이 결과를 흔들지 못하게 한다. 피겨 스케이팅의 ISU 채점 체계가 한 예이다. LIBOR 금리는 18개 응답 중 위아래 4개(약 22%)를 버리는 절사평균으로 계산됐다.</p>
+
+  <h2>보고 방법</h2>
+  <p>논문에는 절사 비율과 양쪽을 대칭으로 잘랐는지를 적고, 자른 뒤 남은 표본 크기를 함께 적는다. 이상치가 있는 자료나 꼬리가 두꺼운 분포라서 절사평균을 골랐다는 이유를 밝힌다. 윈저화 평균과 혼동되지 않도록 &quot;절사(자름)&quot;인지 &quot;윈저화(대체)&quot;인지 명시한다. 중앙값과 함께 보고하면 자료의 분포 특성을 더 잘 전달할 수 있다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"반응시간 자료에 극단값이 다수 존재하여, 상하위 5%를 제외한 절사평균을 대표값으로 보고하였다."</div>
   <p>이 문장은 "가장 빠르거나 느린 반응시간 상하위 5%씩을 제외하고 나머지 90%의 값만으로 평균을 계산했다"는 뜻으로, 소수의 극단적인 반응시간이 전체 평균을 왜곡하지 않도록 한 것이다.</p>
 
@@ -164,6 +182,15 @@
 
   <h2>주의할 점</h2>
   <p>절사평균은 극단값을 아예 데이터에서 제외하지만, <a href="winsorizing.html">윈저화</a>는 극단값을 삭제하지 않고 정해진 경계값으로 바꿔치기만 한다는 점에서 다르다. 두 방법 모두 <a href="outlier.html">이상치</a>의 영향을 줄이는 목적은 같지만 처리 방식이 다르므로, 논문에서 어떤 방법을 썼는지 명확히 밝혀야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Truncated mean. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Winsorizing. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

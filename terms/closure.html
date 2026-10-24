@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>클로저는 상태를 전역 변수 없이도 함수 안에 안전하게 캡슐화할 수 있게 해주기 때문에, 프로그래밍 언어 설계와 소프트웨어 공학 논문에서 함수형 프로그래밍의 핵심 개념 중 하나로 자주 다뤄진다. 이벤트 기반 시스템, 비동기 처리, 콜백 중심의 UI 프레임워크에서 각 콜백이 독립적인 상태를 유지해야 하는 경우가 많아, 클로저는 이러한 설계의 이론적 근거로 언급된다. 또한 정적 분석이나 컴파일러 최적화 연구에서는 클로저가 메모리 관리와 성능에 미치는 영향을 분석 대상으로 삼기도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>클로저는 일급 함수를 가진 언어에서 어휘적 범위의 이름 결합을 구현하는 기법이다. 함수와 환경을 함께 저장한 기록 단위로 설명되며, 환경은 자유 변수마다 클로저가 만들어질 때의 값이나 참조를 대응시킨다.</li><li>피터 랜딘(Peter Landin)이 1964년 이 용어를 소개했고 1970년 PAL 언어에서 처음 온전히 구현되었으며 1975년 Scheme이 널리 알렸다.</li><li>엄밀히 익명 함수는 이름 없는 함수 리터럴이고, 클로저는 바깥의 비지역 변수를 붙잡은 함수 값이다. 두 말은 느슨하게 같은 뜻으로 쓰이기도 한다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>자바스크립트의 이벤트 핸들러와 콜백이 대표적이다. 클로저는 호출 사이에 개인 상태를 유지하고, 제어 구조와 객체 시스템을 구현하며, 여러 함수가 하나의 환경을 공유하게 한다. 붙잡힌 변수는 바깥 함수보다 오래 살아야 하므로 보통 힙에 할당되고 가비지 컬렉션이 관리한다.</p><p>언어마다 변수를 참조로 붙잡는지(ECMAScript) 값으로 붙잡는지(ML, Java, [=]를 쓴 C++)가 다르다. 하스켈은 값이 아니라 계산을 붙잡는다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“클로저는 익명 함수의 다른 이름이다.”</strong> 익명 함수는 이름이 없다는 형태, 클로저는 환경을 붙잡았다는 성질이다.</li><li><strong>“루프 안에서 만든 핸들러는 각자 자기 값을 기억한다.”</strong> 루프 변수를 참조로 붙잡으면 모든 핸들러가 마지막 값을 본다.</li><li><strong>“어느 언어에서나 안전하다.”</strong> C++에서 참조로 붙잡은 클로저가 대상 객체보다 오래 살아남으면 정의되지 않은 동작이 된다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안한 이벤트 처리 모듈은 클로저(closure)를 활용해 각 콜백 함수가 자신이 생성될 당시의 설정 상태를 독립적으로 유지하도록 구현하였다."</div>
   <p>이 문장은 여러 개의 콜백 함수를 만들 때, 각 함수가 서로 다른 설정값을 헷갈리지 않고 자기 것만 기억하도록 클로저 구조를 이용했다는 뜻이다.</p>
 
@@ -161,6 +179,17 @@
 
   <h2>주의할 점</h2>
   <p>클로저는 "함수 자체"가 아니라 "함수 + 그 함수가 기억하는 주변 변수"를 합친 개념이다. 단순히 <a href="recursive-function.html">재귀함수</a>처럼 스스로를 반복 호출하는 것과는 다르며, 클로저가 변수를 계속 붙잡고 있으면 그 변수가 메모리에서 오래 해제되지 않아 메모리 사용량이 늘어날 수 있다는 점도 함께 알아두어야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">차이</th></tr></thead><tbody><tr><th scope="row">익명 함수</th><td>이름 없는 함수 리터럴</td><td>환경을 붙잡지 않을 수도 있다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Closure (computer programming). In Wikipedia, The Free Encyclopedia.</li>
+    <li>Wikipedia contributors. (n.d.). Anonymous function. In Wikipedia, The Free Encyclopedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

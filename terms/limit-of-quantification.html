@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>임상시험이나 환경·식품 분석에서는 물질의 존재 여부뿐 아니라 그 농도가 기준치를 넘는지, 시간에 따라 어떻게 변하는지를 정확한 수치로 비교해야 하는 경우가 많다. 이때 정량한계보다 낮은 값을 마치 정확한 수치인 것처럼 사용하면 통계 분석 결과가 왜곡될 수 있기 때문에, 정량한계는 분석법의 신뢰 구간을 규정하는 중요한 기준으로서 논문의 방법론 절에서 검출한계와 함께 반드시 보고된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>정량한계(LoQ 또는 LOQ)는 허용할 만한 정밀도와 정확도로 정량할 수 있는 신호(또는 농도, 활성, 반응)의 가장 낮은 값이다. 서로 다른 두 신호나 값의 차이를 어느 정도 확실하게 구별할 수 있는 한계이며, 신호가 바탕과 통계적으로 다른 때를 말한다. 실험실에 따라 정량한계가 크게 다를 수 있다.</p><p>검출한계(LOD)는 충분한 신뢰도나 통계적 유의성으로 관찰할 수 있는 가장 낮은 신호이다. 분석화학에서는 바탕값(공시료)과 구별할 수 있는 물질의 최저량을 정해진 신뢰수준(보통 99%)에서 말한다. 신호가 바탕 잡음 위로 유의하게 올라섰다고 판정하는 기준선은 임의적이며, 정책의 문제이거나 과학자, 통계학자, 규제 기관 사이의 논쟁거리이다.</p>
+
+  <h2>해석 기준</h2>
+  <p>바탕의 표준편차를 σ로 놓을 때 흔한 정의는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>한계</th><th>정의</th><th>오류 확률</th></tr></thead><tbody><tr><td>검출한계(LOD)</td><td>바탕 표준편차의 3배</td><td>거짓 양성(알파 오류) 확률은 작고(1%), 농도가 LOD인 시료의 거짓 음성(베타 오류) 확률은 50%이다. 시료가 LOD만큼의 불순물을 갖고 있어도 측정값이 LOD보다 작게 나올 확률이 50%이다</td></tr><tr><td>정량한계(LOQ)</td><td>바탕 표준편차의 10배</td><td>거짓 음성 가능성이 최소이다</td></tr></tbody></table></div><p>검정곡선이 직선 f(x) = ax + b를 따르는 가장 단순한 모형에서는 LOD를 f(x) = 바탕 평균 + 3.2s(s는 표준편차)를 만족하는 x로 계산한다. 따라서 LOD는 바탕의 평균, 바탕의 표준편차, 검정곡선의 기울기(분석 감도), 정해진 신뢰 계수(3.2가 가장 널리 받아들여짐)로 추정한다. 농도를 원신호에서 예측하는 모형이 얼마나 적합하고 정확한지도 영향을 준다.</p><p>파생 개념으로 기기 검출한계(IDL), 방법 검출한계(MDL), 실용 정량한계(PQL), 정량한계가 있다. 같은 용어를 써도 어떤 정의를 쓰는지, 측정과 검정에 어떤 잡음이 기여하는지에 따라 값이 다를 수 있다. 기기 검출한계는 신호가 잡음 표준편차의 3배보다 커지는 농도이며, 추정 IDL 부근의 표준 시료를 8개 이상 분석해 표준편차를 구한다. 방법 검출한계는 시료 전처리(산 분해, 희석, 농축 등)를 포함한 전체 분석 방법의 검출한계로, 단계가 늘수록 오차가 늘어 값이 커진다. 기대 LOD 부근의 시료 7개를 분석해 표준편차를 구하고 99% 신뢰수준의 t 값(자유도 6에서 3.14)을 곱한다.</p>
+
+  <h2>보고 방법</h2>
+  <ul><li>정량한계를 어떻게 정의하고 구했는지(바탕 표준편차의 10배, 신호 대 잡음비 10 등)를 적는다. 정의가 여러 가지라 같은 이름이어도 값이 달라질 수 있다.</li><li>정량한계는 방법 검증의 일부로 검출한계와 함께 보고한다. 기기 검출한계인지 방법 검출한계인지 구분해 쓴다.</li><li>검정곡선(농도와 신호의 관계)이 사용 범위에서 직선인지, 그 모형이 적절한지 함께 밝힌다.</li><li>농도가 정량한계보다 낮고 검출한계보다 높은 값은 "검출되었으나 정량 불가"로 표기하는 것이 흔하며, 정량한계 아래의 값을 정확한 수치처럼 통계 분석에 쓰지 않는다.</li><li>시료 전처리 과정과 사용 장비를 적는다. 생화학 시험과 생물학 실험처럼 거짓 양성과 거짓 음성이 복잡하게 얽히는 분야에서는 정의와 모형이 더 다양하므로, 사용한 모형과 가정을 밝힌다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 분석법의 정량한계(LOQ)는 신호대잡음비 10:1을 기준으로 0.02μg/mL로 산출되었다."</div>
   <p>이 문장은 시료 속 물질 농도가 0.02μg/mL 이상일 때부터 이 분석법으로 신뢰할 수 있는 정확한 수치를 보고할 수 있다는 뜻이다. 그 이하의 값은 "검출되었으나 정량 불가(detected but not quantifiable)"로 표기하는 경우가 많다.</p>
 
@@ -166,6 +184,17 @@
 
   <h2>주의할 점</h2>
   <p>정량한계는 항상 검출한계보다 높은 값이다. 두 지표를 혼동해서 "검출됐으니 정확한 농도"라고 해석하면 안 되며, 정량한계 미만의 값을 평균 계산에 그대로 포함시키면 결과가 왜곡될 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="limit-of-detection.html">검출한계</a></th><td>바탕과 구별할 수 있는 최저 신호나 농도</td></tr><tr><th scope="row"><a href="limit-of-blank.html">공백한계</a></th><td>공시료 측정에서 나오는 최대 신호 수준에 대한 한계</td></tr><tr><th scope="row"><a href="calibration-curve.html">검량선</a></th><td>농도와 신호의 관계를 나타내는 선으로, 한계 계산에서 기울기가 쓰인다</td></tr><tr><th scope="row"><a href="method-blank.html">방법바탕시료</a></th><td>분석 방법 전체를 거치게 한 시료 없는 바탕</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Detection limit. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Calibration curve. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

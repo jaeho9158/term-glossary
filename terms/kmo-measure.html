@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>적합하지 않은 자료에 요인분석을 돌리면 해석 불가능한 요인이 나온다. KMO는 분석 가능성을 사전에 점검하는 관례적 절차라 척도 타당화 논문의 결과 첫머리에 자주 보고된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>0에서 1 사이의 값이다. 변수 쌍의 상관계수 제곱합을 상관계수 제곱합과 편상관계수 제곱합의 합으로 나눈다. 편상관은 image 행렬에서 구한다.</p><p><code>KMO = Σ r<sub>ij</sub><sup>2</sup> / (Σ r<sub>ij</sub><sup>2</sup> + Σ a<sub>ij</sub><sup>2</sup>)</code></p><p>변수마다 구하면 변수별 표본적합도(MSA)가 되고, 전체를 합쳐 구하면 전체 KMO가 된다. 편상관이 작을수록 변수 간 상관이 공통요인에서 나온다는 뜻이므로 값이 1에 가까워진다.</p>
+
+  <h2>해석 기준</h2>
+  <p>Kaiser(1974)의 원래 구분은 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>KMO</th><th>평가</th></tr></thead><tbody><tr><td>0.9 초과</td><td>marvelous(아주 좋음)</td></tr><tr><td>0.8대</td><td>meritorious(좋음)</td></tr><tr><td>0.7대</td><td>middling(보통)</td></tr><tr><td>0.6대</td><td>mediocre(평범)</td></tr><tr><td>0.5대</td><td>miserable(나쁨)</td></tr><tr><td>0.5 미만</td><td>unacceptable(받아들일 수 없음)</td></tr></tbody></table></div><p>일반적으로는 0.8–1이면 적절하고 0.6 미만이면 부적절해 보완이 필요하다고 본다. 0.5를 기준으로 쓰는 저자도 있다.</p>
+
+  <h2>보고 방법</h2>
+  <p>KMO 값은 Bartlett의 구형성 검정과 함께 보고하는 것이 관례이다. Bartlett 검정은 상관행렬이 단위행렬과 다른지를 확인한다. 변수별 MSA가 낮은 문항이 있으면 함께 밝히고 그 문항의 처리를 적는다.</p><p>예시: “KMO 값은 0.87로 나타났고 Bartlett의 구형성 검정이 유의하여 요인분석에 적합하였다.” Kaiser가 1970년에 표본적합도 측도를 제안했고 1974년 Rice와 함께 고쳤다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"KMO 값이 0.87, 바틀렛의 구형성 검정이 유의하여 요인분석 실시가 적절한 것으로 판단하였다."</div>
   <p>자료가 요인분석의 전제를 충족하는지 두 가지 기준으로 확인했다는 뜻이다.</p>
   <div class="example">"이 연구는 새로 개발한 진로성숙도 척도의 문항들을 요인분석하기 전에 KMO 지수와 바틀렛 검정을 실시하여 분석 적합성을 확인하였다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>KMO는 요인분석을 시작해도 되는지에 대한 점검일 뿐, 요인 수나 요인 구조의 타당성을 보장하지 않는다. 함께 보고되는 구형성 검정은 집단 간 등분산을 보는 <a href="bartletts-test.html">바틀렛 검정</a>과 이름만 같고 목적이 다른 절차라는 점도 구분해야 한다. 전체 KMO값이 기준을 충족하더라도 개별 변수의 KMO값이 낮으면 그 변수만 제거하고 재분석하는 것이 권장되며, 전체 값만 보고 모든 변수가 적합하다고 단정해서는 안 된다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Kaiser–Meyer–Olkin test. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Kaiser, H. F. (1974). 표본적합도 측도 수정 논문.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

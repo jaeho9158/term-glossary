@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>현실의 많은 물리량과 확률 현상은 하나의 변수만으로 설명되지 않고, 공간의 여러 방향이나 여러 확률변수가 동시에 얽혀 나타난다. 다중적분은 이런 다차원적인 양을 하나의 총합으로 계산할 수 있게 해주기 때문에, 물리학의 질량·전하 분포 계산, 공학의 유체·열 해석, 통계학의 결합확률분포 계산 등 정량적 모델링이 필요한 여러 분야의 이론적 기반을 이룬다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>다중적분은 리만 합으로 정의한다. 상자 T를 겹치지 않는 작은 상자 C_k로 나누고 S = Σ f(P_k)·m(C_k)를 만든다. m(C_k)는 변의 길이를 곱한 값이다. 분할의 지름 δ가 0으로 갈 때 S가 수렴하면 f는 리만 적분 가능하고, 그 극한이 ∫…∫ f dx₁…dxₙ이다.</p><p>실제 계산은 반복적분으로 한다. 푸비니 정리에 따르면 |f|의 적분이 유한하면(절대수렴) 다중적분은 어느 쪽 순서의 반복적분과도 같다. 양수 함수에는 이 조건 없이 같은 결론을 내는 토넬리 정리가 쓰인다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>예: x가 11에서 14까지, y가 7에서 10까지일 때 (x² + 4y)의 이중적분을 계산하면 안쪽 적분 결과가 471 + 12y이고 전체 값은 1719이다. 순서를 바꾸어도 1719가 나온다. 영역이 곡선으로 둘러싸인 경우 D = {x ≥ 0, y ≤ 1, y ≥ x²}에서 ∬_D (x + y) dx dy = 13/20이다.</p><p>좌표를 바꿀 때는 야코비 행렬식의 절댓값을 곱한다. 극좌표에서 dx dy → ρ dρ dφ, 원기둥좌표에서 dx dy dz → ρ dρ dφ dz, 구면좌표에서 dx dy dz → ρ² sin φ dρ dθ dφ이다(φ는 극각, θ는 방위각). 활용은 부피(원기둥 πR²h, 구 (4/3)πR³, 사면체 ℓ³/6), 평균값 (1/m(D))∫_D f, 관성모멘트 I_z = ∭ ρr² dV 등이다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>순서를 바꿔도 된다는 보장은 절대수렴이 있을 때만 있다. 반례로, 양의 정수에 개수측도를 주고 f(x,y)가 x = y이면 1, x = y + 1이면 −1, 나머지는 0이면 두 반복적분은 0과 1로 달라진다. 이때 |f|의 적분은 무한이다.</li><li>푸비니·토넬리 정리는 측도공간이 σ-유한일 것을 요구한다. 단위구간에 르베그 측도와 개수측도를 주면 대각선의 지시함수에서 두 반복적분이 달라진다.</li><li>좌표를 바꾸면서 야코비 인자를 빼면 틀린 값이 나온다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"관심 영역 전체에서의 확률밀도함수 총합은 해당 영역에 대한 이중적분을 통해 산출되었다."</div>
   <p>이 문장은 평면 위 특정 영역에서 확률밀도함수 값을 x와 y 두 방향으로 모두 적분해서, 그 영역에 해당하는 전체 확률(부피에 해당하는 양)을 구했다는 뜻이다.</p>
   <div class="example">"불규칙한 형상을 가진 물체의 질량 중심은 밀도 함수에 대한 삼중적분을 통해 계산되었다."</div>
@@ -164,6 +182,15 @@
 
   <h2>주의할 점</h2>
   <p>이중적분과 삼중적분은 각 변수를 번갈아 가며 <a href="partial-derivative.html">편미분</a>의 반대 과정을 반복해서 계산하는데, 적분 순서를 바꾸거나 적분 범위(영역)를 잘못 설정하면 결과가 완전히 달라질 수 있어 영역의 경계를 정확히 파악하는 것이 중요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Multiple integral. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Fubini's theorem. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="integral.html">적분</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="lebesgue-integral.html">르베그 적분</a><a href="surface-integral.html">면적분</a><a href="line-integral.html">선적분</a><a href="improper-integral.html">이상적분</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -148,7 +149,24 @@
   <h2>왜 중요한가</h2>
   <p>여러 변수가 동시에 조금씩 바뀔 때 전체 결과가 어떻게 변하는지를 다루는 문제는 경제학의 한계효과 분해, 물리학·공학의 오차 전파 및 민감도 분석, 열역학의 상태함수 변화량 계산 등 다양한 분야에서 공통적으로 나타나기 때문에, 전미분은 여러 학문에서 다변수 함수의 변화를 다루는 표준 도구로 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>두 변수 함수 f(x, y)의 전미분은 <code>df = f<sub>x</sub> dx + f<sub>y</sub> dy</code>이다. 편미분 f<sub>x</sub>, f<sub>y</sub>는 다른 변수를 고정한 채 한 변수만 바꿀 때의 변화율이고, 전미분은 모든 변수의 아주 작은 변화를 함께 반영해 합친 것이다. n개의 변수라면 각 변수의 편미분 항을 모두 더한다. 함수가 미분 가능하면 실제 증분 Δf는 df와 가깝고, 증분이 작을수록 오차가 상대적으로 작아진다. 즉 전미분은 변화의 선형 근사 부분이다.</p><p>변수들이 t에 의존하면 연쇄 법칙으로 dz/dt = (∂f/∂x)(dx/dt) + (∂f/∂y)(dy/dt)가 된다. 편미분이 한 점에서 모두 존재한다고 해서 미분 가능한 것은 아니지만, 주변에서 존재하고 그 점에서 연속이면 미분 가능하다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>f(a, b) = ab이면 f<sub>a</sub> = b, f<sub>b</sub> = a이므로 Δf ≈ b·Δa + a·Δb이다. 양변을 f = ab로 나누면 Δf/f = Δa/a + Δb/b가 되어 상대 오차가 더해진다. a = 2, b = 5(f = 10)에서 Δa = 0.01, Δb = 0.02이면 Δf ≈ 5(0.01) + 2(0.02) = 0.09로 상대 오차는 약 0.9%이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>상황</th><th>쓰는 식</th></tr></thead><tbody><tr><td>오차의 한계만 알 때</td><td>|Δf| ≤ |f<sub>x</sub>|δx + |f<sub>y</sub>|δy</td></tr><tr><td>독립 오차의 표준편차를 알 때</td><td>σ<sub>f</sub><sup>2</sup> = f<sub>x</sub><sup>2</sup>σ<sub>x</sub><sup>2</sup> + f<sub>y</sub><sup>2</sup>σ<sub>y</sub><sup>2</sup></td></tr></tbody></table></div>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>전미분과 전도함수를 같은 것으로 보기 쉽다. 예를 들어 f(x, y) = xy에서 y = x로 놓으면 편미분 ∂f/∂x는 y이지만 전도함수 df/dx는 2x이다. x가 바뀌면 y도 함께 바뀌기 때문이다.</li><li>편미분들의 합이라고만 기억하기 쉽다. 각 편미분에 해당 변수의 작은 변화(dx, dy)를 곱해서 더해야 한다.</li><li>열역학의 dU = T dS − P dV 같은 식은 상태함수의 전미분인데, 이때는 완전성(exactness)이 따로 문제가 된다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"생산함수의 전미분을 취하여 자본과 노동 투입의 미소 변화가 총생산량 변화에 미치는 영향을 각각 분해하였다."</div>
   <p>이 문장은 "생산량이 자본 변화 때문에 얼마나 늘고, 노동 변화 때문에 얼마나 느는지를 전미분 공식으로 각각 나눠서 계산했다"는 뜻이다. 경제학의 한계효과 분해, 물리학의 오차 전파 계산, 공학의 민감도 분석 등에서 흔히 쓰인다.</p>
   <div class="example">"내부에너지의 전미분을 온도와 부피에 대한 편미분으로 전개하여, 등적 조건에서의 열용량과 상태방정식 사이의 관계를 유도하였다."</div>
@@ -161,6 +179,15 @@
 
   <h2>주의할 점</h2>
   <p>전미분은 각 변수의 변화가 "아주 작을 때(무한소)"만 정확히 성립하는 근사식이다. 변화량이 크면 편미분값이 그 사이에서 계속 바뀌므로 단순히 더하는 방식은 오차가 커진다. 또한 전미분이 존재하려면 함수가 해당 지점에서 매끄럽게(미분가능하게) 정의되어 있어야 하며, 편도함수가 각각 존재한다고 해서 자동으로 전미분이 존재하는 것은 아니다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Total derivative. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Differential of a function. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="partial-derivative.html">편미분</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

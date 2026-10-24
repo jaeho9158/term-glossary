@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -157,7 +158,24 @@
   <h2>왜 중요한가</h2>
   <p>PLC는 실험 장치나 파일럿 플랜트의 자동 제어를 구현하는 데 널리 쓰이는 실용적인 도구이기 때문에, 공정공학·로보틱스·재료 가공 등 실험 절차를 자동화한 논문의 재료 및 방법 절에 자주 등장한다. 반복되는 실험 조건을 정확하고 일관되게 재현할 수 있게 해주어 실험 신뢰성과 재현성을 높이는 역할을 하며, 산업 자동화 연구에서는 제어 알고리즘 자체를 검증하는 플랫폼으로도 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>PLC(프로그래머블 로직 컨트롤러)는 조립 라인, 기계, 로봇 같은 제조 공정을 제어하는 견고한 산업용 컴퓨터다. 1960년대 말 미국 자동차 산업에서 배선으로 짜던 릴레이 로직을 대신하려고 개발되었고, 첫 제품인 Modicon 084는 1969년 제너럴 모터스용으로 만들어졌다. 핵심 구성은 CPU, 전원, 메모리, 입출력(I/O) 인터페이스, 통신 인터페이스이며 소형 일체형이나 모듈형 랙 형태가 있다. 입출력은 켜짐/꺼짐의 이산 신호와 온도·압력 같은 연속값의 아날로그 신호로 나뉜다.</p>
+
+  <h2>예시로 보기</h2>
+  <ul><li>스캔 주기: PLC는 입력을 읽고, 프로그램을 실행하고, 출력을 쓰는 일을 반복한다. 한 번의 스캔은 보통 수십 밀리초가 걸린다.</li><li>프로그래밍 언어: IEC 61131-3은 그래픽 언어(래더 다이어그램, 함수 블록 다이어그램, 순차 기능 차트)와 텍스트 언어(구조적 텍스트)를 정한다. 래더 로직은 지금도 널리 쓰인다.</li><li>래더 로직은 릴레이 회로도를 바탕으로 한 그래픽 언어로, 두 개의 세로 레일과 가로 단(rung)이 사다리처럼 보인다. 접점은 입력, 코일은 출력이다. 단을 왼쪽에서 오른쪽, 위에서 아래로 반복 평가하며 단의 순서가 결과에 영향을 준다.</li><li>시동/정지 자기유지 예: 시작 버튼이 Run 비트를 켜고, Start와 병렬로 둔 Run 접점이 버튼을 놓아도 켜진 상태를 유지하며, 상시 닫힘 Stop 버튼이 회로를 끊어 정지시킨다. Run = (Start OR Run) AND NOT Stop.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>릴레이 방식에 비해 더 믿을 수 있고 작고 가혹한 환경에 강하며, 바꿀 때 배선을 다시 하지 않고 새 코드를 올린다. 이중 CPU나 I/O 모듈을 두어 단일 고장으로 공정이 멈추는 것을 막을 수 있다.</li><li>안전 PLC는 비상 정지, 광 커튼 등 안전이 중요한 기능을 맡으며 안전 무결성 수준(SIL)으로 등급이 매겨진다.</li><li>네트워크 연결이 늘면서 보안 우려가 커졌다. 2010년 스턱스넷이 PLC의 취약점에 관심을 모았다.</li><li>래더 로직은 이진 제어와 인터록에 적합하고, 아날로그 연산과 배열에는 약하다. 단들을 병렬로 실행하면 경쟁 상태가 생길 수 있다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"실험 장비의 밸브 및 펌프 동작은 PLC를 이용하여 자동으로 제어하였다."</div>
   <p>실험 설비의 밸브와 펌프가 정해진 순서대로 자동으로 작동하도록 PLC로 제어했다는 뜻이다.</p>
 
@@ -172,6 +190,15 @@
 
   <h2>주의할 점</h2>
   <p>PLC는 일반 컴퓨터의 범용 프로그램과 달리 래더 로직 등 산업용 특화 프로그래밍 방식을 주로 사용하므로 일반 소프트웨어 개발과는 다른 접근이 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Programmable logic controller. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Ladder logic. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

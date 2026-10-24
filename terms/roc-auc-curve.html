@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>분류 모델 논문에서는 임계값 설정에 따라 성능이 크게 달라질 수 있기 때문에, 특정 임계값에 종속되지 않는 전반적인 판별 능력을 보여주는 지표가 필요하다. ROC-AUC는 이런 요구를 충족시켜 의료 진단, 이상 탐지, 추천 시스템 등 다양한 분야의 이진 분류 모델 비교에서 표준 지표로 자리잡았다. 또한 서로 다른 논문에서 제안한 모델들을 공정하게 비교할 수 있는 공통 척도 역할도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <ul><li>ROC 곡선은 분류 임계값을 바꿔 가며 얻은 (거짓양성비율, 참양성비율) 점을 이은 것이고, AUC는 그 아래 면적이다. 값은 0에서 1 사이이다.</li><li>정보가 없는 분류기는 AUC가 0.5이고 곡선은 대각선에 놓인다. 대각선 아래 점은 우연보다 못한 분류이다.</li><li>AUC는 무작위로 고른 양성 사례의 점수가 무작위로 고른 음성 사례의 점수보다 높을 확률과 같다. 이 값은 윌콕슨-만-휘트니 통계량으로 추정하며 만-휘트니 U 검정과 가깝다.</li><li>신용평가에서 쓰는 지니 계수는 2×AUC−1이다. 통계학의 분산 지표인 지니 계수와는 다른 것이다.</li><li>ROC는 1941년 진주만 공습 직후 미군이 레이더 조작자가 적기를 얼마나 잘 가려내는지 측정하면서 만든 방법에서 이름이 왔고, 1950년대에 정신물리학이 약한 신호 탐지 연구에 받아들였다.</li></ul>
+
+  <h2>해석 기준</h2>
+  <ul><li>곡선이 왼쪽 위 모서리에 가까울수록, AUC가 1에 가까울수록 양성과 음성을 잘 구분한다.</li><li>AUC는 임계값 하나에 묶이지 않는 요약값이지만, 높은 AUC가 높은 정밀도를 뜻하지는 않는다. AUC가 0.9로 높아도 정밀도 0.2, 음성예측도 0.1처럼 낮을 수 있다.</li><li>양성이 음성보다 훨씬 적은 자료에서는 가로축을 로그로 두거나, 정밀도-재현율 곡선을 함께 본다.</li><li>선별검사처럼 거짓양성비율이 낮은 구간만 중요하면 그 구간의 부분 AUC를 본다. 실무에서 쓰지 않는 낮은 민감도·낮은 특이도 구간까지 면적에 들어간다는 비판도 있다.</li><li>표본이 작으면 AUC 추정이 불안정하다.</li><li>민감도는 TP/(TP+FN), 특이도는 TN/(TN+FP)로 1−거짓양성비율이다. 임계값을 옮기면 한쪽이 오르고 다른 쪽이 내리며, ROC는 이 상충을 보여 준다. 민감도와 특이도는 유병률에 따라 변하지 않지만 양성예측도는 유병률에 달려 있다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>AUC 값과 함께 신뢰구간을 적고, 평가에 쓴 자료(검증 세트 또는 교차검증)를 밝힌다.</li><li>같은 사례로 두 모델의 AUC를 비교할 때는 상관을 고려한 방법을 쓴다. 한리와 맥닐이 1983년에 이런 비교법을 발표했다.</li><li>클래스 비율을 함께 적고, 불균형이 크면 정밀도-재현율 곡선 같은 보완 지표를 같이 보고한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안 모델은 테스트셋에서 ROC-AUC 0.92를 기록하여 베이스라인 모델보다 우수한 분류 성능을 보였다."</div>
   <p>ROC 곡선 아래 면적이 0.92로 계산되어 모델이 양성과 음성 클래스를 상당히 잘 구분해낸다는 것을 보여준다는 뜻이다.</p>
 
@@ -168,6 +186,15 @@
 
   <h2>주의할 점</h2>
   <p>클래스 비율이 매우 불균형한 데이터에서는 AUC가 실제 성능을 과대평가할 수 있어, <a href="precision-recall-curve.html">정밀도-재현율 곡선</a>을 함께 확인하는 것이 좋다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Receiver operating characteristic. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Sensitivity and specificity. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

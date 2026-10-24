@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>정밀도와 재현율은 분류 모델의 성능을 정확도 하나로만 판단할 때 놓치기 쉬운 함정을 드러내 주기 때문에, 데이터가 불균형하거나 오탐과 미탐의 비용이 서로 다른 실제 문제(질병 진단, 이상 탐지, 정보 검색 등)를 다루는 거의 모든 분류·검색 연구에서 기본적으로 보고되는 지표이다. 어떤 지표를 더 중요하게 볼지는 응용 분야의 특성에 따라 달라지기 때문에, 이 두 지표를 이해하는 것은 논문이 제시하는 성능 결과를 올바르게 해석하는 데 필수적이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p><code>정밀도 = TP / (TP + FP)</code>, <code>재현율 = TP / (TP + FN)</code>이다. 정밀도(양성예측도)는 찾아낸 것 중 맞는 비율로 질에 해당하고, 재현율(민감도)은 맞는 것 중 찾아낸 비율로 양에 해당한다.</p><p><strong>F1</strong>은 둘의 조화평균이다: <code>F1 = 2·P·R / (P + R) = 2TP / (2TP + FP + FN)</code>. F-베타는 β &gt; 1이면 재현율, β &lt; 1이면 정밀도에 더 큰 가중을 준다(F2, F0.5).</p><p>예: 사진에 고양이 10마리와 개 12마리가 있고 프로그램이 8개를 개라고 표시해 5개가 맞았다면 정밀도 5/8, 재현율 5/12, F1은 0.5이다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>정밀도와 재현율은 보통 반대로 움직이며, 어느 쪽이 중요한지는 맥락이 정한다. 연기 감지기는 오경보가 많아도 실제 화재를 놓치지 않도록 재현율을 우선한다. 형사재판은 무고한 사람을 처벌하지 않도록 정밀도를 우선한다.</li><li>의료 진단은 위양성이 불필요한 치료를 부를 때 정밀도를 우선하는 경우가 있고, 사기 탐지는 놓친 사기의 비용이 커서 재현율이 중요하다.</li><li>재현율 1은 전부 검색하면 쉽게 얻고, 정밀도 1은 매우 가능성 높은 몇 개만 고르면 쉽게 얻는다. 둘을 함께 보아야 한다.</li><li>정밀도-재현율 곡선은 재현율에 대한 정밀도를 그린 것으로 재현율이 오르면 정밀도가 내려가는 모양이 보통이다. 한쪽을 다른 쪽의 고정 수준(예: 재현율 0.75일 때의 정밀도)에서 비교하기도 한다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>정밀도, 재현율, F1을 함께 쓰고 양성 클래스를 무엇으로 정의했는지와 분류 기준값(임계값)을 밝힌다.</li><li>불균형 자료에서는 정확도가 오해를 부른다. 음성 95, 양성 5인 자료에서 모두 음성이라고 해도 정확도는 95%이지만 양성은 하나도 못 찾는다. 균형 정확도(민감도와 특이도의 평균)는 이 경우 0.5이다.</li><li>정밀도는 양성 대비 음성 비율이 커지면 재현율이 같아도 떨어진다. 불균형 자료에서는 ROC 곡선보다 정밀도-재현율 곡선이 더 많은 정보를 준다는 주장이 있다.</li><li>다중 분류에서는 평균 방식을 함께 적는다. 매크로 F1은 클래스별 F1의 산술평균이고 마이크로 F1은 마이크로 평균한 정밀도와 재현율의 조화평균이다.</li><li>F1은 참 음성을 반영하지 않아 불균형 자료에서 오해를 줄 수 있고, 양성·음성 라벨을 바꾸면 값이 달라진다. 오분류 비용이 다르면 정밀도와 재현율의 상대적 중요도도 달라진다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안 모델은 테스트셋에서 정밀도 0.91, 재현율 0.87, F1-score 0.89를 기록하여 기존 방법 대비 향상된 성능을 보였다."</div>
   <p>이 문장은 "모델이 맞다고 예측한 것의 91%가 실제로 맞았고(정밀도), 실제 정답 중 87%를 놓치지 않고 찾아냈으며(재현율), 이 두 값을 종합한 지표(F1-score)도 개선되었다"는 뜻이다.</p>
 
@@ -169,6 +187,17 @@
 
   <h2>주의할 점</h2>
   <p>정확도(accuracy)만 보고 모델 성능을 판단하면 안 된다. 예를 들어 희귀 질병 진단처럼 정상인이 압도적으로 많은 데이터에서는 "전부 정상"이라고만 예측해도 정확도는 높게 나오지만 재현율은 0에 가깝다. 그래서 데이터가 <a href="algorithmic-bias.html">알고리즘편향</a>되어 있거나 클래스 비율이 불균형할 때는 정밀도와 재현율을 함께, 혹은 F1-score로 균형 있게 살펴봐야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">정밀도·재현율과의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="accuracy.html">정확도</a></th><td>전체 중 맞춘 비율</td><td>불균형 자료에서 높게 나와도 재현율이 낮을 수 있다</td></tr><tr><th scope="row"><a href="f1-score.html">F1 점수</a></th><td>정밀도와 재현율의 조화평균</td><td>두 지표를 하나로 합친 값이다</td></tr><tr><th scope="row"><a href="roc-curve.html">ROC 곡선</a></th><td>민감도와 위양성률의 관계를 그린 곡선</td><td>정밀도-재현율 곡선은 불균형 자료에서 더 민감할 수 있다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Precision and recall. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Wikipedia contributors. (n.d.). F-score. In Wikipedia, The Free Encyclopedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

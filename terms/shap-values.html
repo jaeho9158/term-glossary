@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>딥러닝이나 그래디언트 부스팅 같은 고성능 모델일수록 내부 작동을 사람이 직관적으로 이해하기 어려워지는데, 의료진단, 신용평가, 채용 심사처럼 결과에 대한 책임 소재가 중요한 분야에서는 예측 이유를 설명할 수 없는 모델을 그대로 쓰기 어렵다. SHAP은 섀플리 값이라는 게임이론적 근거 덕분에 일관되고 이론적으로 정당화된 기여도 배분을 제공하기 때문에, 설명가능 AI(XAI) 연구뿐 아니라 모델을 실제 의사결정에 적용하는 응용 분야 논문에서도 결과 해석 도구로 널리 채택된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>섀플리 값은 협력 게임 이론에서 협력하는 플레이어들의 이익이나 비용을 공정하게 나누는 해로, Lloyd Shapley가 1951년 도입했다. 각 플레이어의 몫은 모든 가능한 연합에 걸친 평균 한계 기여이다. 효율성, 대칭성, 가법성, 영(더미) 플레이어 성질 네 가지를 모두 만족하는 유일한 분배라고 한다.</li><li>머신러닝에서는 특성을 플레이어, 특성 부분집합에 대한 모델 출력을 보수로 보아 예측을 개별 특성에 귀속시킨다. 이 틀이 LIME, DeepLIFT, 층별 관련성 전파 같은 여러 귀속 방법을 통합한다고 소개된다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>Lundberg &amp; Lee(2017)의 “A Unified Approach to Interpreting Model Predictions”(NeurIPS 30, 4765–4774쪽)가 이 특성 귀속 쓰임의 근거로 인용된다.</li><li>섀플리 기반 방법으로 예측 불확실성을 귀속하는 연구도 있다(Watson 등, 2023).</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>논문에서는 사용한 SHAP 변형(배경 자료, 모델 유형)을 따로 밝혀야 한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델의 예측 근거를 해석하기 위해 SHAP 값을 계산하여 각 특성의 기여도를 시각화하였다."</div>
   <p>모델의 예측 결과에 각 입력 특성이 얼마나 영향을 미쳤는지를 SHAP으로 계산해 사람이 볼 수 있게 나타냈다는 뜻이다.</p>
 
@@ -167,6 +185,16 @@
 
   <h2>주의할 점</h2>
   <p>SHAP 값을 정확히 계산하려면 계산 비용이 매우 크기 때문에 실제로는 근사 알고리즘을 사용하며, 특성 간 상관관계가 강할 때는 해석에 주의가 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Lundberg, S. M., &amp; Lee, S.-I. (2017). A unified approach to interpreting model predictions. Advances in Neural Information Processing Systems, 30, 4765–4774.</li>
+    <li>Shapley, L. S. (1953). A value for n-person games. In Contributions to the theory of games.</li>
+    <li>Wikipedia contributors. (n.d.). Shapley value. In Wikipedia, The Free Encyclopedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="explainable-ai.html">설명 가능한 인공지능</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="lime-explainability.html">LIME</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

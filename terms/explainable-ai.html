@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -157,7 +158,24 @@
   <h2>왜 중요한가</h2>
   <p>딥러닝 모델의 성능이 높아질수록 내부 구조는 더 복잡해지고 해석은 더 어려워지는 경향이 있어, 설명 가능한 인공지능은 이 성능-해석성 사이의 간극을 메우려는 핵심 연구 분야로 자리잡았다. 모델을 실제 의사결정에 배치하려면 성능뿐 아니라 왜 그런 결정을 내렸는지 검증할 수 있어야 하므로, 의료 진단, 신용평가, 자율주행처럼 오류의 대가가 큰 응용 분야의 논문에서 특히 강조된다. 또한 모델 디버깅과 편향 발견에도 실질적으로 쓰이기 때문에 AI 개발 실무와도 직결된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>설명 가능한 AI(XAI)는 사람이 AI의 결정을 감독할 수 있게 모델의 추론을 이해하기 쉽고 투명하게 만드는 연구 분야이다. ISO/IEC TR 29119-11에 따르면 해석 가능성(interpretability)과 설명 가능성(explainability)은 다르다. 해석 가능성은 기반 기술이 어떻게 작동하는지의 이해, 설명 가능성은 시스템이 특정 결과에 어떻게 도달했는지의 이해이다. 설명 가능성에는 합의된 정의가 없다.</p>
+
+  <h2>예시로 보기</h2>
+  <ul><li><strong>LIME</strong>: 특정 예측 근처에서 복잡한 모델의 동작을 더 단순하고 해석 가능한 모델로 근사한다.</li><li><strong>SHAP</strong>: 섀플리 값으로 모델 출력을 입력 특성에 귀속시킨다. 섀플리 값(Lloyd Shapley, 1951)은 한 요소가 합류하는 모든 조합과 순서에서 변화의 평균을 구한 것으로, 효율성·대칭·가산성(선형성)·더미 선수의 네 성질을 만족하는 유일한 해이다. 이 틀은 LIME, DeepLIFT, 층별 관련성 전파 같은 방법을 통합한다고 설명된다.</li><li><strong>현저성 지도</strong>: 이미지에서 결과에 가장 영향을 준 부분을 강조한다.</li><li>그 밖에 부분 의존 그림, 순열 특성 중요도, 다중 과제 출력이 있다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>사후 설명 vs 본질적 해석</strong>: 결정 트리, 베이즈 네트워크, 희소 선형 모델 같은 투명 모델(glass-box)은 설계부터 투명하며, 고위험 결정에는 이를 선호하는 연구자가 있다. 사후 설명은 두 번째 모델로 첫 모델을 설명하며, 복잡성을 더하고 원래 모델을 충실히 반영하지 못할 수 있다는 비판이 있다.</li><li><strong>언어 모델</strong>: 표준 특성 귀속 방법은 언어 모델에 잘 맞지 않고 모델이 낸 설명이 믿을 만하지 않을 수 있다.</li><li><strong>이해가 신뢰를 높이는 것은 아니다</strong>: 한 연구에서 더 잘 이해해도 참가자의 신뢰가 늘지 않았다. 목표는 신뢰를 올바른 수준에 맞추는 일일 수 있다.</li><li><strong>법·정책</strong>: DARPA XAI 프로그램은 성능을 크게 낮추지 않고 사람이 이해할 수 있는 투명 모델을 목표로 한다. EU GDPR은 ‘설명을 받을 권리’를 도입했으나 모델 전체가 아니라 개별 결정의 국소적 해석에 한정된다.</li><li><strong>한계</strong>: 시스템 작동 방식을 공개하면 경쟁자가 베끼거나 악의적 사용자가 우회할 수 있다. 하나의 설명이 전문가에게는 얕고 초보자에게는 어려울 수 있다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델의 신뢰성을 검증하기 위해 설명 가능한 인공지능(XAI) 기법인 SHAP 값을 활용하여 각 입력 변수가 예측 결과에 미친 기여도를 시각화하였다."</div>
   <p>이 문장은 연구팀이 모델의 예측 정확도뿐 아니라, 어떤 입력 변수가 예측에 얼마나 영향을 미쳤는지를 수치와 그림으로 보여주는 설명 기법을 함께 사용했다는 뜻이다. 의료, 금융처럼 결정 근거가 중요한 분야에서 특히 강조된다.</p>
   <div class="example">"합성곱 신경망의 이미지 분류 근거를 시각화하기 위해 Grad-CAM 기법으로 클래스 활성화 지도를 생성하여 모델이 주목한 영역을 확인하였다."</div>
@@ -170,6 +188,15 @@
 
   <h2>주의할 점</h2>
   <p>설명 가능한 인공지능이 제시하는 "설명"은 모델의 실제 내부 계산 과정을 완벽히 재현한 것이 아니라, 그럴듯하게 근사한 해석인 경우가 많다. 따라서 XAI 결과를 절대적인 진실로 받아들이기보다, 모델의 <a href="algorithmic-bias.html">알고리즘편향</a>이나 이상 동작을 점검하는 보조 도구로 활용하는 것이 안전하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Explainable artificial intelligence. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Shapley value. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="lime-explainability.html">LIME</a><a href="shap-values.html">SHAP 값</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

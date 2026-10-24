@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>베지어 곡선은 제어점 열로 정의되는 매개변수 곡선이다. 첫 제어점과 마지막 제어점이 곡선의 양 끝점이고, 중간 제어점들은 대체로 곡선 위에 놓이지 않고 모양만 잡는다.</li><li>곡선은 제어 다각형의 첫 선분과 마지막 선분에 접하며 시작하고 끝난다. 곡선 전체는 제어점들의 볼록 껍질 안에 들어 있다.</li><li>제어점 세 개이면 2차, 네 개이면 3차 곡선이다. 차수 n인 곡선은 같은 모양의 차수 n+1 곡선으로 고쳐 쓸 수 있는데, 이를 차수 상승이라 한다.</li><li>계산은 de Casteljau 알고리즘으로 한다. 매개변수 t에서 제어점들을 반복해 선형 보간하는 방식이다. 2차 곡선은 β<sub>0</sub>(1−t)<sup>2</sup> + 2β<sub>1</sub>t(1−t) + β<sub>2</sub>t<sup>2</sup>이다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<ul><li><strong>역사</strong>: Paul de Casteljau가 1959년 시트로엥에서 수치적으로 안정한 계산법을 개발했다. Pierre Bézier는 1960년대에 르노에서 자동차 차체 설계에 이 곡선을 써서 널리 알렸다.</li><li><strong>de Casteljau 알고리즘</strong>: 제어 다각형의 각 선분을 t:(1−t) 비율로 나눈 점을 잇고, 점이 하나 남을 때까지 되풀이한다. 중간에 얻은 점들은 원래 곡선을 t에서 둘로 나눈 두 베지어 곡선의 제어점이 된다. 직접 다항식을 계산하는 것보다 수치적으로 안정하다.</li><li><strong>응용</strong>: 3차 곡선은 PostScript, SVG, Metafont에서, 2차 곡선은 TrueType 글꼴에서 쓴다. 벡터 그래픽의 매끄러운 경로, CSS와 JavaScript 애니메이션의 움직임과 가감속(easing), 로봇 말단의 궤적 계획에도 쓰인다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>모든 제어점을 지난다는 오해</strong>: 곡선은 양 끝점만 지나고 중간 제어점은 방향과 곡률을 당기는 역할을 한다.</li><li><strong>제어점이 많을수록 국소 조정이 쉽다는 오해</strong>: 제어점이 늘면 곡선 차수도 올라가 국소 조정이 어려워진다. 이를 보완하려고 여러 구간을 이어 붙이는 B-스플라인이나 가중치를 둔 NURBS를 쓴다. 가중 제어점은 한 차원 높은 공간에 투영해 같은 알고리즘을 적용한다.</li><li><strong>개발자가 베지어 한 사람이라는 오해</strong>: 계산법은 de Casteljau가 먼저 만들었고, Bézier는 이를 널리 알린 사람이다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Bézier curve. Wikipedia.",
+    "Wikipedia contributors. (n.d.). De Casteljau's algorithm. Wikipedia."
+  ]
+}

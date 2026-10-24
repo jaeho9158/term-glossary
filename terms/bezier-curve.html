@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -149,7 +150,24 @@
   <h2>왜 중요한가</h2>
   <p>기계공학에서 다루는 부품 형상은 직선과 원호만으로 표현되지 않는 경우가 많아, 자유곡선을 수학적으로 정의할 방법이 필요하다. 베지어 곡선은 제어점 몇 개만으로 복잡한 형상을 간결하게 표현하고 조작할 수 있어 CAD/CAM 소프트웨어의 기본 곡선 표현 방식으로 널리 쓰인다. 또한 이를 확장한 B-spline, NURBS 같은 곡선/곡면 기법의 기초가 되므로 관련 논문에서 자주 언급된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>베지어 곡선은 제어점 열로 정의되는 매개변수 곡선이다. 첫 제어점과 마지막 제어점이 곡선의 양 끝점이고, 중간 제어점들은 대체로 곡선 위에 놓이지 않고 모양만 잡는다.</li><li>곡선은 제어 다각형의 첫 선분과 마지막 선분에 접하며 시작하고 끝난다. 곡선 전체는 제어점들의 볼록 껍질 안에 들어 있다.</li><li>제어점 세 개이면 2차, 네 개이면 3차 곡선이다. 차수 n인 곡선은 같은 모양의 차수 n+1 곡선으로 고쳐 쓸 수 있는데, 이를 차수 상승이라 한다.</li><li>계산은 de Casteljau 알고리즘으로 한다. 매개변수 t에서 제어점들을 반복해 선형 보간하는 방식이다. 2차 곡선은 β<sub>0</sub>(1−t)<sup>2</sup> + 2β<sub>1</sub>t(1−t) + β<sub>2</sub>t<sup>2</sup>이다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li><strong>역사</strong>: Paul de Casteljau가 1959년 시트로엥에서 수치적으로 안정한 계산법을 개발했다. Pierre Bézier는 1960년대에 르노에서 자동차 차체 설계에 이 곡선을 써서 널리 알렸다.</li><li><strong>de Casteljau 알고리즘</strong>: 제어 다각형의 각 선분을 t:(1−t) 비율로 나눈 점을 잇고, 점이 하나 남을 때까지 되풀이한다. 중간에 얻은 점들은 원래 곡선을 t에서 둘로 나눈 두 베지어 곡선의 제어점이 된다. 직접 다항식을 계산하는 것보다 수치적으로 안정하다.</li><li><strong>응용</strong>: 3차 곡선은 PostScript, SVG, Metafont에서, 2차 곡선은 TrueType 글꼴에서 쓴다. 벡터 그래픽의 매끄러운 경로, CSS와 JavaScript 애니메이션의 움직임과 가감속(easing), 로봇 말단의 궤적 계획에도 쓰인다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>모든 제어점을 지난다는 오해</strong>: 곡선은 양 끝점만 지나고 중간 제어점은 방향과 곡률을 당기는 역할을 한다.</li><li><strong>제어점이 많을수록 국소 조정이 쉽다는 오해</strong>: 제어점이 늘면 곡선 차수도 올라가 국소 조정이 어려워진다. 이를 보완하려고 여러 구간을 이어 붙이는 B-스플라인이나 가중치를 둔 NURBS를 쓴다. 가중 제어점은 한 차원 높은 공간에 투영해 같은 알고리즘을 적용한다.</li><li><strong>개발자가 베지어 한 사람이라는 오해</strong>: 계산법은 de Casteljau가 먼저 만들었고, Bézier는 이를 널리 알린 사람이다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구에서는 캠(cam) 프로파일의 부드러운 연결을 위해 3차 베지어 곡선을 이용하여 구간별 형상을 설계하였다."</div>
   <p>캠 표면의 곡률 급변을 막기 위해 베지어 곡선으로 구간을 매끄럽게 이었다는 뜻이다.</p>
   <div class="example">"제어점의 위치를 설계변수로 두고 베지어 곡선 기반 형상 최적화를 수행하여 유동 저항을 최소화하였다."</div>
@@ -160,6 +178,15 @@
 
   <h2>주의할 점</h2>
   <p>제어점이 곡선 위에 놓인다고 오해하기 쉬우나, 실제로 곡선이 지나가는 점은 시작점과 끝점뿐이고 나머지 제어점은 형상을 당기는 역할만 한다. 또한 차수가 높아질수록 국소 수정이 곡선 전체에 영향을 주므로, 복잡한 형상은 다항식 하나가 아니라 구간을 나눈 스플라인 방식으로 다루는 것이 일반적이다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Bézier curve. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). De Casteljau's algorithm. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

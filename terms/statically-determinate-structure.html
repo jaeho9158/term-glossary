@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>구조물의 평형방정식만으로 모든 반력과 부재력을 구할 수 있는 구조계로, 부정정구조와 대비되며 구조해석이 비교적 단순한 구조형식으로 구조역학의 기초 개념으로 다뤄진다. 정정구조는 온도 변화나 지반 침하가 발생해도 부재에 추가적인 응력이 거의 발생하지 않는다는 장점이 있어, 신축이음을 자주 두는 교량이나 임시 구조물에 선호되기도 한다. 정정구조의 대표적 예로는 단순보나 삼각형 트러스가 있으며, 이런 구조는 재료역학 교육에서 힘의 평형을 익히는 기본 사례로 흔히 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>2차원에서 쓸 수 있는 평형방정식은 ΣH = 0, ΣV = 0, ΣM = 0의 셋이다. 정정구조는 이 식만으로 반력과 내력이 하나로 정해지고, 자기 응력 상태가 없는 구조이다.</li><li>정정 여부는 미지수와 독립 평형식의 수를 비교해 가른다. 정적 부정정 차수 = (외력·내력 미지수 총수) − (독립 평형방정식 수)이며, 0이면 정정, 양수이면 그 수만큼 잉여력(redundant)을 가진 부정정이다.</li><li>2차원 핀 접합 트러스는 부재 수 m, 절점 수 n, 반력 수 r에 대해 차수 = (m + r) − 2n으로 구한다. 한 절점에서 평형식이 두 개이기 때문이다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구조</th><th>m</th><th>n</th><th>r</th><th>(m + r) − 2n</th><th>판정</th></tr></thead><tbody><tr><td>트러스 A</td><td>17</td><td>10</td><td>3</td><td>0</td><td>정정</td></tr><tr><td>트러스 B</td><td>18</td><td>10</td><td>3</td><td>1</td><td>1차 부정정</td></tr></tbody></table></div><p>보에서도 같다. 지점 A, B, C가 있는 보는 미지 반력(V<sub>A</sub>, V<sub>B</sub>, V<sub>C</sub>, H<sub>A</sub>)이 4개로 평형식 3개보다 많아 부정정이다. 지점 B를 없애면 정정이 되어 평형만으로 반력이 나온다. 부정정 구조를 풀려면 재료 성질과 변형 적합 조건이 필요하며, 행렬구조해석, 유한요소법, 모멘트분배법 등을 쓴다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>미지수와 식의 수가 같으면 항상 정정이다.</td><td>구속이 한 방향에 부족하면 구조가 움직일 수 있다. 지점 A를 롤러로 바꾸면 수평 방향이 구속되지 않아 수평력이 0이 아닌 한 평형을 이루지 못한다.</td></tr><tr><td>정정구조는 가장 튼튼한 구조이다.</td><td>정정은 ‘딱 필요한 만큼의 구속’을 뜻하며, 부정정보다 강하다는 뜻이 아니다. 여분의 구속이 없을 뿐이다.</td></tr><tr><td>평형방정식만 있으면 모든 구조를 풀 수 있다.</td><td>부정정 구조는 평형식만으로는 풀리지 않고 변형 조건이 더 필요하다. 이 구조는 <a href="statically-indeterminate-structure.html">부정정구조물</a>에서 다룬다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"단순보는 대표적인 정정구조물로, 힘과 모멘트의 평형 방정식만으로 반력을 산정할 수 있다."</div>
   <p>평형 방정식만으로 반력을 구할 수 있는 단순보를 정정구조물의 대표 예시로 설명한다.</p>
   <div class="example">"게르버보는 중간에 힌지를 두어 부정정구조를 정정구조로 전환함으로써 지점 부등침하의 영향을 줄이도록 계획되었다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>정정구조물은 계산이 단순하다는 장점이 있지만, 한 지점의 손상이 곧바로 구조 전체의 붕괴로 이어질 수 있어 부정정구조물에 비해 여유도(redundancy)가 낮다는 한계가 있다. 정정구조는 하나의 부재나 지점이 손상되면 구조 전체가 곧바로 불안정해질 수 있어, 여유도가 낮다는 점을 설계 단계에서 인지하고 있어야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Statically indeterminate. Wikipedia.</li>
+    <li>NPTEL. (n.d.). Module 1: Introduction — Review of basic concepts in mechanics, Lecture 4: Static indeterminacy of structures. Indian Institute of Technology.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

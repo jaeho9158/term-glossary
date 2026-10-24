@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>병목이 아닌 공정을 아무리 빠르게 돌려도 전체 생산량은 늘지 않고 오히려 재공품 재고만 쌓이는 경우가 많다. 산업공학에서는 드럼버퍼로프를 통해 병목 중심의 생산 통제로 재고를 줄이면서도 처리량을 극대화하는 방법을 연구한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>드럼버퍼로프는 시스템의 산출이 제약 공정의 산출을 넘을 수 없다는 사실에 바탕을 둔 제조 실행 방법이다. 제약이 처리할 수 있는 양보다 더 만들려 하면 재고만 쌓인다. 세 요소는 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>요소</th><th>하는 일</th></tr></thead><tbody><tr><td>드럼</td><td>공장의 물리적 제약, 곧 전체 생산량을 막는 작업장이나 기계가 일할 수 있는 속도이다. 나머지 공정은 이 박자를 따른다. 드럼에서의 일정이 무엇을, 어떤 순서로, 얼마나 만들지 정한다.</td></tr><tr><td>버퍼</td><td>드럼에 늘 일감이 들어오게 하여 보호한다. 수량이 아니라 시간으로 재며, 준비와 가공에 필요한 시간 외에 더해 두는 여유 리드타임이다.</td></tr><tr><td>로프</td><td>공장의 작업 투입 장치이다. 주문은 제약에서 처리되기 버퍼 시간 전에 현장에 풀린다. 버퍼가 5일이면 제약 공정에 닿기 5일 전에 투입한다.</td></tr></tbody></table></div><p>이 방식은 제약이론의 다섯 가지 집중 단계, 곧 제약을 찾고, 제약을 최대한 활용하는 방법을 정하고, 나머지를 그 결정에 종속시키고, 제약을 끌어올리고, 반복하는 과정에서 나온다. 로프로 투입을 묶는 일이 종속 단계에 해당하고, 시스템 전체를 밀어 넣지 않고 끌어당기는 방식으로 움직이게 한다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>버퍼는 제약 앞에 두어 제약이 놀지 않게 하고, 제약 뒤에도 두어 하류의 문제가 제약의 산출을 막지 않게 한다. 이렇게 버퍼는 제약을 나머지 시스템의 변동으로부터 보호하며, 처리 시간의 보통 변동과 가끔의 사고를 흡수해야 한다. 제약 앞에는 충분한 일감이, 뒤에는 충분한 비움 공간이 있어야 하되 지나치면 안 된다.</p><p>버퍼는 시간 단위이므로 각 작업 지시마다 남은 버퍼를 계산할 수 있다. 버퍼를 가장 많이 먹어 들어간 주문은 빨강, 그다음은 노랑, 그 외는 초록으로 표시하며 빨강이 가장 먼저 처리된다. 이렇게 모두가 볼 수 있는 상태가 되면 시스템 전체가 제약의 필요에 맞춰 움직이는 정렬이 쉬워진다. 이 버퍼 관리는 제약이론의 핵심 속성으로, 매일 중앙 운영실에서 해도 된다.</p><p>전통적 DBR은 제약, 동기화 지점, 출하 지점 등 여러 곳에 버퍼를 두고, 단순화된 DBR(S-DBR)은 출하에만 버퍼를 두고 드럼을 가로지르는 일감의 흐름을 부하 계획 장치로 관리한다.</p><p>칸반처럼 모든 작업장 앞에 작은 대기열을 두는 방식과는 다르다. 균형 라인에서는 어느 작업장이 버퍼가 허용하는 시간보다 오래 멈추면 전체가 기다려야 하지만, 제약이론의 시스템에서는 제약이 하나이고 나머지 공정은 제약을 따라잡을 만큼의 여유 용량을 갖춰야 한다는 전제가 있다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>제약 공정을 어떻게 식별했는지와 그 공정의 처리 속도를 먼저 적는다. 드럼이 어디인지 정해야 로프와 버퍼 값이 따라온다.</li><li>버퍼를 시간으로 정했는지, 전통적 DBR인지 S-DBR인지, 버퍼를 몇 곳에 두었는지 밝힌다.</li><li>성과는 처리량, 재공품 재고, 납기 준수율처럼 제약이론에서 쓰는 지표로 보고하고, 비교 대상(예: 기존 일정 계획 방식)과 같은 조건에서 측정했음을 적는다.</li><li>한계로, 제약이론이 시스템에 제약이 적어도 하나, 많아야 몇 개뿐이라고 전제한다는 점과 나머지 공정이 제약을 따라잡을 여유 용량을 갖춰야 한다는 전제를 언급한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 다품종 소량생산 환경에 드럼버퍼로프(DBR) 기법을 적용하여 재공품 재고 수준을 낮추고 납기 준수율을 향상시켰다."</div>
   <p>DBR이 재고 감소와 납기 관리 개선에 기여할 수 있음을 보여준다.</p>
   <div class="example">"전통적 MRP 기반 생산통제와 드럼버퍼로프 방식의 성과를 비교한 결과, 병목 공정 가동률에서 유의미한 차이가 나타났다."</div>
@@ -162,6 +180,17 @@
 
   <h2>주의할 점</h2>
   <p>드럼버퍼로프는 병목이 비교적 안정적으로 유지되는 환경에서 효과적이며, 병목이 자주 이동하는 환경에서는 지속적인 재설계가 필요할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="theory-of-constraints.html">제약이론</a></th><td>시스템의 목표 달성 속도가 적어도 하나의 제약에 의해 제한된다는 관리 이론</td></tr><tr><th scope="row"><a href="bottleneck-analysis.html">병목분석</a></th><td>드럼이 될 병목 공정을 찾아내는 선행 작업</td></tr><tr><th scope="row"><a href="throughput-accounting.html">제약이론회계</a></th><td>처리량, 운영비용, 재고 세 측정치로 조직을 평가하는 회계 방식</td></tr><tr><th scope="row"><a href="kanban-system.html">칸반 시스템</a></th><td>모든 작업장 앞에 작은 대기열을 두는 방식으로, 제약 하나만 보호하는 DBR과 다르다</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Theory of constraints. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). The Goal (novel). Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

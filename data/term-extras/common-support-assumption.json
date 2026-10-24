@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>공통지지(겹침) 가정은 처치집단과 비교집단이 공변량(또는 성향점수) 분포에서 서로 겹치는 영역을 가져야 한다는 조건이다.</li><li>역확률가중치(IPW)의 가정 목록에서는 같은 취지가 양성성(positivity), 곧 모든 공변량 값에서 각 처치를 받을 확률이 0보다 커야 한다는 조건으로 적힌다.</li><li>성향점수매칭(PSM)은 처치집단과 비교집단 사이에 상당한 겹침이 있는 큰 표본이 필요하다는 점이 한계로 꼽힌다.</li><li>겹치지 않는 영역에서는 비교할 상대가 없으므로 그 구간의 효과는 추정할 수 없고, 겹치는 구간으로 표본을 한정하면 추정 대상이 전체 모집단이 아닌 일부 하위집단이 된다.</li></ul>"
+      "html": "<ul><li>공통지지(겹침) 가정은 처치집단과 비교집단이 공변량(또는 성향점수) 분포에서 서로 겹치는 영역을 가져야 한다는 조건이다.</li><li>역확률가중치(IPW)의 가정 목록에서는 같은 취지가 양성성(positivity), 곧 모든 공변량 값에서 각 처치를 받을 확률이 0보다 커야 한다는 조건으로 적힌다.</li><li>성향점수매칭(PSM)은 처치집단과 비교집단 사이에 상당한 겹침이 있는 큰 표본이 필요하다는 점이 한계로 꼽힌다.</li><li>겹치지 않는 영역에서는 비교할 상대가 없으므로 그 구간의 효과는 추정할 수 없고, 겹치는 구간으로 표본을 한정하면 추정 대상이 전체 모집단이 아닌 일부 하위집단이 된다.</li></ul><p>성향점수는 관측된 공변량 X가 주어졌을 때 처치를 받을 조건부 확률 e(x) = Pr(Z = 1 | X = x)이며, Rosenbaum과 Rubin이 1983년 <em>Biometrika</em>에서 소개했다. 이 방법은 처치 배정이 관측된 공변량을 조건으로 잠재 결과와 독립이라는 강한 무시가능성을 가정하고, 관측되지 않은 교란은 다루지 못한다.</p>"
     },
     {
       "heading": "예시로 보기",
@@ -11,8 +11,17 @@
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>성향점수 분포를 그려 겹쳐 보이면 가정이 충족된 것이다.</td><td>그림은 점검 수단일 뿐이다. 어느 구간을 버렸고 몇 명이 줄었는지 함께 보고해야 한다.</td></tr><tr><td>트리밍하면 원래 목표 효과를 그대로 추정한다.</td><td>표본을 줄이면 추정 대상이 겹치는 하위집단으로 바뀐다.</td></tr><tr><td>공통지지는 관측되지 않은 교란도 해결한다.</td><td>PSM은 관측된 공변량만 통제한다. 겹침은 비교 가능성의 조건이지, 숨은 교란의 해결책이 아니다.</td></tr></tbody></table><p>겹침이 충분해도 성향점수 매칭 자체에 대한 비판이 있다는 점을 함께 기억한다. King과 Nielsen(2019)은 성향점수로 매칭하면 다른 매칭 방법과 달리 불균형, 비효율, 모형 의존성, 편향이 오히려 커질 수 있다고 주장했다. 그래서 공통지지 확인 뒤에도 표준화 차이 같은 공변량 균형 지표를 함께 보고한다.</p>"
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>성향점수 분포를 그려 겹쳐 보이면 가정이 충족된 것이다.</td><td>그림은 점검 수단일 뿐이다. 어느 구간을 버렸고 몇 명이 줄었는지 함께 보고해야 한다.</td></tr><tr><td>트리밍하면 원래 목표 효과를 그대로 추정한다.</td><td>표본을 줄이면 추정 대상이 겹치는 하위집단으로 바뀐다.</td></tr><tr><td>공통지지는 관측되지 않은 교란도 해결한다.</td><td>PSM은 관측된 공변량만 통제한다. 겹침은 비교 가능성의 조건이지, 숨은 교란의 해결책이 아니다.</td></tr></tbody></table><p>겹침이 충분해도 성향점수 매칭 자체에 대한 비판이 있다는 점을 함께 기억한다. King과 Nielsen(2019)은 성향점수로 매칭하면 다른 매칭 방법과 달리 불균형, 비효율, 모형 의존성, 편향이 오히려 커질 수 있다고 주장했다. 그래서 공통지지 확인 뒤에도 표준화 차이 같은 공변량 균형 지표를 함께 보고한다.</p><p>매칭 방법으로는 최근접 이웃, 최적 완전 매칭, 캘리퍼(성향점수 표준편차의 일정 비율 안), 반경, 커널(거리에 따라 가중), 마할라노비스 거리를 함께 쓰는 방법, 층화, 정확 매칭이 있다. 매칭 뒤에는 성향점수 층 안에서 공변량이 처치군과 비교군 사이에 균형을 이루는지 표준화 차이나 그래프로 확인하고, 균형이 나쁘면 성향점수 추정이나 매칭 단계로 돌아가 절차를 고친다. 한 처치 관측치를 여러 비교 관측치와 맺으면 독립이 아닌 표본에 맞는 분석을 쓴다. 펄(Pearl)은 관측된 변수로 매칭하면 관측되지 않은 교란에서 오는 편향이 오히려 활성화될 수 있다고 주장한다.</p>"
     }
+  ],
+  "references": [
+    "Rosenbaum, P. R., & Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41–55.",
+    "Heckman, J. J., Ichimura, H., & Todd, P. E. (1997). Matching as an econometric evaluation estimator: Evidence from evaluating a job training programme. The Review of Economic Studies, 64(4), 605–654.",
+    "Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. Journal of Economic Surveys, 22(1), 31–72.",
+    "Crump, R. K., Hotz, V. J., Imbens, G. W., & Mitnik, O. A. (2009). Dealing with limited overlap in estimation of average treatment effects. Biometrika, 96(1), 187–199.",
+    "Stuart, E. A. (2010). Matching methods for causal inference: A review and a look forward. Statistical Science, 25(1), 1–21.",
+    "King, G., & Nielsen, R. (2019). Why propensity scores should not be used for matching. Political Analysis, 27(4), 435–454.",
+    "Wikipedia contributors. (n.d.). Propensity score matching. Wikipedia."
   ],
   "compare": {
     "heading": "헷갈리기 쉬운 용어",
@@ -30,13 +39,5 @@
         "성향점수의 역수로 가중하는 방법으로, 양성성(positivity)이 필요함"
       ]
     ]
-  },
-  "references": [
-    "Rosenbaum, P. R., & Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41–55.",
-    "Heckman, J. J., Ichimura, H., & Todd, P. E. (1997). Matching as an econometric evaluation estimator: Evidence from evaluating a job training programme. The Review of Economic Studies, 64(4), 605–654.",
-    "Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. Journal of Economic Surveys, 22(1), 31–72.",
-    "Crump, R. K., Hotz, V. J., Imbens, G. W., & Mitnik, O. A. (2009). Dealing with limited overlap in estimation of average treatment effects. Biometrika, 96(1), 187–199.",
-    "Stuart, E. A. (2010). Matching methods for causal inference: A review and a look forward. Statistical Science, 25(1), 1–21.",
-    "King, G., & Nielsen, R. (2019). Why propensity scores should not be used for matching. Political Analysis, 27(4), 435–454."
-  ]
+  }
 }

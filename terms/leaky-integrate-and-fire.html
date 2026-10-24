@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -156,7 +157,24 @@
   <h2>왜 중요한가</h2>
   <p>LIF 모델은 뉴로모픽 컴퓨팅과 스파이킹 신경망(SNN) 연구에서 가장 널리 쓰이는 기본 뉴런 단위로, 저전력 하드웨어 구현과 생물학적 그럴듯함 사이의 균형을 잡아주는 표준 참조 모델 역할을 한다. 이 모델을 얼마나 정확하고 효율적으로 시뮬레이션하느냐는 뉴로모픽 칩 설계, 이벤트 기반 센서 처리, 시계열 데이터 처리 연구의 성능을 좌우하는 요소로 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>막을 저항과 축전기로 이루어진 RC 회로로 보는 뉴런 모형이다.</p><p><code>C<sub>m</sub> dV/dt = I(t) − V/R<sub>m</sub></code></p><p>V/R<sub>m</sub> 항이 누설(leak)이다. 막전위 V가 임계값 V<sub>th</sub>에 이르면 스파이크가 발생하고 V는 재설정(reset)된다. 입력이 일정할 때 발화에 필요한 최소 전류는 I<sub>th</sub> = V<sub>th</sub>/R<sub>m</sub>이다. 누설이 없는 적분발화 모형은 1907년 Lapicque가 처음 연구했고, 누설 모형은 그 계보에 있다.</p>
+
+  <h2>예시로 보기</h2>
+  <p>불응기 t<sub>ref</sub>를 넣으면 일정한 전류 I에서의 발화율은 다음과 같다.</p><p><code>f(I) = [t<sub>ref</sub> − R<sub>m</sub>C<sub>m</sub> ln(1 − V<sub>th</sub>/(I R<sub>m</sub>))]<sup>−1</sup></code></p><p>가상의 값으로 V<sub>th</sub>/(I R<sub>m</sub>) = 0.5, R<sub>m</sub>C<sub>m</sub> = 10 ms, t<sub>ref</sub> = 2 ms이면 f = 1/(2 ms + 10 ms × ln 2) ≈ 1/8.9 ms ≈ 112 Hz이다. 입력이 커질수록 로그 항이 0에 가까워져 발화율은 1/t<sub>ref</sub>에 수렴한다. 곧 누설이 없는 불응기 모형과 같아진다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>입력이 있으면 언제나 발화한다.</td><td>누설 때문에 입력 전류가 I<sub>th</sub> = V<sub>th</sub>/R<sub>m</sub>보다 작으면 발화하지 않는다.</td></tr><tr><td>실제 뉴런의 모든 특성을 담는다.</td><td>신경 적응(adaptation)을 포함하지 않는다. 이를 보완한 적응형 확장 모형이 따로 개발되었다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"저수지 내부의 뉴런형 유닛은 snnTorch의 1차 Leaky Integrate-and-Fire(LIF) 모델로 구현하였으며, 입력 스파이크는 막전위에 즉각적인 변위를 일으킨 뒤 감쇠율 β에 따라 서서히 소멸한다."</div>
   <p>이 문장은 LIF 뉴런이 짧고 즉각적인 반응(뾰족한 막전위 변화)을 만들어낸다는 것을 설명하며, 이런 "짧은 시간 스케일"의 반응성을 뉴런형 유닛의 특징으로 삼고 있다는 뜻이다.</p>
 
@@ -171,6 +189,15 @@
 
   <h2>주의할 점</h2>
   <p>LIF는 생물학적 뉴런을 정밀하게 재현한 모델이 아니라, 막전위의 적분·누출·발화라는 핵심 동작만 남긴 단순화된 모델이다. 감쇠율이나 리셋 방식을 바꾸면(예: 2차 LIF에서 리셋을 제거) 완전히 다른 시간적 특성을 가진 유닛으로 바뀔 수 있어, 논문을 읽을 때는 어떤 변형된 LIF를 쓰고 있는지 반드시 확인해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Biological neuron model. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Lapicque, L. (1907). 누설이 없는 적분발화 모형에 관한 연구.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="spiking-neural-network.html">스파이킹 신경망</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

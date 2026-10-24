@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -150,7 +151,24 @@
   <h2>왜 중요한가</h2>
   <p>태양광 패널이나 배터리처럼 낮은 전압을 내는 전원을 상위 시스템이 요구하는 높은 전압으로 맞춰야 하는 경우가 많아, 부스트 컨버터는 신재생에너지, 전기차, LED 구동 회로 등에서 핵심적인 역할을 한다. 저항성 손실 없이 승압이 가능하다는 점에서 전력 변환 효율 연구의 주요 주제로 다뤄진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>부스트 컨버터는 전압을 올리고 전류를 낮추는 DC-DC 변환기로, 다이오드와 트랜지스터 같은 반도체 둘 이상과 인덕터나 커패시터 같은 에너지 저장 소자 하나 이상으로 이루어진다. 스위치가 켜지면 인덕터에 전류가 쌓여 자기장에 에너지가 저장되고, 스위치가 꺼지면 저장된 에너지가 전원 전압에 더해져 다이오드를 거쳐 커패시터와 부하로 간다. 이상적인 정상 상태에서 출력 대 입력 전압비는 V<sub>o</sub>/V<sub>i</sub> = 1/(1 − D)이며(D는 듀티비) D가 1에 가까워지면 이론적으로 무한대로 커진다.</p>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>모드</th><th>인덕터 전류</th><th>전압 이득</th></tr></thead><tbody><tr><td>연속 도통</td><td>0으로 내려가지 않음</td><td>1/(1 − D)</td></tr><tr><td>불연속 도통</td><td>매 주기 0에 닿음(가벼운 부하에서 흔함)</td><td>인덕턴스, 입력 전압, 주기, 출력 전류에도 의존</td></tr></tbody></table></div><p>응용으로 하이브리드 자동차와 휴대용 조명(1.5V 전지로 3.3V가 필요한 흰색 LED를 구동)이 있다. DC-DC 변환기는 선형 조정기와 달리 에너지를 저장했다 내보내 효율이 75~98%에 이른다. 실제 변환기에는 스위칭 주파수와 그 고조파에 해당하는 잡음과 리플이 출력에 더해진다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>듀티비를 한없이 높이면 출력이 한없이 오른다고 보기 쉽다. 식은 이상적인 경우의 이론값이고 실제 소자는 한계가 있다.</li><li>부스트와 벅이 같은 구조라고 보기 쉽다. 벅은 출력이 입력보다 낮은 강압형이다.</li><li>전압이 올라가면 전력도 는다고 보기 쉽다. 전압을 올리면 전류는 낮아진다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 논문에서는 태양광 모듈의 저전압 출력을 계통 연계에 필요한 전압까지 승압하기 위해 부스트 컨버터를 적용하였다."</div>
   <p>태양광 발전 시스템에서 부스트 컨버터가 전압 승압 단계로 사용되는 예이다.</p>
   <div class="example">"제안한 슬라이딩 모드 제어 기법은 부스트 컨버터의 입력 전류 급변 상황에서도 안정적인 출력 전압을 유지하였다."</div>
@@ -161,6 +179,15 @@
 
   <h2>주의할 점</h2>
   <p>부스트 컨버터는 우반평면 영점(right-half-plane zero) 특성 때문에 제어기 설계가 벅 컨버터보다 까다로운 경우가 많다. 또한 입력 전류가 항상 연속적으로 흐르는 반면 출력 전류는 스위칭에 따라 단속적이므로 출력단 커패시터 설계에 주의가 필요하다. 듀티비가 1에 가까워질수록 출력전압 이득이 급격히 커지는 것으로 계산되지만, 실제로는 기생저항 손실로 인해 특정 듀티비 이상에서는 오히려 출력전압이 감소하는 한계가 나타난다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Boost converter. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). DC-to-DC converter. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

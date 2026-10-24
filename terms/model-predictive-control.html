@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 산업 시스템에서는 속도 한계, 온도 상한, 액추에이터 동작 범위 같은 제약조건을 명시적으로 지키면서 제어해야 하는 경우가 많은데, 전통적인 PID 제어로는 이런 제약을 체계적으로 다루기 어렵다. 모델예측제어는 미래를 예측하며 매 순간 최적화를 반복해 이 문제를 해결하기 때문에, 제어공학뿐 아니라 자율주행, 로보틱스, 화학 공정, 에너지 시스템 등 제약이 복잡한 실세계 응용 연구에서 폭넓게 다뤄지는 핵심 제어 기법이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>제약 조건을 지키면서 공정을 제어하는 고급 공정제어 방법이다. 동적 공정 모형을 쓰는데 보통 시스템 식별로 얻은 선형 경험 모형이며, 거의 항상 디지털로 구현한다. 후퇴 지평(receding horizon) 방식으로 반복한다.</p><ol><li>매 샘플링 시점에 상태를 측정한다.</li><li>유한한 미래 구간에 대해 최적화를 푼다.</li><li>얻은 제어열 중 첫 단계 제어만 적용한다.</li><li>다음 시점에 다시 처음부터 반복한다.</li></ol><p>비용함수는 보통 2차식으로, 제어변수의 기준값 이탈과 조작변수의 큰 변화에 벌점을 준다. 이 방식은 엄밀한 최적은 아니지만 실무에서 성능이 좋다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>입력과 출력에 하드 제약을 두고 지키는 것이 장점이다. 선형 모형은 행렬 계산으로 풀리지만 비선형(NMPC)은 반복적인 비볼록 해법이 필요하다. 모형 오차에 대비하는 강건 MPC에는 min-max, 제약 조임, tube 기반, 다단계 방식이 있다. 명시적 MPC는 구간 선형 제어법칙을 오프라인으로 미리 계산하며 시스템 크기에 따라 복잡도가 지수적으로 늘어난다.</p><p>1980년대 이후 화학공장과 정유공장에 쓰였고, 최근에는 전력 계통 균형, 전력전자, 자동차와 항공우주로 넓어졌다. 고전적인 예로 일반화 예측제어(GPC)와 동적행렬제어(DMC)가 있다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>모형의 종류(선형 또는 비선형), 예측 지평과 제어 지평의 길이, 비용함수의 가중치, 적용한 제약을 적는다. 예시: “예측 지평 20단계의 선형 MPC를 적용하였고, 조작변수의 상하한을 하드 제약으로 두었다.” 초기 이론으로 Kwon, Bruckstein, Kailath(1983)와 Garcia, Prett, Morari(1989)가 거론된다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델예측제어 기법을 적용하여 제약조건을 만족하는 최적 궤적을 실시간으로 산출하였다."</div>
   <p>미래 상태를 예측하며 매 순간 제약조건을 만족하는 최선의 제어 경로를 계산했다는 뜻이다.</p>
 
@@ -167,6 +185,16 @@
 
   <h2>주의할 점</h2>
   <p>제어 성능이 사용된 시스템 모델의 정확도에 크게 의존하므로 모델 오차가 크면 실제 성능이 저하될 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Model predictive control. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Garcia, C. E., Prett, D. M., &amp; Morari, M. (1989). MPC 초기 이론 논문.</li>
+    <li>Kwon, W. H., Bruckstein, A. M., &amp; Kailath, T. (1983). MPC 초기 이론 논문.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="feedback-control-system.html">피드백 제어시스템</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="robust-control.html">강건제어</a><a href="state-feedback-control.html">상태 피드백 제어</a><a href="adaptive-control.html">적응제어</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

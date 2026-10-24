@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>임상시험이나 희귀 질환 연구처럼 표본 수가 제한적인 분야에서는 카이제곱검정의 근사가 부정확해지는 경우가 흔해, 피셔의 정확검정이 통계적 유의성을 신뢰성 있게 판단하는 대안으로 자주 쓰인다. 소규모 파일럿 연구, 희귀 부작용 발생 비교, 유전학의 특정 대립유전자 빈도 비교 등 표본이 작을 수밖에 없는 다양한 실증연구에서 방법론적 정당성을 뒷받침하는 근거로 언급된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>언제 쓰나</h2>
+  <p>분할표(범주형 자료)에서 p값을 큰 표본 근사 없이 직접 계산하는 유의성 검정이다. 표본 크기와 관계없이 쓸 수 있고, 행과 열의 합계가 설계로 정해져 있다고 가정한다. 피셔-어윈 검정이라고도 한다.</p><ul><li>로널드 피셔는 무리엘 브리스톨이 우유를 먼저 따랐는지 홍차를 먼저 따랐는지 구별할 수 있다고 주장하자 이를 ‘숙녀의 홍차 시음’ 실험으로 검정했다(《The Design of Experiments》, 1935).</li><li>기대 빈도가 작으면 카이제곱 근사가 믿을 만하지 않다. 전통적 규칙은 기대 빈도가 5 미만(자유도 1이면 10 미만)일 때 카이제곱을 피하라는 것이지만, 이 규칙은 지금은 지나치게 보수적이라고 본다. <a href="chi-square-test.html">카이제곱검정</a>이 적합한 경우는 큰 표본이다.</li><li>m × n 표로도 확장되지만 손으로 계산할 수 있는 것은 2 × 2뿐이다. 통계 패키지는 더 큰 표를 몬테카를로 근사로 처리하기도 한다. 층화 자료에는 코크란-맨텔-헨첼 검정을 권한다.</li></ul>
+
+  <h2>결과는 이렇게 읽는다</h2>
+  <ul><li>주변 합계가 고정되었다는 조건에서 한 칸의 도수는 초기하분포를 따른다. 관찰된 표의 확률과 그보다 더 극단적인 표의 확률을 더하면 한쪽 검정 p값이 된다.</li><li>예(설명을 위해 문헌에 나온 십대 학생 표): 칸 값이 1, 9, 11, 3이다. 관찰된 표의 p ≈ 0.001346, 더 극단적인 표(0, 10, 12, 2)의 p ≈ 0.0000337이고, 합한 한쪽 p ≈ 0.001380이다.</li><li>양측 p값은 R의 <code>fisher.test</code>처럼 관찰된 표 이하의 확률을 가진 모든 표의 확률을 더하는 방식이 있다. 이 예에서는 한쪽 값의 두 배이다. 도수가 작으면 두 방식의 값이 크게 다를 수 있다.</li><li><strong>카이제곱 쪽의 규칙</strong>: 카이제곱 검정은 관측이 독립이고 범주가 겹치지 않아야 하며, 통계량이 표본이 커질수록 카이제곱 분포에 근사하므로 각 칸의 기대 빈도가 대체로 5 이상이어야 한다. 이보다 작으면 정확 검정이 선호된다. 한편 주변 합계가 설계로 고정되지 않은 연구가 대부분이고, 그때 피셔 검정은 지나치게 보수적이고 검정력이 낮아지는 경향이 있다.</li><li><strong>보수성</strong>: 통계량이 이산적이기 때문에 실제 기각률이 명목 유의수준보다 낮아지는 ‘보수적’ 검정이라는 주장이 있다.</li><li>주변 합계에 조건을 거는 것은 논쟁거리이다. 바너드 검정은 주변 합계를 확률적으로 본다. 보슐루 검정은 구성상 피셔 검정보다 검정력이 높다. 표본이 크거나 균형이 맞으면 계산이 어렵고 카이제곱이 적절하다.</li></ul>
+
+  <h2>논문에는 이렇게 보고한다</h2>
+  <ul><li>표의 도수(2 × 2 칸 값)와 비율을 함께 쓴다.</li><li>양측인지 한쪽인지, 어떤 양측 정의(예: 확률이 작거나 같은 표의 합)와 소프트웨어를 썼는지 쓴다.</li><li>카이제곱 대신 피셔를 택한 이유(기대 빈도가 작음)를 쓴다.</li><li>효과 크기로 <a href="odds-ratio.html">오즈비</a>와 신뢰구간을 함께 보고한다.</li></ul><p><code>두 군의 합병증 발생 비율은 피셔의 정확검정으로 비교하였다(양측, p = .03)(가상의 서술).</code></p><p>이 검정이 ‘정확’하다는 말은 근사를 쓰지 않았다는 뜻이며, 기각률이 유의수준과 같다는 뜻이 아니다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"각 군의 사례 수가 적어 카이제곱검정 대신 피셔의 정확검정을 실시한 결과, 두 군 간 합병증 발생률에 유의한 차이가 있었다 (p = 0.032)."</div>
   <p>이 문장은 "표본이 작아서 근사치인 카이제곱검정 대신 정확한 확률을 계산하는 피셔의 정확검정을 썼고, 그 결과 두 집단의 합병증 발생률 차이가 우연이라고 보기 어렵다"는 뜻이다.</p>
   <div class="example">"희귀 유전변이 보유군과 비보유군 간 특정 표현형 발현 빈도의 차이를 피셔의 정확검정으로 비교하였다."</div>
@@ -164,6 +182,15 @@
 
   <h2>주의할 점</h2>
   <p>피셔의 정확검정은 표본이 작을 때 쓰는 방법이지, 표본이 크다고 못 쓰는 것은 아니다. 다만 표본이 클수록 계산량이 급격히 늘어나 비효율적이므로, 보통 표본이 큰 경우에는 <a href="chi-square-test.html">카이제곱검정</a>을 사용한다. 또한 이 검정은 두 변수의 관련성 여부만 알려줄 뿐, 관련성의 크기(효과크기)는 별도로 <a href="odds-ratio.html">교차비(오즈비)</a> 등으로 확인해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors (n.d.). Fisher's exact test. Wikipedia.</li>
+    <li>Wikipedia contributors (n.d.). Chi-squared test. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="nonparametric-test.html">비모수검정</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="dunn-test.html">던 검정</a><a href="wald-wolfowitz-runs-test.html">런 검정</a><a href="mcnemars-test.html">맥니마 검정</a><a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a><a href="sign-test.html">부호검정</a><a href="permutation-test.html">순열검정</a><a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a><a href="cochrans-q-test.html">코크란 Q 검정</a><a href="kolmogorov-smirnov-test.html">콜모고로프-스미르노프 검정</a><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a><a href="friedman-test.html">프리드만 검정</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

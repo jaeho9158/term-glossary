@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,8 +155,25 @@
   <h2>왜 중요한가</h2>
   <p>헤론의 공식은 높이를 직접 잴 수 없거나 측정하기 번거로운 상황에서 세 변의 길이만으로 면적을 구할 수 있어, 실제 측량이나 좌표 데이터를 다루는 응용 분야에서 유용하게 쓰인다. 지리정보시스템(GIS)에서 다각형 영역의 면적을 계산할 때는 다각형을 여러 삼각형으로 나눈 뒤 각 삼각형에 이 공식을 적용하는 방식이 자주 사용된다. 컴퓨터 그래픽스나 메시 처리에서도 삼각형 메쉬의 넓이를 빠르게 계산하는 데 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>헤론의 공식은 삼각형의 세 변의 길이 a, b, c로 넓이를 준다. 반둘레를 s = (a + b + c) / 2라 하면 넓이는 A = √(s(s − a)(s − b)(s − c))이다.</li><li>1세기 알렉산드리아의 헤론(Hero)이 저서 <em>메트리카</em>에서 증명했다고 알려져 있으나, 몇 세기 전부터 알려져 있었을 가능성이 크다. 수학사가 토머스 히스는 아르키메데스가 이 공식을 200여 년 먼저 알았다고 추정했다.</li><li>중국 수학자 진구소(秦九韶)가 1247년 <em>수서구장</em>에서 헤론과 동치인 공식 A = ½·√(a²c² − ((a² + c² − b²)/2)²)을 발표했다.</li><li>변의 길이가 실수여도 성립한다. 엄격한 삼각부등식을 만족하면 유클리드 평면에서 삼각형이 정해지고 넓이는 양의 실수이다.</li><li>반둘레 대신 변의 길이만으로도 쓸 수 있다. 예를 들어 A = ¼·√((a + b + c)(−a + b + c)(a − b + c)(a + b − c))이다. 근호 안은 제곱한 변의 길이 a², b², c²에 대한 이차 다항식이 된다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <p>변의 길이가 4, 13, 15인 삼각형에서 반둘레 s = (4 + 13 + 15) / 2 = 16이다. s − a = 12, s − b = 3, s − c = 1이므로 넓이는 √(16 · 12 · 3 · 1) = 24이다. 변의 길이와 넓이가 모두 정수이면 헤론 삼각형이라 한다.</p><p>여러 방법으로 증명할 수 있다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>증명</th><th>아이디어</th></tr></thead><tbody><tr><td>삼각법(코사인 법칙)</td><td>코사인 법칙으로 cos γ = (a² + b² − c²) / 2ab를 얻고, sin γ = √(1 − cos²γ)를 구한 뒤 넓이 ½·ab·sin γ에 대입해 인수분해한다</td></tr><tr><td>대수(피타고라스 정리)</td><td>높이 h와 밑변 위의 길이 d에 대해 b² = h² + d²을 쓰고, h²을 제곱의 차 공식으로 정리해 넓이 ½·c·h에 넣는다</td></tr><tr><td>코탄젠트 법칙</td><td>내접원의 반지름 r에 대해 넓이가 r·s라는 것을 쓰고, 삼각형을 높이가 r이고 밑변이 s − a, s − b, s − c인 여섯 삼각형으로 나누어 계산한다</td></tr></tbody></table></div><p>이 외에 내접원과 방접원을 이용하거나, 드 구아의 정리의 특수한 경우(예각삼각형), 브라마굽타 공식의 특수한 경우(퇴화한 원에 내접하는 사각형)로도 증명할 수 있다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>"세 변만 알면 어떤 세 수라도 넓이가 나온다": 삼각부등식을 만족하는 수여야 삼각형이 정해진다.</li><li>"컴퓨터에서 그대로 계산해도 안전하다": 아주 작은 각을 가진 삼각형에서는 헤론의 공식이 수치적으로 불안정하다. 한두 변의 길이가 반둘레에 매우 가까워 치명적인 상쇄가 생겨, 부동소수점 같은 한정된 정밀도에서 반올림 오차가 커진다. 변을 a ≥ b ≥ c로 정렬하고 A = ¼·√((a + (b + c))(c − (a − b))(c + (a − b))(a + (b − c)))처럼 괄호 순서를 지켜 계산하면 안정하다.</li><li>"반둘레 s는 둘레이다": s는 둘레의 절반이다.</li><li>"헤론이 처음 발견했다": 헤론의 책에 증명이 있어 그의 이름이 붙었지만 그 이전에 알려졌을 가능성이 있다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
-  <div class="example">"GPS로 측정된 세 지점 간 거리(120m, 150m, 90m)를 이용해 헤론의 공식으로 해당 구역의 삼각형 면적을 산출한 결과 약 5,343㎡로 나타났다."</div>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
+  <div class="example">"GPS로 측정된 세 지점 간 거리(120m, 150m, 90m)를 이용해 헤론의 공식으로 해당 구역의 삼각형 면적을 산출한 결과 5,400㎡로 나타났다."</div>
   <p>이 문장은 세 지점 사이의 거리만 측정하고 실제 높이를 재지 않았음에도, 헤론의 공식을 이용해 세 지점이 이루는 삼각형 영역의 넓이를 계산해냈다는 뜻이다. 지형 측량이나 공간 데이터 분석 논문에서 자주 쓰인다.</p>
 
   <div class="example">"다각형 형태의 토지 필지를 삼각형 단위로 분할한 뒤 각 삼각형에 헤론의 공식을 적용하여 전체 필지 면적을 계산하였다."</div>
@@ -169,6 +187,17 @@
 
   <h2>주의할 점</h2>
   <p>세 변의 길이가 삼각형을 이루는 조건(가장 긴 변의 길이가 나머지 두 변의 합보다 작아야 함)을 만족하지 못하면 s-a, s-b, s-c 중 하나가 음수가 되어 제곱근 안이 음수가 되고, 계산 자체가 불가능해진다. 즉 아무 세 숫자에나 적용할 수 있는 것이 아니라 실제로 삼각형을 이루는 값에서만 성립한다. 밑변과 높이를 알 때 넓이를 구하는 기본 공식은 <a href="triangle-area-formula.html">삼각형의 넓이 공식</a> 문서를 참고하라.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th></tr></thead><tbody><tr><th scope="row"><a href="pythagorean-theorem.html">피타고라스의 정리</a></th><td>헤론 공식의 대수적 증명에서 높이를 구하는 데 쓰는 정리</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Heron's formula. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Semiperimeter. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="triangle-area-formula.html">삼각형의 넓이 공식</a></div></div><p class="concept-family-map"><a href="../concept-map/math.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

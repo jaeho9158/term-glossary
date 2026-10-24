@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>도시계획 및 공간분석 분야에서는 토지이용 변화나 도시 확산을 예측할 때 셀룰러오토마타가 널리 활용되는데, 비교적 단순한 규칙만으로도 현실적인 공간 패턴을 재현할 수 있고 GIS 데이터와 쉽게 결합할 수 있기 때문이다. 이를 통해 특정 정책이 적용되었을 때 도시가 어떻게 변화할지 시나리오별로 비교하는 연구가 가능해진다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ol><li>규칙적인 격자를 만들고 각 셀이 유한한 상태(예: 켜짐·꺼짐) 중 하나를 갖게 한다. 격자의 차원은 정해져 있지 않다.</li><li>각 셀의 이웃(neighborhood)을 정한다. 가장 흔한 두 가지는 상하좌우 네 칸의 폰 노이만 이웃과, 여기에 대각선 네 칸을 더한 무어 이웃이다.</li><li>초기 상태(t = 0)를 모든 셀에 지정한다. 보통 유한한 수의 셀만 다른 상태이고 나머지는 같은 상태로 가정한다.</li><li>고정된 규칙(대개 수학적 함수)에 따라 모든 셀의 새 상태를 한 번에 계산해 한 세대를 진행한다. 규칙은 셀마다 같고 시간이 지나도 바뀌지 않는 것이 일반적이다.</li><li>이 과정을 되풀이하며 패턴이 어떻게 변하는지 관찰한다. 유한한 격자에서는 가장자리 셀을 어떻게 처리할지 정해야 한다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>1940년대 스타니스와프 울람과 존 폰 노이만이 로스앨러모스 연구소에서 처음 구상했다. 1970년대 콘웨이의 생명 게임으로 학계 밖에서도 관심이 퍼졌고, 1980년대 스티븐 울프럼이 1차원 셀룰러 오토마타(기본 셀룰러 오토마타)를 체계적으로 연구했다.</li><li>무어 이웃에서 한 셀 주변에는 2<sup>9</sup> = 512가지 패턴이 가능하고, 규칙표가 각 패턴에 다음 상태를 지정한다. 가능한 오토마타의 총수는 k<sup>k<sup>s</sup></sup>(k는 상태 수, s는 이웃 셀 수)이다.</li><li>울프럼의 네 분류: 1류는 패턴이 균일하게 안정되는 것, 2류는 대체로 안정되거나 진동하는 구조가 되는 것, 3류는 겉보기에 혼돈스럽게 진화하는 것, 4류는 극도로 복잡하고 오래 지속되며 안정된 국소 구조가 생기는 것이다. 4류는 계산 보편적일 것으로 여겨진다.</li><li>물리, 이론생물학, 미세구조 모델링 등에 응용된다. 생물과 화학 시스템을 흉내 낼 수 있다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>논문에는 격자의 차원과 크기, 셀 상태 수, 이웃의 종류, 규칙, 초기 구성, 경계 처리를 모두 밝힌다.</li><li>생명 게임은 무한한 정사각 격자에서 셀이 살아 있음·죽음 두 상태를 갖고 무어 이웃의 살아 있는 이웃 수에 따라 변하는 2차원 오토마타이다. 이웃이 둘 미만이면 죽고(과소), 둘이나 셋이면 살아남고, 셋을 넘으면 죽는(과밀) 식이다. 패턴은 정물, 진동자, 우주선으로 나눈다.</li><li>도시계획의 토지 이용 시뮬레이션은 위 구조에 셀의 용도 상태와 이웃의 영향 규칙을 맞춰 넣는 응용이다. 규칙을 실제 자료로 보정했는지 밝혀야 한다.</li><li>규칙이 모든 셀에 동시에 적용된다는 가정에서 벗어난 변형(확률적, 비동기 셀룰러 오토마타)이 있다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 연구는 셀룰러오토마타(cellular automata) 기법을 이용하여 개발제한구역 해제가 주변 토지이용 변화에 미치는 영향을 시뮬레이션하였다."</div>
   <p>특정 정책 변화가 주변 지역의 토지이용에 미치는 파급 효과를 셀 단위로 시뮬레이션하는 예시이다.</p>
   <div class="example">"마르코프 체인과 셀룰러오토마타를 결합한 모형을 통해 향후 시가화 지역의 공간적 분포를 예측하였다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>셀룰러오토마타는 규칙과 매개변수 설정에 따라 결과가 크게 달라질 수 있는 시뮬레이션 기법이므로, 어떤 규칙과 데이터를 기반으로 모형을 구성했는지를 함께 확인해야 결과의 신뢰도를 판단할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Cellular automaton. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Conway's Game of Life. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="cellular-automata-urban-model.html">세포자동자 도시모형</a></div></div><p class="concept-family-map"><a href="../concept-map/arch.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

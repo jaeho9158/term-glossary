@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>사회과학과 경영학, 보건학 등 패널데이터를 다루는 실증연구 대부분은 관측되지 않는 개체 특성이 결과변수와 설명변수 모두에 영향을 미치는 내생성 문제를 안고 있다. 고정효과모형은 이런 누락변수 편의를 별도의 측정 없이 통제할 수 있는 비교적 단순하고 강력한 방법이어서, 인과관계에 가까운 추정치를 얻고자 하는 논문에서 기본적인 분석 도구로 널리 채택된다. 그래서 실증 논문에서 어떤 고정효과를 포함했는지는 결과의 신뢰성을 판단하는 중요한 단서가 된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>고정효과 모형은 모형 모수를 임의가 아닌 고정된 값으로 다루며, 확률효과·혼합 모형과 대비된다. 패널 자료에서 고정효과 추정량(within 추정량)이 회귀 계수를 준다.</li><li>모형은 y_it = X_it β + α_i + u_it이다. α_i는 관측되지 않는 시간 불변 개체 효과이다. 확률효과와 달리 α_i가 X_it와 상관돼도 되지만 u_it에 대한 엄격한 외생성은 필요하다.</li><li>α_i는 관측할 수 없으므로 개체별 시간 평균을 빼서 없앤다(within 변환, 평균 제거). ÿ_it = y_it − ȳ_i, Ẍ_it = X_it − X̄_i, ü_it = u_it − ū_i이다. α_i는 시간에 걸쳐 일정해서 사라지고, 고정효과 추정량은 ÿ를 Ẍ에 OLS로 회귀한 것이다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>가상의 숫자로 평균 제거를 해 본다. 개체 i의 세 시점 y가 3, 5, 7이면 평균이 5이고 평균 제거 값은 −2, 0, 2이다. 개체마다 수준이 다른 부분(평균)이 사라지고 시점에 따른 변화만 남는다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>구분</th><th>가정</th><th>추정 방법</th></tr></thead><tbody><tr><td>고정효과</td><td>α_i가 설명변수와 상관될 수 있음</td><td>within(평균 제거) 또는 개체 더미(LSDV)</td></tr><tr><td>확률효과</td><td>α_i가 설명변수와 무상관</td><td>일반화 최소제곱(효율적)</td></tr><tr><td>1차 차분</td><td>시간 불변 효과 제거</td><td>Δy_it = ΔX_it β + Δu_it에 OLS</td></tr></tbody></table></div><p>개체 더미를 첫 개체를 뺀 나머지에 넣는 LSDV 방법은 고정효과 모형과 수치적으로 같지만 계산적으로는 같지 않다. 시점이 2개(T = 2)이면 1차 차분과 고정효과가 수치적으로 같다. T > 2이면 오차에 계열상관이 없고 등분산일 때 고정효과가 더 효율적이고, 오차가 확률보행이면 1차 차분이 더 효율적이다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>고정효과 추정량으로는 시간에 따라 변하지 않는 설명변수(개체마다 일정한 변수)의 계수를 식별할 수 없다. 평균 제거와 차분이 시간 불변 성분을 모두 지우기 때문이다. 하우스만-테일러 방법은 시간 변동 변수와 시간 불변 변수가 모두 있고 α_i와 무상관인 변수가 있을 때 이 문제를 다루는 방법으로 소개된다.</li><li>고정효과와 확률효과 중 선택에는 더빈-우-하우스만 검정이 흔히 쓰인다. 귀무가설에서는 두 추정량이 모두 일관적이지만 확률효과만 효율적이다. 대립가설에서는 고정효과만 일관성이 보장된다.</li><li>확률효과가 틀리면 확률효과 추정량은 일관적이지 않다. 논문에서는 모형 선택 근거(검정 결과)와 개체별 더미 포함 여부를 함께 보고한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"기업 고정효과와 연도 고정효과를 모두 통제한 고정효과모형(fixed effects model) 분석 결과, 연구개발 투자는 매출액에 유의한 양(+)의 영향을 미쳤다."</div>
   <p>이 문장은 각 기업의 관측되지 않는 고유 특성과, 특정 연도에 공통으로 영향을 준 요인(예: 경기 상황)을 모두 통제한 상태에서, 연구개발 투자와 매출액 사이의 관계만을 뽑아냈다는 뜻이다. 이렇게 하면 "원래 매출이 높은 기업이 연구개발도 많이 한다"는 식의 혼란을 줄일 수 있다.</p>
 
@@ -161,6 +179,15 @@
 
   <h2>주의할 점</h2>
   <p>고정효과모형은 시간에 따라 변하지 않는 변수(예: 성별, 창립연도)의 효과 자체는 추정할 수 없다는 한계가 있다. 또한 개체 간 차이가 무작위로 발생한 것이라 가정할 수 있다면 <a href="random-effects-model.html">임의효과모형</a>이 더 효율적일 수 있으며, 두 모형 중 무엇이 적절한지는 하우스만 검정 등으로 판단한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Fixed effects model. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Panel data. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>자료 X가 분포 P<sub>θ</sub>에서 나온 표본이고 g(θ)를 추정한다고 하자. T가 충분통계량이면서 완비이면, T의 함수이고 불편이며 분산이 유한한 추정량은 유일한 UMVUE(균일최소분산불편추정량)이다. 같은 말로, 분산이 유한한 임의의 불편추정량 S에 대해 E[S | T]가 유일한 UMVUE이다.</p><ul><li><strong>라오-블랙웰 정리와의 차이.</strong> 충분통계량에 조건을 걸면 분산이 늘지 않는 추정량이 나오지만, 그것이 최소분산이라는 보장은 없다. 완비성이 그 틈을 메운다.</li><li><strong>유일성.</strong> 두 함수 h<sub>1</sub>(T), h<sub>2</sub>(T)가 모두 g(θ)의 불편추정량이면 차이의 기댓값이 0이고, 완비성에 의해 거의 어디서나 같다.</li><li><strong>조건.</strong> 완비성이 핵심이며 충분성만으로는 부족하다. 분산 비교를 위해 2차 적률이 유한해야 한다. 정리는 불편추정량이 존재한다는 것을 보장하지 않는다. 존재하면 UMVUE도 존재하고 유일하다는 뜻이다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>UMVUE를 만드는 방법은 두 가지다. 첫째, 모든 θ에 대해 E<sub>θ</sub>[h(T)] = g(θ)가 되는 h를 직접 찾는다. h가 선형이면 쉬운 편이다. 둘째, 아무 불편추정량 S를 잡아 E[S | T]를 계산한다. 계산이 쉬워지는 S를 고르는 것이 요령이다.</p><table><thead><tr><th>모형</th><th>완비충분통계량</th><th>UMVUE</th></tr></thead><tbody><tr><td>베르누이(p)</td><td>표본 합</td><td>p는 표본평균, p(1−p)는 n/(n−1)·X̄(1−X̄)(불편 표본분산과 같다)</td></tr><tr><td>균일(0, θ)</td><td>표본 최댓값</td><td>θ의 UMVUE는 (n+1)/n × 최댓값</td></tr><tr><td>지수(λ)</td><td>표본평균</td><td>P(X<sub>1</sub> &gt; t)의 UMVUE는 (1 − t/(nX̄))<sup>n−1</sup></td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li>UMVUE가 모든 면에서 최선의 추정량이라고 보기 쉽다. 불편추정량 중에서 분산이 최소라는 뜻일 뿐이며, 평균제곱오차는 편의의 제곱과 분산의 합이므로 편의를 허용하면 더 작은 오차를 내는 추정량이 있을 수 있다.</li><li>충분통계량만 있으면 된다고 생각하기 쉽다. 완비가 아니면 조건부 기댓값을 취해도 개선할 여지가 남을 수 있다(Galili와 Meilijson, 2016이 최솟값·최댓값 쌍을 이용한 반례를 제시했다).</li><li>모든 모수에 UMVUE가 있다고 보기 쉽다. 이 정리는 불편추정량이 존재할 때 그 최적성을 알려 줄 뿐이다.</li><li>이 정리는 Lehmann과 Scheffé(1950, 1955)에서 나왔다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Lehmann–Scheffé theorem. Wikipedia.",
+    "Wikipedia contributors. (n.d.). Minimum-variance unbiased estimator. Wikipedia."
+  ]
+}

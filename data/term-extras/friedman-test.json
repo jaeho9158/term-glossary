@@ -1,0 +1,46 @@
+{
+  "type": "test",
+  "sections": [
+    {
+      "heading": "언제 쓰나",
+      "html": "<p>같은 대상(블록) n개가 k개 조건을 모두 겪은 완전 블록 설계에서, 조건 사이에 차이가 있는지 순위로 검정할 때 쓴다. 정규성을 가정하는 반복측정 분산분석의 비모수 대안이다. 순서만 의미가 있는 자료에도 쓸 수 있다.</p><p>방법은 Milton Friedman이 1937년 Journal of the American Statistical Association에 제안했고, 1939년에 정정이 나왔다.</p>"
+    },
+    {
+      "heading": "결과는 이렇게 읽는다",
+      "html": "<p>각 블록 안에서 조건의 값에 순위를 매기고, 조건별 평균 순위 r̄<sub>j</sub>가 중앙값 (k+1)/2에서 얼마나 벗어나는지로 통계량 Q = [12n / (k(k+1))] × Σ(r̄<sub>j</sub> − (k+1)/2)²를 구한다. 동점은 해당 순위의 평균을 주며, 이때 Q는 동점 보정이 필요하다. 자유도 k − 1의 카이제곱 분포로 근사하며, 근사는 n > 15 또는 k > 4일 때 믿을 만하다. 표본이 더 작으면 프리드만 검정 전용 표를 쓴다.</p><p>전체 검정이 유의하면 어느 쌍이 다른지는 사후검정으로 본다. Conover(1971, 1980) 등이 평균 순위 차에 기반한 절차를 제안했고, R의 PMCMRplus 패키지는 Nemenyi 검정을 지원한다.</p><p>Q를 0에서 1 사이로 정규화한 값이 Kendall의 W이다.</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 보고한다",
+      "html": "<ul><li>블록 수 n, 조건 수 k, 검정통계량(χ²), 자유도 k − 1, p값을 적는다.</li><li>정규성 가정을 피한 이유(순서형 자료, 정규성 위반, 작은 표본)를 밝힌다.</li><li>사후검정을 했다면 그 방법과 다중비교 보정을 함께 적는다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "한 줄 설명"
+    ],
+    "rows": [
+      [
+        "프리드만 검정",
+        "같은 대상의 세 조건 이상을 순위로 비교"
+      ],
+      [
+        "[[kruskal-wallis-test|크루스칼-왈리스 검정]]",
+        "서로 다른 집단 셋 이상을 순위로 비교"
+      ],
+      [
+        "[[wilcoxon-signed-rank-test|윌콕슨 부호순위검정]]",
+        "같은 대상의 두 조건을 비교"
+      ],
+      [
+        "[[anova|분산분석]]",
+        "정규성을 가정하는 모수적 비교"
+      ]
+    ]
+  },
+  "references": [
+    "Friedman, M. (1937). The use of ranks to avoid the assumption of normality implicit in the analysis of variance. Journal of the American Statistical Association, 32(200), 675–701.",
+    "Wikipedia contributors. (n.d.). Friedman test. Wikipedia."
+  ]
+}
