@@ -1,7 +1,7 @@
 // Phase 5 → 6: 체크리스트 db 덤프 → data/prune/approved.json
 // 입력(--in <dump.json>): ArtifactData list 결과. 배열([{id|doc_id, ...필드} 또는 {id, data:{...}}]),
 //   {docs:[...]}, 또는 {<id>: {...}} 형태를 모두 받는다. prune_groups 문서만 본다.
-// 규칙: 문서 decision이 "none"/"reject"면 건너뜀. "approve"면 items 중 decision!=="reject" 전부,
+// 규칙: 문서 decision이 "none"/"reject"면 건너뜀. 분야 병합 묶음은 건너뜀(apply-category-merge.js 몫). "approve"면 items 중 decision!=="reject" 전부,
 //   "partial"이면 items[].decision==="approve"만. review 문서는 items[].choice가 "prune"/"absorb"인 것만
 //   (choice 기본 "keep"). merge 문서의 keeper 행과 review의 "keep"은 적용 대상이 아니다.
 // 출력: {merge:[{keeper,absorb:[]}], prune:[{slug,redirect}]}
@@ -31,6 +31,8 @@ function exportApproved(dump) {
   };
   for (const doc of normalizeDump(dump)) {
     if (doc.decision !== "approve" && doc.decision !== "partial") continue;
+    // 분야 병합 묶음(항목이 ../category/<code>)은 apply-category-merge.js가 따로 적용한다.
+    if (doc.kind === "merge" && doc.items.some((it) => /^(?:\.\.\/)?category\//.test(String(it.slug || "")))) continue;
     for (const it of doc.items) {
       const selected = doc.decision === "approve" ? it.decision !== "reject" : it.decision === "approve";
       if (!selected) continue;

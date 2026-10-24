@@ -68,6 +68,12 @@ function buildManifest() {
       .sort();
 
     for (const file of categoryFiles) {
+      // 분야 병합으로 없어진 분야 페이지는 대표 분야로 넘기는 스텁이다(header/footer 없음).
+      const html = fs.readFileSync(path.join(categoryDir, file), "utf8");
+      if (!/<header class="site-header/.test(html)) {
+        skippedStubs++;
+        continue;
+      }
       manifest.push({
         file: path.join("category", file),
         basePath: "../",
