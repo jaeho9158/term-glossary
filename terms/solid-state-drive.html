@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>대규모 딥러닝 학습이나 빅데이터 처리에서는 연산 장치(GPU/CPU)가 아무리 빨라도 저장장치에서 데이터를 읽어오는 속도가 느리면 전체 처리 속도가 그 병목에 묶여버린다. SSD는 이런 입출력(I/O) 병목을 줄이는 핵심 하드웨어이기 때문에, 시스템·인프라 성능을 다루는 논문에서는 실험 환경을 설명할 때 저장장치 종류를 명시하는 경우가 많다. 분산 시스템, 데이터베이스, 대규모 모델 학습 연구 모두 SSD의 읽기·쓰기 특성과 밀접하게 연관된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>SSD는 집적회로로 데이터를 저장하는 장치로, 움직이는 부품이 없다. 대부분 비휘발성 NAND 플래시를 쓰며, 셀 하나에 1비트(SLC)부터 4비트(QLC)까지 저장한다. 저장하는 비트 수가 많을수록 값은 싸지만 속도와 내구성은 낮아진다. 초기 SSD는 휘발성 DRAM을 썼고, NAND 플래시가 주류가 된 것은 2009년경부터이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>항목</th><th>SSD</th><th>HDD</th></tr></thead><tbody><tr><td>임의 접근 시간</td><td>약 0.05~0.2 ms</td><td>2.9~12 ms</td></tr><tr><td>전송 속도</td><td>SATA 약 500 MB/s ~ PCIe Gen5 약 15 GB/s</td><td>100~300 MB/s</td></tr><tr><td>최대 용량(2026년 기준)</td><td>512 TB</td><td>36 TB</td></tr><tr><td>GB당 가격(2025년 말)</td><td>약 $0.05~0.10</td><td>약 $0.01~0.03</td></tr></tbody></table></div>
+
+  <h2>예시로 보기</h2>
+  <ul><li><strong>1978년</strong>: Storage Technology Corporation이 개념을 내놓았다.</li><li><strong>1980년</strong>: 도시바의 마스오카 후지오가 플래시 메모리를 발명했다. 1989년에는 플래시 기반 SSD 특허가 나왔다.</li><li><strong>1991년</strong>: SanDisk가 IBM 노트북용 20 MB SSD를 내놓았다. 가격은 GB당 약 5만 달러였다.</li><li><strong>2006~2010년</strong>: 2006년 Sony VAIO UX90에 플래시 SSD가 실렸고, 2009년 주요 PC 업체가 SSD 노트북을 출하했으며, 2010년 MacBook Air가 SSD를 기본으로 채택했다.</li><li><strong>2015~2021년</strong>: 2015년 Intel과 Micron이 3D XPoint를 발표했고, 2017년 Intel Optane SSD가 나왔으며, 2021년 NVMe 2.0과 ZNS가 나왔다.</li><li>가격은 2020년에 GB당 0.05달러 미만으로 내려갔다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“플래시는 무한히 쓸 수 있다.”</strong> 마모평준화(wear leveling)는 쓰기를 여러 블록에 나눠 수명을 늘리지만, 그 결과 쓰기 증폭(write amplification)이 생긴다. 내구성은 TBW(총 기록 가능량)나 하루 드라이브 쓰기 횟수로 표시한다.</li><li><strong>“SSD와 HDD의 가격 차는 늘 같다.”</strong> 2018년의 비교에서는 SSD가 GB당 약 0.30달러, HDD가 0.02~0.03달러였다. 가격 비교는 연도와 함께 읽어야 한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"데이터셋은 NVMe SSD에 저장되어 데이터 로딩으로 인한 GPU 유휴 시간을 최소화하였다."</div>
   <p>빠른 저장장치를 사용해 데이터를 불러오는 속도를 높임으로써, GPU가 데이터를 기다리며 노는 시간을 줄였다는 뜻이다.</p>
 
@@ -166,6 +184,15 @@
 
   <h2>주의할 점</h2>
   <p>SSD 중에서도 NVMe 방식은 기존 SATA 방식보다 훨씬 빠르므로, 논문에서 어떤 종류의 SSD인지도 성능 해석에 영향을 줄 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Solid-state drive. Wikipedia (English).</li>
+    <li>위키백과 기여자. (n.d.). SSD. 위키백과(한국어판).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

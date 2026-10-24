@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -154,7 +155,24 @@
   <h2>왜 중요한가</h2>
   <p>RAG는 언어모델을 재학습시키지 않고도 최신 정보나 특정 도메인 지식을 반영할 수 있는 비교적 저렴한 방법이기 때문에, 자연어처리 연구뿐 아니라 의료, 법률, 기업 내부 문서 검색 등 실무 응용 분야 논문에서도 폭넓게 다뤄진다. 특히 모델의 파라미터에 저장된 지식만으로는 한계가 있는 전문 분야에서, 신뢰할 수 있는 외부 근거 문서를 활용해 답변의 정확성과 검증가능성을 높이는 접근으로 주목받고 있다. 이 때문에 RAG는 대형언어모델의 실용적 배포를 다루는 논문에서 사실상 표준적인 구성 요소로 자리잡고 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>검색증강생성(RAG)은 언어모델이 답을 만들기 전에 외부 데이터를 먼저 끌어오게 하는 방식이다. 크게 두 단계로 나뉜다.</p><ol><li><strong>검색 단계</strong>: 문서를 임베딩으로 바꿔 벡터 데이터베이스에 저장해 두고, 질문과 가까운 상위 문서를 찾는다.</li><li><strong>생성 단계</strong>: 찾은 내용을 프롬프트에 붙여 언어모델이 그것을 근거로 답을 쓰게 한다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>환각을 줄이고 모델이 학습하지 않은 최신 정보나 특정 분야의 지식을 더할 수 있다. 이 방식을 제안한 논문은 루이스 등(Lewis et al., 2020)의 「지식 집약적 자연어처리 과제를 위한 검색증강생성」(NeurIPS 33권, arXiv 2005.11401)이다. 모델을 다시 학습시키지 않고 문서 저장소만 갱신해도 새 정보를 반영할 수 있다는 점이 실무에서 장점으로 꼽힌다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에는 검색 대상 문서, 임베딩 방식, 몇 개의 문서를 붙였는지, 검색 없이 답한 기준 모델과 비교한 결과를 함께 적는다. 아래 문장은 쓰임을 보이려고 만든 예시이다.</p><p class="example">"진료 지침 문서를 임베딩하여 벡터 색인에 저장하고, 질문마다 상위 5개 문서를 프롬프트에 포함하여 답을 생성하였다."</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"환각 현상을 줄이기 위해 검색증강생성(RAG) 구조를 도입하여, 질의와 관련된 문서를 외부 지식베이스에서 검색한 뒤 이를 근거로 답변을 생성하도록 설계했다."</div>
   <p>이 문장은 "모델이 사실이 아닌 내용을 그럴듯하게 지어내는 것을 막기 위해, 답변을 만들기 전에 실제 문서를 찾아보고 그 문서에 적힌 내용을 바탕으로 답을 쓰게 했다"는 뜻이다.</p>
   <div class="example">"임상 질의응답 시스템에 RAG를 적용하여 최신 진료 지침 문서를 검색 대상으로 삼은 결과, 검색 없이 답변한 기준 모델보다 사실 정확도가 유의하게 향상되었다."</div>
@@ -167,6 +185,16 @@
 
   <h2>주의할 점</h2>
   <p>RAG는 <a href="hallucination.html">환각현상</a>을 줄이는 데 도움을 주지만, 완전히 없애주지는 않는다. 검색된 문서 자체가 부정확하거나 질문과 관련이 낮다면, 모델은 여전히 잘못된 근거를 바탕으로 그럴듯한 오답을 만들어낼 수 있다. 따라서 검색 단계의 정확도(어떤 문서를 얼마나 잘 찾아오는지)가 전체 시스템 성능에 큰 영향을 준다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Retrieval-augmented generation. Wikipedia.</li>
+    <li>위키백과 기여자. (n.d.). 검색 증강 생성. 위키백과.</li>
+    <li>Lewis, P., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. Advances in Neural Information Processing Systems, 33.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>기존에 널리 쓰이던 RSA나 타원곡선 암호는 양자컴퓨터의 쇼어 알고리즘으로 이론상 해독될 수 있다고 알려져 있어, 정보보안학 분야에서는 이를 대체할 양자내성암호(PQC)에 대한 연구가 활발하다. 격자 기반 암호는 그중 가장 유력한 방식군으로, 미국 NIST의 양자내성암호 표준화 과정에서 다수 채택되었다. 격자 문제는 최악의 경우 난이도와 평균적인 경우 난이도가 서로 연결된다는 이론적 특성이 있어, 다른 암호 체계보다 상대적으로 안전성 근거가 견고하다고 평가받기도 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>격자 기반 암호는 격자 위의 어려운 문제에 안전성을 두는 암호이다.</li><li>최단 벡터 문제(SVP)는 격자의 0이 아닌 벡터 중 유클리드 길이가 가장 짧은 것을 찾는 문제이다.</li><li>오데드 레게브(Oded Regev)는 2005년 오류 있는 학습(LWE) 문제를 쓰는 방식을 소개했다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시기</th><th>사건</th></tr></thead><tbody><tr><td>2005년</td><td>레게브가 LWE 문제를 쓰는 방식을 소개했다.</td></tr><tr><td>2023년</td><td>NIST가 CRYSTALS-Kyber를 ML-KEM으로 선정했다.</td></tr><tr><td>2024년 8월 13일</td><td>FIPS 203이 발행되었다. ML-KEM은 모듈 LWE 문제와 관련된 키 캡슐화 방식이며 매개변수 세트는 ML-KEM-512, ML-KEM-768, ML-KEM-1024이다.</td></tr><tr><td>2024년 8월</td><td>Dilithium이 ML-DSA(FIPS 204)로 표준화되었다.</td></tr></tbody></table></div>
+
+  <h2>자주 하는 오해</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>Kyber와 ML-KEM은 서로 다른 계열이다.</td><td>CRYSTALS-Kyber가 NIST에서 ML-KEM으로 선정되어 표준이 되었다.</td></tr><tr><td>격자 기반 암호에는 서명 방식이 없다.</td><td>키 캡슐화(ML-KEM, FIPS 203)와 서명(ML-DSA, FIPS 204)이 모두 표준화되었다.</td></tr><tr><td>ML-KEM의 안전 수준은 하나이다.</td><td>매개변수 세트가 512, 768, 1024 세 가지이다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"본 논문에서는 격자 기반 암호의 대표적 난제인 LWE(Learning With Errors) 문제를 기반으로 한 공개키 암호 방식을 분석하였다."</div>
   <p>격자 기반 암호를 구성하는 핵심 수학적 문제를 다루는 문맥이다.</p>
   <div class="example">"NIST 양자내성암호 표준화 과정에서 격자 기반 암호 방식인 CRYSTALS-Kyber가 최종 후보로 선정되었다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>격자 기반 암호가 양자컴퓨터에 안전하다는 것은 현재까지의 연구 결과에 근거한 추정이며, 수학적으로 절대적인 안전성이 증명된 것은 아니므로 지속적인 검증 연구가 필요하다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Lattice-based cryptography. Wikipedia.</li>
+    <li>National Institute of Standards and Technology. (2024). FIPS 203: Module-lattice-based key-encapsulation mechanism standard.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="post-quantum-cryptography.html">양자내성암호</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="dilithium-signature.html">크리스탈스-딜리시움 서명</a><a href="kyber-kem.html">크리스탈스-카이버 키캡슐화</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

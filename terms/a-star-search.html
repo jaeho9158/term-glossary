@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>경로 탐색은 로보틱스, 게임 AI, 자율주행, 물류·네트워크 최적화 등 실제 시스템 구현과 직결되는 문제여서, 탐색 속도와 경로 품질을 동시에 개선하는 방법은 꾸준히 연구 가치를 가진다. 에이스타는 최적성을 보장하면서도 탐색 범위를 목적지 방향으로 좁혀 계산량을 줄이는 균형점을 제공하기 때문에, 이후 등장한 다양한 휴리스틱 탐색·경로 계획 기법들의 비교 기준(baseline)으로 자주 인용된다. 특히 실시간성이 중요한 로봇 내비게이션이나 대규모 지도에서의 경로 탐색 연구에서는, 얼마나 적은 탐색으로 최적 경로를 찾는지가 핵심 성능 지표가 되기 때문에 에이스타와 그 변형이 상위 연구주제의 출발점 역할을 한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>A* 알고리즘은 가중치가 있는 그래프에서 시작 노드에서 목표 노드까지의 최소 비용 경로를 찾는다. 각 노드 n에 대해 f(n)=g(n)+h(n)을 계산하는데, g(n)은 시작점에서 n까지 지금까지 든 실제 비용, h(n)은 n에서 목표까지 남은 비용의 추정값(휴리스틱)이다. 아직 펼치지 않은 노드 중 f가 가장 작은 노드를 골라 펼치는 일을 목표에 닿을 때까지 되풀이한다.</p>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>h가 실제 남은 비용을 넘지 않는 허용 가능한(admissible) 휴리스틱이면 처음 도달한 경로가 최적임이 보장된다. h(n)=0이면 A*는 다익스트라 알고리즘과 같아지므로, A*는 다익스트라를 확장한 것으로 설명된다.</p><p>1968년 스탠퍼드 연구소(SRI)의 Hart, Nilsson, Raphael이 로봇 Shakey의 경로 계획을 위해 발표했다. 한국어 설명에는 8퍼즐에서 제자리에 있지 않은 타일 수를 h로 쓰는 예가 나온다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p><em>"허용 가능한 휴리스틱으로 유클리드 거리를 사용한 A* 탐색을 적용하였다."</em></p><p><em>"A*와 다익스트라 알고리즘의 확장 노드 수와 계산 시간을 비교하였다."</em></p><p>논문에서는 휴리스틱 함수의 정의와 허용성(필요하면 일관성) 여부, 비교한 알고리즘, 확장 노드 수와 실행 시간 같은 지표를 함께 적는다. 위 예문은 용어의 쓰임을 보이려고 만든 것이다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"실내 자율주행 로봇의 실시간 경로 계획을 위해 에이스타 탐색 알고리즘(A* search algorithm)에 유클리드 거리 기반 휴리스틱 함수를 적용하여 계산 시간을 단축하였다."</div>
   <p>이 문장은 로봇이 장애물을 피해 목적지까지 가는 경로를 계산할 때, 무작정 모든 방향을 다 뒤지는 대신 목적지에 가까워지는 방향을 우선 탐색하도록 설계했다는 뜻이다. 로보틱스, 게임 AI, 자율주행, 물류 최적화 연구에서 널리 쓰인다.</p>
 
@@ -166,6 +184,15 @@
 
   <h2>주의할 점</h2>
   <p>에이스타의 성능과 정확성은 휴리스틱 함수를 얼마나 잘 설계하느냐에 크게 좌우된다. 휴리스틱이 실제 남은 거리를 과대평가하면 최단 경로를 놓칠 수 있고(부정확), 반대로 지나치게 보수적으로 어림잡으면(과소평가는 안전하지만) 다익스트라 알고리즘과 큰 차이 없이 느려질 수 있다. 휴리스틱이 항상 실제 거리 이하로 추정되도록 설계해야 최적해를 보장할 수 있다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). A* search algorithm. In Wikipedia, The Free Encyclopedia.</li>
+    <li>위키백과 기여자. (n.d.). A* 알고리즘. 위키백과.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="shortest-path-algorithm.html">최단 경로 알고리즘</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="dijkstra-algorithm.html">다익스트라 알고리즘</a><a href="bellman-ford-algorithm.html">벨만-포드 알고리즘</a><a href="floyd-warshall-algorithm.html">플로이드-워셜 알고리즘</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

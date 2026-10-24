@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -151,7 +152,24 @@
   <h2>왜 중요한가</h2>
   <p>같은 계수행렬에 대해 우변이 여러 개인 연립방정식을 반복해서 풀어야 하는 상황이 공학 계산에서 매우 흔한데, LU 분해는 가장 비싼 부분을 한 번만 수행하게 해 준다. 행렬식이나 역행렬 계산에도 그대로 활용되어 수치선형대수 라이브러리의 기본 루틴으로 자리 잡았다. 이 분해는 대규모 선형시스템을 수치적으로 반복해 풀어야 하는 공학 시뮬레이션에서 계산 비용을 크게 줄여 주어, 유한요소법이나 회로 해석 소프트웨어의 핵심 연산으로 쓰인다. 이 분해가 존재하면 행렬식 계산이나 역행렬 계산도 삼각행렬의 곱으로 단순화되어, 대규모 행렬을 다루는 계산 비용을 실질적으로 절감하는 효과가 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>LU 분해는 가우스 소거법을 행렬 형태로 쓴 것으로, 행렬을 하삼각행렬 L과 상삼각행렬 U의 곱으로 나눈다. 연립방정식 Ax = b는 다음 순서로 푼다.</p><ol><li>부분 피벗팅을 쓰면 PA = LU로 분해한다(P는 치환행렬).</li><li>Ly = Pb를 전진 대입으로 푼다.</li><li>Ux = y를 후진 대입으로 푼다.</li></ol>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>분해의 비용은 약 (2/3)n³ 번의 부동소수점 연산이다.</li><li>분해는 유일하지 않으며, 크라우트(Crout) 방법 같은 변형이 있다.</li><li>대칭이고 양의 정부호인 행렬에서는 U = L*가 되며, 이것이 촐레스키 분해이다.</li><li>타데우시 바나키에비치(Tadeusz Banachiewicz)가 1938년에 도입했다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <p>논문에서는 부분 피벗팅을 썼는지(PA = LU 형태인지)와, 분해가 유일하지 않으므로 어떤 방법으로 분해했는지를 밝힌다.</p>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"계수행렬을 LU 분해한 뒤 우변만 바꾸어 반복 계산함으로써 전체 연산량을 크게 줄였다."</div>
   <p></p>
   <div class="example">"행렬 크기가 커질수록 LU 분해를 이용한 방법은 가우스 소거법을 매번 새로 수행하는 방법보다 총 연산 시간이 크게 단축되었다."</div>
@@ -162,6 +180,15 @@
 
   <h2>주의할 점</h2>
   <p>가우스 소거법이 하나의 연립방정식을 푸는 절차라면, LU 분해는 그 계산 결과를 재사용 가능한 형태로 저장하는 방법이라는 점이 다르다. 또 모든 정사각행렬이 행 교환 없이 LU 분해되지는 않는다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). LU decomposition. Wikipedia.</li>
+    <li>Weisstein, E. W. (n.d.). LU decomposition. MathWorld, Wolfram Research.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

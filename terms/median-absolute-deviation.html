@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -146,7 +147,24 @@
   <h2>왜 중요한가</h2>
   <p>실제 데이터에는 측정 오류나 드문 극단 사례처럼 표준편차를 크게 왜곡시키는 값들이 섞여 있는 경우가 많다. 중위절대편차는 이런 값들에 상대적으로 덜 흔들리는 성질(로버스트성) 때문에, 이상치를 탐지하거나 정규성 가정이 깨진 데이터를 다룰 때 표준편차의 대안 또는 보완 지표로 폭넓게 쓰인다. 생체신호, 설문 응답, 센서 데이터처럼 잡음이 섞이기 쉬운 자료를 다루는 여러 분야에서 전처리 단계의 표준 도구로 자리잡고 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p>중위절대편차(MAD)는 자료의 중앙값에서 각 값까지 거리(절댓값)의 중앙값이다. 자료 (1, 1, 2, 2, 4, 6, 9)에서 중앙값은 2이고 절대편차는 1, 1, 0, 0, 2, 4, 7이므로 MAD는 1이다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li>정규분포 자료에서 표준편차 추정치는 k·MAD이며, k = 1/Φ⁻¹(3/4)로 약 1.4826이다.</li><li>MAD/σ는 약 0.67449이다.</li><li>NIST e-Handbook의 수정 Z 점수는 Mi = 0.6745·(xi − 중앙값)/MAD이다. |Mi|가 3.5보다 크면 이상치일 가능성이 있다고 본다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>MAD를 그대로 썼는지, 1.4826을 곱해 표준편차 척도로 보정했는지 밝힌다.</li><li>이상치를 가를 때 쓴 기준(예: 수정 Z 점수 3.5)을 함께 적는다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"반응시간 자료에 극단값이 다수 포함되어 있어, 표준편차 대신 중위절대편차(MAD)를 이용해 이상치를 정의하고 제거하였다(중앙값 ± 3×MAD를 벗어난 값 제외)."</div>
   <p>이 문장은 "반응시간처럼 몇몇 값이 유난히 튀는 자료에서는 평균·표준편차 기준으로 이상치를 걸러내면 부정확할 수 있어, 이상치에 덜 민감한 MAD를 기준으로 이상치를 판별했다"는 뜻이다. 실험심리학이나 생리 신호 분석처럼 이상치가 흔한 분야에서 자주 쓰인다.</p>
 
@@ -161,6 +179,15 @@
 
   <h2>주의할 점</h2>
   <p>MAD는 원래 단위 그대로는 표준편차보다 값이 작게 나오기 때문에, 정규분포를 가정할 때는 흔히 1.4826을 곱해 표준편차와 비교 가능한 척도로 조정한 값(scaled MAD)을 사용한다. 이 조정을 하지 않고 <a href="standard-deviation.html">표준편차</a>나 <a href="interquartile-range.html">사분위범위</a>와 그대로 비교하면 산포도를 과소평가하게 되므로 주의해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Median absolute deviation. Wikipedia.</li>
+    <li>NIST/SEMATECH. (n.d.). 1.3.5.17. Detection of outliers. In e-Handbook of Statistical Methods.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>소프트맥스 함수는 분류 신경망의 마지막 단계에서 출력을 사람이 해석할 수 있는 확률로 바꿔주기 때문에, 이미지 분류부터 언어 모델의 다음 단어 예측, 강화학습의 행동 선택에 이르기까지 거의 모든 다중 클래스 예측 모델에서 표준적으로 쓰인다. 또한 학습 과정에서 손실함수와 결합되어 모델의 오차를 계산하고 역전파하는 데 핵심 역할을 하기 때문에, 딥러닝 논문에서 모델 구조를 설명할 때 빠지지 않고 등장한다. 최근에는 어텐션 메커니즘에서 가중치를 분배하는 데도 소프트맥스가 활용되면서 그 중요성이 더욱 커졌다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <p>소프트맥스 함수는 K개의 실수를 K개 결과에 대한 확률분포로 바꾼다. softargmax, 정규화 지수 함수(normalized exponential function)라고도 한다. 원핫(one-hot) arg max를 매끄럽게 근사한 것이며, 로지스틱 함수를 여러 차원으로 일반화한 것이다. 다항 로지스틱 회귀와 신경망 출력층의 마지막 활성화 함수로 쓰인다.</p><p>계산은 각 입력을 자연상수 e의 지수로 놓고, 모든 지수의 합으로 나누는 것이다. 입력이 z<sub>1</sub>, …, z<sub>K</sub>이면 i번째 출력은 e<sup>z<sub>i</sub></sup> / (e<sup>z<sub>1</sub></sup> + … + e<sup>z<sub>K</sub></sup>)이다.</p>
+
+  <h2>예시로 보기</h2>
+  <p><strong>가상의 점수.</strong> 세 점수가 2, 1, 0이면 지수는 약 7.389, 2.718, 1이고 합은 약 11.107이다. 출력은 약 0.665, 0.245, 0.090이며 합이 1이다.</p>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>“이름대로 max를 부드럽게 만든 함수이다.”</strong> 그렇지 않다. 부드럽게 만든 것은 최댓값의 인수인 원핫 arg max 함수이다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모델의 마지막 층에서 나온 로짓(logit)에 소프트맥스 함수를 적용하여 각 클래스에 대한 예측 확률을 산출하였다."</div>
   <p>이 문장은 "신경망이 내놓은 원점수를 소프트맥스로 변환해, 사람이 해석할 수 있는 확률값(예: 고양이일 확률 88%)으로 만들었다"는 뜻이다.</p>
 
@@ -170,6 +188,15 @@
 
   <h2>주의할 점</h2>
   <p>소프트맥스가 내놓은 숫자는 "확률처럼 보이는 값"일 뿐, 모델이 실제로 얼마나 확신하는지를 정확히 반영하지 못할 수 있다(과신 문제). 또한 학습 과정에서는 보통 소프트맥스 출력과 정답 사이의 차이를 <a href="cross-entropy-loss.html">교차엔트로피 손실</a>로 계산해 모델을 개선한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Softmax function. Wikipedia (English).</li>
+    <li>위키백과 기여자. (n.d.). 소프트맥스 함수. 위키백과(한국어판).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="activation-function.html">활성화 함수</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="relu.html">렐루 함수</a><a href="sigmoid-function.html">시그모이드 함수 (Sigmoid Function)</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

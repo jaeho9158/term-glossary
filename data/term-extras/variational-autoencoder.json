@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>변분 오토인코더(VAE)는 디데릭 킹마(Diederik P. Kingma)와 맥스 웰링(Max Welling)이 2013년 소개한 신경망 구조로, 확률 모델과 변분 베이즈 방법에 속하는 심층 생성 모델이다.</li><li>인코더(근사 사후분포 q(z|x))는 입력을 잠재공간의 단일 점이 아니라 보통 가우시안 분포로 매핑하며, 이는 정규화 효과를 준다. 디코더(우도 p(x|z))는 잠재 표본을 입력 공간으로 되돌려 복원한다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<ul><li>데이터의 로그우도를 직접 계산할 수 없으므로 증거 하한(ELBO)을 최대화한다. ELBO는 두 항으로 이루어진다. 재구성 항은 기대 로그우도이며 가우시안 디코더에서는 제곱오차 형태이다. KL 발산 항은 잠재분포를 보통 표준정규 사전분포에 가깝게 유지하며, 가우시안에서는 닫힌 형태로 쓸 수 있다.</li><li>재매개변수화 기법은 z = μ(x) + L(x)ε 형태로 표준정규 잡음 ε를 쓴다. L은 공분산의 Cholesky 인자이다. 이렇게 하면 인코더 매개변수로 기울기가 흐르므로 확률적 경사하강법을 쓸 수 있다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li>VAE는 일반 오토인코더처럼 입력을 한 점으로 압축하는 것이 아니라, 분포로 매핑한다는 점이 다르다.</li><li>원 논문은 'Auto-Encoding Variational Bayes'(Kingma &amp; Welling, arXiv:1312.6114, 2013년 12월 제출)이다. 초록은 재매개변수화된 변분 하한이 표준 확률적 경사법으로 최적화할 수 있는 하한 추정기를 준다고 설명한다. SGVB라는 명칭은 초록이 아니라 본문에서 쓰인다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Kingma, D. P., & Welling, M. (2013). Auto-encoding variational Bayes. arXiv:1312.6114.",
+    "Wikipedia contributors. (n.d.). Variational autoencoder. Wikipedia."
+  ]
+}

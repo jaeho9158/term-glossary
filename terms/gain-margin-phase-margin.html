@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -152,7 +153,24 @@
   <h2>왜 중요한가</h2>
   <p>제어 시스템 논문에서 새로운 제어기를 제안할 때는 단순히 성능(응답 속도, 오차 크기 등)만 좋아졌다고 주장하는 것으로는 부족하고, 그 제어기가 실제 환경에서도 안정적으로 동작한다는 근거를 함께 제시해야 한다. 이득여유와 위상여유는 이 안정성 여유를 수치로 요약해주는 대표적인 지표라서, 로봇 공학·항공우주·전력전자·자율주행 등 피드백 제어가 들어가는 거의 모든 응용 분야의 논문에서 반복적으로 등장한다. 또한 서로 다른 제어기 설계 방식을 비교할 때도 두 여유값을 같은 기준선으로 놓고 비교하는 경우가 많아, 연구 결과의 신뢰성을 뒷받침하는 근거로 자주 쓰인다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>계산과 범위</h2>
+  <p><strong>위상여유(PM)</strong>는 이득이 1(0 dB)이 되는 주파수에서 위상 지연 φ(음수)와 −180°의 차이이다. 예를 들어 0 dB에서 위상이 −135°이면 PM = −135° − (−180°) = 45°이다.</p><p><strong>이득여유(GM)</strong>는 위상이 −180°가 되는 주파수에서 루프 이득의 크기가 0 dB보다 얼마나 작은지를 dB로 나타낸 값이다. <a href="bode-plot.html">보드 선도</a>에서는 위상이 −180°에 닿는 주파수 f<sub>180</sub>에서 이득의 크기와 0 dB의 간격이 GM이고, 이득이 0 dB를 지나는 주파수 f<sub>0dB</sub>에서 위상이 −180°보다 얼마나 위인지가 PM이다.</p>
+
+  <h2>해석 기준</h2>
+  <ul><li><strong>의미</strong>: PM은 상대 안정성(계단 응답이 얼마나 감쇠하는지)을, GM은 절대 안정성(지속 발진 경향)을 나타낸다.</li><li><strong>불안정 조건</strong>: 음의 되먹임에서 루프 이득이 1보다 큰 구간에 PM이 0 이하이면 불안정이 보장된다.</li><li><strong>기준</strong>: 이론상 PM이 1° 정도여도 안정하지만, 실제 설계는 0보다 훨씬 커야 한다. 연산증폭기는 최소 약 45°로 보상하고, 설계 목표는 보통 약 60°이다. 좋은 계단 응답에는 최소 약 45°가 필요하고, 부품 허용오차가 중요할 때는 70°가 넘는 값이 권장되기도 한다.</li><li>PM이 작을수록 링잉(진동)이 오래 이어진다.</li></ul>
+
+  <h2>보고 방법</h2>
+  <ul><li>GM(dB)과 PM(°)을 함께 쓰고, 값을 읽은 주파수(f<sub>180</sub>, f<sub>0dB</sub>)를 밝힌다.</li><li>설계 목표 값(예: PM 45° 또는 60°)과 실제 값을 비교한다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"제안된 제어기를 적용했을 때 이득여유는 10.2dB, 위상여유는 48.7°로 나타나, 일반적으로 요구되는 최소 기준(이득여유 6dB, 위상여유 30° 이상)을 만족하여 시스템이 안정적으로 동작함을 확인하였다."</div>
   <p>이 문장은 "새로 설계한 제어기가 업계에서 안전하다고 보는 최소 기준보다 여유 있게 안정적으로 작동한다"는 뜻이다. 이득여유와 위상여유가 기준치를 겨우 넘는 수준이라면, 실제 장비의 오차나 노후화만으로도 시스템이 불안정해질 위험이 있어 여유 있게 설계하는 것이 일반적이다.</p>
 
@@ -167,6 +185,15 @@
 
   <h2>주의할 점</h2>
   <p>이득여유와 위상여유는 <a href="transfer-function.html">전달함수</a>로 표현되는 선형 시스템을 전제로 계산되는 값이라, 비선형성이 강한 실제 시스템에서는 이 수치만으로 안정성을 완전히 보장할 수 없다. 또한 두 값 중 하나만 크고 다른 하나는 작은 경우도 있으므로, <a href="pid-controller.html">PID 제어기</a>를 설계할 때는 반드시 두 여유값을 함께 확인해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Phase margin. Wikipedia (English).</li>
+    <li>Wikipedia contributors. (n.d.). Bode plot. Wikipedia (English).</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="bode-plot.html">보드 선도</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

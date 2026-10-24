@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -158,7 +159,24 @@
   <h2>왜 중요한가</h2>
   <p>VAE는 데이터를 확률적으로 구조화된 잠재 공간에 압축함으로써, 단순한 복원을 넘어 새로운 데이터를 생성하거나 잠재 공간 위에서 의미 있는 방향으로 데이터를 조작하는 것을 가능하게 한다. 이러한 특성 덕분에 이미지·분자·음성 생성뿐 아니라 이상 탐지, 표현학습, 준지도학습 등 생성 모델이 필요한 다양한 연구 분야의 기초 구조로 널리 채택되고 있다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>변분 오토인코더(VAE)는 디데릭 킹마(Diederik P. Kingma)와 맥스 웰링(Max Welling)이 2013년 소개한 신경망 구조로, 확률 모델과 변분 베이즈 방법에 속하는 심층 생성 모델이다.</li><li>인코더(근사 사후분포 q(z|x))는 입력을 잠재공간의 단일 점이 아니라 보통 가우시안 분포로 매핑하며, 이는 정규화 효과를 준다. 디코더(우도 p(x|z))는 잠재 표본을 입력 공간으로 되돌려 복원한다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>데이터의 로그우도를 직접 계산할 수 없으므로 증거 하한(ELBO)을 최대화한다. ELBO는 두 항으로 이루어진다. 재구성 항은 기대 로그우도이며 가우시안 디코더에서는 제곱오차 형태이다. KL 발산 항은 잠재분포를 보통 표준정규 사전분포에 가깝게 유지하며, 가우시안에서는 닫힌 형태로 쓸 수 있다.</li><li>재매개변수화 기법은 z = μ(x) + L(x)ε 형태로 표준정규 잡음 ε를 쓴다. L은 공분산의 Cholesky 인자이다. 이렇게 하면 인코더 매개변수로 기울기가 흐르므로 확률적 경사하강법을 쓸 수 있다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li>VAE는 일반 오토인코더처럼 입력을 한 점으로 압축하는 것이 아니라, 분포로 매핑한다는 점이 다르다.</li><li>원 논문은 'Auto-Encoding Variational Bayes'(Kingma &amp; Welling, arXiv:1312.6114, 2013년 12월 제출)이다. 초록은 재매개변수화된 변분 하한이 표준 확률적 경사법으로 최적화할 수 있는 하한 추정기를 준다고 설명한다. SGVB라는 명칭은 초록이 아니라 본문에서 쓰인다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"연속적인 잠재 공간에서 새로운 분자 구조를 생성하기 위해 변분 오토인코더를 학습시켰다."</div>
   <p>분자 데이터를 확률 분포로 압축하는 VAE를 학습시켜, 그 분포에서 샘플링해 새로운 분자 구조를 생성했다는 뜻이다.</p>
   <div class="example">"정상 신호만으로 VAE를 학습시킨 뒤 복원 오차가 큰 구간을 이상 신호로 판정하는 이상 탐지 기법을 제안하였다."</div>
@@ -171,6 +189,15 @@
 
   <h2>주의할 점</h2>
   <p>VAE는 잠재 공간을 매끄럽게 만드는 규제 항과 복원 품질 사이에 트레이드오프가 있어, 이 균형을 어떻게 잡았는지가 생성 품질에 큰 영향을 미친다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Kingma, D. P., &amp; Welling, M. (2013). Auto-encoding variational Bayes. arXiv:1312.6114.</li>
+    <li>Wikipedia contributors. (n.d.). Variational autoencoder. Wikipedia.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="autoencoder.html">오토인코더</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>

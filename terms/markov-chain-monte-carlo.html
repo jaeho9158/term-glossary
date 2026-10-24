@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>MCMC는 해석적으로 풀 수 없는 복잡한 베이지안 모형도 계산 가능하게 만들어 준 기술이기 때문에, 통계학뿐 아니라 생물정보학, 계량경제학, 물리학, 머신러닝 등 사후분포 추론이 필요한 거의 모든 분야의 논문에서 표준적인 추정 도구로 자리잡았다. 계층모형이나 잠재변수 모형처럼 변수 간 구조가 복잡해질수록 전통적인 방법으로는 사후분포를 다루기 어려워지는데, MCMC는 이런 상황에서도 표본을 반복 추출해 근사적으로 추론을 가능하게 해준다. 이 때문에 현대 베이지안 통계 실무에서 MCMC를 빼놓고는 이야기하기 어려울 정도로 핵심적인 위치를 차지한다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>MCMC는 평형 분포가 목표 분포와 같아지도록 마르코프 연쇄를 만들어 그 분포에서 표본을 얻는다.</li><li>메트로폴리스(Metropolis) 알고리즘이 1953년에 나왔고, 헤이스팅스(Hastings)가 1970년에 일반화했다.</li><li>깁스 표집(Gibbs sampling)은 각 좌표를 전체 조건부 분포에서 갱신한다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>수렴 진단으로는 겔먼-루빈(Gelman-Rubin) 지표인 PSRF(R-hat)가 1.1보다 작으면 수렴으로 보는 관행이 흔하다. 베흐타리(Vehtari) 등(2019, 최신판 2021)은 꼬리가 두꺼운 사슬에서는 통상의 R-hat이 실패한다고 보고, 순위 정규화 R-hat과 순위 도표를 제안했다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>사슬의 수와 수렴 진단 지표, 그 판정 기준을 함께 적는다.</li><li>R-hat을 순위 정규화한 형태로 계산했는지 밝힌다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"모형의 사후분포는 4개의 체인으로 마르코프 연쇄 몬테카를로(MCMC) 표집을 실시하여 추정하였다."</div>
   <p>복잡한 베이지안 모형의 결과값을 직접 계산하는 대신, 반복적인 무작위 표집 시뮬레이션을 통해 근사적으로 얻었다는 뜻이다.</p>
 
@@ -167,6 +185,15 @@
 
   <h2>주의할 점</h2>
   <p>체인이 충분히 수렴했는지(안정된 값에 도달했는지) 확인하는 진단 절차가 반드시 필요하며, 수렴하지 않은 결과는 신뢰할 수 없다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Markov chain Monte Carlo. Wikipedia.</li>
+    <li>Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., &amp; Bürkner, P.-C. (2019). Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC. arXiv.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="monte-carlo-method.html">몬테카를로 방법(시뮬레이션)</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="gibbs-sampling.html">깁스 표집</a><a href="metropolis-hastings.html">메트로폴리스-헤이스팅스</a><a href="metropolis-hastings-algorithm.html">메트로폴리스-헤이스팅스 알고리즘</a><a href="burn-in.html">번인</a><a href="hamiltonian-monte-carlo.html">해밀토니안 몬테카를로</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
