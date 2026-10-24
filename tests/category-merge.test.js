@@ -1,5 +1,6 @@
 // 분야 병합 적용기(scripts/prune/apply-category-merge.js)의 순수 함수 검사.
 // 실제 assets/category-data.js·OA 수집기 원문을 메모리에서 고쳐 보고, 결과가 서로 맞는지 본다(파일은 쓰지 않는다).
+// 분야를 실제로 합친 뒤에도 돌아가야 하므로 분야 코드는 그때 있는 것에서 고른다.
 const test = require("node:test");
 const assert = require("node:assert");
 const fs = require("fs");
@@ -10,6 +11,11 @@ const { exportApproved } = require("../scripts/prune/export-approved.js");
 const REPO = path.join(__dirname, "..");
 const catSrc = fs.readFileSync(path.join(REPO, "assets", "category-data.js"), "utf8");
 const cat = M.evalCategoryData(catSrc);
+
+// 코드가 넷 이상인 대분류에서 [대표, 흡수] 쌍을 두 개 고른다.
+const big = cat.CATEGORY_GROUPS.filter((g) => g.codes.length >= 4);
+const [K1, A1, K2, A2] = big[0].codes;
+const [K3, A3] = big[1].codes;
 
 const doc = (id, decision, keeper, absorb, title, extra = {}) => ({
   id, kind: "merge", decision, title,
@@ -45,75 +51,81 @@ test("planFromDocs: 같은 대표 분야에 이름이 엇갈리면 멈춘다", (
 
 test("validatePlan: 없는 코드·연쇄 병합·이중 흡수를 잡는다", () => {
   const e = M.validatePlan({ groups: [
-    { keeper: "geo", absorb: ["cartography", "nope"] },
-    { keeper: "cartography", absorb: ["landscape"] },
-    { keeper: "arch", absorb: ["landscape"] },
+    { keeper: K1, absorb: [A1, "no-such-code"] },
+    { keeper: A1, absorb: [A2] },
+    { keeper: K2, absorb: [A2] },
   ] }, cat);
-  assert.ok(e.some((x) => x.includes("nope")));
+  assert.ok(e.some((x) => x.includes("no-such-code")));
   assert.ok(e.some((x) => x.includes("다른 묶음의 대표")));
   assert.ok(e.some((x) => x.includes("두 대표")));
+  assert.deepStrictEqual(M.validatePlan({ groups: [{ keeper: K1, absorb: [A1] }] }, cat), []);
 });
 
 test("mergeTerms: A를 K로 바꾸고 중복은 하나로, 순서는 유지", () => {
   const { terms, changed } = M.mergeTerms([
-    { slug: "a", categories: ["cartography", "earth"] },
-    { slug: "b", categories: ["geo", "cartography"] },
-    { slug: "c", categories: ["stat"] },
-  ], new Map([["cartography", "geo"]]));
-  assert.deepStrictEqual(terms.map((t) => t.categories), [["geo", "earth"], ["geo"], ["stat"]]);
+    { slug: "a", categories: ["aa", "x"] },
+    { slug: "b", categories: ["kk", "aa"] },
+    { slug: "c", categories: ["x"] },
+  ], new Map([["aa", "kk"]]));
+  assert.deepStrictEqual(terms.map((t) => t.categories), [["kk", "x"], ["kk"], ["x"]]);
   assert.deepStrictEqual(changed, ["a", "b"]);
 });
 
 test("editCategoryData: 실제 파일에서 흡수·이름 바꾸기·별칭·하위 주제가 서로 맞게 바뀐다", () => {
   const groups = [
-    { keeper: "geo", label: null, absorb: ["cartography"] },
-    { keeper: "earth", label: null, absorb: ["astro", "meteor", "ocean"] },
-    { keeper: "geronto", label: "사회복지학", absorb: ["socwelfare"] },
-    { keeper: "cs", label: "컴퓨터학", absorb: ["cyber"] },
+    { keeper: K1, label: null, absorb: [A1] },
+    { keeper: K2, label: null, absorb: [A2] },
+    { keeper: K3, label: "새 이름 분야", absorb: [A3] },
   ];
   const out = M.editCategoryData(catSrc, groups, cat);
   const { errors, data } = M.checkCategoryData(out);
   assert.deepStrictEqual(errors, []);
-  for (const a of ["cartography", "astro", "meteor", "ocean", "socwelfare", "cyber"]) {
+  for (const a of [A1, A2, A3]) {
     assert.strictEqual(data.CATEGORY_LABELS[a], undefined);
     assert.ok(!data.CATEGORY_ORDER.includes(a));
     assert.strictEqual(data.CATEGORY_INTRO[a], undefined);
+    assert.strictEqual(data.CATEGORY_DESCRIPTIONS[a], undefined);
   }
-  assert.deepStrictEqual(data.CATEGORY_ALIASES.cartography, ["geo"]);
-  assert.deepStrictEqual(data.CATEGORY_ALIASES.ocean, ["earth"]);
-  assert.strictEqual(data.CATEGORY_LABELS.geronto, "사회복지학");
-  assert.strictEqual(data.CATEGORY_LABELS.cs, "컴퓨터학");
-  // 기존 별칭은 그대로
-  assert.deepStrictEqual(data.CATEGORY_ALIASES.physchem, cat.CATEGORY_ALIASES.physchem);
-  // 하위 주제: 대표 목록 + 흡수 목록
-  assert.deepStrictEqual(data.SUB_CATEGORY_ORDER.geo, [...cat.SUB_CATEGORY_ORDER.geo, ...cat.SUB_CATEGORY_ORDER.cartography.filter((s) => !cat.SUB_CATEGORY_ORDER.geo.includes(s))]);
-  // 홈 추천 분야에서 흡수 분야가 빠지고 줄 구조는 그대로
-  assert.ok(!data.HOME_FEATURED_CATEGORIES.some((c) => ["astro", "cyber"].includes(c)));
-  assert.strictEqual(out.split("\n").length, catSrc.split("\n").length - 6 * 4 + 6); // 표 4곳에서 한 줄씩 빠지고 별칭 6줄이 는다
+  assert.deepStrictEqual(data.CATEGORY_ALIASES[A1], [K1]);
+  assert.deepStrictEqual(data.CATEGORY_ALIASES[A3], [K3]);
+  assert.strictEqual(data.CATEGORY_LABELS[K3], "새 이름 분야");
+  assert.strictEqual(data.CATEGORY_LABELS[K1], cat.CATEGORY_LABELS[K1]);
+  // 하위 주제: 대표 목록 + 흡수 목록(중복 없이)
+  const sub = cat.SUB_CATEGORY_ORDER;
+  assert.deepStrictEqual(data.SUB_CATEGORY_ORDER[K1], [...sub[K1], ...sub[A1].filter((s) => !sub[K1].includes(s))]);
+  // 표 4곳(라벨·설명·하위 주제·소개)에서 한 줄씩 빠지고 별칭이 흡수 수만큼 는다
+  assert.strictEqual(out.split("\n").length, catSrc.split("\n").length - 3 * 4 + 3);
 });
 
 test("editCategoryData: 기존 별칭이 흡수 분야를 가리키면 대표로 돌린다", () => {
-  const out = M.editCategoryData(catSrc, [{ keeper: "landscape", label: null, absorb: ["arch"] }], cat);
+  const [old, targets] = Object.entries(cat.CATEGORY_ALIASES).find(([, v]) => v.length === 1);
+  const target = targets[0];
+  const group = cat.CATEGORY_GROUPS.find((g) => g.codes.includes(target));
+  const keeper = group.codes.find((c) => c !== target);
+  const out = M.editCategoryData(catSrc, [{ keeper, label: null, absorb: [target] }], cat);
   const { errors, data } = M.checkCategoryData(out);
   assert.deepStrictEqual(errors, []);
-  assert.deepStrictEqual(data.CATEGORY_ALIASES.urban, ["landscape"]);
-  assert.deepStrictEqual(data.CATEGORY_ALIASES.arch, ["landscape"]);
+  assert.deepStrictEqual(data.CATEGORY_ALIASES[old], [keeper]);
+  assert.deepStrictEqual(data.CATEGORY_ALIASES[target], [keeper]);
 });
 
 test("dropInlineEntries: 한 줄에 여러 항목인 분야 매핑에서 흡수 분야만 뺀다", () => {
   const src = fs.readFileSync(path.join(REPO, "scripts", "oa", "collect-openalex.js"), "utf8");
-  const { src: out, removed } = M.dropInlineEntries(src, "CODE_FIELDS", ["cartography", "astro", "cyber"]);
-  assert.deepStrictEqual(removed.sort(), ["astro", "cartography", "cyber"]);
-  assert.ok(!/\bcartography: \[/.test(out) && !/\bastro: \[/.test(out) && !/\bcyber: \[/.test(out));
-  assert.ok(/\bgeo: \[/.test(out) && /\bearth: \[/.test(out) && /\bcs: \[/.test(out));
-  assert.strictEqual(out.length < src.length, true);
+  const has = (s, c) => new RegExp(`(^|[ \\t{])${c}: \\[`, "m").test(s);
+  const codes = cat.CATEGORY_ORDER.filter((c) => has(src, c));
+  const drop = [codes[1], codes[5], codes[codes.length - 1]];
+  const { src: out, removed } = M.dropInlineEntries(src, "CODE_FIELDS", drop);
+  assert.deepStrictEqual(removed.sort(), drop.slice().sort());
+  for (const c of drop) assert.ok(!has(out, c), c);
+  for (const c of codes.filter((c) => !drop.includes(c))) assert.ok(has(out, c), c);
 });
 
 test("editGroupsJson: 진단 파이프라인 묶음에서 흡수 분야를 뺀다", () => {
   const raw = fs.readFileSync(path.join(REPO, "scripts", "diagrams", "pipeline", "groups.json"), "utf8");
-  const out = JSON.parse(M.editGroupsJson(raw, new Map([["cartography", "geo"]])));
-  assert.ok(!Object.values(out).flat().includes("cartography"));
-  assert.strictEqual(Object.values(out).flat().length, Object.values(JSON.parse(raw)).flat().length - 1);
+  const all = Object.values(JSON.parse(raw)).flat();
+  const out = JSON.parse(M.editGroupsJson(raw, new Map([[all[1], all[0]]])));
+  assert.ok(!Object.values(out).flat().includes(all[1]));
+  assert.strictEqual(Object.values(out).flat().length, all.length - 1);
 });
 
 test("serializeLike: 원래 파일의 줄바꿈·들여쓰기·끝 개행을 따른다", () => {

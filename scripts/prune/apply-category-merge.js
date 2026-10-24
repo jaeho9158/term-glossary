@@ -429,6 +429,17 @@ function applyCategoryMerge({ plan, root, dry = false, log = console.log }) {
       bodyHtml: `이 분야는 <a href="${k}.html">${escapeHtml(label)}</a> 분야로 통합되었습니다.`,
     }));
   }
+  // 개념 지도: taxonomy/build.js가 돌면 A 페이지를 지우지만, 그 스크립트가 실패해도 링크가 깨지지 않게 넘겨 둔다.
+  for (const [a, k] of absorbTo) {
+    if (!fs.existsSync(rel("concept-map", `${a}.html`))) continue;
+    const to = fs.existsSync(rel("concept-map", `${k}.html`)) ? `${k}.html` : `../category/${k}.html`;
+    writes.set(rel("concept-map", `${a}.html`), stubHtml({
+      title: escapeHtml(cat.CATEGORY_LABELS[a]) + " 개념 지도",
+      canonical: `${BASE_URL}/${to.startsWith("../") ? to.slice(3) : "concept-map/" + to}`,
+      refresh: to,
+      bodyHtml: `이 분야는 <a href="${to}">${escapeHtml(labels[k])}</a> 분야로 통합되었습니다.`,
+    }));
+  }
   // 흡수 분야 페이지로 가던 용어 스텁(정리된 용어) → 대표 분야 페이지로
   const termsDir = rel("terms");
   const slugSet = new Set(nextTerms.map((t) => t.slug));
@@ -515,7 +526,13 @@ function main() {
   applyCategoryMerge({ plan, root, dry: has("--dry") });
   if (has("--dry")) return;
   if (has("--rebuild")) {
-    for (const cmd of REBUILD) { console.log(`\n$ ${cmd}`); execSync(cmd, { cwd: root, stdio: "inherit" }); }
+    // 한 단계가 실패해도(예: 기존 데이터 결함으로 멈추는 생성기) 나머지는 돌리고 끝에 모아 알린다.
+    const failed = [];
+    for (const cmd of REBUILD) {
+      console.log(`\n$ ${cmd}`);
+      try { execSync(cmd, { cwd: root, stdio: "inherit" }); } catch (e) { failed.push(cmd); }
+    }
+    if (failed.length) { console.error(`\n실패한 단계(원인을 고친 뒤 이것만 다시):\n  ${failed.join("\n  ")}`); process.exitCode = 1; }
     console.log("\n다음: npm test");
   } else {
     console.log("\n다음 순서로 다시 만든 뒤 npm test:\n  " + REBUILD.join("\n  "));

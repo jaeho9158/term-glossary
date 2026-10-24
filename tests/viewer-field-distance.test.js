@@ -10,18 +10,18 @@ const m = (slug, title_ko, cats, extra) => ({ slug, title_ko, title_en: "", cate
 // 분야군: CATEGORY_GROUPS를 재사용하되 한의학은 따로 뗀다
 assert.strictEqual(fieldGroupOf("neuro"), fieldGroupOf("med"));
 assert.notStrictEqual(fieldGroupOf("kmed"), fieldGroupOf("med"));
-assert.notStrictEqual(fieldGroupOf("finance"), fieldGroupOf("med"));
+assert.notStrictEqual(fieldGroupOf("acct"), fieldGroupOf("med"));
 
 // 의학 문서: 의학 용어 12개 + 동음이의어들
 const medDoc = [
   ...Array.from({ length: 12 }, (_, i) => m(`med-${i}`, `의학용어${i}`, ["med"])),
   m("stat-1", "분산", ["stat"]),
-  m("gamma-option", "감마", ["finance"]),
+  m("gamma-option", "감마", ["acct"]),
   m("echelon", "제대", ["military"]),
   m("qi-mechanism", "기기", ["kmed"]),
   m("filtration", "여과", ["chemeng"]),
   m("long-far", "중독관리센터", ["toxicol"]),
-  m("long-unrelated", "포트폴리오이론", ["finance"]),
+  m("long-unrelated", "포트폴리오이론", ["acct"]),
   m("multi", "응집", ["env", "med"]),
   m("food", "항산화", ["food"]),
 ];
@@ -56,7 +56,7 @@ const medDoc = [
 
 // 용어가 10개 미만이면 분야 추정을 믿을 수 없으므로 아무것도 빼지 않는다
 {
-  const small = [m("a", "의학", ["med"]), m("b", "감마", ["finance"])];
+  const small = [m("a", "의학", ["med"]), m("b", "감마", ["acct"])];
   assert.deepStrictEqual(filterDistantFieldMatches(small).filter((x) => !x.distant).map((x) => x.slug), ["a", "b"]);
 }
 
@@ -79,7 +79,7 @@ const medDoc = [
 {
   const terms = [
     ...Array.from({ length: 12 }, (_, i) => ({ slug: `med-${i}`, title_ko: `의학말${String.fromCharCode(0xac00 + i)}`, title_en: "", categories: ["med"] })),
-    { slug: "gamma-option", title_ko: "감마", title_en: "Gamma", categories: ["finance"] },
+    { slug: "gamma-option", title_ko: "감마", title_en: "Gamma", categories: ["acct"] },
   ];
   const text = terms.map((t) => t.title_ko).join(" ") + " 감마 파가 증가했다.";
   const result = matchTerms(text, terms);
@@ -91,7 +91,7 @@ const medDoc = [
 
 // 강등 용어는 패널에서 "다른 분야" 그룹 맨 아래
 {
-  const list = [m("a", "가", ["med"]), m("d", "나", ["finance"], { distant: true }), m("o", "다", ["law"])];
+  const list = [m("a", "가", ["med"]), m("d", "나", ["acct"], { distant: true }), m("o", "다", ["law"])];
   const g = groupMatchesByField(list, ["med"]);
   assert.deepStrictEqual(g.primary.map((x) => x.slug), ["a"]);
   assert.deepStrictEqual(g.others.map((x) => x.slug), ["o", "d"]);
