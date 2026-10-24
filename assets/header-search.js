@@ -35,7 +35,7 @@
     psych: "심리학",
     socialecon: "사회과학·경제학",
     eng: "공학",
-    cs: "컴퓨터과학·AI",
+    cs: "컴퓨터학",
     math: "수학",
   };
   const RECENT_KEY = "recentSearches";

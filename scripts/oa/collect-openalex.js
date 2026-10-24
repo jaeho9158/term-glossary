@@ -26,21 +26,21 @@ const F = { agri: 11, arts: 12, biochem: 13, biz: 14, cheme: 15, chem: 16, cs: 1
   eng: 22, env: 23, immuno: 24, mat: 25, math: 26, med: 27, neuro: 28, nurs: 29, pharm: 30, phys: 31, psych: 32, soc: 33, vet: 34, dent: 35, health: 36 };
 const CODE_FIELDS = {
   stat: ["math", "decision"], method: ["math", "soc"], tool: ["cs"], ethics: ["arts", "soc"], math: ["math"],
-  phys: ["phys"], chem: ["chem"], bio: ["biochem", "agri"], earth: ["earth"], astro: ["phys"], meteor: ["earth"], ocean: ["earth"], geo: ["earth"], env: ["env"],
+  phys: ["phys"], chem: ["chem"], bio: ["biochem", "agri"], earth: ["earth"], geo: ["earth"], env: ["env"],
   med: ["med"], pubhealth: ["med", "health"], neuro: ["neuro"], biotech: ["biochem"], biomed: ["biochem", "med"], pharm: ["pharm"], nursing: ["nurs"], dent: ["dent"],
   vet: ["vet"], kmed: ["med"], medlab: ["med", "health"], radio: ["med"], ems: ["med", "health"], rehab: ["health"], toxicol: ["pharm", "env"],
   eng: ["eng"], mechanical: ["eng"], electrical: ["eng"], chemeng: ["cheme"], materials: ["mat"], optics: ["phys"], robotics: ["eng", "cs"], aviation: ["eng"], naval: ["eng"],
-  nuclear: ["eng", "energy"], indeng: ["eng", "decision"], fire: ["eng"], disaster: ["eng", "env"],
-  cs: ["cs"], cyber: ["cs"], libinfo: ["cs", "soc"],
-  socialecon: ["soc", "econ"], psych: ["psych"], polisci: ["soc"], pubadmin: ["soc"], law: ["soc"], crimin: ["soc"], forensicsci: ["soc"], demog: ["soc"], anthro: ["soc"],
-  gender: ["soc"], socwelfare: ["soc"], labor: ["soc", "econ"], intdev: ["soc", "econ"], media: ["soc"], military: ["soc"],
-  biz: ["biz"], acct: ["biz"], finance: ["econ", "biz"], trade: ["econ", "biz"], tax: ["econ", "biz"], insur: ["biz"], logis: ["biz", "decision"], realestate: ["biz"],
-  consumer: ["biz"], ip: ["biz"], tourism: ["biz"],
-  philo: ["arts"], history: ["arts"], lit: ["arts"], religion: ["arts"], ling: ["arts"], translation: ["arts"], archaeo: ["arts"], museum: ["arts"],
-  artstudy: ["arts"], music: ["arts"], film: ["arts"], dance: ["arts"], design: ["arts"], textile: ["mat", "arts"], cosmetic: ["chem"], gamestudy: ["cs", "arts"], sports: ["health"],
+  nuclear: ["eng", "energy"], indeng: ["eng", "decision"], fire: ["eng"],
+  cs: ["cs"], libinfo: ["cs", "soc"],
+  socialecon: ["soc", "econ"], psych: ["psych"], polisci: ["soc"], pubadmin: ["soc"], law: ["soc"], demog: ["soc"],
+  gender: ["soc"], intdev: ["soc", "econ"], media: ["soc"], military: ["soc"],
+  biz: ["biz"], acct: ["biz"], logis: ["biz", "decision"],
+  consumer: ["biz"], tourism: ["biz"],
+  philo: ["arts"], history: ["arts"], lit: ["arts"], religion: ["arts"], ling: ["arts"],
+  artstudy: ["arts"], music: ["arts"], film: ["arts"], dance: ["arts"], design: ["arts"], cosmetic: ["chem"], gamestudy: ["cs", "arts"], sports: ["health"],
   edu: ["soc"], childdev: ["psych"], geronto: ["med", "psych"],
   agri: ["agri"], forestry: ["agri"], livestock: ["agri"], food: ["agri"],
-  arch: ["eng", "soc"], landscape: ["env"], cartography: ["earth"],
+  arch: ["eng", "soc"], landscape: ["env"], 
 };
 const fieldIds = (code) => (CODE_FIELDS[code] || []).map((k) => F[k]).join("|");
 
