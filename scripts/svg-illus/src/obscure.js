@@ -132,7 +132,8 @@ export function findObscured(svg) {
     const filled = fillRaw !== 'none';
     const op = Math.min(num(a.opacity, 1), num(a['fill-opacity'], 1));
     const sw = strokeRaw && strokeRaw !== 'none' ? num(a['stroke-width'], 1) : 0;
-    const add = (poly, closed, isFill) => items.push({ kind: 'shape', order: order++, name, poly, filled: isFill, segs: polySegs(poly, closed), op, sw });
+    const arrow = !!(a['marker-end'] || a['marker-start']);
+    const add = (poly, closed, isFill) => items.push({ kind: 'shape', order: order++, name, poly, filled: isFill, segs: polySegs(poly, closed), op, sw, arrow });
     if (name === 'rect') {
       const x = num(a.x), y = num(a.y), w = num(a.width), h = num(a.height);
       if (w > 0 && h > 0) add([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], true, filled);
@@ -142,7 +143,7 @@ export function findObscured(svg) {
       const nums = (a.points || '').match(/-?\d*\.?\d+/g) || []; const poly = [];
       for (let k = 0; k + 1 < nums.length; k += 2) poly.push([+nums[k], +nums[k + 1]]);
       if (poly.length >= 2) add(poly, name === 'polygon', filled && name === 'polygon');
-    } else if (name === 'line') items.push({ kind: 'shape', order: order++, name, poly: [], filled: false, segs: [[num(a.x1), num(a.y1), num(a.x2), num(a.y2)]], op, sw });
+    } else if (name === 'line') items.push({ kind: 'shape', order: order++, name, poly: [], filled: false, segs: [[num(a.x1), num(a.y1), num(a.x2), num(a.y2)]], op, sw, arrow });
     else if (name === 'path') for (const p of flattenPath(a.d || '')) add(p, !!p.closed, filled && !!p.closed);
   }
   const out = [], seen = new Set();
@@ -163,6 +164,8 @@ export function findObscured(svg) {
         // 글자보다 먼저 그려진 선이라도, 그 사이에 글자를 거의 통째로 덮는 불투명 면(라벨 배경·마커 원)이 있으면 가려져 보이지 않으므로 허용
         if (s.order < t.order && items.some(f => f.kind === 'shape' && f.filled && f.op >= 0.5 && f.order > s.order && f.order < t.order && pts.filter(([px, py]) => inPoly(px, py, f.poly)).length / pts.length >= 0.92)) continue;
         report(t, s.name, 'line');
+      } else if (s.arrow && s.segs.some(g => !near(g, b) && segHitsBox(g, { x0: b.x0 - 4, x1: b.x1 + 4, y0: b.y0 - 4, y1: b.y1 + 4 }))) {
+        report(t, s.name, 'near'); // 화살표가 다른 글자의 4px 안쪽을 지난다
       }
     }
   }

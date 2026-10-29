@@ -282,3 +282,12 @@ test('글자 가림 검사: 점이 글자를 덮거나 라벨이 도형에 걸�
     { type: 'rect', x: 40, y: 30, w: 120, h: 40 }, { type: 'text', at: [100, 54], text: '안쪽', anchor: 'middle', fixed: true }] }).report;
   assert.equal(ok.obscured.length, 0);
 });
+
+test('글자 가림 검사: 화살표가 글자 4px 안쪽을 지나면 near로 경고한다', async () => {
+  const { findObscured } = await import('../src/obscure.js');
+  const t = '<text x="40" y="50" font-size="13">라벨입니다 라벨</text>';
+  const near = `<svg>${t}<line x1="10" y1="55" x2="150" y2="55" style="stroke:#000" stroke-width="2" marker-end="url(#a)"/></svg>`;
+  assert.ok(findObscured(near).some(o => o.why === 'near'));
+  const far = `<svg>${t}<line x1="10" y1="85" x2="150" y2="85" style="stroke:#000" stroke-width="2" marker-end="url(#a)"/></svg>`;
+  assert.equal(findObscured(far).length, 0);
+});
