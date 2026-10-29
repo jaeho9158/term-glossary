@@ -1,0 +1,817 @@
+{
+ "id": "angoff-method",
+ "width": 360,
+ "height": 480,
+ "title": "앙고프 방법: 문항별 확률을 합산해 분할점수를 정한다",
+ "elements": [
+  {
+   "type": "icon",
+   "name": "person",
+   "at": [
+    22,
+    20
+   ],
+   "size": 28,
+   "px": true,
+   "color": "blue",
+   "stroke": "blue",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    26
+   ],
+   "text": "막대 = 최소 능력 응시자의 정답 확률(0~1)",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    6,
+    70
+   ],
+   "text": "문항",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    62,
+    70
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": false
+  },
+  {
+   "type": "text",
+   "at": [
+    106,
+    70
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": false
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    70
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": false
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    70
+   ],
+   "text": "n",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    246,
+    70
+   ],
+   "text": "개인 합격선",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet"
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    106
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 40,
+   "y": 84,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 48,
+   "y": 93.6,
+   "w": 24,
+   "h": 22.400000000000002,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 84,
+   "y": 84,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 92,
+   "y": 102,
+   "w": 24,
+   "h": 14,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 128,
+   "y": 84,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 107.6,
+   "w": 24,
+   "h": 8.4,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 84,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 96.4,
+   "w": 24,
+   "h": 19.599999999999998,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 226,
+   "y": 84,
+   "w": 40,
+   "h": 36,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.8,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    246,
+    108
+   ],
+   "text": "Σ",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet"
+  },
+  {
+   "type": "line",
+   "from": [
+    266,
+    102
+   ],
+   "to": [
+    282,
+    102
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    146
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 40,
+   "y": 124,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 48,
+   "y": 136.4,
+   "w": 24,
+   "h": 19.599999999999998,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 84,
+   "y": 124,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 92,
+   "y": 139.2,
+   "w": 24,
+   "h": 16.8,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 128,
+   "y": 124,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 144.8,
+   "w": 24,
+   "h": 11.200000000000001,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 124,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 139.2,
+   "w": 24,
+   "h": 16.8,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 226,
+   "y": 124,
+   "w": 40,
+   "h": 36,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.8,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    246,
+    148
+   ],
+   "text": "Σ",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet"
+  },
+  {
+   "type": "line",
+   "from": [
+    266,
+    142
+   ],
+   "to": [
+    282,
+    142
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    186
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 40,
+   "y": 164,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 48,
+   "y": 170.8,
+   "w": 24,
+   "h": 25.2,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 84,
+   "y": 164,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 92,
+   "y": 184.8,
+   "w": 24,
+   "h": 11.200000000000001,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 128,
+   "y": 164,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 187.6,
+   "w": 24,
+   "h": 8.4,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 164,
+   "w": 40,
+   "h": 36,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 173.6,
+   "w": 24,
+   "h": 22.400000000000002,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 226,
+   "y": 164,
+   "w": 40,
+   "h": 36,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.8,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    246,
+    188
+   ],
+   "text": "Σ",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet"
+  },
+  {
+   "type": "line",
+   "from": [
+    266,
+    182
+   ],
+   "to": [
+    282,
+    182
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "from": [
+    282,
+    102
+   ],
+   "to": [
+    282,
+    182
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8
+  },
+  {
+   "type": "arrow",
+   "from": [
+    282,
+    182
+   ],
+   "to": [
+    282,
+    252
+   ],
+   "obstacle": false,
+   "stroke": "accent",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    226
+   ],
+   "text": "평균 → 분할점수",
+   "fixed": true,
+   "size": 13,
+   "anchor": "end",
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    252
+   ],
+   "text": "(합격선)",
+   "fixed": true,
+   "size": 13,
+   "anchor": "end",
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    20,
+    272
+   ],
+   "to": [
+    346,
+    272
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "from": [
+    282,
+    252
+   ],
+   "to": [
+    282,
+    284
+   ],
+   "obstacle": false,
+   "stroke": "accent",
+   "width": 3.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    262
+   ],
+   "text": "불합격",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    318,
+    262
+   ],
+   "text": "합격",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    304
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    160,
+    304
+   ],
+   "text": "시험 점수",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    282,
+    304
+   ],
+   "text": "분할점수",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    342,
+    304
+   ],
+   "text": "만점",
+   "fixed": true,
+   "size": 13,
+   "anchor": "end",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    10,
+    322
+   ],
+   "to": [
+    350,
+    322
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 352,
+   "w": 22,
+   "h": 32,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "arrow",
+   "from": [
+    50,
+    368
+   ],
+   "to": [
+    80,
+    368
+   ],
+   "obstacle": false,
+   "stroke": "accent",
+   "width": 2
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 366,
+   "w": 22,
+   "h": 18,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    31,
+    408
+   ],
+   "text": "1라운드",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    408
+   ],
+   "text": "2라운드",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    350
+   ],
+   "text": "실제 정답률과 다른 평정자",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    374
+   ],
+   "text": "값을 보고 확률을 고친다",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    398
+   ],
+   "text": "(수정 앙고프)",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    440
+   ],
+   "text": "확률(0~1)의 합 = 점수",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    464
+   ],
+   "text": "전문가의 주관적 추정이므로 절대적 정답은 아니다.",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "Σ",
+   "desc": "합(sum). 한 평정자가 문항별로 준 확률의 합",
+   "kind": "const"
+  },
+  {
+   "desc": "행 A·B·C는 평정자, 열은 문항이다. 막대 높이는 상대적인 크기를 나타내며 구체 수치는 없다. 세 평정자의 합산값을 평균해 분할점수(합격선)를 확정한다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
