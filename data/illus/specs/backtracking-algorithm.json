@@ -1,0 +1,1497 @@
+{
+ "id": "backtracking-algorithm",
+ "width": 360,
+ "height": 578,
+ "title": "백트래킹: 4-퀸 탐색 트리와 가지치기",
+ "elements": [
+  {
+   "type": "line",
+   "from": [
+    200,
+    44
+   ],
+   "to": [
+    96,
+    114
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    200,
+    44
+   ],
+   "to": [
+    174,
+    114
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    200,
+    44
+   ],
+   "to": [
+    226,
+    114
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    200,
+    44
+   ],
+   "to": [
+    304,
+    114
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    96,
+    114
+   ],
+   "to": [
+    70,
+    184
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    96,
+    114
+   ],
+   "to": [
+    122,
+    184
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    174,
+    114
+   ],
+   "to": [
+    174,
+    184
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    226,
+    114
+   ],
+   "to": [
+    226,
+    184
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    304,
+    114
+   ],
+   "to": [
+    278,
+    184
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    304,
+    114
+   ],
+   "to": [
+    330,
+    184
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    122,
+    184
+   ],
+   "to": [
+    122,
+    254
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    174,
+    184
+   ],
+   "to": [
+    174,
+    254
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    226,
+    184
+   ],
+   "to": [
+    226,
+    254
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    278,
+    184
+   ],
+   "to": [
+    278,
+    254
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    174,
+    254
+   ],
+   "to": [
+    174,
+    324
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    226,
+    254
+   ],
+   "to": [
+    226,
+    324
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 3
+  },
+  {
+   "type": "circle",
+   "center": [
+    200,
+    44
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "gray-f",
+   "stroke": "fg"
+  },
+  {
+   "type": "circle",
+   "center": [
+    96,
+    114
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    96,
+    119
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    174,
+    114
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    174,
+    119
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    226,
+    114
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    119
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    304,
+    114
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    304,
+    119
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    70,
+    184
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "rose-f",
+   "stroke": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    189
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    122,
+    184
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    189
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    174,
+    184
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    174,
+    189
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    226,
+    184
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    189
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    278,
+    184
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    189
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    330,
+    184
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "rose-f",
+   "stroke": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    189
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    122,
+    254
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "rose-f",
+   "stroke": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    259
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    174,
+    254
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    174,
+    259
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    226,
+    254
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    259
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    278,
+    254
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "rose-f",
+   "stroke": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    259
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    174,
+    324
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 2.4,
+   "fill": "green-f",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    174,
+    329
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    226,
+    324
+   ],
+   "r": 12,
+   "px": true,
+   "obstacle": false,
+   "width": 2.4,
+   "fill": "green-f",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    329
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    70,
+    196
+   ],
+   "to": [
+    70,
+    210
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    64,
+    211
+   ],
+   "to": [
+    76,
+    223
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    76,
+    211
+   ],
+   "to": [
+    64,
+    223
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "arrow",
+   "from": [
+    56,
+    172
+   ],
+   "to": [
+    82,
+    126
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "line",
+   "from": [
+    122,
+    266
+   ],
+   "to": [
+    122,
+    280
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    116,
+    281
+   ],
+   "to": [
+    128,
+    293
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    128,
+    281
+   ],
+   "to": [
+    116,
+    293
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "arrow",
+   "from": [
+    108,
+    242
+   ],
+   "to": [
+    108,
+    196
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "line",
+   "from": [
+    278,
+    266
+   ],
+   "to": [
+    278,
+    280
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    272,
+    281
+   ],
+   "to": [
+    284,
+    293
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    284,
+    281
+   ],
+   "to": [
+    272,
+    293
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "arrow",
+   "from": [
+    264,
+    242
+   ],
+   "to": [
+    264,
+    196
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "line",
+   "from": [
+    330,
+    196
+   ],
+   "to": [
+    330,
+    210
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    324,
+    211
+   ],
+   "to": [
+    336,
+    223
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    336,
+    211
+   ],
+   "to": [
+    324,
+    223
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "arrow",
+   "from": [
+    316,
+    172
+   ],
+   "to": [
+    290,
+    126
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    233
+   ],
+   "text": "reject",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    6,
+    152
+   ],
+   "text": "되돌아감",
+   "fixed": true,
+   "size": 13,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    16,
+    119
+   ],
+   "text": "1행",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    16,
+    189
+   ],
+   "text": "2행",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    16,
+    259
+   ],
+   "text": "3행",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    16,
+    329
+   ],
+   "text": "4행",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    218,
+    48
+   ],
+   "text": "빈 판 (시작)",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    200,
+    356
+   ],
+   "text": "accept",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    380
+   ],
+   "text": "초록 경로의 해 (2, 4, 1, 3)",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "from": [
+    20,
+    400
+   ],
+   "to": [
+    48,
+    428
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    48,
+    400
+   ],
+   "to": [
+    76,
+    428
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    76,
+    400
+   ],
+   "to": [
+    104,
+    428
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    104,
+    400
+   ],
+   "to": [
+    132,
+    428
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    20,
+    428
+   ],
+   "to": [
+    48,
+    456
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    48,
+    428
+   ],
+   "to": [
+    76,
+    456
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    76,
+    428
+   ],
+   "to": [
+    104,
+    456
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    104,
+    428
+   ],
+   "to": [
+    132,
+    456
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    20,
+    456
+   ],
+   "to": [
+    48,
+    484
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    48,
+    456
+   ],
+   "to": [
+    76,
+    484
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    76,
+    456
+   ],
+   "to": [
+    104,
+    484
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    104,
+    456
+   ],
+   "to": [
+    132,
+    484
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    20,
+    484
+   ],
+   "to": [
+    48,
+    512
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    48,
+    484
+   ],
+   "to": [
+    76,
+    512
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    76,
+    484
+   ],
+   "to": [
+    104,
+    512
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "rect",
+   "from": [
+    104,
+    484
+   ],
+   "to": [
+    132,
+    512
+   ],
+   "obstacle": false,
+   "width": 1,
+   "fill": "bg",
+   "stroke": "gray"
+  },
+  {
+   "type": "circle",
+   "center": [
+    62,
+    414
+   ],
+   "r": 10,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "green",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    62,
+    419
+   ],
+   "text": "Q",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "bg",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    118,
+    442
+   ],
+   "r": 10,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "green",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    118,
+    447
+   ],
+   "text": "Q",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "bg",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    34,
+    470
+   ],
+   "r": 10,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "green",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    34,
+    475
+   ],
+   "text": "Q",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "bg",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    90,
+    498
+   ],
+   "r": 10,
+   "px": true,
+   "obstacle": false,
+   "width": 1.4,
+   "fill": "green",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    90,
+    503
+   ],
+   "text": "Q",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "bg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    412
+   ],
+   "text": "N",
+   "fixed": true,
+   "size": 13,
+   "italic": true,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    196,
+    412
+   ],
+   "text": "방문 노드",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    412
+   ],
+   "text": "해",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    438
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    236,
+    438
+   ],
+   "text": "17",
+   "fixed": true,
+   "size": 13,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    438
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    462
+   ],
+   "text": "6",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    236,
+    462
+   ],
+   "text": "153",
+   "fixed": true,
+   "size": 13,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    462
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    486
+   ],
+   "text": "8",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    236,
+    486
+   ],
+   "text": "2,057",
+   "fixed": true,
+   "size": 13,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    486
+   ],
+   "text": "92",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    534
+   ],
+   "text": "가지치기가 없으면 8^{8} = 16,777,216가지",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    558
+   ],
+   "text": "N = 8일 때 2,057개 노드만 살펴본다",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "green"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "숫자",
+   "desc": "그 행에서 퀸을 놓은 열 번호이다",
+   "kind": "term"
+  },
+  {
+   "sym": "reject",
+   "desc": "제약을 어겨 가지를 끊는다(가지치기). 점선 화살표는 직전 갈림길로 되돌아감이다",
+   "kind": "term"
+  },
+  {
+   "sym": "accept",
+   "desc": "퀸 4개를 모두 놓아 해가 완성된다",
+   "kind": "term"
+  },
+  {
+   "sym": "N",
+   "desc": "판의 크기이자 놓을 퀸의 수",
+   "kind": "var"
+  },
+  {
+   "desc": "트리의 노드는 빈 판 1개와 유효한 부분 배치 16개로 모두 17개이며, 본문의 방문 17과 같다."
+  }
+ ],
+ "phoneMin": 11,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
