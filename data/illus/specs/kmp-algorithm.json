@@ -1,0 +1,1934 @@
+{
+ "id": "kmp-algorithm",
+ "width": 360,
+ "height": 700,
+ "title": "KMP 알고리즘: 불일치가 나도 텍스트 포인터는 되돌아가지 않고 패턴만 민다",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    10,
+    20
+   ],
+   "text": "실패 함수 π: 접두사이면서 접미사인 가장 긴 길이",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "rect",
+   "x": 24,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    47
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    74
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 24,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    101
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 46,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    47
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    74
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 46,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    101
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 68,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    47
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    74
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 68,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    101
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    47
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    74
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    101
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 112,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    47
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    74
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 112,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    101
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 134,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    47
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    74
+   ],
+   "text": "5",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 134,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    101
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 156,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    47
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    74
+   ],
+   "text": "6",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 156,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    101
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    47
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    74
+   ],
+   "text": "7",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    101
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 200,
+   "y": 30,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    47
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    74
+   ],
+   "text": "8",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 200,
+   "y": 84,
+   "w": 22,
+   "h": 24,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    101
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    48
+   ],
+   "text": "패턴",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    102
+   ],
+   "text": "π[i]",
+   "fixed": true,
+   "size": 13,
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    150
+   ],
+   "text": "① 불일치: 텍스트 포인터 i가 칸 4에서 멈춘다",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "rect",
+   "x": 24,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    207
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 46,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    207
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 68,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    207
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    207
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 112,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    207
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 134,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    207
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 156,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    207
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    207
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 200,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    207
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 222,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    233,
+    207
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 244,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    255,
+    207
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 266,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    277,
+    207
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 288,
+   "y": 190,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    299,
+    207
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 24,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    231
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 46,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    231
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 68,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    231
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    231
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 112,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    231
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 134,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2,
+   "dash": "3 2"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    231
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 156,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2,
+   "dash": "3 2"
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    231
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2,
+   "dash": "3 2"
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    231
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 200,
+   "y": 214,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2,
+   "dash": "3 2"
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    231
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    314,
+    207
+   ],
+   "text": "텍스트",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    123,
+    172
+   ],
+   "to": [
+    123,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "accent",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    141,
+    178
+   ],
+   "text": "i",
+   "fixed": true,
+   "size": 13,
+   "italic": true,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    140,
+    262
+   ],
+   "text": "C ≠ A: 불일치",
+   "fixed": true,
+   "size": 13,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    312
+   ],
+   "text": "② 패턴만 2칸 민다(k ← π[3] = 2)",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "rect",
+   "x": 24,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    383
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 46,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    383
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 68,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    383
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    383
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 112,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    383
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 134,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    383
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 156,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    383
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    383
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 200,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    383
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 222,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    233,
+    383
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 244,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    255,
+    383
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 266,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    277,
+    383
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 288,
+   "y": 366,
+   "w": 22,
+   "h": 24,
+   "fill": "bg",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    299,
+    383
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 68,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    407
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    101,
+    407
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 112,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    123,
+    407
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 134,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    407
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 156,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    407
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    407
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 200,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    211,
+    407
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 222,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    233,
+    407
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 244,
+   "y": 390,
+   "w": 22,
+   "h": 24,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    255,
+    407
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    123,
+    348
+   ],
+   "to": [
+    123,
+    364
+   ],
+   "obstacle": false,
+   "stroke": "accent",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    141,
+    354
+   ],
+   "text": "i 그대로",
+   "fixed": true,
+   "size": 13,
+   "italic": false,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "polyline",
+   "points": [
+    [
+     68,
+     358
+    ],
+    [
+     68,
+     354
+    ],
+    [
+     110,
+     354
+    ],
+    [
+     110,
+     358
+    ]
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    342
+   ],
+   "text": "AB = AB",
+   "fixed": true,
+   "size": 13,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    456
+   ],
+   "text": "겹친 AB는 다시 비교하지 않는다",
+   "fixed": true,
+   "size": 13,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    26,
+    426
+   ],
+   "to": [
+    66,
+    426
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    74,
+    431
+   ],
+   "text": "2칸 이동",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    486
+   ],
+   "text": "텍스트 포인터는 되돌아가지 않는다",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    530
+   ],
+   "text": "가상 실험: 위치 80에서 발견할 때 비교 횟수",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    558
+   ],
+   "text": "단순 탐색 1,701회",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 566,
+   "w": 289.17,
+   "h": 16,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    608
+   ],
+   "text": "KMP 181회",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 616,
+   "w": 30.770000000000003,
+   "h": 16,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    658
+   ],
+   "text": "KMP O(n+m), 추가 공간 O(m)",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    682
+   ],
+   "text": "단순 탐색 최악 O(nm)",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "π",
+   "desc": "실패 함수, 패턴 앞부분의 접두사이면서 접미사인 가장 긴 진부분 문자열의 길이",
+   "kind": "var"
+  },
+  {
+   "sym": "i",
+   "desc": "텍스트에서 비교 중인 위치",
+   "kind": "var"
+  },
+  {
+   "sym": "k",
+   "desc": "패턴에서 이미 일치한 길이(다음 비교 위치)",
+   "kind": "var"
+  },
+  {
+   "sym": "n, m",
+   "desc": "텍스트와 패턴의 길이",
+   "kind": "var"
+  },
+  {
+   "desc": "초록은 일치, 붉은색은 불일치, 파랑은 다시 비교하지 않는 부분이다. 텍스트와 패턴은 설명용이고, 위치 80 실험은 A 100개 뒤에 B가 붙은 길이 101 텍스트에서 A 20개와 B로 된 패턴을 찾은 값이다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
