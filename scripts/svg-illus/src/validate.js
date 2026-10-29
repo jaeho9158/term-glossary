@@ -12,6 +12,7 @@ const REQ = {
   line: ['from', 'to'], arrow: ['from', 'to'], circle: ['center', 'r'], ellipse: ['center', 'rx', 'ry'],
   polygon: ['points'], polyline: ['points'], rect: [], arc: ['center', 'r'], curve: [], text: ['at', 'text'],
   hatch: [], dot: ['at'], marker: ['at', 'n'], rightAngle: ['at', 'dir1', 'dir2'], path: ['d'], group: ['elements'],
+  dimension: ['from', 'to'], waves: ['center', 'radii'],
 };
 export const ELEMENT_TYPES = Object.keys(REQ);
 const KINDS = ['var', 'expr', 'func', 'const', 'abbr', 'term', 'unit', 'note'];

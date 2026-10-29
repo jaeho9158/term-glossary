@@ -122,6 +122,16 @@ function smoothPath(ps) { // Catmull-Rom → 3차 베지어
   return d;
 }
 
+function smoothClosedPath(ps) { // 닫힌 Catmull-Rom 곡선(덩어리 윤곽)
+  const n = ps.length; let d = `M${f(ps[0][0])},${f(ps[0][1])}`;
+  for (let i = 0; i < n; i++) {
+    const p0 = ps[(i - 1 + n) % n], p1 = ps[i], p2 = ps[(i + 1) % n], p3 = ps[(i + 2) % n];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${f(c1[0])},${f(c1[1])} ${f(c2[0])},${f(c2[1])} ${f(p2[0])},${f(p2[1])}`;
+  }
+  return d + 'Z';
+}
+
 function rectCorners(ctx, el) {
   let a, b;
   if (el.from) { a = ctx.P(el.from, el.px); b = ctx.P(el.to, el.px); }
@@ -198,8 +208,15 @@ function drawEl(ctx, el) {
       let s = '';
       for (const ps of segs) {
         addPath(ctx, ps, false, el);
-        s += el.smooth && el.fn === undefined ? `<path d="${smoothPath(ps)}" ${styleOf(ctx, el, { width: 2.2 })}${arrowAttrs(ctx, el, false)}/>`
+        s += el.smooth && el.closed && el.fn === undefined ? `<path d="${smoothClosedPath(ps)}" ${styleOf(ctx, el, { width: 2.2 })}/>`
+          : el.smooth && el.fn === undefined ? `<path d="${smoothPath(ps)}" ${styleOf(ctx, el, { width: 2.2 })}${arrowAttrs(ctx, el, false)}/>`
           : `<polyline points="${pts(ps)}" ${styleOf(ctx, el, { width: 2.2 })}${arrowAttrs(ctx, el, false)}/>`;
+      }
+      if ((el.endDot || el.startDot) && segs.length) { // 궤적 끝점·시작점 표시
+        const dotAt = (p, c) => `<circle cx="${f(p[0])}" cy="${f(p[1])}" r="${el.dotR ?? 4}" style="fill:${ctx.color(c)};stroke:none"/>`;
+        const dc = el.stroke ?? el.color ?? 'fg';
+        if (el.endDot) { const l = segs[segs.length - 1]; s += dotAt(l[l.length - 1], dc); }
+        if (el.startDot) s += dotAt(segs[0][0], dc);
       }
       if (el.label && segs.length) {
         const last = segs[segs.length - 1], p = el.labelAt ? P(el.labelAt) : last[last.length - 1];
@@ -233,6 +250,13 @@ function drawEl(ctx, el) {
         + `<text x="${f(c[0])}" y="${f(c[1] + 4)}" text-anchor="middle" font-size="${el.size ?? 11}" font-weight="700" style="fill:${ctx.color(el.textColor ?? 'bg')}">${escapeXml(el.n)}</text></g>`;
       if (el.target) { const t = P(el.target); s = `<line x1="${f(c[0])}" y1="${f(c[1])}" x2="${f(t[0])}" y2="${f(t[1])}" style="stroke:currentColor" stroke-opacity="0.55" stroke-width="0.8"/>` + s; ctx.segments.push([...c, ...t]); }
       return s;
+    }
+    case 'dimension': // 치수선·반지름선: 양끝 화살표 가는 선 + 라벨
+      return drawEl(ctx, { ...el, type: 'arrow', arrow: el.arrow ?? 'both', width: el.width ?? 1.1, labelStyle: { offset: [0, -5], ...el.labelStyle } });
+    case 'waves': { // 같은 중심의 점선 동심원(파면). radii는 frame 단위, 바깥일수록 옅게
+      const n = el.radii.length;
+      return `<g>${el.radii.map((r, i) => drawEl(ctx, { type: 'circle', center: el.center, r, px: el.px, dash: el.dash ?? '4 4', stroke: el.stroke ?? el.color ?? 'accent',
+        width: el.width ?? 1.2, opacity: +(1 - 0.55 * i / Math.max(1, n - 1)).toFixed(2), obstacle: false })).join('')}</g>`;
     }
     case 'path':
       return `<path d="${escapeXml(el.d)}" ${styleOf(ctx, el)}${arrowAttrs(ctx, el, false)}/>`;

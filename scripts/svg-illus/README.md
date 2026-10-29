@@ -91,12 +91,14 @@ renderSVG(spec, { measureText: canvasMeasure() });
 | `rect` | `x,y,w,h` 또는 `from,to` | `radius`, `label` |
 | `arc` | `center`, `r` + `start,end` 또는 `between:[점,점]` | 각도 표시. `label`, `labelRadius`. 반지름은 항상 px입니다. |
 | `rightAngle` | `at`, `dir1`, `dir2` | 직각 표시 |
-| `curve` | `fn`+`domain` 또는 `points` | `fn`은 `"sin(x)^2"`처럼 x와 Math 함수만 씁니다. `smooth`(점 목록) |
+| `curve` | `fn`+`domain` 또는 `points` | `closed`(+`smooth`, `fill`)로 덩어리 윤곽, `endDot`·`startDot`로 궤적 끝점 점. `fn`은 `"sin(x)^2"`처럼 x와 Math 함수만 씁니다. `smooth`(점 목록) |
 | `hatch` | `points` 또는 `x,y,w,h` | 단면 빗금. `angle`, `gap` |
 | `text` | `at`, `text` | `size`, `anchor`, `weight`, `italic`, `color`, `offset`, `fixed`, `leader:[x,y]`, `avoid:false` |
 | `dot` | `at` | |
 | `marker` | `at`, `n` | 대응표 번호 원. `target`을 주면 지시선 |
 | `path` | `d` | SVG path 그대로 |
+| `dimension` | `from`, `to` | 양끝 화살표 가는 치수선·반지름선. `label` |
+| `waves` | `center`, `radii` | 같은 중심 점선 동심원(파면). 바깥일수록 옅어짐 |
 | `group` | `elements` | `transform`, `opacity` |
 
 공통 스타일 필드는 `stroke`(또는 `color`), `fill`, `width`, `dash`(`true`, `"6 4"`, 배열), `opacity`, `fillOpacity`, `obstacle:false`입니다. `obstacle:false`를 붙인 요소는 라벨 겹침 검사에서 뺍니다.

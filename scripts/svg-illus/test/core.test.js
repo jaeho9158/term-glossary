@@ -255,3 +255,16 @@ test('plot 함수: gaussian_sum·debye·piecewise_slope·haldane', () => {
   near(PLOT_FNS.piecewise_slope.f(80, { k: [105, 95], s: [1, -1], c: -3.4 }), 11.6);
   near(PLOT_FNS.haldane.f(50, { mumax: 0.5, Ks: 10, Ki: 250 }), 0.357, 6e-4);
 });
+
+import { renderSVG as _r } from '../src/index.js';
+test('dimension, waves, curve closed/endDot 부품', () => {
+  const { svg, report } = _r({ width: 300, height: 200, elements: [
+    { type: 'dimension', from: [20, 20], to: [120, 20], label: 'L' },
+    { type: 'waves', center: [150, 120], radii: [20, 40, 60] },
+    { type: 'curve', points: [[200, 30], [260, 40], [250, 90], [210, 80]], smooth: true, closed: true, fill: 'accent' },
+    { type: 'curve', points: [[10, 150], [60, 170], [100, 140]], smooth: true, endDot: true },
+  ] });
+  assert.equal(report.unresolved.length, 0);
+  assert.match(svg, /marker-start/); assert.equal((svg.match(/stroke-dasharray="4 4"/g) || []).length, 3);
+  assert.match(svg, /Z"/); assert.match(svg, /r="4" style="fill:/);
+});
