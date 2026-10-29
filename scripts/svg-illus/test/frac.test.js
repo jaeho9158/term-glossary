@@ -78,3 +78,11 @@ test('노트: 분수가 든 줄은 줄 간격이 늘고 겹침 경고가 없다'
   assert.ok(f[2] - f[1] > p[1] - p[0] + 11.5 * 0.25 - 1e-9); // 다음 줄은 FRAC_DOWN만큼 더 밀린다
   assert.ok(frac.height > plain.height);
 });
+
+test('subScale: 첨자 글자 비율을 스펙에서 올리고 기본값은 72%', async () => {
+  const { renderSVG } = await import('../src/index.js');
+  const mk = (extra) => ({ id: 'sub-t', width: 200, height: 60, elements: [{ type: 'text', at: [10, 30], text: 'H_{2}O', fixed: true }], ...extra });
+  assert.ok(renderSVG(mk({})).svg.includes('font-size="72%"'));
+  assert.ok(renderSVG(mk({ subScale: 0.92 })).svg.includes('font-size="92%"'));
+  assert.ok(renderSVG(mk({})).svg.includes('font-size="72%"'));
+});

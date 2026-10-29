@@ -47,8 +47,11 @@ export function parseMarkup(s) {
   return out;
 }
 
+let SUB_SCALE = 0.72;
+/** 첨자 글자 비율(기본 0.72). 스펙의 subScale로 올려 휴대폰 가독성을 높인다. */
+export function setSubScale(v = 0.72) { SUB_SCALE = v; }
 const tsp = p => p.kind === 'normal' ? escapeXml(p.text)
-  : `<tspan baseline-shift="${p.kind === 'sub' ? 'sub' : 'super'}" font-size="72%">${escapeXml(p.text)}</tspan>`;
+  : `<tspan baseline-shift="${p.kind === 'sub' ? 'sub' : 'super'}" font-size="${Math.round(SUB_SCALE * 100)}%">${escapeXml(p.text)}</tspan>`;
 
 /** SVG <text> 안에 넣을 내용(tspan 포함). 분수는 한 줄 대체 표기(분자⁄분모); 진짜 분수는 richTextSvg가 그린다. */
 export function toTspan(s) {
@@ -111,7 +114,7 @@ export function estimateTextWidth(s, fontSize = 13) {
   let w = 0;
   for (const p of parseMarkup(s)) {
     if (p.kind === 'frac') { w += Math.max(estimateTextWidth(p.num, fontSize * FRAC_SCALE), estimateTextWidth(p.den, fontSize * FRAC_SCALE)) + FRAC_PAD * 2; continue; }
-    const k = p.kind === 'normal' ? 1 : 0.72;
+    const k = p.kind === 'normal' ? 1 : SUB_SCALE;
     for (const ch of p.text) {
       const r = /[ᄀ-ᇿ㄰-㆏가-힣一-鿿]/.test(ch) ? 1.0 : /[il.,:;|'!· ]/.test(ch) ? 0.3 : /[A-Z]/.test(ch) ? 0.72 : 0.62;
       w += r * fontSize * k;

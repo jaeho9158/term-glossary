@@ -113,6 +113,8 @@ renderSVG(spec, { measureText: canvasMeasure() });
 
 부품(`icon`~`lips`)은 기존 요소로 풀어 쓰는 매크로이며 모두 픽셀 좌표로 동작한다. `fill`에 `{gradient:[색1,색2], angle}`(0=왼→오, 90=위→아래, 색은 기존 토큰)을 줄 수 있다.
 
+**첨자 크기**: 스펙에 `"subScale": 0.92`를 주면 위·아래첨자가 글자의 92%로 나온다(기본 0.72).
+
 **휴대폰 가독성**: 스펙에 `"phoneMin": 11`(또는 옵션 `phoneMin`)을 주면 375px 폰(그림 폭 약 311px)에서 최소 글자가 그 값 미만일 때 오류다. 13px 글자면 가로 360 이하여야 한다. `report.minFontPhone`에 값이 나온다.
 
 공통 스타일 필드는 `stroke`(또는 `color`), `fill`, `width`, `dash`(`true`, `"6 4"`, 배열), `opacity`, `fillOpacity`, `obstacle:false`입니다. `obstacle:false`를 붙인 요소는 라벨 겹침 검사에서 뺍니다.

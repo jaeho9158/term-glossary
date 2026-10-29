@@ -1,5 +1,5 @@
 // JSON 스펙 → SVG 문자열 / HTML 조각.
-import { toTspan, toHtml, symHtml, kindOf, escapeXml, hasFrac, richTextSvg, autoFrac } from './markup.js';
+import { toTspan, toHtml, symHtml, kindOf, escapeXml, hasFrac, richTextSvg, autoFrac, setSubScale } from './markup.js';
 import { placeLabels } from './labels.js';
 import { validate, SpecError, checkExpr } from './validate.js';
 import { findObscured } from './obscure.js';
@@ -401,6 +401,7 @@ export function renderBody(spec, opts = {}, extra = {}) {
  */
 export function renderSVG(spec, opts = {}) {
   spec = resolveSpec(spec, opts.templates);
+  setSubScale(spec.subScale ?? 0.72);
   const errs = validate(spec);
   if (errs.length) throw new SpecError(errs);
   const W = spec.width, H = spec.height;
