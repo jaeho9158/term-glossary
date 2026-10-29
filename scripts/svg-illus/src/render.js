@@ -3,8 +3,12 @@ import { toTspan, toHtml, symHtml, kindOf, escapeXml, hasFrac, richTextSvg, auto
 import { placeLabels } from './labels.js';
 import { validate, SpecError, checkExpr } from './validate.js';
 import { DEFAULT_PALETTE, colorRef, paletteStyle, TOKENS } from './theme.js';
+import { isPart, expandPart } from './parts.js';
 
 export const FONT = "'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif";
+// 375px 폰에서 그림이 실제로 차지하는 폭: 화면 375 - 본문 여백·카드 패딩(실측 약 311px)
+export const PHONE_VIEWPORT = 375;
+export const PHONE_CONTENT = 311;
 const f = n => +(+n).toFixed(1);
 const DEG = Math.PI / 180;
 
@@ -32,7 +36,7 @@ function makeCtx(spec, opts) {
   const ctx = {
     spec, opts, frame, k, id: spec.id || 'illus',
     palette: { ...DEFAULT_PALETTE, ...(spec.palette || {}) },
-    segments: [], boxes: [], labels: [], markers: new Map(), clips: [],
+    segments: [], boxes: [], labels: [], markers: new Map(), clips: [], fontSizes: [], shift: null, gradN: 0,
   };
   // 사용자 좌표(frame 단위) → 픽셀. px:true 요소는 그대로.
   ctx.raw = (p, px) => {
@@ -45,7 +49,7 @@ function makeCtx(spec, opts) {
   };
   ctx.P = (p, px) => {
     const q = ctx.raw(p, px);
-    if (!frame || px) return q;
+    if (!frame || px) return ctx.shift ? [q[0] + ctx.shift[0], q[1] + ctx.shift[1]] : q;
     return [frame.origin[0] + q[0] * k[0], frame.origin[1] - q[1] * k[1]];
   };
   ctx.len = (v, px) => (!frame || px) ? v : v * k[0];
@@ -53,12 +57,21 @@ function makeCtx(spec, opts) {
   return ctx;
 }
 
+/** 그라데이션 채움: fill:{gradient:[색1,색2](또는 stops:[[0,색],[1,색]]), angle:0(왼->오)|90(위->아래)}. 색은 기존 토큰. */
+function gradientRef(ctx, g) {
+  const id = `${ctx.id}-g${ctx.gradN++}`, a = (g.angle ?? 90) * DEG, c = Math.cos(a), s = Math.sin(a);
+  const stops = g.stops || g.gradient.map((col, i, arr) => [i / Math.max(1, arr.length - 1), col]);
+  ctx.clips.push(`<linearGradient id="${id}" x1="${f(0.5 - c / 2)}" y1="${f(0.5 - s / 2)}" x2="${f(0.5 + c / 2)}" y2="${f(0.5 + s / 2)}">`
+    + stops.map(([o, col]) => `<stop offset="${o}" style="stop-color:${ctx.color(col)}"${g.opacity !== undefined ? ` stop-opacity="${g.opacity}"` : ''}/>`).join('') + '</linearGradient>');
+  return `url(#${id})`;
+}
+
 function styleOf(ctx, el, def = {}) {
   const stroke = el.stroke ?? el.color ?? def.stroke ?? 'fg';
   const fill = el.fill ?? def.fill ?? 'none';
   const st = [];
   st.push(`stroke:${stroke === 'none' ? 'none' : ctx.color(stroke)}`);
-  st.push(`fill:${fill === 'none' ? 'none' : ctx.color(fill)}`);
+  st.push(`fill:${fill === 'none' ? 'none' : (fill && typeof fill === 'object') ? gradientRef(ctx, fill) : ctx.color(fill)}`);
   let a = `style="${st.join(';')}" stroke-width="${el.width ?? def.width ?? 1.6}"`;
   if (el.dash) a += ` stroke-dasharray="${Array.isArray(el.dash) ? el.dash.join(' ') : el.dash === true ? '6 4' : el.dash}"`;
   if (el.opacity !== undefined) a += ` opacity="${el.opacity}"`;
@@ -95,7 +108,7 @@ function addLabel(ctx, at, text, o = {}) {
     leader: o.leader === undefined ? undefined : (o.leader === false ? false : ctx.P(o.leader, o.px)),
     weight: o.weight, color: o.color, italic: o.italic, cls: o.class, avoid: o.avoid,
   };
-  ctx.labels.push(L);
+  ctx.labels.push(L); ctx.fontSizes.push(L.size);
   return `@@L${ctx.labels.length - 1}@@`;
 }
 
@@ -245,7 +258,7 @@ function drawEl(ctx, el) {
       return addLabel(ctx, P(el.at), el.text, el);
     case 'marker': { // 대응표 번호 마커
       const c = P(el.at), r = el.r ?? 9;
-      ctx.boxes.push({ x0: c[0] - r, x1: c[0] + r, y0: c[1] - r, y1: c[1] + r });
+      ctx.boxes.push({ x0: c[0] - r, x1: c[0] + r, y0: c[1] - r, y1: c[1] + r }); ctx.fontSizes.push(el.size ?? 11);
       let s = `<g class="si-marker"><circle cx="${f(c[0])}" cy="${f(c[1])}" r="${r}" style="fill:${ctx.color(el.fill ?? 'accent')};stroke:none"/>`
         + `<text x="${f(c[0])}" y="${f(c[1] + 4)}" text-anchor="middle" font-size="${el.size ?? 11}" font-weight="700" style="fill:${ctx.color(el.textColor ?? 'bg')}">${escapeXml(el.n)}</text></g>`;
       if (el.target) { const t = P(el.target); s = `<line x1="${f(c[0])}" y1="${f(c[1])}" x2="${f(t[0])}" y2="${f(t[1])}" style="stroke:currentColor" stroke-opacity="0.55" stroke-width="0.8"/>` + s; ctx.segments.push([...c, ...t]); }
@@ -258,6 +271,39 @@ function drawEl(ctx, el) {
       return `<g>${el.radii.map((r, i) => drawEl(ctx, { type: 'circle', center: el.center, r, px: el.px, dash: el.dash ?? '4 4', stroke: el.stroke ?? el.color ?? 'accent',
         width: el.width ?? 1.2, opacity: +(1 - 0.55 * i / Math.max(1, n - 1)).toFixed(2), obstacle: false })).join('')}</g>`;
     }
+    case 'inset': { // 확대 원: 원본 위치의 작은 원(source)과 큰 원(center,r)을 접선으로 잇고, 안에 elements를 center 기준 px 좌표로 그린다
+      const c = ctx.P(el.center, true), r = el.r, id = `${ctx.id}-clip${ctx.clips.length}`;
+      ctx.clips.push(`<clipPath id="${id}"><circle cx="${f(c[0])}" cy="${f(c[1])}" r="${r}"/></clipPath>`);
+      let s = '';
+      if (el.source) {
+        const sc = ctx.P(el.source.center, el.px), sr = el.source.r, dx = c[0] - sc[0], dy = c[1] - sc[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+        for (const k of [1, -1]) s += `<line x1="${f(sc[0] + nx * sr * k)}" y1="${f(sc[1] + ny * sr * k)}" x2="${f(c[0] + nx * r * k)}" y2="${f(c[1] + ny * r * k)}" style="stroke:currentColor" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="4 3"/>`;
+        ctx.boxes.push({ x0: sc[0] - sr, x1: sc[0] + sr, y0: sc[1] - sr, y1: sc[1] + sr });
+        s += `<circle cx="${f(sc[0])}" cy="${f(sc[1])}" r="${sr}" ${styleOf(ctx, { stroke: 'fg', width: 1.4, dash: '3 2' })}/>`;
+      }
+      s += `<circle cx="${f(c[0])}" cy="${f(c[1])}" r="${r}" ${styleOf(ctx, { stroke: 'fg', fill: el.fill ?? 'bg', width: 2 })}/>`;
+      const old = ctx.shift; ctx.shift = [c[0], c[1]];
+      const inner = el.elements.map(e => drawEl(ctx, { ...e, px: true })).join('');
+      ctx.shift = old;
+      for (let a = 0; a < 360; a += 20) ctx.segments.push([c[0] + r * Math.cos(a * DEG), c[1] + r * Math.sin(a * DEG), c[0] + r * Math.cos((a + 20) * DEG), c[1] + r * Math.sin((a + 20) * DEG)]);
+      return s + `<g clip-path="url(#${id})">${inner}</g>`;
+    }
+    case 'repeat': { // 반복 배치: element를 step만큼 밀며 count번(또는 cols x rows, rowStep), 또는 rotate:{center,angles}로 돌려 가며
+      const base = { ...el.element, px: true };
+      if (el.rotate) {
+        const c = ctx.P(el.rotate.center, true);
+        return el.rotate.angles.map(a => `<g transform="rotate(${a} ${f(c[0])} ${f(c[1])})">${drawEl(ctx, base)}</g>`).join('');
+      }
+      const cols = el.cols ?? el.count ?? 1, rows = el.rows ?? 1, [dx, dy] = el.step ?? [20, 0], [rx, ry] = el.rowStep ?? [0, 20], old = ctx.shift;
+      const o = old || [0, 0];
+      let s = '';
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        ctx.shift = [o[0] + i * dx + j * rx, o[1] + i * dy + j * ry];
+        s += drawEl(ctx, base);
+      }
+      ctx.shift = old;
+      return s;
+    }
     case 'path':
       return `<path d="${escapeXml(el.d)}" ${styleOf(ctx, el)}${arrowAttrs(ctx, el, false)}/>`;
     case 'group': {
@@ -265,6 +311,7 @@ function drawEl(ctx, el) {
       return `<g${el.transform ? ` transform="${escapeXml(el.transform)}"` : ''}${el.opacity !== undefined ? ` opacity="${el.opacity}"` : ''}>${inner}</g>`;
     }
   }
+  if (isPart(el.type)) return expandPart(el).map(e => drawEl(ctx, e)).join('');
   return '';
 }
 
@@ -292,7 +339,7 @@ function drawAxes(ctx) {
       if (r.ticks === false || Math.abs(v) < 1e-9 && r.zeroLabel !== true) continue;
       s += dir === 'x' ? `<line x1="${f(p[0])}" y1="${f(p[1] - 3)}" x2="${f(p[0])}" y2="${f(p[1] + 3)}" style="stroke:currentColor" stroke-width="1"/>`
         : `<line x1="${f(p[0] - 3)}" y1="${f(p[1])}" x2="${f(p[0] + 3)}" y2="${f(p[1])}" style="stroke:currentColor" stroke-width="1"/>`;
-      s += addLabel(ctx, dir === 'x' ? [p[0], p[1] + 16] : [p[0] - 6, p[1] + 4], fmtTick(v), { size: 11, anchor: dir === 'x' ? 'middle' : 'end', color: 'muted', fixed: true, avoid: false });
+      s += addLabel(ctx, dir === 'x' ? [p[0], p[1] + 16] : [p[0] - 6, p[1] + 4], fmtTick(v), { size: A.fontSize ?? 11, anchor: dir === 'x' ? 'middle' : 'end', color: 'muted', fixed: true, avoid: false });
     }
   }
   const xa = P([xr.min, ax0]), xb = P([xr.max, ax0]), ya = P([ay0, yr.min]), yb = P([ay0, yr.max]);
@@ -357,6 +404,12 @@ export function renderSVG(spec, opts = {}) {
   if (errs.length) throw new SpecError(errs);
   const W = spec.width, H = spec.height;
   const { defs, leaders, body, ctx, report } = renderBody(spec, opts);
+  // 휴대폰 가독성: 375px 화면에서 그림 폭은 min(W,311)이므로 글자는 size*min(1,311/W)px로 보인다
+  const pscale = Math.min(1, PHONE_CONTENT / W), minSize = ctx.fontSizes.length ? Math.min(...ctx.fontSizes) : null;
+  report.minFontPhone = minSize === null ? null : +(minSize * pscale).toFixed(2);
+  const phoneMin = opts.phoneMin ?? spec.phoneMin;
+  if (phoneMin && report.minFontPhone !== null && report.minFontPhone < phoneMin)
+    throw new SpecError([`휴대폰 가독성: 375px 폰에서 최소 글자 ${report.minFontPhone}px < ${phoneMin}px (가장 작은 글자 ${minSize}, 가로 ${W}). 가로를 줄이거나 글자를 키우세요.`]);
   const title = spec.title ?? '';
   const style = opts.embedStyle ? `<style>${embeddedCss()}</style>` : '';
   const pal = spec.palette ? paletteStyle(spec.palette) : '';

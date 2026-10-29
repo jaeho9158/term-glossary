@@ -100,6 +100,20 @@ renderSVG(spec, { measureText: canvasMeasure() });
 | `dimension` | `from`, `to` | 양끝 화살표 가는 치수선·반지름선. `label` |
 | `waves` | `center`, `radii` | 같은 중심 점선 동심원(파면). 바깥일수록 옅어짐 |
 | `group` | `elements` | `transform`, `opacity` |
+| `inset` | `center`, `r`, `elements` | 확대 원. `source:{center,r}`로 원본 위치 원과 접선을 잇는다. 안의 요소는 원 중심 기준 px 좌표이고 원 밖은 잘린다. |
+| `repeat` | `element` | `cols`·`rows`·`step`·`rowStep`으로 격자 복제, `rotate:{center,angles}`로 회전 복제. 복제 요소는 px 좌표. |
+| `icon` | `name`, `at` | `size`(28). 이름: person, drop, cell, sun, cloud, flask, thermometer, resistor, battery, bulb, bolt, magnifier, mountain, gear |
+| `vessel` | `x,y,w,h` | 위가 열린 둥근 용기. `level`(0~1)이면 액체와 수준선. `liquid`, `label` |
+| `pipe` | `points` | 겹선 튜브. `width`, `flow:true`면 끝에 흐름 화살표, `label` |
+| `valve` | `at` | 밸브 기호. `size`, `open:false`면 채움 |
+| `blockArrow` | `from`, `to` | 속이 찬 흐름 화살표. `width`, `head` |
+| `scale` | `from`,`to`,`min`,`max` | 눈금자·시간축. `step`, `side`(1/-1), `ticks:false`, `arrow`, `label` |
+| `callout` | `at`,`text`,`target` | 글자 + 지시선 + 끝점 점 |
+| `lips` | `at` | 입술 윤곽. `w`,`h`, `upperFill`,`lowerFill` |
+
+부품(`icon`~`lips`)은 기존 요소로 풀어 쓰는 매크로이며 모두 픽셀 좌표로 동작한다. `fill`에 `{gradient:[색1,색2], angle}`(0=왼→오, 90=위→아래, 색은 기존 토큰)을 줄 수 있다.
+
+**휴대폰 가독성**: 스펙에 `"phoneMin": 11`(또는 옵션 `phoneMin`)을 주면 375px 폰(그림 폭 약 311px)에서 최소 글자가 그 값 미만일 때 오류다. 13px 글자면 가로 360 이하여야 한다. `report.minFontPhone`에 값이 나온다.
 
 공통 스타일 필드는 `stroke`(또는 `color`), `fill`, `width`, `dash`(`true`, `"6 4"`, 배열), `opacity`, `fillOpacity`, `obstacle:false`입니다. `obstacle:false`를 붙인 요소는 라벨 겹침 검사에서 뺍니다.
 

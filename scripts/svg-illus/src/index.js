@@ -4,6 +4,8 @@ import { renderDiagram, renderDiagramSVG } from './diagram/index.js';
 import { templates } from './templates.js';
 import DIAGRAM_MODS from './diagram/types/index.js';
 
+export { PART_TYPES, ICONS } from './parts.js';
+export { PHONE_VIEWPORT, PHONE_CONTENT } from './render.js';
 export { render, renderSVG, renderHTML, renderBody, figureHTML, legendHTML, tableHTML, polar, compileFn, resolveSpec, FONT } from './render.js';
 export { validate, SpecError, ELEMENT_TYPES } from './validate.js';
 export { parseMarkup, toTspan, toHtml, symHtml, kindOf, estimateTextWidth, escapeXml, fracSvg, richTextSvg, hasFrac, autoFrac, normalizeFrac } from './markup.js';
