@@ -273,3 +273,12 @@ test('id는 숫자로 시작해도 된다(슬러그가 숫자로 시작하는 �
   const { svg } = renderSVG({ id: '3d-city', width: 100, height: 60, title: 't', elements: [] });
   assert.ok(svg.includes('3d-city'));
 });
+
+test('글자 가림 검사: 점이 글자를 덮거나 라벨이 도형에 걸치면 report.obscured에 나온다', () => {
+  const bad = renderSVG({ width: 200, height: 100, title: 't', elements: [
+    { type: 'text', at: [100, 60], text: '천 A', anchor: 'middle', fixed: true }, { type: 'circle', center: [100, 52], r: 8, obstacle: false, fill: 'amber' }] }).report;
+  assert.ok(bad.obscured.some(o => o.text === '천 A' && o.why === 'covered'));
+  const ok = renderSVG({ width: 200, height: 100, title: 't', elements: [
+    { type: 'rect', x: 40, y: 30, w: 120, h: 40 }, { type: 'text', at: [100, 54], text: '안쪽', anchor: 'middle', fixed: true }] }).report;
+  assert.equal(ok.obscured.length, 0);
+});

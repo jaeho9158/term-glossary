@@ -13,6 +13,7 @@ export { placeLabels, labelBox, segmentHitsBox, boxesOverlap } from './labels.js
 export { TOKENS, METRICS, ROLES, colorRef, themeCss, withFallbacks } from './theme.js';
 export { templates } from './templates.js';
 export { renderDiagram, renderDiagramSVG, validateDiagram, prepareFractions, DIAGRAM_TYPES, PLOT_FNS } from './diagram/index.js';
+export { findObscured } from './obscure.js';
 export { canvasMeasure } from './measure.js';
 
 /** 도식 스펙(type이 9유형 중 하나이고 elements가 없음)인지. */
