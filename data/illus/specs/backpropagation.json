@@ -1,0 +1,518 @@
+{
+ "id": "backpropagation",
+ "width": 360,
+ "height": 576,
+ "title": "역전파: 계산 그래프의 순전파와 기울기 역전달",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    8,
+    22
+   ],
+   "text": "순전파: 값을 앞으로 계산",
+   "fixed": true,
+   "weight": 700,
+   "color": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    46
+   ],
+   "text": "역전파: 기울기를 거꾸로 전달",
+   "fixed": true,
+   "weight": 700,
+   "color": "violet"
+  },
+  {
+   "type": "circle",
+   "center": [
+    34,
+    150
+   ],
+   "r": 18,
+   "fill": "gray-f",
+   "stroke": "fg",
+   "width": 2,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    34,
+    155
+   ],
+   "text": "x",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700,
+   "size": 14
+  },
+  {
+   "type": "circle",
+   "center": [
+    128,
+    150
+   ],
+   "r": 18,
+   "fill": "gray-f",
+   "stroke": "fg",
+   "width": 2,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    128,
+    155
+   ],
+   "text": "σ",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700,
+   "size": 14
+  },
+  {
+   "type": "circle",
+   "center": [
+    222,
+    150
+   ],
+   "r": 18,
+   "fill": "gray-f",
+   "stroke": "fg",
+   "width": 2,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    155
+   ],
+   "text": "σ",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700,
+   "size": 14
+  },
+  {
+   "type": "circle",
+   "center": [
+    316,
+    150
+   ],
+   "r": 18,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 2,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    316,
+    155
+   ],
+   "text": "L",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700,
+   "size": 14
+  },
+  {
+   "type": "text",
+   "at": [
+    34,
+    104
+   ],
+   "text": "x = 1",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    128,
+    104
+   ],
+   "text": "a_{1} ≈ 0.6225",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    104
+   ],
+   "text": "ŷ ≈ 0.3780",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    310,
+    104
+   ],
+   "text": "L ≈ 0.07145",
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    54,
+    142
+   ],
+   "to": [
+    108,
+    142
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "type": "arrow",
+   "from": [
+    108,
+    158
+   ],
+   "to": [
+    54,
+    158
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    81,
+    128
+   ],
+   "text": "w_{1} = 0.5",
+   "fixed": true,
+   "anchor": "middle",
+   "color": "blue"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    148,
+    142
+   ],
+   "to": [
+    202,
+    142
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "type": "arrow",
+   "from": [
+    202,
+    158
+   ],
+   "to": [
+    148,
+    158
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    175,
+    128
+   ],
+   "text": "w_{2} = −0.8",
+   "fixed": true,
+   "anchor": "middle",
+   "color": "blue"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    242,
+    142
+   ],
+   "to": [
+    296,
+    142
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "type": "arrow",
+   "from": [
+    296,
+    158
+   ],
+   "to": [
+    242,
+    158
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "from": [
+    175,
+    162
+   ],
+   "to": [
+    175,
+    196
+   ],
+   "stroke": "violet",
+   "width": 1.1,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    175,
+    214
+   ],
+   "text": "∂L/∂w_{2} ≈ 0.055324",
+   "fixed": true,
+   "anchor": "middle",
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    81,
+    162
+   ],
+   "to": [
+    81,
+    238
+   ],
+   "stroke": "violet",
+   "width": 1.1,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    81,
+    256
+   ],
+   "text": "∂L/∂w_{1} ≈ −0.016710",
+   "fixed": true,
+   "anchor": "middle",
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    282
+   ],
+   "text": "w₁의 기울기는 더 먼 경로를 거쳐 온다",
+   "fixed": true,
+   "color": "muted"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    316,
+    206
+   ],
+   "to": [
+    316,
+    170
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    316,
+    226
+   ],
+   "text": "정답 y = 0",
+   "fixed": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    330,
+    312
+   ],
+   "to": [
+    30,
+    312
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 2.6
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    336
+   ],
+   "text": "연쇄 법칙: 국소 미분의 곱",
+   "fixed": true,
+   "anchor": "middle",
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    8,
+    358
+   ],
+   "to": [
+    352,
+    358
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "dash": "5 4",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    380
+   ],
+   "text": "위: 역전파는 기울기 계산까지",
+   "fixed": true,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    402
+   ],
+   "text": "아래: 가중치 갱신은 경사하강법의 몫",
+   "fixed": true,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 14,
+   "y": 418,
+   "w": 332,
+   "h": 116,
+   "radius": 8,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    26,
+    442
+   ],
+   "text": "경사하강법 한 걸음 (학습률 0.5)",
+   "fixed": true,
+   "weight": 700,
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    26,
+    468
+   ],
+   "text": "w_{1}: 0.5 → 0.5084",
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    26,
+    492
+   ],
+   "text": "w_{2}: −0.8 → −0.8277",
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    26,
+    516
+   ],
+   "text": "L: 0.07145 → 0.06979",
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    560
+   ],
+   "text": "가상의 예: 입력·은닉·출력 뉴런 각 1개, 편향 0",
+   "fixed": true,
+   "color": "muted"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "σ",
+   "desc": "시그모이드 활성화 함수",
+   "kind": "func"
+  },
+  {
+   "sym": "a_{1}",
+   "desc": "은닉 뉴런의 출력",
+   "kind": "var"
+  },
+  {
+   "sym": "ŷ",
+   "desc": "신경망의 예측값",
+   "kind": "var"
+  },
+  {
+   "sym": "L",
+   "desc": "손실, L = {frac:1,2}(ŷ − y)^{2}",
+   "kind": "var"
+  },
+  {
+   "sym": "∂L/∂w",
+   "desc": "가중치 w를 조금 바꿀 때 손실 L이 변하는 비율(기울기)",
+   "kind": "expr"
+  },
+  {
+   "desc": "x = 1, 정답 y = 0, 처음 가중치 w_{1} = 0.5, w_{2} = −0.8인 가상의 예이다. 값은 본문의 계산 결과이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "phoneMin": 11
+}
