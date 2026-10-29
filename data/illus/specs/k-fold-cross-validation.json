@@ -1,0 +1,839 @@
+{
+ "id": "k-fold-cross-validation",
+ "width": 360,
+ "height": 600,
+ "title": "K-폴드 교차검증: 검증 폴드가 이동하는 격자와 폴드별 오차",
+ "phoneMin": 11,
+ "elements": [
+  {
+   "type": "rect",
+   "x": 12,
+   "y": 8,
+   "w": 14,
+   "h": 14,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    21
+   ],
+   "text": "훈련(K−1개)",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 150,
+   "y": 8,
+   "w": 14,
+   "h": 14,
+   "obstacle": false,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.6,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    170,
+    21
+   ],
+   "text": "검증(1개)",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    81,
+    60
+   ],
+   "text": "F1",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    117,
+    60
+   ],
+   "text": "F2",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    153,
+    60
+   ],
+   "text": "F3",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    60
+   ],
+   "text": "F4",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    225,
+    60
+   ],
+   "text": "F5",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    256,
+    60
+   ],
+   "text": "RMSE",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    94
+   ],
+   "text": "1회차",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 64,
+   "y": 74,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    81,
+    94
+   ],
+   "text": "검증",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 74,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 74,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 74,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 208,
+   "y": 74,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 81,
+   "w": 30.2,
+   "h": 16,
+   "obstacle": false,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    291.2,
+    94
+   ],
+   "text": "0.84",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    130
+   ],
+   "text": "2회차",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 64,
+   "y": 110,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 110,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    117,
+    130
+   ],
+   "text": "검증",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 110,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 110,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 208,
+   "y": 110,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 117,
+   "w": 45.7,
+   "h": 16,
+   "obstacle": false,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    306.7,
+    130
+   ],
+   "text": "1.27",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    166
+   ],
+   "text": "3회차",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 64,
+   "y": 146,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 146,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 146,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    153,
+    166
+   ],
+   "text": "검증",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 146,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 208,
+   "y": 146,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 153,
+   "w": 33.1,
+   "h": 16,
+   "obstacle": false,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    294.1,
+    166
+   ],
+   "text": "0.92",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    202
+   ],
+   "text": "4회차",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 64,
+   "y": 182,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 182,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 182,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 182,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    189,
+    202
+   ],
+   "text": "검증",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 208,
+   "y": 182,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 189,
+   "w": 43.9,
+   "h": 16,
+   "obstacle": false,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    304.9,
+    202
+   ],
+   "text": "1.22",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    238
+   ],
+   "text": "5회차",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 64,
+   "y": 218,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 218,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 218,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 172,
+   "y": 218,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2
+  },
+  {
+   "type": "rect",
+   "x": 208,
+   "y": 218,
+   "w": 34,
+   "h": 30,
+   "obstacle": false,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    225,
+    238
+   ],
+   "text": "검증",
+   "size": 13,
+   "fixed": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 225,
+   "w": 41,
+   "h": 16,
+   "obstacle": false,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    302,
+    238
+   ],
+   "text": "1.14",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    278
+   ],
+   "text": "평균 RMSE 1.08 (폴드 간 SD 0.19)",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    302
+   ],
+   "text": "모든 자료가 정확히 한 번씩 검증에 쓰인다",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    326
+   ],
+   "text": "전처리·변수 선택은 파랑 칸 안에서만 한다",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "line",
+   "from": [
+    12,
+    346
+   ],
+   "to": [
+    348,
+    346
+   ],
+   "obstacle": false,
+   "stroke": "muted",
+   "width": 1,
+   "opacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    370
+   ],
+   "text": "변수 선택 위치에 따른 평균제곱오차",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    398
+   ],
+   "text": "전체 자료로 변수 선택(누수)",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 408,
+   "w": 99.2,
+   "h": 16,
+   "obstacle": false,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    125.2,
+    422
+   ],
+   "text": "0.62",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    448
+   ],
+   "text": "각 폴드 안에서 변수 선택",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 458,
+   "w": 184,
+   "h": 16,
+   "obstacle": false,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    210,
+    472
+   ],
+   "text": "1.15",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    498
+   ],
+   "text": "기준: 결과변수 분산",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 508,
+   "w": 104,
+   "h": 16,
+   "obstacle": false,
+   "fill": "gray-f",
+   "stroke": "muted",
+   "width": 1.4,
+   "radius": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    522
+   ],
+   "text": "0.65",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    560
+   ],
+   "text": "누수 값(0.62)이 기준(0.65)보다도",
+   "size": 13,
+   "fixed": true
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    584
+   ],
+   "text": "좋아 보이는 착시이다",
+   "size": 13,
+   "fixed": true,
+   "weight": 700
+  }
+ ],
+ "legend": [
+  {
+   "sym": "F1~F5",
+   "desc": "자료를 나눈 다섯 폴드(fold)",
+   "kind": "term"
+  },
+  {
+   "sym": "RMSE",
+   "desc": "평균제곱근오차(root mean squared error). 예측이 틀린 정도를 나타내며 작을수록 좋다",
+   "kind": "abbr"
+  },
+  {
+   "sym": "MSE",
+   "desc": "평균제곱오차(mean squared error)",
+   "kind": "abbr"
+  },
+  {
+   "desc": "RMSE는 본문의 가상 예(n = 100, 5-폴드 선형회귀)이다. 누수는 전체 자료로 변수를 먼저 고를 때 생기는 착시이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
