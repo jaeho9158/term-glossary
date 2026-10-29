@@ -1,0 +1,558 @@
+{
+ "id": "guidance-navigation-control",
+ "width": 360,
+ "height": 458,
+ "title": "유도·항법·제어: 목표 경로와 추정 위치의 오차를 줄이는 고리",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    180,
+    20
+   ],
+   "text": "우주 공간을 옆에서 본 장면",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    300,
+    85
+   ],
+   "r": 30,
+   "obstacle": false,
+   "width": 2,
+   "fill": "amber-f",
+   "stroke": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    300,
+    130
+   ],
+   "text": "목표 천체",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "curve",
+   "points": [
+    [
+     36,
+     330
+    ],
+    [
+     66,
+     272
+    ],
+    [
+     118,
+     216
+    ],
+    [
+     180,
+     170
+    ],
+    [
+     236,
+     128
+    ],
+    [
+     272,
+     104
+    ]
+   ],
+   "smooth": true,
+   "px": true,
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 2.2,
+   "dash": "6 4"
+  },
+  {
+   "type": "curve",
+   "points": [
+    [
+     36,
+     330
+    ],
+    [
+     58,
+     292
+    ],
+    [
+     84,
+     298
+    ],
+    [
+     100,
+     258
+    ],
+    [
+     134,
+     262
+    ],
+    [
+     150,
+     232
+    ],
+    [
+     186,
+     238
+    ],
+    [
+     196,
+     226
+    ]
+   ],
+   "smooth": true,
+   "px": true,
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "dot",
+   "at": [
+    36,
+    330
+   ],
+   "r": 4,
+   "px": true,
+   "color": "fg",
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    150,
+    190
+   ],
+   "r": 5,
+   "px": true,
+   "color": "violet",
+   "obstacle": false
+  },
+  {
+   "type": "ellipse",
+   "center": [
+    196,
+    226
+   ],
+   "rx": 32,
+   "ry": 22,
+   "rotate": -35,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "fillOpacity": 0.5,
+   "width": 1.6,
+   "dash": "4 3",
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 188,
+   "y": 221,
+   "w": 18,
+   "h": 10,
+   "fill": "gray-f",
+   "stroke": "fg",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 182,
+   "y": 219,
+   "w": 6,
+   "h": 14,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 206,
+   "y": 219,
+   "w": 6,
+   "h": 14,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1,
+   "obstacle": false
+  },
+  {
+   "type": "arrow",
+   "from": [
+    196,
+    226
+   ],
+   "to": [
+    154,
+    194
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.4
+  },
+  {
+   "type": "arrow",
+   "from": [
+    208,
+    238
+   ],
+   "to": [
+    236,
+    260
+   ],
+   "obstacle": false,
+   "stroke": "amber",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    128
+   ],
+   "text": "원하는 위치",
+   "fixed": true,
+   "size": 13,
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    84,
+    124
+   ],
+   "to": [
+    147,
+    187
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    160
+   ],
+   "text": "유도: 목표 경로",
+   "fixed": true,
+   "size": 13,
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    100,
+    166
+   ],
+   "to": [
+    120,
+    214
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    46,
+    322
+   ],
+   "text": "지나온 궤적",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    212,
+    190
+   ],
+   "text": "오차",
+   "fixed": true,
+   "size": 13,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    212,
+    186
+   ],
+   "to": [
+    176,
+    208
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    238,
+    214
+   ],
+   "text": "항법: 추정",
+   "fixed": true,
+   "size": 13,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    238,
+    236
+   ],
+   "text": "위치·속도·자세",
+   "fixed": true,
+   "size": 13,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    236,
+    210
+   ],
+   "to": [
+    224,
+    220
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    218,
+    282
+   ],
+   "text": "제어: 오차를 줄이는",
+   "fixed": true,
+   "size": 13,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    218,
+    306
+   ],
+   "text": "방향으로 분사",
+   "fixed": true,
+   "size": 13,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "from": [
+    236,
+    262
+   ],
+   "to": [
+    236,
+    270
+   ],
+   "obstacle": false,
+   "stroke": "amber",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    338
+   ],
+   "text": "되먹임 고리",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 40,
+   "y": 350,
+   "w": 100,
+   "h": 32,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.8,
+   "obstacle": false,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    90,
+    371
+   ],
+   "text": "유도",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 220,
+   "y": 350,
+   "w": 100,
+   "h": 32,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.8,
+   "obstacle": false,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    371
+   ],
+   "text": "제어",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 220,
+   "y": 410,
+   "w": 100,
+   "h": 32,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    431
+   ],
+   "text": "우주선 움직임",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 40,
+   "y": 410,
+   "w": 100,
+   "h": 32,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.8,
+   "obstacle": false,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    90,
+    431
+   ],
+   "text": "항법",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    140,
+    366
+   ],
+   "to": [
+    220,
+    366
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "arrow",
+   "from": [
+    270,
+    382
+   ],
+   "to": [
+    270,
+    410
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "arrow",
+   "from": [
+    220,
+    426
+   ],
+   "to": [
+    140,
+    426
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "arrow",
+   "from": [
+    90,
+    410
+   ],
+   "to": [
+    90,
+    382
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 2
+  }
+ ],
+ "legend": [
+  {
+   "desc": "빨간 화살표는 추정 위치와 원하는 위치의 차이(오차)이다. 제어가 추력기 분사로 이 오차를 줄이고, 움직인 결과를 항법이 다시 추정한다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
