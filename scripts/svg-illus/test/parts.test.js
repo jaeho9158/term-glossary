@@ -43,6 +43,15 @@ test('repeat: 격자 복제·회전 복제', () => {
   const r = R([{ type: 'repeat', rotate: { center: [200, 150], angles: [0, 90, 180, 270] }, element: { type: 'line', from: [200, 150], to: [260, 150] } }]);
   assert.equal((r.svg.match(/rotate\(/g) || []).length, 4);
 });
+test('repeat: rect x,y,w,h 형식도 반복 이동값 적용(회귀)', () => {
+  for (const el of [{ type: 'rect', x: 10, y: 10, w: 8, h: 6 }, { type: 'rect', from: [10, 10], to: [18, 16] }]) {
+    const g = R([{ type: 'repeat', cols: 3, step: [20, 0], element: el }]);
+    assert.deepEqual([...g.svg.matchAll(/<rect x="([\d.]+)" y="10"/g)].map(m => +m[1]), [10, 30, 50]);
+  }
+  const m = R([{ type: 'repeat', cols: 2, step: [20, 5], element: { type: 'ellipse', center: [10, 10], rx: 3, ry: 2 } },
+    { type: 'repeat', cols: 2, step: [20, 5], element: { type: 'text', at: [10, 40], text: 'a' } }]);
+  assert.match(m.svg, /<ellipse cx="30" cy="15"/); assert.match(m.svg, /<text x="30" y="45"/);
+});
 test('휴대폰 가독성: 375px 폰(그림 폭 311px) 기준 최소 글자', () => {
   const spec = (W, size) => ({ width: W, height: 100, elements: [{ type: 'text', at: [10, 50], text: '가', size }] });
   assert.equal(renderSVG(spec(311, 13)).report.minFontPhone, 13);

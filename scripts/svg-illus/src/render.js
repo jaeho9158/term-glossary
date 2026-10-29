@@ -150,7 +150,7 @@ function rectCorners(ctx, el) {
   let a, b;
   if (el.from) { a = ctx.P(el.from, el.px); b = ctx.P(el.to, el.px); }
   else if (ctx.frame && !el.px) { a = ctx.P([el.x, el.y]); b = ctx.P([el.x + el.w, el.y + el.h]); }
-  else { a = [el.x, el.y]; b = [el.x + el.w, el.y + el.h]; }
+  else { a = ctx.P([el.x, el.y], true); b = ctx.P([el.x + el.w, el.y + el.h], true); } // repeat/inset의 shift 반영
   const x = Math.min(a[0], b[0]), y = Math.min(a[1], b[1]);
   return { x, y, w: Math.abs(b[0] - a[0]), h: Math.abs(b[1] - a[1]) };
 }
