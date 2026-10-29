@@ -15,6 +15,7 @@ const REQ = {
   dimension: ['from', 'to'], waves: ['center', 'radii'],
   inset: ['center', 'r', 'elements'], repeat: ['element'], icon: ['name', 'at'], vessel: ['x', 'y', 'w', 'h'], pipe: ['points'], valve: ['at'],
   blockArrow: ['from', 'to'], scale: ['from', 'to', 'min', 'max'], callout: ['at', 'text', 'target'], lips: ['at'],
+  body: ['at'], torso: ['at'], arm: ['at'], hand: ['at'], leg: ['at'], foot: ['at'], head: ['at'],
 };
 export const ELEMENT_TYPES = Object.keys(REQ);
 const KINDS = ['var', 'expr', 'func', 'const', 'abbr', 'term', 'unit', 'note'];

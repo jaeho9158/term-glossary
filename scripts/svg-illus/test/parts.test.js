@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { renderSVG, validate, PART_TYPES, ICONS, SpecError } from '../src/index.js';
+import { renderSVG, validate, PART_TYPES, ICONS, SpecError, armJoints, legJoints } from '../src/index.js';
 
 const R = (elements, extra = {}) => renderSVG({ width: 400, height: 300, elements, ...extra }, { strict: true });
 
@@ -61,4 +61,16 @@ test('휴대폰 가독성: 375px 폰(그림 폭 311px) 기준 최소 글자', ()
   assert.doesNotThrow(() => renderSVG(spec(360, 13), { phoneMin: 11 }));
   assert.throws(() => renderSVG({ ...spec(440, 13), phoneMin: 11 }), SpecError);
   assert.equal(renderSVG({ width: 100, height: 50, elements: [] }).report.minFontPhone, null);
+});
+test('인체 윤곽 부품: body·torso·arm·hand·leg·foot·head', () => {
+  for (const t of ['body', 'torso', 'arm', 'hand', 'leg', 'foot', 'head']) assert.ok(PART_TYPES.includes(t), t);
+  for (const view of ['front', 'side']) {
+    const { svg } = R([{ type: 'body', at: [150, 10], h: 280, view }]);
+    assert.ok((svg.match(/<path/g) || []).length >= 6, view);
+  }
+  const { svg } = R([{ type: 'arm', at: [50, 40], len: 160, bend: 20 }, { type: 'leg', at: [200, 40], len: 150, view: 'side' }, { type: 'head', at: [300, 60], h: 60, view: 'front' }]);
+  assert.match(svg, /<path/);
+  const j = armJoints({ at: [0, 0], len: 100, angle: 0 });
+  assert.deepEqual(j.joints[1].map(Math.round), [0, 43]); assert.deepEqual(j.joints[2].map(Math.round), [0, 80]);
+  assert.equal(legJoints({ at: [0, 0], len: 100 }).joints.length, 3);
 });

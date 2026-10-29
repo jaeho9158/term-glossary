@@ -110,8 +110,15 @@ renderSVG(spec, { measureText: canvasMeasure() });
 | `scale` | `from`,`to`,`min`,`max` | 눈금자·시간축. `step`, `side`(1/-1), `ticks:false`, `arrow`, `label` |
 | `callout` | `at`,`text`,`target` | 글자 + 지시선 + 끝점 점 |
 | `lips` | `at` | 입술 윤곽. `w`,`h`, `upperFill`,`lowerFill` |
+| `body` | `at`[가운데 x, 머리 꼭대기 y], `h`(키) | 전신 윤곽. `view`: front/side, `armAngle`, `legAngle`, `flip`. 아래 부품을 조합 |
+| `torso` | `at`(어깨선 가운데), `h` | 몸통. `view`: front/side |
+| `arm` | `at`(어깨), `len`(어깨→손끝) | 팔+손. `angle`(0=아래, +는 오른쪽), `bend`(팔꿈치), `flip`, `hand:false` |
+| `hand` | `at`(손목), `len` | 손(손바닥 면, 엄지·네 손가락). `angle`, `flip`, `palm:false`면 엄지 반대쪽 |
+| `leg` | `at`(엉덩이), `len`(엉덩이→발목) | 다리+발. `angle`, `bend`, `flip`, `view`: front/side, `foot:false` |
+| `foot` | `at`(발목), `len` | 발. `view`: side/front, `flip` |
+| `head` | `at`(중심), `h` | 머리. `view`: side(얼굴 +x)/front, `flip` |
 
-부품(`icon`~`lips`)은 기존 요소로 풀어 쓰는 매크로이며 모두 픽셀 좌표로 동작한다. `fill`에 `{gradient:[색1,색2], angle}`(0=왼→오, 90=위→아래, 색은 기존 토큰)을 줄 수 있다.
+부품(`icon`~`lips`, 인체 윤곽 `body`~`head`)은 기존 요소로 풀어 쓰는 매크로이며 모두 픽셀 좌표로 동작한다. `fill`에 `{gradient:[색1,색2], angle}`(0=왼→오, 90=위→아래, 색은 기존 토큰)을 줄 수 있다.
 
 **첨자 크기**: 스펙에 `"subScale": 0.92`를 주면 위·아래첨자가 글자의 92%로 나온다(기본 0.72).
 
@@ -228,3 +235,5 @@ npm test                   # 또는 node --test
 ## 테스트
 
 `node --test`로 돌립니다. 다음 항목을 확인합니다: 겹침 회피(빈자리 찾기, 지시선, fixed, 측정 훅), 첨자와 분수 파싱, MathML 출력, 범례 kind, 스펙 검증 오류(경로 표시, 수식 이름 제한), 템플릿, 도식 어댑터와 overlay, plot 함수 44개.
+
+**인체 부품 좌표 얻기**: `import { armJoints, legJoints } from './src/index.js'`로 팔(어깨·팔꿈치·손목)·다리(엉덩이·무릎·발목) 관절 좌표를 얻어, 경혈·근육·주사 부위 같은 표지를 정확한 위치에 얹는다.
