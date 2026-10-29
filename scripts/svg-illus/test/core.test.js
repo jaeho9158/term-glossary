@@ -268,3 +268,8 @@ test('dimension, waves, curve closed/endDot 부품', () => {
   assert.match(svg, /marker-start/); assert.equal((svg.match(/stroke-dasharray="4 4"/g) || []).length, 3);
   assert.match(svg, /Z"/); assert.match(svg, /r="4" style="fill:/);
 });
+
+test('id는 숫자로 시작해도 된다(슬러그가 숫자로 시작하는 용어)', () => {
+  const { svg } = renderSVG({ id: '3d-city', width: 100, height: 60, title: 't', elements: [] });
+  assert.ok(svg.includes('3d-city'));
+});

@@ -78,7 +78,7 @@ export function validate(spec) {
   if (!spec || typeof spec !== 'object' || Array.isArray(spec)) return ['스펙은 객체여야 합니다'];
   if (!(isNum(spec.width) && spec.width > 0)) errs.push('width: 양수여야 합니다');
   if (!(isNum(spec.height) && spec.height > 0)) errs.push('height: 양수여야 합니다');
-  if (spec.id !== undefined && !/^[A-Za-z][\w-]*$/.test(spec.id)) errs.push('id: 영문자로 시작하는 영문·숫자·-·_ 이어야 합니다');
+  if (spec.id !== undefined && !/^[A-Za-z0-9][\w-]*$/.test(spec.id)) errs.push('id: 영문·숫자로 시작하는 영문·숫자·-·_ 이어야 합니다');
   const names = new Set();
   if (spec.points !== undefined) {
     if (typeof spec.points !== 'object' || Array.isArray(spec.points)) errs.push('points: {이름: [x,y]} 객체여야 합니다');
