@@ -98,3 +98,12 @@ test('화살표 head 배율: 기본 출력 불변, head를 주면 별도 작은 
   const small = R([{ type: 'arrow', from: [10, 10], to: [40, 10], head: 0.5 }, { type: 'arrow', from: [10, 30], to: [40, 30] }]).svg;
   assert.match(small, /markerWidth="3.5"/); assert.match(small, /markerWidth="7"/);
 });
+test('thorax: 흉곽 정면 단면(갈비뼈·폐·횡격막·기관), inhale이 클수록 폭이 넓고 횡격막이 내려간다', () => {
+  assert.ok(PART_TYPES.includes('thorax'));
+  assert.ok(validate({ width: 10, height: 10, elements: [{ type: 'thorax' }] }).some(e => e.includes('at')));
+  const out = inh => R([{ type: 'thorax', at: [150, 40], w: 160, h: 150, inhale: inh, ribs: 3, ghost: inh ? 0 : undefined }]).svg;
+  const a = out(0), b = out(1);
+  assert.ok((a.match(/<path/g) || []).length >= 9); assert.match(b, /stroke-dasharray="5 4"/); assert.doesNotMatch(a, /stroke-dasharray="5 4"/);
+  assert.notEqual(a, b);
+  assert.doesNotMatch(R([{ type: 'thorax', at: [150, 40], airway: false }]).svg, /<line/);
+});

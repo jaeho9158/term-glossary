@@ -115,6 +115,7 @@ renderSVG(spec, { measureText: canvasMeasure() });
 | `arm` | `at`(어깨), `len`(어깨→손끝) | 팔+손. `angle`(0=아래, +는 오른쪽), `bend`(팔꿈치), `flip`, `hand:false` |
 | `hand` | `at`(손목), `len` | 손(손바닥 면, 엄지·네 손가락). `angle`, `flip`, `palm:false`면 엄지 반대쪽 |
 | `leg` | `at`(엉덩이), `len`(엉덩이→발목) | 다리+발. `angle`, `bend`, `flip`, `view`: front/side, `foot:false` |
+| `thorax` | `at`[가운데 x, 위 y], `w`, `h`, `inhale` 0~1 | 흉곽 정면 단면(갈비뼈·두 폐·기관·기관지·횡격막). `ribs`, `airway:false`, `ghost`(다른 inhale의 횡격막을 점선으로), `fill`/`lungFill`/`stroke` |
 | `foot` | `at`(발목), `len` | 발. `view`: side/front, `flip` |
 | `head` | `at`(중심), `h` | 머리. `view`: side(얼굴 +x)/front, `flip` |
 

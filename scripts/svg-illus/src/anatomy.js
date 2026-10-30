@@ -8,7 +8,7 @@ const r1 = n => +(+n).toFixed(1);
 const rad = d => d * Math.PI / 180;
 
 /** 닫힌 점열을 Catmull-Rom 곡선(부드러운 3차 베지어)으로 */
-function smoothClosed(P) {
+export function smoothClosed(P) {
   const n = P.length, f = ([x, y]) => `${r1(x)},${r1(y)}`;
   let d = `M${f(P[0])}`;
   for (let i = 0; i < n; i++) {
@@ -19,7 +19,7 @@ function smoothClosed(P) {
 }
 
 /** 열린 점열을 Catmull-Rom 곡선으로(Z 없음: 채움은 닫히지만 아래 변에는 선이 안 그려진다. 다른 부위와 이어지는 몸통 밑변용) */
-function smoothOpen(P) {
+export function smoothOpen(P) {
   const n = P.length, f = ([x, y]) => `${r1(x)},${r1(y)}`;
   let d = `M${f(P[0])}`;
   for (let i = 0; i < n - 1; i++) {
