@@ -22,7 +22,8 @@ test('clip-path 요소(해칭)는 선 검사에서 제외(가림 검사 포함)'
 });
 test('첨자 dy/dx 과다와 본 글자와 떨어진 작은 글자', () => {
   assert.ok(whys('<text x="50" y="50" font-size="13">E<tspan dy="9" font-size="9">Na</tspan></text>').includes('script-offset'));
-  assert.ok(!whys('<text x="50" y="50" font-size="13">E<tspan baseline-shift="sub" font-size="72%">Na</tspan></text>').includes('script-offset'));
+  assert.ok(!whys('<text x="50" y="50" font-size="13">E<tspan dy="0.278em" font-size="72%">Na</tspan></text>').includes('script-offset'));
+  assert.ok(whys('<text x="50" y="50" font-size="13">E<tspan baseline-shift="sub" font-size="72%">Na</tspan></text>').includes('script-keyword'));
   assert.ok(whys('<text x="100" y="50">E</text><text x="116" y="55" font-size="9">Na</text>').includes('script-gap'));
 });
 test('한 라벨 줄 간격 > 글자크기×1.5', () => {

@@ -50,13 +50,30 @@ export function parseMarkup(s) {
 let SUB_SCALE = 0.72;
 /** 첨자 글자 비율(기본 0.72). 스펙의 subScale로 올려 휴대폰 가독성을 높인다. */
 export function setSubScale(v = 0.72) { SUB_SCALE = v; }
-const tsp = p => p.kind === 'normal' ? escapeXml(p.text)
-  : `<tspan baseline-shift="${p.kind === 'sub' ? 'sub' : 'super'}" font-size="${Math.round(SUB_SCALE * 100)}%">${escapeXml(p.text)}</tspan>`;
+// baseline-shift="sub|super" 키워드는 브라우저가 글꼴의 첨자 위치를 써서 첨자가 아래로 크게 처지고 본 글자와 벌어진다.
+// 대신 dy(본 글자 높이 기준 em, 아래+)로 위치를 직접 정하고, 뒤따르는 글자는 dy로 기준선에 되돌린다.
+export const SUB_DY = 0.2, SUP_DY = -0.4;
+const shiftOf = p => p.kind === 'sub' ? SUB_DY : p.kind === 'sup' ? SUP_DY : 0;
+const r3 = n => +n.toFixed(3);
+function runTspan(parts, st) {
+  let out = '';
+  for (const p of parts) {
+    if (p.kind === 'frac') {
+      out += runTspan(parseMarkup(p.num), st);
+      const d = -st.cur; st.cur = 0;
+      out += (d ? `<tspan dy="${r3(d)}em">⁄</tspan>` : '⁄') + runTspan(parseMarkup(p.den), st);
+      continue;
+    }
+    const t = shiftOf(p), d = t - st.cur;
+    if (p.kind === 'normal') out += d ? `<tspan dy="${r3(d)}em">${escapeXml(p.text)}</tspan>` : escapeXml(p.text);
+    else out += `<tspan dy="${r3(d / SUB_SCALE)}em" font-size="${Math.round(SUB_SCALE * 100)}%">${escapeXml(p.text)}</tspan>`;
+    st.cur = t;
+  }
+  return out;
+}
 
 /** SVG <text> 안에 넣을 내용(tspan 포함). 분수는 한 줄 대체 표기(분자⁄분모); 진짜 분수는 richTextSvg가 그린다. */
-export function toTspan(s) {
-  return parseMarkup(s).map(p => p.kind === 'frac' ? toTspan(p.num) + '⁄' + toTspan(p.den) : tsp(p)).join('');
-}
+export function toTspan(s) { return runTspan(parseMarkup(s), { cur: 0 }); }
 
 /** MathML 한 줄: 숫자 mn, 한 글자 mi, 그 밖은 mtext. 첨자는 앞 토큰에 msub/msup. */
 function mathRow(s) {

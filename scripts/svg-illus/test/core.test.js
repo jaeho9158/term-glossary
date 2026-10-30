@@ -11,7 +11,12 @@ test('첨자: 중괄호·한 글자·혼합', () => {
   assert.deepEqual(parseMarkup('x_{1}'), [{ text: 'x', kind: 'normal' }, { text: '1', kind: 'sub' }]);
   assert.deepEqual(parseMarkup('x^2'), [{ text: 'x', kind: 'normal' }, { text: '2', kind: 'sup' }]);
   assert.deepEqual(parseMarkup('a_{ij}^{2} + b').map(p => p.kind), ['normal', 'sub', 'sup', 'normal']);
-  assert.equal(toTspan('x_{1}'), 'x<tspan baseline-shift="sub" font-size="72%">1</tspan>');
+  assert.equal(toTspan('x_{1}'), 'x<tspan dy="0.278em" font-size="72%">1</tspan>');
+  assert.ok(!/baseline-shift/.test(toTspan('x_1^2 y')));
+  // 뒤따르는 글자는 dy로 기준선 복귀(첨자 합계 0)
+  const sum = s => [...toTspan(s).matchAll(/dy="(-?[d.]+)em"( font-size="72%")?/g)].reduce((a, m) => a + parseFloat(m[1]) * (m[2] ? 0.72 : 1), 0);
+  assert.ok(Math.abs(sum('CO_2 와 H_2O')) < 1e-2);
+  assert.ok(Math.abs(sum('x_1^2 y')) < 1e-2);
   assert.equal(toHtml('‖a‖^{2}'), '‖a‖<sup>2</sup>');
 });
 test('첨자: XML 특수문자는 이스케이프', () => {

@@ -1,6 +1,7 @@
 // 가독성 검사: 겹침이 없어도 읽기 불편한 그림을 찾는다(경고 목록, 렌더를 막지 않는다).
 //  cross       점선·곡선이 다른 닫힌 도형 안쪽을 가로지름(끝점이 도형 경계에 닿는 의도된 연결은 허용)
 //  script-*    첨자(dy/dx·baseline-shift 값, 작은 글자 따로)가 본 글자에서 글자크기 대비 너무 멀거나 높낮이가 과함
+//  script-keyword baseline-shift="sub|super" 키워드(브라우저별로 과하게 처짐·벌어짐). toTspan은 dy를 쓴다
 //  line-gap    한 라벨의 연속 줄 간격이 글자크기×1.5 초과
 //  leader-long 지시선 길이 > 60px, leader-detached 지시선이 라벨 상자 가장자리에서 시작하지 않음
 //  target-far  라벨과 가리키는 대상 사이가 80px 초과
@@ -94,7 +95,8 @@ export function findReadability(svg) {
       if (Math.abs(px) > t.size * READ.scriptDy) rep(t.text, 'tspan', 'script-offset', 0, 0);
     }
     const bs = t.a['baseline-shift'];
-    if (bs && !/^(sub|super|baseline)$/.test(bs)) { const px = /%$/.test(bs) ? num(bs) / 100 * t.size : num(bs); if (Math.abs(px) > t.size * READ.scriptDy) rep(t.text, 'tspan', 'script-offset', 0, 0); }
+    if (bs === 'sub' || bs === 'super') rep(t.text, 'tspan', 'script-keyword', 0, 0); // 키워드는 브라우저 글꼴 첨자 위치를 써서 과하게 처지고 벌어진다 → dy 사용
+    else if (bs && bs !== 'baseline') { const px = /%$/.test(bs) ? num(bs) / 100 * t.size : num(bs); if (Math.abs(px) > t.size * READ.scriptDy) rep(t.text, 'tspan', 'script-offset', 0, 0); }
   }
   for (const a of texts) for (const b of texts) {
     if (a === b || b.size > a.size * 0.85 || b.size < a.size * 0.4 || !a.text.trim() || !b.text.trim() || b.text.length > 6) continue;
