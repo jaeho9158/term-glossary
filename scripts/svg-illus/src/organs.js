@@ -6,7 +6,7 @@ const st = (el, extra) => ({ px: true, obstacle: false, ...extra });
 
 /** 횡격막 점열(왼쪽 끝→오른쪽 끝). inh=0 날숨(돔이 높음), 1 들숨(납작·낮음) */
 function diaphragmPts(cx, top, h, hw, inh) {
-  const yb = top + h * (0.86 + 0.04 * inh), yc = top + h * (0.62 + 0.28 * inh), ym = yc + (yb - yc) * 0.6;
+  const yb = top + h * (0.86 + 0.04 * inh), yc = top + h * (0.62 + 0.22 * inh), ym = yc + (yb - yc) * 0.6;
   return [[cx - 0.8 * hw, yb], [cx - 0.42 * hw, ym], [cx, yc], [cx + 0.42 * hw, ym], [cx + 0.8 * hw, yb]];
 }
 
@@ -23,7 +23,7 @@ function thorax(el) {
   // 폐
   const lung = s => {
     const X = u => cx + s * u * hw, dyc = D[2][1], dym = D[1][1], dye = D[0][1];
-    return [[X(0.1), top + 0.17 * h], [X(0.34), top + 0.08 * h], [X(0.68), top + 0.17 * h], [X(0.88), top + 0.4 * h], [X(0.88), top + 0.66 * h], [X(0.78), dye - 4], [X(0.42), dym - 3], [X(0.1), dyc - 3]];
+    return [[X(0.1), top + 0.17 * h], [X(0.34), top + 0.08 * h], [X(0.68), top + 0.17 * h], [X(0.88), top + 0.4 * h], [X(0.88), top + 0.66 * h], [X(0.78), dye - 7], [X(0.42), dym - 6], [X(0.1), dyc - 6]];
   };
   for (const s of [-1, 1]) out.push({ type: 'path', d: smoothClosed(lung(s)), stroke: el.lungStroke ?? 'rose', fill: el.lungFill ?? 'rose-f', width: 2, ...st(el) });
   // 기관·기관지
