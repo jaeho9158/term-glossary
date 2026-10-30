@@ -1,0 +1,520 @@
+{
+ "id": "inverse-kinematics-solver",
+ "width": 360,
+ "height": 526,
+ "title": "역기구학: 같은 목표에 닿는 두 자세와 관절각 역산",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    26
+   ],
+   "text": "평면 2링크 팔이 같은 목표점에 닿는 두 자세",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    46
+   ],
+   "text": "(위에서 본 모식)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M60,100 A230,230 0 0 1 290,330",
+   "stroke": "gray",
+   "width": 1.4,
+   "dash": true,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    96
+   ],
+   "text": "도달 가능 영역 경계",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    60,
+    330
+   ],
+   "to": [
+    250,
+    330
+   ],
+   "stroke": "gray",
+   "width": 1.2,
+   "dash": true,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    60,
+    330
+   ],
+   "to": [
+    168.04526606578955,
+    277.786778678454
+   ],
+   "stroke": "amber",
+   "width": 4,
+   "dash": "8 5"
+  },
+  {
+   "type": "line",
+   "from": [
+    168.04526606578955,
+    277.786778678454
+   ],
+   "to": [
+    190,
+    170
+   ],
+   "stroke": "amber",
+   "width": 4,
+   "dash": "8 5"
+  },
+  {
+   "type": "circle",
+   "center": [
+    168.04526606578955,
+    277.786778678454
+   ],
+   "r": 6,
+   "fill": "bg",
+   "stroke": "amber",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    60,
+    330
+   ],
+   "to": [
+    88.9900280518575,
+    213.55439779213424
+   ],
+   "stroke": "blue",
+   "width": 6
+  },
+  {
+   "type": "line",
+   "from": [
+    88.9900280518575,
+    213.55439779213424
+   ],
+   "to": [
+    190,
+    170
+   ],
+   "stroke": "blue",
+   "width": 6
+  },
+  {
+   "type": "circle",
+   "center": [
+    88.9900280518575,
+    213.55439779213424
+   ],
+   "r": 7,
+   "fill": "bg",
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 340,
+   "w": 48,
+   "h": 14,
+   "fill": "gray-f",
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "circle",
+   "center": [
+    60,
+    330
+   ],
+   "r": 8,
+   "fill": "bg",
+   "stroke": "fg",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    60,
+    374
+   ],
+   "text": "고정 베이스·어깨",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    183,
+    163
+   ],
+   "to": [
+    197,
+    177
+   ],
+   "stroke": "rose",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    183,
+    177
+   ],
+   "to": [
+    197,
+    163
+   ],
+   "stroke": "rose",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    202,
+    196
+   ],
+   "text": "목표",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    202,
+    214
+   ],
+   "text": "= 손끝",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M104,330 A44,44 0 0 0 70.6,287.3",
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    280
+   ],
+   "text": "θ_{1}",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 14,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    88.9900280518575,
+    213.55439779213424
+   ],
+   "to": [
+    99.61970500420524,
+    170.85767698258346
+   ],
+   "stroke": "gray",
+   "width": 1.2,
+   "dash": true,
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M116.5,201.7 A30,30 0 0 0 96.2,184.4",
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    114.75914534129996,
+    174.48589831172563
+   ],
+   "text": "θ_{2}",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 14,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    76.9900280518575,
+    193.55439779213424
+   ],
+   "text": "팔꿈치 위",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    178.04526606578955,
+    303.786778678454
+   ],
+   "text": "팔꿈치 아래",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "amber-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    303,
+    123
+   ],
+   "to": [
+    317,
+    137
+   ],
+   "stroke": "gray",
+   "width": 3
+  },
+  {
+   "type": "line",
+   "from": [
+    303,
+    137
+   ],
+   "to": [
+    317,
+    123
+   ],
+   "stroke": "gray",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    352,
+    156
+   ],
+   "text": "해 없음",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    352,
+    176
+   ],
+   "text": "(도달 불가)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 400,
+   "w": 116,
+   "h": 36,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.8,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    78,
+    424
+   ],
+   "text": "목표 위치",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "blockArrow",
+   "from": [
+    142,
+    418
+   ],
+   "to": [
+    204,
+    418
+   ],
+   "width": 16,
+   "fill": "gray-f",
+   "stroke": "gray"
+  },
+  {
+   "type": "text",
+   "at": [
+    173,
+    392
+   ],
+   "text": "역산",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 210,
+   "y": 400,
+   "w": 130,
+   "h": 36,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.8,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    275,
+    424
+   ],
+   "text": "관절각 θ_{1}, θ_{2}",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    466
+   ],
+   "text": "같은 목표라도 관절각이 둘 이상일 수 있다.",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    486
+   ],
+   "text": "해석적 방법: 닫힌 수식, 빠르나 구조에 따라 제한",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    506
+   ],
+   "text": "수치적 방법: 야코비안 전치·유사역행렬로 반복 수렴",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "θ_{1}",
+   "desc": "어깨(베이스) 관절의 각도. 수평선에서 첫째 링크까지",
+   "kind": "var"
+  },
+  {
+   "sym": "θ_{2}",
+   "desc": "팔꿈치 관절의 각도. 첫째 링크의 연장선에서 둘째 링크까지",
+   "kind": "var"
+  },
+  {
+   "desc": "링크 길이와 목표 위치는 모식이다. 같은 목표에 실선(팔꿈치 위)과 점선(팔꿈치 아래) 두 해가 가능하고, 영역 경계 밖의 목표는 해가 없다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
