@@ -24,9 +24,10 @@ export function segmentHitsBox(s, b) {
   return true;
 }
 
-function collides(b, placed, obs, W, H) {
+function collides(b, placed, obs, W, H, L) {
   if (b.x0 < 2 || b.y0 < 2 || b.x1 > W - 2 || b.y1 > H - 2) return 'canvas';
-  for (const p of placed) if (boxesOverlap(b, p.box)) return 'label:' + p.text;
+  // 둘 다 fixed(둘 다 제자리)면 줄 간격 글자크기×1.5 안쪽도 맞닿지만 않으면 겹침으로 보지 않는다(여유 2px 생략)
+  for (const p of placed) if (boxesOverlap(b, p.box, L && L.fixed && p.fixed ? 0 : 2)) return 'label:' + p.text;
   const inner = { x0: b.x0 + 0.5, x1: b.x1 - 0.5, y0: b.y0 + 1, y1: b.y1 - 1 };
   for (const s of obs.segments) if (segmentHitsBox(s, inner)) return 'line';
   for (const c of obs.boxes) if (boxesOverlap(inner, c, 0)) return 'dot';
@@ -49,13 +50,13 @@ export function placeLabels(labels, obstacles, W, H, opts = {}) {
   let before = 0;
   for (const L of labels) {
     let b = labelBox(L, L.x, L.y, measure);
-    const why = opts.avoid === false || L.avoid === false ? null : collides(b, placed, obs, W, H);
+    const why = opts.avoid === false || L.avoid === false ? null : collides(b, placed, obs, W, H, L);
     if (why) {
       before++;
       let best = null;
       if (!L.fixed) for (const [dx, dy] of cand) {
         const bb = labelBox(L, L.x + dx, L.y + dy, measure);
-        if (!collides(bb, placed, obs, W, H)) { best = [dx, dy, bb]; break; }
+        if (!collides(bb, placed, obs, W, H, L)) { best = [dx, dy, bb]; break; }
       }
       if (best) {
         const [dx, dy, bb] = best; const ax = L.x, ay = L.y - L.size * 0.3;
