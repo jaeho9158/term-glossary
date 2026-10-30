@@ -1,0 +1,925 @@
+{
+ "id": "copy-on-write",
+ "width": 360,
+ "height": 628,
+ "title": "쓰기 시 복사: 공유하다가 쓴 페이지만 분리",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    10,
+    22
+   ],
+   "text": "① 분기 직후: 페이지 테이블만 복제",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    50
+   ],
+   "text": "부모",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    50
+   ],
+   "text": "물리 페이지",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    50
+   ],
+   "text": "자식",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 66,
+   "w": 50,
+   "h": 34,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    88
+   ],
+   "text": "A·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 300,
+   "y": 66,
+   "w": 50,
+   "h": 34,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    88
+   ],
+   "text": "A·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 66,
+   "w": 100,
+   "h": 34,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    88
+   ],
+   "text": "A · 참조 2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    60,
+    83
+   ],
+   "to": [
+    130,
+    83
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "arrow",
+   "from": [
+    300,
+    83
+   ],
+   "to": [
+    230,
+    83
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 110,
+   "w": 50,
+   "h": 34,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    132
+   ],
+   "text": "B·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 300,
+   "y": 110,
+   "w": 50,
+   "h": 34,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    132
+   ],
+   "text": "B·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 110,
+   "w": 100,
+   "h": 34,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    132
+   ],
+   "text": "B · 참조 2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    60,
+    127
+   ],
+   "to": [
+    130,
+    127
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "arrow",
+   "from": [
+    300,
+    127
+   ],
+   "to": [
+    230,
+    127
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 154,
+   "w": 50,
+   "h": 34,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    176
+   ],
+   "text": "C·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 300,
+   "y": 154,
+   "w": 50,
+   "h": 34,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    176
+   ],
+   "text": "C·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 154,
+   "w": 100,
+   "h": 34,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    176
+   ],
+   "text": "C · 참조 2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    60,
+    171
+   ],
+   "to": [
+    130,
+    171
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "arrow",
+   "from": [
+    300,
+    171
+   ],
+   "to": [
+    230,
+    171
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "line",
+   "from": [
+    10,
+    204
+   ],
+   "to": [
+    350,
+    204
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    226
+   ],
+   "text": "② 쓰기 후: 쓴 페이지만 복사",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    254
+   ],
+   "text": "부모",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    254
+   ],
+   "text": "물리 페이지",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    254
+   ],
+   "text": "자식",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 266,
+   "w": 50,
+   "h": 34,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    288
+   ],
+   "text": "A·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 266,
+   "w": 100,
+   "h": 34,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    288
+   ],
+   "text": "A · 참조 2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    60,
+    283
+   ],
+   "to": [
+    130,
+    283
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 300,
+   "y": 266,
+   "w": 50,
+   "h": 34,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    288
+   ],
+   "text": "A·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    300,
+    283
+   ],
+   "to": [
+    230,
+    283
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 310,
+   "w": 50,
+   "h": 34,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    332
+   ],
+   "text": "B·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 310,
+   "w": 100,
+   "h": 34,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    332
+   ],
+   "text": "B · 참조 2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    60,
+    327
+   ],
+   "to": [
+    130,
+    327
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 300,
+   "y": 310,
+   "w": 50,
+   "h": 34,
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    332
+   ],
+   "text": "B·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "arrow",
+   "from": [
+    300,
+    327
+   ],
+   "to": [
+    230,
+    327
+   ],
+   "obstacle": false,
+   "stroke": "green",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 354,
+   "w": 50,
+   "h": 34,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    35,
+    376
+   ],
+   "text": "C·R",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 354,
+   "w": 100,
+   "h": 34,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    376
+   ],
+   "text": "C · 참조 1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    60,
+    371
+   ],
+   "to": [
+    130,
+    371
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "x": 300,
+   "y": 354,
+   "w": 50,
+   "h": 34,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    325,
+    376
+   ],
+   "text": "C·RW",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "x": 130,
+   "y": 398,
+   "w": 100,
+   "h": 34,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true,
+   "rx": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    420
+   ],
+   "text": "C′ · 참조 1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    300,
+    371
+   ],
+   "to": [
+    232,
+    410
+   ],
+   "obstacle": false,
+   "stroke": "amber",
+   "width": 1.8,
+   "px": true,
+   "head": 0.8
+  },
+  {
+   "type": "icon",
+   "name": "bolt",
+   "at": [
+    22,
+    462
+   ],
+   "size": 26,
+   "stroke": "amber",
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    458
+   ],
+   "text": "자식이 C에 쓰기 → 페이지 폴트",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    480
+   ],
+   "text": "→ 커널이 C를 복제해 C′ 생성",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "line",
+   "from": [
+    10,
+    498
+   ],
+   "to": [
+    350,
+    498
+   ],
+   "obstacle": false,
+   "stroke": "gray",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    520
+   ],
+   "text": "물리 페이지 수",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    548
+   ],
+   "text": "분기 직후",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 534,
+   "w": 144,
+   "h": 20,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    256,
+    549
+   ],
+   "text": "3개",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    578
+   ],
+   "text": "쓰기 후",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 564,
+   "w": 144,
+   "h": 20,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "rect",
+   "x": 244,
+   "y": 564,
+   "w": 48,
+   "h": 20,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.8,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    304,
+    579
+   ],
+   "text": "4개",
+   "fixed": true,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    612
+   ],
+   "text": "마지막 참조가 사라지면 회수한다",
+   "fixed": true,
+   "size": 13
+  }
+ ],
+ "legend": [
+  {
+   "sym": "R",
+   "desc": "읽기 전용 표시"
+  },
+  {
+   "sym": "RW",
+   "desc": "읽기·쓰기 가능"
+  },
+  {
+   "desc": "참조는 그 물리 페이지를 가리키는 페이지 테이블 항목의 수다. 페이지 개수와 이름은 예시다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
