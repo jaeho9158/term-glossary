@@ -1,0 +1,761 @@
+{
+ "id": "bloom-filter",
+ "width": 360,
+ "height": 520,
+ "title": "블룸 필터: 해시가 켠 비트와 조회 결과",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    180,
+    20
+   ],
+   "text": "블룸 필터: 비트 배열과 해시 함수",
+   "fixed": true,
+   "size": 14,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 24,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "none",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "rect",
+   "x": 50,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    63,
+    209
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "blue-t"
+  },
+  {
+   "type": "rect",
+   "x": 76,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "none",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "rect",
+   "x": 102,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    115,
+    209
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "blue-t"
+  },
+  {
+   "type": "rect",
+   "x": 128,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "none",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    141,
+    209
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 400,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 154,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    167,
+    209
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "blue-t"
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    193,
+    209
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet-t"
+  },
+  {
+   "type": "rect",
+   "x": 206,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "none",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    219,
+    209
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 400,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 232,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    245,
+    209
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet-t"
+  },
+  {
+   "type": "rect",
+   "x": 258,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "none",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    271,
+    209
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 400,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 284,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    297,
+    209
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "violet-t"
+  },
+  {
+   "type": "rect",
+   "x": 310,
+   "y": 190,
+   "w": 26,
+   "h": 28,
+   "fill": "none",
+   "stroke": "gray",
+   "width": 1.6,
+   "obstacle": false,
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    323,
+    209
+   ],
+   "text": "0",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 400,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    6,
+    50
+   ],
+   "text": "삽입: h_1·h_2·h_3가 칸 3개를 켬",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "muted"
+  },
+  {
+   "type": "circle",
+   "center": [
+    110,
+    76
+   ],
+   "r": 15,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    110,
+    81
+   ],
+   "text": "x",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "italic": true,
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    250,
+    76
+   ],
+   "r": 15,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    81
+   ],
+   "text": "y",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "italic": true,
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    110,
+    91
+   ],
+   "to": [
+    63,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    110,
+    91
+   ],
+   "to": [
+    115,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    110,
+    91
+   ],
+   "to": [
+    167,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "blue",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    250,
+    91
+   ],
+   "to": [
+    193,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    250,
+    91
+   ],
+   "to": [
+    245,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    250,
+    91
+   ],
+   "to": [
+    297,
+    188
+   ],
+   "obstacle": false,
+   "stroke": "violet",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "circle",
+   "center": [
+    80,
+    340
+   ],
+   "r": 15,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "none",
+   "stroke": "fg",
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    80,
+    345
+   ],
+   "text": "w",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "italic": true,
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    270,
+    340
+   ],
+   "r": 15,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "none",
+   "stroke": "fg",
+   "px": true
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    345
+   ],
+   "text": "z",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "italic": true,
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    80,
+    325
+   ],
+   "to": [
+    37,
+    221
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    80,
+    325
+   ],
+   "to": [
+    63,
+    221
+   ],
+   "obstacle": false,
+   "stroke": "fg",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    80,
+    325
+   ],
+   "to": [
+    89,
+    221
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    270,
+    325
+   ],
+   "to": [
+    115,
+    221
+   ],
+   "obstacle": false,
+   "stroke": "amber",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    270,
+    325
+   ],
+   "to": [
+    193,
+    221
+   ],
+   "obstacle": false,
+   "stroke": "amber",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "arrow",
+   "from": [
+    270,
+    325
+   ],
+   "to": [
+    245,
+    221
+   ],
+   "obstacle": false,
+   "stroke": "amber",
+   "width": 1.8,
+   "px": true
+  },
+  {
+   "type": "line",
+   "from": [
+    32,
+    199
+   ],
+   "to": [
+    42,
+    209
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    32,
+    209
+   ],
+   "to": [
+    42,
+    199
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    84,
+    199
+   ],
+   "to": [
+    94,
+    209
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "line",
+   "from": [
+    84,
+    209
+   ],
+   "to": [
+    94,
+    199
+   ],
+   "obstacle": false,
+   "stroke": "rose",
+   "width": 2.6
+  },
+  {
+   "type": "text",
+   "at": [
+    80,
+    378
+   ],
+   "text": "0인 칸이 있음",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "green-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    80,
+    400
+   ],
+   "text": "확실히 없음",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "green-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    378
+   ],
+   "text": "모두 1: 아마 있음",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    400
+   ],
+   "text": "z는 넣은 적 없음 → 오탐",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    436
+   ],
+   "text": "조회: 같은 해시로 칸을 확인 (칸 1개 = 비트 1개)",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    458
+   ],
+   "text": "원소 자체는 저장하지 않음",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    480
+   ],
+   "text": "기본형은 삭제 불가",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    502
+   ],
+   "text": "오탐률: 배열 크기·원소 수·해시 함수 수",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "h_1",
+   "desc": "해시 함수 1~3이 원소마다 가리키는 칸",
+   "kind": "var"
+  },
+  {
+   "sym": "오탐",
+   "desc": "넣지 않은 원소를 있다고 판정하는 오류(위양성)"
+  },
+  {
+   "desc": "x, y는 삽입한 원소, w, z는 조회하는 원소이다. 빨간 ×는 값이 0인 칸이다. 칸 배치는 개념 모식이다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
