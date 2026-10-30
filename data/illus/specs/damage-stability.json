@@ -1,0 +1,570 @@
+{
+ "id": "damage-stability",
+ "width": 360,
+ "height": 700,
+ "title": "손상복원성: 수밀격벽·이중선체와 침수량 계산",
+ "elements": [
+  {
+   "type": "path",
+   "d": "M0 128 L360 122 L360 262 L0 262 Z",
+   "fill": "blue",
+   "fillOpacity": 0.16,
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M22 90 L316 90 L340 108 L304 190 L44 190 Q24 190 22 170 Z",
+   "fill": "bg",
+   "stroke": "fg",
+   "width": 2.4,
+   "obstacle": false
+  },
+  {
+   "type": "rect",
+   "x": 140,
+   "y": 128,
+   "w": 60,
+   "h": 62,
+   "fill": "blue",
+   "fillOpacity": 0.65,
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M22 90 L316 90 L340 108 L304 190 L44 190 Q24 190 22 170 Z",
+   "fill": "none",
+   "stroke": "fg",
+   "width": 2.4,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    80,
+    90
+   ],
+   "to": [
+    80,
+    190
+   ],
+   "stroke": "fg",
+   "width": 3,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    140,
+    90
+   ],
+   "to": [
+    140,
+    190
+   ],
+   "stroke": "fg",
+   "width": 3,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    200,
+    90
+   ],
+   "to": [
+    200,
+    190
+   ],
+   "stroke": "fg",
+   "width": 3,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    260,
+    90
+   ],
+   "to": [
+    260,
+    190
+   ],
+   "stroke": "fg",
+   "width": 3,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    10,
+    150
+   ],
+   "to": [
+    350,
+    150
+   ],
+   "stroke": "muted",
+   "dash": "6 4",
+   "width": 1.6,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    10,
+    128
+   ],
+   "to": [
+    350,
+    122
+   ],
+   "stroke": "blue",
+   "width": 2.4,
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M154 190 L164 202 L172 188 L182 204 L188 190",
+   "fill": "none",
+   "stroke": "rose",
+   "width": 3,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    170,
+    226
+   ],
+   "text": "손상",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    326,
+    90
+   ],
+   "to": [
+    326,
+    124
+   ],
+   "arrow": "both",
+   "stroke": "green",
+   "width": 1.8,
+   "head": 0.7,
+   "obstacle": false
+  },
+  {
+   "type": "callout",
+   "at": [
+    262,
+    54
+   ],
+   "text": "여유부력",
+   "target": [
+    324,
+    106
+   ],
+   "size": 13,
+   "weight": 700,
+   "textColor": "green-t"
+  },
+  {
+   "type": "callout",
+   "at": [
+    64,
+    54
+   ],
+   "text": "수밀격벽",
+   "target": [
+    80,
+    94
+   ],
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    252
+   ],
+   "text": "손상 구획",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    70,
+    238
+   ],
+   "to": [
+    152,
+    178
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    152,
+    178
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "from": [
+    20,
+    276
+   ],
+   "to": [
+    48,
+    276
+   ],
+   "stroke": "muted",
+   "dash": "6 4",
+   "width": 1.8,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    56,
+    281
+   ],
+   "text": "원래 흘수선",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    180,
+    276
+   ],
+   "to": [
+    208,
+    276
+   ],
+   "stroke": "blue",
+   "width": 2.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    216,
+    281
+   ],
+   "text": "침수 후 흘수선",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    312
+   ],
+   "text": "격벽이 침수를 한 구획에 가둔다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    346
+   ],
+   "text": "횡단면: 이중선체와 교차 침수 장치",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M60 366 L260 366 L250 452 Q244 476 218 476 L102 476 Q76 476 70 452 Z",
+   "fill": "bg",
+   "stroke": "fg",
+   "width": 2.4,
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M60 366 L78 366 L86 446 L70 452 Z",
+   "fill": "blue",
+   "fillOpacity": 0.65,
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M78 366 L242 366 L234 446 Q230 460 214 460 L106 460 Q90 460 86 446 Z",
+   "fill": "gray-f",
+   "fillOpacity": 0.6,
+   "stroke": "fg",
+   "width": 1.8,
+   "obstacle": false
+  },
+  {
+   "type": "pipe",
+   "points": [
+    [
+     100,
+     468
+    ],
+    [
+     220,
+     468
+    ]
+   ],
+   "width": 4,
+   "flow": true
+  },
+  {
+   "type": "callout",
+   "at": [
+    290,
+    392
+   ],
+   "text": "이중선체",
+   "target": [
+    252,
+    400
+   ],
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    412
+   ],
+   "text": "(외판·내판",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    430
+   ],
+   "text": "사이 공간)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    514
+   ],
+   "text": "한쪽 침수 → 횡경사",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    60,
+    500
+   ],
+   "to": [
+    68,
+    420
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    68,
+    420
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    200,
+    514
+   ],
+   "text": "교차 침수 장치",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "accent",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    230,
+    500
+   ],
+   "to": [
+    190,
+    472
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    190,
+    472
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 540,
+   "w": 320,
+   "h": 142,
+   "fill": "gray-f",
+   "fillOpacity": 0.5,
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 6,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    564
+   ],
+   "text": "침수량 예 (해수 1.025 t/m³)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    586
+   ],
+   "text": "체적 1,000 m³ × 투과율 0.95",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    606
+   ],
+   "text": "→ 침수 950 m³ ≈ 973.75 t",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    628
+   ],
+   "text": "투과율 0.85이면 850 m³ ≈ 871.25 t",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    662
+   ],
+   "text": "요건: A ≥ R",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "accent",
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "A",
+   "desc": "도달 구획지수",
+   "kind": "var"
+  },
+  {
+   "sym": "R",
+   "desc": "요구 구획지수",
+   "kind": "var"
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
