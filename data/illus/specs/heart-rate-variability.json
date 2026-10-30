@@ -1,0 +1,688 @@
+{
+ "id": "heart-rate-variability",
+ "width": 360,
+ "height": 630,
+ "title": "심박변이도: R-R 간격 변동과 주파수 대역",
+ "elements": [
+  {
+   "type": "path",
+   "d": "M14,110 L14,110 Q22,96 30,110 L39,116 L44,58 L49,122 L54,110 Q68,92 82,110 L96,110 Q104,96 112,110 L121,116 L126,58 L131,122 L136,110 Q150,92 164,110 L175,110 Q183,96 191,110 L200,116 L205,58 L210,122 L215,110 Q229,92 243,110 L262,110 Q270,96 278,110 L287,116 L292,58 L297,122 L302,110 Q316,92 330,110 L340,110",
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    34
+   ],
+   "text": "심전도(ECG)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    44,
+    50
+   ],
+   "text": "R",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    50
+   ],
+   "text": "R",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    205,
+    50
+   ],
+   "text": "R",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    292,
+    50
+   ],
+   "text": "R",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    47,
+    150
+   ],
+   "to": [
+    123,
+    150
+   ],
+   "stroke": "blue",
+   "width": 1.6,
+   "arrow": "both",
+   "head": 0.8
+  },
+  {
+   "type": "text",
+   "at": [
+    85,
+    172
+   ],
+   "text": "0.82 s",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    129,
+    150
+   ],
+   "to": [
+    202,
+    150
+   ],
+   "stroke": "blue",
+   "width": 1.6,
+   "arrow": "both",
+   "head": 0.8
+  },
+  {
+   "type": "text",
+   "at": [
+    165.5,
+    172
+   ],
+   "text": "0.79 s",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    208,
+    150
+   ],
+   "to": [
+    289,
+    150
+   ],
+   "stroke": "blue",
+   "width": 1.6,
+   "arrow": "both",
+   "head": 0.8
+  },
+  {
+   "type": "text",
+   "at": [
+    248.5,
+    172
+   ],
+   "text": "NN",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    202
+   ],
+   "text": "NN = R파 사이 정상 간 간격",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    232
+   ],
+   "text": "SDNN",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    232
+   ],
+   "text": "전체 NN의 표준편차 (보통 24시간)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    254
+   ],
+   "text": "RMSSD",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    254
+   ],
+   "text": "인접 NN 차이 제곱 평균의 제곱근",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    276
+   ],
+   "text": "pNN50",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    276
+   ],
+   "text": "인접 차이가 50 ms 넘는 비율",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    298
+   ],
+   "text": "주파수 영역",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 41.914,
+   "y": 330,
+   "w": 21.286,
+   "h": 120,
+   "fill": "violet-f",
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    322
+   ],
+   "text": "VLF",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 63.2,
+   "y": 330,
+   "w": 63.8,
+   "h": 120,
+   "fill": "blue-f",
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    95.1,
+    350
+   ],
+   "text": "LF",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 127,
+   "y": 330,
+   "w": 145,
+   "h": 120,
+   "fill": "green-f",
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    199.5,
+    350
+   ],
+   "text": "HF",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "green-t",
+   "avoid": false
+  },
+  {
+   "type": "curve",
+   "points": [
+    [
+     42,
+     368
+    ],
+    [
+     52,
+     388
+    ],
+    [
+     63,
+     402
+    ],
+    [
+     80,
+     410
+    ],
+    [
+     97,
+     392
+    ],
+    [
+     113,
+     408
+    ],
+    [
+     127,
+     424
+    ],
+    [
+     150,
+     410
+    ],
+    [
+     178,
+     384
+    ],
+    [
+     205,
+     396
+    ],
+    [
+     240,
+     424
+    ],
+    [
+     272,
+     438
+    ],
+    [
+     318,
+     445
+    ]
+   ],
+   "smooth": true,
+   "stroke": "fg",
+   "width": 2,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    40,
+    450
+   ],
+   "to": [
+    334,
+    450
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "arrow": "end"
+  },
+  {
+   "type": "line",
+   "from": [
+    40,
+    450
+   ],
+   "to": [
+    40,
+    324
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "arrow": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    4,
+    320
+   ],
+   "text": "파워",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    63.2,
+    450
+   ],
+   "to": [
+    63.2,
+    455
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    63.2,
+    472
+   ],
+   "text": "0.04",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    127,
+    450
+   ],
+   "to": [
+    127,
+    455
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    127,
+    472
+   ],
+   "text": "0.15",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    272,
+    450
+   ],
+   "to": [
+    272,
+    455
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    272,
+    472
+   ],
+   "text": "0.4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    334,
+    494
+   ],
+   "text": "주파수 (Hz)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    520
+   ],
+   "text": "VLF",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    60,
+    520
+   ],
+   "text": "체온 조절 등",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    542
+   ],
+   "text": "LF",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    60,
+    542
+   ],
+   "text": "교감·부교감 혼합 (해석 논쟁)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    564
+   ],
+   "text": "HF",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "green-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    60,
+    564
+   ],
+   "text": "주로 부교감 (호흡 관련)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    594
+   ],
+   "text": "단기 기록은 5분이 관례이다.",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    614
+   ],
+   "text": "호흡·자세·카페인·시간대를 통제한다.",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "VLF/LF/HF",
+   "desc": "매우 낮은(very low)·낮은(low)·높은(high) 주파수 대역"
+  },
+  {
+   "desc": "파형과 곡선은 모식이며, 0.82 s와 0.79 s는 본문의 연속한 두 박동 간격 예시이다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}

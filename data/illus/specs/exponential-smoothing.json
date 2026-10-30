@@ -1,0 +1,636 @@
+{
+ "id": "exponential-smoothing",
+ "width": 360,
+ "height": 540,
+ "title": "지수평활법: 과거 관측값 가중치의 감쇠",
+ "elements": [
+  {
+   "type": "line",
+   "from": [
+    46,
+    290
+   ],
+   "to": [
+    340,
+    290
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    46,
+    290
+   ],
+   "to": [
+    46,
+    56
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "arrow": "end"
+  },
+  {
+   "type": "line",
+   "from": [
+    42,
+    290
+   ],
+   "to": [
+    46,
+    290
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    38,
+    294
+   ],
+   "text": "0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    42,
+    235
+   ],
+   "to": [
+    46,
+    235
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    38,
+    239
+   ],
+   "text": "0.2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    42,
+    180
+   ],
+   "to": [
+    46,
+    180
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    38,
+    184
+   ],
+   "text": "0.4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    42,
+    125
+   ],
+   "to": [
+    46,
+    125
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    38,
+    129
+   ],
+   "text": "0.6",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    42,
+    70
+   ],
+   "to": [
+    46,
+    70
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    38,
+    74
+   ],
+   "text": "0.8",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    44
+   ],
+   "text": "관측값 가중치 α(1−α)^{k}",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 56,
+   "y": 70,
+   "w": 29,
+   "h": 220,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    86,
+    330
+   ],
+   "text": "0.8",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 87,
+   "y": 235,
+   "w": 29,
+   "h": 55,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    86,
+    350
+   ],
+   "text": "0.2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    86,
+    310
+   ],
+   "text": "k=0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 126,
+   "y": 246,
+   "w": 29,
+   "h": 44,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    156,
+    330
+   ],
+   "text": "0.16",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 157,
+   "y": 246,
+   "w": 29,
+   "h": 44,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    156,
+    350
+   ],
+   "text": "0.16",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    156,
+    310
+   ],
+   "text": "k=1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 196,
+   "y": 281.2,
+   "w": 29,
+   "h": 8.8,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    330
+   ],
+   "text": "0.032",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 227,
+   "y": 254.8,
+   "w": 29,
+   "h": 35.2,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    350
+   ],
+   "text": "0.128",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    310
+   ],
+   "text": "k=2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 266,
+   "y": 288.24,
+   "w": 29,
+   "h": 1.76,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    296,
+    330
+   ],
+   "text": "0.0064",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 297,
+   "y": 261.84,
+   "w": 29,
+   "h": 28.16,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    296,
+    350
+   ],
+   "text": "0.1024",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    296,
+    310
+   ],
+   "text": "k=3",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    330
+   ],
+   "text": "α=0.8",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    350
+   ],
+   "text": "α=0.2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    96
+   ],
+   "text": "k=0 높이 = α",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    124,
+    92
+   ],
+   "to": [
+    90,
+    76
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "arrow": "end",
+   "head": 0.7,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    140,
+    102
+   ],
+   "to": [
+    104,
+    230
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "arrow": "end",
+   "head": 0.7,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    340,
+    372
+   ],
+   "text": "k기 전 관측값 (k=0은 현재)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 392,
+   "w": 14,
+   "h": 14,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    404
+   ],
+   "text": "α=0.8: 최근 값에 민감",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 410,
+   "w": 14,
+   "h": 14,
+   "fill": "violet-f",
+   "stroke": "violet",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    422
+   ],
+   "text": "α=0.2: 과거를 오래 반영",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    462
+   ],
+   "text": "k=1에서 두 값이 0.16으로 같고, 그 뒤로",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    482
+   ],
+   "text": "α=0.2가 더 오래 남는다.",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    520
+   ],
+   "text": "s_{t} = α x_{t} + (1−α) s_{t−1}",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "α",
+   "desc": "평활 계수(0 < α < 1)",
+   "kind": "var"
+  },
+  {
+   "sym": "s_{t}",
+   "desc": "t시점의 평활값",
+   "kind": "var"
+  },
+  {
+   "sym": "x_{t}",
+   "desc": "t시점의 관측값",
+   "kind": "var"
+  },
+  {
+   "sym": "k",
+   "desc": "현재에서 몇 기 전인가",
+   "kind": "var"
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
