@@ -107,3 +107,11 @@ test('thorax: 흉곽 정면 단면(갈비뼈·폐·횡격막·기관), inhale이
   assert.notEqual(a, b);
   assert.doesNotMatch(R([{ type: 'thorax', at: [150, 40], airway: false }]).svg, /<line/);
 });
+test('brain·gut: 장기 부품(뇌 옆모습, 소화관 개략), flip과 크기 반영', () => {
+  assert.ok(PART_TYPES.includes('brain') && PART_TYPES.includes('gut'));
+  assert.ok(validate({ width: 10, height: 10, elements: [{ type: 'brain' }] }).some(e => e.includes('at')));
+  const a = R([{ type: 'brain', at: [100, 20], w: 100 }]).svg, b = R([{ type: 'brain', at: [100, 20], w: 100, flip: true }]).svg;
+  assert.ok((a.match(/<path/g) || []).length >= 7); assert.notEqual(a, b);
+  const g = R([{ type: 'gut', at: [100, 20] }]).svg;
+  assert.ok((g.match(/<path/g) || []).length >= 4);
+});

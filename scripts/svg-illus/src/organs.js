@@ -1,4 +1,4 @@
-// 장기·구조 일반 부품: thorax(흉곽 정면 단면: 갈비뼈·폐·횡격막·기관).
+// 장기·구조 일반 부품: thorax(흉곽 정면 단면), brain(옆모습 뇌), gut(소화관 개략).
 // 픽셀 좌표의 path·line 요소 배열을 돌려준다. 호흡 외에 흉부 단면이 필요한 그림(기흉, 폐 부피, 늑골 골절 등)에도 쓴다.
 import { smoothOpen, smoothClosed } from './anatomy.js';
 const r1 = n => +(+n).toFixed(1);
@@ -49,4 +49,50 @@ function thorax(el) {
   return out;
 }
 
-export const ORGANS = { thorax };
+const tube = (d, w, inner, el, outer = 'gray') => [
+  { type: 'path', d, stroke: outer, fill: 'none', width: w + 3, ...st(el) },
+  { type: 'path', d, stroke: inner, fill: 'none', width: w - 1, ...st(el) }];
+
+/** brain: 옆에서 본 뇌(대뇌 윤곽·주름 고랑·소뇌·뇌간). at=[가운데 x, 윗끝 y], w(폭, 기본 120), 높이는 0.72w.
+ *  flip:true면 얼굴(앞)이 왼쪽. fill/stroke, foldStroke, cerebellumFill 색 */
+function brain(el) {
+  const [cx, top] = el.at, w = el.w ?? 120, h = w * 0.72, f = el.flip ? -1 : 1;
+  const X = u => cx + f * (u - 0.5) * w, Y = v => top + v * h;
+  const P = pts => pts.map(([u, v]) => [X(u), Y(v)]);
+  const out = [];
+  const cer = P([[0.58, 0.72], [0.72, 0.66], [0.9, 0.7], [0.96, 0.82], [0.84, 0.95], [0.66, 0.92]]);
+  out.push({ type: 'path', d: smoothClosed(cer), stroke: el.stroke ?? 'fg', fill: el.cerebellumFill ?? 'violet-f', width: el.width ?? 2, ...st(el) });
+  out.push({ type: 'path', d: `M${r1(X(0.5))},${r1(Y(0.78))} L${r1(X(0.5))},${r1(Y(1.12))} L${r1(X(0.58))},${r1(Y(1.12))} L${r1(X(0.6))},${r1(Y(0.78))}`, stroke: el.stroke ?? 'fg', fill: el.stemFill ?? 'gray-f', width: el.width ?? 2, ...st(el) });
+  const cere = P([[0.04, 0.58], [0.02, 0.38], [0.14, 0.16], [0.36, 0.03], [0.62, 0.02], [0.86, 0.12], [0.98, 0.34], [0.95, 0.58], [0.8, 0.7], [0.58, 0.72], [0.4, 0.84], [0.22, 0.78]]);
+  out.push({ type: 'path', d: smoothClosed(cere), stroke: el.stroke ?? 'fg', fill: el.fill ?? 'rose-f', width: el.width ?? 2, ...st(el) });
+  const folds = [
+    [[0.3, 0.12], [0.34, 0.26], [0.26, 0.4], [0.32, 0.54]],
+    [[0.5, 0.08], [0.56, 0.22], [0.48, 0.36], [0.56, 0.5]],
+    [[0.72, 0.14], [0.78, 0.28], [0.7, 0.42], [0.76, 0.56]],
+    [[0.14, 0.34], [0.22, 0.44], [0.16, 0.54]]];
+  for (const fo of folds) out.push({ type: 'path', d: smoothOpen(P(fo)), stroke: el.foldStroke ?? 'rose', fill: 'none', width: 1.6, ...st(el) });
+  return out;
+}
+
+/** gut: 배 속 소화관 개략(대장 테두리 + 구불구불한 소장). at=[가운데 x, 윗끝 y], w(기본 90), h(기본 100).
+ *  fill(소장 색), colonFill(대장 색) */
+function gut(el) {
+  const [cx, top] = el.at, w = el.w ?? 90, h = el.h ?? 100, L = cx - w / 2, Rr = cx + w / 2;
+  const out = [];
+  const colon = `M${r1(Rr - 6)},${r1(top + h)} L${r1(Rr - 6)},${r1(top + 6)} L${r1(L + 6)},${r1(top + 6)} L${r1(L + 6)},${r1(top + h * 0.78)} L${r1(cx - w * 0.12)},${r1(top + h * 0.78)} L${r1(cx - w * 0.12)},${r1(top + h)}`;
+  out.push(...tube(colon, 9, el.colonFill ?? 'amber-f', el));
+  const rows = 5, pts = [];
+  for (let k = 0; k < rows; k++) {
+    const y = top + h * (0.2 + 0.12 * k), a = L + 0.2 * w, b = Rr - 0.2 * w;
+    pts.push(...(k % 2 ? [[b, y], [a, y]] : [[a, y], [b, y]]));
+  }
+  let d = `M${r1(pts[0][0])},${r1(pts[0][1])}`;
+  for (let k = 1; k < pts.length; k++) {
+    const [x0, y0] = pts[k - 1], [x1, y1] = pts[k];
+    if (k % 2) d += ` L${r1(x1)},${r1(y1)}`; else { const bx = x1 + (x1 > cx ? 11 : -11); d += ` C${r1(bx)},${r1(y0)} ${r1(bx)},${r1(y1)} ${r1(x1)},${r1(y1)}`; }
+  }
+  out.push(...tube(d, 7, el.fill ?? 'rose-f', el));
+  return out;
+}
+
+export const ORGANS = { thorax, brain, gut };
