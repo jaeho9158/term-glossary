@@ -74,3 +74,27 @@ test('인체 윤곽 부품: body·torso·arm·hand·leg·foot·head', () => {
   assert.deepEqual(j.joints[1].map(Math.round), [0, 43]); assert.deepEqual(j.joints[2].map(Math.round), [0, 80]);
   assert.equal(legJoints({ at: [0, 0], len: 100 }).joints.length, 3);
 });
+
+test("인체 부품 style:'natural'과 발 변형 파라미터(요족·첨족·내전·내반)", () => {
+  const A = el => R([el]).svg;
+  const d = s => (s.match(/ d="([^"]+)"/) || [])[1];
+  for (const view of ['front', 'side']) assert.ok((A({ type: 'body', at: [150, 10], h: 300, view, style: 'natural' }).match(/<path/g) || []).length >= 6, view);
+  // 기본(옛) 출력은 style 없을 때 그대로, natural은 다른 윤곽
+  assert.notEqual(d(A({ type: 'leg', at: [50, 20], len: 150, view: 'side' })), d(A({ type: 'leg', at: [50, 20], len: 150, view: 'side', style: 'natural' })));
+  // 발 변형: 값이 달라지면 윤곽이 달라진다
+  const side = o => d(A({ type: 'foot', at: [80, 60], len: 100, view: 'side', ...o }));
+  assert.notEqual(side({}), side({ cavus: 1 }));
+  assert.notEqual(side({ cavus: 0 }), side({ equinus: 30 }));
+  const top = o => d(A({ type: 'foot', at: [80, 180], len: 100, view: 'top', ...o }));
+  assert.notEqual(top({ adductus: 0 }), top({ adductus: 30 }));
+  const back = o => d(A({ type: 'foot', at: [80, 80], len: 100, view: 'back', ...o }));
+  assert.notEqual(back({ varus: 0 }), back({ varus: 20 }));
+  assert.notEqual(top({ side: 'right' }), top({ side: 'left' }));
+  assert.doesNotThrow(() => R([{ type: 'hand', at: [60, 60], len: 60, style: 'natural' }, { type: 'foot', at: [50, 50], len: 50, view: 'front', style: 'natural' }, { type: 'torso', at: [100, 60], h: 120, view: 'side', style: 'natural' }, { type: 'head', at: [100, 30], h: 50, view: 'front', style: 'natural' }]));
+});
+test('화살표 head 배율: 기본 출력 불변, head를 주면 별도 작은 화살촉', () => {
+  const base = R([{ type: 'arrow', from: [10, 10], to: [40, 10] }]).svg;
+  assert.match(base, /markerWidth="7"/);
+  const small = R([{ type: 'arrow', from: [10, 10], to: [40, 10], head: 0.5 }, { type: 'arrow', from: [10, 30], to: [40, 30] }]).svg;
+  assert.match(small, /markerWidth="3.5"/); assert.match(small, /markerWidth="7"/);
+});

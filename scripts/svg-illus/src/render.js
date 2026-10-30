@@ -82,15 +82,15 @@ function styleOf(ctx, el, def = {}) {
   return a;
 }
 
-function arrowMarker(ctx, color) {
-  const key = color || 'fg';
+function arrowMarker(ctx, color, head) {
+  const key = (color || 'fg') + (head && head !== 1 ? '|' + head : ''); // head: 화살촉 배율(짧은 화살표가 뭉치지 않게 0.5~)
   if (!ctx.markers.has(key)) ctx.markers.set(key, `${ctx.id}-ar${ctx.markers.size ? '-' + ctx.markers.size : ''}`);
   return ctx.markers.get(key);
 }
 function arrowAttrs(ctx, el, defEnd) {
   const ends = el.arrow ?? (defEnd ? 'end' : null);
   if (!ends) return '';
-  const id = arrowMarker(ctx, el.stroke ?? el.color ?? 'fg');
+  const id = arrowMarker(ctx, el.stroke ?? el.color ?? 'fg', el.head);
   let a = '';
   if (ends === 'end' || ends === 'both') a += ` marker-end="url(#${id})"`;
   if (ends === 'start' || ends === 'both') a += ` marker-start="url(#${id})"`;
@@ -392,7 +392,7 @@ export function renderBody(spec, opts = {}, extra = {}) {
   const leaders = res.leaders.map(([x1, y1, x2, y2]) => `<line x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}" class="si-leader" style="stroke:currentColor" stroke-opacity="0.55" stroke-width="0.8"/>`).join('');
   body = body.replace(/@@L(\d+)@@/g, (_, i) => labelSvg(ctx, ctx.labels[i]));
   if (opts.strict && res.unresolved.length) throw new SpecError(res.unresolved.map(u => `라벨 겹침 미해결: "${u.text}" (${u.why})`));
-  const defs = [...ctx.markers].map(([c, id]) => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:${ctx.color(c)}"/></marker>`).join('') + ctx.clips.join('');
+  const defs = [...ctx.markers].map(([k, id]) => { const [c, h] = k.split('|'), m = h ? +(7 * h).toFixed(2) : 7; return `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="${m}" markerHeight="${m}" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:${ctx.color(c)}"/></marker>`; }).join('') + ctx.clips.join('');
   return { defs, leaders, body, ctx, report: { labels: ctx.labels.length, collisionsBefore: res.collisionsBefore, unresolved: res.unresolved } };
 }
 
