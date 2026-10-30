@@ -1,0 +1,1056 @@
+{
+ "id": "dna-methylation-profiling",
+ "width": 360,
+ "height": 600,
+ "title": "DNA 메틸화 프로파일링: 바이설파이트 전환과 β 값 계산",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    40,
+    36
+   ],
+   "text": "① 원본 DNA",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 41,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    54,
+    83
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 69,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    82,
+    83
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 97,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    110,
+    83
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 125,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    138,
+    83
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 153,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    166,
+    83
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 181,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    83
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 209,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    83
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 237,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    83
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 265,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    83
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 293,
+   "y": 64,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    306,
+    83
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    82,
+    58
+   ],
+   "text": "CH₃",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M70 96 v4 H122 v-4",
+   "stroke": "gray",
+   "width": 1.4,
+   "fill": "none"
+  },
+  {
+   "type": "path",
+   "d": "M182 96 v4 H234 v-4",
+   "stroke": "gray",
+   "width": 1.4,
+   "fill": "none"
+  },
+  {
+   "type": "text",
+   "at": [
+    96,
+    118
+   ],
+   "text": "CpG",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    208,
+    118
+   ],
+   "text": "CpG",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    22,
+    94
+   ],
+   "to": [
+    22,
+    170
+   ],
+   "arrow": "end",
+   "stroke": "muted",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    148
+   ],
+   "text": "② 바이설파이트 처리: 비메틸 C → U",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 41,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    54,
+    195
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 69,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    82,
+    195
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 97,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    110,
+    195
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 125,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    138,
+    195
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 153,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    166,
+    195
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 181,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    195
+   ],
+   "text": "U",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 209,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    195
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 237,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    195
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 265,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    195
+   ],
+   "text": "U",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 293,
+   "y": 176,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    306,
+    195
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    22,
+    206
+   ],
+   "to": [
+    22,
+    282
+   ],
+   "arrow": "end",
+   "stroke": "muted",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    260
+   ],
+   "text": "③ PCR 증폭·서열 읽기: U → T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 41,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    54,
+    307
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 69,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    82,
+    307
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 97,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    110,
+    307
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 125,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    138,
+    307
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 153,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    166,
+    307
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 181,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    307
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 209,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    307
+   ],
+   "text": "G",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 237,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    307
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 265,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    307
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 293,
+   "y": 288,
+   "w": 26,
+   "h": 26,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    306,
+    307
+   ],
+   "text": "T",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    340
+   ],
+   "text": "읽기에서 C = 메틸화, T = 비메틸화",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    384
+   ],
+   "text": "④ 한 CpG 자리의 읽기 100개",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 14,
+   "y": 402,
+   "w": 224,
+   "h": 28,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    421
+   ],
+   "text": "C 80개",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "blue-t",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 238,
+   "y": 402,
+   "w": 56,
+   "h": 28,
+   "fill": "rose-f",
+   "stroke": "rose",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    266,
+    421
+   ],
+   "text": "T 20개",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "rose-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    464
+   ],
+   "text": "β = 80 ÷ (80 + 20) = 0.8",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 15,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    522
+   ],
+   "text": "전환율 = (10,000 − 50) ÷ 10,000 = 99.5 %",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    542
+   ],
+   "text": "전환이 불완전하면 메틸화로 오판한다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    562
+   ],
+   "text": "5-메틸시토신과 5-하이드록시메틸시토신은",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    582
+   ],
+   "text": "구분하지 못한다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "β",
+   "desc": "메틸화 비율. 메틸화된 읽기 수 ÷ 전체 읽기 수",
+   "kind": "var"
+  },
+  {
+   "sym": "CpG",
+   "desc": "시토신(C) 바로 뒤에 구아닌(G)이 오는 자리",
+   "kind": "abbr"
+  },
+  {
+   "sym": "CH₃",
+   "desc": "메틸기",
+   "kind": "note"
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
