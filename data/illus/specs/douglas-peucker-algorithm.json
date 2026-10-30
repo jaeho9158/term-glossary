@@ -1,0 +1,427 @@
+{
+ "id": "douglas-peucker-algorithm",
+ "width": 360,
+ "height": 386,
+ "title": "더글러스–포이커 알고리즘: 최대 이격점과 허용오차",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    10,
+    22
+   ],
+   "text": "① 시작·끝점 선분에서 가장 먼 점",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 20,
+   "y": 100,
+   "w": 320,
+   "h": 40,
+   "fill": "accent",
+   "fillOpacity": 0.1,
+   "stroke": "none",
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    20,
+    100
+   ],
+   "to": [
+    340,
+    100
+   ],
+   "stroke": "accent",
+   "dash": "4 3",
+   "width": 1,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    20,
+    140
+   ],
+   "to": [
+    340,
+    140
+   ],
+   "stroke": "accent",
+   "dash": "4 3",
+   "width": 1,
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    20,
+    120
+   ],
+   "to": [
+    340,
+    120
+   ],
+   "stroke": "accent",
+   "width": 1.8,
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M20 120 L60 106 L100 74 L140 42 L180 72 L220 88 L260 62 L300 108 L340 120",
+   "stroke": "muted",
+   "width": 1.8,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    20,
+    120
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    60,
+    106
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    100,
+    74
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    140,
+    42
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    180,
+    72
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    220,
+    88
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    260,
+    62
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    300,
+    108
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    340,
+    120
+   ],
+   "r": 3,
+   "color": "muted"
+  },
+  {
+   "type": "dot",
+   "at": [
+    140,
+    42
+   ],
+   "r": 5,
+   "color": "limit"
+  },
+  {
+   "type": "line",
+   "from": [
+    140,
+    42
+   ],
+   "to": [
+    140,
+    120
+   ],
+   "stroke": "limit",
+   "dash": "3 3",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    146,
+    86
+   ],
+   "text": "d",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "italic": true,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    40
+   ],
+   "text": "가장 먼 점",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "limit",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    162
+   ],
+   "text": "허용오차(띠 반폭): 띠 안의 점은 제거 후보",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    194
+   ],
+   "text": "② 분할을 되풀이한 결과",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M20 314 L60 300 L100 268 L140 236 L180 266 L220 282 L260 256 L300 302 L340 314",
+   "stroke": "muted",
+   "width": 1.2,
+   "dash": "3 3",
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "path",
+   "d": "M20 314 L140 236 L220 282 L260 256 L340 314",
+   "stroke": "accent",
+   "width": 3,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    20,
+    314
+   ],
+   "r": 5,
+   "color": "accent"
+  },
+  {
+   "type": "circle",
+   "center": [
+    60,
+    300
+   ],
+   "r": 3.5,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "circle",
+   "center": [
+    100,
+    268
+   ],
+   "r": 3.5,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    140,
+    236
+   ],
+   "r": 5,
+   "color": "accent"
+  },
+  {
+   "type": "circle",
+   "center": [
+    180,
+    266
+   ],
+   "r": 3.5,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    220,
+    282
+   ],
+   "r": 5,
+   "color": "accent"
+  },
+  {
+   "type": "dot",
+   "at": [
+    260,
+    256
+   ],
+   "r": 5,
+   "color": "accent"
+  },
+  {
+   "type": "circle",
+   "center": [
+    300,
+    302
+   ],
+   "r": 3.5,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "dot",
+   "at": [
+    340,
+    314
+   ],
+   "r": 5,
+   "color": "accent"
+  },
+  {
+   "type": "dot",
+   "at": [
+    28,
+    342
+   ],
+   "r": 5,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    346
+   ],
+   "text": "남긴 점 (5개)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "circle",
+   "center": [
+    160,
+    342
+   ],
+   "r": 3.5,
+   "fill": "bg",
+   "stroke": "muted",
+   "width": 1.2,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    172,
+    346
+   ],
+   "text": "제거한 점 (4개)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    370
+   ],
+   "text": "허용오차를 키우면 제거되는 점이 늘어난다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "d",
+   "desc": "기준 선분에서 한 점까지의 거리"
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
