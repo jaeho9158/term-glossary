@@ -3,6 +3,7 @@
 //   node scripts/illus/build-svg.js           모든 스펙을 렌더해 SVG 파일을 쓴다(바뀐 것만)
 //   node scripts/illus/build-svg.js --check   파일이 스펙과 같은지만 확인(다르면 종료 코드 1)
 //   node scripts/illus/build-svg.js --check --warn-obscured   글자 가림 경고 목록도 출력
+//   node scripts/illus/build-svg.js --check --warn-readability   가독성 경고(많은 순) 목록도 출력
 // 글자 겹침이 풀리지 않으면 오류로 끝낸다(strict).
 "use strict";
 const fs = require("fs");
@@ -22,16 +23,24 @@ function obscured(spec) {
   return renderSVG(spec, { templates, strict: true }).report.obscured;
 }
 
+// 가독성 경고(점선 관통·첨자·줄 간격·지시선 길이·라벨-대상 거리). 렌더는 막지 않는다.
+function readability(spec) {
+  return renderSVG(spec, { templates, strict: true }).report.readability;
+}
+
 function run() {
   const check = process.argv.includes("--check");
   let changed = 0, same = 0, warnSpecs = 0, warnItems = 0;
   const warn = process.argv.includes("--warn-obscured");
+  const warnR = process.argv.includes("--warn-readability");
+  const rd = [];
   for (const f of fs.readdirSync(SPEC_DIR).filter((x) => x.endsWith(".json")).sort()) {
     const spec = JSON.parse(fs.readFileSync(path.join(SPEC_DIR, f), "utf8"));
     if (spec.id + ".json" !== f) throw new Error(`${f}: id 불일치`);
     const out = path.join(OUT_DIR, spec.id + ".svg");
     const svg = build(spec);
     if (warn) { const o = obscured(spec); if (o.length) { warnSpecs++; warnItems += o.length; console.log(`가림 경고 ${spec.id}: ${o.map((x) => x.text + "(" + x.by + "/" + x.why + ")").join(", ")}`); } }
+    if (warnR) { const r = readability(spec); if (r.length) rd.push([spec.id, r]); }
     const prev = fs.existsSync(out) ? fs.readFileSync(out, "utf8").replace(/\r\n/g, "\n") : null;
     if (prev === svg) { same++; continue; }
     changed++;
@@ -39,8 +48,13 @@ function run() {
   }
   console.log(`${check ? "[check] " : ""}도해 SVG 갱신 ${changed} · 그대로 ${same}`);
   if (warn) console.log(`글자 가림 경고: 도해 ${warnSpecs}개 · ${warnItems}건`);
+  if (warnR) {
+    rd.sort((a, b) => b[1].length - a[1].length);
+    for (const [id, r] of rd) console.log(`가독성 경고 ${id} (${r.length}): ` + r.map((x) => x.why + ":" + x.text).join(" | "));
+    console.log(`가독성 경고: 도해 ${rd.length}개 · ${rd.reduce((n, x) => n + x[1].length, 0)}건`);
+  }
   if (check && changed) process.exitCode = 1;
 }
 
 if (require.main === module) run();
-module.exports = { build, obscured };
+module.exports = { build, obscured, readability };

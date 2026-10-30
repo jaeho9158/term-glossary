@@ -124,6 +124,8 @@ renderSVG(spec, { measureText: canvasMeasure() });
 
 **휴대폰 가독성**: 스펙에 `"phoneMin": 11`(또는 옵션 `phoneMin`)을 주면 375px 폰(그림 폭 약 311px)에서 최소 글자가 그 값 미만일 때 오류다. 13px 글자면 가로 360 이하여야 한다. `report.minFontPhone`에 값이 나온다.
 
+**가독성 경고**: `report.readability`(src/readability.js)는 겹침이 없어도 읽기 불편한 곳을 목록으로 돌려준다(렌더는 막지 않음). `cross` 점선·곡선이 다른 닫힌 도형 안쪽을 가로지름(끝점이 경계에 닿는 연결은 허용), `script-offset`/`script-gap` 첨자 dy·dx 과다 또는 본 글자에서 떨어진 작은 글자, `line-gap` 한 라벨 줄 간격이 글자크기×1.5 초과, `leader-long` 지시선 60px 초과, `leader-detached` 지시선이 라벨 가장자리에서 시작하지 않음, `target-far` 라벨-대상 거리 80px 초과. clip-path 요소(해칭)는 선 검사에서 제외한다. 목록 보기: `node scripts/illus/build-svg.js --check --warn-readability`.
+
 공통 스타일 필드는 `stroke`(또는 `color`), `fill`, `width`, `dash`(`true`, `"6 4"`, 배열), `opacity`, `fillOpacity`, `obstacle:false`입니다. `obstacle:false`를 붙인 요소는 라벨 겹침 검사에서 뺍니다.
 
 ### 라벨

@@ -3,6 +3,7 @@ import { toTspan, toHtml, symHtml, kindOf, escapeXml, hasFrac, richTextSvg, auto
 import { placeLabels } from './labels.js';
 import { validate, SpecError, checkExpr } from './validate.js';
 import { findObscured } from './obscure.js';
+import { findReadability } from './readability.js';
 import { DEFAULT_PALETTE, colorRef, paletteStyle, TOKENS } from './theme.js';
 import { isPart, expandPart } from './parts.js';
 
@@ -419,6 +420,7 @@ export function renderSVG(spec, opts = {}) {
   const svg = `<svg class="si si-illus" viewBox="0 0 ${W} ${H}" style="max-width:${W}px;color:var(--si-ink,var(--text,#1f2328))${pal}" xmlns="http://www.w3.org/2000/svg" role="img"${title ? ` aria-labelledby="${tid}"` : ''} font-family="${FONT}" font-size="13" fill="currentColor">`
     + `${title ? `<title id="${tid}">${escapeXml(title)}</title>` : ''}${spec.desc ? `<desc>${escapeXml(spec.desc)}</desc>` : ''}${style}<defs>${defs}</defs>${leaders}${body}</svg>`;
   report.obscured = findObscured(svg);
+  report.readability = findReadability(svg);
   if (opts.strictObscured && report.obscured.length) throw new SpecError(report.obscured.map(o => `글자 가림: "${o.text}" (${o.by}, ${o.why})`));
   return { svg, report };
 }

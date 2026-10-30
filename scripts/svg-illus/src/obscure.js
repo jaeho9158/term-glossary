@@ -3,15 +3,15 @@
 // 예외(의도적 배경): 글자가 도형 안에 거의 통째로 들어 있고 그 도형이 글자보다 먼저 그려진 경우(라벨 배경 상자·소속 도형).
 import { estimateTextWidth } from './markup.js';
 
-const num = (s, d = 0) => { const v = parseFloat(s); return Number.isFinite(v) ? v : d; };
-const attrs = tag => {
+export const num = (s, d = 0) => { const v = parseFloat(s); return Number.isFinite(v) ? v : d; };
+export const attrs = tag => {
   const o = {}; const re = /([\w:-]+)="([^"]*)"/g; let m;
   while ((m = re.exec(tag))) o[m[1]] = m[2];
   return o;
 };
-const styleOf = (a, k) => { const m = new RegExp('(?:^|;)\\s*' + k + ':\\s*([^;]+)').exec(a.style || ''); return m ? m[1].trim() : (a[k] ?? null); };
+export const styleOf = (a, k) => { const m = new RegExp('(?:^|;)\\s*' + k + ':\\s*([^;]+)').exec(a.style || ''); return m ? m[1].trim() : (a[k] ?? null); };
 
-function flattenPath(d) {
+export function flattenPath(d) {
   const toks = d.match(/[a-zA-Z]|-?\d*\.?\d+(?:e[-+]?\d+)?/g) || [];
   const polys = []; let cur = null, i = 0, cmd = '', x = 0, y = 0, sx = 0, sy = 0, lc = null;
   const n = () => parseFloat(toks[i++]);
@@ -60,7 +60,7 @@ function flattenPath(d) {
   return polys;
 }
 
-const inPoly = (px, py, poly) => {
+export const inPoly = (px, py, poly) => {
   let c = false;
   for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
     const [xi, yi] = poly[i], [xj, yj] = poly[j];
@@ -68,7 +68,7 @@ const inPoly = (px, py, poly) => {
   }
   return c;
 };
-function segHitsBox(s, b) {
+export function segHitsBox(s, b) {
   const [x1, y1, x2, y2] = s; let t0 = 0, t1 = 1; const dx = x2 - x1, dy = y2 - y1;
   const P = [-dx, dx, -dy, dy], Q = [x1 - b.x0, b.x1 - x1, y1 - b.y0, b.y1 - y1];
   for (let i = 0; i < 4; i++) {
@@ -77,16 +77,16 @@ function segHitsBox(s, b) {
   }
   return true;
 }
-const polySegs = (p, close) => {
+export const polySegs = (p, close) => {
   const out = [];
   for (let i = 1; i < p.length; i++) out.push([p[i - 1][0], p[i - 1][1], p[i][0], p[i][1]]);
   if (close && p.length > 2) out.push([p[p.length - 1][0], p[p.length - 1][1], p[0][0], p[0][1]]);
   return out;
 };
-const ellipsePoly = (cx, cy, rx, ry) => Array.from({ length: 36 }, (_, k) => [cx + rx * Math.cos(k * Math.PI / 18), cy + ry * Math.sin(k * Math.PI / 18)]);
+export const ellipsePoly = (cx, cy, rx, ry) => Array.from({ length: 36 }, (_, k) => [cx + rx * Math.cos(k * Math.PI / 18), cy + ry * Math.sin(k * Math.PI / 18)]);
 
 /** 글자의 경계상자(위 0.8·아래 0.2 글자 크기, 좌우 0.8px 줄임). */
-function textBox(a, raw) {
+export function textBox(a, raw) {
   const size = num(a['font-size'], 13);
   const text = raw.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
   const w = estimateTextWidth(text, size), x = num(a.x), y = num(a.y), anc = a['text-anchor'] || 'start';
@@ -104,7 +104,7 @@ function textBox(a, raw) {
 // 선 끝이 글자 곁에 붙어 있으면(지시선·밑줄형 연결선) 가장자리 접촉은 허용한다.
 const near = (g, b) => [[g[0], g[1]], [g[2], g[3]]].some(([x, y]) => x > b.x0 - 4 && x < b.x1 + 4 && y > b.y0 - 4 && y < b.y1 + 4);
 
-const DEFS = new Set(['defs', 'clipPath', 'marker', 'linearGradient', 'radialGradient']);
+export const DEFS = new Set(['defs', 'clipPath', 'marker', 'linearGradient', 'radialGradient']);
 
 /**
  * SVG 문자열 → 가림·걸침 목록 [{text, by, why}].
@@ -127,7 +127,7 @@ export function findObscured(svg) {
     if (DEFS.has(name)) { if (!selfClose) skip++; continue; }
     if (skip) continue;
     if (name === 'g') { if (!selfClose) { const c = a['clip-path'] || a.class === 'si-rich' ? 'clip' : 'g'; stack.push(c); if (c === 'clip') clip++; } continue; }
-    if (clip || a.class === 'si-leader' || num(a['stroke-opacity'], 1) < 0.4) continue; // 해칭·지시선·옅은 격자선은 배경으로 본다
+    if (clip || a['clip-path'] || a.class === 'si-leader' || num(a['stroke-opacity'], 1) < 0.4) continue; // 해칭·지시선·옅은 격자선은 배경으로 본다
     const fillRaw = styleOf(a, 'fill'), strokeRaw = styleOf(a, 'stroke');
     const filled = fillRaw !== 'none';
     const op = Math.min(num(a.opacity, 1), num(a['fill-opacity'], 1));
