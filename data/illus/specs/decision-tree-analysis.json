@@ -1,0 +1,815 @@
+{
+ "id": "decision-tree-analysis",
+ "width": 360,
+ "height": 428,
+ "title": "의사결정나무 분석: 가상 신약개발 투자안의 후진귀납",
+ "elements": [
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 14,
+   "w": 12,
+   "h": 12,
+   "fill": "blue-f",
+   "stroke": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    26,
+    25
+   ],
+   "text": "결정",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "circle",
+   "center": [
+    74,
+    20
+   ],
+   "r": 6,
+   "fill": "amber-f",
+   "stroke": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    25
+   ],
+   "text": "우연",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M126 26 L138 26 L132 14 Z",
+   "fill": "green-f",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    142,
+    25
+   ],
+   "text": "끝",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    176,
+    20
+   ],
+   "to": [
+    184,
+    8
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    181,
+    20
+   ],
+   "to": [
+    189,
+    8
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    25
+   ],
+   "text": "가지치기",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    78,
+    166
+   ],
+   "text": "1상",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    226,
+    76
+   ],
+   "text": "2상",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    186,
+    196
+   ],
+   "to": [
+    192,
+    184
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    191,
+    196
+   ],
+   "to": [
+    197,
+    184
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    350,
+    44
+   ],
+   "text": "단위: 억원, 가상 예",
+   "fixed": true,
+   "leader": false,
+   "anchor": "end",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 11,
+   "y": 171,
+   "w": 18,
+   "h": 18,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    6,
+    160
+   ],
+   "text": "EV 50",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    29,
+    180
+   ],
+   "to": [
+    69,
+    180
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    49,
+    174
+   ],
+   "text": "−10",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    49,
+    192
+   ],
+   "text": "진행",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "circle",
+   "center": [
+    78,
+    180
+   ],
+   "r": 9,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "from": [
+    87,
+    180
+   ],
+   "to": [
+    100,
+    180
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    100,
+    140
+   ],
+   "to": [
+    100,
+    220
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    100,
+    140
+   ],
+   "to": [
+    141,
+    140
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    134
+   ],
+   "text": "0.6",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    153
+   ],
+   "text": "성공",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 141,
+   "y": 131,
+   "w": 18,
+   "h": 18,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    118
+   ],
+   "text": "EV 100",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    100,
+    220
+   ],
+   "to": [
+    140,
+    220
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    214
+   ],
+   "text": "0.4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    233
+   ],
+   "text": "실패",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M142 227 L158 227 L150 212 Z",
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    164,
+    224
+   ],
+   "text": "0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    159,
+    140
+   ],
+   "to": [
+    176,
+    140
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    176,
+    90
+   ],
+   "to": [
+    176,
+    190
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    176,
+    90
+   ],
+   "to": [
+    211,
+    90
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    84
+   ],
+   "text": "−20",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    103
+   ],
+   "text": "진행",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "circle",
+   "center": [
+    220,
+    90
+   ],
+   "r": 9,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "from": [
+    176,
+    190
+   ],
+   "to": [
+    206,
+    190
+   ],
+   "stroke": "gray",
+   "width": 1.6,
+   "dash": "4 3"
+  },
+  {
+   "type": "path",
+   "d": "M206 197 L222 197 L214 182 Z",
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    228,
+    194
+   ],
+   "text": "포기 0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    229,
+    90
+   ],
+   "to": [
+    244,
+    90
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    244,
+    65
+   ],
+   "to": [
+    244,
+    115
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "line",
+   "from": [
+    244,
+    65
+   ],
+   "to": [
+    312,
+    65
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    59
+   ],
+   "text": "0.4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    78
+   ],
+   "text": "성공",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M312 72 L328 72 L320 57 Z",
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    334,
+    69
+   ],
+   "text": "300",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    244,
+    115
+   ],
+   "to": [
+    312,
+    115
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    278,
+    129
+   ],
+   "text": "실패",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "path",
+   "d": "M312 122 L328 122 L320 107 Z",
+   "fill": "green-f",
+   "stroke": "green",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    334,
+    119
+   ],
+   "text": "0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    20,
+    189
+   ],
+   "to": [
+    20,
+    246
+   ],
+   "stroke": "gray",
+   "width": 1.6,
+   "dash": "4 3"
+  },
+  {
+   "type": "line",
+   "from": [
+    14,
+    222
+   ],
+   "to": [
+    26,
+    216
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "from": [
+    14,
+    228
+   ],
+   "to": [
+    26,
+    222
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "path",
+   "d": "M12 263 L28 263 L20 248 Z",
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    34,
+    260
+   ],
+   "text": "포기 0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    336,
+    296
+   ],
+   "to": [
+    24,
+    296
+   ],
+   "arrow": "end",
+   "stroke": "violet",
+   "width": 3.6
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    286
+   ],
+   "text": "후진귀납: 끝 → 뿌리",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "violet-t",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    326
+   ],
+   "text": "2상 마디: −20 + 0.4 × 300 = 100",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    345
+   ],
+   "text": "뿌리: −10 + 0.6 × 100 = 50",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 10,
+   "y": 362,
+   "w": 340,
+   "h": 52,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.2,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    382
+   ],
+   "text": "민감도: 2상 성공 확률 0.2라면",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    401
+   ],
+   "text": "2상 마디 40, 뿌리 14로 내려간다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "EV",
+   "desc": "기대값(expected value)",
+   "kind": "abbr"
+  },
+  {
+   "sym": "1상·2상",
+   "desc": "임상시험 1상·2상",
+   "kind": "term"
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
