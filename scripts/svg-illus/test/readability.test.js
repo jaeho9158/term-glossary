@@ -40,3 +40,11 @@ test('라벨-대상 거리 > 80px', () => {
   const lab = T(100, 50, '라벨');
   assert.ok(whys(lab + '<line x1="100" y1="56" x2="100" y2="160" stroke="currentColor" stroke-width="1"/><circle cx="100" cy="160" r="2" fill="currentColor"/>').includes('target-far'));
 });
+test('도형 윤곽과 겹친 선·곡선(용기 윤곽과 액체 경계)은 cross가 아니다', () => {
+  const liquid = '<path d="M100,100 L100,150 Q100,160 110,160 L190,160 Q200,160 200,150 L200,100Z" fill="currentColor" fill-opacity="0.85" stroke="none"/>';
+  const outline = '<path d="M100,60 L100,150 Q100,160 110,160 L190,160 Q200,160 200,150 L200,60" fill="none" stroke="currentColor"/>';
+  const level = '<line x1="100" y1="100" x2="200" y2="100" stroke="currentColor" stroke-dasharray="5 3"/>';
+  assert.ok(!whys(liquid + outline + level).includes('cross'));
+  // 실제로 액체 안쪽을 가로지르는 점선은 계속 잡는다
+  assert.ok(whys(liquid + '<line x1="90" y1="130" x2="210" y2="130" stroke="currentColor" stroke-dasharray="5 3"/>').includes('cross'));
+});

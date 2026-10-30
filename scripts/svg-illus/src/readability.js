@@ -77,7 +77,7 @@ export function findReadability(svg) {
     const pts = sample(o.poly); if (pts.length < 3) continue;
     const e0 = pts[0], e1 = pts[pts.length - 1];
     for (const c of closed) {
-      const inside = pts.map(([x, y]) => inPoly(x, y, c.poly));
+      const inside = pts.map(([x, y]) => inPoly(x, y, c.poly) && !c.segs.some(g => distSeg(x, y, g) <= 1.5)); // 도형 윤곽과 겹친 선(용기 윤곽·액체 경계)은 안쪽이 아님
       const nIn = inside.filter(Boolean).length;
       if (nIn < 3 || nIn === inside.length) continue;
       let flips = 0; for (let i = 1; i < inside.length; i++) if (inside[i] !== inside[i - 1]) flips++;
