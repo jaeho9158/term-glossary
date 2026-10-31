@@ -1,0 +1,998 @@
+{
+ "id": "biomarker-detection",
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "width": 360,
+ "height": 552,
+ "title": "바이오마커 검출: 인식, 신호 변환, 검량선",
+ "legend": [
+  {
+   "desc": "붉은 삼각형은 표적 바이오마커, 회색 원은 비슷한 다른 물질이다. 보라색 Y자 모양의 항체 같은 인식 요소에는 표적만 붙고, 변환기가 이 결합을 신호로 바꾼다. 농도를 아는 표준 시료로 만든 검량선에 미지 시료의 신호를 대어 농도를 읽는다. 그림의 점과 눈금은 개념을 보이기 위한 모식이며 본문에는 구체적 수치가 없다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    24
+   ],
+   "text": "① 인식: 표적만 붙는다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 20,
+   "y": 44,
+   "w": 320,
+   "h": 58,
+   "stroke": "blue",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 0.6
+  },
+  {
+   "type": "text",
+   "at": [
+    28,
+    62
+   ],
+   "text": "시료",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "polygon",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     70,
+     73
+    ],
+    [
+     63,
+     86
+    ],
+    [
+     77,
+     86
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose"
+  },
+  {
+   "type": "polygon",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     170,
+     65
+    ],
+    [
+     163,
+     78
+    ],
+    [
+     177,
+     78
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose"
+  },
+  {
+   "type": "polygon",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     270,
+     77
+    ],
+    [
+     263,
+     90
+    ],
+    [
+     277,
+     90
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    40,
+    86
+   ],
+   "r": 5,
+   "stroke": "muted",
+   "width": 1,
+   "fill": "gray",
+   "fillOpacity": 0.7
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    104,
+    68
+   ],
+   "r": 5,
+   "stroke": "muted",
+   "width": 1,
+   "fill": "gray",
+   "fillOpacity": 0.7
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    132,
+    88
+   ],
+   "r": 5,
+   "stroke": "muted",
+   "width": 1,
+   "fill": "gray",
+   "fillOpacity": 0.7
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    212,
+    88
+   ],
+   "r": 5,
+   "stroke": "muted",
+   "width": 1,
+   "fill": "gray",
+   "fillOpacity": 0.7
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    238,
+    70
+   ],
+   "r": 5,
+   "stroke": "muted",
+   "width": 1,
+   "fill": "gray",
+   "fillOpacity": 0.7
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    308,
+    68
+   ],
+   "r": 5,
+   "stroke": "muted",
+   "width": 1,
+   "fill": "gray",
+   "fillOpacity": 0.7
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 20,
+   "y": 150,
+   "w": 320,
+   "h": 14,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "gray-f"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    50,
+    150
+   ],
+   "to": [
+    50,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    50,
+    134
+   ],
+   "to": [
+    42,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    50,
+    134
+   ],
+   "to": [
+    58,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    90,
+    150
+   ],
+   "to": [
+    90,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    90,
+    134
+   ],
+   "to": [
+    82,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    90,
+    134
+   ],
+   "to": [
+    98,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "polygon",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     90,
+     108
+    ],
+    [
+     83,
+     121
+    ],
+    [
+     97,
+     121
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    130,
+    150
+   ],
+   "to": [
+    130,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    130,
+    134
+   ],
+   "to": [
+    122,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    130,
+    134
+   ],
+   "to": [
+    138,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    170,
+    150
+   ],
+   "to": [
+    170,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    170,
+    134
+   ],
+   "to": [
+    162,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    170,
+    134
+   ],
+   "to": [
+    178,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "polygon",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     170,
+     108
+    ],
+    [
+     163,
+     121
+    ],
+    [
+     177,
+     121
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    210,
+    150
+   ],
+   "to": [
+    210,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    210,
+    134
+   ],
+   "to": [
+    202,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    210,
+    134
+   ],
+   "to": [
+    218,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    250,
+    150
+   ],
+   "to": [
+    250,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    250,
+    134
+   ],
+   "to": [
+    242,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    250,
+    134
+   ],
+   "to": [
+    258,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "polygon",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     250,
+     108
+    ],
+    [
+     243,
+     121
+    ],
+    [
+     257,
+     121
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    290,
+    150
+   ],
+   "to": [
+    290,
+    134
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    290,
+    134
+   ],
+   "to": [
+    282,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    290,
+    134
+   ],
+   "to": [
+    298,
+    122
+   ],
+   "stroke": "violet",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    184
+   ],
+   "text": "Y 모양: 인식 요소(항체)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "violet"
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    180,
+    192
+   ],
+   "to": [
+    180,
+    206
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 90,
+   "y": 208,
+   "w": 180,
+   "h": 30,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    228
+   ],
+   "text": "② 변환기 (전기화학·광학)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    180,
+    240
+   ],
+   "to": [
+    180,
+    254
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    272
+   ],
+   "text": "③ 신호",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "curve",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     70,
+     270
+    ],
+    [
+     100,
+     262
+    ],
+    [
+     130,
+     276
+    ],
+    [
+     160,
+     258
+    ],
+    [
+     190,
+     278
+    ],
+    [
+     220,
+     260
+    ],
+    [
+     250,
+     274
+    ],
+    [
+     280,
+     262
+    ]
+   ],
+   "stroke": "accent",
+   "width": 2.2,
+   "smooth": true
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    314
+   ],
+   "text": "④ 검량선으로 농도 읽기",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    60,
+    470
+   ],
+   "to": [
+    60,
+    340
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    60,
+    470
+   ],
+   "to": [
+    324,
+    470
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    494
+   ],
+   "text": "표적 농도",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    336
+   ],
+   "text": "신호",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    60,
+    462.8
+   ],
+   "to": [
+    300,
+    359.6
+   ],
+   "stroke": "accent",
+   "width": 2
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    60,
+    462.8
+   ],
+   "r": 4.5,
+   "stroke": "bg",
+   "width": 1.2,
+   "fill": "accent"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    108,
+    443.6
+   ],
+   "r": 4.5,
+   "stroke": "bg",
+   "width": 1.2,
+   "fill": "accent"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    156,
+    422
+   ],
+   "r": 4.5,
+   "stroke": "bg",
+   "width": 1.2,
+   "fill": "accent"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    204,
+    400.4
+   ],
+   "r": 4.5,
+   "stroke": "bg",
+   "width": 1.2,
+   "fill": "accent"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    252,
+    378.8
+   ],
+   "r": 4.5,
+   "stroke": "bg",
+   "width": 1.2,
+   "fill": "accent"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    300,
+    359.6
+   ],
+   "r": 4.5,
+   "stroke": "bg",
+   "width": 1.2,
+   "fill": "accent"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    60,
+    393.2
+   ],
+   "to": [
+    218.4,
+    393.2
+   ],
+   "stroke": "rose",
+   "width": 1.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    218.4,
+    393.2
+   ],
+   "to": [
+    218.4,
+    470
+   ],
+   "stroke": "rose",
+   "width": 1.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    218.4,
+    393.2
+   ],
+   "r": 5,
+   "stroke": "bg",
+   "width": 1.4,
+   "fill": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    228.39999999999998,
+    413.2
+   ],
+   "text": "미지 시료",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    385.2
+   ],
+   "text": "측정 신호",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    420
+   ],
+   "text": "표준 시료 점",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent",
+   "anchor": "start"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    514
+   ],
+   "text": "⑤ 성능 확인: 검출한계, 선택성,",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    534
+   ],
+   "text": "재현성, 기존 방법과의 일치도",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
