@@ -1,0 +1,645 @@
+{
+ "id": "computed-torque-control",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 520,
+ "title": "계산 토크 제어: 역동역학 내부 루프와 PD 외부 루프",
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 14,
+   "w": 170,
+   "h": 34,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "gray-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    105,
+    36
+   ],
+   "text": "목표 궤적 q_{d}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    105,
+    48
+   ],
+   "to": [
+    105,
+    70
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    105,
+    81
+   ],
+   "r": 11,
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    121,
+    74
+   ],
+   "text": "−",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    89,
+    66
+   ],
+   "text": "+",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    105,
+    92
+   ],
+   "to": [
+    105,
+    120
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 120,
+   "w": 170,
+   "h": 36,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    105,
+    143
+   ],
+   "text": "PD/PID 제어기",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    105,
+    156
+   ],
+   "to": [
+    105,
+    184
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 184,
+   "w": 170,
+   "h": 46,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    105,
+    203
+   ],
+   "text": "역동역학 보상",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    105,
+    222.5
+   ],
+   "text": "(관성·코리올리·중력)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    105,
+    230
+   ],
+   "to": [
+    105,
+    254
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    113,
+    248
+   ],
+   "text": "τ",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 254,
+   "w": 170,
+   "h": 44,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "gray-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    105,
+    272
+   ],
+   "text": "로봇",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    105,
+    291.5
+   ],
+   "text": "(비선형 플랜트)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 10,
+   "y": 172,
+   "w": 200,
+   "h": 140,
+   "stroke": "accent",
+   "width": 1.8,
+   "dash": "6 4",
+   "fill": "none"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    190,
+    276
+   ],
+   "to": [
+    330,
+    276
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    330,
+    276
+   ],
+   "to": [
+    330,
+    81
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    330,
+    81
+   ],
+   "to": [
+    116,
+    81
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    300
+   ],
+   "text": "관절 위치 q",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    115,
+    112
+   ],
+   "text": "오차 e = q_{d} − q",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    205,
+    138
+   ],
+   "text": "외부 루프: 오차 수렴",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    196
+   ],
+   "text": "외란:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose-t"
+  },
+  {
+   "type": "text",
+   "at": [
+    222,
+    216
+   ],
+   "text": "모델 오차·마찰",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose-t"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    262,
+    222
+   ],
+   "to": [
+    190,
+    262
+   ],
+   "stroke": "rose",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    334
+   ],
+   "text": "점선 안: 비선형 항이 상쇄되어",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    354
+   ],
+   "text": "바깥 제어기에는 관절별 독립",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    374
+   ],
+   "text": "선형 2차 시스템으로 보인다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    410
+   ],
+   "text": "오차 e(t)의 감쇠",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    40,
+    480
+   ],
+   "to": [
+    210,
+    480
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    40,
+    430
+   ],
+   "to": [
+    40,
+    484
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     40,
+     440
+    ],
+    [
+     45,
+     449.2
+    ],
+    [
+     50,
+     462.7
+    ],
+    [
+     55,
+     476.6
+    ],
+    [
+     60,
+     487.8
+    ],
+    [
+     65,
+     494.6
+    ],
+    [
+     70,
+     496.7
+    ],
+    [
+     75,
+     494.7
+    ],
+    [
+     80,
+     490
+    ],
+    [
+     85,
+     484.3
+    ],
+    [
+     90,
+     479.1
+    ],
+    [
+     95,
+     475.4
+    ],
+    [
+     100,
+     473.5
+    ],
+    [
+     105,
+     473.5
+    ],
+    [
+     110,
+     474.9
+    ],
+    [
+     115,
+     477
+    ],
+    [
+     120,
+     479.3
+    ],
+    [
+     125,
+     481.1
+    ],
+    [
+     130,
+     482.3
+    ],
+    [
+     135,
+     482.7
+    ],
+    [
+     140,
+     482.4
+    ],
+    [
+     145,
+     481.7
+    ],
+    [
+     150,
+     480.8
+    ],
+    [
+     155,
+     479.9
+    ],
+    [
+     160,
+     479.3
+    ],
+    [
+     165,
+     479
+    ],
+    [
+     170,
+     479
+    ],
+    [
+     175,
+     479.2
+    ],
+    [
+     180,
+     479.5
+    ],
+    [
+     185,
+     479.9
+    ],
+    [
+     190,
+     480.2
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    498
+   ],
+   "text": "t",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    34,
+    444
+   ],
+   "text": "e",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "q_{d}",
+   "desc": "목표 관절 위치"
+  },
+  {
+   "sym": "q",
+   "desc": "관절 위치"
+  },
+  {
+   "sym": "e",
+   "desc": "오차(목표 − 실제)"
+  },
+  {
+   "sym": "τ",
+   "desc": "관절 토크"
+  }
+ ]
+}
