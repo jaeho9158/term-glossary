@@ -1,0 +1,563 @@
+{
+ "id": "gradient-checkpointing",
+ "width": 360,
+ "height": 512,
+ "title": "그래디언트 체크포인팅: 경계값만 저장하고 구간 안은 다시 계산",
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    14,
+    24
+   ],
+   "text": "순전파 (왼쪽 → 오른쪽)",
+   "fixed": true,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 14,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 33,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 52,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 71,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 119,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 138,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 157,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 186,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 205,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 224,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 243,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 272,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 291,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 310,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 329,
+   "y": 40,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    79,
+    76
+   ],
+   "text": "저장",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    213,
+    76
+   ],
+   "text": "버림",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    102
+   ],
+   "text": "진한 칸은 구간 경계 층의 활성값(체크포인트)",
+   "fixed": true,
+   "leader": false,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    146
+   ],
+   "text": "역전파 (오른쪽 → 왼쪽)",
+   "fixed": true,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "from": [
+    337,
+    168
+   ],
+   "to": [
+    14,
+    168
+   ],
+   "arrow": "end",
+   "stroke": "rose-s",
+   "width": 2,
+   "head": 0.7
+  },
+  {
+   "type": "arrow",
+   "from": [
+    79,
+    194
+   ],
+   "to": [
+    165,
+    194
+   ],
+   "arrow": "end",
+   "stroke": "amber-s",
+   "width": 2,
+   "head": 0.7
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    218
+   ],
+   "text": "재계산",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 14,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 33,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 52,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 71,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 100,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "amber-f",
+   "stroke": "amber-s",
+   "width": 1.6
+  },
+  {
+   "type": "rect",
+   "x": 119,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "amber-f",
+   "stroke": "amber-s",
+   "width": 1.6
+  },
+  {
+   "type": "rect",
+   "x": 138,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "amber-f",
+   "stroke": "amber-s",
+   "width": 1.6
+  },
+  {
+   "type": "rect",
+   "x": 157,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 186,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 205,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 224,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 243,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 272,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 291,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 310,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "bg",
+   "stroke": "gray-s",
+   "dash": "3 2",
+   "width": 1.2
+  },
+  {
+   "type": "rect",
+   "x": 329,
+   "y": 226,
+   "w": 16,
+   "h": 18,
+   "fill": "blue-s",
+   "stroke": "blue-s",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    272
+   ],
+   "text": "지금 메모리에 있는 것: 경계값들과",
+   "fixed": true,
+   "leader": false,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    296
+   ],
+   "text": "재계산 중인 한 구간(주황)",
+   "fixed": true,
+   "leader": false,
+   "size": 13,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    340
+   ],
+   "text": "저장하는 활성값의 양",
+   "fixed": true,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    368
+   ],
+   "text": "전부 저장 ∝ n",
+   "fixed": true,
+   "leader": false
+  },
+  {
+   "type": "rect",
+   "x": 14,
+   "y": 376,
+   "w": 300,
+   "h": 14,
+   "fill": "gray-s",
+   "stroke": "gray-s"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    416
+   ],
+   "text": "체크포인트 ∝ √n",
+   "fixed": true,
+   "leader": false,
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 14,
+   "y": 424,
+   "w": 75,
+   "h": 14,
+   "fill": "blue-s",
+   "stroke": "blue-s"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    468
+   ],
+   "text": "구간 수 ≈ √n개 → 메모리 ≈ √n",
+   "fixed": true,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    494
+   ],
+   "text": "본문 예: 최대 배치 2배, 학습 시간 약 +20%",
+   "fixed": true,
+   "leader": false,
+   "color": "muted"
+  }
+ ],
+ "legend": [
+  {
+   "sym": "n",
+   "desc": "신경망 층의 수(그림은 16층 예시)"
+  },
+  {
+   "desc": "바가 위아래에 놓이는 순서는 비교용이다. 막대 길이는 n = 16일 때 √n = 4를 반영한 개념 비율이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
