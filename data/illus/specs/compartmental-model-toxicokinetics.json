@@ -1,0 +1,790 @@
+{
+ "id": "compartmental-model-toxicokinetics",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 740,
+ "subScale": 0.92,
+ "title": "구획 모델: 구획 사이 1차 속도 이동과 혈중농도 곡선의 꺾임",
+ "legend": [
+  {
+   "desc": "그림 속 상자는 균일한 농도를 가정한 가상의 구획이고, 곡선과 점의 위치는 개념용이다."
+  },
+  {
+   "sym": "k_{a}",
+   "desc": "흡수 속도상수",
+   "kind": "var"
+  },
+  {
+   "sym": "k_{10}",
+   "desc": "중심 구획에서의 제거 속도상수",
+   "kind": "var"
+  },
+  {
+   "sym": "k_{12}, k_{21}",
+   "desc": "중심 구획과 말초 구획 사이 이동 속도상수",
+   "kind": "var"
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    14,
+    22
+   ],
+   "text": "① 1구획 모델",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 115,
+   "y": 40,
+   "w": 130,
+   "h": 50,
+   "stroke": "blue",
+   "width": 1.8,
+   "fill": "blue-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    70
+   ],
+   "text": "중심 구획",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    20,
+    65
+   ],
+   "to": [
+    113,
+    65
+   ],
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    66,
+    52
+   ],
+   "text": "k_{a}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    66,
+    88
+   ],
+   "text": "흡수",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    247,
+    65
+   ],
+   "to": [
+    340,
+    65
+   ],
+   "stroke": "rose",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    294,
+    52
+   ],
+   "text": "k_{10}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    294,
+    88
+   ],
+   "text": "제거",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    14,
+    112
+   ],
+   "to": [
+    346,
+    112
+   ],
+   "stroke": "muted",
+   "width": 0.8,
+   "dash": "3 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    138
+   ],
+   "text": "② 2구획 모델",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 156,
+   "w": 100,
+   "h": 56,
+   "stroke": "blue",
+   "width": 1.8,
+   "fill": "blue-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    180
+   ],
+   "text": "중심 구획",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    200
+   ],
+   "text": "(혈액 등)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 240,
+   "y": 156,
+   "w": 100,
+   "h": 56,
+   "stroke": "violet",
+   "width": 1.8,
+   "fill": "violet-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    180
+   ],
+   "text": "말초 구획",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    200
+   ],
+   "text": "(느린 조직)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    122,
+    170
+   ],
+   "to": [
+    238,
+    170
+   ],
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    162
+   ],
+   "text": "k_{12}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    238,
+    198
+   ],
+   "to": [
+    122,
+    198
+   ],
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    224
+   ],
+   "text": "k_{21}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    70,
+    214
+   ],
+   "to": [
+    70,
+    262
+   ],
+   "stroke": "rose",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    238
+   ],
+   "text": "k_{10}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    84,
+    258
+   ],
+   "text": "제거",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    14,
+    282
+   ],
+   "to": [
+    346,
+    282
+   ],
+   "stroke": "muted",
+   "width": 0.8,
+   "dash": "3 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    308
+   ],
+   "text": "③ 반로그 혈중농도–시간 곡선",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    50,
+    640
+   ],
+   "to": [
+    50,
+    326
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    50,
+    640
+   ],
+   "to": [
+    346,
+    640
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    60,
+    336
+   ],
+   "text": "농도(로그)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    346,
+    664
+   ],
+   "text": "시간",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    56,
+    410
+   ],
+   "to": [
+    330,
+    560
+   ],
+   "stroke": "muted",
+   "width": 2,
+   "dash": "6 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     56,
+     356
+    ],
+    [
+     72,
+     420
+    ],
+    [
+     94,
+     470
+    ],
+    [
+     120,
+     500
+    ]
+   ],
+   "smooth": true,
+   "stroke": "amber",
+   "width": 3
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     120,
+     500
+    ],
+    [
+     225,
+     540
+    ],
+    [
+     330,
+     580
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 3
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    62,
+    372
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    80,
+    432
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    102,
+    478
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    130,
+    504
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    170,
+    521
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    220,
+    539
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    272,
+    556
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    322,
+    577
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    100,
+    390
+   ],
+   "text": "분포상",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    100,
+    410
+   ],
+   "text": "(급경사)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    566
+   ],
+   "text": "제거상",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    586
+   ],
+   "text": "(완만)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    200,
+    336
+   ],
+   "to": [
+    232,
+    336
+   ],
+   "stroke": "muted",
+   "width": 2,
+   "dash": "6 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    240,
+    341
+   ],
+   "text": "1구획 직선",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    200,
+    360
+   ],
+   "to": [
+    232,
+    360
+   ],
+   "stroke": "blue",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    240,
+    365
+   ],
+   "text": "2구획 곡선",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    216,
+    384
+   ],
+   "r": 3.6,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    240,
+    389
+   ],
+   "text": "관측 자료",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    694
+   ],
+   "text": "구획은 수학적 개념이며 장기와 일치하지 않을 수 있다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    716
+   ],
+   "text": "구획 수↑ → 정교함↑, 과적합 위험↑",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
