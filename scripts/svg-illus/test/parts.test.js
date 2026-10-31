@@ -125,3 +125,15 @@ test('kidney: 신장 부품(신문·수질 경계), adrenal로 부신을 얹고 
   assert.equal((a.match(/<path/g) || []).length, 2); assert.equal((c.match(/<path/g) || []).length, 3);
   assert.notEqual(a, b);
 });
+
+test('tooth: 치아 부품(종류별 치관, 치근, 윗니·아랫니 방향)', () => {
+  assert.ok(PART_TYPES.includes('tooth'));
+  assert.ok(validate({ width: 10, height: 10, elements: [{ type: 'tooth' }] }).some(e => e.includes('at')));
+  const n = o => (R([{ type: 'tooth', at: [100, 100], ...o }]).svg.match(/<path/g) || []).length;
+  assert.equal(n({ kind: 'canine' }), 2); assert.equal(n({ kind: 'molar' }), 3); assert.equal(n({ kind: 'molar', root: false }), 1);
+  const kinds = ['incisor', 'canine', 'premolar', 'molar'].map(kind => R([{ type: 'tooth', at: [100, 100], kind }]).svg);
+  assert.equal(new Set(kinds).size, 4);
+  const up = R([{ type: 'tooth', at: [100, 100], kind: 'canine', jaw: 'upper', w: 30 }]).svg, lo = R([{ type: 'tooth', at: [100, 100], kind: 'canine', jaw: 'lower', w: 30 }]).svg;
+  assert.notEqual(up, lo);
+  assert.match(up, /M100,100 Q/); assert.match(lo, /M100,100 Q/);
+});

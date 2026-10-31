@@ -119,6 +119,7 @@ renderSVG(spec, { measureText: canvasMeasure() });
 | `brain` | `at`[가운데 x, 위 y], `w`(기본 120) | 옆에서 본 뇌(대뇌 윤곽·고랑·소뇌·뇌간). `flip`, `fill`/`cerebellumFill`/`stroke` |
 | `gut` | `at`[가운데 x, 위 y], `w`, `h` | 소화관 개략(대장 테두리 + 구불구불 소장). `fill`(소장), `colonFill`, `colon:false`(대장 테두리 생략) |
 | `kidney` | `at`[가운데 x, 위 y], `h`(기본 70) | 신장(콩팥) 윤곽·수질 경계·신문. `flip`(신문 방향), `adrenal:true`면 위에 부신, `fill`/`cortexFill`/`adrenalFill`/`stroke` |
+| `tooth` | `at`[가운데 x, 씹는 면 y] | 치아 한 개의 치관·치근. `kind`: incisor·canine·premolar·molar, `jaw`: upper(위로)·lower(아래로), `w`·`h`(치관 높이), `root:false`면 치근 생략, `crownFill`/`rootFill`/`stroke` |
 | `foot` | `at`(발목), `len` | 발. `view`: side/front, `flip` |
 | `head` | `at`(중심), `h` | 머리. `view`: side(얼굴 +x)/front, `flip` |
 

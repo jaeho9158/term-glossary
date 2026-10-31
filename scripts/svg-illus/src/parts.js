@@ -2,6 +2,7 @@
 // expandPart(el, P) -> 요소 배열. 모든 부품은 픽셀 좌표로 동작한다(frame이 있어도 px로 그린다).
 import { ANATOMY } from './anatomy.js';
 import { ORGANS } from './organs.js';
+import { DENTAL } from './dental.js';
 const r1 = n => +(+n).toFixed(1);
 const num = d => d.replace(/-?\d*\.\d+|-?\d+/g, m => String(r1(+m)));
 
@@ -133,7 +134,7 @@ function lips(el) {
   ];
 }
 
-const MAP = { icon, vessel, pipe, valve, blockArrow, scale, callout, lips, ...ANATOMY, ...ORGANS };
+const MAP = { icon, vessel, pipe, valve, blockArrow, scale, callout, lips, ...ANATOMY, ...ORGANS, ...DENTAL };
 export const PART_TYPES = Object.keys(MAP);
 export const isPart = t => t in MAP;
 export function expandPart(el) { return MAP[el.type](el); }
