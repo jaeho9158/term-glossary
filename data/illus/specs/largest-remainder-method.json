@@ -1,0 +1,585 @@
+{
+ "id": "largest-remainder-method",
+ "width": 360,
+ "height": 464,
+ "title": "최대잔여방식: 정수 몫을 먼저 주고 남은 의석은 잔여가 큰 순서로",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    10,
+    22
+   ],
+   "text": "쿼터 = 총 유효 투표수 ÷ 의석 수",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    46
+   ],
+   "text": "가상 예: 총 10석, 득표 ÷ 쿼터",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    292,
+    46
+   ],
+   "text": "정수 몫",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    83
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 66,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 66,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 66,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 198,
+   "y": 66,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 252,
+   "y": 66,
+   "w": 34.80000000000001,
+   "h": 24,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    318,
+    83
+   ],
+   "text": "4석",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    115
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 98,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 98,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 98,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 198,
+   "y": 98,
+   "w": 18.599999999999994,
+   "h": 24,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    318,
+    115
+   ],
+   "text": "3석",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    147
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 130,
+   "w": 51,
+   "h": 24,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 1.2,
+   "obstacle": false,
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "rect",
+   "x": 90,
+   "y": 130,
+   "w": 29.400000000000006,
+   "h": 24,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    318,
+    147
+   ],
+   "text": "1석",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    179
+   ],
+   "text": "D",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 162,
+   "w": 13.2,
+   "h": 24,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.4,
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    318,
+    179
+   ],
+   "text": "0석",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    268,
+    83
+   ],
+   "text": "잔여",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    214
+   ],
+   "text": "남은 2석 → 잔여가 큰 순",
+   "fixed": true,
+   "size": 13,
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    18,
+    244
+   ],
+   "r": 11,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "green-f",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    249
+   ],
+   "text": "1",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    249
+   ],
+   "text": "A",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 62,
+   "y": 232,
+   "w": 140,
+   "h": 24,
+   "fill": "green",
+   "stroke": "green",
+   "width": 1.4,
+   "obstacle": false,
+   "fillOpacity": 0.4
+  },
+  {
+   "type": "text",
+   "at": [
+    210,
+    249
+   ],
+   "text": "0.7 → +1석",
+   "fixed": true,
+   "size": 13,
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    18,
+    274
+   ],
+   "r": 11,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "green-f",
+   "stroke": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    279
+   ],
+   "text": "2",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    279
+   ],
+   "text": "C",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 62,
+   "y": 262,
+   "w": 120,
+   "h": 24,
+   "fill": "green",
+   "stroke": "green",
+   "width": 1.4,
+   "obstacle": false,
+   "fillOpacity": 0.4
+  },
+  {
+   "type": "text",
+   "at": [
+    190,
+    279
+   ],
+   "text": "0.6 → +1석",
+   "fixed": true,
+   "size": 13,
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "center": [
+    18,
+    304
+   ],
+   "r": 11,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "none",
+   "stroke": "gray"
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    309
+   ],
+   "text": "3",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    309
+   ],
+   "text": "B",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 62,
+   "y": 292,
+   "w": 80,
+   "h": 24,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "obstacle": false,
+   "fillOpacity": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    150,
+    309
+   ],
+   "text": "0.4",
+   "fixed": true,
+   "size": 13,
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "type": "circle",
+   "center": [
+    18,
+    334
+   ],
+   "r": 11,
+   "obstacle": false,
+   "width": 1.6,
+   "fill": "none",
+   "stroke": "gray"
+  },
+  {
+   "type": "text",
+   "at": [
+    18,
+    339
+   ],
+   "text": "4",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    339
+   ],
+   "text": "D",
+   "fixed": true,
+   "size": 13,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "x": 62,
+   "y": 322,
+   "w": 60,
+   "h": 24,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4,
+   "obstacle": false,
+   "fillOpacity": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    339
+   ],
+   "text": "0.3",
+   "fixed": true,
+   "size": 13,
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    376
+   ],
+   "text": "의석 = A 5, B 3, C 2, D 0 (합계 10석)",
+   "fixed": true,
+   "size": 13,
+   "weight": 700,
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    412
+   ],
+   "text": "드룹 쿼터 = 표 ÷ (의석+1) + 1",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    432
+   ],
+   "text": "→ 칸 길이가 달라지면 결과도 달라질 수 있다",
+   "fixed": true,
+   "size": 13,
+   "color": "muted"
+  }
+ ],
+ "legend": [
+  {
+   "desc": "진한 칸은 정수 몫(1쿼터 = 1석), 주황 칸은 소수 잔여다. 득표와 의석은 모두 가상 값이다."
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
