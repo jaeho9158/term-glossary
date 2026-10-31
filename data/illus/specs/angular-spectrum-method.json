@@ -1,0 +1,852 @@
+{
+ "id": "angular-spectrum-method",
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "width": 360,
+ "height": 724,
+ "title": "각스펙트럼법: 평면파 분해, 전파, 합산",
+ "legend": [
+  {
+   "sym": "θ",
+   "desc": "최대 진행각(sin θ = λf = 0.0633, 약 3.63°)",
+   "kind": "var"
+  },
+  {
+   "sym": "λ",
+   "desc": "파장(가상 예 633 nm)",
+   "kind": "var"
+  },
+  {
+   "sym": "f_{x}, f_{y}",
+   "desc": "공간주파수",
+   "kind": "var"
+  },
+  {
+   "sym": "FFT",
+   "desc": "고속 푸리에 변환",
+   "kind": "abbr"
+  },
+  {
+   "desc": "가상 예 Δx = 5 µm, λ = 633 nm이면 샘플링 한계 1/(2Δx) = 100 mm⁻¹이다. 위 그림의 각도 θ와 정사각형 크기는 보기 쉽게 과장·확대하지 않고 정사각형만 실제 비율을 따랐으며, 평면파 각도는 과장해 그렸다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    26
+   ],
+   "text": "① 평면파로 분해 (파면이 평행한 파의 합)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 24,
+   "y": 44,
+   "w": 96,
+   "h": 96,
+   "stroke": "gray",
+   "width": 1,
+   "fill": "none",
+   "opacity": 0.7
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    42,
+    52
+   ],
+   "to": [
+    42,
+    132
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    62,
+    52
+   ],
+   "to": [
+    62,
+    132
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    82,
+    52
+   ],
+   "to": [
+    82,
+    132
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    102,
+    52
+   ],
+   "to": [
+    102,
+    132
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    38,
+    92
+   ],
+   "to": [
+    110,
+    92
+   ],
+   "stroke": "blue",
+   "width": 1.6,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 140,
+   "y": 44,
+   "w": 96,
+   "h": 96,
+   "stroke": "gray",
+   "width": 1,
+   "fill": "none",
+   "opacity": 0.7
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    152.1119711805366,
+    57.185500327401414
+   ],
+   "to": [
+    164.6267283837551,
+    136.20056757501243
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    171.86573799243936,
+    54.05681102659679
+   ],
+   "to": [
+    184.38049519565786,
+    133.07187827420782
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    191.61950480434214,
+    50.92812172579218
+   ],
+   "to": [
+    204.13426200756064,
+    129.9431889734032
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    211.3732716162449,
+    47.79943242498756
+   ],
+   "to": [
+    223.8880288194634,
+    126.81449967259859
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    154.41859641976532,
+    97.31877181136785
+   ],
+   "to": [
+    225.53215694261525,
+    86.05549032847122
+   ],
+   "stroke": "blue",
+   "width": 1.6,
+   "head": 0.8
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 256,
+   "y": 44,
+   "w": 96,
+   "h": 96,
+   "stroke": "gray",
+   "width": 1,
+   "fill": "none",
+   "opacity": 0.7
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    280.6267283837551,
+    47.79943242498756
+   ],
+   "to": [
+    268.11197118053667,
+    126.81449967259859
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    300.38049519565783,
+    50.92812172579218
+   ],
+   "to": [
+    287.8657379924394,
+    129.9431889734032
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    320.1342620075606,
+    54.05681102659679
+   ],
+   "to": [
+    307.61950480434217,
+    133.07187827420782
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    339.88802881946333,
+    57.185500327401414
+   ],
+   "to": [
+    327.3732716162449,
+    136.20056757501243
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    270.4185964197653,
+    86.68122818863215
+   ],
+   "to": [
+    341.53215694261525,
+    97.94450967152878
+   ],
+   "stroke": "amber",
+   "width": 1.6,
+   "head": 0.8
+  },
+  {
+   "type": "text",
+   "at": [
+    132,
+    98
+   ],
+   "text": "+",
+   "fixed": true,
+   "px": true,
+   "size": 20,
+   "leader": false,
+   "weight": 700,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    248,
+    98
+   ],
+   "text": "+",
+   "fixed": true,
+   "px": true,
+   "size": 20,
+   "leader": false,
+   "weight": 700,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    72,
+    160
+   ],
+   "text": "수직 진행",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    188,
+    160
+   ],
+   "text": "기울어진 파",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    304,
+    160
+   ],
+   "text": "θ ≈ 3.63°",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    304,
+    180
+   ],
+   "text": "(최대각, 과장)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    240
+   ],
+   "text": "② 주파수 평면 (위에서 본 모습)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 40,
+   "y": 252,
+   "w": 280,
+   "h": 168,
+   "stroke": "rose",
+   "width": 1.4,
+   "fill": "rose",
+   "fillOpacity": 0.1
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    180,
+    340
+   ],
+   "r": 64,
+   "stroke": "blue",
+   "width": 2.2,
+   "fill": "blue",
+   "fillOpacity": 0.14
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    44,
+    340
+   ],
+   "to": [
+    316,
+    340
+   ],
+   "stroke": "muted",
+   "width": 1
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    180,
+    256
+   ],
+   "to": [
+    180,
+    416
+   ],
+   "stroke": "muted",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    312,
+    360
+   ],
+   "text": "f_{x}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    188,
+    270
+   ],
+   "text": "f_{y}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    272
+   ],
+   "text": "소멸파",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    172,
+    312
+   ],
+   "text": "전파",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    172,
+    332
+   ],
+   "text": "성분",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    180,
+    340
+   ],
+   "to": [
+    244,
+    340
+   ],
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    212,
+    360
+   ],
+   "text": "\\frac{1}{λ}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 175.9,
+   "y": 335.9,
+   "w": 8.2,
+   "h": 8.2,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    184.1,
+    340
+   ],
+   "r": 2.6,
+   "stroke": "accent",
+   "width": 1,
+   "fill": "accent"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    187.1,
+    337
+   ],
+   "to": [
+    300,
+    186
+   ],
+   "stroke": "accent",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    214
+   ],
+   "text": "주황 파 = 사각형 가장자리의 점",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    456
+   ],
+   "text": "초록 정사각형: 샘플링 한계 ±100 mm⁻¹",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "green-t"
+  },
+  {
+   "type": "text",
+   "at": [
+    82,
+    476
+   ],
+   "text": "소멸파:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    476
+   ],
+   "text": "f_{x}² + f_{y}² > 1/λ²",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    184.1,
+    344.1
+   ],
+   "to": [
+    214,
+    434
+   ],
+   "stroke": "green",
+   "width": 1
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 100,
+   "y": 504,
+   "w": 160,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "none",
+   "radius": 5
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    523
+   ],
+   "text": "U(x, y, 0)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    180,
+    532
+   ],
+   "to": [
+    180,
+    562
+   ],
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    192,
+    552
+   ],
+   "text": "FFT 평면파 분해",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 100,
+   "y": 564,
+   "w": 160,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "none",
+   "radius": 5
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    583
+   ],
+   "text": "A(f_{x}, f_{y})",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    622
+   ],
+   "text": "H = exp[ i2πz (1/λ² − f_{x}² − f_{y}²)^{1/2} ]",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "accent",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    642
+   ],
+   "text": "를 곱해 z만큼 전파",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    180,
+    650
+   ],
+   "to": [
+    180,
+    678
+   ],
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    192,
+    670
+   ],
+   "text": "역 FFT",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 100,
+   "y": 680,
+   "w": 160,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "none",
+   "radius": 5
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    699
+   ],
+   "text": "U(x, y, z)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": true
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}

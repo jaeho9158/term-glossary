@@ -1,0 +1,900 @@
+{
+ "id": "compressed-sensing-signal-recovery",
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "width": 360,
+ "height": 600,
+ "title": "압축센싱: 적은 측정으로 희소 신호 복원",
+ "legend": [
+  {
+   "sym": "y",
+   "desc": "측정값(길이 m)",
+   "kind": "var"
+  },
+  {
+   "sym": "Φ",
+   "desc": "측정 행렬(m × N)",
+   "kind": "var"
+  },
+  {
+   "sym": "x",
+   "desc": "희소 신호(길이 N, 0이 아닌 성분 k개)",
+   "kind": "var"
+  },
+  {
+   "sym": "OMP",
+   "desc": "직교 정합 추적(탐욕 복원 알고리즘)",
+   "kind": "abbr"
+  },
+  {
+   "desc": "x의 칸 수는 모식도이다(실제 N = 128). 성공은 상대오차가 10⁻⁶ 미만인 경우이다. 이 수치는 무잡음·가우시안 Φ·OMP 설정의 가상 모의실험에만 해당한다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    24
+   ],
+   "text": "① 측정:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    78,
+    24
+   ],
+   "text": "y = Φx, m < N",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 20,
+   "y": 44,
+   "w": 20,
+   "h": 56,
+   "stroke": "blue",
+   "width": 1.8,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    52,
+    78
+   ],
+   "text": "=",
+   "fixed": true,
+   "px": true,
+   "size": 20,
+   "leader": false,
+   "weight": 700,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 64,
+   "y": 44,
+   "w": 140,
+   "h": 56,
+   "stroke": "gray",
+   "width": 1.8,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    214,
+    78
+   ],
+   "text": "×",
+   "fixed": true,
+   "px": true,
+   "size": 20,
+   "leader": false,
+   "weight": 700,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 224,
+   "y": 44,
+   "w": 20,
+   "h": 128,
+   "stroke": "amber",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 224,
+   "y": 52,
+   "w": 20,
+   "h": 3.5,
+   "stroke": "amber",
+   "width": 1,
+   "fill": "amber"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 224,
+   "y": 84,
+   "w": 20,
+   "h": 3.5,
+   "stroke": "amber",
+   "width": 1,
+   "fill": "amber"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 224,
+   "y": 110,
+   "w": 20,
+   "h": 3.5,
+   "stroke": "amber",
+   "width": 1,
+   "fill": "amber"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 224,
+   "y": 142,
+   "w": 20,
+   "h": 3.5,
+   "stroke": "amber",
+   "width": 1,
+   "fill": "amber"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 224,
+   "y": 162,
+   "w": 20,
+   "h": 3.5,
+   "stroke": "amber",
+   "width": 1,
+   "fill": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    30,
+    120
+   ],
+   "text": "y",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    120
+   ],
+   "text": "Φ",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    192
+   ],
+   "text": "x",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    30,
+    140
+   ],
+   "text": "m",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    140
+   ],
+   "text": "m × N",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    212
+   ],
+   "text": "N = 128",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    260,
+    80
+   ],
+   "text": "0이 아닌 칸",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    260,
+    100
+   ],
+   "text": "k = 5개",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    256,
+    88
+   ],
+   "to": [
+    246,
+    78
+   ],
+   "stroke": "amber",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    250
+   ],
+   "text": "② 측정 수 m에 따른 복원 성공률",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 147.33333333333331,
+   "y": 268,
+   "w": 91.33333333333334,
+   "h": 160,
+   "stroke": "none",
+   "width": 0,
+   "fill": "amber",
+   "fillOpacity": 0.14
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    56,
+    428
+   ],
+   "to": [
+    338,
+    428
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    56,
+    428
+   ],
+   "to": [
+    56,
+    260
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    101.66666666666666,
+    424
+   ],
+   "to": [
+    101.66666666666666,
+    432
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    101.66666666666666,
+    450
+   ],
+   "text": "10",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    147.33333333333331,
+    424
+   ],
+   "to": [
+    147.33333333333331,
+    432
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    147.33333333333331,
+    450
+   ],
+   "text": "20",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    193,
+    424
+   ],
+   "to": [
+    193,
+    432
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    193,
+    450
+   ],
+   "text": "30",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    238.66666666666666,
+    424
+   ],
+   "to": [
+    238.66666666666666,
+    432
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    238.66666666666666,
+    450
+   ],
+   "text": "40",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    284.33333333333337,
+    424
+   ],
+   "to": [
+    284.33333333333337,
+    432
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    284.33333333333337,
+    450
+   ],
+   "text": "50",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    330,
+    424
+   ],
+   "to": [
+    330,
+    432
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    450
+   ],
+   "text": "60",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    52,
+    428
+   ],
+   "to": [
+    60,
+    428
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    433
+   ],
+   "text": "0%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    52,
+    348
+   ],
+   "to": [
+    60,
+    348
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    353
+   ],
+   "text": "50%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "muted"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    52,
+    268
+   ],
+   "to": [
+    60,
+    268
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    273
+   ],
+   "text": "100%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    470
+   ],
+   "text": "측정 수 ",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    334,
+    470
+   ],
+   "text": "m",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "anchor": "start"
+  },
+  {
+   "type": "curve",
+   "px": true,
+   "obstacle": false,
+   "points": [
+    [
+     101.66666666666666,
+     428
+    ],
+    [
+     147.33333333333331,
+     377.12
+    ],
+    [
+     193,
+     292.64
+    ],
+    [
+     238.66666666666666,
+     271.84000000000003
+    ],
+    [
+     330,
+     268
+    ]
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    101.66666666666666,
+    428
+   ],
+   "r": 3.6,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    147.33333333333331,
+    377.12
+   ],
+   "r": 3.6,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    193,
+    292.64
+   ],
+   "r": 3.6,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    238.66666666666666,
+    271.84000000000003
+   ],
+   "r": 3.6,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue"
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    330,
+    268
+   ],
+   "r": 3.6,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    139.33333333333331,
+    373.12
+   ],
+   "text": "31.8%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    185,
+    290.64
+   ],
+   "text": "84.6%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    238.66666666666666,
+    259.84000000000003
+   ],
+   "text": "97.6%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    256
+   ],
+   "text": "100%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    93.66666666666666,
+    418
+   ],
+   "text": "0%",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    193,
+    416
+   ],
+   "text": "급상승 구간",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    506
+   ],
+   "text": "가상 모의실험: N = 128, k = 5, 무잡음,",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    526
+   ],
+   "text": "가우시안 Φ, OMP, 500회 반복",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    558
+   ],
+   "text": "m = 40은 N의 1/3 미만이지만",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    578
+   ],
+   "text": "97.6% 복원했다(이 설정에서만)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "blue-t"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
