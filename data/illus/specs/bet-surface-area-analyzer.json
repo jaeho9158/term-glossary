@@ -1,0 +1,1087 @@
+{
+ "id": "bet-surface-area-analyzer",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 740,
+ "subScale": 0.92,
+ "title": "BET 표면적 분석: 흡착 등온선의 0.05~0.30 구간을 선형화해 단분자층량 v_m과 비표면적을 구한다",
+ "legend": [
+  {
+   "sym": "BET",
+   "desc": "브루나우어-에메트-텔러 이론",
+   "kind": "abbr"
+  },
+  {
+   "sym": "STP",
+   "desc": "표준 상태(기체 부피 환산 기준)",
+   "kind": "abbr"
+  },
+  {
+   "sym": "P, P_0",
+   "desc": "흡착 평형압력, 포화증기압",
+   "kind": "var"
+  },
+  {
+   "sym": "v",
+   "desc": "흡착량",
+   "kind": "var"
+  },
+  {
+   "sym": "v_m",
+   "desc": "단분자층 흡착량",
+   "kind": "var"
+  },
+  {
+   "sym": "c",
+   "desc": "BET 상수",
+   "kind": "var"
+  },
+  {
+   "sym": "S",
+   "desc": "비표면적",
+   "kind": "var"
+  },
+  {
+   "sym": "N_A",
+   "desc": "아보가드로 수",
+   "kind": "var"
+  },
+  {
+   "sym": "σ",
+   "desc": "흡착 분자 하나의 단면적",
+   "kind": "var"
+  },
+  {
+   "desc": "등온선 곡선의 높이와 탈착 곡선은 모식이다. 선형 플롯의 점은 기울기 0.0330, 절편 0.000333인 가상 계산값이다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    22
+   ],
+   "text": "① 77 K 질소 흡착 등온선",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    44
+   ],
+   "text": "흡착량 v (cm³(STP)/g)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 71.5,
+   "y": 80,
+   "w": 67.5,
+   "h": 128,
+   "stroke": "none",
+   "width": 0,
+   "fill": "amber",
+   "fillOpacity": 0.2
+  },
+  {
+   "type": "text",
+   "at": [
+    105.25,
+    72
+   ],
+   "text": "0.05~0.30",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    58,
+    208
+   ],
+   "to": [
+    336,
+    208
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    208
+   ],
+   "to": [
+    58,
+    76
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    208
+   ],
+   "to": [
+    58,
+    212
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    58,
+    230
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    193,
+    208
+   ],
+   "to": [
+    193,
+    212
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    193,
+    230
+   ],
+   "text": "0.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    328,
+    208
+   ],
+   "to": [
+    328,
+    212
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    328,
+    230
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    193,
+    252
+   ],
+   "text": "상대압력 P/P_0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     60.2,
+     194.2
+    ],
+    [
+     65.5,
+     184.6
+    ],
+    [
+     70.9,
+     181.1
+    ],
+    [
+     76.2,
+     179.1
+    ],
+    [
+     81.5,
+     177.5
+    ],
+    [
+     86.9,
+     176.2
+    ],
+    [
+     92.2,
+     175.1
+    ],
+    [
+     97.6,
+     174
+    ],
+    [
+     102.9,
+     172.9
+    ],
+    [
+     108.3,
+     171.8
+    ],
+    [
+     113.6,
+     170.8
+    ],
+    [
+     119,
+     169.7
+    ],
+    [
+     124.3,
+     168.5
+    ],
+    [
+     129.7,
+     167.4
+    ],
+    [
+     135,
+     166.2
+    ],
+    [
+     140.4,
+     164.9
+    ],
+    [
+     145.7,
+     163.6
+    ],
+    [
+     151,
+     162.3
+    ],
+    [
+     156.4,
+     160.9
+    ],
+    [
+     161.7,
+     159.5
+    ],
+    [
+     167.1,
+     158
+    ],
+    [
+     172.4,
+     156.5
+    ],
+    [
+     177.8,
+     154.9
+    ],
+    [
+     183.1,
+     153.2
+    ],
+    [
+     188.5,
+     151.5
+    ],
+    [
+     193.8,
+     149.8
+    ],
+    [
+     199.2,
+     148
+    ],
+    [
+     204.5,
+     146.2
+    ],
+    [
+     209.8,
+     144.3
+    ],
+    [
+     215.2,
+     142.4
+    ],
+    [
+     220.5,
+     140.5
+    ],
+    [
+     225.9,
+     138.5
+    ],
+    [
+     231.2,
+     136.5
+    ],
+    [
+     236.6,
+     134.5
+    ],
+    [
+     241.9,
+     132.5
+    ],
+    [
+     247.3,
+     130.4
+    ],
+    [
+     252.6,
+     128.4
+    ],
+    [
+     258,
+     126.3
+    ],
+    [
+     263.3,
+     124.3
+    ],
+    [
+     268.7,
+     122.2
+    ],
+    [
+     274,
+     120.2
+    ],
+    [
+     279.3,
+     118.1
+    ],
+    [
+     284.7,
+     116.1
+    ],
+    [
+     290,
+     114.1
+    ],
+    [
+     295.4,
+     112.1
+    ],
+    [
+     300.7,
+     110.2
+    ],
+    [
+     306.1,
+     108.3
+    ],
+    [
+     311.4,
+     106.4
+    ],
+    [
+     316.8,
+     104.5
+    ],
+    [
+     322.1,
+     102.6
+    ]
+   ],
+   "smooth": false,
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     322.6,
+     102.5
+    ],
+    [
+     316.5,
+     103.1
+    ],
+    [
+     310.4,
+     103.8
+    ],
+    [
+     304.4,
+     104.6
+    ],
+    [
+     298.3,
+     105.6
+    ],
+    [
+     292.2,
+     106.7
+    ],
+    [
+     286.1,
+     108
+    ],
+    [
+     280.1,
+     109.5
+    ],
+    [
+     274,
+     111.1
+    ],
+    [
+     267.9,
+     112.9
+    ],
+    [
+     261.9,
+     114.8
+    ],
+    [
+     255.8,
+     116.9
+    ],
+    [
+     249.7,
+     119.1
+    ],
+    [
+     243.6,
+     121.4
+    ],
+    [
+     237.6,
+     123.9
+    ],
+    [
+     231.5,
+     126.4
+    ],
+    [
+     225.4,
+     129
+    ],
+    [
+     219.3,
+     131.7
+    ],
+    [
+     213.3,
+     134.5
+    ],
+    [
+     207.2,
+     137.2
+    ],
+    [
+     201.1,
+     140
+    ],
+    [
+     195,
+     142.7
+    ],
+    [
+     188.9,
+     145.4
+    ],
+    [
+     182.9,
+     148.1
+    ],
+    [
+     176.8,
+     150.7
+    ]
+   ],
+   "smooth": false,
+   "stroke": "blue",
+   "width": 2,
+   "dash": "4 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    177.3
+   ],
+   "to": [
+    322.6,
+    177.3
+   ],
+   "stroke": "rose",
+   "width": 1.8,
+   "dash": "6 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    220,
+    151.3
+   ],
+   "text": "v_m ≈ 30.0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    220,
+    171.3
+   ],
+   "text": "cm³(STP)/g",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    155.2,
+    83.1
+   ],
+   "text": "흡착(실선)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    155.2,
+    103.1
+   ],
+   "text": "탈착(점선)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    90.4,
+    216
+   ],
+   "to": [
+    90.4,
+    264
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    102.4,
+    284
+   ],
+   "text": "이 구간만 선형화",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    326
+   ],
+   "text": "② BET 선형 플롯 (가상 계산)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    348
+   ],
+   "text": "y = 1 / [v((P_0/P) − 1)]",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 96.6,
+   "y": 394,
+   "w": 192.79999999999998,
+   "h": 132,
+   "stroke": "none",
+   "width": 0,
+   "fill": "amber",
+   "fillOpacity": 0.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    58,
+    526
+   ],
+   "to": [
+    336,
+    526
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    526
+   ],
+   "to": [
+    58,
+    390
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    526
+   ],
+   "to": [
+    58,
+    530
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    58,
+    548
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    135.1,
+    526
+   ],
+   "to": [
+    135.1,
+    530
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    135.1,
+    548
+   ],
+   "text": "0.1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    212.3,
+    526
+   ],
+   "to": [
+    212.3,
+    530
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    212.3,
+    548
+   ],
+   "text": "0.2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    289.4,
+    526
+   ],
+   "to": [
+    289.4,
+    530
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    289.4,
+    548
+   ],
+   "text": "0.3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    173.7,
+    570
+   ],
+   "text": "상대압력 P/P_0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    522.3
+   ],
+   "to": [
+    304.9,
+    406.2
+   ],
+   "stroke": "rose",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    96.6,
+    504.2
+   ],
+   "r": 4.2,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    135.1,
+    486
+   ],
+   "r": 4.2,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    173.7,
+    467.9
+   ],
+   "r": 4.2,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    212.3,
+    449.7
+   ],
+   "r": 4.2,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    250.9,
+    431.6
+   ],
+   "r": 4.2,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    289.4,
+    413.4
+   ],
+   "r": 4.2,
+   "fill": "blue",
+   "stroke": "blue",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    58,
+    522.3
+   ],
+   "r": 4,
+   "fill": "rose",
+   "stroke": "rose",
+   "width": 0
+  },
+  {
+   "type": "text",
+   "at": [
+    58,
+    384
+   ],
+   "text": "기울기 (c−1)/(v_m·c) = 0.0330",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    50,
+    514
+   ],
+   "text": "절편",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    20,
+    582
+   ],
+   "to": [
+    340,
+    582
+   ],
+   "stroke": "gray-s",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    602
+   ],
+   "text": "절편 = 1/(v_m·c)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    624
+   ],
+   "text": "v_m = 1/(기울기+절편)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    646
+   ],
+   "text": "≈ 30.0 cm³(STP)/g, c ≈ 100",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    676
+   ],
+   "text": "S = (v_m/22,414)·N_A·σ",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    698
+   ],
+   "text": "σ(N₂) = 0.162 nm²",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    722
+   ],
+   "text": "→ S ≈ 131 m²/g",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "accent"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
