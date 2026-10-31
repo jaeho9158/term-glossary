@@ -116,3 +116,12 @@ test('brain·gut: 장기 부품(뇌 옆모습, 소화관 개략), flip과 크기
   assert.ok((g.match(/<path/g) || []).length >= 4);
   assert.ok((R([{ type: 'gut', at: [100, 20], colon: false }]).svg.match(/<path/g) || []).length < (g.match(/<path/g) || []).length);
 });
+
+test('kidney: 신장 부품(신문·수질 경계), adrenal로 부신을 얹고 flip으로 좌우 반전', () => {
+  assert.ok(PART_TYPES.includes('kidney'));
+  assert.ok(validate({ width: 10, height: 10, elements: [{ type: 'kidney' }] }).some(e => e.includes('at')));
+  const a = R([{ type: 'kidney', at: [100, 20], h: 80 }]).svg, b = R([{ type: 'kidney', at: [100, 20], h: 80, flip: true }]).svg;
+  const c = R([{ type: 'kidney', at: [100, 20], h: 80, adrenal: true }]).svg;
+  assert.equal((a.match(/<path/g) || []).length, 2); assert.equal((c.match(/<path/g) || []).length, 3);
+  assert.notEqual(a, b);
+});

@@ -1,4 +1,4 @@
-// 장기·구조 일반 부품: thorax(흉곽 정면 단면), brain(옆모습 뇌), gut(소화관 개략).
+// 장기·구조 일반 부품: thorax(흉곽 정면 단면), brain(옆모습 뇌), gut(소화관 개략), kidney(신장, 선택적으로 부신).
 // 픽셀 좌표의 path·line 요소 배열을 돌려준다. 호흡 외에 흉부 단면이 필요한 그림(기흉, 폐 부피, 늑골 골절 등)에도 쓴다.
 import { smoothOpen, smoothClosed } from './anatomy.js';
 const r1 = n => +(+n).toFixed(1);
@@ -95,4 +95,22 @@ function gut(el) {
   return out;
 }
 
-export const ORGANS = { thorax, brain, gut };
+/** kidney: 신장(콩팥) 윤곽 + 피질·수질 경계 + 신문(오목한 쪽). at=[가운데 x, 윗끝 y], h(세로, 기본 70), 폭은 0.62h.
+ *  flip:true면 신문이 오른쪽(왼쪽 신장). adrenal:true면 위쪽에 부신(작은 삼각 모양 샘)을 얹는다(adrenalFill). fill/cortexFill/stroke */
+function kidney(el) {
+  const [cx, top] = el.at, h = el.h ?? 70, w = 0.62 * h, f = el.flip ? -1 : 1;
+  const X = u => cx + f * (u - 0.5) * w, Y = v => top + v * h;
+  const P = pts => pts.map(([u, v]) => [X(u), Y(v)]);
+  const out = [];
+  const body = P([[0.55, 0.0], [0.88, 0.1], [1.0, 0.4], [0.96, 0.72], [0.72, 0.98], [0.42, 1.0], [0.2, 0.84], [0.3, 0.62], [0.3, 0.4], [0.16, 0.2], [0.3, 0.04]]);
+  out.push({ type: 'path', d: smoothClosed(body), stroke: el.stroke ?? 'fg', fill: el.fill ?? 'rose-f', width: el.width ?? 2, ...st(el) });
+  const med = P([[0.56, 0.2], [0.8, 0.3], [0.84, 0.5], [0.74, 0.74], [0.54, 0.8], [0.44, 0.62], [0.46, 0.4]]);
+  out.push({ type: 'path', d: smoothClosed(med), stroke: el.stroke ?? 'fg', fill: el.cortexFill ?? 'rose-f', fillOpacity: 0.55, width: 1.2, ...st(el) });
+  if (el.adrenal) {
+    const ad = P([[0.3, -0.04], [0.5, -0.2], [0.78, -0.14], [0.86, 0.0], [0.6, 0.02], [0.4, 0.08]]);
+    out.push({ type: 'path', d: smoothClosed(ad), stroke: el.stroke ?? 'fg', fill: el.adrenalFill ?? 'amber-f', width: el.width ?? 2, ...st(el) });
+  }
+  return out;
+}
+
+export const ORGANS = { thorax, brain, gut, kidney };
