@@ -1,0 +1,613 @@
+{
+ "id": "allometric-equation",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 640,
+ "title": "상대생장식: 로그 변환 선형 회귀와 역변환 보정",
+ "legend": [
+  {
+   "sym": "x, y",
+   "desc": "측정하기 쉬운 형질(예: 흉고직경)과 추정할 값(예: 바이오매스)이다."
+  },
+  {
+   "sym": "k, a",
+   "desc": "식의 계수와 지수이다. 로그 그림에서 기울기가 a이다."
+  },
+  {
+   "sym": "B, D",
+   "desc": "바이오매스와 흉고직경이다."
+  },
+  {
+   "sym": "s²",
+   "desc": "로그 회귀의 잔차분산이다. 본문 예에서 0.076이다."
+  },
+  {
+   "desc": "곡선은 본문 예의 D = 30 cm 값(433.1)에 지수 2.29를 적용해 그린 모식이다."
+  }
+ ],
+ "subScale": 0.92,
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    14,
+    22
+   ],
+   "text": "① 로그를 취하면 직선이 된다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    48
+   ],
+   "text": "y = k·x^{a}  →  log y = a·log x + log k",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    50,
+    204
+   ],
+   "to": [
+    340,
+    204
+   ],
+   "stroke": "fg",
+   "width": 1.4,
+   "arrow": "end"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    50,
+    204
+   ],
+   "to": [
+    50,
+    80
+   ],
+   "stroke": "fg",
+   "width": 1.4,
+   "arrow": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    340,
+    224
+   ],
+   "text": "log x",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    58,
+    92
+   ],
+   "text": "log y",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    76,
+    186
+   ],
+   "to": [
+    322,
+    104
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    190,
+    145
+   ],
+   "to": [
+    270,
+    145
+   ],
+   "stroke": "gray",
+   "width": 1.2,
+   "dash": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    270,
+    145
+   ],
+   "to": [
+    270,
+    118
+   ],
+   "stroke": "gray",
+   "width": 1.2,
+   "dash": true
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    168
+   ],
+   "text": "가로 1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    280,
+    138
+   ],
+   "text": "세로 a",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    100,
+    150
+   ],
+   "text": "기울기 = a",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    258
+   ],
+   "text": "절차: x·y 측정 → 양변 로그 → 선형 회귀",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    278
+   ],
+   "text": "→ 기울기가 a → 식 복원",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    326
+   ],
+   "text": "② 복원한 곡선과 역변환 편향",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    350
+   ],
+   "text": "가상 자료: 직경 10~60 cm 나무 40그루",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    500
+   ],
+   "to": [
+    346,
+    500
+   ],
+   "stroke": "fg",
+   "width": 1.4,
+   "arrow": "end"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    500
+   ],
+   "to": [
+    58,
+    380
+   ],
+   "stroke": "fg",
+   "width": 1.4,
+   "arrow": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    346,
+    540
+   ],
+   "text": "D (cm)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    66,
+    392
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     58,
+     498.07538795296557
+    ],
+    [
+     72,
+     496.79175792825595
+    ],
+    [
+     86,
+     495.1292910035311
+    ],
+    [
+     100,
+     493.06733313767177
+    ],
+    [
+     114,
+     490.5875671694574
+    ],
+    [
+     128,
+     487.6734606515435
+    ],
+    [
+     142,
+     484.30989608999784
+    ],
+    [
+     156,
+     480.48290982118874
+    ],
+    [
+     170,
+     476.1795
+    ],
+    [
+     184,
+     471.3874808363532
+    ],
+    [
+     198,
+     466.09536904918565
+    ],
+    [
+     212,
+     460.2922935104059
+    ],
+    [
+     226,
+     453.9679220412297
+    ],
+    [
+     240,
+     447.11240119024734
+    ],
+    [
+     254,
+     439.71630603208365
+    ],
+    [
+     268,
+     431.7705978340849
+    ],
+    [
+     282,
+     423.2665879938303
+    ],
+    [
+     296,
+     414.1959070408247
+    ],
+    [
+     310,
+     404.5504777761482
+    ],
+    [
+     324,
+     394.32249182892434
+    ],
+    [
+     338,
+     383.50438906094433
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    58,
+    500
+   ],
+   "to": [
+    58,
+    504
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    58,
+    518
+   ],
+   "text": "10",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    170,
+    500
+   ],
+   "to": [
+    170,
+    504
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    170,
+    518
+   ],
+   "text": "30",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    338,
+    500
+   ],
+   "to": [
+    338,
+    504
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    338,
+    518
+   ],
+   "text": "60",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    170,
+    476.1795
+   ],
+   "r": 3.5,
+   "fill": "fg",
+   "stroke": "fg",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    170,
+    476.1795
+   ],
+   "r": 8,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "none"
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    420
+   ],
+   "text": "D = 30 cm",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    442
+   ],
+   "text": "● 보정 전 433.1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    462
+   ],
+   "text": "○ 보정 후 449.9",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     132,
+     416
+    ],
+    [
+     170,
+     416
+    ],
+    [
+     170,
+     467.1795
+    ]
+   ],
+   "stroke": "gray",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    548
+   ],
+   "text": "보정 전 값은 평균보다 약 3.7% 낮다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    572
+   ],
+   "text": "보정: 예측값에 e^{s²/2} = 1.039 곱함",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    610
+   ],
+   "text": "지수 ≈ 2.29(참값 2.4)는 표본 오차로 다르다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  }
+ ],
+ "credit": "직접 작성 도해",
+ "license": "CC BY 4.0"
+}
