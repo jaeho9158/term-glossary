@@ -1,0 +1,936 @@
+{
+ "id": "collaborative-filtering",
+ "width": 360,
+ "height": 446,
+ "title": "협업 필터링: 평점표와 이웃",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    12,
+    22
+   ],
+   "text": "사용자 × 항목 평점표에서 빈칸을 예측한다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    96,
+    50
+   ],
+   "text": "함께 선택됨 → 항목 간 유사도",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "violet",
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    98,
+    62
+   ],
+   "to": [
+    170,
+    62
+   ],
+   "stroke": "violet",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    98,
+    62
+   ],
+   "to": [
+    98,
+    68
+   ],
+   "stroke": "violet",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    170,
+    62
+   ],
+   "to": [
+    170,
+    68
+   ],
+   "stroke": "violet",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    114,
+    92
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    154,
+    92
+   ],
+   "text": "B",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    92
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    92
+   ],
+   "text": "D",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    92
+   ],
+   "text": "E",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    92
+   ],
+   "text": "항목",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    131
+   ],
+   "text": "나",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 96,
+   "y": 112,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.85,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    114,
+    132
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 112,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.7,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    154,
+    132
+   ],
+   "text": "4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 176,
+   "y": 112,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.25,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    132
+   ],
+   "text": "1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 112,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 112,
+   "w": 36,
+   "h": 28,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2.4,
+   "dash": "4 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    132
+   ],
+   "text": "?",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "amber",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    167
+   ],
+   "text": "사용자 1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    62,
+    167
+   ],
+   "text": "이웃",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "green",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 96,
+   "y": 148,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.85,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    114,
+    168
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 148,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.85,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    154,
+    168
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 176,
+   "y": 148,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.25,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    168
+   ],
+   "text": "1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 148,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 148,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.85,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    168
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    203
+   ],
+   "text": "사용자 2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    62,
+    203
+   ],
+   "text": "이웃",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "green",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 96,
+   "y": 184,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.7,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    114,
+    204
+   ],
+   "text": "4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 184,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.7,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    154,
+    204
+   ],
+   "text": "4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 176,
+   "y": 184,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.4,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    204
+   ],
+   "text": "2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 184,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.85,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    204
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 184,
+   "w": 36,
+   "h": 28,
+   "fill": "green",
+   "fillOpacity": 0.85,
+   "stroke": "green",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    204
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    239
+   ],
+   "text": "사용자 3",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 96,
+   "y": 220,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.25,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    114,
+    240
+   ],
+   "text": "1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 220,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 176,
+   "y": 220,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.85,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    240
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 220,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.7,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    240
+   ],
+   "text": "4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 220,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.25,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    274,
+    240
+   ],
+   "text": "1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    275
+   ],
+   "text": "신규",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 96,
+   "y": 256,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 136,
+   "y": 256,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 176,
+   "y": 256,
+   "w": 36,
+   "h": 28,
+   "fill": "blue",
+   "fillOpacity": 0.5499999999999999,
+   "stroke": "blue",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    194,
+    276
+   ],
+   "text": "3",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 256,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 256,
+   "y": 256,
+   "w": 36,
+   "h": 28,
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "rect",
+   "x": 93,
+   "y": 109,
+   "w": 202,
+   "h": 34,
+   "stroke": "fg",
+   "width": 2.6,
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    292,
+    162
+   ],
+   "to": [
+    304,
+    162
+   ],
+   "stroke": "green",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    292,
+    198
+   ],
+   "to": [
+    304,
+    198
+   ],
+   "stroke": "green",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    304,
+    198
+   ],
+   "to": [
+    304,
+    126
+   ],
+   "stroke": "green",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    304,
+    126
+   ],
+   "to": [
+    294,
+    126
+   ],
+   "arrow": "end",
+   "stroke": "green",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    310,
+    131
+   ],
+   "text": "추천",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "green",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 93,
+   "y": 253,
+   "w": 202,
+   "h": 34,
+   "stroke": "rose",
+   "width": 1.8,
+   "dash": "5 3",
+   "fill": "none",
+   "obstacle": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    304
+   ],
+   "text": "신규: 기록이 거의 없다 (콜드 스타트)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "color": "rose",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    326
+   ],
+   "text": "색이 진할수록 높은 평점, 점선 칸 = 평가 안 함",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    360
+   ],
+   "text": "절차: 평점 대조 → 이웃 찾기 → 빈칸 예측",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    394
+   ],
+   "text": "유사도 척도: 코사인 유사도, 피어슨 상관계수",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    428
+   ],
+   "text": "평가 지표: RMSE(평균 제곱근 오차), 정밀도, 재현율",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}

@@ -1,0 +1,1041 @@
+{
+ "id": "hash-collision-resolution",
+ "width": 360,
+ "height": 610,
+ "title": "해시 충돌 해결: 체이닝과 개방주소법",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    12,
+    22
+   ],
+   "text": "같은 칸에 두 키가 겹칠 때",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 14,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    54
+   ],
+   "text": "체이닝: 같은 칸에 목록으로 매단다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 106,
+   "y": 74,
+   "w": 40,
+   "h": 24,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    92
+   ],
+   "text": "키 A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 74,
+   "w": 40,
+   "h": 24,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.6,
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    92
+   ],
+   "text": "키 B",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    140,
+    100
+   ],
+   "to": [
+    154,
+    126
+   ],
+   "arrow": "end",
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "from": [
+    184,
+    100
+   ],
+   "to": [
+    170,
+    126
+   ],
+   "arrow": "end",
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    90
+   ],
+   "text": "충돌",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "limit",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    232,
+    84
+   ],
+   "text": "해시 함수가",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    232,
+    102
+   ],
+   "text": "칸 3을 가리킨다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    54,
+    120
+   ],
+   "text": "0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    90,
+    120
+   ],
+   "text": "1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 72,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    120
+   ],
+   "text": "2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 108,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    120
+   ],
+   "text": "3",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "fill": "rose-f",
+   "stroke": "limit",
+   "width": 2.6
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    120
+   ],
+   "text": "4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    120
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    120
+   ],
+   "text": "6",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 252,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    306,
+    120
+   ],
+   "text": "7",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 288,
+   "y": 128,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "dot",
+   "at": [
+    162,
+    144
+   ],
+   "r": 3.5,
+   "fill": "fg",
+   "obstacle": false
+  },
+  {
+   "type": "line",
+   "from": [
+    162,
+    144
+   ],
+   "to": [
+    162,
+    176
+   ],
+   "arrow": "end",
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 176,
+   "w": 36,
+   "h": 28,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    196
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    162,
+    204
+   ],
+   "to": [
+    162,
+    220
+   ],
+   "arrow": "end",
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 220,
+   "w": 36,
+   "h": 28,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    240
+   ],
+   "text": "B",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    200
+   ],
+   "text": "배열 밖",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    220
+   ],
+   "text": "메모리",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    206,
+    200
+   ],
+   "text": "같은 주소 =",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    206,
+    220
+   ],
+   "text": "하나의 목록",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    206,
+    244
+   ],
+   "text": "평균 삽입·검색 O(1)",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    284
+   ],
+   "text": "개방주소법: 배열 안에서 빈 자리를 찾는다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 106,
+   "y": 304,
+   "w": 40,
+   "h": 24,
+   "fill": "blue-f",
+   "stroke": "blue",
+   "width": 1.6,
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    322
+   ],
+   "text": "키 A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 178,
+   "y": 304,
+   "w": 40,
+   "h": 24,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 1.6,
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    322
+   ],
+   "text": "키 B",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    140,
+    330
+   ],
+   "to": [
+    154,
+    356
+   ],
+   "arrow": "end",
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "from": [
+    184,
+    330
+   ],
+   "to": [
+    170,
+    356
+   ],
+   "arrow": "end",
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    320
+   ],
+   "text": "충돌",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "color": "limit",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    232,
+    314
+   ],
+   "text": "해시 함수가",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    232,
+    332
+   ],
+   "text": "칸 3을 가리킨다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    54,
+    350
+   ],
+   "text": "0",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 36,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    90,
+    350
+   ],
+   "text": "1",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 72,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    350
+   ],
+   "text": "2",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 108,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    350
+   ],
+   "text": "3",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "fill": "rose-f",
+   "stroke": "limit",
+   "width": 2.6
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    350
+   ],
+   "text": "4",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    350
+   ],
+   "text": "5",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    270,
+    350
+   ],
+   "text": "6",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 252,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    306,
+    350
+   ],
+   "text": "7",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 288,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "rect",
+   "x": 144,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "fill": "blue-f",
+   "stroke": "limit",
+   "width": 2.6
+  },
+  {
+   "type": "text",
+   "at": [
+    162,
+    380
+   ],
+   "text": "A",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 180,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    380
+   ],
+   "text": "C",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "rect",
+   "x": 216,
+   "y": 358,
+   "w": 36,
+   "h": 32,
+   "fill": "amber-f",
+   "stroke": "amber",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    380
+   ],
+   "text": "B",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "line",
+   "from": [
+    162,
+    392
+   ],
+   "to": [
+    162,
+    410
+   ],
+   "stroke": "amber",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    162,
+    410
+   ],
+   "to": [
+    234,
+    410
+   ],
+   "stroke": "amber",
+   "width": 2
+  },
+  {
+   "type": "line",
+   "from": [
+    234,
+    410
+   ],
+   "to": [
+    234,
+    394
+   ],
+   "arrow": "end",
+   "stroke": "amber",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    432
+   ],
+   "text": "점유",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    432
+   ],
+   "text": "빈칸",
+   "fixed": true,
+   "leader": false,
+   "anchor": "middle",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    456
+   ],
+   "text": "3 충돌 → 4 점유 → 5 빈칸에 B 저장",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    478
+   ],
+   "text": "C: 이미 들어 있던 다른 키",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    502
+   ],
+   "text": "탐사: 선형 탐사(옆 칸), 이차 탐사, 이중 해싱",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    538
+   ],
+   "text": "적재율 = 저장 수 / 테이블 크기",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "weight": 700,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    566
+   ],
+   "text": "개방주소법은 꽉 찰수록 성능이 급격히 떨어진다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    590
+   ],
+   "text": "해시 함수 분포가 나쁘면 두 방식 모두 충돌이 잦다",
+   "fixed": true,
+   "leader": false,
+   "anchor": "start",
+   "size": 13,
+   "color": "muted",
+   "avoid": false
+  }
+ ],
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
