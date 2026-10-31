@@ -1,0 +1,818 @@
+{
+ "id": "cam-follower-mechanism",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 672,
+ "subScale": 0.92,
+ "title": "캠과 종동절: 캠 윤곽이 종동절의 변위 곡선을 정한다",
+ "legend": [
+  {
+   "desc": "주황 곡선은 상승 구간이다. 캠과 선도의 모양은 개념용 모식이고 수치는 없다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    24
+   ],
+   "text": "캠 기구 (정면)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "ellipse",
+   "center": [
+    110,
+    170
+   ],
+   "rx": 56,
+   "ry": 42,
+   "stroke": "blue",
+   "width": 2,
+   "fill": "blue-f",
+   "fillOpacity": 0.6,
+   "rotate": -20
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    118,
+    178
+   ],
+   "r": 4,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     100,
+     178
+    ],
+    [
+     104,
+     163
+    ],
+    [
+     118,
+     156
+    ],
+    [
+     133,
+     163
+    ]
+   ],
+   "smooth": true,
+   "stroke": "muted",
+   "width": 1.6,
+   "arrow": "end"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    100,
+    52
+   ],
+   "to": [
+    100,
+    96
+   ],
+   "stroke": "gray-s",
+   "width": 2.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    120,
+    52
+   ],
+   "to": [
+    120,
+    62
+   ],
+   "stroke": "gray-s",
+   "width": 2.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 104,
+   "y": 62,
+   "w": 12,
+   "h": 48,
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "gray-f"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    110,
+    122
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 2,
+   "fill": "amber-f"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    92,
+    52
+   ],
+   "to": [
+    152,
+    52
+   ],
+   "stroke": "gray-s",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    116,
+    98
+   ],
+   "to": [
+    138,
+    98
+   ],
+   "stroke": "fg",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     138,
+     52
+    ],
+    [
+     146,
+     58
+    ],
+    [
+     130,
+     66
+    ],
+    [
+     146,
+     74
+    ],
+    [
+     130,
+     82
+    ],
+    [
+     146,
+     90
+    ],
+    [
+     138,
+     98
+    ]
+   ],
+   "stroke": "muted",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    88,
+    100
+   ],
+   "to": [
+    88,
+    64
+   ],
+   "stroke": "limit",
+   "width": 1.8,
+   "arrow": "both"
+  },
+  {
+   "type": "text",
+   "at": [
+    176,
+    118
+   ],
+   "text": "롤러 종동절",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": [
+    124,
+    122
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    176,
+    138
+   ],
+   "text": "(직선 왕복 출력)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    200,
+    190
+   ],
+   "text": "캠 (회전 입력)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": [
+    162,
+    180
+   ]
+  },
+  {
+   "type": "text",
+   "at": [
+    160,
+    64
+   ],
+   "text": "복귀 스프링:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    160,
+    84
+   ],
+   "text": "예압으로 접촉 유지",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    246
+   ],
+   "text": "종동절 변위 – 캠 회전각",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    40,
+    380
+   ],
+   "to": [
+    338,
+    380
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    40,
+    380
+   ],
+   "to": [
+    40,
+    288
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    40,
+    380
+   ],
+   "to": [
+    40,
+    385
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    402
+   ],
+   "text": "0°",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112.5,
+    380
+   ],
+   "to": [
+    112.5,
+    385
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    112.5,
+    402
+   ],
+   "text": "90°",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    185,
+    380
+   ],
+   "to": [
+    185,
+    385
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    185,
+    402
+   ],
+   "text": "180°",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    257.5,
+    380
+   ],
+   "to": [
+    257.5,
+    385
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    257.5,
+    402
+   ],
+   "text": "270°",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    330,
+    380
+   ],
+   "to": [
+    330,
+    385
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    402
+   ],
+   "text": "360°",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     40,
+     380
+    ],
+    [
+     52.1,
+     374.6
+    ],
+    [
+     64.2,
+     360
+    ],
+    [
+     76.3,
+     340
+    ],
+    [
+     88.3,
+     320
+    ],
+    [
+     100.4,
+     305.4
+    ],
+    [
+     112.5,
+     300
+    ]
+   ],
+   "smooth": true,
+   "stroke": "amber",
+   "width": 3
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112.5,
+    300
+   ],
+   "to": [
+    185,
+    300
+   ],
+   "stroke": "blue",
+   "width": 2.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     185,
+     300
+    ],
+    [
+     197.1,
+     305.4
+    ],
+    [
+     209.2,
+     320
+    ],
+    [
+     221.3,
+     340
+    ],
+    [
+     233.3,
+     360
+    ],
+    [
+     245.4,
+     374.6
+    ],
+    [
+     257.5,
+     380
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    257.5,
+    380
+   ],
+   "to": [
+    330,
+    380
+   ],
+   "stroke": "blue",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    282
+   ],
+   "text": "상승",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    149,
+    282
+   ],
+   "text": "정지",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    221,
+    282
+   ],
+   "text": "하강",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t"
+  },
+  {
+   "type": "text",
+   "at": [
+    294,
+    366
+   ],
+   "text": "정지",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    424
+   ],
+   "text": "캠 회전각",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    34,
+    310
+   ],
+   "text": "변위",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    458
+   ],
+   "text": "변위 곡선에서 캠 윤곽을 역산한다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    484
+   ],
+   "text": "상승 끝~하강 시작의 최대 음의 가속도:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    504
+   ],
+   "text": "고속에서 접촉이 끊기는 점프 위험",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    540
+   ],
+   "text": "운동 곡선: 사이클로이드·다항식·단순조화",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    580
+   ],
+   "text": "종동절 끝 형태",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     40,
+     604
+    ],
+    [
+     58,
+     604
+    ],
+    [
+     49,
+     628
+    ]
+   ],
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    49,
+    656
+   ],
+   "text": "나이프에지",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    160,
+    616
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 2,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    160,
+    656
+   ],
+   "text": "롤러",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 262,
+   "y": 606,
+   "w": 36,
+   "h": 12,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    280,
+    656
+   ],
+   "text": "평면",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
