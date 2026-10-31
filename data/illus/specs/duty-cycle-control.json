@@ -1,0 +1,964 @@
+{
+ "id": "duty-cycle-control",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 650,
+ "title": "듀티비 제어: PWM과 전압비",
+ "subScale": 0.92,
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     20,
+     100
+    ],
+    [
+     60,
+     40
+    ],
+    [
+     100,
+     100
+    ],
+    [
+     140,
+     40
+    ],
+    [
+     180,
+     100
+    ],
+    [
+     220,
+     40
+    ],
+    [
+     260,
+     100
+    ],
+    [
+     300,
+     40
+    ],
+    [
+     340,
+     100
+    ]
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    20,
+    64
+   ],
+   "to": [
+    340,
+    64
+   ],
+   "stroke": "amber",
+   "width": 2,
+   "dash": "5 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    24,
+    24
+   ],
+   "text": "삼각파",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    24
+   ],
+   "text": "제어 신호(보상기 출력)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    66
+   ],
+   "to": [
+    44,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    76,
+    66
+   ],
+   "to": [
+    76,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    124,
+    66
+   ],
+   "to": [
+    124,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    156,
+    66
+   ],
+   "to": [
+    156,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    204,
+    66
+   ],
+   "to": [
+    204,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    236,
+    66
+   ],
+   "to": [
+    236,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    284,
+    66
+   ],
+   "to": [
+    284,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    316,
+    66
+   ],
+   "to": [
+    316,
+    150
+   ],
+   "stroke": "muted",
+   "width": 0.9,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     20,
+     150
+    ],
+    [
+     44,
+     150
+    ],
+    [
+     44,
+     190
+    ],
+    [
+     76,
+     190
+    ],
+    [
+     76,
+     150
+    ],
+    [
+     124,
+     150
+    ],
+    [
+     124,
+     190
+    ],
+    [
+     156,
+     190
+    ],
+    [
+     156,
+     150
+    ],
+    [
+     204,
+     150
+    ],
+    [
+     204,
+     190
+    ],
+    [
+     236,
+     190
+    ],
+    [
+     236,
+     150
+    ],
+    [
+     284,
+     150
+    ],
+    [
+     284,
+     190
+    ],
+    [
+     316,
+     190
+    ],
+    [
+     316,
+     150
+    ],
+    [
+     340,
+     150
+    ]
+   ],
+   "stroke": "blue",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    140
+   ],
+   "text": "켜짐",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    208
+   ],
+   "text": "꺼짐",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    76,
+    190
+   ],
+   "to": [
+    76,
+    262
+   ],
+   "stroke": "muted",
+   "width": 0.8,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    124,
+    190
+   ],
+   "to": [
+    124,
+    232
+   ],
+   "stroke": "muted",
+   "width": 0.8,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    156,
+    190
+   ],
+   "to": [
+    156,
+    262
+   ],
+   "stroke": "muted",
+   "width": 0.8,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "dimension",
+   "from": [
+    76,
+    232
+   ],
+   "to": [
+    124,
+    232
+   ],
+   "label": "D·T",
+   "labelStyle": {
+    "offset": [
+     0,
+     -10
+    ]
+   }
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "dimension",
+   "from": [
+    76,
+    262
+   ],
+   "to": [
+    156,
+    262
+   ],
+   "label": "T",
+   "labelStyle": {
+    "offset": [
+     0,
+     -10
+    ]
+   }
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    302
+   ],
+   "text": "D = 켜짐 시간 ÷ T (0~1)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    322
+   ],
+   "text": "T: 스위칭 주기",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    354
+   ],
+   "text": "출력 측정 → 오차 → PI →",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "navy"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    374
+   ],
+   "text": "제어 신호 → 켜짐 시간 결정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "navy"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    50,
+    540
+   ],
+   "to": [
+    352,
+    540
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    50,
+    540
+   ],
+   "to": [
+    50,
+    412
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    46,
+    516
+   ],
+   "to": [
+    50,
+    516
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    521
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    46,
+    492
+   ],
+   "to": [
+    50,
+    492
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    497
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    404
+   ],
+   "text": "V_{o}/V_{in}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    50,
+    540
+   ],
+   "to": [
+    50,
+    546
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    50,
+    564
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    190,
+    540
+   ],
+   "to": [
+    190,
+    546
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    190,
+    564
+   ],
+   "text": "0.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    330,
+    540
+   ],
+   "to": [
+    330,
+    546
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    564
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    336,
+    586
+   ],
+   "text": "D(듀티비)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    50,
+    540
+   ],
+   "to": [
+    330,
+    516
+   ],
+   "stroke": "green",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     50,
+     516
+    ],
+    [
+     55.6,
+     515.5
+    ],
+    [
+     61.2,
+     515
+    ],
+    [
+     66.8,
+     514.5
+    ],
+    [
+     72.4,
+     513.9
+    ],
+    [
+     78,
+     513.3
+    ],
+    [
+     83.6,
+     512.7
+    ],
+    [
+     89.2,
+     512.1
+    ],
+    [
+     94.8,
+     511.4
+    ],
+    [
+     100.4,
+     510.7
+    ],
+    [
+     106,
+     510
+    ],
+    [
+     111.6,
+     509.2
+    ],
+    [
+     117.2,
+     508.4
+    ],
+    [
+     122.8,
+     507.6
+    ],
+    [
+     128.4,
+     506.7
+    ],
+    [
+     134,
+     505.7
+    ],
+    [
+     139.6,
+     504.7
+    ],
+    [
+     145.2,
+     503.6
+    ],
+    [
+     150.8,
+     502.5
+    ],
+    [
+     156.4,
+     501.3
+    ],
+    [
+     162,
+     500
+    ],
+    [
+     167.6,
+     498.6
+    ],
+    [
+     173.2,
+     497.1
+    ],
+    [
+     178.8,
+     495.6
+    ],
+    [
+     184.4,
+     493.8
+    ],
+    [
+     190,
+     492
+    ],
+    [
+     195.6,
+     490
+    ],
+    [
+     201.2,
+     487.8
+    ],
+    [
+     206.8,
+     485.5
+    ],
+    [
+     212.4,
+     482.9
+    ],
+    [
+     218,
+     480
+    ],
+    [
+     223.6,
+     476.8
+    ],
+    [
+     229.2,
+     473.3
+    ],
+    [
+     234.8,
+     469.4
+    ],
+    [
+     240.4,
+     465
+    ],
+    [
+     246,
+     460
+    ],
+    [
+     251.6,
+     454.3
+    ],
+    [
+     257.2,
+     447.7
+    ],
+    [
+     262.8,
+     440
+    ],
+    [
+     268.4,
+     430.9
+    ],
+    [
+     274,
+     420
+    ]
+   ],
+   "smooth": true,
+   "stroke": "rose",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    330,
+    504
+   ],
+   "text": "벅 V_{o}/V_{in} = D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    236,
+    424
+   ],
+   "text": "부스트 1/(1−D)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    167,
+    528
+   ],
+   "n": 1,
+   "r": 10,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    190,
+    492
+   ],
+   "n": 2,
+   "r": 10,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    612
+   ],
+   "text": "1: 벅 12 V→5 V, D≈0.417",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    634
+   ],
+   "text": "2: 부스트 12 V→24 V, D=0.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "D",
+   "desc": "듀티비(duty ratio)"
+  },
+  {
+   "sym": "T",
+   "desc": "스위칭 주기"
+  },
+  {
+   "sym": "PWM",
+   "desc": "펄스 폭 변조(pulse width modulation)",
+   "kind": "abbr"
+  },
+  {
+   "sym": "PI",
+   "desc": "비례·적분 보상기",
+   "kind": "abbr"
+  },
+  {
+   "sym": "V_{o}, V_{in}",
+   "desc": "출력 전압, 입력 전압",
+   "kind": "var"
+  }
+ ],
+ "credit": "직접 작성 도해",
+ "license": "CC BY 4.0"
+}
