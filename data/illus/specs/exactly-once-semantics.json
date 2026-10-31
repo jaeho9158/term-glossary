@@ -1,0 +1,496 @@
+{
+ "id": "exactly-once-semantics",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 560,
+ "title": "정확히 한 번 의미론: 응답이 유실돼 재전송돼도 반영은 한 번",
+ "subScale": 0.92,
+ "legend": [
+  {
+   "sym": "A#1",
+   "desc": "고유 ID가 A, 일련번호가 1인 메시지",
+   "kind": "abbr"
+  },
+  {
+   "desc": "실선 화살표는 처음 전송과 응답, 점선 화살표는 타임아웃 뒤 재전송(최소 한 번 전달)이다. 수신자는 처리한 ID 목록으로 중복을 버리고, 상태 갱신·출력 기록·진행 위치 커밋을 하나의 원자적 트랜잭션으로 묶는다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 8,
+   "y": 10,
+   "w": 74,
+   "h": 28,
+   "stroke": "blue",
+   "width": 1.4,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    45,
+    29
+   ],
+   "text": "송신자",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 178,
+   "y": 10,
+   "w": 74,
+   "h": 28,
+   "stroke": "violet",
+   "width": 1.4,
+   "fill": "violet-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    215,
+    29
+   ],
+   "text": "수신자",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    45,
+    40
+   ],
+   "to": [
+    45,
+    450
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    215,
+    40
+   ],
+   "to": [
+    215,
+    450
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    70
+   ],
+   "text": "① 메시지 A#1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    45,
+    78
+   ],
+   "to": [
+    209,
+    78
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 210,
+   "y": 78,
+   "w": 10,
+   "h": 100,
+   "stroke": "violet",
+   "width": 1.4,
+   "fill": "violet-f"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     229,
+     80
+    ],
+    [
+     235,
+     80
+    ],
+    [
+     235,
+     176
+    ],
+    [
+     229,
+     176
+    ]
+   ],
+   "stroke": "green",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    243,
+    96
+   ],
+   "text": "원자적 트랜잭션",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    243,
+    116
+   ],
+   "text": "상태 갱신",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    243,
+    136
+   ],
+   "text": "출력 기록",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    243,
+    156
+   ],
+   "text": "진행 위치 커밋",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    209,
+    200
+   ],
+   "to": [
+    130,
+    200
+   ],
+   "stroke": "gray",
+   "width": 2,
+   "dash": "6 4",
+   "arrow": "none"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    118,
+    188
+   ],
+   "to": [
+    134,
+    212
+   ],
+   "stroke": "rose",
+   "width": 3
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    134,
+    188
+   ],
+   "to": [
+    118,
+    212
+   ],
+   "stroke": "rose",
+   "width": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    232
+   ],
+   "text": "② 응답 유실",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 40,
+   "y": 252,
+   "w": 10,
+   "h": 34,
+   "stroke": "blue",
+   "width": 1.4,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    57,
+    274
+   ],
+   "text": "타임아웃",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    314
+   ],
+   "text": "③ 재전송 A#1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    45,
+    322
+   ],
+   "to": [
+    209,
+    322
+   ],
+   "stroke": "blue",
+   "width": 2,
+   "dash": "6 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 210,
+   "y": 322,
+   "w": 10,
+   "h": 30,
+   "stroke": "violet",
+   "width": 1.4,
+   "fill": "violet-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    231,
+    326
+   ],
+   "text": "ID 목록에 A#1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    231,
+    346
+   ],
+   "text": "있음 → 버림(멱등)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    209,
+    376
+   ],
+   "to": [
+    49,
+    376
+   ],
+   "stroke": "violet",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    368
+   ],
+   "text": "④ 응답 재전송",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    215,
+    418
+   ],
+   "r": 4,
+   "fill": "green",
+   "stroke": "green",
+   "width": 0
+  },
+  {
+   "type": "text",
+   "at": [
+    229,
+    414
+   ],
+   "text": "스냅숏 저장",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    229,
+    434
+   ],
+   "text": "장애 시 되감기",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 468,
+   "w": 320,
+   "h": 32,
+   "stroke": "amber",
+   "width": 1.4,
+   "fill": "amber-f",
+   "fillOpacity": 0.6,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    489
+   ],
+   "text": "전달 2회, 반영 1회",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    524
+   ],
+   "text": "외부 시스템으로 나가는 효과는",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    544
+   ],
+   "text": "그쪽도 트랜잭션·멱등 쓰기가 필요하다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  }
+ ]
+}
