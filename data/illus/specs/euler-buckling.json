@@ -1,0 +1,1483 @@
+{
+ "id": "euler-buckling",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 432,
+ "subScale": 0.92,
+ "title": "오일러 좌굴: 지지 조건에 따른 좌굴 모양과 유효길이 KL",
+ "legend": [
+  {
+   "sym": "P_{cr}",
+   "desc": "임계하중. 이 하중에 이르면 기둥이 옆으로 휜다.",
+   "kind": "var"
+  },
+  {
+   "sym": "E",
+   "desc": "탄성계수(영률)",
+   "kind": "var"
+  },
+  {
+   "sym": "I",
+   "desc": "단면 2차 모멘트",
+   "kind": "var"
+  },
+  {
+   "sym": "K",
+   "desc": "유효길이 계수",
+   "kind": "var"
+  },
+  {
+   "sym": "L",
+   "desc": "기둥의 실제 길이",
+   "kind": "var"
+  },
+  {
+   "sym": "λ",
+   "desc": "세장비 KL/r",
+   "kind": "var"
+  },
+  {
+   "sym": "r",
+   "desc": "단면의 회전반경",
+   "kind": "var"
+  },
+  {
+   "desc": "점선은 곧은 기둥, 파란 곡선은 좌굴 모양이다. 주황 괄호 KL은 휨의 반 파장에 해당하는 길이이며, 고정-자유 기둥은 점선 곡선으로 길이 L만큼 반사한 모양을 더해 KL = 2L을 나타냈다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    40,
+    22
+   ],
+   "text": "양단 힌지",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    40,
+    90
+   ],
+   "to": [
+    40,
+    155
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "dash": "4 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     40,
+     155
+    ],
+    [
+     41.6,
+     152.3
+    ],
+    [
+     43.1,
+     149.6
+    ],
+    [
+     44.6,
+     146.9
+    ],
+    [
+     46,
+     144.2
+    ],
+    [
+     47.3,
+     141.5
+    ],
+    [
+     48.5,
+     138.8
+    ],
+    [
+     49.5,
+     136
+    ],
+    [
+     50.4,
+     133.3
+    ],
+    [
+     51.1,
+     130.6
+    ],
+    [
+     51.6,
+     127.9
+    ],
+    [
+     51.9,
+     125.2
+    ],
+    [
+     52,
+     122.5
+    ],
+    [
+     51.9,
+     119.8
+    ],
+    [
+     51.6,
+     117.1
+    ],
+    [
+     51.1,
+     114.4
+    ],
+    [
+     50.4,
+     111.7
+    ],
+    [
+     49.5,
+     109
+    ],
+    [
+     48.5,
+     106.3
+    ],
+    [
+     47.3,
+     103.5
+    ],
+    [
+     46,
+     100.8
+    ],
+    [
+     44.6,
+     98.1
+    ],
+    [
+     43.1,
+     95.4
+    ],
+    [
+     41.6,
+     92.7
+    ],
+    [
+     40,
+     90
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     40,
+     155
+    ],
+    [
+     31,
+     169
+    ],
+    [
+     49,
+     169
+    ]
+   ],
+   "fill": "gray-f",
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    26,
+    169
+   ],
+   "to": [
+    54,
+    169
+   ],
+   "stroke": "gray",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    40,
+    90
+   ],
+   "r": 3,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    40,
+    48
+   ],
+   "to": [
+    40,
+    84
+   ],
+   "stroke": "rose",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    48,
+    64
+   ],
+   "text": "P",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "rose-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    22
+   ],
+   "text": "고정-힌지",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    126,
+    90
+   ],
+   "to": [
+    126,
+    155
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "dash": "4 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     126,
+     155
+    ],
+    [
+     126.1,
+     152.3
+    ],
+    [
+     126.6,
+     149.6
+    ],
+    [
+     127.3,
+     146.9
+    ],
+    [
+     128.2,
+     144.2
+    ],
+    [
+     129.2,
+     141.5
+    ],
+    [
+     130.4,
+     138.8
+    ],
+    [
+     131.7,
+     136
+    ],
+    [
+     133,
+     133.3
+    ],
+    [
+     134.2,
+     130.6
+    ],
+    [
+     135.4,
+     127.9
+    ],
+    [
+     136.4,
+     125.2
+    ],
+    [
+     137.1,
+     122.5
+    ],
+    [
+     137.7,
+     119.8
+    ],
+    [
+     138,
+     117.1
+    ],
+    [
+     138,
+     114.4
+    ],
+    [
+     137.6,
+     111.7
+    ],
+    [
+     137,
+     109
+    ],
+    [
+     136.1,
+     106.3
+    ],
+    [
+     134.9,
+     103.5
+    ],
+    [
+     133.4,
+     100.8
+    ],
+    [
+     131.8,
+     98.1
+    ],
+    [
+     129.9,
+     95.4
+    ],
+    [
+     128,
+     92.7
+    ],
+    [
+     126,
+     90
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    110,
+    155
+   ],
+   "to": [
+    142,
+    155
+   ],
+   "stroke": "gray",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "hatch",
+   "x": 110,
+   "y": 155,
+   "w": 32,
+   "h": 10,
+   "angle": 45,
+   "gap": 6,
+   "stroke": "gray",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    126,
+    90
+   ],
+   "r": 3,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    126,
+    48
+   ],
+   "to": [
+    126,
+    84
+   ],
+   "stroke": "rose",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    134,
+    64
+   ],
+   "text": "P",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "rose-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "type": "text",
+   "at": [
+    212,
+    22
+   ],
+   "text": "양단 고정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    212,
+    90
+   ],
+   "to": [
+    212,
+    155
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "dash": "4 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     212,
+     155
+    ],
+    [
+     212.2,
+     152.3
+    ],
+    [
+     212.8,
+     149.6
+    ],
+    [
+     213.8,
+     146.9
+    ],
+    [
+     215,
+     144.2
+    ],
+    [
+     216.4,
+     141.5
+    ],
+    [
+     218,
+     138.8
+    ],
+    [
+     219.6,
+     136
+    ],
+    [
+     221,
+     133.3
+    ],
+    [
+     222.2,
+     130.6
+    ],
+    [
+     223.2,
+     127.9
+    ],
+    [
+     223.8,
+     125.2
+    ],
+    [
+     224,
+     122.5
+    ],
+    [
+     223.8,
+     119.8
+    ],
+    [
+     223.2,
+     117.1
+    ],
+    [
+     222.2,
+     114.4
+    ],
+    [
+     221,
+     111.7
+    ],
+    [
+     219.6,
+     109
+    ],
+    [
+     218,
+     106.3
+    ],
+    [
+     216.4,
+     103.5
+    ],
+    [
+     215,
+     100.8
+    ],
+    [
+     213.8,
+     98.1
+    ],
+    [
+     212.8,
+     95.4
+    ],
+    [
+     212.2,
+     92.7
+    ],
+    [
+     212,
+     90
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    196,
+    155
+   ],
+   "to": [
+    228,
+    155
+   ],
+   "stroke": "gray",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "hatch",
+   "x": 196,
+   "y": 155,
+   "w": 32,
+   "h": 10,
+   "angle": 45,
+   "gap": 6,
+   "stroke": "gray",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    200,
+    90
+   ],
+   "to": [
+    224,
+    90
+   ],
+   "stroke": "gray",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    212,
+    48
+   ],
+   "to": [
+    212,
+    84
+   ],
+   "stroke": "rose",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    220,
+    64
+   ],
+   "text": "P",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "rose-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    22
+   ],
+   "text": "고정-자유",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    298,
+    90
+   ],
+   "to": [
+    298,
+    155
+   ],
+   "stroke": "muted",
+   "width": 1.2,
+   "dash": "4 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     298,
+     155
+    ],
+    [
+     298,
+     152.3
+    ],
+    [
+     298.1,
+     149.6
+    ],
+    [
+     298.2,
+     146.9
+    ],
+    [
+     298.4,
+     144.2
+    ],
+    [
+     298.6,
+     141.5
+    ],
+    [
+     298.9,
+     138.8
+    ],
+    [
+     299.2,
+     136
+    ],
+    [
+     299.6,
+     133.3
+    ],
+    [
+     300,
+     130.6
+    ],
+    [
+     300.5,
+     127.9
+    ],
+    [
+     301,
+     125.2
+    ],
+    [
+     301.5,
+     122.5
+    ],
+    [
+     302.1,
+     119.8
+    ],
+    [
+     302.7,
+     117.1
+    ],
+    [
+     303.3,
+     114.4
+    ],
+    [
+     304,
+     111.7
+    ],
+    [
+     304.7,
+     109
+    ],
+    [
+     305.4,
+     106.3
+    ],
+    [
+     306.1,
+     103.5
+    ],
+    [
+     306.9,
+     100.8
+    ],
+    [
+     307.7,
+     98.1
+    ],
+    [
+     308.4,
+     95.4
+    ],
+    [
+     309.2,
+     92.7
+    ],
+    [
+     310,
+     90
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    282,
+    155
+   ],
+   "to": [
+    314,
+    155
+   ],
+   "stroke": "gray",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    284,
+    155
+   ],
+   "to": [
+    278,
+    162
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    293,
+    155
+   ],
+   "to": [
+    287,
+    162
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    302,
+    155
+   ],
+   "to": [
+    296,
+    162
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    311,
+    155
+   ],
+   "to": [
+    305,
+    162
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    298,
+    48
+   ],
+   "to": [
+    298,
+    84
+   ],
+   "stroke": "rose",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    306,
+    64
+   ],
+   "text": "P",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "rose-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     66,
+     155
+    ],
+    [
+     70,
+     155
+    ],
+    [
+     70,
+     90
+    ],
+    [
+     66,
+     90
+    ]
+   ],
+   "stroke": "amber",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    74,
+    127.5
+   ],
+   "text": "KL",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     152,
+     135.5
+    ],
+    [
+     156,
+     135.5
+    ],
+    [
+     156,
+     90
+    ],
+    [
+     152,
+     90
+    ]
+   ],
+   "stroke": "amber",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    160,
+    117.75
+   ],
+   "text": "KL",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     238,
+     138.75
+    ],
+    [
+     242,
+     138.75
+    ],
+    [
+     242,
+     106.25
+    ],
+    [
+     238,
+     106.25
+    ]
+   ],
+   "stroke": "amber",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    246,
+    127.5
+   ],
+   "text": "KL",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     298,
+     155
+    ],
+    [
+     298,
+     157.7
+    ],
+    [
+     298.1,
+     160.4
+    ],
+    [
+     298.2,
+     163.1
+    ],
+    [
+     298.4,
+     165.8
+    ],
+    [
+     298.6,
+     168.5
+    ],
+    [
+     298.9,
+     171.3
+    ],
+    [
+     299.2,
+     174
+    ],
+    [
+     299.6,
+     176.7
+    ],
+    [
+     300,
+     179.4
+    ],
+    [
+     300.5,
+     182.1
+    ],
+    [
+     301,
+     184.8
+    ],
+    [
+     301.5,
+     187.5
+    ],
+    [
+     302.1,
+     190.2
+    ],
+    [
+     302.7,
+     192.9
+    ],
+    [
+     303.3,
+     195.6
+    ],
+    [
+     304,
+     198.3
+    ],
+    [
+     304.7,
+     201
+    ],
+    [
+     305.4,
+     203.8
+    ],
+    [
+     306.1,
+     206.5
+    ],
+    [
+     306.9,
+     209.2
+    ],
+    [
+     307.7,
+     211.9
+    ],
+    [
+     308.4,
+     214.6
+    ],
+    [
+     309.2,
+     217.3
+    ],
+    [
+     310,
+     220
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 1.6,
+   "dash": "4 3",
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     324,
+     220
+    ],
+    [
+     328,
+     220
+    ],
+    [
+     328,
+     90
+    ],
+    [
+     324,
+     90
+    ]
+   ],
+   "stroke": "amber",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    332,
+    160
+   ],
+   "text": "KL",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700,
+   "anchor": "start"
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    252
+   ],
+   "text": "K",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    252
+   ],
+   "text": "= 1.0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "start",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    276
+   ],
+   "text": "P_{cr} =",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    40,
+    296
+   ],
+   "text": "15.5 kN",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    252
+   ],
+   "text": "K",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    126,
+    252
+   ],
+   "text": "≈ 0.7",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "start",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    208,
+    252
+   ],
+   "text": "K",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    212,
+    252
+   ],
+   "text": "= 0.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "start",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    212,
+    276
+   ],
+   "text": "P_{cr} =",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    212,
+    296
+   ],
+   "text": "62.0 kN",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    294,
+    252
+   ],
+   "text": "K",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "italic": true,
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    252
+   ],
+   "text": "= 2.0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "start",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    276
+   ],
+   "text": "P_{cr} =",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    296
+   ],
+   "text": "3.88 kN",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    336
+   ],
+   "text": "P_{cr} = π^{2}EI / (KL)^{2},  λ = KL / r",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    364
+   ],
+   "text": "유효길이가 짧을수록 임계하중이 커진다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    388
+   ],
+   "text": "양단 고정은 양단 힌지의 4배, 고정-자유는 1/4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    414
+   ],
+   "text": "지름 20 mm 강봉, 탄성계수 200 GPa, 길이 1 m 기준",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
