@@ -1,0 +1,786 @@
+{
+ "id": "loess-regression",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 442,
+ "subScale": 0.92,
+ "title": "LOESS 회귀: 국소 직선과 가중치",
+ "legend": [
+  {
+   "sym": "x₀",
+   "desc": "곡선 값을 구하려는 지점이다. 그림에서는 5이다."
+  },
+  {
+   "sym": "h",
+   "desc": "x₀에서 이웃 범위 끝까지의 거리이다. 그림에서는 3이다(span 0.5)."
+  },
+  {
+   "sym": "w",
+   "desc": "트라이큐브 가중치 w = (1 − (d/h)³)³이다. d는 x₀에서 점까지의 거리이다."
+  },
+  {
+   "desc": "주황 점은 창 안의 이웃, 회색 점은 쓰이지 않는 점, 빨간 선은 이웃에 가중최소제곱으로 맞춘 국소 직선, 파란 곡선은 완성된 LOESS 곡선, 회색 점선은 전체 OLS 직선(x₀에서 4.91)이다. 점의 위치는 가상 자료이다. 창 가장자리(x = 2, 8)의 점은 가중치가 0이라 쓰이지 않는다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    180,
+    20
+   ],
+   "text": "LOESS: 이웃만 써서 곡선 값을 구한다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    96,
+    250
+   ],
+   "to": [
+    96,
+    42
+   ],
+   "stroke": "amber",
+   "width": 1.4,
+   "dash": "6 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    276,
+    250
+   ],
+   "to": [
+    276,
+    42
+   ],
+   "stroke": "amber",
+   "width": 1.4,
+   "dash": "6 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "arrow": "both",
+   "from": [
+    96,
+    54
+   ],
+   "to": [
+    276,
+    54
+   ],
+   "stroke": "amber",
+   "width": 1.4,
+   "head": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    250
+   ],
+   "to": [
+    344,
+    250
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    250
+   ],
+   "to": [
+    36,
+    42
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    193.9581818181818
+   ],
+   "to": [
+    336,
+    50.72181818181821
+   ],
+   "stroke": "gray",
+   "width": 1.8,
+   "dash": "6 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     36,
+     218.8
+    ],
+    [
+     66,
+     198
+    ],
+    [
+     96,
+     179.8
+    ],
+    [
+     126,
+     161.60000000000002
+    ],
+    [
+     156,
+     143.4
+    ],
+    [
+     186,
+     124.42
+    ],
+    [
+     216,
+     108.29999999999998
+    ],
+    [
+     246,
+     96.6
+    ],
+    [
+     276,
+     90.1
+    ],
+    [
+     306,
+     86.20000000000002
+    ],
+    [
+     336,
+     81
+    ]
+   ],
+   "smooth": true,
+   "stroke": "blue",
+   "width": 2.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    129,
+    157.7
+   ],
+   "to": [
+    243,
+    91.4
+   ],
+   "stroke": "rose",
+   "width": 2.8
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    36,
+    216.2
+   ],
+   "r": 3.6,
+   "fill": "gray",
+   "stroke": "gray",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    66,
+    198
+   ],
+   "r": 3.6,
+   "fill": "gray",
+   "stroke": "gray",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    96,
+    185
+   ],
+   "r": 3.6,
+   "fill": "gray",
+   "stroke": "gray",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    126,
+    164.2
+   ],
+   "r": 5,
+   "fill": "amber",
+   "stroke": "amber",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    156,
+    138.2
+   ],
+   "r": 5,
+   "fill": "amber",
+   "stroke": "amber",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    186,
+    125.2
+   ],
+   "r": 5,
+   "fill": "amber",
+   "stroke": "amber",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    216,
+    107
+   ],
+   "r": 5,
+   "fill": "amber",
+   "stroke": "amber",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    246,
+    94
+   ],
+   "r": 5,
+   "fill": "amber",
+   "stroke": "amber",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    276,
+    88.79999999999998
+   ],
+   "r": 3.6,
+   "fill": "gray",
+   "stroke": "gray",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    306,
+    91.4
+   ],
+   "r": 3.6,
+   "fill": "gray",
+   "stroke": "gray",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    336,
+    78.4
+   ],
+   "r": 3.6,
+   "fill": "gray",
+   "stroke": "gray",
+   "width": 0
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    186,
+    250
+   ],
+   "to": [
+    186,
+    44
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    186,
+    124.42
+   ],
+   "r": 6.5,
+   "fill": "rose",
+   "stroke": "bg",
+   "width": 1.5
+  },
+  {
+   "type": "text",
+   "at": [
+    178,
+    94.42
+   ],
+   "text": "곡선 값 4.83",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    206,
+    142
+   ],
+   "text": "OLS 4.91",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "start",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    204,
+    136
+   ],
+   "to": [
+    214,
+    110.01636363636362
+   ],
+   "stroke": "muted",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    182,
+    100
+   ],
+   "to": [
+    186,
+    116.42
+   ],
+   "stroke": "rose",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    270
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    186,
+    270
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    336,
+    270
+   ],
+   "text": "10",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    186,
+    292
+   ],
+   "text": "x",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    22,
+    46
+   ],
+   "text": "y",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    141,
+    42
+   ],
+   "text": "창 x₀±h",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    370
+   ],
+   "to": [
+    344,
+    370
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     96,
+     370
+    ],
+    [
+     102,
+     369.60788090049687
+    ],
+    [
+     108,
+     367.44867496715744
+    ],
+    [
+     114,
+     363.02714368
+    ],
+    [
+     120,
+     356.67176648008535
+    ],
+    [
+     126,
+     349.09160188995577
+    ],
+    [
+     132,
+     341.08658176
+    ],
+    [
+     138,
+     333.3736228646121
+    ],
+    [
+     144,
+     326.4971700374455
+    ],
+    [
+     150,
+     320.79844864
+    ],
+    [
+     156,
+     316.4228014022253
+    ],
+    [
+     162,
+     313.34901555777475
+    ],
+    [
+     168,
+     311.42851072
+    ],
+    [
+     174,
+     310.42565610773966
+    ],
+    [
+     180.00000000000003,
+     310.0533175324249
+    ],
+    [
+     186,
+     310
+    ],
+    [
+     192,
+     310.05331753242496
+    ],
+    [
+     198,
+     310.42565610773966
+    ],
+    [
+     204,
+     311.42851072
+    ],
+    [
+     210.00000000000003,
+     313.34901555777475
+    ],
+    [
+     216,
+     316.4228014022253
+    ],
+    [
+     222,
+     320.79844864
+    ],
+    [
+     228,
+     326.4971700374455
+    ],
+    [
+     234.00000000000003,
+     333.3736228646121
+    ],
+    [
+     240.00000000000003,
+     341.08658176
+    ],
+    [
+     246,
+     349.09160188995577
+    ],
+    [
+     252,
+     356.67176648008535
+    ],
+    [
+     258,
+     363.02714368
+    ],
+    [
+     264,
+     367.44867496715744
+    ],
+    [
+     270,
+     369.60788090049687
+    ],
+    [
+     276,
+     370
+    ]
+   ],
+   "smooth": true,
+   "stroke": "amber",
+   "width": 2.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    126,
+    370
+   ],
+   "to": [
+    126,
+    349.09160188995577
+   ],
+   "stroke": "amber",
+   "width": 6,
+   "opacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    156,
+    370
+   ],
+   "to": [
+    156,
+    316.4228014022253
+   ],
+   "stroke": "amber",
+   "width": 6,
+   "opacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    186,
+    370
+   ],
+   "to": [
+    186,
+    310
+   ],
+   "stroke": "amber",
+   "width": 6,
+   "opacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    216,
+    370
+   ],
+   "to": [
+    216,
+    316.4228014022253
+   ],
+   "stroke": "amber",
+   "width": 6,
+   "opacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    246,
+    370
+   ],
+   "to": [
+    246,
+    349.09160188995577
+   ],
+   "stroke": "amber",
+   "width": 6,
+   "opacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    296
+   ],
+   "text": "가중치 w",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "start",
+   "italic": false
+  },
+  {
+   "type": "text",
+   "at": [
+    186,
+    392
+   ],
+   "text": "x₀ = 5에서 w = 1, 거리 h에서 0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    424
+   ],
+   "text": "창을 옮기며 반복 → 점들이 이어져 곡선",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  }
+ ]
+}
