@@ -1,0 +1,1023 @@
+{
+ "id": "divide-and-conquer",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 510,
+ "subScale": 0.92,
+ "title": "병합 정렬의 재귀 트리와 비용",
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    16,
+    22
+   ],
+   "text": "분할",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    62,
+    22
+   ],
+   "text": "결합",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "green-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    348,
+    22
+   ],
+   "text": "결합 비용",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    16,
+    34
+   ],
+   "to": [
+    16,
+    236
+   ],
+   "stroke": "blue",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    62,
+    236
+   ],
+   "to": [
+    62,
+    34
+   ],
+   "stroke": "green",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 170,
+   "y": 38,
+   "w": 40,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    190,
+    55
+   ],
+   "text": "n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 108,
+   "y": 88,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    105
+   ],
+   "text": "n/2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 228,
+   "y": 88,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    105
+   ],
+   "text": "n/2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    190,
+    62
+   ],
+   "to": [
+    130,
+    88
+   ],
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    190,
+    62
+   ],
+   "to": [
+    250,
+    88
+   ],
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 78,
+   "y": 138,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    100,
+    155
+   ],
+   "text": "n/4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    130,
+    112
+   ],
+   "to": [
+    100,
+    138
+   ],
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 138,
+   "y": 138,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    160,
+    155
+   ],
+   "text": "n/4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    130,
+    112
+   ],
+   "to": [
+    160,
+    138
+   ],
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 198,
+   "y": 138,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    220,
+    155
+   ],
+   "text": "n/4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    250,
+    112
+   ],
+   "to": [
+    220,
+    138
+   ],
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 258,
+   "y": 138,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    280,
+    155
+   ],
+   "text": "n/4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    250,
+    112
+   ],
+   "to": [
+    280,
+    138
+   ],
+   "stroke": "muted",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 84,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    94,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    100,
+    162
+   ],
+   "to": [
+    94,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 110,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    100,
+    162
+   ],
+   "to": [
+    120,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 136,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    146,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    160,
+    162
+   ],
+   "to": [
+    146,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 162,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    172,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    160,
+    162
+   ],
+   "to": [
+    172,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 188,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    198,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    220,
+    162
+   ],
+   "to": [
+    198,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 214,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    224,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    220,
+    162
+   ],
+   "to": [
+    224,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 240,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    280,
+    162
+   ],
+   "to": [
+    250,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 266,
+   "y": 216,
+   "w": 20,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green-f",
+   "radius": 3
+  },
+  {
+   "type": "text",
+   "at": [
+    276,
+    232
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    280,
+    162
+   ],
+   "to": [
+    276,
+    216
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    340,
+    52
+   ],
+   "text": "n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    340,
+    102
+   ],
+   "text": "n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    340,
+    152
+   ],
+   "text": "n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    340,
+    232
+   ],
+   "text": "n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end"
+  },
+  {
+   "type": "text",
+   "at": [
+    190,
+    196
+   ],
+   "text": "⋮",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    262
+   ],
+   "text": "맨 아래: 충분히 작으면(기저 사례) 직접 풂",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "green-t"
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    286
+   ],
+   "text": "병합 정렬: 층마다 비용 n, 층 수는 log n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    310
+   ],
+   "text": "T(n) = 2T(n/2) + Θ(n) → Θ(n log n)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "blue-t"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    12,
+    330
+   ],
+   "to": [
+    348,
+    330
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "4 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    354
+   ],
+   "text": "이진 탐색: 한쪽 가지만 내려감",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 30,
+   "y": 368,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.5,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    52,
+    385
+   ],
+   "text": "n",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    74,
+    380
+   ],
+   "to": [
+    100,
+    380
+   ],
+   "stroke": "fg",
+   "width": 1.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 100,
+   "y": 368,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.5,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    122,
+    385
+   ],
+   "text": "n/2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    144,
+    380
+   ],
+   "to": [
+    170,
+    380
+   ],
+   "stroke": "fg",
+   "width": 1.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 170,
+   "y": 368,
+   "w": 44,
+   "h": 24,
+   "stroke": "blue",
+   "width": 1.5,
+   "fill": "blue-f",
+   "radius": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    192,
+    385
+   ],
+   "text": "n/4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    228,
+    385
+   ],
+   "text": "⋯",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    422
+   ],
+   "text": "T(n) = T(n/2) + Θ(1) → Θ(log n)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    12,
+    442
+   ],
+   "to": [
+    348,
+    442
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "4 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    466
+   ],
+   "text": "n = 10,000일 때 비교 횟수(가상의 실험)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    12,
+    490
+   ],
+   "text": "병합 정렬 120,495 / 삽입 정렬 24,788,345",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  }
+ ],
+ "legend": [
+  {
+   "sym": "n",
+   "desc": "문제의 크기",
+   "kind": "var"
+  },
+  {
+   "sym": "T(n)",
+   "desc": "실행 시간",
+   "kind": "expr"
+  },
+  {
+   "sym": "Θ",
+   "desc": "점근적 상·하한이 같은 증가 속도",
+   "kind": "const"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
