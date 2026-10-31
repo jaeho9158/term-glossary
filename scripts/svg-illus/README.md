@@ -117,7 +117,7 @@ renderSVG(spec, { measureText: canvasMeasure() });
 | `leg` | `at`(엉덩이), `len`(엉덩이→발목) | 다리+발. `angle`, `bend`, `flip`, `view`: front/side, `foot:false` |
 | `thorax` | `at`[가운데 x, 위 y], `w`, `h`, `inhale` 0~1 | 흉곽 정면 단면(갈비뼈·두 폐·기관·기관지·횡격막). `ribs`, `airway:false`, `ghost`(다른 inhale의 횡격막을 점선으로), `fill`/`lungFill`/`stroke` |
 | `brain` | `at`[가운데 x, 위 y], `w`(기본 120) | 옆에서 본 뇌(대뇌 윤곽·고랑·소뇌·뇌간). `flip`, `fill`/`cerebellumFill`/`stroke` |
-| `gut` | `at`[가운데 x, 위 y], `w`, `h` | 소화관 개략(대장 테두리 + 구불구불 소장). `fill`(소장), `colonFill` |
+| `gut` | `at`[가운데 x, 위 y], `w`, `h` | 소화관 개략(대장 테두리 + 구불구불 소장). `fill`(소장), `colonFill`, `colon:false`(대장 테두리 생략) |
 | `foot` | `at`(발목), `len` | 발. `view`: side/front, `flip` |
 | `head` | `at`(중심), `h` | 머리. `view`: side(얼굴 +x)/front, `flip` |
 

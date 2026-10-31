@@ -114,4 +114,5 @@ test('brain·gut: 장기 부품(뇌 옆모습, 소화관 개략), flip과 크기
   assert.ok((a.match(/<path/g) || []).length >= 7); assert.notEqual(a, b);
   const g = R([{ type: 'gut', at: [100, 20] }]).svg;
   assert.ok((g.match(/<path/g) || []).length >= 4);
+  assert.ok((R([{ type: 'gut', at: [100, 20], colon: false }]).svg.match(/<path/g) || []).length < (g.match(/<path/g) || []).length);
 });

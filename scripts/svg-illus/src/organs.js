@@ -75,12 +75,12 @@ function brain(el) {
 }
 
 /** gut: 배 속 소화관 개략(대장 테두리 + 구불구불한 소장). at=[가운데 x, 윗끝 y], w(기본 90), h(기본 100).
- *  fill(소장 색), colonFill(대장 색) */
+ *  fill(소장 색), colonFill(대장 색), colon:false(대장 테두리 생략) */
 function gut(el) {
   const [cx, top] = el.at, w = el.w ?? 90, h = el.h ?? 100, L = cx - w / 2, Rr = cx + w / 2;
   const out = [];
   const colon = `M${r1(Rr - 6)},${r1(top + h)} L${r1(Rr - 6)},${r1(top + 6)} L${r1(L + 6)},${r1(top + 6)} L${r1(L + 6)},${r1(top + h * 0.78)} L${r1(cx - w * 0.12)},${r1(top + h * 0.78)} L${r1(cx - w * 0.12)},${r1(top + h)}`;
-  out.push(...tube(colon, 9, el.colonFill ?? 'amber-f', el));
+  if (el.colon !== false) out.push(...tube(colon, 9, el.colonFill ?? 'amber-f', el));
   const rows = 5, pts = [];
   for (let k = 0; k < rows; k++) {
     const y = top + h * (0.2 + 0.12 * k), a = L + 0.2 * w, b = Rr - 0.2 * w;
