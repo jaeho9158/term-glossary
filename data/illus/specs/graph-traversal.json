@@ -1,0 +1,1294 @@
+{
+ "id": "graph-traversal",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 780,
+ "title": "그래프 탐색: 같은 그래프에서 BFS와 DFS의 방문 순서",
+ "legend": [
+  {
+   "desc": "원 안의 숫자는 방문 순서이고 1이 시작 정점이다. 두 그림은 같은 그래프이다. 정점·간선의 수와 모양은 개념용이다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    180,
+    40
+   ],
+   "text": "너비 우선(BFS)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    175
+   ],
+   "r": 50,
+   "stroke": "blue",
+   "width": 1.2,
+   "dash": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    175
+   ],
+   "r": 95,
+   "stroke": "blue",
+   "width": 1.2,
+   "dash": true,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    175
+   ],
+   "to": [
+    137,
+    150
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    175
+   ],
+   "to": [
+    180,
+    225
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    175
+   ],
+   "to": [
+    223,
+    150
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    137,
+    150
+   ],
+   "to": [
+    132,
+    93
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    137,
+    150
+   ],
+   "to": [
+    85,
+    175
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    132,
+    93
+   ],
+   "to": [
+    85,
+    175
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": "4 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    225
+   ],
+   "to": [
+    180,
+    270
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    223,
+    150
+   ],
+   "to": [
+    262,
+    127
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    175
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    180
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    137,
+    150
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    137,
+    155
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    132,
+    93
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    132,
+    98
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    85,
+    175
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    85,
+    180
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    225
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    230
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    270
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    275
+   ],
+   "text": "7",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    223,
+    150
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    155
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    262,
+    127
+   ],
+   "r": 12,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    262,
+    132
+   ],
+   "text": "8",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    234,
+    206
+   ],
+   "text": "1단계",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    284,
+    160
+   ],
+   "text": "2단계",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "blue"
+  },
+  {
+   "type": "text",
+   "at": [
+    113.5,
+    140
+   ],
+   "text": "✕",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "anchor": "start",
+   "weight": 700,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    356
+   ],
+   "text": "✕ = 이미 방문함 → 건너뜀",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    400
+   ],
+   "text": "깊이 우선(DFS)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    535
+   ],
+   "to": [
+    137,
+    510
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    535
+   ],
+   "to": [
+    180,
+    585
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    535
+   ],
+   "to": [
+    223,
+    510
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    137,
+    510
+   ],
+   "to": [
+    132,
+    453
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    137,
+    510
+   ],
+   "to": [
+    85,
+    535
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": "4 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    132,
+    453
+   ],
+   "to": [
+    85,
+    535
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    585
+   ],
+   "to": [
+    180,
+    630
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    223,
+    510
+   ],
+   "to": [
+    262,
+    487
+   ],
+   "stroke": "amber",
+   "width": 2.6,
+   "dash": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    535
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    540
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    137,
+    510
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    137,
+    515
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    132,
+    453
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    132,
+    458
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    85,
+    535
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    85,
+    540
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    585
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    590
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    630
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    635
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    223,
+    510
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    515
+   ],
+   "text": "7",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    262,
+    487
+   ],
+   "r": 12,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    262,
+    492
+   ],
+   "text": "8",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "avoid": false,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    109,
+    516.5
+   ],
+   "text": "✕",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "rose"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    71,
+    527
+   ],
+   "to": [
+    118,
+    463
+   ],
+   "stroke": "muted",
+   "width": 1.6,
+   "dash": "4 3",
+   "head": 0.7
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    571
+   ],
+   "text": "점선: 막혀서 되돌아옴",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    593
+   ],
+   "text": "✕ = 이미 방문함 → 건너뜀",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    304
+   ],
+   "text": "큐:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 76,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    87,
+    305
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 102,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    113,
+    305
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 128,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    139,
+    305
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 154,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    165,
+    305
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 180,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    191,
+    305
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 206,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    217,
+    305
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 232,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    243,
+    305
+   ],
+   "text": "7",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 258,
+   "y": 290,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    269,
+    305
+   ],
+   "text": "8",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    334
+   ],
+   "text": "먼저 들어온 정점부터 처리",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    670
+   ],
+   "text": "스택:",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 76,
+   "y": 656,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    87,
+    671
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 102,
+   "y": 656,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    113,
+    671
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 128,
+   "y": 656,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    139,
+    671
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 154,
+   "y": 656,
+   "w": 22,
+   "h": 20,
+   "stroke": "fg",
+   "width": 1.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    165,
+    671
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "avoid": false
+  },
+  {
+   "type": "text",
+   "at": [
+    10,
+    700
+   ],
+   "text": "가장 나중에 들어온 정점(4)부터 처리",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    736
+   ],
+   "text": "BFS: 가까운 정점부터 → 최단 경로",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    760
+   ],
+   "text": "DFS: 한 방향 끝까지 → 의존성 순서·위상 정렬",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
