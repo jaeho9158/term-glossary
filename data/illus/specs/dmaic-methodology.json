@@ -1,0 +1,1131 @@
+{
+ "id": "dmaic-methodology",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 550,
+ "title": "DMAIC: 개선 전후 불량률과 시그마 수준",
+ "legend": [
+  {
+   "desc": "위 띠는 정의(Define)·측정(Measure)·분석(Analyze)·개선(Improve)·관리(Control)의 순서이다. 곡선은 같은 지표의 분포이고, 분홍 영역은 규격 상한(USL)을 넘는 불량이다. 수치는 가상의 예이며 곡선의 폭은 개념용이다."
+  },
+  {
+   "sym": "DPMO",
+   "desc": "100만 기회당 불량 수(defects per million opportunities)",
+   "kind": "abbr"
+  },
+  {
+   "sym": "USL",
+   "desc": "규격 상한(upper specification limit). 이 값을 넘으면 불량으로 보는 경계",
+   "kind": "abbr"
+  },
+  {
+   "sym": "z",
+   "desc": "평균에서 규격 상한까지 거리를 표준편차로 나눈 값"
+  }
+ ],
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 12,
+   "y": 10,
+   "w": 62,
+   "h": 30,
+   "stroke": "gray",
+   "width": 1.4,
+   "fill": "gray-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    43,
+    30
+   ],
+   "text": "정의",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    74,
+    25
+   ],
+   "to": [
+    80,
+    25
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "head": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 80,
+   "y": 10,
+   "w": 62,
+   "h": 30,
+   "stroke": "amber",
+   "width": 1.4,
+   "fill": "amber-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    111,
+    30
+   ],
+   "text": "측정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    142,
+    25
+   ],
+   "to": [
+    148,
+    25
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "head": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 148,
+   "y": 10,
+   "w": 62,
+   "h": 30,
+   "stroke": "gray",
+   "width": 1.4,
+   "fill": "gray-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    179,
+    30
+   ],
+   "text": "분석",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    210,
+    25
+   ],
+   "to": [
+    216,
+    25
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "head": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 216,
+   "y": 10,
+   "w": 62,
+   "h": 30,
+   "stroke": "gray",
+   "width": 1.4,
+   "fill": "gray-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    247,
+    30
+   ],
+   "text": "개선",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    278,
+    25
+   ],
+   "to": [
+    284,
+    25
+   ],
+   "stroke": "fg",
+   "width": 1.2,
+   "head": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 284,
+   "y": 10,
+   "w": 62,
+   "h": 30,
+   "stroke": "amber",
+   "width": 1.4,
+   "fill": "amber-f",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    315,
+    30
+   ],
+   "text": "관리",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    64
+   ],
+   "text": "개선 전 (측정: 기준선)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     40,
+     160
+    ],
+    [
+     46,
+     160
+    ],
+    [
+     52,
+     159.9
+    ],
+    [
+     58,
+     159.9
+    ],
+    [
+     64,
+     159.8
+    ],
+    [
+     70,
+     159.7
+    ],
+    [
+     76,
+     159.5
+    ],
+    [
+     82,
+     159.2
+    ],
+    [
+     88,
+     158.8
+    ],
+    [
+     94,
+     158.2
+    ],
+    [
+     100,
+     157.5
+    ],
+    [
+     106,
+     156.4
+    ],
+    [
+     112,
+     155.1
+    ],
+    [
+     118,
+     153.3
+    ],
+    [
+     124,
+     151.1
+    ],
+    [
+     130,
+     148.3
+    ],
+    [
+     136,
+     145
+    ],
+    [
+     142,
+     141
+    ],
+    [
+     148,
+     136.5
+    ],
+    [
+     154,
+     131.5
+    ],
+    [
+     160,
+     126
+    ],
+    [
+     166,
+     120.2
+    ],
+    [
+     172,
+     114.2
+    ],
+    [
+     178,
+     108.4
+    ],
+    [
+     184,
+     102.8
+    ],
+    [
+     190,
+     97.9
+    ],
+    [
+     196,
+     93.7
+    ],
+    [
+     202,
+     90.6
+    ],
+    [
+     208,
+     88.6
+    ],
+    [
+     214,
+     88
+    ],
+    [
+     220,
+     88.7
+    ],
+    [
+     226,
+     90.7
+    ],
+    [
+     232,
+     93.9
+    ],
+    [
+     238,
+     98
+    ],
+    [
+     244,
+     103
+    ],
+    [
+     250,
+     108.6
+    ],
+    [
+     256,
+     114.5
+    ],
+    [
+     262,
+     120.4
+    ],
+    [
+     268,
+     126.2
+    ],
+    [
+     274,
+     131.7
+    ],
+    [
+     280,
+     136.7
+    ],
+    [
+     286,
+     141.2
+    ],
+    [
+     292,
+     145.1
+    ],
+    [
+     298,
+     148.4
+    ],
+    [
+     304,
+     151.2
+    ],
+    [
+     310,
+     153.4
+    ],
+    [
+     316,
+     155.1
+    ],
+    [
+     322,
+     156.5
+    ],
+    [
+     328,
+     157.5
+    ],
+    [
+     334,
+     158.3
+    ]
+   ],
+   "smooth": true,
+   "stroke": "gray",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     290,
+     160
+    ],
+    [
+     290,
+     143.9
+    ],
+    [
+     293,
+     145.7
+    ],
+    [
+     296,
+     147.4
+    ],
+    [
+     299,
+     148.9
+    ],
+    [
+     302,
+     150.3
+    ],
+    [
+     305,
+     151.6
+    ],
+    [
+     308,
+     152.7
+    ],
+    [
+     311,
+     153.7
+    ],
+    [
+     314,
+     154.6
+    ],
+    [
+     317,
+     155.4
+    ],
+    [
+     320,
+     156.1
+    ],
+    [
+     323,
+     156.7
+    ],
+    [
+     326,
+     157.2
+    ],
+    [
+     329,
+     157.7
+    ],
+    [
+     332,
+     158
+    ],
+    [
+     335,
+     158.4
+    ],
+    [
+     336,
+     160
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1.6,
+   "fill": "rose",
+   "fillOpacity": 0.9
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    160
+   ],
+   "to": [
+    340,
+    160
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    290,
+    76
+   ],
+   "to": [
+    290,
+    166
+   ],
+   "stroke": "rose",
+   "width": 1.8,
+   "dash": "6 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    72
+   ],
+   "text": "규격 상한(USL)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    213.88,
+    84
+   ],
+   "to": [
+    213.88,
+    160
+   ],
+   "stroke": "gray",
+   "width": 1.4,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    215.88,
+    172
+   ],
+   "to": [
+    288,
+    172
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "arrow": "both"
+  },
+  {
+   "type": "text",
+   "at": [
+    251.94,
+    192
+   ],
+   "text": "z = 1.73",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    212
+   ],
+   "text": "불량 4.2%  ·  DPMO 42,000",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    232
+   ],
+   "text": "수율 z = 1.73 → 단기 시그마 약 3.23",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    256
+   ],
+   "text": "개선 후 (관리: 같은 지표로 추적)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "curve",
+   "points": [
+    [
+     40,
+     351.7
+    ],
+    [
+     46,
+     351.5
+    ],
+    [
+     52,
+     351.2
+    ],
+    [
+     58,
+     350.8
+    ],
+    [
+     64,
+     350.2
+    ],
+    [
+     70,
+     349.5
+    ],
+    [
+     76,
+     348.5
+    ],
+    [
+     82,
+     347.1
+    ],
+    [
+     88,
+     345.3
+    ],
+    [
+     94,
+     343.1
+    ],
+    [
+     100,
+     340.3
+    ],
+    [
+     106,
+     337
+    ],
+    [
+     112,
+     333.1
+    ],
+    [
+     118,
+     328.6
+    ],
+    [
+     124,
+     323.5
+    ],
+    [
+     130,
+     318.1
+    ],
+    [
+     136,
+     312.2
+    ],
+    [
+     142,
+     306.3
+    ],
+    [
+     148,
+     300.4
+    ],
+    [
+     154,
+     294.9
+    ],
+    [
+     160,
+     289.9
+    ],
+    [
+     166,
+     285.8
+    ],
+    [
+     172,
+     282.6
+    ],
+    [
+     178,
+     280.7
+    ],
+    [
+     184,
+     280
+    ],
+    [
+     190,
+     280.7
+    ],
+    [
+     196,
+     282.6
+    ],
+    [
+     202,
+     285.8
+    ],
+    [
+     208,
+     290
+    ],
+    [
+     214,
+     295
+    ],
+    [
+     220,
+     300.5
+    ],
+    [
+     226,
+     306.4
+    ],
+    [
+     232,
+     312.3
+    ],
+    [
+     238,
+     318.1
+    ],
+    [
+     244,
+     323.6
+    ],
+    [
+     250,
+     328.7
+    ],
+    [
+     256,
+     333.2
+    ],
+    [
+     262,
+     337.1
+    ],
+    [
+     268,
+     340.4
+    ],
+    [
+     274,
+     343.1
+    ],
+    [
+     280,
+     345.4
+    ],
+    [
+     286,
+     347.1
+    ],
+    [
+     292,
+     348.5
+    ],
+    [
+     298,
+     349.5
+    ],
+    [
+     304,
+     350.3
+    ],
+    [
+     310,
+     350.8
+    ],
+    [
+     316,
+     351.2
+    ],
+    [
+     322,
+     351.5
+    ],
+    [
+     328,
+     351.7
+    ],
+    [
+     334,
+     351.8
+    ]
+   ],
+   "smooth": true,
+   "stroke": "green",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     290,
+     352
+    ],
+    [
+     290,
+     348.1
+    ],
+    [
+     293,
+     348.7
+    ],
+    [
+     296,
+     349.2
+    ],
+    [
+     299,
+     349.6
+    ],
+    [
+     302,
+     350
+    ],
+    [
+     305,
+     350.4
+    ],
+    [
+     308,
+     350.6
+    ],
+    [
+     311,
+     350.9
+    ],
+    [
+     314,
+     351.1
+    ],
+    [
+     317,
+     351.3
+    ],
+    [
+     320,
+     351.4
+    ],
+    [
+     323,
+     351.5
+    ],
+    [
+     326,
+     351.6
+    ],
+    [
+     329,
+     351.7
+    ],
+    [
+     332,
+     351.7
+    ],
+    [
+     335,
+     351.8
+    ],
+    [
+     336,
+     352
+    ]
+   ],
+   "stroke": "rose",
+   "width": 1.6,
+   "fill": "rose",
+   "fillOpacity": 0.9
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    352
+   ],
+   "to": [
+    340,
+    352
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    290,
+    268
+   ],
+   "to": [
+    290,
+    358
+   ],
+   "stroke": "rose",
+   "width": 1.8,
+   "dash": "6 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    290,
+    264
+   ],
+   "text": "규격 상한(USL)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "rose",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    183.95999999999998,
+    276
+   ],
+   "to": [
+    183.95999999999998,
+    352
+   ],
+   "stroke": "green",
+   "width": 1.4,
+   "dash": "3 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    185.95999999999998,
+    364
+   ],
+   "to": [
+    288,
+    364
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "arrow": "both"
+  },
+  {
+   "type": "text",
+   "at": [
+    236.98,
+    384
+   ],
+   "text": "z = 2.41",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    404
+   ],
+   "text": "불량 0.8%  ·  DPMO 8,000",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "rose"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    424
+   ],
+   "text": "수율 z = 2.41 → 단기 시그마 약 3.91",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    462
+   ],
+   "text": "분홍 영역이 USL을 넘는 불량이고, 그 면적이 줄수록",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    482
+   ],
+   "text": "시그마 수준이 올라간다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    514
+   ],
+   "text": "단기 시그마는 장기 1.5σ 이동 관행을 더한 값",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    14,
+    534
+   ],
+   "text": "(실무 관행이며 환산 방식을 밝혀야 함)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
