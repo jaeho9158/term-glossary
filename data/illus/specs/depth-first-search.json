@@ -1,0 +1,674 @@
+{
+ "id": "depth-first-search",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 432,
+ "title": "깊이 우선 탐색: 방문 순서와 되돌아감",
+ "legend": [
+  {
+   "sym": "V",
+   "desc": "정점 수"
+  },
+  {
+   "sym": "E",
+   "desc": "간선 수"
+  },
+  {
+   "sym": "O",
+   "desc": "계산량의 증가 차수(빅오)",
+   "kind": "func"
+  },
+  {
+   "desc": "실선 파랑 화살표는 새 정점으로 가는 진행, 보라 점선은 막혀서 되돌아오는 경로이다. 정점 7개는 모식이다."
+  }
+ ],
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    121.8,
+    76.5
+   ],
+   "to": [
+    89.3,
+    125.8
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    75.1,
+    154.2
+   ],
+   "to": [
+    55.6,
+    209.9
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    85.8,
+    153.8
+   ],
+   "to": [
+    109.4,
+    210.3
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    139.3,
+    75.8
+   ],
+   "to": [
+    179.5,
+    126.7
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    186.3,
+    154.5
+   ],
+   "to": [
+    172.2,
+    209.5
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    197.1,
+    153.2
+   ],
+   "to": [
+    228,
+    211
+   ],
+   "stroke": "blue",
+   "width": 2.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "path",
+   "d": "M63 218 Q84 192 80.9 164.9",
+   "stroke": "violet",
+   "fill": "none",
+   "width": 2,
+   "dash": "5 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     80,
+     157
+    ],
+    [
+     85.1,
+     164.5
+    ],
+    [
+     76.7,
+     165.4
+    ]
+   ],
+   "fill": "violet",
+   "stroke": "violet",
+   "width": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    130,
+    64
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    69
+   ],
+   "text": "A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    80,
+    140
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    80,
+    145
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    190,
+    140
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    190,
+    145
+   ],
+   "text": "C",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    50,
+    226
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    50,
+    231
+   ],
+   "text": "D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    116,
+    226
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    116,
+    231
+   ],
+   "text": "E",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    168,
+    226
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    168,
+    231
+   ],
+   "text": "F",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    236,
+    226
+   ],
+   "r": 15,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    236,
+    231
+   ],
+   "text": "G",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    147,
+    47
+   ],
+   "n": 1,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    63,
+    123
+   ],
+   "n": 2,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    33,
+    209
+   ],
+   "n": 3,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    131,
+    209
+   ],
+   "n": 4,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    207,
+    123
+   ],
+   "n": 5,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    153,
+    209
+   ],
+   "n": 6,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "marker",
+   "at": [
+    236,
+    255
+   ],
+   "n": 7,
+   "r": 9,
+   "size": 13
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    276
+   ],
+   "text": "막힘 → 되돌아감",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "violet",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    50,
+    262
+   ],
+   "to": [
+    50,
+    243
+   ],
+   "stroke": "violet",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    282,
+    18
+   ],
+   "text": "스택",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 252,
+   "y": 80,
+   "w": 60,
+   "h": 36,
+   "stroke": "violet",
+   "width": 1.6,
+   "fill": "violet",
+   "fillOpacity": 0.25
+  },
+  {
+   "type": "text",
+   "at": [
+    282,
+    103
+   ],
+   "text": "D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 252,
+   "y": 116,
+   "w": 60,
+   "h": 36,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue",
+   "fillOpacity": 0.25
+  },
+  {
+   "type": "text",
+   "at": [
+    282,
+    139
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 252,
+   "y": 152,
+   "w": 60,
+   "h": 36,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue",
+   "fillOpacity": 0.25
+  },
+  {
+   "type": "text",
+   "at": [
+    282,
+    175
+   ],
+   "text": "A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    246,
+    188
+   ],
+   "to": [
+    318,
+    188
+   ],
+   "stroke": "fg",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    282,
+    76
+   ],
+   "to": [
+    282,
+    48
+   ],
+   "stroke": "violet",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    282,
+    38
+   ],
+   "text": "D 빠짐",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "violet"
+  },
+  {
+   "type": "text",
+   "at": [
+    288,
+    214
+   ],
+   "text": "되돌아올",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    288,
+    246
+   ],
+   "text": "곳 기억",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    318
+   ],
+   "text": "번호 = 방문 순서: 왼쪽 가지를 끝까지 판 뒤",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    350
+   ],
+   "text": "오른쪽 가지로 넘어간다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    388
+   ],
+   "text": "시간 O(V+E), 최악 공간 O(V)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    414
+   ],
+   "text": "V = 정점 수, E = 간선 수",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}

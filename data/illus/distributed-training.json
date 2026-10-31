@@ -1,0 +1,16 @@
+{
+ "slug": "distributed-training",
+ "title": "분산 학습: 모델을 복제할지 쪼갤지에 따라 병렬화가 나뉜다",
+ "method": "svg",
+ "svg": "assets/illus/distributed-training.svg",
+ "notes": [],
+ "credit": {
+  "author": "논문용어사전",
+  "kind": "original"
+ },
+ "caption": "데이터 병렬은 같은 모델을 장치마다 복제하고 미니배치를 나눠 그래디언트를 all-reduce로 평균 낸다. 파이프라인 병렬은 층 단위로, 텐서 병렬은 텐서(가중치) 단위로 모델을 쪼갠다. 파라미터당 16바이트(가중치 2 + 그래디언트 2 + 옵티마이저 상태 12)이므로 10억 파라미터는 약 16 GB이고, ZeRO로 8개 장치에 나누면 장치당 약 2 GB이다. 링 all-reduce의 장치당 전송량은 2(N−1)/N × 그래디언트 크기이며 N=8, 2 GB이면 3.5 GB이다.",
+ "sources": [
+  "https://termglossary.kr/terms/distributed-training.html"
+ ],
+ "sourceNote": "병렬화 세 방식, 16바이트 분해, ZeRO 분할, 전송량 식은 본문 근거. 장치 4대·층 4개는 모식이다."
+}

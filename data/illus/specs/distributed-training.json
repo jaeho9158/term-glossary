@@ -1,0 +1,1218 @@
+{
+ "id": "distributed-training",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 700,
+ "title": "분산 학습: 데이터 병렬, 파이프라인 병렬, 텐서 병렬",
+ "legend": [
+  {
+   "sym": "N",
+   "desc": "장치 수"
+  },
+  {
+   "sym": "FP16",
+   "desc": "16비트 부동소수점",
+   "kind": "abbr"
+  },
+  {
+   "desc": "메모리 수치는 본문의 가상 예(혼합정밀도+Adam)이다. 같은 색이 반복되면 복제, 조각마다 다른 색이면 분할을 뜻한다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    28
+   ],
+   "text": "데이터 병렬: 모델 복제 + 데이터 분할",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    67,
+    52
+   ],
+   "text": "조각 1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    67,
+    58
+   ],
+   "to": [
+    67,
+    70
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 36,
+   "y": 72,
+   "w": 62,
+   "h": 66,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    67,
+    87
+   ],
+   "text": "GPU1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 44,
+   "y": 92,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 44,
+   "y": 103,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 44,
+   "y": 114,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 44,
+   "y": 125,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    67,
+    138
+   ],
+   "to": [
+    67,
+    150
+   ],
+   "stroke": "muted",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    52
+   ],
+   "text": "조각 2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    145,
+    58
+   ],
+   "to": [
+    145,
+    70
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 114,
+   "y": 72,
+   "w": 62,
+   "h": 66,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    87
+   ],
+   "text": "GPU2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 122,
+   "y": 92,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 122,
+   "y": 103,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 122,
+   "y": 114,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 122,
+   "y": 125,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    145,
+    138
+   ],
+   "to": [
+    145,
+    150
+   ],
+   "stroke": "muted",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    52
+   ],
+   "text": "조각 3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    223,
+    58
+   ],
+   "to": [
+    223,
+    70
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 192,
+   "y": 72,
+   "w": 62,
+   "h": 66,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    87
+   ],
+   "text": "GPU3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 200,
+   "y": 92,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 200,
+   "y": 103,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 200,
+   "y": 114,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 200,
+   "y": 125,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    223,
+    138
+   ],
+   "to": [
+    223,
+    150
+   ],
+   "stroke": "muted",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    301,
+    52
+   ],
+   "text": "조각 4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    301,
+    58
+   ],
+   "to": [
+    301,
+    70
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 270,
+   "y": 72,
+   "w": 62,
+   "h": 66,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    301,
+    87
+   ],
+   "text": "GPU4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 278,
+   "y": 92,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 278,
+   "y": 103,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 278,
+   "y": 114,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 278,
+   "y": 125,
+   "w": 46,
+   "h": 8,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    301,
+    138
+   ],
+   "to": [
+    301,
+    150
+   ],
+   "stroke": "muted",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    67,
+    150
+   ],
+   "to": [
+    301,
+    150
+   ],
+   "stroke": "amber",
+   "width": 2,
+   "arrow": "both"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    172
+   ],
+   "text": "all-reduce: 그래디언트 평균",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    208
+   ],
+   "text": "파이프라인 병렬: 층 단위 분할",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 36,
+   "y": 220,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    67,
+    235
+   ],
+   "text": "GPU1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 44,
+   "y": 244,
+   "w": 46,
+   "h": 22,
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 3,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    67,
+    260
+   ],
+   "text": "층 1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    99,
+    248
+   ],
+   "to": [
+    113,
+    248
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 114,
+   "y": 220,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    235
+   ],
+   "text": "GPU2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 122,
+   "y": 244,
+   "w": 46,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.2,
+   "radius": 3,
+   "fill": "green",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    260
+   ],
+   "text": "층 2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    177,
+    248
+   ],
+   "to": [
+    191,
+    248
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 192,
+   "y": 220,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    235
+   ],
+   "text": "GPU3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 200,
+   "y": 244,
+   "w": 46,
+   "h": 22,
+   "stroke": "amber",
+   "width": 1.2,
+   "radius": 3,
+   "fill": "amber",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    260
+   ],
+   "text": "층 3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    255,
+    248
+   ],
+   "to": [
+    269,
+    248
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 270,
+   "y": 220,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    301,
+    235
+   ],
+   "text": "GPU4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 278,
+   "y": 244,
+   "w": 46,
+   "h": 22,
+   "stroke": "violet",
+   "width": 1.2,
+   "radius": 3,
+   "fill": "violet",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    301,
+    260
+   ],
+   "text": "층 4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    298
+   ],
+   "text": "층 순서대로 장치를 거침",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    326
+   ],
+   "text": "텐서 병렬: 층 내부 행렬을 분할",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 36,
+   "y": 338,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    67,
+    353
+   ],
+   "text": "GPU1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 56,
+   "y": 358,
+   "w": 22,
+   "h": 28,
+   "stroke": "blue",
+   "width": 1.2,
+   "radius": 2,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 114,
+   "y": 338,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    353
+   ],
+   "text": "GPU2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 134,
+   "y": 358,
+   "w": 22,
+   "h": 28,
+   "stroke": "green",
+   "width": 1.2,
+   "radius": 2,
+   "fill": "green",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 192,
+   "y": 338,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    223,
+    353
+   ],
+   "text": "GPU3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 212,
+   "y": 358,
+   "w": 22,
+   "h": 28,
+   "stroke": "amber",
+   "width": 1.2,
+   "radius": 2,
+   "fill": "amber",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 270,
+   "y": 338,
+   "w": 62,
+   "h": 56,
+   "stroke": "fg",
+   "width": 1.6,
+   "radius": 5,
+   "fill": "gray-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    301,
+    353
+   ],
+   "text": "GPU4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 290,
+   "y": 358,
+   "w": 22,
+   "h": 28,
+   "stroke": "violet",
+   "width": 1.2,
+   "radius": 2,
+   "fill": "violet",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    466
+   ],
+   "text": "파라미터당 16바이트",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 476,
+   "w": 40,
+   "h": 20,
+   "stroke": "blue",
+   "width": 1.2,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 60,
+   "y": 476,
+   "w": 40,
+   "h": 20,
+   "stroke": "green",
+   "width": 1.2,
+   "fill": "green",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 100,
+   "y": 476,
+   "w": 240,
+   "h": 20,
+   "stroke": "violet",
+   "width": 1.2,
+   "fill": "violet",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 24,
+   "y": 510,
+   "w": 10,
+   "h": 10,
+   "stroke": "blue",
+   "width": 1.2,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    520
+   ],
+   "text": "가중치(FP16) 2바이트",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 24,
+   "y": 530,
+   "w": 10,
+   "h": 10,
+   "stroke": "green",
+   "width": 1.2,
+   "fill": "green",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    540
+   ],
+   "text": "그래디언트(FP16) 2바이트",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 24,
+   "y": 550,
+   "w": 10,
+   "h": 10,
+   "stroke": "violet",
+   "width": 1.2,
+   "fill": "violet",
+   "fillOpacity": 0.55
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    560
+   ],
+   "text": "옵티마이저 상태 12바이트",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    592
+   ],
+   "text": "10억 파라미터 ≈ 16 GB",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    612
+   ],
+   "text": "ZeRO 8분할 시 장치당 ≈ 2 GB",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    640
+   ],
+   "text": "링 all-reduce 장치당 전송량",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    660
+   ],
+   "text": "2(N−1)/N × 그래디언트 크기",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    680
+   ],
+   "text": "N=8, 2 GB → 3.5 GB",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "accent",
+   "weight": 700
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
