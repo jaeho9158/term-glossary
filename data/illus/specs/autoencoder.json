@@ -1,0 +1,1631 @@
+{
+ "id": "autoencoder",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 464,
+ "title": "오토인코더: 병목 구조와 재구성 오차",
+ "legend": [
+  {
+   "sym": "x",
+   "desc": "입력",
+   "kind": "var"
+  },
+  {
+   "sym": "x̂",
+   "desc": "복원된 출력(입력 재구성)",
+   "kind": "var"
+  },
+  {
+   "desc": "원은 노드(뉴런)이고 선은 층 사이의 연결이다. 노드 수는 설명을 위해 줄인 개략 값이다. PCA는 주성분 분석(principal component analysis)이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    85
+   ],
+   "to": [
+    112,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    85
+   ],
+   "to": [
+    112,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    85
+   ],
+   "to": [
+    112,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    85
+   ],
+   "to": [
+    112,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    107
+   ],
+   "to": [
+    112,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    107
+   ],
+   "to": [
+    112,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    107
+   ],
+   "to": [
+    112,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    107
+   ],
+   "to": [
+    112,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    129
+   ],
+   "to": [
+    112,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    129
+   ],
+   "to": [
+    112,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    129
+   ],
+   "to": [
+    112,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    129
+   ],
+   "to": [
+    112,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    151
+   ],
+   "to": [
+    112,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    151
+   ],
+   "to": [
+    112,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    151
+   ],
+   "to": [
+    112,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    151
+   ],
+   "to": [
+    112,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    173
+   ],
+   "to": [
+    112,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    173
+   ],
+   "to": [
+    112,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    173
+   ],
+   "to": [
+    112,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    173
+   ],
+   "to": [
+    112,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    195
+   ],
+   "to": [
+    112,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    195
+   ],
+   "to": [
+    112,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    195
+   ],
+   "to": [
+    112,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    44,
+    195
+   ],
+   "to": [
+    112,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    107
+   ],
+   "to": [
+    180,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    107
+   ],
+   "to": [
+    180,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    129
+   ],
+   "to": [
+    180,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    129
+   ],
+   "to": [
+    180,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    151
+   ],
+   "to": [
+    180,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    151
+   ],
+   "to": [
+    180,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    173
+   ],
+   "to": [
+    180,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    173
+   ],
+   "to": [
+    180,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    129
+   ],
+   "to": [
+    248,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    129
+   ],
+   "to": [
+    248,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    129
+   ],
+   "to": [
+    248,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    129
+   ],
+   "to": [
+    248,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    151
+   ],
+   "to": [
+    248,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    151
+   ],
+   "to": [
+    248,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    151
+   ],
+   "to": [
+    248,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    151
+   ],
+   "to": [
+    248,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    107
+   ],
+   "to": [
+    316,
+    85
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    107
+   ],
+   "to": [
+    316,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    107
+   ],
+   "to": [
+    316,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    107
+   ],
+   "to": [
+    316,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    107
+   ],
+   "to": [
+    316,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    107
+   ],
+   "to": [
+    316,
+    195
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    129
+   ],
+   "to": [
+    316,
+    85
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    129
+   ],
+   "to": [
+    316,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    129
+   ],
+   "to": [
+    316,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    129
+   ],
+   "to": [
+    316,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    129
+   ],
+   "to": [
+    316,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    129
+   ],
+   "to": [
+    316,
+    195
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    151
+   ],
+   "to": [
+    316,
+    85
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    151
+   ],
+   "to": [
+    316,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    151
+   ],
+   "to": [
+    316,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    151
+   ],
+   "to": [
+    316,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    151
+   ],
+   "to": [
+    316,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    151
+   ],
+   "to": [
+    316,
+    195
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    173
+   ],
+   "to": [
+    316,
+    85
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    173
+   ],
+   "to": [
+    316,
+    107
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    173
+   ],
+   "to": [
+    316,
+    129
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    173
+   ],
+   "to": [
+    316,
+    151
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    173
+   ],
+   "to": [
+    316,
+    173
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    248,
+    173
+   ],
+   "to": [
+    316,
+    195
+   ],
+   "stroke": "gray",
+   "width": 0.7,
+   "opacity": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    44,
+    85
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    44,
+    107
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    44,
+    129
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    44,
+    151
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    44,
+    173
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    44,
+    195
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    112,
+    107
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    112,
+    129
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    112,
+    151
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    112,
+    173
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    129
+   ],
+   "r": 7,
+   "stroke": "amber",
+   "width": 1.4,
+   "fill": "amber",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    151
+   ],
+   "r": 7,
+   "stroke": "amber",
+   "width": 1.4,
+   "fill": "amber",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    248,
+    107
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    248,
+    129
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    248,
+    151
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    248,
+    173
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    316,
+    85
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    316,
+    107
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    316,
+    129
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    316,
+    151
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    316,
+    173
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    316,
+    195
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    34,
+    60
+   ],
+   "to": [
+    190,
+    60
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    112,
+    50
+   ],
+   "text": "인코더(압축)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    206,
+    60
+   ],
+   "to": [
+    326,
+    60
+   ],
+   "stroke": "green",
+   "width": 2
+  },
+  {
+   "type": "text",
+   "at": [
+    266,
+    50
+   ],
+   "text": "디코더(복원)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    44,
+    224
+   ],
+   "text": "입력 x",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    316,
+    224
+   ],
+   "text": "복원 x̂",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    196
+   ],
+   "text": "병목",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    216
+   ],
+   "text": "잠재공간·핵심 특징",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     316,
+     234
+    ],
+    [
+     316,
+     276
+    ],
+    [
+     44,
+     276
+    ]
+   ],
+   "stroke": "limit",
+   "width": 1.8,
+   "dash": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     44,
+     276
+    ],
+    [
+     44,
+     246
+    ]
+   ],
+   "stroke": "limit",
+   "width": 1.8,
+   "dash": true
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     44,
+     238
+    ],
+    [
+     47.6,
+     246.4
+    ],
+    [
+     40.4,
+     246.4
+    ]
+   ],
+   "stroke": "limit",
+   "width": 0.5,
+   "fill": "limit"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    268
+   ],
+   "text": "재구성 오차 = x와 x̂의 차이",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "limit",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    300
+   ],
+   "text": "오차를 줄이도록 반복 학습",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "limit"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    346
+   ],
+   "text": "정답 레이블이 필요 없다(비지도 학습).",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    368
+   ],
+   "text": "병목이 없으면 입력을 그대로 복사하는",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    388
+   ],
+   "text": "항등함수가 될 수 있다.",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    424
+   ],
+   "text": "예: 병목 30차원(Hinton·Salakhutdinov 2006)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    444
+   ],
+   "text": "같은 차원 PCA 30성분보다 재구성 오차가 낮았다.",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  }
+ ]
+}

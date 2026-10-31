@@ -1,0 +1,1469 @@
+{
+ "id": "consistent-hashing",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 512,
+ "title": "일관 해싱: 해시 링과 서버 추가",
+ "legend": [
+  {
+   "desc": "링 위의 점은 데이터 키, 원은 서버이다. 키는 시계 방향으로 가장 가까운 서버에 저장된다. k1~k6과 서버 A~D는 설명용 예시이다."
+  },
+  {
+   "desc": "막대의 색칠한 길이는 재분배 비율을 나타낸다. 일관 해싱은 1/N 수준이고, 나머지 연산은 서버 수가 바뀌면 거의 전부 옮겨진다. 막대 길이는 서버 4대 기준의 개략 비교이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    180,
+    150
+   ],
+   "r": 80,
+   "stroke": "none",
+   "width": 0,
+   "fill": "gray-f",
+   "fillOpacity": 0.25
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     244.3,
+     73.4
+    ],
+    [
+     249.7,
+     78.3
+    ],
+    [
+     254.7,
+     83.5
+    ],
+    [
+     259.3,
+     89.1
+    ],
+    [
+     263.5,
+     95
+    ],
+    [
+     267.3,
+     101.3
+    ],
+    [
+     270.6,
+     107.7
+    ],
+    [
+     273.5,
+     114.4
+    ],
+    [
+     275.8,
+     121.3
+    ],
+    [
+     277.6,
+     128.4
+    ],
+    [
+     278.9,
+     135.5
+    ],
+    [
+     279.7,
+     142.7
+    ],
+    [
+     280,
+     150
+    ],
+    [
+     279.7,
+     157.3
+    ],
+    [
+     278.9,
+     164.5
+    ],
+    [
+     277.6,
+     171.6
+    ],
+    [
+     275.8,
+     178.7
+    ],
+    [
+     273.5,
+     185.6
+    ],
+    [
+     270.6,
+     192.3
+    ],
+    [
+     267.3,
+     198.7
+    ],
+    [
+     263.5,
+     205
+    ],
+    [
+     259.3,
+     210.9
+    ],
+    [
+     254.7,
+     216.5
+    ],
+    [
+     249.7,
+     221.7
+    ],
+    [
+     244.3,
+     226.6
+    ]
+   ],
+   "stroke": "gray",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     214.2,
+     244
+    ],
+    [
+     212.1,
+     244.7
+    ],
+    [
+     210.1,
+     245.4
+    ],
+    [
+     208,
+     246
+    ],
+    [
+     205.9,
+     246.6
+    ],
+    [
+     203.8,
+     247.1
+    ],
+    [
+     201.6,
+     247.6
+    ],
+    [
+     199.5,
+     248.1
+    ],
+    [
+     197.4,
+     248.5
+    ],
+    [
+     195.2,
+     248.8
+    ],
+    [
+     193.1,
+     249.1
+    ],
+    [
+     190.9,
+     249.4
+    ],
+    [
+     188.7,
+     249.6
+    ],
+    [
+     186.5,
+     249.8
+    ],
+    [
+     184.4,
+     249.9
+    ],
+    [
+     182.2,
+     250
+    ],
+    [
+     180,
+     250
+    ],
+    [
+     177.8,
+     250
+    ],
+    [
+     175.6,
+     249.9
+    ],
+    [
+     173.5,
+     249.8
+    ],
+    [
+     171.3,
+     249.6
+    ],
+    [
+     169.1,
+     249.4
+    ],
+    [
+     166.9,
+     249.1
+    ],
+    [
+     164.8,
+     248.8
+    ],
+    [
+     162.6,
+     248.5
+    ]
+   ],
+   "stroke": "gray",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     130,
+     236.6
+    ],
+    [
+     127.8,
+     235.3
+    ],
+    [
+     125.7,
+     233.9
+    ],
+    [
+     123.5,
+     232.5
+    ],
+    [
+     121.5,
+     231.1
+    ],
+    [
+     119.4,
+     229.6
+    ],
+    [
+     117.4,
+     228
+    ],
+    [
+     115.4,
+     226.4
+    ],
+    [
+     113.5,
+     224.7
+    ],
+    [
+     111.6,
+     223
+    ],
+    [
+     109.8,
+     221.2
+    ],
+    [
+     108,
+     219.4
+    ],
+    [
+     106.3,
+     217.6
+    ],
+    [
+     104.6,
+     215.7
+    ],
+    [
+     102.9,
+     213.7
+    ],
+    [
+     101.3,
+     211.7
+    ],
+    [
+     99.8,
+     209.7
+    ],
+    [
+     98.3,
+     207.7
+    ],
+    [
+     96.9,
+     205.6
+    ],
+    [
+     95.5,
+     203.4
+    ],
+    [
+     94.1,
+     201.3
+    ],
+    [
+     92.9,
+     199.1
+    ],
+    [
+     91.6,
+     196.8
+    ],
+    [
+     90.5,
+     194.6
+    ],
+    [
+     89.4,
+     192.3
+    ]
+   ],
+   "stroke": "gray",
+   "width": 2.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     80.4,
+     158.7
+    ],
+    [
+     80,
+     150.4
+    ],
+    [
+     80.3,
+     142
+    ],
+    [
+     81.3,
+     133.7
+    ],
+    [
+     83,
+     125.5
+    ],
+    [
+     85.4,
+     117.5
+    ],
+    [
+     88.5,
+     109.7
+    ],
+    [
+     92.2,
+     102.2
+    ],
+    [
+     96.5,
+     95
+    ],
+    [
+     101.3,
+     88.3
+    ],
+    [
+     106.8,
+     81.9
+    ],
+    [
+     112.7,
+     76
+    ],
+    [
+     119.1,
+     70.7
+    ],
+    [
+     126,
+     65.9
+    ],
+    [
+     133.2,
+     61.6
+    ],
+    [
+     140.7,
+     58
+    ],
+    [
+     148.5,
+     55.1
+    ],
+    [
+     156.6,
+     52.8
+    ],
+    [
+     164.8,
+     51.2
+    ],
+    [
+     173.1,
+     50.2
+    ],
+    [
+     181.5,
+     50
+    ],
+    [
+     189.8,
+     50.5
+    ],
+    [
+     198.1,
+     51.6
+    ],
+    [
+     206.2,
+     53.5
+    ],
+    [
+     214.2,
+     56
+    ]
+   ],
+   "stroke": "gray",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    34
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    180,
+    44
+   ],
+   "to": [
+    180,
+    56
+   ],
+   "stroke": "fg",
+   "width": 1.6
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    130
+   ],
+   "text": "시계 방향으로",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    150
+   ],
+   "text": "가장 가까운",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    170
+   ],
+   "text": "서버에 저장",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     214.2,
+     244
+    ],
+    [
+     209.2,
+     245.6
+    ],
+    [
+     204.2,
+     247
+    ],
+    [
+     199.1,
+     248.2
+    ],
+    [
+     193.9,
+     249
+    ],
+    [
+     188.7,
+     249.6
+    ],
+    [
+     183.5,
+     249.9
+    ],
+    [
+     178.3,
+     250
+    ],
+    [
+     173,
+     249.8
+    ],
+    [
+     167.8,
+     249.3
+    ],
+    [
+     162.6,
+     248.5
+    ]
+   ],
+   "stroke": "amber",
+   "width": 6
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     165.6,
+     68.3
+    ],
+    [
+     171.3,
+     67.5
+    ],
+    [
+     177.1,
+     67.1
+    ],
+    [
+     182.9,
+     67.1
+    ],
+    [
+     188.7,
+     67.5
+    ],
+    [
+     194.4,
+     68.3
+    ],
+    [
+     200.1,
+     69.5
+    ],
+    [
+     205.6,
+     71.1
+    ],
+    [
+     211.1,
+     73
+    ],
+    [
+     216.4,
+     75.4
+    ],
+    [
+     221.5,
+     78.1
+    ]
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     221.5,
+     78.1
+    ],
+    [
+     213.9,
+     77.5
+    ],
+    [
+     216.7,
+     72.2
+    ]
+   ],
+   "stroke": "gray",
+   "width": 0.5,
+   "fill": "gray"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    162.6,
+    51.5
+   ],
+   "r": 4.5,
+   "fill": "muted",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    159.7,
+    38.8
+   ],
+   "text": "k1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     263,
+     150
+    ],
+    [
+     262.5,
+     158.7
+    ],
+    [
+     261.2,
+     167.3
+    ],
+    [
+     258.9,
+     175.6
+    ],
+    [
+     255.8,
+     183.8
+    ],
+    [
+     251.9,
+     191.5
+    ],
+    [
+     247.1,
+     198.8
+    ],
+    [
+     241.7,
+     205.5
+    ],
+    [
+     235.5,
+     211.7
+    ],
+    [
+     228.8,
+     217.1
+    ],
+    [
+     221.5,
+     221.9
+    ]
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     221.5,
+     221.9
+    ],
+    [
+     225.7,
+     215.5
+    ],
+    [
+     229,
+     220.6
+    ]
+   ],
+   "stroke": "gray",
+   "width": 0.5,
+   "fill": "gray"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    280,
+    150
+   ],
+   "r": 4.5,
+   "fill": "muted",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    297,
+    154
+   ],
+   "text": "k2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     245.4,
+     201.1
+    ],
+    [
+     243.4,
+     203.6
+    ],
+    [
+     241.3,
+     206
+    ],
+    [
+     239.1,
+     208.3
+    ],
+    [
+     236.8,
+     210.5
+    ],
+    [
+     234.5,
+     212.6
+    ],
+    [
+     232,
+     214.7
+    ],
+    [
+     229.5,
+     216.6
+    ],
+    [
+     226.9,
+     218.5
+    ],
+    [
+     224.2,
+     220.2
+    ],
+    [
+     221.5,
+     221.9
+    ]
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     221.5,
+     221.9
+    ],
+    [
+     225.8,
+     215.6
+    ],
+    [
+     229,
+     220.7
+    ]
+   ],
+   "stroke": "gray",
+   "width": 0.5,
+   "fill": "gray"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    258.8,
+    211.6
+   ],
+   "r": 4.5,
+   "fill": "muted",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    272.2,
+    226
+   ],
+   "text": "k3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     187.2,
+     232.7
+    ],
+    [
+     183.6,
+     232.9
+    ],
+    [
+     180,
+     233
+    ],
+    [
+     176.4,
+     232.9
+    ],
+    [
+     172.8,
+     232.7
+    ],
+    [
+     169.2,
+     232.3
+    ],
+    [
+     165.6,
+     231.7
+    ],
+    [
+     162,
+     231
+    ],
+    [
+     158.5,
+     230.2
+    ],
+    [
+     155,
+     229.2
+    ],
+    [
+     151.6,
+     228
+    ]
+   ],
+   "stroke": "amber",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     151.6,
+     228
+    ],
+    [
+     159.2,
+     227.5
+    ],
+    [
+     157.2,
+     233.2
+    ]
+   ],
+   "stroke": "amber",
+   "width": 0.5,
+   "fill": "amber"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    188.7,
+    249.6
+   ],
+   "r": 4.5,
+   "fill": "amber",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    190.2,
+    270.6
+   ],
+   "text": "k4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     116.4,
+     203.4
+    ],
+    [
+     114.2,
+     200.5
+    ],
+    [
+     112,
+     197.6
+    ],
+    [
+     110,
+     194.6
+    ],
+    [
+     108.1,
+     191.5
+    ],
+    [
+     106.4,
+     188.3
+    ],
+    [
+     104.8,
+     185.1
+    ],
+    [
+     103.3,
+     181.8
+    ],
+    [
+     102,
+     178.4
+    ],
+    [
+     100.8,
+     175
+    ],
+    [
+     99.8,
+     171.5
+    ]
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     99.8,
+     171.5
+    ],
+    [
+     104.6,
+     177.4
+    ],
+    [
+     98.8,
+     179.1
+    ]
+   ],
+   "stroke": "gray",
+   "width": 0.5,
+   "fill": "gray"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    103.4,
+    214.3
+   ],
+   "r": 4.5,
+   "fill": "muted",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    90.4,
+    229.2
+   ],
+   "text": "k5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     108.1,
+     108.5
+    ],
+    [
+     115.5,
+     97.8
+    ],
+    [
+     124.5,
+     88.3
+    ],
+    [
+     134.8,
+     80.4
+    ],
+    [
+     146.2,
+     74.2
+    ],
+    [
+     158.5,
+     69.8
+    ],
+    [
+     171.3,
+     67.5
+    ],
+    [
+     184.3,
+     67.1
+    ],
+    [
+     197.3,
+     68.8
+    ],
+    [
+     209.7,
+     72.5
+    ],
+    [
+     221.5,
+     78.1
+    ]
+   ],
+   "stroke": "gray",
+   "width": 1.2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     221.5,
+     78.1
+    ],
+    [
+     213.9,
+     77.8
+    ],
+    [
+     216.5,
+     72.4
+    ]
+   ],
+   "stroke": "gray",
+   "width": 0.5,
+   "fill": "gray"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    93.4,
+    100
+   ],
+   "r": 4.5,
+   "fill": "muted",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    78.7,
+    95.5
+   ],
+   "text": "k6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    230,
+    63.4
+   ],
+   "r": 15,
+   "stroke": "blue",
+   "width": 2,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    67.9
+   ],
+   "text": "A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    230,
+    236.6
+   ],
+   "r": 15,
+   "stroke": "blue",
+   "width": 2,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    241.1
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    83.4,
+    175.9
+   ],
+   "r": 15,
+   "stroke": "blue",
+   "width": 2,
+   "fill": "blue-f",
+   "fillOpacity": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    83.4,
+    180.4
+   ],
+   "text": "C",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    145.8,
+    244
+   ],
+   "r": 15,
+   "stroke": "green",
+   "width": 2,
+   "fill": "green",
+   "fillOpacity": 0.35
+  },
+  {
+   "type": "text",
+   "at": [
+    145.8,
+    248.5
+   ],
+   "text": "D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    292
+   ],
+   "text": "서버 D를 B와 C 사이에 추가",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "green"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    314
+   ],
+   "text": "B~D 구간의 키 k4만 C에서 D로 이동",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    336
+   ],
+   "text": "나머지 키 k1·k2·k3·k5·k6은 그대로",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    372
+   ],
+   "text": "재분배되는 데이터 비율 (서버 4대 기준)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 386,
+   "w": 320,
+   "h": 18,
+   "stroke": "gray",
+   "width": 1,
+   "fill": "gray-f"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 386,
+   "w": 80,
+   "h": 18,
+   "stroke": "green",
+   "width": 1,
+   "fill": "green",
+   "fillOpacity": 0.45
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    424
+   ],
+   "text": "일관 해싱: ≈ 1/N",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 438,
+   "w": 320,
+   "h": 18,
+   "stroke": "gray",
+   "width": 1,
+   "fill": "gray-f"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 438,
+   "w": 296,
+   "h": 18,
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose",
+   "fillOpacity": 0.45
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    476
+   ],
+   "text": "나머지 연산(번호 % 서버 수):",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    496
+   ],
+   "text": "3대에서 4대로 늘면 거의 전부 이동",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit"
+  }
+ ]
+}
