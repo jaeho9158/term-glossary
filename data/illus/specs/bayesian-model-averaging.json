@@ -1,0 +1,518 @@
+{
+ "id": "bayesian-model-averaging",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 476,
+ "title": "베이즈 모형 평균: 모형 확률과 변수 포함 확률",
+ "legend": [
+  {
+   "sym": "P(M|D)",
+   "desc": "데이터 D가 주어졌을 때 모형 M의 사후확률"
+  },
+  {
+   "sym": "BIC",
+   "desc": "베이즈 정보 기준",
+   "kind": "abbr"
+  },
+  {
+   "sym": "PIP",
+   "desc": "사후포함확률",
+   "kind": "abbr"
+  },
+  {
+   "sym": "x1, x2",
+   "desc": "후보 변수",
+   "kind": "note"
+  },
+  {
+   "desc": "모형 행의 채운 칸이 그 모형에 들어간 변수이다. 수치는 본문의 가상 예이다. 막대 길이의 눈금은 위(모형 확률)와 아래(PIP)가 다르다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    24
+   ],
+   "text": "모형별 BIC와 사후모형확률",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    46
+   ],
+   "text": "P(M|D) ∝ exp(−BIC/2)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    78
+   ],
+   "text": "모형",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    78
+   ],
+   "text": "BIC",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    144,
+    78
+   ],
+   "text": "x1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted",
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    176,
+    78
+   ],
+   "text": "x2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted",
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    210,
+    78
+   ],
+   "text": "확률",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    116
+   ],
+   "text": "M1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    116
+   ],
+   "text": "200.0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 130,
+   "y": 98,
+   "w": 28,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 162,
+   "y": 98,
+   "w": 28,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "bg",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 212,
+   "y": 100,
+   "w": 68,
+   "h": 24,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "accent",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    286,
+    118
+   ],
+   "text": "0.622",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    156
+   ],
+   "text": "M2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    156
+   ],
+   "text": "201.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 130,
+   "y": 138,
+   "w": 28,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 162,
+   "y": 138,
+   "w": 28,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 212,
+   "y": 140,
+   "w": 32,
+   "h": 24,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "accent",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    158
+   ],
+   "text": "0.294",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    196
+   ],
+   "text": "M3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    70,
+    196
+   ],
+   "text": "204.0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 130,
+   "y": 178,
+   "w": 28,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "bg",
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 162,
+   "y": 178,
+   "w": 28,
+   "h": 28,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue",
+   "fillOpacity": 0.55
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 212,
+   "y": 180,
+   "w": 9,
+   "h": 24,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "accent",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    227,
+    198
+   ],
+   "text": "0.084",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    238
+   ],
+   "text": "변수별 사후포함확률 (PIP)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    260
+   ],
+   "text": "포함한 모형의 확률만 합산",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    300
+   ],
+   "text": "x1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 50,
+   "y": 282,
+   "w": 220,
+   "h": 26,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "blue",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    276,
+    301
+   ],
+   "text": "0.916",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    50,
+    328
+   ],
+   "text": "0.622 + 0.294",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    366
+   ],
+   "text": "x2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 50,
+   "y": 348,
+   "w": 91,
+   "h": 26,
+   "stroke": "fg",
+   "width": 1.4,
+   "fill": "amber",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    147,
+    367
+   ],
+   "text": "0.378",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    50,
+    394
+   ],
+   "text": "0.294 + 0.084",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    424
+   ],
+   "text": "M1만 고르면 x2의 0.378은 버려진다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "amber"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    454
+   ],
+   "text": "예측·계수 = 각 모형 값 × 확률의 합",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700,
+   "color": "accent"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
