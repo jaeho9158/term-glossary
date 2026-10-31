@@ -1,0 +1,1681 @@
+{
+ "id": "dijkstra-algorithm",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 714,
+ "title": "다익스트라 알고리즘: 최근접 미확정 노드를 확정하며 거리 갱신",
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    28,
+    18
+   ],
+   "r": 8,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    42,
+    23
+   ],
+   "text": "확정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    104,
+    18
+   ],
+   "r": 8,
+   "stroke": "violet",
+   "width": 3,
+   "fill": "none"
+  },
+  {
+   "type": "text",
+   "at": [
+    118,
+    23
+   ],
+   "text": "이번에 확정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    226,
+    18
+   ],
+   "r": 8,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "none"
+  },
+  {
+   "type": "text",
+   "at": [
+    240,
+    23
+   ],
+   "text": "미확정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    54
+   ],
+   "text": "① 시작: 출발 S만 거리 0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    116
+   ],
+   "to": [
+    125,
+    104
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    79.03015430292237,
+    104.09864441334095
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    116
+   ],
+   "to": [
+    125,
+    168
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    86.0492151008313,
+    137.5023049235772
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    104
+   ],
+   "to": [
+    125,
+    168
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    136,
+    141
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    104
+   ],
+   "to": [
+    235,
+    104
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    98
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    168
+   ],
+   "to": [
+    235,
+    168
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    162
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    235,
+    104
+   ],
+   "to": [
+    324,
+    136
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    283.22179536785694,
+    114.64875663314794
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    235,
+    168
+   ],
+   "to": [
+    324,
+    136
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    275.77820463214306,
+    146.64875663314794
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    36,
+    116
+   ],
+   "r": 14,
+   "stroke": "violet",
+   "width": 3.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    121
+   ],
+   "text": "S",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    94
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    125,
+    104
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    109
+   ],
+   "text": "A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    82
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    125,
+    168
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    173
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    200
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    235,
+    104
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    109
+   ],
+   "text": "C",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    82
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    235,
+    168
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    173
+   ],
+   "text": "D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    200
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    324,
+    136
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    141
+   ],
+   "text": "E",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    114
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    236
+   ],
+   "text": "② S 확정 → 이웃 A, B 거리 갱신",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    298
+   ],
+   "to": [
+    125,
+    286
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    79.03015430292237,
+    286.09864441334093
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    298
+   ],
+   "to": [
+    125,
+    350
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    86.0492151008313,
+    319.5023049235772
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    286
+   ],
+   "to": [
+    125,
+    350
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    136,
+    323
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    286
+   ],
+   "to": [
+    235,
+    286
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    280
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    350
+   ],
+   "to": [
+    235,
+    350
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    344
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    235,
+    286
+   ],
+   "to": [
+    324,
+    318
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    283.22179536785694,
+    296.6487566331479
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    235,
+    350
+   ],
+   "to": [
+    324,
+    318
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    275.77820463214306,
+    328.6487566331479
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    36,
+    298
+   ],
+   "r": 14,
+   "stroke": "blue",
+   "width": 1.8,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    303
+   ],
+   "text": "S",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    276
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    125,
+    286
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    291
+   ],
+   "text": "A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    115,
+    264
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    129,
+    264
+   ],
+   "text": "→",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    264
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    125,
+    350
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    355
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    115,
+    382
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    129,
+    382
+   ],
+   "text": "→",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    382
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    235,
+    286
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    291
+   ],
+   "text": "C",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    264
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    235,
+    350
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    355
+   ],
+   "text": "D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    382
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    324,
+    318
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    323
+   ],
+   "text": "E",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    296
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    418
+   ],
+   "text": "③ 미확정 중 최소 A(2) 확정 → B, C 갱신",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    480
+   ],
+   "to": [
+    125,
+    468
+   ],
+   "stroke": "blue",
+   "width": 4
+  },
+  {
+   "type": "text",
+   "at": [
+    79.03015430292237,
+    468.09864441334093
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    36,
+    480
+   ],
+   "to": [
+    125,
+    532
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    86.0492151008313,
+    501.5023049235772
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    468
+   ],
+   "to": [
+    125,
+    532
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    136,
+    505
+   ],
+   "text": "1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    468
+   ],
+   "to": [
+    235,
+    468
+   ],
+   "stroke": "amber",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    462
+   ],
+   "text": "4",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    125,
+    532
+   ],
+   "to": [
+    235,
+    532
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    526
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    235,
+    468
+   ],
+   "to": [
+    324,
+    500
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    283.22179536785694,
+    478.6487566331479
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    235,
+    532
+   ],
+   "to": [
+    324,
+    500
+   ],
+   "stroke": "gray",
+   "width": 1.4
+  },
+  {
+   "type": "text",
+   "at": [
+    275.77820463214306,
+    510.6487566331479
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    36,
+    480
+   ],
+   "r": 14,
+   "stroke": "blue",
+   "width": 1.8,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    485
+   ],
+   "text": "S",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    36,
+    458
+   ],
+   "text": "0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    125,
+    468
+   ],
+   "r": 14,
+   "stroke": "violet",
+   "width": 3.2,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    473
+   ],
+   "text": "A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    446
+   ],
+   "text": "2",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "blue-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    125,
+    532
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    125,
+    537
+   ],
+   "text": "B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    115,
+    564
+   ],
+   "text": "5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    129,
+    564
+   ],
+   "text": "→",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    145,
+    564
+   ],
+   "text": "3",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    235,
+    468
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    473
+   ],
+   "text": "C",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    225,
+    446
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    239,
+    446
+   ],
+   "text": "→",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    255,
+    446
+   ],
+   "text": "6",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    235,
+    532
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    537
+   ],
+   "text": "D",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    235,
+    564
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    324,
+    500
+   ],
+   "r": 14,
+   "stroke": "gray",
+   "width": 1.6,
+   "fill": "bg"
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    505
+   ],
+   "text": "E",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    324,
+    478
+   ],
+   "text": "∞",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted",
+   "weight": 400
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    604
+   ],
+   "text": "계산 시간(|V| 노드 수, |E| 간선 수)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    630
+   ],
+   "text": "배열: Θ(|V|²)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    650
+   ],
+   "text": "이진 힙: Θ((|E|+|V|) log |V|)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    670
+   ],
+   "text": "피보나치 힙: Θ(|E|+|V| log |V|)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    698
+   ],
+   "text": "가중치가 0 이상이어야 함 · 음수면 벨먼-포드 O(|V|·|E|)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose-t"
+  }
+ ],
+ "subScale": 0.92,
+ "legend": [
+  {
+   "sym": "∞",
+   "desc": "아직 경로를 찾지 못한 상태의 거리",
+   "kind": "const"
+  },
+  {
+   "sym": "S",
+   "desc": "출발 노드",
+   "kind": "term"
+  },
+  {
+   "desc": "간선 옆 숫자는 가중치(예시값)이고, 노드 위 숫자는 지금까지 찾은 거리다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
