@@ -1,0 +1,734 @@
+{
+ "id": "forward-kinematics",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 410,
+ "title": "순기구학: 관절각을 차례로 쌓아 말단 위치를 정한다",
+ "subScale": 0.92,
+ "legend": [
+  {
+   "sym": "θ_{i}",
+   "desc": "관절 i의 각도(그림의 값은 설명용 예시)",
+   "kind": "var"
+  },
+  {
+   "sym": "T_{i}",
+   "desc": "링크 i가 만드는 동차변환행렬(homogeneous transformation)",
+   "kind": "var"
+  },
+  {
+   "sym": "x_{i}, y_{i}",
+   "desc": "기준 좌표축(x_{0}, y_{0}는 베이스)",
+   "kind": "var"
+  },
+  {
+   "desc": "평면 3링크 팔은 본문 개념을 보이기 위한 단순화이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "elements": [
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     34,
+     268
+    ],
+    [
+     78,
+     268
+    ],
+    [
+     70,
+     252
+    ],
+    [
+     42,
+     252
+    ]
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "fill": "gray",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     62.2,
+     249.3
+    ],
+    [
+     123.2,
+     134.5
+    ],
+    [
+     110.8,
+     127.9
+    ],
+    [
+     49.8,
+     242.7
+    ]
+   ],
+   "stroke": "blue",
+   "width": 1.8,
+   "fill": "blue",
+   "fillOpacity": 0.35
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     120.1,
+     137.5
+    ],
+    [
+     220.8,
+     88.4
+    ],
+    [
+     214.6,
+     75.8
+    ],
+    [
+     113.9,
+     124.9
+    ]
+   ],
+   "stroke": "green",
+   "width": 1.8,
+   "fill": "green",
+   "fillOpacity": 0.35
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polygon",
+   "points": [
+    [
+     215.5,
+     88.8
+    ],
+    [
+     295.4,
+     114.8
+    ],
+    [
+     299.8,
+     101.4
+    ],
+    [
+     219.9,
+     75.4
+    ]
+   ],
+   "stroke": "amber",
+   "width": 1.8,
+   "fill": "amber",
+   "fillOpacity": 0.35
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    56,
+    246
+   ],
+   "to": [
+    116,
+    246
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "4 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     90,
+     246
+    ],
+    [
+     89.9,
+     243.7
+    ],
+    [
+     89.7,
+     241.4
+    ],
+    [
+     89.3,
+     239.1
+    ],
+    [
+     88.8,
+     236.9
+    ],
+    [
+     88.1,
+     234.7
+    ],
+    [
+     87.2,
+     232.6
+    ],
+    [
+     86.3,
+     230.5
+    ],
+    [
+     85.1,
+     228.5
+    ],
+    [
+     83.9,
+     226.6
+    ],
+    [
+     82.5,
+     224.7
+    ],
+    [
+     81,
+     223
+    ],
+    [
+     79.4,
+     221.3
+    ],
+    [
+     77.7,
+     219.8
+    ],
+    [
+     75.9,
+     218.4
+    ],
+    [
+     74,
+     217.1
+    ],
+    [
+     72,
+     216
+    ]
+   ],
+   "stroke": "blue",
+   "width": 1.8
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     134.8,
+     97.6
+    ],
+    [
+     136.1,
+     98.4
+    ],
+    [
+     137.4,
+     99.2
+    ],
+    [
+     138.7,
+     100
+    ],
+    [
+     139.9,
+     100.9
+    ],
+    [
+     141,
+     101.8
+    ],
+    [
+     142.2,
+     102.7
+    ],
+    [
+     143.3,
+     103.8
+    ],
+    [
+     144.3,
+     104.8
+    ],
+    [
+     145.4,
+     105.9
+    ],
+    [
+     146.3,
+     107
+    ],
+    [
+     147.2,
+     108.2
+    ],
+    [
+     148.1,
+     109.4
+    ],
+    [
+     149,
+     110.6
+    ],
+    [
+     149.7,
+     111.9
+    ],
+    [
+     150.5,
+     113.2
+    ],
+    [
+     151.2,
+     114.5
+    ]
+   ],
+   "stroke": "green",
+   "width": 1.8
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    117,
+    131.2
+   ],
+   "to": [
+    135.77886251143565,
+    95.9
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "4 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     248.3,
+     67.2
+    ],
+    [
+     248.9,
+     68.7
+    ],
+    [
+     249.5,
+     70.2
+    ],
+    [
+     250.1,
+     71.7
+    ],
+    [
+     250.5,
+     73.3
+    ],
+    [
+     250.9,
+     74.9
+    ],
+    [
+     251.2,
+     76.5
+    ],
+    [
+     251.5,
+     78.1
+    ],
+    [
+     251.6,
+     79.7
+    ],
+    [
+     251.7,
+     81.4
+    ],
+    [
+     251.7,
+     83
+    ],
+    [
+     251.6,
+     84.6
+    ],
+    [
+     251.4,
+     86.2
+    ],
+    [
+     251.2,
+     87.9
+    ],
+    [
+     250.9,
+     89.5
+    ],
+    [
+     250.5,
+     91
+    ],
+    [
+     250,
+     92.6
+    ]
+   ],
+   "stroke": "amber",
+   "width": 1.8
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    217.7,
+    82.1
+   ],
+   "to": [
+    253.65176185196668,
+    64.6
+   ],
+   "stroke": "muted",
+   "width": 1,
+   "dash": "4 3"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    56,
+    246
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 2,
+   "fill": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    117,
+    131.2
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 2,
+   "fill": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    217.7,
+    82.1
+   ],
+   "r": 7,
+   "stroke": "fg",
+   "width": 2,
+   "fill": "bg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    56,
+    246
+   ],
+   "to": [
+    112,
+    246
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "head": 0.7
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    56,
+    246
+   ],
+   "to": [
+    56,
+    196
+   ],
+   "stroke": "fg",
+   "width": 1.6,
+   "head": 0.7
+  },
+  {
+   "type": "text",
+   "at": [
+    116,
+    251
+   ],
+   "text": "x_{0}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    50,
+    206
+   ],
+   "text": "y_{0}",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "italic": true
+  },
+  {
+   "type": "text",
+   "at": [
+    94,
+    234
+   ],
+   "text": "θ_{1}",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "italic": true,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    87,
+    97.2
+   ],
+   "text": "θ_{2}",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "italic": true,
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    263.7,
+    76.1
+   ],
+   "text": "θ_{3}",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "italic": true,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    102.5,
+    198.6
+   ],
+   "text": "T_{1}",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "color": "blue",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    159.35,
+    86.6
+   ],
+   "text": "T_{2}",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    247.64999999999998,
+    121.1
+   ],
+   "text": "T_{3}",
+   "fixed": true,
+   "px": true,
+   "size": 14,
+   "leader": false,
+   "color": "amber",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "arrow",
+   "from": [
+    297.6,
+    108.1
+   ],
+   "to": [
+    325.6,
+    117.1
+   ],
+   "stroke": "limit",
+   "width": 2.4
+  },
+  {
+   "type": "text",
+   "at": [
+    197.60000000000002,
+    32.1
+   ],
+   "text": "말단장치(엔드이펙터)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    293.6,
+    38.1
+   ],
+   "to": [
+    299.6,
+    100.1
+   ],
+   "stroke": "limit",
+   "width": 0.9
+  },
+  {
+   "type": "text",
+   "at": [
+    197.60000000000002,
+    52.1
+   ],
+   "text": "위치와 자세",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    304
+   ],
+   "text": "T = T_{1}·T_{2}·T_{3}",
+   "fixed": true,
+   "px": true,
+   "size": 15,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    328
+   ],
+   "text": "베이스에서 말단까지 관절 순서대로 곱한다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    20,
+    346
+   ],
+   "to": [
+    340,
+    346
+   ],
+   "stroke": "gray",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    370
+   ],
+   "text": "직렬 로봇: 닫힌 해가 항상 1개",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "green",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    392
+   ],
+   "text": "병렬 로봇: 해가 여러 개일 수 있다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "amber",
+   "weight": 700
+  }
+ ]
+}

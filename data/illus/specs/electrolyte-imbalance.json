@@ -1,0 +1,588 @@
+{
+ "id": "electrolyte-imbalance",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 472,
+ "title": "전해질 이상: 정상 범위와 보정식",
+ "legend": [
+  {
+   "sym": "저/고",
+   "desc": "정상 띠보다 낮은 쪽(hypo-)은 파랑, 높은 쪽(hyper-)은 빨강",
+   "kind": "term"
+  },
+  {
+   "sym": "BUN",
+   "desc": "혈액요소질소(blood urea nitrogen), 삼투압식의 단위는 mg/dL",
+   "kind": "abbr"
+  },
+  {
+   "desc": "Na와 K는 mmol/L, 총 Ca는 mg/dL 단위이다. 눈금 숫자는 정상 범위의 경계이다."
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    20,
+    24
+   ],
+   "text": "성인 혈청 기준 범위(검사실마다 다름)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    30,
+    58
+   ],
+   "text": "나트륨 (Na)  (mmol/L)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 30,
+   "y": 70,
+   "w": 112.5,
+   "h": 22,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 142.5,
+   "y": 70,
+   "w": 75,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 217.5,
+   "y": 70,
+   "w": 112.5,
+   "h": 22,
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose",
+   "fillOpacity": 0.4
+  },
+  {
+   "type": "text",
+   "at": [
+    86.25,
+    86
+   ],
+   "text": "저",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    273.75,
+    86
+   ],
+   "text": "고",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    86
+   ],
+   "text": "정상",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    142.5,
+    92
+   ],
+   "to": [
+    142.5,
+    100
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    142.5,
+    116
+   ],
+   "text": "135",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    217.5,
+    92
+   ],
+   "to": [
+    217.5,
+    100
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    217.5,
+    116
+   ],
+   "text": "145",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    30,
+    146
+   ],
+   "text": "칼륨 (K)  (mmol/L)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 30,
+   "y": 158,
+   "w": 100,
+   "h": 22,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 130,
+   "y": 158,
+   "w": 100,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 230,
+   "y": 158,
+   "w": 100,
+   "h": 22,
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose",
+   "fillOpacity": 0.4
+  },
+  {
+   "type": "text",
+   "at": [
+    80,
+    174
+   ],
+   "text": "저",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    280,
+    174
+   ],
+   "text": "고",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    174
+   ],
+   "text": "정상",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    130,
+    180
+   ],
+   "to": [
+    130,
+    188
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    130,
+    204
+   ],
+   "text": "3.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    230,
+    180
+   ],
+   "to": [
+    230,
+    188
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    204
+   ],
+   "text": "5.0",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    30,
+    234
+   ],
+   "text": "총 칼슘 (Ca)  (mg/dL)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 30,
+   "y": 246,
+   "w": 90,
+   "h": 22,
+   "stroke": "blue",
+   "width": 1,
+   "fill": "blue",
+   "fillOpacity": 0.4
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 120,
+   "y": 246,
+   "w": 120,
+   "h": 22,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "green",
+   "fillOpacity": 0.5
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 240,
+   "y": 246,
+   "w": 90,
+   "h": 22,
+   "stroke": "rose",
+   "width": 1,
+   "fill": "rose",
+   "fillOpacity": 0.4
+  },
+  {
+   "type": "text",
+   "at": [
+    75,
+    262
+   ],
+   "text": "저",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    285,
+    262
+   ],
+   "text": "고",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    262
+   ],
+   "text": "정상",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "fg",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    120,
+    268
+   ],
+   "to": [
+    120,
+    276
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    120,
+    292
+   ],
+   "text": "8.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "fg"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    240,
+    268
+   ],
+   "to": [
+    240,
+    276
+   ],
+   "stroke": "fg",
+   "width": 1.2
+  },
+  {
+   "type": "text",
+   "at": [
+    240,
+    292
+   ],
+   "text": "10.5",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "color": "fg"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    336
+   ],
+   "text": "정상 띠 밖이면 심장·신경·근육 기능 이상 가능",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "limit"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 20,
+   "y": 352,
+   "w": 320,
+   "h": 100,
+   "stroke": "gray",
+   "width": 1,
+   "fill": "gray-f",
+   "fillOpacity": 0.3,
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    374
+   ],
+   "text": "보정 칼슘 = 총 Ca + 0.8×(4.0 − 알부민)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    396
+   ],
+   "text": "고혈당 보정: 포도당 100 mg/dL 오를 때마다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    416
+   ],
+   "text": "Na가 1.6~2.4 mmol/L 낮게 측정된다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    32,
+    442
+   ],
+   "text": "삼투압 = 2×Na + 포도당/18 + BUN/2.8",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  }
+ ]
+}

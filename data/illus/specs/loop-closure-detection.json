@@ -1,0 +1,811 @@
+{
+ "id": "loop-closure-detection",
+ "phoneMin": 11,
+ "width": 360,
+ "height": 570,
+ "title": "루프 폐쇄 검출: 재방문 인식이 누적 오차를 바로잡는다",
+ "legend": [
+  {
+   "desc": "위에서 본 평면이다. 점은 포즈 노드, 파랑 실선은 오도메트리 간선이고 초록 점은 출발 노드이다. 노드 위치는 설명용 예시이다."
+  },
+  {
+   "sym": "루프 간선",
+   "desc": "다시 방문한 장소를 이은 제약. 기하 검증(상대 자세 확인)을 통과해야 추가한다",
+   "kind": "term"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ },
+ "elements": [
+  {
+   "type": "text",
+   "at": [
+    180,
+    18
+   ],
+   "text": "① 보정 전: 드리프트가 쌓인다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     70,
+     126
+    ],
+    [
+     70,
+     46
+    ],
+    [
+     250,
+     46
+    ],
+    [
+     250,
+     126
+    ],
+    [
+     70,
+     126
+    ]
+   ],
+   "stroke": "gray",
+   "width": 2,
+   "dash": "6 4"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     70,
+     126
+    ],
+    [
+     70.2,
+     89.7
+    ],
+    [
+     70.9,
+     53.2
+    ],
+    [
+     103.5,
+     47.8
+    ],
+    [
+     142.3,
+     47.9
+    ],
+    [
+     181.6,
+     47.7
+    ],
+    [
+     221.3,
+     47.2
+    ],
+    [
+     261.5,
+     46.5
+    ],
+    [
+     265,
+     82.7
+    ],
+    [
+     269,
+     118.5
+    ],
+    [
+     242,
+     122.7
+    ],
+    [
+     209.8,
+     120.9
+    ],
+    [
+     178.1,
+     118.9
+    ],
+    [
+     146.8,
+     116.6
+    ],
+    [
+     116,
+     114
+    ]
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    70,
+    126
+   ],
+   "r": 5.5,
+   "fill": "green",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    70.2,
+    89.7
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    70.9,
+    53.2
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    103.5,
+    47.8
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    142.3,
+    47.9
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    181.6,
+    47.7
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    221.3,
+    47.2
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    261.5,
+    46.5
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    265,
+    82.7
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    269,
+    118.5
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    242,
+    122.7
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    209.8,
+    120.9
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 0.35
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    178.1,
+    118.9
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 0.35
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    146.8,
+    116.6
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 0.35
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    116,
+    114
+   ],
+   "r": 5.5,
+   "fill": "limit",
+   "stroke": "bg",
+   "width": 1,
+   "fillOpacity": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     116,
+     114
+    ],
+    [
+     70,
+     126
+    ]
+   ],
+   "stroke": "limit",
+   "width": 3,
+   "dash": "7 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    148
+   ],
+   "text": "회색 점선 = 실제 경로, 파랑 = 추정 경로",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    168
+   ],
+   "text": "초록 점 = 출발 노드, 빨강 점 = 끝 노드",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    188
+   ],
+   "text": "붉은 점선 = 루프 간선(기하 검증 통과)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "limit"
+  },
+  {
+   "type": "text",
+   "at": [
+    8,
+    208
+   ],
+   "text": "흐린 점 = 최근 프레임 제외",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "blockArrow",
+   "from": [
+    180,
+    224
+   ],
+   "to": [
+    180,
+    254
+   ],
+   "width": 16,
+   "head": 14,
+   "fill": "accent",
+   "fillOpacity": 0.5,
+   "stroke": "accent"
+  },
+  {
+   "type": "text",
+   "at": [
+    204,
+    246
+   ],
+   "text": "포즈 그래프 전역 최적화",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    274
+   ],
+   "text": "② 최적화 후: 닫힌 사각형으로 정렬",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "polyline",
+   "points": [
+    [
+     70,
+     390
+    ],
+    [
+     70,
+     310
+    ],
+    [
+     250,
+     310
+    ],
+    [
+     250,
+     390
+    ],
+    [
+     70,
+     390
+    ]
+   ],
+   "stroke": "blue",
+   "width": 2
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    70,
+    390
+   ],
+   "r": 5.5,
+   "fill": "green",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    70,
+    352.8571428571429
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    70,
+    315.7142857142857
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    101.42857142857142,
+    310
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    138.57142857142856,
+    310
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    175.71428571428572,
+    310
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    212.85714285714283,
+    310
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    250,
+    310
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    250,
+    347.1428571428571
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    250,
+    384.28571428571433
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    218.57142857142856,
+    390
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    181.42857142857144,
+    390
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    144.28571428571433,
+    390
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "circle",
+   "center": [
+    107.14285714285711,
+    390
+   ],
+   "r": 3.8,
+   "fill": "blue",
+   "stroke": "bg",
+   "width": 1
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    420
+   ],
+   "text": "끝 노드가 출발 노드와 겹쳐 오차가 풀린다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "green"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    20,
+    440
+   ],
+   "to": [
+    340,
+    440
+   ],
+   "stroke": "gray",
+   "width": 1,
+   "dash": "3 3"
+  },
+  {
+   "type": "text",
+   "at": [
+    20,
+    464
+   ],
+   "text": "③ 오탐: 비슷하지만 다른 장소",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 40,
+   "y": 482,
+   "w": 70,
+   "h": 46,
+   "stroke": "blue",
+   "width": 1.6,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    75,
+    510
+   ],
+   "text": "장소 A",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "rect",
+   "x": 250,
+   "y": 482,
+   "w": 70,
+   "h": 46,
+   "stroke": "amber",
+   "width": 1.6,
+   "fill": "amber",
+   "fillOpacity": 0.25
+  },
+  {
+   "type": "text",
+   "at": [
+    285,
+    510
+   ],
+   "text": "장소 B",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "px": true,
+   "obstacle": false,
+   "type": "line",
+   "from": [
+    112,
+    505
+   ],
+   "to": [
+    248,
+    505
+   ],
+   "stroke": "limit",
+   "width": 2.6,
+   "dash": "7 4"
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    496
+   ],
+   "text": "잘못된 루프",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "limit",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    554
+   ],
+   "text": "지각적 앨리어싱: 간선 하나가 지도를 뒤튼다",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "limit",
+   "weight": 700
+  }
+ ]
+}
