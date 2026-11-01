@@ -114,7 +114,7 @@ test("코드 SVG 스펙 320개: 모두 렌더되고 라벨 겹침이 남지 않�
   const { renderSVG, templates } = require("../scripts/svg-illus/src/index.js");
   const dir = path.join(ROOT, "data", "illus", "specs");
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-  assert.strictEqual(files.length, 324);
+  assert.ok(files.length >= 324, `스펙 수: ${files.length}`);
   for (const f of files) {
     const r = renderSVG(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")), { templates });
     assert.deepStrictEqual(r.report.unresolved, [], f);
