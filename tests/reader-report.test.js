@@ -25,6 +25,12 @@ test("buildPayload: 길이 상한과 빈 값", () => {
   assert.deepStrictEqual(Object.keys(q).sort(), ["context", "doc_field", "page_url", "reason", "slug", "surface"]);
 });
 
+test("buildPayload: 용어 페이지 신고 내용은 context에 상한까지 담는다", () => {
+  const p = buildPayload({ slug: "s", note: "가".repeat(999), reason: "term-page" });
+  assert.strictEqual(p.context.length, CAP.context);
+  assert.strictEqual(buildPayload({ slug: "s" }).context, null);
+});
+
 test("createReportGuard: 같은 용어·쪽은 한 번, 저장소에 이어짐", () => {
   const data = {};
   const store = { getItem: (k) => data[k] || null, setItem: (k, v) => { data[k] = v; } };

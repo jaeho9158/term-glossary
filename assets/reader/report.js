@@ -28,7 +28,8 @@
     return {
       slug: clip(i.slug, CAP.slug) || "",
       surface: clip(surface, CAP.surface),
-      context: contextAround(i.text, i.start, i.end),
+      // 용어 페이지 신고는 PDF 글이 없어, 이용자가 적은 내용(note)을 같은 칸에 담는다.
+      context: i.note ? clip(i.note, CAP.context) : contextAround(i.text, i.start, i.end),
       doc_field: clip(i.docField, CAP.doc_field),
       reason: clip(i.reason, CAP.reason),
       page_url: clip(i.pageUrl, CAP.page_url),

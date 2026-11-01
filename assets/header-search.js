@@ -61,6 +61,8 @@
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjaGR0bWRwZ2V4c2FjeHpvenNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MzI1MjMsImV4cCI6MjA5OTEwODUyM30.OT0YaKOmPwnQcfvqqwRut6aJFJ98k_pdOiE4yTUmitY";
   const loggedZeroResultQueries = new Set();
   let zeroResultLogTimer = null;
+  let emptyPanelTimer = null;
+  const EMPTY_PANEL_DELAY_MS = 600; // 입력 중에 패널이 깜빡이지 않게, 멈춘 뒤에만 띄운다
 
   function logZeroResultSearch(query, resultCount) {
     const q = query.trim();
@@ -220,7 +222,29 @@
     items[activeIndex].focus();
   }
 
+  // 결과가 없을 때 안내. 분야 링크는 항목이 하나뿐이라 role=option으로 두어
+  // 방향키로 내려갈 수 있게 한다.
+  function renderEmpty() {
+    if (!document.getElementById("search-empty-style")) {
+      const st = document.createElement("style");
+      st.id = "search-empty-style";
+      st.textContent = ".search-empty-note{padding:10px 14px;font-size:.9rem;color:var(--muted);overflow-wrap:anywhere}";
+      document.head.appendChild(st);
+    }
+    const note = terms ? "찾는 용어가 없어요. 다른 표기나 더 짧은 말로 찾아보세요." : "검색 목록을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.";
+    resultsEl.innerHTML =
+      `<li class="search-empty-note">${esc(note)}</li>` +
+      `<li><a id="hs-opt-0" role="option" aria-selected="false" data-search-empty-link href="${base}category.html">분야별로 찾아보기</a></li>`;
+    setOpen(true);
+  }
+
+  function scheduleEmpty(delay) {
+    clearTimeout(emptyPanelTimer);
+    emptyPanelTimer = setTimeout(renderEmpty, delay);
+  }
+
   function renderResults(matches) {
+    clearTimeout(emptyPanelTimer);
     if (matches.length === 0) {
       resultsEl.innerHTML = "";
       setOpen(false);
@@ -272,11 +296,13 @@
     await loadTerms();
     const value = input.value;
     if (!value.trim()) {
+      clearTimeout(emptyPanelTimer);
       renderRecent();
       return;
     }
     const matches = matchResults(value);
     renderResults(matches);
+    if (matches.length === 0 && value.trim().length >= 2) scheduleEmpty(EMPTY_PANEL_DELAY_MS);
     scheduleZeroResultLog(value, matches.length);
     window.trackNoResult(value, "header", matches.length);
   }
@@ -312,6 +338,18 @@
     }
 
     const items = optionEls();
+    const emptyLink = resultsEl.querySelector("[data-search-empty-link]");
+    // 결과가 없을 때 Enter: 안내를 바로 보여 준다. 분야 링크로 자동 이동하지는 않는다.
+    if (e.key === "Enter" && activeIndex === -1 && input.value.trim().length >= 2 && (items.length === 0 || emptyLink)) {
+      e.preventDefault();
+      if (!emptyLink && !isComposing) {
+        clearTimeout(searchDebounceTimer);
+        runSearch().then(() => {
+          if (resultsEl.hidden) scheduleEmpty(0);
+        });
+      }
+      return;
+    }
     if (items.length === 0) return;
 
     if (e.key === "ArrowDown") {
@@ -340,6 +378,10 @@
 
   resultsEl.addEventListener("click", (e) => {
     const link = e.target.closest("a");
+    if (link && link.hasAttribute("data-search-empty-link")) {
+      window.trackEvent("search_empty_click", { search_term: input.value.trim().toLowerCase().slice(0, 60) });
+      return;
+    }
     if (link) {
       saveRecent(input.value);
       const m = /\/([^/]+)\.html$/.exec(link.getAttribute("href") || "");
@@ -389,6 +431,88 @@
       runSearch();
     }
   }
+
+  // ---- 연구할Lab 링크 클릭 측정 ---------------------------------------------
+  // 링크가 용어 HTML마다 정적으로 있어 재렌더 없이 위임으로 잡는다.
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest && e.target.closest('a[href*="yeonguhallab.kr"]');
+    if (!link) return;
+    window.trackEvent("outbound_click", {
+      link_target: "lab",
+      link_path: link.pathname,
+      slug: decodeURIComponent(location.pathname.replace(/^.*\//, "").replace(/\.html$/, "")),
+    });
+  });
+
+  // ---- 용어 페이지 오류 신고(시험) -------------------------------------------
+  // 조회가 많은 소수 표제어에서만 시험한다. 유효 신고가 거의 없으면 이 블록을 지운다.
+  (function initTermReport() {
+    const TRIAL = new Set([
+      "bronfenbrenner-ecological-systems-theory", "stagnation-theory", "producer-consumer-decomposer",
+      "beer-lambert-law", "three-rs-principle", "nanda-taxonomy",
+      "original-position", "corresponding-author", "veil-of-ignorance",
+    ]);
+    const m = /\/terms\/([^/]+)\.html$/.exec(location.pathname);
+    const main = document.querySelector("main");
+    if (!m || !main || !TRIAL.has(decodeURIComponent(m[1]))) return;
+    const slug = decodeURIComponent(m[1]);
+
+    const box = document.createElement("details");
+    box.className = "term-report";
+    box.style.cssText = "margin:16px 0;font-size:.9rem;color:var(--muted)";
+    box.innerHTML =
+      '<summary style="cursor:pointer">내용이 틀렸나요?</summary>' +
+      '<label style="display:block;margin:8px 0 4px" for="term-report-note">어디가 왜 틀렸는지 적어 주세요. 이름이나 연락처는 적지 마세요.</label>' +
+      '<textarea id="term-report-note" rows="3" maxlength="400" style="width:100%;box-sizing:border-box;font:inherit;color:inherit;background:var(--card-bg);border:1px solid var(--border)"></textarea>' +
+      '<button type="button" style="margin-top:6px;font:inherit;cursor:pointer">보내기</button> ' +
+      '<span role="status"></span>';
+    const pager = main.querySelector(".term-pager");
+    main.insertBefore(box, pager);
+
+    const note = box.querySelector("textarea");
+    const btn = box.querySelector("button");
+    const status = box.querySelector("[role=status]");
+    let loading = null;
+    const loadReport = () => {
+      if (window.ReaderReport) return Promise.resolve();
+      if (loading) return loading;
+      loading = new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = base + "assets/reader/report.js";
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      return loading;
+    };
+
+    btn.addEventListener("click", async () => {
+      const text = note.value.trim();
+      if (text.length < 2) {
+        status.textContent = "내용을 적어 주세요.";
+        return;
+      }
+      btn.disabled = true;
+      status.textContent = "보내는 중이에요.";
+      let ok = false;
+      try {
+        await loadReport();
+        ok = await window.ReaderReport.submit(
+          { slug, note: text, reason: "term-page", pageUrl: location.origin + location.pathname },
+          "term-page"
+        );
+      } catch (err) {
+        console.error("[term report]", err);
+      }
+      status.textContent = ok ? "보냈어요. 고맙습니다." : "보내지 못했어요. 소개 페이지의 메일로 알려 주세요.";
+      if (ok) {
+        note.disabled = true;
+        window.trackEvent("term_report", { slug });
+      } else {
+        btn.disabled = false;
+      }
+    });
+  })();
 
   // ---- 영어 발음 듣기(용어 페이지) ------------------------------------------
   // 용어 페이지 3만여 개가 이미 이 파일을 싣기 때문에 여기서 런타임 주입한다.
