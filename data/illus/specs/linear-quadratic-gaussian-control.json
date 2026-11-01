@@ -1,0 +1,652 @@
+{
+ "id": "linear-quadratic-gaussian-control",
+ "phoneMin": 11,
+ "subScale": 0.92,
+ "width": 360,
+ "height": 536,
+ "title": "선형이차가우시안 제어: 플랜트, 칼만 필터, 상태 되먹임의 블록선도",
+ "legend": [
+  {
+   "sym": "u",
+   "desc": "제어 입력",
+   "kind": "var"
+  },
+  {
+   "sym": "y",
+   "desc": "측정 출력",
+   "kind": "var"
+  },
+  {
+   "sym": "x̂",
+   "desc": "추정 상태",
+   "kind": "var"
+  },
+  {
+   "sym": "w, v",
+   "desc": "공정잡음, 측정잡음",
+   "kind": "var"
+  },
+  {
+   "sym": "⊕",
+   "desc": "합산점(y = Cx + v)",
+   "kind": "term"
+  },
+  {
+   "sym": "−K, L",
+   "desc": "LQR 이득, 칼만 필터 이득",
+   "kind": "var"
+  },
+  {
+   "desc": "Q, R는 비용 가중치, W, V는 잡음 세기다."
+  }
+ ],
+ "elements": [
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 28,
+   "y": 64,
+   "w": 150,
+   "h": 56,
+   "stroke": "blue",
+   "width": 1.8,
+   "radius": 4,
+   "fill": "blue-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    103,
+    86
+   ],
+   "text": "플랜트",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    103,
+    108
+   ],
+   "text": "dx/dt = Ax + Bu + w",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    103,
+    22
+   ],
+   "to": [
+    103,
+    64
+   ],
+   "stroke": "rose",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    112,
+    40
+   ],
+   "text": "w 공정잡음",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose-t",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    178,
+    92
+   ],
+   "to": [
+    226,
+    92
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    240,
+    92
+   ],
+   "r": 13,
+   "stroke": "fg",
+   "width": 1.8,
+   "fill": "bg"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    232,
+    92
+   ],
+   "to": [
+    248,
+    92
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    240,
+    84
+   ],
+   "to": [
+    240,
+    100
+   ],
+   "stroke": "fg",
+   "width": 1.4
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    240,
+    40
+   ],
+   "to": [
+    240,
+    79
+   ],
+   "stroke": "rose",
+   "width": 2.2
+  },
+  {
+   "type": "text",
+   "at": [
+    250,
+    50
+   ],
+   "text": "v 측정잡음",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "rose-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    214,
+    78
+   ],
+   "text": "+",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    253,
+    92
+   ],
+   "to": [
+    344,
+    92
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    298,
+    84
+   ],
+   "text": "y",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700,
+   "italic": true
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    344,
+    92
+   ],
+   "to": [
+    344,
+    232
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    344,
+    232
+   ],
+   "to": [
+    318,
+    232
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 144,
+   "y": 188,
+   "w": 174,
+   "h": 88,
+   "stroke": "green",
+   "width": 1.8,
+   "radius": 4,
+   "fill": "green-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    231,
+    212
+   ],
+   "text": "칼만 필터",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    231,
+    232
+   ],
+   "text": "dx̂/dt = Ax̂ + Bu",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "text",
+   "at": [
+    231,
+    252
+   ],
+   "text": "+ L(y − Cx̂)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 36,
+   "y": 200,
+   "w": 64,
+   "h": 54,
+   "stroke": "amber",
+   "width": 1.8,
+   "radius": 4,
+   "fill": "amber-f"
+  },
+  {
+   "type": "text",
+   "at": [
+    68,
+    232
+   ],
+   "text": "−K",
+   "fixed": true,
+   "px": true,
+   "size": 16,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    144,
+    227
+   ],
+   "to": [
+    100,
+    227
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    127,
+    218
+   ],
+   "text": "x̂",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "italic": true,
+   "weight": 700
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    68,
+    200
+   ],
+   "to": [
+    68,
+    160
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    68,
+    160
+   ],
+   "to": [
+    68,
+    120
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    68,
+    160
+   ],
+   "to": [
+    68,
+    122
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "text",
+   "at": [
+    54,
+    146
+   ],
+   "text": "u",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "end",
+   "italic": true,
+   "weight": 700
+  },
+  {
+   "type": "circle",
+   "px": true,
+   "obstacle": false,
+   "center": [
+    68,
+    160
+   ],
+   "r": 3.5,
+   "stroke": "fg",
+   "width": 1,
+   "fill": "fg"
+  },
+  {
+   "type": "line",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    68,
+    160
+   ],
+   "to": [
+    231,
+    160
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "arrow",
+   "px": true,
+   "obstacle": false,
+   "from": [
+    231,
+    160
+   ],
+   "to": [
+    231,
+    188
+   ],
+   "stroke": "fg",
+   "width": 1.8
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 24,
+   "y": 176,
+   "w": 94,
+   "h": 104,
+   "stroke": "amber",
+   "width": 1.4,
+   "fill": "none",
+   "dash": "6 4",
+   "radius": 6
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 136,
+   "y": 172,
+   "w": 198,
+   "h": 110,
+   "stroke": "green",
+   "width": 1.4,
+   "fill": "none",
+   "dash": "6 4",
+   "radius": 6
+  },
+  {
+   "type": "text",
+   "at": [
+    67,
+    302
+   ],
+   "text": "제어기 (K)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "amber-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    230,
+    302
+   ],
+   "text": "추정기 (L)",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "green-t",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    334
+   ],
+   "text": "분리 원리: 독립 설계",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    180,
+    364
+   ],
+   "text": "w, v: 가우시안 백색잡음 가정",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "anchor": "middle",
+   "color": "rose-t"
+  },
+  {
+   "type": "rect",
+   "px": true,
+   "obstacle": false,
+   "x": 16,
+   "y": 386,
+   "w": 328,
+   "h": 100,
+   "stroke": "muted",
+   "width": 1.2,
+   "radius": 6,
+   "fill": "gray-f",
+   "fillOpacity": 0.5
+  },
+  {
+   "type": "text",
+   "at": [
+    28,
+    410
+   ],
+   "text": "예: dx/dt = x + u + w, y = x + v",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "weight": 700
+  },
+  {
+   "type": "text",
+   "at": [
+    28,
+    430
+   ],
+   "text": "Q = R = W = V = 1",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    28,
+    450
+   ],
+   "text": "K = L = 1 + √2 ≈ 2.414",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    28,
+    470
+   ],
+   "text": "폐루프 고유값 −√2 ≈ −1.414",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false
+  },
+  {
+   "type": "text",
+   "at": [
+    16,
+    522
+   ],
+   "text": "강인성은 자동으로 보장되지 않는다.",
+   "fixed": true,
+   "px": true,
+   "size": 13,
+   "leader": false,
+   "color": "muted"
+  }
+ ],
+ "credit": {
+  "license": "CC BY 4.0"
+ }
+}
