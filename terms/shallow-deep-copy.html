@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>얕은 복사와 깊은 복사(Shallow Deep Copy) 뜻 — 쉬운 설명·예시 | 논문용어사전</title>
+<meta name="description" content="데이터를 복사할 때 겉껍데기만 복사하는지(얕은 복사), 내부 내용까지 완전히 새로 복사하는지(깊은 복사)를 구분하는 개념이다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/shallow-deep-copy.html">
+<!-- index-tier:start -->
+<meta name="googlebot" content="noindex">
+<!-- index-tier:end -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+<!-- term-meta:start -->
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://termglossary.kr/terms/shallow-deep-copy.html#term",
+      "name": "얕은 복사와 깊은 복사",
+      "description": "데이터를 복사할 때 겉껍데기만 복사하는지(얕은 복사), 내부 내용까지 완전히 새로 복사하는지(깊은 복사)를 구분하는 개념이다.",
+      "url": "https://termglossary.kr/terms/shallow-deep-copy.html",
+      "inDefinedTermSet": {
+        "@type": "DefinedTermSet",
+        "name": "논문용어사전",
+        "url": "https://termglossary.kr/"
+      },
+      "alternateName": [
+        "Shallow Deep Copy",
+        "얕은복사와깊은복사"
+      ],
+      "dateModified": "2026-08-01"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "홈",
+          "item": "https://termglossary.kr/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "컴퓨터과학·AI",
+          "item": "https://termglossary.kr/category.html?cat=cs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "얕은 복사와 깊은 복사",
+          "item": "https://termglossary.kr/terms/shallow-deep-copy.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="논문용어사전">
+<meta property="og:title" content="얕은 복사와 깊은 복사(Shallow Deep Copy) 뜻 — 쉬운 설명·예시 | 논문용어사전">
+<meta property="og:description" content="데이터를 복사할 때 겉껍데기만 복사하는지(얕은 복사), 내부 내용까지 완전히 새로 복사하는지(깊은 복사)를 구분하는 개념이다.">
+<meta property="og:url" content="https://termglossary.kr/terms/shallow-deep-copy.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://termglossary.kr/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- term-meta:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 얕은 복사와 깊은 복사</p>
+  <h1>얕은 복사와 깊은 복사</h1>
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=cs">컴퓨터과학·AI</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 데이터를 복사할 때 겉껍데기만 복사하는지(얕은 복사), 내부 내용까지 완전히 새로 복사하는지(깊은 복사)를 구분하는 개념이다.
+  </div>
+
+  <!-- concept-diagram:start -->
+  <figure class="si-figure" data-kind="diagram" data-type="contrast"><div class="si-frame"><svg class="si dg dg-h" viewBox="0 0 374 344" style="max-width:374px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dg-shallow-deep-copy-h-t dg-shallow-deep-copy-h-d" font-family="'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif"><title id="dg-shallow-deep-copy-h-t">얕은 복사와 깊은 복사</title><desc id="dg-shallow-deep-copy-h-d">얕은 복사와 깊은 복사: 왼쪽 얕은 복사와 오른쪽 깊은 복사를 비교한다. 겉만 새로 만듦 대 내부까지 새로 만듦, 수정이 서로 반영 대 서로 독립, 메모리·속도 절약 대 독립 상태 필요 시.</desc><text x="186.8" y="26" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--si-general,#5c6b7f)">복사 범위</text><rect x="14" y="38" width="150.8" height="39.5" rx="6" fill="var(--si-blue-f,#dde5f0)" stroke="var(--si-blue-s,#7f9ac0)" stroke-width="1.1"/><text x="89.4" y="63" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-blue-t,#12305c)">얕은 복사</text><rect x="208.8" y="38" width="150.8" height="39.5" rx="6" fill="var(--si-blue-f,#dde5f0)" stroke="var(--si-blue-s,#7f9ac0)" stroke-width="1.1"/><text x="284.2" y="63" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-blue-t,#12305c)">깊은 복사</text><text x="186.8" y="62.8" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-navy,#12305c)">vs</text><rect x="14" y="91.5" width="150.8" height="51.5" rx="6" fill="var(--si-violet-f,#eae4f4)" stroke="var(--si-violet-s,#9382bd)" stroke-width="1.1"/><text x="89.4" y="114.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-violet-t,#3f2f6b)">겉만 새로 만듦</text><text x="89.4" y="130" text-anchor="middle" font-size="11.5" fill="var(--si-violet-t,#3f2f6b)">내부 객체는 공유</text><rect x="208.8" y="91.5" width="150.8" height="51.5" rx="6" fill="var(--si-violet-f,#eae4f4)" stroke="var(--si-violet-s,#9382bd)" stroke-width="1.1"/><text x="284.2" y="114.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-violet-t,#3f2f6b)">내부까지 새로 만듦</text><text x="284.2" y="130" text-anchor="middle" font-size="11.5" fill="var(--si-violet-t,#3f2f6b)">공유하는 객체 없음</text><line x1="172.8" y1="117.3" x2="200.8" y2="117.3" stroke="var(--si-gray-s,#aab6c6)" stroke-width="1" stroke-dasharray="3,3"/><rect x="14" y="151" width="150.8" height="51.5" rx="6" fill="var(--si-rose-f,#fbe4e4)" stroke="var(--si-rose-s,#c97b7b)" stroke-width="1.1"/><text x="89.4" y="174" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-rose-t,#7d2626)">수정이 서로 반영</text><text x="89.4" y="189.5" text-anchor="middle" font-size="11.5" fill="var(--si-rose-t,#7d2626)">원본도 함께 바뀜</text><rect x="208.8" y="151" width="150.8" height="51.5" rx="6" fill="var(--si-green-f,#e3f1ea)" stroke="var(--si-green-s,#5b9b83)" stroke-width="1.1"/><text x="284.2" y="174" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-green-t,#14543c)">서로 독립</text><text x="284.2" y="189.5" text-anchor="middle" font-size="11.5" fill="var(--si-green-t,#14543c)">한쪽 수정 영향 없음</text><line x1="172.8" y1="176.8" x2="200.8" y2="176.8" stroke="var(--si-gray-s,#aab6c6)" stroke-width="1" stroke-dasharray="3,3"/><rect x="14" y="210.5" width="150.8" height="51.5" rx="6" fill="var(--si-gray-f,#eef1f6)" stroke="var(--si-gray-s,#aab6c6)" stroke-width="1.1"/><text x="89.4" y="233.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-gray-t,#44546a)">메모리·속도 절약</text><text x="89.4" y="249" text-anchor="middle" font-size="11.5" fill="var(--si-gray-t,#44546a)">원본을 안 바꿀 때</text><rect x="208.8" y="210.5" width="150.8" height="51.5" rx="6" fill="var(--si-gray-f,#eef1f6)" stroke="var(--si-gray-s,#aab6c6)" stroke-width="1.1"/><text x="284.2" y="233.5" text-anchor="middle" font-size="13" font-weight="700" fill="var(--si-gray-t,#44546a)">독립 상태 필요 시</text><text x="284.2" y="249" text-anchor="middle" font-size="11.5" fill="var(--si-gray-t,#44546a)">병렬 처리·반복 실험</text><line x1="172.8" y1="236.3" x2="200.8" y2="236.3" stroke="var(--si-gray-s,#aab6c6)" stroke-width="1" stroke-dasharray="3,3"/><text x="14" y="283.5" text-anchor="start" font-size="11.5" fill="var(--si-general,#5c6b7f)">얕은 복사가 항상 문제는 아님 — 복사했으니 별개라는 착각이</text><text x="14" y="299" text-anchor="start" font-size="11.5" fill="var(--si-general,#5c6b7f)">문제</text><text x="14" y="314.5" text-anchor="start" font-size="11.5" font-weight="700" fill="var(--si-limit,#7d2626)">한계</text><text x="47.1" y="314.5" text-anchor="start" font-size="11.5" fill="var(--si-limit,#7d2626)">중첩 구조는 구현에 따라 안쪽 요소가 여전히 공유될 수</text><text x="47.1" y="330" text-anchor="start" font-size="11.5" fill="var(--si-limit,#7d2626)">있음</text></svg></div></figure>
+  <!-- concept-diagram:end -->
+
+  <h2>쉽게 풀면</h2>
+  <p>서류 봉투 안에 여러 장의 문서가 들어 있다고 생각해 보자. "얕은 복사"는 새 봉투를 만들되 그 안에 원본 문서를 그대로 다시 넣는 것과 같다. 봉투(겉모습)는 두 개가 되었지만 안에 든 문서는 여전히 하나뿐이라서, 한쪽 봉투에서 문서를 고치면 다른 쪽 봉투를 열어봐도 똑같이 고쳐진 내용이 보인다. 반면 "깊은 복사"는 봉투뿐 아니라 안에 든 문서까지 전부 복사기로 새로 뽑아 넣는 것이다. 이 경우 두 봉투는 완전히 독립적이어서 한쪽 문서를 고쳐도 다른 쪽에는 아무 영향이 없다. 프로그래밍에서 배열이나 객체처럼 여러 값을 담는 자료구조를 복사할 때, 이 두 방식 중 무엇을 썼는지에 따라 결과가 크게 달라진다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>얕은 복사와 깊은 복사를 혼동하면 원본 데이터가 의도치 않게 변형되는 버그가 생기는데, 이런 버그는 실행 중 오류를 내지 않고 조용히 결과만 오염시키기 때문에 재현성 문제로 이어지기 쉽다. 그래서 머신러닝 실험, 시뮬레이션, 병렬·분산 처리처럼 동일한 데이터 구조를 여러 번 복제해 독립적으로 다루어야 하는 연구에서는 복사 방식을 명확히 관리하는 것이 실험 신뢰성의 기본 조건으로 취급된다.</p>
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <div class="example">"실험 데이터 전처리 과정에서 얕은 복사로 인해 원본 데이터셋이 의도치 않게 변형되는 문제가 발견되어, 이후 모든 복제 단계를 깊은 복사로 수정하였다."</div>
+  <p>이 문장은 "데이터를 복사해서 가공하려 했는데, 겉모습만 복사되고 내부 내용은 원본과 공유되고 있어서 가공 과정에서 원본 데이터까지 함께 바뀌어 버렸다. 그래서 내부 내용까지 완전히 새로 복사하는 방식으로 고쳤다"는 뜻이다.</p>
+
+  <div class="example">"병렬 시뮬레이션에서 각 스레드가 독립된 상태를 갖도록 초기 설정 객체를 깊은 복사로 분리한 뒤 실행하였다."</div>
+  <p>여러 스레드가 동시에 같은 자료구조를 다루는 병렬 처리 상황에서, 서로 간섭이 생기지 않도록 깊은 복사로 상태를 분리했다는 뜻이다.</p>
+
+  <div class="example">"모델 하이퍼파라미터 탐색 과정에서 얕은 복사를 사용하여 설정 객체를 재사용함으로써 메모리 사용량을 줄였다."</div>
+  <p>이 경우는 원본 변형 위험보다 메모리 효율이 더 중요한 상황에서 얕은 복사를 의도적으로 선택한 예로, 얕은 복사가 항상 문제인 것은 아니라는 점을 보여준다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>실제 구현에서는 얕은 복사와 깊은 복사가 이분법적으로 딱 나뉘지 않는 경우가 많다. 리스트 안에 리스트가 들어 있는 것처럼 자료구조가 여러 겹으로 중첩되어 있으면, 겉으로는 깊은 복사 함수를 썼더라도 특정 언어나 라이브러리의 구현 방식에 따라 가장 안쪽 요소는 여전히 원본과 참조를 공유하는 경우가 있다. 또한 순환 참조(객체가 자기 자신을 다시 참조하는 구조)가 있는 자료구조는 단순한 재귀적 복사로는 무한 루프에 빠질 수 있어, 이를 다루는 라이브러리는 별도의 참조 추적 로직을 포함하는 경우가 일반적이다.</p>
+
+  <h2>주의할 점</h2>
+  <p>얕은 복사가 항상 나쁜 것은 아니다. 원본을 바꿀 계획이 없거나 메모리와 처리 속도를 아껴야 할 때는 얕은 복사가 더 효율적이다. 문제는 "복사했으니 이제 완전히 별개다"라고 착각한 채 코드를 짜는 경우이다. 특히 여러 겹으로 중첩된 자료구조(리스트 안에 리스트가 있는 경우 등)는 겉으로 보기엔 깊은 복사를 한 것 같아도 안쪽 요소는 여전히 원본과 공유되고 있을 수 있으므로, 자료구조의 복사 방식을 사용하는 도구나 라이브러리의 문서에서 정확히 확인해야 한다.</p>
+
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="abstract-data-type.html">추상 자료형</a>
+    <a href="linked-list.html">연결 리스트</a>
+    <a href="time-complexity-big-o.html" class="related-same-field">시간복잡도와 빅오 표기법</a>
+    <a href="turing-machine.html" class="related-same-field">튜링 기계</a>
+  </div>
+<aside class="stage-link">
+  이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
+</aside>
+<nav class="term-pager" aria-label="용어 이전/다음">
+  <a href="sentiment-analysis.html" class="term-pager-prev">← 이전: 감성분석</a>
+  <a href="shap-values.html" class="term-pager-next">다음: SHAP 값 →</a>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>

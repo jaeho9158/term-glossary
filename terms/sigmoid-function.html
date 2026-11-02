@@ -161,7 +161,7 @@
   <ul><li>머신러닝에서 ‘시그모이드’는 보통 <strong>로지스틱 함수</strong><code>σ(x) = 1 / (1 + e<sup>−x</sup>)</code>를 가리킨다. 출력 범위는 (0, 1)이고 σ(0) = 0.5이다.</li><li>대칭성: <code>σ(−x) = 1 − σ(x)</code>. 미분: <code>σ′(x) = σ(x)(1 − σ(x))</code>이며 최댓값은 x = 0에서 0.25이다.</li><li>역함수는 로짓(log-odds)이다. 확률 p = 0.8이면 x = ln(0.8/0.2) ≈ 1.386이다. 그래서 <a href="logistic-regression.html">로지스틱 회귀</a>에서 선형결합의 값을 확률로 바꾸는 데 쓰인다.</li><li>쌍곡탄젠트와는 <code>tanh(x) = 2σ(2x) − 1</code>의 관계이다. tanh는 출력이 (−1, 1)로 0을 중심에 둔다.</li></ul><p>일반적으로 시그모이드 함수는 정의역이 실수 전체인 단조함수이고 1계 도함수가 종 모양이다. 거꾸로, 극대가 하나인 연속적이고 음이 아닌 종 모양 함수를 적분하면 시그모이드가 된다. 그래서 정규분포 같은 분포의 누적분포함수도 시그모이드 곡선이다. 포화되는 현상을 모형화하는 곰퍼츠 곡선도 특수한 경우이다.</p><p>시그모이드 함수는 모든 실수에서 정의되고 각 점에서 양의 도함수를 갖는 유계·미분가능한 실함수로 정의된다. 변곡점보다 왼쪽에서는 아래로 볼록하고 오른쪽에서는 위로 볼록하며, 로지스틱 함수의 변곡점은 0이다. 로지스틱 함수를 <code>(1 + e<sup>−x</sup>)<sup>−α</sup></code>(α > 0)로 일반화한 꼴도 있다. 신경망에서는 계산을 줄이려고 매끄럽지 않은 ‘하드 시그모이드’를 쓰기도 한다. 신경망 밖에서도 쓰임이 넓다. 생화학·약리학의 힐–랭뮈어 식은 시그모이드 함수이고, 오디오에서는 아날로그 클리핑을 흉내 내는 파형 변형 함수로 쓰이며, 적정 곡선도 이 모양이다. 로지스틱 외에 아크탄젠트, 구더만 함수, 오차함수, 곰퍼츠 곡선, 스무드스텝 등이 시그모이드로 분류된다.</p>
 
   <h2>예시로 보기</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x</th><th>−6</th><th>−4</th><th>−2</th><th>0</th><th>2</th><th>4</th><th>6</th></tr></thead><tbody><tr><td>σ(x)</td><td>0.0025</td><td>0.0180</td><td>0.1192</td><td>0.5000</td><td>0.8808</td><td>0.9820</td><td>0.9975</td></tr><tr><td>σ′(x)</td><td>0.0025</td><td>0.0177</td><td>0.1050</td><td>0.2500</td><td>0.1050</td><td>0.0177</td><td>0.0025</td></tr></tbody></table></div><ul><li>|x|가 4를 넘으면 곡선이 거의 평평해져 기울기가 0.02 아래로 떨어진다(포화).</li><li>역전파에서는 층마다 σ′가 곱해진다. 가중치를 무시하고 최댓값 0.25만 곱해도 5개 층을 지나면 0.25⁵ ≈ 9.8×10⁻⁴, 10개 층이면 ≈ 9.5×10⁻⁷이다. 깊은 신경망에서 기울기 소실이 생기는 이유를 보여 주는 단순화된 계산이다(Glorot &amp; Bengio, 2010; Goodfellow et al., 2016).</li><li>그래서 은닉층에서는 <a href="relu.html">렐루</a> 같은 다른 <a href="activation-function.html">활성화 함수</a>가 더 흔하지만, 출력이 0~1로 제한되어야 하는 이진분류 출력층이나 게이트에서는 지금도 쓰인다. LSTM의 게이트는 시그모이드로 ‘얼마나 통과시킬지’를 0~1 사이 값으로 정한다(Hochreiter &amp; Schmidhuber, 1997).</li></ul>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>x</th><th>−6</th><th>−4</th><th>−2</th><th>0</th><th>2</th><th>4</th><th>6</th></tr></thead><tbody><tr><td>σ(x)</td><td>0.0025</td><td>0.0180</td><td>0.1192</td><td>0.5000</td><td>0.8808</td><td>0.9820</td><td>0.9975</td></tr><tr><td>σ′(x)</td><td>0.0025</td><td>0.0177</td><td>0.1050</td><td>0.2500</td><td>0.1050</td><td>0.0177</td><td>0.0025</td></tr></tbody></table></div><ul><li>|x|가 4를 넘으면 곡선이 거의 평평해져 기울기가 0.02 아래로 떨어진다(포화).</li><li>역전파에서는 층마다 σ′가 곱해진다. 가중치를 무시하고 최댓값 0.25만 곱해도 5개 층을 지나면 0.25⁵ ≈ 9.8×10⁻⁴, 10개 층이면 ≈ 9.5×10⁻⁷이다. 깊은 신경망에서 기울기 소실이 생기는 이유를 보여 주는 단순화된 계산이다(Glorot &amp; Bengio, 2010; Goodfellow et al., 2016).</li><li>그래서 은닉층에서는 <a href="relu.html">렐루</a> 같은 다른 <a href="activation-function.html">활성화 함수</a>가 더 흔하지만, 출력이 0~1로 제한되어야 하는 이진분류 출력층이나 게이트에서는 지금도 쓰인다. <a href="lstm.html">LSTM</a>의 게이트는 시그모이드로 ‘얼마나 통과시킬지’를 0~1 사이 값으로 정한다(Hochreiter &amp; Schmidhuber, 1997).</li></ul>
 
   <h2>자주 하는 오해</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>시그모이드 출력은 곧 믿을 수 있는 확률이다.</td><td>값이 0~1이라는 것과 보정된 확률이라는 것은 다르다. 확률로 해석하려면 로그 손실 등으로 학습하고 보정 상태를 확인해야 한다.</td></tr><tr><td>시그모이드는 하나의 특정 함수 이름이다.</td><td>S자 모양 함수의 총칭이고, 로지스틱 함수·tanh·arctan·오차함수 등이 포함된다. 논문에서는 어느 함수인지 식으로 밝히는 편이 안전하다.</td></tr><tr><td>다중 분류에도 시그모이드를 그대로 쓰면 된다.</td><td>여러 클래스의 확률 합이 1이 되어야 하면 소프트맥스를 쓴다. 시그모이드는 클래스별 독립 판단(다중 레이블)에 쓰인다.</td></tr><tr><td>시그모이드는 은닉층에서 쓰면 안 된다.</td><td>금지된 것은 아니다. 깊은 층에서 학습이 느려지는 경향이 있어 다른 함수가 선호될 뿐이며, 얕은 신경망에서는 쓰기도 한다.</td></tr></tbody></table></div>
@@ -188,7 +188,7 @@
   <p>이 때문에 층이 깊어질수록 그래디언트가 누적적으로 작아지는 그래디언트 소실 문제와 직결되며, 이를 완화하기 위해 ReLU 계열 활성화함수나 배치정규화 같은 기법이 함께 논의되는 경우가 많다. 또한 시그모이드는 출력이 항상 양수라는 점에서 하이퍼볼릭탄젠트(tanh) 함수와 자주 비교되기도 한다.</p>
 
   <h2>주의할 점</h2>
-  <p>시그모이드 함수는 입력값이 아주 크거나 아주 작을 때 그래프가 거의 평평해져서 기울기가 0에 가까워진다. 이 때문에 층이 깊은 신경망에서는 기울기 소실 문제를 일으키기 쉬워, 은닉층에서는 <a href="relu.html">렐루 함수</a> 같은 다른 <a href="activation-function.html">활성화 함수</a>가 더 자주 선택된다.</p>
+  <p>시그모이드 함수는 입력값이 아주 크거나 아주 작을 때 그래프가 거의 평평해져서 기울기가 0에 가까워진다. 이 때문에 층이 깊은 신경망에서는 <a href="vanishing-gradient-problem.html">기울기 소실 문제</a>를 일으키기 쉬워, 은닉층에서는 <a href="relu.html">렐루 함수</a> 같은 다른 <a href="activation-function.html">활성화 함수</a>가 더 자주 선택된다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
@@ -219,8 +219,8 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="sharding.html" class="term-pager-prev">← 이전: 샤딩</a>
-  <a href="sliding-window-technique.html" class="term-pager-next">다음: 슬라이딩 윈도우 기법 →</a>
+  <a href="shortest-path-algorithm.html" class="term-pager-prev">← 이전: 최단 경로 알고리즘</a>
+  <a href="simulated-annealing.html" class="term-pager-next">다음: 시뮬레이티드 어닐링 →</a>
 </nav>
 </main>
 

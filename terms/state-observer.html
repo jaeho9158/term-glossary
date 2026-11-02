@@ -154,7 +154,7 @@
   <p>처음엔 추정값이 실제와 다를 수 있지만, 측정값과 모델의 예측값 차이를 계속 확인하며 추정치를 점점 실제 값에 가깝게 보정해 나간다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>실제 시스템에서는 원하는 모든 상태 변수를 센서로 직접 측정하기 어렵거나, 센서 자체가 비싸고 고장에 취약한 경우가 많다. 상태 관측기는 이런 제약 속에서도 PID 제어기와 달리 상태 되먹임 제어기가 필요로 하는 내부 상태 정보를 확보할 수 있게 해주기 때문에, 로봇·전력전자·항공우주 등 제어공학 논문 전반에서 핵심 구성요소로 다뤄진다. 또한 센서 고장을 감지하거나 대체하는 결함 허용 제어 연구에서도 관측기가 중요한 축을 이룬다.</p>
+  <p>실제 시스템에서는 원하는 모든 상태 변수를 센서로 직접 측정하기 어렵거나, 센서 자체가 비싸고 고장에 취약한 경우가 많다. 상태 관측기는 이런 제약 속에서도 <a href="pid-controller.html">PID 제어기</a>와 달리 상태 되먹임 제어기가 필요로 하는 내부 상태 정보를 확보할 수 있게 해주기 때문에, 로봇·전력전자·항공우주 등 제어공학 논문 전반에서 핵심 구성요소로 다뤄진다. 또한 센서 고장을 감지하거나 대체하는 결함 허용 제어 연구에서도 관측기가 중요한 축을 이룬다.</p>
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
@@ -187,12 +187,12 @@
   <p>대표적인 상태 관측기로는 선형 시스템에 쓰이는 루엔버거 관측기와, 잡음이 있는 환경에서 통계적으로 최적의 추정을 제공하는 칼만 필터, 그리고 비선형 시스템에 적용하는 확장 칼만 필터나 슬라이딩 모드 관측기 등이 있다. 관측기 설계에서는 추정 오차가 시간이 지남에 따라 얼마나 빠르게 실제 값으로 수렴하는지(관측기 이득 설계)와, 모델 불확실성이나 외란에 얼마나 강건한지가 함께 중요하게 다뤄진다.</p>
 
   <h2>주의할 점</h2>
-  <p>루엔버거 관측기 같은 결정론적 상태 관측기는 잡음을 따로 고려하지 않고 내부 상태를 "추정"하므로, 같은 상태 관측기라도 잡음이 섞인 측정값에서 최적의 추정치를 통계적으로 계산하는 칼만 필터와는 설계 출발점이 다르다. 또한 관측기가 제대로 작동하려면 애초에 그 상태가 측정 가능한 값들로부터 이론적으로 추정 가능해야 하며, 이는 가제어성과 가관측성 가운데 가관측성이 확보되어 있는지와 직결된 문제이다.</p>
+  <p>루엔버거 관측기 같은 결정론적 상태 관측기는 잡음을 따로 고려하지 않고 내부 상태를 "추정"하므로, 같은 상태 관측기라도 잡음이 섞인 측정값에서 최적의 추정치를 통계적으로 계산하는 <a href="kalman-filter.html">칼만 필터</a>와는 설계 출발점이 다르다. 또한 관측기가 제대로 작동하려면 애초에 그 상태가 측정 가능한 값들로부터 이론적으로 추정 가능해야 하며, 이는 가제어성과 가관측성 가운데 가관측성이 확보되어 있는지와 직결된 문제이다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>상태 추정과 관련해 자주 섞이는 용어이다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">잡음 가정</th></tr></thead><tbody><tr><th scope="row"><strong>상태 관측기</strong></th><td>측정 가능한 값과 모델로 내부 상태를 추정하는 알고리즘의 총칭</td><td>방식에 따라 다름</td></tr><tr><th scope="row"><a href="luenberger-observer.html">루엔버거 관측기</a></th><td>결정론적 모델 기반 선형 관측기</td><td>고려하지 않음</td></tr><tr><th scope="row">칼만 필터</th><td>잡음 통계를 반영해 오차 분산을 최소화하는 추정기</td><td>가우시안 잡음 가정</td></tr><tr><th scope="row">상태 피드백 제어</th><td>추정(또는 측정)한 상태로 제어 입력을 계산하는 제어기</td><td>관측기와 따로 설계</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇을 하나</th><th scope="col">잡음 가정</th></tr></thead><tbody><tr><th scope="row"><strong>상태 관측기</strong></th><td>측정 가능한 값과 모델로 내부 상태를 추정하는 알고리즘의 총칭</td><td>방식에 따라 다름</td></tr><tr><th scope="row"><a href="luenberger-observer.html">루엔버거 관측기</a></th><td>결정론적 모델 기반 선형 관측기</td><td>고려하지 않음</td></tr><tr><th scope="row"><a href="kalman-filter.html">칼만 필터</a></th><td>잡음 통계를 반영해 오차 분산을 최소화하는 추정기</td><td>가우시안 잡음 가정</td></tr><tr><th scope="row">상태 피드백 제어</th><td>추정(또는 측정)한 상태로 제어 입력을 계산하는 제어기</td><td>관측기와 따로 설계</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Luenberger, D. G. (1964). Observing the state of a linear system. IEEE Transactions on Military Electronics, 8(2), 74–80.</li>
@@ -203,7 +203,7 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms">칼만 필터</div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="kalman-filter.html">칼만 필터</a></div></div><p class="concept-family-map"><a href="../concept-map/eng.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="slam.html" class="related-same-field">SLAM (동시적 위치추정 및 지도작성)</a>
@@ -213,7 +213,7 @@
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="stall.html" class="term-pager-prev">← 이전: 실속</a>
-  <a href="statistical-process-control.html" class="term-pager-next">다음: 통계적 공정관리 →</a>
+  <a href="statically-determinate-indeterminate.html" class="term-pager-next">다음: 정정구조물과 부정정구조물 →</a>
 </nav>
 </main>
 

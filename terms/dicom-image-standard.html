@@ -159,7 +159,7 @@
   <p>CT 영상의 대표적인 태그 몇 개이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>태그</th><th>이름</th><th>뜻</th></tr></thead><tbody><tr><td>(0010,0010)</td><td>Patient’s Name</td><td>환자 이름</td></tr><tr><td>(0010,0020)</td><td>Patient ID</td><td>환자 식별 번호</td></tr><tr><td>(0008,0060)</td><td>Modality</td><td>검사 종류(CT, MR 등)</td></tr><tr><td>(0020,000D)</td><td>Study Instance UID</td><td>검사 고유 식별자</td></tr><tr><td>(0028,0010)·(0028,0011)</td><td>Rows·Columns</td><td>영상의 행·열 수</td></tr><tr><td>(7FE0,0010)</td><td>Pixel Data</td><td>영상의 픽셀 값</td></tr></tbody></table></div><p><strong>가상의 계산.</strong> CT에서는 저장된 값이 곧 밀도(HU)가 아니다. 저장값에 Rescale Slope와 Rescale Intercept 태그를 적용해 변환한다: <code>HU = 기울기 × 저장값 + 절편</code>. 기울기 1, 절편 −1,024인 영상에서 저장값이 1,024인 화소는 HU = 1 × 1,024 − 1,024 = 0(물)이다. 연구에서 이 변환을 빠뜨리면 같은 장비의 영상끼리도 값을 비교할 수 없게 된다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>DICOM은 JPEG 같은 영상 파일 형식이다.</td><td>영상 형식이면서 메타데이터와 통신 규약을 포함하는 표준이다. 파일 확장자가 .dcm이 아닐 수도 있다.</td></tr><tr><td>JPEG나 PNG로 바꾸면 같은 정보다.</td><td>비트 깊이, HU 값, 메타데이터가 사라지거나 줄어든다. 분석용으로는 DICOM 원본이 필요하다.</td></tr><tr><td>이름 태그만 지우면 비식별화가 끝난다.</td><td>생일·검사일 같은 다른 태그, 제조사 사설 태그, 영상 화면에 박힌 글자(번인)에도 식별 정보가 있을 수 있다. 표준에도 비식별화 지침이 별도로 있다(비식별화).</td></tr><tr><td>DICOM을 지원하면 모든 장비가 호환된다.</td><td>적합성 선언서의 지원 범위가 일치해야 하고, 사설 태그의 정보는 다른 장비에서 해석되지 않을 수 있다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>DICOM은 JPEG 같은 영상 파일 형식이다.</td><td>영상 형식이면서 메타데이터와 통신 규약을 포함하는 표준이다. 파일 확장자가 .dcm이 아닐 수도 있다.</td></tr><tr><td>JPEG나 PNG로 바꾸면 같은 정보다.</td><td>비트 깊이, HU 값, 메타데이터가 사라지거나 줄어든다. 분석용으로는 DICOM 원본이 필요하다.</td></tr><tr><td>이름 태그만 지우면 비식별화가 끝난다.</td><td>생일·검사일 같은 다른 태그, 제조사 사설 태그, 영상 화면에 박힌 글자(번인)에도 식별 정보가 있을 수 있다. 표준에도 비식별화 지침이 별도로 있다(<a href="de-identification.html">비식별화</a>).</td></tr><tr><td>DICOM을 지원하면 모든 장비가 호환된다.</td><td>적합성 선언서의 지원 범위가 일치해야 하고, 사설 태그의 정보는 다른 장비에서 해석되지 않을 수 있다.</td></tr></tbody></table></div>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -185,7 +185,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>의료영상 정보 체계에서 함께 나오는 약어들이다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><strong>DICOM</strong></th><td>의료영상 형식과 통신 규약의 표준</td><td>영상과 관련 정보를 담고 주고받음</td></tr><tr><th scope="row">PACS</th><td>영상 저장·조회·전송 시스템</td><td>DICOM으로 영상을 주고받는 병원 시스템</td></tr><tr><th scope="row">HL7</th><td>의료 정보 교환 표준(환자 기록, 오더 등)</td><td>영상보다 진료 정보 교환에 초점</td></tr><tr><th scope="row">비식별화</th><td>식별 정보를 제거·변환하는 절차</td><td>DICOM 영상을 연구에 쓸 때 필수</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">역할</th></tr></thead><tbody><tr><th scope="row"><strong>DICOM</strong></th><td>의료영상 형식과 통신 규약의 표준</td><td>영상과 관련 정보를 담고 주고받음</td></tr><tr><th scope="row">PACS</th><td>영상 저장·조회·전송 시스템</td><td>DICOM으로 영상을 주고받는 병원 시스템</td></tr><tr><th scope="row">HL7</th><td>의료 정보 교환 표준(환자 기록, 오더 등)</td><td>영상보다 진료 정보 교환에 초점</td></tr><tr><th scope="row"><a href="de-identification.html">비식별화</a></th><td>식별 정보를 제거·변환하는 절차</td><td>DICOM 영상을 연구에 쓸 때 필수</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Pianykh, O. S. (2012). Digital Imaging and Communications in Medicine (DICOM): A Practical Introduction and Survival Guide (2nd ed.). Springer.</li>
@@ -200,8 +200,8 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="contrast-enhanced-imaging.html" class="term-pager-prev">← 이전: 조영증강영상</a>
-  <a href="evoked-potential.html" class="term-pager-next">다음: 유발전위 →</a>
+  <a href="cortical-mapping.html" class="term-pager-prev">← 이전: 대뇌피질 매핑</a>
+  <a href="dual-energy-computed-tomography.html" class="term-pager-next">다음: 이중에너지 컴퓨터단층촬영 →</a>
 </nav>
 </main>
 
