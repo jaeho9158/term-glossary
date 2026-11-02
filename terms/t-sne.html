@@ -162,7 +162,7 @@
   <p>고차원 자료의 군집 구조를 눈으로 탐색할 때 쓴다. 단일세포 RNA 발현, 이미지·문서의 임베딩, 키워드 관계 같은 자료가 대표적이다. 한 국내 논문은 단어 임베딩 결과를 2차원에 시각화하는 데 사용했다. 선형 투영인 <a href="principal-component-analysis.html">주성분분석</a>과 달리 휘어진 구조를 펼쳐 보일 수 있지만, 그 대신 아래 성질을 이해하고 써야 한다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>성질</th><th>의미</th></tr></thead><tbody><tr><td>비볼록 최적화</td><td>초기값과 난수 시드에 따라 결과 배치가 달라질 수 있어 여러 번 실행해 일관성을 본다.</td></tr><tr><td>퍼플렉시티 의존</td><td>보통 5~50 사이 값을 쓰도록 원 논문이 안내하며, 값에 따라 군집이 합쳐지거나 쪼개져 보인다(Wattenberg 등, 2016).</td></tr><tr><td>군집 크기·거리의 비의미성</td><td>그림에서 군집의 크기나 군집 사이 거리는 원공간의 크기·거리와 같다고 읽을 수 없다.</td></tr><tr><td>새 점의 투영</td><td>기본 t-SNE는 학습에 쓰지 않은 새 점을 바로 배치하는 함수를 제공하지 않는다.</td></tr></tbody></table></div>
 
   <h2>논문에는 이렇게 적는다</h2>
-  <p>논문에는 재현에 필요한 조건을 적는다.</p><ul><li>사용한 구현(예: scikit-learn의 TSNE, Rtsne, openTSNE)과 입력(원자료인지 PCA로 줄인 뒤인지)</li><li>퍼플렉시티, 학습률, 반복 횟수, 초기화 방식, 난수 시드</li><li>여러 퍼플렉시티·시드로 확인했는지 여부</li></ul><p>해석 문장은 “이 자료에서 어떤 점들이 서로 가까운 이웃이다” 수준으로 제한하는 것이 안전하다. 군집 간 거리나 크기를 근거로 한 정량적 주장은 피해야 한다. 단일세포 자료에서의 사용 지침은 Kobak과 Berens(2019)가 정리했다. 비슷한 목적의 <a href="umap.html">UMAP</a>, 거리 보존을 목표로 하는 <a href="multidimensional-scaling.html">다차원척도법</a>과 비교해 쓰는 경우가 많다.</p>
+  <p>논문에는 재현에 필요한 조건을 적는다.</p><ul><li>사용한 구현(예: scikit-learn의 TSNE, Rtsne, openTSNE)과 입력(원자료인지 PCA로 줄인 뒤인지)</li><li>퍼플렉시티, 학습률, 반복 횟수, 초기화 방식, 난수 시드</li><li>여러 퍼플렉시티·시드로 확인했는지 여부</li></ul><p>해석 문장은 “이 자료에서 어떤 점들이 서로 가까운 이웃이다” 수준으로 제한하는 것이 안전하다. 군집 간 거리나 크기를 근거로 한 정량적 주장은 피해야 한다. 단일세포 자료에서의 사용 지침은 Kobak과 Berens(2019)가 정리했다. 비슷한 목적의 UMAP, 거리 보존을 목표로 하는 <a href="multidimensional-scaling.html">다차원척도법</a>과 비교해 쓰는 경우가 많다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -194,7 +194,7 @@
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">t-SNE와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>분산이 큰 방향으로 선형 투영하는 차원 축소</td><td>선형이며 결정적(같은 입력이면 같은 결과). 전체 분산 구조를 보존</td></tr><tr><th scope="row"><a href="umap.html">UMAP</a></th><td>이웃 그래프의 위상 구조를 이용한 비선형 차원 축소</td><td>같은 목적이지만 계산이 빠르고 전역 구조가 상대적으로 더 보존된다고 알려져 있음</td></tr><tr><th scope="row"><a href="multidimensional-scaling.html">다차원척도법</a></th><td>거리 정보를 최대한 유지하며 저차원에 배치</td><td>전체 거리 관계의 보존이 목표이고, t-SNE는 국소 이웃 관계에 초점</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">t-SNE와의 차이</th></tr></thead><tbody><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>분산이 큰 방향으로 선형 투영하는 차원 축소</td><td>선형이며 결정적(같은 입력이면 같은 결과). 전체 분산 구조를 보존</td></tr><tr><th scope="row">UMAP</th><td>이웃 그래프의 위상 구조를 이용한 비선형 차원 축소</td><td>같은 목적이지만 계산이 빠르고 전역 구조가 상대적으로 더 보존된다고 알려져 있음</td></tr><tr><th scope="row"><a href="multidimensional-scaling.html">다차원척도법</a></th><td>거리 정보를 최대한 유지하며 저차원에 배치</td><td>전체 거리 관계의 보존이 목표이고, t-SNE는 국소 이웃 관계에 초점</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>van der Maaten, L., &amp; Hinton, G. (2008). Visualizing data using t-SNE. Journal of Machine Learning Research, 9, 2579–2605.</li>
@@ -220,8 +220,8 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="system-call.html" class="term-pager-prev">← 이전: 시스템 호출</a>
-  <a href="tail-call-optimization.html" class="term-pager-next">다음: 꼬리 호출 최적화 →</a>
+  <a href="spiking-neural-network.html" class="term-pager-prev">← 이전: 스파이킹 신경망</a>
+  <a href="tcp-ip.html" class="term-pager-next">다음: TCP/IP →</a>
 </nav>
 </main>
 

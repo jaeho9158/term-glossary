@@ -1388,7 +1388,7 @@ function termCardHTML(match, basics) {
         <button type="button" class="term-card-hide-btn" data-hide-slug="${match.slug}" title="이 용어 숨기기" aria-label="이 용어 숨기기">✕</button>
         <span class="term-card-name">${escapeHtml(match.title_ko)}${enPart}</span>
         ${definitionPart}
-        <a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기 →</a>
+        ${HIDDEN_SLUGS.has(match.slug) ? "" : `<a href="terms/${match.slug}.html" class="term-card-detail" target="_blank" rel="noopener">자세히 보기 →</a>`}
         ${basicsPart}
       </li>`;
 }
@@ -1410,7 +1410,7 @@ function popoverHTML(match, coveredMatches, options) {
     ? `<p class="dict-popover-basics">기초 용어: ${basicList
         .map(
           (b) =>
-            `<a href="terms/${encodeURIComponent(b.slug)}.html" target="_blank" rel="noopener">${escapeHtml(
+            HIDDEN_SLUGS.has(b.slug) ? escapeHtml(b.title_ko || b.slug) : `<a href="terms/${encodeURIComponent(b.slug)}.html" target="_blank" rel="noopener">${escapeHtml(
               b.title_ko || b.slug
             )}</a>`
         )
@@ -1427,7 +1427,7 @@ function popoverHTML(match, coveredMatches, options) {
     ? `<ul class="dict-popover-covered">${covered
         .map(
           (c) =>
-            `<li><a href="terms/${encodeURIComponent(c.slug)}.html" target="_blank" rel="noopener">${escapeHtml(
+            HIDDEN_SLUGS.has(c.slug) ? `<li>${escapeHtml(c.title_ko || c.slug)}</li>` : `<li><a href="terms/${encodeURIComponent(c.slug)}.html" target="_blank" rel="noopener">${escapeHtml(
               c.title_ko || c.slug
             )}</a></li>`
         )
@@ -1441,7 +1441,7 @@ function popoverHTML(match, coveredMatches, options) {
       ${metaPart}
       ${basicsPart}
       ${coveredPart}
-      <a href="terms/${encodeURIComponent(match.slug)}.html" class="dict-popover-detail" target="_blank" rel="noopener">자세히 보기 →</a>`;
+      ${HIDDEN_SLUGS.has(match.slug) ? "" : `<a href="terms/${encodeURIComponent(match.slug)}.html" class="dict-popover-detail" target="_blank" rel="noopener">자세히 보기 →</a>`}`;
 }
 
 // Resolves overlapping matches down to a non-overlapping list, keeping the
@@ -1874,7 +1874,11 @@ async function computeDocHash(file, arrayBuffer) {
 // 되돌려 주면 buildExactIndex/matchTermsWithIndex/termCardHTML은 형식이
 // 바뀐 줄 모른 채 그대로 동작한다. definition은 이 인덱스에 없고,
 // 매칭된 용어 것만 viewer-defs/ 청크에서 나중에 채운다.
+// 숨긴 용어는 페이지가 없으므로 링크 없이 보여 준다.
+const HIDDEN_SLUGS = new Set();
+
 function decodeViewerIndex(data) {
+  for (const i of data.hidden || []) HIDDEN_SLUGS.add(data.terms[i][0]);
   const categories = data.categories || [];
   // 5번째 칸(일반어 등급)은 0일 때 생략돼 있다 — 4칸짜리 옛 인덱스도
   // 그대로 읽히도록 없으면 0으로 본다.

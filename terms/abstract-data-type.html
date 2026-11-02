@@ -160,7 +160,7 @@
   <ul><li>추상 자료형(ADT)은 값의 집합과 <strong>연산, 그 연산이 만족해야 하는 규칙</strong>으로 자료형을 정의한다. 내부 표현은 정의의 일부가 아니다.</li><li>1974년 리스코프와 질레스가 프로그래밍 맥락에서 제안했고, 정의와 구현을 분리해 구현을 바꿔도 사용하는 코드가 영향을 받지 않게 하는 것이 목적이다.</li><li>ADT 정의는 인터페이스(어떤 연산이 있는가)와 행동 규칙(연산들 사이의 관계)으로 이루어진다. 규칙의 예: 스택에서 push 뒤에 top을 하면 방금 넣은 값이 나온다.</li><li>자료구조(배열, 연결 리스트 등)는 ADT를 실제로 만드는 <strong>구현</strong>이다. 하나의 ADT에 여러 구현이 있을 수 있다.</li></ul><p>ADT는 값의 가능한 집합, 연산, 연산의 동작을 사용자 관점에서 정의하는 수학적 모형이며, 구현자가 고른 구체적 표현인 자료구조와 구별된다. 형식적으로는 대수 구조처럼 정의역, 연산 집합, 연산이 만족해야 할 제약으로 이루어진다. 인터페이스가 비슷해도 행동 제약이 스택(후입선출)과 큐(선입선출)를 구분한다. 제약을 쓰는 방식은 두 가지 관점으로 나뉜다. 공리적(함수적) 관점은 상태마다 별개의 값으로 보고 연산을 부작용 없는 함수로 두어 제약을 공리로 쓰고, 조작적(명령형) 관점은 ADT를 시간에 따라 변하는 것으로 보아 연산 순서가 중요하며 제약은 주로 문장으로 설명한다.</p>
 
   <h2>예시로 보기</h2>
-  <p>스택과 큐는 연산 이름이 비슷하지만 <strong>규칙</strong>이 달라 서로 다른 ADT이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>ADT</th><th>핵심 연산</th><th>규칙</th><th>구현 후보</th></tr></thead><tbody><tr><td><a href="stack-and-queue.html">스택</a></td><td>push, pop, top</td><td>마지막에 넣은 것이 먼저 나옴(LIFO)</td><td>배열, <a href="linked-list.html">연결 리스트</a></td></tr><tr><td><a href="stack-and-queue.html">큐</a></td><td>enqueue, dequeue, front</td><td>먼저 넣은 것이 먼저 나옴(FIFO)</td><td>원형 배열, 연결 리스트</td></tr></tbody></table></div><p>사용하는 쪽은 규칙만 알면 되고, 내부가 배열인지 연결 리스트인지는 몰라도 된다.</p><p>스택의 공리 예로는 push 직후 pop하면 이전 상태로 돌아가고, push 직후의 top은 방금 넣은 값이며, 새로 만든 스택은 비어 있고, push를 한 스택은 비어 있지 않다는 것이 있다. 구현은 구체적 자료구조를 골라 공리를 만족하는 절차를 쓰는 일이며, 클라이언트는 불투명 타입이나 핸들로 보호되어 구현을 바꿔도 코드가 깨지지 않는다. C++과 Java 같은 객체지향 언어는 ADT를 클래스로 나타낸다.</p>
+  <p>스택과 큐는 연산 이름이 비슷하지만 <strong>규칙</strong>이 달라 서로 다른 ADT이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>ADT</th><th>핵심 연산</th><th>규칙</th><th>구현 후보</th></tr></thead><tbody><tr><td>스택</td><td>push, pop, top</td><td>마지막에 넣은 것이 먼저 나옴(LIFO)</td><td>배열, <a href="linked-list.html">연결 리스트</a></td></tr><tr><td>큐</td><td>enqueue, dequeue, front</td><td>먼저 넣은 것이 먼저 나옴(FIFO)</td><td>원형 배열, 연결 리스트</td></tr></tbody></table></div><p>사용하는 쪽은 규칙만 알면 되고, 내부가 배열인지 연결 리스트인지는 몰라도 된다.</p><p>스택의 공리 예로는 push 직후 pop하면 이전 상태로 돌아가고, push 직후의 top은 방금 넣은 값이며, 새로 만든 스택은 비어 있고, push를 한 스택은 비어 있지 않다는 것이 있다. 구현은 구체적 자료구조를 골라 공리를 만족하는 절차를 쓰는 일이며, 클라이언트는 불투명 타입이나 핸들로 보호되어 구현을 바꿔도 코드가 깨지지 않는다. C++과 Java 같은 객체지향 언어는 ADT를 클래스로 나타낸다.</p>
 
   <h2>자주 하는 오해</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ADT와 자료구조는 같은 말이다.</td><td>ADT는 행동의 명세이고 자료구조는 구체적 표현이다.</td></tr><tr><td>ADT는 클래스나 인터페이스와 똑같다.</td><td>언어의 인터페이스는 연산 이름과 형만 정하는 경우가 많고, ADT는 연산 사이의 규칙까지 포함한다.</td></tr><tr><td>같은 ADT면 성능도 같다.</td><td>구현에 따라 연산의 시간 복잡도가 달라진다.</td></tr><tr><td>ADT는 객체지향에서만 쓴다.</td><td>개념은 언어와 무관하며, 대수적 명세로 수학적으로 다루기도 한다.</td></tr></tbody></table></div><p>1980년 무렵에는 보편대수에 바탕을 둔 대수적 명세가 주요 연구 분야였고 당시에는 ADT와 거의 같은 뜻으로 쓰였다. 복잡도 보장을 ADT 인터페이스에 포함시켜야 한다는 주장(C++ 표준 템플릿 라이브러리를 설계한 스테파노프)과, ADT는 구현 비용과 무관해야 한다는 견해가 맞서 있다.</p>
@@ -186,7 +186,7 @@
   <p>ADT를 더 엄밀하게 다루는 논문에서는 연산의 동작을 자연어가 아니라 대수적 명세(algebraic specification)나 사전조건/사후조건(pre/postcondition) 형태로 정의한다. 예를 들어 스택의 경우 "push한 직후 pop을 하면 방금 push한 값이 나온다"처럼 연산들 사이의 관계를 공리로 표현하는 방식이다. 또한 같은 ADT라도 구현에 따라 각 연산의 시간 복잡도가 달라질 수 있기 때문에, 논문에서는 흔히 "이 ADT를 어떤 자료구조로 구현했을 때 각 연산이 상각(amortized) 또는 최악의 경우(worst-case) 기준으로 어느 정도의 시간이 걸리는가"를 함께 명시한다. 이런 명세와 복잡도 분석이 갖춰져야 비로소 서로 다른 구현을 공정하게 비교할 수 있다.</p>
 
   <h2>주의할 점</h2>
-  <p>추상 자료형과 자료구조를 같은 말로 혼동하기 쉽지만 엄밀히는 다른 층위의 개념이다. 예를 들어 <a href="stack-and-queue.html">스택과 큐</a>은 "넣고 꺼내는 순서(스택은 LIFO, 큐는 FIFO)"라는 연산 규칙을 정의한 ADT이고, 이를 배열로 구현하든 연결 리스트로 구현하든 그 결과물이 구체적인 자료구조이다. 하나의 ADT가 여러 가지 자료구조로 구현될 수 있다는 점이 핵심이다.</p>
+  <p>추상 자료형과 자료구조를 같은 말로 혼동하기 쉽지만 엄밀히는 다른 층위의 개념이다. 예를 들어 스택과 큐은 "넣고 꺼내는 순서(스택은 LIFO, 큐는 FIFO)"라는 연산 규칙을 정의한 ADT이고, 이를 배열로 구현하든 연결 리스트로 구현하든 그 결과물이 구체적인 자료구조이다. 하나의 ADT가 여러 가지 자료구조로 구현될 수 있다는 점이 핵심이다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
@@ -200,17 +200,10 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="deque.html">덱</a><a href="stack-and-queue.html">스택과 큐</a><a href="priority-queue.html">우선순위 큐</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms">덱스택과 큐우선순위 큐</div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="stack-and-queue.html">스택과 큐</a>
-    <a href="priority-queue-and-heap.html">우선순위 큐와 힙</a>
     <a href="linked-list.html">연결 리스트</a>
-    <a href="hash-table.html">해시테이블</a>
-    <a href="dynamic-programming.html" class="related-same-field">동적계획법</a>
-    <a href="sorting-algorithm.html" class="related-same-field">정렬 알고리즘</a>
-    <a href="graph-theory-basics.html" class="related-same-field">그래프 이론</a>
-    <a href="binary-search-tree.html" class="related-same-field">이진탐색트리</a>
     <a href="recursive-function.html" class="related-same-field">재귀함수</a>
     <a href="dijkstra-algorithm.html" class="related-same-field">다익스트라 알고리즘</a>
   </div>
@@ -219,7 +212,7 @@
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="ablation-study.html" class="term-pager-prev">← 이전: 제거 연구</a>
-  <a href="abstract-syntax-tree.html" class="term-pager-next">다음: 추상 구문 트리 →</a>
+  <a href="activation-function.html" class="term-pager-next">다음: 활성화 함수 →</a>
 </nav>
 </main>
 

@@ -161,7 +161,7 @@
   <p><strong>가상의 예</strong> 어느 네트워크 ACL의 규칙이 아래 순서로 쓰여 있다고 합시다(위에서부터 처음 일치하는 규칙 적용).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>번호</th><th>규칙</th></tr></thead><tbody><tr><td>1</td><td>10.0.1.0/24 → 웹서버, 포트 443: 허용</td></tr><tr><td>2</td><td>10.0.0.0/16 → 웹서버, 모든 포트: 거부</td></tr><tr><td>3</td><td>그 외: 거부(암묵적)</td></tr></tbody></table></div><p>10.0.1.7이 웹서버 443으로 접속하면 1번에 먼저 일치해 <strong>허용</strong>된다. 10.0.2.9가 같은 접속을 하면 1번에 해당하지 않고 2번에 일치해 <strong>거부</strong>된다. 만약 1번과 2번의 순서를 바꾸면 10.0.1.7도 거부되어 의도와 정반대가 된다. 이처럼 ACL은 개별 규칙만이 아니라 <em>배열 전체</em>를 읽어야 한다. 규칙이 늘면 충돌·가려진 규칙(shadowing)이 생기기 쉬워 주기적 점검이 필요하다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ACL은 네트워크 장비에만 있다.</td><td>운영체제 파일 권한, 클라우드 객체 저장소, 데이터베이스 등 넓게 쓰이는 모델이다.</td></tr><tr><td>ACL과 역할기반 접근통제(RBAC)는 같은 것이다.</td><td>ACL은 자원에 붙는 허가 목록이고, <a href="role-based-access-control.html">RBAC</a>은 권한을 ‘역할’에 주고 사용자를 역할에 묶는 방식이다. 서로 배타적이지 않아 함께 쓰이기도 한다(Sandhu et al., 1996).</td></tr><tr><td>허용 규칙만 있으면 안전하다.</td><td>기본 거부가 보장되지 않거나 규칙 순서가 잘못되면 의도치 않은 허용이 생긴다.</td></tr><tr><td>ACL이 있으면 방화벽이 필요 없다.</td><td>단순 패킷 필터링인 ACL과 상태 추적·검사를 하는 <a href="firewall.html">방화벽</a>은 기능 범위가 다르다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>ACL은 네트워크 장비에만 있다.</td><td>운영체제 파일 권한, 클라우드 객체 저장소, 데이터베이스 등 넓게 쓰이는 모델이다.</td></tr><tr><td>ACL과 역할기반 접근통제(RBAC)는 같은 것이다.</td><td>ACL은 자원에 붙는 허가 목록이고, RBAC은 권한을 ‘역할’에 주고 사용자를 역할에 묶는 방식이다. 서로 배타적이지 않아 함께 쓰이기도 한다(Sandhu et al., 1996).</td></tr><tr><td>허용 규칙만 있으면 안전하다.</td><td>기본 거부가 보장되지 않거나 규칙 순서가 잘못되면 의도치 않은 허용이 생긴다.</td></tr><tr><td>ACL이 있으면 방화벽이 필요 없다.</td><td>단순 패킷 필터링인 ACL과 상태 추적·검사를 하는 방화벽은 기능 범위가 다르다.</td></tr></tbody></table></div>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -186,7 +186,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>접근 통제의 대표적인 저장·관리 방식이다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">권한을 붙이는 대상</th><th scope="col">잘 보이는 질문</th></tr></thead><tbody><tr><th scope="row"><strong>접근제어목록(ACL)</strong></th><td>자원</td><td>이 자원에 누가 접근할 수 있나</td></tr><tr><th scope="row">능력목록(capability)</th><td>주체(사용자·프로세스)</td><td>이 주체가 무엇을 할 수 있나</td></tr><tr><th scope="row"><a href="role-based-access-control.html">역할기반 접근통제</a></th><td>역할(사용자는 역할에 소속)</td><td>이 역할은 어떤 권한을 갖나</td></tr><tr><th scope="row"><a href="firewall.html">방화벽</a></th><td>네트워크 경계의 트래픽</td><td>어떤 흐름을 통과시킬까(ACL은 그 규칙의 한 형태)</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">권한을 붙이는 대상</th><th scope="col">잘 보이는 질문</th></tr></thead><tbody><tr><th scope="row"><strong>접근제어목록(ACL)</strong></th><td>자원</td><td>이 자원에 누가 접근할 수 있나</td></tr><tr><th scope="row">능력목록(capability)</th><td>주체(사용자·프로세스)</td><td>이 주체가 무엇을 할 수 있나</td></tr><tr><th scope="row">역할기반 접근통제</th><td>역할(사용자는 역할에 소속)</td><td>이 역할은 어떤 권한을 갖나</td></tr><tr><th scope="row">방화벽</th><td>네트워크 경계의 트래픽</td><td>어떤 흐름을 통과시킬까(ACL은 그 규칙의 한 형태)</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Lampson, B. W. (1971). Protection. Proceedings of the 5th Princeton Conference on Information Sciences and Systems.</li>
@@ -202,7 +202,7 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="address-space-layout-randomization.html" class="term-pager-next">다음: 주소공간 배치 난수화(ASLR) →</a>
+  <a href="advanced-encryption-standard.html" class="term-pager-next">다음: 고급 암호화 표준(AES) →</a>
 </nav>
 </main>
 

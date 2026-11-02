@@ -81,7 +81,8 @@ test("코드 SVG: 인라인, 기호 설명, 대조 출처", () => {
 });
 
 test("저장소 데이터: 모두 유효하고 그림 파일이 있으며, 반영된 페이지에 블록이 한 번씩 있다", () => {
-  const all = loadAll();
+  // 숨긴 용어는 페이지가 없다
+  const all = loadAll().filter((d) => fs.existsSync(path.join(ROOT, "terms", d.slug + ".html")));
   assert.ok(all.length >= 1);
   for (const d of all) {
     assert.deepStrictEqual(validate(d), [], d.slug);
@@ -123,7 +124,7 @@ test("코드 SVG 스펙 320개: 모두 렌더되고 라벨 겹침이 남지 않�
 
 test("코드 SVG 320개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
   const { outOfBounds } = require("../scripts/illus/check-bounds.js");
-  for (const d of loadAll().filter((x) => x.method === "svg")) {
+  for (const d of loadAll().filter((x) => x.method === "svg" && fs.existsSync(path.join(ROOT, "terms", x.slug + ".html")))) {
     const svg = fs.readFileSync(path.join(ROOT, d.svg), "utf8");
     assert.deepStrictEqual(outOfBounds(svg), [], d.slug);
     const html = fs.readFileSync(path.join(ROOT, "terms", d.slug + ".html"), "utf8");

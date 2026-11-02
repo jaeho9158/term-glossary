@@ -152,7 +152,7 @@
   <p>28×28 흑백 손글씨 이미지는 숫자 784개로 이루어져 있으니 784차원 공간의 한 점이다. 그런데 784개의 숫자를 아무렇게나 채우면 대부분 잡음 같은 그림이 되고, 사람이 알아볼 수 있는 숫자 이미지는 이 거대한 공간의 아주 작은 일부에 불과하다. 게다가 숫자의 기울기나 굵기를 조금씩 바꾸면 이미지도 연속적으로 변한다. 그래서 실제 이미지들은 784차원 공간 안에 놓여 있되, 몇 개의 요인만으로 위치가 정해지는 낮은 차원의 곡면 근처에 모여 있을 것이라고 본다. 종이를 둥글게 말아 놓으면 3차원 공간 안에 있지만 종이 위의 위치는 여전히 좌표 2개로 정해지는 것과 비슷하다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>차원 축소, 표현 학습, 오토인코더, 생성 모델 같은 방법이 왜 쓸모가 있는지를 설명하는 기본 직관이 바로 이 가설이다. 데이터가 정말 낮은 차원의 구조 위에 있다면, 겉으로 보이는 차원이 아무리 커도 실제로 배워야 할 것은 그 낮은 차원의 구조뿐이므로 <a href="curse-of-dimensionality.html">차원의 저주</a>가 일반적으로 우려하는 것만큼 심각하지 않을 수 있다. 또 <a href="umap.html">UMAP</a>이나 <a href="t-sne.html">t-SNE</a>처럼 이웃 관계를 보존하며 저차원으로 옮기는 기법, <a href="latent-space.html">잠재공간</a>을 학습하는 모델의 논문에서 동기와 가정으로 자주 인용된다.</p>
+  <p>차원 축소, 표현 학습, 오토인코더, 생성 모델 같은 방법이 왜 쓸모가 있는지를 설명하는 기본 직관이 바로 이 가설이다. 데이터가 정말 낮은 차원의 구조 위에 있다면, 겉으로 보이는 차원이 아무리 커도 실제로 배워야 할 것은 그 낮은 차원의 구조뿐이므로 <a href="curse-of-dimensionality.html">차원의 저주</a>가 일반적으로 우려하는 것만큼 심각하지 않을 수 있다. 또 UMAP이나 <a href="t-sne.html">t-SNE</a>처럼 이웃 관계를 보존하며 저차원으로 옮기는 기법, 잠재공간을 학습하는 모델의 논문에서 동기와 가정으로 자주 인용된다.</p>
 
   <!-- term-extras:sections:start -->
   <h2>핵심 주장</h2>
@@ -173,9 +173,9 @@
   <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
   <!-- term-extras:usage:end -->
   <div class="example">"고차원 임베딩이 저차원 매니폴드 근처에 놓인다는 매니폴드 가설에 따라, 잠재공간의 차원을 32로 설정하였다."</div>
-  <p>원래 데이터의 차원이 수천이어도 실제 변동은 훨씬 적은 요인으로 설명된다고 가정하고, 모델이 학습할 <a href="latent-space.html">잠재공간</a>의 크기를 작게 잡았다는 뜻이다.</p>
+  <p>원래 데이터의 차원이 수천이어도 실제 변동은 훨씬 적은 요인으로 설명된다고 가정하고, 모델이 학습할 잠재공간의 크기를 작게 잡았다는 뜻이다.</p>
   <div class="example">"본 연구는 매니폴드 가설을 전제로, 국소적 이웃 구조를 보존하는 UMAP으로 임베딩을 2차원에 투영하였다."</div>
-  <p>가까운 점들의 이웃 관계가 데이터의 핵심 구조라고 보고, 그 관계를 최대한 유지하는 <a href="umap.html">UMAP</a>을 시각화 도구로 골랐다는 설명이다.</p>
+  <p>가까운 점들의 이웃 관계가 데이터의 핵심 구조라고 보고, 그 관계를 최대한 유지하는 UMAP을 시각화 도구로 골랐다는 설명이다.</p>
   <div class="example">"다만 매니폴드 가설은 경험적 가정이므로, 데이터의 고유 차원 추정치를 여러 방법으로 함께 보고하였다."</div>
   <p>가설이 성립하는지와 고유 차원이 얼마인지는 방법에 따라 달라질 수 있어서, 한 가지 추정에만 기대지 않고 결과를 비교해 제시했다는 뜻이다.</p>
 
@@ -188,7 +188,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>‘다양체’가 들어간 용어와 방법을 구분한다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><a href="manifold.html">다양체</a></th><td>전체로는 휘어 있어도 아주 가까이서 보면 평평한 공간처럼 보이는 공간</td><td>수학의 엄밀한 개념</td></tr><tr><th scope="row"><strong>매니폴드 가설</strong></th><td>고차원 실제 데이터가 낮은 차원의 매끄러운 곡면 근처에 모여 있다는 가정</td><td>데이터 분석의 가설</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>여러 변수를 적은 수의 새로운 축으로 압축</td><td>선형 부분공간을 가정하는 방법</td></tr><tr><th scope="row"><a href="umap.html">UMAP</a></th><td>국소 이웃 구조를 근사해 고차원 데이터를 저차원으로 투영</td><td>이 가설을 동기로 쓰는 알고리즘</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><a href="manifold.html">다양체</a></th><td>전체로는 휘어 있어도 아주 가까이서 보면 평평한 공간처럼 보이는 공간</td><td>수학의 엄밀한 개념</td></tr><tr><th scope="row"><strong>매니폴드 가설</strong></th><td>고차원 실제 데이터가 낮은 차원의 매끄러운 곡면 근처에 모여 있다는 가정</td><td>데이터 분석의 가설</td></tr><tr><th scope="row"><a href="principal-component-analysis.html">주성분분석</a></th><td>여러 변수를 적은 수의 새로운 축으로 압축</td><td>선형 부분공간을 가정하는 방법</td></tr><tr><th scope="row">UMAP</th><td>국소 이웃 구조를 근사해 고차원 데이터를 저차원으로 투영</td><td>이 가설을 동기로 쓰는 알고리즘</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Tenenbaum, J. B., de Silva, V., &amp; Langford, J. C. (2000). A global geometric framework for nonlinear dimensionality reduction. Science, 290.</li>

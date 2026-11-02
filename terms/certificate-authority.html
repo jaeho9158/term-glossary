@@ -129,7 +129,7 @@
 <main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 인증기관 (Certificate Authority)</p>
   <h1>인증기관 (Certificate Authority)</h1>
-  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치"><a href="public-key-infrastructure.html">공개키 기반구조(PKI)</a><span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">인증기관</span></nav><!-- concept-path:end -->
+  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치">공개키 기반구조(PKI)<span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">인증기관</span></nav><!-- concept-path:end -->
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=cyber">정보보안학</a>
   </div>
@@ -158,7 +158,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>인증기관(CA)은 “이 공개키는 이 주체의 것”이라는 사실을 확인한 뒤, 자신의 <strong>개인키로 서명한 디지털 인증서</strong>를 발급하는 기관이다. 인증서의 서명을 검증하면 공개키와 주체의 결합이 CA의 보증을 받은 것인지 확인할 수 있다.</li><li>인증서 형식은 흔히 X.509이며, 형식과 검증 절차는 RFC 5280(Cooper 등, 2008)에 정리되어 있다. 인증서에는 주체, 공개키, 유효기간, 발급자, 서명이 들어간다.</li><li>사용자의 브라우저·운영체제에는 신뢰하기로 한 <strong>루트 CA</strong>의 인증서 목록(신뢰 저장소)이 들어 있고, 검증은 서버 인증서 → 중간 CA → 루트 CA로 이어지는 <strong>인증서 체인</strong>을 따라 올라간다. 루트 키는 오프라인에 보관하고 실제 발급은 중간 CA가 맡는 구성이 흔하다.</li><li>이미 발급한 인증서를 더는 믿지 못하게 되면 <a href="certificate-revocation-list.html">인증서 폐지목록(CRL)</a>이나 온라인 상태 확인(OCSP; 서버가 응답을 미리 받아 전달하는 방식은 <a href="ocsp-stapling.html">OCSP 스테이플링</a>)으로 알린다.</li><li>발급이 올바르게 이루어졌는지 외부에서 감시하려는 장치가 <a href="certificate-transparency.html">인증서 투명성</a>이다(Laurie 등, 2013): 발급된 인증서를 공개 로그에 남기도록 한다.</li></ul><p>검증 수준은 크게 도메인 검증(DV), 조직 검증(OV), 확장 검증(EV)으로 나뉜다. 도메인 검증은 신청자가 해당 도메인을 통제한다는 것만 확인하며 신청자의 신원을 보증하지 않는다. 2014년 11월 18일 EFF, Mozilla, Cisco, Akamai 등이 발표한 Let&#39;s Encrypt는 비영리 인증기관(운영 주체는 Internet Security Research Group)으로 도메인 검증 인증서를 무료로 발급하며, W3Techs의 2024년 7월 집계에서 조사 대상 웹사이트의 인증서 점유율이 64.1%였다. 2005년에 인증기관과 브라우저 업체가 만든 CA/Browser Forum은 기준 요건(Baseline Requirements)을 정하며, 인증서 최대 유효기간은 2018년 3월 825일, 2020년 9월 398일로 줄었고 2029년 3월 15일까지 47일로 줄이는 안건이 2025년 4월 통과되었다.</p>
+  <ul><li>인증기관(CA)은 “이 공개키는 이 주체의 것”이라는 사실을 확인한 뒤, 자신의 <strong>개인키로 서명한 디지털 인증서</strong>를 발급하는 기관이다. 인증서의 서명을 검증하면 공개키와 주체의 결합이 CA의 보증을 받은 것인지 확인할 수 있다.</li><li>인증서 형식은 흔히 X.509이며, 형식과 검증 절차는 RFC 5280(Cooper 등, 2008)에 정리되어 있다. 인증서에는 주체, 공개키, 유효기간, 발급자, 서명이 들어간다.</li><li>사용자의 브라우저·운영체제에는 신뢰하기로 한 <strong>루트 CA</strong>의 인증서 목록(신뢰 저장소)이 들어 있고, 검증은 서버 인증서 → 중간 CA → 루트 CA로 이어지는 <strong>인증서 체인</strong>을 따라 올라간다. 루트 키는 오프라인에 보관하고 실제 발급은 중간 CA가 맡는 구성이 흔하다.</li><li>이미 발급한 인증서를 더는 믿지 못하게 되면 인증서 폐지목록(CRL)이나 온라인 상태 확인(OCSP; 서버가 응답을 미리 받아 전달하는 방식은 OCSP 스테이플링)으로 알린다.</li><li>발급이 올바르게 이루어졌는지 외부에서 감시하려는 장치가 인증서 투명성이다(Laurie 등, 2013): 발급된 인증서를 공개 로그에 남기도록 한다.</li></ul><p>검증 수준은 크게 도메인 검증(DV), 조직 검증(OV), 확장 검증(EV)으로 나뉜다. 도메인 검증은 신청자가 해당 도메인을 통제한다는 것만 확인하며 신청자의 신원을 보증하지 않는다. 2014년 11월 18일 EFF, Mozilla, Cisco, Akamai 등이 발표한 Let&#39;s Encrypt는 비영리 인증기관(운영 주체는 Internet Security Research Group)으로 도메인 검증 인증서를 무료로 발급하며, W3Techs의 2024년 7월 집계에서 조사 대상 웹사이트의 인증서 점유율이 64.1%였다. 2005년에 인증기관과 브라우저 업체가 만든 CA/Browser Forum은 기준 요건(Baseline Requirements)을 정하며, 인증서 최대 유효기간은 2018년 3월 825일, 2020년 9월 398일로 줄었고 2029년 3월 15일까지 47일로 줄이는 안건이 2025년 4월 통과되었다.</p>
 
   <h2>예시로 보기</h2>
   <p>웹 브라우저가 https 사이트에 접속하는 장면을 보자.</p><ol><li>서버가 자신의 인증서(와 중간 CA 인증서)를 보낸다.</li><li>브라우저는 인증서의 서명을 발급자의 공개키로 검증하고, 같은 방식으로 체인을 따라 올라가 신뢰 저장소에 있는 루트 CA에 닿는지 본다.</li><li>유효기간, 접속한 도메인 이름과 인증서의 주체 일치 여부, 폐지 여부를 함께 확인한다.</li></ol><p>이 과정이 모두 통과해야 “이 공개키가 이 도메인의 것”이라고 믿고 암호화 통신을 시작한다. 신뢰의 출발점이 루트 CA이므로, CA가 잘못된 인증서를 발급하거나 CA 자체가 침해되면 그 아래 인증서 전체의 신뢰가 흔들린다. 실제로 2011년 네덜란드 CA 디지노타(DigiNotar)가 침해되어 부정 인증서가 발급되었고, 주요 브라우저가 이 CA를 신뢰 목록에서 제외한 사례가 널리 알려져 있다.</p>
@@ -189,7 +189,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>인증서 주변 용어는 역할이 서로 다르다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">역할</th><th scope="col">누가/무엇이 하나</th></tr></thead><tbody><tr><th scope="row"><strong>인증기관(CA)</strong></th><td>신원을 확인하고 인증서에 서명해 발급</td><td>신뢰받는 제3의 기관</td></tr><tr><th scope="row"><a href="digital-certificate.html">디지털 인증서</a></th><td>공개키와 주체의 결합을 담은 전자 문서</td><td>CA가 서명한 결과물</td></tr><tr><th scope="row"><a href="certificate-revocation-list.html">인증서 폐지목록</a></th><td>유효기간 전에 무효가 된 인증서의 목록</td><td>CA가 게시</td></tr><tr><th scope="row"><a href="certificate-transparency.html">인증서 투명성</a></th><td>발급 내역을 공개 로그에 남겨 감시</td><td>공개 로그 서버와 감시자</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">역할</th><th scope="col">누가/무엇이 하나</th></tr></thead><tbody><tr><th scope="row"><strong>인증기관(CA)</strong></th><td>신원을 확인하고 인증서에 서명해 발급</td><td>신뢰받는 제3의 기관</td></tr><tr><th scope="row">디지털 인증서</th><td>공개키와 주체의 결합을 담은 전자 문서</td><td>CA가 서명한 결과물</td></tr><tr><th scope="row">인증서 폐지목록</th><td>유효기간 전에 무효가 된 인증서의 목록</td><td>CA가 게시</td></tr><tr><th scope="row">인증서 투명성</th><td>발급 내역을 공개 로그에 남겨 감시</td><td>공개 로그 서버와 감시자</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Cooper, D., Santesson, S., Farrell, S., Boeyen, S., Housley, R., &amp; Polk, W. (2008). Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile. RFC 5280. IETF.</li>
@@ -200,13 +200,13 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="public-key-infrastructure.html">공개키 기반구조(PKI)</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="digital-certificate.html">디지털 인증서</a><a href="cross-certification.html">상호인증</a><a href="certificate-transparency.html">인증서 투명성</a><a href="certificate-revocation-list.html">인증서 폐지목록</a><a href="ocsp-stapling.html">OCSP 스테이플링</a></div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms">공개키 기반구조(PKI)</div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms">디지털 인증서상호인증인증서 투명성인증서 폐지목록OCSP 스테이플링</div></div><p class="concept-family-map"><a href="../concept-map/cyber.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="business-impact-analysis.html" class="term-pager-prev">← 이전: 업무영향분석</a>
-  <a href="certificate-revocation-list.html" class="term-pager-next">다음: 인증서 폐지목록 →</a>
+  <a href="cia-triad.html" class="term-pager-next">다음: 정보보안 3요소 →</a>
 </nav>
 </main>
 

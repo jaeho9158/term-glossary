@@ -156,7 +156,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>데이터 파이프라인은 원천 데이터를 <strong>수집 → 정제 → 변환 → 적재(저장)</strong>하는 일련의 자동화된 처리 흐름이다. 각 단계의 출력이 다음 단계의 입력이 되는 구조이다.</li><li>처리 시점에 따라 일정 주기로 묶어 처리하는 <strong>배치</strong>와 들어오는 대로 처리하는 <strong>스트리밍</strong>으로 나눈다(Kleppmann, 2017).</li><li>변환과 적재의 순서에 따라 ETL(변환 후 적재)과 ELT(적재 후 데이터웨어하우스 안에서 변환)로 나뉜다(<a href="etl-pipeline.html">ETL 파이프라인</a>, <a href="data-warehouse.html">데이터 웨어하우스</a>).</li><li>좋은 파이프라인의 특징: 같은 입력에 같은 결과를 내는 <strong>재현성</strong>, 다시 돌려도 결과가 중복되지 않는 <strong>멱등성</strong>, 단계별 검증과 로그, 코드와 설정의 버전 관리.</li></ul><p>설계에서 자주 따지는 성질이 두 가지 있다. 하나는 <strong>멱등성</strong>(idempotency)으로, 같은 단계를 다시 실행해도 첫 실행 이후 결과가 달라지지 않게 만들면 실패 뒤 재실행이 안전해진다. 다른 하나는 처리량과 지연의 구분이다. 단계를 나누어 동시에 돌리면 한 건이 끝까지 가는 시간(지연)은 줄지 않지만 단위 시간당 처리 건수(처리량)는 늘고, 전체 처리량은 가장 느린 단계를 넘지 못한다. 유닉스의 파이프(|)가 이 구조의 고전적인 예이다.</p><p>파이프라인은 한 단계의 출력이 다음 단계의 입력이 되도록 처리 요소를 직렬로 이은 구조이다. 단계 사이에는 버퍼나 대기열을 두는 경우가 많다.</p>
+  <ul><li>데이터 파이프라인은 원천 데이터를 <strong>수집 → 정제 → 변환 → 적재(저장)</strong>하는 일련의 자동화된 처리 흐름이다. 각 단계의 출력이 다음 단계의 입력이 되는 구조이다.</li><li>처리 시점에 따라 일정 주기로 묶어 처리하는 <strong>배치</strong>와 들어오는 대로 처리하는 <strong>스트리밍</strong>으로 나눈다(Kleppmann, 2017).</li><li>변환과 적재의 순서에 따라 ETL(변환 후 적재)과 ELT(적재 후 데이터웨어하우스 안에서 변환)로 나뉜다(ETL 파이프라인, 데이터 웨어하우스).</li><li>좋은 파이프라인의 특징: 같은 입력에 같은 결과를 내는 <strong>재현성</strong>, 다시 돌려도 결과가 중복되지 않는 <strong>멱등성</strong>, 단계별 검증과 로그, 코드와 설정의 버전 관리.</li></ul><p>설계에서 자주 따지는 성질이 두 가지 있다. 하나는 <strong>멱등성</strong>(idempotency)으로, 같은 단계를 다시 실행해도 첫 실행 이후 결과가 달라지지 않게 만들면 실패 뒤 재실행이 안전해진다. 다른 하나는 처리량과 지연의 구분이다. 단계를 나누어 동시에 돌리면 한 건이 끝까지 가는 시간(지연)은 줄지 않지만 단위 시간당 처리 건수(처리량)는 늘고, 전체 처리량은 가장 느린 단계를 넘지 못한다. 유닉스의 파이프(|)가 이 구조의 고전적인 예이다.</p><p>파이프라인은 한 단계의 출력이 다음 단계의 입력이 되도록 처리 요소를 직렬로 이은 구조이다. 단계 사이에는 버퍼나 대기열을 두는 경우가 많다.</p>
 
   <h2>예시로 보기</h2>
   <p>아주 작은 예로 단계를 확인해 보자. 가상의 센서 로그 7줄이 있다. S1은 섭씨 값, S2는 화씨(F) 값이고, 비어 있는 값과 결측 표시 -999, 중복 줄이 섞여 있다. 적용한 규칙은 다음과 같다.</p><ol><li>같은 (시각, 센서, 값) 줄은 하나만 남긴다(중복 제거).</li><li>값이 비어 있거나 -999인 줄을 뺀다(결측 처리).</li><li>화씨는 (F − 32) × 5/9로 섭씨로 바꾸고 소수 첫째 자리까지 둔다(단위 통일).</li><li>센서별 평균을 구해 적재한다.</li></ol><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>단계</th><th>줄 수</th></tr></thead><tbody><tr><td>수집(원시)</td><td>7</td></tr><tr><td>중복 제거 후</td><td>6</td></tr><tr><td>결측 제거 후</td><td>4</td></tr></tbody></table></div><p>최종 결과: S1은 2건, 평균 23.7℃. S2는 2건(75.2F → 24.0℃, 77.0F → 25.0℃), 평균 24.5℃. 규칙을 문서화하고 코드에 남겨 두면 다른 사람이 같은 결과를 재현할 수 있다.</p><p>전체 처리량은 가장 느린 단계가 정한다. 파이프라인은 항목 하나가 통과하는 시간(지연)을 줄이지 않고 처리량을 높이며, 단계 처리 시간이 들쭉날쭉하면 앞 단계가 멈출 수 있어 버퍼링이 필요하다.</p>
@@ -185,11 +185,11 @@
   <p>데이터 파이프라인은 일반적으로 ETL(추출-Extract, 변환-Transform, 적재-Load)이라는 개념으로 설명되며, 각 단계를 어떤 순서로 어떻게 자동화하느냐에 따라 배치(batch) 방식과 실시간(streaming) 방식으로 나뉜다. 논문에서는 파이프라인의 재현성을 위해 버전 관리, 로깅, 단계별 검증 절차를 함께 설계했다고 언급하는 경우가 많으며, 대규모 데이터를 다룰 때는 병렬 처리나 분산 처리 프레임워크와 결합해 파이프라인의 처리 속도를 높이기도 한다.</p>
 
   <h2>주의할 점</h2>
-  <p>데이터 파이프라인의 중간 단계 중 하나라도 오류가 생기면(예: 형식이 다른 데이터가 섞이면) 뒤 단계에 있는 모든 분석 결과가 함께 왜곡될 수 있다. 그래서 각 단계마다 데이터 품질을 검증하는 절차가 필요하며, 이는 <a href="database-index.html">데이터베이스 인덱스</a>처럼 데이터를 빠르고 정확하게 다루기 위한 여러 기법들과 함께 설계되는 경우가 많다.</p>
+  <p>데이터 파이프라인의 중간 단계 중 하나라도 오류가 생기면(예: 형식이 다른 데이터가 섞이면) 뒤 단계에 있는 모든 분석 결과가 함께 왜곡될 수 있다. 그래서 각 단계마다 데이터 품질을 검증하는 절차가 필요하며, 이는 데이터베이스 인덱스처럼 데이터를 빠르고 정확하게 다루기 위한 여러 기법들과 함께 설계되는 경우가 많다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row"><strong>데이터 파이프라인</strong></th><td>수집·정제·변환·적재의 자동화된 흐름 전체</td><td>상위 개념</td></tr><tr><th scope="row"><a href="etl-pipeline.html">ETL 파이프라인</a></th><td>추출·변환·적재 순서의 파이프라인</td><td>한 유형</td></tr><tr><th scope="row"><a href="data-warehouse.html">데이터 웨어하우스</a></th><td>분석용으로 정리해 저장하는 저장소</td><td>파이프라인의 도착점</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">범위</th></tr></thead><tbody><tr><th scope="row"><strong>데이터 파이프라인</strong></th><td>수집·정제·변환·적재의 자동화된 흐름 전체</td><td>상위 개념</td></tr><tr><th scope="row">ETL 파이프라인</th><td>추출·변환·적재 순서의 파이프라인</td><td>한 유형</td></tr><tr><th scope="row">데이터 웨어하우스</th><td>분석용으로 정리해 저장하는 저장소</td><td>파이프라인의 도착점</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Kleppmann, M. (2017). Designing Data-Intensive Applications. O'Reilly Media.</li>
@@ -201,7 +201,7 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="etl-pipeline.html">ETL 파이프라인</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms">ETL 파이프라인</div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="api-basics.html">API (응용 프로그래밍 인터페이스)</a>
@@ -211,7 +211,7 @@
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="data-parallelism.html" class="term-pager-prev">← 이전: 데이터 병렬화</a>
-  <a href="data-warehouse.html" class="term-pager-next">다음: 데이터 웨어하우스 →</a>
+  <a href="data-preprocessing.html" class="term-pager-next">다음: 데이터 전처리 →</a>
 </nav>
 </main>
 

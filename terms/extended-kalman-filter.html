@@ -152,17 +152,17 @@
   <p>칼만 필터는 원래 직선적인 문제에만 쓸 수 있는데, 곡선적인(비선형) 문제도 매 순간 살짝 직선처럼 근사해서 칼만 필터를 쓸 수 있게 만든 방법이다.</p>
 
   <h2>왜 중요한가</h2>
-  <p>비선형 운동 모델과 센서 모델을 매 시점 선형화해 칼만필터를 적용하는 방법으로, 이동로봇 위치추정과 관성·GPS 융합에서 사실상의 기본 추정기이다. <a href="multi-sensor-fusion.html">다중센서융합</a> 논문에서 새 방법의 비교 기준이며, ROS의 로봇 위치추정 패키지도 이 방식을 기본으로 한다.</p>
+  <p>비선형 운동 모델과 센서 모델을 매 시점 선형화해 칼만필터를 적용하는 방법으로, 이동로봇 위치추정과 관성·GPS 융합에서 사실상의 기본 추정기이다. 다중센서융합 논문에서 새 방법의 비교 기준이며, ROS의 로봇 위치추정 패키지도 이 방식을 기본으로 한다.</p>
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <p>시스템을 <code>x<sub>k</sub> = f(x<sub>k−1</sub>, u<sub>k</sub>) + w<sub>k</sub></code>, 관측을 <code>z<sub>k</sub> = h(x<sub>k</sub>) + v<sub>k</sub></code>로 둔다. f와 h는 비선형 함수이고, w와 v는 평균 0인 잡음으로 공분산이 각각 Q, R이다. 한 번의 반복은 두 단계이다.</p><ol><li><strong>예측</strong>: 상태는 비선형 모델 그대로 전파한다. <code>x̂<sup>−</sup> = f(x̂, u)</code>. 공분산은 f를 현재 추정치에서 선형화한 야코비안 F로 전파한다. <code>P<sup>−</sup> = F P F<sup>T</sup> + Q</code>.</li><li><strong>갱신</strong>: h를 예측치에서 선형화한 야코비안 H로 칼만 이득을 구한다. <code>K = P<sup>−</sup>H<sup>T</sup>(H P<sup>−</sup>H<sup>T</sup> + R)<sup>−1</sup></code>. 그리고 <code>x̂ = x̂<sup>−</sup> + K(z − h(x̂<sup>−</sup>))</code>, <code>P = (I − K H)P<sup>−</sup></code>.</li></ol><p>선형 <a href="kalman-filter.html">칼만 필터</a>와 다른 점은 상태 전파와 예측 관측에는 <em>비선형 함수 자체</em>를 쓰고, 선형화는 공분산과 이득을 구하는 데만 쓴다는 것이다(Gelb, 1974).</p>
+  <p>시스템을 <code>x<sub>k</sub> = f(x<sub>k−1</sub>, u<sub>k</sub>) + w<sub>k</sub></code>, 관측을 <code>z<sub>k</sub> = h(x<sub>k</sub>) + v<sub>k</sub></code>로 둔다. f와 h는 비선형 함수이고, w와 v는 평균 0인 잡음으로 공분산이 각각 Q, R이다. 한 번의 반복은 두 단계이다.</p><ol><li><strong>예측</strong>: 상태는 비선형 모델 그대로 전파한다. <code>x̂<sup>−</sup> = f(x̂, u)</code>. 공분산은 f를 현재 추정치에서 선형화한 야코비안 F로 전파한다. <code>P<sup>−</sup> = F P F<sup>T</sup> + Q</code>.</li><li><strong>갱신</strong>: h를 예측치에서 선형화한 야코비안 H로 칼만 이득을 구한다. <code>K = P<sup>−</sup>H<sup>T</sup>(H P<sup>−</sup>H<sup>T</sup> + R)<sup>−1</sup></code>. 그리고 <code>x̂ = x̂<sup>−</sup> + K(z − h(x̂<sup>−</sup>))</code>, <code>P = (I − K H)P<sup>−</sup></code>.</li></ol><p>선형 칼만 필터와 다른 점은 상태 전파와 예측 관측에는 <em>비선형 함수 자체</em>를 쓰고, 선형화는 공분산과 이득을 구하는 데만 쓴다는 것이다(Gelb, 1974).</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>이동 로봇의 위치추정, 관성 센서와 GPS의 융합, 거리·방위 같은 비선형 관측을 쓰는 항법에서 쓰인다(<a href="multi-sensor-fusion.html">다중센서융합</a>, <a href="imu.html">IMU</a>). 계산이 가볍고 구현이 쉬워 실무의 기본 추정기로 자리잡았다(Thrun, Burgard, &amp; Fox, 2005).</p><p>가상의 한 단계 예를 계산해 보겠다. 직선 위의 위치 x를 추정하고, 직선에서 옆으로 3 m 떨어진 비콘까지의 거리 <code>h(x) = √(x² + 3²)</code>를 잰다. 사전 추정치 x̂ = 4, 분산 P = 1, 관측 잡음 분산 R = 0.04, 관측값 z = 5.3이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>양</th><th>값</th><th>계산</th></tr></thead><tbody><tr><td>예측 관측 h(x̂)</td><td>5.000</td><td>√(4² + 3²)</td></tr><tr><td>야코비안 H</td><td>0.800</td><td>x ÷ √(x² + 9) = 4 ÷ 5</td></tr><tr><td>혁신(잔차) z − h</td><td>0.300</td><td>5.3 − 5</td></tr><tr><td>혁신 분산 S</td><td>0.680</td><td>H·P·H + R</td></tr><tr><td>칼만 이득 K</td><td>1.176</td><td>P·H ÷ S</td></tr><tr><td>갱신 추정치 x̂</td><td>4.353</td><td>4 + K × 0.3</td></tr><tr><td>갱신 분산 P</td><td>0.0588</td><td>(1 − K·H) × P</td></tr></tbody></table></div><p>관측이 아주 정확(R이 작음)해서 분산이 1에서 0.059로 크게 줄었다. 관측이 더 멀리 떨어진 위치에서 만들어졌다면 H의 값이 달라져 같은 관측이라도 정보량이 달라진다는 점이 선형 필터와의 차이이다.</p><p>확장칼만필터는 선형 모델에서만 최적이며, 초기 추정이 나쁘거나 과정 모형이 틀리면 선형화 때문에 발산할 수 있다. 추정 공분산이 실제 공분산보다 작게 나오는 경향이 있어 안정화용 잡음을 더하지 않으면 통계적 비일관성이 생길 수 있고, 대안으로 무향 칼만 필터(시그마 포인트 사용)와 파티클 필터가 언급된다.</p>
+  <p>이동 로봇의 위치추정, 관성 센서와 GPS의 융합, 거리·방위 같은 비선형 관측을 쓰는 항법에서 쓰인다(다중센서융합, <a href="imu.html">IMU</a>). 계산이 가볍고 구현이 쉬워 실무의 기본 추정기로 자리잡았다(Thrun, Burgard, &amp; Fox, 2005).</p><p>가상의 한 단계 예를 계산해 보겠다. 직선 위의 위치 x를 추정하고, 직선에서 옆으로 3 m 떨어진 비콘까지의 거리 <code>h(x) = √(x² + 3²)</code>를 잰다. 사전 추정치 x̂ = 4, 분산 P = 1, 관측 잡음 분산 R = 0.04, 관측값 z = 5.3이다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>양</th><th>값</th><th>계산</th></tr></thead><tbody><tr><td>예측 관측 h(x̂)</td><td>5.000</td><td>√(4² + 3²)</td></tr><tr><td>야코비안 H</td><td>0.800</td><td>x ÷ √(x² + 9) = 4 ÷ 5</td></tr><tr><td>혁신(잔차) z − h</td><td>0.300</td><td>5.3 − 5</td></tr><tr><td>혁신 분산 S</td><td>0.680</td><td>H·P·H + R</td></tr><tr><td>칼만 이득 K</td><td>1.176</td><td>P·H ÷ S</td></tr><tr><td>갱신 추정치 x̂</td><td>4.353</td><td>4 + K × 0.3</td></tr><tr><td>갱신 분산 P</td><td>0.0588</td><td>(1 − K·H) × P</td></tr></tbody></table></div><p>관측이 아주 정확(R이 작음)해서 분산이 1에서 0.059로 크게 줄었다. 관측이 더 멀리 떨어진 위치에서 만들어졌다면 H의 값이 달라져 같은 관측이라도 정보량이 달라진다는 점이 선형 필터와의 차이이다.</p><p>확장칼만필터는 선형 모델에서만 최적이며, 초기 추정이 나쁘거나 과정 모형이 틀리면 선형화 때문에 발산할 수 있다. 추정 공분산이 실제 공분산보다 작게 나오는 경향이 있어 안정화용 잡음을 더하지 않으면 통계적 비일관성이 생길 수 있고, 대안으로 무향 칼만 필터(시그마 포인트 사용)와 파티클 필터가 언급된다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
-  <ul><li>상태 벡터, 운동 모델 f와 관측 모델 h, 입력 u를 식으로 제시하고, 야코비안을 해석적으로 유도했는지 수치 미분을 썼는지 밝힌다.</li><li>잡음 공분산 Q, R의 값과 <strong>결정 방법</strong>(센서 사양, 시험 데이터, 시행착오 조정)을 적는다. EKF의 성능은 이 값에 민감하다.</li><li>초기 상태와 초기 공분산을 적고, 발산 여부를 점검한 방법(잔차가 평균 0 부근에 머무는지, 추정 공분산이 실제 오차와 맞는지)을 보고한다.</li><li>비교 대상(<a href="unscented-kalman-filter.html">무향 칼만 필터</a>, <a href="particle-filter.html">파티클필터</a>)과 같은 데이터·초기 조건에서 정확도와 계산 시간을 함께 제시한다.</li><li>선형화 오차 때문에 비일관성이 생길 수 있고, 가우시안 단봉 분포만 표현한다는 한계를 명시한다.</li></ul>
+  <ul><li>상태 벡터, 운동 모델 f와 관측 모델 h, 입력 u를 식으로 제시하고, 야코비안을 해석적으로 유도했는지 수치 미분을 썼는지 밝힌다.</li><li>잡음 공분산 Q, R의 값과 <strong>결정 방법</strong>(센서 사양, 시험 데이터, 시행착오 조정)을 적는다. EKF의 성능은 이 값에 민감하다.</li><li>초기 상태와 초기 공분산을 적고, 발산 여부를 점검한 방법(잔차가 평균 0 부근에 머무는지, 추정 공분산이 실제 오차와 맞는지)을 보고한다.</li><li>비교 대상(무향 칼만 필터, 파티클필터)과 같은 데이터·초기 조건에서 정확도와 계산 시간을 함께 제시한다.</li><li>선형화 오차 때문에 비일관성이 생길 수 있고, 가우시안 단봉 분포만 표현한다는 한계를 명시한다.</li></ul>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -181,7 +181,7 @@
   <p>로봇의 움직임이 단순한 직선 운동이 아니라 복잡한 비선형 모델을 따를 때도, 센서 관측과 예측을 결합해 위치 오차를 계속 줄여나가는 방법을 소개한 문장이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>선형화가 현재 추정치 주변에서 이루어지므로 초기 추정이 나쁘거나 비선형성이 강하면 발산할 수 있고, 가우시안 단봉 분포를 가정하므로 여러 가설이 공존하는 위치 상실 상황은 표현하지 못한다. 이 두 한계가 <a href="particle-filter.html">파티클필터</a>가 전역 위치추정에 쓰이는 이유이며, 언센티드 칼만필터는 선형화 대신 샘플링으로 비선형성을 다루는 대안이다.</p>
+  <p>선형화가 현재 추정치 주변에서 이루어지므로 초기 추정이 나쁘거나 비선형성이 강하면 발산할 수 있고, 가우시안 단봉 분포를 가정하므로 여러 가설이 공존하는 위치 상실 상황은 표현하지 못한다. 이 두 한계가 파티클필터가 전역 위치추정에 쓰이는 이유이며, 언센티드 칼만필터는 선형화 대신 샘플링으로 비선형성을 다루는 대안이다.</p>
   <p>EKF의 예측 단계는 비선형 운동 모델로 상태를 그대로 전파하되 공분산은 그 시점의 야코비안으로 선형화해 전파하며, 갱신 단계는 실제 관측값과 예측 관측값의 차이(잔차)에 칼만 이득을 곱해 상태를 보정하는 구조를 갖는다.</p>
   <p>비선형성이 강한 구간에서는 이 선형화 근사의 오차가 누적되어 추정치와 실제 공분산이 어긋나는 비일관성이 생기며, 이는 필터가 스스로는 감지하지 못하는 조용한 실패로 이어질 수 있다.</p>
 
@@ -190,7 +190,7 @@
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">필터</th><th scope="col">비선형 처리</th><th scope="col">분포 가정</th><th scope="col">대표적 용도</th></tr></thead><tbody><tr><th scope="row"><a href="kalman-filter.html">칼만 필터</a></th><td>선형 모델 필요</td><td>가우시안</td><td>선형 시스템의 상태 추정</td></tr><tr><th scope="row">확장 칼만 필터(EKF)</th><td>야코비안으로 선형화</td><td>가우시안 단봉</td><td>로봇 위치추정, 센서 융합</td></tr><tr><th scope="row"><a href="unscented-kalman-filter.html">무향 칼만 필터</a></th><td>시그마 포인트를 비선형 함수에 직접 통과</td><td>가우시안</td><td>강한 비선형에서 EKF의 대안</td></tr><tr><th scope="row"><a href="particle-filter.html">파티클필터</a></th><td>다수의 가중 입자로 분포 근사</td><td>제한 없음(다봉 가능)</td><td>위치를 잃은 상황의 전역 위치추정</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">필터</th><th scope="col">비선형 처리</th><th scope="col">분포 가정</th><th scope="col">대표적 용도</th></tr></thead><tbody><tr><th scope="row">칼만 필터</th><td>선형 모델 필요</td><td>가우시안</td><td>선형 시스템의 상태 추정</td></tr><tr><th scope="row">확장 칼만 필터(EKF)</th><td>야코비안으로 선형화</td><td>가우시안 단봉</td><td>로봇 위치추정, 센서 융합</td></tr><tr><th scope="row">무향 칼만 필터</th><td>시그마 포인트를 비선형 함수에 직접 통과</td><td>가우시안</td><td>강한 비선형에서 EKF의 대안</td></tr><tr><th scope="row">파티클필터</th><td>다수의 가중 입자로 분포 근사</td><td>제한 없음(다봉 가능)</td><td>위치를 잃은 상황의 전역 위치추정</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. Journal of Basic Engineering, 82(1), 35–45.</li>
@@ -211,8 +211,8 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="explosive-ordnance-disposal-robot.html" class="term-pager-prev">← 이전: 폭발물처리로봇</a>
-  <a href="exteroceptive-sensor.html" class="term-pager-next">다음: 외부감각센서 →</a>
+  <a href="encoder-robot.html" class="term-pager-prev">← 이전: 엔코더</a>
+  <a href="feedforward-control.html" class="term-pager-next">다음: 피드포워드제어 →</a>
 </nav>
 </main>
 

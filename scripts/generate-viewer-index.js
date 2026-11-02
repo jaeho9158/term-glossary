@@ -616,7 +616,14 @@ function buildRow(t, { codeOf, grade = 0, enGrade = 0 }) {
 }
 
 function run() {
-  const terms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
+  // 사이트에서 숨긴 용어(scripts/hide-terms.js)도 뷰어에서는 뜻까지 찾아 준다. 페이지가 없어 링크만 뺀다.
+  const hiddenTerms = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, "data", "viewer-hidden-terms.json"), "utf8"));
+  const hiddenSlugs = new Set(hiddenTerms.map((t) => t.slug));
+  // 같은 표제어는 먼저 나온 용어가 이기므로 원래 순서(order) 자리에 되돌려 넣는다.
+  const terms = [];
+  const publicTerms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
+  for (const t of hiddenTerms) terms[t.order] = t;
+  for (let i = 0, p = 0; p < publicTerms.length; i++) if (!terms[i]) terms[i] = publicTerms[p++];
   const oa = loadOaStats();
 
   const categoryCodes = [];
@@ -644,7 +651,7 @@ function run() {
 
   fs.writeFileSync(
     OUTPUT,
-    JSON.stringify({ v: 1, categories: categoryCodes, terms: rows }),
+    JSON.stringify({ v: 1, categories: categoryCodes, terms: rows, hidden: rows.flatMap((r, i) => (hiddenSlugs.has(r[0]) ? [i] : [])) }),
     "utf8"
   );
 

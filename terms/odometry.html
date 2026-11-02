@@ -128,7 +128,7 @@
 <main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 오도메트리 (Odometry)</p>
   <h1>오도메트리 (Odometry)</h1>
-  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치"><a href="dead-reckoning.html">추측항법</a><span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">오도메트리</span></nav><!-- concept-path:end -->
+  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치">추측항법<span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">오도메트리</span></nav><!-- concept-path:end -->
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=robotics">로봇공학</a>
   </div>
@@ -157,10 +157,10 @@
   <p>휠 오도메트리(차동구동 로봇 기준)는 바퀴 엔코더의 회전 눈금을 이동량으로 바꿔 쌓는 방식이다.</p><ol><li>엔코더 눈금 증가량을 거리로 바꾼다: Δs = 2πr · (눈금 수) ÷ (회전당 눈금 수).</li><li>좌우 바퀴 이동 거리 Δs<sub>L</sub>, Δs<sub>R</sub>로부터 중심 이동 Δs = (Δs<sub>R</sub> + Δs<sub>L</sub>)/2, 방향 변화 Δθ = (Δs<sub>R</sub> − Δs<sub>L</sub>)/b를 구한다(b는 두 바퀴 사이 거리).</li><li>위치를 갱신한다: x ← x + Δs·cos(θ + Δθ/2), y ← y + Δs·sin(θ + Δθ/2), θ ← θ + Δθ.</li></ol><p>가상의 예: r = 0.05 m, 회전당 2,000 눈금, b = 0.30 m. 한 갱신 주기에 왼쪽 4,000 눈금(0.628 m), 오른쪽 4,400 눈금(0.691 m)이 증가했다면 Δs ≈ 0.660 m, Δθ ≈ 0.209 rad(12°)이고, 출발 방향이 θ = 0일 때 Δx ≈ 0.656 m, Δy ≈ 0.069 m이다.</p><p>시각 오도메트리와 라이다 오도메트리는 바퀴 대신 연속된 영상·스캔의 정합으로 같은 일을 한다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>얻는 것</th><th>한계</th></tr></thead><tbody><tr><td>외부 기준 없이 빠르게 갱신되는 상대 위치·자세 추정</td><td>오차가 누적되어 시간이 갈수록 커진다.</td></tr><tr><td>다른 센서가 끊겨도 잠시 이어 가는 보조 정보</td><td>바퀴 미끄러짐·지면 상태에 민감하다.</td></tr><tr><td>필터·SLAM의 예측 단계 입력</td><td>방향 오차가 거리에 곱해져 위치 오차로 커진다.</td></tr></tbody></table></div><p>방향 오차의 영향을 계산해 보면, 1°의 방향 오차를 가진 채 100 m를 직진하면 옆으로 100 × sin(1°) ≈ 1.75 m 벗어난다. 오차는 크게 두 가지이다. ① 체계적 오차: 바퀴 지름 불일치, 휠베이스 불확실성 등(Borenstein &amp; Feng 1996은 이를 보정하는 UMBmark 절차를 제안). ② 비체계적 오차: 미끄러짐, 바닥 요철 등.</p><p>그래서 오도메트리는 단독으로 쓰기보다 <a href="kalman-filter.html">칼만 필터</a>, <a href="slam.html">SLAM</a>, GPS·IMU 등과 결합한다. 원리는 <a href="dead-reckoning.html">추측항법</a>과 같다.</p><p>철도에서도 쓰인다. 열차는 선로에 고정된 센서로 절대 위치를 얻고, 그 센서 사이 구간의 상대 위치는 오도메트리로 추적한다. 오도메트리는 속도를 시간에 걸쳐 적분하므로 측정 오차가 쌓이기 쉽고, 정확한 자료 수집과 기기 보정이 있어야 제대로 작동한다. 용어는 그리스어 odos(길)와 metron(측정)에서 왔다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>얻는 것</th><th>한계</th></tr></thead><tbody><tr><td>외부 기준 없이 빠르게 갱신되는 상대 위치·자세 추정</td><td>오차가 누적되어 시간이 갈수록 커진다.</td></tr><tr><td>다른 센서가 끊겨도 잠시 이어 가는 보조 정보</td><td>바퀴 미끄러짐·지면 상태에 민감하다.</td></tr><tr><td>필터·SLAM의 예측 단계 입력</td><td>방향 오차가 거리에 곱해져 위치 오차로 커진다.</td></tr></tbody></table></div><p>방향 오차의 영향을 계산해 보면, 1°의 방향 오차를 가진 채 100 m를 직진하면 옆으로 100 × sin(1°) ≈ 1.75 m 벗어난다. 오차는 크게 두 가지이다. ① 체계적 오차: 바퀴 지름 불일치, 휠베이스 불확실성 등(Borenstein &amp; Feng 1996은 이를 보정하는 UMBmark 절차를 제안). ② 비체계적 오차: 미끄러짐, 바닥 요철 등.</p><p>그래서 오도메트리는 단독으로 쓰기보다 칼만 필터, <a href="slam.html">SLAM</a>, GPS·IMU 등과 결합한다. 원리는 추측항법과 같다.</p><p>철도에서도 쓰인다. 열차는 선로에 고정된 센서로 절대 위치를 얻고, 그 센서 사이 구간의 상대 위치는 오도메트리로 추적한다. 오도메트리는 속도를 시간에 걸쳐 적분하므로 측정 오차가 쌓이기 쉽고, 정확한 자료 수집과 기기 보정이 있어야 제대로 작동한다. 용어는 그리스어 odos(길)와 metron(측정)에서 왔다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
-  <ul><li>어떤 오도메트리인지 밝힌다: 휠, 관성(IMU), 시각(<a href="visual-odometry.html">시각 오도메트리</a>), 라이다.</li><li>바퀴 반지름, 휠베이스, 엔코더 해상도 등 매개변수와 보정 방법을 적는다.</li><li>성능은 절대 오차 하나가 아니라 <strong>이동 거리당 상대 오차</strong>로 제시하는 것이 관례이다. KITTI 오도메트리 벤치마크(Geiger 등 2012)는 이동 거리에 대한 위치 오차의 비율(%)과 단위 거리당 회전 오차(도/m)를 사용한다.</li><li>실험 환경(바닥 재질, 속도, 주행 거리)과 오차 누적을 비교한 그래프(예: 시간에 따른 궤적 이탈)를 함께 싣는다.</li><li>여러 센서를 융합하면 각 센서의 공분산(불확실성) 설정 방법을 밝힌다. 신뢰도를 잘못 두면 오히려 정확도가 나빠질 수 있다.</li></ul>
+  <ul><li>어떤 오도메트리인지 밝힌다: 휠, 관성(IMU), 시각(시각 오도메트리), 라이다.</li><li>바퀴 반지름, 휠베이스, 엔코더 해상도 등 매개변수와 보정 방법을 적는다.</li><li>성능은 절대 오차 하나가 아니라 <strong>이동 거리당 상대 오차</strong>로 제시하는 것이 관례이다. KITTI 오도메트리 벤치마크(Geiger 등 2012)는 이동 거리에 대한 위치 오차의 비율(%)과 단위 거리당 회전 오차(도/m)를 사용한다.</li><li>실험 환경(바닥 재질, 속도, 주행 거리)과 오차 누적을 비교한 그래프(예: 시간에 따른 궤적 이탈)를 함께 싣는다.</li><li>여러 센서를 융합하면 각 센서의 공분산(불확실성) 설정 방법을 밝힌다. 신뢰도를 잘못 두면 오히려 정확도가 나빠질 수 있다.</li></ul>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -176,7 +176,7 @@
   <p>바퀴가 미끄러지기 쉬운 환경에서는 회전량만으로 추정하는 방식이 취약해지므로, 카메라 기반의 다른 오도메트리 방식과 결합하면 오차 누적을 줄일 수 있음을 보여주는 서술이다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>본질적으로 <a href="dead-reckoning.html">추측항법</a>이므로 오차가 무한히 누적되고, 특히 방향 오차가 이동 거리에 곱해져 위치 오차로 증폭된다. <a href="wheel-odometry.html">휠</a>, <a href="visual-odometry.html">비주얼</a>, 라이다 오도메트리는 실패 조건이 서로 달라 융합하면 상호 보완되며, 표준 벤치마크는 절대 궤적 오차보다 거리당 상대 오차로 성능을 재는 것이 관례이다.</p>
+  <p>본질적으로 추측항법이므로 오차가 무한히 누적되고, 특히 방향 오차가 이동 거리에 곱해져 위치 오차로 증폭된다. 휠, 비주얼, 라이다 오도메트리는 실패 조건이 서로 달라 융합하면 상호 보완되며, 표준 벤치마크는 절대 궤적 오차보다 거리당 상대 오차로 성능을 재는 것이 관례이다.</p>
   <p>휠, 비주얼, 라이다 오도메트리는 서로 다른 원리로 이동량을 추정하기 때문에 실패하는 상황도 서로 다르며, 이 상보성 덕분에 여러 오도메트리를 칼만필터나 팩터그래프로 융합하면 한 가지 방식만 쓸 때보다 오차 성장 속도를 크게 낮출 수 있다.</p>
   <p>표준 평가에서는 절대 위치 오차 대신 일정 구간을 이동하는 동안 늘어난 오차 비율(상대 오차)을 지표로 삼는데, 이는 오도메트리가 누적 방식이라 절대 오차만으로는 알고리즘 간 공정한 비교가 어렵기 때문이다.</p>
 
@@ -186,7 +186,7 @@
   <p>여러 오도메트리를 융합할 때 각 소스의 신뢰도(공분산)를 잘못 설정하면 오히려 더 부정확한 소스에 과도한 가중치가 실려 전체 추정이 나빠질 수 있다.</p>
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">설명</th></tr></thead><tbody><tr><th scope="row">오도메트리</th><td>센서 정보로 이동량을 누적해 상대적 위치를 추정</td></tr><tr><th scope="row"><a href="dead-reckoning.html">추측항법</a></th><td>이전 위치와 속도·방향·시간으로 현재 위치를 추정하는 더 넓은 원리</td></tr><tr><th scope="row"><a href="visual-odometry.html">시각 오도메트리</a></th><td>영상 프레임 간 대응으로 카메라 이동을 추정</td></tr><tr><th scope="row"><a href="slam.html">SLAM</a></th><td>위치 추정과 지도 작성을 동시에 수행</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">설명</th></tr></thead><tbody><tr><th scope="row">오도메트리</th><td>센서 정보로 이동량을 누적해 상대적 위치를 추정</td></tr><tr><th scope="row">추측항법</th><td>이전 위치와 속도·방향·시간으로 현재 위치를 추정하는 더 넓은 원리</td></tr><tr><th scope="row">시각 오도메트리</th><td>영상 프레임 간 대응으로 카메라 이동을 추정</td></tr><tr><th scope="row"><a href="slam.html">SLAM</a></th><td>위치 추정과 지도 작성을 동시에 수행</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Borenstein, J., &amp; Feng, L. (1996). Measurement and correction of systematic odometry errors in mobile robots. IEEE Transactions on Robotics and Automation, 12(6), 869–880.</li>
@@ -198,7 +198,7 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="dead-reckoning.html">추측항법</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms">추측항법</div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="slam.html">SLAM (동시적 위치추정 및 지도작성)</a>
@@ -208,7 +208,7 @@
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="occupancy-grid-map.html" class="term-pager-prev">← 이전: 점유격자지도</a>
-  <a href="offline-programming.html" class="term-pager-next">다음: 오프라인프로그래밍 →</a>
+  <a href="palletizing-robot.html" class="term-pager-next">다음: 팔레타이징로봇 →</a>
 </nav>
 </main>
 

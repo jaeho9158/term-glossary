@@ -156,7 +156,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li><strong>등분산성</strong>은 오차의 분산이 설명변수 값(또는 예측값)에 관계없이 일정하다는 가정이고, <strong>이분산성</strong>은 그것이 달라지는 상태이다. 흔한 모양은 예측값이 클수록 잔차가 퍼지는 ‘깔때기’이다.</li><li>이분산성이 있어도 보통최소제곱(OLS)의 회귀계수 추정치는 여전히 불편이다. 그러나 <strong>효율적이지 않고</strong>(분산이 최소가 아님), 무엇보다 <strong>일반 표준오차 공식이 틀려서</strong> t 값, p값, 신뢰구간이 부정확해진다. 표준오차가 작게 나올 수도, 크게 나올 수도 있다.</li><li>자주 생기는 원인: 변수의 규모 차이(소득이 클수록 지출 편차도 큼), 집단마다 다른 변동, 비선형 관계를 직선으로 적합함, 이상치.</li><li>점검: 잔차 대 예측값 도표, <a href="breusch-pagan-test.html">브로이슈-페이건 검정</a>, 화이트 검정. 집단 비교(t검정, 분산분석)에서의 분산 동질성은 <a href="levenes-test.html">레빈 검정</a>으로 본다.</li><li>대응: 종속변수 로그 변환, 가중최소제곱(<a href="weighted-least-squares.html">WLS</a>), <strong>이분산에 강건한 표준오차</strong>(White, 1980)로 계수는 그대로 두고 표준오차만 바로잡기. 표본이 작을 때는 HC3 같은 변형이 낫다는 보고가 있다(Long &amp; Ervin, 2000).</li></ul><p>보정 방법으로는 로그 변환, 모형 재설정, 가중최소제곱, White(1980)의 이분산 일치 표준오차, 와일드 부트스트랩이 있다. 로짓·프로빗 같은 비선형 모형에서는 이분산이 있으면 최대우도 추정치 자체가 일반적으로 편향되고 비일치가 된다. 로버스트 표준오차가 표준이 된 지금은 검정 결과가 예전만큼 결정적이지 않으며, 이분산성이 있다고 모형을 버릴 이유는 아니라는 시각도 있다. 집단 자료의 분산 비교에는 Bartlett 검정과 Levene 검정이 쓰인다.</p>
+  <ul><li><strong>등분산성</strong>은 오차의 분산이 설명변수 값(또는 예측값)에 관계없이 일정하다는 가정이고, <strong>이분산성</strong>은 그것이 달라지는 상태이다. 흔한 모양은 예측값이 클수록 잔차가 퍼지는 ‘깔때기’이다.</li><li>이분산성이 있어도 보통최소제곱(OLS)의 회귀계수 추정치는 여전히 불편이다. 그러나 <strong>효율적이지 않고</strong>(분산이 최소가 아님), 무엇보다 <strong>일반 표준오차 공식이 틀려서</strong> t 값, p값, 신뢰구간이 부정확해진다. 표준오차가 작게 나올 수도, 크게 나올 수도 있다.</li><li>자주 생기는 원인: 변수의 규모 차이(소득이 클수록 지출 편차도 큼), 집단마다 다른 변동, 비선형 관계를 직선으로 적합함, 이상치.</li><li>점검: 잔차 대 예측값 도표, <a href="breusch-pagan-test.html">브로이슈-페이건 검정</a>, 화이트 검정. 집단 비교(t검정, 분산분석)에서의 분산 동질성은 <a href="levenes-test.html">레빈 검정</a>으로 본다.</li><li>대응: 종속변수 로그 변환, 가중최소제곱(WLS), <strong>이분산에 강건한 표준오차</strong>(White, 1980)로 계수는 그대로 두고 표준오차만 바로잡기. 표본이 작을 때는 HC3 같은 변형이 낫다는 보고가 있다(Long &amp; Ervin, 2000).</li></ul><p>보정 방법으로는 로그 변환, 모형 재설정, 가중최소제곱, White(1980)의 이분산 일치 표준오차, 와일드 부트스트랩이 있다. 로짓·프로빗 같은 비선형 모형에서는 이분산이 있으면 최대우도 추정치 자체가 일반적으로 편향되고 비일치가 된다. 로버스트 표준오차가 표준이 된 지금은 검정 결과가 예전만큼 결정적이지 않으며, 이분산성이 있다고 모형을 버릴 이유는 아니라는 시각도 있다. 집단 자료의 분산 비교에는 Bartlett 검정과 Levene 검정이 쓰인다.</p>
 
   <h2>예시로 보기</h2>
   <p>가상의 모의 자료: x를 1~10에서 100개 뽑고, 오차의 표준편차를 0.5x로 두어 x가 클수록 퍼지게 만든 뒤 y = 2 + 1.5x + 오차를 생성했다.</p><ul><li>OLS 기울기 추정치는 1.38(참값 1.5). 잔차의 표준편차는 x &lt; 5.5인 구간에서 1.43, x ≥ 5.5인 구간에서 3.78로 두 배 이상 차이난다.</li><li>일반 표준오차는 0.100, 강건 표준오차는 HC0 0.120, HC3 0.124이다. 일반 공식이 기울기의 불확실성을 약 20% 작게 보여 준다.</li><li>브로이슈-페이건 검정(잔차 제곱을 x에 회귀, Koenker 방식): LM = 16.25, df = 1, p &lt; .001. 오차 분산이 일정한 대조 자료에서는 LM = 0.53, p = .46이다.</li><li>이 어긋남이 실제로 얼마나 해로운지 보려고 오차의 표준편차가 0.5·x<sup>1.5</sup>에 비례하는 자료(n = 30)를 4,000번 만들어 기울기의 95% 신뢰구간이 참값 1.5를 포함하는 비율을 세 보았다. 일반 표준오차는 90.6%, HC3 강건 표준오차는 93.6%였다. 표본이 작으면 강건 표준오차도 완벽하지는 않다는 점도 보인다.</li></ul>
@@ -196,7 +196,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>분산의 동질성을 말하는 용어와 검정이 여러 가지이다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">대상</th><th scope="col">용도</th></tr></thead><tbody><tr><th scope="row"><strong>등분산성·이분산성</strong></th><td>회귀 오차의 분산이 일정한가</td><td>가정 자체</td></tr><tr><th scope="row"><a href="levenes-test.html">레빈 검정</a></th><td>집단 간 분산 동질성</td><td>t검정·ANOVA 전 점검</td></tr><tr><th scope="row"><a href="breusch-pagan-test.html">브로이슈-페이건 검정</a></th><td>회귀 잔차 분산이 설명변수와 관련 있는가</td><td>회귀의 이분산 검정</td></tr><tr><th scope="row"><a href="robust-standard-errors.html">강건 표준오차</a></th><td>이분산에 대응해 표준오차만 수정</td><td>대응 방법</td></tr><tr><th scope="row"><a href="weighted-least-squares.html">가중최소제곱</a></th><td>분산이 큰 관측치에 작은 가중치</td><td>대응 방법(분산 구조를 알 때)</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">대상</th><th scope="col">용도</th></tr></thead><tbody><tr><th scope="row"><strong>등분산성·이분산성</strong></th><td>회귀 오차의 분산이 일정한가</td><td>가정 자체</td></tr><tr><th scope="row"><a href="levenes-test.html">레빈 검정</a></th><td>집단 간 분산 동질성</td><td>t검정·ANOVA 전 점검</td></tr><tr><th scope="row"><a href="breusch-pagan-test.html">브로이슈-페이건 검정</a></th><td>회귀 잔차 분산이 설명변수와 관련 있는가</td><td>회귀의 이분산 검정</td></tr><tr><th scope="row"><a href="robust-standard-errors.html">강건 표준오차</a></th><td>이분산에 대응해 표준오차만 수정</td><td>대응 방법</td></tr><tr><th scope="row">가중최소제곱</th><td>분산이 큰 관측치에 작은 가중치</td><td>대응 방법(분산 구조를 알 때)</td></tr></tbody></table></div>
   <p class="te-note">homo(같은)·hetero(다른) + scedastic(흩어짐)이라는 어원 때문에 ‘등분산’은 같은 흩어짐, ‘이분산’은 다른 흩어짐을 뜻한다. 영어 표기가 homoskedasticity처럼 k를 쓰기도 한다.</p>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
@@ -224,8 +224,8 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="holm-bonferroni-method.html" class="term-pager-prev">← 이전: 홀름-본페로니 절차</a>
-  <a href="hosmer-lemeshow-test.html" class="term-pager-next">다음: 호스머-레메쇼 검정 →</a>
+  <a href="hierarchical-regression.html" class="term-pager-prev">← 이전: 위계적 회귀분석</a>
+  <a href="hypergeometric-distribution.html" class="term-pager-next">다음: 초기하분포 →</a>
 </nav>
 </main>
 

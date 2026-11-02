@@ -129,7 +129,7 @@
 <main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 대와동시뮬레이션 (Large Eddy Simulation)</p>
   <h1>대와동시뮬레이션 (Large Eddy Simulation)</h1>
-  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치"><a href="computational-fluid-dynamics-turbulence-model.html">CFD 난류모델링</a><span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">대와동시뮬레이션</span></nav><!-- concept-path:end -->
+  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치">CFD 난류모델링<span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">대와동시뮬레이션</span></nav><!-- concept-path:end -->
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=mechanical">기계공학</a>
   </div>
@@ -159,7 +159,7 @@
   <ol><li><strong>필터링</strong>: 유동장에 공간 필터(폭 Δ, 보통 격자 크기와 연동)를 적용해 큰 규모(풀어내는 규모)와 작은 규모(아격자 규모)로 나눈다.</li><li><strong>필터링된 방정식</strong>: 나비에-스토크스 방정식을 필터링하면 아격자 응력이라는 미지의 항이 남는다.</li><li><strong>아격자 모델로 닫기</strong>: 이 항을 모델로 근사한다. 가장 오래된 모델은 Smagorinsky(1963)의 와점성 모델이며, 상수 C_s를 흐름에 따라 자동 결정하는 동적 모델(Germano 외, 1991)이 널리 쓰인다. 격자 자체의 수치 소산을 모델로 삼는 암묵적 LES도 있다.</li><li><strong>시간 전진</strong>: 큰 에디는 시간에 따라 직접 계산하고, 평균·분산 같은 통계는 충분히 긴 시간 동안 표본을 모아 얻는다.</li></ol><p>벽 근처의 작은 구조까지 풀면(벽 해상 LES) 레이놀즈수가 커질수록 비용이 급격히 늘기 때문에, 벽 근처를 벽 모델로 처리하는 방식(벽 모델 LES)도 쓰인다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <ul><li><strong>언제 쓰나</strong>: 박리, 후류, 연소·혼합, 공력 소음처럼 큰 규모의 비정상 구조가 결과를 좌우하는 문제이다. 시간 평균만 얻는 <a href="reynolds-averaged-navier-stokes.html">RANS</a>로는 부족한 경우에 선택한다.</li><li><strong>무엇을 얻나</strong>: 큰 에디의 시간 이력, 압력 변동 스펙트럼, 평균에 더해 변동량(분산) 통계이다.</li><li><strong>비용</strong>: <a href="direct-numerical-simulation.html">DNS</a>보다 훨씬 싸지만 RANS보다는 훨씬 비싸다.</li><li><strong>품질 판단</strong>: Pope(2004)는 난류 운동에너지의 약 80% 이상을 직접 풀어내는지를 해상도 점검 기준의 하나로 제안했다. 이는 관례적 기준이며 절대적인 문턱은 아니다.</li></ul><p>LES는 가장 작은 길이 척도를 걸러 내는 저역 통과 필터를 나비에-스토크스 방정식에 적용해 계산량을 줄이며, 닫히지 않은 잔류 응력은 격자 이하 척도(SGS) 모형이 맡는다. 이 방법은 1963년 Joseph Smagorinsky가 대기 흐름을 모사하려고 처음 제안했고, 1970년 James Deardorff가 Smagorinsky–Lilly SGS 모형으로 처음 본격 탐구했다.</p>
+  <ul><li><strong>언제 쓰나</strong>: 박리, 후류, 연소·혼합, 공력 소음처럼 큰 규모의 비정상 구조가 결과를 좌우하는 문제이다. 시간 평균만 얻는 RANS로는 부족한 경우에 선택한다.</li><li><strong>무엇을 얻나</strong>: 큰 에디의 시간 이력, 압력 변동 스펙트럼, 평균에 더해 변동량(분산) 통계이다.</li><li><strong>비용</strong>: DNS보다 훨씬 싸지만 RANS보다는 훨씬 비싸다.</li><li><strong>품질 판단</strong>: Pope(2004)는 난류 운동에너지의 약 80% 이상을 직접 풀어내는지를 해상도 점검 기준의 하나로 제안했다. 이는 관례적 기준이며 절대적인 문턱은 아니다.</li></ul><p>LES는 가장 작은 길이 척도를 걸러 내는 저역 통과 필터를 나비에-스토크스 방정식에 적용해 계산량을 줄이며, 닫히지 않은 잔류 응력은 격자 이하 척도(SGS) 모형이 맡는다. 이 방법은 1963년 Joseph Smagorinsky가 대기 흐름을 모사하려고 처음 제안했고, 1970년 James Deardorff가 Smagorinsky–Lilly SGS 모형으로 처음 본격 탐구했다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>필터 종류와 폭, 아격자 모델(상수 값 또는 동적 절차), 벽 처리 방식을 적는다.</li><li>격자 수, 벽 쪽 첫 격자 간격(y⁺), 시간 간격(CFL 수), 수치 기법의 정확도(차분 차수)를 적는다.</li><li>통계를 얻은 시간 길이와 초기 과도 구간 제외 여부를 적는다.</li><li>격자 민감도 시험이나 풀어낸 난류 에너지 비율, 실험·DNS와의 비교를 함께 제시해야 "격자가 성기면 결과가 달라진다"는 의심에 답할 수 있다.</li></ul>
@@ -187,7 +187,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>난류 해석의 세 단계를 비교한다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">무엇을 직접 풀고 무엇을 모델하나</th><th scope="col">계산 비용</th></tr></thead><tbody><tr><th scope="row"><a href="reynolds-averaged-navier-stokes.html">RANS</a></th><td>시간 평균만 풀고 모든 난류 규모를 모델로 처리</td><td>가장 낮음</td></tr><tr><th scope="row"><strong>LES</strong></th><td>큰 에디는 직접, 격자보다 작은 규모만 모델로 처리</td><td>중간~높음</td></tr><tr><th scope="row"><a href="direct-numerical-simulation.html">DNS</a></th><td>모든 규모를 직접 풀며 모델 없음</td><td>레이놀즈수와 함께 가장 급증</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">무엇을 직접 풀고 무엇을 모델하나</th><th scope="col">계산 비용</th></tr></thead><tbody><tr><th scope="row">RANS</th><td>시간 평균만 풀고 모든 난류 규모를 모델로 처리</td><td>가장 낮음</td></tr><tr><th scope="row"><strong>LES</strong></th><td>큰 에디는 직접, 격자보다 작은 규모만 모델로 처리</td><td>중간~높음</td></tr><tr><th scope="row">DNS</th><td>모든 규모를 직접 풀며 모델 없음</td><td>레이놀즈수와 함께 가장 급증</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Smagorinsky, J. (1963). General circulation experiments with the primitive equations: I. The basic experiment. Monthly Weather Review, 91(3), 99–164.</li>
@@ -201,13 +201,13 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="computational-fluid-dynamics-turbulence-model.html">CFD 난류모델링</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="reynolds-averaged-navier-stokes.html">레이놀즈 평균 나비에-스토크스</a></div></div><p class="concept-family-map"><a href="../concept-map/mechanical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms">CFD 난류모델링</div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms">레이놀즈 평균 나비에-스토크스</div></div><p class="concept-family-map"><a href="../concept-map/mechanical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="laminar-turbulent-transition.html" class="term-pager-prev">← 이전: 층류-난류 천이</a>
-  <a href="laser-beam-machining.html" class="term-pager-next">다음: 레이저 가공 →</a>
+  <a href="lame-equations.html" class="term-pager-prev">← 이전: 라메 방정식</a>
+  <a href="lmtd-method.html" class="term-pager-next">다음: 대수평균온도차법 →</a>
 </nav>
 </main>
 

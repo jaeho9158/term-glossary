@@ -154,12 +154,12 @@
 
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
-  <ol><li><strong>의존 대상을 추상(인터페이스)으로 정의한다.</strong> 예컨대 “저장소”라는 인터페이스만 정해 두고 실제로 데이터베이스인지 파일인지는 구분하지 않는다.</li><li><strong>사용하는 객체는 그 의존 대상을 스스로 만들지 않고 밖에서 받는다.</strong> 받는 방식이 세 가지이다. 생성자 주입(객체를 만들 때 인수로 받음), 세터 주입(만든 뒤 메서드로 설정), 인터페이스 주입(Fowler, 2004). 객체가 완성될 때 의존 관계가 확정되는 생성자 주입이 널리 권장된다.</li><li><strong>조립은 한 곳에서 한다.</strong> 프로그램 시작 지점이나 DI 컨테이너(스프링, 대거, Hilt 등 프레임워크)가 어떤 구현을 연결할지 정하고 주입한다(Seemann &amp; van Deursen, 2019).</li><li>테스트에서는 실제 구현 대신 가짜(목, 스텁) 객체를 주입해 <a href="unit-testing.html">단위 테스트</a>를 한다.</li></ol>
+  <ol><li><strong>의존 대상을 추상(인터페이스)으로 정의한다.</strong> 예컨대 “저장소”라는 인터페이스만 정해 두고 실제로 데이터베이스인지 파일인지는 구분하지 않는다.</li><li><strong>사용하는 객체는 그 의존 대상을 스스로 만들지 않고 밖에서 받는다.</strong> 받는 방식이 세 가지이다. 생성자 주입(객체를 만들 때 인수로 받음), 세터 주입(만든 뒤 메서드로 설정), 인터페이스 주입(Fowler, 2004). 객체가 완성될 때 의존 관계가 확정되는 생성자 주입이 널리 권장된다.</li><li><strong>조립은 한 곳에서 한다.</strong> 프로그램 시작 지점이나 DI 컨테이너(스프링, 대거, Hilt 등 프레임워크)가 어떤 구현을 연결할지 정하고 주입한다(Seemann &amp; van Deursen, 2019).</li><li>테스트에서는 실제 구현 대신 가짜(목, 스텁) 객체를 주입해 단위 테스트를 한다.</li></ol>
   <p>의존성 주입은 ‘제어의 역전(IoC)’의 한 형태이다. 객체가 자기 부품을 직접 고르는 제어를 바깥으로 넘긴다는 뜻이다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>얻는 것은 <strong>결합도 낮추기, 교체 가능성, 테스트 용이성</strong>이다(<a href="cohesion-and-coupling.html">응집도와 결합도</a>). 구현을 바꿔도 사용하는 쪽 코드를 고치지 않아도 되고, 테스트 때 데이터베이스나 네트워크 없이 모듈을 검증할 수 있다. 의존성 역전 원칙(고수준 모듈이 저수준 구현이 아닌 추상에 의존해야 한다는 원칙)을 실현하는 대표 수단으로 설명된다(Martin, 2003).</p>
-  <p>비용도 있다. 코드가 어디서 어떻게 조립되는지 한눈에 보기 어려워지고, 컨테이너 설정이 복잡해지며, 순환 의존이나 설정 오류가 실행 시점에야 드러날 수 있다. 의존이 단순하고 바뀔 일이 없는 작은 프로그램에서는 과한 설계가 될 수 있다. 필요한 곳에 쓰는 설계 기법이지 그 자체가 목적은 아니다(<a href="software-design-pattern.html">디자인 패턴</a>).</p><p>의존성 주입의 구성 요소는 기능을 제공하는 서비스, 이를 쓰는 클라이언트, 둘 사이의 계약인 인터페이스, 객체를 만들어 연결하는 인젝터이다. 주입 방식에는 생성자·세터·인터페이스 주입 외에 필요한 메서드에 인수로 넘기는 메서드 주입이 있다. 생성자 주입은 가장 흔하며 클라이언트가 유효한 상태를 유지하게 한다. 비판으로는 기본값이 있어도 설정을 요구할 수 있고, 생성과 동작이 분리되어 코드 추적이 어려우며, 리플렉션에 기대는 구현이 IDE 도구를 방해할 수 있고, 프레임워크에 대한 의존이 생길 수 있다는 점이 있다. 프레임워크 없이 직접 주입하는 방식도 유효하다.</p>
+  <p>얻는 것은 <strong>결합도 낮추기, 교체 가능성, 테스트 용이성</strong>이다(응집도와 결합도). 구현을 바꿔도 사용하는 쪽 코드를 고치지 않아도 되고, 테스트 때 데이터베이스나 네트워크 없이 모듈을 검증할 수 있다. 의존성 역전 원칙(고수준 모듈이 저수준 구현이 아닌 추상에 의존해야 한다는 원칙)을 실현하는 대표 수단으로 설명된다(Martin, 2003).</p>
+  <p>비용도 있다. 코드가 어디서 어떻게 조립되는지 한눈에 보기 어려워지고, 컨테이너 설정이 복잡해지며, 순환 의존이나 설정 오류가 실행 시점에야 드러날 수 있다. 의존이 단순하고 바뀔 일이 없는 작은 프로그램에서는 과한 설계가 될 수 있다. 필요한 곳에 쓰는 설계 기법이지 그 자체가 목적은 아니다(디자인 패턴).</p><p>의존성 주입의 구성 요소는 기능을 제공하는 서비스, 이를 쓰는 클라이언트, 둘 사이의 계약인 인터페이스, 객체를 만들어 연결하는 인젝터이다. 주입 방식에는 생성자·세터·인터페이스 주입 외에 필요한 메서드에 인수로 넘기는 메서드 주입이 있다. 생성자 주입은 가장 흔하며 클라이언트가 유효한 상태를 유지하게 한다. 비판으로는 기본값이 있어도 설정을 요구할 수 있고, 생성과 동작이 분리되어 코드 추적이 어려우며, 리플렉션에 기대는 구현이 IDE 도구를 방해할 수 있고, 프레임워크에 대한 의존이 생길 수 있다는 점이 있다. 프레임워크 없이 직접 주입하는 방식도 유효하다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>어떤 <strong>주입 방식</strong>(생성자/세터/인터페이스)과 어떤 컨테이너·프레임워크(이름과 버전)를 썼는지</li><li>어떤 객체가 어떤 구현으로 조립되는지를 보이는 <strong>구성도</strong>와, 테스트에서 가짜 객체로 바꾼 방법</li><li>효과를 말할 때의 <strong>측정 지표</strong>: 결합도 지표, 테스트 커버리지, 변경 시 수정 범위, 실행 시간·메모리 오버헤드 등 무엇을 비교했는지</li><li>DI를 쓰지 않은 대조 구현과 비교했는지, 비교했다면 같은 기능 조건인지</li></ul>
@@ -187,12 +187,12 @@
   <p>논문을 읽을 때는 저자가 어떤 주입 방식을 택했는지, 그리고 그것이 테스트 대체(mocking)나 순환 의존성 방지와 어떻게 연결되는지를 함께 살펴보면 이해가 깊어진다.</p>
 
   <h2>주의할 점</h2>
-  <p>의존성 주입은 코드 간 결합도를 낮추는 대표적인 <a href="software-design-pattern.html">디자인 패턴</a>이지만, 무분별하게 남용하면 어떤 부품이 어디서 어떻게 조립되는지 한눈에 파악하기 어려워지고 설정(configuration)이 복잡해질 수 있다. 이는 <a href="oop-four-principles.html">객체지향 프로그래밍의 4대 원칙</a> 중 캡슐화·추상화를 지키기 위한 수단이지, 그 자체가 목적은 아니라는 점을 기억해야 한다.</p>
+  <p>의존성 주입은 코드 간 결합도를 낮추는 대표적인 디자인 패턴이지만, 무분별하게 남용하면 어떤 부품이 어디서 어떻게 조립되는지 한눈에 파악하기 어려워지고 설정(configuration)이 복잡해질 수 있다. 이는 객체지향 프로그래밍의 4대 원칙 중 캡슐화·추상화를 지키기 위한 수단이지, 그 자체가 목적은 아니라는 점을 기억해야 한다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>비슷한 말이 여러 개 섞여 쓰인다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">의존성 주입과의 관계</th></tr></thead><tbody><tr><th scope="row"><strong>의존성 주입(DI)</strong></th><td>필요한 객체를 밖에서 전달받게 하는 기법</td><td>—</td></tr><tr><th scope="row">제어의 역전(IoC)</th><td>객체 생성·연결의 제어를 프레임워크나 바깥에 넘기는 원리</td><td>DI는 IoC를 구현하는 한 방법</td></tr><tr><th scope="row">서비스 로케이터</th><td>객체가 중앙 저장소에 스스로 의존 대상을 요청</td><td>주입이 아니라 ‘끌어오기’이며 대안으로 비교됨(Fowler, 2004)</td></tr><tr><th scope="row"><a href="unit-testing.html">단위 테스트</a></th><td>작은 단위를 따로 검증하는 테스트</td><td>DI가 가짜 객체 교체를 쉽게 해 줌</td></tr><tr><th scope="row"><a href="cohesion-and-coupling.html">결합도</a></th><td>모듈이 서로 얼마나 얽혀 있는가</td><td>DI가 낮추려는 대상</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">의미</th><th scope="col">의존성 주입과의 관계</th></tr></thead><tbody><tr><th scope="row"><strong>의존성 주입(DI)</strong></th><td>필요한 객체를 밖에서 전달받게 하는 기법</td><td>—</td></tr><tr><th scope="row">제어의 역전(IoC)</th><td>객체 생성·연결의 제어를 프레임워크나 바깥에 넘기는 원리</td><td>DI는 IoC를 구현하는 한 방법</td></tr><tr><th scope="row">서비스 로케이터</th><td>객체가 중앙 저장소에 스스로 의존 대상을 요청</td><td>주입이 아니라 ‘끌어오기’이며 대안으로 비교됨(Fowler, 2004)</td></tr><tr><th scope="row">단위 테스트</th><td>작은 단위를 따로 검증하는 테스트</td><td>DI가 가짜 객체 교체를 쉽게 해 줌</td></tr><tr><th scope="row">결합도</th><td>모듈이 서로 얼마나 얽혀 있는가</td><td>DI가 낮추려는 대상</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Fowler, M. (2004). Inversion of Control Containers and the Dependency Injection pattern [online article].</li>
@@ -213,7 +213,7 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="decision-tree.html" class="term-pager-prev">← 이전: 결정 트리</a>
+  <a href="deep-learning.html" class="term-pager-prev">← 이전: 딥러닝</a>
   <a href="depth-first-search.html" class="term-pager-next">다음: 깊이 우선 탐색 →</a>
 </nav>
 </main>

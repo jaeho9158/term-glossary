@@ -159,7 +159,7 @@
   <p>모멘트법은 전산 전자기학의 수치 기법으로 가중잔차법이라고도 하며 대체로 주파수 영역 방법이다. 경계 조건을 적용해 적분 방정식을 선형 연립 방정식으로 바꾸고, 미지의 해를 미리 정한 기저 함수의 결합으로 쓴 뒤 그 계수를 구한다. 시험(가중) 함수는 참 해와 근사 해의 차인 잔차를 최소화하는 데 쓰며, 디랙 델타 함수를 써서 경계 조건을 이산 점에서만 맞추는 방법을 점 정합(collocation)이라 하고, 시험 함수와 기저 함수가 같으면 갤러킨 방법이다. 이 이론은 1960년대에 Roger Harrington이 체계화해 1968년 교재 『Field Computation by Moment Methods』를 냈고, 1982년 Rao, Wilton, Glisson이 삼각 패치 기저 함수(RWG)를 제안했다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p><strong>잘 맞는 문제</strong>: 도체나 얇은 유전체처럼 표면 전류로 정식화되는 안테나·산란체이다. 미지수가 표면에만 있어 부피 전체를 나누는 <a href="finite-element-method.html">유한요소법</a>보다 미지수가 적고, 그린함수가 방사 조건을 이미 포함하므로 경계에 흡수 조건을 따로 두지 않아도 된다.</p><p><strong>덜 맞는 문제</strong>: 재질이 부피 안에서 복잡하게 변하는 구조, 매우 넓은 대역을 한 번에 보는 과도 응답은 <a href="finite-difference-time-domain-method.html">시간영역 유한차분법</a> 같은 시간영역 방법이 더 편할 수 있다.</p><p><strong>계산 비용</strong>: 행렬이 조밀하여 미지수 N에 대해 기억 용량은 N<sup>2</sup>, 직접 풀이 연산량은 N<sup>3</sup>에 비례한다. 복소수를 16바이트로 저장한다고 가정해 계산한 값이다(가상의 문제 크기).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>미지수 N</th><th>행렬 저장 용량</th><th>LU 분해 연산(약 2N³/3)</th></tr></thead><tbody><tr><td>1,000</td><td>약 0.016 GB</td><td>약 6.7×10<sup>8</sup></td></tr><tr><td>10,000</td><td>약 1.6 GB</td><td>약 6.7×10<sup>11</sup></td></tr><tr><td>100,000</td><td>약 160 GB</td><td>약 6.7×10<sup>14</sup></td></tr></tbody></table></div><p>미지수가 10배가 되면 저장 용량은 100배, 연산량은 1,000배가 된다. 그래서 대형 문제에서는 고속 다중극자법(FMM)이나 행렬 압축 같은 가속 기법을 함께 쓴다.</p>
+  <p><strong>잘 맞는 문제</strong>: 도체나 얇은 유전체처럼 표면 전류로 정식화되는 안테나·산란체이다. 미지수가 표면에만 있어 부피 전체를 나누는 <a href="finite-element-method.html">유한요소법</a>보다 미지수가 적고, 그린함수가 방사 조건을 이미 포함하므로 경계에 흡수 조건을 따로 두지 않아도 된다.</p><p><strong>덜 맞는 문제</strong>: 재질이 부피 안에서 복잡하게 변하는 구조, 매우 넓은 대역을 한 번에 보는 과도 응답은 시간영역 유한차분법 같은 시간영역 방법이 더 편할 수 있다.</p><p><strong>계산 비용</strong>: 행렬이 조밀하여 미지수 N에 대해 기억 용량은 N<sup>2</sup>, 직접 풀이 연산량은 N<sup>3</sup>에 비례한다. 복소수를 16바이트로 저장한다고 가정해 계산한 값이다(가상의 문제 크기).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>미지수 N</th><th>행렬 저장 용량</th><th>LU 분해 연산(약 2N³/3)</th></tr></thead><tbody><tr><td>1,000</td><td>약 0.016 GB</td><td>약 6.7×10<sup>8</sup></td></tr><tr><td>10,000</td><td>약 1.6 GB</td><td>약 6.7×10<sup>11</sup></td></tr><tr><td>100,000</td><td>약 160 GB</td><td>약 6.7×10<sup>14</sup></td></tr></tbody></table></div><p>미지수가 10배가 되면 저장 용량은 100배, 연산량은 1,000배가 된다. 그래서 대형 문제에서는 고속 다중극자법(FMM)이나 행렬 압축 같은 가속 기법을 함께 쓴다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li><strong>기본 설정</strong>: 정식화(EFIE, MFIE 등), 기저함수, 가중함수, 메쉬 크기(파장 대비 세분화 정도), 풀이 방법(직접/반복)을 밝힌다. 메쉬 간격을 파장의 1/10 안팎으로 잡는 것이 흔한 경험칙이지만 문제마다 수렴을 확인해야 한다.</li><li><strong>수렴 검증</strong>: 기저함수 수(메쉬)를 늘려 가며 입력 임피던스나 이득이 수렴하는지 보여 준다.</li><li><strong>타당성 검증</strong>: 측정값이나 다른 해석 도구(상용 전자기 해석 소프트웨어, 해석해)와 비교한다.</li><li><strong>한계 명시</strong>: 급전부 모델(델타 간극 등), 특이적분 처리, 유전체·접지면 모델링 가정을 적는다.</li></ul>
@@ -186,7 +186,7 @@
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">미지수 위치</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">모멘트법(MoM)</th><td>도체·경계 표면</td><td>조밀 행렬, 방사 조건 내장</td></tr><tr><th scope="row"><a href="finite-element-method.html">유한요소법</a></th><td>부피 전체</td><td>희소 행렬, 불균질 재질에 유리</td></tr><tr><th scope="row"><a href="finite-difference-time-domain-method.html">시간영역 유한차분법</a></th><td>격자 전체(시간 전진)</td><td>광대역 과도 응답, 구조화 격자</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">방법</th><th scope="col">미지수 위치</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row">모멘트법(MoM)</th><td>도체·경계 표면</td><td>조밀 행렬, 방사 조건 내장</td></tr><tr><th scope="row"><a href="finite-element-method.html">유한요소법</a></th><td>부피 전체</td><td>희소 행렬, 불균질 재질에 유리</td></tr><tr><th scope="row">시간영역 유한차분법</th><td>격자 전체(시간 전진)</td><td>광대역 과도 응답, 구조화 격자</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Harrington, R. F. (1968). Field Computation by Moment Methods. Macmillan.</li>
@@ -208,7 +208,7 @@
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="metasurface-lens-design.html" class="term-pager-prev">← 이전: 메타표면 렌즈 설계</a>
-  <a href="micro-electromechanical-resonator.html" class="term-pager-next">다음: 미세전자기계 공진기 →</a>
+  <a href="moores-law.html" class="term-pager-next">다음: 무어의 법칙 →</a>
 </nav>
 </main>
 

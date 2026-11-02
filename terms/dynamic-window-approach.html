@@ -128,7 +128,7 @@
 <main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 동적윈도우접근법 (Dynamic Window Approach (DWA))</p>
   <h1>동적윈도우접근법 (Dynamic Window Approach (DWA))</h1>
-  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치"><a href="motion-planning.html">모션계획</a><span class="concept-path-sep" aria-hidden="true">›</span><a href="local-path-planning.html">지역경로계획</a><span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">동적윈도우접근법</span></nav><!-- concept-path:end -->
+  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치">모션계획<span class="concept-path-sep" aria-hidden="true">›</span>지역경로계획<span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">동적윈도우접근법</span></nav><!-- concept-path:end -->
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=robotics">로봇공학</a>
   </div>
@@ -158,7 +158,7 @@
   <ul><li>매 제어 주기마다 로봇의 현재 속도 (v, ω)에서 가속도 한계로 도달할 수 있는 속도 범위, 곧 <strong>동적 윈도우</strong>를 구한다.</li><li>그 범위 안의 (v, ω) 후보마다 짧은 시간 그 속도를 유지했을 때의 궤적을 예측한다.</li><li>장애물까지 거리 때문에 멈출 수 없는 속도는 버린다(허용 속도). 멈출 수 있으려면 v ≤ √(2 · dist · 감속도) 여야 한다.</li><li>남은 후보를 목적함수로 점수 매긴다. Fox 외(1997)의 목적함수는 목표 방향 정렬(heading), 장애물까지 거리(dist), 속도(velocity)의 가중합을 평활화한 형태이다. 최고점 (v, ω)를 실행하고 다음 주기에 반복한다.</li></ul><p>동적 윈도우 접근법은 이동 로봇의 온라인 충돌 회피 방법으로, 1997년 Dieter Fox, Wolfram Burgard, Sebastian Thrun이 개발했다. 다른 회피 방법과 달리 로봇의 동역학에서 직접 유도되어 속도와 가속도 한계를 다룬다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>바퀴 이동 로봇이 실시간으로 장애물을 피하며 <a href="global-path-planning.html">전역 경로</a>를 따라갈 때 <a href="local-path-planning.html">지역 계획</a> 단계로 쓴다. 장점은 가속도 한계를 후보 생성 단계에서 직접 반영해 명령이 물리적으로 실행 가능하다는 점이다.</p><p>(가상의 예) 현재 v = 0.4 m/s, ω = 0 rad/s, 선가속도 한계 0.5 m/s², 각가속도 한계 1.0 rad/s², 제어 주기 0.2 s라면 v ∈ [0.4 − 0.5×0.2, 0.4 + 0.5×0.2] = [0.3, 0.5] m/s, ω ∈ [−0.2, 0.2] rad/s이다. 장애물이 1.0 m 앞이고 감속도가 0.5 m/s²이면 멈출 수 있는 최대 속도는 √(2×1.0×0.5) = 1.0 m/s이므로 이 후보 전부가 허용된다. 장애물이 0.2 m 앞이면 √(2×0.2×0.5) ≈ 0.45 m/s이라 0.5 m/s 후보는 탈락한다.</p><p>한계: 짧은 구간만 보므로 막다른 곳(국소 최소)에 빠질 수 있어 전역 경로와 함께 쓴다. 가중치에 따라 행동이 달라져 환경별 조정이 필요하다.</p><p>알고리즘은 탐색 공간과 선택의 두 부분으로 이루어진다. 탐색 공간은 짧은 시간 안에 도달할 수 있는 안전한 충돌 없는 원호 궤적으로 제한하고, 그 공간에서 목표를 향한 진행, 전진 속도, 장애물까지의 거리를 합친 목적함수가 가장 큰 속도 조합을 고른다.</p>
+  <p>바퀴 이동 로봇이 실시간으로 장애물을 피하며 <a href="global-path-planning.html">전역 경로</a>를 따라갈 때 지역 계획 단계로 쓴다. 장점은 가속도 한계를 후보 생성 단계에서 직접 반영해 명령이 물리적으로 실행 가능하다는 점이다.</p><p>(가상의 예) 현재 v = 0.4 m/s, ω = 0 rad/s, 선가속도 한계 0.5 m/s², 각가속도 한계 1.0 rad/s², 제어 주기 0.2 s라면 v ∈ [0.4 − 0.5×0.2, 0.4 + 0.5×0.2] = [0.3, 0.5] m/s, ω ∈ [−0.2, 0.2] rad/s이다. 장애물이 1.0 m 앞이고 감속도가 0.5 m/s²이면 멈출 수 있는 최대 속도는 √(2×1.0×0.5) = 1.0 m/s이므로 이 후보 전부가 허용된다. 장애물이 0.2 m 앞이면 √(2×0.2×0.5) ≈ 0.45 m/s이라 0.5 m/s 후보는 탈락한다.</p><p>한계: 짧은 구간만 보므로 막다른 곳(국소 최소)에 빠질 수 있어 전역 경로와 함께 쓴다. 가중치에 따라 행동이 달라져 환경별 조정이 필요하다.</p><p>알고리즘은 탐색 공간과 선택의 두 부분으로 이루어진다. 탐색 공간은 짧은 시간 안에 도달할 수 있는 안전한 충돌 없는 원호 궤적으로 제한하고, 그 공간에서 목표를 향한 진행, 전진 속도, 장애물까지의 거리를 합친 목적함수가 가장 큰 속도 조합을 고른다.</p>
 
   <h2>논문에는 이렇게 적는다</h2>
   <ul><li>제어 주기, 예측 시간, 속도·가속도 한계, 속도 샘플링 간격을 표로 제시한다.</li><li>목적함수의 가중치와 정규화 방식을 밝힌다(결과 재현에 필요).</li><li>시뮬레이터·실물 로봇, 장애물 배치(정적/동적), 성공률·충돌 횟수·소요시간을 보고한다.</li><li>구현 출처(자체 구현인지, ROS 패키지의 어떤 버전인지)와 전역 계획기를 함께 적는다.</li></ul>
@@ -177,7 +177,7 @@
   <div class="example">"동적창문접근법을 적용한 이동 로봇은 정적 장애물뿐 아니라 갑자기 나타난 동적 장애물에 대해서도 충돌 없이 경로를 재조정하였다."</div>
   <p>이 접근법이 로봇의 현재 속도 제약을 고려하면서 실시간으로 안전한 속도 구간을 탐색해 장애물을 피한다는 것을 보여주는 결과이다.</p>
   <h2>조금 더 깊게 보면</h2>
-  <p>짧은 시간 창만 보므로 막다른 곳에 갇히거나 회전 반경이 큰 로봇이 좁은 통로 입구를 놓치는 국소 최소점 문제가 있어, <a href="global-path-planning.html">전역 계획기</a>가 준 경로를 따라가는 <a href="local-path-planning.html">지역 계획</a>으로만 써야 한다. 목적함수 가중치 조정이 환경마다 필요해 재현이 어렵고, 최근에는 궤적 롤아웃이나 모델예측제어 기반 계획기로 대체되는 추세이다.</p>
+  <p>짧은 시간 창만 보므로 막다른 곳에 갇히거나 회전 반경이 큰 로봇이 좁은 통로 입구를 놓치는 국소 최소점 문제가 있어, <a href="global-path-planning.html">전역 계획기</a>가 준 경로를 따라가는 지역 계획으로만 써야 한다. 목적함수 가중치 조정이 환경마다 필요해 재현이 어렵고, 최근에는 궤적 롤아웃이나 모델예측제어 기반 계획기로 대체되는 추세이다.</p>
   <p>동적 윈도우는 현재 속도에서 정해진 짧은 시간 동안 모터가 낼 수 있는 가속도 한계를 적용했을 때 도달 가능한 (선속도, 각속도) 조합의 범위를 의미하며, 이 범위 안에서만 후보 궤적을 평가하므로 선정된 속도 명령은 물리적으로 항상 실행 가능하다는 것이 이 방법의 실용적 강점이다.</p>
   <p>목적함수는 대개 목표 방향 정렬도, 장애물까지의 최소 거리, 속도 크기라는 세 항목을 가중합해 구성하며, 이 가중치 비율에 따라 로봇이 안전을 우선할지 속도를 우선할지가 크게 달라진다.</p>
 
@@ -195,13 +195,13 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="local-path-planning.html">지역경로계획</a></div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms">지역경로계획</div></div><p class="concept-family-map"><a href="../concept-map/robotics.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="dynamic-parameter-identification.html" class="term-pager-prev">← 이전: 동역학파라미터식별</a>
-  <a href="ekf-slam.html" class="term-pager-next">다음: 확장칼만필터기반슬램 →</a>
+  <a href="denavit-hartenberg-parameters.html" class="term-pager-prev">← 이전: 데나빗-하텐베르그 파라미터</a>
+  <a href="encoder-robot.html" class="term-pager-next">다음: 엔코더 →</a>
 </nav>
 </main>
 

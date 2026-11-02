@@ -158,7 +158,7 @@
   <p>두 변수 각각을 크기 순위로 바꾼 뒤 그 순위들 사이의 피어슨 상관계수를 구한 값이다(기호 ρ 또는 r<sub>s</sub>). 동점이 없으면 d를 순위 차이라 할 때 다음 식으로 계산된다.</p><p><code>ρ = 1 − 6Σd² / (n(n² − 1))</code></p><ul><li>범위는 −1~1이다. 두 변수가 한 방향으로 늘 같이 증가하는(단조 증가) 관계이면 직선이 아니어도 1이다.</li><li>동점(같은 값)이 있으면 평균 순위를 부여하고 순위에 피어슨 상관을 적용한다. 소프트웨어마다 동점 처리 방식이 다르면 값이 조금 다를 수 있다.</li></ul><p><strong>작은 예(가상).</strong> a = 1, 2, …, 10이고 b = 2, 1, 4, 3, 6, 5, 8, 9, 7, 30이다. b의 순위는 2, 1, 4, 3, 6, 5, 8, 9, 7, 10이고 순위 차이 제곱합 Σd² = 12이므로 ρ = 1 − 6×12/(10×99) = .927 (p &lt; .001)이다. 같은 자료의 피어슨 r은 .735 (p = .016)로 훨씬 낮은데, 값 30이 직선에서 크게 벗어나 r을 끌어내리기 때문이다. 순위로 바꾸면 30은 그냥 ‘가장 큰 값’ 하나일 뿐이다.</p><p>스피어먼 상관은 두 변수의 순위에 대한 피어슨 상관과 같다. 동순위가 없을 때는 r_s = 1 − 6Σd² / [n(n² − 1)]이지만 동순위가 있으면 이 간편식이 틀린 값을 주므로, 평균 순위를 매긴 뒤 순위에 피어슨 상관을 계산해야 한다. 한 변수가 다른 변수의 완전한 단조 함수이면 ρ = ±1이고 피어슨 r은 선형일 때만 ±1에 이른다. 이상치의 영향은 순위로 제한된다. 유의성은 t = r√[(n − 2)/(1 − r²)] (자유도 n − 2)나 피셔 변환, 순열 검정으로 본다.</p><p>예로 IQ와 주당 TV 시청 시간(n = 10)에서 Σd² = 194이면 ρ = 1 − (6×194)/(10×99) ≈ −0.176이고 p ≈ 0.627이므로 뚜렷한 단조 관계가 없다.</p>
 
   <h2>해석 기준</h2>
-  <ul><li>단조 관계(한쪽이 커질 때 다른 쪽도 계속 커지거나 계속 작아지는 관계)를 잡아낸다. y = e<sup>x/2</sup> (x = 1~10)은 피어슨 r = .87이지만 스피어만 ρ = 1.00이다. 반대로 <strong>U자형 관계</strong>(y = x², x = −5~5)는 ρ = 0, r = 0이어서 어느 쪽도 관계를 잡지 못한다. 그림으로 모양을 확인해야 한다.</li><li>강도를 말로 나누는 기준은 분야마다 다르고 모두 관례이다. Cohen의 .1/.3/.5(작음/중간/큼)를 쓰기도 하고, 의학에서는 .1~.39 약함, .4~.69 중간, .7~.89 강함, .9~1.0 매우 강함 같은 구분도 쓰인다. 이런 구분은 자의적이라는 점이 지적된다(Schober 외, 2018).</li><li><strong>신뢰구간</strong>: 위 예에서 n = 10이면 피셔 z 변환에 Bonett-Wright의 표준오차 √((1 + ρ²/2)/(n − 3))를 쓴 근사 95% 구간은 [.64, .99]이다(Bonett &amp; Wright, 2000). 표본이 작으면 매우 넓다.</li><li>p값은 ‘ρ = 0’이라는 귀무가설에 대한 것이고, 표본이 크면 작은 상관도 유의해진다. 상관의 크기를 함께 해석한다.</li><li>순위 기반이라 이상치와 분포 모양에 덜 민감하지만, 상관이 인과를 뜻하지는 않는다. 측정이 리커트 척도처럼 동점이 매우 많으면 <a href="kendalls-tau.html">켄달의 타우</a>가 더 나을 수 있다.</li></ul>
+  <ul><li>단조 관계(한쪽이 커질 때 다른 쪽도 계속 커지거나 계속 작아지는 관계)를 잡아낸다. y = e<sup>x/2</sup> (x = 1~10)은 피어슨 r = .87이지만 스피어만 ρ = 1.00이다. 반대로 <strong>U자형 관계</strong>(y = x², x = −5~5)는 ρ = 0, r = 0이어서 어느 쪽도 관계를 잡지 못한다. 그림으로 모양을 확인해야 한다.</li><li>강도를 말로 나누는 기준은 분야마다 다르고 모두 관례이다. Cohen의 .1/.3/.5(작음/중간/큼)를 쓰기도 하고, 의학에서는 .1~.39 약함, .4~.69 중간, .7~.89 강함, .9~1.0 매우 강함 같은 구분도 쓰인다. 이런 구분은 자의적이라는 점이 지적된다(Schober 외, 2018).</li><li><strong>신뢰구간</strong>: 위 예에서 n = 10이면 피셔 z 변환에 Bonett-Wright의 표준오차 √((1 + ρ²/2)/(n − 3))를 쓴 근사 95% 구간은 [.64, .99]이다(Bonett &amp; Wright, 2000). 표본이 작으면 매우 넓다.</li><li>p값은 ‘ρ = 0’이라는 귀무가설에 대한 것이고, 표본이 크면 작은 상관도 유의해진다. 상관의 크기를 함께 해석한다.</li><li>순위 기반이라 이상치와 분포 모양에 덜 민감하지만, 상관이 인과를 뜻하지는 않는다. 측정이 리커트 척도처럼 동점이 매우 많으면 켄달의 타우가 더 나을 수 있다.</li></ul>
 
   <h2>보고 방법</h2>
   <p>상관계수, 표본 수, p, 가능하면 신뢰구간, 양측/단측, 동점 처리 방식을 적는다. (위 가상 자료 기준)</p><p><code>두 변수는 강한 양의 순위상관을 보였다, Spearman ρ = .93, n = 10, p &lt; .001, 95% CI [.64, .99].</code></p><ul><li>기호는 ρ(로) 또는 r<sub>s</sub>를 쓰고, 피어슨 r과 구분해서 적는다. 상관행렬 표에는 ‘Spearman’이라고 표 아래에 밝힌다.</li><li>방법 절에 “정규성 가정이 충족되지 않아(또는 서열 척도여서) 피어슨 상관 대신 스피어만 순위상관을 사용하였다”라고 이유를 적는 것이 관례이다.</li><li>다변량 분석이 필요하거나 교란변수를 통제해야 할 때는 단순 상관이 아니라 회귀나 편상관 같은 방법이 필요하다.</li></ul>
@@ -191,7 +191,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>세 가지 상관계수는 ‘무엇이 변하는가’에 대한 질문이 다르다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">계수</th><th scope="col">측정하는 관계</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="correlation.html">피어슨 상관(r)</a></th><td>직선 관계</td><td>이상치·비정규에 민감</td></tr><tr><th scope="row"><strong>스피어만 순위상관(ρ)</strong></th><td>단조 관계(순위)</td><td>이상치에 덜 민감, 서열 자료 가능</td></tr><tr><th scope="row"><a href="kendalls-tau.html">켄달의 타우(τ)</a></th><td>순위 짝의 일치 정도</td><td>동점이 많거나 표본이 작을 때 유용, 값이 보통 ρ보다 작음</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">계수</th><th scope="col">측정하는 관계</th><th scope="col">특징</th></tr></thead><tbody><tr><th scope="row"><a href="correlation.html">피어슨 상관(r)</a></th><td>직선 관계</td><td>이상치·비정규에 민감</td></tr><tr><th scope="row"><strong>스피어만 순위상관(ρ)</strong></th><td>단조 관계(순위)</td><td>이상치에 덜 민감, 서열 자료 가능</td></tr><tr><th scope="row">켄달의 타우(τ)</th><td>순위 짝의 일치 정도</td><td>동점이 많거나 표본이 작을 때 유용, 값이 보통 ρ보다 작음</td></tr></tbody></table></div>
   <p class="te-note">같은 자료에서 세 계수를 모두 구하면 값이 서로 다르다. 위 가상 자료에서 스피어만 ρ = .93, 켄달 τ = .78, 피어슨 r = .73이다. 비교는 같은 계수끼리만 한다. 두 계수의 차이는 <a href="pearson-spearman-correlation.html">피어슨과 스피어만 상관</a>에서도 설명한다.</p>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
@@ -204,7 +204,7 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="correlation.html">상관관계</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="point-biserial-correlation.html">양류상관계수</a><a href="concordance-correlation-coefficient.html">일치상관계수</a><a href="kendalls-tau.html">켄달의 타우</a><a href="partial-correlation.html">편상관계수</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="correlation.html">상관관계</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms">양류상관계수일치상관계수켄달의 타우편상관계수</div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a>
@@ -216,7 +216,7 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="spatial-autocorrelation.html" class="term-pager-prev">← 이전: 공간자기상관</a>
+  <a href="sobel-test.html" class="term-pager-prev">← 이전: 소벨 검정</a>
   <a href="standard-deviation.html" class="term-pager-next">다음: 표준편차 →</a>
 </nav>
 </main>

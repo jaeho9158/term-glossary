@@ -125,7 +125,7 @@
 <main class="delay-1">
   <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 표면분석 (Surface Analysis)</p>
   <h1>표면분석 (Surface Analysis)</h1>
-  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치"><a href="spatial-analysis.html">공간분석</a><span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">표면분석</span></nav><!-- concept-path:end -->
+  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치">공간분석<span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">표면분석</span></nav><!-- concept-path:end -->
   <div class="category-badges">
     <a class="category-badge" href="../category.html?cat=geo">지리학</a>
   </div>
@@ -152,11 +152,11 @@
   <!-- term-extras:sections:start -->
   <h2>어떤 절차인가</h2>
   <p>지리정보시스템(GIS)에서 표면분석은 보통 다음 순서로 진행된다.</p>
-  <ol><li>연속적으로 변하는 현상(고도, 기온, 강수량 등)의 값을 격자(래스터) 표면으로 준비한다. 측정점만 있으면 먼저 <a href="spatial-interpolation.html">공간보간</a>으로 표면을 만든다.</li><li>각 격자 셀을 중심으로 주변 8개 셀을 함께 보는 이동창(3×3)으로 변화율을 계산한다.</li><li>경사, 사면향, 곡률, 음영기복도 같은 파생 표면을 만든다.</li><li>결과를 등고선·색 단계·음영 등으로 시각화하고 해석한다.</li></ol>
+  <ol><li>연속적으로 변하는 현상(고도, 기온, 강수량 등)의 값을 격자(래스터) 표면으로 준비한다. 측정점만 있으면 먼저 공간보간으로 표면을 만든다.</li><li>각 격자 셀을 중심으로 주변 8개 셀을 함께 보는 이동창(3×3)으로 변화율을 계산한다.</li><li>경사, 사면향, 곡률, 음영기복도 같은 파생 표면을 만든다.</li><li>결과를 등고선·색 단계·음영 등으로 시각화하고 해석한다.</li></ol>
   <p>예를 들어 <a href="dem.html">DEM</a>에서 경사를 구하는 방법으로는 Horn(1981)이 제안한 3×3 가중 차분 식이 널리 쓰이며, Zevenbergen &amp; Thorne(1987)의 방법은 곡률 등 2차 파생변수에 쓰인다.</p>
 
   <h2>언제 쓰고 무엇을 얻나</h2>
-  <p>표면분석은 관측점 사이의 값을 채우거나, 한 장의 표면에서 여러 지형 정보를 뽑아낼 때 쓴다. <a href="slope-analysis.html">경사분석</a>, 사면향 분석, 가시권 분석, 유역 분석이 모두 같은 표면 자료에서 나온다(Burrough &amp; McDonnell, 1998).</p>
+  <p>표면분석은 관측점 사이의 값을 채우거나, 한 장의 표면에서 여러 지형 정보를 뽑아낼 때 쓴다. 경사분석, 사면향 분석, 가시권 분석, 유역 분석이 모두 같은 표면 자료에서 나온다(Burrough &amp; McDonnell, 1998).</p>
   <p>가상의 3×3 DEM으로 Horn 방식의 경사를 계산해 보겠다(격자 간격 30 m, 고도 단위 m).</p>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>행 열</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><th scope="row">1</th><td>100</td><td>102</td><td>105</td></tr><tr><th scope="row">2</th><td>101</td><td>104</td><td>108</td></tr><tr><th scope="row">3</th><td>103</td><td>107</td><td>112</td></tr></tbody></table></div>
   <p>가운데 셀에서 동서 방향 기울기 dz/dx ≈ 0.117, 남북 방향 dz/dy ≈ 0.083이고, 경사는 arctan(√(dz/dx² + dz/dy²)) ≈ 8.2°이다. 이 값은 3×3 칸에서 얻은 <strong>추정치</strong>이며 격자 간격이 달라지면 같은 지형에서도 값이 달라진다.</p><ul><li>표면분석에서 얻는 사면향(aspect)은 지표면이 향한 나침반 방위이며, 경사와 함께 지표의 기울기를 나타낸다. 사면향은 일사량을 통해 미기후에 큰 영향을 준다. 북반구에서는 남향 사면이 햇빛과 따뜻한 바람을 더 받아 북향보다 대체로 따뜻하고 건조하며, 스위스 알프스에서 농경이 남향 사면에 훨씬 많이 분포하는 것이 그 예이다. 이 때문에 사면향은 식생·토양·적설 분포 연구에서 설명 변수로 자주 쓰인다.</li><li><strong>음영기복도</strong>: 지형의 각 지점에서 표면의 수직 방향과 광원 방향 사이의 각도를 구해 밝기를 정한다. 각이 작을수록 더 밝다. 광원은 관례적으로 지도의 왼쪽 위(북서쪽)에 둔다. 예전에는 목탄과 에어브러시로 손으로 그렸고, 에두아르트 임호프가 대가로 꼽히며, 지금은 거의 모두 수치표고모형에서 컴퓨터로 만든다.</li></ul>
@@ -192,7 +192,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>표면 자료를 다루는 용어들은 서로 이어져 있다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">표면분석</th><td>연속 표면에서 변화율·형태 정보를 계산하는 기법의 총칭</td><td>상위 틀</td></tr><tr><th scope="row"><a href="spatial-interpolation.html">공간보간</a></th><td>측정점 값으로 측정하지 않은 곳의 값을 추정</td><td>표면을 만드는 단계</td></tr><tr><th scope="row"><a href="dem.html">DEM</a></th><td>표고를 격자로 나타낸 자료</td><td>표면분석의 입력 자료</td></tr><tr><th scope="row"><a href="slope-analysis.html">경사분석</a></th><td>DEM에서 각 지점의 기울기를 계산</td><td>표면분석의 한 종류</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">하는 일</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">표면분석</th><td>연속 표면에서 변화율·형태 정보를 계산하는 기법의 총칭</td><td>상위 틀</td></tr><tr><th scope="row">공간보간</th><td>측정점 값으로 측정하지 않은 곳의 값을 추정</td><td>표면을 만드는 단계</td></tr><tr><th scope="row"><a href="dem.html">DEM</a></th><td>표고를 격자로 나타낸 자료</td><td>표면분석의 입력 자료</td></tr><tr><th scope="row">경사분석</th><td>DEM에서 각 지점의 기울기를 계산</td><td>표면분석의 한 종류</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Burrough, P. A., &amp; McDonnell, R. A. (1998). Principles of Geographical Information Systems. Oxford University Press.</li>
@@ -204,13 +204,13 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="spatial-analysis.html">공간분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="spatial-interpolation.html">공간보간법</a><a href="network-analysis-gis.html">네트워크분석</a><a href="density-analysis.html">밀도분석</a><a href="buffer-analysis.html">버퍼분석</a><a href="point-pattern-analysis.html">점패턴분석</a><a href="accessibility-analysis.html">접근성분석</a><a href="overlay-analysis.html">중첩분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="viewshed-analysis.html">가시권분석(뷰쉐드 분석)</a><a href="slope-analysis.html">경사분석</a><a href="aspect-analysis.html">사면향분석</a><a href="watershed-analysis.html">유역분석</a></div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms">공간분석</div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms">공간보간법네트워크분석밀도분석버퍼분석점패턴분석접근성분석중첩분석</div></div><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms">가시권분석(뷰쉐드 분석)경사분석<a href="aspect-analysis.html">사면향분석</a>유역분석</div></div><p class="concept-family-map"><a href="../concept-map/geo.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="supervised-classification.html" class="term-pager-prev">← 이전: 감독분류</a>
-  <a href="sustainable-development-geo.html" class="term-pager-next">다음: 지속가능발전 →</a>
+  <a href="steppe-climate.html" class="term-pager-prev">← 이전: 스텝기후</a>
+  <a href="talus-slope.html" class="term-pager-next">다음: 애추(테일러스) →</a>
 </nav>
 </main>
 

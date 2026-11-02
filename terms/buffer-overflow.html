@@ -158,10 +158,10 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>버퍼 오버플로우는 버퍼에 쓰는 데이터가 경계 검사 부족으로 버퍼 바깥, 곧 인접한 메모리 주소의 값까지 훼손하는 현상이다. 대상 버퍼보다 큰 데이터를 경계 확인 없이 복사할 때 생긴다.</li><li>C와 C++는 배열에 쓰는 데이터가 경계 안인지 자동으로 검사하지 않고, 메모리를 직접 다루게 해 준다. 이 때문에 이 언어들과 전통적으로 연결된다. Java, Python, Eiffel처럼 형식이 엄격하고 메모리 직접 접근을 허용하지 않는 언어는 대부분의 경우 이 문제를 막는다.</li><li>문서로 확인되는 가장 이른 악의적 악용은 1988년 모리스 웜의 전파 수단 가운데 하나였다.</li><li>방어는 한 겹이 아니라 여러 겹으로 설계한다. 경계 검사를 해 주는 라이브러리·언어, 반환 주소 앞의 값을 검사하는 <a href="stack-canary.html">스택 카나리</a>, 주소를 무작위로 배치하는 <a href="address-space-layout-randomization.html">ASLR</a>, 데이터 영역의 실행을 막는 DEP/NX가 대표적이다. ASLR은 악용을 어렵게 만들 뿐 불가능하게 하지는 않는다.</li><li>연구 문헌에서는 메모리 오류를 오래된 보안 과제로 다룬다. Szekeres 등(2013, 2014)의 논문 제목이 ‘메모리를 둘러싼 끝없는 전쟁’(Eternal war in memory)이고, Shacham 등(2004)은 주소 공간 무작위화의 효과(effectiveness)를 논문 주제로 삼았다.</li></ul>
+  <ul><li>버퍼 오버플로우는 버퍼에 쓰는 데이터가 경계 검사 부족으로 버퍼 바깥, 곧 인접한 메모리 주소의 값까지 훼손하는 현상이다. 대상 버퍼보다 큰 데이터를 경계 확인 없이 복사할 때 생긴다.</li><li>C와 C++는 배열에 쓰는 데이터가 경계 안인지 자동으로 검사하지 않고, 메모리를 직접 다루게 해 준다. 이 때문에 이 언어들과 전통적으로 연결된다. Java, Python, Eiffel처럼 형식이 엄격하고 메모리 직접 접근을 허용하지 않는 언어는 대부분의 경우 이 문제를 막는다.</li><li>문서로 확인되는 가장 이른 악의적 악용은 1988년 모리스 웜의 전파 수단 가운데 하나였다.</li><li>방어는 한 겹이 아니라 여러 겹으로 설계한다. 경계 검사를 해 주는 라이브러리·언어, 반환 주소 앞의 값을 검사하는 스택 카나리, 주소를 무작위로 배치하는 ASLR, 데이터 영역의 실행을 막는 DEP/NX가 대표적이다. ASLR은 악용을 어렵게 만들 뿐 불가능하게 하지는 않는다.</li><li>연구 문헌에서는 메모리 오류를 오래된 보안 과제로 다룬다. Szekeres 등(2013, 2014)의 논문 제목이 ‘메모리를 둘러싼 끝없는 전쟁’(Eternal war in memory)이고, Shacham 등(2004)은 주소 공간 무작위화의 효과(effectiveness)를 논문 주제로 삼았다.</li></ul>
 
   <h2>예시로 보기</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방어</th><th>하는 일</th><th>한계(논문에서 같이 언급되는 점)</th></tr></thead><tbody><tr><td>경계 검사·메모리 안전 언어</td><td>범위를 벗어난 접근을 막거나 오류로 처리</td><td>해당 언어·라이브러리를 써야 효과가 있음</td></tr><tr><td>스택 카나리</td><td>함수 종료 때 심어 둔 값이 바뀌었는지 검사</td><td>주로 스택 버퍼 오버플로를 탐지</td></tr><tr><td>ASLR</td><td>주소를 실행마다 무작위로 배치</td><td>악용을 어렵게 할 뿐 불가능하게 하지는 않음</td></tr><tr><td>DEP/NX</td><td>데이터 영역을 실행 불가로 표시</td><td>데이터 영역에 심어 둔 코드의 실행을 차단</td></tr></tbody></table></div><p>위 표는 개념 비교용 요약이다. 취약점 탐지 연구는 정적 분석(실행 없이 코드 검사)과 <a href="fuzzing.html">퍼징</a>(입력을 바꿔 가며 실행)을 서로 보완하는 접근으로 다루는 경우가 많다.</p>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방어</th><th>하는 일</th><th>한계(논문에서 같이 언급되는 점)</th></tr></thead><tbody><tr><td>경계 검사·메모리 안전 언어</td><td>범위를 벗어난 접근을 막거나 오류로 처리</td><td>해당 언어·라이브러리를 써야 효과가 있음</td></tr><tr><td>스택 카나리</td><td>함수 종료 때 심어 둔 값이 바뀌었는지 검사</td><td>주로 스택 버퍼 오버플로를 탐지</td></tr><tr><td>ASLR</td><td>주소를 실행마다 무작위로 배치</td><td>악용을 어렵게 할 뿐 불가능하게 하지는 않음</td></tr><tr><td>DEP/NX</td><td>데이터 영역을 실행 불가로 표시</td><td>데이터 영역에 심어 둔 코드의 실행을 차단</td></tr></tbody></table></div><p>위 표는 개념 비교용 요약이다. 취약점 탐지 연구는 정적 분석(실행 없이 코드 검사)과 퍼징(입력을 바꿔 가며 실행)을 서로 보완하는 접근으로 다루는 경우가 많다.</p>
 
   <h2>자주 하는 오해</h2>
   <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>Java나 Python에는 버퍼 오버플로우가 없다.</td><td>형식이 엄격하고 메모리 직접 접근을 허용하지 않는 언어는 버퍼 오버플로우를 ‘대부분의 경우’ 막는다고 설명된다. ‘전혀 없다’고 쓰면 과장이다.</td></tr><tr><td>ASLR이나 카나리가 있으면 안전하다.</td><td>이런 방어는 악용을 어렵게 만드는 것이지 취약점을 없애는 것이 아니다. 근본 해결은 경계를 지키는 코드 작성과 검사이다.</td></tr><tr><td>SQL 인젝션과 같은 종류의 공격이다.</td><td>둘 다 입력값 처리 부실에서 오지만, 버퍼 오버플로우는 데이터베이스가 아니라 프로세스 메모리의 경계를 침범하는 문제이다.</td></tr><tr><td>오래된 취약점이라 이제는 연구할 것이 없다.</td><td>1988년의 악용 사례 이후에도 Szekeres 등의 2013·2014년 논문처럼 메모리 오류를 다루는 연구가 이어졌다.</td></tr></tbody></table></div>
@@ -187,12 +187,12 @@
   <p>버퍼 오버플로우는 넘치는 위치에 따라 흔히 스택 오버플로우와 힙 오버플로우로 구분되며, 특히 스택 위에서 함수의 반환 주소를 덮어써 공격자가 원하는 코드를 실행시키는 방식이 고전적으로 많이 연구되었다. 이를 막기 위한 방어 기법으로는 스택에 임의의 값(카나리)을 심어두고 함수 종료 시 값이 바뀌었는지 확인하는 스택 카나리, 메모리 주소를 매번 무작위로 배치해 공격을 어렵게 만드는 주소 공간 배치 난수화(ASLR), 데이터 영역을 실행 불가능하게 만드는 실행 방지(DEP/NX) 등이 논문에서 자주 함께 언급된다. 취약점 탐지 논문을 읽을 때는 정적 분석과 동적 분석(퍼징)이 서로 다른 장단점을 가진 상호보완적 접근이라는 점을 함께 알아두면 도움이 된다.</p>
 
   <h2>주의할 점</h2>
-  <p>버퍼 오버플로우는 C, C++처럼 메모리를 직접 다루는 저수준 언어에서 특히 흔하며, Java나 Python처럼 메모리 경계를 자동으로 검사하는 언어에서는 상대적으로 드물다. <a href="sql-injection.html">SQL 인젝션</a>처럼 입력값 검증이 부실할 때 발생한다는 공통점이 있지만, 버퍼 오버플로우는 데이터베이스가 아니라 메모리 공간 자체를 침범한다는 점에서 다르다.</p>
+  <p>버퍼 오버플로우는 C, C++처럼 메모리를 직접 다루는 저수준 언어에서 특히 흔하며, Java나 Python처럼 메모리 경계를 자동으로 검사하는 언어에서는 상대적으로 드물다. SQL 인젝션처럼 입력값 검증이 부실할 때 발생한다는 공통점이 있지만, 버퍼 오버플로우는 데이터베이스가 아니라 메모리 공간 자체를 침범한다는 점에서 다르다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>취약점 이름과 방어 기법 이름이 한 논문에 같이 나오므로 구분해 두면 편하다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><strong>버퍼 오버플로우</strong></th><td>경계를 넘어 인접 메모리를 훼손하는 오류</td><td>취약점(원인)</td></tr><tr><th scope="row"><a href="buffer-overflow-exploitation.html">버퍼 오버플로우 익스플로잇</a></th><td>이 오류를 이용해 프로그램의 동작을 바꾸려는 공격 쪽의 용어</td><td>공격</td></tr><tr><th scope="row"><a href="stack-canary.html">스택 카나리</a></th><td>반환 주소 앞의 값이 바뀌었는지 검사</td><td>방어</td></tr><tr><th scope="row"><a href="address-space-layout-randomization.html">ASLR</a></th><td>메모리 배치 주소를 무작위로 바꿈</td><td>방어</td></tr><tr><th scope="row"><a href="sql-injection.html">SQL 인젝션</a></th><td>SQL 질의에 악의적 입력을 끼워 넣는 공격</td><td>다른 종류의 입력 검증 실패</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">성격</th></tr></thead><tbody><tr><th scope="row"><strong>버퍼 오버플로우</strong></th><td>경계를 넘어 인접 메모리를 훼손하는 오류</td><td>취약점(원인)</td></tr><tr><th scope="row">버퍼 오버플로우 익스플로잇</th><td>이 오류를 이용해 프로그램의 동작을 바꾸려는 공격 쪽의 용어</td><td>공격</td></tr><tr><th scope="row">스택 카나리</th><td>반환 주소 앞의 값이 바뀌었는지 검사</td><td>방어</td></tr><tr><th scope="row">ASLR</th><td>메모리 배치 주소를 무작위로 바꿈</td><td>방어</td></tr><tr><th scope="row">SQL 인젝션</th><td>SQL 질의에 악의적 입력을 끼워 넣는 공격</td><td>다른 종류의 입력 검증 실패</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Shacham, H., Page, M., Pfaff, B., Goh, E.-J., Modadugu, N., &amp; Boneh, D. (2004). On the effectiveness of address-space randomization. Proceedings of the 11th ACM Conference on Computer and Communications Security, 298–307.</li>
@@ -202,25 +202,12 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="sql-injection.html">SQL 인젝션</a>
-    <a href="variable-and-data-type.html">변수와 자료형</a>
-    <a href="type-system.html">타입 시스템</a>
-    <a href="load-balancing.html" class="related-same-field">로드밸런싱</a>
-    <a href="public-key-cryptography.html" class="related-same-field">공개키 암호화</a>
-    <a href="encryption.html" class="related-same-field">암호화</a>
-    <a href="network-latency.html" class="related-same-field">네트워크 지연 시간</a>
-    <a href="hash-function.html" class="related-same-field">해시 함수</a>
-    <a href="digital-signature.html" class="related-same-field">전자서명</a>
-    <a href="infiniband.html" class="related-same-field">인피니밴드</a>
-  </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="brute-force.html" class="term-pager-prev">← 이전: 완전탐색</a>
-  <a href="byte-pair-encoding.html" class="term-pager-next">다음: 바이트 페어 인코딩 →</a>
+  <a href="breadth-first-search.html" class="term-pager-prev">← 이전: 너비 우선 탐색</a>
+  <a href="byzantine-fault-tolerance.html" class="term-pager-next">다음: 비잔틴 장애 허용 →</a>
 </nav>
 </main>
 

@@ -159,7 +159,7 @@
   <p>표본이 정규분포를 따르는 모집단에서 나왔는지 확인할 때 쓴다. 1965년 새뮤얼 샤피로와 마틴 윌크가 발표했다. 귀무가설은 ‘표본이 정규분포를 따르는 모집단에서 나왔다’이고, p값이 정한 유의수준보다 작으면 귀무가설을 기각해 정규분포가 아닐 가능성이 크다고 본다.</p><ul><li>검정통계량 W는 분자가 정렬한 표본값의 가중합의 제곱, 분모가 표본 평균에서의 편차제곱합인 비율이다. 가중치는 정규 순서통계량의 기댓값과 공분산 행렬에서 나오며, 기각값은 몬테카를로 모의실험으로 구한다. 데이터와 정규 점수 사이의 상관에 바탕을 둔 검정이라고 이해할 수 있다.</li><li><a href="t-test.html">t검정</a>이나 ANOVA, 회귀분석 같은 모수 검정을 쓰기 전 정규성 가정을 점검하는 단계에서 쓰인다.</li><li>콜모고로프-스미르노프(K-S) 검정은 극단값에 민감하고 검정력이 낮아 정규성 검정에 더 이상 쓰지 말아야 한다는 의견이 있다. 리요포스 보정을 해도 샤피로-윌크가 검정력이 더 낫다고 보고되었고, 일부 연구자는 이를 최선의 선택으로 본다. SPSS는 50 미만 표본에서 샤피로-윌크를 권한다.</li></ul>
 
   <h2>결과는 이렇게 읽는다</h2>
-  <ul><li><strong>p ≥ 유의수준</strong>: 정규성을 기각할 근거가 부족하다는 뜻이다. 정규분포라는 사실이 증명된 것은 아니다.</li><li><strong>p &lt; 유의수준</strong>: 정규분포에서 벗어났다고 본다. 이때는 <a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a>이나 <a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a> 같은 비모수 검정을 검토한다.</li><li><strong>표본 크기의 영향</strong>: 표본이 작으면 검정력이 낮아 정규성 검정을 대부분 통과한다. 표본이 크면 실용적으로 문제가 되지 않는 작은 이탈에도 유의한 결과가 나온다. 중심극한정리에 따라 표본이 30~40을 넘으면 정규성 위반을 대체로 견디고, 수백 건이면 분포를 무시해도 된다고 한다.</li><li><strong>시각 확인과 병행</strong>: 히스토그램, P-P·Q-Q 도표, 상자그림만으로는 믿기 어렵지만 정규성 검정은 이를 보완하는 수단이다. 이탈의 크기는 <a href="q-q-plot.html">Q-Q 플롯</a>으로 가늠한다.</li><li><strong>왜도·첨도 z값</strong>: z = (왜도 − 0)/표준오차, 첨도도 같은 방식이다. |z| &gt; 1.96이면 p &lt; 0.05, &gt; 2.58이면 p &lt; 0.01, &gt; 3.29이면 p &lt; 0.001이다. 작은 표본에서는 |z|가 1.96 안에 들면 충분하고, 200건 이상이면 ±2.58, 아주 큰 표본에서는 기준을 적용하지 않는다.</li></ul><p>예: 혈청 마그네슘(n = 30)은 왜도 z = 1.74, 첨도 z = 0.681이고 샤피로-윌크 p = 0.236이어서 정규로 판단되었다. 혈청 TSH(n = 24)는 왜도 z = 3.38, 첨도 z = 1.52, 샤피로-윌크 p &lt; 0.001로 비정규였다.</p>
+  <ul><li><strong>p ≥ 유의수준</strong>: 정규성을 기각할 근거가 부족하다는 뜻이다. 정규분포라는 사실이 증명된 것은 아니다.</li><li><strong>p &lt; 유의수준</strong>: 정규분포에서 벗어났다고 본다. 이때는 <a href="wilcoxon-signed-rank-test.html">윌콕슨 부호순위검정</a>이나 <a href="mann-whitney-u-test.html">맨-휘트니 U 검정</a> 같은 비모수 검정을 검토한다.</li><li><strong>표본 크기의 영향</strong>: 표본이 작으면 검정력이 낮아 정규성 검정을 대부분 통과한다. 표본이 크면 실용적으로 문제가 되지 않는 작은 이탈에도 유의한 결과가 나온다. 중심극한정리에 따라 표본이 30~40을 넘으면 정규성 위반을 대체로 견디고, 수백 건이면 분포를 무시해도 된다고 한다.</li><li><strong>시각 확인과 병행</strong>: 히스토그램, P-P·Q-Q 도표, 상자그림만으로는 믿기 어렵지만 정규성 검정은 이를 보완하는 수단이다. 이탈의 크기는 Q-Q 플롯으로 가늠한다.</li><li><strong>왜도·첨도 z값</strong>: z = (왜도 − 0)/표준오차, 첨도도 같은 방식이다. |z| &gt; 1.96이면 p &lt; 0.05, &gt; 2.58이면 p &lt; 0.01, &gt; 3.29이면 p &lt; 0.001이다. 작은 표본에서는 |z|가 1.96 안에 들면 충분하고, 200건 이상이면 ±2.58, 아주 큰 표본에서는 기준을 적용하지 않는다.</li></ul><p>예: 혈청 마그네슘(n = 30)은 왜도 z = 1.74, 첨도 z = 0.681이고 샤피로-윌크 p = 0.236이어서 정규로 판단되었다. 혈청 TSH(n = 24)는 왜도 z = 3.38, 첨도 z = 1.52, 샤피로-윌크 p &lt; 0.001로 비정규였다.</p>
 
   <h2>논문에는 이렇게 보고한다</h2>
   <ul><li>대상 변수와 집단, 표본 수, W 값과 p값(또는 p 범위)을 쓴다.</li><li>정규성을 기각했을 때 선택한 분석(비모수 검정, 변환 등)과 그 이유를 쓴다.</li><li>시각 확인(Q-Q 플롯, 히스토그램)을 했다면 함께 쓴다.</li></ul><p><code>W = 0.96, p = .24로 정규성 가정이 기각되지 않았다(가상의 서술).</code></p><p>잔차를 검정해야 하는 분석(회귀, ANOVA)에서는 원자료가 아니라 잔차에 적용했는지 밝힌다. 표본이 크면 p가 작아도 이탈이 작을 수 있으므로 p값만으로 결론짓지 않는다.</p>
@@ -182,10 +182,10 @@
   <p>여러 변수 중 일부만 정규성을 위반한 경우, 변수별로 다른 분석 방법을 혼합해 적용하는 실제 연구 상황을 보여준다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>샤피로-윌크 검정 외에도 정규성을 확인하는 방법은 여러 가지가 있으며, 콜모고로프-스미르노프 검정이나 앤더슨-달링 검정 등도 논문에 종종 등장한다. 다만 샤피로-윌크 검정은 특히 표본 크기가 작을 때 상대적으로 검정력이 높다고 알려져 있어 선호되는 편이다. 한편 표본이 매우 클 때는 사소한 편차에도 통계적으로 유의한 결과가 나오기 쉬우므로, 검정 결과만 기계적으로 따르기보다 히스토그램이나 <a href="q-q-plot.html">Q-Q 플롯</a> 같은 시각적 확인, 그리고 왜도·첨도 값을 함께 살펴 종합적으로 판단하는 것이 바람직하다.</p>
+  <p>샤피로-윌크 검정 외에도 정규성을 확인하는 방법은 여러 가지가 있으며, 콜모고로프-스미르노프 검정이나 앤더슨-달링 검정 등도 논문에 종종 등장한다. 다만 샤피로-윌크 검정은 특히 표본 크기가 작을 때 상대적으로 검정력이 높다고 알려져 있어 선호되는 편이다. 한편 표본이 매우 클 때는 사소한 편차에도 통계적으로 유의한 결과가 나오기 쉬우므로, 검정 결과만 기계적으로 따르기보다 히스토그램이나 Q-Q 플롯 같은 시각적 확인, 그리고 왜도·첨도 값을 함께 살펴 종합적으로 판단하는 것이 바람직하다.</p>
 
   <h2>주의할 점</h2>
-  <p>표본 크기가 매우 크면 아주 작은 편차에도 p-value가 쉽게 작아져 "정규분포가 아니다"라는 결론이 나오기 쉽다. 그래서 <a href="q-q-plot.html">Q-Q 플롯</a> 같은 시각적 확인을 함께 하는 것이 좋다.</p>
+  <p>표본 크기가 매우 크면 아주 작은 편차에도 p-value가 쉽게 작아져 "정규분포가 아니다"라는 결론이 나오기 쉽다. 그래서 Q-Q 플롯 같은 시각적 확인을 함께 하는 것이 좋다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>참고 문헌</h2>
@@ -199,22 +199,18 @@
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="normal-distribution.html">정규분포</a>
-    <a href="q-q-plot.html">Q-Q 플롯</a>
     <a href="skewness-kurtosis.html">왜도와 첨도</a>
     <a href="t-test.html">t검정</a>
     <a href="chi-square-test.html" class="related-same-field">카이제곱검정</a>
     <a href="mann-whitney-u-test.html" class="related-same-field">맨-휘트니 U 검정</a>
-    <a href="levels-of-measurement.html" class="related-same-field">측정수준</a>
     <a href="wilcoxon-signed-rank-test.html" class="related-same-field">윌콕슨 부호순위검정</a>
-    <a href="breakdown-point.html" class="related-same-field">붕괴점</a>
-    <a href="influence-function.html" class="related-same-field">영향함수</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="semi-partial-correlation.html" class="term-pager-prev">← 이전: 준편상관계수</a>
-  <a href="sign-test.html" class="term-pager-next">다음: 부호검정 →</a>
+  <a href="scheffes-test.html" class="term-pager-prev">← 이전: 셰페 검정</a>
+  <a href="significance-level.html" class="term-pager-next">다음: 유의수준 →</a>
 </nav>
 </main>
 

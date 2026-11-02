@@ -19,6 +19,7 @@ function snapshot() {
   for (const f of fs.readdirSync(SPEC_DIR).filter((x) => x.endsWith(".json")).sort()) {
     const raw = fs.readFileSync(path.join(SPEC_DIR, f), "utf8");
     const spec = JSON.parse(raw);
+    if (!titles.has(spec.slug)) continue; // 숨긴 용어는 페이지가 없다
     out[spec.slug] = [sha(raw), sha(renderFigure(spec, titles.get(spec.slug)).html)];
   }
   return out;

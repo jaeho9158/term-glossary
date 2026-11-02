@@ -58,8 +58,14 @@ function termExists(slug) {
 // [[slug|라벨]] → 용어 페이지 링크. 없는 슬러그는 오류(깨진 링크 방지).
 // 자기 자신을 가리키는 링크는 링크 없이 굵게만 표시한다(applyToHtml 이 currentSlug 를 정한다).
 let currentSlug = null;
+let hiddenCache = null;
+function hiddenSlugs() {
+  if (!hiddenCache) hiddenCache = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "viewer-hidden-terms.json"), "utf8")).map((t) => t.slug));
+  return hiddenCache;
+}
 function linkify(html) {
   return html.replace(/\[\[([a-z0-9-]+)\|([^\]]+)\]\]/g, (m, slug, label) => {
+    if (hiddenSlugs().has(slug)) return label; // 숨긴 용어: 다시 공개하면 재적용으로 링크가 살아난다
     if (!termExists(slug)) throw new Error(`존재하지 않는 용어 링크: ${slug}`);
     if (slug === currentSlug) return `<strong>${label}</strong>`;
     return `<a href="${slug}.html">${label}</a>`;
