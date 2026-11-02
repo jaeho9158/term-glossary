@@ -11,6 +11,7 @@
 <!-- index-tier:end -->
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -153,7 +154,24 @@
   <h2>왜 중요한가</h2>
   <p>가우스 소거법은 연립일차방정식을 푸는 가장 기본적인 수치 알고리즘으로, 공학 시뮬레이션, 회로 해석, 유한요소법, 최적화 문제 등 대규모 선형계를 다루는 거의 모든 분야의 계산 근간을 이룬다. 새로운 수치해석 기법이나 알고리즘 개선을 다루는 논문에서도 가우스 소거법은 성능을 비교하는 기준선(baseline)으로 자주 등장한다. 또한 LU 분해 등 더 발전된 행렬 분해 기법들이 가우스 소거법의 원리를 확장한 것이어서, 관련 연구를 이해하는 데 필수적인 개념이다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>행 연산 세 가지를 쓴다. ① 두 행을 서로 바꾼다. ② 한 행에 0이 아닌 상수를 곱한다. ③ 한 행에 다른 행의 상수배를 더한다.</li><li>이 연산으로 확대행렬을 상삼각(행사다리꼴) 꼴로 만들고 멈춘 뒤, 아래 행부터 거슬러 올라가며 <strong>후진대입</strong>으로 해를 구한다.</li><li><strong>가우스-조던 소거</strong>는 행사다리꼴에서 멈추지 않고 기약행사다리꼴까지 계속 진행하는 변형이다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <ul><li>연립일차방정식을 푸는 알고리즘이다. 행렬의 계수(rank), 행렬식, 역행렬도 같은 방법으로 구할 수 있다.</li><li>간단한 예: x + y = 3, 2x − y = 3에서 둘째 식에서 첫째 식의 2배를 빼면 −3y = −3이므로 y = 1이다. 이를 첫째 식에 대입하면 x = 2이다.</li><li>역사: 『구장산술』에 같은 방법이 나타난다(기원전 약 150년의 일부 내용, 3세기 유휘의 주석). 뉴턴의 1669~1670년 노트(<em>Arithmetica Universalis</em>, 1707년 출간)에도 있고, 가우스는 1810년에 표기법을 제시했다. 조르당은 1888년에 가우스-조던 변형을 기술했다.</li></ul>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>소거법의 이름을 적을 때 가우스 소거인지 가우스-조던 소거인지를 구별해 쓴다. 행사다리꼴에서 멈추는지 기약행사다리꼴까지 가는지가 다르기 때문이다.</li><li>예시 문장: “연립방정식의 해는 확대행렬을 행사다리꼴로 변환한 뒤 후진대입으로 구하였다.” (용법을 보이려고 만든 예이다.)</li><li>구현을 쓴 논문이라면 사용한 소프트웨어나 라이브러리의 이름과 버전을 함께 밝힌다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"연립일차방정식으로 표현된 시스템은 가우스 소거법을 이용해 수치적으로 풀었으며, 계산 복잡도는 O(n³)이다."</div>
   <p>이 문장은 방정식을 손으로 풀지 않고 가우스 소거법이라는 표준화된 절차(알고리즘)를 이용해 컴퓨터로 계산했다는 뜻이며, 미지수 개수 n이 늘어날수록 계산량이 얼마나 늘어나는지도 함께 밝히고 있다.</p>
   <div class="example">"유한요소 모델에서 발생한 강성 행렬은 부분 피벗팅을 적용한 가우스 소거법으로 분해되었다."</div>
@@ -166,6 +184,17 @@
 
   <h2>주의할 점</h2>
   <p>가우스 소거법은 행렬식을 직접 계산하는 크래머 공식보다 미지수가 많을 때 훨씬 효율적이다. 다만 계수가 0인 행이 중간에 나오면 행을 바꿔주는(피벗팅) 추가 절차가 필요하며, 이를 빠뜨리면 계산이 중단되거나 잘못된 답이 나올 수 있으므로 실제 구현에서는 이 부분에 주의해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">내용</th></tr></thead><tbody><tr><th scope="row"><a href="lu-decomposition.html">LU 분해</a></th><td>가우스 소거 과정을 하삼각·상삼각 행렬의 곱으로 정리한 분해</td></tr><tr><th scope="row"><a href="linear-equation.html">일차방정식</a></th><td>소거법이 푸는 대상이 되는 식</td></tr><tr><th scope="row">역행렬</th><td>가우스-조던 소거로 구할 수 있는 행렬</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Gaussian elimination. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Bikenaga, B. (n.d.). Row reduction. In Linear Algebra. Millersville University.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

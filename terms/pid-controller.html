@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -155,7 +156,24 @@
   <h2>왜 중요한가</h2>
   <p>PID 제어기는 구조가 단순하면서도 대부분의 산업 시스템에서 충분한 성능을 내기 때문에, 제어공학 논문에서 새로운 제어 알고리즘의 성능을 비교하는 기준선으로 매우 자주 사용된다. 로봇, 자동차, 공정설비, 항공우주 등 응용 분야를 가리지 않고 등장하며, 실제 산업 현장에서 가장 널리 구현된 제어기이기 때문에 이론과 실무를 연결하는 대표적인 사례로도 언급된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <p>PID 제어기는 세 항 제어기라고도 불리며, 설정값과 측정값의 오차 e(t)를 비례, 적분, 미분 항으로 계산해 제어 출력을 보정하는 피드백 루프이다. 식은 u(t) = Kp·e(t) + Ki·∫e(τ)dτ + Kd·de(t)/dt이다.</p><ul><li>비례항은 현재 오차에 비례해 보정하지만 보통 정상상태 오차를 남긴다.</li><li>적분항은 누적된 오차로 그 잔여 오차를 없앤다.</li><li>미분항은 오차의 변화율에 반응해 추세를 예측하고 진동과 오버슈트를 줄인다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>이득을 정하는 방법의 하나가 지글러-니콜스 조율법으로, 1940년대에 존 지글러와 너새니얼 니콜스가 제시했다. 적분과 미분 이득을 0으로 두고 진동이 계속될 때까지 비례 이득을 올린 뒤, 그때의 한계 이득 Ku와 진동 주기 Tu로 계산한다. 완전한 PID에서는 Kp = 0.60Ku, Ki = 1.2Ku/Tu, Kd = 3KuTu/40이다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <ul><li>제어기 구조와 세 이득의 값, 이득을 정한 조율 방법을 적는다.</li><li>지글러-니콜스 값은 출발점으로 쓰고, 실제 응답을 보며 조정했는지 밝힌다.</li><li>세 항 중 일부만 쓴 경우(예: PI)에는 쓰지 않은 항을 적는다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"설계된 PID 제어기는 비례이득(Kp), 적분이득(Ki), 미분이득(Kd)을 Ziegler-Nichols 방법으로 튜닝하여 응답 오버슈트를 12%까지 줄였다."</div>
   <p>세 이득값을 적절히 조정해서 목표값에 도달할 때 튀어 오르는 정도(오버슈트)를 줄였다는 의미이다.</p>
 
@@ -170,6 +188,15 @@
 
   <h2>주의할 점</h2>
   <p>이득을 무조건 크게 키운다고 성능이 좋아지는 것은 아니다. 이득이 지나치게 크면 오히려 시스템이 진동하거나 불안정해질 수 있으므로, <a href="feedback-control.html">피드백제어</a> 구조 전체의 안정성을 함께 고려하며 각 이득값을 균형 있게 튜닝해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (2025). PID controller. Wikipedia.</li>
+    <li>SimpleFOC. (n.d.). Ziegler-Nichols tuning. SimpleFOC documentation.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <h2>관련 용어</h2>
   <div class="related-terms">

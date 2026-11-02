@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -157,7 +158,24 @@
   <h2>왜 중요한가</h2>
   <p>LSTM은 등장 이후 오랫동안 순서가 있는 데이터를 다루는 표준적인 방법으로 자리 잡았기 때문에, 자연어 처리, 음성인식, 시계열 예측 등 순차 데이터를 다루는 수많은 논문에서 기본 모델 또는 비교 대상으로 등장한다. 일반 순환 신경망이 겪는 기울기 소실 문제를 게이트 구조로 완화했다는 점에서, 딥러닝이 긴 문맥을 다룰 수 있게 된 중요한 전환점으로 평가된다. 트랜스포머가 널리 쓰이는 지금도, 자원이 제한적이거나 순차적 처리가 자연스러운 응용에서는 여전히 LSTM이 활용된다.</p>
 
+  <!-- term-extras:sections:start -->
+  <h2>핵심 정리</h2>
+  <ul><li>1997년 Sepp Hochreiter와 Jürgen Schmidhuber가 <em>Neural Computation</em>에 발표한 순환 신경망 구조로, <strong>기울기 소실 문제</strong>를 해결하려고 설계되었다.</li><li>한 셀은 셀 상태와 세 게이트(망각·입력·출력 게이트)로 이루어진다.</li><li>망각 게이트는 1999년 Gers, Schmidhuber, Cummins가 도입했고, 피어홀 연결은 2000년에 추가되었다.</li></ul>
+
+  <h2>예시로 보기</h2>
+  <ul><li>긴 문장이나 긴 시계열에서 앞부분의 정보를 뒤까지 전달해야 할 때, 일반 순환 신경망보다 LSTM을 비교 모형으로 쓰는 경우가 많다.</li><li>논문에서 ‘LSTM’이라고만 쓰면 원형(1997)인지 망각 게이트를 포함한 현재의 표준형인지가 흐려질 수 있다.</li></ul>
+
+  <h2>자주 하는 오해</h2>
+  <ul><li><strong>LSTM이 기울기 소실을 완전히 없애는 것은 아니다</strong>: 게이트 구조로 문제를 줄이도록 설계되었다는 뜻이다.</li><li><strong>원형과 현재 형태가 같지 않다</strong>: 망각 게이트와 피어홀 연결은 원형 이후에 추가되었다.</li></ul>
+  <!-- term-extras:sections:end -->
+
   <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">이 용어를 직접 쓴 국내 논문 문장은 아직 모으지 못했다. 모이는 대로 출처와 함께 싣는다.</p>
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
   <div class="example">"장기 의존성 문제를 완화하기 위해 LSTM 기반 순환 신경망을 사용하여 시계열 데이터를 학습하였다."</div>
   <p>이 문장은 "데이터의 앞부분과 뒷부분이 멀리 떨어져 있어도 그 관계를 놓치지 않도록, 게이트 구조를 가진 LSTM으로 순서가 있는 데이터를 학습시켰다"는 뜻이다.</p>
   <div class="example">"본 연구에서는 양방향 LSTM을 이용해 문장 내 단어의 품사를 태깅하는 모델을 구성하였다."</div>
@@ -170,6 +188,17 @@
 
   <h2>주의할 점</h2>
   <p>LSTM은 게이트 구조 때문에 일반 <a href="recurrent-neural-network.html">순환 신경망</a>보다 기울기 소실 문제에 강하지만, 계산해야 할 파라미터가 많아 학습 속도는 더 느리다. 또한 최근에는 트랜스포머 계열 모델이 등장하면서 아주 긴 시퀀스를 다루는 작업에서는 LSTM보다 더 나은 성능을 보이는 경우가 많다는 점도 함께 언급된다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>헷갈리기 쉬운 용어</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">내용</th></tr></thead><tbody><tr><th scope="row"><a href="recurrent-neural-network.html">순환 신경망</a></th><td>이전 출력을 다음 입력에 되먹이는 신경망. LSTM의 바탕</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>어텐션으로 순서 데이터를 처리하는 구조. LSTM과 다른 계열</td></tr></tbody></table></div>
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>Wikipedia contributors. (n.d.). Long short-term memory. In Wikipedia, The Free Encyclopedia.</li>
+    <li>Friedrich-Alexander-Universität Erlangen-Nürnberg, Pattern Recognition Lab. (n.d.). Lecture notes in deep learning: Recurrent neural networks, part 3.</li>
+  </ol>
+  <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
+  <!-- term-extras:tail:end -->
 
   <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="recurrent-neural-network.html">순환 신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms">게이트 순환 유닛(GRU)<a href="reservoir-computing.html">저수지 컴퓨팅</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
