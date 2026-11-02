@@ -166,7 +166,7 @@
   <p>트랜스포머 모델의 크기를 어림해 보자. Kaplan 등(2020)은 임베딩을 뺀 파라미터 수를 N ≈ 12 · L · d²로 어림했다(L은 층 수, d는 은닉 차원). GPT-3는 L = 96, d = 12,288로 알려져 있어 계산하면 12 × 96 × 12,288² ≈ 1,739억 개로, 보고된 1,750억 개와 비슷하다.</p><p>메모리도 어림할 수 있다. 파라미터마다 16비트(2바이트)로 저장하면 1,750억 × 2바이트 = 350 GB로, 단일 그래픽 카드 한 장에 올릴 수 없는 크기이다. 그래서 논문에서는 모델 병렬화나 양자화(더 적은 비트로 저장)를 쓴다고 적다. 위 계산은 저장에 필요한 최소 메모리 어림이며, 실제로는 활성값과 학습 상태 때문에 훨씬 더 필요하다.</p>
 
   <h2>자주 하는 오해</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>LLM은 사실을 저장한 데이터베이스다.</td><td>통계적으로 그럴듯한 말을 생성하는 모델이어서 사실과 다른 내용을 자신 있게 만들어 낼 수 있다(<a href="hallucination.html">환각현상</a>; Ji 등, 2023).</td></tr><tr><td>모델이 클수록 항상 좋다.</td><td>Hoffmann 등(2022)은 주어진 계산량에서 모델 크기와 학습 데이터 양을 함께 늘려야 한다고 보고했다. 크기만의 문제는 아니다.</td></tr><tr><td>모델이 말을 이해한다는 증거다.</td><td>이해 여부는 논쟁이 있는 주제이다. Bender 등(2021)은 형태만 학습한 모델의 한계와 위험을 지적했다.</td></tr><tr><td>같은 질문에는 늘 같은 답을 낸다.</td><td>샘플링 설정(온도 등)에 따라 달라지므로, 논문에서는 모델 버전, 날짜, 설정을 적어야 재현이 가능하다.</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>LLM은 사실을 저장한 데이터베이스다.</td><td>통계적으로 그럴듯한 말을 생성하는 모델이어서 사실과 다른 내용을 자신 있게 만들어 낼 수 있다(환각현상; Ji 등, 2023).</td></tr><tr><td>모델이 클수록 항상 좋다.</td><td>Hoffmann 등(2022)은 주어진 계산량에서 모델 크기와 학습 데이터 양을 함께 늘려야 한다고 보고했다. 크기만의 문제는 아니다.</td></tr><tr><td>모델이 말을 이해한다는 증거다.</td><td>이해 여부는 논쟁이 있는 주제이다. Bender 등(2021)은 형태만 학습한 모델의 한계와 위험을 지적했다.</td></tr><tr><td>같은 질문에는 늘 같은 답을 낸다.</td><td>샘플링 설정(온도 등)에 따라 달라지므로, 논문에서는 모델 버전, 날짜, 설정을 적어야 재현이 가능하다.</td></tr></tbody></table></div>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -191,11 +191,11 @@
   <p>현재의 LLM 대부분은 트랜스포머 구조를 기반으로 하며, 방대한 텍스트로 다음 단어를 예측하도록 사전학습한 뒤, 사람이 선호하는 답변 형태에 맞추기 위해 지시문 미세조정(instruction tuning)이나 인간 피드백 기반 강화학습(RLHF) 같은 후처리 단계를 거치는 경우가 많다. 논문에서는 모델의 능력을 파라미터 수, 학습 데이터 규모, 다양한 벤치마크 점수 등으로 비교하며, 최근에는 단순히 모델을 키우는 것 외에도 검색증강생성(RAG), 도구 사용, 추론 시간 확장 같은 기법들이 성능 향상의 주요 축으로 함께 다뤄진다.</p>
 
   <h2>주의할 점</h2>
-  <p>LLM은 다음에 올 단어를 확률적으로 예측할 뿐, 사실 여부를 직접 "확인"하지는 않는다. 그래서 그럴듯하지만 틀린 내용을 마치 사실처럼 만들어내는 <a href="hallucination.html">환각현상</a>이 발생할 수 있으며, 이는 LLM의 근본적인 한계로 논의된다.</p>
+  <p>LLM은 다음에 올 단어를 확률적으로 예측할 뿐, 사실 여부를 직접 "확인"하지는 않는다. 그래서 그럴듯하지만 틀린 내용을 마치 사실처럼 만들어내는 환각현상이 발생할 수 있으며, 이는 LLM의 근본적인 한계로 논의된다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>대규모 언어 모델</strong></th><td>대량 텍스트로 사전학습한 초대형 신경망</td><td>대상</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>어텐션 기반의 신경망 구조</td><td>대부분의 LLM의 뼈대</td></tr><tr><th scope="row"><a href="hallucination.html">환각현상</a></th><td>언어모델이 사실이 아닌 내용을 그럴듯하게 생성</td><td>LLM의 대표 한계</td></tr><tr><th scope="row"><a href="prompt-engineering.html">프롬프트 엔지니어링</a></th><td>모델 가중치를 바꾸지 않고 입력을 설계해 출력을 유도</td><td>사용 방식</td></tr><tr><th scope="row"><a href="machine-learning.html">머신러닝</a></th><td>데이터로부터 패턴을 학습하는 방법 전체</td><td>상위 분야</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>대규모 언어 모델</strong></th><td>대량 텍스트로 사전학습한 초대형 신경망</td><td>대상</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>어텐션 기반의 신경망 구조</td><td>대부분의 LLM의 뼈대</td></tr><tr><th scope="row">환각현상</th><td>언어모델이 사실이 아닌 내용을 그럴듯하게 생성</td><td>LLM의 대표 한계</td></tr><tr><th scope="row"><a href="prompt-engineering.html">프롬프트 엔지니어링</a></th><td>모델 가중치를 바꾸지 않고 입력을 설계해 출력을 유도</td><td>사용 방식</td></tr><tr><th scope="row"><a href="machine-learning.html">머신러닝</a></th><td>데이터로부터 패턴을 학습하는 방법 전체</td><td>상위 분야</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>
@@ -209,7 +209,7 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><a href="graph-neural-network.html">그래프 신경망</a>생성적 적대 신경망<a href="recurrent-neural-network.html">순환 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="transformer.html">트랜스포머</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms">그래프 신경망생성적 적대 신경망<a href="recurrent-neural-network.html">순환 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="transformer.html">트랜스포머</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="transformer.html">트랜스포머</a>
@@ -222,7 +222,7 @@
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="lambda-calculus.html" class="term-pager-prev">← 이전: 람다 계산법</a>
+  <a href="knowledge-graph.html" class="term-pager-prev">← 이전: 지식 그래프</a>
   <a href="leaky-integrate-and-fire.html" class="term-pager-next">다음: 누출 적분 발화 뉴런 →</a>
 </nav>
 </main>

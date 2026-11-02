@@ -157,7 +157,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <p>BTI는 트랜지스터의 게이트에 전압(바이어스)이 걸린 채 온도가 높을 때, 시간이 지나면서 <strong>문턱전압이 변하는</strong> 노화 현상이다. 대표적인 것이 pMOS에서 게이트에 음의 전압이 걸릴 때 나타나는 <strong>NBTI</strong>(<a href="negative-bias-temperature-instability.html">음의바이어스 온도불안정성</a>)이고, 문턱전압이 커져 구동전류와 트랜스컨덕턴스가 줄어든다. 시간에 따른 열화는 거듭제곱 법칙으로 근사되는 경우가 많다.</p><ul><li><strong>원인에 대한 설명</strong>: 반응-확산 모델은 전압과 열로 계면의 Si–H 결합이 끊기며 계면 결함이 생기고 수소가 산화막 쪽으로 퍼진다고 본다. 한편 산화막 속 기존 결함에 전하(정공)가 잡히는 과정도 함께 작용하는 것으로 보며, 두 요소의 비중은 지금도 논쟁거리이다.</li><li>Grasser 외(2011)의 논문 제목은 BTI를 이해하는 틀이 ‘반응-확산’에서 ‘스위칭 산화막 트랩’으로 옮겨 갔다는 점을 보여 준다. pMOS NBTI 열화의 종합 모형은 Alam &amp; Mahapatra(2005)가, NBTI를 미세 공정 제조에서 넘어야 할 과제로 다룬 논문은 Schroder &amp; Babcock(2003)이 있다.</li><li><strong>회로 쪽 영향</strong>: 구동전류가 줄고, 동작 전압이 낮을수록 문턱전압 변화가 논리 전압에서 차지하는 비중이 커져 회로가 정상 동작하지 못할 위험이 커진다.</li></ul><p><strong>경험식</strong>: 장기 추세는 흔히 ΔV<sub>th</sub>(t) = A·t<sup>n</sup>으로 근사한다. A는 전계, 산화막 두께, 온도, 공정 편차에 따라 달라지고 n은 시간 지수이다. 단순하고 계산이 빨라 널리 쓰이며, 회복까지 정밀하게 다루려면 계산량이 큰 반응-확산 모형을 쓴다. 스트레스를 걷은 뒤 칩 온도가 높으면 회복도 빨라진다.</p>
+  <p>BTI는 트랜지스터의 게이트에 전압(바이어스)이 걸린 채 온도가 높을 때, 시간이 지나면서 <strong>문턱전압이 변하는</strong> 노화 현상이다. 대표적인 것이 pMOS에서 게이트에 음의 전압이 걸릴 때 나타나는 <strong>NBTI</strong>(음의바이어스 온도불안정성)이고, 문턱전압이 커져 구동전류와 트랜스컨덕턴스가 줄어든다. 시간에 따른 열화는 거듭제곱 법칙으로 근사되는 경우가 많다.</p><ul><li><strong>원인에 대한 설명</strong>: 반응-확산 모델은 전압과 열로 계면의 Si–H 결합이 끊기며 계면 결함이 생기고 수소가 산화막 쪽으로 퍼진다고 본다. 한편 산화막 속 기존 결함에 전하(정공)가 잡히는 과정도 함께 작용하는 것으로 보며, 두 요소의 비중은 지금도 논쟁거리이다.</li><li>Grasser 외(2011)의 논문 제목은 BTI를 이해하는 틀이 ‘반응-확산’에서 ‘스위칭 산화막 트랩’으로 옮겨 갔다는 점을 보여 준다. pMOS NBTI 열화의 종합 모형은 Alam &amp; Mahapatra(2005)가, NBTI를 미세 공정 제조에서 넘어야 할 과제로 다룬 논문은 Schroder &amp; Babcock(2003)이 있다.</li><li><strong>회로 쪽 영향</strong>: 구동전류가 줄고, 동작 전압이 낮을수록 문턱전압 변화가 논리 전압에서 차지하는 비중이 커져 회로가 정상 동작하지 못할 위험이 커진다.</li></ul><p><strong>경험식</strong>: 장기 추세는 흔히 ΔV<sub>th</sub>(t) = A·t<sup>n</sup>으로 근사한다. A는 전계, 산화막 두께, 온도, 공정 편차에 따라 달라지고 n은 시간 지수이다. 단순하고 계산이 빨라 널리 쓰이며, 회복까지 정밀하게 다루려면 계산량이 큰 반응-확산 모형을 쓴다. 스트레스를 걷은 뒤 칩 온도가 높으면 회복도 빨라진다.</p>
 
   <h2>예시로 보기</h2>
   <p>가상의 예로, 같은 pMOS를 높은 온도에서 음의 게이트 전압으로 오래 가동한 뒤 문턱전압을 재면 처음보다 커져 있다. 전압을 걷어내면 일부는 되돌아오지만 전부 회복되지는 않는 것이 일반적이다. 회복의 정도는 소자 종류, 온도, 스트레스를 가한 시간에 따라 달라진다.</p><p>이 때문에 논문에서 열화량을 비교하려면 <strong>스트레스 전압, 온도, 스트레스 시간, 회복 조건</strong>이 모두 같아야 한다. 전압이 켜졌다 꺼지는 실제 회로 동작에서는 회복이 끼어들므로, 한 번도 끄지 않은 직류 스트레스의 결과를 그대로 수명 예측에 쓰면 어긋날 수 있다는 점은 이 사전의 ‘주의할 점’에 이미 적혀 있다.</p>
@@ -188,7 +188,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>이름이 비슷하거나 함께 언급되는 열화 현상이다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">조건</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><a href="negative-bias-temperature-instability.html">음의바이어스 온도불안정성(NBTI)</a></th><td>pMOS의 게이트에 음의 전압, 고온</td><td>BTI의 대표 사례로 가장 많이 연구됨</td></tr><tr><th scope="row"><a href="hot-carrier-injection.html">핫캐리어 주입</a></th><td>강한 전기장에서 에너지를 얻은 전하 운반자가 산화막으로 주입됨</td><td>BTI와 별개의 열화 메커니즘이며 함께 나타날 수 있음</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">조건</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row">음의바이어스 온도불안정성(NBTI)</th><td>pMOS의 게이트에 음의 전압, 고온</td><td>BTI의 대표 사례로 가장 많이 연구됨</td></tr><tr><th scope="row">핫캐리어 주입</th><td>강한 전기장에서 에너지를 얻은 전하 운반자가 산화막으로 주입됨</td><td>BTI와 별개의 열화 메커니즘이며 함께 나타날 수 있음</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Schroder, D. K., &amp; Babcock, J. A. (2003). Negative bias temperature instability: Road to cross in deep submicron silicon semiconductor manufacturing. Journal of Applied Physics, 94(1), 1–18.</li>
@@ -199,18 +199,13 @@
   <p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="negative-bias-temperature-instability.html">음의바이어스 온도불안정성</a></div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
-  <h2>관련 용어</h2>
-  <div class="related-terms">
-    <a href="leakage-current-mechanism.html" class="related-same-field">누설전류 메커니즘</a>
-    <a href="protection-relay-coordination.html" class="related-same-field">보호계전기 협조</a>
-  </div>
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms">음의바이어스 온도불안정성</div></div><p class="concept-family-map"><a href="../concept-map/electrical.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>
 </aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="battery-management-system-balancing.html" class="term-pager-prev">← 이전: 배터리관리시스템 셀 밸런싱</a>
-  <a href="bidirectional-dc-dc-converter.html" class="term-pager-next">다음: 양방향 DC-DC 컨버터 →</a>
+  <a href="avalanche-photodiode-gain.html" class="term-pager-prev">← 이전: 애벌란시 포토다이오드 이득</a>
+  <a href="bit-error-rate-analysis.html" class="term-pager-next">다음: 비트오류율 분석 →</a>
 </nav>
 </main>
 

@@ -153,7 +153,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>계산과 범위</h2>
-  <ul><li>평면 좌표 (x₁, y₁), (x₂, y₂) 사이 직선거리: d = √((x₂ − x₁)² + (y₂ − y₁)²). 단위는 좌표계의 단위(보통 m)이며 0 이상이다. 두 점이 같으면 0이다.</li><li>GIS의 “유클리드 거리” 도구는 래스터의 각 셀에서 가장 가까운 원천 객체까지의 직선거리를 셀마다 계산한 격자를 만든다. 계산은 셀 중심 사이의 거리로 근사한다.</li><li><strong>좌표계가 중요하다.</strong> 경위도(도 단위) 값에 그대로 적용하면 단위가 도(°)라 거리로 해석할 수 없다. 투영 좌표계(투영좌표계)로 바꾼 뒤 계산하거나, 넓은 범위에서는 <a href="great-circle-route.html">대원</a> 거리(구면 거리)를 쓴다.</li></ul><p>소프트웨어 설명서의 동작 방식은 다음과 같다. ArcGIS Pro의 유클리드 거리 도구는 출력 격자의 각 셀에서 가장 가까운 원천까지의 거리를 계산하며, 결과 격자는 부동소수점이다. 원천은 래스터(값이 있는 셀, 0도 유효)이거나 점·선·면 피처이다.</p>
+  <ul><li>평면 좌표 (x₁, y₁), (x₂, y₂) 사이 직선거리: d = √((x₂ − x₁)² + (y₂ − y₁)²). 단위는 좌표계의 단위(보통 m)이며 0 이상이다. 두 점이 같으면 0이다.</li><li>GIS의 “유클리드 거리” 도구는 래스터의 각 셀에서 가장 가까운 원천 객체까지의 직선거리를 셀마다 계산한 격자를 만든다. 계산은 셀 중심 사이의 거리로 근사한다.</li><li><strong>좌표계가 중요하다.</strong> 경위도(도 단위) 값에 그대로 적용하면 단위가 도(°)라 거리로 해석할 수 없다. 투영 좌표계(투영좌표계)로 바꾼 뒤 계산하거나, 넓은 범위에서는 대원 거리(구면 거리)를 쓴다.</li></ul><p>소프트웨어 설명서의 동작 방식은 다음과 같다. ArcGIS Pro의 유클리드 거리 도구는 출력 격자의 각 셀에서 가장 가까운 원천까지의 거리를 계산하며, 결과 격자는 부동소수점이다. 원천은 래스터(값이 있는 셀, 0도 유효)이거나 점·선·면 피처이다.</p>
 
   <h2>해석 기준</h2>
   <p>서울시청(약 37.5663°N, 126.9779°E)과 부산시청(약 35.1796°N, 129.0756°E) 사이를 비교한 예이다(좌표는 어림값).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>계산 방식</th><th>결과</th><th>의미</th></tr></thead><tbody><tr><td>경위도를 그대로 대입한 유클리드 거리</td><td>3.18 (도)</td><td>거리로 해석 불가</td></tr><tr><td>구면(하버사인) 거리, 지구 반지름 6,371.0 km</td><td>약 325 km</td><td>지구 곡률 반영한 직선(대권) 거리</td></tr></tbody></table></div><p>좁은 지역(도시 규모)에서는 투영 좌표계의 평면 거리와 구면 거리의 차이가 작지만, 투영 왜곡 때문에 범위가 넓어질수록 차이가 커진다. 실제 이동거리는 도로·지형을 따르므로 직선거리보다 대개 길다.</p><p>피처 원천은 내부적으로 ‘셀 중심’ 방식으로 래스터화된다. 그래서 셀 크기에 비해 작은 피처는 셀 중심을 덮지 못하면 분석에서 빠질 수 있고, 이럴 때는 셀 크기를 더 작게 하거나 먼저 래스터로 변환하라고 안내한다. 최대 거리를 정하면 그 너머의 셀은 NoData가 되고, 기본값은 출력 래스터의 가장자리까지이다.</p>
@@ -186,7 +186,7 @@
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">거리</th><th scope="col">경로</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>유클리드거리</strong></th><td>직선(평면 좌표 위)</td><td>좌표만으로 계산, 지형·도로 무시</td></tr><tr><th scope="row">네트워크거리</th><td>도로·하천 등 연결망을 따라</td><td>실제 이동에 가까우나 망 자료 필요</td></tr><tr><th scope="row"><a href="great-circle-route.html">대원 거리</a></th><td>구면 위 최단</td><td>지구 곡률 반영, 넓은 범위에 사용</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">거리</th><th scope="col">경로</th><th scope="col">한 줄 설명</th></tr></thead><tbody><tr><th scope="row"><strong>유클리드거리</strong></th><td>직선(평면 좌표 위)</td><td>좌표만으로 계산, 지형·도로 무시</td></tr><tr><th scope="row">네트워크거리</th><td>도로·하천 등 연결망을 따라</td><td>실제 이동에 가까우나 망 자료 필요</td></tr><tr><th scope="row">대원 거리</th><td>구면 위 최단</td><td>지구 곡률 반영, 넓은 범위에 사용</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Longley, P. A., Goodchild, M. F., Maguire, D. J., &amp; Rhind, D. W. (2015). Geographic Information Science and Systems (4th ed.). Wiley.</li>
