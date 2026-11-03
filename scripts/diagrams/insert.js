@@ -39,6 +39,11 @@ function applyDiagram(html, figureHtml) {
   return out.slice(0, at) + block + out.slice(at);
 }
 
+// 순수 함수(테스트 대상): terms.json에 없는 slug인가.
+function isHiddenSlug(spec, known) {
+  return !!(spec && spec.slug) && !known.has(spec.slug);
+}
+
 function removeDiagram(html) {
   return html.replace(BLOCK, html.includes("\r\n") ? "\r\n" : "\n");
 }
@@ -58,6 +63,8 @@ function run() {
   for (const f of files) {
     const spec = JSON.parse(fs.readFileSync(path.join(SPEC_DIR, f), "utf8"));
     if (spec.reviewed !== true) continue;
+    // 숨긴 용어(terms.json에 없는 slug)의 스펙은 오류가 아니라 경고만 내고 건너뛴다.
+    if (isHiddenSlug(spec, known)) { console.warn(`- ${spec.slug}: terms.json에 없는 slug(숨긴 용어)라 건너뜀`); skipped++; continue; }
     const errs = validateSpec(spec, known);
     if (errs.length) {
       console.error(`✗ ${spec.slug}: ${errs.join("; ")}`);
@@ -100,4 +107,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { applyDiagram, removeDiagram, START, END };
+module.exports = { applyDiagram, removeDiagram, isHiddenSlug, START, END };

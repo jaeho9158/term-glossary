@@ -1,6 +1,6 @@
 // 도식 페이지 삽입: 위치, 범용 도식 교체, 재실행 안전성, 제거
 const assert = require("assert");
-const { applyDiagram, removeDiagram, START, END } = require("../scripts/diagrams/insert.js");
+const { applyDiagram, removeDiagram, isHiddenSlug, START, END } = require("../scripts/diagrams/insert.js");
 
 const page = `<main>
   <h1>용어</h1>
@@ -44,5 +44,9 @@ assert.ok(!gone.includes("concept-diagram") && gone.includes("쉽게 풀면") &&
 
 // 정의 박스가 없는 페이지(리다이렉트 스텁)는 null
 assert.strictEqual(applyDiagram("<html><body>moved</body></html>", "<figure/>"), null);
+
+// 숨긴 용어(terms.json에 없는 slug)는 건너뛸 대상으로 판정, 공개 용어는 아님
+assert.strictEqual(isHiddenSlug({ slug: "hidden-x" }, new Set(["a"])), true);
+assert.strictEqual(isHiddenSlug({ slug: "a" }, new Set(["a"])), false);
 
 console.log("diagrams-insert: all tests passed");
