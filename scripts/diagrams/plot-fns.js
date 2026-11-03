@@ -326,6 +326,13 @@ const FNS = {
   // 아우구스트-로슈-마그누스 근사 e_s = a·exp(b·T/(T+c)). 물 포화수증기압(hPa)은 a=6.1094, b=17.625, c=243.04, T는 섭씨
   magnus: { params: { a: { gt: 0 }, b: { gt: 0 }, c: { gt: 0 } }, domain: [-200, Infinity], desc: "마그누스 포화수증기압 곡선",
     f: (x, p) => p.a * Math.exp((p.b * x) / (x + p.c)) },
+  // ── D6 추가 2개: kinked_line·eoq_total_cost ──
+  // 꺾은 직선: x≤x0에서 a1+b1·x, x>x0에서 같은 값에서 이어지는 기울기 b2. 유리전이 비부피-온도 곡선처럼 두 직선이 x0에서 만나는 모식
+  kinked_line: { params: { a1: {}, b1: {}, b2: {}, x0: {} }, desc: "꺾인 직선",
+    f: (x, p) => (x <= p.x0 ? p.a1 + p.b1 * x : p.a1 + p.b1 * p.x0 + p.b2 * (x - p.x0)) },
+  // EOQ 모형 주문비+보유비 K·D/Q + h·Q/2 (구매비 P·D는 Q와 무관해 뺐다). 가로축 주문량 Q>0
+  eoq_total_cost: { params: { D: { gt: 0 }, K: { gt: 0 }, h: { gt: 0 } }, domain: [0, Infinity], desc: "주문비와 보유비의 합 곡선",
+    f: (x, p) => (x <= 0 ? Infinity : (p.K * p.D) / x + (p.h * x) / 2) },
 };
 
 function checkParams(fn, params) {

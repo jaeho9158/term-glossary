@@ -308,4 +308,8 @@ console.log("diagrams-plot-fns: round8 tests passed");
   near(FNS.resonance_curve.f(0, { zeta: 0.3 }), 1, 1e-12);
   near(FNS.magnus.f(20, { a: 6.1094, b: 17.625, c: 243.04 }), 23.34, 0.02);
   near(FNS.magnus.f(0, { a: 6.1094, b: 17.625, c: 243.04 }), 6.1094, 1e-12);
+  near(FNS.kinked_line.f(50, { a1: 1, b1: 0.02, b2: 0.06, x0: 50 }), 2, 1e-12);
+  near(FNS.kinked_line.f(100, { a1: 1, b1: 0.02, b2: 0.06, x0: 50 }), 5, 1e-12);
+  near(FNS.eoq_total_cost.f(400, { D: 10000, K: 40, h: 5 }), 2000, 1e-9);
+  assert.ok(FNS.eoq_total_cost.f(300, { D: 10000, K: 40, h: 5 }) > 2000 && FNS.eoq_total_cost.f(500, { D: 10000, K: 40, h: 5 }) > 2000);
 }
