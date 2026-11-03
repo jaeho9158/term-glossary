@@ -121,7 +121,7 @@ test("fixes: 명시한 문구만 바꾸고, 다시 적용해도 그대로", () =
   assert.strictEqual(applyToHtml(out, "x", ex, USAGE), out);
 });
 
-test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크, 없으면 정직하게 표시", () => {
+test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크, 없으면 절을 싣지 않는다", () => {
   const html = renderUsage(USAGE);
   assert.ok(html.includes("실제 논문에서") && html.includes("예시 문장"));
   assert.ok(html.includes("학술지, 2024"));
@@ -129,7 +129,7 @@ test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크,
   assert.ok(html.includes('target="_blank" rel="noopener"'));
   assert.ok(html.includes("<blockquote"));
   const none = renderUsage([]);
-  assert.ok(none.includes("모으지 못했다") && !none.includes("<blockquote"));
+  assert.ok(!none.includes("실제 논문에서") && !none.includes("<blockquote") && none.includes("예시 문장"));
   assert.throws(() => renderUsage([{ quote: "a", title: "t", journal: "j", year: 2020, url: "http://x" }]), /필요/);
   const kmed = renderUsage([{ quote: "q", title: "t", journal: "j", year: 2020, url: "https://synapse.koreamed.org/articles/1", source: "koreamed" }]);
   assert.ok(kmed.includes("KoreaMed Synapse"));

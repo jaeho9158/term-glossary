@@ -4,6 +4,9 @@ const path = require("path");
 const ROOT_DIR = path.join(__dirname, "..");
 const EXCLUDE_DIRS = new Set(["node_modules", ".git", ".claude", "docs", "supabase", "tests", "en"]);
 
+// 글이 거의 없는 앱 화면에는 광고를 싣지 않는다(애드센스: 게시자 콘텐츠가 없는 화면 금지).
+const NO_ADS = new Set(["login.html", "signup.html", "history.html", "roadmap.html", "quiz.html", "viewer.html", "reader.html", "404.html", "privacy.html", "tools/bookmarklet.html", "tools/reader-geometry-eval.html", "tools/reader-refs-eval.html"]);
+
 const START_MARKER = "<!-- AdSense:start -->";
 const END_MARKER = "<!-- AdSense:end -->";
 
@@ -23,7 +26,7 @@ function stripExistingSnippet(html) {
   if (startIndex === -1 || endIndex === -1) return html;
   const before = html.slice(0, startIndex);
   const after = html.slice(endIndex + END_MARKER.length);
-  return before.replace(/\n?$/, "") + after;
+  return before.replace(/(\r?\n)?$/, "") + after;
 }
 
 function insertSnippet(html, snippet) {
@@ -65,7 +68,8 @@ function run() {
       continue;
     }
 
-    const nextHtml = insertSnippet(html, snippet);
+    const rel = path.relative(ROOT_DIR, filePath).split(path.sep).join("/");
+    const nextHtml = NO_ADS.has(rel) ? stripExistingSnippet(html) : insertSnippet(html, snippet);
     if (nextHtml !== html) {
       if (!dry) fs.writeFileSync(filePath, nextHtml, "utf8");
       updated += 1;
