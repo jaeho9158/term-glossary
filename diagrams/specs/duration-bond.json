@@ -1,0 +1,59 @@
+{
+  "slug": "duration-bond",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "bond_price_yield",
+        "params": {
+          "c": 0,
+          "n": 3,
+          "nc": 3,
+          "K": 100,
+          "branch": 0
+        },
+        "label": "무이표채 가격",
+        "color": "blue"
+      },
+      {
+        "fn": "linear",
+        "params": {
+          "a": -2.4681,
+          "b": 98.7243
+        },
+        "label": "수정 듀레이션 접선",
+        "color": "amber"
+      }
+    ],
+    "vlines": [
+      {
+        "x": 5,
+        "label": "수익률 5%"
+      }
+    ],
+    "x": {
+      "label": "만기수익률 (%)",
+      "range": [
+        0,
+        10
+      ],
+      "ticks": true
+    },
+    "y": {
+      "label": "가격 (액면 100)",
+      "ticks": true
+    }
+  },
+  "notes": [
+    {
+      "text": "만기 3년 무이표채 P = 100/(1+y)³, 수정 듀레이션 3/1.05 ≈ 2.857",
+      "tone": "general"
+    },
+    {
+      "text": "접선은 작은 수익률 변화에서만 맞고, 곡선의 볼록성 때문에 멀어질수록 실제 가격이 접선보다 높다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Bond duration / Duration (finance), Wikipedia(en) https://en.wikipedia.org/wiki/Bond_duration ; 수정 듀레이션 정의 D_mod = −(1/P)dP/dy; 3년 무이표채 예는 용어 페이지(산술 확인)",
+  "reviewed": true
+}

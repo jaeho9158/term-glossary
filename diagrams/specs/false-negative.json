@@ -1,24 +1,59 @@
 {
   "slug": "false-negative",
-  "type": "plot",
-  "plot": {
-    "series": [
-      {"fn": "normal", "params": {"mu": 0, "sigma": 1}, "label": "질병 없음", "color": "blue"},
-      {"fn": "normal", "params": {"mu": 4, "sigma": 1}, "label": "질병 있음", "color": "amber"}
-    ],
-    "shade": [
-      {"series": 1, "from": -4, "to": 2, "color": "rose"},
-      {"series": 0, "from": 2, "to": null, "color": "gray"}
-    ],
-    "vlines": [{"x": 2, "label": "절단값"}],
-    "x": {"label": "검사 수치", "range": [-4, 8]},
-    "y": {"label": "빈도"}
+  "type": "matrix",
+  "axes": {
+    "x": {
+      "label": "실제 질병",
+      "low": "없음",
+      "high": "있음"
+    },
+    "y": {
+      "label": "검사 결과",
+      "low": "음성",
+      "high": "양성"
+    }
   },
-  "notes": [
-    {"text": "분홍 영역: 질병이 있는데 절단값 아래로 나와 음성 판정된 위음성", "tone": "general"},
-    {"text": "절단값을 낮추면 위음성은 줄지만 위양성(회색 영역)이 늘어남", "tone": "general"},
-    {"text": "개념 설명용 모식도이며 실제 분포는 검사마다 다름", "tone": "limit"}
+  "nodes": [
+    {
+      "id": "a",
+      "label": "위양성 180",
+      "color": "amber",
+      "sub": "검사 양성·실제 없음",
+      "cell": "tl"
+    },
+    {
+      "id": "b",
+      "label": "진양성 20",
+      "color": "green",
+      "sub": "검사 양성·실제 있음",
+      "cell": "tr"
+    },
+    {
+      "id": "c",
+      "label": "진음성 1,820",
+      "color": "blue",
+      "sub": "검사 음성·실제 없음",
+      "cell": "bl"
+    },
+    {
+      "id": "d",
+      "label": "위음성 10",
+      "color": "rose",
+      "sub": "검사 음성·실제 있음",
+      "cell": "br"
+    }
   ],
-  "source": "용어 페이지 본문",
-  "reviewed": false
+  "edges": [],
+  "notes": [
+    {
+      "text": "분변잠혈검사 예: 민감도 67%, 특이도 91%, 2,030명, 유병률 1.48%",
+      "tone": "general"
+    },
+    {
+      "text": "칸의 인원은 위 수치에서 계산한 값이다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Sensitivity and specificity, Wikipedia(en) https://en.wikipedia.org/wiki/Sensitivity_and_specificity (예시 입력값); False positives and false negatives https://en.wikipedia.org/wiki/False_positives_and_false_negatives",
+  "reviewed": true
 }
