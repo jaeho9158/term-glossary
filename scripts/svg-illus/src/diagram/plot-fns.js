@@ -319,6 +319,13 @@ const FNS = {
   double_well: { params: { a: {}, b: { gt: 0 } }, desc: "이중 우물 곡선",
     f: (x, p) => x ** 4 - p.b * x * x + p.a * x },
 
+  // ── D5 추가 2개: resonance_curve·magnus ──
+  // 구동 감쇠 조화진동자의 정상상태 진폭 배율 A(r)=1/√((1−r²)²+(2ζr)²), 가로축 r=구동 진동수/고유 진동수 (정적 변위 F0/k에 대한 비)
+  resonance_curve: { params: { zeta: { gt: 0, lt: 1 } }, domain: [0, Infinity], desc: "공진 곡선(진폭 배율)",
+    f: (x, p) => 1 / Math.sqrt((1 - x * x) ** 2 + (2 * p.zeta * x) ** 2) },
+  // 아우구스트-로슈-마그누스 근사 e_s = a·exp(b·T/(T+c)). 물 포화수증기압(hPa)은 a=6.1094, b=17.625, c=243.04, T는 섭씨
+  magnus: { params: { a: { gt: 0 }, b: { gt: 0 }, c: { gt: 0 } }, domain: [-200, Infinity], desc: "마그누스 포화수증기압 곡선",
+    f: (x, p) => p.a * Math.exp((p.b * x) / (x + p.c)) },
 };
 
 function checkParams(fn, params) {

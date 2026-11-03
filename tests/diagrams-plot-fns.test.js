@@ -304,4 +304,8 @@ console.log("diagrams-plot-fns: round8 tests passed");
   near(FNS.shockley_diode.f(0, { Is: 1e-9, n: 1, VT: 0.02585 }), 0);
   near(FNS.te_efficiency.f(1, { Th: 500, Tc: 300 }), 8.2, 0.05);
   near(FNS.double_well.f(1, { a: 0.4, b: 2 }), -0.6, 1e-12);
+  near(FNS.resonance_curve.f(1, { zeta: 0.1 }), 5, 1e-12);
+  near(FNS.resonance_curve.f(0, { zeta: 0.3 }), 1, 1e-12);
+  near(FNS.magnus.f(20, { a: 6.1094, b: 17.625, c: 243.04 }), 23.34, 0.02);
+  near(FNS.magnus.f(0, { a: 6.1094, b: 17.625, c: 243.04 }), 6.1094, 1e-12);
 }
