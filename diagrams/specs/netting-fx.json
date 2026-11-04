@@ -1,0 +1,59 @@
+{
+  "slug": "netting-fx",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "보고",
+      "color": "blue",
+      "sub": "자회사가 내부 채권·채무를 제출"
+    },
+    {
+      "id": "b",
+      "label": "확인",
+      "color": "violet",
+      "sub": "잠정 순포지션 통보"
+    },
+    {
+      "id": "c",
+      "label": "외환거래 실행",
+      "color": "amber",
+      "sub": "순액만 환전"
+    },
+    {
+      "id": "d",
+      "label": "정산",
+      "color": "green",
+      "sub": "순액 결제"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "네팅은 자회사 사이 채권·채무를 상계해 순액만 결제한다. 은행 수수료, 환전 스프레드, 이동 중 자금(lost float)을 줄인다",
+      "tone": "general"
+    },
+    {
+      "text": "순결제를 허용하지 않는 나라는 받는 돈과 주는 돈을 두 흐름(gross-in/gross-out)으로 처리한다",
+      "tone": "limit"
+    }
+  ],
+  "source": "DBS, Netting (treasury); Wikipedia Netting",
+  "reviewed": true
+}
