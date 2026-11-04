@@ -16,7 +16,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "..", "..");
-const OUT_DIR = path.join(ROOT, "data", "oa-corpus", "examples");
+const OUT_DIR = process.env.OA_CORPUS_DIR ? path.join(process.env.OA_CORPUS_DIR, "examples") : path.join(ROOT, "data", "oa-corpus", "examples");
 const TEXT_DIR = path.join(OUT_DIR, "text");
 const INDEX = path.join(OUT_DIR, "index.jsonl");
 const STATE = path.join(OUT_DIR, "state.json");
@@ -47,7 +47,15 @@ const SPECS = {
   },
 };
 
+// SPECS에 없는 용어는 terms.json의 한글 표제어로 질의하고, 한글·영문 표제어·별칭이 초록에 있어야 남긴다.
+function derivedSpec(t) {
+  const ko = String(t.title_ko || "").replace(/\([^)]*\)/g, "").trim();
+  const variants = [ko, t.title_en, ...(t.aliases || [])].filter((v) => v && String(v).length >= 2);
+  return { variants, queries: [{ kind: "keyword", q: ko }, { kind: "title", q: ko }].filter((x) => x.q) };
+}
+
 function loadKey() {
+  if (process.env.KCI_API_KEY) return process.env.KCI_API_KEY.trim();
   const env = fs.readFileSync(path.join(ROOT, ".env.local"), "utf8");
   const m = env.match(/^KCI_API_KEY=(.*)$/m);
   if (!m || !m[1].trim()) throw new Error(".env.local에 KCI_API_KEY가 없습니다");
@@ -89,7 +97,12 @@ function loadState() {
 async function main() {
   const argv = process.argv.slice(2);
   const arg = (n) => { const i = argv.indexOf(n); return i >= 0 ? argv[i + 1] : null; };
-  const slugs = (arg("--slug") || "").split(",").filter(Boolean);
+  let slugs = (arg("--slug-file") ? fs.readFileSync(arg("--slug-file"), "utf8") : arg("--slug") || "").split(/[,\r\n]+/).filter(Boolean);
+  const maxPages = Number(arg("--pages")) || Infinity;
+  const bySlug = new Map(JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8")).map((t) => [t.slug, t]));
+  for (const s of slugs) if (!SPECS[s] && bySlug.has(s)) SPECS[s] = derivedSpec(bySlug.get(s));
+  // 목록 파일에는 terms.json에 없는 페이지(스텁 등)가 섞일 수 있어 건너뛴다.
+  if (arg("--slug-file")) slugs = slugs.filter((s) => SPECS[s]);
   const dry = argv.includes("--dry");
   const maxTotal = Number(arg("--max-total")) || TOTAL_BUDGET;
   if (!slugs.length || slugs.some((s) => !SPECS[s])) {
@@ -149,7 +162,7 @@ async function main() {
             journal: r.journal, title: r.title, year: r.year, citations: r.citations, url: r.url, query: `${kind}=${q}` }) + "\n");
         }
         fs.writeFileSync(STATE, JSON.stringify(state, null, 1));
-        if (page * 100 >= totalOf(xml)) break; // 마지막 쪽
+        if (page * 100 >= totalOf(xml) || page >= maxPages) break; // 마지막 쪽
         page++;
       }
     }
