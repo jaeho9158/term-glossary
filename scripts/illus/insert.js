@@ -73,8 +73,9 @@ function renderCredit(d) {
     const lic = c.licenseUrl ? `<a href="${esc(c.licenseUrl)}" rel="license noopener" target="_blank">${esc(c.license)}</a>` : esc(c.license);
     return `<small class="illus-credit">그림: <a href="${esc(c.pageUrl)}" rel="noopener" target="_blank">${esc(c.author)}</a>, ${lic}, 위키미디어 공용${c.modified ? ` · 변경: ${esc(c.modified)}` : ""}</small>`;
   }
-  const src = (d.sources || []).map((u) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(u.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a>`).join(", ");
-  return `<small class="illus-credit">그림: ${esc(c.author)} 작성, <a href="https://creativecommons.org/licenses/by/4.0/deed.ko" rel="license noopener" target="_blank">CC BY 4.0</a> · 대조한 출처: ${src}</small>`;
+  // 자기 사이트 페이지는 대조한 외부 출처가 아니므로 표기하지 않는다.
+  const src = (d.sources || []).filter((u) => !/^https?:\/\/(www\.)?termglossary\.kr\//.test(u)).map((u) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(u.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a>`).join(", ");
+  return `<small class="illus-credit">그림: ${esc(c.author)} 작성, <a href="https://creativecommons.org/licenses/by/4.0/deed.ko" rel="license noopener" target="_blank">CC BY 4.0</a>${src ? ` · 대조한 출처: ${src}` : ""}</small>`;
 }
 
 // 순수 함수: 데이터(+SVG 문자열, +svg-illus 스펙) → 블록 안쪽 HTML(한 줄씩)
