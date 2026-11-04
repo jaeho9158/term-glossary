@@ -1,0 +1,59 @@
+{
+  "slug": "tukey-hsd-test",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "여러 집단 평균",
+      "color": "blue",
+      "sub": "집단 3개 이상"
+    },
+    {
+      "id": "b",
+      "label": "모든 쌍 평균 차이",
+      "color": "violet",
+      "sub": "가능한 모든 쌍"
+    },
+    {
+      "id": "c",
+      "label": "임계값과 비교",
+      "color": "amber",
+      "sub": "스튜던트화 범위 분포"
+    },
+    {
+      "id": "d",
+      "label": "쌍별 유의 판정",
+      "color": "green",
+      "sub": "q_s > q_α이면 유의"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "한 번의 임계값으로 모든 쌍을 비교하며 전체 오류율을 묶는다",
+      "tone": "general"
+    },
+    {
+      "text": "정확한 1−α는 표본 크기가 같을 때만 성립한다. 크기가 다르면 Tukey–Kramer 방법을 쓴다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia Tukey's range test(모든 쌍 비교, 스튜던트화 범위 분포, q_s = |Y_A − Y_B|/SE, q_s > q_α 기준, 같은 표본 크기에서 정확히 1−α, Tukey–Kramer) 확인; Crossref 10.2307/3001913(Tukey 1949) 확인. 용어 페이지 본문과 일치",
+  "reviewed": true
+}
