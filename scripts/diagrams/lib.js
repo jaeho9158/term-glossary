@@ -55,6 +55,7 @@ function validateSpec(spec, knownSlugs) {
 
 // ── 접근성 문장 ─────────────────────────────────────────
 function describe(spec, title) {
+  if (spec.desc) return spec.desc; // 손으로 고친 접근성 문장은 스펙에 보관(재삽입 때 덮어쓰지 않도록)
   return TYPE_MODS[spec.type].describe(spec, title);
 }
 
