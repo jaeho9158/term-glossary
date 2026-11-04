@@ -1,0 +1,70 @@
+{
+  "slug": "polygenic-risk-score",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "GWAS로 효과 크기 추정",
+      "color": "blue",
+      "sub": "변이마다 가중치"
+    },
+    {
+      "id": "b",
+      "label": "개인의 대립유전자 수",
+      "color": "violet",
+      "sub": "변이마다 위험 대립유전자 수"
+    },
+    {
+      "id": "c",
+      "label": "가중치 곱하기",
+      "color": "violet",
+      "sub": "대립유전자 수 × 효과 크기"
+    },
+    {
+      "id": "d",
+      "label": "모두 더하기",
+      "color": "amber",
+      "sub": "개인의 점수"
+    },
+    {
+      "id": "e",
+      "label": "위험 구간으로 나누기",
+      "color": "green",
+      "sub": "집단 분포에서의 위치"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    },
+    {
+      "from": "d",
+      "to": "e",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "GWAS는 전장 유전체 연관 분석(genome-wide association study)이다",
+      "tone": "general"
+    },
+    {
+      "text": "유럽계 자료에 치우쳐 다른 조상 집단에서는 예측력이 낮다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia Polygenic score; Genome-wide association study",
+  "reviewed": true
+}
