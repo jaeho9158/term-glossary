@@ -171,7 +171,6 @@ function renderTail(x) {
   }
   out.push("<h2>참고 문헌</h2>");
   out.push(`<ol class="te-refs">\n${x.references.map((r) => `    <li>${esc(r)}</li>`).join("\n")}\n  </ol>`);
-  if (x.compare || (x.sections || []).some((sec) => /<table/.test(sec.html))) out.push('<p class="te-note">표의 기준값은 위 문헌에 따른 관례이고, 분야·학술지마다 기준이 다를 수 있다.</p>');
   return out.join("\n  ");
 }
 
