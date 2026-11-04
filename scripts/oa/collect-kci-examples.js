@@ -145,6 +145,8 @@ async function main() {
     for (const { kind, q } of spec.queries) {
       let page = (state.done[`${slug}|${kind}|${q}`] || 0) + 1;
       while (matches < TARGET_MATCHES) {
+        // 재실행 때 이미 받은 쪽 수가 --pages에 닿았으면 다시 요청하지 않는다.
+        if (page > maxPages) break;
         if ((state.perTerm[slug] || 0) >= PER_TERM_BUDGET || state.requests >= maxTotal) break;
         if (dry) { console.log(`[dry] ${slug} ${kind}="${q}" page ${page}`); break; }
         let xml;
