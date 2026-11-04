@@ -67,6 +67,8 @@ function renderTable(d) {
   const note = d.tableNote ? `<p class="illus-note">${esc(d.tableNote)}</p>` : "";
   return `${tr}${note}<div class="illus-table-wrap"><table class="illus-labels"><caption>그림 속 라벨 대응표 (${esc(t.order)})</caption><thead><tr><th scope="col">#</th><th scope="col">원문</th><th scope="col">한국어</th><th scope="col">설명</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+// 캡션의 TeX식 첨자(x_{i}, x^{2})를 sub/sup으로 바꾼다.
+const scripts = (s) => s.replace(/_\{([^{}]*)\}|_([A-Za-z0-9])(?![A-Za-z0-9])/g, (m, a, b) => `<sub>${a ?? b}</sub>`).replace(/\^\{([^{}]*)\}/g, "<sup>$1</sup>");
 function renderCredit(d) {
   const c = d.credit;
   if (d.method === "commons") {
@@ -92,7 +94,7 @@ function renderFigure(d, svgText, spec) {
   }
   const notes = (d.notes || []).map((n) => `<p class="illus-note">${n}</p>`).join("");
   const legend = spec && spec.legend ? legendHTML(spec.legend) : renderLegend(d);
-  return `<link rel="stylesheet" href="${CSS_HREF}">\n  <figure class="si-figure" id="illus" data-kind="illus" data-method="${d.method}"><div class="si-frame">${media}</div><figcaption><span class="si-caption">${esc(d.caption)}</span>${legend}${notes}${renderTable(d)}${renderCredit(d)}</figcaption></figure>`;
+  return `<link rel="stylesheet" href="${CSS_HREF}">\n  <figure class="si-figure" id="illus" data-kind="illus" data-method="${d.method}"><div class="si-frame">${media}</div><figcaption><span class="si-caption">${scripts(esc(d.caption))}</span>${legend}${notes}${renderTable(d)}${renderCredit(d)}</figcaption></figure>`;
 }
 
 // 순수 함수: 페이지에 블록을 넣거나 교체. 앵커가 없으면 null.
