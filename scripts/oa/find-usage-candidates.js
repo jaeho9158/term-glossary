@@ -95,8 +95,9 @@ const normKey = (s) => s.toLowerCase().replace(/[^0-9a-z가-힣]+/g, "");
 
 function loadCorpus(corpusDir) {
   const docs = new Map();
-  for (const dir of [corpusDir, path.join(corpusDir, "examples")]) {
-    const idx = path.join(dir, "index.jsonl");
+  // index.kci2.jsonl: collect-kci-bulk.js가 모은 KCI 초록(같은 text/ 폴더).
+  for (const [dir, name] of [[corpusDir, "index.jsonl"], [corpusDir, "index.kci2.jsonl"], [path.join(corpusDir, "examples"), "index.jsonl"]]) {
+    const idx = path.join(dir, name);
     if (!fs.existsSync(idx)) continue;
     for (const line of fs.readFileSync(idx, "utf8").split(/\r?\n/)) {
       if (!line.trim()) continue;

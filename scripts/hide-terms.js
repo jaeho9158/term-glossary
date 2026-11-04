@@ -17,7 +17,8 @@ function unlinkHidden(html, hidden) {
   return html.replace(/<a\b[^>]*\bhref="(?:\.\/)?([^"\/#?]+)\.html(?:#[^"]*)?"[^>]*>([\s\S]*?)<\/a>/g, (all, href, text) => {
     let s = href;
     try { s = decodeURIComponent(s); } catch { /* 그대로 */ }
-    return hidden.has(s) ? text : all;
+    // span으로 감싸야 관련 용어 칩이 서로 붙지 않는다.
+    return hidden.has(s) ? `<span class="rt-plain">${text}</span>` : all;
   });
 }
 
