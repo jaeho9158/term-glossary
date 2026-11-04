@@ -3,7 +3,7 @@ const test = require("node:test");
 const assert = require("node:assert");
 const fs = require("fs");
 const path = require("path");
-const { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, sanitizeFragment, linkify, stripAll, normalizeEol } = require("../scripts/apply-term-extras.js");
+const { TYPE_HEADINGS, applyToHtml, renderUsage, renderTable, renderCell, sanitizeFragment, linkify, stripAll, normalizeEol } = require("../scripts/apply-term-extras.js");
 const { fingerprints } = require("../scripts/review-data.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -221,4 +221,10 @@ test("유형 표: 기존 3유형 제목 유지 + 새 6유형, 제목이 다르�
   const bad = { type: "method", sections: [{ heading: "언제 쓰나", html: "<p>a</p>" }], references: EXTRAS.references };
   assert.throws(() => applyToHtml(PAGE, "x", bad, []), /섹션 제목/);
   assert.throws(() => applyToHtml(PAGE, "x", { ...bad, type: "unknown" }, []), /type/);
+});
+
+test("renderCell: 인라인 서식(em/sub/sup)은 살리고 나머지 태그는 이스케이프", () => {
+  assert.strictEqual(renderCell("<em>B. abortus</em> 감염"), "<em>B. abortus</em> 감염");
+  assert.strictEqual(renderCell("CO<sub>2</sub>"), "CO<sub>2</sub>");
+  assert.strictEqual(renderCell("<script>x</script>"), "&lt;script&gt;x&lt;/script&gt;");
 });

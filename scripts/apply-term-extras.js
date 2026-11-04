@@ -106,7 +106,8 @@ function renderFragment(html) {
 
 // 일반 텍스트 칸(이스케이프 + [[링크]])
 function renderCell(text) {
-  return linkify(esc(text));
+  // 학명·첨자 같은 인라인 서식만 되살린다.
+  return linkify(esc(text).replace(/&lt;(\/?)(em|i|sub|sup)&gt;/g, "<$1$2>"));
 }
 
 function renderTable(headers, rows) {
