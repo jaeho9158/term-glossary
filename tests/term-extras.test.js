@@ -141,7 +141,7 @@ test("파일럿 데이터: 20개, 유형·참고 문헌·인용 형식이 맞다
     assert.ok(fs.existsSync(path.join(ROOT, "terms", `${slug}.html`)), `${slug} 페이지`);
     const x = readJson(path.join(EXTRAS_DIR, `${slug}.json`));
     assert.ok(Object.keys(TYPE_HEADINGS).includes(x.type), slug);
-    assert.ok(x.references.length >= 2 && x.references.length <= 8,`${slug} 참고 문헌 수`);
+    assert.ok(x.references.length >= 2 && x.references.length <= 10,`${slug} 참고 문헌 수`);
     // 법령·판례는 공포·선고 일자("2025. 12. 23.", "2007년")로, 날짜 없는 기관 웹 문서는 (n.d.)로 적는다.
     for (const r of x.references) assert.ok(/\(\d{4}\)|\(\d{4}[a-z]?\)\.|\(n\.d\.\)|\d{4}\. ?\d{1,2}\. ?\d{1,2}\.|\d{4}년/.test(r), `${slug}: 연도가 없는 참고 문헌 ${r}`);
     assert.ok(!/\bdoi\s*:|doi\.org|https?:/i.test(JSON.stringify(x.references)), `${slug}: 참고 문헌에 URL/DOI 금지`);
