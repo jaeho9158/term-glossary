@@ -28,6 +28,7 @@ function readTerms() {
 // 여전히 유효하면(같은 분야 후보, related·자기 자신 아님) 그 순서 그대로 두고 모자란 만큼만
 // fieldFill 순서로 보충한다. previousFill 은 기존 블록의 related-same-field slug 배열.
 function pickFill(term, related, fieldIndex, previousFill = []) {
+  if (term.relatedFill === false) return []; // 손으로 고른 related만 싣는 용어(채움 금지)
   const need = RELATED_TARGET - related.length;
   if (need <= 0) return [];
   const cat = (term.categories || [])[0] || "";
@@ -87,6 +88,8 @@ function computeUpdates(terms, readHtml, archiveSet = null) {
 
     const match = html.match(RELATED_BLOCK_RE);
     if (!match) {
+      // 숨김 처리로 "관련 용어" 섹션째 뺀 페이지는 건너뛴다(제목은 있는데 블록만 없을 때가 진짜 오류).
+      if (!/<h2>관련 용어<\/h2>/.test(html)) { unchanged.push(term.slug); continue; }
       // core 페이지에서 링크가 모두 제거되어 블록 자체가 없는 경우는 정상
       if (archiveSet && !archiveSet.has(term.slug) && !isStub(html)) { unchanged.push(term.slug); continue; }
       missingBlocks.push(term.slug);
@@ -107,7 +110,7 @@ function computeUpdates(terms, readHtml, archiveSet = null) {
       continue;
     }
     let nextHtml = html.replace(RELATED_BLOCK_RE, () => generatedBlock);
-    if (archiveSet && !archiveSet.has(term.slug)) nextHtml = filterRelatedLinks(nextHtml, archiveSet).html;
+    if (archiveSet && !archiveSet.has(term.slug) && term.relatedFill !== false) nextHtml = filterRelatedLinks(nextHtml, archiveSet).html;
 
     if (nextHtml === html) unchanged.push(term.slug);
     else updates.push({ slug: term.slug, html: nextHtml });
