@@ -1,0 +1,79 @@
+{
+  "slug": "johnson-neyman-technique",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "conditional_effect_band",
+        "params": {
+          "intercept": -0.2,
+          "slope": 0.5,
+          "se0": 0.15,
+          "se1": 0.08,
+          "cov": -0.005,
+          "z": 1.96
+        },
+        "label": "95% 상한",
+        "color": "gray"
+      },
+      {
+        "fn": "conditional_effect_band",
+        "params": {
+          "intercept": -0.2,
+          "slope": 0.5,
+          "se0": 0.15,
+          "se1": 0.08,
+          "cov": -0.005,
+          "z": 0
+        },
+        "label": "단순기울기",
+        "color": "blue"
+      },
+      {
+        "fn": "conditional_effect_band",
+        "params": {
+          "intercept": -0.2,
+          "slope": 0.5,
+          "se0": 0.15,
+          "se1": 0.08,
+          "cov": -0.005,
+          "z": -1.96
+        },
+        "label": "95% 하한",
+        "color": "gray"
+      }
+    ],
+    "vlines": [
+      {
+        "x": -0.22,
+        "label": "경계 1"
+      },
+      {
+        "x": 0.94,
+        "label": "경계 2"
+      }
+    ],
+    "x": {
+      "label": "조절변수 값",
+      "range": [
+        -2,
+        4
+      ]
+    },
+    "y": {
+      "label": "focal 변수의 단순기울기"
+    }
+  },
+  "notes": [
+    {
+      "text": "상한이 0보다 낮은 경계 1 왼쪽(음의 효과)과 하한이 0보다 높은 경계 2 오른쪽(양의 효과)이 유의 영역이다. 두 경계는 이차식의 두 해이다(가상 수치)",
+      "tone": "general"
+    },
+    {
+      "text": "관측치가 적은 구간의 유의 영역은 근거가 약하다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia Moderation (statistics)(열람): 모형 Y = b0+b1A+b2B+b3AB와 Johnson-Neyman 기법 언급; 단순기울기 b1+b3·z의 분산 var b1 + 2z·cov(b1,b3) + z²·var b3는 선형결합 분산으로 유도; 수치는 가상",
+  "reviewed": true
+}

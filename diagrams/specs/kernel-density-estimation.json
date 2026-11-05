@@ -1,0 +1,81 @@
+{
+  "slug": "kernel-density-estimation",
+  "type": "plot",
+  "plot": {
+    "series": [
+      {
+        "fn": "kernel_sum",
+        "params": {
+          "points": [
+            2,
+            3,
+            3.5,
+            6,
+            7,
+            7.2,
+            8
+          ],
+          "h": 0.3
+        },
+        "label": "h 작음(과소평활)",
+        "color": "rose"
+      },
+      {
+        "fn": "kernel_sum",
+        "params": {
+          "points": [
+            2,
+            3,
+            3.5,
+            6,
+            7,
+            7.2,
+            8
+          ],
+          "h": 1
+        },
+        "label": "h 알맞음",
+        "color": "blue"
+      },
+      {
+        "fn": "kernel_sum",
+        "params": {
+          "points": [
+            2,
+            3,
+            3.5,
+            6,
+            7,
+            7.2,
+            8
+          ],
+          "h": 3
+        },
+        "label": "h 큼(과평활)",
+        "color": "green"
+      }
+    ],
+    "x": {
+      "label": "관측값 x",
+      "range": [
+        -2,
+        12
+      ]
+    },
+    "y": {
+      "label": "추정 밀도"
+    }
+  },
+  "notes": [
+    {
+      "text": "관측값 7개(가상 자료)마다 정규 커널을 얹어 평균 낸 곡선 f̂(x) = (1/nh)ΣK((x−xᵢ)/h)",
+      "tone": "general"
+    },
+    {
+      "text": "h가 작으면 없는 봉우리가 생기고, 크면 두 무리가 하나로 뭉개진다",
+      "tone": "limit"
+    }
+  ],
+  "source": "Wikipedia Kernel density estimation(열람): f̂h(x)=(1/nh)ΣK((x−xi)/h), 대역폭에 따른 과소·과평활; 자료는 가상",
+  "reviewed": true
+}

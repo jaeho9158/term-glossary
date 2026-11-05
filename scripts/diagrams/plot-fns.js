@@ -333,6 +333,34 @@ const FNS = {
   // EOQ 모형 주문비+보유비 K·D/Q + h·Q/2 (구매비 P·D는 Q와 무관해 뺐다). 가로축 주문량 Q>0
   eoq_total_cost: { params: { D: { gt: 0 }, K: { gt: 0 }, h: { gt: 0 } }, domain: [0, Infinity], desc: "주문비와 보유비의 합 곡선",
     f: (x, p) => (x <= 0 ? Infinity : (p.K * p.D) / x + (p.h * x) / 2) },
+  // ── D22 추가 9개(사용자 승인): beta_pdf·kernel_sum·sinc2·bode_first_order·conditional_effect_band·clamped_normal·shifted_reciprocal·offset_inverse_square·running_coupling ──
+  // 베타 분포 밀도 x^(a−1)(1−x)^(b−1)/B(a,b), 0≤x≤1
+  beta_pdf: { params: { a: { gt: 0 }, b: { gt: 0 } }, domain: [0, 1], desc: "베타 분포",
+    f: (x, p) => (x < 0 || x > 1 ? 0 : Math.exp((p.a === 1 ? 0 : (p.a - 1) * Math.log(x)) + (p.b === 1 ? 0 : (p.b - 1) * Math.log(1 - x)) - lgamma(p.a) - lgamma(p.b) + lgamma(p.a + p.b))) },
+  // 가우스 커널 밀도 추정 (1/nh)·Σφ((x−xᵢ)/h)
+  kernel_sum: { params: { points: { arr: true }, h: { gt: 0 } }, desc: "커널 밀도 추정 곡선",
+    f: (x, p) => p.points.reduce((s, xi) => s + Math.exp(-(((x - xi) / p.h) ** 2) / 2), 0) / (p.points.length * p.h * Math.sqrt(2 * Math.PI)) },
+  // 단일 슬릿 회절 세기 (sin x / x)², x = π·a·sinθ/λ, 극소는 x = mπ
+  sinc2: { params: {}, desc: "단일 슬릿 회절 세기 곡선",
+    f: (x) => (x === 0 ? 1 : (Math.sin(x) / x) ** 2) },
+  // 1차 저역통과 크기(dB) −10·log₁₀(1+(f/fc)²). 가로축 x = log₁₀ f, fc는 같은 단위의 주파수
+  bode_first_order: { params: { fc: { gt: 0 } }, desc: "1차 저역통과 보드 크기 곡선",
+    f: (x, p) => -10 * Math.log10(1 + (10 ** x / p.fc) ** 2) },
+  // 조건부 효과와 신뢰 한계 b₁+b₃x + z·√(se0²+2x·cov+x²·se1²). z=0이면 효과선, z=±1.96이면 95% 한계
+  conditional_effect_band: { params: { intercept: {}, slope: {}, se0: { gte: 0 }, se1: { gte: 0 }, cov: {}, z: {} }, desc: "조건부 효과와 신뢰대",
+    f: (x, p) => p.intercept + p.slope * x + p.z * Math.sqrt(Math.max(0, p.se0 ** 2 + 2 * x * p.cov + x * x * p.se1 ** 2)) },
+  // 바닥(bound=0)이나 천장(bound=1) 바깥을 0으로 자른 정규 밀도. 잘린 질량은 경계에 쌓인다(곡선에는 안 보임)
+  clamped_normal: { params: { mu: {}, sigma: { gt: 0 }, limit: {}, bound: { gte: 0, lt: 2 } }, desc: "경계에서 잘린 정규 분포",
+    f: (x, p) => ((p.bound < 1 ? x < p.limit : x > p.limit) ? 0 : Math.exp(-(((x - p.mu) / p.sigma) ** 2) / 2) / (p.sigma * Math.sqrt(2 * Math.PI))) },
+  // 이동한 쌍곡선 a/(x−b)+c, x=b는 점근선
+  shifted_reciprocal: { params: { a: { ne: 0 }, b: {}, c: {} }, desc: "이동한 쌍곡선",
+    f: (x, p) => (x === p.b ? Infinity : p.a / (x - p.b) + p.c) },
+  // 상수 더하기 역제곱 a/x²+c (라메 식 σθ = A + B/r², σr = A − B/r²)
+  offset_inverse_square: { params: { a: { ne: 0 }, c: {} }, domain: [0, Infinity], desc: "역제곱에 상수를 더한 곡선",
+    f: (x, p) => (x <= 0 ? Infinity : p.a / (x * x) + p.c) },
+  // QCD 1루프 결합상수 αs(Q) = 12π/((33−2nf)·ln(Q²/Λ²)), Q>Λ
+  running_coupling: { params: { nf: { gte: 0, lt: 16.5 }, Lambda: { gt: 0 } }, domain: [0, Infinity], desc: "QCD 결합상수 흐름 곡선",
+    f: (x, p) => (x <= p.Lambda ? Infinity : (12 * Math.PI) / ((33 - 2 * p.nf) * Math.log((x * x) / (p.Lambda * p.Lambda)))) },
 };
 
 function checkParams(fn, params) {

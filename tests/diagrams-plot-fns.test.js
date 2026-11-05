@@ -313,3 +313,26 @@ console.log("diagrams-plot-fns: round8 tests passed");
   near(FNS.eoq_total_cost.f(400, { D: 10000, K: 40, h: 5 }), 2000, 1e-9);
   assert.ok(FNS.eoq_total_cost.f(300, { D: 10000, K: 40, h: 5 }) > 2000 && FNS.eoq_total_cost.f(500, { D: 10000, K: 40, h: 5 }) > 2000);
 }
+
+// D22 추가 함수: 닫힌 식 값과 대조
+{
+  near(FNS.beta_pdf.f(0.4, { a: 2, b: 3 }), 12 * 0.4 * 0.36, 1e-9);
+  near(FNS.beta_pdf.f(0.3, { a: 1, b: 1 }), 1, 1e-9);
+  near(FNS.kernel_sum.f(0, { points: [0], h: 1 }), 1 / Math.sqrt(2 * Math.PI), 1e-12);
+  near(FNS.kernel_sum.f(1, { points: [0, 2], h: 1 }), Math.exp(-0.5) / Math.sqrt(2 * Math.PI), 1e-12);
+  near(FNS.sinc2.f(0, {}), 1); near(FNS.sinc2.f(Math.PI, {}), 0, 1e-12);
+  near(FNS.bode_first_order.f(Math.log10(1000), { fc: 1000 }), -10 * Math.log10(2), 1e-9);
+  near(FNS.bode_first_order.f(Math.log10(1e5), { fc: 1000 }), -40, 1e-3);
+  const ce = { intercept: 1, slope: -0.5, se0: 0.3, se1: 0.1, cov: 0, z: 1.96 };
+  near(FNS.conditional_effect_band.f(0, ce), 1 + 1.96 * 0.3, 1e-12);
+  near(FNS.conditional_effect_band.f(2, { ...ce, z: 0 }), 0, 1e-12);
+  near(FNS.clamped_normal.f(-1, { mu: 0, sigma: 1, limit: 0, bound: 0 }), 0);
+  near(FNS.clamped_normal.f(1, { mu: 0, sigma: 1, limit: 0, bound: 0 }), Math.exp(-0.5) / Math.sqrt(2 * Math.PI), 1e-12);
+  near(FNS.clamped_normal.f(1, { mu: 0, sigma: 1, limit: 0, bound: 1 }), 0);
+  near(FNS.shifted_reciprocal.f(1000, { a: 750, b: 750, c: 1 }), 4, 1e-12);
+  near(FNS.offset_inverse_square.f(100, { a: 4e6 / 3, c: 100 / 3 }), 500 / 3, 1e-9);
+  near(FNS.running_coupling.f(91.19, { nf: 5, Lambda: 0.09 }), 0.118, 1e-3);
+  assert.deepStrictEqual(checkParams("kernel_sum", { points: [1, 2], h: 0.5 }), []);
+  assert.ok(checkParams("beta_pdf", { a: 0, b: 1 }).length === 1);
+}
+console.log("diagrams-plot-fns: D22 tests passed");
