@@ -8,7 +8,7 @@ const { computeUpdates, run, RELATED_BLOCK_RE } = require("../scripts/generate-r
 const { checkRelated } = require("../scripts/check-related-consistency.js");
 
 function term(slug, related, extra = {}) {
-  return { slug, title_ko: `제목-${slug}`, categories: ["stat"], subcategory: "검정", related, ...extra };
+  return { slug, title_ko: `통계검정-${slug}`, categories: ["stat"], subcategory: "검정", related, ...extra };
 }
 
 function page(links = [], eol = "\n") {
@@ -95,4 +95,22 @@ test("check:related — 단방향 링크는 오류가 아니고, 빈 related는 
   assert.ok(errors.some((e) => e.includes("ghost")));
   assert.ok(errors.some((e) => e.includes("스텁") && e.includes("d")));
   assert.ok(!errors.some((e) => e.includes("역방향")));
+});
+
+test("채움은 같은 분야라도 표제어와 무관한 인기 용어를 넣지 않는다", () => {
+  const nurse = (slug, title_ko, definition, related = []) =>
+    ({ slug, title_ko, definition, categories: ["nursing"], subcategory: "임상간호·간호관리", related });
+  const terms = [
+    nurse("donabedian-model", "도나베디안모형", "구조, 과정, 결과 세 가지 요소로 의료의 질을 평가하는 이론적 틀."),
+    nurse("case-management", "사례관리", "대상자에게 필요한 서비스를 연계·조정하는 간호 실무."),
+    nurse("pain-assessment-tool", "통증사정도구", "환자의 통증 강도를 측정하는 척도."),
+    nurse("cqi", "지속적질향상", "도나베디안모형에 따라 의료의 질을 구조와 과정 측면에서 지속적으로 평가·개선하는 활동."),
+  ];
+  // 인기 용어로 만든다(다른 용어들이 많이 인용).
+  for (let i = 0; i < 5; i++) terms.push(nurse(`x${i}`, `기타${i}`, "", ["case-management", "pain-assessment-tool"]));
+  const html = Object.fromEntries(terms.map((t) => [t.slug, page()]));
+  const { updates } = computeUpdates(terms, (s) => html[s]);
+  const block = updates.find((u) => u.slug === "donabedian-model").html.match(RELATED_BLOCK_RE)[0];
+  assert.ok(!/case-management|pain-assessment-tool/.test(block), block);
+  assert.ok(/cqi\.html/.test(block), "관련 있는 지속적질향상은 채워야 한다");
 });

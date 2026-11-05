@@ -7,7 +7,8 @@ const TERMS_DIR = path.join(ROOT_DIR, "terms");
 
 const { filterRelatedLinks, isStub } = require("./lib/index-tier.js");
 const { escapeHtml } = require("../assets/escape.js");
-const { buildFieldIndex, fieldFill, fieldFillLines, RELATED_TARGET } = require("./lib/term-seo.js");
+const { buildFieldIndex, fieldFillLines, RELATED_TARGET } = require("./lib/term-seo.js");
+const { buildRelatedScorer } = require("./lib/related-score.js");
 
 const RELATED_BLOCK_RE = /  <div\s+class=["']related-terms["'][^>]*>[\s\S]*?  <\/div>/;
 
@@ -20,30 +21,26 @@ function readTerms() {
 }
 
 // related(terms.json) 링크 뒤에 같은 분야 용어(class="related-same-field")를 덧붙여
-// 목표 개수(term-seo.js RELATED_TARGET)까지 채운다. terms.json 은 수정하지 않는다.
-// related가 비어 있으면 같은 분야 용어만으로 채운다.
-//
-// 멱등성: fieldFill 순서는 전체 terms의 피인용 수에 따라 정해져서, 다른 용어의 related만
-// 바뀌어도 수천 페이지의 채움 순서가 뒤바뀐다. 그래서 기존 HTML에 이미 있는 채움 링크가
-// 여전히 유효하면(같은 분야 후보, related·자기 자신 아님) 그 순서 그대로 두고 모자란 만큼만
-// fieldFill 순서로 보충한다. previousFill 은 기존 블록의 related-same-field slug 배열.
+// 최대 RELATED_TARGET 개까지 채운다. terms.json 은 수정하지 않는다.
+// 후보는 같은 subcategory 안에서 관련성 점수(related-score.js)가 FILL_MIN_SCORE 이상인 것만,
+// 점수순. 하한을 넘는 후보가 모자라면 못 채운 채 둔다(분야 인기 용어 고정 부착 방지).
+// 멱등성: 기존 채움 링크가 여전히 후보면 그 순서를 먼저 두고 모자란 만큼만 점수순으로 보충한다.
+const FILL_MIN_SCORE = 4; // 표본(related-quality-sample.md)의 무관 칩은 대부분 0~3점
 function pickFill(term, related, fieldIndex, previousFill = []) {
   if (term.relatedFill === false) return []; // 손으로 고른 related만 싣는 용어(채움 금지)
   const need = RELATED_TARGET - related.length;
-  if (need <= 0) return [];
+  if (need <= 0 || !term.subcategory) return [];
   const cat = (term.categories || [])[0] || "";
-  const pool = new Map();
-  if (term.subcategory) for (const t of fieldIndex.bySub.get(`${cat}|${term.subcategory}`) || []) pool.set(t.slug, t);
-  for (const t of fieldIndex.byCat.get(cat) || []) pool.set(t.slug, t);
   const skip = new Set([term.slug, ...related]);
-  const kept = [];
-  for (const slug of previousFill) {
-    if (kept.length >= need) break;
-    if (skip.has(slug) || !pool.has(slug)) continue;
-    skip.add(slug);
-    kept.push(pool.get(slug));
+  const pool = new Map();
+  for (const t of fieldIndex.bySub.get(`${cat}|${term.subcategory}`) || []) {
+    const s = fieldIndex.score(term.slug, t.slug);
+    if (!skip.has(t.slug) && s >= FILL_MIN_SCORE) pool.set(t.slug, { t, s });
   }
-  return [...kept, ...fieldFill(term, [...related, ...kept.map((t) => t.slug)], fieldIndex)];
+  const kept = previousFill.filter((slug) => pool.has(slug)).slice(0, need);
+  const rest = [...pool.keys()].filter((slug) => !kept.includes(slug))
+    .sort((a, b) => pool.get(b).s - pool.get(a).s || (a < b ? -1 : 1));
+  return [...kept, ...rest].slice(0, need).map((slug) => pool.get(slug).t);
 }
 
 function createRelatedBlock(term, termBySlug, fieldIndex, previousFill = [], eol = "\n") {
@@ -72,7 +69,7 @@ function previousFillSlugs(block) {
  */
 function computeUpdates(terms, readHtml, archiveSet = null) {
   const termBySlug = new Map(terms.map((term) => [term.slug, term]));
-  const fieldIndex = buildFieldIndex(terms);
+  const fieldIndex = { ...buildFieldIndex(terms), score: buildRelatedScorer(terms) };
   const missingFiles = [];
   const missingBlocks = [];
   const failures = [];
