@@ -96,7 +96,7 @@ function renderMain(term, ctx) {
   const related = (term.related || [])
     .filter((slug) => validSlugs.has(slug))
     .map((slug) => `    <a href="${slug}.html">${escapeHtml(titleBySlug.get(slug) || slug)}</a>`);
-  // 기존 related 를 유지한 채 같은 분야(subcategory → 1차 category) 용어로 목표 개수까지 채운다.
+  // 기존 related 를 유지한 채 같은 subcategory의 관련성 높은 용어로 채운다(term-seo.fieldFill).
   // terms.json 의 related 는 바꾸지 않는다(check-related-consistency 대상).
   const relatedKept = (term.related || []).filter((slug) => validSlugs.has(slug));
   const fill = fieldIndex ? seo.fieldFillLines(seo.fieldFill(term, relatedKept, fieldIndex)) : [];

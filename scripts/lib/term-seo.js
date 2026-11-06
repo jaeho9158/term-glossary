@@ -2,6 +2,7 @@
 // build-term-page.js(신규 생성), generate-related-html.js(관련 용어 재렌더),
 // apply-term-seo.js(기존 산출물 일괄 적용)가 모두 이 모듈을 쓴다 — 규칙이 한 곳에만 있어야
 // 다음 재생성 때 서로 다른 결과로 되돌아가지 않는다.
+const { buildRelatedScorer } = require("./related-score.js");
 const { escapeHtml } = require("../../assets/escape.js");
 
 const SITE = "논문용어사전";
@@ -118,47 +119,38 @@ function buildTermDescription(term) {
 
 // ---------- 같은 분야 관련 용어 ----------
 
-/** terms 전체로 분야 색인을 만든다: 인용 수 내림차순 → slug 오름차순. */
+/** terms 전체로 분야 색인을 만든다: subcategory별 용어 목록 + 관련성 점수 함수(related-score.js). */
 function buildFieldIndex(terms) {
-  const cited = new Map();
-  for (const t of terms) for (const s of t.related || []) cited.set(s, (cited.get(s) || 0) + 1);
-  const order = [...terms].sort(
-    (a, b) => (cited.get(b.slug) || 0) - (cited.get(a.slug) || 0) || (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0)
-  );
   const bySub = new Map();
-  const byCat = new Map();
-  for (const t of order) {
-    const cat = (t.categories || [])[0] || "";
-    const subKey = `${cat}|${t.subcategory || ""}`;
-    if (t.subcategory) {
-      if (!bySub.has(subKey)) bySub.set(subKey, []);
-      bySub.get(subKey).push(t);
-    }
-    if (!byCat.has(cat)) byCat.set(cat, []);
-    byCat.get(cat).push(t);
+  for (const t of terms) {
+    if (!t.subcategory) continue;
+    const subKey = `${(t.categories || [])[0] || ""}|${t.subcategory}`;
+    if (!bySub.has(subKey)) bySub.set(subKey, []);
+    bySub.get(subKey).push(t);
   }
-  return { bySub, byCat };
+  return { bySub, score: buildRelatedScorer(terms) };
 }
 
-/** 기존 링크(existing slug 배열)를 두고 같은 subcategory → 같은 1차 category 순으로 채울 용어들. */
-function fieldFill(term, existing, index, target = RELATED_TARGET) {
+// related(existing) 뒤에 덧붙일 같은 분야 용어. 최대 target 개까지.
+// 후보는 같은 subcategory 안에서 관련성 점수가 FILL_MIN_SCORE 이상인 것만, 점수순.
+// 하한을 넘는 후보가 모자라면 못 채운 채 둔다(분야 인기 용어 고정 부착 방지, category 폴백 없음).
+// 멱등성: 기존 채움 링크(previousFill)가 여전히 후보면 그 순서를 먼저 두고 모자란 만큼만 보충한다.
+const FILL_MIN_SCORE = 4; // 표본(related-quality-sample.md)의 무관 칩은 대부분 0~3점
+function fieldFill(term, existing, index, previousFill = [], target = RELATED_TARGET) {
+  if (term.relatedFill === false) return []; // 손으로 고른 related만 싣는 용어(채움 금지)
   const need = target - existing.length;
-  if (need <= 0) return [];
-  const skip = new Set([term.slug, ...existing]);
+  if (need <= 0 || !term.subcategory) return [];
   const cat = (term.categories || [])[0] || "";
-  const pools = [];
-  if (term.subcategory) pools.push(index.bySub.get(`${cat}|${term.subcategory}`) || []);
-  pools.push(index.byCat.get(cat) || []);
-  const out = [];
-  for (const pool of pools) {
-    for (const t of pool) {
-      if (out.length >= need) return out;
-      if (skip.has(t.slug)) continue;
-      skip.add(t.slug);
-      out.push(t);
-    }
+  const skip = new Set([term.slug, ...existing]);
+  const pool = new Map();
+  for (const t of index.bySub.get(`${cat}|${term.subcategory}`) || []) {
+    const s = index.score(term.slug, t.slug);
+    if (!skip.has(t.slug) && s >= FILL_MIN_SCORE) pool.set(t.slug, { t, s });
   }
-  return out;
+  const kept = previousFill.filter((slug) => pool.has(slug)).slice(0, need);
+  const rest = [...pool.keys()].filter((slug) => !kept.includes(slug))
+    .sort((x, y) => pool.get(y).s - pool.get(x).s || (x < y ? -1 : 1));
+  return [...kept, ...rest].slice(0, need).map((slug) => pool.get(slug).t);
 }
 
 /** .related-terms 안에 덧붙일 앵커 줄들 (들여쓰기 4칸, 기존 링크 형식과 동일 + class). */
@@ -204,6 +196,7 @@ module.exports = {
   buildFieldIndex,
   fieldFill,
   fieldFillLines,
+  FILL_MIN_SCORE,
   stageFor,
   stageLinkHtml,
   RELATED_TARGET,

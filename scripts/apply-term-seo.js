@@ -45,11 +45,12 @@ function applyRelated(html, term, index) {
     return { html: html.slice(0, pos) + block + html.slice(pos), ok: false, total: fill.length };
   }
   const nl = m[3].startsWith("\r\n") ? "\r\n" : "\n";
+  const previous = [...m[2].matchAll(/href="([^"]+)\.html" class="related-same-field"/g)].map((x) => x[1]);
   const kept = m[2]
     .split(/\r?\n/)
     .filter((line) => line.trim() && !line.includes('class="related-same-field"'));
   const existing = kept.map((l) => (l.match(/href="([^"]+)\.html"/) || [])[1]).filter(Boolean);
-  const fill = seo.fieldFillLines(seo.fieldFill(term, existing, index));
+  const fill = seo.fieldFillLines(seo.fieldFill(term, existing, index, previous));
   const body = [...kept, ...fill].map((l) => nl + l).join("");
   return { html: html.replace(RELATED_RE, (_, open, _old, close) => open + body + close), ok: true, total: kept.length + fill.length };
 }
