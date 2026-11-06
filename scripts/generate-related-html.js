@@ -9,6 +9,7 @@ const { filterRelatedLinks, isStub } = require("./lib/index-tier.js");
 const { escapeHtml } = require("../assets/escape.js");
 const { buildFieldIndex, fieldFill, fieldFillLines } = require("./lib/term-seo.js");
 
+const STAGE_ANCHOR = '<aside class="stage-link">';
 const RELATED_BLOCK_RE = /  <div\s+class=["']related-terms["'][^>]*>[\s\S]*?  <\/div>/;
 
 function readTerms() {
@@ -60,6 +61,25 @@ function computeUpdates(terms, readHtml, archiveSet = null) {
     }
 
     const match = html.match(RELATED_BLOCK_RE);
+    const isCore = archiveSet && !archiveSet.has(term.slug) && !isStub(html);
+    // 삽입 위치 규칙: 섹션째 빠진 core 페이지는 다른 페이지와 같게 "  <h2>관련 용어</h2>" + 블록을
+    // <aside class="stage-link"> 바로 앞에 새로 넣는다. 걸 링크가 하나도 없으면 넣지 않는다.
+    if (!match && isCore && !/<h2>관련 용어<\/h2>/.test(html) && html.includes(STAGE_ANCHOR)) {
+      const eol = /\r\n/.test(html) ? "\r\n" : "\n";
+      let block;
+      try {
+        block = createRelatedBlock(term, termBySlug, fieldIndex, [], eol);
+      } catch (error) {
+        failures.push(error.message);
+        continue;
+      }
+      let nextHtml = html.replace(STAGE_ANCHOR, () => `  <h2>관련 용어</h2>${eol}${block}${eol}${STAGE_ANCHOR}`);
+      if (term.relatedFill !== false) nextHtml = filterRelatedLinks(nextHtml, archiveSet).html;
+      const added = nextHtml.match(RELATED_BLOCK_RE);
+      if (added && /<a href=/.test(added[0])) updates.push({ slug: term.slug, html: nextHtml });
+      else unchanged.push(term.slug);
+      continue;
+    }
     if (!match) {
       // 숨김 처리로 "관련 용어" 섹션째 뺀 페이지는 건너뛴다(제목은 있는데 블록만 없을 때가 진짜 오류).
       if (!/<h2>관련 용어<\/h2>/.test(html)) { unchanged.push(term.slug); continue; }

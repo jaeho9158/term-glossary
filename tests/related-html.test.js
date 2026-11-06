@@ -114,3 +114,18 @@ test("채움은 같은 분야라도 표제어와 무관한 인기 용어를 넣�
   assert.ok(!/case-management|pain-assessment-tool/.test(block), block);
   assert.ok(/cqi\.html/.test(block), "관련 있는 지속적질향상은 채워야 한다");
 });
+
+test("섹션째 빠진 core 페이지는 stage-link 바로 앞에 제목+블록을 새로 넣고, 다시 돌려도 그대로다", () => {
+  const terms = makeTerms();
+  const bare = ["<main>", "  <p>본문</p>", "", '<aside class="stage-link">x</aside>', "</main>"].join("\n");
+  const html = Object.fromEntries(terms.map((t) => [t.slug, t.slug === "t01" ? bare : page()]));
+  const archive = new Set(["t05"]);
+  const { updates, errors } = computeUpdates(terms, (s) => html[s], archive);
+  assert.deepStrictEqual(errors, []);
+  const t1 = updates.find((u) => u.slug === "t01").html;
+  assert.ok(t1.includes('  </div>\n<aside class="stage-link">'), "블록은 stage-link 바로 앞");
+  assert.ok(t1.includes('  <p>본문</p>\n\n  <h2>관련 용어</h2>\n  <div class="related-terms">\n    <a href="t02.html">'));
+  assert.ok(!t1.includes("t05.html"), "archive 링크는 넣지 않는다");
+  const again = computeUpdates(terms, (s) => (s === "t01" ? t1 : html[s]), archive);
+  assert.ok(!again.updates.some((u) => u.slug === "t01"), "멱등");
+});
