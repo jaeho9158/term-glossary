@@ -110,12 +110,20 @@ function layoutLinear(cv, spec, orientation, numbered) {
   return extent;
 }
 
+// 끝 글자(끝 괄호 제외) 받침에 맞춰 조사를 고른다. 한글이 아니면 받침 없음으로 본다(기존 출력 유지).
+function josa(word, withJong, noJong, rieulAsNo = false) {
+  const c = String(word).trim().replace(/\s*\([^()]*\)$/, "").slice(-1).charCodeAt(0) - 0xac00;
+  if (!(c >= 0 && c <= 11171)) return word + noJong;
+  const jong = c % 28;
+  return word + (jong === 0 || (rieulAsNo && jong === 8) ? noJong : withJong);
+}
+
 function describeLinear(spec, title) {
   const byId = new Map(spec.nodes.map((n) => [n.id, n.label]));
   const steps = (spec.edges || []).map((e) => {
     const a = byId.get(e.from), b = byId.get(e.to), via = e.label ? `(${e.label})` : "";
-    if (e.kind === "inhibit") return `${a}가 ${b}를 억제${via}`;
-    if (e.kind === "blocked") return `${a}에서 ${b}로 가는 경로는 차단됨${via}`;
+    if (e.kind === "inhibit") return `${josa(a, "이", "가")} ${josa(b, "을", "를")} 억제${via}`;
+    if (e.kind === "blocked") return `${a}에서 ${josa(b, "으로", "로", true)} 가는 경로는 차단됨${via}`;
     return `${a} → ${b}${via}`;
   });
   const lead = spec.type === "procedure" ? "단계 순서" : "진행 순서";
