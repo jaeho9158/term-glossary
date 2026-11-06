@@ -79,6 +79,7 @@ test("코드 SVG: 인라인, 기호 설명, 대조 출처", () => {
   assert.throws(() => renderFigure({ ...svgData, sources: [] }, SVG));
   const self = renderFigure({ ...svgData, sources: ["https://termglossary.kr/terms/x.html"] }, SVG);
   assert.ok(!self.includes("termglossary.kr/terms") && !self.includes("대조한 출처"), "자기 페이지는 출처로 싣지 않음");
+  assert.ok(!renderFigure({ ...svgData, sources: ["terms/x.html"] }, SVG).includes("대조한 출처"), "상대 경로 자기 페이지도 빼기");
   assert.throws(() => renderFigure(svgData, "<div></div>"));
   assert.ok(renderFigure({ ...svgData, caption: "값 u_j^{n+1}" }, SVG).includes("u<sub>j</sub><sup>n+1</sup>"), "캡션 첨자");
 });
