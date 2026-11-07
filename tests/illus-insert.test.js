@@ -3,6 +3,7 @@ const test = require("node:test");
 const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
+const { ONLY, keep } = require("./helpers/test-slugs.js");
 const { START, END, validate, renderFigure, applyIllus, removeIllus, loadAll } = require("../scripts/illus/insert.js");
 const { applyDiagram, removeDiagram } = require("../scripts/diagrams/insert.js");
 const { build } = require("../scripts/illus/build-svg.js");
@@ -86,8 +87,8 @@ test("코드 SVG: 인라인, 기호 설명, 대조 출처", () => {
 
 test("저장소 데이터: 모두 유효하고 그림 파일이 있으며, 반영된 페이지에 블록이 한 번씩 있다", () => {
   // 숨긴 용어는 페이지가 없다
-  const all = loadAll().filter((d) => fs.existsSync(path.join(ROOT, "terms", d.slug + ".html")));
-  assert.ok(all.length >= 1);
+  const all = loadAll().filter((d) => keep(d.slug) && fs.existsSync(path.join(ROOT, "terms", d.slug + ".html")));
+  assert.ok(ONLY || all.length >= 1);
   for (const d of all) {
     assert.deepStrictEqual(validate(d), [], d.slug);
     const asset = path.join(ROOT, d.method === "svg" ? d.svg : d.image.src);
@@ -118,8 +119,8 @@ test("vector-projection 범례는 벡터 기호이고 color-wheel 범례(HSL·�
 test("코드 SVG 스펙 320개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
   const { renderSVG, templates } = require("../scripts/svg-illus/src/index.js");
   const dir = path.join(ROOT, "data", "illus", "specs");
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-  assert.ok(files.length >= 324, `스펙 수: ${files.length}`);
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json") && keep(f.slice(0, -5)));
+  assert.ok(ONLY || files.length >= 324, `스펙 수: ${files.length}`);
   for (const f of files) {
     const r = renderSVG(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")), { templates });
     assert.deepStrictEqual(r.report.unresolved, [], f);
@@ -128,7 +129,7 @@ test("코드 SVG 스펙 320개: 모두 렌더되고 라벨 겹침이 남지 않�
 
 test("코드 SVG 320개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
   const { outOfBounds } = require("../scripts/illus/check-bounds.js");
-  for (const d of loadAll().filter((x) => x.method === "svg" && fs.existsSync(path.join(ROOT, "terms", x.slug + ".html")))) {
+  for (const d of loadAll().filter((x) => x.method === "svg" && keep(x.slug) && fs.existsSync(path.join(ROOT, "terms", x.slug + ".html")))) {
     const svg = fs.readFileSync(path.join(ROOT, d.svg), "utf8");
     assert.deepStrictEqual(outOfBounds(svg), [], d.slug);
     const html = fs.readFileSync(path.join(ROOT, "terms", d.slug + ".html"), "utf8");

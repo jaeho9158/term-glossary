@@ -16,6 +16,7 @@ const termsDir = path.join(ROOT, "terms");
 const termFiles = fs.readdirSync(termsDir).filter((f) => f.endsWith(".html")).map((f) => f.slice(0, -5));
 const stubSlugs = termFiles.filter((s) => !slugSet.has(s));
 const stubSet = new Set(stubSlugs);
+const { keep } = require("./helpers/test-slugs.js");
 const read = (...p) => fs.readFileSync(path.join(ROOT, ...p), "utf8");
 
 // 실측된 기존 결함(이 작업 이전부터 있던 것)은 tests/fixtures/prune-known-failures.json({"검사번호":[내용...]})에
@@ -51,7 +52,7 @@ test("1) related/prerequisites가 가리키는 slug는 모두 terms.json에 있�
 
 test("2) terms.json에 없는 terms/*.html은 전부 스텁(noindex+canonical+refresh)이고 대상은 스텁이 아니다", () => {
   const bad = [];
-  for (const slug of stubSlugs) {
+  for (const slug of stubSlugs.filter(keep)) {
     const html = read("terms", `${slug}.html`);
     const noindex = /<meta name="robots" content="[^"]*noindex/.test(html);
     const canonical = /<link rel="canonical" href="[^"]+"/.test(html);
@@ -91,7 +92,7 @@ test("3) 사이트맵에 terms.json에 없는 용어 URL·noindex 페이지가 �
 test("4) 비스텁 용어 페이지·분야 페이지의 내부 링크가 스텁·없는 파일을 가리키지 않는다", async () => {
   const bad = [];
   const check = (from, slug) => { if (!slugSet.has(slug)) bad.push(`${from}→${slug}${stubSet.has(slug) ? "(스텁)" : "(없음)"}`); };
-  await mapLimit(termFiles.filter((s) => slugSet.has(s)), 64, async (slug) => { // 스텁은 제외
+  await mapLimit(termFiles.filter((s) => slugSet.has(s) && keep(s)), 64, async (slug) => { // 스텁은 제외
     const html = await fs.promises.readFile(path.join(ROOT, "terms", `${slug}.html`), "utf8");
     for (const m of html.matchAll(/href="([a-z0-9][a-z0-9-]*)\.html(?:#[^"]*)?"/g)) check(`terms/${slug}`, m[1]);
     for (const m of html.matchAll(/href="\.\.\/terms\/([^"#/]+)\.html/g)) check(`terms/${slug}`, m[1]);

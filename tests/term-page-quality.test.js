@@ -5,6 +5,7 @@ const test = require("node:test");
 const assert = require("node:assert");
 const fs = require("fs");
 const path = require("path");
+const { keep } = require("./helpers/test-slugs.js");
 const { checkPage } = require("../scripts/lib/page-quality.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -22,7 +23,7 @@ test("기준선 밖의 모든 용어 페이지가 분량 기준을 통과한다"
   const terms = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
   const failures = [];
   for (const t of terms) {
-    if (baseline.has(t.slug)) continue;
+    if (baseline.has(t.slug) || !keep(t.slug)) continue;
     const file = path.join(ROOT, "terms", `${t.slug}.html`);
     if (!fs.existsSync(file)) continue;
     const problems = checkPage(fs.readFileSync(file, "utf8"));

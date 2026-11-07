@@ -4,8 +4,9 @@ const fs = require("fs");
 const path = require("path");
 const { snapshot, OUT } = require("../scripts/diagrams/golden.js");
 
+const { ONLY, keep } = require("./helpers/test-slugs.js");
 const golden = JSON.parse(fs.readFileSync(OUT, "utf8"));
-const now = snapshot();
+const now = snapshot(keep);
 let compared = 0;
 const changed = [];
 for (const [slug, [specHash, htmlHash]] of Object.entries(golden)) {
@@ -13,6 +14,6 @@ for (const [slug, [specHash, htmlHash]] of Object.entries(golden)) {
   compared++;
   if (now[slug][1] !== htmlHash) changed.push(slug);
 }
-assert.ok(compared > 1000, `비교 대상이 너무 적음: ${compared}`);
+assert.ok(ONLY || compared > 1000, `비교 대상이 너무 적음: ${compared}`);
 assert.deepStrictEqual(changed, [], `렌더 결과가 바뀐 스펙 ${changed.length}개: ${changed.slice(0, 10).join(", ")}`);
 console.log(`diagrams-golden: ${compared}개 동일`);

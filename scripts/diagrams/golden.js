@@ -12,14 +12,14 @@ const SPEC_DIR = path.join(ROOT, "diagrams", "specs");
 const OUT = path.join(ROOT, "tests", "fixtures", "diagrams-golden.json");
 const sha = (s) => crypto.createHash("sha1").update(s).digest("hex").slice(0, 16);
 
-function snapshot() {
+function snapshot(keep = () => true) {
   const terms = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
   const titles = new Map(terms.map((t) => [t.slug, t.title_ko]));
   const out = {};
   for (const f of fs.readdirSync(SPEC_DIR).filter((x) => x.endsWith(".json")).sort()) {
     const raw = fs.readFileSync(path.join(SPEC_DIR, f), "utf8");
     const spec = JSON.parse(raw);
-    if (!titles.has(spec.slug)) continue; // 숨긴 용어는 페이지가 없다
+    if (!titles.has(spec.slug) || !keep(spec.slug)) continue; // 숨긴 용어는 페이지가 없다
     out[spec.slug] = [sha(raw), sha(renderFigure(spec, titles.get(spec.slug)).html)];
   }
   return out;

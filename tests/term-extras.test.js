@@ -9,7 +9,9 @@ const { fingerprints } = require("../scripts/review-data.js");
 const ROOT = path.join(__dirname, "..");
 const EXTRAS_DIR = path.join(ROOT, "data", "term-extras");
 const USAGE_DIR = path.join(ROOT, "data", "term-usage");
-const slugs = fs.readdirSync(EXTRAS_DIR).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5));
+const { ONLY, keep } = require("./helpers/test-slugs.js");
+const allSlugs = fs.readdirSync(EXTRAS_DIR).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5));
+const slugs = allSlugs.filter(keep);
 const readJson = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
 
 const PAGE = `<!DOCTYPE html>
@@ -136,7 +138,7 @@ test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크,
 });
 
 test("파일럿 데이터: 20개, 유형·참고 문헌·인용 형식이 맞다", () => {
-  assert.ok(slugs.length >= 20);
+  assert.ok(ONLY || slugs.length >= 20);
   for (const slug of slugs) {
     assert.ok(fs.existsSync(path.join(ROOT, "terms", `${slug}.html`)), `${slug} 페이지`);
     const x = readJson(path.join(EXTRAS_DIR, `${slug}.json`));
@@ -173,7 +175,7 @@ test("파일럿 페이지는 데이터와 일치(재적용해도 변화 없음)�
 
 test("파일럿 밖 페이지에는 term-extras 가 없다(표본 검사)", () => {
   const dir = path.join(ROOT, "terms");
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".html") && !slugs.includes(f.slice(0, -5))).slice(0, 300);
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".html") && !allSlugs.includes(f.slice(0, -5))).slice(0, 300);
   for (const f of files) {
     const html = fs.readFileSync(path.join(dir, f), "utf8");
     assert.ok(!html.includes("term-extras"), f);
