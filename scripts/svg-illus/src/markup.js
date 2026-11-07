@@ -6,6 +6,8 @@ export function escapeXml(s) {
 
 // 분수: rac{분자}{분모} 또는 {frac:분자,분모}(명시 표기 우선). 분자·분모 안에 첨자 한 단계 허용.
 export const FRAC_RE = /\\frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\})*)\}|\{frac:([^,{}]+),([^{}]+)\}/g;
+/** 접근성 텍스트(<title>/<desc>)용: 분수 마크업을 a/b 글자로 풀어 쓴다. */
+export const plainFrac = s => String(s ?? '').replace(FRAC_RE, (_, a, b, c, d) => { const n = (a ?? c).trim(), e = (b ?? d).trim(); const w = x => /[\s+\-−×·]/.test(x) ? '(' + x + ')' : x; return w(n) + '/' + w(e); });
 export const hasFrac = s => { FRAC_RE.lastIndex = 0; return FRAC_RE.test(String(s ?? '')); };
 
 /** {frac:a,b} → rac{a}{b}로 통일(쉼표가 줄바꿈 후보라 도식 배치 전에 바꿔 둔다). */

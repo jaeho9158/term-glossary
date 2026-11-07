@@ -9,7 +9,7 @@ import { FNS, checkParams, sample } from './plot-fns.js';
 import { renderBody, figureHTML } from '../render.js';
 import { validate as validateIllus } from '../validate.js';
 import { withFallbacks, METRICS } from '../theme.js';
-import { normalizeFrac, autoFrac } from '../markup.js';
+import { normalizeFrac, autoFrac, plainFrac } from '../markup.js';
 
 const SKIP = new Set(['slug', 'source', 'type', 'fn', 'id', 'from', 'to', 'color', 'kind', 'tone']);
 /** 스펙 문자열의 {frac:a,b}를 \frac{a}{b}로 바꾼다(쉼표가 줄바꿈 후보라 배치 전에). spec.autoFrac이면 숫자/숫자도 분수로. 바뀔 것이 없으면 원본 객체 그대로. */
@@ -72,7 +72,7 @@ export function renderDiagramSVG(spec, { title, orientation = 'h', idPrefix, mea
   const defs = markerDefs ? `<defs>${markerDefs}</defs>` : '';
   const ovG = ov.body ? `<g class="si-overlay" style="color:var(--si-navy)" fill="currentColor" font-size="${METRICS.fontSizeSmall}">${ov.leaders}${ov.body}</g>` : '';
   const svg = `<svg class="si dg dg-${orientation}" viewBox="0 0 ${width} ${height}" style="max-width:${width}px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="${prefix}-t ${prefix}-d" font-family="${METRICS.font}">`
-    + `<title id="${prefix}-t">${esc(t)}</title><desc id="${prefix}-d">${esc(desc)}</desc>${defs}${cv.parts.join('')}${ovG}</svg>`;
+    + `<title id="${prefix}-t">${esc(plainFrac(t))}</title><desc id="${prefix}-d">${esc(plainFrac(desc))}</desc>${defs}${cv.parts.join('')}${ovG}</svg>`;
   return { svg: withFallbacks(svg), width, height, warnings, desc, texts: cv.texts, boxes: cv.boxes };
 }
 

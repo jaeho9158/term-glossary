@@ -1,5 +1,5 @@
 // JSON 스펙 → SVG 문자열 / HTML 조각.
-import { toTspan, toHtml, symHtml, kindOf, escapeXml, hasFrac, richTextSvg, autoFrac, setSubScale } from './markup.js';
+import { toTspan, toHtml, symHtml, kindOf, escapeXml, plainFrac, hasFrac, richTextSvg, autoFrac, setSubScale } from './markup.js';
 import { placeLabels } from './labels.js';
 import { validate, SpecError, checkExpr } from './validate.js';
 import { findObscured } from './obscure.js';
@@ -418,7 +418,7 @@ export function renderSVG(spec, opts = {}) {
   const pal = spec.palette ? paletteStyle(spec.palette) : '';
   const tid = `${ctx.id}-t`;
   const svg = `<svg class="si si-illus" viewBox="0 0 ${W} ${H}" style="max-width:${W}px;color:var(--si-ink,var(--text,#1f2328))${pal}" xmlns="http://www.w3.org/2000/svg" role="img"${title ? ` aria-labelledby="${tid}"` : ''} font-family="${FONT}" font-size="13" fill="currentColor">`
-    + `${title ? `<title id="${tid}">${escapeXml(title)}</title>` : ''}${spec.desc ? `<desc>${escapeXml(spec.desc)}</desc>` : ''}${style}<defs>${defs}</defs>${leaders}${body}</svg>`;
+    + `${title ? `<title id="${tid}">${escapeXml(plainFrac(title))}</title>` : ''}${spec.desc ? `<desc>${escapeXml(plainFrac(spec.desc))}</desc>` : ''}${style}<defs>${defs}</defs>${leaders}${body}</svg>`;
   report.obscured = findObscured(svg);
   report.readability = findReadability(svg);
   if (opts.strictObscured && report.obscured.length) throw new SpecError(report.obscured.map(o => `글자 가림: "${o.text}" (${o.by}, ${o.why})`));
