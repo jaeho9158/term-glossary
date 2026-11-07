@@ -70,7 +70,7 @@ export function renderDiagramSVG(spec, { title, orientation = 'h', idPrefix, mea
   const desc = mod.describe(spec, t);
   const markerDefs = [...cv.markers.values()].map(m => m.def).join('') + ov.defs;
   const defs = markerDefs ? `<defs>${markerDefs}</defs>` : '';
-  const ovG = ov.body ? `<g class="si-overlay" style="color:var(--si-navy)" font-size="${METRICS.fontSizeSmall}">${ov.leaders}${ov.body}</g>` : '';
+  const ovG = ov.body ? `<g class="si-overlay" style="color:var(--si-navy)" fill="currentColor" font-size="${METRICS.fontSizeSmall}">${ov.leaders}${ov.body}</g>` : '';
   const svg = `<svg class="si dg dg-${orientation}" viewBox="0 0 ${width} ${height}" style="max-width:${width}px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="${prefix}-t ${prefix}-d" font-family="${METRICS.font}">`
     + `<title id="${prefix}-t">${esc(t)}</title><desc id="${prefix}-d">${esc(desc)}</desc>${defs}${cv.parts.join('')}${ovG}</svg>`;
   return { svg: withFallbacks(svg), width, height, warnings, desc, texts: cv.texts, boxes: cv.boxes };

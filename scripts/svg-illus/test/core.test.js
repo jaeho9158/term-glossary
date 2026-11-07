@@ -151,7 +151,7 @@ test('도식: 9유형 렌더 + overlay', () => {
     overlay: [{ type: 'text', at: [0, 0.3], text: '평균', size: 11 }, { type: 'line', from: [0, 0], to: [0, 0.4], dash: true }] };
   const r = renderDiagram(plot);
   assert.match(r.html, /data-kind="diagram" data-type="plot"/);
-  assert.match(r.html, /<g class="si-overlay"/);
+  assert.match(r.html, /<g class="si-overlay"[^>]*fill="currentColor"/); // 다크에서 overlay 글자가 검정으로 남지 않게
   assert.match(toSVG(plot), /var\(--si-navy,#12305c\)/);
 });
 test('plot 함수: 기존 10개 + 추가 7개', () => {

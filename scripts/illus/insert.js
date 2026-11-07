@@ -16,7 +16,7 @@
 const fs = require("fs");
 const path = require("path");
 // svg-illus는 ESM이지만 Node 22.12+ 에서는 require로 동기 로드된다.
-const { legendHTML } = require("../svg-illus/src/index.js");
+const { legendHTML, toHtml } = require("../svg-illus/src/index.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const DATA_DIR = path.join(ROOT, "data", "illus");
@@ -62,13 +62,16 @@ function renderLegend(d) {
 function renderTable(d) {
   const t = d.labelTable;
   if (!t) return "";
-  const rows = t.rows.map((r) => `<tr><td class="n">${r.n}</td><td lang="${esc(t.lang)}" class="orig">${r.origHtml}</td><td>${r.link ? `<a href="${esc(r.link.replace(/^\/terms\//, ""))}">${esc(r.ko)}</a>` : esc(r.ko)}</td><td>${r.desc ? esc(r.desc) : ""}</td></tr>`).join("");
+  const rows = t.rows.map((r) => `<tr><td class="n">${r.n}</td><td lang="${esc(t.lang)}" class="orig">${r.origHtml}</td><td>${r.link ? `<a href="${esc(r.link.replace(/^\/terms\//, ""))}">${esc(r.ko)}</a>` : esc(r.ko)}</td>${t.hideDesc ? "" : `<td>${r.desc ? esc(r.desc) : ""}</td>`}</tr>`).join("");
   const tr = d.captionTranslation ? `<p class="illus-note">원문 설명: <span lang="${esc(t.lang)}">${esc(d.captionTranslation.original)}</span> → ${esc(d.captionTranslation.ko)}</p>` : "";
   const note = d.tableNote ? `<p class="illus-note">${esc(d.tableNote)}</p>` : "";
-  return `${tr}${note}<div class="illus-table-wrap"><table class="illus-labels"><caption>그림 속 라벨 대응표 (${esc(t.order)})</caption><thead><tr><th scope="col">#</th><th scope="col">원문</th><th scope="col">한국어</th><th scope="col">설명</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `${tr}${note}<div class="illus-table-wrap"><table class="illus-labels"><caption>그림 속 라벨 대응표${t.order ? ` (${esc(t.order)})` : ""}</caption><thead><tr><th scope="col">#</th><th scope="col">원문</th><th scope="col">한국어</th>${t.hideDesc ? "" : '<th scope="col">설명</th>'}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 // 캡션의 TeX식 첨자(x_{i}, x^{2})를 sub/sup으로 바꾼다.
 const scripts = (s) => s.replace(/_\{([^{}]*)\}|_([A-Za-z0-9])(?![A-Za-z0-9])/g, (m, a, b) => `<sub>${a ?? b}</sub>`).replace(/\^\{([^{}]*)\}/g, "<sup>$1</sup>");
+// 캡션의 분수({frac:n,d} 또는 \frac{n}{d})는 MathML로, 나머지는 첨자만 바꾼다.
+const FRAC_SPLIT = /(\\frac\{(?:[^{}]|\{[^{}]*\})*\}\{(?:[^{}]|\{[^{}]*\})*\}|\{frac:[^,{}]+,[^{}]+\})/;
+const captionHtml = (s) => s.split(FRAC_SPLIT).map((p, k) => (k % 2 ? toHtml(p) : scripts(esc(p)))).join("");
 function renderCredit(d) {
   const c = d.credit;
   if (d.method === "commons") {
@@ -94,7 +97,7 @@ function renderFigure(d, svgText, spec) {
   }
   const notes = (d.notes || []).map((n) => `<p class="illus-note">${n}</p>`).join("");
   const legend = spec && spec.legend ? legendHTML(spec.legend) : renderLegend(d);
-  return `<link rel="stylesheet" href="${CSS_HREF}">\n  <figure class="si-figure" id="illus" data-kind="illus" data-method="${d.method}"><div class="si-frame">${media}</div><figcaption><span class="si-caption">${scripts(esc(d.caption))}</span>${legend}${notes}${renderTable(d)}${renderCredit(d)}</figcaption></figure>`;
+  return `<link rel="stylesheet" href="${CSS_HREF}">\n  <figure class="si-figure" id="illus" data-kind="illus" data-method="${d.method}"><div class="si-frame">${media}</div><figcaption><span class="si-caption">${captionHtml(d.caption)}</span>${legend}${notes}${renderTable(d)}${renderCredit(d)}</figcaption></figure>`;
 }
 
 // 순수 함수: 페이지에 블록을 넣거나 교체. 앵커가 없으면 null.
