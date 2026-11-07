@@ -155,7 +155,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>디자인 토큰은 디자인 결정(색, 글자 크기, 간격 등)을 플랫폼에 묶이지 않는 방식으로 담아 팀, 도구, 기술이 공유하게 하는 방법이다. W3C 커뮤니티 그룹인 Design Tokens Community Group의 형식 문서는 토큰을 “사람이 읽을 수 있는 이름과 연결된 정보로, 최소한 이름과 값의 쌍”으로 정의한다.</li><li>같은 문서의 예로 텍스트 색을 나타내는 <code>color-text-primary</code>, 제목 글자 크기를 나타내는 <code>font-size-heading-level-1</code> 같은 이름이 나온다. 값 자체가 아니라 “무엇을 위한 값인가”를 이름에 담는 것이 요점이다.</li><li>이 형식 문서는 Community Group의 보고서(2025년 10월 28일 최종 보고서)로, W3C 표준이나 표준 트랙 문서가 아니다. “W3C 표준”이라고 쓰면 부정확하다.</li><li>이 커뮤니티 그룹의 공지는 “디자인 토큰”이라는 말을 Jina Anne이 Salesforce에 있을 때 Jon Levine과 함께 만들었다고 소개한다.</li><li>디자인 시스템 안에서 토큰은 값의 층위만 다루므로, 컴포넌트 구조나 사용 지침은 별도로 필요하다.</li></ul><p>형식 문서(2025.10 예비 초안)에서 토큰은 JSON 파일로 쓰며, 이름은 대소문자를 구분하고 <code>$</code>로 시작하거나 <code>{</code>, <code>}</code>, <code>.</code>을 포함할 수 없다. 토큰의 <code>$value</code>는 필수이고 <code>$type</code>은 선택이어서, 없으면 가장 가까운 상위 그룹의 유형을 따른다. 유형을 정할 수 없는 토큰은 유효하지 않다. 기본 유형으로 색, 치수(px 또는 rem), 글꼴 패밀리, 글꼴 굵기(1~1000), 지속 시간(ms 또는 s), 3차 베지어 곡선, 숫자가 있고, 그림자·그라디언트·타이포그래피 같은 복합 유형도 정의한다.</p>
+  <ul><li>디자인 토큰은 디자인 결정(색, 글자 크기, 간격 등)을 플랫폼에 묶이지 않는 방식으로 담아 팀, 도구, 기술이 공유하게 하는 방법이다. W3C 커뮤니티 그룹인 Design Tokens Community Group의 형식 문서는 토큰을 “사람이 읽을 수 있는 이름과 연결된 정보로, 최소한 이름과 값의 쌍”으로 정의한다.</li><li>같은 문서의 예로 텍스트 색을 나타내는 <code>color-text-primary</code>, 제목 글자 크기를 나타내는 <code>font-size-heading-level-1</code> 같은 이름이 나온다. 값 자체가 아니라 “무엇을 위한 값인가”를 이름에 담는 것이 요점이다.</li><li>이 형식 문서는 Community Group의 보고서(2025년 10월 28일 최종 보고서)로, W3C 표준이나 표준 트랙 문서가 아니다. “W3C 표준”이라고 쓰면 부정확하다.</li><li>이 커뮤니티 그룹의 공지는 “디자인 토큰”이라는 말을 Jina Anne이 Salesforce에 있을 때 Jon Levine과 함께 만들었다고 소개한다.</li><li>디자인 시스템 안에서 토큰은 값의 층위만 다루므로, 컴포넌트 구조나 사용 지침은 별도로 필요하다.</li></ul><p>형식 문서(2025.10)에서 토큰은 JSON 파일로 쓰며, 이름은 대소문자를 구분하고 <code>$</code>로 시작하거나 <code>{</code>, <code>}</code>, <code>.</code>을 포함할 수 없다. 토큰의 <code>$value</code>는 필수이고 <code>$type</code>은 선택이어서, 없으면 가장 가까운 상위 그룹의 유형을 따른다. 유형을 정할 수 없는 토큰은 유효하지 않다. 기본 유형으로 색, 치수(px 또는 rem), 글꼴 패밀리, 글꼴 굵기(1~1000), 지속 시간(ms 또는 s), 3차 베지어 곡선, 숫자가 있고, 그림자·그라디언트·타이포그래피 같은 복합 유형도 정의한다.</p>
 
   <h2>예시로 보기</h2>
   <p>가상의 예이다. 어떤 서비스가 주요 버튼 색을 한 곳에서 관리한다고 하자.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>방식</th><th>버튼 색을 바꿀 때</th></tr></thead><tbody><tr><td>화면마다 색상 값을 직접 적음</td><td>버튼이 쓰인 모든 화면을 찾아 하나씩 수정</td></tr><tr><td>토큰 이름으로 참조</td><td>토큰의 값 하나를 바꾸면 이를 참조하는 곳이 함께 바뀜</td></tr></tbody></table></div><p>이름이 용도를 담고 있으면(예: 텍스트 기본색) 나중에 값만 교체해도 의미가 유지되고, 이름이 값을 그대로 담고 있으면(예: 파란색 500) 값이 바뀔 때 이름과 내용이 어긋날 수 있다.</p><p>토큰은 다른 토큰을 참조할 수도 있다. 중괄호 구문 <code>{group.token}</code>으로 다른 토큰의 값을 가리키고, 참조가 다른 참조를 가리키는 연쇄도 허용하지만 순환 참조는 오류이다.</p>
@@ -175,7 +175,7 @@
   <p>이 문장은 디자인토큰이 여러 제품에 걸친 시각적 일관성을 코드 수준에서 유지하는 수단으로 쓰이는 사례를 보여준다.</p>
 
   <h2>조금 더 깊게 보면</h2>
-  <p>토큰은 값 자체가 아니라 의미를 담은 이름 체계가 핵심이며, 원시 토큰(blue-500)과 의미 토큰(color-action-primary)을 층으로 나누어야 테마 교체가 가능하다. 이름 체계 설계에 실패하면 토큰이 수천 개로 늘어 아무도 어느 것을 써야 할지 모르게 되는 문제가 실무에서 반복된다. Salesforce의 Lightning 팀(Jina Anne 등)이 2014년경 개념을 정식화했고, W3C 디자인 토큰 커뮤니티 그룹이 교환 포맷을 표준화하고 있다. 토큰은 값의 층위만 다루므로 컴포넌트 구조나 사용 지침은 별도로 필요하다. 디자인 토큰은 색상 값이나 여백 수치를 직접 하드코딩하는 대신 이름 붙인 변수로 관리해, 하나의 토큰 값만 바꾸면 이를 참조하는 모든 화면에 일괄 반영되게 한다. 라이트 모드와 다크 모드처럼 테마가 여러 개일 때도 토큰 이름은 그대로 두고 값만 테마별로 바꿔 대응할 수 있다.</p>
+  <p>토큰은 값 자체가 아니라 의미를 담은 이름 체계가 핵심이며, 원시 토큰(blue-500)과 의미 토큰(color-action-primary)을 층으로 나누어야 테마 교체가 가능하다. 이름 체계 설계에 실패하면 토큰이 수천 개로 늘어 아무도 어느 것을 써야 할지 모르게 되는 문제가 실무에서 반복된다. Salesforce의 Lightning 팀(Jina Anne 등)이 2014년경 개념을 정식화했고, W3C 디자인 토큰 커뮤니티 그룹이 교환 포맷을 문서화하고 있다. 디자인 토큰은 색상 값이나 여백 수치를 직접 하드코딩하는 대신 이름 붙인 변수로 관리해, 하나의 토큰 값만 바꾸면 이를 참조하는 모든 화면에 일괄 반영되게 한다. 라이트 모드와 다크 모드처럼 테마가 여러 개일 때도 토큰 이름은 그대로 두고 값만 테마별로 바꿔 대응할 수 있다.</p>
 
   <h2>주의할 점</h2>
   <p>디자인토큰 체계가 지나치게 세분화되면 관리해야 할 변수의 수가 많아져 오히려 유지보수 복잡도가 증가할 수 있다.</p>
@@ -187,7 +187,6 @@
   <ol class="te-refs">
     <li>Design Tokens Community Group. (2025). Design tokens format module 2025.10. W3C Final Community Group Report.</li>
     <li>Patel, R. (2025). The role of style tokens in modern design systems: Ensuring consistency and flexibility. Journal of Information Systems Engineering and Management, 10(30s), 34–44.</li>
-    <li>Design Tokens Community Group. (2025). Design Tokens Format Module 2025.10 (preview draft). W3C Community Group.</li>
   </ol>
   <!-- term-extras:tail:end -->
 
