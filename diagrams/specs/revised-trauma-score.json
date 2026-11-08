@@ -1,0 +1,59 @@
+{
+  "slug": "revised-trauma-score",
+  "type": "procedure",
+  "nodes": [
+    {
+      "id": "a",
+      "label": "활력징후 3개 측정",
+      "color": "blue",
+      "sub": "GCS·수축기 혈압·호흡수"
+    },
+    {
+      "id": "b",
+      "label": "각각 0~4점 부호화",
+      "color": "violet",
+      "sub": "표의 구간에 따라"
+    },
+    {
+      "id": "c",
+      "label": "가중 합산",
+      "color": "amber",
+      "sub": "0.9368·0.7326·0.2908"
+    },
+    {
+      "id": "d",
+      "label": "RTS 0~7.8408",
+      "color": "rose",
+      "sub": "낮을수록 중증"
+    }
+  ],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow"
+    }
+  ],
+  "notes": [
+    {
+      "text": "RTS = 0.9368 × GCS 점수 + 0.7326 × 수축기 혈압 점수 + 0.2908 × 호흡수 점수. GCS는 글래스고 혼수 척도(Glasgow Coma Scale)다",
+      "tone": "general"
+    },
+    {
+      "text": "RTS 4 미만이면 외상센터 이송 대상을 가려낼 수 있다는 제안이 있으나, 기준이 다소 낮다는 지적도 있다. 분류용 단순 합산판은 0~12점이다",
+      "tone": "limit"
+    }
+  ],
+  "source": "용어 페이지 계산과 범위·해석 기준 + https://en.wikipedia.org/wiki/Revised_Trauma_Score (계수 0.9368·0.7326·0.2908, 범위 0~7.8408, <4 제안)",
+  "reviewed": true
+}
