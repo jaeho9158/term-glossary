@@ -259,3 +259,29 @@ npm test                   # 또는 node --test
 `node --test`로 돌립니다. 다음 항목을 확인합니다: 겹침 회피(빈자리 찾기, 지시선, fixed, 측정 훅), 첨자와 분수 파싱, MathML 출력, 범례 kind, 스펙 검증 오류(경로 표시, 수식 이름 제한), 템플릿, 도식 어댑터와 overlay, plot 함수 44개.
 
 **인체 부품 좌표 얻기**: `import { armJoints, legJoints } from './src/index.js'`로 팔(어깨·팔꿈치·손목)·다리(엉덩이·무릎·발목) 관절 좌표를 얻어, 경혈·근육·주사 부위 같은 표지를 정확한 위치에 얹는다.
+
+## 교과서 삽화풍 만화 장면(`cartoon`)
+
+AI 그림이나 기존 교과서 그림을 쓰지 않고, SVG 기본 도형으로 직접 그린 평면 벡터 인물이 말풍선으로 대화하는 1~4칸 장면입니다. 코드는 `src/cartoon/`(characters.js, scene.js)에 있습니다.
+
+```json
+{ "id": "ask-way", "template": "cartoon", "params": { "title": "길 묻기", "panels": [
+  { "background": "street", "caption": "길을 묻는 학생",
+    "characters": [
+      { "id": "g", "who": "student-f", "pose": "standing", "expression": "puzzled", "x": 100, "facing": "right" },
+      { "id": "m", "who": "adult-m", "pose": "pointing", "expression": "smile", "x": 240, "facing": "left" } ],
+    "bubbles": [
+      { "speaker": "g", "kind": "talk", "text": "실례합니다. 도서관이 어디예요?" },
+      { "speaker": "m", "kind": "empty" } ] } ] } }
+```
+
+| 필드 | 값 |
+|---|---|
+| params | `panels`(1~4), `cols`(기본 1, 세로 4컷), `panelWidth`(340), `panelHeight`(320), `gap`, `fontSize`(14, 12 이상) |
+| panel | `background`: none·classroom·street·hospital, `caption`(줄 길이를 고르게 나눔), `props:[{type:"desk"|"bed", x, w}]`(책상은 인물 앞, 침대는 인물 뒤; 침대 위 `lying` 인물은 자동으로 매트 높이에 놓임), `characters`, `bubbles` |
+| character | `id`, `who`: student-m·student-f·adult-m·adult-f, `x`(칸 왼쪽 기준 발 위치, 36~칸폭-36), `facing`: right·left, `pose`: standing·sitting·pointing·lying(머리 왼쪽, `x`는 몸 가운데·96~칸폭-96), `expression`: neutral·smile·troubled·puzzled, `arm`: down·point·raise·open·chin·hold, `hold`: paper·phone·cup·clipboard(손에 든 물건), `view`: profile(옆얼굴; 서로 마주 볼 때), `outfit`: coat(흰 가운) |
+| bubble | `speaker`(인물 id), `kind`: talk·thought(구름 윤곽+작은 원 꼬리, 꼬리 점은 다른 말풍선에서 띄움)·empty(생각·빈 꼬리는 64px 이하), `text`(자동 줄바꿈, 최대 5줄), 빈 말풍선 `w`·`h`, 조정용 `dx`·`row` |
+
+- 말풍선은 말하는 사람 머리 위에 놓고 꼬리를 그 사람에게 겨눕니다. 겹치면 줄(최대 3줄)을 바꿔 가며 넘침·꼬리 교차가 없고 꼬리가 짧은 배치를 고릅니다. 못 찾으면 검증 오류입니다.
+- 옷은 역할색 토큰, 윤곽선은 currentColor라 다크 모드에서 밝은 선이 됩니다. 피부·머리색은 고정색이며 `--si-skin`, `--si-hair-1~4` CSS 변수로 바꿀 수 있습니다.
+- 인물 하나만: `{ "type": "character", "who": "adult-f", "at": [x, 바닥y], ... }`.

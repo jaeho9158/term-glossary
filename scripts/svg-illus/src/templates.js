@@ -132,4 +132,5 @@ export function flow({ steps = [], perRow = 4, gap = 34, nodeW = 116, nodeH = 52
   return structure({ width, height, nodes, edges, numbered });
 }
 
-export const templates = { crossSection, geometry, functionPlot, structure, flow };
+import { cartoon } from './cartoon/scene.js';
+export const templates = { crossSection, geometry, functionPlot, structure, flow, cartoon };

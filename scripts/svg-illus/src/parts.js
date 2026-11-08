@@ -3,6 +3,7 @@
 import { ANATOMY } from './anatomy.js';
 import { ORGANS } from './organs.js';
 import { DENTAL } from './dental.js';
+import { CARTOON } from './cartoon/scene.js';
 const r1 = n => +(+n).toFixed(1);
 const num = d => d.replace(/-?\d*\.\d+|-?\d+/g, m => String(r1(+m)));
 
@@ -134,7 +135,7 @@ function lips(el) {
   ];
 }
 
-const MAP = { icon, vessel, pipe, valve, blockArrow, scale, callout, lips, ...ANATOMY, ...ORGANS, ...DENTAL };
+const MAP = { icon, vessel, pipe, valve, blockArrow, scale, callout, lips, ...ANATOMY, ...ORGANS, ...DENTAL, ...CARTOON };
 export const PART_TYPES = Object.keys(MAP);
 export const isPart = t => t in MAP;
 export function expandPart(el) { return MAP[el.type](el); }

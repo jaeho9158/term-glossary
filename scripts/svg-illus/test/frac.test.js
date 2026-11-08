@@ -86,3 +86,10 @@ test('subScale: 첨자 글자 비율을 스펙에서 올리고 기본값은 72%'
   assert.ok(renderSVG(mk({ subScale: 0.92 })).svg.includes('font-size="92%"'));
   assert.ok(renderSVG(mk({})).svg.includes('font-size="72%"'));
 });
+
+test('plainFrac: title/desc용 분수 평탄화', async () => {
+  const { plainFrac } = await import('../src/markup.js');
+  assert.equal(plainFrac('\\frac{F}{A}'), 'F/A');
+  assert.equal(plainFrac('σ = {frac:a+b,c}'), 'σ = (a+b)/c');
+  assert.equal(plainFrac('분수 없음'), '분수 없음');
+});

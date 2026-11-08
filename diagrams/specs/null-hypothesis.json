@@ -1,30 +1,30 @@
 {
   "slug": "null-hypothesis",
-  "type": "chain",
+  "type": "hierarchy",
   "nodes": [
     {
       "id": "a",
-      "label": "귀무가설 H0 설정",
+      "label": "귀무가설 H0",
       "color": "gray",
       "sub": "차이 없음이 기본값"
     },
     {
       "id": "b",
-      "label": "데이터로 p값 산출",
+      "label": "p값 산출",
       "color": "violet",
-      "sub": "α와 비교"
+      "sub": "데이터로, α와 비교"
     },
     {
       "id": "c",
       "label": "기각",
       "color": "green",
-      "sub": "대립가설 지지"
+      "sub": "p ≤ α일 때"
     },
     {
       "id": "d",
       "label": "기각 못함",
       "color": "amber",
-      "sub": "증거 부족일 뿐"
+      "sub": "p > α일 때"
     }
   ],
   "edges": [
@@ -36,17 +36,19 @@
     {
       "from": "b",
       "to": "c",
-      "kind": "arrow",
-      "label": "p ≤ α"
+      "kind": "arrow"
     },
     {
       "from": "b",
       "to": "d",
-      "kind": "arrow",
-      "label": "p > α"
+      "kind": "arrow"
     }
   ],
   "notes": [
+    {
+      "text": "기각하면 대립가설 지지, 기각 못함은 증거 부족일 뿐",
+      "tone": "general"
+    },
     {
       "text": "기각 못함이 귀무가설이 참이라는 증명은 아님",
       "tone": "limit"

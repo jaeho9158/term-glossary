@@ -70,7 +70,7 @@ const FNS = {
     f: (x, p) => Math.exp(-(((x - p.peak) / p.width) ** 2)) },
   decay: { params: { rate: { gt: 0 } }, domain: [0, Infinity], desc: "감쇠 곡선",
     f: (x, p) => Math.exp(-p.rate * x) },
-  // ── 추가 함수 9개(plot-ext.json 제안 7 + km_function·mixing_free_energy). scripts/svg-illus/src/diagram/plot-fns.js 와 같게 유지 ──
+  // ── 추가 함수 7개(plot-ext.json 제안) ──
   power: { params: { a: { gt: 0 }, b: {} }, domain: [0, Infinity], desc: "거듭제곱 곡선",
     f: (x, p) => p.a * x ** p.b },
   reciprocal: { params: { k: { gt: 0 }, c: {} }, domain: [0, Infinity], desc: "반비례 곡선",

@@ -1,3 +1,4 @@
+import { checkScene } from './cartoon/scene.js';
 // 스펙 검증. validate(spec)은 오류 메시지 배열을 돌려준다(비면 통과).
 
 export class SpecError extends Error {
@@ -15,7 +16,7 @@ const REQ = {
   dimension: ['from', 'to'], waves: ['center', 'radii'],
   inset: ['center', 'r', 'elements'], repeat: ['element'], icon: ['name', 'at'], vessel: ['x', 'y', 'w', 'h'], pipe: ['points'], valve: ['at'],
   blockArrow: ['from', 'to'], scale: ['from', 'to', 'min', 'max'], callout: ['at', 'text', 'target'], lips: ['at'],
-  thorax: ['at'], brain: ['at'], gut: ['at'], kidney: ['at'], tooth: ['at'], body: ['at'], torso: ['at'], arm: ['at'], hand: ['at'], leg: ['at'], foot: ['at'], head: ['at'],
+  thorax: ['at'], brain: ['at'], gut: ['at'], kidney: ['at'], tooth: ['at'], body: ['at'], torso: ['at'], arm: ['at'], hand: ['at'], leg: ['at'], foot: ['at'], head: ['at'], scene: ['panels'], character: ['at', 'who'],
 };
 export const ELEMENT_TYPES = Object.keys(REQ);
 const KINDS = ['var', 'expr', 'func', 'const', 'abbr', 'term', 'unit', 'note'];
@@ -70,6 +71,7 @@ function checkElements(list, where, names, errs) {
       errs.push(`${w}: hatch에는 points(다각형) 또는 x,y,w,h가 필요합니다`);
     if (el.type === 'text' && typeof el.text !== 'string' && !isNum(el.text)) errs.push(`${w}.text: 문자열이어야 합니다`);
     if (el.anchor !== undefined && !['start', 'middle', 'end'].includes(el.anchor)) errs.push(`${w}.anchor: start, middle, end 중 하나여야 합니다`);
+    if (el.type === 'scene' && Array.isArray(el.panels)) errs.push(...checkScene(el, w));
     if (el.type === 'group') checkElements(el.elements, `${w}.elements`, names, errs);
   });
 }
