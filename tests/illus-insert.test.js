@@ -139,3 +139,18 @@ test("코드 SVG 320개: 글자가 viewBox 안에 있고 노트가 한 번만 �
     assert.ok(!/data-kind="illus"] .si-frame svg { min-width: 440px/.test(fs.readFileSync(path.join(ROOT, "assets", "term-illus.css"), "utf8")), "가로 스크롤 최소 폭 금지");
   }
 });
+
+test("대응표 설명이 모두 비면 설명 열을 뺀다", () => {
+  const rows = [{ n: 1, origHtml: "A", ko: "가", desc: null }, { n: 2, origHtml: "B", ko: "나", desc: "" }];
+  const empty = renderFigure({ ...commons, labelTable: { lang: "en", rows } });
+  assert.ok(!empty.includes(">설명</th>"));
+  const one = renderFigure({ ...commons, labelTable: { lang: "en", rows: [rows[0], { ...rows[1], desc: "설명" }] } });
+  assert.ok(one.includes(">설명</th>"));
+});
+
+test("논문 그림 출처 표기와 검사", () => {
+  const paper = { ...commons, credit: { kind: "paper", author: "Kim 외", year: 2020, title: "제목", journal: "PLoS ONE", fig: "Fig. 2", license: "CC BY 4.0", licenseUrl: "https://creativecommons.org/licenses/by/4.0/", pageUrl: "https://doi.org/10.1371/x" } };
+  assert.deepStrictEqual(validate(paper), []);
+  assert.ok(renderFigure(paper).includes("그림: Kim 외(2020), 『"));
+  assert.ok(validate({ ...paper, credit: { ...paper.credit, fig: "" } }).length);
+});

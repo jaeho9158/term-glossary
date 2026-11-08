@@ -44,7 +44,9 @@ function validate(d) {
     if (!c.license) errs.push("credit.license");
     else if (!ALLOWED_LICENSE.test(c.license) || /\b(NC|ND)\b/.test(c.license)) errs.push("credit.license 허용 밖: " + c.license);
     if (!NO_URL_OK.has(c.license) && !c.licenseUrl) errs.push("credit.licenseUrl");
-    if (!c.pageUrl || !/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(c.pageUrl)) errs.push("credit.pageUrl");
+    const paper = c.kind === "paper"; // 오픈액세스 논문 그림(pageUrl은 논문 DOI·전문 링크)
+    if (!c.pageUrl || !(paper ? /^https:\/\//.test(c.pageUrl) : /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(c.pageUrl))) errs.push("credit.pageUrl");
+    if (paper && !(c.year && c.title && c.journal && c.fig)) errs.push("credit 논문 정보(year·title·journal·fig)");
     if (!d.image || !/^assets\/illus\/[a-z0-9-]+\.(jpg|png|webp)$/.test(d.image.src) || !(d.image.width > 0) || !(d.image.height > 0)) errs.push("image");
     if (!d.alt) errs.push("alt");
   } else if (d.method === "svg") {
@@ -62,10 +64,12 @@ function renderLegend(d) {
 function renderTable(d) {
   const t = d.labelTable;
   if (!t) return "";
-  const rows = t.rows.map((r) => `<tr><td class="n">${r.n}</td><td lang="${esc(t.lang)}" class="orig">${r.origHtml}</td><td>${r.link ? `<a href="${esc(r.link.replace(/^\/terms\//, ""))}">${esc(r.ko)}</a>` : esc(r.ko)}</td>${t.hideDesc ? "" : `<td>${r.desc ? esc(r.desc) : ""}</td>`}</tr>`).join("");
+  // 설명이 하나도 없으면 설명 열을 통째로 뺀다.
+  const hide = t.hideDesc || t.rows.every((r) => !r.desc);
+  const rows = t.rows.map((r) => `<tr><td class="n">${r.n}</td><td lang="${esc(t.lang)}" class="orig">${r.origHtml}</td><td>${r.link ? `<a href="${esc(r.link.replace(/^\/terms\//, ""))}">${esc(r.ko)}</a>` : esc(r.ko)}</td>${hide ? "" : `<td>${r.desc ? esc(r.desc) : ""}</td>`}</tr>`).join("");
   const tr = d.captionTranslation ? `<p class="illus-note">원문 설명: <span lang="${esc(t.lang)}">${esc(d.captionTranslation.original)}</span> → ${esc(d.captionTranslation.ko)}</p>` : "";
   const note = d.tableNote ? `<p class="illus-note">${esc(d.tableNote)}</p>` : "";
-  return `${tr}${note}<div class="illus-table-wrap"><table class="illus-labels"><caption>그림 속 라벨 대응표${t.order ? ` (${esc(t.order)})` : ""}</caption><thead><tr><th scope="col">#</th><th scope="col">원문</th><th scope="col">한국어</th>${t.hideDesc ? "" : '<th scope="col">설명</th>'}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `${tr}${note}<div class="illus-table-wrap"><table class="illus-labels"><caption>그림 속 라벨 대응표${t.order ? ` (${esc(t.order)})` : ""}</caption><thead><tr><th scope="col">#</th><th scope="col">원문</th><th scope="col">한국어</th>${hide ? "" : '<th scope="col">설명</th>'}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 // 캡션의 TeX식 첨자(x_{i}, x^{2})를 sub/sup으로 바꾼다.
 const scripts = (s) => s.replace(/_\{([^{}]*)\}|_([A-Za-z0-9])(?![A-Za-z0-9])/g, (m, a, b) => `<sub>${a ?? b}</sub>`).replace(/\^\{([^{}]*)\}/g, "<sup>$1</sup>");
@@ -76,6 +80,8 @@ function renderCredit(d) {
   const c = d.credit;
   if (d.method === "commons") {
     const lic = c.licenseUrl ? `<a href="${esc(c.licenseUrl)}" rel="license noopener" target="_blank">${esc(c.license)}</a>` : esc(c.license);
+    // 오픈액세스 논문 그림: 그림: 저자 외(연도), 『제목』, 학술지, Fig. N, 라이선스
+    if (c.kind === "paper") return `<small class="illus-credit">그림: ${esc(c.author)}(${esc(c.year)}), 『<a href="${esc(c.pageUrl)}" rel="noopener" target="_blank">${esc(c.title)}</a>』, ${esc(c.journal)}, ${esc(c.fig)}, ${lic}${c.modified ? ` · 변경: ${esc(c.modified)}` : ""}</small>`;
     return `<small class="illus-credit">그림: <a href="${esc(c.pageUrl)}" rel="noopener" target="_blank">${esc(c.author)}</a>, ${lic}, 위키미디어 공용${c.modified ? ` · 변경: ${esc(c.modified)}` : ""}</small>`;
   }
   // 자기 사이트 페이지는 대조한 외부 출처가 아니므로 표기하지 않는다.
