@@ -55,3 +55,5 @@
 - 애드센스 승인 후에는 `privacy.html`에 실제 발급받은 광고 관련 문구를 애드센스 대시보드 안내에 맞춰 보완하세요.
 
 커밋 전에는 `npm run test:fast`(바뀐 slug만, 30초 안팎), 배포 전에는 `npm test`(전체).
+
+운영자가 직접 확인한 페이지는 `data/reviewed.json`(`{슬러그: 날짜}`)에 적고 `npm run build:reviewed-badge`로 "검수 완료" 표시를 반영한다(멱등, 목록에서 빼면 표시도 사라진다).
