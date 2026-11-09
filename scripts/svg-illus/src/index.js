@@ -9,7 +9,7 @@ export { armJoints, legJoints } from './anatomy.js';
 export { PHONE_VIEWPORT, PHONE_CONTENT } from './render.js';
 export { render, renderSVG, renderHTML, renderBody, figureHTML, legendHTML, tableHTML, polar, compileFn, resolveSpec, FONT } from './render.js';
 export { validate, SpecError, ELEMENT_TYPES } from './validate.js';
-export { parseMarkup, toTspan, toHtml, symHtml, kindOf, estimateTextWidth, escapeXml, fracSvg, richTextSvg, hasFrac, autoFrac, normalizeFrac } from './markup.js';
+export { parseMarkup, toTspan, toHtml, symHtml, kindOf, estimateTextWidth, escapeXml, fracSvg, richTextSvg, hasFrac, hasScript, autoFrac, normalizeFrac } from './markup.js';
 export { placeLabels, labelBox, segmentHitsBox, boxesOverlap } from './labels.js';
 export { TOKENS, METRICS, ROLES, colorRef, themeCss, withFallbacks } from './theme.js';
 export { templates } from './templates.js';

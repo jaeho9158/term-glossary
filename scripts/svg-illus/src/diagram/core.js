@@ -24,7 +24,7 @@ const SAFETY = 1.08;
 // 떨어진다. 되돌이 엣지(arc)가 없는 선형 도식은 이 폭 안에서 여러 줄로 감아 놓는다.
 const H_WRAP_W = 640;
 
-import { hasFrac, richTextSvg, FRAC_BOX, parseMarkup, FRAC_SCALE, FRAC_PAD } from "../markup.js";
+import { hasFrac, hasScript, richTextSvg, FRAC_BOX, parseMarkup, FRAC_SCALE, FRAC_PAD } from "../markup.js";
 
 // ── 글자 폭 근사 ─────────────────────────────────────────
 function charEm(ch) {
@@ -44,7 +44,7 @@ function charEm(ch) {
 }
 
 function textWidth(str, fs, bold = false) {
-  if (hasFrac(str)) return parseMarkup(str).reduce((w, p) => w + (p.kind === "frac"
+  if (hasFrac(str) || hasScript(str)) return parseMarkup(str).reduce((w, p) => w + (p.kind === "frac"
     ? Math.max(textWidth(p.num, fs * FRAC_SCALE, bold), textWidth(p.den, fs * FRAC_SCALE, bold)) + FRAC_PAD * 2 + 2
     : textWidth(p.kind === "normal" ? p.text : p.text, p.kind === "normal" ? fs : fs * 0.72, bold)), 0);
   let em = 0;
@@ -161,6 +161,7 @@ class Canvas {
       this.parts.push(richTextSvg(x, y, t, { size: fs, anchor, attrs: `${weight} fill="${fill}"`, color: fill, measure: (s, f) => textWidth(s, f, bold) }));
       return;
     }
+    if (hasScript(t)) { this.parts.push(richTextSvg(x, y, t, { size: fs, anchor, attrs: `font-size="${fs}"${weight} fill="${fill}"` })); return; }
     this.parts.push(`<text x="${r1(x)}" y="${r1(y)}" text-anchor="${anchor}" font-size="${fs}"${weight} fill="${fill}">${esc(t)}</text>`);
   }
   rect(x, y, w, h, color, id, dash) {

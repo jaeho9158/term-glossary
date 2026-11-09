@@ -93,3 +93,13 @@ test('plainFrac: title/desc용 분수 평탄화', async () => {
   assert.equal(plainFrac('σ = {frac:a+b,c}'), 'σ = (a+b)/c');
   assert.equal(plainFrac('분수 없음'), '분수 없음');
 });
+
+test('첨자: 도식 text()가 x_{1}·x^2를 tspan으로, snake_case·URL은 글자 그대로', async () => {
+  const { hasScript } = await import('../src/index.js');
+  assert.ok(hasScript('Z_{2}') && hasScript('x^2') && hasScript('CO_2'));
+  for (const s of ['max_iter', 'http://a.org/x_y', 'a_b c', '1 + 1']) assert.equal(hasScript(s), s === 'a_b c', s);
+  assert.deepEqual(parseMarkup('{frac:Z_{2} − Z_{1},Z_{2} + Z_{1}}')[0], { kind: 'frac', num: 'Z_{2} − Z_{1}', den: 'Z_{2} + Z_{1}' });
+  assert.equal(normalizeFrac('{frac:a_{1},b}'), String.raw`\frac{a_{1}}{b}`);
+  const svg = renderDiagramSVG({ type: 'procedure', nodes: [{ id: 'a', label: 'CO_{2} 농도' }, { id: 'b', label: 'x^2 값' }], edges: [{ from: 'a', to: 'b' }] }).svg;
+  assert.ok(svg.includes('<tspan') && !svg.includes('>CO_{2}'), svg);
+});
