@@ -1,66 +1,25 @@
 {
   "slug": "trig-function-graph",
-  "type": "hierarchy",
-  "nodes": [
-    {
-      "id": "r",
-      "label": "y = a sin(bx+c)+d",
-      "color": "blue",
-      "sub": "일반형"
-    },
-    {
-      "id": "c0",
-      "label": "a",
-      "color": "violet",
-      "sub": "진폭"
-    },
-    {
-      "id": "c1",
-      "label": "{frac:2π,b}",
-      "color": "violet",
-      "sub": "주기 ({frac:360°,b})"
-    },
-    {
-      "id": "c2",
-      "label": "c",
-      "color": "amber",
-      "sub": "위상이동"
-    },
-    {
-      "id": "c3",
-      "label": "d",
-      "color": "amber",
-      "sub": "수직이동"
-    }
-  ],
-  "edges": [
-    {
-      "from": "r",
-      "to": "c0",
-      "kind": "arrow"
-    },
-    {
-      "from": "r",
-      "to": "c1",
-      "kind": "arrow"
-    },
-    {
-      "from": "r",
-      "to": "c2",
-      "kind": "arrow"
-    },
-    {
-      "from": "r",
-      "to": "c3",
-      "kind": "arrow"
-    }
-  ],
+  "type": "plot",
+  "plot": {
+    "series": [
+      { "fn": "sine_wave", "params": { "f": 0.002777778 }, "label": "y = sin x", "color": "blue" },
+      { "fn": "damped_oscillation", "params": { "zeta": 0, "wn": 0.017453293 }, "label": "y = cos x", "color": "amber" }
+    ],
+    "vlines": [
+      { "x": 90, "label": "90°" },
+      { "x": 180, "label": "180°" },
+      { "x": 270, "label": "270°" },
+      { "x": 360, "label": "360°" }
+    ],
+    "x": { "label": "x (°)", "range": [0, 360], "ticks": false },
+    "y": { "label": "y", "ticks": true }
+  },
   "notes": [
-    {
-      "text": "탄젠트 함수는 90°마다 무한대로 치솟는 모양을 반복",
-      "tone": "general"
-    }
+    { "text": "사인·코사인은 진폭 1, 주기 360°(2π)로 같은 모양이 반복되고, 코사인은 사인을 왼쪽으로 90° 옮긴 모양", "tone": "general" },
+    { "text": "y = a sin(bx+c)+d에서 a는 진폭, 주기는 360° ÷ b, d는 위아래 이동. 탄젠트는 90°, 270°에서 끊기며 주기가 180°", "tone": "general" }
   ],
-  "source": "용어 페이지 본문",
+  "source": "용어 페이지 본문(주기 2π, 치역 [−1, 1], 영점 위치). sin·cos 값은 함수 계산",
+  "edges": [],
   "reviewed": true
 }
