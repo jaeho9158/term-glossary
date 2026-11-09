@@ -154,3 +154,11 @@ test("논문 그림 출처 표기와 검사", () => {
   assert.ok(renderFigure(paper).includes("그림: Kim 외(2020), 『"));
   assert.ok(validate({ ...paper, credit: { ...paper.credit, fig: "" } }).length);
 });
+
+test("more 의 공용 그림은 같은 블록 안에 illus-2 로 덧붙는다", () => {
+  const html = renderFigure({ ...commons, more: [{ ...commons, slug: "z", caption: "둘째" }] });
+  assert.strictEqual(count(html, /<figure /g), 2);
+  assert.strictEqual(count(html, /term-illus\.css/g), 1);
+  assert.ok(html.includes('id="illus-2"') && html.includes("둘째"));
+  assert.throws(() => renderFigure({ ...commons, more: [svgData] }));
+});
