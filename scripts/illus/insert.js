@@ -74,7 +74,7 @@ function renderTable(d) {
 // 캡션의 TeX식 첨자(x_{i}, x^{2})를 sub/sup으로 바꾼다.
 const scripts = (s) => s.replace(/_\{([^{}]*)\}|_([A-Za-z0-9])(?![A-Za-z0-9])/g, (m, a, b) => `<sub>${a ?? b}</sub>`).replace(/\^\{([^{}]*)\}/g, "<sup>$1</sup>");
 // 캡션의 분수({frac:n,d} 또는 \frac{n}{d})는 MathML로, 나머지는 첨자만 바꾼다.
-const FRAC_SPLIT = /(\\frac\{(?:[^{}]|\{[^{}]*\})*\}\{(?:[^{}]|\{[^{}]*\})*\}|\{frac:[^,{}]+,[^{}]+\})/;
+const FRAC_SPLIT = /(\\frac\{(?:[^{}]|\{[^{}]*\})*\}\{(?:[^{}]|\{[^{}]*\})*\}|\{frac:(?:[^,{}]|\{[^{}]*\})+,(?:[^{}]|\{[^{}]*\})+\})/;
 const captionHtml = (s) => s.split(FRAC_SPLIT).map((p, k) => (k % 2 ? toHtml(p) : scripts(esc(p)))).join("");
 function renderCredit(d) {
   const c = d.credit;
