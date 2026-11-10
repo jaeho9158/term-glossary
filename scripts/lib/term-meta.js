@@ -2,6 +2,16 @@
 // insert-term-meta.js(일괄 적용)와 build-term-page.js(신규 생성)가 같은 빌더를 쓴다.
 // 마커 주석으로 감싸 재실행해도 중복 없이 교체된다(멱등).
 const { escapeHtml } = require("../../assets/escape.js");
+const fs = require("fs");
+const path = require("path");
+
+// 분야 링크(루트 기준): 정적 허브 category/<code>.html 이 있으면 그쪽으로. category.html?cat=<code> 는
+// 98개 분야가 같은 meta description을 공유해 네이버가 '설명 중복'으로 본다. 옛 별칭 코드만 쿼리형으로 남긴다.
+function categoryHref(code) {
+  return fs.existsSync(path.join(__dirname, "..", "..", "category", `${code}.html`))
+    ? `category/${code}.html`
+    : `category.html?cat=${encodeURIComponent(code)}`;
+}
 
 const SITE_URL = "https://termglossary.kr/";
 const SITE_NAME = "논문용어사전";
@@ -61,7 +71,7 @@ function buildJsonLd(term, opts = {}) {
   if (cat) {
     items.push({
       name: categoryLabels[cat] || cat,
-      item: `${SITE_URL}category.html?cat=${encodeURIComponent(cat)}`,
+      item: `${SITE_URL}${categoryHref(cat)}`,
     });
   }
   items.push({ name, item: url });

@@ -37,7 +37,7 @@ test("buildJsonLd: DefinedTerm + BreadcrumbList 구조", () => {
   assert.strictEqual(dt.dateModified, "2026-09-01");
   assert.strictEqual(dt.inDefinedTermSet.name, "논문용어사전");
   assert.deepStrictEqual(bc.itemListElement.map((i) => i.name), ["홈", "통계", "p값"]);
-  assert.strictEqual(bc.itemListElement[1].item, "https://termglossary.kr/category.html?cat=stat");
+  assert.strictEqual(bc.itemListElement[1].item, "https://termglossary.kr/category/stat.html");
 });
 
 test("날짜 없으면 dateModified 생략, 정의는 300자 이내", () => {

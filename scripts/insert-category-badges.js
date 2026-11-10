@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { CATEGORY_LABELS } = require("../assets/category-data.js");
+const { categoryHref } = require("./lib/term-meta.js");
 
 const ROOT_DIR = path.join(__dirname, "..");
 const TERMS_PATH = path.join(ROOT_DIR, "terms.json");
@@ -14,7 +15,7 @@ function createBadgesBlock(categories) {
     .filter((code) => CATEGORY_LABELS[code])
     .map(
       (code) =>
-        `<a class="category-badge" href="../category.html?cat=${code}">${CATEGORY_LABELS[code]}</a>`
+        `<a class="category-badge" href="../${categoryHref(code)}">${CATEGORY_LABELS[code]}</a>`
     )
     .join("\n    ");
 

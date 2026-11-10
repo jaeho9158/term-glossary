@@ -80,7 +80,7 @@ function renderMain(term, ctx) {
   const badges = (term.categories || [])
     .map((code) => {
       const label = CATEGORY_LABELS[code] || code;
-      return `    <a class="category-badge" href="../category.html?cat=${encodeURIComponent(code)}">${escapeHtml(label)}</a>`;
+      return `    <a class="category-badge" href="../${termMeta.categoryHref(code)}">${escapeHtml(label)}</a>`;
     })
     .join("\n");
 
