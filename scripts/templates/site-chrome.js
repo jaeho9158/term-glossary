@@ -18,7 +18,7 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 
   return `<header class="site-header">
   <div class="inner">
-    <a class="logo" href="${basePath}index.html">${SITE_TITLE}</a>
+    <a class="logo" href="${basePath || "./"}">${SITE_TITLE}</a>
     <div class="header-search">
       <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
       <ul id="global-term-search-results" class="header-search-results" hidden></ul>
@@ -40,7 +40,7 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
     </button>
 
     <nav id="site-nav" class="site-nav">
-      <a href="${basePath}index.html">용어 목록</a>${viewerLink}
+      <a href="${basePath || "./"}">용어 목록</a>${viewerLink}
       <div class="nav-dropdown">
         <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
         <div class="nav-dropdown-menu">

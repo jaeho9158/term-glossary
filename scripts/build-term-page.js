@@ -103,7 +103,7 @@ function renderMain(term, ctx) {
   const relatedHtml = [...related, ...fill].join("\n");
 
   return `<main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; ${escapeHtml(heading)}</p>
+  <p class="breadcrumb"><a href="../">용어 목록</a> &gt; ${escapeHtml(heading)}</p>
   <h1>${escapeHtml(heading)}</h1>
   <div class="category-badges">
 ${badges}

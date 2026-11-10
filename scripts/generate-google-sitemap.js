@@ -1,4 +1,4 @@
-// Google 전용 사이트맵: core 등급 용어 + 용어 외 페이지만 담는다. 기존 sitemap.xml/sitemaps/ 는 건드리지 않는다(네이버용).
+// Google 전용 사이트맵: 공개(noindex 아님) 페이지 전부를 담는다. 옛 archive 등급은 쓰지 않는다(2026-11 공개 기준 변경). 기존 sitemap.xml/sitemaps/ 는 건드리지 않는다(네이버용).
 //   node scripts/generate-google-sitemap.js   -> sitemap-google.xml + sitemaps-google/
 const fs = require("fs");
 const path = require("path");
@@ -41,8 +41,13 @@ function main() {
   const dir = path.join(ROOT, "sitemaps");
   const all = [];
   for (const f of fs.readdirSync(dir)) if (f.endsWith(".xml")) all.push(...parseUrlset(fs.readFileSync(path.join(dir, f), "utf8")));
-  const archive = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, "data/index-tiers.json"), "utf8")).archive);
-  const r = buildGoogleSitemaps(all, archive);
+  // 파일이 없거나 noindex인 URL은 뺀다(리다이렉트 안내 페이지 포함).
+  const live = all.filter((e) => {
+    const rel = decodeURIComponent(e.loc.slice(BASE_URL.length + 1)) || "index.html";
+    const f = path.join(ROOT, rel.endsWith("/") ? rel + "index.html" : rel);
+    return fs.existsSync(f) && !/<meta name="robots" content="[^"]*noindex/.test(fs.readFileSync(f, "utf8").slice(0, 8000));
+  });
+  const r = buildGoogleSitemaps(live, new Set());
   const out = path.join(ROOT, "sitemaps-google");
   fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out);

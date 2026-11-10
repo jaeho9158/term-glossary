@@ -162,7 +162,7 @@ function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
   };
   const title = `${catName} 개념 지도`;
   const main = `<main class="delay-1 concept-map-page">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; <a href="../category/${cat}.html">${esc(catName)}</a> &gt; 개념 지도</p>
+  <p class="breadcrumb"><a href="../">용어 목록</a> &gt; <a href="../category/${cat}.html">${esc(catName)}</a> &gt; 개념 지도</p>
   <h1>${esc(title)}</h1>
   <p class="concept-map-lead">큰 개념(굵은 제목) 아래로 갈래와 세부 개념이 이어집니다. 이름을 누르면 용어 설명으로 이동합니다.</p>
   <nav class="cmap-toc" aria-label="하위분류">${groups.map(([g], i) => `<a href="#g${i}">${esc(g)}</a>`).join("")}</nav>

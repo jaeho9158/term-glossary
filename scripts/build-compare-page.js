@@ -42,7 +42,7 @@ ${renderThemeInit()}
 <body data-base="../">
 ${renderHeader("../", { navCta: true, authNav: true })}
 <main class="delay-1">
-  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; <a href="../category.html">카테고리별 용어</a> &gt; <a href="../category/${content.category}.html">${escapeHtml(content.categoryLabel)}</a> &gt; ${heading}</p>
+  <p class="breadcrumb"><a href="../">용어 목록</a> &gt; <a href="../category.html">카테고리별 용어</a> &gt; <a href="../category/${content.category}.html">${escapeHtml(content.categoryLabel)}</a> &gt; ${heading}</p>
   <h1>${heading}</h1>
   <p class="subtitle">${escapeHtml(content.headline)}</p>
 
