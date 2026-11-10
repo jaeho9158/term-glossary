@@ -5,6 +5,14 @@
 const { buildRelatedScorer } = require("./related-score.js");
 const { escapeHtml } = require("../../assets/escape.js");
 
+// 검색 의도에 맞춰 손으로 쓴 개별 title/description(data/seo-overrides.json). 있으면 자동 생성보다 먼저 쓴다.
+let overrides = null;
+function override(term) {
+  if (!overrides) overrides = require("../../data/seo-overrides.json");
+  const o = overrides[term.slug];
+  return o && !String(term.slug).startsWith("_") ? o : null;
+}
+
 const SITE = "논문용어사전";
 const TITLE_MAX = 60;
 const TITLE_DEF_MAX = 25;
@@ -71,6 +79,8 @@ function acronymAlias(term) {
  * 제목에 넣지 않는다(정의는 description 이 맡는다). 넘치면 (1) 약어 (2) 보충 문구 (3) 영문명 순으로 뺀다.
  */
 function buildTermTitle(term) {
+  const o = override(term);
+  if (o && o.title) return o.title;
   const tail = ` | ${SITE}`;
   const ko = clean(term.title_ko);
   const en = shortEn(term.title_en);
@@ -98,6 +108,8 @@ function buildTermTitle(term) {
  * 정의가 길면 어절 경계에서 자르고 …, 이때는 안내를 붙이지 않는다.
  */
 function buildTermDescription(term) {
+  const o = override(term);
+  if (o && o.description) return o.description;
   // 문장 끝은 괄호 밖의 마침표만 본다. 어미(합쇼체 등)는 정의 그대로 둔다.
   const def = clean(term.definition);
   let depth = 0, end = def.length;

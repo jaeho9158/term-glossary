@@ -178,7 +178,7 @@ function applyPageMeta(html) {
 }
 
 module.exports = {
-  SITE_URL, OG_IMAGE,
+  SITE_URL, OG_IMAGE, categoryHref,
   truncate, safeJson, buildJsonLd, buildSocialTags, buildHeadBlock, buildUpdatedLine,
   isStub, stripTermMeta, applyTermMeta, applyPageMeta,
 };
