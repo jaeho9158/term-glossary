@@ -6,7 +6,7 @@ export function escapeXml(s) {
 
 // 분수: rac{분자}{분모} 또는 {frac:분자,분모}(명시 표기 우선). 분자·분모 안에 첨자 한 단계 허용.
 export const FRAC_RE = /\\frac\{((?:[^{}]|\{[^{}]*\})*)\}\{((?:[^{}]|\{[^{}]*\})*)\}|\{frac:((?:[^,{}]|\{[^{}]*\})+),((?:[^{}]|\{[^{}]*\})+)\}/g;
-/** 접근성 텍스트(<title>/<desc>)용: 분수 마크업을 a/b 글자로 풀어 쓴다. */
+/** 접근성 텍스트(aria-label/<desc>)용: 분수 마크업을 a/b 글자로 풀어 쓴다. */
 export const plainFrac = s => String(s ?? '').replace(FRAC_RE, (_, a, b, c, d) => { const n = (a ?? c).trim(), e = (b ?? d).trim(); const w = x => /[\s+\-−×·]/.test(x) ? '(' + x + ')' : x; return w(n) + '/' + w(e); });
 // 첨자 표기(x_{1}, x^2)가 있는가. snake_case 식별자·URL은 첨자로 보지 않는다.
 export const hasScript = s => { s = String(s ?? ''); return /[_^](\{[^{}]*\}|[^\s{}_^])/.test(s) && !/[A-Za-z]{2,}_[A-Za-z]|:\/\//.test(s); };

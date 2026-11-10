@@ -78,8 +78,8 @@ function renderSpec(spec, { title, orientation = "h", idPrefix } = {}) {
   const svg =
     // max-width를 viewBox 폭(px)으로 걸어 둔다. 안 그러면 좁은 도식(contrast 등)이
     // 컬럼 폭까지 늘어나 글자가 체인 도식의 두 배 크기로 보인다.
-    `<svg class="dg dg-${orientation}" viewBox="0 0 ${width} ${height}" style="max-width:${width}px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="${prefix}-t ${prefix}-d" font-family="'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif">` +
-    `<title id="${prefix}-t">${esc(t)}</title><desc id="${prefix}-d">${esc(desc)}</desc>${defs}${cv.parts.join("")}</svg>`;
+    `<svg class="dg dg-${orientation}" viewBox="0 0 ${width} ${height}" style="max-width:${width}px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(t)}" aria-describedby="${prefix}-d" font-family="'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif">` +
+    `<desc id="${prefix}-d">${esc(desc)}</desc>${defs}${cv.parts.join("")}</svg>`;
   return { svg, width, height, warnings, desc, texts: cv.texts, boxes: cv.boxes };
 }
 

@@ -68,7 +68,7 @@ examples/           스펙·빌드·비교 페이지 생성기
 
 ### 접근성
 
-- `<svg role="img">`에 `<title>`을 둡니다. 도식은 기존대로 `<desc>`(유형별 describe 문장)와 `aria-labelledby`를 둡니다.
+- `<svg role="img">`에 제목을 `aria-label`로 둡니다(<title>을 쓰면 페이지 <head>의 <title>과 함께 세어져 검색엔진이 title 중복으로 봅니다). 도식은 `<desc>`(유형별 describe 문장)와 `aria-describedby`를 둡니다.
 - 도해는 `desc` 필드를 주면 `<desc>`가 붙습니다.
 - 표의 머리칸에는 `scope="col"`을 붙입니다.
 

@@ -276,7 +276,7 @@ test('dimension, waves, curve closed/endDot 부품', () => {
 
 test('id는 숫자로 시작해도 된다(슬러그가 숫자로 시작하는 용어)', () => {
   const { svg } = renderSVG({ id: '3d-city', width: 100, height: 60, title: 't', elements: [] });
-  assert.ok(svg.includes('3d-city'));
+  assert.ok(svg.includes('aria-label="t"') && !svg.includes('<title'));
 });
 
 test('글자 가림 검사: 점이 글자를 덮거나 라벨이 도형에 걸치면 report.obscured에 나온다', () => {

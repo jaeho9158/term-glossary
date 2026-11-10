@@ -99,7 +99,7 @@ for (const s of [chain, contrast, hierarchy, procedure]) {
     assert.deepStrictEqual(r.warnings, [], `${s.slug}/${o} 겹침: ${r.warnings.join("; ")}`);
     assert.ok(/viewBox="0 0 \d+ \d+"/.test(r.svg));
     assert.ok(!/<svg[^>]*\swidth=/.test(r.svg), "svg에 width 속성이 있으면 안 됨");
-    assert.ok(r.svg.includes("<title") && r.svg.includes("<desc"), "접근성 title/desc 필요");
+    assert.ok(r.svg.includes("aria-label=") && !r.svg.includes("<title") && r.svg.includes("<desc"), "접근성 aria-label/desc 필요(<title> 금지)");
     assert.ok(!/#[0-9a-fA-F]{6}/.test(r.svg.replace(/<desc[\s\S]*?<\/desc>/, "")), "색은 CSS 변수만 써야 함");
   }
 }
