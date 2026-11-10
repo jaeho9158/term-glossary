@@ -29,7 +29,6 @@
   var filterInput = $("rd-paste-filter");
   var catSelect = $("rd-paste-category");
   var engCheck = $("rd-paste-english");
-  var quizLink = $("rd-paste-quiz");
   var showHiddenBtn = $("rd-paste-show-hidden");
 
   var matches = [];
@@ -71,7 +70,6 @@
     listEl.textContent = "";
     countEl.textContent = "";
     moreBtn.hidden = true;
-    quizLink.hidden = true;
     filterInput.value = "";
     filterInput.disabled = true;
     catSelect.innerHTML = '<option value="">전체 분야</option>';
@@ -148,25 +146,6 @@
     }
   }
 
-  var quizIndex = null;
-  function updateQuizLink() {
-    var go = function (index) {
-      var slugs = visibleMatches()
-        .filter(function (m) { return !m.distant && index[m.slug]; })
-        .sort(function (a, b) { return (b.count || 0) - (a.count || 0); })
-        .slice(0, 50)
-        .map(function (m) { return m.slug; });
-      if (slugs.length < 4) { quizLink.hidden = true; return; }
-      quizLink.href = "quiz.html?slugs=" + slugs.map(encodeURIComponent).join(",");
-      quizLink.hidden = false;
-    };
-    if (quizIndex) { go(quizIndex); return; }
-    fetch("data/learn/slug-index.json")
-      .then(function (r) { return r.ok ? r.json() : {}; })
-      .catch(function () { return {}; })
-      .then(function (d) { quizIndex = d || {}; go(quizIndex); });
-  }
-
   function renderPanel() {
     resultBox.hidden = false;
     var vis = visibleMatches();
@@ -178,7 +157,6 @@
     shown = pageSize();
     renderCategories();
     renderList();
-    if (vis.length) updateQuizLink(); else quizLink.hidden = true;
   }
 
   // 숨김·복원 뒤 본문 강조와 목록을 다시 그린다.

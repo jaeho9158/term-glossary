@@ -593,34 +593,6 @@
   }
 
   // ---------- 패널 ----------
-  var quizIndex = null;
-  var quizPromise = null;
-  function loadQuizIndex() {
-    if (!quizPromise) {
-      quizPromise = fetch("data/learn/slug-index.json")
-        .then(function (r) { return r.ok ? r.json() : {}; })
-        .then(function (d) { quizIndex = d || {}; return quizIndex; })
-        .catch(function () { quizIndex = {}; return quizIndex; });
-    }
-    return quizPromise;
-  }
-  async function updateQuizLink() {
-    var link = $("rd-term-quiz");
-    if (!link) return;
-    var st = S;
-    if (!st || !st.matches.length) { link.hidden = true; return; }
-    var index = quizIndex || (await loadQuizIndex());
-    if (st !== S) return;
-    var slugs = st.matches
-      .filter(function (m) { return !m.distant && !hidden.has(m.slug) && index[m.slug]; })
-      .sort(function (a, b) { return (b.count || 0) - (a.count || 0); })
-      .slice(0, 50)
-      .map(function (m) { return m.slug; });
-    if (slugs.length < 4) { link.hidden = true; return; }
-    link.href = "quiz.html?slugs=" + slugs.map(encodeURIComponent).join(",");
-    link.hidden = false;
-  }
-
   function setStatus(msg) {
     var el = $("rd-term-status");
     if (!el) return;
@@ -747,7 +719,6 @@
       count.textContent = "";
       $("rd-term-list").innerHTML = "";
       $("rd-term-more").hidden = true;
-      $("rd-term-quiz").hidden = true;
       showHidden.hidden = true;
       renderCurrentPage(0);
       renderFocus();
@@ -758,7 +729,6 @@
       count.textContent = "";
       $("rd-term-list").innerHTML = "";
       $("rd-term-more").hidden = true;
-      $("rd-term-quiz").hidden = true;
       filterInput.disabled = true;
       showHidden.hidden = true;
       renderCurrentPage(S.curPage);
@@ -782,7 +752,6 @@
     }
     showHidden.hidden = hiddenCount === 0;
     showHidden.textContent = hiddenCount ? "숨긴 용어 " + hiddenCount + "개 다시 보기" : "";
-    updateQuizLink();
   }
 
   function resetPanelUi() {
@@ -791,7 +760,6 @@
     $("rd-term-filter").value = "";
     $("rd-term-category").innerHTML = '<option value="">전체 분야</option>';
     $("rd-term-english").checked = false;
-    $("rd-term-quiz").hidden = true;
     $("rd-term-more").hidden = true;
     $("rd-term-showhidden").hidden = true;
     if ($("rd-term-uncertain")) $("rd-term-uncertain").hidden = true;

@@ -41,13 +41,6 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 
     <nav id="site-nav" class="site-nav">
       <a href="${basePath || "./"}">용어 목록</a>${viewerLink}
-      <div class="nav-dropdown">
-        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
-        <div class="nav-dropdown-menu">
-          <a href="${basePath}quiz.html">퀴즈</a>
-          <a href="${basePath}roadmap.html">로드맵</a>
-        </div>
-      </div>
       <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">연구할Lab ↗</a>
       <a href="${basePath}about.html">소개</a>${authLinks}
     </nav>

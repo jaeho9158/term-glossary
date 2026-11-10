@@ -46,14 +46,6 @@ const TOP_LEVEL_PAGES = [
   {
     loc: `${BASE_URL}/category.html`,
     filePath: "category.html"
-  },
-  {
-    loc: `${BASE_URL}/quiz.html`,
-    filePath: "quiz.html"
-  },
-  {
-    loc: `${BASE_URL}/roadmap.html`,
-    filePath: "roadmap.html"
   }
 ];
 
