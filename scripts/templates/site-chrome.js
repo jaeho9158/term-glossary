@@ -2,6 +2,7 @@ const SITE_TITLE = "논문용어사전";
 
 // 자매 사이트 — 청소년 연구자를 위한 6단계 연구 가이드. 헤더와 홈 카드에서 함께 링크한다.
 const RESEARCH_LAB_URL = "https://www.yeonguhallab.kr/";
+const RESEARCH_GUIDE_URL = "https://www.yeonguhallab.kr/guide"; // 연구할Lab 연구 가이드 목록(주제 정하기·선행연구 등)
 
 function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
   const viewerLink = navCta
@@ -41,6 +42,7 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 
     <nav id="site-nav" class="site-nav">
       <a href="${basePath || "./"}">용어 목록</a>${viewerLink}
+      <a href="${RESEARCH_GUIDE_URL}" target="_blank" rel="noopener">연구 가이드 ↗</a>
       <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">연구할Lab ↗</a>
       <a href="${basePath}about.html">소개</a>${authLinks}
     </nav>
