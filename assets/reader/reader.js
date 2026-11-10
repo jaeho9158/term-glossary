@@ -508,6 +508,7 @@
   var initFailed = false;
   var LOAD_FAIL_MSG = "리더 일부를 불러오지 못했습니다. 새로고침 해주세요.";
   bindHome();
+  root.ReaderApp = { openFile: openFile }; // oa.js(DOI·arXiv로 열기)가 같은 여는 길을 쓴다
   renderRecent();
   [
     ["ReaderPanels", function () { root.ReaderPanels.init(); }],

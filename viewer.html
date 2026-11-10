@@ -10,12 +10,12 @@
 <meta property="og:description" content="논문 본문을 붙여넣으면 등록된 학술용어를 자동으로 찾아줍니다.">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="assets/category-picker.css?v=2ef3081773">
-<link rel="stylesheet" href="assets/reader/reader.css?v=2ef3081773">
-<link rel="stylesheet" href="assets/reader/annotations.css?v=2ef3081773">
-<link rel="stylesheet" href="assets/reader/outline.css?v=2ef3081773">
-<link rel="stylesheet" href="assets/reader/biblio.css?v=2ef3081773">
-<link rel="stylesheet" href="assets/reader/preview.css?v=2ef3081773">
+<link rel="stylesheet" href="assets/category-picker.css?v=a1876439f3">
+<link rel="stylesheet" href="assets/reader/reader.css?v=a1876439f3">
+<link rel="stylesheet" href="assets/reader/annotations.css?v=a1876439f3">
+<link rel="stylesheet" href="assets/reader/outline.css?v=a1876439f3">
+<link rel="stylesheet" href="assets/reader/biblio.css?v=a1876439f3">
+<link rel="stylesheet" href="assets/reader/preview.css?v=a1876439f3">
 <!-- GA4 analytics:start -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
 <script>
@@ -87,6 +87,12 @@
   <p id="rd-home-error" class="rd-home-error" role="alert" hidden></p>
 
   <section id="rd-recent" class="rd-recent" hidden>
+  <form id="rd-oa-form" class="rd-oa-form" role="search" aria-label="DOI·arXiv로 열기">
+    <input type="text" id="rd-oa-input" class="rd-oa-input" placeholder="DOI 또는 arXiv 번호 (예: 1706.03762)" aria-label="DOI 또는 arXiv 번호" autocomplete="off" spellcheck="false">
+    <button type="submit" id="rd-oa-go" class="rd-file-label">열기</button>
+  </form>
+  <p id="rd-oa-msg" class="rd-oa-msg" role="status" aria-live="polite" hidden></p>
+
     <h2 class="rd-recent-title">최근 문서</h2>
     <ul class="rd-recent-list" id="rd-recent-list"></ul>
   </section>
@@ -152,6 +158,9 @@
       </div>
       <button type="button" id="rd-terms-toggle" class="rd-btn" aria-pressed="true" title="용어 표시 켜기/끄기">용어 표시</button>
       <button type="button" id="rd-keys-btn" class="rd-btn" aria-controls="rd-keys" title="단축키 안내 ( ? )">단축키</button>
+      <button type="button" id="rd-prior-btn" class="rd-btn" aria-controls="rd-prior" title="이 논문이 인용한 문헌 중 인용 수 상위 3편 (OpenAlex)">선행논문</button>
+      <button type="button" id="rd-ai-chatgpt" class="rd-btn" title="선택한 글(없으면 현재 쪽)을 복사하고 ChatGPT를 열어요">ChatGPT로</button>
+      <button type="button" id="rd-ai-claude" class="rd-btn" title="선택한 글(없으면 현재 쪽)을 복사하고 Claude를 열어요">Claude로</button>
     </div>
 
     <button type="button" id="rd-more" class="rd-btn rd-more" aria-expanded="false" aria-controls="rd-extra" aria-label="더보기" title="더보기">⋯</button>
@@ -192,6 +201,7 @@
       </div>
       <div role="tabpanel" class="rd-pane" id="rd-pane-terms" data-tab="terms" aria-labelledby="rd-tab-terms">
         <section id="rd-lookup" class="rd-term-block" aria-live="polite" hidden></section>
+        <section id="rd-prior" class="rd-term-block" aria-live="polite" hidden></section>
         <section id="rd-term-focus" class="rd-term-block" hidden></section>
         <p id="rd-term-status" class="rd-term-status" role="status" hidden></p>
         <input type="search" id="rd-term-filter" class="rd-term-filter" placeholder="찾은 용어 내 검색" aria-label="찾은 용어 내 검색" disabled>
@@ -271,7 +281,7 @@
 </script>
 <script>
   // 형광펜·메모 저장 계층(ES module)을 클래식 스크립트가 쓸 수 있게 window.ReaderStore 로 넘긴다. 못 불러오면 null.
-  window.ReaderStoreReady = import("./assets/pdf-annotations.js?v=2ef3081773").then(function (m) {
+  window.ReaderStoreReady = import("./assets/pdf-annotations.js?v=a1876439f3").then(function (m) {
     window.ReaderStore = {
       loadAnnotations: m.loadAnnotations,
       createAnnotation: m.createAnnotation,
@@ -284,28 +294,29 @@
 </script>
 <script src="assets/escape.js"></script>
 <script src="assets/category-data.js"></script>
-<script src="assets/category-picker.js?v=2ef3081773"></script>
-<script src="assets/viewer-storage.js?v=2ef3081773"></script>
-<script src="assets/term-match.js?v=2ef3081773"></script>
-<script src="assets/reader/doc.js?v=2ef3081773"></script>
-<script src="assets/reader/panels.js?v=2ef3081773"></script>
-<script src="assets/reader/geometry.js?v=2ef3081773"></script>
-<script src="assets/reader/ink.js?v=2ef3081773"></script>
-<script src="assets/reader/text-map.js?v=2ef3081773"></script>
-<script src="assets/reader/overlay.js?v=2ef3081773"></script>
-<script src="assets/reader/search.js?v=2ef3081773"></script>
-<script src="assets/reader/selection.js?v=2ef3081773"></script>
-<script src="assets/reader/annotations.js?v=2ef3081773"></script>
-<script src="assets/reader/terms-layer.js?v=2ef3081773"></script>
-<script src="assets/reader/nav.js?v=2ef3081773"></script>
-<script src="assets/reader/outline.js?v=2ef3081773"></script>
-<script src="assets/reader/refs.js?v=2ef3081773"></script>
-<script src="assets/reader/preview.js?v=2ef3081773"></script>
-<script src="assets/reader/biblio.js?v=2ef3081773"></script>
-<script src="assets/reader/reader.js?v=2ef3081773"></script>
-<script src="assets/reader/report.js?v=2ef3081773"></script>
-<script src="assets/reader/log.js?v=2ef3081773"></script>
-<script src="assets/reader/paste.js?v=2ef3081773"></script>
+<script src="assets/category-picker.js?v=a1876439f3"></script>
+<script src="assets/viewer-storage.js?v=a1876439f3"></script>
+<script src="assets/term-match.js?v=a1876439f3"></script>
+<script src="assets/reader/doc.js?v=a1876439f3"></script>
+<script src="assets/reader/panels.js?v=a1876439f3"></script>
+<script src="assets/reader/geometry.js?v=a1876439f3"></script>
+<script src="assets/reader/ink.js?v=a1876439f3"></script>
+<script src="assets/reader/text-map.js?v=a1876439f3"></script>
+<script src="assets/reader/overlay.js?v=a1876439f3"></script>
+<script src="assets/reader/search.js?v=a1876439f3"></script>
+<script src="assets/reader/selection.js?v=a1876439f3"></script>
+<script src="assets/reader/annotations.js?v=a1876439f3"></script>
+<script src="assets/reader/terms-layer.js?v=a1876439f3"></script>
+<script src="assets/reader/nav.js?v=a1876439f3"></script>
+<script src="assets/reader/outline.js?v=a1876439f3"></script>
+<script src="assets/reader/refs.js?v=a1876439f3"></script>
+<script src="assets/reader/preview.js?v=a1876439f3"></script>
+<script src="assets/reader/biblio.js?v=a1876439f3"></script>
+<script src="assets/reader/reader.js?v=a1876439f3"></script>
+<script src="assets/reader/report.js?v=a1876439f3"></script>
+<script src="assets/reader/log.js?v=a1876439f3"></script>
+<script src="assets/reader/oa.js?v=a1876439f3"></script>
+<script src="assets/reader/paste.js?v=a1876439f3"></script>
 <script src="assets/vendor/fuse.min.js"></script>
 <script src="assets/header-search.js"></script>
 <script type="module" src="assets/nav-auth.js"></script>
