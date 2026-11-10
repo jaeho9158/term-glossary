@@ -91,7 +91,7 @@ function renderCredit(d) {
 
 // 순수 함수: 데이터(+SVG 문자열, +svg-illus 스펙) → 블록 안쪽 HTML(한 줄씩)
 // 스펙이 있으면 기호 범례는 스펙의 legend(엔진 마크업), 없으면 데이터의 legend(옛 형식)를 쓴다.
-// d.more: 같은 페이지에 덧붙일 공용 그림(commons) 배열. id 는 illus-2, illus-3 … (병합한 용어의 그림을 옮길 때)
+// d.more: 같은 페이지에 덧붙일 그림 배열(commons, 또는 svg: x.svg 파일과 specs/<파일명>.json 을 읽음). id 는 illus-2, illus-3 … (병합한 용어의 그림을 옮길 때)
 function renderFigure(d, svgText, spec, id = "illus") {
   const errs = validate(d);
   if (errs.length) throw new Error(`${d && d.slug}: ${errs.join(", ")}`);
@@ -105,7 +105,11 @@ function renderFigure(d, svgText, spec, id = "illus") {
   const notes = (d.notes || []).map((n) => `<p class="illus-note">${n}</p>`).join("");
   const legend = spec && spec.legend ? legendHTML(spec.legend) : renderLegend(d);
   const more = id !== "illus" ? "" : (d.more || []).map((x, k) => {
-    if (x.method !== "commons") throw new Error(`${d.slug}: more 는 commons 만`);
+    if (x.method === "svg") {
+      const sv = fs.readFileSync(path.join(ROOT, x.svg), "utf8").replace(/\r\n/g, "\n");
+      const sp = JSON.parse(fs.readFileSync(path.join(SPEC_DIR, path.basename(x.svg, ".svg") + ".json"), "utf8"));
+      return "\n  " + renderFigure(x, sv, sp, `illus-${k + 2}`);
+    }
     return "\n  " + renderFigure(x, null, null, `illus-${k + 2}`);
   }).join("");
   const head = id === "illus" ? `<link rel="stylesheet" href="${CSS_HREF}">\n  ` : "";
