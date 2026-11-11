@@ -157,7 +157,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 정리</h2>
-  <ul><li>대규모 언어 모델(LLM)은 매우 많은 텍스트로 <strong>다음에 올 말을 예측하도록 학습한</strong> 신경망이다. 대부분 <a href="transformer.html">트랜스포머</a> 구조(Vaswani 등, 2017)를 쓰며, 파라미터(가중치) 수가 수십억에서 수천억 개에 이른다.</li><li>Brown 등(2020)의 GPT-3는 1,750억 개 파라미터 모델로, 예시 몇 개만 프롬프트에 넣어도 새 과제를 수행하는 ‘few-shot’ 능력을 보였다. 이후 사전학습 뒤 사람의 선호나 지시에 맞춰 추가 학습(미세조정)하는 방식이 일반화되었다.</li><li>Kaplan 등(2020)은 모델 크기, 데이터 양, 계산량을 늘릴수록 손실이 멱법칙으로 줄어든다는 경험적 규칙(스케일링 법칙)을 보고했다.</li><li>활용 방식은 프롬프트로 지시하는 방식(<a href="prompt-engineering.html">프롬프트 엔지니어링</a>), 특정 자료로 추가 학습하는 미세조정, 외부 문서를 검색해 붙이는 검색증강생성(RAG) 등이다.</li></ul><p>글은 먼저 정수 토큰으로 바뀌어 모델에 들어간다. 바이트 쌍 인코딩(BPE)은 가장 자주 붙어 나오는 기호 쌍을 반복해서 합쳐 어휘를 만드는 방식이다. 주의(attention)는 고정된 문맥 창 안에서만 작동하며, 1억 1,700만 개 파라미터의 GPT-2는 문맥 창이 약 1,000토큰이었다. 사전학습한 모델은 지시 튜닝과 사람 피드백 기반 강화학습(RLHF)으로 다듬어 지시를 따르는 보조자로 쓴다. 환각은 검색증강생성(RAG)이나 미세조정으로 줄이려는 시도가 있다.</p>
+  <ul><li>대규모 언어 모델(LLM)은 매우 많은 텍스트로 <strong>다음에 올 말을 예측하도록 학습한</strong> 신경망이다. 대부분 트랜스포머 구조(Vaswani 등, 2017)를 쓰며, 파라미터(가중치) 수가 수십억에서 수천억 개에 이른다.</li><li>Brown 등(2020)의 GPT-3는 1,750억 개 파라미터 모델로, 예시 몇 개만 프롬프트에 넣어도 새 과제를 수행하는 ‘few-shot’ 능력을 보였다. 이후 사전학습 뒤 사람의 선호나 지시에 맞춰 추가 학습(미세조정)하는 방식이 일반화되었다.</li><li>Kaplan 등(2020)은 모델 크기, 데이터 양, 계산량을 늘릴수록 손실이 멱법칙으로 줄어든다는 경험적 규칙(스케일링 법칙)을 보고했다.</li><li>활용 방식은 프롬프트로 지시하는 방식(<a href="prompt-engineering.html">프롬프트 엔지니어링</a>), 특정 자료로 추가 학습하는 미세조정, 외부 문서를 검색해 붙이는 검색증강생성(RAG) 등이다.</li></ul><p>글은 먼저 정수 토큰으로 바뀌어 모델에 들어간다. 바이트 쌍 인코딩(BPE)은 가장 자주 붙어 나오는 기호 쌍을 반복해서 합쳐 어휘를 만드는 방식이다. 주의(attention)는 고정된 문맥 창 안에서만 작동하며, 1억 1,700만 개 파라미터의 GPT-2는 문맥 창이 약 1,000토큰이었다. 사전학습한 모델은 지시 튜닝과 사람 피드백 기반 강화학습(RLHF)으로 다듬어 지시를 따르는 보조자로 쓴다. 환각은 검색증강생성(RAG)이나 미세조정으로 줄이려는 시도가 있다.</p>
 
   <h2>예시로 보기</h2>
   <p>트랜스포머 모델의 크기를 어림해 보자. Kaplan 등(2020)은 임베딩을 뺀 파라미터 수를 N ≈ 12 · L · d²로 어림했다(L은 층 수, d는 은닉 차원). GPT-3는 L = 96, d = 12,288로 알려져 있어 계산하면 12 × 96 × 12,288² ≈ 1,739억 개로, 보고된 1,750억 개와 비슷하다.</p><p>메모리도 어림할 수 있다. 파라미터마다 16비트(2바이트)로 저장하면 1,750억 × 2바이트 = 350 GB로, 단일 그래픽 카드 한 장에 올릴 수 없는 크기이다. 그래서 논문에서는 모델 병렬화나 양자화(더 적은 비트로 저장)를 쓴다고 적다. 위 계산은 저장에 필요한 최소 메모리 어림이며, 실제로는 활성값과 학습 상태 때문에 훨씬 더 필요하다.</p>
@@ -183,7 +183,7 @@
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>대규모 언어 모델</strong></th><td>대량 텍스트로 사전학습한 초대형 신경망</td><td>대상</td></tr><tr><th scope="row"><a href="transformer.html">트랜스포머</a></th><td>어텐션 기반의 신경망 구조</td><td>대부분의 LLM의 뼈대</td></tr><tr><th scope="row">환각현상</th><td>언어모델이 사실이 아닌 내용을 그럴듯하게 생성</td><td>LLM의 대표 한계</td></tr><tr><th scope="row"><a href="prompt-engineering.html">프롬프트 엔지니어링</a></th><td>모델 가중치를 바꾸지 않고 입력을 설계해 출력을 유도</td><td>사용 방식</td></tr><tr><th scope="row"><a href="machine-learning.html">머신러닝</a></th><td>데이터로부터 패턴을 학습하는 방법 전체</td><td>상위 분야</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">한 줄 설명</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>대규모 언어 모델</strong></th><td>대량 텍스트로 사전학습한 초대형 신경망</td><td>대상</td></tr><tr><th scope="row">트랜스포머</th><td>어텐션 기반의 신경망 구조</td><td>대부분의 LLM의 뼈대</td></tr><tr><th scope="row">환각현상</th><td>언어모델이 사실이 아닌 내용을 그럴듯하게 생성</td><td>LLM의 대표 한계</td></tr><tr><th scope="row"><a href="prompt-engineering.html">프롬프트 엔지니어링</a></th><td>모델 가중치를 바꾸지 않고 입력을 설계해 출력을 유도</td><td>사용 방식</td></tr><tr><th scope="row"><a href="machine-learning.html">머신러닝</a></th><td>데이터로부터 패턴을 학습하는 방법 전체</td><td>상위 분야</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30.</li>
@@ -196,15 +196,13 @@
   </ol>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><span class="rt-plain">그래프 신경망</span><span class="rt-plain">생성적 적대 신경망</span><a href="recurrent-neural-network.html">순환 신경망</a><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><a href="transformer.html">트랜스포머</a><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="neural-network.html">인공신경망</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><span class="rt-plain">그래프 신경망</span><span class="rt-plain">생성적 적대 신경망</span><span class="rt-plain">순환 신경망</span><a href="spiking-neural-network.html">스파이킹 신경망</a><a href="autoencoder.html">오토인코더</a><span class="rt-plain">트랜스포머</span><a href="perceptron.html">퍼셉트론 (Perceptron)</a><a href="convolutional-neural-network.html">합성곱 신경망</a></div></div><p class="concept-family-map"><a href="../concept-map/cs.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
-    <a href="transformer.html">트랜스포머</a>
     <a href="prompt-engineering.html">프롬프트 엔지니어링</a>
-    <a href="attention-mechanism.html">어텐션 메커니즘</a>
     <a href="neural-network.html">인공신경망</a>
-    <a href="recurrent-neural-network.html" class="related-same-field">순환 신경망</a>
-    <a href="activation-function.html" class="related-same-field">활성화 함수</a>
+    <a href="deep-learning.html" class="related-same-field">딥러닝</a>
+    <a href="perceptron.html" class="related-same-field">퍼셉트론 (Perceptron)</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/prior-research?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 선행연구 조사 가이드 →</a>

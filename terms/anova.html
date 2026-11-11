@@ -155,7 +155,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>언제 쓰나</h2>
-  <p>세 집단 이상의 평균이 모두 같은지 한 번에 검정할 때 쓴다. 집단이 둘이면 F = t²이므로 <a href="t-test.html">t검정</a>과 같은 결론이 나온다.</p><ul><li>독립변수(요인)가 하나면 일원배치, 둘이면 이원배치이고 이때는 두 요인의 <strong>상호작용</strong>도 검정한다.</li><li>같은 대상을 여러 번 재면 <a href="repeated-measures-anova.html">반복측정 분산분석</a>, 연속 공변량을 통제하려면 <a href="ancova.html">공분산분석</a>, 종속변수가 둘 이상이면 <a href="manova.html">다변량 분산분석</a>이다.</li><li>가정: 관측치의 독립, 집단별 오차의 정규성, 집단 간 등분산. 등분산이 의심되면 <a href="welch-anova.html">웰치의 분산분석</a>, 정규성·서열 자료이면 <a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a>을 고려한다. 집단별 표본 수가 같으면 등분산 위반에 더 강하다.</li></ul><p>유의하게 나온 뒤에는 어느 집단 사이에 차이가 있는지를 <a href="post-hoc-test.html">사후검정</a>(<a href="tukey-hsd-test.html">튜키 검정</a> 등)으로 따로 확인해야 한다.</p><p>피셔는 1918년 집단유전학 논문에서 분산이라는 말을 도입했고, ANOVA는 1925년 『연구자를 위한 통계 방법』으로 널리 알려졌다. F는 처치 평균제곱을 오차 평균제곱으로 나눈 값이다. 잔차의 독립성과 정규성, 집단 분산의 동일성을 가정한다.</p>
+  <p>세 집단 이상의 평균이 모두 같은지 한 번에 검정할 때 쓴다. 집단이 둘이면 F = t²이므로 <a href="t-test.html">t검정</a>과 같은 결론이 나온다.</p><ul><li>독립변수(요인)가 하나면 일원배치, 둘이면 이원배치이고 이때는 두 요인의 <strong>상호작용</strong>도 검정한다.</li><li>같은 대상을 여러 번 재면 <a href="repeated-measures-anova.html">반복측정 분산분석</a>, 연속 공변량을 통제하려면 <a href="ancova.html">공분산분석</a>, 종속변수가 둘 이상이면 <a href="manova.html">다변량 분산분석</a>이다.</li><li>가정: 관측치의 독립, 집단별 오차의 정규성, 집단 간 등분산. 등분산이 의심되면 웰치의 분산분석, 정규성·서열 자료이면 <a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a>을 고려한다. 집단별 표본 수가 같으면 등분산 위반에 더 강하다.</li></ul><p>유의하게 나온 뒤에는 어느 집단 사이에 차이가 있는지를 사후검정(<a href="tukey-hsd-test.html">튜키 검정</a> 등)으로 따로 확인해야 한다.</p><p>피셔는 1918년 집단유전학 논문에서 분산이라는 말을 도입했고, ANOVA는 1925년 『연구자를 위한 통계 방법』으로 널리 알려졌다. F는 처치 평균제곱을 오차 평균제곱으로 나눈 값이다. 잔차의 독립성과 정규성, 집단 분산의 동일성을 가정한다.</p>
 
   <h2>결과는 이렇게 읽는다</h2>
   <p>가상의 예: 세 교수법 A, B, C를 6명씩 가르친 뒤 점수를 비교했다. A = 72, 75, 78, 70, 74, 77 (평균 74.33), B = 80, 83, 79, 85, 82, 81 (평균 81.67), C = 76, 78, 74, 79, 77, 75 (평균 76.50).</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>변동 원천</th><th>제곱합</th><th>자유도</th><th>평균제곱</th><th>F</th><th>p</th></tr></thead><tbody><tr><td>집단 간</td><td>170.33</td><td>2</td><td>85.17</td><td>14.83</td><td>.0003</td></tr><tr><td>집단 내(오차)</td><td>86.17</td><td>15</td><td>5.74</td><td></td><td></td></tr><tr><td>전체</td><td>256.50</td><td>17</td><td></td><td></td><td></td></tr></tbody></table></div><ul><li><strong>F</strong> = 집단 간 평균제곱 ÷ 집단 내 평균제곱 = 85.17 / 5.74 = 14.83. 집단 평균 차이가 집단 내 흩어짐에 비해 크다는 뜻이다.</li><li><strong>자유도</strong>: 집단 간 = 집단 수 − 1 = 2, 집단 내 = 전체 N − 집단 수 = 15. F(2, 15) = 14.83, p &lt; .001.</li><li><strong>효과크기</strong>: η² = 170.33 / 256.50 = .66(전체 변동 중 집단이 설명하는 비율), 덜 편향된 ω² = .61. 관례상 η²는 .01, .06, .14를 작음·중간·큼으로 부른다(Cohen, 1988).</li><li><strong>가정 점검</strong>: 레빈 검정 p = .49로 등분산 가정을 깨는 증거는 없다.</li><li><strong>사후검정(튜키)</strong>: A–B p &lt; .001, B–C p = .005, A–C p = .29. 즉 B가 다른 두 방법보다 높지만 A와 C는 구별되지 않는다. ‘A와 B와 C가 모두 다르다’가 아니다.</li></ul><p>유의한 결과 뒤에는 튜키의 범위 검정이나 던컨의 새 다중범위 검정 같은 사후 검정으로 어느 집단이 다른지 가린다.</p>
@@ -185,7 +185,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>집단 평균을 비교하는 검정은 집단 수와 가정으로 갈린다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">언제</th><th scope="col">대표 가정 위반 시 대안</th></tr></thead><tbody><tr><th scope="row"><a href="t-test.html">t검정</a></th><td>두 집단(또는 한 집단 대 기준값)</td><td>웰치 t검정</td></tr><tr><th scope="row"><strong>분산분석(ANOVA)</strong></th><td>세 집단 이상, 등분산·정규성</td><td>웰치 ANOVA</td></tr><tr><th scope="row"><a href="welch-anova.html">웰치의 분산분석</a></th><td>세 집단 이상, 분산이 다를 수 있음</td><td>—</td></tr><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></th><td>세 집단 이상, 서열·비정규 자료</td><td>—</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">검정</th><th scope="col">언제</th><th scope="col">대표 가정 위반 시 대안</th></tr></thead><tbody><tr><th scope="row"><a href="t-test.html">t검정</a></th><td>두 집단(또는 한 집단 대 기준값)</td><td>웰치 t검정</td></tr><tr><th scope="row"><strong>분산분석(ANOVA)</strong></th><td>세 집단 이상, 등분산·정규성</td><td>웰치 ANOVA</td></tr><tr><th scope="row">웰치의 분산분석</th><td>세 집단 이상, 분산이 다를 수 있음</td><td>—</td></tr><tr><th scope="row"><a href="kruskal-wallis-test.html">크루스칼-왈리스 검정</a></th><td>세 집단 이상, 서열·비정규 자료</td><td>—</td></tr></tbody></table></div>
   <p class="te-note">“집단 평균이 같은지”를 검정하는데 이름이 ‘분산’분석인 이유는 평균 차이를 두 종류의 분산(집단 간, 집단 내)의 비로 판정하기 때문이다.</p>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
@@ -198,18 +198,17 @@
   </ol>
   <!-- term-extras:tail:end -->
 
-  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="ancova.html">공분산분석</a><a href="manova.html">다변량 분산분석</a><a href="repeated-measures-anova.html">반복측정분산분석</a><a href="welch-anova.html">웰치의 분산분석 (Welch's ANOVA)</a><a href="two-way-anova.html">이원배치 분산분석</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">하위 개념</span><div class="related-terms"><a href="ancova.html">공분산분석</a><a href="manova.html">다변량 분산분석</a><a href="repeated-measures-anova.html">반복측정분산분석</a><span class="rt-plain">웰치의 분산분석 (Welch's ANOVA)</span><a href="two-way-anova.html">이원배치 분산분석</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
   <h2>관련 용어</h2>
   <div class="related-terms">
     <a href="t-test.html">t검정</a>
     <a href="variance.html">분산</a>
-    <a href="significance-level.html">유의수준</a>
     <a href="chi-square-test.html">카이제곱검정</a>
     <a href="multicollinearity.html">다중공선성</a>
     <a href="regression.html">회귀분석</a>
-    <a href="welch-anova.html" class="related-same-field">웰치의 분산분석 (Welch&#39;s ANOVA)</a>
     <a href="repeated-measures-anova.html" class="related-same-field">반복측정분산분석</a>
     <a href="f-test.html" class="related-same-field">F검정</a>
+    <a href="ancova.html" class="related-same-field">공분산분석</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>

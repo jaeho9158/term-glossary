@@ -25,15 +25,32 @@ function unlinkHidden(html, hidden) {
 function run() {
   const dry = process.argv.includes("--dry");
   // --ga: GA4 최근 30일 "slug<탭>조회" 목록. 조회 MIN_VIEWS 이상이면 심화가 없어도 공개한다.
-  const views = new Map(fs.readFileSync(arg("--ga"), "utf8").split(/\r?\n/).filter(Boolean).map((l) => { const [k, v] = l.split("\t"); return [k, +v]; }));
+  const slugsFile = arg("--slugs");
+  const views = new Map(slugsFile ? [] : fs.readFileSync(arg("--ga"), "utf8").split(/\r?\n/).filter(Boolean).map((l) => { const [k, v] = l.split("\t"); return [k, +v]; }));
   const file = path.join(ROOT, "terms.json");
   const terms = JSON.parse(fs.readFileSync(file, "utf8"));
   const extras = new Set(fs.readdirSync(path.join(ROOT, "data", "term-extras")).map((f) => f.replace(/\.json$/, "")));
-  const isPublic = (t) => extras.has(t.slug) || (views.get(t.slug) || 0) >= MIN_VIEWS;
+  // --slugs <파일>: 한 줄에 slug 하나. 목록에 있는 용어만 숨기고(GA·심화 규칙 무시), 뷰어용 data/viewer-hidden-terms.json에 덧붙인다.
+  const listed = slugsFile ? new Set(fs.readFileSync(slugsFile, "utf8").split(String.fromCharCode(10)).map((x) => x.trim()).filter(Boolean)) : null;
+  const isPublic = listed ? (t) => !listed.has(t.slug) : (t) => extras.has(t.slug) || (views.get(t.slug) || 0) >= MIN_VIEWS;
   const kept = terms.filter(isPublic);
   const hidden = new Set(terms.filter((t) => !isPublic(t)).map((t) => t.slug));
   console.log(`전체 ${terms.length} · 공개 ${kept.length} · 숨김 ${hidden.size}`);
   if (dry) return;
+  if (listed) {
+    const vf = path.join(ROOT, "data", "viewer-hidden-terms.json");
+    const old = JSON.parse(fs.readFileSync(vf, "utf8"));
+    // generate-viewer-index.js와 같은 방식으로 전체 순서(order)를 복원한 뒤 새로 숨기는 용어의 자리를 매긴다.
+    const full = [];
+    for (const t of old) full[t.order] = t;
+    for (let i = 0, p = 0; p < terms.length; i++) if (!full[i]) full[i] = terms[p++];
+    const add = full.map((t, order) => ({ t, order })).filter(({ t }) => listed.has(t.slug) && !old.some((o) => o.slug === t.slug));
+    const missing = [...listed].filter((s) => !full.some((t) => t.slug === s));
+    if (missing.length) throw new Error("terms.json에 없는 slug: " + missing.slice(0, 5).join(", "));
+    const merged = old.concat(add.map(({ t, order }) => ({ ...t, order }))).sort((a, b) => a.order - b.order);
+    fs.writeFileSync(vf, JSON.stringify(merged));
+    console.log(`viewer-hidden-terms: ${old.length} -> ${merged.length}`);
+  }
   for (const t of kept) for (const k of ["related", "prerequisites"]) if (t[k]) t[k] = t[k].filter((s) => !hidden.has(s));
   fs.writeFileSync(file, JSON.stringify(kept, null, 2) + "\n");
   for (const s of hidden) fs.rmSync(path.join(ROOT, "terms", s + ".html"), { force: true });
