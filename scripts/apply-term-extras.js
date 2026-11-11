@@ -154,6 +154,8 @@ function renderUsage(quotes) {
       parts.push(`<li><blockquote class="te-quote">“${esc(q.quote)}”</blockquote><p class="te-cite">${esc(q.title)}, ${esc(q.journal)}, ${esc(String(q.year))}${src ? ` · ${esc(src)}` : ""} · <a href="${esc(q.url)}" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>`);
     }
     parts.push("</ul>");
+    // 실제 인용이 있으면 지어낸 예문은 싣지 않는다(applyToHtml 이 뒤따르는 예문 블록도 지운다).
+    return parts.join("\n  ");
   }
   parts.push('<h3 class="te-sub">예시 문장</h3>');
   parts.push('<p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>');
@@ -221,11 +223,31 @@ function applyToHtml(html, slug, extras, usage) {
   const h2i = out.indexOf(ANCHOR_H2);
   const eol = out.indexOf("\n", h2i) + 1;
   out = out.slice(0, eol) + wrap("usage", renderUsage(usage), false) + out.slice(eol);
+  if (usage && usage.length) out = dropExamples(out);
   r = insertBeforeLine(out, ANCHOR_H2, wrap("sections", renderSections(extras), true));
   out = r;
   if (!NAV_LINE_RE.test(out)) return null;
   out = out.replace(NAV_LINE_RE, (m, link, nl) => link + nl + CSS_LINK + nl);
   return out;
+}
+
+// usage 블록 바로 뒤의 지어낸 예문 묶음(<div class="example"> 와 풀이 <p> 줄)을 빈 줄 전까지 지운다.
+// 그 묶음에 다른 줄이 섞여 있으면 건드리지 않는다.
+function dropExamples(html) {
+  const END = "<!-- term-extras:usage:end -->";
+  const i = html.indexOf(END);
+  if (i < 0) return html;
+  const start = html.indexOf("\n", i) + 1;
+  // 빈 줄로 나뉜 예문 묶음이 여러 개일 수 있다. 예문·풀이·빈 줄만 이어지는 구간을 통째로 본다.
+  const m = html.slice(start).match(/^((?:[ \t]*(?:<(?:div class="example"|p)[^\n]*)?\r?\n)+)/);
+  if (!m) return html;
+  // 예문이 없으면 앞쪽 빈 줄만 지운다(혼합 줄바꿈에서 빈 줄이 남아 재적용 결과가 갈리지 않게).
+  if (!m[1].includes('class="example"')) {
+    const b = m[1].match(/^(?:[ \t]*\r?\n)+/);
+    return b ? html.slice(0, start) + html.slice(start + b[0].length) : html;
+  }
+  // 빈 줄도 함께 지운다(빈 줄을 남기면 stripAll 이 먹어 버려 재적용 결과가 달라진다).
+  return html.slice(0, start) + html.slice(start + m[1].length);
 }
 
 // 체크아웃 줄바꿈(CRLF/LF)과 무관하게 비교할 때 쓴다.

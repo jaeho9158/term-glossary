@@ -130,6 +130,9 @@
   <div class="category-badges">
     <a class="category-badge" href="../category/cs.html">컴퓨터과학·AI</a>
   </div>
+  <!-- reviewed:start -->
+  <p class="reviewed-badge" title="운영자가 직접 확인한 페이지예요 (2026-11-08)"><span aria-hidden="true">✓</span> 검수 완료 <time datetime="2026-11-08">2026-11-08</time></p>
+  <!-- reviewed:end -->
 
   <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
     <span class="bookmark-icon" aria-hidden="true">☆</span>
@@ -168,18 +171,7 @@
   <ul class="te-quotes">
   <li><blockquote class="te-quote">“특히, Out-Of-Bound 접근 공격을 통해 GCS의 시스템 에러를 유발하고, Buffer Overflow 공격을 수행하여 GCS 시스템 외부의 공격자가 쉘 접근 권한을 획득하는 시나리오를 제시하고 실증한다.”</blockquote><p class="te-cite">MAVLink를 이용한 UAS 공격 시나리오 분석, 정보과학회 컴퓨팅의 실제 논문지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003274892" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
   </ul>
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
   <!-- term-extras:usage:end -->
-  <div class="example">"제안하는 정적 분석 도구는 C 언어 코드에서 버퍼 오버플로우가 발생할 수 있는 경계 검사 누락 구간을 높은 정확도로 탐지했다."</div>
-  <p>이 문장은 프로그램 코드를 실행하지 않고도 분석해서(정적 분석), 배열이나 메모리 공간의 크기를 제대로 확인하지 않는 위험한 코드 구간을 자동으로 찾아냈다는 뜻이다.</p>
-
-  <div class="example">"퍼징 기반 취약점 탐지 프레임워크는 임베디드 펌웨어 바이너리에 무작위 입력을 반복적으로 주입하여 스택 기반 버퍼 오버플로우로 이어지는 크래시 지점을 다수 발견했다."</div>
-  <p>이 문장은 실제로 프로그램을 실행시키면서(동적 분석) 다양한 입력값을 무작위로 넣어보는 방식(퍼징)으로, 임베디드 기기에 들어가는 저수준 프로그램에서 버퍼 오버플로우가 발생하는 지점을 찾아냈다는 뜻이다.</p>
-
-  <div class="example">"본 연구는 Rust의 소유권 시스템을 활용해 컴파일 시점에 버퍼 오버플로우를 유발할 수 있는 메모리 접근 패턴을 원천적으로 차단하는 방법을 제시한다."</div>
-  <p>이 문장은 프로그램이 실행되기 전인 컴파일 단계에서부터 언어 차원의 규칙(소유권 시스템)으로 메모리를 잘못 다루는 코드 자체를 막아, 버퍼 오버플로우가 일어날 여지를 없애는 접근을 설명한 것이다.</p>
-
   <h2>조금 더 깊게 보면</h2>
   <p>버퍼 오버플로우는 넘치는 위치에 따라 흔히 스택 오버플로우와 힙 오버플로우로 구분되며, 특히 스택 위에서 함수의 반환 주소를 덮어써 공격자가 원하는 코드를 실행시키는 방식이 고전적으로 많이 연구되었다. 이를 막기 위한 방어 기법으로는 스택에 임의의 값(카나리)을 심어두고 함수 종료 시 값이 바뀌었는지 확인하는 스택 카나리, 메모리 주소를 매번 무작위로 배치해 공격을 어렵게 만드는 주소 공간 배치 난수화(ASLR), 데이터 영역을 실행 불가능하게 만드는 실행 방지(DEP/NX) 등이 논문에서 자주 함께 언급된다. 취약점 탐지 논문을 읽을 때는 정적 분석과 동적 분석(퍼징)이 서로 다른 장단점을 가진 상호보완적 접근이라는 점을 함께 알아두면 도움이 된다.</p>
 

@@ -59,7 +59,9 @@ test("멱등: 두 번 적용해도 같고, 마커를 지우면 원본으로 돌�
   const once = applyToHtml(PAGE, "x", EXTRAS, USAGE);
   const twice = applyToHtml(once, "x", EXTRAS, USAGE);
   assert.strictEqual(twice, once);
-  assert.strictEqual(stripAll(once), PAGE);
+  // 인용이 있으면 지어낸 예문을 지우므로 원본 복원은 인용 없는 경우로 확인한다.
+  assert.ok(!once.includes('class="example"') && !once.includes("예시 문장"));
+  assert.strictEqual(stripAll(applyToHtml(PAGE, "x", EXTRAS, [])), PAGE);
   for (const name of ["sections", "usage", "tail"]) {
     assert.strictEqual(once.split(`<!-- term-extras:${name}:start -->`).length - 1, 1, name);
   }
@@ -72,10 +74,11 @@ test("삽입 위치: 섹션은 '논문에서는' 앞, 인용은 그 제목 뒤, 
   assert.ok(at("왜 중요한가") < at("term-extras:sections:start"));
   assert.ok(at("term-extras:sections:end") < at("<h2>논문에서는 이렇게 쓰입니다</h2>"));
   assert.ok(at("<h2>논문에서는 이렇게 쓰입니다</h2>") < at("term-extras:usage:start"));
-  assert.ok(at("term-extras:usage:end") < at('<div class="example">'));
+  assert.ok(at('<div class="example">') < 0 && at("예시 문장") < 0);
+  const noQuote = applyToHtml(PAGE, "x", EXTRAS, []);
+  assert.ok(noQuote.indexOf("term-extras:usage:end") < noQuote.indexOf('<div class="example">'));
   assert.ok(at("주의할 점") < at("term-extras:tail:start"));
   assert.ok(at("term-extras:tail:end") < at("<h2>관련 용어</h2>"));
-  assert.ok(at("예시 문장") > at("실제 논문에서"));
 });
 
 test("이스케이프: 인용·표 칸·참고 문헌의 HTML 은 문자로 출력된다", () => {
@@ -125,7 +128,7 @@ test("fixes: 명시한 문구만 바꾸고, 다시 적용해도 그대로", () =
 
 test("실제 논문 인용 렌더링: 제목·학술지·연도·출처·링크, 없으면 절을 싣지 않는다", () => {
   const html = renderUsage(USAGE);
-  assert.ok(html.includes("실제 논문에서") && html.includes("예시 문장"));
+  assert.ok(html.includes("실제 논문에서") && !html.includes("예시 문장"));
   assert.ok(html.includes("학술지, 2024"));
   assert.ok(html.includes("KCI 한국학술지인용색인"));
   assert.ok(html.includes('target="_blank" rel="noopener"'));
@@ -196,7 +199,7 @@ test("머리부가 CRLF 인 페이지(혼합 줄바꿈)에도 CSS 링크가 들�
   const out = applyToHtml(crlf, "x", EXTRAS, USAGE);
   assert.ok(out.includes('term-nav.css">\r\n<link rel="stylesheet" href="../assets/term-extras.css">\r\n'));
   assert.strictEqual(applyToHtml(out, "x", EXTRAS, USAGE), out);
-  assert.strictEqual(stripAll(out), crlf);
+  assert.strictEqual(stripAll(applyToHtml(crlf, "x", EXTRAS, [])), crlf);
 });
 
 test("삽입 블록의 용어 링크는 모두 terms.json 에 있는(스텁이 아닌) 용어를 가리킨다", () => {
