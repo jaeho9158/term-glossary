@@ -10,7 +10,7 @@ const ROOT = path.join(__dirname, "..");
 const EXTRAS_DIR = path.join(ROOT, "data", "term-extras");
 const USAGE_DIR = path.join(ROOT, "data", "term-usage");
 const { ONLY, keep } = require("./helpers/test-slugs.js");
-const allSlugs = fs.readdirSync(EXTRAS_DIR).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5));
+const allSlugs = fs.readdirSync(EXTRAS_DIR).filter((f) => f.endsWith(".json")).map((f) => f.slice(0, -5)).filter((s) => fs.existsSync(path.join(ROOT, "terms", s + ".html"))); // 숨긴 용어는 페이지가 없다
 const slugs = allSlugs.filter(keep);
 const readJson = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
 
