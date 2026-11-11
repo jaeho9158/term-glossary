@@ -17,7 +17,9 @@ function checkPage(html) {
     .replace(/\s+/g, " ");
   if (body.length < MIN_BODY_CHARS) problems.push(`본문 ${body.length}자 < ${MIN_BODY_CHARS}자`);
   const examples = (main[0].match(/class="example"/g) || []).length;
-  if (examples < MIN_EXAMPLES) problems.push(`예문 ${examples}개 < ${MIN_EXAMPLES}개`);
+  // 실제 논문 인용이 있으면 지어낸 예문을 싣지 않으므로 인용 1건 이상이면 통과로 본다.
+  const quotes = (main[0].match(/class="te-quote"/g) || []).length;
+  if (!quotes && examples < MIN_EXAMPLES) problems.push(`예문 ${examples}개 < ${MIN_EXAMPLES}개`);
   for (const h of REQUIRED_H2) if (!main[0].includes(`<h2>${h}</h2>`)) problems.push(`'${h}' 섹션 없음`);
   return problems;
 }
