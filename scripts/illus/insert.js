@@ -17,6 +17,7 @@ const fs = require("fs");
 const path = require("path");
 // svg-illus는 ESM이지만 Node 22.12+ 에서는 require로 동기 로드된다.
 const { legendHTML, toHtml } = require("../svg-illus/src/index.js");
+const { syncFigureDownloadTag } = require("../lib/figure-download-tag.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const DATA_DIR = path.join(ROOT, "data", "illus");
@@ -155,7 +156,7 @@ function run() {
     const specFile = path.join(SPEC_DIR, d.slug + ".json");
     const spec = d.method === "svg" && fs.existsSync(specFile) ? JSON.parse(fs.readFileSync(specFile, "utf8")) : null;
     const html = fs.readFileSync(file, "utf8");
-    const next = applyIllus(html, renderFigure(d, svg, spec));
+    const next = syncFigureDownloadTag(applyIllus(html, renderFigure(d, svg, spec)));
     if (next === null) { console.warn(`건너뜀(정의 박스 없음): ${d.slug}`); continue; }
     done.push(d.slug);
     if (next === html) { same++; continue; }
@@ -166,7 +167,7 @@ function run() {
     const file = path.join(ROOT, "terms", slug + ".html");
     if (!fs.existsSync(file)) continue;
     const html = fs.readFileSync(file, "utf8");
-    const next = removeIllus(html);
+    const next = syncFigureDownloadTag(removeIllus(html));
     if (next !== html) { removed++; if (!dry) fs.writeFileSync(file, next); }
   }
   if (!dry) fs.writeFileSync(MANIFEST, JSON.stringify(done.sort(), null, 1) + "\n");

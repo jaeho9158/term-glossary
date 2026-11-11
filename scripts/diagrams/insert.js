@@ -15,6 +15,7 @@
 const fs = require("fs");
 const path = require("path");
 const { validateSpec, renderFigure } = require("./lib.js");
+const { syncFigureDownloadTag } = require("../lib/figure-download-tag.js");
 
 const ROOT = path.join(__dirname, "..", "..");
 const SPEC_DIR = path.join(ROOT, "diagrams", "specs");
@@ -80,7 +81,7 @@ function run() {
       console.warn(`! ${spec.slug}: ${fig.warnings.join("; ")}`);
     }
     const html = fs.readFileSync(page, "utf8");
-    const next = applyDiagram(html, fig.html);
+    const next = syncFigureDownloadTag(applyDiagram(html, fig.html));
     if (next === null) { skipped++; console.warn(`- ${spec.slug}: 정의 박스를 찾지 못해 건너뜀`); continue; }
     now.add(spec.slug);
     if (next !== html) {
@@ -94,7 +95,7 @@ function run() {
     const page = path.join(ROOT, "terms", `${slug}.html`);
     if (!fs.existsSync(page)) continue;
     const html = fs.readFileSync(page, "utf8");
-    const next = removeDiagram(html);
+    const next = syncFigureDownloadTag(removeDiagram(html));
     if (next !== html) {
       removed++;
       if (!dry) fs.writeFileSync(page, next, "utf8");
