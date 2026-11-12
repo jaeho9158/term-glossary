@@ -263,7 +263,132 @@
     draw();
   }
 
-  var KINDS = { normal: normal, ci: ci, power: power, pval: pval, corr: corr, regr: regr, tdist: tdist, clt: clt };
+  // 정규화 불완전 베타 함수(연분수, Numerical Recipes betacf)
+  function ibeta(x, a, b) {
+    if (x <= 0) return 0; if (x >= 1) return 1;
+    var bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+    function cf(x, a, b) {
+      var qab = a + b, qap = a + 1, qam = a - 1, c = 1, d = 1 - qab * x / qap; if (Math.abs(d) < 1e-30) d = 1e-30; d = 1 / d; var h = d;
+      for (var m = 1; m <= 200; m++) {
+        var m2 = 2 * m, aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+        d = 1 + aa * d; if (Math.abs(d) < 1e-30) d = 1e-30; c = 1 + aa / c; if (Math.abs(c) < 1e-30) c = 1e-30; d = 1 / d; h *= d * c;
+        aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+        d = 1 + aa * d; if (Math.abs(d) < 1e-30) d = 1e-30; c = 1 + aa / c; if (Math.abs(c) < 1e-30) c = 1e-30; d = 1 / d; var del = d * c; h *= del;
+        if (Math.abs(del - 1) < 1e-10) break;
+      }
+      return h;
+    }
+    return x < (a + 1) / (a + b + 2) ? bt * cf(x, a, b) / a : 1 - bt * cf(1 - x, b, a) / b;
+  }
+  function fSurv(f, d1, d2) { return ibeta(d2 / (d2 + d1 * f), d2 / 2, d1 / 2); } // P(F > f)
+  // 정규화 불완전 감마(급수/연분수)로 카이제곱 꼬리 확률
+  function gammaP(a, x) {
+    if (x <= 0) return 0;
+    if (x < a + 1) { var s = 1 / a, t = s; for (var n = 1; n < 300; n++) { t *= x / (a + n); s += t; if (t < s * 1e-12) break; } return s * Math.exp(-x + a * Math.log(x) - lgamma(a)); }
+    var b = x + 1 - a, c = 1e30, d = 1 / b, h = d;
+    for (var i = 1; i < 300; i++) { var an = -i * (i - a); b += 2; d = an * d + b; if (Math.abs(d) < 1e-30) d = 1e-30; c = b + an / c; if (Math.abs(c) < 1e-30) c = 1e-30; d = 1 / d; var del = d * c; h *= del; if (Math.abs(del - 1) < 1e-12) break; }
+    return 1 - Math.exp(-x + a * Math.log(x) - lgamma(a)) * h;
+  }
+  function chiPdf(x, k) { return x <= 0 ? 0 : Math.exp((k / 2 - 1) * Math.log(x) - x / 2 - (k / 2) * Math.log(2) - lgamma(k / 2)); }
+  function chiQ(p, k) { var lo = 0, hi = 200; for (var i = 0; i < 80; i++) { var m = (lo + hi) / 2; if (gammaP(k / 2, m / 2) < p) lo = m; else hi = m; } return (lo + hi) / 2; }
+
+  // 카이제곱 검정: 자유도와 검정통계량을 바꾸면 기각역과 p값이 바뀐다.
+  function chisq(host) {
+    var f = frame(host, "자유도와 카이제곱 통계량에 따른 p값 그림");
+    var draw = function () {
+      var k = +dfs.value, x = +xs.value, crit = chiQ(0.95, k), p = 1 - gammaP(k / 2, x / 2);
+      clear(f.svg);
+      var hi = Math.max(20, crit * 1.6, x * 1.1), X = axes(f.svg, 0, hi, [0, Math.round(hi / 2), Math.round(hi)]);
+      var g = function (t) { return chiPdf(t, k); }, xsr = range(0.05, hi, 220);
+      var top = Math.max.apply(null, xsr.map(g)) * 1.08, Y = function (y) { return H - PAD.b - Math.min(y, top) / top * (H - PAD.t - PAD.b); };
+      fill(f.svg, X, Y, Math.min(x, hi), hi, g, "ix-area");
+      curve(f.svg, X, Y, xsr, g, "ix-line");
+      el("line", { x1: X(crit), x2: X(crit), y1: Y(0), y2: PAD.t, class: "ix-mark" }, f.svg);
+      f.note.textContent = "자유도 " + k + "에서 χ² = " + x.toFixed(1) + "이면 p = " + (p < 0.001 ? "0.001 미만" : p.toFixed(3)) + "이다. 유의수준 5% 기준값은 " + crit.toFixed(2) + "(점선)이며, 통계량이 이보다 크면 관측도수와 기대도수가 우연 이상으로 다르다고 본다.";
+    };
+    var dfs = slider(f.ctl, "자유도", 1, 15, 1, 3, function (v) { return String(v); }, function () { draw(); });
+    var xs = slider(f.ctl, "카이제곱 값", 0, 40, 0.5, 7, fmt1, function () { draw(); });
+    draw();
+  }
+
+  // 분산분석: 세 집단 평균 차이와 집단 안 퍼짐을 바꾸면 F와 p값이 바뀐다(집단당 20명).
+  function anova(host) {
+    var f = frame(host, "집단 간 차이와 집단 내 퍼짐에 따른 F 값 그림");
+    var n = 20;
+    var draw = function () {
+      var gap = +gs.value, sd = +ss.value, means = [50 - gap, 50, 50 + gap];
+      var msb = n * (2 * gap * gap) / 2, msw = sd * sd, F = msb / msw, p = fSurv(F, 2, 3 * n - 3);
+      clear(f.svg);
+      var X = axes(f.svg, 20, 80, [20, 35, 50, 65, 80]);
+      var top = pdf(0, 0, 3), Y = function (y) { return H - PAD.b - Math.min(y, top) / top * (H - PAD.t - PAD.b); };
+      means.forEach(function (m, i) { curve(f.svg, X, Y, range(20, 80, 200), function (x) { return pdf(x, m, sd); }, i === 1 ? "ix-line" : "ix-line2"); });
+      f.note.textContent = "세 집단 평균이 " + means.join(", ") + "이고 집단 안 표준편차가 " + sd + "이면 F(2, " + (3 * n - 3) + ") = " + F.toFixed(2) + ", p = " + (p < 0.001 ? "0.001 미만" : p.toFixed(3)) + "이다. 평균 차이가 같아도 집단 안 퍼짐이 크면 F가 작아진다(집단당 20명 가정).";
+    };
+    var gs = slider(f.ctl, "평균 간격", 0, 8, 0.5, 2, fmt1, function () { draw(); });
+    var ss = slider(f.ctl, "집단 내 표준편차", 3, 15, 0.5, 8, fmt1, function () { draw(); });
+    draw();
+  }
+
+  // 오즈비: 두 집단 사건 비율을 바꾸면 오즈비와 위험비가 함께 바뀐다.
+  function oddsr(host) {
+    var f = frame(host, "두 집단의 사건 비율에 따른 오즈비와 위험비 비교");
+    var draw = function () {
+      var p1 = +a1.value / 100, p0 = +a0.value / 100;
+      var or = (p1 / (1 - p1)) / (p0 / (1 - p0)), rr = p1 / p0;
+      clear(f.svg);
+      var X = function (v) { return PAD.l + v * (W - PAD.l - PAD.r); };
+      [["노출군", p1, 60], ["비노출군", p0, 130]].forEach(function (r) {
+        el("rect", { x: X(0), y: r[2], width: X(1) - X(0), height: 34, class: "ix-bg" }, f.svg);
+        el("rect", { x: X(0), y: r[2], width: X(r[1]) - X(0), height: 34, class: "ix-bar" }, f.svg);
+        var t = el("text", { x: X(0), y: r[2] - 6, class: "ix-label" }, f.svg); t.textContent = r[0] + " 사건 비율 " + Math.round(r[1] * 100) + "%";
+      });
+      f.note.textContent = "위험비(RR)는 " + rr.toFixed(2) + ", 오즈비(OR)는 " + or.toFixed(2) + "이다. 사건이 드물면(10% 이하) 두 값이 비슷하지만, 사건이 흔할수록 오즈비가 위험비보다 1에서 더 멀어진다.";
+    };
+    var a1 = slider(f.ctl, "노출군 사건 비율", 1, 90, 1, 30, function (v) { return v + "%"; }, function () { draw(); });
+    var a0 = slider(f.ctl, "비노출군 사건 비율", 1, 90, 1, 15, function (v) { return v + "%"; }, function () { draw(); });
+    draw();
+  }
+
+  // 표준오차: 모표준편차와 표본 크기를 바꾸면 표본평균 분포의 폭(σ/√n)이 바뀐다.
+  function stderr(host) {
+    var f = frame(host, "표본 크기에 따라 좁아지는 표본평균의 분포");
+    var draw = function () {
+      var s = +ss.value, n = Math.round(Math.pow(10, +lg.value)), se = s / Math.sqrt(n);
+      clear(f.svg);
+      var X = axes(f.svg, 70, 130, [70, 85, 100, 115, 130]);
+      var top = pdf(100, 100, se), Y = function (y) { return H - PAD.b - y / top * (H - PAD.t - PAD.b); };
+      curve(f.svg, X, Y, range(70, 130, 240), function (x) { return pdf(x, 100, s); }, "ix-line2");
+      curve(f.svg, X, Y, range(70, 130, 240), function (x) { return pdf(x, 100, se); }, "ix-line");
+      f.note.textContent = "개인 값의 표준편차가 " + s + "일 때 " + n + "명의 평균은 표준오차 " + se.toFixed(2) + "(= " + s + "/√" + n + ")만큼 흔들린다. 점선은 개인 값의 분포, 실선은 표본평균의 분포다. 표본을 4배로 늘려야 표준오차가 절반이 된다.";
+    };
+    var ss = slider(f.ctl, "모표준편차", 5, 20, 1, 15, function (v) { return String(v); }, function () { draw(); });
+    var lg = slider(f.ctl, "표본 크기", 0, 2.5, 0.05, 1, function (v) { return Math.round(Math.pow(10, v)) + "명"; }, function () { draw(); });
+    draw();
+  }
+
+  // 평균으로의 회귀: 두 시험의 상관이 낮을수록 1차 상위 10% 집단의 2차 평균이 평균 쪽으로 더 돌아온다.
+  function regmean(host) {
+    var f = frame(host, "두 번 잰 점수의 상관에 따른 평균으로의 회귀 그림");
+    var r = rng(5), base = [];
+    for (var i = 0; i < 400; i++) base.push([gauss(r), gauss(r)]);
+    var draw = function () {
+      var rho = +rs.value, k = Math.sqrt(1 - rho * rho);
+      var pts = base.map(function (p) { return [p[0], rho * p[0] + k * p[1]]; });
+      var cut = pts.map(function (p) { return p[0]; }).sort(function (a, b) { return b - a; })[39];
+      var top = pts.filter(function (p) { return p[0] >= cut; });
+      var m1 = top.reduce(function (a, p) { return a + p[0]; }, 0) / top.length, m2 = top.reduce(function (a, p) { return a + p[1]; }, 0) / top.length;
+      clear(f.svg);
+      var X = axes(f.svg, -3.5, 3.5, [-3, 0, 3]), Y = function (y) { return (H - PAD.b + PAD.t) / 2 - y / 3.5 * (H - PAD.b - PAD.t) / 2; };
+      pts.forEach(function (p) { if (Math.abs(p[1]) < 3.5) el("circle", { cx: X(p[0]), cy: Y(p[1]), r: 2.2, class: p[0] >= cut ? "ix-dot" : "ix-dot2" }, f.svg); });
+      el("line", { x1: X(-3.5), y1: Y(-3.5), x2: X(3.5), y2: Y(3.5), class: "ix-line2" }, f.svg);
+      var z = function (v) { return (100 + 15 * v).toFixed(0); };
+      f.note.textContent = "두 시험 점수의 상관이 " + rho.toFixed(2) + "일 때, 1차에서 상위 10%였던 사람들(진한 점)의 평균은 1차 " + z(m1) + "점에서 2차 " + z(m2) + "점으로 평균 100점 쪽에 가까워진다(평균 100, 표준편차 15로 환산). 개입이 없어도 생기는 현상이다.";
+    };
+    var rs = slider(f.ctl, "두 시험의 상관", 0, 1, 0.05, 0.5, fmt2, function () { draw(); });
+    draw();
+  }
+
+  var KINDS = { normal: normal, ci: ci, power: power, pval: pval, corr: corr, regr: regr, tdist: tdist, clt: clt, chisq: chisq, anova: anova, oddsr: oddsr, stderr: stderr, regmean: regmean };
   var hosts = document.querySelectorAll(".ix-fig[data-ix]");
   for (var i = 0; i < hosts.length; i++) {
     var fn = KINDS[hosts[i].getAttribute("data-ix")];
