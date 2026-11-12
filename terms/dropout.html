@@ -163,16 +163,14 @@
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <!-- term-extras:usage:start -->
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼다. 제목·학술지·연도와 원문 링크를 함께 적었다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“드롭아웃 기법을 적용하여 과적합(Overfitting)을 방지하며, 다양한 학습률(Learning Rates)을 적용하여 모델의학습 및 검증 과정을 최적화하였다.”</blockquote><p class="te-cite">자생 매미 음성 분류를 위한 딥러닝 접근 : 주파수 변화 분석과 모델 최적화, 한국산학기술학회논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003104312" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“드롭아웃 방법은 크기가 큰 신경망의 과적합 문제를 해결하는 다양한 방법들 중 하나이며 매우 효과적인 방법으로 알려져 있다.”</blockquote><p class="te-cite">하이브리드 드롭아웃, 응용통계연구, 2019 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002547255" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“과적합 문제를 해결하기 위하여, 드롭아웃기법을 사용해 학습 가능한 매개변수의 수를 줄여 과적합 문제를 해결한다.”</blockquote><p class="te-cite">Dropout 기법을 이용한 방사형 기저함수신경회로망 기반 앙상블 모델 설계, 한국지능시스템학회 논문지, 2024 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003107960" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
   <!-- term-extras:usage:end -->
-  <div class="example">"모델의 과적합을 방지하기 위해 완전연결층 뒤에 드롭아웃(p=0.5)을 적용했으며, 검증 데이터에 대한 성능이 안정적으로 향상되었다."</div>
-  <p>이 문장은 "학습 과정에서 완전연결층의 뉴런 절반을 무작위로 꺼가며 학습시켰더니, 모델이 학습 데이터에만 지나치게 맞춰지는 현상이 줄었다"는 뜻이다. 여기서 p=0.5는 각 뉴런이 꺼질 확률(드롭아웃 비율)을 의미한다.</p>
-  <div class="example">"순환신경망의 은닉 상태 전이 경로에는 드롭아웃을 적용하지 않고, 입력 및 출력 연결에만 드롭아웃을 적용하여 시계열 정보 손실을 방지하였다."</div>
-  <p>순환신경망에서는 시간 축을 따라 정보가 계속 전달되는 구조 특성상 모든 연결에 드롭아웃을 적용하면 장기 의존성 학습이 어려워질 수 있어, 어느 연결에 적용할지를 신중하게 선택했다는 의미이다.</p>
-  <div class="example">"합성곱 신경망의 특징 맵 단위로 통째로 비활성화하는 공간적 드롭아웃(spatial dropout)을 적용하여 인접 픽셀 간 강한 상관관계로 인한 정규화 효과 저하를 완화하였다."</div>
-  <p>이미지처럼 인접한 값들이 비슷한 정보를 담는 데이터에서는 개별 뉴런 단위 드롭아웃보다 특징 맵 전체를 꺼버리는 변형이 더 효과적이라는 컴퓨터비전 분야의 관용적 표현이다.</p>
-
   <h2>조금 더 깊게 보면</h2>
   <p>드롭아웃은 추론 시에는 전체 뉴런을 그대로 사용하되, 학습 때 남은 출력을 유지 확률(1−p)로 나눠 미리 키워 두는 인버티드 드롭아웃(inverted dropout) 방식으로 구현하는 것이 일반적이며, 이를 통해 학습과 추론 사이의 출력 기댓값을 일치시킨다. 구조에 따라 변형도 다양한데, 순환신경망에서는 시간 축에 걸쳐 같은 마스크를 유지하는 방식이, 합성곱 신경망에서는 채널 단위로 통째로 꺼버리는 공간적 드롭아웃이 주로 쓰인다. 배치 정규화와 함께 사용할 때는 두 기법의 통계량 추정 방식이 서로 간섭할 수 있어, 적용 순서와 비율을 실험적으로 조정하는 경우가 많다.</p>
 
@@ -204,7 +202,7 @@
   </div>
 <aside class="stage-link"></aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
-  <a href="dijkstra-algorithm.html" class="term-pager-prev">← 이전: 다익스트라 알고리즘</a>
+  <a href="docker-container.html" class="term-pager-prev">← 이전: 도커 컨테이너</a>
   <a href="edge-computing.html" class="term-pager-next">다음: 엣지 컴퓨팅 →</a>
 </nav>
 </main>
