@@ -168,7 +168,7 @@
   </ul>
   <!-- term-extras:usage:end -->
   <h2>조금 더 깊게 보면</h2>
-  <p>잔차분석에서는 원래 잔차를 그대로 쓰기보다 표준화잔차나 스튜던트화잔차처럼 분산을 보정한 형태로 변환해 이상치를 더 공정하게 비교하는 경우가 많다. 또한 특정 관측치 하나가 회귀계수 추정에 지나치게 큰 영향을 미치는지를 살펴보는 <span class="rt-plain">쿡의 거리</span>와 같은 영향력 진단 지표도 잔차분석과 함께 자주 다뤄지는데, 이는 잔차가 크다고 해서 반드시 그 관측치가 결과를 왜곡시킨다는 뜻은 아니며, 반대로 잔차가 작아도 지렛대점(leverage point)처럼 모형 전체에 큰 영향을 주는 경우가 있기 때문이다.</p>
+  <p>잔차분석에서는 원래 잔차를 그대로 쓰기보다 표준화잔차나 스튜던트화잔차처럼 분산을 보정한 형태로 변환해 이상치를 더 공정하게 비교하는 경우가 많다. 또한 특정 관측치 하나가 회귀계수 추정에 지나치게 큰 영향을 미치는지를 살펴보는 <a href="cooks-distance.html">쿡의 거리</a>와 같은 영향력 진단 지표도 잔차분석과 함께 자주 다뤄지는데, 이는 잔차가 크다고 해서 반드시 그 관측치가 결과를 왜곡시킨다는 뜻은 아니며, 반대로 잔차가 작아도 지렛대점(leverage point)처럼 모형 전체에 큰 영향을 주는 경우가 있기 때문이다.</p>
 
   <h2>주의할 점</h2>
   <p>잔차분석은 한 가지 그림이나 지표만으로 끝나지 않는다. 예측값이 커짐에 따라 잔차의 흩어진 폭이 달라지면(깔때기 모양) 등분산성이 깨진 것이고(<a href="breusch-pagan-test.html">브로이시-파간 검정</a>으로 확인), 시간 순서에 따라 잔차끼리 비슷하게 움직이면 독립성이 깨진 것이며, 잔차의 분포가 대각선에서 크게 벗어나면 정규성이 깨진 것이다. 이 중 하나만 확인하고 모형이 문제없다고 단정해서는 안 된다.</p>
@@ -176,7 +176,7 @@
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>잔차에 대한 용어가 여럿이라 자주 섞인다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">용도</th></tr></thead><tbody><tr><th scope="row">잔차 분석</th><td>잔차로 모형 가정을 점검하는 절차</td><td>가정 위반 진단</td></tr><tr><th scope="row"><a href="standardized-residual.html">표준화 잔차</a></th><td>잔차를 표준편차(와 레버리지)로 나눈 값</td><td>이상치 비교</td></tr><tr><th scope="row">쿡의 거리</th><td>한 관측치를 빼면 추정값이 얼마나 변하는지</td><td>영향점 진단(잔차 + 레버리지)</td></tr><tr><th scope="row"><a href="breusch-pagan-test.html">브로이시–파간 검정</a></th><td>이분산성 검정</td><td>등분산성 확인</td></tr><tr><th scope="row"><a href="durbin-watson-test.html">더빈–왓슨 검정</a></th><td>1차 자기상관 검정</td><td>독립성 확인</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">용어</th><th scope="col">무엇인가</th><th scope="col">용도</th></tr></thead><tbody><tr><th scope="row">잔차 분석</th><td>잔차로 모형 가정을 점검하는 절차</td><td>가정 위반 진단</td></tr><tr><th scope="row"><a href="standardized-residual.html">표준화 잔차</a></th><td>잔차를 표준편차(와 레버리지)로 나눈 값</td><td>이상치 비교</td></tr><tr><th scope="row"><a href="cooks-distance.html">쿡의 거리</a></th><td>한 관측치를 빼면 추정값이 얼마나 변하는지</td><td>영향점 진단(잔차 + 레버리지)</td></tr><tr><th scope="row"><a href="breusch-pagan-test.html">브로이시–파간 검정</a></th><td>이분산성 검정</td><td>등분산성 확인</td></tr><tr><th scope="row"><a href="durbin-watson-test.html">더빈–왓슨 검정</a></th><td>1차 자기상관 검정</td><td>독립성 확인</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Anscombe, F. J., &amp; Tukey, J. W. (1963). The examination and analysis of residuals. Technometrics, 5(2), 141–160.</li>
@@ -192,6 +192,7 @@
   <div class="related-terms">
     <a href="durbin-watson-test.html">더빈-왓슨 검정</a>
     <a href="breusch-pagan-test.html">브로이시-파간 검정</a>
+    <a href="cooks-distance.html">쿡의 거리</a>
     <a href="standardized-residual.html">표준화잔차</a>
     <a href="regression.html" class="related-same-field">회귀분석</a>
     <a href="logistic-regression.html" class="related-same-field">로지스틱 회귀</a>
@@ -199,7 +200,6 @@
     <a href="simple-linear-regression.html" class="related-same-field">단순회귀분석</a>
     <a href="robust-standard-errors.html" class="related-same-field">강건표준오차</a>
     <a href="multiple-linear-regression.html" class="related-same-field">다중회귀분석</a>
-    <a href="variance-inflation-factor.html" class="related-same-field">분산팽창계수</a>
   </div>
 <aside class="stage-link">
   이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>
