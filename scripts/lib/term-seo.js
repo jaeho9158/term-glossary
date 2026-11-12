@@ -183,12 +183,14 @@ const STAGES = {
 const CAT_STAGE = { stat: "data", math: "data", method: "design", tool: "design", ethics: "submit" };
 const UTM = "utm_source=termglossary&utm_medium=referral&utm_campaign=term-stage";
 
+// 연구방법·통계처럼 단계가 분명한 분야에만 링크를 단다. 나머지는 빈 aside(다른 스크립트의 위치 기준)만 남긴다.
 function stageFor(term) {
-  return STAGES[CAT_STAGE[(term.categories || [])[0]] || "prior"];
+  return STAGES[CAT_STAGE[(term.categories || [])[0]]] || null;
 }
 
 function stageLinkHtml(term) {
   const s = stageFor(term);
+  if (!s) return `<aside class="stage-link"></aside>`;
   const href = `https://www.yeonguhallab.kr${s.path}?${UTM}`;
   return (
     `<aside class="stage-link">\n` +
