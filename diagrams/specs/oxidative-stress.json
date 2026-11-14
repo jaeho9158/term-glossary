@@ -1,77 +1,71 @@
 {
   "slug": "oxidative-stress",
-  "type": "contrast",
+  "type": "chain",
   "nodes": [
     {
-      "id": "l0",
-      "label": "균형 상태",
-      "sub": "산화제 ≈ 항산화제",
-      "color": "green",
-      "side": "left",
-      "row": 0
+      "id": "a",
+      "label": "미토콘드리아 복합체 I·III",
+      "color": "blue",
+      "sub": "전자 누출"
     },
     {
-      "id": "r0",
-      "label": "산화 스트레스",
-      "sub": "산화제 쪽으로 기움",
+      "id": "b",
+      "label": "초과산화물",
+      "color": "violet"
+    },
+    {
+      "id": "c",
+      "label": "과산화수소",
+      "color": "amber"
+    },
+    {
+      "id": "d",
+      "label": "물",
+      "color": "green",
+      "sub": "카탈라아제·글루타티온 과산화효소(GPx)·퍼옥시레독신"
+    },
+    {
+      "id": "e",
+      "label": "히드록실 라디칼",
       "color": "rose",
-      "side": "right",
-      "row": 0
-    },
-    {
-      "id": "l1",
-      "label": "활성산소의 생리 기능",
-      "sub": "신호전달·면역",
-      "color": "green",
-      "side": "left",
-      "row": 1
-    },
-    {
-      "id": "r1",
-      "label": "산화제 과다 또는",
-      "sub": "항산화 능력 부족",
-      "color": "amber",
-      "side": "right",
-      "row": 1
-    },
-    {
-      "id": "l2",
-      "label": "세포 정상 유지",
-      "sub": "",
-      "color": "green",
-      "side": "left",
-      "row": 2
-    },
-    {
-      "id": "r2",
-      "label": "DNA·단백질·지질 손상",
-      "sub": "",
-      "color": "rose",
-      "side": "right",
-      "row": 2
+      "sub": "강한 산화제"
     }
   ],
-  "edges": [],
+  "edges": [
+    {
+      "from": "a",
+      "to": "b",
+      "kind": "arrow"
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "kind": "arrow",
+      "label": "초과산화물 불균등화효소(SOD)"
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "kind": "arrow",
+      "label": "제거"
+    },
+    {
+      "from": "c",
+      "to": "e",
+      "kind": "arrow",
+      "label": "Fe²⁺(펜턴 반응)"
+    }
+  ],
   "notes": [
     {
-      "text": "목표는 활성산소 완전 제거가 아니라 균형 유지",
+      "text": "산화스트레스는 활성산소종(ROS) 생성과 항산화 방어의 불균형이다",
       "tone": "general"
     },
     {
-      "text": "대표 항산화 물질: 글루타티온(GSH)",
-      "tone": "general"
+      "text": "누출 비율과 다른 발생원은 그리지 않았다",
+      "tone": "limit"
     }
   ],
-  "legend": [
-    {
-      "sym": "GSH",
-      "desc": "글루타티온(glutathione)",
-      "kind": "abbr"
-    }
-  ],
-  "caption": "산화 스트레스를 산화제와 항산화제의 균형으로 본 그림이다. 균형이 산화제 쪽으로 기울면 DNA·단백질·지질이 손상될 수 있고, 균형 상태에서 활성산소는 신호전달·면역 같은 생리 기능에 쓰인다.",
-  "credit": "직접 작성",
-  "license": "CC BY 4.0",
-  "source": "용어 페이지 본문",
-  "reviewed": false
+  "source": "Wikipedia Oxidative stress; Wikipedia Reactive oxygen species",
+  "reviewed": true
 }
