@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<p>PID 제어는 목표값 r과 실제값 y의 오차 <code>e = r − y</code>로 제어 입력 u를 만든다.</p><p><code>u(t) = K<sub>p</sub> e(t) + K<sub>i</sub> ∫ e(τ)dτ + K<sub>d</sub> de(t)/dt</code></p><ul><li><strong>비례(P)</strong>: 지금의 오차에 비례해 반응한다. 크게 하면 빨라지지만 진동하기 쉽다.</li><li><strong>적분(I)</strong>: 쌓인 오차에 반응해 정상 상태 오차를 없앤다. 지나치면 오버슈트·진동이 커지고, 출력이 한계에 걸리면 적분이 쌓이는 와인드업이 생긴다.</li><li><strong>미분(D)</strong>: 오차의 변화 속도에 반응해 감쇠를 줄 수 있으나 센서 잡음을 증폭하므로 보통 필터를 함께 둔다.</li></ul><p>게인을 정하는 것이 튜닝이다. Ziegler와 Nichols(1942)의 방법은 비례 이득만 올려 지속 진동이 생기는 한계 이득 K<sub>u</sub>와 진동 주기 T<sub>u</sub>를 구해, P 이득 0.6K<sub>u</sub>, 적분 시간 T<sub>u</sub>/2, 미분 시간 T<sub>u</sub>/8을 시작값으로 삼는다.</p><p>‘3항 제어기(three-term controller)’라고도 한다. 목표값(설정값, SP)과 실제 공정값(PV)의 차이를 오차로 삼아 사람의 개입 없이 연속으로 조절하며, 출력 신호는 전압·전류 등으로 구동기를 직접 움직인다.</p><p>와인드업은 큰 설정값 변화 뒤 적분항이 구동기의 한계를 넘어 커져 오버슈트를 일으키는 현상이다. 흔한 대책은 공정값이 제어 가능한 범위로 돌아올 때까지 적분을 멈추거나, 적분항을 정한 한계 안에 가두거나, 출력이 실현 가능하도록 적분항을 역계산해 맞추는 것이다. 이득을 하나만 키웠을 때의 일반적 경향은 다음과 같다.</p><table><thead><tr><th>이득</th><th>상승 시간</th><th>오버슈트</th><th>정착 시간</th><th>정상 상태 오차</th></tr></thead><tbody><tr><td>K<sub>p</sub></td><td>감소</td><td>증가</td><td>변화 작음</td><td>감소</td></tr><tr><td>K<sub>i</sub></td><td>감소</td><td>증가</td><td>증가</td><td>제거</td></tr><tr><td>K<sub>d</sub></td><td>변화 작음</td><td>감소</td><td>감소</td><td>이론상 영향 없음</td></tr></tbody></table><p>불안정은 지연이 있을 때 특히 과도한 이득에서 생긴다.</p>"
+      "html": "<p>PID 제어는 목표값 r과 실제값 y의 오차 <code>e = r − y</code>로 제어 입력 u를 만든다.</p><p><code>u(t) = K<sub>p</sub> e(t) + K<sub>i</sub> ∫ e(τ)dτ + K<sub>d</sub> de(t)/dt</code></p><ul><li><strong>비례(P)</strong>: 지금의 오차에 비례해 반응한다. 크게 하면 빨라지지만 진동하기 쉽다.</li><li><strong>적분(I)</strong>: 쌓인 오차에 반응해 정상 상태 오차를 없앤다. 지나치면 오버슈트·진동이 커지고, 출력이 한계에 걸리면 적분이 쌓이는 와인드업이 생긴다.</li><li><strong>미분(D)</strong>: 오차의 변화 속도에 반응해 감쇠를 줄 수 있으나 센서 잡음을 증폭하므로 보통 필터를 함께 둔다.</li></ul><p>게인을 정하는 것이 튜닝이다. Ziegler와 Nichols(1942)의 방법은 비례 이득만 올려 지속 진동이 생기는 한계 이득 K<sub>u</sub>와 진동 주기 T<sub>u</sub>를 구해, P 이득 0.6K<sub>u</sub>, 적분 시간 T<sub>u</sub>/2, 미분 시간 T<sub>u</sub>/8을 시작값으로 삼는다.</p><p>‘3항 제어기(three-term controller)’라고도 한다. 목표값(설정값, SP)과 실제 공정값(PV)의 차이를 오차로 삼아 사람의 개입 없이 연속으로 조절하며, 출력 신호는 전압·전류 등으로 구동기를 직접 움직인다.</p><p>와인드업은 큰 설정값 변화 뒤 적분항이 구동기의 한계를 넘어 커져 오버슈트를 일으키는 현상이다. 흔한 대책은 공정값이 제어 가능한 범위로 돌아올 때까지 적분을 멈추거나, 적분항을 정한 한계 안에 가두거나, 출력이 실현 가능하도록 적분항을 역계산해 맞추는 것이다. 이득을 하나만 키웠을 때의 일반적 경향은 다음과 같다.</p><table><thead><tr><th>이득</th><th>상승 시간</th><th>오버슈트</th><th>정착 시간</th><th>정상 상태 오차</th></tr></thead><tbody><tr><td>K<sub>p</sub></td><td>감소</td><td>증가</td><td>변화 작음</td><td>감소</td></tr><tr><td>K<sub>i</sub></td><td>감소</td><td>증가</td><td>증가</td><td>제거</td></tr><tr><td>K<sub>d</sub></td><td>변화 작음</td><td>감소</td><td>감소</td><td>이론상 영향 없음</td></tr></tbody></table><p>불안정은 지연이 있을 때 특히 과도한 이득에서 생긴다.</p><p>지글러-니콜스 값을 병렬형 이득으로 환산하면 완전한 PID에서 K<sub>p</sub> = 0.60K<sub>u</sub>, K<sub>i</sub> = 1.2K<sub>u</sub>/T<sub>u</sub>, K<sub>d</sub> = 3K<sub>u</sub>T<sub>u</sub>/40이다. 이는 위 적분 시간과 미분 시간 값과 같은 결과이다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
@@ -11,7 +11,7 @@
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li><strong>이득과 구조를 적는다</strong>: K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub>(또는 T<sub>i</sub>, T<sub>d</sub>)의 값과 형식(병렬형/이상형), 샘플링 주기, 미분 필터 상수, 출력 포화와 와인드업 방지 방법.</li><li><strong>튜닝 방법을 밝힌다</strong>: 지글러-니콜스, 시행착오, 자동 튜닝 등 이득을 어떻게 정했는지.</li><li><strong>성능 지표를 표로 보인다</strong>: 상승 시간, 오버슈트(%), 정착 시간, 정상 상태 오차를 계단 응답에서 보고한다.</li><li>외란이나 모델 변화에 대한 강인성(다른 조건에서 같은 이득으로 시험한 결과)을 함께 보이면 설득력이 높아진다.</li></ul>"
+      "html": "<ul><li><strong>이득과 구조를 적는다</strong>: K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub>(또는 T<sub>i</sub>, T<sub>d</sub>)의 값과 형식(병렬형/이상형), 샘플링 주기, 미분 필터 상수, 출력 포화와 와인드업 방지 방법.</li><li><strong>튜닝 방법을 밝힌다</strong>: 지글러-니콜스, 시행착오, 자동 튜닝 등 이득을 어떻게 정했는지.</li><li><strong>성능 지표를 표로 보인다</strong>: 상승 시간, 오버슈트(%), 정착 시간, 정상 상태 오차를 계단 응답에서 보고한다.</li><li>외란이나 모델 변화에 대한 강인성(다른 조건에서 같은 이득으로 시험한 결과)을 함께 보이면 설득력이 높아진다.</li></ul><ul><li>지글러-니콜스 값은 출발점으로 쓰고, 실제 응답을 보며 조정했는지 밝힌다.</li><li>세 항 중 일부만 쓴 경우(예: PI)에는 쓰지 않은 항을 적는다.</li></ul>"
     }
   ],
   "compare": {
@@ -44,6 +44,7 @@
     "Ziegler, J. G., & Nichols, N. B. (1942). Optimum settings for automatic controllers. Transactions of the ASME, 64, 759–768.",
     "Åström, K. J., & Hägglund, T. (2006). Advanced PID Control. ISA—The Instrumentation, Systems, and Automation Society.",
     "Åström, K. J., & Murray, R. M. (2008). Feedback Systems: An Introduction for Scientists and Engineers. Princeton University Press.",
+    "SimpleFOC. (n.d.). Ziegler-Nichols tuning. SimpleFOC documentation.",
     "Wikipedia. (n.d.). Proportional–integral–derivative controller. In Wikipedia, the free encyclopedia."
   ]
 }
