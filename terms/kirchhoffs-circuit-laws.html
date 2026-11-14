@@ -153,13 +153,13 @@
 
   <!-- term-extras:sections:start -->
   <h2>핵심 주장</h2>
-  <ul><li><strong>전류법칙(KCL)</strong>: 회로의 한 접점(마디)에 들어오는 전류의 대수합은 0이다. 들어온 전류의 합과 나간 전류의 합이 같다는 말과 같다.</li><li><strong>전압법칙(KVL)</strong>: 닫힌 회로(폐로)를 한 바퀴 돌며 더한 전압 상승과 강하의 대수합은 0이다.</li><li>두 법칙은 소자의 종류와 무관하게 <em>연결 구조</em>만으로 세워지는 방정식이고, 소자의 성질은 옴의 법칙 같은 구성 방정식(<a href="ohms-law.html">옴의 법칙</a>)이 따로 제공한다. 두 가지를 합쳐 회로의 모든 전류와 전압이 결정된다.</li><li>방정식 수: 마디 n개, 가지 b개인 회로에서 독립 KCL 방정식은 n−1개, 독립 KVL 방정식은 b−n+1개이다.</li><li>실제 해석에서는 이 방정식을 마디 전압법이나 망 전류법으로 체계화한다.</li></ul>
+  <ul><li><strong>전류법칙(KCL)</strong>: 회로의 한 접점(마디)에 들어오는 전류의 대수합은 0이다. 들어온 전류의 합과 나간 전류의 합이 같다는 말과 같다.</li><li><strong>전압법칙(KVL)</strong>: 닫힌 회로(폐로)를 한 바퀴 돌며 더한 전압 상승과 강하의 대수합은 0이다.</li><li>두 법칙은 소자의 종류와 무관하게 <em>연결 구조</em>만으로 세워지는 방정식이고, 소자의 성질은 옴의 법칙 같은 구성 방정식(<a href="ohms-law.html">옴의 법칙</a>)이 따로 제공한다. 두 가지를 합쳐 회로의 모든 전류와 전압이 결정된다.</li><li>방정식 수: 마디 n개, 가지 b개인 회로에서 독립 KCL 방정식은 n−1개, 독립 KVL 방정식은 b−n+1개이다.</li><li>실제 해석에서는 이 방정식을 마디 전압법이나 망 전류법으로 체계화한다.</li></ul><h3>키르히호프 법칙</h3><p>구스타프 키르히호프(Gustav Kirchhoff)는 1845년에 전기회로의 두 법칙을 처음 설명했다. 이 법칙은 집중 소자 모델(lumped element model)의 전류와 전압을 다루며, 옴의 연구에 토대를 둔다. 전류법칙(KCL)은 접합점으로 들어오는 전류의 합이 나가는 전류의 합과 같다는 것, 곧 접합점에 모인 부호 있는 전류의 합이 0이라는 것이다. 전하 보존의 확장으로 볼 수 있다. 전압법칙(KVL)은 닫힌 회로를 따라 전위차의 합이 0이라는 것이다.</p>
 
   <h2>근거와 대표 연구</h2>
-  <p>키르히호프는 1845년 두 법칙을 처음 기술했다. 이후 두 법칙은 다음 물리 원리의 회로 버전으로 이해된다.</p><ul><li>KCL ← 전하 보존: 집중정수 소자 모형에서 접점에 전하가 쌓이지 않는다고 본다(커패시터 안의 변위전류는 소자 내부에 포함).</li><li>KVL ← 정적 전기장이 보존적이라는 성질(전위가 정의됨). 시간에 따라 변하는 자기선속이 회로를 지나면 ∮E·dl = −dΦ/dt가 되어 단순 KVL이 어긋나지만, 인덕터를 하나의 소자로 두고 그 전압 강하를 L·di/dt로 포함하면 집중정수 모형에서는 KVL이 유지된다.</li></ul><p>가상의 예이다. 12 V 전원이 2 Ω 저항을 거쳐 한 마디에 이르고, 거기서 6 Ω와 3 Ω 저항이 병렬로 접지에 연결된다. 마디 전압을 V라 하면 KCL은 (12 − V)/2 = V/6 + V/3이고, 풀면 V = 6.0 V이다. 그러면 I<sub>1</sub> = 3.0 A, I<sub>2</sub> = 1.0 A, I<sub>3</sub> = 2.0 A이며 KCL(3.0 = 1.0 + 2.0)과 KVL(12 − 6.0 − 6.0 = 0.0)이 모두 만족한다. 회로 시뮬레이터(SPICE 계열)의 내부 계산도 이런 방정식을 수정 마디법(Ho et al., 1975)으로 체계화해 푸는 과정이다.</p><p>두 법칙은 맥스웰 방정식의 저주파 극한에서 따라 나오는 결과로 볼 수 있다. KCL은 전하 보존에, KVL은 저주파 극한에서 패러데이 유도 법칙에 바탕을 둔다. 직류 회로와, 회로 크기에 비해 파장이 아주 긴 교류 회로에서 정확하다. KCL의 행렬 꼴은 SPICE 같은 대부분의 회로 시뮬레이터의 바탕이며, 옴의 법칙과 합치면 마디 해석이 된다.</p>
+  <p>키르히호프는 1845년 두 법칙을 처음 기술했다. 이후 두 법칙은 다음 물리 원리의 회로 버전으로 이해된다.</p><ul><li>KCL ← 전하 보존: 집중정수 소자 모형에서 접점에 전하가 쌓이지 않는다고 본다(커패시터 안의 변위전류는 소자 내부에 포함).</li><li>KVL ← 정적 전기장이 보존적이라는 성질(전위가 정의됨). 시간에 따라 변하는 자기선속이 회로를 지나면 ∮E·dl = −dΦ/dt가 되어 단순 KVL이 어긋나지만, 인덕터를 하나의 소자로 두고 그 전압 강하를 L·di/dt로 포함하면 집중정수 모형에서는 KVL이 유지된다.</li></ul><p>가상의 예이다. 12 V 전원이 2 Ω 저항을 거쳐 한 마디에 이르고, 거기서 6 Ω와 3 Ω 저항이 병렬로 접지에 연결된다. 마디 전압을 V라 하면 KCL은 (12 − V)/2 = V/6 + V/3이고, 풀면 V = 6.0 V이다. 그러면 I<sub>1</sub> = 3.0 A, I<sub>2</sub> = 1.0 A, I<sub>3</sub> = 2.0 A이며 KCL(3.0 = 1.0 + 2.0)과 KVL(12 − 6.0 − 6.0 = 0.0)이 모두 만족한다. 회로 시뮬레이터(SPICE 계열)의 내부 계산도 이런 방정식을 수정 마디법(Ho et al., 1975)으로 체계화해 푸는 과정이다.</p><p>두 법칙은 맥스웰 방정식의 저주파 극한에서 따라 나오는 결과로 볼 수 있다. KCL은 전하 보존에, KVL은 저주파 극한에서 패러데이 유도 법칙에 바탕을 둔다. 직류 회로와, 회로 크기에 비해 파장이 아주 긴 교류 회로에서 정확하다. KCL의 행렬 꼴은 SPICE 같은 대부분의 회로 시뮬레이터의 바탕이며, 옴의 법칙과 합치면 마디 해석이 된다.</p><h3>키르히호프 법칙</h3><p>KCL은 마디 해석(nodal analysis)과 SPICE 같은 회로 시뮬레이터의 바탕이다. 저주파 극한에서 KVL은 패러데이 법칙에서 나오는데, 소자 밖에서는 전기장이 보존장이기 때문이다.</p>
 
   <h2>비판과 한계</h2>
-  <p>키르히호프의 법칙은 정확한 물리 법칙이 아니라 <strong>집중정수 모형 안에서 성립하는 법칙</strong>이다.</p><ul><li>회로 크기가 신호 파장에 견줄 만큼 커지면(고주파, 긴 전송선, 마이크로파) 전류와 전압이 위치마다 달라져 마디·폐로 개념이 무너지고, 맥스웰 방정식이나 분포정수(전송선) 모형이 필요하다.</li><li>시간에 따라 변하는 자기장이 폐로를 관통하는 경우(변압기, 전자기 간섭) 외부 결합 전압을 소자로 모형화해 포함하지 않으면 KVL이 어긋난다.</li><li>법칙이 성립해도 소자 모형이 틀리면 결과가 틀린다. 예를 들어 다이오드나 트랜지스터의 비선형 특성은 구성 방정식에서 다룬다.</li><li>같은 이름이 붙은 키르히호프의 복사법칙은 열복사의 흡수율과 방출율에 관한 전혀 다른 법칙이다.</li></ul><p>전류 방향과 전압 극성의 부호 약속을 일관되게 쓰지 않는 것이 학습자와 논문에서 흔한 실수이다.</p><p>회로 부분 사이의 전기장을 무시할 수 없을 때(정전 결합된 전선, 고주파 전송선)는 KCL도 어긋날 수 있다. KVL은 시간에 따라 변하는 자기장이 인덕터 같은 개별 소자 안에 갇혀 있다는 가정에 기댄다.</p>
+  <p>키르히호프의 법칙은 정확한 물리 법칙이 아니라 <strong>집중정수 모형 안에서 성립하는 법칙</strong>이다.</p><ul><li>회로 크기가 신호 파장에 견줄 만큼 커지면(고주파, 긴 전송선, 마이크로파) 전류와 전압이 위치마다 달라져 마디·폐로 개념이 무너지고, 맥스웰 방정식이나 분포정수(전송선) 모형이 필요하다.</li><li>시간에 따라 변하는 자기장이 폐로를 관통하는 경우(변압기, 전자기 간섭) 외부 결합 전압을 소자로 모형화해 포함하지 않으면 KVL이 어긋난다.</li><li>법칙이 성립해도 소자 모형이 틀리면 결과가 틀린다. 예를 들어 다이오드나 트랜지스터의 비선형 특성은 구성 방정식에서 다룬다.</li><li>같은 이름이 붙은 키르히호프의 복사법칙은 열복사의 흡수율과 방출율에 관한 전혀 다른 법칙이다.</li></ul><p>전류 방향과 전압 극성의 부호 약속을 일관되게 쓰지 않는 것이 학습자와 논문에서 흔한 실수이다.</p><p>회로 부분 사이의 전기장을 무시할 수 없을 때(정전 결합된 전선, 고주파 전송선)는 KCL도 어긋날 수 있다. KVL은 시간에 따라 변하는 자기장이 인덕터 같은 개별 소자 안에 갇혀 있다는 가정에 기댄다.</p><h3>키르히호프 법칙</h3><p>두 법칙은 집중 소자 모델이 맞을 때만 성립한다. 고주파 회로나 전송선처럼 회로 부분들 사이의 전기장이 무시되지 않으면 KCL이 깨질 수 있다. KVL은 시간에 따라 변하는 자기장이 인덕터 같은 개별 소자 안에 갇혀 있어야 성립한다. 논문에서 이 법칙을 쓸 때는 집중 소자 근사가 맞는 주파수와 크기 범위인지를 함께 밝히는 것이 안전하다.</p>
   <!-- term-extras:sections:end -->
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
@@ -181,12 +181,12 @@
   <p>커패시터나 인덕터처럼 시간에 따라 변하는 소자가 있으면 이 연립방정식은 미분방정식 형태가 되며, 이를 상태공간 모델로 표현해 컴퓨터로 수치해석하는 것이 일반적이다. 또한 교류 회로에서는 전류·전압을 페이저(phasor)로 표현해 임피던스 개념과 함께 KCL·KVL을 적용하는 것이 표준적인 접근이다.</p>
 
   <h2>주의할 점</h2>
-  <p>키르히호프의 법칙은 전하량과 에너지가 보존된다는 물리적 원리에서 나온 것이며, 이상적인 집중정수 회로(회로 소자의 크기가 신호 파장에 비해 충분히 작다고 가정하는 경우)에서 성립한다. 고주파 회로처럼 신호의 파장이 회로 크기와 비슷해지면 <a href="impedance.html">임피던스</a>와 전자기파 효과까지 고려해야 하므로 이 법칙만으로는 정확한 해석이 어려워질 수 있다.</p>
+  <p>키르히호프의 법칙은 전하량과 에너지가 보존된다는 물리적 원리에서 나온 것이며, 이상적인 집중정수 회로(회로 소자의 크기가 신호 파장에 비해 충분히 작다고 가정하는 경우)에서 성립한다. 고주파 회로처럼 신호의 파장이 회로 크기와 비슷해지면 <a href="impedance-admittance.html">임피던스</a>와 전자기파 효과까지 고려해야 하므로 이 법칙만으로는 정확한 해석이 어려워질 수 있다.</p>
 
   <!-- term-extras:tail:start -->
   <h2>헷갈리기 쉬운 용어</h2>
   <p>회로 해석에는 이름이 비슷하거나 함께 쓰이는 법칙·정리가 모여 있다.</p>
-  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">이름</th><th scope="col">다루는 것</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>키르히호프의 법칙(KCL·KVL)</strong></th><td>접점의 전류, 폐로의 전압</td><td>연결 구조에서 방정식을 세움</td></tr><tr><th scope="row"><a href="ohms-law.html">옴의 법칙</a></th><td>한 저항의 전압–전류 관계</td><td>소자 특성(구성 방정식)</td></tr><tr><th scope="row"><a href="thevenins-theorem.html">테브난 정리</a></th><td>선형 회로를 전압원+저항으로 단순화</td><td>KCL·KVL로 도출한 해석 결과</td></tr><tr><th scope="row"><a href="thevenin-norton-theorem.html">테브난-노턴 정리</a></th><td>전압원형과 전류원형 등가</td><td>서로 변환 가능한 두 등가</td></tr><tr><th scope="row">키르히호프의 복사법칙</th><td>열복사의 흡수율=방출율</td><td>같은 이름의 다른 법칙</td></tr></tbody></table></div>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th scope="col">이름</th><th scope="col">다루는 것</th><th scope="col">관계</th></tr></thead><tbody><tr><th scope="row"><strong>키르히호프의 법칙(KCL·KVL)</strong></th><td>접점의 전류, 폐로의 전압</td><td>연결 구조에서 방정식을 세움</td></tr><tr><th scope="row"><a href="ohms-law.html">옴의 법칙</a></th><td>한 저항의 전압–전류 관계</td><td>소자 특성(구성 방정식)</td></tr><tr><th scope="row"><a href="thevenin-norton-theorem.html">테브난 정리</a></th><td>선형 회로를 전압원+저항으로 단순화</td><td>KCL·KVL로 도출한 해석 결과</td></tr><tr><th scope="row"><a href="thevenin-norton-theorem.html">테브난-노턴 정리</a></th><td>전압원형과 전류원형 등가</td><td>서로 변환 가능한 두 등가</td></tr><tr><th scope="row">키르히호프의 복사법칙</th><td>열복사의 흡수율=방출율</td><td>같은 이름의 다른 법칙</td></tr></tbody></table></div>
   <h2>참고 문헌</h2>
   <ol class="te-refs">
     <li>Kirchhoff, G. (1847). Ueber die Auflösung der Gleichungen, auf welche man bei der Untersuchung der linearen Vertheilung galvanischer Ströme geführt wird. Annalen der Physik und Chemie, 72, 497–508.</li>
@@ -194,6 +194,7 @@
     <li>Ho, C.-W., Ruehli, A. E., &amp; Brennan, P. A. (1975). The modified nodal approach to network analysis. IEEE Transactions on Circuits and Systems, 22(6), 504–509.</li>
     <li>Alexander, C. K., &amp; Sadiku, M. N. O. (2017). Fundamentals of Electric Circuits (6th ed.). McGraw-Hill.</li>
     <li>Wikipedia contributors. (n.d.). Kirchhoff's circuit laws. Wikipedia.</li>
+    <li>Wikipedia contributors. (n.d.). Thévenin's theorem. Wikipedia.</li>
   </ol>
   <!-- term-extras:tail:end -->
 
@@ -201,13 +202,12 @@
   <div class="related-terms">
     <a href="power-factor.html">역률</a>
     <a href="capacitance.html">커패시턴스</a>
-    <a href="thevenins-theorem.html" class="related-same-field">테브난 정리</a>
     <a href="oscillator-circuit.html" class="related-same-field">발진회로</a>
   </div>
 <aside class="stage-link"></aside>
 <nav class="term-pager" aria-label="용어 이전/다음">
   <a href="isothermal-process.html" class="term-pager-prev">← 이전: 등온과정</a>
-  <a href="kirchhoffs-laws.html" class="term-pager-next">다음: 키르히호프 법칙 →</a>
+  <a href="lean-manufacturing.html" class="term-pager-next">다음: 린 생산방식 →</a>
 </nav>
 </main>
 

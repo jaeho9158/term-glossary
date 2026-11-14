@@ -624,6 +624,8 @@ function run() {
   const publicTerms = JSON.parse(fs.readFileSync(SOURCE, "utf8"));
   for (const t of hiddenTerms) terms[t.order] = t;
   for (let i = 0, p = 0; p < publicTerms.length; i++) if (!terms[i]) terms[i] = publicTerms[p++];
+  // 병합으로 공개 용어가 줄면 숨긴 용어의 order 사이에 빈칸이 남는다 — 순서는 지키고 빈칸만 없앤다.
+  for (let i = terms.length - 1; i >= 0; i--) if (!terms[i]) terms.splice(i, 1);
   const oa = loadOaStats();
 
   const categoryCodes = [];
