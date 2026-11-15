@@ -3,19 +3,20 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>튜키 검정(Tukey's range test, Tukey HSD)은 여러 쌍의 평균을 한 번에 비교하는 단일 단계 다중비교 절차이다. 비교 대상 평균이 가장 극단적인 값으로 선택된 경우에도, 두 집단 평균 차이의 유의성을 판단하도록 설계되었다.</p>"
+      "html": "<p>튜키 검정(Tukey's range test, Tukey HSD)은 여러 쌍의 평균을 한 번에 비교하는 단일 단계 다중비교 절차이다. 비교 대상 평균이 가장 극단적인 값으로 선택된 경우에도, 두 집단 평균 차이의 유의성을 판단하도록 설계되었다.</p><p>이 검정은 Tukey's test, Tukey method, Tukey's honest significance test 같은 이름으로도 불린다. 튜키가 분산분석(ANOVA)에서 쓰도록 개발했고 보통 ANOVA와 연결해서만 가르쳐 왔다. 그러나 유의 수준 판정에 쓰는 스튜던트화 범위 분포(studentized range distribution)는 적용 범위가 훨씬 넓다. 자료를 훑어 눈에 띄는 집단 차이를 찾은 뒤에는, 무작위로 뽑았다는 전제의 일반 분포로 그 차이의 유의성을 판단할 수 없다. 눈에 띄는 값은 극단적이어서 골라낸 것이므로 더 엄격한 해석이 필요하고, 위키백과는 데이터 마이닝을 그 예로 든다. 이 검정은 가능한 모든 쌍의 평균을 비교한다.</p>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
-      "html": "<p>결과는 쌍마다 평균 차이, 신뢰구간, 보정된 p값으로 제시된다. 보정된 p값이 유의수준보다 작거나 신뢰구간이 0을 포함하지 않으면 그 두 집단의 평균이 다르다고 읽는다.</p>"
+      "html": "<p>결과는 쌍마다 평균 차이, 신뢰구간, 보정된 p값으로 제시된다. 보정된 p값이 유의수준보다 작거나 신뢰구간이 0을 포함하지 않으면 그 두 집단의 평균이 다르다고 읽는다.</p><p>튜키 검정의 가정은 세 가지이다. 관측치가 집단 안과 집단 사이에서 독립이고, 각 집단이 정규분포를 따르며, 집단 안 분산이 집단마다 같다(등분산성).</p><ul><li>검정통계량은 q<sub>s</sub> = |Y<sub>A</sub> − Y<sub>B</sub>| / SE로, t 검정과 식이 매우 비슷하다. 다만 가족별 오류율(family-wise error rate)을 보정한다는 점이 다르다.</li><li>q<sub>s</sub>를 스튜던트화 범위 분포표의 유의수준 α에 해당하는 임계값 q<sub>α</sub>와 비교하여, 더 크면 두 평균이 유의수준 α에서 다르다고 본다.</li><li>이 분포는 α, 비교하는 집단 수 k, 각 평균의 자유도 df = N − k의 세 가지로 정해진다. R에는 ptukey와 qtukey 함수가 있다.</li><li>모든 집단의 표본 크기가 같으면 신뢰계수가 정확히 1 − α이다. 표본 크기가 다르면 1 − α보다 커서 방법이 보수적이다.</li></ul>"
     },
     {
       "heading": "논문에는 이렇게 보고한다",
-      "html": "<ul><li>검정 이름은 Tukey 또는 Tukey HSD로 쓰고, 다중비교 절차임을 밝힌다.</li><li>원전은 Tukey, J. W. (1949), Comparing Individual Means in the Analysis of Variance, Biometrics 5(2)이다.</li></ul>"
+      "html": "<ul><li>검정 이름은 Tukey 또는 Tukey HSD로 쓰고, 다중비교 절차임을 밝힌다.</li><li>원전은 Tukey, J. W. (1949), Comparing Individual Means in the Analysis of Variance, Biometrics 5(2)이다.</li></ul><ul><li>표본 크기가 다르면 쌍마다 표준편차를 따로 계산하는 방법을 써야 하며, 이를 1956년 클라이드 크레이머(Clyde Kramer)가 정리한 Tukey–Kramer 방법이라 한다. 어느 쪽을 썼는지 방법에 적어 둔다.</li><li>결과 뒤에 Compact Letter Display(CLD)를 붙이면 통계 비전문가도 결과를 읽기 쉽다.</li><li>ANOVA와 Tukey–Kramer 검정은 같은 가정을 쓰지만, 집단이 셋 이상(k &gt; 2)이면 결과가 논리적으로 어긋날 수 있다. 예컨대 μ<sub>1</sub> = μ<sub>2</sub>는 기각되는데 μ<sub>1</sub> = μ<sub>2</sub> = μ<sub>3</sub>은 기각되지 않는 경우가 만들어질 수 있다.</li><li>참고서로 Montgomery(2013)의 3.5.7절이 소개된다.</li></ul>"
     }
   ],
   "references": [
     "Wikipedia contributors. (n.d.). Tukey's range test. Wikipedia (English).",
-    "Tukey, J. W. (1949). Comparing individual means in the analysis of variance. Biometrics, 5(2)."
+    "Tukey, J. W. (1949). Comparing individual means in the analysis of variance. Biometrics, 5(2).",
+    "Montgomery, D. C. (2013). Design and analysis of experiments (8th ed.). Wiley."
   ]
 }
