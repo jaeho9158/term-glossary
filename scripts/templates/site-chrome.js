@@ -42,8 +42,7 @@ function renderHeader(basePath, { navCta = true, authNav = true } = {}) {
 
     <nav id="site-nav" class="site-nav">
       <a href="${basePath || "./"}">용어 목록</a>${viewerLink}
-      <a href="${RESEARCH_GUIDE_URL}" target="_blank" rel="noopener">연구 가이드 ↗</a>
-      <a href="${RESEARCH_LAB_URL}" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="${RESEARCH_GUIDE_URL}" target="_blank" rel="noopener">연구할Lab ↗</a>
       <a href="${basePath}about.html">소개</a>${authLinks}
     </nav>
   </div>
