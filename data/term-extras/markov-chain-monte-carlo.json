@@ -3,19 +3,20 @@
   "sections": [
     {
       "heading": "어떤 절차인가",
-      "html": "<ul><li>MCMC는 평형 분포가 목표 분포와 같아지도록 마르코프 연쇄를 만들어 그 분포에서 표본을 얻는다.</li><li>메트로폴리스(Metropolis) 알고리즘이 1953년에 나왔고, 헤이스팅스(Hastings)가 1970년에 일반화했다.</li><li>깁스 표집(Gibbs sampling)은 각 좌표를 전체 조건부 분포에서 갱신한다.</li></ul>"
+      "html": "<ul><li>MCMC는 평형 분포가 목표 분포와 같아지도록 마르코프 연쇄를 만들어 그 분포에서 표본을 얻는다.</li><li>메트로폴리스(Metropolis) 알고리즘이 1953년에 나왔고, 헤이스팅스(Hastings)가 1970년에 일반화했다.</li><li>깁스 표집(Gibbs sampling)은 각 좌표를 전체 조건부 분포에서 갱신한다.</li></ul><p>MCMC는 적분이 너무 복잡하거나 차원이 너무 높아 해석적 방법만으로 다루기 어려운 분포를 연구하는 데 쓰인다. 실제로는 서로 충분히 멀리 떨어진 임의의 점들에서 출발한 여러 사슬의 앙상블을 만들며, 이 ‘걷는 자(walker)’들은 적분에 기여가 큰 곳에 더 높은 확률을 주어 이동한다. 메트로폴리스 알고리즘은 메트로폴리스(Nicholas Metropolis), Arianna W. Rosenbluth, Marshall Rosenbluth, Augusta H. Teller, Edward Teller가 1953년에 제안했고, 고차원 적분 문제를 초기 컴퓨터로 풀기 위한 것이었다. 헤이스팅스는 이를 일반화하면서 뜻하지 않게 성분별 갱신 개념을 넣었고, 이것이 나중에 깁스 표집으로 불렸다.</p>"
     },
     {
       "heading": "언제 쓰고 무엇을 얻나",
-      "html": "<p>수렴 진단으로는 겔먼-루빈(Gelman-Rubin) 지표인 PSRF(R-hat)가 1.1보다 작으면 수렴으로 보는 관행이 흔하다. 베흐타리(Vehtari) 등(2019, 최신판 2021)은 꼬리가 두꺼운 사슬에서는 통상의 R-hat이 실패한다고 보고, 순위 정규화 R-hat과 순위 도표를 제안했다.</p>"
+      "html": "<p>수렴 진단으로는 겔먼-루빈(Gelman-Rubin) 지표인 PSRF(R-hat)가 1.1보다 작으면 수렴으로 보는 관행이 흔하다. 베흐타리(Vehtari) 등(2019, 최신판 2021)은 꼬리가 두꺼운 사슬에서는 통상의 R-hat이 실패한다고 보고, 순위 정규화 R-hat과 순위 도표를 제안했다.</p><p>고전적 몬테카를로의 표본은 통계적으로 독립이지만 MCMC의 표본은 자기상관이 있어서, 평균의 오차를 추정할 때 마르코프 연쇄 중심극한정리가 필요하다. 양의 자기상관은 추정량의 분산을 키우고 표본 평균의 수렴을 늦춘다. 이를 유효 표본 크기로 나타내는데, N<sub>eff</sub> = N / (1 + 2Σρ<sub>k</sub>)이고 ρ<sub>k</sub>는 시차 k의 자기상관이다. 분모가 5이면 길이 N의 사슬은 독립 표본 N/5개에 해당하는 정보를 담는다. 따라서 매개변수마다 유효 표본 크기를 확인하는 것이 상관의 정도를 가늠하는 방법이며, 값이 낮으면 반복이 훨씬 더 필요할 수 있다.</p><p>이론적으로 큰 수의 법칙에는 해리스 재귀성이 필요하고, 중심극한정리에는 비주기성, 기약성과 함께 가역성 같은 추가 조건이 필요하다고 정리된다. 가역성은 상세 균형 조건과 동치이다.</p>"
     },
     {
       "heading": "논문에는 이렇게 적는다",
-      "html": "<ul><li>사슬의 수와 수렴 진단 지표, 그 판정 기준을 함께 적는다.</li><li>R-hat을 순위 정규화한 형태로 계산했는지 밝힌다.</li></ul>"
+      "html": "<ul><li>사슬의 수와 수렴 진단 지표, 그 판정 기준을 함께 적는다.</li><li>R-hat을 순위 정규화한 형태로 계산했는지 밝힌다.</li></ul><ul><li>재매개변수화: 계층 베이즈 모형에서 중심화 대신 비중심화 매개변수화를 쓰면 잠재 변수와 상위 매개변수 사이의 극단적 사후 상관을 피해 혼합이 크게 좋아진다.</li><li>제안 보폭 조정: 메트로폴리스-헤이스팅스에서 보폭이 너무 작으면 느리게 움직여 상관이 큰 표본이 나오고, 너무 크면 제안 대부분이 기각되어 같은 값이 반복된다.</li><li>매개변수 블록화와 과이완: 강하게 상관된 매개변수를 한꺼번에 갱신하거나, 현재 표본을 조건부 평균에 대해 반사한 제안으로 연속 표본 사이의 상관을 줄인다.</li><li>알고리즘 선택: 깁스 표집은 채택률이 항상 1인 메트로폴리스-헤이스팅스의 특수 경우로 볼 수 있고 튜닝이 필요 없다. 해밀턴 몬테카를로는 보조 운동량 벡터와 해밀턴 역학으로 무작위 걸음을 피해 더 큰 보폭으로 덜 상관된 제안을 만든다. 가역 도약은 공간의 차원을 바꾸는 제안을 허용한다.</li></ul><p>차원이 올라가면 MCMC도 차원의 저주를 겪어, 확률이 높은 영역이 점점 늘어나는 부피 속에서 길을 잃는다.</p>"
     }
   ],
   "references": [
     "Wikipedia contributors. (n.d.). Markov chain Monte Carlo. Wikipedia.",
-    "Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Bürkner, P.-C. (2019). Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC. arXiv."
+    "Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., &amp; Bürkner, P.-C. (2019). Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC. arXiv.",
+    "Wikipedia contributors. (2026). Markov chain Monte Carlo. In Wikipedia, The Free Encyclopedia."
   ]
 }
