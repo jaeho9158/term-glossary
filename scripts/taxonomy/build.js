@@ -19,6 +19,7 @@ const P_START = "<!-- concept-path:start -->", P_END = "<!-- concept-path:end --
 const F_START = "<!-- concept-family:start -->", F_END = "<!-- concept-family:end -->";
 const P_BLOCK = /(?:\r?\n)?[ \t]*<!-- concept-path:start -->[\s\S]*?<!-- concept-path:end -->/;
 const F_BLOCK = /(?:\r?\n)?[ \t]*<!-- concept-family:start -->[\s\S]*?<!-- concept-family:end -->/;
+const F_BLOCK_TRAIL = /[ \t]*<!-- concept-family:start -->[\s\S]*?<!-- concept-family:end -->(?:\r?\n)?/;
 const SIBLING_MAX = 12;
 const BRANCH_ROWS_MAX = 8; // 개념 지도 카드에서 갈래를 행으로 펼치는 상한
 const CARD_WIDE_MIN = 16; // 이 크기 이상인 계통 카드는 격자 한 줄을 다 쓴다
@@ -91,14 +92,24 @@ function familyHtml(slug, links, idx, titles, mapHref) {
 // 순수 함수(테스트 대상)
 function applyBlocks(html, pathBlock, familyBlock) {
   const nl = html.includes("\r\n") ? "\r\n" : "\n";
-  let out = html.replace(P_BLOCK, "").replace(F_BLOCK, "");
-  if (pathBlock) {
+  let out = html;
+  // 이미 있는 블록은 제자리에서 바꾼다(다른 스크립트가 앞뒤를 손본 페이지에서 위치가 밀리지 않게).
+  const inPlace = (re, start, end, inner) => {
+    if (!inner || !re.test(out)) return false;
+    out = out.replace(re, (m) => m.replace(/<!-- concept-[a-z]+:start -->[\s\S]*<!-- concept-[a-z]+:end -->/, () => `${start}${inner}${end}`));
+    return true;
+  };
+  const pDone = inPlace(P_BLOCK, P_START, P_END, pathBlock), fDone = inPlace(F_BLOCK, F_START, F_END, familyBlock);
+  if (!pathBlock) out = out.replace(P_BLOCK, "");
+  // 삽입 때 블록 뒤에 줄바꿈을 붙였으므로 걷을 때도 뒤 줄바꿈까지 걷는다(CRLF·LF 섞인 페이지에서 고아 줄바꿈 방지).
+  if (!familyBlock) out = out.replace(F_BLOCK_TRAIL, "");
+  if (pathBlock && !pDone) {
     const m = /<h1>[\s\S]*?<\/h1>/.exec(out);
     if (!m) return null;
     const at = m.index + m[0].length;
     out = out.slice(0, at) + `${nl}  ${P_START}${pathBlock}${P_END}` + out.slice(at);
   }
-  if (familyBlock) {
+  if (familyBlock && !fDone) {
     const m = /[ \t]*<h2>관련 용어<\/h2>/.exec(out);
     const at = m ? m.index : out.indexOf("</main>");
     if (at < 0) return null;
