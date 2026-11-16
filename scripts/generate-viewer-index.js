@@ -618,7 +618,7 @@ function mergeOaCooc(senses, terms, oa) {
 // 약어(영문 2~6자, 대문자 포함)는 뷰어가 대소문자 일치로만 잡는다(acronymCaseMatches).
 // 영어 일반어(AND·CAN 등)와, 다른 용어의 title_ko와 같은 별칭은 뺀다(동형어 오탐 방지).
 // 약어가 아닌 영문 별칭(일반 명사)은 넣지 않는다.
-const ALIAS_ENGLISH_STOP = new Set("and can or not is as at be by do go if in it me no of on so to up us we are for has her him his its may one our out the was who why all any but did get how new now see she too two use way yes you".split(" "));
+const ALIAS_ENGLISH_STOP = new Set("tbd fyi cf na ie eg and can or not is as at be by do go if in it me no of on so to up us we are for has her him his its may one our out the was who why all any but did get how new now see she too two use way yes you".split(" "));
 // 한글 별칭 중 일반어라 다른 분야 글에서 오탐만 내는 것(예: 약물 길항작용(상호작용)의 '상호작용').
 const ALIAS_KOREAN_STOP = new Set(["상호작용"]);
 const ALIAS_ACRONYM = /^(?=.*[A-Z].*[A-Z0-9]|[A-Z][a-z]?[A-Z])[A-Za-z][A-Za-z0-9]{1,5}$/;

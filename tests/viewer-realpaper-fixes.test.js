@@ -94,3 +94,9 @@ const slugsOf = (text, terms) => TM.matchTerms(text, terms).map((m) => m.slug).s
 }
 
 console.log("viewer real-paper fixes: all tests passed");
+
+// 5. 논문 약어(TBD·FYI·CF 등)는 별칭이어도 뷰어 색인에 싣지 않는다.
+{
+  const t = { slug: "x", title_ko: "논문·연구실 약어 모음", title_en: "Abbreviations", aliases: ["TBD", "FYI", "CF", "et al.", "i.e.", "e.g.", "N/A", "SOP"] };
+  assert.deepStrictEqual(indexAliases(t, new Set()), ["SOP"]);
+}
