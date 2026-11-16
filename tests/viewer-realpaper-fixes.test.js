@@ -15,6 +15,8 @@ const slugsOf = (text, terms) => TM.matchTerms(text, terms).map((m) => m.slug).s
   assert.deepStrictEqual(row[7], ["LTP"], "AND(영어 일반어)와 공백만 다른 별칭은 뺀다");
   const neuron = { slug: "neuron", title_ko: "신경세포(뉴런)", title_en: "Neuron", categories: ["neuro"], aliases: ["뉴런", "교세포", "x"] };
   assert.deepStrictEqual(indexAliases(neuron, new Set(["교세포"])), ["뉴런"], "다른 용어의 표제어와 같은 별칭은 뺀다");
+  const ant = { slug: "drug-antagonism-interaction", title_ko: "약물 길항작용(상호작용)", title_en: "Drug Antagonism", categories: ["med"], aliases: ["Interaction", "상호작용", "약물길항작용"] };
+  assert.deepStrictEqual(indexAliases(ant, new Set()), ["약물길항작용"], "일반어 별칭(상호작용)은 뺀다");
 
   const decoded = TM.decodeViewerIndex({ categories: ["neuro"], terms: [row] })[0];
   const terms = [decoded, { slug: "and-gate", title_ko: "논리곱", title_en: "AND gate", categories: ["cs"] }];
