@@ -921,15 +921,20 @@ function applySameSpanRule(list, text, baseline) {
   const alive = list.filter((m) => !m.distant);
   if ((baseline === undefined ? alive.length : baseline) < STRAY_MIN_ALIVE) return;
   const groups = new Map();
+  // 첫 등장만 보면 한 쪽이 한글로 먼저 잡힌 경우(혈액뇌장벽 … BBB vs 더 나은 재건 BBB)를 놓친다. 모든 등장 자리를 본다.
   for (const match of alive) {
-    const o = (match.occurrences || [])[0];
-    if (!o) continue;
-    const key = o.start + ":" + o.length;
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(match);
+    for (const o of match.occurrences || []) {
+      const key = o.start + ":" + o.length;
+      if (!groups.has(key)) groups.set(key, []);
+      if (!groups.get(key).includes(match)) groups.get(key).push(match);
+    }
   }
+  const seen = new Set();
   for (const group of groups.values()) {
     if (group.length < 2) continue;
+    const id = group.map((m) => m.slug).sort().join("|");
+    if (seen.has(id)) continue;
+    seen.add(id);
     const outside = alive.filter((m) => !group.includes(m));
     const scored = group.map((m) => ({
       m,
