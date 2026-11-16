@@ -187,7 +187,11 @@ function run() {
   const titles = new Map(terms.map((t) => [t.slug, t.title_ko]));
   const subOf = new Map(terms.map((t) => [t.slug, t.subcategory]));
   const catOf = new Map(terms.map((t) => [t.slug, t.categories[0]]));
-  const links = fs.existsSync(DATA) ? JSON.parse(fs.readFileSync(DATA, "utf8")) : {};
+  const all = fs.existsSync(DATA) ? JSON.parse(fs.readFileSync(DATA, "utf8")) : {};
+  // 숨김·병합으로 terms.json에서 빠진 표제어가 낀 관계는 건너뛴다(재공개 때 되살릴 수 있게 broader.json은 그대로 둔다).
+  const links = Object.fromEntries(Object.entries(all).filter(([s, v]) => titles.has(s) && titles.has(v.broader)));
+  const skipped = Object.keys(all).length - Object.keys(links).length;
+  if (skipped) console.log(`terms.json에 없는 표제어가 낀 관계 ${skipped}개 건너뜀`);
   const errs = validate(links, new Set(titles.keys()));
   if (errs.length) { console.error(errs.join("\n")); process.exitCode = 1; return; }
   const idx = buildIndex(links);
