@@ -89,7 +89,7 @@ const run = (text, top) => {
 {
   const filler = (i, body) => ({ slug: "f" + i, title_ko: "채움" + i, categories: ["phys"], definition: body });
   const terms = [
-    { slug: "poisoning", title_ko: "중독", title_en: "Acute Poisoning", categories: ["archaeo", "sports"],
+    { slug: "poisoning", title_ko: "중독", title_en: "Acute Poisoning", categories: ["history", "sports"],
       definition: "독성 물질이 쓰이는 경우 몸에 퍼져나가는 상태이다." },
     // "쓰이는·퍼져나가는"(관형형 -는)이 여러 항목에 나와도 명사 근거가 아니다
     ...[1, 2, 3, 4].map((i) => filler(i, "도구로 쓰이는 물질이 퍼져나가는 현상, 독성을 본다.")),
@@ -98,8 +98,8 @@ const run = (text, top) => {
   assert.ok(kw.includes("poisoning") && kw.includes("acute"), "영문 표제어 토큰 포함: " + kw.join(","));
   assert.ok(!kw.includes("Poisoning"), "영문은 소문자");
   assert.ok(!kw.includes("쓰이") && !kw.includes("퍼져나가"), "동사 조각 제외: " + kw.join(","));
-  assert.ok(!kw.includes("고고") && !kw.includes("스포츠과"), "'학'을 뗀 어간은 명사 근거가 있을 때만: " + kw.join(","));
-  assert.ok(kw.includes("고고학") && kw.includes("독성"), kw.join(","));
+  assert.ok(!kw.includes("역사") && !kw.includes("스포츠과"), "'학'을 뗀 어간은 명사 근거가 있을 때만: " + kw.join(","));
+  assert.ok(kw.includes("역사학") && kw.includes("독성"), kw.join(","));
 }
 
 // 런타임: 영문 키워드는 소문자·단어 앞 경계로 비교, 등장 자리 자체는 창에서 뺀다

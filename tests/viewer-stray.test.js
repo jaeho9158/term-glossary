@@ -64,7 +64,7 @@ test("stray: 연구 기초·방법 용어와 뜻 키워드 없는 용어는 건�
 
 test("stray: 저자가 괄호로 영문 병기한 뜻은 인정", () => {
   const text = medText("신경조절술(Neuromodulation) 효과를 평가하였다.");
-  const m = term(text, "Neuromodulation", { slug: "nm", title_ko: "신경조절술", title_en: "Neuromodulation", categories: ["biomed"], sense: ["생체의공학", "전기자극"], viaHangul: false });
+  const m = term(text, "Neuromodulation", { slug: "nm", title_ko: "신경조절술", title_en: "Neuromodulation", categories: ["biotech"], sense: ["생체의공학", "전기자극"], viaHangul: false });
   const list = fillers(text).concat([m]);
   TM.applySenseContextRule(list, text, TOP);
   assert.ok(!m.distant);

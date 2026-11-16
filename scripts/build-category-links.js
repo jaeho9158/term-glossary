@@ -9,6 +9,8 @@ const path = require("path");
 const {
   CATEGORY_GROUPS,
   CATEGORY_LABELS,
+  CATEGORY_FOLDED,
+  FOLDED_LABEL,
 } = require("../assets/category-data.js");
 
 const ROOT_DIR = path.join(__dirname, "..");
@@ -26,7 +28,9 @@ function escapeHtml(value) {
 }
 
 function renderGroups() {
-  const blocks = CATEGORY_GROUPS.map((group) => {
+  const groups = CATEGORY_GROUPS.map((g) => ({ label: g.label, codes: g.codes.filter((c) => !CATEGORY_FOLDED.includes(c)) }))
+    .concat([{ label: FOLDED_LABEL, codes: CATEGORY_FOLDED }]);
+  const blocks = groups.map((group) => {
     const items = group.codes
       // 용어가 0개라 generate-category-pages.js가 페이지를 만들지 않은 코드는
       // 링크를 걸지 않는다(안 그러면 404 링크가 생긴다).

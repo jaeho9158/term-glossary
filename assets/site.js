@@ -391,7 +391,11 @@ async function initHub(allTerms) {
         `<div class="field-chips">${topFields.map(chip).join("")}</div></section>`;
     }
     let shown = 0;
-    for (const g of CATEGORY_GROUPS) {
+    // 검색 노출이 거의 없는 분야는 맨 뒤 '기타 분야'로 접어 보여 준다(category-data.js의 CATEGORY_FOLDED).
+    const folded = typeof CATEGORY_FOLDED !== "undefined" ? CATEGORY_FOLDED : [];
+    const hubGroups = CATEGORY_GROUPS.map((g) => ({ label: g.label, codes: g.codes.filter((c) => !folded.includes(c)) }))
+      .concat(folded.length ? [{ label: FOLDED_LABEL, codes: folded }] : []);
+    for (const g of hubGroups) {
       const codes = g.codes.filter((c) => CATEGORY_LABELS[c] && matches(c));
       if (!codes.length) continue;
       shown += codes.length;
@@ -458,7 +462,9 @@ function render(terms, query = "", category = "") {
     );
   }
 
-  const codesToRender = selected.length ? selected : CATEGORY_ORDER;
+  const foldedCodes = typeof CATEGORY_FOLDED !== "undefined" ? CATEGORY_FOLDED : [];
+  const codesToRender = selected.length ? selected
+    : CATEGORY_ORDER.filter((c) => !foldedCodes.includes(c)).concat(foldedCodes);
 
   // 분야를 고르지 않은 전체 보기에서는 대분류로 한 번 묶어서 보여준다.
   const grouped = !selected.length && typeof CATEGORY_GROUPS !== "undefined";
@@ -467,6 +473,7 @@ function render(terms, query = "", category = "") {
     for (const g of CATEGORY_GROUPS) {
       for (const c of g.codes) groupOf[c] = g.label;
     }
+    for (const c of foldedCodes) groupOf[c] = FOLDED_LABEL;
   }
   let currentGroup = null;
   let groupBody = null;
