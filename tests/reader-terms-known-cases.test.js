@@ -72,3 +72,8 @@ test("뒷받침이 충분한 정상 용어는 유지된다", () => {
   const got = marked(MED);
   for (const slug of ["differential-diagnosis", "lymphocyte", "ultrasonography"]) assert.ok(got.includes(slug), slug + " ∉ " + got.join());
 });
+test("신경과학 글의 BBB는 더 나은 재건(build-back-better)이 아니다", () => {
+  const t = "혈액뇌장벽(blood-brain barrier, BBB)은 뇌의 모세혈관 내피세포가 형성한다. BBB 투과성은 성상세포와 주피세포에 의해 조절된다. 약물 전달에서 BBB 통과가 문제다. 신경염증 상황에서 BBB가 손상되면 미세아교세포가 활성화되고 뉴런이 손상된다. 해마와 전전두피질에서 시냅스 가소성이 감소한다.";
+  const got = marked(t);
+  assert.ok(got.includes("blood-brain-barrier") && !got.includes("build-back-better"), got.join());
+});
