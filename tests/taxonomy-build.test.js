@@ -53,4 +53,14 @@ assert.strictEqual(gone, page, "블록 제거 시 원문 복원");
   assert.ok(html.includes("cmap-card-wide"), "큰 계통 카드는 격자 한 줄 전체");
 }
 
+// 배포 개념 지도·계통 블록에는 존재하는 용어 페이지로만 href가 걸린다(숨긴 용어는 글자로만).
+{
+  const fs = require("fs"), path = require("path");
+  const root = path.join(__dirname, "..");
+  for (const f of fs.readdirSync(path.join(root, "concept-map"))) {
+    const h = fs.readFileSync(path.join(root, "concept-map", f), "utf8");
+    for (const m of h.matchAll(/href="\.\.\/terms\/([^"#]+)\.html"/g)) assert.ok(fs.existsSync(path.join(root, "terms", `${m[1]}.html`)), `${f}: ${m[1]} 페이지 없음`);
+  }
+}
+
 console.log("taxonomy-build: all tests passed");

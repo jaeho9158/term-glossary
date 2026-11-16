@@ -63,7 +63,10 @@ function buildIndex(links) {
   return { children, ancestors, rootOf };
 }
 
-const link = (slug, titles) => `<a href="${esc(slug)}.html">${esc(titles.get(slug) || slug)}</a>`;
+// 숨긴 용어는 페이지가 없으므로 링크 없는 글자로만 보인다(묶음 제목). 공개 용어끼리만 href를 건다.
+let PUBLIC = null;
+const isLive = (slug) => !PUBLIC || PUBLIC.has(slug);
+const link = (slug, titles) => isLive(slug) ? `<a href="${esc(slug)}.html">${esc(titles.get(slug) || slug)}</a>` : `<span class="concept-hidden">${esc(titles.get(slug) || slug)}</span>`;
 
 function pathHtml(slug, idx, titles) {
   const anc = idx.ancestors(slug);
@@ -137,7 +140,7 @@ function mapPage(cat, catName, slugs, idx, titles, template, subOf) {
   const kidsOf = (s) => (idx.children.get(s) || []).slice().sort((a, b) => (titles.get(a) || a).localeCompare(titles.get(b) || b, "ko"));
   const size = (s) => kidsOf(s).reduce((n, k) => n + 1 + size(k), 0);
   const deep = (s) => kidsOf(s).flatMap((k) => [k, ...deep(k)]);
-  const a = (s, cls) => `<a class="${cls}" href="../terms/${esc(s)}.html">${esc(titles.get(s) || s)}</a>`;
+  const a = (s, cls) => isLive(s) ? `<a class="${cls}" href="../terms/${esc(s)}.html">${esc(titles.get(s) || s)}</a>` : `<span class="${cls} concept-hidden">${esc(titles.get(s) || s)}</span>`;
   // 갈래 아래: 더 내려가지 않는 개념은 칩, 자기 하위가 있는 개념은 테두리 묶음(이름 + 그 아래 칩)으로
   // 한 번 더 묶어 셋째·넷째 단계가 한 줄에 섞이지 않게 한다.
   const leaves = (k) => {
@@ -194,15 +197,26 @@ const CAT_NAMES = require("../../assets/category-data.js").CATEGORY_LABELS;
 
 function run() {
   const dry = process.argv.includes("--dry-run");
-  const terms = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
+  const pub = JSON.parse(fs.readFileSync(path.join(ROOT, "terms.json"), "utf8"));
+  const hiddenFile = path.join(ROOT, "data", "viewer-hidden-terms.json");
+  const hidden = fs.existsSync(hiddenFile) ? JSON.parse(fs.readFileSync(hiddenFile, "utf8")) : [];
+  PUBLIC = new Set(pub.map((t) => t.slug));
+  const terms = [...pub, ...hidden.filter((t) => !PUBLIC.has(t.slug))]; // 제목·분야는 숨긴 용어도 여기서 가져온다
   const titles = new Map(terms.map((t) => [t.slug, t.title_ko]));
   const subOf = new Map(terms.map((t) => [t.slug, t.subcategory]));
   const catOf = new Map(terms.map((t) => [t.slug, t.categories[0]]));
   const all = fs.existsSync(DATA) ? JSON.parse(fs.readFileSync(DATA, "utf8")) : {};
-  // 숨김·병합으로 terms.json에서 빠진 표제어가 낀 관계는 건너뛴다(재공개 때 되살릴 수 있게 broader.json은 그대로 둔다).
-  const links = Object.fromEntries(Object.entries(all).filter(([s, v]) => titles.has(s) && titles.has(v.broader)));
+  // 공개·숨김 어느 쪽에도 없는 표제어가 낀 관계는 건너뛴다(broader.json은 그대로 둔다).
+  let links = Object.fromEntries(Object.entries(all).filter(([s, v]) => titles.has(s) && titles.has(v.broader)));
   const skipped = Object.keys(all).length - Object.keys(links).length;
-  if (skipped) console.log(`terms.json에 없는 표제어가 낀 관계 ${skipped}개 건너뜀`);
+  if (skipped) console.log(`terms.json·viewer-hidden-terms.json 어디에도 없는 표제어가 낀 관계 ${skipped}개 건너뜀`);
+  // 공개 용어와 이어지지 않는 숨김 계통은 지도에 보여 줄 것이 없어 뺀다.
+  const alive = new Set();
+  for (const s of Object.keys(links)) if (PUBLIC.has(s)) for (let c = s; c && !alive.has(c); c = links[c] && links[c].broader) alive.add(c);
+  for (const s of Object.keys(links)) if (PUBLIC.has(links[s].broader)) { alive.add(s); alive.add(links[s].broader); } // 공개 용어 바로 아래 숨김 하위는 글자로 남긴다
+  const pruned = Object.keys(links).length;
+  links = Object.fromEntries(Object.entries(links).filter(([s, v]) => alive.has(s) && alive.has(v.broader)));
+  if (pruned !== Object.keys(links).length) console.log(`공개 용어가 없는 숨김 계통 관계 ${pruned - Object.keys(links).length}개 뺌`);
   const errs = validate(links, new Set(titles.keys()));
   if (errs.length) { console.error(errs.join("\n")); process.exitCode = 1; return; }
   const idx = buildIndex(links);
@@ -213,7 +227,7 @@ function run() {
   let changed = 0;
   for (const slug of new Set([...involved, ...previous])) {
     const file = path.join(ROOT, "terms", `${slug}.html`);
-    if (!fs.existsSync(file)) continue;
+    if (!PUBLIC.has(slug) || !fs.existsSync(file)) continue;
     const html = fs.readFileSync(file, "utf8");
     const c = catOf.get(slug);
     const on = involved.has(slug);
@@ -225,7 +239,7 @@ function run() {
   if (!dry) {
     fs.mkdirSync(MAP_DIR, { recursive: true });
     for (const c of cats) {
-      const slugs = terms.filter((t) => t.categories[0] === c && involved.has(t.slug)).map((t) => t.slug);
+      const slugs = terms.filter((t) => t.categories[0] === c && involved.has(t.slug) && alive.has(t.slug)).map((t) => t.slug);
       fs.writeFileSync(path.join(MAP_DIR, `${c}.html`), mapPage(c, CAT_NAMES[c], slugs, idx, titles, fs.readFileSync(path.join(ROOT, "terms", "nmda-receptor.html"), "utf8"), subOf), "utf8");
     }
     // 분야 허브(정적 category/<분야>.html과 동적 category.html)에서 개념 지도로 가는 링크
