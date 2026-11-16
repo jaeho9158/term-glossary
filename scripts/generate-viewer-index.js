@@ -19,9 +19,7 @@ const DEFS_DIR = path.join(ROOT_DIR, "viewer-defs");
 // 사전의 인덱스 숫자로 치환한다. 디코더는 assets/term-match.js의
 // decodeViewerIndex()이며, 형식을 바꾸면 그쪽도 같이 고쳐야 한다.
 //
-// aliases는 넣지 않는다 — buildExactIndex()가 title_ko/title_en만 인덱싱하므로
-// 현재 매칭에 전혀 쓰이지 않는데, 넣으면 2.8MB → 3.6MB로 목표(3MB)를 넘긴다.
-// 나중에 별칭 매칭을 도입하면 행 끝에 한 칸 덧붙이면 된다.
+// aliases는 match_titles 칸에 약어·한글 별칭만 골라 싣는다(indexAliases).
 
 // definition 청크 개수. 청크 하나가 약 14KB라, 한 논문에서 찾은 용어 N개는
 // 최대 N개 청크(≈ N × 14KB)만 받는다 — 청크를 적게(=크게) 가져가면
@@ -160,6 +158,8 @@ const CURATED_COMMON_WORDS = [
   // 사용자 승인(2026-09-26): 말뭉치 채점에서 일상어 뜻으로만 잡힌 19개 표제어.
   "중요성", "초점", "빈도", "강화", "인정", "조정", "상승", "회상", "지위", "경도",
   "조차", "공유", "인구이동", "수용", "노출", "성숙", "근절", "정점", "우연성",
+  // 2026-11-16 실제 논문 시험(viewer-real-test): 신경과학 국문 논문 4편 모두에서 군사·법·한의 뜻으로만 잡힌 일상어.
+  "억제", "조합", "상호", "여기",
 ];
 
 // 논문 형식어(라운드 4, 사용자 승인 2026-09-26): 표제어로는 윤리·문헌정보·지식재산
@@ -226,6 +226,14 @@ function groupsOf(term) {
   return new Set((term.categories || []).map((c) => groupOfCode.get(c)).filter(Boolean));
 }
 
+// 논문 절 제목·일반 영어(2026-11-16 실제 논문 시험): 영문 논문마다 걸리는 일반 영어 단어가
+// 무관한 분야 한 단어 표제어(서주·모수·수열·유물·비례 …)로 잡혔다. 영문 키만 뺀다(한글 표제어는 유지).
+const ENGLISH_COMMON_EXTRA = new Set([
+  "introduction", "methods", "method", "results", "result", "discussion", "abstract", "conclusion", "conclusions", "summary",
+  "parameter", "sequence", "artifact", "proportion", "imagery", "scaling", "alignment", "matching", "presence",
+  "deflation", "simplification", "course", "evolution",
+]);
+
 function computeEnglishCommon(terms) {
   const candidates = new Map(); // 소문자 키 → 그 표제어들의 분야군 합집합
   const methodKeys = new Set(); // 통계·수학·방법론 표제어
@@ -253,7 +261,7 @@ function computeEnglishCommon(terms) {
   const common = new Set();
   for (const key of candidates.keys()) {
     const minDf = methodKeys.has(key) ? EN_COMMON_MIN_DF_METHOD : EN_COMMON_MIN_DF;
-    if ((df.get(key) || 0) >= minDf || key.length <= EN_COMMON_MAX_LENGTH) common.add(key);
+    if ((df.get(key) || 0) >= minDf || key.length <= EN_COMMON_MAX_LENGTH || ENGLISH_COMMON_EXTRA.has(key)) common.add(key);
   }
   return common;
 }
@@ -606,9 +614,30 @@ function mergeOaCooc(senses, terms, oa) {
 // 8번째 칸 match_titles(용어 정리 병합): 병합으로 흡수된 페이지의 제목들. 뷰어는 aliases를 인덱싱하지
 // 않아, 흡수 제목을 대표의 aliases에만 넣으면 그 제목으로는 매칭이 안 된다. 있을 때만 붙이며,
 // 붙일 때는 앞 칸(5~7번째)을 0/0/""로 채운다(디코더가 7번째 칸을 뜻 키워드로 읽으므로 빈 문자열).
-function buildRow(t, { codeOf, grade = 0, enGrade = 0 }) {
+// 별칭(aliases)도 match_titles 칸에 실어 뷰어가 약어(LTP·CSF·CNN)와 한글 별칭(뉴런·교세포)으로 잡게 한다.
+// 약어(영문 2~6자, 대문자 포함)는 뷰어가 대소문자 일치로만 잡는다(acronymCaseMatches).
+// 영어 일반어(AND·CAN 등)와, 다른 용어의 title_ko와 같은 별칭은 뺀다(동형어 오탐 방지).
+// 약어가 아닌 영문 별칭(일반 명사)은 넣지 않는다.
+const ALIAS_ENGLISH_STOP = new Set("and can or not is as at be by do go if in it me no of on so to up us we are for has her him his its may one our out the was who why all any but did get how new now see she too two use way yes you".split(" "));
+const ALIAS_ACRONYM = /^(?=.*[A-Z].*[A-Z0-9]|[A-Z][a-z]?[A-Z])[A-Za-z][A-Za-z0-9]{1,5}$/;
+function indexAliases(t, titleKoSet) {
+  const strip = (s) => s.replace(/\s+/g, "");
+  const own = new Set([t.title_ko, t.title_en, ...(t.match_titles || [])].filter(Boolean).map(strip));
+  const out = [];
+  for (const a of t.aliases || []) {
+    if (typeof a !== "string" || own.has(strip(a)) || out.some((o) => strip(o) === strip(a))) continue;
+    if (/[가-힣]/.test(a)) {
+      if ([...strip(a)].length >= 2 && !titleKoSet.has(a)) out.push(a);
+    } else if ((/^[A-Z0-9]{2,6}$/.test(a) || ALIAS_ACRONYM.test(a)) && /[A-Z]/.test(a) && !ALIAS_ENGLISH_STOP.has(a.toLowerCase())) {
+      out.push(a);
+    }
+  }
+  return out;
+}
+
+function buildRow(t, { codeOf, grade = 0, enGrade = 0, titleKoSet = new Set() }) {
   const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
-  const matchTitles = Array.isArray(t.match_titles) ? t.match_titles.filter((s) => typeof s === "string" && s.trim()) : [];
+  const matchTitles = [...(Array.isArray(t.match_titles) ? t.match_titles.filter((s) => typeof s === "string" && s.trim()) : []), ...indexAliases(t, titleKoSet)];
   if (grade || enGrade || matchTitles.length) row.push(grade);
   if (enGrade || matchTitles.length) row.push(enGrade);
   if (matchTitles.length) row.push("", matchTitles);
@@ -647,8 +676,9 @@ function run() {
   const senses = OA_ENABLE.cooc ? mergeOaCooc(senseKeywords(terms), terms, oa) : senseKeywords(terms);
   const outside = oaOutsideFlags(terms, oa);
   if (oa) console.log(`oa-stats.json 반영: 문서 ${oa.docs}편, 자기 분야 밖 표시 ${outside.size}개`);
+  const titleKoSet = new Set(terms.map((t) => t.title_ko).filter(Boolean));
   const rows = terms.map((t) => buildRow(t, {
-    codeOf, grade: grades.get(t.title_ko) || 0, enGrade: englishGrade(t, englishCommon),
+    titleKoSet, codeOf, grade: grades.get(t.title_ko) || 0, enGrade: englishGrade(t, englishCommon),
   }));
 
   fs.writeFileSync(
@@ -686,4 +716,4 @@ function run() {
 
 if (require.main === module) run();
 
-module.exports = { buildRow, defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords, applyOaGrades, oaOutsideFlags, mergeOaCooc };
+module.exports = { buildRow, indexAliases, defBucket, DEF_BUCKETS, buildDefBuckets, CURATED_COMMON_WORDS, PAPER_BOILERPLATE_TITLES,commonWordSignals, commonGrade, computeCommonGrades, computeEnglishCommon, englishGrade, ENGLISH_NEEDS_KOREAN, senseKeywords, applyOaGrades, oaOutsideFlags, mergeOaCooc };

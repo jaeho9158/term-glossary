@@ -96,6 +96,8 @@ const ABSTRACT_HEADING = /^\s*(?:abstract|a\s*b\s*s\s*t\s*r\s*a\s*c\s*t)(?![a-z]
 const KEYWORDS_LINE = /^\s*[^\w가-힣]*\s*(?:key\s*-?\s*words?|주\s*제\s*어|핵\s*심\s*어)/i;
 // 서론 제목(Ⅰ. 서론 / 제1장 서론 / Ⅰ. 서론 및 … / 1. Introduction)이 나오면 초록은 그 앞에서 끝난다.
 const INTRO_HEADING = /^\s*(?:(?:제\s*1\s*장|[Ⅰ1I]\s*\.?)\s*)?(?:서\s*론(?:\s+및\s.*)?|introduction)\s*$/i;
+// 절 제목 줄 전체(번호·콜론 허용). "Introduction"이 서주(음악)로, "방법"이 용어로 잡히지 않게 한다.
+const SECTION_HEADING = /^\s*(?:[0-9IVXⅠ-Ⅻ]+[.)]?\s*)?(?:introduction|(?:materials?\s+and\s+)?methods?|results?(?:\s+and\s+discussion)?|discussion|conclusions?|summary|서\s*론|연구\s*방법|방\s*법|결\s*과|고\s*찰|결\s*론|초\s*록|논\s*의)\s*[:.]?\s*$/i;
 const ABSTRACT_MAX_CHARS = 1500;
 const ACK_MAX_CHARS = 1500;
 // 오픈액세스 라이선스 고지("This is an Open Access article … Creative Commons Attribution …",
@@ -148,6 +150,9 @@ function excludedRanges(text) {
       while (j < lines.length - 1 && j - i < LICENSE_MAX_LINES - 1 && !/[.。]\s*$/.test(lines[j].text)) j++;
       ranges.push([line.start, lines[j].end]);
       i = j;
+    } else if (SECTION_HEADING.test(line.text)) {
+      // 절 제목(Introduction·Methods·서론·결과 …)은 용어가 아니다.
+      ranges.push([line.start, line.end]);
     } else if (ABSTRACT_HEADING.test(line.text)) {
       let end = Math.min(src.length, line.start + ABSTRACT_MAX_CHARS);
       for (let j = i; j < lines.length && lines[j].start < line.start + ABSTRACT_MAX_CHARS; j++) {
@@ -267,9 +272,21 @@ const KOREAN_PARTICLES = [
 // Yields { form, matchedLength } — matchedLength is how many characters of
 // the *original* word correspond to this normalized form, so highlighting
 // only wraps the noun itself and leaves a stripped particle as plain text.
+// 영어 복수형(neurons·synapses·cell lines)의 단수 후보. 알파벳만, 첫 글자 뒤는 모두 소문자인
+// 낱말(EEGs·CNNs 같은 약어 복수는 제외)에만 적용한다. us/is/ss 끝(virus·analysis·class)은 복수가 아니다.
+function englishSingularForms(word) {
+  if (word.length < 4 || !/^[A-Za-z][a-z]+$/.test(word) || !/s$/.test(word) || /(?:us|is|ss)$/.test(word)) return [];
+  const w = word.toLowerCase();
+  const out = [w.slice(0, -1)];
+  if (/ies$/.test(w)) out.push(w.slice(0, -3) + "y");
+  if (/es$/.test(w)) out.push(w.slice(0, -2));
+  return out.filter((f) => f.length >= 3);
+}
+
 function* candidateNormalizedForms(word) {
   const normalized = normalizeWord(word);
   yield { form: normalized, matchedLength: word.length };
+  for (const form of englishSingularForms(word)) yield { form, matchedLength: word.length };
   for (const particle of KOREAN_PARTICLES) {
     if (normalized.endsWith(particle) && normalized.length > particle.length) {
       yield { form: normalized.slice(0, -particle.length), matchedLength: word.length - particle.length };
@@ -643,7 +660,24 @@ function filterDistantFieldMatches(matches) {
   if (second.length) markDistant(list, second);
   // 뒤 규칙(문맥 뜻 판별 등)이 같은 상위 분야군을 쓰도록 목록에 달아 둔다.
   list.topFieldGroups = second.length ? second : first;
+  demoteEnglishOutOfField(list, list.topFieldGroups);
   return list;
+}
+
+// 영어로만 잡힌(국문 표기 없음) 용어가 드물게(3회 이하) 나오고, 그 분야군이 문서의 상위 분야군
+// 어디에도 없으면(인접 분야군도 봐주지 않는다) 다른 뜻으로 본다: temporal/spatial resolution(지리),
+// reaction time(스포츠). 영문 약어(EEG)는 대소문자까지 맞춰 잡힌 것이라 제외. 버리지 않고 강등만 한다.
+const ENGLISH_OUT_OF_FIELD_MAX_COUNT = 3;
+function demoteEnglishOutOfField(list, top) {
+  if (!top || !top.length) return;
+  for (const match of list) {
+    if (match.distant || match.viaHangul !== false || (match.count || 0) > ENGLISH_OUT_OF_FIELD_MAX_COUNT) continue;
+    if (isAcronymLikeTitle((match.title_en || "").trim())) continue;
+    const groups = (match.categories || []).map(fieldGroupOf).filter(Boolean);
+    if (!groups.length || groups.some((g) => g === BASIC_GROUP || top.includes(g))) continue;
+    match.distant = true;
+    match.demotedBy = "field-en";
+  }
 }
 
 // ---- 문맥 뜻 판별(오탐 라운드 3 규칙 1) -----------------------------------
@@ -1207,13 +1241,17 @@ function isAcronymLikeTitle(title) {
 function acronymCaseMatches(word, matchedLength, term) {
   const surface = word.slice(0, matchedLength).replace(/[-_\s]/g, "");
   const key = normalizeWord(surface);
-  for (const title of [term.title_en, term.title_ko]) {
+  const titles = [term.title_en, term.title_ko, ...(term.match_titles || [])];
+  // 복수형 후보("eegs")로 약어 표제어에 닿은 경우는 막는다(약어 복수는 다루지 않는다).
+  const singulars = englishSingularForms(surface);
+  if (singulars.length && titles.some((t) => t && isAcronymLikeTitle(t) && singulars.includes(normalizeWord(t)))) return false;
+  for (const title of titles) {
     if (!title || normalizeWord(title) !== key) continue;
     if (!isAcronymLikeTitle(title)) return true;
     if (title.replace(/[-_\s]/g, "") === surface) return true;
   }
   // 어느 표제어와도 맞춰 보지 못했다면(정규화 차이) 막지 않는다.
-  return ![term.title_en, term.title_ko].some((t) => t && normalizeWord(t) === key);
+  return !titles.some((t) => t && normalizeWord(t) === key);
 }
 
 // Exact-match pass only: fast, synchronous, no fuzzy search. This is the

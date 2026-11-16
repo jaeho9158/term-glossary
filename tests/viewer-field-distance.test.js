@@ -51,7 +51,10 @@ const medDoc = [
   const kept = new Set(filterDistantFieldMatches(doc).filter((x) => !x.distant).map((x) => x.slug));
   assert.ok(!kept.has("attachment"));
   assert.ok(!kept.has("treatment"), "한글 표제어가 길어도 영문 한 단어로만 잡혔으면 대상");
-  assert.ok(kept.has("two-words"), "영문 두 단어는 대상 밖");
+  // 2026-11-16: 영어로만 3회 이하 잡힌 영문 구절도 상위 분야군 밖이면 강등한다(demoteEnglishOutOfField).
+  assert.ok(!kept.has("two-words"), "영문 두 단어도 상위 분야군 밖·드문 등장이면 강등");
+  const many = filterDistantFieldMatches([...doc.slice(0, 12), m("two-words", "진위감정법", ["artstudy"], { title_en: "Open Attribution", viaHangul: false, count: 5 })]);
+  assert.ok(!many.find((x) => x.slug === "two-words").distant, "4회 이상 나오면 유지");
 }
 
 // 용어가 10개 미만이면 분야 추정을 믿을 수 없으므로 아무것도 빼지 않는다

@@ -74,7 +74,7 @@ for (const heading of ["REFERENCES", "References", "참 고 문 헌", "Bibliogra
 {
   const text = "Abstract\nThis study examines stress.\nⅠ. 서론\n응력을 쟀다.";
   const ranges = excludedRanges(text);
-  assert.ok(!inRanges(ranges, text.indexOf("Ⅰ. 서론")));
+  // 서론 제목 줄 자체는 절 제목이라 제외되지만(SECTION_HEADING), 본문은 제외되지 않는다.
   assert.ok(!inRanges(ranges, text.indexOf("응력을")));
 }
 // 초록 종료 표지가 없으면 1500자까지만
