@@ -190,7 +190,7 @@
       else renderText(text);
       renderPanel();
       // 읽은 기록은 "용어 찾기" 누름·붙여넣기로 시작한 분석만 남긴다(입력 중 자동 분석·초안 복원은 제외).
-      if (root.ReaderLog) root.ReaderLog.pasteAnalyzed(text, matches.length, { log: trigger === "click" || trigger === "paste" });
+      if (root.ReaderLog) root.ReaderLog.pasteAnalyzed(text, matches.length, { log: trigger === "click" || trigger === "paste", matches: matches });
     } catch (err) {
       console.error("[paste] 분석 실패", err);
       if (loading && mine === token && statusEl.textContent === "용어 데이터 불러오는 중…") hideStatus();
@@ -257,6 +257,7 @@
   function openPopover(mark) {
     var m = byslug(mark.dataset.slug);
     if (!m) return;
+    if (root.ReaderLog && root.ReaderLog.termClick) root.ReaderLog.termClick("paste", m);
     var covered = (mark.dataset.covers || "").split(/\s+/).filter(Boolean).map(byslug).filter(Boolean);
     closePopover();
     var el = ensurePop();

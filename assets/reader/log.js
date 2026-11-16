@@ -14,6 +14,13 @@
     return count === 0 ? "0" : count <= 10 ? "1-10" : count <= 50 ? "11-50" : "50+";
   }
 
+  // 잡힌 용어의 대표 분야(categories[0])를 많은 순으로 최대 3개, "a,b,c". 글 내용이 아니라 분야 코드만 보낸다.
+  function topFields(matches) {
+    var n = {};
+    (matches || []).forEach(function (m) { var c = m && m.categories && m.categories[0]; if (c) n[c] = (n[c] || 0) + 1; });
+    return Object.keys(n).sort(function (a, b) { return n[b] - n[a] || (a < b ? -1 : 1); }).slice(0, 3).join(",");
+  }
+
   // 기록에 남기는 제목. 파일 이름이 있으면 그것, 없으면 글 앞 40자.
   function historyTitle(fileName, text) {
     return fileName ? fileName + "..." : String(text || "").trim().slice(0, 40) + "...";
@@ -44,17 +51,25 @@
   }
 
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { termCountBucket: termCountBucket, historyTitle: historyTitle, createThrottle: createThrottle, createOnce: createOnce };
+    module.exports = { topFields: topFields, termCountBucket: termCountBucket, historyTitle: historyTitle, createThrottle: createThrottle, createOnce: createOnce };
   }
   if (typeof document === "undefined") return;
 
   var allowAnalyze = createThrottle(THROTTLE_MS);
   var onceTitle = createOnce(); // 붙여넣은 글: 같은 제목(앞 40자)은 한 번만
   var onceDoc = createOnce();   // PDF: 같은 문서(해시)는 한 번만
+  var onceTerm = createOnce();  // 용어 카드: 같은 용어는 한 번만
 
-  function trackAnalyze(source, count) {
+  function trackAnalyze(source, count, matches) {
     if (!root.trackEvent || !allowAnalyze()) return;
-    root.trackEvent("viewer_analyze", { source: source, term_count: termCountBucket(count) });
+    root.trackEvent("viewer_analyze", { source: source, term_count: termCountBucket(count), top_fields: topFields(matches) });
+  }
+
+  // 용어 뜻 카드를 연 것. 용어 slug와 대표 분야만 보낸다.
+  function trackTermClick(source, m) {
+    // PDF는 마우스를 올리기만 해도 카드가 열리므로, 같은 용어는 화면당 한 번만 센다.
+    if (!root.trackEvent || !m || !onceTerm(source + ":" + (m.slug || ""))) return;
+    root.trackEvent("viewer_term_click", { source: source, term: m.slug || "", field: (m.categories && m.categories[0]) || "" });
   }
 
   async function logPaperHistory(title) {
@@ -79,6 +94,7 @@
     termCountBucket: termCountBucket,
     historyTitle: historyTitle,
     trackAnalyze: trackAnalyze,
+    termClick: trackTermClick,
     logPaperHistory: logPaperHistory,
     // 붙여넣은 글 분석이 끝났을 때(paste.js). 읽기 기록은 "용어 찾기" 누름·붙여넣기로 시작한 분석(opts.log)만 남긴다.
     // 입력 중 자동 분석과 초안 복원은 통계만 보낸다.
@@ -87,7 +103,7 @@
         var title = historyTitle("", text);
         if (onceTitle(title)) logPaperHistory(title);
       }
-      trackAnalyze("paste", count);
+      trackAnalyze("paste", count, opts && opts.matches);
     },
   };
 
@@ -102,7 +118,7 @@
     });
     // 용어 찾기가 끝나면 통계(출처 pdf, 용어 수 구간).
     readerEl.addEventListener("reader:termsready", function (e) {
-      trackAnalyze("pdf", e.detail && typeof e.detail.count === "number" ? e.detail.count : 0);
+      trackAnalyze("pdf", e.detail && typeof e.detail.count === "number" ? e.detail.count : 0, e.detail && e.detail.matches);
     });
   }
 })(typeof window !== "undefined" ? window : globalThis);

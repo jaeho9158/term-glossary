@@ -48,3 +48,11 @@ test("createOnce: 같은 키는 한 번만 true, 빈 키는 막지 않는다", (
   const other = createOnce();
   assert.strictEqual(other("가".repeat(40) + "..."), true, "인스턴스끼리 독립");
 });
+
+test("topFields: 대표 분야를 많은 순으로 최대 3개", () => {
+  const { topFields } = require("../assets/reader/log.js");
+  const m = (c) => ({ categories: c ? [c] : [] });
+  assert.strictEqual(topFields([m("neuro"), m("stat"), m("neuro"), m("bio"), m("chem"), m(null)]), "neuro,bio,chem");
+  assert.strictEqual(topFields([]), "");
+  assert.strictEqual(topFields(undefined), "");
+});

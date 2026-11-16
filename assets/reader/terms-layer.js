@@ -413,7 +413,7 @@
     renderAll();
     st.rendered.forEach(function (p) { queueDraw(p); });
     // 용어 찾기가 끝났다는 알림(분석 이벤트용). 개수만 싣는다.
-    if (rd()) rd().dispatchEvent(new CustomEvent("reader:termsready", { detail: { count: st.matches.length } }));
+    if (rd()) rd().dispatchEvent(new CustomEvent("reader:termsready", { detail: { count: st.matches.length, matches: st.matches } }));
   }
 
   // ---------- 쪽 밑줄 ----------
@@ -1040,6 +1040,7 @@
     if (!S || !S.ready || suppressed) return;
     var m = S.matchBySlug.get(hit.id);
     if (!m) return;
+    if (root.ReaderLog && root.ReaderLog.termClick) root.ReaderLog.termClick("pdf", m);
     var covered = ((hit.data && hit.data.covered) || [])
       .map(function (s) { return S.matchBySlug.get(s); })
       .filter(function (c) { return c && !hidden.has(c.slug); });
