@@ -1,0 +1,22 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>편상관은 통제 변수 Z의 영향을 걷어낸 뒤 두 변수 X와 Y 사이에 남는 상관이다. 범위는 −1에서 1이다. X와 Y를 각각 Z에 회귀시킨 뒤 두 잔차 사이의 상관을 구하면 된다. Z가 하나일 때의 식은 다음과 같다.</p><p><code>r<sub>XY·Z</sub> = (r<sub>XY</sub> − r<sub>XZ</sub>·r<sub>YZ</sub>) / (√(1 − r<sub>XZ</sub><sup>2</sup>) · √(1 − r<sub>YZ</sub><sup>2</sup>))</code></p><p>변수가 여럿이면 공분산 행렬의 역행렬(정밀도 행렬 P)로 모든 쌍의 편상관을 한 번에 얻는다. 변수 i, j의 편상관은 −p<sub>ij</sub> / √(p<sub>ii</sub>·p<sub>jj</sub>)이다.</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>0이면 Z를 통제한 뒤 선형 관계가 남지 않는다는 뜻이다.</li><li>기하학적으로는 두 잔차 벡터 사이 각의 코사인이다.</li><li>다변량 정규분포를 가정하면 편상관 0은 조건부 독립과 같다. 일반적으로는 같지 않다.</li><li>선형 회귀에 바탕을 두므로 선형 관계를 가정한다.</li><li>유의성 검정은 피셔 z 변환 z = ½ ln((1+r)/(1−r))을 쓴다. 근사 검정이며 √(N − |Z| − 3)·|z|가 표준정규 분위수보다 크면 귀무가설을 기각한다.</li><li>준편상관(부분 상관)은 두 변수 중 하나에서만 Z를 통제한다. 절댓값은 편상관보다 클 수 없다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>통제 변수를 무엇으로 정했는지와 이유를 적는다. 빠뜨린 교란변수가 있으면 가짜 상관이 생길 수 있다.</li><li>표본 크기와 통제 변수의 수를 밝히고, 선형성 가정을 확인했는지 적는다.</li><li>표본 수가 변수 수보다 작으면 표본 공분산 행렬이 불안정해, Ledoit–Wolf 같은 수축 추정량을 쓴다.</li><li>보통 상관(r)과 편상관을 나란히 제시하면 통제 효과가 한눈에 보인다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Baba, K., Shibata, R., & Sibuya, M. (2004). Partial correlation and conditional correlation as measures of conditional independence. Australian & New Zealand Journal of Statistics, 46(4), 657–664.",
+    "Kim, S. (2015). ppcor: An R package for a fast calculation to semi-partial correlation coefficients. Communications for Statistical Applications and Methods, 22(6), 665–674.",
+    "Wikipedia contributors. (n.d.). Partial correlation. Wikipedia."
+  ]
+}

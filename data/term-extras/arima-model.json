@@ -3,7 +3,7 @@
   "sections": [
     {
       "heading": "언제 쓰나",
-      "html": "<p>한 변수의 과거 값만으로 가까운 미래를 예측하거나 시계열의 자기상관 구조를 설명하려 할 때 쓴다. ARIMA(p, d, q)에서 <strong>p</strong>는 자기회귀(AR) 차수, <strong>d</strong>는 정상으로 만들려고 차분한 횟수, <strong>q</strong>는 이동평균(MA) 차수이다. 차분한 자료에 ARMA 모형을 맞추는 구조라서, 평균이 변하는 비정상 자료에도 쓸 수 있다.</p><ul><li>쓰기 전에 정상성 여부를 확인한다([[stationarity|정상성]], [[unit-root-test|단위근 검정]]).</li><li>계절 주기가 뚜렷하면 계절 항을 덧붙인 <code>ARIMA(p, d, q)(P, D, Q)<sub>m</sub></code>(SARIMA)을 쓴다. m은 한 주기의 길이(월별 자료면 12)이다.</li><li>차수는 자기상관·편자기상관 함수의 모양을 보거나 AIC·BIC 같은 정보기준을 후보 모형 사이에서 비교해 정한다([[information-criterion|정보기준]]). 이런 절차를 자동화한 R의 <code>forecast</code> 패키지를 소개한 논문이 있다(Hyndman &amp; Khandakar, 2008).</li><li>설명변수를 함께 넣거나 변동성 자체를 모형화하는 것이 목적이면 ARIMAX, GARCH 같은 다른 모형이 필요하다.</li></ul>"
+      "html": "<p>한 변수의 과거 값만으로 가까운 미래를 예측하거나 시계열의 자기상관 구조를 설명하려 할 때 쓴다. ARIMA(p, d, q)에서 <strong>p</strong>는 자기회귀(AR) 차수, <strong>d</strong>는 정상으로 만들려고 차분한 횟수, <strong>q</strong>는 이동평균(MA) 차수이다. 차분한 자료에 ARMA 모형을 맞추는 구조라서, 평균이 변하는 비정상 자료에도 쓸 수 있다.</p><ul><li>쓰기 전에 정상성 여부를 확인한다([[stationarity|정상성]], 단위근 검정).</li><li>계절 주기가 뚜렷하면 계절 항을 덧붙인 <code>ARIMA(p, d, q)(P, D, Q)<sub>m</sub></code>(SARIMA)을 쓴다. m은 한 주기의 길이(월별 자료면 12)이다.</li><li>차수는 자기상관·편자기상관 함수의 모양을 보거나 AIC·BIC 같은 정보기준을 후보 모형 사이에서 비교해 정한다(정보기준). 이런 절차를 자동화한 R의 <code>forecast</code> 패키지를 소개한 논문이 있다(Hyndman &amp; Khandakar, 2008).</li><li>설명변수를 함께 넣거나 변동성 자체를 모형화하는 것이 목적이면 ARIMAX, GARCH 같은 다른 모형이 필요하다.</li></ul>"
     },
     {
       "heading": "결과는 이렇게 읽는다",
@@ -24,12 +24,12 @@
     ],
     "rows": [
       [
-        "[[autoregressive-model|자기회귀모형(AR)]]",
+        "자기회귀모형(AR)",
         "ARIMA의 AR 부분",
         "현재 값을 과거 값에 회귀시키는 모형. d=0, q=0이면 ARIMA(p,0,0)"
       ],
       [
-        "[[moving-average-method|이동평균법]]",
+        "이동평균법",
         "이름만 비슷",
         "단순 평활 기법. ARIMA의 MA 항은 과거 “오차”에 대한 항이라 뜻이 다름"
       ],

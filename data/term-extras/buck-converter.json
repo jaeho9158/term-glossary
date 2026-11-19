@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>벅 컨버터는 입력 직류 전압보다 낮은 직류 전압을 만드는 강압형 스위칭 전원 회로이다. 벅, 부스트, 벅-부스트 세 가지 기본 스위칭 전원 토폴로지 가운데 가장 흔하고 단순한 구조로 소개된다. 출력 전압은 항상 입력보다 낮고, 입력과 출력은 절연되어 있지 않다.</p><p>구성은 스위치(Q1), 캐치(프리휠링) 다이오드, 인덕터, 출력 커패시터이다. 스위치가 주기적으로 켜지고 꺼지면 인덕터와 커패시터로 이루어진 LC 필터가 펄스 모양의 전압을 평활해 직류 출력을 만든다.</p><ul><li><strong>스위치가 켜진 구간</strong>: 인덕터 전류가 증가하며 인덕터에 에너지가 쌓인다.</li><li><strong>스위치가 꺼진 구간</strong>: 인덕터 전류가 다이오드를 거쳐 흐르면서 감소하고, 저장된 에너지가 부하로 나간다.</li><li><strong>평균과 리플</strong>: 평균 인덕터 전류가 부하의 직류 전류를 공급한다. 리플 전류는 출력 커패시터로 흘러 출력 전압 리플을 만든다.</li></ul><p>인덕터 전류가 매 주기 0으로 떨어지지 않는 연속전도모드(CCM)에서는 출력이 듀티비 D = T<sub>ON</sub>/T<sub>S</sub>로 정해진다. 기생 저항과 다이오드 전압강하를 무시하면 다음과 같이 단순해진다.</p><p><strong>V<sub>o</sub> = V<sub>i</sub> × D</strong></p><p>CCM에서 전압 변환비는 입력 전압과 듀티비에만 의존한다. 불연속전도모드(DCM)에서는 인덕턴스, 스위칭 주파수, 부하 저항에도 의존한다. 두 모드의 경계가 되는 임계 출력 전류는 I<sub>O(crit)</sub> = ΔI<sub>L</sub>/2로 정의된다. 필터의 컷오프 주파수는 보통 500Hz~5kHz, 스위칭 주파수는 보통 100kHz~500kHz 범위로 잡는다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p><strong>듀티비 정하기</strong>: 12V 입력에서 3.3V 출력을 만든다고 하자. 손실을 무시하면 D = 3.3/12 ≈ 0.275이다. 실제 설계에서는 스위치와 다이오드의 전압강하를 반영해 듀티비를 보정한다.</p><p><strong>배터리 전압 변동</strong>: 배터리 전압은 충전 상태에 따라 크게 변한다. 벅 컨버터는 입력이 변해도 듀티비를 조정해 출력을 일정하게 유지하므로 휴대기기에 많이 쓰인다.</p><p><strong>인덕턴스와 리플</strong>: 인덕턴스를 키우면 리플 전류와 피크 전류가 줄어든다. 피크 전류는 부하 전류에 리플 전류의 절반을 더한 값이다. 부하 전류가 2A이고 리플 전류가 0.6A라면 피크 전류는 2.3A이다. 인덕터는 직류 저항에 의한 도통 손실과 교류 코어 손실을 가지며, 출력 커패시터는 ESR이 낮은 세라믹 커패시터가 리플을 줄이는 데 유리하다고 권고된다.</p><table><caption>비동기 벅과 동기 벅 비교</caption><thead><tr><th>구분</th><th>하단 소자</th><th>장점</th><th>단점</th></tr></thead><tbody><tr><td>비동기 벅</td><td>다이오드</td><td>제어 IC가 작고 저렴하다</td><td>다이오드 손실이 있다</td></tr><tr><td>동기 벅</td><td>MOSFET</td><td>낮은 R<sub>DS(on)</sub>으로 손실이 줄고 효율이 높다</td><td>구동 회로가 복잡하다. 두 스위치가 동시에 켜지지 않도록 데드타임을 두어 관통 전류(shoot-through)를 막아야 한다</td></tr></tbody></table>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>저항으로 전압을 깎는 회로가 아니다</strong>: 벅 컨버터는 스위치의 on/off 비율과 LC 필터로 평균 전압을 낮춘다. 에너지를 저항에서 열로 버리지 않으므로 손실이 적다.</li><li><strong>V<sub>o</sub> = V<sub>i</sub> × D는 조건부 식이다</strong>: 이 식은 CCM에서 기생 저항과 다이오드 전압강하를 무시했을 때 성립한다. DCM에서는 인덕턴스, 스위칭 주파수, 부하 저항이 변환비에 들어온다.</li><li><strong>승압은 할 수 없다</strong>: 출력은 항상 입력보다 낮다. 더 높은 전압이 필요하면 부스트 같은 다른 토폴로지를 써야 한다.</li><li><strong>입출력이 절연되지 않는다</strong>: 변압기를 쓰는 절연형 컨버터와 달리 입력과 출력이 전기적으로 연결되어 있다.</li><li><strong>동기 정류가 항상 단순한 개선은 아니다</strong>: 효율은 오르지만 데드타임과 구동 회로 설계가 필요하다. 또 동기 벅은 항상 CCM으로 동작한다.</li><li><strong>경부하 버스트 모드에는 대가가 있다</strong>: 스위칭을 간헐적으로 멈추면 경부하 효율이 오른다. 그러나 저주파 성분이 가청 소음이 될 수 있어 대전력 응용에는 적합하지 않다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Rogers, E. (1999). Understanding Buck Power Stages in Switchmode Power Supplies (Application Report SLVA057). Texas Instruments.",
+    "Benlafkih, A., Krit, S., & Chafik Elidrissi, M. (2012). Designing a High Efficiency Pulse Width Modulation Step-Down DC/DC Converter for Mobile Phone Applications. arXiv:1210.6231."
+  ]
+}

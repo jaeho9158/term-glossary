@@ -1,0 +1,21 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>로지스틱 회귀에서 완전 분리(separation, monotone likelihood)가 생기면 우도는 수렴하는데도 어떤 계수의 최대우도 추정값이 무한대로 발산한다.</li><li>Firth의 편향 감소 절차를 이 문제에 적용한 것이 퍼스 로지스틱 회귀이다(Heinze와 Schemper, 2002). 벌점을 더한 최대우도로 유한한 추정값을 얻으며, 이 벌점은 로그우도에 제프리스 사전분포를 적용하는 것과 같다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>소표본이나 희귀 사건에서 일반 최대우도 추정이 불안정할 때 쓴다. 벌점 우도 방법은 최대우도 추정값이 없을 때도 유한하고 일관된 추정값을 준다고 정리된다.</li><li>추론에서는 왈드(Wald) 구간보다 벌점 우도비 검정과 프로파일 벌점 우도 신뢰구간이 대체로 낫다고 보고되었다.</li><li>R의 logistf 패키지가 구현한다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>방법 절에 퍼스 벌점 우도를 썼다는 점과 신뢰구간 종류(프로파일 벌점 우도)를 적는다.</li><li>희귀 사건 자료에서는 추정 계수는 좋아도 예측 확률이 편향될 수 있다는 지적이 있어(Puhr 등, 2017), 이를 보정한 FLIC, FLAC 같은 변형이 제안되었다.</li><li>분리가 없는 표본이 충분히 큰 자료에서는 일반 로지스틱 회귀와 거의 같은 결과가 나온다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Heinze, G., & Schemper, M. (2002). A solution to the problem of separation in logistic regression. Statistics in Medicine, 21(16), 2409–2419.",
+    "Puhr, R., Heinze, G., Nold, M., Lusa, L., & Geroldinger, A. (2017). Firth's logistic regression with rare events: accurate effect estimates and predictions? Statistics in Medicine, 36(14), 2302–2317."
+  ]
+}

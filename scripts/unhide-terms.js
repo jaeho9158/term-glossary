@@ -21,7 +21,8 @@ const { applyToHtml, levelOf, readMap } = require("./apply-reviewed-badge.js");
 const { rebuildPrevNext } = require("./prune/rebuild-prevnext.js");
 
 const ROOT = path.join(__dirname, "..");
-const HIDE_COMMITS = ["6a4a00ae8", "99dfeed07", "3146f3cbc"];
+// HIDE_COMMITS 환경변수(쉼표 구분)로 다른 숨김 묶음의 커밋을 지정할 수 있다.
+const HIDE_COMMITS = process.env.HIDE_COMMITS ? process.env.HIDE_COMMITS.split(",") : ["6a4a00ae8", "99dfeed07", "3146f3cbc"];
 const CTX = 15;
 const BACK = '<script src="../assets/term-back-nav.js"></script>';
 const SUPPORT = '<script src="../assets/support.js"></script>';

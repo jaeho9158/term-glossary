@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>배열의 구간 합, 최솟값 같은 질의와 값 갱신을 모두 O(log n)에 처리하도록 구간을 이진 트리로 쌓은 자료구조이다.</li><li>각 노드가 한 구간을 맡고 그 자식 둘이 왼쪽 절반, 오른쪽 절반을 맡는다. 루트가 전체 구간이다.</li><li>트리를 만드는 데는 O(n)이 든다. 각 내부 노드가 두 자식을 한 번씩 합치기 때문이다. 배열로 구현하면 4n칸이 쓰이고, 노드 v의 자식은 2v와 2v+1이다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<ul><li><strong>질의</strong>: 구간 [l, r]을 O(log n)개의 노드 구간으로 쪼갠다. 완전히 포함된 노드는 저장된 값을, 완전히 벗어난 노드는 항등값(합이면 0, 최솟값이면 무한대)을 돌려주고, 일부만 겹치면 양쪽 자식으로 내려간다.</li><li><strong>갱신</strong>: 한 칸을 바꾸면 해당 잎 하나와 루트까지의 조상 O(log n)개만 다시 계산한다.</li><li><strong>지연 전파(lazy propagation)</strong>: 구간 전체를 한꺼번에 갱신할 때 노드에 '미뤄 둔 변경'을 적어 두고, 질의나 갱신이 그 노드를 지나 아래로 내려갈 때만 자식에게 넘긴다. 이렇게 구간 연산도 O(log n)을 유지한다.</li></ul>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<ul><li><strong>위키백과의 'segment tree'와 같은 것으로 본다</strong>: 위키백과 항목은 구간 끝점을 정렬해 만든 이진 트리에서 각 노드에 구간을 저장하고 한 점을 덮는 구간을 찾는 구조(1977년 존 벤틀리)를 설명한다. 이 경우 구성은 O(n log n), 저장 공간은 O(n log n)이다. 이 사전의 정의는 구간 질의·갱신용으로 널리 쓰이는 형태이다.</li><li><strong>모든 연산에 쓸 수 있다고 보는 것</strong>: 질의에서 구간 결과를 합치는 연산이 결합 법칙을 만족해야 한다.</li><li><strong>갱신이 항상 한 칸 단위라고 보는 것</strong>: 구간 갱신은 지연 전파가 있어야 로그 시간에 처리된다.</li></ul>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Segment tree. In Wikipedia, The Free Encyclopedia.",
+    "cp-algorithms. Segment Tree. (n.d.)."
+  ]
+}
