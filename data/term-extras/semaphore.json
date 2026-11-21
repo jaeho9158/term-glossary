@@ -1,0 +1,21 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<p>세마포어는 공유 자원이 몇 개 비어 있는지를 세는 값과, 그 값을 안전하게 바꾸는 두 연산으로 이루어진 동기화 도구이다. 에츠허르 데이크스트라가 1962~1963년경 일렉트롤로지카 X8용 운영체제(훗날 THE 다중프로그래밍 시스템)를 만들면서 고안했다.</p><ul><li>P 연산: 값을 하나 줄인다. 빈 자원이 없으면 호출한 쪽이 대기열에서 기다린다.</li><li>V 연산: 값을 하나 늘린다. 기다리는 쪽이 있으면 하나를 풀어 준다. V는 네덜란드어 ‘올리다(verhogen)’에서 왔다.</li></ul><p>다른 이름으로 up/down, signal/wait, acquire/release가 있다. 값이 0 이상의 어떤 수든 될 수 있는 것이 계수 세마포어이고, 0과 1만 갖는 것이 이진 세마포어이다. 이진 세마포어는 잠금을 만드는 데 많이 쓰인다.</p>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<p>로그인 가능 인원이 10명인 시스템이면 세마포어를 10으로 시작한다. 로그인할 때 P, 로그아웃할 때 V를 부르면 11번째 사용자는 자리가 날 때까지 기다린다.</p><p>생산자-소비자 문제에서는 세마포어 세 개를 쓴다. emptyCount(처음 N), fullCount(처음 0), 이진 useQueue(처음 1)이다. 생산자는 P(emptyCount), P(useQueue), 항목 삽입, V(useQueue), V(fullCount) 순으로 움직이고 소비자는 이를 거울처럼 되풀이한다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>세마포어와 뮤텍스는 같다.</td><td>뮤텍스는 잠근 작업만 풀 수 있다는 소유권으로 정의된다. 소유권 덕분에 우선순위 상속, 재진입 잠금, 소유자 종료 시 정리가 가능하다.</td></tr><tr><td>세마포어를 쓰면 경쟁 조건이 사라진다.</td><td>경쟁 조건을 막는 데 도움이 되지만 없음을 보장하지는 않는다. 연산 자체가 원자적이어야 한다.</td></tr><tr><td>규칙만 지키면 교착 상태가 없다.</td><td>여러 세마포어 자원을 동시에 필요로 하면 모든 프로세스가 규칙을 지켜도 교착 상태가 생길 수 있다. 식사하는 철학자 문제가 대표적이다.</td></tr></tbody></table><p>해제를 빠뜨리거나 얻지 않은 것을 해제하는 사용 실수도 멈춤이나 오동작을 일으킨다. 우선순위 역전도 문제인데, 세마포어는 보유자를 기록하지 않아 보유자의 우선순위를 올릴 수 없다.</p>"
+    }
+  ],
+  "references": [
+    "Wikipedia contributors. (n.d.). Semaphore (programming). In Wikipedia, The Free Encyclopedia.",
+    "Wikipedia contributors. (n.d.). Edsger W. Dijkstra. In Wikipedia, The Free Encyclopedia."
+  ]
+}
