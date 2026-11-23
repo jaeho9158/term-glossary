@@ -12,6 +12,7 @@ const ALLOW = {
   eeg: ["O2"], // 10-20 전극 위치
   "n2-sleep": ["N2"], // 수면 단계 N2(아래첨자 아님)
   "fc-effector-function": ["CH2"], // 면역글로불린 CH2 도메인 이름(아래첨자 아님)
+  "histamine": ["H2"], // 히스타민 H2 수용체 이름(아래첨자 아님)
   "myelination": ["N2"], // 수면 단계 N2(아래첨자 아님)
   "sleep-dependent-memory-consolidation": ["N2"], // 수면 단계 N2(아래첨자 아님)
   "sleep-homeostasis": ["N2"], // 수면 단계 N2(아래첨자 아님)
