@@ -1,0 +1,22 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<p>두 집합 X와 Y에 대해 DSC = 2|X∩Y| / (|X| + |Y|)이다. 참양성(TP), 거짓양성(FP), 거짓음성(FN)으로는 DSC = 2TP / (2TP + FP + FN)이다. 값은 0과 1 사이이다(Wikipedia, Dice-Sørensen coefficient).</p><table><thead><tr><th>예</th><th>계산</th><th>DSC</th></tr></thead><tbody><tr><td>두 영역이 완전히 겹침</td><td>2×10 ÷ (10+10)</td><td>1</td></tr><tr><td>각 10칸 중 5칸이 겹침</td><td>2×5 ÷ (10+10)</td><td>0.5</td></tr><tr><td>겹치는 부분 없음</td><td>0 ÷ 20</td><td>0</td></tr></tbody></table><p>[[f1-score|F1 점수]]와 같은 식이다. Jaccard 지수와는 J = S/(2−S), S = 2J/(1+J)로 서로 바꿔 계산할 수 있다(Wikipedia, Dice-Sørensen coefficient).</p>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<p>1에 가까울수록 두 분할이 일치한다. 영상 분할 평가를 안내한 Taha와 Hanbury는 20개 평가 지표를 비교하고 자료와 과제에 맞게 일부 지표를 고르라고 제안했다(Taha &amp; Hanbury, 2015).</p><p>Zou 등은 DSC를 겹침 정도를 요약하는 단순하고 유용한 지표로 소개하고, 전립선 수동 분할의 재현성과 뇌종양 자동 분할 정확도에 적용했다(Zou 등, 2004). 이 예에서 전립선 말초 영역 수동 분할의 평균 DSC는 1.5T 수술 전 영상에서 0.883, 0.5T 수술 중 영상에서 0.838이었다.</p>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<p>무엇과 무엇을 비교했는지(전문가 수동 분할 대 자동 분할 등), 평균과 범위나 표준편차, 영역별 값을 함께 적는다. </p><p> 삼각 부등식을 만족하지 않아 엄밀한 거리 척도가 아니라는 점을 기억해 둔다(Wikipedia, Dice-Sørensen coefficient).</p>"
+    }
+  ],
+  "references": [
+    "Zou, K. H., Warfield, S. K., Bharatha, A., Tempany, C. M., Kaus, M. R., Haker, S. J., ... Kikinis, R. (2004). Statistical validation of image segmentation quality based on a spatial overlap index. Academic Radiology, 11(2), 178–189.",
+    "Taha, A. A., & Hanbury, A. (2015). Metrics for evaluating 3D medical image segmentation: analysis, selection, and tool. BMC Medical Imaging, 15, 29.",
+    "Wikipedia contributors. (n.d.). Dice-Sørensen coefficient. In Wikipedia, The Free Encyclopedia."
+  ]
+}

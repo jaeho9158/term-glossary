@@ -1,0 +1,23 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>사용자가 정한 신체 부위를 영상에서 찾도록 신경망을 학습시키는 방식이다. 대표 도구인 DeepLabCut은 전이 학습을 바탕으로 한 딥러닝 신경망을 써서 사용자가 정의한 신체 부위를 추적한다. 라벨을 붙인 프레임이 200장 안팎으로 적어도, 시험용 프레임에서 사람의 정확도에 필적하는 추적 성능을 냈다(Mathis 등, 2018).</p><ul><li>영상에서 일부 프레임을 골라 부위 위치를 사람이 표시한다.</li><li>그 표시로 신경망을 학습한다.</li><li>학습한 신경망이 새 영상의 부위 위치를 자동으로 추정한다.</li></ul><p>전이 학습을 쓰기 때문에 적은 학습 자료로도 쓸 수 있다는 점이 특징이다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>반사 표지를 붙이는 방식은 표지가 동물에게 거슬리고, 표지의 수와 위치를 미리 정해야 한다는 한계가 있다(Mathis 등, 2018). 마커리스 방식은 이 한계를 줄이며 여러 종과 다양한 행동에 적용되었다.</p><table><thead><tr><th>도구</th><th>특징</th></tr></thead><tbody><tr><td>DeepLabCut</td><td>사용자 정의 신체 부위 추적. 3차원 추정으로 확장(Nath 등, 2019)</td></tr><tr><td>SLEAP</td><td>여러 마리를 동시에 추적. 파리, 벌, 쥐, 저빌의 데이터셋 7개에 적용(Pereira 등, 2022)</td></tr><tr><td>OpenMonkeyStudio</td><td>카메라 62대로 자유롭게 움직이는 마카크의 3차원 자세를 추정(Bala 등, 2020)</td></tr></tbody></table><p>얻는 것은 시간에 따른 신체 부위 좌표이며, 이를 바탕으로 동작 인식이나 사회적 상호작용 추적 같은 후속 분석을 한다(Bala 등, 2020).</p>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>방법 절에 다음을 밝히는 것이 일반적인 작성 안내이다.</p><ul><li>사용한 도구와 버전, 추적한 신체 부위 목록</li><li>학습에 쓴 프레임 수와 라벨링한 사람 수</li><li>학습·시험 자료를 나눈 방식과 시험 오차</li><li>카메라 대수와 영상 해상도, 여러 마리를 추적했다면 개체 식별 방법</li></ul><p>추적 좌표가 흔들리거나 가려진 부위가 있을 수 있으므로, 후처리 방법(보간, 필터)을 쓴 경우 함께 적는다.</p>"
+    }
+  ],
+  "references": [
+    "Mathis, A., Mamidanna, P., Cury, K. M., Abe, T., Murthy, V. N., Mathis, M. W., & Bethge, M. (2018). DeepLabCut: markerless pose estimation of user-defined body parts with deep learning. Nature Neuroscience, 21(9), 1281–1289.",
+    "Nath, T., Mathis, A., Chen, A. C., Patel, A., Bethge, M., & Mathis, M. W. (2019). Using DeepLabCut for 3D markerless pose estimation across species and behaviors. Nature Protocols, 14(7), 2152–2176.",
+    "Pereira, T. D., Tabris, N., Matsliah, A., Turner, D. M., Li, J., Ravindranath, S., Papadoyannis, E. S., Normand, E., Deutsch, D. S., Wang, Z. Y., McKenzie-Smith, G. C., Mitelut, C. C., Castro, M. D., D'Uva, J., Kislin, M., Sanes, D. H., Kocher, S. D., Wang, S. S., Falkner, A. L., & Shaevitz, J. W. (2022). SLEAP: A deep learning system for multi-animal pose tracking. Nature Methods, 19(4), 486–495.",
+    "Bala, P. C., Eisenreich, B. R., Yoo, S. B. M., Hayden, B. Y., Park, H. S., & Zimmermann, J. (2020). Automated markerless pose estimation in freely moving macaques with OpenMonkeyStudio. Nature Communications, 11(1), 4560."
+  ]
+}

@@ -135,8 +135,9 @@ function main() {
     definition: t.definition,
     related: t.related,
     aliases: t.aliases || [],
+    ...(t.definition_en ? { definition_en: t.definition_en } : {}),
     subcategory: t.subcategory,
-    difficulty: 2,
+    difficulty: Number.isInteger(t.difficulty) && t.difficulty >= 1 && t.difficulty <= 3 ? t.difficulty : 2,
     prerequisites: [],
   })));
   fs.writeFileSync(TERMS_JSON, JSON.stringify(merged, null, 2) + "\n", "utf8");

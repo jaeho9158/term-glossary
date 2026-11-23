@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>모형은 <strong>Y = XB + U</strong>로 쓴다. Y는 종속변수 측정값, X는 독립변수의 관측값(설계 행렬일 수 있다), B는 추정할 모수, U는 오차이다. 오차는 서로 상관이 없고 다변량 정규분포를 따른다고 가정한다(Wikipedia contributors, n.d.).</li><li>여러 개의 다중회귀모형을 한꺼번에 간결하게 쓰는 방식이며, 종속변수가 하나뿐이면 다중회귀가 된다(Wikipedia contributors, n.d.).</li><li>검정은 종속변수들을 함께 보는 다변량 검정, 또는 같은 설계 행렬로 변수별로 따로 하는 일변량 검정으로 한다. 두 경우 모두 t검정과 F검정을 쓸 수 있다(Wikipedia contributors, n.d.).</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>ANOVA, ANCOVA, MANOVA, MANCOVA, 보통최소제곱 선형회귀가 모두 이 틀 안에 들어간다(Wikipedia contributors, n.d.).</li><li><strong>뇌영상</strong>: Y에 스캐너 자료, X에 실험 설계 변수와 교란 변수를 넣고 복셀마다 일변량으로 검정하는 질량 일변량 방식이 대표적이며 통계 모수 지도(SPM)라고도 부른다(Wikipedia contributors, n.d.). fMRI 연구에서는 과제의 시간 경과와 혈류역학 반응 추정치에 기반한 모형을 세워 활성화를 검정하는 데 쓰였다(Calhoun 등, 2001).</li><li>영상 연구에서 오차가 교환 가능하거나 대칭 분포일 때 복잡한 GLM에 순열 검정을 적용하는 방법도 제안되어, 가정이 약한 상태에서 거짓 양성을 통제하려는 용도로 쓰인다(Winkler 등, 2014).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>설계 행렬에 어떤 변수(조건, 공변량, 교란 변수)를 넣었는지, 어떤 대비를 검정했는지, 다중비교를 어떻게 보정했는지를 밝힌다.</li><li>'GLM'이 일반선형모형인지 일반화선형모형인지 구분해 쓴다. 일반선형모형은 잔차가 조건부 정규분포를 따른다고 엄격히 가정하고, 일반화선형모형은 지수족의 다른 분포를 허용한다. 일반선형모형은 일반화선형모형에서 잔차가 정규분포인 특수한 경우이다(Wikipedia contributors, n.d.).</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "무엇인가",
+      "구분하는 점"
+    ],
+    "rows": [
+      [
+        "일반선형모형",
+        "정규 오차를 가정한 선형모형의 통합 틀",
+        "t검정·ANOVA·회귀가 모두 포함된다."
+      ],
+      [
+        "[[generalized-linear-model|일반화선형모형]]",
+        "지수족 분포의 오차까지 허용하는 확장 모형",
+        "로지스틱·푸아송 회귀 같은 모형을 포함하며 약어도 같은 GLM이다."
+      ],
+      [
+        "[[anova|분산분석]]",
+        "집단 평균을 비교하는 방법",
+        "일반선형모형의 한 특수한 경우이다."
+      ]
+    ]
+  },
+  "references": [
+    "Winkler, A. M., Ridgway, G. R., Webster, M. A., Smith, S. M., & Nichols, T. E. (2014). Permutation inference for the general linear model. NeuroImage, 92, 381–397.",
+    "Calhoun, V. D., Adali, T., McGinty, V. B., Pekar, J. J., Watson, T. D., & Pearlson, G. D. (2001). fMRI activation in a visual-perception task: network of areas detected using the general linear model and independent components analysis. NeuroImage, 14(5), 1080–1088.",
+    "Wikipedia contributors. (n.d.). General linear model. Wikipedia."
+  ]
+}

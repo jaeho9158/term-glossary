@@ -1,0 +1,47 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<ul><li>두 시계열을 한쪽만 시간축에서 어긋나게 하면서 각 어긋남(lag)마다 둘의 상관을 구하는 방식이다. 같은 신호를 자기 자신과 비교하면 [[autocorrelation|자기상관]]이 된다.</li><li>상관이 가장 크게 나타나는 어긋남의 값을 지연으로 읽는다. 국소장전위(LFP)를 대역통과 필터에 통과시켜 순간 진폭을 구한 다음 교차상관의 정점이 나타나는 어긋남을 구하고, 그 어긋남 분포가 0과 다른지 검정하는 방법이 제안되었다(Adhikari 등, 2010).</li><li>결과를 그림으로 그린 것이 교차상관도(cross-correlogram)이고, 가로축이 어긋남, 세로축이 그 어긋남에서의 상관 정도(스파이크 열이면 기준 스파이크 앞뒤의 발화율)이다(Young &amp; Sachs, 2008).</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li><strong>휴지기 fMRI.</strong> 250 ms마다 찍은 512장의 에코평면영상에서 0.1 Hz 미만의 저주파 변동이 감각운동 피질과 운동 관련 영역 사이에서 높은 시간적 상관을 보여, 뇌의 기능적 연결성의 한 모습으로 해석되었다(Biswal 등, 1995).</li><li><strong>스파이크 열.</strong> 청각신경 섬유와 배쪽 와우핵 뉴런에서 동시에 기록한 스파이크 열의 교차상관도에서 단일 시냅스 흥분과 맞는 흥분성 정점이 나타났다(Young &amp; Sachs, 2008).</li><li><strong>다지점 기록.</strong> 스파이크를 많이 얻기 어렵거나 모델링이 잡음에 약할 때, LFP의 순간 진폭 교차상관으로 방향성과 지연을 추정하는 간단한 방법이 있다(Adhikari 등, 2010).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<ul><li>사용한 신호(스파이크 열, LFP, fMRI 시계열)와 전처리(필터링, 표본 간격)를 먼저 밝힌다.</li><li>어긋남의 범위와 단위를 적고, 정점의 위치와 크기를 함께 보고한다. 유의성을 어떻게 판단했는지(예를 들어 어긋남 분포에 대한 검정) 방법을 적는다.</li><li>상관이 있다는 것이 한쪽이 다른 쪽의 원인이라는 뜻은 아니다. 지연으로 방향성을 해석할 때는 이 한계를 함께 적는다.</li></ul>"
+    }
+  ],
+  "compare": {
+    "heading": "헷갈리기 쉬운 용어",
+    "headers": [
+      "용어",
+      "비교 대상",
+      "읽는 값"
+    ],
+    "rows": [
+      [
+        "교차상관",
+        "서로 다른 두 신호",
+        "어긋남별 상관, 정점의 지연"
+      ],
+      [
+        "[[autocorrelation|자기상관]]",
+        "한 신호와 자기 자신",
+        "주기성, 신호의 기억"
+      ],
+      [
+        "[[correlation|상관관계]]",
+        "어긋남 없이 두 변수",
+        "하나의 상관 값"
+      ]
+    ]
+  },
+  "references": [
+    "Adhikari, A., Sigurdsson, T., Topiwala, M. A., & Gordon, J. A. (2010). Cross-correlation of instantaneous amplitudes of field potential oscillations: a straightforward method to estimate the directionality and lag between brain areas. Journal of Neuroscience Methods, 191(2), 191–200.",
+    "Biswal, B., Yetkin, F. Z., Haughton, V. M., & Hyde, J. S. (1995). Functional connectivity in the motor cortex of resting human brain using echo-planar MRI. Magnetic Resonance in Medicine, 34(4), 537–541.",
+    "Young, E. D., & Sachs, M. B. (2008). Auditory nerve inputs to cochlear nucleus neurons studied with cross-correlation. Neuroscience, 154(1), 127–138."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>RNA 염기서열 분석(RNA-seq)에서는 유전자마다 읽힌 수(read count)를 얻고, 조건 사이에 이 값이 체계적으로 달라지는지를 통계적으로 검정한다. 복제 수가 적고 값이 불연속적이며 범위가 넓고 이상치가 있기 때문에 그에 맞는 통계 방법이 필요하다.</p><p>DESeq2는 분산과 배수 변화(fold change)의 추정에 수축 추정을 써서 추정의 안정성과 해석성을 높인 대표적 방법이다. 이로써 차등 발현의 존재 여부보다 그 크기에 초점을 둔 정량적 분석이 가능해진다고 소개되었다.</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>두 조건 이상을 비교해 변화한 유전자의 목록과 변화의 크기, 통계적 근거를 얻는다. 유의한 유전자를 고를 때는 거짓 발견율을 통제한다([[false-discovery-rate|위양성발견율]]).</li><li>방법 선택은 데이터에 따라 달라진다. 12가지 방법을 80개 자료로 비교한 2026년 연구는 모든 평가 기준과 표본 크기에서 가장 좋은 방법은 없었다고 보고했다. 표본이 3개일 때와 5개일 때 우수한 방법이 달랐고, 잡음과 이상치에 대한 강건성도 방법마다 달랐다.</li><li>단일세포 RNA-seq에서는 단일세포 전용 통계 모형이 후보 유전자를 많이 내지만 거짓 양성률이 부풀 수 있고, 세포를 묶는 의사 벌크 접근은 거짓 발견을 잘 통제하지만 민감도가 낮아진다는 점이 논의된다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>사용한 방법과 소프트웨어, 표본(복제) 수, 정규화 방식, 유의 기준(조정한 p 값과 배수 변화의 하한)을 적는다. 유의 기준은 거짓 발견율로 조정했는지 밝히고, 변화의 크기를 함께 보고한다.</p><p>비교 연구에서 나타났듯 방법마다 결과가 다를 수 있으므로, 선택한 이유를 적고 가능하면 민감도 분석을 곁들이는 것이 좋다.</p>"
+    }
+  ],
+  "references": [
+    "Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biology, 15(12), 550.",
+    "Wu, J., Lu, S., Yao, H., & Fang, Z. (2026). Revisiting differential expression analysis: an updated six-dimensional comparative study. PLoS ONE, 21(8), e0344709.",
+    "Cheng, Y., Kettlewell, T., Laidlaw, R. F., Hardy, O. M., McCluskey, A., Otto, T. D., & Somma, D. (2026). Cell DiffErential Expression by Pooling (CellDEEP) highlights issues in differential gene expression in scRNA-seq. NAR Genomics and Bioinformatics, 8(4), lqag128."
+  ]
+}

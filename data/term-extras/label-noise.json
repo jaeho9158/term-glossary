@@ -1,0 +1,23 @@
+{
+  "type": "concept",
+  "sections": [
+    {
+      "heading": "핵심 정리",
+      "html": "<ul><li>라벨 오류는 기계학습 자료에서 흔하며, 사람 주석자의 실수, 모호한 라벨링 지침, 자동 라벨링, 적대적 공격 등에서 생긴다.</li><li>라벨이 입력 특징과 상관없이 무작위로 바뀌는 무작위 잡음과, 특정 패턴이나 편향에 따라 잘못 붙는 체계적 잡음으로 크게 나눈다.</li><li>복잡한 모델은 일반화되는 패턴 대신 잘못된 라벨에 과적합하기 쉽다. 표준 교차엔트로피 손실로 학습한 심층 신경망은 깨끗한 자료에서는 잘 되지만 라벨 오류가 있으면 심하게 과적합한다고 설명된다.</li></ul>"
+    },
+    {
+      "heading": "예시로 보기",
+      "html": "<table><thead><tr><th>상황</th><th>설명</th></tr></thead><tbody><tr><td>펩타이드 독성 예측</td><td>벤치마크 자료가 실험 증거가 아니라 주석 필터로 음성 클래스를 정의해 구조적 라벨 오류를 만든다고 지적된다.</td></tr><tr><td>회전 기계 고장 진단</td><td>진동 측정 잡음과 라벨 오류가 함께 있을 때 지도 신뢰도가 떨어져 최적화가 편향된다. 제안된 프레임워크가 라벨 오류 60%에 신호 대 잡음비 0dB인 조건에서도 진단 정확도 90% 이상을 유지했다고 보고한다.</td></tr></tbody></table><p>[[data-labeling|데이터 라벨링]] 단계의 품질과 [[overfitting|과적합]]이 이 문제와 직결된다.</p>"
+    },
+    {
+      "heading": "자주 하는 오해",
+      "html": "<table><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>라벨 오류는 무작위로만 생긴다.</td><td>특정 패턴이나 편향에 따라 체계적으로도 생긴다.</td></tr><tr><td>정답 라벨이 있으면 평가는 믿을 만하다.</td><td>벤치마크 자체에 구조적 라벨 오류가 있을 수 있다.</td></tr><tr><td>대응법은 모델을 바꾸는 것뿐이다.</td><td>견고한 손실 함수, 잡음에 강한 알고리즘, 자료 정제, 준지도 학습, 라벨 평활화, 표본 재가중치, 신뢰할 수 있는 검증 자료 등 여러 접근이 제안되었다.</td></tr></tbody></table>"
+    }
+  ],
+  "references": [
+    "Wang, L., Liu, F., Xu, X., Guo, K., Xing, X., & Jin, Z. (2026). Gradient-modulated cross-entropy loss for robust learning with label noise. IEEE Transactions on Neural Networks and Learning Systems.",
+    "Li, X., Yang, M., Lv, J., Fan, R., Wei, L., & Ma, K. (2026). A multi-band enhanced dynamic learning method for robust fault diagnosis under signal and label noise. ISA Transactions, 178, 171–195.",
+    "Almeida, G. O., Albuquerque, M. C., Silva, B. M., Silva, O. A. B., Ferreira, R. S., et al. (2026). NoiTox: A machine learning strategy for peptide toxicity prediction reveals label noise in benchmark datasets. Preprint.",
+    "Wikipedia contributors. (n.d.). Label noise. Wikipedia."
+  ]
+}

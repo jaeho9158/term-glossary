@@ -10,6 +10,7 @@ const DIR = path.join(__dirname, "..", "terms");
 const ALLOW = {
   "dublin-core": ["oai_dc"], // OAI-PMH 형식 이름
   eeg: ["O2"], // 10-20 전극 위치
+  "n2-sleep": ["N2"], // 수면 단계 N2(아래첨자 아님)
   "immunoglobulin-structure": ["CH2", "CH3"], // 불변 영역 도메인 이름
   "four-arithmetic-operations": ["*"], // ^ 연산자 결합 순서를 설명하는 쪽
 };

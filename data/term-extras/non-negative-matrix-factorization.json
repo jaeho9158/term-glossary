@@ -1,0 +1,23 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>행렬 V를 V ≈ WH로 분해하며 V, W, H의 모든 원소가 음수가 아니다. W의 열은 특징, H는 각 특징을 얼마나 섞는지 나타내는 계수이다. W와 H의 한쪽 차원 p를 V의 크기보다 훨씬 작게 잡아 차원을 줄인다. 일반적으로 정확하게 풀 수 없어서 수치적으로 근사한다(Wikipedia, Non-negative matrix factorization).</p><p>예를 들어 단어 10000개와 문서 500개의 행렬을 특징 10개로 분해하면, 각 문서가 10개의 숨은 특징의 선형 결합으로 표현된다(Wikipedia).</p>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<ul><li>Lee와 Seung은 NMF가 얼굴의 부분과 글의 의미 특징을 학습할 수 있음을 보였다. 주성분분석이나 벡터 양자화는 전체적인 표현을, NMF는 부분 기반 표현을 학습한다(Lee &amp; Seung, 1999).</li><li>비음수 제약은 더하기만 허용하고 빼기는 허용하지 않아 부분 기반 표현을 낳는다. 신경망으로 구현하면 발화율이 음수가 아니고 시냅스 강도의 부호가 바뀌지 않는다는 두 성질 때문에 부분 기반 표현이 나타난다(Lee &amp; Seung, 1999).</li><li>오디오 스펙트로그램이나 근육 활동처럼 자료가 본래 음수가 아닌 경우에 쓰며, 천문학, 컴퓨터 비전, 문서 군집화, 화학계량학, 생물정보학 등에서 응용된다(Wikipedia).</li><li>신경과학에서는 칼슘 영상에서 이웃 신경세포와 배경의 신호를 분리하는 데 표적 NMF가 쓰였고(Bao 등, 2021), 뇌파 신호 분류에도 쓰였다(Dong 등, 2021).</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>입력 행렬이 무엇인지(예: 시간×신경세포), 특징 개수 p를 어떻게 정했는지, 최적화 알고리즘과 초기값, 반복 횟수를 적는다. 초기값에 따라 결과가 달라질 수 있어 여러 번 실행한 결과의 안정성을 함께 보고하는 것이 좋다.</p><p>NMF의 비음수 제약이 자료에 맞는지 설명해야 한다. 음수가 있는 자료는 먼저 변환하거나 다른 분해 방법을 고려한다.</p>"
+    }
+  ],
+  "references": [
+    "Lee, D. D., & Seung, H. S. (1999). Learning the parts of objects by non-negative matrix factorization. Nature, 401(6755), 788–791.",
+    "Bao, Y., Redington, E., Agarwal, A., & Gong, Y. (2021). Decontaminate traces from fluorescence calcium imaging videos using targeted non-negative matrix factorization. Frontiers in Neuroscience, 15, 797421.",
+    "Dong, A., Li, Z., & Zheng, Q. (2021). Transferred subspace learning based on non-negative matrix factorization for EEG signal classification. Frontiers in Neuroscience, 15, 647393.",
+    "Wikipedia contributors. (n.d.). Non-negative matrix factorization. In Wikipedia, The Free Encyclopedia."
+  ]
+}

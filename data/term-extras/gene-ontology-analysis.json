@@ -1,0 +1,21 @@
+{
+  "type": "method",
+  "sections": [
+    {
+      "heading": "어떤 절차인가",
+      "html": "<p>입력은 분석할 유전자 목록이고, 비교 기준이 되는 참조(배경) 유전자 목록을 함께 주는 것이 강하게 권장된다. 참조 목록을 주지 않으면 선택한 게놈의 모든 단백질 암호화 유전자를 기준으로 삼는다.</p><ul><li><strong>GO의 세 측면</strong>: 분자 기능, 생물학적 과정(기본값), 세포 구성요소.</li><li><strong>결과</strong>: 용어별로 목록에서의 비율과 배경에서의 비율이 나오고, 과대 또는 과소 표현 여부가 표시된다. p값은 그 용어에 주석된 유전자가 목록에서 관찰된 개수 이상 나올 확률로 정의된다.</li><li><strong>과대표현 분석(ORA)</strong>: 통계 검정으로 관심 유전자 집합에 특정 유전자 집단이 우연보다 많은지 본다. 대비되는 접근인 기능 집단 점수화(FCS)는 검출된 모든 유전자에 점수를 매겨 각 집단의 점수가 한쪽으로 치우쳤는지 본다.</li></ul>"
+    },
+    {
+      "heading": "언제 쓰고 무엇을 얻나",
+      "html": "<p>RNA 염기서열분석 같은 실험에서 얻은 차등 발현 유전자 목록을 기능 범주로 요약할 때 쓴다. 예를 들어 상향 조절된 유전자들이 공유하는 용어를 찾는 데 쓸 수 있다. 몇 가지 주의가 필요하다.</p><ul><li><strong>배경 목록</strong>: 결과는 참조 목록에 크게 좌우된다. 입력 목록이 뽑힌 모집단, 곧 실험에서 검출된 모든 유전자를 쓰라는 권고가 있다. RNA-seq처럼 대부분의 유전자가 발현되지 않는 실험에서 전체 게놈을 배경으로 쓰는 것은 부적절하다.</li><li><strong>넓은 용어</strong>: ‘biological_process’ 같은 상위 용어는 거의 모든 유전자와 간접적으로 연결되어 유의하지 않다.</li><li><strong>다중 검정</strong>: 수백~수천 번의 검정이 병렬로 이루어지므로 [[false-discovery-rate|위양성발견율]] 보정이 권고된다.</li></ul>"
+    },
+    {
+      "heading": "논문에는 이렇게 적는다",
+      "html": "<p>사용한 도구와 버전, GO 주석 자료의 버전, 입력 유전자 목록의 기준(예: 조정 p값 기준, 상향·하향 구분), 배경 유전자 목록을 무엇으로 정했는지, 통계 검정의 종류, 다중 검정 보정 방식을 적는다. 오픈액세스 논문 186편을 조사한 한 연구에서는 과대표현 검정을 쓴 분석의 95%가 적절한 배경 목록을 쓰지 않았거나 방법에 적지 않았고, 43%의 분석에서 다중 검정 보정을 하지 않았다.</p>"
+    }
+  ],
+  "references": [
+    "The Gene Ontology Consortium. (n.d.). GO enrichment analysis. Gene Ontology Resource.",
+    "Wijesooriya, K., Jadaan, S. A., Perera, K. L., Kaur, T., & Ziemann, M. (2022). Urgent need for consistent standards in functional enrichment analysis. PLoS Computational Biology, 18(3), e1009935."
+  ]
+}
