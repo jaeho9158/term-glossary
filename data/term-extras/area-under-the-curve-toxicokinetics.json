@@ -1,0 +1,23 @@
+{
+  "type": "metric",
+  "sections": [
+    {
+      "heading": "계산과 범위",
+      "html": "<ul><li>AUC는 시간에 따른 혈중 농도 곡선 아래의 면적으로, 체내 총 노출량을 나타내는 지표이다. 단위는 농도와 시간의 곱(예: mg·h/L)이다.</li><li>비구획 분석(NCA)에서는 사다리꼴 공식으로 곡선 아래 면적을 구한다. 상승 구간과 하강 구간 모두 선형 사다리꼴을 쓰는 ‘linear-up linear-down’ 방식과, 하강 구간에 로그 방식을 쓰는 ‘linear-up log-down’ 방식이 있다(Kim 등, 2018).</li><li><strong>AUClast</strong>는 시간 0부터 마지막으로 측정된 0이 아닌 농도까지, 관측값만으로 구한 면적이다.</li><li><strong>AUCinf</strong>는 마지막 측정점 이후의 꼬리 부분을 말단 소실 속도 상수(λz)로 외삽해 더한 면적이다.</li><li>두 시점 사이의 부분 면적(예: 투여 간격 동안의 AUC0-12)도 같은 방식으로 구한다.</li><li>말단 구간에 어느 측정점을 쓸지는 소프트웨어마다 기준이 다를 수 있다. 한 R 패키지는 WinNonlin과 같은 기준으로 자동 선택한다고 설명한다.</li></ul>"
+    },
+    {
+      "heading": "해석 기준",
+      "html": "<ul><li>AUC는 약물이나 독성 물질에 몸이 얼마나 노출되었는지를 하나의 수로 나타내므로, 용량이 같아도 흡수와 소실의 차이로 달라질 수 있는 노출량을 비교하는 데 쓴다. [[clearance-toxicokinetics|청소율]]과 생체이용률이 AUC와 연결되는 개념이다.</li><li>절대적인 안전·독성 기준값은 물질과 종, 연구마다 다르다. 항암제 소라페닙 연구에서 12시간 AUC(AUC0-12)의 중앙값은 52.8 mg·h/L였고, 3~4등급 독성이 생기기 전에 AUC0-12가 더 높았으며, 용량으로 보정한 AUC0-12는 시간이 지나며 감소했다(Boudou-Rouquette 등, 2012). 같은 약도 치료 기간에 노출이 달라질 수 있다는 예이다.</li><li>모체와 태아의 AUC 비를 비교한 모델 연구는 한 시점의 농도 비가 태아 노출 정도를 반영하지 못할 수 있으며, 정상 상태에서 재야 한다고 결론지었다(Zhang 등, 2017). 한 시점의 농도와 AUC는 같은 정보가 아니다.</li></ul>"
+    },
+    {
+      "heading": "보고 방법",
+      "html": "<ul><li>AUC0-t, AUClast, AUCinf처럼 어느 구간의 AUC인지, 사다리꼴 방식이 선형인지 로그인지, 외삽 비율은 얼마였는지, 말단 구간에 쓴 측정점 수를 적는다. 방법에 따라 값이 달라지기 때문이다(Hughes 등(2024)은 NCA의 AUC 추정이 ‘peak extension’ 적용 여부와 주입 구간 곡선 모양의 가정에 따라 달라진다고 보고했다).</li><li>AUC를 용량으로 나눈 값(용량 보정 AUC)을 쓰면 용량이 다른 군을 비교할 수 있다. 단위와 보정 방식을 함께 적는다.</li></ul><p><em>“투여 후 24시간까지의 AUC는 사다리꼴 공식으로 구하였고, 외삽 면적이 20%를 넘은 개체는 AUCinf 분석에서 제외하였다.”</em></p><p>이 문장은 예시이다.</p>"
+    }
+  ],
+  "references": [
+    "Kim, H., Han, S., Cho, Y. S., Yoon, S. K., & Bae, K. S. (2018). Development of R packages: 'NonCompart' and 'ncar' for noncompartmental analysis (NCA). Translational and Clinical Pharmacology. PMCID: PMC6989226.",
+    "Boudou-Rouquette, P., Ropert, S., Mir, O., et al. (2012). Variability of sorafenib toxicity and exposure over time: a pharmacokinetic/pharmacodynamic analysis. The Oncologist. PMCID: PMC3448414.",
+    "Zhang, Z., Imperial, M. Z., Patilea-Vrana, G. I., et al. (2017). Development of a novel maternal-fetal physiologically based pharmacokinetic model I: insights into factors that determine fetal drug exposure through simulations and sensitivity analyses. Drug Metabolism and Disposition. PMCID: PMC5506457.",
+    "Hughes, J. H., Long-Boyle, J., & Keizer, R. J. (2024). Maximum a posteriori Bayesian methods out-perform non-compartmental analysis for busulfan precision dosing. Journal of Pharmacokinetics and Pharmacodynamics. PMCID: PMC11136738."
+  ]
+}

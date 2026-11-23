@@ -11,6 +11,11 @@ const ALLOW = {
   "dublin-core": ["oai_dc"], // OAI-PMH 형식 이름
   eeg: ["O2"], // 10-20 전극 위치
   "n2-sleep": ["N2"], // 수면 단계 N2(아래첨자 아님)
+  "fc-effector-function": ["CH2"], // 면역글로불린 CH2 도메인 이름(아래첨자 아님)
+  "myelination": ["N2"], // 수면 단계 N2(아래첨자 아님)
+  "sleep-dependent-memory-consolidation": ["N2"], // 수면 단계 N2(아래첨자 아님)
+  "sleep-homeostasis": ["N2"], // 수면 단계 N2(아래첨자 아님)
+  "slow-wave-sleep": ["N2"], // 수면 단계 N2(아래첨자 아님)
   "immunoglobulin-structure": ["CH2", "CH3"], // 불변 영역 도메인 이름
   "four-arithmetic-operations": ["*"], // ^ 연산자 결합 순서를 설명하는 쪽
 };

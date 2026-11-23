@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>가우시안 혼합모델(Gaussian Mixture Model) 뜻 — 쉬운 설명·예시 | 논문용어사전</title>
+<meta name="description" content="전체 데이터가 여러 개의 정규분포(종 모양 분포)가 겹쳐서 만들어졌다고 가정하고, 각 데이터가 어느 분포에 속할 확률을 계산해 군집을 나누는 통계 기법이다.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://termglossary.kr/terms/gaussian-mixture-model.html">
+<!-- index-tier:start -->
+<meta name="googlebot" content="noindex">
+<!-- index-tier:end -->
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/term-nav.css">
+<link rel="stylesheet" href="../assets/term-extras.css">
+<!-- GA4 analytics:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SW2PGCN27"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7SW2PGCN27');
+</script>
+<!-- GA4 analytics:end -->
+<!-- theme-init:start -->
+<script>(function(){try{var t=localStorage.getItem("theme");if(!t){t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}document.addEventListener("click",function(e){var btn=e.target.closest("#theme-toggle");if(!btn)return;var next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}});})();</script>
+<!-- theme-init:end -->
+
+<!-- AdSense:start -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7710727724213886" crossorigin="anonymous"></script>
+<!-- AdSense:end -->
+<!-- term-meta:start -->
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://termglossary.kr/terms/gaussian-mixture-model.html#term",
+      "name": "가우시안 혼합모델",
+      "description": "전체 데이터가 여러 개의 정규분포(종 모양 분포)가 겹쳐서 만들어졌다고 가정하고, 각 데이터가 어느 분포에 속할 확률을 계산해 군집을 나누는 통계 기법이다.",
+      "url": "https://termglossary.kr/terms/gaussian-mixture-model.html",
+      "inDefinedTermSet": {
+        "@type": "DefinedTermSet",
+        "name": "논문용어사전",
+        "url": "https://termglossary.kr/"
+      },
+      "alternateName": [
+        "Gaussian Mixture Model",
+        "가우시안혼합모델"
+      ],
+      "dateModified": "2026-09-26"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "홈",
+          "item": "https://termglossary.kr/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "통계",
+          "item": "https://termglossary.kr/category.html?cat=stat"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "가우시안 혼합모델",
+          "item": "https://termglossary.kr/terms/gaussian-mixture-model.html"
+        }
+      ]
+    }
+  ]
+}</script>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="논문용어사전">
+<meta property="og:title" content="가우시안 혼합모델(Gaussian Mixture Model) 뜻 — 쉬운 설명·예시 | 논문용어사전">
+<meta property="og:description" content="전체 데이터가 여러 개의 정규분포(종 모양 분포)가 겹쳐서 만들어졌다고 가정하고, 각 데이터가 어느 분포에 속할 확률을 계산해 군집을 나누는 통계 기법이다.">
+<meta property="og:url" content="https://termglossary.kr/terms/gaussian-mixture-model.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://termglossary.kr/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- term-meta:end -->
+</head>
+<body data-base="../">
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../index.html">논문용어사전</a>
+    <div class="header-search">
+      <input type="search" id="global-term-search" class="header-search-input" placeholder="용어 검색" aria-label="용어 검색" autocomplete="off">
+      <ul id="global-term-search-results" class="header-search-results" hidden></ul>
+    </div>
+    <button
+      id="theme-toggle"
+      class="theme-toggle-btn"
+      type="button"
+      aria-label="다크모드 전환">
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+    </button>
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      aria-label="메뉴"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <a href="../index.html">용어 목록</a>
+      <a href="../viewer.html" class="nav-cta">논문 뷰어</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">학습 ▾</button>
+        <div class="nav-dropdown-menu">
+          <a href="../quiz.html">퀴즈</a>
+          <a href="../roadmap.html">로드맵</a>
+        </div>
+      </div>
+      <a href="https://www.yeonguhallab.kr/" target="_blank" rel="noopener">연구할Lab ↗</a>
+      <a href="../about.html">소개</a>
+      <a href="../login.html" id="nav-login">로그인</a>
+      <a href="../signup.html" id="nav-signup">회원가입</a>
+      <a href="../history.html" id="nav-history" hidden>내 기록</a>
+      <a href="#" id="nav-logout" hidden>로그아웃</a>
+    </nav>
+  </div>
+</header>
+
+<main class="delay-1">
+  <p class="breadcrumb"><a href="../index.html">용어 목록</a> &gt; 가우시안 혼합모델 (Gaussian Mixture Model)</p>
+  <h1>가우시안 혼합모델 (Gaussian Mixture Model)</h1>
+  <!-- concept-path:start --><nav class="concept-path" aria-label="개념 위치"><a href="cluster-analysis.html">군집분석</a><span class="concept-path-sep" aria-hidden="true">›</span><span aria-current="page">가우시안 혼합모델</span></nav><!-- concept-path:end -->
+  <div class="category-badges">
+    <a class="category-badge" href="../category.html?cat=stat">통계</a>
+  </div>
+
+  <button id="bookmark-btn" class="bookmark-btn" type="button" hidden>
+    <span class="bookmark-icon" aria-hidden="true">☆</span>
+    <span class="bookmark-label">즐겨찾기</span>
+  </button>
+
+  <div class="definition-box">
+    <strong>한 줄 정의:</strong> 전체 데이터가 여러 개의 정규분포(종 모양 분포)가 겹쳐서 만들어졌다고 가정하고, 각 데이터가 어느 분포에 속할 확률을 계산해 군집을 나누는 통계 기법이다.
+  </div>
+
+  <h2>쉽게 풀면</h2>
+  <p>어느 반 학생들의 키를 측정했더니 하나의 봉우리가 아니라 두 개의 봉우리를 가진 분포가 나왔다고 해보자. 사실 이 반에는 초등학생 그룹과 중학생 그룹이 섞여 있었고, 각 그룹은 저마다 자연스러운 종 모양(정규분포)의 키 분포를 가지고 있었던 것이다. 가우시안 혼합모델은 바로 이렇게 "지금 보이는 전체 데이터는 사실 여러 개의 서로 다른 정규분포가 섞인 결과"라고 가정하고, 각 데이터가 어느 그룹(정규분포)에서 나왔을 확률이 가장 높은지를 계산해서 군집을 나눈다. <a href="k-means-clustering.html">k-평균 군집화</a>처럼 "이 점은 무조건 이 군집"이라고 딱 잘라 말하는 대신, "이 점은 그룹A에 속할 확률 70%, 그룹B에 속할 확률 30%"처럼 확률로 부드럽게 답한다는 점이 특징이다.</p>
+
+  <h2>왜 중요한가</h2>
+  <p>가우시안 혼합모델은 데이터 안에 서로 다른 잠재 집단이 섞여 있다는 가정을 통계적으로 다루는 대표적인 확률 모델이어서, 마케팅의 고객 세분화부터 음성 인식의 특징 분포 모델링, 이상치 탐지까지 다양한 응용 분야에서 활용된다. 소속이 명확히 나뉘지 않는 실제 데이터를 다룰 때 경직된 군집화 기법보다 유연하게 대응할 수 있다는 점에서, 혼합모델 계열 연구의 기초로 논문에 자주 등장한다. 또한 EM 알고리즘이라는 일반적인 파라미터 추정 방법을 소개하는 예시로도 널리 쓰인다.</p>
+
+  <!-- term-extras:sections:start -->
+  <h2>어떤 절차인가</h2>
+  <ul><li>가우시안 혼합모델(GMM)은 모든 데이터가 알려지지 않은 모수를 가진 유한 개의 가우시안(정규) 분포가 섞여 만들어졌다고 가정하는 확률모형이다.</li><li>k-평균 군집분석을 일반화해, 군집의 중심뿐 아니라 공분산 구조 정보까지 반영하는 모형으로 설명된다.</li><li>모수는 기댓값 최대화(EM) 알고리즘으로 추정하고, 각 데이터가 어느 가우시안에 속할 가능성이 가장 큰지 지정할 수 있다.</li></ul>
+
+  <h2>언제 쓰고 무엇을 얻나</h2>
+  <p>데이터가 한 개의 종 모양이 아니라 봉우리 두 개로 나타날 때 GMM이 쓰인다. 예를 들어 미숙아 출생체중을 두 성분의 GMM으로 모형화해, 재태연령이 잘못 기록된 것으로 보이는 이상 값을 확률적으로 가려낸 연구가 있다.</p><p>단일세포 RNA 분석에서 세포를 가우시안 혼합 방식으로 군집화하는 방법도 제안되었다.</p>
+
+  <h2>논문에는 이렇게 적는다</h2>
+  <div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>오해</th><th>바로잡기</th></tr></thead><tbody><tr><td>GMM은 각 데이터를 하나의 군집에만 넣는다.</td><td>모형은 각 성분에 속할 확률을 기반으로 하며, 필요하면 가장 가능성이 큰 성분으로 배정한다.</td></tr><tr><td>군집 수는 자동으로 정해진다.</td><td>성분 수는 사용자가 정하며, 베이즈 정보 기준(BIC) 같은 지표로 비교해 판단한다.</td></tr><tr><td>군집은 늘 둥근 모양이다.</td><td>공분산을 구형, 대각, 공유, 완전 공분산 중에서 제한하는 선택지가 있어 타원 모양도 다룬다.</td></tr></tbody></table></div>
+  <!-- term-extras:sections:end -->
+
+  <h2>논문에서는 이렇게 쓰입니다</h2>
+  <!-- term-extras:usage:start -->
+  <h3 class="te-sub">예시 문장</h3>
+  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <!-- term-extras:usage:end -->
+  <div class="example">"가우시안 혼합모델을 이용하여 소비자 구매 패턴을 3개의 잠재 집단으로 분류하고, 각 집단에 속할 사후 확률을 산출하였다."</div>
+  <p>이 문장은 "구매 패턴 데이터를 3개의 정규분포가 섞인 것으로 보고, 각 소비자가 어느 집단에 속하는지를 확률로 계산했다"는 뜻이다. 군집 간 경계가 명확하지 않은 데이터를 다룰 때 k-means보다 유연한 대안으로 자주 언급된다.</p>
+  <div class="example">"화자 인식 시스템에서는 각 화자의 음성 특징 분포를 가우시안 혼합모델로 모델링하여 배경 화자 모델과 비교하였다."</div>
+  <p>음성 신호처리 논문에서 개별 화자의 특징 벡터 분포를 확률적으로 표현할 때 쓰이는 표현이다.</p>
+  <div class="example">"정상 거래 데이터의 분포를 가우시안 혼합모델로 학습한 뒤, 우도값이 낮은 거래를 이상 거래로 판정하였다."</div>
+  <p>이상 탐지(anomaly detection) 논문에서 정상 패턴의 확률분포를 학습해 벗어난 사례를 찾아낼 때 사용된다.</p>
+
+  <h2>조금 더 깊게 보면</h2>
+  <p>가우시안 혼합모델의 파라미터(각 정규분포의 평균, 공분산, 혼합 비율)는 일반적으로 EM(기댓값-최대화) 알고리즘을 통해 반복적으로 추정한다. E-단계에서는 현재 파라미터를 바탕으로 각 데이터가 어느 성분에 속할 확률(책임값)을 계산하고, M-단계에서는 그 확률을 가중치로 삼아 파라미터를 다시 추정하는 과정을 수렴할 때까지 반복한다. 초기값에 따라 지역 최적해에 빠질 수 있어 여러 번의 초기화나 k-means 결과를 초기값으로 활용하는 방법이 흔히 쓰이며, 성분 개수 선택에는 AIC나 BIC 같은 정보 기준이 함께 사용된다.</p>
+
+  <h2>주의할 점</h2>
+  <p>가우시안 혼합모델은 각 하위 집단이 정규분포 형태를 따른다는 가정 위에서 작동하기 때문에, 실제 데이터가 이 가정과 크게 다르면 결과가 왜곡될 수 있다. 또한 몇 개의 분포(군집)를 섞을지는 <a href="elbow-method.html">엘보우 기법</a>이나 정보량 기준(AIC, BIC) 등을 이용해 별도로 정해야 한다.</p>
+
+  <!-- term-extras:tail:start -->
+  <h2>참고 문헌</h2>
+  <ol class="te-refs">
+    <li>scikit-learn developers. (n.d.). 2.1. Gaussian mixture models. scikit-learn documentation.</li>
+    <li>Do, C. B., &amp; Batzoglou, S. (2008). What is the expectation maximization algorithm? Nature Biotechnology.</li>
+    <li>Tentoni, S., Astolfi, P., De Pasquale, A., &amp; Zonta, L. A. (2004). Birthweight by gestational age in preterm babies according to a Gaussian mixture model. BJOG.</li>
+    <li>Yu, B., et al. (2021). scGMAI: A Gaussian mixture model for clustering single-cell RNA-Seq data based on deep autoencoder. Briefings in Bioinformatics.</li>
+  </ol>
+  <!-- term-extras:tail:end -->
+
+  <!-- concept-family:start --><section class="concept-family" aria-labelledby="concept-family-h"><h2 id="concept-family-h">개념 계통</h2><div class="concept-family-row"><span class="concept-family-label">상위 개념</span><div class="related-terms"><a href="cluster-analysis.html">군집분석</a></div></div><div class="concept-family-row"><span class="concept-family-label">같은 갈래</span><div class="related-terms"><span class="rt-plain">계층적 군집분석</span><span class="rt-plain">밀도기반 군집분석(DBSCAN)</span><a href="k-means-clustering.html">k-평균 군집화</a></div></div><p class="concept-family-map"><a href="../concept-map/stat.html">분야 전체 개념 지도 보기 →</a></p></section><!-- concept-family:end -->
+  <h2>관련 용어</h2>
+  <div class="related-terms">
+    <a href="k-means-clustering.html">k-평균 군집화</a>
+    <a href="cluster-analysis.html" class="related-same-field">군집분석</a>
+    <a href="mixed-effects-model.html" class="related-same-field">혼합효과모형</a>
+    <a href="silhouette-score.html" class="related-same-field">실루엣 계수</a>
+  </div>
+<aside class="stage-link">
+  이 용어가 쓰이는 연구 단계 — <a href="https://www.yeonguhallab.kr/guide/data-collection?utm_source=termglossary&amp;utm_medium=referral&amp;utm_campaign=term-stage" target="_blank" rel="noopener">연구할Lab 데이터 수집·분석 가이드 →</a>
+</aside>
+<nav class="term-pager" aria-label="용어 이전/다음">
+  <a href="games-howell-test.html" class="term-pager-prev">← 이전: 게임스-하우웰 검정 (Games-Howell test)</a>
+  <a href="general-linear-model.html" class="term-pager-next">다음: 일반선형모형 →</a>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 논문용어사전. All rights reserved.</p>
+  <a href="../about.html">소개</a> · <a href="../privacy.html">개인정보처리방침</a>
+</footer>
+<script src="../assets/vendor/fuse.min.js"></script>
+<script src="../assets/header-search.js"></script>
+<script type="module" src="../assets/nav-auth.js"></script>
+<script type="module" src="../assets/term-history.js"></script>
+<script src="../assets/mobile-nav.js"></script>
+<script src="../assets/term-back-nav.js"></script>
+<script src="../assets/support.js"></script>
+<script type="module" src="../assets/term-bookmark.js"></script>
+</body>
+</html>
