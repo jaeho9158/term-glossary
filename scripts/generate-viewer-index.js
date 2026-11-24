@@ -621,13 +621,16 @@ function mergeOaCooc(senses, terms, oa) {
 const ALIAS_ENGLISH_STOP = new Set("tbd fyi cf na ie eg and can or not is as at be by do go if in it me no of on so to up us we are for has her him his its may one our out the was who why all any but did get how new now see she too two use way yes you".split(" "));
 // 한글 별칭 중 일반어라 다른 분야 글에서 오탐만 내는 것(예: 약물 길항작용(상호작용)의 '상호작용').
 const ALIAS_KOREAN_STOP = new Set(["상호작용"]);
+// 두 용어 이상이 같이 쓰던 별칭 중 엉뚱한 용어로 잡히는 것(용어별). 페이지의 별칭 표시는 그대로 둔다.
+const ALIAS_EXCLUDE = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "viewer-alias-exclude.json"), "utf8"));
 const ALIAS_ACRONYM = /^(?=.*[A-Z].*[A-Z0-9]|[A-Z][a-z]?[A-Z])[A-Za-z][A-Za-z0-9]{1,5}$/;
 function indexAliases(t, titleKoSet) {
   const strip = (s) => s.replace(/\s+/g, "");
+  const excluded = new Set(ALIAS_EXCLUDE[t.slug] || []);
   const own = new Set([t.title_ko, t.title_en, ...(t.match_titles || [])].filter(Boolean).map(strip));
   const out = [];
   for (const a of t.aliases || []) {
-    if (typeof a !== "string" || own.has(strip(a)) || out.some((o) => strip(o) === strip(a))) continue;
+    if (typeof a !== "string" || excluded.has(a) || own.has(strip(a)) || out.some((o) => strip(o) === strip(a))) continue;
     if (/[가-힣]/.test(a)) {
       if ([...strip(a)].length >= 2 && !titleKoSet.has(a) && !ALIAS_KOREAN_STOP.has(strip(a))) out.push(a);
     } else if ((/^[A-Z0-9]{2,6}$/.test(a) || ALIAS_ACRONYM.test(a)) && /[A-Z]/.test(a) && !ALIAS_ENGLISH_STOP.has(a.toLowerCase())) {
