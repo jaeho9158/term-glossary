@@ -642,7 +642,7 @@ function indexAliases(t, titleKoSet) {
 
 function buildRow(t, { codeOf, grade = 0, enGrade = 0, titleKoSet = new Set() }) {
   const row = [t.slug, t.title_ko || "", t.title_en || "", (t.categories || []).map(codeOf)];
-  const matchTitles = [...(Array.isArray(t.match_titles) ? t.match_titles.filter((s) => typeof s === "string" && s.trim()) : []), ...indexAliases(t, titleKoSet)];
+  const matchTitles = [...(Array.isArray(t.match_titles) ? t.match_titles.filter((s) => typeof s === "string" && s.trim() && !(ALIAS_EXCLUDE[t.slug] || []).includes(s)) : []), ...indexAliases(t, titleKoSet)];
   if (grade || enGrade || matchTitles.length) row.push(grade);
   if (enGrade || matchTitles.length) row.push(enGrade);
   if (matchTitles.length) row.push("", matchTitles);
