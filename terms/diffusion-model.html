@@ -171,16 +171,14 @@
 
   <h2>논문에서는 이렇게 쓰입니다</h2>
   <!-- term-extras:usage:start -->
-  <h3 class="te-sub">예시 문장</h3>
-  <p class="te-note">아래 예문은 용어의 쓰임을 보이려고 만든 것으로, 실제 논문 문장이 아니다.</p>
+  <h3 class="te-sub">실제 논문에서</h3>
+  <p class="te-note">국내 학술지 논문에서 이 용어가 쓰인 문장을 그대로 옮겼다. 제목·학술지·연도와 원문 링크를 함께 적었다.</p>
+  <ul class="te-quotes">
+  <li><blockquote class="te-quote">“이는 특징맵에 대한 웨이블릿 분석과 가중치 중심 평활화의 결합이 품질, 속도, 메모리 효율 사이의 균형을 개선하여, 소비자용 GPU 환경에서도 실용적인 저비트 확산 모델 운용 가능성을 보여줌을 의미한다.”</blockquote><p class="te-cite">웨이블릿 기반 저비트 양자화를 이용한 확산 모델 경량화, 디지털콘텐츠학회논문지, 2026 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003338186" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“분석 결과, GAN은 고품질 데이터를 빠르게 생성하는 데 적합하고, VAE는 다양한 조건 기반의 궤적 패턴 생성에 효과적이며, 확산 모델은 고정밀 궤적 생성에 우수한 성능을 보였다.”</blockquote><p class="te-cite">항공기 궤적 데이터 증강을 위한 딥러닝 기반 생성기법의 분석 및 활용방안, 한국산학기술학회논문지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003258339" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  <li><blockquote class="te-quote">“본 프레임워크는 조건부 확산 모델을 통해 그래프 토큰 시퀀스를 예측하고, 사전 훈련된 이미지 모델과의 피드백 루프를 형성하는 협력적 제어 메커니즘을 통해 시각적 충실도와 구조적 타당성을 동시에 확보하는 방법론을 사용한다.”</blockquote><p class="te-cite">협력 확산 모델 기반의 역방향 절차적 PBR 재질 그래프 생성 및 제어 기법 연구, 디지털콘텐츠학회논문지, 2025 · KCI 한국학술지인용색인 · <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003228925" target="_blank" rel="noopener">원문 보기 ↗</a></p></li>
+  </ul>
   <!-- term-extras:usage:end -->
-  <div class="example">"본 연구는 디퓨전 모델(diffusion model)을 이용해 저해상도 의료 영상을 고해상도로 복원하는 초해상도(super-resolution) 기법을 제안한다."</div>
-  <p>이 문장은 노이즈를 점진적으로 제거하는 생성 모델을 활용해, 화질이 낮은 의료 영상을 선명하게 복원하는 새로운 방법을 제시했다는 뜻이다.</p>
-  <div class="example">"제안된 텍스트 조건부 디퓨전 모델은 자연어 설명으로부터 해당 내용을 반영한 이미지를 생성하며, 기존 GAN 기반 방법 대비 이미지 품질과 다양성 지표에서 우수한 결과를 보였다."</div>
-  <p>텍스트-이미지 생성 연구에서는 사용자가 입력한 문장을 조건으로 삼아, 그 조건에 맞는 이미지를 노이즈로부터 점진적으로 생성해내는 방식이 널리 쓰인다.</p>
-  <div class="example">"신약 후보 분자의 3차원 구조를 디퓨전 모델로 생성하여, 목표 단백질과의 결합 친화도가 높은 후보군을 탐색하는 프레임워크를 제안하였다."</div>
-  <p>신약 개발 연구에서도 분자구조 자체를 데이터로 취급해, 원하는 특성을 지닌 새로운 분자를 디퓨전 모델로 생성하려는 시도가 이루어지고 있다.</p>
-
   <h2>조금 더 깊게 보면</h2>
   <p>디퓨전 모델의 학습 과정은 크게 원본 데이터에 점진적으로 노이즈를 더해가는 순방향 과정(forward process)과, 노이즈로부터 원본을 복원하도록 신경망이 각 단계의 노이즈를 예측하도록 학습하는 역방향 과정(reverse process)으로 구성된다. 매 단계마다 전체 이미지 크기의 노이즈를 예측해야 해서 계산 비용이 크다는 단점을 보완하기 위해, 이미지를 압축된 잠재공간(latent space)에서 diffusion을 수행하는 잠재 디퓨전 모델(latent diffusion model, 예: Stable Diffusion)이 널리 쓰인다. 또한 생성 속도를 높이기 위해 노이즈 제거 단계 수를 줄이는 다양한 가속 샘플링 기법들도 활발히 연구되고 있다.</p>
 
