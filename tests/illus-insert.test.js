@@ -116,7 +116,7 @@ test("vector-projection 범례는 벡터 기호이고 color-wheel 범례(HSL·�
   assert.ok(html.includes("정사영(projection)") && !html.slice(html.indexOf("term-illus:start"), html.indexOf("term-illus:end")).includes("HSL"));
 });
 
-test("코드 SVG 스펙 320개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
+test("코드 SVG 스펙 338개: 모두 렌더되고 라벨 겹침이 남지 않는다", () => {
   const { renderSVG, templates } = require("../scripts/svg-illus/src/index.js");
   const dir = path.join(ROOT, "data", "illus", "specs");
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json") && keep(f.slice(0, -5)));
@@ -127,7 +127,7 @@ test("코드 SVG 스펙 320개: 모두 렌더되고 라벨 겹침이 남지 않�
   }
 });
 
-test("코드 SVG 320개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
+test("코드 SVG 338개: 글자가 viewBox 안에 있고 노트가 한 번만 나온다", () => {
   const { outOfBounds } = require("../scripts/illus/check-bounds.js");
   for (const d of loadAll().filter((x) => x.method === "svg" && keep(x.slug) && fs.existsSync(path.join(ROOT, "terms", x.slug + ".html")))) {
     const svg = fs.readFileSync(path.join(ROOT, d.svg), "utf8");
