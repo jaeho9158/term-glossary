@@ -154,10 +154,10 @@
 
   <!-- term-extras:sections:start -->
   <h2>계산과 범위</h2>
-  <p>AIC = 2k − 2 ln(L̂)이다. k는 추정한 모수의 수, L̂은 최대우도이다. 모수가 많을수록 벌점이 커져 과적합을 억제한다. 1974년 Hirotugu Akaike가 ‘A new look at the statistical model identification’에서 제시했다.</p>
+  <p>AIC = 2k − 2 ln(L̂)이다. k는 추정한 모수의 수, L̂은 최대우도이다. 모수가 많을수록 벌점이 커져 과적합을 억제한다. 1974년 Hirotugu Akaike가 ‘A new look at the statistical model identification’에서 제시했다.</p><p>statsmodels 문서는 상수항이 있는 회귀의 AIC를 −2·로그우도 + 2(df_model + 1)로, 상수항이 없으면 −2·로그우도 + 2·df_model로 적는다. 상수항도 모수 하나로 세는 셈이다.</p>
 
   <h2>해석 기준</h2>
-  <p>후보 모형 중 AIC가 가장 작은 모형을 고른다. AIC는 모형 사이의 상대 비교에만 쓸 수 있고, 모형이 자료에 절대적으로 잘 맞는지를 검정하는 값이 아니다. 비교할 수 있는 모형끼리만 비교해야 한다.</p>
+  <p>후보 모형 중 AIC가 가장 작은 모형을 고른다. AIC는 모형 사이의 상대 비교에만 쓸 수 있고, 모형이 자료에 절대적으로 잘 맞는지를 검정하는 값이 아니다. 비교할 수 있는 모형끼리만 비교해야 한다.</p><p>scikit-learn 문서는 AIC와 BIC가 모두 훈련 집합의 오차에 벌점을 붙여 일반화 오차를 추정하는 기준이며, 선택은 두 기준의 최솟값에 해당하는 값으로 한다고 설명한다. 이 벌점은 자유도와 잡음 분산을 제대로 추정해야 성립한다.</p><ul><li>두 기준은 표본이 클 때의 점근 결과에서 유도되었고, 자료가 그 모형에서 만들어졌다고 가정한다.</li><li>특징 수가 표본 수보다 많은 식으로 조건이 나쁜 문제에서는 무너지기 쉽다.</li><li>같은 예제에서 AIC와 BIC가 고른 규제 강도는 크게 달랐다(알파 약 0.587과 약 4.306). 기준에 따라 선택이 달라질 수 있다.</li></ul>
 
   <h2>보고 방법</h2>
   <p>모형 선택에 AIC를 썼다면 비교한 후보 모형 목록과 각 AIC 값을 적는다. 같은 자료에서 구한 모형끼리인지도 밝힌다.</p>
@@ -183,6 +183,8 @@
   <ol class="te-refs">
     <li>Wikipedia contributors. (n.d.). Akaike information criterion. In Wikipedia, The Free Encyclopedia.</li>
     <li>statsmodels.tools.eval_measures.aic_sigma. (n.d.). statsmodels documentation, v0.12.2.</li>
+    <li>scikit-learn developers. (n.d.). Lasso model selection: AIC-BIC / cross-validation. scikit-learn 1.9.1 documentation.</li>
+    <li>statsmodels.regression.linear_model.RegressionResults.aic. (n.d.). statsmodels 0.15.0 documentation.</li>
   </ol>
   <!-- term-extras:tail:end -->
 
