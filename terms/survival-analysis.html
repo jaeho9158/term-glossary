@@ -146,7 +146,7 @@
 
   <!-- term-extras:sections:start -->
   <h2>언제 쓰나</h2>
-  <ul><li>결과가 “사건이 일어났는가”가 아니라 “사건이 일어나기까지 걸린 시간”일 때 쓴다(사망, 재발, 고장, 해지 등).</li><li>추적 기간 안에 사건이 일어나지 않았거나 중간에 관찰이 끊긴 대상(중도절단)이 섞여 있어도 그 정보를 버리지 않고 반영한다.</li><li>집단 간 비교에는 <a href="kaplan-meier-survival-analysis.html">카플란-마이어 곡선</a>과 로그순위검정, 여러 변수를 보정하려면 <a href="cox-proportional-hazards-model.html">Cox 비례위험모형</a>을 흔히 쓴다.</li></ul>
+  <ul><li>결과가 “사건이 일어났는가”가 아니라 “사건이 일어나기까지 걸린 시간”일 때 쓴다(사망, 재발, 고장, 해지 등).</li><li>추적 기간 안에 사건이 일어나지 않았거나 중간에 관찰이 끊긴 대상(중도절단)이 섞여 있어도 그 정보를 버리지 않고 반영한다.</li><li>집단 간 비교에는 <a href="kaplan-meier-survival-analysis.html">카플란-마이어 곡선</a>과 로그순위검정, 여러 변수를 보정하려면 <a href="cox-proportional-hazards-model.html">Cox 비례위험모형</a>을 흔히 쓴다.</li></ul><p>공학의 신뢰성 분야도 같은 종류의 문제를 다룬다. NIST/SEMATECH 핸드북은 수명 분포 모형에서 누적분포함수 F(t)를 무작위로 고른 개체가 시간 t까지 고장 날 확률로 정의하며, t<sub>1</sub>과 t<sub>2</sub> 사이에 고장 날 확률은 F(t<sub>2</sub>) − F(t<sub>1</sub>)이다. F(t)는 0에서 1까지 단조 증가한다. 예로 형상 모수 1.5, 척도 모수 8,000시간인 와이블 모형을 따르는 연료 펌프를 해마다 800시간 쓰면 5년 안에 고장 날 확률이 약 30%이다.</p>
 
   <h2>결과는 이렇게 읽는다</h2>
   <p>카플란-마이어 추정은 사건이 일어난 시점마다 “그 시점에 위험에 놓인 대상 중 사건이 일어나지 않은 비율”을 차례로 곱해 나간다. 가상의 자료 8명(개월): 2, 3, 3+, 5, 6+, 8, 9+, 10 (+는 중도절단)으로 계산하면 다음과 같다.</p><div class="te-table-wrap" tabindex="0" role="region" aria-label="표 (좌우로 스크롤)"><table class="te-table"><thead><tr><th>시점</th><th>위험집단 수</th><th>사건 수</th><th>생존확률 S(t)</th></tr></thead><tbody><tr><td>2</td><td>8</td><td>1</td><td>0.875</td></tr><tr><td>3</td><td>7</td><td>1</td><td>0.750</td></tr><tr><td>5</td><td>5</td><td>1</td><td>0.600</td></tr><tr><td>8</td><td>3</td><td>1</td><td>0.400</td></tr><tr><td>10</td><td>1</td><td>1</td><td>0.000</td></tr></tbody></table></div><p>시점 3에는 사건 1명과 중도절단 1명이 함께 있으며, 둘 다 그 시점의 위험집단(7명)에 포함되고 중도절단 대상은 이후 위험집단에서 빠진다. 중도절단 시점(3+, 6+, 9+)에서는 곡선이 내려가지 않고 위험집단 수만 줄어든다. 중앙생존시간은 곡선이 처음 0.5 이하로 내려가는 시점이므로 이 예에서는 8개월이다.</p>
@@ -181,6 +181,7 @@
     <li>Bland, J. M., &amp; Altman, D. G. (1998). Survival probabilities (the Kaplan-Meier method). BMJ, 317(7172), 1572.</li>
     <li>Clark, T. G., Bradburn, M. J., Love, S. B., &amp; Altman, D. G. (2003). Survival analysis part I: basic concepts and first analyses. British Journal of Cancer, 89(2), 232–238.</li>
     <li>Bradburn, M. J., Clark, T. G., Love, S. B., &amp; Altman, D. G. (2003). Survival analysis part II: multivariate data analysis – an introduction to concepts and methods. British Journal of Cancer, 89(3), 431–436.</li>
+    <li>NIST/SEMATECH. (n.d.). e-Handbook of statistical methods, section 8.1.2.1: Basic terms and models. NIST.</li>
   </ol>
   <!-- term-extras:tail:end -->
 
