@@ -3,11 +3,11 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<p>스칼라 함수 f(x, y, …)의 그래디언트는 각 변수에 대한 편미분을 모은 벡터이다.</p><p><code>∇f = (∂f/∂x, ∂f/∂y, …)</code></p><ul><li><strong>방향</strong>: 그 점에서 f가 가장 빨리 증가하는 방향이다.</li><li><strong>크기</strong>: 그 방향으로 단위 거리를 갈 때 f가 늘어나는 비율이다.</li><li><strong>등위선(등위면)과의 관계</strong>: 같은 값을 잇는 등위선에 수직이다. 지도의 등고선에 수직인 오르막 방향이 그래디언트이다.</li><li><strong>방향미분</strong>: 단위벡터 u 방향의 변화율은 <code>D<sub>u</sub>f = ∇f · u</code>이다.</li><li><strong>최적화</strong>: 값을 줄이려면 반대 방향으로 간다. 경사하강법의 갱신식은 <code>w ← w − η∇L(w)</code>이고, η는 보폭(학습률)이다.</li></ul><p>그래디언트가 영벡터가 되는 점을 <strong>정류점</strong>(stationary point)이라 한다. 좌표에 의존하지 않는 정의로는 df = ∇f · dr로 쓸 수 있다. 미소 변위 dr에 대한 f의 전체 변화량 df가 변위가 그래디언트와 같은 방향일 때 가장 크다는 뜻이다. 좌표계를 바꾸면 그래디언트는 벡터처럼 변환된다.</p>"
+      "html": "<p>스칼라 함수 f(x, y, …)의 그래디언트는 각 변수에 대한 편미분을 모은 벡터이다.</p><p><code>∇f = (∂f/∂x, ∂f/∂y, …)</code></p><ul><li><strong>방향</strong>: 그 점에서 f가 가장 빨리 증가하는 방향이다.</li><li><strong>크기</strong>: 그 방향으로 단위 거리를 갈 때 f가 늘어나는 비율이다.</li><li><strong>등위선(등위면)과의 관계</strong>: 같은 값을 잇는 등위선에 수직이다. 지도의 등고선에 수직인 오르막 방향이 그래디언트이다.</li><li><strong>방향미분</strong>: 단위벡터 u 방향의 변화율은 <code>D<sub>u</sub>f = ∇f · u</code>이다.</li><li><strong>최적화</strong>: 값을 줄이려면 반대 방향으로 간다. 경사하강법의 갱신식은 <code>w ← w − η∇L(w)</code>이고, η는 보폭(학습률)이다.</li></ul><p>그래디언트가 영벡터가 되는 점을 <strong>정류점</strong>(stationary point)이라 한다. 좌표에 의존하지 않는 정의로는 df = ∇f · dr로 쓸 수 있다. 미소 변위 dr에 대한 f의 전체 변화량 df가 변위가 그래디언트와 같은 방향일 때 가장 크다는 뜻이다. 좌표계를 바꾸면 그래디언트는 벡터처럼 변환된다.</p><p>이변수 함수에서 단위벡터가 u = cosθ i + sinθ j이면 방향미분은 <code>D<sub>u</sub>f = f<sub>x</sub>cosθ + f<sub>y</sub>sinθ</code>이고, 이는 ∇f · u와 같다. ∇f가 영벡터가 아니면 u가 ∇f와 같은 방향일 때 방향미분이 가장 크고 그 최댓값이 ‖∇f‖이다. 반대 방향에서는 최솟값 −‖∇f‖가 된다. 또한 ∇f가 영벡터가 아니면 그 점을 지나는 등위곡선에 수직이며, 접선 방향 벡터는 그래디언트의 두 성분 자리를 바꾸고 한쪽에 마이너스를 붙여 얻는다. 그래디언트는 “grad f”로도 쓴다.</p>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<p>(가상의 예) f(x, y) = x² + 3xy, 점 (1, 2)에서 편미분은 ∂f/∂x = 2x + 3y, ∂f/∂y = 3x 이다.</p><table><thead><tr><th>양</th><th>값</th></tr></thead><tbody><tr><td>∇f(1, 2)</td><td>(8, 3)</td></tr><tr><td>‖∇f‖ (가장 가파른 증가율)</td><td>√73 ≈ 8.544</td></tr><tr><td>u = (0.6, 0.8) 방향의 방향미분</td><td>8·0.6 + 3·0.8 = 7.2</td></tr><tr><td>같은 값을 유한 차분으로 확인 (h = 10<sup>−6</sup>)</td><td>7.200</td></tr><tr><td>그래디언트에 수직인 방향 (−3, 8)/‖∇f‖ 의 방향미분</td><td>0.0</td></tr></tbody></table><p>u 방향의 변화율 7.2은 최대 증가율 8.544보다 작고, 그래디언트에 수직인 방향(등위선 방향)으로는 0이다. 그래디언트 방향이 가장 가파르고 그에 수직인 방향은 평평하다는 뜻이다.</p>"
+      "html": "<p>(가상의 예) f(x, y) = x² + 3xy, 점 (1, 2)에서 편미분은 ∂f/∂x = 2x + 3y, ∂f/∂y = 3x 이다.</p><table><thead><tr><th>양</th><th>값</th></tr></thead><tbody><tr><td>∇f(1, 2)</td><td>(8, 3)</td></tr><tr><td>‖∇f‖ (가장 가파른 증가율)</td><td>√73 ≈ 8.544</td></tr><tr><td>u = (0.6, 0.8) 방향의 방향미분</td><td>8·0.6 + 3·0.8 = 7.2</td></tr><tr><td>같은 값을 유한 차분으로 확인 (h = 10<sup>−6</sup>)</td><td>7.200</td></tr><tr><td>그래디언트에 수직인 방향 (−3, 8)/‖∇f‖ 의 방향미분</td><td>0.0</td></tr></tbody></table><p>u 방향의 변화율 7.2은 최대 증가율 8.544보다 작고, 그래디언트에 수직인 방향(등위선 방향)으로는 0이다. 그래디언트 방향이 가장 가파르고 그에 수직인 방향은 평평하다는 뜻이다.</p><p>OpenStax 미적분 교재의 예제는 f(x, y) = 3x² − 4xy + 2y²에서 점 (−2, 3)의 방향미분이 가장 큰 방향과 그 최댓값을 구한다. 편미분은 f<sub>x</sub> = 6x − 4y, f<sub>y</sub> = −4x + 4y이고, 이 점에서 ∇f = −24 i + 20 j이다. 크기는 √976 = 4√61이며, 방향미분은 ∇f 방향에서 가장 크고 그 값이 4√61이라고 답한다.</p>"
     },
     {
       "heading": "자주 하는 오해",
@@ -49,6 +49,7 @@
     "Stewart, J. (2015). Calculus: Early Transcendentals (8th ed.). Cengage Learning.",
     "Boyd, S., & Vandenberghe, L. (2004). Convex Optimization. Cambridge University Press.",
     "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.",
-    "Wikipedia. (n.d.). Gradient. In Wikipedia, the free encyclopedia."
+    "Wikipedia. (n.d.). Gradient. In Wikipedia, the free encyclopedia.",
+    "Strang, G., & Herman, E. (n.d.). 14.6: Directional derivatives and the gradient. In Calculus (OpenStax). Mathematics LibreTexts."
   ]
 }
