@@ -3,19 +3,20 @@
   "sections": [
     {
       "heading": "핵심 정리",
-      "html": "<ul><li>공지시는 글 안의 둘 이상의 표현이 같은 사람이나 사물을 가리키는 관계이다. 'Bill said Alice would arrive soon, and she did'에서 Alice와 she가 공지시한다.</li><li>조응(anaphora)은 대명사 같은 대용어가 앞선 선행사를 가리키는 경우로 공지시의 한 종류이다. 대명사가 가리키는 표현보다 앞서 나오는 후행 조응(cataphora)도 공지시에 속한다.</li><li>일부 언어학자는 공지시와 결속 변항을 구분한다. 'Every student has received his grade'의 his는 특정인을 가리키지 않고 학생마다 달라지며 양화된 선행사에 결속된다.</li></ul>"
+      "html": "<ul><li>공지시는 글 안의 둘 이상의 표현이 같은 사람이나 사물을 가리키는 관계이다. 'Bill said Alice would arrive soon, and she did'에서 Alice와 she가 공지시한다.</li><li>조응(anaphora)은 대명사 같은 대용어가 앞선 선행사를 가리키는 경우로 공지시의 한 종류이다. 대명사가 가리키는 표현보다 앞서 나오는 후행 조응(cataphora)도 공지시에 속한다.</li><li>일부 언어학자는 공지시와 결속 변항을 구분한다. 'Every student has received his grade'의 his는 특정인을 가리키지 않고 학생마다 달라지며 양화된 선행사에 결속된다.</li></ul><ul><li>자연어 처리에서는 글 속의 'Victoria Chen', 'her', 'the 38-year-old' 같은 표현을 멘션(mention) 또는 지시 표현이라 하고, 그것이 가리키는 담화 개체를 지시체(referent)라 한다. 같은 지시체를 가리키는 둘 이상의 멘션을 공지시한다고 하며, 그런 멘션들의 집합을 공지시 사슬(coreference chain) 또는 군집이라 한다.</li><li>앞서 도입된 개체를 다시 가리키는 것을 조응이라 하고, 이때의 표현을 조응사, 그것이 가리키는 앞선 멘션을 선행사라 한다. 글에 한 번만 나오는 개체는 단일체(singleton)라 한다.</li></ul>"
     },
     {
       "heading": "예시로 보기",
-      "html": "<ul><li>'Susan dropped the plate. It shattered loudly.'에서 it은 대용어이고 the plate가 선행사이다.</li><li>자연어 처리의 공지시 해결은 대명사 등 지시 표현을 올바른 개체에 연결하는 작업으로, 보통 가장 가까운 알맞은 선행사를 찾는다. 대표 방식으로 멘션 쌍, 멘션 순위, 개체 기반 모형이 있다.</li></ul>"
+      "html": "<ul><li>'Susan dropped the plate. It shattered loudly.'에서 it은 대용어이고 the plate가 선행사이다.</li><li>자연어 처리의 공지시 해결은 대명사 등 지시 표현을 올바른 개체에 연결하는 작업으로, 보통 가장 가까운 알맞은 선행사를 찾는다. 대표 방식으로 멘션 쌍, 멘션 순위, 개체 기반 모형이 있다.</li></ul><p>한 예문에서 Victoria Chen, her, the 38-year-old, She는 한 사슬을 이루고, Megabucks Banking, the company, Megabucks는 다른 사슬을 이룬다. her pay는 her라는 멘션을 안에 품은 또 다른 멘션이면서 전혀 다른 개체를 가리키므로, 멘션은 서로 겹칠 수 있다.</p><p>공지시 해결은 멘션을 찾는 일과 멘션을 사슬로 묶는 일로 이루어진다. 대화 시스템이 '두 번째 것으로 할게요'가 어떤 항공편인지 알아야 하는 경우나, 대명사가 생략되는 언어를 번역할 때 성별을 정하는 경우에 필요하다. 스페인어 기사의 여성 교수에 관한 문장이 기계 번역에서 'he'로 잘못 옮겨진 사례도 부정확한 공지시 해결 때문이라고 소개된다.</p>"
     },
     {
       "heading": "자주 하는 오해",
-      "html": "<ul><li>조응과 공지시는 같은 말이 아니다. 공지시가 더 넓은 관계이다.</li><li>생성문법에서 anaphor는 재귀대명사와 상호대명사(each other)처럼 더 좁은 뜻으로 쓰이며, 결속이론이 이들의 구조적 제약을 다룬다.</li></ul>"
+      "html": "<ul><li>조응과 공지시는 같은 말이 아니다. 공지시가 더 넓은 관계이다.</li><li>생성문법에서 anaphor는 재귀대명사와 상호대명사(each other)처럼 더 좁은 뜻으로 쓰이며, 결속이론이 이들의 구조적 제약을 다룬다.</li></ul><ul><li>공지시와 개체 연결(entity linking)은 다르다. 공지시는 담화 안에서 같은 개체를 가리키는지를 정하는 일이고, 개체 연결은 그 담화 개체를 현실의 특정 대상, 예를 들어 'Washington'이 주인지 수도인지 인물인지에 연결하는 일이다.</li><li>자연어 처리에서는 조응사를 선행사가 있는 모든 멘션으로 넓게 쓰는 관행이 있다. 이 용법에서는 반복된 이름도 조응사이다. 더 좁은 용법에서는 대명사처럼 해석이 선행사에 달린 표현만 조응사라 부른다.</li></ul>"
     }
   ],
   "references": [
     "Wikipedia contributors. (n.d.). Coreference. Wikipedia.",
-    "Wikipedia contributors. (n.d.). Anaphora (linguistics). Wikipedia."
+    "Wikipedia contributors. (n.d.). Anaphora (linguistics). Wikipedia.",
+    "Jurafsky, D., & Martin, J. H. (2026). Speech and Language Processing (3rd ed. draft), Chapter 24: Coreference resolution and entity linking."
   ]
 }
